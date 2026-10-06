@@ -5,11 +5,12 @@
   import { expectType } from './expect-type.js';
   const numberPayloadHandle = createDialogHandle<number>();
 </script>
-<Dialog.Root handle={numberPayloadHandle}><Dialog.Portal/></Dialog.Root>
+
+<Dialog.Root handle={numberPayloadHandle}><Dialog.Portal /></Dialog.Root>
 <Dialog.Root handle={numberPayloadHandle}>
   {#snippet children({ payload })}
     {expectType<number | undefined, typeof payload>(payload) ?? ''}
   {/snippet}
 </Dialog.Root>
-<Dialog.Trigger handle={numberPayloadHandle} payload={42}/>
-<Dialog.Trigger handle={numberPayloadHandle}/>
+<Dialog.Trigger handle={numberPayloadHandle} payload={42} />
+<Dialog.Trigger handle={numberPayloadHandle} />

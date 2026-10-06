@@ -14,19 +14,13 @@ import { createRoot } from 'react-dom/client';
 import { ScrollArea } from '@base-ui/react/scroll-area';
 import { DirectionProvider } from '@base-ui/react/direction-provider';
 import { CSPProvider } from '@base-ui/react/csp-provider';
-import {
-  defaultScrollAreaOptions,
-  type ScrollAreaOptions,
-} from './scroll-area-harness.js';
+import { defaultScrollAreaOptions, type ScrollAreaOptions } from './scroll-area-harness.js';
 const WithoutRef = forwardRef<HTMLDivElement, HTMLAttributes<HTMLDivElement>>(
   function WithoutRef(props, _ref) {
     return h('article', props);
   },
 );
-export function mountScrollAreaReference(
-  node: HTMLElement,
-  options: Partial<ScrollAreaOptions>,
-) {
+export function mountScrollAreaReference(node: HTMLElement, options: Partial<ScrollAreaOptions>) {
   const root = createRoot(node);
   function Fixture() {
     const [settings, setSettings] = useState({
@@ -43,10 +37,7 @@ export function mountScrollAreaReference(
       horizontalRef = useRef<HTMLDivElement>(null),
       thumbRef = useRef<HTMLDivElement>(null),
       cornerRef = useRef<HTMLDivElement>(null);
-    function consumer(
-      name: string,
-      event: SyntheticEvent & { preventBaseUIHandler?: () => void },
-    ) {
+    function consumer(name: string, event: SyntheticEvent & { preventBaseUIHandler?: () => void }) {
       setCalls((previous) => [...previous, name]);
       if (settings.suppress === name) event.preventBaseUIHandler?.();
       if (settings.unmountOn === name)
@@ -63,9 +54,7 @@ export function mountScrollAreaReference(
       setHydrated(true);
       window.scrollAreaHarness = {
         configure(patch) {
-          flushSync(() =>
-            setSettings((previous) => ({ ...previous, ...patch })),
-          );
+          flushSync(() => setSettings((previous) => ({ ...previous, ...patch })));
         },
         destroy() {
           flushSync(() => setMounted(false));
@@ -92,23 +81,16 @@ export function mountScrollAreaReference(
       ? {
           lang: 'fr',
           'data-foobar': 'source-prop',
-          className: settings.renderFunction
-            ? () => 'component-class'
-            : 'component-class',
+          className: settings.renderFunction ? () => 'component-class' : 'component-class',
         }
       : {};
-    const componentStyle = settings.conformance
-      ? { backgroundColor: 'pink' }
-      : {};
+    const componentStyle = settings.conformance ? { backgroundColor: 'pink' } : {};
     const render = settings.customRender
       ? settings.renderFunction
         ? (props: HTMLAttributes<HTMLElement>) =>
             h('article', {
               ...props,
-              className: [
-                props.className,
-                settings.conformance && 'render-class',
-              ]
+              className: [props.className, settings.conformance && 'render-class']
                 .filter(Boolean)
                 .join(' '),
               style: {
@@ -118,9 +100,7 @@ export function mountScrollAreaReference(
             })
         : h(
             'article',
-            settings.conformance
-              ? { className: 'render-class', style: { color: 'green' } }
-              : {},
+            settings.conformance ? { className: 'render-class', style: { color: 'green' } } : {},
           )
       : undefined;
     const noRef = settings.dropRef ? h(WithoutRef) : render;
@@ -154,9 +134,7 @@ export function mountScrollAreaReference(
                   ref: rootRef,
                   overflowEdgeThreshold: settings.threshold,
                   render,
-                  className: settings.conformance
-                    ? attributes.className
-                    : 'root-class',
+                  className: settings.conformance ? attributes.className : 'root-class',
                   style: {
                     ...componentStyle,
                     width: settings.viewportSize,
@@ -311,11 +289,7 @@ export function mountScrollAreaReference(
                     ...{ 'data-testid': 'second-viewport' },
                     style: { width: '100%', height: '100%' },
                   },
-                  h(
-                    ScrollArea.Content,
-                    {},
-                    h('div', { style: { width: 1000, height: 1000 } }),
-                  ),
+                  h(ScrollArea.Content, {}, h('div', { style: { width: 1000, height: 1000 } })),
                 ),
               ),
           ),

@@ -14,16 +14,8 @@ export function extractTypeScript(component) {
   return undefined;
 }
 export function extractDialogApi() {
-  const source = readFileSync(
-    resolve(root, 'packages/base/src/lib/dialog/types.ts'),
-    'utf8',
-  );
-  const ast = ts.createSourceFile(
-    'types.ts',
-    source,
-    ts.ScriptTarget.Latest,
-    true,
-  );
+  const source = readFileSync(resolve(root, 'packages/base/src/lib/dialog/types.ts'), 'utf8');
+  const ast = ts.createSourceFile('types.ts', source, ts.ScriptTarget.Latest, true);
   const rootProps = ast.statements.find(
     (node) => ts.isInterfaceDeclaration(node) && node.name.text === 'RootProps',
   );
@@ -50,12 +42,7 @@ export function extractDialogApi() {
     );
     const script = extractTypeScript(component);
     if (!script) throw new Error(`Missing script: ${name}`);
-    const file = ts.createSourceFile(
-      `${name}.ts`,
-      script,
-      ts.ScriptTarget.Latest,
-      true,
-    );
+    const file = ts.createSourceFile(`${name}.ts`, script, ts.ScriptTarget.Latest, true);
     let signature;
     function visit(node) {
       if (
@@ -75,14 +62,10 @@ export function extractDialogApi() {
 }
 const output = resolve(root, 'apps/fixtures/src/lib/docs/dialog-api.json');
 export function checkDialogApi() {
-  if (
-    readFileSync(output, 'utf8') !==
-    JSON.stringify(extractDialogApi(), null, 2) + '\n'
-  )
+  if (readFileSync(output, 'utf8') !== JSON.stringify(extractDialogApi(), null, 2) + '\n')
     throw new Error('Dialog docs API is stale. Run node scripts/docs-api.mjs');
 }
 if (process.argv[1] === fileURLToPath(import.meta.url)) {
   if (process.argv.includes('--check')) checkDialogApi();
-  else
-    writeFileSync(output, JSON.stringify(extractDialogApi(), null, 2) + '\n');
+  else writeFileSync(output, JSON.stringify(extractDialogApi(), null, 2) + '\n');
 }

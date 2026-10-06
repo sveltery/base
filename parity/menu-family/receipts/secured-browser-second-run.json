@@ -1,0 +1,15 @@
+{
+  "run": "https://github.com/sveltery/base/actions/runs/37183111371",
+  "head": "ff42fea46f1617b9d624166002cbdc4c02ec1935",
+  "artifact": 11295797995,
+  "browser": "153.0.8010.12",
+  "workers": 1,
+  "retries": 0,
+  "passed": 44,
+  "failed": 0,
+  "skipped": 0,
+  "flaky": 0,
+  "ordinaryOriginalMenuCredit": 0,
+  "archive": "secured-browser-ff42fea-green.zip",
+  "sha256": "f6e499e109f70825e8b5dbed9c01a735a5cbf67dfb02d046c79f15d2d88fd19e"
+}

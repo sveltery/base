@@ -1,0 +1,98 @@
+{
+  "pin": "47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c",
+  "integratedMain": "aa4daff54ec82b96e34e1601648d1b3926ef08cf",
+  "priorPrHead": "91c6b67db883ca4ccad52f97c2fafbcf83b76657",
+  "status": "candidate integration; independent exact-head review and mandatory execution pending",
+  "runtimeEqualsMain": true,
+  "closureModules": 115,
+  "closureEdges": 373,
+  "ordinaryDeclarationCredit": 0,
+  "changedFilesAgainstMain": [
+    {
+      "path": "docs/dialog-first-slice.md",
+      "sha256": "7c0b161acfd8bf36fb495c24a6071e6bd850927358659cad5f952cb20e74ff25"
+    },
+    {
+      "path": "docs/upstream-differences.md",
+      "sha256": "6e0d716f43bd3a237a64383af3ad0beaa53922178d66239a42c440e6743e463e"
+    },
+    {
+      "path": "packages/base/tests/dom/dialog-portal-container.test.ts",
+      "sha256": "144c25eb8bfb76cc7ff5066bddf122dcc301ef75c07f7a90bdb62d5afe3d2bc9"
+    },
+    {
+      "path": "parity/dialog/README.md",
+      "sha256": "d61340112eaec460288ff46fc36587538b521be238ba3e8bb3a4383e755ecfb4"
+    },
+    {
+      "path": "parity/dialog/current-main-integration.json",
+      "sha256": "f6db61f6b9c36a26337d7e220aaf7da2f51c27915dfcc518f61ccafb9048cfe8"
+    },
+    {
+      "path": "parity/dialog/local-graph.json",
+      "sha256": "a35c76a6b6172dbff63c7f0f9bbff344bbdd20cd42ad4de977bfb27f51933058"
+    },
+    {
+      "path": "parity/dialog/motion-lifecycle-diagnosis.md",
+      "sha256": "27fe74d2008076296842873023d2615cacc66b87f9a866a9d68e11b9bcc34ee0"
+    },
+    {
+      "path": "parity/dialog/realm-repair.json",
+      "sha256": "56588e4dcfe77cc5b9338ba080c603d5129d41d30d6bc5ea28f2978d57275e95"
+    },
+    {
+      "path": "parity/dialog/receipts/completed-close-predecessor.spec.ts.txt",
+      "sha256": "909d63e6b99d49a5b017f024da93976f18d0fbdc698f71fe3614fdf2d11a54d2"
+    },
+    {
+      "path": "parity/dialog/receipts/portal-realm-new-green.log.gz",
+      "sha256": "fa237127d74a591454ffbf1ef4e0cca274d3d7c5e91443d79f4bccb4a47fe97e"
+    },
+    {
+      "path": "parity/dialog/receipts/portal-realm-old-red.log.gz",
+      "sha256": "fd86adc596f671ceda2da0daa1312b23ccff2cbc0fcde8dab9ef02ec7e8233f5"
+    },
+    {
+      "path": "parity/dialog/source-correspondence.json",
+      "sha256": "1d1f5595b043cd791fd12d38253855e2e744b2dacee39e1a2dace3f8ff52c380"
+    },
+    {
+      "path": "parity/dialog/source-correspondence.md",
+      "sha256": "e1b7deccde46f9bfedc480b9733baea52d388e4fb14d30eb3b8c0ed5fed4f676"
+    }
+  ],
+  "conflictResolutions": {
+    "canonicalMain": [
+      "packages/base/src/lib/floating-ui/components/FloatingPortal.svelte",
+      "packages/base/src/lib/floating-ui/types.ts",
+      "packages/utils/src/lib/store/SvelteStore.svelte.ts",
+      "tests/browser/dialog-motion-source.spec.ts"
+    ],
+    "combinedHistories": [
+      "docs/upstream-differences.md",
+      "parity/dialog/source-correspondence.md"
+    ],
+    "preservedPairedRealmWitness": "packages/base/tests/dom/dialog-portal-container.test.ts",
+    "regeneratedCurrentMetadata": [
+      "parity/dialog/local-graph.json",
+      "parity/dialog/source-correspondence.json"
+    ]
+  },
+  "dependencies": [
+    "PR42 exact-head acceptance precedes PR62 AlertDialog",
+    "Canonical Main Portal/Utils/Click/focus/native rendering are shared by menu/navigation/popup families; no shared-runtime body changes in this candidate"
+  ],
+  "unimplementedLimits": [
+    "Ordinary declaration credit remains zero",
+    "React StrictMode/Suspense/Activity renderer assertion machinery remains framework-unimplemented",
+    "Unused source barrel fanout and unported ordinary declarations retain explicit scope",
+    "Drawer/AlertDialog/menu/navigation family acceptance and complete library parity are outside this candidate",
+    "Product-tree equality with Main does not establish source/native/maintainability acceptance"
+  ],
+  "knownPreservedBusinessBugs": [
+    "https://github.com/sveltery/base/issues/81",
+    "https://github.com/sveltery/base/issues/82"
+  ],
+  "execution": "Final exact candidate commands/results must be recorded externally in PR; historical logs apply only to original heads.",
+  "manifestSelf": "This file is listed by the final external changed-file manifest; its own hash is intentionally not embedded."
+}

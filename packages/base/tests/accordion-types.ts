@@ -8,32 +8,45 @@ export function verifyAccordionTypes() {
   const internals = undefined as never;
   const stringValues = ['a'];
   const nullableValues: (string | null)[] = ['a', null];
-  Accordion.Root(internals, { value: stringValues, onValueChange: value => {
-    expectType<string[], typeof value>(value);
-  } });
-  Accordion.Root(internals, { defaultValue: [1], onValueChange: value => {
-    expectType<number[], typeof value>(value);
-  } });
+  Accordion.Root(internals, {
+    value: stringValues,
+    onValueChange: (value) => {
+      expectType<string[], typeof value>(value);
+    },
+  });
+  Accordion.Root(internals, {
+    defaultValue: [1],
+    onValueChange: (value) => {
+      expectType<number[], typeof value>(value);
+    },
+  });
   Accordion.Root<'a' | 'b'>(internals, { value: ['a'] });
-  Accordion.Root<'a' | 'b'>(internals, { onValueChange: value => {
-    expectType<('a' | 'b')[], typeof value>(value);
-  } });
-  Accordion.Root<string | null>(internals, { value: nullableValues, onValueChange: value => {
-    expectType<(string | null)[], typeof value>(value);
-  } });
-  Accordion.Root(internals, { onValueChange: value => {
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any -- Preserve upstream's permissive generic default.
-    expectType<any[], typeof value>(value);
-  } });
+  Accordion.Root<'a' | 'b'>(internals, {
+    onValueChange: (value) => {
+      expectType<('a' | 'b')[], typeof value>(value);
+    },
+  });
+  Accordion.Root<string | null>(internals, {
+    value: nullableValues,
+    onValueChange: (value) => {
+      expectType<(string | null)[], typeof value>(value);
+    },
+  });
+  Accordion.Root(internals, {
+    onValueChange: (value) => {
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any -- Preserve upstream's permissive generic default.
+      expectType<any[], typeof value>(value);
+    },
+  });
   // @ts-expect-error value must match explicit generic type
   Accordion.Root<'a' | 'b'>(internals, { value: ['c'] });
   type AccordionChangeHandler = NonNullable<AccordionRootProps<'a'>['onValueChange']>;
   type AccordionDefaultChangeHandler = NonNullable<AccordionRootProps['onValueChange']>;
-  const handleValueChange: AccordionChangeHandler = value => {
+  const handleValueChange: AccordionChangeHandler = (value) => {
     expectType<'a'[], typeof value>(value);
   };
   Accordion.Root<'a'>(internals, { onValueChange: handleValueChange });
-  const handleDefaultValueChange: AccordionDefaultChangeHandler = value => {
+  const handleDefaultValueChange: AccordionDefaultChangeHandler = (value) => {
     // eslint-disable-next-line @typescript-eslint/no-explicit-any -- Preserve upstream's permissive generic default.
     expectType<any[], typeof value>(value);
   };

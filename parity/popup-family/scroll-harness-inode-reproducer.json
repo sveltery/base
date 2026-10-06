@@ -1,0 +1,13 @@
+{
+  "head": "4496e0f5e28b7930306b75b42c4a0a9f03a12f81",
+  "scope": "Standalone same-inode reproducer using actual packed-output PopoverHandle bytes; no installed files modified",
+  "source": "packages/base/dist/popover/store/PopoverHandle.svelte.js",
+  "directory": "/tmp/popup-scroll-inode-Qelx15",
+  "before": {
+    "runtime": 1588347,
+    "declaration": 1588347,
+    "sha256": "c3cc7aaff5777ed9f0db714d7e60f82f7e3241fe7f5bfc9ba8e0298ae40cc8af"
+  },
+  "afterSha256": "7f221608e20dfea4a23f24d5cf52a8c7428578d2d51df9d71f15ce3b999d749b",
+  "declarationOverwritten": true
+}

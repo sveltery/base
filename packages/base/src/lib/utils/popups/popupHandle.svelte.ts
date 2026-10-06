@@ -2,7 +2,7 @@
 // MIT Copyright (c) 2019 Material-UI SAS; see THIRD_PARTY_NOTICES.md.
 import { DEV } from 'esm-env';
 import { createSubscriber } from 'svelte/reactivity';
-import { AnimationFrame } from '../useAnimationFrame.js';
+import { AnimationFrame } from '@sveltery/utils/useAnimationFrame';
 import {
   createChangeEventDetails,
   type BaseUIChangeEventDetails,
@@ -121,7 +121,7 @@ export class BasePopupHandle<
    * used while no root is attached.
    * @internal
    */
-  private readonly trackStore = createSubscriber(update => this.subscribeStore(update));
+  private readonly trackStore = createSubscriber((update) => this.subscribeStore(update));
 
   get store(): HandleStore {
     this.trackStore();

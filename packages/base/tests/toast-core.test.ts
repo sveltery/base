@@ -12,10 +12,16 @@ function setup() {
 function deferred<Value>() {
   let resolve!: (value: Value) => void;
   let reject!: (reason: unknown) => void;
-  const promise = new Promise<Value>((yes, no) => { resolve = yes; reject = no; });
+  const promise = new Promise<Value>((yes, no) => {
+    resolve = yes;
+    reject = no;
+  });
   return { promise, resolve, reject };
 }
-afterEach(() => { stores.splice(0).forEach(store => store.dispose()); vi.useRealTimers(); });
+afterEach(() => {
+  stores.splice(0).forEach((store) => store.dispose());
+  vi.useRealTimers();
+});
 
 describe('actual Toast core subscription and ownership regressions (no upstream leaf credit)', () => {
   it('keeps channel events synchronous and preserves pinned live Set iteration on reentry', () => {
@@ -25,7 +31,11 @@ describe('actual Toast core subscription and ownership regressions (no upstream 
     const late = () => observations.push('late');
     manager[' subscribe'](({ action }) => {
       observations.push(`first:${action}`);
-      if (action === 'add') { secondCleanup(); manager[' subscribe'](late); manager.close(); }
+      if (action === 'add') {
+        secondCleanup();
+        manager[' subscribe'](late);
+        manager.close();
+      }
     });
     secondCleanup = manager[' subscribe'](() => observations.push('second'));
     manager.add({ id: 'a' });
@@ -79,7 +89,10 @@ describe('actual Toast core subscription and ownership regressions (no upstream 
     store.addToast({ id: 'a', timeout: 1000 });
     let reentered = false;
     store.subscribe(() => {
-      if (!reentered) { reentered = true; store.updateToast('a', { timeout: 200 }); }
+      if (!reentered) {
+        reentered = true;
+        store.updateToast('a', { timeout: 200 });
+      }
     });
     store.updateToast('a', { timeout: 500 });
     expect(vi.getTimerCount()).toBe(1);
@@ -99,7 +112,7 @@ describe('actual Toast core subscription and ownership regressions (no upstream 
     store.updateToast('a', { title: 'updated' });
     store.addToast({ id: 'b' });
     vi.advanceTimersByTime(99);
-    expect(store.state.toasts.every(toast => toast.transitionStatus !== 'ending')).toBe(true);
+    expect(store.state.toasts.every((toast) => toast.transitionStatus !== 'ending')).toBe(true);
     vi.advanceTimersByTime(1);
     expect(selectors.toast(store.state, 'b')?.transitionStatus).toBe('ending');
     expect(selectors.toast(store.state, 'a')?.transitionStatus).not.toBe('ending');
@@ -112,12 +125,18 @@ describe('actual Toast core subscription and ownership regressions (no upstream 
   it('closes five toasts exactly once when onClose recursively closes all', () => {
     const store = setup();
     const onClose = vi.fn(() => {
-      expect(store.state.toasts.every(toast => toast.transitionStatus === 'ending')).toBe(true);
+      expect(store.state.toasts.every((toast) => toast.transitionStatus === 'ending')).toBe(true);
       store.closeToast();
     });
     const onRemove = vi.fn();
     for (let i = 0; i < 5; i++) store.addToast({ id: String(i), timeout: 0, onClose, onRemove });
-    expect(store.state.toasts.map(toast => toast.limited)).toEqual([false, false, false, true, true]);
+    expect(store.state.toasts.map((toast) => toast.limited)).toEqual([
+      false,
+      false,
+      false,
+      true,
+      true,
+    ]);
     store.closeToast();
     expect(onClose).toHaveBeenCalledTimes(5);
     expect(onRemove).not.toHaveBeenCalled();
@@ -136,11 +155,13 @@ describe('actual Toast core subscription and ownership regressions (no upstream 
       store.addToast({ id: 'b', timeout: 0 });
     });
     store.addToast({ id: 'a', title: 'Original', timeout: 100, onRemove });
-    store.subscribe(() => order.push(`snapshot:${store.state.toasts.map(toast => toast.id).join(',')}`));
+    store.subscribe(() =>
+      order.push(`snapshot:${store.state.toasts.map((toast) => toast.id).join(',')}`),
+    );
     store.removeToast('a');
     expect(order).toEqual(['onRemove:a', 'snapshot:b,a', 'snapshot:b']);
     expect(onRemove).toHaveBeenCalledTimes(1);
-    expect(store.state.toasts.map(toast => toast.id)).toEqual(['b']);
+    expect(store.state.toasts.map((toast) => toast.id)).toEqual(['b']);
     expect(vi.getTimerCount()).toBe(0);
   });
 
@@ -213,13 +234,17 @@ describe('actual Toast core subscription and ownership regressions (no upstream 
     const store = setup();
     const siblingRemove = vi.fn();
     store.addToast({ id: 'c', timeout: 0, onRemove: siblingRemove });
-    store.addToast({ id: 'a', timeout: 0, onRemove: () => {
-      store.removeToast('c');
-      store.addToast({ id: 'b', timeout: 0 });
-    } });
+    store.addToast({
+      id: 'a',
+      timeout: 0,
+      onRemove: () => {
+        store.removeToast('c');
+        store.addToast({ id: 'b', timeout: 0 });
+      },
+    });
     store.removeToast('a');
     expect(siblingRemove).toHaveBeenCalledTimes(1);
-    expect(store.state.toasts.map(toast => toast.id)).toEqual(['b']);
+    expect(store.state.toasts.map((toast) => toast.id)).toEqual(['b']);
   });
 
   it('does not publish removal when onRemove disposes the store', () => {
@@ -274,11 +299,11 @@ describe('actual Toast core subscription and ownership regressions (no upstream 
     detach();
     first.add({ id: 'old', timeout: 0 });
     second.add({ id: 'new', timeout: 0 });
-    expect(a.state.toasts.map(toast => toast.id)).toEqual(['new', 'shared']);
-    expect(b.state.toasts.map(toast => toast.id)).toEqual(['old', 'shared']);
+    expect(a.state.toasts.map((toast) => toast.id)).toEqual(['new', 'shared']);
+    expect(b.state.toasts.map((toast) => toast.id)).toEqual(['old', 'shared']);
     a.dispose();
     first.close();
-    expect(b.state.toasts.every(toast => toast.transitionStatus === 'ending')).toBe(true);
+    expect(b.state.toasts.every((toast) => toast.transitionStatus === 'ending')).toBe(true);
   });
 
   it('runs updater callbacks separately for each consumer with its current data', () => {
@@ -289,7 +314,9 @@ describe('actual Toast core subscription and ownership regressions (no upstream 
     b.attachManager(manager);
     manager.add({ id: 'a', timeout: 0, data: { count: 1 } });
     b.updateToast('a', { data: { count: 5 } });
-    const updater = vi.fn((toast: { data?: { count: number } }) => ({ data: { count: toast.data!.count + 1 } }));
+    const updater = vi.fn((toast: { data?: { count: number } }) => ({
+      data: { count: toast.data!.count + 1 },
+    }));
     manager.update('a', updater);
     expect(updater).toHaveBeenCalledTimes(2);
     expect(a.state.toasts[0].data).toEqual({ count: 2 });
@@ -304,8 +331,15 @@ describe('actual Toast core subscription and ownership regressions (no upstream 
     b.attachManager(manager);
     const pending = deferred<number>();
     const error = new Error('no');
-    const resolver = vi.fn(reason => { expect(reason).toBe(error); return 'Failed'; });
-    const result = manager.promise(pending.promise, { loading: 'Loading', success: 'Done', error: resolver });
+    const resolver = vi.fn((reason) => {
+      expect(reason).toBe(error);
+      return 'Failed';
+    });
+    const result = manager.promise(pending.promise, {
+      loading: 'Loading',
+      success: 'Done',
+      error: resolver,
+    });
     expect(result).not.toBe(pending.promise);
     expect(a.state.toasts[0].type).toBe('loading');
     expect(b.state.toasts[0].type).toBe('loading');
@@ -315,7 +349,7 @@ describe('actual Toast core subscription and ownership regressions (no upstream 
     expect(resolver).toHaveBeenCalledTimes(2);
     expect(a.state.toasts[0].description).toBe('Failed');
     expect(b.state.toasts[0].description).toBe('Failed');
-    await new Promise(resolve => setTimeout(resolve, 0));
+    await new Promise((resolve) => setTimeout(resolve, 0));
   });
 
   it('never mutates disposed state, creates no settlement timers and preserves result identity', async () => {
@@ -324,7 +358,11 @@ describe('actual Toast core subscription and ownership regressions (no upstream 
     const manager = createToastManager();
     store.attachManager(manager);
     const pending = deferred<object>();
-    const result = manager.promise(pending.promise, { loading: 'Loading', success: 'Done', error: 'Failed' });
+    const result = manager.promise(pending.promise, {
+      loading: 'Loading',
+      success: 'Done',
+      error: 'Failed',
+    });
     store.addToast({ id: 'timer', timeout: 100 });
     store.set('hovering', true);
     store.pauseTimers();
@@ -355,7 +393,11 @@ describe('actual Toast core subscription and ownership regressions (no upstream 
     const facade = createToastFacade<{ count: number }>(store);
     const initial = facade.toasts;
     const pending = deferred<number>();
-    const result = facade.promise(pending.promise, { loading: { data: { count: 0 } }, success: value => ({ data: { count: value } }), error: 'Failed' });
+    const result = facade.promise(pending.promise, {
+      loading: { data: { count: 0 } },
+      success: (value) => ({ data: { count: value } }),
+      error: 'Failed',
+    });
     expect(facade.toasts).not.toBe(initial);
     expect(facade.add).toBe(store.addToast);
     expect(facade.close).toBe(store.closeToast);
@@ -374,7 +416,11 @@ it('preserves deferred rejection after disposal without notifying or creating ti
   store.attachManager(manager);
   const pending = deferred<number>();
   const error = { cause: 'original rejection' };
-  const result = manager.promise(pending.promise, { loading: 'Loading', success: 'Done', error: () => 'Failed' });
+  const result = manager.promise(pending.promise, {
+    loading: 'Loading',
+    success: 'Done',
+    error: () => 'Failed',
+  });
   const snapshot = store.getSnapshot();
   const observer = vi.fn();
   store.subscribe(observer);

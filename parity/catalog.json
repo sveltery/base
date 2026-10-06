@@ -5,7 +5,7 @@
     "source": "packages/react/src/index.ts",
     "sourceSha256": "bdc94b38f7d1ab96c528b46d28b87db4e20caaf65629acec6ffd9b5f16bb90ed"
   },
-  "scope": "Every non-type export module in the pinned root index; module existence is distinct from complete component or assertion parity.",
+  "scope": "Every non-type export module in the pinned Original root index. Current statuses describe available native surfaces or explicit retirement; module existence and historical evidence do not establish current source, runtime, package, browser or assertion acceptance.",
   "modules": [
     {
       "upstreamModule": "accordion",
@@ -63,9 +63,10 @@
     },
     {
       "upstreamModule": "context-menu",
-      "status": "unimplemented",
-      "localExport": null,
-      "evidence": null
+      "status": "native-pending-acceptance",
+      "localExport": "ContextMenu",
+      "evidence": "parity/native-snippets/source-correspondence.md",
+      "unchangedRendererCredit": 0
     },
     {
       "upstreamModule": "csp-provider",
@@ -117,15 +118,17 @@
     },
     {
       "upstreamModule": "menu",
-      "status": "unimplemented",
-      "localExport": null,
-      "evidence": null
+      "status": "native-pending-acceptance",
+      "localExport": "Menu",
+      "evidence": "parity/native-snippets/source-correspondence.md",
+      "unchangedRendererCredit": 0
     },
     {
       "upstreamModule": "menubar",
-      "status": "unimplemented",
-      "localExport": null,
-      "evidence": null
+      "status": "native-pending-acceptance",
+      "localExport": "Menubar",
+      "evidence": "parity/native-snippets/source-correspondence.md",
+      "unchangedRendererCredit": 0
     },
     {
       "upstreamModule": "merge-props",
@@ -159,15 +162,17 @@
     },
     {
       "upstreamModule": "popover",
-      "status": "unimplemented",
-      "localExport": null,
-      "evidence": null
+      "status": "native-pending-acceptance",
+      "localExport": "Popover",
+      "evidence": "parity/native-snippets/source-correspondence.md",
+      "unchangedRendererCredit": 0
     },
     {
       "upstreamModule": "preview-card",
-      "status": "unimplemented",
-      "localExport": null,
-      "evidence": null
+      "status": "native-pending-acceptance",
+      "localExport": "PreviewCard",
+      "evidence": "parity/native-snippets/source-correspondence.md",
+      "unchangedRendererCredit": 0
     },
     {
       "upstreamModule": "progress",
@@ -249,15 +254,20 @@
     },
     {
       "upstreamModule": "tooltip",
-      "status": "unimplemented",
-      "localExport": null,
-      "evidence": null
+      "status": "native-pending-acceptance",
+      "localExport": "Tooltip",
+      "evidence": "parity/native-snippets/source-correspondence.md",
+      "unchangedRendererCredit": 0
     },
     {
       "upstreamModule": "use-render",
-      "status": "bounded",
-      "localExport": "UseRender",
-      "evidence": "parity/use-render/README.md"
+      "status": "retired-native-successor",
+      "localExport": null,
+      "evidence": "parity/native-snippets/acceptance.md",
+      "replacement": "Direct per-part native render(props, state, children) snippets and intrinsic fallback markup; no standalone renderer export.",
+      "unchangedRendererCredit": 0
     }
-  ]
+  ],
+  "nativeProjection": "parity/native-snippets/catalog-projection.json",
+  "historicalPredecessor": "parity/native-snippets/acceptance-history/parity/catalog.json"
 }

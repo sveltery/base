@@ -3,3 +3,12 @@
 export const CLICK_TRIGGER_IDENTIFIER = 'data-base-ui-click-trigger';
 /** Original hidden aria-owns owner style for Safari accessibility. */
 export const ownerVisuallyHidden = { clipPath: 'inset(50%)', position: 'fixed', top: 0, left: 0 };
+
+/** Original Menu keyboard text navigation reset. */
+export const TYPEAHEAD_RESET_MS = 500;
+
+export const DISABLED_TRANSITIONS_STYLE = { style: { transition: 'none' } };
+export const DROPDOWN_COLLISION_AVOIDANCE = { fallbackAxisSide: 'none' } as const;
+export const POPUP_COLLISION_AVOIDANCE = { fallbackAxisSide: 'end' } as const;
+
+export const PATIENT_CLICK_THRESHOLD = 500;

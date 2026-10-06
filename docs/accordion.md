@@ -6,6 +6,7 @@ This bounded slice targets `Root`, `Item`, `Header`, `Trigger` and `Panel` at Ba
 <script lang="ts">
   import { Accordion } from '@sveltery/base';
 </script>
+
 <Accordion.Root defaultValue={['details']}>
   <Accordion.Item value="details">
     <Accordion.Header><Accordion.Trigger>Details</Accordion.Trigger></Accordion.Header>
@@ -28,10 +29,8 @@ Composition uses the accepted five framework substitutions: class, CSS strings, 
 
 The unchanged Button helper inherits [D-03](upstream-differences.md#d-03-disabled-chorded-mousedown-default-focus), without new parity credit. The shared Panel hook also preserves Collapsible's value-only alignment restoration losing authored !important priority ([#30](https://github.com/sveltery/base/issues/30)) and beforematch listener ownership of the original rendered host ([#31](https://github.com/sveltery/base/issues/31)). Existing Collapsible reproducers are evidence for those shared sources; Accordion-specific execution must be recorded separately. Corrections and React.Activity scope remain deferred. Read [compatibility](../parity/accordion/compatibility.md) and [verification](../parity/accordion/verification.md) for evidence and remaining gates; complete Accordion parity is not claimed.
 
-
 Independent audit on 2026-10-02 found two source-test fidelity gaps in historical checkpoint `377bf32`: R:182 lacked its React.StrictMode reference boundary, and merged-class helper predicates allowed class-name substrings instead of exact tokens. Both ports now preserve the pinned conditions and assertion order. At that audit boundary the ledger retained 37 ordinary passing sites / 41 variants, with R:182, two helper bodies and five aggregate conformance calls awaiting repaired secured execution. Historical 252-pass execution is not certification of these repairs. Portable scope remains 38 sites / 42 variants; Activity and shared-credit limits are unchanged.
 
 Panel also preserves the pin’s replacement-host quirk [#37](https://github.com/sveltery/base/issues/37). With closed hiddenUntilFound state unchanged, replacing its DOM host yields boolean `hidden=''` from default props, or no hidden attribute when a replacement snippet overrides it with false. The initial host receives `hidden='until-found'`; restoration follows hidden state rather than new host identity. Supplemental DOM and paired browser witnesses add zero ordinary credit. An intentional correction remains deferred.
-
 
 Corrected secured checkpoint `a4b767041074d22ad3eca85d063d12a51ad16c2d` passes [job 110999817071](https://github.com/sveltery/base/actions/runs/37055721029/job/110999817071): all 256 unique cases in 2.9 minutes, with zero retries/skips. Independent source/log review confirms 38 portable ordinary passing sites / 42 variants (84 paired instances), four disabled parameterized executions, 140 conformance and 28 supplements, including restored R:182 StrictMode, exact class-token helper predicates and four issue #37 witnesses. Prior withdrawn evidence remains historical. Panel:201 Activity remains deferred and uncredited; shared 635-entry totals are unchanged. Avatar-first landing, final-main synchronization and fresh combined/final-head gates remain required.

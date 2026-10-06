@@ -1,0 +1,22 @@
+{
+  "approvedBy": "Root refined precise ownership lease after independent before-sync4/4 experiment",
+  "predecessorProductHead": "058c281ff57ac3b31e610dddc2b6e8048f802ccd",
+  "portableRedHead": "435d11dbb94a6b1871b54efdd1d79daa9c155e99",
+  "portableRedTests": 4,
+  "portableRedFailed": 4,
+  "portableRedLog": "receipts/435d11d-delay-ownership-portable-four-fail.log.gz",
+  "portableRedRawSha256": "c43cbadc5bd9e370ebde942e0b5fb0e6f06811a3060184223d490efc62e4fd64",
+  "initialPortableSetupFailure": "820686f first run0tests because Vite supplied browser import.meta.url to Node createRequire; package test cwd resolves actual published Source modules. Setup log retained.",
+  "previousBodySha256": "dd3cc1e7bff716f7093162d11d7393bb4fe5b9e940311160c5a0816f5d7462a6",
+  "repairedBodySha256": "5fbd431ac803aa0b09543055ff766e2afcb51c9ab1422b1135e8e5098b3982ed",
+  "delta": [
+    "Capture registered ownedId in the existing ownership lifetime effect",
+    "Register that same full effect before openRef-sync/close-reset/takeover",
+    "Capture scheduling closingStore beside closingId for the pending callback guard"
+  ],
+  "nativePurpose": "Original disposes old layout-effect ownership before new effect setup. Native per-effect cleanup/setup requires this existing resource-owner effect to run first, before live open sync. Actual owning ID and scheduling Store are captured; no cloned effect engine, new state/snapshot/controller, API or timer policy.",
+  "unchanged": "All existing branches, dependency lists, callback/reset/takeover predicates and timer parameters remain; same actual source/native expectations retained.",
+  "otherRuntimeFiles": "All Portal/ClientPoint/inline/close/provider/context/append bodies frozen; current graph refreshed only hashes.",
+  "execution": "Pending frozen repair commit4paired cases+15existing native witnesses, strict scope and scoped Standards.",
+  "ordinaryDeclarationCredit": 0
+}

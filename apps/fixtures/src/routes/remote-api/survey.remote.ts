@@ -8,8 +8,16 @@ const schema = {
     version: 1 as const,
     vendor: 'remote-api-fixture',
     types: undefined as unknown as { input: SurveyInput; output: Survey },
-    validate(value: unknown): { value: Survey } | { issues: { message: string; path: string[] }[] } {
-      if (!value || typeof value !== 'object' || !('storageType' in value) || typeof value.storageType !== 'string' || !value.storageType) {
+    validate(
+      value: unknown,
+    ): { value: Survey } | { issues: { message: string; path: string[] }[] } {
+      if (
+        !value ||
+        typeof value !== 'object' ||
+        !('storageType' in value) ||
+        typeof value.storageType !== 'string' ||
+        !value.storageType
+      ) {
         return { issues: [{ message: 'Storage type required', path: ['storageType'] }] };
       }
       const enabled = 'enabled' in value ? value.enabled : undefined;

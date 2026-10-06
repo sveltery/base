@@ -1,5 +1,6 @@
+import { resolveNativePackageSource } from '../../scripts/native-package-source.mjs';
 // Button's complete immutable-source and actual-used native import graphs. MIT source provenance.
-import ts from '../../packages/base/node_modules/typescript/lib/typescript.js';
+import { createRequire } from 'node:module';
 import { execFileSync } from 'node:child_process';
 import { createHash } from 'node:crypto';
 import { existsSync, readFileSync, writeFileSync } from 'node:fs';
@@ -7,6 +8,7 @@ import { dirname, resolve } from 'node:path';
 
 const pin = '47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c';
 const root = resolve(import.meta.dirname, '../..');
+const ts = createRequire(new URL('../../packages/base/package.json', import.meta.url))('typescript');
 const sourceArgument = process.argv.slice(2).find(argument => !argument.startsWith('--'));
 const upstream = sourceArgument ? resolve(sourceArgument) : undefined;
 const destination = resolve(import.meta.dirname, 'source-graph.json');
@@ -17,6 +19,8 @@ function trace(roots, original) {
   const modules = new Map();
   const queue = roots.map(file => ({ file, reachability: 'runtime' }));
   function resolveImport(file, specifier) {
+    const owned = !original && resolveNativePackageSource(root, specifier);
+    if (owned) return owned;
     let base;
     if (specifier.startsWith('.')) base = resolve('/', dirname(file), specifier).slice(1);
     else if (original && specifier.startsWith('@base-ui/utils/')) base = `packages/utils/src/${specifier.slice('@base-ui/utils/'.length)}`;
@@ -52,7 +56,7 @@ function trace(roots, original) {
             if (types.length) edge(node.moduleSpecifier.text, 'type', types);
           } else edge(node.moduleSpecifier.text, node.isTypeOnly ? 'type' : 'runtime', ['*']);
         } else if (ts.isImportTypeNode(node) && ts.isLiteralTypeNode(node.argument) && ts.isStringLiteral(node.argument.literal)) edge(node.argument.literal.text, 'type', []);
-        if ((ts.isFunctionDeclaration(node) || ts.isInterfaceDeclaration(node) || ts.isTypeAliasDeclaration(node) || ts.isModuleDeclaration(node)) && node.name) declarations.push(node.name.text);
+        if ((ts.isFunctionDeclaration(node) || ts.isInterfaceDeclaration(node) || ts.isTypeAliasDeclaration(node) || ts.isModuleDeclaration(node) || (!original && ts.isClassDeclaration(node))) && node.name) declarations.push(node.name.text);
         ts.forEachChild(node, visit);
       }
       visit(ast);
@@ -74,8 +78,8 @@ const graph = {
   roots,
   modules: upstream ? trace(roots, true) : JSON.parse(readFileSync(destination, 'utf8')).modules,
   externalBoundaries: {
-    original: ['React framework/hooks/elements/types → native Svelte runes/context/snippets/attachments/element declarations', '@floating-ui/utils/dom isHTMLElement/getWindow → canonical native helper host tag checks and utils/owner ownerDocument/defaultView; no Floating UI runtime in Button', 'JavaScript and native DOM built-ins'],
-    native: ['svelte public APIs and rune compiler', 'svelte/attachments', 'svelte/elements type declarations', 'esm-env DEV/BROWSER', 'JavaScript and native DOM built-ins'],
+    original: ['React framework/hooks/elements/types → native Svelte runes/context/snippets/attachments/element declarations', '@floating-ui/utils/dom getWindow is reused by canonical @sveltery/utils/owner; native host tag checks remain explicitly recorded.', '@floating-ui/utils/dom getWindow via the actual Utils package dependency', 'JavaScript and native DOM built-ins'],
+    native: ['svelte public APIs and rune compiler', 'svelte/attachments', 'svelte/elements type declarations', 'esm-env DEV/BROWSER', '@floating-ui/utils/dom getWindow via the actual Utils package dependency', 'JavaScript and native DOM built-ins'],
   },
 };
 if (!process.argv.includes('--source-only')) {

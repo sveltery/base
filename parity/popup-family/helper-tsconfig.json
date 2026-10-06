@@ -1,0 +1,43 @@
+{
+  "extends": "../../packages/base/tsconfig.json",
+  "compilerOptions": {
+    "skipLibCheck": false,
+    "typeRoots": [
+      "../../packages/base/node_modules/@types"
+    ]
+  },
+  "include": [
+    "../../packages/base/src/lib/utils/popups/inlineRect.ts",
+    "../../packages/base/src/lib/utils/closePart.svelte.ts",
+    "../../packages/base/src/lib/utils/FloatingPortalLite.svelte",
+    "../../packages/base/src/lib/floating-ui/components/FloatingPortal.svelte",
+    "../../packages/base/src/lib/floating-ui/components/FloatingDelayGroup.svelte",
+    "../../packages/base/src/lib/floating-ui/components/FloatingDelayGroupContext.ts",
+    "../../packages/base/src/lib/floating-ui/hooks/useDelayGroup.svelte.ts",
+    "../../packages/base/src/lib/floating-ui/hooks/useClientPoint.svelte.ts",
+    "../../packages/base/src/lib/floating-ui/hooks/useFloatingPortalNode.svelte.ts",
+    "../../packages/base/tests/dom/popup-inline-rect.test.ts",
+    "../../packages/base/tests/dom/popup-close-part.test.ts",
+    "../../packages/base/tests/dom/popup-delay-group.test.ts",
+    "../../packages/base/tests/dom/PopupClosePartFixture.svelte",
+    "../../packages/base/tests/dom/PopupClosePartChild.svelte",
+    "../../packages/base/tests/dom/PopupDelayGroupFixture.svelte",
+    "../../packages/base/tests/dom/PopupDelayGroupConsumer.svelte",
+    "../../packages/base/src/lib/utils/popups/popupStoreUtils.svelte.ts",
+    "../../packages/base/tests/dom/PopupClientPointFixture.svelte",
+    "../../packages/base/tests/dom/PopupClientPointStoreFixture.svelte",
+    "../../packages/base/tests/dom/popup-client-point.test.ts",
+    "../../packages/base/tests/dom/PopupPortalHostFixture.svelte",
+    "../../packages/base/tests/dom/PopupPortalBoundaryProbe.svelte",
+    "../../packages/base/tests/dom/PopupPortalBoundaryFixture.svelte",
+    "../../packages/base/tests/dom/popup-portal-native.test.ts",
+    "../../packages/base/tests/dom/popup-portal-realm-witness.test.ts",
+    "../../packages/base/tests/dom/popup-open-change-store.ts",
+    "../../packages/base/tests/dom/PopupOpenChangeFixture.svelte",
+    "../../packages/base/tests/dom/popup-open-change.test.ts",
+    "../../packages/base/tests/dom/popup-delay-group-source.ts",
+    "../../packages/base/tests/dom/PopupDelayGroupOwnershipConsumer.svelte",
+    "../../packages/base/tests/dom/PopupDelayGroupOwnershipFixture.svelte",
+    "../../packages/base/tests/dom/popup-delay-group-ownership.test.ts"
+  ]
+}

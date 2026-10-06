@@ -10,8 +10,10 @@ export interface ToggleGroupState {
 }
 export type ToggleGroupChangeEventReason = 'none';
 export type ToggleGroupChangeEventDetails = BaseUIChangeEventDetails<ToggleGroupChangeEventReason>;
-export type ToggleGroupProps<Value extends string = string> =
-  Omit<WithBaseUIEvent<HTMLAttributes<HTMLDivElement>>, 'class' | 'style' | 'children' | 'color'> &
+export type ToggleGroupProps<Value extends string = string> = Omit<
+  WithBaseUIEvent<HTMLAttributes<HTMLDivElement>>,
+  'class' | 'style' | 'children' | 'color'
+> &
   BaseUIComponentProps<ToggleGroupState> & {
     children?: Snippet | undefined;
     ref?: HTMLElement | null | undefined;

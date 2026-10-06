@@ -1,0 +1,3084 @@
+{
+  "status": "Actual native acquisition evidence only; durable counterpart proposal unexecuted and final acceptance pending",
+  "actualExecutionHead": "43b322f5a6171e9dea5479fb3e047fc0036026e1",
+  "sourceBaselineHead": "9401429484f56c52dc2f47a9c7c50bfe654329eb",
+  "upstream": {
+    "commit": "47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c",
+    "license": "MIT"
+  },
+  "completeRawEvidence": {
+    "vectors": "/workspace/reviews/native-43-plain-acquisition-verbose/complete-vectors.json",
+    "vectorsSha256": "741632beb22af76e6de8e64477f01b342245cf6546fd529701cade4633d7a63b",
+    "wholeStdout": "/workspace/reviews/native-43-plain-acquisition-verbose/plain-native-acquisition.log",
+    "stdoutSha256": "8310a610ef8360a0779b93c74da5e9a5584cea339a315bdd4144ede4fd362c63",
+    "dispositionSha256": "b0fc60ddd63a6253cd5e19110c0539bac7bfe3b44b5d507bdea875477839f7ea",
+    "actualExit": 0,
+    "cases": 3,
+    "stagedExactFilesRestored": true
+  },
+  "preservedFirstCapture": {
+    "packet": "/workspace/reviews/native-43-plain-acquisition-default-output",
+    "manifestSha256": "fa4d04d28967e68033bae72f7cc065b24b5c1dec0a86e690dfbfcf9b66482c9e",
+    "dispositionSha256": "72c5ffac006f968efe9dd782e539d61a8dd3d49a483fa94b3052db362d3e1050",
+    "wholeStdoutSha256": "c511de11654f5497ff91e746b4b1667555756d637f24145999f7b47e6c4515ee",
+    "actualExit": 0,
+    "cases": 3,
+    "vectorsAcquired": false,
+    "cause": "Cached Vitest5 agent MinimalReporter silent passed-only; corrected only by explicit --reporter=verbose --silent=false"
+  },
+  "canonicalFailureCorrection": {
+    "acde": "Initial callline79/matcher55; log SHA0168e5b05f082aa19b65ff58395a35f60a8609de53cfe720b95b286b9839819e",
+    "940": "Initial callline95/matcher59; log SHA6acdd9fe129cb906cbc142d65072f2e91d7900591979692cbc6fcc3d732b5de2",
+    "projection": {
+      "disabled": true,
+      "focusableWhenDisabled": false,
+      "owner": "inner",
+      "index": 1
+    },
+    "oldMatcherRevision": "Not exposed; acquisition separately measured revision0",
+    "oldInitialOuterAndFirstUpdateClaims": "Inaccurate; historical bytes preserved, current successor corrects them",
+    "unchangedOriginalCredit": 0
+  },
+  "normalNativeMount": {
+    "settle": ["flushSync", "tick", "Promise.resolve", "flushSync", "tick"],
+    "layoutMocks": false,
+    "hydratedVectorAssigned": false
+  },
+  "realFixtureLanes": [
+    {
+      "lane": "unchanged-actual-plain-fixture",
+      "phases": [
+        {
+          "index": 0,
+          "action": "initial",
+          "map": [
+            {
+              "identity": 1,
+              "testId": "first",
+              "tag": "BUTTON",
+              "connected": true,
+              "tabindex": "0",
+              "metadata": {
+                "disabled": true,
+                "focusableWhenDisabled": true,
+                "owner": "outer",
+                "index": 0
+              }
+            },
+            {
+              "identity": 2,
+              "testId": "shared",
+              "tag": "BUTTON",
+              "connected": true,
+              "tabindex": "-1",
+              "metadata": {
+                "disabled": true,
+                "focusableWhenDisabled": false,
+                "owner": "inner",
+                "revision": 0,
+                "index": 1
+              }
+            },
+            {
+              "identity": 3,
+              "testId": "last",
+              "tag": "BUTTON",
+              "connected": true,
+              "tabindex": "-1",
+              "metadata": {
+                "disabled": true,
+                "focusableWhenDisabled": true,
+                "owner": "outer",
+                "index": 2
+              }
+            }
+          ],
+          "focus": {
+            "identity": 4,
+            "testId": null,
+            "tag": "BODY"
+          },
+          "refs": "not-exposed-by-unchanged-fixture",
+          "original": {
+            "identity": 2,
+            "connected": true
+          },
+          "replacement": {
+            "identity": null,
+            "connected": null
+          },
+          "span": {
+            "identity": null,
+            "connected": null
+          },
+          "disabledIndices": [1],
+          "event": null
+        },
+        {
+          "index": 1,
+          "action": "initial: first.focus",
+          "map": [
+            {
+              "identity": 1,
+              "testId": "first",
+              "tag": "BUTTON",
+              "connected": true,
+              "tabindex": "0",
+              "metadata": {
+                "disabled": true,
+                "focusableWhenDisabled": true,
+                "owner": "outer",
+                "index": 0
+              }
+            },
+            {
+              "identity": 2,
+              "testId": "shared",
+              "tag": "BUTTON",
+              "connected": true,
+              "tabindex": "-1",
+              "metadata": {
+                "disabled": true,
+                "focusableWhenDisabled": false,
+                "owner": "inner",
+                "revision": 0,
+                "index": 1
+              }
+            },
+            {
+              "identity": 3,
+              "testId": "last",
+              "tag": "BUTTON",
+              "connected": true,
+              "tabindex": "-1",
+              "metadata": {
+                "disabled": true,
+                "focusableWhenDisabled": true,
+                "owner": "outer",
+                "index": 2
+              }
+            }
+          ],
+          "focus": {
+            "identity": 1,
+            "testId": "first",
+            "tag": "BUTTON"
+          },
+          "refs": "not-exposed-by-unchanged-fixture",
+          "original": {
+            "identity": 2,
+            "connected": true
+          },
+          "replacement": {
+            "identity": null,
+            "connected": null
+          },
+          "span": {
+            "identity": null,
+            "connected": null
+          },
+          "disabledIndices": [1],
+          "event": null
+        },
+        {
+          "index": 2,
+          "action": "initial: ArrowRight",
+          "map": [
+            {
+              "identity": 1,
+              "testId": "first",
+              "tag": "BUTTON",
+              "connected": true,
+              "tabindex": "-1",
+              "metadata": {
+                "disabled": true,
+                "focusableWhenDisabled": true,
+                "owner": "outer",
+                "index": 0
+              }
+            },
+            {
+              "identity": 2,
+              "testId": "shared",
+              "tag": "BUTTON",
+              "connected": true,
+              "tabindex": "-1",
+              "metadata": {
+                "disabled": true,
+                "focusableWhenDisabled": false,
+                "owner": "inner",
+                "revision": 0,
+                "index": 1
+              }
+            },
+            {
+              "identity": 3,
+              "testId": "last",
+              "tag": "BUTTON",
+              "connected": true,
+              "tabindex": "0",
+              "metadata": {
+                "disabled": true,
+                "focusableWhenDisabled": true,
+                "owner": "outer",
+                "index": 2
+              }
+            }
+          ],
+          "focus": {
+            "identity": 3,
+            "testId": "last",
+            "tag": "BUTTON"
+          },
+          "refs": "not-exposed-by-unchanged-fixture",
+          "original": {
+            "identity": 2,
+            "connected": true
+          },
+          "replacement": {
+            "identity": null,
+            "connected": null
+          },
+          "span": {
+            "identity": null,
+            "connected": null
+          },
+          "disabledIndices": [1],
+          "event": {
+            "defaultPrevented": true,
+            "cancelBubble": false
+          }
+        },
+        {
+          "index": 3,
+          "action": "updateInner(1)",
+          "map": [
+            {
+              "identity": 1,
+              "testId": "first",
+              "tag": "BUTTON",
+              "connected": true,
+              "tabindex": "-1",
+              "metadata": {
+                "disabled": true,
+                "focusableWhenDisabled": true,
+                "owner": "outer",
+                "index": 0
+              }
+            },
+            {
+              "identity": 2,
+              "testId": "shared",
+              "tag": "BUTTON",
+              "connected": true,
+              "tabindex": "-1",
+              "metadata": {
+                "disabled": true,
+                "focusableWhenDisabled": false,
+                "owner": "inner",
+                "revision": 1,
+                "index": 1
+              }
+            },
+            {
+              "identity": 3,
+              "testId": "last",
+              "tag": "BUTTON",
+              "connected": true,
+              "tabindex": "0",
+              "metadata": {
+                "disabled": true,
+                "focusableWhenDisabled": true,
+                "owner": "outer",
+                "index": 2
+              }
+            }
+          ],
+          "focus": {
+            "identity": 3,
+            "testId": "last",
+            "tag": "BUTTON"
+          },
+          "refs": "not-exposed-by-unchanged-fixture",
+          "original": {
+            "identity": 2,
+            "connected": true
+          },
+          "replacement": {
+            "identity": null,
+            "connected": null
+          },
+          "span": {
+            "identity": null,
+            "connected": null
+          },
+          "disabledIndices": [1],
+          "event": null
+        },
+        {
+          "index": 4,
+          "action": "updateInner(1): first.focus",
+          "map": [
+            {
+              "identity": 1,
+              "testId": "first",
+              "tag": "BUTTON",
+              "connected": true,
+              "tabindex": "0",
+              "metadata": {
+                "disabled": true,
+                "focusableWhenDisabled": true,
+                "owner": "outer",
+                "index": 0
+              }
+            },
+            {
+              "identity": 2,
+              "testId": "shared",
+              "tag": "BUTTON",
+              "connected": true,
+              "tabindex": "-1",
+              "metadata": {
+                "disabled": true,
+                "focusableWhenDisabled": false,
+                "owner": "inner",
+                "revision": 1,
+                "index": 1
+              }
+            },
+            {
+              "identity": 3,
+              "testId": "last",
+              "tag": "BUTTON",
+              "connected": true,
+              "tabindex": "-1",
+              "metadata": {
+                "disabled": true,
+                "focusableWhenDisabled": true,
+                "owner": "outer",
+                "index": 2
+              }
+            }
+          ],
+          "focus": {
+            "identity": 1,
+            "testId": "first",
+            "tag": "BUTTON"
+          },
+          "refs": "not-exposed-by-unchanged-fixture",
+          "original": {
+            "identity": 2,
+            "connected": true
+          },
+          "replacement": {
+            "identity": null,
+            "connected": null
+          },
+          "span": {
+            "identity": null,
+            "connected": null
+          },
+          "disabledIndices": [1],
+          "event": null
+        },
+        {
+          "index": 5,
+          "action": "updateInner(1): ArrowRight",
+          "map": [
+            {
+              "identity": 1,
+              "testId": "first",
+              "tag": "BUTTON",
+              "connected": true,
+              "tabindex": "-1",
+              "metadata": {
+                "disabled": true,
+                "focusableWhenDisabled": true,
+                "owner": "outer",
+                "index": 0
+              }
+            },
+            {
+              "identity": 2,
+              "testId": "shared",
+              "tag": "BUTTON",
+              "connected": true,
+              "tabindex": "-1",
+              "metadata": {
+                "disabled": true,
+                "focusableWhenDisabled": false,
+                "owner": "inner",
+                "revision": 1,
+                "index": 1
+              }
+            },
+            {
+              "identity": 3,
+              "testId": "last",
+              "tag": "BUTTON",
+              "connected": true,
+              "tabindex": "0",
+              "metadata": {
+                "disabled": true,
+                "focusableWhenDisabled": true,
+                "owner": "outer",
+                "index": 2
+              }
+            }
+          ],
+          "focus": {
+            "identity": 3,
+            "testId": "last",
+            "tag": "BUTTON"
+          },
+          "refs": "not-exposed-by-unchanged-fixture",
+          "original": {
+            "identity": 2,
+            "connected": true
+          },
+          "replacement": {
+            "identity": null,
+            "connected": null
+          },
+          "span": {
+            "identity": null,
+            "connected": null
+          },
+          "disabledIndices": [1],
+          "event": {
+            "defaultPrevented": true,
+            "cancelBubble": false
+          }
+        },
+        {
+          "index": 6,
+          "action": "updateInner(2)",
+          "map": [
+            {
+              "identity": 1,
+              "testId": "first",
+              "tag": "BUTTON",
+              "connected": true,
+              "tabindex": "-1",
+              "metadata": {
+                "disabled": true,
+                "focusableWhenDisabled": true,
+                "owner": "outer",
+                "index": 0
+              }
+            },
+            {
+              "identity": 2,
+              "testId": "shared",
+              "tag": "BUTTON",
+              "connected": true,
+              "tabindex": "-1",
+              "metadata": {
+                "disabled": true,
+                "focusableWhenDisabled": false,
+                "owner": "inner",
+                "revision": 2,
+                "index": 1
+              }
+            },
+            {
+              "identity": 3,
+              "testId": "last",
+              "tag": "BUTTON",
+              "connected": true,
+              "tabindex": "0",
+              "metadata": {
+                "disabled": true,
+                "focusableWhenDisabled": true,
+                "owner": "outer",
+                "index": 2
+              }
+            }
+          ],
+          "focus": {
+            "identity": 3,
+            "testId": "last",
+            "tag": "BUTTON"
+          },
+          "refs": "not-exposed-by-unchanged-fixture",
+          "original": {
+            "identity": 2,
+            "connected": true
+          },
+          "replacement": {
+            "identity": null,
+            "connected": null
+          },
+          "span": {
+            "identity": null,
+            "connected": null
+          },
+          "disabledIndices": [1],
+          "event": null
+        },
+        {
+          "index": 7,
+          "action": "updateInner(2): first.focus",
+          "map": [
+            {
+              "identity": 1,
+              "testId": "first",
+              "tag": "BUTTON",
+              "connected": true,
+              "tabindex": "0",
+              "metadata": {
+                "disabled": true,
+                "focusableWhenDisabled": true,
+                "owner": "outer",
+                "index": 0
+              }
+            },
+            {
+              "identity": 2,
+              "testId": "shared",
+              "tag": "BUTTON",
+              "connected": true,
+              "tabindex": "-1",
+              "metadata": {
+                "disabled": true,
+                "focusableWhenDisabled": false,
+                "owner": "inner",
+                "revision": 2,
+                "index": 1
+              }
+            },
+            {
+              "identity": 3,
+              "testId": "last",
+              "tag": "BUTTON",
+              "connected": true,
+              "tabindex": "-1",
+              "metadata": {
+                "disabled": true,
+                "focusableWhenDisabled": true,
+                "owner": "outer",
+                "index": 2
+              }
+            }
+          ],
+          "focus": {
+            "identity": 1,
+            "testId": "first",
+            "tag": "BUTTON"
+          },
+          "refs": "not-exposed-by-unchanged-fixture",
+          "original": {
+            "identity": 2,
+            "connected": true
+          },
+          "replacement": {
+            "identity": null,
+            "connected": null
+          },
+          "span": {
+            "identity": null,
+            "connected": null
+          },
+          "disabledIndices": [1],
+          "event": null
+        },
+        {
+          "index": 8,
+          "action": "updateInner(2): ArrowRight",
+          "map": [
+            {
+              "identity": 1,
+              "testId": "first",
+              "tag": "BUTTON",
+              "connected": true,
+              "tabindex": "-1",
+              "metadata": {
+                "disabled": true,
+                "focusableWhenDisabled": true,
+                "owner": "outer",
+                "index": 0
+              }
+            },
+            {
+              "identity": 2,
+              "testId": "shared",
+              "tag": "BUTTON",
+              "connected": true,
+              "tabindex": "-1",
+              "metadata": {
+                "disabled": true,
+                "focusableWhenDisabled": false,
+                "owner": "inner",
+                "revision": 2,
+                "index": 1
+              }
+            },
+            {
+              "identity": 3,
+              "testId": "last",
+              "tag": "BUTTON",
+              "connected": true,
+              "tabindex": "0",
+              "metadata": {
+                "disabled": true,
+                "focusableWhenDisabled": true,
+                "owner": "outer",
+                "index": 2
+              }
+            }
+          ],
+          "focus": {
+            "identity": 3,
+            "testId": "last",
+            "tag": "BUTTON"
+          },
+          "refs": "not-exposed-by-unchanged-fixture",
+          "original": {
+            "identity": 2,
+            "connected": true
+          },
+          "replacement": {
+            "identity": null,
+            "connected": null
+          },
+          "span": {
+            "identity": null,
+            "connected": null
+          },
+          "disabledIndices": [1],
+          "event": {
+            "defaultPrevented": true,
+            "cancelBubble": false
+          }
+        },
+        {
+          "index": 9,
+          "action": "updateInner(3)",
+          "map": [
+            {
+              "identity": 1,
+              "testId": "first",
+              "tag": "BUTTON",
+              "connected": true,
+              "tabindex": "-1",
+              "metadata": {
+                "disabled": true,
+                "focusableWhenDisabled": true,
+                "owner": "outer",
+                "index": 0
+              }
+            },
+            {
+              "identity": 2,
+              "testId": "shared",
+              "tag": "BUTTON",
+              "connected": true,
+              "tabindex": "-1",
+              "metadata": {
+                "disabled": true,
+                "focusableWhenDisabled": false,
+                "owner": "inner",
+                "revision": 3,
+                "index": 1
+              }
+            },
+            {
+              "identity": 3,
+              "testId": "last",
+              "tag": "BUTTON",
+              "connected": true,
+              "tabindex": "0",
+              "metadata": {
+                "disabled": true,
+                "focusableWhenDisabled": true,
+                "owner": "outer",
+                "index": 2
+              }
+            }
+          ],
+          "focus": {
+            "identity": 3,
+            "testId": "last",
+            "tag": "BUTTON"
+          },
+          "refs": "not-exposed-by-unchanged-fixture",
+          "original": {
+            "identity": 2,
+            "connected": true
+          },
+          "replacement": {
+            "identity": null,
+            "connected": null
+          },
+          "span": {
+            "identity": null,
+            "connected": null
+          },
+          "disabledIndices": [1],
+          "event": null
+        },
+        {
+          "index": 10,
+          "action": "updateInner(3): first.focus",
+          "map": [
+            {
+              "identity": 1,
+              "testId": "first",
+              "tag": "BUTTON",
+              "connected": true,
+              "tabindex": "0",
+              "metadata": {
+                "disabled": true,
+                "focusableWhenDisabled": true,
+                "owner": "outer",
+                "index": 0
+              }
+            },
+            {
+              "identity": 2,
+              "testId": "shared",
+              "tag": "BUTTON",
+              "connected": true,
+              "tabindex": "-1",
+              "metadata": {
+                "disabled": true,
+                "focusableWhenDisabled": false,
+                "owner": "inner",
+                "revision": 3,
+                "index": 1
+              }
+            },
+            {
+              "identity": 3,
+              "testId": "last",
+              "tag": "BUTTON",
+              "connected": true,
+              "tabindex": "-1",
+              "metadata": {
+                "disabled": true,
+                "focusableWhenDisabled": true,
+                "owner": "outer",
+                "index": 2
+              }
+            }
+          ],
+          "focus": {
+            "identity": 1,
+            "testId": "first",
+            "tag": "BUTTON"
+          },
+          "refs": "not-exposed-by-unchanged-fixture",
+          "original": {
+            "identity": 2,
+            "connected": true
+          },
+          "replacement": {
+            "identity": null,
+            "connected": null
+          },
+          "span": {
+            "identity": null,
+            "connected": null
+          },
+          "disabledIndices": [1],
+          "event": null
+        },
+        {
+          "index": 11,
+          "action": "updateInner(3): ArrowRight",
+          "map": [
+            {
+              "identity": 1,
+              "testId": "first",
+              "tag": "BUTTON",
+              "connected": true,
+              "tabindex": "-1",
+              "metadata": {
+                "disabled": true,
+                "focusableWhenDisabled": true,
+                "owner": "outer",
+                "index": 0
+              }
+            },
+            {
+              "identity": 2,
+              "testId": "shared",
+              "tag": "BUTTON",
+              "connected": true,
+              "tabindex": "-1",
+              "metadata": {
+                "disabled": true,
+                "focusableWhenDisabled": false,
+                "owner": "inner",
+                "revision": 3,
+                "index": 1
+              }
+            },
+            {
+              "identity": 3,
+              "testId": "last",
+              "tag": "BUTTON",
+              "connected": true,
+              "tabindex": "0",
+              "metadata": {
+                "disabled": true,
+                "focusableWhenDisabled": true,
+                "owner": "outer",
+                "index": 2
+              }
+            }
+          ],
+          "focus": {
+            "identity": 3,
+            "testId": "last",
+            "tag": "BUTTON"
+          },
+          "refs": "not-exposed-by-unchanged-fixture",
+          "original": {
+            "identity": 2,
+            "connected": true
+          },
+          "replacement": {
+            "identity": null,
+            "connected": null
+          },
+          "span": {
+            "identity": null,
+            "connected": null
+          },
+          "disabledIndices": [1],
+          "event": {
+            "defaultPrevented": true,
+            "cancelBubble": false
+          }
+        },
+        {
+          "index": 12,
+          "action": "setVisible(false)",
+          "map": [
+            {
+              "identity": 1,
+              "testId": "first",
+              "tag": "BUTTON",
+              "connected": true,
+              "tabindex": "-1",
+              "metadata": {
+                "disabled": true,
+                "focusableWhenDisabled": true,
+                "owner": "outer",
+                "index": 0
+              }
+            },
+            {
+              "identity": 3,
+              "testId": "last",
+              "tag": "BUTTON",
+              "connected": true,
+              "tabindex": "0",
+              "metadata": {
+                "disabled": true,
+                "focusableWhenDisabled": true,
+                "owner": "outer",
+                "index": 1
+              }
+            }
+          ],
+          "focus": {
+            "identity": 3,
+            "testId": "last",
+            "tag": "BUTTON"
+          },
+          "refs": "not-exposed-by-unchanged-fixture",
+          "original": {
+            "identity": 2,
+            "connected": false
+          },
+          "replacement": {
+            "identity": null,
+            "connected": null
+          },
+          "span": {
+            "identity": null,
+            "connected": null
+          },
+          "disabledIndices": [],
+          "event": null
+        },
+        {
+          "index": 13,
+          "action": "setVisible(true)",
+          "map": [
+            {
+              "identity": 1,
+              "testId": "first",
+              "tag": "BUTTON",
+              "connected": true,
+              "tabindex": "-1",
+              "metadata": {
+                "disabled": true,
+                "focusableWhenDisabled": true,
+                "owner": "outer",
+                "index": 0
+              }
+            },
+            {
+              "identity": 5,
+              "testId": "shared",
+              "tag": "BUTTON",
+              "connected": true,
+              "tabindex": "-1",
+              "metadata": {
+                "disabled": true,
+                "focusableWhenDisabled": false,
+                "owner": "inner",
+                "revision": 3,
+                "index": 1
+              }
+            },
+            {
+              "identity": 3,
+              "testId": "last",
+              "tag": "BUTTON",
+              "connected": true,
+              "tabindex": "0",
+              "metadata": {
+                "disabled": true,
+                "focusableWhenDisabled": true,
+                "owner": "outer",
+                "index": 2
+              }
+            }
+          ],
+          "focus": {
+            "identity": 3,
+            "testId": "last",
+            "tag": "BUTTON"
+          },
+          "refs": "not-exposed-by-unchanged-fixture",
+          "original": {
+            "identity": 2,
+            "connected": false
+          },
+          "replacement": {
+            "identity": 5,
+            "connected": true
+          },
+          "span": {
+            "identity": null,
+            "connected": null
+          },
+          "disabledIndices": [1],
+          "event": null
+        },
+        {
+          "index": 14,
+          "action": "reinserted: first.focus",
+          "map": [
+            {
+              "identity": 1,
+              "testId": "first",
+              "tag": "BUTTON",
+              "connected": true,
+              "tabindex": "0",
+              "metadata": {
+                "disabled": true,
+                "focusableWhenDisabled": true,
+                "owner": "outer",
+                "index": 0
+              }
+            },
+            {
+              "identity": 5,
+              "testId": "shared",
+              "tag": "BUTTON",
+              "connected": true,
+              "tabindex": "-1",
+              "metadata": {
+                "disabled": true,
+                "focusableWhenDisabled": false,
+                "owner": "inner",
+                "revision": 3,
+                "index": 1
+              }
+            },
+            {
+              "identity": 3,
+              "testId": "last",
+              "tag": "BUTTON",
+              "connected": true,
+              "tabindex": "-1",
+              "metadata": {
+                "disabled": true,
+                "focusableWhenDisabled": true,
+                "owner": "outer",
+                "index": 2
+              }
+            }
+          ],
+          "focus": {
+            "identity": 1,
+            "testId": "first",
+            "tag": "BUTTON"
+          },
+          "refs": "not-exposed-by-unchanged-fixture",
+          "original": {
+            "identity": 2,
+            "connected": false
+          },
+          "replacement": {
+            "identity": 5,
+            "connected": true
+          },
+          "span": {
+            "identity": null,
+            "connected": null
+          },
+          "disabledIndices": [1],
+          "event": null
+        },
+        {
+          "index": 15,
+          "action": "reinserted: ArrowRight",
+          "map": [
+            {
+              "identity": 1,
+              "testId": "first",
+              "tag": "BUTTON",
+              "connected": true,
+              "tabindex": "-1",
+              "metadata": {
+                "disabled": true,
+                "focusableWhenDisabled": true,
+                "owner": "outer",
+                "index": 0
+              }
+            },
+            {
+              "identity": 5,
+              "testId": "shared",
+              "tag": "BUTTON",
+              "connected": true,
+              "tabindex": "-1",
+              "metadata": {
+                "disabled": true,
+                "focusableWhenDisabled": false,
+                "owner": "inner",
+                "revision": 3,
+                "index": 1
+              }
+            },
+            {
+              "identity": 3,
+              "testId": "last",
+              "tag": "BUTTON",
+              "connected": true,
+              "tabindex": "0",
+              "metadata": {
+                "disabled": true,
+                "focusableWhenDisabled": true,
+                "owner": "outer",
+                "index": 2
+              }
+            }
+          ],
+          "focus": {
+            "identity": 3,
+            "testId": "last",
+            "tag": "BUTTON"
+          },
+          "refs": "not-exposed-by-unchanged-fixture",
+          "original": {
+            "identity": 2,
+            "connected": false
+          },
+          "replacement": {
+            "identity": 5,
+            "connected": true
+          },
+          "span": {
+            "identity": null,
+            "connected": null
+          },
+          "disabledIndices": [1],
+          "event": {
+            "defaultPrevented": true,
+            "cancelBubble": false
+          }
+        },
+        {
+          "index": 16,
+          "action": "replaceHost()",
+          "map": [
+            {
+              "identity": 1,
+              "testId": "first",
+              "tag": "BUTTON",
+              "connected": true,
+              "tabindex": "-1",
+              "metadata": {
+                "disabled": true,
+                "focusableWhenDisabled": true,
+                "owner": "outer",
+                "index": 0
+              }
+            },
+            {
+              "identity": 6,
+              "testId": "shared",
+              "tag": "SPAN",
+              "connected": true,
+              "tabindex": "-1",
+              "metadata": {
+                "disabled": true,
+                "focusableWhenDisabled": false,
+                "owner": "inner",
+                "revision": 3,
+                "index": 1
+              }
+            },
+            {
+              "identity": 3,
+              "testId": "last",
+              "tag": "BUTTON",
+              "connected": true,
+              "tabindex": "0",
+              "metadata": {
+                "disabled": true,
+                "focusableWhenDisabled": true,
+                "owner": "outer",
+                "index": 2
+              }
+            }
+          ],
+          "focus": {
+            "identity": 3,
+            "testId": "last",
+            "tag": "BUTTON"
+          },
+          "refs": "not-exposed-by-unchanged-fixture",
+          "original": {
+            "identity": 2,
+            "connected": false
+          },
+          "replacement": {
+            "identity": 5,
+            "connected": false
+          },
+          "span": {
+            "identity": 6,
+            "connected": true
+          },
+          "disabledIndices": [1],
+          "event": null
+        },
+        {
+          "index": 17,
+          "action": "SPAN: first.focus",
+          "map": [
+            {
+              "identity": 1,
+              "testId": "first",
+              "tag": "BUTTON",
+              "connected": true,
+              "tabindex": "0",
+              "metadata": {
+                "disabled": true,
+                "focusableWhenDisabled": true,
+                "owner": "outer",
+                "index": 0
+              }
+            },
+            {
+              "identity": 6,
+              "testId": "shared",
+              "tag": "SPAN",
+              "connected": true,
+              "tabindex": "-1",
+              "metadata": {
+                "disabled": true,
+                "focusableWhenDisabled": false,
+                "owner": "inner",
+                "revision": 3,
+                "index": 1
+              }
+            },
+            {
+              "identity": 3,
+              "testId": "last",
+              "tag": "BUTTON",
+              "connected": true,
+              "tabindex": "-1",
+              "metadata": {
+                "disabled": true,
+                "focusableWhenDisabled": true,
+                "owner": "outer",
+                "index": 2
+              }
+            }
+          ],
+          "focus": {
+            "identity": 1,
+            "testId": "first",
+            "tag": "BUTTON"
+          },
+          "refs": "not-exposed-by-unchanged-fixture",
+          "original": {
+            "identity": 2,
+            "connected": false
+          },
+          "replacement": {
+            "identity": 5,
+            "connected": false
+          },
+          "span": {
+            "identity": 6,
+            "connected": true
+          },
+          "disabledIndices": [1],
+          "event": null
+        },
+        {
+          "index": 18,
+          "action": "SPAN: ArrowRight",
+          "map": [
+            {
+              "identity": 1,
+              "testId": "first",
+              "tag": "BUTTON",
+              "connected": true,
+              "tabindex": "-1",
+              "metadata": {
+                "disabled": true,
+                "focusableWhenDisabled": true,
+                "owner": "outer",
+                "index": 0
+              }
+            },
+            {
+              "identity": 6,
+              "testId": "shared",
+              "tag": "SPAN",
+              "connected": true,
+              "tabindex": "-1",
+              "metadata": {
+                "disabled": true,
+                "focusableWhenDisabled": false,
+                "owner": "inner",
+                "revision": 3,
+                "index": 1
+              }
+            },
+            {
+              "identity": 3,
+              "testId": "last",
+              "tag": "BUTTON",
+              "connected": true,
+              "tabindex": "0",
+              "metadata": {
+                "disabled": true,
+                "focusableWhenDisabled": true,
+                "owner": "outer",
+                "index": 2
+              }
+            }
+          ],
+          "focus": {
+            "identity": 3,
+            "testId": "last",
+            "tag": "BUTTON"
+          },
+          "refs": "not-exposed-by-unchanged-fixture",
+          "original": {
+            "identity": 2,
+            "connected": false
+          },
+          "replacement": {
+            "identity": 5,
+            "connected": false
+          },
+          "span": {
+            "identity": 6,
+            "connected": true
+          },
+          "disabledIndices": [1],
+          "event": {
+            "defaultPrevented": true,
+            "cancelBubble": false
+          }
+        },
+        {
+          "index": 19,
+          "action": "unmount",
+          "map": [
+            {
+              "identity": 1,
+              "testId": "first",
+              "tag": "BUTTON",
+              "connected": false,
+              "tabindex": "-1",
+              "metadata": {
+                "disabled": true,
+                "focusableWhenDisabled": true,
+                "owner": "outer",
+                "index": 0
+              }
+            },
+            {
+              "identity": 6,
+              "testId": "shared",
+              "tag": "SPAN",
+              "connected": false,
+              "tabindex": "-1",
+              "metadata": {
+                "disabled": true,
+                "focusableWhenDisabled": false,
+                "owner": "inner",
+                "revision": 3,
+                "index": 1
+              }
+            },
+            {
+              "identity": 3,
+              "testId": "last",
+              "tag": "BUTTON",
+              "connected": false,
+              "tabindex": "0",
+              "metadata": {
+                "disabled": true,
+                "focusableWhenDisabled": true,
+                "owner": "outer",
+                "index": 2
+              }
+            }
+          ],
+          "focus": {
+            "identity": 4,
+            "testId": null,
+            "tag": "BODY"
+          },
+          "refs": "not-exposed-by-unchanged-fixture",
+          "original": {
+            "identity": 2,
+            "connected": false
+          },
+          "replacement": {
+            "identity": 5,
+            "connected": false
+          },
+          "span": {
+            "identity": 6,
+            "connected": false
+          },
+          "disabledIndices": [1],
+          "event": null
+        }
+      ]
+    },
+    {
+      "lane": "literal-plain-fixture-public-ref-bindings",
+      "phases": [
+        {
+          "index": 0,
+          "action": "initial",
+          "map": [
+            {
+              "identity": 1,
+              "testId": "first",
+              "tag": "BUTTON",
+              "connected": true,
+              "tabindex": "0",
+              "metadata": {
+                "disabled": true,
+                "focusableWhenDisabled": true,
+                "owner": "outer",
+                "index": 0
+              }
+            },
+            {
+              "identity": 2,
+              "testId": "shared",
+              "tag": "BUTTON",
+              "connected": true,
+              "tabindex": "-1",
+              "metadata": {
+                "disabled": true,
+                "focusableWhenDisabled": false,
+                "owner": "inner",
+                "revision": 0,
+                "index": 1
+              }
+            },
+            {
+              "identity": 3,
+              "testId": "last",
+              "tag": "BUTTON",
+              "connected": true,
+              "tabindex": "-1",
+              "metadata": {
+                "disabled": true,
+                "focusableWhenDisabled": true,
+                "owner": "outer",
+                "index": 2
+              }
+            }
+          ],
+          "focus": {
+            "identity": 4,
+            "testId": null,
+            "tag": "BODY"
+          },
+          "refs": {
+            "root": 5,
+            "first": 1,
+            "outer": 2,
+            "inner": 2,
+            "last": 3
+          },
+          "original": {
+            "identity": 2,
+            "connected": true
+          },
+          "replacement": {
+            "identity": null,
+            "connected": null
+          },
+          "span": {
+            "identity": null,
+            "connected": null
+          },
+          "disabledIndices": [1],
+          "event": null
+        },
+        {
+          "index": 1,
+          "action": "initial: first.focus",
+          "map": [
+            {
+              "identity": 1,
+              "testId": "first",
+              "tag": "BUTTON",
+              "connected": true,
+              "tabindex": "0",
+              "metadata": {
+                "disabled": true,
+                "focusableWhenDisabled": true,
+                "owner": "outer",
+                "index": 0
+              }
+            },
+            {
+              "identity": 2,
+              "testId": "shared",
+              "tag": "BUTTON",
+              "connected": true,
+              "tabindex": "-1",
+              "metadata": {
+                "disabled": true,
+                "focusableWhenDisabled": false,
+                "owner": "inner",
+                "revision": 0,
+                "index": 1
+              }
+            },
+            {
+              "identity": 3,
+              "testId": "last",
+              "tag": "BUTTON",
+              "connected": true,
+              "tabindex": "-1",
+              "metadata": {
+                "disabled": true,
+                "focusableWhenDisabled": true,
+                "owner": "outer",
+                "index": 2
+              }
+            }
+          ],
+          "focus": {
+            "identity": 1,
+            "testId": "first",
+            "tag": "BUTTON"
+          },
+          "refs": {
+            "root": 5,
+            "first": 1,
+            "outer": 2,
+            "inner": 2,
+            "last": 3
+          },
+          "original": {
+            "identity": 2,
+            "connected": true
+          },
+          "replacement": {
+            "identity": null,
+            "connected": null
+          },
+          "span": {
+            "identity": null,
+            "connected": null
+          },
+          "disabledIndices": [1],
+          "event": null
+        },
+        {
+          "index": 2,
+          "action": "initial: ArrowRight",
+          "map": [
+            {
+              "identity": 1,
+              "testId": "first",
+              "tag": "BUTTON",
+              "connected": true,
+              "tabindex": "-1",
+              "metadata": {
+                "disabled": true,
+                "focusableWhenDisabled": true,
+                "owner": "outer",
+                "index": 0
+              }
+            },
+            {
+              "identity": 2,
+              "testId": "shared",
+              "tag": "BUTTON",
+              "connected": true,
+              "tabindex": "-1",
+              "metadata": {
+                "disabled": true,
+                "focusableWhenDisabled": false,
+                "owner": "inner",
+                "revision": 0,
+                "index": 1
+              }
+            },
+            {
+              "identity": 3,
+              "testId": "last",
+              "tag": "BUTTON",
+              "connected": true,
+              "tabindex": "0",
+              "metadata": {
+                "disabled": true,
+                "focusableWhenDisabled": true,
+                "owner": "outer",
+                "index": 2
+              }
+            }
+          ],
+          "focus": {
+            "identity": 3,
+            "testId": "last",
+            "tag": "BUTTON"
+          },
+          "refs": {
+            "root": 5,
+            "first": 1,
+            "outer": 2,
+            "inner": 2,
+            "last": 3
+          },
+          "original": {
+            "identity": 2,
+            "connected": true
+          },
+          "replacement": {
+            "identity": null,
+            "connected": null
+          },
+          "span": {
+            "identity": null,
+            "connected": null
+          },
+          "disabledIndices": [1],
+          "event": {
+            "defaultPrevented": true,
+            "cancelBubble": false
+          }
+        },
+        {
+          "index": 3,
+          "action": "updateInner(1)",
+          "map": [
+            {
+              "identity": 1,
+              "testId": "first",
+              "tag": "BUTTON",
+              "connected": true,
+              "tabindex": "-1",
+              "metadata": {
+                "disabled": true,
+                "focusableWhenDisabled": true,
+                "owner": "outer",
+                "index": 0
+              }
+            },
+            {
+              "identity": 2,
+              "testId": "shared",
+              "tag": "BUTTON",
+              "connected": true,
+              "tabindex": "-1",
+              "metadata": {
+                "disabled": true,
+                "focusableWhenDisabled": false,
+                "owner": "inner",
+                "revision": 1,
+                "index": 1
+              }
+            },
+            {
+              "identity": 3,
+              "testId": "last",
+              "tag": "BUTTON",
+              "connected": true,
+              "tabindex": "0",
+              "metadata": {
+                "disabled": true,
+                "focusableWhenDisabled": true,
+                "owner": "outer",
+                "index": 2
+              }
+            }
+          ],
+          "focus": {
+            "identity": 3,
+            "testId": "last",
+            "tag": "BUTTON"
+          },
+          "refs": {
+            "root": 5,
+            "first": 1,
+            "outer": 2,
+            "inner": 2,
+            "last": 3
+          },
+          "original": {
+            "identity": 2,
+            "connected": true
+          },
+          "replacement": {
+            "identity": null,
+            "connected": null
+          },
+          "span": {
+            "identity": null,
+            "connected": null
+          },
+          "disabledIndices": [1],
+          "event": null
+        },
+        {
+          "index": 4,
+          "action": "updateInner(1): first.focus",
+          "map": [
+            {
+              "identity": 1,
+              "testId": "first",
+              "tag": "BUTTON",
+              "connected": true,
+              "tabindex": "0",
+              "metadata": {
+                "disabled": true,
+                "focusableWhenDisabled": true,
+                "owner": "outer",
+                "index": 0
+              }
+            },
+            {
+              "identity": 2,
+              "testId": "shared",
+              "tag": "BUTTON",
+              "connected": true,
+              "tabindex": "-1",
+              "metadata": {
+                "disabled": true,
+                "focusableWhenDisabled": false,
+                "owner": "inner",
+                "revision": 1,
+                "index": 1
+              }
+            },
+            {
+              "identity": 3,
+              "testId": "last",
+              "tag": "BUTTON",
+              "connected": true,
+              "tabindex": "-1",
+              "metadata": {
+                "disabled": true,
+                "focusableWhenDisabled": true,
+                "owner": "outer",
+                "index": 2
+              }
+            }
+          ],
+          "focus": {
+            "identity": 1,
+            "testId": "first",
+            "tag": "BUTTON"
+          },
+          "refs": {
+            "root": 5,
+            "first": 1,
+            "outer": 2,
+            "inner": 2,
+            "last": 3
+          },
+          "original": {
+            "identity": 2,
+            "connected": true
+          },
+          "replacement": {
+            "identity": null,
+            "connected": null
+          },
+          "span": {
+            "identity": null,
+            "connected": null
+          },
+          "disabledIndices": [1],
+          "event": null
+        },
+        {
+          "index": 5,
+          "action": "updateInner(1): ArrowRight",
+          "map": [
+            {
+              "identity": 1,
+              "testId": "first",
+              "tag": "BUTTON",
+              "connected": true,
+              "tabindex": "-1",
+              "metadata": {
+                "disabled": true,
+                "focusableWhenDisabled": true,
+                "owner": "outer",
+                "index": 0
+              }
+            },
+            {
+              "identity": 2,
+              "testId": "shared",
+              "tag": "BUTTON",
+              "connected": true,
+              "tabindex": "-1",
+              "metadata": {
+                "disabled": true,
+                "focusableWhenDisabled": false,
+                "owner": "inner",
+                "revision": 1,
+                "index": 1
+              }
+            },
+            {
+              "identity": 3,
+              "testId": "last",
+              "tag": "BUTTON",
+              "connected": true,
+              "tabindex": "0",
+              "metadata": {
+                "disabled": true,
+                "focusableWhenDisabled": true,
+                "owner": "outer",
+                "index": 2
+              }
+            }
+          ],
+          "focus": {
+            "identity": 3,
+            "testId": "last",
+            "tag": "BUTTON"
+          },
+          "refs": {
+            "root": 5,
+            "first": 1,
+            "outer": 2,
+            "inner": 2,
+            "last": 3
+          },
+          "original": {
+            "identity": 2,
+            "connected": true
+          },
+          "replacement": {
+            "identity": null,
+            "connected": null
+          },
+          "span": {
+            "identity": null,
+            "connected": null
+          },
+          "disabledIndices": [1],
+          "event": {
+            "defaultPrevented": true,
+            "cancelBubble": false
+          }
+        },
+        {
+          "index": 6,
+          "action": "updateInner(2)",
+          "map": [
+            {
+              "identity": 1,
+              "testId": "first",
+              "tag": "BUTTON",
+              "connected": true,
+              "tabindex": "-1",
+              "metadata": {
+                "disabled": true,
+                "focusableWhenDisabled": true,
+                "owner": "outer",
+                "index": 0
+              }
+            },
+            {
+              "identity": 2,
+              "testId": "shared",
+              "tag": "BUTTON",
+              "connected": true,
+              "tabindex": "-1",
+              "metadata": {
+                "disabled": true,
+                "focusableWhenDisabled": false,
+                "owner": "inner",
+                "revision": 2,
+                "index": 1
+              }
+            },
+            {
+              "identity": 3,
+              "testId": "last",
+              "tag": "BUTTON",
+              "connected": true,
+              "tabindex": "0",
+              "metadata": {
+                "disabled": true,
+                "focusableWhenDisabled": true,
+                "owner": "outer",
+                "index": 2
+              }
+            }
+          ],
+          "focus": {
+            "identity": 3,
+            "testId": "last",
+            "tag": "BUTTON"
+          },
+          "refs": {
+            "root": 5,
+            "first": 1,
+            "outer": 2,
+            "inner": 2,
+            "last": 3
+          },
+          "original": {
+            "identity": 2,
+            "connected": true
+          },
+          "replacement": {
+            "identity": null,
+            "connected": null
+          },
+          "span": {
+            "identity": null,
+            "connected": null
+          },
+          "disabledIndices": [1],
+          "event": null
+        },
+        {
+          "index": 7,
+          "action": "updateInner(2): first.focus",
+          "map": [
+            {
+              "identity": 1,
+              "testId": "first",
+              "tag": "BUTTON",
+              "connected": true,
+              "tabindex": "0",
+              "metadata": {
+                "disabled": true,
+                "focusableWhenDisabled": true,
+                "owner": "outer",
+                "index": 0
+              }
+            },
+            {
+              "identity": 2,
+              "testId": "shared",
+              "tag": "BUTTON",
+              "connected": true,
+              "tabindex": "-1",
+              "metadata": {
+                "disabled": true,
+                "focusableWhenDisabled": false,
+                "owner": "inner",
+                "revision": 2,
+                "index": 1
+              }
+            },
+            {
+              "identity": 3,
+              "testId": "last",
+              "tag": "BUTTON",
+              "connected": true,
+              "tabindex": "-1",
+              "metadata": {
+                "disabled": true,
+                "focusableWhenDisabled": true,
+                "owner": "outer",
+                "index": 2
+              }
+            }
+          ],
+          "focus": {
+            "identity": 1,
+            "testId": "first",
+            "tag": "BUTTON"
+          },
+          "refs": {
+            "root": 5,
+            "first": 1,
+            "outer": 2,
+            "inner": 2,
+            "last": 3
+          },
+          "original": {
+            "identity": 2,
+            "connected": true
+          },
+          "replacement": {
+            "identity": null,
+            "connected": null
+          },
+          "span": {
+            "identity": null,
+            "connected": null
+          },
+          "disabledIndices": [1],
+          "event": null
+        },
+        {
+          "index": 8,
+          "action": "updateInner(2): ArrowRight",
+          "map": [
+            {
+              "identity": 1,
+              "testId": "first",
+              "tag": "BUTTON",
+              "connected": true,
+              "tabindex": "-1",
+              "metadata": {
+                "disabled": true,
+                "focusableWhenDisabled": true,
+                "owner": "outer",
+                "index": 0
+              }
+            },
+            {
+              "identity": 2,
+              "testId": "shared",
+              "tag": "BUTTON",
+              "connected": true,
+              "tabindex": "-1",
+              "metadata": {
+                "disabled": true,
+                "focusableWhenDisabled": false,
+                "owner": "inner",
+                "revision": 2,
+                "index": 1
+              }
+            },
+            {
+              "identity": 3,
+              "testId": "last",
+              "tag": "BUTTON",
+              "connected": true,
+              "tabindex": "0",
+              "metadata": {
+                "disabled": true,
+                "focusableWhenDisabled": true,
+                "owner": "outer",
+                "index": 2
+              }
+            }
+          ],
+          "focus": {
+            "identity": 3,
+            "testId": "last",
+            "tag": "BUTTON"
+          },
+          "refs": {
+            "root": 5,
+            "first": 1,
+            "outer": 2,
+            "inner": 2,
+            "last": 3
+          },
+          "original": {
+            "identity": 2,
+            "connected": true
+          },
+          "replacement": {
+            "identity": null,
+            "connected": null
+          },
+          "span": {
+            "identity": null,
+            "connected": null
+          },
+          "disabledIndices": [1],
+          "event": {
+            "defaultPrevented": true,
+            "cancelBubble": false
+          }
+        },
+        {
+          "index": 9,
+          "action": "updateInner(3)",
+          "map": [
+            {
+              "identity": 1,
+              "testId": "first",
+              "tag": "BUTTON",
+              "connected": true,
+              "tabindex": "-1",
+              "metadata": {
+                "disabled": true,
+                "focusableWhenDisabled": true,
+                "owner": "outer",
+                "index": 0
+              }
+            },
+            {
+              "identity": 2,
+              "testId": "shared",
+              "tag": "BUTTON",
+              "connected": true,
+              "tabindex": "-1",
+              "metadata": {
+                "disabled": true,
+                "focusableWhenDisabled": false,
+                "owner": "inner",
+                "revision": 3,
+                "index": 1
+              }
+            },
+            {
+              "identity": 3,
+              "testId": "last",
+              "tag": "BUTTON",
+              "connected": true,
+              "tabindex": "0",
+              "metadata": {
+                "disabled": true,
+                "focusableWhenDisabled": true,
+                "owner": "outer",
+                "index": 2
+              }
+            }
+          ],
+          "focus": {
+            "identity": 3,
+            "testId": "last",
+            "tag": "BUTTON"
+          },
+          "refs": {
+            "root": 5,
+            "first": 1,
+            "outer": 2,
+            "inner": 2,
+            "last": 3
+          },
+          "original": {
+            "identity": 2,
+            "connected": true
+          },
+          "replacement": {
+            "identity": null,
+            "connected": null
+          },
+          "span": {
+            "identity": null,
+            "connected": null
+          },
+          "disabledIndices": [1],
+          "event": null
+        },
+        {
+          "index": 10,
+          "action": "updateInner(3): first.focus",
+          "map": [
+            {
+              "identity": 1,
+              "testId": "first",
+              "tag": "BUTTON",
+              "connected": true,
+              "tabindex": "0",
+              "metadata": {
+                "disabled": true,
+                "focusableWhenDisabled": true,
+                "owner": "outer",
+                "index": 0
+              }
+            },
+            {
+              "identity": 2,
+              "testId": "shared",
+              "tag": "BUTTON",
+              "connected": true,
+              "tabindex": "-1",
+              "metadata": {
+                "disabled": true,
+                "focusableWhenDisabled": false,
+                "owner": "inner",
+                "revision": 3,
+                "index": 1
+              }
+            },
+            {
+              "identity": 3,
+              "testId": "last",
+              "tag": "BUTTON",
+              "connected": true,
+              "tabindex": "-1",
+              "metadata": {
+                "disabled": true,
+                "focusableWhenDisabled": true,
+                "owner": "outer",
+                "index": 2
+              }
+            }
+          ],
+          "focus": {
+            "identity": 1,
+            "testId": "first",
+            "tag": "BUTTON"
+          },
+          "refs": {
+            "root": 5,
+            "first": 1,
+            "outer": 2,
+            "inner": 2,
+            "last": 3
+          },
+          "original": {
+            "identity": 2,
+            "connected": true
+          },
+          "replacement": {
+            "identity": null,
+            "connected": null
+          },
+          "span": {
+            "identity": null,
+            "connected": null
+          },
+          "disabledIndices": [1],
+          "event": null
+        },
+        {
+          "index": 11,
+          "action": "updateInner(3): ArrowRight",
+          "map": [
+            {
+              "identity": 1,
+              "testId": "first",
+              "tag": "BUTTON",
+              "connected": true,
+              "tabindex": "-1",
+              "metadata": {
+                "disabled": true,
+                "focusableWhenDisabled": true,
+                "owner": "outer",
+                "index": 0
+              }
+            },
+            {
+              "identity": 2,
+              "testId": "shared",
+              "tag": "BUTTON",
+              "connected": true,
+              "tabindex": "-1",
+              "metadata": {
+                "disabled": true,
+                "focusableWhenDisabled": false,
+                "owner": "inner",
+                "revision": 3,
+                "index": 1
+              }
+            },
+            {
+              "identity": 3,
+              "testId": "last",
+              "tag": "BUTTON",
+              "connected": true,
+              "tabindex": "0",
+              "metadata": {
+                "disabled": true,
+                "focusableWhenDisabled": true,
+                "owner": "outer",
+                "index": 2
+              }
+            }
+          ],
+          "focus": {
+            "identity": 3,
+            "testId": "last",
+            "tag": "BUTTON"
+          },
+          "refs": {
+            "root": 5,
+            "first": 1,
+            "outer": 2,
+            "inner": 2,
+            "last": 3
+          },
+          "original": {
+            "identity": 2,
+            "connected": true
+          },
+          "replacement": {
+            "identity": null,
+            "connected": null
+          },
+          "span": {
+            "identity": null,
+            "connected": null
+          },
+          "disabledIndices": [1],
+          "event": {
+            "defaultPrevented": true,
+            "cancelBubble": false
+          }
+        },
+        {
+          "index": 12,
+          "action": "setVisible(false)",
+          "map": [
+            {
+              "identity": 1,
+              "testId": "first",
+              "tag": "BUTTON",
+              "connected": true,
+              "tabindex": "-1",
+              "metadata": {
+                "disabled": true,
+                "focusableWhenDisabled": true,
+                "owner": "outer",
+                "index": 0
+              }
+            },
+            {
+              "identity": 3,
+              "testId": "last",
+              "tag": "BUTTON",
+              "connected": true,
+              "tabindex": "0",
+              "metadata": {
+                "disabled": true,
+                "focusableWhenDisabled": true,
+                "owner": "outer",
+                "index": 1
+              }
+            }
+          ],
+          "focus": {
+            "identity": 3,
+            "testId": "last",
+            "tag": "BUTTON"
+          },
+          "refs": {
+            "root": 5,
+            "first": 1,
+            "outer": null,
+            "inner": null,
+            "last": 3
+          },
+          "original": {
+            "identity": 2,
+            "connected": false
+          },
+          "replacement": {
+            "identity": null,
+            "connected": null
+          },
+          "span": {
+            "identity": null,
+            "connected": null
+          },
+          "disabledIndices": [],
+          "event": null
+        },
+        {
+          "index": 13,
+          "action": "setVisible(true)",
+          "map": [
+            {
+              "identity": 1,
+              "testId": "first",
+              "tag": "BUTTON",
+              "connected": true,
+              "tabindex": "-1",
+              "metadata": {
+                "disabled": true,
+                "focusableWhenDisabled": true,
+                "owner": "outer",
+                "index": 0
+              }
+            },
+            {
+              "identity": 6,
+              "testId": "shared",
+              "tag": "BUTTON",
+              "connected": true,
+              "tabindex": "-1",
+              "metadata": {
+                "disabled": true,
+                "focusableWhenDisabled": false,
+                "owner": "inner",
+                "revision": 3,
+                "index": 1
+              }
+            },
+            {
+              "identity": 3,
+              "testId": "last",
+              "tag": "BUTTON",
+              "connected": true,
+              "tabindex": "0",
+              "metadata": {
+                "disabled": true,
+                "focusableWhenDisabled": true,
+                "owner": "outer",
+                "index": 2
+              }
+            }
+          ],
+          "focus": {
+            "identity": 3,
+            "testId": "last",
+            "tag": "BUTTON"
+          },
+          "refs": {
+            "root": 5,
+            "first": 1,
+            "outer": 6,
+            "inner": 6,
+            "last": 3
+          },
+          "original": {
+            "identity": 2,
+            "connected": false
+          },
+          "replacement": {
+            "identity": 6,
+            "connected": true
+          },
+          "span": {
+            "identity": null,
+            "connected": null
+          },
+          "disabledIndices": [1],
+          "event": null
+        },
+        {
+          "index": 14,
+          "action": "reinserted: first.focus",
+          "map": [
+            {
+              "identity": 1,
+              "testId": "first",
+              "tag": "BUTTON",
+              "connected": true,
+              "tabindex": "0",
+              "metadata": {
+                "disabled": true,
+                "focusableWhenDisabled": true,
+                "owner": "outer",
+                "index": 0
+              }
+            },
+            {
+              "identity": 6,
+              "testId": "shared",
+              "tag": "BUTTON",
+              "connected": true,
+              "tabindex": "-1",
+              "metadata": {
+                "disabled": true,
+                "focusableWhenDisabled": false,
+                "owner": "inner",
+                "revision": 3,
+                "index": 1
+              }
+            },
+            {
+              "identity": 3,
+              "testId": "last",
+              "tag": "BUTTON",
+              "connected": true,
+              "tabindex": "-1",
+              "metadata": {
+                "disabled": true,
+                "focusableWhenDisabled": true,
+                "owner": "outer",
+                "index": 2
+              }
+            }
+          ],
+          "focus": {
+            "identity": 1,
+            "testId": "first",
+            "tag": "BUTTON"
+          },
+          "refs": {
+            "root": 5,
+            "first": 1,
+            "outer": 6,
+            "inner": 6,
+            "last": 3
+          },
+          "original": {
+            "identity": 2,
+            "connected": false
+          },
+          "replacement": {
+            "identity": 6,
+            "connected": true
+          },
+          "span": {
+            "identity": null,
+            "connected": null
+          },
+          "disabledIndices": [1],
+          "event": null
+        },
+        {
+          "index": 15,
+          "action": "reinserted: ArrowRight",
+          "map": [
+            {
+              "identity": 1,
+              "testId": "first",
+              "tag": "BUTTON",
+              "connected": true,
+              "tabindex": "-1",
+              "metadata": {
+                "disabled": true,
+                "focusableWhenDisabled": true,
+                "owner": "outer",
+                "index": 0
+              }
+            },
+            {
+              "identity": 6,
+              "testId": "shared",
+              "tag": "BUTTON",
+              "connected": true,
+              "tabindex": "-1",
+              "metadata": {
+                "disabled": true,
+                "focusableWhenDisabled": false,
+                "owner": "inner",
+                "revision": 3,
+                "index": 1
+              }
+            },
+            {
+              "identity": 3,
+              "testId": "last",
+              "tag": "BUTTON",
+              "connected": true,
+              "tabindex": "0",
+              "metadata": {
+                "disabled": true,
+                "focusableWhenDisabled": true,
+                "owner": "outer",
+                "index": 2
+              }
+            }
+          ],
+          "focus": {
+            "identity": 3,
+            "testId": "last",
+            "tag": "BUTTON"
+          },
+          "refs": {
+            "root": 5,
+            "first": 1,
+            "outer": 6,
+            "inner": 6,
+            "last": 3
+          },
+          "original": {
+            "identity": 2,
+            "connected": false
+          },
+          "replacement": {
+            "identity": 6,
+            "connected": true
+          },
+          "span": {
+            "identity": null,
+            "connected": null
+          },
+          "disabledIndices": [1],
+          "event": {
+            "defaultPrevented": true,
+            "cancelBubble": false
+          }
+        },
+        {
+          "index": 16,
+          "action": "replaceHost()",
+          "map": [
+            {
+              "identity": 1,
+              "testId": "first",
+              "tag": "BUTTON",
+              "connected": true,
+              "tabindex": "-1",
+              "metadata": {
+                "disabled": true,
+                "focusableWhenDisabled": true,
+                "owner": "outer",
+                "index": 0
+              }
+            },
+            {
+              "identity": 7,
+              "testId": "shared",
+              "tag": "SPAN",
+              "connected": true,
+              "tabindex": "-1",
+              "metadata": {
+                "disabled": true,
+                "focusableWhenDisabled": false,
+                "owner": "inner",
+                "revision": 3,
+                "index": 1
+              }
+            },
+            {
+              "identity": 3,
+              "testId": "last",
+              "tag": "BUTTON",
+              "connected": true,
+              "tabindex": "0",
+              "metadata": {
+                "disabled": true,
+                "focusableWhenDisabled": true,
+                "owner": "outer",
+                "index": 2
+              }
+            }
+          ],
+          "focus": {
+            "identity": 3,
+            "testId": "last",
+            "tag": "BUTTON"
+          },
+          "refs": {
+            "root": 5,
+            "first": 1,
+            "outer": 7,
+            "inner": 7,
+            "last": 3
+          },
+          "original": {
+            "identity": 2,
+            "connected": false
+          },
+          "replacement": {
+            "identity": 6,
+            "connected": false
+          },
+          "span": {
+            "identity": 7,
+            "connected": true
+          },
+          "disabledIndices": [1],
+          "event": null
+        },
+        {
+          "index": 17,
+          "action": "SPAN: first.focus",
+          "map": [
+            {
+              "identity": 1,
+              "testId": "first",
+              "tag": "BUTTON",
+              "connected": true,
+              "tabindex": "0",
+              "metadata": {
+                "disabled": true,
+                "focusableWhenDisabled": true,
+                "owner": "outer",
+                "index": 0
+              }
+            },
+            {
+              "identity": 7,
+              "testId": "shared",
+              "tag": "SPAN",
+              "connected": true,
+              "tabindex": "-1",
+              "metadata": {
+                "disabled": true,
+                "focusableWhenDisabled": false,
+                "owner": "inner",
+                "revision": 3,
+                "index": 1
+              }
+            },
+            {
+              "identity": 3,
+              "testId": "last",
+              "tag": "BUTTON",
+              "connected": true,
+              "tabindex": "-1",
+              "metadata": {
+                "disabled": true,
+                "focusableWhenDisabled": true,
+                "owner": "outer",
+                "index": 2
+              }
+            }
+          ],
+          "focus": {
+            "identity": 1,
+            "testId": "first",
+            "tag": "BUTTON"
+          },
+          "refs": {
+            "root": 5,
+            "first": 1,
+            "outer": 7,
+            "inner": 7,
+            "last": 3
+          },
+          "original": {
+            "identity": 2,
+            "connected": false
+          },
+          "replacement": {
+            "identity": 6,
+            "connected": false
+          },
+          "span": {
+            "identity": 7,
+            "connected": true
+          },
+          "disabledIndices": [1],
+          "event": null
+        },
+        {
+          "index": 18,
+          "action": "SPAN: ArrowRight",
+          "map": [
+            {
+              "identity": 1,
+              "testId": "first",
+              "tag": "BUTTON",
+              "connected": true,
+              "tabindex": "-1",
+              "metadata": {
+                "disabled": true,
+                "focusableWhenDisabled": true,
+                "owner": "outer",
+                "index": 0
+              }
+            },
+            {
+              "identity": 7,
+              "testId": "shared",
+              "tag": "SPAN",
+              "connected": true,
+              "tabindex": "-1",
+              "metadata": {
+                "disabled": true,
+                "focusableWhenDisabled": false,
+                "owner": "inner",
+                "revision": 3,
+                "index": 1
+              }
+            },
+            {
+              "identity": 3,
+              "testId": "last",
+              "tag": "BUTTON",
+              "connected": true,
+              "tabindex": "0",
+              "metadata": {
+                "disabled": true,
+                "focusableWhenDisabled": true,
+                "owner": "outer",
+                "index": 2
+              }
+            }
+          ],
+          "focus": {
+            "identity": 3,
+            "testId": "last",
+            "tag": "BUTTON"
+          },
+          "refs": {
+            "root": 5,
+            "first": 1,
+            "outer": 7,
+            "inner": 7,
+            "last": 3
+          },
+          "original": {
+            "identity": 2,
+            "connected": false
+          },
+          "replacement": {
+            "identity": 6,
+            "connected": false
+          },
+          "span": {
+            "identity": 7,
+            "connected": true
+          },
+          "disabledIndices": [1],
+          "event": {
+            "defaultPrevented": true,
+            "cancelBubble": false
+          }
+        },
+        {
+          "index": 19,
+          "action": "unmount",
+          "map": [
+            {
+              "identity": 1,
+              "testId": "first",
+              "tag": "BUTTON",
+              "connected": false,
+              "tabindex": "-1",
+              "metadata": {
+                "disabled": true,
+                "focusableWhenDisabled": true,
+                "owner": "outer",
+                "index": 0
+              }
+            },
+            {
+              "identity": 7,
+              "testId": "shared",
+              "tag": "SPAN",
+              "connected": false,
+              "tabindex": "-1",
+              "metadata": {
+                "disabled": true,
+                "focusableWhenDisabled": false,
+                "owner": "inner",
+                "revision": 3,
+                "index": 1
+              }
+            },
+            {
+              "identity": 3,
+              "testId": "last",
+              "tag": "BUTTON",
+              "connected": false,
+              "tabindex": "0",
+              "metadata": {
+                "disabled": true,
+                "focusableWhenDisabled": true,
+                "owner": "outer",
+                "index": 2
+              }
+            }
+          ],
+          "focus": {
+            "identity": 4,
+            "testId": null,
+            "tag": "BODY"
+          },
+          "refs": {
+            "root": null,
+            "first": null,
+            "outer": null,
+            "inner": null,
+            "last": null
+          },
+          "original": {
+            "identity": 2,
+            "connected": false
+          },
+          "replacement": {
+            "identity": 6,
+            "connected": false
+          },
+          "span": {
+            "identity": 7,
+            "connected": false
+          },
+          "disabledIndices": [1],
+          "event": null
+        }
+      ]
+    }
+  ],
+  "literalLifetime": {
+    "provenance": {
+      "sourceBaselineHead": "9401429484f56c52dc2f47a9c7c50bfe654329eb",
+      "executionHead": "Recorded separately by the sole validation owner; not inferred from this source baseline",
+      "control": "two native attachment symbols forwarded through a snippet to one bound literal host",
+      "compositeRegistrationSimulation": false,
+      "expectedEventVector": "none; direct native attachment measurement only"
+    },
+    "phases": [
+      {
+        "action": "initial",
+        "shared": 1,
+        "tag": "BUTTON",
+        "refs": {
+          "outer": 1,
+          "inner": 1,
+          "boundHost": 1
+        },
+        "eventCount": 2,
+        "hostHTML": "<!----><!----><button type=\"button\" data-testid=\"shared\">Shared</button>"
+      },
+      {
+        "action": "updateInner(1)",
+        "shared": 1,
+        "tag": "BUTTON",
+        "refs": {
+          "outer": 1,
+          "inner": 1,
+          "boundHost": 1
+        },
+        "eventCount": 4,
+        "hostHTML": "<!----><!----><button type=\"button\" data-testid=\"shared\">Shared</button>"
+      },
+      {
+        "action": "updateInner(2)",
+        "shared": 1,
+        "tag": "BUTTON",
+        "refs": {
+          "outer": 1,
+          "inner": 1,
+          "boundHost": 1
+        },
+        "eventCount": 6,
+        "hostHTML": "<!----><!----><button type=\"button\" data-testid=\"shared\">Shared</button>"
+      },
+      {
+        "action": "updateInner(3)",
+        "shared": 1,
+        "tag": "BUTTON",
+        "refs": {
+          "outer": 1,
+          "inner": 1,
+          "boundHost": 1
+        },
+        "eventCount": 8,
+        "hostHTML": "<!----><!----><button type=\"button\" data-testid=\"shared\">Shared</button>"
+      },
+      {
+        "action": "setVisible(false)",
+        "shared": null,
+        "tag": null,
+        "refs": {
+          "outer": null,
+          "inner": null,
+          "boundHost": null
+        },
+        "eventCount": 10,
+        "hostHTML": "<!---->"
+      },
+      {
+        "action": "setVisible(true)",
+        "shared": 2,
+        "tag": "BUTTON",
+        "refs": {
+          "outer": 2,
+          "inner": 2,
+          "boundHost": 2
+        },
+        "eventCount": 12,
+        "hostHTML": "<!----><!----><button type=\"button\" data-testid=\"shared\">Shared</button>"
+      },
+      {
+        "action": "replaceHost()",
+        "shared": 3,
+        "tag": "SPAN",
+        "refs": {
+          "outer": 3,
+          "inner": 3,
+          "boundHost": 3
+        },
+        "eventCount": 16,
+        "hostHTML": "<!----><!----><span data-testid=\"shared\">Shared</span>"
+      },
+      {
+        "action": "unmount",
+        "shared": null,
+        "tag": null,
+        "refs": {
+          "outer": null,
+          "inner": null,
+          "boundHost": null
+        },
+        "eventCount": 18,
+        "hostHTML": ""
+      }
+    ],
+    "events": [
+      {
+        "owner": "inner",
+        "kind": "attach",
+        "revision": 0,
+        "identity": 1,
+        "tag": "BUTTON",
+        "connected": true
+      },
+      {
+        "owner": "outer",
+        "kind": "attach",
+        "identity": 1,
+        "tag": "BUTTON",
+        "connected": true
+      },
+      {
+        "owner": "inner",
+        "kind": "cleanup",
+        "revision": 0,
+        "identity": 1,
+        "tag": "BUTTON",
+        "connected": true
+      },
+      {
+        "owner": "inner",
+        "kind": "attach",
+        "revision": 1,
+        "identity": 1,
+        "tag": "BUTTON",
+        "connected": true
+      },
+      {
+        "owner": "inner",
+        "kind": "cleanup",
+        "revision": 1,
+        "identity": 1,
+        "tag": "BUTTON",
+        "connected": true
+      },
+      {
+        "owner": "inner",
+        "kind": "attach",
+        "revision": 2,
+        "identity": 1,
+        "tag": "BUTTON",
+        "connected": true
+      },
+      {
+        "owner": "inner",
+        "kind": "cleanup",
+        "revision": 2,
+        "identity": 1,
+        "tag": "BUTTON",
+        "connected": true
+      },
+      {
+        "owner": "inner",
+        "kind": "attach",
+        "revision": 3,
+        "identity": 1,
+        "tag": "BUTTON",
+        "connected": true
+      },
+      {
+        "owner": "inner",
+        "kind": "cleanup",
+        "revision": 3,
+        "identity": 1,
+        "tag": "BUTTON",
+        "connected": false
+      },
+      {
+        "owner": "outer",
+        "kind": "cleanup",
+        "identity": 1,
+        "tag": "BUTTON",
+        "connected": false
+      },
+      {
+        "owner": "inner",
+        "kind": "attach",
+        "revision": 3,
+        "identity": 2,
+        "tag": "BUTTON",
+        "connected": true
+      },
+      {
+        "owner": "outer",
+        "kind": "attach",
+        "identity": 2,
+        "tag": "BUTTON",
+        "connected": true
+      },
+      {
+        "owner": "inner",
+        "kind": "cleanup",
+        "revision": 3,
+        "identity": 2,
+        "tag": "BUTTON",
+        "connected": false
+      },
+      {
+        "owner": "outer",
+        "kind": "cleanup",
+        "identity": 2,
+        "tag": "BUTTON",
+        "connected": false
+      },
+      {
+        "owner": "inner",
+        "kind": "attach",
+        "revision": 3,
+        "identity": 3,
+        "tag": "SPAN",
+        "connected": true
+      },
+      {
+        "owner": "outer",
+        "kind": "attach",
+        "identity": 3,
+        "tag": "SPAN",
+        "connected": true
+      },
+      {
+        "owner": "inner",
+        "kind": "cleanup",
+        "revision": 3,
+        "identity": 3,
+        "tag": "SPAN",
+        "connected": false
+      },
+      {
+        "owner": "outer",
+        "kind": "cleanup",
+        "identity": 3,
+        "tag": "SPAN",
+        "connected": false
+      }
+    ]
+  },
+  "durableAssignment": {
+    "test": "packages/base/tests/dom/composite-nested-source.test.ts",
+    "unchangedFixture": "packages/base/tests/dom/CompositeNestedFixture.svelte",
+    "publicRefFixture": "packages/base/tests/dom/NativePlainCompositeRefs.svelte",
+    "nativeCases": "Two real lanes share exact measured actions. Every native registry node/ref uses identity assertions; metadata/roving/physical replacement/removal/explicit disposal remain business assertions. Literal control is evidence only and adds no product case.",
+    "assertionProvenance": "Real-lane phases0-19 independently assign all new native expectations; native literal eight phases/eighteen events explain lifetime only. React source title/actions/assertions retain original assignment.",
+    "runtimeChanges": false,
+    "candidateExecuted": false,
+    "unchangedOriginalCredit": 0
+  }
+}

@@ -1,0 +1,72 @@
+{
+  "checkpoint": "39f1331918c7574e55ac18bd06bd50845f183e01",
+  "ordinaryDeclarationCredit": 0,
+  "scope": "Exact complete pre-integration projections; Original Source, assertion and historical receipt evidence stays immutable. These archives grant no native successor acceptance.",
+  "files": [
+    {
+      "predecessorPath": "parity/button/source-graph.json",
+      "archive": "parity/native-framework/historical/integration-39f13319/parity/button/source-graph.json",
+      "sha256": "c1b1841ae3e5e99c8725151031b1418e3e555b1d95be1924707f17c16327ef36"
+    },
+    {
+      "predecessorPath": "parity/use-render/source-graph.json",
+      "archive": "parity/native-framework/historical/integration-39f13319/parity/use-render/source-graph.json",
+      "sha256": "815c365e26d74f9c82f6052606f0c4ecc268d4af0404ae2a65348a455af7ba1f"
+    },
+    {
+      "predecessorPath": "parity/rendering/source-graph.json",
+      "archive": "parity/native-framework/historical/integration-39f13319/parity/rendering/source-graph.json",
+      "sha256": "fbfe57ff871636b49dd30883bcf21fa319538c2117884ac18a056892babadf18"
+    },
+    {
+      "predecessorPath": "parity/menu-family/native-closure.json",
+      "archive": "parity/native-framework/historical/integration-39f13319/parity/menu-family/native-closure.json",
+      "sha256": "49780a75e4caf2afd56e8d209a0265b9fb4ff0eb6f4f902afa3a6f86384871ff"
+    },
+    {
+      "predecessorPath": "parity/menu-family/source-correspondence.json",
+      "archive": "parity/native-framework/historical/integration-39f13319/parity/menu-family/source-correspondence.json",
+      "sha256": "d75da4c566d43134a62a87d6a160a070c9f598f45af5cf98914e5f56dd1056f6"
+    },
+    {
+      "predecessorPath": "parity/toggle-toolbar/native-closure.json",
+      "archive": "parity/native-framework/historical/integration-39f13319/parity/toggle-toolbar/native-closure.json",
+      "sha256": "a7c2b0d7a9275b00e4b17b4787e008d3a328a61e2cf61f9b57bf294929a60edd"
+    },
+    {
+      "predecessorPath": "parity/toggle-toolbar/source-correspondence.json",
+      "archive": "parity/native-framework/historical/integration-39f13319/parity/toggle-toolbar/source-correspondence.json",
+      "sha256": "634383adab397ffc77c10bb392b73366443688c976dd1de3d0f279c01edb8ad9"
+    },
+    {
+      "predecessorPath": "parity/shared-utils/source-graph.json",
+      "archive": "parity/native-framework/historical/integration-39f13319/parity/shared-utils/source-graph.json",
+      "sha256": "df6424a5329630e2148f1c3cb84e4a3df2b7e9faa48049ffe0321e0d008d45c4"
+    },
+    {
+      "predecessorPath": "parity/boolean-controls/source-correspondence.json",
+      "archive": "parity/native-framework/historical/integration-39f13319/parity/boolean-controls/source-correspondence.json",
+      "sha256": "3a99ea8ad4eaa0007d404c25e6f63a25ca3ad3b822c993dcc0ee698bf818fa60"
+    },
+    {
+      "predecessorPath": "parity/dialog/source-correspondence.json",
+      "archive": "parity/native-framework/historical/integration-39f13319/parity/dialog/source-correspondence.json",
+      "sha256": "2afc1d514e3dd5269619808f6cf5f1c114fc242f2337838d6b03c25469a29478"
+    },
+    {
+      "predecessorPath": "parity/field-form/source-correspondence.json",
+      "archive": "parity/native-framework/historical/integration-39f13319/parity/field-form/source-correspondence.json",
+      "sha256": "5354200f9391197f1de232cef27455c9598f37827086cd191f32907f8dce3a38"
+    },
+    {
+      "predecessorPath": "parity/radio/source-correspondence.json",
+      "archive": "parity/native-framework/historical/integration-39f13319/parity/radio/source-correspondence.json",
+      "sha256": "c2baaca82fa5284cc13b4ed411ffcf7e92051bc3929066afefc8d4fa9b7fa969"
+    },
+    {
+      "predecessorPath": "parity/scroll-area/correspondence.json",
+      "archive": "parity/native-framework/historical/integration-39f13319/parity/scroll-area/correspondence.json",
+      "sha256": "f66bd4ae8d5c742a051482ed59170141b1d884c84b6e0539a6869157d89baaa1"
+    }
+  ]
+}

@@ -2,14 +2,23 @@
   import { Form, Radio, RadioGroup, Switch } from '@sveltery/base';
   import { createAttachmentKey, type Attachment } from 'svelte/attachments';
   import type { RemoteForm } from '@sveltejs/kit';
-  let { remote, host = 'span' }: {
+  let {
+    remote,
+    host = 'span',
+  }: {
     remote: RemoteForm<{ enabled: boolean; choice: string }, unknown>;
     host?: string;
   } = $props();
   const key = createAttachmentKey();
-  const attachSpan: Attachment<HTMLSpanElement> = (node) => { node.dataset.consumer = 'span'; };
-  const attachDiv: Attachment<HTMLDivElement> = (node) => { node.dataset.consumer = 'div'; };
-  const attachHost: Attachment<HTMLElement> = (node) => { node.dataset.consumer = node.localName; };
+  const attachSpan: Attachment<HTMLSpanElement> = (node) => {
+    node.dataset.consumer = 'span';
+  };
+  const attachDiv: Attachment<HTMLDivElement> = (node) => {
+    node.dataset.consumer = 'div';
+  };
+  const attachHost: Attachment<HTMLElement> = (node) => {
+    node.dataset.consumer = node.localName;
+  };
   const hostAttachment = { [key]: attachHost };
 </script>
 
@@ -38,7 +47,12 @@
               {:else if host === 'div'}
                 <div {...native} {...{ [key]: attachDiv }} data-checked={state.checked}></div>
               {:else}
-                <svelte:element this={host} {...native} {...hostAttachment} data-checked={state.checked} />
+                <svelte:element
+                  this={host}
+                  {...native}
+                  {...hostAttachment}
+                  data-checked={state.checked}
+                />
               {/if}
             {/snippet}
           </Switch.Root>
@@ -56,7 +70,12 @@
                 {:else if host === 'div'}
                   <div {...native} {...{ [key]: attachDiv }} data-checked={state.checked}></div>
                 {:else}
-                  <svelte:element this={host} {...native} {...hostAttachment} data-checked={state.checked} />
+                  <svelte:element
+                    this={host}
+                    {...native}
+                    {...hostAttachment}
+                    data-checked={state.checked}
+                  />
                 {/if}
               {/snippet}
             </Radio.Root>

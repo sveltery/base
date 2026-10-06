@@ -1,0 +1,50 @@
+{
+  "predecessor": "42c04c5c4fb1d8a698435fee40e1d2bcb41d30e7",
+  "pin": "47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c",
+  "original": [
+    {
+      "path": "packages/react/src/floating-ui-react/components/FloatingFocusManager.tsx",
+      "archive": "parity/native-snippets/focus-source-original/packages/react/src/floating-ui-react/components/FloatingFocusManager.tsx",
+      "sha256": "6ecb04f1ed908009718134b26fa2aa48eaf723010a65c4d541c5674290d47933"
+    },
+    {
+      "path": "packages/utils/src/useValueAsRef.ts",
+      "archive": "parity/native-snippets/focus-source-original/packages/utils/src/useValueAsRef.ts",
+      "sha256": "ad85f215ea605641c7f579a0dd50841427a01c7412eee127b34c51318e744777"
+    }
+  ],
+  "runtime": "packages/base/src/lib/floating-ui/components/createFloatingFocusManager.svelte.ts",
+  "runtimeSha256": "2bf134f5537129302dfa11bcde005471119ac9b845977c936c126709880f1e27",
+  "ordinaryDeclarationCredit": 0,
+  "status": "Root-authorized minimal native Source candidate; repaired runtime unexecuted, independent exact-head Source and runtime disposition pending.",
+  "business": "Read the opening-method metadata through native untrack only when capturing this installed return-focus owner's fallback priority. Later metadata reset must not dispose the owner. Actual floating node, disabled and installed event bus remain resource inputs; latest returnFocus callback reads, physical-unmount cleanup, fallback ordering, guards and cancellations remain unchanged.",
+  "completeBodyDelta": "Exact predecessor body with only the native untrack import, one explanatory comment and the captured preferPreviousFocus expression changed.",
+  "diagnosis": {
+    "archive": "parity/native-snippets/historical/focus-42c04c5c/diagnosis.md",
+    "sha256": "a39963bc0bd6c021871e0a9a4fa8ed1ebe64ed32fbc99415ce59f3f992f8bf26",
+    "hashPacketSha256": "c5073a5b1c84f7a3cca01e4c1880a9e60b945a920f8541ae3640c00b5ece4eb9",
+    "scope": "Whole-body pinned/current ownership diagnosis; Source-supported candidate, no runtime acceptance."
+  },
+  "witnesses": [
+    {
+      "path": "packages/base/tests/dom/dialog-source-business.test.ts",
+      "sha256": "d1c0b950884da90f1ae621c6df9fecfa4a914a882a9cbd1e1d2e4cf4dde34037",
+      "predecessor": "42c04c5c4fb1d8a698435fee40e1d2bcb41d30e7",
+      "bodyUnchanged": true
+    },
+    {
+      "path": "packages/base/tests/dom/dialog-source-public-fixture.test.ts",
+      "sha256": "e78478a7fc139dada021a3784700bed60c1a7c66045277c29c55156b7499d11f",
+      "predecessor": "42c04c5c4fb1d8a698435fee40e1d2bcb41d30e7",
+      "bodyUnchanged": true
+    },
+    {
+      "path": "packages/base/tests/dom/menu-family-retained-focus-matrix.test.ts",
+      "sha256": "b71af495e52f872252471e2a4facd089de10ff12c0afd4f798b89d26f7272473",
+      "predecessor": "42c04c5c4fb1d8a698435fee40e1d2bcb41d30e7",
+      "bodyUnchanged": true
+    }
+  ],
+  "beforeExecution": "Root reported three actual Dialog focus failures reproduced on acceptance90fab1b5, whose runtime matched predecessor42. Menu execution stalled and was interrupted; no completed six-case or eleven-new-case result is claimed here.",
+  "execution": "Candidate unexecuted. Root coordinates isolated existing Dialog three business plus two public deferred/remount cases through the acceptance owner after Source review. Menu registration feedback is a separate pending diagnosis/edit lease. Parser/hash/formatter evidence gives no behavior or pass credit."
+}

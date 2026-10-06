@@ -5,6 +5,7 @@
   import type { FieldRootProps } from './types.js';
   let { ref = $bindable(), ...componentProps }: FieldRootProps = $props();
 </script>
+
 <LabelableProvider>
   <FieldRootInner {...componentProps} bind:ref />
 </LabelableProvider>

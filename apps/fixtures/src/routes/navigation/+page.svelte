@@ -9,9 +9,18 @@
     let disposed = false;
     let cleanup: (() => void) | undefined;
     void import('../../lib/navigation-reference.js').then(({ mountNavigationReference }) => {
-      if (!disposed) cleanup = mountNavigationReference(node, data.scenario, data.direction, data.orientation);
+      if (!disposed)
+        cleanup = mountNavigationReference(node, data.scenario, data.direction, data.orientation);
     });
-    return () => { disposed = true; cleanup?.(); };
+    return () => {
+      disposed = true;
+      cleanup?.();
+    };
   });
 </script>
-{#if data.reference}<section bind:this={host}></section>{:else}<Fixture scenario={data.scenario} direction={data.direction} orientation={data.orientation} />{/if}
+
+{#if data.reference}<section bind:this={host}></section>{:else}<Fixture
+    scenario={data.scenario}
+    direction={data.direction}
+    orientation={data.orientation}
+  />{/if}
