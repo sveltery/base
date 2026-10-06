@@ -10,17 +10,19 @@
   "bindingCommentAstPreservedBodies": 496,
   "initialFocusPredecessor": "ec36fc9cc5a8819260c2c6635e0a128acd563d4a",
   "initialFocusAstPreservedBodies": 495,
+  "popoverSlotPredecessor": "0ba754026de455a9647c32dde29b024924150cc2",
+  "popoverSlotAstPreservedBodies": 495,
   "immutableOriginalPin": "47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c",
   "ordinaryDeclarationCredit": 0,
   "mode": "Source/parser/hash/import evidence only; no type program, runtime, SSR/hydration, compiled markup, artifact, installed consumer, browser, CI or merge acceptance credit.",
-  "method": "Complete current native two-package AST closure, immutable f0 full-body preimages and grouping-preserving script ASTs. Deliberate source/native owner corrections remain separate from formatter presentation changes. Getter/label publication retain exact inherited bodies; full-body Menu cleanup deltas bind e5, captured focus metadata binds42, trigger publication bindsf2, and native ownership comments bind336 with its AST unchanged. The five native node/initial-seed/focus-out disposal owner deltas bindc392 while all earlier stages/history remain distinct. The subsequent 32 obsolete binding directives and one RadioGroup output-binding annotation bind 0d with all 496 complete bodies otherwise unchanged and every script AST identical. The next native initial-focus destroyed-owner predicate and adjacent timing comment bind ec36 as one complete Source-body delta; all other 495 current bodies/ASTs stay exact. This native owner adaptation earns zero unchanged Original credit. Parse success supplies no behavior equivalence.",
+  "method": "Complete current native two-package AST closure, immutable f0 full-body preimages and grouping-preserving script ASTs. Deliberate source/native owner corrections remain separate from formatter presentation changes. Getter/label publication retain exact inherited bodies; full-body Menu cleanup deltas bind e5, captured focus metadata binds42, trigger publication bindsf2, and native ownership comments bind336 with its AST unchanged. The five native node/initial-seed/focus-out disposal owner deltas bindc392 while all earlier stages/history remain distinct. The subsequent 32 obsolete binding directives and one RadioGroup output-binding annotation bind 0d with all 496 complete bodies otherwise unchanged and every script AST identical. The next native initial-focus destroyed-owner predicate and adjacent timing comment bind ec36 as one complete Source-body delta; all other 495 current bodies/ASTs stay exact. This native owner adaptation earns zero unchanged Original credit. The subsequent real Popover trigger focus-target node property binds 0ba as one complete Source-body delta with 495 other current bodies/ASTs exact; earlier stages retain their own immutable preservation counts. Parse success supplies no behavior equivalence.",
   "parserVersions": {
     "TypeScript": "6.0.3",
     "Svelte": "5.57.1"
   },
-  "currentGraphSha256": "8dadabe78bd8005d00956cfdbcb6ae0a1d17599d2efec9aa6f2a3d28211f8f6a",
-  "currentPublicHostGraphSha256": "985fd3ec5a8daf36ecdc4e44f747eed1c1fdf80cd7f19fc632fdab978fee6ac8",
-  "proofToolSha256": "4dc002c9fbf4e1db94c2d7b25b22152f4ea641898dc0837b5ace5e1f18ab405d",
+  "currentGraphSha256": "5244840cff0b9344e531248b4332e9140cf0eea7f2df41ed3703b85c07772c74",
+  "currentPublicHostGraphSha256": "c3e1bf6d5feeb650f7f47377395ce3968a07ab95aaeb61d2eb4545fc33d92d97",
+  "proofToolSha256": "84396a765cf151abc023b57becd3f691befe0bdcd786b20613d9dfc23d93cb07",
   "controlledOwners": 11,
   "effectCalls": 187,
   "sourceBusinessCorrectionPaths": [
@@ -32,6 +34,7 @@
     "packages/base/src/lib/menu/positioner/createMenuPositioner.svelte.ts",
     "packages/base/src/lib/menu/root/createMenuRoot.svelte.ts",
     "packages/base/src/lib/menu/trigger/createMenuTrigger.svelte.ts",
+    "packages/base/src/lib/popover/store/PopoverStore.svelte.ts",
     "packages/base/src/lib/utils/popups/popupStoreUtils.svelte.ts",
     "packages/base/src/lib/utils/popups/useTriggerFocusGuards.svelte.ts",
     "packages/base/src/lib/utils/useRegisteredLabelId.svelte.ts",
@@ -3539,10 +3542,27 @@
     {
       "path": "packages/base/src/lib/popover/store/PopoverStore.svelte.ts",
       "rendererSha256": "e2d1bf31c2183d8bbb8b68455557bfe80c9a625ce7302e8535ad1a50ac98751f",
-      "currentSha256": "e2d1bf31c2183d8bbb8b68455557bfe80c9a625ce7302e8535ad1a50ac98751f",
-      "scriptStructuralAstEqual": true,
+      "currentSha256": "d4fcb2ed56b4af8b6527373d933212489bbaa8844568fbbb83d63a8ea57b572a",
+      "scriptStructuralAstEqual": false,
       "sourceSyntaxValid": true,
-      "disposition": "Complete structural script AST retained; full native markup/compiled-output behavior remains separately pending."
+      "disposition": "Root-authorized actual PopoverStore-owned native reactive trigger focus-target node property; plain inert default and shared DOM/focus/open/cleanup business retained. Candidate execution pending.",
+      "sourceBusinessCorrection": true,
+      "sourceBusinessPredecessor": "0ba754026de455a9647c32dde29b024924150cc2",
+      "sourceBusinessPredecessorSha256": "e2d1bf31c2183d8bbb8b68455557bfe80c9a625ce7302e8535ad1a50ac98751f",
+      "exactAuthorizedCompleteBodyDelta": true,
+      "ordinaryDeclarationCredit": 0,
+      "structuralDifferences": [
+        {
+          "path": "source.ClassDeclaration[17].Constructor[4].Block[3]",
+          "before": "{\n    const triggerElements = new PopupTriggerMap();\n    super(\n      createInitialState<Payload>(initialState, triggerElements, floatingId, nested),\n      createInitialContext(triggerElements),\n      selectors,\n    );\n  }",
+          "after": "{\n    const triggerElements = new PopupTriggerMap();\n    const triggerFocusTargetRef = $state<{ current: HTMLElement | null }>({ current: null });\n    super(\n      createInitialState<Payload>(initialState, triggerElements, floatingId, nested),\n      createInitialContext(triggerElements, triggerFocusTargetRef),\n      selectors,\n    );\n  }"
+        },
+        {
+          "path": "source.FunctionDeclaration[20]",
+          "before": "function createInitialContext(triggerElements: PopupTriggerMap): Context {\n  return {\n    popupRef: { current: null },\n    onOpenChange: undefined,\n    onOpenChangeComplete: undefined,\n    triggerFocusTargetRef: { current: null },\n    beforeContentFocusGuardRef: { current: null },\n    stickIfOpenTimeout: new Timeout(),\n    triggerElements,\n  };\n}",
+          "after": "function createInitialContext(\n  triggerElements: PopupTriggerMap,\n  triggerFocusTargetRef: Context['triggerFocusTargetRef'] = { current: null },\n): Context {\n  return {\n    popupRef: { current: null },\n    onOpenChange: undefined,\n    onOpenChangeComplete: undefined,\n    triggerFocusTargetRef,\n    beforeContentFocusGuardRef: { current: null },\n    stickIfOpenTimeout: new Timeout(),\n    triggerElements,\n  };\n}"
+        }
+      ]
     },
     {
       "path": "packages/base/src/lib/popover/Title.svelte",

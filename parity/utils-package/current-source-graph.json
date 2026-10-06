@@ -33963,7 +33963,7 @@
       },
       {
         "path": "packages/base/src/lib/popover/store/PopoverStore.svelte.ts",
-        "sha256": "e2d1bf31c2183d8bbb8b68455557bfe80c9a625ce7302e8535ad1a50ac98751f",
+        "sha256": "d4fcb2ed56b4af8b6527373d933212489bbaa8844568fbbb83d63a8ea57b572a",
         "symbols": [
           {
             "name": "State",
@@ -33988,7 +33988,7 @@
           {
             "name": "PopoverStore",
             "kind": "ClassDeclaration",
-            "sha256": "b65e59d4916b3150571275bbf6e650abfb19cdd90cb5959d3a160f4ddd352550"
+            "sha256": "e468f503f40d569ae1386e0d8301ff3410054638746bda6ccf07eecef2d14c59"
           },
           {
             "name": "createNullPopoverStore",
@@ -34003,7 +34003,7 @@
           {
             "name": "createInitialContext",
             "kind": "FunctionDeclaration",
-            "sha256": "cff95c9664f44281f3d028801c8846f26ef4a7e7f9d9c8a402bfaacc66e6d9e2"
+            "sha256": "459c318b351616ed53909a91ce6da619bb8c811dd32b51d2bbfbd4e25c6ae043"
           }
         ],
         "imports": [
