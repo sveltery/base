@@ -10,7 +10,7 @@
     ],
     "graph": {
       "path": "parity/native-snippets/native-graph.json",
-      "sha256": "c50889d29f7b20637561c62ee35eb4d5f8b6abef18c0600c83c8533e1323b50f"
+      "sha256": "dc28c059a09dec69faab82fb624efdbe7cdf9a8afa283d92ef6f258ab0d9d519"
     },
     "predecessor": {
       "path": "parity/toggle-toolbar/source-correspondence.json",
@@ -2015,11 +2015,11 @@
     ],
     "graph": {
       "path": "parity/native-snippets/native-graph.json",
-      "sha256": "c50889d29f7b20637561c62ee35eb4d5f8b6abef18c0600c83c8533e1323b50f"
+      "sha256": "dc28c059a09dec69faab82fb624efdbe7cdf9a8afa283d92ef6f258ab0d9d519"
     },
     "predecessor": {
       "path": "parity/menu-family/source-correspondence.json",
-      "sha256": "c4c7948bddf3e8def4166a6ebf843ed77563bdf6e536435ec79514464a2974c8"
+      "sha256": "52ccef8c8e7988cad4eff0c2fe4e72652d70ea48c7988c06c0d99f23409a85c1"
     },
     "originalGraph": {
       "path": "parity/menu-family/source-graph.json",
@@ -2468,7 +2468,7 @@
       },
       {
         "source": "packages/base/src/lib/menu/positioner/createMenuPositioner.svelte.ts",
-        "sha256": "58d6966fd6c904e8b6adca800731394803d0fee4f73d781ee0fa2a5776d6e063"
+        "sha256": "71975122b40a64e64482a25696b6dfca6745c9c1063e3c41c305c75fbcaec5cd"
       },
       {
         "source": "packages/base/src/lib/menu/radio-group/MenuRadioGroupContext.ts",
@@ -2857,7 +2857,7 @@
           },
           {
             "source": "packages/base/src/lib/menu/positioner/createMenuPositioner.svelte.ts",
-            "sha256": "58d6966fd6c904e8b6adca800731394803d0fee4f73d781ee0fa2a5776d6e063"
+            "sha256": "71975122b40a64e64482a25696b6dfca6745c9c1063e3c41c305c75fbcaec5cd"
           }
         ],
         "retiredLocal": [],
@@ -4183,7 +4183,7 @@
           },
           {
             "source": "packages/base/src/lib/menu/positioner/createMenuPositioner.svelte.ts",
-            "sha256": "58d6966fd6c904e8b6adca800731394803d0fee4f73d781ee0fa2a5776d6e063"
+            "sha256": "71975122b40a64e64482a25696b6dfca6745c9c1063e3c41c305c75fbcaec5cd"
           }
         ],
         "retiredLocal": [],

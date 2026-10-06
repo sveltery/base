@@ -17,13 +17,6 @@ export const collapsibleCss = `
 .mixed[data-starting-style] { height:0; }
 .hidden-motion { overflow:hidden; height:var(--collapsible-panel-height); opacity:1; transition:height 1000ms linear,opacity 1000ms linear; }
 .hidden-motion[data-starting-style], .hidden-motion[data-ending-style] { height:0; opacity:0; }
-
-/* P1205 supplemental literal input: Original class duration, no inline duration. */
-@keyframes panel-slide-down { from {height:0} to {height:var(--collapsible-panel-height)} }
-@keyframes panel-slide-up { from {height:var(--collapsible-panel-height)} to {height:0} }
-.animation-test-panel { overflow:hidden; animation-duration:123ms; }
-.animation-test-panel[data-open] { animation-name:panel-slide-down; }
-.animation-test-panel[data-closed] { animation-name:panel-slide-up; }
 `;
 export function collapsibleConfig(scenario: string) {
   const hidden =
@@ -76,25 +69,23 @@ export function collapsibleConfig(scenario: string) {
         ? 'zero'
         : scenario === 'mixed' || scenario === 'important'
           ? 'mixed'
-          : scenario === 'beforematch-keys-class'
-            ? 'animation-test-panel'
-            : keys
-              ? `keys ${scenario === 'keys-open' ? 'keys-open' : scenario === 'keys-close' ? 'keys-close' : ''}`
-              : scenario === 'hidden-motion'
-                ? 'hidden-motion'
-                : [
-                      'transition',
-                      'initial-transition',
-                      'interrupt',
-                      'beforematch-transition',
-                      'beforematch-cancel',
-                      'beforematch-no-motion',
-                      'remove-close',
-                      'race-open',
-                      'race-close',
-                    ].includes(scenario)
-                  ? 'motion'
-                  : '',
+          : keys
+            ? `keys ${scenario === 'keys-open' ? 'keys-open' : scenario === 'keys-close' ? 'keys-close' : ''}`
+            : scenario === 'hidden-motion'
+              ? 'hidden-motion'
+              : [
+                    'transition',
+                    'initial-transition',
+                    'interrupt',
+                    'beforematch-transition',
+                    'beforematch-cancel',
+                    'beforematch-no-motion',
+                    'remove-close',
+                    'race-open',
+                    'race-close',
+                  ].includes(scenario)
+                ? 'motion'
+                : '',
     panelStyle:
       scenario === 'keys-inline'
         ? 'animation-duration:100ms;animation-name:panel-down;animation-timing-function:linear'

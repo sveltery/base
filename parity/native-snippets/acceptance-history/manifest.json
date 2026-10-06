@@ -387,6 +387,79 @@
       "predecessor": "6501d3523731c7edc6de6cc9368c919b956b6105",
       "disposition": "maintained-native-browser-framework-expectation-successor",
       "unchangedParityCredit": 0
+    },
+    {
+      "source": "apps/fixtures/src/lib/CompositeNestedBrowserFixture.svelte",
+      "archive": "parity/native-snippets/acceptance-history/native-diagnostics-c2decc37/apps/fixtures/src/lib/CompositeNestedBrowserFixture.svelte",
+      "sha256": "fba23f55df346fe0ff807487ed59432ce535ec307c766da565468b4cf51fd00d",
+      "predecessor": "c2decc37eb90a4d44c19532cff9410025bb10cf6",
+      "disposition": "additive-native-diagnostic-or-workflow-successor",
+      "unchangedParityCredit": 0
+    },
+    {
+      "source": "apps/fixtures/src/lib/collapsible-config.ts",
+      "archive": "parity/native-snippets/acceptance-history/native-diagnostics-c2decc37/apps/fixtures/src/lib/collapsible-config.ts",
+      "sha256": "e468bc14adb2afacd570741ff93685cc3c018a07259d103a663b7adcf6b5e117",
+      "predecessor": "c2decc37eb90a4d44c19532cff9410025bb10cf6",
+      "disposition": "additive-native-diagnostic-or-workflow-successor",
+      "unchangedParityCredit": 0
+    },
+    {
+      "source": "apps/fixtures/src/routes/native-snippets/+page.svelte",
+      "archive": "parity/native-snippets/acceptance-history/native-diagnostics-c2decc37/apps/fixtures/src/routes/native-snippets/+page.svelte",
+      "sha256": "1cbf8576d590c2045d39d631e0761a19b097c16e0b666e2cf391a349da24f169",
+      "predecessor": "c2decc37eb90a4d44c19532cff9410025bb10cf6",
+      "disposition": "additive-native-diagnostic-or-workflow-successor",
+      "unchangedParityCredit": 0
+    },
+    {
+      "source": "tests/browser/collapsible.spec.ts",
+      "archive": "parity/native-snippets/acceptance-history/native-diagnostics-c2decc37/tests/browser/collapsible.spec.ts",
+      "sha256": "bcd6ceec937c7abe2370bb008478ce66b11511862a72ccf85b89ddae7846fff3",
+      "predecessor": "c2decc37eb90a4d44c19532cff9410025bb10cf6",
+      "disposition": "additive-native-diagnostic-or-workflow-successor",
+      "unchangedParityCredit": 0
+    },
+    {
+      "source": ".github/workflows/radio.yml",
+      "archive": "parity/native-snippets/acceptance-history/native-diagnostics-c2decc37/.github/workflows/radio.yml",
+      "sha256": "56c3c3c64060b39f49ae9e647c733a253b09284143e48b74bbbd4bfaaf5fcff9",
+      "predecessor": "c2decc37eb90a4d44c19532cff9410025bb10cf6",
+      "disposition": "additive-native-diagnostic-or-workflow-successor",
+      "unchangedParityCredit": 0
+    },
+    {
+      "source": ".github/workflows/ci.yml",
+      "archive": "parity/native-snippets/acceptance-history/native-diagnostics-c2decc37/.github/workflows/ci.yml",
+      "sha256": "4c5478223a5d99b2a7741b423c893aa7ccac7b89d54aa5f7b295d27cc431b756",
+      "predecessor": "c2decc37eb90a4d44c19532cff9410025bb10cf6",
+      "disposition": "additive-native-diagnostic-or-workflow-successor",
+      "unchangedParityCredit": 0
+    },
+    {
+      "source": "tests/browser/radio.spec.ts",
+      "archive": "parity/native-snippets/acceptance-history/native-diagnostics-c2decc37/tests/browser/radio.spec.ts",
+      "sha256": "47d1b643eecffcb5dbab763f3f9d1172042b68fea7a000b7a40b87a0f399c25b",
+      "predecessor": "c2decc37eb90a4d44c19532cff9410025bb10cf6",
+      "disposition": "preserved-current-mixed-radio-pending-full-native-measurement",
+      "unchangedParityCredit": 0
+    },
+    {
+      "source": "parity/native-snippets/acceptance.md",
+      "archive": "parity/native-snippets/acceptance-history/native-diagnostics-c2decc37/parity/native-snippets/acceptance.md",
+      "sha256": "7637c29891c097d6b9c85de2e2540c0106bfaacd7252933496b91007e0ff9677",
+      "predecessor": "c2decc37eb90a4d44c19532cff9410025bb10cf6",
+      "disposition": "additive-native-diagnostic-or-workflow-successor",
+      "unchangedParityCredit": 0
+    },
+    {
+      "source": "prior-proposal/playwright.native-composite.config.ts.draft",
+      "archive": "parity/native-snippets/acceptance-history/native-diagnostics-c2decc37/external-proposal/playwright.native-composite.config.ts.draft",
+      "sha256": "ff927e7f7bf5a045939cb107c499ea4064fdb901357e167236a0c5bd1e90dce3",
+      "predecessor": "external-reviewed-radio-source-proposal",
+      "predecessorProposalSha256": "8544e21588c52fe3090385825a0a754f9736b1e0de31740eff7f28f1979bdd70",
+      "disposition": "retired-unneeded-external-browser-config-never-active-in-c2",
+      "unchangedParityCredit": 0
     }
   ]
 }

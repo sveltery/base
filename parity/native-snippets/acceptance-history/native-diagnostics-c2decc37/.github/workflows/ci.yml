@@ -197,21 +197,15 @@ jobs:
         run: pnpm --filter @sveltery/base build
       - name: Install official Chromium and OS dependencies
         run: pnpm exec playwright install --with-deps chromium
-      - name: Paired exact-pin Collapsible acceptance and native diagnostic
-        env:
-          PLAYWRIGHT_JSON_OUTPUT_NAME: .checks/collapsible/browser-results.json
-        run: |
-          set -o pipefail
-          mkdir -p .checks/collapsible
-          pnpm exec playwright test tests/browser/collapsible.spec.ts --reporter=list,json 2>&1 | tee .checks/collapsible/browser.log
-      - name: Preserve actual Collapsible JSON observations and traces
-        if: always()
+      - name: Paired exact-pin Collapsible acceptance
+        # A failing run stops early for diagnosis; a passing run executes every case.
+        run: pnpm exec playwright test tests/browser/collapsible.spec.ts --max-failures=5
+      - name: Preserve Collapsible browser failure traces
+        if: failure()
         uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2
         with:
-          name: collapsible-browser-evidence
-          path: |
-            .checks/collapsible/
-            test-results/
+          name: collapsible-browser-failures
+          path: test-results/collapsible-*/
           if-no-files-found: warn
           retention-days: 14
 

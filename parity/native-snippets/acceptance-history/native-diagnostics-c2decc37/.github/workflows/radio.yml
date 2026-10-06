@@ -43,14 +43,14 @@ jobs:
         run: |
           set -o pipefail
           mkdir -p .checks/radio
-          pnpm exec playwright test tests/browser/radio.spec.ts tests/browser/radio-native-composite-lifecycle.spec.ts --reporter=list,json 2>&1 | tee .checks/radio/browser.log
-      - name: Preserve actual Radio JSON observations and traces
+          pnpm exec playwright test tests/browser/radio.spec.ts --reporter=list,json | tee .checks/radio/browser.log
+      - name: Preserve actual Field Form JSON observations and traces
         if: always()
         uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2
         with:
           name: radio-browser-evidence
           path: |
             .checks/radio/
-            test-results/
+            test-results/radio-*/
           if-no-files-found: warn
           retention-days: 14
