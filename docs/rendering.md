@@ -9,11 +9,7 @@ Element parts render their own Svelte snippet or intrinsic HTML element. The rep
   import type { ButtonState } from '@sveltery/base/button';
 </script>
 
-{#snippet replacement(
-  props: HTMLProps,
-  state: ButtonState,
-  children: Snippet | undefined,
-)}
+{#snippet replacement(props: HTMLProps, state: ButtonState, children: Snippet | undefined)}
   <button {...props} data-custom-disabled={state.disabled}>
     {@render children?.()}
   </button>
@@ -28,11 +24,15 @@ The component implementation uses this native pattern, with its actual fallback 
 {#if render}
   {@render render(mergedProps, state, children)}
 {:else}
-  <button {...mergedProps}>{@render children?.()}</button>
+  <button type="button" {...mergedProps}>{@render children?.()}</button>
 {/if}
 ```
 
+Intrinsic button fallbacks retain the pinned non-submit default through native `type="button"` before the props spread. Explicit merged type values keep their native spread precedence. Custom snippets receive the component props unchanged and own their authored host defaults.
+
 Pure shared helpers preserve state attributes, ordered prop getters, right-to-left event handlers, `preventBaseUIHandler()`, and class/style merging. Component business still supplies its own ARIA relationships, validation, button behavior, focus management and motion resources. Native snippets own their markup; the library does not clone elements, discover hosts with selectors, intercept attachments, or replay React ref/render/commit behavior.
+
+Public component `style` values follow Svelte's native HTML attribute type: CSS strings, null or undefined. The existing state callback receives the component's state and returns the same native style value. This contract is shared by canonical and legacy component declarations. Render snippets receive already-composed props for literal native spreads. Internal CSS records still support real business style authors and shared prop composition; they are converted to CSS strings before the component's native host props are published. Public component CSS-object inputs from the earlier proposed extension are superseded by the [native public style record](../parity/native-snippets/public-style-native-counterparts.md). Native ClassValue objects and arrays remain supported independently of style values.
 
 Forward the supplied props, including native attachment symbols, to the host that should participate in that component's behavior. Attachments run and clean up through Svelte. Authored attachments keep their independent native lifetimes. The library does not constrain a snippet's subtree or inspect opaque authored styles. Explicit attributes and styles follow Svelte's normal precedence. Native void-element fallbacks do not render children. SSR renders markup without executing attachments or client effects.
 

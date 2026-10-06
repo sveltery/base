@@ -9,7 +9,6 @@
   import { useTransitionStatus } from '../internals/useTransitionStatus.svelte.js';
   import { useOpenChangeComplete } from '../internals/useOpenChangeComplete.svelte.js';
   import type { MenuRadioItemIndicatorProps } from './types.js';
-  // eslint-disable-next-line no-useless-assignment -- Publishes native bindable host/action outputs to the owner.
   let {
     render,
     class: className,

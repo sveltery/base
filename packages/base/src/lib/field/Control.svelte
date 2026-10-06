@@ -48,10 +48,7 @@
   });
   const labelable = useLabelableContext();
   const instanceId = $props.id();
-  const getId = useLabelableId(
-    () => ({ id: idProp }),
-    useBaseUiId(undefined, instanceId),
-  );
+  const getId = useLabelableId(() => ({ id: idProp }), useBaseUiId(undefined, instanceId));
   const id = $derived(getId());
   const valueState = new Controlled(
     () => valueProp,
@@ -70,8 +67,7 @@
     () => nameProp ?? undefined,
   );
   $effect(() => {
-    const currentValue =
-      serializedValue ?? field.validation.inputRef.current?.value;
+    const currentValue = serializedValue ?? field.validation.inputRef.current?.value;
     if (currentValue !== undefined) field.setFilled(currentValue !== '');
   });
   new ValueChanged(
@@ -79,9 +75,7 @@
     () => () => {
       if (serializedValue === undefined) return;
       form.clearErrors(name ?? undefined);
-      field.setDirty(
-        serializedValue !== (field.validityData.initialValue ?? ''),
-      );
+      field.setDirty(serializedValue !== (field.validityData.initialValue ?? ''));
       field.validation.change(serializedValue);
     },
   );
@@ -89,10 +83,7 @@
   const enterValidationTimeout = new Timeout();
   onDestroy(enterValidationTimeout.clear);
   $effect(() => {
-    if (
-      autofocus &&
-      inputRef.current === activeElement(ownerDocument(inputRef.current))
-    )
+    if (autofocus && inputRef.current === activeElement(ownerDocument(inputRef.current)))
       field.setFocused(true);
   });
   const internal = $derived({
@@ -143,11 +134,7 @@
         field.setTouched(true);
         const value = input.value;
         const formElement = input.form;
-        if (
-          formElement &&
-          formElement === form.elementRef.current &&
-          !event.defaultPrevented
-        ) {
+        if (formElement && formElement === form.elementRef.current && !event.defaultPrevented) {
           const submitCount = form.submitCountRef.current;
           enterValidationTimeout.start(0, () => {
             if (form.submitCountRef.current === submitCount)
@@ -168,8 +155,7 @@
         untrack(() => {
           if (ref === host) ref = null;
           if (inputRef.current === host) inputRef.current = null;
-          if (field.validation.inputRef.current === host)
-            field.validation.inputRef.current = null;
+          if (field.validation.inputRef.current === host) field.validation.inputRef.current = null;
         });
     });
   }
@@ -180,8 +166,7 @@
       [
         internal,
         elementProps,
-        (props: Record<string, unknown>) =>
-          field.validation.getValidationProps(disabled, props),
+        (props: Record<string, unknown>) => field.validation.getValidationProps(disabled, props),
       ],
       fieldValidityMapping,
     ),

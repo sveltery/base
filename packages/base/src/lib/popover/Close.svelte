@@ -8,12 +8,8 @@
   import { createChangeEventDetails } from '../internals/createBaseUIEventDetails.js';
   import { REASONS } from '../internals/reasons.js';
   import { getContext, untrack } from 'svelte';
-  import {
-    ClosePartContext,
-    type ClosePartContextValue,
-  } from '../utils/closePart.svelte.js';
+  import { ClosePartContext, type ClosePartContextValue } from '../utils/closePart.svelte.js';
   import type { PopoverCloseProps } from './types.js';
-  // eslint-disable-next-line no-useless-assignment -- Native bindable ref output is published through the ordered Source ref callback.
   let {
     render,
     class: className,
@@ -30,9 +26,7 @@
     native: nativeButton,
   }));
   const store = usePopoverRootContext();
-  const closePart = getContext<ClosePartContextValue | undefined>(
-    ClosePartContext,
-  );
+  const closePart = getContext<ClosePartContextValue | undefined>(ClosePartContext);
   $effect(() => untrack(() => closePart?.register()));
 
   const renderState = $derived({});
@@ -55,10 +49,7 @@
       [
         {
           onclick(event: MouseEvent) {
-            store.setOpen(
-              false,
-              createChangeEventDetails(REASONS.closePress, event),
-            );
+            store.setOpen(false, createChangeEventDetails(REASONS.closePress, event));
           },
         },
         elementProps,
@@ -73,5 +64,5 @@
 {#if render}
   {@render render(mergedProps, renderState, children)}
 {:else}
-  <button {...mergedProps}>{@render children?.()}</button>
+  <button type="button" {...mergedProps}>{@render children?.()}</button>
 {/if}

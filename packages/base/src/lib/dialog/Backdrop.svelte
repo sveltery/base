@@ -30,8 +30,7 @@
       return () =>
         untrack(() => {
           if (ref === host) ref = null;
-          if (store.context.backdropRef.current === host)
-            store.context.backdropRef.current = null;
+          if (store.context.backdropRef.current === host) store.context.backdropRef.current = null;
         });
     });
   }

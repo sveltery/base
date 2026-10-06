@@ -38,9 +38,7 @@
     if (isElement(target)) return target;
     return null;
   }
-  function closestEnabledTooltipTrigger(
-    element: Element | null,
-  ): Element | null {
+  function closestEnabledTooltipTrigger(element: Element | null): Element | null {
     let current = element;
     while (current) {
       const trigger = current.closest(`[${TOOLTIP_TRIGGER_IDENTIFIER}]`);
@@ -50,7 +48,6 @@
     }
     return null;
   }
-  // eslint-disable-next-line no-useless-assignment -- Native bindable ref output is published through the ordered Source ref callback.
   let {
     render,
     class: className,
@@ -78,12 +75,8 @@
   });
   const generatedId = $props.id();
   const thisTriggerId = $derived(useBaseUiId(idProp ?? undefined, generatedId));
-  const isTriggerActive = $derived(
-    store.select('isTriggerActive', thisTriggerId),
-  );
-  const isOpenedByThisTrigger = $derived(
-    store.select('isOpenedByTrigger', thisTriggerId),
-  );
+  const isTriggerActive = $derived(store.select('isTriggerActive', thisTriggerId));
+  const isOpenedByThisTrigger = $derived(store.select('isOpenedByTrigger', thisTriggerId));
   const floatingRootContext = $derived(store.select('floatingRootContext'));
   const triggerElementRef = { current: null as HTMLElement | null };
   const closeDelayWithDefault = $derived(closeDelay ?? 0);
@@ -98,9 +91,7 @@
     () => floatingRootContext,
     () => ({ open: isOpenedByThisTrigger }),
   );
-  const getHoverInteraction = useHoverInteractionSharedState(
-    () => floatingRootContext,
-  );
+  const getHoverInteraction = useHoverInteractionSharedState(() => floatingRootContext);
   const hoverInteraction = $derived(getHoverInteraction());
   // The handle-backed Store pointer may migrate after mount. Native synchronization reads its current owner.
   $effect(() => {
@@ -137,9 +128,7 @@
 
     const nearestTrigger = closestEnabledTooltipTrigger(target);
     return (
-      nearestTrigger !== null &&
-      nearestTrigger !== triggerEl &&
-      contains(triggerEl, nearestTrigger)
+      nearestTrigger !== null && nearestTrigger !== triggerEl && contains(triggerEl, nearestTrigger)
     );
   }
 
@@ -162,10 +151,7 @@
       enabled: !disabled,
       mouseOnly: true,
       move: false,
-      handleClose:
-        !disableHoverablePopup && trackCursorAxis !== 'both'
-          ? safePolygon()
-          : null,
+      handleClose: !disableHoverablePopup && trackCursorAxis !== 'both' ? safePolygon() : null,
       restMs: getOpenDelay,
       delay() {
         if (closeDelay == null && delayGroup.hasProvider) {
@@ -192,8 +178,7 @@
     const target = getTargetElement(event);
     const nestedTriggerHovered = detectNestedTriggerHover(target);
     const triggerEl = triggerElementRef.current as HTMLElement | null;
-    const targetInsideTrigger =
-      triggerEl && target && contains(triggerEl, target);
+    const targetInsideTrigger = triggerEl && target && contains(triggerEl, target);
 
     // Only close hover-opened parents. Focus/click-like opens remain owned by
     // their original interaction and should not be clobbered by nested hover.
@@ -202,10 +187,7 @@
       store.select('open') &&
       store.select('lastOpenChangeReason') === REASONS.triggerHover
     ) {
-      store.setOpen(
-        false,
-        createChangeEventDetails(REASONS.triggerHover, event),
-      );
+      store.setOpen(false, createChangeEventDetails(REASONS.triggerHover, event));
       return;
     }
 
@@ -220,15 +202,8 @@
       isMouseLikePointerType(pointerTypeRef.current)
     ) {
       const open = () => {
-        if (
-          !isNestedTriggerHoveredRef.current &&
-          !disabledRef.current &&
-          !store.select('open')
-        ) {
-          store.setOpen(
-            true,
-            createChangeEventDetails(REASONS.triggerHover, event, triggerEl),
-          );
+        if (!isNestedTriggerHoveredRef.current && !disabledRef.current && !store.select('open')) {
+          store.setOpen(true, createChangeEventDetails(REASONS.triggerHover, event, triggerEl));
         }
       };
 
@@ -264,8 +239,7 @@
         untrack(() => {
           if (ref === host) ref = null;
           forwarding.registerTrigger?.(null);
-          if (triggerElementRef.current === host)
-            triggerElementRef.current = null;
+          if (triggerElementRef.current === host) triggerElementRef.current = null;
         });
     });
   }
@@ -282,8 +256,7 @@
             handleNestedTriggerHover(event);
           },
           onfocusin(event: FocusEvent & { preventBaseUIHandler(): void }) {
-            if (isEnabledNestedTriggerTarget(getTargetElement(event)))
-              event.preventBaseUIHandler();
+            if (isEnabledNestedTriggerTarget(getTargetElement(event))) event.preventBaseUIHandler();
           },
           onmouseleave() {
             isNestedTriggerHoveredRef.current = false;
@@ -296,12 +269,10 @@
           onpointerdown(event: PointerEvent) {
             pointerTypeRef.current = event.pointerType;
             store.set('closeOnClick', closeOnClick);
-            if (closeOnClick && !store.select('open'))
-              store.cancelPendingOpen(event);
+            if (closeOnClick && !store.select('open')) store.cancelPendingOpen(event);
           },
           onclick(event: MouseEvent) {
-            if (closeOnClick && !store.select('open'))
-              store.cancelPendingOpen(event);
+            if (closeOnClick && !store.select('open')) store.cancelPendingOpen(event);
           },
           id: thisTriggerId,
           'data-trigger-disabled': disabled ? '' : undefined,

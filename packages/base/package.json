@@ -14,7 +14,9 @@
   "bugs": {
     "url": "https://github.com/sveltery/base/issues"
   },
-  "sideEffects": ["**/*.css"],
+  "sideEffects": [
+    "**/*.css"
+  ],
   "files": [
     "dist",
     "!dist/**/*.test.*",
@@ -186,7 +188,11 @@
   },
   "svelte": "./dist/index.js",
   "types": "./dist/index.d.ts",
-  "keywords": ["svelte", "components", "base-ui"],
+  "keywords": [
+    "svelte",
+    "components",
+    "base-ui"
+  ],
   "scripts": {
     "dev": "vite dev",
     "build": "vite build && pnpm run prepack",
@@ -198,7 +204,8 @@
     "test": "pnpm run test:unit --run",
     "test:unit": "vitest --project server",
     "test:component": "vitest run --project client",
-    "test:dom": "vitest run --project dom"
+    "test:dom": "vitest run --project dom",
+    "package:watch": "svelte-package --watch"
   },
   "peerDependencies": {
     "svelte": "^5.57.1"

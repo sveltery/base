@@ -9,10 +9,7 @@
   import { POPUP_COLLISION_AVOIDANCE } from '../internals/constants.js';
   import { usePopoverRootContext, usePopoverPortalContext } from './context.js';
   import { providePopoverPositionerContext } from './positioner/PopoverPositionerContext.js';
-  import type {
-    PopoverPositionerProps,
-    PopoverPositionerState,
-  } from './types.js';
+  import type { PopoverPositionerProps, PopoverPositionerState } from './types.js';
   import {
     useFloatingNodeId,
     provideFloatingNode,
@@ -22,7 +19,6 @@
   import { useAnchoredPopupScrollLock } from '../utils/useAnchoredPopupScrollLock.svelte.js';
 
   import { REASONS } from '../internals/reasons.js';
-  // eslint-disable-next-line no-useless-assignment -- Native bindable ref output is published through the ordered Source ref callback.
   let {
     render,
     class: className,
@@ -84,14 +80,11 @@
     adaptiveOrigin,
     nodeId,
   }));
-  const domReference = $derived(
-    floatingRootContext.useState('domReferenceElement'),
-  );
+  const domReference = $derived(floatingRootContext.useState('domReferenceElement'));
   $effect(() => {
     const currentTriggerElement = domReference;
     const prevTriggerElement = prevTriggerElementRef.current;
-    if (currentTriggerElement)
-      prevTriggerElementRef.current = currentTriggerElement;
+    if (currentTriggerElement) prevTriggerElementRef.current = currentTriggerElement;
     if (
       prevTriggerElement &&
       currentTriggerElement &&
@@ -99,17 +92,12 @@
     ) {
       store.set('instantType', undefined);
       const ac = new AbortController();
-      runOnceAnimationsFinish(
-        () => store.set('instantType', 'trigger-change'),
-        ac.signal,
-      );
+      runOnceAnimationsFinish(() => store.set('instantType', 'trigger-change'), ac.signal);
       return () => ac.abort();
     }
     return undefined;
   });
-  const trueModalNonHover = $derived(
-    modal === true && openReason !== REASONS.triggerHover,
-  );
+  const trueModalNonHover = $derived(modal === true && openReason !== REASONS.triggerHover);
   useAnchoredPopupScrollLock(
     () => open && trueModalNonHover,
     () => openMethod === 'touch',

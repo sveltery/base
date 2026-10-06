@@ -5,17 +5,11 @@
   import { useMenuRootContext } from './root/MenuRootContext.js';
   import { provideMenuPortalContext } from './portal/MenuPortalContext.js';
   import type { MenuPortalProps } from './types.js';
-  // eslint-disable-next-line no-useless-assignment -- Publishes native bindable host/action outputs to the owner.
-  let {
-    keepMounted = false,
-    ref = $bindable(null),
-    ...portalProps
-  }: MenuPortalProps = $props();
+  let { keepMounted = false, ref = $bindable(null), ...portalProps }: MenuPortalProps = $props();
   const { store, parent } = useMenuRootContext();
   provideMenuPortalContext(() => keepMounted);
   const shouldRender = $derived(store.useState('mounted') || keepMounted);
-  const portalOwnerRole =
-    parent.type === 'menu' || parent.type === 'menubar' ? 'group' : undefined;
+  const portalOwnerRole = parent.type === 'menu' || parent.type === 'menubar' ? 'group' : undefined;
 </script>
 
 {#if shouldRender}<FloatingPortal

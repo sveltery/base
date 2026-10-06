@@ -77,8 +77,7 @@
           if (ref === host) ref = null;
           buttonRef?.(null);
           forwarding.registerTrigger?.(null);
-          if (triggerElementRef.current === host)
-            triggerElementRef.current = null;
+          if (triggerElementRef.current === host) triggerElementRef.current = null;
         });
     });
   }
@@ -109,5 +108,5 @@
 {#if render}
   {@render render(mergedProps, state, children)}
 {:else}
-  <button {...mergedProps}>{@render children?.()}</button>
+  <button type="button" {...mergedProps}>{@render children?.()}</button>
 {/if}

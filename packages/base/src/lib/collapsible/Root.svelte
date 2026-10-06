@@ -10,10 +10,7 @@
   import { createChangeEventDetails } from '../internals/createBaseUIEventDetails.js';
   import { setCollapsibleContext } from './context.js';
   import { stateAttributes } from './state.js';
-  import type {
-    CollapsibleRootProps,
-    CollapsibleTransitionStatus,
-  } from './types.js';
+  import type { CollapsibleRootProps, CollapsibleTransitionStatus } from './types.js';
   let {
     children,
     render,
@@ -31,9 +28,7 @@
   );
   const open = $derived(openState.value);
   let retainedMounted = $state(untrack(() => open));
-  let phase = $state<CollapsibleTransitionStatus>(
-    untrack(() => (open ? 'idle' : undefined)),
-  );
+  let phase = $state<CollapsibleTransitionStatus>(untrack(() => (open ? 'idle' : undefined)));
   const mounted = $derived(open || retainedMounted);
   const transitionStatus = $derived(
     open && !retainedMounted
@@ -44,21 +39,17 @@
   );
   const rootState = $derived({ open, disabled, transitionStatus });
   const resolved = $derived.by(() => {
-    const classValue =
-      typeof classProp === 'function' ? classProp(rootState) : classProp;
+    const classValue = typeof classProp === 'function' ? classProp(rootState) : classProp;
     return {
       ...props,
-      class:
-        classValue === undefined ? undefined : resolveClassValue(classValue),
+      class: classValue === undefined ? undefined : resolveClassValue(classValue),
     };
   });
   const generatedId = $props.id();
   const defaultPanelId = `base-ui-${generatedId}`;
   let registeredPanelId = $state<string | null | undefined>(undefined);
   const panelId = $derived(
-    registeredPanelId === null
-      ? undefined
-      : (registeredPanelId ?? defaultPanelId),
+    registeredPanelId === null ? undefined : (registeredPanelId ?? defaultPanelId),
   );
   function setOpen(next: boolean) {
     openState.set(next);
@@ -113,8 +104,7 @@
         | undefined
         | ((current: string | null | undefined) => string | null | undefined),
     ) {
-      registeredPanelId =
-        typeof next === 'function' ? next(registeredPanelId) : next;
+      registeredPanelId = typeof next === 'function' ? next(registeredPanelId) : next;
     },
   };
   setCollapsibleContext(context);

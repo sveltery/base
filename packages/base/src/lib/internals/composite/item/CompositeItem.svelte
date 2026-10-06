@@ -52,13 +52,10 @@
 {#if render}
   {@render render(mergedProps, state, children)}
 {:else}
-  {#if tag === 'button'}<button {...mergedProps}>{@render children?.()}</button
+  {#if tag === 'button'}<button type="button" {...mergedProps}>{@render children?.()}</button
     >{:else if tag === 'a'}<a {...mergedProps}>{@render children?.()}</a
-    >{:else if tag === 'span'}<span {...mergedProps}
-      >{@render children?.()}</span
-    >{:else if tag === 'input'}<input {...mergedProps} />{:else}<div
-      {...mergedProps}
-    >
+    >{:else if tag === 'span'}<span {...mergedProps}>{@render children?.()}</span
+    >{:else if tag === 'input'}<input {...mergedProps} />{:else}<div {...mergedProps}>
       {@render children?.()}
     </div>{/if}
 {/if}

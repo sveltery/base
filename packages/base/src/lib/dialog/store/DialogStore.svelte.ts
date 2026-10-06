@@ -29,10 +29,11 @@ export type State<Payload> = PopupStoreState<Payload> & {
 
 type Context = PopupStoreContext<DialogRootChangeEventDetails> & {
   readonly popupRef: { current: HTMLElement | null };
-  readonly backdropRef: { current: HTMLDivElement | null };
+  readonly backdropRef: { current: HTMLElement | null };
   readonly internalBackdropRef: { current: HTMLDivElement | null };
   readonly outsidePressEnabledRef: { current: boolean };
-  onInternalOpenChange?: ((open: boolean, details: DialogRootChangeEventDetails) => void) | undefined;
+  onInternalOpenChange?:
+    ((open: boolean, details: DialogRootChangeEventDetails) => void) | undefined;
   onNestedDialogOpen?: ((dialogCount: number, drawerCount: number) => void) | undefined;
 };
 
@@ -69,8 +70,9 @@ export class DialogStore<Payload> extends SvelteStore<
   ) {
     const triggerElements = new PopupTriggerMap();
     const state = createInitialState<Payload>(initialState, triggerElements, floatingId, nested);
+    const internalBackdropRef = $state<{ current: HTMLDivElement | null }>({ current: null });
 
-    super(state, createInitialContext(triggerElements), selectors);
+    super(state, createInitialContext(triggerElements, internalBackdropRef), selectors);
   }
 
   public setOpen = (
@@ -140,11 +142,14 @@ function createInitialState<Payload>(
   return state;
 }
 
-function createInitialContext(triggerElements: PopupTriggerMap): Context {
+function createInitialContext(
+  triggerElements: PopupTriggerMap,
+  internalBackdropRef: Context['internalBackdropRef'] = { current: null },
+): Context {
   return {
     popupRef: { current: null },
     backdropRef: { current: null },
-    internalBackdropRef: { current: null },
+    internalBackdropRef,
     outsidePressEnabledRef: { current: true },
     triggerElements,
     onOpenChange: undefined,

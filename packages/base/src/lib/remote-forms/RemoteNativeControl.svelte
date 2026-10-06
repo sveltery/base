@@ -27,10 +27,7 @@
   import { useRemoteFieldContext } from './RemoteFieldContext.js';
   import { nativeControlValue } from './nativeControlValue.js';
   import type { NativeValidationControl } from '../field/root/useFieldValidation.svelte.js';
-  import type {
-    RemoteControlProps,
-    RemoteControlState,
-  } from './control.types.js';
+  import type { RemoteControlProps, RemoteControlState } from './control.types.js';
   let {
     kind,
     ref = $bindable(),
@@ -56,10 +53,7 @@
   const name = $derived(field.name ?? descriptor.name);
   const getNativeName = useFieldControlNativeName();
   const instanceId = $props.id();
-  const getId = useLabelableId(
-    () => ({ id: descriptor.id }),
-    useBaseUiId(undefined, instanceId),
-  );
+  const getId = useLabelableId(() => ({ id: descriptor.id }), useBaseUiId(undefined, instanceId));
   const id = $derived(getId());
   const controlRef = $state<{ current: NativeValidationControl | null }>({
     current: null,
@@ -71,9 +65,7 @@
       ? nativeControlValue(controlRef.current, descriptor.value)
       : descriptor.value);
   const sameValue = (left: unknown, right: unknown) =>
-    Array.isArray(left) && Array.isArray(right)
-      ? areArraysEqual(left, right)
-      : left === right;
+    Array.isArray(left) && Array.isArray(right) ? areArraysEqual(left, right) : left === right;
   const filled = (value: unknown) =>
     Array.isArray(value) ? value.length > 0 : value != null && value !== '';
   useRegisterFieldControl(
@@ -113,8 +105,7 @@
   const controlState: RemoteControlState = $derived({
     ...field.state,
     disabled,
-    checked:
-      typeof descriptor.checked === 'boolean' ? descriptor.checked : undefined,
+    checked: typeof descriptor.checked === 'boolean' ? descriptor.checked : undefined,
   });
   const internal = $derived({
     id,
@@ -128,10 +119,7 @@
       const details = createChangeEventDetails(REASONS.none, event);
       // Option activation has a cancelable click phase; other native hosts
       // retain their normal input callback and validation phase.
-      if (
-        !('checked' in control) ||
-        !['radio', 'checkbox'].includes(control.type)
-      )
+      if (!('checked' in control) || !['radio', 'checkbox'].includes(control.type))
         onValueChange?.(value, details);
       if (remote?.accessor) return;
       field.setDirty(!sameValue(value, field.validityData.initialValue));
@@ -162,24 +150,17 @@
     onblur() {
       field.setTouched(true);
       field.setFocused(false);
-      if (field.validationMode === 'onBlur')
-        void field.validation.commit(getValue());
+      if (field.validationMode === 'onBlur') void field.validation.commit(getValue());
     },
     onkeydown(event: KeyboardEvent) {
       const control = controlRef.current;
-      if (!control || control.tagName !== 'INPUT' || event.key !== 'Enter')
-        return;
+      if (!control || control.tagName !== 'INPUT' || event.key !== 'Enter') return;
       field.setTouched(true);
       const formElement = control.form;
-      if (
-        formElement &&
-        formElement === form.elementRef.current &&
-        !event.defaultPrevented
-      ) {
+      if (formElement && formElement === form.elementRef.current && !event.defaultPrevented) {
         const submitCount = form.submitCountRef.current;
         enterValidationTimeout.start(0, () => {
-          if (form.submitCountRef.current === submitCount)
-            void field.validation.commit(getValue());
+          if (form.submitCountRef.current === submitCount) void field.validation.commit(getValue());
         });
       } else void field.validation.commit(getValue());
     },
@@ -196,15 +177,7 @@
       uncheckedValue: _uncheckedValue,
       ...attributes
     } = descriptor;
-    void [
-      _class,
-      _style,
-      _id,
-      _disabled,
-      _inputRef,
-      _nativeButton,
-      _uncheckedValue,
-    ];
+    void [_class, _style, _id, _disabled, _inputRef, _nativeButton, _uncheckedValue];
     return attributes;
   });
 
@@ -227,8 +200,7 @@
       [
         internal,
         nativeProps,
-        (merged: Record<string, unknown>) =>
-          field.validation.getValidationProps(disabled, merged),
+        (merged: Record<string, unknown>) => field.validation.getValidationProps(disabled, merged),
       ],
       fieldValidityMapping,
     ),
@@ -239,7 +211,6 @@
 {#if render}
   {@render render(mergedProps, controlState, children)}
 {:else}
-  {#if kind.startsWith('select')}<select {...mergedProps}
-      >{@render children?.()}</select
+  {#if kind.startsWith('select')}<select {...mergedProps}>{@render children?.()}</select
     >{:else}<input {...mergedProps} />{/if}
 {/if}

@@ -7,7 +7,6 @@ export function stopEvent(event: Event) {
   event.stopPropagation();
 }
 
-
 // License: https://github.com/adobe/react-spectrum/blob/main/packages/@react-aria/utils/src/isVirtualEvent.ts
 export function isVirtualClick(event: MouseEvent | PointerEvent): boolean {
   if ((event as PointerEvent).pointerType === '' && event.isTrusted) {

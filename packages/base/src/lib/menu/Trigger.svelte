@@ -59,7 +59,7 @@
   {#if renderSnippet}
     {@render renderSnippet(mergedProps, root.state, props.children)}
   {:else}
-    <button {...mergedProps}>{@render props.children?.()}</button>
+    <button type="button" {...mergedProps}>{@render props.children?.()}</button>
   {/if}
   {#if root.isOpenedByThisTrigger}<FocusGuard
       {...triggerFocusGuardProps}

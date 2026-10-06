@@ -13,10 +13,7 @@
   import { EMPTY_OBJECT } from '@sveltery/utils/empty';
   import { createGenericEventDetails } from '../internals/createBaseUIEventDetails.js';
   import { REASONS } from '../internals/reasons.js';
-  import {
-    setFormContext,
-    type FormContext,
-  } from '../internals/form-context/FormContext.js';
+  import { setFormContext, type FormContext } from '../internals/form-context/FormContext.js';
   import { ValueChanged } from '../internals/ValueChanged.svelte.js';
   import type {
     FormActions,
@@ -50,16 +47,9 @@
       return remote;
     },
   });
-  const remoteErrors = $derived(
-    remote ? remoteFormErrors(remote.fields) : undefined,
-  );
-  const externalErrors = $derived(
-    authoredErrors !== undefined ? authoredErrors : remoteErrors,
-  );
-  function remoteFieldNamespace<Fields extends object>(): TypedField<
-    Fields,
-    typeof RemoteField
-  > {
+  const remoteErrors = $derived(remote ? remoteFormErrors(remote.fields) : undefined);
+  const externalErrors = $derived(authoredErrors !== undefined ? authoredErrors : remoteErrors);
+  function remoteFieldNamespace<Fields extends object>(): TypedField<Fields, typeof RemoteField> {
     return RemoteField;
   }
   function namespaceFor<Current extends RemoteFormLike | undefined>(
@@ -82,16 +72,12 @@
       if (field.validityData.state.valid !== false) continue;
       hasInvalid = true;
       const control = field.controlRef.current;
-      if (
-        control &&
-        (!firstControl || comesBeforeInSameTree(control, firstControl))
-      )
+      if (control && (!firstControl || comesBeforeInSameTree(control, firstControl)))
         firstControl = control;
     }
     if (firstControl) {
       firstControl.focus();
-      if (firstControl.tagName === 'INPUT')
-        (firstControl as HTMLInputElement).select();
+      if (firstControl.tagName === 'INPUT') (firstControl as HTMLInputElement).select();
       return true;
     }
     return hasInvalid;
@@ -145,10 +131,7 @@
         formRef.current.fields.forEach((field) => {
           if (field.name) formValues[field.name] = field.getValue();
         });
-        onFormSubmit(
-          formValues as Values,
-          createGenericEventDetails(REASONS.none, event),
-        );
+        onFormSubmit(formValues as Values, createGenericEventDetails(REASONS.none, event));
       }
     },
   };
@@ -212,10 +195,7 @@
   content: Snippet | undefined,
 )}
   {@render render!(
-    nativeProps as HTMLFormAttributes & { noValidate?: boolean } & Record<
-        string | symbol,
-        unknown
-      >,
+    nativeProps as HTMLFormAttributes & { noValidate?: boolean } & Record<string | symbol, unknown>,
     state,
     content,
   )}
@@ -224,11 +204,7 @@
   {@render children?.(fieldNamespace)}
 {/snippet}
 {#if renderSnippet}
-  {@render renderSnippet(
-    mergedProps,
-    renderState,
-    children ? formChildren : undefined,
-  )}
+  {@render renderSnippet(mergedProps, renderState, children ? formChildren : undefined)}
 {:else}
   <form {...mergedProps}>
     {@render (children ? formChildren : undefined)?.()}

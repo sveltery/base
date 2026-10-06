@@ -14,7 +14,6 @@
   import { mergeProps } from '../merge-props/index.js';
   import type { HTMLProps } from '../internals/types.js';
   import type { MenuLinkItemProps } from './types.js';
-  // eslint-disable-next-line no-useless-assignment -- Publishes native bindable host/action outputs to the owner.
   let {
     render,
     class: className,

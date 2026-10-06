@@ -6,14 +6,6 @@ export class PreviousValue<T> {
   #getValue: () => T;
   #current: T;
   #previous: T | null = null;
-  #value = $derived.by(() => {
-    const value = this.#getValue();
-    if (!Object.is(value, this.#current)) {
-      this.#previous = this.#current;
-      this.#current = value;
-    }
-    return this.#previous;
-  });
 
   constructor(getValue: () => T) {
     this.#getValue = getValue;
@@ -21,6 +13,11 @@ export class PreviousValue<T> {
   }
 
   get value(): T | null {
-    return this.#value;
+    const value = this.#getValue();
+    if (!Object.is(value, this.#current)) {
+      this.#previous = this.#current;
+      this.#current = value;
+    }
+    return this.#previous;
   }
 }

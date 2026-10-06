@@ -17,6 +17,9 @@ while IFS=$'\t' read -r package_name package_directory tarball; do
   pnpm exec publint ".checks/npm-package/$tarball" --strict
   node scripts/check-package-types.mjs ".checks/npm-package/$tarball" ".checks/npm-package/${tarball%.tgz}.attw.json" "$sveltery_repo_root/$package_directory"
 done < "$consumer_dir/artifacts.tsv"
+if [[ -f packages/utils/package.json ]]; then
+  bash scripts/check-utils-package.sh
+fi
 cat > "$consumer_dir/check.mjs" <<'JS'
 import assert from 'node:assert/strict';
 import { readFile } from 'node:fs/promises';
@@ -48,8 +51,8 @@ writeFileSync(join(destination, 'package.json'), JSON.stringify({ private: true,
 JS
 rm -rf "$consumer_dir/node_modules"
 sveltery_prepare_consumer "$consumer_dir"
-pnpm --dir "$consumer_dir" --ignore-workspace install --ignore-scripts > /dev/null
-pnpm --dir "$consumer_dir" --ignore-workspace install --frozen-lockfile --ignore-scripts > /dev/null
+pnpm --dir "$consumer_dir" install --ignore-scripts > /dev/null
+pnpm --dir "$consumer_dir" install --frozen-lockfile --ignore-scripts > /dev/null
 cat > "$consumer_dir/DialogConsumer.svelte" <<'SVELTE'
 <script>
   import { Dialog } from '@sveltery/base';
@@ -197,8 +200,8 @@ bash "$sveltery_repo_root/scripts/check-direction-provider-package.sh" --public
 # Shared CSP provider foundation: actual public root/subpath consumer, not a private-entry stand-in.
 bash scripts/check-csp-provider-package.sh
 
-# Installed public UseRender root/subpath, SSR, native DOM and nine type aliases.
-bash "$sveltery_repo_root/scripts/check-use-render-package.sh" --public
+# Installed real native snippet hosts, strict public types, SSR, DOM and retired API exclusions.
+bash "$sveltery_repo_root/scripts/check-native-snippets-package.sh"
 
 # Installed public Dialog nine parts, payload handles, SSR, native DOM and strict types.
 bash scripts/check-dialog-handles-package.sh

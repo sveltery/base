@@ -6,7 +6,27 @@ import PositionerComponent from './Positioner.svelte';
 import PopupComponent from './Popup.svelte';
 import ArrowComponent from './Arrow.svelte';
 import ViewportComponent from './Viewport.svelte';
-import type { TooltipProviderProps, TooltipProviderState, TooltipRootProps, TooltipRootState, TooltipTriggerProps, TooltipTriggerState, TooltipPortalProps, TooltipPortalState, TooltipPositionerProps, TooltipPositionerState, TooltipPopupProps, TooltipPopupState, TooltipArrowProps, TooltipArrowState, TooltipViewportProps, TooltipViewportState, TooltipRootActions, TooltipRootChangeEventReason, TooltipRootChangeEventDetails } from './types.js';
+import type {
+  TooltipProviderProps,
+  TooltipProviderState,
+  TooltipRootProps,
+  TooltipRootState,
+  TooltipTriggerProps,
+  TooltipTriggerState,
+  TooltipPortalProps,
+  TooltipPortalState,
+  TooltipPositionerProps,
+  TooltipPositionerState,
+  TooltipPopupProps,
+  TooltipPopupState,
+  TooltipArrowProps,
+  TooltipArrowState,
+  TooltipViewportProps,
+  TooltipViewportState,
+  TooltipRootActions,
+  TooltipRootChangeEventReason,
+  TooltipRootChangeEventDetails,
+} from './types.js';
 
 export const Provider: typeof ProviderComponent = ProviderComponent;
 // eslint-disable-next-line @typescript-eslint/no-namespace -- Preserve pinned erased component namespace types.

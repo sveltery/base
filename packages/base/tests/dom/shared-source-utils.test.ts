@@ -6,7 +6,9 @@ import { createLogOnce } from '@sveltery/utils/createLogOnce';
 import { EMPTY_ARRAY, EMPTY_OBJECT } from '@sveltery/utils/empty';
 
 const mounted: ReturnType<typeof mount>[] = [];
-beforeEach(() => { reset(); });
+beforeEach(() => {
+  reset();
+});
 afterEach(async () => {
   await Promise.all(mounted.splice(0).map((component) => unmount(component)));
   document.body.replaceChildren();
@@ -18,7 +20,10 @@ async function setup(initialControlled?: unknown, initialDefault?: unknown) {
   const target = document.createElement('div');
   document.body.append(target);
   const events: string[] = [];
-  const component = mount(Fixture, { target, props: { initialControlled, initialDefault, events } });
+  const component = mount(Fixture, {
+    target,
+    props: { initialControlled, initialDefault, events },
+  });
   mounted.push(component);
   await tick();
   return { component, events, target };
@@ -107,11 +112,12 @@ it('uses a stable native closure during setup, attachment, effects and same-turn
 });
 
 it('native: tracks actual effect reads and cleans up before rerunning', async () => {
-  const { component } = await setup();
+  const { component, target } = await setup();
   expect(component.snapshot().effectRuns).toBe(1);
   component.setUnrelated(1);
   component.setCallbackRead(1);
   await tick();
+  expect(target.querySelector('[data-value]')!.getAttribute('data-unrelated')).toBe('1');
   expect(component.snapshot().effectRuns).toBe(2);
   expect(component.snapshot().effectCleanups).toBe(1);
   component.setDependency(-0);
@@ -179,7 +185,9 @@ it('owns refs and timeout cancellation/reset/teardown per component', async () =
   expect(component.snapshot().initialized).toBe(1);
   expect(component.snapshot().ref).toEqual({ seed: 'updated' });
   const first = vi.fn();
-  const second = vi.fn(() => { expect(component.timerStarted()).toBe(false); });
+  const second = vi.fn(() => {
+    expect(component.timerStarted()).toBe(false);
+  });
   component.start(20, first);
   component.start(10, second);
   vi.advanceTimersByTime(20);
@@ -199,9 +207,12 @@ it('shares immutable empty fallbacks and once-only logger keys including severit
   const warn = vi.spyOn(console, 'warn').mockImplementation(() => {});
   const logError = createLogOnce('error', 'Base UI');
   const logWarn = createLogOnce('warn', 'Base UI');
-  logError('same', 'message'); logError('same message'); logWarn('same message');
+  logError('same', 'message');
+  logError('same message');
+  logWarn('same message');
   expect(error).toHaveBeenCalledExactlyOnceWith('Base UI: same message');
   expect(warn).toHaveBeenCalledExactlyOnceWith('Base UI: same message');
-  reset(); logError('same message');
+  reset();
+  logError('same message');
   expect(error).toHaveBeenCalledTimes(2);
 });

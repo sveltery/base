@@ -12,11 +12,7 @@
   import { getAvatarContext } from './context.js';
   import { useImageLoadingStatus } from './useImageLoadingStatus.svelte.js';
   import { avatarStateAttributesMapping } from './stateAttributesMapping.js';
-  import type {
-    AvatarImageProps,
-    AvatarImageState,
-    ImageLoadingStatus,
-  } from './types.js';
+  import type { AvatarImageProps, AvatarImageState, ImageLoadingStatus } from './types.js';
 
   let {
     children,
@@ -81,13 +77,7 @@
     const observer = new Observer(() => resolve(false));
     observer.observe(image, {
       attributes: true,
-      attributeFilter: [
-        'src',
-        'srcset',
-        'sizes',
-        'crossorigin',
-        'referrerpolicy',
-      ],
+      attributeFilter: ['src', 'srcset', 'sizes', 'crossorigin', 'referrerpolicy'],
     });
     return () => observer.disconnect();
   });
@@ -112,8 +102,7 @@
     root.setImageLoadingStatus(status);
   };
   $effect.pre(() => {
-    if (imageLoadingStatus !== 'idle')
-      handleLoadingStatusChange(imageLoadingStatus);
+    if (imageLoadingStatus !== 'idle') handleLoadingStatusChange(imageLoadingStatus);
   });
   $effect(() => () => root.setImageLoadingStatus('idle'));
 

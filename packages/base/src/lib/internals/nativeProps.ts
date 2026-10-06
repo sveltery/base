@@ -1,9 +1,10 @@
 // Native prop representation for pinned pure prop business (MIT).
 // CSS strings and ClassValue are Svelte APIs; source merge algorithms live in their original modules.
-import type { ClassValue } from 'svelte/elements';
+import type { ClassValue, HTMLAttributes } from 'svelte/elements';
 import { resolveClassValue } from './resolveClassValue.js';
 import { mergeObjects } from '@sveltery/utils/mergeObjects';
-export type NativeStyle = string | Record<string, unknown>;
+// Public styles use Svelte's attribute representation; pure internal records still serialize below.
+export type NativeStyle = HTMLAttributes<HTMLElement>['style'];
 
 export function toNativeStyle(value: unknown): string | undefined {
   if (!value) return undefined;
@@ -34,10 +35,7 @@ export function toNativeClass(value: unknown): string | undefined {
 }
 
 /** Svelte attachment symbols are enumerable props, outside upstream string-keyed for-in loops. */
-export function copyAttachmentSymbols(
-  target: Record<string | symbol, unknown>,
-  source: object,
-) {
+export function copyAttachmentSymbols(target: Record<string | symbol, unknown>, source: object) {
   for (const key of Object.getOwnPropertySymbols(source)) {
     if (Object.prototype.propertyIsEnumerable.call(source, key))
       target[key] = (source as Record<symbol, unknown>)[key];

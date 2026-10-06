@@ -52,7 +52,13 @@ it('syncs options before a newly mounted child adds and keeps one stable facade'
   vi.useFakeTimers();
   const onClose = vi.fn();
   let context!: ToastProviderContext;
-  const { component } = setup({ scenario: 'mount', onClose, capture: (value) => { context = value; } });
+  const { component } = setup({
+    scenario: 'mount',
+    onClose,
+    capture: (value) => {
+      context = value;
+    },
+  });
   const original = context;
   component.configure({ showChild: false });
   flushSync();
@@ -77,8 +83,18 @@ it('isolates Provider facades and manager replacement and disposes subscriptions
   const replacement = createToastManager();
   let first!: ToastProviderContext;
   let second!: ToastProviderContext;
-  const a = setup({ manager: shared, capture: (context) => { first = context; } });
-  const b = setup({ manager: shared, capture: (context) => { second = context; } });
+  const a = setup({
+    manager: shared,
+    capture: (context) => {
+      first = context;
+    },
+  });
+  const b = setup({
+    manager: shared,
+    capture: (context) => {
+      second = context;
+    },
+  });
   const aFacade = first.manager;
   shared.add({ id: 'shared', title: 'Shared', timeout: 0 });
   flushSync();

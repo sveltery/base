@@ -8,7 +8,6 @@
   import { useMenuRootContext } from './root/MenuRootContext.js';
   import { popupStateMapping } from '../utils/popupStateMapping.js';
   import type { MenuArrowProps } from './types.js';
-  // eslint-disable-next-line no-useless-assignment -- Publishes native bindable host/action outputs to the owner.
   let {
     render,
     class: className,
@@ -33,8 +32,7 @@
       ref = host;
       return () =>
         untrack(() => {
-          if (positioner.arrowRef.current === host)
-            positioner.arrowRef.current = null;
+          if (positioner.arrowRef.current === host) positioner.arrowRef.current = null;
           if (ref === host) ref = null;
         });
     });

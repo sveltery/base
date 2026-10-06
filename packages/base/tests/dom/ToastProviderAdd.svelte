@@ -2,7 +2,12 @@
   import { onMount, untrack } from 'svelte';
   import { getToastManager } from '../../src/lib/toast/getToastManager.js';
   import { provider, type ToastProviderContext } from '../../src/lib/toast/context.js';
-  let { active = false, scenario = 'timeout', onClose, capture }: {
+  let {
+    active = false,
+    scenario = 'timeout',
+    onClose,
+    capture,
+  }: {
     active?: boolean;
     scenario?: string;
     onClose?: () => void;
@@ -28,4 +33,5 @@
     });
   });
 </script>
+
 <output data-testid="titles">{manager.toasts.map((toast) => toast.title).join(',')}</output>

@@ -7,12 +7,8 @@
   let {
     ref = $bindable(),
     ...props
-  }: HTMLAttributes<HTMLSpanElement> & { ref?: HTMLSpanElement | null } =
-    $props();
-  const role =
-    platform.screenReader.voiceOver && platform.engine.webkit
-      ? 'button'
-      : undefined;
+  }: HTMLAttributes<HTMLSpanElement> & { ref?: HTMLSpanElement | null } = $props();
+  const role = platform.screenReader.voiceOver && platform.engine.webkit ? 'button' : undefined;
 </script>
 
 <!-- svelte-ignore a11y_no_noninteractive_tabindex (Original focus guard remains a tabbable span with its platform-specific role branch.) -->

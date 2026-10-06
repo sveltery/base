@@ -1,7 +1,10 @@
 // Paired ordinary Panel SSR assertion ports. Base UI v1.8.0; MIT: parity/collapsible/UPSTREAM_LICENSE.
 import { execFileSync } from 'node:child_process';
 import { test } from 'node:test';
-for (const [line, scenario] of [[799, 'open'], [830, 'inline']]) {
+for (const [line, scenario] of [
+  [799, 'open'],
+  [830, 'inline'],
+]) {
   test(`P:${line} paired exact-pin React/Svelte SSR initial keyframe suppression`, () => {
     const script = `
       import assert from 'node:assert/strict';
@@ -27,6 +30,10 @@ for (const [line, scenario] of [[799, 'open'], [830, 'inline']]) {
         if (inline) assert.equal(panel.style.animationDuration, '100ms', framework);
       }
     `;
-    execFileSync(process.execPath, ['--import', './scripts/svelte-ssr-loader.mjs', '--input-type=module', '-e', script], { cwd: new URL('../../', import.meta.url), stdio: 'pipe' });
+    execFileSync(
+      process.execPath,
+      ['--import', './scripts/svelte-ssr-loader.mjs', '--input-type=module', '-e', script],
+      { cwd: new URL('../../', import.meta.url), stdio: 'pipe' },
+    );
   });
 }

@@ -74,13 +74,9 @@
     validationMode === 'onChange' ||
     (validationMode === 'onSubmit' && form.submitCountRef.current > 0);
   const formError = $derived(
-    effectiveName && Object.hasOwn(form.errors, effectiveName)
-      ? form.errors[effectiveName]
-      : null,
+    effectiveName && Object.hasOwn(form.errors, effectiveName) ? form.errors[effectiveName] : null,
   );
-  const hasFormError = $derived(
-    Boolean(Array.isArray(formError) ? formError.length : formError),
-  );
+  const hasFormError = $derived(Boolean(Array.isArray(formError) ? formError.length : formError));
   const invalid = $derived(invalidProp === true || hasFormError);
   let validityData = $state.raw<FieldValidityData>({
     state: DEFAULT_VALIDITY_STATE,
@@ -90,14 +86,11 @@
     initialValue: null,
   });
   function setValidityData(
-    value:
-      FieldValidityData | ((previous: FieldValidityData) => FieldValidityData),
+    value: FieldValidityData | ((previous: FieldValidityData) => FieldValidityData),
   ) {
     validityData = typeof value === 'function' ? value(validityData) : value;
   }
-  const valid = $derived(
-    !invalid && (disabled ? null : validityData.state.valid),
-  );
+  const valid = $derived(!invalid && (disabled ? null : validityData.state.valid));
   const fieldRootState: FieldRootState = $derived({
     disabled,
     touched,

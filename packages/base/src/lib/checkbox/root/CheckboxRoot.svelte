@@ -11,10 +11,7 @@
   import type { HTMLInputAttributes } from 'svelte/elements';
   import { Controlled } from '@sveltery/utils/Controlled';
 
-  import {
-    visuallyHidden,
-    visuallyHiddenInput,
-  } from '@sveltery/utils/visuallyHidden';
+  import { visuallyHidden, visuallyHiddenInput } from '@sveltery/utils/visuallyHidden';
   import { toNativeStyle } from '../../internals/nativeProps.js';
   import { useEnterSubmit } from '../utils/useEnterSubmit.svelte.js';
   import { getCheckboxStateAttributesMapping } from '../utils/getCheckboxStateAttributesMapping.js';
@@ -68,12 +65,7 @@
   );
   const isGroupedWithParent = $derived(parentContext !== undefined);
   const disabled = $derived(
-    Boolean(
-      field.disabled ||
-      fieldItem.disabled ||
-      groupContext?.disabled ||
-      disabledProp,
-    ),
+    Boolean(field.disabled || fieldItem.disabled || groupContext?.disabled || disabledProp),
   );
   const name = $derived(field.name ?? nameProp);
   const getNativeName = useFieldControlNativeName();
@@ -82,9 +74,7 @@
   const value = $derived(valueProp ?? name);
   const instanceId = $props.id();
   const id = useBaseUiId(undefined, instanceId);
-  const ownsControlId = $derived(
-    groupContext?.registerControlId !== labelable.registerControlId,
-  );
+  const ownsControlId = $derived(groupContext?.registerControlId !== labelable.registerControlId);
   const getControlId = useLabelableId(
     () => ({ id: idProp || undefined, enabled: ownsControlId }),
     `${id}-input`,
@@ -102,9 +92,7 @@
     return {};
   });
   const groupChecked = $derived(groupProps.checked ?? checkedProp);
-  const groupIndeterminate = $derived(
-    groupProps.indeterminate ?? indeterminate,
-  );
+  const groupIndeterminate = $derived(groupProps.indeterminate ?? indeterminate);
   const groupOnChange = $derived(groupProps.onCheckedChange);
   const otherGroupProps = $derived.by(() => {
     // These belong to checked state/callback logic, not host attributes.
@@ -138,13 +126,9 @@
     untrack(() => defaultChecked),
   );
   const checked = $derived(checkedState.value);
-  const computedChecked = $derived(
-    isGroupedWithParent ? Boolean(groupChecked) : checked,
-  );
+  const computedChecked = $derived(isGroupedWithParent ? Boolean(groupChecked) : checked);
   const computedIndeterminate = $derived(
-    Boolean(
-      isGroupedWithParent ? groupIndeterminate || indeterminate : indeterminate,
-    ),
+    Boolean(isGroupedWithParent ? groupIndeterminate || indeterminate : indeterminate),
   );
   useRegisterFieldControl(
     controlRef,
@@ -224,12 +208,7 @@
         return;
       }
       checkedState.set(nextChecked);
-      if (
-        value !== undefined &&
-        groupContext !== undefined &&
-        !parent &&
-        !isGroupedWithParent
-      ) {
+      if (value !== undefined && groupContext !== undefined && !parent && !isGroupedWithParent) {
         groupContext.setValue(
           nextChecked
             ? [...groupContext.value, value]
@@ -244,9 +223,7 @@
     },
     ...(valueProp !== undefined
       ? {
-          value: getNativeValue(
-            (groupContext ? checked && valueProp : valueProp) || '',
-          ),
+          value: getNativeValue((groupContext ? checked && valueProp : valueProp) || ''),
         }
       : {}),
   });
@@ -266,9 +243,7 @@
     required,
     indeterminate: computedIndeterminate,
   });
-  const stateAttributesMapping = $derived(
-    getCheckboxStateAttributesMapping(rootState),
-  );
+  const stateAttributesMapping = $derived(getCheckboxStateAttributesMapping(rootState));
   const handleEnterSubmit = useEnterSubmit(controlRef, inputRef);
   const rootProps = $derived({
     id: rootId,
@@ -287,9 +262,7 @@
       field.setTouched(true);
       field.setFocused(false);
       if (field.validationMode === 'onBlur')
-        void validation.commit(
-          groupContext ? groupContext.value : input.checked,
-        );
+        void validation.commit(groupContext ? groupContext.value : input.checked);
     },
     onkeydown: handleEnterSubmit,
     onclick(event: MouseEvent) {
@@ -310,14 +283,10 @@
     const update = () =>
       untrack(() => {
         unregister?.();
-        unregister = element.id
-          ? context.registerChildId(childValue, element.id)
-          : undefined;
+        unregister = element.id ? context.registerChildId(childValue, element.id) : undefined;
       });
     update();
-    const observer = new element.ownerDocument.defaultView!.MutationObserver(
-      update,
-    );
+    const observer = new element.ownerDocument.defaultView!.MutationObserver(update);
     observer.observe(element, { attributes: true, attributeFilter: ['id'] });
     return () => {
       observer.disconnect();
@@ -330,8 +299,7 @@
     mergePropsN([
       inputProps,
       labelable.getDescriptionProps,
-      (props: Record<string, unknown>) =>
-        validation.getValidationProps(disabled, props),
+      (props: Record<string, unknown>) => validation.getValidationProps(disabled, props),
     ]),
   );
   function attachInput(host: HTMLInputElement) {
@@ -374,8 +342,7 @@
         otherGroupProps,
         getButtonProps,
         labelable.getDescriptionProps,
-        (props: Record<string, unknown>) =>
-          validation.getValidationProps(disabled, props),
+        (props: Record<string, unknown>) => validation.getValidationProps(disabled, props),
       ],
       stateAttributesMapping,
     ),
@@ -389,13 +356,7 @@
   <span {...mergedProps}>{@render children?.()}</span>
 {/if}
 {#if !checked && !groupContext && name && !parent && uncheckedValue !== undefined}
-  <input
-    type="hidden"
-    {form}
-    name={nativeName}
-    value={uncheckedValue}
-    {disabled}
-  />
+  <input type="hidden" {form} name={nativeName} value={uncheckedValue} {disabled} />
 {/if}
 <!-- Native binding owns checkbox DOM/default/hydration and form-reset behavior. -->
 <input

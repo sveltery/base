@@ -65,8 +65,7 @@ export function useButton(getParameters: () => UseButtonParameters = () => ({}))
   };
   $effect(updateDisabled);
   function getButtonProps(externalProps: HTMLProps = {}): HTMLProps {
-    const { disabled, isNativeButton, isCompositeItem, focusableWhenDisabledProps } =
-      parameters();
+    const { disabled, isNativeButton, isCompositeItem, focusableWhenDisabledProps } = parameters();
     const {
       onclick: externalOnClick,
       onmousedown: externalOnMouseDown,
@@ -91,9 +90,7 @@ export function useButton(getParameters: () => UseButtonParameters = () => ({}))
         onkeydown(event: BaseUIEvent<KeyboardEvent>) {
           if (disabled) return;
           makeEventPreventable(event);
-          (
-            externalOnKeyDown as ((event: BaseUIEvent<KeyboardEvent>) => void) | undefined
-          )?.(event);
+          (externalOnKeyDown as ((event: BaseUIEvent<KeyboardEvent>) => void) | undefined)?.(event);
           if (event.baseUIHandlerPrevented) return;
           const isCurrentTarget = event.target === event.currentTarget;
           const currentTarget = event.currentTarget as HTMLElement;
@@ -128,9 +125,7 @@ export function useButton(getParameters: () => UseButtonParameters = () => ({}))
         onkeyup(event: BaseUIEvent<KeyboardEvent>) {
           if (disabled) return;
           makeEventPreventable(event);
-          (
-            externalOnKeyUp as ((event: BaseUIEvent<KeyboardEvent>) => void) | undefined
-          )?.(event);
+          (externalOnKeyUp as ((event: BaseUIEvent<KeyboardEvent>) => void) | undefined)?.(event);
           if (
             event.target === event.currentTarget &&
             isNativeButton &&
@@ -170,7 +165,13 @@ export function useButton(getParameters: () => UseButtonParameters = () => ({}))
     elementRef.current = element;
     updateDisabled();
   };
-  return { getButtonProps, buttonRef };
+  return {
+    getButtonProps,
+    buttonRef,
+    get element() {
+      return elementRef.current;
+    },
+  };
 }
 function isButtonElement(element: Element | null): element is HTMLButtonElement {
   return element?.tagName === 'BUTTON';

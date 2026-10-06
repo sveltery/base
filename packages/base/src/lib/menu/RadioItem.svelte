@@ -16,7 +16,6 @@
   import { createChangeEventDetails } from '../internals/createBaseUIEventDetails.js';
   import { REASONS } from '../internals/reasons.js';
   import type { MenuRadioItemProps } from './types.js';
-  // eslint-disable-next-line no-useless-assignment -- Publishes native bindable host/action outputs to the owner.
   let {
     render,
     class: className,
@@ -39,9 +38,7 @@
   const highlighted = $derived(store.useState('isActive', listItem.index()));
   const itemProps = $derived(store.useState('itemProps'));
   const group = useMenuRadioGroupContext();
-  const disabled = $derived(
-    disabledProp || group.disabled || store.useState('disabled'),
-  );
+  const disabled = $derived(disabledProp || group.disabled || store.useState('disabled'));
   const checked = $derived(group.value === value);
   const item = useMenuItem(() => ({
     closeOnClick,
@@ -66,12 +63,9 @@
     },
   });
   function handleClick(event: MouseEvent) {
-    const details = createChangeEventDetails(
-      REASONS.itemPress,
-      event,
-      undefined,
-      { preventUnmountOnClose: NOOP },
-    );
+    const details = createChangeEventDetails(REASONS.itemPress, event, undefined, {
+      preventUnmountOnClose: NOOP,
+    });
     group.setValue(value, details);
   }
 

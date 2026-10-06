@@ -30,8 +30,7 @@ export function mountRadioReference(
     const initial = scenario.includes('empty') ? null : 'b';
     const controlled = scenario.startsWith('controlled');
     const cancel = scenario.includes('cancel');
-    const disabled =
-      scenario.includes('disabled') && !scenario.includes('first-disabled');
+    const disabled = scenario.includes('disabled') && !scenario.includes('first-disabled');
     const readOnly = scenario.includes('readonly');
     const required = scenario.includes('required');
     const disabledFirst = scenario.includes('first-disabled');
@@ -133,8 +132,7 @@ export function mountRadioReference(
           {
             id: 'form',
             onClick: () => setAncestorClicks((previous) => previous + 1),
-            onFormSubmit: (values) =>
-              setSubmissions((previous) => [...previous, values]),
+            onFormSubmit: (values) => setSubmissions((previous) => [...previous, values]),
           },
           h(
             Fieldset.Root,
@@ -146,9 +144,7 @@ export function mountRadioReference(
                 name: 'choice',
                 id: 'field',
                 validationMode:
-                  scenario.startsWith('onblur') || groupFocusScenario
-                    ? 'onBlur'
-                    : undefined,
+                  scenario.startsWith('onblur') || groupFocusScenario ? 'onBlur' : undefined,
                 validate:
                   scenario.startsWith('onblur') || groupFocusScenario
                     ? (value: unknown) => {
@@ -169,8 +165,7 @@ export function mountRadioReference(
                   readOnly,
                   required,
                   name: 'fallback',
-                  form:
-                    scenario === 'external-form' ? 'external-form' : undefined,
+                  form: scenario === 'external-form' ? 'external-form' : undefined,
                   onValueChange(value, details) {
                     setCalls((previous) => [
                       ...previous,
@@ -182,19 +177,11 @@ export function mountRadioReference(
                       },
                     ]);
                     if (cancel) details.cancel();
-                    if (
-                      controlled &&
-                      !scenario.includes('reject') &&
-                      !details.isCanceled
-                    )
+                    if (controlled && !scenario.includes('reject') && !details.isCanceled)
                       setOwner(value);
                   },
-                  onFocus: groupFocusScenario
-                    ? observeGroupFocus('enter')
-                    : undefined,
-                  onBlur: groupFocusScenario
-                    ? observeGroupFocus('leave')
-                    : undefined,
+                  onFocus: groupFocusScenario ? observeGroupFocus('enter') : undefined,
+                  onBlur: groupFocusScenario ? observeGroupFocus('leave') : undefined,
                   ...focusProps,
                   render:
                     renderOverride || scenario.startsWith('focus-group-render')
@@ -215,9 +202,7 @@ export function mountRadioReference(
                         nativeButton,
                         disabled: disabledFirst && value === 'a',
                         render: nativeButton ? h('button') : h('span'),
-                        onFocus: itemFocusScenario
-                          ? observeItemFocus
-                          : undefined,
+                        onFocus: itemFocusScenario ? observeItemFocus : undefined,
                         ...radioFocusProps,
                       },
                       h(Radio.Indicator, {
@@ -244,8 +229,7 @@ export function mountRadioReference(
               ),
               h(Field.Error, { id: 'error' }),
               h(Field.Validity, {
-                children: (state) =>
-                  h('output', { id: 'validity' }, JSON.stringify(state)),
+                children: (state) => h('output', { id: 'validity' }, JSON.stringify(state)),
               }),
             ),
           ),
@@ -269,10 +253,7 @@ export function mountRadioReference(
   return () => root.unmount();
 }
 
-export function mountCompositeFocusReference(
-  node: HTMLElement,
-  renderOverride: boolean,
-) {
+export function mountCompositeFocusReference(node: HTMLElement, renderOverride: boolean) {
   const root = createRoot(node);
   root.render(
     h(CompositeRoot, {

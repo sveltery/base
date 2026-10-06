@@ -9,10 +9,7 @@
   import { useOpenChangeComplete } from '../../internals/useOpenChangeComplete.svelte.js';
   import { useTransitionStatus } from '../../internals/useTransitionStatus.svelte.js';
   import { transitionStatusMapping } from '../../internals/stateAttributesMapping.js';
-  import type {
-    CheckboxIndicatorProps,
-    CheckboxIndicatorState,
-  } from '../types.js';
+  import type { CheckboxIndicatorProps, CheckboxIndicatorState } from '../types.js';
   let {
     render,
     class: classProp,

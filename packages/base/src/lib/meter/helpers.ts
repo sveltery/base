@@ -11,11 +11,7 @@ export function normalize(
   format?: Intl.NumberFormatOptions,
 ) {
   const rawPercentage = ((value - min) * 100) / (max - min);
-  const percentageValue = clamp(
-    Number.isNaN(rawPercentage) ? 0 : rawPercentage,
-    0,
-    100,
-  );
+  const percentageValue = clamp(Number.isNaN(rawPercentage) ? 0 : rawPercentage, 0, 100);
   const clampedValue = clamp(Number.isNaN(value) ? min : value, min, max);
   const formattedValue = format
     ? formatNumber(clampedValue, locale, format)

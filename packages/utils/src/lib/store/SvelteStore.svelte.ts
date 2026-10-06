@@ -7,24 +7,47 @@ import { Store } from './Store.svelte.js';
 type Selector<State> = (state: State, ...args: any[]) => any;
 type Tail<T extends readonly unknown[]> = T extends readonly [unknown, ...infer Rest] ? Rest : [];
 type SelectorArgs<F> = F extends (...args: infer A) => unknown ? Tail<A> : never;
-type KeysAllowingUndefined<State> = { [Key in keyof State]-?: undefined extends State[Key] ? Key : never }[keyof State];
+type KeysAllowingUndefined<State> = {
+  [Key in keyof State]-?: undefined extends State[Key] ? Key : never;
+}[keyof State];
 // eslint-disable-next-line @typescript-eslint/no-explicit-any -- Original observer selector output is generic.
 type ObserveSelector<State> = (state: State) => any;
 
 /** Original Store business mutations with native reactive snapshot reads and live context. */
-export class SvelteStore<State extends object, Context, Selectors extends Record<string, Selector<State>>> extends Store<State> {
-  private readonly trackState = createSubscriber(update => this.subscribe(() => update()));
-  constructor(state: State, readonly context: Context, private readonly selectors: Selectors) { super(state); }
-  select<Key extends keyof Selectors>(key: Key, ...args: SelectorArgs<Selectors[Key]>): ReturnType<Selectors[Key]> {
+export class SvelteStore<
+  State extends object,
+  Context,
+  Selectors extends Record<string, Selector<State>>,
+> extends Store<State> {
+  private readonly trackState = createSubscriber((update) => this.subscribe(() => update()));
+  constructor(
+    state: State,
+    readonly context: Context,
+    private readonly selectors: Selectors,
+  ) {
+    super(state);
+  }
+  select<Key extends keyof Selectors>(
+    key: Key,
+    ...args: SelectorArgs<Selectors[Key]>
+  ): ReturnType<Selectors[Key]> {
     this.trackState();
     return this.selectors[key](this.state, ...args);
   }
   /** Native runes track a selected read directly; no external React subscription adapter. */
-  useState<Key extends keyof Selectors>(key: Key, ...args: SelectorArgs<Selectors[Key]>): ReturnType<Selectors[Key]> {
+  useState<Key extends keyof Selectors>(
+    key: Key,
+    ...args: SelectorArgs<Selectors[Key]>
+  ): ReturnType<Selectors[Key]> {
     return this.select(key, ...args);
   }
   useSyncedValue<Key extends keyof State>(key: Key, getValue: () => State[Key]) {
-    $effect(() => { const value = getValue(); untrack(() => { if (this.state[key] !== value) this.set(key, value); }); });
+    $effect(() => {
+      const value = getValue();
+      untrack(() => {
+        if (this.state[key] !== value) this.set(key, value);
+      });
+    });
   }
   useSyncedValues<const Key extends keyof State>(getValues: () => Pick<State, Key>) {
     $effect(() => {
@@ -32,21 +55,43 @@ export class SvelteStore<State extends object, Context, Selectors extends Record
       untrack(() => this.update(values));
     });
   }
-  useSyncedValueWithCleanup<Key extends KeysAllowingUndefined<State>>(key: Key, getValue: () => State[Key]) {
-    $effect(() => { const value = getValue(); untrack(() => { if (this.state[key] !== value) this.set(key, value); }); return () => { this.set(key, undefined as State[Key]); }; });
-  }
-  useControlledProp<Key extends keyof State>(key: Key, getControlled: () => State[Key] | undefined) {
+  useSyncedValueWithCleanup<Key extends KeysAllowingUndefined<State>>(
+    key: Key,
+    getValue: () => State[Key],
+  ) {
     $effect(() => {
-      const controlled = getControlled();
-      untrack(() => { if (controlled !== undefined) this.set(key, controlled); });
+      const value = getValue();
+      untrack(() => {
+        if (this.state[key] !== value) this.set(key, value);
+      });
+      return () => {
+        this.set(key, undefined as State[Key]);
+      };
     });
   }
-  useStateSetter<Key extends keyof State>(key: Key) { return (value: State[Key]) => this.set(key, value); }
+  useControlledProp<Key extends keyof State>(
+    key: Key,
+    getControlled: () => State[Key] | undefined,
+  ) {
+    $effect(() => {
+      const controlled = getControlled();
+      untrack(() => {
+        if (controlled !== undefined) this.set(key, controlled);
+      });
+    });
+  }
+  useStateSetter<Key extends keyof State>(key: Key) {
+    return (value: State[Key]) => this.set(key, value);
+  }
 
   /** Original ReactStore.observe business body, independent of renderer subscriptions. */
   observe<Key extends keyof Selectors>(
     selector: Key,
-    listener: (newValue: ReturnType<Selectors[Key]>, oldValue: ReturnType<Selectors[Key]>, store: this) => void,
+    listener: (
+      newValue: ReturnType<Selectors[Key]>,
+      oldValue: ReturnType<Selectors[Key]>,
+      store: this,
+    ) => void,
   ): () => void;
   observe<Observed extends ObserveSelector<State>>(
     selector: Observed,
@@ -62,7 +107,7 @@ export class SvelteStore<State extends object, Context, Selectors extends Record
     else selectFn = this.selectors[selector] as ObserveSelector<State>;
     let prevValue = selectFn(this.state);
     listener(prevValue, prevValue, this);
-    return this.subscribe(nextState => {
+    return this.subscribe((nextState) => {
       const nextValue = selectFn(nextState);
       if (!Object.is(prevValue, nextValue)) {
         const oldValue = prevValue;

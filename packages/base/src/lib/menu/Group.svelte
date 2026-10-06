@@ -4,10 +4,7 @@
   import { untrack } from 'svelte';
 
   // Original MenuGroup label/provider/render composition (MIT).
-  import {
-    provideMenuGroupContext,
-    type MenuGroupContext,
-  } from './group/MenuGroupContext.js';
+  import { provideMenuGroupContext, type MenuGroupContext } from './group/MenuGroupContext.js';
   import type { MenuGroupProps } from './types.js';
   let {
     render,

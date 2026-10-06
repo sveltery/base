@@ -51,9 +51,7 @@
             ? descriptor.checked
             : undefined,
       defaultChecked:
-        typeof descriptor.defaultChecked === 'boolean'
-          ? descriptor.defaultChecked
-          : undefined,
+        typeof descriptor.defaultChecked === 'boolean' ? descriptor.defaultChecked : undefined,
       value:
         (descriptor.type ?? remote?.kind) === 'radio'
           ? value
@@ -69,9 +67,7 @@
     // Group is mounted inside the render snippet after this facade.
     setFieldControlValueContext({
       get value() {
-        return typeof semanticProps.value === 'string'
-          ? semanticProps.value
-          : undefined;
+        return typeof semanticProps.value === 'string' ? semanticProps.value : undefined;
       },
     });
   }

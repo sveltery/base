@@ -28,43 +28,38 @@
   const id = $derived(registeredId ?? item.defaultTriggerId);
   const state = $derived(item.state);
   const resolved = $derived.by(() => {
-    const classValue =
-      typeof classProp === 'function' ? classProp(state) : classProp;
-    return getButtonProps(
-      mergeProps(
-        {
-          ...stateAttributes(state, true),
-          'aria-controls': context.open ? context.panelId : undefined,
-          'aria-expanded': context.open,
-          id,
-          onclick: context.handleTrigger,
-        },
-        {
-          ...props,
-          class:
-            classValue === undefined
-              ? undefined
-              : resolveClassValue(classValue),
-        },
+    const classValue = typeof classProp === 'function' ? classProp(state) : classProp;
+    const className = classValue === undefined ? undefined : resolveClassValue(classValue);
+    return {
+      ...getButtonProps(
+        mergeProps(
+          {
+            ...stateAttributes(state, true),
+            'aria-controls': context.open ? context.panelId : undefined,
+            'aria-expanded': context.open,
+            id,
+            onclick: context.handleTrigger,
+          },
+          {
+            ...props,
+            class: className,
+          },
+        ),
+        disabled,
+        true,
+        nativeButton,
       ),
-      disabled,
-      true,
-      nativeButton,
-    );
+      class: className,
+      style: props.style,
+    };
   });
   $effect(() => {
     const registered = registeredId;
     untrack(() =>
-      item.setTriggerId(
-        (current) => registered ?? (current === null ? undefined : current),
-      ),
+      item.setTriggerId((current) => registered ?? (current === null ? undefined : current)),
     );
     return () =>
-      untrack(() =>
-        item.setTriggerId((current) =>
-          current === registered ? null : current,
-        ),
-      );
+      untrack(() => item.setTriggerId((current) => (current === registered ? null : current)));
   });
 
   const hostAttachmentKey = createAttachmentKey();

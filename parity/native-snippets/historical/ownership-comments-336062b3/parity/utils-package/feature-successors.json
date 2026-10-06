@@ -1,0 +1,1746 @@
+{
+  "ordinaryDeclarationCredit": 0,
+  "records": [
+    {
+      "predecessorRecord": "parity/avatar/source-audit/audit.json",
+      "predecessorSha256": "68100ae07084599d896f032b8d8b67cadbe5752ece3b5448d49db280674d3aa7",
+      "classification": "preserved historical exact-head audit/review/receipt",
+      "currentGraph": "current-source-graph.json",
+      "moves": [
+        {
+          "old": "packages/base/src/lib/utils/empty.ts",
+          "current": "packages/utils/src/lib/empty.ts",
+          "currentSha256": "00dc8f5cccebba670a7c7f2a78a66f3a4c008e8fec496badfc909a2bb8664151"
+        },
+        {
+          "old": "packages/base/src/lib/utils/mergeObjects.ts",
+          "current": "packages/utils/src/lib/mergeObjects.ts",
+          "currentSha256": "1e6cfa2be20c639f5ce6f8b0b6cc447da3413bbbc6750a5b1ab03f5810d81746"
+        },
+        {
+          "old": "packages/base/src/lib/utils/useAnimationFrame.ts",
+          "currentSuccessor": {
+            "graph": "current-source-graph.json",
+            "from": "packages/base/src/lib/utils/useAnimationFrame.ts"
+          }
+        },
+        {
+          "old": "packages/base/src/lib/utils/useIsoLayoutEffect.svelte.ts",
+          "currentSuccessor": {
+            "graph": "current-source-graph.json",
+            "from": "packages/base/src/lib/utils/useIsoLayoutEffect.svelte.ts"
+          }
+        },
+        {
+          "old": "packages/base/src/lib/utils/useMergedRefs.ts",
+          "currentSuccessor": {
+            "graph": "current-source-graph.json",
+            "from": "packages/base/src/lib/utils/useMergedRefs.ts"
+          }
+        },
+        {
+          "old": "packages/base/src/lib/utils/useOnMount.ts",
+          "currentSuccessor": {
+            "graph": "current-source-graph.json",
+            "from": "packages/base/src/lib/utils/useOnMount.ts"
+          }
+        },
+        {
+          "old": "packages/base/src/lib/utils/useRefWithInit.ts",
+          "currentSuccessor": {
+            "graph": "current-source-graph.json",
+            "from": "packages/base/src/lib/utils/useRefWithInit.ts"
+          }
+        },
+        {
+          "old": "packages/base/src/lib/utils/useStableCallback.ts",
+          "currentSuccessor": {
+            "graph": "current-source-graph.json",
+            "from": "packages/base/src/lib/utils/useStableCallback.ts"
+          }
+        },
+        {
+          "old": "packages/base/src/lib/utils/useTimeout.ts",
+          "currentSuccessor": {
+            "graph": "current-source-graph.json",
+            "from": "packages/base/src/lib/utils/useTimeout.ts"
+          }
+        }
+      ],
+      "ordinaryDeclarationCredit": 0,
+      "acceptance": "No historical review/acceptance transfer; independent final-head review pending."
+    },
+    {
+      "predecessorRecord": "parity/avatar/source-audit/native-graph.json",
+      "predecessorSha256": "40b1e824bc3513003ba9a66514f9f28745dcd77b605a10cb712755e02cc6ec9d",
+      "classification": "preserved historical exact-head audit/review/receipt",
+      "currentGraph": "current-source-graph.json",
+      "moves": [
+        {
+          "old": "packages/base/src/lib/utils/empty.ts",
+          "current": "packages/utils/src/lib/empty.ts",
+          "currentSha256": "00dc8f5cccebba670a7c7f2a78a66f3a4c008e8fec496badfc909a2bb8664151"
+        },
+        {
+          "old": "packages/base/src/lib/utils/mergeObjects.ts",
+          "current": "packages/utils/src/lib/mergeObjects.ts",
+          "currentSha256": "1e6cfa2be20c639f5ce6f8b0b6cc447da3413bbbc6750a5b1ab03f5810d81746"
+        },
+        {
+          "old": "packages/base/src/lib/utils/useMergedRefs.ts",
+          "currentSuccessor": {
+            "graph": "current-source-graph.json",
+            "from": "packages/base/src/lib/utils/useMergedRefs.ts"
+          }
+        },
+        {
+          "old": "packages/base/src/lib/utils/useRefWithInit.ts",
+          "currentSuccessor": {
+            "graph": "current-source-graph.json",
+            "from": "packages/base/src/lib/utils/useRefWithInit.ts"
+          }
+        }
+      ],
+      "ordinaryDeclarationCredit": 0,
+      "acceptance": "No historical review/acceptance transfer; independent final-head review pending."
+    },
+    {
+      "predecessorRecord": "parity/avatar/source-audit/nativeTests-graph.json",
+      "predecessorSha256": "f93fba50133b4acb710c0584bf0c5e4c8ac589a9b3ef3700979c172814adc907",
+      "classification": "preserved historical exact-head audit/review/receipt",
+      "currentGraph": "current-source-graph.json",
+      "moves": [
+        {
+          "old": "packages/base/src/lib/utils/empty.ts",
+          "current": "packages/utils/src/lib/empty.ts",
+          "currentSha256": "00dc8f5cccebba670a7c7f2a78a66f3a4c008e8fec496badfc909a2bb8664151"
+        },
+        {
+          "old": "packages/base/src/lib/utils/mergeObjects.ts",
+          "current": "packages/utils/src/lib/mergeObjects.ts",
+          "currentSha256": "1e6cfa2be20c639f5ce6f8b0b6cc447da3413bbbc6750a5b1ab03f5810d81746"
+        },
+        {
+          "old": "packages/base/src/lib/utils/useMergedRefs.ts",
+          "currentSuccessor": {
+            "graph": "current-source-graph.json",
+            "from": "packages/base/src/lib/utils/useMergedRefs.ts"
+          }
+        },
+        {
+          "old": "packages/base/src/lib/utils/useRefWithInit.ts",
+          "currentSuccessor": {
+            "graph": "current-source-graph.json",
+            "from": "packages/base/src/lib/utils/useRefWithInit.ts"
+          }
+        }
+      ],
+      "ordinaryDeclarationCredit": 0,
+      "acceptance": "No historical review/acceptance transfer; independent final-head review pending."
+    },
+    {
+      "predecessorRecord": "parity/avatar/source-audit/scope.json",
+      "predecessorSha256": "54fcdd7ec5e4ae2e8a41ea4787e6ae77439e0ab532c4461f89c6bd497abf381e",
+      "classification": "preserved historical exact-head audit/review/receipt",
+      "currentGraph": "current-source-graph.json",
+      "moves": [
+        {
+          "old": "packages/base/src/lib/utils/empty.ts",
+          "current": "packages/utils/src/lib/empty.ts",
+          "currentSha256": "00dc8f5cccebba670a7c7f2a78a66f3a4c008e8fec496badfc909a2bb8664151"
+        },
+        {
+          "old": "packages/base/src/lib/utils/mergeObjects.ts",
+          "current": "packages/utils/src/lib/mergeObjects.ts",
+          "currentSha256": "1e6cfa2be20c639f5ce6f8b0b6cc447da3413bbbc6750a5b1ab03f5810d81746"
+        },
+        {
+          "old": "packages/base/src/lib/utils/useMergedRefs.ts",
+          "currentSuccessor": {
+            "graph": "current-source-graph.json",
+            "from": "packages/base/src/lib/utils/useMergedRefs.ts"
+          }
+        },
+        {
+          "old": "packages/base/src/lib/utils/useRefWithInit.ts",
+          "currentSuccessor": {
+            "graph": "current-source-graph.json",
+            "from": "packages/base/src/lib/utils/useRefWithInit.ts"
+          }
+        }
+      ],
+      "ordinaryDeclarationCredit": 0,
+      "acceptance": "No historical review/acceptance transfer; independent final-head review pending."
+    },
+    {
+      "predecessorRecord": "parity/avatar/source-repair/native-graph.json",
+      "predecessorSha256": "a643fdafd0e94bd5e8db3ff4b9a099d9bf3bbbba0414e0041549ce78f6129845",
+      "classification": "preserved historical exact-head audit/review/receipt",
+      "currentGraph": "current-source-graph.json",
+      "moves": [
+        {
+          "old": "packages/base/src/lib/utils/empty.ts",
+          "current": "packages/utils/src/lib/empty.ts",
+          "currentSha256": "00dc8f5cccebba670a7c7f2a78a66f3a4c008e8fec496badfc909a2bb8664151"
+        },
+        {
+          "old": "packages/base/src/lib/utils/mergeObjects.ts",
+          "current": "packages/utils/src/lib/mergeObjects.ts",
+          "currentSha256": "1e6cfa2be20c639f5ce6f8b0b6cc447da3413bbbc6750a5b1ab03f5810d81746"
+        },
+        {
+          "old": "packages/base/src/lib/utils/useAnimationFrame.ts",
+          "currentSuccessor": {
+            "graph": "current-source-graph.json",
+            "from": "packages/base/src/lib/utils/useAnimationFrame.ts"
+          }
+        },
+        {
+          "old": "packages/base/src/lib/utils/useIsoLayoutEffect.svelte.ts",
+          "currentSuccessor": {
+            "graph": "current-source-graph.json",
+            "from": "packages/base/src/lib/utils/useIsoLayoutEffect.svelte.ts"
+          }
+        },
+        {
+          "old": "packages/base/src/lib/utils/useMergedRefs.ts",
+          "currentSuccessor": {
+            "graph": "current-source-graph.json",
+            "from": "packages/base/src/lib/utils/useMergedRefs.ts"
+          }
+        },
+        {
+          "old": "packages/base/src/lib/utils/useOnMount.ts",
+          "currentSuccessor": {
+            "graph": "current-source-graph.json",
+            "from": "packages/base/src/lib/utils/useOnMount.ts"
+          }
+        },
+        {
+          "old": "packages/base/src/lib/utils/useRefWithInit.ts",
+          "currentSuccessor": {
+            "graph": "current-source-graph.json",
+            "from": "packages/base/src/lib/utils/useRefWithInit.ts"
+          }
+        },
+        {
+          "old": "packages/base/src/lib/utils/useStableCallback.ts",
+          "currentSuccessor": {
+            "graph": "current-source-graph.json",
+            "from": "packages/base/src/lib/utils/useStableCallback.ts"
+          }
+        }
+      ],
+      "ordinaryDeclarationCredit": 0,
+      "acceptance": "No historical review/acceptance transfer; independent final-head review pending."
+    },
+    {
+      "predecessorRecord": "parity/avatar/source-repair/nativeTests-graph.json",
+      "predecessorSha256": "4b724788438bb3ee25337c0a332fb3b1dc7e10061fba1f33857e608258157cf0",
+      "classification": "preserved historical exact-head audit/review/receipt",
+      "currentGraph": "current-source-graph.json",
+      "moves": [
+        {
+          "old": "packages/base/src/lib/utils/empty.ts",
+          "current": "packages/utils/src/lib/empty.ts",
+          "currentSha256": "00dc8f5cccebba670a7c7f2a78a66f3a4c008e8fec496badfc909a2bb8664151"
+        },
+        {
+          "old": "packages/base/src/lib/utils/mergeObjects.ts",
+          "current": "packages/utils/src/lib/mergeObjects.ts",
+          "currentSha256": "1e6cfa2be20c639f5ce6f8b0b6cc447da3413bbbc6750a5b1ab03f5810d81746"
+        },
+        {
+          "old": "packages/base/src/lib/utils/useAnimationFrame.ts",
+          "currentSuccessor": {
+            "graph": "current-source-graph.json",
+            "from": "packages/base/src/lib/utils/useAnimationFrame.ts"
+          }
+        },
+        {
+          "old": "packages/base/src/lib/utils/useIsoLayoutEffect.svelte.ts",
+          "currentSuccessor": {
+            "graph": "current-source-graph.json",
+            "from": "packages/base/src/lib/utils/useIsoLayoutEffect.svelte.ts"
+          }
+        },
+        {
+          "old": "packages/base/src/lib/utils/useMergedRefs.ts",
+          "currentSuccessor": {
+            "graph": "current-source-graph.json",
+            "from": "packages/base/src/lib/utils/useMergedRefs.ts"
+          }
+        },
+        {
+          "old": "packages/base/src/lib/utils/useOnMount.ts",
+          "currentSuccessor": {
+            "graph": "current-source-graph.json",
+            "from": "packages/base/src/lib/utils/useOnMount.ts"
+          }
+        },
+        {
+          "old": "packages/base/src/lib/utils/useRefWithInit.ts",
+          "currentSuccessor": {
+            "graph": "current-source-graph.json",
+            "from": "packages/base/src/lib/utils/useRefWithInit.ts"
+          }
+        },
+        {
+          "old": "packages/base/src/lib/utils/useStableCallback.ts",
+          "currentSuccessor": {
+            "graph": "current-source-graph.json",
+            "from": "packages/base/src/lib/utils/useStableCallback.ts"
+          }
+        }
+      ],
+      "ordinaryDeclarationCredit": 0,
+      "acceptance": "No historical review/acceptance transfer; independent final-head review pending."
+    },
+    {
+      "predecessorRecord": "parity/avatar/source-repair/repair.json",
+      "predecessorSha256": "3c02422760cdd6a9680dd58e996e892551625c951cb2fe123be1c54dfee26da2",
+      "classification": "preserved historical exact-head audit/review/receipt",
+      "currentGraph": "current-source-graph.json",
+      "moves": [
+        {
+          "old": "packages/base/src/lib/utils/empty.ts",
+          "current": "packages/utils/src/lib/empty.ts",
+          "currentSha256": "00dc8f5cccebba670a7c7f2a78a66f3a4c008e8fec496badfc909a2bb8664151"
+        },
+        {
+          "old": "packages/base/src/lib/utils/mergeObjects.ts",
+          "current": "packages/utils/src/lib/mergeObjects.ts",
+          "currentSha256": "1e6cfa2be20c639f5ce6f8b0b6cc447da3413bbbc6750a5b1ab03f5810d81746"
+        },
+        {
+          "old": "packages/base/src/lib/utils/useAnimationFrame.ts",
+          "currentSuccessor": {
+            "graph": "current-source-graph.json",
+            "from": "packages/base/src/lib/utils/useAnimationFrame.ts"
+          }
+        },
+        {
+          "old": "packages/base/src/lib/utils/useIsoLayoutEffect.svelte.ts",
+          "currentSuccessor": {
+            "graph": "current-source-graph.json",
+            "from": "packages/base/src/lib/utils/useIsoLayoutEffect.svelte.ts"
+          }
+        },
+        {
+          "old": "packages/base/src/lib/utils/useMergedRefs.ts",
+          "currentSuccessor": {
+            "graph": "current-source-graph.json",
+            "from": "packages/base/src/lib/utils/useMergedRefs.ts"
+          }
+        },
+        {
+          "old": "packages/base/src/lib/utils/useOnMount.ts",
+          "currentSuccessor": {
+            "graph": "current-source-graph.json",
+            "from": "packages/base/src/lib/utils/useOnMount.ts"
+          }
+        },
+        {
+          "old": "packages/base/src/lib/utils/useRefWithInit.ts",
+          "currentSuccessor": {
+            "graph": "current-source-graph.json",
+            "from": "packages/base/src/lib/utils/useRefWithInit.ts"
+          }
+        },
+        {
+          "old": "packages/base/src/lib/utils/useStableCallback.ts",
+          "currentSuccessor": {
+            "graph": "current-source-graph.json",
+            "from": "packages/base/src/lib/utils/useStableCallback.ts"
+          }
+        }
+      ],
+      "ordinaryDeclarationCredit": 0,
+      "acceptance": "No historical review/acceptance transfer; independent final-head review pending."
+    },
+    {
+      "predecessorRecord": "parity/avatar/source-repair/scope.json",
+      "predecessorSha256": "e06b857a15bed9a1081b4692e2543e1cee4b904601783e1eae67ced56cb2e130",
+      "classification": "preserved historical exact-head audit/review/receipt",
+      "currentGraph": "current-source-graph.json",
+      "moves": [
+        {
+          "old": "packages/base/src/lib/utils/empty.ts",
+          "current": "packages/utils/src/lib/empty.ts",
+          "currentSha256": "00dc8f5cccebba670a7c7f2a78a66f3a4c008e8fec496badfc909a2bb8664151"
+        },
+        {
+          "old": "packages/base/src/lib/utils/mergeObjects.ts",
+          "current": "packages/utils/src/lib/mergeObjects.ts",
+          "currentSha256": "1e6cfa2be20c639f5ce6f8b0b6cc447da3413bbbc6750a5b1ab03f5810d81746"
+        },
+        {
+          "old": "packages/base/src/lib/utils/useAnimationFrame.ts",
+          "currentSuccessor": {
+            "graph": "current-source-graph.json",
+            "from": "packages/base/src/lib/utils/useAnimationFrame.ts"
+          }
+        },
+        {
+          "old": "packages/base/src/lib/utils/useIsoLayoutEffect.svelte.ts",
+          "currentSuccessor": {
+            "graph": "current-source-graph.json",
+            "from": "packages/base/src/lib/utils/useIsoLayoutEffect.svelte.ts"
+          }
+        },
+        {
+          "old": "packages/base/src/lib/utils/useMergedRefs.ts",
+          "currentSuccessor": {
+            "graph": "current-source-graph.json",
+            "from": "packages/base/src/lib/utils/useMergedRefs.ts"
+          }
+        },
+        {
+          "old": "packages/base/src/lib/utils/useOnMount.ts",
+          "currentSuccessor": {
+            "graph": "current-source-graph.json",
+            "from": "packages/base/src/lib/utils/useOnMount.ts"
+          }
+        },
+        {
+          "old": "packages/base/src/lib/utils/useRefWithInit.ts",
+          "currentSuccessor": {
+            "graph": "current-source-graph.json",
+            "from": "packages/base/src/lib/utils/useRefWithInit.ts"
+          }
+        },
+        {
+          "old": "packages/base/src/lib/utils/useStableCallback.ts",
+          "currentSuccessor": {
+            "graph": "current-source-graph.json",
+            "from": "packages/base/src/lib/utils/useStableCallback.ts"
+          }
+        }
+      ],
+      "ordinaryDeclarationCredit": 0,
+      "acceptance": "No historical review/acceptance transfer; independent final-head review pending."
+    },
+    {
+      "predecessorRecord": "parity/menu-family/boundary-plan.json",
+      "predecessorSha256": "eb2fa91c0486e7cba21f219b55e6f82a016c1fe9337d36bc5a782a7a81c0f57e",
+      "classification": "prior source correspondence checkpoint; current successor graph below is authoritative for package ownership",
+      "currentGraph": "current-source-graph.json",
+      "moves": [
+        {
+          "old": "packages/base/src/lib/utils/addEventListener.ts",
+          "current": "packages/utils/src/lib/addEventListener.ts",
+          "currentSha256": "77880d75a5c8c5ac2d924e69d7cc7662c616b953d4895c8e6a24de53de4502bf"
+        },
+        {
+          "old": "packages/base/src/lib/utils/createLogOnce.ts",
+          "current": "packages/utils/src/lib/createLogOnce.ts",
+          "currentSha256": "f9d8a63ce89aa2d0b31a8d88affb4ff7c49528f12152a9dc99223ee24dca90c9"
+        },
+        {
+          "old": "packages/base/src/lib/utils/empty.ts",
+          "current": "packages/utils/src/lib/empty.ts",
+          "currentSha256": "00dc8f5cccebba670a7c7f2a78a66f3a4c008e8fec496badfc909a2bb8664151"
+        },
+        {
+          "old": "packages/base/src/lib/utils/error.ts",
+          "current": "packages/utils/src/lib/error.ts",
+          "currentSha256": "ebbe57877f3f8c77c83631ed4042bd288d13f98fb93afd5390128dbd0d7cec27"
+        },
+        {
+          "old": "packages/base/src/lib/utils/isElementDisabled.ts",
+          "current": "packages/utils/src/lib/isElementDisabled.ts",
+          "currentSha256": "c2f6141d744cb16e458208163d616cefa465b8da0445658c4d9282a05a1b616e"
+        },
+        {
+          "old": "packages/base/src/lib/utils/mergeCleanups.ts",
+          "current": "packages/utils/src/lib/mergeCleanups.ts",
+          "currentSha256": "28eb97759c815e7a3edcb4a5ac4464473790ae9294bda5a66ba268bca8efedcb"
+        },
+        {
+          "old": "packages/base/src/lib/utils/mergeObjects.ts",
+          "current": "packages/utils/src/lib/mergeObjects.ts",
+          "currentSha256": "1e6cfa2be20c639f5ce6f8b0b6cc447da3413bbbc6750a5b1ab03f5810d81746"
+        },
+        {
+          "old": "packages/base/src/lib/utils/owner.ts",
+          "current": "packages/utils/src/lib/owner.ts",
+          "currentSha256": "759c607acc1a103b2d795840051555671fe65fd889dae7694606b9069803f986"
+        },
+        {
+          "old": "packages/base/src/lib/utils/platform/engine.ts",
+          "current": "packages/utils/src/lib/platform/engine.ts",
+          "currentSha256": "e4745bcc586212a32cde2f7d206cc1aa4df86b8a29301f8d15cf3cd88996a987"
+        },
+        {
+          "old": "packages/base/src/lib/utils/platform/env.ts",
+          "current": "packages/utils/src/lib/platform/env.ts",
+          "currentSha256": "dbd7cc1369986d370094b986c44b1bce3c10eba1f792f0e5c3e99c071e00eb9d"
+        },
+        {
+          "old": "packages/base/src/lib/utils/platform/index.ts",
+          "current": "packages/utils/src/lib/platform/index.ts",
+          "currentSha256": "c9c1174c0f82f01033187e382b461370123d356d8e14901a9ca7d85dbd2ea63c"
+        },
+        {
+          "old": "packages/base/src/lib/utils/platform/media-query.ts",
+          "current": "packages/utils/src/lib/platform/media-query.ts",
+          "currentSha256": "5e91ea2589962018778ad88498ff9acd432a5244fe37ee922d0a6014b1fb7ed9"
+        },
+        {
+          "old": "packages/base/src/lib/utils/platform/os.ts",
+          "current": "packages/utils/src/lib/platform/os.ts",
+          "currentSha256": "456f2f5814e890fb12d899c1cc2f08566529216fd8f6d40a9a8e5846b2c9c3d6"
+        },
+        {
+          "old": "packages/base/src/lib/utils/platform/parts.ts",
+          "current": "packages/utils/src/lib/platform/parts.ts",
+          "currentSha256": "5382169dc9803fde93bc85e33062cbc85d7cdc0bf754d1a7f6f21eb2b4dcac29"
+        },
+        {
+          "old": "packages/base/src/lib/utils/platform/screen-reader.ts",
+          "current": "packages/utils/src/lib/platform/screen-reader.ts",
+          "currentSha256": "c43ebce8b6557becf984c0ae7f36395da615110e7f878bab1c0dfd476ceb19a7"
+        },
+        {
+          "old": "packages/base/src/lib/utils/platform/shared.ts",
+          "current": "packages/utils/src/lib/platform/shared.ts",
+          "currentSha256": "28621a4723495ed9f1370c09b12480a6f488f19e59c70e78524325fc6e080db2"
+        },
+        {
+          "old": "packages/base/src/lib/utils/shadowDom.ts",
+          "current": "packages/utils/src/lib/shadowDom.ts",
+          "currentSha256": "2cb79a4a3ccbe16581be29f7958d03bce459c5cf8cad8ae4b9f08ab981d42a2a"
+        },
+        {
+          "old": "packages/base/src/lib/utils/useAnimationFrame.ts",
+          "currentSuccessor": {
+            "graph": "current-source-graph.json",
+            "from": "packages/base/src/lib/utils/useAnimationFrame.ts"
+          }
+        },
+        {
+          "old": "packages/base/src/lib/utils/useControlled.svelte.ts",
+          "currentSuccessor": {
+            "graph": "current-source-graph.json",
+            "from": "packages/base/src/lib/utils/useControlled.svelte.ts"
+          }
+        },
+        {
+          "old": "packages/base/src/lib/utils/useEnhancedClickHandler.ts",
+          "current": "packages/utils/src/lib/useEnhancedClickHandler.ts",
+          "currentSha256": "6a045d6b74a7851d3446200f55711ffc1dcc22449a2e92680cdf328750a436d5"
+        },
+        {
+          "old": "packages/base/src/lib/utils/useId.ts",
+          "current": "packages/utils/src/lib/useId.ts",
+          "currentSha256": "584864eb7f538f5adc40ab128461db75c960984c51265aead1ca3821e4bf879a"
+        },
+        {
+          "old": "packages/base/src/lib/utils/useIsoLayoutEffect.svelte.ts",
+          "currentSuccessor": {
+            "graph": "current-source-graph.json",
+            "from": "packages/base/src/lib/utils/useIsoLayoutEffect.svelte.ts"
+          }
+        },
+        {
+          "old": "packages/base/src/lib/utils/useMergedRefs.ts",
+          "currentSuccessor": {
+            "graph": "current-source-graph.json",
+            "from": "packages/base/src/lib/utils/useMergedRefs.ts"
+          }
+        },
+        {
+          "old": "packages/base/src/lib/utils/useOnMount.ts",
+          "currentSuccessor": {
+            "graph": "current-source-graph.json",
+            "from": "packages/base/src/lib/utils/useOnMount.ts"
+          }
+        },
+        {
+          "old": "packages/base/src/lib/utils/useRefWithInit.ts",
+          "currentSuccessor": {
+            "graph": "current-source-graph.json",
+            "from": "packages/base/src/lib/utils/useRefWithInit.ts"
+          }
+        },
+        {
+          "old": "packages/base/src/lib/utils/useScrollLock.svelte.ts",
+          "current": "packages/utils/src/lib/useScrollLock.svelte.ts",
+          "currentSha256": "bea63beb673cffb2bb25fcb5491b34f9724cb03453c1014273b501da4c5dfc35"
+        },
+        {
+          "old": "packages/base/src/lib/utils/useStableCallback.ts",
+          "currentSuccessor": {
+            "graph": "current-source-graph.json",
+            "from": "packages/base/src/lib/utils/useStableCallback.ts"
+          }
+        },
+        {
+          "old": "packages/base/src/lib/utils/useTimeout.ts",
+          "currentSuccessor": {
+            "graph": "current-source-graph.json",
+            "from": "packages/base/src/lib/utils/useTimeout.ts"
+          }
+        },
+        {
+          "old": "packages/base/src/lib/utils/visuallyHidden.ts",
+          "current": "packages/utils/src/lib/visuallyHidden.ts",
+          "currentSha256": "8f49185df1c0536608090368454cc3d30a3bfc1991b23a4b5e5239184ead8020"
+        },
+        {
+          "old": "packages/base/src/lib/utils/warn.ts",
+          "current": "packages/utils/src/lib/warn.ts",
+          "currentSha256": "58267e2a1dd62afbc707faf9c031dee042605aa74d44dbf72dd997d2ad69db65"
+        }
+      ],
+      "ordinaryDeclarationCredit": 0,
+      "acceptance": "No historical review/acceptance transfer; independent final-head review pending."
+    },
+    {
+      "predecessorRecord": "parity/menu-family/reviews/ff42fea/audit.json",
+      "predecessorSha256": "8ff44f56702e38829ced14789487fb3f243916500442dbad0f612c0be31d61a8",
+      "classification": "preserved historical exact-head audit/review/receipt",
+      "currentGraph": "current-source-graph.json",
+      "moves": [
+        {
+          "old": "packages/base/src/lib/utils/addEventListener.ts",
+          "current": "packages/utils/src/lib/addEventListener.ts",
+          "currentSha256": "77880d75a5c8c5ac2d924e69d7cc7662c616b953d4895c8e6a24de53de4502bf"
+        },
+        {
+          "old": "packages/base/src/lib/utils/createLogOnce.ts",
+          "current": "packages/utils/src/lib/createLogOnce.ts",
+          "currentSha256": "f9d8a63ce89aa2d0b31a8d88affb4ff7c49528f12152a9dc99223ee24dca90c9"
+        },
+        {
+          "old": "packages/base/src/lib/utils/empty.ts",
+          "current": "packages/utils/src/lib/empty.ts",
+          "currentSha256": "00dc8f5cccebba670a7c7f2a78a66f3a4c008e8fec496badfc909a2bb8664151"
+        },
+        {
+          "old": "packages/base/src/lib/utils/error.ts",
+          "current": "packages/utils/src/lib/error.ts",
+          "currentSha256": "ebbe57877f3f8c77c83631ed4042bd288d13f98fb93afd5390128dbd0d7cec27"
+        },
+        {
+          "old": "packages/base/src/lib/utils/isElementDisabled.ts",
+          "current": "packages/utils/src/lib/isElementDisabled.ts",
+          "currentSha256": "c2f6141d744cb16e458208163d616cefa465b8da0445658c4d9282a05a1b616e"
+        },
+        {
+          "old": "packages/base/src/lib/utils/mergeCleanups.ts",
+          "current": "packages/utils/src/lib/mergeCleanups.ts",
+          "currentSha256": "28eb97759c815e7a3edcb4a5ac4464473790ae9294bda5a66ba268bca8efedcb"
+        },
+        {
+          "old": "packages/base/src/lib/utils/mergeObjects.ts",
+          "current": "packages/utils/src/lib/mergeObjects.ts",
+          "currentSha256": "1e6cfa2be20c639f5ce6f8b0b6cc447da3413bbbc6750a5b1ab03f5810d81746"
+        },
+        {
+          "old": "packages/base/src/lib/utils/owner.ts",
+          "current": "packages/utils/src/lib/owner.ts",
+          "currentSha256": "759c607acc1a103b2d795840051555671fe65fd889dae7694606b9069803f986"
+        },
+        {
+          "old": "packages/base/src/lib/utils/platform/engine.ts",
+          "current": "packages/utils/src/lib/platform/engine.ts",
+          "currentSha256": "e4745bcc586212a32cde2f7d206cc1aa4df86b8a29301f8d15cf3cd88996a987"
+        },
+        {
+          "old": "packages/base/src/lib/utils/platform/env.ts",
+          "current": "packages/utils/src/lib/platform/env.ts",
+          "currentSha256": "dbd7cc1369986d370094b986c44b1bce3c10eba1f792f0e5c3e99c071e00eb9d"
+        },
+        {
+          "old": "packages/base/src/lib/utils/platform/index.ts",
+          "current": "packages/utils/src/lib/platform/index.ts",
+          "currentSha256": "c9c1174c0f82f01033187e382b461370123d356d8e14901a9ca7d85dbd2ea63c"
+        },
+        {
+          "old": "packages/base/src/lib/utils/platform/media-query.ts",
+          "current": "packages/utils/src/lib/platform/media-query.ts",
+          "currentSha256": "5e91ea2589962018778ad88498ff9acd432a5244fe37ee922d0a6014b1fb7ed9"
+        },
+        {
+          "old": "packages/base/src/lib/utils/platform/os.ts",
+          "current": "packages/utils/src/lib/platform/os.ts",
+          "currentSha256": "456f2f5814e890fb12d899c1cc2f08566529216fd8f6d40a9a8e5846b2c9c3d6"
+        },
+        {
+          "old": "packages/base/src/lib/utils/platform/parts.ts",
+          "current": "packages/utils/src/lib/platform/parts.ts",
+          "currentSha256": "5382169dc9803fde93bc85e33062cbc85d7cdc0bf754d1a7f6f21eb2b4dcac29"
+        },
+        {
+          "old": "packages/base/src/lib/utils/platform/screen-reader.ts",
+          "current": "packages/utils/src/lib/platform/screen-reader.ts",
+          "currentSha256": "c43ebce8b6557becf984c0ae7f36395da615110e7f878bab1c0dfd476ceb19a7"
+        },
+        {
+          "old": "packages/base/src/lib/utils/platform/shared.ts",
+          "current": "packages/utils/src/lib/platform/shared.ts",
+          "currentSha256": "28621a4723495ed9f1370c09b12480a6f488f19e59c70e78524325fc6e080db2"
+        },
+        {
+          "old": "packages/base/src/lib/utils/shadowDom.ts",
+          "current": "packages/utils/src/lib/shadowDom.ts",
+          "currentSha256": "2cb79a4a3ccbe16581be29f7958d03bce459c5cf8cad8ae4b9f08ab981d42a2a"
+        },
+        {
+          "old": "packages/base/src/lib/utils/store/Store.svelte.ts",
+          "current": "packages/utils/src/lib/store/Store.svelte.ts",
+          "currentSha256": "289f1c151106f981843140b9d508d300597ee1f5a90437dca446738b861cad3c"
+        },
+        {
+          "old": "packages/base/src/lib/utils/store/SvelteStore.svelte.ts",
+          "currentSuccessor": {
+            "graph": "current-source-graph.json",
+            "from": "packages/base/src/lib/utils/store/SvelteStore.svelte.ts"
+          }
+        },
+        {
+          "old": "packages/base/src/lib/utils/useAnimationFrame.ts",
+          "currentSuccessor": {
+            "graph": "current-source-graph.json",
+            "from": "packages/base/src/lib/utils/useAnimationFrame.ts"
+          }
+        },
+        {
+          "old": "packages/base/src/lib/utils/useControlled.svelte.ts",
+          "currentSuccessor": {
+            "graph": "current-source-graph.json",
+            "from": "packages/base/src/lib/utils/useControlled.svelte.ts"
+          }
+        },
+        {
+          "old": "packages/base/src/lib/utils/useEnhancedClickHandler.ts",
+          "current": "packages/utils/src/lib/useEnhancedClickHandler.ts",
+          "currentSha256": "6a045d6b74a7851d3446200f55711ffc1dcc22449a2e92680cdf328750a436d5"
+        },
+        {
+          "old": "packages/base/src/lib/utils/useId.ts",
+          "current": "packages/utils/src/lib/useId.ts",
+          "currentSha256": "584864eb7f538f5adc40ab128461db75c960984c51265aead1ca3821e4bf879a"
+        },
+        {
+          "old": "packages/base/src/lib/utils/useIsoLayoutEffect.svelte.ts",
+          "currentSuccessor": {
+            "graph": "current-source-graph.json",
+            "from": "packages/base/src/lib/utils/useIsoLayoutEffect.svelte.ts"
+          }
+        },
+        {
+          "old": "packages/base/src/lib/utils/useMergedRefs.ts",
+          "currentSuccessor": {
+            "graph": "current-source-graph.json",
+            "from": "packages/base/src/lib/utils/useMergedRefs.ts"
+          }
+        },
+        {
+          "old": "packages/base/src/lib/utils/useOnMount.ts",
+          "currentSuccessor": {
+            "graph": "current-source-graph.json",
+            "from": "packages/base/src/lib/utils/useOnMount.ts"
+          }
+        },
+        {
+          "old": "packages/base/src/lib/utils/usePreviousValue.svelte.ts",
+          "currentSuccessor": {
+            "graph": "current-source-graph.json",
+            "from": "packages/base/src/lib/utils/usePreviousValue.svelte.ts"
+          }
+        },
+        {
+          "old": "packages/base/src/lib/utils/useRefWithInit.ts",
+          "currentSuccessor": {
+            "graph": "current-source-graph.json",
+            "from": "packages/base/src/lib/utils/useRefWithInit.ts"
+          }
+        },
+        {
+          "old": "packages/base/src/lib/utils/useScrollLock.svelte.ts",
+          "current": "packages/utils/src/lib/useScrollLock.svelte.ts",
+          "currentSha256": "bea63beb673cffb2bb25fcb5491b34f9724cb03453c1014273b501da4c5dfc35"
+        },
+        {
+          "old": "packages/base/src/lib/utils/useStableCallback.ts",
+          "currentSuccessor": {
+            "graph": "current-source-graph.json",
+            "from": "packages/base/src/lib/utils/useStableCallback.ts"
+          }
+        },
+        {
+          "old": "packages/base/src/lib/utils/useTimeout.ts",
+          "currentSuccessor": {
+            "graph": "current-source-graph.json",
+            "from": "packages/base/src/lib/utils/useTimeout.ts"
+          }
+        },
+        {
+          "old": "packages/base/src/lib/utils/visuallyHidden.ts",
+          "current": "packages/utils/src/lib/visuallyHidden.ts",
+          "currentSha256": "8f49185df1c0536608090368454cc3d30a3bfc1991b23a4b5e5239184ead8020"
+        },
+        {
+          "old": "packages/base/src/lib/utils/warn.ts",
+          "current": "packages/utils/src/lib/warn.ts",
+          "currentSha256": "58267e2a1dd62afbc707faf9c031dee042605aa74d44dbf72dd997d2ad69db65"
+        }
+      ],
+      "ordinaryDeclarationCredit": 0,
+      "acceptance": "No historical review/acceptance transfer; independent final-head review pending."
+    },
+    {
+      "predecessorRecord": "parity/menu-family/reviews/ff42fea/edge-audit.json",
+      "predecessorSha256": "aedb5c369a0332c88895cd271a8269e872bcb4f0fcbcf97f20d9cf219d92b494",
+      "classification": "preserved historical exact-head audit/review/receipt",
+      "currentGraph": "current-source-graph.json",
+      "moves": [
+        {
+          "old": "packages/base/src/lib/utils/addEventListener.ts",
+          "current": "packages/utils/src/lib/addEventListener.ts",
+          "currentSha256": "77880d75a5c8c5ac2d924e69d7cc7662c616b953d4895c8e6a24de53de4502bf"
+        },
+        {
+          "old": "packages/base/src/lib/utils/createLogOnce.ts",
+          "current": "packages/utils/src/lib/createLogOnce.ts",
+          "currentSha256": "f9d8a63ce89aa2d0b31a8d88affb4ff7c49528f12152a9dc99223ee24dca90c9"
+        },
+        {
+          "old": "packages/base/src/lib/utils/empty.ts",
+          "current": "packages/utils/src/lib/empty.ts",
+          "currentSha256": "00dc8f5cccebba670a7c7f2a78a66f3a4c008e8fec496badfc909a2bb8664151"
+        },
+        {
+          "old": "packages/base/src/lib/utils/error.ts",
+          "current": "packages/utils/src/lib/error.ts",
+          "currentSha256": "ebbe57877f3f8c77c83631ed4042bd288d13f98fb93afd5390128dbd0d7cec27"
+        },
+        {
+          "old": "packages/base/src/lib/utils/isElementDisabled.ts",
+          "current": "packages/utils/src/lib/isElementDisabled.ts",
+          "currentSha256": "c2f6141d744cb16e458208163d616cefa465b8da0445658c4d9282a05a1b616e"
+        },
+        {
+          "old": "packages/base/src/lib/utils/mergeCleanups.ts",
+          "current": "packages/utils/src/lib/mergeCleanups.ts",
+          "currentSha256": "28eb97759c815e7a3edcb4a5ac4464473790ae9294bda5a66ba268bca8efedcb"
+        },
+        {
+          "old": "packages/base/src/lib/utils/mergeObjects.ts",
+          "current": "packages/utils/src/lib/mergeObjects.ts",
+          "currentSha256": "1e6cfa2be20c639f5ce6f8b0b6cc447da3413bbbc6750a5b1ab03f5810d81746"
+        },
+        {
+          "old": "packages/base/src/lib/utils/owner.ts",
+          "current": "packages/utils/src/lib/owner.ts",
+          "currentSha256": "759c607acc1a103b2d795840051555671fe65fd889dae7694606b9069803f986"
+        },
+        {
+          "old": "packages/base/src/lib/utils/platform/engine.ts",
+          "current": "packages/utils/src/lib/platform/engine.ts",
+          "currentSha256": "e4745bcc586212a32cde2f7d206cc1aa4df86b8a29301f8d15cf3cd88996a987"
+        },
+        {
+          "old": "packages/base/src/lib/utils/platform/env.ts",
+          "current": "packages/utils/src/lib/platform/env.ts",
+          "currentSha256": "dbd7cc1369986d370094b986c44b1bce3c10eba1f792f0e5c3e99c071e00eb9d"
+        },
+        {
+          "old": "packages/base/src/lib/utils/platform/index.ts",
+          "current": "packages/utils/src/lib/platform/index.ts",
+          "currentSha256": "c9c1174c0f82f01033187e382b461370123d356d8e14901a9ca7d85dbd2ea63c"
+        },
+        {
+          "old": "packages/base/src/lib/utils/platform/media-query.ts",
+          "current": "packages/utils/src/lib/platform/media-query.ts",
+          "currentSha256": "5e91ea2589962018778ad88498ff9acd432a5244fe37ee922d0a6014b1fb7ed9"
+        },
+        {
+          "old": "packages/base/src/lib/utils/platform/os.ts",
+          "current": "packages/utils/src/lib/platform/os.ts",
+          "currentSha256": "456f2f5814e890fb12d899c1cc2f08566529216fd8f6d40a9a8e5846b2c9c3d6"
+        },
+        {
+          "old": "packages/base/src/lib/utils/platform/parts.ts",
+          "current": "packages/utils/src/lib/platform/parts.ts",
+          "currentSha256": "5382169dc9803fde93bc85e33062cbc85d7cdc0bf754d1a7f6f21eb2b4dcac29"
+        },
+        {
+          "old": "packages/base/src/lib/utils/platform/screen-reader.ts",
+          "current": "packages/utils/src/lib/platform/screen-reader.ts",
+          "currentSha256": "c43ebce8b6557becf984c0ae7f36395da615110e7f878bab1c0dfd476ceb19a7"
+        },
+        {
+          "old": "packages/base/src/lib/utils/platform/shared.ts",
+          "current": "packages/utils/src/lib/platform/shared.ts",
+          "currentSha256": "28621a4723495ed9f1370c09b12480a6f488f19e59c70e78524325fc6e080db2"
+        },
+        {
+          "old": "packages/base/src/lib/utils/shadowDom.ts",
+          "current": "packages/utils/src/lib/shadowDom.ts",
+          "currentSha256": "2cb79a4a3ccbe16581be29f7958d03bce459c5cf8cad8ae4b9f08ab981d42a2a"
+        },
+        {
+          "old": "packages/base/src/lib/utils/store/Store.svelte.ts",
+          "current": "packages/utils/src/lib/store/Store.svelte.ts",
+          "currentSha256": "289f1c151106f981843140b9d508d300597ee1f5a90437dca446738b861cad3c"
+        },
+        {
+          "old": "packages/base/src/lib/utils/store/SvelteStore.svelte.ts",
+          "currentSuccessor": {
+            "graph": "current-source-graph.json",
+            "from": "packages/base/src/lib/utils/store/SvelteStore.svelte.ts"
+          }
+        },
+        {
+          "old": "packages/base/src/lib/utils/useAnimationFrame.ts",
+          "currentSuccessor": {
+            "graph": "current-source-graph.json",
+            "from": "packages/base/src/lib/utils/useAnimationFrame.ts"
+          }
+        },
+        {
+          "old": "packages/base/src/lib/utils/useControlled.svelte.ts",
+          "currentSuccessor": {
+            "graph": "current-source-graph.json",
+            "from": "packages/base/src/lib/utils/useControlled.svelte.ts"
+          }
+        },
+        {
+          "old": "packages/base/src/lib/utils/useEnhancedClickHandler.ts",
+          "current": "packages/utils/src/lib/useEnhancedClickHandler.ts",
+          "currentSha256": "6a045d6b74a7851d3446200f55711ffc1dcc22449a2e92680cdf328750a436d5"
+        },
+        {
+          "old": "packages/base/src/lib/utils/useId.ts",
+          "current": "packages/utils/src/lib/useId.ts",
+          "currentSha256": "584864eb7f538f5adc40ab128461db75c960984c51265aead1ca3821e4bf879a"
+        },
+        {
+          "old": "packages/base/src/lib/utils/useIsoLayoutEffect.svelte.ts",
+          "currentSuccessor": {
+            "graph": "current-source-graph.json",
+            "from": "packages/base/src/lib/utils/useIsoLayoutEffect.svelte.ts"
+          }
+        },
+        {
+          "old": "packages/base/src/lib/utils/useMergedRefs.ts",
+          "currentSuccessor": {
+            "graph": "current-source-graph.json",
+            "from": "packages/base/src/lib/utils/useMergedRefs.ts"
+          }
+        },
+        {
+          "old": "packages/base/src/lib/utils/useOnMount.ts",
+          "currentSuccessor": {
+            "graph": "current-source-graph.json",
+            "from": "packages/base/src/lib/utils/useOnMount.ts"
+          }
+        },
+        {
+          "old": "packages/base/src/lib/utils/usePreviousValue.svelte.ts",
+          "currentSuccessor": {
+            "graph": "current-source-graph.json",
+            "from": "packages/base/src/lib/utils/usePreviousValue.svelte.ts"
+          }
+        },
+        {
+          "old": "packages/base/src/lib/utils/useRefWithInit.ts",
+          "currentSuccessor": {
+            "graph": "current-source-graph.json",
+            "from": "packages/base/src/lib/utils/useRefWithInit.ts"
+          }
+        },
+        {
+          "old": "packages/base/src/lib/utils/useScrollLock.svelte.ts",
+          "current": "packages/utils/src/lib/useScrollLock.svelte.ts",
+          "currentSha256": "bea63beb673cffb2bb25fcb5491b34f9724cb03453c1014273b501da4c5dfc35"
+        },
+        {
+          "old": "packages/base/src/lib/utils/useStableCallback.ts",
+          "currentSuccessor": {
+            "graph": "current-source-graph.json",
+            "from": "packages/base/src/lib/utils/useStableCallback.ts"
+          }
+        },
+        {
+          "old": "packages/base/src/lib/utils/useTimeout.ts",
+          "currentSuccessor": {
+            "graph": "current-source-graph.json",
+            "from": "packages/base/src/lib/utils/useTimeout.ts"
+          }
+        },
+        {
+          "old": "packages/base/src/lib/utils/visuallyHidden.ts",
+          "current": "packages/utils/src/lib/visuallyHidden.ts",
+          "currentSha256": "8f49185df1c0536608090368454cc3d30a3bfc1991b23a4b5e5239184ead8020"
+        },
+        {
+          "old": "packages/base/src/lib/utils/warn.ts",
+          "current": "packages/utils/src/lib/warn.ts",
+          "currentSha256": "58267e2a1dd62afbc707faf9c031dee042605aa74d44dbf72dd997d2ad69db65"
+        }
+      ],
+      "ordinaryDeclarationCredit": 0,
+      "acceptance": "No historical review/acceptance transfer; independent final-head review pending."
+    },
+    {
+      "predecessorRecord": "parity/popup-family/boundary-plan.json",
+      "predecessorSha256": "d5184338296af007a34df083fa03409a37cb24cd783cfd2d08f01cad36b2bb2c",
+      "classification": "prior source correspondence checkpoint; current successor graph below is authoritative for package ownership",
+      "currentGraph": "current-source-graph.json",
+      "moves": [
+        {
+          "old": "packages/base/src/lib/utils/addEventListener.ts",
+          "current": "packages/utils/src/lib/addEventListener.ts",
+          "currentSha256": "77880d75a5c8c5ac2d924e69d7cc7662c616b953d4895c8e6a24de53de4502bf"
+        },
+        {
+          "old": "packages/base/src/lib/utils/createLogOnce.ts",
+          "current": "packages/utils/src/lib/createLogOnce.ts",
+          "currentSha256": "f9d8a63ce89aa2d0b31a8d88affb4ff7c49528f12152a9dc99223ee24dca90c9"
+        },
+        {
+          "old": "packages/base/src/lib/utils/empty.ts",
+          "current": "packages/utils/src/lib/empty.ts",
+          "currentSha256": "00dc8f5cccebba670a7c7f2a78a66f3a4c008e8fec496badfc909a2bb8664151"
+        },
+        {
+          "old": "packages/base/src/lib/utils/error.ts",
+          "current": "packages/utils/src/lib/error.ts",
+          "currentSha256": "ebbe57877f3f8c77c83631ed4042bd288d13f98fb93afd5390128dbd0d7cec27"
+        },
+        {
+          "old": "packages/base/src/lib/utils/mergeCleanups.ts",
+          "current": "packages/utils/src/lib/mergeCleanups.ts",
+          "currentSha256": "28eb97759c815e7a3edcb4a5ac4464473790ae9294bda5a66ba268bca8efedcb"
+        },
+        {
+          "old": "packages/base/src/lib/utils/mergeObjects.ts",
+          "current": "packages/utils/src/lib/mergeObjects.ts",
+          "currentSha256": "1e6cfa2be20c639f5ce6f8b0b6cc447da3413bbbc6750a5b1ab03f5810d81746"
+        },
+        {
+          "old": "packages/base/src/lib/utils/owner.ts",
+          "current": "packages/utils/src/lib/owner.ts",
+          "currentSha256": "759c607acc1a103b2d795840051555671fe65fd889dae7694606b9069803f986"
+        },
+        {
+          "old": "packages/base/src/lib/utils/platform/engine.ts",
+          "current": "packages/utils/src/lib/platform/engine.ts",
+          "currentSha256": "e4745bcc586212a32cde2f7d206cc1aa4df86b8a29301f8d15cf3cd88996a987"
+        },
+        {
+          "old": "packages/base/src/lib/utils/platform/env.ts",
+          "current": "packages/utils/src/lib/platform/env.ts",
+          "currentSha256": "dbd7cc1369986d370094b986c44b1bce3c10eba1f792f0e5c3e99c071e00eb9d"
+        },
+        {
+          "old": "packages/base/src/lib/utils/platform/media-query.ts",
+          "current": "packages/utils/src/lib/platform/media-query.ts",
+          "currentSha256": "5e91ea2589962018778ad88498ff9acd432a5244fe37ee922d0a6014b1fb7ed9"
+        },
+        {
+          "old": "packages/base/src/lib/utils/platform/os.ts",
+          "current": "packages/utils/src/lib/platform/os.ts",
+          "currentSha256": "456f2f5814e890fb12d899c1cc2f08566529216fd8f6d40a9a8e5846b2c9c3d6"
+        },
+        {
+          "old": "packages/base/src/lib/utils/platform/parts.ts",
+          "current": "packages/utils/src/lib/platform/parts.ts",
+          "currentSha256": "5382169dc9803fde93bc85e33062cbc85d7cdc0bf754d1a7f6f21eb2b4dcac29"
+        },
+        {
+          "old": "packages/base/src/lib/utils/platform/screen-reader.ts",
+          "current": "packages/utils/src/lib/platform/screen-reader.ts",
+          "currentSha256": "c43ebce8b6557becf984c0ae7f36395da615110e7f878bab1c0dfd476ceb19a7"
+        },
+        {
+          "old": "packages/base/src/lib/utils/platform/shared.ts",
+          "current": "packages/utils/src/lib/platform/shared.ts",
+          "currentSha256": "28621a4723495ed9f1370c09b12480a6f488f19e59c70e78524325fc6e080db2"
+        },
+        {
+          "old": "packages/base/src/lib/utils/shadowDom.ts",
+          "current": "packages/utils/src/lib/shadowDom.ts",
+          "currentSha256": "2cb79a4a3ccbe16581be29f7958d03bce459c5cf8cad8ae4b9f08ab981d42a2a"
+        },
+        {
+          "old": "packages/base/src/lib/utils/store/SvelteStore.svelte.ts",
+          "currentSuccessor": {
+            "graph": "current-source-graph.json",
+            "from": "packages/base/src/lib/utils/store/SvelteStore.svelte.ts"
+          }
+        },
+        {
+          "old": "packages/base/src/lib/utils/useAnimationFrame.ts",
+          "currentSuccessor": {
+            "graph": "current-source-graph.json",
+            "from": "packages/base/src/lib/utils/useAnimationFrame.ts"
+          }
+        },
+        {
+          "old": "packages/base/src/lib/utils/useEnhancedClickHandler.ts",
+          "current": "packages/utils/src/lib/useEnhancedClickHandler.ts",
+          "currentSha256": "6a045d6b74a7851d3446200f55711ffc1dcc22449a2e92680cdf328750a436d5"
+        },
+        {
+          "old": "packages/base/src/lib/utils/useId.ts",
+          "current": "packages/utils/src/lib/useId.ts",
+          "currentSha256": "584864eb7f538f5adc40ab128461db75c960984c51265aead1ca3821e4bf879a"
+        },
+        {
+          "old": "packages/base/src/lib/utils/useMergedRefs.ts",
+          "currentSuccessor": {
+            "graph": "current-source-graph.json",
+            "from": "packages/base/src/lib/utils/useMergedRefs.ts"
+          }
+        },
+        {
+          "old": "packages/base/src/lib/utils/useOnMount.ts",
+          "currentSuccessor": {
+            "graph": "current-source-graph.json",
+            "from": "packages/base/src/lib/utils/useOnMount.ts"
+          }
+        },
+        {
+          "old": "packages/base/src/lib/utils/usePreviousValue.svelte.ts",
+          "currentSuccessor": {
+            "graph": "current-source-graph.json",
+            "from": "packages/base/src/lib/utils/usePreviousValue.svelte.ts"
+          }
+        },
+        {
+          "old": "packages/base/src/lib/utils/useScrollLock.svelte.ts",
+          "current": "packages/utils/src/lib/useScrollLock.svelte.ts",
+          "currentSha256": "bea63beb673cffb2bb25fcb5491b34f9724cb03453c1014273b501da4c5dfc35"
+        },
+        {
+          "old": "packages/base/src/lib/utils/useStableCallback.ts",
+          "currentSuccessor": {
+            "graph": "current-source-graph.json",
+            "from": "packages/base/src/lib/utils/useStableCallback.ts"
+          }
+        },
+        {
+          "old": "packages/base/src/lib/utils/useTimeout.ts",
+          "currentSuccessor": {
+            "graph": "current-source-graph.json",
+            "from": "packages/base/src/lib/utils/useTimeout.ts"
+          }
+        },
+        {
+          "old": "packages/base/src/lib/utils/visuallyHidden.ts",
+          "current": "packages/utils/src/lib/visuallyHidden.ts",
+          "currentSha256": "8f49185df1c0536608090368454cc3d30a3bfc1991b23a4b5e5239184ead8020"
+        },
+        {
+          "old": "packages/base/src/lib/utils/warn.ts",
+          "current": "packages/utils/src/lib/warn.ts",
+          "currentSha256": "58267e2a1dd62afbc707faf9c031dee042605aa74d44dbf72dd997d2ad69db65"
+        }
+      ],
+      "ordinaryDeclarationCredit": 0,
+      "acceptance": "No historical review/acceptance transfer; independent final-head review pending."
+    },
+    {
+      "predecessorRecord": "parity/popup-family/dependency-integration.json",
+      "predecessorSha256": "7844ce1f098a4a9209f3357a0b89b1c41ac7de4851bad2e035534b5221c86f3a",
+      "classification": "prior source correspondence checkpoint; current successor graph below is authoritative for package ownership",
+      "currentGraph": "current-source-graph.json",
+      "moves": [
+        {
+          "old": "packages/base/src/lib/utils/store/SvelteStore.svelte.ts",
+          "currentSuccessor": {
+            "graph": "current-source-graph.json",
+            "from": "packages/base/src/lib/utils/store/SvelteStore.svelte.ts"
+          }
+        },
+        {
+          "old": "packages/base/src/lib/utils/useIsoLayoutEffect.svelte.ts",
+          "currentSuccessor": {
+            "graph": "current-source-graph.json",
+            "from": "packages/base/src/lib/utils/useIsoLayoutEffect.svelte.ts"
+          }
+        },
+        {
+          "old": "packages/base/src/lib/utils/useStableCallback.ts",
+          "currentSuccessor": {
+            "graph": "current-source-graph.json",
+            "from": "packages/base/src/lib/utils/useStableCallback.ts"
+          }
+        },
+        {
+          "old": "packages/base/src/lib/utils/useTimeout.ts",
+          "currentSuccessor": {
+            "graph": "current-source-graph.json",
+            "from": "packages/base/src/lib/utils/useTimeout.ts"
+          }
+        }
+      ],
+      "ordinaryDeclarationCredit": 0,
+      "acceptance": "No historical review/acceptance transfer; independent final-head review pending."
+    },
+    {
+      "predecessorRecord": "parity/radio/actual-local-graph.json",
+      "predecessorSha256": "6af96ac4c016592f236bbf4d89fbcaa2ab752dfe57efaff868f635b5b4ac2783",
+      "classification": "prior source correspondence checkpoint; current successor graph below is authoritative for package ownership",
+      "currentGraph": "current-source-graph.json",
+      "moves": [
+        {
+          "old": "packages/base/src/lib/utils/createLogOnce.ts",
+          "current": "packages/utils/src/lib/createLogOnce.ts",
+          "currentSha256": "f9d8a63ce89aa2d0b31a8d88affb4ff7c49528f12152a9dc99223ee24dca90c9"
+        },
+        {
+          "old": "packages/base/src/lib/utils/empty.ts",
+          "current": "packages/utils/src/lib/empty.ts",
+          "currentSha256": "00dc8f5cccebba670a7c7f2a78a66f3a4c008e8fec496badfc909a2bb8664151"
+        },
+        {
+          "old": "packages/base/src/lib/utils/error.ts",
+          "current": "packages/utils/src/lib/error.ts",
+          "currentSha256": "ebbe57877f3f8c77c83631ed4042bd288d13f98fb93afd5390128dbd0d7cec27"
+        },
+        {
+          "old": "packages/base/src/lib/utils/isElementDisabled.ts",
+          "current": "packages/utils/src/lib/isElementDisabled.ts",
+          "currentSha256": "c2f6141d744cb16e458208163d616cefa465b8da0445658c4d9282a05a1b616e"
+        },
+        {
+          "old": "packages/base/src/lib/utils/mergeObjects.ts",
+          "current": "packages/utils/src/lib/mergeObjects.ts",
+          "currentSha256": "1e6cfa2be20c639f5ce6f8b0b6cc447da3413bbbc6750a5b1ab03f5810d81746"
+        },
+        {
+          "old": "packages/base/src/lib/utils/owner.ts",
+          "current": "packages/utils/src/lib/owner.ts",
+          "currentSha256": "759c607acc1a103b2d795840051555671fe65fd889dae7694606b9069803f986"
+        },
+        {
+          "old": "packages/base/src/lib/utils/shadowDom.ts",
+          "current": "packages/utils/src/lib/shadowDom.ts",
+          "currentSha256": "2cb79a4a3ccbe16581be29f7958d03bce459c5cf8cad8ae4b9f08ab981d42a2a"
+        },
+        {
+          "old": "packages/base/src/lib/utils/useAnimationFrame.ts",
+          "currentSuccessor": {
+            "graph": "current-source-graph.json",
+            "from": "packages/base/src/lib/utils/useAnimationFrame.ts"
+          }
+        },
+        {
+          "old": "packages/base/src/lib/utils/useControlled.svelte.ts",
+          "currentSuccessor": {
+            "graph": "current-source-graph.json",
+            "from": "packages/base/src/lib/utils/useControlled.svelte.ts"
+          }
+        },
+        {
+          "old": "packages/base/src/lib/utils/useId.ts",
+          "current": "packages/utils/src/lib/useId.ts",
+          "currentSha256": "584864eb7f538f5adc40ab128461db75c960984c51265aead1ca3821e4bf879a"
+        },
+        {
+          "old": "packages/base/src/lib/utils/useIsoLayoutEffect.svelte.ts",
+          "currentSuccessor": {
+            "graph": "current-source-graph.json",
+            "from": "packages/base/src/lib/utils/useIsoLayoutEffect.svelte.ts"
+          }
+        },
+        {
+          "old": "packages/base/src/lib/utils/useMergedRefs.ts",
+          "currentSuccessor": {
+            "graph": "current-source-graph.json",
+            "from": "packages/base/src/lib/utils/useMergedRefs.ts"
+          }
+        },
+        {
+          "old": "packages/base/src/lib/utils/useOnMount.ts",
+          "currentSuccessor": {
+            "graph": "current-source-graph.json",
+            "from": "packages/base/src/lib/utils/useOnMount.ts"
+          }
+        },
+        {
+          "old": "packages/base/src/lib/utils/useRefWithInit.ts",
+          "currentSuccessor": {
+            "graph": "current-source-graph.json",
+            "from": "packages/base/src/lib/utils/useRefWithInit.ts"
+          }
+        },
+        {
+          "old": "packages/base/src/lib/utils/useStableCallback.ts",
+          "currentSuccessor": {
+            "graph": "current-source-graph.json",
+            "from": "packages/base/src/lib/utils/useStableCallback.ts"
+          }
+        },
+        {
+          "old": "packages/base/src/lib/utils/useTimeout.ts",
+          "currentSuccessor": {
+            "graph": "current-source-graph.json",
+            "from": "packages/base/src/lib/utils/useTimeout.ts"
+          }
+        },
+        {
+          "old": "packages/base/src/lib/utils/visuallyHidden.ts",
+          "current": "packages/utils/src/lib/visuallyHidden.ts",
+          "currentSha256": "8f49185df1c0536608090368454cc3d30a3bfc1991b23a4b5e5239184ead8020"
+        }
+      ],
+      "ordinaryDeclarationCredit": 0,
+      "acceptance": "No historical review/acceptance transfer; independent final-head review pending."
+    },
+    {
+      "predecessorRecord": "parity/use-click/body-records.json",
+      "predecessorSha256": "8a68fb4ec3ea42a593873111b780004802e3781691da9eb70a68a0af7946bb9d",
+      "classification": "preserved historical exact-head audit/review/receipt",
+      "currentGraph": "current-source-graph.json",
+      "moves": [
+        {
+          "old": "packages/base/src/lib/utils/empty.ts",
+          "current": "packages/utils/src/lib/empty.ts",
+          "currentSha256": "00dc8f5cccebba670a7c7f2a78a66f3a4c008e8fec496badfc909a2bb8664151"
+        },
+        {
+          "old": "packages/base/src/lib/utils/mergeObjects.ts",
+          "current": "packages/utils/src/lib/mergeObjects.ts",
+          "currentSha256": "1e6cfa2be20c639f5ce6f8b0b6cc447da3413bbbc6750a5b1ab03f5810d81746"
+        },
+        {
+          "old": "packages/base/src/lib/utils/platform/engine.ts",
+          "current": "packages/utils/src/lib/platform/engine.ts",
+          "currentSha256": "e4745bcc586212a32cde2f7d206cc1aa4df86b8a29301f8d15cf3cd88996a987"
+        },
+        {
+          "old": "packages/base/src/lib/utils/platform/env.ts",
+          "current": "packages/utils/src/lib/platform/env.ts",
+          "currentSha256": "dbd7cc1369986d370094b986c44b1bce3c10eba1f792f0e5c3e99c071e00eb9d"
+        },
+        {
+          "old": "packages/base/src/lib/utils/platform/index.ts",
+          "current": "packages/utils/src/lib/platform/index.ts",
+          "currentSha256": "c9c1174c0f82f01033187e382b461370123d356d8e14901a9ca7d85dbd2ea63c"
+        },
+        {
+          "old": "packages/base/src/lib/utils/platform/media-query.ts",
+          "current": "packages/utils/src/lib/platform/media-query.ts",
+          "currentSha256": "5e91ea2589962018778ad88498ff9acd432a5244fe37ee922d0a6014b1fb7ed9"
+        },
+        {
+          "old": "packages/base/src/lib/utils/platform/os.ts",
+          "current": "packages/utils/src/lib/platform/os.ts",
+          "currentSha256": "456f2f5814e890fb12d899c1cc2f08566529216fd8f6d40a9a8e5846b2c9c3d6"
+        },
+        {
+          "old": "packages/base/src/lib/utils/platform/parts.ts",
+          "current": "packages/utils/src/lib/platform/parts.ts",
+          "currentSha256": "5382169dc9803fde93bc85e33062cbc85d7cdc0bf754d1a7f6f21eb2b4dcac29"
+        },
+        {
+          "old": "packages/base/src/lib/utils/platform/screen-reader.ts",
+          "current": "packages/utils/src/lib/platform/screen-reader.ts",
+          "currentSha256": "c43ebce8b6557becf984c0ae7f36395da615110e7f878bab1c0dfd476ceb19a7"
+        },
+        {
+          "old": "packages/base/src/lib/utils/platform/shared.ts",
+          "current": "packages/utils/src/lib/platform/shared.ts",
+          "currentSha256": "28621a4723495ed9f1370c09b12480a6f488f19e59c70e78524325fc6e080db2"
+        },
+        {
+          "old": "packages/base/src/lib/utils/shadowDom.ts",
+          "current": "packages/utils/src/lib/shadowDom.ts",
+          "currentSha256": "2cb79a4a3ccbe16581be29f7958d03bce459c5cf8cad8ae4b9f08ab981d42a2a"
+        },
+        {
+          "old": "packages/base/src/lib/utils/store/Store.svelte.ts",
+          "current": "packages/utils/src/lib/store/Store.svelte.ts",
+          "currentSha256": "289f1c151106f981843140b9d508d300597ee1f5a90437dca446738b861cad3c"
+        },
+        {
+          "old": "packages/base/src/lib/utils/store/SvelteStore.svelte.ts",
+          "currentSuccessor": {
+            "graph": "current-source-graph.json",
+            "from": "packages/base/src/lib/utils/store/SvelteStore.svelte.ts"
+          }
+        },
+        {
+          "old": "packages/base/src/lib/utils/useAnimationFrame.ts",
+          "currentSuccessor": {
+            "graph": "current-source-graph.json",
+            "from": "packages/base/src/lib/utils/useAnimationFrame.ts"
+          }
+        },
+        {
+          "old": "packages/base/src/lib/utils/useIsoLayoutEffect.svelte.ts",
+          "currentSuccessor": {
+            "graph": "current-source-graph.json",
+            "from": "packages/base/src/lib/utils/useIsoLayoutEffect.svelte.ts"
+          }
+        },
+        {
+          "old": "packages/base/src/lib/utils/useOnMount.ts",
+          "currentSuccessor": {
+            "graph": "current-source-graph.json",
+            "from": "packages/base/src/lib/utils/useOnMount.ts"
+          }
+        },
+        {
+          "old": "packages/base/src/lib/utils/useRefWithInit.ts",
+          "currentSuccessor": {
+            "graph": "current-source-graph.json",
+            "from": "packages/base/src/lib/utils/useRefWithInit.ts"
+          }
+        },
+        {
+          "old": "packages/base/src/lib/utils/useTimeout.ts",
+          "currentSuccessor": {
+            "graph": "current-source-graph.json",
+            "from": "packages/base/src/lib/utils/useTimeout.ts"
+          }
+        }
+      ],
+      "ordinaryDeclarationCredit": 0,
+      "acceptance": "No historical review/acceptance transfer; independent final-head review pending."
+    },
+    {
+      "predecessorRecord": "parity/use-click/prior-callback-review/audit.json",
+      "predecessorSha256": "9183eacffa5e0289418252c46d91e4fb6fcd4cbacbb986f0b260f4531f62680b",
+      "classification": "preserved historical exact-head audit/review/receipt",
+      "currentGraph": "current-source-graph.json",
+      "moves": [
+        {
+          "old": "packages/base/src/lib/utils/empty.ts",
+          "current": "packages/utils/src/lib/empty.ts",
+          "currentSha256": "00dc8f5cccebba670a7c7f2a78a66f3a4c008e8fec496badfc909a2bb8664151"
+        },
+        {
+          "old": "packages/base/src/lib/utils/mergeObjects.ts",
+          "current": "packages/utils/src/lib/mergeObjects.ts",
+          "currentSha256": "1e6cfa2be20c639f5ce6f8b0b6cc447da3413bbbc6750a5b1ab03f5810d81746"
+        },
+        {
+          "old": "packages/base/src/lib/utils/platform/engine.ts",
+          "current": "packages/utils/src/lib/platform/engine.ts",
+          "currentSha256": "e4745bcc586212a32cde2f7d206cc1aa4df86b8a29301f8d15cf3cd88996a987"
+        },
+        {
+          "old": "packages/base/src/lib/utils/platform/env.ts",
+          "current": "packages/utils/src/lib/platform/env.ts",
+          "currentSha256": "dbd7cc1369986d370094b986c44b1bce3c10eba1f792f0e5c3e99c071e00eb9d"
+        },
+        {
+          "old": "packages/base/src/lib/utils/platform/index.ts",
+          "current": "packages/utils/src/lib/platform/index.ts",
+          "currentSha256": "c9c1174c0f82f01033187e382b461370123d356d8e14901a9ca7d85dbd2ea63c"
+        },
+        {
+          "old": "packages/base/src/lib/utils/platform/media-query.ts",
+          "current": "packages/utils/src/lib/platform/media-query.ts",
+          "currentSha256": "5e91ea2589962018778ad88498ff9acd432a5244fe37ee922d0a6014b1fb7ed9"
+        },
+        {
+          "old": "packages/base/src/lib/utils/platform/os.ts",
+          "current": "packages/utils/src/lib/platform/os.ts",
+          "currentSha256": "456f2f5814e890fb12d899c1cc2f08566529216fd8f6d40a9a8e5846b2c9c3d6"
+        },
+        {
+          "old": "packages/base/src/lib/utils/platform/parts.ts",
+          "current": "packages/utils/src/lib/platform/parts.ts",
+          "currentSha256": "5382169dc9803fde93bc85e33062cbc85d7cdc0bf754d1a7f6f21eb2b4dcac29"
+        },
+        {
+          "old": "packages/base/src/lib/utils/platform/screen-reader.ts",
+          "current": "packages/utils/src/lib/platform/screen-reader.ts",
+          "currentSha256": "c43ebce8b6557becf984c0ae7f36395da615110e7f878bab1c0dfd476ceb19a7"
+        },
+        {
+          "old": "packages/base/src/lib/utils/platform/shared.ts",
+          "current": "packages/utils/src/lib/platform/shared.ts",
+          "currentSha256": "28621a4723495ed9f1370c09b12480a6f488f19e59c70e78524325fc6e080db2"
+        },
+        {
+          "old": "packages/base/src/lib/utils/shadowDom.ts",
+          "current": "packages/utils/src/lib/shadowDom.ts",
+          "currentSha256": "2cb79a4a3ccbe16581be29f7958d03bce459c5cf8cad8ae4b9f08ab981d42a2a"
+        },
+        {
+          "old": "packages/base/src/lib/utils/store/Store.svelte.ts",
+          "current": "packages/utils/src/lib/store/Store.svelte.ts",
+          "currentSha256": "289f1c151106f981843140b9d508d300597ee1f5a90437dca446738b861cad3c"
+        },
+        {
+          "old": "packages/base/src/lib/utils/store/SvelteStore.svelte.ts",
+          "currentSuccessor": {
+            "graph": "current-source-graph.json",
+            "from": "packages/base/src/lib/utils/store/SvelteStore.svelte.ts"
+          }
+        },
+        {
+          "old": "packages/base/src/lib/utils/useAnimationFrame.ts",
+          "currentSuccessor": {
+            "graph": "current-source-graph.json",
+            "from": "packages/base/src/lib/utils/useAnimationFrame.ts"
+          }
+        },
+        {
+          "old": "packages/base/src/lib/utils/useIsoLayoutEffect.svelte.ts",
+          "currentSuccessor": {
+            "graph": "current-source-graph.json",
+            "from": "packages/base/src/lib/utils/useIsoLayoutEffect.svelte.ts"
+          }
+        },
+        {
+          "old": "packages/base/src/lib/utils/useMergedRefs.ts",
+          "currentSuccessor": {
+            "graph": "current-source-graph.json",
+            "from": "packages/base/src/lib/utils/useMergedRefs.ts"
+          }
+        },
+        {
+          "old": "packages/base/src/lib/utils/useOnMount.ts",
+          "currentSuccessor": {
+            "graph": "current-source-graph.json",
+            "from": "packages/base/src/lib/utils/useOnMount.ts"
+          }
+        },
+        {
+          "old": "packages/base/src/lib/utils/useRefWithInit.ts",
+          "currentSuccessor": {
+            "graph": "current-source-graph.json",
+            "from": "packages/base/src/lib/utils/useRefWithInit.ts"
+          }
+        },
+        {
+          "old": "packages/base/src/lib/utils/useScrollLock.svelte.ts",
+          "current": "packages/utils/src/lib/useScrollLock.svelte.ts",
+          "currentSha256": "bea63beb673cffb2bb25fcb5491b34f9724cb03453c1014273b501da4c5dfc35"
+        },
+        {
+          "old": "packages/base/src/lib/utils/useTimeout.ts",
+          "currentSuccessor": {
+            "graph": "current-source-graph.json",
+            "from": "packages/base/src/lib/utils/useTimeout.ts"
+          }
+        }
+      ],
+      "ordinaryDeclarationCredit": 0,
+      "acceptance": "No historical review/acceptance transfer; independent final-head review pending."
+    },
+    {
+      "predecessorRecord": "parity/use-click/prior-callback-review/minimal-prerequisite-scopes.json",
+      "predecessorSha256": "a8ec4862e5a22feee7c8819b22ac7a22f851ce69d28942be405ea9da82d15315",
+      "classification": "preserved historical exact-head audit/review/receipt",
+      "currentGraph": "current-source-graph.json",
+      "moves": [
+        {
+          "old": "packages/base/src/lib/utils/platform/index.ts",
+          "current": "packages/utils/src/lib/platform/index.ts",
+          "currentSha256": "c9c1174c0f82f01033187e382b461370123d356d8e14901a9ca7d85dbd2ea63c"
+        },
+        {
+          "old": "packages/base/src/lib/utils/shadowDom.ts",
+          "current": "packages/utils/src/lib/shadowDom.ts",
+          "currentSha256": "2cb79a4a3ccbe16581be29f7958d03bce459c5cf8cad8ae4b9f08ab981d42a2a"
+        },
+        {
+          "old": "packages/base/src/lib/utils/store/Store.svelte.ts",
+          "current": "packages/utils/src/lib/store/Store.svelte.ts",
+          "currentSha256": "289f1c151106f981843140b9d508d300597ee1f5a90437dca446738b861cad3c"
+        },
+        {
+          "old": "packages/base/src/lib/utils/store/SvelteStore.svelte.ts",
+          "currentSuccessor": {
+            "graph": "current-source-graph.json",
+            "from": "packages/base/src/lib/utils/store/SvelteStore.svelte.ts"
+          }
+        },
+        {
+          "old": "packages/base/src/lib/utils/useAnimationFrame.ts",
+          "currentSuccessor": {
+            "graph": "current-source-graph.json",
+            "from": "packages/base/src/lib/utils/useAnimationFrame.ts"
+          }
+        },
+        {
+          "old": "packages/base/src/lib/utils/useTimeout.ts",
+          "currentSuccessor": {
+            "graph": "current-source-graph.json",
+            "from": "packages/base/src/lib/utils/useTimeout.ts"
+          }
+        }
+      ],
+      "ordinaryDeclarationCredit": 0,
+      "acceptance": "No historical review/acceptance transfer; independent final-head review pending."
+    },
+    {
+      "predecessorRecord": "parity/use-click/prior-individual-scopes.json",
+      "predecessorSha256": "8754db27bdc794ba59d049142f80a11c4f6901c79643b2d0ab7c6c04c7343363",
+      "classification": "preserved historical exact-head audit/review/receipt",
+      "currentGraph": "current-source-graph.json",
+      "moves": [
+        {
+          "old": "packages/base/src/lib/utils/empty.ts",
+          "current": "packages/utils/src/lib/empty.ts",
+          "currentSha256": "00dc8f5cccebba670a7c7f2a78a66f3a4c008e8fec496badfc909a2bb8664151"
+        },
+        {
+          "old": "packages/base/src/lib/utils/mergeObjects.ts",
+          "current": "packages/utils/src/lib/mergeObjects.ts",
+          "currentSha256": "1e6cfa2be20c639f5ce6f8b0b6cc447da3413bbbc6750a5b1ab03f5810d81746"
+        },
+        {
+          "old": "packages/base/src/lib/utils/platform/engine.ts",
+          "current": "packages/utils/src/lib/platform/engine.ts",
+          "currentSha256": "e4745bcc586212a32cde2f7d206cc1aa4df86b8a29301f8d15cf3cd88996a987"
+        },
+        {
+          "old": "packages/base/src/lib/utils/platform/env.ts",
+          "current": "packages/utils/src/lib/platform/env.ts",
+          "currentSha256": "dbd7cc1369986d370094b986c44b1bce3c10eba1f792f0e5c3e99c071e00eb9d"
+        },
+        {
+          "old": "packages/base/src/lib/utils/platform/index.ts",
+          "current": "packages/utils/src/lib/platform/index.ts",
+          "currentSha256": "c9c1174c0f82f01033187e382b461370123d356d8e14901a9ca7d85dbd2ea63c"
+        },
+        {
+          "old": "packages/base/src/lib/utils/platform/media-query.ts",
+          "current": "packages/utils/src/lib/platform/media-query.ts",
+          "currentSha256": "5e91ea2589962018778ad88498ff9acd432a5244fe37ee922d0a6014b1fb7ed9"
+        },
+        {
+          "old": "packages/base/src/lib/utils/platform/os.ts",
+          "current": "packages/utils/src/lib/platform/os.ts",
+          "currentSha256": "456f2f5814e890fb12d899c1cc2f08566529216fd8f6d40a9a8e5846b2c9c3d6"
+        },
+        {
+          "old": "packages/base/src/lib/utils/platform/parts.ts",
+          "current": "packages/utils/src/lib/platform/parts.ts",
+          "currentSha256": "5382169dc9803fde93bc85e33062cbc85d7cdc0bf754d1a7f6f21eb2b4dcac29"
+        },
+        {
+          "old": "packages/base/src/lib/utils/platform/screen-reader.ts",
+          "current": "packages/utils/src/lib/platform/screen-reader.ts",
+          "currentSha256": "c43ebce8b6557becf984c0ae7f36395da615110e7f878bab1c0dfd476ceb19a7"
+        },
+        {
+          "old": "packages/base/src/lib/utils/platform/shared.ts",
+          "current": "packages/utils/src/lib/platform/shared.ts",
+          "currentSha256": "28621a4723495ed9f1370c09b12480a6f488f19e59c70e78524325fc6e080db2"
+        },
+        {
+          "old": "packages/base/src/lib/utils/shadowDom.ts",
+          "current": "packages/utils/src/lib/shadowDom.ts",
+          "currentSha256": "2cb79a4a3ccbe16581be29f7958d03bce459c5cf8cad8ae4b9f08ab981d42a2a"
+        },
+        {
+          "old": "packages/base/src/lib/utils/store/Store.svelte.ts",
+          "current": "packages/utils/src/lib/store/Store.svelte.ts",
+          "currentSha256": "289f1c151106f981843140b9d508d300597ee1f5a90437dca446738b861cad3c"
+        },
+        {
+          "old": "packages/base/src/lib/utils/store/SvelteStore.svelte.ts",
+          "currentSuccessor": {
+            "graph": "current-source-graph.json",
+            "from": "packages/base/src/lib/utils/store/SvelteStore.svelte.ts"
+          }
+        },
+        {
+          "old": "packages/base/src/lib/utils/useAnimationFrame.ts",
+          "currentSuccessor": {
+            "graph": "current-source-graph.json",
+            "from": "packages/base/src/lib/utils/useAnimationFrame.ts"
+          }
+        },
+        {
+          "old": "packages/base/src/lib/utils/useIsoLayoutEffect.svelte.ts",
+          "currentSuccessor": {
+            "graph": "current-source-graph.json",
+            "from": "packages/base/src/lib/utils/useIsoLayoutEffect.svelte.ts"
+          }
+        },
+        {
+          "old": "packages/base/src/lib/utils/useMergedRefs.ts",
+          "currentSuccessor": {
+            "graph": "current-source-graph.json",
+            "from": "packages/base/src/lib/utils/useMergedRefs.ts"
+          }
+        },
+        {
+          "old": "packages/base/src/lib/utils/useOnMount.ts",
+          "currentSuccessor": {
+            "graph": "current-source-graph.json",
+            "from": "packages/base/src/lib/utils/useOnMount.ts"
+          }
+        },
+        {
+          "old": "packages/base/src/lib/utils/useRefWithInit.ts",
+          "currentSuccessor": {
+            "graph": "current-source-graph.json",
+            "from": "packages/base/src/lib/utils/useRefWithInit.ts"
+          }
+        },
+        {
+          "old": "packages/base/src/lib/utils/useScrollLock.svelte.ts",
+          "current": "packages/utils/src/lib/useScrollLock.svelte.ts",
+          "currentSha256": "bea63beb673cffb2bb25fcb5491b34f9724cb03453c1014273b501da4c5dfc35"
+        },
+        {
+          "old": "packages/base/src/lib/utils/useTimeout.ts",
+          "currentSuccessor": {
+            "graph": "current-source-graph.json",
+            "from": "packages/base/src/lib/utils/useTimeout.ts"
+          }
+        }
+      ],
+      "ordinaryDeclarationCredit": 0,
+      "acceptance": "No historical review/acceptance transfer; independent final-head review pending."
+    },
+    {
+      "predecessorRecord": "parity/utils-package/predecessors/use-render-source-graph.json",
+      "predecessorSha256": "61825d25c5040130e5f27cbe4e0f67384d64ecde2c47290b6a8af3ad0bfd550e",
+      "classification": "prior source correspondence checkpoint; current successor graph below is authoritative for package ownership",
+      "currentGraph": "current-source-graph.json",
+      "moves": [
+        {
+          "old": "packages/base/src/lib/utils/empty.ts",
+          "current": "packages/utils/src/lib/empty.ts",
+          "currentSha256": "00dc8f5cccebba670a7c7f2a78a66f3a4c008e8fec496badfc909a2bb8664151"
+        },
+        {
+          "old": "packages/base/src/lib/utils/mergeObjects.ts",
+          "current": "packages/utils/src/lib/mergeObjects.ts",
+          "currentSha256": "1e6cfa2be20c639f5ce6f8b0b6cc447da3413bbbc6750a5b1ab03f5810d81746"
+        },
+        {
+          "old": "packages/base/src/lib/utils/useMergedRefs.ts",
+          "currentSuccessor": {
+            "graph": "current-source-graph.json",
+            "from": "packages/base/src/lib/utils/useMergedRefs.ts"
+          }
+        },
+        {
+          "old": "packages/base/src/lib/utils/useRefWithInit.ts",
+          "currentSuccessor": {
+            "graph": "current-source-graph.json",
+            "from": "packages/base/src/lib/utils/useRefWithInit.ts"
+          }
+        }
+      ],
+      "ordinaryDeclarationCredit": 0,
+      "acceptance": "No historical review/acceptance transfer; independent final-head review pending.",
+      "predecessorOriginalRecord": "parity/use-render/source-graph.json",
+      "preservation": "Exact pre-integration checkpoint bytes at 5cd0ac1c; retained digest unchanged while the maintained UseRender graph records current owners."
+    }
+  ],
+  "avatarCurrentNativeGraphs": [
+    "avatar-successor/native-graph.json",
+    "avatar-successor/nativeTests-graph.json"
+  ],
+  "scope": "Old package-path receipts remain byte-identical historical evidence. This explicit successor points every affected old path to the actual current owner and fresh complete two-package graph.",
+  "currentGraphSha256": "7c9755100ec5f4a2815c663c71ac4c4e98c11645c2f6e3c20c1ef856f565574b"
+}

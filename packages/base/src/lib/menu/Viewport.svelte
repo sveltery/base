@@ -6,10 +6,7 @@
   import { createAttachmentKey } from 'svelte/attachments';
   import { useMenuRootContext } from './root/MenuRootContext.js';
   import { useMenuPositionerContext } from './positioner/MenuPositionerContext.js';
-  import {
-    popupViewportStateMapping,
-    usePopupViewport,
-  } from '../utils/usePopupViewport.svelte.js';
+  import { popupViewportStateMapping, usePopupViewport } from '../utils/usePopupViewport.svelte.js';
   import * as CommonPopupCssVars from '../utils/CommonPopupCssVars.js';
   import { toNativeStyle } from '../internals/nativeProps.js';
   import type { MenuViewportProps } from './types.js';
@@ -85,8 +82,7 @@
     <div
       data-current
       {@attach attachCurrent}
-      data-starting-style={viewport.previousContentNode &&
-      viewport.showStartingStyleAttribute
+      data-starting-style={viewport.previousContentNode && viewport.showStartingStyleAttribute
         ? ''
         : undefined}
     >

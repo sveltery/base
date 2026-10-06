@@ -18,10 +18,7 @@ import { useMenuPositionerContext } from '../positioner/MenuPositionerContext.js
 import { useTriggerRegistration } from '../../utils/popups/popupStoreUtils.svelte.js';
 import { useMenuSubmenuRootContext } from '../submenu-root/MenuSubmenuRootContext.js';
 import { REASONS } from '../../internals/reasons.js';
-import type {
-  MenuSubmenuTriggerProps,
-  MenuSubmenuTriggerState,
-} from '../types.js';
+import type { MenuSubmenuTriggerProps, MenuSubmenuTriggerState } from '../types.js';
 const VOICE_OVER_EXPANDED_PROPS = { 'aria-expanded': undefined };
 export function createMenuSubmenuTrigger(
   getProps: () => MenuSubmenuTriggerProps,
@@ -49,9 +46,7 @@ export function createMenuSubmenuTrigger(
   });
   const submenuRootContext = useMenuSubmenuRootContext();
   if (!submenuRootContext?.parentMenu) {
-    throw new Error(
-      'Base UI: <Menu.SubmenuTrigger> must be placed in <Menu.SubmenuRoot>.',
-    );
+    throw new Error('Base UI: <Menu.SubmenuTrigger> must be placed in <Menu.SubmenuRoot>.');
   }
   const listItem = useCompositeListItem(() => ({ guess: true, label }));
   const menuPositionerContext = useMenuPositionerContext();
@@ -65,28 +60,28 @@ export function createMenuSubmenuTrigger(
     () => thisTriggerId,
     () => store,
   );
-  // Stable, so the merged ref on the rendered element keeps its identity for the trigger's whole
-  // lifetime; the latest `closeDelay` is read when it runs.
+  // Publishes the native registration before claiming implicit active ownership.
+  // The latest `closeDelay` is read only in that branch; later changes stay synchronized below.
   const registerTrigger = (element: Element | null) => {
+    const owner = store;
+    const id = thisTriggerId;
     baseRegisterTrigger(element);
-    if (
-      element !== null &&
-      store.select('open') &&
-      store.select('activeTriggerId') == null
-    ) {
-      store.update({
-        activeTriggerId: thisTriggerId ?? null,
-        activeTriggerElement: element,
-        closeDelay,
-      });
-    }
+    untrack(() => {
+      if (element !== null && owner.select('open') && owner.select('activeTriggerId') == null) {
+        owner.update({
+          activeTriggerId: id ?? null,
+          activeTriggerElement: element,
+          closeDelay,
+        });
+      }
+    });
   };
   const triggerElementRef = { current: null as HTMLElement | null };
   const handleTriggerElementRef = (el: HTMLElement | null) => {
     triggerElementRef.current = el;
     store.set('activeTriggerElement', el);
   };
-  // The rendered ref keeps its identity; native ID/Store changes migrate its registration.
+  // Native ID/Store changes migrate the published host registration.
   $effect(() => {
     void thisTriggerId;
     void store;
@@ -110,9 +105,7 @@ export function createMenuSubmenuTrigger(
     });
   }
   const itemProps = $derived(parentMenuStore.useState('itemProps'));
-  const highlighted = $derived(
-    parentMenuStore.useState('isActive', listItem.index()),
-  );
+  const highlighted = $derived(parentMenuStore.useState('isActive', listItem.index()));
   const itemMetadata = $derived.by(() => ({
     type: 'submenu-trigger' as const,
     setActive() {
@@ -142,8 +135,7 @@ export function createMenuSubmenuTrigger(
       move: true,
       restMs: delay,
       delay: { open: delay, close: closeDelay },
-      shouldOpen:
-        delay > 0 ? () => parentMenuStore.select('allowMouseEnter') : undefined,
+      shouldOpen: delay > 0 ? () => parentMenuStore.select('allowMouseEnter') : undefined,
       triggerElementRef,
       externalTree: floatingTreeRoot,
       isClosing: () => store.select('transitionStatus') === 'ending',
@@ -179,17 +171,14 @@ export function createMenuSubmenuTrigger(
   // Arrow keys open the submenu through list navigation without dispatching a click, so
   // `openMethod` stays null there; Enter and Space do dispatch one and report `keyboard`.
   const openedByKeyboard = $derived(
-    lastOpenChangeReason === REASONS.listNavigation ||
-      openMethod === 'keyboard',
+    lastOpenChangeReason === REASONS.listNavigation || openMethod === 'keyboard',
   );
-  const shouldOmitExpanded = $derived(
-    open && openedByKeyboard && platform.screenReader.voiceOver,
-  );
+  const shouldOmitExpanded = $derived(open && openedByKeyboard && platform.screenReader.voiceOver);
   const hostAttachmentKey = createAttachmentKey();
   function attachHost(host: HTMLElement) {
     setRef(host);
     const unregisterItem = listItem.attach(host);
-    const disposeItem = attachItem(host);
+    const disposeItem = untrack(() => attachItem(host));
     registerTrigger(host);
     handleTriggerElementRef(host);
     return () => {

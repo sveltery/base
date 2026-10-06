@@ -16,7 +16,6 @@
   import { createChangeEventDetails } from '../internals/createBaseUIEventDetails.js';
   import { REASONS } from '../internals/reasons.js';
   import type { MenuCheckboxItemProps } from './types.js';
-  // eslint-disable-next-line no-useless-assignment -- Publishes native bindable host/action outputs to the owner.
   let {
     render,
     class: className,
@@ -69,12 +68,9 @@
     },
   });
   function handleClick(event: MouseEvent) {
-    const details = createChangeEventDetails(
-      REASONS.itemPress,
-      event,
-      undefined,
-      { preventUnmountOnClose: NOOP },
-    );
+    const details = createChangeEventDetails(REASONS.itemPress, event, undefined, {
+      preventUnmountOnClose: NOOP,
+    });
     onCheckedChange?.(!checked, details);
     if (details.isCanceled) return;
     checkedState.set(!checkedState.value);

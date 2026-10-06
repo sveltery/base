@@ -1,5 +1,8 @@
 // Original selected Base UI v1.8.0 useOpenMethodTriggerProps business body (MIT).
-import { useEnhancedClickHandler, type InteractionType } from '@sveltery/utils/useEnhancedClickHandler';
+import {
+  useEnhancedClickHandler,
+  type InteractionType,
+} from '@sveltery/utils/useEnhancedClickHandler';
 import { platform } from '@sveltery/utils/platform';
 import { ValueChanged } from '../internals/ValueChanged.svelte.js';
 
@@ -19,10 +22,17 @@ export function useOpenMethodTriggerProps(
 /** Original useOpenInteractionType state and close-reset composition. */
 export function useOpenInteractionType(getOpen: () => boolean) {
   let openMethod = $state<InteractionType | null>(null);
-  const setOpenMethod = (interactionType: InteractionType | null) => { openMethod = interactionType; };
+  const setOpenMethod = (interactionType: InteractionType | null) => {
+    openMethod = interactionType;
+  };
   const triggerProps = useOpenMethodTriggerProps(getOpen, setOpenMethod);
-  new ValueChanged(getOpen, () => previousOpen => {
+  new ValueChanged(getOpen, () => (previousOpen) => {
     if (previousOpen && !getOpen()) setOpenMethod(null);
   });
-  return { get openMethod() { return openMethod; }, triggerProps };
+  return {
+    get openMethod() {
+      return openMethod;
+    },
+    triggerProps,
+  };
 }

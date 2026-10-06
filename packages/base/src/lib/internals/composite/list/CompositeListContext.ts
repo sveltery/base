@@ -11,9 +11,7 @@ export interface CompositeListRegistration {
 export interface CompositeListContextValue {
   register(node: Element, registration: CompositeListRegistration): void;
   unregister(node: Element): void;
-  subscribeMapChange(
-    fn: (map: Map<Element, CompositeMetadata>) => void,
-  ): () => void;
+  subscribeMapChange(fn: (map: Map<Element, CompositeMetadata>) => void): () => void;
   nextIndexRef: { current: number };
 }
 const key = Symbol('base-ui-composite-list');

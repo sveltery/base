@@ -8,7 +8,6 @@
   import { useTooltipPositionerContext } from './positioner/TooltipPositionerContext.js';
   import { popupStateMapping } from '../utils/popupStateMapping.js';
   import type { TooltipArrowProps } from './types.js';
-  // eslint-disable-next-line no-useless-assignment -- Native bindable ref output is published through the ordered Source ref callback.
   let {
     render,
     class: className,
@@ -35,8 +34,7 @@
       return () =>
         untrack(() => {
           if (ref === host) ref = null;
-          if (positioner.arrowRef.current === host)
-            positioner.arrowRef.current = null;
+          if (positioner.arrowRef.current === host) positioner.arrowRef.current = null;
         });
     });
   }

@@ -15,11 +15,7 @@ import { REASONS } from '../../internals/reasons.js';
 import { useAnimationsFinished } from '../../internals/useAnimationsFinished.js';
 import { usePositioner } from '../../utils/usePositioner.svelte.js';
 import { useAnchoredPopupScrollLock } from '../../utils/useAnchoredPopupScrollLock.svelte.js';
-import type {
-  MenuPositionerProps,
-  MenuPositionerState,
-  MenuRoot,
-} from '../types.js';
+import type { MenuPositionerProps, MenuPositionerState, MenuRoot } from '../types.js';
 import type { MenuStore } from '../store/MenuStore.svelte.js';
 interface MenuOpenEventDetails {
   open: boolean;
@@ -74,9 +70,7 @@ export function createMenuPositioner(
   const lastOpenChangeReason = $derived(store.useState('lastOpenChangeReason'));
   const floatingNodeId = $derived(store.useState('floatingNodeId'));
   const floatingParentNodeId = $derived(store.useState('floatingParentNodeId'));
-  const domReference = $derived(
-    floatingRootContext.useState('domReferenceElement'),
-  );
+  const domReference = $derived(floatingRootContext.useState('domReferenceElement'));
   const previousTriggerRef = { current: null as Element | null };
   const runOnceAnimationsFinish = useAnimationsFinished({
     get current() {
@@ -102,12 +96,10 @@ export function createMenuPositioner(
     if (parent.type === 'menu') {
       computedSide = computedSide ?? 'inline-end';
       computedAlign = computedAlign ?? 'start';
-      collisionAvoidance =
-        getProps().collisionAvoidance ?? POPUP_COLLISION_AVOIDANCE;
+      collisionAvoidance = getProps().collisionAvoidance ?? POPUP_COLLISION_AVOIDANCE;
     } else if (parent.type === 'menubar') {
       computedSide =
-        computedSide ??
-        (parent.context.orientation === 'vertical' ? 'inline-end' : 'bottom');
+        computedSide ?? (parent.context.orientation === 'vertical' ? 'inline-end' : 'bottom');
       computedAlign = computedAlign ?? 'start';
     }
     const contextMenu = parent.type === 'context-menu';
@@ -131,9 +123,7 @@ export function createMenuPositioner(
       collisionAvoidance,
       shift: contextMenu
         ? {
-            crossAxis: !(
-              'side' in collisionAvoidance && collisionAvoidance.side === 'flip'
-            ),
+            crossAxis: !('side' in collisionAvoidance && collisionAvoidance.side === 'flip'),
             rootBoundary: 'layoutViewport',
           }
         : undefined,
@@ -155,9 +145,10 @@ export function createMenuPositioner(
         }
       }
     }
-    floatingTreeRoot.events.on('menuopenchange', onMenuOpenChange);
+    const installedEvents = floatingTreeRoot.events;
+    installedEvents.on('menuopenchange', onMenuOpenChange);
     return () => {
-      floatingTreeRoot.events.off('menuopenchange', onMenuOpenChange);
+      installedEvents.off('menuopenchange', onMenuOpenChange);
     };
   });
   $effect(() => {
@@ -165,19 +156,16 @@ export function createMenuPositioner(
       return undefined;
     }
     function onParentClose(details: MenuOpenEventDetails) {
-      if (
-        details.open ||
-        details.nodeId !== store.select('floatingParentNodeId')
-      ) {
+      if (details.open || details.nodeId !== store.select('floatingParentNodeId')) {
         return;
       }
-      const reason: MenuRoot.ChangeEventReason =
-        details.reason ?? REASONS.siblingOpen;
+      const reason: MenuRoot.ChangeEventReason = details.reason ?? REASONS.siblingOpen;
       store.setOpen(false, createChangeEventDetails(reason));
     }
-    floatingTreeRoot.events.on('menuopenchange', onParentClose);
+    const installedEvents = floatingTreeRoot.events;
+    installedEvents.on('menuopenchange', onParentClose);
     return () => {
-      floatingTreeRoot.events.off('menuopenchange', onParentClose);
+      installedEvents.off('menuopenchange', onParentClose);
     };
   });
   const closeTimeout = new Timeout();
@@ -190,10 +178,7 @@ export function createMenuPositioner(
   });
   // Close unrelated child submenus when hovering a different item in the parent menu.
   $effect(() => {
-    function onItemHover(event: {
-      nodeId: string | undefined;
-      target: Element | null;
-    }) {
+    function onItemHover(event: { nodeId: string | undefined; target: Element | null }) {
       // If an item within our parent menu is hovered, and this menu's trigger is not that item,
       // close this submenu. This ensures hovering a different item in the parent closes other branches.
       if (!open || event.nodeId !== store.select('floatingParentNodeId')) {
@@ -204,10 +189,7 @@ export function createMenuPositioner(
         if (delay > 0) {
           if (!closeTimeout.isStarted()) {
             closeTimeout.start(delay, () => {
-              store.setOpen(
-                false,
-                createChangeEventDetails(REASONS.siblingOpen),
-              );
+              store.setOpen(false, createChangeEventDetails(REASONS.siblingOpen));
             });
           }
         } else {
@@ -218,9 +200,10 @@ export function createMenuPositioner(
         closeTimeout.clear();
       }
     }
-    floatingTreeRoot.events.on('itemhover', onItemHover);
+    const installedEvents = floatingTreeRoot.events;
+    installedEvents.on('itemhover', onItemHover);
     return () => {
-      floatingTreeRoot.events.off('itemhover', onItemHover);
+      installedEvents.off('itemhover', onItemHover);
     };
   });
   $effect(() => {
@@ -239,11 +222,7 @@ export function createMenuPositioner(
     if (currentTrigger) {
       previousTriggerRef.current = currentTrigger;
     }
-    if (
-      previousTrigger &&
-      currentTrigger &&
-      currentTrigger !== previousTrigger
-    ) {
+    if (previousTrigger && currentTrigger && currentTrigger !== previousTrigger) {
       store.set('instantType', undefined);
       const abortController = new AbortController();
       runOnceAnimationsFinish(() => {
@@ -263,12 +242,8 @@ export function createMenuPositioner(
     nested: parent.type === 'menu',
     instant: instantType,
   });
-  const menubarModal = $derived(
-    parent.type === 'menubar' && parent.context.modal,
-  );
-  const popupModal = $derived(
-    modal && lastOpenChangeReason !== REASONS.triggerHover,
-  );
+  const menubarModal = $derived(parent.type === 'menubar' && parent.context.modal);
+  const popupModal = $derived(modal && lastOpenChangeReason !== REASONS.triggerHover);
   useAnchoredPopupScrollLock(
     () => open && (menubarModal || popupModal),
     () => openMethod === 'touch',
@@ -277,12 +252,15 @@ export function createMenuPositioner(
   );
   const hostAttachmentKey = createAttachmentKey();
   function attachHost(host: HTMLElement) {
-    getRef(host);
-    setPositionerElement(host);
-    return () => {
-      getRef(null);
-      setPositionerElement(null);
-    };
+    return untrack(() => {
+      getRef(host);
+      setPositionerElement(host);
+      return () =>
+        untrack(() => {
+          getRef(null);
+          setPositionerElement(null);
+        });
+    });
   }
   const element = usePositioner(
     () => state,
@@ -297,9 +275,7 @@ export function createMenuPositioner(
   const shouldRenderBackdrop = $derived(
     mounted &&
       parent.type !== 'menu' &&
-      ((parent.type !== 'menubar' &&
-        modal &&
-        lastOpenChangeReason !== REASONS.triggerHover) ||
+      ((parent.type !== 'menubar' && modal && lastOpenChangeReason !== REASONS.triggerHover) ||
         (parent.type === 'menubar' && parent.context.modal)),
   );
   // cuts a hole in the backdrop to allow pointer interaction with the menubar or dropdown menu trigger element

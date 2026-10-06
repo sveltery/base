@@ -16,13 +16,7 @@ export function usePositioner<State extends object>(
   getOptions: () => UsePositionerOptions,
 ) {
   const props = $derived.by(() => {
-    const {
-      styles,
-      transitionStatus,
-      props,
-      hidden,
-      inert = false,
-    } = getOptions();
+    const { styles, transitionStatus, props, hidden, inert = false } = getOptions();
     const style = { ...styles };
     if (inert) style.pointerEvents = 'none';
     return [

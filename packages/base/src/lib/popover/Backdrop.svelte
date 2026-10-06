@@ -8,7 +8,6 @@
   import { popupTransitionStateMapping } from '../utils/popupStateMapping.js';
   import { REASONS } from '../internals/reasons.js';
   import type { PopoverBackdropProps } from './types.js';
-  // eslint-disable-next-line no-useless-assignment -- Native bindable ref output is published through the ordered Source ref callback.
   let {
     render,
     class: className,
@@ -43,9 +42,7 @@
           hidden: !store.select('mounted'),
           style: {
             pointerEvents:
-              store.select('openChangeReason') === REASONS.triggerHover
-                ? 'none'
-                : undefined,
+              store.select('openChangeReason') === REASONS.triggerHover ? 'none' : undefined,
             userSelect: 'none',
             WebkitUserSelect: 'none',
           },

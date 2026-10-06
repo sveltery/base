@@ -23,31 +23,32 @@
   const disabled = $derived(disabledProp ?? context.disabled);
   const state = $derived(context.state);
   const resolved = $derived.by(() => {
-    const classValue =
-      typeof classProp === 'function' ? classProp(state) : classProp;
-    return getButtonProps(
-      {
-        ...props,
-        ...mergeProps(
-          {
-            ...stateAttributes(state, true),
-            'aria-controls': context.open ? context.panelId : undefined,
-            'aria-expanded': context.open,
-            onclick: context.handleTrigger,
-          },
-          {
-            ...props,
-            class:
-              classValue === undefined
-                ? undefined
-                : resolveClassValue(classValue),
-          },
-        ),
-      },
-      disabled,
-      true,
-      nativeButton,
-    );
+    const classValue = typeof classProp === 'function' ? classProp(state) : classProp;
+    const className = classValue === undefined ? undefined : resolveClassValue(classValue);
+    return {
+      ...getButtonProps(
+        {
+          ...props,
+          ...mergeProps(
+            {
+              ...stateAttributes(state, true),
+              'aria-controls': context.open ? context.panelId : undefined,
+              'aria-expanded': context.open,
+              onclick: context.handleTrigger,
+            },
+            {
+              ...props,
+              class: className,
+            },
+          ),
+        },
+        disabled,
+        true,
+        nativeButton,
+      ),
+      class: className,
+      style: props.style,
+    };
   });
 
   const hostAttachmentKey = createAttachmentKey();

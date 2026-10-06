@@ -4,7 +4,8 @@
 
   // Adapted from mui/base-ui v1.8.0 CollapsiblePanel/useCollapsiblePanel,
   // 47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c. MIT: THIRD_PARTY_NOTICES.md.
-  import { onDestroy, untrack } from 'svelte';
+  import { untrack } from 'svelte';
+  import { toNativeStyle } from '../internals/nativeProps.js';
   import { resolveClassValue } from '../internals/resolveClassValue.js';
   import { createChangeEventDetails } from '../internals/createBaseUIEventDetails.js';
   import { getCollapsibleContext } from './context.js';
@@ -18,10 +19,7 @@
     warnOnce,
     type AnimationType,
   } from './animations.js';
-  import type {
-    CollapsiblePanelProps,
-    CollapsiblePanelState,
-  } from './types.js';
+  import type { CollapsiblePanelProps, CollapsiblePanelState } from './types.js';
 
   let {
     children,
@@ -47,15 +45,14 @@
   let shouldPreventMountAnimation = $state(untrack(() => context.open));
   let shouldSkipNextOpen = false;
   let forcePanelIdle = $state(false);
-  let pendingTemporaryStyleRestore: (() => void) | undefined;
+  // Accepted beforematch motion suppression belongs to this actual host's open cycle.
+  let skippedOpenMotion = $state.raw<
+    { panel: HTMLElement; type: Exclude<AnimationType, 'none'> } | undefined
+  >();
 
   const hidden = $derived(!context.open && !context.mounted);
-  const panelTransitionStatus = $derived(
-    forcePanelIdle ? 'idle' : context.transitionStatus,
-  );
-  const shouldPreventOpenAnimation = $derived(
-    context.open && shouldPreventMountAnimation,
-  );
+  const panelTransitionStatus = $derived(forcePanelIdle ? 'idle' : context.transitionStatus);
+  const shouldPreventOpenAnimation = $derived(context.open && shouldPreventMountAnimation);
   const renderedDimensions = $derived(
     !context.open &&
       context.mounted &&
@@ -69,33 +66,19 @@
     ...context.state,
     transitionStatus: panelTransitionStatus,
   });
-  const shouldRender = $derived(
-    keepMounted || hiddenUntilFound || context.mounted || context.open,
-  );
+  const shouldRender = $derived(keepMounted || hiddenUntilFound || context.mounted || context.open);
 
   function setDimensions(next: Dimensions, cache = true) {
     if (cache) lastMeasuredDimensions = next;
     dimensions = next;
   }
-  function restorePendingTemporaryStyle() {
-    pendingTemporaryStyleRestore?.();
-    pendingTemporaryStyleRestore = undefined;
-  }
-  function setPendingTemporaryStyleRestore(restore: () => void) {
-    restorePendingTemporaryStyle();
-    pendingTemporaryStyleRestore = () => {
-      pendingTemporaryStyleRestore = undefined;
-      restore();
-    };
-  }
   function attach(element: HTMLElement) {
     node = element;
     return () => {
-      restorePendingTemporaryStyle();
+      if (skippedOpenMotion?.panel === element) skippedOpenMotion = undefined;
       if (node === element) node = null;
     };
   }
-  onDestroy(restorePendingTemporaryStyle);
 
   const internal = $derived({
     id,
@@ -111,27 +94,29 @@
     'data-ending-style': panelTransitionStatus === 'ending' ? '' : undefined,
     style: {
       '--collapsible-panel-height':
-        renderedDimensions.height === undefined
-          ? 'auto'
-          : `${renderedDimensions.height}px`,
+        renderedDimensions.height === undefined ? 'auto' : `${renderedDimensions.height}px`,
       '--collapsible-panel-width':
-        renderedDimensions.width === undefined
-          ? 'auto'
-          : `${renderedDimensions.width}px`,
+        renderedDimensions.width === undefined ? 'auto' : `${renderedDimensions.width}px`,
     },
   });
   const resolved = $derived.by(() => {
-    const authoredStyle =
-      typeof styleProp === 'function' ? styleProp(panelState) : styleProp;
-    const classValue =
-      typeof classProp === 'function' ? classProp(panelState) : classProp;
+    const authoredStyle = typeof styleProp === 'function' ? styleProp(panelState) : styleProp;
+    const classValue = typeof classProp === 'function' ? classProp(panelState) : classProp;
+    const styleValue = shouldPreventOpenAnimation
+      ? `${authoredStyle ?? ''};animation-name:none`
+      : authoredStyle;
+    const skippedMotion =
+      context.open && skippedOpenMotion && skippedOpenMotion.panel === node
+        ? skippedOpenMotion.type
+        : undefined;
     return {
       ...props,
-      class:
-        classValue === undefined ? undefined : resolveClassValue(classValue),
-      style: shouldPreventOpenAnimation
-        ? `${authoredStyle ?? ''};animation-name:none`
-        : authoredStyle,
+      class: classValue === undefined ? undefined : resolveClassValue(classValue),
+      // Keep the one-shot business override in native markup through dimension commits.
+      // Closing resolves live authored duration before the measurement effect detects motion.
+      style: skippedMotion
+        ? `${toNativeStyle(styleValue) ?? ''};${skippedMotion === 'css-transition' ? 'transition-duration' : 'animation-duration'}:0s`
+        : styleValue,
     };
   });
 
@@ -146,21 +131,16 @@
   $effect(() => {
     const registered = registeredId;
     untrack(() =>
-      context.setPanelIdState(
-        (current) => registered ?? (current === null ? undefined : current),
-      ),
+      context.setPanelIdState((current) => registered ?? (current === null ? undefined : current)),
     );
     return () =>
       untrack(() =>
-        context.setPanelIdState((current) =>
-          current === registered ? null : current,
-        ),
+        context.setPanelIdState((current) => (current === registered ? null : current)),
       );
   });
 
   $effect(() => {
-    if (forcePanelIdle && context.transitionStatus !== 'starting')
-      forcePanelIdle = false;
+    if (forcePanelIdle && context.transitionStatus !== 'starting') forcePanelIdle = false;
   });
 
   // This effect runs after the corresponding DOM commit, while close's ending
@@ -175,15 +155,10 @@
     // remains retained. Finalizing here would correct shared source behavior.
     if (!panel) return;
     return untrack(() => {
-      if (!open) restorePendingTemporaryStyle();
+      if (!open) skippedOpenMotion = undefined;
       const mode = getAnimationType(panel, preventOpenAnimation);
       animationType = mode;
-      if (
-        open &&
-        status === 'idle' &&
-        shouldPreventMountAnimation &&
-        mode === 'css-animation'
-      ) {
+      if (open && status === 'idle' && shouldPreventMountAnimation && mode === 'css-animation') {
         lastMeasuredDimensions = getDimensions(panel);
         return;
       }
@@ -199,9 +174,7 @@
           const restoreLayout = resetLayoutStyles(panel);
           setDimensions(getDimensions(panel));
           if (skipOpen) {
-            setPendingTemporaryStyleRestore(
-              setTemporaryStyle(panel, 'transition-duration', '0s'),
-            );
+            skippedOpenMotion = { panel, type: mode };
             forcePanelIdle = true;
           }
           return restoreLayout;
@@ -212,13 +185,8 @@
           restoreName();
           return;
         }
-        const restoreDuration = setTemporaryStyle(
-          panel,
-          'animation-duration',
-          '0s',
-        );
+        skippedOpenMotion = { panel, type: mode };
         restoreName();
-        setPendingTemporaryStyleRestore(restoreDuration);
         forcePanelIdle = true;
         return;
       }
@@ -243,27 +211,19 @@
         return;
       }
       setDimensions(next);
-      if (mode === 'css-animation')
-        setTemporaryStyle(panel, 'animation-name', 'none')();
+      if (mode === 'css-animation') setTemporaryStyle(panel, 'animation-name', 'none')();
     });
   });
 
   $effect(() => {
     const panel = node;
-    if (
-      !panel ||
-      !context.open ||
-      !context.mounted ||
-      panelTransitionStatus !== 'idle'
-    )
-      return;
+    if (!panel || !context.open || !context.mounted || panelTransitionStatus !== 'idle') return;
     return untrack(() =>
       afterAnimations(
         panel,
         () => {
           // An animation microtask can run after close's commit but before cleanup.
-          if (node === panel && context.open)
-            setDimensions(emptyDimensions, false);
+          if (node === panel && context.open) setDimensions(emptyDimensions, false);
         },
         true,
       ),
@@ -272,13 +232,7 @@
 
   $effect(() => {
     const panel = node;
-    if (
-      !panel ||
-      context.open ||
-      !context.mounted ||
-      panelTransitionStatus !== 'ending'
-    )
-      return;
+    if (!panel || context.open || !context.mounted || panelTransitionStatus !== 'ending') return;
     const abortController = new AbortController();
     let stopObserving: (() => void) | undefined;
     // The ending attribute is committed now. Give Chrome one additional frame
@@ -288,8 +242,7 @@
       stopObserving = afterAnimations(
         panel,
         () => {
-          if (abortController.signal.aborted || node !== panel || context.open)
-            return;
+          if (abortController.signal.aborted || node !== panel || context.open) return;
           context.setMounted(false);
           setDimensions(emptyDimensions, false);
         },

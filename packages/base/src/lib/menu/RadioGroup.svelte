@@ -7,10 +7,7 @@
   import { Controlled } from '@sveltery/utils/Controlled';
 
   import { provideMenuRadioGroupContext } from './radio-group/MenuRadioGroupContext.js';
-  import {
-    provideMenuGroupContext,
-    type MenuGroupContext,
-  } from './group/MenuGroupContext.js';
+  import { provideMenuGroupContext, type MenuGroupContext } from './group/MenuGroupContext.js';
   import type { MenuRadioGroupProps, MenuRadioGroup } from './types.js';
   let {
     render,
@@ -31,10 +28,7 @@
     untrack(() => defaultValue),
   );
   const value = $derived(valueState.value);
-  const setValue = (
-    newValue: unknown,
-    eventDetails: MenuRadioGroup.ChangeEventDetails,
-  ) => {
+  const setValue = (newValue: unknown, eventDetails: MenuRadioGroup.ChangeEventDetails) => {
     onValueChangeProp?.(newValue, eventDetails);
     if (eventDetails.isCanceled) return;
     valueState.set(newValue);

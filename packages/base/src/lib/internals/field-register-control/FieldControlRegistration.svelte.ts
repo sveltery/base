@@ -2,10 +2,7 @@
 // 47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c; MIT: THIRD_PARTY_NOTICES.md.
 import { onDestroy } from 'svelte';
 import { getCombinedFieldValidityData } from '../../field/utils/getCombinedFieldValidityData.js';
-import {
-  useFormContext,
-  type FormContext,
-} from '../form-context/FormContext.js';
+import { useFormContext, type FormContext } from '../form-context/FormContext.js';
 import type { FieldValidityData } from '../../field/types.js';
 
 export interface FieldControlRegistration {
@@ -30,9 +27,7 @@ export class FieldControlRegistrationOwner {
     $effect(() => {
       const registration = this.#registration;
       if (!registration?.id) return;
-      params.setRegisteredFieldName(
-        params.name ? undefined : registration.name,
-      );
+      params.setRegisteredFieldName(params.name ? undefined : registration.name);
       this.refreshRegistration();
     });
     const fields = this.#formRef.current.fields;
@@ -49,9 +44,7 @@ export class FieldControlRegistrationOwner {
   };
 
   private getRegistrationValue(registration: FieldControlRegistration) {
-    return registration.value === undefined
-      ? this.getValueForForm()
-      : registration.value;
+    return registration.value === undefined ? this.getValueForForm() : registration.value;
   }
 
   validate = () => {
@@ -71,10 +64,7 @@ export class FieldControlRegistrationOwner {
       getValue: this.getValueForForm,
       name: this.#params.name ?? registration.name,
       controlRef: registration.controlRef,
-      validityData: getCombinedFieldValidityData(
-        this.#params.validityData,
-        this.#params.invalid,
-      ),
+      validityData: getCombinedFieldValidityData(this.#params.validityData, this.#params.invalid),
       validate: this.validate,
     });
   }
@@ -89,16 +79,11 @@ export class FieldControlRegistrationOwner {
     this.#initialValueCaptured = true;
     const initialValue = this.getRegistrationValue(registration);
     this.#params.setValidityData((previous) =>
-      previous.initialValue === initialValue
-        ? previous
-        : { ...previous, initialValue },
+      previous.initialValue === initialValue ? previous : { ...previous, initialValue },
     );
   }
 
-  register = (
-    source: symbol,
-    registration: FieldControlRegistration | undefined,
-  ) => {
+  register = (source: symbol, registration: FieldControlRegistration | undefined) => {
     if (!registration) {
       if (this.#activeSource === source) {
         this.#activeSource = null;
@@ -113,15 +98,12 @@ export class FieldControlRegistrationOwner {
     const previousId = this.#registration?.id;
     const previousSource = this.#activeSource;
     // Cancel work owned by a replaced control, but not on first registration.
-    if (previousSource && previousSource !== source)
-      this.#params.change(undefined, true);
+    if (previousSource && previousSource !== source) this.#params.change(undefined, true);
     this.#activeSource = source;
     this.#registration = registration;
-    if (!this.#params.name)
-      this.#params.setRegisteredFieldName(registration.name);
+    if (!this.#params.name) this.#params.setRegisteredFieldName(registration.name);
     this.#params.registeredFieldIdRef.current = registration.id;
-    if (previousId && previousId !== registration.id)
-      this.deleteRegistration(previousId);
+    if (previousId && previousId !== registration.id) this.deleteRegistration(previousId);
     this.captureInitialValue(registration);
     this.refreshRegistration();
   };
@@ -136,8 +118,7 @@ export interface FieldControlRegistrationParameters {
   setRegisteredFieldName(name: string | undefined): void;
   registeredFieldIdRef: { current: string | undefined };
   setValidityData(
-    data:
-      FieldValidityData | ((previous: FieldValidityData) => FieldValidityData),
+    data: FieldValidityData | ((previous: FieldValidityData) => FieldValidityData),
   ): void;
   readonly validityData: FieldValidityData;
 }

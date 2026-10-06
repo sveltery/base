@@ -118,7 +118,6 @@ export class Store<State> {
     const newState = { ...this.state };
     this.setState(newState);
   }
-
 }
 
 export type ReadonlyStore<State> = Pick<Store<State>, 'getSnapshot' | 'subscribe' | 'state'>;

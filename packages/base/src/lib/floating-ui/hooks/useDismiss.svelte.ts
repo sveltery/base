@@ -137,12 +137,17 @@ export function useDismiss(
 
   const contextTree = useFloatingTree();
   const tree = $derived(externalTree ?? contextTree);
-  const outsidePressFn = (event: MouseEvent | TouchEvent) => typeof outsidePressProp === 'function' ? outsidePressProp(event) : false;
-  const outsidePress = $derived(typeof outsidePressProp === 'function' ? outsidePressFn : outsidePressProp);
+  const outsidePressFn = (event: MouseEvent | TouchEvent) =>
+    typeof outsidePressProp === 'function' ? outsidePressProp(event) : false;
+  const outsidePress = $derived(
+    typeof outsidePressProp === 'function' ? outsidePressFn : outsidePressProp,
+  );
   const outsidePressEnabled = $derived(outsidePress !== false);
   const getOutsidePressEventProp = () => outsidePressEvent;
 
-  const { escapeKey: escapeKeyBubbles, outsidePress: outsidePressBubbles } = $derived(normalizeProp(bubbles));
+  const { escapeKey: escapeKeyBubbles, outsidePress: outsidePressBubbles } = $derived(
+    normalizeProp(bubbles),
+  );
 
   const pressStartedInsideRef = { current: false };
   const pressStartPreventedRef = { current: false };
@@ -154,13 +159,15 @@ export function useDismiss(
   const isComposingRef = { current: false };
   const currentPointerTypeRef = { current: '' as PointerEvent['pointerType'] };
 
-  const touchStateRef = { current: null as {
-    startTime: number;
-    startX: number;
-    startY: number;
-    dismissOnTouchEnd: boolean;
-    dismissOnMouseDown: boolean;
-  } | null };
+  const touchStateRef = {
+    current: null as {
+      startTime: number;
+      startX: number;
+      startY: number;
+      dismissOnTouchEnd: boolean;
+      dismissOnMouseDown: boolean;
+    } | null,
+  };
 
   const cancelDismissOnEndTimeout = new Timeout();
 
@@ -174,13 +181,13 @@ export function useDismiss(
   };
 
   const hasBlockingChild = (bubbleKey: '__escapeKeyBubbles' | '__outsidePressBubbles') => {
-      const nodeId = dataRef.current.floatingContext?.nodeId;
-      const children = tree ? getNodeChildren(tree.nodesRef.current, nodeId) : [];
+    const nodeId = dataRef.current.floatingContext?.nodeId;
+    const children = tree ? getNodeChildren(tree.nodesRef.current, nodeId) : [];
 
-      return children.some(
-        (child) => child.context?.open && !child.context.dataRef.current[bubbleKey],
-      );
-    };
+    return children.some(
+      (child) => child.context?.open && !child.context.dataRef.current[bubbleKey],
+    );
+  };
 
   const isEventWithinOwnElements = (event: Event) => {
     return (
@@ -204,33 +211,33 @@ export function useDismiss(
   };
 
   const closeOnEscapeKeyDown = (event: KeyboardEvent) => {
-      if (!open || !enabled || !escapeKey || event.key !== 'Escape') {
-        return;
-      }
+    if (!open || !enabled || !escapeKey || event.key !== 'Escape') {
+      return;
+    }
 
-      // Wait until IME is settled. Pressing `Escape` while composing should
-      // close the compose menu, but not the floating element.
-      if (isComposingRef.current) {
-        return;
-      }
+    // Wait until IME is settled. Pressing `Escape` while composing should
+    // close the compose menu, but not the floating element.
+    if (isComposingRef.current) {
+      return;
+    }
 
-      if (!escapeKeyBubbles && hasBlockingChild('__escapeKeyBubbles')) {
-        return;
-      }
+    if (!escapeKeyBubbles && hasBlockingChild('__escapeKeyBubbles')) {
+      return;
+    }
 
-      const native = event;
-      const eventDetails = createChangeEventDetails(REASONS.escapeKey, native);
+    const native = event;
+    const eventDetails = createChangeEventDetails(REASONS.escapeKey, native);
 
-      store.setOpen(false, eventDetails);
+    store.setOpen(false, eventDetails);
 
-      if (!eventDetails.isCanceled) {
-        event.preventDefault();
-      }
+    if (!eventDetails.isCanceled) {
+      event.preventDefault();
+    }
 
-      if (!escapeKeyBubbles && !eventDetails.isPropagationAllowed) {
-        event.stopPropagation();
-      }
-    };
+    if (!escapeKeyBubbles && !eventDetails.isPropagationAllowed) {
+      event.stopPropagation();
+    }
+  };
 
   const markInsideTree = () => {
     dataRef.current.insideTree = true;
@@ -238,37 +245,37 @@ export function useDismiss(
   };
 
   const markPressStartedInsideTree = (event: PointerEvent | MouseEvent) => {
-      if (!open || !enabled || event.button !== 0) {
-        return;
-      }
+    if (!open || !enabled || event.button !== 0) {
+      return;
+    }
 
-      const target = getTarget(event) as Element | null;
+    const target = getTarget(event) as Element | null;
 
-      // Only treat presses that start within the floating DOM subtree as inside.
-      // This avoids suppressing parent dismissal when interacting with nested portals.
-      if (!contains(store.select('floatingElement'), target)) {
-        return;
-      }
+    // Only treat presses that start within the floating DOM subtree as inside.
+    // This avoids suppressing parent dismissal when interacting with nested portals.
+    if (!contains(store.select('floatingElement'), target)) {
+      return;
+    }
 
-      if (!pressStartedInsideRef.current) {
-        pressStartedInsideRef.current = true;
-        pressStartPreventedRef.current = false;
-      }
-    };
+    if (!pressStartedInsideRef.current) {
+      pressStartedInsideRef.current = true;
+      pressStartPreventedRef.current = false;
+    }
+  };
 
   const markInsidePressStartPrevented = (event: PointerEvent | MouseEvent) => {
-      if (!open || !enabled) {
-        return;
-      }
+    if (!open || !enabled) {
+      return;
+    }
 
-      if (!(event.defaultPrevented || event.defaultPrevented)) {
-        return;
-      }
+    if (!(event.defaultPrevented || event.defaultPrevented)) {
+      return;
+    }
 
-      if (pressStartedInsideRef.current) {
-        pressStartPreventedRef.current = true;
-      }
-    };
+    if (pressStartedInsideRef.current) {
+      pressStartPreventedRef.current = true;
+    }
+  };
 
   // A same-batch close+reopen never renders `open === false`, so only `openchange` can
   // observe that session boundary. The effect below covers controlled flips.
@@ -746,31 +753,41 @@ export function useDismiss(
   });
 
   const reference: ElementProps['reference'] = {
-      onkeydown: closeOnEscapeKeyDown,
-      onpointerdown: closeOnReferencePress,
-      onclick: closeOnReferencePress,
-    };
+    onkeydown: closeOnEscapeKeyDown,
+    onpointerdown: closeOnReferencePress,
+    onclick: closeOnReferencePress,
+  };
 
   const floating: ElementProps['floating'] = {
-      onkeydown: closeOnEscapeKeyDown,
-      // `onmousedown` may be blocked if `event.preventDefault()` is called in
-      // `onpointerdown`, such as with <NumberField.ScrubArea>.
-      // See https://github.com/mui/base-ui/pull/3379
-      onpointerdown: markInsidePressStartPrevented,
-      onmousedown: markInsidePressStartPrevented,
-      onclickcapture: markInsideTree,
-      onmousedowncapture(event: MouseEvent) {
-        markInsideTree();
-        markPressStartedInsideTree(event);
-      },
-      onpointerdowncapture(event: PointerEvent) {
-        markInsideTree();
-        markPressStartedInsideTree(event);
-      },
-      onmouseupcapture: markInsideTree,
-      ontouchendcapture: markInsideTree,
-      ontouchmovecapture: markInsideTree,
-    };
+    onkeydown: closeOnEscapeKeyDown,
+    // `onmousedown` may be blocked if `event.preventDefault()` is called in
+    // `onpointerdown`, such as with <NumberField.ScrubArea>.
+    // See https://github.com/mui/base-ui/pull/3379
+    onpointerdown: markInsidePressStartPrevented,
+    onmousedown: markInsidePressStartPrevented,
+    onclickcapture: markInsideTree,
+    onmousedowncapture(event: MouseEvent) {
+      markInsideTree();
+      markPressStartedInsideTree(event);
+    },
+    onpointerdowncapture(event: PointerEvent) {
+      markInsideTree();
+      markPressStartedInsideTree(event);
+    },
+    onmouseupcapture: markInsideTree,
+    ontouchendcapture: markInsideTree,
+    ontouchmovecapture: markInsideTree,
+  };
 
-  return { get reference() { return enabled ? reference : undefined; }, get floating() { return enabled ? floating : undefined; }, get trigger() { return enabled ? reference : undefined; } };
+  return {
+    get reference() {
+      return enabled ? reference : undefined;
+    },
+    get floating() {
+      return enabled ? floating : undefined;
+    },
+    get trigger() {
+      return enabled ? reference : undefined;
+    },
+  };
 }

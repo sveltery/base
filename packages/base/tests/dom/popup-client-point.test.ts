@@ -9,30 +9,82 @@ import { FloatingRootStore } from '../../src/lib/floating-ui/components/Floating
 
 const mounted: ReturnType<typeof mount>[] = [];
 afterEach(async () => {
-  await Promise.all(mounted.splice(0).map(component => unmount(component)));
+  await Promise.all(mounted.splice(0).map((component) => unmount(component)));
   document.body.replaceChildren();
 });
 const screen = {
-  getByTestId(id: string) { const node = document.querySelector<HTMLElement>(`[data-testid="${id}"]`); if (!node) throw Error(`Missing ${id}`); return node; },
-  getByRole(role: 'button') { const node = document.querySelector<HTMLElement>(role); if (!node) throw Error(`Missing ${role}`); return node; },
+  getByTestId(id: string) {
+    const node = document.querySelector<HTMLElement>(`[data-testid="${id}"]`);
+    if (!node) throw Error(`Missing ${id}`);
+    return node;
+  },
+  getByRole(role: 'button') {
+    const node = document.querySelector<HTMLElement>(role);
+    if (!node) throw Error(`Missing ${role}`);
+    return node;
+  },
 };
-const fireEvent = Object.assign((node: EventTarget, event: Event) => { node.dispatchEvent(event); flushSync(); }, {
-  click(node: HTMLElement) { node.click(); flushSync(); },
-  mouseMove(node: HTMLElement, coordinates: MouseEventInit) { node.dispatchEvent(new MouseEvent('mousemove', { bubbles: true, ...coordinates })); flushSync(); },
-});
-async function flushMicrotasks() { flushSync(); await tick(); await Promise.resolve(); flushSync(); }
-async function act(callback: () => Promise<void>) { await callback(); flushSync(); }
-function render(props: { enabled?: boolean; axis?: 'both' | 'x' | 'y'; useTriggerProps?: boolean; openWithFocusEvent?: boolean } = {}) {
-  const target = document.createElement('main'); document.body.append(target);
-  const component = mount(App, { target, props }); mounted.push(component); flushSync();
-  return { rerender(next: { enabled: boolean }) { component.setEnabled(next.enabled); flushSync(); } };
+const fireEvent = Object.assign(
+  (node: EventTarget, event: Event) => {
+    node.dispatchEvent(event);
+    flushSync();
+  },
+  {
+    click(node: HTMLElement) {
+      node.click();
+      flushSync();
+    },
+    mouseMove(node: HTMLElement, coordinates: MouseEventInit) {
+      node.dispatchEvent(new MouseEvent('mousemove', { bubbles: true, ...coordinates }));
+      flushSync();
+    },
+  },
+);
+async function flushMicrotasks() {
+  flushSync();
+  await tick();
+  await Promise.resolve();
+  flushSync();
+}
+async function act(callback: () => Promise<void>) {
+  await callback();
+  flushSync();
+}
+function render(
+  props: {
+    enabled?: boolean;
+    axis?: 'both' | 'x' | 'y';
+    useTriggerProps?: boolean;
+    openWithFocusEvent?: boolean;
+  } = {},
+) {
+  const target = document.createElement('main');
+  document.body.append(target);
+  const component = mount(App, { target, props });
+  mounted.push(component);
+  flushSync();
+  return {
+    rerender(next: { enabled: boolean }) {
+      component.setEnabled(next.enabled);
+      flushSync();
+    },
+  };
 }
 function renderStore(store: FloatingRootStore) {
-  const target = document.createElement('main'); document.body.append(target);
-  const component = mount(StoreApp, { target, props: { store } }); mounted.push(component); flushSync();
+  const target = document.createElement('main');
+  document.body.append(target);
+  const component = mount(StoreApp, { target, props: { store } });
+  mounted.push(component);
+  flushSync();
   return {
-    rerender(next: { enabled: boolean }) { component.setEnabled(next.enabled); flushSync(); },
-    async unmount() { mounted.splice(mounted.indexOf(component), 1); await unmount(component); },
+    rerender(next: { enabled: boolean }) {
+      component.setEnabled(next.enabled);
+      flushSync();
+    },
+    async unmount() {
+      mounted.splice(mounted.indexOf(component), 1);
+      await unmount(component);
+    },
   };
 }
 

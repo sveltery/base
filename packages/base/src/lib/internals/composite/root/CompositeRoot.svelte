@@ -9,10 +9,7 @@
   import { useDirection } from '../../../direction-provider/context.js';
   import { createCompositeList } from '../list/createCompositeList.svelte.js';
   import type { CompositeMetadata } from '../list/CompositeListContext.js';
-  import {
-    useCompositeRoot,
-    type UseCompositeRootParameters,
-  } from './useCompositeRoot.svelte.js';
+  import { useCompositeRoot, type UseCompositeRootParameters } from './useCompositeRoot.svelte.js';
   import { setCompositeRootContext } from './CompositeRootContext.js';
   let {
     render,

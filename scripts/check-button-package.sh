@@ -13,8 +13,8 @@ const tarball = readdirSync(directory).find(name => name.endsWith('.tgz'));
 writeFileSync(join(directory, 'package.json'), JSON.stringify({ private: true, type: 'module', dependencies: { '@sveltery/base': `file:${join(directory, tarball)}`, svelte: '5.57.1' } }));
 JS
 sveltery_prepare_consumer "$button_consumer"
-pnpm --dir "$button_consumer" --ignore-workspace install --ignore-scripts > /dev/null
-pnpm --dir "$button_consumer" --ignore-workspace install --frozen-lockfile --ignore-scripts > /dev/null
+pnpm --dir "$button_consumer" install --ignore-scripts > /dev/null
+pnpm --dir "$button_consumer" install --frozen-lockfile --ignore-scripts > /dev/null
 cmp LICENSE "$button_consumer/node_modules/@sveltery/base/LICENSE"
 cmp packages/base/THIRD_PARTY_NOTICES.md "$button_consumer/node_modules/@sveltery/base/THIRD_PARTY_NOTICES.md"
 cat > "$button_consumer/PublicTypes.ts" <<'TS'
@@ -25,7 +25,7 @@ type Equal<A, B> = (<T>() => T extends A ? 1 : 2) extends (<T>() => T extends B 
 type Assert<T extends true> = T;
 export type Agreement = [Assert<Equal<typeof Button, typeof Subpath>>, Assert<Equal<ButtonProps, SubpathProps>>, Assert<Equal<ButtonState, SubpathState>>, Assert<Equal<ComponentProps<typeof Button>, ButtonProps>>];
 const explicitUndefined: ButtonProps = { disabled: undefined, nativeButton: undefined, focusableWhenDisabled: undefined, class: undefined, style: undefined, render: undefined, children: undefined, ref: undefined, type: undefined };
-const native: SubpathProps = { disabled: true, focusableWhenDisabled: true, nativeButton: true, type: 'submit', name: 'action', value: 'save', form: 'checkout', formaction: '/save', formmethod: 'post', formnovalidate: true, class: ['native', { active: true }], style: state => state.disabled ? { opacity: 0.5 } : undefined, onclick(event) { event.preventBaseUIHandler(); event.preventDefault(); const host: HTMLButtonElement = event.currentTarget; void host; }, onpointerdown(event) { const pointer: PointerEvent = event; event.preventBaseUIHandler(); void pointer; } };
+const native: SubpathProps = { disabled: true, focusableWhenDisabled: true, nativeButton: true, type: 'submit', name: 'action', value: 'save', form: 'checkout', formaction: '/save', formmethod: 'post', formnovalidate: true, class: ['native', { active: true }], style: state => state.disabled ? 'opacity:0.5' : undefined, onclick(event) { event.preventBaseUIHandler(); event.preventDefault(); const host: HTMLButtonElement = event.currentTarget; void host; }, onpointerdown(event) { const pointer: PointerEvent = event; event.preventBaseUIHandler(); void pointer; } };
 // @ts-expect-error Native type is constrained to button/submit/reset.
 const badType: ButtonProps = { type: 'link' };
 // @ts-expect-error Disabled remains boolean.
@@ -37,7 +37,7 @@ const badFocus: ButtonProps = { focusableWhenDisabled: 'true' };
 // @ts-expect-error bind:ref publishes an actual HTMLElement; React callback refs are not this native API.
 const badRef: ButtonProps = { ref: () => {} };
 // @ts-expect-error State callbacks must receive the actual ButtonState.
-const badState: ButtonProps = { style: (state: { active: boolean }) => ({ opacity: state.active ? 1 : 0 }) };
+const badState: ButtonProps = { style: (state: { active: boolean }) => `opacity:${state.active ? 1 : 0}` };
 // @ts-expect-error Native event inference must remain intact.
 const badPointer: ButtonProps = { onpointerdown(event: KeyboardEvent) { void event; } };
 void [explicitUndefined, native, badType, badDisabled, badNative, badFocus, badRef, badState, badPointer];
@@ -66,7 +66,7 @@ cat > "$button_consumer/Consumer.svelte" <<'SVELTE'
   <Subpath {...props} nativeButton={false} {disabled} focusableWhenDisabled bind:ref={innerRef} render={span}>{@render children?.()}</Subpath>
 {/snippet}
 <Button id="packed-default">Default</Button><Subpath id="packed-undefined" type={undefined}>Undefined</Subpath>
-{#if visible}<Button id="packed-live" nativeButton={false} {disabled} focusableWhenDisabled render={nested} bind:ref {@attach attached} class={state => ['public', { disabled: state.disabled }]} style={state => ({ opacity: state.disabled ? 0.5 : 1 })} onclick={() => record('click')}>Packed action</Button>{/if}
+{#if visible}<Button id="packed-live" nativeButton={false} {disabled} focusableWhenDisabled render={nested} bind:ref {@attach attached} class={state => ['public', { disabled: state.disabled }]} style={state => `opacity:${state.disabled ? 0.5 : 1}`} onclick={() => record('click')}>Packed action</Button>{/if}
 SVELTE
 cat > "$button_consumer/tsconfig.json" <<'JSON'
 {"compilerOptions":{"target":"ES2022","module":"ESNext","moduleResolution":"Bundler","strict":true,"exactOptionalPropertyTypes":true,"noUncheckedIndexedAccess":true,"skipLibCheck":false,"verbatimModuleSyntax":true,"lib":["ES2022","DOM","DOM.Iterable"]},"include":["*.svelte","*.ts"]}

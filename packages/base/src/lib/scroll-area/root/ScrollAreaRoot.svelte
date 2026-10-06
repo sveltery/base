@@ -34,9 +34,7 @@
   }: ScrollAreaRootProps = $props();
   const nativeId = $props.id();
   const rootId = useBaseUiId(undefined, nativeId);
-  const overflowEdgeThreshold = $derived(
-    normalizeOverflowEdgeThreshold(overflowEdgeThresholdProp),
-  );
+  const overflowEdgeThreshold = $derived(normalizeOverflowEdgeThreshold(overflowEdgeThresholdProp));
   const scrollYTimeout = new Timeout();
   onDestroy(scrollYTimeout.clear);
   const scrollXTimeout = new Timeout();
@@ -137,9 +135,7 @@
 
     if (activePointerIdRef.current !== null) {
       const activeThumb =
-        currentOrientationRef.current === 'vertical'
-          ? thumbYRef.current
-          : thumbXRef.current;
+        currentOrientationRef.current === 'vertical' ? thumbYRef.current : thumbXRef.current;
       // A live drag holds capture for the active pointer — ignore other pointers.
       // No capture means the release went missing entirely (silent capture drop
       // with an id that never reappears, e.g. a lost touch contact), so let the
@@ -152,10 +148,9 @@
     activePointerIdRef.current = event.pointerId;
     startYRef.current = event.clientY;
     startXRef.current = event.clientX;
-    currentOrientationRef.current = (
-      event.currentTarget as Element
-    ).getAttribute(ScrollAreaScrollbarDataAttributes.orientation) as
-      'vertical' | 'horizontal';
+    currentOrientationRef.current = (event.currentTarget as Element).getAttribute(
+      ScrollAreaScrollbarDataAttributes.orientation,
+    ) as 'vertical' | 'horizontal';
 
     const viewportEl = viewportRef.current;
     if (viewportEl) {
@@ -165,9 +160,7 @@
     }
 
     const thumb =
-      currentOrientationRef.current === 'vertical'
-        ? thumbYRef.current
-        : thumbXRef.current;
+      currentOrientationRef.current === 'vertical' ? thumbYRef.current : thumbXRef.current;
     thumb?.setPointerCapture(event.pointerId);
   }
 
@@ -180,9 +173,7 @@
     // Clear the drag's scrolling state immediately rather than waiting for the
     // `SCROLL_TIMEOUT` timer armed by the last drag move, so every release path
     // (real, `pointercancel`, or the missed-release fallback) behaves the same.
-    (currentOrientationRef.current === 'vertical'
-      ? setScrollingY
-      : setScrollingX)(false);
+    (currentOrientationRef.current === 'vertical' ? setScrollingY : setScrollingX)(false);
 
     if (savedSnapTypeRef.current !== null) {
       if (viewportRef.current) {
@@ -192,9 +183,7 @@
     }
 
     const thumb =
-      currentOrientationRef.current === 'vertical'
-        ? thumbYRef.current
-        : thumbXRef.current;
+      currentOrientationRef.current === 'vertical' ? thumbYRef.current : thumbXRef.current;
     // `pointercancel` releases capture implicitly, so guard against releasing a
     // capture we no longer hold (which would throw).
     if (thumb?.hasPointerCapture(event.pointerId)) {
@@ -224,9 +213,7 @@
 
     const vertical = currentOrientationRef.current === 'vertical';
     const thumbEl = vertical ? thumbYRef.current : thumbXRef.current;
-    const scrollbarEl = vertical
-      ? scrollbarYRef.current
-      : scrollbarXRef.current;
+    const scrollbarEl = vertical ? scrollbarYRef.current : scrollbarXRef.current;
     if (!thumbEl || !scrollbarEl) {
       return;
     }
@@ -235,30 +222,18 @@
     const scrollbarOffset = getOffset(scrollbarEl, 'padding', axis);
     const thumbOffset = getOffset(thumbEl, 'margin', axis);
     const thumbSizePx = vertical ? thumbEl.offsetHeight : thumbEl.offsetWidth;
-    const trackSize = vertical
-      ? scrollbarEl.offsetHeight
-      : scrollbarEl.offsetWidth;
-    const maxThumbOffset =
-      trackSize - thumbSizePx - scrollbarOffset - thumbOffset;
+    const trackSize = vertical ? scrollbarEl.offsetHeight : scrollbarEl.offsetWidth;
+    const maxThumbOffset = trackSize - thumbSizePx - scrollbarOffset - thumbOffset;
     // A short or heavily padded track can drive `maxThumbOffset` to zero or
     // negative once the thumb hits its `MIN_THUMB_SIZE` floor. Dividing by it
     // would yield a non-finite (`Infinity`/`NaN`) or inverted scroll position.
-    const delta = vertical
-      ? event.clientY - startYRef.current
-      : event.clientX - startXRef.current;
+    const delta = vertical ? event.clientY - startYRef.current : event.clientX - startXRef.current;
     const scrollRatio = maxThumbOffset <= 0 ? 0 : delta / maxThumbOffset;
 
-    const scrollableSize = vertical
-      ? viewportEl.scrollHeight
-      : viewportEl.scrollWidth;
-    const viewportSize = vertical
-      ? viewportEl.clientHeight
-      : viewportEl.clientWidth;
-    const startScroll = vertical
-      ? startScrollTopRef.current
-      : startScrollLeftRef.current;
-    const nextScroll =
-      startScroll + scrollRatio * (scrollableSize - viewportSize);
+    const scrollableSize = vertical ? viewportEl.scrollHeight : viewportEl.scrollWidth;
+    const viewportSize = vertical ? viewportEl.clientHeight : viewportEl.clientWidth;
+    const startScroll = vertical ? startScrollTopRef.current : startScrollLeftRef.current;
+    const nextScroll = startScroll + scrollRatio * (scrollableSize - viewportSize);
 
     if (vertical) {
       viewportEl.scrollTop = nextScroll;
@@ -278,10 +253,7 @@
     handleTouchModalityChange(event);
 
     if (event.pointerType !== 'touch') {
-      const isTargetRootChild = contains(
-        rootRef.current,
-        event.target as Element,
-      );
+      const isTargetRootChild = contains(rootRef.current, event.target as Element);
       setHovering(isTargetRootChild);
     }
   }
@@ -318,8 +290,7 @@
       return hasMeasuredScrollbar;
     },
     setHasMeasuredScrollbar(value) {
-      hasMeasuredScrollbar =
-        typeof value === 'function' ? value(hasMeasuredScrollbar) : value;
+      hasMeasuredScrollbar = typeof value === 'function' ? value(hasMeasuredScrollbar) : value;
     },
     get touchModality() {
       return touchModality;
@@ -351,8 +322,7 @@
       return overflowEdges;
     },
     setOverflowEdges(value) {
-      overflowEdges =
-        typeof value === 'function' ? value(overflowEdges) : value;
+      overflowEdges = typeof value === 'function' ? value(overflowEdges) : value;
     },
     get viewportState() {
       return rootState;
@@ -421,9 +391,7 @@
   });
 </script>
 
-{#if !csp.disableStyleElements}<styleDisableScrollbar.getElement
-    nonce={csp.nonce}
-  />{/if}
+{#if !csp.disableStyleElements}<styleDisableScrollbar.getElement nonce={csp.nonce} />{/if}
 {#if render}
   {@render render(mergedProps, rootState, children)}
 {:else}

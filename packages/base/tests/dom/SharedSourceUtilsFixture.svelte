@@ -5,7 +5,11 @@
   import { ValueChanged } from '../../src/lib/internals/ValueChanged.svelte.js';
   import Child from './SharedSourceUtilsChild.svelte';
 
-  let { initialControlled, initialDefault, events = [] }: {
+  let {
+    initialControlled,
+    initialDefault,
+    events = [],
+  }: {
     initialControlled?: unknown;
     initialDefault?: unknown;
     events?: string[];
@@ -31,7 +35,10 @@
     if (mutateDuringChange && changedValue.value === 1) changedValue = { value: 2 };
   });
 
-  const valueState = new Controlled(() => controlled, untrack(() => defaultValue));
+  const valueState = new Controlled(
+    () => controlled,
+    untrack(() => defaultValue),
+  );
   initialized += 1;
   const ref = { current: { seed: 'seed' } };
   const stable = () => ownerCallback(owner);
@@ -41,14 +48,18 @@
 
   $effect(() => {
     events.push(`parent-effect:${stable()}`);
-    return () => { events.push('parent-cleanup'); };
+    return () => {
+      events.push('parent-cleanup');
+    };
   });
 
   $effect(() => {
     effectRuns += 1;
     void dependency.value;
     void callbackOnlyValue;
-    return () => { effectCleanups += 1; };
+    return () => {
+      effectCleanups += 1;
+    };
   });
 
   $effect(() => {
@@ -56,32 +67,67 @@
     stable();
   });
 
-  new ValueChanged(() => changedValue.value, () => valueChangeCallback);
+  new ValueChanged(
+    () => changedValue.value,
+    () => valueChangeCallback,
+  );
 
-  export const setControlled = (next: unknown) => { controlled = next; };
-  export const setDefault = (next: unknown) => { defaultValue = next; };
-  export const setLocal = (next: unknown) => { valueState.set(next); };
-  export const incrementLocal = () => { valueState.set(Number(valueState.value) + 1); };
-  export const setOwner = (next: string) => { owner = next; };
-  export const replaceCallback = () => { ownerCallback = (next) => `replacement:${next}`; };
+  export const setControlled = (next: unknown) => {
+    controlled = next;
+  };
+  export const setDefault = (next: unknown) => {
+    defaultValue = next;
+  };
+  export const setLocal = (next: unknown) => {
+    valueState.set(next);
+  };
+  export const incrementLocal = () => {
+    valueState.set(Number(valueState.value) + 1);
+  };
+  export const setOwner = (next: string) => {
+    owner = next;
+  };
+  export const replaceCallback = () => {
+    ownerCallback = (next) => `replacement:${next}`;
+  };
   export const getStable = () => stable;
   export const callOptional = () => undefined;
-  export const setChanged = (next: number) => { changedValue = { value: next }; };
+  export const setChanged = (next: number) => {
+    changedValue = { value: next };
+  };
   export const setValueChangeCallback = (next: ((previous: number) => void) | undefined) => {
     valueChangeCallback = next;
   };
-  export const mutateOnChange = () => { mutateDuringChange = true; };
-  export const setDependency = (next: number) => { dependency = { value: next }; };
-  export const setUnrelated = (next: number) => { unrelated = next; };
-  export const setCallbackRead = (next: number) => { callbackOnlyValue = next; };
-  export const start = (delay: number, callback: () => void) => { timeout.start(delay, callback); };
+  export const mutateOnChange = () => {
+    mutateDuringChange = true;
+  };
+  export const setDependency = (next: number) => {
+    dependency = { value: next };
+  };
+  export const setUnrelated = (next: number) => {
+    unrelated = next;
+  };
+  export const setCallbackRead = (next: number) => {
+    callbackOnlyValue = next;
+  };
+  export const start = (delay: number, callback: () => void) => {
+    timeout.start(delay, callback);
+  };
   export const timerStarted = () => timeout.isStarted();
-  export const updateRef = (seed: string) => { ref.current = { seed }; };
+  export const updateRef = (seed: string) => {
+    ref.current = { seed };
+  };
   export const snapshot = () => ({
-    value: valueState.value, initialized, ref: ref.current, effectRuns, effectCleanups,
-    stableEffectRuns, changePrevious, readsInsideCallback,
+    value: valueState.value,
+    initialized,
+    ref: ref.current,
+    effectRuns,
+    effectCleanups,
+    stableEffectRuns,
+    changePrevious,
+    readsInsideCallback,
   });
 </script>
 
-<output data-value>{String(valueState.value)}</output>
+<output data-value data-unrelated={unrelated}>{String(valueState.value)}</output>
 <Child {stable} {events} />

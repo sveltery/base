@@ -7,7 +7,6 @@
   import { usePreviewCardRootContext } from './context.js';
   import { popupTransitionStateMapping } from '../utils/popupStateMapping.js';
   import type { PreviewCardBackdropProps } from './types.js';
-  // eslint-disable-next-line no-useless-assignment -- Native bindable ref output is published through the ordered Source ref callback.
   let {
     render,
     class: className,

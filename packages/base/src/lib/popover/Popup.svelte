@@ -16,13 +16,9 @@
   import FloatingFocusManager from '../floating-ui/components/FloatingFocusManager.svelte';
   import { useToolbarRootContext } from '../toolbar/root/ToolbarRootContext.js';
   import { COMPOSITE_KEYS } from '../internals/composite/composite.js';
-  import {
-    ClosePartContext,
-    ClosePartCount,
-  } from '../utils/closePart.svelte.js';
+  import { ClosePartContext, ClosePartCount } from '../utils/closePart.svelte.js';
   import { createDefaultInitialFocus } from '../utils/popups/popupStoreUtils.svelte.js';
   import { REASONS } from '../internals/reasons.js';
-  // eslint-disable-next-line no-useless-assignment -- Native bindable ref output is published through the ordered Source ref callback.
   let {
     render,
     class: className,
@@ -92,8 +88,7 @@
       return () =>
         untrack(() => {
           if (ref === host) ref = null;
-          if (store.context.popupRef.current === host)
-            store.context.popupRef.current = null;
+          if (store.context.popupRef.current === host) store.context.popupRef.current = null;
           setPopupElement?.(null);
         });
     });
@@ -111,8 +106,7 @@
           'aria-labelledby': titleId,
           'aria-describedby': descriptionId,
           onkeydown(event: KeyboardEvent) {
-            if (insideToolbar && COMPOSITE_KEYS.has(event.key))
-              event.stopPropagation();
+            if (insideToolbar && COMPOSITE_KEYS.has(event.key)) event.stopPropagation();
           },
         },
         getDisabledMountTransitionStyles(transitionStatus),
@@ -132,9 +126,7 @@
   initialFocus={resolvedInitialFocus}
   returnFocus={finalFocus}
   restoreFocus="popup"
-  previousFocusableElement={isHTMLElement(activeTriggerElement)
-    ? activeTriggerElement
-    : undefined}
+  previousFocusableElement={isHTMLElement(activeTriggerElement) ? activeTriggerElement : undefined}
   nextFocusableElement={store.context.triggerFocusTargetRef}
   beforeContentFocusGuardRef={store.context.beforeContentFocusGuardRef}
 >

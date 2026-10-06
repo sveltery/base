@@ -12,12 +12,9 @@ export interface UseCompositeListItemParameters {
 export function useCompositeListItem(
   getParameters: () => UseCompositeListItemParameters = () => ({}),
 ) {
-  const { register, unregister, subscribeMapChange, nextIndexRef } =
-    useCompositeListContext();
+  const { register, unregister, subscribeMapChange, nextIndexRef } = useCompositeListContext();
   const initial = untrack(getParameters);
-  let internalIndex = $state(
-    initial.index == null && initial.guess ? nextIndexRef.current++ : -1,
-  );
+  let internalIndex = $state(initial.index == null && initial.guess ? nextIndexRef.current++ : -1);
   let component: HTMLElement | null = null;
   const index = () => getParameters().index ?? internalIndex;
   const registration = $derived.by(() => {

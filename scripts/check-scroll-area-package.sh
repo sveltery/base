@@ -15,8 +15,8 @@ const directory=process.argv[2];const tarball=readdirSync(directory).find(name=>
 writeFileSync(join(directory,'package.json'),JSON.stringify({private:true,type:'module',dependencies:{'@sveltery/base':`file:${join(directory,tarball)}`,svelte:'5.57.1',jsdom:'30.1.1'}}));
 JS
 sveltery_prepare_consumer "$scroll_consumer"
-pnpm --dir "$scroll_consumer" --ignore-workspace install --ignore-scripts > /dev/null
-pnpm --dir "$scroll_consumer" --ignore-workspace install --frozen-lockfile --ignore-scripts > /dev/null
+pnpm --dir "$scroll_consumer" install --ignore-scripts > /dev/null
+pnpm --dir "$scroll_consumer" install --frozen-lockfile --ignore-scripts > /dev/null
 cmp LICENSE "$scroll_consumer/node_modules/@sveltery/base/LICENSE"
 cat > "$scroll_consumer/Consumer.svelte" <<'SVELTE'
 <script lang="ts">
@@ -26,7 +26,7 @@ cat > "$scroll_consumer/Consumer.svelte" <<'SVELTE'
   let viewport = $state<HTMLElement | null>(null);
 </script>
 <DirectionProvider direction="rtl"><CSPProvider nonce="public-nonce">
-  <ScrollArea.Root overflowEdgeThreshold={{ xStart: 20 }} class={state=>state.hasOverflowX ? ['overflow'] : undefined} style={state=>state.scrolling ? { opacity: 0.5 } : undefined}>
+  <ScrollArea.Root overflowEdgeThreshold={{ xStart: 20 }} class={state=>state.hasOverflowX ? ['overflow'] : undefined} style={state=>state.scrolling ? 'opacity:0.5' : undefined}>
     <ScrollArea.Viewport bind:ref={viewport} onscroll={event=>{ const e: Event = event; event.preventBaseUIHandler(); void e; }}><ScrollArea.Content>public content</ScrollArea.Content></ScrollArea.Viewport>
     <Sub.Scrollbar orientation="horizontal" keepMounted><Sub.Thumb /></Sub.Scrollbar><Sub.Corner />
   </ScrollArea.Root>

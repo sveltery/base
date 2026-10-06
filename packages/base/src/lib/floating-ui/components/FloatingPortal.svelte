@@ -11,10 +11,7 @@
     useFloatingPortalNode,
     useFloatingPortalContent,
   } from '../hooks/useFloatingPortalNode.svelte.js';
-  import type {
-    BaseUIComponentProps,
-    WithBaseUIEvent,
-  } from '../../internals/types.js';
+  import type { BaseUIComponentProps, WithBaseUIEvent } from '../../internals/types.js';
   import { toNativeStyle } from '../../internals/nativeProps.js';
   import { createChangeEventDetails } from '../../internals/createBaseUIEventDetails.js';
   import { REASONS } from '../../internals/reasons.js';
@@ -37,17 +34,10 @@
     ref = $bindable(),
     portalOwnerRole,
     ...componentProps
-  }: Omit<
-    WithBaseUIEvent<HTMLAttributes<HTMLElement>>,
-    'children' | 'class' | 'style'
-  > &
+  }: Omit<WithBaseUIEvent<HTMLAttributes<HTMLElement>>, 'children' | 'class' | 'style'> &
     BaseUIComponentProps<Record<string, never>> & {
       children?: Snippet;
-      container?:
-        | HTMLElement
-        | ShadowRoot
-        | { current: HTMLElement | ShadowRoot | null }
-        | null;
+      container?: HTMLElement | ShadowRoot | { current: HTMLElement | ShadowRoot | null } | null;
       ref?: HTMLElement | null;
       portalOwnerRole?: HTMLAttributes<HTMLSpanElement>['role'];
     } = $props();
@@ -64,12 +54,12 @@
   );
   const portalNode = $derived(portal.node);
   const portalNodeId = $derived(portal.nodeId);
-  const beforeOutsideRef: { current: HTMLSpanElement | null } = {
+  const beforeOutsideRef = $state<{ current: HTMLSpanElement | null }>({
     current: null,
-  };
-  const afterOutsideRef: { current: HTMLSpanElement | null } = {
+  });
+  const afterOutsideRef = $state<{ current: HTMLSpanElement | null }>({
     current: null,
-  };
+  });
   const beforeInsideRef: { current: HTMLSpanElement | null } = {
     current: null,
   };
@@ -79,18 +69,10 @@
   const modal = $derived(focusManagerState?.modal);
   const open = $derived(focusManagerState?.open);
   const shouldRenderGuards = $derived(
-    !!focusManagerState &&
-      !focusManagerState.modal &&
-      focusManagerState.open &&
-      !!portalNode,
+    !!focusManagerState && !focusManagerState.modal && focusManagerState.open && !!portalNode,
   );
   const elementProps = $derived.by(() => {
-    const {
-      class: _class,
-      style: _style,
-      render: _render,
-      ...rest
-    } = componentProps;
+    const { class: _class, style: _style, render: _render, ...rest } = componentProps;
     void _class;
     void _style;
     void _render;
@@ -152,10 +134,7 @@
     else {
       getNextTabbable(focusManagerState?.domReference ?? null)?.focus();
       if (focusManagerState?.closeOnFocusOut)
-        focusManagerState.onOpenChange(
-          false,
-          createChangeEventDetails(REASONS.focusOut, event),
-        );
+        focusManagerState.onOpenChange(false, createChangeEventDetails(REASONS.focusOut, event));
     }
   }
 </script>
@@ -165,10 +144,7 @@
     data-type="outside"
     bind:ref={beforeOutsideRef.current}
     onfocusin={beforeOutsideFocus}
-  /><span
-    role={portalOwnerRole}
-    aria-owns={portalNodeId}
-    style={toNativeStyle(ownerVisuallyHidden)}
+  /><span role={portalOwnerRole} aria-owns={portalNodeId} style={toNativeStyle(ownerVisuallyHidden)}
   ></span>{/if}
 {#if shouldRenderGuards}<FocusGuard
     data-type="outside"

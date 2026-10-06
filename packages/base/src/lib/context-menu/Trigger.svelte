@@ -7,7 +7,6 @@
   import { pressableTriggerOpenStateMapping } from '../utils/popupStateMapping.js';
   import { createContextMenuTrigger } from './trigger/createContextMenuTrigger.svelte.js';
   import type { ContextMenuTriggerProps } from './types.js';
-  // eslint-disable-next-line no-useless-assignment -- Publishes native bindable host/action outputs to the owner.
   let { ref = $bindable(null), ...props }: ContextMenuTriggerProps = $props();
   const trigger = createContextMenuTrigger(() => props);
 
@@ -19,8 +18,7 @@
       ref = host;
       return () =>
         untrack(() => {
-          if (trigger.triggerRef.current === host)
-            trigger.triggerRef.current = null;
+          if (trigger.triggerRef.current === host) trigger.triggerRef.current = null;
           if (ref === host) ref = null;
         });
     });

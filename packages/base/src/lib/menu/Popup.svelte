@@ -17,7 +17,6 @@
   import { useToolbarRootContext } from '../toolbar/root/ToolbarRootContext.js';
   import { COMPOSITE_KEYS } from '../internals/composite/composite.js';
   import type { MenuPopupProps, MenuRoot } from './types.js';
-  // eslint-disable-next-line no-useless-assignment -- Publishes native bindable host/action outputs to the owner.
   let {
     render,
     class: className,
@@ -59,24 +58,18 @@
       domEvent: Event | undefined;
       reason: MenuRoot.ChangeEventReason;
     }) {
-      store.setOpen(
-        false,
-        createChangeEventDetails(event.reason, event.domEvent),
-      );
+      store.setOpen(false, createChangeEventDetails(event.reason, event.domEvent));
     }
-    floatingTreeRoot.events.on('close', handleClose);
+    const installedEvents = floatingTreeRoot.events;
+    installedEvents.on('close', handleClose);
     return () => {
-      floatingTreeRoot.events.off('close', handleClose);
+      installedEvents.off('close', handleClose);
     };
   });
   useHoverFloatingInteraction(
     () => floatingContext,
     () => ({
-      enabled:
-        hoverEnabled &&
-        !disabled &&
-        !isContextMenu &&
-        parent.type !== 'menubar',
+      enabled: hoverEnabled && !disabled && !isContextMenu && parent.type !== 'menubar',
       closeDelay,
     }),
   );
@@ -90,12 +83,10 @@
     instant: instantType,
   });
   function getDefaultReturnFocus(state = store.state) {
-    let value =
-      state.parent.type === undefined || state.parent.type === 'context-menu';
+    let value = state.parent.type === undefined || state.parent.type === 'context-menu';
     if (
       state.activeTriggerElement ||
-      (state.parent.type === 'menubar' &&
-        state.openChangeReason !== REASONS.outsidePress)
+      (state.parent.type === 'menubar' && state.openChangeReason !== REASONS.outsidePress)
     )
       value = true;
     return value;
@@ -123,8 +114,7 @@
       return () =>
         untrack(() => {
           if (ref === host) ref = null;
-          if (store.context.popupRef.current === host)
-            store.context.popupRef.current = null;
+          if (store.context.popupRef.current === host) store.context.popupRef.current = null;
           setPopupElement?.(null);
         });
     });
@@ -137,8 +127,7 @@
         popupProps,
         {
           onkeydown(event: KeyboardEvent) {
-            if (insideToolbar && COMPOSITE_KEYS.has(event.key))
-              event.stopPropagation();
+            if (insideToolbar && COMPOSITE_KEYS.has(event.key)) event.stopPropagation();
           },
         },
         getDisabledMountTransitionStyles(transitionStatus),
@@ -161,9 +150,7 @@
   restoreFocus={true}
   externalTree={parent.type !== 'menubar' ? floatingTreeRoot : undefined}
   previousFocusableElement={activeTriggerElement as HTMLElement | null}
-  nextFocusableElement={parent.type === undefined
-    ? store.context.triggerFocusTargetRef
-    : undefined}
+  nextFocusableElement={parent.type === undefined ? store.context.triggerFocusTargetRef : undefined}
   beforeContentFocusGuardRef={parent.type === undefined
     ? store.context.beforeContentFocusGuardRef
     : undefined}

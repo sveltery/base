@@ -23,8 +23,7 @@
   const content = $derived(controller.toast.actionProps?.children ?? children);
   const state = $derived({ type: controller.toast.type });
   const actionProps = $derived.by(() => {
-    const { children: _children, ...attributes } =
-      controller.toast.actionProps ?? {};
+    const { children: _children, ...attributes } = controller.toast.actionProps ?? {};
     void _children;
     return attributes;
   });
@@ -59,6 +58,6 @@
   {#if render}
     {@render render(mergedProps, state, hostChildren)}
   {:else}
-    <button {...mergedProps}>{@render hostChildren()}</button>
+    <button type="button" {...mergedProps}>{@render hostChildren()}</button>
   {/if}
 {/if}

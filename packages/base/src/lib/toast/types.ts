@@ -1,7 +1,7 @@
 // Derived from mui/base-ui at 47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c; MIT, see ../../../THIRD_PARTY_NOTICES.md.
 /* eslint-disable @typescript-eslint/no-explicit-any -- Preserve pinned data defaults and rejection callback typing. */
 import type { Snippet } from 'svelte';
-import type { ComponentRenderFn, HTMLProps } from '../internals/types.js';
+import type { BaseUIComponentProps, ComponentRenderFn, HTMLProps } from '../internals/types.js';
 import type { HTMLAttributes, HTMLButtonAttributes } from 'svelte/elements';
 import type { ToastManager } from './createToastManager.js';
 import type { PreventableEvent } from '../merge-props/index.js';
@@ -10,9 +10,7 @@ import type { PreventableEvent } from '../merge-props/index.js';
 export type ToastContent = string | number | boolean | null | Snippet;
 type ActionHandlers = {
   [Key in keyof HTMLButtonAttributes]: Key extends `on${string}`
-    ? NonNullable<HTMLButtonAttributes[Key]> extends (
-        event: infer EventType,
-      ) => infer Result
+    ? NonNullable<HTMLButtonAttributes[Key]> extends (event: infer EventType) => infer Result
       ? EventType extends Event
         ? ((event: EventType & PreventableEvent) => Result) | null | undefined
         : HTMLButtonAttributes[Key]
@@ -46,10 +44,7 @@ export type ToastManagerAddOptions<Data extends object> = Omit<
   'id' | 'height' | 'ref' | 'limited' | 'updateKey'
 > & { id?: string };
 export type ToastManagerUpdateOptions<Data extends object> = Partial<
-  Omit<
-    ToastObject<Data>,
-    'id' | 'ref' | 'height' | 'transitionStatus' | 'limited' | 'updateKey'
-  >
+  Omit<ToastObject<Data>, 'id' | 'ref' | 'height' | 'transitionStatus' | 'limited' | 'updateKey'>
 >;
 export interface ToastManagerPromiseOptions<Value, Data extends object> {
   loading: string | ToastManagerUpdateOptions<Data>;
@@ -71,8 +66,7 @@ export interface ToastManagerFacade<Data extends object = any> {
   update: <T extends Data = Data>(
     id: string,
     updates:
-      | ToastManagerUpdateOptions<T>
-      | ((previous: ToastObject<T>) => ToastManagerUpdateOptions<T>),
+      ToastManagerUpdateOptions<T> | ((previous: ToastObject<T>) => ToastManagerUpdateOptions<T>),
   ) => void;
   promise: <Value, T extends Data = Data>(
     promise: Promise<Value>,
@@ -110,8 +104,7 @@ type PreventableHandlers<Props> = {
     : Key extends `on${string}`
       ? NonNullable<Props[Key]> extends (event: infer E) => infer Result
         ? E extends Event
-          ? | ((event: E & PreventableEvent) => Result)
-            | Extract<Props[Key], null | undefined>
+          ? ((event: E & PreventableEvent) => Result) | Extract<Props[Key], null | undefined>
           : Props[Key]
         : Props[Key]
       : Props[Key];
@@ -125,7 +118,7 @@ export type ToastElementProps<
   children?: Content;
   render?: ComponentRenderFn<HTMLProps, State> | undefined;
   class?: string | ((state: State) => string | undefined);
-  style?: string | ((state: State) => string | undefined);
+  style?: BaseUIComponentProps<State>['style'];
   ref?: HTMLElement | null;
 };
 export type ToastRootProps = ToastElementProps<ToastRootState> & {
@@ -145,11 +138,11 @@ export type ToastDescriptionProps = ToastElementProps<
   HTMLAttributes<HTMLParagraphElement>,
   ToastContent
 >;
-export type ToastActionComponentProps = ToastElementProps<
-  ToastLabelState,
-  HTMLButtonAttributes,
-  ToastContent
+export type ToastActionComponentProps = Omit<
+  ToastElementProps<ToastLabelState, HTMLButtonAttributes, ToastContent>,
+  'disabled'
 > & {
+  disabled?: boolean | undefined;
   /** Set false when render supplies a non-button host. */
   nativeButton?: boolean | undefined;
 };
@@ -157,13 +150,6 @@ export type ToastCloseProps = ToastActionComponentProps;
 
 /** Standalone lightweight portal; empty upstream state, native props and replacement composition. */
 export type ToastPortalState = Record<string, never>;
-export type ToastPortalProps = import('../dialog/types.js').ElementProps<
-  ToastPortalState,
-  HTMLAttributes<HTMLDivElement>
-> & {
-  container?:
-    | HTMLElement
-    | ShadowRoot
-    | { current: HTMLElement | ShadowRoot | null }
-    | null;
+export type ToastPortalProps = ToastElementProps<ToastPortalState> & {
+  container?: HTMLElement | ShadowRoot | { current: HTMLElement | ShadowRoot | null } | null;
 };

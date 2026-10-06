@@ -24,25 +24,21 @@
     ref = $bindable(),
     ...elementProps
   }: FieldErrorProps = $props();
+  let { children, ...hostProps } = $derived(elementProps);
   const nativeId = $props.id();
   const id = $derived(useBaseUiId(idProp ?? undefined, nativeId));
   const field = useFieldRootContext(false);
   const { setMessageIds } = useLabelableContext();
   const form = useFormContext();
   const formError = $derived(
-    field.name && Object.hasOwn(form.errors, field.name)
-      ? form.errors[field.name]
-      : null,
+    field.name && Object.hasOwn(form.errors, field.name) ? form.errors[field.name] : null,
   );
-  const hasFormError = $derived(
-    Boolean(Array.isArray(formError) ? formError.length : formError),
-  );
+  const hasFormError = $derived(Boolean(Array.isArray(formError) ? formError.length : formError));
   const hasSpecificMatch = $derived(typeof match === 'string');
   const rendered = $derived.by(() => {
     if (match === true) return true;
     if (field.state.disabled) return false;
-    if (typeof match === 'string')
-      return Boolean(field.validityData.state[match]);
+    if (typeof match === 'string') return Boolean(field.validityData.state[match]);
     return hasFormError || field.validityData.state.valid === false;
   });
   const transition = useTransitionStatus(() => rendered);
@@ -64,9 +60,7 @@
         ? field.validityData.errors
         : field.validityData.error,
   );
-  const errorKey = $derived(
-    Array.isArray(error) ? JSON.stringify(error) : error,
-  );
+  const errorKey = $derived(Array.isArray(error) ? JSON.stringify(error) : error);
   // Source retained message/key state uses native pre-DOM synchronization on visibility/message changes.
   $effect.pre(() => {
     if (rendered && errorKey !== lastRenderedMessageKey) {
@@ -109,7 +103,7 @@
     ...mergeComponentProps(
       errorState,
       { class: classProp, style: style },
-      [{ id }, elementProps],
+      [{ id }, hostProps],
       stateAttributesMapping,
     ),
     [hostAttachmentKey]: attachHost,
@@ -118,15 +112,14 @@
 
 {#snippet errorContent()}
   {#if Array.isArray(message)}
-    {#if message.length > 1}<ErrorMessageList
-        messages={message}
-      />{:else}{message[0] ?? ''}{/if}
+    {#if message.length > 1}<ErrorMessageList messages={message} />{:else}{message[0] ?? ''}{/if}
   {:else}{message ?? ''}{/if}
 {/snippet}
 {#if transition.mounted}
+  {const content = $derived(Object.hasOwn(elementProps, 'children') ? children : errorContent)}
   {#if render}
-    {@render render(mergedProps, errorState, errorContent)}
+    {@render render(mergedProps, errorState, content)}
   {:else}
-    <div {...mergedProps}>{@render errorContent?.()}</div>
+    <div {...mergedProps}>{@render content?.()}</div>
   {/if}
 {/if}

@@ -2,7 +2,6 @@
 // MIT: THIRD_PARTY_NOTICES.md; native Svelte replaces React hooks and native focusout replaces bubbling synthetic blur.
 import { onDestroy, untrack } from 'svelte';
 
-
 import { Timeout } from '@sveltery/utils/useTimeout';
 import { EMPTY_ARRAY } from '@sveltery/utils/empty';
 import { isElementVisible, isListIndexDisabled, type DisabledIndices } from '../utils/composite.js';
@@ -94,7 +93,9 @@ export function useTypeahead(
 
   onDestroy(timeout.clear);
   const stringRef = { current: '' };
-  const prevIndexRef = { current: untrack(() => selectedIndex ?? activeIndex ?? -1) as number | null };
+  const prevIndexRef = {
+    current: untrack(() => selectedIndex ?? activeIndex ?? -1) as number | null,
+  };
   const matchIndexRef = { current: null as number | null };
 
   const onKeyDown = (event: KeyboardEvent) => {
@@ -244,7 +245,11 @@ export function useTypeahead(
 
   const sharedProps = { onkeydown: onKeyDown, onfocusout: onBlur };
   return {
-    get reference() { return enabled ? sharedProps : undefined; },
-    get floating() { return enabled ? sharedProps : undefined; },
+    get reference() {
+      return enabled ? sharedProps : undefined;
+    },
+    get floating() {
+      return enabled ? sharedProps : undefined;
+    },
   };
 }

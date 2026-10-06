@@ -6,14 +6,10 @@
   import { createAttachmentKey } from 'svelte/attachments';
   import { useTooltipRootContext } from './context.js';
   import { useTooltipPositionerContext } from './positioner/TooltipPositionerContext.js';
-  import {
-    popupViewportStateMapping,
-    usePopupViewport,
-  } from '../utils/usePopupViewport.svelte.js';
+  import { popupViewportStateMapping, usePopupViewport } from '../utils/usePopupViewport.svelte.js';
   import * as CommonPopupCssVars from '../utils/CommonPopupCssVars.js';
   import { toNativeStyle } from '../internals/nativeProps.js';
   import type { TooltipViewportProps, TooltipViewportState } from './types.js';
-  // eslint-disable-next-line no-useless-assignment -- Native bindable ref output is published through the ordered Source ref callback.
   let {
     render,
     class: className,
@@ -86,8 +82,7 @@
     <div
       data-current
       {@attach attachCurrent}
-      data-starting-style={viewport.previousContentNode &&
-      viewport.showStartingStyleAttribute
+      data-starting-style={viewport.previousContentNode && viewport.showStartingStyleAttribute
         ? ''
         : undefined}
     >

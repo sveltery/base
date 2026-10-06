@@ -9,11 +9,7 @@
   import { POPUP_COLLISION_AVOIDANCE } from '../internals/constants.js';
   import { useTooltipRootContext, useTooltipPortalContext } from './context.js';
   import { provideTooltipPositionerContext } from './positioner/TooltipPositionerContext.js';
-  import type {
-    TooltipPositionerProps,
-    TooltipPositionerState,
-  } from './types.js';
-  // eslint-disable-next-line no-useless-assignment -- Native bindable ref output is published through the ordered Source ref callback.
+  import type { TooltipPositionerProps, TooltipPositionerState } from './types.js';
   let {
     render,
     class: className,

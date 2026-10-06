@@ -45,7 +45,9 @@
     delayRef,
     initialDelayRef,
     currentIdRef,
-    get timeoutMs() { return timeoutMs; },
+    get timeoutMs() {
+      return timeoutMs;
+    },
     currentContextRef,
     timeout,
   });
