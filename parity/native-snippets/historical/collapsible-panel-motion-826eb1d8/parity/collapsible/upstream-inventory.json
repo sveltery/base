@@ -1,0 +1,1773 @@
+{
+  "upstream": {
+    "repository": "https://github.com/mui/base-ui",
+    "tag": "v1.8.0",
+    "commit": "47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c",
+    "license": "MIT"
+  },
+  "scope": "47 ordinary declaration sites / 49 variants. Portable scope: 41 sites / 43 variants. Six React.Activity declarations are deferred, including Panel:1413. React-19 guarded beforematch declarations 1205/1287/1349/1474 are portable. Three conformance helper calls and ten type assertions are separate and earn zero ordinary declaration credit. This source trace is not execution evidence.",
+  "sources": [
+    {
+      "source": "packages/react/src/collapsible/root/CollapsibleRoot.test.tsx",
+      "sha256": "26baa194cd1b6c511ce6bd4f92557cd442b20e9e85a821d19bbf5eea23856386",
+      "url": "https://github.com/mui/base-ui/blob/47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c/packages/react/src/collapsible/root/CollapsibleRoot.test.tsx"
+    },
+    {
+      "source": "packages/react/src/collapsible/trigger/CollapsibleTrigger.test.tsx",
+      "sha256": "fa2373cc44f972d42d0920af49d322dc885305e07e620bf56e4c10b302928c1a",
+      "url": "https://github.com/mui/base-ui/blob/47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c/packages/react/src/collapsible/trigger/CollapsibleTrigger.test.tsx"
+    },
+    {
+      "source": "packages/react/src/collapsible/panel/CollapsiblePanel.test.tsx",
+      "sha256": "838ff4510f0a4eed7e7369e087270682540040526766696dd6f94179cbf416bf",
+      "url": "https://github.com/mui/base-ui/blob/47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c/packages/react/src/collapsible/panel/CollapsiblePanel.test.tsx"
+    },
+    {
+      "source": "packages/react/src/collapsible/root/CollapsibleRoot.tsx",
+      "sha256": "0cef031a852397b79afa67943e1370996bfa5ec20766d7a07a2d4e71674d173e",
+      "url": "https://github.com/mui/base-ui/blob/47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c/packages/react/src/collapsible/root/CollapsibleRoot.tsx"
+    },
+    {
+      "source": "packages/react/src/collapsible/root/useCollapsibleRoot.ts",
+      "sha256": "421c5192f10897812244c529ca61b91d2cebe1928362bcbdea998e7037f297d1",
+      "url": "https://github.com/mui/base-ui/blob/47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c/packages/react/src/collapsible/root/useCollapsibleRoot.ts"
+    },
+    {
+      "source": "packages/react/src/collapsible/root/CollapsibleRootContext.ts",
+      "sha256": "22722a169e4c60f5d3ca433d103c39a2235629354f4e8100b3f26c3ca24da686",
+      "url": "https://github.com/mui/base-ui/blob/47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c/packages/react/src/collapsible/root/CollapsibleRootContext.ts"
+    },
+    {
+      "source": "packages/react/src/collapsible/trigger/CollapsibleTrigger.tsx",
+      "sha256": "ce9afedaca5278236cd9aeac7cee408f510d75e32a78ec759e1cb2da76e3a634",
+      "url": "https://github.com/mui/base-ui/blob/47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c/packages/react/src/collapsible/trigger/CollapsibleTrigger.tsx"
+    },
+    {
+      "source": "packages/react/src/collapsible/panel/CollapsiblePanel.tsx",
+      "sha256": "b2694e75cd711224adc1e586cc36efa6832354657d0979c00a28a9bb4d8bef79",
+      "url": "https://github.com/mui/base-ui/blob/47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c/packages/react/src/collapsible/panel/CollapsiblePanel.tsx"
+    },
+    {
+      "source": "packages/react/src/collapsible/panel/useCollapsiblePanel.ts",
+      "sha256": "5f2b096ff87493217f032f6252c8d73c152594d6ceb379753168238ab3ba8e04",
+      "url": "https://github.com/mui/base-ui/blob/47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c/packages/react/src/collapsible/panel/useCollapsiblePanel.ts"
+    },
+    {
+      "source": "packages/react/src/collapsible/root/CollapsibleRoot.spec.tsx",
+      "sha256": "c582c610a65579d4016e42375243d6a115faf7be4dcd8d3f7b2a47bd00b4fe53",
+      "url": "https://github.com/mui/base-ui/blob/47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c/packages/react/src/collapsible/root/CollapsibleRoot.spec.tsx"
+    },
+    {
+      "source": "packages/react/src/internals/useTransitionStatus.ts",
+      "sha256": "07ffaf4fcf96a3d4d24aa2dabb696f2e082f312149225e45372a12a0d3cfe4e1",
+      "url": "https://github.com/mui/base-ui/blob/47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c/packages/react/src/internals/useTransitionStatus.ts"
+    },
+    {
+      "source": "packages/react/src/internals/useAnimationsFinished.ts",
+      "sha256": "58fef3cb8defbbbe84c80126a6b0aff767293b692a19d97f078a190e62a3d7a6",
+      "url": "https://github.com/mui/base-ui/blob/47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c/packages/react/src/internals/useAnimationsFinished.ts"
+    },
+    {
+      "source": "packages/react/src/internals/useOpenChangeComplete.tsx",
+      "sha256": "809be9e6b5a1a6238d9f239c162e2489d7da6e5f20383fbe65e85933e7259d89",
+      "url": "https://github.com/mui/base-ui/blob/47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c/packages/react/src/internals/useOpenChangeComplete.tsx"
+    },
+    {
+      "source": "packages/react/src/internals/use-button/useButton.ts",
+      "sha256": "eba51ce4ed0d2082dda17180bbbbe2bf91318c2b33eae2d114c0e4ebbe3203e6",
+      "url": "https://github.com/mui/base-ui/blob/47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c/packages/react/src/internals/use-button/useButton.ts"
+    },
+    {
+      "source": "packages/utils/src/useControlled.ts",
+      "sha256": "487bc45fa3ef1a70177867bb03598230f9926601aed8e3c7f46470feb225f886",
+      "url": "https://github.com/mui/base-ui/blob/47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c/packages/utils/src/useControlled.ts"
+    },
+    {
+      "source": "packages/utils/src/useStableCallback.ts",
+      "sha256": "908cbd177f86c961983d0124a859f733d341be49e58bc5a553255f47725419c1",
+      "url": "https://github.com/mui/base-ui/blob/47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c/packages/utils/src/useStableCallback.ts"
+    },
+    {
+      "source": "packages/utils/src/createLogOnce.ts",
+      "sha256": "6e5e5b4c34d3407fe2379b58749d4da26c49c49383b7501964132a2e725660b1",
+      "url": "https://github.com/mui/base-ui/blob/47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c/packages/utils/src/createLogOnce.ts"
+    }
+  ],
+  "declarations": [
+    {
+      "id": "packages/react/src/collapsible/root/CollapsibleRoot.test.tsx:19",
+      "source": "packages/react/src/collapsible/root/CollapsibleRoot.test.tsx",
+      "line": 19,
+      "title": "sets ARIA attributes",
+      "expression": "it",
+      "variants": [
+        null
+      ],
+      "bodySha256": "c6d3f7fea4cac88a30ba42744f966e197d21d47cf2a8c3fba4b98be392d88693",
+      "assertions": [
+        {
+          "line": 30,
+          "text": "expect(trigger).toHaveAttribute('aria-expanded')"
+        },
+        {
+          "line": 31,
+          "text": "expect(trigger).toHaveAttribute('aria-controls')"
+        },
+        {
+          "line": 32,
+          "text": "expect(trigger.getAttribute('aria-controls')).toBe(panel.getAttribute('id'))"
+        }
+      ],
+      "scope": "portable",
+      "status": "unported",
+      "port": null
+    },
+    {
+      "id": "packages/react/src/collapsible/root/CollapsibleRoot.test.tsx:35",
+      "source": "packages/react/src/collapsible/root/CollapsibleRoot.test.tsx",
+      "line": 35,
+      "title": "references manual panel id in trigger aria-controls",
+      "expression": "it",
+      "variants": [
+        null
+      ],
+      "bodySha256": "4d63fe9d39b8c0d1749dff8635d51408b9b497269defd8056eb5034d723af33f",
+      "assertions": [
+        {
+          "line": 46,
+          "text": "expect(trigger).toHaveAttribute('aria-controls', 'custom-panel-id')"
+        },
+        {
+          "line": 47,
+          "text": "expect(panel).toHaveAttribute('id', 'custom-panel-id')"
+        }
+      ],
+      "scope": "portable",
+      "status": "unported",
+      "port": null
+    },
+    {
+      "id": "packages/react/src/collapsible/root/CollapsibleRoot.test.tsx:50",
+      "source": "packages/react/src/collapsible/root/CollapsibleRoot.test.tsx",
+      "line": 50,
+      "title": "unregisters and restores the generated panel id when the panel remounts",
+      "expression": "it",
+      "variants": [
+        null
+      ],
+      "bodySha256": "41dfbc1a0fb2cd197f1d43257c679ab8bdcb5434c18fe672b6e8d74ffb951571",
+      "assertions": [
+        {
+          "line": 66,
+          "text": "expect(trigger).not.toHaveAttribute('aria-controls')"
+        },
+        {
+          "line": 69,
+          "text": "expect(trigger).toHaveAttribute('aria-controls', screen.getByTestId('panel').id)"
+        }
+      ],
+      "scope": "portable",
+      "status": "unported",
+      "port": null
+    },
+    {
+      "id": "packages/react/src/collapsible/root/CollapsibleRoot.test.tsx:74",
+      "source": "packages/react/src/collapsible/root/CollapsibleRoot.test.tsx",
+      "line": 74,
+      "title": "disabled status",
+      "expression": "it",
+      "variants": [
+        null
+      ],
+      "bodySha256": "c168850ffb8e957d3e343ef55fe7967048532e78a0ba7f099839db0400ff9c2e",
+      "assertions": [
+        {
+          "line": 84,
+          "text": "expect(trigger).toHaveAttribute('data-disabled')"
+        }
+      ],
+      "scope": "portable",
+      "status": "unported",
+      "port": null
+    },
+    {
+      "id": "packages/react/src/collapsible/root/CollapsibleRoot.test.tsx:87",
+      "source": "packages/react/src/collapsible/root/CollapsibleRoot.test.tsx",
+      "line": 87,
+      "title": "does not toggle or call onOpenChange when clicked while disabled",
+      "expression": "it",
+      "variants": [
+        null
+      ],
+      "bodySha256": "d118857a059fde202248730ba3ac0fb870e6b4c27d099fe8944acb1273ffc131",
+      "assertions": [
+        {
+          "line": 101,
+          "text": "expect(handleOpenChange).not.toHaveBeenCalled()"
+        },
+        {
+          "line": 102,
+          "text": "expect(trigger).toHaveAttribute('aria-expanded', 'false')"
+        },
+        {
+          "line": 103,
+          "text": "expect(screen.queryByText(PANEL_CONTENT)).toBe(null)"
+        }
+      ],
+      "scope": "portable",
+      "status": "unported",
+      "port": null
+    },
+    {
+      "id": "packages/react/src/collapsible/root/CollapsibleRoot.test.tsx:108",
+      "source": "packages/react/src/collapsible/root/CollapsibleRoot.test.tsx",
+      "line": 108,
+      "title": "calls onOpenChange with eventDetails",
+      "expression": "it",
+      "variants": [
+        null
+      ],
+      "bodySha256": "839d75dfd77c4d2546cdc049bd840ba19c6efad14afa16424ca60a052bebb42f",
+      "assertions": [
+        {
+          "line": 121,
+          "text": "expect(handleOpenChange.mock.calls.length).toBe(1)"
+        },
+        {
+          "line": 123,
+          "text": "expect(openArg).toBe(true)"
+        },
+        {
+          "line": 124,
+          "text": "expect(details).not.toBe(undefined)"
+        },
+        {
+          "line": 125,
+          "text": "expect(details.reason).toBe(REASONS.triggerPress)"
+        },
+        {
+          "line": 126,
+          "text": "expect(details.event).toBeInstanceOf(MouseEvent)"
+        },
+        {
+          "line": 127,
+          "text": "expect(details.isCanceled).toBe(false)"
+        },
+        {
+          "line": 128,
+          "text": "expect(typeof details.cancel).toBe('function')"
+        },
+        {
+          "line": 129,
+          "text": "expect(typeof details.allowPropagation).toBe('function')"
+        }
+      ],
+      "scope": "portable",
+      "status": "unported",
+      "port": null
+    },
+    {
+      "id": "packages/react/src/collapsible/root/CollapsibleRoot.test.tsx:132",
+      "source": "packages/react/src/collapsible/root/CollapsibleRoot.test.tsx",
+      "line": 132,
+      "title": "eventDetails.cancel() prevents opening while uncontrolled",
+      "expression": "it",
+      "variants": [
+        null
+      ],
+      "bodySha256": "680adb437dbb65f6c8b6257ddc08e70b6f313ca03b50d5ccdd4cfaffec4cf4dc",
+      "assertions": [
+        {
+          "line": 149,
+          "text": "expect(handleOpenChange).toHaveBeenCalledOnce()"
+        },
+        {
+          "line": 150,
+          "text": "expect(trigger).toHaveAttribute('aria-expanded', 'false')"
+        },
+        {
+          "line": 151,
+          "text": "expect(screen.queryByText(PANEL_CONTENT)).toBe(null)"
+        }
+      ],
+      "scope": "portable",
+      "status": "unported",
+      "port": null
+    },
+    {
+      "id": "packages/react/src/collapsible/root/CollapsibleRoot.test.tsx:154",
+      "source": "packages/react/src/collapsible/root/CollapsibleRoot.test.tsx",
+      "line": 154,
+      "title": "eventDetails.cancel() prevents closing while uncontrolled",
+      "expression": "it",
+      "variants": [
+        null
+      ],
+      "bodySha256": "8901a2bb2a48fc181fbd137293a8f3ca0ae49fc19f026370dde992274d432c6b",
+      "assertions": [
+        {
+          "line": 171,
+          "text": "expect(handleOpenChange).toHaveBeenCalledOnce()"
+        },
+        {
+          "line": 172,
+          "text": "expect(trigger).toHaveAttribute('aria-expanded', 'true')"
+        },
+        {
+          "line": 173,
+          "text": "expect(screen.queryByText(PANEL_CONTENT)).not.toBe(null)"
+        }
+      ],
+      "scope": "portable",
+      "status": "unported",
+      "port": null
+    },
+    {
+      "id": "packages/react/src/collapsible/root/CollapsibleRoot.test.tsx:178",
+      "source": "packages/react/src/collapsible/root/CollapsibleRoot.test.tsx",
+      "line": 178,
+      "title": "controlled trigger presses request open and close state changes",
+      "expression": "it",
+      "variants": [
+        null
+      ],
+      "bodySha256": "762cfd75611a160b542da76bca85b034835fc6537bacb51bfde642bac9fcedd9",
+      "assertions": [
+        {
+          "line": 193,
+          "text": "expect(trigger).toHaveAttribute('aria-expanded', 'false')"
+        },
+        {
+          "line": 194,
+          "text": "expect(screen.queryByText(PANEL_CONTENT)).toBe(null)"
+        },
+        {
+          "line": 198,
+          "text": "expect(trigger).toHaveAttribute('aria-expanded', 'true')"
+        },
+        {
+          "line": 199,
+          "text": "expect(screen.queryByText(PANEL_CONTENT)).not.toBe(null)"
+        },
+        {
+          "line": 203,
+          "text": "expect(trigger).toHaveAttribute('aria-expanded', 'false')"
+        },
+        {
+          "line": 204,
+          "text": "expect(screen.queryByText(PANEL_CONTENT)).toBe(null)"
+        }
+      ],
+      "scope": "portable",
+      "status": "unported",
+      "port": null
+    },
+    {
+      "id": "packages/react/src/collapsible/root/CollapsibleRoot.test.tsx:207",
+      "source": "packages/react/src/collapsible/root/CollapsibleRoot.test.tsx",
+      "line": 207,
+      "title": "does not change controlled open state without an external update",
+      "expression": "it",
+      "variants": [
+        null
+      ],
+      "bodySha256": "e67ae5ee7d8951d1a2f13f6e993909d6b9f8c3fdf381a1e6dff7954193ccfd9b",
+      "assertions": [
+        {
+          "line": 221,
+          "text": "expect(handleOpenChange).toHaveBeenCalledOnce()"
+        },
+        {
+          "line": 222,
+          "text": "expect(trigger).toHaveAttribute('aria-expanded', 'false')"
+        },
+        {
+          "line": 223,
+          "text": "expect(screen.queryByText(PANEL_CONTENT)).toBe(null)"
+        }
+      ],
+      "scope": "portable",
+      "status": "unported",
+      "port": null
+    },
+    {
+      "id": "packages/react/src/collapsible/root/CollapsibleRoot.test.tsx:226",
+      "source": "packages/react/src/collapsible/root/CollapsibleRoot.test.tsx",
+      "line": 226,
+      "title": "controlled mode",
+      "expression": "it",
+      "variants": [
+        null
+      ],
+      "bodySha256": "cf1def4f1f1c67779c4cfad73d22dde59a590a0031796c6947b75ee574bddee7",
+      "assertions": [
+        {
+          "line": 246,
+          "text": "expect(trigger).not.toHaveAttribute('aria-controls')"
+        },
+        {
+          "line": 247,
+          "text": "expect(trigger).toHaveAttribute('aria-expanded', 'false')"
+        },
+        {
+          "line": 248,
+          "text": "expect(screen.queryByText(PANEL_CONTENT)).toBe(null)"
+        },
+        {
+          "line": 252,
+          "text": "expect(trigger).toHaveAttribute('aria-expanded', 'true')"
+        },
+        {
+          "line": 253,
+          "text": "expect(trigger).toHaveAttribute('aria-controls')"
+        },
+        {
+          "line": 255,
+          "text": "expect(screen.queryByText(PANEL_CONTENT)).not.toBe(null)"
+        },
+        {
+          "line": 256,
+          "text": "expect(screen.queryByText(PANEL_CONTENT)).toBeVisible()"
+        },
+        {
+          "line": 257,
+          "text": "expect(screen.queryByText(PANEL_CONTENT)).toHaveAttribute('data-open')"
+        },
+        {
+          "line": 258,
+          "text": "expect(trigger).toHaveAttribute('data-panel-open')"
+        },
+        {
+          "line": 262,
+          "text": "expect(trigger).not.toHaveAttribute('aria-controls')"
+        },
+        {
+          "line": 263,
+          "text": "expect(trigger).toHaveAttribute('aria-expanded', 'false')"
+        },
+        {
+          "line": 264,
+          "text": "expect(screen.queryByText(PANEL_CONTENT)).toBe(null)"
+        }
+      ],
+      "scope": "portable",
+      "status": "unported",
+      "port": null
+    },
+    {
+      "id": "packages/react/src/collapsible/root/CollapsibleRoot.test.tsx:267",
+      "source": "packages/react/src/collapsible/root/CollapsibleRoot.test.tsx",
+      "line": 267,
+      "title": "uncontrolled mode",
+      "expression": "it",
+      "variants": [
+        null
+      ],
+      "bodySha256": "8c48a1acb8b1930ccb1ba37002eba816523d12292d87e28d9b47eb6a165df90e",
+      "assertions": [
+        {
+          "line": 277,
+          "text": "expect(trigger).not.toHaveAttribute('aria-controls')"
+        },
+        {
+          "line": 278,
+          "text": "expect(trigger).toHaveAttribute('aria-expanded', 'false')"
+        },
+        {
+          "line": 279,
+          "text": "expect(screen.queryByText(PANEL_CONTENT)).toBe(null)"
+        },
+        {
+          "line": 283,
+          "text": "expect(trigger).toHaveAttribute('aria-expanded', 'true')"
+        },
+        {
+          "line": 284,
+          "text": "expect(trigger).toHaveAttribute('aria-controls')"
+        },
+        {
+          "line": 285,
+          "text": "expect(screen.queryByText(PANEL_CONTENT)).not.toBe(null)"
+        },
+        {
+          "line": 286,
+          "text": "expect(screen.queryByText(PANEL_CONTENT)).toBeVisible()"
+        },
+        {
+          "line": 287,
+          "text": "expect(screen.queryByText(PANEL_CONTENT)).toHaveAttribute('data-open')"
+        },
+        {
+          "line": 288,
+          "text": "expect(trigger).toHaveAttribute('data-panel-open')"
+        },
+        {
+          "line": 292,
+          "text": "expect(trigger).toHaveAttribute('aria-expanded', 'false')"
+        },
+        {
+          "line": 293,
+          "text": "expect(trigger).not.toHaveAttribute('aria-controls')"
+        },
+        {
+          "line": 294,
+          "text": "expect(trigger).not.toHaveAttribute('data-panel-open')"
+        },
+        {
+          "line": 295,
+          "text": "expect(screen.queryByText(PANEL_CONTENT)).toBe(null)"
+        }
+      ],
+      "scope": "portable",
+      "status": "unported",
+      "port": null
+    },
+    {
+      "id": "packages/react/src/collapsible/root/CollapsibleRoot.test.tsx:300",
+      "source": "packages/react/src/collapsible/root/CollapsibleRoot.test.tsx",
+      "line": 300,
+      "title": "passes state to className and style callbacks",
+      "expression": "it",
+      "variants": [
+        null
+      ],
+      "bodySha256": "1f4cc50d4213d1796147765bac437d207b9856f7a561a6eb824040d1240963ed",
+      "assertions": [
+        {
+          "line": 328,
+          "text": "expect(root).toHaveClass('root-closed')"
+        },
+        {
+          "line": 329,
+          "text": "expect(root).toHaveStyle({ opacity: '0.5' })"
+        },
+        {
+          "line": 330,
+          "text": "expect(trigger).toHaveClass('trigger-closed')"
+        },
+        {
+          "line": 331,
+          "text": "expect(trigger).toHaveStyle({ opacity: '0.5' })"
+        },
+        {
+          "line": 332,
+          "text": "expect(panel).toHaveClass('panel-closed')"
+        },
+        {
+          "line": 333,
+          "text": "expect(panel).toHaveStyle({ opacity: '0.5' })"
+        },
+        {
+          "line": 337,
+          "text": "expect(root).toHaveClass('root-open')"
+        },
+        {
+          "line": 338,
+          "text": "expect(root).toHaveStyle({ opacity: '1' })"
+        },
+        {
+          "line": 339,
+          "text": "expect(trigger).toHaveClass('trigger-open')"
+        },
+        {
+          "line": 340,
+          "text": "expect(trigger).toHaveStyle({ opacity: '1' })"
+        },
+        {
+          "line": 341,
+          "text": "expect(panel).toHaveClass('panel-open')"
+        },
+        {
+          "line": 342,
+          "text": "expect(panel).toHaveStyle({ opacity: '1' })"
+        }
+      ],
+      "scope": "portable",
+      "status": "unported",
+      "port": null
+    },
+    {
+      "id": "packages/react/src/collapsible/root/CollapsibleRoot.test.tsx:348",
+      "source": "packages/react/src/collapsible/root/CollapsibleRoot.test.tsx",
+      "line": 348,
+      "title": "`key: ${key} does not toggle or call onOpenChange when disabled`",
+      "expression": "it",
+      "variants": [
+        "Enter",
+        "Space"
+      ],
+      "bodySha256": "5f11e20399197e137784411966c2d5aecb1a4c67ffb136ed9a44a7fb041c3ee3",
+      "assertions": [
+        {
+          "line": 361,
+          "text": "expect(trigger).toHaveFocus()"
+        },
+        {
+          "line": 365,
+          "text": "expect(handleOpenChange).not.toHaveBeenCalled()"
+        },
+        {
+          "line": 366,
+          "text": "expect(trigger).toHaveAttribute('aria-expanded', 'false')"
+        },
+        {
+          "line": 367,
+          "text": "expect(screen.queryByText(PANEL_CONTENT)).toBe(null)"
+        }
+      ],
+      "scope": "portable",
+      "status": "unported",
+      "port": null
+    },
+    {
+      "id": "packages/react/src/collapsible/root/CollapsibleRoot.test.tsx:372",
+      "source": "packages/react/src/collapsible/root/CollapsibleRoot.test.tsx",
+      "line": 372,
+      "title": "`key: ${key} should toggle the Collapsible`",
+      "expression": "it",
+      "variants": [
+        "Enter",
+        "Space"
+      ],
+      "bodySha256": "0f445d811306ef8ec422cd9273f06c3e003a44937150a89912bb5771633f78ff",
+      "assertions": [
+        {
+          "line": 382,
+          "text": "expect(trigger).not.toHaveAttribute('aria-controls')"
+        },
+        {
+          "line": 383,
+          "text": "expect(trigger).toHaveAttribute('aria-expanded', 'false')"
+        },
+        {
+          "line": 384,
+          "text": "expect(screen.queryByText(PANEL_CONTENT)).toBe(null)"
+        },
+        {
+          "line": 387,
+          "text": "expect(trigger).toHaveFocus()"
+        },
+        {
+          "line": 390,
+          "text": "expect(trigger).toHaveAttribute('aria-controls')"
+        },
+        {
+          "line": 391,
+          "text": "expect(trigger).toHaveAttribute('aria-expanded', 'true')"
+        },
+        {
+          "line": 392,
+          "text": "expect(trigger).toHaveAttribute('data-panel-open')"
+        },
+        {
+          "line": 393,
+          "text": "expect(screen.queryByText(PANEL_CONTENT)).toBeVisible()"
+        },
+        {
+          "line": 394,
+          "text": "expect(screen.queryByText(PANEL_CONTENT)).not.toBe(null)"
+        },
+        {
+          "line": 395,
+          "text": "expect(screen.queryByText(PANEL_CONTENT)).toHaveAttribute('data-open')"
+        },
+        {
+          "line": 399,
+          "text": "expect(trigger).not.toHaveAttribute('aria-controls')"
+        },
+        {
+          "line": 400,
+          "text": "expect(trigger).toHaveAttribute('aria-expanded', 'false')"
+        },
+        {
+          "line": 401,
+          "text": "expect(trigger).not.toHaveAttribute('data-panel-open')"
+        },
+        {
+          "line": 402,
+          "text": "expect(screen.queryByText(PANEL_CONTENT)).toBe(null)"
+        }
+      ],
+      "scope": "portable",
+      "status": "unported",
+      "port": null
+    },
+    {
+      "id": "packages/react/src/collapsible/trigger/CollapsibleTrigger.test.tsx:9",
+      "source": "packages/react/src/collapsible/trigger/CollapsibleTrigger.test.tsx",
+      "line": 9,
+      "title": "throws when rendered outside a Collapsible.Root",
+      "expression": "it",
+      "variants": [
+        null
+      ],
+      "bodySha256": "d7019945e8df83de3a44bda37636b8b837474a796d6b0268b7bc4352ef3ebe3b",
+      "assertions": [
+        {
+          "line": 13,
+          "text": "expect(() => render(<Collapsible.Trigger />)).toThrow(\n        'Base UI: CollapsibleRootContext is missing. Collapsible parts must be placed within <Collapsible.Root>.',\n      )"
+        }
+      ],
+      "scope": "portable",
+      "status": "unported",
+      "port": null
+    },
+    {
+      "id": "packages/react/src/collapsible/trigger/CollapsibleTrigger.test.tsx:32",
+      "source": "packages/react/src/collapsible/trigger/CollapsibleTrigger.test.tsx",
+      "line": 32,
+      "title": "forwards the id prop",
+      "expression": "it",
+      "variants": [
+        null
+      ],
+      "bodySha256": "2a16242ec001017edaa0d86094ac5af79f77f70dbdbb39167161b1d4f8e887a3",
+      "assertions": [
+        {
+          "line": 39,
+          "text": "expect(screen.getByRole('button', { name: 'Trigger' })).toHaveAttribute(\n      'id',\n      'custom-trigger-id',\n    )"
+        }
+      ],
+      "scope": "portable",
+      "status": "unported",
+      "port": null
+    },
+    {
+      "id": "packages/react/src/collapsible/panel/CollapsiblePanel.test.tsx:55",
+      "source": "packages/react/src/collapsible/panel/CollapsiblePanel.test.tsx",
+      "line": 55,
+      "title": "warns when hiddenUntilFound overrides keepMounted={false}",
+      "expression": "it",
+      "variants": [
+        null
+      ],
+      "bodySha256": "9615fe7a78d7f50606859a294cbc09f2864fa09231a70522f902244a7cbb73db",
+      "assertions": [
+        {
+          "line": 67,
+          "text": "expect(warnSpy).toHaveBeenCalledWith(\n        'Base UI: The `keepMounted={false}` prop on `Collapsible.Panel` is ignored when `hiddenUntilFound` is enabled, since the panel must remain mounted while closed.',\n      )"
+        },
+        {
+          "line": 70,
+          "text": "expect(screen.getByText(PANEL_CONTENT).getAttribute('hidden')).toBe('until-found')"
+        }
+      ],
+      "scope": "portable",
+      "status": "unported",
+      "port": null
+    },
+    {
+      "id": "packages/react/src/collapsible/panel/CollapsiblePanel.test.tsx:77",
+      "source": "packages/react/src/collapsible/panel/CollapsiblePanel.test.tsx",
+      "line": 77,
+      "title": "does not unmount the panel when true",
+      "expression": "it",
+      "variants": [
+        null
+      ],
+      "bodySha256": "45a288c82245de735ee390b8b51d49212fa18689e553de6f4d14948871b375e2",
+      "assertions": [
+        {
+          "line": 92,
+          "text": "expect(trigger).toHaveAttribute('aria-expanded', 'false')"
+        },
+        {
+          "line": 93,
+          "text": "expect(screen.queryByText(PANEL_CONTENT)).not.toBe(null)"
+        },
+        {
+          "line": 94,
+          "text": "expect(screen.queryByText(PANEL_CONTENT)).not.toBeVisible()"
+        },
+        {
+          "line": 95,
+          "text": "expect(screen.queryByText(PANEL_CONTENT)).toHaveAttribute('data-closed')"
+        },
+        {
+          "line": 100,
+          "text": "expect(trigger).toHaveAttribute('aria-expanded', 'true')"
+        },
+        {
+          "line": 101,
+          "text": "expect(trigger.getAttribute('aria-controls')).toBe(\n        screen.queryByText(PANEL_CONTENT)?.getAttribute('id'),\n      )"
+        },
+        {
+          "line": 104,
+          "text": "expect(screen.queryByText(PANEL_CONTENT)).toBeVisible()"
+        },
+        {
+          "line": 105,
+          "text": "expect(screen.queryByText(PANEL_CONTENT)).toHaveAttribute('data-open')"
+        },
+        {
+          "line": 106,
+          "text": "expect(trigger).toHaveAttribute('data-panel-open')"
+        },
+        {
+          "line": 111,
+          "text": "expect(trigger).toHaveAttribute('aria-expanded', 'false')"
+        },
+        {
+          "line": 112,
+          "text": "expect(trigger.getAttribute('aria-controls')).toBe(null)"
+        },
+        {
+          "line": 113,
+          "text": "expect(screen.queryByText(PANEL_CONTENT)).not.toBeVisible()"
+        },
+        {
+          "line": 114,
+          "text": "expect(screen.queryByText(PANEL_CONTENT)).toHaveAttribute('data-closed')"
+        }
+      ],
+      "scope": "portable",
+      "status": "unported",
+      "port": null
+    },
+    {
+      "id": "packages/react/src/collapsible/panel/CollapsiblePanel.test.tsx:117",
+      "source": "packages/react/src/collapsible/panel/CollapsiblePanel.test.tsx",
+      "line": 117,
+      "title": "hides the panel after external controlled close when true and no animations are applied",
+      "expression": "it.skipIf(isJSDOM)",
+      "variants": [
+        null
+      ],
+      "bodySha256": "c93c7c0e7c8560673349463ac82b2848964a8a0c2be8aae637a20862b6676b10",
+      "assertions": [
+        {
+          "line": 143,
+          "text": "expect(trigger).toHaveAttribute('aria-expanded', 'false')"
+        },
+        {
+          "line": 144,
+          "text": "expect(panel).toHaveAttribute('hidden')"
+        },
+        {
+          "line": 145,
+          "text": "expect(panel).toHaveAttribute('data-closed')"
+        },
+        {
+          "line": 146,
+          "text": "expect(panel).not.toHaveAttribute('data-ending-style')"
+        },
+        {
+          "line": 150,
+          "text": "expect(trigger).toHaveAttribute('aria-expanded', 'true')"
+        },
+        {
+          "line": 151,
+          "text": "expect(panel).not.toHaveAttribute('hidden')"
+        },
+        {
+          "line": 152,
+          "text": "expect(panel).toHaveAttribute('data-open')"
+        },
+        {
+          "line": 156,
+          "text": "expect(trigger).toHaveAttribute('aria-expanded', 'false')"
+        },
+        {
+          "line": 157,
+          "text": "expect(panel).toHaveAttribute('hidden')"
+        },
+        {
+          "line": 158,
+          "text": "expect(panel).toHaveAttribute('data-closed')"
+        },
+        {
+          "line": 159,
+          "text": "expect(panel).not.toHaveAttribute('data-ending-style')"
+        }
+      ],
+      "scope": "portable",
+      "status": "unported",
+      "port": null
+    },
+    {
+      "id": "packages/react/src/collapsible/panel/CollapsiblePanel.test.tsx:164",
+      "source": "packages/react/src/collapsible/panel/CollapsiblePanel.test.tsx",
+      "line": 164,
+      "title": "unmounts a panel that mounts after the close has already entered the ending phase",
+      "expression": "it",
+      "variants": [
+        null
+      ],
+      "bodySha256": "3ce8eff7c19a90c0aebcf7ab8086195bc1f660b79a2bfd1f27c1cd228969ee58",
+      "assertions": [
+        {
+          "line": 206,
+          "text": "expect(renderedStatuses).toContain('ending')"
+        },
+        {
+          "line": 207,
+          "text": "expect(screen.queryByText(PANEL_CONTENT)).toBe(null)"
+        }
+      ],
+      "scope": "portable",
+      "status": "unported",
+      "port": null
+    },
+    {
+      "id": "packages/react/src/collapsible/panel/CollapsiblePanel.test.tsx:211",
+      "source": "packages/react/src/collapsible/panel/CollapsiblePanel.test.tsx",
+      "line": 211,
+      "title": "applies data-starting-style while opening",
+      "expression": "it",
+      "variants": [
+        null
+      ],
+      "bodySha256": "3261c5f6f11de6fea7281316e515971871f5d4820f5e8b5a9bb8c1113c161671",
+      "assertions": [
+        {
+          "line": 243,
+          "text": "expect(panel).toHaveAttribute('data-starting-style')"
+        },
+        {
+          "line": 244,
+          "text": "expect(panel).toHaveAttribute('data-open')"
+        }
+      ],
+      "scope": "portable",
+      "status": "unported",
+      "port": null
+    },
+    {
+      "id": "packages/react/src/collapsible/panel/CollapsiblePanel.test.tsx:247",
+      "source": "packages/react/src/collapsible/panel/CollapsiblePanel.test.tsx",
+      "line": 247,
+      "title": "restores a measured height before applying closing transition styles",
+      "expression": "it",
+      "variants": [
+        null
+      ],
+      "bodySha256": "2eb3d9721d7080d20aec9e0397c55a4f77bf5f9ceb921dd79703e07faa59228c",
+      "assertions": [
+        {
+          "line": 275,
+          "text": "expect(panel.style.getPropertyValue('--collapsible-panel-height')).toBe('auto')"
+        },
+        {
+          "line": 281,
+          "text": "expect(panel).toHaveAttribute('data-ending-style')"
+        },
+        {
+          "line": 282,
+          "text": "expect(panel.style.getPropertyValue('--collapsible-panel-height')).toMatch(/px$/)"
+        }
+      ],
+      "scope": "portable",
+      "status": "unported",
+      "port": null
+    },
+    {
+      "id": "packages/react/src/collapsible/panel/CollapsiblePanel.test.tsx:286",
+      "source": "packages/react/src/collapsible/panel/CollapsiblePanel.test.tsx",
+      "line": 286,
+      "title": "unmounts a zero-size panel without waiting for unrelated transitions",
+      "expression": "it",
+      "variants": [
+        null
+      ],
+      "bodySha256": "39e41b239029c689020ae805eed0bddbabf6ae6dd6710a08c6d163644e37b813",
+      "assertions": [
+        {
+          "line": 312,
+          "text": "expect(screen.getByTestId('panel')).toHaveAttribute('data-open')"
+        },
+        {
+          "line": 319,
+          "text": "expect(screen.queryByTestId('panel')).toBe(null)"
+        }
+      ],
+      "scope": "portable",
+      "status": "unported",
+      "port": null
+    },
+    {
+      "id": "packages/react/src/collapsible/panel/CollapsiblePanel.test.tsx:322",
+      "source": "packages/react/src/collapsible/panel/CollapsiblePanel.test.tsx",
+      "line": 322,
+      "title": "supports removing the rendered panel as it closes",
+      "expression": "it",
+      "variants": [
+        null
+      ],
+      "bodySha256": "af78269239cc7925f2bf87c7fe33afc9d1145d0a0b5900f13e29ce30bc4c1d7a",
+      "assertions": [
+        {
+          "line": 346,
+          "text": "expect(screen.getByText(PANEL_CONTENT)).toHaveAttribute('data-open')"
+        },
+        {
+          "line": 353,
+          "text": "expect(trigger).toHaveAttribute('aria-expanded', 'false')"
+        },
+        {
+          "line": 354,
+          "text": "expect(screen.queryByText(PANEL_CONTENT)).toBe(null)"
+        },
+        {
+          "line": 355,
+          "text": "expect(onOpenChange).toHaveBeenCalledWith(false, expect.anything())"
+        }
+      ],
+      "scope": "portable",
+      "status": "unported",
+      "port": null
+    },
+    {
+      "id": "packages/react/src/collapsible/panel/CollapsiblePanel.test.tsx:358",
+      "source": "packages/react/src/collapsible/panel/CollapsiblePanel.test.tsx",
+      "line": 358,
+      "title": "preserves inline alignment styles while measuring an opening panel",
+      "expression": "it",
+      "variants": [
+        null
+      ],
+      "bodySha256": "d674bee42fd60fc63ba359107af19b866c53f7a46ac6e5cc20c7ff63586da639",
+      "assertions": [
+        {
+          "line": 405,
+          "text": "expect(panel).toHaveAttribute('data-starting-style')"
+        },
+        {
+          "line": 406,
+          "text": "expect(panel.style.getPropertyValue('justify-content')).toBe('initial')"
+        },
+        {
+          "line": 407,
+          "text": "expect(panel.style.getPropertyPriority('justify-content')).toBe('important')"
+        },
+        {
+          "line": 408,
+          "text": "expect(warnSpy).toHaveBeenCalledWith(\n          'Base UI: CSS transitions and CSS animations both detected on Collapsible or Accordion panel. Only one of either animation type should be used.',\n        )"
+        },
+        {
+          "line": 416,
+          "text": "expect(panel.style.justifyContent).toBe('center')"
+        }
+      ],
+      "scope": "portable",
+      "status": "unported",
+      "port": null
+    },
+    {
+      "id": "packages/react/src/collapsible/panel/CollapsiblePanel.test.tsx:422",
+      "source": "packages/react/src/collapsible/panel/CollapsiblePanel.test.tsx",
+      "line": 422,
+      "title": "keeps exit transitions working after a close is interrupted by reopening",
+      "expression": "it",
+      "variants": [
+        null
+      ],
+      "bodySha256": "a855c8070e6d8b176628d0e06f72cd6143dbfd9dfde50ee637dfc4a02789e53e",
+      "assertions": [
+        {
+          "line": 453,
+          "text": "expect(panel).toHaveAttribute('data-ending-style')"
+        },
+        {
+          "line": 459,
+          "text": "expect(panel).toHaveAttribute('data-open')"
+        },
+        {
+          "line": 462,
+          "text": "expect(panel).not.toHaveAttribute('data-starting-style')"
+        },
+        {
+          "line": 468,
+          "text": "expect(panel).toHaveAttribute('data-ending-style')"
+        },
+        {
+          "line": 470,
+          "text": "expect(screen.getByTestId('panel')).toBe(panel)"
+        }
+      ],
+      "scope": "portable",
+      "status": "unported",
+      "port": null
+    },
+    {
+      "id": "packages/react/src/collapsible/panel/CollapsiblePanel.test.tsx:473",
+      "source": "packages/react/src/collapsible/panel/CollapsiblePanel.test.tsx",
+      "line": 473,
+      "title": "keeps the measured size when an open animation finishes during a close commit",
+      "expression": "it",
+      "variants": [
+        null
+      ],
+      "bodySha256": "f7e633c031953cbf07364f7995dd49c84ec5cc5731f1d86200b4eccfc49d755f",
+      "assertions": [
+        {
+          "line": 529,
+          "text": "expect(animationStarted).toBe(true)"
+        },
+        {
+          "line": 534,
+          "text": "expect(panel.style.getPropertyValue('--collapsible-panel-height')).toMatch(/px$/)"
+        }
+      ],
+      "scope": "portable",
+      "status": "unported",
+      "port": null
+    },
+    {
+      "id": "packages/react/src/collapsible/panel/CollapsiblePanel.test.tsx:542",
+      "source": "packages/react/src/collapsible/panel/CollapsiblePanel.test.tsx",
+      "line": 542,
+      "title": "does not restart the entrance transition when a close animation finishes after reopening",
+      "expression": "it",
+      "variants": [
+        null
+      ],
+      "bodySha256": "2422a3fc71b61162168e5ad9f96f8ddf5ac3ead0c7330518398571610cf7dea1",
+      "assertions": [
+        {
+          "line": 578,
+          "text": "expect(closeAnimationStarted).toBe(true)"
+        },
+        {
+          "line": 583,
+          "text": "expect(panel).toHaveAttribute('data-open')"
+        },
+        {
+          "line": 586,
+          "text": "expect(panel).not.toHaveAttribute('data-starting-style')"
+        },
+        {
+          "line": 592,
+          "text": "expect(panel).toHaveAttribute('data-open')"
+        },
+        {
+          "line": 593,
+          "text": "expect(panel).not.toHaveAttribute('data-starting-style')"
+        },
+        {
+          "line": 594,
+          "text": "expect(screen.getByText(PANEL_CONTENT)).toBe(panel)"
+        }
+      ],
+      "scope": "portable",
+      "status": "unported",
+      "port": null
+    },
+    {
+      "id": "packages/react/src/collapsible/panel/CollapsiblePanel.test.tsx:604",
+      "source": "packages/react/src/collapsible/panel/CollapsiblePanel.test.tsx",
+      "line": 604,
+      "title": "does not run the mount animation when initially open",
+      "expression": "it",
+      "variants": [
+        null
+      ],
+      "bodySha256": "21434e0d7d9cf000d75e423dbcf9b5e805c394bbef9ae3fe89f6c7f816c65dca",
+      "assertions": [
+        {
+          "line": 635,
+          "text": "expect(panel).toHaveAttribute('data-open')"
+        },
+        {
+          "line": 636,
+          "text": "expect(panel.getAnimations().length).toBe(0)"
+        },
+        {
+          "line": 637,
+          "text": "expect(getComputedStyle(panel).animationName).toBe('none')"
+        }
+      ],
+      "scope": "portable",
+      "status": "unported",
+      "port": null
+    },
+    {
+      "id": "packages/react/src/collapsible/panel/CollapsiblePanel.test.tsx:640",
+      "source": "packages/react/src/collapsible/panel/CollapsiblePanel.test.tsx",
+      "line": 640,
+      "title": "still animates on close and reopen after being initially open",
+      "expression": "it",
+      "variants": [
+        null
+      ],
+      "bodySha256": "0913f4aa267eb35053ca6201342777762107afb54ce47a9a0a437714220b1d32",
+      "assertions": [
+        {
+          "line": 687,
+          "text": "expect(panel.getAnimations().length).toBe(0)"
+        },
+        {
+          "line": 692,
+          "text": "expect(panel).toHaveAttribute('data-closed')"
+        },
+        {
+          "line": 693,
+          "text": "expect(panel.getAnimations().length).toBe(1)"
+        },
+        {
+          "line": 699,
+          "text": "expect(panel).toHaveAttribute('data-open')"
+        },
+        {
+          "line": 700,
+          "text": "expect(panel.getAnimations().length).toBe(1)"
+        }
+      ],
+      "scope": "portable",
+      "status": "unported",
+      "port": null
+    },
+    {
+      "id": "packages/react/src/collapsible/panel/CollapsiblePanel.test.tsx:704",
+      "source": "packages/react/src/collapsible/panel/CollapsiblePanel.test.tsx",
+      "line": 704,
+      "title": "restores measured dimensions before applying a closing keyframe animation",
+      "expression": "it",
+      "variants": [
+        null
+      ],
+      "bodySha256": "aab6c7fe4563487894c5413754b775cc9d2edb9c73f915b8cf3a30a510d99953",
+      "assertions": [
+        {
+          "line": 737,
+          "text": "expect(panel.style.getPropertyValue('--collapsible-panel-height')).toBe('auto')"
+        },
+        {
+          "line": 743,
+          "text": "expect(panel).toHaveAttribute('data-ending-style')"
+        },
+        {
+          "line": 744,
+          "text": "expect(panel.style.getPropertyValue('--collapsible-panel-height')).toMatch(/px$/)"
+        },
+        {
+          "line": 745,
+          "text": "expect(panel.getAnimations().length).toBe(1)"
+        }
+      ],
+      "scope": "portable",
+      "status": "unported",
+      "port": null
+    },
+    {
+      "id": "packages/react/src/collapsible/panel/CollapsiblePanel.test.tsx:749",
+      "source": "packages/react/src/collapsible/panel/CollapsiblePanel.test.tsx",
+      "line": 749,
+      "title": "still animates on reopen after being initially open when only open keyframes are defined",
+      "expression": "it",
+      "variants": [
+        null
+      ],
+      "bodySha256": "cba6e90951b14fd1c9440b26cdf2d9f31dda767e04e242517bfaf355ade49481",
+      "assertions": [
+        {
+          "line": 781,
+          "text": "expect(panel.getAnimations().length).toBe(0)"
+        },
+        {
+          "line": 786,
+          "text": "expect(panel).toHaveAttribute('data-closed')"
+        },
+        {
+          "line": 792,
+          "text": "expect(panel).toHaveAttribute('data-open')"
+        },
+        {
+          "line": 793,
+          "text": "expect(panel.getAnimations().length).toBe(1)"
+        }
+      ],
+      "scope": "portable",
+      "status": "unported",
+      "port": null
+    },
+    {
+      "id": "packages/react/src/collapsible/panel/CollapsiblePanel.test.tsx:799",
+      "source": "packages/react/src/collapsible/panel/CollapsiblePanel.test.tsx",
+      "line": 799,
+      "title": "suppresses the initial keyframe animation when rendered open",
+      "expression": "it",
+      "variants": [
+        null
+      ],
+      "bodySha256": "85594482bff5a93add8445a1408091fbb1822bdfffa054d8114347b3755bd118",
+      "assertions": [
+        {
+          "line": 827,
+          "text": "expect(screen.getByTestId('panel').style.animationName).toBe('none')"
+        }
+      ],
+      "scope": "portable",
+      "status": "unported",
+      "port": null
+    },
+    {
+      "id": "packages/react/src/collapsible/panel/CollapsiblePanel.test.tsx:830",
+      "source": "packages/react/src/collapsible/panel/CollapsiblePanel.test.tsx",
+      "line": 830,
+      "title": "suppresses the initial keyframe animation from inline styles when rendered open",
+      "expression": "it",
+      "variants": [
+        null
+      ],
+      "bodySha256": "c03814cf9251d929d2246c0e21c332d5827502ea701a0405a27641ebc4c175fe",
+      "assertions": [
+        {
+          "line": 863,
+          "text": "expect(panel.style.animationName).toBe('none')"
+        },
+        {
+          "line": 864,
+          "text": "expect(panel.style.animationDuration).toBe('100ms')"
+        }
+      ],
+      "scope": "portable",
+      "status": "unported",
+      "port": null
+    },
+    {
+      "id": "packages/react/src/collapsible/panel/CollapsiblePanel.test.tsx:869",
+      "source": "packages/react/src/collapsible/panel/CollapsiblePanel.test.tsx",
+      "line": 869,
+      "title": "does not replay open transitions when revealing an initially open panel",
+      "expression": "it",
+      "variants": [
+        null
+      ],
+      "bodySha256": "eb072a5c7e4705ce1c7c24a3f350460ccdaddbfb617a3ebc2b8a501333478345",
+      "assertions": [
+        {
+          "line": 917,
+          "text": "expect(panel.style.getPropertyValue('--collapsible-panel-height')).toBe('auto')"
+        },
+        {
+          "line": 926,
+          "text": "expect(panel).toHaveAttribute('data-open')"
+        },
+        {
+          "line": 929,
+          "text": "expect(transitionRuns).toBe(0)"
+        }
+      ],
+      "scope": "deferred-react-activity",
+      "status": "unported",
+      "port": null
+    },
+    {
+      "id": "packages/react/src/collapsible/panel/CollapsiblePanel.test.tsx:932",
+      "source": "packages/react/src/collapsible/panel/CollapsiblePanel.test.tsx",
+      "line": 932,
+      "title": "does not replay open transitions when revealing a panel opened by the user",
+      "expression": "it",
+      "variants": [
+        null
+      ],
+      "bodySha256": "d0ea05a4b985ac456fee95cc69c4706d1f0dc1ac2cfd6d5d9856cdd5cbf377e1",
+      "assertions": [
+        {
+          "line": 987,
+          "text": "expect(panel).toHaveAttribute('data-open')"
+        },
+        {
+          "line": 988,
+          "text": "expect(panel.style.getPropertyValue('--collapsible-panel-height')).toBe('auto')"
+        },
+        {
+          "line": 997,
+          "text": "expect(panel).toHaveAttribute('data-open')"
+        },
+        {
+          "line": 1000,
+          "text": "expect(transitionRuns).toBe(0)"
+        }
+      ],
+      "scope": "deferred-react-activity",
+      "status": "unported",
+      "port": null
+    },
+    {
+      "id": "packages/react/src/collapsible/panel/CollapsiblePanel.test.tsx:1003",
+      "source": "packages/react/src/collapsible/panel/CollapsiblePanel.test.tsx",
+      "line": 1003,
+      "title": "does not replay open keyframe animations when revealing an initially open panel",
+      "expression": "it",
+      "variants": [
+        null
+      ],
+      "bodySha256": "07e4c25d5df824f28602b6a79bfc4935d69d192021c09ff57a20d350a112f3a5",
+      "assertions": [
+        {
+          "line": 1050,
+          "text": "expect(panel.getAnimations().length).toBe(0)"
+        },
+        {
+          "line": 1057,
+          "text": "expect(panel).toHaveAttribute('data-open')"
+        },
+        {
+          "line": 1060,
+          "text": "expect(panel.getAnimations().length).toBe(0)"
+        }
+      ],
+      "scope": "deferred-react-activity",
+      "status": "unported",
+      "port": null
+    },
+    {
+      "id": "packages/react/src/collapsible/panel/CollapsiblePanel.test.tsx:1063",
+      "source": "packages/react/src/collapsible/panel/CollapsiblePanel.test.tsx",
+      "line": 1063,
+      "title": "does not replay open keyframe animations when revealing a panel opened by the user",
+      "expression": "it",
+      "variants": [
+        null
+      ],
+      "bodySha256": "db5b1cf2b789311710e0ff510cc9414c626c258208f163a3136e8fba88c6a27f",
+      "assertions": [
+        {
+          "line": 1113,
+          "text": "expect(panel).toHaveAttribute('data-open')"
+        },
+        {
+          "line": 1117,
+          "text": "expect(panel.getAnimations().length).toBe(0)"
+        },
+        {
+          "line": 1124,
+          "text": "expect(panel).toHaveAttribute('data-open')"
+        },
+        {
+          "line": 1127,
+          "text": "expect(panel.getAnimations().length).toBe(0)"
+        }
+      ],
+      "scope": "deferred-react-activity",
+      "status": "unported",
+      "port": null
+    },
+    {
+      "id": "packages/react/src/collapsible/panel/CollapsiblePanel.test.tsx:1130",
+      "source": "packages/react/src/collapsible/panel/CollapsiblePanel.test.tsx",
+      "line": 1130,
+      "title": "does not replay open keyframe animations from inline styles when revealing a panel opened by the user",
+      "expression": "it",
+      "variants": [
+        null
+      ],
+      "bodySha256": "9a1142d87e6d32b1c3d50905cd495efe035199f502b724552eb5c14e4341aa29",
+      "assertions": [
+        {
+          "line": 1184,
+          "text": "expect(panel).toHaveAttribute('data-open')"
+        },
+        {
+          "line": 1188,
+          "text": "expect(panel.getAnimations().length).toBe(0)"
+        },
+        {
+          "line": 1195,
+          "text": "expect(panel).toHaveAttribute('data-open')"
+        },
+        {
+          "line": 1198,
+          "text": "expect(panel.getAnimations().length).toBe(0)"
+        }
+      ],
+      "scope": "deferred-react-activity",
+      "status": "unported",
+      "port": null
+    },
+    {
+      "id": "packages/react/src/collapsible/panel/CollapsiblePanel.test.tsx:1205",
+      "source": "packages/react/src/collapsible/panel/CollapsiblePanel.test.tsx",
+      "line": 1205,
+      "title": "keeps the temporary zero animation duration until the panel closes",
+      "expression": "it",
+      "variants": [
+        null
+      ],
+      "bodySha256": "4d98348562c0686a1c7a20c82d6c1aebf5da233dc57fcfdf6066964c16c41c40",
+      "assertions": [
+        {
+          "line": 1267,
+          "text": "expect(panel).toHaveAttribute('data-open')"
+        },
+        {
+          "line": 1275,
+          "text": "expect(getComputedStyle(panel).animationDuration).toBe('0s')"
+        },
+        {
+          "line": 1280,
+          "text": "expect(panel).toHaveAttribute('data-closed')"
+        },
+        {
+          "line": 1281,
+          "text": "expect(panel.getAnimations().length).toBe(1)"
+        },
+        {
+          "line": 1284,
+          "text": "expect(getComputedStyle(panel).animationDuration).toBe('0.123s')"
+        }
+      ],
+      "scope": "portable",
+      "status": "unported",
+      "port": null
+    },
+    {
+      "id": "packages/react/src/collapsible/panel/CollapsiblePanel.test.tsx:1287",
+      "source": "packages/react/src/collapsible/panel/CollapsiblePanel.test.tsx",
+      "line": 1287,
+      "title": "restores the transition duration before the first close after a beforematch open",
+      "expression": "it",
+      "variants": [
+        null
+      ],
+      "bodySha256": "4fe6f04419327d165f46a069d1778c6bf0992fb93f2215412c6759b364782c15",
+      "assertions": [
+        {
+          "line": 1330,
+          "text": "expect(panel).toHaveAttribute('data-open')"
+        },
+        {
+          "line": 1338,
+          "text": "expect(getComputedStyle(panel).transitionDuration).toBe('0s')"
+        },
+        {
+          "line": 1343,
+          "text": "expect(panel).toHaveAttribute('data-ending-style')"
+        },
+        {
+          "line": 1344,
+          "text": "expect(panel.style.transitionDuration).toBe('123ms')"
+        },
+        {
+          "line": 1345,
+          "text": "expect(panel.getAnimations().length).toBe(1)"
+        }
+      ],
+      "scope": "portable",
+      "status": "unported",
+      "port": null
+    },
+    {
+      "id": "packages/react/src/collapsible/panel/CollapsiblePanel.test.tsx:1349",
+      "source": "packages/react/src/collapsible/panel/CollapsiblePanel.test.tsx",
+      "line": 1349,
+      "title": "does not suppress a later animated open after a no-motion beforematch open",
+      "expression": "it",
+      "variants": [
+        null
+      ],
+      "bodySha256": "a52f55c65c53240ccd73d168d00615dcbab88b816de2a6f3d4eff813e690633d",
+      "assertions": [
+        {
+          "line": 1397,
+          "text": "expect(panel).toHaveAttribute('data-open')"
+        },
+        {
+          "line": 1403,
+          "text": "expect(panel).toHaveAttribute('data-closed')"
+        },
+        {
+          "line": 1409,
+          "text": "expect(panel).toHaveAttribute('data-open')"
+        },
+        {
+          "line": 1410,
+          "text": "expect(panel.style.transitionDuration).toBe('123ms')"
+        }
+      ],
+      "scope": "portable",
+      "status": "unported",
+      "port": null
+    },
+    {
+      "id": "packages/react/src/collapsible/panel/CollapsiblePanel.test.tsx:1413",
+      "source": "packages/react/src/collapsible/panel/CollapsiblePanel.test.tsx",
+      "line": 1413,
+      "title": "restores the inline transition duration when an instant open is interrupted",
+      "expression": "it",
+      "variants": [
+        null
+      ],
+      "bodySha256": "885545814dee17b7396b616a2389b53e46ac399fb996e1ba4accfe56dd8f1d7a",
+      "assertions": [
+        {
+          "line": 1469,
+          "text": "expect(panel).toHaveAttribute('data-open')"
+        },
+        {
+          "line": 1470,
+          "text": "expect(panel.style.transitionDuration).toBe('123ms')"
+        }
+      ],
+      "scope": "deferred-react-activity",
+      "status": "unported",
+      "port": null
+    },
+    {
+      "id": "packages/react/src/collapsible/panel/CollapsiblePanel.test.tsx:1474",
+      "source": "packages/react/src/collapsible/panel/CollapsiblePanel.test.tsx",
+      "line": 1474,
+      "title": "does not keep a hidden transition running after a hiddenUntilFound panel closes",
+      "expression": "it",
+      "variants": [
+        null
+      ],
+      "bodySha256": "22f9e93bd85f02c8f9e3fa5bec6df7094f26dea2ddf325aff40df83959626d60",
+      "assertions": [
+        {
+          "line": 1517,
+          "text": "expect(panel).toHaveAttribute('data-open')"
+        },
+        {
+          "line": 1523,
+          "text": "expect(panel).toHaveAttribute('hidden', 'until-found')"
+        },
+        {
+          "line": 1531,
+          "text": "expect(\n          panel.getAnimations().filter((animation) => animation.playState !== 'finished').length,\n        ).toBe(0)"
+        },
+        {
+          "line": 1534,
+          "text": "expect(getComputedStyle(panel).opacity).toBe('0')"
+        }
+      ],
+      "scope": "portable",
+      "status": "unported",
+      "port": null
+    },
+    {
+      "id": "packages/react/src/collapsible/panel/CollapsiblePanel.test.tsx:1541",
+      "source": "packages/react/src/collapsible/panel/CollapsiblePanel.test.tsx",
+      "line": 1541,
+      "title": "does not open or suppress the next trigger open when beforematch is canceled",
+      "expression": "it",
+      "variants": [
+        null
+      ],
+      "bodySha256": "fc69e3c8cfac6eeef0f4cafc71532450781fda818afc1026251df761c5f12a7f",
+      "assertions": [
+        {
+          "line": 1588,
+          "text": "expect(handleOpenChange).toHaveBeenCalledOnce()"
+        },
+        {
+          "line": 1589,
+          "text": "expect(trigger).toHaveAttribute('aria-expanded', 'false')"
+        },
+        {
+          "line": 1590,
+          "text": "expect(panel).toHaveAttribute('data-closed')"
+        },
+        {
+          "line": 1594,
+          "text": "expect(handleOpenChange).toHaveBeenCalledTimes(2)"
+        },
+        {
+          "line": 1595,
+          "text": "expect(panel).toHaveAttribute('data-open')"
+        },
+        {
+          "line": 1596,
+          "text": "expect(panel.style.transitionDuration).toBe('123ms')"
+        }
+      ],
+      "scope": "portable",
+      "status": "unported",
+      "port": null
+    },
+    {
+      "id": "packages/react/src/collapsible/panel/CollapsiblePanel.test.tsx:1599",
+      "source": "packages/react/src/collapsible/panel/CollapsiblePanel.test.tsx",
+      "line": 1599,
+      "title": "uses `hidden=\"until-found\" to hide panel when true",
+      "expression": "it",
+      "variants": [
+        null
+      ],
+      "bodySha256": "8f1020853923e83397c6a5f23c316cab5e770242c232a417e39f81cab7a5cbbb",
+      "assertions": [
+        {
+          "line": 1615,
+          "text": "expect(handleOpenChange.mock.calls.length).toBe(1)"
+        },
+        {
+          "line": 1616,
+          "text": "expect(panel).toHaveAttribute('data-open')"
+        }
+      ],
+      "scope": "portable",
+      "status": "unported",
+      "port": null
+    }
+  ],
+  "conformance": [
+    {
+      "source": "packages/react/src/collapsible/root/CollapsibleRoot.test.tsx",
+      "line": 13,
+      "declarationSha256": "23284e59be1e0eaca162bf44b2208f629f3b335a342184fb358d748c52b57306"
+    },
+    {
+      "source": "packages/react/src/collapsible/trigger/CollapsibleTrigger.test.tsx",
+      "line": 21,
+      "declarationSha256": "1394206a80eba57a8eb485a5dc9cb0d827fdd6a5df43cc4d0326f493dd240a53"
+    },
+    {
+      "source": "packages/react/src/collapsible/panel/CollapsiblePanel.test.tsx",
+      "line": 48,
+      "declarationSha256": "c6760a4b3f828f772a1d58162f2b003f185ac819ecda1548cdb02b31312363e5"
+    }
+  ],
+  "typeAssertions": [
+    {
+      "source": "packages/react/src/collapsible/root/CollapsibleRoot.spec.tsx",
+      "line": 21,
+      "text": "expectType<CollapsibleRootProps, typeof rootProps>(rootProps)"
+    },
+    {
+      "source": "packages/react/src/collapsible/root/CollapsibleRoot.spec.tsx",
+      "line": 22,
+      "text": "expectType<CollapsibleTriggerProps, typeof triggerProps>(triggerProps)"
+    },
+    {
+      "source": "packages/react/src/collapsible/root/CollapsibleRoot.spec.tsx",
+      "line": 23,
+      "text": "expectType<CollapsiblePanelProps, typeof panelProps>(panelProps)"
+    },
+    {
+      "source": "packages/react/src/collapsible/root/CollapsibleRoot.spec.tsx",
+      "line": 24,
+      "text": "expectType<CollapsibleRootState, typeof rootState>(rootState)"
+    },
+    {
+      "source": "packages/react/src/collapsible/root/CollapsibleRoot.spec.tsx",
+      "line": 25,
+      "text": "expectType<CollapsibleTriggerState, typeof triggerState>(triggerState)"
+    },
+    {
+      "source": "packages/react/src/collapsible/root/CollapsibleRoot.spec.tsx",
+      "line": 26,
+      "text": "expectType<CollapsiblePanelState, typeof panelState>(panelState)"
+    },
+    {
+      "source": "packages/react/src/collapsible/root/CollapsibleRoot.spec.tsx",
+      "line": 32,
+      "text": "expectType<boolean, typeof open>(open)"
+    },
+    {
+      "source": "packages/react/src/collapsible/root/CollapsibleRoot.spec.tsx",
+      "line": 33,
+      "text": "expectType<CollapsibleRootChangeEventDetails, typeof eventDetails>(eventDetails)"
+    },
+    {
+      "source": "packages/react/src/collapsible/root/CollapsibleRoot.spec.tsx",
+      "line": 39,
+      "text": "expectType<CollapsibleRootChangeEventReason, typeof changeReason>(changeReason)"
+    },
+    {
+      "source": "packages/react/src/collapsible/root/CollapsibleRoot.spec.tsx",
+      "line": 40,
+      "text": "expectType<CollapsibleRootChangeEventDetails, typeof changeDetails>(changeDetails)"
+    }
+  ]
+}

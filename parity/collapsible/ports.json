@@ -1084,7 +1084,19 @@
       },
       "verification": "Full ordered immutable source assertions independently reviewed on tested source checkpoint; actual React 1.8.0 and Svelte paired secured Chromium executions passed. Framework act/tick synchronization is explicit; supplemental, conformance and type assertions excluded from ordinary credit.",
       "sourceTitle": "preserves inline alignment styles while measuring an opening panel",
-      "localPorts": []
+      "localPorts": [],
+      "currentNativeRendering": {
+        "status": "Proposed measured native browser counterpart; successor execution pending",
+        "predecessorHead": "f1376eb69e8733590d95e4a3a197c0173e19a36a",
+        "predecessorArchive": "parity/native-snippets/acceptance-history/native-alignment-browser-f1376eb6/tests/browser/collapsible.spec.ts",
+        "activeExecutions": [
+          "P:358 React reference preserves inline alignment styles while measuring an opening panel",
+          "native counterpart: Svelte opening measurements preserve authored alignment through native style commits"
+        ],
+        "unchangedOriginalCreditForNativeCounterpart": 0,
+        "originalCasePreservation": "Complete predecessor P358 title/actions/assertions/body moved byte-identically into reference-only loop; historical paired receipt remains attributed only to its recorded source checkpoint",
+        "evidence": "../native-snippets/alignment-browser-native-evidence.json"
+      }
     },
     {
       "sourceId": "packages/react/src/collapsible/panel/CollapsiblePanel.test.tsx:422",

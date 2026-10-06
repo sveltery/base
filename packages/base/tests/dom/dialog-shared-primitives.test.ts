@@ -1,7 +1,6 @@
 import { afterEach, expect, it, vi } from 'vitest';
 import { flushSync, mount, unmount } from 'svelte';
-import FocusGuard from '../../src/lib/utils/FocusGuard.svelte';
-import InternalBackdrop from '../../src/lib/utils/InternalBackdrop.svelte';
+import Fixture from './NativeSharedPrimitivesFixture.svelte';
 import TreeFixture from './DialogFloatingTree.svelte';
 import { FloatingTreeStore } from '../../src/lib/floating-ui/components/FloatingTreeStore.js';
 import { getNodeAncestors, getNodeChildren } from '../../src/lib/floating-ui/utils/nodes.js';
@@ -12,41 +11,47 @@ afterEach(async () => {
   for (const cleanup of stop.splice(0)) await cleanup();
   document.body.replaceChildren();
 });
-it('guard attachment clears the actual object ref on teardown', async () => {
-  const ref = { current: null as HTMLSpanElement | null };
-  const component = mount(FocusGuard, { target: document.body, props: { ref } });
+it('guard native binding publishes its actual host and clears on teardown', async () => {
+  const component = mount(Fixture, { target: document.body });
+  stop.push(() => unmount(component));
   flushSync();
-  expect(ref.current?.hasAttribute('data-base-ui-focus-guard')).toBe(true);
+  expect(component.getRef()?.hasAttribute('data-base-ui-focus-guard')).toBe(true);
   await unmount(component);
-  expect(ref.current).toBeNull();
+  stop.pop();
+  expect(component.getRef()).toBeNull();
 });
-it('guard callback cleanup follows the shared ref contract once', async () => {
+it('guard authored native attachment cleanup follows its independent host lifetime once', async () => {
   const cleanup = vi.fn();
-  const ref = vi.fn(() => cleanup);
-  const component = mount(FocusGuard, { target: document.body, props: { ref } });
+  const attachment = vi.fn(() => cleanup);
+  const component = mount(Fixture, { target: document.body, props: { attachment } });
+  stop.push(() => unmount(component));
   flushSync();
-  expect(ref).toHaveBeenCalledTimes(1);
-  expect(ref.mock.calls[0]).toEqual([document.querySelector('span')]);
+  expect(attachment).toHaveBeenCalledTimes(1);
+  expect(attachment.mock.calls[0]).toEqual([document.querySelector('span')]);
+  expect(component.getRef()).toBe(document.querySelector('span'));
   await unmount(component);
+  stop.pop();
   expect(cleanup).toHaveBeenCalledTimes(1);
-  expect(ref).toHaveBeenCalledTimes(1);
+  expect(attachment).toHaveBeenCalledTimes(1);
+  expect(component.getRef()).toBeNull();
 });
 it('backdrop preserves source cutout and overwrites otherProps style while clearing refs', async () => {
   const cutout = document.createElement('button');
   cutout.getBoundingClientRect = () => ({ left: 1, top: 2, right: 3, bottom: 4 }) as DOMRect;
-  const ref = { current: null as HTMLDivElement | null };
-  const component = mount(InternalBackdrop, {
+  const component = mount(Fixture, {
     target: document.body,
-    props: { ref, cutout, style: 'color: red' },
+    props: { kind: 'backdrop', cutout },
   });
+  stop.push(() => unmount(component));
   flushSync();
-  expect(ref.current?.style.clipPath).toBe(
+  expect(component.getRef()?.style.clipPath).toBe(
     'polygon(0% 0%,100% 0%,100% 100%,0% 100%,0% 0%,1px 2px,1px 4px,3px 4px,3px 2px,1px 2px)',
   );
-  expect(ref.current?.style.position).toBe('fixed');
-  expect(ref.current?.style.color).toBe('');
+  expect(component.getRef()?.style.position).toBe('fixed');
+  expect(component.getRef()?.style.color).toBe('');
   await unmount(component);
-  expect(ref.current).toBeNull();
+  stop.pop();
+  expect(component.getRef()).toBeNull();
 });
 it('original tree node registration preserves parent links and identity-owned cleanup', async () => {
   const tree = new FloatingTreeStore();

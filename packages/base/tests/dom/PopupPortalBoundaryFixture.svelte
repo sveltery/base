@@ -4,7 +4,7 @@
   import Probe from './PopupPortalBoundaryProbe.svelte';
   import type { PortalContainer } from '../../src/lib/floating-ui/hooks/useFloatingPortalNode.svelte.js';
   import type { FloatingPortalContext } from '../../src/lib/floating-ui/components/FloatingPortalContext.js';
-  import type { MergedRef } from '@sveltery/utils/useMergedRefs';
+  import { createAttachmentKey, type Attachment } from 'svelte/attachments';
 
   let {
     container,
@@ -13,7 +13,7 @@
     customId = 'custom-portal',
     nested,
     focus = false,
-    forwardedRef,
+    forwardedAttachment,
   }: {
     container?: PortalContainer;
     lite?: boolean;
@@ -21,11 +21,16 @@
     customId?: string;
     nested?: 'full' | 'lite';
     focus?: boolean;
-    forwardedRef?: MergedRef<HTMLElement>;
+    forwardedAttachment?: Attachment<HTMLElement>;
   } = $props();
   // eslint-disable-next-line svelte/prefer-svelte-reactivity -- Imperative fixture report registry is read through exported methods, not reactive markup.
   const contexts = new Map<string, FloatingPortalContext | null>();
   let hostTag = $state<'section' | 'article'>('section');
+  let hostRef = $state<HTMLElement | null>();
+  const authoredKey = createAttachmentKey();
+  export function getHost() {
+    return hostRef;
+  }
   function report(name: string, context: FloatingPortalContext | null) {
     contexts.set(name, context);
   }
@@ -38,8 +43,8 @@
   export function setCustomId(value: string) {
     customId = value;
   }
-  export function setRef(value: MergedRef<HTMLElement>) {
-    forwardedRef = value;
+  export function setAttachment(value: Attachment<HTMLElement>) {
+    forwardedAttachment = value;
   }
   export function setHostTag(value: 'section' | 'article') {
     hostTag = value;
@@ -50,10 +55,12 @@
 </script>
 
 {#snippet host(props: import('../../src/lib/internals/types.js').HTMLProps)}
-  {#if hostTag === 'section'}<section {...props} id={customId}
-      ><Probe name="host" {report} /></section
-    >
-  {:else}<article {...props} id={customId}><Probe name="host" {report} /></article>{/if}
+  {#if hostTag === 'section'}<section {...props} id={customId}>
+      <Probe name="host" {report} />
+    </section>
+  {:else}<article {...props} id={customId}>
+      <Probe name="host" {report} />
+    </article>{/if}
 {/snippet}
 {#snippet child()}
   <Probe name="child" {report} {focus} />
@@ -71,7 +78,8 @@
 {#if lite}
   <Lite
     {container}
-    ref={forwardedRef}
+    bind:ref={hostRef}
+    {...{ [authoredKey]: forwardedAttachment }}
     render={customHost ? host : undefined}
     data-testid="boundary-portal"
     class={['portal', { native: true }]}
@@ -80,7 +88,8 @@
 {:else}
   <Full
     {container}
-    ref={forwardedRef}
+    bind:ref={hostRef}
+    {...{ [authoredKey]: forwardedAttachment }}
     render={customHost ? host : undefined}
     data-testid="boundary-portal"
     class={['portal', { native: true }]}

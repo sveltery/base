@@ -3,14 +3,22 @@ import { createHash } from 'node:crypto';
 import { readFileSync, existsSync } from 'node:fs';
 import { createRequire } from 'node:module';
 import { test } from 'node:test';
+import { extractCurrentFamilyProjection } from '../native-family-projection.mjs';
 const root = new URL('../../', import.meta.url);
 const read = (path) => readFileSync(new URL(path, root), 'utf8');
 const sha = (body) => createHash('sha256').update(body).digest('hex');
 const ts = createRequire(new URL('../../packages/base/package.json', import.meta.url))(
   'typescript',
 );
-const parse = (path) =>
-  ts.createSourceFile(path, read(path), ts.ScriptTarget.Latest, true, ts.ScriptKind.TS);
+const parse = (path) => {
+  const body = read(path);
+  const source = path.endsWith('.svelte')
+    ? [...body.matchAll(/<script\b(?:[^>"']|"[^"]*"|'[^']*')*>([\s\S]*?)<\/script>/g)]
+        .map((match) => match[1])
+        .join('\n')
+    : body;
+  return ts.createSourceFile(path, source, ts.ScriptTarget.Latest, true, ts.ScriptKind.TS);
+};
 const nodes = (root, predicate) => {
   const found = [];
   const visit = (node) => {
@@ -101,7 +109,12 @@ test('private anchor foundation keeps immutable source/assertions and zero defer
     );
     assert.equal(port.status, 'deferred-browser-gate');
   }
-  assert.deepEqual(ledger.familyCredit, { menu: 0, popover: 0, tooltip: 0, select: 0 });
+  assert.deepEqual(ledger.familyCredit, {
+    menu: 0,
+    popover: 0,
+    tooltip: 0,
+    select: 0,
+  });
   for (const license of ['UPSTREAM_LICENSE', 'FLOATING_UI_LICENSE'])
     assert.match(read(`parity/anchor-positioning/${license}`), /Permission is hereby granted/);
   for (const path of [
@@ -283,7 +296,7 @@ test('selected root-store bridge preserves reference ownership and delegates one
 
   // Every used module is inspected for a positioning call: the bridge selects
   // real store elements, while the existing DOM driver owns async geometry.
-  const closure = JSON.parse(read('parity/menu-family/native-closure.json'));
+  const closure = extractCurrentFamilyProjection('menu-family');
   const calls = closure.modules.flatMap((module) =>
     nodes(
       parse(module.source),

@@ -68,7 +68,7 @@ export type ElementProps<
   children?: Snippet;
   render?: BaseUIComponentProps<State>['render'];
   class?: string | ((state: State) => string | undefined);
-  style?: string | ((state: State) => string | undefined);
+  style?: BaseUIComponentProps<State>['style'];
   ref?: HTMLElement | null;
 };
 

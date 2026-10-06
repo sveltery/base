@@ -1,6 +1,6 @@
 // Exact pinned source-family witness and native supplements; MIT: parity/radio/UPSTREAM_LICENSE.
 import { expect, test } from '@playwright/test';
-for (const framework of ['react', 'svelte']) {
+for (const framework of ['react']) {
   test(`${framework} nested Composite shared host preserves outer metadata, repeated updates and navigation`, async ({
     page,
   }) => {
@@ -46,6 +46,148 @@ for (const framework of ['react', 'svelte']) {
       contentType: 'application/json',
     });
   });
+}
+
+test('svelte native nested Composite attachments refresh metadata and preserve eligible navigation', async ({
+  page,
+}) => {
+  // Native counterpart of the complete acde /composite-nested measurement;
+  // divergent renderer behavior receives zero unchanged Original credit.
+  const snapshots: unknown[] = [];
+  await page.goto('/composite-nested');
+  await expect(page.locator('main[data-hydrated="true"]')).toBeVisible();
+  const readMap = async () =>
+    JSON.parse(await page.locator('#nested-map').innerText()) as Record<string, unknown>[];
+  const assertMembership = async (members: string[]) => {
+    await expect
+      .poll(async () =>
+        page.evaluate(() => {
+          const diagnostic = (
+            window as Window & {
+              compositeNestedDiagnostic: {
+                read(): { publishedMap: [Element, { index: number }][] };
+              };
+            }
+          ).compositeNestedDiagnostic.read();
+          return diagnostic.publishedMap.map(([host, metadata]) => ({
+            testId: host.getAttribute('data-testid'),
+            index: metadata.index,
+            connected: host.isConnected,
+            sameDOM:
+              host ===
+              document.querySelector(`[data-testid="${host.getAttribute('data-testid')}"]`),
+          }));
+        }),
+      )
+      .toEqual(
+        members.map((testId, index) => ({
+          testId,
+          index,
+          connected: true,
+          sameDOM: true,
+        })),
+      );
+  };
+  const navigateEligible = async () => {
+    await page.getByTestId('first').focus();
+    await page.getByTestId('first').press('ArrowRight');
+    await expect(page.getByTestId('last')).toBeFocused();
+    await page.keyboard.press('ArrowRight');
+    await expect(page.getByTestId('first')).toBeFocused();
+    await page.keyboard.press('ArrowLeft');
+    await expect(page.getByTestId('last')).toBeFocused();
+  };
+  const assertInner = async (phase: string, revision: number) => {
+    await expect
+      .poll(async () => (await readMap()).find((item) => item.testId === 'shared'))
+      .toMatchObject({
+        owner: 'inner',
+        disabled: true,
+        focusableWhenDisabled: false,
+        revision,
+        index: 1,
+      });
+    await expect.poll(async () => (await readMap()).length).toBe(3);
+    await assertMembership(['first', 'shared', 'last']);
+    await navigateEligible();
+    snapshots.push({ phase, map: await readMap(), focused: 'last' });
+  };
+  await assertInner('mount', 0);
+  await expect(page.getByTestId('shared')).toHaveJSProperty('tagName', 'BUTTON');
+  const original = await page.getByTestId('shared').elementHandle();
+  expect(original).not.toBeNull();
+  for (let revision = 1; revision <= 3; revision += 1) {
+    await page.locator('#update-inner').click();
+    await assertInner(`inner-update-${revision}`, revision);
+    expect(
+      await original!.evaluate((host) => host === document.querySelector('[data-testid="shared"]')),
+    ).toBe(true);
+  }
+  await page.locator('#toggle-shared').click();
+  await expect(page.getByTestId('shared')).toHaveCount(0);
+  await expect.poll(async () => (await readMap()).length).toBe(2);
+  await assertMembership(['first', 'last']);
+  await navigateEligible();
+  expect(await original!.evaluate((host) => host.isConnected)).toBe(false);
+  snapshots.push({ phase: 'removed', map: await readMap() });
+  await page.locator('#toggle-shared').click();
+  await assertInner('reinsert', 3);
+  await expect(page.getByTestId('shared')).toHaveJSProperty('tagName', 'BUTTON');
+  expect(
+    await original!.evaluate((host) => host === document.querySelector('[data-testid="shared"]')),
+  ).toBe(false);
+  const replacement = await page.getByTestId('shared').elementHandle();
+  expect(replacement).not.toBeNull();
+  await page.locator('#replace-host').click();
+  await expect(page.getByTestId('shared')).toHaveJSProperty('tagName', 'SPAN');
+  await assertInner('replace-host', 3);
+  expect(await replacement!.evaluate((host) => host.isConnected)).toBe(false);
+  expect(
+    await replacement!.evaluate(
+      (host) => host === document.querySelector('[data-testid="shared"]'),
+    ),
+  ).toBe(false);
+  await page.locator('#remove-root').click();
+  await expect(page.locator('#nested-root, #literal-shared')).toHaveCount(0);
+  await expect(page.getByTestId('first')).toHaveCount(0);
+  await expect(page.getByTestId('shared')).toHaveCount(0);
+  await expect(page.getByTestId('last')).toHaveCount(0);
+  await expect
+    .poll(async () =>
+      page.evaluate(() => {
+        const actual = (
+          window as Window & {
+            compositeNestedDiagnostic: {
+              read(): {
+                publishedMap: [Element, Record<string, unknown>][];
+                refs: Record<string, Element | null | undefined>;
+                literal: { refs: Record<string, Element | null | undefined> };
+              };
+            };
+          }
+        ).compositeNestedDiagnostic.read();
+        return {
+          connectedMembers: actual.publishedMap.filter(([host]) => host.isConnected).length,
+          refs: Object.values(actual.refs),
+          literalRefs: Object.values(actual.literal.refs),
+        };
+      }),
+    )
+    .toEqual({
+      connectedMembers: 0,
+      refs: [null, null, null, null, null],
+      literalRefs: [null, null, null],
+    });
+  snapshots.push({ phase: 'root-cleanup', map: await readMap() });
+  await test.info().attach('native-nested-composite-lifecycle', {
+    body: JSON.stringify({ framework: 'svelte', unchangedOriginalCredit: 0, snapshots }),
+    contentType: 'application/json',
+  });
+  await original!.dispose();
+  await replacement!.dispose();
+});
+
+for (const framework of ['react', 'svelte']) {
   const open = async (page: import('@playwright/test').Page, scenario = 'default') => {
     await page.goto(
       `/radio?scenario=${scenario}${framework === 'react' ? '&reference=react' : ''}`,

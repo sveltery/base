@@ -26,7 +26,7 @@ cat > "$navigation_consumer/Consumer.svelte" <<'SVELTE'
   import type { ToggleProps, ToggleGroupProps, ToolbarButtonProps, ToolbarInputProps, ToolbarLinkProps, ToolbarRootProps, ToolbarGroupProps, ToolbarSeparatorProps } from '@sveltery/base';
   import type { HTMLAttributes } from 'svelte/elements';
   let ref = $state<HTMLElement | null | undefined>();
-  const toggle: ToggleProps<'one' | 'two'> = { value: 'one', defaultPressed: true, class: state => ['button', { pressed: state.pressed }], style: state => ({ opacity: state.disabled ? 0.5 : 1 }), onPressedChange(pressed, details) { const flag: boolean = pressed; const event: Event = details.event; void [flag, event]; } };
+  const toggle: ToggleProps<'one' | 'two'> = { value: 'one', defaultPressed: true, class: state => ['button', { pressed: state.pressed }], style: state => `opacity:${state.disabled ? 0.5 : 1}`, onPressedChange(pressed, details) { const flag: boolean = pressed; const event: Event = details.event; void [flag, event]; } };
   const group: ToggleGroupProps<'one' | 'two'> = { defaultValue: ['one'] as const, multiple: true, onValueChange(value, details) { const result: Array<'one' | 'two'> = value; void [result, details.reason]; } };
   const button: ToolbarButtonProps = { disabled: true, focusableWhenDisabled: true, nativeButton: false };
   const input: ToolbarInputProps = { defaultValue: 12, type: 'text', name: 'native', onkeydown: event => event.preventBaseUIHandler() };

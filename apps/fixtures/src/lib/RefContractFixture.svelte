@@ -1,7 +1,6 @@
 <script lang="ts">
   import { untrack } from 'svelte';
   import { Button, Dialog, Toast } from '@sveltery/base';
-  import Element from '../../../../packages/base/src/lib/dialog/Element.svelte';
   let {
     kind,
     initial,
@@ -19,7 +18,9 @@
 
 {#snippet replacement(props: Record<string, unknown>)}<span {...props}>Replacement</span>{/snippet}
 {#if visible}
-  {#if kind === 'element'}<Element bind:ref render={custom ? replacement : undefined} />
+  {#if kind === 'element'}
+    <!-- Bare native binding baseline for the retired generic element case. -->
+    {#if custom}<span bind:this={ref}>Replacement</span>{:else}<div bind:this={ref}></div>{/if}
   {:else if kind === 'button'}<Button
       bind:ref
       nativeButton={!custom}

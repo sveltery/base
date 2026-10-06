@@ -27,7 +27,7 @@
         }
       : {},
   );
-  const componentStyle = $derived(settings.conformance ? { backgroundColor: 'pink' } : {});
+  const componentStyle = $derived(settings.conformance ? 'background-color:pink' : '');
   function consumer(name: string, event: Event & { preventBaseUIHandler?: () => void }) {
     calls.push(name);
     if (settings.suppress === name) event.preventBaseUIHandler?.();
@@ -101,12 +101,7 @@
             overflowEdgeThreshold={settings.threshold}
             render={settings.customRender ? replacement : undefined}
             class={settings.conformance ? attributes.class : 'root-class'}
-            style={{
-              ...componentStyle,
-              width: `${settings.viewportSize}px`,
-              height: `${settings.viewportSize}px`,
-              direction: settings.direction,
-            }}
+            style={`${componentStyle};width:${settings.viewportSize}px;height:${settings.viewportSize}px;direction:${settings.direction}`}
           >
             {#if settings.viewportMounted}
               <ScrollArea.Viewport
@@ -115,13 +110,7 @@
                 bind:ref={viewportRef}
                 render={settings.customRender ? replacement : undefined}
                 onscroll={(event) => consumer('scroll', event)}
-                style={{
-                  ...componentStyle,
-                  width: '100%',
-                  height: '100%',
-                  scrollSnapType: settings.snap,
-                  pointerEvents: 'none',
-                }}
+                style={`${componentStyle};width:100%;height:100%;scroll-snap-type:${settings.snap};pointer-events:none`}
               >
                 {#if settings.contentMounted}
                   <ScrollArea.Content
@@ -156,16 +145,7 @@
                 keepMounted={settings.keepMounted}
                 {...settings.ariaOverride ? { 'aria-hidden': undefined } : {}}
                 onpointerdown={(event) => consumer('track', event)}
-                style={{
-                  ...componentStyle,
-                  width: `${settings.trackThickness}px`,
-                  display: 'flex',
-                  paddingBlock: `${settings.padding}px`,
-                  marginInline: `${settings.margin}px`,
-                  ...(settings.trackHeight !== null
-                    ? { height: `${settings.trackHeight}px`, bottom: 'auto' }
-                    : {}),
-                }}
+                style={`${componentStyle};width:${settings.trackThickness}px;display:flex;padding-block:${settings.padding}px;margin-inline:${settings.margin}px${settings.trackHeight !== null ? `;height:${settings.trackHeight}px;bottom:auto` : ''}`}
               >
                 {#if settings.thumbMounted}<ScrollArea.Thumb
                     {...attributes}
@@ -175,11 +155,7 @@
                     onpointerdown={(event) => consumer('down', event)}
                     onpointermove={(event) => consumer('move', event)}
                     onpointerup={(event) => consumer('up', event)}
-                    style={{
-                      ...componentStyle,
-                      width: '100%',
-                      marginBlock: `${settings.thumbMargin}px`,
-                    }}
+                    style={`${componentStyle};width:100%;margin-block:${settings.thumbMargin}px`}
                   />{/if}
               </ScrollArea.Scrollbar>
               <ScrollArea.Scrollbar
@@ -190,23 +166,13 @@
                 render={settings.customRender ? replacement : undefined}
                 keepMounted={settings.keepMounted}
                 {...settings.ariaOverride ? { 'aria-hidden': undefined } : {}}
-                style={{
-                  ...componentStyle,
-                  height: `${settings.trackThickness}px`,
-                  display: 'flex',
-                  paddingInline: `${settings.padding}px`,
-                  marginBlock: `${settings.margin}px`,
-                }}
+                style={`${componentStyle};height:${settings.trackThickness}px;display:flex;padding-inline:${settings.padding}px;margin-block:${settings.margin}px`}
               >
                 {#if settings.thumbMounted}<ScrollArea.Thumb
                     {...attributes}
                     data-testid="horizontal-thumb"
                     render={settings.customRender ? replacement : undefined}
-                    style={{
-                      ...componentStyle,
-                      height: '100%',
-                      marginInline: `${settings.thumbMargin}px`,
-                    }}
+                    style={`${componentStyle};height:100%;margin-inline:${settings.thumbMargin}px`}
                   />{/if}
               </ScrollArea.Scrollbar>
             {/if}
@@ -223,11 +189,11 @@
         {#if settings.repeated}<ScrollArea.Root
             {...attributes}
             data-testid="second-root"
-            style={{ width: '200px', height: '200px' }}
+            style="width:200px;height:200px"
             ><ScrollArea.Viewport
               {...attributes}
               data-testid="second-viewport"
-              style={{ width: '100%', height: '100%' }}
+              style="width:100%;height:100%"
               ><ScrollArea.Content
                 ><div style="width:1000px;height:1000px"></div></ScrollArea.Content
               ></ScrollArea.Viewport

@@ -24,6 +24,7 @@
     ref = $bindable(),
     ...elementProps
   }: FieldErrorProps = $props();
+  let { children, ...hostProps } = $derived(elementProps);
   const nativeId = $props.id();
   const id = $derived(useBaseUiId(idProp ?? undefined, nativeId));
   const field = useFieldRootContext(false);
@@ -102,7 +103,7 @@
     ...mergeComponentProps(
       errorState,
       { class: classProp, style: style },
-      [{ id }, elementProps],
+      [{ id }, hostProps],
       stateAttributesMapping,
     ),
     [hostAttachmentKey]: attachHost,
@@ -115,9 +116,10 @@
   {:else}{message ?? ''}{/if}
 {/snippet}
 {#if transition.mounted}
+  {const content = $derived(Object.hasOwn(elementProps, 'children') ? children : errorContent)}
   {#if render}
-    {@render render(mergedProps, errorState, errorContent)}
+    {@render render(mergedProps, errorState, content)}
   {:else}
-    <div {...mergedProps}>{@render errorContent?.()}</div>
+    <div {...mergedProps}>{@render content?.()}</div>
   {/if}
 {/if}

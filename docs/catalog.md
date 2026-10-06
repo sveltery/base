@@ -28,7 +28,12 @@ The immutable Base UI 1.8.0 [root index](https://github.com/mui/base-ui/blob/47b
 | [ScrollArea](scroll-area.md)                     | Root, Viewport, Content, Scrollbar, Thumb and Corner with canonical source helpers and real CSP stylesheet consumption; native renderer limits, ordinary credit and exact-head acceptance remain separate.                                              |
 | merge-props                                      | Bounded native prop/event merge foundation; see [contracts](upstream-contracts.md).                                                                                                                                                                     |
 
-These 26 modules are bounded and the remaining 16 are unimplemented. No module is labeled fully compatible. Field, Form and Fieldset now have bounded source ports and public exports. The catalog denominator includes modules such as direction-provider and use-render; it is not a component count or a passing-test denominator. All unimplemented names remain visible in the machine-readable ledger.
+<!-- native-catalog-counts:start -->
+
+The current catalog has 25 bounded modules, 6 available native modules awaiting acceptance, 10 unimplemented modules, and 1 retired standalone renderer API.
+<!-- native-catalog-counts:end -->
+
+Menu, ContextMenu, Menubar, Popover, PreviewCard and Tooltip have actual native root/subpath APIs and remain pending source/execution acceptance. The retired UseRender module stays in the Original 42-module denominator and points to native per-part counterpart evidence with zero unchanged renderer credit. No module is labeled fully compatible. Existing Source status/credit and historical receipts remain recorded in their immutable evidence; current namespace presence does not transfer that acceptance. [The maintained current projection](../parity/native-snippets/catalog-projection.json) records actual manifest paths and source runtime names. The exact predecessor catalog and catalog check bodies are hashed in the successor archive. All unimplemented names remain visible in the ledger.
 
 The [ordinary assertion inventory](../parity/README.md) is separately scoped. Shared conformance helpers, paired framework executions and local supplements do not inflate its declaration credit. The dedicated Toggle ledger records five standalone declarations separately from the shared ordinary inventory; its two originally deferred ToggleGroup declarations remain historical and uncredited there; the new source audit records their current probes separately. Full Input/Field/Form integration and remaining controls require their own bounded characterization and review.
 
@@ -40,3 +45,5 @@ The bounded ScrollArea entry records implemented six-part source composition and
 real CSP context consumption. Its source correspondence, assertion accounting and
 exact-head execution/approval gates remain separately recorded; it is not labeled
 fully compatible.
+
+Available native modules awaiting acceptance: Menu and ContextMenu expose their native menu families; Menubar has its actual navigation owner; Popover, PreviewCard and Tooltip expose their real detached/contained native popup families. See [current native correspondence](../parity/native-snippets/source-correspondence.md) for limits and [acceptance migration](../parity/native-snippets/acceptance.md) for pending exact-head gates. This statement adds no ordinary declaration or accepted-feature credit.

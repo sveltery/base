@@ -131,6 +131,144 @@ function nativeContract(path, body) {
   }
   return body;
 }
+const positionerPublicationPredecessor = 'd390353b69fd9b7761d4256f0a4fd39ef0a66fea';
+const positionerPublicationRuntime =
+  'packages/base/src/lib/menu/positioner/createMenuPositioner.svelte.ts';
+function positionerPublication(path, body) {
+  if (path !== positionerPublicationRuntime) return body;
+  const before = `  function attachHost(host: HTMLElement) {
+    getRef(host);
+    setPositionerElement(host);
+    return () => {
+      getRef(null);
+      setPositionerElement(null);
+    };
+  }
+`;
+  const after = `  function attachHost(host: HTMLElement) {
+    return untrack(() => {
+      getRef(host);
+      setPositionerElement(host);
+      return () =>
+        untrack(() => {
+          getRef(null);
+          setPositionerElement(null);
+        });
+    });
+  }
+`;
+  assert.equal(body.split(before).length, 2, 'One exact native Positioner publication span');
+  return body.replace(before, after);
+}
+const fieldBusinessPredecessor = 'acdebb8eeb910c48230343324f6284b682bf289b';
+const fieldBusinessChanges = {
+  'packages/base/src/lib/field/Error.svelte': [
+    [
+      '  }: FieldErrorProps = $props();\n',
+      '  }: FieldErrorProps = $props();\n  let { children, ...hostProps } = $derived(elementProps);\n',
+    ],
+    ['      [{ id }, elementProps],\n', '      [{ id }, hostProps],\n'],
+    [
+      '{#if transition.mounted}\n',
+      "{#if transition.mounted}\n  {const content = $derived(Object.hasOwn(elementProps, 'children') ? children : errorContent)}\n",
+    ],
+    [
+      '    {@render render(mergedProps, errorState, errorContent)}\n',
+      '    {@render render(mergedProps, errorState, content)}\n',
+    ],
+    [
+      '    <div {...mergedProps}>{@render errorContent?.()}</div>\n',
+      '    <div {...mergedProps}>{@render content?.()}</div>\n',
+    ],
+  ],
+  'packages/base/src/lib/internals/labelable-provider/createLabelableProvider.svelte.ts': [
+    [
+      '  let messageIds = $state<string[]>([]);\n',
+      '  // Effect cleanup updates the live resource array; native state publishes its current value.\n  let currentMessageIds: string[] = [];\n  let messageIds = $state.raw<string[]>(currentMessageIds);\n',
+    ],
+    [
+      "      messageIds = typeof value === 'function' ? value(messageIds) : value;\n",
+      "      currentMessageIds = typeof value === 'function' ? value(currentMessageIds) : value;\n      messageIds = currentMessageIds;\n",
+    ],
+  ],
+};
+const fieldBusinessPaths = new Set(Object.keys(fieldBusinessChanges));
+assert.equal(fieldBusinessPaths.size, 2);
+const panelMotionPredecessor = '826eb1d863a231928c4cc040f894737449563d4b';
+const panelMotionRuntime = 'packages/base/src/lib/collapsible/Panel.svelte';
+const panelMotionChanges = [
+  [
+    "\n  // Adapted from mui/base-ui v1.8.0 CollapsiblePanel/useCollapsiblePanel,\n  // 47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c. MIT: THIRD_PARTY_NOTICES.md.\n  import { onDestroy, untrack } from 'svelte';\n  import { resolveClassValue } from '../internals/resolveClassValue.js';\n  import { createChangeEventDetails } from '../internals/createBaseUIEventDetails.js';\n  import { getCollapsibleContext } from './context.js';\n",
+    "\n  // Adapted from mui/base-ui v1.8.0 CollapsiblePanel/useCollapsiblePanel,\n  // 47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c. MIT: THIRD_PARTY_NOTICES.md.\n  import { untrack } from 'svelte';\n  import { toNativeStyle } from '../internals/nativeProps.js';\n  import { resolveClassValue } from '../internals/resolveClassValue.js';\n  import { createChangeEventDetails } from '../internals/createBaseUIEventDetails.js';\n  import { getCollapsibleContext } from './context.js';\n",
+  ],
+  [
+    "  let shouldPreventMountAnimation = $state(untrack(() => context.open));\n  let shouldSkipNextOpen = false;\n  let forcePanelIdle = $state(false);\n  let pendingTemporaryStyleRestore: (() => void) | undefined;\n\n  const hidden = $derived(!context.open && !context.mounted);\n  const panelTransitionStatus = $derived(forcePanelIdle ? 'idle' : context.transitionStatus);\n",
+    "  let shouldPreventMountAnimation = $state(untrack(() => context.open));\n  let shouldSkipNextOpen = false;\n  let forcePanelIdle = $state(false);\n  // Accepted beforematch motion suppression belongs to this actual host's open cycle.\n  let skippedOpenMotion = $state.raw<\n    { panel: HTMLElement; type: Exclude<AnimationType, 'none'> } | undefined\n  >();\n\n  const hidden = $derived(!context.open && !context.mounted);\n  const panelTransitionStatus = $derived(forcePanelIdle ? 'idle' : context.transitionStatus);\n",
+  ],
+  [
+    '    if (cache) lastMeasuredDimensions = next;\n    dimensions = next;\n  }\n  function restorePendingTemporaryStyle() {\n    pendingTemporaryStyleRestore?.();\n    pendingTemporaryStyleRestore = undefined;\n  }\n  function setPendingTemporaryStyleRestore(restore: () => void) {\n    restorePendingTemporaryStyle();\n    pendingTemporaryStyleRestore = () => {\n      pendingTemporaryStyleRestore = undefined;\n      restore();\n    };\n  }\n  function attach(element: HTMLElement) {\n    node = element;\n    return () => {\n      restorePendingTemporaryStyle();\n      if (node === element) node = null;\n    };\n  }\n  onDestroy(restorePendingTemporaryStyle);\n\n  const internal = $derived({\n    id,\n',
+    '    if (cache) lastMeasuredDimensions = next;\n    dimensions = next;\n  }\n  function attach(element: HTMLElement) {\n    node = element;\n    return () => {\n      if (skippedOpenMotion?.panel === element) skippedOpenMotion = undefined;\n      if (node === element) node = null;\n    };\n  }\n\n  const internal = $derived({\n    id,\n',
+  ],
+  [
+    "  const resolved = $derived.by(() => {\n    const authoredStyle = typeof styleProp === 'function' ? styleProp(panelState) : styleProp;\n    const classValue = typeof classProp === 'function' ? classProp(panelState) : classProp;\n    return {\n      ...props,\n      class: classValue === undefined ? undefined : resolveClassValue(classValue),\n      style: shouldPreventOpenAnimation\n        ? `${authoredStyle ?? ''};animation-name:none`\n        : authoredStyle,\n    };\n  });\n\n",
+    "  const resolved = $derived.by(() => {\n    const authoredStyle = typeof styleProp === 'function' ? styleProp(panelState) : styleProp;\n    const classValue = typeof classProp === 'function' ? classProp(panelState) : classProp;\n    const styleValue = shouldPreventOpenAnimation\n      ? `${authoredStyle ?? ''};animation-name:none`\n      : authoredStyle;\n    const skippedMotion =\n      context.open && skippedOpenMotion && skippedOpenMotion.panel === node\n        ? skippedOpenMotion.type\n        : undefined;\n    return {\n      ...props,\n      class: classValue === undefined ? undefined : resolveClassValue(classValue),\n      // Keep the one-shot business override in native markup through dimension commits.\n      // Closing resolves live authored duration before the measurement effect detects motion.\n      style: skippedMotion\n        ? `${toNativeStyle(styleValue) ?? ''};${skippedMotion === 'css-transition' ? 'transition-duration' : 'animation-duration'}:0s`\n        : styleValue,\n    };\n  });\n\n",
+  ],
+  [
+    "    // remains retained. Finalizing here would correct shared source behavior.\n    if (!panel) return;\n    return untrack(() => {\n      if (!open) restorePendingTemporaryStyle();\n      const mode = getAnimationType(panel, preventOpenAnimation);\n      animationType = mode;\n      if (open && status === 'idle' && shouldPreventMountAnimation && mode === 'css-animation') {\n",
+    "    // remains retained. Finalizing here would correct shared source behavior.\n    if (!panel) return;\n    return untrack(() => {\n      if (!open) skippedOpenMotion = undefined;\n      const mode = getAnimationType(panel, preventOpenAnimation);\n      animationType = mode;\n      if (open && status === 'idle' && shouldPreventMountAnimation && mode === 'css-animation') {\n",
+  ],
+  [
+    "          const restoreLayout = resetLayoutStyles(panel);\n          setDimensions(getDimensions(panel));\n          if (skipOpen) {\n            setPendingTemporaryStyleRestore(setTemporaryStyle(panel, 'transition-duration', '0s'));\n            forcePanelIdle = true;\n          }\n          return restoreLayout;\n",
+    '          const restoreLayout = resetLayoutStyles(panel);\n          setDimensions(getDimensions(panel));\n          if (skipOpen) {\n            skippedOpenMotion = { panel, type: mode };\n            forcePanelIdle = true;\n          }\n          return restoreLayout;\n',
+  ],
+  [
+    "          restoreName();\n          return;\n        }\n        const restoreDuration = setTemporaryStyle(panel, 'animation-duration', '0s');\n        restoreName();\n        setPendingTemporaryStyleRestore(restoreDuration);\n        forcePanelIdle = true;\n        return;\n      }\n",
+    '          restoreName();\n          return;\n        }\n        skippedOpenMotion = { panel, type: mode };\n        restoreName();\n        forcePanelIdle = true;\n        return;\n      }\n',
+  ],
+];
+// Append public native style declarations after the frozen historical Panel successor.
+const publicStylePredecessor = '4aa4bc8d8d7c17e8dbec781837d56ca56112f9e3';
+const publicStyleChanges = {
+  'packages/base/src/lib/internals/nativeProps.ts': [
+    [
+      "import type { ClassValue } from 'svelte/elements';\n",
+      "import type { ClassValue, HTMLAttributes } from 'svelte/elements';\n",
+    ],
+    [
+      'export type NativeStyle = string | Record<string, unknown>;\n',
+      "// Public styles use Svelte's attribute representation; pure internal records still serialize below.\n" +
+        "export type NativeStyle = HTMLAttributes<HTMLElement>['style'];\n",
+    ],
+  ],
+  'packages/base/src/lib/dialog/types.ts': [
+    [
+      '  style?: string | ((state: State) => string | undefined);\n',
+      "  style?: BaseUIComponentProps<State>['style'];\n",
+    ],
+  ],
+  'packages/base/src/lib/avatar/types.ts': [
+    [
+      "import type { HTMLProps, WithBaseUIEvent } from '../internals/types.js';\n",
+      "import type { BaseUIComponentProps, HTMLProps, WithBaseUIEvent } from '../internals/types.js';\n",
+    ],
+    [
+      '  style?: string | ((state: State) => string | undefined);\n',
+      "  style?: BaseUIComponentProps<State>['style'];\n",
+    ],
+  ],
+  'packages/base/src/lib/toast/types.ts': [
+    [
+      "import type { ComponentRenderFn, HTMLProps } from '../internals/types.js';\n",
+      "import type { BaseUIComponentProps, ComponentRenderFn, HTMLProps } from '../internals/types.js';\n",
+    ],
+    [
+      '  style?: string | ((state: State) => string | undefined);\n',
+      "  style?: BaseUIComponentProps<State>['style'];\n",
+    ],
+  ],
+};
+const publicStylePaths = new Set(Object.keys(publicStyleChanges));
+assert.equal(publicStylePaths.size, 4);
 const hostBusinessPredecessor = 'c04b7ca3c494df0cbe8c6c488dbaa0479b145f7f';
 const hostBusinessChanges = {
   'packages/base/src/lib/internals/use-button/useButton.svelte.ts': [
@@ -491,7 +629,17 @@ let effectCalls = 0,
   buttonDefaultAstPreservedBodies = 0,
   buttonDefaultUnchangedBodies = 0,
   nativeContractAstPreservedBodies = 0,
-  hostBusinessAstPreservedBodies = 0;
+  hostBusinessAstPreservedBodies = 0,
+  positionerPublicationAstPreservedBodies = 0,
+  fieldBusinessAstPreservedBodies = 0,
+  fieldBusinessUnchangedBodies = 0,
+  fieldBusinessCorrectionBodies = 0,
+  panelMotionAstPreservedBodies = 0,
+  panelMotionUnchangedBodies = 0,
+  panelMotionCorrectionBodies = 0,
+  publicStyleAstPreservedBodies = 0,
+  publicStyleUnchangedBodies = 0,
+  publicStyleCorrectionBodies = 0;
 for (const module of graph.native.modules) {
   const path = module.path;
   const before = git('show', `${renderer}:${path}`);
@@ -574,18 +722,130 @@ for (const module of graph.native.modules) {
     assert(contractEqual);
     nativeContractAstPreservedBodies++;
   }
+  const publicationPreimage = git('show', `${positionerPublicationPredecessor}:${path}`);
+  const publicationBefore = syntax(path, publicationPreimage);
   assert.equal(
-    after,
+    publicationPreimage,
     hostBusiness(path, hostBusinessPreimage),
-    `Exact native host business successor: ${path}`,
+    `Exact historical native host business successor: ${path}`,
   );
   const hostBusinessEqual =
     JSON.stringify(shape(hostBusinessBefore, hostBusinessBefore)) ===
-    JSON.stringify(shape(right, right));
+    JSON.stringify(shape(publicationBefore, publicationBefore));
   if (hostBusinessPaths.has(path)) assert(!hostBusinessEqual);
   else {
     assert(hostBusinessEqual);
     hostBusinessAstPreservedBodies++;
+  }
+  const fieldBusinessPreimage = git('show', `${fieldBusinessPredecessor}:${path}`);
+  const fieldBusinessBefore = syntax(path, fieldBusinessPreimage);
+  assert.equal(
+    fieldBusinessPreimage,
+    positionerPublication(path, publicationPreimage),
+    `Exact historical native Positioner publication successor: ${path}`,
+  );
+  const positionerPublicationEqual =
+    JSON.stringify(shape(publicationBefore, publicationBefore)) ===
+    JSON.stringify(shape(fieldBusinessBefore, fieldBusinessBefore));
+  const positionerPublicationCorrection = path === positionerPublicationRuntime;
+  if (positionerPublicationCorrection) assert(!positionerPublicationEqual);
+  else {
+    assert(positionerPublicationEqual);
+    positionerPublicationAstPreservedBodies++;
+  }
+  let fieldBusinessExpected = fieldBusinessPreimage;
+  for (const [before, after] of fieldBusinessChanges[path] ?? []) {
+    assert.equal(
+      fieldBusinessExpected.split(before).length,
+      2,
+      `One exact reviewed Field business span: ${path}`,
+    );
+    fieldBusinessExpected = fieldBusinessExpected.replace(before, after);
+  }
+  const panelMotionPreimage = git('show', `${panelMotionPredecessor}:${path}`);
+  const panelMotionBefore = syntax(path, panelMotionPreimage);
+  assert.equal(
+    panelMotionPreimage,
+    fieldBusinessExpected,
+    `Exact historical two-body Field business successor: ${path}`,
+  );
+  const fieldBusinessEqual =
+    JSON.stringify(shape(fieldBusinessBefore, fieldBusinessBefore)) ===
+    JSON.stringify(shape(panelMotionBefore, panelMotionBefore));
+  const fieldBusinessCorrection = fieldBusinessPaths.has(path);
+  if (fieldBusinessCorrection) {
+    assert(!fieldBusinessEqual);
+    fieldBusinessCorrectionBodies++;
+  } else {
+    assert.equal(
+      panelMotionPreimage,
+      fieldBusinessPreimage,
+      `Unchanged historical complete Field stage body: ${path}`,
+    );
+    assert(fieldBusinessEqual);
+    fieldBusinessUnchangedBodies++;
+    fieldBusinessAstPreservedBodies++;
+  }
+  let panelMotionExpected = panelMotionPreimage;
+  if (path === panelMotionRuntime)
+    for (const [before, after] of panelMotionChanges) {
+      assert.equal(
+        panelMotionExpected.split(before).length,
+        2,
+        'One exact reviewed Collapsible Panel motion span',
+      );
+      panelMotionExpected = panelMotionExpected.replace(before, after);
+    }
+  const publicStylePreimage = git('show', `${publicStylePredecessor}:${path}`);
+  const publicStyleBefore = syntax(path, publicStylePreimage);
+  assert.equal(
+    publicStylePreimage,
+    panelMotionExpected,
+    `Only the exact one-body Collapsible Panel motion successor: ${path}`,
+  );
+  const panelMotionEqual =
+    JSON.stringify(shape(panelMotionBefore, panelMotionBefore)) ===
+    JSON.stringify(shape(publicStyleBefore, publicStyleBefore));
+  const panelMotionCorrection = path === panelMotionRuntime;
+  if (panelMotionCorrection) {
+    assert(!panelMotionEqual);
+    panelMotionCorrectionBodies++;
+  } else {
+    assert.equal(
+      publicStylePreimage,
+      panelMotionPreimage,
+      `Unchanged complete Panel motion stage body: ${path}`,
+    );
+    assert(panelMotionEqual);
+    panelMotionUnchangedBodies++;
+    panelMotionAstPreservedBodies++;
+  }
+  let publicStyleExpected = publicStylePreimage;
+  for (const [before, after] of publicStyleChanges[path] ?? []) {
+    assert.equal(
+      publicStyleExpected.split(before).length,
+      2,
+      `One exact reviewed public style type/import span: ${path}`,
+    );
+    publicStyleExpected = publicStyleExpected.replace(before, after);
+  }
+  assert.equal(
+    after,
+    publicStyleExpected,
+    `Only the exact four-body native public style successor: ${path}`,
+  );
+  const publicStyleEqual =
+    JSON.stringify(shape(publicStyleBefore, publicStyleBefore)) ===
+    JSON.stringify(shape(right, right));
+  const publicStyleCorrection = publicStylePaths.has(path);
+  if (publicStyleCorrection) {
+    assert(!publicStyleEqual);
+    publicStyleCorrectionBodies++;
+  } else {
+    assert.equal(after, publicStylePreimage, `Unchanged complete public style stage body: ${path}`);
+    assert(publicStyleEqual);
+    publicStyleUnchangedBodies++;
+    publicStyleAstPreservedBodies++;
   }
   const semanticOwnerCorrection = path === 'packages/utils/src/lib/PreviousValue.svelte.ts';
   const labelPublicationCorrection =
@@ -708,9 +968,9 @@ for (const module of graph.native.modules) {
           );
     }
     assert.equal(
-      after,
+      publicationPreimage,
       bindingDirectiveHygiene(path, expected),
-      `Only the authorized complete-body cleanup delta and binding comment: ${path}`,
+      `Only the historical complete-body cleanup delta and binding comment: ${path}`,
     );
   }
   if (semanticOwnerCorrection)
@@ -790,6 +1050,46 @@ for (const module of graph.native.modules) {
       : path.endsWith('ToolbarButton.svelte')
         ? 'Root-authorized captured-host identity guard for Toolbar cleanup of the existing actual button business node; forwarded disabled, prop sources, updateDisabled and native attachment setup remain. Execution pending.'
         : 'Root-authorized narrow submenu item publication and implicit-active registration boundary with actual Store/ID acquisition outside untrack; tracked list acquisition, conditional closeDelay, migration/disabled synchronization, registration/cleanup order and all callbacks remain. Native owner comments replace merged-ref wording. Execution pending.';
+  }
+  if (positionerPublicationCorrection) {
+    record.sourceBusinessCorrection = true;
+    record.sourcePositionerPublicationCorrection = true;
+    record.sourcePositionerPublicationPredecessor = positionerPublicationPredecessor;
+    record.sourcePositionerPublicationPredecessorSha256 = hash(publicationPreimage);
+    record.exactAuthorizedCompleteBodyDelta = true;
+    record.ordinaryDeclarationCredit = 0;
+    record.disposition +=
+      ' Root-authorized native untrack only around captured getRef/Store host publication and owned null cleanup; actual Store/host acquisition, publication order, pinned parent propagation and live positioning/effects remain. Candidate runtime execution pending.';
+  }
+  if (fieldBusinessCorrection) {
+    record.sourceBusinessCorrection = true;
+    record.sourceFieldBusinessCorrection = true;
+    record.sourceFieldBusinessPredecessor = fieldBusinessPredecessor;
+    record.sourceFieldBusinessPredecessorSha256 = hash(fieldBusinessPreimage);
+    record.exactAuthorizedCompleteBodyDelta = true;
+    record.ordinaryDeclarationCredit = 0;
+    record.disposition = path.endsWith('Error.svelte')
+      ? 'Root-reviewed supplied-content precedence: an own children property, including undefined, overrides generated error content in both actual native rendering branches; host props exclude children. Message selection/order, native unkeyed list, registration and transition business remain. Candidate execution pending.'
+      : 'Root-reviewed live imperative message-ID resource with native raw publication; functional updates use the current resource through sibling cleanup/setup. Append/filter order, captured cleanup IDs, parent/external descriptions and Set deduplication remain. Candidate execution pending.';
+  }
+  if (panelMotionCorrection) {
+    record.sourceBusinessCorrection = true;
+    record.sourceNativePanelMotionCorrection = true;
+    record.sourceNativePanelMotionPredecessor = panelMotionPredecessor;
+    record.sourceNativePanelMotionPredecessorSha256 = hash(panelMotionPreimage);
+    record.exactAuthorizedCompleteBodyDelta = true;
+    record.ordinaryDeclarationCredit = 0;
+    record.disposition =
+      'Root-reviewed accepted-beforematch motion state for the actual host/open cycle feeds derived native markup through dimension commits; close resolves live authored duration before motion measurement. Captured host cleanup clears only its state. Detached hosts retain last native markup, and consumer important declarations/custom-host style directives keep native precedence. Public style remains string or state-to-string. Existing cancellation, skip consumption, measurement and observer business remain. Successor execution pending; zero divergent unchanged Original credit.';
+  }
+  if (publicStyleCorrection) {
+    record.sourceNativePublicStyleCorrection = true;
+    record.sourceNativePublicStylePredecessor = publicStylePredecessor;
+    record.sourceNativePublicStylePredecessorSha256 = hash(publicStylePreimage);
+    record.exactAuthorizedCompleteBodyDelta = true;
+    record.ordinaryDeclarationCredit = 0;
+    record.disposition +=
+      ' Native public style type/import successor derives CSS string/null/undefined from Svelte HTMLAttributes and preserves the existing exact state callback across canonical and legacy declarations. Only four complete type/import bodies change against 4aa; pure internal CSS records, serialization, merge/identity, functions/effects, hosts and all earlier runtime business remain exact. Source proof supplies no new type, artifact, runtime or Original assertion acceptance; execution pending.';
   }
   if (installedLabelCorrection || installedTreeCorrection) {
     record.sourceBusinessPredecessor = cleanupPredecessor;
@@ -964,6 +1264,132 @@ assert.equal(buttonDefaultAstPreservedBodies, 496);
 assert.equal(buttonDefaultUnchangedBodies, 486);
 assert.equal(nativeContractAstPreservedBodies, 486);
 assert.equal(hostBusinessAstPreservedBodies, 493);
+assert.equal(positionerPublicationAstPreservedBodies, 495);
+const publicationLifetime = JSON.parse(
+  readFileSync(
+    resolve(root, 'parity/native-snippets/menu-positioner-publication-lifetime.json'),
+    'utf8',
+  ),
+);
+assert.equal(publicationLifetime.predecessor, positionerPublicationPredecessor);
+assert.equal(publicationLifetime.pin, graph.immutableOriginalPin);
+assert.equal(publicationLifetime.ordinaryDeclarationCredit, 0);
+assert.equal(publicationLifetime.runtime.path, positionerPublicationRuntime);
+assert.equal(
+  hash(readFileSync(resolve(root, publicationLifetime.runtime.path))),
+  publicationLifetime.runtime.sha256,
+);
+assert.equal(
+  hash(git('show', `${positionerPublicationPredecessor}:${positionerPublicationRuntime}`)),
+  publicationLifetime.runtime.predecessorSha256,
+);
+for (const original of publicationLifetime.original)
+  assert.equal(hash(readFileSync(resolve(root, original.archive))), original.sha256);
+for (const witness of publicationLifetime.unchangedWitnesses) {
+  const body = readFileSync(resolve(root, witness.path));
+  assert.equal(hash(body), witness.sha256, `Changed Positioner witness: ${witness.path}`);
+  assert.equal(body.toString(), git('show', `${positionerPublicationPredecessor}:${witness.path}`));
+}
+assert.equal(fieldBusinessAstPreservedBodies, 494);
+assert.equal(fieldBusinessUnchangedBodies, 494);
+assert.equal(fieldBusinessCorrectionBodies, 2);
+const fieldCorrespondence = JSON.parse(
+  readFileSync(resolve(root, 'parity/field-form/source-correspondence.json'), 'utf8'),
+);
+const fieldStage = fieldCorrespondence.nativeSnippetFieldBusinessRepair;
+assert.equal(fieldStage.predecessor, fieldBusinessPredecessor);
+assert.equal(fieldStage.historicalSourceSuccessor, panelMotionPredecessor);
+assert.equal(fieldStage.pin, graph.immutableOriginalPin);
+assert.equal(fieldStage.ordinaryDeclarationCredit, 0);
+assert.deepEqual(
+  fieldStage.runtime.map((runtime) => runtime.path),
+  [...fieldBusinessPaths],
+);
+for (const runtime of fieldStage.runtime) {
+  assert.equal(hash(readFileSync(resolve(root, runtime.path))), runtime.sha256);
+  assert.equal(
+    hash(git('show', `${fieldBusinessPredecessor}:${runtime.path}`)),
+    runtime.predecessorSha256,
+  );
+}
+const fieldOriginalInventory = JSON.parse(
+  readFileSync(resolve(root, 'parity/field-form/upstream-inventory.json'), 'utf8'),
+);
+assert.equal(fieldOriginalInventory.upstream.commit, graph.immutableOriginalPin);
+assert.deepEqual(
+  fieldStage.original.map((original) => original.path),
+  [
+    'packages/react/src/field/error/FieldError.tsx',
+    'packages/react/src/internals/labelable-provider/LabelableProvider.tsx',
+  ],
+);
+for (const original of fieldStage.original) {
+  assert.equal(
+    fieldOriginalInventory.sources.find((source) => source.source === original.path).sha256,
+    original.sha256,
+  );
+  assert.equal(
+    fieldCorrespondence.records.find((record) => record.source === original.path).sourceSha256,
+    original.sha256,
+  );
+}
+assert.deepEqual(
+  fieldStage.unchangedWitnesses.map((witness) => witness.path),
+  [
+    'packages/base/tests/dom/field-validation-source.test.ts',
+    'packages/base/tests/dom/FieldValidationSourceFixture.svelte',
+    'packages/base/tests/dom/field-error-ownership.test.ts',
+    'packages/base/tests/dom/FieldFormFixture.svelte',
+    'packages/base/tests/dom/NativeErrorMessagesFixture.svelte',
+    'packages/base/tests/dom/field-registration-ids.test.ts',
+    'packages/base/tests/dom/FieldRegistrationIdsFixture.svelte',
+  ],
+);
+for (const witness of fieldStage.unchangedWitnesses) {
+  const body = readFileSync(resolve(root, witness.path));
+  assert.equal(hash(body), witness.sha256, `Changed Field witness body: ${witness.path}`);
+  assert.equal(body.toString(), git('show', `${fieldBusinessPredecessor}:${witness.path}`));
+}
+assert.equal(panelMotionAstPreservedBodies, 495);
+assert.equal(panelMotionUnchangedBodies, 495);
+assert.equal(panelMotionCorrectionBodies, 1);
+assert.equal(publicStyleAstPreservedBodies, 492);
+assert.equal(publicStyleUnchangedBodies, 492);
+assert.equal(publicStyleCorrectionBodies, 4);
+const panelMotionLifetime = JSON.parse(
+  readFileSync(
+    resolve(root, 'parity/native-snippets/collapsible-panel-motion-lifetime.json'),
+    'utf8',
+  ),
+);
+assert.equal(panelMotionLifetime.predecessor, panelMotionPredecessor);
+assert.equal(panelMotionLifetime.pin, graph.immutableOriginalPin);
+assert.equal(panelMotionLifetime.ordinaryDeclarationCredit, 0);
+assert.equal(panelMotionLifetime.runtime.path, panelMotionRuntime);
+assert.equal(
+  hash(readFileSync(resolve(root, panelMotionRuntime))),
+  panelMotionLifetime.runtime.sha256,
+);
+assert.equal(
+  hash(git('show', `${panelMotionPredecessor}:${panelMotionRuntime}`)),
+  panelMotionLifetime.runtime.predecessorSha256,
+);
+const panelOriginalInventory = JSON.parse(
+  readFileSync(resolve(root, 'parity/collapsible/upstream-inventory.json'), 'utf8'),
+);
+assert.equal(panelOriginalInventory.upstream.commit, graph.immutableOriginalPin);
+assert.deepEqual(
+  panelMotionLifetime.original.map((original) => original.path),
+  [
+    'packages/react/src/collapsible/panel/CollapsiblePanel.tsx',
+    'packages/react/src/collapsible/panel/useCollapsiblePanel.ts',
+  ],
+);
+for (const original of panelMotionLifetime.original)
+  assert.equal(
+    panelOriginalInventory.sources.find((source) => source.source === original.path).sha256,
+    original.sha256,
+  );
 const buttonDefaultOriginal = {
   pin: graph.immutableOriginalPin,
   path: 'packages/react/src/internals/useRenderElement.tsx',
@@ -1000,6 +1426,32 @@ const output = {
     .map((record) => record.path),
   hostBusinessPredecessor,
   hostBusinessAstPreservedBodies,
+  positionerPublicationPredecessor,
+  positionerPublicationAstPreservedBodies,
+  sourcePositionerPublicationCorrectionPaths: records
+    .filter((record) => record.sourcePositionerPublicationCorrection)
+    .map((record) => record.path),
+  fieldBusinessPredecessor,
+  fieldBusinessAstPreservedBodies,
+  fieldBusinessUnchangedBodies,
+  fieldBusinessCorrectionBodies,
+  sourceFieldBusinessCorrectionPaths: records
+    .filter((record) => record.sourceFieldBusinessCorrection)
+    .map((record) => record.path),
+  panelMotionPredecessor,
+  panelMotionAstPreservedBodies,
+  panelMotionUnchangedBodies,
+  panelMotionCorrectionBodies,
+  sourceNativePanelMotionCorrectionPaths: records
+    .filter((record) => record.sourceNativePanelMotionCorrection)
+    .map((record) => record.path),
+  publicStylePredecessor,
+  publicStyleAstPreservedBodies,
+  publicStyleUnchangedBodies,
+  publicStyleCorrectionBodies,
+  sourceNativePublicStyleCorrectionPaths: records
+    .filter((record) => record.sourceNativePublicStyleCorrection)
+    .map((record) => record.path),
   sourceHostBusinessLifetimeCorrectionPaths: records
     .filter((record) => record.sourceHostBusinessLifetimeCorrection)
     .map((record) => record.path),
@@ -1010,7 +1462,7 @@ const output = {
   ordinaryDeclarationCredit: 0,
   mode: 'Source/parser/hash/import evidence only; no type program, runtime, SSR/hydration, compiled markup, artifact, installed consumer, browser, CI or merge acceptance credit.',
   method:
-    'Complete current native two-package AST closure, immutable f0 full-body preimages and grouping-preserving script ASTs. Deliberate source/native owner corrections remain separate from formatter presentation changes. Getter/label publication retain exact inherited bodies; full-body Menu cleanup deltas bind e5, captured focus metadata binds42, trigger publication bindsf2, and native ownership comments bind336 with its AST unchanged. The five native node/initial-seed/focus-out disposal owner deltas bindc392 while all earlier stages/history remain distinct. The subsequent 32 obsolete binding directives and one RadioGroup output-binding annotation bind 0d with all 496 complete bodies otherwise unchanged and every script AST identical. The next native initial-focus destroyed-owner predicate and adjacent timing comment bind ec36 as one complete Source-body delta; all other 495 current bodies/ASTs stay exact. This native owner adaptation earns zero unchanged Original credit. The subsequent real Popover trigger focus-target node property binds 0ba as one complete Source-body delta with 495 other current bodies/ASTs exact; earlier stages retain their own immutable preservation counts. The next ten intrinsic button fallback defaults bind d5 as exact literal attributes before props spread; all 496 script ASTs and 486 other full bodies remain unchanged. Custom render branches and merged props remain untouched. The Original fallback default is expressed as native host markup with no shared renderer or new assertion credit. The subsequent ten native declaration/producer contract repairs bind c0 as exact complete-body transforms; the other 486 bodies and script ASTs remain exact. Seven declaration paths, a ToastClose rune-collision identifier rename and two known appearance producers retain their existing business and handler composition. Type/runtime acceptance remains pending. The next three native host-business lifetime deltas bind c04 as exact complete bodies: an ordinary getter over the actual button node, Toolbar captured-host cleanup and narrow submenu imperative item/implicit-active publication. The other 493 current bodies/ASTs are exact, and prior c0/d5 preservation counts remain historical. Disabled/prop/event algorithms, tracked list acquisition and independent migration/closeDelay effects remain. Parse success supplies no behavior equivalence.',
+    'Complete current native two-package AST closure, immutable f0 full-body preimages and grouping-preserving script ASTs. Deliberate source/native owner corrections remain separate from formatter presentation changes. Getter/label publication retain exact inherited bodies; full-body Menu cleanup deltas bind e5, captured focus metadata binds42, trigger publication bindsf2, and native ownership comments bind336 with its AST unchanged. The five native node/initial-seed/focus-out disposal owner deltas bindc392 while all earlier stages/history remain distinct. The subsequent 32 obsolete binding directives and one RadioGroup output-binding annotation bind 0d with all 496 complete bodies otherwise unchanged and every script AST identical. The next native initial-focus destroyed-owner predicate and adjacent timing comment bind ec36 as one complete Source-body delta; all other 495 current bodies/ASTs stay exact. This native owner adaptation earns zero unchanged Original credit. The subsequent real Popover trigger focus-target node property binds 0ba as one complete Source-body delta with 495 other current bodies/ASTs exact; earlier stages retain their own immutable preservation counts. The next ten intrinsic button fallback defaults bind d5 as exact literal attributes before props spread; all 496 script ASTs and 486 other full bodies remain unchanged. Custom render branches and merged props remain untouched. The Original fallback default is expressed as native host markup with no shared renderer or new assertion credit. The subsequent ten native declaration/producer contract repairs bind c0 as exact complete-body transforms; the other 486 bodies and script ASTs remain exact. Seven declaration paths, a ToastClose rune-collision identifier rename and two known appearance producers retain their existing business and handler composition. Type/runtime acceptance remains pending. The next three native host-business lifetime deltas bind c04 as exact complete bodies: an ordinary getter over the actual button node, Toolbar captured-host cleanup and narrow submenu imperative item/implicit-active publication. The other 493 current bodies/ASTs are exact, and prior c0/d5 preservation counts remain historical. Disabled/prop/event algorithms, tracked list acquisition and independent migration/closeDelay effects remain. Parse success supplies no behavior equivalence. The next single Positioner imperative publication/cleanup boundary binds the full d390 preimage; the other 495 complete bodies/ASTs stay exact, while all earlier historical stage counts remain unchanged. Actual context Store and host acquisition, pinned parent subscription, synchronous callback order and live positioning/effects remain. This source proof grants no runtime-cause, pass or unchanged Original assertion credit. The subsequent two reviewed Field business repairs bind the complete acde preimages: own supplied-child presence controls Error content and a live imperative message-ID resource publishes through native raw state. Only those exact reviewed spans change; the other 494 complete bodies and script ASTs stay exact. The d390 Menu boundary and every earlier preservation count remain historical. Original inventory/correspondence hashes and all existing Field witness bodies remain unchanged, with zero new declaration or execution credit. The next one-body Collapsible Panel stage binds the complete coherent Field predecessor with 495 other bodies and grouping-preserving script ASTs exact. Accepted-beforematch motion becomes actual-host/open-cycle native state and derived zero-duration markup; close resolves live authored duration. The acde-to-Field two-body 494 stage and d390-to-acde Menu 495 stage remain historical. Detached native markup and consumer important/custom-host overrides are intentional native boundaries with zero divergent unchanged Original credit. Separate favicon and supplemental assertion edits are non-runtime metadata; Source proof grants no successor execution or acceptance credit. The subsequent four-body native public style type/import stage binds the complete 4aa predecessor, preserving all 492 other complete bodies and grouping-preserving script ASTs. The historical one-Panel 495, two-Field 494 and Menu 495 stages are frozen against their exact predecessor/successor bodies rather than rewritten for current declarations. Canonical NativeStyle derives Svelte CSS string/null/undefined, and legacy Dialog/Avatar/Toast reuse the same state-specific style slot. Internal style records, pure serialization and merge/identity function bodies remain; no runtime guard or object-business rewrite is introduced. Earlier authored public object-style API and prior receipts stay historical; this declaration correction earns zero divergent unchanged Original credit and no type/runtime/artifact/acceptance credit before actual gates.',
   parserVersions: { TypeScript: ts.version, Svelte: compiler.VERSION },
   currentGraphSha256: hash(
     readFileSync(resolve(root, 'parity/utils-package/current-source-graph.json')),

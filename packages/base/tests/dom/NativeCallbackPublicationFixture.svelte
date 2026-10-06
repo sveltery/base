@@ -14,7 +14,8 @@
   let tooltipRequests = $state.raw<boolean[]>([]);
   let disabledIndices = $state.raw<number[]>([]);
   let highlightedRequests = $state.raw<number[]>([]);
-  let representativeInputs = $state.raw<(HTMLInputElement | null)[]>([]);
+  let representativeInput = $state<HTMLInputElement | null | undefined>();
+  let representativeInputs = $state.raw<(HTMLInputElement | null | undefined)[]>([]);
 
   export function setDisabled(next: boolean) {
     disabled = next;
@@ -60,9 +61,13 @@
 <output data-highlighted-requests>{highlightedRequests.length}</output>
 <RadioGroup
   defaultValue="selected"
-  inputRef={(input) => {
-    representativeInputs = [...representativeInputs, input];
-  }}
+  bind:inputRef={
+    () => representativeInput,
+    (input) => {
+      representativeInput = input;
+      representativeInputs = [...representativeInputs, input];
+    }
+  }
 >
   <Radio.Root value="selected" />
 </RadioGroup>

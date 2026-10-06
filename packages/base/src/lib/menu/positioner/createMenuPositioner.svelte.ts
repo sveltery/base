@@ -252,12 +252,15 @@ export function createMenuPositioner(
   );
   const hostAttachmentKey = createAttachmentKey();
   function attachHost(host: HTMLElement) {
-    getRef(host);
-    setPositionerElement(host);
-    return () => {
-      getRef(null);
-      setPositionerElement(null);
-    };
+    return untrack(() => {
+      getRef(host);
+      setPositionerElement(host);
+      return () =>
+        untrack(() => {
+          getRef(null);
+          setPositionerElement(null);
+        });
+    });
   }
   const element = usePositioner(
     () => state,

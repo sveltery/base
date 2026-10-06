@@ -1,18 +1,18 @@
 // Supplemental exact-pin getter ownership regressions; no ordinary declaration credit.
 import { expect, it, vi } from 'vitest';
 import { mergeProps, mergePropsN } from '../src/lib/merge-props/index.js';
-function resolveSources(sources?: UseRenderPropSources): UseRenderHostProps {
+function resolveSources(sources?: ComponentPropSources): ComponentHostProps {
   return Array.isArray(sources)
     ? mergePropsN(sources)
     : mergeProps(
         undefined,
-        sources as UseRenderHostProps | ((previous: UseRenderHostProps) => UseRenderHostProps),
+        sources as ComponentHostProps | ((previous: ComponentHostProps) => ComponentHostProps),
       );
 }
 import type { HTMLProps } from '../src/lib/internals/types.js';
-import type { UseRenderElementParameters } from '../src/lib/internals/useRenderElement.js';
-type UseRenderHostProps = HTMLProps;
-type UseRenderPropSources = NonNullable<UseRenderElementParameters<object>['props']>;
+import type { PropSources } from '../src/lib/internals/mergeComponentProps.js';
+type ComponentHostProps = HTMLProps;
+type ComponentPropSources = PropSources;
 it('copies the first getter result while later getters own the mutable accumulator', () => {
   const first = { id: 'before' };
   const firstResult = resolveSources([() => first, { id: 'after' }]);
@@ -46,15 +46,15 @@ it('preserves getter-owned handler identity through later ordinary non-handler p
 it('initializes slot zero even when falsy, preserving later getter ownership and inherited keys', () => {
   for (const initial of [undefined, null, false, 0, '']) {
     const owned = { id: 'before' };
-    const sources = [initial, () => owned, { id: 'after' }] as unknown as UseRenderPropSources;
+    const sources = [initial, () => owned, { id: 'after' }] as unknown as ComponentPropSources;
     expect(resolveSources(sources)).toBe(owned);
     expect(owned.id).toBe('after');
     const frozen = Object.freeze({ id: 'before' });
     expect(() =>
-      resolveSources([initial, () => frozen, { id: 'after' }] as unknown as UseRenderPropSources),
+      resolveSources([initial, () => frozen, { id: 'after' }] as unknown as ComponentPropSources),
     ).toThrow(TypeError);
     expect(
-      resolveSources([initial, Object.create({ 'data-inherited': 'yes' })] as UseRenderPropSources)[
+      resolveSources([initial, Object.create({ 'data-inherited': 'yes' })] as ComponentPropSources)[
         'data-inherited'
       ],
     ).toBe('yes');
@@ -71,7 +71,7 @@ it('copies first literal empty classes and explicit undefined handler own keys',
   expect(Object.hasOwn(later, 'onmousedown')).toBe(true);
 });
 it('shares the mutable first-getter input with empty-array results', () => {
-  let first: UseRenderHostProps | undefined;
+  let first: ComponentHostProps | undefined;
   try {
     resolveSources((previous) => {
       first = previous;

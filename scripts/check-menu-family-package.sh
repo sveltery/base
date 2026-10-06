@@ -30,7 +30,7 @@ cat > "$menu_consumer/Consumer.svelte" <<'SVELTE'
   let ref = $state<HTMLElement | null | undefined>();
   let actions = $state<Menu.Root.Actions | null>(null);
   const root: MenuRootProps<Payload> = { handle, modal: false, open: undefined, onOpenChange(value, details) { const open: boolean = value; const native: Event = details.event; details.cancel(); details.preventUnmountOnClose(); void [open, native]; } };
-  const trigger: MenuTriggerProps<Payload> = { handle, payload: { value: 7 }, disabled: undefined, nativeButton: undefined, class: state => ['trigger', { open: state.open }], style: state => ({ opacity: state.disabled ? 0.5 : 1 }) };
+  const trigger: MenuTriggerProps<Payload> = { handle, payload: { value: 7 }, disabled: undefined, nativeButton: undefined, class: state => ['trigger', { open: state.open }], style: state => `opacity:${state.disabled ? 0.5 : 1}` };
   const positioner: MenuPositionerProps = { side: 'inline-end', sideOffset: data => data.anchor.height + data.positioner.width, alignOffset: undefined, collisionBoundary: undefined };
   const checkbox: MenuCheckboxItemProps = { checked: undefined, defaultChecked: undefined, onCheckedChange: undefined, closeOnClick: undefined };
   const radios: MenuRadioGroupProps = { value: undefined, defaultValue: undefined, onValueChange: undefined };

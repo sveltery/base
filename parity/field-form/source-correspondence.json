@@ -2245,5 +2245,81 @@
     "record": "../utils-package/current-source-graph.json",
     "ordinaryDeclarationCredit": 0,
     "status": "Current package destinations and hashes; frozen source/construction/acceptance/run receipts remain historical. Complete current graph and exact final-head Source/native/maintainability review supersede earlier inventory acceptance."
+  },
+  "nativeSnippetFieldBusinessRepair": {
+    "predecessor": "acdebb8eeb910c48230343324f6284b682bf289b",
+    "pin": "47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c",
+    "ordinaryDeclarationCredit": 0,
+    "status": "Root and fresh independent reviewer cleared the exact two runtime Source bodies. Appended Source proof, candidate compilation/runtime and final acceptance remain pending; this record grants no execution credit.",
+    "runtime": [
+      {
+        "path": "packages/base/src/lib/field/Error.svelte",
+        "sha256": "05739931c12316934d01ef80ccf02a4939bd5e1d3dcf97d84d571aad3617f5f9",
+        "predecessorSha256": "7e007fe24b6f83e8aa07f900debe727b0b82f264b1ae26a59f4431a3f1727e8b",
+        "predecessorArchive": "parity/native-snippets/historical/field-business-acdebb8e/packages/base/src/lib/field/Error.svelte"
+      },
+      {
+        "path": "packages/base/src/lib/internals/labelable-provider/createLabelableProvider.svelte.ts",
+        "sha256": "b5cf2b6efd42c5038cc6786bf325a6a450aff387474f2df008fa79d2a06694c6",
+        "predecessorSha256": "9ce1ea17271037b30dd8e87329af13c2e6ebbad246809e625fa97aff7ef1a3d0",
+        "predecessorArchive": "parity/native-snippets/historical/field-business-acdebb8e/packages/base/src/lib/internals/labelable-provider/createLabelableProvider.svelte.ts"
+      }
+    ],
+    "original": [
+      {
+        "path": "packages/react/src/field/error/FieldError.tsx",
+        "sha256": "fd4823039d4e6ea67479782d336ee3f1c04662f6def97c2910a612083e80cc4b",
+        "contract": "Generated children precede elementProps; an own supplied children property, including undefined, overrides computed error content."
+      },
+      {
+        "path": "packages/react/src/internals/labelable-provider/LabelableProvider.tsx",
+        "sha256": "f098e676a1e108ef96774499f3ee44cc9adba246b33dc81018b836bc99cbc2d1",
+        "contract": "One ordered current message-ID collection receives append/filter updates; sibling replacement/removal retains every still-installed message."
+      }
+    ],
+    "boundaries": {
+      "errorContent": "Native live children/hostProps destructuring and own-property content selection feed the existing custom snippet or intrinsic branch. Explicit undefined renders empty; absent children select generated content. Match/disabled/validity, selected arrays/order, retained exit message/key, native unkeyed rows, transition/completion and captured registration/attachment bodies remain.",
+      "messageIds": "The plain current array owns imperative message registration; $state.raw publishes the exact latest array to existing context/description readers. No copying effect, queued dispatch, alternate registry, extra cleanup or untrack workaround is added. Original append/filter API, installed-ID capture, order, parent/external descriptions and final Set deduplication remain."
+    },
+    "unchangedWitnesses": [
+      {
+        "path": "packages/base/tests/dom/field-validation-source.test.ts",
+        "sha256": "c73a69912ea0dd1e5235254f4701a8eb5e9c4a5249ebc62fdc48fe162d143655",
+        "bodyUnchanged": true
+      },
+      {
+        "path": "packages/base/tests/dom/FieldValidationSourceFixture.svelte",
+        "sha256": "44329fcbc7054ca688adcf39757f456e766f6a266258d101b1e63f5fc9f06444",
+        "bodyUnchanged": true
+      },
+      {
+        "path": "packages/base/tests/dom/field-error-ownership.test.ts",
+        "sha256": "8a4bee7d24ed2993300fe81a29aa951ab4a821e398d1f6b3e628ae5a461f989b",
+        "bodyUnchanged": true
+      },
+      {
+        "path": "packages/base/tests/dom/FieldFormFixture.svelte",
+        "sha256": "ceb61d4ecc5b800652aa27267e32a49c5ef0bb7ae00fe3f117f53fe7dd05c8d9",
+        "bodyUnchanged": true
+      },
+      {
+        "path": "packages/base/tests/dom/NativeErrorMessagesFixture.svelte",
+        "sha256": "1e65f241ee923756b11d649da1334af1b7f9816a4d291a9c84693e922525a21b",
+        "bodyUnchanged": true
+      },
+      {
+        "path": "packages/base/tests/dom/field-registration-ids.test.ts",
+        "sha256": "d48565798744cc468fd716c6b73b177e45f20d46de47196fe69a794e36f941f1",
+        "bodyUnchanged": true
+      },
+      {
+        "path": "packages/base/tests/dom/FieldRegistrationIdsFixture.svelte",
+        "sha256": "c746c9ba96701e14553a484206ea000755b17a8251bc198598ef2471fd62c9d9",
+        "bodyUnchanged": true
+      }
+    ],
+    "proof": "scripts/check-native-snippet-integration.mjs appends exact acde-to-current transforms for these two whole bodies and strict whole-body/grouping-preserving script AST equality for the other 494 of 496. Earlier stages, Menu 495 and all prior archives remain historical and exact.",
+    "execution": "The finalized acde predecessor DOM log records 11 Field failures across the unchanged three suites. Candidate parsing/types/DOM/package/browser/CI results remain pending; all existing assertion tails must execute unchanged. No new Original or ordinary declaration credit.",
+    "historicalSourceSuccessor": "826eb1d863a231928c4cc040f894737449563d4b"
   }
 }

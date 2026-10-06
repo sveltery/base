@@ -112,6 +112,30 @@ jobs:
         run: pnpm exec playwright install --with-deps chromium
       - name: Public Svelte component browser
         run: pnpm test:component
+      - name: Record actual early-close Dialog animation samples
+        run: pnpm exec playwright test --config playwright.dialog-diagnostic.config.ts
+      - name: Preserve actual Dialog animation diagnostic
+        if: always()
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2
+        with:
+          name: dialog-animation-diagnostic
+          path: .checks/dialog-animation-diagnostic/
+          if-no-files-found: error
+          retention-days: 14
+      - name: Witness real pending Dialog exit animations
+        run: >-
+          pnpm exec playwright test --config playwright.source-core.config.ts
+          tests/browser/dialog.spec.ts tests/browser/dialog-motion-source.spec.ts
+          --grep 'completed exit cycles|returned focus marks|reopening while a physical exit'
+          --trace on --output .checks/dialog-animation-repair
+      - name: Preserve actual pending-exit Source animation witnesses
+        if: always()
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2
+        with:
+          name: dialog-animation-repair
+          path: .checks/dialog-animation-repair/
+          if-no-files-found: error
+          retention-days: 14
       - name: Focused Dialog Source lifecycle pairs
         run: >-
           pnpm exec playwright test --config playwright.source-core.config.ts
@@ -173,15 +197,21 @@ jobs:
         run: pnpm --filter @sveltery/base build
       - name: Install official Chromium and OS dependencies
         run: pnpm exec playwright install --with-deps chromium
-      - name: Paired exact-pin Collapsible acceptance
-        # A failing run stops early for diagnosis; a passing run executes every case.
-        run: pnpm exec playwright test tests/browser/collapsible.spec.ts --max-failures=5
-      - name: Preserve Collapsible browser failure traces
-        if: failure()
+      - name: Paired exact-pin Collapsible acceptance and native diagnostic
+        env:
+          PLAYWRIGHT_JSON_OUTPUT_NAME: .checks/collapsible/browser-results.json
+        run: |
+          set -o pipefail
+          mkdir -p .checks/collapsible
+          pnpm exec playwright test tests/browser/collapsible.spec.ts --reporter=list,json 2>&1 | tee .checks/collapsible/browser.log
+      - name: Preserve actual Collapsible JSON observations and traces
+        if: always()
         uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2
         with:
-          name: collapsible-browser-failures
-          path: test-results/collapsible-*/
+          name: collapsible-browser-evidence
+          path: |
+            .checks/collapsible/
+            test-results/
           if-no-files-found: warn
           retention-days: 14
 
@@ -324,8 +354,8 @@ jobs:
           if-no-files-found: warn
           retention-days: 14
 
-  use-render-browser:
-    name: UseRender browser
+  native-snippets-browser:
+    name: Native snippets browser
     runs-on: ubuntu-22.04
     timeout-minutes: 15
     steps:
@@ -347,13 +377,13 @@ jobs:
         run: pnpm --filter @sveltery/base build
       - name: Install official Chromium and OS dependencies
         run: pnpm exec playwright install --with-deps chromium
-      - name: Paired exact-pin UseRender acceptance
-        run: pnpm exec playwright test tests/browser/use-render.spec.ts --max-failures=5
-      - name: Preserve UseRender browser failure traces
+      - name: Actual public native snippet acceptance
+        run: pnpm exec playwright test tests/browser/native-snippets.spec.ts --max-failures=5
+      - name: Preserve Native snippets browser failure traces
         if: failure()
         uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2
         with:
-          name: use-render-browser-failures
-          path: test-results/use-render-*/
+          name: native-snippets-browser-failures
+          path: test-results/native-snippets-*/
           if-no-files-found: warn
           retention-days: 14

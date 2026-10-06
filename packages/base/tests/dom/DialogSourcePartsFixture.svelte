@@ -39,7 +39,7 @@
       <Dialog.Viewport
         bind:ref={viewport}
         class={(state) => ['native-viewport', { active: state.open }]}
-        style={(state) => ({ '--open': Number(state.open) })}
+        style={(state) => `--open:${Number(state.open)}`}
         data-testid="parts-viewport"
       >
         <Dialog.Popup

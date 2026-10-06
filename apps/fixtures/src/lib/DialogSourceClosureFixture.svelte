@@ -64,7 +64,7 @@
             bind:ref={viewport}
             data-testid="closure-viewport"
             class={(state) => ['viewport', { active: state.open }]}
-            style={(state) => ({ '--open': Number(state.open) })}
+            style={(state) => `--open:${Number(state.open)}`}
           >
             <Dialog.Popup>
               <Dialog.Title>Source closure</Dialog.Title><Dialog.Description

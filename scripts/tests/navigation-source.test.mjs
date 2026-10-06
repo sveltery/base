@@ -4,9 +4,9 @@ import { readFileSync } from 'node:fs';
 import { test } from 'node:test';
 import { checkNavigationApi, extractNavigationApi } from '../../parity/toggle-toolbar/docs-api.mjs';
 import {
-  checkNativeClosure,
-  extractNativeClosure,
-} from '../../parity/toggle-toolbar/native-closure.mjs';
+  extractCurrentFamilyProjection,
+  verifyCurrentFamilyProjections,
+} from '../native-family-projection.mjs';
 const read = (path) => readFileSync(new URL(`../../${path}`, import.meta.url));
 test('owned navigation API snapshot derives all actual eight exported components and types', () => {
   checkNavigationApi();
@@ -15,29 +15,25 @@ test('owned navigation API snapshot derives all actual eight exported components
     ['Toggle', 'ToggleGroup', 'Root', 'Group', 'Button', 'Input', 'Link', 'Separator'],
   );
 });
-test('navigation actual native runtime/type closure and all selected Source mappings preserve exact local bytes', () => {
-  checkNativeClosure();
-  const native = extractNativeClosure();
-  const correspondence = JSON.parse(read('parity/toggle-toolbar/source-correspondence.json'));
+test('current navigation reachability and explicit native counterparts preserve exact current bytes without historical acceptance credit', () => {
+  verifyCurrentFamilyProjections();
+  const native = extractCurrentFamilyProjection('toggle-toolbar');
   const mapped = new Map(
-    correspondence.records.flatMap((record) => Object.entries(record.localHashes ?? {})),
-  );
-  for (const record of correspondence.nativeRepresentationModules)
-    mapped.set(record.local, record.sha256);
-  const modulePaths = new Set(native.modules.map((record) => record.source));
-  for (const owner of ['Controlled.svelte.ts', 'useMergedRefs.ts'])
-    assert(modulePaths.has(`packages/utils/src/lib/${owner}`), owner);
-  assert(
-    native.modules.every(
-      (record) =>
-        !/\/(useControlled|useIsoLayoutEffect|useStableCallback|useRefWithInit|useOnMount|usePreviousValue|useValueChanged)(?:\.svelte)?\.ts$/.test(
-          record.source,
-        ),
+    native.records.flatMap((record) =>
+      record.local.map((module) => [module.source, module.sha256]),
     ),
   );
+  for (const record of native.nativeRepresentationModules) mapped.set(record.source, record.sha256);
   assert.equal(mapped.size, native.modules.length);
   for (const record of native.modules)
     assert.equal(mapped.get(record.source), record.sha256, record.source);
+  assert.equal(native.unchangedParityCredit, 0);
+  assert(native.records.every((record) => record.unchangedParityCredit === 0));
+  assert(
+    native.records
+      .filter((record) => record.retiredLocal.length)
+      .every((record) => record.nativeReplacement),
+  );
   assert(
     native.external.every((dependency) =>
       /^external:(svelte(?:\/.*)?|esm-env|@floating-ui\/utils\/dom)$/.test(dependency),

@@ -1,4 +1,4 @@
-// Compare real native markup with the actual shared renderer, including reactive updates.
+// Compare real native markup with the actual Separator component, including reactive updates.
 import { afterEach, expect, it } from 'vitest';
 import { flushSync, mount, unmount } from 'svelte';
 import type { ClassValue } from 'svelte/elements';
@@ -11,7 +11,10 @@ afterEach(async () => {
 });
 
 it('matches native class attributes and host identity across scalar, array and object updates', () => {
-  const inherited = Object.assign(Object.create({ inherited: true }), { own: true, hidden: false });
+  const inherited = Object.assign(Object.create({ inherited: true }), {
+    own: true,
+    hidden: false,
+  });
   const cases: ClassValue[] = [
     undefined,
     null,

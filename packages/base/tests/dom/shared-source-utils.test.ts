@@ -112,11 +112,12 @@ it('uses a stable native closure during setup, attachment, effects and same-turn
 });
 
 it('native: tracks actual effect reads and cleans up before rerunning', async () => {
-  const { component } = await setup();
+  const { component, target } = await setup();
   expect(component.snapshot().effectRuns).toBe(1);
   component.setUnrelated(1);
   component.setCallbackRead(1);
   await tick();
+  expect(target.querySelector('[data-value]')!.getAttribute('data-unrelated')).toBe('1');
   expect(component.snapshot().effectRuns).toBe(2);
   expect(component.snapshot().effectCleanups).toBe(1);
   component.setDependency(-0);

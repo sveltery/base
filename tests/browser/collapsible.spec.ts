@@ -7,7 +7,10 @@ async function setup(page: Page, scenario: string, reference: boolean) {
   await page.waitForFunction(() =>
     Boolean((window as Window & { collapsibleFlush?: unknown }).collapsibleFlush),
   );
-  return { trigger: page.locator('#tested-trigger'), panel: page.getByTestId('panel') };
+  return {
+    trigger: page.locator('#tested-trigger'),
+    panel: page.getByTestId('panel'),
+  };
 }
 async function calls(page: Page) {
   return JSON.parse(await page.getByTestId('calls').innerText()) as {
@@ -46,9 +49,14 @@ async function animations(page: Page) {
 }
 async function installRace(page: Page, phase: 'open' | 'close') {
   await page.addInitScript((phase) => {
-    const browser = window as Window & { race?: Animation; raceStarted?: boolean };
+    const browser = window as Window & {
+      race?: Animation;
+      raceStarted?: boolean;
+    };
     (
-      globalThis as typeof globalThis & { BASE_UI_ANIMATIONS_DISABLED?: boolean }
+      globalThis as typeof globalThis & {
+        BASE_UI_ANIMATIONS_DISABLED?: boolean;
+      }
     ).BASE_UI_ANIMATIONS_DISABLED = false;
     AbortController.prototype.abort = () => {};
     Element.prototype.getAnimations = function () {
@@ -364,24 +372,6 @@ for (const reference of [false, true]) {
     await expect(panel).toHaveCount(0);
     expect((await calls(page)).map((call) => call.open)).toEqual([false]);
   });
-  test(`P:358 ${framework} preserves inline alignment styles while measuring an opening panel`, async ({
-    page,
-  }) => {
-    const warnings: string[] = [];
-    page.on('console', (message) => {
-      if (message.type() === 'warning') warnings.push(message.text());
-    });
-    const { panel } = await setup(page, 'mixed', reference);
-    const state = await flush(page);
-    expect(state?.starting).toBe(true);
-    expect(state?.alignment).toBe('initial');
-    expect(state?.priority).toBe('important');
-    expect(warnings).toContain(
-      'Base UI: CSS transitions and CSS animations both detected on Collapsible or Accordion panel. Only one of either animation type should be used.',
-    );
-    await frames(page, 1);
-    expect(await panel.evaluate((node: HTMLElement) => node.style.justifyContent)).toBe('center');
-  });
   test(`P:422 ${framework} keeps exit transitions working after close interrupted by reopening`, async ({
     page,
   }) => {
@@ -529,7 +519,10 @@ for (const reference of [false, true]) {
         const panel = new DOMParser()
           .parseFromString(markup, 'text/html')
           .querySelector('[data-testid="panel"]') as HTMLElement | null;
-        return { name: panel?.style.animationName, duration: panel?.style.animationDuration };
+        return {
+          name: panel?.style.animationName,
+          duration: panel?.style.animationDuration,
+        };
       },
       await response!.text(),
     );
@@ -660,22 +653,30 @@ for (const reference of [false, true]) {
         ).toBe('sent');
       }
     });
+  // Native live state/callback timing earns zero divergent unchanged Original credit.
   for (const scenario of [
     'controlled-consumer',
     'controlled-render',
     'callback-consumer',
     'callback-render',
   ])
-    test(`supplement: ${framework} ${scenario} rendered callback snapshot`, async ({ page }) => {
+    test(`supplement: ${framework} ${scenario} ${reference ? 'rendered callback snapshot' : 'live state and callbacks'}`, async ({
+      page,
+    }) => {
       const { trigger } = await setup(page, scenario, reference);
+      const liveControlled = !reference && scenario.startsWith('controlled');
       await trigger.click();
-      await expect(trigger).toHaveAttribute('aria-expanded', 'true');
+      await expect(trigger).toHaveAttribute('aria-expanded', liveControlled ? 'false' : 'true');
       expect((await calls(page))[0].before).toBe('false');
       await trigger.click();
       await expect(trigger).toHaveAttribute('aria-expanded', 'false');
-      expect((await calls(page)).map((call) => call.open)).toEqual([true, false]);
+      expect((await calls(page)).map((call) => call.open)).toEqual(
+        liveControlled ? [false, false] : [true, false],
+      );
       if (scenario.startsWith('callback'))
-        await expect(page.getByTestId('callback-owners')).toHaveText('["old","new"]');
+        await expect(page.getByTestId('callback-owners')).toHaveText(
+          reference ? '["old","new"]' : '["new","new"]',
+        );
     });
   test(`supplement: ${framework} IDs follow removal remount and explicit changes`, async ({
     page,
@@ -792,30 +793,6 @@ for (const reference of [false, true]) {
     await expect(panel).toBeVisible();
     expect(await calls(page)).toHaveLength(1);
   });
-  test(`supplement: ${framework} initially controlled undefined uses the initial default and preserves its warning`, async ({
-    page,
-  }) => {
-    const warnings: string[] = [];
-    page.on('console', (message) => {
-      if (message.type() === 'error') warnings.push(message.text());
-    });
-    const { trigger, panel } = await setup(page, 'controlled-default', reference);
-    await expect(trigger).toHaveAttribute('aria-expanded', 'false');
-    await expect(panel).toHaveCount(0);
-    await page.getByRole('button', { name: 'Release controlled value' }).click();
-    await expect(trigger).toHaveAttribute('aria-expanded', 'true');
-    await expect(panel).toHaveAttribute('data-open');
-    await expect
-      .poll(() => warnings.join(' '))
-      .toContain(
-        'A component is changing the controlled open state of Collapsible to be uncontrolled.',
-      );
-    await trigger.click();
-    await expect(trigger).toHaveAttribute('aria-expanded', 'true');
-    expect((await calls(page)).map((call) => ({ open: call.open, before: call.before }))).toEqual([
-      { open: false, before: 'true' },
-    ]);
-  });
   test(`supplement: ${framework} disabled custom activation remains focusable`, async ({
     page,
   }) => {
@@ -833,7 +810,9 @@ for (const reference of [false, true]) {
   }) => {
     await page.addInitScript(() => {
       (
-        globalThis as typeof globalThis & { BASE_UI_ANIMATIONS_DISABLED?: boolean }
+        globalThis as typeof globalThis & {
+          BASE_UI_ANIMATIONS_DISABLED?: boolean;
+        }
       ).BASE_UI_ANIMATIONS_DISABLED = true;
     });
     const { panel } = await setup(page, 'initial-transition', reference);
@@ -841,6 +820,163 @@ for (const reference of [false, true]) {
     await frames(page, 3);
     await expect(panel).toHaveCount(0);
   });
+  test(`supplement: ${framework} authored important layout restoration characterization`, async ({
+    page,
+  }) => {
+    const { panel } = await setup(page, 'important', reference);
+    expect(
+      await panel.evaluate((node: HTMLElement) =>
+        node.style.getPropertyPriority('justify-content'),
+      ),
+    ).toBe('important');
+    await flush(page);
+    await frames(page);
+    expect(
+      await panel.evaluate((node: HTMLElement) => ({
+        value: node.style.justifyContent,
+        priority: node.style.getPropertyPriority('justify-content'),
+      })),
+    ).toEqual({ value: 'center', priority: '' });
+  });
+  test(`native supplement: ${framework} beforematch observes framework host replacement semantics`, async ({
+    page,
+  }) => {
+    const { trigger, panel } = await setup(page, 'replaced-host', reference);
+    await panel.evaluate((node) => {
+      (window as Window & { originalPanel?: Element }).originalPanel = node;
+    });
+    await page.getByRole('button', { name: 'Replace host' }).click();
+    expect(
+      await panel.evaluate(
+        (node) => node === (window as Window & { originalPanel?: Element }).originalPanel,
+      ),
+    ).toBe(false);
+    await flush(page, 'beforematch');
+    await expect(trigger).toHaveAttribute('aria-expanded', reference ? 'false' : 'true');
+    expect(await calls(page)).toHaveLength(reference ? 0 : 1);
+  });
+}
+
+for (const reference of [true]) {
+  const framework = reference ? 'React reference' : 'Svelte';
+  test(`P:358 ${framework} preserves inline alignment styles while measuring an opening panel`, async ({
+    page,
+  }) => {
+    const warnings: string[] = [];
+    page.on('console', (message) => {
+      if (message.type() === 'warning') warnings.push(message.text());
+    });
+    const { panel } = await setup(page, 'mixed', reference);
+    const state = await flush(page);
+    expect(state?.starting).toBe(true);
+    expect(state?.alignment).toBe('initial');
+    expect(state?.priority).toBe('important');
+    expect(warnings).toContain(
+      'Base UI: CSS transitions and CSS animations both detected on Collapsible or Accordion panel. Only one of either animation type should be used.',
+    );
+    await frames(page, 1);
+    expect(await panel.evaluate((node: HTMLElement) => node.style.justifyContent)).toBe('center');
+  });
+}
+
+// Native renderer counterpart of P358; divergent expectations earn zero Original credit.
+test('native counterpart: Svelte opening measurements preserve authored alignment through native style commits', async ({
+  page,
+}) => {
+  await page.goto('/native-snippets');
+  await expect(page.locator('main')).toHaveAttribute('data-hydrated', 'true');
+  const baseline = await page.getByTestId('literal-native-style').evaluate((node) =>
+    (
+      node as HTMLDivElement & {
+        nativeStyle: {
+          write(property: string): {
+            beforeStateWrite: { properties: Record<string, { value: string; priority: string }> };
+            afterFlush: {
+              connected: boolean;
+              properties: Record<string, { value: string; priority: string }>;
+            };
+            sameHost: boolean;
+          };
+        };
+      }
+    ).nativeStyle.write('justify-content'),
+  );
+  expect(baseline.beforeStateWrite.properties['justify-content']).toEqual({
+    value: 'initial',
+    priority: 'important',
+  });
+  expect(baseline.sameHost).toBe(true);
+  expect(baseline.afterFlush.connected).toBe(true);
+  expect(baseline.afterFlush.properties['justify-content']).toEqual({
+    value: 'center',
+    priority: '',
+  });
+
+  const warnings: string[] = [];
+  page.on('console', (message) => {
+    if (message.type() === 'warning') warnings.push(message.text());
+  });
+  const { panel } = await setup(page, 'mixed', false);
+  const opening = await panel.evaluate((original: HTMLElement) => {
+    (window as Window & { collapsibleFlush(action: string): void }).collapsibleFlush('click');
+    const node = document.querySelector('[data-testid="panel"]') as HTMLElement;
+    const trigger = document.getElementById('tested-trigger')!;
+    return {
+      sameHost: node === original,
+      connected: node.isConnected,
+      open: node.hasAttribute('data-open'),
+      starting: node.hasAttribute('data-starting-style'),
+      hidden: node.hasAttribute('hidden'),
+      alignment: node.style.justifyContent,
+      priority: node.style.getPropertyPriority('justify-content'),
+      dimensions: [
+        node.style.getPropertyValue('--collapsible-panel-height'),
+        node.style.getPropertyValue('--collapsible-panel-width'),
+      ],
+      scrollDimensions: [node.scrollHeight, node.scrollWidth],
+      expanded: trigger.getAttribute('aria-expanded'),
+      controls: trigger.getAttribute('aria-controls'),
+      id: node.id,
+      calls: JSON.parse(document.querySelector('[data-testid="calls"]')!.textContent!),
+      order: JSON.parse(document.querySelector('[data-testid="order"]')!.textContent!),
+    };
+  });
+  expect(opening).toMatchObject({
+    sameHost: true,
+    connected: true,
+    open: true,
+    starting: true,
+    hidden: false,
+    alignment: 'center',
+    priority: '',
+    expanded: 'true',
+    controls: opening.id,
+  });
+  expect(opening.dimensions).toEqual(opening.scrollDimensions.map((dimension) => `${dimension}px`));
+  expect(opening.scrollDimensions.every((dimension) => dimension > 0)).toBe(true);
+  expect(opening.calls).toHaveLength(1);
+  expect(opening.calls[0]).toMatchObject({
+    open: true,
+    reason: 'trigger-press',
+    type: 'click',
+    before: 'false',
+    canceled: false,
+  });
+  expect(opening.order).toEqual(['consumer', 'change']);
+  expect(warnings).toEqual([
+    'Base UI: CSS transitions and CSS animations both detected on Collapsible or Accordion panel. Only one of either animation type should be used.',
+  ]);
+  await frames(page, 1);
+  expect(
+    await panel.evaluate((node: HTMLElement) => ({
+      alignment: node.style.justifyContent,
+      priority: node.style.getPropertyPriority('justify-content'),
+    })),
+  ).toEqual({ alignment: 'center', priority: '' });
+});
+
+for (const reference of [true]) {
+  const framework = reference ? 'React reference' : 'Svelte';
   for (const scenario of ['beforematch-transition', 'beforematch-keys'])
     test(`supplement: ${framework} ${scenario} teardown restores authored duration`, async ({
       page,
@@ -866,42 +1002,133 @@ for (const reference of [false, true]) {
         }, scenario),
       ).toEqual({ connected: false, duration: '123ms' });
     });
-  test(`supplement: ${framework} authored important layout restoration characterization`, async ({
+}
+
+for (const scenario of ['beforematch-transition', 'beforematch-keys'])
+  test(`native supplement: Svelte ${scenario} teardown retains last native duration`, async ({
     page,
   }) => {
-    const { panel } = await setup(page, 'important', reference);
-    expect(
-      await panel.evaluate((node: HTMLElement) =>
-        node.style.getPropertyPriority('justify-content'),
-      ),
-    ).toBe('important');
-    await flush(page);
-    await frames(page);
-    expect(
-      await panel.evaluate((node: HTMLElement) => ({
-        value: node.style.justifyContent,
-        priority: node.style.getPropertyPriority('justify-content'),
-      })),
-    ).toEqual({ value: 'center', priority: '' });
-  });
-  test(`supplement: ${framework} beforematch after rendered host replacement characterization`, async ({
-    page,
-  }) => {
-    const { trigger, panel } = await setup(page, 'replaced-host', reference);
-    await panel.evaluate((node) => {
-      (window as Window & { originalPanel?: Element }).originalPanel = node;
-    });
-    await page.getByRole('button', { name: 'Replace host' }).click();
-    expect(
-      await panel.evaluate(
-        (node) => node === (window as Window & { originalPanel?: Element }).originalPanel,
-      ),
-    ).toBe(false);
+    const { trigger, panel } = await setup(page, scenario, false);
     await flush(page, 'beforematch');
+    await expect(trigger).toHaveAttribute('aria-expanded', 'true');
+    await expect(panel).toHaveAttribute('data-open');
+    const beforeRemoval = await panel.evaluate((node: HTMLElement, scenario) => {
+      (window as Window & { removedPanel?: HTMLElement }).removedPanel = node;
+      return {
+        connected: node.isConnected,
+        duration:
+          scenario === 'beforematch-keys'
+            ? node.style.animationDuration
+            : node.style.transitionDuration,
+      };
+    }, scenario);
+    expect(beforeRemoval).toEqual({ connected: true, duration: '0s' });
+    const requests = await calls(page);
+    expect(requests).toHaveLength(1);
+    expect(requests[0]).toMatchObject({
+      open: true,
+      reason: 'none',
+      type: 'beforematch',
+      before: 'false',
+      canceled: false,
+    });
+    const orderBeforeRemoval = await page.getByTestId('order').innerText();
+    await page.getByRole('button', { name: 'Toggle mounting', exact: true }).click();
+    await frames(page, 3);
+    await expect(panel).toHaveCount(0);
+    await expect(trigger).toHaveCount(0);
+    expect(
+      await page.evaluate((scenario) => {
+        const node = (window as Window & { removedPanel?: HTMLElement }).removedPanel!;
+        return {
+          connected: node.isConnected,
+          duration:
+            scenario === 'beforematch-keys'
+              ? node.style.animationDuration
+              : node.style.transitionDuration,
+        };
+      }, scenario),
+    ).toEqual({ connected: false, duration: beforeRemoval.duration });
+    await page.evaluate(() => {
+      const node = (window as Window & { removedPanel?: HTMLElement }).removedPanel!;
+      node.dispatchEvent(new Event('beforematch', { bubbles: true }));
+    });
+    await frames(page);
+    expect(await calls(page)).toEqual(requests);
+    expect(await page.getByTestId('order').innerText()).toBe(orderBeforeRemoval);
+    await expect(panel).toHaveCount(0);
+    await expect(trigger).toHaveCount(0);
+  });
+
+for (const reference of [true]) {
+  const framework = reference ? 'React reference' : 'Svelte';
+  test(`supplement: ${framework} initially controlled undefined uses the initial default and preserves its warning`, async ({
+    page,
+  }) => {
+    const warnings: string[] = [];
+    page.on('console', (message) => {
+      if (message.type() === 'error') warnings.push(message.text());
+    });
+    const { trigger, panel } = await setup(page, 'controlled-default', reference);
     await expect(trigger).toHaveAttribute('aria-expanded', 'false');
-    expect(await calls(page)).toHaveLength(0);
+    await expect(panel).toHaveCount(0);
+    await page.getByRole('button', { name: 'Release controlled value' }).click();
+    await expect(trigger).toHaveAttribute('aria-expanded', 'true');
+    await expect(panel).toHaveAttribute('data-open');
+    await expect
+      .poll(() => warnings.join(' '))
+      .toContain(
+        'A component is changing the controlled open state of Collapsible to be uncontrolled.',
+      );
+    await trigger.click();
+    await expect(trigger).toHaveAttribute('aria-expanded', 'true');
+    expect(
+      (await calls(page)).map((call) => ({
+        open: call.open,
+        before: call.before,
+      })),
+    ).toEqual([{ open: false, before: 'true' }]);
   });
 }
+
+test('native supplement: Svelte controlled undefined retains initial-default fallback and request-only controlled writes', async ({
+  page,
+}) => {
+  const errors: string[] = [];
+  const warnings: string[] = [];
+  page.on('pageerror', (error) => errors.push(error.message));
+  page.on('console', (message) => {
+    if (message.type() === 'error') errors.push(message.text());
+    if (message.type() === 'warning') warnings.push(message.text());
+  });
+  const { trigger, panel } = await setup(page, 'controlled-default', false);
+  await expect(trigger).toHaveAttribute('aria-expanded', 'false');
+  await expect(panel).toHaveCount(0);
+  expect(await calls(page)).toEqual([]);
+  await page.getByRole('button', { name: 'Release controlled value' }).click();
+  await expect(trigger).toHaveAttribute('aria-expanded', 'true');
+  await expect(panel).toHaveAttribute('data-open');
+  expect(await calls(page)).toEqual([]);
+  await trigger.click();
+  await expect(trigger).toHaveAttribute('aria-expanded', 'true');
+  await expect(panel).toHaveAttribute('data-open');
+  const requests = await calls(page);
+  expect(requests).toHaveLength(1);
+  expect(requests[0]).toMatchObject({
+    open: false,
+    before: 'true',
+    reason: 'trigger-press',
+    type: 'click',
+    canceled: false,
+    defaultPrevented: false,
+    mouse: true,
+    cancelType: 'function',
+    allowType: 'function',
+  });
+  await expect(page.getByTestId('order')).toHaveText('["consumer","change"]');
+  expect(errors).toEqual([]);
+  expect(warnings).toEqual([]);
+});
 
 for (const reference of [false, true])
   test(`supplement: ${reference ? 'React reference' : 'Svelte'} SSR hydration retains generated IDs and authored motion suppression`, async ({
@@ -917,7 +1144,10 @@ for (const reference of [false, true])
         const node = document.querySelector('[data-testid="panel"]');
         if (node) {
           (
-            window as Window & { serverPanel?: Element; serverPanelId?: string | null }
+            window as Window & {
+              serverPanel?: Element;
+              serverPanelId?: string | null;
+            }
           ).serverPanel = node;
           (window as Window & { serverPanelId?: string | null }).serverPanelId =
             node.getAttribute('id');
@@ -974,3 +1204,462 @@ for (const reference of [false, true])
     await expect(panel).toHaveCSS('animation-name', 'none');
     expect(errors).toEqual([]);
   });
+
+// Append after the existing Collapsible cases and helpers; leave every existing body unchanged.
+// Unexecuted source draft. Diagnostic only; zero Original/canonical credit.
+test('diagnostic: native style-string commits preserve panel reveal and first-close business', async ({
+  page,
+}, testInfo) => {
+  const consoleEvents: { route: string; type: string; text: string }[] = [];
+  const observations: unknown[] = [];
+  const errors: string[] = [];
+  const routeFailures: { route: string; error: string }[] = [];
+  const prefix = 'native-collapsible-css:';
+  let route = 'literal';
+  page.on('console', (message) => {
+    const type = message.type();
+    const text = message.text();
+    if (type === 'warning' || type === 'error') {
+      const event = { route, type, text };
+      consoleEvents.push(event);
+      console.log(JSON.stringify({ console: event }));
+      if (type === 'error') errors.push(`${route}: ${text}`);
+    } else if (text.startsWith(prefix)) {
+      observations.push(JSON.parse(text.slice(prefix.length)));
+      console.log(text);
+    }
+  });
+  page.on('pageerror', (error) => {
+    errors.push(`${route}: ${error.message}`);
+    console.log(JSON.stringify({ pageError: { route, message: error.message } }));
+  });
+  function record(label: string, value: unknown) {
+    const observation = { route, label, value };
+    observations.push(observation);
+    console.log(JSON.stringify(observation));
+  }
+  try {
+    await page.goto('/native-snippets');
+    await expect(page.locator('main')).toHaveAttribute('data-hydrated', 'true');
+    const literal = page.getByTestId('literal-native-style');
+    for (const property of [
+      'justify-content',
+      'animation-duration',
+      'transition-duration',
+    ] as const) {
+      const phases = await literal.evaluate(async (node, property) => {
+        const api = (
+          node as HTMLDivElement & {
+            nativeStyle: { write(property: string): unknown; sample(): unknown };
+          }
+        ).nativeStyle;
+        console.info(
+          `native-collapsible-css:${JSON.stringify({ route: 'literal', label: `before:${property}`, value: api.sample() })}`,
+        );
+        const committed = api.write(property);
+        console.info(
+          `native-collapsible-css:${JSON.stringify({ route: 'literal', label: `commit:${property}`, value: committed })}`,
+        );
+        await new Promise<void>((resolve) => requestAnimationFrame(() => resolve()));
+        const frame1 = api.sample();
+        console.info(
+          `native-collapsible-css:${JSON.stringify({ route: 'literal', label: `frame1:${property}`, value: frame1 })}`,
+        );
+        await new Promise<void>((resolve) => requestAnimationFrame(() => resolve()));
+        const frame2 = api.sample();
+        console.info(
+          `native-collapsible-css:${JSON.stringify({ route: 'literal', label: `frame2:${property}`, value: frame2 })}`,
+        );
+        return { committed, frame1, frame2 };
+      }, property);
+      record(`literal:${property}`, phases);
+    }
+    expect
+      .soft(consoleEvents.filter((event) => event.route === 'literal' && event.type === 'warning'))
+      .toEqual([]);
+    for (const { scenario, reference } of [
+      { scenario: 'mixed', reference: false },
+      { scenario: 'beforematch-keys', reference: false },
+      { scenario: 'beforematch-transition', reference: false },
+      { scenario: 'beforematch-keys-class', reference: false },
+      { scenario: 'beforematch-keys-class', reference: true },
+      { scenario: 'beforematch-cancel', reference: false },
+    ]) {
+      route = `${reference ? 'React reference' : 'Svelte'}:${scenario}`;
+      try {
+        await setup(page, scenario, reference);
+        const phases = await page.evaluate(
+          async ({ scenario, route }) => {
+            const original = document.querySelector('[data-testid="panel"]');
+            const browser = window as Window & { collapsibleFlush(action: string): void };
+            function sample() {
+              const panel = document.querySelector('[data-testid="panel"]') as HTMLElement | null;
+              if (!panel)
+                throw new Error('Retained public panel disappeared during CSS diagnostic.');
+              const rect = panel.getBoundingClientRect();
+              const computed = getComputedStyle(panel);
+              return {
+                sameHost: panel === original,
+                connected: panel.isConnected,
+                expanded: document.getElementById('tested-trigger')?.getAttribute('aria-expanded'),
+                hidden: panel.getAttribute('hidden'),
+                open: panel.hasAttribute('data-open'),
+                closed: panel.hasAttribute('data-closed'),
+                starting: panel.hasAttribute('data-starting-style'),
+                ending: panel.hasAttribute('data-ending-style'),
+                status: panel.getAttribute('data-status'),
+                rect: { x: rect.x, y: rect.y, width: rect.width, height: rect.height },
+                height: rect.height,
+                width: rect.width,
+                scrollHeight: panel.scrollHeight,
+                scrollWidth: panel.scrollWidth,
+                measuredHeight: panel.style.getPropertyValue('--collapsible-panel-height'),
+                measuredWidth: panel.style.getPropertyValue('--collapsible-panel-width'),
+                cssText: panel.style.cssText,
+                className: panel.className,
+                alignment: panel.style.justifyContent,
+                alignmentPriority: panel.style.getPropertyPriority('justify-content'),
+                animationDuration: panel.style.animationDuration,
+                transitionDuration: panel.style.transitionDuration,
+                animationPriority: panel.style.getPropertyPriority('animation-duration'),
+                transitionPriority: panel.style.getPropertyPriority('transition-duration'),
+                computedAnimationDuration: computed.animationDuration,
+                computedTransitionDuration: computed.transitionDuration,
+                animations: panel.getAnimations().map((animation) => ({
+                  kind: animation.constructor.name,
+                  name:
+                    animation instanceof CSSAnimation
+                      ? animation.animationName
+                      : animation instanceof CSSTransition
+                        ? animation.transitionProperty
+                        : animation.id,
+                  startTime: animation.startTime === null ? null : String(animation.startTime),
+                  playbackRate: animation.playbackRate,
+                  pending: animation.pending,
+                  playState: animation.playState,
+                  currentTime:
+                    animation.currentTime === null ? null : String(animation.currentTime),
+                  duration: String(animation.effect?.getComputedTiming().duration),
+                })),
+                calls: JSON.parse(document.querySelector('[data-testid="calls"]')!.textContent!),
+                order: JSON.parse(document.querySelector('[data-testid="order"]')!.textContent!),
+              };
+            }
+            function observe(label: string) {
+              const value = sample();
+              console.info(`native-collapsible-css:${JSON.stringify({ route, label, value })}`);
+              return value;
+            }
+            async function frame(label: string) {
+              await new Promise<void>((resolve) => requestAnimationFrame(() => resolve()));
+              return observe(label);
+            }
+            const before = observe('before-action');
+            browser.collapsibleFlush(scenario === 'mixed' ? 'click' : 'beforematch');
+            const immediate = observe('after-flush');
+            const frame1 = await frame('frame1');
+            const frame2 = await frame('frame2');
+            if (scenario === 'mixed')
+              return { before, immediate, frame1, frame2, close: null, next: null };
+            if (scenario === 'beforematch-cancel') {
+              browser.collapsibleFlush('click');
+              const next = {
+                immediate: observe('uncanceled-trigger-flush'),
+                frame1: await frame('uncanceled-trigger-frame1'),
+                frame2: await frame('uncanceled-trigger-frame2'),
+              };
+              return { before, immediate, frame1, frame2, close: null, next };
+            }
+            browser.collapsibleFlush('click');
+            const closeImmediate = observe('close-immediate');
+            const closeFrame1 = await frame('close-frame1');
+            const closeFrame2 = await frame('close-frame2');
+            const panel = document.querySelector('[data-testid="panel"]')!;
+            const finished = await Promise.allSettled(
+              panel.getAnimations().map((animation) => animation.finished),
+            );
+            const completion = finished.map((result) =>
+              result.status === 'fulfilled'
+                ? { status: 'fulfilled' }
+                : { status: 'rejected', reason: String(result.reason) },
+            );
+            console.info(
+              `native-collapsible-css:${JSON.stringify({ route, label: 'close-completion', value: completion })}`,
+            );
+            const completed = await frame('close-completed');
+            return {
+              before,
+              immediate,
+              frame1,
+              frame2,
+              next: null,
+              close: {
+                immediate: closeImmediate,
+                frame1: closeFrame1,
+                frame2: closeFrame2,
+                completion,
+                completed,
+              },
+            };
+          },
+          { scenario, route },
+        );
+        const warnings = consoleEvents
+          .filter((event) => event.route === route && event.type === 'warning')
+          .map((event) => event.text);
+        record(`panel:${scenario}:console`, { warnings, errors: [...errors] });
+        expect
+          .soft(warnings)
+          .toEqual(
+            scenario === 'mixed'
+              ? [
+                  'Base UI: CSS transitions and CSS animations both detected on Collapsible or Accordion panel. Only one of either animation type should be used.',
+                ]
+              : [],
+          );
+        for (const phase of [phases.before, phases.immediate, phases.frame1, phases.frame2]) {
+          expect.soft(phase.sameHost).toBe(true);
+          expect.soft(phase.connected).toBe(true);
+        }
+        if (scenario !== 'mixed') {
+          expect.soft(phases.before.expanded).toBe('false');
+          expect.soft(phases.before.closed).toBe(true);
+          expect.soft(phases.before.open).toBe(false);
+          expect.soft(phases.before.hidden).toBe('until-found');
+          expect.soft(phases.before.calls).toEqual([]);
+          expect.soft(phases.before.order).toEqual([]);
+        }
+        if (scenario === 'beforematch-cancel') {
+          for (const canceled of [phases.immediate, phases.frame1, phases.frame2]) {
+            expect.soft(canceled.expanded).toBe('false');
+            expect.soft(canceled.hidden).toBe('until-found');
+            expect.soft(canceled.closed).toBe(true);
+            expect.soft(canceled.open).toBe(false);
+            expect.soft(canceled.calls).toHaveLength(1);
+            expect.soft(canceled.calls[0]).toMatchObject({
+              open: true,
+              reason: 'none',
+              type: 'beforematch',
+              before: 'false',
+              canceled: true,
+            });
+            expect.soft(canceled.order).toEqual(['change']);
+            expect.soft(canceled.animations).toHaveLength(0);
+          }
+          const next = phases.next!;
+          expect.soft(next.immediate.open).toBe(true);
+          expect.soft(next.immediate.starting).toBe(true);
+          expect.soft(next.immediate.transitionDuration).toBe('123ms');
+          expect.soft(next.frame2.animations).toHaveLength(1);
+          expect.soft(next.frame2.calls).toHaveLength(2);
+          expect.soft(next.frame2.calls[1]).toMatchObject({
+            open: true,
+            reason: 'trigger-press',
+            type: 'click',
+            before: 'false',
+            canceled: false,
+          });
+          expect.soft(next.frame2.order).toEqual(['change', 'consumer', 'change']);
+          continue;
+        }
+        expect.soft(phases.immediate.expanded).toBe('true');
+        expect.soft(phases.immediate.open).toBe(true);
+        expect.soft(phases.immediate.scrollHeight).toBeGreaterThan(0);
+        expect.soft(phases.immediate.measuredHeight).toMatch(/^\d+(?:\.\d+)?px$/);
+        expect.soft(phases.immediate.measuredWidth).toMatch(/^\d+(?:\.\d+)?px$/);
+        expect
+          .soft(Number.parseFloat(phases.immediate.measuredHeight))
+          .toBe(phases.immediate.scrollHeight);
+        expect
+          .soft(Number.parseFloat(phases.immediate.measuredWidth))
+          .toBe(phases.immediate.scrollWidth);
+        expect.soft(phases.immediate.calls).toHaveLength(1);
+        expect.soft(phases.immediate.calls[0]).toMatchObject({
+          open: true,
+          reason: scenario === 'mixed' ? 'trigger-press' : 'none',
+          type: scenario === 'mixed' ? 'click' : 'beforematch',
+          before: 'false',
+          canceled: false,
+        });
+        expect
+          .soft(phases.immediate.order)
+          .toEqual(scenario === 'mixed' ? ['consumer', 'change'] : ['change']);
+        if (scenario === 'mixed') {
+          expect.soft(phases.immediate.starting).toBe(true);
+          expect.soft(phases.frame1.alignment).toBe('center');
+        } else {
+          for (const revealed of [phases.immediate, phases.frame1, phases.frame2]) {
+            expect.soft(revealed.hidden).toBeNull();
+            expect.soft(revealed.expanded).toBe('true');
+            expect.soft(revealed.open).toBe(true);
+            expect.soft(revealed.closed).toBe(false);
+            expect.soft(revealed.scrollHeight).toBeGreaterThan(0);
+            expect.soft(revealed.height).toBeGreaterThanOrEqual(revealed.scrollHeight - 1);
+            expect.soft(revealed.width).toBeGreaterThanOrEqual(revealed.scrollWidth - 1);
+            expect.soft(revealed.calls).toHaveLength(1);
+            expect.soft(revealed.calls[0].canceled).toBe(false);
+            expect.soft(revealed.starting).toBe(false);
+            expect.soft(revealed.ending).toBe(false);
+            expect
+              .soft(
+                revealed.animations.some(
+                  (animation) => animation.pending || animation.playState === 'running',
+                ),
+              )
+              .toBe(false);
+          }
+          const close = phases.close!;
+          for (const closing of [close.immediate, close.frame1, close.frame2, close.completed]) {
+            expect.soft(closing.sameHost).toBe(true);
+            expect.soft(closing.connected).toBe(true);
+            expect.soft(closing.expanded).toBe('false');
+            expect.soft(closing.closed).toBe(true);
+            expect.soft(closing.open).toBe(false);
+            expect.soft(closing.calls).toHaveLength(2);
+          }
+          // The pin can commit deferred ending after the first raw frame.
+          // Both branches still require ending at frame2 below.
+          if (!reference) expect.soft(close.frame1.ending).toBe(true);
+          expect.soft(close.frame2.animations).toHaveLength(1);
+          const keys = scenario.startsWith('beforematch-keys');
+          expect
+            .soft(
+              keys
+                ? close.immediate.computedAnimationDuration
+                : close.immediate.computedTransitionDuration,
+            )
+            .toBe('0.123s');
+          expect
+            .soft(keys ? close.immediate.animationDuration : close.immediate.transitionDuration)
+            .toBe(scenario === 'beforematch-keys-class' ? '' : '123ms');
+          expect.soft(close.frame1.measuredHeight).toMatch(/^\d+(?:\.\d+)?px$/);
+          expect.soft(close.frame2.ending).toBe(true);
+          expect.soft(close.completion).toHaveLength(1);
+          expect.soft(close.completed.calls[1]).toMatchObject({
+            open: false,
+            reason: 'trigger-press',
+            type: 'click',
+            before: 'true',
+            canceled: false,
+          });
+          expect.soft(close.completed.order).toEqual(['change', 'consumer', 'change']);
+          expect.soft(close.completion.every((result) => result.status === 'fulfilled')).toBe(true);
+          expect.soft(close.completed.ending).toBe(false);
+          expect.soft(close.completed.hidden).toBe('until-found');
+          if (reference) {
+            // The pinned class keyframe can restart as hidden dimensions return to auto.
+            // Preserve its complete timing observation while checking the closed motion owner.
+            expect.soft(close.completed.animations.length).toBeLessThanOrEqual(1);
+            for (const animation of close.completed.animations) {
+              expect.soft(animation).toMatchObject({
+                kind: 'CSSAnimation',
+                name: 'panel-slide-up',
+              });
+            }
+          } else {
+            expect.soft(close.completed.animations).toHaveLength(0);
+          }
+        }
+      } catch (error) {
+        const failure = { route, error: String(error) };
+        routeFailures.push(failure);
+        record('route-failure', failure);
+      }
+    }
+
+    route = 'native-controlled-baseline';
+    await page.goto('/native-snippets');
+    await expect(page.locator('main')).toHaveAttribute('data-hydrated', 'true');
+    const nativeTrigger = page.getByRole('button', { name: 'Native request toggle', exact: true });
+    const nativeContent = page.getByTestId('native-controlled-content');
+    const nativeRequests = page.getByTestId('native-controlled-requests');
+    record('initial', {
+      expanded: await nativeTrigger.getAttribute('aria-expanded'),
+      contentCount: await nativeContent.count(),
+      requests: await nativeRequests.textContent(),
+    });
+    await expect.soft(nativeTrigger).toHaveAttribute('aria-expanded', 'false');
+    await expect.soft(nativeContent).toHaveCount(0);
+    await page
+      .getByRole('button', { name: 'Native release controlled value', exact: true })
+      .click();
+    await expect.soft(nativeTrigger).toHaveAttribute('aria-expanded', 'true');
+    await expect.soft(nativeContent).toHaveCount(1);
+    await expect.soft(nativeRequests).toHaveText('[]');
+    record('released', {
+      expanded: await nativeTrigger.getAttribute('aria-expanded'),
+      contentCount: await nativeContent.count(),
+      requests: await nativeRequests.textContent(),
+    });
+    await nativeTrigger.click();
+    await expect.soft(nativeTrigger).toHaveAttribute('aria-expanded', 'true');
+    await expect.soft(nativeContent).toHaveCount(1);
+    await expect.soft(nativeRequests).toHaveText('[{"open":false,"before":true}]');
+    record('requested', {
+      expanded: await nativeTrigger.getAttribute('aria-expanded'),
+      contentCount: await nativeContent.count(),
+      requests: await nativeRequests.textContent(),
+    });
+
+    route = 'Svelte:controlled-default';
+    const { trigger, panel } = await setup(page, 'controlled-default', false);
+    await expect.soft(trigger).toHaveAttribute('aria-expanded', 'false');
+    await expect.soft(panel).toHaveCount(0);
+    expect.soft(await calls(page)).toEqual([]);
+    record('initial', {
+      expanded: await trigger.getAttribute('aria-expanded'),
+      panelCount: await panel.count(),
+      calls: await calls(page),
+    });
+    await page.getByRole('button', { name: 'Release controlled value' }).click();
+    await expect.soft(trigger).toHaveAttribute('aria-expanded', 'true');
+    await expect.soft(panel).toHaveAttribute('data-open');
+    expect.soft(await calls(page)).toEqual([]);
+    record('released', {
+      expanded: await trigger.getAttribute('aria-expanded'),
+      panelCount: await panel.count(),
+      calls: await calls(page),
+    });
+    await trigger.click();
+    await expect.soft(trigger).toHaveAttribute('aria-expanded', 'true');
+    await expect.soft(panel).toHaveAttribute('data-open');
+    const requested = await calls(page);
+    expect.soft(requested).toHaveLength(1);
+    expect.soft(requested[0]).toMatchObject({
+      open: false,
+      before: 'true',
+      reason: 'trigger-press',
+      type: 'click',
+      canceled: false,
+      defaultPrevented: false,
+      mouse: true,
+      cancelType: 'function',
+      allowType: 'function',
+    });
+    await expect.soft(page.getByTestId('order')).toHaveText('["consumer","change"]');
+    record('requested', {
+      expanded: await trigger.getAttribute('aria-expanded'),
+      panelCount: await panel.count(),
+      calls: requested,
+      order: await page.getByTestId('order').textContent(),
+    });
+    expect
+      .soft(
+        consoleEvents.filter(
+          (event) =>
+            event.route === 'native-controlled-baseline' ||
+            event.route === 'Svelte:controlled-default',
+        ),
+      )
+      .toEqual([]);
+    expect.soft(routeFailures).toEqual([]);
+    expect.soft(errors).toEqual([]);
+  } finally {
+    const report = { observations, consoleEvents, errors, routeFailures };
+    console.log(JSON.stringify({ diagnosticReport: report }));
+    await testInfo.attach('native-collapsible-css-observations', {
+      body: JSON.stringify(report, null, 2),
+      contentType: 'application/json',
+    });
+  }
+});

@@ -33,7 +33,6 @@
     fieldsetDisabled = false,
     onChange,
     onSubmit,
-    inputRef,
     invalid = false,
     label = true,
     description = true,
@@ -61,7 +60,6 @@
     fieldsetDisabled?: boolean;
     onChange?: (value: string | null, details: RadioGroupChangeEventDetails) => void;
     onSubmit?: (values: Record<string, unknown>) => void;
-    inputRef?: (input: HTMLInputElement | null) => void;
     invalid?: boolean;
     label?: boolean;
     description?: boolean;
@@ -75,6 +73,10 @@
     renderGroup?: boolean;
     radioFocusProps?: Pick<RadioRootProps<string>, 'onfocusin'>;
   } = $props();
+  let inputRef = $state<HTMLInputElement | null | undefined>();
+  export function getInput() {
+    return inputRef;
+  }
   let owner = $state(untrack(() => initial));
   let current = $state.raw(
     untrack(() => ({
@@ -117,7 +119,9 @@
     _state: unknown,
     children: import('svelte').Snippet | undefined,
   )}
-    <section {...props as HTMLAttributes<HTMLElement>}>{@render children?.()}</section>
+    <section {...props as HTMLAttributes<HTMLElement>}>
+      {@render children?.()}
+    </section>
   {/snippet}
   <Fieldset.Root disabled={current.fieldsetDisabled}>
     <Fieldset.Legend id="legend">Legend</Fieldset.Legend>
@@ -140,7 +144,7 @@
         required={current.required}
         name={current.groupName}
         onValueChange={changed}
-        {inputRef}
+        bind:inputRef
         {...groupFocusProps}
         render={renderGroup ? groupHost : undefined}
       >

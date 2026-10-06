@@ -1,4 +1,11 @@
 import { test, expect, type Page } from '@playwright/test';
+import {
+  captureExitAnimation,
+  cleanupExitAnimation,
+  exitAnimation,
+  resumeExitAnimation,
+  waitForOpeningAnimations,
+} from './helpers/dialog-animations.js';
 type DialogEventWindow = Window & { lastClick?: Event | null; dialogEvent?: Event };
 type DialogLog = { channel: string; open?: boolean };
 // These are contained-first source-derived acceptance probes, not complete upstream leaf ports.
@@ -313,7 +320,9 @@ test('Svelte deferred unmount remains accessible until imperative action', async
     .evaluate((button: HTMLButtonElement) => button.click());
   await expect(page.getByRole('dialog')).toHaveCount(0);
 });
-test('Svelte completed exit cycles report once per close after focus returns', async ({ page }) => {
+test('Svelte completed exit cycles report once per close after focus returns', async ({
+  page,
+}, info) => {
   await start(page, '/dialog', '?keep&animate');
   await page.locator('#trigger').click();
   await expect(page.getByRole('dialog')).toBeVisible();
@@ -322,22 +331,33 @@ test('Svelte completed exit cycles report once per close after focus returns', a
       (x: DialogLog) => x.channel === 'complete' && x.open,
     ),
   );
-  await page.keyboard.press('Escape');
-  await expect(page.getByRole('dialog')).toHaveCount(1);
-  await expect(page.getByTestId('popup')).toHaveAttribute('data-ending-style', '');
-  // Returned focus follows completion of this close; reopening starts a second cycle.
-  await expect(page.locator('#trigger')).toBeFocused();
-  await page.keyboard.press('Enter');
-  await expect(page.getByTestId('popup')).toHaveAttribute('data-open', '');
-  await expect(page.getByRole('dialog')).toBeVisible();
-  await page.waitForTimeout(250); // Past stale exit duration; observation is deliberately negative.
-  await expect(page.getByRole('dialog')).toBeVisible();
-  await page.keyboard.press('Escape');
-  await expect(page.getByRole('dialog')).toHaveCount(0);
-  await expect(page.getByTestId('popup')).toBeHidden();
-  expect(
-    (await logs(page)).filter((x) => x.channel === 'complete' && x.open === false),
-  ).toHaveLength(2);
+  await waitForOpeningAnimations(page);
+  await captureExitAnimation(page, true);
+  try {
+    await page.keyboard.press('Escape');
+    await expect.poll(async () => (await exitAnimation(page)).observed).toBe(true);
+    expect((await exitAnimation(page)).animations).toBeGreaterThan(0);
+    expect((await exitAnimation(page)).paused).toBe(true);
+    expect((await exitAnimation(page)).unresolved).toBe(true);
+    await expect(page.getByRole('dialog')).toHaveCount(1);
+    await expect(page.getByTestId('popup')).toHaveAttribute('data-ending-style', '');
+    await resumeExitAnimation(page);
+    // Returned focus follows completion of this close; reopening starts a second cycle.
+    await expect(page.locator('#trigger')).toBeFocused();
+    await page.keyboard.press('Enter');
+    await expect(page.getByTestId('popup')).toHaveAttribute('data-open', '');
+    await expect(page.getByRole('dialog')).toBeVisible();
+    await page.waitForTimeout(250); // Past stale exit duration; observation is deliberately negative.
+    await expect(page.getByRole('dialog')).toBeVisible();
+    await page.keyboard.press('Escape');
+    await expect(page.getByRole('dialog')).toHaveCount(0);
+    await expect(page.getByTestId('popup')).toBeHidden();
+    expect(
+      (await logs(page)).filter((x) => x.channel === 'complete' && x.open === false),
+    ).toHaveLength(2);
+  } finally {
+    await cleanupExitAnimation(page, info);
+  }
 });
 test('Svelte initial-open hydration and label lifecycle without console errors', async ({
   page,

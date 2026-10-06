@@ -1223,7 +1223,7 @@
       },
       {
         "local": "packages/base/src/lib/internals/nativeProps.ts",
-        "sha256": "653fb2f684da7987d8c51b2384cbf5e8839c30a620a7b790f451bbeb87479cab",
+        "sha256": "f081bf825f41a64924fe298108e148ac56314d02074c588cc1f9324ff6a92cc5",
         "declarations": [
           "NativeStyle",
           "toNativeStyle",
@@ -1241,7 +1241,8 @@
             "kind": "type",
             "resolved": "external:svelte/elements",
             "names": [
-              "ClassValue"
+              "ClassValue",
+              "HTMLAttributes"
             ]
           },
           {
