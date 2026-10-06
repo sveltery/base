@@ -174,7 +174,7 @@ import assert from 'node:assert/strict';
 import { createRequire } from 'node:module';
 const tooling = createRequire(process.argv[2]); const { JSDOM } = tooling('jsdom');
 const dom = new JSDOM('<!doctype html><html><body><main></main></body></html>', { url: 'http://localhost' });
-for (const key of ['window', 'document', 'navigator', 'HTMLElement', 'HTMLInputElement', 'HTMLFormElement', 'HTMLButtonElement', 'Element', 'SVGElement', 'Node', 'Text', 'Comment', 'Event', 'MouseEvent', 'MutationObserver', 'getComputedStyle']) Object.defineProperty(globalThis, key, { configurable: true, value: dom.window[key] });
+for (const key of ['window', 'document', 'navigator', 'HTMLElement', 'HTMLInputElement', 'HTMLFormElement', 'HTMLButtonElement', 'HTMLMediaElement', 'Element', 'SVGElement', 'Node', 'Text', 'Comment', 'Event', 'MouseEvent', 'MutationObserver', 'getComputedStyle']) Object.defineProperty(globalThis, key, { configurable: true, value: dom.window[key] });
 const { mount, flushSync, unmount } = await import('svelte');
 const { default: Consumer } = await import('./DOMConsumer.svelte');
 const app = mount(Consumer, { target: document.querySelector('main') }); flushSync();
