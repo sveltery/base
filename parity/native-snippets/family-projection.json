@@ -10,7 +10,7 @@
     ],
     "graph": {
       "path": "parity/native-snippets/native-graph.json",
-      "sha256": "5dfb01f21528cd00ea215a2ea027ee04187f9e3da98f9d68333a3deae9385d2c"
+      "sha256": "3a23f455f4131a27c26a0d3c44d26320da0bf29340012c60b668e0e46c204701"
     },
     "predecessor": {
       "path": "parity/toggle-toolbar/source-correspondence.json",
@@ -2015,11 +2015,11 @@
     ],
     "graph": {
       "path": "parity/native-snippets/native-graph.json",
-      "sha256": "5dfb01f21528cd00ea215a2ea027ee04187f9e3da98f9d68333a3deae9385d2c"
+      "sha256": "3a23f455f4131a27c26a0d3c44d26320da0bf29340012c60b668e0e46c204701"
     },
     "predecessor": {
       "path": "parity/menu-family/source-correspondence.json",
-      "sha256": "0d6e960e95472ccc7b8105da6550fedf118c4ab06bd25d2c546249b25f5aae84"
+      "sha256": "1218733d6b716d4d48595188db397c7d9f91230366d9bfa4c55652e6330073f1"
     },
     "originalGraph": {
       "path": "parity/menu-family/source-graph.json",
@@ -2412,7 +2412,7 @@
       },
       {
         "source": "packages/base/src/lib/menu/Root.svelte",
-        "sha256": "0c309094355a231846fda628081404221db6da6ff2affff93fe47a008ed88875"
+        "sha256": "3fb2b9472dc832e313b3e57c8bfeffa9732b7b8bd3682452862386ce10f0b4c3"
       },
       {
         "source": "packages/base/src/lib/menu/SubmenuRoot.svelte",
@@ -2424,7 +2424,7 @@
       },
       {
         "source": "packages/base/src/lib/menu/Trigger.svelte",
-        "sha256": "ee9cd19d28798f1e70a9e5a3215bd40f6144a2cfbc6fac7b3639d8eb4a7bebbb"
+        "sha256": "3ce191b96fbcbc30a04f400bb2e4d7cb85ad30912fba4c9fb050964cfc4195e0"
       },
       {
         "source": "packages/base/src/lib/menu/Viewport.svelte",
@@ -2484,7 +2484,7 @@
       },
       {
         "source": "packages/base/src/lib/menu/root/createMenuRoot.svelte.ts",
-        "sha256": "c388e875d2a3f4c6fb748b17f1dc2e9c35ce347360d7de696dfe83295136616e"
+        "sha256": "ab1852899f235657970d5b6b64b679f6e0f0c41c30a33a507379f96d7f96767a"
       },
       {
         "source": "packages/base/src/lib/menu/store/MenuHandle.svelte.ts",
@@ -2504,7 +2504,7 @@
       },
       {
         "source": "packages/base/src/lib/menu/trigger/createMenuTrigger.svelte.ts",
-        "sha256": "ae04e18d492aa073757adc134e825f1fa8412283d742cb6cf9895a784215108f"
+        "sha256": "bfc605f52038d255a01ea03b7cbfe20fac34b28d8cd41b6d9f75a3e480484385"
       },
       {
         "source": "packages/base/src/lib/menu/types.ts",
@@ -4297,15 +4297,15 @@
         "local": [
           {
             "source": "packages/base/src/lib/menu/Root.svelte",
-            "sha256": "0c309094355a231846fda628081404221db6da6ff2affff93fe47a008ed88875"
+            "sha256": "3fb2b9472dc832e313b3e57c8bfeffa9732b7b8bd3682452862386ce10f0b4c3"
+          },
+          {
+            "source": "packages/base/src/lib/menu/root/createMenuRoot.svelte.ts",
+            "sha256": "ab1852899f235657970d5b6b64b679f6e0f0c41c30a33a507379f96d7f96767a"
           },
           {
             "source": "packages/base/src/lib/menu/types.ts",
             "sha256": "f70bd7769bbf0008b619ecc7d0eb7d4a56edc6c351c5c82fa11e9989d844e426"
-          },
-          {
-            "source": "packages/base/src/lib/menu/root/createMenuRoot.svelte.ts",
-            "sha256": "c388e875d2a3f4c6fb748b17f1dc2e9c35ce347360d7de696dfe83295136616e"
           }
         ],
         "retiredLocal": [],
@@ -4415,15 +4415,15 @@
         "local": [
           {
             "source": "packages/base/src/lib/menu/Trigger.svelte",
-            "sha256": "ee9cd19d28798f1e70a9e5a3215bd40f6144a2cfbc6fac7b3639d8eb4a7bebbb"
+            "sha256": "3ce191b96fbcbc30a04f400bb2e4d7cb85ad30912fba4c9fb050964cfc4195e0"
+          },
+          {
+            "source": "packages/base/src/lib/menu/trigger/createMenuTrigger.svelte.ts",
+            "sha256": "bfc605f52038d255a01ea03b7cbfe20fac34b28d8cd41b6d9f75a3e480484385"
           },
           {
             "source": "packages/base/src/lib/menu/types.ts",
             "sha256": "f70bd7769bbf0008b619ecc7d0eb7d4a56edc6c351c5c82fa11e9989d844e426"
-          },
-          {
-            "source": "packages/base/src/lib/menu/trigger/createMenuTrigger.svelte.ts",
-            "sha256": "ae04e18d492aa073757adc134e825f1fa8412283d742cb6cf9895a784215108f"
           }
         ],
         "retiredLocal": [],
@@ -5818,13 +5818,13 @@
           "source": "packages/react/src/menu/submenu-trigger/MenuSubmenuTrigger.tsx",
           "sourceSha256": "fdf8d69ecfda719fafba0ded5acf5fda7671c1a2bf95bdfac24943ee2490fc5a",
           "local": "packages/base/src/lib/menu/Trigger.svelte",
-          "localSha256": "ee9cd19d28798f1e70a9e5a3215bd40f6144a2cfbc6fac7b3639d8eb4a7bebbb"
+          "localSha256": "3ce191b96fbcbc30a04f400bb2e4d7cb85ad30912fba4c9fb050964cfc4195e0"
         },
         {
           "source": "packages/react/src/menu/trigger/MenuTrigger.tsx",
           "sourceSha256": "caa4f62155184e668f1f8ea238bf067fba7089d672d36c0116d73a4d82794ee0",
           "local": "packages/base/src/lib/menu/Trigger.svelte",
-          "localSha256": "ee9cd19d28798f1e70a9e5a3215bd40f6144a2cfbc6fac7b3639d8eb4a7bebbb"
+          "localSha256": "3ce191b96fbcbc30a04f400bb2e4d7cb85ad30912fba4c9fb050964cfc4195e0"
         },
         {
           "source": "packages/react/src/menu/viewport/MenuViewport.tsx",

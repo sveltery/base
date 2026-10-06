@@ -502,8 +502,9 @@ The subsequent [Collapsible beforematch motion proposal](../parity/native-snippe
 
 The successor normally integrates accepted main `aa4daff5` (PR #77), including
 accepted shared callback PR #69, utility ownership PR #75, native framework
-PR #76 and native snippet rendering PR #77. The actual Menu, ContextMenu,
-Menubar and shared runtime bodies match that main exactly. The Portal observer
+PR #76 and native snippet rendering PR #77. At historical `c1be54d`, the Menu, ContextMenu, Menubar and shared runtime
+bodies matched that main exactly. The focused owner successor below changes
+four Menu runtime bodies; inherited shared bodies remain unchanged. The Portal observer
 now belongs to the single canonical `useFloatingPortalNode` helper, shared by
 Full/Lite callers; the historical private FullPortal location above is superseded.
 Current native host publication, live callback reads, Store subscriptions and
@@ -517,3 +518,23 @@ The added realm pair remains an authored supplement with zero unchanged Original
 credit. Runtime identity with main is structural evidence, not final review or
 execution acceptance. Fresh exact-head source/native/maintainability, secured
 browser, packed consumer and hosted CI gates remain required.
+
+### PR #63 focused Menu retained-state owners (proposed)
+
+The lead's mandatory owner-role audit assigns MenuRoot's open-event/outside-press/
+touch guards and two timers, MenuTrigger's host/mouseup/registration session, and
+useStickIfOpen's patient-click state/timer to native classes. Their immutable
+Source is MenuRoot.tsx / MenuTrigger.tsx at
+`47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c` (MIT). Direct constructor lifetime,
+runes and existing native effects replace function-owned reusable retained state;
+recognizable business branches, ordering, canonical helper reuse and cancellation
+remain required. See the [focused correspondence](../parity/menu-family/source-correspondence.md#focused-menu-state-owner-representation).
+
+Status: proposed class representation under the user native-framework directive,
+not final Source/native acceptance. Historical `c1be54d` execution remains valid
+only for that predecessor. Shared Floating/Composite/popup/Utils/Button/Transition/
+style owners remain independent prerequisites when reached; no private copies or
+React empty-style emulation. Fresh exact candidate review and full unchanged
+verification/package/SSR/hydration/secured browser gates remain pending. These
+framework replacements and authored supplements grant zero unchanged upstream
+assertion credit; original assertion hashes and historical red receipts remain.

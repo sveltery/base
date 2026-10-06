@@ -6,12 +6,12 @@
   import CompositeItem from '../internals/composite/item/CompositeItem.svelte';
   import FocusGuard from '../utils/FocusGuard.svelte';
   import { pressableTriggerOpenStateMapping } from '../utils/popupStateMapping.js';
-  import { createMenuTrigger } from './trigger/createMenuTrigger.svelte.js';
+  import { MenuTrigger } from './trigger/createMenuTrigger.svelte.js';
   import type { MenuTriggerProps } from './types.js';
   // eslint-disable-next-line no-useless-assignment -- Publishes native bindable host/action outputs to the owner.
   let { ref = $bindable(null), ...props }: MenuTriggerProps<Payload> = $props();
   const generatedId = $props.id();
-  const root = createMenuTrigger(
+  const root = new MenuTrigger(
     () => props,
     generatedId,
     (node) => {

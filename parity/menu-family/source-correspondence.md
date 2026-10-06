@@ -8,7 +8,7 @@ and 1,038 import/reexport/type edges; the separate complete test/helper graph ha
 unused-file completion. NavigationMenu remains separate.
 
 [Actual native closure](native-closure.json) currently records 193 used modules
-and 862 runtime/type edges from Menu, ContextMenu and Menubar public entries.
+and 863 runtime/type edges from Menu, ContextMenu and Menubar public entries.
 [Per-source correspondence](source-correspondence.json) reconciles every
 Original source module to used local bodies, explicit native replacement, or
 unselected conservative barrel/type export. The generator rejects mappings to
@@ -77,8 +77,9 @@ Source/native/maintainability review and exact-head hosted gates remain required
 
 The successor normally integrates accepted main `aa4daff5` (PR #77), including
 accepted shared callback PR #69, utility ownership PR #75, native framework
-PR #76 and native snippet rendering PR #77. The actual Menu, ContextMenu,
-Menubar and shared runtime bodies match that main exactly. The Portal observer
+PR #76 and native snippet rendering PR #77. At historical `c1be54d`, the Menu, ContextMenu, Menubar and shared runtime
+bodies matched that main exactly. The focused owner successor below changes
+four Menu runtime bodies; inherited shared bodies remain unchanged. The Portal observer
 now belongs to the single canonical `useFloatingPortalNode` helper, shared by
 Full/Lite callers; the historical private FullPortal location above is superseded.
 Current native host publication, live callback reads, Store subscriptions and
@@ -92,3 +93,31 @@ The added realm pair remains an authored supplement with zero unchanged Original
 credit. Runtime identity with main is structural evidence, not final review or
 execution acceptance. Fresh exact-head source/native/maintainability, secured
 browser, packed consumer and hosted CI gates remain required.
+
+
+## Focused Menu state-owner representation
+
+The one added edge is an erased PropSources type import for the Trigger accessor;
+no business dependency changes. The mandatory owner audit and Menu assignment identify three reusable retained-state
+roles, rather than pure selectors or native component-local glue. The immutable
+MenuRoot and MenuTrigger bodies and their source hashes remain unchanged in the
+Original archives. The assigned owners' conservative recursive import closure at
+predecessor `c1be54d` contains 95 modules / 336 edges; the full public family
+closure remains the authority for inherited dependency review.
+
+| Immutable body / retained state | Direct native owner / caller | Lifetime and business review |
+| --- | --- | --- |
+| MenuRoot: open event, outside-press and touch guards, two timeouts | `MenuRootController` in root/createMenuRoot.svelte.ts; Root.svelte constructs it directly | Complete recognizable setup and setOpen body remains in constructor. Class fields own refs/timers; direct effects and onDestroy retain grace/touch cancellation. Callback/cancel/dispatch/state ordering, initial transition seed and parent/store composition remain. Detached actions capture their Store. |
+| MenuTrigger: host refs, mouseup timeout and listener/registration session | `MenuTrigger` in trigger/createMenuTrigger.svelte.ts; Trigger.svelte | Full Source body, live store/handle reads and canonical forwarding/button/hover/click/focus reuse remain required. Host release, migration and event ordering receive fresh review and supplemental lifecycle checks. |
+| MenuTrigger useStickIfOpen: patient-click state and timeout | `StickIfOpen`, constructed by MenuTrigger | Native rune state, direct effect, PATIENT_CLICK_THRESHOLD branch, close cancellation and component-lifetime timer disposal. No hidden function owner wrapped by a class. |
+
+Stateless `useMenuParent`, initial Store allocation and popup forwarding/glue
+remain functions; they do not retain a competing owner. Shared popup/Utils,
+Floating, Composite, Button/Transition and native style repairs belong to their
+canonical owners. Their current inherited omission/finding status remains an
+acceptance dependency when reached. No private repair or new duplicate helper is
+introduced. The green predecessor diagnostics remain historical. This bounded
+representation work grants zero unchanged Original assertion credit; final
+candidate/source/native/maintainability review, strict packed consumer,
+SSR/hydration and secured hosted gates are still required after accepted-main
+integration.

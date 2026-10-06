@@ -1442,15 +1442,15 @@
       "selection": "used-business-or-type-port",
       "local": [
         "packages/base/src/lib/menu/Root.svelte",
-        "packages/base/src/lib/menu/types.ts",
-        "packages/base/src/lib/menu/root/createMenuRoot.svelte.ts"
+        "packages/base/src/lib/menu/root/createMenuRoot.svelte.ts",
+        "packages/base/src/lib/menu/types.ts"
       ],
       "localHashes": {
-        "packages/base/src/lib/menu/Root.svelte": "0c309094355a231846fda628081404221db6da6ff2affff93fe47a008ed88875",
-        "packages/base/src/lib/menu/types.ts": "f70bd7769bbf0008b619ecc7d0eb7d4a56edc6c351c5c82fa11e9989d844e426",
-        "packages/base/src/lib/menu/root/createMenuRoot.svelte.ts": "c388e875d2a3f4c6fb748b17f1dc2e9c35ce347360d7de696dfe83295136616e"
+        "packages/base/src/lib/menu/Root.svelte": "3fb2b9472dc832e313b3e57c8bfeffa9732b7b8bd3682452862386ce10f0b4c3",
+        "packages/base/src/lib/menu/root/createMenuRoot.svelte.ts": "ab1852899f235657970d5b6b64b679f6e0f0c41c30a33a507379f96d7f96767a",
+        "packages/base/src/lib/menu/types.ts": "f70bd7769bbf0008b619ecc7d0eb7d4a56edc6c351c5c82fa11e9989d844e426"
       },
-      "correspondence": "Original component business and public types retain their part boundary; native component/snippet/attachment/context/rune ownership replaces React host rendering. Compare the complete component and any used extracted business body together.",
+      "correspondence": "Original complete MenuRoot/useMenuRootStore business and composition; Root constructs MenuRootController directly. Class fields own open event, outside-press/touch guards and two timeouts; native constructor-local derived props, context/effects and detached-safe captured actions retain ordering/cancellation. Store allocation remains stateless glue. Shared canonical owners remain separate acceptance dependencies.",
       "reviewStatus": "Entire used Source/native business, idiomatic Svelte and maintainability independent exact-head review pending; no acceptance by inventory."
     },
     {
@@ -1550,15 +1550,15 @@
       "selection": "used-business-or-type-port",
       "local": [
         "packages/base/src/lib/menu/Trigger.svelte",
-        "packages/base/src/lib/menu/types.ts",
-        "packages/base/src/lib/menu/trigger/createMenuTrigger.svelte.ts"
+        "packages/base/src/lib/menu/trigger/createMenuTrigger.svelte.ts",
+        "packages/base/src/lib/menu/types.ts"
       ],
       "localHashes": {
-        "packages/base/src/lib/menu/Trigger.svelte": "ee9cd19d28798f1e70a9e5a3215bd40f6144a2cfbc6fac7b3639d8eb4a7bebbb",
-        "packages/base/src/lib/menu/types.ts": "f70bd7769bbf0008b619ecc7d0eb7d4a56edc6c351c5c82fa11e9989d844e426",
-        "packages/base/src/lib/menu/trigger/createMenuTrigger.svelte.ts": "ae04e18d492aa073757adc134e825f1fa8412283d742cb6cf9895a784215108f"
+        "packages/base/src/lib/menu/Trigger.svelte": "3ce191b96fbcbc30a04f400bb2e4d7cb85ad30912fba4c9fb050964cfc4195e0",
+        "packages/base/src/lib/menu/trigger/createMenuTrigger.svelte.ts": "bfc605f52038d255a01ea03b7cbfe20fac34b28d8cd41b6d9f75a3e480484385",
+        "packages/base/src/lib/menu/types.ts": "f70bd7769bbf0008b619ecc7d0eb7d4a56edc6c351c5c82fa11e9989d844e426"
       },
-      "correspondence": "Original component business and public types retain their part boundary; native component/snippet/attachment/context/rune ownership replaces React host rendering. Compare the complete component and any used extracted business body together.",
+      "correspondence": "Original complete MenuTrigger business lives directly in native MenuTrigger constructor; fields own host refs/mouseup timeout. Original useStickIfOpen maps to directly constructed StickIfOpen class with rune state, timeout and native effect. Current handle/store readers, canonical registration/button/focus/hover reuse, once mouseup listener policy and detached callbacks remain. No hidden function owner or private canonical repair.",
       "reviewStatus": "Entire used Source/native business, idiomatic Svelte and maintainability independent exact-head review pending; no acceptance by inventory."
     },
     {
@@ -2723,9 +2723,9 @@
         "packages/base/src/lib/menu/GroupLabel.svelte": "743dad85f4b3e8c9fcca29c8b24c78cba2978e63557e491410ed481fd678070f",
         "packages/base/src/lib/menu/Popup.svelte": "ffe870ee1c658b8ed2d4d47e1228f75d23e51133fecc7bba738c69df45fc45c5",
         "packages/base/src/lib/menu/positioner/createMenuPositioner.svelte.ts": "71975122b40a64e64482a25696b6dfca6745c9c1063e3c41c305c75fbcaec5cd",
-        "packages/base/src/lib/menu/root/createMenuRoot.svelte.ts": "c388e875d2a3f4c6fb748b17f1dc2e9c35ce347360d7de696dfe83295136616e",
+        "packages/base/src/lib/menu/root/createMenuRoot.svelte.ts": "ab1852899f235657970d5b6b64b679f6e0f0c41c30a33a507379f96d7f96767a",
         "packages/base/src/lib/menu/submenu-trigger/createMenuSubmenuTrigger.svelte.ts": "3bdb83ab95cdfbe5ba3066f17bbd04c60915ba5e887e486db27f6484c4105691",
-        "packages/base/src/lib/menu/trigger/createMenuTrigger.svelte.ts": "ae04e18d492aa073757adc134e825f1fa8412283d742cb6cf9895a784215108f",
+        "packages/base/src/lib/menu/trigger/createMenuTrigger.svelte.ts": "bfc605f52038d255a01ea03b7cbfe20fac34b28d8cd41b6d9f75a3e480484385",
         "packages/base/src/lib/menubar/Menubar.svelte": "8f5a232bc3f2246ffaa0cba4b84764f064687feecc365c837476bfc4f2dbbc43",
         "packages/base/src/lib/utils/popups/PopupHandleAttachment.svelte": "437e6d44b586b4cc524d30d4214906695aa505239f1951a7840077780f562927",
         "packages/base/src/lib/utils/popups/popupStoreUtils.svelte.ts": "13b61b426eed8a0875580aa2a8e15a8caf5c7110e915174bf4d613f069f7b01a",
@@ -2794,7 +2794,7 @@
       "localHashes": {
         "packages/base/src/lib/floating-ui/hooks/useHoverInteractionSharedState.svelte.ts": "894478a3a44f74f94e416fc6aa6060af0625f0d67d80dbf59c10975916b842a3",
         "packages/base/src/lib/internals/ValueChanged.svelte.ts": "f169e9eec98d817327dd31fc0c39c019173cdb64fac3350b898004222107e54e",
-        "packages/base/src/lib/menu/root/createMenuRoot.svelte.ts": "c388e875d2a3f4c6fb748b17f1dc2e9c35ce347360d7de696dfe83295136616e",
+        "packages/base/src/lib/menu/root/createMenuRoot.svelte.ts": "ab1852899f235657970d5b6b64b679f6e0f0c41c30a33a507379f96d7f96767a",
         "packages/utils/src/lib/useAnimationFrame.ts": "ec054003588b92e4223c6eea228388ae6395bf1895fb3aaf32a02706249652ce",
         "packages/utils/src/lib/useTimeout.ts": "06130c6374e14371471cc3af14638ddb3cadb514bb985fcbc4b8a7a606008b7f"
       },
@@ -2853,9 +2853,9 @@
         "packages/base/src/lib/internals/useAnimationsFinished.ts": "7abe48ef841cdfa7bf60b29045e9f0ffb7dbfb715b34351e8f6716131b2678f8",
         "packages/base/src/lib/internals/useOpenChangeComplete.svelte.ts": "b6174d1cc73b6ea3b6431cf87906a1acacc40b1d5c356a31124f92251d7fd038",
         "packages/base/src/lib/menu/RadioGroup.svelte": "a9f743f853e33586d5cb789e6fdd4676749a68a20562d86bbb4ad78bc025ada3",
-        "packages/base/src/lib/menu/root/createMenuRoot.svelte.ts": "c388e875d2a3f4c6fb748b17f1dc2e9c35ce347360d7de696dfe83295136616e",
+        "packages/base/src/lib/menu/root/createMenuRoot.svelte.ts": "ab1852899f235657970d5b6b64b679f6e0f0c41c30a33a507379f96d7f96767a",
         "packages/base/src/lib/menu/submenu-trigger/createMenuSubmenuTrigger.svelte.ts": "3bdb83ab95cdfbe5ba3066f17bbd04c60915ba5e887e486db27f6484c4105691",
-        "packages/base/src/lib/menu/trigger/createMenuTrigger.svelte.ts": "ae04e18d492aa073757adc134e825f1fa8412283d742cb6cf9895a784215108f",
+        "packages/base/src/lib/menu/trigger/createMenuTrigger.svelte.ts": "bfc605f52038d255a01ea03b7cbfe20fac34b28d8cd41b6d9f75a3e480484385",
         "packages/base/src/lib/utils/popups/popupStoreUtils.svelte.ts": "13b61b426eed8a0875580aa2a8e15a8caf5c7110e915174bf4d613f069f7b01a",
         "packages/base/src/lib/utils/usePopupAutoResize.svelte.ts": "79908384bfa561421638c3362a8d0bf38526635fcc19780c72d2ff43f7b8ba9c",
         "packages/base/src/lib/utils/usePopupViewport.svelte.ts": "7a3a49008f305ccbbdb0b3c048a3787e24128a6c687ad6d7dba6b000970acaf7"

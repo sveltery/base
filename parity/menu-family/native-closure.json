@@ -9116,7 +9116,7 @@
     },
     {
       "source": "packages/base/src/lib/menu/Root.svelte",
-      "sha256": "0c309094355a231846fda628081404221db6da6ff2affff93fe47a008ed88875",
+      "sha256": "3fb2b9472dc832e313b3e57c8bfeffa9732b7b8bd3682452862386ce10f0b4c3",
       "reachability": "runtime",
       "imports": [
         {
@@ -9140,7 +9140,7 @@
           "kind": "runtime",
           "symbols": [
             {
-              "imported": "createMenuRoot",
+              "imported": "MenuRootController",
               "typeOnly": false
             }
           ],
@@ -9200,7 +9200,7 @@
     },
     {
       "source": "packages/base/src/lib/menu/root/createMenuRoot.svelte.ts",
-      "sha256": "c388e875d2a3f4c6fb748b17f1dc2e9c35ce347360d7de696dfe83295136616e",
+      "sha256": "ab1852899f235657970d5b6b64b679f6e0f0c41c30a33a507379f96d7f96767a",
       "reachability": "runtime",
       "imports": [
         {
@@ -10145,7 +10145,7 @@
     },
     {
       "source": "packages/base/src/lib/menu/Trigger.svelte",
-      "sha256": "ee9cd19d28798f1e70a9e5a3215bd40f6144a2cfbc6fac7b3639d8eb4a7bebbb",
+      "sha256": "3ce191b96fbcbc30a04f400bb2e4d7cb85ad30912fba4c9fb050964cfc4195e0",
       "reachability": "runtime",
       "imports": [
         {
@@ -10207,7 +10207,7 @@
           "kind": "runtime",
           "symbols": [
             {
-              "imported": "createMenuTrigger",
+              "imported": "MenuTrigger",
               "typeOnly": false
             }
           ],
@@ -10230,7 +10230,7 @@
     },
     {
       "source": "packages/base/src/lib/menu/trigger/createMenuTrigger.svelte.ts",
-      "sha256": "ae04e18d492aa073757adc134e825f1fa8412283d742cb6cf9895a784215108f",
+      "sha256": "bfc605f52038d255a01ea03b7cbfe20fac34b28d8cd41b6d9f75a3e480484385",
       "reachability": "runtime",
       "imports": [
         {
@@ -10587,6 +10587,18 @@
             }
           ],
           "resolved": "packages/base/src/lib/menu/store/MenuStore.svelte.ts",
+          "edge": "import"
+        },
+        {
+          "specifier": "../../internals/mergeComponentProps.js",
+          "kind": "type",
+          "symbols": [
+            {
+              "imported": "PropSources",
+              "typeOnly": false
+            }
+          ],
+          "resolved": "packages/base/src/lib/internals/mergeComponentProps.ts",
           "edge": "import"
         }
       ]
