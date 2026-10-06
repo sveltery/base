@@ -525,3 +525,50 @@ test('Svelte actual Kit source change cancellation retains owner and live server
   await page.locator('#remote-number-submit').click();
   await expect(page.locator('#remote-number-result')).toContainText('"amount":4');
 });
+
+// Native-only actual-host owner lifetime supplements; zero unchanged upstream credit.
+for (const mode of ['same-host', 'replacement', 'outro'] as const) {
+  test(`svelte NumberField stepper native ${mode} retains its actual host diagnostics`, async ({
+    page,
+  }) => {
+    const diagnostics: string[] = [];
+    page.on('console', (message) => {
+      if (
+        message.type() === 'error' &&
+        message.text().includes('Base UI: A component that acts as a button')
+      )
+        diagnostics.push(message.text());
+    });
+    await page.goto(`/number-field?scenario=stepper-owner-${mode}`);
+    await expect(page.locator('main[data-hydrated="true"]')).toBeVisible();
+    await expect(page.locator('[data-owner-host="A"]')).toBeVisible();
+    await expect(page.locator('#owner-published-host')).toHaveText('A');
+    if (mode === 'replacement') {
+      await page.locator('#owner-publish-replacement').click();
+      await expect(page.locator('[data-owner-host="A"]')).toBeVisible();
+      await expect(page.locator('[data-owner-host="B"]')).toBeVisible();
+      await expect(page.locator('#owner-published-host')).toHaveText('B');
+      await page.locator('#owner-dispose-outgoing').click();
+    } else if (mode === 'outro') {
+      await page.locator('#owner-begin-outro').click();
+      // Real Svelte out:fade retains A while replacement B has its own attachment.
+      await expect(page.locator('[data-owner-host="A"]')).toHaveCount(1);
+      await expect(page.locator('[data-owner-host="B"]')).toBeVisible();
+      await expect(page.locator('#owner-published-host')).toHaveText('B');
+      await expect(page.locator('#owner-outro-state')).toHaveText('{"started":1,"ended":0}');
+    }
+    if (mode !== 'same-host') {
+      await expect(page.locator('[data-owner-host="A"]')).toHaveCount(0);
+      await expect(page.locator('#owner-published-host')).toHaveText('B');
+    }
+    if (mode === 'outro')
+      await expect(page.locator('#owner-outro-state')).toHaveText('{"started":1,"ended":1}');
+    expect(diagnostics).toEqual([]);
+    await page.locator('#owner-require-nonnative').click();
+    await expect.poll(() => diagnostics.length).toBe(1);
+    expect(diagnostics[0]).toContain('expected a non-<button>');
+    await expect(
+      page.locator(`[data-owner-host="${mode === 'same-host' ? 'A' : 'B'}"]`),
+    ).toHaveAttribute('role', 'button');
+  });
+}

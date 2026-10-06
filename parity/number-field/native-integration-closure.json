@@ -1546,7 +1546,7 @@
       "local": [
         {
           "local": "packages/base/src/lib/number-field/root/useNumberFieldStepperButton.svelte.ts",
-          "sha256": "57d609ddf29d3468b94bcbc6a39bf47be418b9bd222b6307fe574c4eddc8155d"
+          "sha256": "5eeb80f333238a9a0afed38751e2b3917a5397d09edfe8143dfb70fffc2fc3b1"
         }
       ],
       "correspondence": "Actual used source business component/helper body; native runes/context/refs/snippets/attachments/events replace React representation. See per-function Markdown correspondence.",
@@ -7862,7 +7862,7 @@
       },
       {
         "local": "packages/base/src/lib/number-field/root/StepperButton.svelte",
-        "sha256": "090983122c632d14bda7310efa2f35d81af64767b28bb5bba5224e1175c11071",
+        "sha256": "6482340bd37a6832d3a5be4500be058d46616489f1a3dfa18536d765a19650fd",
         "reachability": [
           "runtime"
         ],
@@ -7925,7 +7925,7 @@
       },
       {
         "local": "packages/base/src/lib/number-field/root/useNumberFieldStepperButton.svelte.ts",
-        "sha256": "57d609ddf29d3468b94bcbc6a39bf47be418b9bd222b6307fe574c4eddc8155d",
+        "sha256": "5eeb80f333238a9a0afed38751e2b3917a5397d09edfe8143dfb70fffc2fc3b1",
         "reachability": [
           "runtime"
         ],

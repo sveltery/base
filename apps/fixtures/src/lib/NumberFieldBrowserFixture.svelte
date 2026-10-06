@@ -1,6 +1,7 @@
 <script lang="ts">
   // Actual NumberField family witness; native framework supplements earn zero ordinary credit.
   import { onMount, untrack } from 'svelte';
+  import NumberFieldStepperOwnerBrowserFixture from './NumberFieldStepperOwnerBrowserFixture.svelte';
   import type { HTMLInputAttributes } from 'svelte/elements';
   import { NumberField } from '@sveltery/base/number-field';
   import { Field } from '@sveltery/base/field';
@@ -78,6 +79,9 @@
 </script>
 
 <main data-hydrated={hydrated} data-renderer="svelte-5.57.1">
+  {#if scenario.startsWith('stepper-owner')}
+    <NumberFieldStepperOwnerBrowserFixture {scenario} />
+  {/if}
   <Form
     id="number-form"
     validationMode={scenario === 'validation' || scenario.includes('rounding-blur')

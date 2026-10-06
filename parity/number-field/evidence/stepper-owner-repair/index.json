@@ -1,0 +1,211 @@
+{
+  "description": "Lossless local caller-repair evidence; historical7253red archive unchanged; raw archives avoid Standards trailing-whitespace transformations",
+  "baseHead": "f3d2af63a83a12ee2e9baa0d28a2a760af9e4b03",
+  "codeStatus": "uncommitted scoped caller repair at execution; exactcandidate hashes in candidate-final-receipt",
+  "results": {
+    "dom": "48passed1skipped",
+    "ssr": "11passed",
+    "strictPackedConsumer": "0errors0warnings; SSR passed; fresh dual tarballs recorded by SHA256",
+    "fixtureCompile": "owner and outer server/client compile0warnings; outer realSSR passed",
+    "securedBrowser": "UNEXECUTED download blocked;3newauthoredcases",
+    "fixtureFullAppBuild": "SSR1287/client1719 modules;exit0;1024MiB; Original dependency use-client warnings/adapter target notice retained"
+  },
+  "files": [
+    {
+      "decodedPath": "NumberFieldBrowserFixture.svelte.client.js",
+      "archive": "NumberFieldBrowserFixture.svelte.client.js.gz",
+      "decodedSha256": "e11a2ef0b13ebc8fa2cc6889acad3134725b723ebc9a68eb3b82fe6c8b8038bb",
+      "decodedBytes": 13696,
+      "gzipSha256": "18fa44aa1c38f8a380af7ded009e9afeeabd4b86fb01e85d103ccc2157d446c3"
+    },
+    {
+      "decodedPath": "NumberFieldBrowserFixture.svelte.server.js",
+      "archive": "NumberFieldBrowserFixture.svelte.server.js.gz",
+      "decodedSha256": "35f6e33c46d3e51bb9b4c5f95f908868e0adf7374548ac4053aad9e8fd802829",
+      "decodedBytes": 11985,
+      "gzipSha256": "6356e32099c250231ff76eba37eba978a8299dfaf3cdfd05cbcc89d2e26480cc"
+    },
+    {
+      "decodedPath": "NumberFieldStepperOwnerBrowserFixture.svelte.client.js",
+      "archive": "NumberFieldStepperOwnerBrowserFixture.svelte.client.js.gz",
+      "decodedSha256": "05015df39b67f4c115016d84c9498133eecf1e652d2f5aaa85fa235ba6cea3e7",
+      "decodedBytes": 4771,
+      "gzipSha256": "c1299f24ad954e34489080238b7950453e42a891ef3cdc132e137addff2f4038"
+    },
+    {
+      "decodedPath": "NumberFieldStepperOwnerBrowserFixture.svelte.server.js",
+      "archive": "NumberFieldStepperOwnerBrowserFixture.svelte.server.js.gz",
+      "decodedSha256": "be0755f4d7b1095a5a4bca5802a931fc274f02706ce3bcd8ac52e4b4746a0288",
+      "decodedBytes": 3050,
+      "gzipSha256": "04c9316743fee413a3011b79c44544b46bbb1b231a6333e6104dfe038373d8e5"
+    },
+    {
+      "decodedPath": "candidate-final-preimages/apps/fixtures/src/lib/NumberFieldBrowserFixture.svelte",
+      "archive": "candidate-final-preimages/apps/fixtures/src/lib/NumberFieldBrowserFixture.svelte.gz",
+      "decodedSha256": "5ee9ddd4dc24060ca2f9b212052658f3e59af3837310f65daf382a387d12b639",
+      "decodedBytes": 6881,
+      "gzipSha256": "e14cf20caac49b53036d868027ac083b11c3720db9fa4c819c3d06dd9ab9c616"
+    },
+    {
+      "decodedPath": "candidate-final-preimages/apps/fixtures/src/lib/NumberFieldStepperOwnerBrowserFixture.svelte",
+      "archive": "candidate-final-preimages/apps/fixtures/src/lib/NumberFieldStepperOwnerBrowserFixture.svelte.gz",
+      "decodedSha256": "583e249a7c92026fa08b93b3450f514b82274bb7b39fa1f9e3e221f8716b87c4",
+      "decodedBytes": 2026,
+      "gzipSha256": "6f6b4b9f5783234503c0686db0e49df6ce59de6bf2655de560a004862f88261f"
+    },
+    {
+      "decodedPath": "candidate-final-preimages/packages/base/src/lib/internals/use-button/useButton.svelte.ts",
+      "archive": "candidate-final-preimages/packages/base/src/lib/internals/use-button/useButton.svelte.ts.gz",
+      "decodedSha256": "48750528371fbf08dd09478dd7fb8e2a2b9a19494bf1e779610e5b90668e16d0",
+      "decodedBytes": 7396,
+      "gzipSha256": "b3af8af7b56afb83f1987e055988cd9032ee3b3d4881f8bd703342e91586281b"
+    },
+    {
+      "decodedPath": "candidate-final-preimages/packages/base/src/lib/number-field/root/StepperButton.svelte",
+      "archive": "candidate-final-preimages/packages/base/src/lib/number-field/root/StepperButton.svelte.gz",
+      "decodedSha256": "6482340bd37a6832d3a5be4500be058d46616489f1a3dfa18536d765a19650fd",
+      "decodedBytes": 1613,
+      "gzipSha256": "de1c660db2f748908cdd38a96f315f044623c17d8f17ccba39f634ae8a69959e"
+    },
+    {
+      "decodedPath": "candidate-final-preimages/packages/base/src/lib/number-field/root/useNumberFieldStepperButton.svelte.ts",
+      "archive": "candidate-final-preimages/packages/base/src/lib/number-field/root/useNumberFieldStepperButton.svelte.ts.gz",
+      "decodedSha256": "5eeb80f333238a9a0afed38751e2b3917a5397d09edfe8143dfb70fffc2fc3b1",
+      "decodedBytes": 6675,
+      "gzipSha256": "f1b34b1e1b0aa08043911691c399c603d612acdc0c1ccd586e920c7591a99ce2"
+    },
+    {
+      "decodedPath": "candidate-final-preimages/packages/base/tests/dom/NumberFieldStepperOwner.svelte",
+      "archive": "candidate-final-preimages/packages/base/tests/dom/NumberFieldStepperOwner.svelte.gz",
+      "decodedSha256": "d75b5e38cf736209567a78a4fbed72943878dfbab5e97baca9228aa1e6d31568",
+      "decodedBytes": 979,
+      "gzipSha256": "53866f6dea504f49608794a3ba9069d71780d9767cc5e95a577d791c05351b6a"
+    },
+    {
+      "decodedPath": "candidate-final-preimages/packages/base/tests/dom/number-field-stepper-owner.test.ts",
+      "archive": "candidate-final-preimages/packages/base/tests/dom/number-field-stepper-owner.test.ts.gz",
+      "decodedSha256": "e29d12e9ec8664aad9ace75655a17c811a039106fa908c6116a4278389d7e30a",
+      "decodedBytes": 4062,
+      "gzipSha256": "47d1a19a24b77286834c703b0ab80cd5cb7c2e05a91619b3799110b3270bdf0d"
+    },
+    {
+      "decodedPath": "candidate-final-preimages/tests/browser/number-field.spec.ts",
+      "archive": "candidate-final-preimages/tests/browser/number-field.spec.ts.gz",
+      "decodedSha256": "ed0e5cd3022bfe48509f2f2ab895f84e9ab5d2515fe75c87082e0ba6fdd9ed1f",
+      "decodedBytes": 25227,
+      "gzipSha256": "3f7c9c5bf6ec4ebca9afc54419b4b446dfa0e6183030193824dc366121c9c58a"
+    },
+    {
+      "decodedPath": "candidate-final-receipt.json",
+      "archive": "candidate-final-receipt.json.gz",
+      "decodedSha256": "01080f43951a83559717bb40a82b125e90106361bee48527e2daf1e0fe567e48",
+      "decodedBytes": 3287,
+      "gzipSha256": "84953ec7d628a1daf474a8d1128913ba7bc752c49f070b23e171f74e32b361e3"
+    },
+    {
+      "decodedPath": "candidate-preimages/packages/base/src/lib/number-field/root/StepperButton.svelte",
+      "archive": "candidate-preimages/packages/base/src/lib/number-field/root/StepperButton.svelte.gz",
+      "decodedSha256": "6482340bd37a6832d3a5be4500be058d46616489f1a3dfa18536d765a19650fd",
+      "decodedBytes": 1613,
+      "gzipSha256": "de1c660db2f748908cdd38a96f315f044623c17d8f17ccba39f634ae8a69959e"
+    },
+    {
+      "decodedPath": "candidate-preimages/packages/base/src/lib/number-field/root/useNumberFieldStepperButton.svelte.ts",
+      "archive": "candidate-preimages/packages/base/src/lib/number-field/root/useNumberFieldStepperButton.svelte.ts.gz",
+      "decodedSha256": "5eeb80f333238a9a0afed38751e2b3917a5397d09edfe8143dfb70fffc2fc3b1",
+      "decodedBytes": 6675,
+      "gzipSha256": "f1b34b1e1b0aa08043911691c399c603d612acdc0c1ccd586e920c7591a99ce2"
+    },
+    {
+      "decodedPath": "candidate.patch",
+      "archive": "candidate.patch.gz",
+      "decodedSha256": "c2a7a4206337b2cd502dbde7f704879651d422a27742b7469101f9b52a4a5e7e",
+      "decodedBytes": 1639,
+      "gzipSha256": "22b407213f2b4487eb46f9c8dbeb855ab697fcdf0f2d8a6c1555093caea24eec"
+    },
+    {
+      "decodedPath": "fixture-compile.log",
+      "archive": "fixture-compile.log.gz",
+      "decodedSha256": "bc613adce43e7659ee9eb533e72f5d218569ff3f62d9c35968a96fa83c54e5f1",
+      "decodedBytes": 524,
+      "gzipSha256": "82cfed33eb11031df74dadd10b78f71f0c6d4de678a3344f4f415e0b550d21d7"
+    },
+    {
+      "decodedPath": "fixture-compile.mjs",
+      "archive": "fixture-compile.mjs.gz",
+      "decodedSha256": "20657865204a033c20a43c6d361a7d4b6263a6170dc750bf4ea0f33efc379cac",
+      "decodedBytes": 1630,
+      "gzipSha256": "fb97315198f417d07edd1fee10f640e4f15d7721a6c38898b9303ce2cc9488ed"
+    },
+    {
+      "decodedPath": "fixture-owner-ssr.html",
+      "archive": "fixture-owner-ssr.html.gz",
+      "decodedSha256": "220db542406f7412275344a892c038bc132cd523756e934724f3a3df144da701",
+      "decodedBytes": 4113,
+      "gzipSha256": "442efa0a34b71d81bd2eadc145409709b923e0a6909367e20a7ae71b237ff905"
+    },
+    {
+      "decodedPath": "fresh-pack.log",
+      "archive": "fresh-pack.log.gz",
+      "decodedSha256": "ec0c99b54e3680c44c5517cfb59f440bc95b420bcacd7489cb0f701b586cdab5",
+      "decodedBytes": 39464,
+      "gzipSha256": "899c421cc6fad9882e66f3a6e1bc1140b41d1941ba77dcc15805c3aa2433fe43"
+    },
+    {
+      "decodedPath": "fresh-packed/.workspace-packages.json",
+      "archive": "fresh-packed/.workspace-packages.json.gz",
+      "decodedSha256": "acfabec86e6c9db9d13e1541f51ce2fe99aa95e9a7b95db2530da2138529dc3e",
+      "decodedBytes": 343,
+      "gzipSha256": "295f816074561257cbc1082f944844882a9bc962ceb883c7a3a9d4726d3d16cc"
+    },
+    {
+      "decodedPath": "fresh-packed/artifacts.json",
+      "archive": "fresh-packed/artifacts.json.gz",
+      "decodedSha256": "0093e8592e526e580e550f6418217d514744020f544caa3d7dbd84a216b9bf67",
+      "decodedBytes": 566,
+      "gzipSha256": "d8c731b478bdb38d7215e3b686e9f4faba0784d129ac0f69a85b9b28bacb37cc"
+    },
+    {
+      "decodedPath": "number-field-all-dom.log",
+      "archive": "number-field-all-dom.log.gz",
+      "decodedSha256": "95f7d8fc4692d7817342b5f3a404b9cf69f547787034f0a6d82168c95adb0813",
+      "decodedBytes": 556,
+      "gzipSha256": "ea49c7f6ddc63099652e8b9381df69a819e63d59726eaa824f9f20ae5646383c"
+    },
+    {
+      "decodedPath": "number-field-packed-consumer.log",
+      "archive": "number-field-packed-consumer.log.gz",
+      "decodedSha256": "d862013118421d0dca4e168e8454324345a351835bb2cde2a48eaab3271f491b",
+      "decodedBytes": 271,
+      "gzipSha256": "28f36d5c64d6f7a49d58f61b7ac1a43a08807e407193724c3fe84ead9ec02d72"
+    },
+    {
+      "decodedPath": "number-field-ssr.log",
+      "archive": "number-field-ssr.log.gz",
+      "decodedSha256": "43b5155b211204714e61e6cdcaa212b500b3fe895ce6ffae2904aa228957b394",
+      "decodedBytes": 485,
+      "gzipSha256": "3048cc39e4d80ae32c58dd2829a41aa08ea8bdb9dfe40a6932fca69826989797"
+    },
+    {
+      "decodedPath": "pre-run-source-hashes.json",
+      "archive": "pre-run-source-hashes.json.gz",
+      "decodedSha256": "18c17dfb600002c772114985cc71923044f6ce70d11a204127b4988e47a28b74",
+      "decodedBytes": 86181,
+      "gzipSha256": "07bb920984b926d4e12977ee84cadadd2d3ccc9fba2925f985812db6bf643a9c"
+    },
+    {
+      "decodedPath": "receipt.json",
+      "archive": "receipt.json.gz",
+      "decodedSha256": "3fbcae2327684404d87f67c4b48f54d992f3eeaa34ec7574ad5cec04d3354721",
+      "decodedBytes": 2946,
+      "gzipSha256": "e5de9a2ce27e687c2b9f008f67f02b2535e48518b730147607f29af5dc9f923c"
+    },
+    {
+      "decodedPath": "fixture-full-build.log",
+      "archive": "fixture-full-build.log.gz",
+      "decodedSha256": "d3ad61a7f2c27a855e68ba6b77b5f42d88d919f3c115bef986ffc837305617ec",
+      "decodedBytes": 363670,
+      "gzipSha256": "913096ef524e74b1631996eb79afea554829d6f2d4c917550de06f5362161f05"
+    }
+  ]
+}

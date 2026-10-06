@@ -26,7 +26,7 @@
       return () =>
         untrack(() => {
           if (ref === host) ref = null;
-          button.buttonRef?.(null);
+          if (button.element === host) button.buttonRef?.(null);
         });
     });
   }
