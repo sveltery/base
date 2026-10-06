@@ -1,0 +1,36 @@
+{
+  "status": "Historical hosted zero-job failure; unsupported runner context corroborated by official docs, inferred cause only; zero execution credit.",
+  "head": "71d521312f76565b9715c2f01fadec14722472b5",
+  "tree": "72c5c7365c003c2b3af9475d7b6f3163e30833d9",
+  "runId": 37548813180,
+  "runUrl": "https://github.com/sveltery/base/actions/runs/37548813180",
+  "event": "push",
+  "conclusion": "failure",
+  "jobs": 0,
+  "checkRuns": 0,
+  "checkSuiteId": 101715878390,
+  "failureAnnotationRetrieved": false,
+  "observedWorkflowBlob": "ce797bc5454f2fed2e9055ecf488ba527b046162",
+  "observedJobEnv": "PLAYWRIGHT_BROWSERS_PATH: ${{ runner.temp }}/sveltery-docs-playwright",
+  "officialContextReference": "https://docs.github.com/en/actions/reference/workflows-and-actions/contexts#context-availability",
+  "jobEnvAllowedContexts": [
+    "github",
+    "needs",
+    "strategy",
+    "matrix",
+    "vars",
+    "secrets",
+    "inputs"
+  ],
+  "runnerAllowedAtStepEnv": true,
+  "causeDisposition": "Inference supported by invalid job-level context and immediate zero-job run; actual GitHub annotation unavailable.",
+  "successorJobEnv": "PLAYWRIGHT_BROWSERS_PATH: /tmp/sveltery-docs-playwright",
+  "unchanged": [
+    "All runtime, shared helpers, types, business bodies and assertion files",
+    "Official Chromium installer and sandbox",
+    "One worker and zero retries",
+    "Installer and launcher shared job inheritance",
+    "Original historical raw receipt blob f1f7f60f8c7c25b0d0253bcd05052cfaa85d0f25"
+  ],
+  "localValidation": "Not executed: execution service disconnected; remote exact-delta and fresh independent review only. Hosted gates required."
+}

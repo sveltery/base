@@ -334,7 +334,7 @@ verify both. An exact-path `whitespace=-blank-at-eol` attribute preserves the
 historical line 3 terminal spaces; all other whitespace checks remain enabled.
 This receipt disposition changes no Source, runtime, CI or parity claim.
 Hosted docs install and launch now share explicit PLAYWRIGHT_BROWSERS_PATH under
-runner.temp, independent of toolchain XDG_CACHE_HOME; the official browser, sandbox,
+`/tmp/sveltery-docs-playwright`, independent of toolchain XDG_CACHE_HOME; the official browser, sandbox,
 one worker and zero retries are retained. This harness correction grants zero
 executed browser assertions until the final-head hosted run reports them.
 
@@ -345,3 +345,16 @@ This is a reached acceptance dependency, not a docs per-part workaround. The
 docs candidate leaves the helper untouched and must integrate accepted main
 normally before final entire-closure review and CI. No React empty-style
 emulation or native-default acceptance is inferred from the candidate checks.
+
+The published `71d52131` docs workflow failed before job creation: run
+[37548813180](https://github.com/sveltery/base/actions/runs/37548813180) returned
+zero jobs and zero check runs. Its job-level environment used `runner.temp`, which
+GitHub's [context availability table](https://docs.github.com/en/actions/reference/workflows-and-actions/contexts#context-availability)
+does not permit at `jobs.<job_id>.env`. This corroborates an unsupported-context
+cause, but no actual failure annotation was retrieved, so causality remains an
+inference. The focused successor uses the same literal `/tmp/sveltery-docs-playwright`
+cache for official installation and both launchers. No assertion or gate changes;
+the original failed run and all receipt bytes remain retained. See the
+[zero-job record](receipts/docs/workflow-job-env-context-predecessor.json).
+Local execution was disconnected; this successor has remote byte/delta review,
+not a claimed local YAML, browser or consumer pass. Fresh hosted checks are required.
