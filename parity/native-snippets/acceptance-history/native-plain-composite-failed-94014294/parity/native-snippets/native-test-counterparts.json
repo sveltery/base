@@ -17,15 +17,7 @@
     "previousRecordsPreserved": 72,
     "addedRecords": 5,
     "newWholeArchives": 4,
-    "reusedExactWholeArchives": 1,
-    "plainDomMeasuredSuccessor": {
-      "previousRecordsPreserved": 78,
-      "addedRecords": 3,
-      "newWholeArchives": 3,
-      "reusedExactWholeArchives": 0,
-      "archiveRoot": "acceptance-history/native-plain-composite-failed-94014294",
-      "status": "Preserves whole failed940 case and inaccurate current metadata/prose before measured successor; no acceptance credit"
-    }
+    "reusedExactWholeArchives": 1
   },
   "counterparts": [
     {
@@ -69,35 +61,16 @@
     {
       "id": "composite-plain-dom-partial",
       "test": "packages/base/tests/dom/composite-nested-source.test.ts",
-      "source": ["packages/react/src/internals/composite/root/CompositeRoot.test.tsx"],
+      "source": [
+        "packages/react/src/internals/composite/root/CompositeRoot.test.tsx"
+      ],
       "originalAssignment": "React title and original outer metadata/shared navigation expectations retained in the React branch.",
-      "nativeAssignment": "Measured plain native counterpart uses the unchanged actual Fixture: initial inner/false revision0, updates1-3 retain the real shared host, removal reindexes first/last, reinsertion and SPAN replacement use new physical hosts, and every first-to-ArrowRight navigation skips shared to last. Explicit unmount asserts empty DOM and the last emitted Map retains three disconnected keys. Whole failed940 case and wrong metadata/prose are archived.",
-      "evidence": "parity/native-snippets/plain-composite-native-evidence.json binds each actual plain record to complete-vectors.json SHA741632beb22af76e6de8e64477f01b342245cf6546fd529701cade4633d7a63b at43b322f5a6171e9dea5479fb3e047fc0036026e1. Acde and940 failed initially, not at first update; raw matcher hid revision. The first3-case exit0 capture had no console vectors; command-only verbose/silent=false acquired all data. Acquisition grants no canonical gate pass.",
-      "status": "Actual native behavior acquired; durable test successor proposed and unexecuted. Final candidate execution and independent review pending; zero divergent unchanged Original credit.",
+      "nativeAssignment": "Different plain DOM fixture retains actual initial outer/shared expectation; updates check inner/false revision and navigate to last. Whole predecessor preserved.",
+      "evidence": "Historical failed DOM reached initial state and only first inner update. Revisions 2\u20133, removal, reinsertion, SPAN and cleanup tails remain unexecuted; hydrated evidence is not assigned to them.",
+      "status": "Partial proposal only; frozen 826 DOM runs first without Radio adoption. Preserve this whole candidate and any failed receipt before a later successor.",
       "unchangedOriginalCredit": 0,
       "localBusiness": [
         "packages/base/src/lib/internals/composite/list/createCompositeList.svelte.ts",
-        "packages/base/src/lib/internals/composite/root/CompositeRoot.svelte"
-      ],
-      "observation": "Actual43 unchanged plain lane completed20 phases: inner/false/index1 at revisions0-3; first/shared/last map order and metadata stay exact; all six ArrowRight actions focus last and preserve one roving tab stop. Removal leaves first/last indexes0/1 and drops the disconnected shared key; new BUTTON and new SPAN retain inner revision3. Unmount leaves no hosts and retains three disconnected emitted Map keys. No hydrated expectation is assigned."
-    },
-    {
-      "id": "composite-plain-dom-public-refs",
-      "test": "packages/base/tests/dom/composite-nested-source.test.ts",
-      "fixture": "packages/base/tests/dom/NativePlainCompositeRefs.svelte",
-      "source": [
-        "packages/react/src/internals/composite/item/CompositeItem.tsx",
-        "packages/react/src/internals/composite/list/useCompositeListItem.ts"
-      ],
-      "originalAssignment": "Additional native public-ref lane only; no Original assertions or credit. React source case retains its title, version checks, complete actions and outer/shared expectations.",
-      "nativeAssignment": "Same actual plain topology and shared action body, with public bind:ref only. Assert real Root/first/shared/last identity, both outer/inner refs equal the actual shared host through three updates and replacements, null shared refs on removal, and all refs null after explicit native unmount alongside retained disconnected Map truth.",
-      "observation": "Independent actual43 ref-consumer lane completed20 phases and matched the unchanged plain lane registration/navigation/physical-host behavior. Root/first/last refs retain identity; outer and inner share the current host, become null on removal, follow new BUTTON then new SPAN, and all five refs are null after unmount.",
-      "evidence": "Same complete-vectors.json SHA741632beb22af76e6de8e64477f01b342245cf6546fd529701cade4633d7a63b; public-ref lane tracked separately. Durable companion differs from measured fixture only by relative maintained imports and attribution comment.",
-      "status": "Measured supplemental native lane; proposed durable assertions and fixture remain unexecuted pending final candidate validation and review.",
-      "unchangedOriginalCredit": 0,
-      "localBusiness": [
-        "packages/base/src/lib/internals/composite/item/CompositeItem.svelte",
-        "packages/base/src/lib/internals/composite/list/useCompositeListItem.svelte.ts",
         "packages/base/src/lib/internals/composite/root/CompositeRoot.svelte"
       ]
     },
@@ -167,30 +140,9 @@
       "observations": 80,
       "runExit": 1,
       "passingGateCredit": 0
-    },
-    {
-      "receipt": "/workspace/reviews/native-43-plain-acquisition-verbose/complete-vectors.json",
-      "sha256": "741632beb22af76e6de8e64477f01b342245cf6546fd529701cade4633d7a63b",
-      "actualExecutionHead": "43b322f5a6171e9dea5479fb3e047fc0036026e1",
-      "realFixturePhases": [20, 20],
-      "literalPhases": 8,
-      "literalEvents": 18,
-      "runExit": 0,
-      "diagnosticAcquisitionComplete": true,
-      "passingGateCredit": 0
-    },
-    {
-      "receipt": "/workspace/reviews/native-43-plain-acquisition-default-output/disposition.json",
-      "sha256": "72c5ffac006f968efe9dd782e539d61a8dd3d49a483fa94b3052db362d3e1050",
-      "actualExecutionHead": "43b322f5a6171e9dea5479fb3e047fc0036026e1",
-      "testsPassed": 3,
-      "runExit": 0,
-      "diagnosticAcquisitionComplete": false,
-      "reason": "MinimalReporter withheld every console vector; zero phase observations may be inferred",
-      "passingGateCredit": 0
     }
   ],
-  "remaining": "Plain native behaviors are measured, with separate untouched-fixture/ref-consumer/literal provenance. Proposed durable plain assertions and all final adopted-candidate checks remain pending. Canonical940 failure and first no-vector acquisition remain immutable; diagnostic acquisition does not turn a failed product gate into a pass. PR77/78 remain held pending final validation and review.",
+  "remaining": "Partial plain DOM tails and all adopted-candidate checks remain pending. Runtime Panel/CSS proof and favicon are separately owned. Historical failed receipts are immutable; PR77/78 remain held pending validation.",
   "formattingSuccessor": {
     "inputCombinedPatchSha256": "02c85bddeb46c7e6a75933567ef8213ba86bbe5c7b7391ed18e87c2b5af0c1df",
     "status": "Root-authorized external maintained formatting; candidate execution pending",
@@ -221,15 +173,5 @@
         "sha256": "47dae20e7f65e5f749cb932b76ce6ec03b6a3d72fb3983b88bcdd2aeb86a2eb5"
       }
     ]
-  },
-  "plainDomMeasuredSuccessor": {
-    "predecessorHead": "43b322f5a6171e9dea5479fb3e047fc0036026e1",
-    "sourceBaselineHead": "9401429484f56c52dc2f47a9c7c50bfe654329eb",
-    "evidence": "plain-composite-native-evidence.json",
-    "status": "Measured external proposal; not adopted or executed",
-    "testSha256": "126a7afe72a98fed65bb25ccd143ca1bb65176b3ccae789dd6dd6d0dbcabfb0c",
-    "refFixtureSha256": "e4e93f2d0b36eb8619e4ec24898d66b80d618f84351aeee2052724b814012cef",
-    "ReactTitleActionsAssertions": "Preserved on their existing React branches; whole predecessor and reference fixture remain exact historical bodies",
-    "unchangedOriginalCredit": 0
   }
 }

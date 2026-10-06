@@ -588,6 +588,33 @@
       "predecessor": "826eb1d863a231928c4cc040f894737449563d4b",
       "disposition": "reviewed-real-fixture-favicon-wiring-predecessor; SVG is new and has no predecessor",
       "unchangedParityCredit": 0
+    },
+    {
+      "source": "packages/base/tests/dom/composite-nested-source.test.ts",
+      "archive": "parity/native-snippets/acceptance-history/native-plain-composite-failed-94014294/packages/base/tests/dom/composite-nested-source.test.ts",
+      "sha256": "27f01979ac5d41aaaa9e62715232a29783bd402b25c8d0d005448ac307385a74",
+      "predecessor": "9401429484f56c52dc2f47a9c7c50bfe654329eb",
+      "identicalCurrentPreimageHead": "43b322f5a6171e9dea5479fb3e047fc0036026e1",
+      "disposition": "complete-failed940-case-or-inaccurate-current-metadata-preserved-before-measured-plain-successor; zero acceptance credit",
+      "unchangedParityCredit": 0
+    },
+    {
+      "source": "parity/native-snippets/native-test-counterparts.json",
+      "archive": "parity/native-snippets/acceptance-history/native-plain-composite-failed-94014294/parity/native-snippets/native-test-counterparts.json",
+      "sha256": "2ede2f0f624367b2e56fef1cc2a040f6be6d9ab74fc57b816c2e0976c895a917",
+      "predecessor": "9401429484f56c52dc2f47a9c7c50bfe654329eb",
+      "identicalCurrentPreimageHead": "43b322f5a6171e9dea5479fb3e047fc0036026e1",
+      "disposition": "complete-failed940-case-or-inaccurate-current-metadata-preserved-before-measured-plain-successor; zero acceptance credit",
+      "unchangedParityCredit": 0
+    },
+    {
+      "source": "parity/native-snippets/acceptance.md",
+      "archive": "parity/native-snippets/acceptance-history/native-plain-composite-failed-94014294/parity/native-snippets/acceptance.md",
+      "sha256": "9a39382d823dd2e1677c824199f3584e13bf5949014e0e2280563096e61fe939",
+      "predecessor": "9401429484f56c52dc2f47a9c7c50bfe654329eb",
+      "identicalCurrentPreimageHead": "43b322f5a6171e9dea5479fb3e047fc0036026e1",
+      "disposition": "complete-failed940-case-or-inaccurate-current-metadata-preserved-before-measured-plain-successor; zero acceptance credit",
+      "unchangedParityCredit": 0
     }
   ]
 }
