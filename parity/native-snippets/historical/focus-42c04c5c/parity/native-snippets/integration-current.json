@@ -2,22 +2,20 @@
   "rendererPredecessor": "f0dbb89a05f032af1e9aac99461c6eccfa09e0d9",
   "nativeIntegrationParent": "96ade5322d396211cc41609f244803e92dfe0169",
   "nativeGetterPredecessor": "168c2717da1834fe728d76a4aeb94cb81b9b8a1f",
-  "focusMetadataPredecessor": "42c04c5c4fb1d8a698435fee40e1d2bcb41d30e7",
   "immutableOriginalPin": "47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c",
   "ordinaryDeclarationCredit": 0,
   "mode": "Source/parser/hash/import evidence only; no type program, runtime, SSR/hydration, compiled markup, artifact, installed consumer, browser, CI or merge acceptance credit.",
-  "method": "Complete current native two-package AST closure, immutable f0 full-body preimages and grouping-preserving script ASTs. Deliberate PreviousValue, registered-label publication, captured Menu label/event-bus cleanup and captured focus metadata corrections are separate from formatter presentation changes. Getter and publication retain their exact inherited bodies; exact complete-body Menu cleanup deltas are checked against e5 and the narrow focus metadata delta against42. Parse success supplies no behavior equivalence.",
+  "method": "Complete current native two-package AST closure, immutable f0 full-body preimages and grouping-preserving script ASTs. Deliberate PreviousValue, registered-label publication and captured Menu label/event-bus cleanup corrections are separate from formatter presentation changes. Getter and publication retain their exact inherited bodies; exact complete-body Menu cleanup deltas are checked against e5. Parse success supplies no behavior equivalence.",
   "parserVersions": {
     "TypeScript": "6.0.3",
     "Svelte": "5.57.1"
   },
-  "currentGraphSha256": "e23e9187d46335ba336a1d56d84c050c997b8a7b41a942b22e91eea30749e406",
-  "currentPublicHostGraphSha256": "d3d12a7977f6829c47bf21f4baaa0b9870a841eba5e4c47d60486c0b0f8eb851",
-  "proofToolSha256": "acd698c3003b978a24e4abad35619cf0333c72238095cba4f2be71d0c4a5a1e0",
+  "currentGraphSha256": "530e0604a3d08097de974e04586937d0c6f7aeaded44d2862e153c0a6cb05701",
+  "currentPublicHostGraphSha256": "551e813daa36c74d9f95c1c520c4777116cba14cacf2f52a1f03d3d8c33bafa3",
+  "proofToolSha256": "d78043a01dbcb20281822a9982cbcbae9d8db01b014d5655a58701932e4885e5",
   "controlledOwners": 11,
   "effectCalls": 187,
   "sourceBusinessCorrectionPaths": [
-    "packages/base/src/lib/floating-ui/components/createFloatingFocusManager.svelte.ts",
     "packages/base/src/lib/menu/GroupLabel.svelte",
     "packages/base/src/lib/menu/Popup.svelte",
     "packages/base/src/lib/menu/positioner/createMenuPositioner.svelte.ts",
@@ -1868,27 +1866,11 @@
     {
       "path": "packages/base/src/lib/floating-ui/components/createFloatingFocusManager.svelte.ts",
       "rendererSha256": "98849b1174e3df19901abbf0622834e52c20dd72244d7df13aae6f398b8d8787",
-      "currentSha256": "2bf134f5537129302dfa11bcde005471119ac9b845977c936c126709880f1e27",
+      "currentSha256": "d5b1035fd53c72ca3dee75fb5c4dbf08093ca09142e859dd87a44d911079e018",
       "scriptStructuralAstEqual": false,
       "sourceSyntaxValid": true,
-      "disposition": "Root-authorized native untrack of captured opening metadata only; actual node, disabled and bus resource dependencies plus latest disposal-time returnFocus reads retained. Candidate runtime execution pending.",
-      "sourceBusinessCorrection": true,
-      "sourceBusinessPredecessor": "42c04c5c4fb1d8a698435fee40e1d2bcb41d30e7",
-      "sourceBusinessPredecessorSha256": "d5b1035fd53c72ca3dee75fb5c4dbf08093ca09142e859dd87a44d911079e018",
-      "exactAuthorizedCompleteBodyDelta": true,
+      "disposition": "Explicit presentation/grouping changes retained without normalization or structural equality credit; compiled-output disposition pending.",
       "structuralDifferences": [
-        {
-          "path": "source.ImportDeclaration[0].ImportClause[0].NamedImports[0]",
-          "before": "{ onDestroy }",
-          "after": "{ onDestroy, untrack }"
-        },
-        {
-          "path": "source.FunctionDeclaration[36].Block[3].ExpressionStatement[46].CallExpression[0].ArrowFunction[1].Block[1].FirstStatement[4].VariableDeclarationList[0].VariableDeclaration[0].BinaryExpression[1]",
-          "beforeKind": "BinaryExpression",
-          "afterKind": "CallExpression",
-          "before": "openInteractionTypeRef.current == null",
-          "after": "untrack(() => openInteractionTypeRef.current == null)"
-        },
         {
           "path": "source.FunctionDeclaration[36].Block[3].ExpressionStatement[46].CallExpression[0].ArrowFunction[1].Block[1].FunctionDeclaration[9].Block[2].ReturnStatement[9].ParenthesizedExpression[0]",
           "beforeKind": "ParenthesizedExpression",

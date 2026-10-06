@@ -304,11 +304,11 @@
         "818d5acc2647817bd61a41f7f78e09a8516e79139cd2d3734412b963b88b7035",
         "4f731f386921ce82c00602c3fb8e402a4523e48f316ccf2881fd3449d5a27083"
       ],
-      "currentFileSha256": "2bf134f5537129302dfa11bcde005471119ac9b845977c936c126709880f1e27",
+      "currentFileSha256": "d5b1035fd53c72ca3dee75fb5c4dbf08093ca09142e859dd87a44d911079e018",
       "currentOwners": [
         {
           "path": "packages/base/src/lib/floating-ui/components/createFloatingFocusManager.svelte.ts",
-          "sha256": "2bf134f5537129302dfa11bcde005471119ac9b845977c936c126709880f1e27",
+          "sha256": "d5b1035fd53c72ca3dee75fb5c4dbf08093ca09142e859dd87a44d911079e018",
           "classes": []
         }
       ]

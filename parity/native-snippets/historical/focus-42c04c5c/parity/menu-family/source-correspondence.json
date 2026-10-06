@@ -154,7 +154,7 @@
       ],
       "localHashes": {
         "packages/base/src/lib/floating-ui/components/FloatingFocusManager.svelte": "88b47ec0d8e7254d4ea022e5c05d272798d9e735c65e84c9ddfef38b8bd24342",
-        "packages/base/src/lib/floating-ui/components/createFloatingFocusManager.svelte.ts": "2bf134f5537129302dfa11bcde005471119ac9b845977c936c126709880f1e27"
+        "packages/base/src/lib/floating-ui/components/createFloatingFocusManager.svelte.ts": "d5b1035fd53c72ca3dee75fb5c4dbf08093ca09142e859dd87a44d911079e018"
       },
       "correspondence": "Full Original focus-manager business plus native host/component ownership. Reinspect inherited full body, flags, scheduling, focus restore and teardown.",
       "reviewStatus": "Entire used Source/native business, idiomatic Svelte and maintainability independent exact-head review pending; no acceptance by inventory."
@@ -2708,7 +2708,7 @@
         "packages/base/src/lib/context-menu/trigger/createContextMenuTrigger.svelte.ts": "c7b1cd5c8adc95071a449256413571762d3f762dcb39fc3adf71d78db83aae33",
         "packages/base/src/lib/floating-ui/components/FloatingPortal.svelte": "4532b577b66e7ae3333e38a235a3a3ec331ef12adaa4183cb4fcc8b579004ac9",
         "packages/base/src/lib/floating-ui/components/FloatingTree.svelte.ts": "4ba1a45eb3e58c4c1cdb7fc68d48c59da7ad7a5cbd5f9be7319c22af1ca60d8a",
-        "packages/base/src/lib/floating-ui/components/createFloatingFocusManager.svelte.ts": "2bf134f5537129302dfa11bcde005471119ac9b845977c936c126709880f1e27",
+        "packages/base/src/lib/floating-ui/components/createFloatingFocusManager.svelte.ts": "d5b1035fd53c72ca3dee75fb5c4dbf08093ca09142e859dd87a44d911079e018",
         "packages/base/src/lib/floating-ui/hooks/useDismiss.svelte.ts": "ae4860fe2a3f4ea5686bccb2b425bf9c61a676b92072da7b6f733d69dc8afd51",
         "packages/base/src/lib/floating-ui/hooks/useFloating.svelte.ts": "fb2a3d4ef440583702349947e7fbffb47608d736f3ec7289dd82091d4cb958b8",
         "packages/base/src/lib/floating-ui/hooks/useFloatingPortalNode.svelte.ts": "16cef262e2368b881c58d59baa1257caddc9c0e97b4fb183f7099cc09f6dc84d",
@@ -2853,7 +2853,7 @@
         "packages/base/src/lib/utils/usePopupViewport.svelte.ts"
       ],
       "localHashes": {
-        "packages/base/src/lib/floating-ui/components/createFloatingFocusManager.svelte.ts": "2bf134f5537129302dfa11bcde005471119ac9b845977c936c126709880f1e27",
+        "packages/base/src/lib/floating-ui/components/createFloatingFocusManager.svelte.ts": "d5b1035fd53c72ca3dee75fb5c4dbf08093ca09142e859dd87a44d911079e018",
         "packages/base/src/lib/floating-ui/hooks/useDismiss.svelte.ts": "ae4860fe2a3f4ea5686bccb2b425bf9c61a676b92072da7b6f733d69dc8afd51",
         "packages/base/src/lib/floating-ui/hooks/useHoverFloatingInteraction.svelte.ts": "0ab147a7643e45e94606193799839e6b449028367873d9acdcb4e2618af860ba",
         "packages/base/src/lib/floating-ui/hooks/useHoverReferenceInteraction.svelte.ts": "bd55a3a32c7465648d0a0640aae445b27f4faab8b08946e646e42459e176a060",

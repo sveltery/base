@@ -1,4 +1,4 @@
-import { onDestroy, untrack } from 'svelte';
+import { onDestroy } from 'svelte';
 // Ported business body from Base UI v1.8.0 at 47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c.
 // MIT Copyright (c) 2019 Material-UI SAS; see THIRD_PARTY_NOTICES.md.
 import { getNodeName, isHTMLElement } from '@floating-ui/utils/dom';
@@ -740,8 +740,7 @@ export function createFloatingFocusManager(getProps: () => FloatingFocusManagerP
     // Only an explicit `null` interaction type represents a programmatic open.
     // `undefined` is normalized to `''` by the prop default, so it never reaches
     // here as nullish and is intentionally not treated as programmatic.
-    // Opening metadata chooses this owner's return priority; later changes do not dispose it.
-    const preferPreviousFocus = untrack(() => openInteractionTypeRef.current == null);
+    const preferPreviousFocus = openInteractionTypeRef.current == null;
 
     addPreviouslyFocusedElement(elementFocusedBeforeOpen);
 
