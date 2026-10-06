@@ -26,7 +26,6 @@ for (const kind of ['focus', 'hover', 'dismiss'] as const)
     const detachFirst = handle.attachStore(first);
     const target = document.createElement('main');
     document.body.append(target);
-    const warn = vi.spyOn(console, 'warn').mockImplementation(() => {});
     const app = mount(Fixture, { target, props: { handle, kind } });
     flushSync();
     await tick();
