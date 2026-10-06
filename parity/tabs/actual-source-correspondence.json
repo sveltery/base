@@ -3438,5 +3438,30 @@
       "ordinaryDeclarationCredit": 0,
       "acceptance": "Metadata completeness correction only; entire-closure exact-final-head review and execution remain separate."
     }
-  ]
+  ],
+  "nativeButtonBrowserPredicateCorrection": {
+    "archive": "native-button-owner-browser-matcher-predecessor.json",
+    "predecessorHead": "0a8ad320d3043460ceac9ce1dfe125862974acb3",
+    "actualHostedJob": "https://github.com/sveltery/base/actions/runs/37535354117/job/112515177834",
+    "actualResult": "Real component Chromium9tests:8passed1failed; guard diagnostic witness passed, disabled synchronization witness failed combined semantic toBeDisabled predicate.",
+    "measuredPredicate": "Installed Vitest5.0.3 Et\u2192Ot\u2192Qt returns native physical disabled OR ARIA disabled semantics. Tabs retains aria-disabled=true with focusableWhenDisabled and physical HTMLButtonElement.disabled=false; hosted received markup had aria-disabled=true and no disabled attribute.",
+    "successor": "Test-only correction retains ARIA expectation and polls actual HTMLButtonElement.disabled false. Runtime/fixture/shared source hashes and Original assertions unchanged.",
+    "status": "Corrected real-browser predicate pending successor hosted execution and exact-head review. Previous red receipt remains historical; no inferred corrected pass.",
+    "ordinaryDeclarationCredit": 0,
+    "documentationComparison": {
+      "url": "https://vitest.dev/api/browser/assertions#tobedisabled",
+      "retrieved": "2026-10-06",
+      "observation": "Current prose explains native disabled attributes and disabled ancestor controls but omits the installed5.0.3 matcher ARIA branch. Exact installed module extracts/hashes and actual hosted failure remain authoritative for this predicate."
+    }
+  },
+  "nativeButtonExpectedRedBrowserGate": {
+    "tool": "scripts/check-tabs-button-owner-browser.mjs",
+    "archive": "native-button-owner-predecessor.json",
+    "predecessorCommit": "f7a1ccca6b37425fe2ca81e4cf5474ac5bb6dfdf",
+    "scope": "Test-only bounded verification of actual archived TabsTab owner transport; no canonical shared helper or immutable Original business modification.",
+    "mechanism": "Require full predecessor SHA and immutable pin, prove current whole TabsTab body equals the exact bounded owner transform, temporarily install full predecessor bytes, execute the same two secured client assertions expecting their exact named failures and actual host snapshots, restore exact current bytes in finally, then let normal full client suite establish repaired green.",
+    "expectedPhysicalContract": "Predecessor new host retains physical disabled=true with aria-disabled=true; repaired host must have physical disabled=false while ARIA remains disabled. Diagnostic publication belongs to the live current host.",
+    "status": "Mechanism proposed; expected-red and restored-current normal-green require actual successor hosted execution. No local/hosted execution credit claimed here.",
+    "ordinaryDeclarationCredit": 0
+  }
 }

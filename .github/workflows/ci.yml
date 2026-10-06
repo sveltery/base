@@ -110,8 +110,19 @@ jobs:
         run: pnpm --filter @sveltery/base build
       - name: Install official Chromium and OS dependencies
         run: pnpm exec playwright install --with-deps chromium
-      - name: Public Svelte component browser
-        run: pnpm test:component
+      - name: Public Svelte component browser with exact Tabs owner predecessor
+        run: |
+          pnpm package:prepare
+          node scripts/check-tabs-button-owner-browser.mjs
+          pnpm --recursive --filter './packages/*' --sort --workspace-concurrency 1 run test:component
+      - name: Preserve secured Tabs owner predecessor evidence
+        if: always()
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2
+        with:
+          name: tabs-button-owner-browser
+          path: .checks/tabs-button-owner-browser/
+          if-no-files-found: error
+          retention-days: 14
       - name: Record actual early-close Dialog animation samples
         run: pnpm exec playwright test --config playwright.dialog-diagnostic.config.ts
       - name: Preserve actual Dialog animation diagnostic

@@ -155,5 +155,79 @@
         "preservedReceipt": "Isolated public Tabs root/subpath/all Source aliases, namespace declarations, native ref/class/style/render, SSR, MIT: PASS\nLoading svelte-check in workspace: /tmp/sveltery-tabs-consumer.qWBX8A\nGetting Svelte diagnostics...\n\nsvelte-check found 0 errors and 0 warnings\nInstalled dual-tarball Tabs actual native hydrate host reuse, selection, keepMounted and teardown: PASS (jsdom; secured browser geometry/CSP remain separate)\n"
       }
     ]
+  },
+  "nativeButtonOwnerBrowserPredicateSuccessor": {
+    "predecessorHead": "0a8ad320d3043460ceac9ce1dfe125862974acb3",
+    "status": "PENDING_HOSTED",
+    "actualPredecessorResult": "Secured component9tests8passed1failed. New diagnostic witness passed; new disabled-sync witness combined physical/ARIA toBeDisabled assertion failed.",
+    "archive": "native-button-owner-browser-matcher-predecessor.json",
+    "redLogSha256": "ec303271a2bf18bc38100759515e3a478e8e03af0f1ecaac0a603eb1d6c79a34",
+    "successor": "Actual physical button.disabled predicate with ARIA-disabled expectation preserved, test-only. No runtime fix/pass inferred.",
+    "ordinaryDeclarationCredit": 0,
+    "boundedLocalChecks": [
+      {
+        "path": ".checks/tabs-closeout/tabs-button-owner-browser-predicate-eslint.log",
+        "status": "PASS",
+        "detail": "Scoped browser-test ESLint exit0, per native owner.",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "preservedReceipt": ""
+      },
+      {
+        "path": ".checks/tabs-closeout/tabs-button-owner-source-predicate.log",
+        "status": "PASS_WITH_FILTERED_CASES",
+        "detail": "Exact-pin React regular replacement owner source case1pass; two native JSDOM supplements filtered/skipped. No new executed browser result.",
+        "sha256": "7ad1aaca12101ff914b76fc972187975ff39f90d55f25ec46d988db08634cbaa",
+        "preservedReceipt": "\n RUN  v5.0.3 /workspace/scratch/3f057af5e33a/base/packages/base\n\n\n Test Files  1 passed (1)\n      Tests  1 passed | 2 skipped (3)\n   Start at  22:53:39\n   Duration  2.62s (transform 51%, environment 32%, import 12%, tests 5%)\n\n"
+      },
+      {
+        "path": ".checks/tabs-closeout/tabs-button-owner-browser-predicate-types.log",
+        "status": "PASS_WITH_WARNINGS",
+        "detail": "Package Svelte check0errors6existingwarnings. Corrected browser test remains hostedpending.",
+        "sha256": "792636e6c33ee01a7835f0d141154119612300c276cdddcd8c9dffc5d459c341",
+        "preservedReceipt": "Loading svelte-check in workspace: /workspace/scratch/3f057af5e33a/base/packages/base\nGetting Svelte diagnostics...\n\n/workspace/scratch/3f057af5e33a/base/packages/base/tests/dom/fixtures/UtilsStoreSync.svelte:12:37\nWarn: This reference only captures the initial value of `initialValue`. Did you mean to reference it inside a derived instead?\nhttps://svelte.dev/e/state_referenced_locally (svelte)\n  } = $props();\n  let value = $state.raw({ current: initialValue });\n  if (cleanup) store.useSyncedValueWithCleanup('value', () => value.current);\n\n/workspace/scratch/3f057af5e33a/base/packages/base/tests/dom/fixtures/UtilsStoreSync.svelte:13:7\nWarn: This reference only captures the initial value of `cleanup`. Did you mean to reference it inside a closure instead?\nhttps://svelte.dev/e/state_referenced_locally (svelte)\n  let value = $state.raw({ current: initialValue });\n  if (cleanup) store.useSyncedValueWithCleanup('value', () => value.current);\n  else store.useSyncedValue('value', () => value.current);\n\n/workspace/scratch/3f057af5e33a/base/packages/base/tests/dom/fixtures/UtilsStoreSync.svelte:13:16\nWarn: This reference only captures the initial value of `store`. Did you mean to reference it inside a closure instead?\nhttps://svelte.dev/e/state_referenced_locally (svelte)\n  let value = $state.raw({ current: initialValue });\n  if (cleanup) store.useSyncedValueWithCleanup('value', () => value.current);\n  else store.useSyncedValue('value', () => value.current);\n\n/workspace/scratch/3f057af5e33a/base/packages/base/tests/dom/fixtures/UtilsStoreSync.svelte:14:8\nWarn: This reference only captures the initial value of `store`. Did you mean to reference it inside a closure instead?\nhttps://svelte.dev/e/state_referenced_locally (svelte)\n  if (cleanup) store.useSyncedValueWithCleanup('value', () => value.current);\n  else store.useSyncedValue('value', () => value.current);\n  export const updateValue = (next: number) => {\n\n/workspace/scratch/3f057af5e33a/base/packages/base/tests/dom/MenuTreeTriggerOwner.svelte:15:23\nWarn: This reference only captures the initial value of `tree`. Did you mean to reference it inside a closure instead?\nhttps://svelte.dev/e/state_referenced_locally (svelte)\n  }: { tree: FloatingTreeStore; parentNodeId: string; children: Snippet } = $props();\n  provideFloatingTree(tree);\n  provideFloatingNode(() => parentNodeId);\n\n/workspace/scratch/3f057af5e33a/base/packages/base/tests/dom/NativeScrollAreaProbe.svelte:7:3\nWarn: This reference only captures the initial value of `capture`. Did you mean to reference it inside a closure instead?\nhttps://svelte.dev/e/state_referenced_locally (svelte)\n  let { capture }: { capture: (context: ScrollAreaRootContext) => void } = $props();\n  capture(useScrollAreaRootContext());\n</script>\n\n====================================\nsvelte-check found 0 errors and 6 warnings in 3 files\n"
+      }
+    ]
+  },
+  "nativeButtonExpectedRedBrowserGate": {
+    "status": "PENDING_ACTUAL_EXECUTION",
+    "tool": "scripts/check-tabs-button-owner-browser.mjs",
+    "expectedRed": "Two exact named assertion failures against full hashed f7 predecessor transport, with real host physical/ARIA/diagnostic observations; no browser startup or suite error accepted.",
+    "restoration": "Finally exact current TabsTab bytes/hash restored before ordinary full client suite.",
+    "requiredGreen": "Actual successor normal full component suite including corrected two physical-property/diagnostic witnesses.",
+    "ordinaryDeclarationCredit": 0,
+    "boundedStaticChecks": [
+      {
+        "path": ".checks/tabs-closeout/tabs-button-owner-paired-eslint.log",
+        "status": "RED",
+        "detail": "Initial paired script/client lint failed with two no-control-regex errors; mandatory red preserved.",
+        "sha256": "6c6b51c36e3edc45a9c7ba3ba0e7dc65c354f25579105263281d91975aec7c36",
+        "preservedReceipt": "\n/workspace/scratch/3f057af5e33a/base/scripts/check-tabs-button-owner-browser.mjs\n  144:69  error  Unexpected control character(s) in regular expression: \\x1b  no-control-regex\n  156:18  error  Unexpected control character(s) in regular expression: \\x1b  no-control-regex\n\n\u2716 2 problems (2 errors, 0 warnings)\n\n"
+      },
+      {
+        "path": ".checks/tabs-closeout/tabs-button-owner-paired-eslint-successor.log",
+        "status": "PASS",
+        "detail": "Final script/client lint exit0 after Node stripVTControlCharacters replacement; per native owner.",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "preservedReceipt": ""
+      },
+      {
+        "command": "node scripts/check-tabs-button-owner-browser.mjs --check",
+        "status": "PASS",
+        "exitCode": 0,
+        "receipt": "Native owner reports readonly gate invariant check exit0 at22:00:43Z; no browser execution."
+      },
+      {
+        "command": "node --check scripts/check-tabs-button-owner-browser.mjs",
+        "status": "PASS",
+        "exitCode": 0,
+        "receipt": "Native owner syntax check22:01:02Z; no browser execution."
+      },
+      {
+        "command": "Parent scoped Prettier check (9 files)",
+        "status": "PASS",
+        "exitCode": 0,
+        "receipt": "Parent reports9fileformatting exit0; documentation consistency only."
+      }
+    ]
   }
 }
