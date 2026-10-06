@@ -1,0 +1,119 @@
+{
+  "requestedHead": "7253ff00a95e93e3f87cc9292f7bb793aa91ec5c",
+  "executionHead": "7df6854366d30e113d79152950b443ccea4b31d2",
+  "runtimeIdentity": [
+    {
+      "path": "packages/base/src/lib/number-field/root/StepperButton.svelte",
+      "sha256": "090983122c632d14bda7310efa2f35d81af64767b28bb5bba5224e1175c11071",
+      "identicalTo7253": true
+    },
+    {
+      "path": "packages/base/src/lib/number-field/root/useNumberFieldStepperButton.svelte.ts",
+      "sha256": "57d609ddf29d3468b94bcbc6a39bf47be418b9bd222b6307fe574c4eddc8155d",
+      "identicalTo7253": true
+    },
+    {
+      "path": "packages/base/src/lib/internals/use-button/useButton.svelte.ts",
+      "sha256": "48750528371fbf08dd09478dd7fb8e2a2b9a19494bf1e779610e5b90668e16d0",
+      "identicalTo7253": true
+    }
+  ],
+  "runner": "NODE_OPTIONS=--max-old-space-size=768 pnpm --filter @sveltery/base exec vitest run --project dom tests/dom/__stepper_owner_witness.test.ts --maxWorkers=1 --fileParallelism=false",
+  "results": {
+    "red": "actual public NumberField Increment native A\u2192A+B\u2192B preserves public ref B but nativeButton false emits zero required actual-host mismatch diagnostics",
+    "positiveControl": "same actual B before A disposal produces exactly one expected mismatch diagnostic: 1 passed,1 filtered/skipped",
+    "intermediate": "positive-control first authoring run had logging typo diagnostics() on array; failed log retained; corrected only test logging, no runtime edits"
+  },
+  "limits": [
+    "multi-host native snippet measured, outgoing CSS transition not executed",
+    "DOM-model only; secured browser acceptance remains pending",
+    "no upstream business-bug claim: exact pin buttonRef assignment preserved; native caller cleanup ownership seam",
+    "zero unchanged upstream assertion credit"
+  ],
+  "combinedRun": {
+    "head": "7df6854366d30e113d79152950b443ccea4b31d2",
+    "command": "NODE_OPTIONS=--max-old-space-size=768 pnpm --filter @sveltery/base exec vitest run --project dom tests/dom/__stepper_owner_witness.test.ts --maxWorkers=1 --fileParallelism=false",
+    "exitCode": 1,
+    "result": "2 tests: 1 failed, 1 passed; red replacement-after-disposal diagnostics, green identical actual replacement-before-disposal control",
+    "fixtureAndTest": [
+      {
+        "path": "packages/base/tests/dom/__stepper_owner_witness.svelte",
+        "sha256": "3ffcdff019358863da997dbe970fb23eb48702f9fe984249311a311c6ca92a14"
+      },
+      {
+        "path": "packages/base/tests/dom/__stepper_owner_witness.test.ts",
+        "sha256": "688ea21047079840a8f61e2b2dfbf7dcc59868b407e02f25ca7ca014f126954c"
+      }
+    ],
+    "nativeFiles": [
+      {
+        "path": "packages/base/src/lib/number-field/root/StepperButton.svelte",
+        "sha256": "090983122c632d14bda7310efa2f35d81af64767b28bb5bba5224e1175c11071",
+        "identicalTo7253": true
+      },
+      {
+        "path": "packages/base/src/lib/number-field/root/useNumberFieldStepperButton.svelte.ts",
+        "sha256": "57d609ddf29d3468b94bcbc6a39bf47be418b9bd222b6307fe574c4eddc8155d",
+        "identicalTo7253": true
+      },
+      {
+        "path": "packages/base/src/lib/internals/use-button/useButton.svelte.ts",
+        "sha256": "48750528371fbf08dd09478dd7fb8e2a2b9a19494bf1e779610e5b90668e16d0",
+        "identicalTo7253": true
+      }
+    ],
+    "log": "stepper-owner-witness-combined.log",
+    "logSha256": "df3fd629814b0f235b7f6418ee88340d15148e9a2eb69013b707a0921e661d7e",
+    "limits": [
+      "multi-host native snippet measured, outgoing CSS transition not executed",
+      "DOM-model only; secured browser acceptance remains pending",
+      "no upstream business-bug claim: exact pin buttonRef assignment preserved; native caller cleanup ownership seam",
+      "zero unchanged upstream assertion credit"
+    ]
+  },
+  "sourcePin": "47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c",
+  "sourceCorrespondence": {
+    "buttonRef": "packages/react/src/internals/use-button/useButton.ts:234-236",
+    "stepperRef": "packages/react/src/number-field/root/useNumberFieldStepperButton.ts:184-185",
+    "nativeCleanup": "packages/base/src/lib/number-field/root/StepperButton.svelte:29",
+    "finding": "Pinned assignment preserved; native independent attachment lifetime caller cleanup defect. No upstream business-bug claim."
+  },
+  "storedFiles": {
+    "__stepper_owner_witness.svelte": {
+      "path": "__stepper_owner_witness.svelte.gz",
+      "encoding": "gzip",
+      "decodedSha256": "3ffcdff019358863da997dbe970fb23eb48702f9fe984249311a311c6ca92a14",
+      "storedSha256": "79a99267df1dbd0c2747b635208073db72784e37d7d9175ceb90be7bbac0f69f"
+    },
+    "__stepper_owner_witness.test.ts": {
+      "path": "__stepper_owner_witness.test.ts.gz",
+      "encoding": "gzip",
+      "decodedSha256": "688ea21047079840a8f61e2b2dfbf7dcc59868b407e02f25ca7ca014f126954c",
+      "storedSha256": "f4df1a17d811a5153adef5354e830e9f51961dd3b2c5718872379cc2d130ee19"
+    },
+    "stepper-owner-witness-combined.log": {
+      "path": "stepper-owner-witness-combined.log.gz",
+      "encoding": "gzip",
+      "decodedSha256": "df3fd629814b0f235b7f6418ee88340d15148e9a2eb69013b707a0921e661d7e",
+      "storedSha256": "99358c9e00a08f5bfb000e2b8b1108c08e117a1d0034679db17d8a17fbc467f6"
+    },
+    "stepper-owner-witness-control-corrected.log": {
+      "path": "stepper-owner-witness-control-corrected.log.gz",
+      "encoding": "gzip",
+      "decodedSha256": "872e2e5beb0c0a909aa1389d94b9f6510c38416002492fab7c08fad619a1c4d9",
+      "storedSha256": "b5f8a428b4beec64409d7522986c2bf17e5e00f30d6b349fdd26765368892ff0"
+    },
+    "stepper-owner-witness-control.log": {
+      "path": "stepper-owner-witness-control.log.gz",
+      "encoding": "gzip",
+      "decodedSha256": "e46b0aa0d22fb1f1537b123b30c0edd767c86a5361a842c9012163036edfdc80",
+      "storedSha256": "4c6814591b17b85502632cb34522ba151d6782be67b0f1d74445368f2a72530d"
+    },
+    "stepper-owner-witness-original.log": {
+      "path": "stepper-owner-witness-original.log.gz",
+      "encoding": "gzip",
+      "decodedSha256": "ef16f59c2d2dccaddb5a032394a36c795dd116f6bc215c05d61a0df23cc9a948",
+      "storedSha256": "32010c0d6224b54aaaf751468881ff62cac3556ad29c5373218a01fac02d9177"
+    }
+  }
+}
