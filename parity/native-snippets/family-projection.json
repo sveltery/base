@@ -10,7 +10,7 @@
     ],
     "graph": {
       "path": "parity/native-snippets/native-graph.json",
-      "sha256": "d3d12a7977f6829c47bf21f4baaa0b9870a841eba5e4c47d60486c0b0f8eb851"
+      "sha256": "98365faa8e9bd3b08b0c0d0cd0db857c26ab7dd04a35cb0ae482b80334021bea"
     },
     "predecessor": {
       "path": "parity/toggle-toolbar/source-correspondence.json",
@@ -2016,11 +2016,11 @@
     ],
     "graph": {
       "path": "parity/native-snippets/native-graph.json",
-      "sha256": "d3d12a7977f6829c47bf21f4baaa0b9870a841eba5e4c47d60486c0b0f8eb851"
+      "sha256": "98365faa8e9bd3b08b0c0d0cd0db857c26ab7dd04a35cb0ae482b80334021bea"
     },
     "predecessor": {
       "path": "parity/menu-family/source-correspondence.json",
-      "sha256": "7b3b82fbd0b55d30dd5fad6e04a3e68256dadd234755e52a9eccd46aa9d83161"
+      "sha256": "262a2bb65128e82a3947d68796f759e2a23ff5fa6d74953f2da47fae73013005"
     },
     "originalGraph": {
       "path": "parity/menu-family/source-graph.json",
@@ -2505,7 +2505,7 @@
       },
       {
         "source": "packages/base/src/lib/menu/trigger/createMenuTrigger.svelte.ts",
-        "sha256": "dee891cf185175885b51711b6307a20006fdec038c41f5e1ca08fa1a0d279488"
+        "sha256": "ae04e18d492aa073757adc134e825f1fa8412283d742cb6cf9895a784215108f"
       },
       {
         "source": "packages/base/src/lib/menu/types.ts",
@@ -2625,7 +2625,7 @@
       },
       {
         "source": "packages/base/src/lib/utils/popups/popupStoreUtils.svelte.ts",
-        "sha256": "51f1c3945f9da39ae8e71a4fa336740ef0ad0be5f4a8f413deb1e98405d894d3"
+        "sha256": "13b61b426eed8a0875580aa2a8e15a8caf5c7110e915174bf4d613f069f7b01a"
       },
       {
         "source": "packages/base/src/lib/utils/popups/popupTriggerMap.svelte.ts",
@@ -4421,7 +4421,7 @@
           },
           {
             "source": "packages/base/src/lib/menu/trigger/createMenuTrigger.svelte.ts",
-            "sha256": "dee891cf185175885b51711b6307a20006fdec038c41f5e1ca08fa1a0d279488"
+            "sha256": "ae04e18d492aa073757adc134e825f1fa8412283d742cb6cf9895a784215108f"
           }
         ],
         "retiredLocal": [],
@@ -4891,7 +4891,7 @@
         "local": [
           {
             "source": "packages/base/src/lib/utils/popups/popupStoreUtils.svelte.ts",
-            "sha256": "51f1c3945f9da39ae8e71a4fa336740ef0ad0be5f4a8f413deb1e98405d894d3"
+            "sha256": "13b61b426eed8a0875580aa2a8e15a8caf5c7110e915174bf4d613f069f7b01a"
           }
         ],
         "retiredLocal": [],
