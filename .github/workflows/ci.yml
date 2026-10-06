@@ -78,6 +78,8 @@ jobs:
         run: bash scripts/check-package.sh
       - name: Installed private click and public consumer boundary
         run: bash scripts/check-use-click-package.sh
+      - name: Installed Composite style strict declarations and hydration
+        run: bash scripts/check-composite-style-package.sh
       - name: Preserve npm artifact and complete type-resolution analysis
         if: always()
         uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2

@@ -1,0 +1,42 @@
+{
+  "pin": "47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c",
+  "historicalOnly": true,
+  "ordinaryCredit": 0,
+  "files": [
+    {
+      "path": "parity/composite-style/receipts/composite-realm-predecessor.ts.txt",
+      "sha256": "f4e02dc8034a749a29f2c63d12f34c25d17c73ffd4075bc31e8f4a55306c0a9e",
+      "historicalSource": "https://github.com/sveltery/base/blob/3c6ac71ad06eedbaaa18aba2493de4bb04454189/parity/dialog/receipts/composite-realm-predecessor.ts.txt"
+    },
+    {
+      "path": "parity/composite-style/receipts/dialog-composite-realm-green.log.gz",
+      "sha256": "8ba2507cb1a7156bcb328d480abfc85274f08d541f2b7e2741dbb489f1dd58b9",
+      "historicalSource": "https://github.com/sveltery/base/blob/3c6ac71ad06eedbaaa18aba2493de4bb04454189/parity/dialog/receipts/dialog-composite-realm-green.log.gz",
+      "decodedSha256": "228c7d57dac02a9074ac4cf3245e732dfa7f1b7683b620a8d16086466693afff"
+    },
+    {
+      "path": "parity/composite-style/receipts/dialog-composite-realm-red-executed.log.gz",
+      "sha256": "ce87d9f5a91ad67bc74b326b59482cea80c7c920d1eccb15e7c55cdd1b659cb2",
+      "historicalSource": "https://github.com/sveltery/base/blob/3c6ac71ad06eedbaaa18aba2493de4bb04454189/parity/dialog/receipts/dialog-composite-realm-red-executed.log.gz",
+      "decodedSha256": "84cefa6de7d7b0755b1ca6aa2555e0840ee9ff15a5db64adb3e9493d1e049920"
+    },
+    {
+      "path": "parity/composite-style/receipts/dialog-composite-realm-red-executed2.log.gz",
+      "sha256": "d021eff7029f82b5a089157e8a13bf9979f631d5728800d82acd7cd6f51b20fb",
+      "historicalSource": "https://github.com/sveltery/base/blob/3c6ac71ad06eedbaaa18aba2493de4bb04454189/parity/dialog/receipts/dialog-composite-realm-red-executed2.log.gz",
+      "decodedSha256": "2e5e29f6cf104ba6b34a941358c67828c088d6538a68f8803c39a8db5a45267e"
+    },
+    {
+      "path": "parity/composite-style/receipts/dialog-composite-realm-red.log.gz",
+      "sha256": "5e552b0c4e25f019ced9af052a74c2caaf63dfadccc973e6937b3d45c16b98fb",
+      "historicalSource": "https://github.com/sveltery/base/blob/3c6ac71ad06eedbaaa18aba2493de4bb04454189/parity/dialog/receipts/dialog-composite-realm-red.log.gz",
+      "decodedSha256": "306e0d7200895d3df06d0ccddd7b4243904b5568a571f5e62fe6e01d0594f7d0"
+    },
+    {
+      "path": "parity/composite-style/receipts/navigation-realm-predecessor.ts.txt",
+      "sha256": "bcfb35db31e9b53c86be39c229e041eaaf48f82df10d4dfaac79b69ecfd5a6dd",
+      "historicalSource": "https://github.com/sveltery/base/blob/3c6ac71ad06eedbaaa18aba2493de4bb04454189/parity/dialog/receipts/navigation-realm-predecessor.ts.txt"
+    }
+  ],
+  "inapplicableBothFrameworkFocusProbe": "https://github.com/sveltery/base/blob/3c6ac71ad06eedbaaa18aba2493de4bb04454189/parity/dialog/composite-realm-repair.json"
+}

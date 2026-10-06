@@ -1,0 +1,2595 @@
+{
+  "pin": "47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c",
+  "scope": "Conservative reverse runtime/mixed import closure; constants/barrel reach is not invocation of every lookup",
+  "seeds": [
+    "packages/base/src/lib/internals/composite/composite.ts",
+    "packages/base/src/lib/internals/composite/utils/navigation.ts"
+  ],
+  "modules": [
+    {
+      "source": "packages/base/src/lib/context-menu/Root.svelte",
+      "sha256": "7ae8f888c2f9c8d4f902934e7e6ae0930558daded14073fce2bfa4eb27becec1",
+      "imports": [
+        {
+          "specifier": "../menu/Root.svelte",
+          "kind": "runtime-or-mixed",
+          "resolved": "packages/base/src/lib/menu/Root.svelte"
+        },
+        {
+          "specifier": "../menu/root/MenuRootContext.js",
+          "kind": "runtime-or-mixed",
+          "resolved": "packages/base/src/lib/menu/root/MenuRootContext.ts"
+        },
+        {
+          "specifier": "./root/ContextMenuRootContext.js",
+          "kind": "runtime-or-mixed",
+          "resolved": "packages/base/src/lib/context-menu/root/ContextMenuRootContext.ts"
+        },
+        {
+          "specifier": "./types.js",
+          "kind": "type",
+          "resolved": "packages/base/src/lib/context-menu/types.ts"
+        }
+      ]
+    },
+    {
+      "source": "packages/base/src/lib/context-menu/index.parts.ts",
+      "sha256": "682c5af33525e53dd8203253cade0919bc23923b2402b01c1eda036d748def11",
+      "imports": [
+        {
+          "specifier": "./Root.svelte",
+          "kind": "runtime-or-mixed",
+          "resolved": "packages/base/src/lib/context-menu/Root.svelte"
+        },
+        {
+          "specifier": "./types.js",
+          "kind": "type",
+          "resolved": "packages/base/src/lib/context-menu/types.ts"
+        },
+        {
+          "specifier": "./Trigger.svelte",
+          "kind": "runtime-or-mixed",
+          "resolved": "packages/base/src/lib/context-menu/Trigger.svelte"
+        },
+        {
+          "specifier": "./types.js",
+          "kind": "type",
+          "resolved": "packages/base/src/lib/context-menu/types.ts"
+        },
+        {
+          "specifier": "../menu/Positioner.svelte",
+          "kind": "runtime-or-mixed",
+          "resolved": "packages/base/src/lib/menu/Positioner.svelte"
+        },
+        {
+          "specifier": "./types.js",
+          "kind": "type",
+          "resolved": "packages/base/src/lib/context-menu/types.ts"
+        },
+        {
+          "specifier": "../menu/index.parts.js",
+          "kind": "runtime-or-mixed",
+          "resolved": "packages/base/src/lib/menu/index.parts.ts"
+        }
+      ]
+    },
+    {
+      "source": "packages/base/src/lib/context-menu/index.ts",
+      "sha256": "713d1def2a37f735ecc7bd93e276ea6fccc52cc94339f94e064b58d8f5946008",
+      "imports": [
+        {
+          "specifier": "./index.parts.js",
+          "kind": "runtime-or-mixed",
+          "resolved": "packages/base/src/lib/context-menu/index.parts.ts"
+        },
+        {
+          "specifier": "./index.parts.js",
+          "kind": "runtime-or-mixed",
+          "resolved": "packages/base/src/lib/context-menu/index.parts.ts"
+        },
+        {
+          "specifier": "./types.js",
+          "kind": "type",
+          "resolved": "packages/base/src/lib/context-menu/types.ts"
+        },
+        {
+          "specifier": "../menu/types.js",
+          "kind": "type",
+          "resolved": "packages/base/src/lib/menu/types.ts"
+        }
+      ]
+    },
+    {
+      "source": "packages/base/src/lib/dialog/Popup.svelte",
+      "sha256": "63e7e40d87ac22a280b4e4eff2a24025031f089614525f82e381d713fb03fbad",
+      "imports": [
+        {
+          "specifier": "../internals/mergeComponentProps.js",
+          "kind": "runtime-or-mixed",
+          "resolved": "packages/base/src/lib/internals/mergeComponentProps.ts"
+        },
+        {
+          "specifier": "svelte/attachments",
+          "kind": "runtime-or-mixed",
+          "resolved": "external:svelte/attachments"
+        },
+        {
+          "specifier": "svelte",
+          "kind": "runtime-or-mixed",
+          "resolved": "external:svelte"
+        },
+        {
+          "specifier": "../floating-ui/components/FloatingFocusManager.svelte",
+          "kind": "runtime-or-mixed",
+          "resolved": "packages/base/src/lib/floating-ui/components/FloatingFocusManager.svelte"
+        },
+        {
+          "specifier": "../internals/useOpenChangeComplete.svelte.js",
+          "kind": "runtime-or-mixed",
+          "resolved": "packages/base/src/lib/internals/useOpenChangeComplete.svelte.ts"
+        },
+        {
+          "specifier": "../internals/composite/composite.js",
+          "kind": "runtime-or-mixed",
+          "resolved": "packages/base/src/lib/internals/composite/composite.ts"
+        },
+        {
+          "specifier": "../utils/popups/popupStoreUtils.svelte.js",
+          "kind": "runtime-or-mixed",
+          "resolved": "packages/base/src/lib/utils/popups/popupStoreUtils.svelte.ts"
+        },
+        {
+          "specifier": "./utils/stateAttributesMapping.js",
+          "kind": "runtime-or-mixed",
+          "resolved": "packages/base/src/lib/dialog/utils/stateAttributesMapping.ts"
+        },
+        {
+          "specifier": "./popup/DialogPopupCssVars.js",
+          "kind": "runtime-or-mixed",
+          "resolved": "packages/base/src/lib/dialog/popup/DialogPopupCssVars.ts"
+        },
+        {
+          "specifier": "./context.js",
+          "kind": "runtime-or-mixed",
+          "resolved": "packages/base/src/lib/dialog/context.ts"
+        },
+        {
+          "specifier": "./types.js",
+          "kind": "type",
+          "resolved": "packages/base/src/lib/dialog/types.ts"
+        }
+      ]
+    },
+    {
+      "source": "packages/base/src/lib/dialog/Portal.svelte",
+      "sha256": "506034af9dfcc2d644b92ad3e23d8a93cccaa36af4a7f4cd9ee27de5231b6809",
+      "imports": [
+        {
+          "specifier": "svelte",
+          "kind": "runtime-or-mixed",
+          "resolved": "external:svelte"
+        },
+        {
+          "specifier": "../floating-ui/components/FloatingPortal.svelte",
+          "kind": "runtime-or-mixed",
+          "resolved": "packages/base/src/lib/floating-ui/components/FloatingPortal.svelte"
+        },
+        {
+          "specifier": "../utils/InternalBackdrop.svelte",
+          "kind": "runtime-or-mixed",
+          "resolved": "packages/base/src/lib/utils/InternalBackdrop.svelte"
+        },
+        {
+          "specifier": "./context.js",
+          "kind": "runtime-or-mixed",
+          "resolved": "packages/base/src/lib/dialog/context.ts"
+        },
+        {
+          "specifier": "./types.js",
+          "kind": "type",
+          "resolved": "packages/base/src/lib/dialog/types.ts"
+        }
+      ]
+    },
+    {
+      "source": "packages/base/src/lib/dialog/index.parts.ts",
+      "sha256": "82d326b73c4c1ba7a2170a7648b5c3ea08c7fe10f8c2aedb3985a60649a938c7",
+      "imports": [
+        {
+          "specifier": "./Root.svelte",
+          "kind": "runtime-or-mixed",
+          "resolved": "packages/base/src/lib/dialog/Root.svelte"
+        },
+        {
+          "specifier": "./Trigger.svelte",
+          "kind": "runtime-or-mixed",
+          "resolved": "packages/base/src/lib/dialog/Trigger.svelte"
+        },
+        {
+          "specifier": "./Portal.svelte",
+          "kind": "runtime-or-mixed",
+          "resolved": "packages/base/src/lib/dialog/Portal.svelte"
+        },
+        {
+          "specifier": "./Popup.svelte",
+          "kind": "runtime-or-mixed",
+          "resolved": "packages/base/src/lib/dialog/Popup.svelte"
+        },
+        {
+          "specifier": "./Viewport.svelte",
+          "kind": "runtime-or-mixed",
+          "resolved": "packages/base/src/lib/dialog/Viewport.svelte"
+        },
+        {
+          "specifier": "./Backdrop.svelte",
+          "kind": "runtime-or-mixed",
+          "resolved": "packages/base/src/lib/dialog/Backdrop.svelte"
+        },
+        {
+          "specifier": "./Title.svelte",
+          "kind": "runtime-or-mixed",
+          "resolved": "packages/base/src/lib/dialog/Title.svelte"
+        },
+        {
+          "specifier": "./Description.svelte",
+          "kind": "runtime-or-mixed",
+          "resolved": "packages/base/src/lib/dialog/Description.svelte"
+        },
+        {
+          "specifier": "./Close.svelte",
+          "kind": "runtime-or-mixed",
+          "resolved": "packages/base/src/lib/dialog/Close.svelte"
+        },
+        {
+          "specifier": "./types.js",
+          "kind": "type",
+          "resolved": "packages/base/src/lib/dialog/types.ts"
+        },
+        {
+          "specifier": "./handle.svelte.js",
+          "kind": "runtime-or-mixed",
+          "resolved": "packages/base/src/lib/dialog/handle.svelte.ts"
+        }
+      ]
+    },
+    {
+      "source": "packages/base/src/lib/dialog/index.ts",
+      "sha256": "f790a9f627040be2b4d54c2c0c9923a9b7b7a4b5e0c85e17b0b825f53e6fe8bc",
+      "imports": [
+        {
+          "specifier": "./index.parts.js",
+          "kind": "runtime-or-mixed",
+          "resolved": "packages/base/src/lib/dialog/index.parts.ts"
+        },
+        {
+          "specifier": "./index.parts.js",
+          "kind": "runtime-or-mixed",
+          "resolved": "packages/base/src/lib/dialog/index.parts.ts"
+        },
+        {
+          "specifier": "./types.js",
+          "kind": "type",
+          "resolved": "packages/base/src/lib/dialog/types.ts"
+        }
+      ]
+    },
+    {
+      "source": "packages/base/src/lib/floating-ui/components/FloatingFocusManager.svelte",
+      "sha256": "88b47ec0d8e7254d4ea022e5c05d272798d9e735c65e84c9ddfef38b8bd24342",
+      "imports": [
+        {
+          "specifier": "svelte",
+          "kind": "type",
+          "resolved": "external:svelte"
+        },
+        {
+          "specifier": "../../utils/FocusGuard.svelte",
+          "kind": "runtime-or-mixed",
+          "resolved": "packages/base/src/lib/utils/FocusGuard.svelte"
+        },
+        {
+          "specifier": "./createFloatingFocusManager.svelte.js",
+          "kind": "runtime-or-mixed",
+          "resolved": "packages/base/src/lib/floating-ui/components/createFloatingFocusManager.svelte.ts"
+        }
+      ]
+    },
+    {
+      "source": "packages/base/src/lib/floating-ui/components/FloatingPortal.svelte",
+      "sha256": "d9360eddffb4f2f685ea80e8bfee84ed519ff348c1c5db9bf56bc254fd9e132d",
+      "imports": [
+        {
+          "specifier": "svelte",
+          "kind": "runtime-or-mixed",
+          "resolved": "external:svelte"
+        },
+        {
+          "specifier": "svelte/elements",
+          "kind": "type",
+          "resolved": "external:svelte/elements"
+        },
+        {
+          "specifier": "@sveltery/utils/addEventListener",
+          "kind": "runtime-or-mixed",
+          "resolved": "packages/utils/src/lib/addEventListener.ts"
+        },
+        {
+          "specifier": "@sveltery/utils/mergeCleanups",
+          "kind": "runtime-or-mixed",
+          "resolved": "packages/utils/src/lib/mergeCleanups.ts"
+        },
+        {
+          "specifier": "../../utils/FocusGuard.svelte",
+          "kind": "runtime-or-mixed",
+          "resolved": "packages/base/src/lib/utils/FocusGuard.svelte"
+        },
+        {
+          "specifier": "../hooks/useFloatingPortalNode.svelte.js",
+          "kind": "runtime-or-mixed",
+          "resolved": "packages/base/src/lib/floating-ui/hooks/useFloatingPortalNode.svelte.ts"
+        },
+        {
+          "specifier": "../../internals/types.js",
+          "kind": "type",
+          "resolved": "packages/base/src/lib/internals/types.ts"
+        },
+        {
+          "specifier": "../../internals/nativeProps.js",
+          "kind": "runtime-or-mixed",
+          "resolved": "packages/base/src/lib/internals/nativeProps.ts"
+        },
+        {
+          "specifier": "../../internals/createBaseUIEventDetails.js",
+          "kind": "runtime-or-mixed",
+          "resolved": "packages/base/src/lib/internals/createBaseUIEventDetails.ts"
+        },
+        {
+          "specifier": "../../internals/reasons.js",
+          "kind": "runtime-or-mixed",
+          "resolved": "packages/base/src/lib/internals/reasons.ts"
+        },
+        {
+          "specifier": "../../internals/constants.js",
+          "kind": "runtime-or-mixed",
+          "resolved": "packages/base/src/lib/internals/constants.ts"
+        },
+        {
+          "specifier": "../utils/tabbable.js",
+          "kind": "runtime-or-mixed",
+          "resolved": "packages/base/src/lib/floating-ui/utils/tabbable.ts"
+        },
+        {
+          "specifier": "./FloatingPortalContext.js",
+          "kind": "runtime-or-mixed",
+          "resolved": "packages/base/src/lib/floating-ui/components/FloatingPortalContext.ts"
+        }
+      ]
+    },
+    {
+      "source": "packages/base/src/lib/floating-ui/components/createFloatingFocusManager.svelte.ts",
+      "sha256": "c6a2f4dc069dd6c8e663abaa706f7e65db32aee8a533bb2b2af02623ff15de1b",
+      "imports": [
+        {
+          "specifier": "svelte",
+          "kind": "runtime-or-mixed",
+          "resolved": "external:svelte"
+        },
+        {
+          "specifier": "@floating-ui/utils/dom",
+          "kind": "runtime-or-mixed",
+          "resolved": "external:@floating-ui/utils/dom"
+        },
+        {
+          "specifier": "@sveltery/utils/addEventListener",
+          "kind": "runtime-or-mixed",
+          "resolved": "packages/utils/src/lib/addEventListener.ts"
+        },
+        {
+          "specifier": "@sveltery/utils/mergeCleanups",
+          "kind": "runtime-or-mixed",
+          "resolved": "packages/utils/src/lib/mergeCleanups.ts"
+        },
+        {
+          "specifier": "svelte/attachments",
+          "kind": "runtime-or-mixed",
+          "resolved": "external:svelte/attachments"
+        },
+        {
+          "specifier": "@sveltery/utils/useTimeout",
+          "kind": "runtime-or-mixed",
+          "resolved": "packages/utils/src/lib/useTimeout.ts"
+        },
+        {
+          "specifier": "@sveltery/utils/platform",
+          "kind": "runtime-or-mixed",
+          "resolved": "packages/utils/src/lib/platform/index.ts"
+        },
+        {
+          "specifier": "@sveltery/utils/useEnhancedClickHandler",
+          "kind": "type",
+          "resolved": "packages/utils/src/lib/useEnhancedClickHandler.ts"
+        },
+        {
+          "specifier": "@sveltery/utils/useAnimationFrame",
+          "kind": "runtime-or-mixed",
+          "resolved": "packages/utils/src/lib/useAnimationFrame.ts"
+        },
+        {
+          "specifier": "@sveltery/utils/owner",
+          "kind": "runtime-or-mixed",
+          "resolved": "packages/utils/src/lib/owner.ts"
+        },
+        {
+          "specifier": "../utils/element.js",
+          "kind": "runtime-or-mixed",
+          "resolved": "packages/base/src/lib/floating-ui/utils/element.ts"
+        },
+        {
+          "specifier": "../utils/event.js",
+          "kind": "runtime-or-mixed",
+          "resolved": "packages/base/src/lib/floating-ui/utils/event.ts"
+        },
+        {
+          "specifier": "../utils/tabbable.js",
+          "kind": "runtime-or-mixed",
+          "resolved": "packages/base/src/lib/floating-ui/utils/tabbable.ts"
+        },
+        {
+          "specifier": "../utils/nodes.js",
+          "kind": "runtime-or-mixed",
+          "resolved": "packages/base/src/lib/floating-ui/utils/nodes.ts"
+        },
+        {
+          "specifier": "../utils/composite.js",
+          "kind": "runtime-or-mixed",
+          "resolved": "packages/base/src/lib/floating-ui/utils/composite.ts"
+        },
+        {
+          "specifier": "../types.js",
+          "kind": "type",
+          "resolved": "packages/base/src/lib/floating-ui/types.ts"
+        },
+        {
+          "specifier": "../../internals/createBaseUIEventDetails.js",
+          "kind": "runtime-or-mixed",
+          "resolved": "packages/base/src/lib/internals/createBaseUIEventDetails.ts"
+        },
+        {
+          "specifier": "../../internals/reasons.js",
+          "kind": "runtime-or-mixed",
+          "resolved": "packages/base/src/lib/internals/reasons.ts"
+        },
+        {
+          "specifier": "../utils/createAttribute.js",
+          "kind": "runtime-or-mixed",
+          "resolved": "packages/base/src/lib/floating-ui/utils/createAttribute.ts"
+        },
+        {
+          "specifier": "../utils/enqueueFocus.js",
+          "kind": "runtime-or-mixed",
+          "resolved": "packages/base/src/lib/floating-ui/utils/enqueueFocus.ts"
+        },
+        {
+          "specifier": "../utils/markOthers.js",
+          "kind": "runtime-or-mixed",
+          "resolved": "packages/base/src/lib/floating-ui/utils/markOthers.ts"
+        },
+        {
+          "specifier": "./FloatingPortalContext.js",
+          "kind": "runtime-or-mixed",
+          "resolved": "packages/base/src/lib/floating-ui/components/FloatingPortalContext.ts"
+        },
+        {
+          "specifier": "./FloatingTree.svelte.js",
+          "kind": "runtime-or-mixed",
+          "resolved": "packages/base/src/lib/floating-ui/components/FloatingTree.svelte.ts"
+        },
+        {
+          "specifier": "../components/FloatingTreeStore.js",
+          "kind": "runtime-or-mixed",
+          "resolved": "packages/base/src/lib/floating-ui/components/FloatingTreeStore.ts"
+        },
+        {
+          "specifier": "../../internals/constants.js",
+          "kind": "runtime-or-mixed",
+          "resolved": "packages/base/src/lib/internals/constants.ts"
+        },
+        {
+          "specifier": "../types.js",
+          "kind": "type",
+          "resolved": "packages/base/src/lib/floating-ui/types.ts"
+        },
+        {
+          "specifier": "../../utils/resolveRef.js",
+          "kind": "runtime-or-mixed",
+          "resolved": "packages/base/src/lib/utils/resolveRef.ts"
+        }
+      ]
+    },
+    {
+      "source": "packages/base/src/lib/floating-ui/hooks/gridNavigation.ts",
+      "sha256": "a9f1bc487078d4f9cf70e608cde8be6e55b165de0f79069d18879e71f25dd8e8",
+      "imports": [
+        {
+          "specifier": "../utils/composite.js",
+          "kind": "runtime-or-mixed",
+          "resolved": "packages/base/src/lib/floating-ui/utils/composite.ts"
+        }
+      ]
+    },
+    {
+      "source": "packages/base/src/lib/floating-ui/hooks/useListNavigation.svelte.ts",
+      "sha256": "a35b727cdf040c483d4b6375bd9ace15a755619504a8a75ab5b7bb5f3abdf4d5",
+      "imports": [
+        {
+          "specifier": "esm-env",
+          "kind": "runtime-or-mixed",
+          "resolved": "external:esm-env"
+        },
+        {
+          "specifier": "svelte",
+          "kind": "runtime-or-mixed",
+          "resolved": "external:svelte"
+        },
+        {
+          "specifier": "@sveltery/utils/useAnimationFrame",
+          "kind": "runtime-or-mixed",
+          "resolved": "packages/utils/src/lib/useAnimationFrame.ts"
+        },
+        {
+          "specifier": "@sveltery/utils/owner",
+          "kind": "runtime-or-mixed",
+          "resolved": "packages/utils/src/lib/owner.ts"
+        },
+        {
+          "specifier": "@sveltery/utils/platform",
+          "kind": "runtime-or-mixed",
+          "resolved": "packages/utils/src/lib/platform/index.ts"
+        },
+        {
+          "specifier": "@floating-ui/utils/dom",
+          "kind": "runtime-or-mixed",
+          "resolved": "external:@floating-ui/utils/dom"
+        },
+        {
+          "specifier": "../../internals/createBaseUIEventDetails.js",
+          "kind": "runtime-or-mixed",
+          "resolved": "packages/base/src/lib/internals/createBaseUIEventDetails.ts"
+        },
+        {
+          "specifier": "../../internals/reasons.js",
+          "kind": "runtime-or-mixed",
+          "resolved": "packages/base/src/lib/internals/reasons.ts"
+        },
+        {
+          "specifier": "../components/FloatingTree.svelte.js",
+          "kind": "runtime-or-mixed",
+          "resolved": "packages/base/src/lib/floating-ui/components/FloatingTree.svelte.ts"
+        },
+        {
+          "specifier": "../components/FloatingTreeStore.js",
+          "kind": "runtime-or-mixed",
+          "resolved": "packages/base/src/lib/floating-ui/components/FloatingTreeStore.ts"
+        },
+        {
+          "specifier": "../types.js",
+          "kind": "type",
+          "resolved": "packages/base/src/lib/floating-ui/types.ts"
+        },
+        {
+          "specifier": "../utils/composite.js",
+          "kind": "runtime-or-mixed",
+          "resolved": "packages/base/src/lib/floating-ui/utils/composite.ts"
+        },
+        {
+          "specifier": "./gridNavigation",
+          "kind": "type",
+          "resolved": "packages/base/src/lib/floating-ui/hooks/gridNavigation.ts"
+        },
+        {
+          "specifier": "../utils/constants.js",
+          "kind": "runtime-or-mixed",
+          "resolved": "packages/base/src/lib/floating-ui/utils/constants.ts"
+        },
+        {
+          "specifier": "../utils/element.js",
+          "kind": "runtime-or-mixed",
+          "resolved": "packages/base/src/lib/floating-ui/utils/element.ts"
+        },
+        {
+          "specifier": "../utils/enqueueFocus.js",
+          "kind": "runtime-or-mixed",
+          "resolved": "packages/base/src/lib/floating-ui/utils/enqueueFocus.ts"
+        },
+        {
+          "specifier": "../utils/event.js",
+          "kind": "runtime-or-mixed",
+          "resolved": "packages/base/src/lib/floating-ui/utils/event.ts"
+        }
+      ]
+    },
+    {
+      "source": "packages/base/src/lib/floating-ui/hooks/useTypeahead.svelte.ts",
+      "sha256": "740573664ed8d416194faebacbabd07597d97a2e50777d45ab77e45c3fe23727",
+      "imports": [
+        {
+          "specifier": "svelte",
+          "kind": "runtime-or-mixed",
+          "resolved": "external:svelte"
+        },
+        {
+          "specifier": "@sveltery/utils/useTimeout",
+          "kind": "runtime-or-mixed",
+          "resolved": "packages/utils/src/lib/useTimeout.ts"
+        },
+        {
+          "specifier": "@sveltery/utils/empty",
+          "kind": "runtime-or-mixed",
+          "resolved": "packages/utils/src/lib/empty.ts"
+        },
+        {
+          "specifier": "../utils/composite.js",
+          "kind": "runtime-or-mixed",
+          "resolved": "packages/base/src/lib/floating-ui/utils/composite.ts"
+        },
+        {
+          "specifier": "../types.js",
+          "kind": "type",
+          "resolved": "packages/base/src/lib/floating-ui/types.ts"
+        },
+        {
+          "specifier": "../utils/element.js",
+          "kind": "runtime-or-mixed",
+          "resolved": "packages/base/src/lib/floating-ui/utils/element.ts"
+        },
+        {
+          "specifier": "../utils/event.js",
+          "kind": "runtime-or-mixed",
+          "resolved": "packages/base/src/lib/floating-ui/utils/event.ts"
+        }
+      ]
+    },
+    {
+      "source": "packages/base/src/lib/floating-ui/utils/composite.ts",
+      "sha256": "96b8fde56711a770d9c1936cfae99d9576009539cc5c68ef139f463533893d27",
+      "imports": [
+        {
+          "specifier": "../../internals/composite/utils/navigation.js",
+          "kind": "runtime-or-mixed",
+          "resolved": "packages/base/src/lib/internals/composite/utils/navigation.ts"
+        }
+      ]
+    },
+    {
+      "source": "packages/base/src/lib/floating-ui/utils/tabbable.ts",
+      "sha256": "83937949cf582078e63e085b1bd49ec588462f13bb4f5f178af83641f0e75c7f",
+      "imports": [
+        {
+          "specifier": "@floating-ui/utils/dom",
+          "kind": "runtime-or-mixed",
+          "resolved": "external:@floating-ui/utils/dom"
+        },
+        {
+          "specifier": "@sveltery/utils/owner",
+          "kind": "runtime-or-mixed",
+          "resolved": "packages/utils/src/lib/owner.ts"
+        },
+        {
+          "specifier": "./element.js",
+          "kind": "runtime-or-mixed",
+          "resolved": "packages/base/src/lib/floating-ui/utils/element.ts"
+        },
+        {
+          "specifier": "./composite.js",
+          "kind": "runtime-or-mixed",
+          "resolved": "packages/base/src/lib/floating-ui/utils/composite.ts"
+        }
+      ]
+    },
+    {
+      "source": "packages/base/src/lib/index.ts",
+      "sha256": "06dbc3ac673b441f7104d82fcc84822565bc10e61f0f1c855ff7c7d8dd77c75a",
+      "imports": [
+        {
+          "specifier": "./merge-props/index.js",
+          "kind": "runtime-or-mixed",
+          "resolved": "packages/base/src/lib/merge-props/index.ts"
+        },
+        {
+          "specifier": "./internals/createBaseUIEventDetails.js",
+          "kind": "runtime-or-mixed",
+          "resolved": "packages/base/src/lib/internals/createBaseUIEventDetails.ts"
+        },
+        {
+          "specifier": "./internals/createBaseUIEventDetails.js",
+          "kind": "type",
+          "resolved": "packages/base/src/lib/internals/createBaseUIEventDetails.ts"
+        },
+        {
+          "specifier": "./dialog/index.js",
+          "kind": "runtime-or-mixed",
+          "resolved": "packages/base/src/lib/dialog/index.ts"
+        },
+        {
+          "specifier": "./dialog/index.js",
+          "kind": "type",
+          "resolved": "packages/base/src/lib/dialog/index.ts"
+        },
+        {
+          "specifier": "./toast/index.js",
+          "kind": "runtime-or-mixed",
+          "resolved": "packages/base/src/lib/toast/index.ts"
+        },
+        {
+          "specifier": "./button/index.js",
+          "kind": "runtime-or-mixed",
+          "resolved": "packages/base/src/lib/button/index.ts"
+        },
+        {
+          "specifier": "./button/index.js",
+          "kind": "type",
+          "resolved": "packages/base/src/lib/button/index.ts"
+        },
+        {
+          "specifier": "./separator/index.js",
+          "kind": "runtime-or-mixed",
+          "resolved": "packages/base/src/lib/separator/index.ts"
+        },
+        {
+          "specifier": "./separator/index.js",
+          "kind": "type",
+          "resolved": "packages/base/src/lib/separator/index.ts"
+        },
+        {
+          "specifier": "./toggle/index.js",
+          "kind": "runtime-or-mixed",
+          "resolved": "packages/base/src/lib/toggle/index.ts"
+        },
+        {
+          "specifier": "./toggle/index.js",
+          "kind": "type",
+          "resolved": "packages/base/src/lib/toggle/index.ts"
+        },
+        {
+          "specifier": "./input/index.js",
+          "kind": "runtime-or-mixed",
+          "resolved": "packages/base/src/lib/input/index.ts"
+        },
+        {
+          "specifier": "./input/index.js",
+          "kind": "type",
+          "resolved": "packages/base/src/lib/input/index.ts"
+        },
+        {
+          "specifier": "./progress/index.js",
+          "kind": "runtime-or-mixed",
+          "resolved": "packages/base/src/lib/progress/index.ts"
+        },
+        {
+          "specifier": "./progress/index.js",
+          "kind": "type",
+          "resolved": "packages/base/src/lib/progress/index.ts"
+        },
+        {
+          "specifier": "./collapsible/index.js",
+          "kind": "runtime-or-mixed",
+          "resolved": "packages/base/src/lib/collapsible/index.ts"
+        },
+        {
+          "specifier": "./collapsible/index.js",
+          "kind": "type",
+          "resolved": "packages/base/src/lib/collapsible/index.ts"
+        },
+        {
+          "specifier": "./meter/index.js",
+          "kind": "runtime-or-mixed",
+          "resolved": "packages/base/src/lib/meter/index.ts"
+        },
+        {
+          "specifier": "./meter/index.js",
+          "kind": "type",
+          "resolved": "packages/base/src/lib/meter/index.ts"
+        },
+        {
+          "specifier": "./avatar/index.js",
+          "kind": "runtime-or-mixed",
+          "resolved": "packages/base/src/lib/avatar/index.ts"
+        },
+        {
+          "specifier": "./avatar/index.js",
+          "kind": "type",
+          "resolved": "packages/base/src/lib/avatar/index.ts"
+        },
+        {
+          "specifier": "./direction-provider/index.js",
+          "kind": "runtime-or-mixed",
+          "resolved": "packages/base/src/lib/direction-provider/index.ts"
+        },
+        {
+          "specifier": "./direction-provider/index.js",
+          "kind": "type",
+          "resolved": "packages/base/src/lib/direction-provider/index.ts"
+        },
+        {
+          "specifier": "./accordion/index.js",
+          "kind": "runtime-or-mixed",
+          "resolved": "packages/base/src/lib/accordion/index.ts"
+        },
+        {
+          "specifier": "./accordion/index.js",
+          "kind": "type",
+          "resolved": "packages/base/src/lib/accordion/index.ts"
+        },
+        {
+          "specifier": "./csp-provider/index.js",
+          "kind": "runtime-or-mixed",
+          "resolved": "packages/base/src/lib/csp-provider/index.ts"
+        },
+        {
+          "specifier": "./csp-provider/index.js",
+          "kind": "type",
+          "resolved": "packages/base/src/lib/csp-provider/index.ts"
+        },
+        {
+          "specifier": "./internals/types.js",
+          "kind": "type",
+          "resolved": "packages/base/src/lib/internals/types.ts"
+        },
+        {
+          "specifier": "./field/index.js",
+          "kind": "runtime-or-mixed",
+          "resolved": "packages/base/src/lib/field/index.ts"
+        },
+        {
+          "specifier": "./field/types.js",
+          "kind": "type",
+          "resolved": "packages/base/src/lib/field/types.ts"
+        },
+        {
+          "specifier": "./form/index.js",
+          "kind": "runtime-or-mixed",
+          "resolved": "packages/base/src/lib/form/index.ts"
+        },
+        {
+          "specifier": "./form/types.js",
+          "kind": "type",
+          "resolved": "packages/base/src/lib/form/types.ts"
+        },
+        {
+          "specifier": "./form/index.js",
+          "kind": "type",
+          "resolved": "packages/base/src/lib/form/index.ts"
+        },
+        {
+          "specifier": "./fieldset/index.js",
+          "kind": "runtime-or-mixed",
+          "resolved": "packages/base/src/lib/fieldset/index.ts"
+        },
+        {
+          "specifier": "./fieldset/types.js",
+          "kind": "type",
+          "resolved": "packages/base/src/lib/fieldset/types.ts"
+        },
+        {
+          "specifier": "./checkbox/index.js",
+          "kind": "runtime-or-mixed",
+          "resolved": "packages/base/src/lib/checkbox/index.ts"
+        },
+        {
+          "specifier": "./checkbox-group/index.js",
+          "kind": "runtime-or-mixed",
+          "resolved": "packages/base/src/lib/checkbox-group/index.ts"
+        },
+        {
+          "specifier": "./switch/index.js",
+          "kind": "runtime-or-mixed",
+          "resolved": "packages/base/src/lib/switch/index.ts"
+        },
+        {
+          "specifier": "./radio/index.js",
+          "kind": "runtime-or-mixed",
+          "resolved": "packages/base/src/lib/radio/index.ts"
+        },
+        {
+          "specifier": "./radio/types.js",
+          "kind": "type",
+          "resolved": "packages/base/src/lib/radio/types.ts"
+        },
+        {
+          "specifier": "./radio-group/index.js",
+          "kind": "runtime-or-mixed",
+          "resolved": "packages/base/src/lib/radio-group/index.ts"
+        },
+        {
+          "specifier": "./radio-group/types.js",
+          "kind": "type",
+          "resolved": "packages/base/src/lib/radio-group/types.ts"
+        },
+        {
+          "specifier": "./scroll-area/index.js",
+          "kind": "runtime-or-mixed",
+          "resolved": "packages/base/src/lib/scroll-area/index.ts"
+        },
+        {
+          "specifier": "./toggle-group/index.js",
+          "kind": "runtime-or-mixed",
+          "resolved": "packages/base/src/lib/toggle-group/index.ts"
+        },
+        {
+          "specifier": "./toggle-group/types.js",
+          "kind": "type",
+          "resolved": "packages/base/src/lib/toggle-group/types.ts"
+        },
+        {
+          "specifier": "./toolbar/index.js",
+          "kind": "runtime-or-mixed",
+          "resolved": "packages/base/src/lib/toolbar/index.ts"
+        },
+        {
+          "specifier": "./toolbar/types.js",
+          "kind": "type",
+          "resolved": "packages/base/src/lib/toolbar/types.ts"
+        },
+        {
+          "specifier": "./menu/index.js",
+          "kind": "runtime-or-mixed",
+          "resolved": "packages/base/src/lib/menu/index.ts"
+        },
+        {
+          "specifier": "./context-menu/index.js",
+          "kind": "runtime-or-mixed",
+          "resolved": "packages/base/src/lib/context-menu/index.ts"
+        },
+        {
+          "specifier": "./menubar/index.js",
+          "kind": "runtime-or-mixed",
+          "resolved": "packages/base/src/lib/menubar/index.ts"
+        },
+        {
+          "specifier": "./menu/types.js",
+          "kind": "type",
+          "resolved": "packages/base/src/lib/menu/types.ts"
+        },
+        {
+          "specifier": "./context-menu/types.js",
+          "kind": "type",
+          "resolved": "packages/base/src/lib/context-menu/types.ts"
+        },
+        {
+          "specifier": "./menubar/types.js",
+          "kind": "type",
+          "resolved": "packages/base/src/lib/menubar/types.ts"
+        },
+        {
+          "specifier": "./menu/types.js",
+          "kind": "type",
+          "resolved": "packages/base/src/lib/menu/types.ts"
+        },
+        {
+          "specifier": "./context-menu/types.js",
+          "kind": "type",
+          "resolved": "packages/base/src/lib/context-menu/types.ts"
+        },
+        {
+          "specifier": "./popover/index.js",
+          "kind": "runtime-or-mixed",
+          "resolved": "packages/base/src/lib/popover/index.ts"
+        },
+        {
+          "specifier": "./popover/types.js",
+          "kind": "type",
+          "resolved": "packages/base/src/lib/popover/types.ts"
+        },
+        {
+          "specifier": "./preview-card/index.js",
+          "kind": "runtime-or-mixed",
+          "resolved": "packages/base/src/lib/preview-card/index.ts"
+        },
+        {
+          "specifier": "./preview-card/types.js",
+          "kind": "type",
+          "resolved": "packages/base/src/lib/preview-card/types.ts"
+        },
+        {
+          "specifier": "./tooltip/index.js",
+          "kind": "runtime-or-mixed",
+          "resolved": "packages/base/src/lib/tooltip/index.ts"
+        },
+        {
+          "specifier": "./tooltip/types.js",
+          "kind": "type",
+          "resolved": "packages/base/src/lib/tooltip/types.ts"
+        },
+        {
+          "specifier": "./popover/types.js",
+          "kind": "type",
+          "resolved": "packages/base/src/lib/popover/types.ts"
+        },
+        {
+          "specifier": "./preview-card/types.js",
+          "kind": "type",
+          "resolved": "packages/base/src/lib/preview-card/types.ts"
+        },
+        {
+          "specifier": "./tooltip/types.js",
+          "kind": "type",
+          "resolved": "packages/base/src/lib/tooltip/types.ts"
+        }
+      ]
+    },
+    {
+      "source": "packages/base/src/lib/internals/composite/composite.ts",
+      "sha256": "424c303bd107e8dff6007e8f1cdff48b43f3d654205cf31ca9348a673674813c",
+      "imports": [
+        {
+          "specifier": "../../direction-provider/types.js",
+          "kind": "type",
+          "resolved": "packages/base/src/lib/direction-provider/types.ts"
+        },
+        {
+          "specifier": "./utils/navigation.js",
+          "kind": "runtime-or-mixed",
+          "resolved": "packages/base/src/lib/internals/composite/utils/navigation.ts"
+        }
+      ]
+    },
+    {
+      "source": "packages/base/src/lib/internals/composite/root/CompositeRoot.svelte",
+      "sha256": "29241d2982ea752a27d65c8c15cc9e3675efd2cfbc0917a4b112c5179c7d2e4e",
+      "imports": [
+        {
+          "specifier": "../../mergeComponentProps.js",
+          "kind": "runtime-or-mixed",
+          "resolved": "packages/base/src/lib/internals/mergeComponentProps.ts"
+        },
+        {
+          "specifier": "svelte/attachments",
+          "kind": "runtime-or-mixed",
+          "resolved": "external:svelte/attachments"
+        },
+        {
+          "specifier": "svelte",
+          "kind": "runtime-or-mixed",
+          "resolved": "external:svelte"
+        },
+        {
+          "specifier": "../../types.js",
+          "kind": "type",
+          "resolved": "packages/base/src/lib/internals/types.ts"
+        },
+        {
+          "specifier": "../../getStateAttributesProps.js",
+          "kind": "type",
+          "resolved": "packages/base/src/lib/internals/getStateAttributesProps.ts"
+        },
+        {
+          "specifier": "../../../direction-provider/context.js",
+          "kind": "runtime-or-mixed",
+          "resolved": "packages/base/src/lib/direction-provider/context.ts"
+        },
+        {
+          "specifier": "../list/createCompositeList.svelte.js",
+          "kind": "runtime-or-mixed",
+          "resolved": "packages/base/src/lib/internals/composite/list/createCompositeList.svelte.ts"
+        },
+        {
+          "specifier": "../list/CompositeListContext.js",
+          "kind": "type",
+          "resolved": "packages/base/src/lib/internals/composite/list/CompositeListContext.ts"
+        },
+        {
+          "specifier": "./useCompositeRoot.svelte.js",
+          "kind": "runtime-or-mixed",
+          "resolved": "packages/base/src/lib/internals/composite/root/useCompositeRoot.svelte.ts"
+        },
+        {
+          "specifier": "./CompositeRootContext.js",
+          "kind": "runtime-or-mixed",
+          "resolved": "packages/base/src/lib/internals/composite/root/CompositeRootContext.ts"
+        }
+      ]
+    },
+    {
+      "source": "packages/base/src/lib/internals/composite/root/gridNavigation.ts",
+      "sha256": "d2ed3a04fffe1d9d73819d40d2494ab19f5707adbe3c7bd9849a81c30977315c",
+      "imports": [
+        {
+          "specifier": "../utils/navigation.js",
+          "kind": "runtime-or-mixed",
+          "resolved": "packages/base/src/lib/internals/composite/utils/navigation.ts"
+        },
+        {
+          "specifier": "../composite.js",
+          "kind": "runtime-or-mixed",
+          "resolved": "packages/base/src/lib/internals/composite/composite.ts"
+        }
+      ]
+    },
+    {
+      "source": "packages/base/src/lib/internals/composite/root/useCompositeRoot.svelte.ts",
+      "sha256": "bdd6ced8bc2a28c77a2572b6b54eab7ad09ee111ddf2bcdbe777686f947c39b6",
+      "imports": [
+        {
+          "specifier": "@sveltery/utils/isElementDisabled",
+          "kind": "runtime-or-mixed",
+          "resolved": "packages/utils/src/lib/isElementDisabled.ts"
+        },
+        {
+          "specifier": "svelte/attachments",
+          "kind": "runtime-or-mixed",
+          "resolved": "external:svelte/attachments"
+        },
+        {
+          "specifier": "svelte",
+          "kind": "runtime-or-mixed",
+          "resolved": "external:svelte"
+        },
+        {
+          "specifier": "../../../direction-provider/types.js",
+          "kind": "type",
+          "resolved": "packages/base/src/lib/direction-provider/types.ts"
+        },
+        {
+          "specifier": "@sveltery/utils/shadowDom",
+          "kind": "runtime-or-mixed",
+          "resolved": "packages/utils/src/lib/shadowDom.ts"
+        },
+        {
+          "specifier": "../composite.js",
+          "kind": "runtime-or-mixed",
+          "resolved": "packages/base/src/lib/internals/composite/composite.ts"
+        },
+        {
+          "specifier": "../constants.js",
+          "kind": "runtime-or-mixed",
+          "resolved": "packages/base/src/lib/internals/composite/constants.ts"
+        },
+        {
+          "specifier": "../list/CompositeListContext.js",
+          "kind": "type",
+          "resolved": "packages/base/src/lib/internals/composite/list/CompositeListContext.ts"
+        },
+        {
+          "specifier": "../../types.js",
+          "kind": "type",
+          "resolved": "packages/base/src/lib/internals/types.ts"
+        },
+        {
+          "specifier": "./gridNavigation.js",
+          "kind": "type",
+          "resolved": "packages/base/src/lib/internals/composite/root/gridNavigation.ts"
+        }
+      ]
+    },
+    {
+      "source": "packages/base/src/lib/internals/composite/utils/navigation.ts",
+      "sha256": "535a40e0631363077ebd9eadee0a06132c81bdcaee78daf63a73409cd5707af3",
+      "imports": [
+        {
+          "specifier": "esm-env",
+          "kind": "runtime-or-mixed",
+          "resolved": "external:esm-env"
+        },
+        {
+          "specifier": "@floating-ui/utils/dom",
+          "kind": "runtime-or-mixed",
+          "resolved": "external:@floating-ui/utils/dom"
+        },
+        {
+          "specifier": "../../../floating-ui/utils/event.js",
+          "kind": "runtime-or-mixed",
+          "resolved": "packages/base/src/lib/floating-ui/utils/event.ts"
+        },
+        {
+          "specifier": "../composite.js",
+          "kind": "runtime-or-mixed",
+          "resolved": "packages/base/src/lib/internals/composite/composite.ts"
+        }
+      ]
+    },
+    {
+      "source": "packages/base/src/lib/menu/Popup.svelte",
+      "sha256": "ffe870ee1c658b8ed2d4d47e1228f75d23e51133fecc7bba738c69df45fc45c5",
+      "imports": [
+        {
+          "specifier": "../internals/mergeComponentProps.js",
+          "kind": "runtime-or-mixed",
+          "resolved": "packages/base/src/lib/internals/mergeComponentProps.ts"
+        },
+        {
+          "specifier": "svelte/attachments",
+          "kind": "runtime-or-mixed",
+          "resolved": "external:svelte/attachments"
+        },
+        {
+          "specifier": "svelte",
+          "kind": "runtime-or-mixed",
+          "resolved": "external:svelte"
+        },
+        {
+          "specifier": "../floating-ui/components/FloatingFocusManager.svelte",
+          "kind": "runtime-or-mixed",
+          "resolved": "packages/base/src/lib/floating-ui/components/FloatingFocusManager.svelte"
+        },
+        {
+          "specifier": "../floating-ui/hooks/useHoverFloatingInteraction.svelte.js",
+          "kind": "runtime-or-mixed",
+          "resolved": "packages/base/src/lib/floating-ui/hooks/useHoverFloatingInteraction.svelte.ts"
+        },
+        {
+          "specifier": "./root/MenuRootContext.js",
+          "kind": "runtime-or-mixed",
+          "resolved": "packages/base/src/lib/menu/root/MenuRootContext.ts"
+        },
+        {
+          "specifier": "./positioner/MenuPositionerContext.js",
+          "kind": "runtime-or-mixed",
+          "resolved": "packages/base/src/lib/menu/positioner/MenuPositionerContext.ts"
+        },
+        {
+          "specifier": "../utils/popupStateMapping.js",
+          "kind": "runtime-or-mixed",
+          "resolved": "packages/base/src/lib/utils/popupStateMapping.ts"
+        },
+        {
+          "specifier": "../internals/useOpenChangeComplete.svelte.js",
+          "kind": "runtime-or-mixed",
+          "resolved": "packages/base/src/lib/internals/useOpenChangeComplete.svelte.ts"
+        },
+        {
+          "specifier": "../internals/createBaseUIEventDetails.js",
+          "kind": "runtime-or-mixed",
+          "resolved": "packages/base/src/lib/internals/createBaseUIEventDetails.ts"
+        },
+        {
+          "specifier": "../internals/reasons.js",
+          "kind": "runtime-or-mixed",
+          "resolved": "packages/base/src/lib/internals/reasons.ts"
+        },
+        {
+          "specifier": "../internals/getDisabledMountTransitionStyles.js",
+          "kind": "runtime-or-mixed",
+          "resolved": "packages/base/src/lib/internals/getDisabledMountTransitionStyles.ts"
+        },
+        {
+          "specifier": "../toolbar/root/ToolbarRootContext.js",
+          "kind": "runtime-or-mixed",
+          "resolved": "packages/base/src/lib/toolbar/root/ToolbarRootContext.ts"
+        },
+        {
+          "specifier": "../internals/composite/composite.js",
+          "kind": "runtime-or-mixed",
+          "resolved": "packages/base/src/lib/internals/composite/composite.ts"
+        },
+        {
+          "specifier": "./types.js",
+          "kind": "type",
+          "resolved": "packages/base/src/lib/menu/types.ts"
+        }
+      ]
+    },
+    {
+      "source": "packages/base/src/lib/menu/Portal.svelte",
+      "sha256": "24c79d4f56f3c9f36df9ef1f42bf2435585fd49e3455935b6f05675edb5b1f64",
+      "imports": [
+        {
+          "specifier": "svelte",
+          "kind": "type",
+          "resolved": "external:svelte"
+        },
+        {
+          "specifier": "../floating-ui/components/FloatingPortal.svelte",
+          "kind": "runtime-or-mixed",
+          "resolved": "packages/base/src/lib/floating-ui/components/FloatingPortal.svelte"
+        },
+        {
+          "specifier": "./root/MenuRootContext.js",
+          "kind": "runtime-or-mixed",
+          "resolved": "packages/base/src/lib/menu/root/MenuRootContext.ts"
+        },
+        {
+          "specifier": "./portal/MenuPortalContext.js",
+          "kind": "runtime-or-mixed",
+          "resolved": "packages/base/src/lib/menu/portal/MenuPortalContext.ts"
+        },
+        {
+          "specifier": "./types.js",
+          "kind": "type",
+          "resolved": "packages/base/src/lib/menu/types.ts"
+        }
+      ]
+    },
+    {
+      "source": "packages/base/src/lib/menu/Root.svelte",
+      "sha256": "0c309094355a231846fda628081404221db6da6ff2affff93fe47a008ed88875",
+      "imports": [
+        {
+          "specifier": "svelte",
+          "kind": "runtime-or-mixed",
+          "resolved": "external:svelte"
+        },
+        {
+          "specifier": "./root/createMenuRoot.svelte.js",
+          "kind": "runtime-or-mixed",
+          "resolved": "packages/base/src/lib/menu/root/createMenuRoot.svelte.ts"
+        },
+        {
+          "specifier": "./root/MenuRootContext.js",
+          "kind": "runtime-or-mixed",
+          "resolved": "packages/base/src/lib/menu/root/MenuRootContext.ts"
+        },
+        {
+          "specifier": "../floating-ui/components/FloatingTree.svelte.js",
+          "kind": "runtime-or-mixed",
+          "resolved": "packages/base/src/lib/floating-ui/components/FloatingTree.svelte.ts"
+        },
+        {
+          "specifier": "../utils/popups/PopupHandleAttachment.svelte",
+          "kind": "runtime-or-mixed",
+          "resolved": "packages/base/src/lib/utils/popups/PopupHandleAttachment.svelte"
+        },
+        {
+          "specifier": "./types.js",
+          "kind": "type",
+          "resolved": "packages/base/src/lib/menu/types.ts"
+        }
+      ]
+    },
+    {
+      "source": "packages/base/src/lib/menu/SubmenuRoot.svelte",
+      "sha256": "5258723759309ef97e67738ad0013c3a448d0135a6ca1cc0353a805c9599ed3d",
+      "imports": [
+        {
+          "specifier": "./Root.svelte",
+          "kind": "runtime-or-mixed",
+          "resolved": "packages/base/src/lib/menu/Root.svelte"
+        },
+        {
+          "specifier": "./root/MenuRootContext.js",
+          "kind": "runtime-or-mixed",
+          "resolved": "packages/base/src/lib/menu/root/MenuRootContext.ts"
+        },
+        {
+          "specifier": "./submenu-root/MenuSubmenuRootContext.js",
+          "kind": "runtime-or-mixed",
+          "resolved": "packages/base/src/lib/menu/submenu-root/MenuSubmenuRootContext.ts"
+        },
+        {
+          "specifier": "./types.js",
+          "kind": "type",
+          "resolved": "packages/base/src/lib/menu/types.ts"
+        }
+      ]
+    },
+    {
+      "source": "packages/base/src/lib/menu/Trigger.svelte",
+      "sha256": "ee9cd19d28798f1e70a9e5a3215bd40f6144a2cfbc6fac7b3639d8eb4a7bebbb",
+      "imports": [
+        {
+          "specifier": "../internals/mergeComponentProps.js",
+          "kind": "runtime-or-mixed",
+          "resolved": "packages/base/src/lib/internals/mergeComponentProps.ts"
+        },
+        {
+          "specifier": "svelte/attachments",
+          "kind": "runtime-or-mixed",
+          "resolved": "external:svelte/attachments"
+        },
+        {
+          "specifier": "../internals/composite/item/CompositeItem.svelte",
+          "kind": "runtime-or-mixed",
+          "resolved": "packages/base/src/lib/internals/composite/item/CompositeItem.svelte"
+        },
+        {
+          "specifier": "../utils/FocusGuard.svelte",
+          "kind": "runtime-or-mixed",
+          "resolved": "packages/base/src/lib/utils/FocusGuard.svelte"
+        },
+        {
+          "specifier": "../utils/popupStateMapping.js",
+          "kind": "runtime-or-mixed",
+          "resolved": "packages/base/src/lib/utils/popupStateMapping.ts"
+        },
+        {
+          "specifier": "./trigger/createMenuTrigger.svelte.js",
+          "kind": "runtime-or-mixed",
+          "resolved": "packages/base/src/lib/menu/trigger/createMenuTrigger.svelte.ts"
+        },
+        {
+          "specifier": "./types.js",
+          "kind": "type",
+          "resolved": "packages/base/src/lib/menu/types.ts"
+        }
+      ]
+    },
+    {
+      "source": "packages/base/src/lib/menu/index.parts.ts",
+      "sha256": "db8cca236721e5e17ac739a1914064673293d7cc596aa910f35a3f573e09e713",
+      "imports": [
+        {
+          "specifier": "./Arrow.svelte",
+          "kind": "runtime-or-mixed",
+          "resolved": "packages/base/src/lib/menu/Arrow.svelte"
+        },
+        {
+          "specifier": "./types.js",
+          "kind": "type",
+          "resolved": "packages/base/src/lib/menu/types.ts"
+        },
+        {
+          "specifier": "./Backdrop.svelte",
+          "kind": "runtime-or-mixed",
+          "resolved": "packages/base/src/lib/menu/Backdrop.svelte"
+        },
+        {
+          "specifier": "./types.js",
+          "kind": "type",
+          "resolved": "packages/base/src/lib/menu/types.ts"
+        },
+        {
+          "specifier": "./CheckboxItem.svelte",
+          "kind": "runtime-or-mixed",
+          "resolved": "packages/base/src/lib/menu/CheckboxItem.svelte"
+        },
+        {
+          "specifier": "./types.js",
+          "kind": "type",
+          "resolved": "packages/base/src/lib/menu/types.ts"
+        },
+        {
+          "specifier": "./CheckboxItemIndicator.svelte",
+          "kind": "runtime-or-mixed",
+          "resolved": "packages/base/src/lib/menu/CheckboxItemIndicator.svelte"
+        },
+        {
+          "specifier": "./types.js",
+          "kind": "type",
+          "resolved": "packages/base/src/lib/menu/types.ts"
+        },
+        {
+          "specifier": "./Group.svelte",
+          "kind": "runtime-or-mixed",
+          "resolved": "packages/base/src/lib/menu/Group.svelte"
+        },
+        {
+          "specifier": "./types.js",
+          "kind": "type",
+          "resolved": "packages/base/src/lib/menu/types.ts"
+        },
+        {
+          "specifier": "./GroupLabel.svelte",
+          "kind": "runtime-or-mixed",
+          "resolved": "packages/base/src/lib/menu/GroupLabel.svelte"
+        },
+        {
+          "specifier": "./types.js",
+          "kind": "type",
+          "resolved": "packages/base/src/lib/menu/types.ts"
+        },
+        {
+          "specifier": "./Item.svelte",
+          "kind": "runtime-or-mixed",
+          "resolved": "packages/base/src/lib/menu/Item.svelte"
+        },
+        {
+          "specifier": "./types.js",
+          "kind": "type",
+          "resolved": "packages/base/src/lib/menu/types.ts"
+        },
+        {
+          "specifier": "./LinkItem.svelte",
+          "kind": "runtime-or-mixed",
+          "resolved": "packages/base/src/lib/menu/LinkItem.svelte"
+        },
+        {
+          "specifier": "./types.js",
+          "kind": "type",
+          "resolved": "packages/base/src/lib/menu/types.ts"
+        },
+        {
+          "specifier": "./Popup.svelte",
+          "kind": "runtime-or-mixed",
+          "resolved": "packages/base/src/lib/menu/Popup.svelte"
+        },
+        {
+          "specifier": "./types.js",
+          "kind": "type",
+          "resolved": "packages/base/src/lib/menu/types.ts"
+        },
+        {
+          "specifier": "./Portal.svelte",
+          "kind": "runtime-or-mixed",
+          "resolved": "packages/base/src/lib/menu/Portal.svelte"
+        },
+        {
+          "specifier": "./types.js",
+          "kind": "type",
+          "resolved": "packages/base/src/lib/menu/types.ts"
+        },
+        {
+          "specifier": "./Positioner.svelte",
+          "kind": "runtime-or-mixed",
+          "resolved": "packages/base/src/lib/menu/Positioner.svelte"
+        },
+        {
+          "specifier": "./types.js",
+          "kind": "type",
+          "resolved": "packages/base/src/lib/menu/types.ts"
+        },
+        {
+          "specifier": "./RadioGroup.svelte",
+          "kind": "runtime-or-mixed",
+          "resolved": "packages/base/src/lib/menu/RadioGroup.svelte"
+        },
+        {
+          "specifier": "./types.js",
+          "kind": "type",
+          "resolved": "packages/base/src/lib/menu/types.ts"
+        },
+        {
+          "specifier": "./RadioItem.svelte",
+          "kind": "runtime-or-mixed",
+          "resolved": "packages/base/src/lib/menu/RadioItem.svelte"
+        },
+        {
+          "specifier": "./types.js",
+          "kind": "type",
+          "resolved": "packages/base/src/lib/menu/types.ts"
+        },
+        {
+          "specifier": "./RadioItemIndicator.svelte",
+          "kind": "runtime-or-mixed",
+          "resolved": "packages/base/src/lib/menu/RadioItemIndicator.svelte"
+        },
+        {
+          "specifier": "./types.js",
+          "kind": "type",
+          "resolved": "packages/base/src/lib/menu/types.ts"
+        },
+        {
+          "specifier": "./Root.svelte",
+          "kind": "runtime-or-mixed",
+          "resolved": "packages/base/src/lib/menu/Root.svelte"
+        },
+        {
+          "specifier": "./types.js",
+          "kind": "type",
+          "resolved": "packages/base/src/lib/menu/types.ts"
+        },
+        {
+          "specifier": "./SubmenuRoot.svelte",
+          "kind": "runtime-or-mixed",
+          "resolved": "packages/base/src/lib/menu/SubmenuRoot.svelte"
+        },
+        {
+          "specifier": "./types.js",
+          "kind": "type",
+          "resolved": "packages/base/src/lib/menu/types.ts"
+        },
+        {
+          "specifier": "./SubmenuTrigger.svelte",
+          "kind": "runtime-or-mixed",
+          "resolved": "packages/base/src/lib/menu/SubmenuTrigger.svelte"
+        },
+        {
+          "specifier": "./types.js",
+          "kind": "type",
+          "resolved": "packages/base/src/lib/menu/types.ts"
+        },
+        {
+          "specifier": "./Trigger.svelte",
+          "kind": "runtime-or-mixed",
+          "resolved": "packages/base/src/lib/menu/Trigger.svelte"
+        },
+        {
+          "specifier": "./types.js",
+          "kind": "type",
+          "resolved": "packages/base/src/lib/menu/types.ts"
+        },
+        {
+          "specifier": "./Viewport.svelte",
+          "kind": "runtime-or-mixed",
+          "resolved": "packages/base/src/lib/menu/Viewport.svelte"
+        },
+        {
+          "specifier": "./types.js",
+          "kind": "type",
+          "resolved": "packages/base/src/lib/menu/types.ts"
+        },
+        {
+          "specifier": "../separator/index.js",
+          "kind": "runtime-or-mixed",
+          "resolved": "packages/base/src/lib/separator/index.ts"
+        },
+        {
+          "specifier": "./store/MenuHandle.svelte.js",
+          "kind": "runtime-or-mixed",
+          "resolved": "packages/base/src/lib/menu/store/MenuHandle.svelte.ts"
+        }
+      ]
+    },
+    {
+      "source": "packages/base/src/lib/menu/index.ts",
+      "sha256": "b00f7c58d4962fa77161e815a72df323df71c13575a8352335f58e7bb8fccf46",
+      "imports": [
+        {
+          "specifier": "./index.parts.js",
+          "kind": "runtime-or-mixed",
+          "resolved": "packages/base/src/lib/menu/index.parts.ts"
+        },
+        {
+          "specifier": "./index.parts.js",
+          "kind": "runtime-or-mixed",
+          "resolved": "packages/base/src/lib/menu/index.parts.ts"
+        },
+        {
+          "specifier": "./types.js",
+          "kind": "type",
+          "resolved": "packages/base/src/lib/menu/types.ts"
+        }
+      ]
+    },
+    {
+      "source": "packages/base/src/lib/menu/root/createMenuRoot.svelte.ts",
+      "sha256": "c388e875d2a3f4c6fb748b17f1dc2e9c35ce347360d7de696dfe83295136616e",
+      "imports": [
+        {
+          "specifier": "esm-env",
+          "kind": "runtime-or-mixed",
+          "resolved": "external:esm-env"
+        },
+        {
+          "specifier": "svelte",
+          "kind": "runtime-or-mixed",
+          "resolved": "external:svelte"
+        },
+        {
+          "specifier": "@sveltery/utils/useTimeout",
+          "kind": "runtime-or-mixed",
+          "resolved": "packages/utils/src/lib/useTimeout.ts"
+        },
+        {
+          "specifier": "@sveltery/utils/empty",
+          "kind": "runtime-or-mixed",
+          "resolved": "packages/utils/src/lib/empty.ts"
+        },
+        {
+          "specifier": "../../floating-ui/hooks/useDismiss.svelte.js",
+          "kind": "runtime-or-mixed",
+          "resolved": "packages/base/src/lib/floating-ui/hooks/useDismiss.svelte.ts"
+        },
+        {
+          "specifier": "../../floating-ui/components/FloatingTree.svelte.js",
+          "kind": "runtime-or-mixed",
+          "resolved": "packages/base/src/lib/floating-ui/components/FloatingTree.svelte.ts"
+        },
+        {
+          "specifier": "../../floating-ui/hooks/useListNavigation.svelte.js",
+          "kind": "runtime-or-mixed",
+          "resolved": "packages/base/src/lib/floating-ui/hooks/useListNavigation.svelte.ts"
+        },
+        {
+          "specifier": "../../floating-ui/hooks/useTypeahead.svelte.js",
+          "kind": "runtime-or-mixed",
+          "resolved": "packages/base/src/lib/floating-ui/hooks/useTypeahead.svelte.ts"
+        },
+        {
+          "specifier": "../../floating-ui/hooks/useSyncedFloatingRootContext.svelte.js",
+          "kind": "runtime-or-mixed",
+          "resolved": "packages/base/src/lib/floating-ui/hooks/useSyncedFloatingRootContext.svelte.ts"
+        },
+        {
+          "specifier": "./MenuRootContext.js",
+          "kind": "runtime-or-mixed",
+          "resolved": "packages/base/src/lib/menu/root/MenuRootContext.ts"
+        },
+        {
+          "specifier": "../../menubar/MenubarContext.js",
+          "kind": "runtime-or-mixed",
+          "resolved": "packages/base/src/lib/menubar/MenubarContext.ts"
+        },
+        {
+          "specifier": "../../internals/constants.js",
+          "kind": "runtime-or-mixed",
+          "resolved": "packages/base/src/lib/internals/constants.ts"
+        },
+        {
+          "specifier": "../../direction-provider/context.js",
+          "kind": "runtime-or-mixed",
+          "resolved": "packages/base/src/lib/direction-provider/context.ts"
+        },
+        {
+          "specifier": "../../utils/useOpenInteractionType.svelte.js",
+          "kind": "runtime-or-mixed",
+          "resolved": "packages/base/src/lib/utils/useOpenInteractionType.svelte.ts"
+        },
+        {
+          "specifier": "../../internals/createBaseUIEventDetails.js",
+          "kind": "runtime-or-mixed",
+          "resolved": "packages/base/src/lib/internals/createBaseUIEventDetails.ts"
+        },
+        {
+          "specifier": "../../utils/popups/popupStoreUtils.svelte.js",
+          "kind": "runtime-or-mixed",
+          "resolved": "packages/base/src/lib/utils/popups/popupStoreUtils.svelte.ts"
+        },
+        {
+          "specifier": "../../internals/reasons.js",
+          "kind": "runtime-or-mixed",
+          "resolved": "packages/base/src/lib/internals/reasons.ts"
+        },
+        {
+          "specifier": "../../context-menu/root/ContextMenuRootContext.js",
+          "kind": "runtime-or-mixed",
+          "resolved": "packages/base/src/lib/context-menu/root/ContextMenuRootContext.ts"
+        },
+        {
+          "specifier": "../../merge-props/index.js",
+          "kind": "runtime-or-mixed",
+          "resolved": "packages/base/src/lib/merge-props/index.ts"
+        },
+        {
+          "specifier": "../../internals/useAnimationsFinished.js",
+          "kind": "runtime-or-mixed",
+          "resolved": "packages/base/src/lib/internals/useAnimationsFinished.ts"
+        },
+        {
+          "specifier": "../store/MenuStore.svelte.js",
+          "kind": "runtime-or-mixed",
+          "resolved": "packages/base/src/lib/menu/store/MenuStore.svelte.ts"
+        },
+        {
+          "specifier": "../../utils/popups/popupStoreUtils.svelte.js",
+          "kind": "runtime-or-mixed",
+          "resolved": "packages/base/src/lib/utils/popups/popupStoreUtils.svelte.ts"
+        },
+        {
+          "specifier": "../submenu-root/MenuSubmenuRootContext.js",
+          "kind": "runtime-or-mixed",
+          "resolved": "packages/base/src/lib/menu/submenu-root/MenuSubmenuRootContext.ts"
+        },
+        {
+          "specifier": "../types.js",
+          "kind": "type",
+          "resolved": "packages/base/src/lib/menu/types.ts"
+        }
+      ]
+    },
+    {
+      "source": "packages/base/src/lib/menu/trigger/createMenuTrigger.svelte.ts",
+      "sha256": "ae04e18d492aa073757adc134e825f1fa8412283d742cb6cf9895a784215108f",
+      "imports": [
+        {
+          "specifier": "svelte/attachments",
+          "kind": "runtime-or-mixed",
+          "resolved": "external:svelte/attachments"
+        },
+        {
+          "specifier": "svelte",
+          "kind": "runtime-or-mixed",
+          "resolved": "external:svelte"
+        },
+        {
+          "specifier": "@sveltery/utils/useTimeout",
+          "kind": "runtime-or-mixed",
+          "resolved": "packages/utils/src/lib/useTimeout.ts"
+        },
+        {
+          "specifier": "@sveltery/utils/owner",
+          "kind": "runtime-or-mixed",
+          "resolved": "packages/utils/src/lib/owner.ts"
+        },
+        {
+          "specifier": "@sveltery/utils/empty",
+          "kind": "runtime-or-mixed",
+          "resolved": "packages/utils/src/lib/empty.ts"
+        },
+        {
+          "specifier": "../../floating-ui/safePolygon.js",
+          "kind": "runtime-or-mixed",
+          "resolved": "packages/base/src/lib/floating-ui/safePolygon.ts"
+        },
+        {
+          "specifier": "../../floating-ui/hooks/useClick.svelte.js",
+          "kind": "runtime-or-mixed",
+          "resolved": "packages/base/src/lib/floating-ui/hooks/useClick.svelte.ts"
+        },
+        {
+          "specifier": "../../floating-ui/components/FloatingTree.svelte.js",
+          "kind": "runtime-or-mixed",
+          "resolved": "packages/base/src/lib/floating-ui/components/FloatingTree.svelte.ts"
+        },
+        {
+          "specifier": "../../floating-ui/hooks/useFocus.svelte.js",
+          "kind": "runtime-or-mixed",
+          "resolved": "packages/base/src/lib/floating-ui/hooks/useFocus.svelte.ts"
+        },
+        {
+          "specifier": "../../floating-ui/hooks/useHoverReferenceInteraction.svelte.js",
+          "kind": "runtime-or-mixed",
+          "resolved": "packages/base/src/lib/floating-ui/hooks/useHoverReferenceInteraction.svelte.ts"
+        },
+        {
+          "specifier": "../../floating-ui/components/FloatingTreeStore.js",
+          "kind": "runtime-or-mixed",
+          "resolved": "packages/base/src/lib/floating-ui/components/FloatingTreeStore.ts"
+        },
+        {
+          "specifier": "../../floating-ui/utils/element.js",
+          "kind": "runtime-or-mixed",
+          "resolved": "packages/base/src/lib/floating-ui/utils/element.ts"
+        },
+        {
+          "specifier": "../root/MenuRootContext.js",
+          "kind": "runtime-or-mixed",
+          "resolved": "packages/base/src/lib/menu/root/MenuRootContext.ts"
+        },
+        {
+          "specifier": "../../internals/use-button/useButton.svelte.js",
+          "kind": "runtime-or-mixed",
+          "resolved": "packages/base/src/lib/internals/use-button/useButton.svelte.ts"
+        },
+        {
+          "specifier": "../../utils/getPseudoElementBounds.js",
+          "kind": "runtime-or-mixed",
+          "resolved": "packages/base/src/lib/utils/getPseudoElementBounds.ts"
+        },
+        {
+          "specifier": "../../internals/composite/root/CompositeRootContext.js",
+          "kind": "runtime-or-mixed",
+          "resolved": "packages/base/src/lib/internals/composite/root/CompositeRootContext.ts"
+        },
+        {
+          "specifier": "../utils/findRootOwnerId.js",
+          "kind": "runtime-or-mixed",
+          "resolved": "packages/base/src/lib/menu/utils/findRootOwnerId.ts"
+        },
+        {
+          "specifier": "../../utils/popups/usePopupHandleStore.svelte.js",
+          "kind": "runtime-or-mixed",
+          "resolved": "packages/base/src/lib/utils/popups/usePopupHandleStore.svelte.ts"
+        },
+        {
+          "specifier": "../../utils/popups/popupStoreUtils.svelte.js",
+          "kind": "runtime-or-mixed",
+          "resolved": "packages/base/src/lib/utils/popups/popupStoreUtils.svelte.ts"
+        },
+        {
+          "specifier": "../../utils/popups/useTriggerFocusGuards.svelte.js",
+          "kind": "runtime-or-mixed",
+          "resolved": "packages/base/src/lib/utils/popups/useTriggerFocusGuards.svelte.ts"
+        },
+        {
+          "specifier": "../../internals/useBaseUiId.js",
+          "kind": "runtime-or-mixed",
+          "resolved": "packages/base/src/lib/internals/useBaseUiId.ts"
+        },
+        {
+          "specifier": "../../internals/reasons.js",
+          "kind": "runtime-or-mixed",
+          "resolved": "packages/base/src/lib/internals/reasons.ts"
+        },
+        {
+          "specifier": "../../utils/useMixedToggleClickHandler.svelte.js",
+          "kind": "runtime-or-mixed",
+          "resolved": "packages/base/src/lib/utils/useMixedToggleClickHandler.svelte.ts"
+        },
+        {
+          "specifier": "../../menubar/MenubarContext.js",
+          "kind": "runtime-or-mixed",
+          "resolved": "packages/base/src/lib/menubar/MenubarContext.ts"
+        },
+        {
+          "specifier": "../../internals/constants.js",
+          "kind": "runtime-or-mixed",
+          "resolved": "packages/base/src/lib/internals/constants.ts"
+        },
+        {
+          "specifier": "../../merge-props/index.js",
+          "kind": "runtime-or-mixed",
+          "resolved": "packages/base/src/lib/merge-props/index.ts"
+        },
+        {
+          "specifier": "../types.js",
+          "kind": "type",
+          "resolved": "packages/base/src/lib/menu/types.ts"
+        },
+        {
+          "specifier": "../store/MenuStore.svelte.js",
+          "kind": "type",
+          "resolved": "packages/base/src/lib/menu/store/MenuStore.svelte.ts"
+        }
+      ]
+    },
+    {
+      "source": "packages/base/src/lib/menubar/Menubar.svelte",
+      "sha256": "8f5a232bc3f2246ffaa0cba4b84764f064687feecc365c837476bfc4f2dbbc43",
+      "imports": [
+        {
+          "specifier": "svelte/attachments",
+          "kind": "runtime-or-mixed",
+          "resolved": "external:svelte/attachments"
+        },
+        {
+          "specifier": "../internals/composite/root/CompositeRoot.svelte",
+          "kind": "runtime-or-mixed",
+          "resolved": "packages/base/src/lib/internals/composite/root/CompositeRoot.svelte"
+        },
+        {
+          "specifier": "../floating-ui/components/FloatingTree.svelte.js",
+          "kind": "runtime-or-mixed",
+          "resolved": "packages/base/src/lib/floating-ui/components/FloatingTree.svelte.ts"
+        },
+        {
+          "specifier": "./MenubarContext.js",
+          "kind": "runtime-or-mixed",
+          "resolved": "packages/base/src/lib/menubar/MenubarContext.ts"
+        },
+        {
+          "specifier": "../internals/useBaseUiId.js",
+          "kind": "runtime-or-mixed",
+          "resolved": "packages/base/src/lib/internals/useBaseUiId.ts"
+        },
+        {
+          "specifier": "../internals/reasons.js",
+          "kind": "runtime-or-mixed",
+          "resolved": "packages/base/src/lib/internals/reasons.ts"
+        },
+        {
+          "specifier": "./types.js",
+          "kind": "type",
+          "resolved": "packages/base/src/lib/menubar/types.ts"
+        },
+        {
+          "specifier": "../menu/types.js",
+          "kind": "type",
+          "resolved": "packages/base/src/lib/menu/types.ts"
+        }
+      ]
+    },
+    {
+      "source": "packages/base/src/lib/menubar/index.ts",
+      "sha256": "95404f22f28fa1b0b4989864e6510bbfbf60dda41b033205be0a3ed25571c57e",
+      "imports": [
+        {
+          "specifier": "./Menubar.svelte",
+          "kind": "runtime-or-mixed",
+          "resolved": "packages/base/src/lib/menubar/Menubar.svelte"
+        },
+        {
+          "specifier": "./types.js",
+          "kind": "type",
+          "resolved": "packages/base/src/lib/menubar/types.ts"
+        },
+        {
+          "specifier": "./types.js",
+          "kind": "type",
+          "resolved": "packages/base/src/lib/menubar/types.ts"
+        }
+      ]
+    },
+    {
+      "source": "packages/base/src/lib/popover/Popup.svelte",
+      "sha256": "7bf0ffbca306fbfa93d63f2bebb54af2b792e908441cb3f96e29819e1892283f",
+      "imports": [
+        {
+          "specifier": "../internals/mergeComponentProps.js",
+          "kind": "runtime-or-mixed",
+          "resolved": "packages/base/src/lib/internals/mergeComponentProps.ts"
+        },
+        {
+          "specifier": "svelte/attachments",
+          "kind": "runtime-or-mixed",
+          "resolved": "external:svelte/attachments"
+        },
+        {
+          "specifier": "./context.js",
+          "kind": "runtime-or-mixed",
+          "resolved": "packages/base/src/lib/popover/context.ts"
+        },
+        {
+          "specifier": "./positioner/PopoverPositionerContext.js",
+          "kind": "runtime-or-mixed",
+          "resolved": "packages/base/src/lib/popover/positioner/PopoverPositionerContext.ts"
+        },
+        {
+          "specifier": "../utils/popupStateMapping.js",
+          "kind": "runtime-or-mixed",
+          "resolved": "packages/base/src/lib/utils/popupStateMapping.ts"
+        },
+        {
+          "specifier": "../internals/useOpenChangeComplete.svelte.js",
+          "kind": "runtime-or-mixed",
+          "resolved": "packages/base/src/lib/internals/useOpenChangeComplete.svelte.ts"
+        },
+        {
+          "specifier": "../internals/getDisabledMountTransitionStyles.js",
+          "kind": "runtime-or-mixed",
+          "resolved": "packages/base/src/lib/internals/getDisabledMountTransitionStyles.ts"
+        },
+        {
+          "specifier": "../floating-ui/hooks/useHoverFloatingInteraction.svelte.js",
+          "kind": "runtime-or-mixed",
+          "resolved": "packages/base/src/lib/floating-ui/hooks/useHoverFloatingInteraction.svelte.ts"
+        },
+        {
+          "specifier": "../utils/popups/popupStoreUtils.svelte.js",
+          "kind": "runtime-or-mixed",
+          "resolved": "packages/base/src/lib/utils/popups/popupStoreUtils.svelte.ts"
+        },
+        {
+          "specifier": "./types.js",
+          "kind": "type",
+          "resolved": "packages/base/src/lib/popover/types.ts"
+        },
+        {
+          "specifier": "svelte",
+          "kind": "runtime-or-mixed",
+          "resolved": "external:svelte"
+        },
+        {
+          "specifier": "@floating-ui/utils/dom",
+          "kind": "runtime-or-mixed",
+          "resolved": "external:@floating-ui/utils/dom"
+        },
+        {
+          "specifier": "../floating-ui/components/FloatingFocusManager.svelte",
+          "kind": "runtime-or-mixed",
+          "resolved": "packages/base/src/lib/floating-ui/components/FloatingFocusManager.svelte"
+        },
+        {
+          "specifier": "../toolbar/root/ToolbarRootContext.js",
+          "kind": "runtime-or-mixed",
+          "resolved": "packages/base/src/lib/toolbar/root/ToolbarRootContext.ts"
+        },
+        {
+          "specifier": "../internals/composite/composite.js",
+          "kind": "runtime-or-mixed",
+          "resolved": "packages/base/src/lib/internals/composite/composite.ts"
+        },
+        {
+          "specifier": "../utils/closePart.svelte.js",
+          "kind": "runtime-or-mixed",
+          "resolved": "packages/base/src/lib/utils/closePart.svelte.ts"
+        },
+        {
+          "specifier": "../utils/popups/popupStoreUtils.svelte.js",
+          "kind": "runtime-or-mixed",
+          "resolved": "packages/base/src/lib/utils/popups/popupStoreUtils.svelte.ts"
+        },
+        {
+          "specifier": "../internals/reasons.js",
+          "kind": "runtime-or-mixed",
+          "resolved": "packages/base/src/lib/internals/reasons.ts"
+        }
+      ]
+    },
+    {
+      "source": "packages/base/src/lib/popover/Portal.svelte",
+      "sha256": "583295746ee2d2b922e40217425cdbc338bdd436d4dac7df0d98ab3e65063157",
+      "imports": [
+        {
+          "specifier": "svelte",
+          "kind": "runtime-or-mixed",
+          "resolved": "external:svelte"
+        },
+        {
+          "specifier": "../floating-ui/components/FloatingPortal.svelte",
+          "kind": "runtime-or-mixed",
+          "resolved": "packages/base/src/lib/floating-ui/components/FloatingPortal.svelte"
+        },
+        {
+          "specifier": "./context.js",
+          "kind": "runtime-or-mixed",
+          "resolved": "packages/base/src/lib/popover/context.ts"
+        },
+        {
+          "specifier": "./types.js",
+          "kind": "type",
+          "resolved": "packages/base/src/lib/popover/types.ts"
+        }
+      ]
+    },
+    {
+      "source": "packages/base/src/lib/popover/Trigger.svelte",
+      "sha256": "b24fee93cbf9d64690e9f381563706ca3dac652522c5585dcd5a040cba183cca",
+      "imports": [
+        {
+          "specifier": "../internals/mergeComponentProps.js",
+          "kind": "runtime-or-mixed",
+          "resolved": "packages/base/src/lib/internals/mergeComponentProps.ts"
+        },
+        {
+          "specifier": "svelte/attachments",
+          "kind": "runtime-or-mixed",
+          "resolved": "external:svelte/attachments"
+        },
+        {
+          "specifier": "svelte",
+          "kind": "runtime-or-mixed",
+          "resolved": "external:svelte"
+        },
+        {
+          "specifier": "./context.js",
+          "kind": "runtime-or-mixed",
+          "resolved": "packages/base/src/lib/popover/context.ts"
+        },
+        {
+          "specifier": "../utils/popups/usePopupHandleStore.svelte.js",
+          "kind": "runtime-or-mixed",
+          "resolved": "packages/base/src/lib/utils/popups/usePopupHandleStore.svelte.ts"
+        },
+        {
+          "specifier": "../utils/popups/popupStoreUtils.svelte.js",
+          "kind": "runtime-or-mixed",
+          "resolved": "packages/base/src/lib/utils/popups/popupStoreUtils.svelte.ts"
+        },
+        {
+          "specifier": "../internals/useBaseUiId.js",
+          "kind": "runtime-or-mixed",
+          "resolved": "packages/base/src/lib/internals/useBaseUiId.ts"
+        },
+        {
+          "specifier": "../floating-ui/hooks/useHoverReferenceInteraction.svelte.js",
+          "kind": "runtime-or-mixed",
+          "resolved": "packages/base/src/lib/floating-ui/hooks/useHoverReferenceInteraction.svelte.ts"
+        },
+        {
+          "specifier": "../floating-ui/safePolygon.js",
+          "kind": "runtime-or-mixed",
+          "resolved": "packages/base/src/lib/floating-ui/safePolygon.ts"
+        },
+        {
+          "specifier": "../utils/popupStateMapping.js",
+          "kind": "runtime-or-mixed",
+          "resolved": "packages/base/src/lib/utils/popupStateMapping.ts"
+        },
+        {
+          "specifier": "./utils/constants.js",
+          "kind": "runtime-or-mixed",
+          "resolved": "packages/base/src/lib/popover/utils/constants.ts"
+        },
+        {
+          "specifier": "./store/PopoverStore.svelte.js",
+          "kind": "type",
+          "resolved": "packages/base/src/lib/popover/store/PopoverStore.svelte.ts"
+        },
+        {
+          "specifier": "./types.js",
+          "kind": "type",
+          "resolved": "packages/base/src/lib/popover/types.ts"
+        },
+        {
+          "specifier": "../utils/FocusGuard.svelte",
+          "kind": "runtime-or-mixed",
+          "resolved": "packages/base/src/lib/utils/FocusGuard.svelte"
+        },
+        {
+          "specifier": "../internals/use-button/useButton.svelte.js",
+          "kind": "runtime-or-mixed",
+          "resolved": "packages/base/src/lib/internals/use-button/useButton.svelte.ts"
+        },
+        {
+          "specifier": "../floating-ui/hooks/useClick.svelte.js",
+          "kind": "runtime-or-mixed",
+          "resolved": "packages/base/src/lib/floating-ui/hooks/useClick.svelte.ts"
+        },
+        {
+          "specifier": "../internals/constants.js",
+          "kind": "runtime-or-mixed",
+          "resolved": "packages/base/src/lib/internals/constants.ts"
+        },
+        {
+          "specifier": "../internals/reasons.js",
+          "kind": "runtime-or-mixed",
+          "resolved": "packages/base/src/lib/internals/reasons.ts"
+        },
+        {
+          "specifier": "../utils/popups/useTriggerFocusGuards.svelte.js",
+          "kind": "runtime-or-mixed",
+          "resolved": "packages/base/src/lib/utils/popups/useTriggerFocusGuards.svelte.ts"
+        },
+        {
+          "specifier": "../utils/useOpenInteractionType.svelte.js",
+          "kind": "runtime-or-mixed",
+          "resolved": "packages/base/src/lib/utils/useOpenInteractionType.svelte.ts"
+        }
+      ]
+    },
+    {
+      "source": "packages/base/src/lib/popover/index.parts.ts",
+      "sha256": "aee24dd6010e0bb1e3eb2c11769f72a3f53254637cfc34facdee3cae1006321d",
+      "imports": [
+        {
+          "specifier": "./Root.svelte",
+          "kind": "runtime-or-mixed",
+          "resolved": "packages/base/src/lib/popover/Root.svelte"
+        },
+        {
+          "specifier": "./Trigger.svelte",
+          "kind": "runtime-or-mixed",
+          "resolved": "packages/base/src/lib/popover/Trigger.svelte"
+        },
+        {
+          "specifier": "./Portal.svelte",
+          "kind": "runtime-or-mixed",
+          "resolved": "packages/base/src/lib/popover/Portal.svelte"
+        },
+        {
+          "specifier": "./Positioner.svelte",
+          "kind": "runtime-or-mixed",
+          "resolved": "packages/base/src/lib/popover/Positioner.svelte"
+        },
+        {
+          "specifier": "./Popup.svelte",
+          "kind": "runtime-or-mixed",
+          "resolved": "packages/base/src/lib/popover/Popup.svelte"
+        },
+        {
+          "specifier": "./Arrow.svelte",
+          "kind": "runtime-or-mixed",
+          "resolved": "packages/base/src/lib/popover/Arrow.svelte"
+        },
+        {
+          "specifier": "./Backdrop.svelte",
+          "kind": "runtime-or-mixed",
+          "resolved": "packages/base/src/lib/popover/Backdrop.svelte"
+        },
+        {
+          "specifier": "./Title.svelte",
+          "kind": "runtime-or-mixed",
+          "resolved": "packages/base/src/lib/popover/Title.svelte"
+        },
+        {
+          "specifier": "./Description.svelte",
+          "kind": "runtime-or-mixed",
+          "resolved": "packages/base/src/lib/popover/Description.svelte"
+        },
+        {
+          "specifier": "./Close.svelte",
+          "kind": "runtime-or-mixed",
+          "resolved": "packages/base/src/lib/popover/Close.svelte"
+        },
+        {
+          "specifier": "./Viewport.svelte",
+          "kind": "runtime-or-mixed",
+          "resolved": "packages/base/src/lib/popover/Viewport.svelte"
+        },
+        {
+          "specifier": "./types.js",
+          "kind": "type",
+          "resolved": "packages/base/src/lib/popover/types.ts"
+        },
+        {
+          "specifier": "./handle.svelte.js",
+          "kind": "runtime-or-mixed",
+          "resolved": "packages/base/src/lib/popover/handle.svelte.ts"
+        }
+      ]
+    },
+    {
+      "source": "packages/base/src/lib/popover/index.ts",
+      "sha256": "2377fe010f645bbe443db67229277219723cd23a86eff2b03d585714ec0345a8",
+      "imports": [
+        {
+          "specifier": "./index.parts.js",
+          "kind": "runtime-or-mixed",
+          "resolved": "packages/base/src/lib/popover/index.parts.ts"
+        },
+        {
+          "specifier": "./index.parts.js",
+          "kind": "runtime-or-mixed",
+          "resolved": "packages/base/src/lib/popover/index.parts.ts"
+        },
+        {
+          "specifier": "./types.js",
+          "kind": "type",
+          "resolved": "packages/base/src/lib/popover/types.ts"
+        },
+        {
+          "specifier": "./types.js",
+          "kind": "type",
+          "resolved": "packages/base/src/lib/popover/types.ts"
+        }
+      ]
+    },
+    {
+      "source": "packages/base/src/lib/radio-group/RadioGroup.svelte",
+      "sha256": "8b1b6a390fba2b142e0d50aa125737c6dd8360808a74c4ce4b2b6f3e78ff4822",
+      "imports": [
+        {
+          "specifier": "svelte",
+          "kind": "runtime-or-mixed",
+          "resolved": "external:svelte"
+        },
+        {
+          "specifier": "../internals/composite/root/CompositeRoot.svelte",
+          "kind": "runtime-or-mixed",
+          "resolved": "packages/base/src/lib/internals/composite/root/CompositeRoot.svelte"
+        },
+        {
+          "specifier": "../internals/composite/composite.js",
+          "kind": "runtime-or-mixed",
+          "resolved": "packages/base/src/lib/internals/composite/composite.ts"
+        },
+        {
+          "specifier": "@sveltery/utils/Controlled",
+          "kind": "runtime-or-mixed",
+          "resolved": "packages/utils/src/lib/Controlled.svelte.ts"
+        },
+        {
+          "specifier": "../internals/useBaseUiId.js",
+          "kind": "runtime-or-mixed",
+          "resolved": "packages/base/src/lib/internals/useBaseUiId.ts"
+        },
+        {
+          "specifier": "@sveltery/utils/shadowDom",
+          "kind": "runtime-or-mixed",
+          "resolved": "packages/utils/src/lib/shadowDom.ts"
+        },
+        {
+          "specifier": "../internals/field-root-context/FieldRootContext.js",
+          "kind": "runtime-or-mixed",
+          "resolved": "packages/base/src/lib/internals/field-root-context/FieldRootContext.ts"
+        },
+        {
+          "specifier": "../internals/field-register-control/useRegisterFieldControl.svelte.js",
+          "kind": "runtime-or-mixed",
+          "resolved": "packages/base/src/lib/internals/field-register-control/useRegisterFieldControl.svelte.ts"
+        },
+        {
+          "specifier": "../internals/field-constants/constants.js",
+          "kind": "runtime-or-mixed",
+          "resolved": "packages/base/src/lib/internals/field-constants/constants.ts"
+        },
+        {
+          "specifier": "../field/root/useFieldValidation.svelte.js",
+          "kind": "runtime-or-mixed",
+          "resolved": "packages/base/src/lib/field/root/useFieldValidation.svelte.ts"
+        },
+        {
+          "specifier": "../fieldset/root/FieldsetRootContext.js",
+          "kind": "runtime-or-mixed",
+          "resolved": "packages/base/src/lib/fieldset/root/FieldsetRootContext.ts"
+        },
+        {
+          "specifier": "../internals/form-context/FormContext.js",
+          "kind": "runtime-or-mixed",
+          "resolved": "packages/base/src/lib/internals/form-context/FormContext.ts"
+        },
+        {
+          "specifier": "../internals/labelable-provider/LabelableContext.js",
+          "kind": "runtime-or-mixed",
+          "resolved": "packages/base/src/lib/internals/labelable-provider/LabelableContext.ts"
+        },
+        {
+          "specifier": "../internals/ValueChanged.svelte.js",
+          "kind": "runtime-or-mixed",
+          "resolved": "packages/base/src/lib/internals/ValueChanged.svelte.ts"
+        },
+        {
+          "specifier": "./RadioGroupContext.js",
+          "kind": "runtime-or-mixed",
+          "resolved": "packages/base/src/lib/radio-group/RadioGroupContext.ts"
+        },
+        {
+          "specifier": "./types.js",
+          "kind": "type",
+          "resolved": "packages/base/src/lib/radio-group/types.ts"
+        },
+        {
+          "specifier": "../internals/types.js",
+          "kind": "type",
+          "resolved": "packages/base/src/lib/internals/types.ts"
+        }
+      ]
+    },
+    {
+      "source": "packages/base/src/lib/radio-group/index.ts",
+      "sha256": "205649bd4284ce40cdf401525d82f0ef7610350e6af0586e848106460a1fc4e1",
+      "imports": [
+        {
+          "specifier": "./RadioGroup.svelte",
+          "kind": "runtime-or-mixed",
+          "resolved": "packages/base/src/lib/radio-group/RadioGroup.svelte"
+        },
+        {
+          "specifier": "./types.js",
+          "kind": "type",
+          "resolved": "packages/base/src/lib/radio-group/types.ts"
+        }
+      ]
+    },
+    {
+      "source": "packages/base/src/lib/toggle-group/ToggleGroup.svelte",
+      "sha256": "1ee580381ce6ba31528bfcccf1a8826b4dc8eafcb079c4f8a8b8594bf1f47931",
+      "imports": [
+        {
+          "specifier": "../internals/mergeComponentProps.js",
+          "kind": "runtime-or-mixed",
+          "resolved": "packages/base/src/lib/internals/mergeComponentProps.ts"
+        },
+        {
+          "specifier": "svelte/attachments",
+          "kind": "runtime-or-mixed",
+          "resolved": "external:svelte/attachments"
+        },
+        {
+          "specifier": "svelte",
+          "kind": "runtime-or-mixed",
+          "resolved": "external:svelte"
+        },
+        {
+          "specifier": "@sveltery/utils/Controlled",
+          "kind": "runtime-or-mixed",
+          "resolved": "packages/utils/src/lib/Controlled.svelte.ts"
+        },
+        {
+          "specifier": "@sveltery/utils/empty",
+          "kind": "runtime-or-mixed",
+          "resolved": "packages/utils/src/lib/empty.ts"
+        },
+        {
+          "specifier": "../internals/composite/root/CompositeRoot.svelte",
+          "kind": "runtime-or-mixed",
+          "resolved": "packages/base/src/lib/internals/composite/root/CompositeRoot.svelte"
+        },
+        {
+          "specifier": "../toolbar/root/ToolbarRootContext.js",
+          "kind": "runtime-or-mixed",
+          "resolved": "packages/base/src/lib/toolbar/root/ToolbarRootContext.ts"
+        },
+        {
+          "specifier": "../toolbar/group/ToolbarGroupContext.js",
+          "kind": "runtime-or-mixed",
+          "resolved": "packages/base/src/lib/toolbar/group/ToolbarGroupContext.ts"
+        },
+        {
+          "specifier": "./ToggleGroupContext.js",
+          "kind": "runtime-or-mixed",
+          "resolved": "packages/base/src/lib/toggle-group/ToggleGroupContext.ts"
+        },
+        {
+          "specifier": "./types.js",
+          "kind": "type",
+          "resolved": "packages/base/src/lib/toggle-group/types.ts"
+        }
+      ]
+    },
+    {
+      "source": "packages/base/src/lib/toggle-group/index.ts",
+      "sha256": "0c7096366fb0832f151a83ca4b25a04aa5be79136965a6303e1303a9f9a87bdb",
+      "imports": [
+        {
+          "specifier": "./ToggleGroup.svelte",
+          "kind": "runtime-or-mixed",
+          "resolved": "packages/base/src/lib/toggle-group/ToggleGroup.svelte"
+        },
+        {
+          "specifier": "./types.js",
+          "kind": "type",
+          "resolved": "packages/base/src/lib/toggle-group/types.ts"
+        }
+      ]
+    },
+    {
+      "source": "packages/base/src/lib/toolbar/index.parts.ts",
+      "sha256": "93f09e28e9b91f96171d4cf02c8cc2de4702436edc119df96223cd4f9bd0a93b",
+      "imports": [
+        {
+          "specifier": "./root/ToolbarRoot.svelte",
+          "kind": "runtime-or-mixed",
+          "resolved": "packages/base/src/lib/toolbar/root/ToolbarRoot.svelte"
+        },
+        {
+          "specifier": "./group/ToolbarGroup.svelte",
+          "kind": "runtime-or-mixed",
+          "resolved": "packages/base/src/lib/toolbar/group/ToolbarGroup.svelte"
+        },
+        {
+          "specifier": "./button/ToolbarButton.svelte",
+          "kind": "runtime-or-mixed",
+          "resolved": "packages/base/src/lib/toolbar/button/ToolbarButton.svelte"
+        },
+        {
+          "specifier": "./input/ToolbarInput.svelte",
+          "kind": "runtime-or-mixed",
+          "resolved": "packages/base/src/lib/toolbar/input/ToolbarInput.svelte"
+        },
+        {
+          "specifier": "./link/ToolbarLink.svelte",
+          "kind": "runtime-or-mixed",
+          "resolved": "packages/base/src/lib/toolbar/link/ToolbarLink.svelte"
+        },
+        {
+          "specifier": "./separator/ToolbarSeparator.svelte",
+          "kind": "runtime-or-mixed",
+          "resolved": "packages/base/src/lib/toolbar/separator/ToolbarSeparator.svelte"
+        },
+        {
+          "specifier": "./types.js",
+          "kind": "type",
+          "resolved": "packages/base/src/lib/toolbar/types.ts"
+        }
+      ]
+    },
+    {
+      "source": "packages/base/src/lib/toolbar/index.ts",
+      "sha256": "a357051759821635ff94d9652fbaf3da9a23a202da753ba35ef5746c86857d60",
+      "imports": [
+        {
+          "specifier": "./index.parts.js",
+          "kind": "runtime-or-mixed",
+          "resolved": "packages/base/src/lib/toolbar/index.parts.ts"
+        },
+        {
+          "specifier": "./types.js",
+          "kind": "type",
+          "resolved": "packages/base/src/lib/toolbar/types.ts"
+        }
+      ]
+    },
+    {
+      "source": "packages/base/src/lib/toolbar/root/ToolbarRoot.svelte",
+      "sha256": "af28517c34c005c1dabe305d4d78824b6740f81c9baab41d8dd88db7d7a39b80",
+      "imports": [
+        {
+          "specifier": "../../internals/composite/root/CompositeRoot.svelte",
+          "kind": "runtime-or-mixed",
+          "resolved": "packages/base/src/lib/internals/composite/root/CompositeRoot.svelte"
+        },
+        {
+          "specifier": "../../internals/composite/list/CompositeListContext.js",
+          "kind": "type",
+          "resolved": "packages/base/src/lib/internals/composite/list/CompositeListContext.ts"
+        },
+        {
+          "specifier": "./ToolbarRootContext.js",
+          "kind": "runtime-or-mixed",
+          "resolved": "packages/base/src/lib/toolbar/root/ToolbarRootContext.ts"
+        },
+        {
+          "specifier": "../types.js",
+          "kind": "type",
+          "resolved": "packages/base/src/lib/toolbar/types.ts"
+        }
+      ]
+    },
+    {
+      "source": "packages/base/src/lib/utils/popups/useTriggerFocusGuards.svelte.ts",
+      "sha256": "31fe56072f7dd8093b4292afc5da43ce09f07ed01faa185e6fae8cdc11f5aac6",
+      "imports": [
+        {
+          "specifier": "svelte",
+          "kind": "runtime-or-mixed",
+          "resolved": "external:svelte"
+        },
+        {
+          "specifier": "../../floating-ui/utils/element.js",
+          "kind": "runtime-or-mixed",
+          "resolved": "packages/base/src/lib/floating-ui/utils/element.ts"
+        },
+        {
+          "specifier": "../../floating-ui/utils/tabbable.js",
+          "kind": "runtime-or-mixed",
+          "resolved": "packages/base/src/lib/floating-ui/utils/tabbable.ts"
+        },
+        {
+          "specifier": "../../floating-ui/utils/tabbable.js",
+          "kind": "type",
+          "resolved": "packages/base/src/lib/floating-ui/utils/tabbable.ts"
+        },
+        {
+          "specifier": "../../internals/createBaseUIEventDetails.js",
+          "kind": "runtime-or-mixed",
+          "resolved": "packages/base/src/lib/internals/createBaseUIEventDetails.ts"
+        },
+        {
+          "specifier": "../../internals/reasons.js",
+          "kind": "runtime-or-mixed",
+          "resolved": "packages/base/src/lib/internals/reasons.ts"
+        }
+      ]
+    }
+  ]
+}

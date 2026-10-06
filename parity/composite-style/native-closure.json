@@ -1,0 +1,181 @@
+{
+  "pin": "47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c",
+  "seeds": [
+    "packages/base/src/lib/internals/composite/composite.ts",
+    "packages/base/src/lib/internals/composite/utils/navigation.ts"
+  ],
+  "modules": [
+    {
+      "source": "packages/base/src/lib/direction-provider/types.ts",
+      "sha256": "a56af048e882453755ad2948782af4f2f832903e031d4812b8da9fc5f4b82aae",
+      "imports": [
+        {
+          "specifier": "svelte",
+          "kind": "type",
+          "resolved": "external:svelte"
+        }
+      ]
+    },
+    {
+      "source": "packages/base/src/lib/floating-ui/utils/event.ts",
+      "sha256": "32391b7e254d578d4a374a8f95270e0fea8c763e8f56c52db2e9931243ad5e56",
+      "imports": [
+        {
+          "specifier": "@sveltery/utils/platform",
+          "kind": "runtime-or-mixed",
+          "resolved": "packages/utils/src/lib/platform/index.ts"
+        }
+      ]
+    },
+    {
+      "source": "packages/base/src/lib/internals/composite/composite.ts",
+      "sha256": "424c303bd107e8dff6007e8f1cdff48b43f3d654205cf31ca9348a673674813c",
+      "imports": [
+        {
+          "specifier": "../../direction-provider/types.js",
+          "kind": "type",
+          "resolved": "packages/base/src/lib/direction-provider/types.ts"
+        },
+        {
+          "specifier": "./utils/navigation.js",
+          "kind": "runtime-or-mixed",
+          "resolved": "packages/base/src/lib/internals/composite/utils/navigation.ts"
+        }
+      ]
+    },
+    {
+      "source": "packages/base/src/lib/internals/composite/utils/navigation.ts",
+      "sha256": "535a40e0631363077ebd9eadee0a06132c81bdcaee78daf63a73409cd5707af3",
+      "imports": [
+        {
+          "specifier": "esm-env",
+          "kind": "runtime-or-mixed",
+          "resolved": "external:esm-env"
+        },
+        {
+          "specifier": "@floating-ui/utils/dom",
+          "kind": "runtime-or-mixed",
+          "resolved": "external:@floating-ui/utils/dom"
+        },
+        {
+          "specifier": "../../../floating-ui/utils/event.js",
+          "kind": "runtime-or-mixed",
+          "resolved": "packages/base/src/lib/floating-ui/utils/event.ts"
+        },
+        {
+          "specifier": "../composite.js",
+          "kind": "runtime-or-mixed",
+          "resolved": "packages/base/src/lib/internals/composite/composite.ts"
+        }
+      ]
+    },
+    {
+      "source": "packages/utils/src/lib/platform/engine.ts",
+      "sha256": "e4745bcc586212a32cde2f7d206cc1aa4df86b8a29301f8d15cf3cd88996a987",
+      "imports": [
+        {
+          "specifier": "./shared.js",
+          "kind": "runtime-or-mixed",
+          "resolved": "packages/utils/src/lib/platform/shared.ts"
+        }
+      ]
+    },
+    {
+      "source": "packages/utils/src/lib/platform/env.ts",
+      "sha256": "dbd7cc1369986d370094b986c44b1bce3c10eba1f792f0e5c3e99c071e00eb9d",
+      "imports": [
+        {
+          "specifier": "./shared.js",
+          "kind": "runtime-or-mixed",
+          "resolved": "packages/utils/src/lib/platform/shared.ts"
+        }
+      ]
+    },
+    {
+      "source": "packages/utils/src/lib/platform/index.ts",
+      "sha256": "c9c1174c0f82f01033187e382b461370123d356d8e14901a9ca7d85dbd2ea63c",
+      "imports": [
+        {
+          "specifier": "./parts.js",
+          "kind": "runtime-or-mixed",
+          "resolved": "packages/utils/src/lib/platform/parts.ts"
+        }
+      ]
+    },
+    {
+      "source": "packages/utils/src/lib/platform/media-query.ts",
+      "sha256": "5e91ea2589962018778ad88498ff9acd432a5244fe37ee922d0a6014b1fb7ed9",
+      "imports": []
+    },
+    {
+      "source": "packages/utils/src/lib/platform/os.ts",
+      "sha256": "456f2f5814e890fb12d899c1cc2f08566529216fd8f6d40a9a8e5846b2c9c3d6",
+      "imports": [
+        {
+          "specifier": "./shared.js",
+          "kind": "runtime-or-mixed",
+          "resolved": "packages/utils/src/lib/platform/shared.ts"
+        }
+      ]
+    },
+    {
+      "source": "packages/utils/src/lib/platform/parts.ts",
+      "sha256": "5382169dc9803fde93bc85e33062cbc85d7cdc0bf754d1a7f6f21eb2b4dcac29",
+      "imports": [
+        {
+          "specifier": "./os.js",
+          "kind": "runtime-or-mixed",
+          "resolved": "packages/utils/src/lib/platform/os.ts"
+        },
+        {
+          "specifier": "./engine.js",
+          "kind": "runtime-or-mixed",
+          "resolved": "packages/utils/src/lib/platform/engine.ts"
+        },
+        {
+          "specifier": "./screen-reader.js",
+          "kind": "runtime-or-mixed",
+          "resolved": "packages/utils/src/lib/platform/screen-reader.ts"
+        },
+        {
+          "specifier": "./env.js",
+          "kind": "runtime-or-mixed",
+          "resolved": "packages/utils/src/lib/platform/env.ts"
+        },
+        {
+          "specifier": "./media-query.js",
+          "kind": "runtime-or-mixed",
+          "resolved": "packages/utils/src/lib/platform/media-query.ts"
+        }
+      ]
+    },
+    {
+      "source": "packages/utils/src/lib/platform/screen-reader.ts",
+      "sha256": "c43ebce8b6557becf984c0ae7f36395da615110e7f878bab1c0dfd476ceb19a7",
+      "imports": [
+        {
+          "specifier": "./os.js",
+          "kind": "runtime-or-mixed",
+          "resolved": "packages/utils/src/lib/platform/os.ts"
+        }
+      ]
+    },
+    {
+      "source": "packages/utils/src/lib/platform/shared.ts",
+      "sha256": "28621a4723495ed9f1370c09b12480a6f488f19e59c70e78524325fc6e080db2",
+      "imports": [
+        {
+          "specifier": "esm-env",
+          "kind": "runtime-or-mixed",
+          "resolved": "external:esm-env"
+        }
+      ]
+    }
+  ],
+  "externalBoundaries": [
+    "@floating-ui/utils/dom runtime",
+    "esm-env runtime",
+    "svelte type only"
+  ],
+  "stateOwnerClassification": "No independent retained-state owner in this 12-module forward closure; algorithms, event operations, platform queries and types remain functions."
+}

@@ -5477,7 +5477,7 @@
     },
     {
       "source": "packages/base/src/lib/internals/composite/composite.ts",
-      "sha256": "f4e02dc8034a749a29f2c63d12f34c25d17c73ffd4075bc31e8f4a55306c0a9e",
+      "sha256": "424c303bd107e8dff6007e8f1cdff48b43f3d654205cf31ca9348a673674813c",
       "imports": [
         {
           "specifier": "../../direction-provider/types.js",
@@ -5742,12 +5742,17 @@
     },
     {
       "source": "packages/base/src/lib/internals/composite/utils/navigation.ts",
-      "sha256": "bcfb35db31e9b53c86be39c229e041eaaf48f82df10d4dfaac79b69ecfd5a6dd",
+      "sha256": "535a40e0631363077ebd9eadee0a06132c81bdcaee78daf63a73409cd5707af3",
       "imports": [
         {
           "specifier": "esm-env",
           "kind": "runtime-or-mixed",
           "resolved": "external:esm-env"
+        },
+        {
+          "specifier": "@floating-ui/utils/dom",
+          "kind": "runtime-or-mixed",
+          "resolved": "external:@floating-ui/utils/dom"
         },
         {
           "specifier": "../../../floating-ui/utils/event.js",

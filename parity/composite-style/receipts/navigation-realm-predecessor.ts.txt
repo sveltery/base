@@ -2,7 +2,9 @@
 // MIT: THIRD_PARTY_NOTICES.md; parity/radio/source-correspondence.md.
 const floor = Math.floor;
 import { DEV } from 'esm-env';
-import { getComputedStyle } from '@floating-ui/utils/dom';
+function getComputedStyle(element: Element) {
+  return element.ownerDocument.defaultView!.getComputedStyle(element);
+}
 
 interface Dimensions {
   width: number;

@@ -1,0 +1,7 @@
+# Composite style lookup prerequisite
+
+Two shared lookups now match their distinct immutable Base UI 1.8.0 sources. Navigation visibility imports canonical Floating `getComputedStyle`, which reuses its owner-window fallback. Composite scrolling calls browser-global `getComputedStyle` as pinned Original does. Before repair, both local lookups asserted a nonnull owner defaultView and threw for connected elements in documents created with `createHTMLDocument`.
+
+The [complete Source/native correspondence](../parity/composite-style/source-correspondence.md) records the 106-module Original import closure, 12-module native forward closure, 45-module conservative affected closure, exact hashes, caller distinctions and preserved predecessor red/green proof. The runtime delta is exactly these two reviewed lookup repairs; navigation/scrolling business bodies, branches and composition remain unchanged.
+
+This standalone diagnostic prerequisite breaks the Dialog #42 / Composite #86 integration cycle. It does not implement Dialog or the separately assigned reusable state-owner classes, and does not grant whole-consumer acceptance. Final exact-head independent review and full hosted execution, secured browsers, strict installed declarations, package and SSR/hydration checks remain mandatory. Paired helper/browser supplements add zero ordinary upstream assertion credit. See [CS-01](upstream-differences.md#cs-01-canonical-composite-style-lookups-proposed).
