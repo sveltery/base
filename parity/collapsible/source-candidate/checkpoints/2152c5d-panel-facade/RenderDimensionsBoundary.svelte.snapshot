@@ -3,9 +3,6 @@
   import * as Collapsible from '../../../src/lib/collapsible/index.js';
   import type { Snippet } from 'svelte';
   let { bare = false }: { bare?: boolean } = $props();
-  // Intentional CSS-text cascade witness: author height follows the measured default.
-  const bareStyle =
-    '--collapsible-panel-height:auto;--collapsible-panel-width:auto;--collapsible-panel-height:73px';
 </script>
 
 {#snippet host(
@@ -18,7 +15,11 @@
   >
 {/snippet}
 {#if bare}
-  <div data-testid="dimension-boundary" style={bareStyle}>Native content</div>
+  <div
+    data-testid="dimension-boundary"
+    style="--collapsible-panel-height:auto;--collapsible-panel-width:auto;--collapsible-panel-height:73px"
+    >Native content</div
+  >
 {:else}
   <Collapsible.Root
     ><Collapsible.Panel data-testid="dimension-boundary" keepMounted render={host}

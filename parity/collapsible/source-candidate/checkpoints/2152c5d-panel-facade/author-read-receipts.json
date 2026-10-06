@@ -1,5 +1,5 @@
 {
-  "candidateHead": "0c8b3a9fb42947e8864925f23cf9e57da4c754d1",
+  "candidateHead": "ca229e697d9089b65259eacbbe8707a7ac50399d",
   "pin": "47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c",
   "scope": "Actual integrated production/type closure inventory; historical matching-body reads retained separately, new/changed bodies explicitly pending author and independent full reads. Test closure separately inventoried.",
   "originalReceipt": "../source-audit/audit.json",
@@ -57,9 +57,9 @@
     },
     {
       "source": "packages/base/src/lib/collapsible/panel/useCollapsiblePanel.svelte.ts",
-      "sha256": "7bfe7a9607c34998a00e7704922a8c9c51df7ae8fb39a8d61e5cf85683e31415",
+      "sha256": "1e335baa0e8c4ca4996b682f3f31c300bd3d4bbfb58de0874fe19e86c5550dcc",
       "reachability": "runtime",
-      "authorRead": "Complete owned Panel body and immutable Original body read in bounded passes for 0c8b3a9f: direct class state/derived fields, cache branch, measurement branches/order, cancellation, lexical callbacks and captured-host cleanup inspected. This author read grants no independent review or assertion credit.",
+      "authorRead": "PENDING current entire-body author read; graph/hash identity is inventory only.",
       "finalIndependentRead": "PENDING exact final-head entire-closure review; no acceptance inferred from prior reads or graph identity",
       "ordinaryCredit": 0
     },
@@ -689,5 +689,5 @@
     }
   ],
   "acceptedMain": "a879ce6970cf14407d1e3859ee5c9900ca17e372",
-  "priorCheckpoint": "checkpoints/2152c5d-panel-facade/author-read-receipts.json"
+  "priorCheckpoint": "checkpoints/5b83b91c/author-read-receipts.json"
 }

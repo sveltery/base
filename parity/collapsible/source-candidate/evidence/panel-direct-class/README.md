@@ -1,0 +1,16 @@
+# Local direct Panel owner validation
+
+Public diagnostic `2152c5d5814000198ec232c655601a40c9a717b4` remains unchanged. The unpublished local owner candidate's runtime is `0c8b3a9fb42947e8864925f23cf9e57da4c754d1`; source and tests are identical at execution checkpoint `3cc90e76e3fda122e8cd50a4bced295407ff34af` and documentation successor `ae52e04f16ebc70593e076c91be3802275cd3ba0`. No new ordinary/unchanged Original assertion credit or final public-head acceptance is claimed.
+
+| Executed checkpoint and command | Actual result | Raw receipt |
+| --- | --- | --- |
+| 3cc90e76; `pnpm --filter @sveltery/base exec vitest run --project dom tests/dom/collapsible.test.ts tests/dom/collapsible-source-boundary.test.ts tests/dom/collapsible-dimensions-boundary.test.ts` | 37 passed in three files, 5.52s | panel-class-focused-dom.log |
+| 3cc90e76; `bash scripts/check-collapsible-package.sh --public` | Fresh genuine dual tarballs; strict/EOPT/noUnchecked/skipLibCheck:false, six negatives, two Svelte checks 0 errors/0 warnings; SSR→hydrate(recover:false) host/ID/style retention, zero diagnostics, native cancellation/ref/snippet/attachment/replacement cleanup passed | panel-class-strict-package.log |
+| ae52e04f; targeted ESLint on Panel owner and native dimensions diagnostic | Passed with no lint diagnostics, no rule suppression | panel-class-final-lint.log |
+| ae52e04f; targeted Prettier on those two files and feature/compatibility index docs | Passed | panel-class-final-format.log |
+| ae52e04f; actual absolute Node `--test --test-concurrency=1 scripts/tests/collapsible-provenance.test.mjs scripts/tests/collapsible-ssr.test.mjs scripts/tests/native-snippets-provenance.test.mjs` | Six passed, including paired exact-pin SSR | panel-class-provenance-ssr.log |
+| ae52e04f; Collapsible candidate graph, native snippet graph and native family projection checks | Passed; native502 modules, Collapsible85/227 and tests128/348 | panel-class-graph-check.log; panel-class-native-graph-check.log; panel-class-family-check.log |
+
+All heavy stages were sequential with one worker and NODE_OPTIONS max-old-space-size1536. The same actual source module was transpiled with the producer TypeScript and compiled using Svelte5.57.1 compileModule in server/client modes. Full emitted files are retained here: server class derived fields are lazy native derived functions, so parameters are assigned in the constructor before reads. The genuine packed SSR/hydration run is the executable evidence; generated-code inspection adds no product assertion credit. SSR compilation uses the repository producer compiler, while the isolated consumer executes its installed runtime/client compiler; this is jsdom hydration, not secured Chromium acceptance.
+
+The independent 3cc review report preserves the intermediate03 receiver finding and corrected named lexical beforematch effect without inventing a failed runtime execution. Later documentation-only exact-candidate review is recorded externally by the parent reviewer. Required canonical Transition/Button class owners and PR73 style-empty repair, accepted-main integration, final public-head review and CI remain pending. No further publication or merge is authorized by these local passes.

@@ -1,0 +1,9 @@
+# Public2152 CSS diagnostic harness predecessor
+
+Hosted run37536865670 executed142 Collapsible cases:136 passed and six CSS transport supplements failed before their predicates (`Object.defineProperty called on non-object`). The log does not identify the failing framework iteration. Verification also failed the native fixture style callback's string-or-object type. These raw failures remain preserved here.
+
+The installed Original Base UI1.8.0 immutable source pin47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c SSR reproducer independently establishes the missing initial-host precondition: all six public2152 configs have defaultOpen=false/keepMounted=false/hiddenUntilFound=false and render no Panel. The prior69 scenario mappings render six retained hosts, including beforematch hidden hosts. This is fixture causality evidence, not a browser measurement or a new upstream business bug.
+
+The scoped local repair restores the69 CSS-only keep/hidden/motion/authored-duration mappings while retaining current main's other scenarios, uses the current native CSS string API (historical forward-object case labels still describe Original's React object input), and restores native intrinsic-default versus forwarding-snippet branches. Original reference and all six browser predicates/traces remain byte unchanged. Local repaired SSR proves six initial hosts; browser timing/style assertions still require a secured hosted rerun. Supplements earn zero unchanged Source assertion credit.
+
+Renderer scope: Original uses its inherited render-function wrapper in both historical default-string and forward-object labels; these labels do not prove distinct Original intrinsic/forwarded renderer coverage. The restored default/snippet distinction applies to actual native Collapsible. No Original renderer assertion was added.

@@ -1,0 +1,297 @@
+﻿2026-10-06T21:53:06.1036858Z Current runner version: '2.337.0'
+2026-10-06T21:53:06.1062042Z ##[group]Runner Image Provisioner
+2026-10-06T21:53:06.1062978Z Hosted Compute Agent
+2026-10-06T21:53:06.1063722Z Version: 20260901.588
+2026-10-06T21:53:06.1064465Z Commit: f88ec8081b781fac6c440065ac7ff9e710ce3d0b
+2026-10-06T21:53:06.1065340Z Build Date: 2026-09-01T19:56:44Z
+2026-10-06T21:53:06.1066064Z Worker ID: {8e625989-5acb-4f1d-9dba-3f00a7e4d95a}
+2026-10-06T21:53:06.1066851Z Azure Region: westus2
+2026-10-06T21:53:06.1067490Z ##[endgroup]
+2026-10-06T21:53:06.1068930Z ##[group]Operating System
+2026-10-06T21:53:06.1069626Z Ubuntu
+2026-10-06T21:53:06.1070771Z 24.04.5
+2026-10-06T21:53:06.1071337Z LTS
+2026-10-06T21:53:06.1071913Z ##[endgroup]
+2026-10-06T21:53:06.1072549Z ##[group]Runner Image
+2026-10-06T21:53:06.1073187Z Image: ubuntu-24.04
+2026-10-06T21:53:06.1073899Z Version: 20260927.320.1
+2026-10-06T21:53:06.1075232Z Included Software: https://github.com/actions/runner-images/blob/ubuntu24/20260927.320/images/ubuntu/Ubuntu2404-Readme.md
+2026-10-06T21:53:06.1076995Z Image Release: https://github.com/actions/runner-images/releases/tag/ubuntu24%2F20260927.320
+2026-10-06T21:53:06.1078023Z ##[endgroup]
+2026-10-06T21:53:06.1079189Z ##[group]GITHUB_TOKEN Permissions
+2026-10-06T21:53:06.1081442Z Contents: read
+2026-10-06T21:53:06.1082356Z Metadata: read
+2026-10-06T21:53:06.1083056Z ##[endgroup]
+2026-10-06T21:53:06.1085160Z Secret source: Actions
+2026-10-06T21:53:06.1086297Z Cache mode: write
+2026-10-06T21:53:06.1087100Z Prepare workflow directory
+2026-10-06T21:53:06.1426308Z Prepare all required actions
+2026-10-06T21:53:06.1474768Z Getting action download info
+2026-10-06T21:53:06.5406743Z Download action repository 'actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803' (SHA:d23441a48e516b6c34aea4fa41551a30e30af803)
+2026-10-06T21:53:06.6557169Z Download action repository 'pnpm/action-setup@fc06bc1257f339d1d5d8b3a19a8cae5388b55320' (SHA:fc06bc1257f339d1d5d8b3a19a8cae5388b55320)
+2026-10-06T21:53:06.9339498Z Download action repository 'actions/setup-node@249970729cb0ef3589644e2896645e5dc5ba9c38' (SHA:249970729cb0ef3589644e2896645e5dc5ba9c38)
+2026-10-06T21:53:07.1662286Z Complete job name: Standards
+2026-10-06T21:53:07.2502785Z ##[group]Run actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803
+2026-10-06T21:53:07.2503934Z with:
+2026-10-06T21:53:07.2504475Z   ref: 2152c5d5814000198ec232c655601a40c9a717b4
+2026-10-06T21:53:07.2505163Z   persist-credentials: false
+2026-10-06T21:53:07.2505757Z   repository: sveltery/base
+2026-10-06T21:53:07.2510214Z   token: ***
+2026-10-06T21:53:07.2510740Z   ssh-strict: true
+2026-10-06T21:53:07.2511241Z   ssh-user: git
+2026-10-06T21:53:07.2511712Z   clean: true
+2026-10-06T21:53:07.2512203Z   sparse-checkout-cone-mode: true
+2026-10-06T21:53:07.2512790Z   fetch-depth: 1
+2026-10-06T21:53:07.2513269Z   fetch-tags: false
+2026-10-06T21:53:07.2513783Z   show-progress: true
+2026-10-06T21:53:07.2514292Z   lfs: false
+2026-10-06T21:53:07.2514764Z   submodules: false
+2026-10-06T21:53:07.2515253Z   set-safe-directory: true
+2026-10-06T21:53:07.2515857Z   allow-unsafe-pr-checkout: false
+2026-10-06T21:53:07.2516721Z ##[endgroup]
+2026-10-06T21:53:07.3558530Z Syncing repository: sveltery/base
+2026-10-06T21:53:07.3562338Z ##[group]Getting Git version info
+2026-10-06T21:53:07.3563857Z Working directory is '/home/runner/work/base/base'
+2026-10-06T21:53:07.3566156Z [command]/usr/bin/git version
+2026-10-06T21:53:07.3685729Z git version 2.55.0
+2026-10-06T21:53:07.3715227Z ##[endgroup]
+2026-10-06T21:53:07.3739524Z Temporarily overriding HOME='/home/runner/work/_temp/425dc80d-2443-439c-91cb-a69520ead24a' before making global git config changes
+2026-10-06T21:53:07.3742832Z Adding repository directory to the temporary git global config as a safe directory
+2026-10-06T21:53:07.3745697Z [command]/usr/bin/git config --global --add safe.directory /home/runner/work/base/base
+2026-10-06T21:53:07.3800435Z Deleting the contents of '/home/runner/work/base/base'
+2026-10-06T21:53:07.3805668Z ##[group]Determining repository object format
+2026-10-06T21:53:07.3808425Z ##[endgroup]
+2026-10-06T21:53:07.3810978Z ##[group]Initializing the repository
+2026-10-06T21:53:07.3814139Z [command]/usr/bin/git init /home/runner/work/base/base
+2026-10-06T21:53:07.3952270Z hint: Using 'master' as the name for the initial branch. This default branch name
+2026-10-06T21:53:07.3954522Z hint: will change to "main" in Git 3.0. To configure the initial branch name
+2026-10-06T21:53:07.3956782Z hint: to use in all of your new repositories, which will suppress this warning,
+2026-10-06T21:53:07.3959179Z hint: call:
+2026-10-06T21:53:07.3960988Z hint:
+2026-10-06T21:53:07.3962643Z hint: 	git config --global init.defaultBranch <name>
+2026-10-06T21:53:07.3964675Z hint:
+2026-10-06T21:53:07.3966404Z hint: Names commonly chosen instead of 'master' are 'main', 'trunk' and
+2026-10-06T21:53:07.3969152Z hint: 'development'. The just-created branch can be renamed via this command:
+2026-10-06T21:53:07.3973099Z hint:
+2026-10-06T21:53:07.3975667Z hint: 	git branch -m <name>
+2026-10-06T21:53:07.3977718Z hint:
+2026-10-06T21:53:07.3979614Z hint: Disable this message with "git config set advice.defaultBranchName false"
+2026-10-06T21:53:07.3982571Z Initialized empty Git repository in /home/runner/work/base/base/.git/
+2026-10-06T21:53:07.3986751Z [command]/usr/bin/git remote add origin https://github.com/sveltery/base
+2026-10-06T21:53:07.4038342Z ##[endgroup]
+2026-10-06T21:53:07.4040234Z ##[group]Disabling automatic garbage collection
+2026-10-06T21:53:07.4042011Z [command]/usr/bin/git config --local gc.auto 0
+2026-10-06T21:53:07.4074548Z ##[endgroup]
+2026-10-06T21:53:07.4076238Z ##[group]Setting up auth
+2026-10-06T21:53:07.4077519Z Removing SSH command configuration
+2026-10-06T21:53:07.4082608Z [command]/usr/bin/git config --local --name-only --get-regexp core\.sshCommand
+2026-10-06T21:53:07.4124183Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
+2026-10-06T21:53:07.4539592Z Removing HTTP extra header
+2026-10-06T21:53:07.4546202Z [command]/usr/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+2026-10-06T21:53:07.4584673Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
+2026-10-06T21:53:07.4803563Z Removing includeIf entries pointing to credentials config files
+2026-10-06T21:53:07.4809609Z [command]/usr/bin/git config --local --name-only --get-regexp ^includeIf\.gitdir:
+2026-10-06T21:53:07.4845745Z [command]/usr/bin/git submodule foreach --recursive git config --local --show-origin --name-only --get-regexp remote.origin.url
+2026-10-06T21:53:07.5079366Z [command]/usr/bin/git config --file /home/runner/work/_temp/git-credentials-c4c4b6ae-18e1-4934-82e8-e76a21ed7d3e.config http.https://github.com/.extraheader AUTHORIZATION: basic ***
+2026-10-06T21:53:07.5122883Z [command]/usr/bin/git config --local includeIf.gitdir:/home/runner/work/base/base/.git.path /home/runner/work/_temp/git-credentials-c4c4b6ae-18e1-4934-82e8-e76a21ed7d3e.config
+2026-10-06T21:53:07.5161299Z [command]/usr/bin/git config --local includeIf.gitdir:/home/runner/work/base/base/.git/worktrees/*.path /home/runner/work/_temp/git-credentials-c4c4b6ae-18e1-4934-82e8-e76a21ed7d3e.config
+2026-10-06T21:53:07.5237615Z [command]/usr/bin/git config --local includeIf.gitdir:/github/workspace/.git.path /github/runner_temp/git-credentials-c4c4b6ae-18e1-4934-82e8-e76a21ed7d3e.config
+2026-10-06T21:53:07.5274359Z [command]/usr/bin/git config --local includeIf.gitdir:/github/workspace/.git/worktrees/*.path /github/runner_temp/git-credentials-c4c4b6ae-18e1-4934-82e8-e76a21ed7d3e.config
+2026-10-06T21:53:07.5306823Z ##[endgroup]
+2026-10-06T21:53:07.5308869Z ##[group]Fetching the repository
+2026-10-06T21:53:07.5316541Z [command]/usr/bin/git -c protocol.version=2 fetch --no-tags --prune --no-recurse-submodules --depth=1 origin 2152c5d5814000198ec232c655601a40c9a717b4
+2026-10-06T21:53:09.5545900Z From https://github.com/sveltery/base
+2026-10-06T21:53:09.5547067Z  * branch            2152c5d5814000198ec232c655601a40c9a717b4 -> FETCH_HEAD
+2026-10-06T21:53:09.5555882Z [command]/usr/bin/git rev-parse --verify --quiet 2152c5d5814000198ec232c655601a40c9a717b4^{object}
+2026-10-06T21:53:09.5583324Z 2152c5d5814000198ec232c655601a40c9a717b4
+2026-10-06T21:53:09.5588287Z ##[endgroup]
+2026-10-06T21:53:09.5589100Z ##[group]Determining the checkout info
+2026-10-06T21:53:09.5590513Z ##[endgroup]
+2026-10-06T21:53:09.5594415Z [command]/usr/bin/git sparse-checkout disable
+2026-10-06T21:53:09.5646007Z [command]/usr/bin/git config --local --unset-all extensions.worktreeConfig
+2026-10-06T21:53:09.5680654Z ##[group]Checking out the ref
+2026-10-06T21:53:09.5681371Z [command]/usr/bin/git checkout --progress --force 2152c5d5814000198ec232c655601a40c9a717b4
+2026-10-06T21:53:10.0058493Z Note: switching to '2152c5d5814000198ec232c655601a40c9a717b4'.
+2026-10-06T21:53:10.0059068Z 
+2026-10-06T21:53:10.0059462Z You are in 'detached HEAD' state. You can look around, make experimental
+2026-10-06T21:53:10.0060459Z changes and commit them, and you can discard any commits you make in this
+2026-10-06T21:53:10.0061173Z state without impacting any branches by switching back to a branch.
+2026-10-06T21:53:10.0061528Z 
+2026-10-06T21:53:10.0061752Z If you want to create a new branch to retain commits you create, you may
+2026-10-06T21:53:10.0062271Z do so (now or later) by using -c with the switch command. Example:
+2026-10-06T21:53:10.0062678Z 
+2026-10-06T21:53:10.0062820Z   git switch -c <new-branch-name>
+2026-10-06T21:53:10.0063109Z 
+2026-10-06T21:53:10.0063327Z Or undo this operation with:
+2026-10-06T21:53:10.0063511Z 
+2026-10-06T21:53:10.0063732Z   git switch -
+2026-10-06T21:53:10.0063895Z 
+2026-10-06T21:53:10.0064178Z Turn off this advice by setting config variable advice.detachedHead to false
+2026-10-06T21:53:10.0064561Z 
+2026-10-06T21:53:10.0064855Z HEAD is now at 2152c5d fix(collapsible): publish reviewed native source repair diagnostic batch
+2026-10-06T21:53:10.0125784Z ##[endgroup]
+2026-10-06T21:53:10.0176986Z [command]/usr/bin/git log -1 --format=%H
+2026-10-06T21:53:10.0204578Z 2152c5d5814000198ec232c655601a40c9a717b4
+2026-10-06T21:53:10.0219326Z ##[group]Removing auth
+2026-10-06T21:53:10.0220114Z Removing SSH command configuration
+2026-10-06T21:53:10.0220678Z [command]/usr/bin/git config --local --name-only --get-regexp core\.sshCommand
+2026-10-06T21:53:10.0256407Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
+2026-10-06T21:53:10.0489422Z Removing HTTP extra header
+2026-10-06T21:53:10.0494659Z [command]/usr/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+2026-10-06T21:53:10.0569474Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
+2026-10-06T21:53:10.0769270Z Removing includeIf entries pointing to credentials config files
+2026-10-06T21:53:10.0774212Z [command]/usr/bin/git config --local --name-only --get-regexp ^includeIf\.gitdir:
+2026-10-06T21:53:10.0805546Z includeif.gitdir:/home/runner/work/base/base/.git.path
+2026-10-06T21:53:10.0806668Z includeif.gitdir:/home/runner/work/base/base/.git/worktrees/*.path
+2026-10-06T21:53:10.0807758Z includeif.gitdir:/github/workspace/.git.path
+2026-10-06T21:53:10.0808820Z includeif.gitdir:/github/workspace/.git/worktrees/*.path
+2026-10-06T21:53:10.0816189Z [command]/usr/bin/git config --local --get-all includeif.gitdir:/home/runner/work/base/base/.git.path
+2026-10-06T21:53:10.0843284Z /home/runner/work/_temp/git-credentials-c4c4b6ae-18e1-4934-82e8-e76a21ed7d3e.config
+2026-10-06T21:53:10.0854382Z [command]/usr/bin/git config --local --unset includeif.gitdir:/home/runner/work/base/base/.git.path /home/runner/work/_temp/git-credentials-c4c4b6ae-18e1-4934-82e8-e76a21ed7d3e.config
+2026-10-06T21:53:10.0891481Z [command]/usr/bin/git config --local --get-all includeif.gitdir:/home/runner/work/base/base/.git/worktrees/*.path
+2026-10-06T21:53:10.0916769Z /home/runner/work/_temp/git-credentials-c4c4b6ae-18e1-4934-82e8-e76a21ed7d3e.config
+2026-10-06T21:53:10.0926242Z [command]/usr/bin/git config --local --unset includeif.gitdir:/home/runner/work/base/base/.git/worktrees/*.path /home/runner/work/_temp/git-credentials-c4c4b6ae-18e1-4934-82e8-e76a21ed7d3e.config
+2026-10-06T21:53:10.0966757Z [command]/usr/bin/git config --local --get-all includeif.gitdir:/github/workspace/.git.path
+2026-10-06T21:53:10.0993629Z /github/runner_temp/git-credentials-c4c4b6ae-18e1-4934-82e8-e76a21ed7d3e.config
+2026-10-06T21:53:10.1001511Z [command]/usr/bin/git config --local --unset includeif.gitdir:/github/workspace/.git.path /github/runner_temp/git-credentials-c4c4b6ae-18e1-4934-82e8-e76a21ed7d3e.config
+2026-10-06T21:53:10.1043552Z [command]/usr/bin/git config --local --get-all includeif.gitdir:/github/workspace/.git/worktrees/*.path
+2026-10-06T21:53:10.1067703Z /github/runner_temp/git-credentials-c4c4b6ae-18e1-4934-82e8-e76a21ed7d3e.config
+2026-10-06T21:53:10.1075689Z [command]/usr/bin/git config --local --unset includeif.gitdir:/github/workspace/.git/worktrees/*.path /github/runner_temp/git-credentials-c4c4b6ae-18e1-4934-82e8-e76a21ed7d3e.config
+2026-10-06T21:53:10.1119972Z [command]/usr/bin/git submodule foreach --recursive git config --local --show-origin --name-only --get-regexp remote.origin.url
+2026-10-06T21:53:10.1346426Z Removing credentials config '/home/runner/work/_temp/git-credentials-c4c4b6ae-18e1-4934-82e8-e76a21ed7d3e.config'
+2026-10-06T21:53:10.1356590Z ##[endgroup]
+2026-10-06T21:53:10.1584141Z ##[group]Run pnpm/action-setup@fc06bc1257f339d1d5d8b3a19a8cae5388b55320
+2026-10-06T21:53:10.1584586Z with:
+2026-10-06T21:53:10.1584784Z   version: 12.6.0
+2026-10-06T21:53:10.1584993Z   run_install: false
+2026-10-06T21:53:10.1585213Z   dest: ~/setup-pnpm
+2026-10-06T21:53:10.1585446Z   cache: false
+2026-10-06T21:53:10.1585677Z   cache_dependency_path: pnpm-lock.yaml
+2026-10-06T21:53:10.1585969Z   package_json_file: package.json
+2026-10-06T21:53:10.1586223Z   standalone: false
+2026-10-06T21:53:10.1586438Z ##[endgroup]
+2026-10-06T21:53:10.3187446Z ##[group]Running self-installer...
+2026-10-06T21:53:10.7943738Z (node:2410) [DEP0169] DeprecationWarning: `url.parse()` behavior is not standardized and prone to errors that have security implications. Use the WHATWG URL API instead. CVEs are not issued for `url.parse()` vulnerabilities.
+2026-10-06T21:53:10.7945716Z (Use `node --trace-deprecation ...` to show where the warning was created)
+2026-10-06T21:53:10.9572133Z Progress: resolved 1, reused 0, downloaded 0, added 0
+2026-10-06T21:53:11.1124536Z Packages: +3
+2026-10-06T21:53:11.1140935Z +++
+2026-10-06T21:53:11.8940228Z Progress: resolved 15, reused 0, downloaded 3, added 3, done
+2026-10-06T21:53:11.9108781Z .../.pnpm/pnpm@12.6.0/node_modules/pnpm preinstall$ node install.js
+2026-10-06T21:53:14.4356317Z .../.pnpm/pnpm@12.6.0/node_modules/pnpm preinstall: Done
+2026-10-06T21:53:14.4361561Z .../.pnpm/pnpm@12.6.0/node_modules/pnpm postinstall$ node install.js
+2026-10-06T21:53:14.4787652Z .../.pnpm/pnpm@12.6.0/node_modules/pnpm postinstall: Done
+2026-10-06T21:53:15.6558853Z 
+2026-10-06T21:53:15.6559429Z dependencies:
+2026-10-06T21:53:15.6562209Z + pnpm 12.6.0 (12.9.1 is available)
+2026-10-06T21:53:15.6562651Z 
+2026-10-06T21:53:15.6584315Z Done in 5s
+2026-10-06T21:53:15.6927903Z ##[endgroup]
+2026-10-06T21:53:15.6928294Z Installation Completed!
+2026-10-06T21:53:15.7110601Z ##[group]Run actions/setup-node@249970729cb0ef3589644e2896645e5dc5ba9c38
+2026-10-06T21:53:15.7111005Z with:
+2026-10-06T21:53:15.7111200Z   node-version: 24
+2026-10-06T21:53:15.7111429Z   package-manager-cache: false
+2026-10-06T21:53:15.7111682Z   check-latest: false
+2026-10-06T21:53:15.7114547Z   token: ***
+2026-10-06T21:53:15.7114742Z env:
+2026-10-06T21:53:15.7114993Z   PNPM_HOME: /home/runner/setup-pnpm/node_modules/.bin
+2026-10-06T21:53:15.7115480Z ##[endgroup]
+2026-10-06T21:53:15.8546937Z Found in cache @ /opt/hostedtoolcache/node/24.21.0/x64
+2026-10-06T21:53:15.8551776Z ##[group]Environment details
+2026-10-06T21:53:17.6042178Z node: v24.21.0
+2026-10-06T21:53:17.6044153Z npm: 11.19.0
+2026-10-06T21:53:17.6044712Z yarn: 1.22.22
+2026-10-06T21:53:17.6045624Z ##[endgroup]
+2026-10-06T21:53:17.6170574Z ##[group]Run bash scripts/bootstrap.sh
+2026-10-06T21:53:17.6171007Z [36;1mbash scripts/bootstrap.sh[0m
+2026-10-06T21:53:17.6508351Z shell: /usr/bin/bash -e {0}
+2026-10-06T21:53:17.6508659Z env:
+2026-10-06T21:53:17.6508960Z   PNPM_HOME: /home/runner/setup-pnpm/node_modules/.bin
+2026-10-06T21:53:17.6509343Z ##[endgroup]
+2026-10-06T21:53:17.7758364Z Scope: all 4 workspace projects
+2026-10-06T21:53:17.7952488Z ? Verifying lockfile against supply-chain policies (344 entries)...
+2026-10-06T21:53:18.0718723Z Packages are hard linked from the content-addressable store to the virtual store.
+2026-10-06T21:53:18.0721489Z   Content-addressable store is at: /home/runner/setup-pnpm/node_modules/.bin/store/v11
+2026-10-06T21:53:18.0722810Z   Virtual store is at:             node_modules/.pnpm
+2026-10-06T21:53:18.4400253Z Downloading @rolldown/binding-linux-x64-gnu@1.2.11: 0.00 B/7.94 MB
+2026-10-06T21:53:19.4405821Z Progress: resolved 322, reused 0, downloaded 317, added 319
+2026-10-06T21:53:19.4439516Z ✓ Lockfile passes supply-chain policies (344 entries in 1.6s)
+2026-10-06T21:53:19.4440632Z Lockfile is up to date, resolution step is skipped
+2026-10-06T21:53:19.5456854Z Packages: +322
+2026-10-06T21:53:19.5457691Z ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+2026-10-06T21:53:19.5850011Z Progress: resolved 322, reused 0, downloaded 319, added 322, done
+2026-10-06T21:53:19.6315780Z packages/base prepare$ svelte-kit sync
+2026-10-06T21:53:20.9433739Z packages/base prepare: Done
+2026-10-06T21:53:20.9456169Z apps/fixtures prepare$ svelte-kit sync
+2026-10-06T21:53:21.8754963Z apps/fixtures prepare: Done
+2026-10-06T21:53:21.8761596Z 
+2026-10-06T21:53:21.8761929Z devDependencies:
+2026-10-06T21:53:21.8762715Z + @arethetypeswrong/cli 0.18.5
+2026-10-06T21:53:21.8771688Z + @arethetypeswrong/core 0.18.5
+2026-10-06T21:53:21.8772349Z + @eslint/js 10.0.1
+2026-10-06T21:53:21.8772911Z + @playwright/test 1.63.0
+2026-10-06T21:53:21.8773483Z + eslint 10.11.0
+2026-10-06T21:53:21.8774103Z + eslint-config-prettier 10.1.8
+2026-10-06T21:53:21.8774753Z + eslint-plugin-svelte 3.23.0
+2026-10-06T21:53:21.8775337Z + globals 17.12.0
+2026-10-06T21:53:21.8775831Z + prettier 3.9.9
+2026-10-06T21:53:21.8776556Z + prettier-plugin-svelte 4.1.1
+2026-10-06T21:53:21.8777190Z + publint 0.3.25
+2026-10-06T21:53:21.8789415Z + svelte 5.57.1
+2026-10-06T21:53:21.8800403Z + typescript 6.0.3
+2026-10-06T21:53:21.8811069Z + typescript-eslint 8.71.0
+2026-10-06T21:53:21.8820359Z 
+2026-10-06T21:53:21.8876098Z Done in 4.1s using pnpm v12.6.0
+2026-10-06T21:53:21.9277713Z $ pnpm --recursive --filter './packages/*' --sort --workspace-concurrency 1 --if-present run prepack
+2026-10-06T21:53:21.9457816Z Scope: 2 of 4 workspace projects
+2026-10-06T21:53:21.9485585Z $ pnpm run build && publint --strict
+2026-10-06T21:53:21.9663741Z $ svelte-package
+2026-10-06T21:53:24.1338821Z src/lib -> dist
+2026-10-06T21:53:24.2351795Z Running [1mpublint v0.3.25[22m for [1m@sveltery/utils[22m...
+2026-10-06T21:53:24.2405943Z Packing files with `pnpm pack`...
+2026-10-06T21:53:24.2705872Z Linting...
+2026-10-06T21:53:24.2889618Z [1m[32mAll good![39m[22m
+2026-10-06T21:53:24.2942444Z $ svelte-kit sync && svelte-package && publint --strict
+2026-10-06T21:53:36.4504423Z src/lib -> dist
+2026-10-06T21:53:36.6165384Z Running [1mpublint v0.3.25[22m for [1m@sveltery/base[22m...
+2026-10-06T21:53:36.6233231Z Packing files with `pnpm pack`...
+2026-10-06T21:53:36.7088218Z Linting...
+2026-10-06T21:53:36.8332531Z [1m[32mAll good![39m[22m
+2026-10-06T21:53:36.8486763Z ##[group]Run bash .github/standards/check.sh
+2026-10-06T21:53:36.8487152Z [36;1mbash .github/standards/check.sh[0m
+2026-10-06T21:53:36.8551405Z shell: /usr/bin/bash -e {0}
+2026-10-06T21:53:36.8551654Z env:
+2026-10-06T21:53:36.8551909Z   PNPM_HOME: /home/runner/setup-pnpm/node_modules/.bin
+2026-10-06T21:53:36.8552221Z ##[endgroup]
+2026-10-06T21:53:36.9698168Z $ prettier --check . && eslint .
+2026-10-06T21:53:37.0650935Z Checking formatting...
+2026-10-06T21:53:51.7935180Z All matched files use Prettier code style!
+2026-10-06T21:54:49.1063168Z 
+2026-10-06T21:54:49.1064370Z /home/runner/work/base/base/packages/base/tests/dom/collapsible/RenderDimensionsBoundary.svelte
+2026-10-06T21:54:49.1091514Z ##[error]  20:12  error  Duplicate property '--collapsible-panel-height'  svelte/no-dupe-style-properties
+2026-10-06T21:54:49.1099198Z ##[error]  20:75  error  Duplicate property '--collapsible-panel-height'  svelte/no-dupe-style-properties
+2026-10-06T21:54:49.1100471Z 
+2026-10-06T21:54:49.1100928Z ✖ 2 problems (2 errors, 0 warnings)
+2026-10-06T21:54:49.1101125Z 
+2026-10-06T21:54:49.5369582Z [ELIFECYCLE] Command failed with exit code 1.
+2026-10-06T21:54:49.5389390Z ##[error]Process completed with exit code 1.
+2026-10-06T21:54:49.5504221Z Post job cleanup.
+2026-10-06T21:54:49.6960495Z Pruning is unnecessary.
+2026-10-06T21:54:49.7150346Z Post job cleanup.
+2026-10-06T21:54:49.8082541Z [command]/usr/bin/git version
+2026-10-06T21:54:49.8125097Z git version 2.55.0
+2026-10-06T21:54:49.8168135Z Temporarily overriding HOME='/home/runner/work/_temp/5b59b491-40b9-4e9d-aafa-4a63222f5f60' before making global git config changes
+2026-10-06T21:54:49.8169935Z Adding repository directory to the temporary git global config as a safe directory
+2026-10-06T21:54:49.8174172Z [command]/usr/bin/git config --global --add safe.directory /home/runner/work/base/base
+2026-10-06T21:54:49.8207189Z Removing SSH command configuration
+2026-10-06T21:54:49.8214806Z [command]/usr/bin/git config --local --name-only --get-regexp core\.sshCommand
+2026-10-06T21:54:49.8251048Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
+2026-10-06T21:54:49.8513213Z Removing HTTP extra header
+2026-10-06T21:54:49.8521359Z [command]/usr/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+2026-10-06T21:54:49.8564945Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
+2026-10-06T21:54:49.8826928Z Removing includeIf entries pointing to credentials config files
+2026-10-06T21:54:49.8835872Z [command]/usr/bin/git config --local --name-only --get-regexp ^includeIf\.gitdir:
+2026-10-06T21:54:49.8880935Z [command]/usr/bin/git submodule foreach --recursive git config --local --show-origin --name-only --get-regexp remote.origin.url
+2026-10-06T21:54:49.9296472Z Cleaning up orphan processes
+

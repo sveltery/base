@@ -1362,7 +1362,7 @@
     },
     {
       "source": "packages/base/src/lib/collapsible/panel/useCollapsiblePanel.svelte.ts",
-      "sha256": "7bfe7a9607c34998a00e7704922a8c9c51df7ae8fb39a8d61e5cf85683e31415",
+      "sha256": "1e335baa0e8c4ca4996b682f3f31c300bd3d4bbfb58de0874fe19e86c5550dcc",
       "imports": [
         {
           "specifier": "svelte",

@@ -1,0 +1,3526 @@
+{
+  "reviewer": "/root/closure_review",
+  "runtimeCandidate": "3cc90e76e3fda122e8cd50a4bced295407ff34af",
+  "upstreamPin": "47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c",
+  "upstreamLicense": "MIT",
+  "manualOriginalProductionModules": 55,
+  "verifiedOriginalTestClosureModules": 68,
+  "manualNativeModules": 85,
+  "receipts": [
+    {
+      "source": "packages/react/src/collapsible/index.parts.ts",
+      "archive": "parity/collapsible/source-audit/upstream/packages/react/src/collapsible/index.parts.ts",
+      "sha256": "77d02702e28e88b7e845f7cc8c95385b23d2aed75c052c4b1f30dd297d792ca0",
+      "gitBlob": "93a0c5238a25e7a128691e758a3a4bb24c153c7d",
+      "manualRead": "whole Original production/type body reviewed; initial partial/truncated multi-file read supplemented by targeted reads",
+      "hashVerified": true,
+      "predecessorBlobIdentical": true,
+      "finalBlobVerified": "93a0c5238a25e7a128691e758a3a4bb24c153c7d",
+      "publicBlobVerified": "93a0c5238a25e7a128691e758a3a4bb24c153c7d",
+      "candidateBlobVerified": "93a0c5238a25e7a128691e758a3a4bb24c153c7d"
+    },
+    {
+      "source": "packages/react/src/collapsible/index.ts",
+      "archive": "parity/collapsible/source-audit/upstream/packages/react/src/collapsible/index.ts",
+      "sha256": "4694d1fb838941e216a5439a94d3a66c265827900253d8119d5531377e5e1ec2",
+      "gitBlob": "a8c3f341cede5c9f575c3be67e9b4bf2aba427db",
+      "manualRead": "whole Original production/type body reviewed; initial partial/truncated multi-file read supplemented by targeted reads",
+      "hashVerified": true,
+      "predecessorBlobIdentical": true,
+      "finalBlobVerified": "a8c3f341cede5c9f575c3be67e9b4bf2aba427db",
+      "publicBlobVerified": "a8c3f341cede5c9f575c3be67e9b4bf2aba427db",
+      "candidateBlobVerified": "a8c3f341cede5c9f575c3be67e9b4bf2aba427db"
+    },
+    {
+      "source": "packages/react/src/collapsible/panel/CollapsiblePanel.tsx",
+      "archive": "parity/collapsible/source-audit/upstream/packages/react/src/collapsible/panel/CollapsiblePanel.tsx",
+      "sha256": "b2694e75cd711224adc1e586cc36efa6832354657d0979c00a28a9bb4d8bef79",
+      "gitBlob": "f486efc012f8e5f80473a1a9b5b54de28d81c3c8",
+      "manualRead": "whole Original production/type body reviewed; initial partial/truncated multi-file read supplemented by targeted reads",
+      "hashVerified": true,
+      "predecessorBlobIdentical": true,
+      "finalBlobVerified": "f486efc012f8e5f80473a1a9b5b54de28d81c3c8",
+      "publicBlobVerified": "f486efc012f8e5f80473a1a9b5b54de28d81c3c8",
+      "candidateBlobVerified": "f486efc012f8e5f80473a1a9b5b54de28d81c3c8"
+    },
+    {
+      "source": "packages/react/src/collapsible/panel/CollapsiblePanelCssVars.ts",
+      "archive": "parity/collapsible/source-audit/upstream/packages/react/src/collapsible/panel/CollapsiblePanelCssVars.ts",
+      "sha256": "a0dbd3f727fb2cebd5a1163722269991ee6c92f7c371ab68c6cc5e5d37824d77",
+      "gitBlob": "21e0763faeb14aff9ea2d215f6ee944010fcf997",
+      "manualRead": "whole Original production/type body reviewed; initial partial/truncated multi-file read supplemented by targeted reads",
+      "hashVerified": true,
+      "predecessorBlobIdentical": true,
+      "finalBlobVerified": "21e0763faeb14aff9ea2d215f6ee944010fcf997",
+      "publicBlobVerified": "21e0763faeb14aff9ea2d215f6ee944010fcf997",
+      "candidateBlobVerified": "21e0763faeb14aff9ea2d215f6ee944010fcf997"
+    },
+    {
+      "source": "packages/react/src/collapsible/panel/CollapsiblePanelDataAttributes.ts",
+      "archive": "parity/collapsible/source-audit/upstream/packages/react/src/collapsible/panel/CollapsiblePanelDataAttributes.ts",
+      "sha256": "dc5173421a0cd805c6f736b93a50dd8ab5b3e51da7374ae9e05d76b12b5602eb",
+      "gitBlob": "1d2f6bf4ff9919ba3b79578994831c826d62e515",
+      "manualRead": "whole Original production/type body reviewed; initial partial/truncated multi-file read supplemented by targeted reads",
+      "hashVerified": true,
+      "predecessorBlobIdentical": true,
+      "finalBlobVerified": "1d2f6bf4ff9919ba3b79578994831c826d62e515",
+      "publicBlobVerified": "1d2f6bf4ff9919ba3b79578994831c826d62e515",
+      "candidateBlobVerified": "1d2f6bf4ff9919ba3b79578994831c826d62e515"
+    },
+    {
+      "source": "packages/react/src/collapsible/panel/useCollapsiblePanel.ts",
+      "archive": "parity/collapsible/source-audit/upstream/packages/react/src/collapsible/panel/useCollapsiblePanel.ts",
+      "sha256": "5f2b096ff87493217f032f6252c8d73c152594d6ceb379753168238ab3ba8e04",
+      "gitBlob": "940cafb937d4c55f9590c4dd47ea1a0e30541ac8",
+      "manualRead": "whole Original production/type body reviewed; initial partial/truncated multi-file read supplemented by targeted reads",
+      "hashVerified": true,
+      "predecessorBlobIdentical": true,
+      "finalBlobVerified": "940cafb937d4c55f9590c4dd47ea1a0e30541ac8",
+      "publicBlobVerified": "940cafb937d4c55f9590c4dd47ea1a0e30541ac8",
+      "candidateBlobVerified": "940cafb937d4c55f9590c4dd47ea1a0e30541ac8"
+    },
+    {
+      "source": "packages/react/src/collapsible/root/CollapsibleRoot.tsx",
+      "archive": "parity/collapsible/source-audit/upstream/packages/react/src/collapsible/root/CollapsibleRoot.tsx",
+      "sha256": "0cef031a852397b79afa67943e1370996bfa5ec20766d7a07a2d4e71674d173e",
+      "gitBlob": "969f728999eaf77ce960d7b4eb2bb9b97d23c81e",
+      "manualRead": "whole Original production/type body reviewed; initial partial/truncated multi-file read supplemented by targeted reads",
+      "hashVerified": true,
+      "predecessorBlobIdentical": true,
+      "finalBlobVerified": "969f728999eaf77ce960d7b4eb2bb9b97d23c81e",
+      "publicBlobVerified": "969f728999eaf77ce960d7b4eb2bb9b97d23c81e",
+      "candidateBlobVerified": "969f728999eaf77ce960d7b4eb2bb9b97d23c81e"
+    },
+    {
+      "source": "packages/react/src/collapsible/root/CollapsibleRootContext.ts",
+      "archive": "parity/collapsible/source-audit/upstream/packages/react/src/collapsible/root/CollapsibleRootContext.ts",
+      "sha256": "22722a169e4c60f5d3ca433d103c39a2235629354f4e8100b3f26c3ca24da686",
+      "gitBlob": "8a2461a0e44f707fe003c1447eb57a8909aa6049",
+      "manualRead": "whole Original production/type body reviewed; initial partial/truncated multi-file read supplemented by targeted reads",
+      "hashVerified": true,
+      "predecessorBlobIdentical": true,
+      "finalBlobVerified": "8a2461a0e44f707fe003c1447eb57a8909aa6049",
+      "publicBlobVerified": "8a2461a0e44f707fe003c1447eb57a8909aa6049",
+      "candidateBlobVerified": "8a2461a0e44f707fe003c1447eb57a8909aa6049"
+    },
+    {
+      "source": "packages/react/src/collapsible/root/stateAttributesMapping.ts",
+      "archive": "parity/collapsible/source-audit/upstream/packages/react/src/collapsible/root/stateAttributesMapping.ts",
+      "sha256": "d892c1dc45b10406218d1f1eaf724ef2a068d0bfe44aefba1a3c0754ae4f1509",
+      "gitBlob": "7e30f9c8920a61c2233e26acf745379bb7670fe6",
+      "manualRead": "whole Original production/type body reviewed; initial partial/truncated multi-file read supplemented by targeted reads",
+      "hashVerified": true,
+      "predecessorBlobIdentical": true,
+      "finalBlobVerified": "7e30f9c8920a61c2233e26acf745379bb7670fe6",
+      "publicBlobVerified": "7e30f9c8920a61c2233e26acf745379bb7670fe6",
+      "candidateBlobVerified": "7e30f9c8920a61c2233e26acf745379bb7670fe6"
+    },
+    {
+      "source": "packages/react/src/collapsible/root/useCollapsibleRoot.ts",
+      "archive": "parity/collapsible/source-audit/upstream/packages/react/src/collapsible/root/useCollapsibleRoot.ts",
+      "sha256": "421c5192f10897812244c529ca61b91d2cebe1928362bcbdea998e7037f297d1",
+      "gitBlob": "cfa0c5c6243e00565bd913434ab1b9c8275243d2",
+      "manualRead": "whole Original production/type body reviewed; initial partial/truncated multi-file read supplemented by targeted reads",
+      "hashVerified": true,
+      "predecessorBlobIdentical": true,
+      "finalBlobVerified": "cfa0c5c6243e00565bd913434ab1b9c8275243d2",
+      "publicBlobVerified": "cfa0c5c6243e00565bd913434ab1b9c8275243d2",
+      "candidateBlobVerified": "cfa0c5c6243e00565bd913434ab1b9c8275243d2"
+    },
+    {
+      "source": "packages/react/src/collapsible/trigger/CollapsibleTrigger.tsx",
+      "archive": "parity/collapsible/source-audit/upstream/packages/react/src/collapsible/trigger/CollapsibleTrigger.tsx",
+      "sha256": "ce9afedaca5278236cd9aeac7cee408f510d75e32a78ec759e1cb2da76e3a634",
+      "gitBlob": "15b48d774474d25cf1f9f129a54da111fa9d1239",
+      "manualRead": "whole Original production/type body reviewed; initial partial/truncated multi-file read supplemented by targeted reads",
+      "hashVerified": true,
+      "predecessorBlobIdentical": true,
+      "finalBlobVerified": "15b48d774474d25cf1f9f129a54da111fa9d1239",
+      "publicBlobVerified": "15b48d774474d25cf1f9f129a54da111fa9d1239",
+      "candidateBlobVerified": "15b48d774474d25cf1f9f129a54da111fa9d1239"
+    },
+    {
+      "source": "packages/react/src/collapsible/trigger/CollapsibleTriggerDataAttributes.ts",
+      "archive": "parity/collapsible/source-audit/upstream/packages/react/src/collapsible/trigger/CollapsibleTriggerDataAttributes.ts",
+      "sha256": "f137ea2f8075f667078a8ade395d6802c9cd0cf1d489207198ad3bb1fc291de5",
+      "gitBlob": "b6e43dbef916147e69bd95316c7b83b3129519a2",
+      "manualRead": "whole Original production/type body reviewed; initial partial/truncated multi-file read supplemented by targeted reads",
+      "hashVerified": true,
+      "predecessorBlobIdentical": true,
+      "finalBlobVerified": "b6e43dbef916147e69bd95316c7b83b3129519a2",
+      "publicBlobVerified": "b6e43dbef916147e69bd95316c7b83b3129519a2",
+      "candidateBlobVerified": "b6e43dbef916147e69bd95316c7b83b3129519a2"
+    },
+    {
+      "source": "packages/react/src/internals/composite/root/CompositeRootContext.ts",
+      "archive": "parity/collapsible/source-audit/upstream/packages/react/src/internals/composite/root/CompositeRootContext.ts",
+      "sha256": "751bbbd1fa2b4ae5c5674dc878d302b59b0e15b5771763cccbaf2362eee1b9fa",
+      "gitBlob": "20880b4b21095fae4cdfa8a1e0f8199dfe4a69c2",
+      "manualRead": "whole Original production/type body reviewed; initial partial/truncated multi-file read supplemented by targeted reads",
+      "hashVerified": true,
+      "predecessorBlobIdentical": true,
+      "finalBlobVerified": "20880b4b21095fae4cdfa8a1e0f8199dfe4a69c2",
+      "publicBlobVerified": "20880b4b21095fae4cdfa8a1e0f8199dfe4a69c2",
+      "candidateBlobVerified": "20880b4b21095fae4cdfa8a1e0f8199dfe4a69c2"
+    },
+    {
+      "source": "packages/react/src/internals/createBaseUIEventDetails.ts",
+      "archive": "parity/collapsible/source-audit/upstream/packages/react/src/internals/createBaseUIEventDetails.ts",
+      "sha256": "77bdb11a11ef1dfe9bc1a82db4754766cffbb91c27c3aeaea215e4e07cec2b2d",
+      "gitBlob": "0cd5f71ef7176145e7efddb1339aea38761c25d6",
+      "manualRead": "whole Original production/type body reviewed; initial partial/truncated multi-file read supplemented by targeted reads",
+      "hashVerified": true,
+      "predecessorBlobIdentical": true,
+      "finalBlobVerified": "0cd5f71ef7176145e7efddb1339aea38761c25d6",
+      "publicBlobVerified": "0cd5f71ef7176145e7efddb1339aea38761c25d6",
+      "candidateBlobVerified": "0cd5f71ef7176145e7efddb1339aea38761c25d6"
+    },
+    {
+      "source": "packages/react/src/internals/getStateAttributesProps.ts",
+      "archive": "parity/collapsible/source-audit/upstream/packages/react/src/internals/getStateAttributesProps.ts",
+      "sha256": "ae0c62d85ecb1d58d833c49a8753929df86a7539e94e272fdfe692d6ae89abcb",
+      "gitBlob": "58c0c0d0aca15ea171bda1501253a6087c08da79",
+      "manualRead": "whole Original production/type body reviewed; initial partial/truncated multi-file read supplemented by targeted reads",
+      "hashVerified": true,
+      "predecessorBlobIdentical": true,
+      "finalBlobVerified": "58c0c0d0aca15ea171bda1501253a6087c08da79",
+      "publicBlobVerified": "58c0c0d0aca15ea171bda1501253a6087c08da79",
+      "candidateBlobVerified": "58c0c0d0aca15ea171bda1501253a6087c08da79"
+    },
+    {
+      "source": "packages/react/src/internals/reason-parts.ts",
+      "archive": "parity/collapsible/source-audit/upstream/packages/react/src/internals/reason-parts.ts",
+      "sha256": "1cddfb9a98326bc5e586c2bdb66fb3a58913038f8ee7368ec57bbaf972521e06",
+      "gitBlob": "c364bda5ccd0898fbb5b143b36d68c541fb87d0b",
+      "manualRead": "whole Original production/type body reviewed; initial partial/truncated multi-file read supplemented by targeted reads",
+      "hashVerified": true,
+      "predecessorBlobIdentical": true,
+      "finalBlobVerified": "c364bda5ccd0898fbb5b143b36d68c541fb87d0b",
+      "publicBlobVerified": "c364bda5ccd0898fbb5b143b36d68c541fb87d0b",
+      "candidateBlobVerified": "c364bda5ccd0898fbb5b143b36d68c541fb87d0b"
+    },
+    {
+      "source": "packages/react/src/internals/reasons.ts",
+      "archive": "parity/collapsible/source-audit/upstream/packages/react/src/internals/reasons.ts",
+      "sha256": "694b1512f2dd9c999e97899e1fe9ea0f189fbe8476fcbc0f957cd786806c4abf",
+      "gitBlob": "70f9631f4cb99e76fc28176b0cbe53057bb6fc74",
+      "manualRead": "whole Original production/type body reviewed; initial partial/truncated multi-file read supplemented by targeted reads",
+      "hashVerified": true,
+      "predecessorBlobIdentical": true,
+      "finalBlobVerified": "70f9631f4cb99e76fc28176b0cbe53057bb6fc74",
+      "publicBlobVerified": "70f9631f4cb99e76fc28176b0cbe53057bb6fc74",
+      "candidateBlobVerified": "70f9631f4cb99e76fc28176b0cbe53057bb6fc74"
+    },
+    {
+      "source": "packages/react/src/internals/stateAttributesMapping.ts",
+      "archive": "parity/collapsible/source-audit/upstream/packages/react/src/internals/stateAttributesMapping.ts",
+      "sha256": "722dc0fed9ce97ed42b5b59418a01596c99b0cb8c5c5bb638737878dfe2d43bc",
+      "gitBlob": "948c0f257a8109a603397a8a6f0afc9354618182",
+      "manualRead": "whole Original production/type body reviewed; initial partial/truncated multi-file read supplemented by targeted reads",
+      "hashVerified": true,
+      "predecessorBlobIdentical": true,
+      "finalBlobVerified": "948c0f257a8109a603397a8a6f0afc9354618182",
+      "publicBlobVerified": "948c0f257a8109a603397a8a6f0afc9354618182",
+      "candidateBlobVerified": "948c0f257a8109a603397a8a6f0afc9354618182"
+    },
+    {
+      "source": "packages/react/src/internals/TransitionStatusDataAttributes.ts",
+      "archive": "parity/collapsible/source-audit/upstream/packages/react/src/internals/TransitionStatusDataAttributes.ts",
+      "sha256": "cf240c33e54cbfae687b7f9b1bdaf7329c1cda7630481ca68d105723d75440d7",
+      "gitBlob": "d8c8b16973dd8ab37e0ca973acec8de81a592117",
+      "manualRead": "whole Original production/type body reviewed; initial partial/truncated multi-file read supplemented by targeted reads",
+      "hashVerified": true,
+      "predecessorBlobIdentical": true,
+      "finalBlobVerified": "d8c8b16973dd8ab37e0ca973acec8de81a592117",
+      "publicBlobVerified": "d8c8b16973dd8ab37e0ca973acec8de81a592117",
+      "candidateBlobVerified": "d8c8b16973dd8ab37e0ca973acec8de81a592117"
+    },
+    {
+      "source": "packages/react/src/internals/types.ts",
+      "archive": "parity/collapsible/source-audit/upstream/packages/react/src/internals/types.ts",
+      "sha256": "ed0c29125011488378a038fe179287809ef624d9d84389d83d7207b25e3d416a",
+      "gitBlob": "b8cd7a0331b9f428070b3ff4be81a1e0865ae63b",
+      "manualRead": "whole Original production/type body reviewed; initial partial/truncated multi-file read supplemented by targeted reads",
+      "hashVerified": true,
+      "predecessorBlobIdentical": true,
+      "finalBlobVerified": "b8cd7a0331b9f428070b3ff4be81a1e0865ae63b",
+      "publicBlobVerified": "b8cd7a0331b9f428070b3ff4be81a1e0865ae63b",
+      "candidateBlobVerified": "b8cd7a0331b9f428070b3ff4be81a1e0865ae63b"
+    },
+    {
+      "source": "packages/react/src/internals/use-button/index.ts",
+      "archive": "parity/collapsible/source-audit/upstream/packages/react/src/internals/use-button/index.ts",
+      "sha256": "bfd5490017aa66ebc7d42c86e9309e15109eb1a0d5058fed586704adf93c8d23",
+      "gitBlob": "95acb7a36d0515ef1ea2612723b02051908fca83",
+      "manualRead": "whole Original production/type body reviewed; initial partial/truncated multi-file read supplemented by targeted reads",
+      "hashVerified": true,
+      "predecessorBlobIdentical": true,
+      "finalBlobVerified": "95acb7a36d0515ef1ea2612723b02051908fca83",
+      "publicBlobVerified": "95acb7a36d0515ef1ea2612723b02051908fca83",
+      "candidateBlobVerified": "95acb7a36d0515ef1ea2612723b02051908fca83"
+    },
+    {
+      "source": "packages/react/src/internals/use-button/useButton.ts",
+      "archive": "parity/collapsible/source-audit/upstream/packages/react/src/internals/use-button/useButton.ts",
+      "sha256": "eba51ce4ed0d2082dda17180bbbbe2bf91318c2b33eae2d114c0e4ebbe3203e6",
+      "gitBlob": "416d60da85d461c826775a9d893e408023d94852",
+      "manualRead": "whole Original production/type body reviewed; initial partial/truncated multi-file read supplemented by targeted reads",
+      "hashVerified": true,
+      "predecessorBlobIdentical": true,
+      "finalBlobVerified": "416d60da85d461c826775a9d893e408023d94852",
+      "publicBlobVerified": "416d60da85d461c826775a9d893e408023d94852",
+      "candidateBlobVerified": "416d60da85d461c826775a9d893e408023d94852"
+    },
+    {
+      "source": "packages/react/src/internals/useAnimationsFinished.ts",
+      "archive": "parity/collapsible/source-audit/upstream/packages/react/src/internals/useAnimationsFinished.ts",
+      "sha256": "58fef3cb8defbbbe84c80126a6b0aff767293b692a19d97f078a190e62a3d7a6",
+      "gitBlob": "b7b2aed236cc14b38d97a39fd0d72a08b161230b",
+      "manualRead": "whole Original production/type body reviewed; initial partial/truncated multi-file read supplemented by targeted reads",
+      "hashVerified": true,
+      "predecessorBlobIdentical": true,
+      "finalBlobVerified": "b7b2aed236cc14b38d97a39fd0d72a08b161230b",
+      "publicBlobVerified": "b7b2aed236cc14b38d97a39fd0d72a08b161230b",
+      "candidateBlobVerified": "b7b2aed236cc14b38d97a39fd0d72a08b161230b"
+    },
+    {
+      "source": "packages/react/src/internals/useBaseUiId.ts",
+      "archive": "parity/collapsible/source-audit/upstream/packages/react/src/internals/useBaseUiId.ts",
+      "sha256": "c935ee27e3dfee2307e108dc82a36ec2a1f3e76b4692de188e5d3cdc4511157f",
+      "gitBlob": "c46d78204bfcc6743c2fce2fd74ecb683cbe73f6",
+      "manualRead": "whole Original production/type body reviewed; initial partial/truncated multi-file read supplemented by targeted reads",
+      "hashVerified": true,
+      "predecessorBlobIdentical": true,
+      "finalBlobVerified": "c46d78204bfcc6743c2fce2fd74ecb683cbe73f6",
+      "publicBlobVerified": "c46d78204bfcc6743c2fce2fd74ecb683cbe73f6",
+      "candidateBlobVerified": "c46d78204bfcc6743c2fce2fd74ecb683cbe73f6"
+    },
+    {
+      "source": "packages/react/src/internals/useOpenChangeComplete.tsx",
+      "archive": "parity/collapsible/source-audit/upstream/packages/react/src/internals/useOpenChangeComplete.tsx",
+      "sha256": "809be9e6b5a1a6238d9f239c162e2489d7da6e5f20383fbe65e85933e7259d89",
+      "gitBlob": "c823fe3aa474de9caceb3d7c9bdb1c40c2024beb",
+      "manualRead": "whole Original production/type body reviewed; initial partial/truncated multi-file read supplemented by targeted reads",
+      "hashVerified": true,
+      "predecessorBlobIdentical": true,
+      "finalBlobVerified": "c823fe3aa474de9caceb3d7c9bdb1c40c2024beb",
+      "publicBlobVerified": "c823fe3aa474de9caceb3d7c9bdb1c40c2024beb",
+      "candidateBlobVerified": "c823fe3aa474de9caceb3d7c9bdb1c40c2024beb"
+    },
+    {
+      "source": "packages/react/src/internals/useRenderElement.tsx",
+      "archive": "parity/collapsible/source-audit/upstream/packages/react/src/internals/useRenderElement.tsx",
+      "sha256": "0b55dc232a0d630a666a13873213d1bdde040e973031f2b307a64cc157644a4c",
+      "gitBlob": "3564c541f66b6d232c1bd0a79f5d092c69c4ba4b",
+      "manualRead": "whole Original production/type body reviewed; initial partial/truncated multi-file read supplemented by targeted reads",
+      "hashVerified": true,
+      "predecessorBlobIdentical": true,
+      "finalBlobVerified": "3564c541f66b6d232c1bd0a79f5d092c69c4ba4b",
+      "publicBlobVerified": "3564c541f66b6d232c1bd0a79f5d092c69c4ba4b",
+      "candidateBlobVerified": "3564c541f66b6d232c1bd0a79f5d092c69c4ba4b"
+    },
+    {
+      "source": "packages/react/src/internals/useTransitionStatus.ts",
+      "archive": "parity/collapsible/source-audit/upstream/packages/react/src/internals/useTransitionStatus.ts",
+      "sha256": "07ffaf4fcf96a3d4d24aa2dabb696f2e082f312149225e45372a12a0d3cfe4e1",
+      "gitBlob": "f3b4a743745edb97fd7fe35ab8a37a0935f1edc5",
+      "manualRead": "whole Original production/type body reviewed; initial partial/truncated multi-file read supplemented by targeted reads",
+      "hashVerified": true,
+      "predecessorBlobIdentical": true,
+      "finalBlobVerified": "f3b4a743745edb97fd7fe35ab8a37a0935f1edc5",
+      "publicBlobVerified": "f3b4a743745edb97fd7fe35ab8a37a0935f1edc5",
+      "candidateBlobVerified": "f3b4a743745edb97fd7fe35ab8a37a0935f1edc5"
+    },
+    {
+      "source": "packages/react/src/merge-props/index.ts",
+      "archive": "parity/collapsible/source-audit/upstream/packages/react/src/merge-props/index.ts",
+      "sha256": "4881819e46f8b81cc6e90add34bc5a87cf924596e007785da31eed500414222f",
+      "gitBlob": "e03df598cb287a0228cabb37f2a01e50cb8b2aa1",
+      "manualRead": "whole Original production/type body reviewed; initial partial/truncated multi-file read supplemented by targeted reads",
+      "hashVerified": true,
+      "predecessorBlobIdentical": true,
+      "finalBlobVerified": "e03df598cb287a0228cabb37f2a01e50cb8b2aa1",
+      "publicBlobVerified": "e03df598cb287a0228cabb37f2a01e50cb8b2aa1",
+      "candidateBlobVerified": "e03df598cb287a0228cabb37f2a01e50cb8b2aa1"
+    },
+    {
+      "source": "packages/react/src/merge-props/mergeProps.ts",
+      "archive": "parity/collapsible/source-audit/upstream/packages/react/src/merge-props/mergeProps.ts",
+      "sha256": "cdc8fc165df88ddc4034fb2242ebf1ef32b504755404c343abf965cb3e4c90ce",
+      "gitBlob": "ec1cb4a2036be9a23e5eb22c07005698d1ebb65b",
+      "manualRead": "whole Original production/type body reviewed; initial partial/truncated multi-file read supplemented by targeted reads",
+      "hashVerified": true,
+      "predecessorBlobIdentical": true,
+      "finalBlobVerified": "ec1cb4a2036be9a23e5eb22c07005698d1ebb65b",
+      "publicBlobVerified": "ec1cb4a2036be9a23e5eb22c07005698d1ebb65b",
+      "candidateBlobVerified": "ec1cb4a2036be9a23e5eb22c07005698d1ebb65b"
+    },
+    {
+      "source": "packages/react/src/types/index.ts",
+      "archive": "parity/collapsible/source-audit/upstream/packages/react/src/types/index.ts",
+      "sha256": "ffc973365f8dbc5af24db40fa4553ee7fc1f154feb1803ff6a9bb5d5cd918587",
+      "gitBlob": "ae3f6419e86e49e5005fa8aa460c7204180d02e5",
+      "manualRead": "whole Original production/type body reviewed; initial partial/truncated multi-file read supplemented by targeted reads",
+      "hashVerified": true,
+      "predecessorBlobIdentical": true,
+      "finalBlobVerified": "ae3f6419e86e49e5005fa8aa460c7204180d02e5",
+      "publicBlobVerified": "ae3f6419e86e49e5005fa8aa460c7204180d02e5",
+      "candidateBlobVerified": "ae3f6419e86e49e5005fa8aa460c7204180d02e5"
+    },
+    {
+      "source": "packages/react/src/utils/collapsibleOpenStateMapping.ts",
+      "archive": "parity/collapsible/source-audit/upstream/packages/react/src/utils/collapsibleOpenStateMapping.ts",
+      "sha256": "9be172c72160cfa569acaf0d617244b0152bf85d962a46c8c0d3dcf4123eb0c6",
+      "gitBlob": "e592a317610095b6d7280610a4398b8d6ed33214",
+      "manualRead": "whole Original production/type body reviewed; initial partial/truncated multi-file read supplemented by targeted reads",
+      "hashVerified": true,
+      "predecessorBlobIdentical": true,
+      "finalBlobVerified": "e592a317610095b6d7280610a4398b8d6ed33214",
+      "publicBlobVerified": "e592a317610095b6d7280610a4398b8d6ed33214",
+      "candidateBlobVerified": "e592a317610095b6d7280610a4398b8d6ed33214"
+    },
+    {
+      "source": "packages/react/src/utils/dispatchClickWithModifiers.ts",
+      "archive": "parity/collapsible/source-audit/upstream/packages/react/src/utils/dispatchClickWithModifiers.ts",
+      "sha256": "f395a0babfbb8b5a9e58f6db3e78fd9fdef34d2570cf71884068319af1fc0fba",
+      "gitBlob": "d2959075702c72387de50b02e7652714204aed39",
+      "manualRead": "whole Original production/type body reviewed; initial partial/truncated multi-file read supplemented by targeted reads",
+      "hashVerified": true,
+      "predecessorBlobIdentical": true,
+      "finalBlobVerified": "d2959075702c72387de50b02e7652714204aed39",
+      "publicBlobVerified": "d2959075702c72387de50b02e7652714204aed39",
+      "candidateBlobVerified": "d2959075702c72387de50b02e7652714204aed39"
+    },
+    {
+      "source": "packages/react/src/utils/resolveClassName.ts",
+      "archive": "parity/collapsible/source-audit/upstream/packages/react/src/utils/resolveClassName.ts",
+      "sha256": "8a4b38bd68c8f1e7268c9587951c5e78349fd51c6f3befef597b3c3b60ac3b41",
+      "gitBlob": "486d39cb38116b5072587f4ff15b120243a3f636",
+      "manualRead": "whole Original production/type body reviewed; initial partial/truncated multi-file read supplemented by targeted reads",
+      "hashVerified": true,
+      "predecessorBlobIdentical": true,
+      "finalBlobVerified": "486d39cb38116b5072587f4ff15b120243a3f636",
+      "publicBlobVerified": "486d39cb38116b5072587f4ff15b120243a3f636",
+      "candidateBlobVerified": "486d39cb38116b5072587f4ff15b120243a3f636"
+    },
+    {
+      "source": "packages/react/src/utils/resolveRef.ts",
+      "archive": "parity/collapsible/source-audit/upstream/packages/react/src/utils/resolveRef.ts",
+      "sha256": "fb0a9525bf7c002fe9e82d5c74235c5620b0b83f106cdec67b77071a05140312",
+      "gitBlob": "01bfdfe91ea706f67a66234c4f084e8cb4ce3ebc",
+      "manualRead": "whole Original production/type body reviewed; initial partial/truncated multi-file read supplemented by targeted reads",
+      "hashVerified": true,
+      "predecessorBlobIdentical": true,
+      "finalBlobVerified": "01bfdfe91ea706f67a66234c4f084e8cb4ce3ebc",
+      "publicBlobVerified": "01bfdfe91ea706f67a66234c4f084e8cb4ce3ebc",
+      "candidateBlobVerified": "01bfdfe91ea706f67a66234c4f084e8cb4ce3ebc"
+    },
+    {
+      "source": "packages/react/src/utils/resolveStyle.ts",
+      "archive": "parity/collapsible/source-audit/upstream/packages/react/src/utils/resolveStyle.ts",
+      "sha256": "e8cb3f94b27439c43a3a26b82f21c09fe152871c202aef91f8907da3f8734cf0",
+      "gitBlob": "39a7284d88642803fa75847d83692964ec56d48f",
+      "manualRead": "whole Original production/type body reviewed; initial partial/truncated multi-file read supplemented by targeted reads",
+      "hashVerified": true,
+      "predecessorBlobIdentical": true,
+      "finalBlobVerified": "39a7284d88642803fa75847d83692964ec56d48f",
+      "publicBlobVerified": "39a7284d88642803fa75847d83692964ec56d48f",
+      "candidateBlobVerified": "39a7284d88642803fa75847d83692964ec56d48f"
+    },
+    {
+      "source": "packages/react/src/utils/useFocusableWhenDisabled.ts",
+      "archive": "parity/collapsible/source-audit/upstream/packages/react/src/utils/useFocusableWhenDisabled.ts",
+      "sha256": "21e071c8b1547c8473ade8e4d3a415df8ca73767d6125a305c63fa8a620e5ba6",
+      "gitBlob": "094545bf0b5ba7e099d88fb7480133b890661545",
+      "manualRead": "whole Original production/type body reviewed; initial partial/truncated multi-file read supplemented by targeted reads",
+      "hashVerified": true,
+      "predecessorBlobIdentical": true,
+      "finalBlobVerified": "094545bf0b5ba7e099d88fb7480133b890661545",
+      "publicBlobVerified": "094545bf0b5ba7e099d88fb7480133b890661545",
+      "candidateBlobVerified": "094545bf0b5ba7e099d88fb7480133b890661545"
+    },
+    {
+      "source": "packages/utils/src/addEventListener.ts",
+      "archive": "parity/collapsible/source-audit/upstream/packages/utils/src/addEventListener.ts",
+      "sha256": "a2d30e30e8151a62347f67620d568bd1550f5069af3652a57892ed9de42f3dcc",
+      "gitBlob": "ca1e296616e6b7a15b3849840d137141afa75636",
+      "manualRead": "whole Original production/type body reviewed; initial partial/truncated multi-file read supplemented by targeted reads",
+      "hashVerified": true,
+      "predecessorBlobIdentical": true,
+      "finalBlobVerified": "ca1e296616e6b7a15b3849840d137141afa75636",
+      "publicBlobVerified": "ca1e296616e6b7a15b3849840d137141afa75636",
+      "candidateBlobVerified": "ca1e296616e6b7a15b3849840d137141afa75636"
+    },
+    {
+      "source": "packages/utils/src/createLogOnce.ts",
+      "archive": "parity/collapsible/source-audit/upstream/packages/utils/src/createLogOnce.ts",
+      "sha256": "6e5e5b4c34d3407fe2379b58749d4da26c49c49383b7501964132a2e725660b1",
+      "gitBlob": "f6b7d5233f2ff2e921dfa214121691eaa849f3c7",
+      "manualRead": "whole Original production/type body reviewed; initial partial/truncated multi-file read supplemented by targeted reads",
+      "hashVerified": true,
+      "predecessorBlobIdentical": true,
+      "finalBlobVerified": "f6b7d5233f2ff2e921dfa214121691eaa849f3c7",
+      "publicBlobVerified": "f6b7d5233f2ff2e921dfa214121691eaa849f3c7",
+      "candidateBlobVerified": "f6b7d5233f2ff2e921dfa214121691eaa849f3c7"
+    },
+    {
+      "source": "packages/utils/src/empty.ts",
+      "archive": "parity/collapsible/source-audit/upstream/packages/utils/src/empty.ts",
+      "sha256": "7d7c8625346dc2344dc551004c5c5da82878ab814818b7a8df4ad7082979ead6",
+      "gitBlob": "11da033ad3d22d1cee055ea41e4b159ec263eefb",
+      "manualRead": "whole Original production/type body reviewed; initial partial/truncated multi-file read supplemented by targeted reads",
+      "hashVerified": true,
+      "predecessorBlobIdentical": true,
+      "finalBlobVerified": "11da033ad3d22d1cee055ea41e4b159ec263eefb",
+      "publicBlobVerified": "11da033ad3d22d1cee055ea41e4b159ec263eefb",
+      "candidateBlobVerified": "11da033ad3d22d1cee055ea41e4b159ec263eefb"
+    },
+    {
+      "source": "packages/utils/src/error.ts",
+      "archive": "parity/collapsible/source-audit/upstream/packages/utils/src/error.ts",
+      "sha256": "957b3369d680d50a26cce3b4e9add608b2e829cb299636bde056e76297002847",
+      "gitBlob": "767f88180d3fc8b856ff34aabc88ac7989adbc04",
+      "manualRead": "whole Original production/type body reviewed; initial partial/truncated multi-file read supplemented by targeted reads",
+      "hashVerified": true,
+      "predecessorBlobIdentical": true,
+      "finalBlobVerified": "767f88180d3fc8b856ff34aabc88ac7989adbc04",
+      "publicBlobVerified": "767f88180d3fc8b856ff34aabc88ac7989adbc04",
+      "candidateBlobVerified": "767f88180d3fc8b856ff34aabc88ac7989adbc04"
+    },
+    {
+      "source": "packages/utils/src/getReactElementRef.ts",
+      "archive": "parity/collapsible/source-audit/upstream/packages/utils/src/getReactElementRef.ts",
+      "sha256": "6ea0078fe8f8a0feee703f968779a863b30789a6fac4e4f51de13690064af364",
+      "gitBlob": "81dfabe210f8efaa1dce12b00e9f38e7f224f209",
+      "manualRead": "whole Original production/type body reviewed; initial partial/truncated multi-file read supplemented by targeted reads",
+      "hashVerified": true,
+      "predecessorBlobIdentical": true,
+      "finalBlobVerified": "81dfabe210f8efaa1dce12b00e9f38e7f224f209",
+      "publicBlobVerified": "81dfabe210f8efaa1dce12b00e9f38e7f224f209",
+      "candidateBlobVerified": "81dfabe210f8efaa1dce12b00e9f38e7f224f209"
+    },
+    {
+      "source": "packages/utils/src/mergeObjects.ts",
+      "archive": "parity/collapsible/source-audit/upstream/packages/utils/src/mergeObjects.ts",
+      "sha256": "0e9b1568370f5c1ea28710bae245380281ae366187bfb871b99a14fe6b5b49fa",
+      "gitBlob": "6d801221d609d3ddf5982f32635a4eef8a3af599",
+      "manualRead": "whole Original production/type body reviewed; initial partial/truncated multi-file read supplemented by targeted reads",
+      "hashVerified": true,
+      "predecessorBlobIdentical": true,
+      "finalBlobVerified": "6d801221d609d3ddf5982f32635a4eef8a3af599",
+      "publicBlobVerified": "6d801221d609d3ddf5982f32635a4eef8a3af599",
+      "candidateBlobVerified": "6d801221d609d3ddf5982f32635a4eef8a3af599"
+    },
+    {
+      "source": "packages/utils/src/owner.ts",
+      "archive": "parity/collapsible/source-audit/upstream/packages/utils/src/owner.ts",
+      "sha256": "94a825206d926b388459df70639476133442c28c83a7e3be750399cb323ea623",
+      "gitBlob": "0972be5a42687887ce96c06be9fa08de53834107",
+      "manualRead": "whole Original production/type body reviewed; initial partial/truncated multi-file read supplemented by targeted reads",
+      "hashVerified": true,
+      "predecessorBlobIdentical": true,
+      "finalBlobVerified": "0972be5a42687887ce96c06be9fa08de53834107",
+      "publicBlobVerified": "0972be5a42687887ce96c06be9fa08de53834107",
+      "candidateBlobVerified": "0972be5a42687887ce96c06be9fa08de53834107"
+    },
+    {
+      "source": "packages/utils/src/reactVersion.ts",
+      "archive": "parity/collapsible/source-audit/upstream/packages/utils/src/reactVersion.ts",
+      "sha256": "e52b2ae447fe83a4b5a927a013405446542ef474b76a75540b7216bc561df889",
+      "gitBlob": "293a5e8c90288ad1c168f8448d4e9c8a845238a4",
+      "manualRead": "whole Original production/type body reviewed; initial partial/truncated multi-file read supplemented by targeted reads",
+      "hashVerified": true,
+      "predecessorBlobIdentical": true,
+      "finalBlobVerified": "293a5e8c90288ad1c168f8448d4e9c8a845238a4",
+      "publicBlobVerified": "293a5e8c90288ad1c168f8448d4e9c8a845238a4",
+      "candidateBlobVerified": "293a5e8c90288ad1c168f8448d4e9c8a845238a4"
+    },
+    {
+      "source": "packages/utils/src/safeReact.ts",
+      "archive": "parity/collapsible/source-audit/upstream/packages/utils/src/safeReact.ts",
+      "sha256": "b2923526a5b42e0d4f341ccb6c26e11d4b34991f206353320bb821026bbbc81f",
+      "gitBlob": "4e1e2bf1522c584b0ba60c1fdf1e3545c9ea9d76",
+      "manualRead": "whole Original production/type body reviewed; initial partial/truncated multi-file read supplemented by targeted reads",
+      "hashVerified": true,
+      "predecessorBlobIdentical": true,
+      "finalBlobVerified": "4e1e2bf1522c584b0ba60c1fdf1e3545c9ea9d76",
+      "publicBlobVerified": "4e1e2bf1522c584b0ba60c1fdf1e3545c9ea9d76",
+      "candidateBlobVerified": "4e1e2bf1522c584b0ba60c1fdf1e3545c9ea9d76"
+    },
+    {
+      "source": "packages/utils/src/useAnimationFrame.ts",
+      "archive": "parity/collapsible/source-audit/upstream/packages/utils/src/useAnimationFrame.ts",
+      "sha256": "229943cee6d42305da4db33ed395ff8ccdde915c2e4e922c5af0c7b0aeeddf82",
+      "gitBlob": "8033fe6659e7c12eedf8358427956f0ff16bcf10",
+      "manualRead": "whole Original production/type body reviewed; initial partial/truncated multi-file read supplemented by targeted reads",
+      "hashVerified": true,
+      "predecessorBlobIdentical": true,
+      "finalBlobVerified": "8033fe6659e7c12eedf8358427956f0ff16bcf10",
+      "publicBlobVerified": "8033fe6659e7c12eedf8358427956f0ff16bcf10",
+      "candidateBlobVerified": "8033fe6659e7c12eedf8358427956f0ff16bcf10"
+    },
+    {
+      "source": "packages/utils/src/useControlled.ts",
+      "archive": "parity/collapsible/source-audit/upstream/packages/utils/src/useControlled.ts",
+      "sha256": "487bc45fa3ef1a70177867bb03598230f9926601aed8e3c7f46470feb225f886",
+      "gitBlob": "e876b40c1ee0a6b239e2c12a4404a7737de7467e",
+      "manualRead": "whole Original production/type body reviewed; initial partial/truncated multi-file read supplemented by targeted reads",
+      "hashVerified": true,
+      "predecessorBlobIdentical": true,
+      "finalBlobVerified": "e876b40c1ee0a6b239e2c12a4404a7737de7467e",
+      "publicBlobVerified": "e876b40c1ee0a6b239e2c12a4404a7737de7467e",
+      "candidateBlobVerified": "e876b40c1ee0a6b239e2c12a4404a7737de7467e"
+    },
+    {
+      "source": "packages/utils/src/useId.ts",
+      "archive": "parity/collapsible/source-audit/upstream/packages/utils/src/useId.ts",
+      "sha256": "7d01ffb745d3404ba406ebbd12ddfc8eb73325c3adea3dbda0868e2bad2eef05",
+      "gitBlob": "2d2cf04dbe9a6c11039b7361931ab82e186ccdc4",
+      "manualRead": "whole Original production/type body reviewed; initial partial/truncated multi-file read supplemented by targeted reads",
+      "hashVerified": true,
+      "predecessorBlobIdentical": true,
+      "finalBlobVerified": "2d2cf04dbe9a6c11039b7361931ab82e186ccdc4",
+      "publicBlobVerified": "2d2cf04dbe9a6c11039b7361931ab82e186ccdc4",
+      "candidateBlobVerified": "2d2cf04dbe9a6c11039b7361931ab82e186ccdc4"
+    },
+    {
+      "source": "packages/utils/src/useIsoLayoutEffect.ts",
+      "archive": "parity/collapsible/source-audit/upstream/packages/utils/src/useIsoLayoutEffect.ts",
+      "sha256": "13a0ab28d24b04617dc290ad151c145f2435d1e0c381123847af74344ea4b9a0",
+      "gitBlob": "01d3a9e9bf4275e4815c245e14c92e15f49eba77",
+      "manualRead": "whole Original production/type body reviewed; initial partial/truncated multi-file read supplemented by targeted reads",
+      "hashVerified": true,
+      "predecessorBlobIdentical": true,
+      "finalBlobVerified": "01d3a9e9bf4275e4815c245e14c92e15f49eba77",
+      "publicBlobVerified": "01d3a9e9bf4275e4815c245e14c92e15f49eba77",
+      "candidateBlobVerified": "01d3a9e9bf4275e4815c245e14c92e15f49eba77"
+    },
+    {
+      "source": "packages/utils/src/useMergedRefs.ts",
+      "archive": "parity/collapsible/source-audit/upstream/packages/utils/src/useMergedRefs.ts",
+      "sha256": "5fa12ae01abedc23ba814e9c59f015cf14d306044638b56c977780de43275ba3",
+      "gitBlob": "2b869242727750842f616f5652583a3a878da28a",
+      "manualRead": "whole Original production/type body reviewed; initial partial/truncated multi-file read supplemented by targeted reads",
+      "hashVerified": true,
+      "predecessorBlobIdentical": true,
+      "finalBlobVerified": "2b869242727750842f616f5652583a3a878da28a",
+      "publicBlobVerified": "2b869242727750842f616f5652583a3a878da28a",
+      "candidateBlobVerified": "2b869242727750842f616f5652583a3a878da28a"
+    },
+    {
+      "source": "packages/utils/src/useOnMount.ts",
+      "archive": "parity/collapsible/source-audit/upstream/packages/utils/src/useOnMount.ts",
+      "sha256": "9d621d059249ec6ad10dbf35eef28153a8bc6ef893574d26a060385d4d13472b",
+      "gitBlob": "e849dcefca021fefc60464d42c6ea0f01eea24f6",
+      "manualRead": "whole Original production/type body reviewed; initial partial/truncated multi-file read supplemented by targeted reads",
+      "hashVerified": true,
+      "predecessorBlobIdentical": true,
+      "finalBlobVerified": "e849dcefca021fefc60464d42c6ea0f01eea24f6",
+      "publicBlobVerified": "e849dcefca021fefc60464d42c6ea0f01eea24f6",
+      "candidateBlobVerified": "e849dcefca021fefc60464d42c6ea0f01eea24f6"
+    },
+    {
+      "source": "packages/utils/src/useRefWithInit.ts",
+      "archive": "parity/collapsible/source-audit/upstream/packages/utils/src/useRefWithInit.ts",
+      "sha256": "183cb6e86ab1f8044a431d5b4115c750f7848c9835d519881b3c7a66dae98354",
+      "gitBlob": "6c13a09648ee6ebd5bd7e39e25673f9be40ff224",
+      "manualRead": "whole Original production/type body reviewed; initial partial/truncated multi-file read supplemented by targeted reads",
+      "hashVerified": true,
+      "predecessorBlobIdentical": true,
+      "finalBlobVerified": "6c13a09648ee6ebd5bd7e39e25673f9be40ff224",
+      "publicBlobVerified": "6c13a09648ee6ebd5bd7e39e25673f9be40ff224",
+      "candidateBlobVerified": "6c13a09648ee6ebd5bd7e39e25673f9be40ff224"
+    },
+    {
+      "source": "packages/utils/src/useStableCallback.ts",
+      "archive": "parity/collapsible/source-audit/upstream/packages/utils/src/useStableCallback.ts",
+      "sha256": "908cbd177f86c961983d0124a859f733d341be49e58bc5a553255f47725419c1",
+      "gitBlob": "5dd957e39822a0e31d6862b42c9d91c2065a907d",
+      "manualRead": "whole Original production/type body reviewed; initial partial/truncated multi-file read supplemented by targeted reads",
+      "hashVerified": true,
+      "predecessorBlobIdentical": true,
+      "finalBlobVerified": "5dd957e39822a0e31d6862b42c9d91c2065a907d",
+      "publicBlobVerified": "5dd957e39822a0e31d6862b42c9d91c2065a907d",
+      "candidateBlobVerified": "5dd957e39822a0e31d6862b42c9d91c2065a907d"
+    },
+    {
+      "source": "packages/utils/src/useValueAsRef.ts",
+      "archive": "parity/collapsible/source-audit/upstream/packages/utils/src/useValueAsRef.ts",
+      "sha256": "ad85f215ea605641c7f579a0dd50841427a01c7412eee127b34c51318e744777",
+      "gitBlob": "30d86860bc53edbefb10273c81252833ec8148b5",
+      "manualRead": "whole Original production/type body reviewed; initial partial/truncated multi-file read supplemented by targeted reads",
+      "hashVerified": true,
+      "predecessorBlobIdentical": true,
+      "finalBlobVerified": "30d86860bc53edbefb10273c81252833ec8148b5",
+      "publicBlobVerified": "30d86860bc53edbefb10273c81252833ec8148b5",
+      "candidateBlobVerified": "30d86860bc53edbefb10273c81252833ec8148b5"
+    },
+    {
+      "source": "packages/utils/src/warn.ts",
+      "archive": "parity/collapsible/source-audit/upstream/packages/utils/src/warn.ts",
+      "sha256": "4e5565f4957742aaa2795bae3f37bfbc88dac51528550b3406ed5cef92474c00",
+      "gitBlob": "013d17a8423c53a66bdcf4884f90f518ce11e0fb",
+      "manualRead": "whole Original production/type body reviewed; initial partial/truncated multi-file read supplemented by targeted reads",
+      "hashVerified": true,
+      "predecessorBlobIdentical": true,
+      "finalBlobVerified": "013d17a8423c53a66bdcf4884f90f518ce11e0fb",
+      "publicBlobVerified": "013d17a8423c53a66bdcf4884f90f518ce11e0fb",
+      "candidateBlobVerified": "013d17a8423c53a66bdcf4884f90f518ce11e0fb"
+    },
+    {
+      "source": "packages/base/src/lib/collapsible/Panel.svelte",
+      "sha256": "344b38a06d23634c8c6b7b043b96eacfc681ab728758d04ea8318576c6b0ca96",
+      "gitBlob": "bedc515cd40bb0c840f5c621b297c23f1e1eca71",
+      "manualRead": "whole used native body reviewed",
+      "mainBlobIdentical": false,
+      "predecessorBlobIdentical": true,
+      "finalBlobVerified": "bedc515cd40bb0c840f5c621b297c23f1e1eca71",
+      "publicBlobVerified": "bedc515cd40bb0c840f5c621b297c23f1e1eca71",
+      "candidateBlobVerified": "bedc515cd40bb0c840f5c621b297c23f1e1eca71"
+    },
+    {
+      "source": "packages/base/src/lib/collapsible/Root.svelte",
+      "sha256": "421f6d681601ac84765d648565acec6b36222c062457d85aed6351015470e1a3",
+      "gitBlob": "8d3c7ca3470ca5b4f2e6a0121618bf2dc2c54f08",
+      "manualRead": "whole used native body reviewed",
+      "mainBlobIdentical": false,
+      "predecessorBlobIdentical": true,
+      "finalBlobVerified": "8d3c7ca3470ca5b4f2e6a0121618bf2dc2c54f08",
+      "publicBlobVerified": "8d3c7ca3470ca5b4f2e6a0121618bf2dc2c54f08",
+      "candidateBlobVerified": "8d3c7ca3470ca5b4f2e6a0121618bf2dc2c54f08"
+    },
+    {
+      "source": "packages/base/src/lib/collapsible/Trigger.svelte",
+      "sha256": "b5d60602b91c33c7dd1fe531cf8f1780e0b5f946ee6d7d66533d5d8b81d6b157",
+      "gitBlob": "4d012560de6444732563174315e8b97af71c0626",
+      "manualRead": "whole used native body reviewed",
+      "mainBlobIdentical": false,
+      "predecessorBlobIdentical": true,
+      "finalBlobVerified": "4d012560de6444732563174315e8b97af71c0626",
+      "publicBlobVerified": "4d012560de6444732563174315e8b97af71c0626",
+      "candidateBlobVerified": "4d012560de6444732563174315e8b97af71c0626"
+    },
+    {
+      "source": "packages/base/src/lib/collapsible/context.ts",
+      "sha256": "6cbc22f22839fdf32cb7b82709d6d71b0ea8eba60368c9f53efe43ac950c64bc",
+      "gitBlob": "c45bdeb8ecccd42e408366af5be8d2cb2ac31059",
+      "manualRead": "whole used native body reviewed",
+      "mainBlobIdentical": false,
+      "predecessorBlobIdentical": true,
+      "finalBlobVerified": "c45bdeb8ecccd42e408366af5be8d2cb2ac31059",
+      "publicBlobVerified": "c45bdeb8ecccd42e408366af5be8d2cb2ac31059",
+      "candidateBlobVerified": "c45bdeb8ecccd42e408366af5be8d2cb2ac31059"
+    },
+    {
+      "source": "packages/base/src/lib/collapsible/index.parts.ts",
+      "sha256": "134a17c550a8afffbdaf4029e1d9e70a031e179a4a41113906db2ae8309fa8fb",
+      "gitBlob": "10d8c39f939c4ce13746775226feabc48f7358b2",
+      "manualRead": "whole used native body reviewed",
+      "mainBlobIdentical": true,
+      "predecessorBlobIdentical": true,
+      "finalBlobVerified": "10d8c39f939c4ce13746775226feabc48f7358b2",
+      "publicBlobVerified": "10d8c39f939c4ce13746775226feabc48f7358b2",
+      "candidateBlobVerified": "10d8c39f939c4ce13746775226feabc48f7358b2"
+    },
+    {
+      "source": "packages/base/src/lib/collapsible/index.ts",
+      "sha256": "a1a6196de2beaa325259e3b9b08a8bf52fba66201de00a75a088ef1178f20281",
+      "gitBlob": "eddf55569382dd8d5fdfb8316b8b979a6c3c66f6",
+      "manualRead": "whole used native body reviewed",
+      "mainBlobIdentical": true,
+      "predecessorBlobIdentical": true,
+      "finalBlobVerified": "eddf55569382dd8d5fdfb8316b8b979a6c3c66f6",
+      "publicBlobVerified": "eddf55569382dd8d5fdfb8316b8b979a6c3c66f6",
+      "candidateBlobVerified": "eddf55569382dd8d5fdfb8316b8b979a6c3c66f6"
+    },
+    {
+      "source": "packages/base/src/lib/collapsible/panel/CollapsiblePanelCssVars.ts",
+      "sha256": "dce6a4cd3981794aed3a558cefbd10ee5c70e16b6787e7bb68c21926fca026c0",
+      "gitBlob": "a7a11ab5fb3ed83ef47b5cde98d6b1bea194932c",
+      "manualRead": "whole used native body reviewed",
+      "mainBlobIdentical": false,
+      "predecessorBlobIdentical": true,
+      "finalBlobVerified": "a7a11ab5fb3ed83ef47b5cde98d6b1bea194932c",
+      "publicBlobVerified": "a7a11ab5fb3ed83ef47b5cde98d6b1bea194932c",
+      "candidateBlobVerified": "a7a11ab5fb3ed83ef47b5cde98d6b1bea194932c"
+    },
+    {
+      "source": "packages/base/src/lib/collapsible/panel/CollapsiblePanelDataAttributes.ts",
+      "sha256": "59323c93ed4e783fc0929a69e5c1318af494cd42a370c9a485d651b9539751a2",
+      "gitBlob": "5271cd828ed218152be350db702087ac9e405990",
+      "manualRead": "whole used native body reviewed",
+      "mainBlobIdentical": false,
+      "predecessorBlobIdentical": true,
+      "finalBlobVerified": "5271cd828ed218152be350db702087ac9e405990",
+      "publicBlobVerified": "5271cd828ed218152be350db702087ac9e405990",
+      "candidateBlobVerified": "5271cd828ed218152be350db702087ac9e405990"
+    },
+    {
+      "source": "packages/base/src/lib/collapsible/panel/useCollapsiblePanel.svelte.ts",
+      "sha256": "7bfe7a9607c34998a00e7704922a8c9c51df7ae8fb39a8d61e5cf85683e31415",
+      "gitBlob": "34f0082eb21544d6e526482a2b0490740bb6fc49",
+      "manualRead": "Whole direct Panel owner or changed exact-css-string fixture freshly read; pinned Panel fully reread",
+      "mainBlobIdentical": false,
+      "predecessorBlobIdentical": true,
+      "finalBlobVerified": "34f0082eb21544d6e526482a2b0490740bb6fc49",
+      "publicBlobVerified": "34f0082eb21544d6e526482a2b0490740bb6fc49",
+      "predecessorSha256": "1e335baa0e8c4ca4996b682f3f31c300bd3d4bbfb58de0874fe19e86c5550dcc",
+      "candidateBlobVerified": "317f0f9f0a0ac5ee3977c7b966a2d730c60afceb"
+    },
+    {
+      "source": "packages/base/src/lib/collapsible/root/stateAttributesMapping.ts",
+      "sha256": "e126e2d4639c7ebca36425f75f401995d6d427f9c77d2614bbdf2ce6b86cefa6",
+      "gitBlob": "04ca07bf582fb950d155eaee21e1dfd0dfd388f8",
+      "manualRead": "whole used native body reviewed",
+      "mainBlobIdentical": false,
+      "predecessorBlobIdentical": true,
+      "finalBlobVerified": "04ca07bf582fb950d155eaee21e1dfd0dfd388f8",
+      "publicBlobVerified": "04ca07bf582fb950d155eaee21e1dfd0dfd388f8",
+      "candidateBlobVerified": "04ca07bf582fb950d155eaee21e1dfd0dfd388f8"
+    },
+    {
+      "source": "packages/base/src/lib/collapsible/root/useCollapsibleRoot.svelte.ts",
+      "sha256": "e4155df81b6cd2b6dce6681151b7ead47e1020197f3daed0c9113933bb802459",
+      "gitBlob": "7e5eb1a3fb1dc2e140c7b88ddf4f3086f4c7c084",
+      "manualRead": "Fresh exact successor optional undefined type delta and surrounding whole body reviewed",
+      "mainBlobIdentical": false,
+      "predecessorBlobIdentical": true,
+      "finalBlobVerified": "7e5eb1a3fb1dc2e140c7b88ddf4f3086f4c7c084",
+      "publicBlobVerified": "7e5eb1a3fb1dc2e140c7b88ddf4f3086f4c7c084",
+      "candidateBlobVerified": "7e5eb1a3fb1dc2e140c7b88ddf4f3086f4c7c084"
+    },
+    {
+      "source": "packages/base/src/lib/collapsible/trigger/CollapsibleTriggerDataAttributes.ts",
+      "sha256": "f64554c40a3e3c989c4c7959b81bc176b726848535d1d8fffe98d6bc46f6a51b",
+      "gitBlob": "7e9b552f41aa6cb448a81c76a6f3521035ee31aa",
+      "manualRead": "whole used native body reviewed",
+      "mainBlobIdentical": false,
+      "predecessorBlobIdentical": true,
+      "finalBlobVerified": "7e9b552f41aa6cb448a81c76a6f3521035ee31aa",
+      "publicBlobVerified": "7e9b552f41aa6cb448a81c76a6f3521035ee31aa",
+      "candidateBlobVerified": "7e9b552f41aa6cb448a81c76a6f3521035ee31aa"
+    },
+    {
+      "source": "packages/base/src/lib/collapsible/types.ts",
+      "sha256": "313a2baae8f70341ea7828bb53c0b19cb0d21fb8380cbaff6b82f8faddb8f5c6",
+      "gitBlob": "0faa2e73df51cd157b7cd8e7f7045e71b6f84ddb",
+      "manualRead": "Fresh exact successor ref type/explicit undefined positive delta reviewed; unchanged remainder verified",
+      "mainBlobIdentical": true,
+      "predecessorBlobIdentical": true,
+      "finalBlobVerified": "0faa2e73df51cd157b7cd8e7f7045e71b6f84ddb",
+      "publicBlobVerified": "0faa2e73df51cd157b7cd8e7f7045e71b6f84ddb",
+      "candidateBlobVerified": "0faa2e73df51cd157b7cd8e7f7045e71b6f84ddb"
+    },
+    {
+      "source": "packages/base/src/lib/internals/composite/root/CompositeRootContext.ts",
+      "sha256": "b08d6af5d6e71ba46076718b4426c7d2e0485a059e9204759406af1f395b6f2c",
+      "gitBlob": "68e73c2df4b9e9bfb72f3ea5a4b05f5fe891b03d",
+      "manualRead": "whole used native body reviewed",
+      "mainBlobIdentical": true,
+      "predecessorBlobIdentical": true,
+      "finalBlobVerified": "68e73c2df4b9e9bfb72f3ea5a4b05f5fe891b03d",
+      "publicBlobVerified": "68e73c2df4b9e9bfb72f3ea5a4b05f5fe891b03d",
+      "candidateBlobVerified": "68e73c2df4b9e9bfb72f3ea5a4b05f5fe891b03d"
+    },
+    {
+      "source": "packages/base/src/lib/internals/createBaseUIEventDetails.ts",
+      "sha256": "8c72d1cd966a450125d2177842154e603b52779f156660af0633101ea222c772",
+      "gitBlob": "cb9a0eb805910a91b64e9caa8f403665cc2aad7a",
+      "manualRead": "whole used native body reviewed",
+      "mainBlobIdentical": true,
+      "predecessorBlobIdentical": true,
+      "finalBlobVerified": "cb9a0eb805910a91b64e9caa8f403665cc2aad7a",
+      "publicBlobVerified": "cb9a0eb805910a91b64e9caa8f403665cc2aad7a",
+      "candidateBlobVerified": "cb9a0eb805910a91b64e9caa8f403665cc2aad7a"
+    },
+    {
+      "source": "packages/base/src/lib/internals/getStateAttributesProps.ts",
+      "sha256": "e48367a890024a54cb200eabc5c2a0ba0a397256baacfaec8b0a05ced3b10344",
+      "gitBlob": "8d84d1b1420c61d2a1965642db702007012cfd58",
+      "manualRead": "whole used native body reviewed",
+      "mainBlobIdentical": true,
+      "predecessorBlobIdentical": true,
+      "finalBlobVerified": "8d84d1b1420c61d2a1965642db702007012cfd58",
+      "publicBlobVerified": "8d84d1b1420c61d2a1965642db702007012cfd58",
+      "candidateBlobVerified": "8d84d1b1420c61d2a1965642db702007012cfd58"
+    },
+    {
+      "source": "packages/base/src/lib/internals/mergeComponentProps.ts",
+      "sha256": "803da5cb2c52515e1e68e16b66b61060c31ca03d183bb09d928b601bbb70cab7",
+      "gitBlob": "821af03aa9fc56789d2976b91f9a94ef70d7e777",
+      "manualRead": "whole used native body reviewed",
+      "mainBlobIdentical": true,
+      "predecessorBlobIdentical": true,
+      "finalBlobVerified": "821af03aa9fc56789d2976b91f9a94ef70d7e777",
+      "publicBlobVerified": "821af03aa9fc56789d2976b91f9a94ef70d7e777",
+      "candidateBlobVerified": "821af03aa9fc56789d2976b91f9a94ef70d7e777"
+    },
+    {
+      "source": "packages/base/src/lib/internals/nativeProps.ts",
+      "sha256": "f081bf825f41a64924fe298108e148ac56314d02074c588cc1f9324ff6a92cc5",
+      "gitBlob": "cb0bb9da9dca0fc2363a36dc1f72ab296322fa41",
+      "manualRead": "whole used native body reviewed",
+      "mainBlobIdentical": true,
+      "predecessorBlobIdentical": true,
+      "finalBlobVerified": "cb0bb9da9dca0fc2363a36dc1f72ab296322fa41",
+      "publicBlobVerified": "cb0bb9da9dca0fc2363a36dc1f72ab296322fa41",
+      "candidateBlobVerified": "cb0bb9da9dca0fc2363a36dc1f72ab296322fa41"
+    },
+    {
+      "source": "packages/base/src/lib/internals/reason-parts.ts",
+      "sha256": "0326d21ce4be2c41b5488c86e3687249faf3c51f5e10ae49c16e8efdc183abf5",
+      "gitBlob": "18c7b511ff17aff66f7bd072694a7313365153ac",
+      "manualRead": "whole used native body reviewed",
+      "mainBlobIdentical": true,
+      "predecessorBlobIdentical": true,
+      "finalBlobVerified": "18c7b511ff17aff66f7bd072694a7313365153ac",
+      "publicBlobVerified": "18c7b511ff17aff66f7bd072694a7313365153ac",
+      "candidateBlobVerified": "18c7b511ff17aff66f7bd072694a7313365153ac"
+    },
+    {
+      "source": "packages/base/src/lib/internals/reasons.ts",
+      "sha256": "f1f52caeefb14448a7e7c9833e24413b923b7bbf40aa1818ca73dc93710b42e7",
+      "gitBlob": "aba36c5b6b6e4b63d478f2d46933e39fe63416c5",
+      "manualRead": "whole used native body reviewed",
+      "mainBlobIdentical": true,
+      "predecessorBlobIdentical": true,
+      "finalBlobVerified": "aba36c5b6b6e4b63d478f2d46933e39fe63416c5",
+      "publicBlobVerified": "aba36c5b6b6e4b63d478f2d46933e39fe63416c5",
+      "candidateBlobVerified": "aba36c5b6b6e4b63d478f2d46933e39fe63416c5"
+    },
+    {
+      "source": "packages/base/src/lib/internals/resolveClassValue.ts",
+      "sha256": "584323b17cb1733a798e9ff86e9ff783d6a26d08ecf005a8c2b3c69917c1e722",
+      "gitBlob": "a3f3d404f27a9f9c7b703586264eb138bd8284fa",
+      "manualRead": "whole used native body reviewed",
+      "mainBlobIdentical": true,
+      "predecessorBlobIdentical": true,
+      "finalBlobVerified": "a3f3d404f27a9f9c7b703586264eb138bd8284fa",
+      "publicBlobVerified": "a3f3d404f27a9f9c7b703586264eb138bd8284fa",
+      "candidateBlobVerified": "a3f3d404f27a9f9c7b703586264eb138bd8284fa"
+    },
+    {
+      "source": "packages/base/src/lib/internals/stateAttributesMapping.ts",
+      "sha256": "d04c73fe454de256e1641245b5db6a3d70824693f0da33272d0863f033b5230d",
+      "gitBlob": "9d5a41e33172662eec5f8abeafeeea38811c8dd2",
+      "manualRead": "whole used native body reviewed",
+      "mainBlobIdentical": true,
+      "predecessorBlobIdentical": true,
+      "finalBlobVerified": "9d5a41e33172662eec5f8abeafeeea38811c8dd2",
+      "publicBlobVerified": "9d5a41e33172662eec5f8abeafeeea38811c8dd2",
+      "candidateBlobVerified": "9d5a41e33172662eec5f8abeafeeea38811c8dd2"
+    },
+    {
+      "source": "packages/base/src/lib/internals/TransitionStatusDataAttributes.ts",
+      "sha256": "d3e4a31041bcc80ba21b330d3fedadfadaeae3f498dc09e078e70470cfb98dfe",
+      "gitBlob": "8cf1ce71fc9575b72bd14102458152a945ef500d",
+      "manualRead": "whole used native body reviewed",
+      "mainBlobIdentical": true,
+      "predecessorBlobIdentical": true,
+      "finalBlobVerified": "8cf1ce71fc9575b72bd14102458152a945ef500d",
+      "publicBlobVerified": "8cf1ce71fc9575b72bd14102458152a945ef500d",
+      "candidateBlobVerified": "8cf1ce71fc9575b72bd14102458152a945ef500d"
+    },
+    {
+      "source": "packages/base/src/lib/internals/types.ts",
+      "sha256": "6a36f5f103ef940b8a32d63f0288d897096c846fb2361b4ef44733e9a899907e",
+      "gitBlob": "945503edf893bb88ba0de13d278555b3f0d264e7",
+      "manualRead": "whole used native body reviewed",
+      "mainBlobIdentical": true,
+      "predecessorBlobIdentical": true,
+      "finalBlobVerified": "945503edf893bb88ba0de13d278555b3f0d264e7",
+      "publicBlobVerified": "945503edf893bb88ba0de13d278555b3f0d264e7",
+      "candidateBlobVerified": "945503edf893bb88ba0de13d278555b3f0d264e7"
+    },
+    {
+      "source": "packages/base/src/lib/internals/use-button/useButton.svelte.ts",
+      "sha256": "48750528371fbf08dd09478dd7fb8e2a2b9a19494bf1e779610e5b90668e16d0",
+      "gitBlob": "51c32f9bbab1eb91dfdba0af494f468bf75bca78",
+      "manualRead": "whole used native body reviewed",
+      "mainBlobIdentical": true,
+      "predecessorBlobIdentical": true,
+      "finalBlobVerified": "51c32f9bbab1eb91dfdba0af494f468bf75bca78",
+      "publicBlobVerified": "51c32f9bbab1eb91dfdba0af494f468bf75bca78",
+      "candidateBlobVerified": "51c32f9bbab1eb91dfdba0af494f468bf75bca78"
+    },
+    {
+      "source": "packages/base/src/lib/internals/useAnimationsFinished.ts",
+      "sha256": "7abe48ef841cdfa7bf60b29045e9f0ffb7dbfb715b34351e8f6716131b2678f8",
+      "gitBlob": "291833d39f0eab046a5487e25768e921647cc742",
+      "manualRead": "whole used native body reviewed",
+      "mainBlobIdentical": true,
+      "predecessorBlobIdentical": true,
+      "finalBlobVerified": "291833d39f0eab046a5487e25768e921647cc742",
+      "publicBlobVerified": "291833d39f0eab046a5487e25768e921647cc742",
+      "candidateBlobVerified": "291833d39f0eab046a5487e25768e921647cc742"
+    },
+    {
+      "source": "packages/base/src/lib/internals/useBaseUiId.ts",
+      "sha256": "3995d6f7b0b3b0c3bd734f8936778c7a95ec39cc1a701dc24cf49a1313414c92",
+      "gitBlob": "08d828bd932946b3cd292c932b72e173de25f6ce",
+      "manualRead": "whole used native body reviewed",
+      "mainBlobIdentical": true,
+      "predecessorBlobIdentical": true,
+      "finalBlobVerified": "08d828bd932946b3cd292c932b72e173de25f6ce",
+      "publicBlobVerified": "08d828bd932946b3cd292c932b72e173de25f6ce",
+      "candidateBlobVerified": "08d828bd932946b3cd292c932b72e173de25f6ce"
+    },
+    {
+      "source": "packages/base/src/lib/internals/useOpenChangeComplete.svelte.ts",
+      "sha256": "b6174d1cc73b6ea3b6431cf87906a1acacc40b1d5c356a31124f92251d7fd038",
+      "gitBlob": "0e40761ef7007c334e7bd5b7ca3f8516314491d2",
+      "manualRead": "whole used native body reviewed",
+      "mainBlobIdentical": true,
+      "predecessorBlobIdentical": true,
+      "finalBlobVerified": "0e40761ef7007c334e7bd5b7ca3f8516314491d2",
+      "publicBlobVerified": "0e40761ef7007c334e7bd5b7ca3f8516314491d2",
+      "candidateBlobVerified": "0e40761ef7007c334e7bd5b7ca3f8516314491d2"
+    },
+    {
+      "source": "packages/base/src/lib/internals/useTransitionStatus.svelte.ts",
+      "sha256": "7fc531ccff0a7dfd77703c0f0ee7e1148fc080960682469eafffbc627056fa9e",
+      "gitBlob": "ccb7da6e5289ecfcb7e652f54c4f1e0b67041dec",
+      "manualRead": "whole used native body reviewed",
+      "mainBlobIdentical": true,
+      "predecessorBlobIdentical": true,
+      "finalBlobVerified": "ccb7da6e5289ecfcb7e652f54c4f1e0b67041dec",
+      "publicBlobVerified": "ccb7da6e5289ecfcb7e652f54c4f1e0b67041dec",
+      "candidateBlobVerified": "ccb7da6e5289ecfcb7e652f54c4f1e0b67041dec"
+    },
+    {
+      "source": "packages/base/src/lib/merge-props/index.ts",
+      "sha256": "3ef38bba9b22f44bbcf69102d9556807f78897bedb69b410669c7b429971dd68",
+      "gitBlob": "029c1a70183ff67334870394234c9490e96070d2",
+      "manualRead": "whole used native body reviewed",
+      "mainBlobIdentical": true,
+      "predecessorBlobIdentical": true,
+      "finalBlobVerified": "029c1a70183ff67334870394234c9490e96070d2",
+      "publicBlobVerified": "029c1a70183ff67334870394234c9490e96070d2",
+      "candidateBlobVerified": "029c1a70183ff67334870394234c9490e96070d2"
+    },
+    {
+      "source": "packages/base/src/lib/merge-props/mergeProps.ts",
+      "sha256": "b2c30a6df68fe9744f250f0d0b8e21d89de133146724efd6eed7cea0fce0f8b9",
+      "gitBlob": "199ea5fec8d977fbb8bdbc4f787efcb8a6e5dff8",
+      "manualRead": "whole used native body reviewed",
+      "mainBlobIdentical": true,
+      "predecessorBlobIdentical": true,
+      "finalBlobVerified": "199ea5fec8d977fbb8bdbc4f787efcb8a6e5dff8",
+      "publicBlobVerified": "199ea5fec8d977fbb8bdbc4f787efcb8a6e5dff8",
+      "candidateBlobVerified": "199ea5fec8d977fbb8bdbc4f787efcb8a6e5dff8"
+    },
+    {
+      "source": "packages/base/src/lib/utils/collapsibleOpenStateMapping.ts",
+      "sha256": "c61fe9e34d684527811bbc2bdc12093a9a690f759464daa99f730e97b01dd3d3",
+      "gitBlob": "7e8241ab6d9ecab84e335e49d8010de8fefbade9",
+      "manualRead": "whole used native body reviewed",
+      "mainBlobIdentical": false,
+      "predecessorBlobIdentical": true,
+      "finalBlobVerified": "7e8241ab6d9ecab84e335e49d8010de8fefbade9",
+      "publicBlobVerified": "7e8241ab6d9ecab84e335e49d8010de8fefbade9",
+      "candidateBlobVerified": "7e8241ab6d9ecab84e335e49d8010de8fefbade9"
+    },
+    {
+      "source": "packages/base/src/lib/utils/dispatchClickWithModifiers.ts",
+      "sha256": "fefaa5e71f09eeb27d246b5d1eafef16e2b62f6dd72414528ef7f917c125909a",
+      "gitBlob": "45e7743e4e5fddb6e381cc5198557546af40c6dd",
+      "manualRead": "whole used native body reviewed",
+      "mainBlobIdentical": true,
+      "predecessorBlobIdentical": true,
+      "finalBlobVerified": "45e7743e4e5fddb6e381cc5198557546af40c6dd",
+      "publicBlobVerified": "45e7743e4e5fddb6e381cc5198557546af40c6dd",
+      "candidateBlobVerified": "45e7743e4e5fddb6e381cc5198557546af40c6dd"
+    },
+    {
+      "source": "packages/base/src/lib/utils/resolveClassName.ts",
+      "sha256": "b22aead630ca531851a08a63e5165e64ff8cdc9de5765ff20997f578071cb108",
+      "gitBlob": "0efd0464f73ac1a7d5ac872e638f95aa37f8be0f",
+      "manualRead": "whole used native body reviewed",
+      "mainBlobIdentical": true,
+      "predecessorBlobIdentical": true,
+      "finalBlobVerified": "0efd0464f73ac1a7d5ac872e638f95aa37f8be0f",
+      "publicBlobVerified": "0efd0464f73ac1a7d5ac872e638f95aa37f8be0f",
+      "candidateBlobVerified": "0efd0464f73ac1a7d5ac872e638f95aa37f8be0f"
+    },
+    {
+      "source": "packages/base/src/lib/utils/resolveRef.ts",
+      "sha256": "d8500030750c389af091f3f4f43b100f675772f3d22b6f1699a29db80d564d0a",
+      "gitBlob": "0f99925260692949a30cee4a29e4624128c693f7",
+      "manualRead": "whole used native body reviewed",
+      "mainBlobIdentical": true,
+      "predecessorBlobIdentical": true,
+      "finalBlobVerified": "0f99925260692949a30cee4a29e4624128c693f7",
+      "publicBlobVerified": "0f99925260692949a30cee4a29e4624128c693f7",
+      "candidateBlobVerified": "0f99925260692949a30cee4a29e4624128c693f7"
+    },
+    {
+      "source": "packages/base/src/lib/utils/resolveStyle.ts",
+      "sha256": "cdc420598c1ae4b75a32e7f47ac8cc7f4fe444d4f006e2736f528951fb932977",
+      "gitBlob": "309ec0d75644e656827b5b9cee2c297620787342",
+      "manualRead": "whole used native body reviewed",
+      "mainBlobIdentical": true,
+      "predecessorBlobIdentical": true,
+      "finalBlobVerified": "309ec0d75644e656827b5b9cee2c297620787342",
+      "publicBlobVerified": "309ec0d75644e656827b5b9cee2c297620787342",
+      "candidateBlobVerified": "309ec0d75644e656827b5b9cee2c297620787342"
+    },
+    {
+      "source": "packages/base/src/lib/utils/useFocusableWhenDisabled.ts",
+      "sha256": "f30838a56f41ea3672d26627fb42145d016e3b54b512c4c381e6aafb05431db2",
+      "gitBlob": "32c5fd3fd4a538caf40a89b8ea43ca517462b577",
+      "manualRead": "whole used native body reviewed",
+      "mainBlobIdentical": true,
+      "predecessorBlobIdentical": true,
+      "finalBlobVerified": "32c5fd3fd4a538caf40a89b8ea43ca517462b577",
+      "publicBlobVerified": "32c5fd3fd4a538caf40a89b8ea43ca517462b577",
+      "candidateBlobVerified": "32c5fd3fd4a538caf40a89b8ea43ca517462b577"
+    },
+    {
+      "source": "packages/utils/src/lib/Controlled.svelte.ts",
+      "sha256": "3bb64556d51b6cd471e21e2db4c54179b3eb072757f043f7a4489a4134283304",
+      "gitBlob": "076e18f8210ac041ff6c4c26a945956f458102df",
+      "manualRead": "whole used native body reviewed",
+      "mainBlobIdentical": true,
+      "predecessorBlobIdentical": true,
+      "finalBlobVerified": "076e18f8210ac041ff6c4c26a945956f458102df",
+      "publicBlobVerified": "076e18f8210ac041ff6c4c26a945956f458102df",
+      "candidateBlobVerified": "076e18f8210ac041ff6c4c26a945956f458102df"
+    },
+    {
+      "source": "packages/utils/src/lib/addEventListener.ts",
+      "sha256": "77880d75a5c8c5ac2d924e69d7cc7662c616b953d4895c8e6a24de53de4502bf",
+      "gitBlob": "74d5e1b2315fe301ab36c6d2486162e00c3fc5e2",
+      "manualRead": "whole used native body reviewed",
+      "mainBlobIdentical": true,
+      "predecessorBlobIdentical": true,
+      "finalBlobVerified": "74d5e1b2315fe301ab36c6d2486162e00c3fc5e2",
+      "publicBlobVerified": "74d5e1b2315fe301ab36c6d2486162e00c3fc5e2",
+      "candidateBlobVerified": "74d5e1b2315fe301ab36c6d2486162e00c3fc5e2"
+    },
+    {
+      "source": "packages/utils/src/lib/createLogOnce.ts",
+      "sha256": "f9d8a63ce89aa2d0b31a8d88affb4ff7c49528f12152a9dc99223ee24dca90c9",
+      "gitBlob": "57bafaf521fda5d7bc4435083c58b494d0ef67b5",
+      "manualRead": "whole used native body reviewed",
+      "mainBlobIdentical": true,
+      "predecessorBlobIdentical": true,
+      "finalBlobVerified": "57bafaf521fda5d7bc4435083c58b494d0ef67b5",
+      "publicBlobVerified": "57bafaf521fda5d7bc4435083c58b494d0ef67b5",
+      "candidateBlobVerified": "57bafaf521fda5d7bc4435083c58b494d0ef67b5"
+    },
+    {
+      "source": "packages/utils/src/lib/empty.ts",
+      "sha256": "00dc8f5cccebba670a7c7f2a78a66f3a4c008e8fec496badfc909a2bb8664151",
+      "gitBlob": "530bf3b51adb9833ffa732e8fa6e41168d8bff73",
+      "manualRead": "whole used native body reviewed",
+      "mainBlobIdentical": true,
+      "predecessorBlobIdentical": true,
+      "finalBlobVerified": "530bf3b51adb9833ffa732e8fa6e41168d8bff73",
+      "publicBlobVerified": "530bf3b51adb9833ffa732e8fa6e41168d8bff73",
+      "candidateBlobVerified": "530bf3b51adb9833ffa732e8fa6e41168d8bff73"
+    },
+    {
+      "source": "packages/utils/src/lib/error.ts",
+      "sha256": "ebbe57877f3f8c77c83631ed4042bd288d13f98fb93afd5390128dbd0d7cec27",
+      "gitBlob": "dabebcf038b7bd856c8cc6a80d4930f0bfc3bce2",
+      "manualRead": "whole used native body reviewed",
+      "mainBlobIdentical": true,
+      "predecessorBlobIdentical": true,
+      "finalBlobVerified": "dabebcf038b7bd856c8cc6a80d4930f0bfc3bce2",
+      "publicBlobVerified": "dabebcf038b7bd856c8cc6a80d4930f0bfc3bce2",
+      "candidateBlobVerified": "dabebcf038b7bd856c8cc6a80d4930f0bfc3bce2"
+    },
+    {
+      "source": "packages/utils/src/lib/mergeObjects.ts",
+      "sha256": "1e6cfa2be20c639f5ce6f8b0b6cc447da3413bbbc6750a5b1ab03f5810d81746",
+      "gitBlob": "961feea967d965559d82450fe87c358eab17a28f",
+      "manualRead": "whole used native body reviewed",
+      "mainBlobIdentical": true,
+      "predecessorBlobIdentical": true,
+      "finalBlobVerified": "961feea967d965559d82450fe87c358eab17a28f",
+      "publicBlobVerified": "961feea967d965559d82450fe87c358eab17a28f",
+      "candidateBlobVerified": "961feea967d965559d82450fe87c358eab17a28f"
+    },
+    {
+      "source": "packages/utils/src/lib/owner.ts",
+      "sha256": "759c607acc1a103b2d795840051555671fe65fd889dae7694606b9069803f986",
+      "gitBlob": "783c716a4024c94eaec571fedd81081936ab06c8",
+      "manualRead": "whole used native body reviewed",
+      "mainBlobIdentical": true,
+      "predecessorBlobIdentical": true,
+      "finalBlobVerified": "783c716a4024c94eaec571fedd81081936ab06c8",
+      "publicBlobVerified": "783c716a4024c94eaec571fedd81081936ab06c8",
+      "candidateBlobVerified": "783c716a4024c94eaec571fedd81081936ab06c8"
+    },
+    {
+      "source": "packages/utils/src/lib/useAnimationFrame.ts",
+      "sha256": "ec054003588b92e4223c6eea228388ae6395bf1895fb3aaf32a02706249652ce",
+      "gitBlob": "60a263e6b1acfc7acd9735866269a869b59ef983",
+      "manualRead": "whole used native body reviewed",
+      "mainBlobIdentical": true,
+      "predecessorBlobIdentical": true,
+      "finalBlobVerified": "60a263e6b1acfc7acd9735866269a869b59ef983",
+      "publicBlobVerified": "60a263e6b1acfc7acd9735866269a869b59ef983",
+      "candidateBlobVerified": "60a263e6b1acfc7acd9735866269a869b59ef983"
+    },
+    {
+      "source": "packages/utils/src/lib/useId.ts",
+      "sha256": "584864eb7f538f5adc40ab128461db75c960984c51265aead1ca3821e4bf879a",
+      "gitBlob": "1383788d8033485f0817f5233e7f99be03fb0a28",
+      "manualRead": "whole used native body reviewed",
+      "mainBlobIdentical": true,
+      "predecessorBlobIdentical": true,
+      "finalBlobVerified": "1383788d8033485f0817f5233e7f99be03fb0a28",
+      "publicBlobVerified": "1383788d8033485f0817f5233e7f99be03fb0a28",
+      "candidateBlobVerified": "1383788d8033485f0817f5233e7f99be03fb0a28"
+    },
+    {
+      "source": "packages/utils/src/lib/warn.ts",
+      "sha256": "58267e2a1dd62afbc707faf9c031dee042605aa74d44dbf72dd997d2ad69db65",
+      "gitBlob": "a33aa98a7c17784001556d8a615fa01ee34369f1",
+      "manualRead": "whole used native body reviewed",
+      "mainBlobIdentical": true,
+      "predecessorBlobIdentical": true,
+      "finalBlobVerified": "a33aa98a7c17784001556d8a615fa01ee34369f1",
+      "publicBlobVerified": "a33aa98a7c17784001556d8a615fa01ee34369f1",
+      "candidateBlobVerified": "a33aa98a7c17784001556d8a615fa01ee34369f1"
+    },
+    {
+      "source": "packages/base/src/lib/dialog/types.ts",
+      "sha256": "d2b80a17a890020ddb9e7ba36c2cf2106e1677b76c722617575ef81a2728c567",
+      "gitBlob": "eaa4f5707213328b9d8438cc0b4b0ab496f7bd0e",
+      "manualRead": "whole body read at exact edaaaf31 for conservative type-only transitive relationship review; no unrelated sibling business/behavior acceptance",
+      "mainBlobIdentical": true,
+      "predecessorBlobIdentical": true,
+      "finalBlobVerified": "eaa4f5707213328b9d8438cc0b4b0ab496f7bd0e",
+      "publicBlobVerified": "eaa4f5707213328b9d8438cc0b4b0ab496f7bd0e",
+      "candidateBlobVerified": "eaa4f5707213328b9d8438cc0b4b0ab496f7bd0e"
+    },
+    {
+      "source": "packages/base/src/lib/dialog/handle.svelte.ts",
+      "sha256": "369b9344e3947c68fa16a1b7616c26404d583a79e3e375bda486c613d0ec3681",
+      "gitBlob": "5ac078231b7c8bcde0f8d007cc18d99ddcd31be6",
+      "manualRead": "whole body read at exact edaaaf31 for conservative type-only transitive relationship review; no unrelated sibling business/behavior acceptance",
+      "mainBlobIdentical": true,
+      "predecessorBlobIdentical": true,
+      "finalBlobVerified": "5ac078231b7c8bcde0f8d007cc18d99ddcd31be6",
+      "publicBlobVerified": "5ac078231b7c8bcde0f8d007cc18d99ddcd31be6",
+      "candidateBlobVerified": "5ac078231b7c8bcde0f8d007cc18d99ddcd31be6"
+    },
+    {
+      "source": "packages/base/src/lib/dialog/store/DialogHandle.svelte.ts",
+      "sha256": "a5cb05869d04ff9e87dce1422599c86a4f2974b88049a73b9c7f12383b83aca3",
+      "gitBlob": "8ebe20aafa261e4a169c4b915d00cce6f128c2aa",
+      "manualRead": "whole body read at exact edaaaf31 for conservative type-only transitive relationship review; no unrelated sibling business/behavior acceptance",
+      "mainBlobIdentical": true,
+      "predecessorBlobIdentical": true,
+      "finalBlobVerified": "8ebe20aafa261e4a169c4b915d00cce6f128c2aa",
+      "publicBlobVerified": "8ebe20aafa261e4a169c4b915d00cce6f128c2aa",
+      "candidateBlobVerified": "8ebe20aafa261e4a169c4b915d00cce6f128c2aa"
+    },
+    {
+      "source": "packages/base/src/lib/dialog/store/DialogStore.svelte.ts",
+      "sha256": "d9d83c8c127a97a2d79a072b8998eafff242070dbea03d686fe774151741e343",
+      "gitBlob": "e5543e847fe931a1c138b220f221fa0077ab2e3b",
+      "manualRead": "whole body read at exact edaaaf31 for conservative type-only transitive relationship review; no unrelated sibling business/behavior acceptance",
+      "mainBlobIdentical": true,
+      "predecessorBlobIdentical": true,
+      "finalBlobVerified": "e5543e847fe931a1c138b220f221fa0077ab2e3b",
+      "publicBlobVerified": "e5543e847fe931a1c138b220f221fa0077ab2e3b",
+      "candidateBlobVerified": "e5543e847fe931a1c138b220f221fa0077ab2e3b"
+    },
+    {
+      "source": "packages/base/src/lib/floating-ui/components/FloatingRootStore.svelte.ts",
+      "sha256": "8840439ae903d174103880ac84185b4ccb7d916761ac2e3e96b7f48a88f245d3",
+      "gitBlob": "196321f6e33bd00b202e89ba9b2f7cf8abe3fd87",
+      "manualRead": "whole body read at exact edaaaf31 for conservative type-only transitive relationship review; no unrelated sibling business/behavior acceptance",
+      "mainBlobIdentical": true,
+      "predecessorBlobIdentical": true,
+      "finalBlobVerified": "196321f6e33bd00b202e89ba9b2f7cf8abe3fd87",
+      "publicBlobVerified": "196321f6e33bd00b202e89ba9b2f7cf8abe3fd87",
+      "candidateBlobVerified": "196321f6e33bd00b202e89ba9b2f7cf8abe3fd87"
+    },
+    {
+      "source": "packages/base/src/lib/floating-ui/components/FloatingTree.svelte.ts",
+      "sha256": "4ba1a45eb3e58c4c1cdb7fc68d48c59da7ad7a5cbd5f9be7319c22af1ca60d8a",
+      "gitBlob": "f3d376e72902708ba704419f154d2fd15b4e0722",
+      "manualRead": "whole body read at exact edaaaf31 for conservative type-only transitive relationship review; no unrelated sibling business/behavior acceptance",
+      "mainBlobIdentical": true,
+      "predecessorBlobIdentical": true,
+      "finalBlobVerified": "f3d376e72902708ba704419f154d2fd15b4e0722",
+      "publicBlobVerified": "f3d376e72902708ba704419f154d2fd15b4e0722",
+      "candidateBlobVerified": "f3d376e72902708ba704419f154d2fd15b4e0722"
+    },
+    {
+      "source": "packages/base/src/lib/floating-ui/components/FloatingTreeStore.ts",
+      "sha256": "eb351b05f9f15cd7acebfe9b093cb42eb07c27073f41bd670633c94c41effdd3",
+      "gitBlob": "539733a38d1ec4fd06fd85b58f77bc035e1c1f2c",
+      "manualRead": "whole body read at exact edaaaf31 for conservative type-only transitive relationship review; no unrelated sibling business/behavior acceptance",
+      "mainBlobIdentical": true,
+      "predecessorBlobIdentical": true,
+      "finalBlobVerified": "539733a38d1ec4fd06fd85b58f77bc035e1c1f2c",
+      "publicBlobVerified": "539733a38d1ec4fd06fd85b58f77bc035e1c1f2c",
+      "candidateBlobVerified": "539733a38d1ec4fd06fd85b58f77bc035e1c1f2c"
+    },
+    {
+      "source": "packages/base/src/lib/floating-ui/hooks/useHoverShared.ts",
+      "sha256": "27321c9b2a6773e8743846b8af2a51a4339462f8189f1a9cad36b9702b4517df",
+      "gitBlob": "fc5dcba6790ceac57258437cc0ea301bd9915632",
+      "manualRead": "whole body read at exact edaaaf31 for conservative type-only transitive relationship review; no unrelated sibling business/behavior acceptance",
+      "mainBlobIdentical": true,
+      "predecessorBlobIdentical": true,
+      "finalBlobVerified": "fc5dcba6790ceac57258437cc0ea301bd9915632",
+      "publicBlobVerified": "fc5dcba6790ceac57258437cc0ea301bd9915632",
+      "candidateBlobVerified": "fc5dcba6790ceac57258437cc0ea301bd9915632"
+    },
+    {
+      "source": "packages/base/src/lib/floating-ui/hooks/useSyncedFloatingRootContext.svelte.ts",
+      "sha256": "aa1374702cc5d76d0380c6b4080ffc10f2b22b496ecbfed24b97e70636669916",
+      "gitBlob": "d76f85e9eb9cac54e53b3b9e7f4e9921b94868b3",
+      "manualRead": "whole body read at exact edaaaf31 for conservative type-only transitive relationship review; no unrelated sibling business/behavior acceptance",
+      "mainBlobIdentical": true,
+      "predecessorBlobIdentical": true,
+      "finalBlobVerified": "d76f85e9eb9cac54e53b3b9e7f4e9921b94868b3",
+      "publicBlobVerified": "d76f85e9eb9cac54e53b3b9e7f4e9921b94868b3",
+      "candidateBlobVerified": "d76f85e9eb9cac54e53b3b9e7f4e9921b94868b3"
+    },
+    {
+      "source": "packages/base/src/lib/floating-ui/safePolygon.ts",
+      "sha256": "ee7e5e41dcb23934c4be65722b2c1e52663c6c518e3beafff627b8968430a9e3",
+      "gitBlob": "30caa305497f78c6e4f9c0e2fe0c373ee08d3c79",
+      "manualRead": "whole body read at exact edaaaf31 for conservative type-only transitive relationship review; no unrelated sibling business/behavior acceptance",
+      "mainBlobIdentical": true,
+      "predecessorBlobIdentical": true,
+      "finalBlobVerified": "30caa305497f78c6e4f9c0e2fe0c373ee08d3c79",
+      "publicBlobVerified": "30caa305497f78c6e4f9c0e2fe0c373ee08d3c79",
+      "candidateBlobVerified": "30caa305497f78c6e4f9c0e2fe0c373ee08d3c79"
+    },
+    {
+      "source": "packages/base/src/lib/floating-ui/types.ts",
+      "sha256": "5c4e86d68644ba65a89798d584d75bb7c1dacde7f892c9ea9fdfdd64523d3473",
+      "gitBlob": "610473164d1fae25ad32d6955a0afe9b444f601f",
+      "manualRead": "whole body read at exact edaaaf31 for conservative type-only transitive relationship review; no unrelated sibling business/behavior acceptance",
+      "mainBlobIdentical": true,
+      "predecessorBlobIdentical": true,
+      "finalBlobVerified": "610473164d1fae25ad32d6955a0afe9b444f601f",
+      "publicBlobVerified": "610473164d1fae25ad32d6955a0afe9b444f601f",
+      "candidateBlobVerified": "610473164d1fae25ad32d6955a0afe9b444f601f"
+    },
+    {
+      "source": "packages/base/src/lib/floating-ui/utils/constants.ts",
+      "sha256": "14ac30673b196081a83c1e023ecfd546294733ceb2f756d2bad01e3a9d24880b",
+      "gitBlob": "fb687c759b4faedc5db058d94c0f2dc7e2d48410",
+      "manualRead": "whole body read at exact edaaaf31 for conservative type-only transitive relationship review; no unrelated sibling business/behavior acceptance",
+      "mainBlobIdentical": true,
+      "predecessorBlobIdentical": true,
+      "finalBlobVerified": "fb687c759b4faedc5db058d94c0f2dc7e2d48410",
+      "publicBlobVerified": "fb687c759b4faedc5db058d94c0f2dc7e2d48410",
+      "candidateBlobVerified": "fb687c759b4faedc5db058d94c0f2dc7e2d48410"
+    },
+    {
+      "source": "packages/base/src/lib/floating-ui/utils/createEventEmitter.ts",
+      "sha256": "31ebcaf59c98304ec9944e91a86b0a3c3ed31359e76a102ea62c4213f5dff484",
+      "gitBlob": "b2de80fdd9c26b19f64e5c01aef001d2a0b3bd32",
+      "manualRead": "whole body read at exact edaaaf31 for conservative type-only transitive relationship review; no unrelated sibling business/behavior acceptance",
+      "mainBlobIdentical": true,
+      "predecessorBlobIdentical": true,
+      "finalBlobVerified": "b2de80fdd9c26b19f64e5c01aef001d2a0b3bd32",
+      "publicBlobVerified": "b2de80fdd9c26b19f64e5c01aef001d2a0b3bd32",
+      "candidateBlobVerified": "b2de80fdd9c26b19f64e5c01aef001d2a0b3bd32"
+    },
+    {
+      "source": "packages/base/src/lib/floating-ui/utils/element.ts",
+      "sha256": "68a9ee68a6c3d8c0c1d9e8f68fffb3c214201c6f7fed4b0c374298b65fae3ff3",
+      "gitBlob": "7b2bc2ae2df851d2b92ba6502fd213984132b8d6",
+      "manualRead": "whole body read at exact edaaaf31 for conservative type-only transitive relationship review; no unrelated sibling business/behavior acceptance",
+      "mainBlobIdentical": true,
+      "predecessorBlobIdentical": true,
+      "finalBlobVerified": "7b2bc2ae2df851d2b92ba6502fd213984132b8d6",
+      "publicBlobVerified": "7b2bc2ae2df851d2b92ba6502fd213984132b8d6",
+      "candidateBlobVerified": "7b2bc2ae2df851d2b92ba6502fd213984132b8d6"
+    },
+    {
+      "source": "packages/base/src/lib/floating-ui/utils/event.ts",
+      "sha256": "32391b7e254d578d4a374a8f95270e0fea8c763e8f56c52db2e9931243ad5e56",
+      "gitBlob": "c23fd656331c04ba50faddc965e827d96fedc1de",
+      "manualRead": "whole body read at exact edaaaf31 for conservative type-only transitive relationship review; no unrelated sibling business/behavior acceptance",
+      "mainBlobIdentical": true,
+      "predecessorBlobIdentical": true,
+      "finalBlobVerified": "c23fd656331c04ba50faddc965e827d96fedc1de",
+      "publicBlobVerified": "c23fd656331c04ba50faddc965e827d96fedc1de",
+      "candidateBlobVerified": "c23fd656331c04ba50faddc965e827d96fedc1de"
+    },
+    {
+      "source": "packages/base/src/lib/floating-ui/utils/matchesFocusVisible.ts",
+      "sha256": "4d5266137ceb919a50e3cd9ad29e23a219b08470f34c275852c320531cc949d3",
+      "gitBlob": "9fa7177f0a251483df43908023ec7843db02efd9",
+      "manualRead": "whole body read at exact edaaaf31 for conservative type-only transitive relationship review; no unrelated sibling business/behavior acceptance",
+      "mainBlobIdentical": true,
+      "predecessorBlobIdentical": true,
+      "finalBlobVerified": "9fa7177f0a251483df43908023ec7843db02efd9",
+      "publicBlobVerified": "9fa7177f0a251483df43908023ec7843db02efd9",
+      "candidateBlobVerified": "9fa7177f0a251483df43908023ec7843db02efd9"
+    },
+    {
+      "source": "packages/base/src/lib/floating-ui/utils/nodes.ts",
+      "sha256": "b78d4c24b96237d20d09a60549535fad0d8e61661b38091cbf5368b53c43f544",
+      "gitBlob": "80412e3a04e2fa73a6610a3a01eedb1e0d32b344",
+      "manualRead": "whole body read at exact edaaaf31 for conservative type-only transitive relationship review; no unrelated sibling business/behavior acceptance",
+      "mainBlobIdentical": true,
+      "predecessorBlobIdentical": true,
+      "finalBlobVerified": "80412e3a04e2fa73a6610a3a01eedb1e0d32b344",
+      "publicBlobVerified": "80412e3a04e2fa73a6610a3a01eedb1e0d32b344",
+      "candidateBlobVerified": "80412e3a04e2fa73a6610a3a01eedb1e0d32b344"
+    },
+    {
+      "source": "packages/base/src/lib/utils/NullStore.svelte.ts",
+      "sha256": "f23ac9ae6b5303aa9adf6499e3101c06fa981a516e6d22e95f981903674ec49c",
+      "gitBlob": "d9bddbcd34766d245484f006b373df6014eb8cf9",
+      "manualRead": "whole body read at exact edaaaf31 for conservative type-only transitive relationship review; no unrelated sibling business/behavior acceptance",
+      "mainBlobIdentical": true,
+      "predecessorBlobIdentical": true,
+      "finalBlobVerified": "d9bddbcd34766d245484f006b373df6014eb8cf9",
+      "publicBlobVerified": "d9bddbcd34766d245484f006b373df6014eb8cf9",
+      "candidateBlobVerified": "d9bddbcd34766d245484f006b373df6014eb8cf9"
+    },
+    {
+      "source": "packages/base/src/lib/utils/popups/index.ts",
+      "sha256": "8685650fb9e3f7bfe7528330f062c4b3f94df89bf9adc8a48b13728774474e01",
+      "gitBlob": "b01c96c0987db2dbfa32f47d94a12c748151cc5d",
+      "manualRead": "whole body read at exact edaaaf31 for conservative type-only transitive relationship review; no unrelated sibling business/behavior acceptance",
+      "mainBlobIdentical": true,
+      "predecessorBlobIdentical": true,
+      "finalBlobVerified": "b01c96c0987db2dbfa32f47d94a12c748151cc5d",
+      "publicBlobVerified": "b01c96c0987db2dbfa32f47d94a12c748151cc5d",
+      "candidateBlobVerified": "b01c96c0987db2dbfa32f47d94a12c748151cc5d"
+    },
+    {
+      "source": "packages/base/src/lib/utils/popups/popupHandle.svelte.ts",
+      "sha256": "c3a56400141a1075b20c783a5da24f827911b7d622c5eb92f78a4cf1f49da778",
+      "gitBlob": "c36a4153825d80bc251e70d23ee4e994b48930d5",
+      "manualRead": "whole body read at exact edaaaf31 for conservative type-only transitive relationship review; no unrelated sibling business/behavior acceptance",
+      "mainBlobIdentical": true,
+      "predecessorBlobIdentical": true,
+      "finalBlobVerified": "c36a4153825d80bc251e70d23ee4e994b48930d5",
+      "publicBlobVerified": "c36a4153825d80bc251e70d23ee4e994b48930d5",
+      "candidateBlobVerified": "c36a4153825d80bc251e70d23ee4e994b48930d5"
+    },
+    {
+      "source": "packages/base/src/lib/utils/popups/popupStoreUtils.svelte.ts",
+      "sha256": "13b61b426eed8a0875580aa2a8e15a8caf5c7110e915174bf4d613f069f7b01a",
+      "gitBlob": "889119881c2ee55c3516ad40e1c95a277243b59c",
+      "manualRead": "whole body read at exact edaaaf31 for conservative type-only transitive relationship review; no unrelated sibling business/behavior acceptance",
+      "mainBlobIdentical": true,
+      "predecessorBlobIdentical": true,
+      "finalBlobVerified": "889119881c2ee55c3516ad40e1c95a277243b59c",
+      "publicBlobVerified": "889119881c2ee55c3516ad40e1c95a277243b59c",
+      "candidateBlobVerified": "889119881c2ee55c3516ad40e1c95a277243b59c"
+    },
+    {
+      "source": "packages/base/src/lib/utils/popups/popupTriggerMap.svelte.ts",
+      "sha256": "812f1d6cb454c0f5236cda69919932ccfc569611050c19fe8198617beacf6b2c",
+      "gitBlob": "93a3758874bc4323c7620cf159ff24d48f0f4075",
+      "manualRead": "whole body read at exact edaaaf31 for conservative type-only transitive relationship review; no unrelated sibling business/behavior acceptance",
+      "mainBlobIdentical": true,
+      "predecessorBlobIdentical": true,
+      "finalBlobVerified": "93a3758874bc4323c7620cf159ff24d48f0f4075",
+      "publicBlobVerified": "93a3758874bc4323c7620cf159ff24d48f0f4075",
+      "candidateBlobVerified": "93a3758874bc4323c7620cf159ff24d48f0f4075"
+    },
+    {
+      "source": "packages/base/src/lib/utils/popups/store.ts",
+      "sha256": "6b9e93bb4642ec9ddf3b7721d909e0b8baf32871b5070b9831a3c3f464ca5f69",
+      "gitBlob": "bc46b5349088ec268e2e9b30ea538e86311f39cf",
+      "manualRead": "whole body read at exact edaaaf31 for conservative type-only transitive relationship review; no unrelated sibling business/behavior acceptance",
+      "mainBlobIdentical": true,
+      "predecessorBlobIdentical": true,
+      "finalBlobVerified": "bc46b5349088ec268e2e9b30ea538e86311f39cf",
+      "publicBlobVerified": "bc46b5349088ec268e2e9b30ea538e86311f39cf",
+      "candidateBlobVerified": "bc46b5349088ec268e2e9b30ea538e86311f39cf"
+    },
+    {
+      "source": "packages/utils/src/lib/platform/engine.ts",
+      "sha256": "e4745bcc586212a32cde2f7d206cc1aa4df86b8a29301f8d15cf3cd88996a987",
+      "gitBlob": "9ec4587415d440c4f3527154a1753aa470ba8db2",
+      "manualRead": "whole body read at exact edaaaf31 for conservative type-only transitive relationship review; no unrelated sibling business/behavior acceptance",
+      "mainBlobIdentical": true,
+      "predecessorBlobIdentical": true,
+      "finalBlobVerified": "9ec4587415d440c4f3527154a1753aa470ba8db2",
+      "publicBlobVerified": "9ec4587415d440c4f3527154a1753aa470ba8db2",
+      "candidateBlobVerified": "9ec4587415d440c4f3527154a1753aa470ba8db2"
+    },
+    {
+      "source": "packages/utils/src/lib/platform/env.ts",
+      "sha256": "dbd7cc1369986d370094b986c44b1bce3c10eba1f792f0e5c3e99c071e00eb9d",
+      "gitBlob": "57bc2957a3102e71bb66160753e4034b4ae76c50",
+      "manualRead": "whole body read at exact edaaaf31 for conservative type-only transitive relationship review; no unrelated sibling business/behavior acceptance",
+      "mainBlobIdentical": true,
+      "predecessorBlobIdentical": true,
+      "finalBlobVerified": "57bc2957a3102e71bb66160753e4034b4ae76c50",
+      "publicBlobVerified": "57bc2957a3102e71bb66160753e4034b4ae76c50",
+      "candidateBlobVerified": "57bc2957a3102e71bb66160753e4034b4ae76c50"
+    },
+    {
+      "source": "packages/utils/src/lib/platform/index.ts",
+      "sha256": "c9c1174c0f82f01033187e382b461370123d356d8e14901a9ca7d85dbd2ea63c",
+      "gitBlob": "3f9b33ce1eee77e6eb43cfceb5cf78c4a0574d52",
+      "manualRead": "whole body read at exact edaaaf31 for conservative type-only transitive relationship review; no unrelated sibling business/behavior acceptance",
+      "mainBlobIdentical": true,
+      "predecessorBlobIdentical": true,
+      "finalBlobVerified": "3f9b33ce1eee77e6eb43cfceb5cf78c4a0574d52",
+      "publicBlobVerified": "3f9b33ce1eee77e6eb43cfceb5cf78c4a0574d52",
+      "candidateBlobVerified": "3f9b33ce1eee77e6eb43cfceb5cf78c4a0574d52"
+    },
+    {
+      "source": "packages/utils/src/lib/platform/media-query.ts",
+      "sha256": "5e91ea2589962018778ad88498ff9acd432a5244fe37ee922d0a6014b1fb7ed9",
+      "gitBlob": "07d6de3cba51e51e2032a892746d41a4f76701e8",
+      "manualRead": "whole body read at exact edaaaf31 for conservative type-only transitive relationship review; no unrelated sibling business/behavior acceptance",
+      "mainBlobIdentical": true,
+      "predecessorBlobIdentical": true,
+      "finalBlobVerified": "07d6de3cba51e51e2032a892746d41a4f76701e8",
+      "publicBlobVerified": "07d6de3cba51e51e2032a892746d41a4f76701e8",
+      "candidateBlobVerified": "07d6de3cba51e51e2032a892746d41a4f76701e8"
+    },
+    {
+      "source": "packages/utils/src/lib/platform/os.ts",
+      "sha256": "456f2f5814e890fb12d899c1cc2f08566529216fd8f6d40a9a8e5846b2c9c3d6",
+      "gitBlob": "606d608fd224dae0003a81beb888976c1d5a84bf",
+      "manualRead": "whole body read at exact edaaaf31 for conservative type-only transitive relationship review; no unrelated sibling business/behavior acceptance",
+      "mainBlobIdentical": true,
+      "predecessorBlobIdentical": true,
+      "finalBlobVerified": "606d608fd224dae0003a81beb888976c1d5a84bf",
+      "publicBlobVerified": "606d608fd224dae0003a81beb888976c1d5a84bf",
+      "candidateBlobVerified": "606d608fd224dae0003a81beb888976c1d5a84bf"
+    },
+    {
+      "source": "packages/utils/src/lib/platform/parts.ts",
+      "sha256": "5382169dc9803fde93bc85e33062cbc85d7cdc0bf754d1a7f6f21eb2b4dcac29",
+      "gitBlob": "05497fc4e10917c0c6647240bcad0b047e559cec",
+      "manualRead": "whole body read at exact edaaaf31 for conservative type-only transitive relationship review; no unrelated sibling business/behavior acceptance",
+      "mainBlobIdentical": true,
+      "predecessorBlobIdentical": true,
+      "finalBlobVerified": "05497fc4e10917c0c6647240bcad0b047e559cec",
+      "publicBlobVerified": "05497fc4e10917c0c6647240bcad0b047e559cec",
+      "candidateBlobVerified": "05497fc4e10917c0c6647240bcad0b047e559cec"
+    },
+    {
+      "source": "packages/utils/src/lib/platform/screen-reader.ts",
+      "sha256": "c43ebce8b6557becf984c0ae7f36395da615110e7f878bab1c0dfd476ceb19a7",
+      "gitBlob": "b92dd826166ad8ba12fa29c585188986a7f61cbe",
+      "manualRead": "whole body read at exact edaaaf31 for conservative type-only transitive relationship review; no unrelated sibling business/behavior acceptance",
+      "mainBlobIdentical": true,
+      "predecessorBlobIdentical": true,
+      "finalBlobVerified": "b92dd826166ad8ba12fa29c585188986a7f61cbe",
+      "publicBlobVerified": "b92dd826166ad8ba12fa29c585188986a7f61cbe",
+      "candidateBlobVerified": "b92dd826166ad8ba12fa29c585188986a7f61cbe"
+    },
+    {
+      "source": "packages/utils/src/lib/platform/shared.ts",
+      "sha256": "28621a4723495ed9f1370c09b12480a6f488f19e59c70e78524325fc6e080db2",
+      "gitBlob": "5a0713fe7f3fb709a6e42034061fa8e4ce2da3f6",
+      "manualRead": "whole body read at exact edaaaf31 for conservative type-only transitive relationship review; no unrelated sibling business/behavior acceptance",
+      "mainBlobIdentical": true,
+      "predecessorBlobIdentical": true,
+      "finalBlobVerified": "5a0713fe7f3fb709a6e42034061fa8e4ce2da3f6",
+      "publicBlobVerified": "5a0713fe7f3fb709a6e42034061fa8e4ce2da3f6",
+      "candidateBlobVerified": "5a0713fe7f3fb709a6e42034061fa8e4ce2da3f6"
+    },
+    {
+      "source": "packages/utils/src/lib/shadowDom.ts",
+      "sha256": "2cb79a4a3ccbe16581be29f7958d03bce459c5cf8cad8ae4b9f08ab981d42a2a",
+      "gitBlob": "d8a8b998b891cf434cff65e3fefdf072a1e09939",
+      "manualRead": "whole body read at exact edaaaf31 for conservative type-only transitive relationship review; no unrelated sibling business/behavior acceptance",
+      "mainBlobIdentical": true,
+      "predecessorBlobIdentical": true,
+      "finalBlobVerified": "d8a8b998b891cf434cff65e3fefdf072a1e09939",
+      "publicBlobVerified": "d8a8b998b891cf434cff65e3fefdf072a1e09939",
+      "candidateBlobVerified": "d8a8b998b891cf434cff65e3fefdf072a1e09939"
+    },
+    {
+      "source": "packages/utils/src/lib/store/Store.svelte.ts",
+      "sha256": "289f1c151106f981843140b9d508d300597ee1f5a90437dca446738b861cad3c",
+      "gitBlob": "daa3148a0d962990f6dc261fd3cdc8af02009a53",
+      "manualRead": "whole body read at exact edaaaf31 for conservative type-only transitive relationship review; no unrelated sibling business/behavior acceptance",
+      "mainBlobIdentical": true,
+      "predecessorBlobIdentical": true,
+      "finalBlobVerified": "daa3148a0d962990f6dc261fd3cdc8af02009a53",
+      "publicBlobVerified": "daa3148a0d962990f6dc261fd3cdc8af02009a53",
+      "candidateBlobVerified": "daa3148a0d962990f6dc261fd3cdc8af02009a53"
+    },
+    {
+      "source": "packages/utils/src/lib/store/SvelteStore.svelte.ts",
+      "sha256": "472b01d7a463c05348b85c85a413b70c55b950972f12b144ce632e4ab775102c",
+      "gitBlob": "21619231f5d1f6ffc6750461168693b781842de2",
+      "manualRead": "whole body read at exact edaaaf31 for conservative type-only transitive relationship review; no unrelated sibling business/behavior acceptance",
+      "mainBlobIdentical": true,
+      "predecessorBlobIdentical": true,
+      "finalBlobVerified": "21619231f5d1f6ffc6750461168693b781842de2",
+      "publicBlobVerified": "21619231f5d1f6ffc6750461168693b781842de2",
+      "candidateBlobVerified": "21619231f5d1f6ffc6750461168693b781842de2"
+    },
+    {
+      "source": "packages/utils/src/lib/store/index.ts",
+      "sha256": "996a1d7a865fe2ce8a362041ced6b58a7ef139d4d796773971376e5fec0d52d7",
+      "gitBlob": "cc94e5319bdab967b4af11d816971374ea105ceb",
+      "manualRead": "whole body read at exact edaaaf31 for conservative type-only transitive relationship review; no unrelated sibling business/behavior acceptance",
+      "mainBlobIdentical": true,
+      "predecessorBlobIdentical": true,
+      "finalBlobVerified": "cc94e5319bdab967b4af11d816971374ea105ceb",
+      "publicBlobVerified": "cc94e5319bdab967b4af11d816971374ea105ceb",
+      "candidateBlobVerified": "cc94e5319bdab967b4af11d816971374ea105ceb"
+    },
+    {
+      "source": "packages/utils/src/lib/useEnhancedClickHandler.ts",
+      "sha256": "6a045d6b74a7851d3446200f55711ffc1dcc22449a2e92680cdf328750a436d5",
+      "gitBlob": "ccd1797bd9bbf97b8d31cac808b7c6d506e8e3dc",
+      "manualRead": "whole body read at exact edaaaf31 for conservative type-only transitive relationship review; no unrelated sibling business/behavior acceptance",
+      "mainBlobIdentical": true,
+      "predecessorBlobIdentical": true,
+      "finalBlobVerified": "ccd1797bd9bbf97b8d31cac808b7c6d506e8e3dc",
+      "publicBlobVerified": "ccd1797bd9bbf97b8d31cac808b7c6d506e8e3dc",
+      "candidateBlobVerified": "ccd1797bd9bbf97b8d31cac808b7c6d506e8e3dc"
+    },
+    {
+      "source": "packages/utils/src/lib/useTimeout.ts",
+      "sha256": "06130c6374e14371471cc3af14638ddb3cadb514bb985fcbc4b8a7a606008b7f",
+      "gitBlob": "f54e15b09b0b8228537778a07d1994a75eab570c",
+      "manualRead": "whole body read at exact edaaaf31 for conservative type-only transitive relationship review; no unrelated sibling business/behavior acceptance",
+      "mainBlobIdentical": true,
+      "predecessorBlobIdentical": true,
+      "finalBlobVerified": "f54e15b09b0b8228537778a07d1994a75eab570c",
+      "publicBlobVerified": "f54e15b09b0b8228537778a07d1994a75eab570c",
+      "candidateBlobVerified": "f54e15b09b0b8228537778a07d1994a75eab570c"
+    },
+    {
+      "source": "scripts/check-collapsible-package.sh",
+      "sha256": "e85ee635d6edca1a8875043146d5ebf9748f05e70c29f91a6bacb97cb4db971f",
+      "gitBlob": "5679b9d96fe050e05cc898e15bd89393eb18eedd",
+      "manualRead": "Fresh exact hydration delta plus complete consumer executable script reviewed",
+      "predecessorBlobIdentical": false,
+      "finalBlobVerified": "5679b9d96fe050e05cc898e15bd89393eb18eedd",
+      "publicBlobVerified": "5679b9d96fe050e05cc898e15bd89393eb18eedd",
+      "candidateBlobVerified": "5679b9d96fe050e05cc898e15bd89393eb18eedd"
+    },
+    {
+      "source": "parity/collapsible/source-candidate/evidence/exact-pin-public-types-before.log",
+      "sha256": "39bdd5ccd9360da7aa9695791018980f0f174e37cf1805273685bd3ba88b9cf4",
+      "gitBlob": "7aef77a4ab666757899c4af6dd1ce458a81ea649",
+      "manualRead": "Whole exact successor consumer/probe/failed evidence body reviewed; no independent execution",
+      "predecessorBlobIdentical": true,
+      "finalBlobVerified": "7aef77a4ab666757899c4af6dd1ce458a81ea649",
+      "publicBlobVerified": "7aef77a4ab666757899c4af6dd1ce458a81ea649",
+      "candidateBlobVerified": "7aef77a4ab666757899c4af6dd1ce458a81ea649"
+    },
+    {
+      "source": "parity/collapsible/source-candidate/evidence/exact-pin-public-types-probe.ts.snapshot",
+      "sha256": "6a2612d5d84bcd3533fb0b04a90afbb803271508cb97adb17a53a5b2de5523ec",
+      "gitBlob": "75ff4d8df42c3471053778e77a9cacf516b9bc9f",
+      "manualRead": "Whole exact successor consumer/probe/failed evidence body reviewed; no independent execution",
+      "predecessorBlobIdentical": true,
+      "finalBlobVerified": "75ff4d8df42c3471053778e77a9cacf516b9bc9f",
+      "publicBlobVerified": "75ff4d8df42c3471053778e77a9cacf516b9bc9f",
+      "candidateBlobVerified": "75ff4d8df42c3471053778e77a9cacf516b9bc9f"
+    },
+    {
+      "source": "parity/collapsible/source-candidate/evidence/exact-pin-ref-types-before.log",
+      "sha256": "0cb1bb03cd675c3784c552a42118835796a13b37cea4b2161b114578067ee6e1",
+      "gitBlob": "2c76cc70151876884a6eb9beab349c85bc697a5a",
+      "manualRead": "Whole exact preserved red/probe body reviewed; no independent execution",
+      "predecessorBlobIdentical": true,
+      "finalBlobVerified": "2c76cc70151876884a6eb9beab349c85bc697a5a",
+      "publicBlobVerified": "2c76cc70151876884a6eb9beab349c85bc697a5a",
+      "candidateBlobVerified": "2c76cc70151876884a6eb9beab349c85bc697a5a"
+    },
+    {
+      "source": "parity/collapsible/source-candidate/evidence/exact-pin-ref-types-probe.ts.snapshot",
+      "sha256": "bdeb456238a23397ccfdb4440f8b59df692a4dbdd1dc7a37b31ed03078c61486",
+      "gitBlob": "4504cf0212b972b509a04b16e2d73b226d232ad3",
+      "manualRead": "Whole exact preserved red/probe body reviewed; no independent execution",
+      "predecessorBlobIdentical": true,
+      "finalBlobVerified": "4504cf0212b972b509a04b16e2d73b226d232ad3",
+      "publicBlobVerified": "4504cf0212b972b509a04b16e2d73b226d232ad3",
+      "candidateBlobVerified": "4504cf0212b972b509a04b16e2d73b226d232ad3"
+    },
+    {
+      "source": "parity/collapsible/source-candidate/evidence/strict-package-exact-ref-before.log",
+      "sha256": "1b27ddd35feb6d0fead51678b89e0eb4f17fc39a45067c52ca3b276748006d38",
+      "gitBlob": "68e619abee6d3ec24b7e1c034acd77f42cab72db",
+      "manualRead": "Whole exact preserved red/probe body reviewed; no independent execution",
+      "predecessorBlobIdentical": true,
+      "finalBlobVerified": "68e619abee6d3ec24b7e1c034acd77f42cab72db",
+      "publicBlobVerified": "68e619abee6d3ec24b7e1c034acd77f42cab72db",
+      "candidateBlobVerified": "68e619abee6d3ec24b7e1c034acd77f42cab72db"
+    },
+    {
+      "source": "scripts/package-artifacts.sh",
+      "sha256": "9ecd455fb5563b3a57c53475f1dfc269384b08aefe7d2ea2f977de56ed212fa9",
+      "gitBlob": "8ae1c442296430f35d9caa7c7ff8c12572fc1ea9",
+      "manualRead": "Whole exact hydration gate/auxiliary/stale generated or historical snapshot body reviewed; no execution",
+      "finalBlobVerified": "8ae1c442296430f35d9caa7c7ff8c12572fc1ea9",
+      "publicBlobVerified": "8ae1c442296430f35d9caa7c7ff8c12572fc1ea9",
+      "candidateBlobVerified": "8ae1c442296430f35d9caa7c7ff8c12572fc1ea9"
+    },
+    {
+      "source": "scripts/package-artifacts.mjs",
+      "sha256": "4255c0520d51e8c3e6c8a13656a432d57e6b9e25b8d82099df915a47803819c7",
+      "gitBlob": "2f5423aed47a55db1ab59ef84104b08fdc394c8e",
+      "manualRead": "Whole exact hydration gate/auxiliary/stale generated or historical snapshot body reviewed; no execution",
+      "finalBlobVerified": "2f5423aed47a55db1ab59ef84104b08fdc394c8e",
+      "publicBlobVerified": "2f5423aed47a55db1ab59ef84104b08fdc394c8e",
+      "candidateBlobVerified": "2f5423aed47a55db1ab59ef84104b08fdc394c8e"
+    },
+    {
+      "source": "scripts/toolchain.sh",
+      "sha256": "06ed846be9c0ec41f25979f0186f390c22d4ae1023d9de44377942892dd808d5",
+      "gitBlob": "761e5df3bedbe0fcac41a773f7868abc3a6c5868",
+      "manualRead": "Whole exact hydration gate/auxiliary/stale generated or historical snapshot body reviewed; no execution",
+      "finalBlobVerified": "761e5df3bedbe0fcac41a773f7868abc3a6c5868",
+      "publicBlobVerified": "761e5df3bedbe0fcac41a773f7868abc3a6c5868",
+      "candidateBlobVerified": "761e5df3bedbe0fcac41a773f7868abc3a6c5868"
+    },
+    {
+      "source": "scripts/svelte-ssr-loader.mjs",
+      "sha256": "a18fc63ef955371c75d9f4cbf27d5ccc20ad859f19021f61df7041c5c228c5ec",
+      "gitBlob": "16092565370bdc8fcc0dc0e7313c699bbe97b5a8",
+      "manualRead": "Whole exact hydration gate/auxiliary/stale generated or historical snapshot body reviewed; no execution",
+      "finalBlobVerified": "16092565370bdc8fcc0dc0e7313c699bbe97b5a8",
+      "publicBlobVerified": "16092565370bdc8fcc0dc0e7313c699bbe97b5a8",
+      "candidateBlobVerified": "16092565370bdc8fcc0dc0e7313c699bbe97b5a8"
+    },
+    {
+      "source": "parity/collapsible/source-candidate/generated-consumer/DOMConsumer.svelte",
+      "sha256": "333009759ec0c0653d558f9aa8fffb776f5c91b9efd3d8577e3a3e01be6c303c",
+      "gitBlob": "8591c372624f32371d69c54f4ed5ac2fd312c27b",
+      "manualRead": "Fresh entire regenerated hydration consumer body read at bd",
+      "historicalSha256": "d5ea8874447539cdf7af6b7b738091d6afd1ee58b7fa5966ce091f658b5cad15",
+      "finalBlobVerified": "ce9e02fded12175cf66b049a3db213fc6a157570",
+      "publicBlobVerified": "ce9e02fded12175cf66b049a3db213fc6a157570",
+      "candidateBlobVerified": "ce9e02fded12175cf66b049a3db213fc6a157570"
+    },
+    {
+      "source": "parity/collapsible/source-candidate/generated-consumer/dom-check.mjs",
+      "sha256": "89c9213dd3593cbef583d0dac076a3b5175777b487f0f4c1c8c053911b2c33bf",
+      "gitBlob": "c45ba1a5c260ad23593188f577b4dd0de05ee3cf",
+      "manualRead": "Fresh entire regenerated hydration consumer body read at bd",
+      "historicalSha256": "a2e351dc836363db7b39d6624f05cf450998150dd0114101010c94152cab10bf",
+      "finalBlobVerified": "2c7cf655d10e925c681b3aed22a914ca349b553a",
+      "publicBlobVerified": "2c7cf655d10e925c681b3aed22a914ca349b553a",
+      "candidateBlobVerified": "2c7cf655d10e925c681b3aed22a914ca349b553a"
+    },
+    {
+      "source": "parity/collapsible/source-candidate/checkpoints/73394b05-mount-only/check-collapsible-package.sh.snapshot",
+      "sha256": "2f144b0cc6df89219b34b92ab3bf894a01f216d9e7be458a49da988592be83bb",
+      "gitBlob": "cad0186e931457fc945a6fce90aabf00a20c78e1",
+      "manualRead": "Whole exact hydration gate/auxiliary/stale generated or historical snapshot body reviewed; no execution",
+      "finalBlobVerified": "cad0186e931457fc945a6fce90aabf00a20c78e1",
+      "publicBlobVerified": "cad0186e931457fc945a6fce90aabf00a20c78e1",
+      "candidateBlobVerified": "cad0186e931457fc945a6fce90aabf00a20c78e1"
+    },
+    {
+      "source": "packages/base/src/lib/index.ts",
+      "sha256": "06dbc3ac673b441f7104d82fcc84822565bc10e61f0f1c855ff7c7d8dd77c75a",
+      "gitBlob": "3d43f5357a05d0c8b7abe053c644528a2ed4f3fa",
+      "manualRead": "Complete root barrel body read; member-filtered closure follows Collapsible only",
+      "hashVerified": true,
+      "finalBlobVerified": "3d43f5357a05d0c8b7abe053c644528a2ed4f3fa",
+      "publicBlobVerified": "3d43f5357a05d0c8b7abe053c644528a2ed4f3fa",
+      "candidateBlobVerified": "3d43f5357a05d0c8b7abe053c644528a2ed4f3fa"
+    }
+  ],
+  "testClosureHashOnlyReceipts": [
+    {
+      "source": "packages/react/src/collapsible/index.parts.ts",
+      "sha256": "77d02702e28e88b7e845f7cc8c95385b23d2aed75c052c4b1f30dd297d792ca0",
+      "gitBlob": "93a0c5238a25e7a128691e758a3a4bb24c153c7d",
+      "hashVerified": true,
+      "manualTestBusinessReview": false,
+      "note": "production overlap separately manually reviewed; test/conformance bodies only hash-verified in this independent pass",
+      "predecessorBlobIdentical": true
+    },
+    {
+      "source": "packages/react/src/collapsible/index.ts",
+      "sha256": "4694d1fb838941e216a5439a94d3a66c265827900253d8119d5531377e5e1ec2",
+      "gitBlob": "a8c3f341cede5c9f575c3be67e9b4bf2aba427db",
+      "hashVerified": true,
+      "manualTestBusinessReview": false,
+      "note": "production overlap separately manually reviewed; test/conformance bodies only hash-verified in this independent pass",
+      "predecessorBlobIdentical": true
+    },
+    {
+      "source": "packages/react/src/collapsible/panel/CollapsiblePanel.test.tsx",
+      "sha256": "838ff4510f0a4eed7e7369e087270682540040526766696dd6f94179cbf416bf",
+      "gitBlob": "101d2fba337a74aac73540a464174135f57daa19",
+      "hashVerified": true,
+      "manualTestBusinessReview": false,
+      "note": "production overlap separately manually reviewed; test/conformance bodies only hash-verified in this independent pass",
+      "predecessorBlobIdentical": true
+    },
+    {
+      "source": "packages/react/src/collapsible/panel/CollapsiblePanel.tsx",
+      "sha256": "b2694e75cd711224adc1e586cc36efa6832354657d0979c00a28a9bb4d8bef79",
+      "gitBlob": "f486efc012f8e5f80473a1a9b5b54de28d81c3c8",
+      "hashVerified": true,
+      "manualTestBusinessReview": false,
+      "note": "production overlap separately manually reviewed; test/conformance bodies only hash-verified in this independent pass",
+      "predecessorBlobIdentical": true
+    },
+    {
+      "source": "packages/react/src/collapsible/panel/CollapsiblePanelCssVars.ts",
+      "sha256": "a0dbd3f727fb2cebd5a1163722269991ee6c92f7c371ab68c6cc5e5d37824d77",
+      "gitBlob": "21e0763faeb14aff9ea2d215f6ee944010fcf997",
+      "hashVerified": true,
+      "manualTestBusinessReview": false,
+      "note": "production overlap separately manually reviewed; test/conformance bodies only hash-verified in this independent pass",
+      "predecessorBlobIdentical": true
+    },
+    {
+      "source": "packages/react/src/collapsible/panel/CollapsiblePanelDataAttributes.ts",
+      "sha256": "dc5173421a0cd805c6f736b93a50dd8ab5b3e51da7374ae9e05d76b12b5602eb",
+      "gitBlob": "1d2f6bf4ff9919ba3b79578994831c826d62e515",
+      "hashVerified": true,
+      "manualTestBusinessReview": false,
+      "note": "production overlap separately manually reviewed; test/conformance bodies only hash-verified in this independent pass",
+      "predecessorBlobIdentical": true
+    },
+    {
+      "source": "packages/react/src/collapsible/panel/useCollapsiblePanel.ts",
+      "sha256": "5f2b096ff87493217f032f6252c8d73c152594d6ceb379753168238ab3ba8e04",
+      "gitBlob": "940cafb937d4c55f9590c4dd47ea1a0e30541ac8",
+      "hashVerified": true,
+      "manualTestBusinessReview": false,
+      "note": "production overlap separately manually reviewed; test/conformance bodies only hash-verified in this independent pass",
+      "predecessorBlobIdentical": true
+    },
+    {
+      "source": "packages/react/src/collapsible/root/CollapsibleRoot.spec.tsx",
+      "sha256": "c582c610a65579d4016e42375243d6a115faf7be4dcd8d3f7b2a47bd00b4fe53",
+      "gitBlob": "5d3f65fe220fc496ced59a5cef7fd455850491ed",
+      "hashVerified": true,
+      "manualTestBusinessReview": false,
+      "note": "production overlap separately manually reviewed; test/conformance bodies only hash-verified in this independent pass",
+      "predecessorBlobIdentical": true
+    },
+    {
+      "source": "packages/react/src/collapsible/root/CollapsibleRoot.test.tsx",
+      "sha256": "26baa194cd1b6c511ce6bd4f92557cd442b20e9e85a821d19bbf5eea23856386",
+      "gitBlob": "45a3b11a4cf876c95bef305286ff278721090ec1",
+      "hashVerified": true,
+      "manualTestBusinessReview": false,
+      "note": "production overlap separately manually reviewed; test/conformance bodies only hash-verified in this independent pass",
+      "predecessorBlobIdentical": true
+    },
+    {
+      "source": "packages/react/src/collapsible/root/CollapsibleRoot.tsx",
+      "sha256": "0cef031a852397b79afa67943e1370996bfa5ec20766d7a07a2d4e71674d173e",
+      "gitBlob": "969f728999eaf77ce960d7b4eb2bb9b97d23c81e",
+      "hashVerified": true,
+      "manualTestBusinessReview": false,
+      "note": "production overlap separately manually reviewed; test/conformance bodies only hash-verified in this independent pass",
+      "predecessorBlobIdentical": true
+    },
+    {
+      "source": "packages/react/src/collapsible/root/CollapsibleRootContext.ts",
+      "sha256": "22722a169e4c60f5d3ca433d103c39a2235629354f4e8100b3f26c3ca24da686",
+      "gitBlob": "8a2461a0e44f707fe003c1447eb57a8909aa6049",
+      "hashVerified": true,
+      "manualTestBusinessReview": false,
+      "note": "production overlap separately manually reviewed; test/conformance bodies only hash-verified in this independent pass",
+      "predecessorBlobIdentical": true
+    },
+    {
+      "source": "packages/react/src/collapsible/root/stateAttributesMapping.ts",
+      "sha256": "d892c1dc45b10406218d1f1eaf724ef2a068d0bfe44aefba1a3c0754ae4f1509",
+      "gitBlob": "7e30f9c8920a61c2233e26acf745379bb7670fe6",
+      "hashVerified": true,
+      "manualTestBusinessReview": false,
+      "note": "production overlap separately manually reviewed; test/conformance bodies only hash-verified in this independent pass",
+      "predecessorBlobIdentical": true
+    },
+    {
+      "source": "packages/react/src/collapsible/root/useCollapsibleRoot.ts",
+      "sha256": "421c5192f10897812244c529ca61b91d2cebe1928362bcbdea998e7037f297d1",
+      "gitBlob": "cfa0c5c6243e00565bd913434ab1b9c8275243d2",
+      "hashVerified": true,
+      "manualTestBusinessReview": false,
+      "note": "production overlap separately manually reviewed; test/conformance bodies only hash-verified in this independent pass",
+      "predecessorBlobIdentical": true
+    },
+    {
+      "source": "packages/react/src/collapsible/trigger/CollapsibleTrigger.test.tsx",
+      "sha256": "fa2373cc44f972d42d0920af49d322dc885305e07e620bf56e4c10b302928c1a",
+      "gitBlob": "99bd08a650b1a622ad616aeebce89200ee60a29a",
+      "hashVerified": true,
+      "manualTestBusinessReview": false,
+      "note": "production overlap separately manually reviewed; test/conformance bodies only hash-verified in this independent pass",
+      "predecessorBlobIdentical": true
+    },
+    {
+      "source": "packages/react/src/collapsible/trigger/CollapsibleTrigger.tsx",
+      "sha256": "ce9afedaca5278236cd9aeac7cee408f510d75e32a78ec759e1cb2da76e3a634",
+      "gitBlob": "15b48d774474d25cf1f9f129a54da111fa9d1239",
+      "hashVerified": true,
+      "manualTestBusinessReview": false,
+      "note": "production overlap separately manually reviewed; test/conformance bodies only hash-verified in this independent pass",
+      "predecessorBlobIdentical": true
+    },
+    {
+      "source": "packages/react/src/collapsible/trigger/CollapsibleTriggerDataAttributes.ts",
+      "sha256": "f137ea2f8075f667078a8ade395d6802c9cd0cf1d489207198ad3bb1fc291de5",
+      "gitBlob": "b6e43dbef916147e69bd95316c7b83b3129519a2",
+      "hashVerified": true,
+      "manualTestBusinessReview": false,
+      "note": "production overlap separately manually reviewed; test/conformance bodies only hash-verified in this independent pass",
+      "predecessorBlobIdentical": true
+    },
+    {
+      "source": "packages/react/src/internals/composite/root/CompositeRootContext.ts",
+      "sha256": "751bbbd1fa2b4ae5c5674dc878d302b59b0e15b5771763cccbaf2362eee1b9fa",
+      "gitBlob": "20880b4b21095fae4cdfa8a1e0f8199dfe4a69c2",
+      "hashVerified": true,
+      "manualTestBusinessReview": false,
+      "note": "production overlap separately manually reviewed; test/conformance bodies only hash-verified in this independent pass",
+      "predecessorBlobIdentical": true
+    },
+    {
+      "source": "packages/react/src/internals/createBaseUIEventDetails.ts",
+      "sha256": "77bdb11a11ef1dfe9bc1a82db4754766cffbb91c27c3aeaea215e4e07cec2b2d",
+      "gitBlob": "0cd5f71ef7176145e7efddb1339aea38761c25d6",
+      "hashVerified": true,
+      "manualTestBusinessReview": false,
+      "note": "production overlap separately manually reviewed; test/conformance bodies only hash-verified in this independent pass",
+      "predecessorBlobIdentical": true
+    },
+    {
+      "source": "packages/react/src/internals/getStateAttributesProps.ts",
+      "sha256": "ae0c62d85ecb1d58d833c49a8753929df86a7539e94e272fdfe692d6ae89abcb",
+      "gitBlob": "58c0c0d0aca15ea171bda1501253a6087c08da79",
+      "hashVerified": true,
+      "manualTestBusinessReview": false,
+      "note": "production overlap separately manually reviewed; test/conformance bodies only hash-verified in this independent pass",
+      "predecessorBlobIdentical": true
+    },
+    {
+      "source": "packages/react/src/internals/reason-parts.ts",
+      "sha256": "1cddfb9a98326bc5e586c2bdb66fb3a58913038f8ee7368ec57bbaf972521e06",
+      "gitBlob": "c364bda5ccd0898fbb5b143b36d68c541fb87d0b",
+      "hashVerified": true,
+      "manualTestBusinessReview": false,
+      "note": "production overlap separately manually reviewed; test/conformance bodies only hash-verified in this independent pass",
+      "predecessorBlobIdentical": true
+    },
+    {
+      "source": "packages/react/src/internals/reasons.ts",
+      "sha256": "694b1512f2dd9c999e97899e1fe9ea0f189fbe8476fcbc0f957cd786806c4abf",
+      "gitBlob": "70f9631f4cb99e76fc28176b0cbe53057bb6fc74",
+      "hashVerified": true,
+      "manualTestBusinessReview": false,
+      "note": "production overlap separately manually reviewed; test/conformance bodies only hash-verified in this independent pass",
+      "predecessorBlobIdentical": true
+    },
+    {
+      "source": "packages/react/src/internals/stateAttributesMapping.ts",
+      "sha256": "722dc0fed9ce97ed42b5b59418a01596c99b0cb8c5c5bb638737878dfe2d43bc",
+      "gitBlob": "948c0f257a8109a603397a8a6f0afc9354618182",
+      "hashVerified": true,
+      "manualTestBusinessReview": false,
+      "note": "production overlap separately manually reviewed; test/conformance bodies only hash-verified in this independent pass",
+      "predecessorBlobIdentical": true
+    },
+    {
+      "source": "packages/react/src/internals/TransitionStatusDataAttributes.ts",
+      "sha256": "cf240c33e54cbfae687b7f9b1bdaf7329c1cda7630481ca68d105723d75440d7",
+      "gitBlob": "d8c8b16973dd8ab37e0ca973acec8de81a592117",
+      "hashVerified": true,
+      "manualTestBusinessReview": false,
+      "note": "production overlap separately manually reviewed; test/conformance bodies only hash-verified in this independent pass",
+      "predecessorBlobIdentical": true
+    },
+    {
+      "source": "packages/react/src/internals/types.ts",
+      "sha256": "ed0c29125011488378a038fe179287809ef624d9d84389d83d7207b25e3d416a",
+      "gitBlob": "b8cd7a0331b9f428070b3ff4be81a1e0865ae63b",
+      "hashVerified": true,
+      "manualTestBusinessReview": false,
+      "note": "production overlap separately manually reviewed; test/conformance bodies only hash-verified in this independent pass",
+      "predecessorBlobIdentical": true
+    },
+    {
+      "source": "packages/react/src/internals/use-button/index.ts",
+      "sha256": "bfd5490017aa66ebc7d42c86e9309e15109eb1a0d5058fed586704adf93c8d23",
+      "gitBlob": "95acb7a36d0515ef1ea2612723b02051908fca83",
+      "hashVerified": true,
+      "manualTestBusinessReview": false,
+      "note": "production overlap separately manually reviewed; test/conformance bodies only hash-verified in this independent pass",
+      "predecessorBlobIdentical": true
+    },
+    {
+      "source": "packages/react/src/internals/use-button/useButton.ts",
+      "sha256": "eba51ce4ed0d2082dda17180bbbbe2bf91318c2b33eae2d114c0e4ebbe3203e6",
+      "gitBlob": "416d60da85d461c826775a9d893e408023d94852",
+      "hashVerified": true,
+      "manualTestBusinessReview": false,
+      "note": "production overlap separately manually reviewed; test/conformance bodies only hash-verified in this independent pass",
+      "predecessorBlobIdentical": true
+    },
+    {
+      "source": "packages/react/src/internals/useAnimationsFinished.ts",
+      "sha256": "58fef3cb8defbbbe84c80126a6b0aff767293b692a19d97f078a190e62a3d7a6",
+      "gitBlob": "b7b2aed236cc14b38d97a39fd0d72a08b161230b",
+      "hashVerified": true,
+      "manualTestBusinessReview": false,
+      "note": "production overlap separately manually reviewed; test/conformance bodies only hash-verified in this independent pass",
+      "predecessorBlobIdentical": true
+    },
+    {
+      "source": "packages/react/src/internals/useBaseUiId.ts",
+      "sha256": "c935ee27e3dfee2307e108dc82a36ec2a1f3e76b4692de188e5d3cdc4511157f",
+      "gitBlob": "c46d78204bfcc6743c2fce2fd74ecb683cbe73f6",
+      "hashVerified": true,
+      "manualTestBusinessReview": false,
+      "note": "production overlap separately manually reviewed; test/conformance bodies only hash-verified in this independent pass",
+      "predecessorBlobIdentical": true
+    },
+    {
+      "source": "packages/react/src/internals/useOpenChangeComplete.tsx",
+      "sha256": "809be9e6b5a1a6238d9f239c162e2489d7da6e5f20383fbe65e85933e7259d89",
+      "gitBlob": "c823fe3aa474de9caceb3d7c9bdb1c40c2024beb",
+      "hashVerified": true,
+      "manualTestBusinessReview": false,
+      "note": "production overlap separately manually reviewed; test/conformance bodies only hash-verified in this independent pass",
+      "predecessorBlobIdentical": true
+    },
+    {
+      "source": "packages/react/src/internals/useRenderElement.tsx",
+      "sha256": "0b55dc232a0d630a666a13873213d1bdde040e973031f2b307a64cc157644a4c",
+      "gitBlob": "3564c541f66b6d232c1bd0a79f5d092c69c4ba4b",
+      "hashVerified": true,
+      "manualTestBusinessReview": false,
+      "note": "production overlap separately manually reviewed; test/conformance bodies only hash-verified in this independent pass",
+      "predecessorBlobIdentical": true
+    },
+    {
+      "source": "packages/react/src/internals/useTransitionStatus.ts",
+      "sha256": "07ffaf4fcf96a3d4d24aa2dabb696f2e082f312149225e45372a12a0d3cfe4e1",
+      "gitBlob": "f3b4a743745edb97fd7fe35ab8a37a0935f1edc5",
+      "hashVerified": true,
+      "manualTestBusinessReview": false,
+      "note": "production overlap separately manually reviewed; test/conformance bodies only hash-verified in this independent pass",
+      "predecessorBlobIdentical": true
+    },
+    {
+      "source": "packages/react/src/merge-props/index.ts",
+      "sha256": "4881819e46f8b81cc6e90add34bc5a87cf924596e007785da31eed500414222f",
+      "gitBlob": "e03df598cb287a0228cabb37f2a01e50cb8b2aa1",
+      "hashVerified": true,
+      "manualTestBusinessReview": false,
+      "note": "production overlap separately manually reviewed; test/conformance bodies only hash-verified in this independent pass",
+      "predecessorBlobIdentical": true
+    },
+    {
+      "source": "packages/react/src/merge-props/mergeProps.ts",
+      "sha256": "cdc8fc165df88ddc4034fb2242ebf1ef32b504755404c343abf965cb3e4c90ce",
+      "gitBlob": "ec1cb4a2036be9a23e5eb22c07005698d1ebb65b",
+      "hashVerified": true,
+      "manualTestBusinessReview": false,
+      "note": "production overlap separately manually reviewed; test/conformance bodies only hash-verified in this independent pass",
+      "predecessorBlobIdentical": true
+    },
+    {
+      "source": "packages/react/src/types/index.ts",
+      "sha256": "ffc973365f8dbc5af24db40fa4553ee7fc1f154feb1803ff6a9bb5d5cd918587",
+      "gitBlob": "ae3f6419e86e49e5005fa8aa460c7204180d02e5",
+      "hashVerified": true,
+      "manualTestBusinessReview": false,
+      "note": "production overlap separately manually reviewed; test/conformance bodies only hash-verified in this independent pass",
+      "predecessorBlobIdentical": true
+    },
+    {
+      "source": "packages/react/src/utils/collapsibleOpenStateMapping.ts",
+      "sha256": "9be172c72160cfa569acaf0d617244b0152bf85d962a46c8c0d3dcf4123eb0c6",
+      "gitBlob": "e592a317610095b6d7280610a4398b8d6ed33214",
+      "hashVerified": true,
+      "manualTestBusinessReview": false,
+      "note": "production overlap separately manually reviewed; test/conformance bodies only hash-verified in this independent pass",
+      "predecessorBlobIdentical": true
+    },
+    {
+      "source": "packages/react/src/utils/dispatchClickWithModifiers.ts",
+      "sha256": "f395a0babfbb8b5a9e58f6db3e78fd9fdef34d2570cf71884068319af1fc0fba",
+      "gitBlob": "d2959075702c72387de50b02e7652714204aed39",
+      "hashVerified": true,
+      "manualTestBusinessReview": false,
+      "note": "production overlap separately manually reviewed; test/conformance bodies only hash-verified in this independent pass",
+      "predecessorBlobIdentical": true
+    },
+    {
+      "source": "packages/react/src/utils/resolveClassName.ts",
+      "sha256": "8a4b38bd68c8f1e7268c9587951c5e78349fd51c6f3befef597b3c3b60ac3b41",
+      "gitBlob": "486d39cb38116b5072587f4ff15b120243a3f636",
+      "hashVerified": true,
+      "manualTestBusinessReview": false,
+      "note": "production overlap separately manually reviewed; test/conformance bodies only hash-verified in this independent pass",
+      "predecessorBlobIdentical": true
+    },
+    {
+      "source": "packages/react/src/utils/resolveRef.ts",
+      "sha256": "fb0a9525bf7c002fe9e82d5c74235c5620b0b83f106cdec67b77071a05140312",
+      "gitBlob": "01bfdfe91ea706f67a66234c4f084e8cb4ce3ebc",
+      "hashVerified": true,
+      "manualTestBusinessReview": false,
+      "note": "production overlap separately manually reviewed; test/conformance bodies only hash-verified in this independent pass",
+      "predecessorBlobIdentical": true
+    },
+    {
+      "source": "packages/react/src/utils/resolveStyle.ts",
+      "sha256": "e8cb3f94b27439c43a3a26b82f21c09fe152871c202aef91f8907da3f8734cf0",
+      "gitBlob": "39a7284d88642803fa75847d83692964ec56d48f",
+      "hashVerified": true,
+      "manualTestBusinessReview": false,
+      "note": "production overlap separately manually reviewed; test/conformance bodies only hash-verified in this independent pass",
+      "predecessorBlobIdentical": true
+    },
+    {
+      "source": "packages/react/src/utils/useFocusableWhenDisabled.ts",
+      "sha256": "21e071c8b1547c8473ade8e4d3a415df8ca73767d6125a305c63fa8a620e5ba6",
+      "gitBlob": "094545bf0b5ba7e099d88fb7480133b890661545",
+      "hashVerified": true,
+      "manualTestBusinessReview": false,
+      "note": "production overlap separately manually reviewed; test/conformance bodies only hash-verified in this independent pass",
+      "predecessorBlobIdentical": true
+    },
+    {
+      "source": "packages/react/test/conformanceTests/className.tsx",
+      "sha256": "ea73ff821ec5660ee854392d0744a87cc38ede0d8c14a3c5070ea08408a599bb",
+      "gitBlob": "3af310c2937d620a50d04152de3465b88eaadaac",
+      "hashVerified": true,
+      "manualTestBusinessReview": false,
+      "note": "production overlap separately manually reviewed; test/conformance bodies only hash-verified in this independent pass",
+      "predecessorBlobIdentical": true
+    },
+    {
+      "source": "packages/react/test/conformanceTests/propForwarding.tsx",
+      "sha256": "82043f827f31e0ad21dfb359598af51c7299a2139b20be958d07ac6313372733",
+      "gitBlob": "dfcba9d5809e26a22c6df290384bb0e57ba2cc39",
+      "hashVerified": true,
+      "manualTestBusinessReview": false,
+      "note": "production overlap separately manually reviewed; test/conformance bodies only hash-verified in this independent pass",
+      "predecessorBlobIdentical": true
+    },
+    {
+      "source": "packages/react/test/conformanceTests/refForwarding.tsx",
+      "sha256": "3fff79d221c972d29f9909dfefbfa7f4bd16ab761960d795c01368e524c7fef0",
+      "gitBlob": "1fc8a3da1263b70368c50f6fbbf37d4c8434dea2",
+      "hashVerified": true,
+      "manualTestBusinessReview": false,
+      "note": "production overlap separately manually reviewed; test/conformance bodies only hash-verified in this independent pass",
+      "predecessorBlobIdentical": true
+    },
+    {
+      "source": "packages/react/test/conformanceTests/renderProp.tsx",
+      "sha256": "9f2094949667daaecdfeff914c231295d79ca9e3699ba754637a5c31d6eab225",
+      "gitBlob": "33990e43e15f7c5260446b887ac09f2d98367fa1",
+      "hashVerified": true,
+      "manualTestBusinessReview": false,
+      "note": "production overlap separately manually reviewed; test/conformance bodies only hash-verified in this independent pass",
+      "predecessorBlobIdentical": true
+    },
+    {
+      "source": "packages/react/test/conformanceTests/utils.ts",
+      "sha256": "8db69d4e87bd8ec8d5fc15380e53ae2a67ce4a3b893e62063c142405024d41c7",
+      "gitBlob": "88fdc4f707678084a07b8dfbe6c6f18f18568a24",
+      "hashVerified": true,
+      "manualTestBusinessReview": false,
+      "note": "production overlap separately manually reviewed; test/conformance bodies only hash-verified in this independent pass",
+      "predecessorBlobIdentical": true
+    },
+    {
+      "source": "packages/react/test/createRenderer.ts",
+      "sha256": "aa35bdbfbdf6163cd231302aa31a8b0f10564bd00d393de46c9d5030d75471a4",
+      "gitBlob": "66ef6f13deb815e3261cfdb3ac728dd4d414874b",
+      "hashVerified": true,
+      "manualTestBusinessReview": false,
+      "note": "production overlap separately manually reviewed; test/conformance bodies only hash-verified in this independent pass",
+      "predecessorBlobIdentical": true
+    },
+    {
+      "source": "packages/react/test/describeConformance.tsx",
+      "sha256": "316678dd7c2637e23c1f02e536974dae67d41bd8c7241c67c6e8c7461b74a184",
+      "gitBlob": "13f2a7cdd632238efb46ebf7f9587d3eb0ca7e6b",
+      "hashVerified": true,
+      "manualTestBusinessReview": false,
+      "note": "production overlap separately manually reviewed; test/conformance bodies only hash-verified in this independent pass",
+      "predecessorBlobIdentical": true
+    },
+    {
+      "source": "packages/react/test/index.ts",
+      "sha256": "7d7236f84d7124919fbba4f1ab1a09b725e2604b49864ba89070ea2f74f77ff5",
+      "gitBlob": "b1180328fc827d47fd6b66ed37741499cf54b398",
+      "hashVerified": true,
+      "manualTestBusinessReview": false,
+      "note": "production overlap separately manually reviewed; test/conformance bodies only hash-verified in this independent pass",
+      "predecessorBlobIdentical": true
+    },
+    {
+      "source": "packages/utils/src/addEventListener.ts",
+      "sha256": "a2d30e30e8151a62347f67620d568bd1550f5069af3652a57892ed9de42f3dcc",
+      "gitBlob": "ca1e296616e6b7a15b3849840d137141afa75636",
+      "hashVerified": true,
+      "manualTestBusinessReview": false,
+      "note": "production overlap separately manually reviewed; test/conformance bodies only hash-verified in this independent pass",
+      "predecessorBlobIdentical": true
+    },
+    {
+      "source": "packages/utils/src/createLogOnce.ts",
+      "sha256": "6e5e5b4c34d3407fe2379b58749d4da26c49c49383b7501964132a2e725660b1",
+      "gitBlob": "f6b7d5233f2ff2e921dfa214121691eaa849f3c7",
+      "hashVerified": true,
+      "manualTestBusinessReview": false,
+      "note": "production overlap separately manually reviewed; test/conformance bodies only hash-verified in this independent pass",
+      "predecessorBlobIdentical": true
+    },
+    {
+      "source": "packages/utils/src/empty.ts",
+      "sha256": "7d7c8625346dc2344dc551004c5c5da82878ab814818b7a8df4ad7082979ead6",
+      "gitBlob": "11da033ad3d22d1cee055ea41e4b159ec263eefb",
+      "hashVerified": true,
+      "manualTestBusinessReview": false,
+      "note": "production overlap separately manually reviewed; test/conformance bodies only hash-verified in this independent pass",
+      "predecessorBlobIdentical": true
+    },
+    {
+      "source": "packages/utils/src/error.ts",
+      "sha256": "957b3369d680d50a26cce3b4e9add608b2e829cb299636bde056e76297002847",
+      "gitBlob": "767f88180d3fc8b856ff34aabc88ac7989adbc04",
+      "hashVerified": true,
+      "manualTestBusinessReview": false,
+      "note": "production overlap separately manually reviewed; test/conformance bodies only hash-verified in this independent pass",
+      "predecessorBlobIdentical": true
+    },
+    {
+      "source": "packages/utils/src/getReactElementRef.ts",
+      "sha256": "6ea0078fe8f8a0feee703f968779a863b30789a6fac4e4f51de13690064af364",
+      "gitBlob": "81dfabe210f8efaa1dce12b00e9f38e7f224f209",
+      "hashVerified": true,
+      "manualTestBusinessReview": false,
+      "note": "production overlap separately manually reviewed; test/conformance bodies only hash-verified in this independent pass",
+      "predecessorBlobIdentical": true
+    },
+    {
+      "source": "packages/utils/src/mergeObjects.ts",
+      "sha256": "0e9b1568370f5c1ea28710bae245380281ae366187bfb871b99a14fe6b5b49fa",
+      "gitBlob": "6d801221d609d3ddf5982f32635a4eef8a3af599",
+      "hashVerified": true,
+      "manualTestBusinessReview": false,
+      "note": "production overlap separately manually reviewed; test/conformance bodies only hash-verified in this independent pass",
+      "predecessorBlobIdentical": true
+    },
+    {
+      "source": "packages/utils/src/owner.ts",
+      "sha256": "94a825206d926b388459df70639476133442c28c83a7e3be750399cb323ea623",
+      "gitBlob": "0972be5a42687887ce96c06be9fa08de53834107",
+      "hashVerified": true,
+      "manualTestBusinessReview": false,
+      "note": "production overlap separately manually reviewed; test/conformance bodies only hash-verified in this independent pass",
+      "predecessorBlobIdentical": true
+    },
+    {
+      "source": "packages/utils/src/reactVersion.ts",
+      "sha256": "e52b2ae447fe83a4b5a927a013405446542ef474b76a75540b7216bc561df889",
+      "gitBlob": "293a5e8c90288ad1c168f8448d4e9c8a845238a4",
+      "hashVerified": true,
+      "manualTestBusinessReview": false,
+      "note": "production overlap separately manually reviewed; test/conformance bodies only hash-verified in this independent pass",
+      "predecessorBlobIdentical": true
+    },
+    {
+      "source": "packages/utils/src/safeReact.ts",
+      "sha256": "b2923526a5b42e0d4f341ccb6c26e11d4b34991f206353320bb821026bbbc81f",
+      "gitBlob": "4e1e2bf1522c584b0ba60c1fdf1e3545c9ea9d76",
+      "hashVerified": true,
+      "manualTestBusinessReview": false,
+      "note": "production overlap separately manually reviewed; test/conformance bodies only hash-verified in this independent pass",
+      "predecessorBlobIdentical": true
+    },
+    {
+      "source": "packages/utils/src/testUtils.ts",
+      "sha256": "d97cb6255e7f21f5fc237563a1e59871420327f6e33e019c559d4802662c691f",
+      "gitBlob": "1eee151ab9ffef40615fa937fd847c24ef5094ff",
+      "hashVerified": true,
+      "manualTestBusinessReview": false,
+      "note": "production overlap separately manually reviewed; test/conformance bodies only hash-verified in this independent pass",
+      "predecessorBlobIdentical": true
+    },
+    {
+      "source": "packages/utils/src/useAnimationFrame.ts",
+      "sha256": "229943cee6d42305da4db33ed395ff8ccdde915c2e4e922c5af0c7b0aeeddf82",
+      "gitBlob": "8033fe6659e7c12eedf8358427956f0ff16bcf10",
+      "hashVerified": true,
+      "manualTestBusinessReview": false,
+      "note": "production overlap separately manually reviewed; test/conformance bodies only hash-verified in this independent pass",
+      "predecessorBlobIdentical": true
+    },
+    {
+      "source": "packages/utils/src/useControlled.ts",
+      "sha256": "487bc45fa3ef1a70177867bb03598230f9926601aed8e3c7f46470feb225f886",
+      "gitBlob": "e876b40c1ee0a6b239e2c12a4404a7737de7467e",
+      "hashVerified": true,
+      "manualTestBusinessReview": false,
+      "note": "production overlap separately manually reviewed; test/conformance bodies only hash-verified in this independent pass",
+      "predecessorBlobIdentical": true
+    },
+    {
+      "source": "packages/utils/src/useId.ts",
+      "sha256": "7d01ffb745d3404ba406ebbd12ddfc8eb73325c3adea3dbda0868e2bad2eef05",
+      "gitBlob": "2d2cf04dbe9a6c11039b7361931ab82e186ccdc4",
+      "hashVerified": true,
+      "manualTestBusinessReview": false,
+      "note": "production overlap separately manually reviewed; test/conformance bodies only hash-verified in this independent pass",
+      "predecessorBlobIdentical": true
+    },
+    {
+      "source": "packages/utils/src/useIsoLayoutEffect.ts",
+      "sha256": "13a0ab28d24b04617dc290ad151c145f2435d1e0c381123847af74344ea4b9a0",
+      "gitBlob": "01d3a9e9bf4275e4815c245e14c92e15f49eba77",
+      "hashVerified": true,
+      "manualTestBusinessReview": false,
+      "note": "production overlap separately manually reviewed; test/conformance bodies only hash-verified in this independent pass",
+      "predecessorBlobIdentical": true
+    },
+    {
+      "source": "packages/utils/src/useMergedRefs.ts",
+      "sha256": "5fa12ae01abedc23ba814e9c59f015cf14d306044638b56c977780de43275ba3",
+      "gitBlob": "2b869242727750842f616f5652583a3a878da28a",
+      "hashVerified": true,
+      "manualTestBusinessReview": false,
+      "note": "production overlap separately manually reviewed; test/conformance bodies only hash-verified in this independent pass",
+      "predecessorBlobIdentical": true
+    },
+    {
+      "source": "packages/utils/src/useOnMount.ts",
+      "sha256": "9d621d059249ec6ad10dbf35eef28153a8bc6ef893574d26a060385d4d13472b",
+      "gitBlob": "e849dcefca021fefc60464d42c6ea0f01eea24f6",
+      "hashVerified": true,
+      "manualTestBusinessReview": false,
+      "note": "production overlap separately manually reviewed; test/conformance bodies only hash-verified in this independent pass",
+      "predecessorBlobIdentical": true
+    },
+    {
+      "source": "packages/utils/src/useRefWithInit.ts",
+      "sha256": "183cb6e86ab1f8044a431d5b4115c750f7848c9835d519881b3c7a66dae98354",
+      "gitBlob": "6c13a09648ee6ebd5bd7e39e25673f9be40ff224",
+      "hashVerified": true,
+      "manualTestBusinessReview": false,
+      "note": "production overlap separately manually reviewed; test/conformance bodies only hash-verified in this independent pass",
+      "predecessorBlobIdentical": true
+    },
+    {
+      "source": "packages/utils/src/useStableCallback.ts",
+      "sha256": "908cbd177f86c961983d0124a859f733d341be49e58bc5a553255f47725419c1",
+      "gitBlob": "5dd957e39822a0e31d6862b42c9d91c2065a907d",
+      "hashVerified": true,
+      "manualTestBusinessReview": false,
+      "note": "production overlap separately manually reviewed; test/conformance bodies only hash-verified in this independent pass",
+      "predecessorBlobIdentical": true
+    },
+    {
+      "source": "packages/utils/src/useValueAsRef.ts",
+      "sha256": "ad85f215ea605641c7f579a0dd50841427a01c7412eee127b34c51318e744777",
+      "gitBlob": "30d86860bc53edbefb10273c81252833ec8148b5",
+      "hashVerified": true,
+      "manualTestBusinessReview": false,
+      "note": "production overlap separately manually reviewed; test/conformance bodies only hash-verified in this independent pass",
+      "predecessorBlobIdentical": true
+    },
+    {
+      "source": "packages/utils/src/warn.ts",
+      "sha256": "4e5565f4957742aaa2795bae3f37bfbc88dac51528550b3406ed5cef92474c00",
+      "gitBlob": "013d17a8423c53a66bdcf4884f90f518ce11e0fb",
+      "hashVerified": true,
+      "manualTestBusinessReview": false,
+      "note": "production overlap separately manually reviewed; test/conformance bodies only hash-verified in this independent pass",
+      "predecessorBlobIdentical": true
+    }
+  ],
+  "scopeNotes": [
+    "No heavy tests run by reviewer. No exact-pin reproductions added; review found no new scoped business defect requiring repair.",
+    "Original55 manual-body review and Original68 hash verification are separate activities; no claim of test closure business review.",
+    "Independent textual import traversal resolved84 modules without missing paths. It overapproximates effective runtime closure by following type-only Dialog/Floating expansions; all expanded bodies were subsequently read in bounded nontruncated groups for type relationships; those algorithms are not called by Collapsible and no sibling Source-business acceptance is implied.",
+    "Current committed source-candidate graph/correspondence metadata knowingly historical; final successor regeneration and final pushed SHA review required.",
+    "External @floating-ui/utils/dom ownerWindow, Svelte, esm-env are dependency/native boundaries. This report does not claim manual full third-party package review."
+  ],
+  "conservativeTextualGraph": {
+    "method": "independent regex/text import/reexport traversal with actual workspace export resolution; overapproximates runtime via type-only edges; not AST-member-filtered graph authority",
+    "moduleCount": 84,
+    "edges": [
+      {
+        "source": "packages/base/src/lib/collapsible/types.ts",
+        "specifier": "svelte/elements",
+        "resolved": "external:svelte/elements"
+      },
+      {
+        "source": "packages/base/src/lib/collapsible/types.ts",
+        "specifier": "../dialog/types.js",
+        "resolved": "packages/base/src/lib/dialog/types.ts"
+      },
+      {
+        "source": "packages/base/src/lib/collapsible/types.ts",
+        "specifier": "../internals/createBaseUIEventDetails.js",
+        "resolved": "packages/base/src/lib/internals/createBaseUIEventDetails.ts"
+      },
+      {
+        "source": "packages/base/src/lib/internals/createBaseUIEventDetails.ts",
+        "specifier": "@sveltery/utils/empty",
+        "resolved": "packages/utils/src/lib/empty.ts"
+      },
+      {
+        "source": "packages/base/src/lib/internals/createBaseUIEventDetails.ts",
+        "specifier": "./reasons.js",
+        "resolved": "packages/base/src/lib/internals/reasons.ts"
+      },
+      {
+        "source": "packages/base/src/lib/internals/reasons.ts",
+        "specifier": "./reason-parts.js",
+        "resolved": "packages/base/src/lib/internals/reason-parts.ts"
+      },
+      {
+        "source": "packages/base/src/lib/dialog/types.ts",
+        "specifier": "svelte",
+        "resolved": "external:svelte"
+      },
+      {
+        "source": "packages/base/src/lib/dialog/types.ts",
+        "specifier": "svelte/elements",
+        "resolved": "external:svelte/elements"
+      },
+      {
+        "source": "packages/base/src/lib/dialog/types.ts",
+        "specifier": "../internals/createBaseUIEventDetails.js",
+        "resolved": "packages/base/src/lib/internals/createBaseUIEventDetails.ts"
+      },
+      {
+        "source": "packages/base/src/lib/dialog/types.ts",
+        "specifier": "../merge-props/index.js",
+        "resolved": "packages/base/src/lib/merge-props/index.ts"
+      },
+      {
+        "source": "packages/base/src/lib/dialog/types.ts",
+        "specifier": "../internals/types.js",
+        "resolved": "packages/base/src/lib/internals/types.ts"
+      },
+      {
+        "source": "packages/base/src/lib/dialog/types.ts",
+        "specifier": "../internals/useTransitionStatus.svelte.js",
+        "resolved": "packages/base/src/lib/internals/useTransitionStatus.svelte.ts"
+      },
+      {
+        "source": "packages/base/src/lib/dialog/types.ts",
+        "specifier": "@sveltery/utils/useEnhancedClickHandler",
+        "resolved": "packages/utils/src/lib/useEnhancedClickHandler.ts"
+      },
+      {
+        "source": "packages/base/src/lib/dialog/types.ts",
+        "specifier": "@sveltery/utils/useEnhancedClickHandler",
+        "resolved": "packages/utils/src/lib/useEnhancedClickHandler.ts"
+      },
+      {
+        "source": "packages/base/src/lib/dialog/types.ts",
+        "specifier": "./handle.svelte.js",
+        "resolved": "packages/base/src/lib/dialog/handle.svelte.ts"
+      },
+      {
+        "source": "packages/base/src/lib/dialog/handle.svelte.ts",
+        "specifier": "./store/DialogHandle.svelte.js",
+        "resolved": "packages/base/src/lib/dialog/store/DialogHandle.svelte.ts"
+      },
+      {
+        "source": "packages/base/src/lib/dialog/store/DialogHandle.svelte.ts",
+        "specifier": "esm-env",
+        "resolved": "external:esm-env"
+      },
+      {
+        "source": "packages/base/src/lib/dialog/store/DialogHandle.svelte.ts",
+        "specifier": "./DialogStore.svelte.js",
+        "resolved": "packages/base/src/lib/dialog/store/DialogStore.svelte.ts"
+      },
+      {
+        "source": "packages/base/src/lib/dialog/store/DialogHandle.svelte.ts",
+        "specifier": "../../internals/createBaseUIEventDetails.js",
+        "resolved": "packages/base/src/lib/internals/createBaseUIEventDetails.ts"
+      },
+      {
+        "source": "packages/base/src/lib/dialog/store/DialogHandle.svelte.ts",
+        "specifier": "../../internals/reasons.js",
+        "resolved": "packages/base/src/lib/internals/reasons.ts"
+      },
+      {
+        "source": "packages/base/src/lib/dialog/store/DialogHandle.svelte.ts",
+        "specifier": "../../utils/popups/popupHandle.svelte.js",
+        "resolved": "packages/base/src/lib/utils/popups/popupHandle.svelte.ts"
+      },
+      {
+        "source": "packages/base/src/lib/utils/popups/popupHandle.svelte.ts",
+        "specifier": "esm-env",
+        "resolved": "external:esm-env"
+      },
+      {
+        "source": "packages/base/src/lib/utils/popups/popupHandle.svelte.ts",
+        "specifier": "svelte/reactivity",
+        "resolved": "external:svelte/reactivity"
+      },
+      {
+        "source": "packages/base/src/lib/utils/popups/popupHandle.svelte.ts",
+        "specifier": "@sveltery/utils/useAnimationFrame",
+        "resolved": "packages/utils/src/lib/useAnimationFrame.ts"
+      },
+      {
+        "source": "packages/base/src/lib/utils/popups/popupHandle.svelte.ts",
+        "specifier": "../../internals/createBaseUIEventDetails.js",
+        "resolved": "packages/base/src/lib/internals/createBaseUIEventDetails.ts"
+      },
+      {
+        "source": "packages/base/src/lib/utils/popups/popupHandle.svelte.ts",
+        "specifier": "../../internals/reasons.js",
+        "resolved": "packages/base/src/lib/internals/reasons.ts"
+      },
+      {
+        "source": "packages/base/src/lib/utils/popups/popupHandle.svelte.ts",
+        "specifier": "./popupTriggerMap.svelte.js",
+        "resolved": "packages/base/src/lib/utils/popups/popupTriggerMap.svelte.ts"
+      },
+      {
+        "source": "packages/base/src/lib/utils/popups/popupTriggerMap.svelte.ts",
+        "specifier": "esm-env",
+        "resolved": "external:esm-env"
+      },
+      {
+        "source": "packages/utils/src/lib/useAnimationFrame.ts",
+        "specifier": "esm-env",
+        "resolved": "external:esm-env"
+      },
+      {
+        "source": "packages/base/src/lib/dialog/store/DialogStore.svelte.ts",
+        "specifier": "@sveltery/utils/store",
+        "resolved": "packages/utils/src/lib/store/index.ts"
+      },
+      {
+        "source": "packages/base/src/lib/dialog/store/DialogStore.svelte.ts",
+        "specifier": "@sveltery/utils/useEnhancedClickHandler",
+        "resolved": "packages/utils/src/lib/useEnhancedClickHandler.ts"
+      },
+      {
+        "source": "packages/base/src/lib/dialog/store/DialogStore.svelte.ts",
+        "specifier": "../types.js",
+        "resolved": "packages/base/src/lib/dialog/types.ts"
+      },
+      {
+        "source": "packages/base/src/lib/dialog/store/DialogStore.svelte.ts",
+        "specifier": "../../utils/NullStore.svelte.js",
+        "resolved": "packages/base/src/lib/utils/NullStore.svelte.ts"
+      },
+      {
+        "source": "packages/base/src/lib/dialog/store/DialogStore.svelte.ts",
+        "specifier": "../../utils/popups/index.js",
+        "resolved": "packages/base/src/lib/utils/popups/index.ts"
+      },
+      {
+        "source": "packages/base/src/lib/utils/popups/index.ts",
+        "specifier": "./store.js",
+        "resolved": "packages/base/src/lib/utils/popups/store.ts"
+      },
+      {
+        "source": "packages/base/src/lib/utils/popups/index.ts",
+        "specifier": "./popupTriggerMap.svelte.js",
+        "resolved": "packages/base/src/lib/utils/popups/popupTriggerMap.svelte.ts"
+      },
+      {
+        "source": "packages/base/src/lib/utils/popups/index.ts",
+        "specifier": "./popupStoreUtils.svelte.js",
+        "resolved": "packages/base/src/lib/utils/popups/popupStoreUtils.svelte.ts"
+      },
+      {
+        "source": "packages/base/src/lib/utils/popups/popupStoreUtils.svelte.ts",
+        "specifier": "svelte",
+        "resolved": "external:svelte"
+      },
+      {
+        "source": "packages/base/src/lib/utils/popups/popupStoreUtils.svelte.ts",
+        "specifier": "./store.js",
+        "resolved": "packages/base/src/lib/utils/popups/store.ts"
+      },
+      {
+        "source": "packages/base/src/lib/utils/popups/popupStoreUtils.svelte.ts",
+        "specifier": "@sveltery/utils/empty",
+        "resolved": "packages/utils/src/lib/empty.ts"
+      },
+      {
+        "source": "packages/base/src/lib/utils/popups/popupStoreUtils.svelte.ts",
+        "specifier": "../../floating-ui/components/FloatingTree.svelte.js",
+        "resolved": "packages/base/src/lib/floating-ui/components/FloatingTree.svelte.ts"
+      },
+      {
+        "source": "packages/base/src/lib/utils/popups/popupStoreUtils.svelte.ts",
+        "specifier": "../../floating-ui/hooks/useSyncedFloatingRootContext.svelte.js",
+        "resolved": "packages/base/src/lib/floating-ui/hooks/useSyncedFloatingRootContext.svelte.ts"
+      },
+      {
+        "source": "packages/base/src/lib/utils/popups/popupStoreUtils.svelte.ts",
+        "specifier": "../../internals/useTransitionStatus.svelte.js",
+        "resolved": "packages/base/src/lib/internals/useTransitionStatus.svelte.ts"
+      },
+      {
+        "source": "packages/base/src/lib/utils/popups/popupStoreUtils.svelte.ts",
+        "specifier": "../../internals/useOpenChangeComplete.svelte.js",
+        "resolved": "packages/base/src/lib/internals/useOpenChangeComplete.svelte.ts"
+      },
+      {
+        "source": "packages/base/src/lib/utils/popups/popupStoreUtils.svelte.ts",
+        "specifier": "../../internals/createBaseUIEventDetails.js",
+        "resolved": "packages/base/src/lib/internals/createBaseUIEventDetails.ts"
+      },
+      {
+        "source": "packages/base/src/lib/utils/popups/popupStoreUtils.svelte.ts",
+        "specifier": "../../internals/reasons.js",
+        "resolved": "packages/base/src/lib/internals/reasons.ts"
+      },
+      {
+        "source": "packages/base/src/lib/utils/popups/popupStoreUtils.svelte.ts",
+        "specifier": "@sveltery/utils/useEnhancedClickHandler",
+        "resolved": "packages/utils/src/lib/useEnhancedClickHandler.ts"
+      },
+      {
+        "source": "packages/base/src/lib/utils/popups/popupStoreUtils.svelte.ts",
+        "specifier": "./store.js",
+        "resolved": "packages/base/src/lib/utils/popups/store.ts"
+      },
+      {
+        "source": "packages/base/src/lib/utils/popups/store.ts",
+        "specifier": "@sveltery/utils/store",
+        "resolved": "packages/utils/src/lib/store/index.ts"
+      },
+      {
+        "source": "packages/base/src/lib/utils/popups/store.ts",
+        "specifier": "@sveltery/utils/empty",
+        "resolved": "packages/utils/src/lib/empty.ts"
+      },
+      {
+        "source": "packages/base/src/lib/utils/popups/store.ts",
+        "specifier": "../../floating-ui/types.js",
+        "resolved": "packages/base/src/lib/floating-ui/types.ts"
+      },
+      {
+        "source": "packages/base/src/lib/utils/popups/store.ts",
+        "specifier": "../../floating-ui/components/FloatingRootStore.svelte.js",
+        "resolved": "packages/base/src/lib/floating-ui/components/FloatingRootStore.svelte.ts"
+      },
+      {
+        "source": "packages/base/src/lib/utils/popups/store.ts",
+        "specifier": "../../internals/useTransitionStatus.svelte.js",
+        "resolved": "packages/base/src/lib/internals/useTransitionStatus.svelte.ts"
+      },
+      {
+        "source": "packages/base/src/lib/utils/popups/store.ts",
+        "specifier": "./popupTriggerMap.svelte.js",
+        "resolved": "packages/base/src/lib/utils/popups/popupTriggerMap.svelte.ts"
+      },
+      {
+        "source": "packages/base/src/lib/utils/popups/store.ts",
+        "specifier": "../../internals/types.js",
+        "resolved": "packages/base/src/lib/internals/types.ts"
+      },
+      {
+        "source": "packages/base/src/lib/internals/types.ts",
+        "specifier": "svelte",
+        "resolved": "external:svelte"
+      },
+      {
+        "source": "packages/base/src/lib/internals/types.ts",
+        "specifier": "svelte/elements",
+        "resolved": "external:svelte/elements"
+      },
+      {
+        "source": "packages/base/src/lib/internals/types.ts",
+        "specifier": "../merge-props/index.js",
+        "resolved": "packages/base/src/lib/merge-props/index.ts"
+      },
+      {
+        "source": "packages/base/src/lib/internals/types.ts",
+        "specifier": "./nativeProps.js",
+        "resolved": "packages/base/src/lib/internals/nativeProps.ts"
+      },
+      {
+        "source": "packages/base/src/lib/internals/nativeProps.ts",
+        "specifier": "svelte/elements",
+        "resolved": "external:svelte/elements"
+      },
+      {
+        "source": "packages/base/src/lib/internals/nativeProps.ts",
+        "specifier": "./resolveClassValue.js",
+        "resolved": "packages/base/src/lib/internals/resolveClassValue.ts"
+      },
+      {
+        "source": "packages/base/src/lib/internals/nativeProps.ts",
+        "specifier": "@sveltery/utils/mergeObjects",
+        "resolved": "packages/utils/src/lib/mergeObjects.ts"
+      },
+      {
+        "source": "packages/base/src/lib/internals/resolveClassValue.ts",
+        "specifier": "svelte/elements",
+        "resolved": "external:svelte/elements"
+      },
+      {
+        "source": "packages/base/src/lib/merge-props/index.ts",
+        "specifier": "./mergeProps.js",
+        "resolved": "packages/base/src/lib/merge-props/mergeProps.ts"
+      },
+      {
+        "source": "packages/base/src/lib/merge-props/mergeProps.ts",
+        "specifier": "../internals/nativeProps.js",
+        "resolved": "packages/base/src/lib/internals/nativeProps.ts"
+      },
+      {
+        "source": "packages/base/src/lib/merge-props/mergeProps.ts",
+        "specifier": "@sveltery/utils/mergeObjects",
+        "resolved": "packages/utils/src/lib/mergeObjects.ts"
+      },
+      {
+        "source": "packages/base/src/lib/internals/useTransitionStatus.svelte.ts",
+        "specifier": "svelte",
+        "resolved": "external:svelte"
+      },
+      {
+        "source": "packages/base/src/lib/internals/useTransitionStatus.svelte.ts",
+        "specifier": "@sveltery/utils/useAnimationFrame",
+        "resolved": "packages/utils/src/lib/useAnimationFrame.ts"
+      },
+      {
+        "source": "packages/base/src/lib/floating-ui/components/FloatingRootStore.svelte.ts",
+        "specifier": "@sveltery/utils/store",
+        "resolved": "packages/utils/src/lib/store/index.ts"
+      },
+      {
+        "source": "packages/base/src/lib/floating-ui/components/FloatingRootStore.svelte.ts",
+        "specifier": "../types.js",
+        "resolved": "packages/base/src/lib/floating-ui/types.ts"
+      },
+      {
+        "source": "packages/base/src/lib/floating-ui/components/FloatingRootStore.svelte.ts",
+        "specifier": "../../internals/createBaseUIEventDetails.js",
+        "resolved": "packages/base/src/lib/internals/createBaseUIEventDetails.ts"
+      },
+      {
+        "source": "packages/base/src/lib/floating-ui/components/FloatingRootStore.svelte.ts",
+        "specifier": "../utils/createEventEmitter.js",
+        "resolved": "packages/base/src/lib/floating-ui/utils/createEventEmitter.ts"
+      },
+      {
+        "source": "packages/base/src/lib/floating-ui/components/FloatingRootStore.svelte.ts",
+        "specifier": "../types.js",
+        "resolved": "packages/base/src/lib/floating-ui/types.ts"
+      },
+      {
+        "source": "packages/base/src/lib/floating-ui/components/FloatingRootStore.svelte.ts",
+        "specifier": "../../utils/popups/popupTriggerMap.svelte.js",
+        "resolved": "packages/base/src/lib/utils/popups/popupTriggerMap.svelte.ts"
+      },
+      {
+        "source": "packages/base/src/lib/floating-ui/components/FloatingRootStore.svelte.ts",
+        "specifier": "../utils/event.js",
+        "resolved": "packages/base/src/lib/floating-ui/utils/event.ts"
+      },
+      {
+        "source": "packages/base/src/lib/floating-ui/components/FloatingRootStore.svelte.ts",
+        "specifier": "../../internals/useTransitionStatus.svelte.js",
+        "resolved": "packages/base/src/lib/internals/useTransitionStatus.svelte.ts"
+      },
+      {
+        "source": "packages/base/src/lib/floating-ui/utils/event.ts",
+        "specifier": "@sveltery/utils/platform",
+        "resolved": "packages/utils/src/lib/platform/index.ts"
+      },
+      {
+        "source": "packages/utils/src/lib/platform/index.ts",
+        "specifier": "@base-ui/utils/platform",
+        "resolved": "external:@base-ui/utils/platform"
+      },
+      {
+        "source": "packages/utils/src/lib/platform/index.ts",
+        "specifier": "./parts.js",
+        "resolved": "packages/utils/src/lib/platform/parts.ts"
+      },
+      {
+        "source": "packages/utils/src/lib/platform/parts.ts",
+        "specifier": "./os.js",
+        "resolved": "packages/utils/src/lib/platform/os.ts"
+      },
+      {
+        "source": "packages/utils/src/lib/platform/parts.ts",
+        "specifier": "./engine.js",
+        "resolved": "packages/utils/src/lib/platform/engine.ts"
+      },
+      {
+        "source": "packages/utils/src/lib/platform/parts.ts",
+        "specifier": "./screen-reader.js",
+        "resolved": "packages/utils/src/lib/platform/screen-reader.ts"
+      },
+      {
+        "source": "packages/utils/src/lib/platform/parts.ts",
+        "specifier": "./env.js",
+        "resolved": "packages/utils/src/lib/platform/env.ts"
+      },
+      {
+        "source": "packages/utils/src/lib/platform/parts.ts",
+        "specifier": "./media-query.js",
+        "resolved": "packages/utils/src/lib/platform/media-query.ts"
+      },
+      {
+        "source": "packages/utils/src/lib/platform/env.ts",
+        "specifier": "./shared.js",
+        "resolved": "packages/utils/src/lib/platform/shared.ts"
+      },
+      {
+        "source": "packages/utils/src/lib/platform/shared.ts",
+        "specifier": "esm-env",
+        "resolved": "external:esm-env"
+      },
+      {
+        "source": "packages/utils/src/lib/platform/screen-reader.ts",
+        "specifier": "./os.js",
+        "resolved": "packages/utils/src/lib/platform/os.ts"
+      },
+      {
+        "source": "packages/utils/src/lib/platform/os.ts",
+        "specifier": "./shared.js",
+        "resolved": "packages/utils/src/lib/platform/shared.ts"
+      },
+      {
+        "source": "packages/utils/src/lib/platform/engine.ts",
+        "specifier": "./shared.js",
+        "resolved": "packages/utils/src/lib/platform/shared.ts"
+      },
+      {
+        "source": "packages/base/src/lib/floating-ui/types.ts",
+        "specifier": "@floating-ui/dom",
+        "resolved": "external:@floating-ui/dom"
+      },
+      {
+        "source": "packages/base/src/lib/floating-ui/types.ts",
+        "specifier": "../internals/createBaseUIEventDetails.js",
+        "resolved": "packages/base/src/lib/internals/createBaseUIEventDetails.ts"
+      },
+      {
+        "source": "packages/base/src/lib/floating-ui/types.ts",
+        "specifier": "../internals/types.js",
+        "resolved": "packages/base/src/lib/internals/types.ts"
+      },
+      {
+        "source": "packages/base/src/lib/floating-ui/types.ts",
+        "specifier": "./components/FloatingRootStore.svelte.js",
+        "resolved": "packages/base/src/lib/floating-ui/components/FloatingRootStore.svelte.ts"
+      },
+      {
+        "source": "packages/base/src/lib/floating-ui/types.ts",
+        "specifier": "./components/FloatingTreeStore.js",
+        "resolved": "packages/base/src/lib/floating-ui/components/FloatingTreeStore.ts"
+      },
+      {
+        "source": "packages/base/src/lib/floating-ui/types.ts",
+        "specifier": "@floating-ui/dom",
+        "resolved": "external:@floating-ui/dom"
+      },
+      {
+        "source": "packages/base/src/lib/floating-ui/types.ts",
+        "specifier": "./safePolygon.js",
+        "resolved": "packages/base/src/lib/floating-ui/safePolygon.ts"
+      },
+      {
+        "source": "packages/base/src/lib/floating-ui/safePolygon.ts",
+        "specifier": "@floating-ui/utils/dom",
+        "resolved": "external:@floating-ui/utils/dom"
+      },
+      {
+        "source": "packages/base/src/lib/floating-ui/safePolygon.ts",
+        "specifier": "@sveltery/utils/useTimeout",
+        "resolved": "packages/utils/src/lib/useTimeout.ts"
+      },
+      {
+        "source": "packages/base/src/lib/floating-ui/safePolygon.ts",
+        "specifier": "@floating-ui/dom",
+        "resolved": "external:@floating-ui/dom"
+      },
+      {
+        "source": "packages/base/src/lib/floating-ui/safePolygon.ts",
+        "specifier": "./hooks/useHoverShared.js",
+        "resolved": "packages/base/src/lib/floating-ui/hooks/useHoverShared.ts"
+      },
+      {
+        "source": "packages/base/src/lib/floating-ui/safePolygon.ts",
+        "specifier": "./utils/element.js",
+        "resolved": "packages/base/src/lib/floating-ui/utils/element.ts"
+      },
+      {
+        "source": "packages/base/src/lib/floating-ui/safePolygon.ts",
+        "specifier": "./utils/nodes.js",
+        "resolved": "packages/base/src/lib/floating-ui/utils/nodes.ts"
+      },
+      {
+        "source": "packages/base/src/lib/floating-ui/utils/nodes.ts",
+        "specifier": "../types.js",
+        "resolved": "packages/base/src/lib/floating-ui/types.ts"
+      },
+      {
+        "source": "packages/base/src/lib/floating-ui/utils/element.ts",
+        "specifier": "@floating-ui/utils/dom",
+        "resolved": "external:@floating-ui/utils/dom"
+      },
+      {
+        "source": "packages/base/src/lib/floating-ui/utils/element.ts",
+        "specifier": "@sveltery/utils/shadowDom",
+        "resolved": "packages/utils/src/lib/shadowDom.ts"
+      },
+      {
+        "source": "packages/base/src/lib/floating-ui/utils/element.ts",
+        "specifier": "./constants.js",
+        "resolved": "packages/base/src/lib/floating-ui/utils/constants.ts"
+      },
+      {
+        "source": "packages/base/src/lib/floating-ui/utils/element.ts",
+        "specifier": "../../utils/popups/popupTriggerMap.svelte.js",
+        "resolved": "packages/base/src/lib/utils/popups/popupTriggerMap.svelte.ts"
+      },
+      {
+        "source": "packages/base/src/lib/floating-ui/utils/element.ts",
+        "specifier": "./matchesFocusVisible.js",
+        "resolved": "packages/base/src/lib/floating-ui/utils/matchesFocusVisible.ts"
+      },
+      {
+        "source": "packages/base/src/lib/floating-ui/utils/matchesFocusVisible.ts",
+        "specifier": "@sveltery/utils/platform",
+        "resolved": "packages/utils/src/lib/platform/index.ts"
+      },
+      {
+        "source": "packages/utils/src/lib/shadowDom.ts",
+        "specifier": "@floating-ui/utils/dom",
+        "resolved": "external:@floating-ui/utils/dom"
+      },
+      {
+        "source": "packages/base/src/lib/floating-ui/hooks/useHoverShared.ts",
+        "specifier": "../utils/event.js",
+        "resolved": "packages/base/src/lib/floating-ui/utils/event.ts"
+      },
+      {
+        "source": "packages/base/src/lib/floating-ui/hooks/useHoverShared.ts",
+        "specifier": "../types.js",
+        "resolved": "packages/base/src/lib/floating-ui/types.ts"
+      },
+      {
+        "source": "packages/base/src/lib/floating-ui/hooks/useHoverShared.ts",
+        "specifier": "../utils/element.js",
+        "resolved": "packages/base/src/lib/floating-ui/utils/element.ts"
+      },
+      {
+        "source": "packages/base/src/lib/floating-ui/components/FloatingTreeStore.ts",
+        "specifier": "../types.js",
+        "resolved": "packages/base/src/lib/floating-ui/types.ts"
+      },
+      {
+        "source": "packages/base/src/lib/floating-ui/components/FloatingTreeStore.ts",
+        "specifier": "../utils/createEventEmitter.js",
+        "resolved": "packages/base/src/lib/floating-ui/utils/createEventEmitter.ts"
+      },
+      {
+        "source": "packages/base/src/lib/floating-ui/utils/createEventEmitter.ts",
+        "specifier": "../types.js",
+        "resolved": "packages/base/src/lib/floating-ui/types.ts"
+      },
+      {
+        "source": "packages/utils/src/lib/store/index.ts",
+        "specifier": "./Store.svelte.js",
+        "resolved": "packages/utils/src/lib/store/Store.svelte.ts"
+      },
+      {
+        "source": "packages/utils/src/lib/store/index.ts",
+        "specifier": "./SvelteStore.svelte.js",
+        "resolved": "packages/utils/src/lib/store/SvelteStore.svelte.ts"
+      },
+      {
+        "source": "packages/utils/src/lib/store/SvelteStore.svelte.ts",
+        "specifier": "svelte",
+        "resolved": "external:svelte"
+      },
+      {
+        "source": "packages/utils/src/lib/store/SvelteStore.svelte.ts",
+        "specifier": "svelte/reactivity",
+        "resolved": "external:svelte/reactivity"
+      },
+      {
+        "source": "packages/utils/src/lib/store/SvelteStore.svelte.ts",
+        "specifier": "./Store.svelte.js",
+        "resolved": "packages/utils/src/lib/store/Store.svelte.ts"
+      },
+      {
+        "source": "packages/base/src/lib/internals/useOpenChangeComplete.svelte.ts",
+        "specifier": "./useAnimationsFinished.js",
+        "resolved": "packages/base/src/lib/internals/useAnimationsFinished.ts"
+      },
+      {
+        "source": "packages/base/src/lib/internals/useAnimationsFinished.ts",
+        "specifier": "svelte",
+        "resolved": "external:svelte"
+      },
+      {
+        "source": "packages/base/src/lib/internals/useAnimationsFinished.ts",
+        "specifier": "@sveltery/utils/useAnimationFrame",
+        "resolved": "packages/utils/src/lib/useAnimationFrame.ts"
+      },
+      {
+        "source": "packages/base/src/lib/internals/useAnimationsFinished.ts",
+        "specifier": "../utils/resolveRef.js",
+        "resolved": "packages/base/src/lib/utils/resolveRef.ts"
+      },
+      {
+        "source": "packages/base/src/lib/internals/useAnimationsFinished.ts",
+        "specifier": "./TransitionStatusDataAttributes.js",
+        "resolved": "packages/base/src/lib/internals/TransitionStatusDataAttributes.ts"
+      },
+      {
+        "source": "packages/base/src/lib/floating-ui/hooks/useSyncedFloatingRootContext.svelte.ts",
+        "specifier": "svelte",
+        "resolved": "external:svelte"
+      },
+      {
+        "source": "packages/base/src/lib/floating-ui/hooks/useSyncedFloatingRootContext.svelte.ts",
+        "specifier": "@floating-ui/utils/dom",
+        "resolved": "external:@floating-ui/utils/dom"
+      },
+      {
+        "source": "packages/base/src/lib/floating-ui/hooks/useSyncedFloatingRootContext.svelte.ts",
+        "specifier": "../components/FloatingRootStore.svelte.js",
+        "resolved": "packages/base/src/lib/floating-ui/components/FloatingRootStore.svelte.ts"
+      },
+      {
+        "source": "packages/base/src/lib/floating-ui/hooks/useSyncedFloatingRootContext.svelte.ts",
+        "specifier": "../../utils/popups/store.js",
+        "resolved": "packages/base/src/lib/utils/popups/store.ts"
+      },
+      {
+        "source": "packages/base/src/lib/floating-ui/hooks/useSyncedFloatingRootContext.svelte.ts",
+        "specifier": "../../internals/createBaseUIEventDetails.js",
+        "resolved": "packages/base/src/lib/internals/createBaseUIEventDetails.ts"
+      },
+      {
+        "source": "packages/base/src/lib/floating-ui/components/FloatingTree.svelte.ts",
+        "specifier": "svelte",
+        "resolved": "external:svelte"
+      },
+      {
+        "source": "packages/base/src/lib/floating-ui/components/FloatingTree.svelte.ts",
+        "specifier": "./FloatingTreeStore.js",
+        "resolved": "packages/base/src/lib/floating-ui/components/FloatingTreeStore.ts"
+      },
+      {
+        "source": "packages/base/src/lib/floating-ui/components/FloatingTree.svelte.ts",
+        "specifier": "../types.js",
+        "resolved": "packages/base/src/lib/floating-ui/types.ts"
+      },
+      {
+        "source": "packages/base/src/lib/utils/NullStore.svelte.ts",
+        "specifier": "@sveltery/utils/store",
+        "resolved": "packages/utils/src/lib/store/index.ts"
+      },
+      {
+        "source": "packages/base/src/lib/collapsible/index.parts.ts",
+        "specifier": "./Root.svelte",
+        "resolved": "packages/base/src/lib/collapsible/Root.svelte"
+      },
+      {
+        "source": "packages/base/src/lib/collapsible/index.parts.ts",
+        "specifier": "./Trigger.svelte",
+        "resolved": "packages/base/src/lib/collapsible/Trigger.svelte"
+      },
+      {
+        "source": "packages/base/src/lib/collapsible/index.parts.ts",
+        "specifier": "./Panel.svelte",
+        "resolved": "packages/base/src/lib/collapsible/Panel.svelte"
+      },
+      {
+        "source": "packages/base/src/lib/collapsible/Panel.svelte",
+        "specifier": "esm-env",
+        "resolved": "external:esm-env"
+      },
+      {
+        "source": "packages/base/src/lib/collapsible/Panel.svelte",
+        "specifier": "svelte",
+        "resolved": "external:svelte"
+      },
+      {
+        "source": "packages/base/src/lib/collapsible/Panel.svelte",
+        "specifier": "svelte/attachments",
+        "resolved": "external:svelte/attachments"
+      },
+      {
+        "source": "packages/base/src/lib/collapsible/Panel.svelte",
+        "specifier": "../internals/mergeComponentProps.js",
+        "resolved": "packages/base/src/lib/internals/mergeComponentProps.ts"
+      },
+      {
+        "source": "packages/base/src/lib/collapsible/Panel.svelte",
+        "specifier": "@sveltery/utils/warn",
+        "resolved": "packages/utils/src/lib/warn.ts"
+      },
+      {
+        "source": "packages/base/src/lib/collapsible/Panel.svelte",
+        "specifier": "./context.js",
+        "resolved": "packages/base/src/lib/collapsible/context.ts"
+      },
+      {
+        "source": "packages/base/src/lib/collapsible/Panel.svelte",
+        "specifier": "./root/stateAttributesMapping.js",
+        "resolved": "packages/base/src/lib/collapsible/root/stateAttributesMapping.ts"
+      },
+      {
+        "source": "packages/base/src/lib/collapsible/Panel.svelte",
+        "specifier": "./panel/useCollapsiblePanel.svelte.js",
+        "resolved": "packages/base/src/lib/collapsible/panel/useCollapsiblePanel.svelte.ts"
+      },
+      {
+        "source": "packages/base/src/lib/collapsible/Panel.svelte",
+        "specifier": "./panel/CollapsiblePanelCssVars.js",
+        "resolved": "packages/base/src/lib/collapsible/panel/CollapsiblePanelCssVars.ts"
+      },
+      {
+        "source": "packages/base/src/lib/collapsible/Panel.svelte",
+        "specifier": "./types.js",
+        "resolved": "packages/base/src/lib/collapsible/types.ts"
+      },
+      {
+        "source": "packages/base/src/lib/collapsible/panel/useCollapsiblePanel.svelte.ts",
+        "specifier": "svelte",
+        "resolved": "external:svelte"
+      },
+      {
+        "source": "packages/base/src/lib/collapsible/panel/useCollapsiblePanel.svelte.ts",
+        "specifier": "esm-env",
+        "resolved": "external:esm-env"
+      },
+      {
+        "source": "packages/base/src/lib/collapsible/panel/useCollapsiblePanel.svelte.ts",
+        "specifier": "@sveltery/utils/addEventListener",
+        "resolved": "packages/utils/src/lib/addEventListener.ts"
+      },
+      {
+        "source": "packages/base/src/lib/collapsible/panel/useCollapsiblePanel.svelte.ts",
+        "specifier": "@sveltery/utils/useAnimationFrame",
+        "resolved": "packages/utils/src/lib/useAnimationFrame.ts"
+      },
+      {
+        "source": "packages/base/src/lib/collapsible/panel/useCollapsiblePanel.svelte.ts",
+        "specifier": "@sveltery/utils/warn",
+        "resolved": "packages/utils/src/lib/warn.ts"
+      },
+      {
+        "source": "packages/base/src/lib/collapsible/panel/useCollapsiblePanel.svelte.ts",
+        "specifier": "@sveltery/utils/owner",
+        "resolved": "packages/utils/src/lib/owner.ts"
+      },
+      {
+        "source": "packages/base/src/lib/collapsible/panel/useCollapsiblePanel.svelte.ts",
+        "specifier": "../../internals/types.js",
+        "resolved": "packages/base/src/lib/internals/types.ts"
+      },
+      {
+        "source": "packages/base/src/lib/collapsible/panel/useCollapsiblePanel.svelte.ts",
+        "specifier": "../../internals/reasons.js",
+        "resolved": "packages/base/src/lib/internals/reasons.ts"
+      },
+      {
+        "source": "packages/base/src/lib/collapsible/panel/useCollapsiblePanel.svelte.ts",
+        "specifier": "../../internals/createBaseUIEventDetails.js",
+        "resolved": "packages/base/src/lib/internals/createBaseUIEventDetails.ts"
+      },
+      {
+        "source": "packages/base/src/lib/collapsible/panel/useCollapsiblePanel.svelte.ts",
+        "specifier": "../../internals/useOpenChangeComplete.svelte.js",
+        "resolved": "packages/base/src/lib/internals/useOpenChangeComplete.svelte.ts"
+      },
+      {
+        "source": "packages/base/src/lib/collapsible/panel/useCollapsiblePanel.svelte.ts",
+        "specifier": "../../internals/useAnimationsFinished.js",
+        "resolved": "packages/base/src/lib/internals/useAnimationsFinished.ts"
+      },
+      {
+        "source": "packages/base/src/lib/collapsible/panel/useCollapsiblePanel.svelte.ts",
+        "specifier": "./CollapsiblePanelDataAttributes.js",
+        "resolved": "packages/base/src/lib/collapsible/panel/CollapsiblePanelDataAttributes.ts"
+      },
+      {
+        "source": "packages/base/src/lib/collapsible/panel/useCollapsiblePanel.svelte.ts",
+        "specifier": "../types.js",
+        "resolved": "packages/base/src/lib/collapsible/types.ts"
+      },
+      {
+        "source": "packages/base/src/lib/collapsible/panel/useCollapsiblePanel.svelte.ts",
+        "specifier": "../../internals/useTransitionStatus.svelte.js",
+        "resolved": "packages/base/src/lib/internals/useTransitionStatus.svelte.ts"
+      },
+      {
+        "source": "packages/base/src/lib/collapsible/panel/CollapsiblePanelDataAttributes.ts",
+        "specifier": "../../internals/stateAttributesMapping.js",
+        "resolved": "packages/base/src/lib/internals/stateAttributesMapping.ts"
+      },
+      {
+        "source": "packages/base/src/lib/internals/stateAttributesMapping.ts",
+        "specifier": "./useTransitionStatus.svelte.js",
+        "resolved": "packages/base/src/lib/internals/useTransitionStatus.svelte.ts"
+      },
+      {
+        "source": "packages/base/src/lib/internals/stateAttributesMapping.ts",
+        "specifier": "./getStateAttributesProps.js",
+        "resolved": "packages/base/src/lib/internals/getStateAttributesProps.ts"
+      },
+      {
+        "source": "packages/base/src/lib/internals/stateAttributesMapping.ts",
+        "specifier": "./TransitionStatusDataAttributes.js",
+        "resolved": "packages/base/src/lib/internals/TransitionStatusDataAttributes.ts"
+      },
+      {
+        "source": "packages/utils/src/lib/owner.ts",
+        "specifier": "@floating-ui/utils/dom",
+        "resolved": "external:@floating-ui/utils/dom"
+      },
+      {
+        "source": "packages/utils/src/lib/warn.ts",
+        "specifier": "./createLogOnce.js",
+        "resolved": "packages/utils/src/lib/createLogOnce.ts"
+      },
+      {
+        "source": "packages/utils/src/lib/warn.ts",
+        "specifier": "./createLogOnce.js",
+        "resolved": "packages/utils/src/lib/createLogOnce.ts"
+      },
+      {
+        "source": "packages/utils/src/lib/createLogOnce.ts",
+        "specifier": "esm-env",
+        "resolved": "external:esm-env"
+      },
+      {
+        "source": "packages/base/src/lib/collapsible/root/stateAttributesMapping.ts",
+        "specifier": "../../internals/getStateAttributesProps.js",
+        "resolved": "packages/base/src/lib/internals/getStateAttributesProps.ts"
+      },
+      {
+        "source": "packages/base/src/lib/collapsible/root/stateAttributesMapping.ts",
+        "specifier": "../../utils/collapsibleOpenStateMapping.js",
+        "resolved": "packages/base/src/lib/utils/collapsibleOpenStateMapping.ts"
+      },
+      {
+        "source": "packages/base/src/lib/collapsible/root/stateAttributesMapping.ts",
+        "specifier": "../types.js",
+        "resolved": "packages/base/src/lib/collapsible/types.ts"
+      },
+      {
+        "source": "packages/base/src/lib/collapsible/root/stateAttributesMapping.ts",
+        "specifier": "../../internals/stateAttributesMapping.js",
+        "resolved": "packages/base/src/lib/internals/stateAttributesMapping.ts"
+      },
+      {
+        "source": "packages/base/src/lib/utils/collapsibleOpenStateMapping.ts",
+        "specifier": "../internals/getStateAttributesProps.js",
+        "resolved": "packages/base/src/lib/internals/getStateAttributesProps.ts"
+      },
+      {
+        "source": "packages/base/src/lib/utils/collapsibleOpenStateMapping.ts",
+        "specifier": "../collapsible/panel/CollapsiblePanelDataAttributes.js",
+        "resolved": "packages/base/src/lib/collapsible/panel/CollapsiblePanelDataAttributes.ts"
+      },
+      {
+        "source": "packages/base/src/lib/utils/collapsibleOpenStateMapping.ts",
+        "specifier": "../collapsible/trigger/CollapsibleTriggerDataAttributes.js",
+        "resolved": "packages/base/src/lib/collapsible/trigger/CollapsibleTriggerDataAttributes.ts"
+      },
+      {
+        "source": "packages/base/src/lib/collapsible/context.ts",
+        "specifier": "svelte",
+        "resolved": "external:svelte"
+      },
+      {
+        "source": "packages/base/src/lib/collapsible/context.ts",
+        "specifier": "./types.js",
+        "resolved": "packages/base/src/lib/collapsible/types.ts"
+      },
+      {
+        "source": "packages/base/src/lib/internals/mergeComponentProps.ts",
+        "specifier": "@sveltery/utils/mergeObjects",
+        "resolved": "packages/utils/src/lib/mergeObjects.ts"
+      },
+      {
+        "source": "packages/base/src/lib/internals/mergeComponentProps.ts",
+        "specifier": "../merge-props/index.js",
+        "resolved": "packages/base/src/lib/merge-props/index.ts"
+      },
+      {
+        "source": "packages/base/src/lib/internals/mergeComponentProps.ts",
+        "specifier": "./getStateAttributesProps.js",
+        "resolved": "packages/base/src/lib/internals/getStateAttributesProps.ts"
+      },
+      {
+        "source": "packages/base/src/lib/internals/mergeComponentProps.ts",
+        "specifier": "../utils/resolveClassName.js",
+        "resolved": "packages/base/src/lib/utils/resolveClassName.ts"
+      },
+      {
+        "source": "packages/base/src/lib/internals/mergeComponentProps.ts",
+        "specifier": "../utils/resolveStyle.js",
+        "resolved": "packages/base/src/lib/utils/resolveStyle.ts"
+      },
+      {
+        "source": "packages/base/src/lib/internals/mergeComponentProps.ts",
+        "specifier": "./nativeProps.js",
+        "resolved": "packages/base/src/lib/internals/nativeProps.ts"
+      },
+      {
+        "source": "packages/base/src/lib/internals/mergeComponentProps.ts",
+        "specifier": "./types.js",
+        "resolved": "packages/base/src/lib/internals/types.ts"
+      },
+      {
+        "source": "packages/base/src/lib/utils/resolveStyle.ts",
+        "specifier": "../internals/nativeProps.js",
+        "resolved": "packages/base/src/lib/internals/nativeProps.ts"
+      },
+      {
+        "source": "packages/base/src/lib/utils/resolveClassName.ts",
+        "specifier": "svelte/elements",
+        "resolved": "external:svelte/elements"
+      },
+      {
+        "source": "packages/base/src/lib/collapsible/Trigger.svelte",
+        "specifier": "../internals/mergeComponentProps.js",
+        "resolved": "packages/base/src/lib/internals/mergeComponentProps.ts"
+      },
+      {
+        "source": "packages/base/src/lib/collapsible/Trigger.svelte",
+        "specifier": "svelte/attachments",
+        "resolved": "external:svelte/attachments"
+      },
+      {
+        "source": "packages/base/src/lib/collapsible/Trigger.svelte",
+        "specifier": "svelte",
+        "resolved": "external:svelte"
+      },
+      {
+        "source": "packages/base/src/lib/collapsible/Trigger.svelte",
+        "specifier": "../utils/collapsibleOpenStateMapping.js",
+        "resolved": "packages/base/src/lib/utils/collapsibleOpenStateMapping.ts"
+      },
+      {
+        "source": "packages/base/src/lib/collapsible/Trigger.svelte",
+        "specifier": "../internals/stateAttributesMapping.js",
+        "resolved": "packages/base/src/lib/internals/stateAttributesMapping.ts"
+      },
+      {
+        "source": "packages/base/src/lib/collapsible/Trigger.svelte",
+        "specifier": "../internals/use-button/useButton.svelte.js",
+        "resolved": "packages/base/src/lib/internals/use-button/useButton.svelte.ts"
+      },
+      {
+        "source": "packages/base/src/lib/collapsible/Trigger.svelte",
+        "specifier": "./context.js",
+        "resolved": "packages/base/src/lib/collapsible/context.ts"
+      },
+      {
+        "source": "packages/base/src/lib/collapsible/Trigger.svelte",
+        "specifier": "./types.js",
+        "resolved": "packages/base/src/lib/collapsible/types.ts"
+      },
+      {
+        "source": "packages/base/src/lib/internals/use-button/useButton.svelte.ts",
+        "specifier": "esm-env",
+        "resolved": "external:esm-env"
+      },
+      {
+        "source": "packages/base/src/lib/internals/use-button/useButton.svelte.ts",
+        "specifier": "@sveltery/utils/error",
+        "resolved": "packages/utils/src/lib/error.ts"
+      },
+      {
+        "source": "packages/base/src/lib/internals/use-button/useButton.svelte.ts",
+        "specifier": "../../merge-props/index.js",
+        "resolved": "packages/base/src/lib/merge-props/index.ts"
+      },
+      {
+        "source": "packages/base/src/lib/internals/use-button/useButton.svelte.ts",
+        "specifier": "../composite/root/CompositeRootContext.js",
+        "resolved": "packages/base/src/lib/internals/composite/root/CompositeRootContext.ts"
+      },
+      {
+        "source": "packages/base/src/lib/internals/use-button/useButton.svelte.ts",
+        "specifier": "../types.js",
+        "resolved": "packages/base/src/lib/internals/types.ts"
+      },
+      {
+        "source": "packages/base/src/lib/internals/use-button/useButton.svelte.ts",
+        "specifier": "../../utils/useFocusableWhenDisabled.js",
+        "resolved": "packages/base/src/lib/utils/useFocusableWhenDisabled.ts"
+      },
+      {
+        "source": "packages/base/src/lib/internals/use-button/useButton.svelte.ts",
+        "specifier": "../../utils/dispatchClickWithModifiers.js",
+        "resolved": "packages/base/src/lib/utils/dispatchClickWithModifiers.ts"
+      },
+      {
+        "source": "packages/base/src/lib/utils/dispatchClickWithModifiers.ts",
+        "specifier": "@sveltery/utils/owner",
+        "resolved": "packages/utils/src/lib/owner.ts"
+      },
+      {
+        "source": "packages/base/src/lib/utils/useFocusableWhenDisabled.ts",
+        "specifier": "../internals/types.js",
+        "resolved": "packages/base/src/lib/internals/types.ts"
+      },
+      {
+        "source": "packages/base/src/lib/internals/composite/root/CompositeRootContext.ts",
+        "specifier": "svelte",
+        "resolved": "external:svelte"
+      },
+      {
+        "source": "packages/utils/src/lib/error.ts",
+        "specifier": "./createLogOnce.js",
+        "resolved": "packages/utils/src/lib/createLogOnce.ts"
+      },
+      {
+        "source": "packages/utils/src/lib/error.ts",
+        "specifier": "./createLogOnce.js",
+        "resolved": "packages/utils/src/lib/createLogOnce.ts"
+      },
+      {
+        "source": "packages/base/src/lib/collapsible/Root.svelte",
+        "specifier": "../internals/mergeComponentProps.js",
+        "resolved": "packages/base/src/lib/internals/mergeComponentProps.ts"
+      },
+      {
+        "source": "packages/base/src/lib/collapsible/Root.svelte",
+        "specifier": "svelte/attachments",
+        "resolved": "external:svelte/attachments"
+      },
+      {
+        "source": "packages/base/src/lib/collapsible/Root.svelte",
+        "specifier": "svelte",
+        "resolved": "external:svelte"
+      },
+      {
+        "source": "packages/base/src/lib/collapsible/Root.svelte",
+        "specifier": "./root/useCollapsibleRoot.svelte.js",
+        "resolved": "packages/base/src/lib/collapsible/root/useCollapsibleRoot.svelte.ts"
+      },
+      {
+        "source": "packages/base/src/lib/collapsible/Root.svelte",
+        "specifier": "./context.js",
+        "resolved": "packages/base/src/lib/collapsible/context.ts"
+      },
+      {
+        "source": "packages/base/src/lib/collapsible/Root.svelte",
+        "specifier": "./root/stateAttributesMapping.js",
+        "resolved": "packages/base/src/lib/collapsible/root/stateAttributesMapping.ts"
+      },
+      {
+        "source": "packages/base/src/lib/collapsible/Root.svelte",
+        "specifier": "./types.js",
+        "resolved": "packages/base/src/lib/collapsible/types.ts"
+      },
+      {
+        "source": "packages/base/src/lib/collapsible/root/useCollapsibleRoot.svelte.ts",
+        "specifier": "svelte",
+        "resolved": "external:svelte"
+      },
+      {
+        "source": "packages/base/src/lib/collapsible/root/useCollapsibleRoot.svelte.ts",
+        "specifier": "@sveltery/utils/Controlled",
+        "resolved": "packages/utils/src/lib/Controlled.svelte.ts"
+      },
+      {
+        "source": "packages/base/src/lib/collapsible/root/useCollapsibleRoot.svelte.ts",
+        "specifier": "../../internals/useBaseUiId.js",
+        "resolved": "packages/base/src/lib/internals/useBaseUiId.ts"
+      },
+      {
+        "source": "packages/base/src/lib/collapsible/root/useCollapsibleRoot.svelte.ts",
+        "specifier": "../../internals/reasons.js",
+        "resolved": "packages/base/src/lib/internals/reasons.ts"
+      },
+      {
+        "source": "packages/base/src/lib/collapsible/root/useCollapsibleRoot.svelte.ts",
+        "specifier": "../../internals/createBaseUIEventDetails.js",
+        "resolved": "packages/base/src/lib/internals/createBaseUIEventDetails.ts"
+      },
+      {
+        "source": "packages/base/src/lib/collapsible/root/useCollapsibleRoot.svelte.ts",
+        "specifier": "../../internals/useTransitionStatus.svelte.js",
+        "resolved": "packages/base/src/lib/internals/useTransitionStatus.svelte.ts"
+      },
+      {
+        "source": "packages/base/src/lib/collapsible/root/useCollapsibleRoot.svelte.ts",
+        "specifier": "../types.js",
+        "resolved": "packages/base/src/lib/collapsible/types.ts"
+      },
+      {
+        "source": "packages/base/src/lib/internals/useBaseUiId.ts",
+        "specifier": "@sveltery/utils/useId",
+        "resolved": "packages/utils/src/lib/useId.ts"
+      },
+      {
+        "source": "packages/base/src/lib/collapsible/index.ts",
+        "specifier": "./index.parts.js",
+        "resolved": "packages/base/src/lib/collapsible/index.parts.ts"
+      },
+      {
+        "source": "packages/base/src/lib/collapsible/index.ts",
+        "specifier": "./index.parts.js",
+        "resolved": "packages/base/src/lib/collapsible/index.parts.ts"
+      },
+      {
+        "source": "packages/base/src/lib/collapsible/index.ts",
+        "specifier": "./types.js",
+        "resolved": "packages/base/src/lib/collapsible/types.ts"
+      }
+    ]
+  },
+  "reviewBasis": "Fresh local direct Panel class checkpoint; full current and pinned Panel whole bodies manually read; receiver correction diff reread. Other production entire reads carried only exact unchanged blob identity.",
+  "freshChangedNativeBodies": [
+    "packages/base/src/lib/collapsible/root/useCollapsibleRoot.svelte.ts",
+    "packages/base/src/lib/collapsible/types.ts"
+  ],
+  "leadDisposition": {
+    "mandatoryCanonicalClassPrerequisites": [
+      "packages/base/src/lib/internals/useTransitionStatus.svelte.ts",
+      "packages/base/src/lib/internals/use-button/useButton.svelte.ts"
+    ],
+    "owner": "separate lead-assigned canonical Cloud owner",
+    "unchangedNoFinding": "packages/base/src/lib/internals/useAnimationsFinished.ts",
+    "clearance": "NOT CLEAR until accepted prerequisite normally lands and successor integrates actual main; no waiver"
+  },
+  "freshChangedBodies": [
+    "scripts/check-collapsible-package.sh"
+  ],
+  "hydrationLimitations": [
+    "Executable script performs jsdom hydration; real secured-browser gates remain separate.",
+    "SSR runtime uses installed consumer Svelte, but shared SSR loader compiler resolves producer package Svelte rather than isolated consumer peer. Both pinned5.57.1; do not claim isolated consumer SSR compiler resolution.",
+    "Generated consumer metadata at this commit still mount-only and needs regeneration; actual executable shell heredocs are the hydration witness."
+  ],
+  "actualNativeGraph": {
+    "modules": 85,
+    "edges": 227,
+    "runtime": 46,
+    "type": 39,
+    "explanation": "Previous conservative textual closure84 excluded full root barrel; actual member-filtered metadata85 includes it. Type-only sibling whole-body reads do not confer business acceptance."
+  },
+  "originalTestsDisposition": "68 modules201edges hash-only test/conformance business, except separately reviewed production overlap",
+  "nativeTestsDisposition": "128modules348edges inventory; changed owned supplements and ten actual generated consumer bodies reviewed; no claim entire sibling test business acceptance or test execution.",
+  "finalDisposition": "NOT CLEAR: Transition/Button class owners and PR73 nativeProps empty style; docs corrections resolved; diagnostic push only",
+  "publicTree": "7f7573c2e9ed6d3f31617f321fb79075d19aad54",
+  "publicParents": [
+    "69a133a208f6d396b468f23b9cf6193486c4ea24",
+    "aa4daff54ec82b96e34e1601648d1b3926ef08cf"
+  ],
+  "findings": "03ec receiver defect corrected0c8 with named lexical arrow. No failing runtime execution claimed. Source overall NOT CLEAR inherited canonical2 + PR73. Local metadata README current runtime label needs update; compatibility representation record advised."
+}

@@ -27,78 +27,93 @@ const EMPTY_DIMENSIONS: Dimensions = {
   width: undefined,
 };
 
-export class CollapsiblePanel implements UseCollapsiblePanelReturnValue {
-  #parameters: UseCollapsiblePanelParameters;
-  // Native attachments publish the actual reactive host owned by this class.
-  readonly ref = $state<{ current: HTMLElement | null }>({ current: null });
-  #animationType = $state.raw<AnimationType | null>(null);
-  #dimensions = $state.raw<Dimensions>(EMPTY_DIMENSIONS);
-  #lastMeasuredDimensions = $state.raw<Dimensions>(EMPTY_DIMENSIONS);
-  #shouldSkipNextOpen = false;
-  #shouldPreventMountAnimation = $state(false);
-  #forcePanelIdle = $state(false);
-  #skippedOpenMotion = $state.raw<
-    { panel: HTMLElement; type: Exclude<AnimationType, 'none'> } | undefined
-  >();
-  #hidden = $derived(!this.#parameters.open && !this.#parameters.mounted);
-  #panelTransitionStatus = $derived(
-    this.#forcePanelIdle ? 'idle' : this.#parameters.transitionStatus,
-  );
-  #shouldPreventOpenAnimation = $derived(
-    this.#parameters.open && this.#shouldPreventMountAnimation,
-  );
-  #renderedDimensions = $derived(
-    !this.#parameters.open &&
-      this.#parameters.mounted &&
-      this.#animationType === 'css-animation' &&
-      this.#dimensions.height === undefined &&
-      this.#dimensions.width === undefined
-      ? this.#lastMeasuredDimensions
-      : this.#dimensions,
-  );
-  #shouldPersistHiddenTransitionStyles = $derived(
-    this.#parameters.hiddenUntilFound && this.#hidden && this.#animationType !== 'css-animation',
-  );
-  #shouldRender = $derived(
-    this.#parameters.keepMounted ||
-      this.#parameters.hiddenUntilFound ||
-      this.#parameters.mounted ||
-      this.#parameters.open,
-  );
-
+export class CollapsiblePanel {
+  #state: UseCollapsiblePanelReturnValue;
   constructor(parameters: UseCollapsiblePanelParameters) {
-    this.#parameters = parameters;
-    // Initially open keyframes suppress their first paint until the first close.
-    this.#shouldPreventMountAnimation = untrack(() => parameters.open);
-    // Only used to handle panel close.
-    const runOnceCloseAnimationsFinish = useAnimationsFinished(this.ref);
+    // The actual native attachment publishes the reactive panel host.
+    const panelRef = $state<{ current: HTMLElement | null }>({ current: null });
+    const animationTypeRef = $state<{ current: AnimationType | null }>({ current: null });
+    let dimensions = $state.raw<Dimensions>(EMPTY_DIMENSIONS);
+    const setDimensionsUnwrapped = (next: Dimensions) => {
+      dimensions = next;
+    };
+    const lastMeasuredDimensionsRef = $state({ current: EMPTY_DIMENSIONS });
+    // `beforematch` should reveal the matched content immediately, so the next
+    // open cycle skips author-defined motion once and then returns to normal.
+    const shouldSkipNextOpenRef = { current: false };
+    // Keyframe mount animations on initially open panels cause a visible layout
+    // shift during the server-rendered first paint, so suppress that first open
+    // lifecycle until the panel has been closed once.
+    const shouldPreventMountAnimationRef = { current: untrack(() => parameters.open) };
+    // Some open paths intentionally bypass motion, but the shared root transition
+    // status still advances asynchronously. Override the panel to idle so its data
+    // attributes and dimension cleanup reflect the immediate open state.
+    let forcePanelIdle = $state(false);
+    const setForcePanelIdle = (next: boolean) => {
+      forcePanelIdle = next;
+    };
+    let skippedOpenMotion = $state.raw<
+      { panel: HTMLElement; type: Exclude<AnimationType, 'none'> } | undefined
+    >();
+
+    // Only used to handle panel close
+    const runOnceCloseAnimationsFinish = useAnimationsFinished(panelRef);
+
+    const hidden = $derived(!parameters.open && !parameters.mounted);
+    const panelTransitionStatus = $derived(forcePanelIdle ? 'idle' : parameters.transitionStatus);
+    const shouldPreventOpenAnimation = $derived(
+      parameters.open && shouldPreventMountAnimationRef.current,
+    );
+    const renderedDimensions = $derived(
+      !parameters.open &&
+        parameters.mounted &&
+        animationTypeRef.current === 'css-animation' &&
+        dimensions.height === undefined &&
+        dimensions.width === undefined
+        ? lastMeasuredDimensionsRef.current
+        : dimensions,
+    );
+    const shouldPersistHiddenTransitionStyles = $derived(
+      parameters.hiddenUntilFound && hidden && animationTypeRef.current !== 'css-animation',
+    );
+
+    // Most measured dimensions are reused later when CSS keyframe closes need a
+    // pixel size after the rendered dimensions have been reset back to `auto`.
+    // Passing `false` is only for clearing the current dimensions state.
+    const setDimensions = (nextDimensions: Dimensions, shouldCacheMeasurement: boolean = true) => {
+      if (shouldCacheMeasurement) {
+        lastMeasuredDimensionsRef.current = nextDimensions;
+      }
+
+      setDimensionsUnwrapped(nextDimensions);
+    };
 
     $effect(() => {
       // `forcePanelIdle` is only a temporary override for open paths that skip
       // motion. Keep it active while the shared root still reports `starting`,
       // then drop it once the root transition state catches up.
-      if (!this.#forcePanelIdle || parameters.transitionStatus === 'starting') {
+      if (!forcePanelIdle || parameters.transitionStatus === 'starting') {
         return;
       }
 
-      this.#forcePanelIdle = false;
+      setForcePanelIdle(false);
     });
 
     $effect(() => {
-      const panel = this.ref.current;
+      const panel = panelRef.current;
       // Capture real business inputs before the imperative measurement boundary.
       void parameters.open;
       void parameters.mounted;
       void parameters.transitionStatus;
-      void this.#shouldPreventOpenAnimation;
+      void shouldPreventOpenAnimation;
       if (!panel) {
         return undefined;
       }
 
       return untrack(() => {
-        if (!parameters.open) this.#skippedOpenMotion = undefined;
-        const animationType = getAnimationType(panel, this.#shouldPreventOpenAnimation);
-        this.#animationType = animationType;
+        if (!parameters.open) skippedOpenMotion = undefined;
+        const animationType = getAnimationType(panel, shouldPreventOpenAnimation);
+        animationTypeRef.current = animationType;
 
         // Initially open keyframe panels skip their first paint animation to avoid
         // layout shift, but we still need to cache the expanded size so the first
@@ -106,10 +121,10 @@ export class CollapsiblePanel implements UseCollapsiblePanelReturnValue {
         if (
           parameters.open &&
           parameters.transitionStatus === 'idle' &&
-          this.#shouldPreventMountAnimation &&
+          shouldPreventMountAnimationRef.current &&
           animationType === 'css-animation'
         ) {
-          this.#lastMeasuredDimensions = getDimensions(panel);
+          lastMeasuredDimensionsRef.current = getDimensions(panel);
           return undefined;
         }
 
@@ -118,29 +133,29 @@ export class CollapsiblePanel implements UseCollapsiblePanelReturnValue {
         if (parameters.open && parameters.transitionStatus === 'starting') {
           // `beforematch` opens should reveal the panel immediately so find-in-page
           // does not wait for the author-defined transition or animation to finish.
-          const skipNextOpen = this.#shouldSkipNextOpen;
-          this.#shouldSkipNextOpen = false;
+          const skipNextOpen = shouldSkipNextOpenRef.current;
+          shouldSkipNextOpenRef.current = false;
 
           if (animationType === 'none') {
-            this.#setDimensions(getDimensions(panel));
-            this.#forcePanelIdle = true;
+            setDimensions(getDimensions(panel));
+            setForcePanelIdle(true);
             return undefined;
           }
 
           if (animationType === 'css-transition') {
             const restoreLayoutStyles = resetLayoutStyles(panel);
-            this.#setDimensions(getDimensions(panel));
+            setDimensions(getDimensions(panel));
 
             if (!skipNextOpen) {
               return restoreLayoutStyles;
             }
 
-            this.#skippedOpenMotion = { panel, type: animationType };
-            this.#forcePanelIdle = true;
+            skippedOpenMotion = { panel, type: animationType };
+            setForcePanelIdle(true);
             return restoreLayoutStyles;
           }
 
-          this.#setDimensions(getDimensions(panel));
+          setDimensions(getDimensions(panel));
 
           const restoreAnimationName = setTemporaryStyle(panel, 'animation-name', 'none');
           if (!skipNextOpen) {
@@ -148,9 +163,9 @@ export class CollapsiblePanel implements UseCollapsiblePanelReturnValue {
             return undefined;
           }
 
-          this.#skippedOpenMotion = { panel, type: animationType };
+          skippedOpenMotion = { panel, type: animationType };
           restoreAnimationName();
-          this.#forcePanelIdle = true;
+          setForcePanelIdle(true);
 
           return undefined;
         }
@@ -163,15 +178,15 @@ export class CollapsiblePanel implements UseCollapsiblePanelReturnValue {
           parameters.mounted &&
           (parameters.transitionStatus === 'idle' || parameters.transitionStatus === 'starting')
         ) {
-          this.#shouldPreventMountAnimation = false;
+          shouldPreventMountAnimationRef.current = false;
 
           if (animationType === 'none') {
-            this.#setDimensions(EMPTY_DIMENSIONS, false);
+            setDimensions(EMPTY_DIMENSIONS, false);
             parameters.setMounted(false);
             return undefined;
           }
 
-          this.#setDimensions(getDimensions(panel));
+          setDimensions(getDimensions(panel));
           return undefined;
         }
 
@@ -195,7 +210,7 @@ export class CollapsiblePanel implements UseCollapsiblePanelReturnValue {
           return undefined;
         }
 
-        this.#setDimensions(nextDimensions);
+        setDimensions(nextDimensions);
 
         if (animationType === 'css-animation') {
           const restoreAnimationName = setTemporaryStyle(panel, 'animation-name', 'none');
@@ -206,16 +221,13 @@ export class CollapsiblePanel implements UseCollapsiblePanelReturnValue {
       });
     });
 
-    // The shared completion options getter reads this live native owner.
-    const isOpenChangeEnabled = () =>
-      parameters.open && parameters.mounted && this.#panelTransitionStatus === 'idle';
     useOpenChangeComplete({
       get enabled() {
-        return isOpenChangeEnabled();
+        return parameters.open && parameters.mounted && panelTransitionStatus === 'idle';
       },
       open: true,
-      ref: this.ref,
-      onComplete: () => {
+      ref: panelRef,
+      onComplete() {
         // Retain the Source current-open guard against a finished microtask
         // racing the next close commit and animation-observer cleanup.
         // Clearing the measured size in that window would make the close transition start from
@@ -224,7 +236,7 @@ export class CollapsiblePanel implements UseCollapsiblePanelReturnValue {
           return;
         }
 
-        this.#setDimensions(EMPTY_DIMENSIONS, false);
+        setDimensions(EMPTY_DIMENSIONS, false);
       },
     });
 
@@ -235,11 +247,11 @@ export class CollapsiblePanel implements UseCollapsiblePanelReturnValue {
     // opening another, so wait one frame before watching animations.
     // See https://github.com/mui/base-ui/issues/3099
     $effect(() => {
-      if (parameters.open || !parameters.mounted || this.#panelTransitionStatus !== 'ending') {
+      if (parameters.open || !parameters.mounted || panelTransitionStatus !== 'ending') {
         return undefined;
       }
 
-      const panel = this.ref.current;
+      const panel = panelRef.current;
       if (!panel) {
         return undefined;
       }
@@ -247,7 +259,7 @@ export class CollapsiblePanel implements UseCollapsiblePanelReturnValue {
       const abortController = new AbortController();
       let endingStyleFrame = -1;
 
-      const handleComplete = () => {
+      function handleComplete() {
         // Native getters provide the current open value. Retain the Source
         // guard so a stale close completion cannot unmount a reopened panel.
         if (parameters.open) {
@@ -255,8 +267,8 @@ export class CollapsiblePanel implements UseCollapsiblePanelReturnValue {
         }
 
         parameters.setMounted(false);
-        this.#setDimensions(EMPTY_DIMENSIONS, false);
-      };
+        setDimensions(EMPTY_DIMENSIONS, false);
+      }
 
       endingStyleFrame = AnimationFrame.request(() => {
         runOnceCloseAnimationsFinish(handleComplete, abortController.signal);
@@ -268,15 +280,15 @@ export class CollapsiblePanel implements UseCollapsiblePanelReturnValue {
       };
     });
 
-    const registerBeforeMatchListener = () => {
+    $effect(function registerBeforeMatchListener() {
       const onOpenChange = parameters.onOpenChange;
       const setOpen = parameters.setOpen;
-      const panel = this.ref.current;
+      const panel = panelRef.current;
       if (!panel) {
         return undefined;
       }
 
-      const handleBeforeMatch = (event: Event) => {
+      function handleBeforeMatch(event: Event) {
         const eventDetails = createChangeEventDetails(REASONS.none, event);
 
         onOpenChange(true, eventDetails);
@@ -285,61 +297,82 @@ export class CollapsiblePanel implements UseCollapsiblePanelReturnValue {
           return;
         }
 
-        this.#shouldSkipNextOpen = true;
+        shouldSkipNextOpenRef.current = true;
         setOpen(true);
-      };
+      }
 
       return untrack(() => addEventListener(panel, 'beforematch', handleBeforeMatch));
+    });
+
+    const shouldRender = $derived(
+      parameters.keepMounted ||
+        parameters.hiddenUntilFound ||
+        parameters.mounted ||
+        parameters.open,
+    );
+
+    this.#state = {
+      get height() {
+        return renderedDimensions.height;
+      },
+      get props() {
+        return {
+          ...(shouldPersistHiddenTransitionStyles
+            ? { [CollapsiblePanelDataAttributes.startingStyle]: '' }
+            : undefined),
+          hidden: hidden && parameters.hiddenUntilFound ? 'until-found' : hidden,
+          id: parameters.id,
+        };
+      },
+      ref: panelRef,
+      attach(host: HTMLElement) {
+        panelRef.current = host;
+        return () => {
+          if (skippedOpenMotion?.panel === host) skippedOpenMotion = undefined;
+          if (panelRef.current === host) panelRef.current = null;
+        };
+      },
+      get skippedMotion() {
+        return parameters.open && skippedOpenMotion?.panel === panelRef.current
+          ? skippedOpenMotion?.type
+          : undefined;
+      },
+      get shouldPreventOpenAnimation() {
+        return shouldPreventOpenAnimation;
+      },
+      get shouldRender() {
+        return shouldRender;
+      },
+      get transitionStatus() {
+        return panelTransitionStatus;
+      },
+      get width() {
+        return renderedDimensions.width;
+      },
     };
-    $effect(registerBeforeMatchListener);
   }
-
-  // Cache expanded measurements for later keyframe closes; false only clears
-  // the current dimensions without discarding that source measurement cache.
-  #setDimensions(nextDimensions: Dimensions, shouldCacheMeasurement: boolean = true) {
-    if (shouldCacheMeasurement) {
-      this.#lastMeasuredDimensions = nextDimensions;
-    }
-    this.#dimensions = nextDimensions;
-  }
-
   get height() {
-    return this.#renderedDimensions.height;
+    return this.#state.height;
   }
   get width() {
-    return this.#renderedDimensions.width;
+    return this.#state.width;
   }
-  get props(): HTMLProps {
-    return {
-      ...(this.#shouldPersistHiddenTransitionStyles
-        ? { [CollapsiblePanelDataAttributes.startingStyle]: '' }
-        : undefined),
-      hidden: this.#hidden && this.#parameters.hiddenUntilFound ? 'until-found' : this.#hidden,
-      id: this.#parameters.id,
-    };
+  get props() {
+    return this.#state.props;
   }
   get shouldPreventOpenAnimation() {
-    return this.#shouldPreventOpenAnimation;
+    return this.#state.shouldPreventOpenAnimation;
   }
   get shouldRender() {
-    return this.#shouldRender;
+    return this.#state.shouldRender;
   }
   get transitionStatus() {
-    return this.#panelTransitionStatus;
+    return this.#state.transitionStatus;
   }
   get skippedMotion() {
-    return this.#parameters.open && this.#skippedOpenMotion?.panel === this.ref.current
-      ? this.#skippedOpenMotion?.type
-      : undefined;
+    return this.#state.skippedMotion;
   }
-  // Arrow preserves the class receiver when passed as a detached attachment.
-  attach = (host: HTMLElement) => {
-    this.ref.current = host;
-    return () => {
-      if (this.#skippedOpenMotion?.panel === host) this.#skippedOpenMotion = undefined;
-      if (this.ref.current === host) this.ref.current = null;
-    };
-  };
+  attach = (host: HTMLElement) => this.#state.attach(host);
 }
 
 function getDimensions(element: HTMLElement) {

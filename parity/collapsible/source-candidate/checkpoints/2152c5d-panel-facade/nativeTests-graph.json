@@ -40,7 +40,7 @@
   "modules": [
     {
       "source": "apps/fixtures/src/lib/collapsible-config.ts",
-      "sha256": "0666b4f3cc417106c0147dff9c6aefdffbd92b23fc3a6215f9b7ae8588ef0025",
+      "sha256": "63d176167d2be39da21c36a80aaf083f0f477c128f508bc8fd806b87aa81e4f3",
       "reachability": "runtime",
       "imports": []
     },
@@ -240,7 +240,7 @@
     },
     {
       "source": "apps/fixtures/src/lib/CollapsibleFixture.svelte",
-      "sha256": "e9f489c785dd1e5d04a2fa6cc348c2da5dc4abff8295350921188f75c9898c5d",
+      "sha256": "89fdf752bdeaa5463f214d1212c42bac9204e40b82c6d6803268d377eae349f6",
       "reachability": "runtime",
       "imports": [
         {
@@ -799,7 +799,7 @@
     },
     {
       "source": "packages/base/src/lib/collapsible/panel/useCollapsiblePanel.svelte.ts",
-      "sha256": "7bfe7a9607c34998a00e7704922a8c9c51df7ae8fb39a8d61e5cf85683e31415",
+      "sha256": "1e335baa0e8c4ca4996b682f3f31c300bd3d4bbfb58de0874fe19e86c5550dcc",
       "reachability": "runtime",
       "imports": [
         {
@@ -3896,7 +3896,7 @@
     },
     {
       "source": "packages/base/tests/dom/collapsible/RenderDimensionsBoundary.svelte",
-      "sha256": "9492090cb2f3078563eb41ad2c5f425305f35d9cf757ccdf7c952bc034af4b3d",
+      "sha256": "2d1064ba63abc5af29abb9b7cab98f766205c0ec64d273bc3e7904e871da8014",
       "reachability": "runtime",
       "imports": [
         {

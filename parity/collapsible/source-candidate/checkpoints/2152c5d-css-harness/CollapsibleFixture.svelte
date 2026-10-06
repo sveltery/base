@@ -28,9 +28,15 @@
     reset = $state(0),
     externalSubmitted = $state(0);
   let panelRef = $state<HTMLElement | null | undefined>();
-  // Historical forward-object cases retain React object input in Original;
-  // native counterparts use the current public CSS string contract.
-  const style = $derived(motionEnabled ? config.panelStyle : '');
+  const style = $derived(
+    scenario.startsWith('css-') && scenario.endsWith('object')
+      ? scenario.includes('keys')
+        ? { animationDuration: '123ms', justifyContent: 'center' }
+        : { transitionDuration: '123ms', justifyContent: 'center' }
+      : motionEnabled
+        ? config.panelStyle
+        : '',
+  );
   const motion = $derived(motionEnabled ? config.motionClass : '');
   function changed(
     next: boolean,
@@ -217,9 +223,7 @@
             bind:ref={panelRef}
             keepMounted={scenario === 'hidden-warning' ? false : config.keep}
             hiddenUntilFound={config.hidden}
-            render={scenario.startsWith('css-') && scenario.includes('default')
-              ? undefined
-              : panelHost}
+            render={panelHost}
             >{#if scenario !== 'zero'}This is panel content{/if}</Panel
           >{/if}
       </form>

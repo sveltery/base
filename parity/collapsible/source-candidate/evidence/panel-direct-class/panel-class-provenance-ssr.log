@@ -1,0 +1,14 @@
+✔ Collapsible ledger preserves exact ordinary inventory and portable versus Activity scope (9.151825ms)
+✔ P:799 paired exact-pin React/Svelte SSR initial keyframe suppression (1392.134203ms)
+✔ P:830 paired exact-pin React/Svelte SSR initial keyframe suppression (1187.074709ms)
+✔ native rendering retirement preserves every exact predecessor body and Source declaration scope (19.693473ms)
+✔ live public native rendering excludes the retired root/subpath API and keeps real secured acceptance (0.979472ms)
+✔ actual current native Source import graph and retirement exclusions remain coherent (801.305212ms)
+ℹ tests 6
+ℹ suites 0
+ℹ pass 6
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 3622.189559

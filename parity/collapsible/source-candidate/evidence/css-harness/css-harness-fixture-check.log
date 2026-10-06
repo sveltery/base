@@ -1,0 +1,26 @@
+$ svelte-kit sync && svelte-check --tsconfig ./tsconfig.json
+
+<--- Last few GCs --->
+
+[136:0x1b449000]    39992 ms: Scavenge 1529.2 (1536.2) -> 1527.6 (1540.5) MB, pooled: 0 MB, 2.16 / 0.00 ms  (average mu = 0.260, current mu = 0.183) allocation failure; 
+[136:0x1b449000]    40358 ms: Mark-Compact (reduce) 1531.8 (1540.7) -> 1526.0 (1533.7) MB, pooled: 0 MB, 96.58 / 0.00 ms  (+ 246.1 ms in 60 steps since start of marking, biggest step 5.1 ms, walltime since start of marking 366 ms) (average mu = 0.234, cur
+FATAL ERROR: Ineffective mark-compacts near heap limit Allocation failed - JavaScript heap out of memory
+----- Native stack trace -----
+
+ 1: 0x75356c node::OOMErrorHandler(char const*, v8::OOMDetails const&) [node]
+ 2: 0xc52cd0  [node]
+ 3: 0xc52dbf  [node]
+ 4: 0xef6695  [node]
+ 5: 0xef66c2  [node]
+ 6: 0xef69ba  [node]
+ 7: 0xf076ba  [node]
+ 8: 0xf0ba60  [node]
+ 9: 0x199e0d1  [node]
+Aborted
+[ELIFECYCLE] Command failed with exit code 134.
+Error, do this: mount -t proc proc /proc
+Error: ERR_PNPM_RECURSIVE_RUN_FIRST_FAIL
+
+  × "pnpm recursive run" failed in /workspace/scratch/4b2513ebe1ef/
+  │ collapsible-check/apps/fixtures
+

@@ -1,0 +1,9 @@
+const fs=require('node:fs'); const cp=require('node:child_process'); const {createRequire}=require('node:module');
+const req=createRequire('/workspace/scratch/4b2513ebe1ef/collapsible-check/apps/fixtures/package.json');
+const ts=req('typescript'),React=req('react'),{renderToString}=req('react-dom/server'),{Collapsible}=req('@base-ui/react/collapsible');
+const repo='/workspace/scratch/4b2513ebe1ef/collapsible';
+const file='apps/fixtures/src/lib/collapsible-config.ts';
+function load(body){const exports={};new Function('exports',ts.transpileModule(body,{compilerOptions:{module:ts.ModuleKind.CommonJS}}).outputText)(exports);return exports.collapsibleConfig;}
+const scenarios=['css-transition-default-string','css-transition-forward-object','css-beforematch-transition-default-string','css-beforematch-transition-forward-object','css-beforematch-keys-default-string','css-beforematch-keys-forward-object'];
+console.log(JSON.stringify({package:req('@base-ui/react/package.json').version,pin:'47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c',kind:'Original installed SSR initial-host precondition; no browser or measurement claim'}));
+for(const [checkpoint,body] of [['public2152',cp.execFileSync('git',['show','2152c5d: '+file].map(x=>x.replace(': ',':')),{cwd:repo,encoding:'utf8'})],['predecessor69',cp.execFileSync('git',['show','69a133a2:'+file],{cwd:repo,encoding:'utf8'})]]){const config=load(body);for(const scenario of scenarios){const c=config(scenario);const html=renderToString(React.createElement(Collapsible.Root,{defaultOpen:c.initialOpen},React.createElement(Collapsible.Panel,{keepMounted:c.keep,hiddenUntilFound:c.hidden,'data-testid':'panel'},'content')));console.log(JSON.stringify({checkpoint,scenario,initialOpen:c.initialOpen,keep:c.keep,hidden:c.hidden,motionClass:c.motionClass,panelStyle:c.panelStyle,panelPresent:html.includes('data-testid="panel"'),html}));}}

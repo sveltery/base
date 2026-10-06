@@ -1,0 +1,11 @@
+# Independent local direct Panel review — 3cc90e76e3fda122e8cd50a4bced295407ff34af
+
+Read-only full direct Panel and immutable pinned Panel body comparison. Other85-module closure bodies carried only verified unchanged immutable hashes; graph85/227 remains actual workspace inventory. Ten generated consumers unchanged public predecessor; no repeated execution claimed. Original55 whole-body reads retained,68 test closure hash-only retained.
+
+Mandatory03ec receiver regression: normal-function beforematch effect now accessed class this. Corrected0c8 replaces it with named lexical arrow registered as native effect. Fresh diff inspected; no runtime red invented. Shared completion enabled getter uses closed lexical predicate; complete and close callbacks arrows preserve receiver. Detached attachment arrow retains captured current-host cleanup guards.
+
+Direct fields replace nested return facade and eight transport getters; real measurement cache method retains shouldCacheMeasurement=false semantics. Source branch/order, dimensions cache, actual host publication, current-open completion guard, extra close frame, AbortController cleanup and stateless temporary/layout helpers unchanged. Native derived fields are lazily evaluated; #parameters assignment precedes constructor effect registration/public read. Focused compiler/SSR evidence remains implementation-owned pending and required. No further concrete scoped failure found.
+
+Fixture named native CSS-text string retains exact duplicate-property ordering witness; it introduces no CSS algorithm or lint relaxation. Changed docs/projection metadata reviewed; public predecessor archives retained. Source-candidate README current inventory still saysca229 although actual scope0c8; distinguish current runtime0c8 from unchanged ca hydration consumer. Compatibility representation record should accompany feature docs.
+
+Overall Source/native/maintainability NOT CLEAR required canonical Transition/Button owners and PR73 nativeProps empty-style prerequisite. Animation completion executor no finding; FieldValidation not reached. Public2152 remains stable; no authorization to publish this local candidate inferred. Await focused tests and final exact stable candidate review.

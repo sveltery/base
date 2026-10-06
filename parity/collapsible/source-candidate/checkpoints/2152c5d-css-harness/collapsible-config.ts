@@ -26,9 +26,7 @@ export const collapsibleCss = `
 .animation-test-panel[data-closed] { animation-name:panel-slide-up; }
 `;
 export function collapsibleConfig(scenario: string) {
-  const cssWitness = scenario.startsWith('css-');
   const hidden =
-    scenario.startsWith('css-beforematch') ||
     scenario.startsWith('beforematch') ||
     scenario.startsWith('hidden') ||
     scenario === 'replaced-host';
@@ -56,7 +54,6 @@ export function collapsibleConfig(scenario: string) {
     hidden,
     initialOpen,
     keep:
-      cssWitness ||
       hidden ||
       [
         'keep',
@@ -74,11 +71,8 @@ export function collapsibleConfig(scenario: string) {
       scenario,
     ),
     disabled: ['disabled', 'custom-disabled', 'disabled-override'].includes(scenario),
-    motionClass: cssWitness
-      ? scenario.includes('keys')
-        ? 'keys'
-        : 'motion'
-      : scenario === 'zero'
+    motionClass:
+      scenario === 'zero'
         ? 'zero'
         : scenario === 'mixed' || scenario === 'important'
           ? 'mixed'
@@ -101,11 +95,8 @@ export function collapsibleConfig(scenario: string) {
                     ].includes(scenario)
                   ? 'motion'
                   : '',
-    panelStyle: cssWitness
-      ? scenario.includes('keys')
-        ? 'animation-duration:123ms;justify-content:center'
-        : 'transition-duration:123ms;justify-content:center'
-      : scenario === 'keys-inline'
+    panelStyle:
+      scenario === 'keys-inline'
         ? 'animation-duration:100ms;animation-name:panel-down;animation-timing-function:linear'
         : scenario === 'beforematch-keys'
           ? 'animation-duration:123ms'

@@ -1,0 +1,1603 @@
+﻿2026-10-06T22:02:18.6642880Z Current runner version: '2.337.0'
+2026-10-06T22:02:18.6662582Z ##[group]Runner Image Provisioner
+2026-10-06T22:02:18.6663208Z Hosted Compute Agent
+2026-10-06T22:02:18.6663586Z Version: 20260901.588
+2026-10-06T22:02:18.6663977Z Commit: f88ec8081b781fac6c440065ac7ff9e710ce3d0b
+2026-10-06T22:02:18.6664522Z Build Date: 2026-09-01T19:56:44Z
+2026-10-06T22:02:18.6664942Z Worker ID: {e68714e7-909a-45a1-aea1-4bd8b12657d0}
+2026-10-06T22:02:18.6665489Z Azure Region: westus3
+2026-10-06T22:02:18.6665871Z ##[endgroup]
+2026-10-06T22:02:18.6666848Z ##[group]Operating System
+2026-10-06T22:02:18.6667270Z Ubuntu
+2026-10-06T22:02:18.6667631Z 24.04.5
+2026-10-06T22:02:18.6667964Z LTS
+2026-10-06T22:02:18.6668347Z ##[endgroup]
+2026-10-06T22:02:18.6668696Z ##[group]Runner Image
+2026-10-06T22:02:18.6669187Z Image: ubuntu-24.04
+2026-10-06T22:02:18.6669562Z Version: 20260927.320.1
+2026-10-06T22:02:18.6670399Z Included Software: https://github.com/actions/runner-images/blob/ubuntu24/20260927.320/images/ubuntu/Ubuntu2404-Readme.md
+2026-10-06T22:02:18.6671334Z Image Release: https://github.com/actions/runner-images/releases/tag/ubuntu24%2F20260927.320
+2026-10-06T22:02:18.6671996Z ##[endgroup]
+2026-10-06T22:02:18.6672676Z ##[group]GITHUB_TOKEN Permissions
+2026-10-06T22:02:18.6673965Z Contents: read
+2026-10-06T22:02:18.6674312Z Metadata: read
+2026-10-06T22:02:18.6674659Z ##[endgroup]
+2026-10-06T22:02:18.6676171Z Secret source: Actions
+2026-10-06T22:02:18.6676900Z Cache mode: write
+2026-10-06T22:02:18.6677409Z Prepare workflow directory
+2026-10-06T22:02:18.7018803Z Prepare all required actions
+2026-10-06T22:02:18.7051568Z Getting action download info
+2026-10-06T22:02:19.0525733Z Download action repository 'actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803' (SHA:d23441a48e516b6c34aea4fa41551a30e30af803)
+2026-10-06T22:02:19.1537520Z Download action repository 'pnpm/action-setup@fc06bc1257f339d1d5d8b3a19a8cae5388b55320' (SHA:fc06bc1257f339d1d5d8b3a19a8cae5388b55320)
+2026-10-06T22:02:20.0416924Z Download action repository 'actions/setup-node@249970729cb0ef3589644e2896645e5dc5ba9c38' (SHA:249970729cb0ef3589644e2896645e5dc5ba9c38)
+2026-10-06T22:02:20.1928309Z Download action repository 'actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02' (SHA:ea165f8d65b6e75b540449e92b4886f43607fa02)
+2026-10-06T22:02:20.3837811Z Complete job name: Verification
+2026-10-06T22:02:20.4404828Z ##[group]Run actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803
+2026-10-06T22:02:20.4405882Z with:
+2026-10-06T22:02:20.4406544Z   ref: 2152c5d5814000198ec232c655601a40c9a717b4
+2026-10-06T22:02:20.4407245Z   persist-credentials: false
+2026-10-06T22:02:20.4407890Z   repository: sveltery/base
+2026-10-06T22:02:20.4412350Z   token: ***
+2026-10-06T22:02:20.4412912Z   ssh-strict: true
+2026-10-06T22:02:20.4413426Z   ssh-user: git
+2026-10-06T22:02:20.4413923Z   clean: true
+2026-10-06T22:02:20.4414506Z   sparse-checkout-cone-mode: true
+2026-10-06T22:02:20.4415121Z   fetch-depth: 1
+2026-10-06T22:02:20.4415683Z   fetch-tags: false
+2026-10-06T22:02:20.4416216Z   show-progress: true
+2026-10-06T22:02:20.4416834Z   lfs: false
+2026-10-06T22:02:20.4417355Z   submodules: false
+2026-10-06T22:02:20.4417876Z   set-safe-directory: true
+2026-10-06T22:02:20.4418481Z   allow-unsafe-pr-checkout: false
+2026-10-06T22:02:20.4419218Z env:
+2026-10-06T22:02:20.4420099Z   SVELTERY_PACKAGE_ARTIFACTS: /home/runner/work/base/base/.checks/npm-package/artifacts.json
+2026-10-06T22:02:20.4421094Z ##[endgroup]
+2026-10-06T22:02:20.5104060Z Syncing repository: sveltery/base
+2026-10-06T22:02:20.5169812Z ##[group]Getting Git version info
+2026-10-06T22:02:20.5171068Z Working directory is '/home/runner/work/base/base'
+2026-10-06T22:02:20.5172869Z [command]/usr/bin/git version
+2026-10-06T22:02:20.5204032Z git version 2.55.0
+2026-10-06T22:02:20.5221045Z ##[endgroup]
+2026-10-06T22:02:20.5234880Z Temporarily overriding HOME='/home/runner/work/_temp/d17419da-914d-4814-9154-8270c8efc2b9' before making global git config changes
+2026-10-06T22:02:20.5237658Z Adding repository directory to the temporary git global config as a safe directory
+2026-10-06T22:02:20.5239872Z [command]/usr/bin/git config --global --add safe.directory /home/runner/work/base/base
+2026-10-06T22:02:20.5291306Z Deleting the contents of '/home/runner/work/base/base'
+2026-10-06T22:02:20.5294712Z ##[group]Determining repository object format
+2026-10-06T22:02:20.5296514Z ##[endgroup]
+2026-10-06T22:02:20.5297811Z ##[group]Initializing the repository
+2026-10-06T22:02:20.5300132Z [command]/usr/bin/git init /home/runner/work/base/base
+2026-10-06T22:02:20.5400268Z hint: Using 'master' as the name for the initial branch. This default branch name
+2026-10-06T22:02:20.5403373Z hint: will change to "main" in Git 3.0. To configure the initial branch name
+2026-10-06T22:02:20.5405054Z hint: to use in all of your new repositories, which will suppress this warning,
+2026-10-06T22:02:20.5406302Z hint: call:
+2026-10-06T22:02:20.5407043Z hint:
+2026-10-06T22:02:20.5407905Z hint: 	git config --global init.defaultBranch <name>
+2026-10-06T22:02:20.5408943Z hint:
+2026-10-06T22:02:20.5409923Z hint: Names commonly chosen instead of 'master' are 'main', 'trunk' and
+2026-10-06T22:02:20.5411456Z hint: 'development'. The just-created branch can be renamed via this command:
+2026-10-06T22:02:20.5412726Z hint:
+2026-10-06T22:02:20.5413368Z hint: 	git branch -m <name>
+2026-10-06T22:02:20.5414118Z hint:
+2026-10-06T22:02:20.5415125Z hint: Disable this message with "git config set advice.defaultBranchName false"
+2026-10-06T22:02:20.5416364Z Initialized empty Git repository in /home/runner/work/base/base/.git/
+2026-10-06T22:02:20.5418880Z [command]/usr/bin/git remote add origin https://github.com/sveltery/base
+2026-10-06T22:02:20.5468225Z ##[endgroup]
+2026-10-06T22:02:20.5469569Z ##[group]Disabling automatic garbage collection
+2026-10-06T22:02:20.5471193Z [command]/usr/bin/git config --local gc.auto 0
+2026-10-06T22:02:20.5508172Z ##[endgroup]
+2026-10-06T22:02:20.5509154Z ##[group]Setting up auth
+2026-10-06T22:02:20.5512897Z Removing SSH command configuration
+2026-10-06T22:02:20.5514841Z [command]/usr/bin/git config --local --name-only --get-regexp core\.sshCommand
+2026-10-06T22:02:20.5554267Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
+2026-10-06T22:02:20.5861612Z Removing HTTP extra header
+2026-10-06T22:02:20.5866683Z [command]/usr/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+2026-10-06T22:02:20.5897706Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
+2026-10-06T22:02:20.6072625Z Removing includeIf entries pointing to credentials config files
+2026-10-06T22:02:20.6077259Z [command]/usr/bin/git config --local --name-only --get-regexp ^includeIf\.gitdir:
+2026-10-06T22:02:20.6107874Z [command]/usr/bin/git submodule foreach --recursive git config --local --show-origin --name-only --get-regexp remote.origin.url
+2026-10-06T22:02:20.6292041Z [command]/usr/bin/git config --file /home/runner/work/_temp/git-credentials-ce73d6c7-f181-4bd4-bdf5-2f000e8dfb1d.config http.https://github.com/.extraheader AUTHORIZATION: basic ***
+2026-10-06T22:02:20.6328647Z [command]/usr/bin/git config --local includeIf.gitdir:/home/runner/work/base/base/.git.path /home/runner/work/_temp/git-credentials-ce73d6c7-f181-4bd4-bdf5-2f000e8dfb1d.config
+2026-10-06T22:02:20.6359917Z [command]/usr/bin/git config --local includeIf.gitdir:/home/runner/work/base/base/.git/worktrees/*.path /home/runner/work/_temp/git-credentials-ce73d6c7-f181-4bd4-bdf5-2f000e8dfb1d.config
+2026-10-06T22:02:20.6393880Z [command]/usr/bin/git config --local includeIf.gitdir:/github/workspace/.git.path /github/runner_temp/git-credentials-ce73d6c7-f181-4bd4-bdf5-2f000e8dfb1d.config
+2026-10-06T22:02:20.6424757Z [command]/usr/bin/git config --local includeIf.gitdir:/github/workspace/.git/worktrees/*.path /github/runner_temp/git-credentials-ce73d6c7-f181-4bd4-bdf5-2f000e8dfb1d.config
+2026-10-06T22:02:20.6450957Z ##[endgroup]
+2026-10-06T22:02:20.6457037Z ##[group]Fetching the repository
+2026-10-06T22:02:20.6458933Z [command]/usr/bin/git -c protocol.version=2 fetch --no-tags --prune --no-recurse-submodules --depth=1 origin 2152c5d5814000198ec232c655601a40c9a717b4
+2026-10-06T22:02:23.1516252Z From https://github.com/sveltery/base
+2026-10-06T22:02:23.1517700Z  * branch            2152c5d5814000198ec232c655601a40c9a717b4 -> FETCH_HEAD
+2026-10-06T22:02:23.1527414Z [command]/usr/bin/git rev-parse --verify --quiet 2152c5d5814000198ec232c655601a40c9a717b4^{object}
+2026-10-06T22:02:23.1549664Z 2152c5d5814000198ec232c655601a40c9a717b4
+2026-10-06T22:02:23.1553092Z ##[endgroup]
+2026-10-06T22:02:23.1553567Z ##[group]Determining the checkout info
+2026-10-06T22:02:23.1554169Z ##[endgroup]
+2026-10-06T22:02:23.1557472Z [command]/usr/bin/git sparse-checkout disable
+2026-10-06T22:02:23.1600504Z [command]/usr/bin/git config --local --unset-all extensions.worktreeConfig
+2026-10-06T22:02:23.1625903Z ##[group]Checking out the ref
+2026-10-06T22:02:23.1628512Z [command]/usr/bin/git checkout --progress --force 2152c5d5814000198ec232c655601a40c9a717b4
+2026-10-06T22:02:23.4776967Z Note: switching to '2152c5d5814000198ec232c655601a40c9a717b4'.
+2026-10-06T22:02:23.4777327Z 
+2026-10-06T22:02:23.4777498Z You are in 'detached HEAD' state. You can look around, make experimental
+2026-10-06T22:02:23.4777977Z changes and commit them, and you can discard any commits you make in this
+2026-10-06T22:02:23.4778416Z state without impacting any branches by switching back to a branch.
+2026-10-06T22:02:23.4778665Z 
+2026-10-06T22:02:23.4778813Z If you want to create a new branch to retain commits you create, you may
+2026-10-06T22:02:23.4779182Z do so (now or later) by using -c with the switch command. Example:
+2026-10-06T22:02:23.4779437Z 
+2026-10-06T22:02:23.4779538Z   git switch -c <new-branch-name>
+2026-10-06T22:02:23.4779716Z 
+2026-10-06T22:02:23.4779857Z Or undo this operation with:
+2026-10-06T22:02:23.4780016Z 
+2026-10-06T22:02:23.4780080Z   git switch -
+2026-10-06T22:02:23.4780157Z 
+2026-10-06T22:02:23.4780292Z Turn off this advice by setting config variable advice.detachedHead to false
+2026-10-06T22:02:23.4780470Z 
+2026-10-06T22:02:23.4780923Z HEAD is now at 2152c5d fix(collapsible): publish reviewed native source repair diagnostic batch
+2026-10-06T22:02:23.4813817Z ##[endgroup]
+2026-10-06T22:02:23.4854217Z [command]/usr/bin/git log -1 --format=%H
+2026-10-06T22:02:23.4878111Z 2152c5d5814000198ec232c655601a40c9a717b4
+2026-10-06T22:02:23.4885456Z ##[group]Removing auth
+2026-10-06T22:02:23.4885713Z Removing SSH command configuration
+2026-10-06T22:02:23.4887767Z [command]/usr/bin/git config --local --name-only --get-regexp core\.sshCommand
+2026-10-06T22:02:23.4915255Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
+2026-10-06T22:02:23.5096187Z Removing HTTP extra header
+2026-10-06T22:02:23.5099673Z [command]/usr/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+2026-10-06T22:02:23.5129953Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
+2026-10-06T22:02:23.5304642Z Removing includeIf entries pointing to credentials config files
+2026-10-06T22:02:23.5306814Z [command]/usr/bin/git config --local --name-only --get-regexp ^includeIf\.gitdir:
+2026-10-06T22:02:23.5332478Z includeif.gitdir:/home/runner/work/base/base/.git.path
+2026-10-06T22:02:23.5332962Z includeif.gitdir:/home/runner/work/base/base/.git/worktrees/*.path
+2026-10-06T22:02:23.5333228Z includeif.gitdir:/github/workspace/.git.path
+2026-10-06T22:02:23.5333452Z includeif.gitdir:/github/workspace/.git/worktrees/*.path
+2026-10-06T22:02:23.5339676Z [command]/usr/bin/git config --local --get-all includeif.gitdir:/home/runner/work/base/base/.git.path
+2026-10-06T22:02:23.5360993Z /home/runner/work/_temp/git-credentials-ce73d6c7-f181-4bd4-bdf5-2f000e8dfb1d.config
+2026-10-06T22:02:23.5368062Z [command]/usr/bin/git config --local --unset includeif.gitdir:/home/runner/work/base/base/.git.path /home/runner/work/_temp/git-credentials-ce73d6c7-f181-4bd4-bdf5-2f000e8dfb1d.config
+2026-10-06T22:02:23.5397591Z [command]/usr/bin/git config --local --get-all includeif.gitdir:/home/runner/work/base/base/.git/worktrees/*.path
+2026-10-06T22:02:23.5418907Z /home/runner/work/_temp/git-credentials-ce73d6c7-f181-4bd4-bdf5-2f000e8dfb1d.config
+2026-10-06T22:02:23.5424656Z [command]/usr/bin/git config --local --unset includeif.gitdir:/home/runner/work/base/base/.git/worktrees/*.path /home/runner/work/_temp/git-credentials-ce73d6c7-f181-4bd4-bdf5-2f000e8dfb1d.config
+2026-10-06T22:02:23.5455774Z [command]/usr/bin/git config --local --get-all includeif.gitdir:/github/workspace/.git.path
+2026-10-06T22:02:23.5476243Z /github/runner_temp/git-credentials-ce73d6c7-f181-4bd4-bdf5-2f000e8dfb1d.config
+2026-10-06T22:02:23.5481557Z [command]/usr/bin/git config --local --unset includeif.gitdir:/github/workspace/.git.path /github/runner_temp/git-credentials-ce73d6c7-f181-4bd4-bdf5-2f000e8dfb1d.config
+2026-10-06T22:02:23.5514451Z [command]/usr/bin/git config --local --get-all includeif.gitdir:/github/workspace/.git/worktrees/*.path
+2026-10-06T22:02:23.5535695Z /github/runner_temp/git-credentials-ce73d6c7-f181-4bd4-bdf5-2f000e8dfb1d.config
+2026-10-06T22:02:23.5541393Z [command]/usr/bin/git config --local --unset includeif.gitdir:/github/workspace/.git/worktrees/*.path /github/runner_temp/git-credentials-ce73d6c7-f181-4bd4-bdf5-2f000e8dfb1d.config
+2026-10-06T22:02:23.5570702Z [command]/usr/bin/git submodule foreach --recursive git config --local --show-origin --name-only --get-regexp remote.origin.url
+2026-10-06T22:02:23.5746066Z Removing credentials config '/home/runner/work/_temp/git-credentials-ce73d6c7-f181-4bd4-bdf5-2f000e8dfb1d.config'
+2026-10-06T22:02:23.5753932Z ##[endgroup]
+2026-10-06T22:02:23.5923404Z ##[group]Run pnpm/action-setup@fc06bc1257f339d1d5d8b3a19a8cae5388b55320
+2026-10-06T22:02:23.5923631Z with:
+2026-10-06T22:02:23.5923746Z   version: 12.6.0
+2026-10-06T22:02:23.5923865Z   run_install: false
+2026-10-06T22:02:23.5923987Z   dest: ~/setup-pnpm
+2026-10-06T22:02:23.5924105Z   cache: false
+2026-10-06T22:02:23.5924236Z   cache_dependency_path: pnpm-lock.yaml
+2026-10-06T22:02:23.5924402Z   package_json_file: package.json
+2026-10-06T22:02:23.5924544Z   standalone: false
+2026-10-06T22:02:23.5924659Z env:
+2026-10-06T22:02:23.5924866Z   SVELTERY_PACKAGE_ARTIFACTS: /home/runner/work/base/base/.checks/npm-package/artifacts.json
+2026-10-06T22:02:23.5925104Z ##[endgroup]
+2026-10-06T22:02:23.6859278Z ##[group]Running self-installer...
+2026-10-06T22:02:23.9275890Z (node:2190) [DEP0169] DeprecationWarning: `url.parse()` behavior is not standardized and prone to errors that have security implications. Use the WHATWG URL API instead. CVEs are not issued for `url.parse()` vulnerabilities.
+2026-10-06T22:02:23.9276720Z (Use `node --trace-deprecation ...` to show where the warning was created)
+2026-10-06T22:02:24.1180627Z Progress: resolved 1, reused 0, downloaded 0, added 0
+2026-10-06T22:02:24.2325844Z Packages: +3
+2026-10-06T22:02:24.2326110Z +++
+2026-10-06T22:02:24.8429837Z Progress: resolved 15, reused 0, downloaded 3, added 3, done
+2026-10-06T22:02:24.8532850Z .../.pnpm/pnpm@12.6.0/node_modules/pnpm preinstall$ node install.js
+2026-10-06T22:02:25.3180632Z .../.pnpm/pnpm@12.6.0/node_modules/pnpm preinstall: Done
+2026-10-06T22:02:25.3183869Z .../.pnpm/pnpm@12.6.0/node_modules/pnpm postinstall$ node install.js
+2026-10-06T22:02:25.3512671Z .../.pnpm/pnpm@12.6.0/node_modules/pnpm postinstall: Done
+2026-10-06T22:02:26.2703405Z 
+2026-10-06T22:02:26.2703883Z dependencies:
+2026-10-06T22:02:26.2704143Z + pnpm 12.6.0 (12.9.1 is available)
+2026-10-06T22:02:26.2704278Z 
+2026-10-06T22:02:26.2723368Z Done in 2.4s
+2026-10-06T22:02:26.3034830Z ##[endgroup]
+2026-10-06T22:02:26.3035318Z Installation Completed!
+2026-10-06T22:02:26.3177328Z ##[group]Run actions/setup-node@249970729cb0ef3589644e2896645e5dc5ba9c38
+2026-10-06T22:02:26.3177556Z with:
+2026-10-06T22:02:26.3177673Z   node-version: 24
+2026-10-06T22:02:26.3177805Z   package-manager-cache: false
+2026-10-06T22:02:26.3177948Z   check-latest: false
+2026-10-06T22:02:26.3179246Z   token: ***
+2026-10-06T22:02:26.3179354Z env:
+2026-10-06T22:02:26.3179564Z   SVELTERY_PACKAGE_ARTIFACTS: /home/runner/work/base/base/.checks/npm-package/artifacts.json
+2026-10-06T22:02:26.3179856Z   PNPM_HOME: /home/runner/setup-pnpm/node_modules/.bin
+2026-10-06T22:02:26.3180028Z ##[endgroup]
+2026-10-06T22:02:26.4163298Z Found in cache @ /opt/hostedtoolcache/node/24.21.0/x64
+2026-10-06T22:02:26.4166767Z ##[group]Environment details
+2026-10-06T22:02:26.7422678Z node: v24.21.0
+2026-10-06T22:02:26.7422970Z npm: 11.19.0
+2026-10-06T22:02:26.7423148Z yarn: 1.22.22
+2026-10-06T22:02:26.7423668Z ##[endgroup]
+2026-10-06T22:02:26.7543563Z ##[group]Run bash scripts/bootstrap.sh
+2026-10-06T22:02:26.7543828Z [36;1mbash scripts/bootstrap.sh[0m
+2026-10-06T22:02:26.7889189Z shell: /usr/bin/bash -e {0}
+2026-10-06T22:02:26.7889407Z env:
+2026-10-06T22:02:26.7889678Z   SVELTERY_PACKAGE_ARTIFACTS: /home/runner/work/base/base/.checks/npm-package/artifacts.json
+2026-10-06T22:02:26.7890004Z   PNPM_HOME: /home/runner/setup-pnpm/node_modules/.bin
+2026-10-06T22:02:26.7890203Z ##[endgroup]
+2026-10-06T22:02:26.8895097Z Scope: all 4 workspace projects
+2026-10-06T22:02:26.9024815Z ? Verifying lockfile against supply-chain policies (344 entries)...
+2026-10-06T22:02:27.5057098Z Packages are hard linked from the content-addressable store to the virtual store.
+2026-10-06T22:02:27.5058246Z   Content-addressable store is at: /home/runner/setup-pnpm/node_modules/.bin/store/v11
+2026-10-06T22:02:27.5058717Z   Virtual store is at:             node_modules/.pnpm
+2026-10-06T22:02:28.5081880Z Progress: resolved 322, reused 0, downloaded 221, added 197
+2026-10-06T22:02:28.5302129Z Downloading @rolldown/binding-linux-x64-gnu@1.2.11: 0.00 B/7.94 MB
+2026-10-06T22:02:28.9865754Z ✓ Lockfile passes supply-chain policies (344 entries in 2.1s)
+2026-10-06T22:02:28.9866362Z Lockfile is up to date, resolution step is skipped
+2026-10-06T22:02:29.0239014Z Packages: +322
+2026-10-06T22:02:29.0239444Z ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+2026-10-06T22:02:29.0415742Z Progress: resolved 322, reused 0, downloaded 319, added 322, done
+2026-10-06T22:02:29.3494558Z packages/base prepare$ svelte-kit sync
+2026-10-06T22:02:29.9587373Z packages/base prepare: Done
+2026-10-06T22:02:29.9605486Z apps/fixtures prepare$ svelte-kit sync
+2026-10-06T22:02:30.5779598Z apps/fixtures prepare: Done
+2026-10-06T22:02:30.5787688Z 
+2026-10-06T22:02:30.5788025Z devDependencies:
+2026-10-06T22:02:30.5788328Z + @arethetypeswrong/cli 0.18.5
+2026-10-06T22:02:30.5788626Z + @arethetypeswrong/core 0.18.5
+2026-10-06T22:02:30.5788865Z + @eslint/js 10.0.1
+2026-10-06T22:02:30.5789126Z + @playwright/test 1.63.0
+2026-10-06T22:02:30.5789294Z + eslint 10.11.0
+2026-10-06T22:02:30.5789460Z + eslint-config-prettier 10.1.8
+2026-10-06T22:02:30.5789632Z + eslint-plugin-svelte 3.23.0
+2026-10-06T22:02:30.5789786Z + globals 17.12.0
+2026-10-06T22:02:30.5789912Z + prettier 3.9.9
+2026-10-06T22:02:30.5790162Z + prettier-plugin-svelte 4.1.1
+2026-10-06T22:02:30.5790311Z + publint 0.3.25
+2026-10-06T22:02:30.5790434Z + svelte 5.57.1
+2026-10-06T22:02:30.5790579Z + typescript 6.0.3
+2026-10-06T22:02:30.5790721Z + typescript-eslint 8.71.0
+2026-10-06T22:02:30.5790813Z 
+2026-10-06T22:02:30.5902536Z Done in 3.7s using pnpm v12.6.0
+2026-10-06T22:02:30.6285511Z $ pnpm --recursive --filter './packages/*' --sort --workspace-concurrency 1 --if-present run prepack
+2026-10-06T22:02:30.6430915Z Scope: 2 of 4 workspace projects
+2026-10-06T22:02:30.6461607Z $ pnpm run build && publint --strict
+2026-10-06T22:02:30.6605663Z $ svelte-package
+2026-10-06T22:02:32.0333314Z src/lib -> dist
+2026-10-06T22:02:32.1388445Z Running [1mpublint v0.3.25[22m for [1m@sveltery/utils[22m...
+2026-10-06T22:02:32.1413032Z Packing files with `pnpm pack`...
+2026-10-06T22:02:32.2934934Z Linting...
+2026-10-06T22:02:32.3032644Z [1m[32mAll good![39m[22m
+2026-10-06T22:02:32.3085308Z $ svelte-kit sync && svelte-package && publint --strict
+2026-10-06T22:02:40.9109387Z src/lib -> dist
+2026-10-06T22:02:41.0684709Z Running [1mpublint v0.3.25[22m for [1m@sveltery/base[22m...
+2026-10-06T22:02:41.0721659Z Packing files with `pnpm pack`...
+2026-10-06T22:02:41.1465119Z Linting...
+2026-10-06T22:02:41.2108426Z [1m[32mAll good![39m[22m
+2026-10-06T22:02:41.2292115Z ##[group]Run node --test --test-concurrency=1 scripts/tests/*.test.mjs
+2026-10-06T22:02:41.2292580Z [36;1mnode --test --test-concurrency=1 scripts/tests/*.test.mjs[0m
+2026-10-06T22:02:41.2362653Z shell: /usr/bin/bash -e {0}
+2026-10-06T22:02:41.2362914Z env:
+2026-10-06T22:02:41.2363276Z   SVELTERY_PACKAGE_ARTIFACTS: /home/runner/work/base/base/.checks/npm-package/artifacts.json
+2026-10-06T22:02:41.2363748Z   PNPM_HOME: /home/runner/setup-pnpm/node_modules/.bin
+2026-10-06T22:02:41.2364061Z ##[endgroup]
+2026-10-06T22:02:41.3209772Z ✔ Accordion trace preserves ordinary, parameterized, Activity, helper and type scopes (6.650767ms)
+2026-10-06T22:02:41.8291816Z ✔ I:9 React reference missing context retains exact upstream message (70.577724ms)
+2026-10-06T22:02:41.8296510Z ✔ H:8 React reference missing context retains exact upstream message (9.083615ms)
+2026-10-06T22:02:42.3848474Z ✔ React reference nested replacement Items sharing a host publish index zero independently (134.333506ms)
+2026-10-06T22:02:42.7820806Z ✔ private anchor foundation keeps immutable source/assertions and zero deferred ordinary credit (2.678267ms)
+2026-10-06T22:02:42.7847605Z ✔ selected root-store bridge preserves reference ownership and delegates one DOM driver (201.453448ms)
+2026-10-06T22:02:43.3900294Z ✔ private native and actual React anchor policies SSR without browser measurements (556.023734ms)
+2026-10-06T22:02:44.0035998Z ✔ Avatar preserves immutable source bytes and separates ordinary, conformance, types and supplements (571.120607ms)
+2026-10-06T22:02:45.7880741Z ✔ Avatar paired SSR keepMounted=false runs without browser globals (895.322485ms)
+2026-10-06T22:02:45.7881410Z ✔ Avatar paired SSR keepMounted=true runs without browser globals (853.086102ms)
+2026-10-06T22:02:46.0114564Z ✔ Button ports retain complete direct declarations and selected non-composite support assertions (3.22003ms)
+2026-10-06T22:02:46.0115168Z ✔ Button graph retains the original source pin and hashes the actual canonical closure (183.10956ms)
+2026-10-06T22:02:46.0662948Z ✔ maintained catalog keeps every pinned module and distinguishes actual native API presence from acceptance or retirement (17.839008ms)
+2026-10-06T22:02:46.1089288Z ✔ Collapsible ledger preserves exact ordinary inventory and portable versus Activity scope (5.445819ms)
+2026-10-06T22:02:47.9384850Z ✔ P:799 paired exact-pin React/Svelte SSR initial keyframe suppression (888.166307ms)
+2026-10-06T22:02:47.9385674Z ✔ P:830 paired exact-pin React/Svelte SSR initial keyframe suppression (908.454797ms)
+2026-10-06T22:02:47.9797201Z ✔ CSP source ledger retains the pin, original dependent assertions and zero ordinary credit (2.513567ms)
+2026-10-06T22:02:48.7380061Z ✔ CSPProvider SSR without browser globals preserves wrapperless context defaults and shadowing in both frameworks (720.327708ms)
+2026-10-06T22:02:49.3882516Z ✔ pinned canceled openWithPayload and ordinary close/unmount retain the payload write (285.894993ms)
+2026-10-06T22:02:49.5142572Z ✔ pinned forceUnmount while logically open remounts without changing the logical open state (139.475629ms)
+2026-10-06T22:02:49.6511683Z ✔ pinned external controlled opening prefers the previously focused external button (138.862311ms)
+2026-10-06T22:02:49.7254662Z ✔ pinned completion characterization with renderer StrictMode=false (73.840791ms)
+2026-10-06T22:02:49.7975914Z ✔ pinned completion characterization with renderer StrictMode=true (73.15859ms)
+2026-10-06T22:02:49.8047150Z ✔ D:230 actual pinned JSDOM detached production payload warning body (6.408404ms)
+2026-10-06T22:02:50.0597593Z ✔ pinned reopened nonmodal Root accepts a press-less virtual outside click (246.961168ms)
+2026-10-06T22:02:50.1756735Z ✔ pinned external owner-control button.click also emits a virtual outside press (122.601815ms)
+2026-10-06T22:02:50.2958199Z ✔ pinned close with Popup absent retains mounted state without a completion (120.888981ms)
+2026-10-06T22:02:50.4226181Z ✔ pinned close with Popup remove-on-close retains mounted state without a completion (120.256825ms)
+2026-10-06T22:02:50.4776101Z ✔ pinned Backdrop forwards exactly the open and transitionStatus state keys (68.026629ms)
+2026-10-06T22:02:51.3024880Z ✔ SSR roots and successive requests isolate defaultOpen and generated relationships (769.058911ms)
+2026-10-06T22:02:51.3435379Z ✔ DirectionProvider keeps both pinned ordinary predicates separate from the callable-reader API adaptation (2.247724ms)
+2026-10-06T22:02:51.5629253Z ✔ docs API matches actual local types and all public parts (33.500496ms)
+2026-10-06T22:02:51.5633335Z ✔ Dialog docs extracts complete TypeScript from valid quoted Svelte generic attributes (0.199632ms)
+2026-10-06T22:02:51.5636033Z ✔ docs metadata, navigation links and fragment targets are valid (0.358022ms)
+2026-10-06T22:02:51.5639260Z ✔ Accordion docs API matches all five local part declarations (2.536191ms)
+2026-10-06T22:02:51.7764759Z ✔ Input accepted reset limitation keeps its narrow decision, negative assertions and zero credit visible (3.828618ms)
+2026-10-06T22:02:51.7776318Z ✔ Input source bytes and fifteen separate helper mappings retain zero ordinary declaration credit (37.126974ms)
+2026-10-06T22:02:51.7777315Z ✔ Input supplemental native reset and real remote evidence cannot silently claim Field conformance (0.630905ms)
+2026-10-06T22:02:51.7778137Z ✔ Input timing characterization preserves hashed raw phase observations and the explicit native decision (1.12899ms)
+2026-10-06T22:02:51.7778966Z ✔ Current Input native-default source suites retain historical assertions without active failure waivers (0.532186ms)
+2026-10-06T22:02:51.8295049Z ✔ Kit compatibility patch changes only submit cancellation and the reset task boundary at the exact pinned source (4.373984ms)
+2026-10-06T22:02:51.8323432Z ✔ Kit compatibility patch and license ship as optional artifacts without a runtime Kit dependency (1.223112ms)
+2026-10-06T22:02:51.8333386Z ✔ unpatched witness removes only this SDK patch and keeps unrelated patches and resolutions (1.714436ms)
+2026-10-06T22:02:52.3599208Z ✔ complete original Menu family runtime and test/helper archives preserve the immutable pin (23.324252ms)
+2026-10-06T22:02:52.3601586Z ✔ current Menu family reachability resolves actual native counterparts while preserving historical provenance without new acceptance credit (463.304073ms)
+2026-10-06T22:02:52.3602390Z ✔ Original assertion declarations and conformance stay independently uncredited (2.354185ms)
+2026-10-06T22:02:52.4053969Z ✔ Meter preserves 22 ordinary declarations, four parameterized variants and separate full conformance (4.078015ms)
+2026-10-06T22:02:53.0150878Z ✔ native rendering retirement preserves every exact predecessor body and Source declaration scope (5.184211ms)
+2026-10-06T22:02:53.0151809Z ✔ live public native rendering excludes the retired root/subpath API and keeps real secured acceptance (0.378974ms)
+2026-10-06T22:02:53.0153394Z ✔ actual current native Source import graph and retirement exclusions remain coherent (565.617647ms)
+2026-10-06T22:02:53.2013520Z ✔ owned navigation API snapshot derives all actual eight exported components and types (12.747875ms)
+2026-10-06T22:02:53.2014435Z ✔ current navigation reachability and explicit native counterparts preserve exact current bytes without historical acceptance credit (20.966476ms)
+2026-10-06T22:02:53.2015586Z ✔ navigation source graph resolves original index.parts and preserves immutable declaration accounting (2.071757ms)
+2026-10-06T22:02:53.5744537Z {"phase":"initial offline install","stdout":"Progress: resolved 1, reused 0, downloaded 0, added 0\nPackages are hard linked from the content-addressable store to the virtual store.\n  Content-addressable store is at: /home/runner/setup-pnpm/node_modules/.bin/store/v11\n  Virtual store is at:             node_modules/.pnpm\nPackages: +2\n++\nProgress: resolved 2, reused 0, downloaded 2, added 2, done\n\ndependencies:\n+ @test/base 0.0.0\n+ @test/utils 0.0.0\n\nDone in 22ms using pnpm v12.6.0"}
+2026-10-06T22:02:53.6682649Z {"phase":"frozen offline reinstall","stdout":"✓ Lockfile passes supply-chain policies (verified 95ms ago)\nLockfile is up to date, resolution step is skipped\nDone in 9ms using pnpm v12.6.0"}
+2026-10-06T22:02:53.7830200Z lockfileVersion: '9.0'
+2026-10-06T22:02:53.7830456Z 
+2026-10-06T22:02:53.7830523Z settings:
+2026-10-06T22:02:53.7830669Z   autoInstallPeers: true
+2026-10-06T22:02:53.7830865Z   excludeLinksFromLockfile: false
+2026-10-06T22:02:53.7830980Z 
+2026-10-06T22:02:53.7831036Z overrides:
+2026-10-06T22:02:53.7831289Z   '@test/base': file:/tmp/sveltery-artifacts-test.Mw5zLo/consumer/test-base-0.0.0.tgz
+2026-10-06T22:02:53.7831750Z   '@test/utils': file:/tmp/sveltery-artifacts-test.Mw5zLo/consumer/.workspace-artifacts/test-utils-0.0.0.tgz
+2026-10-06T22:02:53.7831989Z 
+2026-10-06T22:02:53.7832041Z importers:
+2026-10-06T22:02:53.7832111Z 
+2026-10-06T22:02:53.7832177Z   .:
+2026-10-06T22:02:53.7832295Z     dependencies:
+2026-10-06T22:02:53.7832421Z       '@test/base':
+2026-10-06T22:02:53.7832661Z         specifier: file:/tmp/sveltery-artifacts-test.Mw5zLo/consumer/test-base-0.0.0.tgz
+2026-10-06T22:02:53.7832938Z         version: file:test-base-0.0.0.tgz
+2026-10-06T22:02:53.7833094Z       '@test/utils':
+2026-10-06T22:02:53.7833389Z         specifier: file:/tmp/sveltery-artifacts-test.Mw5zLo/consumer/.workspace-artifacts/test-utils-0.0.0.tgz
+2026-10-06T22:02:53.7833727Z         version: file:.workspace-artifacts/test-utils-0.0.0.tgz
+2026-10-06T22:02:53.7833867Z 
+2026-10-06T22:02:53.7833921Z packages:
+2026-10-06T22:02:53.7833991Z 
+2026-10-06T22:02:53.7834070Z   '@test/base@file:test-base-0.0.0.tgz':
+2026-10-06T22:02:53.7834537Z     resolution: {integrity: sha512-9uMVfANjhOxxAwOzg4lNSyivhygZKFDXDQWdEb2zAKiUnMTC8QdJndPLf/tcZyw+V197ZdjY6VNrF5TqV/ubmA==, tarball: file:test-base-0.0.0.tgz}
+2026-10-06T22:02:53.7834949Z     version: 0.0.0
+2026-10-06T22:02:53.7835021Z 
+2026-10-06T22:02:53.7835138Z   '@test/utils@file:.workspace-artifacts/test-utils-0.0.0.tgz':
+2026-10-06T22:02:53.7835678Z     resolution: {integrity: sha512-MimDlyaXgTZDt+sqT1FCyi3yjGnvb0oO+1/RiCf5bW5Pp1B25lSze38C+wg3eDfyHXI8oq1qlEzanQZ0z/Y0eQ==, tarball: file:.workspace-artifacts/test-utils-0.0.0.tgz}
+2026-10-06T22:02:53.7836115Z     version: 0.0.0
+2026-10-06T22:02:53.7836188Z 
+2026-10-06T22:02:53.7836241Z snapshots:
+2026-10-06T22:02:53.7836305Z 
+2026-10-06T22:02:53.7836379Z   '@test/base@file:test-base-0.0.0.tgz':
+2026-10-06T22:02:53.7837450Z     dependencies:
+2026-10-06T22:02:53.7837640Z       '@test/utils': file:.workspace-artifacts/test-utils-0.0.0.tgz
+2026-10-06T22:02:53.7837787Z 
+2026-10-06T22:02:53.7837917Z   '@test/utils@file:.workspace-artifacts/test-utils-0.0.0.tgz': {}
+2026-10-06T22:02:53.7838068Z 
+2026-10-06T22:02:53.7839384Z {"artifacts":{"schema":1,"packages":{"@test/utils":{"version":"0.0.0","directory":"../../../../../tmp/sveltery-artifacts-test.Mw5zLo/utils","tarball":"test-utils-0.0.0.tgz","sha256":"94f00803320cc0c712c61904f3cdf78374a4150c456d5423577854682ad22144","dependencies":[]},"@test/base":{"version":"0.0.0","directory":"../../../../../tmp/sveltery-artifacts-test.Mw5zLo/base","tarball":"test-base-0.0.0.tgz","sha256":"2fe0820caceccde320d0e6b74dccde2670b535d6363d0f9422831685d50424f6","dependencies":["@test/utils"]}}},"probe":"Base and the direct dependency resolve the same packed Utils module."}
+2026-10-06T22:02:53.8710975Z ✔ reuses the exact Base archive and prepares its local Utils dependency without changing consumer peers (119.987651ms)
+2026-10-06T22:02:53.8712278Z ✔ installs the real archive closure offline and preserves the same transitive Utils through a frozen reinstall (418.800607ms)
+2026-10-06T22:02:53.8713969Z ✔ fails closed when an artifact changes after packing or a requested package is absent (83.807517ms)
+2026-10-06T22:02:54.0351440Z ✔ extracts multiline conditional names and keeps their declaration lines (5.215799ms)
+2026-10-06T22:02:54.0352223Z ✔ counts existing template declarations once and excludes parameterized factories (0.881024ms)
+2026-10-06T22:02:54.0359428Z ✔ preserves verification metadata, marks added declarations unported, and rejects lost cases (0.398173ms)
+2026-10-06T22:02:54.0360786Z ✔ locates the exact pinned type assertion and rejects missing assertions (1.190283ms)
+2026-10-06T22:02:54.0361603Z ✔ explicit dynamic declaration inventory counts the orientation source site once (1.111413ms)
+2026-10-06T22:02:54.0362583Z ✔ credited Dialog leaves retain immutable assertions, real fixtures and browser evidence (6.557731ms)
+2026-10-06T22:02:54.0365507Z ✔ documented aggregate credit agrees with the shared manifest and overlapping Dialog trace (2.27136ms)
+2026-10-06T22:02:54.0366737Z ✔ state ports retain complete source assertions and all fixture variants without crediting supplements (2.854022ms)
+2026-10-06T22:02:54.0801671Z ✔ Progress keeps immutable 20 ordinary declarations, 7 parameterized variants and separate conformance (3.908138ms)
+2026-10-06T22:02:54.1460423Z ✔ remote names canonicalize actual numeric issue paths without changing native names (1.866477ms)
+2026-10-06T22:02:54.1477751Z ✔ public Kit path grammar rejects malformed and protected dynamic paths (0.464754ms)
+2026-10-06T22:02:54.1478643Z ✔ actual schema method-name fields and similar protected spellings remain resolvable (0.206623ms)
+2026-10-06T22:02:54.3393105Z ✔ Separator immutable source bytes, two ordinary declarations and fifteen separate helper records remain traceable (36.904297ms)
+2026-10-06T22:02:55.0577932Z ✔ actual Toast core runs all 25 unchanged full bodies and both metadata helpers (93.175783ms)
+2026-10-06T22:02:55.0598069Z ✔ actual public manager retains the entire data spec and all expected errors (0.199262ms)
+2026-10-06T22:02:55.0599146Z ✔ core and public entry imports are SSR-safe and isolated without browser globals (466.496923ms)
+2026-10-06T22:02:55.1118070Z ✔ Portal helper evidence retains immutable invocation/hashes without ordinary leaf credit (4.572945ms)
+2026-10-06T22:02:55.3536818Z ✔ Toast provenance placeholders stay immutable and parameterized swipe variants remain explicit (1.076951ms)
+2026-10-06T22:02:55.3538764Z ✔ every reference prerequisite retains the complete source body, assertions and metadata helpers (94.837851ms)
+2026-10-06T22:02:55.3541234Z ✔ complete manager data type prerequisite retains every positive and negative assertion (0.263909ms)
+2026-10-06T22:02:55.4095935Z ✔ rendering evidence preserves complete pinned provenance without crediting supplements (3.903191ms)
+2026-10-06T22:02:55.4117972Z ✔ the context manager retains the full pinned data type spec with only its import adaptation (0.173482ms)
+2026-10-06T22:02:55.4118802Z ✔ shared Toast credit includes only the thirteen complete hosted paired declarations (1.146196ms)
+2026-10-06T22:02:55.4474766Z ✔ Toggle ledger preserves five complete standalone ports and two deferred group declarations (1.80959ms)
+2026-10-06T22:02:55.9000537Z ✔ standalone Toggle renders SSR state and strips form/type/value without browser globals (399.839616ms)
+2026-10-06T22:02:56.2213453Z ✔ matching pnpm builds native packages after the frozen bootstrap install (60.376771ms)
+2026-10-06T22:02:56.2216185Z ✔ replaces default pnpm 11 for direct and nested package-script commands (61.741253ms)
+2026-10-06T22:02:56.2218292Z ✔ Corepack fallback builds native packages after the frozen bootstrap install (61.557588ms)
+2026-10-06T22:02:56.2219873Z ✔ rejects mismatched pnpm without Corepack before running commands (49.559273ms)
+2026-10-06T22:02:56.2222328Z ✔ rejects a fallback that fails to select the pinned version (54.349502ms)
+2026-10-06T22:02:56.2287617Z ℹ tests 86
+2026-10-06T22:02:56.2287775Z ℹ suites 0
+2026-10-06T22:02:56.2287904Z ℹ pass 86
+2026-10-06T22:02:56.2288402Z ℹ fail 0
+2026-10-06T22:02:56.2288532Z ℹ cancelled 0
+2026-10-06T22:02:56.2288666Z ℹ skipped 0
+2026-10-06T22:02:56.2288786Z ℹ todo 0
+2026-10-06T22:02:56.2288933Z ℹ duration_ms 14960.079554
+2026-10-06T22:02:56.2378733Z ##[group]Run bash scripts/prepare-package-artifacts.sh
+2026-10-06T22:02:56.2379000Z [36;1mbash scripts/prepare-package-artifacts.sh[0m
+2026-10-06T22:02:56.2379208Z [36;1mecho "SVELTERY_WORKSPACE_READY=1" >> "$GITHUB_ENV"[0m
+2026-10-06T22:02:56.2433915Z shell: /usr/bin/bash -e {0}
+2026-10-06T22:02:56.2434070Z env:
+2026-10-06T22:02:56.2434291Z   SVELTERY_PACKAGE_ARTIFACTS: /home/runner/work/base/base/.checks/npm-package/artifacts.json
+2026-10-06T22:02:56.2434576Z   PNPM_HOME: /home/runner/setup-pnpm/node_modules/.bin
+2026-10-06T22:02:56.2434755Z ##[endgroup]
+2026-10-06T22:02:56.3648674Z packages/utils prepack$ pnpm run build && publint --strict
+2026-10-06T22:02:56.3790377Z packages/utils prepack: $ svelte-package
+2026-10-06T22:02:57.7698298Z packages/utils prepack: src/lib -> dist
+2026-10-06T22:02:57.8662457Z packages/utils prepack: Running [1mpublint v0.3.25[22m for [1m@sveltery/utils[22m...
+2026-10-06T22:02:57.8694440Z packages/utils prepack: Packing files with `pnpm pack`...
+2026-10-06T22:02:57.8923636Z packages/utils prepack: Linting...
+2026-10-06T22:02:57.9045976Z packages/utils prepack: [1m[32mAll good![39m[22m
+2026-10-06T22:02:57.9096881Z packages/utils prepack: Done
+2026-10-06T22:02:57.9130853Z packages/base prepack$ svelte-kit sync && svelte-package && publint --strict
+2026-10-06T22:03:06.0830086Z packages/base prepack: src/lib -> dist
+2026-10-06T22:03:06.2296870Z packages/base prepack: Running [1mpublint v0.3.25[22m for [1m@sveltery/base[22m...
+2026-10-06T22:03:06.2329859Z packages/base prepack: Packing files with `pnpm pack`...
+2026-10-06T22:03:06.2934505Z packages/base prepack: Linting...
+2026-10-06T22:03:06.3506341Z packages/base prepack: [1m[32mAll good![39m[22m
+2026-10-06T22:03:06.3560719Z packages/base prepack: Done
+2026-10-06T22:03:06.3561049Z packages/base prepare$ svelte-kit sync
+2026-10-06T22:03:06.8890335Z packages/base prepare: Done
+2026-10-06T22:03:06.9234633Z package: @sveltery/utils@0.0.0
+2026-10-06T22:03:06.9235257Z Tarball Contents
+2026-10-06T22:03:06.9235638Z dist/addEventListener.d.ts
+2026-10-06T22:03:06.9235891Z dist/addEventListener.js
+2026-10-06T22:03:06.9236162Z dist/areArraysEqual.d.ts
+2026-10-06T22:03:06.9236562Z dist/areArraysEqual.js
+2026-10-06T22:03:06.9236830Z dist/clamp.d.ts
+2026-10-06T22:03:06.9237036Z dist/clamp.js
+2026-10-06T22:03:06.9237271Z dist/Controlled.svelte.d.ts
+2026-10-06T22:03:06.9237508Z dist/Controlled.svelte.js
+2026-10-06T22:03:06.9237764Z dist/createLogOnce.d.ts
+2026-10-06T22:03:06.9238006Z dist/createLogOnce.js
+2026-10-06T22:03:06.9238292Z dist/empty.d.ts
+2026-10-06T22:03:06.9238511Z dist/empty.js
+2026-10-06T22:03:06.9238703Z dist/error.d.ts
+2026-10-06T22:03:06.9238878Z dist/error.js
+2026-10-06T22:03:06.9239067Z dist/formatNumber.d.ts
+2026-10-06T22:03:06.9239280Z dist/formatNumber.js
+2026-10-06T22:03:06.9239540Z dist/getDefaultFormSubmitter.d.ts
+2026-10-06T22:03:06.9239805Z dist/getDefaultFormSubmitter.js
+2026-10-06T22:03:06.9239969Z dist/isElementDisabled.d.ts
+2026-10-06T22:03:06.9240131Z dist/isElementDisabled.js
+2026-10-06T22:03:06.9240276Z dist/mergeCleanups.d.ts
+2026-10-06T22:03:06.9240416Z dist/mergeCleanups.js
+2026-10-06T22:03:06.9240550Z dist/mergeObjects.d.ts
+2026-10-06T22:03:06.9240682Z dist/mergeObjects.js
+2026-10-06T22:03:06.9240808Z dist/owner.d.ts
+2026-10-06T22:03:06.9240921Z dist/owner.js
+2026-10-06T22:03:06.9241050Z dist/platform/engine.d.ts
+2026-10-06T22:03:06.9241189Z dist/platform/engine.js
+2026-10-06T22:03:06.9241321Z dist/platform/env.d.ts
+2026-10-06T22:03:06.9241450Z dist/platform/env.js
+2026-10-06T22:03:06.9241581Z dist/platform/index.d.ts
+2026-10-06T22:03:06.9241720Z dist/platform/index.js
+2026-10-06T22:03:06.9241871Z dist/platform/media-query.d.ts
+2026-10-06T22:03:06.9242026Z dist/platform/media-query.js
+2026-10-06T22:03:06.9242276Z dist/platform/os.d.ts
+2026-10-06T22:03:06.9242406Z dist/platform/os.js
+2026-10-06T22:03:06.9242762Z dist/platform/parts.d.ts
+2026-10-06T22:03:06.9242902Z dist/platform/parts.js
+2026-10-06T22:03:06.9243054Z dist/platform/screen-reader.d.ts
+2026-10-06T22:03:06.9243398Z dist/platform/screen-reader.js
+2026-10-06T22:03:06.9243553Z dist/platform/shared.d.ts
+2026-10-06T22:03:06.9243696Z dist/platform/shared.js
+2026-10-06T22:03:06.9243851Z dist/PreviousValue.svelte.d.ts
+2026-10-06T22:03:06.9244036Z dist/PreviousValue.svelte.js
+2026-10-06T22:03:06.9244184Z dist/shadowDom.d.ts
+2026-10-06T22:03:06.9244310Z dist/shadowDom.js
+2026-10-06T22:03:06.9244435Z dist/store/index.d.ts
+2026-10-06T22:03:06.9244564Z dist/store/index.js
+2026-10-06T22:03:06.9244695Z dist/store/Store.svelte.d.ts
+2026-10-06T22:03:06.9244843Z dist/store/Store.svelte.js
+2026-10-06T22:03:06.9245012Z dist/store/SvelteStore.svelte.d.ts
+2026-10-06T22:03:06.9245187Z dist/store/SvelteStore.svelte.js
+2026-10-06T22:03:06.9245340Z dist/stringifyLocale.d.ts
+2026-10-06T22:03:06.9245481Z dist/stringifyLocale.js
+2026-10-06T22:03:06.9245627Z dist/useAnimationFrame.d.ts
+2026-10-06T22:03:06.9245774Z dist/useAnimationFrame.js
+2026-10-06T22:03:06.9245938Z dist/useEnhancedClickHandler.d.ts
+2026-10-06T22:03:06.9246115Z dist/useEnhancedClickHandler.js
+2026-10-06T22:03:06.9246257Z dist/useId.d.ts
+2026-10-06T22:03:06.9246374Z dist/useId.js
+2026-10-06T22:03:06.9246850Z dist/useScrollLock.svelte.d.ts
+2026-10-06T22:03:06.9247008Z dist/useScrollLock.svelte.js
+2026-10-06T22:03:06.9247230Z dist/useTimeout.d.ts
+2026-10-06T22:03:06.9247393Z dist/useTimeout.js
+2026-10-06T22:03:06.9247523Z dist/visuallyHidden.d.ts
+2026-10-06T22:03:06.9247664Z dist/visuallyHidden.js
+2026-10-06T22:03:06.9247788Z dist/warn.d.ts
+2026-10-06T22:03:06.9247901Z dist/warn.js
+2026-10-06T22:03:06.9248017Z LICENSE
+2026-10-06T22:03:06.9248127Z package.json
+2026-10-06T22:03:06.9248238Z README.md
+2026-10-06T22:03:06.9248357Z THIRD_PARTY_NOTICES.md
+2026-10-06T22:03:06.9248480Z Tarball Details
+2026-10-06T22:03:06.9248707Z /home/runner/work/base/base/.checks/npm-package/sveltery-utils-0.0.0.tgz
+2026-10-06T22:03:06.9248901Z 
+2026-10-06T22:03:06.9249010Z package: @sveltery/base@0.0.0
+2026-10-06T22:03:06.9249226Z Tarball Contents
+2026-10-06T22:03:06.9249425Z dist/accordion/context.d.ts
+2026-10-06T22:03:06.9249776Z dist/accordion/context.js
+2026-10-06T22:03:06.9250006Z dist/accordion/Header.svelte
+2026-10-06T22:03:06.9250296Z dist/accordion/Header.svelte.d.ts
+2026-10-06T22:03:06.9250550Z dist/accordion/index.d.ts
+2026-10-06T22:03:06.9250814Z dist/accordion/index.js
+2026-10-06T22:03:06.9251060Z dist/accordion/index.parts.d.ts
+2026-10-06T22:03:06.9251250Z dist/accordion/index.parts.js
+2026-10-06T22:03:06.9251404Z dist/accordion/Item.svelte
+2026-10-06T22:03:06.9251562Z dist/accordion/Item.svelte.d.ts
+2026-10-06T22:03:06.9251711Z dist/accordion/list.d.ts
+2026-10-06T22:03:06.9251846Z dist/accordion/list.js
+2026-10-06T22:03:06.9251985Z dist/accordion/Panel.svelte
+2026-10-06T22:03:06.9252145Z dist/accordion/Panel.svelte.d.ts
+2026-10-06T22:03:06.9252304Z dist/accordion/Root.svelte
+2026-10-06T22:03:06.9252462Z dist/accordion/Root.svelte.d.ts
+2026-10-06T22:03:06.9252610Z dist/accordion/state.d.ts
+2026-10-06T22:03:06.9252750Z dist/accordion/state.js
+2026-10-06T22:03:06.9252895Z dist/accordion/Trigger.svelte
+2026-10-06T22:03:06.9253062Z dist/accordion/Trigger.svelte.d.ts
+2026-10-06T22:03:06.9253221Z dist/accordion/types.d.ts
+2026-10-06T22:03:06.9253383Z dist/accordion/types.js
+2026-10-06T22:03:06.9253573Z dist/accordion/value.d.ts
+2026-10-06T22:03:06.9253834Z dist/accordion/value.js
+2026-10-06T22:03:06.9254133Z dist/avatar/context.d.ts
+2026-10-06T22:03:06.9254437Z dist/avatar/context.js
+2026-10-06T22:03:06.9254650Z dist/avatar/Fallback.svelte
+2026-10-06T22:03:06.9254913Z dist/avatar/Fallback.svelte.d.ts
+2026-10-06T22:03:06.9255159Z dist/avatar/Image.svelte
+2026-10-06T22:03:06.9255335Z dist/avatar/Image.svelte.d.ts
+2026-10-06T22:03:06.9255480Z dist/avatar/index.d.ts
+2026-10-06T22:03:06.9255608Z dist/avatar/index.js
+2026-10-06T22:03:06.9255747Z dist/avatar/index.parts.d.ts
+2026-10-06T22:03:06.9255899Z dist/avatar/index.parts.js
+2026-10-06T22:03:06.9256188Z dist/avatar/Root.svelte
+2026-10-06T22:03:06.9256325Z dist/avatar/Root.svelte.d.ts
+2026-10-06T22:03:06.9256635Z dist/avatar/stateAttributesMapping.d.ts
+2026-10-06T22:03:06.9256942Z dist/avatar/stateAttributesMapping.js
+2026-10-06T22:03:06.9257105Z dist/avatar/types.d.ts
+2026-10-06T22:03:06.9257236Z dist/avatar/types.js
+2026-10-06T22:03:06.9257416Z dist/avatar/useImageLoadingStatus.svelte.d.ts
+2026-10-06T22:03:06.9257632Z dist/avatar/useImageLoadingStatus.svelte.js
+2026-10-06T22:03:06.9257808Z dist/button/Button.svelte
+2026-10-06T22:03:06.9257969Z dist/button/Button.svelte.d.ts
+2026-10-06T22:03:06.9258115Z dist/button/index.d.ts
+2026-10-06T22:03:06.9258249Z dist/button/index.js
+2026-10-06T22:03:06.9258382Z dist/button/props.d.ts
+2026-10-06T22:03:06.9258518Z dist/button/props.js
+2026-10-06T22:03:06.9258649Z dist/button/types.d.ts
+2026-10-06T22:03:06.9258785Z dist/button/types.js
+2026-10-06T22:03:06.9258953Z dist/checkbox-group/CheckboxGroup.svelte
+2026-10-06T22:03:06.9259172Z dist/checkbox-group/CheckboxGroup.svelte.d.ts
+2026-10-06T22:03:06.9259391Z dist/checkbox-group/CheckboxGroupContext.d.ts
+2026-10-06T22:03:06.9259596Z dist/checkbox-group/CheckboxGroupContext.js
+2026-10-06T22:03:06.9259788Z dist/checkbox-group/index.d.ts
+2026-10-06T22:03:06.9259948Z dist/checkbox-group/index.js
+2026-10-06T22:03:06.9260110Z dist/checkbox-group/types.d.ts
+2026-10-06T22:03:06.9260263Z dist/checkbox-group/types.js
+2026-10-06T22:03:06.9260469Z dist/checkbox-group/useCheckboxGroupParent.svelte.d.ts
+2026-10-06T22:03:06.9260724Z dist/checkbox-group/useCheckboxGroupParent.svelte.js
+2026-10-06T22:03:06.9260924Z dist/checkbox/index.d.ts
+2026-10-06T22:03:06.9261067Z dist/checkbox/index.js
+2026-10-06T22:03:06.9261225Z dist/checkbox/index.parts.d.ts
+2026-10-06T22:03:06.9261378Z dist/checkbox/index.parts.js
+2026-10-06T22:03:06.9261570Z dist/checkbox/indicator/CheckboxIndicator.svelte
+2026-10-06T22:03:06.9261813Z dist/checkbox/indicator/CheckboxIndicator.svelte.d.ts
+2026-10-06T22:03:06.9262030Z dist/checkbox/root/CheckboxRoot.svelte
+2026-10-06T22:03:06.9262233Z dist/checkbox/root/CheckboxRoot.svelte.d.ts
+2026-10-06T22:03:06.9262461Z dist/checkbox/root/CheckboxRootContext.d.ts
+2026-10-06T22:03:06.9262666Z dist/checkbox/root/CheckboxRootContext.js
+2026-10-06T22:03:06.9262887Z dist/checkbox/root/CheckboxRootDataAttributes.d.ts
+2026-10-06T22:03:06.9263125Z dist/checkbox/root/CheckboxRootDataAttributes.js
+2026-10-06T22:03:06.9263305Z dist/checkbox/types.d.ts
+2026-10-06T22:03:06.9263442Z dist/checkbox/types.js
+2026-10-06T22:03:06.9263649Z dist/checkbox/utils/getCheckboxStateAttributesMapping.d.ts
+2026-10-06T22:03:06.9263918Z dist/checkbox/utils/getCheckboxStateAttributesMapping.js
+2026-10-06T22:03:06.9264162Z dist/checkbox/utils/useEnterSubmit.svelte.d.ts
+2026-10-06T22:03:06.9264375Z dist/checkbox/utils/useEnterSubmit.svelte.js
+2026-10-06T22:03:06.9264570Z dist/collapsible/animations.d.ts
+2026-10-06T22:03:06.9264749Z dist/collapsible/animations.js
+2026-10-06T22:03:06.9264904Z dist/collapsible/context.d.ts
+2026-10-06T22:03:06.9265063Z dist/collapsible/context.js
+2026-10-06T22:03:06.9265215Z dist/collapsible/index.d.ts
+2026-10-06T22:03:06.9265364Z dist/collapsible/index.js
+2026-10-06T22:03:06.9265529Z dist/collapsible/index.parts.d.ts
+2026-10-06T22:03:06.9265703Z dist/collapsible/index.parts.js
+2026-10-06T22:03:06.9265865Z dist/collapsible/Panel.svelte
+2026-10-06T22:03:06.9266043Z dist/collapsible/Panel.svelte.d.ts
+2026-10-06T22:03:06.9266254Z dist/collapsible/panel/CollapsiblePanelCssVars.d.ts
+2026-10-06T22:03:06.9266637Z dist/collapsible/panel/CollapsiblePanelCssVars.js
+2026-10-06T22:03:06.9266897Z dist/collapsible/panel/CollapsiblePanelDataAttributes.d.ts
+2026-10-06T22:03:06.9267169Z dist/collapsible/panel/CollapsiblePanelDataAttributes.js
+2026-10-06T22:03:06.9267433Z dist/collapsible/panel/useCollapsiblePanel.svelte.d.ts
+2026-10-06T22:03:06.9267675Z dist/collapsible/panel/useCollapsiblePanel.svelte.js
+2026-10-06T22:03:06.9267870Z dist/collapsible/Root.svelte
+2026-10-06T22:03:06.9268037Z dist/collapsible/Root.svelte.d.ts
+2026-10-06T22:03:06.9268343Z dist/collapsible/root/stateAttributesMapping.d.ts
+2026-10-06T22:03:06.9268565Z dist/collapsible/root/stateAttributesMapping.js
+2026-10-06T22:03:06.9268952Z dist/collapsible/root/useCollapsibleRoot.svelte.d.ts
+2026-10-06T22:03:06.9269184Z dist/collapsible/root/useCollapsibleRoot.svelte.js
+2026-10-06T22:03:06.9269374Z dist/collapsible/state.d.ts
+2026-10-06T22:03:06.9269523Z dist/collapsible/state.js
+2026-10-06T22:03:06.9269683Z dist/collapsible/Trigger.svelte
+2026-10-06T22:03:06.9269863Z dist/collapsible/Trigger.svelte.d.ts
+2026-10-06T22:03:06.9270114Z dist/collapsible/trigger/CollapsibleTriggerDataAttributes.d.ts
+2026-10-06T22:03:06.9270405Z dist/collapsible/trigger/CollapsibleTriggerDataAttributes.js
+2026-10-06T22:03:06.9270621Z dist/collapsible/types.d.ts
+2026-10-06T22:03:06.9270777Z dist/collapsible/types.js
+2026-10-06T22:03:06.9270926Z dist/context-menu/index.d.ts
+2026-10-06T22:03:06.9271076Z dist/context-menu/index.js
+2026-10-06T22:03:06.9271243Z dist/context-menu/index.parts.d.ts
+2026-10-06T22:03:06.9271418Z dist/context-menu/index.parts.js
+2026-10-06T22:03:06.9271577Z dist/context-menu/Root.svelte
+2026-10-06T22:03:06.9271747Z dist/context-menu/Root.svelte.d.ts
+2026-10-06T22:03:06.9271972Z dist/context-menu/root/ContextMenuRootContext.d.ts
+2026-10-06T22:03:06.9272193Z dist/context-menu/root/ContextMenuRootContext.js
+2026-10-06T22:03:06.9272390Z dist/context-menu/Trigger.svelte
+2026-10-06T22:03:06.9272564Z dist/context-menu/Trigger.svelte.d.ts
+2026-10-06T22:03:06.9272798Z dist/context-menu/trigger/createContextMenuTrigger.svelte.d.ts
+2026-10-06T22:03:06.9273075Z dist/context-menu/trigger/createContextMenuTrigger.svelte.js
+2026-10-06T22:03:06.9273277Z dist/context-menu/types.d.ts
+2026-10-06T22:03:06.9273428Z dist/context-menu/types.js
+2026-10-06T22:03:06.9273587Z dist/csp-provider/context.d.ts
+2026-10-06T22:03:06.9273740Z dist/csp-provider/context.js
+2026-10-06T22:03:06.9273906Z dist/csp-provider/CSPProvider.svelte
+2026-10-06T22:03:06.9274097Z dist/csp-provider/CSPProvider.svelte.d.ts
+2026-10-06T22:03:06.9274271Z dist/csp-provider/index.d.ts
+2026-10-06T22:03:06.9274418Z dist/csp-provider/index.js
+2026-10-06T22:03:06.9274572Z dist/csp-provider/types.d.ts
+2026-10-06T22:03:06.9274734Z dist/csp-provider/types.js
+2026-10-06T22:03:06.9274899Z dist/dialog/Backdrop.svelte
+2026-10-06T22:03:06.9275076Z dist/dialog/Backdrop.svelte.d.ts
+2026-10-06T22:03:06.9275241Z dist/dialog/Close.svelte
+2026-10-06T22:03:06.9275396Z dist/dialog/Close.svelte.d.ts
+2026-10-06T22:03:06.9275558Z dist/dialog/context.d.ts
+2026-10-06T22:03:06.9275710Z dist/dialog/context.js
+2026-10-06T22:03:06.9275876Z dist/dialog/Description.svelte
+2026-10-06T22:03:06.9276068Z dist/dialog/Description.svelte.d.ts
+2026-10-06T22:03:06.9276252Z dist/dialog/handle.svelte.d.ts
+2026-10-06T22:03:06.9276537Z dist/dialog/handle.svelte.js
+2026-10-06T22:03:06.9276696Z dist/dialog/index.d.ts
+2026-10-06T22:03:06.9276844Z dist/dialog/index.js
+2026-10-06T22:03:06.9276983Z dist/dialog/index.parts.d.ts
+2026-10-06T22:03:06.9277136Z dist/dialog/index.parts.js
+2026-10-06T22:03:06.9277286Z dist/dialog/Popup.svelte
+2026-10-06T22:03:06.9277436Z dist/dialog/Popup.svelte.d.ts
+2026-10-06T22:03:06.9277619Z dist/dialog/popup/DialogPopupCssVars.d.ts
+2026-10-06T22:03:06.9277823Z dist/dialog/popup/DialogPopupCssVars.js
+2026-10-06T22:03:06.9278035Z dist/dialog/popup/DialogPopupDataAttributes.d.ts
+2026-10-06T22:03:06.9278257Z dist/dialog/popup/DialogPopupDataAttributes.js
+2026-10-06T22:03:06.9278440Z dist/dialog/Portal.svelte
+2026-10-06T22:03:06.9278602Z dist/dialog/Portal.svelte.d.ts
+2026-10-06T22:03:06.9278755Z dist/dialog/Root.svelte
+2026-10-06T22:03:06.9278908Z dist/dialog/Root.svelte.d.ts
+2026-10-06T22:03:06.9279109Z dist/dialog/root/DialogInteractions.svelte
+2026-10-06T22:03:06.9279335Z dist/dialog/root/DialogInteractions.svelte.d.ts
+2026-10-06T22:03:06.9279553Z dist/dialog/root/useRenderDialogRoot.svelte.d.ts
+2026-10-06T22:03:06.9279767Z dist/dialog/root/useRenderDialogRoot.svelte.js
+2026-10-06T22:03:06.9279982Z dist/dialog/store/DialogHandle.svelte.d.ts
+2026-10-06T22:03:06.9280569Z dist/dialog/store/DialogHandle.svelte.js
+2026-10-06T22:03:06.9280777Z dist/dialog/store/DialogStore.svelte.d.ts
+2026-10-06T22:03:06.9281057Z dist/dialog/store/DialogStore.svelte.js
+2026-10-06T22:03:06.9281228Z dist/dialog/Title.svelte
+2026-10-06T22:03:06.9281376Z dist/dialog/Title.svelte.d.ts
+2026-10-06T22:03:06.9281549Z dist/dialog/Trigger.svelte
+2026-10-06T22:03:06.9281806Z dist/dialog/Trigger.svelte.d.ts
+2026-10-06T22:03:06.9282123Z dist/dialog/types.d.ts
+2026-10-06T22:03:06.9282428Z dist/dialog/types.js
+2026-10-06T22:03:06.9282679Z dist/dialog/utils/stateAttributesMapping.d.ts
+2026-10-06T22:03:06.9283027Z dist/dialog/utils/stateAttributesMapping.js
+2026-10-06T22:03:06.9283303Z dist/dialog/Viewport.svelte
+2026-10-06T22:03:06.9283582Z dist/dialog/Viewport.svelte.d.ts
+2026-10-06T22:03:06.9283885Z dist/direction-provider/context.d.ts
+2026-10-06T22:03:06.9284150Z dist/direction-provider/context.js
+2026-10-06T22:03:06.9284482Z dist/direction-provider/DirectionProvider.svelte
+2026-10-06T22:03:06.9284817Z dist/direction-provider/DirectionProvider.svelte.d.ts
+2026-10-06T22:03:06.9285144Z dist/direction-provider/index.d.ts
+2026-10-06T22:03:06.9285430Z dist/direction-provider/index.js
+2026-10-06T22:03:06.9285677Z dist/direction-provider/types.d.ts
+2026-10-06T22:03:06.9285910Z dist/direction-provider/types.js
+2026-10-06T22:03:06.9286209Z dist/field/Control.svelte
+2026-10-06T22:03:06.9286622Z dist/field/Control.svelte.d.ts
+2026-10-06T22:03:06.9299508Z dist/field/Description.svelte
+2026-10-06T22:03:06.9299774Z dist/field/Description.svelte.d.ts
+2026-10-06T22:03:06.9299940Z dist/field/Error.svelte
+2026-10-06T22:03:06.9300090Z dist/field/Error.svelte.d.ts
+2026-10-06T22:03:06.9300258Z dist/field/ErrorMessageList.svelte
+2026-10-06T22:03:06.9300445Z dist/field/ErrorMessageList.svelte.d.ts
+2026-10-06T22:03:06.9300639Z dist/field/index.d.ts
+2026-10-06T22:03:06.9300777Z dist/field/index.js
+2026-10-06T22:03:06.9300917Z dist/field/index.parts.d.ts
+2026-10-06T22:03:06.9301068Z dist/field/index.parts.js
+2026-10-06T22:03:06.9301215Z dist/field/Item.svelte
+2026-10-06T22:03:06.9301356Z dist/field/Item.svelte.d.ts
+2026-10-06T22:03:06.9301525Z dist/field/item/FieldItemContext.d.ts
+2026-10-06T22:03:06.9301717Z dist/field/item/FieldItemContext.js
+2026-10-06T22:03:06.9301875Z dist/field/Label.svelte
+2026-10-06T22:03:06.9302018Z dist/field/Label.svelte.d.ts
+2026-10-06T22:03:06.9302164Z dist/field/props.d.ts
+2026-10-06T22:03:06.9302298Z dist/field/props.js
+2026-10-06T22:03:06.9302428Z dist/field/Root.svelte
+2026-10-06T22:03:06.9302568Z dist/field/Root.svelte.d.ts
+2026-10-06T22:03:06.9302733Z dist/field/root/FieldRootInner.svelte
+2026-10-06T22:03:06.9302924Z dist/field/root/FieldRootInner.svelte.d.ts
+2026-10-06T22:03:06.9303133Z dist/field/root/useFieldValidation.svelte.d.ts
+2026-10-06T22:03:06.9303346Z dist/field/root/useFieldValidation.svelte.js
+2026-10-06T22:03:06.9303520Z dist/field/types.d.ts
+2026-10-06T22:03:06.9303743Z dist/field/types.js
+2026-10-06T22:03:06.9304044Z dist/field/utils/getCombinedFieldValidityData.d.ts
+2026-10-06T22:03:06.9304272Z dist/field/utils/getCombinedFieldValidityData.js
+2026-10-06T22:03:06.9304459Z dist/field/Validity.svelte
+2026-10-06T22:03:06.9304618Z dist/field/Validity.svelte.d.ts
+2026-10-06T22:03:06.9304778Z dist/fieldset/index.d.ts
+2026-10-06T22:03:06.9304915Z dist/fieldset/index.js
+2026-10-06T22:03:06.9305066Z dist/fieldset/index.parts.d.ts
+2026-10-06T22:03:06.9305220Z dist/fieldset/index.parts.js
+2026-10-06T22:03:06.9305372Z dist/fieldset/Legend.svelte
+2026-10-06T22:03:06.9305531Z dist/fieldset/Legend.svelte.d.ts
+2026-10-06T22:03:06.9305684Z dist/fieldset/Root.svelte
+2026-10-06T22:03:06.9305911Z dist/fieldset/Root.svelte.d.ts
+2026-10-06T22:03:06.9306148Z dist/fieldset/root/FieldsetRootContext.d.ts
+2026-10-06T22:03:06.9306344Z dist/fieldset/root/FieldsetRootContext.js
+2026-10-06T22:03:06.9306727Z dist/fieldset/types.d.ts
+2026-10-06T22:03:06.9306867Z dist/fieldset/types.js
+2026-10-06T22:03:06.9307095Z dist/floating-ui/components/createFloatingFocusManager.svelte.d.ts
+2026-10-06T22:03:06.9307633Z dist/floating-ui/components/createFloatingFocusManager.svelte.js
+2026-10-06T22:03:06.9307896Z dist/floating-ui/components/FloatingDelayGroup.svelte
+2026-10-06T22:03:06.9308330Z dist/floating-ui/components/FloatingDelayGroup.svelte.d.ts
+2026-10-06T22:03:06.9308594Z dist/floating-ui/components/FloatingDelayGroupContext.d.ts
+2026-10-06T22:03:06.9308885Z dist/floating-ui/components/FloatingDelayGroupContext.js
+2026-10-06T22:03:06.9309177Z dist/floating-ui/components/FloatingFocusManager.svelte
+2026-10-06T22:03:06.9309435Z dist/floating-ui/components/FloatingFocusManager.svelte.d.ts
+2026-10-06T22:03:06.9309758Z dist/floating-ui/components/FloatingPortal.svelte
+2026-10-06T22:03:06.9309995Z dist/floating-ui/components/FloatingPortal.svelte.d.ts
+2026-10-06T22:03:06.9310239Z dist/floating-ui/components/FloatingPortalContext.d.ts
+2026-10-06T22:03:06.9310552Z dist/floating-ui/components/FloatingPortalContext.js
+2026-10-06T22:03:06.9310798Z dist/floating-ui/components/FloatingRootStore.svelte.d.ts
+2026-10-06T22:03:06.9311051Z dist/floating-ui/components/FloatingRootStore.svelte.js
+2026-10-06T22:03:06.9311366Z dist/floating-ui/components/FloatingTree.svelte.d.ts
+2026-10-06T22:03:06.9311598Z dist/floating-ui/components/FloatingTree.svelte.js
+2026-10-06T22:03:06.9311820Z dist/floating-ui/components/FloatingTreeStore.d.ts
+2026-10-06T22:03:06.9312117Z dist/floating-ui/components/FloatingTreeStore.js
+2026-10-06T22:03:06.9312333Z dist/floating-ui/components/PortalContent.svelte
+2026-10-06T22:03:06.9312563Z dist/floating-ui/components/PortalContent.svelte.d.ts
+2026-10-06T22:03:06.9312845Z dist/floating-ui/components/PortalHost.svelte
+2026-10-06T22:03:06.9313084Z dist/floating-ui/components/PortalHost.svelte.d.ts
+2026-10-06T22:03:06.9313294Z dist/floating-ui/hooks/gridNavigation.d.ts
+2026-10-06T22:03:06.9313486Z dist/floating-ui/hooks/gridNavigation.js
+2026-10-06T22:03:06.9313759Z dist/floating-ui/hooks/useClick.svelte.d.ts
+2026-10-06T22:03:06.9313960Z dist/floating-ui/hooks/useClick.svelte.js
+2026-10-06T22:03:06.9314173Z dist/floating-ui/hooks/useClientPoint.svelte.d.ts
+2026-10-06T22:03:06.9314486Z dist/floating-ui/hooks/useClientPoint.svelte.js
+2026-10-06T22:03:06.9314713Z dist/floating-ui/hooks/useDelayGroup.svelte.d.ts
+2026-10-06T22:03:06.9314931Z dist/floating-ui/hooks/useDelayGroup.svelte.js
+2026-10-06T22:03:06.9315194Z dist/floating-ui/hooks/useDismiss.svelte.d.ts
+2026-10-06T22:03:06.9315417Z dist/floating-ui/hooks/useDismiss.svelte.js
+2026-10-06T22:03:06.9315622Z dist/floating-ui/hooks/useFloating.svelte.d.ts
+2026-10-06T22:03:06.9315831Z dist/floating-ui/hooks/useFloating.svelte.js
+2026-10-06T22:03:06.9316139Z dist/floating-ui/hooks/useFloatingPortalNode.svelte.d.ts
+2026-10-06T22:03:06.9316700Z dist/floating-ui/hooks/useFloatingPortalNode.svelte.js
+2026-10-06T22:03:06.9317049Z dist/floating-ui/hooks/useFocus.svelte.d.ts
+2026-10-06T22:03:06.9317384Z dist/floating-ui/hooks/useFocus.svelte.js
+2026-10-06T22:03:06.9317647Z dist/floating-ui/hooks/useHoverFloatingInteraction.svelte.d.ts
+2026-10-06T22:03:06.9317928Z dist/floating-ui/hooks/useHoverFloatingInteraction.svelte.js
+2026-10-06T22:03:06.9318314Z dist/floating-ui/hooks/useHoverInteractionSharedState.svelte.d.ts
+2026-10-06T22:03:06.9318617Z dist/floating-ui/hooks/useHoverInteractionSharedState.svelte.js
+2026-10-06T22:03:06.9318996Z dist/floating-ui/hooks/useHoverReferenceInteraction.svelte.d.ts
+2026-10-06T22:03:06.9319284Z dist/floating-ui/hooks/useHoverReferenceInteraction.svelte.js
+2026-10-06T22:03:06.9319519Z dist/floating-ui/hooks/useHoverShared.d.ts
+2026-10-06T22:03:06.9319789Z dist/floating-ui/hooks/useHoverShared.js
+2026-10-06T22:03:06.9320005Z dist/floating-ui/hooks/useListNavigation.svelte.d.ts
+2026-10-06T22:03:06.9320233Z dist/floating-ui/hooks/useListNavigation.svelte.js
+2026-10-06T22:03:06.9320570Z dist/floating-ui/hooks/useSyncedFloatingRootContext.svelte.d.ts
+2026-10-06T22:03:06.9320855Z dist/floating-ui/hooks/useSyncedFloatingRootContext.svelte.js
+2026-10-06T22:03:06.9321096Z dist/floating-ui/hooks/useTypeahead.svelte.d.ts
+2026-10-06T22:03:06.9321384Z dist/floating-ui/hooks/useTypeahead.svelte.js
+2026-10-06T22:03:06.9321698Z dist/floating-ui/safePolygon.d.ts
+2026-10-06T22:03:06.9321873Z dist/floating-ui/safePolygon.js
+2026-10-06T22:03:06.9322200Z dist/floating-ui/types.d.ts
+2026-10-06T22:03:06.9322351Z dist/floating-ui/types.js
+2026-10-06T22:03:06.9322520Z dist/floating-ui/utils/composite.d.ts
+2026-10-06T22:03:06.9322703Z dist/floating-ui/utils/composite.js
+2026-10-06T22:03:06.9322961Z dist/floating-ui/utils/constants.d.ts
+2026-10-06T22:03:06.9323138Z dist/floating-ui/utils/constants.js
+2026-10-06T22:03:06.9323325Z dist/floating-ui/utils/createAttribute.d.ts
+2026-10-06T22:03:06.9323522Z dist/floating-ui/utils/createAttribute.js
+2026-10-06T22:03:06.9323814Z dist/floating-ui/utils/createEventEmitter.d.ts
+2026-10-06T22:03:06.9324024Z dist/floating-ui/utils/createEventEmitter.js
+2026-10-06T22:03:06.9324211Z dist/floating-ui/utils/element.d.ts
+2026-10-06T22:03:06.9324446Z dist/floating-ui/utils/element.js
+2026-10-06T22:03:06.9324636Z dist/floating-ui/utils/enqueueFocus.d.ts
+2026-10-06T22:03:06.9324823Z dist/floating-ui/utils/enqueueFocus.js
+2026-10-06T22:03:06.9325002Z dist/floating-ui/utils/event.d.ts
+2026-10-06T22:03:06.9325230Z dist/floating-ui/utils/event.js
+2026-10-06T22:03:06.9325414Z dist/floating-ui/utils/markOthers.d.ts
+2026-10-06T22:03:06.9325592Z dist/floating-ui/utils/markOthers.js
+2026-10-06T22:03:06.9325789Z dist/floating-ui/utils/matchesFocusVisible.d.ts
+2026-10-06T22:03:06.9326072Z dist/floating-ui/utils/matchesFocusVisible.js
+2026-10-06T22:03:06.9326264Z dist/floating-ui/utils/nodes.d.ts
+2026-10-06T22:03:06.9326592Z dist/floating-ui/utils/nodes.js
+2026-10-06T22:03:06.9326762Z dist/floating-ui/utils/tabbable.d.ts
+2026-10-06T22:03:06.9326937Z dist/floating-ui/utils/tabbable.js
+2026-10-06T22:03:06.9327089Z dist/form/context.d.ts
+2026-10-06T22:03:06.9327223Z dist/form/context.js
+2026-10-06T22:03:06.9327436Z dist/form/Form.svelte
+2026-10-06T22:03:06.9327579Z dist/form/Form.svelte.d.ts
+2026-10-06T22:03:06.9327719Z dist/form/index.d.ts
+2026-10-06T22:03:06.9327850Z dist/form/index.js
+2026-10-06T22:03:06.9327975Z dist/form/types.d.ts
+2026-10-06T22:03:06.9328177Z dist/form/types.js
+2026-10-06T22:03:06.9328298Z dist/index.d.ts
+2026-10-06T22:03:06.9328422Z dist/index.js
+2026-10-06T22:03:06.9328546Z dist/input/index.d.ts
+2026-10-06T22:03:06.9328676Z dist/input/index.js
+2026-10-06T22:03:06.9328812Z dist/input/Input.svelte
+2026-10-06T22:03:06.9329028Z dist/input/Input.svelte.d.ts
+2026-10-06T22:03:06.9329176Z dist/input/types.d.ts
+2026-10-06T22:03:06.9329308Z dist/input/types.js
+2026-10-06T22:03:06.9329499Z dist/internals/anchor-positioning/adaptive-origin.d.ts
+2026-10-06T22:03:06.9329814Z dist/internals/anchor-positioning/adaptive-origin.js
+2026-10-06T22:03:06.9330031Z dist/internals/anchor-positioning/arrow.d.ts
+2026-10-06T22:03:06.9330234Z dist/internals/anchor-positioning/arrow.js
+2026-10-06T22:03:06.9330516Z dist/internals/anchor-positioning/attachments.d.ts
+2026-10-06T22:03:06.9330741Z dist/internals/anchor-positioning/attachments.js
+2026-10-06T22:03:06.9330978Z dist/internals/anchor-positioning/controller.svelte.d.ts
+2026-10-06T22:03:06.9331290Z dist/internals/anchor-positioning/controller.svelte.js
+2026-10-06T22:03:06.9331523Z dist/internals/anchor-positioning/css-vars.d.ts
+2026-10-06T22:03:06.9331733Z dist/internals/anchor-positioning/css-vars.js
+2026-10-06T22:03:06.9331941Z dist/internals/anchor-positioning/hide.d.ts
+2026-10-06T22:03:06.9332215Z dist/internals/anchor-positioning/hide.js
+2026-10-06T22:03:06.9332418Z dist/internals/anchor-positioning/policy.d.ts
+2026-10-06T22:03:06.9332617Z dist/internals/anchor-positioning/policy.js
+2026-10-06T22:03:06.9332892Z dist/internals/anchor-positioning/types.d.ts
+2026-10-06T22:03:06.9333094Z dist/internals/anchor-positioning/types.js
+2026-10-06T22:03:06.9333347Z dist/internals/anchor-positioning/useAnchorPositioning.svelte.d.ts
+2026-10-06T22:03:06.9333731Z dist/internals/anchor-positioning/useAnchorPositioning.svelte.js
+2026-10-06T22:03:06.9334006Z dist/internals/anchor-positioning/useFloating.svelte.d.ts
+2026-10-06T22:03:06.9334443Z dist/internals/anchor-positioning/useFloating.svelte.js
+2026-10-06T22:03:06.9334662Z dist/internals/composite/composite.d.ts
+2026-10-06T22:03:06.9334854Z dist/internals/composite/composite.js
+2026-10-06T22:03:06.9335170Z dist/internals/composite/constants.d.ts
+2026-10-06T22:03:06.9335385Z dist/internals/composite/constants.js
+2026-10-06T22:03:06.9335598Z dist/internals/composite/item/CompositeItem.svelte
+2026-10-06T22:03:06.9335845Z dist/internals/composite/item/CompositeItem.svelte.d.ts
+2026-10-06T22:03:06.9336178Z dist/internals/composite/item/useCompositeItem.svelte.d.ts
+2026-10-06T22:03:06.9336567Z dist/internals/composite/item/useCompositeItem.svelte.js
+2026-10-06T22:03:06.9336832Z dist/internals/composite/list/CompositeListContext.d.ts
+2026-10-06T22:03:06.9337081Z dist/internals/composite/list/CompositeListContext.js
+2026-10-06T22:03:06.9337423Z dist/internals/composite/list/createCompositeList.svelte.d.ts
+2026-10-06T22:03:06.9337708Z dist/internals/composite/list/createCompositeList.svelte.js
+2026-10-06T22:03:06.9337985Z dist/internals/composite/list/useCompositeListItem.svelte.d.ts
+2026-10-06T22:03:06.9338342Z dist/internals/composite/list/useCompositeListItem.svelte.js
+2026-10-06T22:03:06.9338607Z dist/internals/composite/root/CompositeRoot.svelte
+2026-10-06T22:03:06.9338913Z dist/internals/composite/root/CompositeRoot.svelte.d.ts
+2026-10-06T22:03:06.9339184Z dist/internals/composite/root/CompositeRootContext.d.ts
+2026-10-06T22:03:06.9339429Z dist/internals/composite/root/CompositeRootContext.js
+2026-10-06T22:03:06.9339725Z dist/internals/composite/root/gridNavigation.d.ts
+2026-10-06T22:03:06.9339966Z dist/internals/composite/root/gridNavigation.js
+2026-10-06T22:03:06.9340227Z dist/internals/composite/root/useCompositeRoot.svelte.d.ts
+2026-10-06T22:03:06.9340581Z dist/internals/composite/root/useCompositeRoot.svelte.js
+2026-10-06T22:03:06.9340821Z dist/internals/composite/utils/navigation.d.ts
+2026-10-06T22:03:06.9341045Z dist/internals/composite/utils/navigation.js
+2026-10-06T22:03:06.9341323Z dist/internals/constants.d.ts
+2026-10-06T22:03:06.9341487Z dist/internals/constants.js
+2026-10-06T22:03:06.9341683Z dist/internals/createBaseUIEventDetails.d.ts
+2026-10-06T22:03:06.9341910Z dist/internals/createBaseUIEventDetails.js
+2026-10-06T22:03:06.9342205Z dist/internals/field-constants/constants.d.ts
+2026-10-06T22:03:06.9342421Z dist/internals/field-constants/constants.js
+2026-10-06T22:03:06.9342684Z dist/internals/field-control-name/FieldControlNameContext.d.ts
+2026-10-06T22:03:06.9343053Z dist/internals/field-control-name/FieldControlNameContext.js
+2026-10-06T22:03:06.9343409Z dist/internals/field-control-value/FieldControlValueContext.d.ts
+2026-10-06T22:03:06.9343774Z dist/internals/field-control-value/FieldControlValueContext.js
+2026-10-06T22:03:06.9344084Z dist/internals/field-register-control/FieldControlRegistration.svelte.d.ts
+2026-10-06T22:03:06.9344492Z dist/internals/field-register-control/FieldControlRegistration.svelte.js
+2026-10-06T22:03:06.9344827Z dist/internals/field-register-control/useRegisterFieldControl.svelte.d.ts
+2026-10-06T22:03:06.9345156Z dist/internals/field-register-control/useRegisterFieldControl.svelte.js
+2026-10-06T22:03:06.9345509Z dist/internals/field-root-context/FieldRootContext.d.ts
+2026-10-06T22:03:06.9345752Z dist/internals/field-root-context/FieldRootContext.js
+2026-10-06T22:03:06.9345966Z dist/internals/form-context/FormContext.d.ts
+2026-10-06T22:03:06.9346168Z dist/internals/form-context/FormContext.js
+2026-10-06T22:03:06.9346389Z dist/internals/getDisabledMountTransitionStyles.d.ts
+2026-10-06T22:03:06.9346818Z dist/internals/getDisabledMountTransitionStyles.js
+2026-10-06T22:03:06.9347042Z dist/internals/getStateAttributesProps.d.ts
+2026-10-06T22:03:06.9347258Z dist/internals/getStateAttributesProps.js
+2026-10-06T22:03:06.9347533Z dist/internals/labelable-provider/createLabelableProvider.svelte.d.ts
+2026-10-06T22:03:06.9347852Z dist/internals/labelable-provider/createLabelableProvider.svelte.js
+2026-10-06T22:03:06.9348132Z dist/internals/labelable-provider/LabelableContext.d.ts
+2026-10-06T22:03:06.9348474Z dist/internals/labelable-provider/LabelableContext.js
+2026-10-06T22:03:06.9348815Z dist/internals/labelable-provider/LabelableProvider.svelte
+2026-10-06T22:03:06.9349183Z dist/internals/labelable-provider/LabelableProvider.svelte.d.ts
+2026-10-06T22:03:06.9349475Z dist/internals/labelable-provider/useAriaLabelledBy.svelte.d.ts
+2026-10-06T22:03:06.9349756Z dist/internals/labelable-provider/useAriaLabelledBy.svelte.js
+2026-10-06T22:03:06.9350019Z dist/internals/labelable-provider/useLabel.svelte.d.ts
+2026-10-06T22:03:06.9350260Z dist/internals/labelable-provider/useLabel.svelte.js
+2026-10-06T22:03:06.9350518Z dist/internals/labelable-provider/useLabelableId.svelte.d.ts
+2026-10-06T22:03:06.9350782Z dist/internals/labelable-provider/useLabelableId.svelte.js
+2026-10-06T22:03:06.9351006Z dist/internals/mergeComponentProps.d.ts
+2026-10-06T22:03:06.9351197Z dist/internals/mergeComponentProps.js
+2026-10-06T22:03:06.9351388Z dist/internals/nativeProps.d.ts
+2026-10-06T22:03:06.9351554Z dist/internals/nativeProps.js
+2026-10-06T22:03:06.9351725Z dist/internals/reason-parts.d.ts
+2026-10-06T22:03:06.9351896Z dist/internals/reason-parts.js
+2026-10-06T22:03:06.9352055Z dist/internals/reasons.d.ts
+2026-10-06T22:03:06.9352211Z dist/internals/reasons.js
+2026-10-06T22:03:06.9352390Z dist/internals/resolveClassValue.d.ts
+2026-10-06T22:03:06.9352667Z dist/internals/resolveClassValue.js
+2026-10-06T22:03:06.9352855Z dist/internals/serializeValue.d.ts
+2026-10-06T22:03:06.9353033Z dist/internals/serializeValue.js
+2026-10-06T22:03:06.9353222Z dist/internals/stateAttributesMapping.d.ts
+2026-10-06T22:03:06.9353426Z dist/internals/stateAttributesMapping.js
+2026-10-06T22:03:06.9353652Z dist/internals/TransitionStatusDataAttributes.d.ts
+2026-10-06T22:03:06.9353886Z dist/internals/TransitionStatusDataAttributes.js
+2026-10-06T22:03:06.9354081Z dist/internals/types.d.ts
+2026-10-06T22:03:06.9354229Z dist/internals/types.js
+2026-10-06T22:03:06.9354416Z dist/internals/use-button/useButton.svelte.d.ts
+2026-10-06T22:03:06.9354630Z dist/internals/use-button/useButton.svelte.js
+2026-10-06T22:03:06.9354835Z dist/internals/useAnimationsFinished.d.ts
+2026-10-06T22:03:06.9355036Z dist/internals/useAnimationsFinished.js
+2026-10-06T22:03:06.9355231Z dist/internals/useBaseUiId.d.ts
+2026-10-06T22:03:06.9355389Z dist/internals/useBaseUiId.js
+2026-10-06T22:03:06.9355578Z dist/internals/useOpenChangeComplete.svelte.d.ts
+2026-10-06T22:03:06.9355796Z dist/internals/useOpenChangeComplete.svelte.js
+2026-10-06T22:03:06.9356010Z dist/internals/useTransitionStatus.svelte.d.ts
+2026-10-06T22:03:06.9356215Z dist/internals/useTransitionStatus.svelte.js
+2026-10-06T22:03:06.9356543Z dist/internals/ValueChanged.svelte.d.ts
+2026-10-06T22:03:06.9356778Z dist/internals/ValueChanged.svelte.js
+2026-10-06T22:03:06.9356938Z dist/menu/Arrow.svelte
+2026-10-06T22:03:06.9357079Z dist/menu/Arrow.svelte.d.ts
+2026-10-06T22:03:06.9357229Z dist/menu/Backdrop.svelte
+2026-10-06T22:03:06.9357386Z dist/menu/Backdrop.svelte.d.ts
+2026-10-06T22:03:06.9357586Z dist/menu/checkbox-item/MenuCheckboxItemContext.d.ts
+2026-10-06T22:03:06.9357815Z dist/menu/checkbox-item/MenuCheckboxItemContext.js
+2026-10-06T22:03:06.9358063Z dist/menu/checkbox-item/MenuCheckboxItemDataAttributes.d.ts
+2026-10-06T22:03:06.9358325Z dist/menu/checkbox-item/MenuCheckboxItemDataAttributes.js
+2026-10-06T22:03:06.9358522Z dist/menu/CheckboxItem.svelte
+2026-10-06T22:03:06.9358691Z dist/menu/CheckboxItem.svelte.d.ts
+2026-10-06T22:03:06.9358873Z dist/menu/CheckboxItemIndicator.svelte
+2026-10-06T22:03:06.9359071Z dist/menu/CheckboxItemIndicator.svelte.d.ts
+2026-10-06T22:03:06.9359241Z dist/menu/Group.svelte
+2026-10-06T22:03:06.9359382Z dist/menu/Group.svelte.d.ts
+2026-10-06T22:03:06.9359642Z dist/menu/group/MenuGroupContext.d.ts
+2026-10-06T22:03:06.9359823Z dist/menu/group/MenuGroupContext.js
+2026-10-06T22:03:06.9359984Z dist/menu/GroupLabel.svelte
+2026-10-06T22:03:06.9360148Z dist/menu/GroupLabel.svelte.d.ts
+2026-10-06T22:03:06.9360298Z dist/menu/index.d.ts
+2026-10-06T22:03:06.9360427Z dist/menu/index.js
+2026-10-06T22:03:06.9360662Z dist/menu/index.parts.d.ts
+2026-10-06T22:03:06.9360808Z dist/menu/index.parts.js
+2026-10-06T22:03:06.9360947Z dist/menu/Item.svelte
+2026-10-06T22:03:06.9361177Z dist/menu/Item.svelte.d.ts
+2026-10-06T22:03:06.9361344Z dist/menu/item/useMenuItem.svelte.d.ts
+2026-10-06T22:03:06.9361526Z dist/menu/item/useMenuItem.svelte.js
+2026-10-06T22:03:06.9361730Z dist/menu/item/useMenuItemCommonProps.svelte.d.ts
+2026-10-06T22:03:06.9361953Z dist/menu/item/useMenuItemCommonProps.svelte.js
+2026-10-06T22:03:06.9362135Z dist/menu/LinkItem.svelte
+2026-10-06T22:03:06.9362295Z dist/menu/LinkItem.svelte.d.ts
+2026-10-06T22:03:06.9362445Z dist/menu/Popup.svelte
+2026-10-06T22:03:06.9362588Z dist/menu/Popup.svelte.d.ts
+2026-10-06T22:03:06.9362735Z dist/menu/Portal.svelte
+2026-10-06T22:03:06.9362879Z dist/menu/Portal.svelte.d.ts
+2026-10-06T22:03:06.9363053Z dist/menu/portal/MenuPortalContext.d.ts
+2026-10-06T22:03:06.9363241Z dist/menu/portal/MenuPortalContext.js
+2026-10-06T22:03:06.9363409Z dist/menu/Positioner.svelte
+2026-10-06T22:03:06.9363572Z dist/menu/Positioner.svelte.d.ts
+2026-10-06T22:03:06.9363782Z dist/menu/positioner/createMenuPositioner.svelte.d.ts
+2026-10-06T22:03:06.9364017Z dist/menu/positioner/createMenuPositioner.svelte.js
+2026-10-06T22:03:06.9364237Z dist/menu/positioner/MenuPositionerContext.d.ts
+2026-10-06T22:03:06.9364452Z dist/menu/positioner/MenuPositionerContext.js
+2026-10-06T22:03:06.9364667Z dist/menu/radio-group/MenuRadioGroupContext.d.ts
+2026-10-06T22:03:06.9364881Z dist/menu/radio-group/MenuRadioGroupContext.js
+2026-10-06T22:03:06.9365090Z dist/menu/radio-item/MenuRadioItemContext.d.ts
+2026-10-06T22:03:06.9365296Z dist/menu/radio-item/MenuRadioItemContext.js
+2026-10-06T22:03:06.9365470Z dist/menu/RadioGroup.svelte
+2026-10-06T22:03:06.9365632Z dist/menu/RadioGroup.svelte.d.ts
+2026-10-06T22:03:06.9365790Z dist/menu/RadioItem.svelte
+2026-10-06T22:03:06.9365949Z dist/menu/RadioItem.svelte.d.ts
+2026-10-06T22:03:06.9366121Z dist/menu/RadioItemIndicator.svelte
+2026-10-06T22:03:06.9366304Z dist/menu/RadioItemIndicator.svelte.d.ts
+2026-10-06T22:03:06.9366622Z dist/menu/Root.svelte
+2026-10-06T22:03:06.9366760Z dist/menu/Root.svelte.d.ts
+2026-10-06T22:03:06.9366932Z dist/menu/root/createMenuRoot.svelte.d.ts
+2026-10-06T22:03:06.9367121Z dist/menu/root/createMenuRoot.svelte.js
+2026-10-06T22:03:06.9367303Z dist/menu/root/MenuRootContext.d.ts
+2026-10-06T22:03:06.9367475Z dist/menu/root/MenuRootContext.js
+2026-10-06T22:03:06.9367655Z dist/menu/store/MenuHandle.svelte.d.ts
+2026-10-06T22:03:06.9367834Z dist/menu/store/MenuHandle.svelte.js
+2026-10-06T22:03:06.9368010Z dist/menu/store/MenuStore.svelte.d.ts
+2026-10-06T22:03:06.9368186Z dist/menu/store/MenuStore.svelte.js
+2026-10-06T22:03:06.9368385Z dist/menu/submenu-root/MenuSubmenuRootContext.d.ts
+2026-10-06T22:03:06.9368606Z dist/menu/submenu-root/MenuSubmenuRootContext.js
+2026-10-06T22:03:06.9368860Z dist/menu/submenu-trigger/createMenuSubmenuTrigger.svelte.d.ts
+2026-10-06T22:03:06.9369136Z dist/menu/submenu-trigger/createMenuSubmenuTrigger.svelte.js
+2026-10-06T22:03:06.9369345Z dist/menu/SubmenuRoot.svelte
+2026-10-06T22:03:06.9369511Z dist/menu/SubmenuRoot.svelte.d.ts
+2026-10-06T22:03:06.9369682Z dist/menu/SubmenuTrigger.svelte
+2026-10-06T22:03:06.9369854Z dist/menu/SubmenuTrigger.svelte.d.ts
+2026-10-06T22:03:06.9370017Z dist/menu/Trigger.svelte
+2026-10-06T22:03:06.9370163Z dist/menu/Trigger.svelte.d.ts
+2026-10-06T22:03:06.9370350Z dist/menu/trigger/createMenuTrigger.svelte.d.ts
+2026-10-06T22:03:06.9370560Z dist/menu/trigger/createMenuTrigger.svelte.js
+2026-10-06T22:03:06.9370730Z dist/menu/types.d.ts
+2026-10-06T22:03:06.9370860Z dist/menu/types.js
+2026-10-06T22:03:06.9371012Z dist/menu/utils/findRootOwnerId.d.ts
+2026-10-06T22:03:06.9371188Z dist/menu/utils/findRootOwnerId.js
+2026-10-06T22:03:06.9371374Z dist/menu/utils/stateAttributesMapping.d.ts
+2026-10-06T22:03:06.9371575Z dist/menu/utils/stateAttributesMapping.js
+2026-10-06T22:03:06.9371743Z dist/menu/Viewport.svelte
+2026-10-06T22:03:06.9371898Z dist/menu/Viewport.svelte.d.ts
+2026-10-06T22:03:06.9372150Z dist/menubar/index.d.ts
+2026-10-06T22:03:06.9372285Z dist/menubar/index.js
+2026-10-06T22:03:06.9372421Z dist/menubar/Menubar.svelte
+2026-10-06T22:03:06.9372583Z dist/menubar/Menubar.svelte.d.ts
+2026-10-06T22:03:06.9372834Z dist/menubar/MenubarContext.d.ts
+2026-10-06T22:03:06.9373075Z dist/menubar/MenubarContext.js
+2026-10-06T22:03:06.9373223Z dist/menubar/types.d.ts
+2026-10-06T22:03:06.9373360Z dist/menubar/types.js
+2026-10-06T22:03:06.9373498Z dist/merge-props/index.d.ts
+2026-10-06T22:03:06.9373645Z dist/merge-props/index.js
+2026-10-06T22:03:06.9373802Z dist/merge-props/mergeProps.d.ts
+2026-10-06T22:03:06.9373968Z dist/merge-props/mergeProps.js
+2026-10-06T22:03:06.9374115Z dist/meter/context.d.ts
+2026-10-06T22:03:06.9374252Z dist/meter/context.js
+2026-10-06T22:03:06.9374382Z dist/meter/helpers.d.ts
+2026-10-06T22:03:06.9374516Z dist/meter/helpers.js
+2026-10-06T22:03:06.9374648Z dist/meter/index.d.ts
+2026-10-06T22:03:06.9374775Z dist/meter/index.js
+2026-10-06T22:03:06.9374910Z dist/meter/index.parts.d.ts
+2026-10-06T22:03:06.9375064Z dist/meter/index.parts.js
+2026-10-06T22:03:06.9375212Z dist/meter/Indicator.svelte
+2026-10-06T22:03:06.9375371Z dist/meter/Indicator.svelte.d.ts
+2026-10-06T22:03:06.9375526Z dist/meter/Label.svelte
+2026-10-06T22:03:06.9375668Z dist/meter/Label.svelte.d.ts
+2026-10-06T22:03:06.9375814Z dist/meter/Root.svelte
+2026-10-06T22:03:06.9375951Z dist/meter/Root.svelte.d.ts
+2026-10-06T22:03:06.9376098Z dist/meter/Track.svelte
+2026-10-06T22:03:06.9376244Z dist/meter/Track.svelte.d.ts
+2026-10-06T22:03:06.9376509Z dist/meter/types.d.ts
+2026-10-06T22:03:06.9376673Z dist/meter/types.js
+2026-10-06T22:03:06.9376807Z dist/meter/Value.svelte
+2026-10-06T22:03:06.9376950Z dist/meter/Value.svelte.d.ts
+2026-10-06T22:03:06.9377098Z dist/popover/Arrow.svelte
+2026-10-06T22:03:06.9377259Z dist/popover/Arrow.svelte.d.ts
+2026-10-06T22:03:06.9377412Z dist/popover/Backdrop.svelte
+2026-10-06T22:03:06.9377578Z dist/popover/Backdrop.svelte.d.ts
+2026-10-06T22:03:06.9377736Z dist/popover/Close.svelte
+2026-10-06T22:03:06.9377895Z dist/popover/Close.svelte.d.ts
+2026-10-06T22:03:06.9378044Z dist/popover/context.d.ts
+2026-10-06T22:03:06.9378187Z dist/popover/context.js
+2026-10-06T22:03:06.9378345Z dist/popover/Description.svelte
+2026-10-06T22:03:06.9378523Z dist/popover/Description.svelte.d.ts
+2026-10-06T22:03:06.9378700Z dist/popover/handle.svelte.d.ts
+2026-10-06T22:03:06.9378856Z dist/popover/handle.svelte.js
+2026-10-06T22:03:06.9379003Z dist/popover/index.d.ts
+2026-10-06T22:03:06.9379146Z dist/popover/index.js
+2026-10-06T22:03:06.9379292Z dist/popover/index.parts.d.ts
+2026-10-06T22:03:06.9379446Z dist/popover/index.parts.js
+2026-10-06T22:03:06.9379594Z dist/popover/Popup.svelte
+2026-10-06T22:03:06.9379750Z dist/popover/Popup.svelte.d.ts
+2026-10-06T22:03:06.9379901Z dist/popover/Portal.svelte
+2026-10-06T22:03:06.9380062Z dist/popover/Portal.svelte.d.ts
+2026-10-06T22:03:06.9380231Z dist/popover/Positioner.svelte
+2026-10-06T22:03:06.9380401Z dist/popover/Positioner.svelte.d.ts
+2026-10-06T22:03:06.9380613Z dist/popover/positioner/PopoverPositionerContext.d.ts
+2026-10-06T22:03:06.9380857Z dist/popover/positioner/PopoverPositionerContext.js
+2026-10-06T22:03:06.9381049Z dist/popover/Root.svelte
+2026-10-06T22:03:06.9381204Z dist/popover/Root.svelte.d.ts
+2026-10-06T22:03:06.9381397Z dist/popover/root/PopoverInteractions.svelte
+2026-10-06T22:03:06.9381626Z dist/popover/root/PopoverInteractions.svelte.d.ts
+2026-10-06T22:03:06.9381849Z dist/popover/store/PopoverHandle.svelte.d.ts
+2026-10-06T22:03:06.9382056Z dist/popover/store/PopoverHandle.svelte.js
+2026-10-06T22:03:06.9382259Z dist/popover/store/PopoverStore.svelte.d.ts
+2026-10-06T22:03:06.9382466Z dist/popover/store/PopoverStore.svelte.js
+2026-10-06T22:03:06.9382641Z dist/popover/Title.svelte
+2026-10-06T22:03:06.9382797Z dist/popover/Title.svelte.d.ts
+2026-10-06T22:03:06.9382951Z dist/popover/Trigger.svelte
+2026-10-06T22:03:06.9383118Z dist/popover/Trigger.svelte.d.ts
+2026-10-06T22:03:06.9383271Z dist/popover/types.d.ts
+2026-10-06T22:03:06.9383413Z dist/popover/types.js
+2026-10-06T22:03:06.9383736Z dist/popover/utils/constants.d.ts
+2026-10-06T22:03:06.9383906Z dist/popover/utils/constants.js
+2026-10-06T22:03:06.9384060Z dist/popover/Viewport.svelte
+2026-10-06T22:03:06.9384310Z dist/popover/Viewport.svelte.d.ts
+2026-10-06T22:03:06.9384483Z dist/preview-card/Arrow.svelte
+2026-10-06T22:03:06.9384660Z dist/preview-card/Arrow.svelte.d.ts
+2026-10-06T22:03:06.9384847Z dist/preview-card/Backdrop.svelte
+2026-10-06T22:03:06.9385036Z dist/preview-card/Backdrop.svelte.d.ts
+2026-10-06T22:03:06.9385223Z dist/preview-card/context.d.ts
+2026-10-06T22:03:06.9385380Z dist/preview-card/context.js
+2026-10-06T22:03:06.9385549Z dist/preview-card/handle.svelte.d.ts
+2026-10-06T22:03:06.9385735Z dist/preview-card/handle.svelte.js
+2026-10-06T22:03:06.9385900Z dist/preview-card/index.d.ts
+2026-10-06T22:03:06.9386056Z dist/preview-card/index.js
+2026-10-06T22:03:06.9386229Z dist/preview-card/index.parts.d.ts
+2026-10-06T22:03:06.9386524Z dist/preview-card/index.parts.js
+2026-10-06T22:03:06.9386707Z dist/preview-card/Popup.svelte
+2026-10-06T22:03:06.9386887Z dist/preview-card/Popup.svelte.d.ts
+2026-10-06T22:03:06.9387065Z dist/preview-card/Portal.svelte
+2026-10-06T22:03:06.9387248Z dist/preview-card/Portal.svelte.d.ts
+2026-10-06T22:03:06.9387431Z dist/preview-card/Positioner.svelte
+2026-10-06T22:03:06.9387622Z dist/preview-card/Positioner.svelte.d.ts
+2026-10-06T22:03:06.9387875Z dist/preview-card/positioner/PreviewCardPositionerContext.d.ts
+2026-10-06T22:03:06.9388169Z dist/preview-card/positioner/PreviewCardPositionerContext.js
+2026-10-06T22:03:06.9388387Z dist/preview-card/Root.svelte
+2026-10-06T22:03:06.9388569Z dist/preview-card/Root.svelte.d.ts
+2026-10-06T22:03:06.9388787Z dist/preview-card/root/PreviewCardInteractions.svelte
+2026-10-06T22:03:06.9389048Z dist/preview-card/root/PreviewCardInteractions.svelte.d.ts
+2026-10-06T22:03:06.9389305Z dist/preview-card/store/PreviewCardHandle.svelte.d.ts
+2026-10-06T22:03:06.9389536Z dist/preview-card/store/PreviewCardHandle.svelte.js
+2026-10-06T22:03:06.9389774Z dist/preview-card/store/PreviewCardStore.svelte.d.ts
+2026-10-06T22:03:06.9390009Z dist/preview-card/store/PreviewCardStore.svelte.js
+2026-10-06T22:03:06.9390213Z dist/preview-card/Trigger.svelte
+2026-10-06T22:03:06.9390394Z dist/preview-card/Trigger.svelte.d.ts
+2026-10-06T22:03:06.9390561Z dist/preview-card/types.d.ts
+2026-10-06T22:03:06.9390732Z dist/preview-card/types.js
+2026-10-06T22:03:06.9390903Z dist/preview-card/utils/constants.d.ts
+2026-10-06T22:03:06.9391086Z dist/preview-card/utils/constants.js
+2026-10-06T22:03:06.9391264Z dist/preview-card/Viewport.svelte
+2026-10-06T22:03:06.9391446Z dist/preview-card/Viewport.svelte.d.ts
+2026-10-06T22:03:06.9391614Z dist/progress/context.d.ts
+2026-10-06T22:03:06.9391759Z dist/progress/context.js
+2026-10-06T22:03:06.9391905Z dist/progress/helpers.d.ts
+2026-10-06T22:03:06.9392053Z dist/progress/helpers.js
+2026-10-06T22:03:06.9392195Z dist/progress/index.d.ts
+2026-10-06T22:03:06.9392333Z dist/progress/index.js
+2026-10-06T22:03:06.9392493Z dist/progress/index.parts.d.ts
+2026-10-06T22:03:06.9392656Z dist/progress/index.parts.js
+2026-10-06T22:03:06.9392823Z dist/progress/Indicator.svelte
+2026-10-06T22:03:06.9393004Z dist/progress/Indicator.svelte.d.ts
+2026-10-06T22:03:06.9393173Z dist/progress/Label.svelte
+2026-10-06T22:03:06.9393334Z dist/progress/Label.svelte.d.ts
+2026-10-06T22:03:06.9393490Z dist/progress/Root.svelte
+2026-10-06T22:03:06.9393646Z dist/progress/Root.svelte.d.ts
+2026-10-06T22:03:06.9393799Z dist/progress/Track.svelte
+2026-10-06T22:03:06.9393961Z dist/progress/Track.svelte.d.ts
+2026-10-06T22:03:06.9394121Z dist/progress/types.d.ts
+2026-10-06T22:03:06.9394264Z dist/progress/types.js
+2026-10-06T22:03:06.9394409Z dist/progress/Value.svelte
+2026-10-06T22:03:06.9394571Z dist/progress/Value.svelte.d.ts
+2026-10-06T22:03:06.9394731Z dist/radio-group/index.d.ts
+2026-10-06T22:03:06.9394884Z dist/radio-group/index.js
+2026-10-06T22:03:06.9395068Z dist/radio-group/RadioGroup.svelte
+2026-10-06T22:03:06.9395262Z dist/radio-group/RadioGroup.svelte.d.ts
+2026-10-06T22:03:06.9395453Z dist/radio-group/RadioGroupContext.d.ts
+2026-10-06T22:03:06.9395748Z dist/radio-group/RadioGroupContext.js
+2026-10-06T22:03:06.9395917Z dist/radio-group/types.d.ts
+2026-10-06T22:03:06.9396065Z dist/radio-group/types.js
+2026-10-06T22:03:06.9396286Z dist/radio/index.d.ts
+2026-10-06T22:03:06.9396548Z dist/radio/index.js
+2026-10-06T22:03:06.9396698Z dist/radio/index.parts.d.ts
+2026-10-06T22:03:06.9396847Z dist/radio/index.parts.js
+2026-10-06T22:03:06.9397022Z dist/radio/indicator/RadioIndicator.svelte
+2026-10-06T22:03:06.9397238Z dist/radio/indicator/RadioIndicator.svelte.d.ts
+2026-10-06T22:03:06.9397445Z dist/radio/root/RadioRoot.svelte
+2026-10-06T22:03:06.9397630Z dist/radio/root/RadioRoot.svelte.d.ts
+2026-10-06T22:03:06.9397821Z dist/radio/root/RadioRootContext.d.ts
+2026-10-06T22:03:06.9398005Z dist/radio/root/RadioRootContext.js
+2026-10-06T22:03:06.9398196Z dist/radio/root/RadioRootDataAttributes.d.ts
+2026-10-06T22:03:06.9398398Z dist/radio/root/RadioRootDataAttributes.js
+2026-10-06T22:03:06.9398589Z dist/radio/stateAttributesMapping.d.ts
+2026-10-06T22:03:06.9398783Z dist/radio/stateAttributesMapping.js
+2026-10-06T22:03:06.9398945Z dist/radio/types.d.ts
+2026-10-06T22:03:06.9399134Z dist/radio/types.js
+2026-10-06T22:03:06.9399323Z dist/remote-forms/control.types.d.ts
+2026-10-06T22:03:06.9399502Z dist/remote-forms/control.types.js
+2026-10-06T22:03:06.9399681Z dist/remote-forms/index.parts.d.ts
+2026-10-06T22:03:06.9399858Z dist/remote-forms/index.parts.js
+2026-10-06T22:03:06.9400042Z dist/remote-forms/nativeControlValue.d.ts
+2026-10-06T22:03:06.9400236Z dist/remote-forms/nativeControlValue.js
+2026-10-06T22:03:06.9400435Z dist/remote-forms/RemoteBooleanControl.svelte
+2026-10-06T22:03:06.9400661Z dist/remote-forms/RemoteBooleanControl.svelte.d.ts
+2026-10-06T22:03:06.9400869Z dist/remote-forms/RemoteControl.svelte
+2026-10-06T22:03:06.9401067Z dist/remote-forms/RemoteControl.svelte.d.ts
+2026-10-06T22:03:06.9401268Z dist/remote-forms/RemoteFieldContext.d.ts
+2026-10-06T22:03:06.9401458Z dist/remote-forms/RemoteFieldContext.js
+2026-10-06T22:03:06.9401652Z dist/remote-forms/RemoteFormContext.d.ts
+2026-10-06T22:03:06.9401842Z dist/remote-forms/RemoteFormContext.js
+2026-10-06T22:03:06.9402037Z dist/remote-forms/RemoteNativeControl.svelte
+2026-10-06T22:03:06.9402257Z dist/remote-forms/RemoteNativeControl.svelte.d.ts
+2026-10-06T22:03:06.9402459Z dist/remote-forms/RemoteRoot.svelte
+2026-10-06T22:03:06.9402641Z dist/remote-forms/RemoteRoot.svelte.d.ts
+2026-10-06T22:03:06.9402838Z dist/remote-forms/RemoteTextControl.svelte
+2026-10-06T22:03:06.9403045Z dist/remote-forms/RemoteTextControl.svelte.d.ts
+2026-10-06T22:03:06.9403236Z dist/remote-forms/runtime.d.ts
+2026-10-06T22:03:06.9403392Z dist/remote-forms/runtime.js
+2026-10-06T22:03:06.9403543Z dist/remote-forms/types.d.ts
+2026-10-06T22:03:06.9403691Z dist/remote-forms/types.js
+2026-10-06T22:03:06.9403847Z dist/scroll-area/constants.d.ts
+2026-10-06T22:03:06.9404006Z dist/scroll-area/constants.js
+2026-10-06T22:03:06.9404197Z dist/scroll-area/content/ScrollAreaContent.svelte
+2026-10-06T22:03:06.9404433Z dist/scroll-area/content/ScrollAreaContent.svelte.d.ts
+2026-10-06T22:03:06.9404659Z dist/scroll-area/corner/ScrollAreaCorner.svelte
+2026-10-06T22:03:06.9404887Z dist/scroll-area/corner/ScrollAreaCorner.svelte.d.ts
+2026-10-06T22:03:06.9405073Z dist/scroll-area/index.d.ts
+2026-10-06T22:03:06.9405218Z dist/scroll-area/index.js
+2026-10-06T22:03:06.9405377Z dist/scroll-area/index.parts.d.ts
+2026-10-06T22:03:06.9405548Z dist/scroll-area/index.parts.js
+2026-10-06T22:03:06.9405727Z dist/scroll-area/root/ScrollAreaRoot.svelte
+2026-10-06T22:03:06.9405934Z dist/scroll-area/root/ScrollAreaRoot.svelte.d.ts
+2026-10-06T22:03:06.9406150Z dist/scroll-area/root/ScrollAreaRootContext.d.ts
+2026-10-06T22:03:06.9406361Z dist/scroll-area/root/ScrollAreaRootContext.js
+2026-10-06T22:03:06.9406716Z dist/scroll-area/root/ScrollAreaRootCssVars.d.ts
+2026-10-06T22:03:06.9406929Z dist/scroll-area/root/ScrollAreaRootCssVars.js
+2026-10-06T22:03:06.9407159Z dist/scroll-area/root/ScrollAreaRootDataAttributes.d.ts
+2026-10-06T22:03:06.9407511Z dist/scroll-area/root/ScrollAreaRootDataAttributes.js
+2026-10-06T22:03:06.9407732Z dist/scroll-area/root/stateAttributes.d.ts
+2026-10-06T22:03:06.9407920Z dist/scroll-area/root/stateAttributes.js
+2026-10-06T22:03:06.9408214Z dist/scroll-area/scrollbar/ScrollAreaScrollbar.svelte
+2026-10-06T22:03:06.9408461Z dist/scroll-area/scrollbar/ScrollAreaScrollbar.svelte.d.ts
+2026-10-06T22:03:06.9408718Z dist/scroll-area/scrollbar/ScrollAreaScrollbarContext.d.ts
+2026-10-06T22:03:06.9408968Z dist/scroll-area/scrollbar/ScrollAreaScrollbarContext.js
+2026-10-06T22:03:06.9409218Z dist/scroll-area/scrollbar/ScrollAreaScrollbarCssVars.d.ts
+2026-10-06T22:03:06.9409471Z dist/scroll-area/scrollbar/ScrollAreaScrollbarCssVars.js
+2026-10-06T22:03:06.9409745Z dist/scroll-area/scrollbar/ScrollAreaScrollbarDataAttributes.d.ts
+2026-10-06T22:03:06.9410034Z dist/scroll-area/scrollbar/ScrollAreaScrollbarDataAttributes.js
+2026-10-06T22:03:06.9410277Z dist/scroll-area/thumb/ScrollAreaThumb.svelte
+2026-10-06T22:03:06.9410491Z dist/scroll-area/thumb/ScrollAreaThumb.svelte.d.ts
+2026-10-06T22:03:06.9410675Z dist/scroll-area/types.d.ts
+2026-10-06T22:03:06.9410822Z dist/scroll-area/types.js
+2026-10-06T22:03:06.9410986Z dist/scroll-area/utils/getOffset.d.ts
+2026-10-06T22:03:06.9411167Z dist/scroll-area/utils/getOffset.js
+2026-10-06T22:03:06.9411367Z dist/scroll-area/viewport/ScrollAreaViewport.svelte
+2026-10-06T22:03:06.9411608Z dist/scroll-area/viewport/ScrollAreaViewport.svelte.d.ts
+2026-10-06T22:03:06.9411854Z dist/scroll-area/viewport/ScrollAreaViewportContext.d.ts
+2026-10-06T22:03:06.9412101Z dist/scroll-area/viewport/ScrollAreaViewportContext.js
+2026-10-06T22:03:06.9412346Z dist/scroll-area/viewport/ScrollAreaViewportCssVars.d.ts
+2026-10-06T22:03:06.9412589Z dist/scroll-area/viewport/ScrollAreaViewportCssVars.js
+2026-10-06T22:03:06.9412779Z dist/separator/index.d.ts
+2026-10-06T22:03:06.9412926Z dist/separator/index.js
+2026-10-06T22:03:06.9413083Z dist/separator/Separator.svelte
+2026-10-06T22:03:06.9413256Z dist/separator/Separator.svelte.d.ts
+2026-10-06T22:03:06.9413422Z dist/separator/types.d.ts
+2026-10-06T22:03:06.9413569Z dist/separator/types.js
+2026-10-06T22:03:06.9413706Z dist/switch/index.d.ts
+2026-10-06T22:03:06.9413844Z dist/switch/index.js
+2026-10-06T22:03:06.9413988Z dist/switch/index.parts.d.ts
+2026-10-06T22:03:06.9414141Z dist/switch/index.parts.js
+2026-10-06T22:03:06.9414305Z dist/switch/root/SwitchRoot.svelte
+2026-10-06T22:03:06.9414489Z dist/switch/root/SwitchRoot.svelte.d.ts
+2026-10-06T22:03:06.9414680Z dist/switch/root/SwitchRootContext.d.ts
+2026-10-06T22:03:06.9414864Z dist/switch/root/SwitchRootContext.js
+2026-10-06T22:03:06.9415063Z dist/switch/root/SwitchRootDataAttributes.d.ts
+2026-10-06T22:03:06.9415270Z dist/switch/root/SwitchRootDataAttributes.js
+2026-10-06T22:03:06.9415470Z dist/switch/stateAttributesMapping.d.ts
+2026-10-06T22:03:06.9415659Z dist/switch/stateAttributesMapping.js
+2026-10-06T22:03:06.9415842Z dist/switch/thumb/SwitchThumb.svelte
+2026-10-06T22:03:06.9416029Z dist/switch/thumb/SwitchThumb.svelte.d.ts
+2026-10-06T22:03:06.9416198Z dist/switch/types.d.ts
+2026-10-06T22:03:06.9416336Z dist/switch/types.js
+2026-10-06T22:03:06.9416611Z dist/toast/Action.svelte
+2026-10-06T22:03:06.9416764Z dist/toast/Action.svelte.d.ts
+2026-10-06T22:03:06.9416920Z dist/toast/animations.d.ts
+2026-10-06T22:03:06.9417063Z dist/toast/animations.js
+2026-10-06T22:03:06.9417203Z dist/toast/Close.svelte
+2026-10-06T22:03:06.9417344Z dist/toast/Close.svelte.d.ts
+2026-10-06T22:03:06.9417489Z dist/toast/content.d.ts
+2026-10-06T22:03:06.9417626Z dist/toast/content.js
+2026-10-06T22:03:06.9417766Z dist/toast/Content.svelte
+2026-10-06T22:03:06.9417921Z dist/toast/Content.svelte.d.ts
+2026-10-06T22:03:06.9418070Z dist/toast/context.d.ts
+2026-10-06T22:03:06.9418206Z dist/toast/context.js
+2026-10-06T22:03:06.9418359Z dist/toast/createToastManager.d.ts
+2026-10-06T22:03:06.9418533Z dist/toast/createToastManager.js
+2026-10-06T22:03:06.9418697Z dist/toast/Description.svelte
+2026-10-06T22:03:06.9418870Z dist/toast/Description.svelte.d.ts
+2026-10-06T22:03:06.9419129Z dist/toast/facade.d.ts
+2026-10-06T22:03:06.9419262Z dist/toast/facade.js
+2026-10-06T22:03:06.9419411Z dist/toast/getToastManager.d.ts
+2026-10-06T22:03:06.9419566Z dist/toast/getToastManager.js
+2026-10-06T22:03:06.9419795Z dist/toast/id.d.ts
+2026-10-06T22:03:06.9419921Z dist/toast/id.js
+2026-10-06T22:03:06.9420046Z dist/toast/index.d.ts
+2026-10-06T22:03:06.9420177Z dist/toast/index.js
+2026-10-06T22:03:06.9420310Z dist/toast/Portal.svelte
+2026-10-06T22:03:06.9420456Z dist/toast/Portal.svelte.d.ts
+2026-10-06T22:03:06.9420605Z dist/toast/Provider.svelte
+2026-10-06T22:03:06.9420765Z dist/toast/Provider.svelte.d.ts
+2026-10-06T22:03:06.9420933Z dist/toast/RenderContent.svelte
+2026-10-06T22:03:06.9421108Z dist/toast/RenderContent.svelte.d.ts
+2026-10-06T22:03:06.9421299Z dist/toast/resolve-promise-options.d.ts
+2026-10-06T22:03:06.9421497Z dist/toast/resolve-promise-options.js
+2026-10-06T22:03:06.9421665Z dist/toast/root-context.d.ts
+2026-10-06T22:03:06.9421872Z dist/toast/root-context.js
+2026-10-06T22:03:06.9422096Z dist/toast/Root.svelte
+2026-10-06T22:03:06.9422316Z dist/toast/Root.svelte.d.ts
+2026-10-06T22:03:06.9422540Z dist/toast/store.d.ts
+2026-10-06T22:03:06.9422744Z dist/toast/store.js
+2026-10-06T22:03:06.9422946Z dist/toast/Title.svelte
+2026-10-06T22:03:06.9423167Z dist/toast/Title.svelte.d.ts
+2026-10-06T22:03:06.9423391Z dist/toast/types.d.ts
+2026-10-06T22:03:06.9423589Z dist/toast/types.js
+2026-10-06T22:03:06.9423821Z dist/toast/viewport-focus.d.ts
+2026-10-06T22:03:06.9424059Z dist/toast/viewport-focus.js
+2026-10-06T22:03:06.9424294Z dist/toast/Viewport.svelte
+2026-10-06T22:03:06.9424538Z dist/toast/Viewport.svelte.d.ts
+2026-10-06T22:03:06.9424807Z dist/toggle-group/index.d.ts
+2026-10-06T22:03:06.9425048Z dist/toggle-group/index.js
+2026-10-06T22:03:06.9425313Z dist/toggle-group/ToggleGroup.svelte
+2026-10-06T22:03:06.9425625Z dist/toggle-group/ToggleGroup.svelte.d.ts
+2026-10-06T22:03:06.9425877Z dist/toggle-group/ToggleGroupContext.d.ts
+2026-10-06T22:03:06.9426070Z dist/toggle-group/ToggleGroupContext.js
+2026-10-06T22:03:06.9426243Z dist/toggle-group/types.d.ts
+2026-10-06T22:03:06.9426538Z dist/toggle-group/types.js
+2026-10-06T22:03:06.9426705Z dist/toggle/index.d.ts
+2026-10-06T22:03:06.9426851Z dist/toggle/index.js
+2026-10-06T22:03:06.9426986Z dist/toggle/Toggle.svelte
+2026-10-06T22:03:06.9427141Z dist/toggle/Toggle.svelte.d.ts
+2026-10-06T22:03:06.9427291Z dist/toggle/types.d.ts
+2026-10-06T22:03:06.9427430Z dist/toggle/types.js
+2026-10-06T22:03:06.9427589Z dist/toolbar/button/ToolbarButton.svelte
+2026-10-06T22:03:06.9427791Z dist/toolbar/button/ToolbarButton.svelte.d.ts
+2026-10-06T22:03:06.9427992Z dist/toolbar/group/ToolbarGroup.svelte
+2026-10-06T22:03:06.9428187Z dist/toolbar/group/ToolbarGroup.svelte.d.ts
+2026-10-06T22:03:06.9428390Z dist/toolbar/group/ToolbarGroupContext.d.ts
+2026-10-06T22:03:06.9428590Z dist/toolbar/group/ToolbarGroupContext.js
+2026-10-06T22:03:06.9428758Z dist/toolbar/index.d.ts
+2026-10-06T22:03:06.9428898Z dist/toolbar/index.js
+2026-10-06T22:03:06.9429040Z dist/toolbar/index.parts.d.ts
+2026-10-06T22:03:06.9429198Z dist/toolbar/index.parts.js
+2026-10-06T22:03:06.9429368Z dist/toolbar/input/ToolbarInput.svelte
+2026-10-06T22:03:06.9429644Z dist/toolbar/input/ToolbarInput.svelte.d.ts
+2026-10-06T22:03:06.9429912Z dist/toolbar/link/ToolbarLink.svelte
+2026-10-06T22:03:06.9430299Z dist/toolbar/link/ToolbarLink.svelte.d.ts
+2026-10-06T22:03:06.9430582Z dist/toolbar/root/ToolbarRoot.svelte
+2026-10-06T22:03:06.9430845Z dist/toolbar/root/ToolbarRoot.svelte.d.ts
+2026-10-06T22:03:06.9431155Z dist/toolbar/root/ToolbarRootContext.d.ts
+2026-10-06T22:03:06.9431421Z dist/toolbar/root/ToolbarRootContext.js
+2026-10-06T22:03:06.9443974Z dist/toolbar/separator/ToolbarSeparator.svelte
+2026-10-06T22:03:06.9444299Z dist/toolbar/separator/ToolbarSeparator.svelte.d.ts
+2026-10-06T22:03:06.9444499Z dist/toolbar/types.d.ts
+2026-10-06T22:03:06.9444643Z dist/toolbar/types.js
+2026-10-06T22:03:06.9444791Z dist/tooltip/Arrow.svelte
+2026-10-06T22:03:06.9444954Z dist/tooltip/Arrow.svelte.d.ts
+2026-10-06T22:03:06.9445110Z dist/tooltip/context.d.ts
+2026-10-06T22:03:06.9445472Z dist/tooltip/context.js
+2026-10-06T22:03:06.9445630Z dist/tooltip/handle.svelte.d.ts
+2026-10-06T22:03:06.9445796Z dist/tooltip/handle.svelte.js
+2026-10-06T22:03:06.9446038Z dist/tooltip/index.d.ts
+2026-10-06T22:03:06.9446183Z dist/tooltip/index.js
+2026-10-06T22:03:06.9446329Z dist/tooltip/index.parts.d.ts
+2026-10-06T22:03:06.9446636Z dist/tooltip/index.parts.js
+2026-10-06T22:03:06.9446793Z dist/tooltip/Popup.svelte
+2026-10-06T22:03:06.9446959Z dist/tooltip/Popup.svelte.d.ts
+2026-10-06T22:03:06.9447113Z dist/tooltip/Portal.svelte
+2026-10-06T22:03:06.9447279Z dist/tooltip/Portal.svelte.d.ts
+2026-10-06T22:03:06.9447446Z dist/tooltip/Positioner.svelte
+2026-10-06T22:03:06.9447619Z dist/tooltip/Positioner.svelte.d.ts
+2026-10-06T22:03:06.9447835Z dist/tooltip/positioner/TooltipPositionerContext.d.ts
+2026-10-06T22:03:06.9448077Z dist/tooltip/positioner/TooltipPositionerContext.js
+2026-10-06T22:03:06.9448275Z dist/tooltip/Provider.svelte
+2026-10-06T22:03:06.9448447Z dist/tooltip/Provider.svelte.d.ts
+2026-10-06T22:03:06.9448653Z dist/tooltip/provider/TooltipProviderContext.d.ts
+2026-10-06T22:03:06.9448884Z dist/tooltip/provider/TooltipProviderContext.js
+2026-10-06T22:03:06.9449074Z dist/tooltip/Root.svelte
+2026-10-06T22:03:06.9449223Z dist/tooltip/Root.svelte.d.ts
+2026-10-06T22:03:06.9449409Z dist/tooltip/root/TooltipInteractions.svelte
+2026-10-06T22:03:06.9449632Z dist/tooltip/root/TooltipInteractions.svelte.d.ts
+2026-10-06T22:03:06.9449849Z dist/tooltip/store/TooltipHandle.svelte.d.ts
+2026-10-06T22:03:06.9450057Z dist/tooltip/store/TooltipHandle.svelte.js
+2026-10-06T22:03:06.9450264Z dist/tooltip/store/TooltipStore.svelte.d.ts
+2026-10-06T22:03:06.9450463Z dist/tooltip/store/TooltipStore.svelte.js
+2026-10-06T22:03:06.9450638Z dist/tooltip/Trigger.svelte
+2026-10-06T22:03:06.9450804Z dist/tooltip/Trigger.svelte.d.ts
+2026-10-06T22:03:06.9451040Z dist/tooltip/types.d.ts
+2026-10-06T22:03:06.9451223Z dist/tooltip/types.js
+2026-10-06T22:03:06.9451381Z dist/tooltip/utils/constants.d.ts
+2026-10-06T22:03:06.9451552Z dist/tooltip/utils/constants.js
+2026-10-06T22:03:06.9451708Z dist/tooltip/Viewport.svelte
+2026-10-06T22:03:06.9451957Z dist/tooltip/Viewport.svelte.d.ts
+2026-10-06T22:03:06.9452135Z dist/utils/closePart.svelte.d.ts
+2026-10-06T22:03:06.9452303Z dist/utils/closePart.svelte.js
+2026-10-06T22:03:06.9452491Z dist/utils/collapsibleOpenStateMapping.d.ts
+2026-10-06T22:03:06.9452696Z dist/utils/collapsibleOpenStateMapping.js
+2026-10-06T22:03:06.9452888Z dist/utils/CommonPopupCssVars.d.ts
+2026-10-06T22:03:06.9453063Z dist/utils/CommonPopupCssVars.js
+2026-10-06T22:03:06.9453245Z dist/utils/CommonPopupDataAttributes.d.ts
+2026-10-06T22:03:06.9453439Z dist/utils/CommonPopupDataAttributes.js
+2026-10-06T22:03:06.9453634Z dist/utils/CommonPositionerCssVars.d.ts
+2026-10-06T22:03:06.9453831Z dist/utils/CommonPositionerCssVars.js
+2026-10-06T22:03:06.9454034Z dist/utils/CommonTriggerDataAttributes.d.ts
+2026-10-06T22:03:06.9454235Z dist/utils/CommonTriggerDataAttributes.js
+2026-10-06T22:03:06.9454447Z dist/utils/CommonViewportDataAttributes.d.ts
+2026-10-06T22:03:06.9454655Z dist/utils/CommonViewportDataAttributes.js
+2026-10-06T22:03:06.9454938Z dist/utils/dispatchClickWithModifiers.d.ts
+2026-10-06T22:03:06.9455136Z dist/utils/dispatchClickWithModifiers.js
+2026-10-06T22:03:06.9455328Z dist/utils/FloatingPortalLite.svelte
+2026-10-06T22:03:06.9455523Z dist/utils/FloatingPortalLite.svelte.d.ts
+2026-10-06T22:03:06.9455698Z dist/utils/FocusGuard.svelte
+2026-10-06T22:03:06.9455869Z dist/utils/FocusGuard.svelte.d.ts
+2026-10-06T22:03:06.9456045Z dist/utils/getCssDimensions.d.ts
+2026-10-06T22:03:06.9456212Z dist/utils/getCssDimensions.js
+2026-10-06T22:03:06.9456385Z dist/utils/getElementTransform.d.ts
+2026-10-06T22:03:06.9456755Z dist/utils/getElementTransform.js
+2026-10-06T22:03:06.9456938Z dist/utils/getPseudoElementBounds.d.ts
+2026-10-06T22:03:06.9457121Z dist/utils/getPseudoElementBounds.js
+2026-10-06T22:03:06.9457305Z dist/utils/InternalBackdrop.svelte
+2026-10-06T22:03:06.9457491Z dist/utils/InternalBackdrop.svelte.d.ts
+2026-10-06T22:03:06.9457779Z dist/utils/NullStore.svelte.d.ts
+2026-10-06T22:03:06.9457946Z dist/utils/NullStore.svelte.js
+2026-10-06T22:03:06.9458100Z dist/utils/popups/index.d.ts
+2026-10-06T22:03:06.9458336Z dist/utils/popups/index.js
+2026-10-06T22:03:06.9458503Z dist/utils/popups/inlineRect.d.ts
+2026-10-06T22:03:06.9458671Z dist/utils/popups/inlineRect.js
+2026-10-06T22:03:06.9458847Z dist/utils/popups/popupHandle.svelte.d.ts
+2026-10-06T22:03:06.9459040Z dist/utils/popups/popupHandle.svelte.js
+2026-10-06T22:03:06.9459243Z dist/utils/popups/PopupHandleAttachment.svelte
+2026-10-06T22:03:06.9459471Z dist/utils/popups/PopupHandleAttachment.svelte.d.ts
+2026-10-06T22:03:06.9459698Z dist/utils/popups/popupStoreUtils.svelte.d.ts
+2026-10-06T22:03:06.9459907Z dist/utils/popups/popupStoreUtils.svelte.js
+2026-10-06T22:03:06.9460123Z dist/utils/popups/popupTriggerMap.svelte.d.ts
+2026-10-06T22:03:06.9460330Z dist/utils/popups/popupTriggerMap.svelte.js
+2026-10-06T22:03:06.9460505Z dist/utils/popups/store.d.ts
+2026-10-06T22:03:06.9460659Z dist/utils/popups/store.js
+2026-10-06T22:03:06.9460849Z dist/utils/popups/usePopupHandleStore.svelte.d.ts
+2026-10-06T22:03:06.9461073Z dist/utils/popups/usePopupHandleStore.svelte.js
+2026-10-06T22:03:06.9461304Z dist/utils/popups/useTriggerFocusGuards.svelte.d.ts
+2026-10-06T22:03:06.9461534Z dist/utils/popups/useTriggerFocusGuards.svelte.js
+2026-10-06T22:03:06.9461736Z dist/utils/popupStateMapping.d.ts
+2026-10-06T22:03:06.9461915Z dist/utils/popupStateMapping.js
+2026-10-06T22:03:06.9462087Z dist/utils/resolveClassName.d.ts
+2026-10-06T22:03:06.9462256Z dist/utils/resolveClassName.js
+2026-10-06T22:03:06.9462407Z dist/utils/resolveRef.d.ts
+2026-10-06T22:03:06.9462552Z dist/utils/resolveRef.js
+2026-10-06T22:03:06.9462696Z dist/utils/resolveStyle.d.ts
+2026-10-06T22:03:06.9462846Z dist/utils/resolveStyle.js
+2026-10-06T22:03:06.9462992Z dist/utils/scrollEdges.d.ts
+2026-10-06T22:03:06.9463143Z dist/utils/scrollEdges.js
+2026-10-06T22:03:06.9463313Z dist/utils/StyleDisableScrollbar.svelte
+2026-10-06T22:03:06.9463523Z dist/utils/StyleDisableScrollbar.svelte.d.ts
+2026-10-06T22:03:06.9463694Z dist/utils/styles.d.ts
+2026-10-06T22:03:06.9463826Z dist/utils/styles.js
+2026-10-06T22:03:06.9464008Z dist/utils/useAnchoredPopupScrollLock.svelte.d.ts
+2026-10-06T22:03:06.9464238Z dist/utils/useAnchoredPopupScrollLock.svelte.js
+2026-10-06T22:03:06.9464448Z dist/utils/useFocusableWhenDisabled.d.ts
+2026-10-06T22:03:06.9464643Z dist/utils/useFocusableWhenDisabled.js
+2026-10-06T22:03:06.9464849Z dist/utils/useMixedToggleClickHandler.svelte.d.ts
+2026-10-06T22:03:06.9465072Z dist/utils/useMixedToggleClickHandler.svelte.js
+2026-10-06T22:03:06.9465289Z dist/utils/useOpenInteractionType.svelte.d.ts
+2026-10-06T22:03:06.9465501Z dist/utils/useOpenInteractionType.svelte.js
+2026-10-06T22:03:06.9465701Z dist/utils/usePopupAutoResize.svelte.d.ts
+2026-10-06T22:03:06.9465896Z dist/utils/usePopupAutoResize.svelte.js
+2026-10-06T22:03:06.9466085Z dist/utils/usePopupViewport.svelte.d.ts
+2026-10-06T22:03:06.9466274Z dist/utils/usePopupViewport.svelte.js
+2026-10-06T22:03:06.9466642Z dist/utils/usePositioner.svelte.d.ts
+2026-10-06T22:03:06.9466829Z dist/utils/usePositioner.svelte.js
+2026-10-06T22:03:06.9467026Z dist/utils/useRegisteredLabelId.svelte.d.ts
+2026-10-06T22:03:06.9467228Z dist/utils/useRegisteredLabelId.svelte.js
+2026-10-06T22:03:06.9467283Z LICENSE
+2026-10-06T22:03:06.9467337Z package.json
+2026-10-06T22:03:06.9467423Z patches/@sveltejs__kit@2.70.3.patch
+2026-10-06T22:03:06.9467487Z patches/LICENSE.sveltekit
+2026-10-06T22:03:06.9467548Z patches/README.md
+2026-10-06T22:03:06.9467611Z THIRD_PARTY_NOTICES.md
+2026-10-06T22:03:06.9467662Z Tarball Details
+2026-10-06T22:03:06.9467861Z /home/runner/work/base/base/.checks/npm-package/sveltery-base-0.0.0.tgz
+2026-10-06T22:03:06.9600985Z ##[group]Run pnpm check
+2026-10-06T22:03:06.9601084Z [36;1mpnpm check[0m
+2026-10-06T22:03:06.9655438Z shell: /usr/bin/bash -e {0}
+2026-10-06T22:03:06.9655500Z env:
+2026-10-06T22:03:06.9655674Z   SVELTERY_PACKAGE_ARTIFACTS: /home/runner/work/base/base/.checks/npm-package/artifacts.json
+2026-10-06T22:03:06.9655914Z   PNPM_HOME: /home/runner/setup-pnpm/node_modules/.bin
+2026-10-06T22:03:06.9655974Z   SVELTERY_WORKSPACE_READY: 1
+2026-10-06T22:03:06.9656025Z ##[endgroup]
+2026-10-06T22:03:06.9860028Z $ pnpm package:prepare && pnpm --recursive --sort --workspace-concurrency 1 run check
+2026-10-06T22:03:06.9992802Z $ bash scripts/prepare-workspace.sh
+2026-10-06T22:03:07.1236620Z Scope: 3 of 4 workspace projects
+2026-10-06T22:03:07.1251181Z $ svelte-check --tsconfig ./tsconfig.json
+2026-10-06T22:03:08.9657958Z Loading svelte-check in workspace: /home/runner/work/base/base/packages/utils
+2026-10-06T22:03:08.9677646Z Getting Svelte diagnostics...
+2026-10-06T22:03:08.9677828Z 
+2026-10-06T22:03:08.9678592Z [32msvelte-check found 0 errors and 0 warnings
+2026-10-06T22:03:09.0164319Z $ svelte-kit sync && svelte-check --tsconfig ./tsconfig.json
+2026-10-06T22:03:21.9856942Z [39mLoading svelte-check in workspace: /home/runner/work/base/base/packages/base
+2026-10-06T22:03:21.9857451Z Getting Svelte diagnostics...
+2026-10-06T22:03:21.9857604Z 
+2026-10-06T22:03:21.9886884Z /home/runner/work/base/base/packages/base/[32mtests/dom/fixtures/UtilsStoreSync.svelte[39m:12:37
+2026-10-06T22:03:21.9887913Z [33mWarn[39m: This reference only captures the initial value of `initialValue`. Did you mean to reference it inside a derived instead?
+2026-10-06T22:03:21.9888514Z https://svelte.dev/e/state_referenced_locally (svelte)
+2026-10-06T22:03:21.9888841Z [36m  } = $props();
+2026-10-06T22:03:21.9889211Z   let value = $state.raw({ current: [35minitialValue[36m });
+2026-10-06T22:03:21.9889797Z   if (cleanup) store.useSyncedValueWithCleanup('value', () => value.current);[39m
+2026-10-06T22:03:21.9890111Z 
+2026-10-06T22:03:21.9890567Z /home/runner/work/base/base/packages/base/[32mtests/dom/fixtures/UtilsStoreSync.svelte[39m:13:7
+2026-10-06T22:03:21.9891432Z [33mWarn[39m: This reference only captures the initial value of `cleanup`. Did you mean to reference it inside a closure instead?
+2026-10-06T22:03:21.9892041Z https://svelte.dev/e/state_referenced_locally (svelte)
+2026-10-06T22:03:21.9892481Z [36m  let value = $state.raw({ current: initialValue });
+2026-10-06T22:03:21.9892995Z   if ([35mcleanup[36m) store.useSyncedValueWithCleanup('value', () => value.current);
+2026-10-06T22:03:21.9893513Z   else store.useSyncedValue('value', () => value.current);[39m
+2026-10-06T22:03:21.9893734Z 
+2026-10-06T22:03:21.9894165Z /home/runner/work/base/base/packages/base/[32mtests/dom/fixtures/UtilsStoreSync.svelte[39m:13:16
+2026-10-06T22:03:21.9895042Z [33mWarn[39m: This reference only captures the initial value of `store`. Did you mean to reference it inside a closure instead?
+2026-10-06T22:03:21.9895668Z https://svelte.dev/e/state_referenced_locally (svelte)
+2026-10-06T22:03:21.9896139Z [36m  let value = $state.raw({ current: initialValue });
+2026-10-06T22:03:21.9896826Z   if (cleanup) [35mstore[36m.useSyncedValueWithCleanup('value', () => value.current);
+2026-10-06T22:03:21.9897386Z   else store.useSyncedValue('value', () => value.current);[39m
+2026-10-06T22:03:21.9897640Z 
+2026-10-06T22:03:21.9898063Z /home/runner/work/base/base/packages/base/[32mtests/dom/fixtures/UtilsStoreSync.svelte[39m:14:8
+2026-10-06T22:03:21.9899004Z [33mWarn[39m: This reference only captures the initial value of `store`. Did you mean to reference it inside a closure instead?
+2026-10-06T22:03:21.9899652Z https://svelte.dev/e/state_referenced_locally (svelte)
+2026-10-06T22:03:21.9900290Z [36m  if (cleanup) store.useSyncedValueWithCleanup('value', () => value.current);
+2026-10-06T22:03:21.9900855Z   else [35mstore[36m.useSyncedValue('value', () => value.current);
+2026-10-06T22:03:21.9901938Z   export const updateValue = (next: number) => {[39m
+2026-10-06T22:03:21.9902170Z 
+2026-10-06T22:03:21.9902651Z /home/runner/work/base/base/packages/base/[32mtests/dom/MenuTreeTriggerOwner.svelte[39m:15:23
+2026-10-06T22:03:21.9903554Z [33mWarn[39m: This reference only captures the initial value of `tree`. Did you mean to reference it inside a closure instead?
+2026-10-06T22:03:21.9904385Z https://svelte.dev/e/state_referenced_locally (svelte)
+2026-10-06T22:03:21.9904958Z [36m  }: { tree: FloatingTreeStore; parentNodeId: string; children: Snippet } = $props();
+2026-10-06T22:03:21.9905407Z   provideFloatingTree([35mtree[36m);
+2026-10-06T22:03:21.9905792Z   provideFloatingNode(() => parentNodeId);[39m
+2026-10-06T22:03:21.9906001Z 
+2026-10-06T22:03:21.9906608Z /home/runner/work/base/base/packages/base/[32mtests/dom/NativeScrollAreaProbe.svelte[39m:7:3
+2026-10-06T22:03:21.9907561Z [33mWarn[39m: This reference only captures the initial value of `capture`. Did you mean to reference it inside a closure instead?
+2026-10-06T22:03:21.9908201Z https://svelte.dev/e/state_referenced_locally (svelte)
+2026-10-06T22:03:21.9908777Z [36m  let { capture }: { capture: (context: ScrollAreaRootContext) => void } = $props();
+2026-10-06T22:03:21.9909267Z   [35mcapture[36m(useScrollAreaRootContext());
+2026-10-06T22:03:21.9909565Z </script>[39m
+2026-10-06T22:03:21.9909690Z 
+2026-10-06T22:03:21.9917335Z ====================================
+2026-10-06T22:03:21.9917911Z [33msvelte-check found 0 errors and 6 warnings in 3 files
+2026-10-06T22:03:22.1067502Z $ svelte-kit sync && svelte-check --tsconfig ./tsconfig.json
+2026-10-06T22:03:46.9430839Z [39mLoading svelte-check in workspace: /home/runner/work/base/base/apps/fixtures
+2026-10-06T22:03:46.9431342Z Getting Svelte diagnostics...
+2026-10-06T22:03:46.9431510Z 
+2026-10-06T22:03:46.9466353Z /home/runner/work/base/base/apps/fixtures/[32msrc/lib/CollapsibleFixture.svelte[39m:221:13
+2026-10-06T22:03:46.9470647Z [31mError[39m: Type '(state: CollapsibleRootState) => string | { animationDuration: string; justifyContent: string; transitionDuration?: undefined; } | { transitionDuration: string; justifyContent: string; animationDuration?: undefined; }' is not assignable to type 'string | ((state: CollapsibleRootState) => string | null | undefined) | null | undefined'.
+2026-10-06T22:03:46.9472554Z   Type '(state: CollapsibleRootState) => string | { animationDuration: string; justifyContent: string; transitionDuration?: undefined; } | { transitionDuration: string; justifyContent: string; animationDuration?: undefined; }' is not assignable to type '(state: CollapsibleRootState) => string | null | undefined'.
+2026-10-06T22:03:46.9474090Z     Type 'string | { animationDuration: string; justifyContent: string; transitionDuration?: undefined; } | { transitionDuration: string; justifyContent: string; animationDuration?: undefined; }' is not assignable to type 'string | null | undefined'.
+2026-10-06T22:03:46.9477722Z       Type '{ animationDuration: string; justifyContent: string; transitionDuration?: undefined; }' is not assignable to type 'string'. (ts)
+2026-10-06T22:03:46.9478291Z [36m                  : motion}
+2026-10-06T22:03:46.9478564Z             [35mstyle[36m={(state) =>
+2026-10-06T22:03:46.9479004Z               scenario === 'state-callbacks' ? `opacity:${state.open ? 1 : 0.5}` : style}[39m
+2026-10-06T22:03:46.9479279Z 
+2026-10-06T22:03:46.9527977Z ====================================
+2026-10-06T22:03:46.9528553Z [31msvelte-check found 1 error and 0 warnings in 1 file
+2026-10-06T22:03:47.1296763Z [ELIFECYCLE] Command failed with exit code 1.
+2026-10-06T22:03:47.1582990Z Error: ERR_PNPM_RECURSIVE_RUN_FIRST_FAIL
+2026-10-06T22:03:47.1583239Z 
+2026-10-06T22:03:47.1583744Z   × "pnpm recursive run" failed in /home/runner/work/base/base/apps/fixtures
+2026-10-06T22:03:47.1583924Z 
+2026-10-06T22:03:47.1594520Z [ELIFECYCLE] Command failed with exit code 1.
+2026-10-06T22:03:47.1607301Z [39m
+2026-10-06T22:03:47.1618234Z ##[error]Process completed with exit code 1.
+2026-10-06T22:03:47.1685229Z ##[group]Run actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+2026-10-06T22:03:47.1685467Z with:
+2026-10-06T22:03:47.1685594Z   name: npm-package-analysis
+2026-10-06T22:03:47.1685745Z   path: .checks/npm-package/
+2026-10-06T22:03:47.1685884Z   if-no-files-found: warn
+2026-10-06T22:03:47.1686014Z   retention-days: 14
+2026-10-06T22:03:47.1686305Z   compression-level: 6
+2026-10-06T22:03:47.1686760Z   overwrite: false
+2026-10-06T22:03:47.1686887Z   include-hidden-files: false
+2026-10-06T22:03:47.1687023Z env:
+2026-10-06T22:03:47.1687236Z   SVELTERY_PACKAGE_ARTIFACTS: /home/runner/work/base/base/.checks/npm-package/artifacts.json
+2026-10-06T22:03:47.1687512Z   PNPM_HOME: /home/runner/setup-pnpm/node_modules/.bin
+2026-10-06T22:03:47.1687691Z   SVELTERY_WORKSPACE_READY: 1
+2026-10-06T22:03:47.1687828Z ##[endgroup]
+2026-10-06T22:03:47.2874062Z (node:3896) [DEP0040] DeprecationWarning: The `punycode` module is deprecated. Please use a userland alternative instead.
+2026-10-06T22:03:47.2874639Z (Use `node --trace-deprecation ...` to show where the warning was created)
+2026-10-06T22:03:47.2938668Z With the provided path, there will be 3 files uploaded
+2026-10-06T22:03:47.2939015Z Artifact name is valid!
+2026-10-06T22:03:47.2939191Z Root directory input is valid!
+2026-10-06T22:03:47.6623040Z Beginning upload of artifact content to blob storage
+2026-10-06T22:03:47.6872188Z (node:3896) [DEP0169] DeprecationWarning: `url.parse()` behavior is not standardized and prone to errors that have security implications. Use the WHATWG URL API instead. CVEs are not issued for `url.parse()` vulnerabilities.
+2026-10-06T22:03:48.1056962Z Uploaded bytes 368924
+2026-10-06T22:03:48.1625619Z Finished uploading artifact content to blob storage!
+2026-10-06T22:03:48.1626319Z SHA256 digest of uploaded artifact zip is 8c0293eb84e859f0dfb2d1c4ab478c7c427ae39b8d525fd88d36a70c199bf249
+2026-10-06T22:03:48.1627186Z Finalizing artifact upload
+2026-10-06T22:03:48.4431772Z Artifact npm-package-analysis.zip successfully finalized. Artifact ID 11447690840
+2026-10-06T22:03:48.4432473Z Artifact npm-package-analysis has been successfully uploaded! Final size is 368924 bytes. Artifact ID is 11447690840
+2026-10-06T22:03:48.4439519Z Artifact download URL: https://github.com/sveltery/base/actions/runs/37536865670/artifacts/11447690840
+2026-10-06T22:03:48.4621836Z Post job cleanup.
+2026-10-06T22:03:48.5613555Z Pruning is unnecessary.
+2026-10-06T22:03:48.5763839Z Post job cleanup.
+2026-10-06T22:03:48.6383871Z [command]/usr/bin/git version
+2026-10-06T22:03:48.6422205Z git version 2.55.0
+2026-10-06T22:03:48.6454524Z Temporarily overriding HOME='/home/runner/work/_temp/67ef561e-a85d-43ac-8cd6-a48bc35f7e4c' before making global git config changes
+2026-10-06T22:03:48.6455074Z Adding repository directory to the temporary git global config as a safe directory
+2026-10-06T22:03:48.6459695Z [command]/usr/bin/git config --global --add safe.directory /home/runner/work/base/base
+2026-10-06T22:03:48.6500976Z Removing SSH command configuration
+2026-10-06T22:03:48.6507317Z [command]/usr/bin/git config --local --name-only --get-regexp core\.sshCommand
+2026-10-06T22:03:48.6548011Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
+2026-10-06T22:03:48.6784665Z Removing HTTP extra header
+2026-10-06T22:03:48.6790812Z [command]/usr/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+2026-10-06T22:03:48.6830598Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
+2026-10-06T22:03:48.7040201Z Removing includeIf entries pointing to credentials config files
+2026-10-06T22:03:48.7047062Z [command]/usr/bin/git config --local --name-only --get-regexp ^includeIf\.gitdir:
+2026-10-06T22:03:48.7081475Z [command]/usr/bin/git submodule foreach --recursive git config --local --show-origin --name-only --get-regexp remote.origin.url
+2026-10-06T22:03:48.7402794Z Cleaning up orphan processes
+2026-10-06T22:03:48.7635142Z ##[warning]Node.js 20 is deprecated. The following actions target Node.js 20 but are being forced to run on Node.js 24: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02. For more information see: https://github.blog/changelog/2025-09-19-deprecation-of-node-20-on-github-actions-runners/
+

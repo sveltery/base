@@ -10,7 +10,7 @@
     ],
     "graph": {
       "path": "parity/native-snippets/native-graph.json",
-      "sha256": "60180b1f5e98c613553c17d70d41624e0b9fbc6039c54098e702a66ba6a8a98c"
+      "sha256": "a1badf9026a920a2c8e5c2e32990dbf8e291752bae68e8db16b8fef395dbc24a"
     },
     "predecessor": {
       "path": "parity/toggle-toolbar/source-correspondence.json",
@@ -2015,7 +2015,7 @@
     ],
     "graph": {
       "path": "parity/native-snippets/native-graph.json",
-      "sha256": "60180b1f5e98c613553c17d70d41624e0b9fbc6039c54098e702a66ba6a8a98c"
+      "sha256": "a1badf9026a920a2c8e5c2e32990dbf8e291752bae68e8db16b8fef395dbc24a"
     },
     "predecessor": {
       "path": "parity/menu-family/source-correspondence.json",
