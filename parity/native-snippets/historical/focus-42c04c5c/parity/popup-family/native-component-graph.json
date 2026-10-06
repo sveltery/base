@@ -61,7 +61,7 @@
     },
     {
       "path": "packages/base/src/lib/floating-ui/components/createFloatingFocusManager.svelte.ts",
-      "sha256": "2bf134f5537129302dfa11bcde005471119ac9b845977c936c126709880f1e27",
+      "sha256": "d5b1035fd53c72ca3dee75fb5c4dbf08093ca09142e859dd87a44d911079e018",
       "symbols": [
         {
           "name": "getEventType",
@@ -108,7 +108,7 @@
         {
           "name": "createFloatingFocusManager",
           "kind": "FunctionDeclaration",
-          "sha256": "2cd66bbeb056557c618c675b2161d4ad4cf8124ad63fc69efcf7a8c388c6ee01",
+          "sha256": "fffddb76c04afcb8723b75d5e3807b038bc7f983a9104427b49303490a9d1e70",
           "scriptIndex": 0
         }
       ]
@@ -16071,11 +16071,6 @@
         {
           "imported": "onDestroy",
           "local": "onDestroy",
-          "typeOnly": false
-        },
-        {
-          "imported": "untrack",
-          "local": "untrack",
           "typeOnly": false
         }
       ]

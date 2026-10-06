@@ -744,7 +744,7 @@
     },
     {
       "local": "packages/base/src/lib/floating-ui/components/createFloatingFocusManager.svelte.ts",
-      "sha256": "2bf134f5537129302dfa11bcde005471119ac9b845977c936c126709880f1e27",
+      "sha256": "d5b1035fd53c72ca3dee75fb5c4dbf08093ca09142e859dd87a44d911079e018",
       "imports": [
         {
           "specifier": "svelte",
