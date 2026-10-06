@@ -175,8 +175,8 @@ for (const family of ['checkbox', 'switch'] as const) {
         });
     }
   });
-  it(`${family} forwards authored default changes with native reset semantics`, async () => {
-    const error = vi.spyOn(console, 'error');
+  it(`${family} forwards authored default changes with source diagnostics and native reset semantics`, async () => {
+    const error = vi.spyOn(console, 'error').mockImplementation(() => {});
     for (const mode of ['native-bind', 'source'] as const) {
       const view = render({ family, mode });
       view.component.authoredDefault(true);
@@ -192,8 +192,7 @@ for (const family of ['checkbox', 'switch'] as const) {
           dirty: true,
         });
     }
-    // Native Controlled omits React default diagnostics; all reset business above remains.
-    expect(error).not.toHaveBeenCalled();
+    expect(error).toHaveBeenCalledWith(expect.stringContaining('default checked state'));
   });
   it(`${family} records the native controlled-owner rejection without a restoration kernel`, async () => {
     const view = render({ family, controlled: true });

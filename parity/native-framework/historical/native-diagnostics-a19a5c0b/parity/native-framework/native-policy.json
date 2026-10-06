@@ -111,25 +111,6 @@
       "runtimeExecution": false,
       "log": ".checks/native-validation/6ec6710c/label-project-preflight.log",
       "sha256": "acd584ecfa47808fc07ce031e9d9a5ed2baaa051920f738e145c20c61c419efd"
-    },
-    {
-      "name": "Exacta19 full verification stopped after actual finite Base DOM failures",
-      "head": "a19a5c0b21174ec175f547ca9d704443518c8844",
-      "exit": 1,
-      "baseDomPassed": 1792,
-      "baseDomFailed": 8,
-      "baseDomTotal": 1800,
-      "installedArtifactAcceptance": false,
-      "log": ".checks/native-validation/a19a5c0b/verify.log",
-      "sha256": "64e9f7437262febfe4083c571fdd2b170c737eb51c8aadcbc0315108e0f76a19"
-    },
-    {
-      "name": "Working native diagnostics expectation overa19, all reset business retained",
-      "passed": 18,
-      "failed": 0,
-      "exit": 0,
-      "log": ".checks/native-validation/a19a5c0b/boolean-defaults.log",
-      "sha256": "153f262afc09a74eb33321ed8ac6772fed07c998c46a5adbfe3520e6e67b9a3b"
     }
   ],
   "witnessSourceHashes": {
@@ -152,17 +133,5 @@
     "sourceCaller": "packages/base/src/lib/internals/labelable-provider/useLabel.svelte.ts",
     "witness": "packages/base/tests/dom/native-label-registration.test.ts",
     "scope": "Real provider/useLabel and native input/label association through ID change, owning-label removal and replacement-label preservation. Supplemental native assertions, zero unchanged Original credit."
-  },
-  "nativeDiagnostics": {
-    "pin": "47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c",
-    "source": "packages/utils/src/useControlled.ts",
-    "nativeOwner": "packages/utils/src/lib/Controlled.svelte.ts",
-    "sourceBehavior": "React DEV reports changed uncontrolled defaults.",
-    "nativeBehavior": "Minimal native Controlled omits React diagnostics; native authored defaultChecked/checked/reset/Field-state behavior remains independently asserted.",
-    "witness": "packages/base/tests/dom/boolean-reset.test.ts",
-    "witnessSha256": "2ca4545fc4d768fda2c852f6983b3f0b20934f86987cd94b54ce7b5fa7ff07d9",
-    "unchangedBusinessLoopSha256": "c091a76dac97b3fff2f825331b2c59e05364a13ca1196bef38fbf74668caf327",
-    "ordinaryDeclarationCredit": 0,
-    "status": "Working-tree native expectation repair; committed-head verification and focus regression disposition pending"
   }
 }
