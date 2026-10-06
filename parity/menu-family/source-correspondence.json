@@ -664,7 +664,7 @@
         "packages/base/src/lib/internals/composite/item/CompositeItem.svelte"
       ],
       "localHashes": {
-        "packages/base/src/lib/internals/composite/item/CompositeItem.svelte": "2f74c7d54df5fa6b0d31ed37518d070a343e8005fd82226a2e6eda0ec4dba0eb"
+        "packages/base/src/lib/internals/composite/item/CompositeItem.svelte": "23e78d87cbeb13db6e655c95b20f57d4dd19dfd16a91af90d73d954100be7797"
       },
       "correspondence": "Same canonical component/helper/context/store boundary with native Svelte framework substitution where required; compare entire Original and actual used body, including inherited code.",
       "reviewStatus": "Entire used Source/native business, idiomatic Svelte and maintainability independent exact-head review pending; no acceptance by inventory."
@@ -1555,7 +1555,7 @@
         "packages/base/src/lib/menu/trigger/createMenuTrigger.svelte.ts"
       ],
       "localHashes": {
-        "packages/base/src/lib/menu/Trigger.svelte": "a8a61337748afe30cc1cf8cec2dff9c2d553c6b9f230ab15f10289154edf6fa8",
+        "packages/base/src/lib/menu/Trigger.svelte": "ee9cd19d28798f1e70a9e5a3215bd40f6144a2cfbc6fac7b3639d8eb4a7bebbb",
         "packages/base/src/lib/menu/types.ts": "f70bd7769bbf0008b619ecc7d0eb7d4a56edc6c351c5c82fa11e9989d844e426",
         "packages/base/src/lib/menu/trigger/createMenuTrigger.svelte.ts": "ae04e18d492aa073757adc134e825f1fa8412283d742cb6cf9895a784215108f"
       },

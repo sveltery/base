@@ -80,7 +80,7 @@
     },
     {
       "source": "packages/base/src/lib/internals/composite/item/CompositeItem.svelte",
-      "sha256": "2f74c7d54df5fa6b0d31ed37518d070a343e8005fd82226a2e6eda0ec4dba0eb",
+      "sha256": "23e78d87cbeb13db6e655c95b20f57d4dd19dfd16a91af90d73d954100be7797",
       "reachability": "runtime",
       "imports": [
         {
@@ -882,7 +882,7 @@
     },
     {
       "source": "packages/base/src/lib/toggle/Toggle.svelte",
-      "sha256": "58da46cd37f9b80030ed7c4126c9984b180fa1cb9eb8b107d054cefa94fec97b",
+      "sha256": "200a69b75c442f3031e7434d29e3348e4f1824efa367058c02f26fccb3ddb57f",
       "reachability": "runtime",
       "imports": [
         {

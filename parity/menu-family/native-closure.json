@@ -4720,7 +4720,7 @@
     },
     {
       "source": "packages/base/src/lib/internals/composite/item/CompositeItem.svelte",
-      "sha256": "2f74c7d54df5fa6b0d31ed37518d070a343e8005fd82226a2e6eda0ec4dba0eb",
+      "sha256": "23e78d87cbeb13db6e655c95b20f57d4dd19dfd16a91af90d73d954100be7797",
       "reachability": "runtime",
       "imports": [
         {
@@ -10141,7 +10141,7 @@
     },
     {
       "source": "packages/base/src/lib/menu/Trigger.svelte",
-      "sha256": "a8a61337748afe30cc1cf8cec2dff9c2d553c6b9f230ab15f10289154edf6fa8",
+      "sha256": "ee9cd19d28798f1e70a9e5a3215bd40f6144a2cfbc6fac7b3639d8eb4a7bebbb",
       "reachability": "runtime",
       "imports": [
         {

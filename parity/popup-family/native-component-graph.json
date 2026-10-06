@@ -1998,7 +1998,7 @@
     },
     {
       "path": "packages/base/src/lib/popover/Close.svelte",
-      "sha256": "a9acb37a8380d8284f347e2a62688c2c3a6c8da16b08d4575feaf51e4f406cba",
+      "sha256": "4d153e94b58af6f4c314c3c718bb41c309c1243ec97f3264bbbd2e0a1fcbaa72",
       "symbols": [
         {
           "name": "attachHost",
@@ -2228,7 +2228,7 @@
     },
     {
       "path": "packages/base/src/lib/popover/Trigger.svelte",
-      "sha256": "a2acdd1e7bce56f5bafc9c65c39929ec74705b2964643a2e9085c9dbff46fdf7",
+      "sha256": "b24fee93cbf9d64690e9f381563706ca3dac652522c5585dcd5a040cba183cca",
       "symbols": [
         {
           "name": "attachHost",

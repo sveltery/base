@@ -58,6 +58,6 @@
   {#if render}
     {@render render(mergedProps, state, hostChildren)}
   {:else}
-    <button {...mergedProps}>{@render hostChildren()}</button>
+    <button type="button" {...mergedProps}>{@render hostChildren()}</button>
   {/if}
 {/if}
