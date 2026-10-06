@@ -9,10 +9,7 @@
   import type { HTMLInputAttributes } from 'svelte/elements';
   import { Controlled } from '@sveltery/utils/Controlled';
 
-  import {
-    visuallyHidden,
-    visuallyHiddenInput,
-  } from '@sveltery/utils/visuallyHidden';
+  import { visuallyHidden, visuallyHiddenInput } from '@sveltery/utils/visuallyHidden';
   import { toNativeStyle } from '../../internals/nativeProps.js';
   import { useBaseUiId } from '../../internals/useBaseUiId.js';
   import { useButton } from '../../internals/use-button/useButton.svelte.js';
@@ -115,8 +112,7 @@
       if (!element || disabled) return;
       field.setTouched(true);
       field.setFocused(false);
-      if (field.validationMode === 'onBlur')
-        void field.validation.commit(element.checked);
+      if (field.validationMode === 'onBlur') void field.validation.commit(element.checked);
     },
     onclick(event: MouseEvent) {
       if (readOnly || disabled) return;
@@ -176,8 +172,7 @@
       field.validation.inputRef.current = host;
       return () =>
         untrack(() => {
-          if (field.validation.inputRef.current === host)
-            field.validation.inputRef.current = null;
+          if (field.validation.inputRef.current === host) field.validation.inputRef.current = null;
           if (inputRef.current === host) inputRef.current = null;
           if (externalInputRef === host) externalInputRef = null;
         });
@@ -206,8 +201,7 @@
         rootProps,
         elementProps,
         getButtonProps,
-        (props: Record<string, unknown>) =>
-          field.validation.getValidationProps(disabled, props),
+        (props: Record<string, unknown>) => field.validation.getValidationProps(disabled, props),
       ],
       stateAttributesMapping,
     ),
@@ -221,13 +215,7 @@
   <span {...mergedProps}>{@render children?.()}</span>
 {/if}
 {#if !checked && name && uncheckedValue !== undefined}
-  <input
-    type="hidden"
-    {form}
-    name={nativeName}
-    value={uncheckedValue}
-    {disabled}
-  />
+  <input type="hidden" {form} name={nativeName} value={uncheckedValue} {disabled} />
 {/if}
 <!-- Native binding owns checkbox DOM/default/hydration and form-reset behavior. -->
 <input

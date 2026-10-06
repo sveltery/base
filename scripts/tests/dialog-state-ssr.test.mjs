@@ -3,7 +3,14 @@ import { spawnSync } from 'node:child_process';
 import { test } from 'node:test';
 // Supplemental SSR execution, not an upstream declaration credit.
 test('SSR roots and successive requests isolate defaultOpen and generated relationships', () => {
-  const result = spawnSync(process.execPath, ['--import', './scripts/svelte-ssr-loader.mjs', '--input-type=module', '-e', `
+  const result = spawnSync(
+    process.execPath,
+    [
+      '--import',
+      './scripts/svelte-ssr-loader.mjs',
+      '--input-type=module',
+      '-e',
+      `
     import assert from 'node:assert/strict';
     import { createRequire } from 'node:module';
     import Fixture from './packages/base/tests/ssr/StateIsolation.svelte';
@@ -26,6 +33,9 @@ test('SSR roots and successive requests isolate defaultOpen and generated relati
       assert.equal(titleIds.length, 2);
       assert.equal(new Set(titleIds).size, 2);
     }
-  `], { cwd: new URL('../../', import.meta.url), encoding: 'utf8' });
+  `,
+    ],
+    { cwd: new URL('../../', import.meta.url), encoding: 'utf8' },
+  );
   assert.equal(result.status, 0, result.stderr || result.stdout);
 });

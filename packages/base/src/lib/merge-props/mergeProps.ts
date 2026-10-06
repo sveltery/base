@@ -53,12 +53,7 @@ export function mergeProps(
   d: InputProps,
   e: InputProps,
 ): Props;
-export function mergeProps(
-  a: InputProps,
-  b: InputProps,
-  c: InputProps,
-  d: InputProps,
-): Props;
+export function mergeProps(a: InputProps, b: InputProps, c: InputProps, d: InputProps): Props;
 export function mergeProps(a: InputProps, b: InputProps, c: InputProps): Props;
 export function mergeProps(a: InputProps, b: InputProps): Props;
 export function mergeProps(a: InputProps): Props;
@@ -146,10 +141,7 @@ function mergeInto(merged: Props, inputProps: InputProps) {
 function copyInitialProps(inputProps: Props | undefined) {
   const copiedProps = { ...inputProps } as Props;
   // Component state callbacks are resolved before class-value stringification.
-  if (
-    copiedProps.class !== undefined &&
-    typeof copiedProps.class !== 'function'
-  )
+  if (copiedProps.class !== undefined && typeof copiedProps.class !== 'function')
     copiedProps.class = toNativeClass(copiedProps.class);
 
   // `copiedProps` is our fresh own-object copy, so iterating with `for...in` is safe here.
@@ -166,10 +158,7 @@ function copyInitialProps(inputProps: Props | undefined) {
 /**
  * Merges two sets of props. In case of conflicts, the external props take precedence.
  */
-function mutablyMergeInto(
-  mergedProps: Props,
-  externalProps: Props | undefined,
-) {
+function mutablyMergeInto(mergedProps: Props, externalProps: Props | undefined) {
   if (!externalProps) {
     return mergedProps;
   }
@@ -180,8 +169,7 @@ function mutablyMergeInto(
     switch (propName) {
       case 'style': {
         mergedProps[propName] =
-          typeof mergedProps.style === 'string' ||
-          typeof externalPropValue === 'string'
+          typeof mergedProps.style === 'string' || typeof externalPropValue === 'string'
             ? mergeNativeStyles(mergedProps.style, externalPropValue)
             : mergeObjects(
                 mergedProps.style as Record<string, unknown> | undefined,
@@ -228,10 +216,7 @@ function mutablyMergeInto(
   return mergedProps;
 }
 
-function isEventHandler(
-  key: string,
-  value: unknown,
-): value is Handler | undefined {
+function isEventHandler(key: string, value: unknown): value is Handler | undefined {
   // This approach is more efficient than using a regex.
   const code0 = key.charCodeAt(0);
   const code1 = key.charCodeAt(1);
@@ -240,14 +225,12 @@ function isEventHandler(
     code0 === 111 /* o */ &&
     code1 === 110 /* n */ &&
     ((code2 >= 65 /* A */ && code2 <= 90) /* Z */ ||
-      (code2 >= 97 /* a */ && code2 <= 122) /* z */) &&
+      (code2 >= 97 /* a */ && code2 <= 122)) /* z */ &&
     (typeof value === 'function' || typeof value === 'undefined')
   );
 }
 
-function isPropsGetter(
-  inputProps: InputProps,
-): inputProps is (props: Props) => Props {
+function isPropsGetter(inputProps: InputProps): inputProps is (props: Props) => Props {
   return typeof inputProps === 'function';
 }
 
@@ -259,10 +242,7 @@ function resolvePropsGetter(inputProps: InputProps, previousProps: Props) {
   return inputProps ?? (EMPTY_PROPS as Props);
 }
 
-function mergeEventHandlers(
-  ourHandler: Handler | undefined,
-  theirHandler: Handler | undefined,
-) {
+function mergeEventHandlers(ourHandler: Handler | undefined, theirHandler: Handler | undefined) {
   if (!theirHandler) {
     return ourHandler;
   }
@@ -309,9 +289,7 @@ function wrapEventHandler(handler: Handler | undefined) {
   };
 }
 
-export function makeEventPreventable<T extends Event>(
-  event: T & PreventableEvent,
-) {
+export function makeEventPreventable<T extends Event>(event: T & PreventableEvent) {
   event.preventBaseUIHandler = () => {
     (event.baseUIHandlerPrevented as boolean) = true;
   };
@@ -336,17 +314,9 @@ export function mergeClassNames(
 
 function isSyntheticEvent(event: unknown): event is Event {
   // Native Event brand across windows replaces the React synthetic wrapper boundary.
-  if (
-    event == null ||
-    typeof event !== 'object' ||
-    typeof Event === 'undefined'
-  )
-    return false;
+  if (event == null || typeof event !== 'object' || typeof Event === 'undefined') return false;
   try {
-    const getType = Object.getOwnPropertyDescriptor(
-      Event.prototype,
-      'type',
-    )?.get;
+    const getType = Object.getOwnPropertyDescriptor(Event.prototype, 'type')?.get;
     return typeof getType?.call(event) === 'string';
   } catch {
     return false;

@@ -6,10 +6,7 @@
     createFloatingFocusManager,
     type FloatingFocusManagerProps,
   } from './createFloatingFocusManager.svelte.js';
-  let {
-    children,
-    ...props
-  }: FloatingFocusManagerProps & { children?: Snippet } = $props();
+  let { children, ...props }: FloatingFocusManagerProps & { children?: Snippet } = $props();
   const manager = createFloatingFocusManager(() => props);
 </script>
 

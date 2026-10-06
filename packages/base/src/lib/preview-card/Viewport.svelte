@@ -6,22 +6,16 @@
   import { createAttachmentKey } from 'svelte/attachments';
   import { usePreviewCardRootContext } from './context.js';
   import { usePreviewCardPositionerContext } from './positioner/PreviewCardPositionerContext.js';
-  import {
-    popupViewportStateMapping,
-    usePopupViewport,
-  } from '../utils/usePopupViewport.svelte.js';
+  import { popupViewportStateMapping, usePopupViewport } from '../utils/usePopupViewport.svelte.js';
   import * as CommonPopupCssVars from '../utils/CommonPopupCssVars.js';
   import { toNativeStyle } from '../internals/nativeProps.js';
-  import type {
-    PreviewCardViewportProps,
-    PreviewCardViewportState,
-  } from './types.js';
-  // eslint-disable-next-line no-useless-assignment -- Native bindable ref output is published through the ordered Source ref callback.
+  import type { PreviewCardViewportProps, PreviewCardViewportState } from './types.js';
   let {
     render,
     class: className,
     style,
     children,
+    // eslint-disable-next-line no-useless-assignment -- Native bindable ref output is published through the ordered Source ref callback.
     ref = $bindable(),
     ...elementProps
   }: PreviewCardViewportProps = $props();
@@ -89,8 +83,7 @@
     <div
       data-current
       {@attach attachCurrent}
-      data-starting-style={viewport.previousContentNode &&
-      viewport.showStartingStyleAttribute
+      data-starting-style={viewport.previousContentNode && viewport.showStartingStyleAttribute
         ? ''
         : undefined}
     >

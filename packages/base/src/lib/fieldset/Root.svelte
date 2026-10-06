@@ -4,10 +4,7 @@
   import { untrack } from 'svelte';
 
   // Ported from Base UI v1.8.0 FieldsetRoot.tsx; MIT: THIRD_PARTY_NOTICES.md.
-  import {
-    setFieldsetRootContext,
-    useFieldsetRootContext,
-  } from './root/FieldsetRootContext.js';
+  import { setFieldsetRootContext, useFieldsetRootContext } from './root/FieldsetRootContext.js';
   import type { FieldsetRootProps } from './types.js';
   let {
     children,

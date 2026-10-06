@@ -5,4 +5,5 @@
   import type { InputProps } from './types.js';
   let { ref = $bindable(), ...props }: InputProps = $props();
 </script>
+
 <FieldControl {...props} bind:ref />

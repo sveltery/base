@@ -12,16 +12,29 @@ export interface AccordionRootState<Value = any> {
   /** @deprecated Does not affect keyboard focus behavior. */
   orientation: 'horizontal' | 'vertical';
 }
-export interface AccordionItemState extends AccordionRootState { hidden: boolean; index: number; open: boolean }
+export interface AccordionItemState extends AccordionRootState {
+  hidden: boolean;
+  index: number;
+  open: boolean;
+}
 export type AccordionHeaderState = AccordionItemState;
 export type AccordionTriggerState = AccordionItemState;
-export interface AccordionPanelState extends AccordionItemState { transitionStatus: CollapsibleTransitionStatus }
+export interface AccordionPanelState extends AccordionItemState {
+  transitionStatus: CollapsibleTransitionStatus;
+}
 export type AccordionRootChangeEventReason = 'trigger-press' | 'none';
-export type AccordionRootChangeEventDetails = BaseUIChangeEventDetails<AccordionRootChangeEventReason>;
+export type AccordionRootChangeEventDetails =
+  BaseUIChangeEventDetails<AccordionRootChangeEventReason>;
 export type AccordionItemChangeEventReason = 'trigger-press' | 'none';
-export type AccordionItemChangeEventDetails = BaseUIChangeEventDetails<AccordionItemChangeEventReason>;
-type PartProps<State, NativeProps> = Omit<ElementProps<State, NativeProps>, 'class'> & { class?: ClassValue | ((state: State) => ClassValue) };
-export type AccordionRootProps<Value = any> = PartProps<AccordionRootState<Value>, HTMLAttributes<HTMLDivElement>> & {
+export type AccordionItemChangeEventDetails =
+  BaseUIChangeEventDetails<AccordionItemChangeEventReason>;
+type PartProps<State, NativeProps> = Omit<ElementProps<State, NativeProps>, 'class'> & {
+  class?: ClassValue | ((state: State) => ClassValue);
+};
+export type AccordionRootProps<Value = any> = PartProps<
+  AccordionRootState<Value>,
+  HTMLAttributes<HTMLDivElement>
+> & {
   value?: AccordionValue<Value>;
   defaultValue?: AccordionValue<Value>;
   disabled?: boolean;
@@ -39,6 +52,14 @@ export type AccordionItemProps = PartProps<AccordionItemState, HTMLAttributes<HT
   disabled?: boolean;
   onOpenChange?: (open: boolean, details: AccordionItemChangeEventDetails) => void;
 };
-export type AccordionHeaderProps = PartProps<AccordionHeaderState, HTMLAttributes<HTMLHeadingElement>>;
-export type AccordionTriggerProps = PartProps<AccordionTriggerState, HTMLButtonAttributes> & { nativeButton?: boolean };
-export type AccordionPanelProps = PartProps<AccordionPanelState, HTMLAttributes<HTMLDivElement>> & { keepMounted?: boolean; hiddenUntilFound?: boolean };
+export type AccordionHeaderProps = PartProps<
+  AccordionHeaderState,
+  HTMLAttributes<HTMLHeadingElement>
+>;
+export type AccordionTriggerProps = PartProps<AccordionTriggerState, HTMLButtonAttributes> & {
+  nativeButton?: boolean;
+};
+export type AccordionPanelProps = PartProps<AccordionPanelState, HTMLAttributes<HTMLDivElement>> & {
+  keepMounted?: boolean;
+  hiddenUntilFound?: boolean;
+};

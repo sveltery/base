@@ -14,11 +14,18 @@
   if (root.parent.type === undefined || root.parent.type === 'context-menu') {
     provideFloatingTree(untrack(() => root.store.select('floatingTreeRoot')));
   }
-  export function close() { root.close(); }
-  export function unmount() { root.unmount(); }
+  export function close() {
+    root.close();
+  }
+  export function unmount() {
+    root.unmount();
+  }
   // eslint-disable-next-line no-useless-assignment -- Native bind:actions replaces the Source actionsRef output.
   actions = { close, unmount };
-  onDestroy(() => { actions = null; });
+  onDestroy(() => {
+    actions = null;
+  });
 </script>
+
 {#if props.handle}<PopupHandleAttachment handle={props.handle} store={root.store} />{/if}
 {@render props.children?.({ payload: root.payload })}

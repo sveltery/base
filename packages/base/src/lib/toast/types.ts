@@ -10,9 +10,7 @@ import type { PreventableEvent } from '../merge-props/index.js';
 export type ToastContent = string | number | boolean | null | Snippet;
 type ActionHandlers = {
   [Key in keyof HTMLButtonAttributes]: Key extends `on${string}`
-    ? NonNullable<HTMLButtonAttributes[Key]> extends (
-        event: infer EventType,
-      ) => infer Result
+    ? NonNullable<HTMLButtonAttributes[Key]> extends (event: infer EventType) => infer Result
       ? EventType extends Event
         ? ((event: EventType & PreventableEvent) => Result) | null | undefined
         : HTMLButtonAttributes[Key]
@@ -46,10 +44,7 @@ export type ToastManagerAddOptions<Data extends object> = Omit<
   'id' | 'height' | 'ref' | 'limited' | 'updateKey'
 > & { id?: string };
 export type ToastManagerUpdateOptions<Data extends object> = Partial<
-  Omit<
-    ToastObject<Data>,
-    'id' | 'ref' | 'height' | 'transitionStatus' | 'limited' | 'updateKey'
-  >
+  Omit<ToastObject<Data>, 'id' | 'ref' | 'height' | 'transitionStatus' | 'limited' | 'updateKey'>
 >;
 export interface ToastManagerPromiseOptions<Value, Data extends object> {
   loading: string | ToastManagerUpdateOptions<Data>;
@@ -71,8 +66,7 @@ export interface ToastManagerFacade<Data extends object = any> {
   update: <T extends Data = Data>(
     id: string,
     updates:
-      | ToastManagerUpdateOptions<T>
-      | ((previous: ToastObject<T>) => ToastManagerUpdateOptions<T>),
+      ToastManagerUpdateOptions<T> | ((previous: ToastObject<T>) => ToastManagerUpdateOptions<T>),
   ) => void;
   promise: <Value, T extends Data = Data>(
     promise: Promise<Value>,
@@ -110,8 +104,7 @@ type PreventableHandlers<Props> = {
     : Key extends `on${string}`
       ? NonNullable<Props[Key]> extends (event: infer E) => infer Result
         ? E extends Event
-          ? | ((event: E & PreventableEvent) => Result)
-            | Extract<Props[Key], null | undefined>
+          ? ((event: E & PreventableEvent) => Result) | Extract<Props[Key], null | undefined>
           : Props[Key]
         : Props[Key]
       : Props[Key];
@@ -161,9 +154,5 @@ export type ToastPortalProps = import('../dialog/types.js').ElementProps<
   ToastPortalState,
   HTMLAttributes<HTMLDivElement>
 > & {
-  container?:
-    | HTMLElement
-    | ShadowRoot
-    | { current: HTMLElement | ShadowRoot | null }
-    | null;
+  container?: HTMLElement | ShadowRoot | { current: HTMLElement | ShadowRoot | null } | null;
 };

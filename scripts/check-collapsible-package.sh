@@ -18,8 +18,8 @@ writeFileSync(join(destination, 'package.json'), JSON.stringify({ private: true,
 JS
 rm -rf "$collapsible_consumer/node_modules"
 sveltery_prepare_consumer "$collapsible_consumer"
-pnpm --dir "$collapsible_consumer" --ignore-workspace install --ignore-scripts > /dev/null
-pnpm --dir "$collapsible_consumer" --ignore-workspace install --frozen-lockfile --ignore-scripts > /dev/null
+pnpm --dir "$collapsible_consumer" install --ignore-scripts > /dev/null
+pnpm --dir "$collapsible_consumer" install --frozen-lockfile --ignore-scripts > /dev/null
 if [[ "${1:-}" == '--public' ]]; then
   # Public acceptance must prove packed dependency metadata and real resolution.
   # The internal mode below is explicitly a source/package checkpoint only.

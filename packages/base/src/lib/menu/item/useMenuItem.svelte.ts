@@ -8,9 +8,7 @@ import { useMenuItemCommonProps } from './useMenuItemCommonProps.svelte.js';
 export const REGULAR_ITEM = {
   type: 'regular-item' as const,
 };
-export function useMenuItem(
-  getParams: () => UseMenuItemParameters,
-): UseMenuItemReturnValue {
+export function useMenuItem(getParams: () => UseMenuItemParameters): UseMenuItemReturnValue {
   const {
     closeOnClick,
     disabled,

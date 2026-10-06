@@ -1,12 +1,23 @@
 import type { Snippet } from 'svelte';
 import type { ToastPortalProps, ToastPortalState } from '../src/lib/toast/index.js';
 const portal: ToastPortalProps = {
-  container: { current: null }, id: 'portal', lang: 'fr',
-  class: (state: ToastPortalState) => { void state; return 'portal'; },
+  container: { current: null },
+  id: 'portal',
+  lang: 'fr',
+  class: (state: ToastPortalState) => {
+    void state;
+    return 'portal';
+  },
   style: () => 'color:green',
-  onclick(event) { event.preventBaseUIHandler(); },
+  onclick(event) {
+    event.preventBaseUIHandler();
+  },
 };
-function replacement(render: Snippet<[Record<string | symbol, unknown>, ToastPortalState, Snippet | undefined]>) { portal.render = render; }
+function replacement(
+  render: Snippet<[Record<string | symbol, unknown>, ToastPortalState, Snippet | undefined]>,
+) {
+  portal.render = render;
+}
 void replacement;
 // @ts-expect-error -- Toast.Portal has no Dialog presence prop.
 portal.keepMounted = true;

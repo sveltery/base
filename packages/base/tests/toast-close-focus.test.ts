@@ -8,13 +8,19 @@ afterEach(() => vi.useRealTimers());
 it('runs registration-specific close focus synchronously after the complete callback loop', () => {
   const store = new ToastStore();
   const observations: string[] = [];
-  const handler = () => observations.push(`focus:${store.state.toasts.map(toast => toast.id).join(',')}`);
+  const handler = () =>
+    observations.push(`focus:${store.state.toasts.map((toast) => toast.id).join(',')}`);
   const stale = store.setCloseFocusHandler(handler);
   const cleanup = store.setCloseFocusHandler(handler);
   stale();
-  store.addToast({ id: 'a', timeout: 0, onClose: () => {
-    observations.push('a'); store.addToast({ id: 'fresh', timeout: 0 });
-  } });
+  store.addToast({
+    id: 'a',
+    timeout: 0,
+    onClose: () => {
+      observations.push('a');
+      store.addToast({ id: 'fresh', timeout: 0 });
+    },
+  });
   store.addToast({ id: 'b', timeout: 0, onClose: () => observations.push('b') });
   store.closeToast();
   expect(observations).toEqual(['b', 'a', 'focus:fresh,b,a']);
@@ -33,10 +39,14 @@ it('uses the fresh handler after callbacks replace a registration for facade, ma
   store.attachManager(manager);
   for (const source of ['facade', 'manager', 'timer'] as const) {
     store.setCloseFocusHandler(() => calls.push('obsolete'));
-    store.addToast({ id: source, timeout: source === 'timer' ? 20 : 0, onClose: () => {
-      calls.push(`close:${source}`);
-      store.setCloseFocusHandler(id => calls.push(`focus:${id}`));
-    } });
+    store.addToast({
+      id: source,
+      timeout: source === 'timer' ? 20 : 0,
+      onClose: () => {
+        calls.push(`close:${source}`);
+        store.setCloseFocusHandler((id) => calls.push(`focus:${id}`));
+      },
+    });
     if (source === 'facade') facade.close(source);
     else if (source === 'manager') manager.close(source);
     else vi.advanceTimersByTime(20);
@@ -51,7 +61,13 @@ it('does not focus after callback teardown or an interrupted onClose loop', () =
   const focus = vi.fn();
   store.setCloseFocusHandler(focus);
   const error = new Error('close callback');
-  store.addToast({ id: 'throws', timeout: 0, onClose: () => { throw error; } });
+  store.addToast({
+    id: 'throws',
+    timeout: 0,
+    onClose: () => {
+      throw error;
+    },
+  });
   expect(() => store.closeToast('throws')).toThrow(error);
   expect(focus).not.toHaveBeenCalled();
   store.addToast({ id: 'dispose', timeout: 0, onClose: store.dispose });

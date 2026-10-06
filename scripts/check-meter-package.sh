@@ -17,8 +17,8 @@ writeFileSync(join(destination, 'package.json'), JSON.stringify({ private: true,
 JS
 rm -rf "$meter_consumer/node_modules"
 sveltery_prepare_consumer "$meter_consumer"
-pnpm --dir "$meter_consumer" --ignore-workspace install --ignore-scripts > /dev/null
-pnpm --dir "$meter_consumer" --ignore-workspace install --frozen-lockfile --ignore-scripts > /dev/null
+pnpm --dir "$meter_consumer" install --ignore-scripts > /dev/null
+pnpm --dir "$meter_consumer" install --frozen-lockfile --ignore-scripts > /dev/null
 test -f "$meter_consumer/node_modules/@sveltery/base/THIRD_PARTY_NOTICES.md"
 cmp LICENSE "$meter_consumer/node_modules/@sveltery/base/LICENSE"
 if [[ "${1:-}" == '--public' ]]; then

@@ -47,10 +47,7 @@
     untrack(() => defaultValueProp ?? (EMPTY_ARRAY as string[])),
   );
   const value = $derived(valueState.value);
-  const setValue = (
-    nextValue: string[],
-    details: CheckboxGroupChangeEventDetails,
-  ) => {
+  const setValue = (nextValue: string[], details: CheckboxGroupChangeEventDetails) => {
     onValueChange?.(nextValue, details);
     if (details.isCanceled) return;
     valueState.set(nextValue);
@@ -61,10 +58,7 @@
     onValueChange: setValue,
   }));
   const instanceId = $props.id();
-  useLabelableId(
-    () => ({ id: null }),
-    useBaseUiId(undefined, `${instanceId}-control`),
-  );
+  useLabelableId(() => ({ id: null }), useBaseUiId(undefined, `${instanceId}-control`));
   const defaultId = useBaseUiId(undefined, instanceId);
   const id = $derived(idProp ?? defaultId);
   const controlRef = {

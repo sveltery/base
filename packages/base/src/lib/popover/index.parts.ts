@@ -9,7 +9,33 @@ import TitleComponent from './Title.svelte';
 import DescriptionComponent from './Description.svelte';
 import CloseComponent from './Close.svelte';
 import ViewportComponent from './Viewport.svelte';
-import type { PopoverRootProps, PopoverRootState, PopoverTriggerProps, PopoverTriggerState, PopoverPortalProps, PopoverPortalState, PopoverPositionerProps, PopoverPositionerState, PopoverPopupProps, PopoverPopupState, PopoverArrowProps, PopoverArrowState, PopoverBackdropProps, PopoverBackdropState, PopoverTitleProps, PopoverTitleState, PopoverDescriptionProps, PopoverDescriptionState, PopoverCloseProps, PopoverCloseState, PopoverViewportProps, PopoverViewportState, PopoverRootActions, PopoverRootChangeEventReason, PopoverRootChangeEventDetails } from './types.js';
+import type {
+  PopoverRootProps,
+  PopoverRootState,
+  PopoverTriggerProps,
+  PopoverTriggerState,
+  PopoverPortalProps,
+  PopoverPortalState,
+  PopoverPositionerProps,
+  PopoverPositionerState,
+  PopoverPopupProps,
+  PopoverPopupState,
+  PopoverArrowProps,
+  PopoverArrowState,
+  PopoverBackdropProps,
+  PopoverBackdropState,
+  PopoverTitleProps,
+  PopoverTitleState,
+  PopoverDescriptionProps,
+  PopoverDescriptionState,
+  PopoverCloseProps,
+  PopoverCloseState,
+  PopoverViewportProps,
+  PopoverViewportState,
+  PopoverRootActions,
+  PopoverRootChangeEventReason,
+  PopoverRootChangeEventDetails,
+} from './types.js';
 
 export const Root: typeof RootComponent = RootComponent;
 // eslint-disable-next-line @typescript-eslint/no-namespace -- Preserve pinned erased component namespace types.

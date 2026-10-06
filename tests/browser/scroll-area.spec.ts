@@ -29,10 +29,7 @@ async function scrollbarStyles(page: Page) {
   );
 }
 async function configure(page: Page, patch: Partial<ScrollAreaOptions>) {
-  await page.evaluate(
-    (patch) => window.scrollAreaHarness!.configure(patch),
-    patch,
-  );
+  await page.evaluate((patch) => window.scrollAreaHarness!.configure(patch), patch);
 }
 async function scroll(page: Page, x: number, y: number) {
   await part(page, 'viewport').evaluate(
@@ -73,12 +70,7 @@ async function capture(page: Page, name: string) {
     });
   });
 }
-async function pointer(
-  page: Page,
-  name: string,
-  type: string,
-  init: PointerEventInit = {},
-) {
+async function pointer(page: Page, name: string, type: string, init: PointerEventInit = {}) {
   return part(page, name).evaluate(
     (node, { type, init }) =>
       node.dispatchEvent(
@@ -98,9 +90,7 @@ async function pointer(
 async function wheel(page: Page, name: string, init: WheelEventInit) {
   return part(page, name).evaluate(
     (node, init) =>
-      node.dispatchEvent(
-        new WheelEvent('wheel', { bubbles: true, cancelable: true, ...init }),
-      ),
+      node.dispatchEvent(new WheelEvent('wheel', { bubbles: true, cancelable: true, ...init })),
     init,
   );
 }
@@ -119,33 +109,18 @@ for (const framework of ['react', 'svelte'] as const) {
       );
     await expect(page.locator('main')).toHaveAttribute('data-hydrated', 'true');
     if (framework === 'react')
-      await expect(page.locator('main')).toHaveAttribute(
-        'data-renderer',
-        '19.2.8/19.2.8',
-      );
-    await expect
-      .poll(() => page.evaluate(() => Boolean(window.scrollAreaHarness)))
-      .toBe(true);
+      await expect(page.locator('main')).toHaveAttribute('data-renderer', '19.2.8/19.2.8');
+    await expect.poll(() => page.evaluate(() => Boolean(window.scrollAreaHarness))).toBe(true);
   };
-  const enter = async (
-    page: Page,
-    name = 'viewport',
-    pointerType = 'mouse',
-  ) => {
-    await pointer(
-      page,
-      name,
-      framework === 'react' ? 'pointerover' : 'pointerenter',
-      { pointerType },
-    );
+  const enter = async (page: Page, name = 'viewport', pointerType = 'mouse') => {
+    await pointer(page, name, framework === 'react' ? 'pointerover' : 'pointerenter', {
+      pointerType,
+    });
   };
   const leave = async (page: Page) => {
-    await pointer(
-      page,
-      'root',
-      framework === 'react' ? 'pointerout' : 'pointerleave',
-      { relatedTarget: null },
-    );
+    await pointer(page, 'root', framework === 'react' ? 'pointerout' : 'pointerleave', {
+      relatedTarget: null,
+    });
   };
   test(`${framework} R:321/349 initial real geometry, no overlay padding and exact native roles/CSS`, async ({
     page,
@@ -156,16 +131,12 @@ for (const framework of ['react', 'svelte'] as const) {
     await expect(part(page, 'viewport')).toHaveAttribute('tabindex', '0');
     await expect
       .poll(() =>
-        part(page, 'vertical-thumb').evaluate(
-          (node) => node.getBoundingClientRect().height,
-        ),
+        part(page, 'vertical-thumb').evaluate((node) => node.getBoundingClientRect().height),
       )
       .toBe(40);
     await expect
       .poll(() =>
-        part(page, 'horizontal-thumb').evaluate(
-          (node) => node.getBoundingClientRect().width,
-        ),
+        part(page, 'horizontal-thumb').evaluate((node) => node.getBoundingClientRect().width),
       )
       .toBe(40);
     expect(
@@ -175,24 +146,18 @@ for (const framework of ['react', 'svelte'] as const) {
       }),
     ).toEqual(['0px', '0px', '0px']);
     expect(
-      await part(page, 'viewport').evaluate(
-        (node) => getComputedStyle(node).scrollbarWidth,
-      ),
+      await part(page, 'viewport').evaluate((node) => getComputedStyle(node).scrollbarWidth),
     ).toBe('none');
   });
   test(`${framework} R:374 logical scrollbar padding`, async ({ page }) => {
     await open(page, { padding: 8, cornerMounted: false, trackThickness: 0 });
     await expect
       .poll(() =>
-        part(page, 'vertical-thumb').evaluate(
-          (node) => node.getBoundingClientRect().height,
-        ),
+        part(page, 'vertical-thumb').evaluate((node) => node.getBoundingClientRect().height),
       )
       .toBeCloseTo((200 - 16) * 0.2, 1);
     expect(
-      await part(page, 'horizontal-thumb').evaluate(
-        (node) => node.getBoundingClientRect().width,
-      ),
+      await part(page, 'horizontal-thumb').evaluate((node) => node.getBoundingClientRect().width),
     ).toBeCloseTo((200 - 16) * 0.2, 1);
   });
   test(`${framework} R:412 scrollbar cross-axis margin leaves source sizing unchanged`, async ({
@@ -206,15 +171,11 @@ for (const framework of ['react', 'svelte'] as const) {
     });
     await expect
       .poll(() =>
-        part(page, 'vertical-thumb').evaluate(
-          (node) => node.getBoundingClientRect().height,
-        ),
+        part(page, 'vertical-thumb').evaluate((node) => node.getBoundingClientRect().height),
       )
       .toBeCloseTo(390 * 0.39, 1);
     expect(
-      await part(page, 'horizontal-thumb').evaluate(
-        (node) => node.getBoundingClientRect().width,
-      ),
+      await part(page, 'horizontal-thumb').evaluate((node) => node.getBoundingClientRect().width),
     ).toBeCloseTo(390 * 0.39, 1);
   });
   test(`${framework} R:451 logical thumb margin`, async ({ page }) => {
@@ -225,15 +186,11 @@ for (const framework of ['react', 'svelte'] as const) {
     });
     await expect
       .poll(() =>
-        part(page, 'vertical-thumb').evaluate(
-          (node) => node.getBoundingClientRect().height,
-        ),
+        part(page, 'vertical-thumb').evaluate((node) => node.getBoundingClientRect().height),
       )
       .toBeCloseTo((200 - 16) * 0.2, 1);
     expect(
-      await part(page, 'horizontal-thumb').evaluate(
-        (node) => node.getBoundingClientRect().width,
-      ),
+      await part(page, 'horizontal-thumb').evaluate((node) => node.getBoundingClientRect().width),
     ).toBeCloseTo((200 - 16) * 0.2, 1);
   });
   test(`${framework} R:103/144/173 initial measurement before ResizeObserver and hidden-to-visible recompute`, async ({
@@ -245,9 +202,7 @@ for (const framework of ['react', 'svelte'] as const) {
     await expect(part(page, 'vertical-thumb')).toBeVisible();
     await expect
       .poll(() =>
-        part(page, 'vertical-thumb').evaluate(
-          (node) => node.getBoundingClientRect().height,
-        ),
+        part(page, 'vertical-thumb').evaluate((node) => node.getBoundingClientRect().height),
       )
       .toBeGreaterThan(0);
   });
@@ -293,9 +248,7 @@ for (const framework of ['react', 'svelte'] as const) {
       ),
     ).toEqual(['0px', '0px', '0px', '0px']);
   });
-  test(`${framework} R:534 late Content mount updates overflow and tab order`, async ({
-    page,
-  }) => {
+  test(`${framework} R:534 late Content mount updates overflow and tab order`, async ({ page }) => {
     await open(page, { contentMounted: false });
     await expect(part(page, 'viewport')).toHaveAttribute('tabindex', '-1');
     await configure(page, { contentMounted: true });
@@ -306,107 +259,61 @@ for (const framework of ['react', 'svelte'] as const) {
     page,
   }) => {
     await open(page);
-    for (const name of [
-      'root',
-      'viewport',
-      'content',
-      'vertical',
-      'horizontal',
-    ]) {
+    for (const name of ['root', 'viewport', 'content', 'vertical', 'horizontal']) {
       await expect(part(page, name)).toHaveAttribute('data-has-overflow-x');
       await expect(part(page, name)).toHaveAttribute('data-has-overflow-y');
-      await expect(part(page, name)).not.toHaveAttribute(
-        'data-overflow-x-start',
-      );
+      await expect(part(page, name)).not.toHaveAttribute('data-overflow-x-start');
       await expect(part(page, name)).toHaveAttribute('data-overflow-x-end');
     }
     await scroll(page, 400, 400);
-    for (const name of [
-      'root',
-      'viewport',
-      'content',
-      'vertical',
-      'horizontal',
-    ])
+    for (const name of ['root', 'viewport', 'content', 'vertical', 'horizontal'])
       for (const edge of ['x-start', 'x-end', 'y-start', 'y-end'])
         await expect(part(page, name)).toHaveAttribute(`data-overflow-${edge}`);
     await scroll(page, 800, 800);
-    await expect(part(page, 'viewport')).not.toHaveAttribute(
-      'data-overflow-x-end',
-    );
-    await expect(part(page, 'viewport')).not.toHaveAttribute(
-      'data-overflow-y-end',
-    );
+    await expect(part(page, 'viewport')).not.toHaveAttribute('data-overflow-x-end');
+    await expect(part(page, 'viewport')).not.toHaveAttribute('data-overflow-y-end');
   });
-  test(`${framework} R:691 near edges normalize within1px`, async ({
-    page,
-  }) => {
+  test(`${framework} R:691 near edges normalize within1px`, async ({ page }) => {
     await open(page);
     await scroll(page, 799.5, 799.5);
     await expect(part(page, 'root')).not.toHaveAttribute('data-overflow-x-end');
     await expect(part(page, 'root')).not.toHaveAttribute('data-overflow-y-end');
     await scroll(page, 0.5, 0.5);
-    await expect(part(page, 'root')).not.toHaveAttribute(
-      'data-overflow-x-start',
-    );
-    await expect(part(page, 'root')).not.toHaveAttribute(
-      'data-overflow-y-start',
-    );
+    await expect(part(page, 'root')).not.toHaveAttribute('data-overflow-x-start');
+    await expect(part(page, 'root')).not.toHaveAttribute('data-overflow-y-start');
   });
   test(`${framework} R:728/773/820 numeric/object threshold, metrics and reactive threshold`, async ({
     page,
   }) => {
     await open(page, { threshold: { xStart: 20, yStart: 5 } });
     await scroll(page, 15, 7);
-    await expect(part(page, 'viewport')).not.toHaveAttribute(
-      'data-overflow-x-start',
-    );
-    await expect(part(page, 'viewport')).toHaveAttribute(
-      'data-overflow-y-start',
-    );
+    await expect(part(page, 'viewport')).not.toHaveAttribute('data-overflow-x-start');
+    await expect(part(page, 'viewport')).toHaveAttribute('data-overflow-y-start');
     await scroll(page, 35, 7);
     expect(
       await part(page, 'viewport').evaluate((node) =>
         node.style.getPropertyValue('--scroll-area-overflow-x-start'),
       ),
     ).toBe('35px');
-    await expect(part(page, 'viewport')).toHaveAttribute(
-      'data-overflow-x-start',
-    );
+    await expect(part(page, 'viewport')).toHaveAttribute('data-overflow-x-start');
     await configure(page, { threshold: 20 });
     await scroll(page, 15, 15);
-    await expect(part(page, 'viewport')).not.toHaveAttribute(
-      'data-overflow-y-start',
-    );
+    await expect(part(page, 'viewport')).not.toHaveAttribute('data-overflow-y-start');
     await scroll(page, 785, 785);
-    await expect(part(page, 'viewport')).not.toHaveAttribute(
-      'data-overflow-y-end',
-    );
+    await expect(part(page, 'viewport')).not.toHaveAttribute('data-overflow-y-end');
     await configure(page, { threshold: 5 });
     await scroll(page, 10, 10);
-    await expect(part(page, 'viewport')).toHaveAttribute(
-      'data-overflow-y-start',
-    );
+    await expect(part(page, 'viewport')).toHaveAttribute('data-overflow-y-start');
     await configure(page, { threshold: 20 });
-    await expect(part(page, 'viewport')).not.toHaveAttribute(
-      'data-overflow-y-start',
-    );
+    await expect(part(page, 'viewport')).not.toHaveAttribute('data-overflow-y-start');
   });
-  test(`${framework} R:850 no overflow has no source overflow attributes`, async ({
-    page,
-  }) => {
+  test(`${framework} R:850 no overflow has no source overflow attributes`, async ({ page }) => {
     await open(page, {
       contentWidth: 100,
       contentHeight: 100,
       keepMounted: true,
     });
-    for (const name of [
-      'root',
-      'viewport',
-      'content',
-      'vertical',
-      'horizontal',
-    ])
+    for (const name of ['root', 'viewport', 'content', 'vertical', 'horizontal'])
       for (const edge of [
         'has-overflow-x',
         'has-overflow-y',
@@ -417,14 +324,10 @@ for (const framework of ['react', 'svelte'] as const) {
       ])
         await expect(part(page, name)).not.toHaveAttribute(`data-${edge}`);
   });
-  test(`${framework} R:899/483 RTL ranges and live direction change`, async ({
-    page,
-  }) => {
+  test(`${framework} R:899/483 RTL ranges and live direction change`, async ({ page }) => {
     await open(page, { direction: 'rtl' });
     await scroll(page, 0, 0);
-    await expect(part(page, 'root')).not.toHaveAttribute(
-      'data-overflow-x-start',
-    );
+    await expect(part(page, 'root')).not.toHaveAttribute('data-overflow-x-start');
     await expect(part(page, 'root')).toHaveAttribute('data-overflow-x-end');
     await scroll(page, -400, 0);
     await expect(part(page, 'root')).toHaveAttribute('data-overflow-x-start');
@@ -432,9 +335,7 @@ for (const framework of ['react', 'svelte'] as const) {
     await expect(part(page, 'root')).not.toHaveAttribute('data-overflow-x-end');
     await configure(page, { direction: 'ltr' });
     await scroll(page, 0, 0);
-    await expect(part(page, 'root')).not.toHaveAttribute(
-      'data-overflow-x-start',
-    );
+    await expect(part(page, 'root')).not.toHaveAttribute('data-overflow-x-start');
     await expect(part(page, 'root')).toHaveAttribute('data-overflow-x-end');
   });
   test(`${framework} R:67/V:139/V:270/S:76/T:579 user scroll axis states and500ms expiry`, async ({
@@ -445,20 +346,14 @@ for (const framework of ['react', 'svelte'] as const) {
     await scroll(page, 0, 1);
     for (const name of ['root', 'viewport', 'vertical', 'vertical-thumb'])
       await expect(part(page, name)).toHaveAttribute('data-scrolling');
-    await expect(part(page, 'horizontal')).not.toHaveAttribute(
-      'data-scrolling',
-    );
+    await expect(part(page, 'horizontal')).not.toHaveAttribute('data-scrolling');
     await expect(part(page, 'root')).not.toHaveAttribute('data-scrolling', {
       timeout: 1500,
     });
     await enter(page);
     await scroll(page, 1, 1);
-    await expect(part(page, 'horizontal-thumb')).toHaveAttribute(
-      'data-scrolling',
-    );
-    await expect(part(page, 'vertical-thumb')).not.toHaveAttribute(
-      'data-scrolling',
-    );
+    await expect(part(page, 'horizontal-thumb')).toHaveAttribute('data-scrolling');
+    await expect(part(page, 'vertical-thumb')).not.toHaveAttribute('data-scrolling');
   });
   test(`${framework} V:172/193/220/241 programmatic/touch modality attribution`, async ({
     page,
@@ -488,16 +383,11 @@ for (const framework of ['react', 'svelte'] as const) {
     await leave(page);
     await expect(part(page, 'vertical')).not.toHaveAttribute('data-hovering');
   });
-  test(`${framework} S:19/29/39/C:50/65 ARIA overrides and orientation`, async ({
-    page,
-  }) => {
+  test(`${framework} S:19/29/39/C:50/65 ARIA overrides and orientation`, async ({ page }) => {
     await open(page);
     await expect(part(page, 'vertical')).toHaveAttribute('aria-hidden', 'true');
     await expect(part(page, 'corner')).toHaveAttribute('aria-hidden', 'true');
-    await expect(part(page, 'horizontal')).toHaveAttribute(
-      'data-orientation',
-      'horizontal',
-    );
+    await expect(part(page, 'horizontal')).toHaveAttribute('data-orientation', 'horizontal');
     await configure(page, { ariaOverride: true });
     await expect(part(page, 'vertical')).not.toHaveAttribute('aria-hidden');
     await expect(part(page, 'corner')).not.toHaveAttribute('aria-hidden');
@@ -517,14 +407,11 @@ for (const framework of ['react', 'svelte'] as const) {
           clientY: rect!.y + rect!.height - 5,
         });
         const amount = await part(page, 'viewport').evaluate(
-          (node, axis) =>
-            axis === 'vertical' ? node.scrollTop : node.scrollLeft,
+          (node, axis) => (axis === 'vertical' ? node.scrollTop : node.scrollLeft),
           orientation,
         );
         expect(
-          orientation === 'horizontal' && direction === 'rtl'
-            ? -amount
-            : amount,
+          orientation === 'horizontal' && direction === 'rtl' ? -amount : amount,
         ).toBeGreaterThan(0);
         await pointer(page, thumb, 'pointercancel');
         await scroll(page, 0, 0);
@@ -538,8 +425,7 @@ for (const framework of ['react', 'svelte'] as const) {
           clientY: start!.y + 20,
         });
         const moved = await part(page, 'viewport').evaluate(
-          (node, axis) =>
-            axis === 'vertical' ? node.scrollTop : node.scrollLeft,
+          (node, axis) => (axis === 'vertical' ? node.scrollTop : node.scrollLeft),
           orientation,
         );
         expect(
@@ -547,9 +433,7 @@ for (const framework of ['react', 'svelte'] as const) {
         ).toBeGreaterThan(0);
         await expect(part(page, orientation)).toHaveAttribute('data-scrolling');
         await pointer(page, thumb, 'pointercancel');
-        await expect(part(page, orientation)).not.toHaveAttribute(
-          'data-scrolling',
-        );
+        await expect(part(page, orientation)).not.toHaveAttribute('data-scrolling');
       });
     }
   test(`${framework} T:490/504/518/536/556 pointer latch and snap release source order`, async ({
@@ -558,60 +442,39 @@ for (const framework of ['react', 'svelte'] as const) {
     await open(page, { keepMounted: true, snap: 'y mandatory' });
     await capture(page, 'vertical-thumb');
     await pointer(page, 'vertical-thumb', 'pointerdown', { button: 2 });
-    await expect(part(page, 'viewport')).toHaveCSS(
-      'scroll-snap-type',
-      'y mandatory',
-    );
+    await expect(part(page, 'viewport')).toHaveCSS('scroll-snap-type', 'y mandatory');
     await pointer(page, 'vertical-thumb', 'pointerdown');
-    expect(
-      await part(page, 'viewport').evaluate(
-        (node) => node.style.scrollSnapType,
-      ),
-    ).toBe('none');
+    expect(await part(page, 'viewport').evaluate((node) => node.style.scrollSnapType)).toBe('none');
     await pointer(page, 'vertical-thumb', 'pointerdown', { pointerId: 2 });
     await pointer(page, 'vertical-thumb', 'pointerup', { pointerId: 2 });
-    expect(
-      await part(page, 'viewport').evaluate(
-        (node) => node.style.scrollSnapType,
-      ),
-    ).toBe('none');
+    expect(await part(page, 'viewport').evaluate((node) => node.style.scrollSnapType)).toBe('none');
     await pointer(page, 'vertical-thumb', 'pointerup');
-    expect(
-      await part(page, 'viewport').evaluate(
-        (node) => node.style.scrollSnapType,
-      ),
-    ).toBe('y mandatory');
+    expect(await part(page, 'viewport').evaluate((node) => node.style.scrollSnapType)).toBe(
+      'y mandatory',
+    );
     await pointer(page, 'vertical-thumb', 'pointerdown');
     await part(page, 'vertical-thumb').evaluate((node) =>
       (node as HTMLElement & { dropCapture: () => void }).dropCapture(),
     );
     await pointer(page, 'vertical-thumb', 'pointerdown', { pointerId: 2 });
     await pointer(page, 'vertical-thumb', 'pointercancel', { pointerId: 2 });
-    expect(
-      await part(page, 'viewport').evaluate(
-        (node) => node.style.scrollSnapType,
-      ),
-    ).toBe('y mandatory');
+    expect(await part(page, 'viewport').evaluate((node) => node.style.scrollSnapType)).toBe(
+      'y mandatory',
+    );
   });
-  test(`${framework} T:306/236/374 buttonless move and stale capture guards`, async ({
-    page,
-  }) => {
+  test(`${framework} T:306/236/374 buttonless move and stale capture guards`, async ({ page }) => {
     await open(page, { keepMounted: true, snap: 'y mandatory' });
     await capture(page, 'vertical-thumb');
     await pointer(page, 'vertical-thumb', 'pointerdown');
     await pointer(page, 'vertical-thumb', 'pointermove', { clientY: 20 });
-    const amount = await part(page, 'viewport').evaluate(
-      (node) => node.scrollTop,
-    );
+    const amount = await part(page, 'viewport').evaluate((node) => node.scrollTop);
     expect(amount).toBeGreaterThan(0);
     await pointer(page, 'vertical-thumb', 'pointermove', {
       clientY: 60,
       pointerId: 2,
       buttons: 0,
     });
-    expect(
-      await part(page, 'viewport').evaluate((node) => node.scrollTop),
-    ).toBe(amount);
+    expect(await part(page, 'viewport').evaluate((node) => node.scrollTop)).toBe(amount);
     await part(page, 'vertical-thumb').evaluate((node) =>
       (node as HTMLElement & { dropCapture: () => void }).dropCapture(),
     );
@@ -619,17 +482,11 @@ for (const framework of ['react', 'svelte'] as const) {
       clientY: 100,
       buttons: 0,
     });
-    expect(
-      await part(page, 'viewport').evaluate((node) => node.scrollTop),
-    ).toBe(amount);
-    await expect(part(page, 'vertical-thumb')).not.toHaveAttribute(
-      'data-scrolling',
+    expect(await part(page, 'viewport').evaluate((node) => node.scrollTop)).toBe(amount);
+    await expect(part(page, 'vertical-thumb')).not.toHaveAttribute('data-scrolling');
+    expect(await part(page, 'viewport').evaluate((node) => node.style.scrollSnapType)).toBe(
+      'y mandatory',
     );
-    expect(
-      await part(page, 'viewport').evaluate(
-        (node) => node.style.scrollSnapType,
-      ),
-    ).toBe('y mandatory');
   });
   for (const height of [16, 10])
     test(`${framework} S:680/691/701/710 non-positive thumb travel ${height}px`, async ({
@@ -639,41 +496,29 @@ for (const framework of ['react', 'svelte'] as const) {
       await capture(page, 'vertical-thumb');
       await pointer(page, 'vertical-thumb', 'pointerdown');
       await pointer(page, 'vertical-thumb', 'pointermove', { clientY: 20 });
-      expect(
-        await part(page, 'viewport').evaluate((node) => node.scrollTop),
-      ).toBe(0);
+      expect(await part(page, 'viewport').evaluate((node) => node.scrollTop)).toBe(0);
       await pointer(page, 'vertical-thumb', 'pointerup');
       await pointer(page, 'vertical', 'pointerdown', { clientY: 20 });
-      expect(
-        await part(page, 'viewport').evaluate((node) => node.scrollTop),
-      ).toBe(0);
+      expect(await part(page, 'viewport').evaluate((node) => node.scrollTop)).toBe(0);
     });
   test(`${framework} S:224/245/260/T:43 nonprimary and missing viewport/thumb remain inert`, async ({
     page,
   }) => {
     await open(page, { keepMounted: true, snap: 'y mandatory' });
     await pointer(page, 'vertical', 'pointerdown', { button: 2, clientY: 100 });
-    expect(
-      await part(page, 'viewport').evaluate((node) => node.scrollTop),
-    ).toBe(0);
-    expect(
-      await part(page, 'viewport').evaluate(
-        (node) => node.style.scrollSnapType,
-      ),
-    ).toBe('y mandatory');
+    expect(await part(page, 'viewport').evaluate((node) => node.scrollTop)).toBe(0);
+    expect(await part(page, 'viewport').evaluate((node) => node.style.scrollSnapType)).toBe(
+      'y mandatory',
+    );
     await configure(page, { thumbMounted: false });
     await pointer(page, 'vertical', 'pointerdown', { clientY: 100 });
-    expect(
-      await part(page, 'viewport').evaluate(
-        (node) => node.style.scrollSnapType,
-      ),
-    ).toBe('y mandatory');
+    expect(await part(page, 'viewport').evaluate((node) => node.style.scrollSnapType)).toBe(
+      'y mandatory',
+    );
     await configure(page, { viewportMounted: false, thumbMounted: true });
     await capture(page, 'vertical-thumb');
     await pointer(page, 'vertical-thumb', 'pointerdown');
-    expect(
-      await pointer(page, 'vertical-thumb', 'pointermove', { clientY: 20 }),
-    ).toBe(true);
+    expect(await pointer(page, 'vertical-thumb', 'pointermove', { clientY: 20 })).toBe(true);
     await expect(part(page, 'vertical')).not.toHaveAttribute('data-scrolling');
     await pointer(page, 'vertical', 'pointerdown', { clientY: 100 });
   });
@@ -694,9 +539,7 @@ for (const framework of ['react', 'svelte'] as const) {
       });
       node.dispatchEvent(event);
     });
-    expect(
-      await part(page, 'viewport').evaluate((node) => node.scrollTop),
-    ).toBe(0);
+    expect(await part(page, 'viewport').evaluate((node) => node.scrollTop)).toBe(0);
   });
   test(`${framework} S:345/407 track press marks scrolling and pointer cancellation clears the drag`, async ({
     page,
@@ -707,31 +550,19 @@ for (const framework of ['react', 'svelte'] as const) {
     await pointer(page, 'vertical', 'pointerdown', { clientY: rect!.y + 100 });
     await expect(part(page, 'root')).toHaveAttribute('data-scrolling');
     await expect(part(page, 'vertical')).toHaveAttribute('data-scrolling');
-    await expect(part(page, 'vertical-thumb')).toHaveAttribute(
-      'data-scrolling',
-    );
-    expect(
-      await part(page, 'viewport').evaluate(
-        (node) => node.style.scrollSnapType,
-      ),
-    ).toBe('none');
+    await expect(part(page, 'vertical-thumb')).toHaveAttribute('data-scrolling');
+    expect(await part(page, 'viewport').evaluate((node) => node.style.scrollSnapType)).toBe('none');
     await pointer(page, 'vertical', 'pointercancel');
     for (const name of ['root', 'vertical', 'vertical-thumb'])
       await expect(part(page, name)).not.toHaveAttribute('data-scrolling');
-    expect(
-      await part(page, 'viewport').evaluate(
-        (node) => node.style.scrollSnapType,
-      ),
-    ).toBe('y mandatory');
-    const amount = await part(page, 'viewport').evaluate(
-      (node) => node.scrollTop,
+    expect(await part(page, 'viewport').evaluate((node) => node.style.scrollSnapType)).toBe(
+      'y mandatory',
     );
+    const amount = await part(page, 'viewport').evaluate((node) => node.scrollTop);
     await pointer(page, 'vertical-thumb', 'pointermove', {
       clientY: rect!.y + 150,
     });
-    expect(
-      await part(page, 'viewport').evaluate((node) => node.scrollTop),
-    ).toBe(amount);
+    expect(await part(page, 'viewport').evaluate((node) => node.scrollTop)).toBe(amount);
   });
   for (const button of [0, 1, 2])
     test(`${framework} S:493 parameterized ${button} track mousedown cancels focus default`, async ({
@@ -753,16 +584,12 @@ for (const framework of ['react', 'svelte'] as const) {
       expect(consumed).toBe(false);
       await expect(page.locator('#outside')).toBeFocused();
     });
-  test(`${framework} S:509 thumb mousedown preserves active native focus`, async ({
-    page,
-  }) => {
+  test(`${framework} S:509 thumb mousedown preserves active native focus`, async ({ page }) => {
     await open(page, { keepMounted: true });
     await page.locator('#outside').focus();
     expect(
       await part(page, 'vertical-thumb').evaluate((node) =>
-        node.dispatchEvent(
-          new MouseEvent('mousedown', { bubbles: true, cancelable: true }),
-        ),
+        node.dispatchEvent(new MouseEvent('mousedown', { bubbles: true, cancelable: true })),
       ),
     ).toBe(false);
     await expect(page.locator('#outside')).toBeFocused();
@@ -775,13 +602,11 @@ for (const framework of ['react', 'svelte'] as const) {
         await open(page, { direction, keepMounted: true });
         const horizontal = orientation === 'horizontal';
         const sign = horizontal && direction === 'rtl' ? -1 : 1;
-        const delta = (amount: number) =>
-          horizontal ? { deltaX: amount } : { deltaY: amount };
+        const delta = (amount: number) => (horizontal ? { deltaX: amount } : { deltaY: amount });
         expect(await wheel(page, orientation, delta(-sign * 50))).toBe(true);
         expect(
           await part(page, 'viewport').evaluate(
-            (node, axis) =>
-              axis === 'horizontal' ? node.scrollLeft : node.scrollTop,
+            (node, axis) => (axis === 'horizontal' ? node.scrollLeft : node.scrollTop),
             orientation,
           ),
         ).toBe(0);
@@ -791,8 +616,7 @@ for (const framework of ['react', 'svelte'] as const) {
         expect(await wheel(page, orientation, delta(sign * 50))).toBe(false);
         expect(
           await part(page, 'viewport').evaluate(
-            (node, axis) =>
-              axis === 'horizontal' ? node.scrollLeft : node.scrollTop,
+            (node, axis) => (axis === 'horizontal' ? node.scrollLeft : node.scrollTop),
             orientation,
           ),
         ).toBe(sign * 800);
@@ -806,19 +630,15 @@ for (const framework of ['react', 'svelte'] as const) {
         ).toBe(true);
         expect(
           await part(page, 'viewport').evaluate(
-            (node, axis) =>
-              axis === 'horizontal' ? node.scrollLeft : node.scrollTop,
+            (node, axis) => (axis === 'horizontal' ? node.scrollLeft : node.scrollTop),
             orientation,
           ),
         ).toBe(sign * 800);
-        await expect(part(page, orientation)).not.toHaveAttribute(
-          'data-scrolling',
-          { timeout: 1500 },
-        );
+        await expect(part(page, orientation)).not.toHaveAttribute('data-scrolling', {
+          timeout: 1500,
+        });
         expect(await wheel(page, orientation, delta(sign * 50))).toBe(true);
-        await expect(part(page, orientation)).not.toHaveAttribute(
-          'data-scrolling',
-        );
+        await expect(part(page, orientation)).not.toHaveAttribute('data-scrolling');
       });
   test(`${framework} S:904 registers wheel after unkept horizontal track appears`, async ({
     page,
@@ -832,9 +652,7 @@ for (const framework of ['react', 'svelte'] as const) {
     await configure(page, { contentWidth: 1000 });
     await expect(part(page, 'horizontal')).toBeVisible();
     expect(await wheel(page, 'horizontal', { deltaX: -50 })).toBe(false);
-    expect(
-      await part(page, 'viewport').evaluate((node) => node.scrollLeft),
-    ).toBe(-50);
+    expect(await part(page, 'viewport').evaluate((node) => node.scrollLeft)).toBe(-50);
   });
   for (const orientation of ['vertical', 'horizontal'] as const)
     for (const direction of ['ltr', 'rtl'] as const)
@@ -846,9 +664,7 @@ for (const framework of ['react', 'svelte'] as const) {
             direction,
             keepMounted: true,
             cornerMounted: false,
-            ...(orientation === 'vertical'
-              ? { contentWidth: 200 }
-              : { contentHeight: 200 }),
+            ...(orientation === 'vertical' ? { contentWidth: 200 } : { contentHeight: 200 }),
           });
           const thumb = `${orientation}-thumb`;
           const horizontal = orientation === 'horizontal';
@@ -861,21 +677,17 @@ for (const framework of ['react', 'svelte'] as const) {
           const signed = horizontal && direction === 'rtl' ? -value : value;
           await part(page, 'viewport').evaluate(
             (node, { horizontal, signed }) => {
-              Object.defineProperty(
-                node,
-                horizontal ? 'scrollLeft' : 'scrollTop',
-                { configurable: true, get: () => signed },
-              );
+              Object.defineProperty(node, horizontal ? 'scrollLeft' : 'scrollTop', {
+                configurable: true,
+                get: () => signed,
+              });
               node.dispatchEvent(new Event('scroll'));
             },
             { horizontal, signed },
           );
           await expect
             .poll(() =>
-              part(page, thumb).evaluate(
-                (node, axis) => node.getBoundingClientRect()[axis],
-                axis,
-              ),
+              part(page, thumb).evaluate((node, axis) => node.getBoundingClientRect()[axis], axis),
             )
             .toBeLessThan(resting);
           const size = await part(page, thumb).evaluate(
@@ -898,11 +710,11 @@ for (const framework of ['react', 'svelte'] as const) {
           ).toBeCloseTo(0, 0);
           await part(page, 'viewport').evaluate(
             (node, { horizontal, value }) => {
-              Object.defineProperty(
-                node,
-                horizontal ? 'scrollLeft' : 'scrollTop',
-                { configurable: true, value, writable: true },
-              );
+              Object.defineProperty(node, horizontal ? 'scrollLeft' : 'scrollTop', {
+                configurable: true,
+                value,
+                writable: true,
+              });
               node.dispatchEvent(new Event('scroll'));
             },
             {
@@ -912,16 +724,11 @@ for (const framework of ['react', 'svelte'] as const) {
           );
           await expect
             .poll(() =>
-              part(page, thumb).evaluate(
-                (node, axis) => node.getBoundingClientRect()[axis],
-                axis,
-              ),
+              part(page, thumb).evaluate((node, axis) => node.getBoundingClientRect()[axis], axis),
             )
             .toBeCloseTo(resting, 0);
         });
-  test(`${framework} V:20/T:75/T:114 user handler synchronous unmount guards`, async ({
-    page,
-  }) => {
+  test(`${framework} V:20/T:75/T:114 user handler synchronous unmount guards`, async ({ page }) => {
     await open(page, { keepMounted: true, unmountOn: 'scroll' });
     await scroll(page, 0, 1);
     await expect(part(page, 'viewport')).toHaveCount(0);
@@ -930,9 +737,7 @@ for (const framework of ['react', 'svelte'] as const) {
     await pointer(page, 'vertical-thumb', 'pointerdown');
     await pointer(page, 'vertical-thumb', 'pointermove', { clientY: 20 });
     await expect(part(page, 'vertical')).toHaveCount(0);
-    expect(
-      await part(page, 'viewport').evaluate((node) => node.scrollTop),
-    ).toBe(0);
+    expect(await part(page, 'viewport').evaluate((node) => node.scrollTop)).toBe(0);
     await open(page, {
       keepMounted: true,
       unmountOn: 'up',
@@ -947,17 +752,15 @@ for (const framework of ['react', 'svelte'] as const) {
     page,
   }) => {
     await open(page, { customRender: true, keepMounted: true });
-    expect(await page.evaluate(() => window.scrollAreaHarness!.refs())).toEqual(
-      {
-        root: true,
-        viewport: true,
-        content: true,
-        vertical: true,
-        horizontal: true,
-        thumb: true,
-        corner: true,
-      },
-    );
+    expect(await page.evaluate(() => window.scrollAreaHarness!.refs())).toEqual({
+      root: true,
+      viewport: true,
+      content: true,
+      vertical: true,
+      horizontal: true,
+      thumb: true,
+      corner: true,
+    });
     for (const name of [
       'root',
       'viewport',
@@ -967,21 +770,17 @@ for (const framework of ['react', 'svelte'] as const) {
       'vertical-thumb',
       'corner',
     ])
-      expect(await part(page, name).evaluate((node) => node.tagName)).toBe(
-        'ARTICLE',
-      );
+      expect(await part(page, name).evaluate((node) => node.tagName)).toBe('ARTICLE');
     await page.evaluate(() => window.scrollAreaHarness!.destroy());
-    expect(await page.evaluate(() => window.scrollAreaHarness!.refs())).toEqual(
-      {
-        root: false,
-        viewport: false,
-        content: false,
-        vertical: false,
-        horizontal: false,
-        thumb: false,
-        corner: false,
-      },
-    );
+    expect(await page.evaluate(() => window.scrollAreaHarness!.refs())).toEqual({
+      root: false,
+      viewport: false,
+      content: false,
+      vertical: false,
+      horizontal: false,
+      thumb: false,
+      corner: false,
+    });
   });
   for (const mode of ['default', 'element', 'function'] as const)
     test(`${framework} native conformance six parts prop/ref/class/style forwarding ${mode}`, async ({
@@ -993,9 +792,7 @@ for (const framework of ['react', 'svelte'] as const) {
         renderFunction: mode === 'function',
         keepMounted: true,
       });
-      expect(
-        await page.evaluate(() => window.scrollAreaHarness!.refs()),
-      ).toEqual({
+      expect(await page.evaluate(() => window.scrollAreaHarness!.refs())).toEqual({
         root: true,
         viewport: true,
         content: true,
@@ -1014,15 +811,9 @@ for (const framework of ['react', 'svelte'] as const) {
         'corner',
       ]) {
         await expect(part(page, name)).toHaveAttribute('lang', 'fr');
-        await expect(part(page, name)).toHaveAttribute(
-          'data-foobar',
-          'source-prop',
-        );
+        await expect(part(page, name)).toHaveAttribute('data-foobar', 'source-prop');
         await expect(part(page, name)).toHaveClass(/component-class/);
-        await expect(part(page, name)).toHaveCSS(
-          'background-color',
-          'rgb(255, 192, 203)',
-        );
+        await expect(part(page, name)).toHaveCSS('background-color', 'rgb(255, 192, 203)');
         expect(await part(page, name).evaluate((node) => node.tagName)).toBe(
           mode === 'default' ? 'DIV' : 'ARTICLE',
         );
@@ -1045,15 +836,12 @@ for (const framework of ['react', 'svelte'] as const) {
     await scroll(page, 0, 50);
     await expect(part(page, 'root')).toHaveAttribute('data-overflow-y-start');
   });
-  test(`${framework} S:135 observes a viewport already hovered on mount`, async ({
-    page,
-  }) => {
+  test(`${framework} S:135 observes a viewport already hovered on mount`, async ({ page }) => {
     await page.addInitScript(() => {
       const matches = Element.prototype.matches;
       Element.prototype.matches = function (selector) {
         return (
-          (selector === ':hover' &&
-            (this as HTMLElement).dataset.testid === 'viewport') ||
+          (selector === ':hover' && (this as HTMLElement).dataset.testid === 'viewport') ||
           matches.call(this, selector)
         );
       };
@@ -1094,17 +882,11 @@ for (const framework of ['react', 'svelte'] as const) {
       keepMounted: true,
     });
     await expect
-      .poll(() =>
-        part(page, 'horizontal-thumb').evaluate((node) => node.offsetWidth),
-      )
+      .poll(() => part(page, 'horizontal-thumb').evaluate((node) => node.offsetWidth))
       .toBeGreaterThan(0);
     const point = await part(page, 'horizontal').evaluate((node) => {
-      const viewport = document.querySelector<HTMLElement>(
-        '[data-testid="viewport"]',
-      )!;
-      const thumb = node.querySelector<HTMLElement>(
-        '[data-testid="horizontal-thumb"]',
-      )!;
+      const viewport = document.querySelector<HTMLElement>('[data-testid="viewport"]')!;
+      const thumb = node.querySelector<HTMLElement>('[data-testid="horizontal-thumb"]')!;
       const rect = node.getBoundingClientRect();
       return {
         x:
@@ -1120,22 +902,14 @@ for (const framework of ['react', 'svelte'] as const) {
       clientY: point.y,
     });
     expect(
-      Math.abs(
-        (await part(page, 'viewport').evaluate((node) => node.scrollLeft)) -
-          900,
-      ),
+      Math.abs((await part(page, 'viewport').evaluate((node) => node.scrollLeft)) - 900),
     ).toBeLessThanOrEqual(1);
     await expect(part(page, 'horizontal')).toHaveAttribute('data-scrolling');
     await pointer(page, 'horizontal', 'pointerup');
     await expect
-      .poll(() =>
-        part(page, 'viewport').evaluate((node) => node.scrollLeft % 200),
-      )
+      .poll(() => part(page, 'viewport').evaluate((node) => node.scrollLeft % 200))
       .toBe(0);
-    await expect(part(page, 'viewport')).toHaveCSS(
-      'scroll-snap-type',
-      'x mandatory',
-    );
+    await expect(part(page, 'viewport')).toHaveCSS('scroll-snap-type', 'x mandatory');
   });
   for (const unmount of [false, true])
     test(`${framework} V:45/87 pending subtree animation ${unmount ? 'after unmount' : 'recomputes overflow'}`, async ({
@@ -1154,8 +928,7 @@ for (const framework of ['react', 'svelte'] as const) {
             resolve();
           },
         };
-        (window as unknown as { saAnimation: typeof state }).saAnimation =
-          state;
+        (window as unknown as { saAnimation: typeof state }).saAnimation = state;
         const original = Element.prototype.getAnimations;
         Element.prototype.getAnimations = function (options) {
           if ((this as HTMLElement).dataset.testid === 'viewport') {
@@ -1164,10 +937,7 @@ for (const framework of ['react', 'svelte'] as const) {
           }
           return original.call(this, options);
         };
-        const descriptor = Object.getOwnPropertyDescriptor(
-          Element.prototype,
-          'scrollWidth',
-        )!;
+        const descriptor = Object.getOwnPropertyDescriptor(Element.prototype, 'scrollWidth')!;
         Object.defineProperty(Element.prototype, 'scrollWidth', {
           configurable: true,
           get() {
@@ -1182,27 +952,20 @@ for (const framework of ['react', 'svelte'] as const) {
         contentHeight: 100,
         keepMounted: true,
       });
-      await expect(part(page, 'root')).not.toHaveAttribute(
-        'data-has-overflow-x',
-      );
+      await expect(part(page, 'root')).not.toHaveAttribute('data-has-overflow-x');
       await expect
         .poll(() =>
           page.evaluate(
-            () =>
-              (window as unknown as { saAnimation: { calls: number } })
-                .saAnimation.calls,
+            () => (window as unknown as { saAnimation: { calls: number } }).saAnimation.calls,
           ),
         )
         .toBeGreaterThan(0);
       if (unmount) await configure(page, { viewportMounted: false });
       await page.evaluate(() =>
-        (
-          window as unknown as { saAnimation: { finish: () => void } }
-        ).saAnimation.finish(),
+        (window as unknown as { saAnimation: { finish: () => void } }).saAnimation.finish(),
       );
       if (unmount) await expect(part(page, 'viewport')).toHaveCount(0);
-      else
-        await expect(part(page, 'root')).toHaveAttribute('data-has-overflow-x');
+      else await expect(part(page, 'root')).toHaveAttribute('data-has-overflow-x');
     });
   test(`${framework} native/source supplement real mouse drag owns and releases native pointer capture`, async ({
     page,
@@ -1210,25 +973,13 @@ for (const framework of ['react', 'svelte'] as const) {
     await open(page, { keepMounted: true });
     const rect = await part(page, 'vertical-thumb').boundingBox();
     expect(rect).not.toBeNull();
-    await page.mouse.move(
-      rect!.x + rect!.width / 2,
-      rect!.y + rect!.height / 2,
-    );
+    await page.mouse.move(rect!.x + rect!.width / 2, rect!.y + rect!.height / 2);
     await page.mouse.down();
-    await page.mouse.move(
-      rect!.x + rect!.width / 2,
-      rect!.y + rect!.height / 2 + 20,
-    );
-    expect(
-      await part(page, 'viewport').evaluate((node) => node.scrollTop),
-    ).toBeGreaterThan(0);
-    await expect(part(page, 'vertical-thumb')).toHaveAttribute(
-      'data-scrolling',
-    );
+    await page.mouse.move(rect!.x + rect!.width / 2, rect!.y + rect!.height / 2 + 20);
+    expect(await part(page, 'viewport').evaluate((node) => node.scrollTop)).toBeGreaterThan(0);
+    await expect(part(page, 'vertical-thumb')).toHaveAttribute('data-scrolling');
     await page.mouse.up();
-    await expect(part(page, 'vertical-thumb')).not.toHaveAttribute(
-      'data-scrolling',
-    );
+    await expect(part(page, 'vertical-thumb')).not.toHaveAttribute('data-scrolling');
   });
   test(`${framework} native/source supplement CSP nonce and actual scrollbar stylesheet application`, async ({
     page,
@@ -1251,9 +1002,7 @@ for (const framework of ['react', 'svelte'] as const) {
     for (const name of ['viewport', 'second-viewport'])
       await expect(part(page, name)).toHaveCSS('scrollbar-width', 'none');
     expect((await scrollbarStyles(page)).map((style) => style.nonce)).toEqual(
-      framework === 'svelte'
-        ? ['repeat-nonce', 'repeat-nonce']
-        : ['repeat-nonce'],
+      framework === 'svelte' ? ['repeat-nonce', 'repeat-nonce'] : ['repeat-nonce'],
     );
     const before = (await scrollbarStyles(page)).length;
     await page.evaluate(() => window.scrollAreaHarness!.destroy());

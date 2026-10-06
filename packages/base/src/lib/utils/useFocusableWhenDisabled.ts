@@ -8,9 +8,9 @@ export interface UseFocusableWhenDisabledParameters {
   tabIndex?: number;
   isNativeButton: boolean;
 }
-export function useFocusableWhenDisabled(
-  parameters: UseFocusableWhenDisabledParameters,
-): { props: HTMLProps } {
+export function useFocusableWhenDisabled(parameters: UseFocusableWhenDisabledParameters): {
+  props: HTMLProps;
+} {
   const {
     focusableWhenDisabled,
     disabled,
@@ -22,14 +22,12 @@ export function useFocusableWhenDisabled(
   const isNonFocusableComposite = composite && focusableWhenDisabled === false;
   const props: HTMLProps = {
     onkeydown(event: KeyboardEvent) {
-      if (disabled && focusableWhenDisabled && event.key !== 'Tab')
-        event.preventDefault();
+      if (disabled && focusableWhenDisabled && event.key !== 'Tab') event.preventDefault();
     },
   };
   if (!composite) {
     props.tabindex = tabIndexProp;
-    if (!isNativeButton && disabled)
-      props.tabindex = focusableWhenDisabled ? tabIndexProp : -1;
+    if (!isNativeButton && disabled) props.tabindex = focusableWhenDisabled ? tabIndexProp : -1;
   }
   if (
     (isNativeButton && (focusableWhenDisabled || isFocusableComposite)) ||

@@ -1,6 +1,11 @@
 // Framework-adapted type checks; zero ordinary credit. MIT: parity/direction-provider/UPSTREAM_LICENSE.
 import type { ComponentProps, Snippet } from 'svelte';
-import { DirectionProvider, useDirection, type DirectionProviderProps, type TextDirection } from '../src/lib/direction-provider/index.js';
+import {
+  DirectionProvider,
+  useDirection,
+  type DirectionProviderProps,
+  type TextDirection,
+} from '../src/lib/direction-provider/index.js';
 
 declare const children: Snippet;
 const props: DirectionProviderProps = { direction: 'rtl', children };
@@ -21,4 +26,17 @@ const captured: TextDirection = getter;
 const override = useDirection('rtl');
 // @ts-expect-error The namespace's empty State type does not create a state component prop.
 const stateProp: DirectionProvider.Props = { state: {} };
-void [props, componentProps, defaultProps, direction, namespaceProps, namespaceState, structuralState, invalid, host, captured, override, stateProp];
+void [
+  props,
+  componentProps,
+  defaultProps,
+  direction,
+  namespaceProps,
+  namespaceState,
+  structuralState,
+  invalid,
+  host,
+  captured,
+  override,
+  stateProp,
+];

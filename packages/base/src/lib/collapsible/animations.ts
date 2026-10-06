@@ -16,10 +16,7 @@ export function warnOnce(...messages: string[]) {
 }
 
 /** A frame is owned by the actual element's window and by its lifecycle cleanup. */
-export function requestFrame(
-  element: HTMLElement,
-  callback: () => void,
-): () => void {
+export function requestFrame(element: HTMLElement, callback: () => void): () => void {
   const ownerWindow = element.ownerDocument.defaultView;
   if (!ownerWindow) return () => {};
   const frame = ownerWindow.requestAnimationFrame(callback);
@@ -42,17 +39,10 @@ export function afterAnimations(
   };
   function observe() {
     if (lifecycleSignal?.aborted) return;
-    Promise.all(
-      element.getAnimations().map((animation) => animation.finished),
-    ).then(done, () => {
+    Promise.all(element.getAnimations().map((animation) => animation.finished)).then(done, () => {
       if (lifecycleSignal?.aborted) return;
       const current = element.getAnimations();
-      if (
-        current.some(
-          (animation) =>
-            animation.pending || animation.playState !== 'finished',
-        )
-      ) {
+      if (current.some((animation) => animation.pending || animation.playState !== 'finished')) {
         observe();
       } else {
         done();
@@ -66,10 +56,7 @@ export function afterAnimations(
   ).BASE_UI_ANIMATIONS_DISABLED;
   if (typeof element.getAnimations !== 'function' || animationsDisabled) {
     complete();
-  } else if (
-    waitForStartingStyleRemoved &&
-    element.hasAttribute('data-starting-style')
-  ) {
+  } else if (waitForStartingStyleRemoved && element.hasAttribute('data-starting-style')) {
     const Observer = element.ownerDocument.defaultView?.MutationObserver;
     if (Observer) {
       observer = new Observer(() => {
@@ -109,9 +96,7 @@ export function getAnimationType(
   const styles = element.ownerDocument.defaultView?.getComputedStyle(element);
   if (!styles) return 'none';
   const hasAnimation =
-    (styles.animationName
-      .split(',')
-      .some((name) => name.trim() !== '' && name.trim() !== 'none') ||
+    (styles.animationName.split(',').some((name) => name.trim() !== '' && name.trim() !== 'none') ||
       hasSuppressedMountAnimation) &&
     hasNonZeroDuration(styles.animationDuration);
   const hasTransition = hasNonZeroDuration(styles.transitionDuration);
@@ -128,9 +113,7 @@ export function getAnimationType(
 }
 
 function hasNonZeroDuration(value: string) {
-  return value
-    .split(',')
-    .some((part) => part.trim() !== '' && Number.parseFloat(part) > 0);
+  return value.split(',').some((part) => part.trim() !== '' && Number.parseFloat(part) > 0);
 }
 
 export function setTemporaryStyle(

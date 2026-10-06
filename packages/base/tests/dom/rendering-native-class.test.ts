@@ -13,16 +13,30 @@ afterEach(async () => {
 it('matches native class attributes and host identity across scalar, array and object updates', () => {
   const inherited = Object.assign(Object.create({ inherited: true }), { own: true, hidden: false });
   const cases: ClassValue[] = [
-    undefined, null, false, 0, '', true, NaN, 1n, 'plain', [], {},
-    ['first', [false, 0, true, null, '', 'second'], inherited], inherited,
+    undefined,
+    null,
+    false,
+    0,
+    '',
+    true,
+    NaN,
+    1n,
+    'plain',
+    [],
+    {},
+    ['first', [false, 0, true, null, '', 'second'], inherited],
+    inherited,
   ];
   const target = document.createElement('main');
   document.body.append(target);
-  const app = mount(Fixture, { target }); apps.push(app); flushSync();
+  const app = mount(Fixture, { target });
+  apps.push(app);
+  flushSync();
   const native = target.querySelector('[data-native]')!;
   const shared = target.querySelector('[data-shared]')!;
   for (const value of cases) {
-    app.setValue(value); flushSync();
+    app.setValue(value);
+    flushSync();
     expect(target.querySelector('[data-native]')).toBe(native);
     expect(target.querySelector('[data-shared]')).toBe(shared);
     expect(shared.getAttribute('class')).toBe(native.getAttribute('class'));

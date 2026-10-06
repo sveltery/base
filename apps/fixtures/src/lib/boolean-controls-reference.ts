@@ -57,8 +57,7 @@ export function mountBooleanReference(
           { checked: next, type: details.event.type, reason: details.reason },
         ]);
         if (cancelChanges) details.cancel();
-        if (!details.isCanceled && controlled && scenario !== 'controlled-reject')
-          setChecked(next);
+        if (!details.isCanceled && controlled && scenario !== 'controlled-reject') setChecked(next);
       },
     };
     const control =
@@ -73,8 +72,7 @@ export function mountBooleanReference(
             controlProps,
             h(Checkbox.Indicator, { className: undefined, ...{ 'data-part': '' } }),
           );
-    const button = (text: string, action: () => void) =>
-      h('button', { onClick: action }, text);
+    const button = (text: string, action: () => void) => h('button', { onClick: action }, text);
     return h(
       'main',
       {
@@ -109,11 +107,7 @@ export function mountBooleanReference(
             h(Field.Error, { id: 'error' }),
           ),
         ),
-        h(
-          'button',
-          { type: 'submit', id: 'submit', name: 'intent', value: 'save' },
-          'Submit',
-        ),
+        h('button', { type: 'submit', id: 'submit', name: 'intent', value: 'save' }, 'Submit'),
         h('button', { type: 'reset', id: 'reset' }, 'Reset'),
       ),
       scenario === 'group'
@@ -122,8 +116,7 @@ export function mountBooleanReference(
             {
               id: 'group-form',
               onSubmit: (event) => event.preventDefault(),
-              onFormSubmit: (values) =>
-                setSubmissions((previous) => [...previous, values]),
+              onFormSubmit: (values) => setSubmissions((previous) => [...previous, values]),
             },
             h(
               Field.Root,

@@ -6,6 +6,23 @@
   let { handle }: { handle: DialogHandle<Payload> } = $props();
   let mounted = $state(true);
 </script>
+
 {#if mounted}
-  <Dialog.Root {handle}><Dialog.Portal><Dialog.Popup>Dialog Content<button type="button" onclick={() => { mounted = false; }}>Unmount root</button></Dialog.Popup></Dialog.Portal></Dialog.Root>
-{:else}<button type="button" onclick={() => { mounted = true; }}>Remount root</button>{/if}
+  <Dialog.Root {handle}
+    ><Dialog.Portal
+      ><Dialog.Popup
+        >Dialog Content<button
+          type="button"
+          onclick={() => {
+            mounted = false;
+          }}>Unmount root</button
+        ></Dialog.Popup
+      ></Dialog.Portal
+    ></Dialog.Root
+  >
+{:else}<button
+    type="button"
+    onclick={() => {
+      mounted = true;
+    }}>Remount root</button
+  >{/if}

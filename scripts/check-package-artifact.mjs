@@ -6,36 +6,17 @@ import { fileURLToPath } from 'node:url';
 
 const repository = resolve(dirname(fileURLToPath(import.meta.url)), '..');
 const artifact = resolve(process.argv[2]);
-const packageDirectory = resolve(
-  process.argv[3] ?? join(repository, 'packages/base'),
-);
-const sourceMetadata = JSON.parse(
-  readFileSync(join(packageDirectory, 'package.json'), 'utf8'),
-);
-const metadata = JSON.parse(
-  readFileSync(join(artifact, 'package.json'), 'utf8'),
-);
+const packageDirectory = resolve(process.argv[3] ?? join(repository, 'packages/base'));
+const sourceMetadata = JSON.parse(readFileSync(join(packageDirectory, 'package.json'), 'utf8'));
+const metadata = JSON.parse(readFileSync(join(artifact, 'package.json'), 'utf8'));
 assert.equal(metadata.name, sourceMetadata.name);
 assert.equal(metadata.version, sourceMetadata.version);
-assert.deepEqual(
-  metadata.exports,
-  sourceMetadata.exports,
-  'actual public export map required',
-);
+assert.deepEqual(metadata.exports, sourceMetadata.exports, 'actual public export map required');
 assert.deepEqual(metadata.sideEffects, sourceMetadata.sideEffects);
-for (const [name, version] of Object.entries(
-  sourceMetadata.dependencies ?? {},
-)) {
+for (const [name, version] of Object.entries(sourceMetadata.dependencies ?? {})) {
   if (version.startsWith('workspace:')) {
-    assert.equal(
-      version,
-      'workspace:*',
-      `${name}: reviewed workspace version convention`,
-    );
-    assert(
-      process.argv[4],
-      `${name}: actual workspace artifact manifest required`,
-    );
+    assert.equal(version, 'workspace:*', `${name}: reviewed workspace version convention`);
+    assert(process.argv[4], `${name}: actual workspace artifact manifest required`);
     const manifest = JSON.parse(readFileSync(process.argv[4], 'utf8'));
     assert.equal(
       metadata.dependencies[name],
@@ -43,11 +24,7 @@ for (const [name, version] of Object.entries(
       `${name}: published workspace dependency version`,
     );
   } else {
-    assert.equal(
-      metadata.dependencies[name],
-      version,
-      `${name}: runtime dependency preserved`,
-    );
+    assert.equal(metadata.dependencies[name], version, `${name}: runtime dependency preserved`);
   }
 }
 
@@ -59,28 +36,13 @@ function files(directory) {
 }
 
 for (const [entry, conditions] of Object.entries(metadata.exports)) {
-  assert.equal(
-    Object.keys(conditions)[0],
-    'types',
-    `${entry}: declarations resolve first`,
-  );
-  assert.equal(
-    Object.keys(conditions).at(-1),
-    'default',
-    `${entry}: default resolves last`,
-  );
+  assert.equal(Object.keys(conditions)[0], 'types', `${entry}: declarations resolve first`);
+  assert.equal(Object.keys(conditions).at(-1), 'default', `${entry}: default resolves last`);
   if (conditions.svelte)
-    assert.equal(
-      conditions.svelte,
-      conditions.default,
-      `${entry}: Svelte component condition`,
-    );
+    assert.equal(conditions.svelte, conditions.default, `${entry}: Svelte component condition`);
   for (const target of Object.values(conditions)) {
     assert.match(target, /^\.\/dist\//, `${entry}: packaged implementation`);
-    assert(
-      statSync(join(artifact, target)).isFile(),
-      `${entry}: missing ${target}`,
-    );
+    assert(statSync(join(artifact, target)).isFile(), `${entry}: missing ${target}`);
   }
 }
 if (sourceMetadata.svelte) assert.equal(metadata.svelte, sourceMetadata.svelte);
@@ -114,22 +76,12 @@ for (const path of files(source)) {
   const target = join(
     artifact,
     'dist',
-    name.endsWith('.ts') && !name.endsWith('.d.ts')
-      ? name.slice(0, -3) + '.js'
-      : name,
+    name.endsWith('.ts') && !name.endsWith('.d.ts') ? name.slice(0, -3) + '.js' : name,
   );
   assert(statSync(target).isFile(), `missing packaged source: ${name}`);
-  if (
-    name.endsWith('.svelte') ||
-    (name.endsWith('.ts') && !name.endsWith('.d.ts'))
-  ) {
-    const declaration = name.endsWith('.svelte')
-      ? name + '.d.ts'
-      : name.slice(0, -3) + '.d.ts';
-    assert(
-      statSync(join(artifact, 'dist', declaration)).isFile(),
-      `missing declarations: ${name}`,
-    );
+  if (name.endsWith('.svelte') || (name.endsWith('.ts') && !name.endsWith('.d.ts'))) {
+    const declaration = name.endsWith('.svelte') ? name + '.d.ts' : name.slice(0, -3) + '.d.ts';
+    assert(statSync(join(artifact, 'dist', declaration)).isFile(), `missing declarations: ${name}`);
   }
   if (name.endsWith('.svelte')) {
     assert.equal(
@@ -155,15 +107,10 @@ assert(files(source).length > 0, 'actual library source must be shipped');
 for (const path of files(artifact)) {
   const name = relative(artifact, path).replaceAll('\\', '/');
   assert(
-    !/(?:^|\/)(?:node_modules|tests?|parity|\.checks|\.svelte-kit)(?:\/|$)/.test(
-      name,
-    ),
+    !/(?:^|\/)(?:node_modules|tests?|parity|\.checks|\.svelte-kit)(?:\/|$)/.test(name),
     `unexpected packed directory: ${name}`,
   );
-  assert(
-    !/\.(?:test|spec)\.[^/]+$/.test(name),
-    `unexpected packed test: ${name}`,
-  );
+  assert(!/\.(?:test|spec)\.[^/]+$/.test(name), `unexpected packed test: ${name}`);
   assert(
     !name.endsWith('.ts') || name.endsWith('.d.ts'),
     `untranspiled packed TypeScript: ${name}`,

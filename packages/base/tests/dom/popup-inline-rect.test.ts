@@ -91,7 +91,9 @@ describe('inlineRect', () => {
       current: { x: 2, y: 3, lineIndex: undefined, element: trigger },
     };
 
-    getInlineRectTriggerProps(coordsRef, false).onfocusin?.({} as FocusEvent & { currentTarget: Element });
+    getInlineRectTriggerProps(coordsRef, false).onfocusin?.(
+      {} as FocusEvent & { currentTarget: Element },
+    );
 
     expect(coordsRef.current).toBeUndefined();
   });

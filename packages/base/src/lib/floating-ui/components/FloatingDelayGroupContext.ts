@@ -33,6 +33,8 @@ const defaultContext: FloatingDelayGroupContextValue = {
 };
 
 export function useFloatingDelayGroupContext(): FloatingDelayGroupContextValue {
-  return getContext<FloatingDelayGroupContextValue | undefined>(FloatingDelayGroupContext)
-    ?? defaultContext;
+  return (
+    getContext<FloatingDelayGroupContextValue | undefined>(FloatingDelayGroupContext) ??
+    defaultContext
+  );
 }

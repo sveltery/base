@@ -4,11 +4,7 @@
   import FloatingPortal from '../utils/FloatingPortalLite.svelte';
   import { PORTAL, useTooltipRootContext } from './context.js';
   import type { TooltipPortalProps } from './types.js';
-  let {
-    keepMounted = false,
-    ref = $bindable(),
-    ...portalProps
-  }: TooltipPortalProps = $props();
+  let { keepMounted = false, ref = $bindable(), ...portalProps }: TooltipPortalProps = $props();
   const store = useTooltipRootContext();
   setContext(PORTAL, {
     get keepMounted() {

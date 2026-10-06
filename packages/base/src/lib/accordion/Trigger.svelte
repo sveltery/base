@@ -28,8 +28,7 @@
   const id = $derived(registeredId ?? item.defaultTriggerId);
   const state = $derived(item.state);
   const resolved = $derived.by(() => {
-    const classValue =
-      typeof classProp === 'function' ? classProp(state) : classProp;
+    const classValue = typeof classProp === 'function' ? classProp(state) : classProp;
     return getButtonProps(
       mergeProps(
         {
@@ -41,10 +40,7 @@
         },
         {
           ...props,
-          class:
-            classValue === undefined
-              ? undefined
-              : resolveClassValue(classValue),
+          class: classValue === undefined ? undefined : resolveClassValue(classValue),
         },
       ),
       disabled,
@@ -55,16 +51,10 @@
   $effect(() => {
     const registered = registeredId;
     untrack(() =>
-      item.setTriggerId(
-        (current) => registered ?? (current === null ? undefined : current),
-      ),
+      item.setTriggerId((current) => registered ?? (current === null ? undefined : current)),
     );
     return () =>
-      untrack(() =>
-        item.setTriggerId((current) =>
-          current === registered ? null : current,
-        ),
-      );
+      untrack(() => item.setTriggerId((current) => (current === registered ? null : current)));
   });
 
   const hostAttachmentKey = createAttachmentKey();

@@ -16,12 +16,12 @@
   import type { PreviewCardTriggerProps } from './types.js';
   import { useFocus } from '../floating-ui/hooks/useFocus.svelte.js';
   import { getInlineRectTriggerProps } from '../utils/popups/inlineRect.js';
-  // eslint-disable-next-line no-useless-assignment -- Native bindable ref output is published through the ordered Source ref callback.
   let {
     render,
     class: className,
     style,
     children,
+    // eslint-disable-next-line no-useless-assignment -- Native bindable ref output is published through the ordered Source ref callback.
     ref = $bindable(),
     handle,
     payload,
@@ -42,12 +42,8 @@
   });
   const generatedId = $props.id();
   const thisTriggerId = $derived(useBaseUiId(idProp ?? undefined, generatedId));
-  const isTriggerActive = $derived(
-    store.select('isTriggerActive', thisTriggerId),
-  );
-  const isOpenedByThisTrigger = $derived(
-    store.select('isOpenedByTrigger', thisTriggerId),
-  );
+  const isTriggerActive = $derived(store.select('isTriggerActive', thisTriggerId));
+  const isOpenedByThisTrigger = $derived(store.select('isOpenedByTrigger', thisTriggerId));
   const floatingRootContext = $derived(store.select('floatingRootContext'));
   const triggerElementRef = { current: null as HTMLElement | null };
   const delayWithDefault = $derived(delay ?? OPEN_DELAY);
@@ -75,10 +71,7 @@
     () => ({ delay: delayWithDefault }),
   );
   const inlineRectTriggerProps = $derived(
-    getInlineRectTriggerProps(
-      store.context.inlineRectCoordsRef,
-      isOpenedByThisTrigger,
-    ),
+    getInlineRectTriggerProps(store.context.inlineRectCoordsRef, isOpenedByThisTrigger),
   );
   const state = $derived({ open: isOpenedByThisTrigger });
   const rootTriggerProps = $derived(
@@ -95,8 +88,7 @@
         untrack(() => {
           if (ref === host) ref = null;
           forwarding.registerTrigger?.(null);
-          if (triggerElementRef.current === host)
-            triggerElementRef.current = null;
+          if (triggerElementRef.current === host) triggerElementRef.current = null;
         });
     });
   }

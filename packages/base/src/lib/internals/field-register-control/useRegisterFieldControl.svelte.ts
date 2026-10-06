@@ -15,9 +15,16 @@ export function useRegisterFieldControl(
   const { registerFieldControl } = useFieldRootContext();
   const source = Symbol();
   $effect(() => {
-    if (!enabled()) { untrack(() => registerFieldControl(source, undefined)); return; }
+    if (!enabled()) {
+      untrack(() => registerFieldControl(source, undefined));
+      return;
+    }
     const registration: FieldControlRegistration = {
-      controlRef, getValue: getFormValueOverride, id: id(), name: name?.(), value: value(),
+      controlRef,
+      getValue: getFormValueOverride,
+      id: id(),
+      name: name?.(),
+      value: value(),
     };
     // Registration captures and publishes Field state; it is an imperative boundary.
     untrack(() => registerFieldControl(source, registration));

@@ -350,7 +350,7 @@
       "source": "packages/react/src/internals/field-register-control/useFieldControlRegistration.ts",
       "sourceSha256": "a49c20dc0a508dc11b73bdac52043aa4b1ba94d1baf8a43c2095f42726ca1cd6",
       "symbol": "useFieldControlRegistration",
-      "local": "packages/base/src/lib/internals/field-register-control/useFieldControlRegistration.svelte.ts",
+      "local": "packages/base/src/lib/internals/field-register-control/FieldControlRegistration.svelte.ts",
       "adaptation": "Source registration lifetime, first baseline, no delete/readd on value changes; getter params.",
       "status": "written-unverified",
       "imports": [
@@ -392,7 +392,10 @@
           "kind": "type",
           "symbols": "{ FieldValidityData }"
         }
-      ]
+      ],
+      "nativeReplacement": "FieldControlRegistrationOwner class retains the pinned registration/source/baseline/cancellation business; its actual reactive registration wakes native Field/Form synchronization.",
+      "nativeReplacementCredit": 0,
+      "currentNativeHostGraph": "parity/native-snippets/native-graph.json"
     },
     {
       "source": "packages/react/src/internals/field-register-control/useRegisterFieldControl.ts",
@@ -782,7 +785,7 @@
       "source": "packages/utils/src/useControlled.ts",
       "sourceSha256": "487bc45fa3ef1a70177867bb03598230f9926601aed8e3c7f46470feb225f886",
       "symbol": "useControlled",
-      "local": "packages/utils/src/lib/useControlled.svelte.ts",
+      "local": "packages/utils/src/lib/Controlled.svelte.ts",
       "adaptation": "shared-utils dependency: initial mode/default/state/declared warnings; live getter API",
       "status": "integrated-dependency-pending-final-review",
       "imports": [
@@ -800,13 +803,50 @@
           "kind": "runtime",
           "symbols": "{ error }"
         }
-      ]
+      ],
+      "nativeReplacement": "Controlled<T> class: initial mode/default, live controlled reads, direct set(next:T); optional T includes undefined. React diagnostics/serializer/functional dispatch removed.",
+      "nativeReplacementCredit": 0
     },
     {
       "source": "packages/utils/src/useStableCallback.ts",
       "sourceSha256": "908cbd177f86c961983d0124a859f733d341be49e58bc5a553255f47725419c1",
       "symbol": "useStableCallback",
-      "local": "packages/utils/src/lib/useStableCallback.ts",
+      "local": [
+        "packages/base/src/lib/avatar/Image.svelte",
+        "packages/base/src/lib/checkbox-group/CheckboxGroup.svelte",
+        "packages/base/src/lib/checkbox-group/useCheckboxGroupParent.svelte.ts",
+        "packages/base/src/lib/field/Control.svelte",
+        "packages/base/src/lib/field/root/FieldRootInner.svelte",
+        "packages/base/src/lib/field/root/useFieldValidation.svelte.ts",
+        "packages/base/src/lib/floating-ui/components/createFloatingFocusManager.svelte.ts",
+        "packages/base/src/lib/floating-ui/hooks/useClientPoint.svelte.ts",
+        "packages/base/src/lib/floating-ui/hooks/useDismiss.svelte.ts",
+        "packages/base/src/lib/floating-ui/hooks/useHoverFloatingInteraction.svelte.ts",
+        "packages/base/src/lib/floating-ui/hooks/useHoverReferenceInteraction.svelte.ts",
+        "packages/base/src/lib/floating-ui/hooks/useListNavigation.svelte.ts",
+        "packages/base/src/lib/floating-ui/hooks/useTypeahead.svelte.ts",
+        "packages/base/src/lib/form/Form.svelte",
+        "packages/base/src/lib/internals/ValueChanged.svelte.ts",
+        "packages/base/src/lib/internals/composite/root/useCompositeRoot.svelte.ts",
+        "packages/base/src/lib/internals/field-register-control/FieldControlRegistration.svelte.ts",
+        "packages/base/src/lib/internals/labelable-provider/createLabelableProvider.svelte.ts",
+        "packages/base/src/lib/internals/labelable-provider/useLabel.svelte.ts",
+        "packages/base/src/lib/internals/labelable-provider/useLabelableId.svelte.ts",
+        "packages/base/src/lib/internals/use-button/useButton.svelte.ts",
+        "packages/base/src/lib/internals/useAnimationsFinished.ts",
+        "packages/base/src/lib/internals/useOpenChangeComplete.svelte.ts",
+        "packages/base/src/lib/menu/RadioGroup.svelte",
+        "packages/base/src/lib/menu/root/createMenuRoot.svelte.ts",
+        "packages/base/src/lib/menu/submenu-trigger/createMenuSubmenuTrigger.svelte.ts",
+        "packages/base/src/lib/menu/trigger/createMenuTrigger.svelte.ts",
+        "packages/base/src/lib/radio-group/RadioGroup.svelte",
+        "packages/base/src/lib/remote-forms/RemoteNativeControl.svelte",
+        "packages/base/src/lib/toggle-group/ToggleGroup.svelte",
+        "packages/base/src/lib/utils/closePart.svelte.ts",
+        "packages/base/src/lib/utils/popups/popupStoreUtils.svelte.ts",
+        "packages/base/src/lib/utils/usePopupAutoResize.svelte.ts",
+        "packages/base/src/lib/utils/usePopupViewport.svelte.ts"
+      ],
       "adaptation": "shared-utils dependency: native initialized callback, stable untracked live closure",
       "status": "integrated-dependency-pending-final-review",
       "imports": [
@@ -824,7 +864,10 @@
           "kind": "runtime",
           "symbols": "{ useRefWithInit }"
         }
-      ]
+      ],
+      "nativeReplacement": "FieldControlRegistrationOwner class retains the pinned registration/source/baseline/cancellation business; its actual reactive registration wakes native Field/Form synchronization.",
+      "nativeReplacementCredit": 0,
+      "currentNativeHostGraph": "parity/native-snippets/native-graph.json"
     },
     {
       "source": "packages/utils/src/useTimeout.ts",
@@ -848,13 +891,72 @@
           "kind": "runtime",
           "symbols": "{ useOnMount }"
         }
-      ]
+      ],
+      "nativeReplacement": "Source Timeout class remains; useTimeout setup factory removed and used owners construct the class with direct onDestroy clearing.",
+      "nativeReplacementCredit": 0,
+      "currentNativeHostGraph": "parity/native-snippets/native-graph.json"
     },
     {
       "source": "packages/utils/src/useIsoLayoutEffect.ts",
       "sourceSha256": "13a0ab28d24b04617dc290ad151c145f2435d1e0c381123847af74344ea4b9a0",
       "symbol": "useIsoLayoutEffect",
-      "local": "packages/utils/src/lib/useIsoLayoutEffect.svelte.ts",
+      "local": [
+        "packages/base/src/lib/checkbox-group/CheckboxGroup.svelte",
+        "packages/base/src/lib/checkbox/root/CheckboxRoot.svelte",
+        "packages/base/src/lib/context-menu/trigger/createContextMenuTrigger.svelte.ts",
+        "packages/base/src/lib/dialog/root/DialogInteractions.svelte",
+        "packages/base/src/lib/field/Control.svelte",
+        "packages/base/src/lib/field/Description.svelte",
+        "packages/base/src/lib/field/Error.svelte",
+        "packages/base/src/lib/field/Label.svelte",
+        "packages/base/src/lib/field/root/FieldRootInner.svelte",
+        "packages/base/src/lib/floating-ui/components/FloatingDelayGroup.svelte",
+        "packages/base/src/lib/floating-ui/components/FloatingPortal.svelte",
+        "packages/base/src/lib/floating-ui/components/FloatingTree.svelte.ts",
+        "packages/base/src/lib/floating-ui/components/createFloatingFocusManager.svelte.ts",
+        "packages/base/src/lib/floating-ui/hooks/useClientPoint.svelte.ts",
+        "packages/base/src/lib/floating-ui/hooks/useDelayGroup.svelte.ts",
+        "packages/base/src/lib/floating-ui/hooks/useDismiss.svelte.ts",
+        "packages/base/src/lib/floating-ui/hooks/useFloating.svelte.ts",
+        "packages/base/src/lib/floating-ui/hooks/useFloatingPortalNode.svelte.ts",
+        "packages/base/src/lib/floating-ui/hooks/useFocus.svelte.ts",
+        "packages/base/src/lib/floating-ui/hooks/useHoverFloatingInteraction.svelte.ts",
+        "packages/base/src/lib/floating-ui/hooks/useHoverReferenceInteraction.svelte.ts",
+        "packages/base/src/lib/floating-ui/hooks/useListNavigation.svelte.ts",
+        "packages/base/src/lib/floating-ui/hooks/useSyncedFloatingRootContext.svelte.ts",
+        "packages/base/src/lib/floating-ui/hooks/useTypeahead.svelte.ts",
+        "packages/base/src/lib/internals/ValueChanged.svelte.ts",
+        "packages/base/src/lib/internals/composite/list/useCompositeListItem.svelte.ts",
+        "packages/base/src/lib/internals/field-register-control/FieldControlRegistration.svelte.ts",
+        "packages/base/src/lib/internals/field-register-control/useRegisterFieldControl.svelte.ts",
+        "packages/base/src/lib/internals/labelable-provider/useLabelableId.svelte.ts",
+        "packages/base/src/lib/internals/use-button/useButton.svelte.ts",
+        "packages/base/src/lib/internals/useOpenChangeComplete.svelte.ts",
+        "packages/base/src/lib/internals/useTransitionStatus.svelte.ts",
+        "packages/base/src/lib/menu/GroupLabel.svelte",
+        "packages/base/src/lib/menu/Popup.svelte",
+        "packages/base/src/lib/menu/positioner/createMenuPositioner.svelte.ts",
+        "packages/base/src/lib/menu/root/createMenuRoot.svelte.ts",
+        "packages/base/src/lib/menu/submenu-trigger/createMenuSubmenuTrigger.svelte.ts",
+        "packages/base/src/lib/menu/trigger/createMenuTrigger.svelte.ts",
+        "packages/base/src/lib/menubar/Menubar.svelte",
+        "packages/base/src/lib/popover/Positioner.svelte",
+        "packages/base/src/lib/popover/Root.svelte",
+        "packages/base/src/lib/preview-card/Positioner.svelte",
+        "packages/base/src/lib/preview-card/Root.svelte",
+        "packages/base/src/lib/radio/root/RadioRoot.svelte",
+        "packages/base/src/lib/remote-forms/RemoteNativeControl.svelte",
+        "packages/base/src/lib/switch/root/SwitchRoot.svelte",
+        "packages/base/src/lib/tooltip/Root.svelte",
+        "packages/base/src/lib/utils/closePart.svelte.ts",
+        "packages/base/src/lib/utils/popups/PopupHandleAttachment.svelte",
+        "packages/base/src/lib/utils/popups/popupStoreUtils.svelte.ts",
+        "packages/base/src/lib/utils/useAnchoredPopupScrollLock.svelte.ts",
+        "packages/base/src/lib/utils/usePopupAutoResize.svelte.ts",
+        "packages/base/src/lib/utils/usePopupViewport.svelte.ts",
+        "packages/base/src/lib/utils/useRegisteredLabelId.svelte.ts",
+        "packages/utils/src/lib/useScrollLock.svelte.ts"
+      ],
       "adaptation": "shared-utils dependency: post-DOM native effect, source dependency getter",
       "status": "integrated-dependency-pending-final-review",
       "imports": [
@@ -866,13 +968,26 @@
           "kind": "runtime",
           "symbols": "* as React"
         }
-      ]
+      ],
+      "nativeReplacement": "FieldControlRegistrationOwner class retains the pinned registration/source/baseline/cancellation business; its actual reactive registration wakes native Field/Form synchronization.",
+      "nativeReplacementCredit": 0,
+      "currentNativeHostGraph": "parity/native-snippets/native-graph.json"
     },
     {
       "source": "packages/utils/src/useRefWithInit.ts",
       "sourceSha256": "183cb6e86ab1f8044a431d5b4115c750f7848c9835d519881b3c7a66dae98354",
       "symbol": "useRefWithInit",
-      "local": "packages/utils/src/lib/useRefWithInit.ts",
+      "local": [
+        "packages/base/src/lib/field/root/useFieldValidation.svelte.ts",
+        "packages/base/src/lib/floating-ui/hooks/useHoverInteractionSharedState.svelte.ts",
+        "packages/base/src/lib/internals/ValueChanged.svelte.ts",
+        "packages/base/src/lib/internals/field-register-control/useRegisterFieldControl.svelte.ts",
+        "packages/base/src/lib/internals/labelable-provider/createLabelableProvider.svelte.ts",
+        "packages/base/src/lib/internals/labelable-provider/useLabelableId.svelte.ts",
+        "packages/base/src/lib/menu/root/createMenuRoot.svelte.ts",
+        "packages/utils/src/lib/useAnimationFrame.ts",
+        "packages/utils/src/lib/useTimeout.ts"
+      ],
       "adaptation": "shared-utils dependency: one native initialization",
       "status": "integrated-dependency-pending-final-review",
       "imports": [
@@ -884,7 +999,10 @@
           "kind": "runtime",
           "symbols": "* as React"
         }
-      ]
+      ],
+      "nativeReplacement": "Source Scheduler/reset/AnimationFrame class business remains; useAnimationFrame setup factory removed and used owners construct the class with direct onDestroy cancellation. Source Timeout class remains; useTimeout setup factory removed and used owners construct the class with direct onDestroy clearing.",
+      "nativeReplacementCredit": 0,
+      "currentNativeHostGraph": "parity/native-snippets/native-graph.json"
     },
     {
       "source": "packages/utils/src/empty.ts",
@@ -900,7 +1018,7 @@
       "source": "packages/react/src/internals/useValueChanged.ts",
       "sourceSha256": "fa36f17e32a4a0b3f8edabe219810a505cefa9c926d3ae807310c6013f57de6d",
       "symbol": "useValueChanged",
-      "local": "packages/base/src/lib/internals/useValueChanged.svelte.ts",
+      "local": "packages/base/src/lib/internals/ValueChanged.svelte.ts",
       "adaptation": "shared-utils dependency: callback before previous update",
       "status": "integrated-dependency-pending-final-review",
       "imports": [
@@ -924,7 +1042,9 @@
           "kind": "runtime",
           "symbols": "{ useStableCallback }"
         }
-      ]
+      ],
+      "nativeReplacement": "ValueChanged class retains previous-value notification ordering with a native effect.",
+      "nativeReplacementCredit": 0
     },
     {
       "source": "packages/react/src/internals/useRenderElement.tsx",
@@ -1747,7 +1867,10 @@
           "symbols": "{ useOnMount }"
         }
       ],
-      "historicalAdaptation": "Source instance request/cancel/currentId/dispose/ref/mount shape; native rAF replaces source process-global framework scheduler. Scheduler timing/exception differences have zero parity credit."
+      "historicalAdaptation": "Source instance request/cancel/currentId/dispose/ref/mount shape; native rAF replaces source process-global framework scheduler. Scheduler timing/exception differences have zero parity credit.",
+      "nativeReplacement": "Source Scheduler/reset/AnimationFrame class business remains; useAnimationFrame setup factory removed and used owners construct the class with direct onDestroy cancellation.",
+      "nativeReplacementCredit": 0,
+      "currentNativeHostGraph": "parity/native-snippets/native-graph.json"
     },
     {
       "source": "packages/react/src/utils/resolveRef.ts",

@@ -22,9 +22,7 @@
   );
   const context = root.positioner.context;
   if (!context)
-    throw new Error(
-      'Base UI: Menu.Positioner requires its actual floating root context.',
-    );
+    throw new Error('Base UI: Menu.Positioner requires its actual floating root context.');
   provideMenuPositionerContext({
     get side() {
       return root.positioner.side;
@@ -61,8 +59,7 @@
   const backdropProps = $derived({
     [backdropAttachmentKey]: (host: HTMLDivElement) => {
       const owner =
-        root.parent.type === 'context-menu' ||
-        root.parent.type === 'nested-context-menu'
+        root.parent.type === 'context-menu' || root.parent.type === 'nested-context-menu'
           ? root.parent.context.internalBackdropRef
           : undefined;
       if (owner) owner.current = host;
@@ -74,11 +71,7 @@
 </script>
 
 {#if root.shouldRenderBackdrop}
-  <InternalBackdrop
-    {...backdropProps}
-    inert={!root.open}
-    cutout={root.backdropCutout}
-  />
+  <InternalBackdrop {...backdropProps} inert={!root.open} cutout={root.backdropCutout} />
 {/if}
 {#if renderSnippet}
   {@render renderSnippet(mergedProps, renderState, props.children)}

@@ -5,12 +5,7 @@
   import InternalBackdrop from '../utils/InternalBackdrop.svelte';
   import { PORTAL, useDialogRootContext } from './context.js';
   import type { DialogPortalProps } from './types.js';
-  let {
-    keepMounted = false,
-    children,
-    ref = $bindable(),
-    ...props
-  }: DialogPortalProps = $props();
+  let { keepMounted = false, children, ref = $bindable(), ...props }: DialogPortalProps = $props();
   const store = useDialogRootContext();
   setContext(PORTAL, {
     get keepMounted() {

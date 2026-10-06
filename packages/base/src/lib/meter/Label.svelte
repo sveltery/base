@@ -24,10 +24,7 @@
   $effect(() => {
     const registered = id;
     context.setLabelId(registered);
-    return () =>
-      context.setLabelId((current) =>
-        current === registered ? undefined : current,
-      );
+    return () => context.setLabelId((current) => (current === registered ? undefined : current));
   });
   const internal = $derived({ id, role: 'presentation' });
 
@@ -42,12 +39,7 @@
     });
   }
   const mergedProps = $derived({
-    ...mergeComponentProps(
-      state,
-      { class: classProp, style },
-      [internal, props],
-      false,
-    ),
+    ...mergeComponentProps(state, { class: classProp, style }, [internal, props], false),
     [hostAttachmentKey]: attachHost,
   });
 </script>

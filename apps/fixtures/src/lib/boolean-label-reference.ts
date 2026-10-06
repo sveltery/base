@@ -20,9 +20,7 @@ export function mountBooleanLabelReference(
   function setLabel(label: BooleanLabelState) {
     const controlProps = { id: 'label-control', 'data-control': '' };
     const control =
-      family === 'checkbox'
-        ? h(Checkbox.Root, controlProps)
-        : h(Switch.Root, controlProps);
+      family === 'checkbox' ? h(Checkbox.Root, controlProps) : h(Switch.Root, controlProps);
     root.render(
       h(
         'main',
@@ -33,9 +31,7 @@ export function mountBooleanLabelReference(
         },
         control,
         h('span', { 'data-gap': '' }),
-        label.present
-          ? h('label', { id: label.id, htmlFor: label.htmlFor }, 'Native label')
-          : null,
+        label.present ? h('label', { id: label.id, htmlFor: label.htmlFor }, 'Native label') : null,
       ),
     );
   }

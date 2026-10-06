@@ -33,25 +33,16 @@
     });
   }
   const mergedProps = $derived({
-    ...mergeComponentProps(
-      state,
-      { class: classProp, style },
-      [internal, props],
-      false,
-    ),
+    ...mergeComponentProps(state, { class: classProp, style }, [internal, props], false),
     [hostAttachmentKey]: attachHost,
   });
 </script>
 
 {#snippet content()}
   {#if children}{@render children(
-      context.state.status === 'indeterminate'
-        ? 'indeterminate'
-        : context.formattedValue,
+      context.state.status === 'indeterminate' ? 'indeterminate' : context.formattedValue,
       context.value,
-    )}{:else}{context.state.status === 'indeterminate'
-      ? ''
-      : context.formattedValue}{/if}
+    )}{:else}{context.state.status === 'indeterminate' ? '' : context.formattedValue}{/if}
 {/snippet}
 {#if render}
   {@render render(mergedProps, state, content)}

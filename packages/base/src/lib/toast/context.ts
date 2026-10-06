@@ -3,7 +3,8 @@ import { createContext } from 'svelte';
 import type { ToastStore } from './store.js';
 import type { ToastManagerFacade } from './types.js';
 
-const [getProviderContext, setProviderContext, hasProviderContext] = createContext<ToastProviderContext>();
+const [getProviderContext, setProviderContext, hasProviderContext] =
+  createContext<ToastProviderContext>();
 export { setProviderContext };
 export interface ToastProviderContext {
   readonly store: ToastStore;

@@ -62,12 +62,7 @@
     });
   }
   const mergedProps = $derived({
-    ...mergeComponentProps(
-      partState,
-      { class: classProp, style },
-      [internal, props],
-      false,
-    ),
+    ...mergeComponentProps(partState, { class: classProp, style }, [internal, props], false),
     [hostAttachmentKey]: attachHost,
   });
 </script>

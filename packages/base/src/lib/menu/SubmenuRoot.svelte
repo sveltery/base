@@ -8,4 +8,5 @@
   const parentMenu = useMenuRootContext().store;
   provideMenuSubmenuRootContext({ parentMenu });
 </script>
+
 <Root {...props} bind:actions />

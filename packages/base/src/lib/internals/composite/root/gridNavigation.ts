@@ -10,11 +10,7 @@ import {
 import { ARROW_DOWN, ARROW_LEFT, ARROW_RIGHT } from '../composite.js';
 
 type CompositeGridElementsRef = { current: Array<HTMLElement | null> };
-type CompositeGridOnLoop = (
-  event: KeyboardEvent,
-  prevIndex: number,
-  nextIndex: number,
-) => number;
+type CompositeGridOnLoop = (event: KeyboardEvent, prevIndex: number, nextIndex: number) => number;
 
 export interface CompositeGridItemSize {
   width: number;
@@ -40,9 +36,7 @@ export interface CompositeGridNavigationState {
   rtl: boolean;
 }
 
-export type CompositeGridNavigator = (
-  state: CompositeGridNavigationState,
-) => number;
+export type CompositeGridNavigator = (state: CompositeGridNavigationState) => number;
 
 /**
  * Builds the grid navigation handler passed to `CompositeRoot`/`useCompositeRoot`
@@ -50,9 +44,7 @@ export type CompositeGridNavigator = (
  * navigation: composites that don't pass `grid` never reference the algorithm,
  * so bundlers tree-shake the grid helpers out.
  */
-export function gridNavigation(
-  config: CompositeGridConfig,
-): CompositeGridNavigator {
+export function gridNavigation(config: CompositeGridConfig): CompositeGridNavigator {
   const { cols, dense = false, itemSizes } = config;
 
   return (state) => {
@@ -78,22 +70,17 @@ export function gridNavigation(
     // Work in hypothetical 1x1 cell indices, then convert back to item indices.
     const cellMap = createGridCellMap(sizes, cols, dense);
     const minGridIndex = cellMap.findIndex(
-      (index) =>
-        index != null &&
-        !isListIndexDisabled(elementsRef.current, index, disabledIndices),
+      (index) => index != null && !isListIndexDisabled(elementsRef.current, index, disabledIndices),
     );
     const maxGridIndex = cellMap.reduce(
       (foundIndex: number, index, cellIndex) =>
-        index != null &&
-        !isListIndexDisabled(elementsRef.current, index, disabledIndices)
+        index != null && !isListIndexDisabled(elementsRef.current, index, disabledIndices)
           ? cellIndex
           : foundIndex,
       -1,
     );
     const cellIndex = getGridNavigatedIndex(
-      cellMap.map((itemIndex) =>
-        itemIndex != null ? elementsRef.current[itemIndex] : null,
-      ),
+      cellMap.map((itemIndex) => (itemIndex != null ? elementsRef.current[itemIndex] : null)),
       {
         event,
         orientation,
@@ -105,9 +92,7 @@ export function gridNavigation(
           [
             ...(disabledIndices ||
               elementsRef.current.map((_, index) =>
-                isListIndexDisabled(elementsRef.current, index)
-                  ? index
-                  : undefined,
+                isListIndexDisabled(elementsRef.current, index) ? index : undefined,
               )),
             undefined,
           ],
