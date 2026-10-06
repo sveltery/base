@@ -72,7 +72,7 @@ for (const [framework, visible, disabled, scroll] of [
       scrollTo: { value: () => undefined },
     });
     const calls: ScrollToOptions[] = [];
-    container.scrollTo = (options: ScrollToOptions | number) => {
+    container.scrollTo = (options?: ScrollToOptions | number) => {
       if (typeof options === 'object') calls.push(options);
     };
     expect(foreign.defaultView).toBeNull();

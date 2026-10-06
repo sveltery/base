@@ -1,0 +1,26 @@
+{
+  "pin": "47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c",
+  "predecessor": "530b501e926494e1a7a1b38e3c17116970f22543",
+  "hostedFailure": "https://github.com/sveltery/base/actions/runs/37533190256/job/112507633476",
+  "repair": "composite-realm-source.test.ts optional scrollTo argument satisfies actual DOM zero-argument overload; assertions and all runtime source unchanged",
+  "local": {
+    "before": "Base svelte-check exit 1, one error and six warnings",
+    "after": "Base svelte-check exit 0, zero errors and six warnings; paired helper DOM 6/6 pass",
+    "fullGates": "Not waived; final hosted execution and canonical accepted main integration pending"
+  },
+  "ordinaryCredit": 0,
+  "receipts": [
+    {
+      "path": "parity/dialog/receipts/dialog-scroll-stub-types.log.gz",
+      "decodedSha256": "e8aabd89c33d38415f0643789277c721717a794a57a627d2b72720f1c0682211"
+    },
+    {
+      "path": "parity/dialog/receipts/dialog-scroll-stub-types-green.log.gz",
+      "decodedSha256": "22fc653c0911c574ed83305239a69b8c232b2a7961600f6903fe2c2f420d43f1"
+    },
+    {
+      "path": "parity/dialog/receipts/dialog-scroll-stub-dom-green.log.gz",
+      "decodedSha256": "2028cf12721a434da8ac9fcc720a07efd3c0f4aa25fb54b0b43287f32b617ee8"
+    }
+  ]
+}
