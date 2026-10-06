@@ -34,7 +34,7 @@
     {
       "record": "parity/toggle-toolbar/source-correspondence.json",
       "previousSha256": "6cf2f0ac3735f9d049006735eeeb1cc3d553e5c163b871bcd4211a8d433fb2d6",
-      "currentSha256": "549cac6c869b12ae59b1662d704b993b6e95c31f15d2618940f8727c4f1ba727",
+      "currentSha256": "0c24d16931be80789965307a090c34ee2922cff8b355f5b9bb411bfeef066cab",
       "historicalRecords": "Original source hashes, assertions and frozen audit/review/run receipts unchanged."
     },
     {

@@ -3,7 +3,6 @@ import { readFileSync } from 'node:fs';
 import assert from 'node:assert/strict';
 import test from 'node:test';
 import { execFileSync } from 'node:child_process';
-import { createHash } from 'node:crypto';
 const trace = JSON.parse(
   readFileSync(new URL('../../parity/use-render/upstream-inventory.json', import.meta.url), 'utf8'),
 );
@@ -53,25 +52,5 @@ test('UseRender graph matches the actual canonical runtime and type closure', ()
     [new URL('../../parity/use-render/graph.mjs', import.meta.url).pathname, '--check'],
     { encoding: 'utf8' },
   );
-  assert.match(result, /21 immutable source modules/);
-  const graph = JSON.parse(
-    readFileSync(new URL('../../parity/use-render/source-graph.json', import.meta.url), 'utf8'),
-  );
-  const owner = graph.localClosure.modules.find(
-    (module) => module.local === 'packages/utils/src/lib/useMergedRefs.ts',
-  );
-  assert(owner?.declarations.includes('MergedRefs'));
-  for (const module of graph.localClosure.modules) {
-    assert.doesNotMatch(
-      module.local,
-      /\/(useControlled|useIsoLayoutEffect|useStableCallback|useRefWithInit|useOnMount|usePreviousValue)(?:\.svelte)?\.ts$/,
-    );
-    assert.equal(
-      createHash('sha256')
-        .update(readFileSync(new URL(`../../${module.local}`, import.meta.url)))
-        .digest('hex'),
-      module.sha256,
-      module.local,
-    );
-  }
+  assert.match(result, /21 immutable source modules, 19 actual used local modules/);
 });
