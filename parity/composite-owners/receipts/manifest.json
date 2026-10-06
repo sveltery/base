@@ -103,6 +103,12 @@
       "rawBytes": 2104,
       "rawSha256": "25ae09f0dd1d94c5fe4b060d1c1c1b6667607c4dfdde0ee96d8237faaf7a99a9",
       "gzipSha256": "20fc148761e1d681c0801645d042bdf2a867fbd0b3670cafbeb02175a0237149"
+    },
+    {
+      "file": "parity/composite-owners/receipts/standards-final.log.gz",
+      "rawBytes": 986,
+      "rawSha256": "d9dfa56a9533f31422d927a0e045cd14895086ce2db75921492b9c0e9135df79",
+      "gzipSha256": "dd25f2db33c69e3186050194975098c37137ff53ef40fbf11243e80e625e6595"
     }
   ]
 }
