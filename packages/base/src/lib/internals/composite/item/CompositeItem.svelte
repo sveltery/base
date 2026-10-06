@@ -29,7 +29,7 @@
       tag?: string;
       children?: Snippet;
     } = $props();
-  const composite = useCompositeItem(() => ({ metadata }));
+  const composite = new useCompositeItem(() => ({ metadata }));
 
   const hostAttachmentKey = createAttachmentKey();
   function attachHost(host: HTMLElement) {

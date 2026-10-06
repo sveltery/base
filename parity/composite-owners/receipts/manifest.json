@@ -1,0 +1,108 @@
+{
+  "runtimeCandidate": "2e68c2580ef8980cc7f45d9ebb00ad1011f392c3",
+  "note": "Raw command streams preserved losslessly with deterministic gzip. Metadata/consumer successor changes do not alter runtime candidate. Failed streams remain red; no assertion credit is conferred. Commands/results explained in execution.md.",
+  "receipts": [
+    {
+      "file": "parity/composite-owners/receipts/artifacts.log.gz",
+      "rawBytes": 37298,
+      "rawSha256": "27bd2159f57b9e6c3a475f482f3ac8383218dd4ba7ad938abc980001c5197394",
+      "gzipSha256": "3c8467296f5e78e65fbd0e173f94cc64b86566415fd4ad8c2a242b0ccfb824a4"
+    },
+    {
+      "file": "parity/composite-owners/receipts/browser-install.log.gz",
+      "rawBytes": 5529,
+      "rawSha256": "e79b546d31c2bfe1cb500886c5b06b2e1b42cdf01c80bc47d7196b9726eef073",
+      "gzipSha256": "7549374b5543c8ffc2a71ec7edeacecc23cf9a6addf6062d95c9423e8d73bdbe"
+    },
+    {
+      "file": "parity/composite-owners/receipts/fixture-build.log.gz",
+      "rawBytes": 350144,
+      "rawSha256": "fbe2e07f88752d813f2e4b1d88ab5b6926e8b5f1d1e9f2e69a95fd43d2e1243f",
+      "gzipSha256": "77b02bdf3370fd316ef0628354cdfe04966bacaa6e6f2ac3ce7602d527cccc6e"
+    },
+    {
+      "file": "parity/composite-owners/receipts/focused-dom-pinned.log.gz",
+      "rawBytes": 520,
+      "rawSha256": "df737ebc2707f4be7a58fc7b7f1c3a03712c7b3c3c97f8c4eb1a1dcc73f8c762",
+      "gzipSha256": "c8d0de78c3a89a55fd31ea0c23f97a742bd6fde1912f9696559ff949969c037c"
+    },
+    {
+      "file": "parity/composite-owners/receipts/focused-dom.log.gz",
+      "rawBytes": 2003,
+      "rawSha256": "524fd4f1d4296ad946dd9c6a72707d6c527770f60b2c9ce011d76786ac6c7b78",
+      "gzipSha256": "76600be76bf5cce49ff65a239c4b10acdef89c70cc3d5a28486380ec5f98143e"
+    },
+    {
+      "file": "parity/composite-owners/receipts/full-dom.log.gz",
+      "rawBytes": 2637,
+      "rawSha256": "eb66fc9b73f0e5e15d5b08dc3f32b2c06bf3f97946aff7d0cc1836d5501b9524",
+      "gzipSha256": "fffb52d081f77614f75a92b9b8668c6ed84f9b37a0d736638135fcd8e7562b38"
+    },
+    {
+      "file": "parity/composite-owners/receipts/node-tests-prepared.log.gz",
+      "rawBytes": 1230,
+      "rawSha256": "a6c414b5010b61c030ba943e885cb8797f0a413291910ce37ffbeb5f18e506da",
+      "gzipSha256": "351042ea48ef009c14ad324b7dc2789415a1eabb1d504579e9cd94deaf34f77c"
+    },
+    {
+      "file": "parity/composite-owners/receipts/node-tests.log.gz",
+      "rawBytes": 347,
+      "rawSha256": "21a64c06b33ee20635d385b1b0541e7be927a2990e6b4f530ad96e8fd2d66915",
+      "gzipSha256": "22791955f5374a27eb143f9929d004434d35627d07f31df993107552174f6e9a"
+    },
+    {
+      "file": "parity/composite-owners/receipts/packed-consumer-corrected.log.gz",
+      "rawBytes": 2905,
+      "rawSha256": "5136367be0f21de4eb555b4a0c68a2f96a9bcbaa26274ead30d53cfd40aa11de",
+      "gzipSha256": "5ffa748f33a755da96f6accd320e11d0ae9dd3f4f8cabd22da20dcad447ea93f"
+    },
+    {
+      "file": "parity/composite-owners/receipts/packed-consumer-final.log.gz",
+      "rawBytes": 456,
+      "rawSha256": "7317634c0f9d42ba89c0184d8226af40b3d4facf49d80377be8b02c2d72da11f",
+      "gzipSha256": "133c83f5ca04c0bad9479ff28e6e64673cde4507dc3cd3ef7f07fe6fc7e31ca6"
+    },
+    {
+      "file": "parity/composite-owners/receipts/packed-consumer.log.gz",
+      "rawBytes": 2914,
+      "rawSha256": "5e5ffc580d01a9c387418ae9a3761612d9b55c441e2f08d8be70f1a9a8991d86",
+      "gzipSha256": "7d99a157243c2af8485058da80098e959fc3a94b7709b519fbfb798b3e37ecaa"
+    },
+    {
+      "file": "parity/composite-owners/receipts/runtime-boundary.log.gz",
+      "rawBytes": 61,
+      "rawSha256": "7eb14a3a2cac9fe7d677ef3a7519f5045bb935af2549e71f9ddf392ebb65a36d",
+      "gzipSha256": "e4b850e7b6f96f57ff98b7644a3de5a259674185c74fe8bb3f6975340e97b5b2"
+    },
+    {
+      "file": "parity/composite-owners/receipts/script-tests.log.gz",
+      "rawBytes": 16873,
+      "rawSha256": "0836681f047a1e2d304a912123b187e7bc81b68caf5d3e83d06989fa88e41e36",
+      "gzipSha256": "0728440b8cb51d2f8b50e3301c602353a0b44a7bdf5d565ddbb59fe744cfee4e"
+    },
+    {
+      "file": "parity/composite-owners/receipts/standards-corrected.log.gz",
+      "rawBytes": 226,
+      "rawSha256": "68014e7ad63868072d81e6735a7d8351cd38d23e72468510369da7dbca7dc1a6",
+      "gzipSha256": "1371c5e7c31f7ca0b3cf99335a8cef8dd298f5829627e98d59acc8888446131e"
+    },
+    {
+      "file": "parity/composite-owners/receipts/standards.log.gz",
+      "rawBytes": 226,
+      "rawSha256": "68014e7ad63868072d81e6735a7d8351cd38d23e72468510369da7dbca7dc1a6",
+      "gzipSha256": "1371c5e7c31f7ca0b3cf99335a8cef8dd298f5829627e98d59acc8888446131e"
+    },
+    {
+      "file": "parity/composite-owners/receipts/workspace-check.log.gz",
+      "rawBytes": 1984,
+      "rawSha256": "d53119292d129c236649626f38033ae5afcf63813220a3cf56ca1ddfab2dafd2",
+      "gzipSha256": "949be082b1a64ee2de865bdd98096e2d32223870b9f6a714a07d4c2401901e15"
+    },
+    {
+      "file": "parity/composite-owners/receipts/bootstrap.log.gz",
+      "rawBytes": 2104,
+      "rawSha256": "25ae09f0dd1d94c5fe4b060d1c1c1b6667607c4dfdde0ee96d8237faaf7a99a9",
+      "gzipSha256": "20fc148761e1d681c0801645d042bdf2a867fbd0b3670cafbeb02175a0237149"
+    }
+  ]
+}

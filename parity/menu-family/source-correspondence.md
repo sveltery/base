@@ -49,3 +49,6 @@ and execution limits remain in [development checkpoints](development-checkpoints
 Whole source review, secured paired browser acceptance, final strict packed
 consumer, full verification/Standards/configured CI and Root exact-head approval
 are still pending. No merge or entire-family acceptance is claimed.
+# Current canonical Composite class successor
+
+Menu Positioner, item parts and submenu trigger construct the same [canonical Composite class owners](../composite-owners/source-correspondence.md) with `new`. List map/observer/publication and item index/registration/cleanup business remain shared. Menubar keeps its Root/Item composition. Existing immutable Source/assertion archives, red receipts and historical closure counts remain historical; current class/native closure records grant zero new unchanged Original assertion credit. PR #42/PR #73 and separate reached canonical owners remain accepted-main prerequisites before final acceptance.

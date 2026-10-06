@@ -46,7 +46,7 @@
       children?: Snippet;
     } = $props();
   const getDirection = useDirection();
-  const composite = useCompositeRoot(() => ({
+  const composite = new useCompositeRoot(() => ({
     grid,
     loopFocus,
     onLoop,
@@ -69,7 +69,7 @@
     },
     relayKeyboardEvent: composite.relayKeyboardEvent,
   });
-  createCompositeList(() => ({
+  new createCompositeList(() => ({
     elementsRef: composite.elementsRef,
     onMapChange(map) {
       onMapChange?.(map);

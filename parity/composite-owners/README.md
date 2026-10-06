@@ -1,0 +1,9 @@
+# Canonical Composite reusable owners
+
+Representation-only prerequisite. See [source correspondence](source-correspondence.md), [immutable Source closure](source-closure.json), [actual native/caller closure](native-closure.json), and [pre-edit native checkpoint](pre-edit-native-closure.json). No Source/native/maintainability acceptance, executed browser/SSR/package credit, or unchanged upstream assertion credit is granted by these records.
+
+Regenerate with `node parity/composite-owners/record-closure.mjs /path/to/exact-pin-checkout`; check with the same command plus `--check`. The script rejects any upstream HEAD other than the immutable pin. TypeScript AST records runtime/type import and re-export edges, mixed named-import type flags, import-type and dynamic-import edges. Workspace package exports resolve to their single canonical source owner; complete file bytes receive SHA-256 hashes. Svelte script blocks supply AST imports; actual full Svelte bodies are hashed. External modules remain explicit.
+
+The pre-edit checkpoint is historical and must not be regenerated. Current graph refresh is required after owner/caller changes. Final review and CI must refer to the stable public pushed SHA externally, avoiding a tracked self-referential commit hash.
+
+The Source record distinguishes `canonicalModules` (118) from `modules` (250, including the complete forward closure of 21 explicit immutable caller counterparts). The native record distinguishes `ownerModules` (35) from `modules` (243, including callers). [Pre-edit Source118](pre-edit-source-closure.json) is preserved exactly. The initial source trace omitted caller counterpart forward closures; the successor correction does not retroactively establish pre-edit full tracing or acceptance. Fresh independent review must examine the additional 132 Source modules.

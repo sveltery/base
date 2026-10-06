@@ -17,38 +17,61 @@ interface Parameters {
   labelsRef?: { current: Array<string | null> };
   onMapChange?: (map: Map<Element, CompositeMetadata>) => void;
 }
-export function createCompositeList(getParameters: () => Parameters) {
-  let mapTick = $state(0);
-  const listeners = new SvelteSet<(map: Map<Element, CompositeMetadata>) => void>();
-  const map = new SvelteMap<Element, CompositeListRegistration>();
-  const nextIndexRef = { current: 0 };
-  const isDirtyRef = { current: true };
-  const itemsRef: { current: readonly CompositeListItem[] | null } = {
+export class createCompositeList {
+  private getParameters: () => Parameters;
+
+  constructor(getParameters: () => Parameters) {
+    this.getParameters = getParameters;
+    $effect(() => {
+      void this.mapTick;
+      untrack(() => {
+        if (this.isDirtyRef.current) this.flush();
+      });
+    });
+    onDestroy(() => {
+      this.mutationObserverRef.current?.disconnect();
+      this.getParameters().elementsRef.current = [];
+      const labelsRef = this.getParameters().labelsRef;
+      if (labelsRef) labelsRef.current = [];
+    });
+    setCompositeListContext({
+      register: this.register,
+      unregister: this.unregister,
+      subscribeMapChange: this.subscribeMapChange,
+      nextIndexRef: this.nextIndexRef,
+    });
+  }
+  private mapTick = $state(0);
+  private listeners = new SvelteSet<(map: Map<Element, CompositeMetadata>) => void>();
+  private map = new SvelteMap<Element, CompositeListRegistration>();
+  private nextIndexRef = { current: 0 };
+  private isDirtyRef = { current: true };
+  private itemsRef: { current: readonly CompositeListItem[] | null } = {
     current: null,
   };
-  const mutationObserverRef: { current: MutationObserver | null } = {
+  private mutationObserverRef: { current: MutationObserver | null } = {
     current: null,
   };
-  const scheduleMapUpdate = () => {
-    if (isDirtyRef.current) return;
-    isDirtyRef.current = true;
+  private scheduleMapUpdate = () => {
+    if (this.isDirtyRef.current) return;
+    this.isDirtyRef.current = true;
     untrack(() => {
-      mapTick += 1;
+      this.mapTick += 1;
     });
   };
-  const register = (node: Element, registration: CompositeListRegistration) => {
-    map.set(node, registration);
-    scheduleMapUpdate();
+  private register = (node: Element, registration: CompositeListRegistration) => {
+    this.map.set(node, registration);
+    this.scheduleMapUpdate();
   };
 
-  const unregister = (node: Element) => {
-    map.delete(node);
-    scheduleMapUpdate();
+  private unregister = (node: Element) => {
+    this.map.delete(node);
+    this.scheduleMapUpdate();
   };
 
-  const syncRefs = (items: readonly CompositeListItem[]) => {
+  private syncRefs = (items: readonly CompositeListItem[]) => {
     const nextMap = new SvelteMap<Element, CompositeMetadata>();
-    const { elementsRef, labelsRef } = getParameters();
+    const { elementsRef, labelsRef } = this.getParameters();
 
     elementsRef.current.length = 0;
     if (labelsRef) {
@@ -71,14 +94,14 @@ export function createCompositeList(getParameters: () => Parameters) {
       }
     });
 
-    nextIndexRef.current = elementsRef.current.length;
+    this.nextIndexRef.current = elementsRef.current.length;
 
     return nextMap;
   };
 
-  function observe(sortedNodes: HTMLElement[]) {
-    mutationObserverRef.current?.disconnect();
-    mutationObserverRef.current = null;
+  private observe(sortedNodes: HTMLElement[]) {
+    this.mutationObserverRef.current?.disconnect();
+    this.mutationObserverRef.current = null;
 
     // A single item can't reorder.
     if (typeof MutationObserver !== 'function' || sortedNodes.length < 2) {
@@ -105,7 +128,7 @@ export function createCompositeList(getParameters: () => Parameters) {
 
         if (previousConnectedNode && sortByDocumentPosition(previousConnectedNode, node) > 0) {
           mutationObserver.disconnect();
-          scheduleMapUpdate();
+          this.scheduleMapUpdate();
           return;
         }
 
@@ -113,7 +136,7 @@ export function createCompositeList(getParameters: () => Parameters) {
       }
     });
 
-    mutationObserverRef.current = mutationObserver;
+    this.mutationObserverRef.current = mutationObserver;
 
     // A reorder that changes item indexes must invert at least one adjacent pair
     // from the previous sorted order. Observing each pair's common parent catches
@@ -129,11 +152,11 @@ export function createCompositeList(getParameters: () => Parameters) {
     roots.forEach((root) => mutationObserver.observe(root, { childList: true }));
   }
 
-  const flush = () => {
-    const [items, automaticNodes] = getCompositeListSnapshot(map);
-    const nextMap = syncRefs(items);
+  private flush = () => {
+    const [items, automaticNodes] = getCompositeListSnapshot(this.map);
+    const nextMap = this.syncRefs(items);
 
-    const previousItems = itemsRef.current;
+    const previousItems = this.itemsRef.current;
     const changed =
       !previousItems ||
       previousItems.length !== items.length ||
@@ -147,43 +170,26 @@ export function createCompositeList(getParameters: () => Parameters) {
         );
       });
 
-    observe(automaticNodes);
-    itemsRef.current = items;
-    isDirtyRef.current = false;
+    this.observe(automaticNodes);
+    this.itemsRef.current = items;
+    this.isDirtyRef.current = false;
 
     if (!changed) {
       return;
     }
 
-    listeners.forEach((listener) => listener(nextMap));
-    getParameters().onMapChange?.(nextMap);
+    this.listeners.forEach((listener) => listener(nextMap));
+    this.getParameters().onMapChange?.(nextMap);
   };
 
-  $effect(() => {
-    void mapTick;
-    untrack(() => {
-      if (isDirtyRef.current) flush();
-    });
-  });
-  onDestroy(() => {
-    mutationObserverRef.current?.disconnect();
-    getParameters().elementsRef.current = [];
-    const labelsRef = getParameters().labelsRef;
-    if (labelsRef) labelsRef.current = [];
-  });
-  const subscribeMapChange = (fn: (map: Map<Element, CompositeMetadata>) => void) => {
-    listeners.add(fn);
+  private subscribeMapChange = (fn: (map: Map<Element, CompositeMetadata>) => void) => {
+    this.listeners.add(fn);
     return () => {
-      listeners.delete(fn);
+      this.listeners.delete(fn);
     };
   };
-  setCompositeListContext({
-    register,
-    unregister,
-    subscribeMapChange,
-    nextIndexRef,
-  });
 }
+
 function getCompositeListSnapshot(map: Map<Element, CompositeListRegistration>) {
   const reservedIndices = new SvelteSet<number>();
   const items: CompositeListItem[] = [];

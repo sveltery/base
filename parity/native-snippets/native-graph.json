@@ -5498,7 +5498,7 @@
     },
     {
       "source": "packages/base/src/lib/internals/composite/item/CompositeItem.svelte",
-      "sha256": "23e78d87cbeb13db6e655c95b20f57d4dd19dfd16a91af90d73d954100be7797",
+      "sha256": "abaa9365fe8b03a68fa3feb566f77c60d23c79031fceb7961fee34ad89327826",
       "imports": [
         {
           "specifier": "../../mergeComponentProps.js",
@@ -5534,7 +5534,7 @@
     },
     {
       "source": "packages/base/src/lib/internals/composite/item/useCompositeItem.svelte.ts",
-      "sha256": "d90708b23dde83c4381ea1085767ec30135307525c1ea9e5422e9879a522daad",
+      "sha256": "e614d4979b857c2ea39092ce79a153399974fa81537286e697933ac4ea1fe604",
       "imports": [
         {
           "specifier": "svelte/attachments",
@@ -5566,7 +5566,7 @@
     },
     {
       "source": "packages/base/src/lib/internals/composite/list/createCompositeList.svelte.ts",
-      "sha256": "eb23334825782ebd6c5c2697f1aad75f6f557c1e387fa6ea0a78c276bfead975",
+      "sha256": "71f38c19bcb64f4443f76d533a583cebe826c896a1b22cac6c462c7bcbce07b5",
       "imports": [
         {
           "specifier": "svelte",
@@ -5587,7 +5587,7 @@
     },
     {
       "source": "packages/base/src/lib/internals/composite/list/useCompositeListItem.svelte.ts",
-      "sha256": "94d353c7d884b35bd002a9278a7701e7b1e835d536b8eb8a94f2a56d7fa72841",
+      "sha256": "68d88dec21b0b7ed25094f43d4939998b388f296c18cd388b1f4d33e9f3966fa",
       "imports": [
         {
           "specifier": "svelte",
@@ -5603,7 +5603,7 @@
     },
     {
       "source": "packages/base/src/lib/internals/composite/root/CompositeRoot.svelte",
-      "sha256": "29241d2982ea752a27d65c8c15cc9e3675efd2cfbc0917a4b112c5179c7d2e4e",
+      "sha256": "7553f59b1223d8f358c44f2fd67b5b2e9f0772adb15cf7444eedf8c36ced05a6",
       "imports": [
         {
           "specifier": "../../mergeComponentProps.js",
@@ -5686,7 +5686,7 @@
     },
     {
       "source": "packages/base/src/lib/internals/composite/root/useCompositeRoot.svelte.ts",
-      "sha256": "bdd6ced8bc2a28c77a2572b6b54eab7ad09ee111ddf2bcdbe777686f947c39b6",
+      "sha256": "1b056433974f5a0e3b51d18893f06aa7971779e046261d1ebcf2a2557b7a6aed",
       "imports": [
         {
           "specifier": "@sveltery/utils/isElementDisabled",
@@ -6422,7 +6422,7 @@
     },
     {
       "source": "packages/base/src/lib/menu/CheckboxItem.svelte",
-      "sha256": "3db96f6be4c7fe6cc2da6a5db1a2581c0175c0461a2e35a22e1aea78e58d4cfe",
+      "sha256": "4d38de3943e120400b767a7df2c657c84ea06a28b90f523cceb7fbfc814497bd",
       "imports": [
         {
           "specifier": "../internals/mergeComponentProps.js",
@@ -6854,7 +6854,7 @@
     },
     {
       "source": "packages/base/src/lib/menu/Item.svelte",
-      "sha256": "b6e0464d3eacabbb8d3ad0b9188f9e29e7114e5c13dbc031e6d05213e77ecafb",
+      "sha256": "1c21f31286a6774ce323f90535253b6d279a1ca8c6372f90d18619926a0145de",
       "imports": [
         {
           "specifier": "../internals/mergeComponentProps.js",
@@ -6977,7 +6977,7 @@
     },
     {
       "source": "packages/base/src/lib/menu/LinkItem.svelte",
-      "sha256": "eab316a4f0d17a8fef47ebf716b18b72db44e2773509d07b4c2941f01700dafe",
+      "sha256": "07a10fb9a1e375a9b642b551c5526c67631b33ab4a911804fc8fafa808523d16",
       "imports": [
         {
           "specifier": "../internals/mergeComponentProps.js",
@@ -7171,7 +7171,7 @@
     },
     {
       "source": "packages/base/src/lib/menu/Positioner.svelte",
-      "sha256": "ef00a005fba611ab6296cd9388ea5dd025ba753fcf9046b1c1d4f1e774308442",
+      "sha256": "0fa8970ef317089d972de6f4582e999e18e974b6bb822857997db73540780da0",
       "imports": [
         {
           "specifier": "../internals/mergeComponentProps.js",
@@ -7387,7 +7387,7 @@
     },
     {
       "source": "packages/base/src/lib/menu/RadioItem.svelte",
-      "sha256": "37fb5db24c04539996271f0dc8af2d197a3c288a1eb783f24944f824dbe58902",
+      "sha256": "29b782f3285be2f2e448c1941a2dbd868601626fb233ba2a29afcf690dea405f",
       "imports": [
         {
           "specifier": "../internals/mergeComponentProps.js",
@@ -7780,7 +7780,7 @@
     },
     {
       "source": "packages/base/src/lib/menu/submenu-trigger/createMenuSubmenuTrigger.svelte.ts",
-      "sha256": "3bdb83ab95cdfbe5ba3066f17bbd04c60915ba5e887e486db27f6484c4105691",
+      "sha256": "d6f407d96f668b3f2fbec1d4d5ba1b32e15fd3f092389f4c4e97b43b2946849c",
       "imports": [
         {
           "specifier": "svelte/attachments",

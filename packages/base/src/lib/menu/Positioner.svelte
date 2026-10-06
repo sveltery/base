@@ -40,7 +40,7 @@
     context,
   });
   provideFloatingNode(() => store.select('floatingNodeId'));
-  createCompositeList(() => ({
+  new createCompositeList(() => ({
     elementsRef: store.context.itemDomElements,
     labelsRef: store.context.itemLabels,
   }));

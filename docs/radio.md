@@ -1,5 +1,7 @@
 # Radio and RadioGroup
 
+Radio's canonical Composite dependencies now use the four [reusable class owners](composite-owners.md), preserving source navigation and native attachment lifetimes. The class prerequisite has its own exact-head gates and accepted-main dependencies; earlier Radio evidence remains historical and grants no successor acceptance.
+
 Radio exposes `Root` and `Indicator`; `RadioGroup` owns the selected value and the source composite navigation context. Both are available from `@sveltery/base` and their corresponding `/radio` and `/radio-group` subpaths.
 
 ```svelte

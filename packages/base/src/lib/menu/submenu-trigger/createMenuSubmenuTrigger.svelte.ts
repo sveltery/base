@@ -48,7 +48,7 @@ export function createMenuSubmenuTrigger(
   if (!submenuRootContext?.parentMenu) {
     throw new Error('Base UI: <Menu.SubmenuTrigger> must be placed in <Menu.SubmenuRoot>.');
   }
-  const listItem = useCompositeListItem(() => ({ guess: true, label }));
+  const listItem = new useCompositeListItem(() => ({ guess: true, label }));
   const menuPositionerContext = useMenuPositionerContext();
   const { store } = useMenuRootContext();
   const thisTriggerId = $derived(useBaseUiId(idProp, generatedId));

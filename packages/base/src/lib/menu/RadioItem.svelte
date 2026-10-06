@@ -31,7 +31,7 @@
     ...elementProps
   }: MenuRadioItemProps = $props();
   const generatedId = $props.id();
-  const listItem = useCompositeListItem(() => ({ guess: true, label }));
+  const listItem = new useCompositeListItem(() => ({ guess: true, label }));
   const positioner = useMenuPositionerContext(true);
   const id = $derived(useBaseUiId(idProp, generatedId));
   const { store } = useMenuRootContext();

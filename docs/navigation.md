@@ -1,5 +1,7 @@
 # Toggle, ToggleGroup and Toolbar
 
+The shared Composite Root/List/Item composition uses four [canonical class owners](composite-owners.md). Public props, source navigation and native attachment lifetimes remain unchanged. The prerequisite's review, exact-head gates and accepted-main dependencies are separate from the historical family evidence.
+
 Import `Toggle`, `ToggleGroup` and `Toolbar` from `@sveltery/base`, or their `toggle`, `toggle-group` and `toolbar` subpaths. Toggle’s `pressed`/`defaultPressed` default false. A group owns `value`/`defaultValue` arrays of string values; `multiple=false`, `orientation='horizontal'` and `loopFocus=true`. Give grouped toggles explicit values when initializing group selection.
 
 ```svelte

@@ -68,44 +68,81 @@ export interface UseCompositeRootParameters {
   modifierKeys?: ModifierKey[] | undefined;
 }
 
-export function useCompositeRoot(getParameters: () => UseCompositeRootParameters) {
-  let internalHighlightedIndex = $state(0);
-  const rootRef = { current: null as HTMLElement | null };
-  const attachmentKey = createAttachmentKey();
-  function attachRoot(node: HTMLElement) {
-    rootRef.current = node;
-    return () => {
-      if (rootRef.current === node) rootRef.current = null;
-    };
+export class useCompositeRoot {
+  private getParameters: () => UseCompositeRootParameters;
+
+  constructor(getParameters: () => UseCompositeRootParameters) {
+    this.getParameters = getParameters;
+    $effect(() => {
+      const { disabledIndices, highlightedIndex: externalHighlightedIndex } = this.getParameters();
+      // `disabledIndices` can resolve a render after the initial map population
+      // (e.g. Toolbar derives it from item metadata through a state update), so the
+      // default tab stop at index 0 may now point at a disabled item, leaving the
+      // composite without a reachable tab stop. Re-validate and move it to the first
+      // enabled item. Gated on `disabledIndices` being provided so composites that
+      // rely on the DOM disabled fallback keep their existing behavior.
+      if (
+        disabledIndices == null ||
+        externalHighlightedIndex != null ||
+        !this.hasSetDefaultIndexRef.current
+      ) {
+        return;
+      }
+      const highlightedIndex = this.getHighlightedIndex();
+      const elements = this.elementsRef.current;
+      if (isListIndexDisabled(elements, highlightedIndex, disabledIndices)) {
+        const firstEnabledIndex = findNonDisabledListIndex(elements, {
+          disabledIndices,
+        });
+        if (!isIndexOutOfListBounds(elements, firstEnabledIndex)) {
+          this.onHighlightedIndexChange(firstEnabledIndex);
+        }
+      }
+    });
   }
-  const elementsRef = { current: [] as Array<HTMLElement | null> };
-  const hasSetDefaultIndexRef = { current: false };
-  const highlightedElementRef = { current: null as HTMLElement | null };
-  const getHighlightedIndex = () => getParameters().highlightedIndex ?? internalHighlightedIndex;
-  const onHighlightedIndexChange = (index: number, shouldScrollIntoView = false) => {
+  private internalHighlightedIndex = $state(0);
+  private rootRef = { current: null as HTMLElement | null };
+  private attachmentKey = createAttachmentKey();
+  private attachRoot = (node: HTMLElement) => {
+    this.rootRef.current = node;
+    return () => {
+      if (this.rootRef.current === node) this.rootRef.current = null;
+    };
+  };
+  elementsRef = { current: [] as Array<HTMLElement | null> };
+  private hasSetDefaultIndexRef = { current: false };
+  private highlightedElementRef = { current: null as HTMLElement | null };
+  getHighlightedIndex = () =>
+    this.getParameters().highlightedIndex ?? this.internalHighlightedIndex;
+  onHighlightedIndexChange = (index: number, shouldScrollIntoView = false) => {
     const {
       onHighlightedIndexChange: externalSetHighlightedIndex,
       direction,
       orientation = 'both',
-    } = getParameters();
-    highlightedElementRef.current = elementsRef.current[index] ?? null;
+    } = this.getParameters();
+    this.highlightedElementRef.current = this.elementsRef.current[index] ?? null;
     if (externalSetHighlightedIndex) untrack(() => externalSetHighlightedIndex(index));
-    else internalHighlightedIndex = index;
+    else this.internalHighlightedIndex = index;
     if (shouldScrollIntoView)
-      scrollIntoViewIfNeeded(rootRef.current, elementsRef.current[index], direction, orientation);
+      scrollIntoViewIfNeeded(
+        this.rootRef.current,
+        this.elementsRef.current[index],
+        direction,
+        orientation,
+      );
   };
-  const onMapChange = (map: Map<Element, CompositeMetadata>) => {
-    const { disabledIndices, direction, orientation = 'both' } = getParameters();
-    const highlightedIndex = getHighlightedIndex();
+  onMapChange = (map: Map<Element, CompositeMetadata>) => {
+    const { disabledIndices, direction, orientation = 'both' } = this.getParameters();
+    const highlightedIndex = this.getHighlightedIndex();
     if (map.size === 0) {
       return;
     }
 
-    if (hasSetDefaultIndexRef.current) {
-      const elements = elementsRef.current;
+    if (this.hasSetDefaultIndexRef.current) {
+      const elements = this.elementsRef.current;
       // Items added or removed around the highlighted one shift its index, so the tab stop would
       // otherwise move to a different item and navigation would resume from the wrong position.
-      const nextIndex = elements.indexOf(highlightedElementRef.current);
+      const nextIndex = elements.indexOf(this.highlightedElementRef.current);
 
       if (nextIndex === -1) {
         // A replacement at the same index can keep the tab stop. Otherwise move it to an
@@ -113,17 +150,17 @@ export function useCompositeRoot(getParameters: () => UseCompositeRootParameters
         // composite out of the tab order.
         const replacement = elements[highlightedIndex];
         if (!replacement || isListIndexDisabled(elements, highlightedIndex, disabledIndices)) {
-          onHighlightedIndexChange(getFallbackIndex(elements, disabledIndices));
+          this.onHighlightedIndexChange(getFallbackIndex(elements, disabledIndices));
         } else {
-          highlightedElementRef.current = replacement;
+          this.highlightedElementRef.current = replacement;
         }
       } else if (nextIndex !== highlightedIndex) {
-        onHighlightedIndexChange(nextIndex);
+        this.onHighlightedIndexChange(nextIndex);
       }
       return;
     }
 
-    hasSetDefaultIndexRef.current = true;
+    this.hasSetDefaultIndexRef.current = true;
 
     const sortedElements = Array.from(map.keys()) as Array<HTMLElement | null>;
     const activeItem =
@@ -136,7 +173,7 @@ export function useCompositeRoot(getParameters: () => UseCompositeRootParameters
     const activeIndex = activeItem ? (map.get(activeItem)?.index ?? -1) : -1;
 
     if (activeIndex !== -1) {
-      onHighlightedIndexChange(activeIndex);
+      this.onHighlightedIndexChange(activeIndex);
     } else if (isListIndexDisabled(sortedElements, highlightedIndex, disabledIndices)) {
       // The default highlighted item is disabled, so it should not hold the single
       // roving tab stop: a natively disabled element is removed from the tab order,
@@ -147,51 +184,24 @@ export function useCompositeRoot(getParameters: () => UseCompositeRootParameters
         disabledIndices,
       });
       if (!isIndexOutOfListBounds(sortedElements, firstEnabledIndex)) {
-        onHighlightedIndexChange(firstEnabledIndex);
+        this.onHighlightedIndexChange(firstEnabledIndex);
       }
     }
 
-    scrollIntoViewIfNeeded(rootRef.current, activeItem, direction, orientation);
+    scrollIntoViewIfNeeded(this.rootRef.current, activeItem, direction, orientation);
   };
 
-  $effect(() => {
-    const { disabledIndices, highlightedIndex: externalHighlightedIndex } = getParameters();
-    // `disabledIndices` can resolve a render after the initial map population
-    // (e.g. Toolbar derives it from item metadata through a state update), so the
-    // default tab stop at index 0 may now point at a disabled item, leaving the
-    // composite without a reachable tab stop. Re-validate and move it to the first
-    // enabled item. Gated on `disabledIndices` being provided so composites that
-    // rely on the DOM disabled fallback keep their existing behavior.
-    if (
-      disabledIndices == null ||
-      externalHighlightedIndex != null ||
-      !hasSetDefaultIndexRef.current
-    ) {
-      return;
-    }
-    const highlightedIndex = getHighlightedIndex();
-    const elements = elementsRef.current;
-    if (isListIndexDisabled(elements, highlightedIndex, disabledIndices)) {
-      const firstEnabledIndex = findNonDisabledListIndex(elements, {
-        disabledIndices,
-      });
-      if (!isIndexOutOfListBounds(elements, firstEnabledIndex)) {
-        onHighlightedIndexChange(firstEnabledIndex);
-      }
-    }
-  });
-
-  const wrappedOnLoop = (event: KeyboardEvent, prevIndex: number, nextIndex: number) => {
-    const { onLoop } = getParameters();
+  private wrappedOnLoop = (event: KeyboardEvent, prevIndex: number, nextIndex: number) => {
+    const { onLoop } = this.getParameters();
     if (!onLoop) {
       return nextIndex;
     }
-    return onLoop(event, prevIndex, nextIndex, elementsRef);
+    return onLoop(event, prevIndex, nextIndex, this.elementsRef);
   };
 
   // Stable so that `relayKeyboardEvent` does not invalidate identity-sensitive
   // consumers (the `CompositeRootContext` value and trigger data forwarding).
-  const onKeyDown = (event: KeyboardEvent) => {
+  private onKeyDown = (event: KeyboardEvent) => {
     const {
       direction,
       orientation = 'both',
@@ -202,8 +212,8 @@ export function useCompositeRoot(getParameters: () => UseCompositeRootParameters
       stopEventPropagation,
       disabledIndices,
       modifierKeys = [],
-    } = getParameters();
-    const highlightedIndex = getHighlightedIndex();
+    } = this.getParameters();
+    const highlightedIndex = this.getHighlightedIndex();
     const isHomeOrEnd = event.key === HOME || event.key === END;
     if (!COMPOSITE_KEYS.has(event.key) || (!enableHomeAndEndKeys && isHomeOrEnd)) {
       return;
@@ -213,7 +223,7 @@ export function useCompositeRoot(getParameters: () => UseCompositeRootParameters
       return;
     }
 
-    const element = rootRef.current;
+    const element = this.rootRef.current;
     if (!element) {
       return;
     }
@@ -246,19 +256,19 @@ export function useCompositeRoot(getParameters: () => UseCompositeRootParameters
     }
 
     let nextIndex = highlightedIndex;
-    const minIndex = getMinListIndex(elementsRef, disabledIndices);
-    const maxIndex = getMaxListIndex(elementsRef, disabledIndices);
+    const minIndex = getMinListIndex(this.elementsRef, disabledIndices);
+    const maxIndex = getMaxListIndex(this.elementsRef, disabledIndices);
 
     if (grid != null) {
       nextIndex = grid({
         disabledIndices,
-        elementsRef,
+        elementsRef: this.elementsRef,
         event,
         highlightedIndex,
         loopFocus,
         maxIndex,
         minIndex,
-        onLoop: wrappedOnLoop,
+        onLoop: this.wrappedOnLoop,
         orientation,
         rtl: isRtl,
       });
@@ -283,15 +293,15 @@ export function useCompositeRoot(getParameters: () => UseCompositeRootParameters
       if (loopFocus && nextIndex === maxIndex && isForwardKey) {
         nextIndex = minIndex;
         if (onLoop) {
-          nextIndex = onLoop(event, highlightedIndex, nextIndex, elementsRef);
+          nextIndex = onLoop(event, highlightedIndex, nextIndex, this.elementsRef);
         }
       } else if (loopFocus && nextIndex === minIndex && isBackwardKey) {
         nextIndex = maxIndex;
         if (onLoop) {
-          nextIndex = onLoop(event, highlightedIndex, nextIndex, elementsRef);
+          nextIndex = onLoop(event, highlightedIndex, nextIndex, this.elementsRef);
         }
       } else {
-        nextIndex = findNonDisabledListIndex(elementsRef.current, {
+        nextIndex = findNonDisabledListIndex(this.elementsRef.current, {
           startingIndex: nextIndex,
           decrement: isBackwardKey,
           disabledIndices,
@@ -299,7 +309,10 @@ export function useCompositeRoot(getParameters: () => UseCompositeRootParameters
       }
     }
 
-    if (nextIndex !== highlightedIndex && !isIndexOutOfListBounds(elementsRef.current, nextIndex)) {
+    if (
+      nextIndex !== highlightedIndex &&
+      !isIndexOutOfListBounds(this.elementsRef.current, nextIndex)
+    ) {
       if (stopEventPropagation) {
         event.stopPropagation();
       }
@@ -307,35 +320,28 @@ export function useCompositeRoot(getParameters: () => UseCompositeRootParameters
       if (grid != null || isHomeOrEnd || isForwardKey || isBackwardKey) {
         event.preventDefault();
       }
-      onHighlightedIndexChange(nextIndex, true);
+      this.onHighlightedIndexChange(nextIndex, true);
 
       // Wait for FocusManager `returnFocus` to execute.
       queueMicrotask(() => {
-        elementsRef.current[nextIndex]?.focus();
+        this.elementsRef.current[nextIndex]?.focus();
       });
     }
   };
 
-  function getProps(): HTMLProps {
+  getProps = (): HTMLProps => {
     return {
-      [attachmentKey]: attachRoot,
-      onfocusin(event: FocusEvent) {
-        const element = rootRef.current;
+      [this.attachmentKey]: this.attachRoot,
+      onfocusin: (event: FocusEvent) => {
+        const element = this.rootRef.current;
         const target = getTarget(event);
         if (!element || target == null || !isNativeInput(target)) return;
         target.setSelectionRange(0, target.value.length);
       },
-      onkeydown: onKeyDown,
+      onkeydown: this.onKeyDown,
     };
-  }
-  return {
-    getProps,
-    getHighlightedIndex,
-    onHighlightedIndexChange,
-    elementsRef,
-    onMapChange,
-    relayKeyboardEvent: onKeyDown,
   };
+  relayKeyboardEvent = this.onKeyDown;
 }
 // Resolves the item that should hold the tab stop: the active item when it can take focus,
 // otherwise the first item that can. Falls back to index 0 so an all-disabled composite keeps the

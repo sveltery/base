@@ -1,0 +1,51 @@
+# Independent Composite closure review
+
+Manual Source/native/maintainability review is complete for the recorded closure. Public final-SHA anchoring is **pending**; this tracked report deliberately does not embed its own future commit. After publication the reviewer must independently verify the public tree, reviewed runtime hashes and subsequent evidence changes without moving the head. This is diagnostic review, not merge approval or whole-feature acceptance.
+
+## Coverage and identity
+
+Original checkout: immutable MIT Base UI 1.8.0 `47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c`, tree `21b71d5e63c7cf020413b268aed0efad8993cbfa`. Native runtime bodies were reviewed at local `2e68c2580ef8980cc7f45d9ebb00ad1011f392c3`, tree `4d9dd435c4e5682514086e09fa7bde4e20756031`; later changes reviewed separately concern evidence, documentation and supplemental consumer assertions.
+
+All full bodies in [Source250](source-closure.json) and [native243](native-closure.json) were manually read, including modules outside the implementation diff. Disjoint Source coverage comprises canonical118 (18 + 17 + 12 + 31 + 40) and additional132 (62 family + 24 fields + 46 services); native coverage comprises canonical35 + 54 family + 52 fields + 102 services. Partition reviewers supplied readable business/representation/ownership findings, not inventory-only clearance. Physical hashes were independently checked: zero mismatches. Exact reviewed sets are defined by the manifests; SHA-256 of manifest-order, newline-joined `path + NUL + sha256` entries is:
+
+| Set                | Modules | Set SHA-256                                                        |
+| ------------------ | ------- | ------------------------------------------------------------------ |
+| Immutable Original | 250     | `822f95fc1d138e14f6771f611bbd4892ecfcd84ab67d899944dfa4322e5a0d8d` |
+| Actual native      | 243     | `6a0c940ef4b9698f27786f4f14f942f468cffc0ca069c1d9002a74596cc5551e` |
+
+The initial pre-edit Source trace covered only canonical118 and omitted the caller counterpart forward closure. [That checkpoint](pre-edit-source-closure.json) remains historical: the later full250 inspection does not retroactively establish complete pre-edit tracing. Source barrels and type imports expose substantial separate business bodies; inspection of them does not prove that every exposed feature is implemented in the actual native graph.
+
+## Findings
+
+The mandatory canonical owner scope is exactly four in-place classes: `useCompositeRoot`, `createCompositeList`, `useCompositeListItem`, `useCompositeItem`. Their eight constructor caller files retain existing composition. No introduced defect was identified in constructor/field initialization, receiver binding, effect setup/order, registration cleanup or native lifetime.
+
+Pinned highlighted/default/element state, explicit and automatic indexes, map decisions, navigation branches, list ordering/snapshots, subscriptions/observer teardown and queued focus remain recognizable. Stable arrow callbacks preserve destructured/context/attachment receivers; lazily derived registration reads occur after constructor inputs exist. The existing Source queued microtask is unchanged; no new cancellation behavior is invented. Stateless selectors, geometry/navigation algorithms and context accessors stay functions. Small classes preserve shared helper reuse without a second engine or unnecessary abstraction.
+
+Direct native effects, context, runes, snippets, actual-host bindings and independent attachments remain binding. No React ref fanout, clone discovery, render/commit snapshots, dependency-tuple engine or CSS custody is introduced. Static inspection of all243 recorded native imports found no React or SvelteKit runtime edge. That result is static evidence, not runtime acceptance.
+
+The supplemental consumer now addresses the actual Radio span with `data-consumer-host`; authored Radio IDs belong to its hidden labelable input. Navigation assertions wait for the unchanged queued focus. Cancellation is exercised on the actual group-owned navigation pipeline and asserts its invocation count. Reorder/removal/teardown assertions remain meaningful. These authored assertions grant zero unchanged Original assertion credit; failed earlier attempts and historical red provenance must remain preserved.
+
+## Nineteen explicit correspondence boundaries
+
+These are dispositions of the current unresolved rows, not waivers or claims of missing business implementations solely from filenames. Files outside native243 earn no reached-port credit.
+
+| Source boundaries                                                                     | Count | Disposition                                                                                                                                                                                                                                              |
+| ------------------------------------------------------------------------------------- | ----- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `dialog/root/{DialogRoot,useDialogRoot,useRenderDialogRoot}`                          | 3     | Root orchestration is outside actual native243. Separate Dialog scope; a native function-owned `useRenderDialogRoot` service was identified in additional inspection. No root completeness granted.                                                      |
+| `form/{Form,index}`                                                                   | 2     | Form component/API fanout lies beyond the reached graph; separate Form scope, no runtime credit from barrel presence.                                                                                                                                    |
+| `internals/labelable-provider/index`                                                  | 1     | Source barrel transport; actual labelable services were inspected separately. Does not itself require another class or establish whole-provider acceptance.                                                                                              |
+| `menu/group/MenuGroupContext`, `menu/{index.parts,index}`                             | 3     | Group-context and public barrel breadth exceed the selected native graph; preserve family limits. A barrel is not an additional owner algorithm.                                                                                                         |
+| `popover/root/PopoverRoot`                                                            | 1     | Root orchestration outside actual native243; shared reached store/context inspection does not establish whole-root correspondence.                                                                                                                       |
+| `utils/{CommonPopupCssVars,CommonPositionerCssVars,CommonViewportDataAttributes}`     | 3     | Constant/type surface boundaries; no inferred new owner or runtime behavior. Exact used-surface mapping remains unestablished.                                                                                                                           |
+| `utils/{getCssDimensions,useOpenInteractionType,usePopupAutoResize,usePopupViewport}` | 4     | Real sizing/interaction/animation/viewport business needs separate used-port correspondence. Existing files elsewhere earn no actual-graph evidence. Source viewport DOM cloning must not be copied automatically under the native no-cloning directive. |
+| `Utils/{inertValue,usePreviousValue}`                                                 | 2     | React-version inert transport has a native boolean replacement at the selected boundary; previous-value retained-state use requires explicit native ownership correspondence. Neither currently establishes reached implementation credit.               |
+
+## Inherited blockers and acceptance limits
+
+PR42 exclusively owns canonical `navigation.ts`/`composite.ts` computed-style fidelity; PR73 exclusively owns nativeProps empty CSS strings. Button, TransitionStatus and Field validation remain separately owned. Their unchanged bodies are not approved by this conversion. Normal accepted-main integration of reached prerequisites remains required.
+
+Other inspected inherited function-owner roles remain separate prerequisite findings: Menu item/positioner/trigger/submenu and `useStickIfOpen`; Floating focus manager/click/focus/hover/positioning and anchor ownership; label registration, trigger registration/reconciliation/focus guards, popup subscriptions; mixed/enhanced click, touch-scroll and animation lifetime services; CheckboxGroup and enter-submit services. Accordion's private automatic-index list is a conservative comment-only caller mention, not a canonical Composite import, and receives no class/fidelity acceptance here. Component-local native state and pure selectors must not be mechanically converted because of a `use*` name. Existing `Controlled`, store/handle and resource-owner classes remain shared.
+
+No newly verified shared business defect is asserted; no behavior repair was authorized by this review. Suspected Source quirks must first be reproduced at the exact pin and preserved unless separately approved. Historical assertions, red receipts and incomplete family parity remain intact. Native differences and supplements grant zero divergent unchanged assertion credit.
+
+The reviewer independently read `.checks/composite-owners/packed-consumer-final.log`: packed root/subpath identity and no-browser SSR PASS; Svelte diagnostics zero errors/warnings; same-host hydration, actual group cancellation, keyed registration/reorder/removal and teardown PASS; strict packed declarations/SSR/hydration overall PASS. This reviewer ran no heavy checks. Public-SHA anchoring remains pending. Hosted Standards, Verification, package/consumer and secured actual-browser gates are not claimed passing here until their final-head results are observed. Full manual body coverage does not waive those gates, remaining correspondence boundaries or accepted-main prerequisites.

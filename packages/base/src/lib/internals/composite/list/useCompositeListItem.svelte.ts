@@ -9,39 +9,45 @@ export interface UseCompositeListItemParameters {
   metadata?: Record<string, unknown>;
   textRef?: { current: HTMLElement | null };
 }
-export function useCompositeListItem(
-  getParameters: () => UseCompositeListItemParameters = () => ({}),
-) {
-  const { register, unregister, subscribeMapChange, nextIndexRef } = useCompositeListContext();
-  const initial = untrack(getParameters);
-  let internalIndex = $state(initial.index == null && initial.guess ? nextIndexRef.current++ : -1);
-  let component: HTMLElement | null = null;
-  const index = () => getParameters().index ?? internalIndex;
-  const registration = $derived.by(() => {
-    const { metadata, index, label, textRef } = getParameters();
+export class useCompositeListItem {
+  private getParameters: () => UseCompositeListItemParameters;
+  private context = useCompositeListContext();
+  private internalIndex: number;
+  private component: HTMLElement | null = null;
+  private registration = $derived.by(() => {
+    const { metadata, index, label, textRef } = this.getParameters();
     return { metadata: metadata ?? null, index: index ?? null, label, textRef };
   });
-  function attach(node: HTMLElement) {
-    const currentRegistration = registration;
+
+  constructor(getParameters: () => UseCompositeListItemParameters = () => ({})) {
+    this.getParameters = getParameters;
+    const { subscribeMapChange, nextIndexRef } = this.context;
+    const initial = untrack(getParameters);
+    this.internalIndex = $state(
+      initial.index == null && initial.guess ? nextIndexRef.current++ : -1,
+    );
+    $effect(() => {
+      if (this.getParameters().index != null) return;
+      return subscribeMapChange((map) => {
+        const next = this.component ? map.get(this.component)?.index : null;
+        if (next != null) this.internalIndex = next;
+      });
+    });
+  }
+
+  index = () => this.getParameters().index ?? this.internalIndex;
+
+  attach = (node: HTMLElement) => {
+    const currentRegistration = this.registration;
+    const { register, unregister } = this.context;
     return untrack(() => {
-      component = node;
+      this.component = node;
       register(node, currentRegistration);
       return () =>
         untrack(() => {
           unregister(node);
-          if (component === node) component = null;
+          if (this.component === node) this.component = null;
         });
     });
-  }
-  $effect(() => {
-    if (getParameters().index != null) return;
-    return subscribeMapChange((map) => {
-      const next = component ? map.get(component)?.index : null;
-      if (next != null) internalIndex = next;
-    });
-  });
-  return {
-    attach,
-    index,
   };
 }
