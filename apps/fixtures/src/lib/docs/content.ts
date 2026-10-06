@@ -156,6 +156,43 @@ export const docs: Doc[] = [
           },
         ],
       },
+      {
+        id: 'host',
+        title: 'Use the native default host',
+        paragraphs: [
+          'Each component renders its own native element. Button renders a button; Input delegates to Field.Control and renders an input. State, event handlers and attributes remain owned by that component.',
+        ],
+        code: '<script lang="ts">\n  import { Button } from "@sveltery/base";\n</script>\n<Button class="action">Action</Button>',
+      },
+      {
+        id: 'compose',
+        title: 'Compose a snippet',
+        paragraphs: [
+          'A render snippet receives merged props, component state and the children snippet. Spread the supplied props onto the actual host to preserve business attachments, focus and registration. Use mergeProps to add native props with source class, style and event precedence.',
+        ],
+        code: '<script lang="ts">\n  import { Toggle, mergeProps } from "@sveltery/base";\n</script>\n<Toggle nativeButton={false}>\n  {#snippet render(props, state, children)}\n    <span {...mergeProps(props, { class: "owned" })} data-selected={state.pressed}>\n      {@render children?.()}\n    </span>\n  {/snippet}\n  Content\n</Toggle>',
+      },
+      {
+        id: 'bindings',
+        title: 'Observe the actual element',
+        paragraphs: [
+          'Use bind:ref for the actual component host and bind:inputRef for Checkbox, Switch, Radio.Root or RadioGroup native inputs. Native attachments belong on the host you render and clean up with Svelte’s attachment lifetime.',
+        ],
+        code: '<script lang="ts">\n  import { Checkbox } from "@sveltery/base";\n  let input = $state<HTMLInputElement | null>();\n</script>\n<Checkbox.Root bind:inputRef={input} />',
+      },
+      {
+        id: 'identity',
+        title: 'Keep snippet identity stable',
+        paragraphs: [
+          'Reactive snippet arguments update a retained host. A changed snippet identity or branch can replace it. Native attachments observe actual Svelte update and removal timing.',
+        ],
+        links: [
+          {
+            label: 'Read native component composition',
+            href: 'https://github.com/sveltery/base/blob/main/docs/rendering.md',
+          },
+        ],
+      },
     ],
   },
   {
@@ -226,51 +263,6 @@ export const docs: Doc[] = [
           {
             label: 'Parity evidence',
             href: 'https://github.com/sveltery/base/tree/main/parity',
-          },
-        ],
-      },
-    ],
-  },
-  {
-    slug: 'handbook/composition',
-    group: 'Handbook',
-    title: 'Composition',
-    description: 'Choose an actual native host with the component’s render snippet.',
-    sections: [
-      {
-        id: 'host',
-        title: 'Use the native default host',
-        paragraphs: [
-          'Each component renders its own native element. Button renders a button; Input delegates to Field.Control and renders an input. State, event handlers and attributes remain owned by that component.',
-        ],
-        code: '<script lang="ts">\n  import { Button } from "@sveltery/base";\n</script>\n<Button class="action">Action</Button>',
-      },
-      {
-        id: 'compose',
-        title: 'Compose a snippet',
-        paragraphs: [
-          'A render snippet receives merged props, component state and the children snippet. Spread the supplied props onto the actual host to preserve business attachments, focus and registration. Use mergeProps to add native props with source class, style and event precedence.',
-        ],
-        code: '<script lang="ts">\n  import { Toggle, mergeProps } from "@sveltery/base";\n</script>\n<Toggle nativeButton={false}>\n  {#snippet render(props, state, children)}\n    <span {...mergeProps(props, { class: "owned" })} data-selected={state.pressed}>\n      {@render children?.()}\n    </span>\n  {/snippet}\n  Content\n</Toggle>',
-      },
-      {
-        id: 'bindings',
-        title: 'Observe the actual element',
-        paragraphs: [
-          'Use bind:ref for the actual component host and bind:inputRef for Checkbox, Switch, Radio.Root or RadioGroup native inputs. Native attachments belong on the host you render and clean up with Svelte’s attachment lifetime.',
-        ],
-        code: '<script lang="ts">\n  import { Checkbox } from "@sveltery/base";\n  let input = $state<HTMLInputElement | null>();\n</script>\n<Checkbox.Root bind:inputRef={input} />',
-      },
-      {
-        id: 'identity',
-        title: 'Keep snippet identity stable',
-        paragraphs: [
-          'Reactive snippet arguments update a retained host. A changed snippet identity or branch can replace it. Native attachments observe actual Svelte update and removal timing.',
-        ],
-        links: [
-          {
-            label: 'Read native component composition',
-            href: 'https://github.com/sveltery/base/blob/main/docs/rendering.md',
           },
         ],
       },

@@ -10,7 +10,7 @@
     ],
     "graph": {
       "path": "parity/native-snippets/native-graph.json",
-      "sha256": "c3e1bf6d5feeb650f7f47377395ce3968a07ab95aaeb61d2eb4545fc33d92d97"
+      "sha256": "36c78972e24177ef3b7ce01039de05621afd69c156201d9760e8c4d1be96904e"
     },
     "predecessor": {
       "path": "parity/toggle-toolbar/source-correspondence.json",
@@ -299,7 +299,6 @@
       }
     ],
     "external": [
-      "external:@base-ui/utils/platform",
       "external:@floating-ui/utils/dom",
       "external:esm-env",
       "external:svelte",
@@ -2016,7 +2015,7 @@
     ],
     "graph": {
       "path": "parity/native-snippets/native-graph.json",
-      "sha256": "c3e1bf6d5feeb650f7f47377395ce3968a07ab95aaeb61d2eb4545fc33d92d97"
+      "sha256": "36c78972e24177ef3b7ce01039de05621afd69c156201d9760e8c4d1be96904e"
     },
     "predecessor": {
       "path": "parity/menu-family/source-correspondence.json",
@@ -2801,7 +2800,6 @@
       }
     ],
     "external": [
-      "external:@base-ui/utils/platform",
       "external:@floating-ui/dom",
       "external:@floating-ui/utils",
       "external:@floating-ui/utils/dom",

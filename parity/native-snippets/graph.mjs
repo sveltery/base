@@ -2,11 +2,15 @@
 import assert from 'node:assert/strict';
 import { createHash } from 'node:crypto';
 import { existsSync, readFileSync, statSync, writeFileSync } from 'node:fs';
+import { createRequire } from 'node:module';
 import { dirname, relative, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { resolveNativePackageSource } from '../../scripts/native-package-source.mjs';
 
 const root = resolve(dirname(fileURLToPath(import.meta.url)), '../..');
+const ts = createRequire(new URL('../../packages/base/package.json', import.meta.url))(
+  'typescript',
+);
 const destination = resolve(root, 'parity/native-snippets/native-graph.json');
 const roots = ['packages/base/src/lib/index.ts'];
 const modules = new Map();
@@ -51,15 +55,12 @@ function visit(file) {
     imports,
   };
   modules.set(file, module);
-  for (const match of code.matchAll(
-    /\b(?:import|export)\s+(?:type\s+)?(?:[^;'"\n]+?(?:\n[^;'"\n]+?)*?\s+from\s*)?['"]([^'"]+)['"]/g,
-  )) {
-    const target = resolveImport(file, match[1]);
-    const kind = /^(?:import|export)\s+type\b/.test(match[0])
-      ? 'type'
-      : 'runtime-or-mixed';
+  const ast = ts.createSourceFile(file, code, ts.ScriptTarget.Latest, true, ts.ScriptKind.TS);
+  assert.equal(ast.parseDiagnostics.length, 0, `Invalid native source script: ${module.source}`);
+  function record(specifier, kind) {
+    const target = resolveImport(file, specifier);
     imports.push({
-      specifier: match[1],
+      specifier,
       kind,
       resolved: target.startsWith('external:')
         ? target
@@ -67,17 +68,38 @@ function visit(file) {
     });
     if (!target.startsWith('external:')) visit(target);
   }
-  for (const match of code.matchAll(/\bimport\s*\(\s*['"]([^'"]+)['"]\s*\)/g)) {
-    const target = resolveImport(file, match[1]);
-    imports.push({
-      specifier: match[1],
-      kind: 'import-type-or-dynamic',
-      resolved: target.startsWith('external:')
-        ? target
-        : relative(root, target),
-    });
-    if (!target.startsWith('external:')) visit(target);
+  // Actual syntax excludes imports shown only in comments or string examples.
+  function visitDeclaredImports(node) {
+    if (
+      (ts.isImportDeclaration(node) || ts.isExportDeclaration(node)) &&
+      node.moduleSpecifier &&
+      ts.isStringLiteral(node.moduleSpecifier)
+    ) {
+      record(
+        node.moduleSpecifier.text,
+        node.isTypeOnly || node.importClause?.isTypeOnly ? 'type' : 'runtime-or-mixed',
+      );
+    }
+    ts.forEachChild(node, visitDeclaredImports);
   }
+  visitDeclaredImports(ast);
+  function visitImports(node) {
+    if (
+      ts.isImportTypeNode(node) &&
+      ts.isLiteralTypeNode(node.argument) &&
+      ts.isStringLiteral(node.argument.literal)
+    )
+      record(node.argument.literal.text, 'import-type-or-dynamic');
+    else if (
+      ts.isCallExpression(node) &&
+      node.expression.kind === ts.SyntaxKind.ImportKeyword &&
+      node.arguments[0] &&
+      ts.isStringLiteral(node.arguments[0])
+    )
+      record(node.arguments[0].text, 'import-type-or-dynamic');
+    ts.forEachChild(node, visitImports);
+  }
+  visitImports(ast);
   assert.ok(
     !/createRenderElement|isNativeRefAttachment|preserveUnchangedInlineStyles|<RenderElement\b/.test(
       body,

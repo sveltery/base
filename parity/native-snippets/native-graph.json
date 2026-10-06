@@ -15044,11 +15044,6 @@
       "sha256": "c9c1174c0f82f01033187e382b461370123d356d8e14901a9ca7d85dbd2ea63c",
       "imports": [
         {
-          "specifier": "@base-ui/utils/platform",
-          "kind": "runtime-or-mixed",
-          "resolved": "external:@base-ui/utils/platform"
-        },
-        {
           "specifier": "./parts.js",
           "kind": "runtime-or-mixed",
           "resolved": "packages/utils/src/lib/platform/parts.ts"
