@@ -84,7 +84,7 @@ test('Collapsible ledger preserves exact ordinary inventory and portable versus 
   ]);
   assert.equal(alignmentCurrent.unchangedOriginalCreditForNativeCounterpart, 0);
   const predecessorBrowser = read(alignmentCurrent.predecessorArchive);
-  const alignmentCase = (text) => text.match(/  test\(`P:358 [\s\S]*?\n  \}\);\n/)[0];
+  const alignmentCase = (text) => text.match(/ {2}test\(`P:358 [\s\S]*?\n {2}\}\);\n/)[0];
   const preservedAlignmentCase = alignmentCase(predecessorBrowser);
   assert.equal(alignmentCase(browser), preservedAlignmentCase);
   assert.ok(
