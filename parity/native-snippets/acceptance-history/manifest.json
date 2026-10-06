@@ -508,6 +508,38 @@
       "predecessor": "56a65b4d217cdfb6606f54fd3b58130bedf54b71",
       "disposition": "diagnostic-direct-workspace-dependency-and-rune-identifier-correction",
       "unchangedParityCredit": 0
+    },
+    {
+      "source": "packages/base/tests/dom/accordion.test.ts",
+      "archive": "parity/native-snippets/acceptance-history/native-dom-repair-acdebb8e/packages/base/tests/dom/accordion.test.ts",
+      "sha256": "1336cb0c419c96e477638e57f09f044c287279b13c7260f1b45ff35b89beb776",
+      "predecessor": "acdebb8eeb910c48230343324f6284b682bf289b",
+      "disposition": "reviewed-native-dom-counterpart-and-raw-store-wiring-correction",
+      "unchangedParityCredit": 0
+    },
+    {
+      "source": "packages/base/tests/dom/native-panel-host.test.ts",
+      "archive": "parity/native-snippets/acceptance-history/native-dom-repair-acdebb8e/packages/base/tests/dom/native-panel-host.test.ts",
+      "sha256": "09499cafb9dd3931297f10e60898c95821b7ea8eb32fe09d32c6bb45774446dc",
+      "predecessor": "acdebb8eeb910c48230343324f6284b682bf289b",
+      "disposition": "reviewed-native-dom-counterpart-and-raw-store-wiring-correction",
+      "unchangedParityCredit": 0
+    },
+    {
+      "source": "packages/base/tests/dom/native-floating-bus.test.ts",
+      "archive": "parity/native-snippets/acceptance-history/native-dom-repair-acdebb8e/packages/base/tests/dom/native-floating-bus.test.ts",
+      "sha256": "79ee9d4ba2022c4bb017f1e644acc56a0a22ea26ebafcd44a4f3f2225afdc125",
+      "predecessor": "acdebb8eeb910c48230343324f6284b682bf289b",
+      "disposition": "reviewed-native-dom-counterpart-and-raw-store-wiring-correction",
+      "unchangedParityCredit": 0
+    },
+    {
+      "source": "packages/base/tests/dom/native-snippets-hydration.test.ts",
+      "archive": "parity/native-snippets/acceptance-history/native-dom-repair-acdebb8e/packages/base/tests/dom/native-snippets-hydration.test.ts",
+      "sha256": "9c6246f65432d7545495f4f855d1e2bf1b40ba4a87e4c4c163ef5991f5e30747",
+      "predecessor": "acdebb8eeb910c48230343324f6284b682bf289b",
+      "disposition": "reviewed-native-dom-counterpart-and-raw-store-wiring-correction",
+      "unchangedParityCredit": 0
     }
   ]
 }

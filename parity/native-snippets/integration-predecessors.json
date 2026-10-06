@@ -1123,6 +1123,76 @@
           "sha256": "c4c7948bddf3e8def4166a6ebf843ed77563bdf6e536435ec79514464a2974c8"
         }
       ]
+    },
+    {
+      "commit": "acdebb8eeb910c48230343324f6284b682bf289b",
+      "files": [
+        {
+          "predecessorPath": "packages/base/src/lib/field/Error.svelte",
+          "archive": "parity/native-snippets/historical/field-business-acdebb8e/packages/base/src/lib/field/Error.svelte",
+          "sha256": "7e007fe24b6f83e8aa07f900debe727b0b82f264b1ae26a59f4431a3f1727e8b"
+        },
+        {
+          "predecessorPath": "packages/base/src/lib/internals/labelable-provider/createLabelableProvider.svelte.ts",
+          "archive": "parity/native-snippets/historical/field-business-acdebb8e/packages/base/src/lib/internals/labelable-provider/createLabelableProvider.svelte.ts",
+          "sha256": "9ce1ea17271037b30dd8e87329af13c2e6ebbad246809e625fa97aff7ef1a3d0"
+        },
+        {
+          "predecessorPath": "scripts/check-native-snippet-integration.mjs",
+          "archive": "parity/native-snippets/historical/field-business-acdebb8e/scripts/check-native-snippet-integration.mjs",
+          "sha256": "a982908ffb72ad17d5b46361bf4ff187d8b3ff9b6f1ca037b9913abaf8bda529"
+        },
+        {
+          "predecessorPath": "parity/native-snippets/integration-current.json",
+          "archive": "parity/native-snippets/historical/field-business-acdebb8e/parity/native-snippets/integration-current.json",
+          "sha256": "59f6828ef3c161a415f38a403ec02cdac94f7f9bf0778461557fd0b397858d18"
+        },
+        {
+          "predecessorPath": "parity/native-snippets/native-graph.json",
+          "archive": "parity/native-snippets/historical/field-business-acdebb8e/parity/native-snippets/native-graph.json",
+          "sha256": "dc28c059a09dec69faab82fb624efdbe7cdf9a8afa283d92ef6f258ab0d9d519"
+        },
+        {
+          "predecessorPath": "parity/utils-package/current-source-graph.json",
+          "archive": "parity/native-snippets/historical/field-business-acdebb8e/parity/utils-package/current-source-graph.json",
+          "sha256": "e47ca9ac0b58ece0b343e335f96e2ee112a88610f28550f515b8dab5189d3d90"
+        },
+        {
+          "predecessorPath": "parity/utils-package/feature-successors.json",
+          "archive": "parity/native-snippets/historical/field-business-acdebb8e/parity/utils-package/feature-successors.json",
+          "sha256": "96c1df10d52ee4e0c8df56eff299875d7bf9a444a8622ca76707442d053a94c8"
+        },
+        {
+          "predecessorPath": "parity/utils-package/correspondence-lineage.json",
+          "archive": "parity/native-snippets/historical/field-business-acdebb8e/parity/utils-package/correspondence-lineage.json",
+          "sha256": "e3398e6d01c6224b009b6c901b97fc5aac86f9fbf5c847ad31138e1fc474b2e0"
+        },
+        {
+          "predecessorPath": "parity/native-framework/callsite-inventory.json",
+          "archive": "parity/native-snippets/historical/field-business-acdebb8e/parity/native-framework/callsite-inventory.json",
+          "sha256": "3fc03e606b58c693ea42d542f013f7a71c9c60ea1cd3eb87ef632c1e23e3fc80"
+        },
+        {
+          "predecessorPath": "parity/field-form/source-correspondence.json",
+          "archive": "parity/native-snippets/historical/field-business-acdebb8e/parity/field-form/source-correspondence.json",
+          "sha256": "e6c323ccdef81dc71de89c9e3e38ea3f9b372cb17f214a91a8da21c018a590c8"
+        },
+        {
+          "predecessorPath": "parity/field-form/source-correspondence.md",
+          "archive": "parity/native-snippets/historical/field-business-acdebb8e/parity/field-form/source-correspondence.md",
+          "sha256": "dcd1543d275033ce2f9705edd3bf6501a9fd3f6abe64f16600760d91d6c0ff13"
+        },
+        {
+          "predecessorPath": "parity/native-snippets/source-correspondence.md",
+          "archive": "parity/native-snippets/historical/field-business-acdebb8e/parity/native-snippets/source-correspondence.md",
+          "sha256": "9af38676c4b5656068ad39d2d7ff16d9239ddd4896e904a90b0d35b2415bbdb4"
+        },
+        {
+          "predecessorPath": "docs/upstream-differences.md",
+          "archive": "parity/native-snippets/historical/field-business-acdebb8e/docs/upstream-differences.md",
+          "sha256": "d1f2867ae3e37bf49f35176b973af5b0661884b130a3485c79570265a4eb8db4"
+        }
+      ]
     }
   ]
 }

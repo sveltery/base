@@ -2722,7 +2722,7 @@
     },
     {
       "source": "packages/base/src/lib/field/Error.svelte",
-      "sha256": "05739931c12316934d01ef80ccf02a4939bd5e1d3dcf97d84d571aad3617f5f9",
+      "sha256": "7e007fe24b6f83e8aa07f900debe727b0b82f264b1ae26a59f4431a3f1727e8b",
       "imports": [
         {
           "specifier": "../internals/mergeComponentProps.js",
@@ -5952,7 +5952,7 @@
     },
     {
       "source": "packages/base/src/lib/internals/labelable-provider/createLabelableProvider.svelte.ts",
-      "sha256": "b5cf2b6efd42c5038cc6786bf325a6a450aff387474f2df008fa79d2a06694c6",
+      "sha256": "9ce1ea17271037b30dd8e87329af13c2e6ebbad246809e625fa97aff7ef1a3d0",
       "imports": [
         {
           "specifier": "./LabelableContext.js",

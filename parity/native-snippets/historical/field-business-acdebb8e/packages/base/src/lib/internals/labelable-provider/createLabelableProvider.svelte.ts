@@ -11,9 +11,7 @@ import {
 export function createLabelableProvider(defaultId: string): LabelableContext {
   let controlIdState = $state<string | null | undefined>(defaultId);
   let labelId = $state<string>();
-  // Effect cleanup updates the live resource array; native state publishes its current value.
-  let currentMessageIds: string[] = [];
-  let messageIds = $state.raw<string[]>(currentMessageIds);
+  let messageIds = $state<string[]>([]);
   const controlId = $derived(controlIdState === undefined ? defaultId : controlIdState);
   // eslint-disable-next-line svelte/prefer-svelte-reactivity -- Source control registry is imperative; selected control state owns reactive updates.
   const registrations = new Map<symbol, string | null>();
@@ -60,8 +58,7 @@ export function createLabelableProvider(defaultId: string): LabelableContext {
       return messageIds;
     },
     setMessageIds(value) {
-      currentMessageIds = typeof value === 'function' ? value(currentMessageIds) : value;
-      messageIds = currentMessageIds;
+      messageIds = typeof value === 'function' ? value(messageIds) : value;
     },
     getDescriptionProps,
   };

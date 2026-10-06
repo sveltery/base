@@ -6,7 +6,6 @@ import { Accordion } from '../../src/lib/accordion/index.js';
 import Fixture from './accordion/Fixture.svelte';
 import NestedSharedHost from './accordion/NestedSharedHost.svelte';
 import ReplaceHidden from './accordion/ReplaceHidden.svelte';
-import BareHiddenReplacement from './accordion/BareHiddenReplacement.svelte';
 const mounted: ReturnType<typeof mount>[] = [];
 async function setup(scenario = 'default') {
   const target = document.createElement('section');
@@ -245,43 +244,19 @@ it('supplement: nested replacement Items sharing a host independently receive in
   expect(get('shared-host')!.getAttribute('data-index')).toBe('0');
   expect(get('sibling')!.getAttribute('data-index')).toBe('1');
 });
-// Native literal baseline runs before the component counterparts below; zero Original credit.
 for (const overrideHidden of [false, true])
-  it(`native diagnostic: bare Svelte hidden replacement ${overrideHidden ? 'honors authored false' : 'retains until-found'}`, async () => {
-    const target = document.createElement('section');
-    document.body.append(target);
-    const component = mount(BareHiddenReplacement, { target, props: { overrideHidden } });
-    mounted.push(component);
-    await tick();
-    const original = get('bare-hidden-panel')!;
-    expect(original.tagName).toBe('DIV');
-    expect(original.getAttribute('hidden')).toBe(overrideHidden ? null : 'until-found');
-    component.replace();
-    await tick();
-    const current = get('bare-hidden-panel')!;
-    expect(current).not.toBe(original);
-    expect(original.isConnected).toBe(false);
-    expect(current.tagName).toBe('SECTION');
-    expect(current.getAttribute('hidden')).toBe(overrideHidden ? null : 'until-found');
-  });
-
-// The whole predecessor and React reference remain evidence; these native defaults earn zero unchanged credit.
-for (const overrideHidden of [false, true])
-  it(`supplement: hiddenUntilFound replacement ${overrideHidden ? 'honors consumer override' : 'retains native until-found'} without rerunning state effect`, async () => {
+  it(`supplement: hiddenUntilFound replacement preserves ${overrideHidden ? 'consumer override' : 'boolean prop'} without rerunning state effect`, async () => {
     const target = document.createElement('section');
     document.body.append(target);
     const component = mount(ReplaceHidden, { target, props: { overrideHidden } });
     mounted.push(component);
     await tick();
     await tick();
-    const original = get('replacement-panel')!;
-    expect(original.getAttribute('hidden')).toBe(overrideHidden ? null : 'until-found');
+    expect(get('replacement-panel')!.getAttribute('hidden')).toBe('until-found');
     component.replace();
     await tick();
     await tick();
     const panel = get('replacement-panel')!;
-    expect(panel).not.toBe(original);
-    expect(original.isConnected).toBe(false);
     expect(panel.tagName).toBe('SECTION');
-    expect(panel.getAttribute('hidden')).toBe(overrideHidden ? null : 'until-found');
+    expect(panel.getAttribute('hidden')).toBe(overrideHidden ? null : '');
   });

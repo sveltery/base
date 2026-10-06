@@ -17,7 +17,7 @@ it('hydrates the actual Separator using native empty-class normalization and sta
   document.body.append(target);
   const native = target.querySelector('[data-native]')!;
   const host = target.querySelector('[data-shared]')!;
-  expect(host.getAttribute('class')).toBe(native.getAttribute('class'));
+  expect(host.getAttribute('class')).toBe('');
   const app = hydrate(Fixture, { target, props: { value: '' } });
   flushSync();
   try {

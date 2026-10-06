@@ -17,11 +17,6 @@ for (const kind of ['focus', 'hover', 'dismiss'] as const)
     });
     const first = new DialogStore<number>(undefined, 'first', false);
     const second = new DialogStore<number>(undefined, 'second', false);
-    // Raw stores have no Root owner; install its syncOnly request route.
-    for (const store of [first, second]) {
-      const root = store.state.floatingRootContext;
-      root.context.onOpenChange = store.setOpen as NonNullable<typeof root.context.onOpenChange>;
-    }
     const firstBus = first.state.floatingRootContext.context.events;
     const secondBus = second.state.floatingRootContext.context.events;
     const firstOn = vi.spyOn(firstBus, 'on');
