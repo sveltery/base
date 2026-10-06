@@ -34,14 +34,14 @@ const props: Props = {
 };
 // @ts-expect-error The Source orientation union is preserved.
 const badOrientation: Props = { orientation: 'diagonal' };
+// @ts-expect-error Style callback receives the real ListboxSeparator state.
 const badStyle: Props = {
-  // @ts-expect-error Style callback receives the real ListboxSeparator state.
   style: (state: { selected: boolean }) => `opacity:${state.selected ? 1 : 0}`,
 };
 // @ts-expect-error Children use native authored Snippets.
 const badChildren: Props = { children: 'text' };
+// @ts-expect-error Native event inference remains specific to the actual div.
 const badEvent: Props = {
-  // @ts-expect-error Native event inference remains specific to the actual div.
   onclick(event: KeyboardEvent) {
     void event;
   },

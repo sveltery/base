@@ -1,5 +1,7 @@
 # Native API representation and current evidence
 
+The [9ed64b87 packed strict-type red receipt](strict-types-predecessor/receipt.json) preserves the complete negative type preimage and four actual errors. Mandatory formatting moved style/event diagnostics to property lines; the successor places both existing `@ts-expect-error` comments on those exact property lines. Their native negative contracts and all runtime bodies remain unchanged. Corrected execution, exact-head review and CI are separate gates.
+
 ## Current native successor
 
 The historical table below describes the c160/7448 checkpoint. Current integration follows accepted main's direct native branch directive: ListboxSeparator renders `render(mergedProps, state, children)` or its own div. It reuses unchanged `mergeComponentProps` and shared prop/state/class/style bodies. Native attachment publication sets the actual bindable ref through `untrack` at the imperative boundary; captured-host cleanup clears only its own current ref. Consumer attachments retain independent Svelte lifetimes. No generic renderer or React ref fanout remains in this closure.

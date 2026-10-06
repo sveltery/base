@@ -4,18 +4,14 @@ import assert from 'node:assert/strict';
 import { readFileSync, writeFileSync } from 'node:fs';
 import { resolve, join } from 'node:path';
 const destination = resolve(process.argv[2]);
-const toolchain = JSON.parse(readFileSync('packages/base/package.json', 'utf8')).devDependencies;
-const playwrightVersion = JSON.parse(readFileSync('package.json', 'utf8')).devDependencies[
-  '@playwright/test'
-];
-const installedDist = `${join(destination, 'node_modules/@sveltery/base/dist')}/`;
+const root = process.cwd();
 function write(name, body) {
   writeFileSync(join(destination, name), body);
 }
 function copy(source, target) {
   const body = readFileSync(source, 'utf8')
-    .replaceAll('../../src/lib/', installedDist)
-    .replaceAll('../src/lib/', installedDist)
+    .replaceAll('../../src/lib/', './node_modules/@sveltery/base/dist/')
+    .replaceAll('../src/lib/', './node_modules/@sveltery/base/dist/')
     .replaceAll(
       './dom/SelectCanonicalLeavesFixture.svelte',
       './SelectCanonicalLeavesFixture.svelte',
@@ -39,20 +35,6 @@ write(
     dependencies: {
       '@sveltery/base': `file:${join(destination, tarball)}`,
       svelte: '5.57.1',
-    },
-    // Install the pinned test harness locally so Vitest's nested optimizer requests
-    // and internal subpaths resolve through its actual package, without aliases.
-    devDependencies: {
-      playwright: playwrightVersion,
-      ...Object.fromEntries(
-        [
-          'vitest',
-          '@vitest/browser-playwright',
-          '@sveltejs/vite-plugin-svelte',
-          'vite',
-          'jsdom',
-        ].map((name) => [name, toolchain[name]]),
-      ),
     },
   }),
 );
@@ -130,14 +112,15 @@ writeFileSync(new URL('./server-markup.json', import.meta.url), JSON.stringify(m
 console.log('Installed private leaves, non-public exports and real no-browser SSR: PASS');
 `,
 );
+const baseModules = join(root, 'packages/base/node_modules');
 write(
   'vitest.config.mjs',
   `
-import { svelte } from '@sveltejs/vite-plugin-svelte';
-import { defineConfig } from 'vitest/config';
-import { playwright } from '@vitest/browser-playwright';
+import { svelte } from ${JSON.stringify(join(baseModules, '@sveltejs/vite-plugin-svelte/src/index.js'))};
+import { defineConfig } from ${JSON.stringify(join(baseModules, 'vitest/dist/config.js'))};
+import { playwright } from ${JSON.stringify(join(baseModules, '@vitest/browser-playwright/dist/index.js'))};
 export default defineConfig({ root: ${JSON.stringify(destination)}, plugins: [svelte()],
- resolve: { dedupe: ['svelte'] }, test: { maxWorkers: 1, fileParallelism: false, retry: 0,
+ resolve: { dedupe: ['svelte'], alias: { vitest: ${JSON.stringify(join(baseModules, 'vitest/dist/index.js'))} } }, test: { maxWorkers: 1, fileParallelism: false, retry: 0,
  projects: [
   { extends: true, test: { name: 'server', environment: 'node', include: ['helpers.test.ts', 'ssr.test.ts'] } },
   { extends: true, resolve: { conditions: ['browser'] }, test: { name: 'dom', environment: 'jsdom', include: ['dom.test.ts', 'hydration.test.ts'] } },

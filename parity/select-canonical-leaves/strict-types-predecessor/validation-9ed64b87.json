@@ -35,25 +35,11 @@
     "baseline": "all five toolchain tests reproduce unchanged on untouched main aa4daff5 in this host",
     "remainingStages": "incomplete; feasible stages and hosted exact-head results reported externally. No source/tooling bypass."
   },
-  "packedStrictTypesSSRHydration": {
-    "result": "strict declaration check passed: 0 errors, 0 warnings; SSR passed; 15 server/DOM/hydration tests passed",
-    "strict": true,
-    "exactOptionalPropertyTypes": true,
-    "skipLibCheck": false,
-    "receipt": "strict-types-predecessor/private-consumer-final-local.log",
-    "negativeAssertions": "retained; diagnostic comments moved to rejected properties"
-  },
-  "securedBrowser": {
-    "result": "incomplete: zero browser tests executed; official Chromium executable missing locally",
-    "runnerRepair": "isolated installed tooling and absolute physical dist imports remove predecessor dependency-scan errors",
-    "officialInstall": "workspace TMPDIR retry failed with empty invalid archive",
-    "sandbox": true,
-    "workers": 1,
-    "retries": 0
-  },
+  "packedStrictTypesSSRHydration": "implemented; execution pending",
+  "securedBrowser": "implemented mandatory; execution pending, sandbox remains enabled, one worker zero retries",
   "independentReview": "checkpoint entire 16-module review found no runtime/source/native/maintainability defect, stale records corrected. Final pushed SHA review pending.",
-  "configuredReview": "9ed64b87 completed without quota exhaustion; stale renderer documentation finding corrected and predecessor paragraph preserved. Fresh corrected-head review pending.",
-  "hostedCI": "9ed64b87 Standards passed; Verification and private consumer failed four misplaced diagnostic errors, preserved in strict-types-predecessor. Corrected exact-head CI pending.",
+  "configuredReview": "pending; no quota waiver inferred",
+  "hostedCI": "pending authorized diagnostic draft publication",
   "ordinarySelectDeclarationCredit": 0,
   "logReceipts": [
     {

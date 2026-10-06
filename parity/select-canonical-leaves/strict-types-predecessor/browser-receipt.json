@@ -1,0 +1,14 @@
+{
+  "source": "9ed64b87 prepare-consumer.mjs with skipLibCheck changed to false; assertions and fixture routes unchanged",
+  "result": "real installed declaration check0errors0warnings, no-browserSSR pass,15serverDOMhydration pass; secured browser incomplete before tests",
+  "browserFailures": [
+    "official Chromium executable missing",
+    "Vitest prefix alias incorrectly remapped internal subpaths and nested dependency optimization",
+    "relative physical private Svelte import unresolved from Vite virtual-module dependency scan"
+  ],
+  "preimageSha256": "f7893f1ad7b919471fedb1e6da10922f6bf4cd69faecd5360521b8b37d1df996",
+  "repair": "Install actual pinned isolated test harness, normal exports/import resolution and absolute physical installed dist routes; use own installed Vitest runner. No source/fixture shim, assertion change, sandbox weakening or runtime business change.",
+  "configuredReviewFinding": "P2 old central renderer description is replaced by direct branch description; complete predecessor paragraph preserved.",
+  "successorExecution": "pending",
+  "ordinarySelectDeclarationCredit": 0
+}

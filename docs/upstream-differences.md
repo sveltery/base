@@ -3,12 +3,14 @@
 The private Select prerequisite successor normally integrates actual main `aa4daff5`. Its [current closure](../parity/select-canonical-leaves/current-main-correspondence.md) uses the canonical Utils package and direct native ListboxSeparator snippet/div/attachment branch with unchanged shared prop business. Native string styles and independent attachment lifetimes supersede the historical renderer representation; original receipts and assertion expectations remain preserved, with zero divergent renderer credit. Actual production Select integration and final exact-head consumer/browser/CI/review acceptance remain incomplete.
 
 The [three private Select prerequisites](../parity/select-canonical-leaves/README.md)
-retain pinned item equality and label business, with native scalar/Snippet label
-tokens and an internal ListboxSeparator using canonical RenderElement. Their
-[representation and validation record](../parity/select-canonical-leaves/compatibility.md)
-keeps the temporarily unconsumed status, native renderer/type boundaries and
-pending final Source/installed-consumer/CI acceptance explicit. No public Select
-API, full-family closure or ordinary declaration credit is established.
+retain pinned item equality and label business with native scalar/Snippet label
+tokens. Internal ListboxSeparator uses its own direct snippet/div branch,
+canonical shared prop/state/class/style business and independent actual-host
+attachments. The [compatibility record](../parity/select-canonical-leaves/compatibility.md)
+preserves the superseded c160/7448 renderer receipts as history and keeps the
+private prerequisite scope, native string styles, installed declaration boundary
+and remaining acceptance explicit. No public Select API, full-family closure or
+ordinary Select declaration credit is established.
 
 The private canonical [useClick prerequisite](use-click-prerequisite.md) records its callback-construction fidelity repair and existing native lifetime/type boundaries in [source correspondence](../parity/use-click/source-correspondence.md). Selected scalar options and Store/dataRef identity stay in ordinary callback closures; Source live state/event reads and cancellation stay live. Native events, derived handler construction, Svelte Store subscription and onMount cleanup replace React machinery. The existing browser-rAF adapter omits the Source process-global scheduler, explicitly recorded with zero new ordinary assertion credit. The new direct element type import erases completely; unchanged RootStore inline type imports retain an empty emitted types module without hover/tree business execution. This is bounded private preparation, with exact final review/CI/PM approval pending; existing bespoke Dialog and full affected features remain outside its acceptance.
 
