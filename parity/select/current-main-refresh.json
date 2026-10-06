@@ -22,22 +22,25 @@
       "Select complete runtime/public types",
       "authored remote Select writer/adapter/types"
     ],
-    "pendingRepresentationProviders": [
-      {
-        "path": "packages/base/src/lib/internals/useTransitionStatus.svelte.ts",
-        "actualSymbol": "useTransitionStatus",
-        "actualRepresentation": "function",
-        "requiredRepresentation": "reusable state-owner class",
-        "status": "User assigned separate canonical prerequisite owner; final class provider SHA/hash/review/acceptance not supplied, do not fabricate."
-      },
-      {
-        "path": "packages/base/src/lib/internals/use-button/useButton.svelte.ts",
-        "actualSymbol": "useButton",
-        "actualRepresentation": "function",
-        "requiredRepresentation": "reusable state-owner class",
-        "status": "Same canonical prerequisite owner; no shared helper edit in PR70."
-      }
-    ]
+    "priorButtonTransitionSubset": {
+      "scope": "Earlier explicitly identified subset, not the complete current pending representation inventory",
+      "providers": [
+        {
+          "path": "packages/base/src/lib/internals/useTransitionStatus.svelte.ts",
+          "actualSymbol": "useTransitionStatus",
+          "actualRepresentation": "function",
+          "requiredRepresentation": "reusable state-owner class",
+          "status": "User assigned separate canonical prerequisite owner; final class provider SHA/hash/review/acceptance not supplied, do not fabricate."
+        },
+        {
+          "path": "packages/base/src/lib/internals/use-button/useButton.svelte.ts",
+          "actualSymbol": "useButton",
+          "actualRepresentation": "function",
+          "requiredRepresentation": "reusable state-owner class",
+          "status": "Same canonical prerequisite owner; no shared helper edit in PR70."
+        }
+      ]
+    }
   },
   "documentationFindingsResolved": [
     "Replace retired generic rendering/ref fanout with direct native snippets, bindable hosts, independent attachments and pure shared business.",
@@ -2483,7 +2486,6 @@
   "completePerBodyMapping": "per-body-source-mapping.json",
   "existingProviderAppendix": "existing-provider-appendix.json",
   "missingBusinessLeaves": 5,
-  "pendingCanonicalClassRepresentations": 2,
   "nativeTransportAcceptanceDependency": {
     "path": "packages/base/src/lib/internals/nativeProps.ts",
     "symbol": "toNativeStyle",
@@ -2500,5 +2502,13 @@
       "https://github.com/sveltery/base/pull/73#issuecomment-6025527104"
     ]
   },
-  "nativeGraphStorage": "Exact raw generated identities remain recorded in the graph records; lossless gzip storage and compressed identities are in proposed-native-helper-graph-storage.json and proposed-native-fixture-graph-storage.json."
+  "nativeGraphStorage": "Exact raw generated identities remain recorded in the graph records; lossless gzip storage and compressed identities are in proposed-native-helper-graph-storage.json and proposed-native-fixture-graph-storage.json.",
+  "currentOwnerRepresentationInventory": {
+    "inventory": "canonical-owner-classification.json",
+    "actualProviders": 212,
+    "runtimeReachedOwnerRows": 28,
+    "typeOnlyOwnerAuditRows": 1,
+    "status": "Lead-reported canonical family owners pending; no invented task PR/provider hashes/acceptance. Five absent business leaves stay separate. Accurate documentation can complete after final-public-head substantive/configured review and mandatory CI."
+  },
+  "priorExplicitlyIdentifiedClassRepresentations": 2
 }

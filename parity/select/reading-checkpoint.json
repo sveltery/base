@@ -1003,23 +1003,23 @@
   "manualNotes": [
     {
       "path": "source-plan.md",
-      "sha256": "07ca040d6d551bc3501e193e044bcdc2da7e8cc6e1c39a52ef3649297ef5746f"
+      "sha256": "37c534127f906ade2c3e1e7075b6997bb53145fcfd892e4a67a5819ce52558a5"
     },
     {
       "path": "source-correspondence.md",
-      "sha256": "f60453fd3421c11b1b1a3c5fbd4837e550f00b7ae231c92f33315932ac7f6675"
+      "sha256": "3d81c818b6173539a210559cd77fc3281ceb24ea309c94c716e42dad080b67a9"
     },
     {
       "path": "native-composition.md",
-      "sha256": "c5dd34ad9d8dcefd19c317fabf2283d5b3e5755aee290bc14b453a325d59e621"
+      "sha256": "7221de1463a24d74ca4c28f28122afd4e1aee784ff8d32bd708b727ec35636f6"
     },
     {
       "path": "manual-test-plan.md",
-      "sha256": "83993c70f2fac30276002e0c82a88513fcd1f96696fe3d2579c4c3d3e3a75187"
+      "sha256": "4f43632fec990eb93c7ca5432380524ec06ada63babc533ac2cae633a403ca14"
     },
     {
       "path": "remote-select-contract.md",
-      "sha256": "959b8338f550433a74cf198fa9d3ae6649a96910d3a5f347ebb5ab48ddf8af02"
+      "sha256": "fc9493520df553d005c9bd1460ddca490668422df5aa868f6ddab112e99414c9"
     }
   ],
   "accounting": {
@@ -1038,7 +1038,7 @@
   "correctedObservation": "Original useListNavigation348\u2013350 item && ... references the later function-scope memo item-props bag; native later derived item bag is Source-same. Initial incomplete-read concern corrected; no blocker, issue or helper repair lease.",
   "remainingGates": [
     "Exact final-head independent complete precode Source/native/maintainability review and lead approval.",
-    "Accepted PR73 owner integration for three private leaves; separate unsynced floating-root and pure label-resolver business leases; accepted canonical useButton/useTransitionStatus class providers; separate remote adapter/type leases.",
+    "Accepted PR73 owner integration for three private leaves; separate unsynced floating-root and pure label-resolver business leases; accepted class providers from all reached canonical owner families in canonical-owner-classification.json (including Button/Transition); separate remote adapter/type leases.",
     "Actual Select product implementation and separate per-body/variant/helper/type/native evidence, all currently zero-credit.",
     "Exact implementation-head Source/native/maintainability, SSR/hydration, secured browser, full CI/verification and packed public consumers.",
     "PR73 sole-owner nativeProps/toNativeStyle empty-string transport repair, measured exact-head native evidence, review/gates and accepted-main normal integration before future implementation acceptance; documentation-only plan review and hosted gates remain separate."
@@ -1340,18 +1340,27 @@
     "additionalProviderBodies": 3,
     "collectivePhysicalNativeScope": 212,
     "absentBusinessLeaves": 5,
-    "pendingCanonicalClassRepresentations": 2,
     "status": "Individual mappings assess actual business/native/maintainability separately from hashes. Whole-body collective reading scope explicitly attributed; final-head disposition external. Zero runtime acceptance and ordinary credit.",
     "hashes": {
-      "per-body-source-mapping.json": "7b264814844f3a6328a9acb9340e2a7b4610737358dc4c413fa3f725f41273aa",
-      "per-body-native-mapping.json": "a28d56e78793e8c12b2c793e69b6cc206d8565ee8f462e33ae6819f22c0c1b64",
-      "existing-provider-appendix.json": "391d8e29c15560f333838f951df92e80570650f9384b37f3975076c5766f9174",
-      "independent-body-reading-ledger.json": "9410737cceb9bd0286c34d09b285fa4e159a7b57884b1cf3643e3e128fd2aa31"
+      "per-body-source-mapping.json": "e18b637139e64074594924c77f98db2682a59e97263226626c48f97d636fa742",
+      "per-body-native-mapping.json": "2adc387753ab1bac26d7e41c9bd191710a98b0f5d840804b66300a691b8cb5a7",
+      "existing-provider-appendix.json": "7a68ed1e19722650ae864d11aea0c285f24ef080c14371f2c5caa4be1b7cc2c3",
+      "independent-body-reading-ledger.json": "9410737cceb9bd0286c34d09b285fa4e159a7b57884b1cf3643e3e128fd2aa31",
+      "canonical-owner-classification.json": "28b7fd48b4100d26862ccf524e7ade1c7a00617159a0f3593291ca4258f6cd5f"
     },
     "independentWholeBodyReadingLedger": "independent-body-reading-ledger.json",
     "sourceTestClosureBodiesRead": 279,
     "sourceTestClosureLinesRead": 39459,
-    "independentPrecodeDisposition": "Complete collective whole-body reading and individual Source/data/native business mapping proposal clear; five business leaves/two classes pending. Exact successor local/public SHA independent review external; no SourceFull/runtime acceptance."
+    "independentPrecodeDisposition": "Complete collective whole-body reading and individual Source/data/native business mapping proposal clear; five business leaves/two classes pending. Exact successor local/public SHA independent review external; no SourceFull/runtime acceptance.",
+    "priorExplicitlyIdentifiedClassRepresentations": 2,
+    "ownerRepresentationInventory": {
+      "inventory": "canonical-owner-classification.json",
+      "actualProviders": 212,
+      "runtimeReachedOwnerRows": 28,
+      "typeOnlyOwnerAuditRows": 1,
+      "status": "Lead-reported canonical family owners pending; no invented task PR/provider hashes/acceptance. Five absent business leaves stay separate. Accurate documentation can complete after final-public-head substantive/configured review and mandatory CI."
+    },
+    "historicalDispositionScope": "independentPrecodeDisposition above records the earlier nonexclusive Button/Transition checkpoint at its original candidate. Current owner scope is explicitly superseded by currentOwnerRepresentationInventory/currentDiagnosticDisposition; no historical reading or acceptance rewritten."
   },
   "historicalReceiptStorage": {
     "manifest": "history/native-precode-94c23-storage.json",
@@ -1378,7 +1387,7 @@
       "https://github.com/sveltery/base/pull/73#issuecomment-6025527104"
     ]
   },
-  "currentDiagnosticDisposition": "Historical independent precode proposal clears remain attributed to their original candidate. Documentation-only plan acceptance requires actual-public-final-head substantive independent review, configured-model review and mandatory hosted CI. Sole-owner PR73 nativeProps empty-string transport decision/repair, measured gates and accepted-main integration remain future implementation dependencies, separate from five absent business leaves and two pending class representations. No runtime/provider/SourceFull acceptance.",
+  "currentDiagnosticDisposition": "Historical independent review dispositions remain attributed to original candidates. Current actual212-provider owner inventory supersedes the earlier nonexclusive Button/Transition list:28 runtime-reached retained reusable function-owner rows and1 type-only family-audit owner body, actual classes/native glue/source utilities distinguished. Future canonical class tasks, five absent business leaves and PR73 native style repair remain implementation prerequisites. Accurate documentation acceptance needs actual-public-final-head substantive/configured review and mandatory CI; no runtime/provider/SourceFull acceptance.",
   "nativeGraphStorage": {
     "proposed-native-helper-graph.json.gz": {
       "manifest": "proposed-native-helper-graph-storage.json",
@@ -1396,5 +1405,19 @@
       "compressedSha256": "2acc28079670dcf5312e9d2bf98fc6b8a9c60e7bdeda25361d6864ed4712b09a",
       "compressedBytes": 114133
     }
+  },
+  "currentOwnerRepresentationInventory": {
+    "inventory": "canonical-owner-classification.json",
+    "actualProviders": 212,
+    "runtimeReachedOwnerRows": 28,
+    "typeOnlyOwnerAuditRows": 1,
+    "status": "Lead-reported canonical family owners pending; no invented task PR/provider hashes/acceptance. Five absent business leaves stay separate. Accurate documentation can complete after final-public-head substantive/configured review and mandatory CI."
+  },
+  "currentRemoteAuthoredRouteProposal": {
+    "flag": "Field.Control authoredSelect=true",
+    "requires": "resolved select/select multiple kind and callable render",
+    "preserves": "absent/false/undefined flag retains existing native custom-select dispatcher/payload/callbacks",
+    "reviewFinding": "https://github.com/sveltery/base/pull/70#discussion_r4200861285",
+    "status": "Documentation-only explicit API proposal; no runtime/type implementation or assertion credit"
   }
 }

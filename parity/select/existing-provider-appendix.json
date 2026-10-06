@@ -28,7 +28,8 @@
       "businessRole": "Select.Trigger mouseup cancel-open release containment includes5px tolerance and centered before/after max dimensions; owner-realm styles and jsdom early return remain exactly Source.",
       "primitiveReplacement": "Stateless native DOM geometry function; only canonical Utils owner/platform import relocation. No new geometry engine or state-owner class needed.",
       "status": "Existing provider outside recorded209 module union; separately read addition, not graph membership or inherited runtime acceptance.",
-      "reviewCheck": "All inclusive inequality/order, parseFloat||0, max dimensions and centering branches retain Source; browser pseudo-element witnesses remain future Select gates."
+      "reviewCheck": "All inclusive inequality/order, parseFloat||0, max dimensions and centering branches retain Source; browser pseudo-element witnesses remain future Select gates.",
+      "ownerClassification": "canonical-owner-classification.json: packages/base/src/lib/utils/getPseudoElementBounds.ts"
     },
     {
       "source": "packages/utils/src/lib/PreviousValue.svelte.ts",
@@ -52,7 +53,8 @@
       "businessRole": "One real previous/current owner with null initial previous and Object.is change comparison; Select Root needs current-or-previous opening method through exit.",
       "primitiveReplacement": "Canonical native reusable PreviousValue class uses live getter/untrack initial setup; React setState/render transport replaced, no derived scalar cache or commit engine.",
       "status": "Existing provider outside recorded209 module union; separately read addition, not graph membership or inherited runtime acceptance.",
-      "reviewCheck": "Complete current/previous assignments and Object.is preserve signed-zero/NaN semantics; actual getter usage and effect/hydration/default observations remain future consumer gates."
+      "reviewCheck": "Complete current/previous assignments and Object.is preserve signed-zero/NaN semantics; actual getter usage and effect/hydration/default observations remain future consumer gates.",
+      "ownerClassification": "canonical-owner-classification.json: packages/utils/src/lib/PreviousValue.svelte.ts"
     },
     {
       "source": "packages/utils/src/lib/warn.ts",
@@ -77,7 +79,8 @@
       "businessRole": "Single canonical Base UI-prefixed severity warn logger/reset; shared createLogOnce cache/DEV behavior reused.",
       "primitiveReplacement": "Stateless logger construction/module reexport; no React state/lifecycle.",
       "status": "Existing provider outside recorded209 module union; separately read addition, not graph membership or inherited runtime acceptance.",
-      "reviewCheck": "Severity/prefix and shared reset exact; no new warning engine, unconditional production logging or duplicate cache."
+      "reviewCheck": "Severity/prefix and shared reset exact; no new warning engine, unconditional production logging or duplicate cache.",
+      "ownerClassification": "canonical-owner-classification.json: packages/utils/src/lib/warn.ts"
     }
   ],
   "status": "Actual-main provider appendix: fresh whole-body business/native/maintainability review by native_plan_audit, separate from retained209-module graph. No runtime/provider acceptance or assertion credit.",

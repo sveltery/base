@@ -4,7 +4,9 @@ This is a separately proposed integration contract, not an implementation lease 
 
 ## Route and one owner
 
-Keep bare `Field.Root as="select"` / `as="select multiple"` on the existing native `<select>` route. Only an explicitly authored Control render snippet selects the proposed `RemoteSelectControl` route before `RemoteNativeControl`. It does not instantiate Field.Control or a native select behind an authored Select. The consumer renders real Select.Root/Trigger/parts and their source hidden inputs; those parts retain registration, labels, validation, value/open/cancellation and native serialization. No additional selection store, native control registry, synthetic input event or reset listener is added.
+Keep `Field.Root as="select"` / `as="select multiple"` on the existing native `<select>` route, including existing `Field.Control render` snippets that render a native select. Actual RemoteControl currently sends select kinds to RemoteNativeControl regardless of render; only radio/checkbox have a render-selected authored-family branch. A render snippet, select kind or payload discriminator alone therefore cannot opt into authored Select.
+
+The proposed new public discriminator is **`authoredSelect={true}` on Field.Control**, required together with an authored render snippet. It is a separately proposed native API, not an existing Source prop or implemented contract. Only this explicit true flag, a callable render snippet and a resolved `select`/`select multiple` kind select RemoteSelectControl before the native route. Missing/noncallable render or a file/text/checked/unknown resolved kind with the flag throws a clear configuration error rather than falling through or rerouting another family. Absent/false/undefined authoredSelect preserves the exact existing dispatcher, native render payload, Field callback types and registration. The flag is consumed by the adapter and never forwarded to Root, Trigger or DOM. It does not instantiate Field.Control or a native select behind an authored Select. The consumer renders real Select.Root/Trigger/parts and their source hidden inputs; those parts retain registration, labels, validation, value/open/cancellation and native serialization. No additional selection store, native control registry, synthetic input event or reset listener is added.
 
 An adapter instance chooses its owner once during setup, before descendants and SSR. Test authored values with `!== undefined`, matching Source useControlled; property presence alone is insufficient. Defined authored `value` wins, then defined authored `defaultValue`, then a remote accessor, then ordinary manual-uncontrolled Select. This is an explicit proposed adapter choice. Remount when selecting a different owner mode; changing props does not silently turn manual ownership into remote ownership. The canonical Root still independently chooses its Source controlled/uncontrolled mode.
 
@@ -76,34 +78,37 @@ type RemoteSelectRender = Snippet<[
 
 type RemoteSelectControlProps<Multiple extends boolean> = Omit<
   ExistingRemoteControlProps,
-  'type' | 'multiple' | 'value' | 'defaultValue' | 'onValueChange' | 'render'
+  'type' | 'multiple' | 'value' | 'defaultValue' | 'onValueChange' | 'render' | 'authoredSelect'
 > & {
+  authoredSelect: true;
   type?: (Multiple extends true ? 'select multiple' : 'select') | undefined;
   multiple?: Multiple | undefined;
   value?: RemoteSelectValue<Multiple> | null | undefined;
   defaultValue?: RemoteSelectValue<Multiple> | null | undefined;
   onValueChange?: RemoteSelectChange<Multiple> | undefined;
-  render?: Snippet<[
+  render: Snippet<[
     RemoteSelectRenderProps<Multiple>,
     RemoteControlState,
     Snippet | undefined,
-  ]> | undefined;
+  ]>;
 };
 
-// Existing render payload and state remain their real current types.
-// The old branch emits no new kind property; this is a type discriminant only.
-type RemoteControlRenderProps =
-  | (ExistingRemoteControlRenderProps & { kind?: undefined })
-  | RemoteSelectRenderUnion;
+// Existing ordinary render payload, callback and state remain their real current types.
+type OrdinaryRemoteControlProps = ExistingRemoteControlProps & {
+  authoredSelect?: false | undefined;
+};
+// This union belongs only to explicitly opted-in authored Select controls.
+// OrdinaryRemoteControlProps retains its existing render and callback types.
+type AuthoredSelectContextRenderProps = RemoteSelectRenderUnion;
 ```
 
 The Select callback details are the source union `trigger-press | outside-press | escape-key | window-resize | item-press | focus-out | list-navigation | cancel-open | none`, correlated with the existing native event-details type. No Field.Control-only reason substitution is allowed. Root defaultValue retains Source nullable/undefined optional types; manually owned multiple null props remain permitted, but the multiple callback has no null. General nonremote SelectRootProps remains generic in Value and Multiple, including object, number, boolean and arrays-as-scalar values.
 
 Keep the facade's two host boundaries visible: rootProps carries selection/form semantics; triggerProps carries visible-host ID/ARIA, Control class/style, authored attachments and the bindable actual Trigger ref. Root inputRef remains the actual common validation input ref. Root is wrapperless: no Trigger attachment, arbitrary native attributes or Root `ref` is smuggled onto it. Control class/style callbacks use the existing facade state and are resolved at that boundary before passing real Trigger props. Descriptor input-only `type`/value/multiple/defaultValue are not visible Trigger attributes. Compatible native attachments receive the real Trigger HTMLElement and canonical owned cleanup; attachments requiring an HTMLSelectElement require the unchanged bare native-select route.
 
-The illustrative authored snippet is `if (props.kind === 'select')`, then `<Select.Root {...props.rootProps}>` containing `<Select.Trigger {...props.triggerProps}>` and the real remaining parts. Narrow on `props.multiple` when scalar/multiple callback assignment matters. No assertion/cast to unknown erases correlation. The public union implementation must preserve existing native/checked snippets and contextual types; any necessary overload must select this same slice, not make old callbacks unknown.
+The illustrative opt-in is `<Field.Control authoredSelect={true} render={authoredSelectSnippet} />` under the real select-kind Field.Root. Its authored snippet checks `if (props.kind === 'select')`, then `<Select.Root {...props.rootProps}>` containing `<Select.Trigger {...props.triggerProps}>` and the real remaining parts. Narrow on `props.multiple` when scalar/multiple callback assignment matters. No assertion/cast to unknown erases correlation. The public union implementation must preserve existing native/checked snippets and contextual types; any necessary overload must select this same slice, not make old callbacks unknown.
 
-Types do not flow from an ancestor's runtime Svelte context into a child component's compile-time generic. Existing TypedField narrows Root name/as from real accessor arguments; it does not currently correlate Control to that particular ancestor. Context-only authored Control therefore receives the above honest discriminated union. The proposed explicitly supplied `type="select"` and `type="select multiple"` public overloads use RemoteSelectControlProps<false>/<true>; a broad/absent route exposes the render union, never a falsely inferred scalar payload. Keep existing native/checked callback types on their actual overloads. This does not promise automatic scalar snippet inference solely from the surrounding Root or require duplicating name/as on normal controls. Public installed-consumer compilation must demonstrate contextual union narrowing and preservation of old snippets/callbacks before the separate lease can be accepted. The generic old input `type: string` cannot simply be intersected with these literals and claimed discriminated; actual overload selection and negative consumers remain a type-review gate.
+Types do not flow from an ancestor's runtime Svelte context into a child component's compile-time generic. Existing TypedField narrows Root name/as from real accessor arguments; it does not currently correlate Control to that particular ancestor. Context-only Control with authoredSelect=true receives the above honest discriminated union; context-only Control without that flag keeps the existing native payload. The proposed explicitly supplied authoredSelect=true plus `type="select"` and `type="select multiple"` public overloads use RemoteSelectControlProps<false>/<true>; an opted-in broad/absent select route exposes the authored render union, never a falsely inferred scalar payload. Keep existing native/checked callback types on their actual overloads. This does not promise automatic scalar snippet inference solely from the surrounding Root or require duplicating name/as on normal controls. Public installed-consumer compilation must demonstrate contextual union narrowing and preservation of old snippets/callbacks before the separate lease can be accepted. The generic old input `type: string` cannot simply be intersected with these literals and claimed discriminated; actual overload selection and negative consumers remain a type-review gate.
 
 ## Actual SDK data limits and future witnesses
 
@@ -111,4 +116,6 @@ Installed Kit2.70.3 `InputTypeMap` maps `select` to string and `select multiple`
 
 Required type positives are actual string and string[] fields, accepted `.as(...)` fallback arguments, canonical indexed paths and both string-correlated render branches. Type negatives include number/boolean/number[]/boolean[]/object/File leaves for both Select routes, scalar field as select multiple, array field as select, incompatible authored value/default/callback assignments, multiple callback accepting scalar/null, and incompatible actual Trigger refs. Typed Root name/as continues to derive from the real accessor declarations instead of claiming a second hard-coded SDK type map. The honest context-only Control payload identifies string versus string[]; it does not infer a schema's narrower enum item set from an ancestor context or promise that every string passes server validation. Wrong runtime types arriving through any/structural escape hatches have the explicit failure above. Kit3 remains a distinct actual type consumer; its declarations do not establish Kit3 runtime acceptance or change these witnessed Kit2 limits.
 
-Future runtime witnesses separately cover every ownership-table row, current fallback changes, owner undefined/null/empty after programmatic set and settled reset, descriptor/accessor replacement during callbacks, cancel/consumer prevention, read-only/missing/wrong-receiver writer, scalar null encoding, string[] ordering, Source Field initial/dirty/filled/validation and logical errors, native descriptor/name overrides, actual Trigger/input refs and attachment cleanup. Keep invalid/canceled zero-POST then valid positive-POST, canceled reset and held payload gates. They require real rendered Source Select and actual SDK form listeners; no probe-only shim or new Kit patch supplies acceptance. Existing native/checked/text/file routes retain their established gates.
+Future runtime witnesses first prove absent/false/undefined authoredSelect preserves existing native custom-select snippets, payloads, callbacks, refs/registration and SDK listeners. Prove explicit true plus valid select kind/render selects the new route; missing render and wrong file/text/checked/unknown kind fail without fallback. Public type positives/negatives distinguish both explicit flag+kind overloads from old native-render controls and the opted-in context union. Future runtime witnesses separately cover every ownership-table row, current fallback changes, owner undefined/null/empty after programmatic set and settled reset, descriptor/accessor replacement during callbacks, cancel/consumer prevention, read-only/missing/wrong-receiver writer, scalar null encoding, string[] ordering, Source Field initial/dirty/filled/validation and logical errors, native descriptor/name overrides, actual Trigger/input refs and attachment cleanup. Keep invalid/canceled zero-POST then valid positive-POST, canceled reset and held payload gates. They require real rendered Source Select and actual SDK form listeners; no probe-only shim or new Kit patch supplies acceptance. Existing native/checked/text/file routes retain their established gates.
+
+Configured review [P2 route finding](https://github.com/sveltery/base/pull/70#discussion_r4200861285) identified the prior render-only proposal as conflicting with actual native custom-select rendering. This explicit opt-in documentation repair preserves current dispatcher behavior; it implements no new route/API and grants zero runtime or unchanged assertion credit.
