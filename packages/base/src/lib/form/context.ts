@@ -7,6 +7,8 @@ export type { FormContext, RegisteredField } from '../internals/form-context/For
 export const getFormContext = useFormContext;
 export function getFormValues(context: FormContext): FormValues {
   const values: FormValues = {};
-  context.formRef.current.fields.forEach(field => { if (field.name) values[field.name] = field.getValue(); });
+  context.formRef.current.fields.forEach((field) => {
+    if (field.name) values[field.name] = field.getValue();
+  });
   return values;
 }

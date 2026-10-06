@@ -1,3 +1,4 @@
+import { resolveNativePackageSource } from '../../scripts/native-package-source.mjs';
 // Reproducible exact native runtime/type import graph for the owned family.
 import { createHash } from 'node:crypto';
 import { existsSync, readFileSync, writeFileSync } from 'node:fs';
@@ -10,6 +11,8 @@ const ts = require('typescript');
 const roots = ['toggle/index.ts', 'toggle-group/index.ts', 'toolbar/index.ts', 'separator/index.ts'].map(path => `packages/base/src/lib/${path}`);
 const hash = text => createHash('sha256').update(text).digest('hex');
 function resolveImport(source, specifier) {
+  const owned = resolveNativePackageSource(repo, specifier);
+  if (owned) return owned;
   if (!specifier.startsWith('.')) return `external:${specifier}`;
   const raw = resolve(repo, dirname(source), specifier);
   const candidates = [raw, raw.replace(/\.js$/, '.ts'), raw.replace(/\.js$/, '.svelte'), `${raw}.ts`, `${raw}.svelte`, `${raw}/index.ts`];

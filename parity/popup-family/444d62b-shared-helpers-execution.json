@@ -1,0 +1,37 @@
+{
+  "head": "444d62bc9f02622d094b1c9a53001d452168574f",
+  "commands": [
+    "source scripts/toolchain.sh; TMPDIR=/workspace/sveltery-tmp NODE_OPTIONS=--max-old-space-size=512 NODE_COMPILE_CACHE=/workspace/sveltery-tmp/popup-family-node-cache pnpm --filter @sveltery/base exec vitest run --config vitest.dom.config.ts tests/dom/popup-portal-native.test.ts tests/dom/popup-open-change.test.ts tests/dom/popup-portal-realm-witness.test.ts --maxWorkers=1",
+    "Same toolchain/environment; pnpm --filter @sveltery/base exec svelte-check --tsconfig ../../.checks/popup-family/tsconfig.helpers.json --fail-on-warnings"
+  ],
+  "tests": {
+    "files": 3,
+    "tests": 31,
+    "passed": 31,
+    "failed": 0,
+    "warningLog": false
+  },
+  "types": {
+    "errors": 0,
+    "warnings": 0,
+    "skipLibCheck": false,
+    "scopeIncludeFiles": 28,
+    "portableSameScopeConfig": "helper-tsconfig.json",
+    "portableConfigExecution": "Pending next frozen head; this execution used original .checks same scope absolute file paths."
+  },
+  "standards": {
+    "status": "NOT CLEAR: initial scoped ESLint found5errors0warnings. Two Source-preserved width/height assignments, immutable host-context Map, nonreactive native fixture report Map, audit-only unused arg. Frozen-runtime comments-only annotations requested; no business rewrite.",
+    "log": "receipts/444d62b-scoped-standards-source-suppression-failure.log.gz"
+  },
+  "logs": {
+    "444d62b-portal-open-change-repaired-green.log.gz": "03b79612216301bfa61364ae600229a6076009381ca63606246dc4d89b691346",
+    "444d62b-shared-helper-types-green.log.gz": "996b810585ccb08b58afe2d4b04a1037a8a7e8278930b3913a3d880e6c90cd02",
+    "444d62b-scoped-standards-source-suppression-failure.log.gz": "eaefc9729484ce1a719c0b4790f2f76a4e9a6141673b081a7209fc604b9db267"
+  },
+  "unchangedPredecessorEvidence": [
+    "portal-realm-execution.json",
+    "portal-context-lifetime-failure.json"
+  ],
+  "sourceNativeReview": "Pending focused final delta and other shared-helper whole Source/native gate. Tests/typechecking alone do not establish acceptance.",
+  "ordinaryDeclarationCredit": 0
+}

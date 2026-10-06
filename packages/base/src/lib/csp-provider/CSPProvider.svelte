@@ -4,6 +4,14 @@
   import type { CSPProviderProps } from './types.js';
   let { children, nonce, disableStyleElements }: CSPProviderProps = $props();
   // Initialization context stays stable while getters track the provider's live props.
-  setCSPContext({ get nonce() { return nonce; }, get disableStyleElements() { return disableStyleElements; } });
+  setCSPContext({
+    get nonce() {
+      return nonce;
+    },
+    get disableStyleElements() {
+      return disableStyleElements;
+    },
+  });
 </script>
+
 {@render children?.()}

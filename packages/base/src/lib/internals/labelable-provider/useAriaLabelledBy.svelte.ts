@@ -7,9 +7,7 @@ interface Parameters {
   enableFallback?: boolean;
   generatedLabelId: string;
 }
-export function useAriaLabelledBy(
-  getParameters: () => Parameters,
-): () => string | undefined {
+export function useAriaLabelledBy(getParameters: () => Parameters): () => string | undefined {
   let fallbackAriaLabelledBy = $state<string>();
   $effect(() => {
     const {
@@ -44,10 +42,7 @@ export function useAriaLabelledBy(
     return explicitAriaLabelledBy ?? labelId ?? fallbackAriaLabelledBy;
   };
 }
-function getAriaLabelledBy(
-  labelSource: Parameters['labelSource'],
-  generatedLabelId: string,
-) {
+function getAriaLabelledBy(labelSource: Parameters['labelSource'], generatedLabelId: string) {
   const label = findAssociatedLabel(labelSource);
   if (!label) return undefined;
   if (!label.id) label.id = generatedLabelId;

@@ -1,0 +1,19 @@
+{
+  "scope": "Root bounded public integration guard lease only; private engine/type/subpath/React/default DOM/Menu identities remain unchanged.",
+  "beforeScriptSha256": "834e4f37c5250760fa77dd0e0f340434710a4198aa321e4dd2dd83f7e95a18b8",
+  "afterScriptSha256": "86d872dbf5652a4f3a17191afbeffdb7ca96d70fcc64f495435f8c9979a999d6",
+  "preservedFailure": "Hosted039399 Anchor37254652233 / job111589038581 generated check.mjs:11 asserts newly real public Popover/Tooltip absent; browser stage skipped. Raw receipt in hosted-039399-checkpoint.json.",
+  "change": "Preserve createAnchorPositioning/Select absence; assert exact27part namespace/subpath/root keys and identity plus3Handle/3factory identity/type/instance contracts.",
+  "validation": [
+    "bash -n PASS",
+    "Exact generated check.mjs node --check PASS",
+    "Exact new guard loop with actual Source root/subpath imports +27parts/3handles/3factories PASS at768MiB",
+    "Isolated packed script, private consumer and browser geometry execution pending hosted CI; no fresh pack claimed."
+  ],
+  "ordinaryDeclarationCredit": 0,
+  "receipt": {
+    "path": "parity/popup-family/receipts/popup-anchor-public-identity.log.gz",
+    "rawSha256": "c641c4b9ae8d224fc16cedecb8f211b90a9d45b5cf5a9c4d3656622b51f13cda",
+    "gzipSha256": "618b8c2924cb16cc0f73868b82845f07bec8727a3c23ef402ca47acadeaf6ff0"
+  }
+}

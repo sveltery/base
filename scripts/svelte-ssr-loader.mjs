@@ -19,10 +19,20 @@ registerHooks({
     return nextResolve(specifier, context);
   },
   load(url, context, nextLoad) {
-    if (url.endsWith('.svelte') || (url.endsWith('.svelte.js') || url.endsWith('.svelte.ts'))) {
+    if (url.endsWith('.svelte') || url.endsWith('.svelte.js') || url.endsWith('.svelte.ts')) {
       const raw = readFileSync(fileURLToPath(url), 'utf8');
-      const source = url.endsWith('.svelte.ts') ? transpileModule(raw, { compilerOptions: { module: ModuleKind.ESNext, target: ScriptTarget.ESNext, verbatimModuleSyntax: true } }).outputText : raw;
-      const result = url.endsWith('.svelte') ? compile(source, { filename: fileURLToPath(url), generate: 'server' }) : compileModule(source, { filename: fileURLToPath(url), generate: 'server' });
+      const source = url.endsWith('.svelte.ts')
+        ? transpileModule(raw, {
+            compilerOptions: {
+              module: ModuleKind.ESNext,
+              target: ScriptTarget.ESNext,
+              verbatimModuleSyntax: true,
+            },
+          }).outputText
+        : raw;
+      const result = url.endsWith('.svelte')
+        ? compile(source, { filename: fileURLToPath(url), generate: 'server' })
+        : compileModule(source, { filename: fileURLToPath(url), generate: 'server' });
       return { format: 'module', source: result.js.code, shortCircuit: true };
     }
     return nextLoad(url, context);

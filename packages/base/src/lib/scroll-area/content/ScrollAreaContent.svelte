@@ -1,7 +1,9 @@
 <script lang="ts">
+  import { mergeComponentProps } from '../../internals/mergeComponentProps.js';
+  import { createAttachmentKey } from 'svelte/attachments';
+
   // Base UI1.8.0 ScrollAreaContent.tsx source observer composition; MIT.
   import { untrack } from 'svelte';
-  import RenderElement from '../../internals/RenderElement.svelte';
   import { useScrollAreaViewportContext } from '../viewport/ScrollAreaViewportContext.js';
   import { useScrollAreaRootContext } from '../root/ScrollAreaRootContext.js';
   import { scrollAreaStateAttributesMapping } from '../root/stateAttributes.js';
@@ -34,23 +36,32 @@
     if (content) resizeObserver.observe(content);
     return () => resizeObserver.disconnect();
   });
-  const forwardedRef = {
-    get current() {
-      return ref ?? null;
-    },
-    set current(value: HTMLElement | null) {
-      ref = value;
-    },
-  };
-  const componentProps = $derived({ render, class: classProp, style });
-  const params = $derived({
-    ref: [forwardedRef, contentWrapperRef],
-    state: root.viewportState,
-    stateAttributesMapping: scrollAreaStateAttributesMapping,
-    props: [
-      { role: 'presentation', style: { minWidth: 'fit-content' } },
-      elementProps,
-    ],
+
+  const hostAttachmentKey = createAttachmentKey();
+  function attachHost(host: HTMLElement) {
+    return untrack(() => {
+      ref = host;
+      contentWrapperRef.current = host;
+      return () =>
+        untrack(() => {
+          if (ref === host) ref = null;
+          if (contentWrapperRef.current === host) contentWrapperRef.current = null;
+        });
+    });
+  }
+  const mergedProps = $derived({
+    ...mergeComponentProps(
+      root.viewportState,
+      { class: classProp, style: style },
+      [{ role: 'presentation', style: { minWidth: 'fit-content' } }, elementProps],
+      scrollAreaStateAttributesMapping,
+    ),
+    [hostAttachmentKey]: attachHost,
   });
 </script>
-<RenderElement tag="div" {componentProps} {params} {children} />
+
+{#if render}
+  {@render render(mergedProps, root.viewportState, children)}
+{:else}
+  <div {...mergedProps}>{@render children?.()}</div>
+{/if}

@@ -6,6 +6,7 @@
 <script lang="ts">
   import { CSPProvider } from '@sveltery/base/csp-provider';
 </script>
+
 <CSPProvider nonce="server-provided-nonce" disableStyleElements>
   <p>Child content renders without a provider wrapper.</p>
 </CSPProvider>
