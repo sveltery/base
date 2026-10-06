@@ -13,8 +13,8 @@ const tarball = readdirSync(dir).find(name => name.endsWith('.tgz'));
 writeFileSync(join(dir, 'package.json'), JSON.stringify({ private: true, type: 'module', dependencies: { '@sveltery/base': `file:${join(dir,tarball)}`, svelte:'5.57.1', 'svelte-check':'4.7.6', typescript:'6.0.3', jsdom:'30.1.1' } }));
 JS
 sveltery_prepare_consumer "$otp_consumer_dir"
-pnpm --dir "$otp_consumer_dir" --ignore-workspace install --ignore-scripts >/dev/null
-pnpm --dir "$otp_consumer_dir" --ignore-workspace install --frozen-lockfile --ignore-scripts >/dev/null
+pnpm --dir "$otp_consumer_dir" install --ignore-scripts >/dev/null
+pnpm --dir "$otp_consumer_dir" install --frozen-lockfile --ignore-scripts >/dev/null
 cat > "$otp_consumer_dir/Consumer.svelte" <<'SVELTE'
 <script lang="ts">
   import { OTPField, Field, OTPFieldRoot, OTPFieldInput } from '@sveltery/base';
