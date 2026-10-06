@@ -129,5 +129,5 @@
   });
 </script>
 
-<output data-value>{String(valueState.value)}</output>
+<output data-value data-unrelated={unrelated}>{String(valueState.value)}</output>
 <Child {stable} {events} />

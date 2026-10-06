@@ -11,6 +11,7 @@
   let replacement = $state(false);
   let panel = $state<HTMLElement | null>();
   let ownedHeight = $state<string | undefined>();
+  const bareStyle = 'height:73px';
   const requests: { open: boolean; reason: string }[] = [];
   function change(open: boolean, details: { reason: string; cancel: () => void }) {
     requests.push({ open, reason: details.reason });
@@ -48,7 +49,7 @@
     {@render children?.()}
   </article>
 {/snippet}
-<section data-bare style="height:73px" style:height={ownedHeight}> Bare Svelte host </section>
+<section data-bare style={bareStyle} style:height={ownedHeight}> Bare Svelte host </section>
 {#if family === 'collapsible'}
   <Collapsible.Root {disabled} onOpenChange={change}>
     <Collapsible.Trigger id="native-panel-trigger">Toggle panel</Collapsible.Trigger>
