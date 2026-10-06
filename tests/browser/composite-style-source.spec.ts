@@ -112,3 +112,63 @@ test('scrolling retains the distinct global lookup in windowed and windowless do
   expect(observations[1].calls).toHaveLength(2);
   expect(observations[1].calls[1]).toEqual(observations[1].calls[0]);
 });
+
+test('canonical HTMLElement identity preserves actual HTML realms and rejects non-HTML EventTargets', async ({
+  page,
+}) => {
+  const result = await page.evaluate(async () => {
+    const url = '/src/compositeStyleProbe.ts';
+    const helpers = await import(url);
+    const iframe = document.createElement('iframe');
+    document.body.append(iframe);
+    const foreign = iframe.contentDocument;
+    if (!foreign) throw new Error('Missing real iframe document');
+    const windowless = document.implementation.createHTMLDocument('predicate realm');
+    const html = [];
+    for (const owner of [document, foreign, windowless]) {
+      const input = owner.createElement('input');
+      const textarea = owner.createElement('textarea');
+      html.push([
+        helpers.canonicalHTMLElement(input),
+        helpers.originalNativeInput(input),
+        helpers.nativeNativeInput(input),
+      ]);
+      input.type = 'number';
+      html.push([helpers.originalNativeInput(input), helpers.nativeNativeInput(input)]);
+      html.push([helpers.originalNativeInput(textarea), helpers.nativeNativeInput(textarea)]);
+    }
+    const target = new EventTarget();
+    Object.defineProperties(target, {
+      nodeType: { value: 1 },
+      style: { value: {} },
+      tagName: { value: 'INPUT' },
+      selectionStart: { value: 0 },
+    });
+    const negatives = [
+      document.createElementNS('http://www.w3.org/2000/svg', 'TEXTAREA'),
+      new EventTarget(),
+      target,
+      document,
+      window,
+    ].map((value) => [
+      helpers.canonicalHTMLElement(value),
+      helpers.originalNativeInput(value),
+      helpers.nativeNativeInput(value),
+    ]);
+    iframe.remove();
+    return { html, negatives, windowless: windowless.defaultView === null };
+  });
+  expect(result.windowless).toBe(true);
+  expect(result.html).toEqual([
+    [true, true, true],
+    [false, false],
+    [true, true],
+    [true, true, true],
+    [false, false],
+    [true, true],
+    [true, true, true],
+    [false, false],
+    [true, true],
+  ]);
+  for (const pair of result.negatives) expect(pair).toEqual([false, false, false]);
+});

@@ -1,0 +1,49 @@
+{
+  "pin": "47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c",
+  "predecessor": "43dc97ba9812a4346abeba234e647531c44d98e8",
+  "original": "packages/react/src/internals/composite/composite.ts:isInputElement/isNativeInput",
+  "native": "packages/base/src/lib/internals/composite/composite.ts:isInputElement/isNativeInput",
+  "predecessorSha256": "424c303bd107e8dff6007e8f1cdff48b43f3d654205cf31ca9348a673674813c",
+  "canonicalPackage": "@floating-ui/utils@0.2.12/dom",
+  "canonicalFileSha256": "b6658b1eac47e2917e6d10ebbeefb9c4ac9a166f0052bed6e08c871ed848b680",
+  "actualBodies": {
+    "isHTMLElement": "function isHTMLElement(value) {\n  if (!hasWindow()) {\n    return false;\n  }\n  return value instanceof HTMLElement || value instanceof getWindow(value).HTMLElement;\n}",
+    "hasWindow": "function hasWindow() {\n  return typeof window !== 'undefined';\n}",
+    "getWindow": "function getWindow(node) {\n  var _node$ownerDocument;\n  return (node == null || (_node$ownerDocument = node.ownerDocument) == null ? void 0 : _node$ownerDocument.defaultView) || window;\n}"
+  },
+  "actualCallers": [
+    {
+      "path": "packages/base/src/lib/internals/composite/root/useCompositeRoot.svelte.ts",
+      "functions": [
+        "onKeyDown target-selection navigation guard",
+        "onfocusin target selection guard"
+      ],
+      "lines": [
+        229,
+        325
+      ]
+    }
+  ],
+  "closure": "Existing complete Original106/native12/affected45; proposed external isHTMLElement -> hasWindow/getWindow only; no new local module/state owner.",
+  "ordinaryCredit": 0,
+  "actualOriginalAndNativeResolvedCanonicalUMD": {
+    "package": "@floating-ui/utils@0.2.12",
+    "sameRealPath": true,
+    "sha256": "125bdf99b20878cb6f15ec3db9050c893c11942ea57bd3acbbb4d5a24e48733c",
+    "inspection": "createRequire(realpathSync(actual original/native import origin)) resolved same UMD body; ESM bodies recorded above."
+  },
+  "originalCaller": {
+    "source": "packages/react/src/internals/composite/root/useCompositeRoot.ts",
+    "archivePath": "parity/menu-family/upstream/packages/react/src/internals/composite/root/useCompositeRoot.ts",
+    "sha256": "848c7a6c3543bba01f2299799a75d69986dbecc5289d70e15d41620bd732b023",
+    "lines": [
+      229,
+      324
+    ],
+    "functions": [
+      "onKeyDown getTarget(event.nativeEvent) text-selection navigation guard",
+      "onFocus getTarget(event.nativeEvent) selection-range guard"
+    ],
+    "scope": "Explicit reverse Source caller witness; not a new forward leaf dependency. Existing native event and assigned Composite owner disposition unchanged."
+  }
+}

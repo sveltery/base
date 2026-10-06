@@ -29,8 +29,13 @@
     },
     {
       "source": "packages/base/src/lib/internals/composite/composite.ts",
-      "sha256": "424c303bd107e8dff6007e8f1cdff48b43f3d654205cf31ca9348a673674813c",
+      "sha256": "1aa6f2accc1a5145a28da050fb8266f4233e60028c55a802668dcf9e28c46ae3",
       "imports": [
+        {
+          "specifier": "@floating-ui/utils/dom",
+          "kind": "runtime-or-mixed",
+          "resolved": "external:@floating-ui/utils/dom"
+        },
         {
           "specifier": "../../direction-provider/types.js",
           "kind": "type",

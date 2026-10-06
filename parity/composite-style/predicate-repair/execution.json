@@ -1,0 +1,173 @@
+{
+  "schema": 1,
+  "pin": "47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c",
+  "predecessor": "43dc97ba9812a4346abeba234e647531c44d98e8",
+  "reviewedSuccessor": "Exact final identity recorded externally in PR90; no self-hash required.",
+  "runtimeDelta": "composite.ts replaces private structural predicate with direct Original canonical isHTMLElement import; named INPUT/selectionStart/TEXTAREA branches unchanged. Prior two style repairs preserved.",
+  "ordinaryCredit": 0,
+  "redActual": {
+    "dom": "Original2/2; native1/2; SVG TEXTAREA incorrectly true",
+    "ssr": "Original1/1; native0/1; no-window adversarial real EventTarget incorrectly true"
+  },
+  "greenActual": {
+    "BaseDOM": "1806/1806,129 files,includes4 newpredicate+6 priorstyle supplements",
+    "BaseServer": "228/228,33 files,includes2 newSSR witnesses",
+    "BaseTypes": "0 errors/6 warnings at1280MiB",
+    "package": "fresh svelte-package passed; publint strict passed",
+    "standards": "full Prettier and ESLint direct installed tools passed",
+    "runtimeBoundary": "packaged imports/noReact-noSvelteKit runtime passed",
+    "fixture": "corrected cwd SSR/clientproductionbuild passed"
+  },
+  "incomplete": {
+    "scripts": "corrected full87cases:86passed,1realofflineinstall blocked at hostpnpmoperationlock; initial /tmp startup receipts separate",
+    "packedConsumer": "fresh normal script stopped at pnpm store operation lock; skipLibCheck:false/negativeassertions/dualtarballs/SSRhydration remain mandatory, no installed execution pass",
+    "browser": "4setupfailuresmissingChromium,zeroassertions; sandbox:true/oneworker/zeroretriesunchanged. Priorboundedofficialdownloadfailuresretained; no workaround/retry",
+    "fixtureDriver": "first wrongcwd failed missing src/app.html; corrected actualfixturebuildpassed",
+    "metadata": "complete forward/affected/Original hash regression passed; no new ordinary assertion credit",
+    "hosted": "Fresh exact public successor full mandatory gates pending; predecessor results do not accept successor."
+  },
+  "commands": {
+    "redActualDOM": "cwd packages/base; TMPDIR=workspace/.checks/composite-style/tmp NODE_OPTIONS=--max-old-space-size=1280 node node_modules/vitest/vitest.mjs run --project dom tests/dom/composite-predicate-source.test.ts",
+    "redActualSSR": "same env/cwd; node node_modules/vitest/vitest.mjs run --project server tests/composite-predicate-ssr.test.ts",
+    "greenFullDOM": "same env/cwd; node node_modules/vitest/vitest.mjs run --project dom",
+    "greenFullServer": "same env/cwd; node node_modules/vitest/vitest.mjs run --project server",
+    "types": "same env/cwd; node node_modules/svelte-check/bin/svelte-check --tsconfig ./tsconfig.json",
+    "package": "same env/cwd; node node_modules/@sveltejs/package/src/cli.js",
+    "format": "root same env; node node_modules/prettier/bin/prettier.cjs --check .",
+    "eslint": "root same env; node node_modules/eslint/bin/eslint.js .",
+    "publint": "root same env; node node_modules/publint/src/cli.js packages/base --strict",
+    "scripts": "root same env, source scripts/toolchain.sh; node --test --test-concurrency=1 scripts/tests/*.test.mjs",
+    "runtime": "root same env; node --import ./scripts/svelte-ssr-loader.mjs scripts/check-runtime.mjs",
+    "consumer": "root same env; bash scripts/check-composite-style-package.sh",
+    "browser": "root same env; node node_modules/@playwright/test/cli.js test tests/browser/composite-style-source.spec.ts",
+    "fixture": "cwd apps/fixtures same env; node node_modules/vite/bin/vite.js build"
+  },
+  "logs": [
+    {
+      "path": "parity/composite-style/predicate-repair/red-dom.log.gz",
+      "exit": 1,
+      "decodedSha256": "2679eaa0b464ef114388039b637e1b157a9205ba62ea4c45053fc9a4e73f4a7c",
+      "gzipSha256": "90287f5a2e01e2043e3fba2a6420324b29981c4ea39d1c19141c6749e12c879d"
+    },
+    {
+      "path": "parity/composite-style/predicate-repair/red-ssr.log.gz",
+      "exit": 1,
+      "decodedSha256": "2679eaa0b464ef114388039b637e1b157a9205ba62ea4c45053fc9a4e73f4a7c",
+      "gzipSha256": "90287f5a2e01e2043e3fba2a6420324b29981c4ea39d1c19141c6749e12c879d"
+    },
+    {
+      "path": "parity/composite-style/predicate-repair/red-dom-executed.log.gz",
+      "exit": 1,
+      "decodedSha256": "5f796cd60ccb848e849d56e05070b5f71fc3fd5a09156adfa0e8d7f23e63d87d",
+      "gzipSha256": "1682cfa42715b7d5338aa3430554bb6a1ab2f282191356e093bcd862d36d8b46"
+    },
+    {
+      "path": "parity/composite-style/predicate-repair/red-ssr-executed.log.gz",
+      "exit": 1,
+      "decodedSha256": "ebd504a63513996991bdb8c5d892984165fe7dc3b1d4003e0481366031bbfc0a",
+      "gzipSha256": "4a21e7f6ec4d4b20b5dd7feb15256d027fee2707ee260c2c4a055559fd329730"
+    },
+    {
+      "path": "parity/composite-style/predicate-repair/red-dom-actual.log.gz",
+      "exit": 1,
+      "decodedSha256": "2a4823bbc607af7c35c254a6ebd8001a604c5f8460a91be2bdafb32a5f61a2c0",
+      "gzipSha256": "bc6b5324bef6dfe8c3282924e0466163bd98f3f490b0512d4794203b71d1c6ec"
+    },
+    {
+      "path": "parity/composite-style/predicate-repair/red-ssr-actual.log.gz",
+      "exit": 1,
+      "decodedSha256": "3cabe2a16545caf5a01e7d8b0715995d5b157a40f4ba6c550f90d3ec3217ee09",
+      "gzipSha256": "ebc62b8dd6a317e567d45fb2a37009b38e1e45f3e8a04f1f01565ece1c5f05fa"
+    },
+    {
+      "path": "parity/composite-style/predicate-repair/green-full-dom.log.gz",
+      "exit": 0,
+      "decodedSha256": "a46e23110f74ac3bf037f77a2b36d365764fb6881c70740188d6219b2a0a82d9",
+      "gzipSha256": "cee4fedfa2b2110292b36b0ba15dc4cf6d01a5c2b7b086085fb10ef47323c6a2"
+    },
+    {
+      "path": "parity/composite-style/predicate-repair/green-full-server.log.gz",
+      "exit": 0,
+      "decodedSha256": "017af9a0f5c31dd1f1a4934aa9d0aa3bc89ab4556d29b6184471a43c5e19da16",
+      "gzipSha256": "eb5c8721fc167dddd4210408a2ac674d5326d37bda42ad95bd9087ac71ede3f9"
+    },
+    {
+      "path": "parity/composite-style/predicate-repair/types.log.gz",
+      "exit": 0,
+      "decodedSha256": "60e37add0c0d536a81b9e85107a7ac0e31aa8aed6512995a8fcc6876b9ca2376",
+      "gzipSha256": "8315167481fdcb52d7f4644ea87be5852c56fc7e930cc333e18e2a68b552a1c9"
+    },
+    {
+      "path": "parity/composite-style/predicate-repair/package.log.gz",
+      "exit": 0,
+      "decodedSha256": "1cff3a15b64eec658c1cc9cf77f8d3579688147204a80d9fde225dac5d71b3ff",
+      "gzipSha256": "e1a298b34f399311efc4dba86f32ac2f88a43b74dc9bba5cc7b0819f36a89b19"
+    },
+    {
+      "path": "parity/composite-style/predicate-repair/lint.log.gz",
+      "exit": 0,
+      "decodedSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "gzipSha256": "f61f27bd17de546264aa58f40f3aafaac7021e0ef69c17f6b1b4cd7664a037ec"
+    },
+    {
+      "path": "parity/composite-style/predicate-repair/scripts.log.gz",
+      "exit": 1,
+      "decodedSha256": "700a53ae2dbd275ecde629c3d51991e7484d35290163a1d6c20584d4e12b6975",
+      "gzipSha256": "cd8f43fa533c5c9ad5e50e8cfd8703a08f8ff498f749938d547914207a1b52d1"
+    },
+    {
+      "path": "parity/composite-style/predicate-repair/scripts-corrected.log.gz",
+      "exit": 1,
+      "decodedSha256": "a91d337ae1b98b32d104010d3265ba9ef0dd79f8203d4f0d5a7678e0b730db4b",
+      "gzipSha256": "91cf421363c6b7a8d821b8b30949ea85b7f7eb614c6a0ba54702901f5e6524d2"
+    },
+    {
+      "path": "parity/composite-style/predicate-repair/format.log.gz",
+      "exit": 0,
+      "decodedSha256": "17aa973d3f004560237d9a95171210b0671deff23d61628eecf7322ff5938f20",
+      "gzipSha256": "710c63d8d40d5688a62c3b08053dd1971c4e4ee87b2297f3f20c2540d22cd94e"
+    },
+    {
+      "path": "parity/composite-style/predicate-repair/full-lint.log.gz",
+      "exit": 0,
+      "decodedSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "gzipSha256": "f61f27bd17de546264aa58f40f3aafaac7021e0ef69c17f6b1b4cd7664a037ec"
+    },
+    {
+      "path": "parity/composite-style/predicate-repair/publint.log.gz",
+      "exit": 0,
+      "decodedSha256": "0f240dbaf7d0a1a2d7672b14575cf39a8ea154121b0584d12cd1817de100c3f6",
+      "gzipSha256": "3d72fbc8592623e2aa6ac40277e3d2c8f7dfd58e3775f3befae14d3de3944cfa"
+    },
+    {
+      "path": "parity/composite-style/predicate-repair/runtime-boundary.log.gz",
+      "exit": 0,
+      "decodedSha256": "7eb14a3a2cac9fe7d677ef3a7519f5045bb935af2549e71f9ddf392ebb65a36d",
+      "gzipSha256": "e4b850e7b6f96f57ff98b7644a3de5a259674185c74fe8bb3f6975340e97b5b2"
+    },
+    {
+      "path": "parity/composite-style/predicate-repair/consumer.log.gz",
+      "exit": 1,
+      "decodedSha256": "f157ec3ef07cd1d4013400ab81e20bf7a979c0a44e26f2831d99abdfb9b1ba29",
+      "gzipSha256": "be36110f765e09009f80101b9dca454a17477f58d91f00bb011bd79185a5098a"
+    },
+    {
+      "path": "parity/composite-style/predicate-repair/browser.log.gz",
+      "exit": 1,
+      "decodedSha256": "3284f081b644fd5e6132234ac92f712df103e8fe39afb13857ab455a92f86600",
+      "gzipSha256": "56ec81abb27bffb193c5d31d011af881d503b0b09f44264883878ac95e1fe491"
+    },
+    {
+      "path": "parity/composite-style/predicate-repair/fixture-driver.log.gz",
+      "exit": 1,
+      "decodedSha256": "46685fa02e76f6a68f0e0790f8f088d174922042d40a58561a709d9e22bc6d31",
+      "gzipSha256": "4a079657a6ab7489c04162c3f7398396d97a4547b8da31a5cc02d6a7c627d5d9"
+    },
+    {
+      "path": "parity/composite-style/predicate-repair/fixture-build.log.gz",
+      "exit": 0,
+      "decodedSha256": "cc684b0c8e0df446faab70f0d94b80c13f55053c9ee2ba65e4bbd84f37b1599d",
+      "gzipSha256": "b690cadf0db07991a36806ce4dd47706c53ed9464a5bc8a3198525e9614313c9"
+    }
+  ]
+}

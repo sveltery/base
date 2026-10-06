@@ -4,9 +4,17 @@ export {
   isElementVisible as originalVisible,
   isListIndexDisabled as originalDisabled,
 } from '../node_modules/@base-ui/react/floating-ui-react/utils/composite.js';
-export { scrollIntoViewIfNeeded as originalScroll } from '../node_modules/@base-ui/react/internals/composite/composite.js';
+export {
+  isNativeInput as originalNativeInput,
+  scrollIntoViewIfNeeded as originalScroll,
+} from '../node_modules/@base-ui/react/internals/composite/composite.js';
 export {
   isElementVisible as nativeVisible,
   isListIndexDisabled as nativeDisabled,
 } from '../../../packages/base/src/lib/internals/composite/utils/navigation.js';
-export { scrollIntoViewIfNeeded as nativeScroll } from '../../../packages/base/src/lib/internals/composite/composite.js';
+export {
+  isNativeInput as nativeNativeInput,
+  scrollIntoViewIfNeeded as nativeScroll,
+} from '../../../packages/base/src/lib/internals/composite/composite.js';
+
+export { isHTMLElement as canonicalHTMLElement } from '@floating-ui/utils/dom';
