@@ -1,0 +1,324 @@
+{
+  "scope": "Local development receipts, including preserved failures and bounded successor passes; zero acceptance or upstream assertion credit. Initial Verification failed two stale current native graph checks (84 passed); corrected metadata is separate. Chromium installer failed corrupted/truncated official downloads and cache lock maintenance; local secured browser checks remain unexecuted.",
+  "receipts": [
+    {
+      "file": "verification-ba511708.log.gz",
+      "command": "PATH=/workspace/scratch/20877d489179/tools:$PATH NODE_OPTIONS=--max-old-space-size=2048 bash scripts/verify.sh",
+      "exitCode": 1,
+      "rawSha256": "9ba10f18af45f6dffaf8d9b9400313928752e8ef8a81eb652b0706a35d9a3ba9",
+      "gzipSha256": "6fca7570a3c191035c23efcb1aba8de1d580853564dd3af123bab7e26444537e",
+      "rawBytes": 206121,
+      "compressedBytes": 17252,
+      "sourceCandidate": "ba511708b9c3cd5d95349744d29b712acf501b27"
+    },
+    {
+      "file": "chromium-install.log.gz",
+      "command": "source scripts/toolchain.sh; pnpm exec playwright install chromium",
+      "exitCode": 1,
+      "rawSha256": "47ed30bfdbe35f38287804905c8de57a6708f4c1b319d4a25dc86ab9e5bdf91f",
+      "gzipSha256": "fda362c9d3d0c5551e6113fb02416356c9488610c6aaf1b0b6dade261a9445f3",
+      "rawBytes": 5283,
+      "compressedBytes": 634,
+      "sourceCandidate": "f0e300454e83ab39f1801d530e0ee0fd7687cb74"
+    },
+    {
+      "file": "verification-packed-harness.log.gz",
+      "command": "PATH=/workspace/scratch/20877d489179/tools:$PATH NODE_OPTIONS=--max-old-space-size=2048 bash scripts/verify.sh",
+      "exitCode": 1,
+      "rawSha256": "15f58ff0424510217746537d66a3bc9e9afc6afe248556e3fb169b860f1fd84c",
+      "gzipSha256": "36eac339badce2612be8bd23c46ab3ff71d3927a9179c2546b73dcb335c61401",
+      "rawBytes": 416615,
+      "compressedBytes": 29396,
+      "sourceCandidate": "882ebbf0a89b3574b25c8f50aade39cb16e9434d",
+      "interpretation": "Verification passed 86 script tests, all workspace type checks, 235 Node/1807 DOM tests, fixture SSR/client build, runtime boundary, artifact analysis and installed consumers through strict Field declarations. New Field hydration harness failed because requestAnimationFrame was not exposed in jsdom. No runtime defect; remaining consumers were unexecuted. Runtime/type source unchanged throughout; documentation/packed harness were added while the sequential run progressed."
+    },
+    {
+      "file": "packed-hydration-selector.log.gz",
+      "command": "SVELTERY_PACKAGE_ARTIFACTS=.checks/npm-package/artifacts.json bash scripts/check-field-form-package.sh --public",
+      "exitCode": 1,
+      "rawSha256": "60133c2e8de655b5381dba5426cf250eca160fd05f625c99a36716b918104fed",
+      "gzipSha256": "edb134c79cc9d68295d4043f7d38e02a1b85ec721ec4180039a63ba9b94f1e3e",
+      "rawBytes": 1687,
+      "compressedBytes": 665,
+      "sourceCandidate": "299701ad4ef3ea70d606ffd88e127490ab794029",
+      "interpretation": "Strict declarations passed. New harness selected SSR input by its client-published ID and captured null; post-hydration input existed. Successor captures the actual SSR input by rendered form/name before hydration, asserts its presence, compares exact node identity and reports both measured IDs. No runtime change or source ID parity claim."
+    },
+    {
+      "file": "packed-field-hydration-pass.log.gz",
+      "command": "SVELTERY_PACKAGE_ARTIFACTS=.checks/npm-package/artifacts.json bash scripts/check-field-form-package.sh --public",
+      "exitCode": 0,
+      "rawSha256": "86b2b2e8c3dd6f9c8bf11010789ecae608aaf3e770a4ff3ae3c2797b77f4dd7f",
+      "gzipSha256": "aea401b24218c2ba885df86655a3f60516949fc165b649bd473659f9b39b80af",
+      "rawBytes": 457,
+      "compressedBytes": 314,
+      "sourceCandidate": "56fccef7ac85fb1818ef53bf199f9218f281a096",
+      "interpretation": "Strict skipLibCheck:false public root/subpath declarations and 31 named types, SSR, actual same-input-node hydration, detached Field action validation and teardown passed using installed archive. jsdom supplement; zero Source credit; secured browser acceptance remains separate.",
+      "artifacts": {
+        "schema": 1,
+        "packages": {
+          "@sveltery/base": {
+            "version": "0.0.0",
+            "directory": "packages/base",
+            "tarball": "sveltery-base-0.0.0.tgz",
+            "sha256": "97dd76a9d5ebc5cc274b04009a15a3bd0cdfd7607e56445c2d5063222bd6e905",
+            "dependencies": [
+              "@sveltery/utils"
+            ]
+          },
+          "@sveltery/utils": {
+            "version": "0.0.0",
+            "directory": "packages/utils",
+            "tarball": "sveltery-utils-0.0.0.tgz",
+            "sha256": "522c18648e137ebce50bcd50f939ef4c75bf105ddeba5f5c1922a24e31b44f6a",
+            "dependencies": []
+          }
+        }
+      }
+    },
+    {
+      "file": "remaining-consumers-pass.log.gz",
+      "command": "Retained package artifacts: check-radio-package.sh; check-boolean-controls-package.sh; check-remote-form-types.sh --public; check-menu-family-package.sh; check-use-click-package.sh",
+      "exitCode": 0,
+      "rawSha256": "9d5efc5116ce97aedcb409044ace9d4a77913b3878974e1c9c02109f22ce10d0",
+      "gzipSha256": "c8ba322fdee088a084bab6fddf27c27f70985237de0803c36f59e4baf1f31323",
+      "rawBytes": 2092,
+      "compressedBytes": 899,
+      "sourceCandidate": "1f7afbb958aab2296bb32aa1cab9547f9a15f8fe",
+      "interpretation": "Remaining sequential Verification consumer stages passed. Historical Field-only candidate; expanded Labelable edits require fresh affected execution."
+    },
+    {
+      "file": "expanded-provider-initialization.log.gz",
+      "command": "NODE_OPTIONS=--max-old-space-size=2048 bash scripts/verify.sh",
+      "exitCode": 1,
+      "rawSha256": "1f1207175b7124db32bed2c0762ae0a80e9e7a4f533c92cf162f93686f8ebde0",
+      "gzipSha256": "05ba31afe6754e6bddf28e4a22f1858688474473112e2a1e534f9a7700369e34",
+      "rawBytes": 52802,
+      "compressedBytes": 10839,
+      "sourceCandidate": "de0d4f19e63fe417a6fcc18ee1225ccdb4584202",
+      "interpretation": "Fresh build/archive and 86 script tests passed; Svelte check rejected derived expression reading constructor-initialized private defaultId. Successor uses lazy derived.by callback retaining same selection business. Later stages unexecuted."
+    },
+    {
+      "file": "three-owner-verification-pass.log.gz",
+      "command": "PATH=/workspace/scratch/20877d489179/tools:$PATH NODE_OPTIONS=--max-old-space-size=2048 bash scripts/verify.sh",
+      "exitCode": 0,
+      "rawSha256": "1ebaebe25543bab6cf48c74dc0b578c2d5f043dc05177202cf8e61a7494aac71",
+      "gzipSha256": "06d1eb9a8aed974b3b6f05cf42d5a984af56138697355df56ebea7959a087f53",
+      "rawBytes": 414528,
+      "compressedBytes": 29657,
+      "runtimeSourceCandidate": "0ee574687a5c01558de0d74a35b9482416de3e52",
+      "consumerHarnessCandidate": "a6ddcb1930f696f7e42e4ffdaa320c17f003b97f",
+      "documentationCandidate": "e84c2250a220f311f774ec2fa0c2681da88dffb4",
+      "interpretation": "Full sequential Verification passed fresh archive creation,86 script tests,workspace types(0errors/6existing fixture warnings),235Node/1807DOM tests,fixture SSR/client build,runtime boundary,artifact analysis,and all installed consumers incl strictfalse Field/Radio/Boolean and Field same-node hydration. Runtime source stable throughout; Radio/Boolean skipLibCheck:false added before those consumer stages. Historical THREE-owner checkpoint; later LabelableId/Enter conversions require fresh affected checks/archives and hosted final-head full gates."
+    },
+    {
+      "file": "five-owner-affected-predecessor.log.gz",
+      "command": "pnpm --filter @sveltery/base exec vitest run --project dom [17 affected suites; selection retained in log plan]",
+      "exitCode": 0,
+      "rawSha256": "2c46b01009b1fa49f832e383d01dba046e0da2662c0ca0428b3be05e519ac025",
+      "gzipSha256": "63a4dbb944b6486cff3a5fd44bda52922d1084058f54513a84fc47b5ac830f9c",
+      "rawBytes": 530,
+      "compressedBytes": 359,
+      "sourceCandidate": "6f5bed06e5cb4589e2cea6217e189360916e3248",
+      "interpretation": "225 tests in17 affected suites passed. Independent review invalidated the NEW ancestor-unmount assertion as unique leak proof: native ancestor runs before Svelte delegated target, so event may not be marked. This passing predecessor is preserved without cleanup-sensitivity credit. Other224 executions remain bounded candidate evidence; successor changes only authored native fixture/assertion ordering."
+    },
+    {
+      "file": "five-owner-bootstrap.log.gz",
+      "command": "bash scripts/bootstrap.sh",
+      "exitCode": 0,
+      "rawSha256": "7b88a08443d041a18d78f21fd9afc1828f99545a1af9eb5b799a06159af65df9",
+      "gzipSha256": "f4bd90136eb5b06b3e5d8448d6c23443813b7949d00071052658dc491d2b90b9",
+      "rawBytes": 793,
+      "compressedBytes": 443,
+      "sourceCandidate": "b138bbafe625e8bd4a3f804b73f007a1d9b5a357",
+      "interpretation": "Fresh frozen bootstrap and both package builds/strict publint passed for five owner runtime bodies."
+    },
+    {
+      "file": "five-owner-standards.log.gz",
+      "command": "bash .github/standards/check.sh",
+      "exitCode": 0,
+      "rawSha256": "899f899c4056a64c8cf29ca9089dfe6821ca8521061c59efd32e7296da4df97f",
+      "gzipSha256": "5b963f13065ff6abedad3e4fe5c8e5916d21fba4a17254161b1628a5fc20b0c8",
+      "rawBytes": 99,
+      "compressedBytes": 105,
+      "sourceCandidate": "b138bbafe625e8bd4a3f804b73f007a1d9b5a357",
+      "interpretation": "Full Standards passed before subsequent authored fixture/assertion corrections; final supplements require renewed checks."
+    },
+    {
+      "file": "enter-owner-positive.log.gz",
+      "command": "pnpm --filter @sveltery/base exec vitest run --project dom tests/dom/boolean-controls.test.ts",
+      "exitCode": 0,
+      "rawSha256": "84b8d607ac6ebf3e8abd0aedb3cb3534a731b8bf64001d322893f6327f8946e2",
+      "gzipSha256": "1b5145a628eb93f76e839eeb5e831438958affdb14ec95c6ceba9f58d2d63e12",
+      "rawBytes": 218,
+      "compressedBytes": 185,
+      "sourceCandidate": "15c13bf2e365bd653f703bdfdcd3782103727e47",
+      "interpretation": "All52 Boolean DOM cases passed, including corrected later-document teardown. Authored supplementzeroSourcecredit."
+    },
+    {
+      "file": "enter-owner-mutant-setup.log.gz",
+      "command": "Isolated worktree pnpm exec setup",
+      "exitCode": 1,
+      "rawSha256": "8917cfa58c0a28bb74563d239ae5b69c47fd5312a31a49b127199733047bc56d",
+      "gzipSha256": "88daa6ba55424765edca44ab0ea5aac80a1cebab81c5648650840b74825f4c95",
+      "rawBytes": 222,
+      "compressedBytes": 206,
+      "sourceCandidate": "15c13bf2e365bd653f703bdfdcd3782103727e47",
+      "interpretation": "Runner refused symlink node_modules task-state root; zero tests. Guard preserved; successor uses real task-state directories."
+    },
+    {
+      "file": "enter-owner-mutant-task-state.log.gz",
+      "command": "Isolated worktree pnpm exec setup",
+      "exitCode": 1,
+      "rawSha256": "c58644b92074054fc8c0f8ba345704a39cd76d7b1c7e6e533caf028a5a444d32",
+      "gzipSha256": "e33f0145c467d4f31aad60ac6bc662a85c3aada97b78e9d0041b81fd5cef78ec",
+      "rawBytes": 247,
+      "compressedBytes": 223,
+      "sourceCandidate": "15c13bf2e365bd653f703bdfdcd3782103727e47",
+      "interpretation": "Runner refused symlink task-state subdirectory; zero tests. Guard preserved; successor uses real task-state directory."
+    },
+    {
+      "file": "enter-owner-mutant-proc.log.gz",
+      "command": "Isolated worktree pnpm exec setup",
+      "exitCode": 1,
+      "rawSha256": "fdd76fc4d0fa3a5dde8105298b5ab17c3b8fab156509d70ef2e5f461a274732d",
+      "gzipSha256": "1615f20e99343fdfab2d8a4fbeb5ef4d560c9fcfbe8924e9ae31c3e123f05b06",
+      "rawBytes": 60,
+      "compressedBytes": 76,
+      "sourceCandidate": "15c13bf2e365bd653f703bdfdcd3782103727e47",
+      "interpretation": "Host has no /proc/self/exe; zero tests. Successor retains pinned workspace runner and specifies isolated mutant root/config."
+    },
+    {
+      "file": "enter-owner-cleanup-mutant.log.gz",
+      "command": "pnpm --filter @sveltery/base exec vitest run --root /workspace/scratch/20877d489179/enter-cleanup-mutant/packages/base --config /workspace/scratch/20877d489179/enter-cleanup-mutant/packages/base/vitest.config.ts --project dom tests/dom/boolean-controls.test.ts -t \"unmount after target delegation\"",
+      "exitCode": 1,
+      "rawSha256": "62c2b0b31e1be70b01d73bc952512dabe1aef2d045c0102fbc8a51dc3a621788",
+      "gzipSha256": "1827cec86b77c231cd383517e4d2d8a911f7ca5471794a7533bf1b3f803f2d78",
+      "rawBytes": 1380,
+      "compressedBytes": 682,
+      "sourceCandidate": "15c13bf2e365bd653f703bdfdcd3782103727e47",
+      "interpretation": "Expected diagnostic mutation failure:1test failed/51unselected; actual event.defaultPrevented true instead of false after ONLY owned listener cleanup omitted. This is sensitivity evidence, not production failure or Source parity credit."
+    },
+    {
+      "file": "five-owner-final-standards.log.gz",
+      "command": "bash .github/standards/check.sh",
+      "exitCode": 0,
+      "rawSha256": "899f899c4056a64c8cf29ca9089dfe6821ca8521061c59efd32e7296da4df97f",
+      "gzipSha256": "5b963f13065ff6abedad3e4fe5c8e5916d21fba4a17254161b1628a5fc20b0c8",
+      "rawBytes": 99,
+      "compressedBytes": 105,
+      "sourceCandidate": "992d6c98eb755a22bb96341c362248057396c86f",
+      "interpretation": "Full final five-owner Standards passed; source/native fixtures and all maintained formatting/lint included."
+    },
+    {
+      "file": "five-owner-script-tests.log.gz",
+      "command": "node --test --test-concurrency=1 scripts/tests/*.test.mjs",
+      "exitCode": 0,
+      "rawSha256": "df72bf397dd23058dbcd8e120d61f1c1b001a2ccf892efe42f06dd4e3b38939e",
+      "gzipSha256": "875ed98d830499c9ab98d9d75c0b5f530dd54f4503c69daa9af1213a71927263",
+      "rawBytes": 11705,
+      "compressedBytes": 4597,
+      "sourceCandidate": "992d6c98eb755a22bb96341c362248057396c86f",
+      "interpretation": "86/86 script tests passed; no skips/cancellations."
+    },
+    {
+      "file": "five-owner-check.log.gz",
+      "command": "pnpm check",
+      "exitCode": 0,
+      "rawSha256": "bb2c7a3209129e603fc2f5130a625545700b30909fdbe5c00c937147a33dfde3",
+      "gzipSha256": "dc7e9c6eab5d4053a8e071eefa2e9caa142eb71001935b9ee295117ebd5a5aed",
+      "rawBytes": 3977,
+      "compressedBytes": 918,
+      "sourceCandidate": "992d6c98eb755a22bb96341c362248057396c86f",
+      "interpretation": "All workspace checks0errors;6existing fixturewarnings, Utils/fixture0warnings."
+    },
+    {
+      "file": "five-owner-node-tests.log.gz",
+      "command": "pnpm test",
+      "exitCode": 0,
+      "rawSha256": "a439599a7a1f4b7160cb955f71adb0025f9b631aeaa8833ece375887105b5de7",
+      "gzipSha256": "802aa7898034824b96c72e6d4b522687956b132783af2cea27e0761c33e1b565",
+      "rawBytes": 1510,
+      "compressedBytes": 661,
+      "sourceCandidate": "992d6c98eb755a22bb96341c362248057396c86f",
+      "interpretation": "Utils9 +Base226 =235Node tests passed."
+    },
+    {
+      "file": "five-owner-fixture-build.log.gz",
+      "command": "pnpm --filter @sveltery/fixtures build",
+      "exitCode": 0,
+      "rawSha256": "2c073af5d7acde915757e17d2cedd1fc2d9c21becf7ab364240968a92ae7a756",
+      "gzipSha256": "8bf1eb73cc0e2477316c531b1fd89128513cf36cc669e2af2880763ef4e2d1c4",
+      "rawBytes": 350142,
+      "compressedBytes": 15707,
+      "sourceCandidate": "992d6c98eb755a22bb96341c362248057396c86f",
+      "interpretation": "Actual fixture SSR/client build passed including corrected document-phase native Enter browser witness."
+    },
+    {
+      "file": "five-owner-runtime-boundary.log.gz",
+      "command": "node --import ./scripts/svelte-ssr-loader.mjs scripts/check-runtime.mjs",
+      "exitCode": 0,
+      "rawSha256": "7eb14a3a2cac9fe7d677ef3a7519f5045bb935af2549e71f9ddf392ebb65a36d",
+      "gzipSha256": "e4b850e7b6f96f57ff98b7644a3de5a259674185c74fe8bb3f6975340e97b5b2",
+      "rawBytes": 61,
+      "compressedBytes": 81,
+      "sourceCandidate": "992d6c98eb755a22bb96341c362248057396c86f",
+      "interpretation": "Runtime imports and packaged dependency boundaries passed."
+    },
+    {
+      "file": "five-owner-package-check.log.gz",
+      "command": "bash scripts/check-package.sh",
+      "exitCode": 0,
+      "rawSha256": "6c6cfca57e75e03cd42f70d9a7ae013e5f8c870495ea7171214d60bd630960c5",
+      "gzipSha256": "8ee03ef0697bafb994e45989c5eb47eae2101d56a653291897aba7476f30d067",
+      "rawBytes": 44318,
+      "compressedBytes": 7056,
+      "sourceCandidate": "992d6c98eb755a22bb96341c362248057396c86f",
+      "interpretation": "Fresh actual Base/Utils archives,32/25exports,strictpublint/ATTW,all installed consumers passed. Field/Radio/Boolean strict exact-optional skipLibCheck:false; Field same-input-node hydration/detached validation/teardown passed. Browser assertions not executed by this jsdom consumer."
+    },
+    {
+      "file": "five-owner-use-click.log.gz",
+      "command": "bash scripts/check-use-click-package.sh",
+      "exitCode": 0,
+      "rawSha256": "350e8fac475e3820a0d2568f50c0bd6e05fab819f83e63d1263b18c533220d9f",
+      "gzipSha256": "7f4688db6478968f8539155573f9c9d9a56f8e33935c4a1f05916415f9735d43",
+      "rawBytes": 829,
+      "compressedBytes": 499,
+      "sourceCandidate": "992d6c98eb755a22bb96341c362248057396c86f",
+      "interpretation": "Fresh installed useClick declarations and actual native consumer1test passed."
+    }
+  ],
+  "mutation": {
+    "sourceCandidate": "15c13bf2e365bd653f703bdfdcd3782103727e47",
+    "file": "enter-cleanup-mutant.patch.gz",
+    "rawSha256": "44d31c67b746d2cb83c29f762acd3a0f8adead1a5aeffc4acfe157a6954f85e6",
+    "gzipSha256": "db0fd9a34990c83973a6c34ce2bea800163d0f39ff2e9e03802fe0eea83aac96",
+    "rawBytes": 665,
+    "compressedBytes": 324,
+    "module": "packages/base/src/lib/checkbox/utils/useEnterSubmit.svelte.ts",
+    "originalModuleSha256": "7d7abbcef1a237eb0078bb833f62b07fd45b264b3cec54b177a7023bfa296777",
+    "mutantModuleSha256": "cf8c71dfcb990e2cf4eb4037488cd0fc11c70b8ca4713af7fccdcbf3ad201cbf",
+    "mutation": "Only actual captured window removeEventListener cleanup changed to no-op in a disposable isolated tree; production checkout unchanged. Positive52pass, mutantfocused1fail prove later-document native lifetime sensitivity."
+  },
+  "finalLocalArtifacts": {
+    "schema": 1,
+    "packages": {
+      "@sveltery/base": {
+        "version": "0.0.0",
+        "directory": "packages/base",
+        "tarball": "sveltery-base-0.0.0.tgz",
+        "sha256": "1023c26885ec4dff413e6f61db1dc1159564762434250e206462a000dd368d74",
+        "dependencies": [
+          "@sveltery/utils"
+        ]
+      },
+      "@sveltery/utils": {
+        "version": "0.0.0",
+        "directory": "packages/utils",
+        "tarball": "sveltery-utils-0.0.0.tgz",
+        "sha256": "7e4f31b6939499af11fbad0375be4e2d164144969936547bcd95d15390450ac2",
+        "dependencies": []
+      }
+    }
+  },
+  "finalLocalScope": "Final five-owner runtime/classes/callers at992d6c98: feasible maintained stages run sequentially;17affected DOM suites225passed at6f5bed06, excluding cleanup-sensitivity credit for invalidated initial witness; correctedBoolean52passed at15c13bf2 and focusedcleanupmutation1expectedfail/51unselected. All product runtime/type bodies unchanged between these candidates. Earlier three-owner full Verification1807DOM pass remains historical; final five-owner full DOM/secured-browser and exact pushed-head full hosted CI still required. New final receipt-only commit does not alter runtime/tests/consumer harness. Zero new unchanged Source assertion credit."
+}

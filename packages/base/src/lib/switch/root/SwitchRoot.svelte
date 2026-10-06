@@ -20,8 +20,8 @@
   import { useRegisterFieldControl } from '../../internals/field-register-control/useRegisterFieldControl.svelte.js';
   import { useFormContext } from '../../internals/form-context/FormContext.js';
   import { useLabelableContext } from '../../internals/labelable-provider/LabelableContext.js';
-  import { useAriaLabelledBy } from '../../internals/labelable-provider/useAriaLabelledBy.svelte.js';
-  import { useLabelableId } from '../../internals/labelable-provider/useLabelableId.svelte.js';
+  import { AriaLabelledByOwner } from '../../internals/labelable-provider/useAriaLabelledBy.svelte.js';
+  import { LabelableIdOwner } from '../../internals/labelable-provider/useLabelableId.svelte.js';
   import { createChangeEventDetails } from '../../internals/createBaseUIEventDetails.js';
   import { REASONS } from '../../internals/reasons.js';
   import { ValueChanged } from '../../internals/ValueChanged.svelte.js';
@@ -61,8 +61,8 @@
   const switchRef = $state<{ current: HTMLElement | null }>({ current: null });
   const instanceId = $props.id();
   const id = useBaseUiId(undefined, instanceId);
-  const getControlId = useLabelableId(() => ({ id: idProp }), `${id}-input`);
-  const controlId = $derived(getControlId());
+  const labelableId = new LabelableIdOwner(() => ({ id: idProp }), `${id}-input`);
+  const controlId = $derived(labelableId.getId());
   const hiddenInputId = $derived(nativeButton ? undefined : controlId);
   const checkedState = new Controlled(
     () => checkedProp,
@@ -90,7 +90,7 @@
     disabled,
     native: nativeButton,
   }));
-  const getAriaLabelledBy = useAriaLabelledBy(() => ({
+  const ariaLabelledBy = new AriaLabelledByOwner(() => ({
     explicitAriaLabelledBy: ariaLabelledByProp ?? undefined,
     labelId: labelable.labelId,
     labelSource: inputRef.current,
@@ -103,7 +103,7 @@
     'aria-checked': checked,
     'aria-readonly': readOnly || undefined,
     'aria-required': required || undefined,
-    'aria-labelledby': getAriaLabelledBy(),
+    'aria-labelledby': ariaLabelledBy.getAriaLabelledBy(),
     onfocus() {
       if (!disabled) field.setFocused(true);
     },

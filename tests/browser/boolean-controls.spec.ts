@@ -323,6 +323,19 @@ for (const reference of [false, true]) {
     expect(await json(page, 'submissions')).toEqual([{ enabled: false }]);
   });
 }
+// Authored native lifetime supplement; no unchanged React assertion credit.
+test('native Checkbox unmount after target delegation releases its marked-event window listener', async ({
+  page,
+}) => {
+  const control = await setup(page, 'checkbox', 'default', false);
+  await page.getByRole('button', { name: 'Arm Enter unmount after target', exact: true }).click();
+  await control.focus();
+  await control.press('Enter');
+  await expect(control).toHaveCount(0);
+  await expect(page.locator('#enter-default-prevented')).toHaveText('false');
+  expect(await json(page, 'submissions')).toEqual([]);
+  expect(await json(page, 'calls')).toEqual([]);
+});
 test('literal Svelte binding measures canceled native reset button separately from imperative reset', async ({
   page,
 }) => {

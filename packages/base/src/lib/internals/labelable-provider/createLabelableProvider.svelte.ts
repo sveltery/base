@@ -7,64 +7,68 @@ import {
   type LabelableContext,
 } from './LabelableContext.js';
 
-// The component owns the SSR-stable Svelte id; this body owns the source provider state.
-export function createLabelableProvider(defaultId: string): LabelableContext {
-  let controlIdState = $state<string | null | undefined>(defaultId);
-  let labelId = $state<string>();
+// The component owns the SSR-stable Svelte id; this class owns the source provider state.
+export class LabelableProviderOwner implements LabelableContext {
+  #defaultId: string;
+  #controlIdState = $state<string | null | undefined>();
+  #labelId = $state<string>();
   // Effect cleanup updates the live resource array; native state publishes its current value.
-  let currentMessageIds: string[] = [];
-  let messageIds = $state.raw<string[]>(currentMessageIds);
-  const controlId = $derived(controlIdState === undefined ? defaultId : controlIdState);
+  #currentMessageIds: string[] = [];
+  #messageIds = $state.raw<string[]>(this.#currentMessageIds);
+  #controlId = $derived.by(() =>
+    this.#controlIdState === undefined ? this.#defaultId : this.#controlIdState,
+  );
   // eslint-disable-next-line svelte/prefer-svelte-reactivity -- Source control registry is imperative; selected control state owns reactive updates.
-  const registrations = new Map<symbol, string | null>();
-  const parent = useLabelableContext();
+  #registrations = new Map<symbol, string | null>();
+  #parent: LabelableContext;
 
-  const registerControlId = (source: symbol, nextId: string | null | undefined) => {
+  constructor(defaultId: string) {
+    this.#defaultId = defaultId;
+    this.#controlIdState = defaultId;
+    this.#parent = useLabelableContext();
+    setLabelableContext(this);
+  }
+
+  registerControlId = (source: symbol, nextId: string | null | undefined) => {
+    const registrations = this.#registrations;
     if (nextId === undefined) registrations.delete(source);
     else registrations.set(source, nextId);
     if (registrations.size === 0) return;
 
     let nextControlId: string | null | undefined;
     for (const id of registrations.values()) {
-      if (id === controlIdState) return;
+      if (id === this.#controlIdState) return;
       if (nextControlId === undefined) nextControlId = id;
     }
-    controlIdState = nextControlId;
+    this.#controlIdState = nextControlId;
   };
-  const resetControlId = () => {
-    if (registrations.size === 0) controlIdState = defaultId;
+  resetControlId = () => {
+    if (this.#registrations.size === 0) this.#controlIdState = this.#defaultId;
   };
-  function getDescriptionProps(externalProps: Record<string, unknown>) {
+  getDescriptionProps = (externalProps: Record<string, unknown>) => {
     const description = externalProps['aria-describedby'] as string | undefined;
     const ids = description ? description.split(' ') : [];
-    ids.push(...parent.messageIds, ...messageIds);
+    ids.push(...this.#parent.messageIds, ...this.#messageIds);
     return {
       ...externalProps,
       // eslint-disable-next-line svelte/prefer-svelte-reactivity -- This temporary Set only deduplicates the current derived message array.
       'aria-describedby': Array.from(new Set(ids)).join(' ') || undefined,
     };
-  }
-  const contextValue: LabelableContext = {
-    get controlId() {
-      return controlId;
-    },
-    registerControlId,
-    resetControlId,
-    get labelId() {
-      return labelId;
-    },
-    setLabelId(value) {
-      labelId = typeof value === 'function' ? value(labelId) : value;
-    },
-    get messageIds() {
-      return messageIds;
-    },
-    setMessageIds(value) {
-      currentMessageIds = typeof value === 'function' ? value(currentMessageIds) : value;
-      messageIds = currentMessageIds;
-    },
-    getDescriptionProps,
   };
-  setLabelableContext(contextValue);
-  return contextValue;
+  get controlId() {
+    return this.#controlId;
+  }
+  get labelId() {
+    return this.#labelId;
+  }
+  setLabelId: LabelableContext['setLabelId'] = (value) => {
+    this.#labelId = typeof value === 'function' ? value(this.#labelId) : value;
+  };
+  get messageIds() {
+    return this.#messageIds;
+  }
+  setMessageIds: LabelableContext['setMessageIds'] = (value) => {
+    this.#currentMessageIds = typeof value === 'function' ? value(this.#currentMessageIds) : value;
+    this.#messageIds = this.#currentMessageIds;
+  };
 }

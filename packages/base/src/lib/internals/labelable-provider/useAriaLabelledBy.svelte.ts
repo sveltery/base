@@ -7,39 +7,45 @@ interface Parameters {
   enableFallback?: boolean;
   generatedLabelId: string;
 }
-export function useAriaLabelledBy(getParameters: () => Parameters): () => string | undefined {
-  let fallbackAriaLabelledBy = $state<string>();
-  $effect(() => {
-    const {
-      explicitAriaLabelledBy,
-      labelId,
-      labelSource,
-      enableFallback = true,
-      generatedLabelId,
-    } = getParameters();
-    const update = () => {
-      const next =
-        explicitAriaLabelledBy || labelId || !enableFallback
-          ? undefined
-          : getAriaLabelledBy(labelSource, generatedLabelId);
-      if (fallbackAriaLabelledBy !== next) fallbackAriaLabelledBy = next;
-    };
-    update();
-    if (!labelSource || explicitAriaLabelledBy || labelId || !enableFallback) return;
-    // React's every-commit effect observes label DOM changes. The native port
-    // observes the actual label tree, including labels inside a shadow root.
-    const observer = new labelSource.ownerDocument.defaultView!.MutationObserver(update);
-    observer.observe(labelSource.getRootNode(), {
-      childList: true,
-      subtree: true,
-      attributes: true,
-      attributeFilter: ['id', 'for'],
+export class AriaLabelledByOwner {
+  #getParameters: () => Parameters;
+  #fallbackAriaLabelledBy = $state<string>();
+
+  constructor(getParameters: () => Parameters) {
+    this.#getParameters = getParameters;
+    $effect(() => {
+      const {
+        explicitAriaLabelledBy,
+        labelId,
+        labelSource,
+        enableFallback = true,
+        generatedLabelId,
+      } = getParameters();
+      const update = () => {
+        const next =
+          explicitAriaLabelledBy || labelId || !enableFallback
+            ? undefined
+            : getAriaLabelledBy(labelSource, generatedLabelId);
+        if (this.#fallbackAriaLabelledBy !== next) this.#fallbackAriaLabelledBy = next;
+      };
+      update();
+      if (!labelSource || explicitAriaLabelledBy || labelId || !enableFallback) return;
+      // React's every-commit effect observes label DOM changes. The native port
+      // observes the actual label tree, including labels inside a shadow root.
+      const observer = new labelSource.ownerDocument.defaultView!.MutationObserver(update);
+      observer.observe(labelSource.getRootNode(), {
+        childList: true,
+        subtree: true,
+        attributes: true,
+        attributeFilter: ['id', 'for'],
+      });
+      return () => observer.disconnect();
     });
-    return () => observer.disconnect();
-  });
-  return () => {
-    const { explicitAriaLabelledBy, labelId } = getParameters();
-    return explicitAriaLabelledBy ?? labelId ?? fallbackAriaLabelledBy;
+  }
+
+  getAriaLabelledBy = () => {
+    const { explicitAriaLabelledBy, labelId } = this.#getParameters();
+    return explicitAriaLabelledBy ?? labelId ?? this.#fallbackAriaLabelledBy;
   };
 }
 function getAriaLabelledBy(labelSource: Parameters['labelSource'], generatedLabelId: string) {

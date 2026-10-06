@@ -19,8 +19,8 @@
   import { useFieldRootContext } from '../../internals/field-root-context/FieldRootContext.js';
   import { useFieldItemContext } from '../../field/item/FieldItemContext.js';
   import { useLabelableContext } from '../../internals/labelable-provider/LabelableContext.js';
-  import { useAriaLabelledBy } from '../../internals/labelable-provider/useAriaLabelledBy.svelte.js';
-  import { useLabelableId } from '../../internals/labelable-provider/useLabelableId.svelte.js';
+  import { AriaLabelledByOwner } from '../../internals/labelable-provider/useAriaLabelledBy.svelte.js';
+  import { LabelableIdOwner } from '../../internals/labelable-provider/useLabelableId.svelte.js';
   import { useRadioGroupContext } from '../../radio-group/RadioGroupContext.js';
   import { useFieldControlNativeName } from '../../internals/field-control-name/FieldControlNameContext.js';
   import { serializeValue } from '../../internals/serializeValue.js';
@@ -81,10 +81,10 @@
   });
   const nativeId = $props.id();
   const id = useBaseUiId(undefined, nativeId);
-  const getInputId = useLabelableId(() => ({ id: idProp }), `${id}-input`);
-  const inputId = $derived(getInputId());
+  const labelableId = new LabelableIdOwner(() => ({ id: idProp }), `${id}-input`);
+  const inputId = $derived(labelableId.getId());
   const hiddenInputId = $derived(nativeButton ? undefined : inputId);
-  const getAriaLabelledBy = useAriaLabelledBy(() => ({
+  const ariaLabelledBy = new AriaLabelledByOwner(() => ({
     explicitAriaLabelledBy: ariaLabelledByProp ?? undefined,
     labelId: labelable.labelId,
     labelSource: inputRef.current,
@@ -94,7 +94,7 @@
   const rootProps = $derived({
     role: 'radio',
     'aria-checked': checked,
-    'aria-labelledby': getAriaLabelledBy(),
+    'aria-labelledby': ariaLabelledBy.getAriaLabelledBy(),
     [ACTIVE_COMPOSITE_ITEM]: checked ? '' : undefined,
     id: nativeButton ? inputId : id,
     onkeydown(event: KeyboardEvent) {

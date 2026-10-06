@@ -13,7 +13,7 @@
 
   import { visuallyHidden, visuallyHiddenInput } from '@sveltery/utils/visuallyHidden';
   import { toNativeStyle } from '../../internals/nativeProps.js';
-  import { useEnterSubmit } from '../utils/useEnterSubmit.svelte.js';
+  import { EnterSubmitOwner } from '../utils/useEnterSubmit.svelte.js';
   import { getCheckboxStateAttributesMapping } from '../utils/getCheckboxStateAttributesMapping.js';
   import { dispatchClickWithModifiers } from '../../utils/dispatchClickWithModifiers.js';
   import { useBaseUiId } from '../../internals/useBaseUiId.js';
@@ -23,8 +23,8 @@
   import { useFieldItemContext } from '../../field/item/FieldItemContext.js';
   import { useFormContext } from '../../internals/form-context/FormContext.js';
   import { useLabelableContext } from '../../internals/labelable-provider/LabelableContext.js';
-  import { useAriaLabelledBy } from '../../internals/labelable-provider/useAriaLabelledBy.svelte.js';
-  import { useLabelableId } from '../../internals/labelable-provider/useLabelableId.svelte.js';
+  import { AriaLabelledByOwner } from '../../internals/labelable-provider/useAriaLabelledBy.svelte.js';
+  import { LabelableIdOwner } from '../../internals/labelable-provider/useLabelableId.svelte.js';
   import { useCheckboxGroupContext } from '../../checkbox-group/CheckboxGroupContext.js';
   import { setCheckboxRootContext } from './CheckboxRootContext.js';
   import { createChangeEventDetails } from '../../internals/createBaseUIEventDetails.js';
@@ -75,11 +75,11 @@
   const instanceId = $props.id();
   const id = useBaseUiId(undefined, instanceId);
   const ownsControlId = $derived(groupContext?.registerControlId !== labelable.registerControlId);
-  const getControlId = useLabelableId(
+  const labelableId = new LabelableIdOwner(
     () => ({ id: idProp || undefined, enabled: ownsControlId }),
     `${id}-input`,
   );
-  const controlId = $derived(getControlId());
+  const controlId = $derived(labelableId.getId());
   const rootId = $derived(nativeButton ? controlId : id);
   const groupProps: Partial<
     Pick<CheckboxRootProps, 'checked' | 'indeterminate' | 'onCheckedChange'> & {
@@ -154,7 +154,7 @@
           })
         : undefined;
   });
-  const getAriaLabelledBy = useAriaLabelledBy(() => ({
+  const ariaLabelledBy = new AriaLabelledByOwner(() => ({
     explicitAriaLabelledBy: ariaLabelledByProp ?? undefined,
     labelId: labelable.labelId,
     labelSource: inputRef.current,
@@ -244,14 +244,14 @@
     indeterminate: computedIndeterminate,
   });
   const stateAttributesMapping = $derived(getCheckboxStateAttributesMapping(rootState));
-  const handleEnterSubmit = useEnterSubmit(controlRef, inputRef);
+  const enterSubmit = new EnterSubmitOwner(controlRef, inputRef);
   const rootProps = $derived({
     id: rootId,
     role: 'checkbox',
     'aria-checked': computedIndeterminate ? 'mixed' : computedChecked,
     'aria-readonly': readOnly || undefined,
     'aria-required': required || undefined,
-    'aria-labelledby': getAriaLabelledBy(),
+    'aria-labelledby': ariaLabelledBy.getAriaLabelledBy(),
     'data-parent': parent ? '' : undefined,
     onfocus() {
       if (!disabled) field.setFocused(true);
@@ -264,7 +264,7 @@
       if (field.validationMode === 'onBlur')
         void validation.commit(groupContext ? groupContext.value : input.checked);
     },
-    onkeydown: handleEnterSubmit,
+    onkeydown: enterSubmit.handleEnterSubmit,
     onclick(event: MouseEvent) {
       if (readOnly || disabled) return;
       event.preventDefault();

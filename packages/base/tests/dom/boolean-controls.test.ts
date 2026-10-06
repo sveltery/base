@@ -454,6 +454,17 @@ describe('Checkbox native Enter submission boundary', () => {
     readonlyView.enter();
     expect(readonlySubmit).toHaveBeenCalledTimes(1);
   });
+  // Authored native lifetime supplement: the event path survives removal, so a leaked
+  // marked-event window listener would still preventDefault even after its input is gone.
+  it('unmount after target delegation removes the marked-event window handler', async () => {
+    const submit = vi.fn();
+    const view = await enterView({ submit });
+    view.component.armUnmountAfterTarget();
+    const event = view.enter();
+    expect(view.root.isConnected).toBe(false);
+    expect(event.defaultPrevented).toBe(false);
+    expect(submit).not.toHaveBeenCalled();
+  });
   it('unmount removes owned listener and another checkbox does not process its events', async () => {
     const submit = vi.fn();
     const view = await enterView({ submit });

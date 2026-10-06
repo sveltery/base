@@ -10,7 +10,7 @@
   import { useFieldItemContext } from '../field/item/FieldItemContext.js';
   import { useFormContext } from '../internals/form-context/FormContext.js';
   import { useLabelableContext } from '../internals/labelable-provider/LabelableContext.js';
-  import { useLabelableId } from '../internals/labelable-provider/useLabelableId.svelte.js';
+  import { LabelableIdOwner } from '../internals/labelable-provider/useLabelableId.svelte.js';
   import { useRegisterFieldControl } from '../internals/field-register-control/useRegisterFieldControl.svelte.js';
   import { useFieldControlNativeName } from '../internals/field-control-name/FieldControlNameContext.js';
   import { useBaseUiId } from '../internals/useBaseUiId.js';
@@ -53,8 +53,11 @@
   const name = $derived(field.name ?? descriptor.name);
   const getNativeName = useFieldControlNativeName();
   const instanceId = $props.id();
-  const getId = useLabelableId(() => ({ id: descriptor.id }), useBaseUiId(undefined, instanceId));
-  const id = $derived(getId());
+  const labelableId = new LabelableIdOwner(
+    () => ({ id: descriptor.id }),
+    useBaseUiId(undefined, instanceId),
+  );
+  const id = $derived(labelableId.getId());
   const controlRef = $state<{ current: NativeValidationControl | null }>({
     current: null,
   });

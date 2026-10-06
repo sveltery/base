@@ -4,10 +4,13 @@ import { onDestroy } from 'svelte';
 import { EMPTY_OBJECT } from '@sveltery/utils/empty';
 import { Timeout } from '@sveltery/utils/useTimeout';
 
-import { useLabelableContext } from '../../internals/labelable-provider/LabelableContext.js';
+import {
+  useLabelableContext,
+  type LabelableContext,
+} from '../../internals/labelable-provider/LabelableContext.js';
 import { mergeProps } from '../../merge-props/index.js';
 import { DEFAULT_VALIDITY_STATE } from '../../internals/field-constants/constants.js';
-import { useFormContext } from '../../internals/form-context/FormContext.js';
+import { useFormContext, type FormContext } from '../../internals/form-context/FormContext.js';
 import { getCombinedFieldValidityData } from '../utils/getCombinedFieldValidityData.js';
 import type { FieldValidityData, FieldRootState } from '../types.js';
 import type { FormValues, FormValidationMode } from '../../form/types.js';
@@ -77,41 +80,59 @@ function getNativeErrors(element: NativeValidationControl | null): string[] {
   return element && element.validationMessage ? [element.validationMessage] : [];
 }
 
-export function useFieldValidation(
-  params: UseFieldValidationParameters,
-): UseFieldValidationReturnValue {
-  const { elementRef, formRef } = useFormContext();
-
-  const labelable = useLabelableContext();
-
-  const timeout = new Timeout();
-
-  onDestroy(timeout.clear);
-  const inputRef = $state<{ current: HTMLInputElement | null }>({ current: null });
+/** One Field lifetime owns the shared validation state and bound services. */
+export class FieldValidationOwner implements UseFieldValidationReturnValue {
+  #params: UseFieldValidationParameters;
+  #elementRef: FormContext['elementRef'];
+  #formRef: FormContext['formRef'];
+  #labelable: LabelableContext;
+  #timeout: Timeout;
+  inputRef = $state<{ current: HTMLInputElement | null }>({ current: null });
   // eslint-disable-next-line svelte/prefer-svelte-reactivity -- Source registration Map is imperative and does not subscribe rendering.
-  const registeredInputs: RegisteredInputs = new Map();
-  const validationCommitIdRef = { current: 0 };
+  registeredInputs: RegisteredInputs = new Map();
+  #validationCommitIdRef = { current: 0 };
   // Tracks the message installed by Base UI and the custom message it displaced.
-  const customValidityRef = {
+  #customValidityRef = {
     current: null as [element: NativeValidationControl, message: string, displaced: string] | null,
   };
+
+  constructor(params: UseFieldValidationParameters) {
+    this.#params = params;
+    const { elementRef, formRef } = useFormContext();
+    this.#elementRef = elementRef;
+    this.#formRef = formRef;
+    this.#labelable = useLabelableContext();
+    this.#timeout = new Timeout();
+    onDestroy(this.#timeout.clear);
+  }
 
   // Groups register several inputs against a single field so focus, validation, and form-value
   // projection can use the same live controls. This also ensures a `required` checkbox can't be
   // satisfied by another input in the group, matching native per-checkbox behavior.
-  const registerInput = (element: NativeValidationControl, registration: RegisteredInput) => {
+  registerInput = (element: NativeValidationControl, registration: RegisteredInput) => {
+    const registeredInputs = this.registeredInputs;
     registeredInputs.set(element, registration);
     return () => {
       registeredInputs.delete(element);
     };
   };
 
-  const getInputControl = () => {
+  getInputControl = () => {
+    const registeredInputs = this.registeredInputs;
+    const elementRef = this.#elementRef;
     const element = findRepresentativeInput(registeredInputs, elementRef.current);
     return (element && registeredInputs.get(element)?.controlRef.current) || null;
   };
 
-  const commit = async (value: unknown, revalidate = false) => {
+  commit = async (value: unknown, revalidate = false) => {
+    const params = this.#params;
+    const elementRef = this.#elementRef;
+    const formRef = this.#formRef;
+    const labelable = this.#labelable;
+    const timeout = this.#timeout;
+    const { inputRef, registeredInputs } = this;
+    const validationCommitIdRef = this.#validationCommitIdRef;
+    const customValidityRef = this.#customValidityRef;
     validationCommitIdRef.current += 1;
     const validationCommitId = validationCommitIdRef.current;
 
@@ -337,7 +358,11 @@ export function useFieldValidation(
     publish(nextState, validationErrors);
   };
 
-  const change = (value: unknown, cancelPending = false) => {
+  change = (value: unknown, cancelPending = false) => {
+    const params = this.#params;
+    const timeout = this.#timeout;
+    const validationCommitIdRef = this.#validationCommitIdRef;
+    const commit = this.commit;
     timeout.clear();
     validationCommitIdRef.current += 1;
     if (cancelPending) {
@@ -355,23 +380,13 @@ export function useFieldValidation(
     }
   };
 
-  const getValidationProps = (disabled: boolean, externalProps: HTMLProps = EMPTY_OBJECT) =>
+  getValidationProps = (disabled: boolean, externalProps: HTMLProps = EMPTY_OBJECT) =>
     mergeProps(
-      labelable.getDescriptionProps(externalProps),
-      params.state.valid === false && !params.state.disabled && !disabled
+      this.#labelable.getDescriptionProps(externalProps),
+      this.#params.state.valid === false && !this.#params.state.disabled && !disabled
         ? { 'aria-invalid': true }
         : EMPTY_OBJECT,
     );
-
-  return {
-    getValidationProps,
-    inputRef,
-    registeredInputs,
-    registerInput,
-    getInputControl,
-    commit,
-    change,
-  };
 }
 
 export interface UseFieldValidationParameters {

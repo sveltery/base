@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { onMount, untrack } from 'svelte';
+  import { flushSync, onMount, untrack } from 'svelte';
   import { Checkbox, Switch, CheckboxGroup, Field, Form } from '@sveltery/base';
   import type { SwitchRootProps, CheckboxRootProps, FormValues } from '@sveltery/base';
   import type { HTMLButtonAttributes } from 'svelte/elements';
@@ -14,6 +14,7 @@
   let calls = $state<unknown[]>([]);
   let submissions = $state<unknown[]>([]);
   let inputEvents = $state(0);
+  let enterDefaultPrevented = $state<boolean | null>(null);
   let cancelChanges = $state(untrack(() => scenario === 'cancel'));
   const controlled = $derived(scenario.startsWith('controlled'));
   const native = $derived(scenario.startsWith('native'));
@@ -53,6 +54,16 @@
     element.addEventListener('keydown', handler);
     return () => element.removeEventListener('keydown', handler);
   }
+  let stopEnterUnmount = () => {};
+  function armEnterUnmount() {
+    // Armed after hydration/delegation. Teardown runs at document before the owned window listener.
+    const handler = (event: KeyboardEvent) => {
+      flushSync(() => (visible = false));
+      queueMicrotask(() => (enterDefaultPrevented = event.defaultPrevented));
+    };
+    document.addEventListener('keydown', handler, { once: true });
+    stopEnterUnmount = () => document.removeEventListener('keydown', handler);
+  }
   const cancelLate = (event: KeyboardEvent) => event.preventDefault();
   function addLate() {
     if (!late) window.addEventListener('keydown', cancelLate);
@@ -60,7 +71,10 @@
   }
   onMount(() => {
     hydrated = true;
-    return () => window.removeEventListener('keydown', cancelLate);
+    return () => {
+      window.removeEventListener('keydown', cancelLate);
+      stopEnterUnmount();
+    };
   });
 </script>
 
@@ -136,9 +150,11 @@
   <button onclick={() => (visible = false)}>Unmount</button>
   <button onclick={() => (cancelChanges = !cancelChanges)}>Toggle cancellation</button>
   <button onclick={addLate}>Install late window cancellation</button>
+  <button onclick={armEnterUnmount}>Arm Enter unmount after target</button>
   <output id="calls">{JSON.stringify(calls)}</output>
   <output id="submissions">{JSON.stringify(submissions)}</output>
   <output id="input-events">{inputEvents}</output>
+  <output id="enter-default-prevented">{JSON.stringify(enterDefaultPrevented)}</output>
 </main>
 
 <style>

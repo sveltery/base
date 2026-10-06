@@ -14,7 +14,7 @@
   import { useFieldRootContext } from '../internals/field-root-context/FieldRootContext.js';
   import { useRegisterFieldControl } from '../internals/field-register-control/useRegisterFieldControl.svelte.js';
   import { useLabelableContext } from '../internals/labelable-provider/LabelableContext.js';
-  import { useLabelableId } from '../internals/labelable-provider/useLabelableId.svelte.js';
+  import { LabelableIdOwner } from '../internals/labelable-provider/useLabelableId.svelte.js';
   import { fieldValidityMapping } from '../internals/field-constants/constants.js';
   import { useCheckboxGroupParent } from './useCheckboxGroupParent.svelte.js';
   import { useFormContext } from '../internals/form-context/FormContext.js';
@@ -58,7 +58,7 @@
     onValueChange: setValue,
   }));
   const instanceId = $props.id();
-  useLabelableId(() => ({ id: null }), useBaseUiId(undefined, `${instanceId}-control`));
+  new LabelableIdOwner(() => ({ id: null }), useBaseUiId(undefined, `${instanceId}-control`));
   const defaultId = useBaseUiId(undefined, instanceId);
   const id = $derived(idProp ?? defaultId);
   const controlRef = {

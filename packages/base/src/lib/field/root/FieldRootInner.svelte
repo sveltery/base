@@ -16,7 +16,7 @@
   } from '../../internals/field-constants/constants.js';
   import { useFieldsetRootContext } from '../../fieldset/root/FieldsetRootContext.js';
   import { useFormContext } from '../../internals/form-context/FormContext.js';
-  import { useFieldValidation } from './useFieldValidation.svelte.js';
+  import { FieldValidationOwner } from './useFieldValidation.svelte.js';
   import { FieldControlRegistrationOwner } from '../../internals/field-register-control/FieldControlRegistration.svelte.js';
   import type {
     FieldRootActions,
@@ -99,7 +99,7 @@
     filled,
     focused,
   });
-  const validation = useFieldValidation({
+  const validation = new FieldValidationOwner({
     setValidityData,
     validate,
     get validityData() {

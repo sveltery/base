@@ -3,49 +3,58 @@
 import { untrack } from 'svelte';
 
 import { NOOP } from '@sveltery/utils/empty';
-import { useLabelableContext } from './LabelableContext.js';
+import { useLabelableContext, type LabelableContext } from './LabelableContext.js';
 export interface UseLabelableIdParameters {
   id?: string | null;
   enabled?: boolean;
 }
-export function useLabelableId(
-  params: () => UseLabelableIdParameters,
-  defaultId: string,
-): () => string {
-  const context = useLabelableContext();
-  const controlSource = Symbol();
-  let hasRegistered = false;
-  let hadExplicitId = false;
-  const unregisterControlId = () => {
-    if (!hasRegistered || context.registerControlId === NOOP) return;
-    hasRegistered = false;
-    context.registerControlId(controlSource, undefined);
-  };
-  $effect(() => {
-    const { id, enabled = true } = params();
-    untrack(() => {
-      if (!enabled || context.registerControlId === NOOP) {
-        unregisterControlId();
-        return;
-      }
-      let nextId: string | null | undefined;
-      if (id !== undefined) {
-        hadExplicitId = true;
-        nextId = id;
-      } else if (hadExplicitId) nextId = defaultId;
-      else {
-        context.resetControlId();
-        return;
-      }
-      if (nextId === undefined) {
-        unregisterControlId();
-        return;
-      }
-      hasRegistered = true;
-      context.registerControlId(controlSource, nextId);
+export class LabelableIdOwner {
+  #params: () => UseLabelableIdParameters;
+  #defaultId: string;
+  #context: LabelableContext;
+  #controlSource = Symbol();
+  #hasRegistered = false;
+  #hadExplicitId = false;
+
+  constructor(params: () => UseLabelableIdParameters, defaultId: string) {
+    this.#params = params;
+    this.#defaultId = defaultId;
+    this.#context = useLabelableContext();
+    $effect(() => {
+      const { id, enabled = true } = params();
+      untrack(() => {
+        if (!enabled || this.#context.registerControlId === NOOP) {
+          this.#unregisterControlId();
+          return;
+        }
+        let nextId: string | null | undefined;
+        if (id !== undefined) {
+          this.#hadExplicitId = true;
+          nextId = id;
+        } else if (this.#hadExplicitId) nextId = defaultId;
+        else {
+          this.#context.resetControlId();
+          return;
+        }
+        if (nextId === undefined) {
+          this.#unregisterControlId();
+          return;
+        }
+        this.#hasRegistered = true;
+        this.#context.registerControlId(this.#controlSource, nextId);
+      });
     });
-  });
-  $effect(() => unregisterControlId);
-  return () =>
-    ((params().enabled ?? true) ? context.controlId : undefined) ?? params().id ?? defaultId;
+    $effect(() => this.#unregisterControlId);
+  }
+
+  #unregisterControlId = () => {
+    if (!this.#hasRegistered || this.#context.registerControlId === NOOP) return;
+    this.#hasRegistered = false;
+    this.#context.registerControlId(this.#controlSource, undefined);
+  };
+
+  getId = () =>
+    ((this.#params().enabled ?? true) ? this.#context.controlId : undefined) ??
+    this.#params().id ??
+    this.#defaultId;
 }

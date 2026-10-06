@@ -15,7 +15,7 @@
   import { useRegisterFieldControl } from '../internals/field-register-control/useRegisterFieldControl.svelte.js';
   import { useFormContext } from '../internals/form-context/FormContext.js';
   import { useLabelableContext } from '../internals/labelable-provider/LabelableContext.js';
-  import { useLabelableId } from '../internals/labelable-provider/useLabelableId.svelte.js';
+  import { LabelableIdOwner } from '../internals/labelable-provider/useLabelableId.svelte.js';
   import { useBaseUiId } from '../internals/useBaseUiId.js';
   import { fieldValidityMapping } from '../internals/field-constants/constants.js';
   import { ValueChanged } from '../internals/ValueChanged.svelte.js';
@@ -48,8 +48,11 @@
   });
   const labelable = useLabelableContext();
   const instanceId = $props.id();
-  const getId = useLabelableId(() => ({ id: idProp }), useBaseUiId(undefined, instanceId));
-  const id = $derived(getId());
+  const labelableId = new LabelableIdOwner(
+    () => ({ id: idProp }),
+    useBaseUiId(undefined, instanceId),
+  );
+  const id = $derived(labelableId.getId());
   const valueState = new Controlled(
     () => valueProp,
     untrack(() => defaultValue),

@@ -120,7 +120,7 @@
         }
       ],
       "local": "packages/base/src/lib/checkbox-group/CheckboxGroup.svelte",
-      "localSha256": "396fd416229d8c7a1a12f5b0e96e30297389f07565b13a363a790c4611a9b728",
+      "localSha256": "f58a5dda946f0abc9e5fd76556ec9475102753e7c21524014a046d9fe92ff56b",
       "correspondence": "Live shared source port or native public type/attribute substitution; see boundary notes.",
       "status": "implemented-awaiting-exact-head-review"
     },
@@ -484,7 +484,7 @@
         }
       ],
       "local": "packages/base/src/lib/checkbox/root/CheckboxRoot.svelte",
-      "localSha256": "7da8d3e7a782fc08271abbd0a531c0ae34d19e2055d51f811a2e82dc6ad67143",
+      "localSha256": "528aef092db47e99baa0c23a9a1f2d9644e8cc8f2c1a163bd2c99d20d26edaeb",
       "correspondence": "Live shared source port or native public type/attribute substitution; see boundary notes.",
       "status": "implemented-awaiting-exact-head-review"
     },
@@ -654,7 +654,7 @@
         }
       ],
       "local": "packages/base/src/lib/field/root/FieldRootInner.svelte",
-      "localSha256": "c39ec8f17f747455ea21ea72c6d6df18b697a0707226ce324f9d3d58a2e290b4",
+      "localSha256": "e10609de0fc98fd98eb99941637b2fdec527b76203fcc5534e77ca5de52d3451",
       "correspondence": "Live shared source port or native public type/attribute substitution; see boundary notes.",
       "status": "implemented-awaiting-exact-head-review"
     },
@@ -731,7 +731,7 @@
         }
       ],
       "local": "packages/base/src/lib/field/root/useFieldValidation.svelte.ts",
-      "localSha256": "b41d59b72a6a927635962710c48266b6a72144b5f1f0b56448281728b3e28f81",
+      "localSha256": "e13730d7f6c5b992fbc987a866777323638e226a52c462eda839128786c27a22",
       "correspondence": "Live shared source port or native public type/attribute substitution; see boundary notes.",
       "status": "implemented-awaiting-exact-head-review"
     },
@@ -3073,7 +3073,7 @@
         }
       ],
       "local": "packages/base/src/lib/internals/labelable-provider/LabelableProvider.svelte",
-      "localSha256": "8056aab139538495cb16be9e5183d277cade00a9624af5504179996ff3a09b33",
+      "localSha256": "aa64ef64caa0d757b194b65a8743fcb39c2b815cb66b12d25fc14f9c6930a2c5",
       "correspondence": "Live shared source port or native public type/attribute substitution; see boundary notes.",
       "status": "implemented-awaiting-exact-head-review"
     },
@@ -3142,7 +3142,7 @@
         }
       ],
       "local": "packages/base/src/lib/internals/labelable-provider/LabelableProvider.svelte",
-      "localSha256": "8056aab139538495cb16be9e5183d277cade00a9624af5504179996ff3a09b33",
+      "localSha256": "aa64ef64caa0d757b194b65a8743fcb39c2b815cb66b12d25fc14f9c6930a2c5",
       "correspondence": "Live shared source port or native public type/attribute substitution; see boundary notes.",
       "status": "implemented-awaiting-exact-head-review"
     },
@@ -3169,7 +3169,7 @@
         }
       ],
       "local": "packages/base/src/lib/internals/labelable-provider/useAriaLabelledBy.svelte.ts",
-      "localSha256": "64e63e8f5290b2b9ad3d8ad7d3fc936a76401425906c31cea8cdc4c19bd8b7ec",
+      "localSha256": "178ca2b5593560f408fea18c73276c5d554c0bea372084b7c28e0873deffc117",
       "correspondence": "Source explicit/context/native-label precedence and parent/sibling/native.labels selection retained. After-every-React-commit observation becomes one cleanup-owned native MutationObserver on labelSource.getRootNode(), so document and shadow-tree id/for/label changes refresh the real association.",
       "status": "implemented-awaiting-exact-head-review"
     },
@@ -3263,7 +3263,7 @@
         }
       ],
       "local": "packages/base/src/lib/internals/labelable-provider/useLabelableId.svelte.ts",
-      "localSha256": "36215a31fd3f84d006006734eca09bb94b036ad30015949f1acf814e94fa8845",
+      "localSha256": "20b7c4d5d171c3b90ed7ac7209846d476ee06cf6e6f10c57fa5d1a794a60453f",
       "correspondence": "Live shared source port or native public type/attribute substitution; see boundary notes.",
       "status": "implemented-awaiting-exact-head-review"
     },
@@ -3889,7 +3889,7 @@
         }
       ],
       "local": "packages/base/src/lib/switch/root/SwitchRoot.svelte",
-      "localSha256": "10178822deee98f13c0b689a3b997f6fbda5d32f914d9ce2bb8ef011ec95116c",
+      "localSha256": "85430fd894da8275b8c62d65666245b5ef60cba602263348f1ce5feb7bc3f68c",
       "correspondence": "Live shared source port or native public type/attribute substitution; see boundary notes.",
       "status": "implemented-awaiting-exact-head-review"
     },

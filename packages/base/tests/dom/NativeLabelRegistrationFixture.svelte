@@ -1,9 +1,9 @@
 <script lang="ts">
-  import { createLabelableProvider } from '../../src/lib/internals/labelable-provider/createLabelableProvider.svelte.js';
+  import { LabelableProviderOwner } from '../../src/lib/internals/labelable-provider/createLabelableProvider.svelte.js';
   import RegisteredLabel from './NativeRegisteredLabel.svelte';
 
   let id = $state('label-a');
-  const labelable = createLabelableProvider('control');
+  const labelable = new LabelableProviderOwner('control');
   let present = $state(true);
   let replacement = $state(false);
 

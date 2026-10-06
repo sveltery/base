@@ -400,11 +400,11 @@
       "currentOwners": [
         {
           "path": "packages/base/src/lib/checkbox-group/CheckboxGroup.svelte",
-          "sha256": "396fd416229d8c7a1a12f5b0e96e30297389f07565b13a363a790c4611a9b728"
+          "sha256": "f58a5dda946f0abc9e5fd76556ec9475102753e7c21524014a046d9fe92ff56b"
         },
         {
           "path": "packages/base/src/lib/checkbox/root/CheckboxRoot.svelte",
-          "sha256": "7da8d3e7a782fc08271abbd0a531c0ae34d19e2055d51f811a2e82dc6ad67143"
+          "sha256": "528aef092db47e99baa0c23a9a1f2d9644e8cc8f2c1a163bd2c99d20d26edaeb"
         },
         {
           "path": "packages/base/src/lib/context-menu/trigger/createContextMenuTrigger.svelte.ts",
@@ -416,7 +416,7 @@
         },
         {
           "path": "packages/base/src/lib/field/Control.svelte",
-          "sha256": "cc39f3bc50f55f6d8e4841cc7e66224f4abf712c35f7a7c09f094a9e4b24baef"
+          "sha256": "a28bf0c755d76058d7a2451fa527bd21f33ea7825736e02a906823f82519da90"
         },
         {
           "path": "packages/base/src/lib/field/Description.svelte",
@@ -432,7 +432,7 @@
         },
         {
           "path": "packages/base/src/lib/field/root/FieldRootInner.svelte",
-          "sha256": "c39ec8f17f747455ea21ea72c6d6df18b697a0707226ce324f9d3d58a2e290b4"
+          "sha256": "e10609de0fc98fd98eb99941637b2fdec527b76203fcc5534e77ca5de52d3451"
         },
         {
           "path": "packages/base/src/lib/floating-ui/components/FloatingDelayGroup.svelte",
@@ -512,7 +512,7 @@
         },
         {
           "path": "packages/base/src/lib/internals/labelable-provider/useLabelableId.svelte.ts",
-          "sha256": "36215a31fd3f84d006006734eca09bb94b036ad30015949f1acf814e94fa8845"
+          "sha256": "20b7c4d5d171c3b90ed7ac7209846d476ee06cf6e6f10c57fa5d1a794a60453f"
         },
         {
           "path": "packages/base/src/lib/internals/use-button/useButton.svelte.ts",
@@ -572,15 +572,15 @@
         },
         {
           "path": "packages/base/src/lib/radio/root/RadioRoot.svelte",
-          "sha256": "35d9e4365a747688156c3d2bda473436fbb678e3683d9013d146dcc103f3fcbf"
+          "sha256": "a006840d8b04d5b91a42fe23963c7ffcd635bcf02e6d677dd014ab26e97bf62e"
         },
         {
           "path": "packages/base/src/lib/remote-forms/RemoteNativeControl.svelte",
-          "sha256": "b73e75ffce6c0988a97cf5eba28d0cd18b2e71ae516a542477470c28d4fafc31"
+          "sha256": "dbbf741c5b2a8bb172f165ececc3181d7348d6e8d4d47b7afc19d0b744938329"
         },
         {
           "path": "packages/base/src/lib/switch/root/SwitchRoot.svelte",
-          "sha256": "10178822deee98f13c0b689a3b997f6fbda5d32f914d9ce2bb8ef011ec95116c"
+          "sha256": "85430fd894da8275b8c62d65666245b5ef60cba602263348f1ce5feb7bc3f68c"
         },
         {
           "path": "packages/base/src/lib/tooltip/Root.svelte",
@@ -685,7 +685,7 @@
       "currentOwners": [
         {
           "path": "packages/base/src/lib/field/root/useFieldValidation.svelte.ts",
-          "sha256": "b41d59b72a6a927635962710c48266b6a72144b5f1f0b56448281728b3e28f81"
+          "sha256": "e13730d7f6c5b992fbc987a866777323638e226a52c462eda839128786c27a22"
         },
         {
           "path": "packages/base/src/lib/floating-ui/hooks/useHoverInteractionSharedState.svelte.ts",
@@ -701,11 +701,11 @@
         },
         {
           "path": "packages/base/src/lib/internals/labelable-provider/createLabelableProvider.svelte.ts",
-          "sha256": "b5cf2b6efd42c5038cc6786bf325a6a450aff387474f2df008fa79d2a06694c6"
+          "sha256": "90068f37063725b09abb11c15d4177adea2e4209e596fc1965b67c558576e0cd"
         },
         {
           "path": "packages/base/src/lib/internals/labelable-provider/useLabelableId.svelte.ts",
-          "sha256": "36215a31fd3f84d006006734eca09bb94b036ad30015949f1acf814e94fa8845"
+          "sha256": "20b7c4d5d171c3b90ed7ac7209846d476ee06cf6e6f10c57fa5d1a794a60453f"
         },
         {
           "path": "packages/base/src/lib/menu/root/createMenuRoot.svelte.ts",
@@ -747,7 +747,7 @@
         },
         {
           "path": "packages/base/src/lib/checkbox-group/CheckboxGroup.svelte",
-          "sha256": "396fd416229d8c7a1a12f5b0e96e30297389f07565b13a363a790c4611a9b728"
+          "sha256": "f58a5dda946f0abc9e5fd76556ec9475102753e7c21524014a046d9fe92ff56b"
         },
         {
           "path": "packages/base/src/lib/checkbox-group/useCheckboxGroupParent.svelte.ts",
@@ -755,15 +755,15 @@
         },
         {
           "path": "packages/base/src/lib/field/Control.svelte",
-          "sha256": "cc39f3bc50f55f6d8e4841cc7e66224f4abf712c35f7a7c09f094a9e4b24baef"
+          "sha256": "a28bf0c755d76058d7a2451fa527bd21f33ea7825736e02a906823f82519da90"
         },
         {
           "path": "packages/base/src/lib/field/root/FieldRootInner.svelte",
-          "sha256": "c39ec8f17f747455ea21ea72c6d6df18b697a0707226ce324f9d3d58a2e290b4"
+          "sha256": "e10609de0fc98fd98eb99941637b2fdec527b76203fcc5534e77ca5de52d3451"
         },
         {
           "path": "packages/base/src/lib/field/root/useFieldValidation.svelte.ts",
-          "sha256": "b41d59b72a6a927635962710c48266b6a72144b5f1f0b56448281728b3e28f81"
+          "sha256": "e13730d7f6c5b992fbc987a866777323638e226a52c462eda839128786c27a22"
         },
         {
           "path": "packages/base/src/lib/floating-ui/components/createFloatingFocusManager.svelte.ts",
@@ -811,7 +811,7 @@
         },
         {
           "path": "packages/base/src/lib/internals/labelable-provider/createLabelableProvider.svelte.ts",
-          "sha256": "b5cf2b6efd42c5038cc6786bf325a6a450aff387474f2df008fa79d2a06694c6"
+          "sha256": "90068f37063725b09abb11c15d4177adea2e4209e596fc1965b67c558576e0cd"
         },
         {
           "path": "packages/base/src/lib/internals/labelable-provider/useLabel.svelte.ts",
@@ -819,7 +819,7 @@
         },
         {
           "path": "packages/base/src/lib/internals/labelable-provider/useLabelableId.svelte.ts",
-          "sha256": "36215a31fd3f84d006006734eca09bb94b036ad30015949f1acf814e94fa8845"
+          "sha256": "20b7c4d5d171c3b90ed7ac7209846d476ee06cf6e6f10c57fa5d1a794a60453f"
         },
         {
           "path": "packages/base/src/lib/internals/use-button/useButton.svelte.ts",
@@ -855,7 +855,7 @@
         },
         {
           "path": "packages/base/src/lib/remote-forms/RemoteNativeControl.svelte",
-          "sha256": "b73e75ffce6c0988a97cf5eba28d0cd18b2e71ae516a542477470c28d4fafc31"
+          "sha256": "dbbf741c5b2a8bb172f165ececc3181d7348d6e8d4d47b7afc19d0b744938329"
         },
         {
           "path": "packages/base/src/lib/toggle-group/ToggleGroup.svelte",
@@ -5098,7 +5098,7 @@
       },
       {
         "path": "packages/base/src/lib/checkbox-group/CheckboxGroup.svelte",
-        "sha256": "396fd416229d8c7a1a12f5b0e96e30297389f07565b13a363a790c4611a9b728",
+        "sha256": "f58a5dda946f0abc9e5fd76556ec9475102753e7c21524014a046d9fe92ff56b",
         "symbols": [
           {
             "name": "attachHost",
@@ -5268,8 +5268,8 @@
             "kind": "runtime",
             "members": [
               {
-                "imported": "useLabelableId",
-                "local": "useLabelableId",
+                "imported": "LabelableIdOwner",
+                "local": "LabelableIdOwner",
                 "typeOnly": false
               }
             ],
@@ -5832,7 +5832,7 @@
       },
       {
         "path": "packages/base/src/lib/checkbox/root/CheckboxRoot.svelte",
-        "sha256": "7da8d3e7a782fc08271abbd0a531c0ae34d19e2055d51f811a2e82dc6ad67143",
+        "sha256": "528aef092db47e99baa0c23a9a1f2d9644e8cc8f2c1a163bd2c99d20d26edaeb",
         "symbols": [
           {
             "name": "attachInput",
@@ -5986,8 +5986,8 @@
             "kind": "runtime",
             "members": [
               {
-                "imported": "useEnterSubmit",
-                "local": "useEnterSubmit",
+                "imported": "EnterSubmitOwner",
+                "local": "EnterSubmitOwner",
                 "typeOnly": false
               }
             ],
@@ -6116,8 +6116,8 @@
             "kind": "runtime",
             "members": [
               {
-                "imported": "useAriaLabelledBy",
-                "local": "useAriaLabelledBy",
+                "imported": "AriaLabelledByOwner",
+                "local": "AriaLabelledByOwner",
                 "typeOnly": false
               }
             ],
@@ -6129,8 +6129,8 @@
             "kind": "runtime",
             "members": [
               {
-                "imported": "useLabelableId",
-                "local": "useLabelableId",
+                "imported": "LabelableIdOwner",
+                "local": "LabelableIdOwner",
                 "typeOnly": false
               }
             ],
@@ -6470,12 +6470,12 @@
       },
       {
         "path": "packages/base/src/lib/checkbox/utils/useEnterSubmit.svelte.ts",
-        "sha256": "47a12f9d65ba32f7c9babcfb56f6b171637114df64f58b922b444e88fd614f8d",
+        "sha256": "7d7abbcef1a237eb0078bb833f62b07fd45b264b3cec54b177a7023bfa296777",
         "symbols": [
           {
-            "name": "useEnterSubmit",
-            "kind": "FunctionDeclaration",
-            "sha256": "d52a1fe4d686ac5f2b89a9af68b14201be7aa382d272d8e37ac84ed481a07af6"
+            "name": "EnterSubmitOwner",
+            "kind": "ClassDeclaration",
+            "sha256": "45a227e6225a56f9f457dfeb2ad02aad49175834da5a8d95180a31e7b349d0be"
           }
         ],
         "imports": [
@@ -11101,7 +11101,7 @@
       },
       {
         "path": "packages/base/src/lib/field/Control.svelte",
-        "sha256": "cc39f3bc50f55f6d8e4841cc7e66224f4abf712c35f7a7c09f094a9e4b24baef",
+        "sha256": "a28bf0c755d76058d7a2451fa527bd21f33ea7825736e02a906823f82519da90",
         "symbols": [
           {
             "name": "attachHost",
@@ -11263,8 +11263,8 @@
             "kind": "runtime",
             "members": [
               {
-                "imported": "useLabelableId",
-                "local": "useLabelableId",
+                "imported": "LabelableIdOwner",
+                "local": "LabelableIdOwner",
                 "typeOnly": false
               }
             ],
@@ -12340,7 +12340,7 @@
       },
       {
         "path": "packages/base/src/lib/field/root/FieldRootInner.svelte",
-        "sha256": "c39ec8f17f747455ea21ea72c6d6df18b697a0707226ce324f9d3d58a2e290b4",
+        "sha256": "e10609de0fc98fd98eb99941637b2fdec527b76203fcc5534e77ca5de52d3451",
         "symbols": [
           {
             "name": "setValidityData",
@@ -12460,8 +12460,8 @@
             "kind": "runtime",
             "members": [
               {
-                "imported": "useFieldValidation",
-                "local": "useFieldValidation",
+                "imported": "FieldValidationOwner",
+                "local": "FieldValidationOwner",
                 "typeOnly": false
               }
             ],
@@ -12514,7 +12514,7 @@
       },
       {
         "path": "packages/base/src/lib/field/root/useFieldValidation.svelte.ts",
-        "sha256": "b41d59b72a6a927635962710c48266b6a72144b5f1f0b56448281728b3e28f81",
+        "sha256": "e13730d7f6c5b992fbc987a866777323638e226a52c462eda839128786c27a22",
         "symbols": [
           {
             "name": "HTMLProps",
@@ -12557,9 +12557,9 @@
             "sha256": "259880e539ecfbb757bd1bc72b88961742787a35ca4e92c09b6c8a9afe301728"
           },
           {
-            "name": "useFieldValidation",
-            "kind": "FunctionDeclaration",
-            "sha256": "84101c3682c0a03fa13ce76dd103fe5a1646a825aab26f015f625ada08013d1c"
+            "name": "FieldValidationOwner",
+            "kind": "ClassDeclaration",
+            "sha256": "90691f401b010b867738f98bfee1e359310e06f28a2339720ecb69c7ad5a7bd2"
           },
           {
             "name": "UseFieldValidationParameters",
@@ -12620,6 +12620,11 @@
                 "imported": "useLabelableContext",
                 "local": "useLabelableContext",
                 "typeOnly": false
+              },
+              {
+                "imported": "LabelableContext",
+                "local": "LabelableContext",
+                "typeOnly": true
               }
             ],
             "syntax": "import",
@@ -12659,6 +12664,11 @@
                 "imported": "useFormContext",
                 "local": "useFormContext",
                 "typeOnly": false
+              },
+              {
+                "imported": "FormContext",
+                "local": "FormContext",
+                "typeOnly": true
               }
             ],
             "syntax": "import",
@@ -23432,12 +23442,12 @@
       },
       {
         "path": "packages/base/src/lib/internals/labelable-provider/createLabelableProvider.svelte.ts",
-        "sha256": "b5cf2b6efd42c5038cc6786bf325a6a450aff387474f2df008fa79d2a06694c6",
+        "sha256": "90068f37063725b09abb11c15d4177adea2e4209e596fc1965b67c558576e0cd",
         "symbols": [
           {
-            "name": "createLabelableProvider",
-            "kind": "FunctionDeclaration",
-            "sha256": "c5614c62736b245c57343f83bda61f3a4a80ddf338a064767413c3d35469bdad"
+            "name": "LabelableProviderOwner",
+            "kind": "ClassDeclaration",
+            "sha256": "5709f8e1a4cc4704892897d3dcc845c85266b467dc195f6229e872421ac1e507"
           }
         ],
         "imports": [
@@ -23524,7 +23534,7 @@
       },
       {
         "path": "packages/base/src/lib/internals/labelable-provider/LabelableProvider.svelte",
-        "sha256": "8056aab139538495cb16be9e5183d277cade00a9624af5504179996ff3a09b33",
+        "sha256": "aa64ef64caa0d757b194b65a8743fcb39c2b815cb66b12d25fc14f9c6930a2c5",
         "symbols": [],
         "imports": [
           {
@@ -23558,8 +23568,8 @@
             "kind": "runtime",
             "members": [
               {
-                "imported": "createLabelableProvider",
-                "local": "createLabelableProvider",
+                "imported": "LabelableProviderOwner",
+                "local": "LabelableProviderOwner",
                 "typeOnly": false
               }
             ],
@@ -23571,7 +23581,7 @@
       },
       {
         "path": "packages/base/src/lib/internals/labelable-provider/useAriaLabelledBy.svelte.ts",
-        "sha256": "64e63e8f5290b2b9ad3d8ad7d3fc936a76401425906c31cea8cdc4c19bd8b7ec",
+        "sha256": "178ca2b5593560f408fea18c73276c5d554c0bea372084b7c28e0873deffc117",
         "symbols": [
           {
             "name": "Parameters",
@@ -23579,9 +23589,9 @@
             "sha256": "b36eda88ff58ad764517055692c15f093b6778b61c1225b1ae31af1f31691cf3"
           },
           {
-            "name": "useAriaLabelledBy",
-            "kind": "FunctionDeclaration",
-            "sha256": "a697b068d33ebe737e8d643875f242682ddb7e19a3c0415298e29672cf20752b"
+            "name": "AriaLabelledByOwner",
+            "kind": "ClassDeclaration",
+            "sha256": "44646210d040fec5e914f10e315c0779f7cab9616672f7654e65e56a897fa5be"
           },
           {
             "name": "getAriaLabelledBy",
@@ -23680,7 +23690,7 @@
       },
       {
         "path": "packages/base/src/lib/internals/labelable-provider/useLabelableId.svelte.ts",
-        "sha256": "36215a31fd3f84d006006734eca09bb94b036ad30015949f1acf814e94fa8845",
+        "sha256": "20b7c4d5d171c3b90ed7ac7209846d476ee06cf6e6f10c57fa5d1a794a60453f",
         "symbols": [
           {
             "name": "UseLabelableIdParameters",
@@ -23688,9 +23698,9 @@
             "sha256": "f109a6f0df49ebc8ebde26848265a2fa0aeacf343e273c2aaee9eb26fa1a9071"
           },
           {
-            "name": "useLabelableId",
-            "kind": "FunctionDeclaration",
-            "sha256": "615171ebc3222f0426b6817c1a910a295c7ca06dbd657edd38046e604cea429c"
+            "name": "LabelableIdOwner",
+            "kind": "ClassDeclaration",
+            "sha256": "113636dd2fac5f7bfae7d5fe93bc1db0f474fe80c23ce0336019d1c361ce588a"
           }
         ],
         "imports": [
@@ -23728,6 +23738,11 @@
                 "imported": "useLabelableContext",
                 "local": "useLabelableContext",
                 "typeOnly": false
+              },
+              {
+                "imported": "LabelableContext",
+                "local": "LabelableContext",
+                "typeOnly": true
               }
             ],
             "syntax": "import",
@@ -38803,7 +38818,7 @@
       },
       {
         "path": "packages/base/src/lib/radio/root/RadioRoot.svelte",
-        "sha256": "35d9e4365a747688156c3d2bda473436fbb678e3683d9013d146dcc103f3fcbf",
+        "sha256": "a006840d8b04d5b91a42fe23963c7ffcd635bcf02e6d677dd014ab26e97bf62e",
         "symbols": [
           {
             "name": "attachHostVisible",
@@ -39035,8 +39050,8 @@
             "kind": "runtime",
             "members": [
               {
-                "imported": "useAriaLabelledBy",
-                "local": "useAriaLabelledBy",
+                "imported": "AriaLabelledByOwner",
+                "local": "AriaLabelledByOwner",
                 "typeOnly": false
               }
             ],
@@ -39048,8 +39063,8 @@
             "kind": "runtime",
             "members": [
               {
-                "imported": "useLabelableId",
-                "local": "useLabelableId",
+                "imported": "LabelableIdOwner",
+                "local": "LabelableIdOwner",
                 "typeOnly": false
               }
             ],
@@ -39858,7 +39873,7 @@
       },
       {
         "path": "packages/base/src/lib/remote-forms/RemoteNativeControl.svelte",
-        "sha256": "b73e75ffce6c0988a97cf5eba28d0cd18b2e71ae516a542477470c28d4fafc31",
+        "sha256": "dbbf741c5b2a8bb172f165ececc3181d7348d6e8d4d47b7afc19d0b744938329",
         "symbols": [
           {
             "name": "attachHost",
@@ -39968,8 +39983,8 @@
             "kind": "runtime",
             "members": [
               {
-                "imported": "useLabelableId",
-                "local": "useLabelableId",
+                "imported": "LabelableIdOwner",
+                "local": "LabelableIdOwner",
                 "typeOnly": false
               }
             ],
@@ -42519,7 +42534,7 @@
       },
       {
         "path": "packages/base/src/lib/switch/root/SwitchRoot.svelte",
-        "sha256": "10178822deee98f13c0b689a3b997f6fbda5d32f914d9ce2bb8ef011ec95116c",
+        "sha256": "85430fd894da8275b8c62d65666245b5ef60cba602263348f1ce5feb7bc3f68c",
         "symbols": [
           {
             "name": "attachInput",
@@ -42764,8 +42779,8 @@
             "kind": "runtime",
             "members": [
               {
-                "imported": "useAriaLabelledBy",
-                "local": "useAriaLabelledBy",
+                "imported": "AriaLabelledByOwner",
+                "local": "AriaLabelledByOwner",
                 "typeOnly": false
               }
             ],
@@ -42777,8 +42792,8 @@
             "kind": "runtime",
             "members": [
               {
-                "imported": "useLabelableId",
-                "local": "useLabelableId",
+                "imported": "LabelableIdOwner",
+                "local": "LabelableIdOwner",
                 "typeOnly": false
               }
             ],

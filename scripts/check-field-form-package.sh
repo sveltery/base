@@ -53,9 +53,10 @@ cat > "$field_form_consumer/Consumer.svelte" <<'SVELTE'
   const actionsRef: { current: FormActions | null } = { current: null }, fieldActionsRef: { current: FieldRootActions | null } = { current: null };
   const typed: FormProps<{ email: string }> = { onFormSubmit(values, details) { const email: string = values.email; const event: Event = details.event; const reason: 'none' = details.reason; void [email, event, reason]; } };
   const BoundForm = FormA<{ email: string }>;
+  export function validatePackedField() { fieldActionsRef.current?.validate(); }
 </script>
 <BoundForm id="packed-form" {...typed} {actionsRef} method="post" errors={{ email: ['duplicate', 'duplicate'] }}>
-  <FieldsetA.Root><FieldsetA.Legend>Account</FieldsetA.Legend><FieldA.Root name="email" actionsRef={fieldActionsRef} class={state => ({ invalid: state.valid === false })}>
+  <FieldsetA.Root><FieldsetA.Legend>Account</FieldsetA.Legend><FieldA.Root name="email" actionsRef={fieldActionsRef} validate={() => 'packed custom'} class={state => ({ invalid: state.valid === false })}>
     <FieldA.Label>Email</FieldA.Label><InputA id="packed-email" value="seed@example.com" required type="email" />
     <FieldA.Description id="packed-description">Description</FieldA.Description><FieldA.Error />
     <FieldA.Validity>{#snippet children(state)}<output>{String(state.validity.valid)}</output>{/snippet}</FieldA.Validity>
@@ -66,6 +67,7 @@ cat > "$field_form_consumer/Consumer.svelte" <<'SVELTE'
 SVELTE
 cat > "$field_form_consumer/check.mjs" <<'JS'
 import assert from 'node:assert/strict';
+import { writeFileSync } from 'node:fs';
 import { render } from 'svelte/server';
 import Consumer from './Consumer.svelte';
 import { FieldA, FieldB, FormA, FormB, FieldsetA, FieldsetB, InputA, InputB } from './imports.js';
@@ -78,12 +80,61 @@ assert(forms.find(form => form.includes('id="packed-form"'))?.includes('novalida
 assert.match(body, /value="seed@example.com"/); assert.match(body, /name="email"/); assert.match(body, /aria-invalid="true"/); assert.match(body, /class="invalid"/);
 assert.equal((body.match(/<li>duplicate<\/li>/g) ?? []).length, 2); assert.match(body, /value="native default"/); assert.match(body, /<fieldset[^>]*disabled/);
 assert.match(body, /Account/); assert.match(body, /Description/); assert.match(body, /Item label/);
+writeFileSync(new URL('./ssr.html', import.meta.url), body);
 JS
 cat > "$field_form_consumer/tsconfig.json" <<'JSON'
-{"compilerOptions":{"target":"ES2022","module":"ESNext","moduleResolution":"Bundler","strict":true,"exactOptionalPropertyTypes":true,"skipLibCheck":true,"verbatimModuleSyntax":true,"lib":["ES2022","DOM","DOM.Iterable"]},"include":["*.svelte","*.ts"]}
+{"compilerOptions":{"target":"ES2022","module":"ESNext","moduleResolution":"Bundler","strict":true,"exactOptionalPropertyTypes":true,"skipLibCheck":false,"verbatimModuleSyntax":true,"lib":["ES2022","DOM","DOM.Iterable"]},"include":["*.svelte","*.ts"]}
 JSON
 node --import "$sveltery_repo_root/scripts/svelte-ssr-loader.mjs" "$field_form_consumer/check.mjs"
 node "$sveltery_repo_root/packages/base/node_modules/svelte-check/bin/svelte-check" --workspace "$field_form_consumer" --tsconfig ./tsconfig.json
+cat > "$field_form_consumer/client-loader.mjs" <<'JS'
+import { registerHooks, createRequire } from 'node:module';
+import { readFileSync } from 'node:fs';
+import { fileURLToPath } from 'node:url';
+const { compile, compileModule } = createRequire(new URL('./package.json', import.meta.url))('svelte/compiler');
+registerHooks({
+  load(url, context, nextLoad) {
+    if (url.endsWith('.svelte') || url.endsWith('.svelte.js')) {
+      const source = readFileSync(fileURLToPath(url), 'utf8');
+      const options = { filename: fileURLToPath(url), generate: 'client' };
+      const result = url.endsWith('.svelte') ? compile(source, options) : compileModule(source, options);
+      return { format: 'module', source: result.js.code, shortCircuit: true };
+    }
+    return nextLoad(url, context);
+  },
+});
+JS
+cat > "$field_form_consumer/hydration-check.mjs" <<'JS'
+import assert from 'node:assert/strict';
+import { readFileSync } from 'node:fs';
+import { createRequire } from 'node:module';
+const { JSDOM } = createRequire(process.argv[2])('jsdom');
+const body = readFileSync(new URL('./ssr.html', import.meta.url), 'utf8');
+const dom = new JSDOM(`<!doctype html><html><body><main>${body}</main></body></html>`, { url: 'http://localhost', pretendToBeVisual: true });
+for (const key of ['window', 'document', 'navigator', 'HTMLElement', 'HTMLInputElement', 'HTMLSelectElement', 'HTMLTextAreaElement', 'HTMLFormElement', 'HTMLFieldSetElement', 'HTMLButtonElement', 'HTMLMediaElement', 'Element', 'SVGElement', 'Node', 'Text', 'Comment', 'Event', 'MouseEvent', 'MutationObserver', 'getComputedStyle']) Object.defineProperty(globalThis, key, { configurable: true, value: dom.window[key] });
+globalThis.requestAnimationFrame = dom.window.requestAnimationFrame.bind(dom.window);
+globalThis.cancelAnimationFrame = dom.window.cancelAnimationFrame.bind(dom.window);
+const { hydrate, flushSync, unmount } = await import('svelte');
+const { default: Consumer } = await import('./Consumer.svelte');
+const input = document.querySelector('#packed-form input[name="email"]');
+assert(input, 'Capture the actual SSR input before hydration');
+const ssrInputId = input.id;
+const app = hydrate(Consumer, { target: document.querySelector('main') });
+flushSync();
+assert.equal(document.querySelector('#packed-form input[name="email"]'), input);
+console.log(JSON.stringify({ ssrInputId, hydratedInputId: input.id }));
+assert.equal(input.value, 'seed@example.com');
+assert.equal(document.querySelectorAll('#packed-form li').length, 2);
+app.validatePackedField();
+flushSync();
+assert.equal(input.validationMessage, 'packed custom');
+assert.equal(input.getAttribute('aria-invalid'), 'true');
+await unmount(app);
+assert.equal(document.querySelector('main').children.length, 0);
+dom.window.close();
+console.log('Isolated tarball Field owner same-node hydration, real detached action validation and teardown: PASS (jsdom; secured browsers remain separate)');
+JS
+node --conditions=browser --import "$field_form_consumer/client-loader.mjs" "$field_form_consumer/hydration-check.mjs" "$sveltery_repo_root/packages/base/package.json"
 if [[ "${1:-}" == '--public' ]]; then
   echo 'Isolated tarball Field Form Fieldset public root/subpath SSR, generic Form and all31 named types: PASS'
 else

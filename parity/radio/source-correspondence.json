@@ -180,7 +180,7 @@
       ],
       "local": "packages/base/src/lib/field/root/useFieldValidation.svelte.ts",
       "correspondence": "Reused canonical Field/Form/shared-utility source dependency; Source ordered validation functions; live parameter getters, reactive native input ref, original Map registry. See parity/field-form/source-correspondence.json",
-      "localSha256": "b41d59b72a6a927635962710c48266b6a72144b5f1f0b56448281728b3e28f81",
+      "localSha256": "e13730d7f6c5b992fbc987a866777323638e226a52c462eda839128786c27a22",
       "status": "implemented-awaiting-exact-head-review"
     },
     {
@@ -3005,7 +3005,7 @@
       ],
       "local": "packages/base/src/lib/internals/labelable-provider/useAriaLabelledBy.svelte.ts",
       "correspondence": "Canonical Boolean-owned label lookup/association; native MutationObserver observes actual external DOM label changes. Approved PR48 native observer follows labelSource.getRootNode(), including ShadowRoot; original precedence and label-selection functions are unchanged.",
-      "localSha256": "64e63e8f5290b2b9ad3d8ad7d3fc936a76401425906c31cea8cdc4c19bd8b7ec",
+      "localSha256": "178ca2b5593560f408fea18c73276c5d554c0bea372084b7c28e0873deffc117",
       "status": "implemented-awaiting-exact-head-review"
     },
     {
@@ -3099,7 +3099,7 @@
       ],
       "local": "packages/base/src/lib/internals/labelable-provider/useLabelableId.svelte.ts",
       "correspondence": "Reused canonical Field/Form/shared-utility source dependency; Source selection/register/unregister/null/enabled branches; stable component Svelte id. See parity/field-form/source-correspondence.json",
-      "localSha256": "36215a31fd3f84d006006734eca09bb94b036ad30015949f1acf814e94fa8845",
+      "localSha256": "20b7c4d5d171c3b90ed7ac7209846d476ee06cf6e6f10c57fa5d1a794a60453f",
       "status": "implemented-awaiting-exact-head-review"
     },
     {
@@ -3980,7 +3980,7 @@
       ],
       "local": "packages/base/src/lib/radio/root/RadioRoot.svelte",
       "correspondence": "Source-ordered Root state/hidden input/Field/Item/label/button/CompositeItem composition. Native onclick owns one radio activation; cancellation prevents its default before input/change.",
-      "localSha256": "35d9e4365a747688156c3d2bda473436fbb678e3683d9013d146dcc103f3fcbf",
+      "localSha256": "a006840d8b04d5b91a42fe23963c7ffcd635bcf02e6d677dd014ab26e97bf62e",
       "additionalLocalCounterparts": [
         {
           "local": "packages/base/src/lib/radio/types.ts",

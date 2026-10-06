@@ -1,7 +1,7 @@
 <script lang="ts">
   import { Checkbox } from '../../src/lib/checkbox/index.js';
   import type { HTMLButtonAttributes } from 'svelte/elements';
-  import type { Snippet } from 'svelte';
+  import { flushSync, onDestroy, type Snippet } from 'svelte';
   let {
     native = false,
     disabled = false,
@@ -21,6 +21,14 @@
   export function hide() {
     mounted = false;
   }
+  let stopUnmountAfterTarget = () => {};
+  export function armUnmountAfterTarget() {
+    // Installed after mounting: Svelte's target delegation runs before this document listener.
+    const handler = () => flushSync(() => (mounted = false));
+    document.addEventListener('keydown', handler, { once: true });
+    stopUnmountAfterTarget = () => document.removeEventListener('keydown', handler);
+  }
+  onDestroy(() => stopUnmountAfterTarget());
   function ancestorEvents(element: HTMLDivElement) {
     const handler = (event: KeyboardEvent) => {
       if (ancestor === 'prevent') event.preventDefault();
