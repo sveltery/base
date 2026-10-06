@@ -1,0 +1,168 @@
+{
+  "baseline": "9d29f409b8f1e6333a2c5a8f269474a4ce956ae5",
+  "pin": "47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c",
+  "ordinaryDeclarationCredit": 0,
+  "status": "Working-tree reproductions only; final committed-head validation and review pending",
+  "semanticSources": [
+    {
+      "path": "packages/utils/src/lib/PreviousValue.svelte.ts",
+      "predecessorArchive": "parity/native-framework/historical/native-policy-9d29f409/packages/utils/src/lib/PreviousValue.svelte.ts",
+      "predecessorSha256": "dd2568c59abea39decf4e350c2855b11a26c8b384a766706a9e755706367ee9c",
+      "currentSha256": "bbbb29cc921915446913f248a23c7ae09000eaf7fe69986ed5ada572acfbb856",
+      "decision": "Remove scalar derived caching. The ordinary tracked getter reads the actual input and retains the complete Object.is/current/previous business without output boxing or lifecycle.",
+      "source": "packages/utils/src/usePreviousValue.ts"
+    },
+    {
+      "path": "packages/base/src/lib/utils/useRegisteredLabelId.svelte.ts",
+      "predecessorCommit": "6ec6710c1ec6d62a7b9decf3dfdaa335a76d3ce7",
+      "predecessorArchive": "parity/native-framework/historical/label-publication-6ec6710c/packages/base/src/lib/utils/useRegisteredLabelId.svelte.ts",
+      "predecessorSha256": "e05169d0f62fe7f2bfc955ff3cb1a1e154d71ed8cb8fd8263e2ebc9e9af93faa",
+      "currentSha256": "7d7c44fce0e1b01178ae76dfeb95d59907a5ffa402c49147be554a9c582addec",
+      "decision": "Read the installed ID as a native dependency, then untrack only its imperative publication. Preserve live receiver and complete conditional owner cleanup; no tuple, cache or lifecycle adapter.",
+      "source": "packages/react/src/utils/useRegisteredLabelId.ts"
+    }
+  ],
+  "nativePolicy": {
+    "source": "packages/react/src/internals/useAnimationsFinished.ts",
+    "original": "A batch change retains already pending invocation policy; both prior watchers stay live.",
+    "native": "Actual native batch reads invalidate the effect, abort both old watchers synchronously, and schedule fresh invocation queries. Fresh batched completion publishes owner and dependent before cleanup; individual completion commits owner and aborts dependent before publication.",
+    "witness": "packages/base/tests/dom/native-completion-batch-policy.test.ts",
+    "originalAssertions": "The dynamic comparison loop now runs only Original while its complete body remains unchanged; measured native policy uses separate witnesses."
+  },
+  "reproductions": [
+    {
+      "name": "baseline owner tests",
+      "head": "9d29f409b8f1e6333a2c5a8f269474a4ce956ae5",
+      "tests": 30,
+      "passed": 29,
+      "failed": 1,
+      "log": ".checks/native-validation/9d29f409/targeted-native.log",
+      "sha256": "41a83fb494a0cb0d85e2a02f283e0e4810c6fbb0e9e0e5970e740d50c11fc447"
+    },
+    {
+      "name": "baseline completion policy",
+      "head": "9d29f409b8f1e6333a2c5a8f269474a4ce956ae5",
+      "tests": 24,
+      "passed": 20,
+      "failed": 4,
+      "log": ".checks/native-validation/9d29f409/batch-policy.log",
+      "sha256": "d28ca3cc8add8bfca0470b3237e8929c6b8358c6ee0ba4335cebd835f447bac3"
+    },
+    {
+      "name": "ordinary getter and separate native policy, working tree over baseline",
+      "tests": 8,
+      "passed": 8,
+      "failed": 0,
+      "log": ".checks/native-validation/9d29f409/getter-and-native-batch-reproduction.log",
+      "sha256": "b98b0604498a5f7406a608fe36556dfb52199c3122eb73df2f07d05504309da2"
+    },
+    {
+      "name": "coherent ordinary getter, unchanged Original bodies and separate native policy, working tree over baseline",
+      "tests": 28,
+      "passed": 28,
+      "failed": 0,
+      "log": ".checks/native-validation/9d29f409/coherent-getter-native-original-policy.log",
+      "sha256": "54ce2cb10e7822df25f49deee563522062941b83e2779ff9dcb79fd762ef4c26"
+    },
+    {
+      "name": "Exact6ec broad verification interrupted on repeated label loop guards",
+      "head": "6ec6710c1ec6d62a7b9decf3dfdaa335a76d3ce7",
+      "exit": 1,
+      "interrupted": true,
+      "completedBaseDom": false,
+      "installedArtifactAcceptance": false,
+      "log": ".checks/native-validation/6ec6710c/verify.log",
+      "sha256": "8de0dbd8314f1dbb3eaab874a5981a7cf2b07d6b57ac6b9ce17293487f4af349"
+    },
+    {
+      "name": "Exact6ec unchanged focused Switch preimage",
+      "head": "6ec6710c1ec6d62a7b9decf3dfdaa335a76d3ce7",
+      "testsExecuted": 1,
+      "failed": 1,
+      "exit": 1,
+      "log": ".checks/native-validation/6ec6710c/label-before.log",
+      "sha256": "47f2e3c034a22b73aba1f1d99c705ff415ddfbed4eef66e904e13ce8b2f51a8b"
+    },
+    {
+      "name": "Working narrow publication repair over6ec, unchanged selected Switch/Checkbox cases",
+      "passed": 2,
+      "skipped": 49,
+      "exit": 0,
+      "log": ".checks/native-validation/6ec6710c/label-after.log",
+      "sha256": "f4e59e293de5eb36273bef6f6908fd240621f67a5d00bbffb1aeddbe7144e9ca"
+    },
+    {
+      "name": "Working final observable association witnesses and unchanged boolean suites over6ec",
+      "passed": 59,
+      "exit": 0,
+      "log": ".checks/native-validation/6ec6710c/label-associations.log",
+      "sha256": "da0dfc82f5a2b0a7853831375ae2993b9ebbc3612b8e572b45174d71b01d3dc8"
+    },
+    {
+      "name": "Unsupported CLI option startup preflight, no runtime execution",
+      "exit": 1,
+      "runtimeExecution": false,
+      "log": ".checks/native-validation/6ec6710c/label-cli-preflight.log",
+      "sha256": "7b198c3ef8a42102be794053ed9ee71b91c6e83d543dfc4585f3998b292d25e7"
+    },
+    {
+      "name": "Wrong root project startup preflight, no runtime execution",
+      "exit": 1,
+      "runtimeExecution": false,
+      "log": ".checks/native-validation/6ec6710c/label-project-preflight.log",
+      "sha256": "acd584ecfa47808fc07ce031e9d9a5ed2baaa051920f738e145c20c61c419efd"
+    },
+    {
+      "name": "Exacta19 full verification stopped after actual finite Base DOM failures",
+      "head": "a19a5c0b21174ec175f547ca9d704443518c8844",
+      "exit": 1,
+      "baseDomPassed": 1792,
+      "baseDomFailed": 8,
+      "baseDomTotal": 1800,
+      "installedArtifactAcceptance": false,
+      "log": ".checks/native-validation/a19a5c0b/verify.log",
+      "sha256": "64e9f7437262febfe4083c571fdd2b170c737eb51c8aadcbc0315108e0f76a19"
+    },
+    {
+      "name": "Working native diagnostics expectation overa19, all reset business retained",
+      "passed": 18,
+      "failed": 0,
+      "exit": 0,
+      "log": ".checks/native-validation/a19a5c0b/boolean-defaults.log",
+      "sha256": "153f262afc09a74eb33321ed8ac6772fed07c998c46a5adbfe3520e6e67b9a3b"
+    }
+  ],
+  "witnessSourceHashes": {
+    "packages/base/tests/dom/native-previous-value.test.ts": "48ebeb2ddd7b372971f7d6da4e687bd8a24e4a2b3336fe7ba535f2d4a36e205d",
+    "packages/base/tests/dom/NativePreviousValueFixture.svelte": "2483e7738c0ea9b45f1df4ef797b6915a8d1788d34a725ad5bd7c2961894b850",
+    "packages/base/tests/dom/native-completion-batch-policy.test.ts": "c4a6504f2e0bcad698df43a62484afa235c641b5d2058acce7cb9e53a85c4e47",
+    "packages/base/tests/dom/animation-completion-source.test.ts": "f71aafaae1c6907ce8336f9a6da4ed44f9f334cb9fb9e33304df61fde7039bc5",
+    "packages/base/tests/dom/avatar-completion-source.test.ts": "2807449a8c16f255ab1fe5af4ec7a353774a37ea3536e4f598688d18a5862c17",
+    "packages/base/tests/dom/native-label-registration.test.ts": "732343f5b22bd651a566e1ae2a16120d82c1a533d033f6ba52a55886d5bcafac",
+    "packages/base/tests/dom/NativeLabelRegistrationFixture.svelte": "e6b3343b33674dd818f05c83a7eb6ef3dd153a30f17653fe4e4c55f39c5310e8",
+    "packages/base/tests/dom/NativeRegisteredLabel.svelte": "ea89a7fe689383612186b8f68c368074877ac2d2e487fcc57d2a9b17f5f7676b"
+  },
+  "labelPublication": {
+    "source": "packages/react/src/utils/useRegisteredLabelId.ts",
+    "pin": "47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c",
+    "original": "Publish the selected ID and clear it on teardown only if the same owner is still registered.",
+    "failingNative": "Publication enrolled the useLabel receiver read of Field label state, creating an unregister/register effect loop.",
+    "repairedNative": "The ID remains tracked outside untrack; imperative receiver reads do not subscribe publication. Native teardown retains the exact replacement-owner guard.",
+    "baseline": "6ec6710c1ec6d62a7b9decf3dfdaa335a76d3ce7",
+    "sourceCaller": "packages/base/src/lib/internals/labelable-provider/useLabel.svelte.ts",
+    "witness": "packages/base/tests/dom/native-label-registration.test.ts",
+    "scope": "Real provider/useLabel and native input/label association through ID change, owning-label removal and replacement-label preservation. Supplemental native assertions, zero unchanged Original credit."
+  },
+  "nativeDiagnostics": {
+    "pin": "47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c",
+    "source": "packages/utils/src/useControlled.ts",
+    "nativeOwner": "packages/utils/src/lib/Controlled.svelte.ts",
+    "sourceBehavior": "React DEV reports changed uncontrolled defaults.",
+    "nativeBehavior": "Minimal native Controlled omits React diagnostics; native authored defaultChecked/checked/reset/Field-state behavior remains independently asserted.",
+    "witness": "packages/base/tests/dom/boolean-reset.test.ts",
+    "witnessSha256": "2ca4545fc4d768fda2c852f6983b3f0b20934f86987cd94b54ce7b5fa7ff07d9",
+    "unchangedBusinessLoopSha256": "c091a76dac97b3fff2f825331b2c59e05364a13ca1196bef38fbf74668caf327",
+    "ordinaryDeclarationCredit": 0,
+    "status": "Working-tree native expectation repair; committed-head verification and focus regression disposition pending"
+  }
+}

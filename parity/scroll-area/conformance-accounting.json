@@ -1,0 +1,120 @@
+{
+  "pin": "47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c",
+  "helperDeclarations": [
+    {
+      "source": "packages/react/test/conformanceTests/className.tsx",
+      "line": 20,
+      "title": "'should apply the className when passed as a string'",
+      "sha256": "5e59173eac2a5537f4ca1a61a832c45cc6f98477b2710ef2ba879a4f740d6cc5",
+      "unchangedCredit": 0
+    },
+    {
+      "source": "packages/react/test/conformanceTests/propForwarding.tsx",
+      "line": 23,
+      "title": "'forwards custom props to the default element'",
+      "sha256": "92e4264f2ee63b48bc2bf39c30202a078423b8f2edaaac499783ea2f0d800035",
+      "unchangedCredit": 0
+    },
+    {
+      "source": "packages/react/test/conformanceTests/propForwarding.tsx",
+      "line": 38,
+      "title": "'forwards custom props to the customized element defined with a function'",
+      "sha256": "d03ad88b403553f73f3a2691b3072dbda66bfafba0c7a0fa6d6b39c290845c33",
+      "unchangedCredit": 0
+    },
+    {
+      "source": "packages/react/test/conformanceTests/propForwarding.tsx",
+      "line": 61,
+      "title": "'forwards custom props to the customized element defined using JSX'",
+      "sha256": "e690e142a12d9052ea14d2cbd6a9fd54b11195969206e33526a2bbef14f53bff",
+      "unchangedCredit": 0
+    },
+    {
+      "source": "packages/react/test/conformanceTests/propForwarding.tsx",
+      "line": 82,
+      "title": "'forwards the custom `style` attribute defined on the component'",
+      "sha256": "973533217db63f0fa12c551b9b5f5916971cdde1a2b0a97e889ff839d21791b4",
+      "unchangedCredit": 0
+    },
+    {
+      "source": "packages/react/test/conformanceTests/propForwarding.tsx",
+      "line": 97,
+      "title": "'forwards the custom `style` attribute defined on the render function'",
+      "sha256": "97e59e364e4131042bb3d7f481348ae2da52e74573dea727ccf2838097133d14",
+      "unchangedCredit": 0
+    },
+    {
+      "source": "packages/react/test/conformanceTests/propForwarding.tsx",
+      "line": 114,
+      "title": "'forwards the custom `style` attribute defined on the render function'",
+      "sha256": "592d6df9028ae5665c5432b517945cd6dbe5508b0c8e6387a4dc7ee4a3608351",
+      "unchangedCredit": 0
+    },
+    {
+      "source": "packages/react/test/conformanceTests/refForwarding.tsx",
+      "line": 32,
+      "title": "`attaches the ref`",
+      "sha256": "f4c7eb24420f8e1330a53b1abbfdc5ec9de28cbb48b40242958ec79448e15110",
+      "unchangedCredit": 0
+    },
+    {
+      "source": "packages/react/test/conformanceTests/renderProp.tsx",
+      "line": 41,
+      "title": "'renders a customized root element with a function'",
+      "sha256": "3cfead9a253306920a43840dd06e8229f57a42bdb1ab95d486091a808c9a3f77",
+      "unchangedCredit": 0
+    },
+    {
+      "source": "packages/react/test/conformanceTests/renderProp.tsx",
+      "line": 61,
+      "title": "'renders a customized root element with an element'",
+      "sha256": "bca53c6ff7a6cece1b0b22744afe6398e9a020d9895df6a5dc7d7186fd74d947",
+      "unchangedCredit": 0
+    },
+    {
+      "source": "packages/react/test/conformanceTests/renderProp.tsx",
+      "line": 78,
+      "title": "'renders a customized root element with an element'",
+      "sha256": "599db42068497b507d31f4a05f8447acb343200b8ad08c74025d2d70b2cc581e",
+      "unchangedCredit": 0
+    },
+    {
+      "source": "packages/react/test/conformanceTests/renderProp.tsx",
+      "line": 93,
+      "title": "'should pass the ref to the custom component'",
+      "sha256": "e5bf84bceadc15af0c438f89339e02ee9907896e3eb7b26875f0f5884c9ff79a",
+      "unchangedCredit": 0
+    },
+    {
+      "source": "packages/react/test/conformanceTests/renderProp.tsx",
+      "line": 115,
+      "title": "'should merge the rendering element ref with the custom component ref'",
+      "sha256": "db6bbc998b8e7845c5d4d2987840ba36522fb8522bf53bab5efaf3f4074d2a31",
+      "unchangedCredit": 0
+    },
+    {
+      "source": "packages/react/test/conformanceTests/renderProp.tsx",
+      "line": 146,
+      "title": "'should merge the rendering element className with the custom component className'",
+      "sha256": "253ba3b6b9e3df7ddc132bc18ff94435d782f93f6d22c1a6a583e02a02933989",
+      "unchangedCredit": 0
+    },
+    {
+      "source": "packages/react/test/conformanceTests/renderProp.tsx",
+      "line": 163,
+      "title": "'should merge the rendering element resolved className with the custom component className'",
+      "sha256": "caed823ba01f261a3c9a54a58b1b0b533ffb1c6495a006d7fd8e8e48f5813571",
+      "unchangedCredit": 0
+    }
+  ],
+  "declarationsPerCall": 15,
+  "calls": 6,
+  "expandedOrdinaryInstances": 90,
+  "unchangedCredit": 0,
+  "ports": "tests/browser/scroll-area.spec.ts native conformance six parts prop/ref/class/style forwarding: default, element and function reference modes; Svelte uses its actual snippet replacement for both reference modes.",
+  "limitations": [
+    "React cloneElement/JSX rendering element API has no native element prop equivalent; native snippet and attachment behavior retains actual Svelte defaults and earns zero unchanged credit.",
+    "Source wrapper nodes/key extraction and dual React rendering-element ref callbacks have native snippet/attachment correspondence; inherited canonical UseRender/ref tests cover shared implementation, while per-family live bindable ref/host/props/class/style bodies are executed separately. Full15-per-call unchanged assertion acceptance remains unclaimed.",
+    "Developer inspected selected helper bodies at this later checkpoint; fresh whole source/native reviewer must evaluate full used helper scope and evidence."
+  ]
+}

@@ -1,0 +1,14 @@
+{
+  "executionHead": "070a6e65ab287c21b7eaec1e122fa77b2c1bd745",
+  "command": "source scripts/toolchain.sh; TMPDIR=/workspace/sveltery-tmp NODE_OPTIONS=--max-old-space-size=512 NODE_COMPILE_CACHE=/workspace/sveltery-tmp/popup-family-node-cache pnpm --filter @sveltery/base exec vitest run --config vitest.dom.config.ts tests/dom/popup-delay-group.test.ts --maxWorkers=1",
+  "node": "24.19.0",
+  "pnpm": "12.6.0",
+  "vitest": "5.0.3",
+  "nativeSupplementsPassed": 15,
+  "rawLogSha256": "fa52570993e96f1195fff66f1549065c799c7d1669b0fca88f85f8d983328dcf",
+  "archivedLog": "parity/popup-family/receipts/070a6e6-delay-group-native-green.log.gz",
+  "archivedLogSha256": "23d98e6c075193b6b9771888c1955a1bc090ad63c573da0a037e064991459ad2",
+  "ordinaryFamilyCredit": 0,
+  "directOriginalDeclarationCredit": 0,
+  "limits": "Native direct canonical Store/provider witnesses only. Six direct Original declarations retain their separately unported legacy hover/generic floating fixture; StrictMode/render-count machinery follows native defaults with zero divergent unchanged credit. Independent Source/native acceptance and family/full/browser/packed gates remain pending."
+}

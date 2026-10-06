@@ -1,8 +1,10 @@
 // Original MenuGroupContext, native setter/context boundary (MIT).
 import { getContext, setContext } from 'svelte';
-import type { SetStateAction } from '../../utils/useControlled.svelte.js';
 
-export type MenuGroupContext = (value: SetStateAction<string | undefined>) => void;
+// Conditional label teardown owns a business updater; it is independent of controlled state.
+export type MenuGroupContext = (
+  value: string | undefined | ((current: string | undefined) => string | undefined),
+) => void;
 
 export const MenuGroupContext = Symbol('MenuGroup');
 
@@ -17,4 +19,6 @@ export function useMenuGroupRootContext() {
   return context;
 }
 
-export function provideMenuGroupContext(value: MenuGroupContext) { setContext(MenuGroupContext, value); }
+export function provideMenuGroupContext(value: MenuGroupContext) {
+  setContext(MenuGroupContext, value);
+}

@@ -1,0 +1,23 @@
+{
+  "approvedBy": "Root precise comments-only Standards lease",
+  "records": [
+    {
+      "path": "packages/base/src/lib/floating-ui/hooks/useClientPoint.svelte.ts",
+      "previousWholeBodySha256": "6a2f7924b1d9cc4154bb74ebb44b1f1ef2da6c73f7641e66fe7ea41f4311270a",
+      "currentWholeBodySha256": "6a1953adb81d1875979353bffc2d43d1e1b73a32b55e681bfac1c433fba829a0",
+      "wholeTypeScriptOutputEqualOnlyAfterDeclaredCommentErasure": true,
+      "commentErasedOutputSha256": "76c87ae52f3fffe95dbcd9a930d1b35967155b9adac324fce3b7770d291ad21c"
+    },
+    {
+      "path": "packages/base/src/lib/floating-ui/hooks/useFloatingPortalNode.svelte.ts",
+      "previousWholeBodySha256": "32c9cd374708b2680ec719189a22da61e6af2719641457facdb52d75b8261ab0",
+      "currentWholeBodySha256": "6bfb1801f9ae16f8cfb97b87357e1b09e306361e1c005355acd7a34b6390a113",
+      "wholeTypeScriptOutputEqualOnlyAfterDeclaredCommentErasure": true,
+      "commentErasedOutputSha256": "e8e17708f5b817fc2a7ae8a0ac7b91ca61f99c6c82cfca5175af0950a9e16439"
+    }
+  ],
+  "privateCreateVirtualElementDefaultCommentPreservingEmittedFunctionUnchanged": true,
+  "privateCreateVirtualElementEmittedFunctionSha256": "dd6f436add6a85c1e8c948a7862d56453f61684c68b8315c0ed9a2ee4c422a70",
+  "placement": "ClientPoint lint disable/enable wrap only the private function outside its getText/emitted function body. Native node snapshot suppression is inside its helper; whole function text/hash changes and comment-erasure equality is reported separately.",
+  "ordinaryDeclarationCredit": 0
+}

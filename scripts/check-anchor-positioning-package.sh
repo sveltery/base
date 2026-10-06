@@ -1,10 +1,10 @@
 #!/usr/bin/env bash
 set -euo pipefail
 cd "$(dirname "$0")/.."
-source scripts/toolchain.sh
+source scripts/package-artifacts.sh
 anchor_consumer="$(mktemp -d "${TMPDIR:-/tmp}/sveltery-anchor-consumer.XXXXXX")"
 trap 'rm -rf "$anchor_consumer"' EXIT
-pnpm --filter @sveltery/base pack --pack-destination "$anchor_consumer" > /dev/null
+sveltery_pack_package @sveltery/base "$anchor_consumer" > /dev/null
 node --input-type=module - "$anchor_consumer" <<'JS'
 import { readdirSync, writeFileSync } from 'node:fs';
 import { join } from 'node:path';
@@ -12,8 +12,9 @@ const destination = process.argv[2];
 const tarball = readdirSync(destination).find(name => name.endsWith('.tgz'));
 writeFileSync(join(destination, 'package.json'), JSON.stringify({ private: true, type: 'module', dependencies: { '@sveltery/base': `file:${join(destination, tarball)}`, svelte: '5.57.1' }, devDependencies: { '@sveltejs/vite-plugin-svelte': '7.3.1', vitest: '5.0.3', jsdom: '30.1.1' } }));
 JS
-pnpm --dir "$anchor_consumer" --ignore-workspace install --ignore-scripts > /dev/null
-pnpm --dir "$anchor_consumer" --ignore-workspace install --frozen-lockfile --ignore-scripts > /dev/null
+sveltery_prepare_consumer "$anchor_consumer"
+pnpm --dir "$anchor_consumer" install --ignore-scripts > /dev/null
+pnpm --dir "$anchor_consumer" install --frozen-lockfile --ignore-scripts > /dev/null
 cat > "$anchor_consumer/private-types.ts" <<'TS'
 import type { AnchorPositioningOptions, OffsetFunction, Boundary, Reference } from './node_modules/@sveltery/base/dist/internals/anchor-positioning/types.js';
 import type { AnchorPositioningController } from './node_modules/@sveltery/base/dist/internals/anchor-positioning/controller.svelte.js';
@@ -42,11 +43,14 @@ import { createRequire } from 'node:module';
 import * as publicRoot from '@sveltery/base';
 import * as menuSubpath from '@sveltery/base/menu';
 import { Menu as menuParts } from '@sveltery/base/menu';
+import * as popoverSubpath from '@sveltery/base/popover';
+import * as previewCardSubpath from '@sveltery/base/preview-card';
+import * as tooltipSubpath from '@sveltery/base/tooltip';
 const require = createRequire(import.meta.url);
 const metadata = JSON.parse(readFileSync(new URL('./node_modules/@sveltery/base/package.json', import.meta.url), 'utf8'));
 assert.equal(metadata.dependencies['@floating-ui/dom'], '1.8.0'); assert.equal(metadata.dependencies['@floating-ui/utils'], '0.2.12');
 assert.equal(metadata.exports['./anchor-positioning'], undefined);
-for (const name of ['createAnchorPositioning', 'Popover', 'Tooltip', 'Select']) assert.equal(name in publicRoot, false);
+for (const name of ['createAnchorPositioning', 'Select']) assert.equal(name in publicRoot, false);
 assert.equal(publicRoot.Menu, menuParts);
 assert.deepEqual(Object.keys(menuParts).sort(), Object.keys(menuSubpath).filter(name => name !== 'Menu').sort());
 assert.deepEqual(Object.keys(publicRoot.Menu).sort(), Object.keys(menuParts).sort());
@@ -55,6 +59,23 @@ for (const [name, part] of Object.entries(menuParts)) {
   assert.equal(menuSubpath[name], part, name);
 }
 for (const name of ['Root', 'Trigger', 'Positioner', 'Popup', 'Viewport', 'createHandle']) assert.equal(typeof publicRoot.Menu[name], 'function', name);
+for (const [family, subpath, parts] of [
+  ['Popover', popoverSubpath, ['Root', 'Trigger', 'Portal', 'Positioner', 'Popup', 'Arrow', 'Backdrop', 'Title', 'Description', 'Close', 'Viewport']],
+  ['PreviewCard', previewCardSubpath, ['Root', 'Trigger', 'Portal', 'Positioner', 'Popup', 'Arrow', 'Backdrop', 'Viewport']],
+  ['Tooltip', tooltipSubpath, ['Provider', 'Root', 'Trigger', 'Portal', 'Positioner', 'Popup', 'Arrow', 'Viewport']],
+]) {
+  const namespace = subpath[family];
+  const names = [...parts, 'Handle', 'createHandle'];
+  assert.equal(publicRoot[family], namespace, family);
+  assert.deepEqual(Object.keys(namespace).sort(), names.toSorted(), family);
+  assert.deepEqual(Object.keys(subpath).filter(name => name !== family).sort(), names.toSorted(), family);
+  for (const name of names) {
+    assert.equal(publicRoot[family][name], subpath[name], `${family}.${name}`);
+    assert.equal(namespace[name], subpath[name], `${family}.${name}`);
+    assert.equal(typeof namespace[name], 'function', `${family}.${name}`);
+  }
+  assert(namespace.createHandle() instanceof namespace.Handle, `${family}.createHandle`);
+}
 const anchor = new URL('./node_modules/@sveltery/base/dist/internals/anchor-positioning/', import.meta.url);
 for (const file of readdirSync(anchor)) {
   if (!/\.(?:js|ts)$/.test(file)) continue;
@@ -122,4 +143,4 @@ test('installed private geometry attaches, retains exit presence and tears down 
   await position.update(); target.remove();
 });
 JS
-pnpm --dir "$anchor_consumer" --ignore-workspace exec vitest run --config vitest.config.js
+pnpm --dir "$anchor_consumer" exec vitest run --config vitest.config.js

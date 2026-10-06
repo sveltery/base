@@ -7,16 +7,20 @@
   import type { DialogPortalProps } from './types.js';
   let { keepMounted = false, children, ref = $bindable(), ...props }: DialogPortalProps = $props();
   const store = useDialogRootContext();
-  setContext(PORTAL, { get keepMounted() { return keepMounted; } });
-  function forwardedRef(node: HTMLElement | null) {
-    ref = node;
-    return () => { if (ref === node) ref = null; };
-  }
+  setContext(PORTAL, {
+    get keepMounted() {
+      return keepMounted;
+    },
+  });
 </script>
+
 {#if store.select('mounted') || keepMounted}
-  <FloatingPortal {...props} ref={forwardedRef}>
+  <FloatingPortal {...props} bind:ref>
     {#if store.select('mounted') && store.select('modal') === true}
-      <InternalBackdrop ref={store.context.internalBackdropRef} inert={!store.select('open')} />
+      <InternalBackdrop
+        bind:ref={store.context.internalBackdropRef.current}
+        inert={!store.select('open')}
+      />
     {/if}
     {@render children?.()}
   </FloatingPortal>

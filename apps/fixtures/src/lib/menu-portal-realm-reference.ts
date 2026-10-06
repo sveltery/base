@@ -5,11 +5,39 @@ import { flushSync } from 'react-dom';
 import { Popover } from '@base-ui/react/popover';
 import { Menu } from '@base-ui/react/menu';
 
-export function mountMenuPortalRealmReference(host: HTMLElement, container: HTMLElement, contextual: boolean) {
+export function mountMenuPortalRealmReference(
+  host: HTMLElement,
+  container: HTMLElement,
+  contextual: boolean,
+) {
   const root = createRoot(host);
   const child = h('span', { 'data-testid': 'realm-child' }, 'Child');
-  flushSync(() => root.render(contextual
-    ? h(Menu.Root, { defaultOpen: true }, h(Menu.Portal, { container, 'data-testid': 'realm-portal' } as ComponentProps<typeof Menu.Portal> & { 'data-testid': string }, child))
-    : h(Popover.Root, { defaultOpen: true }, h(Popover.Portal, { container, 'data-testid': 'realm-portal' } as ComponentProps<typeof Popover.Portal> & { 'data-testid': string }, child))));
+  flushSync(() =>
+    root.render(
+      contextual
+        ? h(
+            Menu.Root,
+            { defaultOpen: true },
+            h(
+              Menu.Portal,
+              { container, 'data-testid': 'realm-portal' } as ComponentProps<typeof Menu.Portal> & {
+                'data-testid': string;
+              },
+              child,
+            ),
+          )
+        : h(
+            Popover.Root,
+            { defaultOpen: true },
+            h(
+              Popover.Portal,
+              { container, 'data-testid': 'realm-portal' } as ComponentProps<
+                typeof Popover.Portal
+              > & { 'data-testid': string },
+              child,
+            ),
+          ),
+    ),
+  );
   return () => flushSync(() => root.unmount());
 }

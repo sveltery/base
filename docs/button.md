@@ -1,0 +1,36 @@
+# Button
+
+`Button` is an action primitive backed by the pinned Base UI v1.8.0 Button composition and canonical source `useButton`/renderer helpers. Import it from `@sveltery/base` or `@sveltery/base/button`. The defaults remain `disabled=false`, `focusableWhenDisabled=false`, `nativeButton=true`; native buttons default to `type="button"`, while explicitly supplied `type={undefined}`/`null` retains native submit semantics.
+
+```svelte
+<script lang="ts">
+  import { Button, type HTMLProps } from '@sveltery/base';
+  import type { Snippet } from 'svelte';
+  let host = $state<HTMLElement | null>();
+</script>
+
+<Button
+  bind:ref={host}
+  onclick={(event) => {
+    console.log(event.currentTarget);
+  }}>Save</Button
+>
+<Button
+  nativeButton={false}
+  class={(state) => ['action', { disabled: state.disabled }]}
+  style="opacity:1"
+>
+  {#snippet render(props: HTMLProps, state: { disabled: boolean }, children: Snippet | undefined)}
+    <span {...props} data-render-disabled={state.disabled}>{@render children?.()}</span>
+  {/snippet}
+  Custom action
+</Button>
+```
+
+The native API retains lowercase event props, `class`/`style` state callbacks, children/render snippets, enumerable Svelte attachments and `bind:ref`. The bindable ref starts undefined when omitted, publishes the actual default/replacement host, and publishes null on teardown. Classes accept native ClassValue. Styles accept native CSS strings, null or undefined, or a callback receiving ButtonState and returning that native style value. Write CSS units explicitly in strings, for example `style="width:20px"` or ``style={state => `opacity:${state.disabled ? 0.5 : 1}`}``. Render snippets must spread the supplied props onto their real host. Use canonical `mergeProps(props, ownProps)` to compose replacement handlers while preserving source right-to-left callback order and `preventBaseUIHandler()` cancellation. The earlier public object-style extension is retained as historical proposed scope in [PS-01](upstream-differences.md#ps-01-native-public-component-style-values-proposed).
+
+Button calls canonical `useButton`, composes ordered props `[elementProps,getButtonProps]` through the pure shared helper, and owns its native render-snippet or intrinsic button branch. Its native host attachment publishes the actual bindable ref and button behavior host; source state attributes remain shared pure business. When placed in a real canonical Composite context, source Space activation occurs on keydown and native keyup does not synthesize a duplicate click. Source text-navigation roles honor default prevention; switch-like roles preserve the original composite activation behavior. Nested source helpers/snippets share the same native host/ref lifecycle. Composite internals are private and this repair adds no public Composite, ToggleGroup or Toolbar API.
+
+Disabled behavior remains the pinned business contract: consumer click/pointer/key activation is suppressed; focusable-disabled hosts allow Tab escape, hover/focus/blur and retain focus. Pinned disabled mousedown suppresses the consumer callback but leaves default focus uncanceled when there is no preceding canceled pointerdown. This audit restores that source quirk, superseding the historical PR17 local mousedown correction for Button only; [issue #66](https://github.com/sveltery/base/issues/66) tracks the Original behavior for a later compatibility decision. Accordion.Trigger and Collapsible.Trigger still use the legacy resolver and require separate audits. Toggle's separate canonical source audit is on main through PR59. Native React-only diagnostics, opaque render snippets and attachment timing remain explicit framework substitutions rather than unchanged assertion credit.
+
+[Source graph and correspondence](../parity/button/source-correspondence.md), [immutable original assertions](../parity/button/upstream-inventory.json), [historical bounded assertion ports](../parity/button/ports.json) and the [execution ledger](../parity/button/verification.md) keep source fidelity, native differences, ordinary declaration credit and supplemental execution distinct. New source-composition probes earn zero additional ordinary credit. Full repository checks, immutable hash gates, strict isolated public consumers, secured paired browser execution and independent exact-head source/native/maintainability review are mandatory before accepting this audit. The older bounded test checkpoint does not clear the present source gate or establish complete useButton/framework conformance or whole-library parity.

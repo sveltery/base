@@ -1,7 +1,7 @@
 // Ported from Base UI v1.8.0 at 47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c.
 // MIT Copyright (c) 2019 Material-UI SAS; see THIRD_PARTY_NOTICES.md.
-import type { SvelteStore } from '../store/SvelteStore.svelte.js';
-import { EMPTY_OBJECT } from '../empty.js';
+import type { SvelteStore } from '@sveltery/utils/store';
+import { EMPTY_OBJECT } from '@sveltery/utils/empty';
 import type { FloatingRootContext } from '../../floating-ui/types.js';
 import { FloatingRootStore } from '../../floating-ui/components/FloatingRootStore.svelte.js';
 import type { TransitionStatus } from '../../internals/useTransitionStatus.svelte.js';

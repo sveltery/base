@@ -1,7 +1,8 @@
+import { onDestroy } from 'svelte';
 // Ported business body from Base UI v1.8.0 at 47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c.
 // MIT Copyright (c) 2019 Material-UI SAS; see THIRD_PARTY_NOTICES.md.
-import { useAnimationFrame } from '../../utils/useAnimationFrame.js';
-import { useTimeout } from '../../utils/useTimeout.js';
+import { AnimationFrame } from '@sveltery/utils/useAnimationFrame';
+import { Timeout } from '@sveltery/utils/useTimeout';
 import type { ElementProps, FloatingContext, FloatingRootContext } from '../types.js';
 import { getTarget, isTypeableElement } from '../utils/element.js';
 import { isMouseLikePointerType, isVirtualPointerEvent } from '../utils/event.js';
@@ -60,23 +61,31 @@ export function useClick(
   getProps: () => UseClickProps = () => ({}),
 ): ElementProps {
   const context = $derived(getContext());
-  const {
-    enabled = true,
-    event: eventOption = 'click',
-    toggle = true,
-    ignoreMouse = false,
-    stickIfOpen = true,
-    touchOpenDelay = 0,
-    reason = REASONS.triggerPress,
-  } = $derived(getProps());
+  const enabled = $derived(getProps().enabled ?? true);
 
-  const store = $derived('rootStore' in context ? context.rootStore : context);
+  const pointerTypeRef = {
+    current: undefined as 'mouse' | 'pen' | 'touch' | 'virtual' | undefined,
+  };
+  const frame = new AnimationFrame();
+  onDestroy(frame.cancel);
+  const touchOpenTimeout = new Timeout();
+  onDestroy(touchOpenTimeout.clear);
 
-  const dataRef = $derived(store.context.dataRef);
-
-  const pointerTypeRef = { current: undefined as 'mouse' | 'pen' | 'touch' | 'virtual' | undefined };
-  const frame = useAnimationFrame();
-  const touchOpenTimeout = useTimeout();
+  // Native derived handler construction corresponds to Source useMemo. An
+  // in-flight DOM callback retains its selected scalar options through a
+  // composed event; Source store.select/dataRef reads remain live.
+  const reference: ElementProps['reference'] = $derived.by(() => {
+    const {
+      event: eventOption = 'click',
+      toggle = true,
+      ignoreMouse = false,
+      stickIfOpen = true,
+      touchOpenDelay = 0,
+      reason = REASONS.triggerPress,
+    } = getProps();
+    const selectedContext = context;
+    const store = 'rootStore' in selectedContext ? selectedContext.rootStore : selectedContext;
+    const dataRef = store.context.dataRef;
 
     function setOpenWithTouchDelay(
       nextOpen: boolean,
@@ -127,17 +136,16 @@ export function useClick(
       return false;
     }
 
-  const reference: ElementProps['reference'] = {
+    return {
       onpointerdown(event: PointerEvent) {
         // Screen reader activations (Android TalkBack, desktop screen readers) report a
         // mouse-like `pointerType`, but `ignoreMouse` must not drop them: hover logic cannot
         // open for a virtual press since there is no real pointer movement to wait for.
         // Virtual `touch` presses (iOS VoiceOver) keep their type so `touchOpenDelay` applies.
         pointerTypeRef.current =
-          isMouseLikePointerType(event.pointerType, true) &&
-          isVirtualPointerEvent(event)
+          isMouseLikePointerType(event.pointerType, true) && isVirtualPointerEvent(event)
             ? 'virtual'
-            : event.pointerType as 'mouse' | 'pen' | 'touch';
+            : (event.pointerType as 'mouse' | 'pen' | 'touch');
       },
       onmousedown(event: MouseEvent) {
         const pointerType = pointerTypeRef.current;
@@ -205,17 +213,17 @@ export function useClick(
             openEventType === 'keydown' ||
             openEventType === 'keyup',
         );
-        setOpenWithTouchDelay(
-          nextOpen,
-          event,
-          event.currentTarget as HTMLElement,
-          pointerType,
-        );
+        setOpenWithTouchDelay(nextOpen, event, event.currentTarget as HTMLElement, pointerType);
       },
       onkeydown() {
         pointerTypeRef.current = undefined;
       },
     };
+  });
 
-  return { get reference() { return enabled ? reference : undefined; } };
+  return {
+    get reference() {
+      return enabled ? reference : undefined;
+    },
+  };
 }

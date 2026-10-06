@@ -1,3 +1,4 @@
+import { resolveNativePackageSource } from '../../scripts/native-package-source.mjs';
 // Exact native public runtime/type import closure. Provenance alone grants no acceptance.
 import { createHash } from 'node:crypto';
 import { existsSync, readFileSync, statSync, writeFileSync } from 'node:fs';
@@ -10,6 +11,8 @@ const ts = require('typescript');
 const roots = ['menu', 'context-menu', 'menubar'].map(name => `packages/base/src/lib/${name}/index.ts`);
 const hash = body => createHash('sha256').update(body).digest('hex');
 function resolveImport(source, specifier) {
+  const owned = resolveNativePackageSource(repo, specifier);
+  if (owned) return owned;
   if (!specifier.startsWith('.')) return `external:${specifier}`;
   const raw = resolve(repo, dirname(source), specifier);
   const candidates = [raw, raw.replace(/\.js$/, '.ts'), raw.replace(/\.js$/, '.svelte'), `${raw}.ts`, `${raw}.svelte`, `${raw}/index.ts`];

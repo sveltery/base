@@ -7,8 +7,8 @@ and 1,038 import/reexport/type edges; the separate complete test/helper graph ha
 745 modules and 4,418 edges. Immutable archives establish provenance, never
 unused-file completion. NavigationMenu remains separate.
 
-[Actual native closure](native-closure.json) currently records 197 used modules
-and 891 runtime/type edges from Menu, ContextMenu and Menubar public entries.
+[Actual native closure](native-closure.json) currently records 193 used modules
+and 862 runtime/type edges from Menu, ContextMenu and Menubar public entries.
 [Per-source correspondence](source-correspondence.json) reconciles every
 Original source module to used local bodies, explicit native replacement, or
 unselected conservative barrel/type export. The generator rejects mappings to
@@ -71,3 +71,24 @@ motion fixture, product animation helpers, FullPortal getWindow realm support
 and retained focus/hover/native teardown repairs stay exact. Immutable ordinary
 and conformance totals remain separate and uncredited. Independent successor
 Source/native/maintainability review and exact-head hosted gates remain required.
+
+
+## Current-main integration for PR #63
+
+The successor normally integrates accepted main `aa4daff5` (PR #77), including
+accepted shared callback PR #69, utility ownership PR #75, native framework
+PR #76 and native snippet rendering PR #77. The actual Menu, ContextMenu,
+Menubar and shared runtime bodies match that main exactly. The Portal observer
+now belongs to the single canonical `useFloatingPortalNode` helper, shared by
+Full/Lite callers; the historical private FullPortal location above is superseded.
+Current native host publication, live callback reads, Store subscriptions and
+captured-owner teardown must be reviewed as the actual closure, without borrowing
+old whole-body identity acceptance. Dialog PR #42 and NavigationMenu PR #67
+remain separate component acceptance scope. Toolbar PR #59 is accepted on main.
+
+Historical failed receipts, Original source/assertion hashes, 331 unported
+ordinary/parameterized sites and 19 separate conformance calls are retained.
+The added realm pair remains an authored supplement with zero unchanged Original
+credit. Runtime identity with main is structural evidence, not final review or
+execution acceptance. Fresh exact-head source/native/maintainability, secured
+browser, packed consumer and hosted CI gates remain required.

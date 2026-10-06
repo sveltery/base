@@ -34,13 +34,14 @@ Secured Chromium witnesses distinguish activation paths: direct hidden-input `.c
 
 The [complete source graph and correspondence](../parity/radio/source-correspondence.md) map actual Field, CompositeRoot/List/Item, shared button/label and native Svelte dependencies. Hidden input activation uses one cancelable native click so cancellation precedes input/change. React synthetic checked tracking and restoration are replaced by native Svelte/browser defaults, including controlled owner rejection and reset behavior; actual divergent characterizations earn no unchanged upstream assertion credit. Independent source/native/API/maintainability review and all 68 secured browser cases are clear at reviewed head `154cba6`. Final delivery integrates the approved source core from main with those runtime, type and test bodies unchanged; exact delivery checks and PM merge approval remain separate. Complete upstream assertion parity remains incomplete with zero ordinary declaration credit.
 
-
 The final dependency refresh also includes the approved Boolean controls and type-only remote Field contracts. The source label helper observes the control's actual document or shadow root, and native click construction reuses canonical ownerWindow. Radio's four reviewed focus bodies and browser assertions remain unchanged. Current local graph hashes distinguish those reused helpers from the added type-only module; exact successor-head gates and PM approval remain pending.
 
 The candidate also consumes approved SDK PR #49 from actual main `f1277cd4bed6747865d9d617ca7adf5194e3c2ba`. Its version-specific Kit compatibility patch stays an explicit application opt-in. Radio adds no SDK or Kit runtime dependency; the reviewed source body and native assertion identities are retained.
 
-
 Shared-host nested Composite rendering preserves the source inner-ref then forwarded-outer-ref order across inner metadata updates, so the outer item's navigation metadata remains authoritative. The canonical native ref transport now composes that complete cleanup/reattachment lifecycle while retaining independently tracked authored Svelte attachments. This fidelity repair follows a reproduced gap at `3061aeb`; its prior 68-case green run remains historical. Fresh70-case secured acceptance and independent final helper/source review are required before PM approval.
 
-
 Replacing a group `inputRef` while its selected Radio stays mounted does not immediately move the representative ref, matching the pinned original. A subsequent selection publishes the replacement. Teardown uses Svelte's live prop closure, while React's original cleanup captures the old prop: callbacks may clear different ref identities, and object refs may retain a disconnected old or replacement input. [The compatibility record](upstream-differences.md#ra-01-source-radio-composition-and-native-checked-event-ownership) preserves both observed limitations. There is no reactive ref-refresh API or React snapshot emulation.
+
+## Native host bindings
+
+The native snippet successor replaces callback/object `inputRef` transport with optional bindable `HTMLInputElement | null | undefined`. Use `bind:inputRef` to observe the actual input; RadioGroup retains its selected/enabled representative-input registration business. `bind:ref` and native attachment props supply visible-host integration. See [native rendering](rendering.md). Historical Original assertions and receipts retain their provenance; divergent native binding assertions earn zero unchanged upstream credit.

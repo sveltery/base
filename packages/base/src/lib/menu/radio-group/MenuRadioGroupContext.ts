@@ -10,7 +10,9 @@ export interface MenuRadioGroupContext {
 }
 
 export const MenuRadioGroupContext = Symbol('MenuRadioGroupContext');
-export function provideMenuRadioGroupContext(value: MenuRadioGroupContext) { setContext(MenuRadioGroupContext, value); }
+export function provideMenuRadioGroupContext(value: MenuRadioGroupContext) {
+  setContext(MenuRadioGroupContext, value);
+}
 
 export function useMenuRadioGroupContext() {
   const context = getContext<MenuRadioGroupContext | undefined>(MenuRadioGroupContext);

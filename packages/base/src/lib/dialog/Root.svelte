@@ -11,16 +11,27 @@
   const generatedId = $props.id();
   const root = useRenderDialogRoot<Payload>('dialog', () => props, generatedId);
   setContext(ROOT, root.store);
-  export function close() { root.close(); }
-  export function unmount() { root.unmount(); }
+  export function close() {
+    root.close();
+  }
+  export function unmount() {
+    root.unmount();
+  }
   // eslint-disable-next-line no-useless-assignment -- Native bind:actions replaces the source actionsRef boundary.
   actions = { close, unmount };
-  onDestroy(() => { actions = null; });
+  onDestroy(() => {
+    actions = null;
+  });
 </script>
+
 {#if props.handle}
   <PopupHandleAttachment handle={props.handle} store={root.store} />
 {/if}
 {#if root.shouldRenderInteractions}
-  <DialogInteractions store={root.store} parentContext={root.parentStore?.context} isDrawer={root.isDrawer} />
+  <DialogInteractions
+    store={root.store}
+    parentContext={root.parentStore?.context}
+    isDrawer={root.isDrawer}
+  />
 {/if}
 {@render props.children?.({ payload: root.store.select('payload') as Payload | undefined })}

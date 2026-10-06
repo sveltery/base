@@ -1,10 +1,10 @@
 #!/usr/bin/env bash
 set -euo pipefail
 cd "$(dirname "$0")/.."
-source scripts/toolchain.sh
+source scripts/package-artifacts.sh
 dialog_consumer="$(mktemp -d "${TMPDIR:-/tmp}/sveltery-dialog-consumer.XXXXXX")"
 trap 'rm -rf "$dialog_consumer"' EXIT
-pnpm --filter @sveltery/base pack --pack-destination "$dialog_consumer" > /dev/null
+sveltery_pack_package @sveltery/base "$dialog_consumer" > /dev/null
 node --input-type=module - "$dialog_consumer" <<'JS'
 import { readdirSync, writeFileSync } from 'node:fs';
 import { join } from 'node:path';
@@ -12,8 +12,9 @@ const destination = process.argv[2];
 const tarball = readdirSync(destination).find(name => name.endsWith('.tgz'));
 writeFileSync(join(destination, 'package.json'), JSON.stringify({ private: true, type: 'module', dependencies: { '@sveltery/base': `file:${join(destination, tarball)}`, svelte: '5.57.1' } }));
 JS
-pnpm --dir "$dialog_consumer" --ignore-workspace install --ignore-scripts > /dev/null
-pnpm --dir "$dialog_consumer" --ignore-workspace install --frozen-lockfile --ignore-scripts > /dev/null
+sveltery_prepare_consumer "$dialog_consumer"
+pnpm --dir "$dialog_consumer" install --ignore-scripts > /dev/null
+pnpm --dir "$dialog_consumer" install --frozen-lockfile --ignore-scripts > /dev/null
 cmp LICENSE "$dialog_consumer/node_modules/@sveltery/base/LICENSE"
 cmp packages/base/THIRD_PARTY_NOTICES.md "$dialog_consumer/node_modules/@sveltery/base/THIRD_PARTY_NOTICES.md"
 cat > "$dialog_consumer/Consumer.svelte" <<'SVELTE'
@@ -49,13 +50,13 @@ const rootPayload: Equal<Parameters<NonNullable<ComponentProps<typeof First.Root
 const triggerPayload: Equal<ComponentProps<typeof Second.Trigger<number>>['payload'], number | undefined> = true;
 declare const plain: Snippet;
 const plainRoot: ComponentProps<typeof Second.Root<number>> = { children: plain };
-const strongTrigger: ComponentProps<typeof First.Trigger<number>> = { handle: factory, payload: 8, class: ['trigger', { active: true }], style: { width: 20 } };
+const strongTrigger: ComponentProps<typeof First.Trigger<number>> = { handle: factory, payload: 8, class: ['trigger', { active: true }], style: 'width:20' };
 const optionalRoot: First.Root.Props<number> = { handle: undefined, open: undefined, defaultOpen: undefined, modal: undefined, triggerId: undefined, defaultTriggerId: undefined, actions: undefined, onOpenChange: undefined, onOpenChangeComplete: undefined, disablePointerDismissal: undefined, children: undefined };
 const optionalParts: [Second.Trigger.Props<number>, Second.Portal.Props, Second.Backdrop.Props, Second.Popup.Props, Second.Viewport.Props, Second.Close.Props] = [
   { handle: undefined, payload: undefined, disabled: undefined, nativeButton: undefined, type: undefined, ref: undefined },
   { container: undefined, keepMounted: undefined, children: undefined, ref: undefined },
   { forceRender: undefined }, { initialFocus: undefined, finalFocus: undefined },
-  { class: state => ['viewport', { open: state.open }], style: state => ({ '--nested': Number(state.nestedDialogOpen) }) },
+  { class: state => ['viewport', { open: state.open }], style: state => `--nested:${Number(state.nestedDialogOpen)}` },
   { disabled: undefined, nativeButton: undefined },
 ];
 const viewportState: Equal<Second.Viewport.State, First.Popup.State> = true;
@@ -109,7 +110,7 @@ cat > "$dialog_consumer/DOMConsumer.svelte" <<'SVELTE'
 }} onOpenChangeComplete={open => changes.push(['complete', open])}>
   {#snippet children({ payload })}
     <Dialog.Portal {container} render={host} bind:ref={portal}>
-      <Dialog.Viewport bind:ref={viewport} class={state => ['viewport', { active: state.open }]} style={state => ({ '--open': Number(state.open) })}>
+      <Dialog.Viewport bind:ref={viewport} class={state => ['viewport', { active: state.open }]} style={state => `--open:${Number(state.open)}`}>
         <Dialog.Backdrop />
         <Dialog.Popup>
           <Dialog.Title id="installed-title">Installed dialog</Dialog.Title>

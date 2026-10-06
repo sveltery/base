@@ -15,12 +15,14 @@ export interface MenubarContext {
 }
 
 export const MenubarContext = Symbol('MenubarContext');
-export function provideMenubarContext(value: MenubarContext | null) { setContext(MenubarContext, value); }
+export function provideMenubarContext(value: MenubarContext | null) {
+  setContext(MenubarContext, value);
+}
 
 export function useMenubarContext(optional?: false): MenubarContext;
 export function useMenubarContext(optional: true): MenubarContext | null;
 export function useMenubarContext(optional?: boolean) {
-  const context = (getContext<MenubarContext | null>(MenubarContext) ?? null);
+  const context = getContext<MenubarContext | null>(MenubarContext) ?? null;
   if (context === null && !optional) {
     throw new Error(
       'Base UI: MenubarContext is missing. Menubar parts must be placed within <Menubar>.',
