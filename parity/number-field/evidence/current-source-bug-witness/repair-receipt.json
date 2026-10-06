@@ -1,0 +1,83 @@
+{
+  "status": "Local precise source-derived gate repair measured; secured browser proof pending",
+  "assertionCredit": 0,
+  "headBeforeRepairCommit": "fa4cc1156f31743ca3e0883154c6fe4a27bdfc31",
+  "repair": "allowInputSyncRef is a plain imperative business marker; mutation alone no longer invalidates formatting; numeric/text/format publications remain reactive",
+  "results": {
+    "focusedDom": "35 passed, 3 files; real pin React/native minimal pair + 8 targeted issue/cancel witnesses + existing25NumberField cases",
+    "packedConsumer": "Fresh actual dual Base/Utils serial packing and installed root/subpath18types+SSR/runtime/MIT PASS; svelte-check0errors0warnings",
+    "sourceVerification": "155 immutable modules14test/typefiles and exactinstalledReact19.2.8/BaseUI1.8.0/Svelte5.57.1 PASS",
+    "finalPair": "2 passed after type-only global React act flag cast; prior35log preserved",
+    "remainingNativeDefaults": "23 passed,1 existing skipped across autofill/invalid/buttondiagnostics/viewport/stepperowner; total current DOM58passed1skip",
+    "ssr": "11 passed"
+  },
+  "commands": [
+    "source scripts/toolchain.sh; NODE_OPTIONS=--max-old-space-size=768 pnpm --filter @sveltery/base exec vitest run --project dom tests/dom/number-field-canceled-dirty-pair.test.ts tests/dom/number-field-source-bug-witness.test.ts tests/dom/number-field.test.ts --maxWorkers=1",
+    "source scripts/toolchain.sh; NODE_OPTIONS=--max-old-space-size=768 bash scripts/check-number-field-package.sh",
+    "node parity/number-field/verify-source.mjs /workspace/scratch/2bab9a276da0/upstream-base-ui",
+    "source scripts/toolchain.sh; NODE_OPTIONS=--max-old-space-size=768 pnpm --filter @sveltery/base exec vitest run --project dom tests/dom/number-field-autofill.test.ts tests/dom/number-field-invalid-input.test.ts tests/dom/number-field-button-diagnostics.test.ts tests/dom/number-field-viewport.test.ts tests/dom/number-field-stepper-owner.test.ts --maxWorkers=1",
+    "source scripts/toolchain.sh; NODE_OPTIONS=--max-old-space-size=768 pnpm --filter @sveltery/base exec vitest run --project server tests/number-field-ssr.test.ts --maxWorkers=1"
+  ],
+  "limits": [
+    "Browser16 source witnesses and paired predecessor/current65 native outro gate remain unexecuted locally.",
+    "Current package tarballs were freshly produced/installed by mandatory script but temporary artifacts removed by existing EXIT trap; no old manifest was reused.",
+    "DOM-model tests do not certify trusted browser focus/pointer lock/native validation."
+  ],
+  "archives": [
+    {
+      "file": "repaired-dom35.log.gz",
+      "decodedBytes": 438,
+      "decodedSha256": "5cb2cb9b143685f8b6a032d3f826bed34f77d6a25ed4ae0af364024f5b7073ff",
+      "gzipSha256": "490537b399f3b3db9165ce1a8f8afcdc6458e86a233ffae802329349e9e41368"
+    },
+    {
+      "file": "fresh-package.log.gz",
+      "decodedBytes": 271,
+      "decodedSha256": "56eecd1bf091d73bcd5c1cd3d40921d18cf72e34428b8df7d0260cfd6c8f1857",
+      "gzipSha256": "8c43e960f9b4f87d37b1fbba7ab31def9b4b4fa1d93092a42ba6d4ae622e9dee"
+    },
+    {
+      "file": "exact-source-verification.log.gz",
+      "decodedBytes": 147,
+      "decodedSha256": "7a5dc68a550b2f4914e945d102b40d975b931e26c59f2157e018a88b4407c3a1",
+      "gzipSha256": "6a297c2a58f5827c80cae117e79b2d734de53596158b18755df6a8e3d6fc14c2"
+    },
+    {
+      "file": "repaired-NumberFieldRoot.svelte.gz",
+      "decodedBytes": 16977,
+      "decodedSha256": "a5009ffe06ba4c140b6d2db78bce05fd5c5e0c20b4d3925b9730c455956c3b1d",
+      "gzipSha256": "e429824cc655064b4d0dd69f6bd216a9750ad9ac88699aa377329280fad5368c"
+    },
+    {
+      "file": "final-pair2.log.gz",
+      "decodedBytes": 236,
+      "decodedSha256": "a6992d21087e7c7e22f6976fe2753b9350873275d0a534a78298cb803294afe7",
+      "gzipSha256": "5242adeb5c69ffc9bfdd379a455c956d192e714cbcddc05d0b8599b9adcc3003"
+    },
+    {
+      "file": "final-pair-witness.test.ts.gz",
+      "decodedBytes": 3543,
+      "decodedSha256": "28f6f899b6293aa0aaaeeacd1f8f1f9584394591bf666ad2e3b1ffb729409793",
+      "gzipSha256": "6763010451512ca9cb43e1f4ada769a0cd10202cabbae7dca943abfda7bc620f"
+    },
+    {
+      "file": "current-gate-native-defaults.log.gz",
+      "decodedBytes": 555,
+      "decodedSha256": "cb868258c2ebb744a868504f5f761fd640d797ea30786b45114682bbed26f362",
+      "gzipSha256": "891cf80621fda5ba27132d033b7e5fae4d9da201e0629db4e53d3cb539c67580"
+    },
+    {
+      "file": "current-gate-ssr.log.gz",
+      "decodedBytes": 221,
+      "decodedSha256": "6d0c437b4ca0f1593b7f87698365dc7eb0150b089aef9b1ad1a191958ead1d00",
+      "gzipSha256": "ae9e91ec4145322a18a827ca796b58b92a99555ced8ab460d7e58df085e3a903"
+    }
+  ],
+  "finalOwnedHashes": {
+    ".github/workflows/number-field.yml": "78dfe82e9a873dbf1dff52b09bdf251142c04dbfa52ac57c078ba5fbe25eeeb4",
+    "packages/base/src/lib/number-field/root/NumberFieldRoot.svelte": "a5009ffe06ba4c140b6d2db78bce05fd5c5e0c20b4d3925b9730c455956c3b1d",
+    "packages/base/tests/dom/number-field-source-bug-witness.test.ts": "ac0182cc810b9ccbb97d41657c9cca8ccb67432ac0df287d4b488315e87f1c1e",
+    "packages/base/tests/dom/number-field-canceled-dirty-pair.test.ts": "28f6f899b6293aa0aaaeeacd1f8f1f9584394591bf666ad2e3b1ffb729409793",
+    "packages/base/tests/dom/NumberFieldCanceledDirty.svelte": "ef71d2258395763f3036a660e4d877bbb8716e4eb4ae2410859ed76c8283ee54"
+  }
+}

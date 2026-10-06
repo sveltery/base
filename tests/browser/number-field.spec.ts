@@ -530,7 +530,7 @@ test('Svelte actual Kit source change cancellation retains owner and live server
 for (const mode of ['same-host', 'replacement', 'outro'] as const) {
   test(`svelte NumberField stepper native ${mode} retains its actual host diagnostics`, async ({
     page,
-  }) => {
+  }, testInfo) => {
     const diagnostics: string[] = [];
     page.on('console', (message) => {
       if (
@@ -551,21 +551,52 @@ for (const mode of ['same-host', 'replacement', 'outro'] as const) {
       await page.locator('#owner-dispose-outgoing').click();
     } else if (mode === 'outro') {
       await page.locator('#owner-begin-outro').click();
-      // Real Svelte out:fade retains A while replacement B has its own attachment.
-      await expect(page.locator('[data-owner-host="A"]')).toHaveCount(1);
-      await expect(page.locator('[data-owner-host="B"]')).toBeVisible();
-      await expect(page.locator('#owner-published-host')).toHaveText('B');
-      await expect(page.locator('#owner-outro-state')).toHaveText('{"started":1,"ended":0}');
+      // Native events record the overlap at its actual lifetime, independent of runner timing.
     }
     if (mode !== 'same-host') {
       await expect(page.locator('[data-owner-host="A"]')).toHaveCount(0);
       await expect(page.locator('#owner-published-host')).toHaveText('B');
     }
-    if (mode === 'outro')
+    let lifetime: unknown[] = [];
+    if (mode === 'outro') {
       await expect(page.locator('#owner-outro-state')).toHaveText('{"started":1,"ended":1}');
+      await expect
+        .poll(
+          async () => JSON.parse(await page.locator('#owner-lifetime-records').innerText()).length,
+        )
+        .toBe(2);
+      lifetime = JSON.parse(await page.locator('#owner-lifetime-records').innerText());
+      expect(lifetime).toEqual([
+        {
+          phase: 'start',
+          outgoingConnected: true,
+          incomingConnected: true,
+          publishedHost: 'B',
+          publishedIsIncoming: true,
+        },
+        {
+          phase: 'end',
+          outgoingConnected: false,
+          incomingConnected: true,
+          publishedHost: 'B',
+          publishedIsIncoming: true,
+        },
+      ]);
+    }
     expect(diagnostics).toEqual([]);
     await page.locator('#owner-require-nonnative').click();
-    await expect.poll(() => diagnostics.length).toBe(1);
+    await expect(page.locator('#owner-diagnostic-phase')).toHaveText('settled');
+    await testInfo.attach('stepper-owner-lifetime', {
+      contentType: 'application/json',
+      body: JSON.stringify({
+        mode,
+        lifetime,
+        publishedHost: await page.locator('#owner-published-host').innerText(),
+        diagnosticPhase: 'settled',
+        diagnostics,
+      }),
+    });
+    expect(diagnostics, 'stepper-owner current host diagnostics').toHaveLength(1);
     expect(diagnostics[0]).toContain('expected a non-<button>');
     await expect(
       page.locator(`[data-owner-host="${mode === 'same-host' ? 'A' : 'B'}"]`),

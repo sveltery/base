@@ -113,7 +113,7 @@
     },
   };
   const hasPendingCommitRef = { current: false };
-  const allowInputSyncRef = $state({ current: true });
+  const allowInputSyncRef = { current: true };
   const lastChangedValueRef = { current: null as number | null };
   let inputValue = $state(untrack(() => formatNumber(value, locale, format)));
   let inputMode = $state<InputMode>('numeric');
@@ -289,7 +289,7 @@
   // Direct typing retains authority until blur, exactly as the source ref gate requires.
   $effect(() => {
     const nextInputValue = formatNumber(value, locale, format);
-    // Native text/gate subscriptions synchronize formatting without a render revision.
+    // Numeric/text/format changes synchronize formatting; the source gate is imperative.
     void inputValue;
     const shouldSync = allowInputSyncRef.current;
     untrack(() => {

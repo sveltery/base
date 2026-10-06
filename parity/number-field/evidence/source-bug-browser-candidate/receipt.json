@@ -1,0 +1,45 @@
+{
+  "candidateParent": "fa4cc1156f31743ca3e0883154c6fe4a27bdfc31",
+  "sourcePin": "47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c",
+  "files": {
+    "apps/fixtures/src/lib/NumberFieldSourceBugBrowserFixture.svelte": "8e3d80163aad8495281ac33125c24ae0c383b3d1c67d940b297fd9f55ea79783",
+    "apps/fixtures/src/lib/number-field-source-bug-reference.ts": "a157187ce1f93f9fa27212cdce2b22c1aa6b683e4751848ded8ed452a98c96ce",
+    "apps/fixtures/src/routes/number-field-source-bugs/+page.svelte": "4ec34e89ed3e85843cdea9dd3434468a53073e5213f85960b1cda66c3c633949",
+    "apps/fixtures/src/routes/number-field-source-bugs/+page.ts": "a51c178a7886154d4f67c958ce144bf509dee9b9a5ad1412503de7f95fbf88e8",
+    "tests/browser/number-field-source-bugs.spec.ts": "8abfc3a2bf600036626304486e2f07e5a6f1cf3bb684422c1cbcabf43480a35a",
+    "packages/base/src/lib/number-field/root/NumberFieldRoot.svelte": "a5009ffe06ba4c140b6d2db78bce05fd5c5e0c20b4d3925b9730c455956c3b1d"
+  },
+  "checks": {
+    "scopedESLint": "PASS",
+    "svelteClientServerCompiler": "PASS zero warnings",
+    "fixtureProductionSSRClientBuild": "PASS exit0,1024MiB",
+    "securedBrowser": "UNEXECUTED locally;16 authored paired supplements plus65 unchanged prior selection"
+  },
+  "credit": {
+    "unchangedOriginal": 0
+  },
+  "logs": [
+    {
+      "path": "parity/number-field/evidence/source-bug-browser-candidate/scoped-lint.log.gz",
+      "decodedSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "storedSha256": "f61f27bd17de546264aa58f40f3aafaac7021e0ef69c17f6b1b4cd7664a037ec",
+      "decodedBytes": 0
+    },
+    {
+      "path": "parity/number-field/evidence/source-bug-browser-candidate/compile.log.gz",
+      "decodedSha256": "fa9d00844b449862aac72f92066efb2f49a3ee101916abc6f60e3b70bccb9c54",
+      "storedSha256": "9a89780eb3d762a56671f79ae9081b939183aa887ef38db9eb588b2e629d3020",
+      "decodedBytes": 502
+    },
+    {
+      "path": "parity/number-field/evidence/source-bug-browser-candidate/fixture-build.log.gz",
+      "decodedSha256": "a44e5f994a0fdc59d710554077e634d2a11f941e6fff2d671a750f55f4c33240",
+      "storedSha256": "c9f1d59b1af62dfd42f8ff72ebf7104e95ae2ac14eb497f49589c3823df7db2c",
+      "decodedBytes": 364762
+    }
+  ],
+  "limitations": [
+    "Full fixture build retains upstream use-client directive warnings and adapter-auto no-production-target notice.",
+    "A final small SSR check from another worker overlapped build startup due coordination race; SSR completed before fixture build completion. No browser assertion execution claimed."
+  ]
+}

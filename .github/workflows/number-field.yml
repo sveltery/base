@@ -18,10 +18,13 @@ jobs:
     name: NumberField browser
     runs-on: ubuntu-22.04
     timeout-minutes: 20
+    env:
+      PLAYWRIGHT_BROWSERS_PATH: ${{ runner.temp }}/sveltery-number-field-chromium
     steps:
       - uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6.1.0
         with:
           ref: ${{ github.event.pull_request.head.sha || github.sha }}
+          fetch-depth: 0
           persist-credentials: false
       - uses: pnpm/action-setup@fc06bc1257f339d1d5d8b3a19a8cae5388b55320 # v4.4.0
         with:
@@ -49,14 +52,22 @@ jobs:
       - name: Installed public root and NumberField subpath consumer
         run: bash scripts/check-number-field-package.sh
       - name: Install official secured Chromium
+        id: secured-chromium
         run: pnpm exec playwright install --with-deps chromium
-      - name: Actual React 19.2.8 and native Svelte NumberField source acceptance
-        env:
-          PLAYWRIGHT_JSON_OUTPUT_NAME: .checks/number-field/browser-results.json
+      - name: Causal native predecessor red and mandatory current NumberField acceptance
+        run: bash scripts/check-number-field-stepper-owner-browser.sh
+      - name: Exact-pin and current provider source-bug witnesses
+        if: always() && steps.secured-chromium.outcome == 'success'
         run: |
-          set -o pipefail
-          mkdir -p .checks/number-field
-          pnpm exec playwright test tests/browser/number-field.spec.ts --reporter=list,json | tee .checks/number-field/browser.log
+          source scripts/toolchain.sh
+          export NODE_OPTIONS="--max-old-space-size=1024"
+          node scripts/number-field-stepper-owner-browser.mjs verify-current unused .checks/number-field/stepper-owner-paired
+          set +e
+          PLAYWRIGHT_JSON_OUTPUT_NAME=.checks/number-field/source-bug-results.json pnpm exec playwright test tests/browser/number-field-source-bugs.spec.ts --output=.checks/number-field/source-bug-traces --reporter=list,json 2>&1 | tee .checks/number-field/source-bug-browser.log
+          proof_status=("${PIPESTATUS[@]}")
+          set -e
+          if [[ "${proof_status[1]}" -ne 0 ]]; then exit 1; fi
+          exit "${proof_status[0]}"
       - name: Preserve actual NumberField observations and traces
         if: always()
         uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2

@@ -1,0 +1,218 @@
+{
+  "headBeforeOwnedCommit": "a452209c5491aaa81c1f5a749bb6c5eb3d31b142",
+  "status": "Local authoring/setup checks passed; actual secured paired browser execution pending",
+  "assertionCredit": 0,
+  "nativeRuntimeChanged": false,
+  "sourceClosureBodiesVerified": 152,
+  "predecessorBodiesInstalledAndRestoredForSafetyOnly": 2,
+  "untouchedClosureBodies": 150,
+  "checks": {
+    "classifier": "5 passed, synthetic report classification only; actual installed Playwright matcher error used",
+    "selection": "initial anchored selector actually listed zero (exit 1); corrected trailing anchor actually listed exactly one",
+    "sourceSafety": "immutable predecessor installation and exact current restoration passed; actual current dist hashes verified; no predecessor dist build or browser run in this safety exercise",
+    "standaloneFixture": "server/client compile zero warnings and actual initial-host SSR passed",
+    "fullFixtureBuild": "PASS: 1287 SSR modules and 1719 client modules; upstream use-client diagnostics and adapter-auto environment notice retained",
+    "syntaxFormattingLint": "bash -n, scoped ESLint, formatting, git diff --check passed"
+  },
+  "limits": [
+    "Native transition event/lifetime predicates authored, not locally browser-measured.",
+    "No actual predecessor RED/current 65 GREEN receipt exists yet.",
+    "Official Chromium unavailable at both toolchain and default cache paths; no download retry.",
+    "Source and safety classifier checks provide zero unchanged upstream assertion credit."
+  ],
+  "commands": [
+    "source scripts/toolchain.sh; NODE_OPTIONS=--max-old-space-size=768 node --test --test-concurrency=1 scripts/tests/number-field-stepper-owner-report.test.mjs",
+    "source scripts/toolchain.sh; pnpm exec playwright test tests/browser/number-field.spec.ts --grep \"svelte NumberField stepper native outro retains its actual host diagnostics$\" --list --reporter=list,json",
+    "source scripts/toolchain.sh; NODE_OPTIONS=--max-old-space-size=1024 pnpm --filter @sveltery/fixtures build"
+  ],
+  "candidateHashes": {
+    ".github/workflows/number-field.yml": "816aec7dd9e6c3b4cc32e1988a330c547ce3dd33317bdb047b4a47daaacce5ed",
+    "apps/fixtures/src/lib/NumberFieldStepperOwnerBrowserFixture.svelte": "42bd103e387cc8893fa712a61b5589beda56beb0f8e115d0b94a2c1570a43ebe",
+    "tests/browser/number-field.spec.ts": "52b49ee95123412f4f76cacdc66015317df92175ee8a49494abdb98dc798a7fc",
+    "scripts/check-number-field-stepper-owner-browser.sh": "53d9f28ee3a6f184187bdb888d5cd241ea89b80ffcd507436993ab8297f5f1bb",
+    "scripts/number-field-stepper-owner-browser.mjs": "1f8476bcfe4df15933922930edeaabf2a42ed93dde11bb14e644add02daf7496",
+    "scripts/tests/number-field-stepper-owner-report.test.mjs": "78d7a4b071488327fc81272c51548ae8efe37565d50cb00506e880bb4a4fa582"
+  },
+  "archives": [
+    {
+      "file": "fixture-local-outro-compile.log.gz",
+      "decodedBytes": 524,
+      "decodedSha256": "0d3bb4345f07b5beddec86281c5512d9a67fe221abfe694dc541cd8ff996df2d",
+      "gzipSha256": "de0fc2e6760cce5479f12e20cf6098b7392baa7a6f030c21425854862e925311"
+    },
+    {
+      "file": "fixture-local-outro-full-build.log.gz",
+      "decodedBytes": 363714,
+      "decodedSha256": "8be93a865848d83a9f9adca7a73e8b43e83fedbe12436df69069824780dd55ab",
+      "gzipSha256": "87498d1647a286dd301ffa7389f2e700e5bc95a537c588f50e8acb4c53299339"
+    },
+    {
+      "file": "red-selection-initial.log.gz",
+      "decodedBytes": 207,
+      "decodedSha256": "11d02a81ccd2bb10777e0b4c30491565724938be275f829ded8bf5365f1b5f80",
+      "gzipSha256": "825ca36925996b4105539582d5358acbb04fd2a018904a1426a29ae11b05c9ab"
+    },
+    {
+      "file": "red-selection-initial.json.gz",
+      "decodedBytes": 2570,
+      "decodedSha256": "88e9b32f6f1f8fea6dd388b7cf98437634e6c2b3a20050a72635c16691ce883a",
+      "gzipSha256": "c00f11731fb46b642f13cf77ad5ecb5c4db36808ed11edfad1bbbb39bee99ddd"
+    },
+    {
+      "file": "red-selection-corrected.log.gz",
+      "decodedBytes": 148,
+      "decodedSha256": "2785b55beb3f53c97b23826ef6800f5a1643eaf9d902cb2a9f3a0e548138c924",
+      "gzipSha256": "b1c52152f2c4ffc8eb06a0eddfe0d281df839c13aef4380700d51a29668f95ef"
+    },
+    {
+      "file": "red-selection-corrected.json.gz",
+      "decodedBytes": 2934,
+      "decodedSha256": "105f4e7d4bb7fea98b40012bcf84ad7806d64767a7458ea620f1681526ea7d16",
+      "gzipSha256": "41898e186cc270f5d3544503255ba7676b7c5a2f03069a83f058afeb98dd795d"
+    },
+    {
+      "file": "paired-final-classifier.log.gz",
+      "decodedBytes": 548,
+      "decodedSha256": "4b53cf016d821becaa5f4190d9fe96f0074e1e5e160be755ed0ba09974b72abc",
+      "gzipSha256": "54aa3b314542a1a5a2970ad98433b59a75dca2b27c9adc8f7c6af8a80fb6cba3"
+    },
+    {
+      "file": "paired-final-guards.log.gz",
+      "decodedBytes": 279,
+      "decodedSha256": "176069cb016f3ad846c8dceaa60faee4505fca3142867ca5d67cde344a1b8189",
+      "gzipSha256": "5b222a4c32c2a9ddbee0f14cc5183f243234c831860c85f57281f4b2674a0644"
+    },
+    {
+      "file": "source-safety/0.current.gz",
+      "decodedBytes": 1613,
+      "decodedSha256": "6482340bd37a6832d3a5be4500be058d46616489f1a3dfa18536d765a19650fd",
+      "gzipSha256": "de1c660db2f748908cdd38a96f315f044623c17d8f17ccba39f634ae8a69959e"
+    },
+    {
+      "file": "source-safety/0.current.dist.gz",
+      "decodedBytes": 1613,
+      "decodedSha256": "6482340bd37a6832d3a5be4500be058d46616489f1a3dfa18536d765a19650fd",
+      "gzipSha256": "de1c660db2f748908cdd38a96f315f044623c17d8f17ccba39f634ae8a69959e"
+    },
+    {
+      "file": "source-safety/0.initial-current.dist.gz",
+      "decodedBytes": 1613,
+      "decodedSha256": "6482340bd37a6832d3a5be4500be058d46616489f1a3dfa18536d765a19650fd",
+      "gzipSha256": "de1c660db2f748908cdd38a96f315f044623c17d8f17ccba39f634ae8a69959e"
+    },
+    {
+      "file": "source-safety/0.predecessor.gz",
+      "decodedBytes": 1584,
+      "decodedSha256": "090983122c632d14bda7310efa2f35d81af64767b28bb5bba5224e1175c11071",
+      "gzipSha256": "b2d4c7c7b1c7a3e62601c1125bd931b16de398f103f5be8c0f67f103badf7d13"
+    },
+    {
+      "file": "source-safety/1.current.gz",
+      "decodedBytes": 6675,
+      "decodedSha256": "5eeb80f333238a9a0afed38751e2b3917a5397d09edfe8143dfb70fffc2fc3b1",
+      "gzipSha256": "f1b34b1e1b0aa08043911691c399c603d612acdc0c1ccd586e920c7591a99ce2"
+    },
+    {
+      "file": "source-safety/1.current.dist.gz",
+      "decodedBytes": 6776,
+      "decodedSha256": "7716336f07142c26e9a7f2e2d97573650492da8e6db343ae3e0fcb79dcdaff10",
+      "gzipSha256": "ae583a884c5641a9b8b18c5ad165fcbe984d6d82c2c5d4f5134113bf863fe9a1"
+    },
+    {
+      "file": "source-safety/1.initial-current.dist.gz",
+      "decodedBytes": 6776,
+      "decodedSha256": "7716336f07142c26e9a7f2e2d97573650492da8e6db343ae3e0fcb79dcdaff10",
+      "gzipSha256": "ae583a884c5641a9b8b18c5ad165fcbe984d6d82c2c5d4f5134113bf863fe9a1"
+    },
+    {
+      "file": "source-safety/1.predecessor.gz",
+      "decodedBytes": 6601,
+      "decodedSha256": "57d609ddf29d3468b94bcbc6a39bf47be418b9bd222b6307fe574c4eddc8155d",
+      "gzipSha256": "361a770162510f81b86671d495103866539beabd808faf2b6dbd5eb44c9b0efc"
+    },
+    {
+      "file": "source-safety/red-selection-results.json.gz",
+      "decodedBytes": 2934,
+      "decodedSha256": "105f4e7d4bb7fea98b40012bcf84ad7806d64767a7458ea620f1681526ea7d16",
+      "gzipSha256": "41898e186cc270f5d3544503255ba7676b7c5a2f03069a83f058afeb98dd795d"
+    },
+    {
+      "file": "source-safety/source-receipt.json.gz",
+      "decodedBytes": 248011,
+      "decodedSha256": "3b8de6340c321f37eec021048dc4de15aff25f5228111be37cfa1585809a1e77",
+      "gzipSha256": "f3ca1906a59dda037c776cc2b634bc896f9f04d3dcbe7c7f4a26589014d69ce4"
+    },
+    {
+      "file": "compile/fixture-compile.mjs.gz",
+      "decodedBytes": 1630,
+      "decodedSha256": "20657865204a033c20a43c6d361a7d4b6263a6170dc750bf4ea0f33efc379cac",
+      "gzipSha256": "fb97315198f417d07edd1fee10f640e4f15d7721a6c38898b9303ce2cc9488ed"
+    },
+    {
+      "file": "compile/NumberFieldStepperOwnerBrowserFixture.svelte.server.js.gz",
+      "decodedBytes": 4182,
+      "decodedSha256": "dfdc46919381dac4da398d512995052a1fe01bc27bc7963337d2b2125eb82442",
+      "gzipSha256": "01ffca2ee83d8977565d692f6981c69c677e93d085ea79db53c5df0d7fa6cba6"
+    },
+    {
+      "file": "compile/NumberFieldStepperOwnerBrowserFixture.svelte.client.js.gz",
+      "decodedBytes": 6273,
+      "decodedSha256": "e9671677dcf46cc1d37edc4fe8b82090914bfb33ab6c18e58ca94d93a3d201f1",
+      "gzipSha256": "a8edbfa158af717e2265c08b183dee012387b05613244b8160175d565c5dd720"
+    },
+    {
+      "file": "compile/NumberFieldBrowserFixture.svelte.server.js.gz",
+      "decodedBytes": 11985,
+      "decodedSha256": "35f6e33c46d3e51bb9b4c5f95f908868e0adf7374548ac4053aad9e8fd802829",
+      "gzipSha256": "6356e32099c250231ff76eba37eba978a8299dfaf3cdfd05cbcc89d2e26480cc"
+    },
+    {
+      "file": "compile/NumberFieldBrowserFixture.svelte.client.js.gz",
+      "decodedBytes": 13696,
+      "decodedSha256": "e11a2ef0b13ebc8fa2cc6889acad3134725b723ebc9a68eb3b82fe6c8b8038bb",
+      "gzipSha256": "18fa44aa1c38f8a380af7ded009e9afeeabd4b86fb01e85d103ccc2157d446c3"
+    },
+    {
+      "file": "compile/fixture-owner-ssr.html.gz",
+      "decodedBytes": 4211,
+      "decodedSha256": "7b6653704dc860ff8805d25a23035b46ec8c5d64dffdbf7c0de87e700839111e",
+      "gzipSha256": "894f9613995837a4d336159db7c44fd8d9eaf99dacc045fac80f888cb663676e"
+    },
+    {
+      "file": "candidate/.github/workflows/number-field.yml.gz",
+      "decodedBytes": 2549,
+      "decodedSha256": "816aec7dd9e6c3b4cc32e1988a330c547ce3dd33317bdb047b4a47daaacce5ed",
+      "gzipSha256": "3d4b60ae2c57dbc7ace601f3d2d0080b72d881c4a63075e0fa9eda7db21d0ebc"
+    },
+    {
+      "file": "candidate/apps/fixtures/src/lib/NumberFieldStepperOwnerBrowserFixture.svelte.gz",
+      "decodedBytes": 3342,
+      "decodedSha256": "42bd103e387cc8893fa712a61b5589beda56beb0f8e115d0b94a2c1570a43ebe",
+      "gzipSha256": "82b4a2297992c4b96d5bdddef8b7244a24a4d244fd7b6b8f486dd723267f8b6e"
+    },
+    {
+      "file": "candidate/tests/browser/number-field.spec.ts.gz",
+      "decodedBytes": 26051,
+      "decodedSha256": "52b49ee95123412f4f76cacdc66015317df92175ee8a49494abdb98dc798a7fc",
+      "gzipSha256": "e0df15c502dbdf3092f01f852d8c2ed18d5b77856d57b00a2178d5edd4ca46ad"
+    },
+    {
+      "file": "candidate/scripts/check-number-field-stepper-owner-browser.sh.gz",
+      "decodedBytes": 3498,
+      "decodedSha256": "53d9f28ee3a6f184187bdb888d5cd241ea89b80ffcd507436993ab8297f5f1bb",
+      "gzipSha256": "edb9efe712705a2a8cb1022c592ae9ca093d29e128d6d44aef6d24c65737e124"
+    },
+    {
+      "file": "candidate/scripts/number-field-stepper-owner-browser.mjs.gz",
+      "decodedBytes": 9217,
+      "decodedSha256": "1f8476bcfe4df15933922930edeaabf2a42ed93dde11bb14e644add02daf7496",
+      "gzipSha256": "fb5465c33a8c8cda101e892ec1f583308e2eff189939c0e3ff20802c7232b59f"
+    },
+    {
+      "file": "candidate/scripts/tests/number-field-stepper-owner-report.test.mjs.gz",
+      "decodedBytes": 3013,
+      "decodedSha256": "78d7a4b071488327fc81272c51548ae8efe37565d50cb00506e880bb4a4fa582",
+      "gzipSha256": "eaee03920d73c5b240021eb5a0ba338d894ad5594e022939df6b8918179f0141"
+    }
+  ]
+}

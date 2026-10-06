@@ -8962,7 +8962,7 @@
     },
     {
       "source": "packages/base/src/lib/number-field/root/NumberFieldRoot.svelte",
-      "sha256": "bcc5b5cd0469abd440de56f60952a8ff97c297b5b062c65bf87e42b3a36555b1",
+      "sha256": "a5009ffe06ba4c140b6d2db78bce05fd5c5e0c20b4d3925b9730c455956c3b1d",
       "imports": [
         {
           "specifier": "svelte",

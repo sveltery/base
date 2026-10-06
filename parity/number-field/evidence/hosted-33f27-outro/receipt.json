@@ -1,0 +1,52 @@
+{
+  "head": "33f27b737fcca5a42b2e4f17c3f16bd804505a32",
+  "run": 37536868930,
+  "job": 112520008481,
+  "result": "64 passed, 1 failed; secured Chromium153.0.8010.12 workers1 retries0",
+  "failure": "Test65 stopped before transition-lifetime diagnostic: after owner-begin-outro, [data-owner-host=A] expected1 received0; snapshot started0 ended0 with B present. Does not establish repaired owner-guard regression.",
+  "artifact": 11447008441,
+  "artifactZipSha256": "c6ebdfaaf9d2177cb7ad5b05b5f6f0b3a5ddb989af3f93517929966ea35b0d93",
+  "storedFiles": [
+    {
+      "path": "job-112520008481.log.gz",
+      "encoding": "gzip",
+      "decodedSha256": "6fd867546355de27a8df6d64388ae410927b6af3306ccb91b3f5d80c8e499ea3",
+      "storedSha256": "ad27bbcd50607711afce3a1f9c5c03ef35c2bb77fd47760ca3de2e93b7726458"
+    },
+    {
+      "path": "browser-results.json.gz",
+      "encoding": "gzip",
+      "decodedSha256": "0da023572ad15818de8231af6fd46f427244a91a667b7abd7d54c58fee00583d",
+      "storedSha256": "e44836b583a4de9ed544e75abbaccd9fe879c7496c48f7beb8c389afe337894d"
+    },
+    {
+      "path": "browser.log.gz",
+      "encoding": "gzip",
+      "decodedSha256": "27c21a715705013c63aaea96b13b990ca826289f7545de2d9fe8505fd3904ef4",
+      "storedSha256": "680425ba5999964fe1bb5fb70fde22a39d0018cd934f5a6cc29e23fccc35d485"
+    },
+    {
+      "path": "error-context.md.gz",
+      "encoding": "gzip",
+      "decodedSha256": "32ec844a1063c719a7766a2d48b63c10fae7870ecf000947e723d23d70cb2707",
+      "storedSha256": "ac1a321e2a52834b12e75dbcac87dd546bd9feb4483645703502a886c14c97ae"
+    },
+    {
+      "path": "trace.zip",
+      "encoding": "zip",
+      "sha256": "d95ba8c0d89bc19bad4819dae92d52040377fc8798e8ad2d02e27724daa13622"
+    }
+  ],
+  "limits": [
+    "Lossless hosted receipt only, no runtime/test assertion edits or execution credit",
+    "CSS-outro failure remains unresolved; shared canonical prerequisites remain pending"
+  ],
+  "statistics": {
+    "expected": 64,
+    "unexpected": 1,
+    "skipped": 0,
+    "flaky": 0,
+    "durationMs": 81296.413
+  },
+  "jobLogTransport": "Exact decoded GitHub connector log text, including BOM and final newline; temporary patch transport extra newline removed before archive."
+}

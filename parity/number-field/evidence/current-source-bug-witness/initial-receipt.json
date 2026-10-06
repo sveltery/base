@@ -1,0 +1,79 @@
+{
+  "head": "fa4cc1156f31743ca3e0883154c6fe4a27bdfc31",
+  "sourcePin": "47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c",
+  "command": "source scripts/toolchain.sh; NODE_OPTIONS=--max-old-space-size=768 pnpm --filter @sveltery/base exec vitest run --project dom tests/dom/number-field-source-bug-witness.test.ts --maxWorkers=1",
+  "exit": 1,
+  "results": "7 passed, 1 failed: canceled dirty-sync proposals [100,100,1] and no commit matched; visible 0 instead of pinned 100",
+  "assertionCredit": 0,
+  "limits": [
+    "Actual current real Form/Field/NumberField providers in jsdom.",
+    "Trusted browser focus, pointer lock and validity not certified.",
+    "No business change and no forced pass; paired exact-pin browser reproduction pending."
+  ],
+  "archives": [
+    {
+      "file": "initial-dom.log.gz",
+      "decodedBytes": 1640,
+      "decodedSha256": "783203e14c3c30b5aa850de1fbf1142e1c5870033b3be391240c3af508a2c556",
+      "gzipSha256": "09372dacaeb798a250bb01ce7390c2dd1756fb09f0644606e3944f53f39e9d03"
+    },
+    {
+      "file": "initial-witness.test.ts.gz",
+      "decodedBytes": 5744,
+      "decodedSha256": "ac0182cc810b9ccbb97d41657c9cca8ccb67432ac0df287d4b488315e87f1c1e",
+      "gzipSha256": "254002337ee6ec48c60ee7e3ae1538e8d2d190426abde842c431d63f0520cf45"
+    },
+    {
+      "file": "current-NumberFieldRoot.svelte.gz",
+      "decodedBytes": 16983,
+      "decodedSha256": "bcc5b5cd0469abd440de56f60952a8ff97c297b5b062c65bf87e42b3a36555b1",
+      "gzipSha256": "341fb212ac13f72166eb54ba8928b3dcfba32050dba124781de194c0dbf095c8"
+    },
+    {
+      "file": "pin-NumberFieldIncrement.test.tsx.gz",
+      "decodedBytes": 31170,
+      "decodedSha256": "c0c698c2717e176aaf09d713cf3d1f798cf57ddacd2ab7906034f6baa58eb32d",
+      "gzipSha256": "9dc179bfa3480187f26d9b74f253e04e3b3dff40c2a9ace67a3aaee8da805fd6"
+    },
+    {
+      "file": "browser-selection16.log.gz",
+      "decodedBytes": 1739,
+      "decodedSha256": "5ab12f98508910edbd9eff45015f01397cc68b58e148cf089c34d181409e5222",
+      "gzipSha256": "fbe3c0abc1179b785f4aa897fb25f41ec92bc925faab7b63acda9b1b9fd296d6"
+    },
+    {
+      "file": "pair-initial-setup.log.gz",
+      "decodedBytes": 1382,
+      "decodedSha256": "1bccd1b09d3e52c5987e6be376a45f4a69fd550869382da9baf1ea92dfaef776",
+      "gzipSha256": "d94440b40183cb773eb56d12612346fcb9cc357939b988d0b3541de4d5e62799"
+    },
+    {
+      "file": "pair-corrected-red.log.gz",
+      "decodedBytes": 1269,
+      "decodedSha256": "0d79c8d74b0d660da361bb5a39074de20c6c90c33d9679a8c47df3c05bf93656",
+      "gzipSha256": "8de2d76a2a9f130290c889bfefeffc445f3cf5988d3da9e6930ef5cb3228b206"
+    },
+    {
+      "file": "pair-witness.test.ts.gz",
+      "decodedBytes": 3432,
+      "decodedSha256": "96272a642ed7a769c388aac7aca31911d26bc62108f3cbe5ac7ffbed48a80932",
+      "gzipSha256": "39cb7a2c6d7ffd427da5a0b1ebb26be66a987b1a7fd1b5fc24c9588e04a42ab0"
+    },
+    {
+      "file": "minimal-native-fixture.svelte.gz",
+      "decodedBytes": 444,
+      "decodedSha256": "ef71d2258395763f3036a660e4d877bbb8716e4eb4ae2410859ed76c8283ee54",
+      "gzipSha256": "41451de24015641a0c775b7ea678e2396397eb0b51930ad5a9dff486963a60b9"
+    }
+  ],
+  "verifiedReferenceCheckoutHead": "47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c",
+  "browserSelection": {
+    "command": "source scripts/toolchain.sh; NODE_OPTIONS=--max-old-space-size=768 pnpm exec playwright test tests/browser/number-field-source-bugs.spec.ts --list --reporter=list",
+    "result": "16 tests in 1 file; no browser execution"
+  },
+  "minimalPair": {
+    "command": "source scripts/toolchain.sh; NODE_OPTIONS=--max-old-space-size=768 pnpm --filter @sveltery/base exec vitest run --project dom tests/dom/number-field-canceled-dirty-pair.test.ts --maxWorkers=1",
+    "result": "Corrected actual pair: React1.8.0 passed pinned100; minimal native failed visible0 vs100; both proposals1001001 and no commits",
+    "initialSetup": "0 tests: createRequire received Vite HTTP import.meta URL; corrected absolute package path, original setup diagnostic retained"
+  }
+}

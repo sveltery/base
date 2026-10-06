@@ -164,7 +164,7 @@ const nativeReplacements = {
   'useForcedRerendering.ts': {
     local: 'packages/base/src/lib/number-field/root/NumberFieldRoot.svelte',
     replacement:
-      'Native reactive allowInputSyncRef gate and formatting effect; forced-render revision transport removed.',
+      'Plain imperative allowInputSyncRef business marker and native formatting effect; mutation alone does not invalidate formatting. Forced-render revision transport removed.',
   },
   'useValueChanged.ts': {
     local: 'packages/base/src/lib/internals/ValueChanged.svelte.ts',

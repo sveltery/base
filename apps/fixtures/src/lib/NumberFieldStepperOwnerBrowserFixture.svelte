@@ -1,6 +1,7 @@
 <script lang="ts">
   // Native owner lifetime supplement; no unchanged upstream assertion credit.
   import { fade } from 'svelte/transition';
+  import { onDestroy, tick } from 'svelte';
   import type { HTMLButtonAttributes } from 'svelte/elements';
   import { NumberField } from '@sveltery/base/number-field';
   let { scenario }: { scenario: string } = $props();
@@ -9,6 +10,37 @@
   let publishedHost = $state<HTMLElement | null>();
   let outroStarted = $state(0);
   let outroEnded = $state(0);
+  let incomingHost = $state<HTMLButtonElement | null>();
+  let diagnosticPhase = $state('idle');
+  let lifetimeRecords = $state<
+    {
+      phase: 'start' | 'end';
+      outgoingConnected: boolean;
+      incomingConnected: boolean;
+      publishedHost: string;
+      publishedIsIncoming: boolean;
+    }[]
+  >([]);
+  let destroyed = false;
+  onDestroy(() => {
+    destroyed = true;
+  });
+  function recordOutro(event: Event, phase: 'start' | 'end') {
+    const outgoing = event.currentTarget as HTMLButtonElement;
+    if (phase === 'start') outroStarted += 1;
+    else outroEnded += 1;
+    // Observe real native hosts after Svelte has committed the replacement or disposal.
+    void tick().then(() => {
+      if (destroyed) return;
+      lifetimeRecords.push({
+        phase,
+        outgoingConnected: outgoing.isConnected,
+        incomingConnected: incomingHost?.isConnected ?? false,
+        publishedHost: publishedHost?.dataset.ownerHost ?? 'none',
+        publishedIsIncoming: publishedHost === incomingHost,
+      });
+    });
+  }
 </script>
 
 <NumberField.Root defaultValue={2} locale="en-US">
@@ -35,8 +67,10 @@
 >
 <button
   id="owner-require-nonnative"
-  onclick={() => {
+  onclick={async () => {
     nativeButton = false;
+    await tick();
+    if (!destroyed) diagnosticPhase = 'settled';
   }}>Require nonnative host</button
 >
 <button
@@ -49,25 +83,23 @@
 <output id="owner-outro-state"
   >{JSON.stringify({ started: outroStarted, ended: outroEnded })}</output
 >
+<output id="owner-lifetime-records">{JSON.stringify(lifetimeRecords)}</output>
+<output id="owner-diagnostic-phase">{diagnosticPhase}</output>
 {#snippet hosts(props: HTMLButtonAttributes)}
-  {#if stage < 3}
-    {#if scenario === 'stepper-owner-outro'}
+  {#if scenario === 'stepper-owner-outro'}
+    {#if stage < 3}
       <button
         {...props}
         data-owner-host="A"
         out:fade={{ duration: 1200 }}
-        onoutrostart={() => {
-          outroStarted += 1;
-        }}
-        onoutroend={() => {
-          outroEnded += 1;
-        }}>Outgoing increase</button
+        onoutrostart={(event) => recordOutro(event, 'start')}
+        onoutroend={(event) => recordOutro(event, 'end')}>Outgoing increase</button
       >
-    {:else}
-      <button {...props} data-owner-host="A">Outgoing increase</button>
     {/if}
+  {:else if stage < 3}
+    <button {...props} data-owner-host="A">Outgoing increase</button>
   {/if}
   {#if stage > 1}
-    <button {...props} data-owner-host="B">Replacement increase</button>
+    <button {...props} bind:this={incomingHost} data-owner-host="B">Replacement increase</button>
   {/if}
 {/snippet}
