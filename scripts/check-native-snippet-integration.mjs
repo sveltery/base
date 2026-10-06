@@ -19,6 +19,24 @@ const registrationPredecessor = 'f2a99979a04a98c8bc60709a75d0db2397ec2470';
 const ownershipCommentPredecessor = '336062b3be2dfe90db5899714aed6457f78836ae';
 const nativeOwnerPredecessor = 'c39271eaf4f893fc64131b22209dee50e74de657';
 const bindingCommentPredecessor = '0d88a4e3fcb0ce57dab9b058b86a85e412f9d07c';
+const initialFocusPredecessor = 'ec36fc9cc5a8819260c2c6635e0a128acd563d4a';
+const initialFocusRuntime =
+  'packages/base/src/lib/floating-ui/components/createFloatingFocusManager.svelte.ts';
+function disposeQueuedInitialFocus(body) {
+  const predicate = '        shouldFocus() {\n';
+  assert.equal(body.split(predicate).length, 2);
+  return body
+    .replace(
+      predicate,
+      predicate +
+        '          // Avoid reading rune-backed state after this owner is destroyed.\n' +
+        '          if (disposed) return false;\n',
+    )
+    .replace(
+      '    // Wait for any layout effect state setters to execute to set `tabIndex`.',
+      '    // Wait for native state updates to set `tabIndex`.',
+    );
+}
 // Exactly the unused directive paths reported by the actual 9bdc Standards run.
 const obsoleteBindingDirectivePaths = new Set([
   'packages/base/src/lib/context-menu/Trigger.svelte',
@@ -285,7 +303,8 @@ assert.equal(graph.native.modules.length, 496);
 assert.equal(Object.keys(graph.utilsExports).length, 25);
 const records = [];
 let effectCalls = 0,
-  controlledOwners = 0;
+  controlledOwners = 0,
+  initialFocusAstPreservedBodies = 0;
 for (const module of graph.native.modules) {
   const path = module.path;
   const before = git('show', `${renderer}:${path}`);
@@ -301,17 +320,28 @@ for (const module of graph.native.modules) {
     right = syntax(path, after);
   const equal = JSON.stringify(shape(left, left)) === JSON.stringify(shape(right, right));
   const bindingPreimage = git('show', `${bindingCommentPredecessor}:${path}`);
-  assert.equal(
-    after,
-    bindingDirectiveHygiene(path, bindingPreimage),
-    `Only the authorized binding comment delta: ${path}`,
-  );
+  const bindingStage = bindingDirectiveHygiene(path, bindingPreimage);
+  const initialPreimage = git('show', `${initialFocusPredecessor}:${path}`);
+  assert.equal(bindingStage, initialPreimage, `Exact historical binding comment stage: ${path}`);
   const bindingBefore = syntax(path, bindingPreimage);
+  const initialBefore = syntax(path, initialPreimage);
   assert.equal(
     JSON.stringify(shape(bindingBefore, bindingBefore)),
-    JSON.stringify(shape(right, right)),
-    `Binding comment successor AST changed: ${path}`,
+    JSON.stringify(shape(initialBefore, initialBefore)),
+    `Historical binding comment successor AST changed: ${path}`,
   );
+  assert.equal(
+    after,
+    path === initialFocusRuntime ? disposeQueuedInitialFocus(initialPreimage) : initialPreimage,
+    `Only the authorized destroyed-owner initial-focus predicate/comment delta: ${path}`,
+  );
+  const initialEqual =
+    JSON.stringify(shape(initialBefore, initialBefore)) === JSON.stringify(shape(right, right));
+  if (path === initialFocusRuntime) assert(!initialEqual);
+  else {
+    assert(initialEqual);
+    initialFocusAstPreservedBodies++;
+  }
   const semanticOwnerCorrection = path === 'packages/utils/src/lib/PreviousValue.svelte.ts';
   const labelPublicationCorrection =
     path === 'packages/base/src/lib/utils/useRegisteredLabelId.svelte.ts';
@@ -393,12 +423,14 @@ for (const module of graph.native.modules) {
         "    // Opening metadata chooses this owner's return priority; later changes do not dispose it.\n" +
           '    const preferPreviousFocus = untrack(() => openInteractionTypeRef.current == null);',
       );
-    expected = disposeQueuedFocusOutside(expected);
+    expected = disposeQueuedInitialFocus(disposeQueuedFocusOutside(expected));
     assert.equal(after, expected, `Only the authorized complete-body metadata delta: ${path}`);
     assert.equal(
       after,
-      disposeQueuedFocusOutside(git('show', `${nativeOwnerPredecessor}:${path}`)),
-      'Only the component-owner disposed flag, native onDestroy and first focus-out queued check change',
+      disposeQueuedInitialFocus(
+        disposeQueuedFocusOutside(git('show', `${nativeOwnerPredecessor}:${path}`)),
+      ),
+      'Only the native owner disposal flag, focus-out queued check and initial-focus predicate/comment stages change',
     );
   }
   if (installedLabelCorrection || installedTreeCorrection) {
@@ -455,7 +487,7 @@ for (const module of graph.native.modules) {
       : triggerPublicationCorrection
         ? 'Root-authorized narrow native registration/data/button publication boundaries; actual Store and ID acquired outside untrack, Original registration/count/data bodies and independent effects retained. Candidate runtime execution pending.'
         : focusMetadataCorrection
-          ? 'Root-authorized native untrack of captured opening metadata and component-destroy cancellation of only queued focus-out work before rune-backed reads; actual node/disabled/bus dependencies, initial focus, latest returnFocus and intentional captured-target teardown retained. Candidate execution pending.'
+          ? 'Root-authorized native untrack of captured opening metadata and component-destroy guards for queued focus-out work and the first initial-focus frame predicate before rune-backed reads; actual node/disabled/bus dependencies, uncanceled frame mechanism, live-owner initial focus, latest returnFocus and intentional captured-target teardown retained. Candidate execution pending.'
           : installedLabelCorrection
             ? 'Root-authorized effect-local installed label ID capture, preserving conditional replacement-label protection; actual DOM witnesses unexecuted.'
             : installedTreeCorrection
@@ -487,6 +519,9 @@ for (const module of graph.native.modules) {
     record.sourceBusinessPredecessor = focusPredecessor;
     record.sourceBusinessPredecessorSha256 = hash(git('show', `${focusPredecessor}:${path}`));
     record.exactAuthorizedCompleteBodyDelta = true;
+    record.sourceInitialFocusDisposalPredecessor = initialFocusPredecessor;
+    record.sourceInitialFocusDisposalPredecessorSha256 = hash(initialPreimage);
+    record.sourceInitialFocusDisposalOrdinaryDeclarationCredit = 0;
     record.sourceResourceDisposalPredecessor = nativeOwnerPredecessor;
     record.sourceResourceDisposalPredecessorSha256 = hash(
       git('show', `${nativeOwnerPredecessor}:${path}`),
@@ -615,6 +650,15 @@ for (const witness of nativeLifetime.witnesses) {
   assert.equal(hash(body), witness.sha256, `Changed native owner witness: ${witness.path}`);
   assert.equal(body.toString(), git('show', `${nativeOwnerPredecessor}:${witness.path}`));
 }
+for (const receipt of [focusLifetime, nativeLifetime]) {
+  assert.equal(receipt.nativeInitialFocusDisposalStage.predecessor, initialFocusPredecessor);
+  assert.equal(receipt.nativeInitialFocusDisposalStage.ordinaryDeclarationCredit, 0);
+  assert.equal(
+    receipt.nativeInitialFocusDisposalStage.predecessorRuntimeSha256,
+    hash(git('show', `${initialFocusPredecessor}:${initialFocusRuntime}`)),
+  );
+}
+assert.equal(initialFocusAstPreservedBodies, 495);
 const output = {
   rendererPredecessor: renderer,
   nativeIntegrationParent,
@@ -625,11 +669,13 @@ const output = {
   nativeOwnerPredecessor,
   bindingCommentPredecessor,
   bindingCommentAstPreservedBodies: records.length,
+  initialFocusPredecessor,
+  initialFocusAstPreservedBodies,
   immutableOriginalPin: graph.immutableOriginalPin,
   ordinaryDeclarationCredit: 0,
   mode: 'Source/parser/hash/import evidence only; no type program, runtime, SSR/hydration, compiled markup, artifact, installed consumer, browser, CI or merge acceptance credit.',
   method:
-    'Complete current native two-package AST closure, immutable f0 full-body preimages and grouping-preserving script ASTs. Deliberate source/native owner corrections remain separate from formatter presentation changes. Getter/label publication retain exact inherited bodies; full-body Menu cleanup deltas bind e5, captured focus metadata binds42, trigger publication bindsf2, and native ownership comments bind336 with its AST unchanged. The five native node/initial-seed/focus-out disposal owner deltas bindc392 while all earlier stages/history remain distinct. The subsequent 32 obsolete binding directives and one RadioGroup output-binding annotation bind 0d with all 496 complete bodies otherwise unchanged and every script AST identical. Parse success supplies no behavior equivalence.',
+    'Complete current native two-package AST closure, immutable f0 full-body preimages and grouping-preserving script ASTs. Deliberate source/native owner corrections remain separate from formatter presentation changes. Getter/label publication retain exact inherited bodies; full-body Menu cleanup deltas bind e5, captured focus metadata binds42, trigger publication bindsf2, and native ownership comments bind336 with its AST unchanged. The five native node/initial-seed/focus-out disposal owner deltas bindc392 while all earlier stages/history remain distinct. The subsequent 32 obsolete binding directives and one RadioGroup output-binding annotation bind 0d with all 496 complete bodies otherwise unchanged and every script AST identical. The next native initial-focus destroyed-owner predicate and adjacent timing comment bind ec36 as one complete Source-body delta; all other 495 current bodies/ASTs stay exact. This native owner adaptation earns zero unchanged Original credit. Parse success supplies no behavior equivalence.',
   parserVersions: { TypeScript: ts.version, Svelte: compiler.VERSION },
   currentGraphSha256: hash(
     readFileSync(resolve(root, 'parity/utils-package/current-source-graph.json')),

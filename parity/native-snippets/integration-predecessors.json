@@ -913,6 +913,17 @@
           "sha256": "3f2c1873b9911a55974e88bc5174fefc0801b85c3e1fec414953bcbf9e949957"
         }
       ]
+    },
+    {
+      "commit": "ec36fc9cc5a8819260c2c6635e0a128acd563d4a",
+      "scope": "Exact complete focus-manager Source body before the native destroyed-owner initial-focus predicate and adjacent native timing comment; prior Original/history/assertions remain unchanged.",
+      "files": [
+        {
+          "predecessorPath": "packages/base/src/lib/floating-ui/components/createFloatingFocusManager.svelte.ts",
+          "archive": "parity/native-snippets/historical/initial-focus-ec36fc9c/packages/base/src/lib/floating-ui/components/createFloatingFocusManager.svelte.ts",
+          "sha256": "859655fcac3ce756ca68ab0021912e75daaec260864d8d9182cdaa6271b24626"
+        }
+      ]
     }
   ]
 }
