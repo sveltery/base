@@ -1,0 +1,30 @@
+{
+  "head": "f1ab9a0729f14bf7b47d2a053e1501c1482cd624",
+  "preimageSha256": "5d4aab6a37382b7e3822d7850bfe41fb52f48545057b12fe5664ff758e6bca3d",
+  "path": "apps/fixtures/src/lib/toast-label-fidelity-reference.ts",
+  "scope": "Five actual React Toast component prop objects become contextually checked ComponentProps intersections with named HTMLdata-testid; all attributes,children,conditional/customrender branches and assertions unchanged. No casts/runtimechanges.",
+  "logs": [
+    {
+      "archive": "verification-f1ab-hosted.log.txt.gz",
+      "uncompressedSha256": "a18f4de3cacbdd5c524bf756ee69313be146d66079abac765a185931c3f22742"
+    },
+    {
+      "archive": "label-types-f1ab-repair.log.txt.gz",
+      "uncompressedSha256": "2df81ff60b03d002fb02402e7cbd50c7fadc0f135cc3e45ab5f365c18bd7b3af"
+    },
+    {
+      "archive": "label-types-f1ab-repair-strict.log.txt.gz",
+      "uncompressedSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "archive": "label-pairs-f1ab-repair.log.txt.gz",
+      "uncompressedSha256": "eb845eab14cbb4342ded236903bb89fac7c71f9ce2404eb95541c225e64808f5"
+    }
+  ],
+  "hostedVerification": "GitHub Actions Verification job112547849237 (run link supplied by parent separately)",
+  "hostedResult": "Full scripts passed, Utils0errors0warnings, Base0errors6historicalwarnings; Fixtures5data-testid overloaderrors0warnings. Later runtime/DOM/build/consumer stages skipped; no MissingGit/runtime failure observed.",
+  "strictCommand": "NODE_OPTIONS=--max-old-space-size=1024 pnpm --filter @sveltery/fixtures exec tsc --ignoreConfig --noEmit --strict --exactOptionalPropertyTypes --noUncheckedIndexedAccess --skipLibCheck false --moduleResolution bundler --module esnext --target es2022 --lib es2022,dom --types react,react-dom --esModuleInterop src/lib/toast-label-fidelity-reference.ts",
+  "strictResult": "Passedexit0. Initial command withoutTS6--ignoreConfig failedTS5112 beforetypechecking; preserved. No fullworkspace1024MiB OOM retry.",
+  "affectedDom": "Existing authorednative toast-label-source-fidelity suite passed; actualOriginal/native browserpairs remain securedhosted requirement. Exact result log preserved; no assertions changed.",
+  "credit": "Supplementalfixture/nativewitness typing, zero unchangedOriginalassertion credit. No libraryruntime/sharedhelperchanges."
+}

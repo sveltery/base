@@ -1,5 +1,5 @@
 // Supplemental fixture using the pinned Original Toast components; MIT: parity/toast/UPSTREAM_LICENSE.
-import { createElement as h, Fragment, useState, type ComponentProps } from 'react';
+import { createElement as h, Fragment, useState } from 'react';
 import { createRoot } from 'react-dom/client';
 import { Toast } from '@base-ui/react/toast';
 
@@ -12,33 +12,6 @@ export function mountToastLabelFidelityReference(node: HTMLElement, scenario: st
     const [oldContent, setOldContent] = useState<string | number | boolean | null>('Old label');
     const [newContent, setNewContent] = useState<string | number | boolean | null>('New label');
     const [rendered, setRendered] = useState(true);
-    const rootProps: ComponentProps<typeof Toast.Root> & { 'data-testid': string } = {
-      toast: { id: 'labels', title: 'Fallback title', description: 'Fallback description' },
-      swipeDirection: [],
-      'data-testid': 'label-root',
-    };
-    const oldTitleProps: ComponentProps<typeof Toast.Title> & { 'data-testid': string } = {
-      id: sameId ? 'shared-title' : 'old-title',
-      'data-testid': 'old-title',
-      render: customRender ? (props) => (rendered ? h('h3', props) : h(Fragment)) : undefined,
-    };
-    const oldDescriptionProps: ComponentProps<typeof Toast.Description> & {
-      'data-testid': string;
-    } = {
-      id: sameId ? 'shared-description' : 'old-description',
-      'data-testid': 'old-description',
-      render: customRender ? (props) => (rendered ? h('section', props) : h(Fragment)) : undefined,
-    };
-    const newerTitleProps: ComponentProps<typeof Toast.Title> & { 'data-testid': string } = {
-      id: sameId ? 'shared-title' : 'new-title',
-      'data-testid': 'new-title',
-    };
-    const newerDescriptionProps: ComponentProps<typeof Toast.Description> & {
-      'data-testid': string;
-    } = {
-      id: sameId ? 'shared-description' : 'new-description',
-      'data-testid': 'new-description',
-    };
     return h(
       'main',
       { 'data-hydrated': 'true' },
@@ -50,21 +23,56 @@ export function mountToastLabelFidelityReference(node: HTMLElement, scenario: st
           null,
           h(
             Toast.Root,
-            rootProps,
+            {
+              toast: { id: 'labels', title: 'Fallback title', description: 'Fallback description' },
+              swipeDirection: [],
+              'data-testid': 'label-root',
+            },
             old
               ? h(
                   Fragment,
                   null,
-                  h(Toast.Title, oldTitleProps, oldContent),
-                  h(Toast.Description, oldDescriptionProps, oldContent),
+                  h(
+                    Toast.Title,
+                    {
+                      id: sameId ? 'shared-title' : 'old-title',
+                      'data-testid': 'old-title',
+                      render: customRender
+                        ? (props) => (rendered ? h('h3', props) : h(Fragment))
+                        : undefined,
+                    },
+                    oldContent,
+                  ),
+                  h(
+                    Toast.Description,
+                    {
+                      id: sameId ? 'shared-description' : 'old-description',
+                      'data-testid': 'old-description',
+                      render: customRender
+                        ? (props) => (rendered ? h('section', props) : h(Fragment))
+                        : undefined,
+                    },
+                    oldContent,
+                  ),
                 )
               : null,
             newer
               ? h(
                   Fragment,
                   null,
-                  h(Toast.Title, newerTitleProps, newContent),
-                  h(Toast.Description, newerDescriptionProps, newContent),
+                  h(
+                    Toast.Title,
+                    { id: sameId ? 'shared-title' : 'new-title', 'data-testid': 'new-title' },
+                    newContent,
+                  ),
+                  h(
+                    Toast.Description,
+                    {
+                      id: sameId ? 'shared-description' : 'new-description',
+                      'data-testid': 'new-description',
+                    },
+                    newContent,
+                  ),
                 )
               : null,
           ),
