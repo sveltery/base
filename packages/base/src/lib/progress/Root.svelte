@@ -1,9 +1,11 @@
 <script lang="ts">
+  import { mergeComponentProps } from '../internals/mergeComponentProps.js';
+  import { createAttachmentKey } from 'svelte/attachments';
+  import { untrack } from 'svelte';
+
   // Adapted from pinned ProgressRoot; MIT: THIRD_PARTY_NOTICES.md.
   import { visuallyHidden } from '@sveltery/utils/visuallyHidden';
   import { toNativeStyle } from '../internals/nativeProps.js';
-  import Element from '../dialog/Element.svelte';
-  import { resolveClassValue } from '../internals/resolveClassValue.js';
   import { setProgressContext } from './context.js';
   import { normalize, statusAttributes } from './helpers.js';
   import type { ProgressRootProps } from './types.js';
@@ -17,6 +19,7 @@
     children,
     render,
     class: classProp,
+    style,
     ref = $bindable(),
     ...props
   }: ProgressRootProps = $props();
@@ -51,9 +54,20 @@
       ? getAriaValueText(normalized.formattedValue, value)
       : normalized.defaultAriaValueText,
   });
-  const resolved = $derived({
-    ...props,
-    class: resolveClassValue(typeof classProp === 'function' ? classProp(partState) : classProp),
+
+  const hostAttachmentKey = createAttachmentKey();
+  function attachHost(host: HTMLElement) {
+    return untrack(() => {
+      ref = host;
+      return () =>
+        untrack(() => {
+          if (ref === host) ref = null;
+        });
+    });
+  }
+  const mergedProps = $derived({
+    ...mergeComponentProps(partState, { class: classProp, style }, [internal, props], false),
+    [hostAttachmentKey]: attachHost,
   });
 </script>
 
@@ -61,12 +75,8 @@
     role="presentation"
     style={toNativeStyle(visuallyHidden)}>x</span
   >{/snippet}
-<Element
-  tag="div"
-  {internal}
-  props={resolved}
-  state={partState}
-  {render}
-  children={content}
-  bind:ref
-/>
+{#if render}
+  {@render render(mergedProps, partState, content)}
+{:else}
+  <div {...mergedProps}>{@render content?.()}</div>
+{/if}

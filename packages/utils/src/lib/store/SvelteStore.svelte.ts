@@ -2,7 +2,6 @@
 // 47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c. MIT: THIRD_PARTY_NOTICES.md.
 import { untrack } from 'svelte';
 import { createSubscriber } from 'svelte/reactivity';
-import { DEV } from 'esm-env';
 import { Store } from './Store.svelte.js';
 // eslint-disable-next-line @typescript-eslint/no-explicit-any -- Selector signatures retain their own typed argument/return contracts.
 type Selector<State> = (state: State, ...args: any[]) => any;
@@ -51,18 +50,8 @@ export class SvelteStore<
     });
   }
   useSyncedValues<const Key extends keyof State>(getValues: () => Pick<State, Key>) {
-    let keys: string[] | undefined;
     $effect(() => {
       const values = getValues();
-      if (DEV) {
-        const nextKeys = Object.keys(values);
-        keys ??= nextKeys;
-        if (keys.length !== nextKeys.length || keys.some((key, index) => key !== nextKeys[index])) {
-          console.error(
-            'SvelteStore.useSyncedValues expects the same prop keys on every update. Keys should be stable.',
-          );
-        }
-      }
       untrack(() => this.update(values));
     });
   }
@@ -84,21 +73,12 @@ export class SvelteStore<
     key: Key,
     getControlled: () => State[Key] | undefined,
   ) {
-    const initiallyControlled = untrack(() => getControlled() !== undefined);
     $effect(() => {
       const controlled = getControlled();
       untrack(() => {
         if (controlled !== undefined) this.set(key, controlled);
       });
     });
-    if (DEV)
-      $effect(() => {
-        const isControlled = getControlled() !== undefined;
-        if (initiallyControlled !== isControlled)
-          console.error(
-            `A component is changing the ${isControlled ? '' : 'un'}controlled state of ${String(key)} to be ${isControlled ? 'un' : ''}controlled. Elements should not switch from uncontrolled to controlled (or vice versa).`,
-          );
-      });
   }
   useStateSetter<Key extends keyof State>(key: Key) {
     return (value: State[Key]) => this.set(key, value);

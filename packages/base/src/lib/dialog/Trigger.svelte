@@ -1,6 +1,9 @@
 <script lang="ts" generics="Payload = unknown">
+  import { mergeComponentProps } from '../internals/mergeComponentProps.js';
+  import { createAttachmentKey } from 'svelte/attachments';
+  import { untrack } from 'svelte';
+
   // Original DialogTrigger composition, shared popup registration/click/button/rendering (MIT).
-  import RenderElement from '../internals/RenderElement.svelte';
   import { useButton } from '../internals/use-button/useButton.svelte.js';
   import { useBaseUiId } from '../internals/useBaseUiId.js';
   import { CLICK_TRIGGER_IDENTIFIER } from '../internals/constants.js';
@@ -44,41 +47,66 @@
     () => store,
     () => ({ payload }),
   );
-  const { getButtonProps, buttonRef } = useButton(() => ({ disabled, native: nativeButton }));
+  const { getButtonProps, buttonRef } = useButton(() => ({
+    disabled,
+    native: nativeButton,
+  }));
   const click = useClick(() => store.select('floatingRootContext'));
   const interactionTypeProps = useOpenMethodTriggerProps(
     () => store.select('open'),
     (interactionType) => store.set('openMethod', interactionType),
   );
-  const state = $derived({ disabled, open: store.select('isOpenedByTrigger', thisTriggerId) });
+  const state = $derived({
+    disabled,
+    open: store.select('isOpenedByTrigger', thisTriggerId),
+  });
   const popupId = $derived(store.select('triggerPopupId', thisTriggerId));
   const rootTriggerProps = $derived(
     store.select('triggerProps', forwarding.isMountedByThisTrigger),
   );
+
+  const hostAttachmentKey = createAttachmentKey();
+  function attachHost(host: HTMLElement) {
+    return untrack(() => {
+      ref = host;
+      buttonRef?.(host);
+      forwarding.registerTrigger?.(host);
+      triggerElementRef.current = host;
+      return () =>
+        untrack(() => {
+          if (ref === host) ref = null;
+          buttonRef?.(null);
+          forwarding.registerTrigger?.(null);
+          if (triggerElementRef.current === host) triggerElementRef.current = null;
+        });
+    });
+  }
+  const mergedProps = $derived({
+    ...mergeComponentProps(
+      state,
+      { class: className, style: style },
+      [
+        click.reference,
+        rootTriggerProps,
+        interactionTypeProps,
+        {
+          [CLICK_TRIGGER_IDENTIFIER]: '',
+          id: thisTriggerId,
+          'aria-haspopup': 'dialog',
+          'aria-expanded': state.open,
+          'aria-controls': popupId,
+        },
+        elementProps,
+        getButtonProps,
+      ],
+      triggerOpenStateMapping,
+    ),
+    [hostAttachmentKey]: attachHost,
+  });
 </script>
 
-<RenderElement
-  tag="button"
-  componentProps={{ render, class: className, style }}
-  params={{
-    state,
-    ref: [buttonRef, forwarding.registerTrigger, triggerElementRef],
-    props: [
-      click.reference,
-      rootTriggerProps,
-      interactionTypeProps,
-      {
-        [CLICK_TRIGGER_IDENTIFIER]: '',
-        id: thisTriggerId,
-        'aria-haspopup': 'dialog',
-        'aria-expanded': state.open,
-        'aria-controls': popupId,
-      },
-      elementProps,
-      getButtonProps,
-    ],
-    stateAttributesMapping: triggerOpenStateMapping,
-  }}
-  {children}
-  bind:element={ref}
-/>
+{#if render}
+  {@render render(mergedProps, state, children)}
+{:else}
+  <button type="button" {...mergedProps}>{@render children?.()}</button>
+{/if}

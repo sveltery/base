@@ -1,6 +1,177 @@
 {
-  "status": "pending separate stacked successor under latest user directive",
-  "directive": "Latest user directive: React-only mechanisms with native Svelte equivalents use native primitives/behavior; port business roles without an equivalent. Custom-hook roles use classes. Controlled replaces React-style diagnostics/serializer/functional dispatch with the requested class API; native $effect replaces manual useIsoLayoutEffect dependency tuples. Current f57da39d implementation is a package/source checkpoint; this native cleanup is pending in a separate stacked change and current helper framework acceptance remains open.",
+  "status": "Actual native class/effect and direct snippet integration in proposed PR76/77; exact integrated Source/runtime/types/artifact/browser/CI acceptance pending",
+  "directive": "Use native Svelte primitives and their behavior where they replace React framework mechanisms. Retain real business without a native equivalent; use classes for reusable state owners and functions for stateless business. Controlled uses initial mode/default, live reads and direct value writes; direct $effect replaces tuple/lifecycle transport. Native divergent assertions earn zero unchanged upstream parity credit.",
   "sourceCheckpoint": "f57da39d",
-  "ordinaryDeclarationCredit": 0
+  "implementationCheckpoint": "359dc5615aca177756a461e993217b76ac0f6335",
+  "ordinaryDeclarationCredit": 0,
+  "sourceSuccessors": [
+    {
+      "from": "packages/utils/src/lib/useControlled.svelte.ts",
+      "replacement": "Controlled<T> class: initial mode/default, live controlled reads, direct set(next:T); optional T includes undefined. React diagnostics/serializer/functional dispatch removed.",
+      "currentOwners": [
+        "packages/utils/src/lib/Controlled.svelte.ts"
+      ]
+    },
+    {
+      "from": "packages/utils/src/lib/useIsoLayoutEffect.svelte.ts",
+      "replacement": "Direct SSR-safe Svelte $effect at all 123 used runtime calls; actual native reads and cleanup, no dependency arrays or tuple/lifecycle cache.",
+      "currentOwners": [
+        "packages/base/src/lib/checkbox-group/CheckboxGroup.svelte",
+        "packages/base/src/lib/checkbox/root/CheckboxRoot.svelte",
+        "packages/base/src/lib/context-menu/trigger/createContextMenuTrigger.svelte.ts",
+        "packages/base/src/lib/dialog/root/DialogInteractions.svelte",
+        "packages/base/src/lib/field/Control.svelte",
+        "packages/base/src/lib/field/Description.svelte",
+        "packages/base/src/lib/field/Error.svelte",
+        "packages/base/src/lib/field/Label.svelte",
+        "packages/base/src/lib/field/root/FieldRootInner.svelte",
+        "packages/base/src/lib/floating-ui/components/FloatingDelayGroup.svelte",
+        "packages/base/src/lib/floating-ui/components/FloatingPortal.svelte",
+        "packages/base/src/lib/floating-ui/components/FloatingTree.svelte.ts",
+        "packages/base/src/lib/floating-ui/components/createFloatingFocusManager.svelte.ts",
+        "packages/base/src/lib/floating-ui/hooks/useClientPoint.svelte.ts",
+        "packages/base/src/lib/floating-ui/hooks/useDelayGroup.svelte.ts",
+        "packages/base/src/lib/floating-ui/hooks/useDismiss.svelte.ts",
+        "packages/base/src/lib/floating-ui/hooks/useFloating.svelte.ts",
+        "packages/base/src/lib/floating-ui/hooks/useFloatingPortalNode.svelte.ts",
+        "packages/base/src/lib/floating-ui/hooks/useFocus.svelte.ts",
+        "packages/base/src/lib/floating-ui/hooks/useHoverFloatingInteraction.svelte.ts",
+        "packages/base/src/lib/floating-ui/hooks/useHoverReferenceInteraction.svelte.ts",
+        "packages/base/src/lib/floating-ui/hooks/useListNavigation.svelte.ts",
+        "packages/base/src/lib/floating-ui/hooks/useSyncedFloatingRootContext.svelte.ts",
+        "packages/base/src/lib/floating-ui/hooks/useTypeahead.svelte.ts",
+        "packages/base/src/lib/internals/ValueChanged.svelte.ts",
+        "packages/base/src/lib/internals/composite/list/useCompositeListItem.svelte.ts",
+        "packages/base/src/lib/internals/field-register-control/FieldControlRegistration.svelte.ts",
+        "packages/base/src/lib/internals/field-register-control/useRegisterFieldControl.svelte.ts",
+        "packages/base/src/lib/internals/labelable-provider/useLabelableId.svelte.ts",
+        "packages/base/src/lib/internals/use-button/useButton.svelte.ts",
+        "packages/base/src/lib/internals/useOpenChangeComplete.svelte.ts",
+        "packages/base/src/lib/internals/useTransitionStatus.svelte.ts",
+        "packages/base/src/lib/menu/GroupLabel.svelte",
+        "packages/base/src/lib/menu/Popup.svelte",
+        "packages/base/src/lib/menu/positioner/createMenuPositioner.svelte.ts",
+        "packages/base/src/lib/menu/root/createMenuRoot.svelte.ts",
+        "packages/base/src/lib/menu/submenu-trigger/createMenuSubmenuTrigger.svelte.ts",
+        "packages/base/src/lib/menu/trigger/createMenuTrigger.svelte.ts",
+        "packages/base/src/lib/menubar/Menubar.svelte",
+        "packages/base/src/lib/popover/Positioner.svelte",
+        "packages/base/src/lib/popover/Root.svelte",
+        "packages/base/src/lib/preview-card/Positioner.svelte",
+        "packages/base/src/lib/preview-card/Root.svelte",
+        "packages/base/src/lib/radio/root/RadioRoot.svelte",
+        "packages/base/src/lib/remote-forms/RemoteNativeControl.svelte",
+        "packages/base/src/lib/switch/root/SwitchRoot.svelte",
+        "packages/base/src/lib/tooltip/Root.svelte",
+        "packages/base/src/lib/utils/closePart.svelte.ts",
+        "packages/base/src/lib/utils/popups/PopupHandleAttachment.svelte",
+        "packages/base/src/lib/utils/popups/popupStoreUtils.svelte.ts",
+        "packages/base/src/lib/utils/useAnchoredPopupScrollLock.svelte.ts",
+        "packages/base/src/lib/utils/usePopupAutoResize.svelte.ts",
+        "packages/base/src/lib/utils/usePopupViewport.svelte.ts",
+        "packages/base/src/lib/utils/useRegisteredLabelId.svelte.ts",
+        "packages/utils/src/lib/useScrollLock.svelte.ts"
+      ]
+    },
+    {
+      "from": "packages/utils/src/lib/useStableCallback.ts",
+      "replacement": "Ordinary live setup closures at all 79 used runtime calls; narrow untrack only at imperative registration/publication/measurement boundaries.",
+      "currentOwners": [
+        "packages/base/src/lib/avatar/Image.svelte",
+        "packages/base/src/lib/checkbox-group/CheckboxGroup.svelte",
+        "packages/base/src/lib/checkbox-group/useCheckboxGroupParent.svelte.ts",
+        "packages/base/src/lib/field/Control.svelte",
+        "packages/base/src/lib/field/root/FieldRootInner.svelte",
+        "packages/base/src/lib/field/root/useFieldValidation.svelte.ts",
+        "packages/base/src/lib/floating-ui/components/createFloatingFocusManager.svelte.ts",
+        "packages/base/src/lib/floating-ui/hooks/useClientPoint.svelte.ts",
+        "packages/base/src/lib/floating-ui/hooks/useDismiss.svelte.ts",
+        "packages/base/src/lib/floating-ui/hooks/useHoverFloatingInteraction.svelte.ts",
+        "packages/base/src/lib/floating-ui/hooks/useHoverReferenceInteraction.svelte.ts",
+        "packages/base/src/lib/floating-ui/hooks/useListNavigation.svelte.ts",
+        "packages/base/src/lib/floating-ui/hooks/useTypeahead.svelte.ts",
+        "packages/base/src/lib/form/Form.svelte",
+        "packages/base/src/lib/internals/ValueChanged.svelte.ts",
+        "packages/base/src/lib/internals/composite/root/useCompositeRoot.svelte.ts",
+        "packages/base/src/lib/internals/field-register-control/FieldControlRegistration.svelte.ts",
+        "packages/base/src/lib/internals/labelable-provider/createLabelableProvider.svelte.ts",
+        "packages/base/src/lib/internals/labelable-provider/useLabel.svelte.ts",
+        "packages/base/src/lib/internals/labelable-provider/useLabelableId.svelte.ts",
+        "packages/base/src/lib/internals/use-button/useButton.svelte.ts",
+        "packages/base/src/lib/internals/useAnimationsFinished.ts",
+        "packages/base/src/lib/internals/useOpenChangeComplete.svelte.ts",
+        "packages/base/src/lib/menu/RadioGroup.svelte",
+        "packages/base/src/lib/menu/root/createMenuRoot.svelte.ts",
+        "packages/base/src/lib/menu/submenu-trigger/createMenuSubmenuTrigger.svelte.ts",
+        "packages/base/src/lib/menu/trigger/createMenuTrigger.svelte.ts",
+        "packages/base/src/lib/radio-group/RadioGroup.svelte",
+        "packages/base/src/lib/remote-forms/RemoteNativeControl.svelte",
+        "packages/base/src/lib/toggle-group/ToggleGroup.svelte",
+        "packages/base/src/lib/utils/closePart.svelte.ts",
+        "packages/base/src/lib/utils/popups/popupStoreUtils.svelte.ts",
+        "packages/base/src/lib/utils/usePopupAutoResize.svelte.ts",
+        "packages/base/src/lib/utils/usePopupViewport.svelte.ts"
+      ]
+    },
+    {
+      "from": "packages/utils/src/lib/useRefWithInit.ts",
+      "replacement": "Direct setup initialization for symbols, registries, retained values and class instances; no React ref sentinel wrapper.",
+      "currentOwners": [
+        "packages/base/src/lib/field/root/useFieldValidation.svelte.ts",
+        "packages/base/src/lib/floating-ui/hooks/useHoverInteractionSharedState.svelte.ts",
+        "packages/base/src/lib/internals/ValueChanged.svelte.ts",
+        "packages/base/src/lib/internals/field-register-control/useRegisterFieldControl.svelte.ts",
+        "packages/base/src/lib/internals/labelable-provider/createLabelableProvider.svelte.ts",
+        "packages/base/src/lib/internals/labelable-provider/useLabelableId.svelte.ts",
+        "packages/base/src/lib/menu/root/createMenuRoot.svelte.ts",
+        "packages/utils/src/lib/useAnimationFrame.ts",
+        "packages/utils/src/lib/useTimeout.ts"
+      ]
+    },
+    {
+      "from": "packages/utils/src/lib/useOnMount.ts",
+      "replacement": "Direct native lifecycle: timer/frame owners register onDestroy; HoverInteractionState retains onMount disposal.",
+      "currentOwners": [
+        "packages/base/src/lib/floating-ui/hooks/useHoverInteractionSharedState.svelte.ts",
+        "packages/utils/src/lib/useAnimationFrame.ts",
+        "packages/utils/src/lib/useTimeout.ts"
+      ]
+    },
+    {
+      "from": "packages/utils/src/lib/usePreviousValue.svelte.ts",
+      "replacement": "PreviousValue<T> class retains current/previous pair and Object.is comparison; native .value getter.",
+      "currentOwners": [
+        "packages/utils/src/lib/PreviousValue.svelte.ts"
+      ]
+    },
+    {
+      "from": "packages/utils/src/lib/useAnimationFrame.ts",
+      "replacement": "Source Scheduler/reset/AnimationFrame class business remains; useAnimationFrame setup factory removed and used owners construct the class with direct onDestroy cancellation.",
+      "currentOwners": [
+        "packages/utils/src/lib/useAnimationFrame.ts"
+      ]
+    },
+    {
+      "from": "packages/utils/src/lib/useTimeout.ts",
+      "replacement": "Source Timeout class remains; useTimeout setup factory removed and used owners construct the class with direct onDestroy clearing.",
+      "currentOwners": [
+        "packages/utils/src/lib/useTimeout.ts"
+      ]
+    },
+    {
+      "from": "packages/utils/src/lib/useMergedRefs.ts",
+      "replacement": "React callback/object ref identity and fan-out transport is retired by PR77; component bindable refs, native bindings and independent attachments publish actual DOM hosts. There is no runtime adapter or Utils merged-ref export.",
+      "currentOwners": [],
+      "retiredFrameworkTransport": true,
+      "retiredSubpath": "./useMergedRefs"
+    },
+    {
+      "from": "packages/utils/src/lib/store/SvelteStore.svelte.ts",
+      "replacement": "Native SvelteStore synchronization/observer cleanup and canonical Store mutations retained; obsolete React controlled diagnostics and stable-key bookkeeping removed.",
+      "currentOwners": [
+        "packages/utils/src/lib/store/SvelteStore.svelte.ts"
+      ]
+    }
+  ],
+  "featureProjectionStatus": "Current LOCAL two-package AST graph and native per-host/prop correspondence are regenerated; exact native76 and rendering77 predecessor projections are archived in parity/native-snippets/integration-predecessors.json. Immutable Original arrays, assertions and receipts retain their historical scope."
 }

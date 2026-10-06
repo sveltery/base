@@ -1,9 +1,9 @@
 // Original ContextMenuTrigger full pointer/long-press/listener business (MIT).
-import { untrack } from 'svelte';
+import { onDestroy, untrack } from 'svelte';
 import { addEventListener } from '@sveltery/utils/addEventListener';
 import { ownerDocument } from '@sveltery/utils/owner';
-import { useTimeout } from '@sveltery/utils/useTimeout';
-import { useIsoLayoutEffect } from '@sveltery/utils/useIsoLayoutEffect';
+import { Timeout } from '@sveltery/utils/useTimeout';
+
 import { contains, getTarget } from '../../floating-ui/utils/element.js';
 import { stopEvent } from '../../floating-ui/utils/event.js';
 import { useContextMenuRootContext } from '../root/ContextMenuRootContext.js';
@@ -32,15 +32,17 @@ export function createContextMenuTrigger(getProps: () => ContextMenuTriggerProps
   const { store } = useMenuRootContext(false);
   const open = $derived(store.useState('open'));
   const disabled = $derived(store.useState('disabled'));
-  const triggerRef = { current: null as HTMLDivElement | null };
+  const triggerRef = { current: null as HTMLElement | null };
   const touchPositionRef = {
     current: null as {
       x: number;
       y: number;
     } | null,
   };
-  const longPressTimeout = useTimeout();
-  const allowMouseUpTimeout = useTimeout();
+  const longPressTimeout = new Timeout();
+  onDestroy(longPressTimeout.clear);
+  const allowMouseUpTimeout = new Timeout();
+  onDestroy(allowMouseUpTimeout.clear);
   const allowMouseUpRef = { current: false };
   const mouseUpAbortControllerRef = { current: null as AbortController | null };
   function handleLongPress(x: number, y: number, event: MouseEvent | TouchEvent) {
@@ -136,34 +138,28 @@ export function createContextMenuTrigger(getProps: () => ContextMenuTriggerProps
       }
     }
   }
-  useIsoLayoutEffect(
-    () => () => {
-      // Abort a pending mouseup listener if the trigger unmounts before it fires.
-      mouseUpAbortControllerRef.current?.abort();
-    },
-    () => [],
-  );
-  useIsoLayoutEffect(
-    () => {
-      function handleDocumentContextMenu(event: MouseEvent) {
-        if (disabled) {
-          return;
-        }
-        const target = getTarget(event);
-        const targetElement = target as HTMLElement | null;
-        if (
-          contains(triggerRef.current, targetElement) ||
-          contains(internalBackdropRef.current, targetElement) ||
-          contains(backdropRef.current, targetElement)
-        ) {
-          event.preventDefault();
-        }
+  $effect(() => () => {
+    // Abort a pending mouseup listener if the trigger unmounts before it fires.
+    mouseUpAbortControllerRef.current?.abort();
+  });
+  $effect(() => {
+    function handleDocumentContextMenu(event: MouseEvent) {
+      if (disabled) {
+        return;
       }
-      const doc = ownerDocument(triggerRef.current);
-      return addEventListener(doc, 'contextmenu', handleDocumentContextMenu);
-    },
-    () => [backdropRef, disabled, internalBackdropRef],
-  );
+      const target = getTarget(event);
+      const targetElement = target as HTMLElement | null;
+      if (
+        contains(triggerRef.current, targetElement) ||
+        contains(internalBackdropRef.current, targetElement) ||
+        contains(backdropRef.current, targetElement)
+      ) {
+        event.preventDefault();
+      }
+    }
+    const doc = ownerDocument(triggerRef.current);
+    return addEventListener(doc, 'contextmenu', handleDocumentContextMenu);
+  });
   const state: ContextMenuTriggerState = $derived({
     open,
   });

@@ -2,17 +2,19 @@
   lang="ts"
   generics="Values extends FormValues = FormValues, Remote extends RemoteFormLike | undefined = undefined"
 >
+  import { mergeComponentProps } from '../internals/mergeComponentProps.js';
+  import { createAttachmentKey } from 'svelte/attachments';
+
   // Mechanically ported from Base UI v1.8.0 form/Form.tsx.
   // 47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c; MIT: THIRD_PARTY_NOTICES.md.
   import { untrack, type Snippet } from 'svelte';
   import type { HTMLFormAttributes } from 'svelte/elements';
-  import { useStableCallback } from '@sveltery/utils/useStableCallback';
+
   import { EMPTY_OBJECT } from '@sveltery/utils/empty';
   import { createGenericEventDetails } from '../internals/createBaseUIEventDetails.js';
   import { REASONS } from '../internals/reasons.js';
   import { setFormContext, type FormContext } from '../internals/form-context/FormContext.js';
-  import RenderElement from '../internals/RenderElement.svelte';
-  import { useValueChanged } from '../internals/useValueChanged.svelte.js';
+  import { ValueChanged } from '../internals/ValueChanged.svelte.js';
   import type {
     FormActions,
     FormErrors,
@@ -58,10 +60,12 @@
   }
   const fieldNamespace = $derived(namespaceFor<Remote>(remote));
   const formRef: FormContext['formRef'] = { current: { fields: new Map() } };
-  const elementRef = $state<{ current: HTMLFormElement | null }>({ current: null });
+  const elementRef = $state<{ current: HTMLFormElement | null }>({
+    current: null,
+  });
   const submittedRef = { current: false };
   const submitCountRef = { current: 0 };
-  const focusFirstInvalid = useStableCallback(() => {
+  const focusFirstInvalid = () => {
     let hasInvalid = false;
     let firstControl: HTMLElement | null = null;
     for (const field of formRef.current.fields.values()) {
@@ -77,9 +81,9 @@
       return true;
     }
     return hasInvalid;
-  });
+  };
   let errors = $state<FormErrors | undefined>(untrack(() => externalErrors));
-  useValueChanged(
+  new ValueChanged(
     () => externalErrors,
     () => () => {
       errors = externalErrors;
@@ -131,13 +135,13 @@
       }
     },
   };
-  const clearErrors = useStableCallback((name: string | undefined) => {
+  const clearErrors = (name: string | undefined) => {
     if (!name) return;
     if (!errors || !Object.hasOwn(errors, name)) return;
     const nextErrors = { ...errors };
     delete nextErrors[name];
     errors = nextErrors;
-  });
+  };
   const contextValue: FormContext = {
     elementRef,
     formRef,
@@ -151,20 +155,7 @@
     submitCountRef,
   };
   setFormContext(contextValue);
-  const forwardedRef = {
-    get current() {
-      return ref ?? null;
-    },
-    set current(value: HTMLElement | null) {
-      ref = value;
-    },
-  };
-  const componentProps = $derived({
-    render: render ? renderForm : undefined,
-    class: classProp,
-    style,
-  });
-  const params = $derived({ ref: [forwardedRef, elementRef], props: [internal, elementProps] });
+
   function comesBeforeInSameTree(element: Node, reference: Node) {
     const position = element.compareDocumentPosition(reference);
     return (
@@ -172,6 +163,30 @@
       (position & Node.DOCUMENT_POSITION_FOLLOWING) !== 0
     );
   }
+
+  const renderState = $derived({});
+  const renderSnippet = $derived(render ? renderForm : undefined);
+  const hostAttachmentKey = createAttachmentKey();
+  function attachHost(host: HTMLFormElement) {
+    return untrack(() => {
+      ref = host;
+      elementRef.current = host;
+      return () =>
+        untrack(() => {
+          if (ref === host) ref = null;
+          if (elementRef.current === host) elementRef.current = null;
+        });
+    });
+  }
+  const mergedProps = $derived({
+    ...mergeComponentProps(
+      renderState,
+      { class: classProp, style: style },
+      [internal, elementProps],
+      undefined,
+    ),
+    [hostAttachmentKey]: attachHost,
+  });
 </script>
 
 {#snippet renderForm(
@@ -188,9 +203,10 @@
 {#snippet formChildren()}
   {@render children?.(fieldNamespace)}
 {/snippet}
-<RenderElement
-  tag="form"
-  {componentProps}
-  {params}
-  children={children ? formChildren : undefined}
-/>
+{#if renderSnippet}
+  {@render renderSnippet(mergedProps, renderState, children ? formChildren : undefined)}
+{:else}
+  <form {...mergedProps}>
+    {@render (children ? formChildren : undefined)?.()}
+  </form>
+{/if}

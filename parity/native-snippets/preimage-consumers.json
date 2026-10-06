@@ -1,0 +1,1881 @@
+{
+  "pin": "47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c",
+  "base": "359dc5615aca177756a461e993217b76ac0f6335",
+  "consumers": [
+    {
+      "file": "packages/base/src/lib/accordion/Header.svelte",
+      "sha256": "c6bf5bf028c042230c77ba5e140ac353069a81cae1db089a32a67de03f49f023",
+      "calls": [
+        {
+          "line": 16,
+          "wrapper": "Element",
+          "tag": "h3",
+          "internal": "stateAttributes(state)",
+          "props": "resolved",
+          "state": "state",
+          "render": "render",
+          "children": "children",
+          "bind": [
+            {
+              "name": "ref",
+              "expression": "ref"
+            }
+          ],
+          "body": "<Element tag=\"h3\" internal={stateAttributes(state)} props={resolved} {state} {render} {children} bind:ref />"
+        }
+      ]
+    },
+    {
+      "file": "packages/base/src/lib/accordion/Item.svelte",
+      "sha256": "118f42e143e12bc829964a5b2063e845099b6932176ee53ef312bb626cab10bc",
+      "calls": [
+        {
+          "line": 93,
+          "wrapper": "Element",
+          "tag": "div",
+          "internal": "stateAttributes(itemState)",
+          "props": "resolved",
+          "state": "itemState",
+          "render": "render",
+          "children": "children",
+          "bind": [
+            {
+              "name": "ref",
+              "expression": "ref"
+            }
+          ],
+          "body": "<Element tag=\"div\" internal={stateAttributes(itemState)} props={resolved} state={itemState} {render} {children} bind:ref {attach} />"
+        }
+      ]
+    },
+    {
+      "file": "packages/base/src/lib/accordion/Panel.svelte",
+      "sha256": "f2d81033e64cc3c9111038974e588f4ccba40ad3f4d25374e9d76365912ed932",
+      "calls": [
+        {
+          "line": 269,
+          "wrapper": "Element",
+          "tag": "div",
+          "internal": "internal",
+          "props": "resolved",
+          "state": "panelState",
+          "render": "render",
+          "children": "children",
+          "bind": [
+            {
+              "name": "ref",
+              "expression": "ref"
+            }
+          ],
+          "body": "<Element tag=\"div\" {internal} props={resolved} state={panelState} {render} {children} bind:ref {attach} />"
+        }
+      ]
+    },
+    {
+      "file": "packages/base/src/lib/accordion/Root.svelte",
+      "sha256": "35305bd595a54255f7696c97ffca39ff95dbdddbc909cc5b9ca2d0875e76ecb6",
+      "calls": [
+        {
+          "line": 47,
+          "wrapper": "Element",
+          "tag": "div",
+          "internal": "{ 'data-disabled': disabled ? '' : undefined, 'data-orientation': orientation }",
+          "props": "resolved",
+          "state": "rootState",
+          "render": "render",
+          "children": "children",
+          "bind": [
+            {
+              "name": "ref",
+              "expression": "ref"
+            }
+          ],
+          "body": "<Element tag=\"div\" internal={{ 'data-disabled': disabled ? '' : undefined, 'data-orientation': orientation }} props={resolved} state={rootState} {render} {children} bind:ref />"
+        }
+      ]
+    },
+    {
+      "file": "packages/base/src/lib/accordion/Trigger.svelte",
+      "sha256": "ff61540982c0f1fa88e2586c40aa612c1c08a2d8f3e2516844fd49a9211bd589",
+      "calls": [
+        {
+          "line": 35,
+          "wrapper": "Element",
+          "tag": "button",
+          "internal": "render ? {} : { type: 'button' }",
+          "props": "resolved",
+          "state": "state",
+          "render": "render",
+          "children": "children",
+          "bind": [
+            {
+              "name": "ref",
+              "expression": "ref"
+            }
+          ],
+          "body": "<Element tag=\"button\" internal={render ? {} : { type: 'button' }} props={resolved} {state} {render} {children} bind:ref />"
+        }
+      ]
+    },
+    {
+      "file": "packages/base/src/lib/avatar/Fallback.svelte",
+      "sha256": "6e65dc6f84ee0be63f3d4b573f794a77ddf5211366990386ff1cf4f1eacd1011",
+      "calls": [
+        {
+          "line": 23,
+          "wrapper": "RenderElement",
+          "tag": "span",
+          "componentProps": "componentProps",
+          "params": "params",
+          "children": "children",
+          "bind": [
+            {
+              "name": "element",
+              "expression": "ref"
+            }
+          ],
+          "body": "<RenderElement tag=\"span\" {componentProps} {params} {children} bind:element={ref} />"
+        }
+      ]
+    },
+    {
+      "file": "packages/base/src/lib/avatar/Image.svelte",
+      "sha256": "d014f54aa4cdab64d8da47ea0c3e23ed51b6b4b69c549f41606965648eb0eccc",
+      "calls": [
+        {
+          "line": 96,
+          "wrapper": "RenderElement",
+          "tag": "img",
+          "componentProps": "componentProps",
+          "params": "params",
+          "children": "children",
+          "bind": [
+            {
+              "name": "element",
+              "expression": "ref"
+            }
+          ],
+          "body": "<RenderElement tag=\"img\" {componentProps} {params} {children} bind:element={ref} />"
+        }
+      ]
+    },
+    {
+      "file": "packages/base/src/lib/avatar/Root.svelte",
+      "sha256": "6dac7a69ff215052dce3d64e4d1d7cd0e593f6b6f7904053172e6485480aa834",
+      "calls": [
+        {
+          "line": 15,
+          "wrapper": "RenderElement",
+          "tag": "span",
+          "componentProps": "componentProps",
+          "params": "params",
+          "children": "children",
+          "bind": [
+            {
+              "name": "element",
+              "expression": "ref"
+            }
+          ],
+          "body": "<RenderElement tag=\"span\" {componentProps} {params} {children} bind:element={ref} />"
+        }
+      ]
+    },
+    {
+      "file": "packages/base/src/lib/button/Button.svelte",
+      "sha256": "eac67f49b5c020c9603a4faec37fa3e7e94e695d97ad852c9283585e832c8f38",
+      "calls": [
+        {
+          "line": 28,
+          "wrapper": "RenderElement",
+          "tag": "button",
+          "componentProps": "{ render, class: className, style }",
+          "params": "{ state, ref: [buttonRef], props: [elementProps, getButtonProps] }",
+          "children": "children",
+          "bind": [
+            {
+              "name": "element",
+              "expression": "ref"
+            }
+          ],
+          "body": "<RenderElement\n  tag=\"button\"\n  componentProps={{ render, class: className, style }}\n  params={{ state, ref: [buttonRef], props: [elementProps, getButtonProps] }}\n  {children}\n  bind:element={ref}\n/>"
+        }
+      ]
+    },
+    {
+      "file": "packages/base/src/lib/checkbox-group/CheckboxGroup.svelte",
+      "sha256": "6dad1fef9e70359e8068f2c7a9bceb04289361e328ed40dc91d9fc1c30e6e72f",
+      "calls": [
+        {
+          "line": 136,
+          "wrapper": "RenderElement",
+          "tag": "div",
+          "componentProps": "componentProps",
+          "params": "params",
+          "children": "children",
+          "bind": [],
+          "body": "<RenderElement tag=\"div\" {componentProps} {params} {children} />"
+        }
+      ]
+    },
+    {
+      "file": "packages/base/src/lib/checkbox/indicator/CheckboxIndicator.svelte",
+      "sha256": "2b0707e9fbef896f1e02bfcf434a7257cbffe38394157f38239ea2de0f44dcf6",
+      "calls": [
+        {
+          "line": 62,
+          "wrapper": "RenderElement",
+          "tag": "span",
+          "componentProps": "componentProps",
+          "params": "params",
+          "children": "children",
+          "bind": [],
+          "body": "<RenderElement tag=\"span\" {componentProps} {params} {children} />"
+        }
+      ]
+    },
+    {
+      "file": "packages/base/src/lib/checkbox/root/CheckboxRoot.svelte",
+      "sha256": "2756992c27345ff4a138619d84ea2c00a308c223b2260bf7b13f590e0b5e2a14",
+      "calls": [
+        {
+          "line": 329,
+          "wrapper": "RenderElement",
+          "tag": "span",
+          "componentProps": "componentProps",
+          "params": "params",
+          "children": "children",
+          "bind": [],
+          "body": "<RenderElement tag=\"span\" {componentProps} {params} {children} />"
+        }
+      ]
+    },
+    {
+      "file": "packages/base/src/lib/collapsible/Panel.svelte",
+      "sha256": "0caf4ad3bb45d26f9c88714ad46921cac270bc7d90f1a2caae6e1959f5618206",
+      "calls": [
+        {
+          "line": 262,
+          "wrapper": "Element",
+          "tag": "div",
+          "internal": "internal",
+          "props": "resolved",
+          "state": "panelState",
+          "render": "render",
+          "children": "children",
+          "bind": [
+            {
+              "name": "ref",
+              "expression": "ref"
+            }
+          ],
+          "body": "<Element tag=\"div\" {internal} props={resolved} state={panelState} {render} {children} bind:ref {attach} />"
+        }
+      ]
+    },
+    {
+      "file": "packages/base/src/lib/collapsible/Root.svelte",
+      "sha256": "0fecbd067396bcea80c43716738d02d5fd5b15f2bd6f9ca36fccf8f65a42e76d",
+      "calls": [
+        {
+          "line": 66,
+          "wrapper": "Element",
+          "tag": "div",
+          "internal": "stateAttributes(rootState)",
+          "props": "resolved",
+          "state": "rootState",
+          "render": "render",
+          "children": "children",
+          "bind": [
+            {
+              "name": "ref",
+              "expression": "ref"
+            }
+          ],
+          "body": "<Element tag=\"div\" internal={stateAttributes(rootState)} props={resolved} state={rootState} {render} {children} bind:ref />"
+        }
+      ]
+    },
+    {
+      "file": "packages/base/src/lib/collapsible/Trigger.svelte",
+      "sha256": "c2b1c1e1412725a5f1b586634e19dcce9a84d49361449205e922dbc902ddc673",
+      "calls": [
+        {
+          "line": 24,
+          "wrapper": "Element",
+          "tag": "button",
+          "internal": "render ? {} : { type: 'button' }",
+          "props": "resolved",
+          "state": "state",
+          "render": "render",
+          "children": "children",
+          "bind": [
+            {
+              "name": "ref",
+              "expression": "ref"
+            }
+          ],
+          "body": "<Element tag=\"button\" internal={render ? {} : { type: 'button' }} props={resolved} {state} {render} {children} bind:ref />"
+        }
+      ]
+    },
+    {
+      "file": "packages/base/src/lib/context-menu/Trigger.svelte",
+      "sha256": "7f1cbc17d151873dbacd8c26887c4b4cd0a6c5e6341c33acceee8e341b45fb28",
+      "calls": [
+        {
+          "line": 12,
+          "wrapper": "RenderElement",
+          "tag": "div",
+          "componentProps": "props",
+          "params": "{ state: trigger.state, ref: [trigger.triggerRef, setRef], props: [trigger.props, trigger.elementProps], stateAttributesMapping: pressableTriggerOpenStateMapping }",
+          "children": "props.children",
+          "bind": [],
+          "body": "<RenderElement tag=\"div\" componentProps={props} params={{ state: trigger.state, ref: [trigger.triggerRef, setRef], props: [trigger.props, trigger.elementProps], stateAttributesMapping: pressableTriggerOpenStateMapping }} children={props.children} />"
+        }
+      ]
+    },
+    {
+      "file": "packages/base/src/lib/dialog/Backdrop.svelte",
+      "sha256": "99293c2e7f8d9aa74c44334cca75bb3fc59693e6c109dffede81224d16888374",
+      "calls": [
+        {
+          "line": 11,
+          "wrapper": "RenderElement",
+          "tag": "div",
+          "componentProps": "{ render, class: className, style }",
+          "params": "{\n    state,\n    ref: store.context.backdropRef,\n    stateAttributesMapping: popupTransitionStateMapping,\n    props: [\n      { role: 'presentation', hidden: !store.select('mounted'), style: { userSelect: 'none', WebkitUserSelect: 'none' } },\n      elementProps,\n    ],\n    enabled: forceRender || !store.select('nested'),\n  }",
+          "children": "children",
+          "bind": [
+            {
+              "name": "element",
+              "expression": "ref"
+            }
+          ],
+          "body": "<RenderElement\n  tag=\"div\"\n  componentProps={{ render, class: className, style }}\n  params={{\n    state,\n    ref: store.context.backdropRef,\n    stateAttributesMapping: popupTransitionStateMapping,\n    props: [\n      { role: 'presentation', hidden: !store.select('mounted'), style: { userSelect: 'none', WebkitUserSelect: 'none' } },\n      elementProps,\n    ],\n    enabled: forceRender || !store.select('nested'),\n  }}\n  {children}\n  bind:element={ref}\n/>"
+        }
+      ]
+    },
+    {
+      "file": "packages/base/src/lib/dialog/Close.svelte",
+      "sha256": "399981f723670074c6e0201592dd03ad8914a5e82a607675ac763842a51a6ec1",
+      "calls": [
+        {
+          "line": 17,
+          "wrapper": "RenderElement",
+          "tag": "button",
+          "componentProps": "{ render, class: className, style }",
+          "params": "{ state, ref: buttonRef, props: [{ onclick: handleClick }, elementProps, getButtonProps] }",
+          "children": "children",
+          "bind": [
+            {
+              "name": "element",
+              "expression": "ref"
+            }
+          ],
+          "body": "<RenderElement\n  tag=\"button\"\n  componentProps={{ render, class: className, style }}\n  params={{ state, ref: buttonRef, props: [{ onclick: handleClick }, elementProps, getButtonProps] }}\n  {children}\n  bind:element={ref}\n/>"
+        }
+      ]
+    },
+    {
+      "file": "packages/base/src/lib/dialog/Description.svelte",
+      "sha256": "c61de79d3b876bbade14757b74158935065f4bc5b617d239618d8be61e0f3dfe",
+      "calls": [
+        {
+          "line": 13,
+          "wrapper": "RenderElement",
+          "tag": "p",
+          "componentProps": "{ render, class: className, style }",
+          "params": "{ props: [{ id }, elementProps] }",
+          "children": "children",
+          "bind": [
+            {
+              "name": "element",
+              "expression": "ref"
+            }
+          ],
+          "body": "<RenderElement\n  tag=\"p\"\n  componentProps={{ render, class: className, style }}\n  params={{ props: [{ id }, elementProps] }}\n  {children}\n  bind:element={ref}\n/>"
+        }
+      ]
+    },
+    {
+      "file": "packages/base/src/lib/dialog/Popup.svelte",
+      "sha256": "f2a3d15a730eec1a68adb0968add533d8c55f5428e168201857b1bf0bfa35355",
+      "calls": [
+        {
+          "line": 43,
+          "wrapper": "RenderElement",
+          "tag": "div",
+          "componentProps": "{ render, class: className, style }",
+          "params": "{\n      state,\n      ref: [store.context.popupRef, setPopupElement],\n      props: [\n        store.select('popupProps'),\n        {\n          id: store.state.floatingRootContext.select('floatingId'),\n          'aria-labelledby': store.select('titleElementId'),\n          'aria-describedby': store.select('descriptionElementId'),\n          role: store.select('role'),\n          ...FOCUSABLE_POPUP_PROPS,\n          hidden: !mounted,\n          onkeydown(event: KeyboardEvent) { if (COMPOSITE_KEYS.has(event.key)) event.stopPropagation(); },\n          style: { [DialogPopupCssVars.nestedDialogs]: nestedOpenDialogCount },\n        },\n        elementProps,\n      ],\n      stateAttributesMapping: dialogStateAttributesMapping,\n    }",
+          "children": "children",
+          "bind": [
+            {
+              "name": "element",
+              "expression": "ref"
+            }
+          ],
+          "body": "<RenderElement\n    tag=\"div\"\n    componentProps={{ render, class: className, style }}\n    params={{\n      state,\n      ref: [store.context.popupRef, setPopupElement],\n      props: [\n        store.select('popupProps'),\n        {\n          id: store.state.floatingRootContext.select('floatingId'),\n          'aria-labelledby': store.select('titleElementId'),\n          'aria-describedby': store.select('descriptionElementId'),\n          role: store.select('role'),\n          ...FOCUSABLE_POPUP_PROPS,\n          hidden: !mounted,\n          onkeydown(event: KeyboardEvent) { if (COMPOSITE_KEYS.has(event.key)) event.stopPropagation(); },\n          style: { [DialogPopupCssVars.nestedDialogs]: nestedOpenDialogCount },\n        },\n        elementProps,\n      ],\n      stateAttributesMapping: dialogStateAttributesMapping,\n    }}\n    {children}\n    bind:element={ref}\n  />"
+        }
+      ]
+    },
+    {
+      "file": "packages/base/src/lib/dialog/Title.svelte",
+      "sha256": "ac8d2b665aa1e8c504775705ea42eff4c686c9770633c2f2c6daed21cceed4af",
+      "calls": [
+        {
+          "line": 13,
+          "wrapper": "RenderElement",
+          "tag": "h2",
+          "componentProps": "{ render, class: className, style }",
+          "params": "{ props: [{ id }, elementProps] }",
+          "children": "children",
+          "bind": [
+            {
+              "name": "element",
+              "expression": "ref"
+            }
+          ],
+          "body": "<RenderElement\n  tag=\"h2\"\n  componentProps={{ render, class: className, style }}\n  params={{ props: [{ id }, elementProps] }}\n  {children}\n  bind:element={ref}\n/>"
+        }
+      ]
+    },
+    {
+      "file": "packages/base/src/lib/dialog/Trigger.svelte",
+      "sha256": "a0374753c3db8d75108ce0e3e5398b6abc306db599c0f8a3aca618e634406f1d",
+      "calls": [
+        {
+          "line": 34,
+          "wrapper": "RenderElement",
+          "tag": "button",
+          "componentProps": "{ render, class: className, style }",
+          "params": "{\n    state,\n    ref: [buttonRef, forwarding.registerTrigger, triggerElementRef],\n    props: [\n      click.reference,\n      rootTriggerProps,\n      interactionTypeProps,\n      { [CLICK_TRIGGER_IDENTIFIER]: '', id: thisTriggerId, 'aria-haspopup': 'dialog', 'aria-expanded': state.open, 'aria-controls': popupId },\n      elementProps,\n      getButtonProps,\n    ],\n    stateAttributesMapping: triggerOpenStateMapping,\n  }",
+          "children": "children",
+          "bind": [
+            {
+              "name": "element",
+              "expression": "ref"
+            }
+          ],
+          "body": "<RenderElement\n  tag=\"button\"\n  componentProps={{ render, class: className, style }}\n  params={{\n    state,\n    ref: [buttonRef, forwarding.registerTrigger, triggerElementRef],\n    props: [\n      click.reference,\n      rootTriggerProps,\n      interactionTypeProps,\n      { [CLICK_TRIGGER_IDENTIFIER]: '', id: thisTriggerId, 'aria-haspopup': 'dialog', 'aria-expanded': state.open, 'aria-controls': popupId },\n      elementProps,\n      getButtonProps,\n    ],\n    stateAttributesMapping: triggerOpenStateMapping,\n  }}\n  {children}\n  bind:element={ref}\n/>"
+        }
+      ]
+    },
+    {
+      "file": "packages/base/src/lib/dialog/Viewport.svelte",
+      "sha256": "7940c5f1f767a68cf2e15ae1980b17bc3cb2b62ae43d56d55464c42b8e29b6af",
+      "calls": [
+        {
+          "line": 18,
+          "wrapper": "RenderElement",
+          "tag": "div",
+          "componentProps": "{ render, class: className, style }",
+          "params": "{\n    enabled: portal.keepMounted || store.select('mounted'),\n    state,\n    ref: setViewportElement,\n    stateAttributesMapping: dialogStateAttributesMapping,\n    props: [\n      { role: 'presentation', hidden: !store.select('mounted'), style: { pointerEvents: !state.open ? 'none' : undefined } },\n      elementProps,\n    ],\n  }",
+          "children": "children",
+          "bind": [
+            {
+              "name": "element",
+              "expression": "ref"
+            }
+          ],
+          "body": "<RenderElement\n  tag=\"div\"\n  componentProps={{ render, class: className, style }}\n  params={{\n    enabled: portal.keepMounted || store.select('mounted'),\n    state,\n    ref: setViewportElement,\n    stateAttributesMapping: dialogStateAttributesMapping,\n    props: [\n      { role: 'presentation', hidden: !store.select('mounted'), style: { pointerEvents: !state.open ? 'none' : undefined } },\n      elementProps,\n    ],\n  }}\n  {children}\n  bind:element={ref}\n/>"
+        }
+      ]
+    },
+    {
+      "file": "packages/base/src/lib/field/Control.svelte",
+      "sha256": "680733ce5b98d3005b4d6896039ce83eec1f6f5342a5b7afdc2cf5eebf96d7fd",
+      "calls": [
+        {
+          "line": 115,
+          "wrapper": "RenderElement",
+          "tag": "input",
+          "componentProps": "componentProps",
+          "params": "params",
+          "bind": [],
+          "body": "<RenderElement tag=\"input\" {componentProps} {params} />"
+        }
+      ]
+    },
+    {
+      "file": "packages/base/src/lib/field/Description.svelte",
+      "sha256": "8266019378e92a8554ac3dae2e76177a51ac599b68592345f563ded386d939da",
+      "calls": [
+        {
+          "line": 29,
+          "wrapper": "RenderElement",
+          "tag": "p",
+          "componentProps": "componentProps",
+          "params": "params",
+          "children": "children",
+          "bind": [],
+          "body": "<RenderElement tag=\"p\" {componentProps} {params} {children} />"
+        }
+      ]
+    },
+    {
+      "file": "packages/base/src/lib/field/Error.svelte",
+      "sha256": "a70381785a1481ae964a91092dde7ee6126b66bb127c65bff5b4322785bf191d",
+      "calls": [
+        {
+          "line": 66,
+          "wrapper": "RenderElement",
+          "tag": "div",
+          "componentProps": "componentProps",
+          "params": "params",
+          "bind": [],
+          "body": "<RenderElement tag=\"div\" {componentProps} {params} />"
+        }
+      ]
+    },
+    {
+      "file": "packages/base/src/lib/field/Item.svelte",
+      "sha256": "737b50c83d7fb7d9b68567a062eb995c1f98664a09d85a49d2b5ba1938f07fdd",
+      "calls": [
+        {
+          "line": 18,
+          "wrapper": "RenderElement",
+          "tag": "div",
+          "componentProps": "componentProps",
+          "params": "params",
+          "children": "children",
+          "bind": [],
+          "body": "<RenderElement tag=\"div\" {componentProps} {params} {children} />"
+        }
+      ]
+    },
+    {
+      "file": "packages/base/src/lib/field/Label.svelte",
+      "sha256": "49cd51d44553780f4c4d511030586add5e0c91ef233b53ceccbd9b44a0365acd",
+      "calls": [
+        {
+          "line": 38,
+          "wrapper": "RenderElement",
+          "tag": "label",
+          "componentProps": "componentProps",
+          "params": "params",
+          "children": "children",
+          "bind": [],
+          "body": "<RenderElement tag=\"label\" {componentProps} {params} {children} />"
+        }
+      ]
+    },
+    {
+      "file": "packages/base/src/lib/field/root/FieldRootInner.svelte",
+      "sha256": "3f7b0432d2bdec17dfae05acc6df88fe5746a79ef49399538f21c4b0b532a41b",
+      "calls": [
+        {
+          "line": 87,
+          "wrapper": "RenderElement",
+          "tag": "div",
+          "componentProps": "componentProps",
+          "params": "params",
+          "children": "children",
+          "bind": [],
+          "body": "<RenderElement tag=\"div\" {componentProps} {params} {children} />"
+        }
+      ]
+    },
+    {
+      "file": "packages/base/src/lib/fieldset/Legend.svelte",
+      "sha256": "dea36d82dc1119997ed59ffe00e644f2c83c04851478ec9215b75a61c12cb9b3",
+      "calls": [
+        {
+          "line": 16,
+          "wrapper": "RenderElement",
+          "tag": "div",
+          "componentProps": "componentProps",
+          "params": "params",
+          "children": "children",
+          "bind": [],
+          "body": "<RenderElement tag=\"div\" {componentProps} {params} {children} />"
+        }
+      ]
+    },
+    {
+      "file": "packages/base/src/lib/fieldset/Root.svelte",
+      "sha256": "da997a508d106b55ee4f494827d7227bcd302410534f7524d20022af7e1ef160",
+      "calls": [
+        {
+          "line": 20,
+          "wrapper": "RenderElement",
+          "tag": "fieldset",
+          "componentProps": "componentProps",
+          "params": "params",
+          "children": "children",
+          "bind": [],
+          "body": "<RenderElement tag=\"fieldset\" {componentProps} {params} {children} />"
+        }
+      ]
+    },
+    {
+      "file": "packages/base/src/lib/form/Form.svelte",
+      "sha256": "802690e29eff3056d4527577052541b5063bc87b9326594505585a4bcd897dda",
+      "calls": [
+        {
+          "line": 117,
+          "wrapper": "RenderElement",
+          "tag": "form",
+          "componentProps": "componentProps",
+          "params": "params",
+          "children": "children ? formChildren : undefined",
+          "bind": [],
+          "body": "<RenderElement tag=\"form\" {componentProps} {params} children={children ? formChildren : undefined} />"
+        }
+      ]
+    },
+    {
+      "file": "packages/base/src/lib/internals/composite/item/CompositeItem.svelte",
+      "sha256": "4d122789e9708f4d8de1a0d137e92f22d1d4648a27132ea7d5388a6312c271e1",
+      "calls": [
+        {
+          "line": 40,
+          "wrapper": "RenderElement",
+          "tag": "tag",
+          "componentProps": "componentProps",
+          "params": "params",
+          "children": "children",
+          "bind": [],
+          "body": "<RenderElement {tag} {componentProps} {params} {children} />"
+        }
+      ]
+    },
+    {
+      "file": "packages/base/src/lib/internals/composite/root/CompositeRoot.svelte",
+      "sha256": "8677a1a97c41cd56b8e52ac47fb40a3401ece276ebb62d83b6c3ac5cc0763bac",
+      "calls": [
+        {
+          "line": 92,
+          "wrapper": "RenderElement",
+          "tag": "tag",
+          "componentProps": "componentProps",
+          "params": "params",
+          "children": "children",
+          "bind": [],
+          "body": "<RenderElement {tag} {componentProps} {params} {children} />"
+        }
+      ]
+    },
+    {
+      "file": "packages/base/src/lib/menu/Arrow.svelte",
+      "sha256": "5f1758b72eb8be50fa7ec309b894bf01f37402b0b1bede39413164f9cdd9c8f6",
+      "calls": [
+        {
+          "line": 15,
+          "wrapper": "RenderElement",
+          "tag": "div",
+          "componentProps": "{ render, class: className, style }",
+          "params": "{ state: componentState, stateAttributesMapping: popupStateMapping, ref: [positioner.arrowRef, setRef], props: { style: positioner.arrowStyles, 'aria-hidden': true, ...elementProps } }",
+          "children": "children",
+          "bind": [],
+          "body": "<RenderElement tag=\"div\" componentProps={{ render, class: className, style }} params={{ state: componentState, stateAttributesMapping: popupStateMapping, ref: [positioner.arrowRef, setRef], props: { style: positioner.arrowStyles, 'aria-hidden': true, ...elementProps } }} {children} />"
+        }
+      ]
+    },
+    {
+      "file": "packages/base/src/lib/menu/Backdrop.svelte",
+      "sha256": "814d4b11409e60f00cc2f60d0f10795005b681932a2d77e5ea1dacf0482b661e",
+      "calls": [
+        {
+          "line": 20,
+          "wrapper": "RenderElement",
+          "tag": "div",
+          "componentProps": "{ render, class: className, style }",
+          "params": "{ state: componentState, stateAttributesMapping: popupTransitionStateMapping, ref: context?.backdropRef ? [setRef, context.backdropRef] : setRef, props: [{ role: 'presentation', hidden: !mounted, style: { pointerEvents: lastOpenChangeReason === REASONS.triggerHover ? 'none' : undefined, userSelect: 'none', WebkitUserSelect: 'none' } }, elementProps] }",
+          "children": "children",
+          "bind": [],
+          "body": "<RenderElement tag=\"div\" componentProps={{ render, class: className, style }} params={{ state: componentState, stateAttributesMapping: popupTransitionStateMapping, ref: context?.backdropRef ? [setRef, context.backdropRef] : setRef, props: [{ role: 'presentation', hidden: !mounted, style: { pointerEvents: lastOpenChangeReason === REASONS.triggerHover ? 'none' : undefined, userSelect: 'none', WebkitUserSelect: 'none' } }, elementProps] }} {children} />"
+        }
+      ]
+    },
+    {
+      "file": "packages/base/src/lib/menu/CheckboxItem.svelte",
+      "sha256": "4d137abd3891df04490803007866b7054cb1264c6020c7a5579009b78aab046d",
+      "calls": [
+        {
+          "line": 40,
+          "wrapper": "RenderElement",
+          "tag": "div",
+          "componentProps": "{ render, class: className, style }",
+          "params": "{ state: componentState, stateAttributesMapping: itemMapping, props: [itemProps, { role: 'menuitemcheckbox', 'aria-checked': checked, onclick: handleClick }, elementProps, item.getItemProps], ref: [item.itemRef, setRef, listItem.ref] }",
+          "children": "children",
+          "bind": [],
+          "body": "<RenderElement tag=\"div\" componentProps={{ render, class: className, style }} params={{ state: componentState, stateAttributesMapping: itemMapping, props: [itemProps, { role: 'menuitemcheckbox', 'aria-checked': checked, onclick: handleClick }, elementProps, item.getItemProps], ref: [item.itemRef, setRef, listItem.ref] }} {children} />"
+        }
+      ]
+    },
+    {
+      "file": "packages/base/src/lib/menu/CheckboxItemIndicator.svelte",
+      "sha256": "279a71aa9d1da285ebf84c854ff69a81de7a082a091726c010db86b2c7ca7a2e",
+      "calls": [
+        {
+          "line": 18,
+          "wrapper": "RenderElement",
+          "tag": "span",
+          "componentProps": "{ render, class: className, style }",
+          "params": "{ state: componentState, ref: [setRef, indicatorRef], stateAttributesMapping: itemMapping, props: { 'aria-hidden': true, ...elementProps }, enabled: keepMounted || transition.mounted }",
+          "children": "children",
+          "bind": [],
+          "body": "<RenderElement tag=\"span\" componentProps={{ render, class: className, style }} params={{ state: componentState, ref: [setRef, indicatorRef], stateAttributesMapping: itemMapping, props: { 'aria-hidden': true, ...elementProps }, enabled: keepMounted || transition.mounted }} {children} />"
+        }
+      ]
+    },
+    {
+      "file": "packages/base/src/lib/menu/Group.svelte",
+      "sha256": "910024f07f4d2c85dbc4add9cd89e0a1203d7f8bdcd06c200c3828de4a206e4a",
+      "calls": [
+        {
+          "line": 11,
+          "wrapper": "RenderElement",
+          "tag": "div",
+          "componentProps": "{ render, class: className, style }",
+          "params": "{ props: { role: 'group', 'aria-labelledby': labelId, ...elementProps } }",
+          "children": "children",
+          "bind": [
+            {
+              "name": "element",
+              "expression": "ref"
+            }
+          ],
+          "body": "<RenderElement tag=\"div\" componentProps={{ render, class: className, style }} params={{ props: { role: 'group', 'aria-labelledby': labelId, ...elementProps } }} bind:element={ref} {children} />"
+        }
+      ]
+    },
+    {
+      "file": "packages/base/src/lib/menu/GroupLabel.svelte",
+      "sha256": "0e758314608d20353c15f1a4109b74ba9ff8408641df6c3a19736c297428cba6",
+      "calls": [
+        {
+          "line": 14,
+          "wrapper": "RenderElement",
+          "tag": "div",
+          "componentProps": "{ render, class: className, style }",
+          "params": "{ props: { id, 'aria-hidden': true, ...elementProps } }",
+          "children": "children",
+          "bind": [
+            {
+              "name": "element",
+              "expression": "ref"
+            }
+          ],
+          "body": "<RenderElement tag=\"div\" componentProps={{ render, class: className, style }} params={{ props: { id, 'aria-hidden': true, ...elementProps } }} bind:element={ref} {children} />"
+        }
+      ]
+    },
+    {
+      "file": "packages/base/src/lib/menu/Item.svelte",
+      "sha256": "61c2f41ab94034d677037553a2d514e1618c45f5e793e344b5f4181a2b97b16a",
+      "calls": [
+        {
+          "line": 24,
+          "wrapper": "RenderElement",
+          "tag": "div",
+          "componentProps": "{ render, class: className, style }",
+          "params": "{ state, props: [itemProps, elementProps, item.getItemProps], ref: [item.itemRef, setRef, listItem.ref] }",
+          "children": "children",
+          "bind": [],
+          "body": "<RenderElement tag=\"div\" componentProps={{ render, class: className, style }} params={{ state, props: [itemProps, elementProps, item.getItemProps], ref: [item.itemRef, setRef, listItem.ref] }} {children} />"
+        }
+      ]
+    },
+    {
+      "file": "packages/base/src/lib/menu/LinkItem.svelte",
+      "sha256": "2436be2a8bd9b6148d97a8f0f5c6238b142eeedb6f0b90aa468283d601411674",
+      "calls": [
+        {
+          "line": 31,
+          "wrapper": "RenderElement",
+          "tag": "a",
+          "componentProps": "{ render, class: className, style }",
+          "params": "{ state: componentState, props: [itemProps, elementProps, getItemProps], ref: [linkRef, buttonRef, setRef, listItem.ref] }",
+          "children": "children",
+          "bind": [],
+          "body": "<RenderElement tag=\"a\" componentProps={{ render, class: className, style }} params={{ state: componentState, props: [itemProps, elementProps, getItemProps], ref: [linkRef, buttonRef, setRef, listItem.ref] }} {children} />"
+        }
+      ]
+    },
+    {
+      "file": "packages/base/src/lib/menu/Popup.svelte",
+      "sha256": "a9dca93e85262b733b07c32fdc9ea2c957d0512eb91ee78f5ff1814d2c4f097c",
+      "calls": [
+        {
+          "line": 65,
+          "wrapper": "RenderElement",
+          "tag": "div",
+          "componentProps": "{ render, class: className, style }",
+          "params": "{ state, ref: [setRef, store.context.popupRef, setPopupElement], stateAttributesMapping: popupTransitionStateMapping, props: [popupProps, { onkeydown(event: KeyboardEvent) { if (insideToolbar && COMPOSITE_KEYS.has(event.key)) event.stopPropagation(); } }, getDisabledMountTransitionStyles(transitionStatus), elementProps, { 'data-rootownerid': rootId }] }",
+          "children": "children",
+          "bind": [],
+          "body": "<RenderElement tag=\"div\" componentProps={{ render, class: className, style }} params={{ state, ref: [setRef, store.context.popupRef, setPopupElement], stateAttributesMapping: popupTransitionStateMapping, props: [popupProps, { onkeydown(event: KeyboardEvent) { if (insideToolbar && COMPOSITE_KEYS.has(event.key)) event.stopPropagation(); } }, getDisabledMountTransitionStyles(transitionStatus), elementProps, { 'data-rootownerid': rootId }] }} {children} />"
+        }
+      ]
+    },
+    {
+      "file": "packages/base/src/lib/menu/Positioner.svelte",
+      "sha256": "123e8bd520436b7b483c5b10a64e29e445dd47666b070c1fad47373933a6b576",
+      "calls": [
+        {
+          "line": 24,
+          "wrapper": "RenderElement",
+          "tag": "div",
+          "componentProps": "props",
+          "params": "root.element.params",
+          "children": "props.children",
+          "bind": [],
+          "body": "<RenderElement tag=\"div\" componentProps={props} params={root.element.params} children={props.children} />"
+        }
+      ]
+    },
+    {
+      "file": "packages/base/src/lib/menu/RadioGroup.svelte",
+      "sha256": "cd95e747d277537cbab004349d9e5e223b6e67e9aabcf64adb938d39ec765a1f",
+      "calls": [
+        {
+          "line": 24,
+          "wrapper": "RenderElement",
+          "tag": "div",
+          "componentProps": "{ render, class: className, style }",
+          "params": "{ state: componentState, props: { role: 'group', 'aria-labelledby': ariaLabelledByProp ?? labelId, 'aria-disabled': disabled || undefined, ...elementProps } }",
+          "children": "children",
+          "bind": [
+            {
+              "name": "element",
+              "expression": "ref"
+            }
+          ],
+          "body": "<RenderElement tag=\"div\" componentProps={{ render, class: className, style }} params={{ state: componentState, props: { role: 'group', 'aria-labelledby': ariaLabelledByProp ?? labelId, 'aria-disabled': disabled || undefined, ...elementProps } }} bind:element={ref} {children} />"
+        }
+      ]
+    },
+    {
+      "file": "packages/base/src/lib/menu/RadioItem.svelte",
+      "sha256": "8634aed4dbe8e0cd6f6ba81a8fe1217899f401cc1d946a0664b3e1f5308a2919",
+      "calls": [
+        {
+          "line": 37,
+          "wrapper": "RenderElement",
+          "tag": "div",
+          "componentProps": "{ render, class: className, style }",
+          "params": "{ state: componentState, stateAttributesMapping: itemMapping, props: [itemProps, { role: 'menuitemradio', 'aria-checked': checked, onclick: handleClick }, elementProps, item.getItemProps], ref: [item.itemRef, setRef, listItem.ref] }",
+          "children": "children",
+          "bind": [],
+          "body": "<RenderElement tag=\"div\" componentProps={{ render, class: className, style }} params={{ state: componentState, stateAttributesMapping: itemMapping, props: [itemProps, { role: 'menuitemradio', 'aria-checked': checked, onclick: handleClick }, elementProps, item.getItemProps], ref: [item.itemRef, setRef, listItem.ref] }} {children} />"
+        }
+      ]
+    },
+    {
+      "file": "packages/base/src/lib/menu/RadioItemIndicator.svelte",
+      "sha256": "d6dbb34230388c78b9da53946af39812fd547b7398e53cb306ae915af3c21246",
+      "calls": [
+        {
+          "line": 18,
+          "wrapper": "RenderElement",
+          "tag": "span",
+          "componentProps": "{ render, class: className, style }",
+          "params": "{ state: componentState, ref: [setRef, indicatorRef], stateAttributesMapping: itemMapping, props: { 'aria-hidden': true, ...elementProps }, enabled: keepMounted || transition.mounted }",
+          "children": "children",
+          "bind": [],
+          "body": "<RenderElement tag=\"span\" componentProps={{ render, class: className, style }} params={{ state: componentState, ref: [setRef, indicatorRef], stateAttributesMapping: itemMapping, props: { 'aria-hidden': true, ...elementProps }, enabled: keepMounted || transition.mounted }} {children} />"
+        }
+      ]
+    },
+    {
+      "file": "packages/base/src/lib/menu/SubmenuTrigger.svelte",
+      "sha256": "7af54ebb1a2872beb0f085758867e62add3be6b6ffa621e24be8edbce438c456",
+      "calls": [
+        {
+          "line": 12,
+          "wrapper": "RenderElement",
+          "tag": "div",
+          "componentProps": "props",
+          "params": "{ state: root.state, props: root.props, ref: root.refs, stateAttributesMapping: triggerOpenStateMapping }",
+          "children": "props.children",
+          "bind": [],
+          "body": "<RenderElement tag=\"div\" componentProps={props} params={{ state: root.state, props: root.props, ref: root.refs, stateAttributesMapping: triggerOpenStateMapping }} children={props.children} />"
+        }
+      ]
+    },
+    {
+      "file": "packages/base/src/lib/menu/Trigger.svelte",
+      "sha256": "a05c0c825e6049d86b4d1132fdde245fd8adf0d33c40dfba9f1b0189658593a7",
+      "calls": [
+        {
+          "line": 18,
+          "wrapper": "RenderElement",
+          "tag": "button",
+          "componentProps": "props",
+          "params": "{ state: root.state, ref: root.ref, props: root.props, stateAttributesMapping: pressableTriggerOpenStateMapping }",
+          "children": "props.children",
+          "bind": [],
+          "body": "<RenderElement tag=\"button\" componentProps={props} params={{ state: root.state, ref: root.ref, props: root.props, stateAttributesMapping: pressableTriggerOpenStateMapping }} children={props.children} />"
+        }
+      ]
+    },
+    {
+      "file": "packages/base/src/lib/menu/Viewport.svelte",
+      "sha256": "4e1a74ec0fc8b5654fe315d20689e4cc1933516c2e98f0934001fd21aa7d7a7d",
+      "calls": [
+        {
+          "line": 23,
+          "wrapper": "RenderElement",
+          "tag": "div",
+          "componentProps": "{ render, class: className, style }",
+          "params": "{ state: componentState, props: [elementProps], stateAttributesMapping: popupViewportStateMapping }",
+          "bind": [
+            {
+              "name": "element",
+              "expression": "ref"
+            }
+          ],
+          "body": "<RenderElement tag=\"div\" componentProps={{ render, class: className, style }} params={{ state: componentState, props: [elementProps], stateAttributesMapping: popupViewportStateMapping }} bind:element={ref}>\n  {#if viewport.previousContentNode}\n    <div data-previous inert {...previousProps} style={toNativeStyle({ ...(viewport.previousContentDimensions ? { [CommonPopupCssVars.popupWidth]: `${viewport.previousContentDimensions.width}px`, [CommonPopupCssVars.popupHeight]: `${viewport.previousContentDimensions.height}px` } : null), position: 'absolute' })} data-ending-style={viewport.showStartingStyleAttribute ? undefined : ''}></div>\n  {/if}\n  {#key viewport.currentContentKey}\n    <div data-current {...currentProps} data-starting-style={viewport.previousContentNode && viewport.showStartingStyleAttribute ? '' : undefined}>{@render children?.()}</div>\n  {/key}\n</RenderElement>"
+        }
+      ]
+    },
+    {
+      "file": "packages/base/src/lib/meter/Indicator.svelte",
+      "sha256": "b9ec46982ea8b4eb91bef2a723c5990e530fcc27b5c0c43f3987bb331940eed3",
+      "calls": [
+        {
+          "line": 14,
+          "wrapper": "Element",
+          "tag": "div",
+          "internal": "internal",
+          "props": "resolved",
+          "state": "state",
+          "render": "render",
+          "children": "children",
+          "bind": [
+            {
+              "name": "ref",
+              "expression": "ref"
+            }
+          ],
+          "body": "<Element tag=\"div\" {internal} props={resolved} {state} {render} {children} bind:ref />"
+        }
+      ]
+    },
+    {
+      "file": "packages/base/src/lib/meter/Label.svelte",
+      "sha256": "3a6fa08a5129ed3ada4b64ba114e3fa69a9c31d00575cf498e630814e1878dfe",
+      "calls": [
+        {
+          "line": 22,
+          "wrapper": "Element",
+          "tag": "span",
+          "internal": "internal",
+          "props": "resolved",
+          "state": "state",
+          "render": "render",
+          "children": "children",
+          "bind": [
+            {
+              "name": "ref",
+              "expression": "ref"
+            }
+          ],
+          "body": "<Element tag=\"span\" {internal} props={resolved} {state} {render} {children} bind:ref />"
+        }
+      ]
+    },
+    {
+      "file": "packages/base/src/lib/meter/Root.svelte",
+      "sha256": "6b3e3ba9ec300bd2c5f267e12df053c367da4adccba759ab9fe0e1b9f5a61ada",
+      "calls": [
+        {
+          "line": 27,
+          "wrapper": "Element",
+          "tag": "div",
+          "internal": "internal",
+          "props": "resolved",
+          "state": "partState",
+          "render": "render",
+          "children": "content",
+          "bind": [
+            {
+              "name": "ref",
+              "expression": "ref"
+            }
+          ],
+          "body": "<Element tag=\"div\" {internal} props={resolved} state={partState} {render} children={content} bind:ref />"
+        }
+      ]
+    },
+    {
+      "file": "packages/base/src/lib/meter/Track.svelte",
+      "sha256": "cba82ee76c6f6e40e332875e679faecd5c6cc5c6a79b4f0290617e99b5ec59e4",
+      "calls": [
+        {
+          "line": 11,
+          "wrapper": "Element",
+          "tag": "div",
+          "props": "resolved",
+          "state": "state",
+          "render": "render",
+          "children": "children",
+          "bind": [
+            {
+              "name": "ref",
+              "expression": "ref"
+            }
+          ],
+          "body": "<Element tag=\"div\" props={resolved} {state} {render} {children} bind:ref />"
+        }
+      ]
+    },
+    {
+      "file": "packages/base/src/lib/meter/Value.svelte",
+      "sha256": "85aca1638d80f2f36a9ce6817737a0de91da4f52abe3ddd52ffe8b552d1b9406",
+      "calls": [
+        {
+          "line": 17,
+          "wrapper": "Element",
+          "tag": "span",
+          "internal": "internal",
+          "props": "resolved",
+          "state": "state",
+          "render": "render",
+          "children": "content",
+          "bind": [
+            {
+              "name": "ref",
+              "expression": "ref"
+            }
+          ],
+          "body": "<Element tag=\"span\" {internal} props={resolved} {state} {render} children={content} bind:ref />"
+        }
+      ]
+    },
+    {
+      "file": "packages/base/src/lib/popover/Arrow.svelte",
+      "sha256": "fb9f9d4493f12be35d6779061e1aa6b21d2da23e81a4019cb1a8a1354d1c8d11",
+      "calls": [
+        {
+          "line": 15,
+          "wrapper": "RenderElement",
+          "tag": "div",
+          "componentProps": "{ render, class: className, style }",
+          "params": "{ state, ref: [forwardedRef, positioner.arrowRef], props: [{ style: positioner.arrowStyles, 'aria-hidden': true }, elementProps], stateAttributesMapping: popupStateMapping }",
+          "children": "children",
+          "bind": [],
+          "body": "<RenderElement tag=\"div\" componentProps={{ render, class: className, style }} params={{ state, ref: [forwardedRef, positioner.arrowRef], props: [{ style: positioner.arrowStyles, 'aria-hidden': true }, elementProps], stateAttributesMapping: popupStateMapping }} {children} />"
+        }
+      ]
+    },
+    {
+      "file": "packages/base/src/lib/popover/Backdrop.svelte",
+      "sha256": "1412553267405c19885afdf95d2d41d3410107d4a5752d3978644be704cb5282",
+      "calls": [
+        {
+          "line": 14,
+          "wrapper": "RenderElement",
+          "tag": "div",
+          "componentProps": "{ render, class: className, style }",
+          "params": "{ state, ref: forwardedRef, props: [{ role: 'presentation', hidden: !store.select('mounted'), style: { pointerEvents: store.select('openChangeReason') === REASONS.triggerHover ? 'none' : undefined, userSelect: 'none', WebkitUserSelect: 'none' } }, elementProps], stateAttributesMapping: popupTransitionStateMapping }",
+          "children": "children",
+          "bind": [],
+          "body": "<RenderElement tag=\"div\" componentProps={{ render, class: className, style }} params={{ state, ref: forwardedRef, props: [{ role: 'presentation', hidden: !store.select('mounted'), style: { pointerEvents: store.select('openChangeReason') === REASONS.triggerHover ? 'none' : undefined, userSelect: 'none', WebkitUserSelect: 'none' } }, elementProps], stateAttributesMapping: popupTransitionStateMapping }} {children} />"
+        }
+      ]
+    },
+    {
+      "file": "packages/base/src/lib/popover/Close.svelte",
+      "sha256": "35b2eee7595eb8deb06055482862ae4ac05263f2d5bdfd52bbecc71773496195",
+      "calls": [
+        {
+          "line": 19,
+          "wrapper": "RenderElement",
+          "tag": "button",
+          "componentProps": "{ render, class: className, style }",
+          "params": "{ ref: [forwardedRef, buttonRef], props: [{ onclick(event: MouseEvent) { store.setOpen(false, createChangeEventDetails(REASONS.closePress, event)); } }, elementProps, getButtonProps] }",
+          "children": "children",
+          "bind": [],
+          "body": "<RenderElement tag=\"button\" componentProps={{ render, class: className, style }} params={{ ref: [forwardedRef, buttonRef], props: [{ onclick(event: MouseEvent) { store.setOpen(false, createChangeEventDetails(REASONS.closePress, event)); } }, elementProps, getButtonProps] }} {children} />"
+        }
+      ]
+    },
+    {
+      "file": "packages/base/src/lib/popover/Description.svelte",
+      "sha256": "330b0388e9186e4ea24452008a99a58a7b70fb4d6f30e1b0e28d89c5c05e0233",
+      "calls": [
+        {
+          "line": 15,
+          "wrapper": "RenderElement",
+          "tag": "p",
+          "componentProps": "{ render, class: className, style }",
+          "params": "{ ref: forwardedRef, props: [{ id }, elementProps] }",
+          "children": "children",
+          "bind": [],
+          "body": "<RenderElement tag=\"p\" componentProps={{ render, class: className, style }} params={{ ref: forwardedRef, props: [{ id }, elementProps] }} {children} />"
+        }
+      ]
+    },
+    {
+      "file": "packages/base/src/lib/popover/Popup.svelte",
+      "sha256": "868fba9a72aa0915895e768765948733d3ab6332d47735ed836edcd31d178304",
+      "calls": [
+        {
+          "line": 57,
+          "wrapper": "RenderElement",
+          "tag": "div",
+          "componentProps": "{ render, class: className, style }",
+          "params": "{ state, ref: [forwardedRef, store.context.popupRef, setPopupElement], props: [popupProps, { id: floatingId, role: 'dialog', ...FOCUSABLE_POPUP_PROPS, 'aria-labelledby': titleId, 'aria-describedby': descriptionId, onkeydown(event: KeyboardEvent) { if (insideToolbar && COMPOSITE_KEYS.has(event.key)) event.stopPropagation(); } }, getDisabledMountTransitionStyles(transitionStatus), elementProps], stateAttributesMapping: popupTransitionStateMapping }",
+          "children": "children",
+          "bind": [],
+          "body": "<RenderElement tag=\"div\" componentProps={{ render, class: className, style }} params={{ state, ref: [forwardedRef, store.context.popupRef, setPopupElement], props: [popupProps, { id: floatingId, role: 'dialog', ...FOCUSABLE_POPUP_PROPS, 'aria-labelledby': titleId, 'aria-describedby': descriptionId, onkeydown(event: KeyboardEvent) { if (insideToolbar && COMPOSITE_KEYS.has(event.key)) event.stopPropagation(); } }, getDisabledMountTransitionStyles(transitionStatus), elementProps], stateAttributesMapping: popupTransitionStateMapping }} {children} />"
+        }
+      ]
+    },
+    {
+      "file": "packages/base/src/lib/popover/Positioner.svelte",
+      "sha256": "06c69775901e4176643d5c88be2a8c0fff63966a9689426500ca6e93cc071383",
+      "calls": [
+        {
+          "line": 65,
+          "wrapper": "RenderElement",
+          "tag": "div",
+          "componentProps": "{ render, class: className, style }",
+          "params": "element.params",
+          "children": "children",
+          "bind": [],
+          "body": "<RenderElement tag=\"div\" componentProps={{ render, class: className, style }} params={element.params} {children} />"
+        }
+      ]
+    },
+    {
+      "file": "packages/base/src/lib/popover/Title.svelte",
+      "sha256": "5e43c07f543ad2601b5cc0a1f095419ba4c56be74c061b86fcbc6ea587ae09c3",
+      "calls": [
+        {
+          "line": 15,
+          "wrapper": "RenderElement",
+          "tag": "h2",
+          "componentProps": "{ render, class: className, style }",
+          "params": "{ ref: forwardedRef, props: [{ id }, elementProps] }",
+          "children": "children",
+          "bind": [],
+          "body": "<RenderElement tag=\"h2\" componentProps={{ render, class: className, style }} params={{ ref: forwardedRef, props: [{ id }, elementProps] }} {children} />"
+        }
+      ]
+    },
+    {
+      "file": "packages/base/src/lib/popover/Trigger.svelte",
+      "sha256": "f53f01856584df96dcd251007547451099b8719073dfa14e315346097c309cfd",
+      "calls": [
+        {
+          "line": 64,
+          "wrapper": "RenderElement",
+          "tag": "button",
+          "componentProps": "{ render, class: className, style }",
+          "params": "{\n  state,\n  ref: [buttonRef, forwardedRef, forwarding.registerTrigger, triggerElementRef],\n  props: [\n    click.reference, hoverProps(), rootTriggerProps, interactionTypeProps,\n    { [CLICK_TRIGGER_IDENTIFIER]: '', id: thisTriggerId, 'aria-haspopup': 'dialog', 'aria-expanded': isOpenedByThisTrigger, 'aria-controls': store.select('triggerPopupId', thisTriggerId) },\n    elementProps, getButtonProps,\n  ],\n  stateAttributesMapping: stateAttributesMapping,\n}",
+          "children": "children",
+          "bind": [],
+          "body": "<RenderElement tag=\"button\" componentProps={{ render, class: className, style }} params={{\n  state,\n  ref: [buttonRef, forwardedRef, forwarding.registerTrigger, triggerElementRef],\n  props: [\n    click.reference, hoverProps(), rootTriggerProps, interactionTypeProps,\n    { [CLICK_TRIGGER_IDENTIFIER]: '', id: thisTriggerId, 'aria-haspopup': 'dialog', 'aria-expanded': isOpenedByThisTrigger, 'aria-controls': store.select('triggerPopupId', thisTriggerId) },\n    elementProps, getButtonProps,\n  ],\n  stateAttributesMapping: stateAttributesMapping,\n}} {children} />"
+        }
+      ]
+    },
+    {
+      "file": "packages/base/src/lib/popover/Viewport.svelte",
+      "sha256": "1125d2edb88bc84ff6a3d8bc06e65dc7864812950cb927494e1dd01940a6840b",
+      "calls": [
+        {
+          "line": 25,
+          "wrapper": "RenderElement",
+          "tag": "div",
+          "componentProps": "{ render, class: className, style }",
+          "params": "{ state, ref: forwardedRef, props: [elementProps], stateAttributesMapping: popupViewportStateMapping }",
+          "bind": [],
+          "body": "<RenderElement tag=\"div\" componentProps={{ render, class: className, style }} params={{ state, ref: forwardedRef, props: [elementProps], stateAttributesMapping: popupViewportStateMapping }}>\n  {#if viewport.previousContentNode}\n    <div data-previous inert {...previousProps} style={toNativeStyle({ ...(viewport.previousContentDimensions ? { [CommonPopupCssVars.popupWidth]: `${viewport.previousContentDimensions.width}px`, [CommonPopupCssVars.popupHeight]: `${viewport.previousContentDimensions.height}px` } : null), position: 'absolute' })} data-ending-style={viewport.showStartingStyleAttribute ? undefined : ''}></div>\n  {/if}\n  {#key viewport.currentContentKey}\n    <div data-current {...currentProps} data-starting-style={viewport.previousContentNode && viewport.showStartingStyleAttribute ? '' : undefined}>{@render children?.()}</div>\n  {/key}\n</RenderElement>"
+        }
+      ]
+    },
+    {
+      "file": "packages/base/src/lib/preview-card/Arrow.svelte",
+      "sha256": "efb4e56c39da4625ac5603fb06cb18f745abfd88c51608e8d41731ff08e07e23",
+      "calls": [
+        {
+          "line": 15,
+          "wrapper": "RenderElement",
+          "tag": "div",
+          "componentProps": "{ render, class: className, style }",
+          "params": "{ state, ref: [positioner.arrowRef, forwardedRef], props: [{ style: positioner.arrowStyles, 'aria-hidden': true }, elementProps], stateAttributesMapping: popupStateMapping }",
+          "children": "children",
+          "bind": [],
+          "body": "<RenderElement tag=\"div\" componentProps={{ render, class: className, style }} params={{ state, ref: [positioner.arrowRef, forwardedRef], props: [{ style: positioner.arrowStyles, 'aria-hidden': true }, elementProps], stateAttributesMapping: popupStateMapping }} {children} />"
+        }
+      ]
+    },
+    {
+      "file": "packages/base/src/lib/preview-card/Backdrop.svelte",
+      "sha256": "3eef5e82926985a8d8d4d39c972007a4499f0b19dbb14dabcd21ef5b98a885e8",
+      "calls": [
+        {
+          "line": 13,
+          "wrapper": "RenderElement",
+          "tag": "div",
+          "componentProps": "{ render, class: className, style }",
+          "params": "{ state, ref: forwardedRef, props: [{ role: 'presentation', hidden: !store.select('mounted'), style: { pointerEvents: 'none', userSelect: 'none', WebkitUserSelect: 'none' } }, elementProps], stateAttributesMapping: popupTransitionStateMapping }",
+          "children": "children",
+          "bind": [],
+          "body": "<RenderElement tag=\"div\" componentProps={{ render, class: className, style }} params={{ state, ref: forwardedRef, props: [{ role: 'presentation', hidden: !store.select('mounted'), style: { pointerEvents: 'none', userSelect: 'none', WebkitUserSelect: 'none' } }, elementProps], stateAttributesMapping: popupTransitionStateMapping }} {children} />"
+        }
+      ]
+    },
+    {
+      "file": "packages/base/src/lib/preview-card/Popup.svelte",
+      "sha256": "5e6e0779c7d667edd217b6f0bd0a4196c60c93bd99ff015ae67e8496e32062c6",
+      "calls": [
+        {
+          "line": 31,
+          "wrapper": "RenderElement",
+          "tag": "div",
+          "componentProps": "{ render, class: className, style }",
+          "params": "{ state, ref: [forwardedRef, store.context.popupRef, setPopupElement], props: [FOCUSABLE_POPUP_PROPS, popupProps, getDisabledMountTransitionStyles(transitionStatus), elementProps], stateAttributesMapping: popupTransitionStateMapping }",
+          "children": "children",
+          "bind": [],
+          "body": "<RenderElement tag=\"div\" componentProps={{ render, class: className, style }} params={{ state, ref: [forwardedRef, store.context.popupRef, setPopupElement], props: [FOCUSABLE_POPUP_PROPS, popupProps, getDisabledMountTransitionStyles(transitionStatus), elementProps], stateAttributesMapping: popupTransitionStateMapping }} {children} />"
+        }
+      ]
+    },
+    {
+      "file": "packages/base/src/lib/preview-card/Positioner.svelte",
+      "sha256": "6e6f15733bc9e92671196ebcca31f3dcfa36c956af8f635e8b6a48a143d75797",
+      "calls": [
+        {
+          "line": 39,
+          "wrapper": "RenderElement",
+          "tag": "div",
+          "componentProps": "{ render, class: className, style }",
+          "params": "element.params",
+          "children": "children",
+          "bind": [],
+          "body": "<RenderElement tag=\"div\" componentProps={{ render, class: className, style }} params={element.params} {children} />"
+        }
+      ]
+    },
+    {
+      "file": "packages/base/src/lib/preview-card/Trigger.svelte",
+      "sha256": "660084d904d9006b9a12caae524b9c0170f67f2a0062dcf3205d8af9d3f21794",
+      "calls": [
+        {
+          "line": 46,
+          "wrapper": "RenderElement",
+          "tag": "a",
+          "componentProps": "{ render, class: className, style }",
+          "params": "{\n  state,\n  ref: [forwardedRef, forwarding.registerTrigger, triggerElementRef],\n  props: [\n    hoverProps(), focusProps.reference, rootTriggerProps, inlineRectTriggerProps, { id: thisTriggerId }, elementProps,\n  ],\n  stateAttributesMapping: triggerOpenStateMapping,\n}",
+          "children": "children",
+          "bind": [],
+          "body": "<RenderElement tag=\"a\" componentProps={{ render, class: className, style }} params={{\n  state,\n  ref: [forwardedRef, forwarding.registerTrigger, triggerElementRef],\n  props: [\n    hoverProps(), focusProps.reference, rootTriggerProps, inlineRectTriggerProps, { id: thisTriggerId }, elementProps,\n  ],\n  stateAttributesMapping: triggerOpenStateMapping,\n}} {children} />"
+        }
+      ]
+    },
+    {
+      "file": "packages/base/src/lib/preview-card/Viewport.svelte",
+      "sha256": "6e50db1c9ce42783479361db3a87b26192026df9a240d851c100984d0bcc502b",
+      "calls": [
+        {
+          "line": 25,
+          "wrapper": "RenderElement",
+          "tag": "div",
+          "componentProps": "{ render, class: className, style }",
+          "params": "{ state, ref: forwardedRef, props: [elementProps], stateAttributesMapping: popupViewportStateMapping }",
+          "bind": [],
+          "body": "<RenderElement tag=\"div\" componentProps={{ render, class: className, style }} params={{ state, ref: forwardedRef, props: [elementProps], stateAttributesMapping: popupViewportStateMapping }}>\n  {#if viewport.previousContentNode}\n    <div data-previous inert {...previousProps} style={toNativeStyle({ ...(viewport.previousContentDimensions ? { [CommonPopupCssVars.popupWidth]: `${viewport.previousContentDimensions.width}px`, [CommonPopupCssVars.popupHeight]: `${viewport.previousContentDimensions.height}px` } : null), position: 'absolute' })} data-ending-style={viewport.showStartingStyleAttribute ? undefined : ''}></div>\n  {/if}\n  {#key viewport.currentContentKey}\n    <div data-current {...currentProps} data-starting-style={viewport.previousContentNode && viewport.showStartingStyleAttribute ? '' : undefined}>{@render children?.()}</div>\n  {/key}\n</RenderElement>"
+        }
+      ]
+    },
+    {
+      "file": "packages/base/src/lib/progress/Indicator.svelte",
+      "sha256": "dd626944f2a70cfe5f1d33706181c956fd8e7a32272c76d0d3c0c6b940e884c8",
+      "calls": [
+        {
+          "line": 14,
+          "wrapper": "Element",
+          "tag": "div",
+          "internal": "internal",
+          "props": "resolved",
+          "state": "state",
+          "render": "render",
+          "children": "children",
+          "bind": [
+            {
+              "name": "ref",
+              "expression": "ref"
+            }
+          ],
+          "body": "<Element tag=\"div\" {internal} props={resolved} {state} {render} {children} bind:ref />"
+        }
+      ]
+    },
+    {
+      "file": "packages/base/src/lib/progress/Label.svelte",
+      "sha256": "851ade16bc0755dd2419bdd8f7fc3b662637df1b58e0e81b830f286b0e24597b",
+      "calls": [
+        {
+          "line": 22,
+          "wrapper": "Element",
+          "tag": "span",
+          "internal": "internal",
+          "props": "resolved",
+          "state": "state",
+          "render": "render",
+          "children": "children",
+          "bind": [
+            {
+              "name": "ref",
+              "expression": "ref"
+            }
+          ],
+          "body": "<Element tag=\"span\" {internal} props={resolved} {state} {render} {children} bind:ref />"
+        }
+      ]
+    },
+    {
+      "file": "packages/base/src/lib/progress/Root.svelte",
+      "sha256": "83d6037bb76f9b77799b376d7b5e98e954ee1e3ab3e65504d4220869b180848c",
+      "calls": [
+        {
+          "line": 27,
+          "wrapper": "Element",
+          "tag": "div",
+          "internal": "internal",
+          "props": "resolved",
+          "state": "partState",
+          "render": "render",
+          "children": "content",
+          "bind": [
+            {
+              "name": "ref",
+              "expression": "ref"
+            }
+          ],
+          "body": "<Element tag=\"div\" {internal} props={resolved} state={partState} {render} children={content} bind:ref />"
+        }
+      ]
+    },
+    {
+      "file": "packages/base/src/lib/progress/Track.svelte",
+      "sha256": "334f54ad009a806880760c62826789c4c76aa5f1f51f74d4cd7bf06636242683",
+      "calls": [
+        {
+          "line": 14,
+          "wrapper": "Element",
+          "tag": "div",
+          "internal": "internal",
+          "props": "resolved",
+          "state": "state",
+          "render": "render",
+          "children": "children",
+          "bind": [
+            {
+              "name": "ref",
+              "expression": "ref"
+            }
+          ],
+          "body": "<Element tag=\"div\" {internal} props={resolved} {state} {render} {children} bind:ref />"
+        }
+      ]
+    },
+    {
+      "file": "packages/base/src/lib/progress/Value.svelte",
+      "sha256": "906a5ad0471d88da961ef8e149125d9ff337b2f42d5a4e82c22dc05ce5673c92",
+      "calls": [
+        {
+          "line": 17,
+          "wrapper": "Element",
+          "tag": "span",
+          "internal": "internal",
+          "props": "resolved",
+          "state": "state",
+          "render": "render",
+          "children": "content",
+          "bind": [
+            {
+              "name": "ref",
+              "expression": "ref"
+            }
+          ],
+          "body": "<Element tag=\"span\" {internal} props={resolved} {state} {render} children={content} bind:ref />"
+        }
+      ]
+    },
+    {
+      "file": "packages/base/src/lib/radio/indicator/RadioIndicator.svelte",
+      "sha256": "eb936736c1fdb3a804eee427469a0b02a8b2b6376db04cf4754d873154a4eb11",
+      "calls": [
+        {
+          "line": 56,
+          "wrapper": "RenderElement",
+          "tag": "span",
+          "componentProps": "componentProps",
+          "params": "params",
+          "children": "children",
+          "bind": [],
+          "body": "<RenderElement tag=\"span\" {componentProps} {params} {children} />"
+        }
+      ]
+    },
+    {
+      "file": "packages/base/src/lib/radio/root/RadioRoot.svelte",
+      "sha256": "2918d83bd1cd48df79ae2657d141771353dd584cff565cd6031d83188a65dc9c",
+      "calls": [
+        {
+          "line": 198,
+          "wrapper": "RenderElement",
+          "tag": "span",
+          "componentProps": "componentProps",
+          "params": "params",
+          "children": "children",
+          "bind": [],
+          "body": "<RenderElement tag=\"span\" {componentProps} {params} {children} />"
+        },
+        {
+          "line": 200,
+          "wrapper": "RenderElement",
+          "tag": "input",
+          "params": "hiddenParams",
+          "bind": [],
+          "body": "<RenderElement tag=\"input\" params={hiddenParams} />"
+        }
+      ]
+    },
+    {
+      "file": "packages/base/src/lib/remote-forms/RemoteNativeControl.svelte",
+      "sha256": "4658255b6d6781518da13a257fc9d4f0890d15a1c9552a49250ec6f007113cdf",
+      "calls": [
+        {
+          "line": 134,
+          "wrapper": "RenderElement",
+          "tag": "kind.startsWith('select') ? 'select' : 'input'",
+          "componentProps": "componentProps",
+          "params": "params",
+          "children": "children",
+          "bind": [],
+          "body": "<RenderElement tag={kind.startsWith('select') ? 'select' : 'input'} {componentProps} {params} {children} />"
+        }
+      ]
+    },
+    {
+      "file": "packages/base/src/lib/scroll-area/content/ScrollAreaContent.svelte",
+      "sha256": "dfbe60324da3bc6960da9fa6affa479f2d5c09f91c32633aeac795dde8e6bf5f",
+      "calls": [
+        {
+          "line": 56,
+          "wrapper": "RenderElement",
+          "tag": "div",
+          "componentProps": "componentProps",
+          "params": "params",
+          "children": "children",
+          "bind": [],
+          "body": "<RenderElement tag=\"div\" {componentProps} {params} {children} />"
+        }
+      ]
+    },
+    {
+      "file": "packages/base/src/lib/scroll-area/corner/ScrollAreaCorner.svelte",
+      "sha256": "5966ce199be649381971ac8417d9e55ddc7725bda936c85da3a839d3e6170a0a",
+      "calls": [
+        {
+          "line": 41,
+          "wrapper": "RenderElement",
+          "tag": "div",
+          "componentProps": "componentProps",
+          "params": "params",
+          "children": "children",
+          "bind": [],
+          "body": "<RenderElement tag=\"div\" {componentProps} {params} {children} />"
+        }
+      ]
+    },
+    {
+      "file": "packages/base/src/lib/scroll-area/root/ScrollAreaRoot.svelte",
+      "sha256": "f7d825b7fd5c83c845e4a16bc21fba8558ad2181aefdf9427003e5ac7a0b1a22",
+      "calls": [
+        {
+          "line": 407,
+          "wrapper": "RenderElement",
+          "tag": "div",
+          "componentProps": "componentProps",
+          "params": "params",
+          "children": "children",
+          "bind": [],
+          "body": "<RenderElement tag=\"div\" {componentProps} {params} {children} />"
+        }
+      ]
+    },
+    {
+      "file": "packages/base/src/lib/scroll-area/scrollbar/ScrollAreaScrollbar.svelte",
+      "sha256": "eaed197a1393aa6e449ca6da7485b791f903ecb1b2166a505a3aee6b5fe9eb09",
+      "calls": [
+        {
+          "line": 245,
+          "wrapper": "RenderElement",
+          "tag": "div",
+          "componentProps": "componentProps",
+          "params": "params",
+          "children": "children",
+          "bind": [],
+          "body": "<RenderElement tag=\"div\" {componentProps} {params} {children} />"
+        }
+      ]
+    },
+    {
+      "file": "packages/base/src/lib/scroll-area/thumb/ScrollAreaThumb.svelte",
+      "sha256": "60c225e4fd2c4439ee9efc7b98c7acf94b0002ac0fc491dcf59175a84d3c890f",
+      "calls": [
+        {
+          "line": 52,
+          "wrapper": "RenderElement",
+          "tag": "div",
+          "componentProps": "componentProps",
+          "params": "params",
+          "children": "children",
+          "bind": [],
+          "body": "<RenderElement tag=\"div\" {componentProps} {params} {children} />"
+        }
+      ]
+    },
+    {
+      "file": "packages/base/src/lib/scroll-area/viewport/ScrollAreaViewport.svelte",
+      "sha256": "f967ae1fc31ec5c9776bbd503ce8259444b0adeb18d13d3b1aff143ec66aafba",
+      "calls": [
+        {
+          "line": 443,
+          "wrapper": "RenderElement",
+          "tag": "div",
+          "componentProps": "componentProps",
+          "params": "params",
+          "children": "children",
+          "bind": [],
+          "body": "<RenderElement tag=\"div\" {componentProps} {params} {children} />"
+        }
+      ]
+    },
+    {
+      "file": "packages/base/src/lib/separator/Separator.svelte",
+      "sha256": "b42e090098cee72fcb49e7ab2a020a1eabdea6fddddcf972c5f763ebc3fd48d9",
+      "calls": [
+        {
+          "line": 17,
+          "wrapper": "RenderElement",
+          "tag": "div",
+          "componentProps": "componentProps",
+          "params": "params",
+          "children": "children",
+          "bind": [],
+          "body": "<RenderElement tag=\"div\" {componentProps} {params} {children} />"
+        }
+      ]
+    },
+    {
+      "file": "packages/base/src/lib/switch/root/SwitchRoot.svelte",
+      "sha256": "190510b86e2ac96d3063d052a43ddc716e7f7678c347ff90e4f7e0a8b7f0b9bf",
+      "calls": [
+        {
+          "line": 191,
+          "wrapper": "RenderElement",
+          "tag": "span",
+          "componentProps": "componentProps",
+          "params": "params",
+          "children": "children",
+          "bind": [],
+          "body": "<RenderElement tag=\"span\" {componentProps} {params} {children} />"
+        }
+      ]
+    },
+    {
+      "file": "packages/base/src/lib/switch/thumb/SwitchThumb.svelte",
+      "sha256": "8200f730a31b6c7b16c2033bde643327074190dff7b452d4d06835301128cddd",
+      "calls": [
+        {
+          "line": 33,
+          "wrapper": "RenderElement",
+          "tag": "span",
+          "componentProps": "componentProps",
+          "params": "params",
+          "children": "children",
+          "bind": [],
+          "body": "<RenderElement tag=\"span\" {componentProps} {params} {children} />"
+        }
+      ]
+    },
+    {
+      "file": "packages/base/src/lib/toast/Action.svelte",
+      "sha256": "827b2bc5030ae5c8d8633cb654be72a45e62cf28a77fe84b6070452e408a9dd9",
+      "calls": [
+        {
+          "line": 28,
+          "wrapper": "Element",
+          "tag": "button",
+          "internal": "{ 'data-type': state.type }",
+          "props": "merged",
+          "state": "state",
+          "bind": [
+            {
+              "name": "ref",
+              "expression": "ref"
+            }
+          ],
+          "body": "<Element tag=\"button\" internal={{ 'data-type': state.type }} props={merged} {state} bind:ref>\n    <RenderContent {content} />\n  </Element>"
+        }
+      ]
+    },
+    {
+      "file": "packages/base/src/lib/toast/Close.svelte",
+      "sha256": "69eb08d0e0b55014740d9b1f73aad4e1648513dfb2f09921fe64b9a124099d3a",
+      "calls": [
+        {
+          "line": 22,
+          "wrapper": "Element",
+          "tag": "button",
+          "props": "merged",
+          "state": "buttonState",
+          "bind": [
+            {
+              "name": "ref",
+              "expression": "ref"
+            }
+          ],
+          "body": "<Element tag=\"button\" props={merged} state={buttonState} bind:ref><RenderContent content={children} /></Element>"
+        }
+      ]
+    },
+    {
+      "file": "packages/base/src/lib/toast/Content.svelte",
+      "sha256": "8204e00461f338f75dfe4e739606391b84a9b8a34707deaadd43728c5bc24c5b",
+      "calls": [
+        {
+          "line": 21,
+          "wrapper": "Element",
+          "tag": "div",
+          "internal": "internal",
+          "props": "props",
+          "state": "state",
+          "children": "children",
+          "bind": [
+            {
+              "name": "ref",
+              "expression": "ref"
+            }
+          ],
+          "body": "<Element {internal} {props} {state} {children} {attach} bind:ref />"
+        }
+      ]
+    },
+    {
+      "file": "packages/base/src/lib/toast/Description.svelte",
+      "sha256": "ed687f3d8448f02a788a63a08ee3f115ee52f1779e51d4e44674f3a200d3aa4e",
+      "calls": [
+        {
+          "line": 19,
+          "wrapper": "Element",
+          "tag": "p",
+          "internal": "{ id: resolvedId, 'data-type': state.type }",
+          "props": "props",
+          "state": "state",
+          "bind": [
+            {
+              "name": "ref",
+              "expression": "ref"
+            }
+          ],
+          "body": "<Element tag=\"p\" internal={{ id: resolvedId, 'data-type': state.type }} {props} {state} bind:ref>\n    <RenderContent {content} />\n  </Element>"
+        }
+      ]
+    },
+    {
+      "file": "packages/base/src/lib/toast/Portal.svelte",
+      "sha256": "dc8cbe1408b286892af52235b5a9df81980c326a51a003870ebbceb094211cc9",
+      "calls": []
+    },
+    {
+      "file": "packages/base/src/lib/toast/Root.svelte",
+      "sha256": "0f9e20346e252dec0647c81b70dda22b93a710e5d530099982e326568d2ceb6b",
+      "calls": [
+        {
+          "line": 99,
+          "wrapper": "Element",
+          "tag": "div",
+          "internal": "internal",
+          "props": "props",
+          "state": "rootState",
+          "children": "children",
+          "bind": [
+            {
+              "name": "ref",
+              "expression": "ref"
+            }
+          ],
+          "body": "<Element {internal} {props} state={rootState} {children} bind:ref {attach}/>"
+        }
+      ]
+    },
+    {
+      "file": "packages/base/src/lib/toast/Title.svelte",
+      "sha256": "d1e7a769f8796bd8d192c3953e716bb661dff8b080303aec32d5a73788dfae55",
+      "calls": [
+        {
+          "line": 19,
+          "wrapper": "Element",
+          "tag": "h2",
+          "internal": "{ id: resolvedId, 'data-type': state.type }",
+          "props": "props",
+          "state": "state",
+          "bind": [
+            {
+              "name": "ref",
+              "expression": "ref"
+            }
+          ],
+          "body": "<Element tag=\"h2\" internal={{ id: resolvedId, 'data-type': state.type }} {props} {state} bind:ref>\n    <RenderContent {content} />\n  </Element>"
+        }
+      ]
+    },
+    {
+      "file": "packages/base/src/lib/toast/Viewport.svelte",
+      "sha256": "282e29ea16fb385cb9cf8778a4e2da4396696c110befdbd400f129bb99ad01bb",
+      "calls": [
+        {
+          "line": 182,
+          "wrapper": "Element",
+          "tag": "div",
+          "internal": "{ tabindex: -1, role: 'region', 'aria-live': 'polite', 'aria-atomic': false, 'aria-relevant': 'additions text', 'aria-label': 'Notifications', 'data-expanded': expanded ? '' : undefined, onmouseenter: mouseEnter, onmousemove: mouseEnter, onmouseleave: mouseLeave, onfocusin: focus, onfocusout: blur, onkeydown: keydown, onclick: focus, onpointerdown: pointerDown, onpointerup: pointerEnd, onpointercancel: pointerEnd, style: { '--toast-frontmost-height': snapshot.toasts[0]?.height ? `${snapshot.toasts[0].height}px` : undefined } }",
+          "props": "props",
+          "state": "{ expanded }",
+          "bind": [
+            {
+              "name": "ref",
+              "expression": "ref"
+            }
+          ],
+          "body": "<Element {props} bind:ref {attach} state={{ expanded }} internal={{ tabindex: -1, role: 'region', 'aria-live': 'polite', 'aria-atomic': false, 'aria-relevant': 'additions text', 'aria-label': 'Notifications', 'data-expanded': expanded ? '' : undefined, onmouseenter: mouseEnter, onmousemove: mouseEnter, onmouseleave: mouseLeave, onfocusin: focus, onfocusout: blur, onkeydown: keydown, onclick: focus, onpointerdown: pointerDown, onpointerup: pointerEnd, onpointercancel: pointerEnd, style: { '--toast-frontmost-height': snapshot.toasts[0]?.height ? `${snapshot.toasts[0].height}px` : undefined } }}>\n  {@render guard()}\n  {@render children?.()}\n  {@render guard()}\n</Element>"
+        }
+      ]
+    },
+    {
+      "file": "packages/base/src/lib/toggle-group/ToggleGroup.svelte",
+      "sha256": "91960301cd5973321198e1bf60356f0e58de9febce6c199b6d3afce0fbd3276c",
+      "calls": [
+        {
+          "line": 54,
+          "wrapper": "RenderElement",
+          "tag": "div",
+          "componentProps": "componentProps",
+          "params": "params",
+          "children": "children",
+          "bind": [],
+          "body": "<RenderElement tag=\"div\" {componentProps} {params} {children} />"
+        }
+      ]
+    },
+    {
+      "file": "packages/base/src/lib/toggle/Toggle.svelte",
+      "sha256": "d543dbd8e7878e8fd5772b99e45c2b3d446af7fc53c6309232e2e62fb6dd4c43",
+      "calls": [
+        {
+          "line": 74,
+          "wrapper": "RenderElement",
+          "tag": "button",
+          "componentProps": "componentProps",
+          "params": "params",
+          "children": "children",
+          "bind": [],
+          "body": "<RenderElement tag=\"button\" {componentProps} {params} {children} />"
+        }
+      ]
+    },
+    {
+      "file": "packages/base/src/lib/toolbar/group/ToolbarGroup.svelte",
+      "sha256": "03acb9ef74482ed56a93309759a165ef6159e9678a963f502763d7c9e574c12e",
+      "calls": [
+        {
+          "line": 19,
+          "wrapper": "RenderElement",
+          "tag": "div",
+          "componentProps": "componentProps",
+          "params": "params",
+          "children": "children",
+          "bind": [],
+          "body": "<RenderElement tag=\"div\" {componentProps} {params} {children} />"
+        }
+      ]
+    },
+    {
+      "file": "packages/base/src/lib/tooltip/Arrow.svelte",
+      "sha256": "961e8214407cd4b74fc0a32b72da7c765463299b80082a41d5b522c77e793f4b",
+      "calls": [
+        {
+          "line": 15,
+          "wrapper": "RenderElement",
+          "tag": "div",
+          "componentProps": "{ render, class: className, style }",
+          "params": "{ state, ref: [forwardedRef, positioner.arrowRef], props: [{ style: positioner.arrowStyles, 'aria-hidden': true }, elementProps], stateAttributesMapping: popupStateMapping }",
+          "children": "children",
+          "bind": [],
+          "body": "<RenderElement tag=\"div\" componentProps={{ render, class: className, style }} params={{ state, ref: [forwardedRef, positioner.arrowRef], props: [{ style: positioner.arrowStyles, 'aria-hidden': true }, elementProps], stateAttributesMapping: popupStateMapping }} {children} />"
+        }
+      ]
+    },
+    {
+      "file": "packages/base/src/lib/tooltip/Popup.svelte",
+      "sha256": "e1d77b9e5b0bd3cc51aa144f0cb00bfedb83ad152d06bfbf86d13e0f82bf640a",
+      "calls": [
+        {
+          "line": 32,
+          "wrapper": "RenderElement",
+          "tag": "div",
+          "componentProps": "{ render, class: className, style }",
+          "params": "{ state, ref: [forwardedRef, store.context.popupRef, setPopupElement], props: [FOCUSABLE_POPUP_PROPS, popupProps, getDisabledMountTransitionStyles(transitionStatus), elementProps], stateAttributesMapping: popupTransitionStateMapping }",
+          "children": "children",
+          "bind": [],
+          "body": "<RenderElement tag=\"div\" componentProps={{ render, class: className, style }} params={{ state, ref: [forwardedRef, store.context.popupRef, setPopupElement], props: [FOCUSABLE_POPUP_PROPS, popupProps, getDisabledMountTransitionStyles(transitionStatus), elementProps], stateAttributesMapping: popupTransitionStateMapping }} {children} />"
+        }
+      ]
+    },
+    {
+      "file": "packages/base/src/lib/tooltip/Positioner.svelte",
+      "sha256": "390832a18620e038ac10d877be19f1f741deaf71f11434a57f91e2a20e603657",
+      "calls": [
+        {
+          "line": 33,
+          "wrapper": "RenderElement",
+          "tag": "div",
+          "componentProps": "{ render, class: className, style }",
+          "params": "element.params",
+          "children": "children",
+          "bind": [],
+          "body": "<RenderElement tag=\"div\" componentProps={{ render, class: className, style }} params={element.params} {children} />"
+        }
+      ]
+    },
+    {
+      "file": "packages/base/src/lib/tooltip/Trigger.svelte",
+      "sha256": "8f271e90547c8260984fcddc98405b55644807303557fa178156551c1ab8de22",
+      "calls": [
+        {
+          "line": 189,
+          "wrapper": "RenderElement",
+          "tag": "button",
+          "componentProps": "{ render, class: className, style }",
+          "params": "{\n  state,\n  ref: [forwardedRef, forwarding.registerTrigger, triggerElementRef],\n  props: [\n    hoverProps(), focus.reference, shouldApplyRootTriggerProps ? rootTriggerProps : undefined,\n    {\n      onmouseover(event: MouseEvent) { handleNestedTriggerHover(event); },\n      onfocusin(event: FocusEvent & { preventBaseUIHandler(): void }) {\n        if (isEnabledNestedTriggerTarget(getTargetElement(event))) event.preventBaseUIHandler();\n      },\n      onmouseleave() { isNestedTriggerHoveredRef.current = false; nestedTriggerOpenTimeout.clear(); pointerTypeRef.current = undefined; },\n      onpointerenter(event: PointerEvent) { pointerTypeRef.current = event.pointerType; },\n      onpointerdown(event: PointerEvent) {\n        pointerTypeRef.current = event.pointerType;\n        store.set('closeOnClick', closeOnClick);\n        if (closeOnClick && !store.select('open')) store.cancelPendingOpen(event);\n      },\n      onclick(event: MouseEvent) { if (closeOnClick && !store.select('open')) store.cancelPendingOpen(event); },\n      id: thisTriggerId,\n      'data-trigger-disabled': disabled ? '' : undefined,\n      [TOOLTIP_TRIGGER_IDENTIFIER]: disabled ? undefined : '',\n    },\n    elementProps,\n  ],\n  stateAttributesMapping: triggerOpenStateMapping,\n}",
+          "children": "children",
+          "bind": [],
+          "body": "<RenderElement tag=\"button\" componentProps={{ render, class: className, style }} params={{\n  state,\n  ref: [forwardedRef, forwarding.registerTrigger, triggerElementRef],\n  props: [\n    hoverProps(), focus.reference, shouldApplyRootTriggerProps ? rootTriggerProps : undefined,\n    {\n      onmouseover(event: MouseEvent) { handleNestedTriggerHover(event); },\n      onfocusin(event: FocusEvent & { preventBaseUIHandler(): void }) {\n        if (isEnabledNestedTriggerTarget(getTargetElement(event))) event.preventBaseUIHandler();\n      },\n      onmouseleave() { isNestedTriggerHoveredRef.current = false; nestedTriggerOpenTimeout.clear(); pointerTypeRef.current = undefined; },\n      onpointerenter(event: PointerEvent) { pointerTypeRef.current = event.pointerType; },\n      onpointerdown(event: PointerEvent) {\n        pointerTypeRef.current = event.pointerType;\n        store.set('closeOnClick', closeOnClick);\n        if (closeOnClick && !store.select('open')) store.cancelPendingOpen(event);\n      },\n      onclick(event: MouseEvent) { if (closeOnClick && !store.select('open')) store.cancelPendingOpen(event); },\n      id: thisTriggerId,\n      'data-trigger-disabled': disabled ? '' : undefined,\n      [TOOLTIP_TRIGGER_IDENTIFIER]: disabled ? undefined : '',\n    },\n    elementProps,\n  ],\n  stateAttributesMapping: triggerOpenStateMapping,\n}} {children} />"
+        }
+      ]
+    },
+    {
+      "file": "packages/base/src/lib/tooltip/Viewport.svelte",
+      "sha256": "a17da7ac90b08fdb0df8d356e0102b064034d65bd227399c8d6d6a64c8fa9f53",
+      "calls": [
+        {
+          "line": 25,
+          "wrapper": "RenderElement",
+          "tag": "div",
+          "componentProps": "{ render, class: className, style }",
+          "params": "{ state, ref: forwardedRef, props: [elementProps], stateAttributesMapping: popupViewportStateMapping }",
+          "bind": [],
+          "body": "<RenderElement tag=\"div\" componentProps={{ render, class: className, style }} params={{ state, ref: forwardedRef, props: [elementProps], stateAttributesMapping: popupViewportStateMapping }}>\n  {#if viewport.previousContentNode}\n    <div data-previous inert {...previousProps} style={toNativeStyle({ ...(viewport.previousContentDimensions ? { [CommonPopupCssVars.popupWidth]: `${viewport.previousContentDimensions.width}px`, [CommonPopupCssVars.popupHeight]: `${viewport.previousContentDimensions.height}px` } : null), position: 'absolute' })} data-ending-style={viewport.showStartingStyleAttribute ? undefined : ''}></div>\n  {/if}\n  {#key viewport.currentContentKey}\n    <div data-current {...currentProps} data-starting-style={viewport.previousContentNode && viewport.showStartingStyleAttribute ? '' : undefined}>{@render children?.()}</div>\n  {/key}\n</RenderElement>"
+        }
+      ]
+    }
+  ]
+}

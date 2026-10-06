@@ -1,12 +1,11 @@
 // Business body from Base UI v1.8.0 popupStoreUtils.ts at
 // 47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c. MIT: THIRD_PARTY_NOTICES.md.
-import { flushSync } from 'svelte';
+import { flushSync, untrack } from 'svelte';
 import type { PopupStoreState, PopupStoreContext } from './store.js';
 import { EMPTY_OBJECT } from '@sveltery/utils/empty';
 import { useFloatingParentNodeId } from '../../floating-ui/components/FloatingTree.svelte.js';
 import { useSyncedFloatingRootContext } from '../../floating-ui/hooks/useSyncedFloatingRootContext.svelte.js';
-import { useStableCallback } from '@sveltery/utils/useStableCallback';
-import { useIsoLayoutEffect } from '@sveltery/utils/useIsoLayoutEffect';
+
 import { useTransitionStatus } from '../../internals/useTransitionStatus.svelte.js';
 import { useOpenChangeComplete } from '../../internals/useOpenChangeComplete.svelte.js';
 import {
@@ -52,16 +51,13 @@ function syncTriggerCount(store: PopupTriggerDataStore<PopupStoreState<unknown>>
 }
 
 /**
- * Returns a stable callback ref that registers/unregisters the trigger element in the store.
+ * Registers/unregisters the native trigger host in its current Store.
  *
- * Stable so a downstream ref merger that retains the callback it was first given still reaches the
- * trigger's current store. The registration is tracked as a `(store, id, element)` triple, so
- * unregistering targets the store the element was actually registered in.
+ * Each publication acquires the actual Store and ID. The captured `(store, id, element)`
+ * registration targets its installed owner on removal, even after a Store or ID change.
  *
- * Since the callback never changes, the caller must re-run it from a layout effect keyed on
- * `[store, id]` to migrate an already-registered element. That effect is also what registers the
- * element in the first place when `id` only resolves after the first commit (React 17's `useId`
- * fallback), because the register call made while the id is still `undefined` does nothing.
+ * Native effects observe the current Store and ID and migrate an already registered
+ * element when either owner changes. Registration is an imperative publication boundary.
  *
  * @param id Id of the trigger.
  * @param store The Store instance where the trigger should be registered.
@@ -78,37 +74,39 @@ export function useTriggerRegistration<State extends PopupStoreState<unknown>>(
     } | null;
   } = { current: null };
 
-  return useStableCallback((element: Element | null) => {
+  return (element: Element | null) => {
     const id = getId();
     const store = getStore();
-    const registration = registrationRef.current;
+    untrack(() => {
+      const registration = registrationRef.current;
 
-    if (registration !== null) {
-      if (
-        registration.element === element &&
-        registration.store === store &&
-        registration.id === id
-      ) {
-        // Already registered where it belongs, so the caller's migration effect is free on mount.
-        return;
+      if (registration !== null) {
+        if (
+          registration.element === element &&
+          registration.store === store &&
+          registration.id === id
+        ) {
+          // Already registered where it belongs, so the caller's migration effect is free on mount.
+          return;
+        }
+
+        registrationRef.current = null;
+        const registeredStore = registration.store;
+        if (
+          registeredStore.context.triggerElements.getById(registration.id) === registration.element
+        ) {
+          registeredStore.context.triggerElements.delete(registration.id);
+          syncTriggerCount(registeredStore);
+        }
       }
 
-      registrationRef.current = null;
-      const registeredStore = registration.store;
-      if (
-        registeredStore.context.triggerElements.getById(registration.id) === registration.element
-      ) {
-        registeredStore.context.triggerElements.delete(registration.id);
-        syncTriggerCount(registeredStore);
+      if (element !== null && id !== undefined) {
+        registrationRef.current = { store, id, element };
+        store.context.triggerElements.add(id, element);
+        syncTriggerCount(store);
       }
-    }
-
-    if (element !== null && id !== undefined) {
-      registrationRef.current = { store, id, element };
-      store.context.triggerElements.add(id, element);
-      syncTriggerCount(store);
-    }
-  });
+    });
+  };
 }
 
 export function useTriggerDataForwarding<
@@ -127,66 +125,67 @@ export function useTriggerDataForwarding<
 
   const baseRegisterTrigger = useTriggerRegistration(getTriggerId, getStore);
 
-  // Applies trigger-owned state (active-trigger ownership and payload) when the trigger registers.
-  // Stable so payload/`stateUpdates` changes do not change the ref identity (which would needlessly
-  // churn registration); it reads the latest closure values when invoked.
-  const applyTriggerData = useStableCallback((element: Element) => {
-    const open = store.select('open');
-    const activeTriggerId = store.select('activeTriggerId');
+  // Applies current trigger-owned state when its native host is published.
+  // The imperative boundary reads the latest payload only in its business branches;
+  // the independent data-forwarding effect below owns later reactive payload changes.
+  const applyTriggerData = (element: Element) => {
+    const owner = store;
+    const id = triggerId;
+    untrack(() => {
+      const open = owner.select('open');
+      const activeTriggerId = owner.select('activeTriggerId');
 
-    if (activeTriggerId === triggerId) {
-      const changes = {
-        activeTriggerElement: element,
-        ...(open ? stateUpdates : null),
-      } as Pick<Readonly<State>, Key | 'activeTriggerElement'>;
-      store.update(changes);
-      return;
-    }
+      if (activeTriggerId === id) {
+        const changes = {
+          activeTriggerElement: element,
+          ...(open ? stateUpdates : null),
+        } as Pick<Readonly<State>, Key | 'activeTriggerElement'>;
+        owner.update(changes);
+        return;
+      }
 
-    if (activeTriggerId == null && open) {
-      // If a popup is already open, a detached trigger can mount before any active trigger
-      // has been established. Claim the first registered trigger so trigger-owned focus
-      // management and ARIA relationships work.
-      const changes = {
-        activeTriggerId: triggerId ?? null,
-        activeTriggerElement: element,
-        ...stateUpdates,
-      } as Pick<Readonly<State>, Key | 'activeTriggerId' | 'activeTriggerElement'>;
-      store.update(changes);
-    }
-  });
+      if (activeTriggerId == null && open) {
+        // If a popup is already open, a detached trigger can mount before any active trigger
+        // has been established. Claim the first registered trigger so trigger-owned focus
+        // management and ARIA relationships work.
+        const changes = {
+          activeTriggerId: id ?? null,
+          activeTriggerElement: element,
+          ...stateUpdates,
+        } as Pick<Readonly<State>, Key | 'activeTriggerId' | 'activeTriggerElement'>;
+        owner.update(changes);
+      }
+    });
+  };
 
-  // Stable, so the merged ref on the rendered element keeps its identity for the trigger's whole
-  // lifetime.
-  const registerTrigger = useStableCallback((element: Element | null) => {
+  // Publishes the native host's registration before its current trigger-owned data.
+  const registerTrigger = (element: Element | null) => {
     baseRegisterTrigger(element);
     if (element) {
       applyTriggerData(element);
     }
+  };
+
+  // Store/ID changes migrate the published host independently of attachment setup:
+  // remove its captured previous registration, then publish it in the current owner.
+  $effect(() => {
+    // Native identity reads own migration; registration publishes to the Store.
+    void store;
+    void triggerId;
+    const element = triggerElementRef.current;
+    untrack(() => registerTrigger(element));
+    return () => registerTrigger(null);
   });
 
-  // A stable ref does not re-fire on a store or id change, so migrate here instead: unregister from
-  // the previous store, then register the element the trigger still renders into the current one.
-  useIsoLayoutEffect(
-    () => {
-      registerTrigger(triggerElementRef.current);
-      return () => registerTrigger(null);
-    },
-    () => [registerTrigger, triggerElementRef, store, triggerId],
-  );
-
-  useIsoLayoutEffect(
-    () => {
-      if (isMountedByThisTrigger) {
-        const changes = {
-          activeTriggerElement: triggerElementRef.current,
-          ...stateUpdates,
-        } as Pick<Readonly<State>, Key | 'activeTriggerElement'>;
-        store.update(changes);
-      }
-    },
-    () => [isMountedByThisTrigger, store, triggerElementRef, ...Object.values(stateUpdates)],
-  );
+  $effect(() => {
+    if (isMountedByThisTrigger) {
+      const changes = {
+        activeTriggerElement: triggerElementRef.current,
+        ...stateUpdates,
+      } as Pick<Readonly<State>, Key | 'activeTriggerElement'>;
+      store.update(changes);
+    }
+  });
 
   return {
     registerTrigger,
@@ -206,120 +205,100 @@ export function useImplicitActiveTrigger<State extends PopupStoreState<unknown>>
   // Distinguishes a trigger that unmounted from a new active trigger that has not hydrated yet.
   const resolvedActiveTriggerIdRef: { current: string | null } = { current: null };
   const open = $derived(store.useState('open'));
-  const reactiveTriggerCount = $derived(store.useState('triggerCount'));
-  // Subscribe to the active trigger id so the reconciliation below reruns when ownership moves to
-  // another trigger while the popup stays open (e.g. a focus/hover handoff between triggers).
-  const activeTriggerId = $derived(store.useState('activeTriggerId'));
-  // Subscribe to the active trigger element so the reconciliation reruns when a pending active
-  // trigger registers in a commit where the trigger count nets out unchanged (registration
-  // forwards the element to the store when the registering trigger matches the active id).
-  // Without this, the id would never be marked resolved and a later genuine unmount would be
-  // misclassified as pending, disabling `closeOnActiveTriggerUnmount`.
-  const reactiveActiveTriggerElement = $derived(store.useState('activeTriggerElement'));
 
-  useIsoLayoutEffect(
-    () => {
-      if (!open) {
-        resolvedActiveTriggerIdRef.current = null;
-        if (store.state.triggerCount !== 0) {
-          store.set('triggerCount', 0);
+  $effect(() => {
+    if (!open) {
+      resolvedActiveTriggerIdRef.current = null;
+      if (store.state.triggerCount !== 0) {
+        store.set('triggerCount', 0);
+      }
+      return;
+    }
+
+    const triggerCount = store.context.triggerElements.size;
+    const stateUpdates = {} as Pick<
+      State,
+      'triggerCount' | 'activeTriggerId' | 'activeTriggerElement'
+    >;
+
+    if (store.state.triggerCount !== triggerCount) {
+      stateUpdates.triggerCount = triggerCount;
+    }
+
+    const currentActiveTriggerId = store.select('activeTriggerId');
+    let lostActiveTriggerId: string | null = null;
+
+    if (currentActiveTriggerId) {
+      const activeTriggerElement = store.context.triggerElements.getById(currentActiveTriggerId);
+      if (!activeTriggerElement) {
+        for (const [triggerId, triggerElement] of store.context.triggerElements.entries()) {
+          if (triggerElement === store.state.activeTriggerElement) {
+            stateUpdates.activeTriggerId = triggerId;
+            stateUpdates.activeTriggerElement = triggerElement;
+            resolvedActiveTriggerIdRef.current = triggerId;
+            break;
+          }
         }
-        return;
-      }
 
-      const triggerCount = store.context.triggerElements.size;
-      const stateUpdates = {} as Pick<
-        State,
-        'triggerCount' | 'activeTriggerId' | 'activeTriggerElement'
-      >;
-
-      if (store.state.triggerCount !== triggerCount) {
-        stateUpdates.triggerCount = triggerCount;
-      }
-
-      const currentActiveTriggerId = store.select('activeTriggerId');
-      let lostActiveTriggerId: string | null = null;
-
-      if (currentActiveTriggerId) {
-        const activeTriggerElement = store.context.triggerElements.getById(currentActiveTriggerId);
-        if (!activeTriggerElement) {
-          for (const [triggerId, triggerElement] of store.context.triggerElements.entries()) {
-            if (triggerElement === store.state.activeTriggerElement) {
-              stateUpdates.activeTriggerId = triggerId;
-              stateUpdates.activeTriggerElement = triggerElement;
-              resolvedActiveTriggerIdRef.current = triggerId;
-              break;
-            }
-          }
-
-          if (stateUpdates.activeTriggerId === undefined) {
-            if (resolvedActiveTriggerIdRef.current === currentActiveTriggerId) {
-              lostActiveTriggerId = currentActiveTriggerId;
-            } else {
-              resolvedActiveTriggerIdRef.current = null;
-            }
-          }
-        } else {
-          resolvedActiveTriggerIdRef.current = currentActiveTriggerId;
-          if (activeTriggerElement !== store.state.activeTriggerElement) {
-            stateUpdates.activeTriggerElement = activeTriggerElement;
+        if (stateUpdates.activeTriggerId === undefined) {
+          if (resolvedActiveTriggerIdRef.current === currentActiveTriggerId) {
+            lostActiveTriggerId = currentActiveTriggerId;
+          } else {
+            resolvedActiveTriggerIdRef.current = null;
           }
         }
       } else {
-        resolvedActiveTriggerIdRef.current = null;
-      }
-
-      if (!lostActiveTriggerId && !currentActiveTriggerId && triggerCount === 1) {
-        const iteratorResult = store.context.triggerElements.entries().next();
-        if (!iteratorResult.done) {
-          const [implicitTriggerId, implicitTriggerElement] = iteratorResult.value;
-          stateUpdates.activeTriggerId = implicitTriggerId;
-          stateUpdates.activeTriggerElement = implicitTriggerElement;
-          resolvedActiveTriggerIdRef.current = implicitTriggerId;
+        resolvedActiveTriggerIdRef.current = currentActiveTriggerId;
+        if (activeTriggerElement !== store.state.activeTriggerElement) {
+          stateUpdates.activeTriggerElement = activeTriggerElement;
         }
       }
+    } else {
+      resolvedActiveTriggerIdRef.current = null;
+    }
 
-      if (
-        stateUpdates.triggerCount !== undefined ||
-        stateUpdates.activeTriggerId !== undefined ||
-        stateUpdates.activeTriggerElement !== undefined
-      ) {
-        store.update(stateUpdates);
+    if (!lostActiveTriggerId && !currentActiveTriggerId && triggerCount === 1) {
+      const iteratorResult = store.context.triggerElements.entries().next();
+      if (!iteratorResult.done) {
+        const [implicitTriggerId, implicitTriggerElement] = iteratorResult.value;
+        stateUpdates.activeTriggerId = implicitTriggerId;
+        stateUpdates.activeTriggerElement = implicitTriggerElement;
+        resolvedActiveTriggerIdRef.current = implicitTriggerId;
       }
+    }
 
-      if (lostActiveTriggerId) {
-        if (closeOnActiveTriggerUnmount) {
-          // Defer so a same-tick replacement trigger with the same id can register first.
-          queueMicrotask(() => {
-            if (
-              store.select('open') &&
-              store.select('activeTriggerId') === lostActiveTriggerId &&
-              !store.context.triggerElements.getById(lostActiveTriggerId)
-            ) {
-              const eventDetails = createChangeEventDetails(REASONS.none);
-              store.setOpen(false, eventDetails);
-              // If closing is canceled, keep the previous active trigger ownership for the
-              // still-open popup instead of claiming another trigger implicitly.
-              if (!eventDetails.isCanceled) {
-                store.update({
-                  activeTriggerId: null,
-                  activeTriggerElement: null,
-                });
-              }
+    if (
+      stateUpdates.triggerCount !== undefined ||
+      stateUpdates.activeTriggerId !== undefined ||
+      stateUpdates.activeTriggerElement !== undefined
+    ) {
+      store.update(stateUpdates);
+    }
+
+    if (lostActiveTriggerId) {
+      if (closeOnActiveTriggerUnmount) {
+        // Defer so a same-tick replacement trigger with the same id can register first.
+        queueMicrotask(() => {
+          if (
+            store.select('open') &&
+            store.select('activeTriggerId') === lostActiveTriggerId &&
+            !store.context.triggerElements.getById(lostActiveTriggerId)
+          ) {
+            const eventDetails = createChangeEventDetails(REASONS.none);
+            store.setOpen(false, eventDetails);
+            // If closing is canceled, keep the previous active trigger ownership for the
+            // still-open popup instead of claiming another trigger implicitly.
+            if (!eventDetails.isCanceled) {
+              store.update({
+                activeTriggerId: null,
+                activeTriggerElement: null,
+              });
             }
-          });
-        }
+          }
+        });
       }
-    },
-    () => [
-      open,
-      store,
-      reactiveTriggerCount,
-      activeTriggerId,
-      reactiveActiveTriggerElement,
-      closeOnActiveTriggerUnmount,
-    ],
-  );
+    }
+  });
 }
 
 /** Source popup presence/ownership lifecycle; native canonical transition and completion owners. */
@@ -341,7 +320,7 @@ export function useOpenStateTransitions<State extends PopupStoreState<unknown>>(
         preventUnmountingOnClose: syncedPreventUnmountingOnClose,
       }) as Pick<State, 'mounted' | 'transitionStatus' | 'preventUnmountingOnClose'>,
   );
-  const forceUnmount = useStableCallback(() => {
+  const forceUnmount = () => {
     transition.setMounted(false);
     store.update({
       activeTriggerId: null,
@@ -354,7 +333,7 @@ export function useOpenStateTransitions<State extends PopupStoreState<unknown>>(
     >);
     onUnmount?.();
     store.context.onOpenChangeComplete?.(false);
-  });
+  };
   useOpenChangeComplete({
     get enabled() {
       return transition.mounted && !getOpen() && !syncedPreventUnmountingOnClose;
@@ -378,18 +357,12 @@ export function useOpenStateTransitions<State extends PopupStoreState<unknown>>(
 export function usePopupRootSync<
   State extends PopupStoreState<unknown> & { openMethod: InteractionType | null },
 >(store: PopupStoreWithOpen<State>, getOpen: () => boolean) {
-  useIsoLayoutEffect(
-    () => {
-      if (!getOpen() && store.state.openMethod !== null) store.set('openMethod', null);
-    },
-    () => [getOpen()],
-  );
-  useIsoLayoutEffect(
-    () => () => {
-      if (store.state.openMethod !== null) store.set('openMethod', null);
-    },
-    () => [store],
-  );
+  $effect(() => {
+    if (!getOpen() && store.state.openMethod !== null) store.set('openMethod', null);
+  });
+  $effect(() => () => {
+    if (store.state.openMethod !== null) store.set('openMethod', null);
+  });
 }
 
 export function createDefaultInitialFocus(popupRef: { current: HTMLElement | null }) {
@@ -438,16 +411,13 @@ export function usePopupInteractionProps<
   >,
 ) {
   store.useSyncedValues(getStatePart);
-  useIsoLayoutEffect(
-    () => () => {
-      store.update({
-        activeTriggerProps: EMPTY_OBJECT,
-        inactiveTriggerProps: EMPTY_OBJECT,
-        popupProps: EMPTY_OBJECT,
-      } as Pick<State, 'activeTriggerProps' | 'inactiveTriggerProps' | 'popupProps'>);
-    },
-    () => [store],
-  );
+  $effect(() => () => {
+    store.update({
+      activeTriggerProps: EMPTY_OBJECT,
+      inactiveTriggerProps: EMPTY_OBJECT,
+      popupProps: EMPTY_OBJECT,
+    } as Pick<State, 'activeTriggerProps' | 'inactiveTriggerProps' | 'popupProps'>);
+  });
 }
 
 export function attachPreventUnmountOnClose(eventDetails: { preventUnmountOnClose(): void }) {

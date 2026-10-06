@@ -26,7 +26,7 @@ cat > "$scroll_consumer/Consumer.svelte" <<'SVELTE'
   let viewport = $state<HTMLElement | null>(null);
 </script>
 <DirectionProvider direction="rtl"><CSPProvider nonce="public-nonce">
-  <ScrollArea.Root overflowEdgeThreshold={{ xStart: 20 }} class={state=>state.hasOverflowX ? ['overflow'] : undefined} style={state=>state.scrolling ? { opacity: 0.5 } : undefined}>
+  <ScrollArea.Root overflowEdgeThreshold={{ xStart: 20 }} class={state=>state.hasOverflowX ? ['overflow'] : undefined} style={state=>state.scrolling ? 'opacity:0.5' : undefined}>
     <ScrollArea.Viewport bind:ref={viewport} onscroll={event=>{ const e: Event = event; event.preventBaseUIHandler(); void e; }}><ScrollArea.Content>public content</ScrollArea.Content></ScrollArea.Viewport>
     <Sub.Scrollbar orientation="horizontal" keepMounted><Sub.Thumb /></Sub.Scrollbar><Sub.Corner />
   </ScrollArea.Root>

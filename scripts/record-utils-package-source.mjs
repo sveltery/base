@@ -225,6 +225,25 @@ const reviewStatus =
 const currentMoves = extraction.moves.map((move) => {
   const successor = nativeFrameworkCleanup.sourceSuccessors?.find((item) => item.from === move.to);
   if (successor) {
+    if (successor.retiredFrameworkTransport) {
+      if (
+        !successor.replacement ||
+        successor.currentOwners?.length !== 0 ||
+        existsSync(resolve(root, move.to)) ||
+        currentByPath.has(move.to) ||
+        !successor.retiredSubpath ||
+        successor.retiredSubpath in manifest.exports
+      )
+        throw new Error(`Retired framework transport still has a runtime/API owner: ${move.to}`);
+      return {
+        ...move,
+        currentReplacement: successor.replacement,
+        currentOwners: [],
+        retiredFrameworkTransport: true,
+        retiredSubpath: successor.retiredSubpath,
+        reviewStatus,
+      };
+    }
     if (!successor.replacement || !successor.currentOwners?.length)
       throw new Error(`Incomplete native successor for ${move.to}`);
     const currentOwners = successor.currentOwners.map((path) => {

@@ -1,11 +1,11 @@
 // Original Base UI 1.8.0 at 47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c.
 // MIT: THIRD_PARTY_NOTICES.md. Native Svelte live readers/effects replace React hooks.
 import { DEV } from 'esm-env';
-import { untrack } from 'svelte';
-import { useAnimationFrame } from '@sveltery/utils/useAnimationFrame';
-import { useIsoLayoutEffect } from '@sveltery/utils/useIsoLayoutEffect';
+import { onDestroy, untrack } from 'svelte';
+import { AnimationFrame } from '@sveltery/utils/useAnimationFrame';
+
 import { ownerDocument } from '@sveltery/utils/owner';
-import { useStableCallback } from '@sveltery/utils/useStableCallback';
+
 import { platform } from '@sveltery/utils/platform';
 import { isHTMLElement } from '@floating-ui/utils/dom';
 import { createChangeEventDetails } from '../../internals/createBaseUIEventDetails.js';
@@ -247,27 +247,24 @@ export function useListNavigation(
     grid: navigateGrid,
   } = $derived(getProps());
   const isGrid = $derived(navigateGrid != null);
-  useIsoLayoutEffect(
-    () => {
-      if (DEV) {
-        if (allowEscape) {
-          if (!loopFocus) {
-            console.warn('`useListNavigation` looping must be enabled to allow escaping.');
-          }
-          if (!virtual) {
-            console.warn('`useListNavigation` must be virtual to allow escaping.');
-          }
+  $effect(() => {
+    if (DEV) {
+      if (allowEscape) {
+        if (!loopFocus) {
+          console.warn('`useListNavigation` looping must be enabled to allow escaping.');
         }
-        if (orientation === 'vertical' && isGrid) {
-          console.warn(
-            'In grid list navigation mode, the `orientation` should',
-            'be either "horizontal" or "both".',
-          );
+        if (!virtual) {
+          console.warn('`useListNavigation` must be virtual to allow escaping.');
         }
       }
-    },
-    () => [allowEscape, loopFocus, virtual, orientation, isGrid],
-  );
+      if (orientation === 'vertical' && isGrid) {
+        console.warn(
+          'In grid list navigation mode, the `orientation` should',
+          'be either "horizontal" or "both".',
+        );
+      }
+    }
+  });
   const store = $derived('rootStore' in context ? context.rootStore : context);
   const open = $derived(store.useState('open'));
   const floatingElement = $derived(store.useState('floatingElement'));
@@ -287,9 +284,10 @@ export function useListNavigation(
   const indexRef = { current: untrack(() => selectedIndex ?? -1) };
   const keyRef = { current: null as null | string };
   const isPointerModalityRef = { current: true };
-  const onNavigate = useStableCallback((event?: Event) => {
-    onNavigateProp(indexRef.current === -1 ? null : indexRef.current, event);
-  });
+  const onNavigate = (event?: Event) => {
+    const requestedIndex = indexRef.current === -1 ? null : indexRef.current;
+    untrack(() => onNavigateProp(requestedIndex, event));
+  };
   const previousMountedRef = { current: untrack(() => !!floatingElement) };
   const previousOpenRef = { current: untrack(() => open) };
   const forceSyncFocusRef = { current: false };
@@ -315,12 +313,14 @@ export function useListNavigation(
       return resetOnPointerLeave;
     },
   };
-  const focusFrame = useAnimationFrame();
-  const waitForListPopulatedFrame = useAnimationFrame();
-  const focusItem = useStableCallback(() => {
+  const focusFrame = new AnimationFrame();
+  onDestroy(focusFrame.cancel);
+  const waitForListPopulatedFrame = new AnimationFrame();
+  onDestroy(waitForListPopulatedFrame.cancel);
+  const focusItem = () => {
     function runFocus(item: HTMLElement) {
       if (virtual) {
-        tree?.events.emit('virtualfocus', item);
+        untrack(() => tree?.events.emit('virtualfocus', item));
       } else {
         cancelQueuedFocusRef.current = enqueueFocus(item, {
           sync: forceSyncFocusRef.current,
@@ -351,157 +351,128 @@ export function useListNavigation(
         waitedItem.scrollIntoView?.({ block: 'nearest', inline: 'nearest' });
       }
     });
+  };
+  $effect(() => {
+    dataRef.current.orientation = orientation;
   });
-  useIsoLayoutEffect(
-    () => {
-      dataRef.current.orientation = orientation;
-    },
-    () => [dataRef, orientation],
-  );
   // Sync `selectedIndex` to be the `activeIndex` upon opening the floating
   // element. Also, reset `activeIndex` upon closing the floating element.
-  useIsoLayoutEffect(
-    () => {
-      if (!enabled) {
-        return;
-      }
-      if (open && floatingElement) {
-        indexRef.current = selectedIndex ?? -1;
-        if (focusItemOnOpenRef.current && selectedIndex != null) {
-          // Regardless of the pointer modality, we want to ensure the selected
-          // item comes into view when the floating element is opened.
-          forceScrollIntoViewRef.current = true;
-          onNavigate();
-        }
-      } else if (previousMountedRef.current) {
-        // Reset the active index when the list is no longer open and mounted (closing or
-        // unmounting). `onNavigate` is a stable callback that always forwards to the latest
-        // `onNavigate` prop.
-        indexRef.current = -1;
+  $effect(() => {
+    if (!enabled) {
+      return;
+    }
+    if (open && floatingElement) {
+      indexRef.current = selectedIndex ?? -1;
+      if (focusItemOnOpenRef.current && selectedIndex != null) {
+        // Regardless of the pointer modality, we want to ensure the selected
+        // item comes into view when the floating element is opened.
+        forceScrollIntoViewRef.current = true;
         onNavigate();
       }
-    },
-    () => [enabled, open, floatingElement, selectedIndex, onNavigate],
-  );
+    } else if (previousMountedRef.current) {
+      // Reset the active index when the list is no longer open and mounted (closing or
+      // unmounting). `onNavigate` is a live closure that forwards to the latest
+      // `onNavigate` prop.
+      indexRef.current = -1;
+      onNavigate();
+    }
+  });
   // Sync `activeIndex` to be the focused item while the floating element is
   // open.
-  useIsoLayoutEffect(
-    () => {
-      if (!enabled) {
+  $effect(() => {
+    if (!enabled) {
+      return;
+    }
+    if (!open) {
+      forceSyncFocusRef.current = false;
+      return;
+    }
+    if (!floatingElement) {
+      return;
+    }
+    if (activeIndex == null) {
+      forceSyncFocusRef.current = false;
+      if (selectedIndexRef.current != null) {
         return;
       }
-      if (!open) {
-        forceSyncFocusRef.current = false;
-        return;
-      }
-      if (!floatingElement) {
-        return;
-      }
-      if (activeIndex == null) {
-        forceSyncFocusRef.current = false;
-        if (selectedIndexRef.current != null) {
-          return;
-        }
-        // Reset while the floating element was open (e.g. the list changed).
-        if (previousMountedRef.current) {
-          indexRef.current = -1;
-          focusItem();
-        }
-        // Initial sync.
-        if (
-          (!previousOpenRef.current || !previousMountedRef.current) &&
-          focusItemOnOpenRef.current &&
-          (keyRef.current != null ||
-            (focusItemOnOpenRef.current === true && keyRef.current == null))
-        ) {
-          let runs = 0;
-          const waitForListPopulated = () => {
-            if (listRef.current[0] == null) {
-              // Avoid letting the browser paint if possible on the first try,
-              // otherwise use rAF. Don't try more than twice, since something
-              // is wrong otherwise.
-              if (runs < 2) {
-                const scheduler = runs
-                  ? (callback: () => void) => waitForListPopulatedFrame.request(callback)
-                  : queueMicrotask;
-                scheduler(waitForListPopulated);
-              }
-              runs += 1;
-            } else {
-              // Initially focus the first non-disabled item. `disabledIndices` is deliberately
-              // omitted here so attribute-disabled items (`disabled`/`aria-disabled`) are skipped
-              // on open even when the consumer passes an empty `disabledIndices` array. Passing it
-              // would regress that behavior (see mui/base-ui#2604).
-              indexRef.current =
-                keyRef.current == null ||
-                isMainOrientationToEndKey(keyRef.current, orientation, rtl) ||
-                nested
-                  ? getMinListIndex(listRef)
-                  : getMaxListIndex(listRef);
-              keyRef.current = null;
-              onNavigate();
-            }
-          };
-          waitForListPopulated();
-        }
-      } else if (!isIndexOutOfListBounds(listRef.current, activeIndex)) {
-        indexRef.current = activeIndex;
+      // Reset while the floating element was open (e.g. the list changed).
+      if (previousMountedRef.current) {
+        indexRef.current = -1;
         focusItem();
-        forceScrollIntoViewRef.current = false;
       }
-    },
-    () => [
-      enabled,
-      open,
-      floatingElement,
-      activeIndex,
-      selectedIndexRef,
-      nested,
-      listRef,
-      orientation,
-      rtl,
-      onNavigate,
-      focusItem,
-      waitForListPopulatedFrame,
-    ],
-  );
+      // Initial sync.
+      if (
+        (!previousOpenRef.current || !previousMountedRef.current) &&
+        focusItemOnOpenRef.current &&
+        (keyRef.current != null || (focusItemOnOpenRef.current === true && keyRef.current == null))
+      ) {
+        let runs = 0;
+        const waitForListPopulated = () => {
+          if (listRef.current[0] == null) {
+            // Avoid letting the browser paint if possible on the first try,
+            // otherwise use rAF. Don't try more than twice, since something
+            // is wrong otherwise.
+            if (runs < 2) {
+              const scheduler = runs
+                ? (callback: () => void) => waitForListPopulatedFrame.request(callback)
+                : queueMicrotask;
+              scheduler(waitForListPopulated);
+            }
+            runs += 1;
+          } else {
+            // Initially focus the first non-disabled item. `disabledIndices` is deliberately
+            // omitted here so attribute-disabled items (`disabled`/`aria-disabled`) are skipped
+            // on open even when the consumer passes an empty `disabledIndices` array. Passing it
+            // would regress that behavior (see mui/base-ui#2604).
+            indexRef.current =
+              keyRef.current == null ||
+              isMainOrientationToEndKey(keyRef.current, orientation, rtl) ||
+              nested
+                ? getMinListIndex(listRef)
+                : getMaxListIndex(listRef);
+            keyRef.current = null;
+            onNavigate();
+          }
+        };
+        waitForListPopulated();
+      }
+    } else if (!isIndexOutOfListBounds(listRef.current, activeIndex)) {
+      indexRef.current = activeIndex;
+      focusItem();
+      forceScrollIntoViewRef.current = false;
+    }
+  });
   // Ensure the parent floating element has focus when a nested child closes
   // to allow arrow key navigation to work after the pointer leaves the child.
-  useIsoLayoutEffect(
-    () => {
-      if (!enabled || floatingElement || !tree || virtual || !previousMountedRef.current) {
-        return;
-      }
-      const nodes = tree.nodesRef.current;
-      const parent = nodes.find((node) => node.id === parentId)?.context?.elements.floating;
-      // `floatingElement` is null here (see the guard above), so resolve the owner document from an
-      // in-DOM element for realm-safety (shadow DOM/iframes): the reference element, falling back to
-      // the parent floating element when the reference is virtual (`domReferenceElement` is null).
-      const activeEl = activeElement(ownerDocument(domReferenceElement ?? parent ?? null));
-      const treeContainsActiveEl = nodes.some(
-        (node) => node.context && contains(node.context.elements.floating, activeEl),
-      );
-      if (parent && !treeContainsActiveEl && isPointerModalityRef.current) {
-        parent.focus({ preventScroll: true });
-      }
-    },
-    () => [enabled, floatingElement, domReferenceElement, tree, parentId, virtual],
-  );
-  useIsoLayoutEffect(() => {
+  $effect(() => {
+    if (!enabled || floatingElement || !tree || virtual || !previousMountedRef.current) {
+      return;
+    }
+    const nodes = tree.nodesRef.current;
+    const parent = nodes.find((node) => node.id === parentId)?.context?.elements.floating;
+    // `floatingElement` is null here (see the guard above), so resolve the owner document from an
+    // in-DOM element for realm-safety (shadow DOM/iframes): the reference element, falling back to
+    // the parent floating element when the reference is virtual (`domReferenceElement` is null).
+    const activeEl = activeElement(ownerDocument(domReferenceElement ?? parent ?? null));
+    const treeContainsActiveEl = nodes.some(
+      (node) => node.context && contains(node.context.elements.floating, activeEl),
+    );
+    if (parent && !treeContainsActiveEl && isPointerModalityRef.current) {
+      parent.focus({ preventScroll: true });
+    }
+  });
+  $effect(() => {
     previousOpenRef.current = open;
     previousMountedRef.current = !!floatingElement;
   });
-  useIsoLayoutEffect(
-    () => {
-      if (!open) {
-        keyRef.current = null;
-        focusItemOnOpenRef.current = focusItemOnOpen;
-      }
-    },
-    () => [open, focusItemOnOpen],
-  );
+  $effect(() => {
+    if (!open) {
+      keyRef.current = null;
+      focusItemOnOpenRef.current = focusItemOnOpen;
+    }
+  });
   const hasActiveIndex = $derived(activeIndex != null);
-  const syncCurrentTarget = useStableCallback((event: Event) => {
+  const syncCurrentTarget = (event: Event) => {
     if (!latestOpenRef.current) {
       return;
     }
@@ -510,18 +481,18 @@ export function useListNavigation(
       indexRef.current = index;
       onNavigate(event);
     }
-  });
-  const getParentOrientation = useStableCallback(() => {
+  };
+  const getParentOrientation = () => {
     return (
       parentOrientation ??
       (tree?.nodesRef.current.find((node) => node.id === parentId)?.context?.dataRef?.current
         .orientation as UseListNavigationProps['orientation'])
     );
-  });
-  const getMinEnabledIndex = useStableCallback(() => {
+  };
+  const getMinEnabledIndex = () => {
     return getMinListIndex(listRef, disabledIndicesRef.current);
-  });
-  const commonOnKeyDown = useStableCallback((event: KeyboardEvent) => {
+  };
+  const commonOnKeyDown = (event: KeyboardEvent) => {
     isPointerModalityRef.current = false;
     forceSyncFocusRef.current = true;
     // When composing a character, Chrome fires ArrowDown twice. Firefox/Safari
@@ -546,7 +517,7 @@ export function useListNavigation(
       store.setOpen(false, createChangeEventDetails(REASONS.listNavigation, event));
       if (isHTMLElement(domReferenceElement)) {
         if (virtual) {
-          tree?.events.emit('virtualfocus', domReferenceElement);
+          untrack(() => tree?.events.emit('virtualfocus', domReferenceElement));
         } else {
           domReferenceElement.focus();
         }
@@ -660,7 +631,7 @@ export function useListNavigation(
       }
       onNavigate(event);
     }
-  });
+  };
   const item = $derived.by(() => {
     const itemProps: ElementProps['item'] = {
       onfocusin(event: FocusEvent) {

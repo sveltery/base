@@ -85,9 +85,10 @@ export class PopoverStore<Payload> extends SvelteStore<
     nested: boolean,
   ) {
     const triggerElements = new PopupTriggerMap();
+    const triggerFocusTargetRef = $state<{ current: HTMLElement | null }>({ current: null });
     super(
       createInitialState<Payload>(initialState, triggerElements, floatingId, nested),
-      createInitialContext(triggerElements),
+      createInitialContext(triggerElements, triggerFocusTargetRef),
       selectors,
     );
   }
@@ -216,12 +217,15 @@ function createInitialState<Payload>(
   return state;
 }
 
-function createInitialContext(triggerElements: PopupTriggerMap): Context {
+function createInitialContext(
+  triggerElements: PopupTriggerMap,
+  triggerFocusTargetRef: Context['triggerFocusTargetRef'] = { current: null },
+): Context {
   return {
     popupRef: { current: null },
     onOpenChange: undefined,
     onOpenChangeComplete: undefined,
-    triggerFocusTargetRef: { current: null },
+    triggerFocusTargetRef,
     beforeContentFocusGuardRef: { current: null },
     stickIfOpenTimeout: new Timeout(),
     triggerElements,

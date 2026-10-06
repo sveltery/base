@@ -216,19 +216,13 @@ it('supplement: controlled requests observe rendered state and await owner accep
   await settle();
   expect(trigger.getAttribute('aria-expanded')).toBe('true');
 });
-it('supplement: fixed control mode and changed default preserve development warnings', async () => {
+it('native supplement: changed defaults and owner mode retain initial state without React warnings', async () => {
   const errorSpy = vi.spyOn(console, 'error').mockImplementation(() => {});
   const { component, trigger } = await setup('default');
   component.setDefaultOpen(true);
-  await tick();
-  expect(errorSpy).toHaveBeenCalledWith(
-    'Base UI: A component is changing the default open state of an uncontrolled Collapsible after being initialized. To suppress this warning opt to use a controlled Collapsible.',
-  );
   component.setOwnerOpen(true);
   await tick();
-  expect(errorSpy).toHaveBeenCalledWith(
-    "Base UI: A component is changing the uncontrolled open state of Collapsible to be controlled.\nElements should not switch from uncontrolled to controlled (or vice versa).\nDecide between using a controlled or uncontrolled Collapsible element for the lifetime of the component.\nThe nature of the state is determined during the first render. It's considered controlled if the value is not `undefined`.\nMore info: https://fb.me/react-controlled-components",
-  );
+  expect(errorSpy).not.toHaveBeenCalled();
   expect(trigger.getAttribute('aria-expanded')).toBe('false');
 });
 it('supplement: initial uncontrolled mode and default remain fixed', async () => {
@@ -276,32 +270,32 @@ it('supplement: missing animation API completes opening and closing', async () =
   await settle();
   expect(panel()).toBe(null);
 });
-it('supplement: same-turn uncontrolled clicks use the last rendered open snapshot', async () => {
+it('native supplement: same-turn uncontrolled clicks observe the live open state', async () => {
   const { trigger, component } = await setup('default');
   trigger.click();
   trigger.click();
   await settle();
-  expect(component.snapshot().events.map((event) => event.open)).toEqual([true, true]);
-  expect(trigger.getAttribute('aria-expanded')).toBe('true');
+  expect(component.snapshot().events.map((event) => event.open)).toEqual([true, false]);
+  expect(trigger.getAttribute('aria-expanded')).toBe('false');
   trigger.click();
   await settle();
-  expect(component.snapshot().events.map((event) => event.open)).toEqual([true, true, false]);
+  expect(component.snapshot().events.map((event) => event.open)).toEqual([true, false, true]);
 });
-it('supplement: earlier consumer controlled write retains rendered change request', async () => {
+it('native supplement: earlier consumer controlled writes are visible to the change request', async () => {
   const { trigger, component } = await setup('controlled-consumer');
   trigger.click();
   await settle();
-  expect(component.snapshot().events.map((event) => event.open)).toEqual([true]);
+  expect(component.snapshot().events.map((event) => event.open)).toEqual([false]);
   expect(trigger.getAttribute('aria-expanded')).toBe('true');
 });
-it('supplement: rendered callback identity refreshes after the consumer callback prop write commits', async () => {
+it('native supplement: callback replacement is visible in the same event', async () => {
   const { trigger, component } = await setup('callback-snapshot');
   trigger.click();
   await settle();
-  expect(component.snapshot().callbackOwners).toEqual(['old']);
+  expect(component.snapshot().callbackOwners).toEqual(['new']);
   trigger.click();
   await settle();
-  expect(component.snapshot().callbackOwners).toEqual(['old', 'new']);
+  expect(component.snapshot().callbackOwners).toEqual(['new', 'new']);
 });
 it('supplement: Trigger render state remains Root disabled state when explicit false enables activation', async () => {
   const { trigger, component, root } = await setup('disabled-override');
@@ -384,20 +378,112 @@ it('supplement: teardown aborts a pending close completion and attachment work',
   await settle();
   expect(panel()).not.toBe(content);
 });
-it('supplement: measured variable writes preserve temporary inline alignment until its restore frame', async () => {
-  const { trigger } = await setup('motion-layout');
+// Native DOM counterpart only; zero Original assertion credit. Whole former supplement is archived externally.
+it('native supplement: opening measurements neutralize alignment and retain authored styles through restore frames', async () => {
+  const { trigger, component } = await setup('motion-layout');
   const content = panel()!;
-  Object.defineProperty(content, 'getAnimations', {
-    configurable: true,
-    value: () => [{ finished: new Promise<void>(() => {}), playState: 'running', pending: false }],
+  const properties = ['justify-content', 'align-items', 'align-content', 'justify-items'] as const;
+  const readAlignment = () =>
+    properties.map((property) => [
+      property,
+      content.style.getPropertyValue(property),
+      content.style.getPropertyPriority(property),
+    ]);
+  const measurements: {
+    dimension: 'height' | 'width';
+    alignment: ReturnType<typeof readAlignment>;
+  }[] = [];
+  // jsdom supplies no layout. Observe the real panel's scroll reads while supplying fixed dimensions;
+  // the getters neither change styles nor calculate a replacement measurement algorithm.
+  Object.defineProperties(content, {
+    scrollHeight: {
+      configurable: true,
+      get: () => {
+        measurements.push({ dimension: 'height', alignment: readAlignment() });
+        return 100;
+      },
+    },
+    scrollWidth: {
+      configurable: true,
+      get: () => {
+        measurements.push({ dimension: 'width', alignment: readAlignment() });
+        return 80;
+      },
+    },
+    getAnimations: {
+      configurable: true,
+      value: () => [
+        { finished: new Promise<void>(() => {}), playState: 'running', pending: false },
+      ],
+    },
   });
+  expect(trigger.getAttribute('aria-expanded')).toBe('false');
+  expect(content.hidden).toBe(true);
+  expect(content.style.justifyContent).toBe('center');
+
   trigger.click();
   await tick();
-  expect(content.style.justifyContent).toBe('initial');
-  expect(content.style.getPropertyPriority('justify-content')).toBe('important');
-  await settle();
-  expect(content.style.justifyContent).toBe('center');
-  expect(content.style.getPropertyPriority('justify-content')).toBe('');
+  expect(measurements.map((measurement) => measurement.dimension)).toEqual(
+    expect.arrayContaining(['height', 'width']),
+  );
+  for (const measurement of measurements) {
+    expect(measurement.alignment).toEqual(
+      properties.map((property) => [property, 'initial', 'important']),
+    );
+  }
+  const events = component.snapshot().events;
+  expect(events).toHaveLength(1);
+  expect({
+    open: events[0].open,
+    before: events[0].before,
+    reason: events[0].details.reason,
+  }).toEqual({
+    open: true,
+    before: 'false',
+    reason: 'trigger-press',
+  });
+  expect(events[0].details.event).toBeInstanceOf(MouseEvent);
+  expect(events[0].details.event.target).toBe(trigger);
+  expect(events[0].details.isCanceled).toBe(false);
+
+  const sampleCommittedOpen = () => ({
+    sameHost: panel() === content,
+    connected: content.isConnected,
+    hidden: content.hidden,
+    open: content.hasAttribute('data-open'),
+    expanded: trigger.getAttribute('aria-expanded'),
+    controls: trigger.getAttribute('aria-controls'),
+    dimensions: [
+      content.style.getPropertyValue('--collapsible-panel-height'),
+      content.style.getPropertyValue('--collapsible-panel-width'),
+    ],
+    alignment: readAlignment(),
+    requests: component.snapshot().events.length,
+  });
+  const expectedCommittedOpen = {
+    sameHost: true,
+    connected: true,
+    hidden: false,
+    open: true,
+    expanded: 'true',
+    controls: content.id,
+    dimensions: ['100px', '80px'],
+    alignment: [
+      ['justify-content', 'center', ''],
+      ['align-items', '', ''],
+      ['align-content', '', ''],
+      ['justify-items', '', ''],
+    ],
+    requests: 1,
+  };
+  // Native aggregate style commits can restore authored alignment before the scheduled restore frame.
+  expect(content.hasAttribute('data-starting-style')).toBe(true);
+  expect(sampleCommittedOpen()).toEqual(expectedCommittedOpen);
+  await frame();
+  expect(content.hasAttribute('data-starting-style')).toBe(false);
+  expect(sampleCommittedOpen()).toEqual(expectedCommittedOpen);
+  await frame();
+  expect(sampleCommittedOpen()).toEqual(expectedCommittedOpen);
 });
 it('supplement: beforematch duration suppression survives rendered styles until close', async () => {
   const { trigger } = await setup('beforematch');

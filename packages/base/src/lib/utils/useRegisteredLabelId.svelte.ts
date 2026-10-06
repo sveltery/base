@@ -1,5 +1,6 @@
 // Ported from Base UI v1.8.0 utils/useRegisteredLabelId.ts; MIT: THIRD_PARTY_NOTICES.md.
-import { useIsoLayoutEffect } from '@sveltery/utils/useIsoLayoutEffect';
+
+import { untrack } from 'svelte';
 import { useBaseUiId } from '../internals/useBaseUiId.js';
 
 export function useRegisteredLabelId(
@@ -10,15 +11,13 @@ export function useRegisteredLabelId(
   nativeId: string,
 ) {
   const id = $derived(useBaseUiId(getIdProp(), nativeId));
-  useIsoLayoutEffect(
-    () => {
-      const installedId = id;
-      setLabelId(installedId);
-      return () => {
-        setLabelId((currentId) => (currentId === installedId ? undefined : currentId));
-      };
-    },
-    () => [id, setLabelId],
-  );
+  $effect(() => {
+    const installedId = id;
+    // Publishing the registration must not subscribe to the receiver's label state.
+    untrack(() => setLabelId(installedId));
+    return () => {
+      setLabelId((currentId) => (currentId === installedId ? undefined : currentId));
+    };
+  });
   return () => id;
 }

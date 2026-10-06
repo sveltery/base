@@ -114,7 +114,7 @@
         bind:ref
         {@attach attachHost}
         class={(state) => ['toggle', { pressed: state.pressed }]}
-        style={(state) => ({ opacity: state.disabled ? 0.5 : 1 })}>{value}</Toggle
+        style={(state) => `opacity:${state.disabled ? 0.5 : 1}`}>{value}</Toggle
       >
     {/if}
   {/each}

@@ -217,6 +217,9 @@ importers:
       '@sveltery/base':
         specifier: workspace:*
         version: link:../../packages/base
+      '@sveltery/utils':
+        specifier: workspace:*
+        version: link:../../packages/utils
     devDependencies:
       '@base-ui/react':
         specifier: 1.8.0

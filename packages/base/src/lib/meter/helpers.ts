@@ -1,7 +1,7 @@
 // Private Meter closure from Base UI 47b40521; MIT: THIRD_PARTY_NOTICES.md.
 import { clamp } from '@sveltery/utils/clamp';
 import { formatNumber } from '@sveltery/utils/formatNumber';
-// Pinned useRenderElement defaults every Meter part to one frozen empty state.
+// The pinned Meter parts use one frozen empty state.
 export { EMPTY_OBJECT as emptyState } from '@sveltery/utils/empty';
 export function normalize(
   value: number,

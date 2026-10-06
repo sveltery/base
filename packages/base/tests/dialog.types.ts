@@ -85,7 +85,7 @@ const invalidPointer: Trigger = {
     void event;
   },
 };
-const nativeStyle: Trigger = { style: { width: 20, opacity: 0.5 } };
+const nativeStyle: Trigger = { style: 'width:20;opacity:0.5' };
 function eventTypes(details: ChangeEventDetails) {
   if (details.reason === 'escape-key') {
     const event: KeyboardEvent = details.event;

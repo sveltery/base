@@ -1,6 +1,6 @@
 // Ported from Base UI v1.8.0 useCompositeListItem; MIT: THIRD_PARTY_NOTICES.md.
 import { untrack } from 'svelte';
-import { useIsoLayoutEffect } from '@sveltery/utils/useIsoLayoutEffect';
+
 import { useCompositeListContext } from './CompositeListContext.js';
 export interface UseCompositeListItemParameters {
   guess?: boolean;
@@ -21,28 +21,27 @@ export function useCompositeListItem(
     const { metadata, index, label, textRef } = getParameters();
     return { metadata: metadata ?? null, index: index ?? null, label, textRef };
   });
-  const ref = $derived.by(() => {
+  function attach(node: HTMLElement) {
     const currentRegistration = registration;
-    return (node: HTMLElement | null) => {
-      if (component) unregister(component);
+    return untrack(() => {
       component = node;
-      if (node) register(node, currentRegistration);
-    };
+      register(node, currentRegistration);
+      return () =>
+        untrack(() => {
+          unregister(node);
+          if (component === node) component = null;
+        });
+    });
+  }
+  $effect(() => {
+    if (getParameters().index != null) return;
+    return subscribeMapChange((map) => {
+      const next = component ? map.get(component)?.index : null;
+      if (next != null) internalIndex = next;
+    });
   });
-  useIsoLayoutEffect(
-    () => {
-      if (getParameters().index != null) return;
-      return subscribeMapChange((map) => {
-        const next = component ? map.get(component)?.index : null;
-        if (next != null) internalIndex = next;
-      });
-    },
-    () => [getParameters().index, subscribeMapChange],
-  );
   return {
-    get ref() {
-      return ref;
-    },
+    attach,
     index,
   };
 }

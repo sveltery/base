@@ -8,7 +8,7 @@
   import { ROOT, usePreviewCardRootContext } from './context.js';
   import { createChangeEventDetails } from '../internals/createBaseUIEventDetails.js';
   import { REASONS } from '../internals/reasons.js';
-  import { useIsoLayoutEffect } from '@sveltery/utils/useIsoLayoutEffect';
+
   import {
     useImplicitActiveTrigger,
     useOpenStateTransitions,
@@ -54,12 +54,9 @@
       store.context.inlineRectCoordsRef.current = undefined;
     },
   );
-  useIsoLayoutEffect(
-    () => {
-      if (open && activeTriggerId == null) store.set('payload', undefined);
-    },
-    () => [store, activeTriggerId, open],
-  );
+  $effect(() => {
+    if (open && activeTriggerId == null) store.set('payload', undefined);
+  });
   export function close() {
     store.setOpen(false, createChangeEventDetails(REASONS.imperativeAction));
   }

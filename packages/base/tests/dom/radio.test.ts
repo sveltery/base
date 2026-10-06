@@ -157,17 +157,16 @@ it('supplement Composite preserves highlighted node after keyed DOM reorder and 
     ),
   ).toHaveLength(1);
 });
-it('supplement group registry drops removed radios and consumer representative refs', async () => {
-  const ref = vi.fn();
+it('native binding supplement group registry drops removed radios and its representative input', async () => {
   const submit = vi.fn();
-  const { component, form, host } = setup({ onSubmit: submit, inputRef: ref });
-  expect(ref.mock.lastCall?.[0]?.checked).toBe(true);
+  const { component, form, host } = setup({ onSubmit: submit });
+  expect(component.getInput()?.checked).toBe(true);
   component.update({ items: [] });
   flushSync();
   await tick();
   flushSync();
   expect(host.querySelector('input[type="radio"]')).toBe(null);
-  expect(ref.mock.lastCall?.[0]).toBe(null);
+  expect(component.getInput()).toBe(null);
   form().dispatchEvent(new Event('submit', { bubbles: true, cancelable: true }));
   flushSync();
   expect(submit).toHaveBeenLastCalledWith({ choice: null });

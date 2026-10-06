@@ -29,9 +29,11 @@ cat > "$radio_consumer/Consumer.svelte" <<'SVELTE'
   import type { HTMLAttributes } from 'svelte/elements';
   const NumberGroup = RadioGroup<number>;
   const NumberRoot = Radio.Root<number>;
+  let groupInput = $state<HTMLInputElement | null>();
+  let rootInput = $state<HTMLInputElement | null>();
 </script>
-<Form><Field.Root name="storageType"><Field.Label>Storage</Field.Label><RadioGroup defaultValue="disk" onfocusin={(event) => { const native: FocusEvent = event; event.preventBaseUIHandler(); void native; }} onfocusout={(event) => event.preventBaseUIHandler()}>
-  <Radio.Root value="disk" inputRef={null}><Radio.Indicator />Disk</Radio.Root><SubRadio.Root value="cloud">Cloud</SubRadio.Root>
+<Form><Field.Root name="storageType"><Field.Label>Storage</Field.Label><RadioGroup bind:inputRef={groupInput} defaultValue="disk" onfocusin={(event) => { const native: FocusEvent = event; event.preventBaseUIHandler(); void native; }} onfocusout={(event) => event.preventBaseUIHandler()}>
+  <Radio.Root value="disk" bind:inputRef={rootInput}><Radio.Indicator />Disk</Radio.Root><SubRadio.Root value="cloud">Cloud</SubRadio.Root>
 </RadioGroup></Field.Root></Form>
 <SubGroup defaultValue={null} inputRef={null}><SubRadio.Root value={null} id="null-option">None</SubRadio.Root></SubGroup>
 <NumberGroup name="size" value={42} onValueChange={(value, details) => { const n: number = value; const event: Event = details.event; void [n, event]; }}>
@@ -69,6 +71,13 @@ declare const groupValueDefault: IsAny<GroupTypes.RadioGroupProps['value']>;
 exact<true, typeof rootValueDefault>(rootValueDefault);
 exact<true, typeof groupValueDefault>(groupValueDefault);
 const nullableGroupRef: GroupTypes.RadioGroupProps<string> = { value: 'disk', inputRef: null };
+// @ts-expect-error Native inputRef bindings reject callback refs.
+const callbackGroupRef: GroupTypes.RadioGroupProps<string> = { inputRef: (_input: HTMLInputElement | null) => {} };
+// @ts-expect-error Native inputRef bindings reject object refs.
+const objectRootRef: RadioTypes.RadioRootProps<number> = { value: 42, inputRef: { current: null } };
+const nativeGroupInput: GroupTypes.RadioGroupProps<string> = { inputRef: null as HTMLInputElement | null };
+const nativeRootInput: RadioTypes.RadioRootProps<number> = { value: 42, inputRef: null as HTMLInputElement | null };
+void [callbackGroupRef, objectRootRef, nativeGroupInput, nativeRootInput];
 const nullableRootRef: RadioTypes.RadioRootProps<number> = { value: 42, inputRef: null };
 // The pin permits explicitly undefined optional props even with exact optional checking.
 const undefinedRoot: RadioTypes.RadioRootProps<number> = { value: 42, disabled: undefined, required: undefined, readOnly: undefined, nativeButton: undefined, inputRef: undefined, ref: undefined, children: undefined, class: undefined, style: undefined, render: undefined };

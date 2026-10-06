@@ -4,7 +4,6 @@
   import { getAllContexts, type Snippet } from 'svelte';
   import type { HTMLAttributes } from 'svelte/elements';
   import type { BaseUIComponentProps, WithBaseUIEvent } from '../internals/types.js';
-  import type { MergedRef } from '@sveltery/utils/useMergedRefs';
   import {
     useFloatingPortalNode,
     useFloatingPortalContent,
@@ -14,15 +13,21 @@
   let {
     children,
     container,
-    ref,
+    ref = $bindable(),
     ...componentProps
   }: Omit<WithBaseUIEvent<HTMLAttributes<HTMLElement>>, 'children' | 'class' | 'style'> &
     BaseUIComponentProps<State> & {
       children?: Snippet | undefined;
       container?: PortalContainer | undefined;
-      ref?: MergedRef<HTMLElement> | undefined;
+      ref?: HTMLElement | null | undefined;
     } = $props();
 
+  function attachHost(host: HTMLElement) {
+    ref = host;
+    return () => {
+      if (ref === host) ref = null;
+    };
+  }
   const generatedId = $props.id();
   const elementProps = $derived.by(() => {
     const { class: _class, style: _style, render: _render, ...rest } = componentProps;
@@ -32,7 +37,7 @@
     return rest;
   });
   const portal = useFloatingPortalNode<State>(
-    () => ({ container, ref, componentProps, elementProps }),
+    () => ({ container, onHost: attachHost, componentProps, elementProps }),
     generatedId,
   );
   // Lite preserves its inherited child context and installs no PORTAL provider.

@@ -13,12 +13,12 @@
 <!-- Source onFocus delegates native focusin, after the Portal capture listener restores tabindex. -->
 {#if manager.shouldRenderGuards}<FocusGuard
     data-type="inside"
-    ref={manager.beforeRef}
+    {...manager.beforeGuardProps}
     onfocusin={manager.onBeforeFocus}
   />{/if}
 {@render children?.()}
 {#if manager.shouldRenderGuards}<FocusGuard
     data-type="inside"
-    ref={manager.afterRef}
+    {...manager.afterGuardProps}
     onfocusin={manager.onAfterFocus}
   />{/if}

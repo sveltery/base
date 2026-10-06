@@ -1,6 +1,9 @@
 <script lang="ts">
+  import { mergeComponentProps } from '../internals/mergeComponentProps.js';
+  import { createAttachmentKey } from 'svelte/attachments';
+  import { untrack } from 'svelte';
+
   // Original MenuPopup complete business and focus-manager composition (MIT).
-  import RenderElement from '../internals/RenderElement.svelte';
   import FloatingFocusManager from '../floating-ui/components/FloatingFocusManager.svelte';
   import { useHoverFloatingInteraction } from '../floating-ui/hooks/useHoverFloatingInteraction.svelte.js';
   import { useMenuRootContext } from './root/MenuRootContext.js';
@@ -10,7 +13,7 @@
   import { createChangeEventDetails } from '../internals/createBaseUIEventDetails.js';
   import { REASONS } from '../internals/reasons.js';
   import { getDisabledMountTransitionStyles } from '../internals/getDisabledMountTransitionStyles.js';
-  import { useIsoLayoutEffect } from '@sveltery/utils/useIsoLayoutEffect';
+
   import { useToolbarRootContext } from '../toolbar/root/ToolbarRootContext.js';
   import { COMPOSITE_KEYS } from '../internals/composite/composite.js';
   import type { MenuPopupProps, MenuRoot } from './types.js';
@@ -20,7 +23,6 @@
     style,
     finalFocus,
     children,
-    // eslint-disable-next-line no-useless-assignment -- Publishes native bindable host/action outputs to the owner.
     ref = $bindable(null),
     ...elementProps
   }: MenuPopupProps = $props();
@@ -51,21 +53,19 @@
       if (open) store.context.onOpenChangeComplete?.(true);
     },
   });
-  useIsoLayoutEffect(
-    () => {
-      function handleClose(event: {
-        domEvent: Event | undefined;
-        reason: MenuRoot.ChangeEventReason;
-      }) {
-        store.setOpen(false, createChangeEventDetails(event.reason, event.domEvent));
-      }
-      floatingTreeRoot.events.on('close', handleClose);
-      return () => {
-        floatingTreeRoot.events.off('close', handleClose);
-      };
-    },
-    () => [floatingTreeRoot.events, store],
-  );
+  $effect(() => {
+    function handleClose(event: {
+      domEvent: Event | undefined;
+      reason: MenuRoot.ChangeEventReason;
+    }) {
+      store.setOpen(false, createChangeEventDetails(event.reason, event.domEvent));
+    }
+    const installedEvents = floatingTreeRoot.events;
+    installedEvents.on('close', handleClose);
+    return () => {
+      installedEvents.off('close', handleClose);
+    };
+  });
   useHoverFloatingInteraction(
     () => floatingContext,
     () => ({
@@ -92,23 +92,52 @@
     return value;
   }
   let mountedReturnFocus = getDefaultReturnFocus();
-  useIsoLayoutEffect(
-    () =>
-      store.observe(
-        (state) => (state.mounted ? getDefaultReturnFocus(state) : null),
-        (value) => {
-          if (value !== null) mountedReturnFocus = value;
-        },
-      ),
-    () => [store],
+  $effect(() =>
+    store.observe(
+      (state) => (state.mounted ? getDefaultReturnFocus(state) : null),
+      (value) => {
+        if (value !== null) mountedReturnFocus = value;
+      },
+    ),
   );
   const returnFocus = $derived.by(() => {
     const isMounted = store.select('mounted');
     return isMounted ? getDefaultReturnFocus() : mountedReturnFocus;
   });
-  const setRef = (node: HTMLElement | null) => {
-    ref = node;
-  };
+
+  const hostAttachmentKey = createAttachmentKey();
+  function attachHost(host: HTMLElement) {
+    return untrack(() => {
+      ref = host;
+      store.context.popupRef.current = host;
+      setPopupElement?.(host);
+      return () =>
+        untrack(() => {
+          if (ref === host) ref = null;
+          if (store.context.popupRef.current === host) store.context.popupRef.current = null;
+          setPopupElement?.(null);
+        });
+    });
+  }
+  const mergedProps = $derived({
+    ...mergeComponentProps(
+      state,
+      { class: className, style: style },
+      [
+        popupProps,
+        {
+          onkeydown(event: KeyboardEvent) {
+            if (insideToolbar && COMPOSITE_KEYS.has(event.key)) event.stopPropagation();
+          },
+        },
+        getDisabledMountTransitionStyles(transitionStatus),
+        elementProps,
+        { 'data-rootownerid': rootId },
+      ],
+      popupTransitionStateMapping,
+    ),
+    [hostAttachmentKey]: attachHost,
+  });
 </script>
 
 <FloatingFocusManager
@@ -126,25 +155,9 @@
     ? store.context.beforeContentFocusGuardRef
     : undefined}
 >
-  <RenderElement
-    tag="div"
-    componentProps={{ render, class: className, style }}
-    params={{
-      state,
-      ref: [setRef, store.context.popupRef, setPopupElement],
-      stateAttributesMapping: popupTransitionStateMapping,
-      props: [
-        popupProps,
-        {
-          onkeydown(event: KeyboardEvent) {
-            if (insideToolbar && COMPOSITE_KEYS.has(event.key)) event.stopPropagation();
-          },
-        },
-        getDisabledMountTransitionStyles(transitionStatus),
-        elementProps,
-        { 'data-rootownerid': rootId },
-      ],
-    }}
-    {children}
-  />
+  {#if render}
+    {@render render(mergedProps, state, children)}
+  {:else}
+    <div {...mergedProps}>{@render children?.()}</div>
+  {/if}
 </FloatingFocusManager>

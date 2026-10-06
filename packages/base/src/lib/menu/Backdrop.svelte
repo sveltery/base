@@ -1,6 +1,9 @@
 <script lang="ts">
+  import { mergeComponentProps } from '../internals/mergeComponentProps.js';
+  import { createAttachmentKey } from 'svelte/attachments';
+  import { untrack } from 'svelte';
+
   // Original MenuBackdrop complete transition/context-ref/render business (MIT).
-  import RenderElement from '../internals/RenderElement.svelte';
   import { useMenuRootContext } from './root/MenuRootContext.js';
   import { popupTransitionStateMapping } from '../utils/popupStateMapping.js';
   import { useContextMenuRootContext } from '../context-menu/root/ContextMenuRootContext.js';
@@ -11,7 +14,6 @@
     class: className,
     style,
     children,
-    // eslint-disable-next-line no-useless-assignment -- Publishes native bindable host/action outputs to the owner.
     ref = $bindable(null),
     ...elementProps
   }: MenuBackdropProps = $props();
@@ -22,30 +24,44 @@
   const lastOpenChangeReason = $derived(store.useState('lastOpenChangeReason'));
   const context = useContextMenuRootContext();
   const componentState = $derived({ open, transitionStatus });
-  const setRef = (node: HTMLElement | null) => {
-    ref = node;
-  };
+
+  const hostAttachmentKey = createAttachmentKey();
+  function attachHost(host: HTMLElement) {
+    return untrack(() => {
+      ref = host;
+      const backdropRef = context?.backdropRef;
+      if (backdropRef) backdropRef.current = host;
+      return () =>
+        untrack(() => {
+          if (ref === host) ref = null;
+          if (backdropRef?.current === host) backdropRef.current = null;
+        });
+    });
+  }
+  const mergedProps = $derived({
+    ...mergeComponentProps(
+      componentState,
+      { class: className, style: style },
+      [
+        {
+          role: 'presentation',
+          hidden: !mounted,
+          style: {
+            pointerEvents: lastOpenChangeReason === REASONS.triggerHover ? 'none' : undefined,
+            userSelect: 'none',
+            WebkitUserSelect: 'none',
+          },
+        },
+        elementProps,
+      ],
+      popupTransitionStateMapping,
+    ),
+    [hostAttachmentKey]: attachHost,
+  });
 </script>
 
-<RenderElement
-  tag="div"
-  componentProps={{ render, class: className, style }}
-  params={{
-    state: componentState,
-    stateAttributesMapping: popupTransitionStateMapping,
-    ref: context?.backdropRef ? [setRef, context.backdropRef] : setRef,
-    props: [
-      {
-        role: 'presentation',
-        hidden: !mounted,
-        style: {
-          pointerEvents: lastOpenChangeReason === REASONS.triggerHover ? 'none' : undefined,
-          userSelect: 'none',
-          WebkitUserSelect: 'none',
-        },
-      },
-      elementProps,
-    ],
-  }}
-  {children}
-/>
+{#if render}
+  {@render render(mergedProps, componentState, children)}
+{:else}
+  <div {...mergedProps}>{@render children?.()}</div>
+{/if}

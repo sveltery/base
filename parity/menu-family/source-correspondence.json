@@ -45,8 +45,8 @@
       "localHashes": {
         "packages/base/src/lib/context-menu/index.parts.ts": "682c5af33525e53dd8203253cade0919bc23923b2402b01c1eda036d748def11",
         "packages/base/src/lib/context-menu/types.ts": "eea17502bf6bb4655dd0fcd6db7fb1c1073460e684145cdbcbcc3808e941b0e4",
-        "packages/base/src/lib/menu/Positioner.svelte": "b74069e1cd40990a5771de4afd98508cb3e65b7a343d5bbd057d8e3882d4f2ef",
-        "packages/base/src/lib/menu/positioner/createMenuPositioner.svelte.ts": "341b26eb26e66848322f2c6ddb41dc1324b7c42c12c0834c14947305b09935a8"
+        "packages/base/src/lib/menu/Positioner.svelte": "ef00a005fba611ab6296cd9388ea5dd025ba753fcf9046b1c1d4f1e774308442",
+        "packages/base/src/lib/menu/positioner/createMenuPositioner.svelte.ts": "71975122b40a64e64482a25696b6dfca6745c9c1063e3c41c305c75fbcaec5cd"
       },
       "correspondence": "Original alias of MenuPositioner; fixed positioning/context offsets remain in the one canonical used MenuPositioner business body.",
       "reviewStatus": "Entire used Source/native business, idiomatic Svelte and maintainability independent exact-head review pending; no acceptance by inventory."
@@ -61,7 +61,7 @@
         "packages/base/src/lib/context-menu/types.ts"
       ],
       "localHashes": {
-        "packages/base/src/lib/context-menu/Root.svelte": "c3acfbcc1ff41febefa580445159987ae24ad7b59a79af0d29b8019ea0c5144a",
+        "packages/base/src/lib/context-menu/Root.svelte": "7ae8f888c2f9c8d4f902934e7e6ae0930558daded14073fce2bfa4eb27becec1",
         "packages/base/src/lib/context-menu/types.ts": "eea17502bf6bb4655dd0fcd6db7fb1c1073460e684145cdbcbcc3808e941b0e4"
       },
       "correspondence": "Original thin context/anchor/ref/MenuRoot composition; native provider and bind:actions forward to the real MenuRoot.",
@@ -76,7 +76,7 @@
         "packages/base/src/lib/context-menu/root/ContextMenuRootContext.ts"
       ],
       "localHashes": {
-        "packages/base/src/lib/context-menu/root/ContextMenuRootContext.ts": "159228643c1997e8d49e02016bd850f19a2c61d74ff14d08ad302e2aee0f2206"
+        "packages/base/src/lib/context-menu/root/ContextMenuRootContext.ts": "693025717dd64709148878045577c66cbe6e3a9cb97b62a6d11091d9ba28d3eb"
       },
       "correspondence": "Same canonical component/helper/context/store boundary with native Svelte framework substitution where required; compare entire Original and actual used body, including inherited code.",
       "reviewStatus": "Entire used Source/native business, idiomatic Svelte and maintainability independent exact-head review pending; no acceptance by inventory."
@@ -92,8 +92,8 @@
         "packages/base/src/lib/context-menu/types.ts"
       ],
       "localHashes": {
-        "packages/base/src/lib/context-menu/Trigger.svelte": "c4d470fdd6f628e21a071938b1bf317f1b774f3e039f8d263cd6b174ee9455b2",
-        "packages/base/src/lib/context-menu/trigger/createContextMenuTrigger.svelte.ts": "b0552d6f63ebe1122e70824925d78786810972d0cf5b8362d08f6375805fffb9",
+        "packages/base/src/lib/context-menu/Trigger.svelte": "f336576c2d3ff75ebe4245952d6c87a9c1f94dda7c1b29acec49c3652428a876",
+        "packages/base/src/lib/context-menu/trigger/createContextMenuTrigger.svelte.ts": "c1a67ab6ba6034d58293f4add7d1ad9ebf392e91e17b17ab5e27d2be1ae1dc07",
         "packages/base/src/lib/context-menu/types.ts": "eea17502bf6bb4655dd0fcd6db7fb1c1073460e684145cdbcbcc3808e941b0e4"
       },
       "correspondence": "Original complete pointer/long-press/virtual-rect/document-listener and movement/multiple-touch/abort branches with native host event props.",
@@ -153,8 +153,8 @@
         "packages/base/src/lib/floating-ui/components/createFloatingFocusManager.svelte.ts"
       ],
       "localHashes": {
-        "packages/base/src/lib/floating-ui/components/FloatingFocusManager.svelte": "86113226b200d67c3251ba1addc0bc22189a39b22c4ce28c79e6f918380a3b23",
-        "packages/base/src/lib/floating-ui/components/createFloatingFocusManager.svelte.ts": "ae02788ef295c9a613402109a31236e757d5abc8270dea5923d7949b475651c5"
+        "packages/base/src/lib/floating-ui/components/FloatingFocusManager.svelte": "88b47ec0d8e7254d4ea022e5c05d272798d9e735c65e84c9ddfef38b8bd24342",
+        "packages/base/src/lib/floating-ui/components/createFloatingFocusManager.svelte.ts": "c6a2f4dc069dd6c8e663abaa706f7e65db32aee8a533bb2b2af02623ff15de1b"
       },
       "correspondence": "Full Original focus-manager business plus native host/component ownership. Reinspect inherited full body, flags, scheduling, focus restore and teardown.",
       "reviewStatus": "Entire used Source/native business, idiomatic Svelte and maintainability independent exact-head review pending; no acceptance by inventory."
@@ -171,8 +171,8 @@
         "packages/base/src/lib/floating-ui/components/PortalContent.svelte"
       ],
       "localHashes": {
-        "packages/base/src/lib/floating-ui/components/FloatingPortal.svelte": "4e9214fd0a8b8d29f004e9dd8d728969cbea57dae332062206f14cb3f7aeab4e",
-        "packages/base/src/lib/floating-ui/hooks/useFloatingPortalNode.svelte.ts": "9cdd2bf28f214c02af6702e9bca0cdc20f6745f60958d39a95eff0d7d5e0477c",
+        "packages/base/src/lib/floating-ui/components/FloatingPortal.svelte": "d9360eddffb4f2f685ea80e8bfee84ed519ff348c1c5db9bf56bc254fd9e132d",
+        "packages/base/src/lib/floating-ui/hooks/useFloatingPortalNode.svelte.ts": "16cef262e2368b881c58d59baa1257caddc9c0e97b4fb183f7099cc09f6dc84d",
         "packages/base/src/lib/floating-ui/components/FloatingPortalContext.ts": "022afce07c643e0ee4a9bc2177ff8feb41fa5d6a1b63774eb682dd06d34494d5",
         "packages/base/src/lib/floating-ui/components/PortalContent.svelte": "41cf8f68f099889990ab71c57ca1c5de2e1db746e2b54639fef873d9335c6600"
       },
@@ -202,7 +202,7 @@
         "packages/base/src/lib/floating-ui/components/FloatingTree.svelte.ts"
       ],
       "localHashes": {
-        "packages/base/src/lib/floating-ui/components/FloatingTree.svelte.ts": "cc303f1b22e6d03be86b2b46572c5be0e32a0d96dd1eb86649ae048cbaa0433d"
+        "packages/base/src/lib/floating-ui/components/FloatingTree.svelte.ts": "4ba1a45eb3e58c4c1cdb7fc68d48c59da7ad7a5cbd5f9be7319c22af1ca60d8a"
       },
       "correspondence": "Same canonical component/helper/context/store boundary with native Svelte framework substitution where required; compare entire Original and actual used body, including inherited code.",
       "reviewStatus": "Entire used Source/native business, idiomatic Svelte and maintainability independent exact-head review pending; no acceptance by inventory."
@@ -244,7 +244,7 @@
         "packages/base/src/lib/floating-ui/hooks/useClick.svelte.ts"
       ],
       "localHashes": {
-        "packages/base/src/lib/floating-ui/hooks/useClick.svelte.ts": "5344a064e9911e05be6b3fbf58d9d8c522cb5d9d534d8ad7d9e2631eae5d44cf"
+        "packages/base/src/lib/floating-ui/hooks/useClick.svelte.ts": "3e8be914e6d27a0edb6efc9516de0ce9e793b4b32d127b538402c5551d6d4aeb"
       },
       "correspondence": "Accepted canonical PR69 Main callback-construction repair retains Source useMemo selected scalar options and Store/dataRef closure with native derived handler construction. Store.select/dataRef event reads remain live; exact shared helper and affected current family callers require bounded successor Source/native/maintainability review, with no overall feature acceptance by inventory.",
       "reviewStatus": "Entire used Source/native business, idiomatic Svelte and maintainability independent exact-head review pending; no acceptance by inventory."
@@ -268,7 +268,7 @@
         "packages/base/src/lib/floating-ui/hooks/useDismiss.svelte.ts"
       ],
       "localHashes": {
-        "packages/base/src/lib/floating-ui/hooks/useDismiss.svelte.ts": "6d013166a023400154b2f7a38c3240890b07d46dbf816b8db0675e524d159552"
+        "packages/base/src/lib/floating-ui/hooks/useDismiss.svelte.ts": "ae4860fe2a3f4ea5686bccb2b425bf9c61a676b92072da7b6f733d69dc8afd51"
       },
       "correspondence": "Same canonical component/helper/context/store boundary with native Svelte framework substitution where required; compare entire Original and actual used body, including inherited code.",
       "reviewStatus": "Entire used Source/native business, idiomatic Svelte and maintainability independent exact-head review pending; no acceptance by inventory."
@@ -283,7 +283,7 @@
         "packages/base/src/lib/internals/anchor-positioning/useFloating.svelte.ts"
       ],
       "localHashes": {
-        "packages/base/src/lib/floating-ui/hooks/useFloating.svelte.ts": "b0b2fa249e5d019560978a21d421263c00ca9c7598a293024502a63e92abc903",
+        "packages/base/src/lib/floating-ui/hooks/useFloating.svelte.ts": "fb2a3d4ef440583702349947e7fbffb47608d736f3ec7289dd82091d4cb958b8",
         "packages/base/src/lib/internals/anchor-positioning/useFloating.svelte.ts": "65c7d8c1bf6780d8d172a8e26e1ebadfdb84c949283aac0c6bcc010d43bab3bf"
       },
       "correspondence": "Original useBaseUIFloating/useFloatingWithStore root/tree/context/ref publication connects to the sole DOM driver, with honest narrow geometry-free versus fully positioned types. Undefined local-floating fallback uses the existing tracked floating selector so native derivation follows Original subscribed renders; explicit null/ref/publication/cleanup precedence is unchanged. This changed canonical body and affected callers are reopened for fresh independent Source/native/maintainability review.",
@@ -308,7 +308,7 @@
         "packages/base/src/lib/floating-ui/hooks/useFocus.svelte.ts"
       ],
       "localHashes": {
-        "packages/base/src/lib/floating-ui/hooks/useFocus.svelte.ts": "48af353378021a3dc2abb2b758808dd57d8d51017c5b29c3f311e7605e8e73e1"
+        "packages/base/src/lib/floating-ui/hooks/useFocus.svelte.ts": "a78f67d9e8682c70324543e5ab9953c9379a38686abf2af1c7d94ba8e5534b86"
       },
       "correspondence": "Same canonical component/helper/context/store boundary with native Svelte framework substitution where required; compare entire Original and actual used body, including inherited code.",
       "reviewStatus": "Entire used Source/native business, idiomatic Svelte and maintainability independent exact-head review pending; no acceptance by inventory."
@@ -332,7 +332,7 @@
         "packages/base/src/lib/floating-ui/hooks/useHoverFloatingInteraction.svelte.ts"
       ],
       "localHashes": {
-        "packages/base/src/lib/floating-ui/hooks/useHoverFloatingInteraction.svelte.ts": "e17c70202161dd560ab63926d1caff4f831b6b20cce58ef5fee2d664ef0bf540"
+        "packages/base/src/lib/floating-ui/hooks/useHoverFloatingInteraction.svelte.ts": "0ab147a7643e45e94606193799839e6b449028367873d9acdcb4e2618af860ba"
       },
       "correspondence": "Same canonical component/helper/context/store boundary with native Svelte framework substitution where required; compare entire Original and actual used body, including inherited code.",
       "reviewStatus": "Entire used Source/native business, idiomatic Svelte and maintainability independent exact-head review pending; no acceptance by inventory."
@@ -346,7 +346,7 @@
         "packages/base/src/lib/floating-ui/hooks/useHoverInteractionSharedState.svelte.ts"
       ],
       "localHashes": {
-        "packages/base/src/lib/floating-ui/hooks/useHoverInteractionSharedState.svelte.ts": "f28f355a066aef6b731d3c427794b2c63c3c8a4f52870ac1deb4364245e5c8be"
+        "packages/base/src/lib/floating-ui/hooks/useHoverInteractionSharedState.svelte.ts": "894478a3a44f74f94e416fc6aa6060af0625f0d67d80dbf59c10975916b842a3"
       },
       "correspondence": "Same canonical component/helper/context/store boundary with native Svelte framework substitution where required; compare entire Original and actual used body, including inherited code.",
       "reviewStatus": "Entire used Source/native business, idiomatic Svelte and maintainability independent exact-head review pending; no acceptance by inventory."
@@ -360,7 +360,7 @@
         "packages/base/src/lib/floating-ui/hooks/useHoverReferenceInteraction.svelte.ts"
       ],
       "localHashes": {
-        "packages/base/src/lib/floating-ui/hooks/useHoverReferenceInteraction.svelte.ts": "c075d83fb11a4ab97ad395e10aedb39fd21f5875878638b86f87c2262f7afbeb"
+        "packages/base/src/lib/floating-ui/hooks/useHoverReferenceInteraction.svelte.ts": "bd55a3a32c7465648d0a0640aae445b27f4faab8b08946e646e42459e176a060"
       },
       "correspondence": "Same canonical component/helper/context/store boundary with native Svelte framework substitution where required; compare entire Original and actual used body, including inherited code.",
       "reviewStatus": "Entire used Source/native business, idiomatic Svelte and maintainability independent exact-head review pending; no acceptance by inventory."
@@ -388,7 +388,7 @@
         "packages/base/src/lib/floating-ui/hooks/useListNavigation.svelte.ts"
       ],
       "localHashes": {
-        "packages/base/src/lib/floating-ui/hooks/useListNavigation.svelte.ts": "9ce148ab0ed7480b29d93c7c59e1da24710cbf4502caffad1553d1a805caedf8"
+        "packages/base/src/lib/floating-ui/hooks/useListNavigation.svelte.ts": "a35b727cdf040c483d4b6375bd9ace15a755619504a8a75ab5b7bb5f3abdf4d5"
       },
       "correspondence": "Same canonical component/helper/context/store boundary with native Svelte framework substitution where required; compare entire Original and actual used body, including inherited code.",
       "reviewStatus": "Entire used Source/native business, idiomatic Svelte and maintainability independent exact-head review pending; no acceptance by inventory."
@@ -402,7 +402,7 @@
         "packages/base/src/lib/floating-ui/hooks/useSyncedFloatingRootContext.svelte.ts"
       ],
       "localHashes": {
-        "packages/base/src/lib/floating-ui/hooks/useSyncedFloatingRootContext.svelte.ts": "e0478293396446e37dc6604366a3b1ba79c617068157a634f1cc6b696dca0839"
+        "packages/base/src/lib/floating-ui/hooks/useSyncedFloatingRootContext.svelte.ts": "aa1374702cc5d76d0380c6b4080ffc10f2b22b496ecbfed24b97e70636669916"
       },
       "correspondence": "Same canonical component/helper/context/store boundary with native Svelte framework substitution where required; compare entire Original and actual used body, including inherited code.",
       "reviewStatus": "Entire used Source/native business, idiomatic Svelte and maintainability independent exact-head review pending; no acceptance by inventory."
@@ -416,7 +416,7 @@
         "packages/base/src/lib/floating-ui/hooks/useTypeahead.svelte.ts"
       ],
       "localHashes": {
-        "packages/base/src/lib/floating-ui/hooks/useTypeahead.svelte.ts": "4da1312cdd307b35cbb380ac98e4d835b5de67e910eac1b8e50387e73bf8c80d"
+        "packages/base/src/lib/floating-ui/hooks/useTypeahead.svelte.ts": "740573664ed8d416194faebacbabd07597d97a2e50777d45ab77e45c3fe23727"
       },
       "correspondence": "Same canonical component/helper/context/store boundary with native Svelte framework substitution where required; compare entire Original and actual used body, including inherited code.",
       "reviewStatus": "Entire used Source/native business, idiomatic Svelte and maintainability independent exact-head review pending; no acceptance by inventory."
@@ -664,7 +664,7 @@
         "packages/base/src/lib/internals/composite/item/CompositeItem.svelte"
       ],
       "localHashes": {
-        "packages/base/src/lib/internals/composite/item/CompositeItem.svelte": "cc6fb52a0a0c161bf52b52701739de6a3d6cf2df61d1e0862fb7980cc6e3d8f2"
+        "packages/base/src/lib/internals/composite/item/CompositeItem.svelte": "23e78d87cbeb13db6e655c95b20f57d4dd19dfd16a91af90d73d954100be7797"
       },
       "correspondence": "Same canonical component/helper/context/store boundary with native Svelte framework substitution where required; compare entire Original and actual used body, including inherited code.",
       "reviewStatus": "Entire used Source/native business, idiomatic Svelte and maintainability independent exact-head review pending; no acceptance by inventory."
@@ -678,7 +678,7 @@
         "packages/base/src/lib/internals/composite/item/useCompositeItem.svelte.ts"
       ],
       "localHashes": {
-        "packages/base/src/lib/internals/composite/item/useCompositeItem.svelte.ts": "f4373372837e7254fa6a53bbe6cb3ed2d3a9a2780ee5efe8e10154bedfdaef86"
+        "packages/base/src/lib/internals/composite/item/useCompositeItem.svelte.ts": "d90708b23dde83c4381ea1085767ec30135307525c1ea9e5422e9879a522daad"
       },
       "correspondence": "Same canonical component/helper/context/store boundary with native Svelte framework substitution where required; compare entire Original and actual used body, including inherited code.",
       "reviewStatus": "Entire used Source/native business, idiomatic Svelte and maintainability independent exact-head review pending; no acceptance by inventory."
@@ -720,7 +720,7 @@
         "packages/base/src/lib/internals/composite/list/useCompositeListItem.svelte.ts"
       ],
       "localHashes": {
-        "packages/base/src/lib/internals/composite/list/useCompositeListItem.svelte.ts": "24439ae0169b37dcf90a711cd756bb019b37426b765b7cdd002b42a172d451d5"
+        "packages/base/src/lib/internals/composite/list/useCompositeListItem.svelte.ts": "94d353c7d884b35bd002a9278a7701e7b1e835d536b8eb8a94f2a56d7fa72841"
       },
       "correspondence": "Same canonical component/helper/context/store boundary with native Svelte framework substitution where required; compare entire Original and actual used body, including inherited code.",
       "reviewStatus": "Entire used Source/native business, idiomatic Svelte and maintainability independent exact-head review pending; no acceptance by inventory."
@@ -734,7 +734,7 @@
         "packages/base/src/lib/internals/composite/root/CompositeRoot.svelte"
       ],
       "localHashes": {
-        "packages/base/src/lib/internals/composite/root/CompositeRoot.svelte": "aa0ec1d30f45ec09215f705a363585c5811124b6a8de1d030057cbcf43de0f6e"
+        "packages/base/src/lib/internals/composite/root/CompositeRoot.svelte": "29241d2982ea752a27d65c8c15cc9e3675efd2cfbc0917a4b112c5179c7d2e4e"
       },
       "correspondence": "Same canonical component/helper/context/store boundary with native Svelte framework substitution where required; compare entire Original and actual used body, including inherited code.",
       "reviewStatus": "Entire used Source/native business, idiomatic Svelte and maintainability independent exact-head review pending; no acceptance by inventory."
@@ -776,7 +776,7 @@
         "packages/base/src/lib/internals/composite/root/useCompositeRoot.svelte.ts"
       ],
       "localHashes": {
-        "packages/base/src/lib/internals/composite/root/useCompositeRoot.svelte.ts": "de5c954f8c1b4fea9d8ae87eed7df97baa4d834f23d32037887c4de619adc46b"
+        "packages/base/src/lib/internals/composite/root/useCompositeRoot.svelte.ts": "bdd6ced8bc2a28c77a2572b6b54eab7ad09ee111ddf2bcdbe777686f947c39b6"
       },
       "correspondence": "Same canonical component/helper/context/store boundary with native Svelte framework substitution where required; compare entire Original and actual used body, including inherited code.",
       "reviewStatus": "Entire used Source/native business, idiomatic Svelte and maintainability independent exact-head review pending; no acceptance by inventory."
@@ -940,7 +940,7 @@
         "packages/base/src/lib/internals/use-button/useButton.svelte.ts"
       ],
       "localHashes": {
-        "packages/base/src/lib/internals/use-button/useButton.svelte.ts": "e56dc193c3f2b1317916711b4b9f549ccfc49e60ac13cf10842c5ab5cc8be68a"
+        "packages/base/src/lib/internals/use-button/useButton.svelte.ts": "48750528371fbf08dd09478dd7fb8e2a2b9a19494bf1e779610e5b90668e16d0"
       },
       "correspondence": "Same canonical component/helper/context/store boundary with native Svelte framework substitution where required; compare entire Original and actual used body, including inherited code.",
       "reviewStatus": "Entire used Source/native business, idiomatic Svelte and maintainability independent exact-head review pending; no acceptance by inventory."
@@ -974,7 +974,7 @@
         "packages/base/src/lib/internals/useAnimationsFinished.ts"
       ],
       "localHashes": {
-        "packages/base/src/lib/internals/useAnimationsFinished.ts": "31222cee2d8d0e15af4b6c9e7bb4fdc5293942b3ab1e2d4a651d84a63b5e5c26"
+        "packages/base/src/lib/internals/useAnimationsFinished.ts": "7abe48ef841cdfa7bf60b29045e9f0ffb7dbfb715b34351e8f6716131b2678f8"
       },
       "correspondence": "Same canonical component/helper/context/store boundary with native Svelte framework substitution where required; compare entire Original and actual used body, including inherited code.",
       "reviewStatus": "Entire used Source/native business, idiomatic Svelte and maintainability independent exact-head review pending; no acceptance by inventory."
@@ -1002,7 +1002,7 @@
         "packages/base/src/lib/internals/useOpenChangeComplete.svelte.ts"
       ],
       "localHashes": {
-        "packages/base/src/lib/internals/useOpenChangeComplete.svelte.ts": "f2de05237ca0eb539c18480d9245c10c4cbc6064ac24615e57e8d229ae5f2538"
+        "packages/base/src/lib/internals/useOpenChangeComplete.svelte.ts": "b6174d1cc73b6ea3b6431cf87906a1acacc40b1d5c356a31124f92251d7fd038"
       },
       "correspondence": "Same canonical component/helper/context/store boundary with native Svelte framework substitution where required; compare entire Original and actual used body, including inherited code.",
       "reviewStatus": "Entire used Source/native business, idiomatic Svelte and maintainability independent exact-head review pending; no acceptance by inventory."
@@ -1013,21 +1013,20 @@
       "url": "https://github.com/mui/base-ui/blob/47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c/packages/react/src/internals/useRenderElement.tsx",
       "selection": "used-business-or-type-port",
       "local": [
-        "packages/base/src/lib/internals/useRenderElement.ts",
-        "packages/base/src/lib/internals/RenderElement.svelte",
+        "packages/base/src/lib/internals/mergeComponentProps.ts",
         "packages/base/src/lib/internals/nativeProps.ts",
-        "packages/base/src/lib/internals/nativeRefAttachment.ts",
         "packages/base/src/lib/internals/resolveClassValue.ts"
       ],
       "localHashes": {
-        "packages/base/src/lib/internals/useRenderElement.ts": "851c5b39cef485c29b87f7f006daa9763dc3a131ac45c6c6f72d9b4b978ca617",
-        "packages/base/src/lib/internals/RenderElement.svelte": "7468c314806abe0b4ed1fc2dd95d3a2defd6e86a9021012ced3f0154d0028daa",
-        "packages/base/src/lib/internals/nativeProps.ts": "4c1f8df953df631d3b410b9a12e48e156ad90bcd5fef6feaec97a4426068ec29",
-        "packages/base/src/lib/internals/nativeRefAttachment.ts": "ab007711c5ea5bd558b06a704c5f06c2c37e46ff52b547c01c14e119116402d9",
+        "packages/base/src/lib/internals/mergeComponentProps.ts": "803da5cb2c52515e1e68e16b66b61060c31ca03d183bb09d928b601bbb70cab7",
+        "packages/base/src/lib/internals/nativeProps.ts": "f081bf825f41a64924fe298108e148ac56314d02074c588cc1f9324ff6a92cc5",
         "packages/base/src/lib/internals/resolveClassValue.ts": "584323b17cb1733a798e9ff86e9ff783d6a26d08ecf005a8c2b3c69917c1e722"
       },
       "correspondence": "Canonical Source prop/state/disabled/ref composition with native ClassValue/CSS/native event/snippet/attachment/host representation helpers. Native host resolution replaces React element internals.",
-      "reviewStatus": "Entire used Source/native business, idiomatic Svelte and maintainability independent exact-head review pending; no acceptance by inventory."
+      "reviewStatus": "Entire used Source/native business, idiomatic Svelte and maintainability independent exact-head review pending; no acceptance by inventory.",
+      "nativeReplacement": "Only pure prop/appearance/event/cancellation/state-attribute composition remains in mergeComponentProps; actual rendering and DOM publication belong to each component native branch/attachment. Runtime renderer/ref transport and public UseRender API are retired. Each actual component uses its own native snippet/intrinsic branch, binding and attachment; see parity/native-snippets/native-graph.json. No unchanged framework assertion credit. Runtime renderer/ref transport and public UseRender API are retired. Each actual component uses its own native snippet/intrinsic branch, binding and attachment; see parity/native-snippets/native-graph.json. No unchanged framework assertion credit.",
+      "nativeReplacementCredit": 0,
+      "currentNativeHostGraph": "parity/native-snippets/native-graph.json"
     },
     {
       "source": "packages/react/src/internals/useTransitionStatus.ts",
@@ -1038,7 +1037,7 @@
         "packages/base/src/lib/internals/useTransitionStatus.svelte.ts"
       ],
       "localHashes": {
-        "packages/base/src/lib/internals/useTransitionStatus.svelte.ts": "e7b8958ce0c77110534a4179e0a8d3fdc35276021b9bf87d47d7addccc10c0ab"
+        "packages/base/src/lib/internals/useTransitionStatus.svelte.ts": "7fc531ccff0a7dfd77703c0f0ee7e1148fc080960682469eafffbc627056fa9e"
       },
       "correspondence": "Same canonical component/helper/context/store boundary with native Svelte framework substitution where required; compare entire Original and actual used body, including inherited code.",
       "reviewStatus": "Entire used Source/native business, idiomatic Svelte and maintainability independent exact-head review pending; no acceptance by inventory."
@@ -1049,12 +1048,12 @@
       "url": "https://github.com/mui/base-ui/blob/47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c/packages/react/src/internals/useValueChanged.ts",
       "selection": "used-business-or-type-port",
       "local": [
-        "packages/base/src/lib/internals/useValueChanged.svelte.ts"
+        "packages/base/src/lib/internals/ValueChanged.svelte.ts"
       ],
       "localHashes": {
-        "packages/base/src/lib/internals/useValueChanged.svelte.ts": "60f5b1675968fbdfd54c892217932b3d0592b1fa41f0cbcd5c03b097b84ee66a"
+        "packages/base/src/lib/internals/ValueChanged.svelte.ts": "f169e9eec98d817327dd31fc0c39c019173cdb64fac3350b898004222107e54e"
       },
-      "correspondence": "Same canonical component/helper/context/store boundary with native Svelte framework substitution where required; compare entire Original and actual used body, including inherited code.",
+      "correspondence": "Previous-value notification ordering remains in the shared ValueChanged class with a direct native effect and narrow observer publication boundary.",
       "reviewStatus": "Entire used Source/native business, idiomatic Svelte and maintainability independent exact-head review pending; no acceptance by inventory."
     },
     {
@@ -1067,7 +1066,7 @@
         "packages/base/src/lib/menu/types.ts"
       ],
       "localHashes": {
-        "packages/base/src/lib/menu/Arrow.svelte": "edae8fbefe54d4ac260b9bc7bf801ef07ce6b8a1d1a7177cf5db172bf87e864e",
+        "packages/base/src/lib/menu/Arrow.svelte": "09bf8d81d36cdc6e61f71fb3700e16acfcdddd8a46e17dc936997fe06840050f",
         "packages/base/src/lib/menu/types.ts": "f70bd7769bbf0008b619ecc7d0eb7d4a56edc6c351c5c82fa11e9989d844e426"
       },
       "correspondence": "Original component business and public types retain their part boundary; native component/snippet/attachment/context/rune ownership replaces React host rendering. Compare the complete component and any used extracted business body together.",
@@ -1083,7 +1082,7 @@
         "packages/base/src/lib/menu/types.ts"
       ],
       "localHashes": {
-        "packages/base/src/lib/menu/Backdrop.svelte": "25d4eff5ac03e8bd22082c8567a2d5cefd30756f163f6e4a823e20fbd08b97f0",
+        "packages/base/src/lib/menu/Backdrop.svelte": "62f8e4e3f20a59d5bf839e0bf30debf4568f100d17049acbb8fb241227c9ac9a",
         "packages/base/src/lib/menu/types.ts": "f70bd7769bbf0008b619ecc7d0eb7d4a56edc6c351c5c82fa11e9989d844e426"
       },
       "correspondence": "Original component business and public types retain their part boundary; native component/snippet/attachment/context/rune ownership replaces React host rendering. Compare the complete component and any used extracted business body together.",
@@ -1099,7 +1098,7 @@
         "packages/base/src/lib/menu/types.ts"
       ],
       "localHashes": {
-        "packages/base/src/lib/menu/CheckboxItemIndicator.svelte": "d81d77bf98ca44d083a56daf1445b33c4162ba2b32a73bbe2eec2321ef27b119",
+        "packages/base/src/lib/menu/CheckboxItemIndicator.svelte": "c4d32eb8ae825ae3283100b18d45cd8ba4d691fd33570477b434f0945d93faab",
         "packages/base/src/lib/menu/types.ts": "f70bd7769bbf0008b619ecc7d0eb7d4a56edc6c351c5c82fa11e9989d844e426"
       },
       "correspondence": "Original component business and public types retain their part boundary; native component/snippet/attachment/context/rune ownership replaces React host rendering. Compare the complete component and any used extracted business body together.",
@@ -1115,7 +1114,7 @@
         "packages/base/src/lib/menu/types.ts"
       ],
       "localHashes": {
-        "packages/base/src/lib/menu/CheckboxItem.svelte": "d4de6d82e08e4b595646e00197a50595a2e13445fb1e5fb5bd23df658ce26120",
+        "packages/base/src/lib/menu/CheckboxItem.svelte": "3db96f6be4c7fe6cc2da6a5db1a2581c0175c0461a2e35a22e1aea78e58d4cfe",
         "packages/base/src/lib/menu/types.ts": "f70bd7769bbf0008b619ecc7d0eb7d4a56edc6c351c5c82fa11e9989d844e426"
       },
       "correspondence": "Original component business and public types retain their part boundary; native component/snippet/attachment/context/rune ownership replaces React host rendering. Compare the complete component and any used extracted business body together.",
@@ -1159,7 +1158,7 @@
         "packages/base/src/lib/menu/types.ts"
       ],
       "localHashes": {
-        "packages/base/src/lib/menu/GroupLabel.svelte": "94a19a4d5a9b7e8299101df17c33d432cc9a15507081a75b3cd17f6620c62979",
+        "packages/base/src/lib/menu/GroupLabel.svelte": "743dad85f4b3e8c9fcca29c8b24c78cba2978e63557e491410ed481fd678070f",
         "packages/base/src/lib/menu/types.ts": "f70bd7769bbf0008b619ecc7d0eb7d4a56edc6c351c5c82fa11e9989d844e426"
       },
       "correspondence": "Original component business and public types retain their part boundary; native component/snippet/attachment/context/rune ownership replaces React host rendering. Compare the complete component and any used extracted business body together.",
@@ -1175,7 +1174,7 @@
         "packages/base/src/lib/menu/types.ts"
       ],
       "localHashes": {
-        "packages/base/src/lib/menu/Group.svelte": "75974a91b64123ebaaf7d261a2d0d4fc5bc387028f66281714d07089923df4d8",
+        "packages/base/src/lib/menu/Group.svelte": "89ffff8084bdd19d9fc144a34aed3540a98f5d2b65b77e6447a3cad4368cb0dd",
         "packages/base/src/lib/menu/types.ts": "f70bd7769bbf0008b619ecc7d0eb7d4a56edc6c351c5c82fa11e9989d844e426"
       },
       "correspondence": "Original component business and public types retain their part boundary; native component/snippet/attachment/context/rune ownership replaces React host rendering. Compare the complete component and any used extracted business body together.",
@@ -1190,7 +1189,7 @@
         "packages/base/src/lib/menu/group/MenuGroupContext.ts"
       ],
       "localHashes": {
-        "packages/base/src/lib/menu/group/MenuGroupContext.ts": "8ea24121e4a2635503f10ba66a9bf14692d1bbe67762efedb722f250dd185141"
+        "packages/base/src/lib/menu/group/MenuGroupContext.ts": "60e64aaa5836c50e12bd5f8d283e9abbc3ac31b472d95cc47d6faa721e35582d"
       },
       "correspondence": "Same canonical component/helper/context/store boundary with native Svelte framework substitution where required; compare entire Original and actual used body, including inherited code.",
       "reviewStatus": "Entire used Source/native business, idiomatic Svelte and maintainability independent exact-head review pending; no acceptance by inventory."
@@ -1233,7 +1232,7 @@
         "packages/base/src/lib/menu/types.ts"
       ],
       "localHashes": {
-        "packages/base/src/lib/menu/Item.svelte": "fcabd9a2f99a50c1acc3bdaa28bfe4241681f52d05b8dca47a9baf5ece2288ae",
+        "packages/base/src/lib/menu/Item.svelte": "b6e0464d3eacabbb8d3ad0b9188f9e29e7114e5c13dbc031e6d05213e77ecafb",
         "packages/base/src/lib/menu/types.ts": "f70bd7769bbf0008b619ecc7d0eb7d4a56edc6c351c5c82fa11e9989d844e426"
       },
       "correspondence": "Original component business and public types retain their part boundary; native component/snippet/attachment/context/rune ownership replaces React host rendering. Compare the complete component and any used extracted business body together.",
@@ -1248,7 +1247,7 @@
         "packages/base/src/lib/menu/item/useMenuItem.svelte.ts"
       ],
       "localHashes": {
-        "packages/base/src/lib/menu/item/useMenuItem.svelte.ts": "0fa76528a0366a145dbc52c5723b88d01da7e9b0f57f2480dc3e798dceeae83e"
+        "packages/base/src/lib/menu/item/useMenuItem.svelte.ts": "786f3673917262681cb14b31f5cc4280cb51dfa28a918c523e6adcc8b5f7b578"
       },
       "correspondence": "Same canonical component/helper/context/store boundary with native Svelte framework substitution where required; compare entire Original and actual used body, including inherited code.",
       "reviewStatus": "Entire used Source/native business, idiomatic Svelte and maintainability independent exact-head review pending; no acceptance by inventory."
@@ -1277,7 +1276,7 @@
         "packages/base/src/lib/menu/types.ts"
       ],
       "localHashes": {
-        "packages/base/src/lib/menu/LinkItem.svelte": "958f9d8391eaf351c8f5320fe7f4f8d73e252b43ce5f06fb26e5ae3b8542e286",
+        "packages/base/src/lib/menu/LinkItem.svelte": "eab316a4f0d17a8fef47ebf716b18b72db44e2773509d07b4c2941f01700dafe",
         "packages/base/src/lib/menu/types.ts": "f70bd7769bbf0008b619ecc7d0eb7d4a56edc6c351c5c82fa11e9989d844e426"
       },
       "correspondence": "Original component business and public types retain their part boundary; native component/snippet/attachment/context/rune ownership replaces React host rendering. Compare the complete component and any used extracted business body together.",
@@ -1293,7 +1292,7 @@
         "packages/base/src/lib/menu/types.ts"
       ],
       "localHashes": {
-        "packages/base/src/lib/menu/Popup.svelte": "176604f6368f089e4dea9cd469c203282fe75ddb669501bbee6a442ae5e30bab",
+        "packages/base/src/lib/menu/Popup.svelte": "ffe870ee1c658b8ed2d4d47e1228f75d23e51133fecc7bba738c69df45fc45c5",
         "packages/base/src/lib/menu/types.ts": "f70bd7769bbf0008b619ecc7d0eb7d4a56edc6c351c5c82fa11e9989d844e426"
       },
       "correspondence": "Original component business and public types retain their part boundary; native component/snippet/attachment/context/rune ownership replaces React host rendering. Compare the complete component and any used extracted business body together.",
@@ -1309,7 +1308,7 @@
         "packages/base/src/lib/menu/types.ts"
       ],
       "localHashes": {
-        "packages/base/src/lib/menu/Portal.svelte": "16e30ce669b1ce0621bed3f88bd6530cd859f0f2c527132b4de8f63609c029db",
+        "packages/base/src/lib/menu/Portal.svelte": "24c79d4f56f3c9f36df9ef1f42bf2435585fd49e3455935b6f05675edb5b1f64",
         "packages/base/src/lib/menu/types.ts": "f70bd7769bbf0008b619ecc7d0eb7d4a56edc6c351c5c82fa11e9989d844e426"
       },
       "correspondence": "Original component business and public types retain their part boundary; native component/snippet/attachment/context/rune ownership replaces React host rendering. Compare the complete component and any used extracted business body together.",
@@ -1340,9 +1339,9 @@
         "packages/base/src/lib/menu/positioner/createMenuPositioner.svelte.ts"
       ],
       "localHashes": {
-        "packages/base/src/lib/menu/Positioner.svelte": "b74069e1cd40990a5771de4afd98508cb3e65b7a343d5bbd057d8e3882d4f2ef",
+        "packages/base/src/lib/menu/Positioner.svelte": "ef00a005fba611ab6296cd9388ea5dd025ba753fcf9046b1c1d4f1e774308442",
         "packages/base/src/lib/menu/types.ts": "f70bd7769bbf0008b619ecc7d0eb7d4a56edc6c351c5c82fa11e9989d844e426",
-        "packages/base/src/lib/menu/positioner/createMenuPositioner.svelte.ts": "341b26eb26e66848322f2c6ddb41dc1324b7c42c12c0834c14947305b09935a8"
+        "packages/base/src/lib/menu/positioner/createMenuPositioner.svelte.ts": "71975122b40a64e64482a25696b6dfca6745c9c1063e3c41c305c75fbcaec5cd"
       },
       "correspondence": "Original component business and public types retain their part boundary; native component/snippet/attachment/context/rune ownership replaces React host rendering. Compare the complete component and any used extracted business body together.",
       "reviewStatus": "Entire used Source/native business, idiomatic Svelte and maintainability independent exact-head review pending; no acceptance by inventory."
@@ -1371,7 +1370,7 @@
         "packages/base/src/lib/menu/types.ts"
       ],
       "localHashes": {
-        "packages/base/src/lib/menu/RadioGroup.svelte": "a60cfeabdc9d6f4e82f3bd60682afe072fb1cea36d41f770486f77bfba43cf1d",
+        "packages/base/src/lib/menu/RadioGroup.svelte": "a9f743f853e33586d5cb789e6fdd4676749a68a20562d86bbb4ad78bc025ada3",
         "packages/base/src/lib/menu/types.ts": "f70bd7769bbf0008b619ecc7d0eb7d4a56edc6c351c5c82fa11e9989d844e426"
       },
       "correspondence": "Original component business and public types retain their part boundary; native component/snippet/attachment/context/rune ownership replaces React host rendering. Compare the complete component and any used extracted business body together.",
@@ -1401,7 +1400,7 @@
         "packages/base/src/lib/menu/types.ts"
       ],
       "localHashes": {
-        "packages/base/src/lib/menu/RadioItemIndicator.svelte": "95825e6d548bf11d05aec48dc8334e8a38e153f590d812747e247715fd82d134",
+        "packages/base/src/lib/menu/RadioItemIndicator.svelte": "6b5639f92e10960db5ca69c5ac9e6c9b3b9a623b3f173eeb855d12ce06df1b2b",
         "packages/base/src/lib/menu/types.ts": "f70bd7769bbf0008b619ecc7d0eb7d4a56edc6c351c5c82fa11e9989d844e426"
       },
       "correspondence": "Original component business and public types retain their part boundary; native component/snippet/attachment/context/rune ownership replaces React host rendering. Compare the complete component and any used extracted business body together.",
@@ -1417,7 +1416,7 @@
         "packages/base/src/lib/menu/types.ts"
       ],
       "localHashes": {
-        "packages/base/src/lib/menu/RadioItem.svelte": "27f78332e206e0660500c8019cff5599adfa0df9695132e6ada934e2fca1f311",
+        "packages/base/src/lib/menu/RadioItem.svelte": "37fb5db24c04539996271f0dc8af2d197a3c288a1eb783f24944f824dbe58902",
         "packages/base/src/lib/menu/types.ts": "f70bd7769bbf0008b619ecc7d0eb7d4a56edc6c351c5c82fa11e9989d844e426"
       },
       "correspondence": "Original component business and public types retain their part boundary; native component/snippet/attachment/context/rune ownership replaces React host rendering. Compare the complete component and any used extracted business body together.",
@@ -1450,7 +1449,7 @@
       "localHashes": {
         "packages/base/src/lib/menu/Root.svelte": "0c309094355a231846fda628081404221db6da6ff2affff93fe47a008ed88875",
         "packages/base/src/lib/menu/types.ts": "f70bd7769bbf0008b619ecc7d0eb7d4a56edc6c351c5c82fa11e9989d844e426",
-        "packages/base/src/lib/menu/root/createMenuRoot.svelte.ts": "dd8c15c28f4578094de86f1f0ca987da8c258f60748b13f4e31f2378a6a5d286"
+        "packages/base/src/lib/menu/root/createMenuRoot.svelte.ts": "c388e875d2a3f4c6fb748b17f1dc2e9c35ce347360d7de696dfe83295136616e"
       },
       "correspondence": "Original component business and public types retain their part boundary; native component/snippet/attachment/context/rune ownership replaces React host rendering. Compare the complete component and any used extracted business body together.",
       "reviewStatus": "Entire used Source/native business, idiomatic Svelte and maintainability independent exact-head review pending; no acceptance by inventory."
@@ -1538,9 +1537,9 @@
         "packages/base/src/lib/menu/submenu-trigger/createMenuSubmenuTrigger.svelte.ts"
       ],
       "localHashes": {
-        "packages/base/src/lib/menu/SubmenuTrigger.svelte": "b9757776e9de43ab8e96b84bedb38f5b594906f093cb6a12d2fe0979bb9b7ce8",
+        "packages/base/src/lib/menu/SubmenuTrigger.svelte": "8392ccbeaa5d720a9ed07d0f622c8b9b05edb16936c5da7b58de413f73eb05ae",
         "packages/base/src/lib/menu/types.ts": "f70bd7769bbf0008b619ecc7d0eb7d4a56edc6c351c5c82fa11e9989d844e426",
-        "packages/base/src/lib/menu/submenu-trigger/createMenuSubmenuTrigger.svelte.ts": "e56c587c6ea6b4af215f80e57b2ea24809fa89993330f140d6f0c961bb19cc72"
+        "packages/base/src/lib/menu/submenu-trigger/createMenuSubmenuTrigger.svelte.ts": "3bdb83ab95cdfbe5ba3066f17bbd04c60915ba5e887e486db27f6484c4105691"
       },
       "correspondence": "Original component business and public types retain their part boundary; native component/snippet/attachment/context/rune ownership replaces React host rendering. Compare the complete component and any used extracted business body together.",
       "reviewStatus": "Entire used Source/native business, idiomatic Svelte and maintainability independent exact-head review pending; no acceptance by inventory."
@@ -1556,9 +1555,9 @@
         "packages/base/src/lib/menu/trigger/createMenuTrigger.svelte.ts"
       ],
       "localHashes": {
-        "packages/base/src/lib/menu/Trigger.svelte": "2bce1bf83c41d399c12db859c6dd861aa404e906a9dddc07e57f6682207c3a69",
+        "packages/base/src/lib/menu/Trigger.svelte": "ee9cd19d28798f1e70a9e5a3215bd40f6144a2cfbc6fac7b3639d8eb4a7bebbb",
         "packages/base/src/lib/menu/types.ts": "f70bd7769bbf0008b619ecc7d0eb7d4a56edc6c351c5c82fa11e9989d844e426",
-        "packages/base/src/lib/menu/trigger/createMenuTrigger.svelte.ts": "61c504360215953095650d929747cd11d7a6963ae8ce733af1667bd85e8a55bc"
+        "packages/base/src/lib/menu/trigger/createMenuTrigger.svelte.ts": "ae04e18d492aa073757adc134e825f1fa8412283d742cb6cf9895a784215108f"
       },
       "correspondence": "Original component business and public types retain their part boundary; native component/snippet/attachment/context/rune ownership replaces React host rendering. Compare the complete component and any used extracted business body together.",
       "reviewStatus": "Entire used Source/native business, idiomatic Svelte and maintainability independent exact-head review pending; no acceptance by inventory."
@@ -1615,7 +1614,7 @@
         "packages/base/src/lib/menu/types.ts"
       ],
       "localHashes": {
-        "packages/base/src/lib/menu/Viewport.svelte": "a98b62e59827dd100579f9528dd1519dc331850432907e8bddea75cb9f7d02b6",
+        "packages/base/src/lib/menu/Viewport.svelte": "c5740050aa002ff57ebbc888d4d6a2536ad08be3a6858f7a58ac6fbc41216aa3",
         "packages/base/src/lib/menu/types.ts": "f70bd7769bbf0008b619ecc7d0eb7d4a56edc6c351c5c82fa11e9989d844e426"
       },
       "correspondence": "Original component business and public types retain their part boundary; native component/snippet/attachment/context/rune ownership replaces React host rendering. Compare the complete component and any used extracted business body together.",
@@ -1645,7 +1644,7 @@
         "packages/base/src/lib/menubar/types.ts"
       ],
       "localHashes": {
-        "packages/base/src/lib/menubar/Menubar.svelte": "1c57d6ce49d8b80c8c9194ea442471589512fb79c3e30cafd591b4db85e9c87f",
+        "packages/base/src/lib/menubar/Menubar.svelte": "8f5a232bc3f2246ffaa0cba4b84764f064687feecc365c837476bfc4f2dbbc43",
         "packages/base/src/lib/menubar/types.ts": "91b24a36c05ac1d7e848fdb9fd8b5186d28b5bf3344962cd59e7d826a9a99169"
       },
       "correspondence": "Original Menubar/MenubarContent CompositeRoot and real FloatingTree/Node/context/event composition; native setup context, runes and component markup.",
@@ -1674,7 +1673,7 @@
         "packages/base/src/lib/menubar/Menubar.svelte"
       ],
       "localHashes": {
-        "packages/base/src/lib/menubar/Menubar.svelte": "1c57d6ce49d8b80c8c9194ea442471589512fb79c3e30cafd591b4db85e9c87f"
+        "packages/base/src/lib/menubar/Menubar.svelte": "8f5a232bc3f2246ffaa0cba4b84764f064687feecc365c837476bfc4f2dbbc43"
       },
       "correspondence": "Original has-submenu-open constant is represented directly in the native state mapping, with no independent business helper.",
       "reviewStatus": "Entire used Source/native business, idiomatic Svelte and maintainability independent exact-head review pending; no acceptance by inventory."
@@ -1704,7 +1703,7 @@
       ],
       "localHashes": {
         "packages/base/src/lib/merge-props/index.ts": "3ef38bba9b22f44bbcf69102d9556807f78897bedb69b410669c7b429971dd68",
-        "packages/base/src/lib/merge-props/mergeProps.ts": "1b758134ab0efecd9601638e928440561944d226e5ebb9276d39723738d0301a"
+        "packages/base/src/lib/merge-props/mergeProps.ts": "b2c30a6df68fe9744f250f0d0b8e21d89de133146724efd6eed7cea0fce0f8b9"
       },
       "correspondence": "One canonical complete Source prop/event merging business with lower-case native event/preventBaseUIHandler framework boundary; index.ts is a reexport of the actual mergeProps body.",
       "reviewStatus": "Entire used Source/native business, idiomatic Svelte and maintainability independent exact-head review pending; no acceptance by inventory."
@@ -1720,7 +1719,7 @@
         "packages/base/src/lib/separator/index.ts"
       ],
       "localHashes": {
-        "packages/base/src/lib/separator/Separator.svelte": "4440b067c96ac48515aa3b923bbfe941e319cb6d5a0ad2b930f5370f7a39ce20",
+        "packages/base/src/lib/separator/Separator.svelte": "32403074e8304bab4f414937ca5ec6936f8d1dc0d121c13cc72763a2b46f6eff",
         "packages/base/src/lib/separator/types.ts": "5ab346df307c50fad23dfdcb26e3931c9b4ba24de0ddc21881ef54441e6496e7",
         "packages/base/src/lib/separator/index.ts": "7cf0255b6470bec86eeffb2ba4d2df166e90c35cdce2409f4cb776f77c9e988b"
       },
@@ -1890,7 +1889,7 @@
         "packages/base/src/lib/utils/FocusGuard.svelte"
       ],
       "localHashes": {
-        "packages/base/src/lib/utils/FocusGuard.svelte": "3744d075b6bfb5db88e198fe1e60abccbeaffd30fe02d219d2efd32c5130db13"
+        "packages/base/src/lib/utils/FocusGuard.svelte": "ea8acf8bdda2c5faf3859db06b580c84604e7978e2496553b5fdc56dc80472b3"
       },
       "correspondence": "Same canonical component/helper/context/store boundary with native Svelte framework substitution where required; compare entire Original and actual used body, including inherited code.",
       "reviewStatus": "Entire used Source/native business, idiomatic Svelte and maintainability independent exact-head review pending; no acceptance by inventory."
@@ -1946,7 +1945,7 @@
         "packages/base/src/lib/utils/InternalBackdrop.svelte"
       ],
       "localHashes": {
-        "packages/base/src/lib/utils/InternalBackdrop.svelte": "2203a2991ad3c5c0bd0d6078939d50b9469f35694f842a2b1ba59cb926fa5aec"
+        "packages/base/src/lib/utils/InternalBackdrop.svelte": "0b29495ff7a71eab019e6667fd0f120f8f299e33e23c83c13cb1572ae465d88f"
       },
       "correspondence": "Same canonical component/helper/context/store boundary with native Svelte framework substitution where required; compare entire Original and actual used body, including inherited code.",
       "reviewStatus": "Entire used Source/native business, idiomatic Svelte and maintainability independent exact-head review pending; no acceptance by inventory."
@@ -2000,7 +1999,7 @@
       ],
       "localHashes": {
         "packages/base/src/lib/utils/popups/popupHandle.svelte.ts": "c3a56400141a1075b20c783a5da24f827911b7d622c5eb92f78a4cf1f49da778",
-        "packages/base/src/lib/utils/popups/PopupHandleAttachment.svelte": "b97151e8cbb31945f286d9f8f086c6377a9c21f44c31301febea838357352925"
+        "packages/base/src/lib/utils/popups/PopupHandleAttachment.svelte": "437e6d44b586b4cc524d30d4214906695aa505239f1951a7840077780f562927"
       },
       "correspondence": "Original BasePopupHandle/store attachment ownership uses one canonical handle and native committed attachment component; no competing detached store.",
       "reviewStatus": "Entire used Source/native business, idiomatic Svelte and maintainability independent exact-head review pending; no acceptance by inventory."
@@ -2014,7 +2013,7 @@
         "packages/base/src/lib/utils/popups/popupStoreUtils.svelte.ts"
       ],
       "localHashes": {
-        "packages/base/src/lib/utils/popups/popupStoreUtils.svelte.ts": "3807cd539769eec5cb365fc251cc6a27c8a4bc8d21c0e4cdee13c9109b0ece8f"
+        "packages/base/src/lib/utils/popups/popupStoreUtils.svelte.ts": "13b61b426eed8a0875580aa2a8e15a8caf5c7110e915174bf4d613f069f7b01a"
       },
       "correspondence": "Same canonical component/helper/context/store boundary with native Svelte framework substitution where required; compare entire Original and actual used body, including inherited code.",
       "reviewStatus": "Entire used Source/native business, idiomatic Svelte and maintainability independent exact-head review pending; no acceptance by inventory."
@@ -2070,7 +2069,7 @@
         "packages/base/src/lib/utils/popups/useTriggerFocusGuards.svelte.ts"
       ],
       "localHashes": {
-        "packages/base/src/lib/utils/popups/useTriggerFocusGuards.svelte.ts": "546d28f868043bb4ba73eb8ce608cb07b4753c18361100e2720a296ed3f15c3a"
+        "packages/base/src/lib/utils/popups/useTriggerFocusGuards.svelte.ts": "31fe56072f7dd8093b4292afc5da43ce09f07ed01faa185e6fae8cdc11f5aac6"
       },
       "correspondence": "Same canonical component/helper/context/store boundary with native Svelte framework substitution where required; compare entire Original and actual used body, including inherited code.",
       "reviewStatus": "Entire used Source/native business, idiomatic Svelte and maintainability independent exact-head review pending; no acceptance by inventory."
@@ -2140,7 +2139,7 @@
         "packages/base/src/lib/utils/useAnchoredPopupScrollLock.svelte.ts"
       ],
       "localHashes": {
-        "packages/base/src/lib/utils/useAnchoredPopupScrollLock.svelte.ts": "efe9e705bd879b26dcbdd8949760d7e9e326d08abce81e49f72df092de81eefe"
+        "packages/base/src/lib/utils/useAnchoredPopupScrollLock.svelte.ts": "21a07726eed55814307acd741228214b8ebc411a0dcbddcf1d32a13ccdc45060"
       },
       "correspondence": "Same canonical component/helper/context/store boundary with native Svelte framework substitution where required; compare entire Original and actual used body, including inherited code.",
       "reviewStatus": "Entire used Source/native business, idiomatic Svelte and maintainability independent exact-head review pending; no acceptance by inventory."
@@ -2182,7 +2181,7 @@
         "packages/base/src/lib/utils/useOpenInteractionType.svelte.ts"
       ],
       "localHashes": {
-        "packages/base/src/lib/utils/useOpenInteractionType.svelte.ts": "637782dee378fc4fe0d551e6082e5c52cbb0432ba47956dbe477cae48bd05968"
+        "packages/base/src/lib/utils/useOpenInteractionType.svelte.ts": "92fb932de384aef85dccc45311f5920dabbd8897584a656d27a5bcd8a012a966"
       },
       "correspondence": "Same canonical component/helper/context/store boundary with native Svelte framework substitution where required; compare entire Original and actual used body, including inherited code.",
       "reviewStatus": "Entire used Source/native business, idiomatic Svelte and maintainability independent exact-head review pending; no acceptance by inventory."
@@ -2196,7 +2195,7 @@
         "packages/base/src/lib/utils/usePopupAutoResize.svelte.ts"
       ],
       "localHashes": {
-        "packages/base/src/lib/utils/usePopupAutoResize.svelte.ts": "d20c48d6cfc9e46d48972043f94ee482e39e23a0841ecb95e8d741f09ebc2e02"
+        "packages/base/src/lib/utils/usePopupAutoResize.svelte.ts": "79908384bfa561421638c3362a8d0bf38526635fcc19780c72d2ff43f7b8ba9c"
       },
       "correspondence": "Same canonical component/helper/context/store boundary with native Svelte framework substitution where required; compare entire Original and actual used body, including inherited code.",
       "reviewStatus": "Entire used Source/native business, idiomatic Svelte and maintainability independent exact-head review pending; no acceptance by inventory."
@@ -2210,7 +2209,7 @@
         "packages/base/src/lib/utils/usePopupViewport.svelte.ts"
       ],
       "localHashes": {
-        "packages/base/src/lib/utils/usePopupViewport.svelte.ts": "9da126c889781ff4c311099c57678956f88052ec1ca52bc4117e3709083dbc45"
+        "packages/base/src/lib/utils/usePopupViewport.svelte.ts": "7a3a49008f305ccbbdb0b3c048a3787e24128a6c687ad6d7dba6b000970acaf7"
       },
       "correspondence": "Same canonical component/helper/context/store boundary with native Svelte framework substitution where required; compare entire Original and actual used body, including inherited code.",
       "reviewStatus": "Entire used Source/native business, idiomatic Svelte and maintainability independent exact-head review pending; no acceptance by inventory."
@@ -2224,7 +2223,7 @@
         "packages/base/src/lib/utils/usePositioner.svelte.ts"
       ],
       "localHashes": {
-        "packages/base/src/lib/utils/usePositioner.svelte.ts": "f5d8eabbb361f3f68e152a500f9f3e2f93e64544469e094184d8f5662d32c9e7"
+        "packages/base/src/lib/utils/usePositioner.svelte.ts": "835ae5ad14e38b0e931a1e878783af644a023704816022c0c2985978073145bd"
       },
       "correspondence": "Same canonical component/helper/context/store boundary with native Svelte framework substitution where required; compare entire Original and actual used body, including inherited code.",
       "reviewStatus": "Entire used Source/native business, idiomatic Svelte and maintainability independent exact-head review pending; no acceptance by inventory."
@@ -2266,7 +2265,7 @@
         "packages/utils/src/lib/empty.ts"
       ],
       "localHashes": {
-        "packages/utils/src/lib/empty.ts": "4851f47e6160860fee67ddfa03056c8a26dee4cf87bb1a9aa7f30e988b03ad65"
+        "packages/utils/src/lib/empty.ts": "00dc8f5cccebba670a7c7f2a78a66f3a4c008e8fec496badfc909a2bb8664151"
       },
       "correspondence": "Same canonical component/helper/context/store boundary with native Svelte framework substitution where required; compare entire Original and actual used body, including inherited code.",
       "reviewStatus": "Entire used Source/native business, idiomatic Svelte and maintainability independent exact-head review pending; no acceptance by inventory."
@@ -2556,14 +2555,15 @@
       "sha256": "bfac0796ebaf8d8233efcfd27e9cd4e0510dd54945f62312570afa224af57992",
       "url": "https://github.com/mui/base-ui/blob/47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c/packages/utils/src/store/ReactStore.ts",
       "selection": "used-business-or-type-port",
-      "local": [
-        "packages/utils/src/lib/store/SvelteStore.svelte.ts"
-      ],
+      "local": "packages/utils/src/lib/store/SvelteStore.svelte.ts",
       "localHashes": {
-        "packages/utils/src/lib/store/SvelteStore.svelte.ts": "0da85c6816b78b849db5378755cee67272a3af3fbdedd57060b1b46fe2186556"
+        "packages/utils/src/lib/store/SvelteStore.svelte.ts": "472b01d7a463c05348b85c85a413b70c55b950972f12b144ce632e4ab775102c"
       },
-      "correspondence": "Native rune-backed Store facade and selected Original observe business; React hooks/debug inspector machinery use native state lifecycle instead.",
-      "reviewStatus": "Entire used Source/native business, idiomatic Svelte and maintainability independent exact-head review pending; no acceptance by inventory."
+      "correspondence": "Native SvelteStore synchronization/observer cleanup and canonical Store mutations retained; obsolete React controlled diagnostics and stable-key bookkeeping removed.",
+      "reviewStatus": "Entire used Source/native business, idiomatic Svelte and maintainability independent exact-head review pending; no acceptance by inventory.",
+      "nativeReplacement": "Native SvelteStore synchronization/observer cleanup and canonical Store mutations retained; obsolete React controlled diagnostics and stable-key bookkeeping removed.",
+      "nativeReplacementCredit": 0,
+      "currentNativeHostGraph": "parity/native-snippets/native-graph.json"
     },
     {
       "source": "packages/utils/src/store/Store.ts",
@@ -2604,14 +2604,15 @@
       "sha256": "229943cee6d42305da4db33ed395ff8ccdde915c2e4e922c5af0c7b0aeeddf82",
       "url": "https://github.com/mui/base-ui/blob/47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c/packages/utils/src/useAnimationFrame.ts",
       "selection": "used-business-or-type-port",
-      "local": [
-        "packages/utils/src/lib/useAnimationFrame.ts"
-      ],
+      "local": "packages/utils/src/lib/useAnimationFrame.ts",
       "localHashes": {
-        "packages/utils/src/lib/useAnimationFrame.ts": "07601e67af74f8cb6151f78cc525075cb25202476684199510aa8ac60f629aea"
+        "packages/utils/src/lib/useAnimationFrame.ts": "ec054003588b92e4223c6eea228388ae6395bf1895fb3aaf32a02706249652ce"
       },
-      "correspondence": "Same canonical component/helper/context/store boundary with native Svelte framework substitution where required; compare entire Original and actual used body, including inherited code.",
-      "reviewStatus": "Entire used Source/native business, idiomatic Svelte and maintainability independent exact-head review pending; no acceptance by inventory."
+      "correspondence": "Source Scheduler/reset/AnimationFrame class business remains; useAnimationFrame setup factory removed and used owners construct the class with direct onDestroy cancellation.",
+      "reviewStatus": "Entire used Source/native business, idiomatic Svelte and maintainability independent exact-head review pending; no acceptance by inventory.",
+      "nativeReplacement": "Source Scheduler/reset/AnimationFrame class business remains; useAnimationFrame setup factory removed and used owners construct the class with direct onDestroy cancellation.",
+      "nativeReplacementCredit": 0,
+      "currentNativeHostGraph": "parity/native-snippets/native-graph.json"
     },
     {
       "source": "packages/utils/src/useControlled.ts",
@@ -2619,12 +2620,12 @@
       "url": "https://github.com/mui/base-ui/blob/47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c/packages/utils/src/useControlled.ts",
       "selection": "used-business-or-type-port",
       "local": [
-        "packages/utils/src/lib/useControlled.svelte.ts"
+        "packages/utils/src/lib/Controlled.svelte.ts"
       ],
       "localHashes": {
-        "packages/utils/src/lib/useControlled.svelte.ts": "44a226c403bbe09dc85dec853303244f0c95ab94a708c3c599f606f4f93afd2f"
+        "packages/utils/src/lib/Controlled.svelte.ts": "3bb64556d51b6cd471e21e2db4c54179b3eb072757f043f7a4489a4134283304"
       },
-      "correspondence": "Same canonical component/helper/context/store boundary with native Svelte framework substitution where required; compare entire Original and actual used body, including inherited code.",
+      "correspondence": "Controlled<T> class: initial mode/default, live controlled reads, direct set(next:T); optional T includes undefined. React diagnostics/serializer/functional dispatch removed.",
       "reviewStatus": "Entire used Source/native business, idiomatic Svelte and maintainability independent exact-head review pending; no acceptance by inventory."
     },
     {
@@ -2671,12 +2672,72 @@
       "url": "https://github.com/mui/base-ui/blob/47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c/packages/utils/src/useIsoLayoutEffect.ts",
       "selection": "used-business-or-type-port",
       "local": [
-        "packages/utils/src/lib/useIsoLayoutEffect.svelte.ts"
+        "packages/base/src/lib/context-menu/trigger/createContextMenuTrigger.svelte.ts",
+        "packages/base/src/lib/floating-ui/components/FloatingPortal.svelte",
+        "packages/base/src/lib/floating-ui/components/FloatingTree.svelte.ts",
+        "packages/base/src/lib/floating-ui/components/createFloatingFocusManager.svelte.ts",
+        "packages/base/src/lib/floating-ui/hooks/useDismiss.svelte.ts",
+        "packages/base/src/lib/floating-ui/hooks/useFloating.svelte.ts",
+        "packages/base/src/lib/floating-ui/hooks/useFloatingPortalNode.svelte.ts",
+        "packages/base/src/lib/floating-ui/hooks/useFocus.svelte.ts",
+        "packages/base/src/lib/floating-ui/hooks/useHoverFloatingInteraction.svelte.ts",
+        "packages/base/src/lib/floating-ui/hooks/useHoverReferenceInteraction.svelte.ts",
+        "packages/base/src/lib/floating-ui/hooks/useListNavigation.svelte.ts",
+        "packages/base/src/lib/floating-ui/hooks/useSyncedFloatingRootContext.svelte.ts",
+        "packages/base/src/lib/floating-ui/hooks/useTypeahead.svelte.ts",
+        "packages/base/src/lib/internals/ValueChanged.svelte.ts",
+        "packages/base/src/lib/internals/composite/list/useCompositeListItem.svelte.ts",
+        "packages/base/src/lib/internals/use-button/useButton.svelte.ts",
+        "packages/base/src/lib/internals/useOpenChangeComplete.svelte.ts",
+        "packages/base/src/lib/internals/useTransitionStatus.svelte.ts",
+        "packages/base/src/lib/menu/GroupLabel.svelte",
+        "packages/base/src/lib/menu/Popup.svelte",
+        "packages/base/src/lib/menu/positioner/createMenuPositioner.svelte.ts",
+        "packages/base/src/lib/menu/root/createMenuRoot.svelte.ts",
+        "packages/base/src/lib/menu/submenu-trigger/createMenuSubmenuTrigger.svelte.ts",
+        "packages/base/src/lib/menu/trigger/createMenuTrigger.svelte.ts",
+        "packages/base/src/lib/menubar/Menubar.svelte",
+        "packages/base/src/lib/utils/popups/PopupHandleAttachment.svelte",
+        "packages/base/src/lib/utils/popups/popupStoreUtils.svelte.ts",
+        "packages/base/src/lib/utils/useAnchoredPopupScrollLock.svelte.ts",
+        "packages/base/src/lib/utils/usePopupAutoResize.svelte.ts",
+        "packages/base/src/lib/utils/usePopupViewport.svelte.ts",
+        "packages/utils/src/lib/useScrollLock.svelte.ts"
       ],
       "localHashes": {
-        "packages/utils/src/lib/useIsoLayoutEffect.svelte.ts": "19e575ac14e03d20cbd088abda91d4784ed8b3b34944e03ef51e242e0c0247a7"
+        "packages/base/src/lib/context-menu/trigger/createContextMenuTrigger.svelte.ts": "c1a67ab6ba6034d58293f4add7d1ad9ebf392e91e17b17ab5e27d2be1ae1dc07",
+        "packages/base/src/lib/floating-ui/components/FloatingPortal.svelte": "d9360eddffb4f2f685ea80e8bfee84ed519ff348c1c5db9bf56bc254fd9e132d",
+        "packages/base/src/lib/floating-ui/components/FloatingTree.svelte.ts": "4ba1a45eb3e58c4c1cdb7fc68d48c59da7ad7a5cbd5f9be7319c22af1ca60d8a",
+        "packages/base/src/lib/floating-ui/components/createFloatingFocusManager.svelte.ts": "c6a2f4dc069dd6c8e663abaa706f7e65db32aee8a533bb2b2af02623ff15de1b",
+        "packages/base/src/lib/floating-ui/hooks/useDismiss.svelte.ts": "ae4860fe2a3f4ea5686bccb2b425bf9c61a676b92072da7b6f733d69dc8afd51",
+        "packages/base/src/lib/floating-ui/hooks/useFloating.svelte.ts": "fb2a3d4ef440583702349947e7fbffb47608d736f3ec7289dd82091d4cb958b8",
+        "packages/base/src/lib/floating-ui/hooks/useFloatingPortalNode.svelte.ts": "16cef262e2368b881c58d59baa1257caddc9c0e97b4fb183f7099cc09f6dc84d",
+        "packages/base/src/lib/floating-ui/hooks/useFocus.svelte.ts": "a78f67d9e8682c70324543e5ab9953c9379a38686abf2af1c7d94ba8e5534b86",
+        "packages/base/src/lib/floating-ui/hooks/useHoverFloatingInteraction.svelte.ts": "0ab147a7643e45e94606193799839e6b449028367873d9acdcb4e2618af860ba",
+        "packages/base/src/lib/floating-ui/hooks/useHoverReferenceInteraction.svelte.ts": "bd55a3a32c7465648d0a0640aae445b27f4faab8b08946e646e42459e176a060",
+        "packages/base/src/lib/floating-ui/hooks/useListNavigation.svelte.ts": "a35b727cdf040c483d4b6375bd9ace15a755619504a8a75ab5b7bb5f3abdf4d5",
+        "packages/base/src/lib/floating-ui/hooks/useSyncedFloatingRootContext.svelte.ts": "aa1374702cc5d76d0380c6b4080ffc10f2b22b496ecbfed24b97e70636669916",
+        "packages/base/src/lib/floating-ui/hooks/useTypeahead.svelte.ts": "740573664ed8d416194faebacbabd07597d97a2e50777d45ab77e45c3fe23727",
+        "packages/base/src/lib/internals/ValueChanged.svelte.ts": "f169e9eec98d817327dd31fc0c39c019173cdb64fac3350b898004222107e54e",
+        "packages/base/src/lib/internals/composite/list/useCompositeListItem.svelte.ts": "94d353c7d884b35bd002a9278a7701e7b1e835d536b8eb8a94f2a56d7fa72841",
+        "packages/base/src/lib/internals/use-button/useButton.svelte.ts": "48750528371fbf08dd09478dd7fb8e2a2b9a19494bf1e779610e5b90668e16d0",
+        "packages/base/src/lib/internals/useOpenChangeComplete.svelte.ts": "b6174d1cc73b6ea3b6431cf87906a1acacc40b1d5c356a31124f92251d7fd038",
+        "packages/base/src/lib/internals/useTransitionStatus.svelte.ts": "7fc531ccff0a7dfd77703c0f0ee7e1148fc080960682469eafffbc627056fa9e",
+        "packages/base/src/lib/menu/GroupLabel.svelte": "743dad85f4b3e8c9fcca29c8b24c78cba2978e63557e491410ed481fd678070f",
+        "packages/base/src/lib/menu/Popup.svelte": "ffe870ee1c658b8ed2d4d47e1228f75d23e51133fecc7bba738c69df45fc45c5",
+        "packages/base/src/lib/menu/positioner/createMenuPositioner.svelte.ts": "71975122b40a64e64482a25696b6dfca6745c9c1063e3c41c305c75fbcaec5cd",
+        "packages/base/src/lib/menu/root/createMenuRoot.svelte.ts": "c388e875d2a3f4c6fb748b17f1dc2e9c35ce347360d7de696dfe83295136616e",
+        "packages/base/src/lib/menu/submenu-trigger/createMenuSubmenuTrigger.svelte.ts": "3bdb83ab95cdfbe5ba3066f17bbd04c60915ba5e887e486db27f6484c4105691",
+        "packages/base/src/lib/menu/trigger/createMenuTrigger.svelte.ts": "ae04e18d492aa073757adc134e825f1fa8412283d742cb6cf9895a784215108f",
+        "packages/base/src/lib/menubar/Menubar.svelte": "8f5a232bc3f2246ffaa0cba4b84764f064687feecc365c837476bfc4f2dbbc43",
+        "packages/base/src/lib/utils/popups/PopupHandleAttachment.svelte": "437e6d44b586b4cc524d30d4214906695aa505239f1951a7840077780f562927",
+        "packages/base/src/lib/utils/popups/popupStoreUtils.svelte.ts": "13b61b426eed8a0875580aa2a8e15a8caf5c7110e915174bf4d613f069f7b01a",
+        "packages/base/src/lib/utils/useAnchoredPopupScrollLock.svelte.ts": "21a07726eed55814307acd741228214b8ebc411a0dcbddcf1d32a13ccdc45060",
+        "packages/base/src/lib/utils/usePopupAutoResize.svelte.ts": "79908384bfa561421638c3362a8d0bf38526635fcc19780c72d2ff43f7b8ba9c",
+        "packages/base/src/lib/utils/usePopupViewport.svelte.ts": "7a3a49008f305ccbbdb0b3c048a3787e24128a6c687ad6d7dba6b000970acaf7",
+        "packages/utils/src/lib/useScrollLock.svelte.ts": "bea63beb673cffb2bb25fcb5491b34f9724cb03453c1014273b501da4c5dfc35"
       },
-      "correspondence": "Same canonical component/helper/context/store boundary with native Svelte framework substitution where required; compare entire Original and actual used body, including inherited code.",
+      "correspondence": "Direct SSR-safe Svelte $effect at all 123 used runtime calls; actual native reads and cleanup, no dependency arrays or tuple/lifecycle cache.",
       "reviewStatus": "Entire used Source/native business, idiomatic Svelte and maintainability independent exact-head review pending; no acceptance by inventory."
     },
     {
@@ -2684,14 +2745,13 @@
       "sha256": "5fa12ae01abedc23ba814e9c59f015cf14d306044638b56c977780de43275ba3",
       "url": "https://github.com/mui/base-ui/blob/47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c/packages/utils/src/useMergedRefs.ts",
       "selection": "used-business-or-type-port",
-      "local": [
-        "packages/utils/src/lib/useMergedRefs.ts"
-      ],
-      "localHashes": {
-        "packages/utils/src/lib/useMergedRefs.ts": "0c41f7c8a065fa8a464f56852ba4c8196d51865905a5277f139ebaaa4b81ce1b"
-      },
-      "correspondence": "Same canonical component/helper/context/store boundary with native Svelte framework substitution where required; compare entire Original and actual used body, including inherited code.",
-      "reviewStatus": "Entire used Source/native business, idiomatic Svelte and maintainability independent exact-head review pending; no acceptance by inventory."
+      "local": [],
+      "localHashes": {},
+      "correspondence": "MergedRefs<I> class owns retained storage; merge/mergeN retain Source identity comparison, ref fan-out and cleanup algorithms.",
+      "reviewStatus": "Entire used Source/native business, idiomatic Svelte and maintainability independent exact-head review pending; no acceptance by inventory.",
+      "nativeReplacement": "React callback/object ref identity and fan-out transport is retired by PR77; component bindable refs, native bindings and independent attachments publish actual DOM hosts. There is no runtime adapter or Utils merged-ref export.",
+      "nativeReplacementCredit": 0,
+      "currentNativeHostGraph": "parity/native-snippets/native-graph.json"
     },
     {
       "source": "packages/utils/src/useOnMount.ts",
@@ -2699,13 +2759,20 @@
       "url": "https://github.com/mui/base-ui/blob/47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c/packages/utils/src/useOnMount.ts",
       "selection": "used-business-or-type-port",
       "local": [
-        "packages/utils/src/lib/useOnMount.ts"
+        "packages/base/src/lib/floating-ui/hooks/useHoverInteractionSharedState.svelte.ts",
+        "packages/utils/src/lib/useAnimationFrame.ts",
+        "packages/utils/src/lib/useTimeout.ts"
       ],
       "localHashes": {
-        "packages/utils/src/lib/useOnMount.ts": "e596fa519d81dd2fd7cdb1d5d00910622ad9ebed918aafa11111b70942c8ce25"
+        "packages/base/src/lib/floating-ui/hooks/useHoverInteractionSharedState.svelte.ts": "894478a3a44f74f94e416fc6aa6060af0625f0d67d80dbf59c10975916b842a3",
+        "packages/utils/src/lib/useAnimationFrame.ts": "ec054003588b92e4223c6eea228388ae6395bf1895fb3aaf32a02706249652ce",
+        "packages/utils/src/lib/useTimeout.ts": "06130c6374e14371471cc3af14638ddb3cadb514bb985fcbc4b8a7a606008b7f"
       },
-      "correspondence": "Same canonical component/helper/context/store boundary with native Svelte framework substitution where required; compare entire Original and actual used body, including inherited code.",
-      "reviewStatus": "Entire used Source/native business, idiomatic Svelte and maintainability independent exact-head review pending; no acceptance by inventory."
+      "correspondence": "Direct native lifecycle: timer/frame owners register onDestroy; HoverInteractionState retains onMount disposal.",
+      "reviewStatus": "Entire used Source/native business, idiomatic Svelte and maintainability independent exact-head review pending; no acceptance by inventory.",
+      "nativeReplacement": "Source Scheduler/reset/AnimationFrame class business remains; useAnimationFrame setup factory removed and used owners construct the class with direct onDestroy cancellation. Source Timeout class remains; useTimeout setup factory removed and used owners construct the class with direct onDestroy clearing.",
+      "nativeReplacementCredit": 0,
+      "currentNativeHostGraph": "parity/native-snippets/native-graph.json"
     },
     {
       "source": "packages/utils/src/usePreviousValue.ts",
@@ -2713,12 +2780,12 @@
       "url": "https://github.com/mui/base-ui/blob/47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c/packages/utils/src/usePreviousValue.ts",
       "selection": "used-business-or-type-port",
       "local": [
-        "packages/utils/src/lib/usePreviousValue.svelte.ts"
+        "packages/utils/src/lib/PreviousValue.svelte.ts"
       ],
       "localHashes": {
-        "packages/utils/src/lib/usePreviousValue.svelte.ts": "9583824fa430b3db985b9a288f69305b2a0f29b6a4defa06d20bb5b39f9b6d46"
+        "packages/utils/src/lib/PreviousValue.svelte.ts": "bbbb29cc921915446913f248a23c7ae09000eaf7fe69986ed5ada572acfbb856"
       },
-      "correspondence": "Same canonical component/helper/context/store boundary with native Svelte framework substitution where required; compare entire Original and actual used body, including inherited code.",
+      "correspondence": "PreviousValue<T> class retains current/previous pair and Object.is comparison; native .value getter.",
       "reviewStatus": "Entire used Source/native business, idiomatic Svelte and maintainability independent exact-head review pending; no acceptance by inventory."
     },
     {
@@ -2727,13 +2794,24 @@
       "url": "https://github.com/mui/base-ui/blob/47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c/packages/utils/src/useRefWithInit.ts",
       "selection": "used-business-or-type-port",
       "local": [
-        "packages/utils/src/lib/useRefWithInit.ts"
+        "packages/base/src/lib/floating-ui/hooks/useHoverInteractionSharedState.svelte.ts",
+        "packages/base/src/lib/internals/ValueChanged.svelte.ts",
+        "packages/base/src/lib/menu/root/createMenuRoot.svelte.ts",
+        "packages/utils/src/lib/useAnimationFrame.ts",
+        "packages/utils/src/lib/useTimeout.ts"
       ],
       "localHashes": {
-        "packages/utils/src/lib/useRefWithInit.ts": "3c48fad5a3c2eddbb0ecb820210f825b9fa2144c92de0615a5a4cf2ea1c3b3c7"
+        "packages/base/src/lib/floating-ui/hooks/useHoverInteractionSharedState.svelte.ts": "894478a3a44f74f94e416fc6aa6060af0625f0d67d80dbf59c10975916b842a3",
+        "packages/base/src/lib/internals/ValueChanged.svelte.ts": "f169e9eec98d817327dd31fc0c39c019173cdb64fac3350b898004222107e54e",
+        "packages/base/src/lib/menu/root/createMenuRoot.svelte.ts": "c388e875d2a3f4c6fb748b17f1dc2e9c35ce347360d7de696dfe83295136616e",
+        "packages/utils/src/lib/useAnimationFrame.ts": "ec054003588b92e4223c6eea228388ae6395bf1895fb3aaf32a02706249652ce",
+        "packages/utils/src/lib/useTimeout.ts": "06130c6374e14371471cc3af14638ddb3cadb514bb985fcbc4b8a7a606008b7f"
       },
-      "correspondence": "Same canonical component/helper/context/store boundary with native Svelte framework substitution where required; compare entire Original and actual used body, including inherited code.",
-      "reviewStatus": "Entire used Source/native business, idiomatic Svelte and maintainability independent exact-head review pending; no acceptance by inventory."
+      "correspondence": "Direct setup initialization for symbols, registries, retained values and class instances; no React ref sentinel wrapper.",
+      "reviewStatus": "Entire used Source/native business, idiomatic Svelte and maintainability independent exact-head review pending; no acceptance by inventory.",
+      "nativeReplacement": "Source Scheduler/reset/AnimationFrame class business remains; useAnimationFrame setup factory removed and used owners construct the class with direct onDestroy cancellation. Source Timeout class remains; useTimeout setup factory removed and used owners construct the class with direct onDestroy clearing.",
+      "nativeReplacementCredit": 0,
+      "currentNativeHostGraph": "parity/native-snippets/native-graph.json"
     },
     {
       "source": "packages/utils/src/useScrollLock.ts",
@@ -2744,7 +2822,7 @@
         "packages/utils/src/lib/useScrollLock.svelte.ts"
       ],
       "localHashes": {
-        "packages/utils/src/lib/useScrollLock.svelte.ts": "165f3a8e5394893ce5e6e15bc6b31ad6590cab59ac3721d2f1dd1928643be567"
+        "packages/utils/src/lib/useScrollLock.svelte.ts": "bea63beb673cffb2bb25fcb5491b34f9724cb03453c1014273b501da4c5dfc35"
       },
       "correspondence": "Same canonical component/helper/context/store boundary with native Svelte framework substitution where required; compare entire Original and actual used body, including inherited code.",
       "reviewStatus": "Entire used Source/native business, idiomatic Svelte and maintainability independent exact-head review pending; no acceptance by inventory."
@@ -2755,12 +2833,46 @@
       "url": "https://github.com/mui/base-ui/blob/47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c/packages/utils/src/useStableCallback.ts",
       "selection": "used-business-or-type-port",
       "local": [
-        "packages/utils/src/lib/useStableCallback.ts"
+        "packages/base/src/lib/floating-ui/components/createFloatingFocusManager.svelte.ts",
+        "packages/base/src/lib/floating-ui/hooks/useDismiss.svelte.ts",
+        "packages/base/src/lib/floating-ui/hooks/useHoverFloatingInteraction.svelte.ts",
+        "packages/base/src/lib/floating-ui/hooks/useHoverReferenceInteraction.svelte.ts",
+        "packages/base/src/lib/floating-ui/hooks/useListNavigation.svelte.ts",
+        "packages/base/src/lib/floating-ui/hooks/useTypeahead.svelte.ts",
+        "packages/base/src/lib/internals/ValueChanged.svelte.ts",
+        "packages/base/src/lib/internals/composite/root/useCompositeRoot.svelte.ts",
+        "packages/base/src/lib/internals/use-button/useButton.svelte.ts",
+        "packages/base/src/lib/internals/useAnimationsFinished.ts",
+        "packages/base/src/lib/internals/useOpenChangeComplete.svelte.ts",
+        "packages/base/src/lib/menu/RadioGroup.svelte",
+        "packages/base/src/lib/menu/root/createMenuRoot.svelte.ts",
+        "packages/base/src/lib/menu/submenu-trigger/createMenuSubmenuTrigger.svelte.ts",
+        "packages/base/src/lib/menu/trigger/createMenuTrigger.svelte.ts",
+        "packages/base/src/lib/utils/popups/popupStoreUtils.svelte.ts",
+        "packages/base/src/lib/utils/usePopupAutoResize.svelte.ts",
+        "packages/base/src/lib/utils/usePopupViewport.svelte.ts"
       ],
       "localHashes": {
-        "packages/utils/src/lib/useStableCallback.ts": "dca4f1866715df0bcb597ca5c083825f580717a96e267c77a5325ce22790d04c"
+        "packages/base/src/lib/floating-ui/components/createFloatingFocusManager.svelte.ts": "c6a2f4dc069dd6c8e663abaa706f7e65db32aee8a533bb2b2af02623ff15de1b",
+        "packages/base/src/lib/floating-ui/hooks/useDismiss.svelte.ts": "ae4860fe2a3f4ea5686bccb2b425bf9c61a676b92072da7b6f733d69dc8afd51",
+        "packages/base/src/lib/floating-ui/hooks/useHoverFloatingInteraction.svelte.ts": "0ab147a7643e45e94606193799839e6b449028367873d9acdcb4e2618af860ba",
+        "packages/base/src/lib/floating-ui/hooks/useHoverReferenceInteraction.svelte.ts": "bd55a3a32c7465648d0a0640aae445b27f4faab8b08946e646e42459e176a060",
+        "packages/base/src/lib/floating-ui/hooks/useListNavigation.svelte.ts": "a35b727cdf040c483d4b6375bd9ace15a755619504a8a75ab5b7bb5f3abdf4d5",
+        "packages/base/src/lib/floating-ui/hooks/useTypeahead.svelte.ts": "740573664ed8d416194faebacbabd07597d97a2e50777d45ab77e45c3fe23727",
+        "packages/base/src/lib/internals/ValueChanged.svelte.ts": "f169e9eec98d817327dd31fc0c39c019173cdb64fac3350b898004222107e54e",
+        "packages/base/src/lib/internals/composite/root/useCompositeRoot.svelte.ts": "bdd6ced8bc2a28c77a2572b6b54eab7ad09ee111ddf2bcdbe777686f947c39b6",
+        "packages/base/src/lib/internals/use-button/useButton.svelte.ts": "48750528371fbf08dd09478dd7fb8e2a2b9a19494bf1e779610e5b90668e16d0",
+        "packages/base/src/lib/internals/useAnimationsFinished.ts": "7abe48ef841cdfa7bf60b29045e9f0ffb7dbfb715b34351e8f6716131b2678f8",
+        "packages/base/src/lib/internals/useOpenChangeComplete.svelte.ts": "b6174d1cc73b6ea3b6431cf87906a1acacc40b1d5c356a31124f92251d7fd038",
+        "packages/base/src/lib/menu/RadioGroup.svelte": "a9f743f853e33586d5cb789e6fdd4676749a68a20562d86bbb4ad78bc025ada3",
+        "packages/base/src/lib/menu/root/createMenuRoot.svelte.ts": "c388e875d2a3f4c6fb748b17f1dc2e9c35ce347360d7de696dfe83295136616e",
+        "packages/base/src/lib/menu/submenu-trigger/createMenuSubmenuTrigger.svelte.ts": "3bdb83ab95cdfbe5ba3066f17bbd04c60915ba5e887e486db27f6484c4105691",
+        "packages/base/src/lib/menu/trigger/createMenuTrigger.svelte.ts": "ae04e18d492aa073757adc134e825f1fa8412283d742cb6cf9895a784215108f",
+        "packages/base/src/lib/utils/popups/popupStoreUtils.svelte.ts": "13b61b426eed8a0875580aa2a8e15a8caf5c7110e915174bf4d613f069f7b01a",
+        "packages/base/src/lib/utils/usePopupAutoResize.svelte.ts": "79908384bfa561421638c3362a8d0bf38526635fcc19780c72d2ff43f7b8ba9c",
+        "packages/base/src/lib/utils/usePopupViewport.svelte.ts": "7a3a49008f305ccbbdb0b3c048a3787e24128a6c687ad6d7dba6b000970acaf7"
       },
-      "correspondence": "Same canonical component/helper/context/store boundary with native Svelte framework substitution where required; compare entire Original and actual used body, including inherited code.",
+      "correspondence": "Ordinary live setup closures at all 79 used runtime calls; narrow untrack only at imperative registration/publication/measurement boundaries.",
       "reviewStatus": "Entire used Source/native business, idiomatic Svelte and maintainability independent exact-head review pending; no acceptance by inventory."
     },
     {
@@ -2768,14 +2880,15 @@
       "sha256": "8d9e4159d9f883e18035811e9f2b4d180afb0d724b55d86dbf4fda52c355e156",
       "url": "https://github.com/mui/base-ui/blob/47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c/packages/utils/src/useTimeout.ts",
       "selection": "used-business-or-type-port",
-      "local": [
-        "packages/utils/src/lib/useTimeout.ts"
-      ],
+      "local": "packages/utils/src/lib/useTimeout.ts",
       "localHashes": {
-        "packages/utils/src/lib/useTimeout.ts": "405103d9109d3d115db8b26eef5a9b3747156d4a45365c1f2f9764c172e4f0fb"
+        "packages/utils/src/lib/useTimeout.ts": "06130c6374e14371471cc3af14638ddb3cadb514bb985fcbc4b8a7a606008b7f"
       },
-      "correspondence": "Same canonical component/helper/context/store boundary with native Svelte framework substitution where required; compare entire Original and actual used body, including inherited code.",
-      "reviewStatus": "Entire used Source/native business, idiomatic Svelte and maintainability independent exact-head review pending; no acceptance by inventory."
+      "correspondence": "Source Timeout class remains; useTimeout setup factory removed and used owners construct the class with direct onDestroy clearing.",
+      "reviewStatus": "Entire used Source/native business, idiomatic Svelte and maintainability independent exact-head review pending; no acceptance by inventory.",
+      "nativeReplacement": "Source Timeout class remains; useTimeout setup factory removed and used owners construct the class with direct onDestroy clearing.",
+      "nativeReplacementCredit": 0,
+      "currentNativeHostGraph": "parity/native-snippets/native-graph.json"
     },
     {
       "source": "packages/utils/src/useValueAsRef.ts",

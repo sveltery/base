@@ -34,7 +34,7 @@
   const label = true;
   const description = true;
   const keepMounted = scenario.includes('keep');
-  const inputRef = undefined;
+  let inputRef = $state<HTMLInputElement | null | undefined>();
   const form = scenario === 'external-form' ? 'external-form' : undefined;
   let hydrated = $state(false);
   let calls = $state<unknown[]>([]);
@@ -120,7 +120,9 @@
     _state: unknown,
     children: import('svelte').Snippet | undefined,
   )}
-    <section {...props as HTMLAttributes<HTMLElement>}>{@render children?.()}</section>
+    <section {...props as HTMLAttributes<HTMLElement>}>
+      {@render children?.()}
+    </section>
   {/snippet}
   <Fieldset.Root disabled={current.fieldsetDisabled}>
     <Fieldset.Legend id="legend">Legend</Fieldset.Legend>
@@ -143,7 +145,7 @@
         required={current.required}
         name={current.groupName}
         onValueChange={changed}
-        {inputRef}
+        bind:inputRef
         {form}
         render={scenario.startsWith('focus-group-render') ? groupHost : undefined}
         onfocusin={groupFocusScenario ? (event) => groupFocus('enter', event) : undefined}

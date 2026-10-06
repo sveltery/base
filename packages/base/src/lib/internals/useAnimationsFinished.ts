@@ -1,7 +1,7 @@
 // Ported from Base UI v1.8.0 useAnimationsFinished.ts; MIT: THIRD_PARTY_NOTICES.md.
-import { flushSync } from 'svelte';
-import { useAnimationFrame } from '@sveltery/utils/useAnimationFrame';
-import { useStableCallback } from '@sveltery/utils/useStableCallback';
+import { onDestroy, flushSync, untrack } from 'svelte';
+import { AnimationFrame } from '@sveltery/utils/useAnimationFrame';
+
 import { resolveRef } from '../utils/resolveRef.js';
 import * as TransitionStatusDataAttributes from './TransitionStatusDataAttributes.js';
 
@@ -27,8 +27,9 @@ export function useAnimationsFinished(
   getWaitForStartingStyleRemoved: () => boolean = () => false,
   getBatch: () => boolean = () => false,
 ) {
-  const frame = useAnimationFrame();
-  return useStableCallback((fnToExecute: () => void, signal: AbortSignal | null = null) => {
+  const frame = new AnimationFrame();
+  onDestroy(frame.cancel);
+  return (fnToExecute: () => void, signal: AbortSignal | null = null) => {
     const batch = getBatch();
     frame.cancel();
     const element = resolveRef(elementOrRef);
@@ -49,7 +50,7 @@ export function useAnimationsFinished(
       globalThis as typeof globalThis & { BASE_UI_ANIMATIONS_DISABLED?: boolean }
     ).BASE_UI_ANIMATIONS_DISABLED;
     if (typeof resolvedElement.getAnimations !== 'function' || animationsDisabled) {
-      fnToExecute();
+      untrack(fnToExecute);
       return;
     }
     function exec() {
@@ -92,5 +93,5 @@ export function useAnimationsFinished(
       return;
     }
     frame.request(exec);
-  });
+  };
 }

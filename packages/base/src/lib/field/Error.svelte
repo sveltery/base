@@ -1,7 +1,10 @@
 <script lang="ts">
+  import { mergeComponentProps } from '../internals/mergeComponentProps.js';
+  import { createAttachmentKey } from 'svelte/attachments';
+
+  import { untrack } from 'svelte';
   // Ported from Base UI v1.8.0 FieldError.tsx; MIT: THIRD_PARTY_NOTICES.md.
-  import RenderElement from '../internals/RenderElement.svelte';
-  import { useIsoLayoutEffect } from '@sveltery/utils/useIsoLayoutEffect';
+
   import { useFieldRootContext } from '../internals/field-root-context/FieldRootContext.js';
   import { useLabelableContext } from '../internals/labelable-provider/LabelableContext.js';
   import { fieldValidityMapping } from '../internals/field-constants/constants.js';
@@ -21,6 +24,7 @@
     ref = $bindable(),
     ...elementProps
   }: FieldErrorProps = $props();
+  let { children, ...hostProps } = $derived(elementProps);
   const nativeId = $props.id();
   const id = $derived(useBaseUiId(idProp ?? undefined, nativeId));
   const field = useFieldRootContext(false);
@@ -38,17 +42,14 @@
     return hasFormError || field.validityData.state.valid === false;
   });
   const transition = useTransitionStatus(() => rendered);
-  useIsoLayoutEffect(
-    () => {
-      if (!rendered || !id) return;
-      const installedId = id;
-      setMessageIds((v) => v.concat(installedId));
-      return () => {
-        setMessageIds((v) => v.filter((item) => item !== installedId));
-      };
-    },
-    () => [rendered, id, setMessageIds],
-  );
+  $effect(() => {
+    if (!rendered || !id) return;
+    const installedId = id;
+    untrack(() => setMessageIds((v) => v.concat(installedId)));
+    return () => {
+      setMessageIds((v) => v.filter((item) => item !== installedId));
+    };
+  });
   const errorRef = $state<{ current: HTMLElement | null }>({ current: null });
   let lastRenderedMessage = $state.raw<string | string[] | null>(null);
   let lastRenderedMessageKey = $state<string | null>(null);
@@ -81,22 +82,31 @@
     ...field.state,
     transitionStatus: transition.transitionStatus,
   });
-  const stateAttributesMapping = { ...fieldValidityMapping, ...transitionStatusMapping };
-  const forwardedRef = {
-    get current() {
-      return ref ?? null;
-    },
-    set current(value: HTMLElement | null) {
-      ref = value;
-    },
+  const stateAttributesMapping = {
+    ...fieldValidityMapping,
+    ...transitionStatusMapping,
   };
-  const componentProps = $derived({ render, class: classProp, style });
-  const params = $derived({
-    ref: [forwardedRef, errorRef],
-    state: errorState,
-    props: [{ id, children: errorContent }, elementProps],
-    stateAttributesMapping,
-    enabled: transition.mounted,
+
+  const hostAttachmentKey = createAttachmentKey();
+  function attachHost(host: HTMLElement) {
+    return untrack(() => {
+      ref = host;
+      errorRef.current = host;
+      return () =>
+        untrack(() => {
+          if (ref === host) ref = null;
+          if (errorRef.current === host) errorRef.current = null;
+        });
+    });
+  }
+  const mergedProps = $derived({
+    ...mergeComponentProps(
+      errorState,
+      { class: classProp, style: style },
+      [{ id }, hostProps],
+      stateAttributesMapping,
+    ),
+    [hostAttachmentKey]: attachHost,
   });
 </script>
 
@@ -105,4 +115,11 @@
     {#if message.length > 1}<ErrorMessageList messages={message} />{:else}{message[0] ?? ''}{/if}
   {:else}{message ?? ''}{/if}
 {/snippet}
-{#if transition.mounted}<RenderElement tag="div" {componentProps} {params} />{/if}
+{#if transition.mounted}
+  {const content = $derived(Object.hasOwn(elementProps, 'children') ? children : errorContent)}
+  {#if render}
+    {@render render(mergedProps, errorState, content)}
+  {:else}
+    <div {...mergedProps}>{@render content?.()}</div>
+  {/if}
+{/if}

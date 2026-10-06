@@ -123,22 +123,7 @@ export type {
 } from './accordion/index.js';
 export { CSPProvider } from './csp-provider/index.js';
 export type { CSPProviderProps, CSPProviderState } from './csp-provider/index.js';
-export { UseRender } from './use-render/index.js';
-export type {
-  UseRenderProps,
-  UseRenderParameters,
-  UseRenderState,
-  UseRenderRef,
-  UseRenderRefs,
-  UseRenderRenderProp,
-  UseRenderHostProps,
-  UseRenderTagName,
-  UseRenderStateAttributesMapping,
-  UseRenderElementProps,
-  UseRenderComponentProps,
-  HTMLProps,
-  ComponentRenderFn,
-} from './use-render/index.js';
+export type { HTMLProps, ComponentRenderFn } from './internals/types.js';
 
 export {
   Field,

@@ -5,7 +5,6 @@ import { DEV } from 'esm-env';
 
 export type AnimationType = 'css-transition' | 'css-animation' | 'none';
 const warnings = new Set<string>();
-const errors = new Set<string>();
 
 /** Matches the pinned development-only, once-per-message warning contract. */
 export function warnOnce(...messages: string[]) {
@@ -14,15 +13,6 @@ export function warnOnce(...messages: string[]) {
   if (warnings.has(message)) return;
   warnings.add(message);
   console.warn(message);
-}
-
-/** useControlled diagnostics use the same once-per-message rule, at error severity. */
-export function errorOnce(...messages: string[]) {
-  if (!DEV) return;
-  const message = `Base UI: ${messages.join(' ')}`;
-  if (errors.has(message)) return;
-  errors.add(message);
-  console.error(message);
 }
 
 /** A frame is owned by the actual element's window and by its lifecycle cleanup. */
@@ -75,8 +65,13 @@ export function afterAnimations(
           observe();
         }
       });
-      observer.observe(element, { attributes: true, attributeFilter: ['data-starting-style'] });
-      lifecycleSignal?.addEventListener('abort', () => observer?.disconnect(), { once: true });
+      observer.observe(element, {
+        attributes: true,
+        attributeFilter: ['data-starting-style'],
+      });
+      lifecycleSignal?.addEventListener('abort', () => observer?.disconnect(), {
+        once: true,
+      });
     } else {
       cancelFrame = requestFrame(element, observe);
     }
@@ -156,47 +151,5 @@ export function resetLayoutStyles(element: HTMLElement): () => void {
   return () => {
     cancel();
     restore();
-  };
-}
-
-/**
- * React diffs style objects property by property; Svelte assigns CSS strings as
- * cssText. Preserve an imperative value when its authored value did not change,
- * so updating the measured CSS variables cannot erase temporary motion/layout
- * overrides (or restore an alignment priority the pinned source discarded).
- * Call before the DOM update, then invoke the returned function after it.
- */
-export function preserveUnchangedInlineStyles(
-  element: HTMLElement,
-  previousStyle: string | undefined,
-  nextStyle: string,
-): () => void {
-  const previous = element.ownerDocument.createElement('div').style;
-  const next = element.ownerDocument.createElement('div').style;
-  previous.cssText = previousStyle ?? '';
-  next.cssText = nextStyle;
-  const properties = new Set([
-    ...Array.from(element.style),
-    ...Array.from(previous),
-    ...Array.from(next),
-  ]);
-  const preserved: Array<[string, string, string]> = [];
-  for (const property of properties) {
-    if (
-      previous.getPropertyValue(property) !== next.getPropertyValue(property) ||
-      previous.getPropertyPriority(property) !== next.getPropertyPriority(property)
-    )
-      continue;
-    preserved.push([
-      property,
-      element.style.getPropertyValue(property),
-      element.style.getPropertyPriority(property),
-    ]);
-  }
-  return () => {
-    for (const [property, value, priority] of preserved) {
-      if (value === '') element.style.removeProperty(property);
-      else element.style.setProperty(property, value, priority);
-    }
   };
 }

@@ -1,6 +1,9 @@
 <script lang="ts">
+  import { mergeComponentProps } from '../../internals/mergeComponentProps.js';
+  import { createAttachmentKey } from 'svelte/attachments';
+  import { untrack } from 'svelte';
+
   // Base UI1.8.0 ScrollAreaCorner.tsx source context/render composition; MIT.
-  import RenderElement from '../../internals/RenderElement.svelte';
   import { useScrollAreaRootContext } from '../root/ScrollAreaRootContext.js';
   import type { ScrollAreaCornerProps } from '../types.js';
   let {
@@ -12,31 +15,45 @@
     ...elementProps
   }: ScrollAreaCornerProps = $props();
   const root = useScrollAreaRootContext();
-  const forwardedRef = {
-    get current() {
-      return ref ?? null;
-    },
-    set current(value: HTMLElement | null) {
-      ref = value;
-    },
-  };
-  const componentProps = $derived({ render, class: classProp, style });
-  const params = $derived({
-    ref: [forwardedRef, root.cornerRef],
-    props: [
-      {
-        'aria-hidden': true,
-        style: {
-          position: 'absolute',
-          bottom: 0,
-          insetInlineEnd: 0,
-          width: `${root.cornerSize.width}px`,
-          height: `${root.cornerSize.height}px`,
+
+  const renderState = $derived({});
+  const hostAttachmentKey = createAttachmentKey();
+  function attachHost(host: HTMLElement) {
+    return untrack(() => {
+      ref = host;
+      root.cornerRef.current = host;
+      return () =>
+        untrack(() => {
+          if (ref === host) ref = null;
+          if (root.cornerRef.current === host) root.cornerRef.current = null;
+        });
+    });
+  }
+  const mergedProps = $derived({
+    ...mergeComponentProps(
+      renderState,
+      { class: classProp, style: style },
+      [
+        {
+          'aria-hidden': true,
+          style: {
+            position: 'absolute',
+            bottom: 0,
+            insetInlineEnd: 0,
+            width: `${root.cornerSize.width}px`,
+            height: `${root.cornerSize.height}px`,
+          },
         },
-      },
-      elementProps,
-    ],
+        elementProps,
+      ],
+      undefined,
+    ),
+    [hostAttachmentKey]: attachHost,
   });
 </script>
 
-{#if !root.hiddenState.corner}<RenderElement tag="div" {componentProps} {params} {children} />{/if}
+{#if !root.hiddenState.corner}{#if render}
+    {@render render(mergedProps, renderState, children)}
+  {:else}
+    <div {...mergedProps}>{@render children?.()}</div>
+  {/if}{/if}

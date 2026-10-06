@@ -1,11 +1,12 @@
+import { onDestroy } from 'svelte';
 // Original Base UI 1.8.0 at 47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c.
 // MIT: THIRD_PARTY_NOTICES.md. Native Svelte live readers/effects replace React hooks.
-import { useIsoLayoutEffect } from '@sveltery/utils/useIsoLayoutEffect';
+
 import { addEventListener } from '@sveltery/utils/addEventListener';
 import { platform } from '@sveltery/utils/platform';
 import { mergeCleanups } from '@sveltery/utils/mergeCleanups';
 import { ownerDocument } from '@sveltery/utils/owner';
-import { useTimeout } from '@sveltery/utils/useTimeout';
+import { Timeout } from '@sveltery/utils/useTimeout';
 import { getWindow, isElement, isHTMLElement } from '@floating-ui/utils/dom';
 import type { ElementProps, FloatingContext, FloatingRootContext } from '../types.js';
 import { createAttribute } from '../utils/createAttribute.js';
@@ -51,63 +52,59 @@ export function useFocus(
   // Track which reference should be blocked from re-opening after Escape/press dismissal.
   const blockedReferenceRef = { current: null as Element | null };
   const keyboardModalityRef = { current: true };
-  const timeout = useTimeout();
-  useIsoLayoutEffect(
-    () => {
-      const domReference = store.select('domReferenceElement');
-      if (!enabled) {
-        return undefined;
+  const timeout = new Timeout();
+  onDestroy(timeout.clear);
+  $effect(() => {
+    const domReference = store.select('domReferenceElement');
+    if (!enabled) {
+      return undefined;
+    }
+    const win = getWindow(domReference);
+    // If the reference was focused and the user left the tab/window, and the
+    // floating element was not open, the focus should be blocked when they
+    // return to the tab/window.
+    function onfocusout() {
+      const currentDomReference = store.select('domReferenceElement');
+      if (
+        !store.select('open') &&
+        isHTMLElement(currentDomReference) &&
+        currentDomReference === activeElement(ownerDocument(currentDomReference))
+      ) {
+        blockFocusRef.current = true;
+        blockedReferenceRef.current = currentDomReference;
       }
-      const win = getWindow(domReference);
-      // If the reference was focused and the user left the tab/window, and the
-      // floating element was not open, the focus should be blocked when they
-      // return to the tab/window.
-      function onfocusout() {
-        const currentDomReference = store.select('domReferenceElement');
-        if (
-          !store.select('open') &&
-          isHTMLElement(currentDomReference) &&
-          currentDomReference === activeElement(ownerDocument(currentDomReference))
-        ) {
+    }
+    function onkeydown() {
+      keyboardModalityRef.current = true;
+    }
+    function onpointerdown() {
+      keyboardModalityRef.current = false;
+    }
+    return mergeCleanups(
+      addEventListener(win, 'blur', onfocusout),
+      isMacSafari && addEventListener(win, 'keydown', onkeydown, true),
+      isMacSafari && addEventListener(win, 'pointerdown', onpointerdown, true),
+    );
+  });
+  $effect(() => {
+    if (!enabled) {
+      return undefined;
+    }
+    function onOpenChangeLocal(details: FloatingUIOpenChangeDetails) {
+      if (details.reason === REASONS.triggerPress || details.reason === REASONS.escapeKey) {
+        const referenceElement = store.select('domReferenceElement');
+        if (isElement(referenceElement)) {
+          blockedReferenceRef.current = referenceElement;
           blockFocusRef.current = true;
-          blockedReferenceRef.current = currentDomReference;
         }
       }
-      function onkeydown() {
-        keyboardModalityRef.current = true;
-      }
-      function onpointerdown() {
-        keyboardModalityRef.current = false;
-      }
-      return mergeCleanups(
-        addEventListener(win, 'blur', onfocusout),
-        isMacSafari && addEventListener(win, 'keydown', onkeydown, true),
-        isMacSafari && addEventListener(win, 'pointerdown', onpointerdown, true),
-      );
-    },
-    () => [store, enabled],
-  );
-  useIsoLayoutEffect(
-    () => {
-      if (!enabled) {
-        return undefined;
-      }
-      function onOpenChangeLocal(details: FloatingUIOpenChangeDetails) {
-        if (details.reason === REASONS.triggerPress || details.reason === REASONS.escapeKey) {
-          const referenceElement = store.select('domReferenceElement');
-          if (isElement(referenceElement)) {
-            blockedReferenceRef.current = referenceElement;
-            blockFocusRef.current = true;
-          }
-        }
-      }
-      events.on('openchange', onOpenChangeLocal);
-      return () => {
-        events.off('openchange', onOpenChangeLocal);
-      };
-    },
-    () => [events, enabled, store],
-  );
+    }
+    const installedEvents = events;
+    installedEvents.on('openchange', onOpenChangeLocal);
+    return () => {
+      installedEvents.off('openchange', onOpenChangeLocal);
+    };
+  });
   const reference: ElementProps['reference'] = $derived.by(() => {
     function resetBlockedFocus() {
       blockFocusRef.current = false;

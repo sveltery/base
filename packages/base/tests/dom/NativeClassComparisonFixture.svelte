@@ -1,6 +1,6 @@
 <script lang="ts">
   import type { ClassValue } from 'svelte/elements';
-  import RenderElement from '../../src/lib/internals/RenderElement.svelte';
+  import Separator from '../../src/lib/separator/Separator.svelte';
   let { value }: { value?: ClassValue } = $props();
   export function setValue(next: ClassValue) {
     value = next;
@@ -8,4 +8,4 @@
 </script>
 
 <div data-native class={value}></div>
-<RenderElement componentProps={{ class: value }} params={{ props: { 'data-shared': '' } }} />
+<Separator class={value} data-shared />

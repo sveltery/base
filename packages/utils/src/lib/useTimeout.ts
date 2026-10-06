@@ -1,7 +1,5 @@
 // Adapted from Base UI v1.8.0 packages/utils/src/useTimeout.ts at
 // 47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c. MIT: THIRD_PARTY_NOTICES.md.
-import { useRefWithInit } from './useRefWithInit.js';
-import { useOnMount } from './useOnMount.js';
 
 type TimeoutId = number;
 
@@ -41,15 +39,4 @@ export class Timeout {
   disposeEffect = () => {
     return this.clear;
   };
-}
-
-/**
- * A `setTimeout` with automatic cleanup and guard.
- */
-export function useTimeout() {
-  const timeout = useRefWithInit(Timeout.create).current;
-
-  useOnMount(timeout.disposeEffect);
-
-  return timeout;
 }

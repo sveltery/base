@@ -1,9 +1,10 @@
 import { resolveNativePackageSource } from './native-package-source.mjs';
-import ts from '../packages/base/node_modules/typescript/lib/typescript.js';
+import { createRequire } from 'node:module';
 import { readFileSync, writeFileSync, existsSync } from 'node:fs';
 import { resolve, relative, dirname } from 'node:path';
 import { createHash } from 'node:crypto';
 const root = resolve(import.meta.dirname, '..');
+const ts = createRequire(new URL('../packages/base/package.json', import.meta.url))('typescript');
 const entries = [
   'form/Form.svelte',
   'remote-forms/index.parts.ts',

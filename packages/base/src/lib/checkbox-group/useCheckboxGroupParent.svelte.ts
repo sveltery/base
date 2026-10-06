@@ -1,7 +1,7 @@
 // Source business port of Base UI v1.8.0 useCheckboxGroupParent.ts at
 // 47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c. MIT.
 import { untrack } from 'svelte';
-import { useStableCallback } from '@sveltery/utils/useStableCallback';
+
 import { EMPTY_ARRAY } from '@sveltery/utils/empty';
 import type { BaseUIChangeEventDetails } from '../internals/createBaseUIEventDetails.js';
 export interface UseCheckboxGroupParentParameters {
@@ -16,11 +16,9 @@ export function useCheckboxGroupParent(getParameters: () => UseCheckboxGroupPare
   let status = $state<'on' | 'off' | 'mixed'>('mixed');
   // eslint-disable-next-line svelte/prefer-svelte-reactivity -- source registry publishes its own explicit revision below
   let childIdsState = $state.raw({ registry: new Map<string, readonly string[]>() });
-  const onValueChange = useStableCallback(
-    (value: string[], details: BaseUIChangeEventDetails<'none'>) =>
-      getParameters().onValueChange?.(value, details),
-  );
-  const registerChildId = useStableCallback((childValue: string, childId: string) => {
+  const onValueChange = (value: string[], details: BaseUIChangeEventDetails<'none'>) =>
+    getParameters().onValueChange?.(value, details);
+  const registerChildId = (childValue: string, childId: string) => {
     const childIds = childIdsState.registry;
     const ids = childIds.get(childValue);
     if (!ids?.includes(childId)) {
@@ -35,7 +33,7 @@ export function useCheckboxGroupParent(getParameters: () => UseCheckboxGroupPare
       else childIds.set(childValue, nextIds);
       childIdsState = { registry: childIds };
     };
-  });
+  };
   function getParentProps() {
     const { allValues = EMPTY_ARRAY, value } = getParameters();
     const checked = value.length === allValues.length;

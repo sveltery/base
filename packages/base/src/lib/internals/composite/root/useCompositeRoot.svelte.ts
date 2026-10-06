@@ -1,8 +1,9 @@
 // Ported from Base UI v1.8.0 at 47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c.
 // MIT: THIRD_PARTY_NOTICES.md; parity/radio/source-correspondence.md.
-import { useStableCallback } from '@sveltery/utils/useStableCallback';
+
 import { isElementDisabled } from '@sveltery/utils/isElementDisabled';
-import { createMergedRefs, type MergedRef } from '@sveltery/utils/useMergedRefs';
+import { createAttachmentKey } from 'svelte/attachments';
+import { untrack } from 'svelte';
 import type { TextDirection } from '../../../direction-provider/types.js';
 import { getTarget } from '@sveltery/utils/shadowDom';
 import {
@@ -42,7 +43,6 @@ export interface UseCompositeRootParameters {
   highlightedIndex?: number | undefined;
   onHighlightedIndexChange?: ((index: number) => void) | undefined;
   direction: TextDirection;
-  rootRef?: MergedRef<HTMLElement> | undefined;
   /**
    * When `true`, pressing the Home key moves focus to the first item,
    * and pressing the End key moves focus to the last item.
@@ -71,25 +71,29 @@ export interface UseCompositeRootParameters {
 export function useCompositeRoot(getParameters: () => UseCompositeRootParameters) {
   let internalHighlightedIndex = $state(0);
   const rootRef = { current: null as HTMLElement | null };
-  const { useMergedRefs } = createMergedRefs<HTMLElement>();
+  const attachmentKey = createAttachmentKey();
+  function attachRoot(node: HTMLElement) {
+    rootRef.current = node;
+    return () => {
+      if (rootRef.current === node) rootRef.current = null;
+    };
+  }
   const elementsRef = { current: [] as Array<HTMLElement | null> };
   const hasSetDefaultIndexRef = { current: false };
   const highlightedElementRef = { current: null as HTMLElement | null };
   const getHighlightedIndex = () => getParameters().highlightedIndex ?? internalHighlightedIndex;
-  const onHighlightedIndexChange = useStableCallback(
-    (index: number, shouldScrollIntoView = false) => {
-      const {
-        onHighlightedIndexChange: externalSetHighlightedIndex,
-        direction,
-        orientation = 'both',
-      } = getParameters();
-      highlightedElementRef.current = elementsRef.current[index] ?? null;
-      if (externalSetHighlightedIndex) externalSetHighlightedIndex(index);
-      else internalHighlightedIndex = index;
-      if (shouldScrollIntoView)
-        scrollIntoViewIfNeeded(rootRef.current, elementsRef.current[index], direction, orientation);
-    },
-  );
+  const onHighlightedIndexChange = (index: number, shouldScrollIntoView = false) => {
+    const {
+      onHighlightedIndexChange: externalSetHighlightedIndex,
+      direction,
+      orientation = 'both',
+    } = getParameters();
+    highlightedElementRef.current = elementsRef.current[index] ?? null;
+    if (externalSetHighlightedIndex) untrack(() => externalSetHighlightedIndex(index));
+    else internalHighlightedIndex = index;
+    if (shouldScrollIntoView)
+      scrollIntoViewIfNeeded(rootRef.current, elementsRef.current[index], direction, orientation);
+  };
   const onMapChange = (map: Map<Element, CompositeMetadata>) => {
     const { disabledIndices, direction, orientation = 'both' } = getParameters();
     const highlightedIndex = getHighlightedIndex();
@@ -314,7 +318,7 @@ export function useCompositeRoot(getParameters: () => UseCompositeRootParameters
 
   function getProps(): HTMLProps {
     return {
-      ref: useMergedRefs(rootRef, getParameters().rootRef),
+      [attachmentKey]: attachRoot,
       onfocusin(event: FocusEvent) {
         const element = rootRef.current;
         const target = getTarget(event);

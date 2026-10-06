@@ -1,9 +1,9 @@
 // Source business body from Base UI v1.8.0 useButton.ts at
 // 47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c. MIT: THIRD_PARTY_NOTICES.md.
 import { DEV } from 'esm-env';
-import { useStableCallback } from '@sveltery/utils/useStableCallback';
+
 import { error } from '@sveltery/utils/error';
-import { useIsoLayoutEffect } from '@sveltery/utils/useIsoLayoutEffect';
+
 import { makeEventPreventable, mergeProps } from '../../merge-props/index.js';
 import { useCompositeRootContext } from '../composite/root/CompositeRootContext.js';
 import type { BaseUIEvent, HTMLProps } from '../types.js';
@@ -63,10 +63,7 @@ export function useButton(getParameters: () => UseButtonParameters = () => ({}))
     )
       element.disabled = false;
   };
-  useIsoLayoutEffect(updateDisabled, () => {
-    const { disabled, isCompositeItem, focusableWhenDisabledProps } = parameters();
-    return [disabled, isCompositeItem, focusableWhenDisabledProps.disabled];
-  });
+  $effect(updateDisabled);
   function getButtonProps(externalProps: HTMLProps = {}): HTMLProps {
     const { disabled, isNativeButton, isCompositeItem, focusableWhenDisabledProps } = parameters();
     const {
@@ -164,11 +161,17 @@ export function useButton(getParameters: () => UseButtonParameters = () => ({}))
       otherExternalProps,
     );
   }
-  const buttonRef = useStableCallback((element: HTMLElement | null) => {
+  const buttonRef = (element: HTMLElement | null) => {
     elementRef.current = element;
     updateDisabled();
-  });
-  return { getButtonProps, buttonRef };
+  };
+  return {
+    getButtonProps,
+    buttonRef,
+    get element() {
+      return elementRef.current;
+    },
+  };
 }
 function isButtonElement(element: Element | null): element is HTMLButtonElement {
   return element?.tagName === 'BUTTON';

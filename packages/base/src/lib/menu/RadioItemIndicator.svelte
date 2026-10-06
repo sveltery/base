@@ -1,6 +1,9 @@
 <script lang="ts">
+  import { mergeComponentProps } from '../internals/mergeComponentProps.js';
+  import { createAttachmentKey } from 'svelte/attachments';
+  import { untrack } from 'svelte';
+
   // Original MenuRadioItemIndicator transition/presence composition (MIT).
-  import RenderElement from '../internals/RenderElement.svelte';
   import { useMenuRadioItemContext } from './radio-item/MenuRadioItemContext.js';
   import { itemMapping } from './utils/stateAttributesMapping.js';
   import { useTransitionStatus } from '../internals/useTransitionStatus.svelte.js';
@@ -12,12 +15,11 @@
     style,
     keepMounted = false,
     children,
-    // eslint-disable-next-line no-useless-assignment -- Publishes native bindable host/action outputs to the owner.
     ref = $bindable(null),
     ...elementProps
   }: MenuRadioItemIndicatorProps = $props();
   const item = useMenuRadioItemContext();
-  const indicatorRef = { current: null as HTMLElement | null };
+  const indicatorRef = $state({ current: null as HTMLElement | null });
   const transition = useTransitionStatus(() => item.checked);
   useOpenChangeComplete({
     batch: true,
@@ -38,20 +40,35 @@
     highlighted: item.highlighted,
     transitionStatus: transition.transitionStatus,
   });
-  const setRef = (node: HTMLElement | null) => {
-    ref = node;
-  };
+
+  const hostAttachmentKey = createAttachmentKey();
+  function attachHost(host: HTMLElement) {
+    return untrack(() => {
+      ref = host;
+      indicatorRef.current = host;
+      return () =>
+        untrack(() => {
+          if (ref === host) ref = null;
+          if (indicatorRef.current === host) indicatorRef.current = null;
+        });
+    });
+  }
+  const renderEnabled = $derived(keepMounted || transition.mounted);
+  const mergedProps = $derived({
+    ...mergeComponentProps(
+      componentState,
+      { class: className, style: style },
+      { 'aria-hidden': true, ...elementProps },
+      itemMapping,
+    ),
+    [hostAttachmentKey]: attachHost,
+  });
 </script>
 
-<RenderElement
-  tag="span"
-  componentProps={{ render, class: className, style }}
-  params={{
-    state: componentState,
-    ref: [setRef, indicatorRef],
-    stateAttributesMapping: itemMapping,
-    props: { 'aria-hidden': true, ...elementProps },
-    enabled: keepMounted || transition.mounted,
-  }}
-  {children}
-/>
+{#if renderEnabled}
+  {#if render}
+    {@render render(mergedProps, componentState, children)}
+  {:else}
+    <span {...mergedProps}>{@render children?.()}</span>
+  {/if}
+{/if}

@@ -1,6 +1,6 @@
 // Ported business state from Base UI v1.8.0 useTransitionStatus.ts; MIT: THIRD_PARTY_NOTICES.md.
 import { untrack } from 'svelte';
-import { useIsoLayoutEffect } from '@sveltery/utils/useIsoLayoutEffect';
+
 import { AnimationFrame } from '@sveltery/utils/useAnimationFrame';
 export type TransitionStatus = 'starting' | 'ending' | 'idle' | undefined;
 
@@ -34,38 +34,29 @@ export function useTransitionStatus(
     if (!open && retainedMounted && phase !== 'ending' && !deferEndingState) phase = 'ending';
     if (!open && !retainedMounted && phase === 'ending') phase = undefined;
   });
-  useIsoLayoutEffect(
-    () => {
-      if (!getOpen() && mounted && transitionStatus !== 'ending' && deferEndingState) {
-        const frame = AnimationFrame.request(() => {
-          phase = 'ending';
-        });
-        return () => AnimationFrame.cancel(frame);
-      }
-    },
-    () => [getOpen(), mounted, transitionStatus, deferEndingState],
-  );
-  useIsoLayoutEffect(
-    () => {
-      if (!getOpen() || enableIdleState) return;
+  $effect(() => {
+    if (!getOpen() && mounted && transitionStatus !== 'ending' && deferEndingState) {
       const frame = AnimationFrame.request(() => {
-        phase = undefined;
+        phase = 'ending';
       });
       return () => AnimationFrame.cancel(frame);
-    },
-    () => [enableIdleState, getOpen()],
-  );
-  useIsoLayoutEffect(
-    () => {
-      if (!getOpen() || !enableIdleState) return;
-      if (getOpen() && mounted && transitionStatus !== 'idle') phase = 'starting';
-      const frame = AnimationFrame.request(() => {
-        phase = 'idle';
-      });
-      return () => AnimationFrame.cancel(frame);
-    },
-    () => [enableIdleState, getOpen(), mounted, transitionStatus],
-  );
+    }
+  });
+  $effect(() => {
+    if (!getOpen() || enableIdleState) return;
+    const frame = AnimationFrame.request(() => {
+      phase = undefined;
+    });
+    return () => AnimationFrame.cancel(frame);
+  });
+  $effect(() => {
+    if (!getOpen() || !enableIdleState) return;
+    if (getOpen() && mounted && transitionStatus !== 'idle') phase = 'starting';
+    const frame = AnimationFrame.request(() => {
+      phase = 'idle';
+    });
+    return () => AnimationFrame.cancel(frame);
+  });
   return {
     get mounted() {
       return mounted;

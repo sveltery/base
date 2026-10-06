@@ -50,13 +50,13 @@ const rootPayload: Equal<Parameters<NonNullable<ComponentProps<typeof First.Root
 const triggerPayload: Equal<ComponentProps<typeof Second.Trigger<number>>['payload'], number | undefined> = true;
 declare const plain: Snippet;
 const plainRoot: ComponentProps<typeof Second.Root<number>> = { children: plain };
-const strongTrigger: ComponentProps<typeof First.Trigger<number>> = { handle: factory, payload: 8, class: ['trigger', { active: true }], style: { width: 20 } };
+const strongTrigger: ComponentProps<typeof First.Trigger<number>> = { handle: factory, payload: 8, class: ['trigger', { active: true }], style: 'width:20' };
 const optionalRoot: First.Root.Props<number> = { handle: undefined, open: undefined, defaultOpen: undefined, modal: undefined, triggerId: undefined, defaultTriggerId: undefined, actions: undefined, onOpenChange: undefined, onOpenChangeComplete: undefined, disablePointerDismissal: undefined, children: undefined };
 const optionalParts: [Second.Trigger.Props<number>, Second.Portal.Props, Second.Backdrop.Props, Second.Popup.Props, Second.Viewport.Props, Second.Close.Props] = [
   { handle: undefined, payload: undefined, disabled: undefined, nativeButton: undefined, type: undefined, ref: undefined },
   { container: undefined, keepMounted: undefined, children: undefined, ref: undefined },
   { forceRender: undefined }, { initialFocus: undefined, finalFocus: undefined },
-  { class: state => ['viewport', { open: state.open }], style: state => ({ '--nested': Number(state.nestedDialogOpen) }) },
+  { class: state => ['viewport', { open: state.open }], style: state => `--nested:${Number(state.nestedDialogOpen)}` },
   { disabled: undefined, nativeButton: undefined },
 ];
 const viewportState: Equal<Second.Viewport.State, First.Popup.State> = true;
@@ -110,7 +110,7 @@ cat > "$dialog_consumer/DOMConsumer.svelte" <<'SVELTE'
 }} onOpenChangeComplete={open => changes.push(['complete', open])}>
   {#snippet children({ payload })}
     <Dialog.Portal {container} render={host} bind:ref={portal}>
-      <Dialog.Viewport bind:ref={viewport} class={state => ['viewport', { active: state.open }]} style={state => ({ '--open': Number(state.open) })}>
+      <Dialog.Viewport bind:ref={viewport} class={state => ['viewport', { active: state.open }]} style={state => `--open:${Number(state.open)}`}>
         <Dialog.Backdrop />
         <Dialog.Popup>
           <Dialog.Title id="installed-title">Installed dialog</Dialog.Title>

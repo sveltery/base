@@ -64,14 +64,22 @@ for (const [name, before, after] of negativeControls)
   assert.notDeepEqual(controlShape(before), controlShape(after), `${name}: mutation must fail`);
 assert.throws(() => parseBody('invalid.ts', 'const = ;'), /valid parsed syntax required/);
 const cases = [
-  [
-    'useAnimationFrame',
-    ['Scheduler', 'resetAnimationFrameScheduler', 'AnimationFrame', 'useAnimationFrame'],
-  ],
+  ['useAnimationFrame', ['Scheduler', 'resetAnimationFrameScheduler', 'AnimationFrame']],
   ['owner', ['ownerDocument']],
   ['formatNumber', ['getFormatter', 'formatNumber']],
   ['stringifyLocale', ['stringifyLocale']],
 ];
+const framework = JSON.parse(
+  readFileSync(resolve(root, 'parity/utils-package/native-framework-status.json'), 'utf8'),
+);
+if (
+  !framework.sourceSuccessors?.some(
+    (record) =>
+      record.from === 'packages/utils/src/lib/useAnimationFrame.ts' &&
+      record.currentOwners?.includes('packages/utils/src/lib/useAnimationFrame.ts'),
+  )
+)
+  throw new Error('Class-only frame proof requires an explicit native factory successor record.');
 const records = [];
 for (const [module, names] of cases) {
   const originalPath = `packages/utils/src/${module}.ts`;
@@ -123,7 +131,8 @@ const output = {
   immutableOriginalPin: pin,
   ordinaryDeclarationCredit: 0,
   method:
-    'Full named declaration structural TypeScript AST comparison preserves every statement, branch, identifier, literal/raw template, operator, grouping tree, type, modifier, optional-chain/declaration flag, callback, cancellation and normalization body. Only positions, comments and formatting line breaks are excluded; the literal Source process.env development expression is replaced only by esm-env DEV. Parse diagnostics fail the proof. Import spelling/native useRefWithInit/useOnMount wrappers are independently reviewed. Printed-body equality remains separately reported.',
+    'Full named declaration structural TypeScript AST comparison preserves every statement, branch, identifier, literal/raw template, operator, grouping tree, type, modifier, optional-chain/declaration flag, callback, cancellation and normalization body. Only positions, comments and formatting line breaks are excluded; the literal Source process.env development expression is replaced only by esm-env DEV. Parse diagnostics fail the proof. Removed setup factories are mapped separately to native class/lifecycle owners. Printed-body equality remains separately reported.',
+  historicalProof: 'parity/native-framework/historical/utils-body-fidelity-pre-native.json',
   negativeControls: negativeControls.map(([name]) => ({ name, rejected: true })),
   parseDiagnosticControl: 'invalid syntax rejected',
   records,

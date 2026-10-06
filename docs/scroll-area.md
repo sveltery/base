@@ -9,12 +9,12 @@ and twelve public Props/State exports.
   import { ScrollArea } from '@sveltery/base/scroll-area';
 </script>
 
-<ScrollArea.Root style={{ width: '320px', height: '240px' }}>
-  <ScrollArea.Viewport style={{ width: '100%', height: '100%' }}>
+<ScrollArea.Root style="width:320px;height:240px">
+  <ScrollArea.Viewport style="width:100%;height:100%">
     <ScrollArea.Content>Scrollable content</ScrollArea.Content>
   </ScrollArea.Viewport>
-  <ScrollArea.Scrollbar style={{ width: '10px' }}><ScrollArea.Thumb /></ScrollArea.Scrollbar>
-  <ScrollArea.Scrollbar orientation="horizontal" style={{ height: '10px' }}
+  <ScrollArea.Scrollbar style="width:10px"><ScrollArea.Thumb /></ScrollArea.Scrollbar>
+  <ScrollArea.Scrollbar orientation="horizontal" style="height:10px"
     ><ScrollArea.Thumb /></ScrollArea.Scrollbar
   >
   <ScrollArea.Corner />

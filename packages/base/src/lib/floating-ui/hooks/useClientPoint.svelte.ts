@@ -1,8 +1,8 @@
 // Original Base UI 1.8.0 useClientPoint business, native live readers/effects.
 // MIT: THIRD_PARTY_NOTICES.md; pin 47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c.
-import { useIsoLayoutEffect } from '@sveltery/utils/useIsoLayoutEffect';
+
 import { addEventListener } from '@sveltery/utils/addEventListener';
-import { useStableCallback } from '@sveltery/utils/useStableCallback';
+
 import { getWindow } from '@floating-ui/utils/dom';
 import type { ContextData, ElementProps, FloatingContext, FloatingRootContext } from '../types.js';
 import { contains, getTarget } from '../utils/element.js';
@@ -131,37 +131,39 @@ export function useClientPoint(
   // Native invalidation restarts the listener after returning from the popup.
   let listenerRevision = $state(0);
 
-  const resetReference = useStableCallback((reference: Element | null) => {
+  const resetReference = (reference: Element | null) => {
     store.set('positionReference', reference);
-  });
+  };
 
-  const setReference = useStableCallback(
-    (newX: number | null, newY: number | null, referenceElement?: Element | null) => {
-      if (initialRef.current) {
-        return;
-      }
+  const setReference = (
+    newX: number | null,
+    newY: number | null,
+    referenceElement?: Element | null,
+  ) => {
+    if (initialRef.current) {
+      return;
+    }
 
-      // Prevent setting if the open event was not a mouse-like one
-      // (e.g. focus to open, then hover over the reference element).
-      // Only apply if the event exists.
-      if (dataRef.current.openEvent && !isMouseBasedEvent(dataRef.current.openEvent)) {
-        return;
-      }
+    // Prevent setting if the open event was not a mouse-like one
+    // (e.g. focus to open, then hover over the reference element).
+    // Only apply if the event exists.
+    if (dataRef.current.openEvent && !isMouseBasedEvent(dataRef.current.openEvent)) {
+      return;
+    }
 
-      store.set(
-        'positionReference',
-        createVirtualElement(referenceElement ?? domReference, {
-          x: newX,
-          y: newY,
-          axis,
-          dataRef,
-          pointerType,
-        }),
-      );
-    },
-  );
+    store.set(
+      'positionReference',
+      createVirtualElement(referenceElement ?? domReference, {
+        x: newX,
+        y: newY,
+        axis,
+        dataRef,
+        pointerType,
+      }),
+    );
+  };
 
-  const handleReferenceEnterOrMove = useStableCallback((event: MouseEvent) => {
+  const handleReferenceEnterOrMove = (event: MouseEvent) => {
     if (!open) {
       setReference(event.clientX, event.clientY, event.currentTarget as Element);
     } else if (!cleanupListenerRef.current) {
@@ -171,7 +173,7 @@ export function useClientPoint(
       setReference(event.clientX, event.clientY, event.currentTarget as Element);
       listenerRevision += 1;
     }
-  });
+  };
 
   // If the pointer is a mouse-like pointer, we want to continue following the
   // mouse even if the floating element is transitioning out. On touch
@@ -179,84 +181,64 @@ export function useClientPoint(
   // the dismissal touch point.
   const openCheck = $derived(isMouseLikePointerType(pointerType) ? floating : open);
 
-  useIsoLayoutEffect(
-    () => {
-      if (!enabled) {
-        resetReference(domReference);
-        return undefined;
-      }
+  $effect(() => {
+    // Returning from the interactive popup re-arms cursor tracking.
+    void listenerRevision;
+    if (!enabled) {
+      resetReference(domReference);
+      return undefined;
+    }
 
-      if (!openCheck) {
-        return undefined;
-      }
+    if (!openCheck) {
+      return undefined;
+    }
 
-      function cleanupListener() {
-        cleanupListenerRef.current?.();
-        cleanupListenerRef.current = null;
-      }
+    function cleanupListener() {
+      cleanupListenerRef.current?.();
+      cleanupListenerRef.current = null;
+    }
 
-      const win = getWindow(floating);
+    const win = getWindow(floating);
 
-      function handleMouseMove(event: MouseEvent) {
-        const target = getTarget(event) as Element | null;
+    function handleMouseMove(event: MouseEvent) {
+      const target = getTarget(event) as Element | null;
 
-        if (!contains(floating, target)) {
-          setReference(event.clientX, event.clientY);
-        } else {
-          cleanupListener();
-        }
-      }
-
-      if (!dataRef.current.openEvent || isMouseBasedEvent(dataRef.current.openEvent)) {
-        cleanupListenerRef.current = addEventListener(win, 'mousemove', handleMouseMove);
+      if (!contains(floating, target)) {
+        setReference(event.clientX, event.clientY);
       } else {
-        resetReference(domReference);
+        cleanupListener();
       }
+    }
 
-      return cleanupListener;
-    },
-    () => [
-      openCheck,
-      enabled,
-      floating,
-      dataRef,
-      domReference,
-      store,
-      setReference,
-      resetReference,
-      listenerRevision,
-    ],
-  );
+    if (!dataRef.current.openEvent || isMouseBasedEvent(dataRef.current.openEvent)) {
+      cleanupListenerRef.current = addEventListener(win, 'mousemove', handleMouseMove);
+    } else {
+      resetReference(domReference);
+    }
+
+    return cleanupListener;
+  });
 
   // Clear virtual cursor references when the hook unmounts. Enabled flips are handled above.
-  useIsoLayoutEffect(
-    () => {
-      // Cleanup owns the same Source store whose effect is being removed.
-      const effectStore = store;
-      return () => {
-        effectStore.set('positionReference', null);
-      };
-    },
-    () => [store],
-  );
+  $effect(() => {
+    // Cleanup owns the same Source store whose effect is being removed.
+    const effectStore = store;
+    return () => {
+      effectStore.set('positionReference', null);
+    };
+  });
 
-  useIsoLayoutEffect(
-    () => {
-      if (enabled && !floating) {
-        initialRef.current = false;
-      }
-    },
-    () => [enabled, floating],
-  );
+  $effect(() => {
+    if (enabled && !floating) {
+      initialRef.current = false;
+    }
+  });
 
-  useIsoLayoutEffect(
-    () => {
-      if (!enabled && open) {
-        initialRef.current = true;
-      }
-    },
-    () => [enabled, open],
-  );
+  $effect(() => {
+    if (!enabled && open) {
+      initialRef.current = true;
+    }
+  });
 
   function setPointerTypeRef(event: PointerEvent) {
     pointerType = event.pointerType;

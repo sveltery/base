@@ -1,6 +1,8 @@
 <script lang="ts" generics="Payload = unknown">
+  import { mergeComponentProps } from '../internals/mergeComponentProps.js';
+  import { createAttachmentKey } from 'svelte/attachments';
+
   // Original MenuTrigger CompositeItem/FocusGuard/render composition (MIT).
-  import RenderElement from '../internals/RenderElement.svelte';
   import CompositeItem from '../internals/composite/item/CompositeItem.svelte';
   import FocusGuard from '../utils/FocusGuard.svelte';
   import { pressableTriggerOpenStateMapping } from '../utils/popupStateMapping.js';
@@ -16,6 +18,26 @@
       ref = node;
     },
   );
+
+  const renderSnippet = $derived(props.render);
+  const mergedProps = $derived({
+    ...mergeComponentProps(
+      root.state,
+      { class: props.class, style: props.style },
+      root.props,
+      pressableTriggerOpenStateMapping,
+    ),
+  });
+  const triggerFocusAttachmentKey = createAttachmentKey();
+  const triggerFocusGuardProps = {
+    [triggerFocusAttachmentKey]: (host: HTMLSpanElement) => {
+      const owner = root.store().context.triggerFocusTargetRef;
+      owner.current = host;
+      return () => {
+        if (owner.current === host) owner.current = null;
+      };
+    },
+  };
 </script>
 
 {#if root.isInMenubar}
@@ -25,29 +47,22 @@
     class={props.class}
     style={props.style}
     state={root.state}
-    refs={root.ref}
     props={root.props}
     stateAttributesMapping={pressableTriggerOpenStateMapping}
     children={props.children}
   />
 {:else}
   {#if root.isOpenedByThisTrigger}<FocusGuard
-      ref={root.preFocusGuardRef}
+      bind:ref={root.preFocusGuardRef.current}
       onfocusin={root.handlePreFocusGuardFocus}
     />{/if}
-  <RenderElement
-    tag="button"
-    componentProps={props}
-    params={{
-      state: root.state,
-      ref: root.ref,
-      props: root.props,
-      stateAttributesMapping: pressableTriggerOpenStateMapping,
-    }}
-    children={props.children}
-  />
+  {#if renderSnippet}
+    {@render renderSnippet(mergedProps, root.state, props.children)}
+  {:else}
+    <button type="button" {...mergedProps}>{@render props.children?.()}</button>
+  {/if}
   {#if root.isOpenedByThisTrigger}<FocusGuard
-      ref={root.store().context.triggerFocusTargetRef}
+      {...triggerFocusGuardProps}
       onfocusin={root.handleFocusTargetFocus}
     />{/if}
 {/if}

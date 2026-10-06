@@ -4,11 +4,11 @@
 // SHA256 56ef7993c9378f0710f7724a40280f8ba31fa7fb515b218802d7935c3a95f75b.
 import { getAllContexts, mount, unmount, untrack, type Snippet } from 'svelte';
 import { getWindow, isNode } from '@floating-ui/utils/dom';
-import { useIsoLayoutEffect } from '@sveltery/utils/useIsoLayoutEffect';
-import type { MergedRef } from '@sveltery/utils/useMergedRefs';
+
+import type { Attachment } from 'svelte/attachments';
 import type { HTMLProps } from '../../internals/types.js';
-import type { UseRenderElementComponentProps } from '../../internals/useRenderElement.js';
-import RenderElement from '../../internals/RenderElement.svelte';
+import type { BaseUIComponentProps } from '../../internals/types.js';
+import PortalHost from '../components/PortalHost.svelte';
 import PortalContent from '../components/PortalContent.svelte';
 import { createAttribute } from '../utils/createAttribute.js';
 import { usePortalContext } from '../components/FloatingPortalContext.js';
@@ -17,9 +17,9 @@ export type PortalContainer =
   HTMLElement | ShadowRoot | { current: HTMLElement | ShadowRoot | null } | null;
 
 export interface UseFloatingPortalNodeProps<State extends object> {
-  ref?: MergedRef<HTMLElement> | undefined;
+  onHost?: Attachment<HTMLElement> | undefined;
   container?: PortalContainer | undefined;
-  componentProps?: UseRenderElementComponentProps<State> | undefined;
+  componentProps?: BaseUIComponentProps<State> | undefined;
   elementProps?: HTMLProps | undefined;
 }
 
@@ -32,7 +32,7 @@ export function useFloatingPortalNode<State extends object = Record<string, neve
   getProps: () => UseFloatingPortalNodeProps<State>,
   generatedId: string,
 ): UseFloatingPortalNodeResult {
-  const { ref, container, componentProps = {}, elementProps } = $derived(getProps());
+  const { onHost, container, componentProps = {}, elementProps } = $derived(getProps());
   const uniqueId = generatedId;
   const attr = createAttribute('portal');
   const parentPortal = usePortalContext();
@@ -43,42 +43,35 @@ export function useFloatingPortalNode<State extends object = Record<string, neve
   let portalNode = $state.raw<HTMLElement | null>(null);
   let portalNodeId = $state<string | undefined>();
   let containerRef: HTMLElement | ShadowRoot | null = null;
-  useIsoLayoutEffect(
-    () => {
-      if (container === null) {
-        if (containerRef) {
-          containerRef = null;
-          portalNode = null;
-          containerElement = null;
-        }
-        return;
-      }
-      const resolvedContainer =
-        (container && (isNode(container) ? container : container.current)) ??
-        parentPortal?.portalNode ??
-        document.body;
-      if (resolvedContainer == null) {
-        if (containerRef) {
-          containerRef = null;
-          portalNode = null;
-          containerElement = null;
-        }
-        return;
-      }
-      if (containerRef !== resolvedContainer) {
-        containerRef = resolvedContainer;
+  $effect(() => {
+    if (container === null) {
+      if (containerRef) {
+        containerRef = null;
         portalNode = null;
-        containerElement = resolvedContainer;
+        containerElement = null;
       }
-    },
-    () => [container, parentPortal?.portalNode],
-  );
-  function portalRef(node: HTMLElement | null) {
-    portalNode = node;
-    if (!node) {
-      portalNodeId = undefined;
       return;
     }
+    const resolvedContainer =
+      (container && (isNode(container) ? container : container.current)) ??
+      parentPortal?.portalNode ??
+      document.body;
+    if (resolvedContainer == null) {
+      if (containerRef) {
+        containerRef = null;
+        portalNode = null;
+        containerElement = null;
+      }
+      return;
+    }
+    if (containerRef !== resolvedContainer) {
+      containerRef = resolvedContainer;
+      portalNode = null;
+      containerElement = resolvedContainer;
+    }
+  });
+  function attachPortal(node: HTMLElement) {
+    portalNode = node;
     // Opaque Svelte snippets own their native element/id. Observe the actual host, including replacement ids.
     const updateId = () => {
       portalNodeId = node.id || undefined;
@@ -86,7 +79,9 @@ export function useFloatingPortalNode<State extends object = Record<string, neve
     updateId();
     const observer = new (getWindow(node).MutationObserver)(updateId);
     observer.observe(node, { attributes: true, attributeFilter: ['id'] });
+    const cleanup = onHost?.(node);
     return () => {
+      cleanup?.();
       observer.disconnect();
       if (portalNode === node) {
         portalNode = null;
@@ -99,17 +94,23 @@ export function useFloatingPortalNode<State extends object = Record<string, neve
     const target = containerElement;
     if (!target) return;
     const instance = untrack(() =>
-      mount(RenderElement<State, HTMLElement>, {
+      mount(PortalHost<State>, {
         target,
         context: hostContext,
         props: {
-          tag: 'div',
-          get componentProps() {
-            return componentProps;
+          get render() {
+            return componentProps.render;
           },
-          get params() {
-            return { ref: [ref, portalRef], props: [{ id: uniqueId, [attr]: '' }, elementProps] };
+          get class() {
+            return componentProps.class;
           },
+          get style() {
+            return componentProps.style;
+          },
+          get attributes() {
+            return { id: uniqueId, [attr]: '', ...elementProps };
+          },
+          onHost: attachPortal,
         },
       }),
     );

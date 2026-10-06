@@ -1,6 +1,9 @@
 <script lang="ts">
+  import { mergeComponentProps } from '../../internals/mergeComponentProps.js';
+  import { createAttachmentKey } from 'svelte/attachments';
+  import { untrack } from 'svelte';
+
   // Base UI v1.8.0 RadioIndicator.tsx source composition; MIT.
-  import RenderElement from '../../internals/RenderElement.svelte';
   import { useRadioRootContext } from '../root/RadioRootContext.js';
   import { stateAttributesMapping } from '../stateAttributesMapping.js';
   import { useOpenChangeComplete } from '../../internals/useOpenChangeComplete.svelte.js';
@@ -22,7 +25,9 @@
     ...getRootState(),
     transitionStatus: transition.transitionStatus,
   });
-  const indicatorRef = $state<{ current: HTMLElement | null }>({ current: null });
+  const indicatorRef = $state<{ current: HTMLElement | null }>({
+    current: null,
+  });
   const shouldRender = $derived(keepMounted || transition.mounted);
   useOpenChangeComplete({
     batch: true,
@@ -37,21 +42,32 @@
       if (!rendered) transition.setMounted(false);
     },
   });
-  const forwardedRef = {
-    get current() {
-      return ref ?? null;
-    },
-    set current(value: HTMLElement | null) {
-      ref = value;
-    },
-  };
-  const componentProps = $derived({ render, class: classProp, style });
-  const params = $derived({
-    ref: [forwardedRef, indicatorRef],
-    state: indicatorState,
-    props: elementProps,
-    stateAttributesMapping,
+
+  const hostAttachmentKey = createAttachmentKey();
+  function attachHost(host: HTMLElement) {
+    return untrack(() => {
+      ref = host;
+      indicatorRef.current = host;
+      return () =>
+        untrack(() => {
+          if (ref === host) ref = null;
+          if (indicatorRef.current === host) indicatorRef.current = null;
+        });
+    });
+  }
+  const mergedProps = $derived({
+    ...mergeComponentProps(
+      indicatorState,
+      { class: classProp, style: style },
+      elementProps,
+      stateAttributesMapping,
+    ),
+    [hostAttachmentKey]: attachHost,
   });
 </script>
 
-{#if shouldRender}<RenderElement tag="span" {componentProps} {params} {children} />{/if}
+{#if shouldRender}{#if render}
+    {@render render(mergedProps, indicatorState, children)}
+  {:else}
+    <span {...mergedProps}>{@render children?.()}</span>
+  {/if}{/if}

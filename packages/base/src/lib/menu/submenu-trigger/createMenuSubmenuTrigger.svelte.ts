@@ -1,3 +1,4 @@
+import { createAttachmentKey } from 'svelte/attachments';
 // Original MenuSubmenuTrigger full item/navigation/hover business, native live props (MIT).
 import { untrack } from 'svelte';
 import { DEV } from 'esm-env';
@@ -5,8 +6,7 @@ import { isElementDisabled } from '@sveltery/utils/isElementDisabled';
 import { warn } from '@sveltery/utils/warn';
 import { EMPTY_OBJECT } from '@sveltery/utils/empty';
 import { platform } from '@sveltery/utils/platform';
-import { useStableCallback } from '@sveltery/utils/useStableCallback';
-import { useIsoLayoutEffect } from '@sveltery/utils/useIsoLayoutEffect';
+
 import { safePolygon } from '../../floating-ui/safePolygon.js';
 import { useClick } from '../../floating-ui/hooks/useClick.svelte.js';
 import { useHoverReferenceInteraction } from '../../floating-ui/hooks/useHoverReferenceInteraction.svelte.js';
@@ -60,40 +60,42 @@ export function createMenuSubmenuTrigger(
     () => thisTriggerId,
     () => store,
   );
-  // Stable, so the merged ref on the rendered element keeps its identity for the trigger's whole
-  // lifetime; the latest `closeDelay` is read when it runs.
-  const registerTrigger = useStableCallback((element: Element | null) => {
+  // Publishes the native registration before claiming implicit active ownership.
+  // The latest `closeDelay` is read only in that branch; later changes stay synchronized below.
+  const registerTrigger = (element: Element | null) => {
+    const owner = store;
+    const id = thisTriggerId;
     baseRegisterTrigger(element);
-    if (element !== null && store.select('open') && store.select('activeTriggerId') == null) {
-      store.update({
-        activeTriggerId: thisTriggerId ?? null,
-        activeTriggerElement: element,
-        closeDelay,
-      });
-    }
-  });
+    untrack(() => {
+      if (element !== null && owner.select('open') && owner.select('activeTriggerId') == null) {
+        owner.update({
+          activeTriggerId: id ?? null,
+          activeTriggerElement: element,
+          closeDelay,
+        });
+      }
+    });
+  };
   const triggerElementRef = { current: null as HTMLElement | null };
   const handleTriggerElementRef = (el: HTMLElement | null) => {
     triggerElementRef.current = el;
     store.set('activeTriggerElement', el);
   };
-  // A stable ref does not re-fire when the id changes, so register the rendered element here
-  // instead. On React 17 the id also starts out `undefined`, so this is what registers the trigger
-  // at all.
-  useIsoLayoutEffect(
-    () => {
-      registerTrigger(triggerElementRef.current);
-      return () => registerTrigger(null);
-    },
-    () => [registerTrigger, thisTriggerId, store],
-  );
+  // Native ID/Store changes migrate the published host registration.
+  $effect(() => {
+    void thisTriggerId;
+    void store;
+    const element = triggerElementRef.current;
+    untrack(() => registerTrigger(element));
+    return () => registerTrigger(null);
+  });
   store.useSyncedValue('closeDelay', () => closeDelay);
   const parentMenuStore = submenuRootContext.parentMenu;
   const rootDisabled = $derived(store.useState('disabled'));
   const parentDisabled = $derived(parentMenuStore.useState('disabled'));
   const disabled = $derived(disabledProp || rootDisabled || parentDisabled);
   if (DEV) {
-    useIsoLayoutEffect(() => {
+    $effect(() => {
       const element = triggerElementRef.current;
       if (element && isElementDisabled(element) && !disabled) {
         warn(
@@ -112,7 +114,7 @@ export function createMenuSubmenuTrigger(
       }
     },
   }));
-  const { getItemProps, itemRef } = useMenuItem(() => ({
+  const { getItemProps, attachItem } = useMenuItem(() => ({
     closeOnClick: false,
     disabled,
     highlighted,
@@ -159,7 +161,11 @@ export function createMenuSubmenuTrigger(
     delete value.id;
     return value;
   });
-  const state: MenuSubmenuTriggerState = $derived({ disabled, highlighted, open });
+  const state: MenuSubmenuTriggerState = $derived({
+    disabled,
+    highlighted,
+    open,
+  });
   const openMethod = $derived(store.useState('openMethod'));
   const lastOpenChangeReason = $derived(store.useState('lastOpenChangeReason'));
   // Arrow keys open the submenu through list navigation without dispatching a click, so
@@ -168,7 +174,23 @@ export function createMenuSubmenuTrigger(
     lastOpenChangeReason === REASONS.listNavigation || openMethod === 'keyboard',
   );
   const shouldOmitExpanded = $derived(open && openedByKeyboard && platform.screenReader.voiceOver);
+  const hostAttachmentKey = createAttachmentKey();
+  function attachHost(host: HTMLElement) {
+    setRef(host);
+    const unregisterItem = listItem.attach(host);
+    const disposeItem = untrack(() => attachItem(host));
+    registerTrigger(host);
+    handleTriggerElementRef(host);
+    return () => {
+      setRef(null);
+      unregisterItem();
+      disposeItem();
+      registerTrigger(null);
+      handleTriggerElementRef(null);
+    };
+  }
   const props = $derived([
+    { [hostAttachmentKey]: attachHost },
     localInteractionProps,
     hoverProps(),
     triggerProps,
@@ -190,9 +212,6 @@ export function createMenuSubmenuTrigger(
     },
     get props() {
       return props;
-    },
-    get refs() {
-      return [setRef, listItem.ref, itemRef, registerTrigger, handleTriggerElementRef];
     },
   };
 }

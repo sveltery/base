@@ -1,8 +1,6 @@
 // Base UI v1.8.0 packages/utils/src/useAnimationFrame.ts at
 // 47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c. MIT: THIRD_PARTY_NOTICES.md.
 import { DEV } from 'esm-env';
-import { useRefWithInit } from './useRefWithInit.js';
-import { useOnMount } from './useOnMount.js';
 
 type AnimationFrameId = number;
 
@@ -144,15 +142,4 @@ export class AnimationFrame {
   disposeEffect = () => {
     return this.cancel;
   };
-}
-
-/**
- * A `requestAnimationFrame` with automatic cleanup and guard.
- */
-export function useAnimationFrame() {
-  const timeout = useRefWithInit(AnimationFrame.create).current;
-
-  useOnMount(timeout.disposeEffect);
-
-  return timeout;
 }

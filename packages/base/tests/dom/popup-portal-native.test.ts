@@ -33,22 +33,23 @@ function host(root: ParentNode = document) {
 }
 
 for (const lite of [false, true]) {
-  it(`${lite ? 'Lite' : 'Full'} forwards native HTML/class/style and callback ref cleanup to the actual host`, async () => {
-    const ref = vi.fn((node: HTMLElement | null) => (node ? () => {} : undefined));
+  it(`${lite ? 'Lite' : 'Full'} forwards native HTML/class/style and authored attachment cleanup to the actual host`, async () => {
     const cleanup = vi.fn();
-    ref.mockImplementation((node) => (node ? cleanup : undefined));
-    const app = setup({ lite, forwardedRef: ref });
+    const attachment = vi.fn((_node: HTMLElement) => cleanup);
+    const app = setup({ lite, forwardedAttachment: attachment });
     const node = host()!;
     expect(node.parentNode).toBe(document.body);
     expect(node.hasAttribute('data-base-ui-portal')).toBe(true);
     expect(node.className).toBe('portal native');
     expect(node.style.getPropertyValue('--host-color')).toBe('red');
-    expect(ref).toHaveBeenCalledWith(node);
+    expect(attachment).toHaveBeenCalledWith(node);
+    expect(app.getHost()).toBe(node);
     expect(node.querySelector('[data-testid="portal-child"]')).not.toBeNull();
     mounted.splice(mounted.indexOf(app), 1);
     await unmount(app);
     expect(cleanup).toHaveBeenCalledTimes(1);
     expect(node.isConnected).toBe(false);
+    expect(app.getHost()).toBeNull();
   });
 
   it(`${lite ? 'Lite' : 'Full'} waits for explicit null, resolves null-current refs, and remounts on identity replacement`, async () => {
@@ -107,16 +108,19 @@ for (const lite of [false, true]) {
     expect(shadow.children.length).toBe(0);
   });
 
-  it(`${lite ? 'Lite' : 'Full'} replaces the forwarded ref without remounting the host`, async () => {
-    const first = { current: null as HTMLElement | null };
-    const second = { current: null as HTMLElement | null };
-    const app = setup({ lite, forwardedRef: first });
+  it(`${lite ? 'Lite' : 'Full'} replaces an authored attachment while retaining its native host binding`, async () => {
+    const cleanup = vi.fn();
+    const first = vi.fn((_node: HTMLElement) => cleanup);
+    const second = vi.fn((_node: HTMLElement) => () => {});
+    const app = setup({ lite, forwardedAttachment: first });
     const initial = host()!;
-    expect(first.current).toBe(initial);
-    app.setRef(second);
+    expect(first).toHaveBeenCalledWith(initial);
+    expect(app.getHost()).toBe(initial);
+    app.setAttachment(second);
     await settle();
-    expect(first.current).toBeNull();
-    expect(second.current).toBe(initial);
+    expect(cleanup).toHaveBeenCalledTimes(1);
+    expect(second).toHaveBeenCalledWith(initial);
+    expect(app.getHost()).toBe(initial);
     expect(host()).toBe(initial);
   });
 }
@@ -146,8 +150,7 @@ it('Lite custom render and child content preserve inherited context without inst
 
 for (const lite of [false, true])
   it(`${lite ? 'Lite' : 'Full'} mounts child content into a replaced actual render host and releases the previous ref`, async () => {
-    const ref = { current: null as HTMLElement | null };
-    const app = setup({ lite, customHost: true, forwardedRef: ref });
+    const app = setup({ lite, customHost: true });
     const previous = host()!;
     expect(previous.tagName).toBe('SECTION');
     app.setHostTag('article');
@@ -156,7 +159,7 @@ for (const lite of [false, true])
     expect(next.tagName).toBe('ARTICLE');
     expect(next).not.toBe(previous);
     expect(previous.isConnected).toBe(false);
-    expect(ref.current).toBe(next);
+    expect(app.getHost()).toBe(next);
     expect(next.querySelector('[data-testid="portal-child"]')).not.toBeNull();
     expect(app.readContext('host')).toBeNull();
     if (!lite) expect(app.readContext('child')?.portalNode).toBe(next);
@@ -174,20 +177,19 @@ it('Full removes aria-owns when the actual custom host ID is removed', async () 
 
 it('whole Full unmount clears retained live context and ref before a fresh independent remount', async () => {
   const warning = vi.spyOn(console, 'warn');
-  const ref = { current: null as HTMLElement | null };
-  const first = setup({ customHost: true, forwardedRef: ref });
+  const first = setup({ customHost: true });
   const previous = host()!;
   const retainedContext = first.readContext('child')!;
   expect(retainedContext.portalNode).toBe(previous);
   mounted.splice(mounted.indexOf(first), 1);
   await unmount(first);
-  expect(ref.current).toBeNull();
+  expect(first.getHost()).toBeNull();
   expect(previous.isConnected).toBe(false);
   expect(retainedContext.portalNode).toBeNull();
-  const second = setup({ customHost: true, forwardedRef: ref });
+  const second = setup({ customHost: true });
   const next = host()!;
   expect(next).not.toBe(previous);
-  expect(ref.current).toBe(next);
+  expect(second.getHost()).toBe(next);
   expect(second.readContext('child')).not.toBe(retainedContext);
   expect(second.readContext('child')?.portalNode).toBe(next);
   expect(retainedContext.portalNode).toBeNull();

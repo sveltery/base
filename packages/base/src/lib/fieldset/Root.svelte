@@ -1,6 +1,9 @@
 <script lang="ts">
+  import { mergeComponentProps } from '../internals/mergeComponentProps.js';
+  import { createAttachmentKey } from 'svelte/attachments';
+  import { untrack } from 'svelte';
+
   // Ported from Base UI v1.8.0 FieldsetRoot.tsx; MIT: THIRD_PARTY_NOTICES.md.
-  import RenderElement from '../internals/RenderElement.svelte';
   import { setFieldsetRootContext, useFieldsetRootContext } from './root/FieldsetRootContext.js';
   import type { FieldsetRootProps } from './types.js';
   let {
@@ -16,20 +19,7 @@
   const parent = useFieldsetRootContext(true);
   const disabled = $derived(Boolean(parent?.disabled || disabledProp));
   const fieldsetState = $derived({ disabled });
-  const forwardedRef = {
-    get current() {
-      return ref ?? null;
-    },
-    set current(value: HTMLElement | null) {
-      ref = value;
-    },
-  };
-  const componentProps = $derived({ render, class: classProp, style });
-  const params = $derived({
-    ref: forwardedRef,
-    state: fieldsetState,
-    props: [{ 'aria-labelledby': legendId, disabled }, elementProps],
-  });
+
   setFieldsetRootContext({
     get legendId() {
       return legendId;
@@ -41,6 +31,30 @@
       return disabled;
     },
   });
+
+  const hostAttachmentKey = createAttachmentKey();
+  function attachHost(host: HTMLElement) {
+    return untrack(() => {
+      ref = host;
+      return () =>
+        untrack(() => {
+          if (ref === host) ref = null;
+        });
+    });
+  }
+  const mergedProps = $derived({
+    ...mergeComponentProps(
+      fieldsetState,
+      { class: classProp, style: style },
+      [{ 'aria-labelledby': legendId, disabled }, elementProps],
+      undefined,
+    ),
+    [hostAttachmentKey]: attachHost,
+  });
 </script>
 
-<RenderElement tag="fieldset" {componentProps} {params} {children} />
+{#if render}
+  {@render render(mergedProps, fieldsetState, children)}
+{:else}
+  <fieldset {...mergedProps}>{@render children?.()}</fieldset>
+{/if}

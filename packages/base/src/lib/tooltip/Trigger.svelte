@@ -1,6 +1,8 @@
 <script lang="ts" generics="Payload = unknown">
+  import { mergeComponentProps } from '../internals/mergeComponentProps.js';
+  import { createAttachmentKey } from 'svelte/attachments';
+
   // Original Base UI v1.8.0 at 47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c; MIT: THIRD_PARTY_NOTICES.md.
-  import RenderElement from '../internals/RenderElement.svelte';
   import { useTooltipRootContext } from './context.js';
   import { usePopupHandleStore } from '../utils/popups/usePopupHandleStore.svelte.js';
   import { useTriggerDataForwarding } from '../utils/popups/popupStoreUtils.svelte.js';
@@ -12,9 +14,9 @@
   import type { TooltipHandleStore } from './store/TooltipStore.svelte.js';
   import type { TooltipTriggerProps } from './types.js';
   import { useFocus } from '../floating-ui/hooks/useFocus.svelte.js';
-  import { untrack } from 'svelte';
+  import { onDestroy, untrack } from 'svelte';
   import { isElement } from '@floating-ui/utils/dom';
-  import { useTimeout } from '@sveltery/utils/useTimeout';
+  import { Timeout } from '@sveltery/utils/useTimeout';
   import { useTooltipProviderContext } from './provider/TooltipProviderContext.js';
   import { useDelayGroup } from '../floating-ui/hooks/useDelayGroup.svelte.js';
   import { useHoverInteractionSharedState } from '../floating-ui/hooks/useHoverInteractionSharedState.svelte.js';
@@ -51,7 +53,6 @@
     class: className,
     style,
     children,
-    // eslint-disable-next-line no-useless-assignment -- Native bindable ref output is published through the ordered Source ref callback.
     ref = $bindable(),
     handle,
     payload,
@@ -108,7 +109,8 @@
   const trackCursorAxis = $derived(store.select('trackCursorAxis'));
   const disableHoverablePopup = $derived(store.select('disableHoverablePopup'));
   const isNestedTriggerHoveredRef = { current: false };
-  const nestedTriggerOpenTimeout = useTimeout();
+  const nestedTriggerOpenTimeout = new Timeout();
+  onDestroy(nestedTriggerOpenTimeout.clear);
   const pointerTypeRef = { current: undefined as string | undefined };
   function getOpenDelay() {
     // Adjacent tooltips open instantly while the group is active.
@@ -226,51 +228,66 @@
   const rootTriggerProps = $derived(
     store.select('triggerProps', forwarding.isMountedByThisTrigger),
   );
-  const forwardedRef = (node: HTMLElement | null) => {
-    ref = node;
-  };
+
+  const hostAttachmentKey = createAttachmentKey();
+  function attachHost(host: HTMLElement) {
+    return untrack(() => {
+      ref = host;
+      forwarding.registerTrigger?.(host);
+      triggerElementRef.current = host;
+      return () =>
+        untrack(() => {
+          if (ref === host) ref = null;
+          forwarding.registerTrigger?.(null);
+          if (triggerElementRef.current === host) triggerElementRef.current = null;
+        });
+    });
+  }
+  const mergedProps = $derived({
+    ...mergeComponentProps(
+      state,
+      { class: className, style: style },
+      [
+        hoverProps(),
+        focus.reference,
+        shouldApplyRootTriggerProps ? rootTriggerProps : undefined,
+        {
+          onmouseover(event: MouseEvent) {
+            handleNestedTriggerHover(event);
+          },
+          onfocusin(event: FocusEvent & { preventBaseUIHandler(): void }) {
+            if (isEnabledNestedTriggerTarget(getTargetElement(event))) event.preventBaseUIHandler();
+          },
+          onmouseleave() {
+            isNestedTriggerHoveredRef.current = false;
+            nestedTriggerOpenTimeout.clear();
+            pointerTypeRef.current = undefined;
+          },
+          onpointerenter(event: PointerEvent) {
+            pointerTypeRef.current = event.pointerType;
+          },
+          onpointerdown(event: PointerEvent) {
+            pointerTypeRef.current = event.pointerType;
+            store.set('closeOnClick', closeOnClick);
+            if (closeOnClick && !store.select('open')) store.cancelPendingOpen(event);
+          },
+          onclick(event: MouseEvent) {
+            if (closeOnClick && !store.select('open')) store.cancelPendingOpen(event);
+          },
+          id: thisTriggerId,
+          'data-trigger-disabled': disabled ? '' : undefined,
+          [TOOLTIP_TRIGGER_IDENTIFIER]: disabled ? undefined : '',
+        },
+        elementProps,
+      ],
+      triggerOpenStateMapping,
+    ),
+    [hostAttachmentKey]: attachHost,
+  });
 </script>
 
-<RenderElement
-  tag="button"
-  componentProps={{ render, class: className, style }}
-  params={{
-    state,
-    ref: [forwardedRef, forwarding.registerTrigger, triggerElementRef],
-    props: [
-      hoverProps(),
-      focus.reference,
-      shouldApplyRootTriggerProps ? rootTriggerProps : undefined,
-      {
-        onmouseover(event: MouseEvent) {
-          handleNestedTriggerHover(event);
-        },
-        onfocusin(event: FocusEvent & { preventBaseUIHandler(): void }) {
-          if (isEnabledNestedTriggerTarget(getTargetElement(event))) event.preventBaseUIHandler();
-        },
-        onmouseleave() {
-          isNestedTriggerHoveredRef.current = false;
-          nestedTriggerOpenTimeout.clear();
-          pointerTypeRef.current = undefined;
-        },
-        onpointerenter(event: PointerEvent) {
-          pointerTypeRef.current = event.pointerType;
-        },
-        onpointerdown(event: PointerEvent) {
-          pointerTypeRef.current = event.pointerType;
-          store.set('closeOnClick', closeOnClick);
-          if (closeOnClick && !store.select('open')) store.cancelPendingOpen(event);
-        },
-        onclick(event: MouseEvent) {
-          if (closeOnClick && !store.select('open')) store.cancelPendingOpen(event);
-        },
-        id: thisTriggerId,
-        'data-trigger-disabled': disabled ? '' : undefined,
-        [TOOLTIP_TRIGGER_IDENTIFIER]: disabled ? undefined : '',
-      },
-      elementProps,
-    ],
-    stateAttributesMapping: triggerOpenStateMapping,
-  }}
-  {children}
-/>
+{#if render}
+  {@render render(mergedProps, state, children)}
+{:else}
+  <button type="button" {...mergedProps}>{@render children?.()}</button>
+{/if}

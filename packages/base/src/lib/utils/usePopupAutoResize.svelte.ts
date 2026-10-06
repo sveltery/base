@@ -1,7 +1,7 @@
 // Original usePopupAutoResize full measurement/restore/animation business (MIT).
-import { useAnimationFrame } from '@sveltery/utils/useAnimationFrame';
-import { useIsoLayoutEffect } from '@sveltery/utils/useIsoLayoutEffect';
-import { useStableCallback } from '@sveltery/utils/useStableCallback';
+import { onDestroy, untrack } from 'svelte';
+import { AnimationFrame } from '@sveltery/utils/useAnimationFrame';
+
 import { NOOP, EMPTY_OBJECT } from '@sveltery/utils/empty';
 import { useAnimationsFinished } from '../internals/useAnimationsFinished.js';
 import { getCssDimensions } from './getCssDimensions.js';
@@ -31,102 +31,92 @@ export function usePopupAutoResize(getParameters: () => UsePopupAutoResizeParame
     },
     () => true,
   );
-  const animationFrame = useAnimationFrame();
+  const animationFrame = new AnimationFrame();
+  onDestroy(animationFrame.cancel);
   const committedDimensionsRef = { current: null as Dimensions | null };
   const isInitialRenderRef = { current: true };
   const restoreAnchoringStylesRef = { current: NOOP };
-  const onMeasureLayout = useStableCallback(() => onMeasureLayoutParam?.());
-  const onMeasureLayoutComplete = useStableCallback(
-    (previousDimensions: Dimensions | null, newDimensions: Dimensions) =>
-      onMeasureLayoutCompleteParam?.(previousDimensions, newDimensions),
-  );
+  const onMeasureLayout = () => onMeasureLayoutParam?.();
+  const onMeasureLayoutComplete = (
+    previousDimensions: Dimensions | null,
+    newDimensions: Dimensions,
+  ) => onMeasureLayoutCompleteParam?.(previousDimensions, newDimensions);
   const anchoringStyles = $derived.by(() => getPopupAnchoringStyles(side, direction));
-  useIsoLayoutEffect(
-    () => {
-      // Reset the state when the popup is closed.
-      if (!mounted) {
-        restoreAnchoringStylesRef.current = NOOP;
-        isInitialRenderRef.current = true;
-        committedDimensionsRef.current = null;
-        return undefined;
-      }
-      if (!popupElement || !positionerElement) {
-        return undefined;
-      }
-      restoreAnchoringStylesRef.current = applyElementStyles(
-        popupElement,
-        anchoringStyles as Record<string, string>,
-      );
-      // Measure the rendered size to enable transitions:
-      setPopupCssSize(popupElement, 'auto');
-      const restorePopupPosition = overrideElementStyle(popupElement, 'position', 'static');
-      const restorePopupTransform = overrideElementStyle(popupElement, 'transform', 'none');
-      const restorePopupScale = overrideElementStyle(popupElement, 'scale', '1');
-      const restorePositionerAvailableSize = applyElementStyles(positionerElement, {
-        [CommonPositionerCssVars.availableWidth]: 'max-content',
-        [CommonPositionerCssVars.availableHeight]: 'max-content',
-      });
-      function restoreMeasurementOverrides() {
-        restorePopupPosition();
-        restorePopupTransform();
-        restorePositionerAvailableSize();
-      }
-      function restoreMeasurementOverridesIncludingScale() {
-        restoreMeasurementOverrides();
-        restorePopupScale();
-      }
-      onMeasureLayout?.();
-      // Initial render (for each time the popup opens).
-      if (isInitialRenderRef.current || committedDimensionsRef.current === null) {
-        setPositionerCssSize(positionerElement, 'max-content');
-        const dimensions = getCssDimensions(popupElement);
-        committedDimensionsRef.current = dimensions;
-        setPositionerCssSize(positionerElement, dimensions);
-        restoreMeasurementOverridesIncludingScale();
-        onMeasureLayoutComplete?.(null, dimensions);
-        isInitialRenderRef.current = false;
-        return () => {
-          restoreAnchoringStylesRef.current();
-          restoreAnchoringStylesRef.current = NOOP;
-        };
-      }
-      // Subsequent renders while open (when `content` changes).
+  $effect(() => {
+    // Changed content needs a fresh DOM measurement, even when the hosts stay mounted.
+    void content;
+    // Reset the state when the popup is closed.
+    if (!mounted) {
+      restoreAnchoringStylesRef.current = NOOP;
+      isInitialRenderRef.current = true;
+      committedDimensionsRef.current = null;
+      return undefined;
+    }
+    if (!popupElement || !positionerElement) {
+      return undefined;
+    }
+    restoreAnchoringStylesRef.current = applyElementStyles(
+      popupElement,
+      anchoringStyles as Record<string, string>,
+    );
+    // Measure the rendered size to enable transitions:
+    setPopupCssSize(popupElement, 'auto');
+    const restorePopupPosition = overrideElementStyle(popupElement, 'position', 'static');
+    const restorePopupTransform = overrideElementStyle(popupElement, 'transform', 'none');
+    const restorePopupScale = overrideElementStyle(popupElement, 'scale', '1');
+    const restorePositionerAvailableSize = applyElementStyles(positionerElement, {
+      [CommonPositionerCssVars.availableWidth]: 'max-content',
+      [CommonPositionerCssVars.availableHeight]: 'max-content',
+    });
+    function restoreMeasurementOverrides() {
+      restorePopupPosition();
+      restorePopupTransform();
+      restorePositionerAvailableSize();
+    }
+    function restoreMeasurementOverridesIncludingScale() {
+      restoreMeasurementOverrides();
+      restorePopupScale();
+    }
+    untrack(() => onMeasureLayout?.());
+    // Initial render (for each time the popup opens).
+    if (isInitialRenderRef.current || committedDimensionsRef.current === null) {
       setPositionerCssSize(positionerElement, 'max-content');
-      const previousDimensions = committedDimensionsRef.current;
-      const newDimensions = getCssDimensions(popupElement);
-      // Commit immediately so future content changes have a stable previous size.
-      committedDimensionsRef.current = newDimensions;
-      setPopupCssSize(popupElement, previousDimensions);
+      const dimensions = getCssDimensions(popupElement);
+      committedDimensionsRef.current = dimensions;
+      setPositionerCssSize(positionerElement, dimensions);
       restoreMeasurementOverridesIncludingScale();
-      onMeasureLayoutComplete?.(previousDimensions, newDimensions);
-      setPositionerCssSize(positionerElement, newDimensions);
-      const abortController = new AbortController();
-      animationFrame.request(() => {
-        setPopupCssSize(popupElement, newDimensions);
-        runOnceAnimationsFinish(() => {
-          popupElement.style.setProperty(CommonPopupCssVars.popupWidth, 'auto');
-          popupElement.style.setProperty(CommonPopupCssVars.popupHeight, 'auto');
-        }, abortController.signal);
-      });
+      untrack(() => onMeasureLayoutComplete?.(null, dimensions));
+      isInitialRenderRef.current = false;
       return () => {
-        abortController.abort();
-        animationFrame.cancel();
         restoreAnchoringStylesRef.current();
         restoreAnchoringStylesRef.current = NOOP;
       };
-    },
-    () => [
-      content,
-      popupElement,
-      positionerElement,
-      runOnceAnimationsFinish,
-      animationFrame,
-      mounted,
-      onMeasureLayout,
-      onMeasureLayoutComplete,
-      anchoringStyles,
-    ],
-  );
+    }
+    // Subsequent renders while open (when `content` changes).
+    setPositionerCssSize(positionerElement, 'max-content');
+    const previousDimensions = committedDimensionsRef.current;
+    const newDimensions = getCssDimensions(popupElement);
+    // Commit immediately so future content changes have a stable previous size.
+    committedDimensionsRef.current = newDimensions;
+    setPopupCssSize(popupElement, previousDimensions);
+    restoreMeasurementOverridesIncludingScale();
+    untrack(() => onMeasureLayoutComplete?.(previousDimensions, newDimensions));
+    setPositionerCssSize(positionerElement, newDimensions);
+    const abortController = new AbortController();
+    animationFrame.request(() => {
+      setPopupCssSize(popupElement, newDimensions);
+      runOnceAnimationsFinish(() => {
+        popupElement.style.setProperty(CommonPopupCssVars.popupWidth, 'auto');
+        popupElement.style.setProperty(CommonPopupCssVars.popupHeight, 'auto');
+      }, abortController.signal);
+    });
+    return () => {
+      abortController.abort();
+      animationFrame.cancel();
+      restoreAnchoringStylesRef.current();
+      restoreAnchoringStylesRef.current = NOOP;
+    };
+  });
 }
 interface UsePopupAutoResizeParameters {
   /**

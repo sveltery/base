@@ -1,11 +1,12 @@
 import { resolveNativePackageSource } from './native-package-source.mjs';
-import ts from '../packages/base/node_modules/typescript/lib/typescript.js';
+import { createRequire } from 'node:module';
 import { readFileSync, writeFileSync, existsSync, statSync } from 'node:fs';
 import { resolve, relative, dirname } from 'node:path';
 import { createHash } from 'node:crypto';
 import { execFileSync } from 'node:child_process';
 
 const root = resolve(import.meta.dirname, '..');
+const ts = createRequire(new URL('../packages/base/package.json', import.meta.url))('typescript');
 const pin = '47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c';
 const upstream = process.argv[2] && resolve(process.argv[2]);
 if (

@@ -1,9 +1,9 @@
+import { onDestroy } from 'svelte';
 // Mechanically ported from Base UI v1.8.0 field/root/useFieldValidation.ts.
 // 47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c; MIT: THIRD_PARTY_NOTICES.md.
 import { EMPTY_OBJECT } from '@sveltery/utils/empty';
-import { useTimeout } from '@sveltery/utils/useTimeout';
-import { useStableCallback } from '@sveltery/utils/useStableCallback';
-import { useRefWithInit } from '@sveltery/utils/useRefWithInit';
+import { Timeout } from '@sveltery/utils/useTimeout';
+
 import { useLabelableContext } from '../../internals/labelable-provider/LabelableContext.js';
 import { mergeProps } from '../../merge-props/index.js';
 import { DEFAULT_VALIDITY_STATE } from '../../internals/field-constants/constants.js';
@@ -84,10 +84,12 @@ export function useFieldValidation(
 
   const labelable = useLabelableContext();
 
-  const timeout = useTimeout();
+  const timeout = new Timeout();
+
+  onDestroy(timeout.clear);
   const inputRef = $state<{ current: HTMLInputElement | null }>({ current: null });
   // eslint-disable-next-line svelte/prefer-svelte-reactivity -- Source registration Map is imperative and does not subscribe rendering.
-  const registeredInputs = useRefWithInit<RegisteredInputs>(() => new Map()).current;
+  const registeredInputs: RegisteredInputs = new Map();
   const validationCommitIdRef = { current: 0 };
   // Tracks the message installed by Base UI and the custom message it displaced.
   const customValidityRef = {
@@ -97,21 +99,19 @@ export function useFieldValidation(
   // Groups register several inputs against a single field so focus, validation, and form-value
   // projection can use the same live controls. This also ensures a `required` checkbox can't be
   // satisfied by another input in the group, matching native per-checkbox behavior.
-  const registerInput = useStableCallback(
-    (element: NativeValidationControl, registration: RegisteredInput) => {
-      registeredInputs.set(element, registration);
-      return () => {
-        registeredInputs.delete(element);
-      };
-    },
-  );
+  const registerInput = (element: NativeValidationControl, registration: RegisteredInput) => {
+    registeredInputs.set(element, registration);
+    return () => {
+      registeredInputs.delete(element);
+    };
+  };
 
-  const getInputControl = useStableCallback(() => {
+  const getInputControl = () => {
     const element = findRepresentativeInput(registeredInputs, elementRef.current);
     return (element && registeredInputs.get(element)?.controlRef.current) || null;
-  });
+  };
 
-  const commit = useStableCallback(async (value: unknown, revalidate = false) => {
+  const commit = async (value: unknown, revalidate = false) => {
     validationCommitIdRef.current += 1;
     const validationCommitId = validationCommitIdRef.current;
 
@@ -335,9 +335,9 @@ export function useFieldValidation(
     }
 
     publish(nextState, validationErrors);
-  });
+  };
 
-  const change = useStableCallback((value: unknown, cancelPending = false) => {
+  const change = (value: unknown, cancelPending = false) => {
     timeout.clear();
     validationCommitIdRef.current += 1;
     if (cancelPending) {
@@ -353,7 +353,7 @@ export function useFieldValidation(
     } else {
       commit(value, !validateOnChange);
     }
-  });
+  };
 
   const getValidationProps = (disabled: boolean, externalProps: HTMLProps = EMPTY_OBJECT) =>
     mergeProps(

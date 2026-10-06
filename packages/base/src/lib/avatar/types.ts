@@ -2,7 +2,7 @@
 // MIT attribution: parity/avatar/UPSTREAM_LICENSE and THIRD_PARTY_NOTICES.md.
 import type { Snippet } from 'svelte';
 import type { ClassValue, HTMLAttributes, HTMLImgAttributes } from 'svelte/elements';
-import type { HTMLProps, WithBaseUIEvent } from '../internals/types.js';
+import type { BaseUIComponentProps, HTMLProps, WithBaseUIEvent } from '../internals/types.js';
 export type ImageLoadingStatus = 'idle' | 'loading' | 'loaded' | 'error';
 export interface AvatarRootState {
   imageLoadingStatus: ImageLoadingStatus;
@@ -17,7 +17,7 @@ type PartProps<State, NativeProps> = Omit<
 > & {
   children?: Snippet;
   ref?: HTMLElement | null;
-  style?: string | ((state: State) => string | undefined);
+  style?: BaseUIComponentProps<State>['style'];
   class?: ClassValue | ((state: State) => ClassValue);
   render?: Snippet<[HTMLProps, State, Snippet | undefined]>;
 };

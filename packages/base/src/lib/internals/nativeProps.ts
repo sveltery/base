@@ -1,9 +1,10 @@
-// Native prop representation boundary for the pinned shared renderer (MIT).
+// Native prop representation for pinned pure prop business (MIT).
 // CSS strings and ClassValue are Svelte APIs; source merge algorithms live in their original modules.
-import type { ClassValue } from 'svelte/elements';
+import type { ClassValue, HTMLAttributes } from 'svelte/elements';
 import { resolveClassValue } from './resolveClassValue.js';
 import { mergeObjects } from '@sveltery/utils/mergeObjects';
-export type NativeStyle = string | Record<string, unknown>;
+// Public styles use Svelte's attribute representation; pure internal records still serialize below.
+export type NativeStyle = HTMLAttributes<HTMLElement>['style'];
 
 export function toNativeStyle(value: unknown): string | undefined {
   if (!value) return undefined;

@@ -8,7 +8,7 @@
   import { ROOT, usePopoverRootContext } from './context.js';
   import { createChangeEventDetails } from '../internals/createBaseUIEventDetails.js';
   import { REASONS } from '../internals/reasons.js';
-  import { useIsoLayoutEffect } from '@sveltery/utils/useIsoLayoutEffect';
+
   import {
     useImplicitActiveTrigger,
     useOpenStateTransitions,
@@ -58,12 +58,9 @@
     },
   );
   store.useSyncedValues(() => ({ modal }));
-  useIsoLayoutEffect(
-    () => {
-      if (!open) store.context.stickIfOpenTimeout.clear();
-    },
-    () => [store, open],
-  );
+  $effect(() => {
+    if (!open) store.context.stickIfOpenTimeout.clear();
+  });
   onDestroy(store.context.stickIfOpenTimeout.disposeEffect());
   export function close() {
     store.setOpen(false, createChangeEventDetails(REASONS.imperativeAction));

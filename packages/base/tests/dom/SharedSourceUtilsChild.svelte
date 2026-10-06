@@ -1,19 +1,15 @@
 <script lang="ts">
   import { createAttachmentKey } from 'svelte/attachments';
   import { untrack } from 'svelte';
-  import { useIsoLayoutEffect } from '@sveltery/utils/useIsoLayoutEffect';
   let { stable, events }: { stable: () => string; events: string[] } = $props();
   const attachmentKey = createAttachmentKey();
   untrack(() => events.push(`child-setup:${stable()}`));
-  useIsoLayoutEffect(
-    () => {
-      events.push(`child-effect:${stable()}`);
-      return () => {
-        events.push('child-cleanup');
-      };
-    },
-    () => [stable],
-  );
+  $effect(() => {
+    events.push(`child-effect:${stable()}`);
+    return () => {
+      events.push('child-cleanup');
+    };
+  });
   const refProps = {
     [attachmentKey]: () => {
       events.push(`attachment:${stable()}`);

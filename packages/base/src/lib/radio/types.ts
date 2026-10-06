@@ -3,7 +3,6 @@ import type { Snippet } from 'svelte';
 import type { HTMLAttributes } from 'svelte/elements';
 import type { BaseUIComponentProps, WithBaseUIEvent } from '../internals/types.js';
 import type { FieldRootState } from '../field/types.js';
-import type { MergedRef } from '@sveltery/utils/useMergedRefs';
 import type { TransitionStatus } from '../internals/useTransitionStatus.svelte.js';
 export interface RadioRootState extends FieldRootState {
   checked: boolean;
@@ -23,7 +22,7 @@ export type RadioRootProps<Value = any> = Omit<
     disabled?: boolean | undefined;
     required?: boolean | undefined;
     readOnly?: boolean | undefined;
-    inputRef?: MergedRef<HTMLInputElement> | null | undefined;
+    inputRef?: HTMLInputElement | null | undefined;
     nativeButton?: boolean | undefined;
   };
 export interface RadioIndicatorState extends RadioRootState {

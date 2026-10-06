@@ -13,7 +13,7 @@
       return DOMRect.fromRect({ width: 0, height: 0, x: 0, y: 0 });
     },
   });
-  const backdropRef = { current: null as HTMLDivElement | null };
+  const backdropRef = { current: null as HTMLElement | null };
   const internalBackdropRef = { current: null as HTMLDivElement | null };
   const actionsRef: ContextMenuRootContext['actionsRef'] = { current: null };
   const positionerRef = { current: null as HTMLElement | null };

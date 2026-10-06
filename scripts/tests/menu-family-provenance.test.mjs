@@ -4,9 +4,9 @@ import { createHash } from 'node:crypto';
 import { readFileSync } from 'node:fs';
 import { test } from 'node:test';
 import {
-  extractNativeClosure,
-  checkNativeClosure,
-} from '../../parity/menu-family/native-closure.mjs';
+  extractCurrentFamilyProjection,
+  verifyCurrentFamilyProjections,
+} from '../native-family-projection.mjs';
 const root = new URL('../../', import.meta.url);
 const read = (path) => readFileSync(new URL(path, root));
 const json = (path) => JSON.parse(read(path));
@@ -32,19 +32,21 @@ test('complete original Menu family runtime and test/helper archives preserve th
       );
   }
 });
-test('actual used native closure resolves all public parts and Source/native correspondence bytes', () => {
-  checkNativeClosure();
-  execFileSync(process.execPath, ['parity/menu-family/evidence.mjs', '--check'], {
+test('current Menu family reachability resolves actual native counterparts while preserving historical provenance without new acceptance credit', () => {
+  verifyCurrentFamilyProjections();
+  execFileSync(process.execPath, ['parity/native-snippets/graph.mjs'], {
     cwd: root,
     stdio: 'pipe',
   });
-  const closure = extractNativeClosure();
+  const closure = extractCurrentFamilyProjection('menu-family');
   const correspondence = json('parity/menu-family/source-correspondence.json');
   const mapped = new Map(
-    correspondence.records.flatMap((record) => Object.entries(record.localHashes)),
+    closure.records.flatMap((record) =>
+      record.local.map((module) => [module.source, module.sha256]),
+    ),
   );
-  for (const module of correspondence.nativeRepresentationModules)
-    mapped.set(module.local, module.sha256);
+  for (const module of closure.nativeRepresentationModules)
+    mapped.set(module.source, module.sha256);
   assert.equal(mapped.size, closure.modules.length);
   for (const module of closure.modules)
     assert.equal(mapped.get(module.source), module.sha256, module.source);
@@ -52,6 +54,13 @@ test('actual used native closure resolves all public parts and Source/native cor
     !correspondence.records.some(
       (record) => record.selection === 'unresolved-source-correspondence',
     ),
+  );
+  assert.equal(closure.unchangedParityCredit, 0);
+  assert(closure.records.every((record) => record.unchangedParityCredit === 0));
+  assert(
+    closure.records
+      .filter((record) => record.retiredLocal.length)
+      .every((record) => record.nativeReplacement),
   );
   assert(
     closure.external.every((dependency) =>

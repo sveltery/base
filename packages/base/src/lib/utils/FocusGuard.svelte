@@ -3,17 +3,11 @@
   import type { HTMLAttributes } from 'svelte/elements';
   import { platform } from '@sveltery/utils/platform';
   import { visuallyHidden } from '@sveltery/utils/visuallyHidden';
-  import { createMergedRefs, type MergedRef } from '@sveltery/utils/useMergedRefs';
-  import { createRefAttachment } from '../internals/nativeRefAttachment.js';
   import { toNativeStyle } from '../internals/nativeProps.js';
   let {
-    ref,
+    ref = $bindable(),
     ...props
-  }: HTMLAttributes<HTMLSpanElement> & { ref?: MergedRef<HTMLSpanElement> | null } = $props();
-  const refs = createMergedRefs<HTMLSpanElement>();
-  const callback = $derived(refs.useMergedRefs(ref, null));
-  const resolveAttachment = createRefAttachment<HTMLSpanElement>(() => {});
-  const attachment = $derived(resolveAttachment(callback));
+  }: HTMLAttributes<HTMLSpanElement> & { ref?: HTMLSpanElement | null } = $props();
   const role = platform.screenReader.voiceOver && platform.engine.webkit ? 'button' : undefined;
 </script>
 
@@ -25,5 +19,5 @@
   tabindex={0}
   {role}
   data-base-ui-focus-guard=""
-  {@attach attachment}
+  bind:this={ref}
 ></span>

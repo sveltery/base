@@ -1,6 +1,7 @@
 // Derived from mui/base-ui at 47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c; MIT, see ../../../THIRD_PARTY_NOTICES.md.
 /* eslint-disable @typescript-eslint/no-explicit-any -- Preserve pinned data defaults and rejection callback typing. */
 import type { Snippet } from 'svelte';
+import type { BaseUIComponentProps, ComponentRenderFn, HTMLProps } from '../internals/types.js';
 import type { HTMLAttributes, HTMLButtonAttributes } from 'svelte/elements';
 import type { ToastManager } from './createToastManager.js';
 import type { PreventableEvent } from '../merge-props/index.js';
@@ -16,7 +17,9 @@ type ActionHandlers = {
       : HTMLButtonAttributes[Key]
     : HTMLButtonAttributes[Key];
 };
-export type ToastActionProps = Omit<ActionHandlers, 'children'> & { children?: ToastContent };
+export type ToastActionProps = Omit<ActionHandlers, 'children'> & {
+  children?: ToastContent;
+};
 
 export interface ToastObject<Data extends object = any> {
   id: string;
@@ -106,15 +109,16 @@ type PreventableHandlers<Props> = {
         : Props[Key]
       : Props[Key];
 };
-/** Native-element slice: Svelte children/refs/class/style; replacement rendering is deferred. */
+/** Native element props and component-owned Svelte replacement snippets. */
 export type ToastElementProps<
   State,
   NativeProps = HTMLAttributes<HTMLElement>,
   Content = Snippet,
 > = Omit<PreventableHandlers<NativeProps>, 'class' | 'style' | 'children'> & {
   children?: Content;
+  render?: ComponentRenderFn<HTMLProps, State> | undefined;
   class?: string | ((state: State) => string | undefined);
-  style?: string | ((state: State) => string | undefined);
+  style?: BaseUIComponentProps<State>['style'];
   ref?: HTMLElement | null;
 };
 export type ToastRootProps = ToastElementProps<ToastRootState> & {
@@ -134,18 +138,18 @@ export type ToastDescriptionProps = ToastElementProps<
   HTMLAttributes<HTMLParagraphElement>,
   ToastContent
 >;
-export type ToastActionComponentProps = ToastElementProps<
-  ToastLabelState,
-  HTMLButtonAttributes,
-  ToastContent
->;
+export type ToastActionComponentProps = Omit<
+  ToastElementProps<ToastLabelState, HTMLButtonAttributes, ToastContent>,
+  'disabled'
+> & {
+  disabled?: boolean | undefined;
+  /** Set false when render supplies a non-button host. */
+  nativeButton?: boolean | undefined;
+};
 export type ToastCloseProps = ToastActionComponentProps;
 
 /** Standalone lightweight portal; empty upstream state, native props and replacement composition. */
 export type ToastPortalState = Record<string, never>;
-export type ToastPortalProps = import('../dialog/types.js').ElementProps<
-  ToastPortalState,
-  HTMLAttributes<HTMLDivElement>
-> & {
+export type ToastPortalProps = ToastElementProps<ToastPortalState> & {
   container?: HTMLElement | ShadowRoot | { current: HTMLElement | ShadowRoot | null } | null;
 };

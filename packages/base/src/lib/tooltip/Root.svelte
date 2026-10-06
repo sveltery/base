@@ -1,14 +1,14 @@
 <script lang="ts" generics="Payload = unknown">
   // Original Base UI v1.8.0 business at 47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c.
   // MIT Copyright (c) 2019 Material-UI SAS; see THIRD_PARTY_NOTICES.md.
-  import { onDestroy, setContext } from 'svelte';
+  import { onDestroy, setContext, untrack } from 'svelte';
   import PopupHandleAttachment from '../utils/popups/PopupHandleAttachment.svelte';
   import TooltipInteractions from './root/TooltipInteractions.svelte';
   import { TooltipStore, type State } from './store/TooltipStore.svelte.js';
   import { ROOT } from './context.js';
   import { createChangeEventDetails } from '../internals/createBaseUIEventDetails.js';
   import { REASONS } from '../internals/reasons.js';
-  import { useIsoLayoutEffect } from '@sveltery/utils/useIsoLayoutEffect';
+
   import {
     useImplicitActiveTrigger,
     useOpenStateTransitions,
@@ -54,33 +54,26 @@
   const instantType = $derived(store.select('instantType'));
   const lastOpenChangeReason = $derived(store.select('lastOpenChangeReason'));
   const previousInstantTypeRef = { current: null as State<Payload>['instantType'] | null };
-  useIsoLayoutEffect(
-    () => {
-      if (openState && disabled) store.setOpen(false, createChangeEventDetails(REASONS.disabled));
-    },
-    () => [openState, disabled, store],
-  );
-  useIsoLayoutEffect(
-    () => {
-      if (
-        (transitionStatus === 'ending' && lastOpenChangeReason === REASONS.none) ||
-        (transitionStatus !== 'ending' && isInstantPhase)
-      ) {
-        if (instantType !== 'delay') previousInstantTypeRef.current = instantType;
-        store.set('instantType', 'delay');
-      } else if (previousInstantTypeRef.current !== null) {
-        store.set('instantType', previousInstantTypeRef.current);
-        previousInstantTypeRef.current = null;
-      }
-    },
-    () => [transitionStatus, isInstantPhase, lastOpenChangeReason, instantType, store],
-  );
-  useIsoLayoutEffect(
-    () => {
-      if (open && activeTriggerId == null) store.set('payload', undefined);
-    },
-    () => [store, activeTriggerId, open],
-  );
+  $effect(() => {
+    if (openState && disabled) {
+      untrack(() => store.setOpen(false, createChangeEventDetails(REASONS.disabled)));
+    }
+  });
+  $effect(() => {
+    if (
+      (transitionStatus === 'ending' && lastOpenChangeReason === REASONS.none) ||
+      (transitionStatus !== 'ending' && isInstantPhase)
+    ) {
+      if (instantType !== 'delay') previousInstantTypeRef.current = instantType;
+      store.set('instantType', 'delay');
+    } else if (previousInstantTypeRef.current !== null) {
+      store.set('instantType', previousInstantTypeRef.current);
+      previousInstantTypeRef.current = null;
+    }
+  });
+  $effect(() => {
+    if (open && activeTriggerId == null) store.set('payload', undefined);
+  });
   export function close() {
     store.setOpen(false, createChangeEventDetails(REASONS.imperativeAction));
   }

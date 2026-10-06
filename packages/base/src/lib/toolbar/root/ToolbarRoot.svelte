@@ -33,15 +33,10 @@
     },
   });
   const rootState: ToolbarRootState = $derived({ disabled, orientation });
-  const defaultProps = $derived({ 'aria-orientation': orientation, role: 'toolbar' });
-  const forwardedRef = {
-    get current() {
-      return ref ?? null;
-    },
-    set current(element: HTMLElement | null) {
-      ref = element;
-    },
-  };
+  const defaultProps = $derived({
+    'aria-orientation': orientation,
+    role: 'toolbar',
+  });
   const rendererProps = $derived([defaultProps, elementProps]);
 </script>
 
@@ -50,7 +45,7 @@
   class={classProp}
   {style}
   state={rootState}
-  refs={[forwardedRef]}
+  bind:ref
   props={rendererProps}
   {disabledIndices}
   {loopFocus}

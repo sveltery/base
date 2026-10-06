@@ -1,6 +1,9 @@
 <script lang="ts">
+  import { mergeComponentProps } from '../../internals/mergeComponentProps.js';
+  import { createAttachmentKey } from 'svelte/attachments';
+  import { untrack } from 'svelte';
+
   // Base UI v1.8.0 SwitchThumb.tsx, native Svelte renderer/context. MIT.
-  import RenderElement from '../../internals/RenderElement.svelte';
   import { useSwitchRootContext } from '../root/SwitchRootContext.js';
   import { stateAttributesMapping } from '../stateAttributesMapping.js';
   import type { SwitchThumbProps } from '../types.js';
@@ -14,21 +17,30 @@
   }: SwitchThumbProps = $props();
   const getState = useSwitchRootContext();
   const state = $derived(getState());
-  const forwardedRef = {
-    get current() {
-      return ref ?? null;
-    },
-    set current(element: HTMLSpanElement | null) {
-      ref = element;
-    },
-  };
-  const componentProps = $derived({ render, class: classProp, style });
-  const params = $derived({
-    state,
-    ref: forwardedRef,
-    props: elementProps,
-    stateAttributesMapping,
+
+  const hostAttachmentKey = createAttachmentKey();
+  function attachHost(host: HTMLElement) {
+    return untrack(() => {
+      ref = host;
+      return () =>
+        untrack(() => {
+          if (ref === host) ref = null;
+        });
+    });
+  }
+  const mergedProps = $derived({
+    ...mergeComponentProps(
+      state,
+      { class: classProp, style: style },
+      elementProps,
+      stateAttributesMapping,
+    ),
+    [hostAttachmentKey]: attachHost,
   });
 </script>
 
-<RenderElement tag="span" {componentProps} {params} {children} />
+{#if render}
+  {@render render(mergedProps, state, children)}
+{:else}
+  <span {...mergedProps}>{@render children?.()}</span>
+{/if}

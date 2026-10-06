@@ -1,10 +1,11 @@
 <script lang="ts">
+  import { mergeComponentProps } from '../../internals/mergeComponentProps.js';
+  import { createAttachmentKey } from 'svelte/attachments';
+
   // Ported from Base UI v1.8.0 FieldRootInner in field/root/FieldRoot.tsx.
   // 47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c; MIT: THIRD_PARTY_NOTICES.md.
   import { untrack } from 'svelte';
-  import RenderElement from '../../internals/RenderElement.svelte';
-  import { useIsoLayoutEffect } from '@sveltery/utils/useIsoLayoutEffect';
-  import { useStableCallback } from '@sveltery/utils/useStableCallback';
+
   import {
     setFieldRootContext,
     type FieldRootContext,
@@ -16,7 +17,7 @@
   import { useFieldsetRootContext } from '../../fieldset/root/FieldsetRootContext.js';
   import { useFormContext } from '../../internals/form-context/FormContext.js';
   import { useFieldValidation } from './useFieldValidation.svelte.js';
-  import { useFieldControlRegistration } from '../../internals/field-register-control/useFieldControlRegistration.svelte.js';
+  import { FieldControlRegistrationOwner } from '../../internals/field-register-control/FieldControlRegistration.svelte.js';
   import type {
     FieldRootActions,
     FieldRootProps,
@@ -42,10 +43,10 @@
     ...elementProps
   }: FieldRootProps = $props();
   const fieldset = useFieldsetRootContext(true);
-  const validate = useStableCallback(
-    (value: unknown, values: Parameters<NonNullable<FieldRootProps['validate']>>[1]) =>
-      (validateProp || (() => null))(value, values),
-  );
+  const validate = (
+    value: unknown,
+    values: Parameters<NonNullable<FieldRootProps['validate']>>[1],
+  ) => (validateProp || (() => null))(value, values);
   const disabled = $derived(Boolean(fieldset?.disabled || disabledProp));
   let touchedState = $state(false);
   let dirtyState = $state(false);
@@ -57,26 +58,21 @@
   const registeredFieldIdRef = { current: undefined as string | undefined };
   let registeredFieldName = $state<string>();
   const effectiveName = $derived(name ?? registeredFieldName);
-  useIsoLayoutEffect(
-    () => {
-      if (dirtyProp !== undefined) markedDirtyRef.current = dirtyProp;
-    },
-    () => [dirtyProp],
-  );
-  const setDirty = useStableCallback((value: boolean) => {
+  $effect(() => {
+    if (dirtyProp !== undefined) markedDirtyRef.current = dirtyProp;
+  });
+  const setDirty = (value: boolean) => {
     if (dirtyProp !== undefined) return;
     if (value) markedDirtyRef.current = true;
     dirtyState = value;
-  });
-  const setTouched = useStableCallback((value: boolean) => {
+  };
+  const setTouched = (value: boolean) => {
     if (touchedProp !== undefined) return;
     touchedState = value;
-  });
-  const shouldValidateOnChange = useStableCallback(
-    () =>
-      validationMode === 'onChange' ||
-      (validationMode === 'onSubmit' && form.submitCountRef.current > 0),
-  );
+  };
+  const shouldValidateOnChange = () =>
+    validationMode === 'onChange' ||
+    (validationMode === 'onSubmit' && form.submitCountRef.current > 0);
   const formError = $derived(
     effectiveName && Object.hasOwn(form.errors, effectiveName) ? form.errors[effectiveName] : null,
   );
@@ -125,7 +121,7 @@
     },
     registeredFieldIdRef,
   });
-  const [validateFieldControl, registerFieldControl] = useFieldControlRegistration({
+  const registration = new FieldControlRegistrationOwner({
     change: validation.change,
     commit: validation.commit,
     get invalid() {
@@ -144,18 +140,15 @@
       return validityData;
     },
   });
-  const actions: FieldRootActions = { validate: validateFieldControl };
-  useIsoLayoutEffect(
-    () => {
-      const target = actionsRef;
-      if (!target) return;
-      target.current = actions;
-      return () => {
-        if (target.current === actions) target.current = null;
-      };
-    },
-    () => [actionsRef, validateFieldControl],
-  );
+  const actions: FieldRootActions = { validate: registration.validate };
+  $effect(() => {
+    const target = actionsRef;
+    if (!target) return;
+    target.current = actions;
+    return () => {
+      if (target.current === actions) target.current = null;
+    };
+  });
   const contextValue: FieldRootContext = {
     get invalid() {
       return invalid;
@@ -185,25 +178,34 @@
     get state() {
       return fieldRootState;
     },
-    registerFieldControl,
+    registerFieldControl: registration.register,
     validation,
   };
   setFieldRootContext(contextValue);
-  const componentProps = $derived({ ...elementProps, render, class: classProp, style });
-  const forwardedRef = {
-    get current() {
-      return ref ?? null;
-    },
-    set current(value: HTMLElement | null) {
-      ref = value;
-    },
-  };
-  const params = $derived({
-    ref: forwardedRef,
-    state: fieldRootState,
-    props: elementProps,
-    stateAttributesMapping: fieldValidityMapping,
+
+  const hostAttachmentKey = createAttachmentKey();
+  function attachHost(host: HTMLElement) {
+    return untrack(() => {
+      ref = host;
+      return () =>
+        untrack(() => {
+          if (ref === host) ref = null;
+        });
+    });
+  }
+  const mergedProps = $derived({
+    ...mergeComponentProps(
+      fieldRootState,
+      { class: classProp, style: style },
+      elementProps,
+      fieldValidityMapping,
+    ),
+    [hostAttachmentKey]: attachHost,
   });
 </script>
 
-<RenderElement tag="div" {componentProps} {params} {children} />
+{#if render}
+  {@render render(mergedProps, fieldRootState, children)}
+{:else}
+  <div {...mergedProps}>{@render children?.()}</div>
+{/if}

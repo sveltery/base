@@ -1,7 +1,7 @@
 <script lang="ts" generics="Payload">
   // Original DialogInteractions/useDialogRoot business body; native effects and DOM events (MIT).
   import { untrack } from 'svelte';
-  import { useIsoLayoutEffect } from '@sveltery/utils/useIsoLayoutEffect';
+
   import { useScrollLock } from '@sveltery/utils/useScrollLock';
   import { useDismiss } from '../../floating-ui/hooks/useDismiss.svelte.js';
   import { contains, getTarget } from '../../floating-ui/utils/element.js';
@@ -66,24 +66,20 @@
     ownNestedOpenDialogs = dialogCount;
     ownNestedOpenDrawers = drawerCount;
   };
-  useIsoLayoutEffect(
-    () => {
-      const parent = parentContext;
-      const isOpen = open;
-      if (parent?.onNestedDialogOpen) {
-        if (isOpen)
-          parent.onNestedDialogOpen(
-            ownNestedOpenDialogs + 1,
-            ownNestedOpenDrawers + (isDrawer ? 1 : 0),
-          );
-        else parent.onNestedDialogOpen(0, 0);
-      }
-      return () => {
-        if (parent?.onNestedDialogOpen && isOpen) parent.onNestedDialogOpen(0, 0);
-      };
-    },
-    () => [isDrawer, open, ownNestedOpenDialogs, ownNestedOpenDrawers, parentContext],
-  );
+  $effect(() => {
+    const parent = parentContext;
+    const isOpen = open;
+    if (parent?.onNestedDialogOpen) {
+      if (isOpen) {
+        const dialogs = ownNestedOpenDialogs + 1;
+        const drawers = ownNestedOpenDrawers + (isDrawer ? 1 : 0);
+        untrack(() => parent.onNestedDialogOpen?.(dialogs, drawers));
+      } else untrack(() => parent.onNestedDialogOpen?.(0, 0));
+    }
+    return () => {
+      if (parent?.onNestedDialogOpen && isOpen) parent.onNestedDialogOpen(0, 0);
+    };
+  });
   usePopupInteractionProps(initialStore, () => ({
     activeTriggerProps: dismiss.reference!,
     inactiveTriggerProps: dismiss.trigger!,

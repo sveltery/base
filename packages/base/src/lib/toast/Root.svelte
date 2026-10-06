@@ -1,7 +1,9 @@
 <script lang="ts">
+  import { mergeComponentProps } from '../internals/mergeComponentProps.js';
+  import { createAttachmentKey } from 'svelte/attachments';
+
   // Derived from Base UI v1.8.0 ToastRoot; MIT, see ../../../THIRD_PARTY_NOTICES.md.
   import { flushSync, untrack } from 'svelte';
-  import Element from '../dialog/Element.svelte';
   import { provider } from './context.js';
   import { setRootContext, type ToastRootContext } from './root-context.js';
   import { selectors } from './store.js';
@@ -9,7 +11,14 @@
   import { activeElement, contains } from './viewport-focus.js';
   import type { ToastRootProps } from './types.js';
 
-  let { toast, swipeDirection, children, ref = $bindable(), ...props }: ToastRootProps = $props();
+  let {
+    render,
+    toast,
+    swipeDirection,
+    children,
+    ref = $bindable(),
+    ...props
+  }: ToastRootProps = $props();
   const store = provider().store;
   let node = $state<HTMLElement | null>(null);
   let title = $state.raw<{ id: string | undefined }>();
@@ -39,7 +48,11 @@
     const height = node.offsetHeight;
     node.style.height = previousHeight;
     const update = () =>
-      store.updateToastInternal(toast.id, { ref: node, height, transitionStatus: undefined });
+      store.updateToastInternal(toast.id, {
+        ref: node,
+        height,
+        transitionStatus: undefined,
+      });
     if (flush) flushSync(update);
     else update();
   }
@@ -138,6 +151,30 @@
         store.closeToast(toast.id);
     },
   });
+
+  const hostAttachmentKey = createAttachmentKey();
+  function attachHost(host: HTMLElement) {
+    return untrack(() => {
+      ref = host;
+      const disposeHost = attach(host);
+      return () =>
+        untrack(() => {
+          if (ref === host) ref = null;
+          disposeHost?.();
+        });
+    });
+  }
+  const mergedProps = $derived.by(() => {
+    const { class: className, style, ...attributes } = props;
+    return {
+      ...mergeComponentProps(rootState, { class: className, style }, [internal, attributes], false),
+      [hostAttachmentKey]: attachHost,
+    };
+  });
 </script>
 
-<Element {internal} {props} state={rootState} {children} bind:ref {attach} />
+{#if render}
+  {@render render(mergedProps, rootState, children)}
+{:else}
+  <div {...mergedProps}>{@render children?.()}</div>
+{/if}

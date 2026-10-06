@@ -2,7 +2,7 @@
 // Native Svelte live-reader/setup boundary; MIT: THIRD_PARTY_NOTICES.md.
 import { untrack } from 'svelte';
 import { isElement } from '@floating-ui/utils/dom';
-import { useIsoLayoutEffect } from '@sveltery/utils/useIsoLayoutEffect';
+
 import {
   FloatingRootStore,
   type FloatingRootState,
@@ -46,24 +46,21 @@ export function useSyncedFloatingRootContext<State extends PopupStoreState<unkno
       }),
   );
   popupStore.set('floatingId', floatingId);
-  useIsoLayoutEffect(
-    () => {
-      const valuesToSync = { open, floatingId, referenceElement, floatingElement } as Pick<
-        FloatingRootState,
-        | 'open'
-        | 'floatingId'
-        | 'referenceElement'
-        | 'floatingElement'
-        | 'domReferenceElement'
-        | 'positionReference'
-      >;
-      if (isElement(referenceElement)) valuesToSync.domReferenceElement = referenceElement;
-      if (store.state.positionReference === store.state.referenceElement)
-        valuesToSync.positionReference = referenceElement;
-      store.update(valuesToSync);
-    },
-    () => [open, floatingId, referenceElement, floatingElement, store],
-  );
+  $effect(() => {
+    const valuesToSync = { open, floatingId, referenceElement, floatingElement } as Pick<
+      FloatingRootState,
+      | 'open'
+      | 'floatingId'
+      | 'referenceElement'
+      | 'floatingElement'
+      | 'domReferenceElement'
+      | 'positionReference'
+    >;
+    if (isElement(referenceElement)) valuesToSync.domReferenceElement = referenceElement;
+    if (store.state.positionReference === store.state.referenceElement)
+      valuesToSync.positionReference = referenceElement;
+    store.update(valuesToSync);
+  });
   store.context.onOpenChange = onOpenChange;
   store.context.nested = nested;
   return store;

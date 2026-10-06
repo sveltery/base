@@ -2,7 +2,7 @@
 // 47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c. MIT: THIRD_PARTY_NOTICES.md.
 // Native Svelte store/host lifetime delegates to the single default-platform DOM geometry driver.
 import { isElement } from '@floating-ui/utils/dom';
-import { useIsoLayoutEffect } from '@sveltery/utils/useIsoLayoutEffect';
+
 import {
   useFloating as usePosition,
   type NativeFloatingOptions,
@@ -52,23 +52,14 @@ function useFloatingWithStore(getOptions: () => BaseUIFloatingOptions) {
   const syncedFloatingElement = $derived(
     localFloatingElement === undefined ? floatingElement : localFloatingElement,
   );
-  useIsoLayoutEffect(
-    () => {
-      store.update({
-        referenceElement: localDomReference ?? null,
-        domReferenceElement:
-          localDomReference === undefined ? domReferenceElement : localDomReferenceElement,
-        floatingElement: syncedFloatingElement,
-      });
-    },
-    () => [
-      store,
-      localDomReference,
-      domReferenceElement,
-      localDomReferenceElement,
-      syncedFloatingElement,
-    ],
-  );
+  $effect(() => {
+    store.update({
+      referenceElement: localDomReference ?? null,
+      domReferenceElement:
+        localDomReference === undefined ? domReferenceElement : localDomReferenceElement,
+      floatingElement: syncedFloatingElement,
+    });
+  });
 
   function setPositionReference(node: ReferenceType | null) {
     const computedPositionReference = isElement(node)
@@ -164,13 +155,10 @@ function useFloatingWithStore(getOptions: () => BaseUIFloatingOptions) {
       return store;
     },
   };
-  useIsoLayoutEffect(
-    () => {
-      if (domReferenceElement) domReferenceRef.current = domReferenceElement;
-    },
-    () => [domReferenceElement],
-  );
-  useIsoLayoutEffect(() => {
+  $effect(() => {
+    if (domReferenceElement) domReferenceRef.current = domReferenceElement;
+  });
+  $effect(() => {
     const dataRef = store.context.dataRef;
     dataRef.current.floatingContext = context;
     const node = tree?.nodesRef.current.find((entry) => entry.id === options.nodeId);

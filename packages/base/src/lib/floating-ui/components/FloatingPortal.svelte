@@ -3,10 +3,9 @@
   // MIT: THIRD_PARTY_NOTICES.md; pin 47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c.
   import { getAllContexts, setContext, type Snippet } from 'svelte';
   import type { HTMLAttributes } from 'svelte/elements';
-  import { useIsoLayoutEffect } from '@sveltery/utils/useIsoLayoutEffect';
+
   import { addEventListener } from '@sveltery/utils/addEventListener';
   import { mergeCleanups } from '@sveltery/utils/mergeCleanups';
-  import type { MergedRef } from '@sveltery/utils/useMergedRefs';
   import FocusGuard from '../../utils/FocusGuard.svelte';
   import {
     useFloatingPortalNode,
@@ -32,26 +31,38 @@
   let {
     children,
     container,
-    ref,
+    ref = $bindable(),
     portalOwnerRole,
     ...componentProps
   }: Omit<WithBaseUIEvent<HTMLAttributes<HTMLElement>>, 'children' | 'class' | 'style'> &
     BaseUIComponentProps<Record<string, never>> & {
       children?: Snippet;
       container?: HTMLElement | ShadowRoot | { current: HTMLElement | ShadowRoot | null } | null;
-      ref?: MergedRef<HTMLElement>;
+      ref?: HTMLElement | null;
       portalOwnerRole?: HTMLAttributes<HTMLSpanElement>['role'];
     } = $props();
+  function attachHost(host: HTMLElement) {
+    ref = host;
+    return () => {
+      if (ref === host) ref = null;
+    };
+  }
   const generatedId = $props.id();
   const portal = useFloatingPortalNode(
-    () => ({ container, ref, componentProps, elementProps }),
+    () => ({ container, onHost: attachHost, componentProps, elementProps }),
     generatedId,
   );
   const portalNode = $derived(portal.node);
   const portalNodeId = $derived(portal.nodeId);
-  const beforeOutsideRef: { current: HTMLSpanElement | null } = { current: null };
-  const afterOutsideRef: { current: HTMLSpanElement | null } = { current: null };
-  const beforeInsideRef: { current: HTMLSpanElement | null } = { current: null };
+  const beforeOutsideRef = $state<{ current: HTMLSpanElement | null }>({
+    current: null,
+  });
+  const afterOutsideRef = $state<{ current: HTMLSpanElement | null }>({
+    current: null,
+  });
+  const beforeInsideRef: { current: HTMLSpanElement | null } = {
+    current: null,
+  };
   const afterInsideRef: { current: HTMLSpanElement | null } = { current: null };
   let focusManagerState = $state.raw<FocusManagerState>(null);
   let focusInsideDisabled = false;
@@ -88,14 +99,11 @@
       addEventListener(node, 'focusout', onFocus, true),
     );
   });
-  useIsoLayoutEffect(
-    () => {
-      if (!portalNode || open !== true || !focusInsideDisabled) return;
-      enableFocusInside(portalNode);
-      focusInsideDisabled = false;
-    },
-    () => [open, portalNode],
-  );
+  $effect(() => {
+    if (!portalNode || open !== true || !focusInsideDisabled) return;
+    enableFocusInside(portalNode);
+    focusInsideDisabled = false;
+  });
   const portalContext: FloatingPortalContext = {
     beforeOutsideRef,
     afterOutsideRef,
@@ -134,12 +142,12 @@
 <!-- Source onFocus supplies native focusin to the shared outside-guard business callbacks. -->
 {#if shouldRenderGuards}<FocusGuard
     data-type="outside"
-    ref={beforeOutsideRef}
+    bind:ref={beforeOutsideRef.current}
     onfocusin={beforeOutsideFocus}
   /><span role={portalOwnerRole} aria-owns={portalNodeId} style={toNativeStyle(ownerVisuallyHidden)}
   ></span>{/if}
 {#if shouldRenderGuards}<FocusGuard
     data-type="outside"
-    ref={afterOutsideRef}
+    bind:ref={afterOutsideRef.current}
     onfocusin={afterOutsideFocus}
   />{/if}

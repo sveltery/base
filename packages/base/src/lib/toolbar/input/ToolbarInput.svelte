@@ -35,14 +35,9 @@
   function preventWhenDisabled(event: Event) {
     if (disabled) event.preventDefault();
   }
-  const defaultProps = { onclick: preventWhenDisabled, onpointerdown: preventWhenDisabled };
-  const forwardedRef = {
-    get current() {
-      return ref ?? null;
-    },
-    set current(element: HTMLElement | null) {
-      ref = element;
-    },
+  const defaultProps = {
+    onclick: preventWhenDisabled,
+    onpointerdown: preventWhenDisabled,
   };
   const rendererProps = $derived([defaultProps, elementProps, focusableWhenDisabledProps]);
 </script>
@@ -54,7 +49,7 @@
   {style}
   metadata={itemMetadata}
   {state}
-  refs={[forwardedRef]}
+  bind:ref
   props={rendererProps}
   {children}
 />

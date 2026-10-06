@@ -1,7 +1,8 @@
+import { createAttachmentKey } from 'svelte/attachments';
 // Original MenuPositioner complete business body, native component/render boundary (MIT).
-import { untrack } from 'svelte';
-import { useIsoLayoutEffect } from '@sveltery/utils/useIsoLayoutEffect';
-import { useTimeout } from '@sveltery/utils/useTimeout';
+import { onDestroy, untrack } from 'svelte';
+
+import { Timeout } from '@sveltery/utils/useTimeout';
 import { useMenuPortalContext } from '../portal/MenuPortalContext.js';
 import { useContextMenuRootContext } from '../../context-menu/root/ContextMenuRootContext.js';
 import { useAnchorPositioning } from '../../internals/anchor-positioning/useAnchorPositioning.svelte.js';
@@ -130,123 +131,109 @@ export function createMenuPositioner(
       adaptiveOrigin,
     };
   });
-  useIsoLayoutEffect(
-    () => {
-      function onMenuOpenChange(details: MenuOpenEventDetails) {
-        if (details.open) {
-          if (details.parentNodeId === floatingNodeId) {
-            store.set('hoverEnabled', false);
-          }
-          if (
-            details.nodeId !== floatingNodeId &&
-            details.parentNodeId === store.select('floatingParentNodeId')
-          ) {
-            store.setOpen(false, createChangeEventDetails(REASONS.siblingOpen));
-          }
+  $effect(() => {
+    function onMenuOpenChange(details: MenuOpenEventDetails) {
+      if (details.open) {
+        if (details.parentNodeId === floatingNodeId) {
+          store.set('hoverEnabled', false);
+        }
+        if (
+          details.nodeId !== floatingNodeId &&
+          details.parentNodeId === store.select('floatingParentNodeId')
+        ) {
+          store.setOpen(false, createChangeEventDetails(REASONS.siblingOpen));
         }
       }
-      floatingTreeRoot.events.on('menuopenchange', onMenuOpenChange);
-      return () => {
-        floatingTreeRoot.events.off('menuopenchange', onMenuOpenChange);
-      };
-    },
-    () => [store, floatingTreeRoot.events, floatingNodeId],
-  );
-  useIsoLayoutEffect(
-    () => {
-      if (store.select('floatingParentNodeId') == null) {
-        return undefined;
+    }
+    const installedEvents = floatingTreeRoot.events;
+    installedEvents.on('menuopenchange', onMenuOpenChange);
+    return () => {
+      installedEvents.off('menuopenchange', onMenuOpenChange);
+    };
+  });
+  $effect(() => {
+    if (store.select('floatingParentNodeId') == null) {
+      return undefined;
+    }
+    function onParentClose(details: MenuOpenEventDetails) {
+      if (details.open || details.nodeId !== store.select('floatingParentNodeId')) {
+        return;
       }
-      function onParentClose(details: MenuOpenEventDetails) {
-        if (details.open || details.nodeId !== store.select('floatingParentNodeId')) {
-          return;
-        }
-        const reason: MenuRoot.ChangeEventReason = details.reason ?? REASONS.siblingOpen;
-        store.setOpen(false, createChangeEventDetails(reason));
-      }
-      floatingTreeRoot.events.on('menuopenchange', onParentClose);
-      return () => {
-        floatingTreeRoot.events.off('menuopenchange', onParentClose);
-      };
-    },
-    () => [floatingTreeRoot.events, store],
-  );
-  const closeTimeout = useTimeout();
+      const reason: MenuRoot.ChangeEventReason = details.reason ?? REASONS.siblingOpen;
+      store.setOpen(false, createChangeEventDetails(reason));
+    }
+    const installedEvents = floatingTreeRoot.events;
+    installedEvents.on('menuopenchange', onParentClose);
+    return () => {
+      installedEvents.off('menuopenchange', onParentClose);
+    };
+  });
+  const closeTimeout = new Timeout();
+  onDestroy(closeTimeout.clear);
   // Clear pending close timeout when the menu closes.
-  useIsoLayoutEffect(
-    () => {
-      if (!open) {
-        closeTimeout.clear();
-      }
-    },
-    () => [open, closeTimeout],
-  );
+  $effect(() => {
+    if (!open) {
+      closeTimeout.clear();
+    }
+  });
   // Close unrelated child submenus when hovering a different item in the parent menu.
-  useIsoLayoutEffect(
-    () => {
-      function onItemHover(event: { nodeId: string | undefined; target: Element | null }) {
-        // If an item within our parent menu is hovered, and this menu's trigger is not that item,
-        // close this submenu. This ensures hovering a different item in the parent closes other branches.
-        if (!open || event.nodeId !== store.select('floatingParentNodeId')) {
-          return;
-        }
-        if (event.target && triggerElement && triggerElement !== event.target) {
-          const delay = store.select('closeDelay');
-          if (delay > 0) {
-            if (!closeTimeout.isStarted()) {
-              closeTimeout.start(delay, () => {
-                store.setOpen(false, createChangeEventDetails(REASONS.siblingOpen));
-              });
-            }
-          } else {
-            store.setOpen(false, createChangeEventDetails(REASONS.siblingOpen));
+  $effect(() => {
+    function onItemHover(event: { nodeId: string | undefined; target: Element | null }) {
+      // If an item within our parent menu is hovered, and this menu's trigger is not that item,
+      // close this submenu. This ensures hovering a different item in the parent closes other branches.
+      if (!open || event.nodeId !== store.select('floatingParentNodeId')) {
+        return;
+      }
+      if (event.target && triggerElement && triggerElement !== event.target) {
+        const delay = store.select('closeDelay');
+        if (delay > 0) {
+          if (!closeTimeout.isStarted()) {
+            closeTimeout.start(delay, () => {
+              store.setOpen(false, createChangeEventDetails(REASONS.siblingOpen));
+            });
           }
         } else {
-          // User re-hovered the submenu trigger, cancel pending close.
-          closeTimeout.clear();
+          store.setOpen(false, createChangeEventDetails(REASONS.siblingOpen));
         }
+      } else {
+        // User re-hovered the submenu trigger, cancel pending close.
+        closeTimeout.clear();
       }
-      floatingTreeRoot.events.on('itemhover', onItemHover);
-      return () => {
-        floatingTreeRoot.events.off('itemhover', onItemHover);
-      };
-    },
-    () => [floatingTreeRoot.events, open, triggerElement, store, closeTimeout],
-  );
-  useIsoLayoutEffect(
-    () => {
-      const eventDetails: MenuOpenEventDetails = {
-        open,
-        nodeId: floatingNodeId,
-        parentNodeId: floatingParentNodeId,
-        reason: store.select('lastOpenChangeReason'),
-      };
-      floatingTreeRoot.events.emit('menuopenchange', eventDetails);
-    },
-    () => [floatingTreeRoot.events, open, store, floatingNodeId, floatingParentNodeId],
-  );
+    }
+    const installedEvents = floatingTreeRoot.events;
+    installedEvents.on('itemhover', onItemHover);
+    return () => {
+      installedEvents.off('itemhover', onItemHover);
+    };
+  });
+  $effect(() => {
+    const eventDetails: MenuOpenEventDetails = {
+      open,
+      nodeId: floatingNodeId,
+      parentNodeId: floatingParentNodeId,
+      reason: store.select('lastOpenChangeReason'),
+    };
+    untrack(() => floatingTreeRoot.events.emit('menuopenchange', eventDetails));
+  });
   // Keep positioner transition behavior aligned with Popover when switching detached triggers.
-  useIsoLayoutEffect(
-    () => {
-      const currentTrigger = domReference;
-      const previousTrigger = previousTriggerRef.current;
-      if (currentTrigger) {
-        previousTriggerRef.current = currentTrigger;
-      }
-      if (previousTrigger && currentTrigger && currentTrigger !== previousTrigger) {
-        store.set('instantType', undefined);
-        const abortController = new AbortController();
-        runOnceAnimationsFinish(() => {
-          store.set('instantType', 'trigger-change');
-        }, abortController.signal);
-        return () => {
-          abortController.abort();
-        };
-      }
-      return undefined;
-    },
-    () => [domReference, runOnceAnimationsFinish, store],
-  );
+  $effect(() => {
+    const currentTrigger = domReference;
+    const previousTrigger = previousTriggerRef.current;
+    if (currentTrigger) {
+      previousTriggerRef.current = currentTrigger;
+    }
+    if (previousTrigger && currentTrigger && currentTrigger !== previousTrigger) {
+      store.set('instantType', undefined);
+      const abortController = new AbortController();
+      runOnceAnimationsFinish(() => {
+        store.set('instantType', 'trigger-change');
+      }, abortController.signal);
+      return () => {
+        abortController.abort();
+      };
+    }
+    return undefined;
+  });
   const state: MenuPositionerState = $derived({
     open,
     side: positioner.side,
@@ -263,13 +250,24 @@ export function createMenuPositioner(
     () => positionerElement,
     () => triggerElement,
   );
+  const hostAttachmentKey = createAttachmentKey();
+  function attachHost(host: HTMLElement) {
+    return untrack(() => {
+      getRef(host);
+      setPositionerElement(host);
+      return () =>
+        untrack(() => {
+          getRef(null);
+          setPositionerElement(null);
+        });
+    });
+  }
   const element = usePositioner(
     () => state,
     () => ({
       styles: positioner.positionerStyles,
       transitionStatus,
-      props: elementProps,
-      refs: [getRef, setPositionerElement],
+      props: { ...elementProps, [hostAttachmentKey]: attachHost },
       hidden: !mounted,
       inert: !open,
     }),

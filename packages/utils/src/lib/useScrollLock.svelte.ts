@@ -4,7 +4,7 @@ import { isOverflowElement } from '@floating-ui/utils/dom';
 import { addEventListener } from './addEventListener.js';
 import { platform } from './platform/index.js';
 import { ownerDocument, ownerWindow } from './owner.js';
-import { useIsoLayoutEffect } from './useIsoLayoutEffect.svelte.js';
+
 import { Timeout } from './useTimeout.js';
 import { AnimationFrame } from './useAnimationFrame.js';
 
@@ -314,13 +314,10 @@ export function useScrollLock(
   getEnabled: () => boolean = () => true,
   getReferenceElement: () => Element | null = () => null,
 ) {
-  useIsoLayoutEffect(
-    () => {
-      if (!getEnabled()) {
-        return undefined;
-      }
-      return SCROLL_LOCKER.acquire(getReferenceElement());
-    },
-    () => [getEnabled(), getReferenceElement()],
-  );
+  $effect(() => {
+    if (!getEnabled()) {
+      return undefined;
+    }
+    return SCROLL_LOCKER.acquire(getReferenceElement());
+  });
 }

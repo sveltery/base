@@ -1,16 +1,16 @@
 <script lang="ts">
+  import { mergeComponentProps } from '../../internals/mergeComponentProps.js';
+  import { createAttachmentKey } from 'svelte/attachments';
+
   // Source-ordered business port of Base UI v1.8.0 CheckboxRoot.tsx at
   // 47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c. MIT: THIRD_PARTY_NOTICES.md.
   import { untrack } from 'svelte';
   import { useFieldControlNativeName } from '../../internals/field-control-name/FieldControlNameContext.js';
   import { useFieldControlNativeValue } from '../../internals/field-control-value/FieldControlValueContext.js';
-  import RenderElement from '../../internals/RenderElement.svelte';
-  import { createMergedRefs } from '@sveltery/utils/useMergedRefs';
-  import { createRefAttachment } from '../../internals/nativeRefAttachment.js';
   import { mergePropsN } from '../../merge-props/index.js';
   import type { HTMLInputAttributes } from 'svelte/elements';
-  import { useControlled } from '@sveltery/utils/useControlled';
-  import { useIsoLayoutEffect } from '@sveltery/utils/useIsoLayoutEffect';
+  import { Controlled } from '@sveltery/utils/Controlled';
+
   import { visuallyHidden, visuallyHiddenInput } from '@sveltery/utils/visuallyHidden';
   import { toNativeStyle } from '../../internals/nativeProps.js';
   import { useEnterSubmit } from '../utils/useEnterSubmit.svelte.js';
@@ -29,7 +29,7 @@
   import { setCheckboxRootContext } from './CheckboxRootContext.js';
   import { createChangeEventDetails } from '../../internals/createBaseUIEventDetails.js';
   import { REASONS } from '../../internals/reasons.js';
-  import { useValueChanged } from '../../internals/useValueChanged.svelte.js';
+  import { ValueChanged } from '../../internals/ValueChanged.svelte.js';
   import type { CheckboxRootProps, CheckboxRootState } from '../types.js';
   let {
     checked: checkedProp,
@@ -40,7 +40,7 @@
     form,
     id: idProp,
     indeterminate = false,
-    inputRef: inputRefProp,
+    inputRef: inputRefProp = $bindable(),
     name: nameProp,
     onCheckedChange,
     parent = false,
@@ -118,16 +118,14 @@
     native: nativeButton,
   }));
   const validation = $derived(groupContext?.validation ?? field.validation);
-  const [getChecked, setCheckedState] = useControlled(() => ({
-    controlled:
+  const checkedState = new Controlled(
+    () =>
       value !== undefined && groupContext !== undefined && !parent
         ? groupContext.value.includes(value)
         : groupChecked,
-    default: defaultChecked,
-    name: 'Checkbox',
-    state: 'checked',
-  }));
-  const checked = $derived(getChecked());
+    untrack(() => defaultChecked),
+  );
+  const checked = $derived(checkedState.value);
   const computedChecked = $derived(isGroupedWithParent ? Boolean(groupChecked) : checked);
   const computedIndeterminate = $derived(
     Boolean(isGroupedWithParent ? groupIndeterminate || indeterminate : indeterminate),
@@ -140,7 +138,9 @@
     () => !groupContext && !disabled,
     () => nameProp,
   );
-  const inputRef = $state<{ current: HTMLInputElement | null }>({ current: null });
+  const inputRef = $state<{ current: HTMLInputElement | null }>({
+    current: null,
+  });
   const registeredInputValue = $derived(groupContext ? value : undefined);
   const registerInput = $derived.by(() => {
     // Read the original callback dependencies before returning the native ref.
@@ -148,7 +148,10 @@
     const inputValue = registeredInputValue;
     return (element: HTMLInputElement | null) =>
       element
-        ? currentValidation.registerInput(element, { controlRef, value: inputValue })
+        ? currentValidation.registerInput(element, {
+            controlRef,
+            value: inputValue,
+          })
         : undefined;
   });
   const getAriaLabelledBy = useAriaLabelledBy(() => ({
@@ -158,14 +161,14 @@
     enableFallback: !nativeButton,
     generatedLabelId: `${controlId}-label`,
   }));
-  useIsoLayoutEffect(
-    () => {
-      if (inputRef.current) inputRef.current.indeterminate = computedIndeterminate;
-      if (!groupContext) field.setFilled(checked);
-    },
-    () => [checked, computedIndeterminate, groupContext, field.setFilled],
-  );
-  useValueChanged(
+  $effect(() => {
+    // Native activation resets indeterminate; checked changes reassert the business state.
+    const isChecked = checked;
+    const input = inputRef.current;
+    if (input) input.indeterminate = computedIndeterminate;
+    if (!groupContext) field.setFilled(isChecked);
+  });
+  new ValueChanged(
     () => checked,
     () => () => {
       if (groupContext) return;
@@ -204,7 +207,7 @@
         event.preventDefault();
         return;
       }
-      setCheckedState(nextChecked);
+      checkedState.set(nextChecked);
       if (value !== undefined && groupContext !== undefined && !parent && !isGroupedWithParent) {
         groupContext.setValue(
           nextChecked
@@ -219,7 +222,9 @@
       controlRef.current?.focus();
     },
     ...(valueProp !== undefined
-      ? { value: getNativeValue((groupContext ? checked && valueProp : valueProp) || '') }
+      ? {
+          value: getNativeValue((groupContext ? checked && valueProp : valueProp) || ''),
+        }
       : {}),
   });
   $effect(() => {
@@ -289,28 +294,7 @@
     };
   });
   setCheckboxRootContext(() => rootState);
-  const forwardedRef = {
-    get current() {
-      return ref ?? null;
-    },
-    set current(element: HTMLElement | null) {
-      ref = element;
-    },
-  };
-  const componentProps = $derived({ render, class: classProp, style });
-  const params = $derived({
-    state: rootState,
-    ref: [buttonRef, controlRef, forwardedRef],
-    props: [
-      rootProps,
-      elementProps,
-      otherGroupProps,
-      getButtonProps,
-      labelable.getDescriptionProps,
-      (props: Record<string, unknown>) => validation.getValidationProps(disabled, props),
-    ],
-    stateAttributesMapping,
-  });
+
   const hiddenInputProps = $derived(
     mergePropsN([
       inputProps,
@@ -318,16 +302,59 @@
       (props: Record<string, unknown>) => validation.getValidationProps(disabled, props),
     ]),
   );
-  const { useMergedRefs } = createMergedRefs<HTMLInputElement>();
-  const resolveInputAttachment = createRefAttachment<HTMLInputElement>(() => {});
-  const inputAttachment = $derived(
-    resolveInputAttachment(
-      useMergedRefs(inputRefProp, inputRef, parent ? undefined : registerInput),
+  function attachInput(host: HTMLInputElement) {
+    const hasParent = parent;
+    const register = registerInput;
+    return untrack(() => {
+      inputRef.current = host;
+      inputRefProp = host;
+      const unregister = hasParent ? undefined : register(host);
+      return () =>
+        untrack(() => {
+          unregister?.();
+          if (inputRef.current === host) inputRef.current = null;
+          if (inputRefProp === host) inputRefProp = null;
+        });
+    });
+  }
+
+  const hostAttachmentKey = createAttachmentKey();
+  function attachHost(host: HTMLElement) {
+    return untrack(() => {
+      buttonRef?.(host);
+      controlRef.current = host;
+      ref = host;
+      return () =>
+        untrack(() => {
+          buttonRef?.(null);
+          if (controlRef.current === host) controlRef.current = null;
+          if (ref === host) ref = null;
+        });
+    });
+  }
+  const mergedProps = $derived({
+    ...mergeComponentProps(
+      rootState,
+      { class: classProp, style: style },
+      [
+        rootProps,
+        elementProps,
+        otherGroupProps,
+        getButtonProps,
+        labelable.getDescriptionProps,
+        (props: Record<string, unknown>) => validation.getValidationProps(disabled, props),
+      ],
+      stateAttributesMapping,
     ),
-  );
+    [hostAttachmentKey]: attachHost,
+  });
 </script>
 
-<RenderElement tag="span" {componentProps} {params} {children} />
+{#if render}
+  {@render render(mergedProps, rootState, children)}
+{:else}
+  <span {...mergedProps}>{@render children?.()}</span>
+{/if}
 {#if !checked && !groupContext && name && !parent && uncheckedValue !== undefined}
   <input type="hidden" {form} name={nativeName} value={uncheckedValue} {disabled} />
 {/if}
@@ -335,6 +362,6 @@
 <input
   {...hiddenInputProps as HTMLInputAttributes}
   type="checkbox"
-  {@attach inputAttachment}
-  bind:checked={getChecked, setCheckedState}
+  {@attach attachInput}
+  bind:checked={() => checkedState.value, (next) => checkedState.set(next)}
 />

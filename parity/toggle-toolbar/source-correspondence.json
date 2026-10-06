@@ -5081,7 +5081,7 @@
         "packages/base/src/lib/internals/composite/item/CompositeItem.svelte": "7447799f42b23f8003e251196e03199f8d703b77fda61d6d3422e657f95a5319"
       },
       "localHashes": {
-        "packages/base/src/lib/internals/composite/item/CompositeItem.svelte": "cc6fb52a0a0c161bf52b52701739de6a3d6cf2df61d1e0862fb7980cc6e3d8f2"
+        "packages/base/src/lib/internals/composite/item/CompositeItem.svelte": "23e78d87cbeb13db6e655c95b20f57d4dd19dfd16a91af90d73d954100be7797"
       }
     },
     {
@@ -5158,7 +5158,7 @@
         "packages/base/src/lib/internals/composite/item/useCompositeItem.svelte.ts": "d0faf967447c35339c6ad06b8cc6218cf2002613844a4bdb7b1453fd5262afc3"
       },
       "localHashes": {
-        "packages/base/src/lib/internals/composite/item/useCompositeItem.svelte.ts": "f4373372837e7254fa6a53bbe6cb3ed2d3a9a2780ee5efe8e10154bedfdaef86"
+        "packages/base/src/lib/internals/composite/item/useCompositeItem.svelte.ts": "d90708b23dde83c4381ea1085767ec30135307525c1ea9e5422e9879a522daad"
       }
     },
     {
@@ -5309,7 +5309,7 @@
         "packages/base/src/lib/internals/composite/list/useCompositeListItem.svelte.ts": "42f4066c8d830385f942f66b216e1b263728f1615dbd7b11cfd3a79db7242400"
       },
       "localHashes": {
-        "packages/base/src/lib/internals/composite/list/useCompositeListItem.svelte.ts": "24439ae0169b37dcf90a711cd756bb019b37426b765b7cdd002b42a172d451d5"
+        "packages/base/src/lib/internals/composite/list/useCompositeListItem.svelte.ts": "94d353c7d884b35bd002a9278a7701e7b1e835d536b8eb8a94f2a56d7fa72841"
       }
     },
     {
@@ -5466,7 +5466,7 @@
         "packages/base/src/lib/internals/composite/root/CompositeRoot.svelte": "5075468a96b01787b1789e48ee6dfecd178a7ec76ee7726c3a064b9cf663fe12"
       },
       "localHashes": {
-        "packages/base/src/lib/internals/composite/root/CompositeRoot.svelte": "aa0ec1d30f45ec09215f705a363585c5811124b6a8de1d030057cbcf43de0f6e"
+        "packages/base/src/lib/internals/composite/root/CompositeRoot.svelte": "29241d2982ea752a27d65c8c15cc9e3675efd2cfbc0917a4b112c5179c7d2e4e"
       }
     },
     {
@@ -5793,7 +5793,7 @@
         "packages/base/src/lib/internals/composite/root/useCompositeRoot.svelte.ts": "8db12d19818afe6509addc02e10a55082126da9be7a40d03f9a8f62a6e6b5d78"
       },
       "localHashes": {
-        "packages/base/src/lib/internals/composite/root/useCompositeRoot.svelte.ts": "de5c954f8c1b4fea9d8ae87eed7df97baa4d834f23d32037887c4de619adc46b"
+        "packages/base/src/lib/internals/composite/root/useCompositeRoot.svelte.ts": "bdd6ced8bc2a28c77a2572b6b54eab7ad09ee111ddf2bcdbe777686f947c39b6"
       }
     },
     {
@@ -6072,7 +6072,7 @@
         "packages/base/src/lib/internals/use-button/useButton.svelte.ts": "581abfd20827eed41d9478dc30dc5a7b1b944e32d8428ac238d86625545536f1"
       },
       "localHashes": {
-        "packages/base/src/lib/internals/use-button/useButton.svelte.ts": "e56dc193c3f2b1317916711b4b9f549ccfc49e60ac13cf10842c5ab5cc8be68a"
+        "packages/base/src/lib/internals/use-button/useButton.svelte.ts": "48750528371fbf08dd09478dd7fb8e2a2b9a19494bf1e779610e5b90668e16d0"
       }
     },
     {
@@ -6225,7 +6225,7 @@
         "packages/base/src/lib/internals/use-button/useButton.svelte.ts": "581abfd20827eed41d9478dc30dc5a7b1b944e32d8428ac238d86625545536f1"
       },
       "localHashes": {
-        "packages/base/src/lib/internals/use-button/useButton.svelte.ts": "e56dc193c3f2b1317916711b4b9f549ccfc49e60ac13cf10842c5ab5cc8be68a"
+        "packages/base/src/lib/internals/use-button/useButton.svelte.ts": "48750528371fbf08dd09478dd7fb8e2a2b9a19494bf1e779610e5b90668e16d0"
       }
     },
     {
@@ -6530,7 +6530,7 @@
           "edge": "import"
         }
       ],
-      "local": "packages/base/src/lib/internals/useRenderElement.ts; packages/base/src/lib/internals/RenderElement.svelte",
+      "local": [],
       "selection": "selected-reused-closure",
       "correspondence": "Reused canonical Field/Form/shared-utility source dependency; shared renderer dependency: source ordered props/ref/mapping stages, native literal input host See parity/field-form/source-correspondence.json PR50 source ref-order/lifetime fidelity repair folds canonical forwarded attachments after inner refs into the existing source fanout. Native authored attachments remain independent. Full mapping: parity/rendering/source-correspondence.md. Reinspect actual used body at accepted main 6f1f983; historical green is not acceptance for this family.",
       "status": "reused-awaiting-independent-entire-closure-review",
@@ -6538,10 +6538,10 @@
         "packages/base/src/lib/internals/useRenderElement.ts": "a8fb8a006629431ae42697dbbd9ea1177d9ce756bf953105c2e5f3eb5ed5a1e9",
         "packages/base/src/lib/internals/RenderElement.svelte": "bbc7cb9be3a6d554f07090d250923b06b5581b29f190d48d874b62698f1cdef5"
       },
-      "localHashes": {
-        "packages/base/src/lib/internals/useRenderElement.ts": "851c5b39cef485c29b87f7f006daa9763dc3a131ac45c6c6f72d9b4b978ca617",
-        "packages/base/src/lib/internals/RenderElement.svelte": "7468c314806abe0b4ed1fc2dd95d3a2defd6e86a9021012ced3f0154d0028daa"
-      }
+      "localHashes": {},
+      "nativeReplacement": "Only pure prop/appearance/event/cancellation/state-attribute composition remains in mergeComponentProps; actual rendering and DOM publication belong to each component native branch/attachment. Runtime renderer/ref transport and public UseRender API are retired. Each actual component uses its own native snippet/intrinsic branch, binding and attachment; see parity/native-snippets/native-graph.json. No unchanged framework assertion credit.",
+      "nativeReplacementCredit": 0,
+      "currentNativeHostGraph": "parity/native-snippets/native-graph.json"
     },
     {
       "source": "packages/react/src/internals/useTransitionStatus.ts",
@@ -6662,7 +6662,7 @@
         "packages/base/src/lib/merge-props/index.ts": "3ef38bba9b22f44bbcf69102d9556807f78897bedb69b410669c7b429971dd68"
       },
       "localHashes": {
-        "packages/base/src/lib/merge-props/mergeProps.ts": "1b758134ab0efecd9601638e928440561944d226e5ebb9276d39723738d0301a"
+        "packages/base/src/lib/merge-props/mergeProps.ts": "b2c30a6df68fe9744f250f0d0b8e21d89de133146724efd6eed7cea0fce0f8b9"
       }
     },
     {
@@ -6753,7 +6753,7 @@
         "packages/base/src/lib/separator/types.ts": "a654dfef71404694b8cbd754fb7ec7bf1592f8c2ca154dd40137dc6d95dfa092"
       },
       "localHashes": {
-        "packages/base/src/lib/separator/Separator.svelte": "4440b067c96ac48515aa3b923bbfe941e319cb6d5a0ad2b930f5370f7a39ce20",
+        "packages/base/src/lib/separator/Separator.svelte": "32403074e8304bab4f414937ca5ec6936f8d1dc0d121c13cc72763a2b46f6eff",
         "packages/base/src/lib/separator/types.ts": "5ab346df307c50fad23dfdcb26e3931c9b4ba24de0ddc21881ef54441e6496e7"
       }
     },
@@ -6952,7 +6952,7 @@
       "status": "implemented-awaiting-independent-exact-head-review",
       "baseLocalHashes": {},
       "localHashes": {
-        "packages/base/src/lib/toggle-group/ToggleGroup.svelte": "f36d336a3ac1b41caa7dec0b0efa65184f53373c5e08e647838b1e277d16d3d5",
+        "packages/base/src/lib/toggle-group/ToggleGroup.svelte": "1ee580381ce6ba31528bfcccf1a8826b4dc8eafcb079c4f8a8b8594bf1f47931",
         "packages/base/src/lib/toggle-group/types.ts": "fbbc121261c354d8e28c8563b0ca44f35b5b0ee01eb6b1ac10490301833c3752"
       }
     },
@@ -7203,7 +7203,7 @@
         "packages/base/src/lib/toggle/types.ts": "5eca12c5fd4d7b7eedf850f7fb29fe4ac9f0f85dd567bc80b3b1e861c2d1420b"
       },
       "localHashes": {
-        "packages/base/src/lib/toggle/Toggle.svelte": "407d005daa486ffc3d2a2f5877783c44cf386a2ba0e3e051858a46337e9ee05e",
+        "packages/base/src/lib/toggle/Toggle.svelte": "200a69b75c442f3031e7434d29e3348e4f1824efa367058c02f26fccb3ddb57f",
         "packages/base/src/lib/toggle/types.ts": "888b497d95050beab8098d2cf67a8b769ec4cab7a968e20866aec17aa6e8bf12"
       }
     },
@@ -7315,7 +7315,7 @@
       "status": "implemented-awaiting-independent-exact-head-review",
       "baseLocalHashes": {},
       "localHashes": {
-        "packages/base/src/lib/toolbar/button/ToolbarButton.svelte": "65ab0070733369bb087cba963788264cf739f5005e10725604cde72839840456",
+        "packages/base/src/lib/toolbar/button/ToolbarButton.svelte": "01e2dcade028ceafada0c9d7e7f319a2143fb68d5da047d22ab50087c25c3bac",
         "packages/base/src/lib/toolbar/types.ts": "3bc3d1e84b480879fe78008f97ee8dbb7dba2b0d29040a2fc31df71b5de598ff"
       }
     },
@@ -7399,7 +7399,7 @@
       "status": "implemented-awaiting-independent-exact-head-review",
       "baseLocalHashes": {},
       "localHashes": {
-        "packages/base/src/lib/toolbar/group/ToolbarGroup.svelte": "79038ec92ec181c95e11b51a86e5077b9a61ae7843439e3f66ec61139838c30e",
+        "packages/base/src/lib/toolbar/group/ToolbarGroup.svelte": "4220bd9729c855c27ef98fce4583e1da6bb4feb413c398bbcf66285f1d5e08d0",
         "packages/base/src/lib/toolbar/types.ts": "3bc3d1e84b480879fe78008f97ee8dbb7dba2b0d29040a2fc31df71b5de598ff"
       }
     },
@@ -7699,7 +7699,7 @@
       "status": "implemented-awaiting-independent-exact-head-review",
       "baseLocalHashes": {},
       "localHashes": {
-        "packages/base/src/lib/toolbar/input/ToolbarInput.svelte": "78bda1d89afb291271ba9147f8982f029f2639c0c2c8c4a1bbc2b32022162173",
+        "packages/base/src/lib/toolbar/input/ToolbarInput.svelte": "2bbd9f6adf440cd47e0c15c2da2ffea8517998cd913a2fcc0ca1d199fd3c7694",
         "packages/base/src/lib/toolbar/types.ts": "3bc3d1e84b480879fe78008f97ee8dbb7dba2b0d29040a2fc31df71b5de598ff"
       }
     },
@@ -7771,7 +7771,7 @@
       "status": "implemented-awaiting-independent-exact-head-review",
       "baseLocalHashes": {},
       "localHashes": {
-        "packages/base/src/lib/toolbar/link/ToolbarLink.svelte": "f82027ca4c47f03ade26829e29152cab1a0427b72b6d5b27fadd01a3c486ac07",
+        "packages/base/src/lib/toolbar/link/ToolbarLink.svelte": "728f78542aec80d234e52f7ccb0e23f13b95ba5ff69d79b7bf048f4a26f7f052",
         "packages/base/src/lib/toolbar/types.ts": "3bc3d1e84b480879fe78008f97ee8dbb7dba2b0d29040a2fc31df71b5de598ff"
       }
     },
@@ -7851,7 +7851,7 @@
       "status": "implemented-awaiting-independent-exact-head-review",
       "baseLocalHashes": {},
       "localHashes": {
-        "packages/base/src/lib/toolbar/root/ToolbarRoot.svelte": "2368b082e3556fb919f6ef3e1c54d9f5b0e35f12b95da5d8ff807e76ad7097bd",
+        "packages/base/src/lib/toolbar/root/ToolbarRoot.svelte": "af28517c34c005c1dabe305d4d78824b6740f81c9baab41d8dd88db7d7a39b80",
         "packages/base/src/lib/toolbar/types.ts": "3bc3d1e84b480879fe78008f97ee8dbb7dba2b0d29040a2fc31df71b5de598ff"
       }
     },
@@ -8882,7 +8882,7 @@
         "packages/utils/src/lib/empty.ts": "eb679c977169a61764f98516194102fed5b70b6157992b34029dcd39af467d7b"
       },
       "localHashes": {
-        "packages/utils/src/lib/empty.ts": "4851f47e6160860fee67ddfa03056c8a26dee4cf87bb1a9aa7f30e988b03ad65"
+        "packages/utils/src/lib/empty.ts": "00dc8f5cccebba670a7c7f2a78a66f3a4c008e8fec496badfc909a2bb8664151"
       }
     },
     {
@@ -9937,7 +9937,7 @@
           "edge": "import"
         }
       ],
-      "local": "packages/utils/src/lib/useControlled.svelte.ts",
+      "local": "packages/utils/src/lib/Controlled.svelte.ts",
       "selection": "selected-reused-closure",
       "correspondence": "Reused canonical Field/Form/shared-utility source dependency; native source port; source review pending See parity/shared-utils/source-graph.json Reinspect actual used body at accepted main 6f1f983; historical green is not acceptance for this family.",
       "status": "reused-awaiting-independent-entire-closure-review",
@@ -9945,8 +9945,10 @@
         "packages/utils/src/lib/useControlled.svelte.ts": "f74b9a8aa08b323835613037c871a6b85c938555c788c0a8ff51825c1863fd35"
       },
       "localHashes": {
-        "packages/utils/src/lib/useControlled.svelte.ts": "44a226c403bbe09dc85dec853303244f0c95ab94a708c3c599f606f4f93afd2f"
-      }
+        "packages/utils/src/lib/Controlled.svelte.ts": "3bb64556d51b6cd471e21e2db4c54179b3eb072757f043f7a4489a4134283304"
+      },
+      "nativeReplacement": "Controlled<T> class: initial mode/default, live controlled reads, direct set(next:T); optional T includes undefined. React diagnostics/serializer/functional dispatch removed.",
+      "nativeReplacementCredit": 0
     },
     {
       "source": "packages/utils/src/useEnhancedClickHandler.ts",
@@ -10039,7 +10041,10 @@
           "edge": "import"
         }
       ],
-      "local": "packages/utils/src/lib/useIsoLayoutEffect.svelte.ts",
+      "local": [
+        "packages/base/src/lib/internals/composite/list/useCompositeListItem.svelte.ts",
+        "packages/base/src/lib/internals/use-button/useButton.svelte.ts"
+      ],
       "selection": "selected-reused-closure",
       "correspondence": "Reused canonical Field/Form/shared-utility source dependency; native source port; source review pending See parity/shared-utils/source-graph.json Reinspect actual used body at accepted main 6f1f983; historical green is not acceptance for this family.",
       "status": "reused-awaiting-independent-entire-closure-review",
@@ -10047,8 +10052,11 @@
         "packages/utils/src/lib/useIsoLayoutEffect.svelte.ts": "0d24dd22dad18fc54341aaedb964a25829ae62322f10bf110a4fd8bde65dd1f3"
       },
       "localHashes": {
-        "packages/utils/src/lib/useIsoLayoutEffect.svelte.ts": "19e575ac14e03d20cbd088abda91d4784ed8b3b34944e03ef51e242e0c0247a7"
-      }
+        "packages/base/src/lib/internals/composite/list/useCompositeListItem.svelte.ts": "94d353c7d884b35bd002a9278a7701e7b1e835d536b8eb8a94f2a56d7fa72841",
+        "packages/base/src/lib/internals/use-button/useButton.svelte.ts": "48750528371fbf08dd09478dd7fb8e2a2b9a19494bf1e779610e5b90668e16d0"
+      },
+      "nativeReplacement": "Direct SSR-safe Svelte $effect at all 123 used runtime calls; actual native reads and cleanup, no dependency arrays or tuple/lifecycle cache.",
+      "nativeReplacementCredit": 0
     },
     {
       "source": "packages/utils/src/useMergedRefs.ts",
@@ -10076,16 +10084,17 @@
           "edge": "import"
         }
       ],
-      "local": "packages/utils/src/lib/useMergedRefs.ts",
+      "local": [],
       "selection": "selected-reused-closure",
       "correspondence": "Canonical source ref-fanout/cleanup storage, native attachment lifetime. Reinspect actual used body at accepted main 6f1f983; historical green is not acceptance for this family.",
       "status": "reused-awaiting-independent-entire-closure-review",
       "baseLocalHashes": {
         "packages/utils/src/lib/useMergedRefs.ts": "d9420f3db2872a32aca95c7c32db1342da4df6595df68a17707f55a27ea41fe2"
       },
-      "localHashes": {
-        "packages/utils/src/lib/useMergedRefs.ts": "0c41f7c8a065fa8a464f56852ba4c8196d51865905a5277f139ebaaa4b81ce1b"
-      }
+      "localHashes": {},
+      "nativeReplacement": "React callback/object ref identity and fan-out transport is retired by PR77; component bindable refs, native bindings and independent attachments publish actual DOM hosts. There is no runtime adapter or Utils merged-ref export.",
+      "nativeReplacementCredit": 0,
+      "currentNativeHostGraph": "parity/native-snippets/native-graph.json"
     },
     {
       "source": "packages/utils/src/useOnMount.ts",
@@ -10133,16 +10142,17 @@
           "edge": "import"
         }
       ],
-      "local": "packages/utils/src/lib/useRefWithInit.ts",
+      "local": [],
       "selection": "selected-reused-closure",
       "correspondence": "Reused canonical Field/Form/shared-utility source dependency; native source port; source review pending See parity/shared-utils/source-graph.json Reinspect actual used body at accepted main 6f1f983; historical green is not acceptance for this family.",
       "status": "reused-awaiting-independent-entire-closure-review",
       "baseLocalHashes": {
         "packages/utils/src/lib/useRefWithInit.ts": "998166cdfed66790af4659ac61d8b36f49f1aa4c35a66bb532f6239771271036"
       },
-      "localHashes": {
-        "packages/utils/src/lib/useRefWithInit.ts": "3c48fad5a3c2eddbb0ecb820210f825b9fa2144c92de0615a5a4cf2ea1c3b3c7"
-      }
+      "localHashes": {},
+      "nativeReplacement": "React callback/object ref identity and fan-out transport is retired by PR77; component bindable refs, native bindings and independent attachments publish actual DOM hosts. There is no runtime adapter or Utils merged-ref export.",
+      "nativeReplacementCredit": 0,
+      "currentNativeHostGraph": "parity/native-snippets/native-graph.json"
     },
     {
       "source": "packages/utils/src/useStableCallback.ts",
@@ -10175,7 +10185,11 @@
           "edge": "import"
         }
       ],
-      "local": "packages/utils/src/lib/useStableCallback.ts",
+      "local": [
+        "packages/base/src/lib/internals/composite/root/useCompositeRoot.svelte.ts",
+        "packages/base/src/lib/internals/use-button/useButton.svelte.ts",
+        "packages/base/src/lib/toggle-group/ToggleGroup.svelte"
+      ],
       "selection": "selected-reused-closure",
       "correspondence": "Reused canonical Field/Form/shared-utility source dependency; native source port; source review pending See parity/shared-utils/source-graph.json Reinspect actual used body at accepted main 6f1f983; historical green is not acceptance for this family.",
       "status": "reused-awaiting-independent-entire-closure-review",
@@ -10183,8 +10197,12 @@
         "packages/utils/src/lib/useStableCallback.ts": "b790a02da99e0e9365bc05d35a434ef37dcffb2a4db8186b1327b949a994d05e"
       },
       "localHashes": {
-        "packages/utils/src/lib/useStableCallback.ts": "dca4f1866715df0bcb597ca5c083825f580717a96e267c77a5325ce22790d04c"
-      }
+        "packages/base/src/lib/internals/composite/root/useCompositeRoot.svelte.ts": "bdd6ced8bc2a28c77a2572b6b54eab7ad09ee111ddf2bcdbe777686f947c39b6",
+        "packages/base/src/lib/internals/use-button/useButton.svelte.ts": "48750528371fbf08dd09478dd7fb8e2a2b9a19494bf1e779610e5b90668e16d0",
+        "packages/base/src/lib/toggle-group/ToggleGroup.svelte": "1ee580381ce6ba31528bfcccf1a8826b4dc8eafcb079c4f8a8b8594bf1f47931"
+      },
+      "nativeReplacement": "Ordinary live setup closures at all 79 used runtime calls; narrow untrack only at imperative registration/publication/measurement boundaries.",
+      "nativeReplacementCredit": 0
     },
     {
       "source": "packages/utils/src/useTimeout.ts",
@@ -10388,13 +10406,8 @@
     },
     {
       "local": "packages/base/src/lib/internals/nativeProps.ts",
-      "sha256": "4c1f8df953df631d3b410b9a12e48e156ad90bcd5fef6feaec97a4426068ec29",
+      "sha256": "f081bf825f41a64924fe298108e148ac56314d02074c588cc1f9324ff6a92cc5",
       "correspondence": "Svelte native ClassValue/CSS/attachment prop representation selected by canonical renderer."
-    },
-    {
-      "local": "packages/base/src/lib/internals/nativeRefAttachment.ts",
-      "sha256": "ab007711c5ea5bd558b06a704c5f06c2c37e46ff52b547c01c14e119116402d9",
-      "correspondence": "Native attachment/cleanup/ref forwarding lifetime selected by canonical renderer; no React clone/ref machinery."
     },
     {
       "local": "packages/base/src/lib/internals/resolveClassValue.ts",
@@ -10408,5 +10421,15 @@
     "record": "../utils-package/current-source-graph.json",
     "ordinaryDeclarationCredit": 0,
     "status": "Current package destinations and hashes; frozen source/construction/acceptance/run receipts remain historical. Complete current graph and exact final-head Source/native/maintainability review supersede earlier inventory acceptance."
-  }
+  },
+  "retiredNativeRepresentationModules": [
+    {
+      "local": "packages/base/src/lib/internals/nativeRefAttachment.ts",
+      "sha256": "ab007711c5ea5bd558b06a704c5f06c2c37e46ff52b547c01c14e119116402d9",
+      "correspondence": "Native attachment/cleanup/ref forwarding lifetime selected by canonical renderer; no React clone/ref machinery.",
+      "status": "Runtime renderer/ref transport and public UseRender API are retired. Each actual component uses its own native snippet/intrinsic branch, binding and attachment; see parity/native-snippets/native-graph.json. No unchanged framework assertion credit.",
+      "currentNativeHostGraph": "parity/native-snippets/native-graph.json",
+      "nativeReplacementCredit": 0
+    }
+  ]
 }

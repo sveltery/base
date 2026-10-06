@@ -1,6 +1,5 @@
 // Original useMenuItem full business body, native button/ref composition (MIT).
 /* eslint-disable @typescript-eslint/no-explicit-any, @typescript-eslint/no-empty-object-type -- Retain Original erased store/empty state contracts. */
-import { createMergedRefs } from '@sveltery/utils/useMergedRefs';
 import { useButton } from '../../internals/use-button/useButton.svelte.js';
 import { mergeProps } from '../../merge-props/index.js';
 import type { HTMLProps } from '../../internals/types.js';
@@ -54,9 +53,15 @@ export function useMenuItem(getParams: () => UseMenuItemParameters): UseMenuItem
       getButtonProps,
     );
   };
-  const merger = createMergedRefs<HTMLElement>();
-  const mergedRef = merger.useMergedRefs(itemRef, buttonRef);
-  return { getItemProps, itemRef: mergedRef };
+  function attachItem(host: HTMLElement) {
+    itemRef.current = host;
+    buttonRef(host);
+    return () => {
+      buttonRef(null);
+      if (itemRef.current === host) itemRef.current = null;
+    };
+  }
+  return { getItemProps, attachItem };
 }
 export interface UseMenuItemParameters {
   /**
@@ -120,6 +125,6 @@ export interface UseMenuItemReturnValue {
   /**
    * The ref to the component's root DOM element.
    */
-  itemRef: ((node: HTMLElement | null) => void) | null;
+  attachItem: (node: HTMLElement) => () => void;
 }
 export interface UseMenuItemState {}

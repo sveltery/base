@@ -1,7 +1,7 @@
 // Original Base UI 1.8.0 useDelayGroup/resetDelayRef business, native live state.
 // MIT: THIRD_PARTY_NOTICES.md; pin 47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c.
 import { untrack } from 'svelte';
-import { useIsoLayoutEffect } from '@sveltery/utils/useIsoLayoutEffect';
+
 import { useFloatingDelayGroupContext } from '../components/FloatingDelayGroupContext.js';
 import { getDelay } from './useHoverShared.js';
 import type { FloatingRootContext, Delay, FloatingContext } from '../types.js';
@@ -47,127 +47,98 @@ export function useDelayGroup(
 
   // Native effects dispose and register per effect. Release the old Source owner
   // before syncing new open state or registering takeover, as Original cleanup does.
-  useIsoLayoutEffect(
-    () => {
-      const ownedId = floatingId;
-      return () => {
-        if (currentIdRef.current === ownedId) {
-          currentContextRef.current = null;
-
-          if (!openRef.current) {
-            return;
-          }
-
-          currentIdRef.current = null;
-          resetDelayRef(delayRef, initialDelayRef);
-          timeout.clear();
-        }
-      };
-    },
-    () => [currentContextRef, currentIdRef, delayRef, floatingId, initialDelayRef, timeout],
-  );
-
-  useIsoLayoutEffect(
-    () => {
-      openRef.current = open;
-    },
-    () => [open],
-  );
-
-  useIsoLayoutEffect(
-    () => {
-      function unset() {
-        currentContextRef.current?.setIsInstantPhase(false);
-        currentIdRef.current = null;
+  $effect(() => {
+    const ownedId = floatingId;
+    return () => {
+      if (currentIdRef.current === ownedId) {
         currentContextRef.current = null;
-        delayRef.current = initialDelayRef.current;
+
+        if (!openRef.current) {
+          return;
+        }
+
+        currentIdRef.current = null;
+        resetDelayRef(delayRef, initialDelayRef);
         timeout.clear();
       }
+    };
+  });
 
-      if (!currentIdRef.current) {
-        return undefined;
-      }
+  $effect(() => {
+    openRef.current = open;
+  });
 
-      if (!open && currentIdRef.current === floatingId) {
-        setIsInstantPhase(false);
-
-        if (timeoutMs) {
-          const closingId = floatingId;
-          const closingStore = store;
-          timeout.start(timeoutMs, () => {
-            // If another tooltip has taken over the group, skip resetting.
-            if (
-              closingStore.select('open') ||
-              (currentIdRef.current && currentIdRef.current !== closingId)
-            ) {
-              return;
-            }
-            unset();
-          });
-          return () => {
-            if (openRef.current || currentIdRef.current !== closingId) {
-              timeout.clear();
-            }
-          };
-        }
-
-        unset();
-      }
-
-      return undefined;
-    },
-    () => [
-      open,
-      floatingId,
-      currentIdRef,
-      delayRef,
-      timeoutMs,
-      initialDelayRef,
-      currentContextRef,
-      timeout,
-      store,
-    ],
-  );
-
-  useIsoLayoutEffect(
-    () => {
-      if (!open) {
-        return;
-      }
-
-      const prevContext = currentContextRef.current;
-      const prevId = currentIdRef.current;
-
-      // A new tooltip is opening, so cancel any pending timeout that would reset
-      // the group's delay back to the initial value.
+  $effect(() => {
+    // Closing must remain observed even before a plain group ref has an owner.
+    const isOpen = open;
+    function unset() {
+      currentContextRef.current?.setIsInstantPhase(false);
+      currentIdRef.current = null;
+      currentContextRef.current = null;
+      delayRef.current = initialDelayRef.current;
       timeout.clear();
-      currentContextRef.current = { onOpenChange: store.setOpen, setIsInstantPhase };
-      currentIdRef.current = floatingId;
-      delayRef.current = {
-        open: 0,
-        close: getDelay(initialDelayRef.current, 'close'),
-      };
+    }
 
-      if (prevId !== null && prevId !== floatingId) {
-        setIsInstantPhase(true);
-        prevContext?.setIsInstantPhase(true);
-        prevContext?.onOpenChange(false, createChangeEventDetails(REASONS.none));
-      } else {
-        setIsInstantPhase(false);
-        prevContext?.setIsInstantPhase(false);
+    if (!currentIdRef.current) {
+      return undefined;
+    }
+
+    if (!isOpen && currentIdRef.current === floatingId) {
+      setIsInstantPhase(false);
+
+      if (timeoutMs) {
+        const closingId = floatingId;
+        const closingStore = store;
+        timeout.start(timeoutMs, () => {
+          // If another tooltip has taken over the group, skip resetting.
+          if (
+            closingStore.select('open') ||
+            (currentIdRef.current && currentIdRef.current !== closingId)
+          ) {
+            return;
+          }
+          unset();
+        });
+        return () => {
+          if (openRef.current || currentIdRef.current !== closingId) {
+            timeout.clear();
+          }
+        };
       }
-    },
-    () => [
-      open,
-      floatingId,
-      store,
-      currentIdRef,
-      delayRef,
-      initialDelayRef,
-      currentContextRef,
-      timeout,
-    ],
-  );
+
+      unset();
+    }
+
+    return undefined;
+  });
+
+  $effect(() => {
+    if (!open) {
+      return;
+    }
+
+    const prevContext = currentContextRef.current;
+    const prevId = currentIdRef.current;
+
+    // A new tooltip is opening, so cancel any pending timeout that would reset
+    // the group's delay back to the initial value.
+    timeout.clear();
+    currentContextRef.current = { onOpenChange: store.setOpen, setIsInstantPhase };
+    currentIdRef.current = floatingId;
+    delayRef.current = {
+      open: 0,
+      close: getDelay(initialDelayRef.current, 'close'),
+    };
+
+    if (prevId !== null && prevId !== floatingId) {
+      setIsInstantPhase(true);
+      prevContext?.setIsInstantPhase(true);
+      prevContext?.onOpenChange(false, createChangeEventDetails(REASONS.none));
+    } else {
+      setIsInstantPhase(false);
+      prevContext?.setIsInstantPhase(false);
+    }
+  });
 
   return {
     activeIdRef: currentIdRef,

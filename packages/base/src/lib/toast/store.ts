@@ -1,6 +1,7 @@
 // Derived from mui/base-ui at 47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c; MIT, see ../../../THIRD_PARTY_NOTICES.md.
 /* eslint-disable @typescript-eslint/no-explicit-any -- Preserve upstream erased internal data and promise handoff. */
 import { createSubscriber } from 'svelte/reactivity';
+import { Timeout } from '@sveltery/utils/useTimeout';
 import { createIdGenerator } from './id.js';
 import type { ToastManager } from './createToastManager.js';
 import type {
@@ -10,23 +11,6 @@ import type {
   ToastObject,
 } from './types.js';
 import { resolvePromiseOptions } from './resolve-promise-options.js';
-class Timeout {
-  private handle: ReturnType<typeof setTimeout> | undefined;
-  static create() {
-    return new Timeout();
-  }
-  start(delay: number, callback: () => void) {
-    this.clear();
-    this.handle = setTimeout(() => {
-      this.handle = undefined;
-      callback();
-    }, delay);
-  }
-  clear() {
-    clearTimeout(this.handle);
-    this.handle = undefined;
-  }
-}
 type ToastInternalUpdateOptions<Data extends object> = Partial<
   Omit<ToastObject<Data>, 'id' | 'updateKey'>
 >;

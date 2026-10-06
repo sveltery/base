@@ -384,7 +384,7 @@
     },
     {
       "source": "packages/base/src/lib/context-menu/Root.svelte",
-      "sha256": "c3acfbcc1ff41febefa580445159987ae24ad7b59a79af0d29b8019ea0c5144a",
+      "sha256": "7ae8f888c2f9c8d4f902934e7e6ae0930558daded14073fce2bfa4eb27becec1",
       "reachability": "runtime",
       "imports": [
         {
@@ -440,7 +440,7 @@
     },
     {
       "source": "packages/base/src/lib/context-menu/root/ContextMenuRootContext.ts",
-      "sha256": "159228643c1997e8d49e02016bd850f19a2c61d74ff14d08ad302e2aee0f2206",
+      "sha256": "693025717dd64709148878045577c66cbe6e3a9cb97b62a6d11091d9ba28d3eb",
       "reachability": "runtime",
       "imports": [
         {
@@ -475,16 +475,43 @@
     },
     {
       "source": "packages/base/src/lib/context-menu/Trigger.svelte",
-      "sha256": "c4d470fdd6f628e21a071938b1bf317f1b774f3e039f8d263cd6b174ee9455b2",
+      "sha256": "f336576c2d3ff75ebe4245952d6c87a9c1f94dda7c1b29acec49c3652428a876",
       "reachability": "runtime",
       "imports": [
         {
-          "specifier": "../internals/RenderElement.svelte",
+          "specifier": "../internals/mergeComponentProps.js",
           "kind": "runtime",
           "symbols": [
-            "*"
+            {
+              "imported": "mergeComponentProps",
+              "typeOnly": false
+            }
           ],
-          "resolved": "packages/base/src/lib/internals/RenderElement.svelte",
+          "resolved": "packages/base/src/lib/internals/mergeComponentProps.ts",
+          "edge": "import"
+        },
+        {
+          "specifier": "svelte/attachments",
+          "kind": "runtime",
+          "symbols": [
+            {
+              "imported": "createAttachmentKey",
+              "typeOnly": false
+            }
+          ],
+          "resolved": "external:svelte/attachments",
+          "edge": "import"
+        },
+        {
+          "specifier": "svelte",
+          "kind": "runtime",
+          "symbols": [
+            {
+              "imported": "untrack",
+              "typeOnly": false
+            }
+          ],
+          "resolved": "external:svelte",
           "edge": "import"
         },
         {
@@ -527,13 +554,17 @@
     },
     {
       "source": "packages/base/src/lib/context-menu/trigger/createContextMenuTrigger.svelte.ts",
-      "sha256": "b0552d6f63ebe1122e70824925d78786810972d0cf5b8362d08f6375805fffb9",
+      "sha256": "c1a67ab6ba6034d58293f4add7d1ad9ebf392e91e17b17ab5e27d2be1ae1dc07",
       "reachability": "runtime",
       "imports": [
         {
           "specifier": "svelte",
           "kind": "runtime",
           "symbols": [
+            {
+              "imported": "onDestroy",
+              "typeOnly": false
+            },
             {
               "imported": "untrack",
               "typeOnly": false
@@ -571,23 +602,11 @@
           "kind": "runtime",
           "symbols": [
             {
-              "imported": "useTimeout",
+              "imported": "Timeout",
               "typeOnly": false
             }
           ],
           "resolved": "packages/utils/src/lib/useTimeout.ts",
-          "edge": "import"
-        },
-        {
-          "specifier": "@sveltery/utils/useIsoLayoutEffect",
-          "kind": "runtime",
-          "symbols": [
-            {
-              "imported": "useIsoLayoutEffect",
-              "typeOnly": false
-            }
-          ],
-          "resolved": "packages/utils/src/lib/useIsoLayoutEffect.svelte.ts",
           "edge": "import"
         },
         {
@@ -815,9 +834,25 @@
     },
     {
       "source": "packages/base/src/lib/floating-ui/components/createFloatingFocusManager.svelte.ts",
-      "sha256": "ae02788ef295c9a613402109a31236e757d5abc8270dea5923d7949b475651c5",
+      "sha256": "c6a2f4dc069dd6c8e663abaa706f7e65db32aee8a533bb2b2af02623ff15de1b",
       "reachability": "runtime",
       "imports": [
+        {
+          "specifier": "svelte",
+          "kind": "runtime",
+          "symbols": [
+            {
+              "imported": "onDestroy",
+              "typeOnly": false
+            },
+            {
+              "imported": "untrack",
+              "typeOnly": false
+            }
+          ],
+          "resolved": "external:svelte",
+          "edge": "import"
+        },
         {
           "specifier": "@floating-ui/utils/dom",
           "kind": "runtime",
@@ -859,39 +894,15 @@
           "edge": "import"
         },
         {
-          "specifier": "@sveltery/utils/useMergedRefs",
+          "specifier": "svelte/attachments",
           "kind": "runtime",
           "symbols": [
             {
-              "imported": "createMergedRefs",
+              "imported": "createAttachmentKey",
               "typeOnly": false
             }
           ],
-          "resolved": "packages/utils/src/lib/useMergedRefs.ts",
-          "edge": "import"
-        },
-        {
-          "specifier": "@sveltery/utils/useStableCallback",
-          "kind": "runtime",
-          "symbols": [
-            {
-              "imported": "useStableCallback",
-              "typeOnly": false
-            }
-          ],
-          "resolved": "packages/utils/src/lib/useStableCallback.ts",
-          "edge": "import"
-        },
-        {
-          "specifier": "@sveltery/utils/useIsoLayoutEffect",
-          "kind": "runtime",
-          "symbols": [
-            {
-              "imported": "useIsoLayoutEffect",
-              "typeOnly": false
-            }
-          ],
-          "resolved": "packages/utils/src/lib/useIsoLayoutEffect.svelte.ts",
+          "resolved": "external:svelte/attachments",
           "edge": "import"
         },
         {
@@ -899,7 +910,7 @@
           "kind": "runtime",
           "symbols": [
             {
-              "imported": "useTimeout",
+              "imported": "Timeout",
               "typeOnly": false
             }
           ],
@@ -935,7 +946,7 @@
           "kind": "runtime",
           "symbols": [
             {
-              "imported": "useAnimationFrame",
+              "imported": "AnimationFrame",
               "typeOnly": false
             }
           ],
@@ -1226,7 +1237,7 @@
     },
     {
       "source": "packages/base/src/lib/floating-ui/components/FloatingFocusManager.svelte",
-      "sha256": "86113226b200d67c3251ba1addc0bc22189a39b22c4ce28c79e6f918380a3b23",
+      "sha256": "88b47ec0d8e7254d4ea022e5c05d272798d9e735c65e84c9ddfef38b8bd24342",
       "reachability": "runtime",
       "imports": [
         {
@@ -1270,7 +1281,7 @@
     },
     {
       "source": "packages/base/src/lib/floating-ui/components/FloatingPortal.svelte",
-      "sha256": "4e9214fd0a8b8d29f004e9dd8d728969cbea57dae332062206f14cb3f7aeab4e",
+      "sha256": "d9360eddffb4f2f685ea80e8bfee84ed519ff348c1c5db9bf56bc254fd9e132d",
       "reachability": "runtime",
       "imports": [
         {
@@ -1306,18 +1317,6 @@
           "edge": "import"
         },
         {
-          "specifier": "@sveltery/utils/useIsoLayoutEffect",
-          "kind": "runtime",
-          "symbols": [
-            {
-              "imported": "useIsoLayoutEffect",
-              "typeOnly": false
-            }
-          ],
-          "resolved": "packages/utils/src/lib/useIsoLayoutEffect.svelte.ts",
-          "edge": "import"
-        },
-        {
           "specifier": "@sveltery/utils/addEventListener",
           "kind": "runtime",
           "symbols": [
@@ -1339,18 +1338,6 @@
             }
           ],
           "resolved": "packages/utils/src/lib/mergeCleanups.ts",
-          "edge": "import"
-        },
-        {
-          "specifier": "@sveltery/utils/useMergedRefs",
-          "kind": "type",
-          "symbols": [
-            {
-              "imported": "MergedRef",
-              "typeOnly": false
-            }
-          ],
-          "resolved": "packages/utils/src/lib/useMergedRefs.ts",
           "edge": "import"
         },
         {
@@ -1636,7 +1623,7 @@
     },
     {
       "source": "packages/base/src/lib/floating-ui/components/FloatingTree.svelte.ts",
-      "sha256": "cc303f1b22e6d03be86b2b46572c5be0e32a0d96dd1eb86649ae048cbaa0433d",
+      "sha256": "4ba1a45eb3e58c4c1cdb7fc68d48c59da7ad7a5cbd5f9be7319c22af1ca60d8a",
       "reachability": "runtime",
       "imports": [
         {
@@ -1653,18 +1640,6 @@
             }
           ],
           "resolved": "external:svelte",
-          "edge": "import"
-        },
-        {
-          "specifier": "@sveltery/utils/useIsoLayoutEffect",
-          "kind": "runtime",
-          "symbols": [
-            {
-              "imported": "useIsoLayoutEffect",
-              "typeOnly": false
-            }
-          ],
-          "resolved": "packages/utils/src/lib/useIsoLayoutEffect.svelte.ts",
           "edge": "import"
         },
         {
@@ -1748,6 +1723,57 @@
       ]
     },
     {
+      "source": "packages/base/src/lib/floating-ui/components/PortalHost.svelte",
+      "sha256": "ad42ba3985afa2e949cddb04f346c603411c45720d0c924c6e151d0e7d2e2d48",
+      "reachability": "runtime",
+      "imports": [
+        {
+          "specifier": "svelte/attachments",
+          "kind": "runtime",
+          "symbols": [
+            {
+              "imported": "createAttachmentKey",
+              "typeOnly": false
+            },
+            {
+              "imported": "Attachment",
+              "typeOnly": true
+            }
+          ],
+          "resolved": "external:svelte/attachments",
+          "edge": "import"
+        },
+        {
+          "specifier": "../../internals/mergeComponentProps.js",
+          "kind": "runtime",
+          "symbols": [
+            {
+              "imported": "mergeComponentProps",
+              "typeOnly": false
+            }
+          ],
+          "resolved": "packages/base/src/lib/internals/mergeComponentProps.ts",
+          "edge": "import"
+        },
+        {
+          "specifier": "../../internals/types.js",
+          "kind": "type",
+          "symbols": [
+            {
+              "imported": "BaseUIComponentProps",
+              "typeOnly": false
+            },
+            {
+              "imported": "HTMLProps",
+              "typeOnly": false
+            }
+          ],
+          "resolved": "packages/base/src/lib/internals/types.ts",
+          "edge": "import"
+        }
+      ]
+    },
+    {
       "source": "packages/base/src/lib/floating-ui/hooks/gridNavigation.ts",
       "sha256": "a9f1bc487078d4f9cf70e608cde8be6e55b165de0f79069d18879e71f25dd8e8",
       "reachability": "type",
@@ -1776,15 +1802,27 @@
     },
     {
       "source": "packages/base/src/lib/floating-ui/hooks/useClick.svelte.ts",
-      "sha256": "5344a064e9911e05be6b3fbf58d9d8c522cb5d9d534d8ad7d9e2631eae5d44cf",
+      "sha256": "3e8be914e6d27a0edb6efc9516de0ce9e793b4b32d127b538402c5551d6d4aeb",
       "reachability": "runtime",
       "imports": [
+        {
+          "specifier": "svelte",
+          "kind": "runtime",
+          "symbols": [
+            {
+              "imported": "onDestroy",
+              "typeOnly": false
+            }
+          ],
+          "resolved": "external:svelte",
+          "edge": "import"
+        },
         {
           "specifier": "@sveltery/utils/useAnimationFrame",
           "kind": "runtime",
           "symbols": [
             {
-              "imported": "useAnimationFrame",
+              "imported": "AnimationFrame",
               "typeOnly": false
             }
           ],
@@ -1796,7 +1834,7 @@
           "kind": "runtime",
           "symbols": [
             {
-              "imported": "useTimeout",
+              "imported": "Timeout",
               "typeOnly": false
             }
           ],
@@ -1883,19 +1921,19 @@
     },
     {
       "source": "packages/base/src/lib/floating-ui/hooks/useDismiss.svelte.ts",
-      "sha256": "6d013166a023400154b2f7a38c3240890b07d46dbf816b8db0675e524d159552",
+      "sha256": "ae4860fe2a3f4ea5686bccb2b425bf9c61a676b92072da7b6f733d69dc8afd51",
       "reachability": "runtime",
       "imports": [
         {
-          "specifier": "@sveltery/utils/useIsoLayoutEffect",
+          "specifier": "svelte",
           "kind": "runtime",
           "symbols": [
             {
-              "imported": "useIsoLayoutEffect",
+              "imported": "onDestroy",
               "typeOnly": false
             }
           ],
-          "resolved": "packages/utils/src/lib/useIsoLayoutEffect.svelte.ts",
+          "resolved": "external:svelte",
           "edge": "import"
         },
         {
@@ -1935,27 +1973,11 @@
           "edge": "import"
         },
         {
-          "specifier": "@sveltery/utils/useStableCallback",
-          "kind": "runtime",
-          "symbols": [
-            {
-              "imported": "useStableCallback",
-              "typeOnly": false
-            }
-          ],
-          "resolved": "packages/utils/src/lib/useStableCallback.ts",
-          "edge": "import"
-        },
-        {
           "specifier": "@sveltery/utils/useTimeout",
           "kind": "runtime",
           "symbols": [
             {
               "imported": "Timeout",
-              "typeOnly": false
-            },
-            {
-              "imported": "useTimeout",
               "typeOnly": false
             }
           ],
@@ -2150,7 +2172,7 @@
     },
     {
       "source": "packages/base/src/lib/floating-ui/hooks/useFloating.svelte.ts",
-      "sha256": "b0b2fa249e5d019560978a21d421263c00ca9c7598a293024502a63e92abc903",
+      "sha256": "fb2a3d4ef440583702349947e7fbffb47608d736f3ec7289dd82091d4cb958b8",
       "reachability": "runtime",
       "imports": [
         {
@@ -2163,18 +2185,6 @@
             }
           ],
           "resolved": "external:@floating-ui/utils/dom",
-          "edge": "import"
-        },
-        {
-          "specifier": "@sveltery/utils/useIsoLayoutEffect",
-          "kind": "runtime",
-          "symbols": [
-            {
-              "imported": "useIsoLayoutEffect",
-              "typeOnly": false
-            }
-          ],
-          "resolved": "packages/utils/src/lib/useIsoLayoutEffect.svelte.ts",
           "edge": "import"
         },
         {
@@ -2249,7 +2259,7 @@
     },
     {
       "source": "packages/base/src/lib/floating-ui/hooks/useFloatingPortalNode.svelte.ts",
-      "sha256": "9cdd2bf28f214c02af6702e9bca0cdc20f6745f60958d39a95eff0d7d5e0477c",
+      "sha256": "16cef262e2368b881c58d59baa1257caddc9c0e97b4fb183f7099cc09f6dc84d",
       "reachability": "runtime",
       "imports": [
         {
@@ -2297,27 +2307,15 @@
           "edge": "import"
         },
         {
-          "specifier": "@sveltery/utils/useIsoLayoutEffect",
-          "kind": "runtime",
-          "symbols": [
-            {
-              "imported": "useIsoLayoutEffect",
-              "typeOnly": false
-            }
-          ],
-          "resolved": "packages/utils/src/lib/useIsoLayoutEffect.svelte.ts",
-          "edge": "import"
-        },
-        {
-          "specifier": "@sveltery/utils/useMergedRefs",
+          "specifier": "svelte/attachments",
           "kind": "type",
           "symbols": [
             {
-              "imported": "MergedRef",
+              "imported": "Attachment",
               "typeOnly": false
             }
           ],
-          "resolved": "packages/utils/src/lib/useMergedRefs.ts",
+          "resolved": "external:svelte/attachments",
           "edge": "import"
         },
         {
@@ -2333,24 +2331,24 @@
           "edge": "import"
         },
         {
-          "specifier": "../../internals/useRenderElement.js",
+          "specifier": "../../internals/types.js",
           "kind": "type",
           "symbols": [
             {
-              "imported": "UseRenderElementComponentProps",
+              "imported": "BaseUIComponentProps",
               "typeOnly": false
             }
           ],
-          "resolved": "packages/base/src/lib/internals/useRenderElement.ts",
+          "resolved": "packages/base/src/lib/internals/types.ts",
           "edge": "import"
         },
         {
-          "specifier": "../../internals/RenderElement.svelte",
+          "specifier": "../components/PortalHost.svelte",
           "kind": "runtime",
           "symbols": [
             "*"
           ],
-          "resolved": "packages/base/src/lib/internals/RenderElement.svelte",
+          "resolved": "packages/base/src/lib/floating-ui/components/PortalHost.svelte",
           "edge": "import"
         },
         {
@@ -2390,19 +2388,19 @@
     },
     {
       "source": "packages/base/src/lib/floating-ui/hooks/useFocus.svelte.ts",
-      "sha256": "48af353378021a3dc2abb2b758808dd57d8d51017c5b29c3f311e7605e8e73e1",
+      "sha256": "a78f67d9e8682c70324543e5ab9953c9379a38686abf2af1c7d94ba8e5534b86",
       "reachability": "runtime",
       "imports": [
         {
-          "specifier": "@sveltery/utils/useIsoLayoutEffect",
+          "specifier": "svelte",
           "kind": "runtime",
           "symbols": [
             {
-              "imported": "useIsoLayoutEffect",
+              "imported": "onDestroy",
               "typeOnly": false
             }
           ],
-          "resolved": "packages/utils/src/lib/useIsoLayoutEffect.svelte.ts",
+          "resolved": "external:svelte",
           "edge": "import"
         },
         {
@@ -2458,7 +2456,7 @@
           "kind": "runtime",
           "symbols": [
             {
-              "imported": "useTimeout",
+              "imported": "Timeout",
               "typeOnly": false
             }
           ],
@@ -2589,9 +2587,21 @@
     },
     {
       "source": "packages/base/src/lib/floating-ui/hooks/useHoverFloatingInteraction.svelte.ts",
-      "sha256": "e17c70202161dd560ab63926d1caff4f831b6b20cce58ef5fee2d664ef0bf540",
+      "sha256": "0ab147a7643e45e94606193799839e6b449028367873d9acdcb4e2618af860ba",
       "reachability": "runtime",
       "imports": [
+        {
+          "specifier": "svelte",
+          "kind": "runtime",
+          "symbols": [
+            {
+              "imported": "onDestroy",
+              "typeOnly": false
+            }
+          ],
+          "resolved": "external:svelte",
+          "edge": "import"
+        },
         {
           "specifier": "@sveltery/utils/addEventListener",
           "kind": "runtime",
@@ -2617,18 +2627,6 @@
           "edge": "import"
         },
         {
-          "specifier": "@sveltery/utils/useIsoLayoutEffect",
-          "kind": "runtime",
-          "symbols": [
-            {
-              "imported": "useIsoLayoutEffect",
-              "typeOnly": false
-            }
-          ],
-          "resolved": "packages/utils/src/lib/useIsoLayoutEffect.svelte.ts",
-          "edge": "import"
-        },
-        {
           "specifier": "@sveltery/utils/owner",
           "kind": "runtime",
           "symbols": [
@@ -2641,23 +2639,11 @@
           "edge": "import"
         },
         {
-          "specifier": "@sveltery/utils/useStableCallback",
-          "kind": "runtime",
-          "symbols": [
-            {
-              "imported": "useStableCallback",
-              "typeOnly": false
-            }
-          ],
-          "resolved": "packages/utils/src/lib/useStableCallback.ts",
-          "edge": "import"
-        },
-        {
           "specifier": "@sveltery/utils/useTimeout",
           "kind": "runtime",
           "symbols": [
             {
-              "imported": "useTimeout",
+              "imported": "Timeout",
               "typeOnly": false
             }
           ],
@@ -2812,7 +2798,7 @@
     },
     {
       "source": "packages/base/src/lib/floating-ui/hooks/useHoverInteractionSharedState.svelte.ts",
-      "sha256": "f28f355a066aef6b731d3c427794b2c63c3c8a4f52870ac1deb4364245e5c8be",
+      "sha256": "894478a3a44f74f94e416fc6aa6060af0625f0d67d80dbf59c10975916b842a3",
       "reachability": "runtime",
       "imports": [
         {
@@ -2820,35 +2806,15 @@
           "kind": "runtime",
           "symbols": [
             {
+              "imported": "onMount",
+              "typeOnly": false
+            },
+            {
               "imported": "untrack",
               "typeOnly": false
             }
           ],
           "resolved": "external:svelte",
-          "edge": "import"
-        },
-        {
-          "specifier": "@sveltery/utils/useOnMount",
-          "kind": "runtime",
-          "symbols": [
-            {
-              "imported": "useOnMount",
-              "typeOnly": false
-            }
-          ],
-          "resolved": "packages/utils/src/lib/useOnMount.ts",
-          "edge": "import"
-        },
-        {
-          "specifier": "@sveltery/utils/useRefWithInit",
-          "kind": "runtime",
-          "symbols": [
-            {
-              "imported": "useRefWithInit",
-              "typeOnly": false
-            }
-          ],
-          "resolved": "packages/utils/src/lib/useRefWithInit.ts",
           "edge": "import"
         },
         {
@@ -2899,7 +2865,7 @@
     },
     {
       "source": "packages/base/src/lib/floating-ui/hooks/useHoverReferenceInteraction.svelte.ts",
-      "sha256": "c075d83fb11a4ab97ad395e10aedb39fd21f5875878638b86f87c2262f7afbeb",
+      "sha256": "bd55a3a32c7465648d0a0640aae445b27f4faab8b08946e646e42459e176a060",
       "reachability": "runtime",
       "imports": [
         {
@@ -2912,18 +2878,6 @@
             }
           ],
           "resolved": "external:svelte",
-          "edge": "import"
-        },
-        {
-          "specifier": "@sveltery/utils/useIsoLayoutEffect",
-          "kind": "runtime",
-          "symbols": [
-            {
-              "imported": "useIsoLayoutEffect",
-              "typeOnly": false
-            }
-          ],
-          "resolved": "packages/utils/src/lib/useIsoLayoutEffect.svelte.ts",
           "edge": "import"
         },
         {
@@ -2960,18 +2914,6 @@
             }
           ],
           "resolved": "packages/utils/src/lib/owner.ts",
-          "edge": "import"
-        },
-        {
-          "specifier": "@sveltery/utils/useStableCallback",
-          "kind": "runtime",
-          "symbols": [
-            {
-              "imported": "useStableCallback",
-              "typeOnly": false
-            }
-          ],
-          "resolved": "packages/utils/src/lib/useStableCallback.ts",
           "edge": "import"
         },
         {
@@ -3230,7 +3172,7 @@
     },
     {
       "source": "packages/base/src/lib/floating-ui/hooks/useListNavigation.svelte.ts",
-      "sha256": "9ce148ab0ed7480b29d93c7c59e1da24710cbf4502caffad1553d1a805caedf8",
+      "sha256": "a35b727cdf040c483d4b6375bd9ace15a755619504a8a75ab5b7bb5f3abdf4d5",
       "reachability": "runtime",
       "imports": [
         {
@@ -3250,6 +3192,10 @@
           "kind": "runtime",
           "symbols": [
             {
+              "imported": "onDestroy",
+              "typeOnly": false
+            },
+            {
               "imported": "untrack",
               "typeOnly": false
             }
@@ -3262,23 +3208,11 @@
           "kind": "runtime",
           "symbols": [
             {
-              "imported": "useAnimationFrame",
+              "imported": "AnimationFrame",
               "typeOnly": false
             }
           ],
           "resolved": "packages/utils/src/lib/useAnimationFrame.ts",
-          "edge": "import"
-        },
-        {
-          "specifier": "@sveltery/utils/useIsoLayoutEffect",
-          "kind": "runtime",
-          "symbols": [
-            {
-              "imported": "useIsoLayoutEffect",
-              "typeOnly": false
-            }
-          ],
-          "resolved": "packages/utils/src/lib/useIsoLayoutEffect.svelte.ts",
           "edge": "import"
         },
         {
@@ -3291,18 +3225,6 @@
             }
           ],
           "resolved": "packages/utils/src/lib/owner.ts",
-          "edge": "import"
-        },
-        {
-          "specifier": "@sveltery/utils/useStableCallback",
-          "kind": "runtime",
-          "symbols": [
-            {
-              "imported": "useStableCallback",
-              "typeOnly": false
-            }
-          ],
-          "resolved": "packages/utils/src/lib/useStableCallback.ts",
           "edge": "import"
         },
         {
@@ -3525,7 +3447,7 @@
     },
     {
       "source": "packages/base/src/lib/floating-ui/hooks/useSyncedFloatingRootContext.svelte.ts",
-      "sha256": "e0478293396446e37dc6604366a3b1ba79c617068157a634f1cc6b696dca0839",
+      "sha256": "aa1374702cc5d76d0380c6b4080ffc10f2b22b496ecbfed24b97e70636669916",
       "reachability": "runtime",
       "imports": [
         {
@@ -3550,18 +3472,6 @@
             }
           ],
           "resolved": "external:@floating-ui/utils/dom",
-          "edge": "import"
-        },
-        {
-          "specifier": "@sveltery/utils/useIsoLayoutEffect",
-          "kind": "runtime",
-          "symbols": [
-            {
-              "imported": "useIsoLayoutEffect",
-              "typeOnly": false
-            }
-          ],
-          "resolved": "packages/utils/src/lib/useIsoLayoutEffect.svelte.ts",
           "edge": "import"
         },
         {
@@ -3612,13 +3522,17 @@
     },
     {
       "source": "packages/base/src/lib/floating-ui/hooks/useTypeahead.svelte.ts",
-      "sha256": "4da1312cdd307b35cbb380ac98e4d835b5de67e910eac1b8e50387e73bf8c80d",
+      "sha256": "740573664ed8d416194faebacbabd07597d97a2e50777d45ab77e45c3fe23727",
       "reachability": "runtime",
       "imports": [
         {
           "specifier": "svelte",
           "kind": "runtime",
           "symbols": [
+            {
+              "imported": "onDestroy",
+              "typeOnly": false
+            },
             {
               "imported": "untrack",
               "typeOnly": false
@@ -3628,35 +3542,11 @@
           "edge": "import"
         },
         {
-          "specifier": "@sveltery/utils/useIsoLayoutEffect",
-          "kind": "runtime",
-          "symbols": [
-            {
-              "imported": "useIsoLayoutEffect",
-              "typeOnly": false
-            }
-          ],
-          "resolved": "packages/utils/src/lib/useIsoLayoutEffect.svelte.ts",
-          "edge": "import"
-        },
-        {
-          "specifier": "@sveltery/utils/useStableCallback",
-          "kind": "runtime",
-          "symbols": [
-            {
-              "imported": "useStableCallback",
-              "typeOnly": false
-            }
-          ],
-          "resolved": "packages/utils/src/lib/useStableCallback.ts",
-          "edge": "import"
-        },
-        {
           "specifier": "@sveltery/utils/useTimeout",
           "kind": "runtime",
           "symbols": [
             {
-              "imported": "useTimeout",
+              "imported": "Timeout",
               "typeOnly": false
             }
           ],
@@ -4830,16 +4720,40 @@
     },
     {
       "source": "packages/base/src/lib/internals/composite/item/CompositeItem.svelte",
-      "sha256": "cc6fb52a0a0c161bf52b52701739de6a3d6cf2df61d1e0862fb7980cc6e3d8f2",
+      "sha256": "23e78d87cbeb13db6e655c95b20f57d4dd19dfd16a91af90d73d954100be7797",
       "reachability": "runtime",
       "imports": [
+        {
+          "specifier": "../../mergeComponentProps.js",
+          "kind": "runtime",
+          "symbols": [
+            {
+              "imported": "mergeComponentProps",
+              "typeOnly": false
+            }
+          ],
+          "resolved": "packages/base/src/lib/internals/mergeComponentProps.ts",
+          "edge": "import"
+        },
+        {
+          "specifier": "svelte/attachments",
+          "kind": "runtime",
+          "symbols": [
+            {
+              "imported": "createAttachmentKey",
+              "typeOnly": false
+            }
+          ],
+          "resolved": "external:svelte/attachments",
+          "edge": "import"
+        },
         {
           "specifier": "svelte",
           "kind": "type",
           "symbols": [
             {
               "imported": "Snippet",
-              "typeOnly": false
+              "typeOnly": true
             }
           ],
           "resolved": "external:svelte",
@@ -4862,18 +4776,6 @@
           "edge": "import"
         },
         {
-          "specifier": "@sveltery/utils/useMergedRefs",
-          "kind": "type",
-          "symbols": [
-            {
-              "imported": "MergedRef",
-              "typeOnly": false
-            }
-          ],
-          "resolved": "packages/utils/src/lib/useMergedRefs.ts",
-          "edge": "import"
-        },
-        {
           "specifier": "../../getStateAttributesProps.js",
           "kind": "type",
           "symbols": [
@@ -4883,15 +4785,6 @@
             }
           ],
           "resolved": "packages/base/src/lib/internals/getStateAttributesProps.ts",
-          "edge": "import"
-        },
-        {
-          "specifier": "../../RenderElement.svelte",
-          "kind": "runtime",
-          "symbols": [
-            "*"
-          ],
-          "resolved": "packages/base/src/lib/internals/RenderElement.svelte",
           "edge": "import"
         },
         {
@@ -4910,19 +4803,19 @@
     },
     {
       "source": "packages/base/src/lib/internals/composite/item/useCompositeItem.svelte.ts",
-      "sha256": "f4373372837e7254fa6a53bbe6cb3ed2d3a9a2780ee5efe8e10154bedfdaef86",
+      "sha256": "d90708b23dde83c4381ea1085767ec30135307525c1ea9e5422e9879a522daad",
       "reachability": "runtime",
       "imports": [
         {
-          "specifier": "@sveltery/utils/useMergedRefs",
+          "specifier": "svelte/attachments",
           "kind": "runtime",
           "symbols": [
             {
-              "imported": "createMergedRefs",
+              "imported": "createAttachmentKey",
               "typeOnly": false
             }
           ],
-          "resolved": "packages/utils/src/lib/useMergedRefs.ts",
+          "resolved": "external:svelte/attachments",
           "edge": "import"
         },
         {
@@ -5035,7 +4928,7 @@
     },
     {
       "source": "packages/base/src/lib/internals/composite/list/useCompositeListItem.svelte.ts",
-      "sha256": "24439ae0169b37dcf90a711cd756bb019b37426b765b7cdd002b42a172d451d5",
+      "sha256": "94d353c7d884b35bd002a9278a7701e7b1e835d536b8eb8a94f2a56d7fa72841",
       "reachability": "runtime",
       "imports": [
         {
@@ -5048,18 +4941,6 @@
             }
           ],
           "resolved": "external:svelte",
-          "edge": "import"
-        },
-        {
-          "specifier": "@sveltery/utils/useIsoLayoutEffect",
-          "kind": "runtime",
-          "symbols": [
-            {
-              "imported": "useIsoLayoutEffect",
-              "typeOnly": false
-            }
-          ],
-          "resolved": "packages/utils/src/lib/useIsoLayoutEffect.svelte.ts",
           "edge": "import"
         },
         {
@@ -5078,16 +4959,40 @@
     },
     {
       "source": "packages/base/src/lib/internals/composite/root/CompositeRoot.svelte",
-      "sha256": "aa0ec1d30f45ec09215f705a363585c5811124b6a8de1d030057cbcf43de0f6e",
+      "sha256": "29241d2982ea752a27d65c8c15cc9e3675efd2cfbc0917a4b112c5179c7d2e4e",
       "reachability": "runtime",
       "imports": [
+        {
+          "specifier": "../../mergeComponentProps.js",
+          "kind": "runtime",
+          "symbols": [
+            {
+              "imported": "mergeComponentProps",
+              "typeOnly": false
+            }
+          ],
+          "resolved": "packages/base/src/lib/internals/mergeComponentProps.ts",
+          "edge": "import"
+        },
+        {
+          "specifier": "svelte/attachments",
+          "kind": "runtime",
+          "symbols": [
+            {
+              "imported": "createAttachmentKey",
+              "typeOnly": false
+            }
+          ],
+          "resolved": "external:svelte/attachments",
+          "edge": "import"
+        },
         {
           "specifier": "svelte",
           "kind": "type",
           "symbols": [
             {
               "imported": "Snippet",
-              "typeOnly": false
+              "typeOnly": true
             }
           ],
           "resolved": "external:svelte",
@@ -5110,18 +5015,6 @@
           "edge": "import"
         },
         {
-          "specifier": "@sveltery/utils/useMergedRefs",
-          "kind": "type",
-          "symbols": [
-            {
-              "imported": "MergedRef",
-              "typeOnly": false
-            }
-          ],
-          "resolved": "packages/utils/src/lib/useMergedRefs.ts",
-          "edge": "import"
-        },
-        {
           "specifier": "../../getStateAttributesProps.js",
           "kind": "type",
           "symbols": [
@@ -5131,15 +5024,6 @@
             }
           ],
           "resolved": "packages/base/src/lib/internals/getStateAttributesProps.ts",
-          "edge": "import"
-        },
-        {
-          "specifier": "../../RenderElement.svelte",
-          "kind": "runtime",
-          "symbols": [
-            "*"
-          ],
-          "resolved": "packages/base/src/lib/internals/RenderElement.svelte",
           "edge": "import"
         },
         {
@@ -5288,21 +5172,9 @@
     },
     {
       "source": "packages/base/src/lib/internals/composite/root/useCompositeRoot.svelte.ts",
-      "sha256": "de5c954f8c1b4fea9d8ae87eed7df97baa4d834f23d32037887c4de619adc46b",
+      "sha256": "bdd6ced8bc2a28c77a2572b6b54eab7ad09ee111ddf2bcdbe777686f947c39b6",
       "reachability": "runtime",
       "imports": [
-        {
-          "specifier": "@sveltery/utils/useStableCallback",
-          "kind": "runtime",
-          "symbols": [
-            {
-              "imported": "useStableCallback",
-              "typeOnly": false
-            }
-          ],
-          "resolved": "packages/utils/src/lib/useStableCallback.ts",
-          "edge": "import"
-        },
         {
           "specifier": "@sveltery/utils/isElementDisabled",
           "kind": "runtime",
@@ -5316,19 +5188,27 @@
           "edge": "import"
         },
         {
-          "specifier": "@sveltery/utils/useMergedRefs",
+          "specifier": "svelte/attachments",
           "kind": "runtime",
           "symbols": [
             {
-              "imported": "createMergedRefs",
+              "imported": "createAttachmentKey",
               "typeOnly": false
-            },
-            {
-              "imported": "MergedRef",
-              "typeOnly": true
             }
           ],
-          "resolved": "packages/utils/src/lib/useMergedRefs.ts",
+          "resolved": "external:svelte/attachments",
+          "edge": "import"
+        },
+        {
+          "specifier": "svelte",
+          "kind": "runtime",
+          "symbols": [
+            {
+              "imported": "untrack",
+              "typeOnly": false
+            }
+          ],
+          "resolved": "external:svelte",
           "edge": "import"
         },
         {
@@ -5619,8 +5499,123 @@
       "imports": []
     },
     {
+      "source": "packages/base/src/lib/internals/mergeComponentProps.ts",
+      "sha256": "803da5cb2c52515e1e68e16b66b61060c31ca03d183bb09d928b601bbb70cab7",
+      "reachability": "runtime",
+      "imports": [
+        {
+          "specifier": "@sveltery/utils/mergeObjects",
+          "kind": "runtime",
+          "symbols": [
+            {
+              "imported": "mergeObjects",
+              "typeOnly": false
+            }
+          ],
+          "resolved": "packages/utils/src/lib/mergeObjects.ts",
+          "edge": "import"
+        },
+        {
+          "specifier": "../merge-props/index.js",
+          "kind": "runtime",
+          "symbols": [
+            {
+              "imported": "mergeProps",
+              "typeOnly": false
+            },
+            {
+              "imported": "mergePropsN",
+              "typeOnly": false
+            },
+            {
+              "imported": "mergeClassNames",
+              "typeOnly": false
+            }
+          ],
+          "resolved": "packages/base/src/lib/merge-props/index.ts",
+          "edge": "import"
+        },
+        {
+          "specifier": "./getStateAttributesProps.js",
+          "kind": "runtime",
+          "symbols": [
+            {
+              "imported": "getStateAttributesProps",
+              "typeOnly": false
+            },
+            {
+              "imported": "StateAttributesMapping",
+              "typeOnly": true
+            }
+          ],
+          "resolved": "packages/base/src/lib/internals/getStateAttributesProps.ts",
+          "edge": "import"
+        },
+        {
+          "specifier": "../utils/resolveClassName.js",
+          "kind": "runtime",
+          "symbols": [
+            {
+              "imported": "resolveClassName",
+              "typeOnly": false
+            }
+          ],
+          "resolved": "packages/base/src/lib/utils/resolveClassName.ts",
+          "edge": "import"
+        },
+        {
+          "specifier": "../utils/resolveStyle.js",
+          "kind": "runtime",
+          "symbols": [
+            {
+              "imported": "resolveStyle",
+              "typeOnly": false
+            }
+          ],
+          "resolved": "packages/base/src/lib/utils/resolveStyle.ts",
+          "edge": "import"
+        },
+        {
+          "specifier": "./nativeProps.js",
+          "kind": "runtime",
+          "symbols": [
+            {
+              "imported": "mergeNativeStyles",
+              "typeOnly": false
+            },
+            {
+              "imported": "toNativeClass",
+              "typeOnly": false
+            },
+            {
+              "imported": "toNativeStyle",
+              "typeOnly": false
+            }
+          ],
+          "resolved": "packages/base/src/lib/internals/nativeProps.ts",
+          "edge": "import"
+        },
+        {
+          "specifier": "./types.js",
+          "kind": "type",
+          "symbols": [
+            {
+              "imported": "BaseUIComponentProps",
+              "typeOnly": false
+            },
+            {
+              "imported": "HTMLProps",
+              "typeOnly": false
+            }
+          ],
+          "resolved": "packages/base/src/lib/internals/types.ts",
+          "edge": "import"
+        }
+      ]
+    },
+    {
       "source": "packages/base/src/lib/internals/nativeProps.ts",
-      "sha256": "4c1f8df953df631d3b410b9a12e48e156ad90bcd5fef6feaec97a4426068ec29",
+      "sha256": "653fb2f684da7987d8c51b2384cbf5e8839c30a620a7b790f451bbeb87479cab",
       "reachability": "runtime",
       "imports": [
         {
@@ -5662,37 +5657,6 @@
       ]
     },
     {
-      "source": "packages/base/src/lib/internals/nativeRefAttachment.ts",
-      "sha256": "ab007711c5ea5bd558b06a704c5f06c2c37e46ff52b547c01c14e119116402d9",
-      "reachability": "runtime",
-      "imports": [
-        {
-          "specifier": "svelte",
-          "kind": "runtime",
-          "symbols": [
-            {
-              "imported": "untrack",
-              "typeOnly": false
-            }
-          ],
-          "resolved": "external:svelte",
-          "edge": "import"
-        },
-        {
-          "specifier": "@sveltery/utils/useMergedRefs",
-          "kind": "type",
-          "symbols": [
-            {
-              "imported": "MergedRefCallback",
-              "typeOnly": false
-            }
-          ],
-          "resolved": "packages/utils/src/lib/useMergedRefs.ts",
-          "edge": "import"
-        }
-      ]
-    },
-    {
       "source": "packages/base/src/lib/internals/reason-parts.ts",
       "sha256": "0326d21ce4be2c41b5488c86e3687249faf3c51f5e10ae49c16e8efdc183abf5",
       "reachability": "runtime",
@@ -5710,109 +5674,6 @@
             "*"
           ],
           "resolved": "packages/base/src/lib/internals/reason-parts.ts",
-          "edge": "import"
-        }
-      ]
-    },
-    {
-      "source": "packages/base/src/lib/internals/RenderElement.svelte",
-      "sha256": "7468c314806abe0b4ed1fc2dd95d3a2defd6e86a9021012ced3f0154d0028daa",
-      "reachability": "runtime",
-      "imports": [
-        {
-          "specifier": "svelte",
-          "kind": "runtime",
-          "symbols": [
-            {
-              "imported": "untrack",
-              "typeOnly": false
-            },
-            {
-              "imported": "Snippet",
-              "typeOnly": true
-            }
-          ],
-          "resolved": "external:svelte",
-          "edge": "import"
-        },
-        {
-          "specifier": "svelte/attachments",
-          "kind": "runtime",
-          "symbols": [
-            {
-              "imported": "createAttachmentKey",
-              "typeOnly": false
-            }
-          ],
-          "resolved": "external:svelte/attachments",
-          "edge": "import"
-        },
-        {
-          "specifier": "esm-env",
-          "kind": "runtime",
-          "symbols": [
-            {
-              "imported": "BROWSER",
-              "typeOnly": false
-            }
-          ],
-          "resolved": "external:esm-env",
-          "edge": "import"
-        },
-        {
-          "specifier": "svelte/elements",
-          "kind": "type",
-          "symbols": [
-            {
-              "imported": "HTMLInputAttributes",
-              "typeOnly": false
-            }
-          ],
-          "resolved": "external:svelte/elements",
-          "edge": "import"
-        },
-        {
-          "specifier": "./useRenderElement.js",
-          "kind": "runtime",
-          "symbols": [
-            {
-              "imported": "createRenderElement",
-              "typeOnly": false
-            },
-            {
-              "imported": "UseRenderElementComponentProps",
-              "typeOnly": true
-            },
-            {
-              "imported": "UseRenderElementParameters",
-              "typeOnly": true
-            }
-          ],
-          "resolved": "packages/base/src/lib/internals/useRenderElement.ts",
-          "edge": "import"
-        },
-        {
-          "specifier": "./nativeRefAttachment.js",
-          "kind": "runtime",
-          "symbols": [
-            {
-              "imported": "createRefAttachment",
-              "typeOnly": false
-            }
-          ],
-          "resolved": "packages/base/src/lib/internals/nativeRefAttachment.ts",
-          "edge": "import"
-        },
-        {
-          "specifier": "./nativeProps.js",
-          "kind": "runtime",
-          "symbols": [
-            {
-              "imported": "toNativeStyle",
-              "typeOnly": false
-            }
-          ],
-          "resolved": "packages/base/src/lib/internals/nativeProps.ts",
           "edge": "import"
         }
       ]
@@ -5943,7 +5804,7 @@
     },
     {
       "source": "packages/base/src/lib/internals/use-button/useButton.svelte.ts",
-      "sha256": "e56dc193c3f2b1317916711b4b9f549ccfc49e60ac13cf10842c5ab5cc8be68a",
+      "sha256": "48750528371fbf08dd09478dd7fb8e2a2b9a19494bf1e779610e5b90668e16d0",
       "reachability": "runtime",
       "imports": [
         {
@@ -5959,18 +5820,6 @@
           "edge": "import"
         },
         {
-          "specifier": "@sveltery/utils/useStableCallback",
-          "kind": "runtime",
-          "symbols": [
-            {
-              "imported": "useStableCallback",
-              "typeOnly": false
-            }
-          ],
-          "resolved": "packages/utils/src/lib/useStableCallback.ts",
-          "edge": "import"
-        },
-        {
           "specifier": "@sveltery/utils/error",
           "kind": "runtime",
           "symbols": [
@@ -5980,18 +5829,6 @@
             }
           ],
           "resolved": "packages/utils/src/lib/error.ts",
-          "edge": "import"
-        },
-        {
-          "specifier": "@sveltery/utils/useIsoLayoutEffect",
-          "kind": "runtime",
-          "symbols": [
-            {
-              "imported": "useIsoLayoutEffect",
-              "typeOnly": false
-            }
-          ],
-          "resolved": "packages/utils/src/lib/useIsoLayoutEffect.svelte.ts",
           "edge": "import"
         },
         {
@@ -6066,7 +5903,7 @@
     },
     {
       "source": "packages/base/src/lib/internals/useAnimationsFinished.ts",
-      "sha256": "31222cee2d8d0e15af4b6c9e7bb4fdc5293942b3ab1e2d4a651d84a63b5e5c26",
+      "sha256": "7abe48ef841cdfa7bf60b29045e9f0ffb7dbfb715b34351e8f6716131b2678f8",
       "reachability": "runtime",
       "imports": [
         {
@@ -6074,7 +5911,15 @@
           "kind": "runtime",
           "symbols": [
             {
+              "imported": "onDestroy",
+              "typeOnly": false
+            },
+            {
               "imported": "flushSync",
+              "typeOnly": false
+            },
+            {
+              "imported": "untrack",
               "typeOnly": false
             }
           ],
@@ -6086,23 +5931,11 @@
           "kind": "runtime",
           "symbols": [
             {
-              "imported": "useAnimationFrame",
+              "imported": "AnimationFrame",
               "typeOnly": false
             }
           ],
           "resolved": "packages/utils/src/lib/useAnimationFrame.ts",
-          "edge": "import"
-        },
-        {
-          "specifier": "@sveltery/utils/useStableCallback",
-          "kind": "runtime",
-          "symbols": [
-            {
-              "imported": "useStableCallback",
-              "typeOnly": false
-            }
-          ],
-          "resolved": "packages/utils/src/lib/useStableCallback.ts",
           "edge": "import"
         },
         {
@@ -6149,33 +5982,9 @@
     },
     {
       "source": "packages/base/src/lib/internals/useOpenChangeComplete.svelte.ts",
-      "sha256": "f2de05237ca0eb539c18480d9245c10c4cbc6064ac24615e57e8d229ae5f2538",
+      "sha256": "b6174d1cc73b6ea3b6431cf87906a1acacc40b1d5c356a31124f92251d7fd038",
       "reachability": "runtime",
       "imports": [
-        {
-          "specifier": "@sveltery/utils/useStableCallback",
-          "kind": "runtime",
-          "symbols": [
-            {
-              "imported": "useStableCallback",
-              "typeOnly": false
-            }
-          ],
-          "resolved": "packages/utils/src/lib/useStableCallback.ts",
-          "edge": "import"
-        },
-        {
-          "specifier": "@sveltery/utils/useIsoLayoutEffect",
-          "kind": "runtime",
-          "symbols": [
-            {
-              "imported": "useIsoLayoutEffect",
-              "typeOnly": false
-            }
-          ],
-          "resolved": "packages/utils/src/lib/useIsoLayoutEffect.svelte.ts",
-          "edge": "import"
-        },
         {
           "specifier": "./useAnimationsFinished.js",
           "kind": "runtime",
@@ -6191,167 +6000,8 @@
       ]
     },
     {
-      "source": "packages/base/src/lib/internals/useRenderElement.ts",
-      "sha256": "851c5b39cef485c29b87f7f006daa9763dc3a131ac45c6c6f72d9b4b978ca617",
-      "reachability": "runtime",
-      "imports": [
-        {
-          "specifier": "@sveltery/utils/useMergedRefs",
-          "kind": "runtime",
-          "symbols": [
-            {
-              "imported": "createMergedRefs",
-              "typeOnly": false
-            },
-            {
-              "imported": "MergedRef",
-              "typeOnly": true
-            },
-            {
-              "imported": "MergedRefCallback",
-              "typeOnly": true
-            }
-          ],
-          "resolved": "packages/utils/src/lib/useMergedRefs.ts",
-          "edge": "import"
-        },
-        {
-          "specifier": "@sveltery/utils/mergeObjects",
-          "kind": "runtime",
-          "symbols": [
-            {
-              "imported": "mergeObjects",
-              "typeOnly": false
-            }
-          ],
-          "resolved": "packages/utils/src/lib/mergeObjects.ts",
-          "edge": "import"
-        },
-        {
-          "specifier": "@sveltery/utils/empty",
-          "kind": "runtime",
-          "symbols": [
-            {
-              "imported": "EMPTY_OBJECT",
-              "typeOnly": false
-            }
-          ],
-          "resolved": "packages/utils/src/lib/empty.ts",
-          "edge": "import"
-        },
-        {
-          "specifier": "./getStateAttributesProps.js",
-          "kind": "runtime",
-          "symbols": [
-            {
-              "imported": "getStateAttributesProps",
-              "typeOnly": false
-            },
-            {
-              "imported": "StateAttributesMapping",
-              "typeOnly": true
-            }
-          ],
-          "resolved": "packages/base/src/lib/internals/getStateAttributesProps.ts",
-          "edge": "import"
-        },
-        {
-          "specifier": "../utils/resolveClassName.js",
-          "kind": "runtime",
-          "symbols": [
-            {
-              "imported": "resolveClassName",
-              "typeOnly": false
-            }
-          ],
-          "resolved": "packages/base/src/lib/utils/resolveClassName.ts",
-          "edge": "import"
-        },
-        {
-          "specifier": "../utils/resolveStyle.js",
-          "kind": "runtime",
-          "symbols": [
-            {
-              "imported": "resolveStyle",
-              "typeOnly": false
-            }
-          ],
-          "resolved": "packages/base/src/lib/utils/resolveStyle.ts",
-          "edge": "import"
-        },
-        {
-          "specifier": "../merge-props/index.js",
-          "kind": "runtime",
-          "symbols": [
-            {
-              "imported": "mergeProps",
-              "typeOnly": false
-            },
-            {
-              "imported": "mergePropsN",
-              "typeOnly": false
-            },
-            {
-              "imported": "mergeClassNames",
-              "typeOnly": false
-            }
-          ],
-          "resolved": "packages/base/src/lib/merge-props/index.ts",
-          "edge": "import"
-        },
-        {
-          "specifier": "./nativeProps.js",
-          "kind": "runtime",
-          "symbols": [
-            {
-              "imported": "mergeNativeStyles",
-              "typeOnly": false
-            },
-            {
-              "imported": "toNativeClass",
-              "typeOnly": false
-            }
-          ],
-          "resolved": "packages/base/src/lib/internals/nativeProps.ts",
-          "edge": "import"
-        },
-        {
-          "specifier": "./nativeRefAttachment.js",
-          "kind": "runtime",
-          "symbols": [
-            {
-              "imported": "isNativeRefAttachment",
-              "typeOnly": false
-            }
-          ],
-          "resolved": "packages/base/src/lib/internals/nativeRefAttachment.ts",
-          "edge": "import"
-        },
-        {
-          "specifier": "./types.js",
-          "kind": "type",
-          "symbols": [
-            {
-              "imported": "BaseUIComponentProps",
-              "typeOnly": false
-            },
-            {
-              "imported": "ComponentRenderFn",
-              "typeOnly": false
-            },
-            {
-              "imported": "HTMLProps",
-              "typeOnly": false
-            }
-          ],
-          "resolved": "packages/base/src/lib/internals/types.ts",
-          "edge": "import"
-        }
-      ]
-    },
-    {
       "source": "packages/base/src/lib/internals/useTransitionStatus.svelte.ts",
-      "sha256": "e7b8958ce0c77110534a4179e0a8d3fdc35276021b9bf87d47d7addccc10c0ab",
+      "sha256": "7fc531ccff0a7dfd77703c0f0ee7e1148fc080960682469eafffbc627056fa9e",
       "reachability": "runtime",
       "imports": [
         {
@@ -6364,18 +6014,6 @@
             }
           ],
           "resolved": "external:svelte",
-          "edge": "import"
-        },
-        {
-          "specifier": "@sveltery/utils/useIsoLayoutEffect",
-          "kind": "runtime",
-          "symbols": [
-            {
-              "imported": "useIsoLayoutEffect",
-              "typeOnly": false
-            }
-          ],
-          "resolved": "packages/utils/src/lib/useIsoLayoutEffect.svelte.ts",
           "edge": "import"
         },
         {
@@ -6393,8 +6031,8 @@
       ]
     },
     {
-      "source": "packages/base/src/lib/internals/useValueChanged.svelte.ts",
-      "sha256": "60f5b1675968fbdfd54c892217932b3d0592b1fa41f0cbcd5c03b097b84ee66a",
+      "source": "packages/base/src/lib/internals/ValueChanged.svelte.ts",
+      "sha256": "f169e9eec98d817327dd31fc0c39c019173cdb64fac3350b898004222107e54e",
       "reachability": "runtime",
       "imports": [
         {
@@ -6408,57 +6046,48 @@
           ],
           "resolved": "external:svelte",
           "edge": "import"
-        },
-        {
-          "specifier": "@sveltery/utils/useIsoLayoutEffect",
-          "kind": "runtime",
-          "symbols": [
-            {
-              "imported": "useIsoLayoutEffect",
-              "typeOnly": false
-            }
-          ],
-          "resolved": "packages/utils/src/lib/useIsoLayoutEffect.svelte.ts",
-          "edge": "import"
-        },
-        {
-          "specifier": "@sveltery/utils/useStableCallback",
-          "kind": "runtime",
-          "symbols": [
-            {
-              "imported": "useStableCallback",
-              "typeOnly": false
-            }
-          ],
-          "resolved": "packages/utils/src/lib/useStableCallback.ts",
-          "edge": "import"
-        },
-        {
-          "specifier": "@sveltery/utils/useRefWithInit",
-          "kind": "runtime",
-          "symbols": [
-            {
-              "imported": "useRefWithInit",
-              "typeOnly": false
-            }
-          ],
-          "resolved": "packages/utils/src/lib/useRefWithInit.ts",
-          "edge": "import"
         }
       ]
     },
     {
       "source": "packages/base/src/lib/menu/Arrow.svelte",
-      "sha256": "edae8fbefe54d4ac260b9bc7bf801ef07ce6b8a1d1a7177cf5db172bf87e864e",
+      "sha256": "09bf8d81d36cdc6e61f71fb3700e16acfcdddd8a46e17dc936997fe06840050f",
       "reachability": "runtime",
       "imports": [
         {
-          "specifier": "../internals/RenderElement.svelte",
+          "specifier": "../internals/mergeComponentProps.js",
           "kind": "runtime",
           "symbols": [
-            "*"
+            {
+              "imported": "mergeComponentProps",
+              "typeOnly": false
+            }
           ],
-          "resolved": "packages/base/src/lib/internals/RenderElement.svelte",
+          "resolved": "packages/base/src/lib/internals/mergeComponentProps.ts",
+          "edge": "import"
+        },
+        {
+          "specifier": "svelte/attachments",
+          "kind": "runtime",
+          "symbols": [
+            {
+              "imported": "createAttachmentKey",
+              "typeOnly": false
+            }
+          ],
+          "resolved": "external:svelte/attachments",
+          "edge": "import"
+        },
+        {
+          "specifier": "svelte",
+          "kind": "runtime",
+          "symbols": [
+            {
+              "imported": "untrack",
+              "typeOnly": false
+            }
+          ],
+          "resolved": "external:svelte",
           "edge": "import"
         },
         {
@@ -6513,16 +6142,43 @@
     },
     {
       "source": "packages/base/src/lib/menu/Backdrop.svelte",
-      "sha256": "25d4eff5ac03e8bd22082c8567a2d5cefd30756f163f6e4a823e20fbd08b97f0",
+      "sha256": "62f8e4e3f20a59d5bf839e0bf30debf4568f100d17049acbb8fb241227c9ac9a",
       "reachability": "runtime",
       "imports": [
         {
-          "specifier": "../internals/RenderElement.svelte",
+          "specifier": "../internals/mergeComponentProps.js",
           "kind": "runtime",
           "symbols": [
-            "*"
+            {
+              "imported": "mergeComponentProps",
+              "typeOnly": false
+            }
           ],
-          "resolved": "packages/base/src/lib/internals/RenderElement.svelte",
+          "resolved": "packages/base/src/lib/internals/mergeComponentProps.ts",
+          "edge": "import"
+        },
+        {
+          "specifier": "svelte/attachments",
+          "kind": "runtime",
+          "symbols": [
+            {
+              "imported": "createAttachmentKey",
+              "typeOnly": false
+            }
+          ],
+          "resolved": "external:svelte/attachments",
+          "edge": "import"
+        },
+        {
+          "specifier": "svelte",
+          "kind": "runtime",
+          "symbols": [
+            {
+              "imported": "untrack",
+              "typeOnly": false
+            }
+          ],
+          "resolved": "external:svelte",
           "edge": "import"
         },
         {
@@ -6618,28 +6274,55 @@
     },
     {
       "source": "packages/base/src/lib/menu/CheckboxItem.svelte",
-      "sha256": "d4de6d82e08e4b595646e00197a50595a2e13445fb1e5fb5bd23df658ce26120",
+      "sha256": "3db96f6be4c7fe6cc2da6a5db1a2581c0175c0461a2e35a22e1aea78e58d4cfe",
       "reachability": "runtime",
       "imports": [
         {
-          "specifier": "../internals/RenderElement.svelte",
-          "kind": "runtime",
-          "symbols": [
-            "*"
-          ],
-          "resolved": "packages/base/src/lib/internals/RenderElement.svelte",
-          "edge": "import"
-        },
-        {
-          "specifier": "@sveltery/utils/useControlled",
+          "specifier": "../internals/mergeComponentProps.js",
           "kind": "runtime",
           "symbols": [
             {
-              "imported": "useControlled",
+              "imported": "mergeComponentProps",
               "typeOnly": false
             }
           ],
-          "resolved": "packages/utils/src/lib/useControlled.svelte.ts",
+          "resolved": "packages/base/src/lib/internals/mergeComponentProps.ts",
+          "edge": "import"
+        },
+        {
+          "specifier": "svelte/attachments",
+          "kind": "runtime",
+          "symbols": [
+            {
+              "imported": "createAttachmentKey",
+              "typeOnly": false
+            }
+          ],
+          "resolved": "external:svelte/attachments",
+          "edge": "import"
+        },
+        {
+          "specifier": "svelte",
+          "kind": "runtime",
+          "symbols": [
+            {
+              "imported": "untrack",
+              "typeOnly": false
+            }
+          ],
+          "resolved": "external:svelte",
+          "edge": "import"
+        },
+        {
+          "specifier": "@sveltery/utils/Controlled",
+          "kind": "runtime",
+          "symbols": [
+            {
+              "imported": "Controlled",
+              "typeOnly": false
+            }
+          ],
+          "resolved": "packages/utils/src/lib/Controlled.svelte.ts",
           "edge": "import"
         },
         {
@@ -6782,16 +6465,43 @@
     },
     {
       "source": "packages/base/src/lib/menu/CheckboxItemIndicator.svelte",
-      "sha256": "d81d77bf98ca44d083a56daf1445b33c4162ba2b32a73bbe2eec2321ef27b119",
+      "sha256": "c4d32eb8ae825ae3283100b18d45cd8ba4d691fd33570477b434f0945d93faab",
       "reachability": "runtime",
       "imports": [
         {
-          "specifier": "../internals/RenderElement.svelte",
+          "specifier": "../internals/mergeComponentProps.js",
           "kind": "runtime",
           "symbols": [
-            "*"
+            {
+              "imported": "mergeComponentProps",
+              "typeOnly": false
+            }
           ],
-          "resolved": "packages/base/src/lib/internals/RenderElement.svelte",
+          "resolved": "packages/base/src/lib/internals/mergeComponentProps.ts",
+          "edge": "import"
+        },
+        {
+          "specifier": "svelte/attachments",
+          "kind": "runtime",
+          "symbols": [
+            {
+              "imported": "createAttachmentKey",
+              "typeOnly": false
+            }
+          ],
+          "resolved": "external:svelte/attachments",
+          "edge": "import"
+        },
+        {
+          "specifier": "svelte",
+          "kind": "runtime",
+          "symbols": [
+            {
+              "imported": "untrack",
+              "typeOnly": false
+            }
+          ],
+          "resolved": "external:svelte",
           "edge": "import"
         },
         {
@@ -6858,16 +6568,43 @@
     },
     {
       "source": "packages/base/src/lib/menu/Group.svelte",
-      "sha256": "75974a91b64123ebaaf7d261a2d0d4fc5bc387028f66281714d07089923df4d8",
+      "sha256": "89ffff8084bdd19d9fc144a34aed3540a98f5d2b65b77e6447a3cad4368cb0dd",
       "reachability": "runtime",
       "imports": [
         {
-          "specifier": "../internals/RenderElement.svelte",
+          "specifier": "../internals/mergeComponentProps.js",
           "kind": "runtime",
           "symbols": [
-            "*"
+            {
+              "imported": "mergeComponentProps",
+              "typeOnly": false
+            }
           ],
-          "resolved": "packages/base/src/lib/internals/RenderElement.svelte",
+          "resolved": "packages/base/src/lib/internals/mergeComponentProps.ts",
+          "edge": "import"
+        },
+        {
+          "specifier": "svelte/attachments",
+          "kind": "runtime",
+          "symbols": [
+            {
+              "imported": "createAttachmentKey",
+              "typeOnly": false
+            }
+          ],
+          "resolved": "external:svelte/attachments",
+          "edge": "import"
+        },
+        {
+          "specifier": "svelte",
+          "kind": "runtime",
+          "symbols": [
+            {
+              "imported": "untrack",
+              "typeOnly": false
+            }
+          ],
+          "resolved": "external:svelte",
           "edge": "import"
         },
         {
@@ -6902,7 +6639,7 @@
     },
     {
       "source": "packages/base/src/lib/menu/group/MenuGroupContext.ts",
-      "sha256": "8ea24121e4a2635503f10ba66a9bf14692d1bbe67762efedb722f250dd185141",
+      "sha256": "60e64aaa5836c50e12bd5f8d283e9abbc3ac31b472d95cc47d6faa721e35582d",
       "reachability": "runtime",
       "imports": [
         {
@@ -6920,45 +6657,48 @@
           ],
           "resolved": "external:svelte",
           "edge": "import"
-        },
-        {
-          "specifier": "@sveltery/utils/useControlled",
-          "kind": "type",
-          "symbols": [
-            {
-              "imported": "SetStateAction",
-              "typeOnly": false
-            }
-          ],
-          "resolved": "packages/utils/src/lib/useControlled.svelte.ts",
-          "edge": "import"
         }
       ]
     },
     {
       "source": "packages/base/src/lib/menu/GroupLabel.svelte",
-      "sha256": "94a19a4d5a9b7e8299101df17c33d432cc9a15507081a75b3cd17f6620c62979",
+      "sha256": "743dad85f4b3e8c9fcca29c8b24c78cba2978e63557e491410ed481fd678070f",
       "reachability": "runtime",
       "imports": [
         {
-          "specifier": "../internals/RenderElement.svelte",
-          "kind": "runtime",
-          "symbols": [
-            "*"
-          ],
-          "resolved": "packages/base/src/lib/internals/RenderElement.svelte",
-          "edge": "import"
-        },
-        {
-          "specifier": "@sveltery/utils/useIsoLayoutEffect",
+          "specifier": "../internals/mergeComponentProps.js",
           "kind": "runtime",
           "symbols": [
             {
-              "imported": "useIsoLayoutEffect",
+              "imported": "mergeComponentProps",
               "typeOnly": false
             }
           ],
-          "resolved": "packages/utils/src/lib/useIsoLayoutEffect.svelte.ts",
+          "resolved": "packages/base/src/lib/internals/mergeComponentProps.ts",
+          "edge": "import"
+        },
+        {
+          "specifier": "svelte/attachments",
+          "kind": "runtime",
+          "symbols": [
+            {
+              "imported": "createAttachmentKey",
+              "typeOnly": false
+            }
+          ],
+          "resolved": "external:svelte/attachments",
+          "edge": "import"
+        },
+        {
+          "specifier": "svelte",
+          "kind": "runtime",
+          "symbols": [
+            {
+              "imported": "untrack",
+              "typeOnly": false
+            }
+          ],
+          "resolved": "external:svelte",
           "edge": "import"
         },
         {
@@ -7856,16 +7596,43 @@
     },
     {
       "source": "packages/base/src/lib/menu/Item.svelte",
-      "sha256": "fcabd9a2f99a50c1acc3bdaa28bfe4241681f52d05b8dca47a9baf5ece2288ae",
+      "sha256": "b6e0464d3eacabbb8d3ad0b9188f9e29e7114e5c13dbc031e6d05213e77ecafb",
       "reachability": "runtime",
       "imports": [
         {
-          "specifier": "../internals/RenderElement.svelte",
+          "specifier": "../internals/mergeComponentProps.js",
           "kind": "runtime",
           "symbols": [
-            "*"
+            {
+              "imported": "mergeComponentProps",
+              "typeOnly": false
+            }
           ],
-          "resolved": "packages/base/src/lib/internals/RenderElement.svelte",
+          "resolved": "packages/base/src/lib/internals/mergeComponentProps.ts",
+          "edge": "import"
+        },
+        {
+          "specifier": "svelte/attachments",
+          "kind": "runtime",
+          "symbols": [
+            {
+              "imported": "createAttachmentKey",
+              "typeOnly": false
+            }
+          ],
+          "resolved": "external:svelte/attachments",
+          "edge": "import"
+        },
+        {
+          "specifier": "svelte",
+          "kind": "runtime",
+          "symbols": [
+            {
+              "imported": "untrack",
+              "typeOnly": false
+            }
+          ],
+          "resolved": "external:svelte",
           "edge": "import"
         },
         {
@@ -7948,21 +7715,9 @@
     },
     {
       "source": "packages/base/src/lib/menu/item/useMenuItem.svelte.ts",
-      "sha256": "0fa76528a0366a145dbc52c5723b88d01da7e9b0f57f2480dc3e798dceeae83e",
+      "sha256": "786f3673917262681cb14b31f5cc4280cb51dfa28a918c523e6adcc8b5f7b578",
       "reachability": "runtime",
       "imports": [
-        {
-          "specifier": "@sveltery/utils/useMergedRefs",
-          "kind": "runtime",
-          "symbols": [
-            {
-              "imported": "createMergedRefs",
-              "typeOnly": false
-            }
-          ],
-          "resolved": "packages/utils/src/lib/useMergedRefs.ts",
-          "edge": "import"
-        },
         {
           "specifier": "../../internals/use-button/useButton.svelte.js",
           "kind": "runtime",
@@ -8118,16 +7873,43 @@
     },
     {
       "source": "packages/base/src/lib/menu/LinkItem.svelte",
-      "sha256": "958f9d8391eaf351c8f5320fe7f4f8d73e252b43ce5f06fb26e5ae3b8542e286",
+      "sha256": "eab316a4f0d17a8fef47ebf716b18b72db44e2773509d07b4c2941f01700dafe",
       "reachability": "runtime",
       "imports": [
         {
-          "specifier": "../internals/RenderElement.svelte",
+          "specifier": "../internals/mergeComponentProps.js",
           "kind": "runtime",
           "symbols": [
-            "*"
+            {
+              "imported": "mergeComponentProps",
+              "typeOnly": false
+            }
           ],
-          "resolved": "packages/base/src/lib/internals/RenderElement.svelte",
+          "resolved": "packages/base/src/lib/internals/mergeComponentProps.ts",
+          "edge": "import"
+        },
+        {
+          "specifier": "svelte/attachments",
+          "kind": "runtime",
+          "symbols": [
+            {
+              "imported": "createAttachmentKey",
+              "typeOnly": false
+            }
+          ],
+          "resolved": "external:svelte/attachments",
+          "edge": "import"
+        },
+        {
+          "specifier": "svelte",
+          "kind": "runtime",
+          "symbols": [
+            {
+              "imported": "untrack",
+              "typeOnly": false
+            }
+          ],
+          "resolved": "external:svelte",
           "edge": "import"
         },
         {
@@ -8254,16 +8036,43 @@
     },
     {
       "source": "packages/base/src/lib/menu/Popup.svelte",
-      "sha256": "176604f6368f089e4dea9cd469c203282fe75ddb669501bbee6a442ae5e30bab",
+      "sha256": "ffe870ee1c658b8ed2d4d47e1228f75d23e51133fecc7bba738c69df45fc45c5",
       "reachability": "runtime",
       "imports": [
         {
-          "specifier": "../internals/RenderElement.svelte",
+          "specifier": "../internals/mergeComponentProps.js",
           "kind": "runtime",
           "symbols": [
-            "*"
+            {
+              "imported": "mergeComponentProps",
+              "typeOnly": false
+            }
           ],
-          "resolved": "packages/base/src/lib/internals/RenderElement.svelte",
+          "resolved": "packages/base/src/lib/internals/mergeComponentProps.ts",
+          "edge": "import"
+        },
+        {
+          "specifier": "svelte/attachments",
+          "kind": "runtime",
+          "symbols": [
+            {
+              "imported": "createAttachmentKey",
+              "typeOnly": false
+            }
+          ],
+          "resolved": "external:svelte/attachments",
+          "edge": "import"
+        },
+        {
+          "specifier": "svelte",
+          "kind": "runtime",
+          "symbols": [
+            {
+              "imported": "untrack",
+              "typeOnly": false
+            }
+          ],
+          "resolved": "external:svelte",
           "edge": "import"
         },
         {
@@ -8372,18 +8181,6 @@
           "edge": "import"
         },
         {
-          "specifier": "@sveltery/utils/useIsoLayoutEffect",
-          "kind": "runtime",
-          "symbols": [
-            {
-              "imported": "useIsoLayoutEffect",
-              "typeOnly": false
-            }
-          ],
-          "resolved": "packages/utils/src/lib/useIsoLayoutEffect.svelte.ts",
-          "edge": "import"
-        },
-        {
           "specifier": "../toolbar/root/ToolbarRootContext.js",
           "kind": "runtime",
           "symbols": [
@@ -8427,7 +8224,7 @@
     },
     {
       "source": "packages/base/src/lib/menu/Portal.svelte",
-      "sha256": "16e30ce669b1ce0621bed3f88bd6530cd859f0f2c527132b4de8f63609c029db",
+      "sha256": "24c79d4f56f3c9f36df9ef1f42bf2435585fd49e3455935b6f05675edb5b1f64",
       "reachability": "runtime",
       "imports": [
         {
@@ -8514,16 +8311,31 @@
     },
     {
       "source": "packages/base/src/lib/menu/Positioner.svelte",
-      "sha256": "b74069e1cd40990a5771de4afd98508cb3e65b7a343d5bbd057d8e3882d4f2ef",
+      "sha256": "ef00a005fba611ab6296cd9388ea5dd025ba753fcf9046b1c1d4f1e774308442",
       "reachability": "runtime",
       "imports": [
         {
-          "specifier": "../internals/RenderElement.svelte",
+          "specifier": "../internals/mergeComponentProps.js",
           "kind": "runtime",
           "symbols": [
-            "*"
+            {
+              "imported": "mergeComponentProps",
+              "typeOnly": false
+            }
           ],
-          "resolved": "packages/base/src/lib/internals/RenderElement.svelte",
+          "resolved": "packages/base/src/lib/internals/mergeComponentProps.ts",
+          "edge": "import"
+        },
+        {
+          "specifier": "svelte/attachments",
+          "kind": "runtime",
+          "symbols": [
+            {
+              "imported": "createAttachmentKey",
+              "typeOnly": false
+            }
+          ],
+          "resolved": "external:svelte/attachments",
           "edge": "import"
         },
         {
@@ -8611,13 +8423,29 @@
     },
     {
       "source": "packages/base/src/lib/menu/positioner/createMenuPositioner.svelte.ts",
-      "sha256": "341b26eb26e66848322f2c6ddb41dc1324b7c42c12c0834c14947305b09935a8",
+      "sha256": "71975122b40a64e64482a25696b6dfca6745c9c1063e3c41c305c75fbcaec5cd",
       "reachability": "runtime",
       "imports": [
+        {
+          "specifier": "svelte/attachments",
+          "kind": "runtime",
+          "symbols": [
+            {
+              "imported": "createAttachmentKey",
+              "typeOnly": false
+            }
+          ],
+          "resolved": "external:svelte/attachments",
+          "edge": "import"
+        },
         {
           "specifier": "svelte",
           "kind": "runtime",
           "symbols": [
+            {
+              "imported": "onDestroy",
+              "typeOnly": false
+            },
             {
               "imported": "untrack",
               "typeOnly": false
@@ -8627,23 +8455,11 @@
           "edge": "import"
         },
         {
-          "specifier": "@sveltery/utils/useIsoLayoutEffect",
-          "kind": "runtime",
-          "symbols": [
-            {
-              "imported": "useIsoLayoutEffect",
-              "typeOnly": false
-            }
-          ],
-          "resolved": "packages/utils/src/lib/useIsoLayoutEffect.svelte.ts",
-          "edge": "import"
-        },
-        {
           "specifier": "@sveltery/utils/useTimeout",
           "kind": "runtime",
           "symbols": [
             {
-              "imported": "useTimeout",
+              "imported": "Timeout",
               "typeOnly": false
             }
           ],
@@ -8903,40 +8719,55 @@
     },
     {
       "source": "packages/base/src/lib/menu/RadioGroup.svelte",
-      "sha256": "a60cfeabdc9d6f4e82f3bd60682afe072fb1cea36d41f770486f77bfba43cf1d",
+      "sha256": "a9f743f853e33586d5cb789e6fdd4676749a68a20562d86bbb4ad78bc025ada3",
       "reachability": "runtime",
       "imports": [
         {
-          "specifier": "../internals/RenderElement.svelte",
-          "kind": "runtime",
-          "symbols": [
-            "*"
-          ],
-          "resolved": "packages/base/src/lib/internals/RenderElement.svelte",
-          "edge": "import"
-        },
-        {
-          "specifier": "@sveltery/utils/useControlled",
+          "specifier": "../internals/mergeComponentProps.js",
           "kind": "runtime",
           "symbols": [
             {
-              "imported": "useControlled",
+              "imported": "mergeComponentProps",
               "typeOnly": false
             }
           ],
-          "resolved": "packages/utils/src/lib/useControlled.svelte.ts",
+          "resolved": "packages/base/src/lib/internals/mergeComponentProps.ts",
           "edge": "import"
         },
         {
-          "specifier": "@sveltery/utils/useStableCallback",
+          "specifier": "svelte/attachments",
           "kind": "runtime",
           "symbols": [
             {
-              "imported": "useStableCallback",
+              "imported": "createAttachmentKey",
               "typeOnly": false
             }
           ],
-          "resolved": "packages/utils/src/lib/useStableCallback.ts",
+          "resolved": "external:svelte/attachments",
+          "edge": "import"
+        },
+        {
+          "specifier": "svelte",
+          "kind": "runtime",
+          "symbols": [
+            {
+              "imported": "untrack",
+              "typeOnly": false
+            }
+          ],
+          "resolved": "external:svelte",
+          "edge": "import"
+        },
+        {
+          "specifier": "@sveltery/utils/Controlled",
+          "kind": "runtime",
+          "symbols": [
+            {
+              "imported": "Controlled",
+              "typeOnly": false
+            }
+          ],
+          "resolved": "packages/utils/src/lib/Controlled.svelte.ts",
           "edge": "import"
         },
         {
@@ -8987,16 +8818,43 @@
     },
     {
       "source": "packages/base/src/lib/menu/RadioItem.svelte",
-      "sha256": "27f78332e206e0660500c8019cff5599adfa0df9695132e6ada934e2fca1f311",
+      "sha256": "37fb5db24c04539996271f0dc8af2d197a3c288a1eb783f24944f824dbe58902",
       "reachability": "runtime",
       "imports": [
         {
-          "specifier": "../internals/RenderElement.svelte",
+          "specifier": "../internals/mergeComponentProps.js",
           "kind": "runtime",
           "symbols": [
-            "*"
+            {
+              "imported": "mergeComponentProps",
+              "typeOnly": false
+            }
           ],
-          "resolved": "packages/base/src/lib/internals/RenderElement.svelte",
+          "resolved": "packages/base/src/lib/internals/mergeComponentProps.ts",
+          "edge": "import"
+        },
+        {
+          "specifier": "svelte/attachments",
+          "kind": "runtime",
+          "symbols": [
+            {
+              "imported": "createAttachmentKey",
+              "typeOnly": false
+            }
+          ],
+          "resolved": "external:svelte/attachments",
+          "edge": "import"
+        },
+        {
+          "specifier": "svelte",
+          "kind": "runtime",
+          "symbols": [
+            {
+              "imported": "untrack",
+              "typeOnly": false
+            }
+          ],
+          "resolved": "external:svelte",
           "edge": "import"
         },
         {
@@ -9151,16 +9009,43 @@
     },
     {
       "source": "packages/base/src/lib/menu/RadioItemIndicator.svelte",
-      "sha256": "95825e6d548bf11d05aec48dc8334e8a38e153f590d812747e247715fd82d134",
+      "sha256": "6b5639f92e10960db5ca69c5ac9e6c9b3b9a623b3f173eeb855d12ce06df1b2b",
       "reachability": "runtime",
       "imports": [
         {
-          "specifier": "../internals/RenderElement.svelte",
+          "specifier": "../internals/mergeComponentProps.js",
           "kind": "runtime",
           "symbols": [
-            "*"
+            {
+              "imported": "mergeComponentProps",
+              "typeOnly": false
+            }
           ],
-          "resolved": "packages/base/src/lib/internals/RenderElement.svelte",
+          "resolved": "packages/base/src/lib/internals/mergeComponentProps.ts",
+          "edge": "import"
+        },
+        {
+          "specifier": "svelte/attachments",
+          "kind": "runtime",
+          "symbols": [
+            {
+              "imported": "createAttachmentKey",
+              "typeOnly": false
+            }
+          ],
+          "resolved": "external:svelte/attachments",
+          "edge": "import"
+        },
+        {
+          "specifier": "svelte",
+          "kind": "runtime",
+          "symbols": [
+            {
+              "imported": "untrack",
+              "typeOnly": false
+            }
+          ],
+          "resolved": "external:svelte",
           "edge": "import"
         },
         {
@@ -9311,7 +9196,7 @@
     },
     {
       "source": "packages/base/src/lib/menu/root/createMenuRoot.svelte.ts",
-      "sha256": "dd8c15c28f4578094de86f1f0ca987da8c258f60748b13f4e31f2378a6a5d286",
+      "sha256": "c388e875d2a3f4c6fb748b17f1dc2e9c35ce347360d7de696dfe83295136616e",
       "reachability": "runtime",
       "imports": [
         {
@@ -9331,6 +9216,10 @@
           "kind": "runtime",
           "symbols": [
             {
+              "imported": "onDestroy",
+              "typeOnly": false
+            },
+            {
               "imported": "untrack",
               "typeOnly": false
             }
@@ -9343,47 +9232,11 @@
           "kind": "runtime",
           "symbols": [
             {
-              "imported": "useTimeout",
+              "imported": "Timeout",
               "typeOnly": false
             }
           ],
           "resolved": "packages/utils/src/lib/useTimeout.ts",
-          "edge": "import"
-        },
-        {
-          "specifier": "@sveltery/utils/useStableCallback",
-          "kind": "runtime",
-          "symbols": [
-            {
-              "imported": "useStableCallback",
-              "typeOnly": false
-            }
-          ],
-          "resolved": "packages/utils/src/lib/useStableCallback.ts",
-          "edge": "import"
-        },
-        {
-          "specifier": "@sveltery/utils/useIsoLayoutEffect",
-          "kind": "runtime",
-          "symbols": [
-            {
-              "imported": "useIsoLayoutEffect",
-              "typeOnly": false
-            }
-          ],
-          "resolved": "packages/utils/src/lib/useIsoLayoutEffect.svelte.ts",
-          "edge": "import"
-        },
-        {
-          "specifier": "@sveltery/utils/useRefWithInit",
-          "kind": "runtime",
-          "symbols": [
-            {
-              "imported": "useRefWithInit",
-              "typeOnly": false
-            }
-          ],
-          "resolved": "packages/utils/src/lib/useRefWithInit.ts",
           "edge": "import"
         },
         {
@@ -9942,9 +9795,21 @@
     },
     {
       "source": "packages/base/src/lib/menu/submenu-trigger/createMenuSubmenuTrigger.svelte.ts",
-      "sha256": "e56c587c6ea6b4af215f80e57b2ea24809fa89993330f140d6f0c961bb19cc72",
+      "sha256": "3bdb83ab95cdfbe5ba3066f17bbd04c60915ba5e887e486db27f6484c4105691",
       "reachability": "runtime",
       "imports": [
+        {
+          "specifier": "svelte/attachments",
+          "kind": "runtime",
+          "symbols": [
+            {
+              "imported": "createAttachmentKey",
+              "typeOnly": false
+            }
+          ],
+          "resolved": "external:svelte/attachments",
+          "edge": "import"
+        },
         {
           "specifier": "svelte",
           "kind": "runtime",
@@ -10015,30 +9880,6 @@
             }
           ],
           "resolved": "packages/utils/src/lib/platform/index.ts",
-          "edge": "import"
-        },
-        {
-          "specifier": "@sveltery/utils/useStableCallback",
-          "kind": "runtime",
-          "symbols": [
-            {
-              "imported": "useStableCallback",
-              "typeOnly": false
-            }
-          ],
-          "resolved": "packages/utils/src/lib/useStableCallback.ts",
-          "edge": "import"
-        },
-        {
-          "specifier": "@sveltery/utils/useIsoLayoutEffect",
-          "kind": "runtime",
-          "symbols": [
-            {
-              "imported": "useIsoLayoutEffect",
-              "typeOnly": false
-            }
-          ],
-          "resolved": "packages/utils/src/lib/useIsoLayoutEffect.svelte.ts",
           "edge": "import"
         },
         {
@@ -10245,16 +10086,19 @@
     },
     {
       "source": "packages/base/src/lib/menu/SubmenuTrigger.svelte",
-      "sha256": "b9757776e9de43ab8e96b84bedb38f5b594906f093cb6a12d2fe0979bb9b7ce8",
+      "sha256": "8392ccbeaa5d720a9ed07d0f622c8b9b05edb16936c5da7b58de413f73eb05ae",
       "reachability": "runtime",
       "imports": [
         {
-          "specifier": "../internals/RenderElement.svelte",
+          "specifier": "../internals/mergeComponentProps.js",
           "kind": "runtime",
           "symbols": [
-            "*"
+            {
+              "imported": "mergeComponentProps",
+              "typeOnly": false
+            }
           ],
-          "resolved": "packages/base/src/lib/internals/RenderElement.svelte",
+          "resolved": "packages/base/src/lib/internals/mergeComponentProps.ts",
           "edge": "import"
         },
         {
@@ -10297,16 +10141,31 @@
     },
     {
       "source": "packages/base/src/lib/menu/Trigger.svelte",
-      "sha256": "2bce1bf83c41d399c12db859c6dd861aa404e906a9dddc07e57f6682207c3a69",
+      "sha256": "ee9cd19d28798f1e70a9e5a3215bd40f6144a2cfbc6fac7b3639d8eb4a7bebbb",
       "reachability": "runtime",
       "imports": [
         {
-          "specifier": "../internals/RenderElement.svelte",
+          "specifier": "../internals/mergeComponentProps.js",
           "kind": "runtime",
           "symbols": [
-            "*"
+            {
+              "imported": "mergeComponentProps",
+              "typeOnly": false
+            }
           ],
-          "resolved": "packages/base/src/lib/internals/RenderElement.svelte",
+          "resolved": "packages/base/src/lib/internals/mergeComponentProps.ts",
+          "edge": "import"
+        },
+        {
+          "specifier": "svelte/attachments",
+          "kind": "runtime",
+          "symbols": [
+            {
+              "imported": "createAttachmentKey",
+              "typeOnly": false
+            }
+          ],
+          "resolved": "external:svelte/attachments",
           "edge": "import"
         },
         {
@@ -10367,13 +10226,29 @@
     },
     {
       "source": "packages/base/src/lib/menu/trigger/createMenuTrigger.svelte.ts",
-      "sha256": "61c504360215953095650d929747cd11d7a6963ae8ce733af1667bd85e8a55bc",
+      "sha256": "ae04e18d492aa073757adc134e825f1fa8412283d742cb6cf9895a784215108f",
       "reachability": "runtime",
       "imports": [
+        {
+          "specifier": "svelte/attachments",
+          "kind": "runtime",
+          "symbols": [
+            {
+              "imported": "createAttachmentKey",
+              "typeOnly": false
+            }
+          ],
+          "resolved": "external:svelte/attachments",
+          "edge": "import"
+        },
         {
           "specifier": "svelte",
           "kind": "runtime",
           "symbols": [
+            {
+              "imported": "onDestroy",
+              "typeOnly": false
+            },
             {
               "imported": "untrack",
               "typeOnly": false
@@ -10387,7 +10262,7 @@
           "kind": "runtime",
           "symbols": [
             {
-              "imported": "useTimeout",
+              "imported": "Timeout",
               "typeOnly": false
             }
           ],
@@ -10404,30 +10279,6 @@
             }
           ],
           "resolved": "packages/utils/src/lib/owner.ts",
-          "edge": "import"
-        },
-        {
-          "specifier": "@sveltery/utils/useStableCallback",
-          "kind": "runtime",
-          "symbols": [
-            {
-              "imported": "useStableCallback",
-              "typeOnly": false
-            }
-          ],
-          "resolved": "packages/utils/src/lib/useStableCallback.ts",
-          "edge": "import"
-        },
-        {
-          "specifier": "@sveltery/utils/useIsoLayoutEffect",
-          "kind": "runtime",
-          "symbols": [
-            {
-              "imported": "useIsoLayoutEffect",
-              "typeOnly": false
-            }
-          ],
-          "resolved": "packages/utils/src/lib/useIsoLayoutEffect.svelte.ts",
           "edge": "import"
         },
         {
@@ -10988,16 +10839,31 @@
     },
     {
       "source": "packages/base/src/lib/menu/Viewport.svelte",
-      "sha256": "a98b62e59827dd100579f9528dd1519dc331850432907e8bddea75cb9f7d02b6",
+      "sha256": "c5740050aa002ff57ebbc888d4d6a2536ad08be3a6858f7a58ac6fbc41216aa3",
       "reachability": "runtime",
       "imports": [
         {
-          "specifier": "../internals/RenderElement.svelte",
+          "specifier": "../internals/mergeComponentProps.js",
           "kind": "runtime",
           "symbols": [
-            "*"
+            {
+              "imported": "mergeComponentProps",
+              "typeOnly": false
+            }
           ],
-          "resolved": "packages/base/src/lib/internals/RenderElement.svelte",
+          "resolved": "packages/base/src/lib/internals/mergeComponentProps.ts",
+          "edge": "import"
+        },
+        {
+          "specifier": "svelte",
+          "kind": "runtime",
+          "symbols": [
+            {
+              "imported": "untrack",
+              "typeOnly": false
+            }
+          ],
+          "resolved": "external:svelte",
           "edge": "import"
         },
         {
@@ -11010,18 +10876,6 @@
             }
           ],
           "resolved": "external:svelte/attachments",
-          "edge": "import"
-        },
-        {
-          "specifier": "../internals/nativeRefAttachment.js",
-          "kind": "runtime",
-          "symbols": [
-            {
-              "imported": "createRefAttachment",
-              "typeOnly": false
-            }
-          ],
-          "resolved": "packages/base/src/lib/internals/nativeRefAttachment.ts",
           "edge": "import"
         },
         {
@@ -11149,9 +11003,21 @@
     },
     {
       "source": "packages/base/src/lib/menubar/Menubar.svelte",
-      "sha256": "1c57d6ce49d8b80c8c9194ea442471589512fb79c3e30cafd591b4db85e9c87f",
+      "sha256": "8f5a232bc3f2246ffaa0cba4b84764f064687feecc365c837476bfc4f2dbbc43",
       "reachability": "runtime",
       "imports": [
+        {
+          "specifier": "svelte/attachments",
+          "kind": "runtime",
+          "symbols": [
+            {
+              "imported": "createAttachmentKey",
+              "typeOnly": false
+            }
+          ],
+          "resolved": "external:svelte/attachments",
+          "edge": "import"
+        },
         {
           "specifier": "../internals/composite/root/CompositeRoot.svelte",
           "kind": "runtime",
@@ -11207,18 +11073,6 @@
             }
           ],
           "resolved": "packages/base/src/lib/internals/useBaseUiId.ts",
-          "edge": "import"
-        },
-        {
-          "specifier": "@sveltery/utils/useIsoLayoutEffect",
-          "kind": "runtime",
-          "symbols": [
-            {
-              "imported": "useIsoLayoutEffect",
-              "typeOnly": false
-            }
-          ],
-          "resolved": "packages/utils/src/lib/useIsoLayoutEffect.svelte.ts",
           "edge": "import"
         },
         {
@@ -11347,7 +11201,7 @@
     },
     {
       "source": "packages/base/src/lib/merge-props/mergeProps.ts",
-      "sha256": "1b758134ab0efecd9601638e928440561944d226e5ebb9276d39723738d0301a",
+      "sha256": "b2c30a6df68fe9744f250f0d0b8e21d89de133146724efd6eed7cea0fce0f8b9",
       "reachability": "runtime",
       "imports": [
         {
@@ -11421,16 +11275,43 @@
     },
     {
       "source": "packages/base/src/lib/separator/Separator.svelte",
-      "sha256": "4440b067c96ac48515aa3b923bbfe941e319cb6d5a0ad2b930f5370f7a39ce20",
+      "sha256": "32403074e8304bab4f414937ca5ec6936f8d1dc0d121c13cc72763a2b46f6eff",
       "reachability": "runtime",
       "imports": [
         {
-          "specifier": "../internals/RenderElement.svelte",
+          "specifier": "../internals/mergeComponentProps.js",
           "kind": "runtime",
           "symbols": [
-            "*"
+            {
+              "imported": "mergeComponentProps",
+              "typeOnly": false
+            }
           ],
-          "resolved": "packages/base/src/lib/internals/RenderElement.svelte",
+          "resolved": "packages/base/src/lib/internals/mergeComponentProps.ts",
+          "edge": "import"
+        },
+        {
+          "specifier": "svelte/attachments",
+          "kind": "runtime",
+          "symbols": [
+            {
+              "imported": "createAttachmentKey",
+              "typeOnly": false
+            }
+          ],
+          "resolved": "external:svelte/attachments",
+          "edge": "import"
+        },
+        {
+          "specifier": "svelte",
+          "kind": "runtime",
+          "symbols": [
+            {
+              "imported": "untrack",
+              "typeOnly": false
+            }
+          ],
+          "resolved": "external:svelte",
           "edge": "import"
         },
         {
@@ -11677,7 +11558,7 @@
     },
     {
       "source": "packages/base/src/lib/utils/FocusGuard.svelte",
-      "sha256": "3744d075b6bfb5db88e198fe1e60abccbeaffd30fe02d219d2efd32c5130db13",
+      "sha256": "ea8acf8bdda2c5faf3859db06b580c84604e7978e2496553b5fdc56dc80472b3",
       "reachability": "runtime",
       "imports": [
         {
@@ -11714,34 +11595,6 @@
             }
           ],
           "resolved": "packages/utils/src/lib/visuallyHidden.ts",
-          "edge": "import"
-        },
-        {
-          "specifier": "@sveltery/utils/useMergedRefs",
-          "kind": "runtime",
-          "symbols": [
-            {
-              "imported": "createMergedRefs",
-              "typeOnly": false
-            },
-            {
-              "imported": "MergedRef",
-              "typeOnly": true
-            }
-          ],
-          "resolved": "packages/utils/src/lib/useMergedRefs.ts",
-          "edge": "import"
-        },
-        {
-          "specifier": "../internals/nativeRefAttachment.js",
-          "kind": "runtime",
-          "symbols": [
-            {
-              "imported": "createRefAttachment",
-              "typeOnly": false
-            }
-          ],
-          "resolved": "packages/base/src/lib/internals/nativeRefAttachment.ts",
           "edge": "import"
         },
         {
@@ -11830,7 +11683,7 @@
     },
     {
       "source": "packages/base/src/lib/utils/InternalBackdrop.svelte",
-      "sha256": "2203a2991ad3c5c0bd0d6078939d50b9469f35694f842a2b1ba59cb926fa5aec",
+      "sha256": "0b29495ff7a71eab019e6667fd0f120f8f299e33e23c83c13cb1572ae465d88f",
       "reachability": "runtime",
       "imports": [
         {
@@ -11843,34 +11696,6 @@
             }
           ],
           "resolved": "external:svelte/elements",
-          "edge": "import"
-        },
-        {
-          "specifier": "@sveltery/utils/useMergedRefs",
-          "kind": "runtime",
-          "symbols": [
-            {
-              "imported": "createMergedRefs",
-              "typeOnly": false
-            },
-            {
-              "imported": "MergedRef",
-              "typeOnly": true
-            }
-          ],
-          "resolved": "packages/utils/src/lib/useMergedRefs.ts",
-          "edge": "import"
-        },
-        {
-          "specifier": "../internals/nativeRefAttachment.js",
-          "kind": "runtime",
-          "symbols": [
-            {
-              "imported": "createRefAttachment",
-              "typeOnly": false
-            }
-          ],
-          "resolved": "packages/base/src/lib/internals/nativeRefAttachment.ts",
           "edge": "import"
         },
         {
@@ -12031,26 +11856,13 @@
     },
     {
       "source": "packages/base/src/lib/utils/popups/PopupHandleAttachment.svelte",
-      "sha256": "b97151e8cbb31945f286d9f8f086c6377a9c21f44c31301febea838357352925",
+      "sha256": "437e6d44b586b4cc524d30d4214906695aa505239f1951a7840077780f562927",
       "reachability": "runtime",
-      "imports": [
-        {
-          "specifier": "@sveltery/utils/useIsoLayoutEffect",
-          "kind": "runtime",
-          "symbols": [
-            {
-              "imported": "useIsoLayoutEffect",
-              "typeOnly": false
-            }
-          ],
-          "resolved": "packages/utils/src/lib/useIsoLayoutEffect.svelte.ts",
-          "edge": "import"
-        }
-      ]
+      "imports": []
     },
     {
       "source": "packages/base/src/lib/utils/popups/popupStoreUtils.svelte.ts",
-      "sha256": "3807cd539769eec5cb365fc251cc6a27c8a4bc8d21c0e4cdee13c9109b0ece8f",
+      "sha256": "13b61b426eed8a0875580aa2a8e15a8caf5c7110e915174bf4d613f069f7b01a",
       "reachability": "runtime",
       "imports": [
         {
@@ -12059,6 +11871,10 @@
           "symbols": [
             {
               "imported": "flushSync",
+              "typeOnly": false
+            },
+            {
+              "imported": "untrack",
               "typeOnly": false
             }
           ],
@@ -12115,30 +11931,6 @@
             }
           ],
           "resolved": "packages/base/src/lib/floating-ui/hooks/useSyncedFloatingRootContext.svelte.ts",
-          "edge": "import"
-        },
-        {
-          "specifier": "@sveltery/utils/useStableCallback",
-          "kind": "runtime",
-          "symbols": [
-            {
-              "imported": "useStableCallback",
-              "typeOnly": false
-            }
-          ],
-          "resolved": "packages/utils/src/lib/useStableCallback.ts",
-          "edge": "import"
-        },
-        {
-          "specifier": "@sveltery/utils/useIsoLayoutEffect",
-          "kind": "runtime",
-          "symbols": [
-            {
-              "imported": "useIsoLayoutEffect",
-              "typeOnly": false
-            }
-          ],
-          "resolved": "packages/utils/src/lib/useIsoLayoutEffect.svelte.ts",
           "edge": "import"
         },
         {
@@ -12362,7 +12154,7 @@
     },
     {
       "source": "packages/base/src/lib/utils/popups/useTriggerFocusGuards.svelte.ts",
-      "sha256": "546d28f868043bb4ba73eb8ce608cb07b4753c18361100e2720a296ed3f15c3a",
+      "sha256": "31fe56072f7dd8093b4292afc5da43ce09f07ed01faa185e6fae8cdc11f5aac6",
       "reachability": "runtime",
       "imports": [
         {
@@ -12562,7 +12354,7 @@
     },
     {
       "source": "packages/base/src/lib/utils/useAnchoredPopupScrollLock.svelte.ts",
-      "sha256": "efe9e705bd879b26dcbdd8949760d7e9e326d08abce81e49f72df092de81eefe",
+      "sha256": "21a07726eed55814307acd741228214b8ebc411a0dcbddcf1d32a13ccdc45060",
       "reachability": "runtime",
       "imports": [
         {
@@ -12587,18 +12379,6 @@
             }
           ],
           "resolved": "packages/utils/src/lib/useScrollLock.svelte.ts",
-          "edge": "import"
-        },
-        {
-          "specifier": "@sveltery/utils/useIsoLayoutEffect",
-          "kind": "runtime",
-          "symbols": [
-            {
-              "imported": "useIsoLayoutEffect",
-              "typeOnly": false
-            }
-          ],
-          "resolved": "packages/utils/src/lib/useIsoLayoutEffect.svelte.ts",
           "edge": "import"
         }
       ]
@@ -12667,7 +12447,7 @@
     },
     {
       "source": "packages/base/src/lib/utils/useOpenInteractionType.svelte.ts",
-      "sha256": "637782dee378fc4fe0d551e6082e5c52cbb0432ba47956dbe477cae48bd05968",
+      "sha256": "92fb932de384aef85dccc45311f5920dabbd8897584a656d27a5bcd8a012a966",
       "reachability": "runtime",
       "imports": [
         {
@@ -12699,58 +12479,50 @@
           "edge": "import"
         },
         {
-          "specifier": "../internals/useValueChanged.svelte.js",
+          "specifier": "../internals/ValueChanged.svelte.js",
           "kind": "runtime",
           "symbols": [
             {
-              "imported": "useValueChanged",
+              "imported": "ValueChanged",
               "typeOnly": false
             }
           ],
-          "resolved": "packages/base/src/lib/internals/useValueChanged.svelte.ts",
+          "resolved": "packages/base/src/lib/internals/ValueChanged.svelte.ts",
           "edge": "import"
         }
       ]
     },
     {
       "source": "packages/base/src/lib/utils/usePopupAutoResize.svelte.ts",
-      "sha256": "d20c48d6cfc9e46d48972043f94ee482e39e23a0841ecb95e8d741f09ebc2e02",
+      "sha256": "79908384bfa561421638c3362a8d0bf38526635fcc19780c72d2ff43f7b8ba9c",
       "reachability": "runtime",
       "imports": [
+        {
+          "specifier": "svelte",
+          "kind": "runtime",
+          "symbols": [
+            {
+              "imported": "onDestroy",
+              "typeOnly": false
+            },
+            {
+              "imported": "untrack",
+              "typeOnly": false
+            }
+          ],
+          "resolved": "external:svelte",
+          "edge": "import"
+        },
         {
           "specifier": "@sveltery/utils/useAnimationFrame",
           "kind": "runtime",
           "symbols": [
             {
-              "imported": "useAnimationFrame",
+              "imported": "AnimationFrame",
               "typeOnly": false
             }
           ],
           "resolved": "packages/utils/src/lib/useAnimationFrame.ts",
-          "edge": "import"
-        },
-        {
-          "specifier": "@sveltery/utils/useIsoLayoutEffect",
-          "kind": "runtime",
-          "symbols": [
-            {
-              "imported": "useIsoLayoutEffect",
-              "typeOnly": false
-            }
-          ],
-          "resolved": "packages/utils/src/lib/useIsoLayoutEffect.svelte.ts",
-          "edge": "import"
-        },
-        {
-          "specifier": "@sveltery/utils/useStableCallback",
-          "kind": "runtime",
-          "symbols": [
-            {
-              "imported": "useStableCallback",
-              "typeOnly": false
-            }
-          ],
-          "resolved": "packages/utils/src/lib/useStableCallback.ts",
           "edge": "import"
         },
         {
@@ -12839,13 +12611,17 @@
     },
     {
       "source": "packages/base/src/lib/utils/usePopupViewport.svelte.ts",
-      "sha256": "9da126c889781ff4c311099c57678956f88052ec1ca52bc4117e3709083dbc45",
+      "sha256": "7a3a49008f305ccbbdb0b3c048a3787e24128a6c687ad6d7dba6b000970acaf7",
       "reachability": "runtime",
       "imports": [
         {
           "specifier": "svelte",
           "kind": "runtime",
           "symbols": [
+            {
+              "imported": "onDestroy",
+              "typeOnly": false
+            },
             {
               "imported": "flushSync",
               "typeOnly": false
@@ -12867,7 +12643,7 @@
           "kind": "runtime",
           "symbols": [
             {
-              "imported": "useAnimationFrame",
+              "imported": "AnimationFrame",
               "typeOnly": false
             }
           ],
@@ -12875,39 +12651,15 @@
           "edge": "import"
         },
         {
-          "specifier": "@sveltery/utils/usePreviousValue",
+          "specifier": "@sveltery/utils/PreviousValue",
           "kind": "runtime",
           "symbols": [
             {
-              "imported": "usePreviousValue",
+              "imported": "PreviousValue",
               "typeOnly": false
             }
           ],
-          "resolved": "packages/utils/src/lib/usePreviousValue.svelte.ts",
-          "edge": "import"
-        },
-        {
-          "specifier": "@sveltery/utils/useIsoLayoutEffect",
-          "kind": "runtime",
-          "symbols": [
-            {
-              "imported": "useIsoLayoutEffect",
-              "typeOnly": false
-            }
-          ],
-          "resolved": "packages/utils/src/lib/useIsoLayoutEffect.svelte.ts",
-          "edge": "import"
-        },
-        {
-          "specifier": "@sveltery/utils/useStableCallback",
-          "kind": "runtime",
-          "symbols": [
-            {
-              "imported": "useStableCallback",
-              "typeOnly": false
-            }
-          ],
-          "resolved": "packages/utils/src/lib/useStableCallback.ts",
+          "resolved": "packages/utils/src/lib/PreviousValue.svelte.ts",
           "edge": "import"
         },
         {
@@ -13011,7 +12763,7 @@
     },
     {
       "source": "packages/base/src/lib/utils/usePositioner.svelte.ts",
-      "sha256": "f5d8eabbb361f3f68e152a500f9f3e2f93e64544469e094184d8f5662d32c9e7",
+      "sha256": "835ae5ad14e38b0e931a1e878783af644a023704816022c0c2985978073145bd",
       "reachability": "runtime",
       "imports": [
         {
@@ -13051,30 +12803,6 @@
           "edge": "import"
         },
         {
-          "specifier": "../internals/useRenderElement.js",
-          "kind": "type",
-          "symbols": [
-            {
-              "imported": "UseRenderElementParameters",
-              "typeOnly": false
-            }
-          ],
-          "resolved": "packages/base/src/lib/internals/useRenderElement.ts",
-          "edge": "import"
-        },
-        {
-          "specifier": "@sveltery/utils/useMergedRefs",
-          "kind": "type",
-          "symbols": [
-            {
-              "imported": "MergedRef",
-              "typeOnly": false
-            }
-          ],
-          "resolved": "packages/utils/src/lib/useMergedRefs.ts",
-          "edge": "import"
-        },
-        {
           "specifier": "../internals/getStateAttributesProps.js",
           "kind": "type",
           "symbols": [
@@ -13107,6 +12835,12 @@
       "imports": []
     },
     {
+      "source": "packages/utils/src/lib/Controlled.svelte.ts",
+      "sha256": "3bb64556d51b6cd471e21e2db4c54179b3eb072757f043f7a4489a4134283304",
+      "reachability": "runtime",
+      "imports": []
+    },
+    {
       "source": "packages/utils/src/lib/createLogOnce.ts",
       "sha256": "f9d8a63ce89aa2d0b31a8d88affb4ff7c49528f12152a9dc99223ee24dca90c9",
       "reachability": "runtime",
@@ -13127,7 +12861,7 @@
     },
     {
       "source": "packages/utils/src/lib/empty.ts",
-      "sha256": "4851f47e6160860fee67ddfa03056c8a26dee4cf87bb1a9aa7f30e988b03ad65",
+      "sha256": "00dc8f5cccebba670a7c7f2a78a66f3a4c008e8fec496badfc909a2bb8664151",
       "reachability": "runtime",
       "imports": []
     },
@@ -13377,6 +13111,25 @@
       ]
     },
     {
+      "source": "packages/utils/src/lib/PreviousValue.svelte.ts",
+      "sha256": "bbbb29cc921915446913f248a23c7ae09000eaf7fe69986ed5ada572acfbb856",
+      "reachability": "runtime",
+      "imports": [
+        {
+          "specifier": "svelte",
+          "kind": "runtime",
+          "symbols": [
+            {
+              "imported": "untrack",
+              "typeOnly": false
+            }
+          ],
+          "resolved": "external:svelte",
+          "edge": "import"
+        }
+      ]
+    },
+    {
       "source": "packages/utils/src/lib/shadowDom.ts",
       "sha256": "2cb79a4a3ccbe16581be29f7958d03bce459c5cf8cad8ae4b9f08ab981d42a2a",
       "reachability": "runtime",
@@ -13438,7 +13191,7 @@
     },
     {
       "source": "packages/utils/src/lib/store/SvelteStore.svelte.ts",
-      "sha256": "0da85c6816b78b849db5378755cee67272a3af3fbdedd57060b1b46fe2186556",
+      "sha256": "472b01d7a463c05348b85c85a413b70c55b950972f12b144ce632e4ab775102c",
       "reachability": "runtime",
       "imports": [
         {
@@ -13466,18 +13219,6 @@
           "edge": "import"
         },
         {
-          "specifier": "esm-env",
-          "kind": "runtime",
-          "symbols": [
-            {
-              "imported": "DEV",
-              "typeOnly": false
-            }
-          ],
-          "resolved": "external:esm-env",
-          "edge": "import"
-        },
-        {
           "specifier": "./Store.svelte.js",
           "kind": "runtime",
           "symbols": [
@@ -13493,7 +13234,7 @@
     },
     {
       "source": "packages/utils/src/lib/useAnimationFrame.ts",
-      "sha256": "07601e67af74f8cb6151f78cc525075cb25202476684199510aa8ac60f629aea",
+      "sha256": "ec054003588b92e4223c6eea228388ae6395bf1895fb3aaf32a02706249652ce",
       "reachability": "runtime",
       "imports": [
         {
@@ -13506,73 +13247,6 @@
             }
           ],
           "resolved": "external:esm-env",
-          "edge": "import"
-        },
-        {
-          "specifier": "./useRefWithInit.js",
-          "kind": "runtime",
-          "symbols": [
-            {
-              "imported": "useRefWithInit",
-              "typeOnly": false
-            }
-          ],
-          "resolved": "packages/utils/src/lib/useRefWithInit.ts",
-          "edge": "import"
-        },
-        {
-          "specifier": "./useOnMount.js",
-          "kind": "runtime",
-          "symbols": [
-            {
-              "imported": "useOnMount",
-              "typeOnly": false
-            }
-          ],
-          "resolved": "packages/utils/src/lib/useOnMount.ts",
-          "edge": "import"
-        }
-      ]
-    },
-    {
-      "source": "packages/utils/src/lib/useControlled.svelte.ts",
-      "sha256": "44a226c403bbe09dc85dec853303244f0c95ab94a708c3c599f606f4f93afd2f",
-      "reachability": "runtime",
-      "imports": [
-        {
-          "specifier": "esm-env",
-          "kind": "runtime",
-          "symbols": [
-            {
-              "imported": "DEV",
-              "typeOnly": false
-            }
-          ],
-          "resolved": "external:esm-env",
-          "edge": "import"
-        },
-        {
-          "specifier": "svelte",
-          "kind": "runtime",
-          "symbols": [
-            {
-              "imported": "untrack",
-              "typeOnly": false
-            }
-          ],
-          "resolved": "external:svelte",
-          "edge": "import"
-        },
-        {
-          "specifier": "./error.js",
-          "kind": "runtime",
-          "symbols": [
-            {
-              "imported": "error",
-              "typeOnly": false
-            }
-          ],
-          "resolved": "packages/utils/src/lib/error.ts",
           "edge": "import"
         }
       ]
@@ -13590,90 +13264,8 @@
       "imports": []
     },
     {
-      "source": "packages/utils/src/lib/useIsoLayoutEffect.svelte.ts",
-      "sha256": "19e575ac14e03d20cbd088abda91d4784ed8b3b34944e03ef51e242e0c0247a7",
-      "reachability": "runtime",
-      "imports": [
-        {
-          "specifier": "svelte",
-          "kind": "runtime",
-          "symbols": [
-            {
-              "imported": "untrack",
-              "typeOnly": false
-            }
-          ],
-          "resolved": "external:svelte",
-          "edge": "import"
-        }
-      ]
-    },
-    {
-      "source": "packages/utils/src/lib/useMergedRefs.ts",
-      "sha256": "0c41f7c8a065fa8a464f56852ba4c8196d51865905a5277f139ebaaa4b81ce1b",
-      "reachability": "runtime",
-      "imports": [
-        {
-          "specifier": "./useRefWithInit.js",
-          "kind": "runtime",
-          "symbols": [
-            {
-              "imported": "useRefWithInit",
-              "typeOnly": false
-            }
-          ],
-          "resolved": "packages/utils/src/lib/useRefWithInit.ts",
-          "edge": "import"
-        }
-      ]
-    },
-    {
-      "source": "packages/utils/src/lib/useOnMount.ts",
-      "sha256": "e596fa519d81dd2fd7cdb1d5d00910622ad9ebed918aafa11111b70942c8ce25",
-      "reachability": "runtime",
-      "imports": [
-        {
-          "specifier": "svelte",
-          "kind": "runtime",
-          "symbols": [
-            {
-              "imported": "onMount",
-              "typeOnly": false
-            }
-          ],
-          "resolved": "external:svelte",
-          "edge": "import"
-        }
-      ]
-    },
-    {
-      "source": "packages/utils/src/lib/usePreviousValue.svelte.ts",
-      "sha256": "9583824fa430b3db985b9a288f69305b2a0f29b6a4defa06d20bb5b39f9b6d46",
-      "reachability": "runtime",
-      "imports": [
-        {
-          "specifier": "svelte",
-          "kind": "runtime",
-          "symbols": [
-            {
-              "imported": "untrack",
-              "typeOnly": false
-            }
-          ],
-          "resolved": "external:svelte",
-          "edge": "import"
-        }
-      ]
-    },
-    {
-      "source": "packages/utils/src/lib/useRefWithInit.ts",
-      "sha256": "3c48fad5a3c2eddbb0ecb820210f825b9fa2144c92de0615a5a4cf2ea1c3b3c7",
-      "reachability": "runtime",
-      "imports": []
-    },
-    {
       "source": "packages/utils/src/lib/useScrollLock.svelte.ts",
-      "sha256": "165f3a8e5394893ce5e6e15bc6b31ad6590cab59ac3721d2f1dd1928643be567",
+      "sha256": "bea63beb673cffb2bb25fcb5491b34f9724cb03453c1014273b501da4c5dfc35",
       "reachability": "runtime",
       "imports": [
         {
@@ -13729,18 +13321,6 @@
           "edge": "import"
         },
         {
-          "specifier": "./useIsoLayoutEffect.svelte.js",
-          "kind": "runtime",
-          "symbols": [
-            {
-              "imported": "useIsoLayoutEffect",
-              "typeOnly": false
-            }
-          ],
-          "resolved": "packages/utils/src/lib/useIsoLayoutEffect.svelte.ts",
-          "edge": "import"
-        },
-        {
           "specifier": "./useTimeout.js",
           "kind": "runtime",
           "symbols": [
@@ -13767,54 +13347,10 @@
       ]
     },
     {
-      "source": "packages/utils/src/lib/useStableCallback.ts",
-      "sha256": "dca4f1866715df0bcb597ca5c083825f580717a96e267c77a5325ce22790d04c",
-      "reachability": "runtime",
-      "imports": [
-        {
-          "specifier": "svelte",
-          "kind": "runtime",
-          "symbols": [
-            {
-              "imported": "untrack",
-              "typeOnly": false
-            }
-          ],
-          "resolved": "external:svelte",
-          "edge": "import"
-        }
-      ]
-    },
-    {
       "source": "packages/utils/src/lib/useTimeout.ts",
-      "sha256": "405103d9109d3d115db8b26eef5a9b3747156d4a45365c1f2f9764c172e4f0fb",
+      "sha256": "06130c6374e14371471cc3af14638ddb3cadb514bb985fcbc4b8a7a606008b7f",
       "reachability": "runtime",
-      "imports": [
-        {
-          "specifier": "./useRefWithInit.js",
-          "kind": "runtime",
-          "symbols": [
-            {
-              "imported": "useRefWithInit",
-              "typeOnly": false
-            }
-          ],
-          "resolved": "packages/utils/src/lib/useRefWithInit.ts",
-          "edge": "import"
-        },
-        {
-          "specifier": "./useOnMount.js",
-          "kind": "runtime",
-          "symbols": [
-            {
-              "imported": "useOnMount",
-              "typeOnly": false
-            }
-          ],
-          "resolved": "packages/utils/src/lib/useOnMount.ts",
-          "edge": "import"
-        }
-      ]
+      "imports": []
     },
     {
       "source": "packages/utils/src/lib/visuallyHidden.ts",

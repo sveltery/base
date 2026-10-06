@@ -72,6 +72,29 @@ test('Collapsible ledger preserves exact ordinary inventory and portable versus 
       } else assert.equal(port.evidence, null);
     }
   }
+  // The paired executions above preserve the ledger's historical source-checkpoint receipt.
+  // The current native renderer runs the unchanged React P358 and a separate uncredited counterpart.
+  const alignmentPort = ledger.ports.find((port) =>
+    port.sourceId.endsWith('CollapsiblePanel.test.tsx:358'),
+  );
+  const alignmentCurrent = alignmentPort.currentNativeRendering;
+  assert.deepEqual(alignmentCurrent.activeExecutions, [
+    'P:358 React reference preserves inline alignment styles while measuring an opening panel',
+    'native counterpart: Svelte opening measurements preserve authored alignment through native style commits',
+  ]);
+  assert.equal(alignmentCurrent.unchangedOriginalCreditForNativeCounterpart, 0);
+  const predecessorBrowser = read(alignmentCurrent.predecessorArchive);
+  const alignmentCase = (text) => text.match(/ {2}test\(`P:358 [\s\S]*?\n {2}\}\);\n/)[0];
+  const preservedAlignmentCase = alignmentCase(predecessorBrowser);
+  assert.equal(alignmentCase(browser), preservedAlignmentCase);
+  assert.ok(
+    browser.includes(
+      "for (const reference of [true]) {\n  const framework = reference ? 'React reference' : 'Svelte';\n" +
+        preservedAlignmentCase +
+        '}\n',
+    ),
+  );
+  assert.ok(browser.includes("test('" + alignmentCurrent.activeExecutions[1] + "'"));
   for (const line of [1205, 1287, 1349, 1474])
     assert.equal(
       trace.declarations.find(

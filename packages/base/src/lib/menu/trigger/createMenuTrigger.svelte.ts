@@ -1,9 +1,9 @@
-import { untrack } from 'svelte';
+import { createAttachmentKey } from 'svelte/attachments';
+import { onDestroy, untrack } from 'svelte';
 // Original MenuTrigger complete business, native live props/event/ref boundary (MIT).
-import { useTimeout } from '@sveltery/utils/useTimeout';
+import { Timeout } from '@sveltery/utils/useTimeout';
 import { ownerDocument } from '@sveltery/utils/owner';
-import { useStableCallback } from '@sveltery/utils/useStableCallback';
-import { useIsoLayoutEffect } from '@sveltery/utils/useIsoLayoutEffect';
+
 import { EMPTY_OBJECT } from '@sveltery/utils/empty';
 import { safePolygon } from '../../floating-ui/safePolygon.js';
 import { useClick } from '../../floating-ui/hooks/useClick.svelte.js';
@@ -107,17 +107,15 @@ export function createMenuTrigger<Payload>(
     disabled,
     native: nativeButton,
   }));
-  useIsoLayoutEffect(
-    () => {
-      if (!isOpenedByThisTrigger && parent.type === undefined) {
-        store.context.allowMouseUpTriggerRef.current = false;
-      }
-    },
-    () => [store, isOpenedByThisTrigger, parent.type],
-  );
+  $effect(() => {
+    if (!isOpenedByThisTrigger && parent.type === undefined) {
+      store.context.allowMouseUpTriggerRef.current = false;
+    }
+  });
   const triggerRef = { current: null as HTMLElement | null };
-  const allowMouseUpTriggerTimeout = useTimeout();
-  const handleDocumentMouseUp = useStableCallback((mouseEvent: MouseEvent) => {
+  const allowMouseUpTriggerTimeout = new Timeout();
+  onDestroy(allowMouseUpTriggerTimeout.clear);
+  const handleDocumentMouseUp = (mouseEvent: MouseEvent) => {
     if (!triggerRef.current) {
       return;
     }
@@ -137,17 +135,17 @@ export function createMenuTrigger<Payload>(
     if (isMouseWithinBounds(mouseEvent, triggerRef.current)) {
       return;
     }
-    floatingTreeRoot.events.emit('close', { domEvent: mouseEvent, reason: REASONS.cancelOpen });
+    floatingTreeRoot.events.emit('close', {
+      domEvent: mouseEvent,
+      reason: REASONS.cancelOpen,
+    });
+  };
+  $effect(() => {
+    if (isOpenedByThisTrigger && store.select('lastOpenChangeReason') === REASONS.triggerHover) {
+      const doc = ownerDocument(triggerRef.current);
+      doc.addEventListener('mouseup', handleDocumentMouseUp, { once: true });
+    }
   });
-  useIsoLayoutEffect(
-    () => {
-      if (isOpenedByThisTrigger && store.select('lastOpenChangeReason') === REASONS.triggerHover) {
-        const doc = ownerDocument(triggerRef.current);
-        doc.addEventListener('mouseup', handleDocumentMouseUp, { once: true });
-      }
-    },
-    () => [isOpenedByThisTrigger, handleDocumentMouseUp, store],
-  );
   const parentMenubarHasSubmenuOpen = $derived(
     parent.type === 'menubar' && parent.context.hasSubmenuOpen,
   );
@@ -208,8 +206,23 @@ export function createMenuTrigger<Payload>(
     disabled,
     open: isOpenedByThisTrigger,
   });
-  const ref = [triggerRef, setRef, buttonRef, forwarding.registerTrigger, triggerElementRef];
+  const hostAttachmentKey = createAttachmentKey();
+  function attachHost(host: HTMLElement) {
+    triggerRef.current = host;
+    setRef(host);
+    untrack(() => buttonRef(host));
+    forwarding.registerTrigger(host);
+    triggerElementRef.current = host;
+    return () => {
+      if (triggerRef.current === host) triggerRef.current = null;
+      setRef(null);
+      buttonRef(null);
+      forwarding.registerTrigger(null);
+      if (triggerElementRef.current === host) triggerElementRef.current = null;
+    };
+  }
   const props = $derived([
+    { [hostAttachmentKey]: attachHost },
     localInteractionProps,
     hoverProps() ?? EMPTY_OBJECT,
     rootTriggerProps,
@@ -238,9 +251,6 @@ export function createMenuTrigger<Payload>(
     get state() {
       return state;
     },
-    get ref() {
-      return ref;
-    },
     get props() {
       return props;
     },
@@ -257,26 +267,24 @@ export function createMenuTrigger<Payload>(
   };
 }
 function useStickIfOpen(getOpen: () => boolean, getOpenReason: () => string | null) {
-  const stickIfOpenTimeout = useTimeout();
+  const stickIfOpenTimeout = new Timeout();
+  onDestroy(stickIfOpenTimeout.clear);
   let stickIfOpen = $state(false);
   const open = $derived(getOpen());
   const openReason = $derived(getOpenReason());
-  useIsoLayoutEffect(
-    () => {
-      if (open && openReason === REASONS.triggerHover) {
-        // Only allow "patient" clicks to close the menu if it's open.
-        // If they clicked within 500ms of the menu opening, keep it open.
-        stickIfOpen = true;
-        stickIfOpenTimeout.start(PATIENT_CLICK_THRESHOLD, () => {
-          stickIfOpen = false;
-        });
-      } else if (!open) {
-        stickIfOpenTimeout.clear();
+  $effect(() => {
+    if (open && openReason === REASONS.triggerHover) {
+      // Only allow "patient" clicks to close the menu if it's open.
+      // If they clicked within 500ms of the menu opening, keep it open.
+      stickIfOpen = true;
+      stickIfOpenTimeout.start(PATIENT_CLICK_THRESHOLD, () => {
         stickIfOpen = false;
-      }
-    },
-    () => [open, openReason, stickIfOpenTimeout],
-  );
+      });
+    } else if (!open) {
+      stickIfOpenTimeout.clear();
+      stickIfOpen = false;
+    }
+  });
   return () => stickIfOpen;
 }
 function useMenuParent() {

@@ -23,6 +23,11 @@
     "LICENSE"
   ],
   "exports": {
+    "./Controlled": {
+      "types": "./dist/Controlled.svelte.d.ts",
+      "svelte": "./dist/Controlled.svelte.js",
+      "default": "./dist/Controlled.svelte.js"
+    },
     "./addEventListener": {
       "types": "./dist/addEventListener.d.ts",
       "default": "./dist/addEventListener.js"
@@ -75,11 +80,6 @@
       "types": "./dist/useAnimationFrame.d.ts",
       "default": "./dist/useAnimationFrame.js"
     },
-    "./useControlled": {
-      "types": "./dist/useControlled.svelte.d.ts",
-      "svelte": "./dist/useControlled.svelte.js",
-      "default": "./dist/useControlled.svelte.js"
-    },
     "./useEnhancedClickHandler": {
       "types": "./dist/useEnhancedClickHandler.d.ts",
       "default": "./dist/useEnhancedClickHandler.js"
@@ -88,36 +88,10 @@
       "types": "./dist/useId.d.ts",
       "default": "./dist/useId.js"
     },
-    "./useIsoLayoutEffect": {
-      "types": "./dist/useIsoLayoutEffect.svelte.d.ts",
-      "svelte": "./dist/useIsoLayoutEffect.svelte.js",
-      "default": "./dist/useIsoLayoutEffect.svelte.js"
-    },
-    "./useMergedRefs": {
-      "types": "./dist/useMergedRefs.d.ts",
-      "default": "./dist/useMergedRefs.js"
-    },
-    "./useOnMount": {
-      "types": "./dist/useOnMount.d.ts",
-      "default": "./dist/useOnMount.js"
-    },
-    "./usePreviousValue": {
-      "types": "./dist/usePreviousValue.svelte.d.ts",
-      "svelte": "./dist/usePreviousValue.svelte.js",
-      "default": "./dist/usePreviousValue.svelte.js"
-    },
-    "./useRefWithInit": {
-      "types": "./dist/useRefWithInit.d.ts",
-      "default": "./dist/useRefWithInit.js"
-    },
     "./useScrollLock": {
       "types": "./dist/useScrollLock.svelte.d.ts",
       "svelte": "./dist/useScrollLock.svelte.js",
       "default": "./dist/useScrollLock.svelte.js"
-    },
-    "./useStableCallback": {
-      "types": "./dist/useStableCallback.d.ts",
-      "default": "./dist/useStableCallback.js"
     },
     "./useTimeout": {
       "types": "./dist/useTimeout.d.ts",
@@ -148,6 +122,11 @@
     "./stringifyLocale": {
       "types": "./dist/stringifyLocale.d.ts",
       "default": "./dist/stringifyLocale.js"
+    },
+    "./PreviousValue": {
+      "types": "./dist/PreviousValue.svelte.d.ts",
+      "svelte": "./dist/PreviousValue.svelte.js",
+      "default": "./dist/PreviousValue.svelte.js"
     }
   },
   "keywords": [
