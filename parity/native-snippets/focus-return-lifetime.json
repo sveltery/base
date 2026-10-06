@@ -14,7 +14,7 @@
     }
   ],
   "runtime": "packages/base/src/lib/floating-ui/components/createFloatingFocusManager.svelte.ts",
-  "runtimeSha256": "2bf134f5537129302dfa11bcde005471119ac9b845977c936c126709880f1e27",
+  "runtimeSha256": "859655fcac3ce756ca68ab0021912e75daaec260864d8d9182cdaa6271b24626",
   "ordinaryDeclarationCredit": 0,
   "status": "Root-authorized minimal native Source candidate; repaired runtime unexecuted, independent exact-head Source and runtime disposition pending.",
   "business": "Read the opening-method metadata through native untrack only when capturing this installed return-focus owner's fallback priority. Later metadata reset must not dispose the owner. Actual floating node, disabled and installed event bus remain resource inputs; latest returnFocus callback reads, physical-unmount cleanup, fallback ordering, guards and cancellations remain unchanged.",
@@ -46,5 +46,11 @@
     }
   ],
   "beforeExecution": "Root reported three actual Dialog focus failures reproduced on acceptance90fab1b5, whose runtime matched predecessor42. Menu execution stalled and was interrupted; no completed six-case or eleven-new-case result is claimed here.",
-  "execution": "Candidate unexecuted. Root coordinates isolated existing Dialog three business plus two public deferred/remount cases through the acceptance owner after Source review. Menu registration feedback is a separate pending diagnosis/edit lease. Parser/hash/formatter evidence gives no behavior or pass credit."
+  "execution": "Candidate unexecuted. Root coordinates isolated existing Dialog three business plus two public deferred/remount cases through the acceptance owner after Source review. Menu registration feedback is a separate pending diagnosis/edit lease. Parser/hash/formatter evidence gives no behavior or pass credit.",
+  "nativeFocusOutDisposalStage": {
+    "predecessor": "c39271eaf4f893fc64131b22209dee50e74de657",
+    "predecessorRuntimeSha256": "2bf134f5537129302dfa11bcde005471119ac9b845977c936c126709880f1e27",
+    "currentReceipt": "parity/native-snippets/native-owner-lifetime.json",
+    "scope": "Additive native component-owner disposal cancellation for queued focus-out only; earlier42 metadata stage/pinned bodies/assertions preserved separately. Initial and intentional return-focus work unchanged."
+  }
 }

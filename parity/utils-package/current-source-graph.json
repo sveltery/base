@@ -440,7 +440,7 @@
         },
         {
           "path": "packages/base/src/lib/floating-ui/components/FloatingPortal.svelte",
-          "sha256": "4532b577b66e7ae3333e38a235a3a3ec331ef12adaa4183cb4fcc8b579004ac9"
+          "sha256": "d9360eddffb4f2f685ea80e8bfee84ed519ff348c1c5db9bf56bc254fd9e132d"
         },
         {
           "path": "packages/base/src/lib/floating-ui/components/FloatingTree.svelte.ts",
@@ -448,7 +448,7 @@
         },
         {
           "path": "packages/base/src/lib/floating-ui/components/createFloatingFocusManager.svelte.ts",
-          "sha256": "2bf134f5537129302dfa11bcde005471119ac9b845977c936c126709880f1e27"
+          "sha256": "859655fcac3ce756ca68ab0021912e75daaec260864d8d9182cdaa6271b24626"
         },
         {
           "path": "packages/base/src/lib/floating-ui/hooks/useClientPoint.svelte.ts",
@@ -540,7 +540,7 @@
         },
         {
           "path": "packages/base/src/lib/menu/root/createMenuRoot.svelte.ts",
-          "sha256": "7f06fa99bcfa89a2efcb6926413d47f9fb5bfc6539ecc8bd0e6b2ca51fc0458b"
+          "sha256": "c388e875d2a3f4c6fb748b17f1dc2e9c35ce347360d7de696dfe83295136616e"
         },
         {
           "path": "packages/base/src/lib/menu/submenu-trigger/createMenuSubmenuTrigger.svelte.ts",
@@ -709,7 +709,7 @@
         },
         {
           "path": "packages/base/src/lib/menu/root/createMenuRoot.svelte.ts",
-          "sha256": "7f06fa99bcfa89a2efcb6926413d47f9fb5bfc6539ecc8bd0e6b2ca51fc0458b"
+          "sha256": "c388e875d2a3f4c6fb748b17f1dc2e9c35ce347360d7de696dfe83295136616e"
         },
         {
           "path": "packages/utils/src/lib/useAnimationFrame.ts",
@@ -767,7 +767,7 @@
         },
         {
           "path": "packages/base/src/lib/floating-ui/components/createFloatingFocusManager.svelte.ts",
-          "sha256": "2bf134f5537129302dfa11bcde005471119ac9b845977c936c126709880f1e27"
+          "sha256": "859655fcac3ce756ca68ab0021912e75daaec260864d8d9182cdaa6271b24626"
         },
         {
           "path": "packages/base/src/lib/floating-ui/hooks/useClientPoint.svelte.ts",
@@ -839,7 +839,7 @@
         },
         {
           "path": "packages/base/src/lib/menu/root/createMenuRoot.svelte.ts",
-          "sha256": "7f06fa99bcfa89a2efcb6926413d47f9fb5bfc6539ecc8bd0e6b2ca51fc0458b"
+          "sha256": "c388e875d2a3f4c6fb748b17f1dc2e9c35ce347360d7de696dfe83295136616e"
         },
         {
           "path": "packages/base/src/lib/menu/submenu-trigger/createMenuSubmenuTrigger.svelte.ts",
@@ -10029,7 +10029,7 @@
       },
       {
         "path": "packages/base/src/lib/dialog/store/DialogStore.svelte.ts",
-        "sha256": "bcfef95cae3d29ea6a193d62abcb678f78fe51cf90301c1fc528c86714bc8f32",
+        "sha256": "7a90ea83e70ca6f82011434787b93d3f75ca69fc9fb7eb8d8e586c5405ff8c3b",
         "symbols": [
           {
             "name": "State",
@@ -10049,7 +10049,7 @@
           {
             "name": "DialogStore",
             "kind": "ClassDeclaration",
-            "sha256": "50c24f9fd6567c074b384d7c3b000521d93ce11dcb2a70c4c0e513bd8257a354"
+            "sha256": "ffd990580e9118bf955b0c0b1386248252161f3217e44393d893ad61e6da4269"
           },
           {
             "name": "createNullDialogStore",
@@ -10064,7 +10064,7 @@
           {
             "name": "createInitialContext",
             "kind": "FunctionDeclaration",
-            "sha256": "0f074a29b24112b17ee315e0e673a5cba4dce6fe9a99d7e97cf8bceaef6db621"
+            "sha256": "2286aa209c898a72d5187eed2a346c280cb30340b363a2abc768ef43b2aa9347"
           }
         ],
         "imports": [
@@ -13366,7 +13366,7 @@
       },
       {
         "path": "packages/base/src/lib/floating-ui/components/createFloatingFocusManager.svelte.ts",
-        "sha256": "2bf134f5537129302dfa11bcde005471119ac9b845977c936c126709880f1e27",
+        "sha256": "859655fcac3ce756ca68ab0021912e75daaec260864d8d9182cdaa6271b24626",
         "symbols": [
           {
             "name": "getEventType",
@@ -13406,7 +13406,7 @@
           {
             "name": "createFloatingFocusManager",
             "kind": "FunctionDeclaration",
-            "sha256": "2cd66bbeb056557c618c675b2161d4ad4cf8124ad63fc69efcf7a8c388c6ee01"
+            "sha256": "64baf0b3704d91c8804cc37ca1a94e476dec8777cefa742ec286fcd31fce4a8f"
           }
         ],
         "imports": [
@@ -14078,7 +14078,7 @@
       },
       {
         "path": "packages/base/src/lib/floating-ui/components/FloatingPortal.svelte",
-        "sha256": "4532b577b66e7ae3333e38a235a3a3ec331ef12adaa4183cb4fcc8b579004ac9",
+        "sha256": "d9360eddffb4f2f685ea80e8bfee84ed519ff348c1c5db9bf56bc254fd9e132d",
         "symbols": [
           {
             "name": "attachHost",
@@ -28351,12 +28351,12 @@
       },
       {
         "path": "packages/base/src/lib/menu/root/createMenuRoot.svelte.ts",
-        "sha256": "7f06fa99bcfa89a2efcb6926413d47f9fb5bfc6539ecc8bd0e6b2ca51fc0458b",
+        "sha256": "c388e875d2a3f4c6fb748b17f1dc2e9c35ce347360d7de696dfe83295136616e",
         "symbols": [
           {
             "name": "createMenuRoot",
             "kind": "FunctionDeclaration",
-            "sha256": "9f310f728881ded9fdd3e9ee8fc4da6dfa8cfcef512345ca3c0d5e102bbcdd90"
+            "sha256": "0e6bf82c002fb2c76b143e47064aa45dd5b428f41ed9fd92a7385410f9329c73"
           },
           {
             "name": "useMenuRootStore",
@@ -50359,7 +50359,7 @@
       },
       {
         "path": "packages/base/src/lib/utils/popups/useTriggerFocusGuards.svelte.ts",
-        "sha256": "546d28f868043bb4ba73eb8ce608cb07b4753c18361100e2720a296ed3f15c3a",
+        "sha256": "31fe56072f7dd8093b4292afc5da43ce09f07ed01faa185e6fae8cdc11f5aac6",
         "symbols": [
           {
             "name": "TriggerFocusGuardStore",
@@ -50369,7 +50369,7 @@
           {
             "name": "useTriggerFocusGuards",
             "kind": "FunctionDeclaration",
-            "sha256": "6eefb05c7eea964833baa8d15775116805bd7613fc834e7bd3e73a094d0a4d2a"
+            "sha256": "f6a77ba9b2ae4e0c1fd8a44c13fdcd4454789ba3aa325c158baf5f2feebd94b1"
           }
         ],
         "imports": [

@@ -17,6 +17,7 @@ const cleanupPredecessor = 'e5e26961c52d324eb9075fcbff71915f79f7e922';
 const focusPredecessor = '42c04c5c4fb1d8a698435fee40e1d2bcb41d30e7';
 const registrationPredecessor = 'f2a99979a04a98c8bc60709a75d0db2397ec2470';
 const ownershipCommentPredecessor = '336062b3be2dfe90db5899714aed6457f78836ae';
+const nativeOwnerPredecessor = 'c39271eaf4f893fc64131b22209dee50e74de657';
 const hash = (body) => createHash('sha256').update(body).digest('hex');
 const git = (...args) =>
   execFileSync('git', args, { cwd: root, encoding: 'utf8', maxBuffer: 20 * 1024 * 1024 });
@@ -52,6 +53,58 @@ function clarifyTriggerOwnership(body) {
         '  // the previous store, then register the element the trigger still renders into the current one.',
       '  // Store/ID changes migrate the published host independently of attachment setup:\n' +
         '  // remove its captured previous registration, then publish it in the current owner.',
+    );
+}
+function disposeQueuedFocusOutside(body) {
+  return body
+    .replace(
+      'export function createFloatingFocusManager(getProps: () => FloatingFocusManagerProps) {',
+      'export function createFloatingFocusManager(getProps: () => FloatingFocusManagerProps) {\n' +
+        '  let disposed = false;\n  onDestroy(() => {\n    disposed = true;\n  });',
+    )
+    .replace(
+      '      queueMicrotask(() => {\n        const nodeId = getNodeId();',
+      '      queueMicrotask(() => {\n        if (disposed) return;\n        const nodeId = getNodeId();',
+    );
+}
+function reactiveNativeOwners(path, body) {
+  if (path.endsWith('useTriggerFocusGuards.svelte.ts'))
+    return body.replace(
+      '  const preFocusGuardRef = { current: null as HTMLElement | null };',
+      '  const preFocusGuardRef = $state<{ current: HTMLElement | null }>({ current: null });',
+    );
+  if (path.endsWith('DialogStore.svelte.ts'))
+    return body
+      .replace(
+        '    const state = createInitialState<Payload>(initialState, triggerElements, floatingId, nested);',
+        '    const state = createInitialState<Payload>(initialState, triggerElements, floatingId, nested);\n' +
+          '    const internalBackdropRef = $state<{ current: HTMLDivElement | null }>({ current: null });',
+      )
+      .replace(
+        '    super(state, createInitialContext(triggerElements), selectors);',
+        '    super(state, createInitialContext(triggerElements, internalBackdropRef), selectors);',
+      )
+      .replace(
+        'function createInitialContext(triggerElements: PopupTriggerMap): Context {',
+        "function createInitialContext(\n  triggerElements: PopupTriggerMap,\n  internalBackdropRef: Context['internalBackdropRef'] = { current: null },\n): Context {",
+      )
+      .replace('    internalBackdropRef: { current: null },', '    internalBackdropRef,');
+  if (path.endsWith('FloatingPortal.svelte')) {
+    for (const name of ['beforeOutsideRef', 'afterOutsideRef'])
+      body = body.replace(
+        `  const ${name}: { current: HTMLSpanElement | null } = {\n    current: null,\n  };`,
+        `  const ${name} = $state<{ current: HTMLSpanElement | null }>({\n    current: null,\n  });`,
+      );
+    return body;
+  }
+  return body
+    .replace(
+      '  store.update({ inactiveTriggerProps });',
+      '  untrack(() => store.update({ inactiveTriggerProps }));',
+    )
+    .replace(
+      "  // the synchronization effect below doesn't make every trigger render twice in the first commit.",
+      "  // the synchronization effect below doesn't make every trigger render twice in the initial update.",
     );
 }
 const flags =
@@ -206,6 +259,18 @@ for (const module of graph.native.modules) {
     'packages/base/src/lib/utils/popups/popupStoreUtils.svelte.ts',
     'packages/base/src/lib/menu/trigger/createMenuTrigger.svelte.ts',
   ].includes(path);
+  const nativeOwnerCorrection = [
+    'packages/base/src/lib/dialog/store/DialogStore.svelte.ts',
+    'packages/base/src/lib/floating-ui/components/FloatingPortal.svelte',
+    'packages/base/src/lib/menu/root/createMenuRoot.svelte.ts',
+    'packages/base/src/lib/utils/popups/useTriggerFocusGuards.svelte.ts',
+  ].includes(path);
+  if (nativeOwnerCorrection)
+    assert.equal(
+      after,
+      reactiveNativeOwners(path, git('show', `${nativeOwnerPredecessor}:${path}`)),
+      `Only the authorized complete-body native owner delta: ${path}`,
+    );
   if (triggerPublicationCorrection) {
     let expected = git('show', `${registrationPredecessor}:${path}`);
     if (path.endsWith('createMenuTrigger.svelte.ts')) {
@@ -251,7 +316,7 @@ for (const module of graph.native.modules) {
     assert.equal(after, expected, `Only the authorized complete-body publication delta: ${path}`);
   }
   if (focusMetadataCorrection) {
-    const expected = git('show', `${focusPredecessor}:${path}`)
+    let expected = git('show', `${focusPredecessor}:${path}`)
       .replace(
         "import { onDestroy } from 'svelte';",
         "import { onDestroy, untrack } from 'svelte';",
@@ -261,7 +326,13 @@ for (const module of graph.native.modules) {
         "    // Opening metadata chooses this owner's return priority; later changes do not dispose it.\n" +
           '    const preferPreviousFocus = untrack(() => openInteractionTypeRef.current == null);',
       );
+    expected = disposeQueuedFocusOutside(expected);
     assert.equal(after, expected, `Only the authorized complete-body metadata delta: ${path}`);
+    assert.equal(
+      after,
+      disposeQueuedFocusOutside(git('show', `${nativeOwnerPredecessor}:${path}`)),
+      'Only the component-owner disposed flag, native onDestroy and first focus-out queued check change',
+    );
   }
   if (installedLabelCorrection || installedTreeCorrection) {
     let expected = git('show', `${cleanupPredecessor}:${path}`);
@@ -308,21 +379,23 @@ for (const module of graph.native.modules) {
     currentSha256: hash(after),
     scriptStructuralAstEqual: equal,
     sourceSyntaxValid: true,
-    disposition: triggerPublicationCorrection
-      ? 'Root-authorized narrow native registration/data/button publication boundaries; actual Store and ID acquired outside untrack, Original registration/count/data bodies and independent effects retained. Candidate runtime execution pending.'
-      : focusMetadataCorrection
-        ? 'Root-authorized native untrack of captured opening metadata only; actual node, disabled and bus resource dependencies plus latest disposal-time returnFocus reads retained. Candidate runtime execution pending.'
-        : installedLabelCorrection
-          ? 'Root-authorized effect-local installed label ID capture, preserving conditional replacement-label protection; actual DOM witnesses unexecuted.'
-          : installedTreeCorrection
-            ? 'Root-authorized effect-local installed event bus captures; complete callbacks, live business reads and domain guards retained; actual owner migration/unmount witnesses unexecuted.'
-            : labelPublicationCorrection
-              ? 'Exact native76 tracked installed ID with narrow untracked imperative receiver publication; live receiver and conditional cleanup retained. Integrated-head execution pending.'
-              : semanticOwnerCorrection
-                ? 'Exact native76 ordinary tracked getter correction; integrated execution/review pending.'
-                : equal
-                  ? 'Complete structural script AST retained; full native markup/compiled-output behavior remains separately pending.'
-                  : 'Explicit presentation/grouping changes retained without normalization or structural equality credit; compiled-output disposition pending.',
+    disposition: nativeOwnerCorrection
+      ? 'Root-authorized actual native reactive node properties or narrow one-shot Menu seed publication; complete binding/callback/live synchronization business retained. Candidate execution pending.'
+      : triggerPublicationCorrection
+        ? 'Root-authorized narrow native registration/data/button publication boundaries; actual Store and ID acquired outside untrack, Original registration/count/data bodies and independent effects retained. Candidate runtime execution pending.'
+        : focusMetadataCorrection
+          ? 'Root-authorized native untrack of captured opening metadata and component-destroy cancellation of only queued focus-out work before rune-backed reads; actual node/disabled/bus dependencies, initial focus, latest returnFocus and intentional captured-target teardown retained. Candidate execution pending.'
+          : installedLabelCorrection
+            ? 'Root-authorized effect-local installed label ID capture, preserving conditional replacement-label protection; actual DOM witnesses unexecuted.'
+            : installedTreeCorrection
+              ? 'Root-authorized effect-local installed event bus captures; complete callbacks, live business reads and domain guards retained; actual owner migration/unmount witnesses unexecuted.'
+              : labelPublicationCorrection
+                ? 'Exact native76 tracked installed ID with narrow untracked imperative receiver publication; live receiver and conditional cleanup retained. Integrated-head execution pending.'
+                : semanticOwnerCorrection
+                  ? 'Exact native76 ordinary tracked getter correction; integrated execution/review pending.'
+                  : equal
+                    ? 'Complete structural script AST retained; full native markup/compiled-output behavior remains separately pending.'
+                    : 'Explicit presentation/grouping changes retained without normalization or structural equality credit; compiled-output disposition pending.',
   };
   if (
     semanticOwnerCorrection ||
@@ -330,7 +403,8 @@ for (const module of graph.native.modules) {
     installedLabelCorrection ||
     installedTreeCorrection ||
     focusMetadataCorrection ||
-    triggerPublicationCorrection
+    triggerPublicationCorrection ||
+    nativeOwnerCorrection
   )
     record.sourceBusinessCorrection = true;
   if (installedLabelCorrection || installedTreeCorrection) {
@@ -341,6 +415,15 @@ for (const module of graph.native.modules) {
   if (focusMetadataCorrection) {
     record.sourceBusinessPredecessor = focusPredecessor;
     record.sourceBusinessPredecessorSha256 = hash(git('show', `${focusPredecessor}:${path}`));
+    record.exactAuthorizedCompleteBodyDelta = true;
+    record.sourceResourceDisposalPredecessor = nativeOwnerPredecessor;
+    record.sourceResourceDisposalPredecessorSha256 = hash(
+      git('show', `${nativeOwnerPredecessor}:${path}`),
+    );
+  }
+  if (nativeOwnerCorrection) {
+    record.sourceBusinessPredecessor = nativeOwnerPredecessor;
+    record.sourceBusinessPredecessorSha256 = hash(git('show', `${nativeOwnerPredecessor}:${path}`));
     record.exactAuthorizedCompleteBodyDelta = true;
   }
   if (triggerPublicationCorrection) {
@@ -431,6 +514,27 @@ for (const witness of triggerLifetime.witnesses) {
   assert.equal(hash(body), witness.sha256, `Changed trigger witness body: ${witness.path}`);
   assert.equal(body.toString(), git('show', `${registrationPredecessor}:${witness.path}`));
 }
+const nativeLifetime = JSON.parse(
+  readFileSync(resolve(root, 'parity/native-snippets/native-owner-lifetime.json'), 'utf8'),
+);
+assert.equal(nativeLifetime.predecessor, nativeOwnerPredecessor);
+assert.equal(nativeLifetime.pin, graph.immutableOriginalPin);
+for (const runtime of nativeLifetime.runtime) {
+  assert.equal(hash(readFileSync(resolve(root, runtime.path))), runtime.sha256);
+  assert.equal(
+    hash(git('show', `${nativeOwnerPredecessor}:${runtime.path}`)),
+    runtime.predecessorSha256,
+  );
+}
+for (const original of nativeLifetime.original)
+  assert.equal(hash(readFileSync(resolve(root, original.archive))), original.sha256);
+for (const diagnosis of nativeLifetime.diagnostics)
+  assert.equal(hash(readFileSync(resolve(root, diagnosis.archive))), diagnosis.sha256);
+for (const witness of nativeLifetime.witnesses) {
+  const body = readFileSync(resolve(root, witness.path));
+  assert.equal(hash(body), witness.sha256, `Changed native owner witness: ${witness.path}`);
+  assert.equal(body.toString(), git('show', `${nativeOwnerPredecessor}:${witness.path}`));
+}
 const output = {
   rendererPredecessor: renderer,
   nativeIntegrationParent,
@@ -438,11 +542,12 @@ const output = {
   focusMetadataPredecessor: focusPredecessor,
   triggerPublicationPredecessor: registrationPredecessor,
   ownershipCommentPredecessor,
+  nativeOwnerPredecessor,
   immutableOriginalPin: graph.immutableOriginalPin,
   ordinaryDeclarationCredit: 0,
   mode: 'Source/parser/hash/import evidence only; no type program, runtime, SSR/hydration, compiled markup, artifact, installed consumer, browser, CI or merge acceptance credit.',
   method:
-    'Complete current native two-package AST closure, immutable f0 full-body preimages and grouping-preserving script ASTs. Deliberate getter, label publication, Menu cleanup, captured focus metadata and trigger publication corrections are separate from formatter presentation changes. Getter and label publication retain their exact inherited bodies; exact complete-body Menu cleanup deltas are checked against e5, the focus metadata delta against42, and the three narrow trigger publication boundaries againstf2. Native ownership comment clarification is checked against336 with its complete script AST unchanged. Parse success supplies no behavior equivalence.',
+    'Complete current native two-package AST closure, immutable f0 full-body preimages and grouping-preserving script ASTs. Deliberate source/native owner corrections remain separate from formatter presentation changes. Getter/label publication retain exact inherited bodies; full-body Menu cleanup deltas bind e5, captured focus metadata binds42, trigger publication bindsf2, and native ownership comments bind336 with its AST unchanged. The five native node/initial-seed/focus-out disposal owner deltas bindc392 while all earlier stages/history remain distinct. Parse success supplies no behavior equivalence.',
   parserVersions: { TypeScript: ts.version, Svelte: compiler.VERSION },
   currentGraphSha256: hash(
     readFileSync(resolve(root, 'parity/utils-package/current-source-graph.json')),

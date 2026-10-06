@@ -246,6 +246,10 @@ export interface FloatingFocusManagerProps {
  * @internal
  */
 export function createFloatingFocusManager(getProps: () => FloatingFocusManagerProps) {
+  let disposed = false;
+  onDestroy(() => {
+    disposed = true;
+  });
   const {
     context,
     disabled = false,
@@ -474,6 +478,7 @@ export function createFloatingFocusManager(getProps: () => FloatingFocusManagerP
       }
 
       queueMicrotask(() => {
+        if (disposed) return;
         const nodeId = getNodeId();
         const triggers = store.context.triggerElements;
         const insideElements = getResolvedInsideElements();

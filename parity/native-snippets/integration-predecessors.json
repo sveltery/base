@@ -797,6 +797,122 @@
           "sha256": "38b5c2c2ebcaa2cbdca6e90bde6d06ec857f8f38bb3ee1a2e703f3850990af41"
         }
       ]
+    },
+    {
+      "commit": "c39271eaf4f893fc64131b22209dee50e74de657",
+      "scope": "Exact complete Source/native owner and affected current LOCAL projection preimages before the five-path real-node/initial-seed/queued-focus-out lifecycle repairs; every prior test/Original/history body remains immutable.",
+      "files": [
+        {
+          "predecessorPath": "packages/base/src/lib/dialog/store/DialogStore.svelte.ts",
+          "archive": "parity/native-snippets/historical/native-owners-c39271ea/packages/base/src/lib/dialog/store/DialogStore.svelte.ts",
+          "sha256": "bcfef95cae3d29ea6a193d62abcb678f78fe51cf90301c1fc528c86714bc8f32"
+        },
+        {
+          "predecessorPath": "packages/base/src/lib/floating-ui/components/FloatingPortal.svelte",
+          "archive": "parity/native-snippets/historical/native-owners-c39271ea/packages/base/src/lib/floating-ui/components/FloatingPortal.svelte",
+          "sha256": "4532b577b66e7ae3333e38a235a3a3ec331ef12adaa4183cb4fcc8b579004ac9"
+        },
+        {
+          "predecessorPath": "packages/base/src/lib/menu/root/createMenuRoot.svelte.ts",
+          "archive": "parity/native-snippets/historical/native-owners-c39271ea/packages/base/src/lib/menu/root/createMenuRoot.svelte.ts",
+          "sha256": "7f06fa99bcfa89a2efcb6926413d47f9fb5bfc6539ecc8bd0e6b2ca51fc0458b"
+        },
+        {
+          "predecessorPath": "packages/base/src/lib/floating-ui/components/createFloatingFocusManager.svelte.ts",
+          "archive": "parity/native-snippets/historical/native-owners-c39271ea/packages/base/src/lib/floating-ui/components/createFloatingFocusManager.svelte.ts",
+          "sha256": "2bf134f5537129302dfa11bcde005471119ac9b845977c936c126709880f1e27"
+        },
+        {
+          "predecessorPath": "packages/base/src/lib/utils/popups/useTriggerFocusGuards.svelte.ts",
+          "archive": "parity/native-snippets/historical/native-owners-c39271ea/packages/base/src/lib/utils/popups/useTriggerFocusGuards.svelte.ts",
+          "sha256": "546d28f868043bb4ba73eb8ce608cb07b4753c18361100e2720a296ed3f15c3a"
+        },
+        {
+          "predecessorPath": "scripts/check-native-snippet-integration.mjs",
+          "archive": "parity/native-snippets/historical/native-owners-c39271ea/scripts/check-native-snippet-integration.mjs",
+          "sha256": "dc2abf64c40d475632387a617f98aad69b926f32eaf5c2adc2803f31330f6002"
+        },
+        {
+          "predecessorPath": "parity/native-snippets/integration-current.json",
+          "archive": "parity/native-snippets/historical/native-owners-c39271ea/parity/native-snippets/integration-current.json",
+          "sha256": "ddc80a62f3659109bc680e0dbd4912a268717931c19a1f42ca6de7b6401cb478"
+        },
+        {
+          "predecessorPath": "parity/native-snippets/integration-predecessors.json",
+          "archive": "parity/native-snippets/historical/native-owners-c39271ea/parity/native-snippets/integration-predecessors.json",
+          "sha256": "edb633c1568adc7262cdb02894c87c06bb293e9542752afb9f9dd08f5aa738d4"
+        },
+        {
+          "predecessorPath": "parity/native-snippets/native-graph.json",
+          "archive": "parity/native-snippets/historical/native-owners-c39271ea/parity/native-snippets/native-graph.json",
+          "sha256": "98365faa8e9bd3b08b0c0d0cd0db857c26ab7dd04a35cb0ae482b80334021bea"
+        },
+        {
+          "predecessorPath": "parity/native-snippets/focus-return-lifetime.json",
+          "archive": "parity/native-snippets/historical/native-owners-c39271ea/parity/native-snippets/focus-return-lifetime.json",
+          "sha256": "46d3fa4163bd6583d1d1135cc0c6f97bb9ee4fc44dc66b534705d384cf082a5e"
+        },
+        {
+          "predecessorPath": "parity/native-snippets/source-correspondence.md",
+          "archive": "parity/native-snippets/historical/native-owners-c39271ea/parity/native-snippets/source-correspondence.md",
+          "sha256": "156f6e9642ebdc05287cb22a21798842da6a94df13fec5441ab56f4f07828aa3"
+        },
+        {
+          "predecessorPath": "parity/native-framework/callsite-inventory.json",
+          "archive": "parity/native-snippets/historical/native-owners-c39271ea/parity/native-framework/callsite-inventory.json",
+          "sha256": "747c5ed275fe366da382c9013649c84c49aed0ed4d012bee208ce8d43744c3f8"
+        },
+        {
+          "predecessorPath": "parity/utils-package/current-source-graph.json",
+          "archive": "parity/native-snippets/historical/native-owners-c39271ea/parity/utils-package/current-source-graph.json",
+          "sha256": "9391163e804fc26966960171ec001d57f07a2b6db37b0fdf352417446549d983"
+        },
+        {
+          "predecessorPath": "parity/utils-package/feature-successors.json",
+          "archive": "parity/native-snippets/historical/native-owners-c39271ea/parity/utils-package/feature-successors.json",
+          "sha256": "fdfc24826def48cd55140e60b48e246029b50da2d832d8ff5236bed704de56ee"
+        },
+        {
+          "predecessorPath": "parity/menu-family/native-closure.json",
+          "archive": "parity/native-snippets/historical/native-owners-c39271ea/parity/menu-family/native-closure.json",
+          "sha256": "74f3819e3573c7dcde7570c375e5789f5faa3dd5e913c8bd16fe60c0d5434561"
+        },
+        {
+          "predecessorPath": "parity/menu-family/source-correspondence.json",
+          "archive": "parity/native-snippets/historical/native-owners-c39271ea/parity/menu-family/source-correspondence.json",
+          "sha256": "262a2bb65128e82a3947d68796f759e2a23ff5fa6d74953f2da47fae73013005"
+        },
+        {
+          "predecessorPath": "parity/dialog/local-graph.json",
+          "archive": "parity/native-snippets/historical/native-owners-c39271ea/parity/dialog/local-graph.json",
+          "sha256": "12d3e926f3d8c99133f684a6689d976e3d3b3ff7c6cc6cad6d8b845118a25d31"
+        },
+        {
+          "predecessorPath": "parity/dialog/source-correspondence.json",
+          "archive": "parity/native-snippets/historical/native-owners-c39271ea/parity/dialog/source-correspondence.json",
+          "sha256": "c32b23340b5d78bb786f7d5059037d1bdc17b1b8e34a54b91fe786247eb53012"
+        },
+        {
+          "predecessorPath": "parity/remote-form-api/local-graph.json",
+          "archive": "parity/native-snippets/historical/native-owners-c39271ea/parity/remote-form-api/local-graph.json",
+          "sha256": "7cfb1da4baa25ebb7d1c2cea972670fd9d76fad1fb0cb640dcc32a995bd54a33"
+        },
+        {
+          "predecessorPath": "parity/popup-family/native-component-graph.json",
+          "archive": "parity/native-snippets/historical/native-owners-c39271ea/parity/popup-family/native-component-graph.json",
+          "sha256": "2d94f69a99c34e605d4926dab600664fff44d70a49e4c2155c056896cc670369"
+        },
+        {
+          "predecessorPath": "parity/popup-family/native-helper-graph.json",
+          "archive": "parity/native-snippets/historical/native-owners-c39271ea/parity/popup-family/native-helper-graph.json",
+          "sha256": "a9b32f53be19386245fbc6527a52373e84f049a27a070b05bbe7122e049b16f9"
+        },
+        {
+          "predecessorPath": "docs/upstream-differences.md",
+          "archive": "parity/native-snippets/historical/native-owners-c39271ea/docs/upstream-differences.md",
+          "sha256": "3f2c1873b9911a55974e88bc5174fefc0801b85c3e1fec414953bcbf9e949957"
+        }
+      ]
     }
   ]
 }

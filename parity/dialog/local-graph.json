@@ -477,7 +477,7 @@
     },
     {
       "local": "packages/base/src/lib/dialog/store/DialogStore.svelte.ts",
-      "sha256": "bcfef95cae3d29ea6a193d62abcb678f78fe51cf90301c1fc528c86714bc8f32",
+      "sha256": "7a90ea83e70ca6f82011434787b93d3f75ca69fc9fb7eb8d8e586c5405ff8c3b",
       "imports": [
         {
           "specifier": "@sveltery/utils/store",
@@ -744,7 +744,7 @@
     },
     {
       "local": "packages/base/src/lib/floating-ui/components/createFloatingFocusManager.svelte.ts",
-      "sha256": "2bf134f5537129302dfa11bcde005471119ac9b845977c936c126709880f1e27",
+      "sha256": "859655fcac3ce756ca68ab0021912e75daaec260864d8d9182cdaa6271b24626",
       "imports": [
         {
           "specifier": "svelte",
@@ -901,7 +901,7 @@
     },
     {
       "local": "packages/base/src/lib/floating-ui/components/FloatingPortal.svelte",
-      "sha256": "4532b577b66e7ae3333e38a235a3a3ec331ef12adaa4183cb4fcc8b579004ac9",
+      "sha256": "d9360eddffb4f2f685ea80e8bfee84ed519ff348c1c5db9bf56bc254fd9e132d",
       "imports": [
         {
           "specifier": "svelte",
