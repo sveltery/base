@@ -1600,7 +1600,7 @@
       "actualLocalUses": [
         {
           "local": "packages/base/src/lib/tabs/tab/TabsTab.svelte",
-          "sha256": "c07eceea2d3b76f11c24616894d94652c00033a09ec6c4512c52bf58510a78a6",
+          "sha256": "2687254da3669b159def1cf40eed34e97ac74182a1c8863c7f9877ab8be5dd3c",
           "reachability": [
             "runtime"
           ],
@@ -2717,5 +2717,726 @@
     "regenerationLimit": "Exact original Git repository unavailable (clone403); record-utils-package-source requires immutable original commit. No replacement Git history fabricated and historical proof/assertions unchanged.",
     "requiredInvocation": "No current mandatory CI/verify invocation of snippet integration proof identified by implementation owner; distinct scoped successor remains team-lead/owner work.",
     "ordinaryDeclarationCredit": 0
-  }
+  },
+  "nativeButtonHostOwnershipRepair": {
+    "pin": "47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c",
+    "archive": "native-button-owner-predecessor.json",
+    "reviewThread": "PRRT_kwDOU2qiMs6pqV2M",
+    "local": "packages/base/src/lib/tabs/tab/TabsTab.svelte",
+    "sha256": "2687254da3669b159def1cf40eed34e97ac74182a1c8863c7f9877ab8be5dd3c",
+    "business": "Captured native host disposer clears canonical buttonRef only if button.element still equals its captured host; canonical Toolbar caller guard reused. Existing disabled synchronization and diagnostic helpers remain unchanged.",
+    "observedRed": "Exact-pin actual React Tabs regular replacement owner witness passed; two local native retained-outro-host cleanup witnesses failed.",
+    "observedGreen": "Same three focused DOM supplement cases pass after guard, with actual Svelte out lifecycle and explicit jsdom WAAPI timing shim.",
+    "limits": "Native retained-host overlap/timing differs from React regular replacement; zero unchanged Original assertion or secured-browser credit. Two actual browser witnesses remain unexecuted locally and require successor hosted gates.",
+    "acceptance": "Bounded Tabs-owned resource lifetime repair; current independent exact-head Source/native/maintainability and configured review required. PR42, PR73 NativeStyle and reached canonical Button/Transition owner blockers remain.",
+    "ordinaryDeclarationCredit": 0
+  },
+  "nativeFrameworkReplacementEvidence": [
+    {
+      "source": "packages/utils/src/useIsoLayoutEffect.ts",
+      "sourceSha256": "13a0ab28d24b04617dc290ad151c145f2435d1e0c381123847af74344ea4b9a0",
+      "immutableImportEvidence": [
+        {
+          "source": "packages/react/src/floating-ui-react/components/FloatingDelayGroup.tsx",
+          "imports": {
+            "specifier": "@base-ui/utils/useIsoLayoutEffect",
+            "kind": "runtime",
+            "names": [
+              "useIsoLayoutEffect"
+            ],
+            "resolved": "packages/utils/src/useIsoLayoutEffect.ts"
+          }
+        },
+        {
+          "source": "packages/react/src/floating-ui-react/components/FloatingFocusManager.tsx",
+          "imports": {
+            "specifier": "@base-ui/utils/useIsoLayoutEffect",
+            "kind": "runtime",
+            "names": [
+              "useIsoLayoutEffect"
+            ],
+            "resolved": "packages/utils/src/useIsoLayoutEffect.ts"
+          }
+        },
+        {
+          "source": "packages/react/src/floating-ui-react/components/FloatingPortal.tsx",
+          "imports": {
+            "specifier": "@base-ui/utils/useIsoLayoutEffect",
+            "kind": "runtime",
+            "names": [
+              "useIsoLayoutEffect"
+            ],
+            "resolved": "packages/utils/src/useIsoLayoutEffect.ts"
+          }
+        },
+        {
+          "source": "packages/react/src/floating-ui-react/components/FloatingTree.tsx",
+          "imports": {
+            "specifier": "@base-ui/utils/useIsoLayoutEffect",
+            "kind": "runtime",
+            "names": [
+              "useIsoLayoutEffect"
+            ],
+            "resolved": "packages/utils/src/useIsoLayoutEffect.ts"
+          }
+        },
+        {
+          "source": "packages/react/src/floating-ui-react/hooks/useFloating.ts",
+          "imports": {
+            "specifier": "@base-ui/utils/useIsoLayoutEffect",
+            "kind": "runtime",
+            "names": [
+              "useIsoLayoutEffect"
+            ],
+            "resolved": "packages/utils/src/useIsoLayoutEffect.ts"
+          }
+        },
+        {
+          "source": "packages/react/src/floating-ui-react/hooks/useFloatingRootContext.ts",
+          "imports": {
+            "specifier": "@base-ui/utils/useIsoLayoutEffect",
+            "kind": "runtime",
+            "names": [
+              "useIsoLayoutEffect"
+            ],
+            "resolved": "packages/utils/src/useIsoLayoutEffect.ts"
+          }
+        },
+        {
+          "source": "packages/react/src/floating-ui-react/hooks/useHover.ts",
+          "imports": {
+            "specifier": "@base-ui/utils/useIsoLayoutEffect",
+            "kind": "runtime",
+            "names": [
+              "useIsoLayoutEffect"
+            ],
+            "resolved": "packages/utils/src/useIsoLayoutEffect.ts"
+          }
+        },
+        {
+          "source": "packages/react/src/floating-ui-react/hooks/useHoverFloatingInteraction.ts",
+          "imports": {
+            "specifier": "@base-ui/utils/useIsoLayoutEffect",
+            "kind": "runtime",
+            "names": [
+              "useIsoLayoutEffect"
+            ],
+            "resolved": "packages/utils/src/useIsoLayoutEffect.ts"
+          }
+        },
+        {
+          "source": "packages/react/src/floating-ui-react/hooks/useListNavigation.ts",
+          "imports": {
+            "specifier": "@base-ui/utils/useIsoLayoutEffect",
+            "kind": "runtime",
+            "names": [
+              "useIsoLayoutEffect"
+            ],
+            "resolved": "packages/utils/src/useIsoLayoutEffect.ts"
+          }
+        },
+        {
+          "source": "packages/react/src/floating-ui-react/hooks/useSyncedFloatingRootContext.ts",
+          "imports": {
+            "specifier": "@base-ui/utils/useIsoLayoutEffect",
+            "kind": "runtime",
+            "names": [
+              "useIsoLayoutEffect"
+            ],
+            "resolved": "packages/utils/src/useIsoLayoutEffect.ts"
+          }
+        },
+        {
+          "source": "packages/react/src/floating-ui-react/hooks/useTypeahead.ts",
+          "imports": {
+            "specifier": "@base-ui/utils/useIsoLayoutEffect",
+            "kind": "runtime",
+            "names": [
+              "useIsoLayoutEffect"
+            ],
+            "resolved": "packages/utils/src/useIsoLayoutEffect.ts"
+          }
+        },
+        {
+          "source": "packages/react/src/internals/composite/list/CompositeList.tsx",
+          "imports": {
+            "specifier": "@base-ui/utils/useIsoLayoutEffect",
+            "kind": "runtime",
+            "names": [
+              "useIsoLayoutEffect"
+            ],
+            "resolved": "packages/utils/src/useIsoLayoutEffect.ts"
+          }
+        },
+        {
+          "source": "packages/react/src/internals/composite/list/useCompositeListItem.ts",
+          "imports": {
+            "specifier": "@base-ui/utils/useIsoLayoutEffect",
+            "kind": "runtime",
+            "names": [
+              "useIsoLayoutEffect"
+            ],
+            "resolved": "packages/utils/src/useIsoLayoutEffect.ts"
+          }
+        },
+        {
+          "source": "packages/react/src/internals/composite/root/useCompositeRoot.ts",
+          "imports": {
+            "specifier": "@base-ui/utils/useIsoLayoutEffect",
+            "kind": "runtime",
+            "names": [
+              "useIsoLayoutEffect"
+            ],
+            "resolved": "packages/utils/src/useIsoLayoutEffect.ts"
+          }
+        },
+        {
+          "source": "packages/react/src/internals/use-button/useButton.ts",
+          "imports": {
+            "specifier": "@base-ui/utils/useIsoLayoutEffect",
+            "kind": "runtime",
+            "names": [
+              "useIsoLayoutEffect"
+            ],
+            "resolved": "packages/utils/src/useIsoLayoutEffect.ts"
+          }
+        },
+        {
+          "source": "packages/react/src/internals/useTransitionStatus.ts",
+          "imports": {
+            "specifier": "@base-ui/utils/useIsoLayoutEffect",
+            "kind": "runtime",
+            "names": [
+              "useIsoLayoutEffect"
+            ],
+            "resolved": "packages/utils/src/useIsoLayoutEffect.ts"
+          }
+        },
+        {
+          "source": "packages/react/src/tabs/list/TabsList.tsx",
+          "imports": {
+            "specifier": "@base-ui/utils/useIsoLayoutEffect",
+            "kind": "runtime",
+            "names": [
+              "useIsoLayoutEffect"
+            ],
+            "resolved": "packages/utils/src/useIsoLayoutEffect.ts"
+          }
+        },
+        {
+          "source": "packages/react/src/tabs/panel/TabsPanel.tsx",
+          "imports": {
+            "specifier": "@base-ui/utils/useIsoLayoutEffect",
+            "kind": "runtime",
+            "names": [
+              "useIsoLayoutEffect"
+            ],
+            "resolved": "packages/utils/src/useIsoLayoutEffect.ts"
+          }
+        },
+        {
+          "source": "packages/react/src/tabs/root/TabsRoot.tsx",
+          "imports": {
+            "specifier": "@base-ui/utils/useIsoLayoutEffect",
+            "kind": "runtime",
+            "names": [
+              "useIsoLayoutEffect"
+            ],
+            "resolved": "packages/utils/src/useIsoLayoutEffect.ts"
+          }
+        },
+        {
+          "source": "packages/react/src/tabs/tab/TabsTab.tsx",
+          "imports": {
+            "specifier": "@base-ui/utils/useIsoLayoutEffect",
+            "kind": "runtime",
+            "names": [
+              "useIsoLayoutEffect"
+            ],
+            "resolved": "packages/utils/src/useIsoLayoutEffect.ts"
+          }
+        },
+        {
+          "source": "packages/react/src/utils/FocusGuard.tsx",
+          "imports": {
+            "specifier": "@base-ui/utils/useIsoLayoutEffect",
+            "kind": "runtime",
+            "names": [
+              "useIsoLayoutEffect"
+            ],
+            "resolved": "packages/utils/src/useIsoLayoutEffect.ts"
+          }
+        },
+        {
+          "source": "packages/react/src/utils/popups/popupStoreUtils.ts",
+          "imports": {
+            "specifier": "@base-ui/utils/useIsoLayoutEffect",
+            "kind": "runtime",
+            "names": [
+              "useIsoLayoutEffect"
+            ],
+            "resolved": "packages/utils/src/useIsoLayoutEffect.ts"
+          }
+        },
+        {
+          "source": "packages/utils/src/store/ReactStore.ts",
+          "imports": {
+            "specifier": "../useIsoLayoutEffect",
+            "kind": "runtime",
+            "names": [
+              "useIsoLayoutEffect"
+            ],
+            "resolved": "packages/utils/src/useIsoLayoutEffect.ts"
+          }
+        },
+        {
+          "source": "packages/utils/src/store/StoreInspector.tsx",
+          "imports": {
+            "specifier": "../useIsoLayoutEffect",
+            "kind": "runtime",
+            "names": [
+              "useIsoLayoutEffect"
+            ],
+            "resolved": "packages/utils/src/useIsoLayoutEffect.ts"
+          }
+        },
+        {
+          "source": "packages/utils/src/useValueAsRef.ts",
+          "imports": {
+            "specifier": "./useIsoLayoutEffect",
+            "kind": "runtime",
+            "names": [
+              "useIsoLayoutEffect"
+            ],
+            "resolved": "packages/utils/src/useIsoLayoutEffect.ts"
+          }
+        }
+      ],
+      "nativePrimitive": "Direct native $effect, naturally tracked dependency reads and captured cleanup",
+      "currentCallers": [
+        {
+          "local": "packages/base/src/lib/tabs/root/TabsRoot.svelte",
+          "symbols": [
+            "activationDirection synchronization effect",
+            "automatic selected-value fallback effect"
+          ],
+          "sha256": "6cecd7a71b23dae392e752d8d9cf79d3dae302081ac126e2c4a5a9c7ccff9b70"
+        },
+        {
+          "local": "packages/base/src/lib/tabs/list/TabsList.svelte",
+          "symbols": [
+            "ResizeObserver installation effect/cleanup"
+          ],
+          "sha256": "d6f06aec1d1161ad60464f669f6e595560964c728631ee42bb0a7286c373b2ea"
+        },
+        {
+          "local": "packages/base/src/lib/tabs/tab/TabsTab.svelte",
+          "symbols": [
+            "active-tab highlight synchronization effect"
+          ],
+          "sha256": "2687254da3669b159def1cf40eed34e97ac74182a1c8863c7f9877ab8be5dd3c"
+        },
+        {
+          "local": "packages/base/src/lib/tabs/panel/TabsPanel.svelte",
+          "symbols": [
+            "mounted panel registration effect/cleanup"
+          ],
+          "sha256": "63170a74233a90ba88ecab096d6042cf218a9fdfd800cc55b341bfc3b181cb82"
+        },
+        {
+          "local": "packages/base/src/lib/internals/composite/root/useCompositeRoot.svelte.ts",
+          "symbols": [
+            "highlight synchronization effect"
+          ],
+          "sha256": "bdd6ced8bc2a28c77a2572b6b54eab7ad09ee111ddf2bcdbe777686f947c39b6"
+        }
+      ],
+      "scope": "Inspected Tabs direct business callers plus selected Composite/host replacements. Source graph retains complete helper importer closure; this entry does not claim reuse of retired React helper or newly inspected unrelated helper bodies.",
+      "historicalOmission": "Earlier flat Tabs-path filter yielded no current caller entries. Historical actualLocalUses remains empty as no actual React helper import survives; explicit nested-path native replacement evidence now records the boundary separately.",
+      "actualReactHelperReuse": false,
+      "ordinaryDeclarationCredit": 0,
+      "acceptance": "Metadata completeness correction only; entire-closure exact-final-head review and execution remain separate."
+    },
+    {
+      "source": "packages/utils/src/useStableCallback.ts",
+      "sourceSha256": "908cbd177f86c961983d0124a859f733d341be49e58bc5a553255f47725419c1",
+      "immutableImportEvidence": [
+        {
+          "source": "packages/react/src/floating-ui-react/components/FloatingFocusManager.tsx",
+          "imports": {
+            "specifier": "@base-ui/utils/useStableCallback",
+            "kind": "runtime",
+            "names": [
+              "useStableCallback"
+            ],
+            "resolved": "packages/utils/src/useStableCallback.ts"
+          }
+        },
+        {
+          "source": "packages/react/src/floating-ui-react/components/FloatingPortal.tsx",
+          "imports": {
+            "specifier": "@base-ui/utils/useStableCallback",
+            "kind": "runtime",
+            "names": [
+              "useStableCallback"
+            ],
+            "resolved": "packages/utils/src/useStableCallback.ts"
+          }
+        },
+        {
+          "source": "packages/react/src/floating-ui-react/hooks/useClientPoint.ts",
+          "imports": {
+            "specifier": "@base-ui/utils/useStableCallback",
+            "kind": "runtime",
+            "names": [
+              "useStableCallback"
+            ],
+            "resolved": "packages/utils/src/useStableCallback.ts"
+          }
+        },
+        {
+          "source": "packages/react/src/floating-ui-react/hooks/useDismiss.ts",
+          "imports": {
+            "specifier": "@base-ui/utils/useStableCallback",
+            "kind": "runtime",
+            "names": [
+              "useStableCallback"
+            ],
+            "resolved": "packages/utils/src/useStableCallback.ts"
+          }
+        },
+        {
+          "source": "packages/react/src/floating-ui-react/hooks/useHover.ts",
+          "imports": {
+            "specifier": "@base-ui/utils/useStableCallback",
+            "kind": "runtime",
+            "names": [
+              "useStableCallback"
+            ],
+            "resolved": "packages/utils/src/useStableCallback.ts"
+          }
+        },
+        {
+          "source": "packages/react/src/floating-ui-react/hooks/useHoverFloatingInteraction.ts",
+          "imports": {
+            "specifier": "@base-ui/utils/useStableCallback",
+            "kind": "runtime",
+            "names": [
+              "useStableCallback"
+            ],
+            "resolved": "packages/utils/src/useStableCallback.ts"
+          }
+        },
+        {
+          "source": "packages/react/src/floating-ui-react/hooks/useHoverReferenceInteraction.ts",
+          "imports": {
+            "specifier": "@base-ui/utils/useStableCallback",
+            "kind": "runtime",
+            "names": [
+              "useStableCallback"
+            ],
+            "resolved": "packages/utils/src/useStableCallback.ts"
+          }
+        },
+        {
+          "source": "packages/react/src/floating-ui-react/hooks/useListNavigation.ts",
+          "imports": {
+            "specifier": "@base-ui/utils/useStableCallback",
+            "kind": "runtime",
+            "names": [
+              "useStableCallback"
+            ],
+            "resolved": "packages/utils/src/useStableCallback.ts"
+          }
+        },
+        {
+          "source": "packages/react/src/floating-ui-react/hooks/useTypeahead.ts",
+          "imports": {
+            "specifier": "@base-ui/utils/useStableCallback",
+            "kind": "runtime",
+            "names": [
+              "useStableCallback"
+            ],
+            "resolved": "packages/utils/src/useStableCallback.ts"
+          }
+        },
+        {
+          "source": "packages/react/src/internals/composite/list/CompositeList.tsx",
+          "imports": {
+            "specifier": "@base-ui/utils/useStableCallback",
+            "kind": "runtime",
+            "names": [
+              "useStableCallback"
+            ],
+            "resolved": "packages/utils/src/useStableCallback.ts"
+          }
+        },
+        {
+          "source": "packages/react/src/internals/composite/root/useCompositeRoot.ts",
+          "imports": {
+            "specifier": "@base-ui/utils/useStableCallback",
+            "kind": "runtime",
+            "names": [
+              "useStableCallback"
+            ],
+            "resolved": "packages/utils/src/useStableCallback.ts"
+          }
+        },
+        {
+          "source": "packages/react/src/internals/use-button/useButton.ts",
+          "imports": {
+            "specifier": "@base-ui/utils/useStableCallback",
+            "kind": "runtime",
+            "names": [
+              "useStableCallback"
+            ],
+            "resolved": "packages/utils/src/useStableCallback.ts"
+          }
+        },
+        {
+          "source": "packages/react/src/internals/useAnimationsFinished.ts",
+          "imports": {
+            "specifier": "@base-ui/utils/useStableCallback",
+            "kind": "runtime",
+            "names": [
+              "useStableCallback"
+            ],
+            "resolved": "packages/utils/src/useStableCallback.ts"
+          }
+        },
+        {
+          "source": "packages/react/src/internals/useOpenChangeComplete.tsx",
+          "imports": {
+            "specifier": "@base-ui/utils/useStableCallback",
+            "kind": "runtime",
+            "names": [
+              "useStableCallback"
+            ],
+            "resolved": "packages/utils/src/useStableCallback.ts"
+          }
+        },
+        {
+          "source": "packages/react/src/tabs/list/TabsList.tsx",
+          "imports": {
+            "specifier": "@base-ui/utils/useStableCallback",
+            "kind": "runtime",
+            "names": [
+              "useStableCallback"
+            ],
+            "resolved": "packages/utils/src/useStableCallback.ts"
+          }
+        },
+        {
+          "source": "packages/react/src/tabs/root/TabsRoot.tsx",
+          "imports": {
+            "specifier": "@base-ui/utils/useStableCallback",
+            "kind": "runtime",
+            "names": [
+              "useStableCallback"
+            ],
+            "resolved": "packages/utils/src/useStableCallback.ts"
+          }
+        },
+        {
+          "source": "packages/react/src/tabs/tab/TabsTab.tsx",
+          "imports": {
+            "specifier": "@base-ui/utils/useStableCallback",
+            "kind": "runtime",
+            "names": [
+              "useStableCallback"
+            ],
+            "resolved": "packages/utils/src/useStableCallback.ts"
+          }
+        },
+        {
+          "source": "packages/react/src/utils/popups/popupStoreUtils.ts",
+          "imports": {
+            "specifier": "@base-ui/utils/useStableCallback",
+            "kind": "runtime",
+            "names": [
+              "useStableCallback"
+            ],
+            "resolved": "packages/utils/src/useStableCallback.ts"
+          }
+        },
+        {
+          "source": "packages/utils/src/store/ReactStore.ts",
+          "imports": {
+            "specifier": "../useStableCallback",
+            "kind": "runtime",
+            "names": [
+              "useStableCallback"
+            ],
+            "resolved": "packages/utils/src/useStableCallback.ts"
+          }
+        },
+        {
+          "source": "packages/utils/src/store/StoreInspector.tsx",
+          "imports": {
+            "specifier": "../useStableCallback",
+            "kind": "runtime",
+            "names": [
+              "useStableCallback"
+            ],
+            "resolved": "packages/utils/src/useStableCallback.ts"
+          }
+        }
+      ],
+      "nativePrimitive": "Ordinary live component/helper closures over current native props/context/rune state",
+      "currentCallers": [
+        {
+          "local": "packages/base/src/lib/tabs/root/TabsRoot.svelte",
+          "symbols": [
+            "onValueChange",
+            "notifyAutomaticValueChange",
+            "registerMountedTabPanel"
+          ],
+          "sha256": "6cecd7a71b23dae392e752d8d9cf79d3dae302081ac126e2c4a5a9c7ccff9b70"
+        },
+        {
+          "local": "packages/base/src/lib/tabs/list/TabsList.svelte",
+          "symbols": [
+            "registerIndicatorUpdateListener",
+            "registerTabResizeObserverElement"
+          ],
+          "sha256": "d6f06aec1d1161ad60464f669f6e595560964c728631ee42bb0a7286c373b2ea"
+        },
+        {
+          "local": "packages/base/src/lib/tabs/tab/TabsTab.svelte",
+          "symbols": [
+            "activate",
+            "observeTabElement"
+          ],
+          "sha256": "2687254da3669b159def1cf40eed34e97ac74182a1c8863c7f9877ab8be5dd3c"
+        },
+        {
+          "local": "packages/base/src/lib/internals/composite/root/useCompositeRoot.svelte.ts",
+          "symbols": [
+            "onHighlightedIndexChange",
+            "onMapChange",
+            "onKeyDown"
+          ],
+          "sha256": "bdd6ced8bc2a28c77a2572b6b54eab7ad09ee111ddf2bcdbe777686f947c39b6"
+        }
+      ],
+      "scope": "Inspected Tabs direct business callers plus selected Composite/host replacements. Source graph retains complete helper importer closure; this entry does not claim reuse of retired React helper or newly inspected unrelated helper bodies.",
+      "historicalOmission": "Earlier flat Tabs-path filter yielded no current caller entries. Historical actualLocalUses remains empty as no actual React helper import survives; explicit nested-path native replacement evidence now records the boundary separately.",
+      "actualReactHelperReuse": false,
+      "ordinaryDeclarationCredit": 0,
+      "acceptance": "Metadata completeness correction only; entire-closure exact-final-head review and execution remain separate."
+    },
+    {
+      "source": "packages/utils/src/useMergedRefs.ts",
+      "sourceSha256": "5fa12ae01abedc23ba814e9c59f015cf14d306044638b56c977780de43275ba3",
+      "immutableImportEvidence": [
+        {
+          "source": "packages/react/src/floating-ui-react/components/FloatingFocusManager.tsx",
+          "imports": {
+            "specifier": "@base-ui/utils/useMergedRefs",
+            "kind": "runtime",
+            "names": [
+              "useMergedRefs"
+            ],
+            "resolved": "packages/utils/src/useMergedRefs.ts"
+          }
+        },
+        {
+          "source": "packages/react/src/internals/composite/item/useCompositeItem.ts",
+          "imports": {
+            "specifier": "@base-ui/utils/useMergedRefs",
+            "kind": "runtime",
+            "names": [
+              "useMergedRefs"
+            ],
+            "resolved": "packages/utils/src/useMergedRefs.ts"
+          }
+        },
+        {
+          "source": "packages/react/src/internals/composite/root/useCompositeRoot.ts",
+          "imports": {
+            "specifier": "@base-ui/utils/useMergedRefs",
+            "kind": "runtime",
+            "names": [
+              "useMergedRefs"
+            ],
+            "resolved": "packages/utils/src/useMergedRefs.ts"
+          }
+        },
+        {
+          "source": "packages/react/src/internals/useRenderElement.tsx",
+          "imports": {
+            "specifier": "@base-ui/utils/useMergedRefs",
+            "kind": "runtime",
+            "names": [
+              "useMergedRefs",
+              "useMergedRefsN"
+            ],
+            "resolved": "packages/utils/src/useMergedRefs.ts"
+          }
+        }
+      ],
+      "nativePrimitive": "Bindable host publication, direct native attachments with captured-owner cleanup; no React callback-ref fanout",
+      "currentCallers": [
+        {
+          "local": "packages/base/src/lib/tabs/root/TabsRoot.svelte",
+          "symbols": [
+            "ref=$bindable",
+            "attachHost"
+          ],
+          "sha256": "6cecd7a71b23dae392e752d8d9cf79d3dae302081ac126e2c4a5a9c7ccff9b70"
+        },
+        {
+          "local": "packages/base/src/lib/tabs/list/TabsList.svelte",
+          "symbols": [
+            "bind:ref on CompositeRoot",
+            "attachHost"
+          ],
+          "sha256": "d6f06aec1d1161ad60464f669f6e595560964c728631ee42bb0a7286c373b2ea"
+        },
+        {
+          "local": "packages/base/src/lib/tabs/tab/TabsTab.svelte",
+          "symbols": [
+            "ref=$bindable",
+            "attachHost"
+          ],
+          "sha256": "2687254da3669b159def1cf40eed34e97ac74182a1c8863c7f9877ab8be5dd3c"
+        },
+        {
+          "local": "packages/base/src/lib/tabs/panel/TabsPanel.svelte",
+          "symbols": [
+            "ref=$bindable",
+            "attachHost/listItem.attach"
+          ],
+          "sha256": "63170a74233a90ba88ecab096d6042cf218a9fdfd800cc55b341bfc3b181cb82"
+        },
+        {
+          "local": "packages/base/src/lib/tabs/indicator/TabsIndicator.svelte",
+          "symbols": [
+            "ref=$bindable",
+            "attachHost"
+          ],
+          "sha256": "eec9cbf88bba78e186a2e1b1dc22fff768594b74af727f766538911e1c18b811"
+        },
+        {
+          "local": "packages/base/src/lib/internals/composite/root/useCompositeRoot.svelte.ts",
+          "symbols": [
+            "attachRoot"
+          ],
+          "sha256": "bdd6ced8bc2a28c77a2572b6b54eab7ad09ee111ddf2bcdbe777686f947c39b6"
+        },
+        {
+          "local": "packages/base/src/lib/internals/composite/item/useCompositeItem.svelte.ts",
+          "symbols": [
+            "attachItem/item.attach"
+          ],
+          "sha256": "d90708b23dde83c4381ea1085767ec30135307525c1ea9e5422e9879a522daad"
+        }
+      ],
+      "scope": "Inspected Tabs direct business callers plus selected Composite/host replacements. Source graph retains complete helper importer closure; this entry does not claim reuse of retired React helper or newly inspected unrelated helper bodies.",
+      "historicalOmission": "Earlier flat Tabs-path filter yielded no current caller entries. Historical actualLocalUses remains empty as no actual React helper import survives; explicit nested-path native replacement evidence now records the boundary separately.",
+      "actualReactHelperReuse": false,
+      "ordinaryDeclarationCredit": 0,
+      "acceptance": "Metadata completeness correction only; entire-closure exact-final-head review and execution remain separate."
+    }
+  ]
 }

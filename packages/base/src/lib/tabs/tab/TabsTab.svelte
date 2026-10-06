@@ -62,11 +62,12 @@
     }
     if (!isDisabled) untrack(() => compositeRoot.onHighlightedIndexChange(index));
   });
-  const { getButtonProps, buttonRef } = useButton(() => ({
+  const button = useButton(() => ({
     disabled,
     native: nativeButton,
     focusableWhenDisabled: true,
   }));
+  const { getButtonProps, buttonRef } = button;
   const tabPanelId = $derived(root.getTabPanelIdByValue(value));
   const isPressingRef = { current: false },
     isMainButtonRef = { current: false };
@@ -117,7 +118,7 @@
       return () =>
         untrack(() => {
           if (ref === host) ref = null;
-          buttonRef?.(null);
+          if (button.element === host) buttonRef(null);
           unobserve?.();
           if (unobserveTabElementRef.current === unobserve) unobserveTabElementRef.current = null;
         });

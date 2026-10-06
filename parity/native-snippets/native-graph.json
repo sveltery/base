@@ -12734,7 +12734,7 @@
     },
     {
       "source": "packages/base/src/lib/tabs/tab/TabsTab.svelte",
-      "sha256": "c07eceea2d3b76f11c24616894d94652c00033a09ec6c4512c52bf58510a78a6",
+      "sha256": "2687254da3669b159def1cf40eed34e97ac74182a1c8863c7f9877ab8be5dd3c",
       "imports": [
         {
           "specifier": "svelte",
