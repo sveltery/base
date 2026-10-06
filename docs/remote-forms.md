@@ -8,11 +8,14 @@ Pass the original SvelteKit remote form to `Form.remote` and spread its original
   import { survey, getSurveys } from './survey.remote.js';
 </script>
 
-<Form remote={survey} {...survey.enhance(async (form) => {
-  await form.submit().updates(getSurveys());
-  form.element.reset();
-  customJS();
-})}>
+<Form
+  remote={survey}
+  {...survey.enhance(async (form) => {
+    await form.submit().updates(getSurveys());
+    form.element.reset();
+    customJS();
+  })}
+>
   {#snippet children(Field)}
     <Field.Root name="storageType" as="text">
       <Field.Label>Storage type</Field.Label>
@@ -76,7 +79,9 @@ Styled option controls require their real source group. An array checkbox group 
 <Field.Root name="colors">
   <Field.Label>Colors</Field.Label>
   <CheckboxGroup
-    value={(survey.fields.colors.value() ?? []).filter((value): value is string => value !== undefined)}
+    value={(survey.fields.colors.value() ?? []).filter(
+      (value): value is string => value !== undefined,
+    )}
     onValueChange={(value, details) => {
       if (!details.isCanceled) survey.fields.colors.set(value);
     }}

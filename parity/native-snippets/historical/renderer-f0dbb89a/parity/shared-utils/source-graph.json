@@ -1,0 +1,191 @@
+{
+  "pin": "47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c",
+  "recordedBeforeImplementation": true,
+  "scope": "shared utility closure; no assertion parity credited",
+  "externalOriginalBoundary": [
+    "react",
+    "global timer APIs",
+    "process.env.NODE_ENV"
+  ],
+  "externalNativeBoundary": [
+    "svelte",
+    "Svelte rune compiler",
+    "esm-env",
+    "global timer APIs"
+  ],
+  "modules": [
+    {
+      "source": "packages/utils/src/useControlled.ts",
+      "sha256": "487bc45fa3ef1a70177867bb03598230f9926601aed8e3c7f46470feb225f886",
+      "local": "packages/utils/src/lib/useControlled.svelte.ts",
+      "runtimeEdges": [
+        "react",
+        "./error"
+      ],
+      "typeEdges": [
+        "react"
+      ],
+      "status": "native source port; source review pending",
+      "localRuntimeEdges": [
+        "svelte",
+        "esm-env",
+        "./error.js"
+      ],
+      "localSha256": "21543b53992d1f3856e83251c03329d7c558ee5c5637aa8d42f18bc359843705"
+    },
+    {
+      "source": "packages/utils/src/useStableCallback.ts",
+      "sha256": "908cbd177f86c961983d0124a859f733d341be49e58bc5a553255f47725419c1",
+      "local": "packages/utils/src/lib/useStableCallback.ts",
+      "runtimeEdges": [
+        "./safeReact",
+        "./useRefWithInit"
+      ],
+      "typeEdges": [],
+      "status": "native source port; source review pending",
+      "localRuntimeEdges": [
+        "svelte"
+      ],
+      "localSha256": "dca4f1866715df0bcb597ca5c083825f580717a96e267c77a5325ce22790d04c"
+    },
+    {
+      "source": "packages/utils/src/useTimeout.ts",
+      "sha256": "8d9e4159d9f883e18035811e9f2b4d180afb0d724b55d86dbf4fda52c355e156",
+      "local": "packages/utils/src/lib/useTimeout.ts",
+      "runtimeEdges": [
+        "./useRefWithInit",
+        "./useOnMount"
+      ],
+      "typeEdges": [],
+      "status": "native source port; source review pending",
+      "localRuntimeEdges": [
+        "./useRefWithInit.js",
+        "./useOnMount.js"
+      ],
+      "localSha256": "405103d9109d3d115db8b26eef5a9b3747156d4a45365c1f2f9764c172e4f0fb"
+    },
+    {
+      "source": "packages/utils/src/useIsoLayoutEffect.ts",
+      "sha256": "13a0ab28d24b04617dc290ad151c145f2435d1e0c381123847af74344ea4b9a0",
+      "local": "packages/utils/src/lib/useIsoLayoutEffect.svelte.ts",
+      "runtimeEdges": [
+        "react"
+      ],
+      "typeEdges": [
+        "react"
+      ],
+      "status": "native source port; source review pending",
+      "localRuntimeEdges": [
+        "svelte"
+      ],
+      "localSha256": "19e575ac14e03d20cbd088abda91d4784ed8b3b34944e03ef51e242e0c0247a7"
+    },
+    {
+      "source": "packages/utils/src/useRefWithInit.ts",
+      "sha256": "183cb6e86ab1f8044a431d5b4115c750f7848c9835d519881b3c7a66dae98354",
+      "local": "packages/utils/src/lib/useRefWithInit.ts",
+      "runtimeEdges": [
+        "react"
+      ],
+      "typeEdges": [
+        "react"
+      ],
+      "status": "native source port; source review pending",
+      "localRuntimeEdges": [],
+      "localSha256": "3c48fad5a3c2eddbb0ecb820210f825b9fa2144c92de0615a5a4cf2ea1c3b3c7"
+    },
+    {
+      "source": "packages/utils/src/error.ts",
+      "sha256": "957b3369d680d50a26cce3b4e9add608b2e829cb299636bde056e76297002847",
+      "local": "packages/utils/src/lib/error.ts",
+      "runtimeEdges": [
+        "./createLogOnce"
+      ],
+      "typeEdges": [],
+      "status": "native source port; source review pending",
+      "localRuntimeEdges": [
+        "./createLogOnce.js"
+      ],
+      "localSha256": "ebbe57877f3f8c77c83631ed4042bd288d13f98fb93afd5390128dbd0d7cec27"
+    },
+    {
+      "source": "packages/utils/src/createLogOnce.ts",
+      "sha256": "6e5e5b4c34d3407fe2379b58749d4da26c49c49383b7501964132a2e725660b1",
+      "local": "packages/utils/src/lib/createLogOnce.ts",
+      "runtimeEdges": [],
+      "typeEdges": [],
+      "status": "native source port; source review pending",
+      "localRuntimeEdges": [
+        "esm-env"
+      ],
+      "localSha256": "f9d8a63ce89aa2d0b31a8d88affb4ff7c49528f12152a9dc99223ee24dca90c9"
+    },
+    {
+      "source": "packages/utils/src/useOnMount.ts",
+      "sha256": "9d621d059249ec6ad10dbf35eef28153a8bc6ef893574d26a060385d4d13472b",
+      "local": "packages/utils/src/lib/useOnMount.ts",
+      "runtimeEdges": [
+        "react",
+        "./empty"
+      ],
+      "typeEdges": [
+        "react"
+      ],
+      "status": "native source port; source review pending",
+      "localRuntimeEdges": [
+        "svelte"
+      ],
+      "localSha256": "e596fa519d81dd2fd7cdb1d5d00910622ad9ebed918aafa11111b70942c8ce25"
+    },
+    {
+      "source": "packages/utils/src/empty.ts",
+      "sha256": "7d7c8625346dc2344dc551004c5c5da82878ab814818b7a8df4ad7082979ead6",
+      "local": "packages/utils/src/lib/empty.ts",
+      "runtimeEdges": [],
+      "typeEdges": [],
+      "status": "native source port; source review pending",
+      "localRuntimeEdges": [],
+      "localSha256": "4851f47e6160860fee67ddfa03056c8a26dee4cf87bb1a9aa7f30e988b03ad65"
+    },
+    {
+      "source": "packages/utils/src/safeReact.ts",
+      "sha256": "b2923526a5b42e0d4f341ccb6c26e11d4b34991f206353320bb821026bbbc81f",
+      "local": null,
+      "runtimeEdges": [
+        "react"
+      ],
+      "typeEdges": [
+        "react"
+      ],
+      "status": "replaced React framework compatibility layer; native setup boundary",
+      "localRuntimeEdges": []
+    },
+    {
+      "source": "packages/react/src/internals/useValueChanged.ts",
+      "sha256": "fa36f17e32a4a0b3f8edabe219810a505cefa9c926d3ae807310c6013f57de6d",
+      "local": "packages/base/src/lib/internals/useValueChanged.svelte.ts",
+      "runtimeEdges": [
+        "react",
+        "@base-ui/utils/useIsoLayoutEffect",
+        "@base-ui/utils/useStableCallback"
+      ],
+      "typeEdges": [
+        "react"
+      ],
+      "status": "native source port; source review pending",
+      "localRuntimeEdges": [
+        "svelte",
+        "../utils/useIsoLayoutEffect.svelte.js",
+        "../utils/useStableCallback.js",
+        "../utils/useRefWithInit.js"
+      ],
+      "localSha256": "f760d2e83ee33789ae5bfec715308cfc78253eda0fcbd34052bdcad44ce24991"
+    }
+  ],
+  "reviewStatus": "independent final-head source review pending",
+  "utilsPackageSuccessor": {
+    "record": "../utils-package/current-source-graph.json",
+    "ordinaryDeclarationCredit": 0,
+    "status": "Current package destinations and hashes; frozen source/construction/acceptance/run receipts remain historical. Complete current graph and exact final-head Source/native/maintainability review supersede earlier inventory acceptance."
+  }
+}

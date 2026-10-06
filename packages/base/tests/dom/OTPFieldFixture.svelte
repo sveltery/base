@@ -1,19 +1,19 @@
 <script lang="ts">
   // Assertion fixture adapter for pinned Base UI 1.8.0 OTP Field (MIT).
-  import { untrack, type Snippet } from "svelte";
-  import type { HTMLProps } from "../../src/lib/internals/types.js";
-  import { OTPField } from "../../src/lib/otp-field/index.js";
-  import { Field } from "../../src/lib/field/index.js";
-  import { Form } from "../../src/lib/form/index.js";
-  import { DirectionProvider } from "../../src/lib/direction-provider/index.js";
+  import { untrack, type Snippet } from 'svelte';
+  import type { HTMLProps } from '../../src/lib/internals/types.js';
+  import { OTPField } from '../../src/lib/otp-field/index.js';
+  import { Field } from '../../src/lib/field/index.js';
+  import { Form } from '../../src/lib/form/index.js';
+  import { DirectionProvider } from '../../src/lib/direction-provider/index.js';
   import type {
     OTPFieldRootProps,
     OTPFieldInputProps,
     OTPFieldRootChangeEventDetails,
     OTPFieldRootState,
-  } from "../../src/lib/otp-field/types.js";
-  import type { FieldRootProps } from "../../src/lib/field/types.js";
-  import type { HTMLAttributes, HTMLInputAttributes } from "svelte/elements";
+  } from '../../src/lib/otp-field/types.js';
+  import type { FieldRootProps } from '../../src/lib/field/types.js';
+  import type { HTMLAttributes, HTMLInputAttributes } from 'svelte/elements';
   let {
     rootProps = {},
     slotProps = {},
@@ -25,7 +25,7 @@
     accept = true,
     cancel = false,
     deferred = false,
-    initial = "",
+    initial = '',
     rtl = false,
     customRender = false,
     grouped = false,
@@ -48,9 +48,9 @@
     rtl?: boolean;
     customRender?: boolean;
     grouped?: boolean;
-    onChange?: OTPFieldRootProps["onValueChange"];
-    onInvalid?: OTPFieldRootProps["onValueInvalid"];
-    onComplete?: OTPFieldRootProps["onValueComplete"];
+    onChange?: OTPFieldRootProps['onValueChange'];
+    onInvalid?: OTPFieldRootProps['onValueInvalid'];
+    onComplete?: OTPFieldRootProps['onValueComplete'];
     onSubmit?: (value: unknown) => void;
   } = $props();
   let owner = $state(untrack(() => initial));
@@ -78,17 +78,38 @@
     }
   }
 </script>
+
 {#snippet slots()}
   {#each items as item (item)}
     {#if grouped}<span data-group={item}><OTPField.Input data-slot={item} {...slotProps} /></span>
-    {:else if customRender}<OTPField.Input data-slot={item} {...slotProps}>{#snippet render(props, slotState)}<input {...props as HTMLInputAttributes} data-render-index={slotState.index} />{/snippet}</OTPField.Input>
+    {:else if customRender}<OTPField.Input data-slot={item} {...slotProps}
+        >{#snippet render(props, slotState)}<input
+            {...props as HTMLInputAttributes}
+            data-render-index={slotState.index}
+          />{/snippet}</OTPField.Input
+      >
     {:else}<OTPField.Input data-slot={item} {...slotProps} />{/if}
   {/each}
   <OTPField.Separator data-testid="separator" />
 {/snippet}
-{#snippet rootRender(props: HTMLProps, _state: OTPFieldRootState, children: Snippet | undefined)}<section {...props as HTMLAttributes<HTMLElement>}>{@render children?.()}</section>{/snippet}
+{#snippet rootRender(
+  props: HTMLProps,
+  _state: OTPFieldRootState,
+  children: Snippet | undefined,
+)}<section {...props as HTMLAttributes<HTMLElement>}>{@render children?.()}</section>{/snippet}
 {#snippet otp()}
-  <OTPField.Root {length} name="fallback" value={controlled ? owner : undefined} defaultValue={initial} {...rootProps} onValueChange={change} onValueInvalid={onInvalid ?? rootProps.onValueInvalid} onValueComplete={onComplete ?? rootProps.onValueComplete} render={customRender ? rootRender : undefined} data-testid="root">
+  <OTPField.Root
+    {length}
+    name="fallback"
+    value={controlled ? owner : undefined}
+    defaultValue={initial}
+    {...rootProps}
+    onValueChange={change}
+    onValueInvalid={onInvalid ?? rootProps.onValueInvalid}
+    onValueComplete={onComplete ?? rootProps.onValueComplete}
+    render={customRender ? rootRender : undefined}
+    data-testid="root"
+  >
     {@render slots()}
   </OTPField.Root>
 {/snippet}

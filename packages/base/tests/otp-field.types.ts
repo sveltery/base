@@ -1,24 +1,20 @@
 // Type assertion port of pinned Root/Input .spec.tsx; MIT: parity/otp-field/UPSTREAM_LICENSE.
-import type { ComponentProps } from "svelte";
-import {
-  OTPField,
-  OTPFieldRoot,
-  OTPFieldInput,
-} from "../src/lib/otp-field/index.js";
+import type { ComponentProps } from 'svelte';
+import { OTPField, OTPFieldRoot, OTPFieldInput } from '../src/lib/otp-field/index.js';
 import type {
   OTPFieldRootProps,
   OTPFieldInputProps,
   OTPFieldRootChangeEventDetails,
   OTPFieldRootInvalidEventDetails,
   OTPFieldRootCompleteEventDetails,
-} from "../src/lib/otp-field/types.js";
+} from '../src/lib/otp-field/types.js';
 const root: OTPFieldRootProps = {
   length: 6,
-  form: "verification-form",
+  form: 'verification-form',
   mask: true,
-  validationType: "alphanumeric",
+  validationType: 'alphanumeric',
   normalizeValue: (value) => value.toUpperCase(),
-  inputMode: "tel",
+  inputMode: 'tel',
 };
 const actualRoot: ComponentProps<typeof OTPField.Root> = root;
 const input: ComponentProps<typeof OTPField.Input> = {
@@ -28,19 +24,19 @@ const input: ComponentProps<typeof OTPField.Input> = {
 };
 const actualInput: OTPFieldInputProps = input;
 function change(details: OTPFieldRootChangeEventDetails) {
-  if (details.reason === "input-paste") {
+  if (details.reason === 'input-paste') {
     const event: ClipboardEvent = details.event;
     void event;
   }
-  if (details.reason === "keyboard") {
+  if (details.reason === 'keyboard') {
     const event: KeyboardEvent = details.event;
     void event;
   }
-  if (details.reason === "input-change") {
+  if (details.reason === 'input-change') {
     const event: InputEvent | Event = details.event;
     void event;
   }
-  if (details.reason === "input-clear") {
+  if (details.reason === 'input-clear') {
     const event: InputEvent | FocusEvent | Event = details.event;
     void event;
     // @ts-expect-error keyboard events are not emitted for input-clear
@@ -48,14 +44,12 @@ function change(details: OTPFieldRootChangeEventDetails) {
     void keyboardEvent;
   }
 }
-function generic(
-  details: OTPFieldRootInvalidEventDetails | OTPFieldRootCompleteEventDetails,
-) {
-  if (details.reason === "input-paste") {
+function generic(details: OTPFieldRootInvalidEventDetails | OTPFieldRootCompleteEventDetails) {
+  if (details.reason === 'input-paste') {
     const event: ClipboardEvent = details.event;
     void event;
   }
-  if (details.reason === "input-change") {
+  if (details.reason === 'input-change') {
     const event: InputEvent | Event = details.event;
     void event;
   }
@@ -72,7 +66,7 @@ const removed: OTPFieldRootProps = {
 const badValidation: OTPFieldRootProps = {
   length: 6,
   // @ts-expect-error validation type is finite
-  validationType: "decimal",
+  validationType: 'decimal',
 };
 void [
   actualRoot,

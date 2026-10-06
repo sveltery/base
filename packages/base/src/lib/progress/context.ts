@@ -12,6 +12,9 @@ const [get, set, has] = createContext<ProgressContext>();
 export const setProgressContext = set;
 export function getProgressContext(): ProgressContext {
   const context = has() ? get() : undefined;
-  if (!context) throw new Error('Base UI: ProgressRootContext is missing. Progress parts must be placed within <Progress.Root>.');
+  if (!context)
+    throw new Error(
+      'Base UI: ProgressRootContext is missing. Progress parts must be placed within <Progress.Root>.',
+    );
   return context;
 }

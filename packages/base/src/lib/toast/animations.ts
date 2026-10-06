@@ -6,13 +6,16 @@ export function afterAnimations(node: HTMLElement, complete: () => void): () => 
   const ownerWindow = node.ownerDocument.defaultView;
   let canceled = false;
   let frame: number | undefined;
-  const done = () => { if (!canceled) flushSync(complete); };
+  const done = () => {
+    if (!canceled) flushSync(complete);
+  };
   function observe() {
     if (canceled) return;
-    Promise.all(node.getAnimations().map(animation => animation.finished)).then(done, () => {
+    Promise.all(node.getAnimations().map((animation) => animation.finished)).then(done, () => {
       if (canceled) return;
       const current = node.getAnimations();
-      if (current.some(animation => animation.pending || animation.playState !== 'finished')) observe();
+      if (current.some((animation) => animation.pending || animation.playState !== 'finished'))
+        observe();
       else done();
     });
   }
@@ -21,5 +24,8 @@ export function afterAnimations(node: HTMLElement, complete: () => void): () => 
   } else {
     frame = ownerWindow.requestAnimationFrame(observe);
   }
-  return () => { canceled = true; if (frame !== undefined) ownerWindow?.cancelAnimationFrame(frame); };
+  return () => {
+    canceled = true;
+    if (frame !== undefined) ownerWindow?.cancelAnimationFrame(frame);
+  };
 }

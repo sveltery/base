@@ -11,7 +11,13 @@
     void import('../../lib/initial-focus-reference.js').then(({ mountInitialFocusReference }) => {
       if (!stopped) cleanup = mountInitialFocusReference(node, data.scenario);
     });
-    return () => { stopped = true; cleanup?.(); };
+    return () => {
+      stopped = true;
+      cleanup?.();
+    };
   });
 </script>
-{#if data.reference}<div bind:this={host}></div>{:else}<InitialFocusFixture scenario={data.scenario} />{/if}
+
+{#if data.reference}<div bind:this={host}></div>{:else}<InitialFocusFixture
+    scenario={data.scenario}
+  />{/if}

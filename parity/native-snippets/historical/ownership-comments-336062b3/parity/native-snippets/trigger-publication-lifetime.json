@@ -1,0 +1,76 @@
+{
+  "predecessor": "f2a99979a04a98c8bc60709a75d0db2397ec2470",
+  "pin": "47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c",
+  "ordinaryDeclarationCredit": 0,
+  "status": "Root-authorized Source candidate; actual repaired runtime unexecuted, independent exact-head Source/runtime acceptance pending.",
+  "original": [
+    {
+      "path": "packages/react/src/utils/popups/popupStoreUtils.ts",
+      "archive": "parity/native-snippets/trigger-source-original/packages/react/src/utils/popups/popupStoreUtils.ts",
+      "sha256": "f73b74be0af3b9d09a3a92167964e85d49657a2f26d94f0f531b43a0ac04afa2"
+    },
+    {
+      "path": "packages/react/src/menu/trigger/MenuTrigger.tsx",
+      "archive": "parity/native-snippets/trigger-source-original/packages/react/src/menu/trigger/MenuTrigger.tsx",
+      "sha256": "caa4f62155184e668f1f8ea238bf067fba7089d672d36c0116d73a4d82794ee0"
+    },
+    {
+      "path": "packages/react/src/internals/use-button/useButton.ts",
+      "archive": "parity/native-snippets/trigger-source-original/packages/react/src/internals/use-button/useButton.ts",
+      "sha256": "eba51ce4ed0d2082dda17180bbbbe2bf91318c2b33eae2d114c0e4ebbe3203e6"
+    }
+  ],
+  "runtime": [
+    {
+      "path": "packages/base/src/lib/utils/popups/popupStoreUtils.svelte.ts",
+      "sha256": "7e9cbbd3b0a7835d25d2a54a90fca6f1bd403d30b8cb2165fa366232aa290960",
+      "predecessorSha256": "51f1c3945f9da39ae8e71a4fa336740ef0ad0be5f4a8f413deb1e98405d894d3"
+    },
+    {
+      "path": "packages/base/src/lib/menu/trigger/createMenuTrigger.svelte.ts",
+      "sha256": "ae04e18d492aa073757adc134e825f1fa8412283d742cb6cf9895a784215108f",
+      "predecessorSha256": "dee891cf185175885b51711b6307a20006fdec038c41f5e1ca08fa1a0d279488"
+    }
+  ],
+  "boundaries": [
+    "Acquire actual getId/getStore outside untrack; run only the unchanged registrationRef/triple/captured-owner map and count body inside it.",
+    "Acquire actual Store and trigger ID outside untrack; use those captured values inside unchanged imperative selected-read/data branches, with stateUpdates read only in its original conditional branches.",
+    "Untrack only buttonRef(host) at its existing position in Menu attachHost; independent tracked useButton disabled effect and existing host/ref/registration/cleanup order remain. Native teardown already disables enrollment; cleanup body is unchanged."
+  ],
+  "unchanged": "Global SvelteStore.select/Store mutation/count/Map algorithms, separate live payload and ID/Store migration effects, all other runtime modules, tests, Original/history and installed event cleanup remain byte exact.",
+  "diagnosis": {
+    "archive": "parity/native-snippets/historical/trigger-publication-f2a99979/source-diagnosis.md",
+    "sha256": "26ca8793130ab902fc0e7f290c26fa7cc25e6b97019a7cc073c2394605ea9b06",
+    "hashPacketSha256": "49f2e07629b40b03a2c0652ce637bae00372f6e3e3e8f6eb38b7377e9db5a41b",
+    "source": "Whole affected Original/native helper/caller/primitive bodies; opportunity exists in f0 and is not attributed solely to42/90.",
+    "executionLimit": "Actual90 selected Menu runtime was finite but interrupted; no literal error-name, exact callback count, completed eight-case tree disposition or full runtime root-cause claim is made."
+  },
+  "witnesses": [
+    {
+      "path": "packages/base/tests/dom/menu-family-retained-focus-matrix.test.ts",
+      "sha256": "b71af495e52f872252471e2a4facd089de10ff12c0afd4f798b89d26f7272473",
+      "predecessor": "f2a99979a04a98c8bc60709a75d0db2397ec2470",
+      "bodyUnchanged": true
+    },
+    {
+      "path": "packages/base/tests/dom/menu-family-source.test.ts",
+      "sha256": "7619eb48e303740ae96644e956d8d8fa627a84e5cf3d8e6ccb50a5ad49cf98b5",
+      "predecessor": "f2a99979a04a98c8bc60709a75d0db2397ec2470",
+      "bodyUnchanged": true
+    },
+    {
+      "path": "packages/base/tests/dom/menu-tree-subscription-lifetime.test.ts",
+      "sha256": "c2b47600377ab821c34cbbac2ac3c380042ccd593c18bcab466e4a8fa845e87c",
+      "predecessor": "f2a99979a04a98c8bc60709a75d0db2397ec2470",
+      "bodyUnchanged": true
+    },
+    {
+      "path": "packages/base/tests/dom/menu-family-detached-hover-handoff.test.ts",
+      "sha256": "35b9aa29dde86759c212f96c7a9f015a0a9f72d9d1171c15d0c4b951018ab417",
+      "predecessor": "f2a99979a04a98c8bc60709a75d0db2397ec2470",
+      "bodyUnchanged": true
+    }
+  ],
+  "execution": "Repaired candidate unexecuted. Root/acceptance owner coordinates finite actual retained-focus, trigger owner/ID/store/payload/host migration, tree isolation/unmount and affected shared-helper caller checks after independent Source review. Parser/hash/formatter proof grants no behavior/pass or unchanged Original assertion credit.",
+  "projectionRefreshNote": "Actual current LOCAL remote-form closure also replaces its stale predecessor registered-label hash/import with the already-present inherited96/7d7c publication body. That runtime body is byte-identical to f2; exact prior projection is archived and no new label repair or execution credit is claimed."
+}

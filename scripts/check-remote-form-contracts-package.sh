@@ -2,10 +2,10 @@
 # Compile the real contract route as an isolated packed-package consumer.
 set -euo pipefail
 cd "$(dirname "$0")/.."
-source scripts/toolchain.sh
+source scripts/package-artifacts.sh
 remote_contract_consumer="$(mktemp -d "${TMPDIR:-/tmp}/sveltery-remote-contracts.XXXXXX")"
 trap 'rm -rf "$remote_contract_consumer"' EXIT
-pnpm --filter @sveltery/base pack --pack-destination "$remote_contract_consumer" > /dev/null
+sveltery_pack_package @sveltery/base "$remote_contract_consumer" > /dev/null
 node --input-type=module - "$remote_contract_consumer" <<'JS'
 import { copyFileSync, mkdirSync, readdirSync, writeFileSync } from 'node:fs';
 import { join } from 'node:path';
@@ -23,11 +23,12 @@ writeFileSync(join(destination, 'tsconfig.json'), JSON.stringify({ extends: './.
   strict: true, exactOptionalPropertyTypes: true, skipLibCheck: true, moduleResolution: 'Bundler',
 } }));
 JS
-pnpm --dir "$remote_contract_consumer" --ignore-workspace install --ignore-scripts > /dev/null
+sveltery_prepare_consumer "$remote_contract_consumer"
+pnpm --dir "$remote_contract_consumer" install --ignore-scripts > /dev/null
 # Apply the shipped Kit correction explicitly, exactly as a consumer application does.
 mkdir -p "$remote_contract_consumer/patches"
 cp "$remote_contract_consumer/node_modules/@sveltery/base/patches/@sveltejs__kit@2.70.3.patch" "$remote_contract_consumer/patches/"
-cat > "$remote_contract_consumer/pnpm-workspace.yaml" <<'YAML'
+cat >> "$remote_contract_consumer/pnpm-workspace.yaml" <<'YAML'
 patchedDependencies:
   '@sveltejs/kit@2.70.3': patches/@sveltejs__kit@2.70.3.patch
 YAML

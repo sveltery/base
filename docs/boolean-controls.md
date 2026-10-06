@@ -50,3 +50,7 @@ CheckboxGroup owns its children's checked values, including when the group uses 
 Native checkbox Enter handling uses a small per-root final bubble listener instead of React's separate synthetic/native default-prevention flags. It respects ancestor `preventDefault`, invokes the original default form submitter and prevents ordinary button activation. Native `stopPropagation` prevents that listener, and a window handler registered later cannot retroactively cancel an earlier handler. Custom native buttons retain native default activation when propagation is stopped. These boundaries require actual browser evidence and receive no unchanged React assertion credit.
 
 The source dependency map and original assertion evidence are in [parity/boolean-controls](../parity/boolean-controls/README.md). Full compatibility and exact-head acceptance remain pending; module availability is distinct from complete test parity.
+
+## Native host bindings
+
+The native snippet successor replaces callback/object `inputRef` transport with optional bindable `HTMLInputElement | null | undefined`. Use `bind:inputRef` to observe the actual input; RadioGroup retains its selected/enabled representative-input registration business. `bind:ref` and native attachment props supply visible-host integration. See [native rendering](rendering.md). Historical Original assertions and receipts retain their provenance; divergent native binding assertions earn zero unchanged upstream credit.

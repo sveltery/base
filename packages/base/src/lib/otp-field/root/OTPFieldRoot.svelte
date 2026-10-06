@@ -1,57 +1,54 @@
 <script lang="ts">
   // Source-ordered port of Base UI v1.8.0 OTPFieldRoot.tsx at
   // 47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c. MIT: THIRD_PARTY_NOTICES.md.
-  import { untrack } from "svelte";
-  import { DEV } from "esm-env";
-  import { useControlled } from "../../utils/useControlled.svelte.js";
-  import { useIsoLayoutEffect } from "../../utils/useIsoLayoutEffect.svelte.js";
-  import { useStableCallback } from "../../utils/useStableCallback.js";
-  import {
-    visuallyHidden,
-    visuallyHiddenInput,
-  } from "../../utils/visuallyHidden.js";
-  import { toNativeStyle } from "../../internals/nativeProps.js";
-  import { createLogOnce } from "../../utils/createLogOnce.js";
-  import { ownerDocument } from "../../utils/owner.js";
-  import { contains } from "../../utils/shadowDom.js";
-  import { createCompositeList } from "../../internals/composite/list/createCompositeList.svelte.js";
-  import { useFieldRootContext } from "../../internals/field-root-context/FieldRootContext.js";
-  import { useRegisterFieldControl } from "../../internals/field-register-control/useRegisterFieldControl.svelte.js";
-  import { useFieldControlNativeName } from "../../internals/field-control-name/FieldControlNameContext.js";
-  import { useFormContext } from "../../internals/form-context/FormContext.js";
-  import { useLabelableContext } from "../../internals/labelable-provider/LabelableContext.js";
-  import { useAriaLabelledBy } from "../../internals/labelable-provider/useAriaLabelledBy.svelte.js";
-  import { useLabelableId } from "../../internals/labelable-provider/useLabelableId.svelte.js";
-  import { useBaseUiId } from "../../internals/useBaseUiId.js";
-  import RenderElement from "../../internals/RenderElement.svelte";
-  import type { HTMLProps } from "../../internals/types.js";
-  import { useValueChanged } from "../../internals/useValueChanged.svelte.js";
+  import { untrack } from 'svelte';
+  import { DEV } from 'esm-env';
+  import { Controlled } from '@sveltery/utils/Controlled';
+  import { visuallyHidden, visuallyHiddenInput } from '@sveltery/utils/visuallyHidden';
+  import { toNativeStyle } from '../../internals/nativeProps.js';
+  import { createLogOnce } from '@sveltery/utils/createLogOnce';
+  import { ownerDocument } from '@sveltery/utils/owner';
+  import { contains } from '@sveltery/utils/shadowDom';
+  import { createCompositeList } from '../../internals/composite/list/createCompositeList.svelte.js';
+  import { useFieldRootContext } from '../../internals/field-root-context/FieldRootContext.js';
+  import { useRegisterFieldControl } from '../../internals/field-register-control/useRegisterFieldControl.svelte.js';
+  import { useFieldControlNativeName } from '../../internals/field-control-name/FieldControlNameContext.js';
+  import { useFormContext } from '../../internals/form-context/FormContext.js';
+  import { useLabelableContext } from '../../internals/labelable-provider/LabelableContext.js';
+  import { useAriaLabelledBy } from '../../internals/labelable-provider/useAriaLabelledBy.svelte.js';
+  import { useLabelableId } from '../../internals/labelable-provider/useLabelableId.svelte.js';
+  import { useBaseUiId } from '../../internals/useBaseUiId.js';
+  import type { HTMLProps } from '../../internals/types.js';
+  import { mergeComponentProps } from '../../internals/mergeComponentProps.js';
+  import { createAttachmentKey } from 'svelte/attachments';
+  import { ValueChanged } from '../../internals/ValueChanged.svelte.js';
   import {
     createChangeEventDetails,
     createGenericEventDetails,
-  } from "../../internals/createBaseUIEventDetails.js";
-  import { REASONS } from "../../internals/reasons.js";
-  import { setOTPFieldRootContext } from "./OTPFieldRootContext.js";
-  import { rootStateAttributesMapping } from "../utils/stateAttributesMapping.js";
-  import OTPFieldNativeInput from "../utils/OTPFieldNativeInput.svelte";
+  } from '../../internals/createBaseUIEventDetails.js';
+  import { REASONS } from '../../internals/reasons.js';
+  import { setOTPFieldRootContext } from './OTPFieldRootContext.js';
+  import { rootStateAttributesMapping } from '../utils/stateAttributesMapping.js';
+  import { listenInput } from '../utils/listenInput.js';
+  import type { HTMLInputAttributes } from 'svelte/elements';
   import {
     getOTPValidationConfig,
     normalizeOTPValue,
     normalizeOTPValueWithDetails,
-  } from "../utils/otp.js";
+  } from '../utils/otp.js';
   import type {
     OTPFieldRootProps,
     OTPFieldRootState,
     OTPFieldRootChangeEventDetails,
     OTPFieldRootCompleteEventDetails,
     OTPFieldRootInvalidEventDetails,
-  } from "../types.js";
+  } from '../types.js';
   let {
-    "aria-describedby": ariaDescribedByProp,
-    "aria-labelledby": ariaLabelledByProp,
+    'aria-describedby': ariaDescribedByProp,
+    'aria-labelledby': ariaLabelledByProp,
     id: idProp,
-    autoComplete = "one-time-code",
-    defaultValue = "",
+    autoComplete = 'one-time-code',
+    defaultValue = '',
     value: valueProp,
     onValueChange,
     onValueComplete: onValueCompleteProp,
@@ -60,7 +57,7 @@
     autoSubmit = false,
     mask = false,
     inputMode: inputModeProp,
-    validationType = "numeric",
+    validationType = 'numeric',
     normalizeValue,
     disabled: disabledProp = false,
     readOnly = false,
@@ -80,12 +77,10 @@
   const getNativeName = useFieldControlNativeName();
   const disabled = $derived(Boolean(field.disabled || disabledProp));
   const name = $derived(field.name ?? nameProp);
-  const [getValueUnwrapped, setValueUnwrapped] = useControlled(() => ({
-    controlled: valueProp,
-    default: defaultValue,
-    name: "OTPField",
-    state: "value",
-  }));
+  const valueState = new Controlled(
+    () => valueProp,
+    untrack(() => defaultValue),
+  );
   const rootRef = $state<{ current: HTMLElement | null }>({ current: null });
   const inputRefs = $state<{ current: Array<HTMLElement | null> }>({
     current: [],
@@ -105,10 +100,7 @@
     },
   };
   const nativeId = $props.id();
-  const getId = useLabelableId(
-    () => ({ id: idProp }),
-    useBaseUiId(undefined, nativeId),
-  );
+  const getId = useLabelableId(() => ({ id: idProp }), useBaseUiId(undefined, nativeId));
   const id = $derived(getId());
   const getAriaLabelledBy = useAriaLabelledBy(() => ({
     explicitAriaLabelledBy: ariaLabelledByProp ?? undefined,
@@ -118,14 +110,12 @@
     generatedLabelId: `${id}-label`,
   }));
   const ariaLabelledBy = $derived(getAriaLabelledBy());
-  const inputAriaLabelledBy = $derived(
-    ariaLabelledByProp == null ? ariaLabelledBy : undefined,
-  );
+  const inputAriaLabelledBy = $derived(ariaLabelledByProp == null ? ariaLabelledBy : undefined);
   const fieldDescriptionProps = $derived(labelable.getDescriptionProps({}));
   const ariaDescribedBy = $derived(
     mergeAriaIds(
       ariaDescribedByProp ?? undefined,
-      fieldDescriptionProps["aria-describedby"] as string | undefined,
+      fieldDescriptionProps['aria-describedby'] as string | undefined,
     ),
   );
   const validationConfig = $derived(getOTPValidationConfig(validationType));
@@ -134,40 +124,28 @@
   const inputMode = $derived(inputModeProp ?? validationConfig?.inputMode);
   const hasValidLength = $derived(Number.isInteger(length) && length > 0);
   const value = $derived(
-    normalizeOTPValue(
-      getValueUnwrapped(),
-      length,
-      validationType,
-      normalizeValue,
-    ),
+    normalizeOTPValue(valueState.value, length, validationType, normalizeValue),
   );
-  const filled = $derived(value !== "");
+  const filled = $derived(value !== '');
   let inputCount = $state(0);
   let focusedIndex = $state(untrack(() => Math.min(value.length, length - 1)));
   let focused = $state(false);
   const activeIndex = $derived(
-    focused
-      ? Math.min(focusedIndex, Math.max(length - 1, 0))
-      : Math.min(value.length, length - 1),
+    focused ? Math.min(focusedIndex, Math.max(length - 1, 0)) : Math.min(value.length, length - 1),
   );
-  useIsoLayoutEffect(
-    () => field.setFilled(filled),
-    () => [filled, field.setFilled],
-  );
-  const warn = createLogOnce("warn", "Base UI");
+  $effect(() => {
+    const currentFilled = filled;
+    untrack(() => field.setFilled(currentFilled));
+  });
+  const warn = createLogOnce('warn', 'Base UI');
   if (DEV) {
     $effect(() => {
-      if (
-        !Number.isInteger(length) ||
-        length <= 0 ||
-        inputCount === 0 ||
-        inputCount === length
-      )
+      if (!Number.isInteger(length) || length <= 0 || inputCount === 0 || inputCount === length)
         return;
       warn(
-        "<OTPField.Root> `length` must match the number of rendered " +
+        '<OTPField.Root> `length` must match the number of rendered ' +
           `<OTPField.Input /> parts. Received \`length={${length}}\` but rendered ` +
-          `${inputCount} input${inputCount === 1 ? "" : "s"}.`,
+          `${inputCount} input${inputCount === 1 ? '' : 's'}.`,
       );
     });
     $effect(() => {
@@ -185,43 +163,29 @@
     () => !disabled,
     () => nameProp,
   );
-  const focusInput = useStableCallback((index: number) => {
-    const targetIndex = Math.min(
-      Math.max(index, 0),
-      Math.max(inputRefs.current.length - 1, 0),
-    );
+  const focusInput = (index: number) => {
+    const targetIndex = Math.min(Math.max(index, 0), Math.max(inputRefs.current.length - 1, 0));
     const target = inputRefs.current[targetIndex] as HTMLInputElement | null;
     target?.focus();
     target?.select();
-  });
-  const queueFocusInput = useStableCallback(
-    (index: number, nextValue: string) => {
-      pendingFocusRef.current = { index, value: nextValue };
-    },
-  );
+  };
+  const queueFocusInput = (index: number, nextValue: string) => {
+    pendingFocusRef.current = { index, value: nextValue };
+  };
   function requestSubmit() {
     let formElement =
-      field.validation.inputRef.current?.form ??
-      firstInputRef.current?.form ??
-      null;
+      field.validation.inputRef.current?.form ?? firstInputRef.current?.form ?? null;
     if (form) {
-      const associatedElement = ownerDocument(rootRef.current).getElementById(
-        form,
-      );
-      if (associatedElement?.tagName === "FORM")
-        formElement = associatedElement as HTMLFormElement;
+      const associatedElement = ownerDocument(rootRef.current).getElementById(form);
+      if (associatedElement?.tagName === 'FORM') formElement = associatedElement as HTMLFormElement;
     }
-    if (formElement && typeof formElement.requestSubmit === "function")
-      formElement.requestSubmit();
+    if (formElement && typeof formElement.requestSubmit === 'function') formElement.requestSubmit();
   }
-  function completeValue(
-    completedValue: string,
-    eventDetails: OTPFieldRootCompleteEventDetails,
-  ) {
+  function completeValue(completedValue: string, eventDetails: OTPFieldRootCompleteEventDetails) {
     onValueCompleteProp?.(completedValue, eventDetails);
     if (autoSubmit) requestSubmit();
   }
-  useValueChanged(
+  new ValueChanged(
     () => value,
     () => () => {
       formContext.clearErrors(name);
@@ -240,67 +204,53 @@
       }
     },
   );
-  const setValue = useStableCallback(
-    (nextValue: string, details: OTPFieldRootChangeEventDetails) => {
-      const normalizedValue = normalizeOTPValue(
-        nextValue,
-        length,
-        validationType,
-        normalizeValue,
-      );
-      const canComplete =
-        details.reason === REASONS.inputChange ||
-        details.reason === REASONS.inputPaste;
-      const completeEventDetails =
-        canComplete &&
-        normalizedValue.length === length &&
-        (value.length !== length || details.reason === REASONS.inputPaste)
-          ? createGenericEventDetails(
-              details.reason as OTPFieldRootCompleteEventDetails["reason"],
-              details.event,
-            )
-          : null;
-      if (normalizedValue === value) {
-        if (completeEventDetails != null)
-          completeValue(normalizedValue, completeEventDetails);
-        return null;
-      }
-      onValueChange?.(normalizedValue, details);
-      if (details.isCanceled) return null;
-      setValueUnwrapped(normalizedValue);
-      if (completeEventDetails != null)
-        pendingCompleteValueRef.current = {
-          value: normalizedValue,
-          eventDetails: completeEventDetails,
-        };
-      else if (normalizedValue.length !== length)
-        pendingCompleteValueRef.current = null;
-      return normalizedValue;
-    },
-  );
-  const reportValueInvalid = useStableCallback(
-    (invalidValue: string, details: OTPFieldRootInvalidEventDetails) =>
-      onValueInvalid?.(invalidValue, details),
-  );
-  const handleInputFocus = useStableCallback(
-    (index: number, event: FocusEvent) => {
-      if (index > value.length) {
-        focusInput(Math.min(value.length, length - 1));
-        return;
-      }
-      focusedIndex = index;
-      focused = true;
-      field.setFocused(true);
-      (event.currentTarget as HTMLInputElement).select();
-    },
-  );
-  const handleInputBlur = useStableCallback((event: FocusEvent) => {
+  const setValue = (nextValue: string, details: OTPFieldRootChangeEventDetails) => {
+    const normalizedValue = normalizeOTPValue(nextValue, length, validationType, normalizeValue);
+    const canComplete =
+      details.reason === REASONS.inputChange || details.reason === REASONS.inputPaste;
+    const completeEventDetails =
+      canComplete &&
+      normalizedValue.length === length &&
+      (value.length !== length || details.reason === REASONS.inputPaste)
+        ? createGenericEventDetails(
+            details.reason as OTPFieldRootCompleteEventDetails['reason'],
+            details.event,
+          )
+        : null;
+    if (normalizedValue === value) {
+      if (completeEventDetails != null) completeValue(normalizedValue, completeEventDetails);
+      return null;
+    }
+    onValueChange?.(normalizedValue, details);
+    if (details.isCanceled) return null;
+    valueState.set(normalizedValue);
+    if (completeEventDetails != null)
+      pendingCompleteValueRef.current = {
+        value: normalizedValue,
+        eventDetails: completeEventDetails,
+      };
+    else if (normalizedValue.length !== length) pendingCompleteValueRef.current = null;
+    return normalizedValue;
+  };
+  const reportValueInvalid = (invalidValue: string, details: OTPFieldRootInvalidEventDetails) =>
+    onValueInvalid?.(invalidValue, details);
+  const handleInputFocus = (index: number, event: FocusEvent) => {
+    if (index > value.length) {
+      focusInput(Math.min(value.length, length - 1));
+      return;
+    }
+    focusedIndex = index;
+    focused = true;
+    field.setFocused(true);
+    (event.currentTarget as HTMLInputElement).select();
+  };
+  const handleInputBlur = (event: FocusEvent) => {
     if (contains(rootRef.current, event.relatedTarget as Element | null)) return;
     field.setTouched(true);
     focused = false;
     field.setFocused(false);
-    if (field.validationMode === "onBlur") void field.validation.commit(value);
-  });
+    if (field.validationMode === 'onBlur') void field.validation.commit(value);
+  };
   function getInputId(index: number) {
     return id == null ? undefined : index === 0 ? id : `${id}-${index + 1}`;
   }
@@ -378,29 +328,43 @@
       inputCount = newMap.size;
     },
   }));
-  const forwardedRef = {
-    get current() {
-      return ref ?? null;
-    },
-    set current(value: HTMLElement | null) {
-      ref = value;
-    },
-  };
-  const componentProps = $derived({ render, class: classProp, style });
-  const params = $derived({
-    ref: [forwardedRef, rootRef],
-    state: otpState,
-    props: [
-      {
-        role: "group",
-        "aria-describedby": ariaDescribedBy,
-        "aria-labelledby": ariaLabelledBy,
-      },
-      elementProps,
-    ],
-    stateAttributesMapping: rootStateAttributesMapping,
+  const hostAttachmentKey = createAttachmentKey();
+  function attachHost(host: HTMLElement) {
+    return untrack(() => {
+      ref = host;
+      rootRef.current = host;
+      return () =>
+        untrack(() => {
+          if (ref === host) ref = null;
+          if (rootRef.current === host) rootRef.current = null;
+        });
+    });
+  }
+  const mergedProps: HTMLProps = $derived({
+    ...mergeComponentProps(
+      otpState,
+      { class: classProp, style },
+      [
+        { role: 'group', 'aria-describedby': ariaDescribedBy, 'aria-labelledby': ariaLabelledBy },
+        elementProps,
+      ],
+      rootStateAttributesMapping,
+    ),
+    [hostAttachmentKey]: attachHost,
   });
-  const hiddenInputProps = $derived({
+  const hiddenAttachmentKey = createAttachmentKey();
+  function attachHiddenInput(host: HTMLElement) {
+    const validation = field.validation;
+    return untrack(() => {
+      validation.inputRef.current = host as HTMLInputElement;
+      return () =>
+        untrack(() => {
+          if (validation.inputRef.current === host) validation.inputRef.current = null;
+        });
+    });
+  }
+  const hiddenInputProps: HTMLProps = $derived({
+    [hiddenAttachmentKey]: attachHiddenInput,
     ...field.validation.getValidationProps(disabled, {
       onfocus() {
         focusInput(0);
@@ -408,27 +372,23 @@
       oninput(event: Event) {
         if (event.defaultPrevented || disabled || readOnly) return;
         const rawValue = (event.currentTarget as HTMLInputElement).value;
-        const [normalizedValue, didRejectCharacters] =
-          normalizeOTPValueWithDetails(
-            rawValue,
-            length,
-            validationType,
-            normalizeValue,
-          );
+        const [normalizedValue, didRejectCharacters] = normalizeOTPValueWithDetails(
+          rawValue,
+          length,
+          validationType,
+          normalizeValue,
+        );
         if (didRejectCharacters)
-          reportValueInvalid(
-            rawValue,
-            createGenericEventDetails(REASONS.inputChange, event),
-          );
+          reportValueInvalid(rawValue, createGenericEventDetails(REASONS.inputChange, event));
         const committedValue = setValue(
           normalizedValue,
           createChangeEventDetails(REASONS.inputChange, event),
         );
-        if (committedValue != null && committedValue !== "")
+        if (committedValue != null && committedValue !== '')
           queueFocusInput(committedValue.length - 1, committedValue);
       },
     }),
-    type: "text",
+    type: 'text',
     id: id && name == null ? `${id}-hidden-input` : undefined,
     form,
     name: getNativeName(name),
@@ -441,21 +401,25 @@
     disabled,
     readonly: readOnly,
     required,
-    "aria-hidden": true,
+    'aria-hidden': true,
     tabindex: -1,
     style: toNativeStyle(name ? visuallyHiddenInput : visuallyHidden),
   });
   function mergeAriaIds(...values: Array<string | undefined>) {
-    const ids = values.flatMap(
-      (value) => value?.split(/\s+/).filter(Boolean) ?? [],
-    );
-    return ids.length > 0 ? Array.from(new Set(ids)).join(" ") : undefined;
+    const ids = values.flatMap((value) => value?.split(/\s+/).filter(Boolean) ?? []);
+    return ids.length > 0 ? Array.from(new Set(ids)).join(' ') : undefined;
   }
 </script>
-<RenderElement tag="div" {componentProps} {params} {children} />
-{#snippet nativeHiddenInput(supplied: HTMLProps)}
-  <OTPFieldNativeInput {supplied} />
-{/snippet}
+
+{#if render}
+  {@render render(mergedProps, otpState, children)}
+{:else}
+  <div {...mergedProps}>{@render children?.()}</div>
+{/if}
 {#if hasValidLength}
-  <RenderElement tag="input" componentProps={{ render: nativeHiddenInput }} params={{ ref: field.validation.inputRef, props: hiddenInputProps }} />
+  <input
+    {...{ ...hiddenInputProps, oninput: undefined } as HTMLInputAttributes}
+    use:listenInput={() => hiddenInputProps.oninput}
+    bind:value={() => hiddenInputProps.value as string, () => undefined}
+  />
 {/if}

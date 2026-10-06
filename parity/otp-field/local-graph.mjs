@@ -1,6 +1,8 @@
 // Actual OTP runtime/type reachability; immutable Original evidence stays separate.
-import ts from '../../packages/base/node_modules/typescript/lib/typescript.js';
+import ts from 'typescript';
+import { resolveNativePackageSource } from '../../scripts/native-package-source.mjs';
 import { createHash } from 'node:crypto';
+import assert from 'node:assert/strict';
 import { execFileSync } from 'node:child_process';
 import { existsSync, readFileSync, statSync, writeFileSync } from 'node:fs';
 import { dirname, relative, resolve } from 'node:path';
@@ -9,6 +11,11 @@ const root = resolve(import.meta.dirname, '../..');
 const revision = process.argv.find(value => value.startsWith('--ref='))?.slice(6);
 const destination = process.argv.find(value => value.startsWith('--output='))?.slice(9)
   ?? resolve(import.meta.dirname, 'local-graph.json');
+if (revision) {
+  const checkout = execFileSync('git', ['-C', root, 'rev-parse', 'HEAD'], { encoding: 'utf8' }).trim();
+  const requested = execFileSync('git', ['-C', root, 'rev-parse', revision], { encoding: 'utf8' }).trim();
+  assert.equal(requested, checkout, '--ref requires the exact checked-out revision; resolution uses its manifest and source files');
+}
 const roots = ['packages/base/src/lib/otp-field/index.ts'];
 const modules = new Map();
 const external = new Set();
@@ -19,6 +26,8 @@ const read = local => revision
   : readFileSync(resolve(root, local), 'utf8');
 
 function resolveImport(local, specifier) {
+  const workspaceSource = resolveNativePackageSource(root, specifier);
+  if (workspaceSource) return workspaceSource;
   if (!specifier.startsWith('.')) {
     external.add(specifier);
     return `external:${specifier}`;
@@ -38,9 +47,10 @@ while (queue.length) {
   if (!record) {
     const body = read(local);
     const code = local.endsWith('.svelte')
-      ? [...body.matchAll(/<script[^>]*>([\s\S]*?)<\/script>/g)].map(match => match[1]).join('\n')
+      ? [...body.matchAll(/<script\b(?:[^>"']|"[^"]*"|'[^']*')*>([\s\S]*?)<\/script>/g)].map(match => match[1]).join('\n')
       : body;
     const ast = ts.createSourceFile(local, code, ts.ScriptTarget.Latest, true, ts.ScriptKind.TS);
+    assert.equal(ast.parseDiagnostics.length, 0, `Invalid native source script: ${local}`);
     const imports = [];
     function edge(specifier, kind, names) {
       imports.push({ specifier, kind, names, resolved: resolveImport(local, specifier) });

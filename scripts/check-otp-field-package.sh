@@ -1,17 +1,18 @@
 #!/usr/bin/env bash
 set -euo pipefail
 cd "$(dirname "$0")/.."
-source scripts/toolchain.sh
+source scripts/package-artifacts.sh
 otp_consumer_dir="$(mktemp -d "${TMPDIR:-/tmp}/sveltery-otp-consumer.XXXXXX")"
 trap 'rm -rf "$otp_consumer_dir"' EXIT
-pnpm --filter @sveltery/base pack --pack-destination "$otp_consumer_dir" >/dev/null
+sveltery_pack_package @sveltery/base "$otp_consumer_dir" >/dev/null
 node --input-type=module - "$otp_consumer_dir" <<'JS'
 import { readdirSync, writeFileSync } from 'node:fs';
 import { join } from 'node:path';
 const dir = process.argv[2];
 const tarball = readdirSync(dir).find(name => name.endsWith('.tgz'));
-writeFileSync(join(dir, 'package.json'), JSON.stringify({ private: true, type: 'module', dependencies: { '@sveltery/base': `file:${join(dir,tarball)}`, svelte:'5.57.1', 'svelte-check':'4.7.6', typescript:'5.9.3', jsdom:'30.1.1' } }));
+writeFileSync(join(dir, 'package.json'), JSON.stringify({ private: true, type: 'module', dependencies: { '@sveltery/base': `file:${join(dir,tarball)}`, svelte:'5.57.1', 'svelte-check':'4.7.6', typescript:'6.0.3', jsdom:'30.1.1' } }));
 JS
+sveltery_prepare_consumer "$otp_consumer_dir"
 pnpm --dir "$otp_consumer_dir" --ignore-workspace install --ignore-scripts >/dev/null
 pnpm --dir "$otp_consumer_dir" --ignore-workspace install --frozen-lockfile --ignore-scripts >/dev/null
 cat > "$otp_consumer_dir/Consumer.svelte" <<'SVELTE'
@@ -26,7 +27,7 @@ cat > "$otp_consumer_dir/Consumer.svelte" <<'SVELTE'
   const props: OTPFieldRootProps = { length:4, validationType:'alphanumeric', normalizeValue:value=>value.toUpperCase(), onValueChange(value,details) { if(details.reason==='input-paste'){const event:ClipboardEvent=details.event;void event;}if(details.reason==='keyboard'){const event:KeyboardEvent=details.event;void event;}owner=value; } };
   const input: OTPFieldInputProps = { readonly:false, oninput:event=>event.preventBaseUIHandler() };
 </script>
-<Field.Root name="code"><Field.Label>Code</Field.Label><OTPField.Root {...props} value={owner} name="code" bind:ref={rootRef} class={state => [state.complete && 'complete', { required:state.required }]} style={state => ({ opacity:state.disabled ? 0.5 : 1 })}><OTPField.Input bind:ref={inputRef} name="slot" checked={undefined} class={state => ['slot', { filled:state.filled }]} style={state => ({ opacity:state.filled ? 1 : 0.5 })}/><OTPField.Input/><OTPField.Separator orientation={undefined} bind:ref={separatorRef} class={state => state.orientation} style={state => ({ color:state.orientation === 'horizontal' ? 'blue' : 'red' })}/><OTPField.Input/><OTPField.Input/></OTPField.Root></Field.Root>
+<Field.Root name="code"><Field.Label>Code</Field.Label><OTPField.Root {...props} value={owner} name="code" bind:ref={rootRef} class={state => [state.complete && 'complete', { required:state.required }]} style={state => `opacity:${state.disabled ? 0.5 : 1}`}><OTPField.Input bind:ref={inputRef} name="slot" checked={undefined} class={state => ['slot', { filled:state.filled }]} style={state => `opacity:${state.filled ? 1 : 0.5}`}/><OTPField.Input/><OTPField.Separator orientation={undefined} bind:ref={separatorRef} class={state => state.orientation} style={state => `color:${state.orientation === 'horizontal' ? 'blue' : 'red'}`}/><OTPField.Input/><OTPField.Input/></OTPField.Root></Field.Root>
 <Subpath.Root length={2} defaultValue="12"><Subpath.Input {...input}/><Subpath.Input/></Subpath.Root>
 <OTPFieldRoot length={1} defaultValue="a" validationType="alpha">
   {#snippet render(props,_state,children)}<section {...props as HTMLAttributes<HTMLElement>}>{@render children?.()}</section>{/snippet}
@@ -42,9 +43,9 @@ import type { SeparatorProps } from '@sveltery/base/separator';
 declare const rootRender: NonNullable<OTPFieldRootProps['render']>;
 declare const inputRender: NonNullable<OTPFieldInputProps['render']>;
 declare const separatorRender: NonNullable<SeparatorProps['render']>;
-const root: ComponentProps<typeof OTPField.Root> = { length:6, name:'code', value:undefined, form:'form', inputMode:'tel', mask:true, ref:undefined, render:rootRender, class:state=>[state.complete && 'complete'], style:state=>({ opacity:state.required ? 1 : 0.5 }) };
-const subpath: ComponentProps<typeof Subpath.Input> = { disabled:true, readonly:true, name:'slot', checked:false, value:undefined, ref:null, render:inputRender, class:state=>({ filled:state.filled }), style:state=>({ opacity:state.index ? 0.5 : 1 }) };
-const separator: ComponentProps<typeof Subpath.Separator> = { orientation:undefined, ref:undefined, render:separatorRender, class:state=>state.orientation, style:state=>({ color:state.orientation === 'horizontal' ? 'blue' : 'red' }) };
+const root: ComponentProps<typeof OTPField.Root> = { length:6, name:'code', value:undefined, form:'form', inputMode:'tel', mask:true, ref:undefined, render:rootRender, class:state=>[state.complete && 'complete'], style:state=>`opacity:${state.required ? 1 : 0.5}` };
+const subpath: ComponentProps<typeof Subpath.Input> = { disabled:true, readonly:true, name:'slot', checked:false, value:undefined, ref:null, render:inputRender, class:state=>({ filled:state.filled }), style:state=>`opacity:${state.index ? 0.5 : 1}` };
+const separator: ComponentProps<typeof Subpath.Separator> = { orientation:undefined, ref:undefined, render:separatorRender, class:state=>state.orientation, style:state=>`color:${state.orientation === 'horizontal' ? 'blue' : 'red'}` };
 // @ts-expect-error length is required
 const badRoot: OTPFieldRootProps = {};
 // @ts-expect-error order is inferred
@@ -76,18 +77,44 @@ cat > "$otp_consumer_dir/tsconfig.json" <<'JSON'
 {"compilerOptions":{"target":"ES2022","module":"ESNext","moduleResolution":"Bundler","strict":true,"exactOptionalPropertyTypes":true,"noUncheckedIndexedAccess":true,"skipLibCheck":false,"verbatimModuleSyntax":true,"lib":["ES2022","DOM","DOM.Iterable"]},"include":["*.ts","*.svelte"]}
 JSON
 pnpm --dir "$otp_consumer_dir" exec svelte-check --tsconfig tsconfig.json
+cat > "$otp_consumer_dir/HydrationConsumer.svelte" <<'SVELTE'
+<script lang="ts">
+  import { OTPField } from '@sveltery/base/otp-field';
+  let alive = $state(true);
+  let generation = $state(0);
+  let cancel = $state(false);
+  let root = $state<HTMLElement | null>();
+  let first = $state<HTMLElement | null>();
+  const calls: string[] = [];
+  export function snapshot() { return { root, first, calls: [...calls] }; }
+  export function reject(next: boolean) { cancel = next; }
+  export function replace() { generation++; }
+  export function remove() { alive = false; }
+</script>
+<form>
+  {#if alive}
+    <OTPField.Root length={2} defaultValue="12" name="code" required bind:ref={root}
+      onValueChange={(value, details) => { calls.push(value); if (cancel) details.cancel(); }}>
+      {#key generation}<OTPField.Input bind:ref={first} />{/key}
+      <OTPField.Input />
+    </OTPField.Root>
+  {/if}
+</form>
+SVELTE
 cat > "$otp_consumer_dir/check.mjs" <<'JS'
 import assert from 'node:assert/strict';
-import { readFileSync } from 'node:fs';
+import { readFileSync, writeFileSync, existsSync } from 'node:fs';
 import { render } from 'svelte/server';
 import { OTPField, OTPFieldRoot, OTPFieldInput } from '@sveltery/base';
 import { OTPField as Subpath } from '@sveltery/base/otp-field';
 import Consumer from './Consumer.svelte';
+import HydrationConsumer from './HydrationConsumer.svelte';
 assert.equal(OTPField.Root, OTPFieldRoot);
 assert.equal(OTPField.Input, OTPFieldInput);
 assert.equal(Subpath.Root, OTPField.Root);
 assert.equal(Subpath.Separator, OTPField.Separator);
 const html=render(Consumer).body;
+writeFileSync(new URL('./server.html', import.meta.url), render(HydrationConsumer).body);
 assert.equal((html.match(/role="group"/g)??[]).length,3);
 assert.equal((html.match(/aria-hidden="true"/g)??[]).length,3);
 assert.equal((html.match(/<input /g)??[]).length,10);
@@ -96,6 +123,7 @@ assert.match(html,/<section /);
 const metadata=JSON.parse(readFileSync(new URL('./node_modules/@sveltery/base/package.json',import.meta.url)));
 assert(metadata.exports['./otp-field']);
 assert(!metadata.dependencies.react);
+assert(!existsSync(new URL('./node_modules/@sveltery/base/dist/otp-field/utils/OTPFieldNativeInput.svelte',import.meta.url)), 'Retired OTP host wrapper must not leak into the actual packed artifact');
 console.log('OTP packed root/subpath strict types and SSR consumer: PASS');
 JS
 node --import "$PWD/scripts/svelte-ssr-loader.mjs" "$otp_consumer_dir/check.mjs"
@@ -110,7 +138,7 @@ const nodeProcess = globalThis.process;
 Object.defineProperty(globalThis, 'navigator', { configurable: true, value: dom.window.navigator });
 try {
   globalThis.process = undefined;
-  const { platform } = await import('./node_modules/@sveltery/base/dist/utils/platform/index.js');
+  const { platform } = await import('./node_modules/@sveltery/utils/dist/platform/index.js');
   const { stopEvent, isClickLikeEvent } = await import('./node_modules/@sveltery/base/dist/floating-ui/utils/event.js');
   assert.equal(platform.env.jsdom, true);
   const parent = dom.window.document.querySelector('div');
@@ -127,3 +155,61 @@ try {
 console.log('OTP installed private native event consumer without Node process: PASS');
 JS
 node --conditions=development "$otp_consumer_dir/native-event.mjs"
+
+# Compile only the installed package graph with the installed Svelte peer.
+cat > "$otp_consumer_dir/dom-loader.mjs" <<'JS'
+import { registerHooks, createRequire } from 'node:module';
+import { readFileSync } from 'node:fs';
+import { fileURLToPath } from 'node:url';
+const require = createRequire(new URL('./package.json', import.meta.url));
+const { compile, compileModule } = require('svelte/compiler');
+registerHooks({ load(url, context, nextLoad) {
+  if (url.endsWith('.svelte') || url.endsWith('.svelte.js')) {
+    const source = readFileSync(fileURLToPath(url), 'utf8');
+    const options = { filename: fileURLToPath(url), generate: 'client' };
+    const result = url.endsWith('.svelte') ? compile(source, options) : compileModule(source, options);
+    return { format: 'module', source: result.js.code, shortCircuit: true };
+  }
+  return nextLoad(url, context);
+} });
+JS
+cat > "$otp_consumer_dir/dom-check.mjs" <<'JS'
+import assert from 'node:assert/strict';
+import { readFileSync } from 'node:fs';
+import { JSDOM } from 'jsdom';
+const dom = new JSDOM('<!doctype html><main></main>', { url:'http://localhost', pretendToBeVisual:true });
+for (const key of ['window','document','navigator','HTMLElement','HTMLInputElement','HTMLFormElement','Element','Node','Text','Comment','Event','InputEvent','FocusEvent','MouseEvent','KeyboardEvent','MutationObserver','getComputedStyle']) {
+  Object.defineProperty(globalThis,key,{configurable:true,value:dom.window[key]});
+}
+globalThis.requestAnimationFrame = dom.window.requestAnimationFrame.bind(dom.window);
+globalThis.cancelAnimationFrame = dom.window.cancelAnimationFrame.bind(dom.window);
+const { hydrate, flushSync, tick, unmount } = await import('svelte');
+const { default: Consumer } = await import('./HydrationConsumer.svelte');
+const target = document.querySelector('main');
+target.innerHTML = readFileSync(new URL('./server.html',import.meta.url),'utf8');
+const originalRoot = target.querySelector('[role="group"]');
+const originalFirst = target.querySelector('input');
+const app = hydrate(Consumer,{target}); flushSync();
+assert.equal(app.snapshot().root,originalRoot);
+assert.equal(app.snapshot().first,originalFirst);
+const form = target.querySelector('form');
+const hidden = target.querySelector('input[aria-hidden="true"]');
+const serialized = () => new dom.window.FormData(form).get('code');
+assert.equal(serialized(),'12');
+const edit = async (node,value) => { node.value=value; node.dispatchEvent(new dom.window.InputEvent('input',{bubbles:true,cancelable:true,inputType:'insertText'})); await tick(); flushSync(); };
+await edit(hidden,'1x2');
+assert.equal(hidden.value,'12'); assert.equal(serialized(),'12'); assert.equal(hidden.checkValidity(),true);
+assert.deepEqual(app.snapshot().calls,[]);
+app.reject(true); flushSync(); await edit(hidden,'34');
+assert.equal(hidden.value,'12'); assert.equal(serialized(),'12'); assert.deepEqual(app.snapshot().calls,['34']);
+app.reject(false); flushSync(); await edit(originalFirst,'56');
+assert.equal(serialized(),'56'); assert.equal(originalFirst.value,'5'); assert.deepEqual(app.snapshot().calls,['34','56']);
+app.replace(); flushSync();
+assert.notEqual(app.snapshot().first,originalFirst); assert.equal(originalFirst.isConnected,false);
+assert.equal(app.snapshot().first.value,'5');
+app.remove(); flushSync(); assert.equal(app.snapshot().root,null); assert.equal(app.snapshot().first,null);
+assert.equal(target.querySelectorAll('input').length,0);
+await unmount(app); assert.equal(target.childElementCount,0); dom.window.close();
+console.log('OTP dual-tarball hydration, hidden binding/cancellation, slot events, replacement and cleanup: PASS');
+JS
+node --conditions=browser --conditions=development --import "$otp_consumer_dir/dom-loader.mjs" "$otp_consumer_dir/dom-check.mjs"

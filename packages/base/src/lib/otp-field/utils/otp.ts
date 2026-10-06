@@ -4,37 +4,34 @@ interface OTPValidationConfig {
   slotPattern: string;
   getRootPattern: (length: number) => string;
   regexp: RegExp;
-  inputMode: "numeric" | "text";
+  inputMode: 'numeric' | 'text';
 }
 
-export type OTPValidationType = "numeric" | "alpha" | "alphanumeric" | "none";
+export type OTPValidationType = 'numeric' | 'alpha' | 'alphanumeric' | 'none';
 
-const OTP_VALIDATION_CONFIG: Record<
-  Exclude<OTPValidationType, "none">,
-  OTPValidationConfig
-> = {
+const OTP_VALIDATION_CONFIG: Record<Exclude<OTPValidationType, 'none'>, OTPValidationConfig> = {
   numeric: {
-    slotPattern: "\\d{1}",
+    slotPattern: '\\d{1}',
     getRootPattern: (length) => `\\d{${length}}`,
     regexp: /[^\d]/g,
-    inputMode: "numeric",
+    inputMode: 'numeric',
   },
   alpha: {
-    slotPattern: "[a-zA-Z]{1}",
+    slotPattern: '[a-zA-Z]{1}',
     getRootPattern: (length) => `[a-zA-Z]{${length}}`,
     regexp: /[^a-zA-Z]/g,
-    inputMode: "text",
+    inputMode: 'text',
   },
   alphanumeric: {
-    slotPattern: "[a-zA-Z0-9]{1}",
+    slotPattern: '[a-zA-Z0-9]{1}',
     getRootPattern: (length) => `[a-zA-Z0-9]{${length}}`,
     regexp: /[^a-zA-Z0-9]/g,
-    inputMode: "text",
+    inputMode: 'text',
   },
 };
 
 export function getOTPValidationConfig(validationType: OTPValidationType) {
-  if (validationType === "none") {
+  if (validationType === 'none') {
     return null;
   }
 
@@ -42,14 +39,11 @@ export function getOTPValidationConfig(validationType: OTPValidationType) {
 }
 
 export function stripOTPWhitespace(value: string | null | undefined) {
-  return (value ?? "").replace(/\s/g, "");
+  return (value ?? '').replace(/\s/g, '');
 }
 
-function applyOTPValidation(
-  value: string,
-  validation: OTPValidationConfig | null,
-) {
-  return validation ? value.replace(validation.regexp, "") : value;
+function applyOTPValidation(value: string, validation: OTPValidationConfig | null) {
+  return validation ? value.replace(validation.regexp, '') : value;
 }
 
 /**
@@ -69,11 +63,9 @@ export function normalizeOTPValueWithDetails(
 
   if (normalizeValue) {
     const customNormalizedValue = normalizeValue(normalizedValue);
-    didRejectCharacters ||=
-      normalizedValue.length > customNormalizedValue.length;
+    didRejectCharacters ||= normalizedValue.length > customNormalizedValue.length;
     normalizedValue = applyOTPValidation(customNormalizedValue, validation);
-    didRejectCharacters ||=
-      customNormalizedValue.length > normalizedValue.length;
+    didRejectCharacters ||= customNormalizedValue.length > normalizedValue.length;
   }
 
   // Slice by Unicode code points so multi-byte characters do not split across OTP slots.
@@ -81,7 +73,7 @@ export function normalizeOTPValueWithDetails(
   const normalizedCharacters = Array.from(normalizedValue);
 
   return [
-    normalizedCharacters.slice(0, maxLength).join(""),
+    normalizedCharacters.slice(0, maxLength).join(''),
     didRejectCharacters || normalizedCharacters.length > maxLength,
   ];
 }
@@ -92,12 +84,7 @@ export function normalizeOTPValue(
   validationType: OTPValidationType,
   normalizeValue?: ((value: string) => string) | undefined,
 ) {
-  return normalizeOTPValueWithDetails(
-    value,
-    length,
-    validationType,
-    normalizeValue,
-  )[0];
+  return normalizeOTPValueWithDetails(value, length, validationType, normalizeValue)[0];
 }
 
 /**
@@ -112,12 +99,7 @@ export function replaceOTPValue(
   validationType: OTPValidationType,
   normalizeValue?: ((value: string) => string) | undefined,
 ) {
-  const normalizedValue = normalizeOTPValue(
-    nextValue,
-    length,
-    validationType,
-    normalizeValue,
-  );
+  const normalizedValue = normalizeOTPValue(nextValue, length, validationType, normalizeValue);
   const prefix = currentValue.slice(0, index);
   const suffix = currentValue.slice(index + normalizedValue.length);
 

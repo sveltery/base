@@ -11,8 +11,9 @@
   const NullGroup = RadioGroup<null | string>;
   const NullRadio = Radio.Root<null | string>;
 </script>
+
 <form id="external-form"></form>
-<Form id="owner-form" onFormSubmit={values => onSubmit?.(values)}>
+<Form id="owner-form" onFormSubmit={(values) => onSubmit?.(values)}>
   <Field.Root name="external">
     <RadioGroup defaultValue="a" form="external-form">
       <label for="external-option">External option</label>

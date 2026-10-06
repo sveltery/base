@@ -1,33 +1,33 @@
 <script lang="ts">
   // Source-ordered port of Base UI v1.8.0 OTPFieldInput.tsx at
   // 47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c. MIT: THIRD_PARTY_NOTICES.md.
-  import { DEV } from "esm-env";
-  import type { HTMLProps } from "../../internals/types.js";
-  import { createLogOnce } from "../../utils/createLogOnce.js";
-  import { stopEvent } from "../../floating-ui/utils/event.js";
-  import { useCompositeListItem } from "../../internals/composite/list/useCompositeListItem.svelte.js";
-  import { useDirection } from "../../direction-provider/context.js";
-  import RenderElement from "../../internals/RenderElement.svelte";
+  import { DEV } from 'esm-env';
+  import { untrack } from 'svelte';
+  import { createLogOnce } from '@sveltery/utils/createLogOnce';
+  import { stopEvent } from '../../floating-ui/utils/event.js';
+  import { useCompositeListItem } from '../../internals/composite/list/useCompositeListItem.svelte.js';
+  import { useDirection } from '../../direction-provider/context.js';
+  import type { HTMLProps } from '../../internals/types.js';
+  import { mergeComponentProps } from '../../internals/mergeComponentProps.js';
+  import { createAttachmentKey } from 'svelte/attachments';
   import {
     createChangeEventDetails,
     createGenericEventDetails,
-  } from "../../internals/createBaseUIEventDetails.js";
-  import { REASONS } from "../../internals/reasons.js";
-  import {
-    useOTPFieldRootContext,
-    getOTPFieldInputState,
-  } from "../root/OTPFieldRootContext.js";
-  import { inputStateAttributesMapping } from "../utils/stateAttributesMapping.js";
-  import OTPFieldNativeInput from "../utils/OTPFieldNativeInput.svelte";
+  } from '../../internals/createBaseUIEventDetails.js';
+  import { REASONS } from '../../internals/reasons.js';
+  import { useOTPFieldRootContext, getOTPFieldInputState } from '../root/OTPFieldRootContext.js';
+  import { inputStateAttributesMapping } from '../utils/stateAttributesMapping.js';
+  import { listenInput } from '../utils/listenInput.js';
+  import type { HTMLInputAttributes } from 'svelte/elements';
   import {
     normalizeOTPValueWithDetails,
     removeOTPCharacter,
     replaceOTPValue,
-  } from "../utils/otp.js";
-  import type { OTPFieldInputProps } from "../types.js";
+  } from '../utils/otp.js';
+  import type { OTPFieldInputProps } from '../types.js';
   let {
-    "aria-label": externalAriaLabel,
-    "aria-labelledby": externalAriaLabelledBy,
+    'aria-label': externalAriaLabel,
+    'aria-labelledby': externalAriaLabelledBy,
     render,
     class: classProp,
     style,
@@ -64,12 +64,12 @@
   const index = $derived(listItem.index());
   const inputRef = $state<{ current: HTMLElement | null }>({ current: null });
   const direction = useDirection();
-  const slotValue = $derived(value[index] ?? "");
+  const slotValue = $derived(value[index] ?? '');
   const inputState = $derived(getOTPFieldInputState(rootState, slotValue, index));
   const slotAriaLabel = $derived(externalAriaLabel);
   const inheritedLabel = $derived(externalAriaLabelledBy ?? inputAriaLabelledBy);
   const ariaLabel = $derived(index === 0 ? undefined : slotAriaLabel);
-  const warn = createLogOnce("warn", "Base UI");
+  const warn = createLogOnce('warn', 'Base UI');
   if (DEV) {
     $effect(() => {
       if (
@@ -79,19 +79,19 @@
       )
         return;
       warn(
-        "<OTPField.Input> ignores `aria-label` on the first input. Use a `<label>` or `<Field.Label>` to label the OTP field.",
+        '<OTPField.Input> ignores `aria-label` on the first input. Use a `<label>` or `<Field.Label>` to label the OTP field.',
       );
     });
   }
   const inputProps = $derived({
     id: getInputId(index),
     value: slotValue,
-    type: mask ? "password" : "text",
+    type: mask ? 'password' : 'text',
     inputmode: inputMode,
-    autocomplete: index === 0 ? autoComplete : "off",
-    autocorrect: "off",
-    spellcheck: "false",
-    enterkeyhint: index === length - 1 ? "done" : "next",
+    autocomplete: index === 0 ? autoComplete : 'off',
+    autocorrect: 'off',
+    spellcheck: 'false',
+    enterkeyhint: index === length - 1 ? 'done' : 'next',
     // Only the first slot has a max length to avoid password manager bubbles appearing after later inputs.
     maxlength: index === 0 ? length : undefined,
     tabindex: activeIndex === index ? 0 : -1,
@@ -100,9 +100,9 @@
     pattern,
     readonly: readOnly,
     required,
-    "aria-labelledby": ariaLabel == null ? inheritedLabel : undefined,
-    "aria-invalid": !disabled && invalid ? true : undefined,
-    "aria-label": ariaLabel,
+    'aria-labelledby': ariaLabel == null ? inheritedLabel : undefined,
+    'aria-invalid': !disabled && invalid ? true : undefined,
+    'aria-label': ariaLabel,
     onmousedown(event: MouseEvent) {
       if (event.defaultPrevented || disabled) {
         return;
@@ -139,19 +139,16 @@
       );
 
       if (didRejectCharacters) {
-        reportValueInvalid(
-          rawValue,
-          createGenericEventDetails(REASONS.inputChange, event),
-        );
+        reportValueInvalid(rawValue, createGenericEventDetails(REASONS.inputChange, event));
       }
 
-      if (nextDigits === "") {
-        if (rawValue === "") {
+      if (nextDigits === '') {
+        if (rawValue === '') {
           setValue(
             removeOTPCharacter(value, index),
             createChangeEventDetails(REASONS.inputClear, event),
           );
-        } else if (slotValue !== "") {
+        } else if (slotValue !== '') {
           (event.currentTarget as HTMLInputElement).value = slotValue;
           (event.currentTarget as HTMLInputElement).select();
         }
@@ -185,35 +182,30 @@
       const firstIndex = 0;
       const lastIndex = Math.max(length - 1, firstIndex);
       const endTargetIndex = Math.min(value.length, lastIndex);
-      const hasBoundaryModifier =
-        (event.ctrlKey || event.metaKey) && !event.altKey;
-      const isRtl = direction() === "rtl";
-      const previousKey = isRtl ? "ArrowRight" : "ArrowLeft";
-      const nextKey = isRtl ? "ArrowLeft" : "ArrowRight";
+      const hasBoundaryModifier = (event.ctrlKey || event.metaKey) && !event.altKey;
+      const isRtl = direction() === 'rtl';
+      const previousKey = isRtl ? 'ArrowRight' : 'ArrowLeft';
+      const nextKey = isRtl ? 'ArrowLeft' : 'ArrowRight';
 
       if (event.key === previousKey) {
         stopEvent(event);
-        focusInput(
-          hasBoundaryModifier ? firstIndex : Math.max(firstIndex, index - 1),
-        );
+        focusInput(hasBoundaryModifier ? firstIndex : Math.max(firstIndex, index - 1));
         return;
       }
 
       if (event.key === nextKey) {
         stopEvent(event);
-        focusInput(
-          hasBoundaryModifier ? endTargetIndex : Math.min(lastIndex, index + 1),
-        );
+        focusInput(hasBoundaryModifier ? endTargetIndex : Math.min(lastIndex, index + 1));
         return;
       }
 
-      if (event.key === "Home" || event.key === "ArrowUp") {
+      if (event.key === 'Home' || event.key === 'ArrowUp') {
         stopEvent(event);
         focusInput(firstIndex);
         return;
       }
 
-      if (event.key === "End" || event.key === "ArrowDown") {
+      if (event.key === 'End' || event.key === 'ArrowDown') {
         stopEvent(event);
         focusInput(endTargetIndex);
         return;
@@ -234,13 +226,13 @@
         }
       }
 
-      if (event.key === "Backspace" && hasBoundaryModifier) {
+      if (event.key === 'Backspace' && hasBoundaryModifier) {
         stopEvent(event);
-        setKeyboardValue("", firstIndex);
+        setKeyboardValue('', firstIndex);
         return;
       }
 
-      if (event.key === "Delete") {
+      if (event.key === 'Delete') {
         stopEvent(event);
         setKeyboardValue(removeOTPCharacter(value, index), index);
         return;
@@ -249,8 +241,7 @@
       const inputValue = (event.currentTarget as HTMLInputElement).value;
       const fullSelection =
         (event.currentTarget as HTMLInputElement).selectionStart === 0 &&
-        (event.currentTarget as HTMLInputElement).selectionEnd ===
-          inputValue.length;
+        (event.currentTarget as HTMLInputElement).selectionEnd === inputValue.length;
 
       if (event.key.length === 1 && fullSelection && slotValue === event.key) {
         stopEvent(event);
@@ -260,10 +251,10 @@
         return;
       }
 
-      if (event.key === "Backspace") {
+      if (event.key === 'Backspace') {
         stopEvent(event);
         const targetIndex = Math.max(firstIndex, index - 1);
-        const deleteIndex = slotValue === "" ? targetIndex : index;
+        const deleteIndex = slotValue === '' ? targetIndex : index;
         setKeyboardValue(removeOTPCharacter(value, deleteIndex), targetIndex);
       }
     },
@@ -275,13 +266,11 @@
       let rawValue: string;
 
       try {
-        rawValue = event.clipboardData?.getData("text/plain") ?? "";
+        rawValue = event.clipboardData?.getData('text/plain') ?? '';
       } catch {
         /* istanbul ignore else -- `process.env.NODE_ENV` is a build-time constant under test */
         if (DEV) {
-          warn(
-            "<OTPField.Input> could not read clipboard text during paste handling.",
-          );
+          warn('<OTPField.Input> could not read clipboard text during paste handling.');
         }
 
         return;
@@ -297,25 +286,15 @@
       );
 
       if (didRejectCharacters) {
-        reportValueInvalid(
-          rawValue,
-          createGenericEventDetails(REASONS.inputPaste, event),
-        );
+        reportValueInvalid(rawValue, createGenericEventDetails(REASONS.inputPaste, event));
       }
 
-      if (nextDigits === "") {
+      if (nextDigits === '') {
         return;
       }
 
       const committedValue = setValue(
-        replaceOTPValue(
-          value,
-          index,
-          nextDigits,
-          length,
-          validationType,
-          normalizeValue,
-        ),
+        replaceOTPValue(value, index, nextDigits, length, validationType, normalizeValue),
         createChangeEventDetails(REASONS.inputPaste, event),
       );
 
@@ -325,27 +304,38 @@
       }
     },
   });
-  const forwardedRef = {
-    get current() {
-      return ref ?? null;
-    },
-    set current(value: HTMLElement | null) {
-      ref = value;
-    },
-  };
-  const componentProps = $derived({
-    render: render ?? nativeInput,
-    class: classProp,
-    style,
-  });
-  const params = $derived({
-    ref: [forwardedRef, listItem.ref, inputRef],
-    state: inputState,
-    props: [inputProps, elementProps],
-    stateAttributesMapping: inputStateAttributesMapping,
+  const hostAttachmentKey = createAttachmentKey();
+  function attachHost(host: HTMLElement) {
+    const cleanupListItem = listItem.attach(host);
+    untrack(() => {
+      ref = host;
+      inputRef.current = host;
+    });
+    return () => {
+      cleanupListItem();
+      untrack(() => {
+        if (ref === host) ref = null;
+        if (inputRef.current === host) inputRef.current = null;
+      });
+    };
+  }
+  const mergedProps: HTMLProps = $derived({
+    ...mergeComponentProps(
+      inputState,
+      { class: classProp, style },
+      [inputProps, elementProps],
+      inputStateAttributesMapping,
+    ),
+    [hostAttachmentKey]: attachHost,
   });
 </script>
-{#snippet nativeInput(supplied: HTMLProps)}
-  <OTPFieldNativeInput {supplied} />
-{/snippet}
-<RenderElement tag="input" {componentProps} {params} />
+
+{#if render}
+  {@render render(mergedProps, inputState, undefined)}
+{:else}
+  <input
+    {...{ ...mergedProps, oninput: undefined } as HTMLInputAttributes}
+    use:listenInput={() => mergedProps.oninput}
+    bind:value={() => mergedProps.value as string, () => undefined}
+  />
+{/if}
