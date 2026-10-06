@@ -18,7 +18,7 @@ async function setup() {
   const requests: { open: boolean; details: MenuRoot.ChangeEventDetails }[] = [];
   const component = mount(Fixture, {
     target,
-    props: { report: (open, details) => requests.push({ open, details }) },
+    props: { portalContainer: target, report: (open, details) => requests.push({ open, details }) },
   });
   cleanups.push(() => unmount(component));
   await tick();
@@ -33,11 +33,17 @@ async function setup() {
   item.focus();
   expect(document.activeElement).toBe(item);
   expect(requests).toEqual([]);
+  // Leave the popup through its actual trigger before testing reference focusout.
+  trigger.focus();
+  await tick();
+  expect(document.activeElement).toBe(trigger);
+  expect(trigger.getAttribute('aria-expanded')).toBe('true');
+  expect(requests).toEqual([]);
   return { target, trigger, item, outside, positioner, popup, requests };
 }
 
 it('keeps live-owner native focusout closing the actual menu without returning outside focus', async () => {
-  const { trigger, item, outside, requests } = await setup();
+  const { trigger, outside, requests } = await setup();
   outside.focus();
   expect(document.activeElement).toBe(outside);
   expect(requests).toEqual([]);
@@ -46,7 +52,7 @@ it('keeps live-owner native focusout closing the actual menu without returning o
   expect(requests[0].open).toBe(false);
   expect(requests[0].details.reason).toBe('focus-out');
   expect(requests[0].details.event?.type).toBe('focusout');
-  expect(requests[0].details.event?.target).toBe(item);
+  expect(requests[0].details.event?.target).toBe(trigger);
   expect(trigger.getAttribute('aria-expanded')).toBe('false');
   expect(document.activeElement).toBe(outside);
 });
