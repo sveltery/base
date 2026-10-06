@@ -22,6 +22,20 @@
     "sha256": "0b55dc232a0d630a666a13873213d1bdde040e973031f2b307a64cc157644a4c",
     "contract": "renderTag(button, props) supplies literal type=\"button\" before the spread only for the intrinsic fallback; a custom render function receives unchanged props."
   },
+  "nativeContractPredecessor": "c0da99c7e01f5d35e2572256df66136fce55cf41",
+  "nativeContractAstPreservedBodies": 486,
+  "sourceNativeContractCorrectionPaths": [
+    "packages/base/src/lib/accordion/Trigger.svelte",
+    "packages/base/src/lib/checkbox-group/types.ts",
+    "packages/base/src/lib/collapsible/Trigger.svelte",
+    "packages/base/src/lib/context-menu/Root.svelte",
+    "packages/base/src/lib/context-menu/root/ContextMenuRootContext.ts",
+    "packages/base/src/lib/context-menu/trigger/createContextMenuTrigger.svelte.ts",
+    "packages/base/src/lib/dialog/store/DialogStore.svelte.ts",
+    "packages/base/src/lib/dialog/types.ts",
+    "packages/base/src/lib/toast/Close.svelte",
+    "packages/base/src/lib/toast/types.ts"
+  ],
   "sourceHostDefaultCorrectionPaths": [
     "packages/base/src/lib/button/Button.svelte",
     "packages/base/src/lib/dialog/Close.svelte",
@@ -37,14 +51,14 @@
   "immutableOriginalPin": "47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c",
   "ordinaryDeclarationCredit": 0,
   "mode": "Source/parser/hash/import evidence only; no type program, runtime, SSR/hydration, compiled markup, artifact, installed consumer, browser, CI or merge acceptance credit.",
-  "method": "Complete current native two-package AST closure, immutable f0 full-body preimages and grouping-preserving script ASTs. Deliberate source/native owner corrections remain separate from formatter presentation changes. Getter/label publication retain exact inherited bodies; full-body Menu cleanup deltas bind e5, captured focus metadata binds42, trigger publication bindsf2, and native ownership comments bind336 with its AST unchanged. The five native node/initial-seed/focus-out disposal owner deltas bindc392 while all earlier stages/history remain distinct. The subsequent 32 obsolete binding directives and one RadioGroup output-binding annotation bind 0d with all 496 complete bodies otherwise unchanged and every script AST identical. The next native initial-focus destroyed-owner predicate and adjacent timing comment bind ec36 as one complete Source-body delta; all other 495 current bodies/ASTs stay exact. This native owner adaptation earns zero unchanged Original credit. The subsequent real Popover trigger focus-target node property binds 0ba as one complete Source-body delta with 495 other current bodies/ASTs exact; earlier stages retain their own immutable preservation counts. The next ten intrinsic button fallback defaults bind d5 as exact literal attributes before props spread; all 496 script ASTs and 486 other full bodies remain unchanged. Custom render branches and merged props remain untouched. The Original fallback default is expressed as native host markup with no shared renderer or new assertion credit. Parse success supplies no behavior equivalence.",
+  "method": "Complete current native two-package AST closure, immutable f0 full-body preimages and grouping-preserving script ASTs. Deliberate source/native owner corrections remain separate from formatter presentation changes. Getter/label publication retain exact inherited bodies; full-body Menu cleanup deltas bind e5, captured focus metadata binds42, trigger publication bindsf2, and native ownership comments bind336 with its AST unchanged. The five native node/initial-seed/focus-out disposal owner deltas bindc392 while all earlier stages/history remain distinct. The subsequent 32 obsolete binding directives and one RadioGroup output-binding annotation bind 0d with all 496 complete bodies otherwise unchanged and every script AST identical. The next native initial-focus destroyed-owner predicate and adjacent timing comment bind ec36 as one complete Source-body delta; all other 495 current bodies/ASTs stay exact. This native owner adaptation earns zero unchanged Original credit. The subsequent real Popover trigger focus-target node property binds 0ba as one complete Source-body delta with 495 other current bodies/ASTs exact; earlier stages retain their own immutable preservation counts. The next ten intrinsic button fallback defaults bind d5 as exact literal attributes before props spread; all 496 script ASTs and 486 other full bodies remain unchanged. Custom render branches and merged props remain untouched. The Original fallback default is expressed as native host markup with no shared renderer or new assertion credit. The subsequent ten native declaration/producer contract repairs bind c0 as exact complete-body transforms; the other 486 bodies and script ASTs remain exact. Seven declaration paths, a ToastClose rune-collision identifier rename and two known appearance producers retain their existing business and handler composition. Type/runtime acceptance remains pending. Parse success supplies no behavior equivalence.",
   "parserVersions": {
     "TypeScript": "6.0.3",
     "Svelte": "5.57.1"
   },
-  "currentGraphSha256": "3dbd0f8d75a9b28254af0cff148fa90e97ef9180d56f17d7be5544f667d2d74b",
-  "currentPublicHostGraphSha256": "3c3fc16eca48075ddfc30f2206de152224dd9ec9ac832e260e3cf7a61e97292b",
-  "proofToolSha256": "27c0bbb1a52b3d370ac9cf677492c739f79657fb3af72e406a6bfd7edfbfe6d1",
+  "currentGraphSha256": "8dc6e4b42eaaca267f6e918e705976670c725fcb455ca90861e0dedf48bdb504",
+  "currentPublicHostGraphSha256": "0354f8d85a5abc2b1b31eb37ae290dade6defbd658b9e7f64e36825ba030210b",
+  "proofToolSha256": "4c5d19f457599e33705cbe146c5b0a7603180949ec5863b2d39d8908cc3eb9c9",
   "controlledOwners": 11,
   "effectCalls": 187,
   "sourceBusinessCorrectionPaths": [
@@ -1094,11 +1108,20 @@
     {
       "path": "packages/base/src/lib/accordion/Trigger.svelte",
       "rendererSha256": "9f3f409435e93d1817e8fd78cfa76ddddafc5d896bad08f69549e8a697c93d26",
-      "currentSha256": "c089bbb4cc27c499a749921c736a2f21693eb7ebd7d611fa6459fd620962fbfa",
+      "currentSha256": "6be562aacf4df95c054c825d74102c63e5111df9d8b72f0f52c8dcb08f6b701e",
       "scriptStructuralAstEqual": false,
       "sourceSyntaxValid": true,
-      "disposition": "Explicit presentation/grouping changes retained without normalization or structural equality credit; compiled-output disposition pending.",
+      "disposition": "Root-authorized native HTMLElement host/output declarations and canonical snippet/Toast button contracts, ToastClose component-state rune-collision rename, or appearance producers retaining their known once-resolved class and consumer style. Existing business, handler composition and native host ownership retained; type/runtime execution pending.",
+      "sourceNativeContractCorrection": true,
+      "sourceNativeContractPredecessor": "c0da99c7e01f5d35e2572256df66136fce55cf41",
+      "sourceNativeContractPredecessorSha256": "c089bbb4cc27c499a749921c736a2f21693eb7ebd7d611fa6459fd620962fbfa",
+      "exactAuthorizedCompleteBodyDelta": true,
       "structuralDifferences": [
+        {
+          "path": "source.FirstStatement[17].VariableDeclarationList[0].VariableDeclaration[0].CallExpression[1].ArrowFunction[1].Block[1]",
+          "before": "{\n    const classValue =\n      typeof classProp === 'function' ? classProp(state) : classProp;\n    return getButtonProps(\n      mergeProps(\n        {\n          ...stateAttributes(state, true),\n          'aria-controls': context.open ? context.panelId : undefined,\n          'aria-expanded': context.open,\n          id,\n          onclick: context.handleTrigger,\n        },\n        {\n          ...props,\n          class:\n            classValue === undefined\n              ? undefined\n              : resolveClassValue(classValue),\n        },\n      ),\n      disabled,\n      true,\n      nativeButton,\n    );\n  }",
+          "after": "{\n    const classValue = typeof classProp === 'function' ? classProp(state) : classProp;\n    const className = classValue === undefined ? undefined : resolveClassValue(classValue);\n    return {\n      ...getButtonProps(\n        mergeProps(\n          {\n            ...stateAttributes(state, true),\n            'aria-controls': context.open ? context.panelId : undefined,\n            'aria-expanded': context.open,\n            id,\n            onclick: context.handleTrigger,\n          },\n          {\n            ...props,\n            class: className,\n          },\n        ),\n        disabled,\n        true,\n        nativeButton,\n      ),\n      class: className,\n      style: props.style,\n    };\n  }"
+        },
         {
           "path": "source.ExpressionStatement[18].CallExpression[0].ArrowFunction[1].Block[1].ReturnStatement[2].ArrowFunction[0].CallExpression[1].ArrowFunction[1].CallExpression[1].ArrowFunction[1].ConditionalExpression[2]",
           "beforeKind": "ConditionalExpression",
@@ -1259,10 +1282,15 @@
     {
       "path": "packages/base/src/lib/checkbox-group/types.ts",
       "rendererSha256": "11f60dbbc9279270d57c957da0a587b4328c6a50b6538f11a3cbccb1808d2fa2",
-      "currentSha256": "11f60dbbc9279270d57c957da0a587b4328c6a50b6538f11a3cbccb1808d2fa2",
-      "scriptStructuralAstEqual": true,
+      "currentSha256": "438596822db730d0d77a2c6c08f6782690659e44f34793651cbdfd95457f24de",
+      "scriptStructuralAstEqual": false,
       "sourceSyntaxValid": true,
-      "disposition": "Complete structural script AST retained; full native markup/compiled-output behavior remains separately pending."
+      "disposition": "Root-authorized native HTMLElement host/output declarations and canonical snippet/Toast button contracts, ToastClose component-state rune-collision rename, or appearance producers retaining their known once-resolved class and consumer style. Existing business, handler composition and native host ownership retained; type/runtime execution pending.",
+      "sourceNativeContractCorrection": true,
+      "sourceNativeContractPredecessor": "c0da99c7e01f5d35e2572256df66136fce55cf41",
+      "sourceNativeContractPredecessorSha256": "11f60dbbc9279270d57c957da0a587b4328c6a50b6538f11a3cbccb1808d2fa2",
+      "exactAuthorizedCompleteBodyDelta": true,
+      "structuralDifferences": []
     },
     {
       "path": "packages/base/src/lib/checkbox-group/useCheckboxGroupParent.svelte.ts",
@@ -1412,10 +1440,21 @@
     {
       "path": "packages/base/src/lib/collapsible/Trigger.svelte",
       "rendererSha256": "6d59616ec3a53bbd657047d0e6c17265c17f7cb7d49d0c211a295ebc8b817439",
-      "currentSha256": "666eee678a184815301dc01a2077be86b1e87cfd1c702409002cea42b098d50b",
-      "scriptStructuralAstEqual": true,
+      "currentSha256": "1fdb750014ae5dc8f3b707345b88297407e49c12d91c0b83dbc4def9487fcdcb",
+      "scriptStructuralAstEqual": false,
       "sourceSyntaxValid": true,
-      "disposition": "Complete structural script AST retained; full native markup/compiled-output behavior remains separately pending."
+      "disposition": "Root-authorized native HTMLElement host/output declarations and canonical snippet/Toast button contracts, ToastClose component-state rune-collision rename, or appearance producers retaining their known once-resolved class and consumer style. Existing business, handler composition and native host ownership retained; type/runtime execution pending.",
+      "sourceNativeContractCorrection": true,
+      "sourceNativeContractPredecessor": "c0da99c7e01f5d35e2572256df66136fce55cf41",
+      "sourceNativeContractPredecessorSha256": "666eee678a184815301dc01a2077be86b1e87cfd1c702409002cea42b098d50b",
+      "exactAuthorizedCompleteBodyDelta": true,
+      "structuralDifferences": [
+        {
+          "path": "source.FirstStatement[13].VariableDeclarationList[0].VariableDeclaration[0].CallExpression[1].ArrowFunction[1].Block[1]",
+          "before": "{\n    const classValue =\n      typeof classProp === 'function' ? classProp(state) : classProp;\n    return getButtonProps(\n      {\n        ...props,\n        ...mergeProps(\n          {\n            ...stateAttributes(state, true),\n            'aria-controls': context.open ? context.panelId : undefined,\n            'aria-expanded': context.open,\n            onclick: context.handleTrigger,\n          },\n          {\n            ...props,\n            class:\n              classValue === undefined\n                ? undefined\n                : resolveClassValue(classValue),\n          },\n        ),\n      },\n      disabled,\n      true,\n      nativeButton,\n    );\n  }",
+          "after": "{\n    const classValue = typeof classProp === 'function' ? classProp(state) : classProp;\n    const className = classValue === undefined ? undefined : resolveClassValue(classValue);\n    return {\n      ...getButtonProps(\n        {\n          ...props,\n          ...mergeProps(\n            {\n              ...stateAttributes(state, true),\n              'aria-controls': context.open ? context.panelId : undefined,\n              'aria-expanded': context.open,\n              onclick: context.handleTrigger,\n            },\n            {\n              ...props,\n              class: className,\n            },\n          ),\n        },\n        disabled,\n        true,\n        nativeButton,\n      ),\n      class: className,\n      style: props.style,\n    };\n  }"
+        }
+      ]
     },
     {
       "path": "packages/base/src/lib/collapsible/types.ts",
@@ -1444,18 +1483,27 @@
     {
       "path": "packages/base/src/lib/context-menu/Root.svelte",
       "rendererSha256": "51113addbc9a22141f7f803ea543c5267647e0ed6a69b8fd4ecdfd935a9543d8",
-      "currentSha256": "c3acfbcc1ff41febefa580445159987ae24ad7b59a79af0d29b8019ea0c5144a",
-      "scriptStructuralAstEqual": true,
+      "currentSha256": "7ae8f888c2f9c8d4f902934e7e6ae0930558daded14073fce2bfa4eb27becec1",
+      "scriptStructuralAstEqual": false,
       "sourceSyntaxValid": true,
-      "disposition": "Complete structural script AST retained; full native markup/compiled-output behavior remains separately pending."
+      "disposition": "Root-authorized native HTMLElement host/output declarations and canonical snippet/Toast button contracts, ToastClose component-state rune-collision rename, or appearance producers retaining their known once-resolved class and consumer style. Existing business, handler composition and native host ownership retained; type/runtime execution pending.",
+      "sourceNativeContractCorrection": true,
+      "sourceNativeContractPredecessor": "c0da99c7e01f5d35e2572256df66136fce55cf41",
+      "sourceNativeContractPredecessorSha256": "c3acfbcc1ff41febefa580445159987ae24ad7b59a79af0d29b8019ea0c5144a",
+      "exactAuthorizedCompleteBodyDelta": true,
+      "structuralDifferences": []
     },
     {
       "path": "packages/base/src/lib/context-menu/root/ContextMenuRootContext.ts",
       "rendererSha256": "4a3b2d1a07f7f0cef35fee20c08852749799ee70e3cca25ea38bbd6612805cee",
-      "currentSha256": "159228643c1997e8d49e02016bd850f19a2c61d74ff14d08ad302e2aee0f2206",
+      "currentSha256": "693025717dd64709148878045577c66cbe6e3a9cb97b62a6d11091d9ba28d3eb",
       "scriptStructuralAstEqual": false,
       "sourceSyntaxValid": true,
-      "disposition": "Explicit presentation/grouping changes retained without normalization or structural equality credit; compiled-output disposition pending.",
+      "disposition": "Root-authorized native HTMLElement host/output declarations and canonical snippet/Toast button contracts, ToastClose component-state rune-collision rename, or appearance producers retaining their known once-resolved class and consumer style. Existing business, handler composition and native host ownership retained; type/runtime execution pending.",
+      "sourceNativeContractCorrection": true,
+      "sourceNativeContractPredecessor": "c0da99c7e01f5d35e2572256df66136fce55cf41",
+      "sourceNativeContractPredecessorSha256": "159228643c1997e8d49e02016bd850f19a2c61d74ff14d08ad302e2aee0f2206",
+      "exactAuthorizedCompleteBodyDelta": true,
       "structuralDifferences": [
         {
           "path": "source.FunctionDeclaration[7].Block[3].FirstStatement[0].VariableDeclarationList[0].VariableDeclaration[0].ParenthesizedExpression[1]",
@@ -1481,10 +1529,15 @@
     {
       "path": "packages/base/src/lib/context-menu/trigger/createContextMenuTrigger.svelte.ts",
       "rendererSha256": "3e0d8efcdaf72eee729fcf0f840a9dd1541c134a536ec178ece4a55f8ed1be5b",
-      "currentSha256": "c7b1cd5c8adc95071a449256413571762d3f762dcb39fc3adf71d78db83aae33",
-      "scriptStructuralAstEqual": true,
+      "currentSha256": "c1a67ab6ba6034d58293f4add7d1ad9ebf392e91e17b17ab5e27d2be1ae1dc07",
+      "scriptStructuralAstEqual": false,
       "sourceSyntaxValid": true,
-      "disposition": "Complete structural script AST retained; full native markup/compiled-output behavior remains separately pending."
+      "disposition": "Root-authorized native HTMLElement host/output declarations and canonical snippet/Toast button contracts, ToastClose component-state rune-collision rename, or appearance producers retaining their known once-resolved class and consumer style. Existing business, handler composition and native host ownership retained; type/runtime execution pending.",
+      "sourceNativeContractCorrection": true,
+      "sourceNativeContractPredecessor": "c0da99c7e01f5d35e2572256df66136fce55cf41",
+      "sourceNativeContractPredecessorSha256": "c7b1cd5c8adc95071a449256413571762d3f762dcb39fc3adf71d78db83aae33",
+      "exactAuthorizedCompleteBodyDelta": true,
+      "structuralDifferences": []
     },
     {
       "path": "packages/base/src/lib/context-menu/types.ts",
@@ -1662,14 +1715,17 @@
     {
       "path": "packages/base/src/lib/dialog/store/DialogStore.svelte.ts",
       "rendererSha256": "a99fee3c61529a7ad3778ecb0f3108f477b8727c71525a2d34fa0a95f49f29bf",
-      "currentSha256": "7a90ea83e70ca6f82011434787b93d3f75ca69fc9fb7eb8d8e586c5405ff8c3b",
+      "currentSha256": "d9d83c8c127a97a2d79a072b8998eafff242070dbea03d686fe774151741e343",
       "scriptStructuralAstEqual": false,
       "sourceSyntaxValid": true,
-      "disposition": "Root-authorized actual native reactive node properties or narrow one-shot Menu seed publication; complete binding/callback/live synchronization business retained. Candidate execution pending.",
+      "disposition": "Root-authorized native HTMLElement host/output declarations and canonical snippet/Toast button contracts, ToastClose component-state rune-collision rename, or appearance producers retaining their known once-resolved class and consumer style. Existing business, handler composition and native host ownership retained; type/runtime execution pending.",
       "sourceBusinessCorrection": true,
+      "sourceNativeContractCorrection": true,
+      "sourceNativeContractPredecessor": "c0da99c7e01f5d35e2572256df66136fce55cf41",
+      "sourceNativeContractPredecessorSha256": "7a90ea83e70ca6f82011434787b93d3f75ca69fc9fb7eb8d8e586c5405ff8c3b",
+      "exactAuthorizedCompleteBodyDelta": true,
       "sourceBusinessPredecessor": "c39271eaf4f893fc64131b22209dee50e74de657",
       "sourceBusinessPredecessorSha256": "bcfef95cae3d29ea6a193d62abcb678f78fe51cf90301c1fc528c86714bc8f32",
-      "exactAuthorizedCompleteBodyDelta": true,
       "structuralDifferences": [
         {
           "path": "source.ClassDeclaration[9].Constructor[4].Block[3]",
@@ -1706,10 +1762,23 @@
     {
       "path": "packages/base/src/lib/dialog/types.ts",
       "rendererSha256": "733775a8fb40ec9b1472c752624da00ff9426078e253e194f996ed0b2267f858",
-      "currentSha256": "aa9e6e11495e8a8218fd5f69c913d10d8794338a6e01fc685d545c4d9729874c",
-      "scriptStructuralAstEqual": true,
+      "currentSha256": "52778d4ca75e8c845ea35c3fd9524f498f11f5cbc8bca65ca81e9a7b28ffaaec",
+      "scriptStructuralAstEqual": false,
       "sourceSyntaxValid": true,
-      "disposition": "Complete structural script AST retained; full native markup/compiled-output behavior remains separately pending."
+      "disposition": "Root-authorized native HTMLElement host/output declarations and canonical snippet/Toast button contracts, ToastClose component-state rune-collision rename, or appearance producers retaining their known once-resolved class and consumer style. Existing business, handler composition and native host ownership retained; type/runtime execution pending.",
+      "sourceNativeContractCorrection": true,
+      "sourceNativeContractPredecessor": "c0da99c7e01f5d35e2572256df66136fce55cf41",
+      "sourceNativeContractPredecessorSha256": "aa9e6e11495e8a8218fd5f69c913d10d8794338a6e01fc685d545c4d9729874c",
+      "exactAuthorizedCompleteBodyDelta": true,
+      "structuralDifferences": [
+        {
+          "path": "source.TypeAliasDeclaration[24].IntersectionType[4].TypeLiteral[1].PropertySignature[1].TypeReference[2]",
+          "beforeKind": "TypeReference",
+          "afterKind": "IndexedAccessType",
+          "before": "Snippet<[Record<string | symbol, unknown>, State, Snippet | undefined]>",
+          "after": "BaseUIComponentProps<State>['render']"
+        }
+      ]
     },
     {
       "path": "packages/base/src/lib/dialog/utils/stateAttributesMapping.ts",
@@ -4424,14 +4493,18 @@
     {
       "path": "packages/base/src/lib/toast/Close.svelte",
       "rendererSha256": "e9d2f1521d870f957662c68dd2832fa80fb9e2e013bbdf31b581752f3e3c8ead",
-      "currentSha256": "73e63333e6c80ab9f768877695dd45915b57c4a94f0dd39a938153d64e6f0ae2",
-      "scriptStructuralAstEqual": true,
+      "currentSha256": "32fc52b4a96b101199dae6875fe26f5b1fc5d27a4ec13402e120ad3451d64c91",
+      "scriptStructuralAstEqual": false,
       "sourceSyntaxValid": true,
-      "disposition": "Complete structural script AST retained; full native markup/compiled-output behavior remains separately pending. Native intrinsic fallback restores the pinned non-submit default with literal type=\"button\" before props spread; script AST and custom snippet props are unchanged. Execution pending.",
+      "disposition": "Root-authorized native HTMLElement host/output declarations and canonical snippet/Toast button contracts, ToastClose component-state rune-collision rename, or appearance producers retaining their known once-resolved class and consumer style. Existing business, handler composition and native host ownership retained; type/runtime execution pending.",
       "sourceHostDefaultCorrection": true,
       "sourceHostDefaultPredecessor": "d5fabc8d389c7514b0459737d894b00e3618a988",
       "sourceHostDefaultPredecessorSha256": "e9d2f1521d870f957662c68dd2832fa80fb9e2e013bbdf31b581752f3e3c8ead",
-      "exactAuthorizedCompleteBodyDelta": true
+      "exactAuthorizedCompleteBodyDelta": true,
+      "sourceNativeContractCorrection": true,
+      "sourceNativeContractPredecessor": "c0da99c7e01f5d35e2572256df66136fce55cf41",
+      "sourceNativeContractPredecessorSha256": "73e63333e6c80ab9f768877695dd45915b57c4a94f0dd39a938153d64e6f0ae2",
+      "structuralDifferences": []
     },
     {
       "path": "packages/base/src/lib/toast/Content.svelte",
@@ -4581,10 +4654,33 @@
     {
       "path": "packages/base/src/lib/toast/types.ts",
       "rendererSha256": "c19b1af6b515a3899501cc267902c5f030e6c5f9dbd754a59a4e2e839be761c5",
-      "currentSha256": "c813412103d8c506cbc614c9bb676643e4a27d60cbcb6bcc3cf6d6d0ee9fc8e0",
-      "scriptStructuralAstEqual": true,
+      "currentSha256": "d28b459cdd1863d017ff641fe591fba369d7553056309f3943acb0cd4e0e9bb4",
+      "scriptStructuralAstEqual": false,
       "sourceSyntaxValid": true,
-      "disposition": "Complete structural script AST retained; full native markup/compiled-output behavior remains separately pending."
+      "disposition": "Root-authorized native HTMLElement host/output declarations and canonical snippet/Toast button contracts, ToastClose component-state rune-collision rename, or appearance producers retaining their known once-resolved class and consumer style. Existing business, handler composition and native host ownership retained; type/runtime execution pending.",
+      "sourceNativeContractCorrection": true,
+      "sourceNativeContractPredecessor": "c0da99c7e01f5d35e2572256df66136fce55cf41",
+      "sourceNativeContractPredecessorSha256": "c813412103d8c506cbc614c9bb676643e4a27d60cbcb6bcc3cf6d6d0ee9fc8e0",
+      "exactAuthorizedCompleteBodyDelta": true,
+      "structuralDifferences": [
+        {
+          "path": "source.TypeAliasDeclaration[25].IntersectionType[2].TypeReference[0]",
+          "before": "ToastElementProps<\n  ToastLabelState,\n  HTMLButtonAttributes,\n  ToastContent\n>",
+          "after": "Omit<\n  ToastElementProps<ToastLabelState, HTMLButtonAttributes, ToastContent>,\n  'disabled'\n>"
+        },
+        {
+          "path": "source.TypeAliasDeclaration[25].IntersectionType[2].TypeLiteral[1]",
+          "before": "{\n  /** Set false when render supplies a non-button host. */\n  nativeButton?: boolean | undefined;\n}",
+          "after": "{\n  disabled?: boolean | undefined;\n  /** Set false when render supplies a non-button host. */\n  nativeButton?: boolean | undefined;\n}"
+        },
+        {
+          "path": "source.TypeAliasDeclaration[28].IntersectionType[2].LastTypeNode[0]",
+          "beforeKind": "LastTypeNode",
+          "afterKind": "TypeReference",
+          "before": "import('../dialog/types.js').ElementProps<\n  ToastPortalState,\n  HTMLAttributes<HTMLDivElement>\n>",
+          "after": "ToastElementProps<ToastPortalState>"
+        }
+      ]
     },
     {
       "path": "packages/base/src/lib/toast/viewport-focus.ts",

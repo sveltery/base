@@ -32,7 +32,7 @@ export function createContextMenuTrigger(getProps: () => ContextMenuTriggerProps
   const { store } = useMenuRootContext(false);
   const open = $derived(store.useState('open'));
   const disabled = $derived(store.useState('disabled'));
-  const triggerRef = { current: null as HTMLElement | null };
+  const triggerRef = { current: null as HTMLDivElement | null };
   const touchPositionRef = {
     current: null as {
       x: number;

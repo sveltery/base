@@ -89,11 +89,11 @@
         "096a33dfe6b807d3eb983e525f57f7b4c88393e49797807ab48b6cb6d195dfce",
         "0f06744b474236bc5b28f3ec1364acfe96d0ca08e7f397c7e36c28c3aa55bf8d"
       ],
-      "currentFileSha256": "c7b1cd5c8adc95071a449256413571762d3f762dcb39fc3adf71d78db83aae33",
+      "currentFileSha256": "c1a67ab6ba6034d58293f4add7d1ad9ebf392e91e17b17ab5e27d2be1ae1dc07",
       "currentOwners": [
         {
           "path": "packages/base/src/lib/context-menu/trigger/createContextMenuTrigger.svelte.ts",
-          "sha256": "c7b1cd5c8adc95071a449256413571762d3f762dcb39fc3adf71d78db83aae33",
+          "sha256": "c1a67ab6ba6034d58293f4add7d1ad9ebf392e91e17b17ab5e27d2be1ae1dc07",
           "classes": []
         }
       ]

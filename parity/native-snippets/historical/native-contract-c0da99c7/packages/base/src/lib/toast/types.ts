@@ -138,11 +138,11 @@ export type ToastDescriptionProps = ToastElementProps<
   HTMLAttributes<HTMLParagraphElement>,
   ToastContent
 >;
-export type ToastActionComponentProps = Omit<
-  ToastElementProps<ToastLabelState, HTMLButtonAttributes, ToastContent>,
-  'disabled'
+export type ToastActionComponentProps = ToastElementProps<
+  ToastLabelState,
+  HTMLButtonAttributes,
+  ToastContent
 > & {
-  disabled?: boolean | undefined;
   /** Set false when render supplies a non-button host. */
   nativeButton?: boolean | undefined;
 };
@@ -150,6 +150,9 @@ export type ToastCloseProps = ToastActionComponentProps;
 
 /** Standalone lightweight portal; empty upstream state, native props and replacement composition. */
 export type ToastPortalState = Record<string, never>;
-export type ToastPortalProps = ToastElementProps<ToastPortalState> & {
+export type ToastPortalProps = import('../dialog/types.js').ElementProps<
+  ToastPortalState,
+  HTMLAttributes<HTMLDivElement>
+> & {
   container?: HTMLElement | ShadowRoot | { current: HTMLElement | ShadowRoot | null } | null;
 };

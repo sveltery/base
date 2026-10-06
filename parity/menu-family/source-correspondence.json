@@ -61,7 +61,7 @@
         "packages/base/src/lib/context-menu/types.ts"
       ],
       "localHashes": {
-        "packages/base/src/lib/context-menu/Root.svelte": "c3acfbcc1ff41febefa580445159987ae24ad7b59a79af0d29b8019ea0c5144a",
+        "packages/base/src/lib/context-menu/Root.svelte": "7ae8f888c2f9c8d4f902934e7e6ae0930558daded14073fce2bfa4eb27becec1",
         "packages/base/src/lib/context-menu/types.ts": "eea17502bf6bb4655dd0fcd6db7fb1c1073460e684145cdbcbcc3808e941b0e4"
       },
       "correspondence": "Original thin context/anchor/ref/MenuRoot composition; native provider and bind:actions forward to the real MenuRoot.",
@@ -76,7 +76,7 @@
         "packages/base/src/lib/context-menu/root/ContextMenuRootContext.ts"
       ],
       "localHashes": {
-        "packages/base/src/lib/context-menu/root/ContextMenuRootContext.ts": "159228643c1997e8d49e02016bd850f19a2c61d74ff14d08ad302e2aee0f2206"
+        "packages/base/src/lib/context-menu/root/ContextMenuRootContext.ts": "693025717dd64709148878045577c66cbe6e3a9cb97b62a6d11091d9ba28d3eb"
       },
       "correspondence": "Same canonical component/helper/context/store boundary with native Svelte framework substitution where required; compare entire Original and actual used body, including inherited code.",
       "reviewStatus": "Entire used Source/native business, idiomatic Svelte and maintainability independent exact-head review pending; no acceptance by inventory."
@@ -93,7 +93,7 @@
       ],
       "localHashes": {
         "packages/base/src/lib/context-menu/Trigger.svelte": "f336576c2d3ff75ebe4245952d6c87a9c1f94dda7c1b29acec49c3652428a876",
-        "packages/base/src/lib/context-menu/trigger/createContextMenuTrigger.svelte.ts": "c7b1cd5c8adc95071a449256413571762d3f762dcb39fc3adf71d78db83aae33",
+        "packages/base/src/lib/context-menu/trigger/createContextMenuTrigger.svelte.ts": "c1a67ab6ba6034d58293f4add7d1ad9ebf392e91e17b17ab5e27d2be1ae1dc07",
         "packages/base/src/lib/context-menu/types.ts": "eea17502bf6bb4655dd0fcd6db7fb1c1073460e684145cdbcbcc3808e941b0e4"
       },
       "correspondence": "Original complete pointer/long-press/virtual-rect/document-listener and movement/multiple-touch/abort branches with native host event props.",
@@ -2705,7 +2705,7 @@
         "packages/utils/src/lib/useScrollLock.svelte.ts"
       ],
       "localHashes": {
-        "packages/base/src/lib/context-menu/trigger/createContextMenuTrigger.svelte.ts": "c7b1cd5c8adc95071a449256413571762d3f762dcb39fc3adf71d78db83aae33",
+        "packages/base/src/lib/context-menu/trigger/createContextMenuTrigger.svelte.ts": "c1a67ab6ba6034d58293f4add7d1ad9ebf392e91e17b17ab5e27d2be1ae1dc07",
         "packages/base/src/lib/floating-ui/components/FloatingPortal.svelte": "d9360eddffb4f2f685ea80e8bfee84ed519ff348c1c5db9bf56bc254fd9e132d",
         "packages/base/src/lib/floating-ui/components/FloatingTree.svelte.ts": "4ba1a45eb3e58c4c1cdb7fc68d48c59da7ad7a5cbd5f9be7319c22af1ca60d8a",
         "packages/base/src/lib/floating-ui/components/createFloatingFocusManager.svelte.ts": "c6a2f4dc069dd6c8e663abaa706f7e65db32aee8a533bb2b2af02623ff15de1b",

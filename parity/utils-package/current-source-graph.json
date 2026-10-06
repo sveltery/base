@@ -408,7 +408,7 @@
         },
         {
           "path": "packages/base/src/lib/context-menu/trigger/createContextMenuTrigger.svelte.ts",
-          "sha256": "c7b1cd5c8adc95071a449256413571762d3f762dcb39fc3adf71d78db83aae33"
+          "sha256": "c1a67ab6ba6034d58293f4add7d1ad9ebf392e91e17b17ab5e27d2be1ae1dc07"
         },
         {
           "path": "packages/base/src/lib/dialog/root/DialogInteractions.svelte",
@@ -3892,7 +3892,7 @@
       },
       {
         "path": "packages/base/src/lib/accordion/Trigger.svelte",
-        "sha256": "c089bbb4cc27c499a749921c736a2f21693eb7ebd7d611fa6459fd620962fbfa",
+        "sha256": "6be562aacf4df95c054c825d74102c63e5111df9d8b72f0f52c8dcb08f6b701e",
         "symbols": [
           {
             "name": "attachHost",
@@ -5473,7 +5473,7 @@
       },
       {
         "path": "packages/base/src/lib/checkbox-group/types.ts",
-        "sha256": "11f60dbbc9279270d57c957da0a587b4328c6a50b6538f11a3cbccb1808d2fa2",
+        "sha256": "438596822db730d0d77a2c6c08f6782690659e44f34793651cbdfd95457f24de",
         "symbols": [
           {
             "name": "CheckboxGroupState",
@@ -5493,7 +5493,7 @@
           {
             "name": "CheckboxGroupProps",
             "kind": "TypeAliasDeclaration",
-            "sha256": "2f8132da9879fb3f15c5e671b71b411656dc2768f78c4d29a244a1c9852e8785"
+            "sha256": "71709042c2f725433ccfd1b7cbf4cdfba1aef21ec916b24f449a6bd5c316978c"
           }
         ],
         "imports": [
@@ -7144,7 +7144,7 @@
       },
       {
         "path": "packages/base/src/lib/collapsible/Trigger.svelte",
-        "sha256": "666eee678a184815301dc01a2077be86b1e87cfd1c702409002cea42b098d50b",
+        "sha256": "1fdb750014ae5dc8f3b707345b88297407e49c12d91c0b83dbc4def9487fcdcb",
         "symbols": [
           {
             "name": "attachHost",
@@ -7835,7 +7835,7 @@
       },
       {
         "path": "packages/base/src/lib/context-menu/Root.svelte",
-        "sha256": "c3acfbcc1ff41febefa580445159987ae24ad7b59a79af0d29b8019ea0c5144a",
+        "sha256": "7ae8f888c2f9c8d4f902934e7e6ae0930558daded14073fce2bfa4eb27becec1",
         "symbols": [],
         "imports": [
           {
@@ -7900,12 +7900,12 @@
       },
       {
         "path": "packages/base/src/lib/context-menu/root/ContextMenuRootContext.ts",
-        "sha256": "159228643c1997e8d49e02016bd850f19a2c61d74ff14d08ad302e2aee0f2206",
+        "sha256": "693025717dd64709148878045577c66cbe6e3a9cb97b62a6d11091d9ba28d3eb",
         "symbols": [
           {
             "name": "ContextMenuRootContext",
             "kind": "InterfaceDeclaration",
-            "sha256": "0e4e04b3a84a03432871c875d2ce54ab6b7faf9a2eef52440cde8229dd1cbf2e"
+            "sha256": "fb84fe86b842d8514e3377e3ffd08ebc071c67e365f18b1969b516488cef84ca"
           },
           {
             "name": "provideContextMenuRootContext",
@@ -8057,12 +8057,12 @@
       },
       {
         "path": "packages/base/src/lib/context-menu/trigger/createContextMenuTrigger.svelte.ts",
-        "sha256": "c7b1cd5c8adc95071a449256413571762d3f762dcb39fc3adf71d78db83aae33",
+        "sha256": "c1a67ab6ba6034d58293f4add7d1ad9ebf392e91e17b17ab5e27d2be1ae1dc07",
         "symbols": [
           {
             "name": "createContextMenuTrigger",
             "kind": "FunctionDeclaration",
-            "sha256": "631b04a067c9c0c23ca9daca52f8772967f4d8fd1ae0d41b282004910a7084c8"
+            "sha256": "a904477d0963003da62354bfea9b0da1f1383b496298201560fb7608f3a22ea7"
           }
         ],
         "imports": [
@@ -10029,7 +10029,7 @@
       },
       {
         "path": "packages/base/src/lib/dialog/store/DialogStore.svelte.ts",
-        "sha256": "7a90ea83e70ca6f82011434787b93d3f75ca69fc9fb7eb8d8e586c5405ff8c3b",
+        "sha256": "d9d83c8c127a97a2d79a072b8998eafff242070dbea03d686fe774151741e343",
         "symbols": [
           {
             "name": "State",
@@ -10039,7 +10039,7 @@
           {
             "name": "Context",
             "kind": "TypeAliasDeclaration",
-            "sha256": "c98cbaf1249ca43f42570c79c1c4d18245bd1f822b85a75d81741aacea6c332a"
+            "sha256": "6c3bf2efb6364b3fb112dbc2bcb6207c796dada9de8d69aeeae4a92cca368e73"
           },
           {
             "name": "DialogHandleStore",
@@ -10456,7 +10456,7 @@
       },
       {
         "path": "packages/base/src/lib/dialog/types.ts",
-        "sha256": "aa9e6e11495e8a8218fd5f69c913d10d8794338a6e01fc685d545c4d9729874c",
+        "sha256": "52778d4ca75e8c845ea35c3fd9524f498f11f5cbc8bca65ca81e9a7b28ffaaec",
         "symbols": [
           {
             "name": "ChangeReason",
@@ -10536,7 +10536,7 @@
           {
             "name": "ElementProps",
             "kind": "TypeAliasDeclaration",
-            "sha256": "010699da9011d5394bdecd8b7a8a0f7378487b3d200a09cc3087907a4134aa14"
+            "sha256": "d05b93a0fa0f9c6c05d97920ed6f403911efcf888676c3d6be1bef27581e998d"
           },
           {
             "name": "DialogElementProps",
@@ -43302,7 +43302,7 @@
       },
       {
         "path": "packages/base/src/lib/toast/Close.svelte",
-        "sha256": "73e63333e6c80ab9f768877695dd45915b57c4a94f0dd39a938153d64e6f0ae2",
+        "sha256": "32fc52b4a96b101199dae6875fe26f5b1fc5d27a4ec13402e120ad3451d64c91",
         "symbols": [
           {
             "name": "attachHost",
@@ -44763,7 +44763,7 @@
       },
       {
         "path": "packages/base/src/lib/toast/types.ts",
-        "sha256": "c813412103d8c506cbc614c9bb676643e4a27d60cbcb6bcc3cf6d6d0ee9fc8e0",
+        "sha256": "d28b459cdd1863d017ff641fe591fba369d7553056309f3943acb0cd4e0e9bb4",
         "symbols": [
           {
             "name": "ToastContent",
@@ -44868,7 +44868,7 @@
           {
             "name": "ToastActionComponentProps",
             "kind": "TypeAliasDeclaration",
-            "sha256": "568624350ee8256dce78c54c92ebd81501afc7bae7e356776443790e423c58b9"
+            "sha256": "8ff056e082d81f063a5feac54703a1a8b06c51720d9e0e7db2463a9b305df02a"
           },
           {
             "name": "ToastCloseProps",
@@ -44883,7 +44883,7 @@
           {
             "name": "ToastPortalProps",
             "kind": "TypeAliasDeclaration",
-            "sha256": "7f3428fa9e40fdb5f7aca285b482568094b3b5b365177bb9818f47109b6ff489"
+            "sha256": "da04e4d64033ebc192b20899ef546a4aeef9bebd38f7d2625b4c637fcb31ec0a"
           }
         ],
         "imports": [
@@ -44961,17 +44961,6 @@
             ],
             "syntax": "import",
             "resolved": "packages/base/src/lib/merge-props/index.ts"
-          },
-          {
-            "specifier": "../dialog/types.js",
-            "kind": "type",
-            "members": [
-              {
-                "imported": "ElementProps"
-              }
-            ],
-            "syntax": "import-type",
-            "resolved": "packages/base/src/lib/dialog/types.ts"
           }
         ],
         "reachability": "type-only"
