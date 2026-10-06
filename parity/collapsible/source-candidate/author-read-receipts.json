@@ -57,9 +57,9 @@
     },
     {
       "source": "packages/base/src/lib/collapsible/panel/useCollapsiblePanel.svelte.ts",
-      "sha256": "7bfe7a9607c34998a00e7704922a8c9c51df7ae8fb39a8d61e5cf85683e31415",
+      "sha256": "338c4f74fdf39a83d0ba3916d162955c67ef7cd72a42645185f4d2a69775b845",
       "reachability": "runtime",
-      "authorRead": "Complete owned Panel body and immutable Original body read in bounded passes for 0c8b3a9f: direct class state/derived fields, cache branch, measurement branches/order, cancellation, lexical callbacks and captured-host cleanup inspected. This author read grants no independent review or assertion credit.",
+      "authorRead": "Complete current Panel body and immutable Original body read at d75ccac3; six native derived.by computations defer identical expressions. Business branches, cache, sequencing, cancellation and host cleanup unchanged. No independent clearance or assertion credit.",
       "finalIndependentRead": "PENDING exact final-head entire-closure review; no acceptance inferred from prior reads or graph identity",
       "ordinaryCredit": 0
     },

@@ -40,29 +40,27 @@ export class CollapsiblePanel implements UseCollapsiblePanelReturnValue {
   #skippedOpenMotion = $state.raw<
     { panel: HTMLElement; type: Exclude<AnimationType, 'none'> } | undefined
   >();
-  #hidden = $derived.by(() => !this.#parameters.open && !this.#parameters.mounted);
-  #panelTransitionStatus = $derived.by(() =>
+  #hidden = $derived(!this.#parameters.open && !this.#parameters.mounted);
+  #panelTransitionStatus = $derived(
     this.#forcePanelIdle ? 'idle' : this.#parameters.transitionStatus,
   );
-  #shouldPreventOpenAnimation = $derived.by(
-    () => this.#parameters.open && this.#shouldPreventMountAnimation,
+  #shouldPreventOpenAnimation = $derived(
+    this.#parameters.open && this.#shouldPreventMountAnimation,
   );
-  #renderedDimensions = $derived.by(() =>
+  #renderedDimensions = $derived(
     !this.#parameters.open &&
-    this.#parameters.mounted &&
-    this.#animationType === 'css-animation' &&
-    this.#dimensions.height === undefined &&
-    this.#dimensions.width === undefined
+      this.#parameters.mounted &&
+      this.#animationType === 'css-animation' &&
+      this.#dimensions.height === undefined &&
+      this.#dimensions.width === undefined
       ? this.#lastMeasuredDimensions
       : this.#dimensions,
   );
-  #shouldPersistHiddenTransitionStyles = $derived.by(
-    () =>
-      this.#parameters.hiddenUntilFound && this.#hidden && this.#animationType !== 'css-animation',
+  #shouldPersistHiddenTransitionStyles = $derived(
+    this.#parameters.hiddenUntilFound && this.#hidden && this.#animationType !== 'css-animation',
   );
-  #shouldRender = $derived.by(
-    () =>
-      this.#parameters.keepMounted ||
+  #shouldRender = $derived(
+    this.#parameters.keepMounted ||
       this.#parameters.hiddenUntilFound ||
       this.#parameters.mounted ||
       this.#parameters.open,

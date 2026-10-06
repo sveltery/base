@@ -1,0 +1,3 @@
+# Publicc3e9b073 derived initialization diagnostic
+
+Actual hosted Verification found11 TypeScript used-before-initialization diagnostics in six direct Panel derived field expressions. The constructor assigns the real parameters before consuming derived values; native Svelte compilation already defers derived computation, but expression-form source triggers TypeScript definite-initialization analysis. The local successor uses explicit native `$derived.by` callbacks with the same expressions, no assertion/suppression, parameter default, facade or business change. Source measurement/cache/open-close/cancellation/host lifetimes remain unchanged. This fixes a native representation diagnostic, not an upstream Source bug or new unchanged assertion credit.

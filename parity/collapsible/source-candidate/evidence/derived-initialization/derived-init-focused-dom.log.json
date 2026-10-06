@@ -1,0 +1,4 @@
+{
+  "rawSha256": "6339d5ebdfcab0c848b61abcc0b79dc1ebe6d2d881e7a045d5055953dcc3bf1f",
+  "rawUtf8": "\n RUN  v5.0.3 /workspace/scratch/4b2513ebe1ef/collapsible-check/packages/base\n\n\n Test Files  3 passed (3)\n      Tests  37 passed (37)\n   Start at  00:21:51\n   Duration  5.48s (environment 37%, tests 35%, transform 20%, import 8%)\n\n    Isolate  3 workers spawned \u00b7 ~742ms startup each (spawn + environment, per file)\n             at least ~1.48s faster with isolate: false \u2014 reuses workers across files instead of one per file\n\n"
+}

@@ -1,0 +1,4 @@
+{
+  "rawSha256": "23a397ffa271ce655651f2347a434ef69f63565daf483e56b750f255c1aa19a6",
+  "rawUtf8": "Loading svelte-check in workspace: /tmp/sveltery-collapsible-consumer.kqyarI\nGetting Svelte diagnostics...\n\nsvelte-check found 0 errors and 0 warnings\nLoading svelte-check in workspace: /tmp/sveltery-collapsible-consumer.kqyarI\nGetting Svelte diagnostics...\n\nsvelte-check found 0 errors and 0 warnings\nInstalled public Collapsible SSR hydration without recovery/diagnostics, retained hosts/IDs/styles, DOM refs/snippets/attachments, native events, cancellation and replacement cleanup: PASS\nIsolated tarball Collapsible public root/subpath SSR/hydration, DOM refs/snippets/attachments and strict positive/negative declarations: PASS\n"
+}
