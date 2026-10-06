@@ -1,12 +1,14 @@
 <script lang="ts">
+  import { untrack } from 'svelte';
   // Source SliderValue.tsx at Base UI 47b40521; MIT.
-  import { formatNumber } from "../../utils/formatNumber.js";
-  import RenderElement from "../../internals/RenderElement.svelte";
-  import { useSliderRootContext } from "../root/SliderRootContext.js";
-  import { sliderStateAttributesMapping } from "../root/stateAttributesMapping.js";
-  import type { SliderValueProps } from "../types.js";
+  import { formatNumber } from '@sveltery/utils/formatNumber';
+  import { mergeComponentProps } from '../../internals/mergeComponentProps.js';
+  import { createAttachmentKey } from 'svelte/attachments';
+  import { useSliderRootContext } from '../root/SliderRootContext.js';
+  import { sliderStateAttributesMapping } from '../root/stateAttributesMapping.js';
+  import type { SliderValueProps } from '../types.js';
   let {
-    "aria-live": ariaLive = "off",
+    'aria-live': ariaLive = 'off',
     render,
     class: classProp,
     children,
@@ -17,28 +19,33 @@
   const context = useSliderRootContext();
   const outputFor = $derived(
     Array.from(context.thumbMap.values(), ({ inputId }) => inputId)
-      .join(" ")
+      .join(' ')
       .trim() || undefined,
   );
   const formattedValues = $derived(
-    context.values.map((value) =>
-      formatNumber(value, context.locale, context.format),
-    ),
+    context.values.map((value) => formatNumber(value, context.locale, context.format)),
   );
-  const defaultDisplayValue = $derived(formattedValues.join(" – "));
-  const forwardedRef = {
-    get current() {
-      return ref ?? null;
-    },
-    set current(value: HTMLElement | null) {
-      ref = value;
-    },
-  };
-  const params = $derived({
-    state: context.state,
-    ref: forwardedRef,
-    props: [{ "aria-live": ariaLive, for: outputFor }, elementProps],
-    stateAttributesMapping: sliderStateAttributesMapping,
+  const defaultDisplayValue = $derived(formattedValues.join(' – '));
+
+  const hostAttachmentKey = createAttachmentKey();
+  function attachHost(host: HTMLElement) {
+    return untrack(() => {
+      ref = host;
+
+      return () =>
+        untrack(() => {
+          if (ref === host) ref = null;
+        });
+    });
+  }
+  const mergedProps = $derived({
+    ...mergeComponentProps(
+      context.state,
+      { class: classProp, style },
+      [{ 'aria-live': ariaLive, for: outputFor }, elementProps],
+      sliderStateAttributesMapping,
+    ),
+    [hostAttachmentKey]: attachHost,
   });
 </script>
 
@@ -46,9 +53,8 @@
       formattedValues,
       context.values,
     )}{:else}{defaultDisplayValue}{/if}{/snippet}
-<RenderElement
-  tag="output"
-  componentProps={{ render, class: classProp, style }}
-  {params}
-  children={display}
-/>
+{#if render}
+  {@render render(mergedProps, context.state, display)}
+{:else}
+  <output {...mergedProps}>{@render display()}</output>
+{/if}

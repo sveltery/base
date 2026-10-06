@@ -11,7 +11,7 @@
       "local": [
         {
           "path": "packages/base/src/lib/internals/field-constants/constants.ts",
-          "sha256": "7a4e8acf35babe4f33b4850da64313dbd19be6b20cb3b4833430d103cd6bf757",
+          "sha256": "b9bd1e08d6deb13b300611745d85f94a90fe15e3170291b866ecab2b21c9e635",
           "reachability": [
             "runtime",
             "type"
@@ -38,14 +38,14 @@
       "local": [
         {
           "path": "packages/base/src/lib/field/Root.svelte",
-          "sha256": "1a505de7682ed523d1e2568ca19a2cf7116fc8a992b7d3de8b50eef1c1e43f54",
+          "sha256": "8ed4fc7b455b82d02ec3c02468a524157cc59b92b8ab8c381480351068e7a1da",
           "reachability": [
             "type"
           ]
         },
         {
           "path": "packages/base/src/lib/field/root/FieldRootInner.svelte",
-          "sha256": "ad785d1c6d42b8346151701855609eaf195deae3843f8d79091d131b415e83b3",
+          "sha256": "c39ec8f17f747455ea21ea72c6d6df18b697a0707226ce324f9d3d58a2e290b4",
           "reachability": [
             "type"
           ]
@@ -80,7 +80,7 @@
       "local": [
         {
           "path": "packages/base/src/lib/field/root/useFieldValidation.svelte.ts",
-          "sha256": "93fd341dc439f2272b06a8857eba538900db8372306efcc6ba4b6b64d073fee1",
+          "sha256": "b41d59b72a6a927635962710c48266b6a72144b5f1f0b56448281728b3e28f81",
           "reachability": [
             "type"
           ]
@@ -121,7 +121,7 @@
       "local": [
         {
           "path": "packages/base/src/lib/fieldset/root/FieldsetRootContext.ts",
-          "sha256": "f5b4b87e5802c40a428e4df9463e84fd36cb649ee3cdfe6f0b153b9721e6ce6c",
+          "sha256": "1c32118a1fc683230b68f04df1e17550124710a64b7926da31c3985fdec10a4a",
           "reachability": [
             "type"
           ]
@@ -558,8 +558,8 @@
       "originalDeclarations": [],
       "local": [
         {
-          "path": "packages/base/src/lib/utils/shadowDom.ts",
-          "sha256": "a5bfa768f801af70e62c012459ddd2b4289a3d2a27aa79c5e9e1414a50395ed1",
+          "path": "packages/utils/src/lib/shadowDom.ts",
+          "sha256": "2cb79a4a3ccbe16581be29f7958d03bce459c5cf8cad8ae4b9f08ab981d42a2a",
           "reachability": [
             "runtime",
             "type"
@@ -591,7 +591,7 @@
       "local": [
         {
           "path": "packages/base/src/lib/internals/composite/utils/navigation.ts",
-          "sha256": "bb61a6e117cc345c347a3a29618d01e6e608ef1027b8e6464e072d8b70b4a0aa",
+          "sha256": "bcfb35db31e9b53c86be39c229e041eaaf48f82df10d4dfaac79b69ecfd5a6dd",
           "reachability": [
             "runtime"
           ]
@@ -648,9 +648,10 @@
       "local": [
         {
           "path": "packages/base/src/lib/floating-ui/utils/matchesFocusVisible.ts",
-          "sha256": "b1788640106924aa5e790e88b711fdf02ce942c0ead034aa94be636188f1c3ac",
+          "sha256": "4d5266137ceb919a50e3cd9ad29e23a219b08470f34c275852c320531cc949d3",
           "reachability": [
-            "runtime"
+            "runtime",
+            "type"
           ]
         }
       ],
@@ -801,7 +802,7 @@
       "local": [
         {
           "path": "packages/base/src/lib/internals/composite/composite.ts",
-          "sha256": "938a8b4ede73c5b5655a800777fe4748a94786a05bf828129de299c04cf94673",
+          "sha256": "f4e02dc8034a749a29f2c63d12f34c25d17c73ffd4075bc31e8f4a55306c0a9e",
           "reachability": [
             "runtime"
           ]
@@ -834,7 +835,7 @@
       "local": [
         {
           "path": "packages/base/src/lib/internals/composite/list/createCompositeList.svelte.ts",
-          "sha256": "97758d379046d9f894997ae40ef7c6f59decf48fa0d985a2c1fb5f9f068ad016",
+          "sha256": "eb23334825782ebd6c5c2697f1aad75f6f557c1e387fa6ea0a78c276bfead975",
           "reachability": [
             "runtime"
           ]
@@ -855,7 +856,7 @@
       "local": [
         {
           "path": "packages/base/src/lib/internals/composite/list/CompositeListContext.ts",
-          "sha256": "c443b96e2b57642eed663be3a670fc7342dc4358bac081b7257bcb076c54ab17",
+          "sha256": "17e4010bda5639d8c7d200bd965ffb9f29aa06a1e83c9f6756319a2dceb1fd38",
           "reachability": [
             "type",
             "runtime"
@@ -877,7 +878,7 @@
       "local": [
         {
           "path": "packages/base/src/lib/internals/composite/list/useCompositeListItem.svelte.ts",
-          "sha256": "42f4066c8d830385f942f66b216e1b263728f1615dbd7b11cfd3a79db7242400",
+          "sha256": "94d353c7d884b35bd002a9278a7701e7b1e835d536b8eb8a94f2a56d7fa72841",
           "reachability": [
             "runtime"
           ]
@@ -912,7 +913,7 @@
       "local": [
         {
           "path": "packages/base/src/lib/internals/createBaseUIEventDetails.ts",
-          "sha256": "1a9cb6cde2734d421a1bfb03ece9c744584b7e115a0eb3b9de974c22ab8ee684",
+          "sha256": "8c72d1cd966a450125d2177842154e603b52779f156660af0633101ea222c772",
           "reachability": [
             "type",
             "runtime"
@@ -963,7 +964,7 @@
       "local": [
         {
           "path": "packages/base/src/lib/internals/field-constants/constants.ts",
-          "sha256": "7a4e8acf35babe4f33b4850da64313dbd19be6b20cb3b4833430d103cd6bf757",
+          "sha256": "b9bd1e08d6deb13b300611745d85f94a90fe15e3170291b866ecab2b21c9e635",
           "reachability": [
             "runtime",
             "type"
@@ -986,17 +987,9 @@
         "captureInitialValue",
         "UseFieldControlRegistrationParameters"
       ],
-      "local": [
-        {
-          "path": "packages/base/src/lib/internals/field-register-control/useFieldControlRegistration.svelte.ts",
-          "sha256": "2fbe1f3900ce42aff6d9f65e489b9dcac76a90e34c2be6dcd75c4f5d5bc887fe",
-          "reachability": [
-            "type"
-          ]
-        }
-      ],
-      "correspondence": "Reused canonical Field/Form/shared-utility source dependency; Source registration lifetime, first baseline, no delete/readd on value changes; getter params. See parity/field-form/source-correspondence.json",
-      "status": "implemented; independent entire-closure review pending"
+      "local": [],
+      "correspondence": "Unselected conservative barrel/type dependency or React-only representation dependency. No second implementation, runtime stub, dead helper or generic public export is introduced for this module.",
+      "status": "unselected; independent symbol-selection audit pending"
     },
     {
       "source": "packages/react/src/internals/field-register-control/useRegisterFieldControl.ts",
@@ -1008,7 +1001,7 @@
       "local": [
         {
           "path": "packages/base/src/lib/internals/field-register-control/useRegisterFieldControl.svelte.ts",
-          "sha256": "b4c1ea76c59f1b6848c3a54e915324b9da25bbdbdf16f61c4cfad1a3521ada03",
+          "sha256": "a91113b1028269d5973ae7c83a0cbbf49b4c701cb5a8e426ca977bbef61cd583",
           "reachability": [
             "runtime",
             "type"
@@ -1029,7 +1022,7 @@
       "local": [
         {
           "path": "packages/base/src/lib/internals/field-root-context/FieldRootContext.ts",
-          "sha256": "21aa11d932c64b362bdb2373d22bf6c108fe9a24a093b0a08a009e3d9b45f614",
+          "sha256": "647417d85d6b587048591fa343c97074e1cd68c54ecfb07b2993957926939629",
           "reachability": [
             "runtime",
             "type"
@@ -1051,7 +1044,7 @@
       "local": [
         {
           "path": "packages/base/src/lib/internals/form-context/FormContext.ts",
-          "sha256": "8a0131cd002119715cb0d1a9cb051662353e75797aa4369981a30be4df29a05a",
+          "sha256": "c27b507d54f1e74bdaf15c35959f9fd795777047030d73ba96c1e5d8d14d185d",
           "reachability": [
             "runtime",
             "type"
@@ -1074,8 +1067,8 @@
           "path": "packages/base/src/lib/internals/getStateAttributesProps.ts",
           "sha256": "e48367a890024a54cb200eabc5c2a0ba0a397256baacfaec8b0a05ced3b10344",
           "reachability": [
-            "type",
-            "runtime"
+            "runtime",
+            "type"
           ]
         }
       ],
@@ -1102,7 +1095,7 @@
       "local": [
         {
           "path": "packages/base/src/lib/internals/labelable-provider/LabelableContext.ts",
-          "sha256": "864b5d1ddb86b7cb3d50217a7bb3b4fbf58428ec43f78c1ec7ed3efa31750799",
+          "sha256": "8ed40c64919595f22975c8a10047215c6611a3223e258205fd473efb91479f84",
           "reachability": [
             "runtime",
             "type"
@@ -1126,14 +1119,14 @@
       "local": [
         {
           "path": "packages/base/src/lib/internals/labelable-provider/LabelableProvider.svelte",
-          "sha256": "e0719f95f60e6ac6d050e92c0525f465d87c6832887515cbe62948b481915c43",
+          "sha256": "8056aab139538495cb16be9e5183d277cade00a9624af5504179996ff3a09b33",
           "reachability": [
             "type"
           ]
         },
         {
           "path": "packages/base/src/lib/internals/labelable-provider/createLabelableProvider.svelte.ts",
-          "sha256": "2a5fb80fe0cf9ca1d598337f2fddc778833d1dba5445fb5918cae6a1ab478a4b",
+          "sha256": "b5cf2b6efd42c5038cc6786bf325a6a450aff387474f2df008fa79d2a06694c6",
           "reachability": [
             "type"
           ]
@@ -1155,7 +1148,7 @@
       "local": [
         {
           "path": "packages/base/src/lib/internals/labelable-provider/useAriaLabelledBy.svelte.ts",
-          "sha256": "bfb47e6426f7df82b1738fb2dcbef7133166addc4a7d54a84deab26655f2bf0e",
+          "sha256": "64e63e8f5290b2b9ad3d8ad7d3fc936a76401425906c31cea8cdc4c19bd8b7ec",
           "reachability": [
             "type"
           ]
@@ -1179,7 +1172,7 @@
       "local": [
         {
           "path": "packages/base/src/lib/internals/labelable-provider/useLabel.svelte.ts",
-          "sha256": "b96abe4dcc46df31198bbd40cbc6e9278dda323f3bab6b33bc802158ab9d9b26",
+          "sha256": "c3a027d307a6582813779de2da9f6d495e4ba925e669c9080ceee9c6e1a4ebd3",
           "reachability": [
             "runtime",
             "type"
@@ -1202,7 +1195,7 @@
       "local": [
         {
           "path": "packages/base/src/lib/internals/labelable-provider/useLabelableId.svelte.ts",
-          "sha256": "821459e698c6486f837258547fe73e1db1865bd574444ea867d03b59af8e4456",
+          "sha256": "36215a31fd3f84d006006734eca09bb94b036ad30015949f1acf814e94fa8845",
           "reachability": [
             "runtime",
             "type"
@@ -1217,18 +1210,9 @@
       "sourceSha256": "268edb20da01bc632fc8335f808298027500d577ad3872d340080c40a21fc3a0",
       "sourceUrl": "https://github.com/mui/base-ui/blob/47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c/packages/react/src/internals/noop.ts",
       "originalDeclarations": [],
-      "local": [
-        {
-          "path": "packages/base/src/lib/utils/empty.ts",
-          "sha256": "eb679c977169a61764f98516194102fed5b70b6157992b34029dcd39af467d7b",
-          "reachability": [
-            "type",
-            "runtime"
-          ]
-        }
-      ],
-      "correspondence": "Reused canonical Field/Form/shared-utility source dependency; Original alias points to same canonical shared NOOP; no redundant runtime facade. See parity/field-form/source-correspondence.json",
-      "status": "implemented; independent entire-closure review pending"
+      "local": [],
+      "correspondence": "Unselected conservative barrel/type dependency or React-only representation dependency. No second implementation, runtime stub, dead helper or generic public export is introduced for this module.",
+      "status": "unselected; independent symbol-selection audit pending"
     },
     {
       "source": "packages/react/src/internals/prehydrationScript.stub.ts",
@@ -1238,7 +1222,7 @@
       "local": [
         {
           "path": "packages/base/src/lib/internals/PrehydrationScript.svelte",
-          "sha256": "2b37072e8cb05af6fdb577941c8f79f5be974f34032b588b27b11c6f67eb35e2",
+          "sha256": "dd09ef479e0f4028bf0d126dbf54bd10ab00c67105a1da7260ef13d4a1271fda",
           "reachability": [
             "runtime"
           ]
@@ -1259,7 +1243,7 @@
       "local": [
         {
           "path": "packages/base/src/lib/internals/PrehydrationScript.svelte",
-          "sha256": "2b37072e8cb05af6fdb577941c8f79f5be974f34032b588b27b11c6f67eb35e2",
+          "sha256": "dd09ef479e0f4028bf0d126dbf54bd10ab00c67105a1da7260ef13d4a1271fda",
           "reachability": [
             "runtime"
           ]
@@ -1360,21 +1344,21 @@
       "local": [
         {
           "path": "packages/base/src/lib/internals/types.ts",
-          "sha256": "56f62e49c3a1504981c523a1bee8764c45de90fb88f0fab5154bb7fc9d0c1bd3",
+          "sha256": "6a36f5f103ef940b8a32d63f0288d897096c846fb2361b4ef44733e9a899907e",
           "reachability": [
             "type"
           ]
         },
         {
           "path": "packages/base/src/lib/dialog/types.ts",
-          "sha256": "fd700772ea1016359bc934759c01d168caa2914ff136733f30f9c108d28ae931",
+          "sha256": "d2b80a17a890020ddb9e7ba36c2cf2106e1677b76c722617575ef81a2728c567",
           "reachability": [
             "type"
           ]
         },
         {
           "path": "packages/base/src/lib/field/props.ts",
-          "sha256": "ed3d25745d68f38c06c0f21ae46e9457147a07503e34ae52fd17dee7256d1357",
+          "sha256": "ced41ab415850bbdb26723487d6a6a1661e4c75c338099e12c43ddbcd8594f62",
           "reachability": [
             "type"
           ]
@@ -1395,13 +1379,13 @@
       "local": [
         {
           "path": "packages/base/src/lib/internals/useAnimationsFinished.ts",
-          "sha256": "0ae8873174969326a7ac09377ab019af5cd575bbdfde7df9118317d0ec1c1e30",
+          "sha256": "7abe48ef841cdfa7bf60b29045e9f0ffb7dbfb715b34351e8f6716131b2678f8",
           "reachability": [
             "type"
           ]
         }
       ],
-      "correspondence": "Reached through the actual type closure, not called by Slider runtime. Reuses canonical aa5c9aa Source completion bodies: invocation-owned batch snapshot, default separate commits, same-microtask shared queue, abort-at-flush, replacement animation recursion and starting-style cleanup; native Svelte flushSync replaces ReactDOM flushSync. The canonical useOpenChangeComplete reader passes the current batch option at invocation. This bounded helper reuse grants no whole Dialog feature acceptance or ordinary assertion credit.",
+      "correspondence": "Reuses current main canonical native animation owner wherever actually reached. Native AnimationFrame/onDestroy/effect/flushSync replace framework machinery; Source completion branches remain. Reachability is recorded per used module, and no unrelated Dialog acceptance is inherited.",
       "status": "implemented; independent entire-closure review pending"
     },
     {
@@ -1414,7 +1398,7 @@
       "local": [
         {
           "path": "packages/base/src/lib/internals/useBaseUiId.ts",
-          "sha256": "fc6d9571f2fc0f71d6f75a8f34eb981a3e09a9a038fbb9aa8b4b83c2cbb3aaa3",
+          "sha256": "3995d6f7b0b3b0c3bd734f8936778c7a95ec39cc1a701dc24cf49a1313414c92",
           "reachability": [
             "runtime",
             "type"
@@ -1436,7 +1420,7 @@
       "local": [
         {
           "path": "packages/base/src/lib/internals/useOpenChangeComplete.svelte.ts",
-          "sha256": "5e966dd1b10cbc1ed448d3583ca948a384d812f9e71afc1e128395485575931f",
+          "sha256": "b6174d1cc73b6ea3b6431cf87906a1acacc40b1d5c356a31124f92251d7fd038",
           "reachability": [
             "type"
           ]
@@ -1465,23 +1449,71 @@
       ],
       "local": [
         {
-          "path": "packages/base/src/lib/internals/useRenderElement.ts",
-          "sha256": "a8fb8a006629431ae42697dbbd9ea1177d9ce756bf953105c2e5f3eb5ed5a1e9",
+          "path": "packages/base/src/lib/internals/mergeComponentProps.ts",
+          "sha256": "803da5cb2c52515e1e68e16b66b61060c31ca03d183bb09d928b601bbb70cab7",
           "reachability": [
             "runtime",
             "type"
           ]
         },
         {
-          "path": "packages/base/src/lib/internals/RenderElement.svelte",
-          "sha256": "bbc7cb9be3a6d554f07090d250923b06b5581b29f190d48d874b62698f1cdef5",
+          "path": "packages/base/src/lib/slider/control/SliderControl.svelte",
+          "sha256": "5bea20202391bbe9a5d88bc6118338c9e0d5b3836e4a3e6e1b4548e02ab2da75",
           "reachability": [
-            "runtime",
-            "type"
+            "runtime"
+          ]
+        },
+        {
+          "path": "packages/base/src/lib/slider/indicator/SliderIndicator.svelte",
+          "sha256": "a8cb5f454516db43ecbbd43a5625ac5999da7361125044994eefbcccb9da1903",
+          "reachability": [
+            "runtime"
+          ]
+        },
+        {
+          "path": "packages/base/src/lib/slider/label/SliderLabel.svelte",
+          "sha256": "36ca69c88d6e96b3b49b0bb8d0c9340d6c82f45f1b3d7f97eb6529a78ded94e5",
+          "reachability": [
+            "runtime"
+          ]
+        },
+        {
+          "path": "packages/base/src/lib/slider/root/SliderRoot.svelte",
+          "sha256": "24c088b50ac3209c2f76c96b92343aacedb6aad5d562ee956b33d7dbe466f6b0",
+          "reachability": [
+            "runtime"
+          ]
+        },
+        {
+          "path": "packages/base/src/lib/slider/thumb/SliderThumb.svelte",
+          "sha256": "ed8f035fd02470a193c9e9635ed572c0538eebd38bd7784d28ac316ddc56b5d5",
+          "reachability": [
+            "runtime"
+          ]
+        },
+        {
+          "path": "packages/base/src/lib/slider/thumb/SliderThumbNativeInput.svelte",
+          "sha256": "dc2ff9987bdb3928878ac54654341b8dbcc7eda262823fd16895cdea7a929a52",
+          "reachability": [
+            "runtime"
+          ]
+        },
+        {
+          "path": "packages/base/src/lib/slider/track/SliderTrack.svelte",
+          "sha256": "8d654065e0dbce92ae8764955035d255b5a1d8ddf3880edf7a0720af5f5d0d60",
+          "reachability": [
+            "runtime"
+          ]
+        },
+        {
+          "path": "packages/base/src/lib/slider/value/SliderValue.svelte",
+          "sha256": "c53c462da7533fc4730a9f348b4ed1e32b03b89cb6a0191b888c63899ffd1952",
+          "reachability": [
+            "runtime"
           ]
         }
       ],
-      "correspondence": "Reused canonical Field/Form/shared-utility source dependency; shared renderer dependency: source ordered props/ref/mapping stages, native literal input host See parity/field-form/source-correspondence.json PR50 source ref-order/lifetime fidelity repair folds canonical forwarded attachments after inner refs into the existing source fanout. Native authored attachments remain independent. Full mapping: parity/rendering/source-correspondence.md.",
+      "correspondence": "Direct native primitive or purposeful leaf boundary; see named function mapping in source-correspondence.md and SL-01.",
       "status": "implemented; independent entire-closure review pending"
     },
     {
@@ -1495,7 +1527,7 @@
       "local": [
         {
           "path": "packages/base/src/lib/internals/useTransitionStatus.svelte.ts",
-          "sha256": "1236abbbe5a5e1dec17c77d51d704f3f03e48ecdd34f85a995e1dde00c60c54b",
+          "sha256": "7fc531ccff0a7dfd77703c0f0ee7e1148fc080960682469eafffbc627056fa9e",
           "reachability": [
             "type"
           ]
@@ -1513,15 +1545,15 @@
       ],
       "local": [
         {
-          "path": "packages/base/src/lib/internals/useValueChanged.svelte.ts",
-          "sha256": "340a8f5ed100094c283f167c8a8a3e196708cdf238eeadc93f148ee31c4274c9",
+          "path": "packages/base/src/lib/internals/ValueChanged.svelte.ts",
+          "sha256": "f169e9eec98d817327dd31fc0c39c019173cdb64fac3350b898004222107e54e",
           "reachability": [
             "runtime",
             "type"
           ]
         }
       ],
-      "correspondence": "Reused canonical Field/Form/shared-utility source dependency; native source port; source review pending See parity/shared-utils/source-graph.json",
+      "correspondence": "Direct native primitive or purposeful leaf boundary; see named function mapping in source-correspondence.md and SL-01.",
       "status": "implemented; independent entire-closure review pending"
     },
     {
@@ -1580,7 +1612,7 @@
         },
         {
           "path": "packages/base/src/lib/merge-props/mergeProps.ts",
-          "sha256": "7a097b833ae8854c5a26e34009adfb4e0297dd50f56ad5f0c1ac8afa8187f98b",
+          "sha256": "b2c30a6df68fe9744f250f0d0b8e21d89de133146724efd6eed7cea0fce0f8b9",
           "reachability": [
             "runtime",
             "type"
@@ -1616,14 +1648,14 @@
       "local": [
         {
           "path": "packages/base/src/lib/slider/control/SliderControl.svelte",
-          "sha256": "f0d2656e58455d051ad20467cefb57904a88aec889a8171f0dbb7b3136d8251f",
+          "sha256": "5bea20202391bbe9a5d88bc6118338c9e0d5b3836e4a3e6e1b4548e02ab2da75",
           "reachability": [
             "runtime"
           ]
         },
         {
           "path": "packages/base/src/lib/slider/types.ts",
-          "sha256": "b127d1eee6910dafbd33357652ba0ea2f0eff7d9c65af2044fd6f9eb06b7f847",
+          "sha256": "c37ef1f276c53bb1dfca75811c83c0916cefebe0e7ccd5299d115a8bd1e403b4",
           "reachability": [
             "runtime",
             "type"
@@ -1641,7 +1673,7 @@
       "local": [
         {
           "path": "packages/base/src/lib/slider/index.parts.ts",
-          "sha256": "b85aa8d785d5f79cd1638060d5cdff31df9d63ab8d6a5b188dcc714833c2d9d4",
+          "sha256": "23e3e2c09894496aa01a3319ba59fd60b77eec7bf130fab59b9e9987279943d3",
           "reachability": [
             "runtime"
           ]
@@ -1658,7 +1690,7 @@
       "local": [
         {
           "path": "packages/base/src/lib/slider/index.ts",
-          "sha256": "b99aa71baa1caecc0c80374c0fe0e0bdd6a84c31bc38e96ce3c18d4c1822e8b4",
+          "sha256": "821a5bba47ca69550aea3fe876e9eb6fa5fb4b6eb911a44fc08e78b5c514b4cf",
           "reachability": [
             "runtime"
           ]
@@ -1682,14 +1714,14 @@
       "local": [
         {
           "path": "packages/base/src/lib/slider/indicator/SliderIndicator.svelte",
-          "sha256": "8cba36f14bc49cd4bb2a757a65d1ed32b32c0054e9b27c43c7750cf331ea2c1f",
+          "sha256": "a8cb5f454516db43ecbbd43a5625ac5999da7361125044994eefbcccb9da1903",
           "reachability": [
             "runtime"
           ]
         },
         {
           "path": "packages/base/src/lib/slider/types.ts",
-          "sha256": "b127d1eee6910dafbd33357652ba0ea2f0eff7d9c65af2044fd6f9eb06b7f847",
+          "sha256": "c37ef1f276c53bb1dfca75811c83c0916cefebe0e7ccd5299d115a8bd1e403b4",
           "reachability": [
             "runtime",
             "type"
@@ -1714,14 +1746,14 @@
       "local": [
         {
           "path": "packages/base/src/lib/slider/label/SliderLabel.svelte",
-          "sha256": "9d366e71fb549d4591d777b79bd15d92efa9d277e1ffdb26cf9067c5e39c8588",
+          "sha256": "36ca69c88d6e96b3b49b0bb8d0c9340d6c82f45f1b3d7f97eb6529a78ded94e5",
           "reachability": [
             "runtime"
           ]
         },
         {
           "path": "packages/base/src/lib/slider/types.ts",
-          "sha256": "b127d1eee6910dafbd33357652ba0ea2f0eff7d9c65af2044fd6f9eb06b7f847",
+          "sha256": "c37ef1f276c53bb1dfca75811c83c0916cefebe0e7ccd5299d115a8bd1e403b4",
           "reachability": [
             "runtime",
             "type"
@@ -1755,14 +1787,14 @@
       "local": [
         {
           "path": "packages/base/src/lib/slider/root/SliderRoot.svelte",
-          "sha256": "ea4ae4a24127be3c9cc6de8a6ee6a1db90e94856eee33116edd77f6050604ee7",
+          "sha256": "24c088b50ac3209c2f76c96b92343aacedb6aad5d562ee956b33d7dbe466f6b0",
           "reachability": [
             "runtime"
           ]
         },
         {
           "path": "packages/base/src/lib/slider/types.ts",
-          "sha256": "b127d1eee6910dafbd33357652ba0ea2f0eff7d9c65af2044fd6f9eb06b7f847",
+          "sha256": "c37ef1f276c53bb1dfca75811c83c0916cefebe0e7ccd5299d115a8bd1e403b4",
           "reachability": [
             "runtime",
             "type"
@@ -1783,7 +1815,7 @@
       "local": [
         {
           "path": "packages/base/src/lib/slider/root/SliderRootContext.ts",
-          "sha256": "d00a4c1ae1724ed016f811cb517a1107f31667d05a3063f5e51c40c94f5e2697",
+          "sha256": "02d9f1a798b21679ae04e1aa925b4c56668f9ae042c1a15b9a191edecf1b5782",
           "reachability": [
             "runtime",
             "type"
@@ -1801,7 +1833,7 @@
       "local": [
         {
           "path": "packages/base/src/lib/slider/root/stateAttributesMapping.ts",
-          "sha256": "94f23ecf420334927f01b106925688fadbd53212ac044f04d4fb331a2dcc2c58",
+          "sha256": "6202aa35741e509401814e88fe784fdaad042cbaa172339658721c587073588f",
           "reachability": [
             "runtime"
           ]
@@ -1861,14 +1893,14 @@
       "local": [
         {
           "path": "packages/base/src/lib/slider/thumb/SliderThumb.svelte",
-          "sha256": "7856e86a53a0c28ebaeb8db06259d7eba352b0ad2df6512e13f5c3bd9bd210a8",
+          "sha256": "ed8f035fd02470a193c9e9635ed572c0538eebd38bd7784d28ac316ddc56b5d5",
           "reachability": [
             "runtime"
           ]
         },
         {
           "path": "packages/base/src/lib/slider/types.ts",
-          "sha256": "b127d1eee6910dafbd33357652ba0ea2f0eff7d9c65af2044fd6f9eb06b7f847",
+          "sha256": "c37ef1f276c53bb1dfca75811c83c0916cefebe0e7ccd5299d115a8bd1e403b4",
           "reachability": [
             "runtime",
             "type"
@@ -1886,7 +1918,7 @@
       "local": [
         {
           "path": "packages/base/src/lib/slider/thumb/SliderThumbDataAttributes.ts",
-          "sha256": "c71c67a2e421eef3765baa8c5751e21ceccb783559cd26791d28075ef8bda2af",
+          "sha256": "0f1de333fe8036b98d423eb01e757895b3b4e02ace9da444e7bf2e63b7fdcd46",
           "reachability": [
             "runtime"
           ]
@@ -1909,14 +1941,14 @@
       "local": [
         {
           "path": "packages/base/src/lib/slider/track/SliderTrack.svelte",
-          "sha256": "4b337f12555d45ebdbf1b47787d3d1be2b2d7a1b1cf974fbbafbbae88141edc3",
+          "sha256": "8d654065e0dbce92ae8764955035d255b5a1d8ddf3880edf7a0720af5f5d0d60",
           "reachability": [
             "runtime"
           ]
         },
         {
           "path": "packages/base/src/lib/slider/types.ts",
-          "sha256": "b127d1eee6910dafbd33357652ba0ea2f0eff7d9c65af2044fd6f9eb06b7f847",
+          "sha256": "c37ef1f276c53bb1dfca75811c83c0916cefebe0e7ccd5299d115a8bd1e403b4",
           "reachability": [
             "runtime",
             "type"
@@ -1974,7 +2006,7 @@
       "local": [
         {
           "path": "packages/base/src/lib/slider/utils/getPushedThumbValues.ts",
-          "sha256": "f97e0a5e2da07bdecc780fc339db6a88c1f2466fff43c030817353be44ea0850",
+          "sha256": "ace7aec24bbcbc182d3456b23df4b22c37650951ed3b89323763fd7a4cf30372",
           "reachability": [
             "runtime"
           ]
@@ -1993,7 +2025,7 @@
       "local": [
         {
           "path": "packages/base/src/lib/slider/utils/getSliderValue.ts",
-          "sha256": "562f68f97626df04527bef9568a69ab22dc897de4a0477b29375e45a2ad37aff",
+          "sha256": "4fabd267f2bd6826a160dcbcde8fd8c7a18e87574521572a92aa0911c29b7404",
           "reachability": [
             "runtime"
           ]
@@ -2013,7 +2045,7 @@
       "local": [
         {
           "path": "packages/base/src/lib/slider/utils/resolveThumbCollision.ts",
-          "sha256": "cdb8b54a459b182fd531ec99d0e9a7aef242e16b6863600884a6263175575ec7",
+          "sha256": "97bb259334db6eb6be5cdefba6ecadba5cfd7473c38a63e0f41ffff082ad3516",
           "reachability": [
             "runtime"
           ]
@@ -2033,7 +2065,7 @@
       "local": [
         {
           "path": "packages/base/src/lib/slider/utils/roundValueToStep.ts",
-          "sha256": "18833303f4f2e9a15b3355b6583f67c7ebeca77de893ed5f45f68dc539ef832e",
+          "sha256": "c288162e8a675660b19a0856ad774f48b451a8f553d99c05762f4d3a31950d75",
           "reachability": [
             "runtime"
           ]
@@ -2075,14 +2107,14 @@
       "local": [
         {
           "path": "packages/base/src/lib/slider/value/SliderValue.svelte",
-          "sha256": "66c0ffee35f633d49cd04720aeedf1d764ec3032a33d46fe0bfbf7fb412827e0",
+          "sha256": "c53c462da7533fc4730a9f348b4ed1e32b03b89cb6a0191b888c63899ffd1952",
           "reachability": [
             "runtime"
           ]
         },
         {
           "path": "packages/base/src/lib/slider/types.ts",
-          "sha256": "b127d1eee6910dafbd33357652ba0ea2f0eff7d9c65af2044fd6f9eb06b7f847",
+          "sha256": "c37ef1f276c53bb1dfca75811c83c0916cefebe0e7ccd5299d115a8bd1e403b4",
           "reachability": [
             "runtime",
             "type"
@@ -2113,7 +2145,7 @@
       "local": [
         {
           "path": "packages/base/src/lib/internals/types.ts",
-          "sha256": "56f62e49c3a1504981c523a1bee8764c45de90fb88f0fab5154bb7fc9d0c1bd3",
+          "sha256": "6a36f5f103ef940b8a32d63f0288d897096c846fb2361b4ef44733e9a899907e",
           "reachability": [
             "type"
           ]
@@ -2154,9 +2186,17 @@
       "sourceSha256": "fa35d774e4e8e1ad60d1f96e7a5a0fef3715e154ce5c1d466c4e9a957043dc7a",
       "sourceUrl": "https://github.com/mui/base-ui/blob/47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c/packages/react/src/utils/popups/index.ts",
       "originalDeclarations": [],
-      "local": [],
-      "correspondence": "Unselected conservative barrel/type dependency or React-only representation dependency. No second implementation, runtime stub, dead helper or generic public export is introduced for this module.",
-      "status": "unselected; independent symbol-selection audit pending"
+      "local": [
+        {
+          "path": "packages/base/src/lib/utils/popups/index.ts",
+          "sha256": "8685650fb9e3f7bfe7528330f062c4b3f94df89bf9adc8a48b13728774474e01",
+          "reachability": [
+            "type"
+          ]
+        }
+      ],
+      "correspondence": "Selected Slider dependency at the listed canonical paths. Reuses the existing Source business or accepted native boundary; prior feature correspondence remains provenance in the immutable pre-code mapping and does not determine Slider symbol selection. Full inherited body review remains required.",
+      "status": "implemented; independent entire-closure review pending"
     },
     {
       "source": "packages/react/src/utils/popups/inlineRect.ts",
@@ -2194,9 +2234,17 @@
         "PopupHandleStoreWithTriggers",
         "PopupHandleStoreWithOpen"
       ],
-      "local": [],
-      "correspondence": "Unselected conservative barrel/type dependency or React-only representation dependency. No second implementation, runtime stub, dead helper or generic public export is introduced for this module.",
-      "status": "unselected; independent symbol-selection audit pending"
+      "local": [
+        {
+          "path": "packages/base/src/lib/utils/popups/popupHandle.svelte.ts",
+          "sha256": "c3a56400141a1075b20c783a5da24f827911b7d622c5eb92f78a4cf1f49da778",
+          "reachability": [
+            "type"
+          ]
+        }
+      ],
+      "correspondence": "Selected Slider dependency at the listed canonical paths. Reuses the existing Source business or accepted native boundary; prior feature correspondence remains provenance in the immutable pre-code mapping and does not determine Slider symbol selection. Full inherited body review remains required.",
+      "status": "implemented; independent entire-closure review pending"
     },
     {
       "source": "packages/react/src/utils/popups/popupStoreUtils.ts",
@@ -2222,9 +2270,17 @@
         "usePopupInteractionProps",
         "usePopupRootSync"
       ],
-      "local": [],
-      "correspondence": "Unselected conservative barrel/type dependency or React-only representation dependency. No second implementation, runtime stub, dead helper or generic public export is introduced for this module.",
-      "status": "unselected; independent symbol-selection audit pending"
+      "local": [
+        {
+          "path": "packages/base/src/lib/utils/popups/popupStoreUtils.svelte.ts",
+          "sha256": "13b61b426eed8a0875580aa2a8e15a8caf5c7110e915174bf4d613f069f7b01a",
+          "reachability": [
+            "type"
+          ]
+        }
+      ],
+      "correspondence": "Selected Slider dependency at the listed canonical paths. Reuses the existing Source business or accepted native boundary; prior feature correspondence remains provenance in the immutable pre-code mapping and does not determine Slider symbol selection. Full inherited body review remains required.",
+      "status": "implemented; independent entire-closure review pending"
     },
     {
       "source": "packages/react/src/utils/popups/popupTriggerMap.ts",
@@ -2233,9 +2289,17 @@
       "originalDeclarations": [
         "getDevElementIds"
       ],
-      "local": [],
-      "correspondence": "Unselected conservative barrel/type dependency or React-only representation dependency. No second implementation, runtime stub, dead helper or generic public export is introduced for this module.",
-      "status": "unselected; independent symbol-selection audit pending"
+      "local": [
+        {
+          "path": "packages/base/src/lib/utils/popups/popupTriggerMap.svelte.ts",
+          "sha256": "812f1d6cb454c0f5236cda69919932ccfc569611050c19fe8198617beacf6b2c",
+          "reachability": [
+            "type"
+          ]
+        }
+      ],
+      "correspondence": "Selected Slider dependency at the listed canonical paths. Reuses the existing Source business or accepted native boundary; prior feature correspondence remains provenance in the immutable pre-code mapping and does not determine Slider symbol selection. Full inherited body review remains required.",
+      "status": "implemented; independent entire-closure review pending"
     },
     {
       "source": "packages/react/src/utils/popups/store.ts",
@@ -2252,9 +2316,17 @@
         "PopupTriggerStoreKeys",
         "PopupTriggerDataStore"
       ],
-      "local": [],
-      "correspondence": "Unselected conservative barrel/type dependency or React-only representation dependency. No second implementation, runtime stub, dead helper or generic public export is introduced for this module.",
-      "status": "unselected; independent symbol-selection audit pending"
+      "local": [
+        {
+          "path": "packages/base/src/lib/utils/popups/store.ts",
+          "sha256": "6b9e93bb4642ec9ddf3b7721d909e0b8baf32871b5070b9831a3c3f464ca5f69",
+          "reachability": [
+            "type"
+          ]
+        }
+      ],
+      "correspondence": "Selected Slider dependency at the listed canonical paths. Reuses the existing Source business or accepted native boundary; prior feature correspondence remains provenance in the immutable pre-code mapping and does not determine Slider symbol selection. Full inherited body review remains required.",
+      "status": "implemented; independent entire-closure review pending"
     },
     {
       "source": "packages/react/src/utils/popups/usePopupHandleStore.ts",
@@ -2326,7 +2398,7 @@
       "local": [
         {
           "path": "packages/base/src/lib/utils/resolveRef.ts",
-          "sha256": "ac85daa436a61800f824aa34ea08ff4cbe492c86c12be327de957a381acddaa7",
+          "sha256": "d8500030750c389af091f3f4f43b100f675772f3d22b6f1699a29db80d564d0a",
           "reachability": [
             "type"
           ]
@@ -2368,7 +2440,7 @@
       "local": [
         {
           "path": "packages/base/src/lib/utils/useIsHydrating.svelte.ts",
-          "sha256": "e6fcb8995e456cf8e315657de5fb85815aeff818b3403b30255e95ff93bf3b7c",
+          "sha256": "8cce2ab568a5cb2204b44ff58a54b612e6bf173c3c1e0c35f340c38a2c72da5a",
           "reachability": [
             "runtime"
           ]
@@ -2387,7 +2459,7 @@
       "local": [
         {
           "path": "packages/base/src/lib/utils/useRegisteredLabelId.svelte.ts",
-          "sha256": "aeca27deeaadde0c42a027ac7f4788e2a3c62d533db235cada05dd9a70e1e1e2",
+          "sha256": "7d7c44fce0e1b01178ae76dfeb95d59907a5ffa402c49147be554a9c582addec",
           "reachability": [
             "runtime",
             "type"
@@ -2432,7 +2504,7 @@
       "local": [
         {
           "path": "packages/base/src/lib/slider/control/SliderControl.svelte",
-          "sha256": "f0d2656e58455d051ad20467cefb57904a88aec889a8171f0dbb7b3136d8251f",
+          "sha256": "5bea20202391bbe9a5d88bc6118338c9e0d5b3836e4a3e6e1b4548e02ab2da75",
           "reachability": [
             "runtime"
           ]
@@ -2451,7 +2523,7 @@
       ],
       "local": [
         {
-          "path": "packages/base/src/lib/utils/areArraysEqual.ts",
+          "path": "packages/utils/src/lib/areArraysEqual.ts",
           "sha256": "c8709b6f9efb30e3257def214aeae097b131b112b74bd1bea965e201efb15a44",
           "reachability": [
             "runtime",
@@ -2471,7 +2543,7 @@
       ],
       "local": [
         {
-          "path": "packages/base/src/lib/utils/clamp.ts",
+          "path": "packages/utils/src/lib/clamp.ts",
           "sha256": "96e2dcc83d37bbe52ac6d4f65b205859eae0017c4208551f00a16195c176ec35",
           "reachability": [
             "runtime"
@@ -2491,8 +2563,8 @@
       ],
       "local": [
         {
-          "path": "packages/base/src/lib/utils/createLogOnce.ts",
-          "sha256": "a3c52188a495927ef9b49765ca1e70bc384b37b68a5c896ca86df15852a279b1",
+          "path": "packages/utils/src/lib/createLogOnce.ts",
+          "sha256": "f9d8a63ce89aa2d0b31a8d88affb4ff7c49528f12152a9dc99223ee24dca90c9",
           "reachability": [
             "runtime",
             "type"
@@ -2511,8 +2583,8 @@
       ],
       "local": [
         {
-          "path": "packages/base/src/lib/utils/empty.ts",
-          "sha256": "eb679c977169a61764f98516194102fed5b70b6157992b34029dcd39af467d7b",
+          "path": "packages/utils/src/lib/empty.ts",
+          "sha256": "00dc8f5cccebba670a7c7f2a78a66f3a4c008e8fec496badfc909a2bb8664151",
           "reachability": [
             "type",
             "runtime"
@@ -2529,10 +2601,9 @@
       "originalDeclarations": [],
       "local": [
         {
-          "path": "packages/base/src/lib/utils/error.ts",
-          "sha256": "de9eeee73db42c056c110eb94f3aef8b51ae3003e97d5140bfaf876bdde52c69",
+          "path": "packages/utils/src/lib/error.ts",
+          "sha256": "ebbe57877f3f8c77c83631ed4042bd288d13f98fb93afd5390128dbd0d7cec27",
           "reachability": [
-            "runtime",
             "type"
           ]
         }
@@ -2568,8 +2639,8 @@
       ],
       "local": [
         {
-          "path": "packages/base/src/lib/utils/formatNumber.ts",
-          "sha256": "393dedb1ddf8bda2d837b3a592f40817768648b86e83f032ad4639394cae7319",
+          "path": "packages/utils/src/lib/formatNumber.ts",
+          "sha256": "71b3405e185351c665027dcda7e42dcc079cbe20eccb781e7d9f8ab3a21f01a4",
           "reachability": [
             "runtime"
           ]
@@ -2585,18 +2656,9 @@
       "originalDeclarations": [
         "getReactElementRef"
       ],
-      "local": [
-        {
-          "path": "packages/base/src/lib/internals/nativeRefAttachment.ts",
-          "sha256": "564718b20326d9f5e18bf75d30b3905ce2f93a093fbdfbb7027928e1fd20e319",
-          "reachability": [
-            "runtime",
-            "type"
-          ]
-        }
-      ],
-      "correspondence": "Direct native primitive or purposeful leaf boundary; see named function mapping in source-correspondence.md and SL-01.",
-      "status": "implemented; independent entire-closure review pending"
+      "local": [],
+      "correspondence": "Unselected conservative barrel/type dependency or React-only representation dependency. No second implementation, runtime stub, dead helper or generic public export is introduced for this module.",
+      "status": "unselected; independent symbol-selection audit pending"
     },
     {
       "source": "packages/utils/src/mergeCleanups.ts",
@@ -2606,18 +2668,9 @@
         "Cleanup",
         "mergeCleanups"
       ],
-      "local": [
-        {
-          "path": "packages/base/src/lib/utils/useMergedRefs.ts",
-          "sha256": "d9420f3db2872a32aca95c7c32db1342da4df6595df68a17707f55a27ea41fe2",
-          "reachability": [
-            "type",
-            "runtime"
-          ]
-        }
-      ],
-      "correspondence": "Direct native primitive or purposeful leaf boundary; see named function mapping in source-correspondence.md and SL-01.",
-      "status": "implemented; independent entire-closure review pending"
+      "local": [],
+      "correspondence": "Unselected conservative barrel/type dependency or React-only representation dependency. No second implementation, runtime stub, dead helper or generic public export is introduced for this module.",
+      "status": "unselected; independent symbol-selection audit pending"
     },
     {
       "source": "packages/utils/src/mergeObjects.ts",
@@ -2628,11 +2681,11 @@
       ],
       "local": [
         {
-          "path": "packages/base/src/lib/utils/mergeObjects.ts",
+          "path": "packages/utils/src/lib/mergeObjects.ts",
           "sha256": "1e6cfa2be20c639f5ce6f8b0b6cc447da3413bbbc6750a5b1ab03f5810d81746",
           "reachability": [
-            "type",
-            "runtime"
+            "runtime",
+            "type"
           ]
         }
       ],
@@ -2648,8 +2701,8 @@
       ],
       "local": [
         {
-          "path": "packages/base/src/lib/utils/owner.ts",
-          "sha256": "4f32738229316fe875cf72e949caa4aa7d2fcdf924a2bd5b7f01e88ca5424185",
+          "path": "packages/utils/src/lib/owner.ts",
+          "sha256": "759c607acc1a103b2d795840051555671fe65fd889dae7694606b9069803f986",
           "reachability": [
             "runtime",
             "type"
@@ -2666,10 +2719,11 @@
       "originalDeclarations": [],
       "local": [
         {
-          "path": "packages/base/src/lib/utils/platform/engine.ts",
+          "path": "packages/utils/src/lib/platform/engine.ts",
           "sha256": "e4745bcc586212a32cde2f7d206cc1aa4df86b8a29301f8d15cf3cd88996a987",
           "reachability": [
-            "runtime"
+            "runtime",
+            "type"
           ]
         }
       ],
@@ -2683,10 +2737,11 @@
       "originalDeclarations": [],
       "local": [
         {
-          "path": "packages/base/src/lib/utils/platform/env.ts",
+          "path": "packages/utils/src/lib/platform/env.ts",
           "sha256": "dbd7cc1369986d370094b986c44b1bce3c10eba1f792f0e5c3e99c071e00eb9d",
           "reachability": [
-            "runtime"
+            "runtime",
+            "type"
           ]
         }
       ],
@@ -2700,10 +2755,11 @@
       "originalDeclarations": [],
       "local": [
         {
-          "path": "packages/base/src/lib/utils/platform/index.ts",
+          "path": "packages/utils/src/lib/platform/index.ts",
           "sha256": "c9c1174c0f82f01033187e382b461370123d356d8e14901a9ca7d85dbd2ea63c",
           "reachability": [
-            "runtime"
+            "runtime",
+            "type"
           ]
         }
       ],
@@ -2717,10 +2773,11 @@
       "originalDeclarations": [],
       "local": [
         {
-          "path": "packages/base/src/lib/utils/platform/media-query.ts",
+          "path": "packages/utils/src/lib/platform/media-query.ts",
           "sha256": "5e91ea2589962018778ad88498ff9acd432a5244fe37ee922d0a6014b1fb7ed9",
           "reachability": [
-            "runtime"
+            "runtime",
+            "type"
           ]
         }
       ],
@@ -2734,10 +2791,11 @@
       "originalDeclarations": [],
       "local": [
         {
-          "path": "packages/base/src/lib/utils/platform/os.ts",
+          "path": "packages/utils/src/lib/platform/os.ts",
           "sha256": "456f2f5814e890fb12d899c1cc2f08566529216fd8f6d40a9a8e5846b2c9c3d6",
           "reachability": [
-            "runtime"
+            "runtime",
+            "type"
           ]
         }
       ],
@@ -2751,10 +2809,11 @@
       "originalDeclarations": [],
       "local": [
         {
-          "path": "packages/base/src/lib/utils/platform/parts.ts",
+          "path": "packages/utils/src/lib/platform/parts.ts",
           "sha256": "5382169dc9803fde93bc85e33062cbc85d7cdc0bf754d1a7f6f21eb2b4dcac29",
           "reachability": [
-            "runtime"
+            "runtime",
+            "type"
           ]
         }
       ],
@@ -2768,10 +2827,11 @@
       "originalDeclarations": [],
       "local": [
         {
-          "path": "packages/base/src/lib/utils/platform/screen-reader.ts",
+          "path": "packages/utils/src/lib/platform/screen-reader.ts",
           "sha256": "c43ebce8b6557becf984c0ae7f36395da615110e7f878bab1c0dfd476ceb19a7",
           "reachability": [
-            "runtime"
+            "runtime",
+            "type"
           ]
         }
       ],
@@ -2789,10 +2849,11 @@
       ],
       "local": [
         {
-          "path": "packages/base/src/lib/utils/platform/shared.ts",
+          "path": "packages/utils/src/lib/platform/shared.ts",
           "sha256": "28621a4723495ed9f1370c09b12480a6f488f19e59c70e78524325fc6e080db2",
           "reachability": [
-            "runtime"
+            "runtime",
+            "type"
           ]
         }
       ],
@@ -2831,8 +2892,8 @@
       ],
       "local": [
         {
-          "path": "packages/base/src/lib/utils/shadowDom.ts",
-          "sha256": "a5bfa768f801af70e62c012459ddd2b4289a3d2a27aa79c5e9e1414a50395ed1",
+          "path": "packages/utils/src/lib/shadowDom.ts",
+          "sha256": "2cb79a4a3ccbe16581be29f7958d03bce459c5cf8cad8ae4b9f08ab981d42a2a",
           "reachability": [
             "runtime",
             "type"
@@ -2882,9 +2943,17 @@
       "sourceSha256": "81557d67ad01b2d1a73f3998dcfed6843370d0182648df0a8ee8948353585148",
       "sourceUrl": "https://github.com/mui/base-ui/blob/47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c/packages/utils/src/store/index.ts",
       "originalDeclarations": [],
-      "local": [],
-      "correspondence": "Unselected conservative barrel/type dependency or React-only representation dependency. No second implementation, runtime stub, dead helper or generic public export is introduced for this module.",
-      "status": "unselected; independent symbol-selection audit pending"
+      "local": [
+        {
+          "path": "packages/utils/src/lib/store/index.ts",
+          "sha256": "996a1d7a865fe2ce8a362041ced6b58a7ef139d4d796773971376e5fec0d52d7",
+          "reachability": [
+            "type"
+          ]
+        }
+      ],
+      "correspondence": "Selected Slider dependency at the listed canonical paths. Reuses the existing Source business or accepted native boundary; prior feature correspondence remains provenance in the immutable pre-code mapping and does not determine Slider symbol selection. Full inherited body review remains required.",
+      "status": "implemented; independent entire-closure review pending"
     },
     {
       "source": "packages/utils/src/store/ReactStore.ts",
@@ -2914,9 +2983,17 @@
         "SelectorArgs",
         "Tail"
       ],
-      "local": [],
-      "correspondence": "Unselected conservative barrel/type dependency or React-only representation dependency. No second implementation, runtime stub, dead helper or generic public export is introduced for this module.",
-      "status": "unselected; independent symbol-selection audit pending"
+      "local": [
+        {
+          "path": "packages/utils/src/lib/store/Store.svelte.ts",
+          "sha256": "289f1c151106f981843140b9d508d300597ee1f5a90437dca446738b861cad3c",
+          "reachability": [
+            "type"
+          ]
+        }
+      ],
+      "correspondence": "Selected Slider dependency at the listed canonical paths. Reuses the existing Source business or accepted native boundary; prior feature correspondence remains provenance in the immutable pre-code mapping and does not determine Slider symbol selection. Full inherited body review remains required.",
+      "status": "implemented; independent entire-closure review pending"
     },
     {
       "source": "packages/utils/src/store/StoreInspector.tsx",
@@ -2970,8 +3047,8 @@
       ],
       "local": [
         {
-          "path": "packages/base/src/lib/utils/stringifyLocale.ts",
-          "sha256": "6822bbd143dfdee434bdecfea1da34fc65681d550b5dd3473f3efb6b8fb746cb",
+          "path": "packages/utils/src/lib/stringifyLocale.ts",
+          "sha256": "6dcaaf0a33d459da71d44c922acb444c596bfd28d37e0c0421dc169864079d8b",
           "reachability": [
             "runtime"
           ]
@@ -2991,15 +3068,15 @@
       ],
       "local": [
         {
-          "path": "packages/base/src/lib/utils/useAnimationFrame.ts",
-          "sha256": "4de538634e157740822dc1d3896da18ea84c6a706fe79f28fa6b9e7d380038ad",
+          "path": "packages/utils/src/lib/useAnimationFrame.ts",
+          "sha256": "ec054003588b92e4223c6eea228388ae6395bf1895fb3aaf32a02706249652ce",
           "reachability": [
             "runtime",
             "type"
           ]
         }
       ],
-      "correspondence": "Reused canonical Field/Form/shared-utility source dependency; Source instance request/cancel/currentId/dispose/ref/mount shape; native rAF replaces source process-global framework scheduler. Scheduler timing/exception differences have zero parity credit. See parity/field-form/source-correspondence.json",
+      "correspondence": "Canonical Utils retains the complete Source Scheduler queue, global scheduling, cancellation, exception/reset and AnimationFrame owner bodies. Native onDestroy cancels the actual owner; no parallel RAF scheduler or React lifecycle engine is introduced. The historical field-form scheduler omission is not the current mapping.",
       "status": "implemented; independent entire-closure review pending"
     },
     {
@@ -3015,15 +3092,15 @@
       ],
       "local": [
         {
-          "path": "packages/base/src/lib/utils/useControlled.svelte.ts",
-          "sha256": "f74b9a8aa08b323835613037c871a6b85c938555c788c0a8ff51825c1863fd35",
+          "path": "packages/utils/src/lib/Controlled.svelte.ts",
+          "sha256": "3bb64556d51b6cd471e21e2db4c54179b3eb072757f043f7a4489a4134283304",
           "reachability": [
             "runtime",
             "type"
           ]
         }
       ],
-      "correspondence": "Reused canonical Field/Form/shared-utility source dependency; native source port; source review pending See parity/shared-utils/source-graph.json",
+      "correspondence": "Direct native primitive or purposeful leaf boundary; see named function mapping in source-correspondence.md and SL-01.",
       "status": "implemented; independent entire-closure review pending"
     },
     {
@@ -3034,9 +3111,17 @@
         "InteractionType",
         "useEnhancedClickHandler"
       ],
-      "local": [],
-      "correspondence": "Unselected conservative barrel/type dependency or React-only representation dependency. No second implementation, runtime stub, dead helper or generic public export is introduced for this module.",
-      "status": "unselected; independent symbol-selection audit pending"
+      "local": [
+        {
+          "path": "packages/utils/src/lib/useEnhancedClickHandler.ts",
+          "sha256": "6a045d6b74a7851d3446200f55711ffc1dcc22449a2e92680cdf328750a436d5",
+          "reachability": [
+            "type"
+          ]
+        }
+      ],
+      "correspondence": "Selected Slider dependency at the listed canonical paths. Reuses the existing Source business or accepted native boundary; prior feature correspondence remains provenance in the immutable pre-code mapping and does not determine Slider symbol selection. Full inherited body review remains required.",
+      "status": "implemented; independent entire-closure review pending"
     },
     {
       "source": "packages/utils/src/useForcedRerendering.ts",
@@ -3059,8 +3144,8 @@
       ],
       "local": [
         {
-          "path": "packages/base/src/lib/utils/useId.ts",
-          "sha256": "126f5436587c25942d9b12cf2ffbf353c7b87690bf37c0795da7ee5e14244e90",
+          "path": "packages/utils/src/lib/useId.ts",
+          "sha256": "584864eb7f538f5adc40ab128461db75c960984c51265aead1ca3821e4bf879a",
           "reachability": [
             "runtime",
             "type"
@@ -3077,15 +3162,63 @@
       "originalDeclarations": [],
       "local": [
         {
-          "path": "packages/base/src/lib/utils/useIsoLayoutEffect.svelte.ts",
-          "sha256": "0d24dd22dad18fc54341aaedb964a25829ae62322f10bf110a4fd8bde65dd1f3",
+          "path": "packages/base/src/lib/slider/control/SliderControl.svelte",
+          "sha256": "5bea20202391bbe9a5d88bc6118338c9e0d5b3836e4a3e6e1b4548e02ab2da75",
           "reachability": [
-            "runtime",
-            "type"
+            "runtime"
+          ]
+        },
+        {
+          "path": "packages/base/src/lib/slider/indicator/SliderIndicator.svelte",
+          "sha256": "a8cb5f454516db43ecbbd43a5625ac5999da7361125044994eefbcccb9da1903",
+          "reachability": [
+            "runtime"
+          ]
+        },
+        {
+          "path": "packages/base/src/lib/slider/label/SliderLabel.svelte",
+          "sha256": "36ca69c88d6e96b3b49b0bb8d0c9340d6c82f45f1b3d7f97eb6529a78ded94e5",
+          "reachability": [
+            "runtime"
+          ]
+        },
+        {
+          "path": "packages/base/src/lib/slider/root/SliderRoot.svelte",
+          "sha256": "24c088b50ac3209c2f76c96b92343aacedb6aad5d562ee956b33d7dbe466f6b0",
+          "reachability": [
+            "runtime"
+          ]
+        },
+        {
+          "path": "packages/base/src/lib/slider/thumb/SliderThumb.svelte",
+          "sha256": "ed8f035fd02470a193c9e9635ed572c0538eebd38bd7784d28ac316ddc56b5d5",
+          "reachability": [
+            "runtime"
+          ]
+        },
+        {
+          "path": "packages/base/src/lib/slider/thumb/SliderThumbNativeInput.svelte",
+          "sha256": "dc2ff9987bdb3928878ac54654341b8dbcc7eda262823fd16895cdea7a929a52",
+          "reachability": [
+            "runtime"
+          ]
+        },
+        {
+          "path": "packages/base/src/lib/slider/track/SliderTrack.svelte",
+          "sha256": "8d654065e0dbce92ae8764955035d255b5a1d8ddf3880edf7a0720af5f5d0d60",
+          "reachability": [
+            "runtime"
+          ]
+        },
+        {
+          "path": "packages/base/src/lib/slider/value/SliderValue.svelte",
+          "sha256": "c53c462da7533fc4730a9f348b4ed1e32b03b89cb6a0191b888c63899ffd1952",
+          "reachability": [
+            "runtime"
           ]
         }
       ],
-      "correspondence": "Reused canonical Field/Form/shared-utility source dependency; native source port; source review pending See parity/shared-utils/source-graph.json",
+      "correspondence": "Direct native primitive or purposeful leaf boundary; see named function mapping in source-correspondence.md and SL-01.",
       "status": "implemented; independent entire-closure review pending"
     },
     {
@@ -3110,15 +3243,63 @@
       ],
       "local": [
         {
-          "path": "packages/base/src/lib/utils/useMergedRefs.ts",
-          "sha256": "d9420f3db2872a32aca95c7c32db1342da4df6595df68a17707f55a27ea41fe2",
+          "path": "packages/base/src/lib/slider/control/SliderControl.svelte",
+          "sha256": "5bea20202391bbe9a5d88bc6118338c9e0d5b3836e4a3e6e1b4548e02ab2da75",
           "reachability": [
-            "type",
+            "runtime"
+          ]
+        },
+        {
+          "path": "packages/base/src/lib/slider/indicator/SliderIndicator.svelte",
+          "sha256": "a8cb5f454516db43ecbbd43a5625ac5999da7361125044994eefbcccb9da1903",
+          "reachability": [
+            "runtime"
+          ]
+        },
+        {
+          "path": "packages/base/src/lib/slider/label/SliderLabel.svelte",
+          "sha256": "36ca69c88d6e96b3b49b0bb8d0c9340d6c82f45f1b3d7f97eb6529a78ded94e5",
+          "reachability": [
+            "runtime"
+          ]
+        },
+        {
+          "path": "packages/base/src/lib/slider/root/SliderRoot.svelte",
+          "sha256": "24c088b50ac3209c2f76c96b92343aacedb6aad5d562ee956b33d7dbe466f6b0",
+          "reachability": [
+            "runtime"
+          ]
+        },
+        {
+          "path": "packages/base/src/lib/slider/thumb/SliderThumb.svelte",
+          "sha256": "ed8f035fd02470a193c9e9635ed572c0538eebd38bd7784d28ac316ddc56b5d5",
+          "reachability": [
+            "runtime"
+          ]
+        },
+        {
+          "path": "packages/base/src/lib/slider/thumb/SliderThumbNativeInput.svelte",
+          "sha256": "dc2ff9987bdb3928878ac54654341b8dbcc7eda262823fd16895cdea7a929a52",
+          "reachability": [
+            "runtime"
+          ]
+        },
+        {
+          "path": "packages/base/src/lib/slider/track/SliderTrack.svelte",
+          "sha256": "8d654065e0dbce92ae8764955035d255b5a1d8ddf3880edf7a0720af5f5d0d60",
+          "reachability": [
+            "runtime"
+          ]
+        },
+        {
+          "path": "packages/base/src/lib/slider/value/SliderValue.svelte",
+          "sha256": "c53c462da7533fc4730a9f348b4ed1e32b03b89cb6a0191b888c63899ffd1952",
+          "reachability": [
             "runtime"
           ]
         }
       ],
-      "correspondence": "Canonical source ref-fanout/cleanup storage, native attachment lifetime.",
+      "correspondence": "Direct native primitive or purposeful leaf boundary; see named function mapping in source-correspondence.md and SL-01.",
       "status": "implemented; independent entire-closure review pending"
     },
     {
@@ -3128,18 +3309,9 @@
       "originalDeclarations": [
         "useOnMount"
       ],
-      "local": [
-        {
-          "path": "packages/base/src/lib/utils/useOnMount.ts",
-          "sha256": "a7ba4007eff27b601eebcb76755886a23a4dd8548a54f67e15fa1cd648e0e695",
-          "reachability": [
-            "runtime",
-            "type"
-          ]
-        }
-      ],
-      "correspondence": "Reused canonical Field/Form/shared-utility source dependency; native source port; source review pending See parity/shared-utils/source-graph.json",
-      "status": "implemented; independent entire-closure review pending"
+      "local": [],
+      "correspondence": "Unselected conservative barrel/type dependency or React-only representation dependency. No second implementation, runtime stub, dead helper or generic public export is introduced for this module.",
+      "status": "unselected; independent symbol-selection audit pending"
     },
     {
       "source": "packages/utils/src/useRefWithInit.ts",
@@ -3150,18 +3322,9 @@
         "useRefWithInit",
         "useRefWithInit"
       ],
-      "local": [
-        {
-          "path": "packages/base/src/lib/utils/useRefWithInit.ts",
-          "sha256": "998166cdfed66790af4659ac61d8b36f49f1aa4c35a66bb532f6239771271036",
-          "reachability": [
-            "type",
-            "runtime"
-          ]
-        }
-      ],
-      "correspondence": "Reused canonical Field/Form/shared-utility source dependency; native source port; source review pending See parity/shared-utils/source-graph.json",
-      "status": "implemented; independent entire-closure review pending"
+      "local": [],
+      "correspondence": "Unselected conservative barrel/type dependency or React-only representation dependency. No second implementation, runtime stub, dead helper or generic public export is introduced for this module.",
+      "status": "unselected; independent symbol-selection audit pending"
     },
     {
       "source": "packages/utils/src/useStableCallback.ts",
@@ -3176,15 +3339,63 @@
       ],
       "local": [
         {
-          "path": "packages/base/src/lib/utils/useStableCallback.ts",
-          "sha256": "b790a02da99e0e9365bc05d35a434ef37dcffb2a4db8186b1327b949a994d05e",
+          "path": "packages/base/src/lib/slider/control/SliderControl.svelte",
+          "sha256": "5bea20202391bbe9a5d88bc6118338c9e0d5b3836e4a3e6e1b4548e02ab2da75",
           "reachability": [
-            "runtime",
-            "type"
+            "runtime"
+          ]
+        },
+        {
+          "path": "packages/base/src/lib/slider/indicator/SliderIndicator.svelte",
+          "sha256": "a8cb5f454516db43ecbbd43a5625ac5999da7361125044994eefbcccb9da1903",
+          "reachability": [
+            "runtime"
+          ]
+        },
+        {
+          "path": "packages/base/src/lib/slider/label/SliderLabel.svelte",
+          "sha256": "36ca69c88d6e96b3b49b0bb8d0c9340d6c82f45f1b3d7f97eb6529a78ded94e5",
+          "reachability": [
+            "runtime"
+          ]
+        },
+        {
+          "path": "packages/base/src/lib/slider/root/SliderRoot.svelte",
+          "sha256": "24c088b50ac3209c2f76c96b92343aacedb6aad5d562ee956b33d7dbe466f6b0",
+          "reachability": [
+            "runtime"
+          ]
+        },
+        {
+          "path": "packages/base/src/lib/slider/thumb/SliderThumb.svelte",
+          "sha256": "ed8f035fd02470a193c9e9635ed572c0538eebd38bd7784d28ac316ddc56b5d5",
+          "reachability": [
+            "runtime"
+          ]
+        },
+        {
+          "path": "packages/base/src/lib/slider/thumb/SliderThumbNativeInput.svelte",
+          "sha256": "dc2ff9987bdb3928878ac54654341b8dbcc7eda262823fd16895cdea7a929a52",
+          "reachability": [
+            "runtime"
+          ]
+        },
+        {
+          "path": "packages/base/src/lib/slider/track/SliderTrack.svelte",
+          "sha256": "8d654065e0dbce92ae8764955035d255b5a1d8ddf3880edf7a0720af5f5d0d60",
+          "reachability": [
+            "runtime"
+          ]
+        },
+        {
+          "path": "packages/base/src/lib/slider/value/SliderValue.svelte",
+          "sha256": "c53c462da7533fc4730a9f348b4ed1e32b03b89cb6a0191b888c63899ffd1952",
+          "reachability": [
+            "runtime"
           ]
         }
       ],
-      "correspondence": "Reused canonical Field/Form/shared-utility source dependency; native source port; source review pending See parity/shared-utils/source-graph.json",
+      "correspondence": "Direct native primitive or purposeful leaf boundary; see named function mapping in source-correspondence.md and SL-01.",
       "status": "implemented; independent entire-closure review pending"
     },
     {
@@ -3197,8 +3408,8 @@
       ],
       "local": [
         {
-          "path": "packages/base/src/lib/utils/useTimeout.ts",
-          "sha256": "a04448de8715b8728243ee6e33572c57bc5b151674628304f6c3906966738c78",
+          "path": "packages/utils/src/lib/useTimeout.ts",
+          "sha256": "06130c6374e14371471cc3af14638ddb3cadb514bb985fcbc4b8a7a606008b7f",
           "reachability": [
             "type"
           ]
@@ -3218,7 +3429,7 @@
       "local": [
         {
           "path": "packages/base/src/lib/slider/control/SliderControl.svelte",
-          "sha256": "f0d2656e58455d051ad20467cefb57904a88aec889a8171f0dbb7b3136d8251f",
+          "sha256": "5bea20202391bbe9a5d88bc6118338c9e0d5b3836e4a3e6e1b4548e02ab2da75",
           "reachability": [
             "runtime"
           ]
@@ -3234,7 +3445,7 @@
       "originalDeclarations": [],
       "local": [
         {
-          "path": "packages/base/src/lib/utils/visuallyHidden.ts",
+          "path": "packages/utils/src/lib/visuallyHidden.ts",
           "sha256": "8f49185df1c0536608090368454cc3d30a3bfc1991b23a4b5e5239184ead8020",
           "reachability": [
             "runtime",
@@ -3252,8 +3463,8 @@
       "originalDeclarations": [],
       "local": [
         {
-          "path": "packages/base/src/lib/utils/warn.ts",
-          "sha256": "ebd7ab992fa23c267fd3a270dab1d2777e05b5dbb8ecbe1210f1c69436f13ea0",
+          "path": "packages/utils/src/lib/warn.ts",
+          "sha256": "58267e2a1dd62afbc707faf9c031dee042605aa74d44dbf72dd997d2ad69db65",
           "reachability": [
             "runtime"
           ]

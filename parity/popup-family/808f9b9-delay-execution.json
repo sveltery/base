@@ -1,0 +1,17 @@
+{
+  "head": "808f9b9993aeb8fc87cc1528a01f8d7b4d130461",
+  "productRuntimeFrozen": true,
+  "pairedSourceNativeTests": 4,
+  "existingNativeDelayTests": 15,
+  "passed": 19,
+  "failed": 0,
+  "logs": {
+    "808f9b9-delay-ownership-native19-green.log.gz": "9609dc26f291aca9b81d6343e75487d22a0f57484218075d7a5ef712463d0bfc",
+    "808f9b9-source-private-sdk-declarations-failure.log.gz": "9f0ca5feb5094d8797f5f41c75a31cf26e84732521972d8027c2c4c29be214c6",
+    "808f9b9-scoped-standards-green.log.gz": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "strictScope": "NOT CLEAR at808: importing published Original private helper declarations pulled unshipped @base-ui/utils and @floating-ui/react-dom internal type modules, yielding20errors0warnings. Authored private test-module annotations now use explicit narrow actual-ABI protocol; real published classes/hooks still loaded. No fake Store/controller, native/public weak type, compiler relaxation or runtime edit. Successor strict execution pending.",
+  "scopedStandards": "PASS0/0 at808 before authored Source protocol type correction; final successor scope lint pending.",
+  "portalClientInheritance": "Focused Source/native/maintainability CLEAR058. Other runtime bodies frozen; Delay Source successor review pending.",
+  "ordinaryDeclarationCredit": 0
+}

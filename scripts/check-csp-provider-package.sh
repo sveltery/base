@@ -1,10 +1,10 @@
 #!/usr/bin/env bash
 set -euo pipefail
 cd "$(dirname "$0")/.."
-source scripts/toolchain.sh
+source scripts/package-artifacts.sh
 csp_consumer="$(mktemp -d "${TMPDIR:-/tmp}/sveltery-csp-consumer.XXXXXX")"
 trap 'rm -rf "$csp_consumer"' EXIT
-pnpm --filter @sveltery/base pack --pack-destination "$csp_consumer" > /dev/null
+sveltery_pack_package @sveltery/base "$csp_consumer" > /dev/null
 node --input-type=module - "$csp_consumer" <<'JS'
 import { readdirSync, writeFileSync } from 'node:fs';
 import { join } from 'node:path';
@@ -12,8 +12,9 @@ const destination = process.argv[2];
 const tarball = readdirSync(destination).find(name => name.endsWith('.tgz'));
 writeFileSync(join(destination, 'package.json'), JSON.stringify({ private: true, type: 'module', dependencies: { '@sveltery/base': `file:${join(destination, tarball)}`, svelte: '5.57.1' } }));
 JS
-pnpm --dir "$csp_consumer" --ignore-workspace install --ignore-scripts > /dev/null
-pnpm --dir "$csp_consumer" --ignore-workspace install --frozen-lockfile --ignore-scripts > /dev/null
+sveltery_prepare_consumer "$csp_consumer"
+pnpm --dir "$csp_consumer" install --ignore-scripts > /dev/null
+pnpm --dir "$csp_consumer" install --frozen-lockfile --ignore-scripts > /dev/null
 test -f "$csp_consumer/node_modules/@sveltery/base/THIRD_PARTY_NOTICES.md"
 cmp LICENSE "$csp_consumer/node_modules/@sveltery/base/LICENSE"
 cat > "$csp_consumer/Consumer.svelte" <<'SVELTE'

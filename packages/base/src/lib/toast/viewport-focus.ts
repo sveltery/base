@@ -19,6 +19,11 @@ export function getTarget(event: Event): EventTarget | null {
 }
 export function isFocusVisible(element: Element | null): boolean {
   // Pinned upstream also treats jsdom as focus-visible to compensate for its selector model.
-  if (!element || /jsdom/i.test(element.ownerDocument.defaultView?.navigator.userAgent ?? '')) return true;
-  try { return element.matches(':focus-visible'); } catch { return true; }
+  if (!element || /jsdom/i.test(element.ownerDocument.defaultView?.navigator.userAgent ?? ''))
+    return true;
+  try {
+    return element.matches(':focus-visible');
+  } catch {
+    return true;
+  }
 }

@@ -1,14 +1,15 @@
 <script lang="ts">
+  import { mergeComponentProps } from '../../internals/mergeComponentProps.js';
+  import { createAttachmentKey } from 'svelte/attachments';
+
+  import { untrack } from 'svelte';
   // Source-ordered business port of Base UI v1.8.0 SwitchRoot.tsx at
   // 47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c. MIT: THIRD_PARTY_NOTICES.md.
   import { useFieldControlNativeName } from '../../internals/field-control-name/FieldControlNameContext.js';
-  import RenderElement from '../../internals/RenderElement.svelte';
-  import { createMergedRefs } from '../../utils/useMergedRefs.js';
-  import { createRefAttachment } from '../../internals/nativeRefAttachment.js';
   import type { HTMLInputAttributes } from 'svelte/elements';
-  import { useControlled } from '../../utils/useControlled.svelte.js';
-  import { useIsoLayoutEffect } from '../../utils/useIsoLayoutEffect.svelte.js';
-  import { visuallyHidden, visuallyHiddenInput } from '../../utils/visuallyHidden.js';
+  import { Controlled } from '@sveltery/utils/Controlled';
+
+  import { visuallyHidden, visuallyHiddenInput } from '@sveltery/utils/visuallyHidden';
   import { toNativeStyle } from '../../internals/nativeProps.js';
   import { useBaseUiId } from '../../internals/useBaseUiId.js';
   import { useButton } from '../../internals/use-button/useButton.svelte.js';
@@ -23,7 +24,7 @@
   import { useLabelableId } from '../../internals/labelable-provider/useLabelableId.svelte.js';
   import { createChangeEventDetails } from '../../internals/createBaseUIEventDetails.js';
   import { REASONS } from '../../internals/reasons.js';
-  import { useValueChanged } from '../../internals/useValueChanged.svelte.js';
+  import { ValueChanged } from '../../internals/ValueChanged.svelte.js';
   import type { SwitchRootProps, SwitchRootState } from '../types.js';
   let {
     checked: checkedProp,
@@ -32,7 +33,7 @@
     'aria-labelledby': ariaLabelledByProp,
     form,
     id: idProp,
-    inputRef: externalInputRef,
+    inputRef: externalInputRef = $bindable(),
     name: nameProp,
     nativeButton = false,
     onCheckedChange,
@@ -54,20 +55,20 @@
   const name = $derived(field.name ?? nameProp);
   const getNativeName = useFieldControlNativeName();
   const nativeName = $derived(getNativeName(name));
-  const inputRef = $state<{ current: HTMLInputElement | null }>({ current: null });
+  const inputRef = $state<{ current: HTMLInputElement | null }>({
+    current: null,
+  });
   const switchRef = $state<{ current: HTMLElement | null }>({ current: null });
   const instanceId = $props.id();
   const id = useBaseUiId(undefined, instanceId);
   const getControlId = useLabelableId(() => ({ id: idProp }), `${id}-input`);
   const controlId = $derived(getControlId());
   const hiddenInputId = $derived(nativeButton ? undefined : controlId);
-  const [getChecked, setCheckedState] = useControlled(() => ({
-    controlled: checkedProp,
-    default: Boolean(defaultChecked),
-    name: 'Switch',
-    state: 'checked',
-  }));
-  const checked = $derived(getChecked());
+  const checkedState = new Controlled(
+    () => checkedProp,
+    untrack(() => Boolean(defaultChecked)),
+  );
+  const checked = $derived(checkedState.value);
   useRegisterFieldControl(
     switchRef,
     () => id,
@@ -76,11 +77,8 @@
     () => !disabled,
     () => nameProp,
   );
-  useIsoLayoutEffect(
-    () => field.setFilled(checked),
-    () => [checked, field.setFilled],
-  );
-  useValueChanged(
+  $effect(() => field.setFilled(checked));
+  new ValueChanged(
     () => checked,
     () => () => {
       formContext.clearErrors(name);
@@ -151,7 +149,7 @@
         event.preventDefault();
         return;
       }
-      setCheckedState(nextChecked);
+      checkedState.set(nextChecked);
     },
     onfocus() {
       switchRef.current?.focus();
@@ -166,36 +164,56 @@
     required,
   });
   setSwitchRootContext(() => rootState);
-  const forwardedRef = {
-    get current() {
-      return ref ?? null;
-    },
-    set current(element: HTMLElement | null) {
-      ref = element;
-    },
-  };
-  const componentProps = $derived({ render, class: classProp, style });
-  const params = $derived({
-    state: rootState,
-    ref: [forwardedRef, switchRef, buttonRef],
-    props: [
-      rootProps,
-      elementProps,
-      getButtonProps,
-      (props: Record<string, unknown>) =>
-        field.validation.getValidationProps(disabled, props),
-    ],
-    stateAttributesMapping,
-  });
-  const { useMergedRefs } = createMergedRefs<HTMLInputElement>();
-  const resolveInputAttachment = createRefAttachment<HTMLInputElement>(() => {});
-  const inputAttachment = $derived(
-    resolveInputAttachment(
-      useMergedRefs(inputRef, externalInputRef, field.validation.inputRef),
+
+  function attachInput(host: HTMLInputElement) {
+    return untrack(() => {
+      inputRef.current = host;
+      externalInputRef = host;
+      field.validation.inputRef.current = host;
+      return () =>
+        untrack(() => {
+          if (field.validation.inputRef.current === host) field.validation.inputRef.current = null;
+          if (inputRef.current === host) inputRef.current = null;
+          if (externalInputRef === host) externalInputRef = null;
+        });
+    });
+  }
+
+  const hostAttachmentKey = createAttachmentKey();
+  function attachHost(host: HTMLElement) {
+    return untrack(() => {
+      ref = host;
+      switchRef.current = host;
+      buttonRef?.(host);
+      return () =>
+        untrack(() => {
+          if (ref === host) ref = null;
+          if (switchRef.current === host) switchRef.current = null;
+          buttonRef?.(null);
+        });
+    });
+  }
+  const mergedProps = $derived({
+    ...mergeComponentProps(
+      rootState,
+      { class: classProp, style: style },
+      [
+        rootProps,
+        elementProps,
+        getButtonProps,
+        (props: Record<string, unknown>) => field.validation.getValidationProps(disabled, props),
+      ],
+      stateAttributesMapping,
     ),
-  );
+    [hostAttachmentKey]: attachHost,
+  });
 </script>
-<RenderElement tag="span" {componentProps} {params} {children} />
+
+{#if render}
+  {@render render(mergedProps, rootState, children)}
+{:else}
+  <span {...mergedProps}>{@render children?.()}</span>
+{/if}
 {#if !checked && name && uncheckedValue !== undefined}
   <input type="hidden" {form} name={nativeName} value={uncheckedValue} {disabled} />
 {/if}
@@ -203,6 +221,6 @@
 <input
   {...inputProps as HTMLInputAttributes}
   type="checkbox"
-  {@attach inputAttachment}
-  bind:checked={getChecked, setCheckedState}
+  {@attach attachInput}
+  bind:checked={() => checkedState.value, (next) => checkedState.set(next)}
 />

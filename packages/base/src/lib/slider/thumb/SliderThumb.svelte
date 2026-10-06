@@ -1,20 +1,18 @@
 <script lang="ts">
   // Source SliderThumb.tsx bodies at Base UI 47b40521; MIT.
-  import { useStableCallback } from "../../utils/useStableCallback.js";
-  import { useIsoLayoutEffect } from "../../utils/useIsoLayoutEffect.svelte.js";
-  import { createMergedRefs } from "../../utils/useMergedRefs.js";
-  import { visuallyHidden } from "../../utils/visuallyHidden.js";
-  import { ownerWindow } from "../../utils/owner.js";
-  import { script as prehydrationScript } from "./prehydrationScript.min.js";
-  import { clamp } from "../../utils/clamp.js";
-  import { formatNumber } from "../../utils/formatNumber.js";
-  import { mergeProps } from "../../merge-props/index.js";
-  import { useBaseUiId } from "../../internals/useBaseUiId.js";
-  import { useIsHydrating } from "../../utils/useIsHydrating.svelte.js";
-  import RenderElement from "../../internals/RenderElement.svelte";
-  import SliderThumbNativeInput from "./SliderThumbNativeInput.svelte";
-  import type { HTMLProps } from "../../internals/types.js";
-  import { valueToPercent } from "../../utils/valueToPercent.js";
+  import { untrack } from 'svelte';
+  import { visuallyHidden } from '@sveltery/utils/visuallyHidden';
+  import { ownerWindow } from '@sveltery/utils/owner';
+  import { script as prehydrationScript } from './prehydrationScript.min.js';
+  import { clamp } from '@sveltery/utils/clamp';
+  import { formatNumber } from '@sveltery/utils/formatNumber';
+  import { mergeProps } from '../../merge-props/index.js';
+  import { useBaseUiId } from '../../internals/useBaseUiId.js';
+  import { useIsHydrating } from '../../utils/useIsHydrating.svelte.js';
+  import { mergeComponentProps } from '../../internals/mergeComponentProps.js';
+  import { createAttachmentKey } from 'svelte/attachments';
+  import SliderThumbNativeInput from './SliderThumbNativeInput.svelte';
+  import { valueToPercent } from '../../utils/valueToPercent.js';
   import {
     ARROW_DOWN,
     ARROW_UP,
@@ -25,25 +23,22 @@
     COMPOSITE_KEYS,
     PAGE_UP,
     PAGE_DOWN,
-  } from "../../internals/composite/composite.js";
-  import { useCompositeListItem } from "../../internals/composite/list/useCompositeListItem.svelte.js";
-  import { useDirection } from "../../direction-provider/context.js";
-  import PrehydrationScript from "../../internals/PrehydrationScript.svelte";
-  import { useFieldControlNativeName } from "../../internals/field-control-name/FieldControlNameContext.js";
-  import { useFieldRootContext } from "../../internals/field-root-context/FieldRootContext.js";
-  import { contains } from "../../utils/shadowDom.js";
-  import { matchesFocusVisible } from "../../floating-ui/utils/matchesFocusVisible.js";
-  import { useLabelableId } from "../../internals/labelable-provider/useLabelableId.svelte.js";
-  import { getMidpoint } from "../utils/getMidpoint.js";
-  import { getSliderValue } from "../utils/getSliderValue.js";
-  import {
-    getDecimalPrecision,
-    roundValueToStep,
-  } from "../utils/roundValueToStep.js";
-  import { useSliderRootContext } from "../root/SliderRootContext.js";
-  import { sliderStateAttributesMapping } from "../root/stateAttributesMapping.js";
-  import * as SliderThumbDataAttributes from "./SliderThumbDataAttributes.js";
-  import type { SliderThumbProps } from "../types.js";
+  } from '../../internals/composite/composite.js';
+  import { useCompositeListItem } from '../../internals/composite/list/useCompositeListItem.svelte.js';
+  import { useDirection } from '../../direction-provider/context.js';
+  import PrehydrationScript from '../../internals/PrehydrationScript.svelte';
+  import { useFieldControlNativeName } from '../../internals/field-control-name/FieldControlNameContext.js';
+  import { useFieldRootContext } from '../../internals/field-root-context/FieldRootContext.js';
+  import { contains } from '@sveltery/utils/shadowDom';
+  import { matchesFocusVisible } from '../../floating-ui/utils/matchesFocusVisible.js';
+  import { useLabelableId } from '../../internals/labelable-provider/useLabelableId.svelte.js';
+  import { getMidpoint } from '../utils/getMidpoint.js';
+  import { getSliderValue } from '../utils/getSliderValue.js';
+  import { getDecimalPrecision, roundValueToStep } from '../utils/roundValueToStep.js';
+  import { useSliderRootContext } from '../root/SliderRootContext.js';
+  import { sliderStateAttributesMapping } from '../root/stateAttributesMapping.js';
+  import * as SliderThumbDataAttributes from './SliderThumbDataAttributes.js';
+  import type { SliderThumbProps } from '../types.js';
   const ALL_KEYS = new Set([...COMPOSITE_KEYS, PAGE_UP, PAGE_DOWN]);
 
   function getDefaultAriaValueText(
@@ -57,7 +52,7 @@
     }
 
     if (values.length === 2) {
-      return `${formatNumber(values[index], locale, format)} ${index === 0 ? "start" : "end"} range`;
+      return `${formatNumber(values[index], locale, format)} ${index === 0 ? 'start' : 'end'} range`;
     }
 
     return format ? formatNumber(values[index], locale, format) : undefined;
@@ -87,16 +82,16 @@
     render,
     children,
     class: classProp,
-    "aria-describedby": ariaDescribedByProp,
-    "aria-label": ariaLabelProp,
-    "aria-labelledby": ariaLabelledByProp,
-    "aria-valuetext": ariaValueTextProp,
+    'aria-describedby': ariaDescribedByProp,
+    'aria-label': ariaLabelProp,
+    'aria-labelledby': ariaLabelledByProp,
+    'aria-valuetext': ariaValueTextProp,
     disabled: disabledProp = false,
     getAriaLabel: getAriaLabelProp,
     getAriaValueText: getAriaValueTextProp,
     id: idProp,
     index: indexProp,
-    inputRef: inputRefProp,
+    inputRef: inputRefProp = $bindable(),
     onblur: onBlurProp,
     onfocus: onFocusProp,
     onkeydown: onKeyDownProp,
@@ -143,8 +138,8 @@
 
   const disabled = $derived(disabledProp || contextDisabled);
   const range = $derived(sliderValues.length > 1);
-  const vertical = $derived(orientation === "vertical");
-  const rtl = $derived(direction === "rtl");
+  const vertical = $derived(orientation === 'vertical');
+  const rtl = $derived(direction === 'rtl');
 
   const field = useFieldRootContext();
   const { setTouched, setFocused } = field;
@@ -164,29 +159,22 @@
   // Attached to the `input` (not the thumb wrapper) so `event.currentTarget` is the
   // input, matching `onKeyDown`. The synthetic blur/focus dispatched while restoring
   // `:focus-visible` is internal and must not be forwarded to the user's handlers.
-  const handleFocusProp = useStableCallback(
-    (event: Parameters<NonNullable<SliderThumbProps["onfocus"]>>[0]) => {
-      if (restoringFocusVisibleRef.current) {
-        return;
-      }
-      onFocusProp?.(event);
-    },
-  );
+  const handleFocusProp = (event: Parameters<NonNullable<SliderThumbProps['onfocus']>>[0]) => {
+    if (restoringFocusVisibleRef.current) {
+      return;
+    }
+    onFocusProp?.(event);
+  };
 
-  const handleBlurProp = useStableCallback(
-    (event: Parameters<NonNullable<SliderThumbProps["onblur"]>>[0]) => {
-      if (restoringFocusVisibleRef.current) {
-        return;
-      }
-      onBlurProp?.(event);
-    },
-  );
+  const handleBlurProp = (event: Parameters<NonNullable<SliderThumbProps['onblur']>>[0]) => {
+    if (restoringFocusVisibleRef.current) {
+      return;
+    }
+    onBlurProp?.(event);
+  };
 
   const defaultInputId = useBaseUiId(undefined, `${nativeId}-input`);
-  const labelableId = useLabelableId(
-    () => ({}),
-    useBaseUiId(undefined, `${nativeId}-labelable`),
-  );
+  const labelableId = useLabelableId(() => ({}), useBaseUiId(undefined, `${nativeId}-labelable`));
   const inputId = $derived(range ? defaultInputId : labelableId());
 
   const thumbMetadata = $derived({ inputId });
@@ -205,12 +193,10 @@
   const isHydrating = useIsHydrating();
 
   const safeLastUsedThumbIndex = $derived(
-    lastUsedThumbIndex >= 0 && lastUsedThumbIndex < sliderValues.length
-      ? lastUsedThumbIndex
-      : -1,
+    lastUsedThumbIndex >= 0 && lastUsedThumbIndex < sliderValues.length ? lastUsedThumbIndex : -1,
   );
 
-  const getInsetPosition = useStableCallback(() => {
+  const getInsetPosition = () => {
     const control = controlRef.current;
     const thumb = thumbRef.current;
     if (!control || !thumb) {
@@ -220,14 +206,13 @@
     const thumbRect = thumb.getBoundingClientRect();
     const controlRect = control.getBoundingClientRect();
 
-    const side = vertical ? "height" : "width";
+    const side = vertical ? 'height' : 'width';
     // the total travel distance adjusted to account for the thumb size
     const controlSize = controlRect[side] - thumbRect[side];
     // px distance from the starting edge (inline-start or bottom) to the thumb center
     const thumbOffsetFromControlEdge =
       thumbRect[side] / 2 + (controlSize * thumbValuePercent) / 100;
-    const nextPositionPercent =
-      (thumbOffsetFromControlEdge / controlRect[side]) * 100;
+    const nextPositionPercent = (thumbOffsetFromControlEdge / controlRect[side]) * 100;
     const nextInsetPosition = Number.isFinite(nextPositionPercent)
       ? nextPositionPercent
       : undefined;
@@ -235,68 +220,41 @@
     setPositionPercent(nextInsetPosition);
 
     if (index === 0) {
-      setIndicatorPosition((prevPosition) => [
-        nextInsetPosition,
-        prevPosition[1],
-      ]);
+      setIndicatorPosition((prevPosition) => [nextInsetPosition, prevPosition[1]]);
     } else if (last) {
-      setIndicatorPosition((prevPosition) => [
-        prevPosition[0],
-        nextInsetPosition,
-      ]);
+      setIndicatorPosition((prevPosition) => [prevPosition[0], nextInsetPosition]);
     }
+  };
+
+  $effect(() => {
+    if (inset) queueMicrotask(getInsetPosition);
+  });
+  $effect(() => {
+    if (!inset) return;
+    // Acquire actual geometry dependencies before the imperative publication.
+    void thumbValuePercent;
+    void vertical;
+    void index;
+    void last;
+    void controlRef.current;
+    void thumbRef.current;
+    untrack(getInsetPosition);
+  });
+  $effect(() => {
+    if (!inset) return;
+    const control = controlRef.current;
+    const thumb = thumbRef.current;
+    if (!control || !thumb) return;
+    const ResizeObserverCtor = ownerWindow(control).ResizeObserver;
+    if (typeof ResizeObserverCtor !== 'function') return;
+    const resizeObserver = new ResizeObserverCtor(getInsetPosition);
+    resizeObserver.observe(control);
+    resizeObserver.observe(thumb);
+    return () => resizeObserver.disconnect();
   });
 
-  useIsoLayoutEffect(
-    () => {
-      if (inset) {
-        queueMicrotask(getInsetPosition);
-      }
-    },
-    () => [getInsetPosition, inset],
-  );
-
-  useIsoLayoutEffect(
-    () => {
-      if (inset) {
-        getInsetPosition();
-      }
-    },
-    () => [getInsetPosition, inset, thumbValuePercent],
-  );
-
-  useIsoLayoutEffect(
-    () => {
-      if (!inset) {
-        return undefined;
-      }
-
-      const control = controlRef.current;
-      const thumb = thumbRef.current;
-
-      if (!control || !thumb) {
-        return undefined;
-      }
-
-      const ResizeObserverCtor = ownerWindow(control).ResizeObserver;
-      if (typeof ResizeObserverCtor !== "function") {
-        return undefined;
-      }
-
-      const resizeObserver = new ResizeObserverCtor(getInsetPosition);
-
-      resizeObserver.observe(control);
-      resizeObserver.observe(thumb);
-
-      return () => {
-        resizeObserver.disconnect();
-      };
-    },
-    () => [controlRef.current, thumbRef.current, getInsetPosition, inset],
-  );
-
-  const startEdge = $derived(vertical ? "bottom" : "insetInlineStart");
-  const crossOffsetProperty = $derived(vertical ? "left" : "top");
+  const startEdge = $derived(vertical ? 'bottom' : 'insetInlineStart');
+  const crossOffsetProperty = $derived(vertical ? 'left' : 'top');
 
   const zIndex = $derived.by(() => {
     let zIndex: number | undefined;
@@ -318,17 +276,16 @@
       thumbStyle = visuallyHidden;
     } else {
       thumbStyle = {
-        position: "absolute",
-        [startEdge]: inset ? "var(--position)" : `${thumbValuePercent}%`,
-        [crossOffsetProperty]: "50%",
+        position: 'absolute',
+        [startEdge]: inset ? 'var(--position)' : `${thumbValuePercent}%`,
+        [crossOffsetProperty]: '50%',
         translate: `${(vertical || !rtl ? -1 : 1) * 50}% ${(vertical ? 1 : -1) * 50}%`,
         zIndex,
         ...(inset && {
-          ["--position" as string]: `${positionPercent ?? 0}%`,
+          ['--position' as string]: `${positionPercent ?? 0}%`,
           visibility:
-            (renderBeforeHydration && isHydrating()) ||
-            positionPercent === undefined
-              ? ("hidden" as const)
+            (renderBeforeHydration && isHydrating()) || positionPercent === undefined
+              ? ('hidden' as const)
               : undefined,
         }),
       };
@@ -339,35 +296,27 @@
   const cssWritingMode = $derived.by(() => {
     let cssWritingMode: string | undefined;
     if (vertical) {
-      cssWritingMode = rtl ? "vertical-rl" : "vertical-lr";
+      cssWritingMode = rtl ? 'vertical-rl' : 'vertical-lr';
     }
 
     return cssWritingMode;
   });
   const ariaLabel = $derived(
-    typeof getAriaLabelProp === "function"
-      ? getAriaLabelProp(index)
-      : ariaLabelProp,
+    typeof getAriaLabelProp === 'function' ? getAriaLabelProp(index) : ariaLabelProp,
   );
 
   const inputProps = $derived(
     mergeProps(
       {
-        "aria-label": ariaLabel,
-        "aria-labelledby":
-          ariaLabelledByProp ?? (ariaLabel == null ? labelId : undefined),
-        "aria-describedby": ariaDescribedByProp,
-        "aria-orientation": orientation,
-        "aria-valuenow": thumbValue,
-        "aria-valuetext":
-          typeof getAriaValueTextProp === "function"
-            ? getAriaValueTextProp(
-                formatNumber(thumbValue, locale, format),
-                thumbValue,
-                index,
-              )
-            : (ariaValueTextProp ??
-              getDefaultAriaValueText(sliderValues, index, format, locale)),
+        'aria-label': ariaLabel,
+        'aria-labelledby': ariaLabelledByProp ?? (ariaLabel == null ? labelId : undefined),
+        'aria-describedby': ariaDescribedByProp,
+        'aria-orientation': orientation,
+        'aria-valuenow': thumbValue,
+        'aria-valuetext':
+          typeof getAriaValueTextProp === 'function'
+            ? getAriaValueTextProp(formatNumber(thumbValue, locale, format), thumbValue, index)
+            : (ariaValueTextProp ?? getDefaultAriaValueText(sliderValues, index, format, locale)),
         disabled,
         form,
         id: inputId,
@@ -375,18 +324,10 @@
         min,
         name: getNativeName(name),
         onchange(event: Event) {
-          handleInputChange(
-            (event.currentTarget as HTMLInputElement).valueAsNumber,
-            index,
-            event,
-          );
+          handleInputChange((event.currentTarget as HTMLInputElement).valueAsNumber, index, event);
         },
         oninput(event: Event) {
-          handleInputChange(
-            (event.currentTarget as HTMLInputElement).valueAsNumber,
-            index,
-            event,
-          );
+          handleInputChange((event.currentTarget as HTMLInputElement).valueAsNumber, index, event);
         },
         onfocus(event: FocusEvent) {
           const isRestoringFocusVisible = restoringFocusVisibleRef.current;
@@ -419,10 +360,8 @@
           setTouched(true);
           setFocused(false);
 
-          if (validationMode === "onBlur") {
-            validation.commit(
-              getSliderValue(thumbValue, index, min, max, range, sliderValues),
-            );
+          if (validationMode === 'onBlur') {
+            validation.commit(getSliderValue(thumbValue, index, min, max, range, sliderValues));
           }
         },
         onkeydown(event: KeyboardEvent) {
@@ -480,13 +419,7 @@
           }
 
           if (direction !== 0) {
-            newValue = getNewValue(
-              roundedValue,
-              increment,
-              direction,
-              min,
-              max,
-            );
+            newValue = getNewValue(roundedValue, increment, direction, min, max);
           }
 
           if (newValue !== null) {
@@ -500,7 +433,7 @@
                 // Show `:focus-visible` after keyboard interaction, even if the
                 // thumb was previously focused by a pointer.
                 focusVisible: true,
-              } as Parameters<HTMLElement["focus"]>[0]);
+              } as Parameters<HTMLElement['focus']>[0]);
             }
 
             handleInputChange(newValue, index, event);
@@ -511,13 +444,13 @@
         style: {
           ...visuallyHidden,
           // So that VoiceOver's focus indicator matches the thumb's dimensions
-          width: "100%",
-          height: "100%",
+          width: '100%',
+          height: '100%',
           writingMode: cssWritingMode,
         },
         tabindex: tabIndexProp,
-        type: "range",
-        value: thumbValue ?? "",
+        type: 'range',
+        value: thumbValue ?? '',
       },
       (props) => validation.getValidationProps(disabled, props),
       {
@@ -528,61 +461,72 @@
     ),
   );
 
-  const { useMergedRefs } = createMergedRefs<HTMLInputElement>();
-  const mergedInputRef = $derived(
-    useMergedRefs(inputRef, validation.inputRef, inputRefProp),
-  );
-  const inputParams = $derived({ ref: mergedInputRef, props: inputProps });
-  const forwardedRef = {
-    get current() {
-      return ref ?? null;
-    },
-    set current(value: HTMLElement | null) {
-      ref = value;
-    },
-  };
-  const params = $derived({
-    state: sliderState,
-    ref: [forwardedRef, listItem.ref, thumbRef],
-    props: [
-      {
-        [SliderThumbDataAttributes.index]: index,
-        id,
-        onpointerdown(event: PointerEvent) {
-          if (disabled) return;
-          pressedThumbIndexRef.current = index;
-          const midpoint = getMidpoint(
-            event.currentTarget as HTMLElement,
-            vertical,
-          );
-          pressedThumbCenterOffsetRef.current =
-            (vertical ? event.clientY : event.clientX) - midpoint;
+  const inputAttachmentKey = createAttachmentKey();
+  function attachInput(host: HTMLInputElement) {
+    return untrack(() => {
+      inputRef.current = host;
+      validation.inputRef.current = host;
+      inputRefProp = host;
+      return () =>
+        untrack(() => {
+          if (inputRef.current === host) inputRef.current = null;
+          if (validation.inputRef.current === host) validation.inputRef.current = null;
+          if (inputRefProp === host) inputRefProp = null;
+        });
+    });
+  }
+  const supplied = $derived({
+    ...mergeComponentProps({}, {}, inputProps, false),
+    [inputAttachmentKey]: attachInput,
+  });
+  const listAttachmentKey = createAttachmentKey();
+  const hostAttachmentKey = createAttachmentKey();
+  function attachHost(host: HTMLElement) {
+    return untrack(() => {
+      ref = host;
+      thumbRef.current = host;
+      return () =>
+        untrack(() => {
+          if (ref === host) ref = null;
+          if (thumbRef.current === host) thumbRef.current = null;
+        });
+    });
+  }
+  const mergedProps = $derived({
+    ...mergeComponentProps(
+      sliderState,
+      { class: classProp, style },
+      [
+        {
+          [SliderThumbDataAttributes.index]: index,
+          id,
+          onpointerdown(event: PointerEvent) {
+            if (disabled) return;
+            pressedThumbIndexRef.current = index;
+            const midpoint = getMidpoint(event.currentTarget as HTMLElement, vertical);
+            pressedThumbCenterOffsetRef.current =
+              (vertical ? event.clientY : event.clientX) - midpoint;
+          },
+          style: thumbStyle,
         },
-        style: thumbStyle,
-      },
-      elementProps,
-    ],
-    stateAttributesMapping: sliderStateAttributesMapping,
+        elementProps,
+      ],
+      sliderStateAttributesMapping,
+    ),
+    [hostAttachmentKey]: attachHost,
+    [listAttachmentKey]: listItem.attach,
   });
 </script>
 
 {#snippet contents()}
   {@render children?.()}
-  <RenderElement
-    tag="input"
-    componentProps={{ render: nativeInput }}
-    params={inputParams}
-  />
+  <SliderThumbNativeInput {supplied} />
   {#if inset && last && renderBeforeHydration}<PrehydrationScript
       script={prehydrationScript}
     />{/if}
 {/snippet}
-{#snippet nativeInput(supplied: HTMLProps)}
-  <SliderThumbNativeInput {supplied} />
-{/snippet}
-<RenderElement
-  tag="div"
-  componentProps={{ render, class: classProp, style }}
-  {params}
-  children={contents}
-/>
+{#if render}
+  {@render render(mergedProps, sliderState, contents)}
+{:else}
+  <div {...mergedProps}>{@render contents()}</div>
+{/if}

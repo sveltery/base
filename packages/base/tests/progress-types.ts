@@ -1,6 +1,24 @@
-import type { Progress, Status, ProgressRootProps, ProgressStatus, ProgressValueProps, ProgressLabelProps, ProgressTrackProps, ProgressIndicatorProps } from '../src/lib/progress/index.js';
+import type {
+  Progress,
+  Status,
+  ProgressRootProps,
+  ProgressStatus,
+  ProgressValueProps,
+  ProgressLabelProps,
+  ProgressTrackProps,
+  ProgressIndicatorProps,
+} from '../src/lib/progress/index.js';
 import type { Snippet } from 'svelte';
-const root: ProgressRootProps = { value: null, min: 0, max: 100, locale: ['de-DE', 'en-US'], format: { style: 'percent' }, getAriaValueText: (formatted, raw) => `${formatted}:${raw}`, class: state => [state.status, { active: true }], ref: undefined };
+const root: ProgressRootProps = {
+  value: null,
+  min: 0,
+  max: 100,
+  locale: ['de-DE', 'en-US'],
+  format: { style: 'percent' },
+  getAriaValueText: (formatted, raw) => `${formatted}:${raw}`,
+  class: (state) => [state.status, { active: true }],
+  ref: undefined,
+};
 const state: ProgressStatus = 'indeterminate';
 const namespaceStatus: Progress.Status = state;
 const subpathStatus: Status = namespaceStatus;

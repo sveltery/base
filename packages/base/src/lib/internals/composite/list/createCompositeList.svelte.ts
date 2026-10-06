@@ -67,8 +67,7 @@ export function createCompositeList(getParameters: () => Parameters) {
         labelsRef.current[item.index] =
           item.registration.label !== undefined
             ? item.registration.label
-            : (item.registration.textRef?.current?.textContent ??
-              item.element.textContent);
+            : (item.registration.textRef?.current?.textContent ?? item.element.textContent);
       }
     });
 
@@ -104,10 +103,7 @@ export function createCompositeList(getParameters: () => Parameters) {
           continue;
         }
 
-        if (
-          previousConnectedNode &&
-          sortByDocumentPosition(previousConnectedNode, node) > 0
-        ) {
+        if (previousConnectedNode && sortByDocumentPosition(previousConnectedNode, node) > 0) {
           mutationObserver.disconnect();
           scheduleMapUpdate();
           return;
@@ -130,9 +126,7 @@ export function createCompositeList(getParameters: () => Parameters) {
       }
     }
 
-    roots.forEach((root) =>
-      mutationObserver.observe(root, { childList: true }),
-    );
+    roots.forEach((root) => mutationObserver.observe(root, { childList: true }));
   }
 
   const flush = () => {
@@ -177,9 +171,7 @@ export function createCompositeList(getParameters: () => Parameters) {
     const labelsRef = getParameters().labelsRef;
     if (labelsRef) labelsRef.current = [];
   });
-  const subscribeMapChange = (
-    fn: (map: Map<Element, CompositeMetadata>) => void,
-  ) => {
+  const subscribeMapChange = (fn: (map: Map<Element, CompositeMetadata>) => void) => {
     listeners.add(fn);
     return () => {
       listeners.delete(fn);
@@ -192,9 +184,7 @@ export function createCompositeList(getParameters: () => Parameters) {
     nextIndexRef,
   });
 }
-function getCompositeListSnapshot(
-  map: Map<Element, CompositeListRegistration>,
-) {
+function getCompositeListSnapshot(map: Map<Element, CompositeListRegistration>) {
   const reservedIndices = new SvelteSet<number>();
   const items: CompositeListItem[] = [];
   const automaticItems: CompositeListItem[] = [];
@@ -266,7 +256,5 @@ function hasMovedNode(entries: MutationRecord[]) {
 function sortByDocumentPosition(a: Element, b: Element) {
   // `DOCUMENT_POSITION_CONTAINED_BY` is always reported alongside `FOLLOWING`, and `CONTAINS`
   // alongside `PRECEDING`, so testing `FOLLOWING` alone orders siblings and nested items alike.
-  return a.compareDocumentPosition(b) & Node.DOCUMENT_POSITION_FOLLOWING
-    ? -1
-    : 1;
+  return a.compareDocumentPosition(b) & Node.DOCUMENT_POSITION_FOLLOWING ? -1 : 1;
 }

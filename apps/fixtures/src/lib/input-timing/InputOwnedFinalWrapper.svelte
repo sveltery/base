@@ -1,14 +1,34 @@
 <script lang="ts">
   // Base UI v1.8.0 standalone Input/Field.Control adaptation; MIT: THIRD_PARTY_NOTICES.md.
-  import { tick } from 'svelte';
-  import Element from '../../../../../packages/base/src/lib/dialog/Element.svelte';
+  import { tick, untrack } from 'svelte';
+  import { createAttachmentKey } from 'svelte/attachments';
+  import { mergeComponentProps } from '../../../../../packages/base/src/lib/internals/mergeComponentProps.js';
   import { createChangeEventDetails } from '../../../../../packages/base/src/lib/internals/createBaseUIEventDetails.js';
   import type { InputProps } from '@sveltery/base/input';
-  import type { HTMLInputAttributes } from 'svelte/elements';
-  let { children, render, disabled = false, id, value, defaultValue, onValueChange, ref = $bindable(), ...props }: InputProps = $props();
+  import type { HTMLProps } from '../../../../../packages/base/src/lib/internals/types.js';
+  let {
+    children,
+    render,
+    class: classProp,
+    style,
+    disabled = false,
+    id,
+    value,
+    defaultValue,
+    onValueChange,
+    ref = $bindable(),
+    ...props
+  }: InputProps = $props();
   const instanceId = $props.id();
   const generatedId = `base-ui-${instanceId}`;
-  const state = $derived({ disabled, touched: false, dirty: false, filled: false, focused: false, valid: null });
+  const state = $derived({
+    disabled,
+    touched: false,
+    dirty: false,
+    filled: false,
+    focused: false,
+    valid: null,
+  });
   function attach(node: HTMLElement) {
     // Native Svelte does not restore a rejected controlled edit. Synchronize the external
     // DOM after the owner has processed its callback, without manufacturing reset defaults.
@@ -22,10 +42,15 @@
       });
     };
     node.addEventListener('input', restoreControlledEdit);
-    return () => { connected = false; node.removeEventListener('input', restoreControlledEdit); };
+    return () => {
+      connected = false;
+      node.removeEventListener('input', restoreControlledEdit);
+    };
   }
   const internal = $derived({
-    id: id ?? generatedId, disabled, 'data-disabled': disabled ? '' : undefined,
+    id: id ?? generatedId,
+    disabled,
+    'data-disabled': disabled ? '' : undefined,
     // Preserve native value/defaultValue setters, including both getters in remote .as spreads.
     ...(defaultValue !== undefined ? { defaultValue } : {}),
     ...(value !== undefined ? { value } : {}),
@@ -36,19 +61,44 @@
       // cancel() does not roll back an uncontrolled native edit or native preventDefault().
     },
   });
+  const hostAttachmentKey = createAttachmentKey();
+  function attachHost(host: HTMLElement) {
+    return untrack(() => {
+      ref = host;
+      const dispose = attach(host);
+      return () =>
+        untrack(() => {
+          if (ref === host) ref = null;
+          dispose();
+        });
+    });
+  }
+  const mergedProps = $derived({
+    ...mergeComponentProps(state, { class: classProp, style }, [internal, props], false),
+    [hostAttachmentKey]: attachHost,
+  });
 </script>
-{#snippet nativeInput(nativeProps: Record<string | symbol, unknown>)}
-  <input {...nativeProps as HTMLInputAttributes} oninput={event => {
-    // Fixture-only change: restore from this component's own controlled prop getter.
-    // The surrounding script, merge path, attachment and runtime remain otherwise copied.
-    const input = event.currentTarget;
-    try { (nativeProps.oninput as ((event: Event) => void) | undefined)?.(event); }
-    finally {
-      if (value !== undefined) {
-        const next = value == null ? '' : String(value);
-        if (input.value !== next) input.value = next;
+
+{#snippet nativeInput(nativeProps: HTMLProps)}
+  <input
+    {...nativeProps}
+    oninput={(event) => {
+      // Fixture-only change: restore from this component's own controlled prop getter.
+      // This authored native host keeps the existing ordered prop and handler composition.
+      const input = event.currentTarget;
+      try {
+        (nativeProps.oninput as ((event: Event) => void) | undefined)?.(event);
+      } finally {
+        if (value !== undefined) {
+          const next = value == null ? '' : String(value);
+          if (input.value !== next) input.value = next;
+        }
       }
-    }
-  }} />
+    }}
+  />
 {/snippet}
-<Element tag="input" {internal} {props} {state} render={render ?? nativeInput} {children} {attach} bind:ref />
+{#if render}
+  {@render render(mergedProps, state, children)}
+{:else}
+  {@render nativeInput(mergedProps)}
+{/if}

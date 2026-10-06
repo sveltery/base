@@ -1,33 +1,30 @@
 <script lang="ts">
   // Source SliderControl.tsx bodies at Base UI 47b40521; MIT.
-  import { onDestroy, tick, untrack } from "svelte";
-  import { isElement } from "@floating-ui/utils/dom";
-  import { ownerDocument, ownerWindow } from "../../utils/owner.js";
-  import { useAnimationFrame } from "../../utils/useAnimationFrame.js";
-  import { useStableCallback } from "../../utils/useStableCallback.js";
-  import { clamp } from "../../utils/clamp.js";
-  import { activeElement, contains, getTarget } from "../../utils/shadowDom.js";
+  import { onDestroy, tick, untrack } from 'svelte';
+  import { isElement } from '@floating-ui/utils/dom';
+  import { ownerDocument, ownerWindow } from '@sveltery/utils/owner';
+  import { AnimationFrame } from '@sveltery/utils/useAnimationFrame';
+  import { clamp } from '@sveltery/utils/clamp';
+  import { activeElement, contains, getTarget } from '@sveltery/utils/shadowDom';
   import {
     createChangeEventDetails,
     createGenericEventDetails,
-  } from "../../internals/createBaseUIEventDetails.js";
-  import { REASONS } from "../../internals/reasons.js";
-  import RenderElement from "../../internals/RenderElement.svelte";
-  import { useDirection } from "../../direction-provider/context.js";
-  import { useSliderRootContext } from "../root/SliderRootContext.js";
-  import { sliderStateAttributesMapping } from "../root/stateAttributesMapping.js";
-  import { getMidpoint } from "../utils/getMidpoint.js";
-  import { roundValueToStep } from "../utils/roundValueToStep.js";
-  import { validateMinimumDistance } from "../utils/validateMinimumDistance.js";
-  import { resolveThumbCollision } from "../utils/resolveThumbCollision.js";
-  import type { SliderControlProps } from "../types.js";
+  } from '../../internals/createBaseUIEventDetails.js';
+  import { REASONS } from '../../internals/reasons.js';
+  import { mergeComponentProps } from '../../internals/mergeComponentProps.js';
+  import { createAttachmentKey } from 'svelte/attachments';
+  import { useDirection } from '../../direction-provider/context.js';
+  import { useSliderRootContext } from '../root/SliderRootContext.js';
+  import { sliderStateAttributesMapping } from '../root/stateAttributesMapping.js';
+  import { getMidpoint } from '../utils/getMidpoint.js';
+  import { roundValueToStep } from '../utils/roundValueToStep.js';
+  import { validateMinimumDistance } from '../utils/validateMinimumDistance.js';
+  import { resolveThumbCollision } from '../utils/resolveThumbCollision.js';
+  import type { SliderControlProps } from '../types.js';
   type Coords = { x: number; y: number };
   const INTENTIONAL_DRAG_COUNT_THRESHOLD = 2;
 
-  function getControlOffset(
-    styles: CSSStyleDeclaration | null,
-    vertical: boolean,
-  ) {
+  function getControlOffset(styles: CSSStyleDeclaration | null, vertical: boolean) {
     if (!styles) {
       return {
         start: 0,
@@ -40,16 +37,12 @@
       return Number.isNaN(parsed) ? 0 : parsed;
     }
 
-    const start = !vertical ? "InlineStart" : "Top";
-    const end = !vertical ? "InlineEnd" : "Bottom";
+    const start = !vertical ? 'InlineStart' : 'Top';
+    const end = !vertical ? 'InlineEnd' : 'Bottom';
 
     return {
-      start:
-        parseSize(styles[`border${start}Width`]) +
-        parseSize(styles[`padding${start}`]),
-      end:
-        parseSize(styles[`border${end}Width`]) +
-        parseSize(styles[`padding${end}`]),
+      start: parseSize(styles[`border${start}Width`]) + parseSize(styles[`padding${start}`]),
+      end: parseSize(styles[`border${end}Width`]) + parseSize(styles[`padding${end}`]),
     };
   }
 
@@ -117,7 +110,7 @@
   const getDirection = useDirection();
   const direction = $derived(getDirection());
   const range = $derived(values.length > 1);
-  const vertical = $derived(orientation === "vertical");
+  const vertical = $derived(orientation === 'vertical');
 
   const controlRef = {
     get current() {
@@ -128,11 +121,11 @@
     },
   };
   const stylesRef = { current: null as CSSStyleDeclaration | null };
-  const setStylesRef = useStableCallback((element: HTMLElement | null) => {
+  const setStylesRef = (element: HTMLElement | null) => {
     if (element && stylesRef.current == null) {
       stylesRef.current = ownerWindow(element).getComputedStyle(element);
     }
-  });
+  };
 
   // A number that uniquely identifies the current finger in the touch session.
   const touchIdRef = { current: null as number | null };
@@ -194,30 +187,21 @@
       return null;
     }
 
-    const { width, height, bottom, left, right } =
-      control.getBoundingClientRect();
+    const { width, height, bottom, left, right } = control.getBoundingClientRect();
 
     const controlOffset = getControlOffset(stylesRef.current, vertical);
     const insetThumbOffset = insetThumbOffsetRef.current;
     const controlSize =
-      (vertical ? height : width) -
-      controlOffset.start -
-      controlOffset.end -
-      insetThumbOffset * 2;
+      (vertical ? height : width) - controlOffset.start - controlOffset.end - insetThumbOffset * 2;
     const thumbCenterOffset = pressedThumbCenterOffsetRef.current ?? 0;
     const fingerX = fingerCoords.x - thumbCenterOffset;
     const fingerY = fingerCoords.y - thumbCenterOffset;
 
     const valueSize = vertical
       ? bottom - fingerY - controlOffset.end
-      : (direction === "rtl" ? right - fingerX : fingerX - left) -
-        controlOffset.start;
+      : (direction === 'rtl' ? right - fingerX : fingerX - left) - controlOffset.start;
     // the value at the finger origin scaled down to fit the range [0, 1]
-    const valueRescaled = clamp(
-      (valueSize - insetThumbOffset) / controlSize,
-      0,
-      1,
-    );
+    const valueRescaled = clamp((valueSize - insetThumbOffset) / controlSize, 0, 1);
 
     let newValue = (max - min) * valueRescaled + min;
     newValue = roundValueToStep(newValue, step, min);
@@ -265,7 +249,7 @@
       }
     } else {
       // pressed on control
-      const axis = !vertical ? "x" : "y";
+      const axis = !vertical ? 'x' : 'y';
       let minDistance: number | undefined;
 
       closestThumbIndex = -1;
@@ -292,7 +276,7 @@
       const thumbEl = thumbRefs.current[closestThumbIndex];
       if (isElement(thumbEl)) {
         const thumbRect = thumbEl.getBoundingClientRect();
-        const side = !vertical ? "width" : "height";
+        const side = !vertical ? 'width' : 'height';
         insetThumbOffsetRef.current = thumbRect[side] / 2;
       }
     }
@@ -309,7 +293,7 @@
       // Prevent pointer-driven focus rings in browsers that support this option.
       // Supported in Chrome from 144+.
       focusVisible: false,
-    } as Parameters<HTMLElement["focus"]>[0]);
+    } as Parameters<HTMLElement['focus']>[0]);
   }
 
   function setValueFromPointer(
@@ -326,9 +310,7 @@
 
     if (applied) {
       currentInteractionValueRef.current = finger.value;
-      latestValuesRef.current = Array.isArray(finger.value)
-        ? finger.value
-        : [finger.value];
+      latestValuesRef.current = Array.isArray(finger.value) ? finger.value : [finger.value];
 
       // Only track and focus the swapped thumb once the change is actually applied so a
       // canceled swap doesn't leak the new index into subsequent moves.
@@ -346,84 +328,71 @@
     return applied;
   }
 
-  const handleTouchMove = useStableCallback(
-    (nativeEvent: TouchEvent | PointerEvent) => {
-      const fingerCoords = getFingerCoords(nativeEvent, touchIdRef);
+  const handleTouchMove = (nativeEvent: TouchEvent | PointerEvent) => {
+    const fingerCoords = getFingerCoords(nativeEvent, touchIdRef);
 
-      if (fingerCoords == null) {
-        return;
+    if (fingerCoords == null) {
+      return;
+    }
+
+    moveCountRef.current += 1;
+
+    // Cancel move in case some other element consumed a pointerup event and it was not fired.
+    if (nativeEvent.type === 'pointermove' && (nativeEvent as PointerEvent).buttons === 0) {
+      handleTouchEnd(nativeEvent);
+      return;
+    }
+
+    const finger = getFingerState(fingerCoords);
+
+    if (finger == null) {
+      return;
+    }
+
+    if (validateMinimumDistance(finger.value, step, minStepsBetweenValues)) {
+      if (!dragging && moveCountRef.current > INTENTIONAL_DRAG_COUNT_THRESHOLD) {
+        setDragging(true);
       }
 
-      moveCountRef.current += 1;
+      setValueFromPointer(finger, REASONS.drag, nativeEvent);
+    }
+  };
 
-      // Cancel move in case some other element consumed a pointerup event and it was not fired.
-      if (
-        nativeEvent.type === "pointermove" &&
-        (nativeEvent as PointerEvent).buttons === 0
-      ) {
-        handleTouchEnd(nativeEvent);
-        return;
-      }
+  const handleTouchEnd = (nativeEvent: TouchEvent | PointerEvent) => {
+    setActive(-1);
+    setDragging(false);
 
-      const finger = getFingerState(fingerCoords);
+    pressedThumbCenterOffsetRef.current = null;
 
-      if (finger == null) {
-        return;
-      }
+    // If the value array shrank or grew mid-drag, the cached interaction value no longer
+    // matches the current thumbs (the pressed index can still be in range), so dropping it
+    // keeps a stale or malformed array from being committed on release.
+    const interactionValue = currentInteractionValueRef.current;
+    if (Array.isArray(interactionValue) && interactionValue.length !== values.length) {
+      currentInteractionValueRef.current = null;
+    }
 
-      if (validateMinimumDistance(finger.value, step, minStepsBetweenValues)) {
-        if (
-          !dragging &&
-          moveCountRef.current > INTENTIONAL_DRAG_COUNT_THRESHOLD
-        ) {
-          setDragging(true);
-        }
+    if (currentInteractionValueRef.current != null) {
+      const commitReason = lastChangeReasonRef.current;
+      onValueCommitted(
+        currentInteractionValueRef.current,
+        createGenericEventDetails(commitReason, nativeEvent),
+      );
+    }
 
-        setValueFromPointer(finger, REASONS.drag, nativeEvent);
-      }
-    },
-  );
+    if (
+      'pointerType' in nativeEvent &&
+      controlRef.current?.hasPointerCapture(nativeEvent.pointerId)
+    ) {
+      controlRef.current?.releasePointerCapture(nativeEvent.pointerId);
+    }
 
-  const handleTouchEnd = useStableCallback(
-    (nativeEvent: TouchEvent | PointerEvent) => {
-      setActive(-1);
-      setDragging(false);
+    pressedThumbIndexRef.current = -1;
+    touchIdRef.current = null;
+    stopListening();
+  };
 
-      pressedThumbCenterOffsetRef.current = null;
-
-      // If the value array shrank or grew mid-drag, the cached interaction value no longer
-      // matches the current thumbs (the pressed index can still be in range), so dropping it
-      // keeps a stale or malformed array from being committed on release.
-      const interactionValue = currentInteractionValueRef.current;
-      if (
-        Array.isArray(interactionValue) &&
-        interactionValue.length !== values.length
-      ) {
-        currentInteractionValueRef.current = null;
-      }
-
-      if (currentInteractionValueRef.current != null) {
-        const commitReason = lastChangeReasonRef.current;
-        onValueCommitted(
-          currentInteractionValueRef.current,
-          createGenericEventDetails(commitReason, nativeEvent),
-        );
-      }
-
-      if (
-        "pointerType" in nativeEvent &&
-        controlRef.current?.hasPointerCapture(nativeEvent.pointerId)
-      ) {
-        controlRef.current?.releasePointerCapture(nativeEvent.pointerId);
-      }
-
-      pressedThumbIndexRef.current = -1;
-      touchIdRef.current = null;
-      stopListening();
-    },
-  );
-
-  const handleTouchStart = useStableCallback((nativeEvent: TouchEvent) => {
+  const handleTouchStart = (nativeEvent: TouchEvent) => {
     if (disabled) {
       return;
     }
@@ -454,21 +423,22 @@
 
     moveCountRef.current = 0;
     const doc = ownerDocument(controlRef.current);
-    doc.addEventListener("touchmove", handleTouchMove, { passive: true });
-    doc.addEventListener("touchend", handleTouchEnd, { passive: true });
-  });
+    doc.addEventListener('touchmove', handleTouchMove, { passive: true });
+    doc.addEventListener('touchend', handleTouchEnd, { passive: true });
+  };
 
-  const stopListening = useStableCallback(() => {
+  const stopListening = () => {
     const doc = ownerDocument(controlRef.current);
-    doc.removeEventListener("pointermove", handleTouchMove);
-    doc.removeEventListener("pointerup", handleTouchEnd);
-    doc.removeEventListener("touchmove", handleTouchMove);
-    doc.removeEventListener("touchend", handleTouchEnd);
+    doc.removeEventListener('pointermove', handleTouchMove);
+    doc.removeEventListener('pointerup', handleTouchEnd);
+    doc.removeEventListener('touchmove', handleTouchMove);
+    doc.removeEventListener('touchend', handleTouchEnd);
     pressedValuesRef.current = null;
     currentInteractionValueRef.current = null;
-  });
+  };
 
-  const focusFrame = useAnimationFrame();
+  const focusFrame = new AnimationFrame();
+  onDestroy(focusFrame.cancel);
 
   $effect(() => {
     const control = controlRef.current;
@@ -477,12 +447,12 @@
         return () => stopListening();
       }
 
-      control.addEventListener("touchstart", handleTouchStart, {
+      control.addEventListener('touchstart', handleTouchStart, {
         passive: true,
       });
 
       return () => {
-        control.removeEventListener("touchstart", handleTouchStart);
+        control.removeEventListener('touchstart', handleTouchStart);
         focusFrame.cancel();
 
         stopListening();
@@ -496,84 +466,94 @@
     }
   });
 
-  const forwardedRef = {
-    get current() {
-      return ref ?? null;
-    },
-    set current(value: HTMLElement | null) {
-      ref = value;
-    },
-  };
-  const params = $derived({
-    state: sliderState,
-    ref: [forwardedRef, registerFieldControlRef, controlRef, setStylesRef],
-    props: [
-      {
-        "data-base-ui-slider-control": renderBeforeHydration ? "" : undefined,
-        onpointerdown(event: PointerEvent) {
-          const control = controlRef.current;
-          const target = getTarget(event);
+  const hostAttachmentKey = createAttachmentKey();
+  function attachHost(host: HTMLElement) {
+    return untrack(() => {
+      ref = host;
+      registerFieldControlRef(host);
+      controlRef.current = host;
+      setStylesRef(host);
+      return () =>
+        untrack(() => {
+          if (ref === host) ref = null;
+          if (context.controlRef.current === host) context.controlRef.current = null;
+          if (controlRef.current === host) controlRef.current = null;
+        });
+    });
+  }
+  const mergedProps = $derived({
+    ...mergeComponentProps(
+      sliderState,
+      { class: classProp, style },
+      [
+        {
+          'data-base-ui-slider-control': renderBeforeHydration ? '' : undefined,
+          onpointerdown(event: PointerEvent) {
+            const control = controlRef.current;
+            const target = getTarget(event);
 
-          if (
-            !control ||
-            disabled ||
-            event.defaultPrevented ||
-            !isElement(target) ||
-            // Only handle left clicks
-            event.button !== 0
-          ) {
-            return;
-          }
+            if (
+              !control ||
+              disabled ||
+              event.defaultPrevented ||
+              !isElement(target) ||
+              // Only handle left clicks
+              event.button !== 0
+            ) {
+              return;
+            }
 
-          if (isTargetDisabledThumb(target)) {
-            resetPressedThumb();
-            return;
-          }
+            if (isTargetDisabledThumb(target)) {
+              resetPressedThumb();
+              return;
+            }
 
-          const fingerCoords = { x: event.clientX, y: event.clientY };
-          startPressing(fingerCoords);
+            const fingerCoords = { x: event.clientX, y: event.clientY };
+            startPressing(fingerCoords);
 
-          const finger = getFingerState(fingerCoords);
+            const finger = getFingerState(fingerCoords);
 
-          if (finger == null) {
-            return;
-          }
+            if (finger == null) {
+              return;
+            }
 
-          const pressedOnFocusedThumb = contains(
-            thumbRefs.current[finger.thumbIndex],
-            activeElement(ownerDocument(control)),
-          );
+            const pressedOnFocusedThumb = contains(
+              thumbRefs.current[finger.thumbIndex],
+              activeElement(ownerDocument(control)),
+            );
 
-          if (pressedOnFocusedThumb) {
-            event.preventDefault();
-          } else {
-            focusFrame.request(() => {
-              focusThumb(finger.thumbIndex);
+            if (pressedOnFocusedThumb) {
+              event.preventDefault();
+            } else {
+              focusFrame.request(() => {
+                focusThumb(finger.thumbIndex);
+              });
+            }
+
+            setDragging(true);
+
+            const pressedOnAnyThumb = pressedThumbCenterOffsetRef.current != null;
+            if (!pressedOnAnyThumb) {
+              setValueFromPointer(finger, REASONS.trackPress, event);
+            }
+
+            if (event.pointerId) {
+              control.setPointerCapture(event.pointerId);
+            }
+
+            moveCountRef.current = 0;
+            const doc = ownerDocument(control);
+            doc.addEventListener('pointermove', handleTouchMove, {
+              passive: true,
             });
-          }
-
-          setDragging(true);
-
-          const pressedOnAnyThumb = pressedThumbCenterOffsetRef.current != null;
-          if (!pressedOnAnyThumb) {
-            setValueFromPointer(finger, REASONS.trackPress, event);
-          }
-
-          if (event.pointerId) {
-            control.setPointerCapture(event.pointerId);
-          }
-
-          moveCountRef.current = 0;
-          const doc = ownerDocument(control);
-          doc.addEventListener("pointermove", handleTouchMove, {
-            passive: true,
-          });
-          doc.addEventListener("pointerup", handleTouchEnd, { once: true });
+            doc.addEventListener('pointerup', handleTouchEnd, { once: true });
+          },
         },
-      },
-      elementProps,
-    ],
-    stateAttributesMapping: sliderStateAttributesMapping,
+        elementProps,
+      ],
+      sliderStateAttributesMapping,
+    ),
+    [hostAttachmentKey]: attachHost,
   });
   interface FingerState {
     value: number | number[];
@@ -582,9 +562,8 @@
   }
 </script>
 
-<RenderElement
-  tag="div"
-  componentProps={{ render, class: classProp, style }}
-  {params}
-  {children}
-/>
+{#if render}
+  {@render render(mergedProps, sliderState, children)}
+{:else}
+  <div {...mergedProps}>{@render children?.()}</div>
+{/if}

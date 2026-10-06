@@ -1,18 +1,19 @@
 #!/usr/bin/env bash
 set -euo pipefail
 cd "$(dirname "$0")/.."
-source scripts/toolchain.sh
+source scripts/package-artifacts.sh
 slider_consumer="$(mktemp -d "${TMPDIR:-/tmp}/sveltery-slider-consumer.XXXXXX")"
 trap 'rm -rf "$slider_consumer"' EXIT
-pnpm --filter @sveltery/base pack --pack-destination "$slider_consumer" > /dev/null
+sveltery_pack_package @sveltery/base "$slider_consumer" > /dev/null
 node --input-type=module - "$slider_consumer" <<'JS'
 import { readdirSync, writeFileSync } from 'node:fs';
 import { join } from 'node:path';
 const directory = process.argv[2], tarball = readdirSync(directory).find(name => name.endsWith('.tgz'));
 writeFileSync(join(directory, 'package.json'), JSON.stringify({private:true,type:'module',dependencies:{'@sveltery/base':`file:${join(directory,tarball)}`,svelte:'5.57.1'}}));
 JS
-pnpm --dir "$slider_consumer" --ignore-workspace install --ignore-scripts > /dev/null
-pnpm --dir "$slider_consumer" --ignore-workspace install --frozen-lockfile --ignore-scripts > /dev/null
+sveltery_prepare_consumer "$slider_consumer"
+pnpm --dir "$slider_consumer" install --ignore-scripts > /dev/null
+pnpm --dir "$slider_consumer" install --frozen-lockfile --ignore-scripts > /dev/null
 cmp LICENSE "$slider_consumer/node_modules/@sveltery/base/LICENSE"
 cat > "$slider_consumer/Consumer.svelte" <<'SVELTE'
 <script lang="ts">
@@ -80,8 +81,8 @@ const invalidFlag: Sub.SliderRootProps = {disabled:null};
 const invalidLabel: Sub.SliderLabelProps = {id:'custom'};
 // @ts-expect-error Source Thumb index is numeric.
 const invalidIndex: Sub.SliderThumbProps = {index:'1'};
-// @ts-expect-error Thumb inputRef resolves to an input.
-const invalidRef: Sub.SliderThumbProps = {inputRef:(node:HTMLButtonElement|null)=>void node};
+// @ts-expect-error Native Thumb inputRef publishes an input element.
+const invalidRef: Sub.SliderThumbProps = {inputRef:document.createElement('button')};
 // @ts-expect-error Commit details are generic and cannot be canceled.
 commit.cancel();
 // @ts-expect-error Active thumb metadata belongs to change details only.
@@ -114,26 +115,39 @@ cat > "$slider_consumer/DOMConsumer.svelte" <<'SVELTE'
   import {Slider,Field,Form} from '@sveltery/base';
   import {Slider as Sub} from '@sveltery/base/slider';
   let show=$state(true);let owner=$state(40);let calls=$state<unknown[]>([]);let commits=$state<unknown[]>([]);let refs=$state<string[]>([]);
-  function inputRef(input:HTMLInputElement|null){if(input){refs.push('attach');return()=>refs.push('cleanup');}}
+  let inputRef=$state<HTMLInputElement|null>();
+  function publishInput(input:HTMLInputElement|null|undefined){if(inputRef===input)return;if(inputRef)refs.push('cleanup');inputRef=input;if(input)refs.push('attach');}
   export function hide(){show=false;} export function update(){owner=60;} export function snapshot(){return{calls,commits,refs};}
 </script>
-<Form id="packed-form"><Field.Root name="volume">{#if show}<Slider.Root value={owner} onValueChange={(value,details)=>{calls.push({value,reason:details.reason,index:details.activeThumbIndex});owner=value;}} onValueCommitted={(value,details)=>commits.push({value,reason:details.reason})}><Sub.Label>Volume</Sub.Label><Sub.Control><Sub.Track><Sub.Indicator/></Sub.Track><Sub.Thumb {inputRef}/></Sub.Control><Sub.Value id="packed-value"/></Slider.Root>{/if}</Field.Root></Form>
+<Form id="packed-form"><Field.Root name="volume">{#if show}<Slider.Root value={owner} onValueChange={(value,details)=>{calls.push({value,reason:details.reason,index:details.activeThumbIndex});owner=value;}} onValueCommitted={(value,details)=>commits.push({value,reason:details.reason})}><Sub.Label>Volume</Sub.Label><Sub.Control><Sub.Track><Sub.Indicator/></Sub.Track><Sub.Thumb bind:inputRef={() => inputRef, publishInput}/></Sub.Control><Sub.Value id="packed-value"/></Slider.Root>{/if}</Field.Root></Form>
 SVELTE
+cat > "$slider_consumer/hydration-ssr.mjs" <<'JS'
+import {writeFileSync} from 'node:fs';
+import {render} from 'svelte/server';
+import Consumer from './DOMConsumer.svelte';
+writeFileSync(new URL('./hydration.html',import.meta.url),render(Consumer).body);
+JS
+node --import "$sveltery_repo_root/scripts/svelte-ssr-loader.mjs" "$slider_consumer/hydration-ssr.mjs"
 cat > "$slider_consumer/dom-loader.mjs" <<'JS'
 import {registerHooks,createRequire} from 'node:module';import{readFileSync}from'node:fs';import{fileURLToPath}from'node:url';
 const require=createRequire(new URL('./package.json',import.meta.url));const{compile,compileModule}=require('svelte/compiler');
 registerHooks({load(url,context,next){if(url.endsWith('.svelte')||url.endsWith('.svelte.js')){const raw=readFileSync(fileURLToPath(url),'utf8'),options={filename:fileURLToPath(url),generate:'client'};const result=url.endsWith('.svelte')?compile(raw,options):compileModule(raw,options);return{format:'module',source:result.js.code,shortCircuit:true};}return next(url,context);}});
 JS
 cat > "$slider_consumer/dom-check.mjs" <<'JS'
-import assert from 'node:assert/strict';import{createRequire}from'node:module';
+import assert from 'node:assert/strict';import{createRequire}from'node:module';import{readFileSync}from'node:fs';
 const tooling=createRequire(process.argv[2]);const{JSDOM}=tooling('jsdom');const dom=new JSDOM('<!doctype html><html><body><main></main></body></html>',{url:'http://localhost'});
 for(const key of ['window','document','navigator','HTMLElement','HTMLInputElement','HTMLFormElement','Element','Node','Text','Comment','Event','KeyboardEvent','FocusEvent','FormData','MutationObserver','getComputedStyle'])Object.defineProperty(globalThis,key,{configurable:true,value:dom.window[key]});
 globalThis.requestAnimationFrame=(fn)=>setTimeout(fn,0);globalThis.cancelAnimationFrame=clearTimeout;
-const{mount,flushSync,unmount}=await import('svelte');const{default:Consumer}=await import('./DOMConsumer.svelte');const app=mount(Consumer,{target:document.querySelector('main')});flushSync();
+const{mount,hydrate,flushSync,unmount}=await import('svelte');const{default:Consumer}=await import('./DOMConsumer.svelte');const app=mount(Consumer,{target:document.querySelector('main')});flushSync();
 const input=document.querySelector('input[type="range"]');assert.equal(input.value,'40');assert.equal(new FormData(document.querySelector('form')).get('volume'),'40');
 input.dispatchEvent(new KeyboardEvent('keydown',{key:'ArrowRight',bubbles:true,cancelable:true}));flushSync();assert.equal(input.value,'41');assert.equal(document.querySelector('#packed-value').textContent,'41');assert.deepEqual(app.snapshot().calls,[{value:41,reason:'keyboard',index:0}]);assert.deepEqual(app.snapshot().commits,[{value:41,reason:'keyboard'}]);
-app.update();flushSync();assert.equal(input.value,'60');assert.equal(new FormData(document.querySelector('form')).get('volume'),'60');app.hide();flushSync();assert.equal(document.querySelector('input[type="range"]'),null);assert.deepEqual(app.snapshot().refs,['attach','cleanup']);await unmount(app);dom.window.close();
+app.update();flushSync();assert.equal(input.value,'60');assert.equal(new FormData(document.querySelector('form')).get('volume'),'60');app.hide();flushSync();assert.equal(document.querySelector('input[type="range"]'),null);assert.deepEqual(app.snapshot().refs,['attach','cleanup']);await unmount(app);
+const target=document.querySelector('main');target.innerHTML=readFileSync(new URL('./hydration.html',import.meta.url),'utf8');const serverInput=target.querySelector('input[type="range"]');assert.equal(serverInput.value,'40');
+const hydrated=hydrate(Consumer,{target,recover:false});flushSync();assert.equal(target.querySelector('input[type="range"]'),serverInput);assert.deepEqual(hydrated.snapshot().refs,['attach']);assert.equal(new FormData(target.querySelector('form')).get('volume'),'40');
+serverInput.dispatchEvent(new KeyboardEvent('keydown',{key:'ArrowRight',bubbles:true,cancelable:true}));flushSync();assert.equal(serverInput.value,'41');assert.deepEqual(hydrated.snapshot().calls,[{value:41,reason:'keyboard',index:0}]);assert.deepEqual(hydrated.snapshot().commits,[{value:41,reason:'keyboard'}]);
+hydrated.update();flushSync();assert.equal(serverInput.value,'60');assert.equal(new FormData(target.querySelector('form')).get('volume'),'60');hydrated.hide();flushSync();assert.equal(target.querySelector('input[type="range"]'),null);assert.deepEqual(hydrated.snapshot().refs,['attach','cleanup']);await unmount(hydrated);dom.window.close();
 console.log('Isolated installed Slider real DOM source callbacks, controlled updates, FormData, output and inputRef cleanup: PASS');
+console.log('Isolated installed Slider actual SSR hydration retains the server input, callback ownership, serialization and binding cleanup: PASS (native supplement, zero upstream assertion credit)');
 JS
 node "$sveltery_repo_root/packages/base/node_modules/svelte-check/bin/svelte-check" --workspace "$slider_consumer" --tsconfig ./tsconfig.json
 cat > "$slider_consumer/Bad.svelte" <<'SVELTE'
@@ -147,6 +161,9 @@ SVELTE
 if node "$sveltery_repo_root/packages/base/node_modules/svelte-check/bin/svelte-check" --workspace "$slider_consumer" --tsconfig ./tsconfig.json > "$slider_consumer/invalid.log" 2>&1; then
   echo 'Invalid native Slider markup unexpectedly passed' >&2; exit 1
 fi
+mkdir -p "$sveltery_repo_root/.checks/slider-package"
+cp "$slider_consumer/tsconfig.json" "$sveltery_repo_root/.checks/slider-package/tsconfig.json"
+cp "$slider_consumer/invalid.log" "$sveltery_repo_root/.checks/slider-package/invalid-markup.log"
 node --input-type=module - "$slider_consumer/invalid.log" <<'JS'
 import assert from 'node:assert/strict';import{readFileSync}from'node:fs';const log=readFileSync(process.argv[2],'utf8');assert.match(log,/found 3 errors and 0 warnings/);assert.match(log,/Bad.svelte/);console.log('Isolated native Slider numeric value/index/collision markup: all 3 intended diagnostics verified');
 JS

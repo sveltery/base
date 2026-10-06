@@ -1,0 +1,34 @@
+{
+  "pin": "47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c",
+  "status": "Exact pre-native Slider bodies retained; native API/binding adaptations and formatting add zero Original assertion credit.",
+  "files": [
+    {
+      "source": "apps/fixtures/src/lib/SliderBrowserFixture.svelte",
+      "archive": "parity/slider/native-predecessors/SliderBrowserFixture.svelte",
+      "sha256": "309628a786ac5760cff55d0bd02cfef652b32568535521e9cc8537d1bf0f506c",
+      "predecessor": "583e8cca6cd246309d53e8faa0234f99b19ab51a",
+      "unchangedUpstreamAssertionCredit": 0
+    },
+    {
+      "source": "apps/fixtures/src/lib/slider-reference.ts",
+      "archive": "parity/slider/native-predecessors/slider-reference.ts",
+      "sha256": "197e4aab35cfc5b6b4d12012d772c34e27c90f68eb879170449170901227fa52",
+      "predecessor": "583e8cca6cd246309d53e8faa0234f99b19ab51a",
+      "unchangedUpstreamAssertionCredit": 0
+    },
+    {
+      "source": "tests/browser/slider.spec.ts",
+      "archive": "parity/slider/native-predecessors/slider.spec.ts",
+      "sha256": "f6ddaa8d9668fe6a80cc0c6648aed9b361219db004b1a428d9cfb9adb95524de",
+      "predecessor": "583e8cca6cd246309d53e8faa0234f99b19ab51a",
+      "unchangedUpstreamAssertionCredit": 0
+    },
+    {
+      "source": "scripts/check-slider-package.sh",
+      "archive": "parity/slider/native-predecessors/check-slider-package.sh",
+      "sha256": "14ae70a2f0df3b042670a692ecb49dbf0b45ce436accde54033b46c7d99f81a0",
+      "predecessor": "583e8cca6cd246309d53e8faa0234f99b19ab51a",
+      "unchangedUpstreamAssertionCredit": 0
+    }
+  ]
+}

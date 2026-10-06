@@ -1,0 +1,190 @@
+{
+  "pin": "47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c",
+  "status": "Actual accepted Main canonical repair integrated; bounded successor Source/native/caller review and current final configured gates pending. Frozen de989 full review is preserved, not automatically transferred to changed helper/element/callers.",
+  "ordinaryDeclarationCredit": 0,
+  "acceptedMainActual": "dc2fb8247750b519efab708fc221c201f8cfd517",
+  "normalMerge": "0d2f1ff591eb5b8d61a529596d520c07aeab0470",
+  "priorPublicHead": "50e0ee81416fd2dec89c3e88d24f51862ab82a4b",
+  "frozenFullSourceReview": "/workspace/reviews/popup-family-de989-full-source-review/review.md",
+  "changedBodies": [
+    {
+      "path": "packages/base/src/lib/floating-ui/hooks/useClick.svelte.ts",
+      "oldSha256": "34c159e4e2a0b468bea5d3f650050b83b7e63b41dbcd9a936543ec9ddaeb2b70",
+      "currentSha256": "399f7e0b8e6a6cc0b5fe5355c88b1b10f3dd365f832ffe3a197b6f633b20aade"
+    },
+    {
+      "path": "packages/base/src/lib/floating-ui/utils/element.ts",
+      "oldSha256": "43da99a8e24b9713afaaa52f09f8b21b92681252d1c17824cc246e15400c79eb",
+      "currentSha256": "d46588eefde81b7d3eb8f204f5b3ba235aacbeafde35c37ac6eb782070dcfff0"
+    }
+  ],
+  "nativeGraph": {
+    "modules": 189,
+    "edges": 833,
+    "memberDelta": "Only element PopupTriggerMap type import points directly to canonical popupTriggerMap.svelte.ts instead of type barrel; runtime business body unchanged."
+  },
+  "menuMetadata": {
+    "modules": 198,
+    "edges": 899,
+    "scope": "Existing unchanged member/kind/reachability extractor, only exact accepted Main two hash deltas and erased element type-member leaf. Both graphs and correspondence pending/reopened; no blanket Menu acceptance.",
+    "initialResult": "2PASS1FAIL stale recorded native closure",
+    "nativeMetadataRecheck": "2PASS1FAIL sandbox EPERM for nested evidence --check, retained",
+    "approvedUnchangedReadOnlyRecheck": "3/3PASS",
+    "immutableOriginalAssertionsSha256": "98ee10f0119d9d98b34c2976696ed4ca1942ed7ebf94c5d39bcbdd047a67225a",
+    "ordinarySites": 331,
+    "conformanceCalls": 19,
+    "allDeclarations": "unported / ordinary credit0"
+  },
+  "conflicts": "Canonical useClick and element add/add resolved to exact accepted Main bytes; docs top union retained private prerequisite and complete prior historical/compatibility entries.",
+  "receipts": [
+    {
+      "path": "parity/popup-family/receipts/popup-click-main-menu-provenance-first.log.gz",
+      "rawSha256": "75aa1602fcc77b39453be63ada15831880302646b2d6a09eaedcdde3c2e5d3b3",
+      "gzipSha256": "5c8c7f37bc9e8f550dcae36ecd6570f3cb44429893b5acd9a2de603a7e59bd09"
+    },
+    {
+      "path": "parity/popup-family/receipts/popup-click-main-menu-provenance-native.log.gz",
+      "rawSha256": "5b21511d445849fd97f5961ce496a264037ee91c0386a0546acbe925b12f2988",
+      "gzipSha256": "950a42a0e931d483452f500b589e65fbc360cca64bfe9f942c9d562a27aaf816"
+    },
+    {
+      "path": "parity/popup-family/receipts/popup-click-main-menu-provenance-approved.log.gz",
+      "rawSha256": "5ebeac25e90f5ee803c94c95567d293b2e2d54b7469db1489c6d844e004b7c24",
+      "gzipSha256": "211cdbab65491254f7ea9cffbda8ec37295a0caeb5b53d5aefcba2bd152df1cb"
+    }
+  ],
+  "finalOwnedPackedConsumer": {
+    "productAtRun": "f068c4ff2e1534bc77705130e719c404c31c7c9d",
+    "acceptedMain": "c1600456d3b4e72910d42823b9df69280c74a262",
+    "script": "scripts/check-popup-family-package.sh",
+    "libraryRebuild": "PASS, capped2048MiB/TMPDIR/workspace/sveltery-tmp",
+    "tarball": "sveltery-base-0.0.0.tgz",
+    "tarballSha256": "7183aacd41fad7143d9e9a07ff761fe77ac5d99d7d283678f439765066090752",
+    "result": "Actual isolated installed all27 root/subpath identities/3handles+3factories, realSSR, strict public refs/optionalfields0errors0warnings,5Source directives/3typeequalities/exact9 intended negative diagnostics PASS",
+    "toolchain": "pnpm12.6.0/Node24.19.0",
+    "finalUnion": "Accepted ScrollArea and prior CSP/catalog/public histories coexist with all3 public popup namespaces; all56 Scroll bodies equal acceptedMain and all189 family bodies/graph equal ad838.",
+    "laterProductDelta": "None; receipts/documentation only after f068. No full local Verify/browser duplication."
+  },
+  "testOnlyNormalMerge": "b8dd3382508cd83bef2760bb6615ced430e84bb7",
+  "nativeDOM": "317/317PASS across7files incl Root189/literal6/hydration6/canonicalClick20; real incoming caller pair additional2/2PASS",
+  "nativeSSR": "6/6PASS, actual no-browser server environment",
+  "strictTypes": "First real React.createElement data-testid excess-property diagnostic retained; legitimate typed data-testid transport fixture fixed, final0errors/0warnings",
+  "scopedLint": "PASS0",
+  "ordinaryMapping": "63 referenced Root Source declaration sites/189native variants; full immutable435/718 ledger unported/zero credit",
+  "realIncomingCaller": {
+    "scope": "Actual public Popover.Trigger + two Root/Handle/Portal/Positioner/Popup owners, composed earlier onClick switches handle with actual React/Svelte flushSync. Actual Original/native literal fixture, zero ordinary credit.",
+    "oldProduct": "79d031c915c5b34f3c87de79c39aabc6a055386c",
+    "oldCanonicalClick": "34c159e4e2a0b468bea5d3f650050b83b7e63b41dbcd9a936543ec9ddaeb2b70",
+    "oldResult": "Original1PASS/native1FAIL; native opens second Root instead of selected first",
+    "currentResult": "Original1PASS/native1PASS, identical three fixture/test whole bytes; unchanged predicates",
+    "setupFailures": "Initial historical root-workdir invocation and missing generated fixture tsconfig failures retained; neither executes Source predicates. Historical existing generated type config reused by symlink; helper bytes unchanged.",
+    "fixtureHashes": {
+      "packages/base/tests/dom/PopoverClickCallerFixture.svelte": "2cc3a4ea77820336bc47927f585339e7075198e697b82cee966f31c87252df02",
+      "packages/base/tests/dom/popover-click-caller.test.ts": "3c888922808ecb28088b07cdc8b0158fcef45006701b259633413157e967d0ed",
+      "apps/fixtures/src/lib/popover-click-caller-reference.ts": "bc0e049a4df64a6dec256928d629585b40d7531d4e5d8ed7a988cf3449021c4a"
+    }
+  },
+  "frozenReviewArtifact": "parity/popup-family/review/de989-full-source-review.tar.gz",
+  "frozenReviewArtifactSha256": "7abb031ce0f12d421f936333248190e2a52d9bd07b829c2726fe9303df9279da",
+  "currentChecksReceipts": [
+    {
+      "path": "parity/popup-family/receipts/popup-canonical-main-final-package-toolchain.log.gz",
+      "rawSha256": "3df44716e8e37a19ecf338f2fdc53bad0e05d08e191b1e4d58596e8acc1b32ad",
+      "gzipSha256": "1e9769beec524a1f65fd99897a2da188409eb34a37c8b8a421644945b1b8a290"
+    },
+    {
+      "path": "parity/popup-family/receipts/popup-canonical-main-final-build.log.gz",
+      "rawSha256": "9a4f84168e429925dd22c0ca2f38d299b0e9bd4344706a834e00c30d741a9ac1",
+      "gzipSha256": "16ba7ad9ab15da1bd787b8a50d342c1659b4cb31e806161fd956387301ce87d2"
+    },
+    {
+      "path": "parity/popup-family/receipts/popup-canonical-main-final-package.log.gz",
+      "rawSha256": "eabf7c2cc0618d44434944f24de5f7887fea3e3aaa38ed61bea402236050036c",
+      "gzipSha256": "1604043f7f4feed471a5fe897c29a175f538ffc12be5cc37fdc4bde1cc0dbe68"
+    },
+    {
+      "path": "parity/popup-family/receipts/popup-canonical-main-family-caller-dom.log.gz",
+      "rawSha256": "ba3ff0dae5942698ccfe97b1463c49bc2079c596a318700f11789a17c0a347d5",
+      "gzipSha256": "5e63b9bb04a6647fa3555abfa9de57fe75fb3e7960d449bab97d7f8013f4ee3a"
+    },
+    {
+      "path": "parity/popup-family/receipts/popup-canonical-main-family-ssr.log.gz",
+      "rawSha256": "6c9bfba12b12cfcaf2f61a49a3d308884ab82969b8f08701751c4e955ec21210",
+      "gzipSha256": "b5020b5b2c1e0650d8a5fb30029abfba0b91faadbb8f14e16d95dc62dd5c36bd"
+    },
+    {
+      "path": "parity/popup-family/receipts/popup-canonical-main-family-types.log.gz",
+      "rawSha256": "0f6f2d605c8d4b4658f077444141fba6b756d013414822955bef75269e124079",
+      "gzipSha256": "2a783e0bdbbd91596d1dd56f048f7d797f105048af0c3f9fb2864581ab86a115"
+    },
+    {
+      "path": "parity/popup-family/receipts/popup-canonical-main-family-types-final.log.gz",
+      "rawSha256": "7e27dd779e05a54111112a73012731d0bd0a37ddfa3fc12e8a5b0ab2f516b343",
+      "gzipSha256": "9df8f289a5b910673db185c632a005816eda07e2e4d429f5e7e0065c36c718ec"
+    },
+    {
+      "path": "parity/popup-family/receipts/popup-canonical-main-family-lint.log.gz",
+      "rawSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "gzipSha256": "f61f27bd17de546264aa58f40f3aafaac7021e0ef69c17f6b1b4cd7664a037ec"
+    },
+    {
+      "path": "parity/popup-family/receipts/popup-canonical-main-real-caller-pair-first.log.gz",
+      "rawSha256": "7b5930d2bad1378352cca87947c251ccb25dd5cf876387e50541ad76d13bd487",
+      "gzipSha256": "cdd0d2c90e16fdc0fb2701e495321050d42d7cddbb6d9ca03db5d209d6492a0a"
+    },
+    {
+      "path": "parity/popup-family/receipts/popup-canonical-main-real-caller-pair-final.log.gz",
+      "rawSha256": "d2c9ea2819a92cd561750a7e027346ee9a94f6b964b14e64a7196928e1b853e2",
+      "gzipSha256": "483fed596a9a6f11172fcaf72958a98a281f40f4dd8c74713b8909ec1a75bb16"
+    },
+    {
+      "path": "parity/popup-family/receipts/popup-canonical-main-real-caller-pair-old-first.log.gz",
+      "rawSha256": "764a34d41c4eabe5af00c702b8c5235fcb0b3cc1a1798dfa3a87cfaf93ff96be",
+      "gzipSha256": "2d1fd3f221491dd6f32e1dbbd00f204a389019a36dec1b350b0a4a21bbf5dd13"
+    },
+    {
+      "path": "parity/popup-family/receipts/popup-canonical-main-real-caller-pair-old.log.gz",
+      "rawSha256": "770a61d784a0d792eee399fd612327e4100a06e9256440a4466ac552ae33b267",
+      "gzipSha256": "af7a20a21e3772580dfc27ec39a834e557aa0502b5f4fdbbebe7e9425e635f10"
+    },
+    {
+      "path": "parity/popup-family/receipts/popup-canonical-main-real-caller-pair-old-final.log.gz",
+      "rawSha256": "f326e8b44f7d68ea045839d9f4c7516c27f0f146bd676664921e466c5f37f24c",
+      "gzipSha256": "552deaaac22c18e1fda479495648223a2b8f93f4ae64c3f196749dad0d345ba7"
+    },
+    {
+      "path": "parity/popup-family/receipts/popup-c160-final-build.log.gz",
+      "rawSha256": "9a4f84168e429925dd22c0ca2f38d299b0e9bd4344706a834e00c30d741a9ac1",
+      "gzipSha256": "16ba7ad9ab15da1bd787b8a50d342c1659b4cb31e806161fd956387301ce87d2"
+    },
+    {
+      "path": "parity/popup-family/receipts/popup-c160-final-package.log.gz",
+      "rawSha256": "028ba3d0c7d6f1440f763afbbcb0b9797f19096d4a8cc760503541c1c5c8d333",
+      "gzipSha256": "24b17d6eeea59790aba716c615ec275cc9fa3ab3eec02585ecd3cecdc859db6d"
+    },
+    {
+      "path": "parity/popup-family/receipts/popup-c160-final-package-toolchain.log.gz",
+      "rawSha256": "3df44716e8e37a19ecf338f2fdc53bad0e05d08e191b1e4d58596e8acc1b32ad",
+      "gzipSha256": "1e9769beec524a1f65fd99897a2da188409eb34a37c8b8a421644945b1b8a290"
+    }
+  ],
+  "acceptedScrollMainIntegration": {
+    "acceptedMain": "c1600456d3b4e72910d42823b9df69280c74a262",
+    "normalMerge": "f068c4ff2e1534bc77705130e719c404c31c7c9d",
+    "onlyConflict": "Complete compatibility register union retained; accepted IE delivery checkpoint and full ScrollArea SA-01 appended to existing Menu/Popup/historical entries.",
+    "publicUnion": "ScrollArea root/subpath/catalog/CSP acceptedMain histories plus all27 family parts/3handle/3factories preserved.",
+    "actualFamilyGraph": "Exact unchanged189/833 bytes; SHA2560c403c9310af6823a813acc879e31d2fd3dbec67ab44089ca67bb4e8c61d4077",
+    "familyHelperCallerBodies": "All unchanged relative ad8381b; canonical399f7e0/d46588 retained",
+    "packedGate": "PASS actual current public root union; tarball7183aacd. Prior79a14/b8dd proof remains historical."
+  },
+  "historicalPreScrollOwnedPackedConsumer": {
+    "productAtRun": "b8dd3382508cd83bef2760bb6615ced430e84bb7",
+    "script": "scripts/check-popup-family-package.sh",
+    "libraryRebuild": "PASS, node cap2048MiB/TMPDIR/workspace/sveltery-tmp",
+    "tarball": "sveltery-base-0.0.0.tgz",
+    "tarballSha256": "79a14e744e162622960d59af6a7c5e05f90da918f2116fffc20193b784c70da1",
+    "result": "Actual isolated installed all27 root/subpath identities/3handles+3factories, realSSR, strict public refs/optionalfields0errors0warnings,5Source directives/3typeequalities/exact9 intended negative diagnostics PASS",
+    "toolchain": "pnpm12.6.0/Node24.19.0",
+    "laterProductDelta": "None; only test/reference fixture/config/evidence additions after b8dd. No duplicate fullVerify/browser."
+  }
+}

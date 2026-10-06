@@ -9,10 +9,14 @@ it('SSR preserves the full source family, sorted/clamped frozen range, explicit 
   expect(values).toEqual([120, -5]);
   expect(body).toContain('role="group"');
   expect((body.match(/type="range"/g) ?? []).length).toBe(2);
-  expect(body).toContain('value="0"'); expect(body).toContain('value="100"');
-  expect(body).toContain('data-index="0"'); expect(body).toContain('data-index="1"');
-  expect(body).toContain('name="volume"'); expect(body).toContain('0 – 100');
-  expect(body).toContain('id="ssr-slider-label"'); expect(body).not.toContain('<script');
+  expect(body).toContain('value="0"');
+  expect(body).toContain('value="100"');
+  expect(body).toContain('data-index="0"');
+  expect(body).toContain('data-index="1"');
+  expect(body).toContain('name="volume"');
+  expect(body).toContain('0 – 100');
+  expect(body).toContain('id="ssr-slider-label"');
+  expect(body).not.toContain('<script');
 });
 it('edge SSR emits exactly one original prehydration body, with markers outside script and escaped nonce', () => {
   const { body } = render(Fixture, { props: { alignment: 'edge', nonce: 'a"<&>' } });
@@ -26,9 +30,19 @@ it('edge SSR emits exactly one original prehydration body, with markers outside 
 });
 it('edge-client-only SSR keeps edge business markup while omitting the parser script', () => {
   const { body } = render(Fixture, { props: { alignment: 'edge-client-only', vertical: true } });
-  expect(body).not.toContain('<script'); expect(body).toContain('visibility:hidden');
-  expect(body).toContain('aria-orientation="vertical"'); expect(body).toContain('writing-mode:vertical-lr');
+  expect(body).not.toContain('<script');
+  expect(body).toContain('visibility:hidden');
+  expect(body).toContain('aria-orientation="vertical"');
+  expect(body).toContain('writing-mode:vertical-lr');
 });
 it('every source part enforces the required Root context in SSR', () => {
-  for (const Part of [Slider.Label, Slider.Control, Slider.Track, Slider.Thumb, Slider.Value, Slider.Indicator]) expect(() => render(Part).body).toThrow('SliderRootContext is missing');
+  for (const Part of [
+    Slider.Label,
+    Slider.Control,
+    Slider.Track,
+    Slider.Thumb,
+    Slider.Value,
+    Slider.Indicator,
+  ])
+    expect(() => render(Part).body).toThrow('SliderRootContext is missing');
 });

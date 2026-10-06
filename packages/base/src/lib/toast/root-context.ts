@@ -15,6 +15,9 @@ export interface ToastRootContext {
 }
 export function root(): ToastRootContext {
   const value = hasRootContext() ? getRootContext() : undefined;
-  if (!value) throw new Error('Base UI: ToastRootContext is missing. Toast parts must be used within <Toast.Root>.');
+  if (!value)
+    throw new Error(
+      'Base UI: ToastRootContext is missing. Toast parts must be used within <Toast.Root>.',
+    );
   return value;
 }

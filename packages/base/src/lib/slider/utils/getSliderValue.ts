@@ -1,7 +1,7 @@
 // Ported from Base UI v1.8.0 at 47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c.
 // MIT: THIRD_PARTY_NOTICES.md; parity/slider/source-correspondence.md.
-import { clamp } from "../../utils/clamp.js";
-import { asc } from "./asc.js";
+import { clamp } from '@sveltery/utils/clamp';
+import { asc } from './asc.js';
 
 export function getSliderValue(
   valueInput: number,
@@ -19,10 +19,6 @@ export function getSliderValue(
 
   const output = values.slice();
   // Bound the new value to the thumb's neighbours.
-  output[index] = clamp(
-    clamped,
-    values[index - 1] ?? -Infinity,
-    values[index + 1] ?? Infinity,
-  );
+  output[index] = clamp(clamped, values[index - 1] ?? -Infinity, values[index + 1] ?? Infinity);
   return output.sort(asc);
 }

@@ -1,9 +1,9 @@
 <script lang="ts">
-  import { Slider } from "../../src/lib/slider/index.js";
-  import Context from "./slider-label-context.svelte";
+  import { Slider } from '../../src/lib/slider/index.js';
+  import Context from './slider-label-context.svelte';
   let original = $state(true);
   let context: { installNewerLabel(): void; removeNewerLabel(): void };
-  let rootId = $state("label-slider");
+  let rootId = $state('label-slider');
   export function showNewer() {
     context.installNewerLabel();
   }
@@ -14,7 +14,7 @@
     context.removeNewerLabel();
   }
   export function replaceId() {
-    rootId = "replacement-slider";
+    rootId = 'replacement-slider';
   }
 </script>
 

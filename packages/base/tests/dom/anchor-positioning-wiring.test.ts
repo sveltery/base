@@ -5,17 +5,26 @@ import Fixture from '../../../../apps/fixtures/src/lib/AnchorPositioningFixture.
 const shiftSpy = vi.hoisted(() => vi.fn());
 vi.mock('@floating-ui/dom', async () => {
   const actual = await vi.importActual<typeof import('@floating-ui/dom')>('@floating-ui/dom');
-  return { ...actual, shift: ((...args: Parameters<typeof actual.shift>) => {
-    shiftSpy(...args); return actual.shift(...args);
-  }) satisfies typeof actual.shift };
+  return {
+    ...actual,
+    shift: ((...args: Parameters<typeof actual.shift>) => {
+      shiftSpy(...args);
+      return actual.shift(...args);
+    }) satisfies typeof actual.shift,
+  };
 });
 const cleanups: (() => Promise<void>)[] = [];
-afterEach(async () => { for (const cleanup of cleanups.splice(0)) await cleanup(); document.body.replaceChildren(); });
+afterEach(async () => {
+  for (const cleanup of cleanups.splice(0)) await cleanup();
+  document.body.replaceChildren();
+});
 async function render(scenario = 'default') {
-  const target = document.createElement('div'); document.body.append(target);
+  const target = document.createElement('div');
+  document.body.append(target);
   const component = mount(Fixture, { target, props: { scenario } });
-  cleanups.push(() => unmount(component)); flushSync();
-  await new Promise<void>(resolve => queueMicrotask(resolve));
+  cleanups.push(() => unmount(component));
+  flushSync();
+  await new Promise<void>((resolve) => queueMicrotask(resolve));
 }
 describe('useAnchorPositioning pinned middleware wiring', () => {
   beforeEach(() => shiftSpy.mockClear());

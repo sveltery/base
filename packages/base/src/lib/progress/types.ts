@@ -3,12 +3,17 @@ import type { Snippet } from 'svelte';
 import type { ClassValue, HTMLAttributes } from 'svelte/elements';
 import type { ElementProps } from '../dialog/types.js';
 export type ProgressStatus = 'indeterminate' | 'progressing' | 'complete';
-export interface ProgressRootState { status: ProgressStatus }
+export interface ProgressRootState {
+  status: ProgressStatus;
+}
 export type ProgressLabelState = ProgressRootState;
 export type ProgressTrackState = ProgressRootState;
 export type ProgressIndicatorState = ProgressRootState;
 export type ProgressValueState = ProgressRootState;
-type PartProps<Node extends HTMLElement> = Omit<ElementProps<ProgressRootState, HTMLAttributes<Node>>, 'class'> & {
+type PartProps<Node extends HTMLElement> = Omit<
+  ElementProps<ProgressRootState, HTMLAttributes<Node>>,
+  'class'
+> & {
   class?: ClassValue | ((state: ProgressRootState) => ClassValue);
 };
 export type ProgressRootProps = PartProps<HTMLDivElement> & {

@@ -1,8 +1,8 @@
 <script lang="ts">
-  import { onMount } from "svelte";
-  import { Form, Slider, Fieldset } from "@sveltery/base";
-  import { volumeForm } from "./slider.remote.js";
-  import type { HTMLAttributes } from "svelte/elements";
+  import { onMount } from 'svelte';
+  import { Form, Slider, Fieldset } from '@sveltery/base';
+  import { volumeForm } from './slider.remote.js';
+  import type { HTMLAttributes } from 'svelte/elements';
   let hydrated = $state(false),
     cancel = $state(false),
     fieldsetDisabled = $state(false);
@@ -18,9 +18,9 @@
     remote={volumeForm}
     id="remote-slider-form"
     {...volumeForm.enhance(async ({ submit }) => {
-      enhancements.push("caller");
+      enhancements.push('caller');
       await submit();
-      enhancements.push("settled");
+      enhancements.push('settled');
     })}
   >
     {#snippet children(Field)}
@@ -30,7 +30,7 @@
           name="settings.volume"
           as="range"
           value={40}
-          validate={(value) => (Number(value) < 50 ? "Too low" : null)}
+          validate={(value) => (Number(value) < 50 ? 'Too low' : null)}
         >
           <Field.Label>Remote volume</Field.Label>
           <Slider.Root
@@ -40,12 +40,10 @@
             onValueChange={(value, details) => {
               changes.push({
                 value,
-                name: (details.event.target as unknown as { name: string })
-                  .name,
+                name: (details.event.target as unknown as { name: string }).name,
               });
               if (cancel) details.cancel();
-              if (!details.isCanceled)
-                volumeForm.fields.settings.volume.set(value);
+              if (!details.isCanceled) volumeForm.fields.settings.volume.set(value);
             }}
           >
             {#snippet render(props, _state, children)}<section
@@ -55,12 +53,9 @@
               </section>{/snippet}
             <Slider.Control
               style="position:relative;width:300px;height:20px;margin:30px;touch-action:none"
-              ><Slider.Track
-                style="height:20px;width:300px;background:lightgray"
+              ><Slider.Track style="height:20px;width:300px;background:lightgray"
                 ><Slider.Indicator /></Slider.Track
-              ><Slider.Thumb
-                style="width:20px;height:20px;background:blue"
-              /></Slider.Control
+              ><Slider.Thumb style="width:20px;height:20px;background:blue" /></Slider.Control
             ><Slider.Value id="remote-slider-value" />
           </Slider.Root>
           <Field.Error id="remote-slider-error" />
@@ -75,9 +70,8 @@
       fieldsetDisabled = !fieldsetDisabled;
     }}>Toggle fieldset</button
   >
-  <button
-    id="remote-slider-set"
-    onclick={() => volumeForm.fields.settings.volume.set(70)}>Set owner</button
+  <button id="remote-slider-set" onclick={() => volumeForm.fields.settings.volume.set(70)}
+    >Set owner</button
   >
   <button
     id="remote-slider-cancel"
@@ -85,12 +79,8 @@
       cancel = !cancel;
     }}>Cancel</button
   >
-  <output id="remote-slider-owner"
-    >{JSON.stringify(volumeForm.fields.value())}</output
-  >
-  <output id="remote-slider-result"
-    >{JSON.stringify(volumeForm.result ?? null)}</output
-  >
+  <output id="remote-slider-owner">{JSON.stringify(volumeForm.fields.value())}</output>
+  <output id="remote-slider-result">{JSON.stringify(volumeForm.result ?? null)}</output>
   <output id="remote-slider-changes">{JSON.stringify(changes)}</output>
   <output id="remote-slider-enhancement">{JSON.stringify(enhancements)}</output>
 </main>

@@ -30,10 +30,27 @@
     return () => element.removeEventListener('keydown', handler);
   }
 </script>
-{#snippet button(props: Record<string | symbol, unknown>, _state: unknown, children: Snippet | undefined)}<button {...props as HTMLButtonAttributes}>{@render children?.()}</button>{/snippet}
-<form onsubmit={event => { event.preventDefault(); submit?.(); }}>
+
+{#snippet button(
+  props: Record<string | symbol, unknown>,
+  _state: unknown,
+  children: Snippet | undefined,
+)}<button {...props as HTMLButtonAttributes}>{@render children?.()}</button>{/snippet}
+<form
+  onsubmit={(event) => {
+    event.preventDefault();
+    submit?.();
+  }}
+>
   <div role="group" {@attach ancestorEvents}>
-    {#if mounted}<Checkbox.Root {disabled} {readOnly} nativeButton={native} render={native ? button : undefined} onCheckedChange={() => change?.()} name="first" />{/if}
+    {#if mounted}<Checkbox.Root
+        {disabled}
+        {readOnly}
+        nativeButton={native}
+        render={native ? button : undefined}
+        onCheckedChange={() => change?.()}
+        name="first"
+      />{/if}
     <Checkbox.Root name="second" data-second />
   </div>
   <button type="submit" name="intent" value="save">Save</button>

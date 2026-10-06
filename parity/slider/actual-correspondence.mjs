@@ -15,33 +15,22 @@ const actual = JSON.parse(
 );
 const local = new Map(actual.modules.map((module) => [module.local, module]));
 const lib = "packages/base/src/lib/";
+const nativeParts = [...local.keys()].filter(path => path.includes('/slider/') && path.endsWith('.svelte'));
 const specials = {
-  "packages/react/src/floating-ui-react/utils/element.ts": [
-    "floating-ui/utils/matchesFocusVisible.ts",
-  ],
-  "packages/react/src/floating-ui-react/utils.ts": ["utils/shadowDom.ts"],
-  "packages/react/src/utils/useIsHydrating.ts": [
-    "utils/useIsHydrating.svelte.ts",
-  ],
-  "packages/react/src/internals/PrehydrationScript.tsx": [
-    "internals/PrehydrationScript.svelte",
-  ],
-  "packages/react/src/internals/prehydrationScript.stub.ts": [
-    "internals/PrehydrationScript.svelte",
-  ],
-  "packages/react/src/slider/thumb/prehydrationScript.template.js": [
-    "slider/thumb/prehydrationScript.min.ts",
-  ],
-  "packages/utils/src/useValueAsRef.ts": [
-    "slider/control/SliderControl.svelte",
-  ],
-  "packages/utils/src/addEventListener.ts": [
-    "slider/control/SliderControl.svelte",
-  ],
-  "packages/utils/src/getReactElementRef.ts": [
-    "internals/nativeRefAttachment.ts",
-  ],
-  "packages/utils/src/mergeCleanups.ts": ["utils/useMergedRefs.ts"],
+  "packages/react/src/floating-ui-react/utils/element.ts": [lib + "floating-ui/utils/matchesFocusVisible.ts"],
+  "packages/react/src/floating-ui-react/utils.ts": ["packages/utils/src/lib/shadowDom.ts"],
+  "packages/react/src/utils/useIsHydrating.ts": [lib + "utils/useIsHydrating.svelte.ts"],
+  "packages/react/src/internals/PrehydrationScript.tsx": [lib + "internals/PrehydrationScript.svelte"],
+  "packages/react/src/internals/prehydrationScript.stub.ts": [lib + "internals/PrehydrationScript.svelte"],
+  "packages/react/src/slider/thumb/prehydrationScript.template.js": [lib + "slider/thumb/prehydrationScript.min.ts"],
+  "packages/utils/src/useValueAsRef.ts": [lib + "slider/control/SliderControl.svelte"],
+  "packages/utils/src/addEventListener.ts": [lib + "slider/control/SliderControl.svelte"],
+  "packages/utils/src/useControlled.ts": ["packages/utils/src/lib/Controlled.svelte.ts"],
+  "packages/react/src/internals/useValueChanged.ts": [lib + "internals/ValueChanged.svelte.ts"],
+  "packages/react/src/internals/useRenderElement.tsx": [lib + "internals/mergeComponentProps.ts", ...nativeParts],
+  "packages/utils/src/useMergedRefs.ts": nativeParts,
+  "packages/utils/src/useStableCallback.ts": nativeParts,
+  "packages/utils/src/useIsoLayoutEffect.ts": nativeParts,
 };
 const modules = original.modules.map((module) => {
   const inherited = planned.modules.find(
@@ -51,7 +40,7 @@ const modules = original.modules.map((module) => {
     inherited?.local?.split("; ").filter((path) => local.has(path)) ?? [];
   let correspondence = inherited?.correspondence;
   if (module.source in specials) {
-    candidates = specials[module.source].map((path) => lib + path);
+    candidates = specials[module.source];
     correspondence = module.source.endsWith("/element.ts")
       ? "Exactly matchesFocusVisible is selected and extracted as the one shared canonical leaf; other element functions and their PopupTriggerMap dependencies remain unselected."
       : "Direct native primitive or purposeful leaf boundary; see named function mapping in source-correspondence.md and SL-01.";
@@ -59,6 +48,11 @@ const modules = original.modules.map((module) => {
   const relative = module.source
     .replace(/^packages\/react\/src\//, "")
     .replace(/^packages\/utils\/src\//, "utils/");
+  if (module.source.startsWith("packages/utils/src/")) {
+    const utilsRelative = module.source.replace("packages/utils/src/", "packages/utils/src/lib/");
+    for (const path of [utilsRelative, utilsRelative.replace(/\.ts$/, ".svelte.ts")])
+      if (local.has(path)) candidates.push(path);
+  }
   for (const path of [
     relative,
     relative.replace(/\.tsx$/, ".svelte"),
@@ -77,7 +71,9 @@ const modules = original.modules.map((module) => {
       "Selected canonical platform module closure imported by SliderThumb through matchesFocusVisible and shared Composite navigation through event.stopEvent. The real canonical event/platform bodies are reused without a second classifier or stub. Accepted PR55 actual main 74f667da is a normal-merge ancestor; all selected bodies and import edges equal that accepted main.";
   } else if (module.source === "packages/react/src/internals/useAnimationsFinished.ts") {
     correspondence =
-      "Reached through the actual type closure, not called by Slider runtime. Reuses canonical aa5c9aa Source completion bodies: invocation-owned batch snapshot, default separate commits, same-microtask shared queue, abort-at-flush, replacement animation recursion and starting-style cleanup; native Svelte flushSync replaces ReactDOM flushSync. The canonical useOpenChangeComplete reader passes the current batch option at invocation. This bounded helper reuse grants no whole Dialog feature acceptance or ordinary assertion credit.";
+      "Reuses current main canonical native animation owner wherever actually reached. Native AnimationFrame/onDestroy/effect/flushSync replace framework machinery; Source completion branches remain. Reachability is recorded per used module, and no unrelated Dialog acceptance is inherited.";
+  } else if (module.source === "packages/utils/src/useAnimationFrame.ts") {
+    correspondence = "Canonical Utils retains the complete Source Scheduler queue, global scheduling, cancellation, exception/reset and AnimationFrame owner bodies. Native onDestroy cancels the actual owner; no parallel RAF scheduler or React lifecycle engine is introduced. The historical field-form scheduler omission is not the current mapping.";
   } else if (module.source === "packages/utils/src/useValueAsRef.ts") {
     correspondence =
       "Source applied pointer cache is immediate; native tick replaces the React per-commit layout snapshot by reading actual accepted values after flush, with disposal guard and pre-effect for external values. SL-03 records the measured plain rejected-push difference and zero unchanged Source credit. Numeric/collision/swap/cancel order is unchanged; no React commit tracking or generic scheduler.";
