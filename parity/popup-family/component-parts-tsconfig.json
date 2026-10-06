@@ -1,0 +1,17 @@
+{
+  "extends": "../../packages/base/tsconfig.json",
+  "compilerOptions": {
+    "skipLibCheck": false,
+    "typeRoots": [
+      "../../packages/base/node_modules/@types"
+    ]
+  },
+  "include": [
+    "../../packages/base/src/lib/popover/**/*.svelte",
+    "../../packages/base/src/lib/preview-card/**/*.svelte",
+    "../../packages/base/src/lib/tooltip/**/*.svelte",
+    "../../packages/base/src/lib/popover/**/*.ts",
+    "../../packages/base/src/lib/preview-card/**/*.ts",
+    "../../packages/base/src/lib/tooltip/**/*.ts"
+  ]
+}

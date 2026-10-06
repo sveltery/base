@@ -6,21 +6,34 @@ const root = new URL('../../', import.meta.url);
 const patchPath = 'packages/base/patches/@sveltejs__kit@2.70.3.patch';
 const originalHash = '40ef548ea4da3e79a305ae25113506f1e019c4a7ef78d526c69dea23ee440401';
 const patchedHash = '59111bd0acd8a9264ff2340395d32e22696ee5c6249f31b3ff7877bed39d2202';
-const sha256 = value => createHash('sha256').update(value).digest('hex');
+const sha256 = (value) => createHash('sha256').update(value).digest('hex');
 test('Kit compatibility patch changes only submit cancellation and the reset task boundary at the exact pinned source', async () => {
   const patch = await readFile(new URL(patchPath, root), 'utf8');
-  const added = patch.split('\n').filter(line => line.startsWith('+') && !line.startsWith('+++'));
-  const removed = patch.split('\n').filter(line => line.startsWith('-') && !line.startsWith('---'));
-  assert.deepEqual(added, ['+\t\t\t\tif (event.defaultPrevented) return;', '+\t\t\t\tawait new Promise((resolve) => setTimeout(resolve, 0));']);
+  const added = patch.split('\n').filter((line) => line.startsWith('+') && !line.startsWith('+++'));
+  const removed = patch
+    .split('\n')
+    .filter((line) => line.startsWith('-') && !line.startsWith('---'));
+  assert.deepEqual(added, [
+    '+\t\t\t\tif (event.defaultPrevented) return;',
+    '+\t\t\t\tawait new Promise((resolve) => setTimeout(resolve, 0));',
+  ]);
   assert.deepEqual(removed, []);
-  const source = await readFile(new URL('apps/fixtures/node_modules/@sveltejs/kit/src/runtime/client/remote-functions/form.svelte.js', root), 'utf8');
+  const source = await readFile(
+    new URL(
+      'apps/fixtures/node_modules/@sveltejs/kit/src/runtime/client/remote-functions/form.svelte.js',
+      root,
+    ),
+    'utf8',
+  );
   assert.equal(sha256(source), patchedHash);
   const guard = '\n\t\t\t\tif (event.defaultPrevented) return;';
   assert.equal(source.split(guard).length, 2);
   const resetTask = '\n\t\t\t\tawait new Promise((resolve) => setTimeout(resolve, 0));';
   assert.equal(source.split(resetTask).length, 2);
   assert.equal(sha256(source.replace(guard, '').replace(resetTask, '')), originalHash);
-  const manifest = JSON.parse(await readFile(new URL('apps/fixtures/node_modules/@sveltejs/kit/package.json', root), 'utf8'));
+  const manifest = JSON.parse(
+    await readFile(new URL('apps/fixtures/node_modules/@sveltejs/kit/package.json', root), 'utf8'),
+  );
   assert.equal(manifest.version, '2.70.3');
 });
 test('Kit compatibility patch and license ship as optional artifacts without a runtime Kit dependency', async () => {
@@ -40,7 +53,10 @@ test('unpatched witness removes only this SDK patch and keeps unrelated patches 
   const workspace = `packages:\n  - packages/*\npatchedDependencies:\n  '@sveltejs/kit@2.70.3': ${patchPath}\n  other@1.0.0: patches/other.patch\n`;
   const lockfile = `lockfileVersion: '9.0'\npatchedDependencies:\n  '@sveltejs/kit@2.70.3': ${hash}\n  other@1.0.0: unchanged\n\nimporters:\n  apps/fixtures:\n    dependencies:\n      '@sveltejs/kit':\n        version: 2.70.3(patch_hash=${hash})(svelte@5.57.1)\nsnapshots:\n  '@sveltejs/kit@2.70.3(patch_hash=${hash})(svelte@5.57.1)': {}\n`;
   const result = unpatchedWitnessConfiguration(workspace, lockfile);
-  assert.equal(result.workspace, 'packages:\n  - packages/*\npatchedDependencies:\n  other@1.0.0: patches/other.patch\n');
+  assert.equal(
+    result.workspace,
+    'packages:\n  - packages/*\npatchedDependencies:\n  other@1.0.0: patches/other.patch\n',
+  );
   assert(result.lockfile.includes('other@1.0.0: unchanged'));
   assert(result.lockfile.includes('version: 2.70.3(svelte@5.57.1)'));
   assert(result.lockfile.includes("'@sveltejs/kit@2.70.3(svelte@5.57.1)': {}"));

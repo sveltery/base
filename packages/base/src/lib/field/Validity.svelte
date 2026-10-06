@@ -6,12 +6,17 @@
   import type { FieldValidityProps, FieldValidityState } from './types.js';
   let { children }: FieldValidityProps = $props();
   const field = useFieldRootContext(false);
-  const combinedFieldValidityData = $derived(getCombinedFieldValidityData(field.validityData, field.invalid));
+  const combinedFieldValidityData = $derived(
+    getCombinedFieldValidityData(field.validityData, field.invalid),
+  );
   const isInvalid = $derived(combinedFieldValidityData.state.valid === false);
   const transition = useTransitionStatus(() => isInvalid);
   // A derived value preserves public snippet state identity across unrelated field-state changes.
   const fieldValidityState: FieldValidityState = $derived({
-    ...combinedFieldValidityData, validity: combinedFieldValidityData.state, transitionStatus: transition.transitionStatus,
+    ...combinedFieldValidityData,
+    validity: combinedFieldValidityData.state,
+    transitionStatus: transition.transitionStatus,
   });
 </script>
+
 {@render children(fieldValidityState)}

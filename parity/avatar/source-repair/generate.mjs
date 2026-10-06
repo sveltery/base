@@ -1,3 +1,4 @@
+import { resolveNativePackageSource } from '../../../scripts/native-package-source.mjs';
 // Repaired current graph/body inventory; historical audit outputs remain immutable, immutable Base UI v1.8.0 source; MIT: ../UPSTREAM_LICENSE.
 import { createRequire } from 'node:module';
 const require = createRequire(resolve('packages/base/package.json'));
@@ -10,7 +11,8 @@ const pin = '47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c';
 const nativeRoot = resolve('.');
 const originalRoot = '/workspace/direction-provider-upstream';
 const originalGit = '/workspace/base-ui-upstream';
-const output = resolve('parity/avatar/source-repair');
+const output = resolve(process.env.AVATAR_AUDIT_OUTPUT ?? 'parity/avatar/source-repair');
+mkdirSync(output, { recursive: true });
 const hash = value => createHash('sha256').update(value).digest('hex');
 const roots = {
   original: ['index.ts', 'index.parts.ts', 'root/AvatarRoot.tsx', 'image/AvatarImage.tsx', 'fallback/AvatarFallback.tsx'].map(path => `packages/react/src/avatar/${path}`),
@@ -22,6 +24,8 @@ const publicMembers = ['Avatar', 'AvatarRootProps', 'AvatarRootState', 'AvatarIm
 function physical(base, path, specifier, original) {
   // The installed pinned package is a test-only external boundary, like its public Avatar entry.
   if (!original && specifier.includes('node_modules/@base-ui/react/internals/useOpenChangeComplete.js')) return 'external:@base-ui/react/internals/useOpenChangeComplete.js';
+  const owned = !original && resolveNativePackageSource(base, specifier);
+  if (owned) return owned;
   let target;
   if (specifier.startsWith('.')) target = resolve(base, dirname(path), specifier);
   else if (original && specifier.startsWith('@base-ui/utils/')) target = resolve(base, 'packages/utils/src', specifier.slice('@base-ui/utils/'.length));

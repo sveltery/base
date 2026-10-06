@@ -1,6 +1,6 @@
 # Foundation architecture and handoff
 
-The foundation checkpoint now has a [contained Dialog draft](dialog-first-slice.md); the complete Dialog milestone remains pending. The runtime package lives in `packages/base`; `apps/fixtures` is a small SvelteKit app. Runtime imports must not depend on SvelteKit or React. `@sveltejs/package` emits the distribution and declaration files. Publication is disabled (`private: true`) while the API remains under review. Original Sveltery code is MIT licensed; upstream-derived materials retain their original MIT notices.
+The foundation checkpoint now has a [contained Dialog draft](dialog-first-slice.md); the complete Dialog milestone remains pending. The runtime packages are `packages/base` (`@sveltery/base`) and `packages/utils` (`@sveltery/utils`); Base depends on Utils. `apps/fixtures` is a small SvelteKit app. Runtime imports must not depend on SvelteKit or React. The official `@sveltejs/package` emits each package's distribution and declaration files. Utils is a standalone Svelte library, with no SvelteKit app requirement. Normal exports resolve published `dist` files; build Utils before Base and apps, and run the utility packager watcher during development. Publication is disabled (`private: true`) while the API remains under review. Original Sveltery code is MIT licensed; upstream-derived materials retain their original MIT notices.
 
 Reference upstream: mui/base-ui v1.8.0, tag object `5af893738de5c4513f8a315ffc54b979c165d1b5`, commit `47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c`. See [the source inventory](upstream-contracts.md).
 
@@ -9,6 +9,18 @@ Current implementation and review must follow the [source-porting gate](source-p
 The first implementation step is composition plus state and overlay ownership, then a complete Dialog vertical slice. Use Svelte runes and per-Root context for reactive state; isolate stable imperative callbacks and DOM references. Effective controlled Dialog state follows the pinned popup store contract. Separate logical open, mounted presence, transition status, trigger ownership, and focus return. Resolve IDs using SSR-stable Svelte facilities, then verify hydration rather than relying on a process counter.
 
 Portal and focus logic must support nested roots, cleanup, explicit containers, and shadow roots. Use owner document/window and composed event paths. Focus trap, nonmodal tab order, outside press ownership, scroll lock, and presence completion belong in reusable DOM primitives. Do not transplant React hooks or a SvelteKit-specific portal into the package.
+
+Current native framework cleanup follows the latest user directive: native equivalents use Svelte primitives/behavior; port remaining business roles, and model custom-hook roles with classes. A requested Controlled class and direct native effects supersede the earlier React diagnostic/dispatcher/manual dependency-tuple transport. The current package checkpoint remains under review until that separate stacked cleanup is integrated.
+
+## Shared utility package ownership
+
+The [Utils package record](../parity/utils-package/README.md) maps the 36 moved files to their immutable `packages/utils/src` owners and preserves their initial byte hashes. Base retains 38 component/rendering/popup utility files; the directory name alone does not determine package ownership. Generic Store/SvelteStore, timers, owner/platform, refs, controlled state and pure helpers live in Utils; component stores, popup handles, selector tables and native renderer glue live in Base. Utils never imports Base.
+
+Explicit helper subpaths plus `store` and `platform` expose actual implemented APIs. Rune files remain `.svelte.ts` source and `.svelte.js` distribution files with declarations; component `.svelte` output and Base's public exports remain stable. There is no root utility barrel, old-path shim tree, per-helper source alias or copied React-only API surface. Both packages retain private `0.0.0` metadata and MIT notices; publication remains disabled.
+
+Progress and Meter now share the complete pinned formatNumber/stringifyLocale implementation and cache. Feature normalization, finite/NaN guards, status/ARIA algorithms and native style serialization remain in Base; canonical clamp/visuallyHidden/frozen empty state remain shared. The original renderer-independent animation Scheduler/reset/AnimationFrame business is preserved, while native initialized-ref/onMount helpers own lifecycle. ownerWindow and isShadowRoot use the actual pinned Floating Utils dependency, including its shared Document fallback.
+
+This extraction and its bounded fidelity repairs do not accept inherited Toast store/ID or other feature audit debt. Full affected-closure Source/native/maintainability review and actual dual-tarball/browser/CI evidence remain separate gates and are recorded at the final head.
 
 ## Initial foundation implementation (historical checkpoint)
 

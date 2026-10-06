@@ -15,7 +15,9 @@ function setup(custom = false, attached?: (node: HTMLElement) => (() => void) | 
   flushSync();
   return { host, component };
 }
-function separator(host: HTMLElement) { return host.querySelector<HTMLElement>('[data-testid="listbox-separator"]')!; }
+function separator(host: HTMLElement) {
+  return host.querySelector<HTMLElement>('[data-testid="listbox-separator"]')!;
+}
 
 it('uses the internal presentation role and horizontal data state without inventing ARIA', () => {
   const { host, component } = setup();

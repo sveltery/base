@@ -9,8 +9,10 @@ export interface ListboxSeparatorState {
   orientation: 'horizontal' | 'vertical';
 }
 
-export type ListboxSeparatorProps =
-  Omit<WithBaseUIEvent<HTMLAttributes<HTMLDivElement>>, 'class' | 'style' | 'children' | 'color'> &
+export type ListboxSeparatorProps = Omit<
+  WithBaseUIEvent<HTMLAttributes<HTMLDivElement>>,
+  'class' | 'style' | 'children' | 'color'
+> &
   BaseUIComponentProps<ListboxSeparatorState> & {
     children?: Snippet | undefined;
     ref?: HTMLElement | null | undefined;

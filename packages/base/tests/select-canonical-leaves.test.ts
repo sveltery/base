@@ -1,11 +1,19 @@
 import { describe, expect, it, vi } from 'vitest';
 import {
-  compareItemEquality, defaultItemEquality, findItemIndex, isSelectedValueDirty,
-  removeItem, selectedValueIncludes,
+  compareItemEquality,
+  defaultItemEquality,
+  findItemIndex,
+  isSelectedValueDirty,
+  removeItem,
+  selectedValueIncludes,
 } from '../src/lib/internals/itemEquality.js';
 import {
-  flattenLeafItems, hasNullItemLabel, resolveMultipleLabels, resolveSelectedLabel,
-  stringifyAsLabel, stringifyAsValue,
+  flattenLeafItems,
+  hasNullItemLabel,
+  resolveMultipleLabels,
+  resolveSelectedLabel,
+  stringifyAsLabel,
+  stringifyAsValue,
 } from '../src/lib/internals/resolveValueLabel.js';
 import type { Snippet } from 'svelte';
 
@@ -46,8 +54,12 @@ describe('item equality Source edge contracts', () => {
     values[2] = 'A';
     expect(selectedValueIncludes(values, undefined, defaultItemEquality)).toBe(false);
     expect(findItemIndex(values, undefined, defaultItemEquality)).toBe(-1);
-    expect(removeItem(values, 'a', (a, b) => a.toLowerCase() === b?.toLowerCase())).toEqual([undefined]);
-    expect(removeItem(['A', 'b', 'a', 'c'], 'a', (a, b) => a.toLowerCase() === b.toLowerCase())).toEqual(['b', 'c']);
+    expect(removeItem(values, 'a', (a, b) => a.toLowerCase() === b?.toLowerCase())).toEqual([
+      undefined,
+    ]);
+    expect(
+      removeItem(['A', 'b', 'a', 'c'], 'a', (a, b) => a.toLowerCase() === b.toLowerCase()),
+    ).toEqual(['b', 'c']);
   });
 });
 
@@ -55,8 +67,16 @@ describe('value label Source edge contracts', () => {
   it('keeps flat identity, group order and inherited-null versus own-label distinction', () => {
     const flat = [{ value: 'a', label: 'A' }];
     expect(flattenLeafItems(flat)).toBe(flat);
-    expect(flattenLeafItems([{ heading: 'first', items: flat }, { heading: 'second', items: [{ value: 'b', label: 'B' }] }])).toEqual([...flat, { value: 'b', label: 'B' }]);
-    const inherited = Object.create({ null: 'Inherited none', a: 'Inherited A' }) as Record<string, string>;
+    expect(
+      flattenLeafItems([
+        { heading: 'first', items: flat },
+        { heading: 'second', items: [{ value: 'b', label: 'B' }] },
+      ]),
+    ).toEqual([...flat, { value: 'b', label: 'B' }]);
+    const inherited = Object.create({ null: 'Inherited none', a: 'Inherited A' }) as Record<
+      string,
+      string
+    >;
     inherited.b = 'Own B';
     expect(hasNullItemLabel(inherited)).toBe(true);
     expect(resolveSelectedLabel(null, inherited)).toBe('');
@@ -78,7 +98,9 @@ describe('value label Source edge contracts', () => {
     expect(stringifyAsValue(undefined, callback)).toBe('');
     expect(callback).not.toHaveBeenCalled();
     expect(resolveSelectedLabel(value, { a: 'Mapped' })).toBe('Explicit');
-    expect(resolveSelectedLabel({ value: 'a' }, [{ value: 'a', label: 'Matched' }])).toBe('Matched');
+    expect(resolveSelectedLabel({ value: 'a' }, [{ value: 'a', label: 'Matched' }])).toBe(
+      'Matched',
+    );
   });
 
   it('keeps label/value serialization branches distinct and the primitive lookup unguarded', () => {
@@ -94,9 +116,24 @@ describe('value label Source edge contracts', () => {
     const snippet = (() => {}) as unknown as Snippet;
     const items = { markup: snippet, disabled: false, empty: null, zero: 0, big: 2n };
     expect(resolveMultipleLabels([], items)).toEqual([]);
-    expect(resolveMultipleLabels(['markup', 'disabled', 'empty', 'zero', 'big'], items)).toEqual([snippet, ', ', false, ', ', 'empty', ', ', 0, ', ', 2n]);
+    expect(resolveMultipleLabels(['markup', 'disabled', 'empty', 'zero', 'big'], items)).toEqual([
+      snippet,
+      ', ',
+      false,
+      ', ',
+      'empty',
+      ', ',
+      0,
+      ', ',
+      2n,
+    ]);
     const calls: number[] = [];
-    expect(resolveMultipleLabels([2, 1, 2], undefined, value => { calls.push(value); return String(value); })).toEqual(['2', ', ', '1', ', ', '2']);
+    expect(
+      resolveMultipleLabels([2, 1, 2], undefined, (value) => {
+        calls.push(value);
+        return String(value);
+      }),
+    ).toEqual(['2', ', ', '1', ', ', '2']);
     expect(calls).toEqual([2, 1, 2]);
   });
 });

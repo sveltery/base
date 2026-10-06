@@ -2,7 +2,11 @@
 // MIT Copyright (c) 2019 Material-UI SAS; see THIRD_PARTY_NOTICES.md.
 // Original assertion bodies and expectations unchanged; only the import target is native.
 import { expect, describe, it } from 'vitest';
-import { defaultItemEquality, findSelectionIndex, resolveSelectedIndex } from '../src/lib/internals/itemEquality.js';
+import {
+  defaultItemEquality,
+  findSelectionIndex,
+  resolveSelectedIndex,
+} from '../src/lib/internals/itemEquality.js';
 
 describe('findSelectionIndex', () => {
   const items = ['a', 'b', 'c'];

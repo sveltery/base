@@ -1,0 +1,68 @@
+{
+  "immutableOriginalPin": "47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c",
+  "publicRuntimeDependency": "9493a4f3a787dc1879b10ccdc893cee7c7882392",
+  "previousFileSha256": "6dbed9514bf1b8aa1c6deced9bf7e1bbba39021af9e8ef092dec351bb9ef5f00",
+  "localFileSha256": "3f80c77e00b2b8d73068a48477096f30f174c433d804b790813894f6624f016e",
+  "originalFileSha256": "f73b74be0af3b9d09a3a92167964e85d49657a2f26d94f0f531b43a0ac04afa2",
+  "completeEmittedApplyBusinessSha256": "0781c859e7cdba3892b304ea87690ca2aa729dfbea116b7fe3e124034d75dc80",
+  "completeEmittedApplyBusinessEqualAfterNativeFlushSyncName": true,
+  "retainedExistingFunctions": [
+    {
+      "name": "createPopupOpenState",
+      "sha256": "5143611f2c9c8713a7867ce2184c6c215ba122a749cbf4e694de65cdb26a09f0",
+      "unchanged": true
+    },
+    {
+      "name": "syncTriggerCount",
+      "sha256": "e37a5d4d0a6bb5fe6a880ec32856273f8a3dcc70893ca4dbc51af5d7f4f7154d",
+      "unchanged": true
+    },
+    {
+      "name": "useTriggerRegistration",
+      "sha256": "5fca570b2e12bd3e1570b5cdbcc019ed03ff7e4ee3f8c263aaaa5f8167dac79d",
+      "unchanged": true
+    },
+    {
+      "name": "useTriggerDataForwarding",
+      "sha256": "c888665127aef640751b39311245f7a79c4e8e4a03be8582e5cd4d9dd96c0ad9",
+      "unchanged": true
+    },
+    {
+      "name": "useImplicitActiveTrigger",
+      "sha256": "5a795acdebc8e04fd4a4aa8441a234920bc6e75aac4d442a522ec3ebdf01b65f",
+      "unchanged": true
+    },
+    {
+      "name": "useOpenStateTransitions",
+      "sha256": "2af27efe16c7e43aac799cf2167c1b6e023b414a5170c6c4667b0f6106708625",
+      "unchanged": true
+    },
+    {
+      "name": "usePopupRootSync",
+      "sha256": "64a97e38562f2d77b332d2ad71b986ee3252269e43f912136e8e6e11944a5b89",
+      "unchanged": true
+    },
+    {
+      "name": "createDefaultInitialFocus",
+      "sha256": "5a7c0947ffc464cbe88f9ade31f73e21f515a919913225ce61c60bfa92342e38",
+      "unchanged": true
+    },
+    {
+      "name": "usePopupRootStore",
+      "sha256": "e3fd11f474d55e97fed90750c7eddfd18a57c199b19ebb50cfa320c6bb7249ad",
+      "unchanged": true
+    },
+    {
+      "name": "usePopupInteractionProps",
+      "sha256": "a9e258a09ce2d2dbc96ae2c8b6e3e8c9db0d1e105ad25a1e938bbb22b8ba00ff",
+      "unchanged": true
+    },
+    {
+      "name": "attachPreventUnmountOnClose",
+      "sha256": "acf061a491cbd5601f75f144c5d3a55a104420985bf911b9a20fd748fc46878d",
+      "unchanged": true
+    }
+  ],
+  "decision": "Complete Source applyPopupOpenChange sequence appended to the one canonical module. Only ReactDOM.flushSync becomes native Svelte flushSync; all existing helper function bodies are byte-identical. Native getAnimations/DOM timing witness and independent Source/native review pending.",
+  "ordinaryDeclarationCredit": 0
+}

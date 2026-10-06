@@ -2,7 +2,11 @@
 // MIT Copyright (c) 2019 Material-UI SAS; see THIRD_PARTY_NOTICES.md.
 // Original assertion bodies and expectations unchanged; only the import target is native.
 import { expect, describe, it } from 'vitest';
-import { hasNullItemLabel, isGroupedItems, resolveSelectedLabel } from '../src/lib/internals/resolveValueLabel.js';
+import {
+  hasNullItemLabel,
+  isGroupedItems,
+  resolveSelectedLabel,
+} from '../src/lib/internals/resolveValueLabel.js';
 
 describe('resolveValueLabel', () => {
   describe('isGroupedItems', () => {

@@ -1,6 +1,10 @@
 // Complete unchanged pinned Composite visibility/disabled assertions; MIT.
 import { afterEach, it, expect } from 'vitest';
-import { isElementVisible, isHiddenByStyles, isListIndexDisabled } from '../../src/lib/internals/composite/utils/navigation.js';
+import {
+  isElementVisible,
+  isHiddenByStyles,
+  isListIndexDisabled,
+} from '../../src/lib/internals/composite/utils/navigation.js';
 
 afterEach(() => {
   document.body.innerHTML = '';

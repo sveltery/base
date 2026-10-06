@@ -1,5 +1,9 @@
 # Before-code correspondence and bounded scope
 
+## Current-main successor mapping
+
+This document retains the historical before-code c160/7448 mapping. For the normally integrated `aa4daff54ec82b96e34e1601648d1b3926ef08cf` successor, use the [complete current correspondence](current-main-correspondence.md), [16-module graph](current-main-native-graph.json) and [whole-body receipt](current-main-read-receipt.json). Removed RenderElement/useMergedRefs machinery, old Base-local utility paths and inherited-body counts below apply only to that historical checkpoint.
+
 All Original paths below are at immutable MIT Base UI 1.8.0
 [`47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c`](https://github.com/mui/base-ui/tree/47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c).
 The individual module SHA-256 and whole-read scope are in

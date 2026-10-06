@@ -56,8 +56,8 @@ function inventory(path, checkout, expected) {
   return { path, sha256: expected, functions, imports };
 }
 const original = JSON.parse(readFileSync(resolve(directory, 'original-graph.json'), 'utf8'));
-const native = JSON.parse(readFileSync(resolve(directory, 'native-graph.json'), 'utf8'));
-writeFileSync(resolve(directory, 'body-inventory.json'), JSON.stringify({
+const native = JSON.parse(readFileSync(resolve(directory, process.argv[2] ?? 'native-graph.json'), 'utf8'));
+writeFileSync(resolve(directory, process.argv[3] ?? 'body-inventory.json'), JSON.stringify({
   method: 'TypeScript syntax function ranges/body hashes and actual imported-identifier use/callers; Svelte script offsets preserved. Scope/semantic review remains in individual receipts/correspondence.',
   ordinaryDeclarationCredit: 0,
   original: original.modules.map(module => inventory(module.path, resolve(directory, 'upstream'), module.sha256)),

@@ -1,6 +1,6 @@
 // Source: Base UI v1.8.0 47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c.
 // MIT Copyright (c) 2019 Material-UI SAS; see THIRD_PARTY_NOTICES.md.
-import { areArraysEqual } from '../utils/areArraysEqual.js';
+import { areArraysEqual } from '@sveltery/utils/areArraysEqual';
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any -- Preserve the Source internal comparer default and its selected-value inference.
 export type ItemEqualityComparer<Item = any, Value = Item> = (

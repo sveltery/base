@@ -3,10 +3,43 @@
   import type { Actions, ChangeEventDetails } from '@sveltery/base/dialog';
   import type { PreventableEvent } from '@sveltery/base/merge-props';
   import { onMount, untrack } from 'svelte';
-  let { mode = 'uncontrolled', modal = true, initial = false, keep = false, cancel = '', prevent = false, custom = false, focus = 'default', animate = false, nested = false, disabled = false, audit = false }: { mode?: string; modal?: boolean | 'trap-focus'; initial?: boolean; keep?: boolean; cancel?: string; prevent?: boolean; custom?: boolean; focus?: string; animate?: boolean; nested?: boolean; disabled?: boolean; audit?: boolean } = $props();
+  let {
+    mode = 'uncontrolled',
+    modal = true,
+    initial = false,
+    keep = false,
+    cancel = '',
+    prevent = false,
+    custom = false,
+    focus = 'default',
+    animate = false,
+    nested = false,
+    disabled = false,
+    audit = false,
+  }: {
+    mode?: string;
+    modal?: boolean | 'trap-focus';
+    initial?: boolean;
+    keep?: boolean;
+    cancel?: string;
+    prevent?: boolean;
+    custom?: boolean;
+    focus?: string;
+    animate?: boolean;
+    nested?: boolean;
+    disabled?: boolean;
+    audit?: boolean;
+  } = $props();
   let currentModal = $state(untrack(() => modal));
   let defer = $state(untrack(() => cancel === 'defer'));
-  function consumerAttachment(node: HTMLElement) { if (!audit) return; node.dataset.consumerAttached = ''; untrack(() => log.push({ channel: 'attached' })); return () => { untrack(() => log.push({ channel: 'detached' })); }; }
+  function consumerAttachment(node: HTMLElement) {
+    if (!audit) return;
+    node.dataset.consumerAttached = '';
+    untrack(() => log.push({ channel: 'attached' }));
+    return () => {
+      untrack(() => log.push({ channel: 'detached' }));
+    };
+  }
   let open = $state(untrack(() => initial));
   let visible = $state(true);
   let title = $state(true);
@@ -15,60 +48,125 @@
   let finalInput: HTMLInputElement;
   let secondInput = $state<HTMLInputElement | null>(null);
   let hydrated = $state(false);
-  let log = $state<{ channel: string; open?: boolean; reason?: string; trigger?: string; event?: string; before?: boolean }[]>([]);
+  let log = $state<
+    {
+      channel: string;
+      open?: boolean;
+      reason?: string;
+      trigger?: string;
+      event?: string;
+      before?: boolean;
+    }[]
+  >([]);
   function change(next: boolean, details: ChangeEventDetails) {
     (window as Window & { dialogEvent?: Event }).dialogEvent = details.event;
-    log.push({ channel: 'consumer', open: next, reason: details.reason, trigger: details.trigger?.id, event: details.event.type, before: details.trigger ? details.trigger.getAttribute('aria-expanded') === 'true' : !!document.querySelector('[data-testid=popup][data-open]') });
+    log.push({
+      channel: 'consumer',
+      open: next,
+      reason: details.reason,
+      trigger: details.trigger?.id,
+      event: details.event.type,
+      before: details.trigger
+        ? details.trigger.getAttribute('aria-expanded') === 'true'
+        : !!document.querySelector('[data-testid=popup][data-open]'),
+    });
     if (cancel === (next ? 'open' : 'close')) details.cancel();
     if (defer && !next) details.preventUnmountOnClose();
     if (mode === 'controlled' && !details.isCanceled) open = next;
   }
-  function composed(event: MouseEvent & PreventableEvent) { log.push({ channel: 'click' }); if (prevent) event.preventBaseUIHandler(); }
-  onMount(() => { hydrated = true; });
+  function composed(event: MouseEvent & PreventableEvent) {
+    log.push({ channel: 'click' });
+    if (prevent) event.preventBaseUIHandler();
+  }
+  onMount(() => {
+    hydrated = true;
+  });
 </script>
+
 <main data-hydrated={hydrated}>
   <input aria-label="before" />
-  <input aria-label="final" bind:this={finalInput}/>
-  <button onclick={() => open = !open}>Owner toggle</button>
-  <button onclick={() => visible = !visible}>Mount toggle</button>
-  <button onclick={() => title = !title}>Title toggle</button>
-  <button onclick={() => titleId = 'replacement-title'}>Title ID</button>
-  <button onclick={() => defer = false}>Stop deferring</button>
-  <button onclick={() => currentModal = currentModal === true ? 'trap-focus' : true}>Modality toggle</button>
+  <input aria-label="final" bind:this={finalInput} />
+  <button onclick={() => (open = !open)}>Owner toggle</button>
+  <button onclick={() => (visible = !visible)}>Mount toggle</button>
+  <button onclick={() => (title = !title)}>Title toggle</button>
+  <button onclick={() => (titleId = 'replacement-title')}>Title ID</button>
+  <button onclick={() => (defer = false)}>Stop deferring</button>
+  <button onclick={() => (currentModal = currentModal === true ? 'trap-focus' : true)}
+    >Modality toggle</button
+  >
   <button onclick={() => actions?.close()}>Imperative close</button>
   <button onclick={() => actions?.unmount()}>Imperative unmount</button>
   {#if visible}
-    <Dialog.Root open={mode === 'uncontrolled' ? undefined : open} defaultOpen={initial} modal={currentModal} bind:actions onOpenChange={change}
-      onInternalOpenChange={(next, details) => log.push({ channel: 'internal', open: next, reason: details.reason })}
-      onOpenChangeComplete={(next) => log.push({ channel: 'complete', open: next })}>
+    <Dialog.Root
+      open={mode === 'uncontrolled' ? undefined : open}
+      defaultOpen={initial}
+      modal={currentModal}
+      bind:actions
+      onOpenChange={change}
+      onInternalOpenChange={(next, details) =>
+        log.push({ channel: 'internal', open: next, reason: details.reason })}
+      onOpenChangeComplete={(next) => log.push({ channel: 'complete', open: next })}
+    >
       {#if custom}
-        <Dialog.Trigger {@attach consumerAttachment} id="trigger" {disabled} nativeButton={false} onclick={composed}>
-          {#snippet render(props, state)}<span {...props} data-custom-open={state.open}>Open</span>{/snippet}
+        <Dialog.Trigger
+          {@attach consumerAttachment}
+          id="trigger"
+          {disabled}
+          nativeButton={false}
+          onclick={composed}
+        >
+          {#snippet render(props, state)}<span {...props} data-custom-open={state.open}>Open</span
+            >{/snippet}
         </Dialog.Trigger>
       {:else}
-        <Dialog.Trigger {@attach consumerAttachment} id="trigger" {disabled} onclick={composed}>Open</Dialog.Trigger>
+        <Dialog.Trigger {@attach consumerAttachment} id="trigger" {disabled} onclick={composed}
+          >Open</Dialog.Trigger
+        >
       {/if}
       <Dialog.Trigger id="other-trigger">Other open</Dialog.Trigger>
       <Dialog.Portal keepMounted={keep}>
-        <Dialog.Backdrop data-testid="backdrop" class="backdrop"/>
-        <Dialog.Popup data-testid="popup" class={animate ? 'popup animated' : 'popup'} initialFocus={focus === 'false' ? false : focus === 'second' ? () => secondInput : focus === 'conditional' ? type => type === 'keyboard' ? secondInput : undefined : undefined} finalFocus={focus === 'final' ? () => finalInput : focus === 'false-final' ? false : undefined}>
+        <Dialog.Backdrop data-testid="backdrop" class="backdrop" />
+        <Dialog.Popup
+          data-testid="popup"
+          class={animate ? 'popup animated' : 'popup'}
+          initialFocus={focus === 'false'
+            ? false
+            : focus === 'second'
+              ? () => secondInput
+              : focus === 'conditional'
+                ? (type) => (type === 'keyboard' ? secondInput : undefined)
+                : undefined}
+          finalFocus={focus === 'final'
+            ? () => finalInput
+            : focus === 'false-final'
+              ? false
+              : undefined}
+        >
           {#if title}<Dialog.Title id={titleId}>Dialog title</Dialog.Title>{/if}
           <Dialog.Description>Dialog description</Dialog.Description>
           {#if audit}<span class="spinner" data-testid="spinner">Loading</span>{/if}
-          <input aria-label="first"/>
-          <input aria-label="second" bind:this={secondInput}/>
+          <input aria-label="first" />
+          <input aria-label="second" bind:this={secondInput} />
           {#if nested}
             <Dialog.Root>
               <Dialog.Trigger>Child open</Dialog.Trigger>
               <Dialog.Portal>
-                <Dialog.Backdrop data-testid="child-backdrop" forceRender class="backdrop child-backdrop"/>
+                <Dialog.Backdrop
+                  data-testid="child-backdrop"
+                  forceRender
+                  class="backdrop child-backdrop"
+                />
                 <Dialog.Popup class="popup child-popup" data-testid="child-popup">
                   <Dialog.Title>Child</Dialog.Title>
-                  <input aria-label="child-input"/>
+                  <input aria-label="child-input" />
                   <Dialog.Close>Child close</Dialog.Close>
                   <Dialog.Root>
                     <Dialog.Trigger>Grandchild open</Dialog.Trigger>
-                    <Dialog.Portal><Dialog.Popup class="popup grandchild-popup" data-testid="grandchild-popup"><Dialog.Close>Grandchild close</Dialog.Close></Dialog.Popup></Dialog.Portal>
+                    <Dialog.Portal
+                      ><Dialog.Popup class="popup grandchild-popup" data-testid="grandchild-popup"
+                        ><Dialog.Close>Grandchild close</Dialog.Close></Dialog.Popup
+                      ></Dialog.Portal
+                    >
                   </Dialog.Root>
                 </Dialog.Popup>
               </Dialog.Portal>
@@ -79,17 +177,52 @@
       </Dialog.Portal>
     </Dialog.Root>
   {/if}
-  <input aria-label="after"/>
+  <input aria-label="after" />
   <output data-testid="log">{JSON.stringify(log)}</output>
 </main>
+
 <style>
-  :global(.backdrop) { position: fixed; inset: 0; background: #0003; }
-  :global(.popup) { position: fixed; left: 200px; top: 80px; width: 300px; padding: 20px; background: white; border: 1px solid; }
-  :global(.child-popup) { left: 300px; top: 120px; }
-  :global(.grandchild-popup) { left: 400px; top: 180px; }
-  :global(.animated) { transition: opacity 200ms; }
-  :global(.animated[data-starting-style]), :global(.animated[data-ending-style]) { opacity: 0; }
-  @keyframes spin { to { transform: rotate(360deg); } }
-  :global(.spinner) { display: inline-block; animation: spin 1s linear infinite; }
-  output { display: block; max-width: 600px; overflow-wrap: anywhere; }
+  :global(.backdrop) {
+    position: fixed;
+    inset: 0;
+    background: #0003;
+  }
+  :global(.popup) {
+    position: fixed;
+    left: 200px;
+    top: 80px;
+    width: 300px;
+    padding: 20px;
+    background: white;
+    border: 1px solid;
+  }
+  :global(.child-popup) {
+    left: 300px;
+    top: 120px;
+  }
+  :global(.grandchild-popup) {
+    left: 400px;
+    top: 180px;
+  }
+  :global(.animated) {
+    transition: opacity 200ms;
+  }
+  :global(.animated[data-starting-style]),
+  :global(.animated[data-ending-style]) {
+    opacity: 0;
+  }
+  @keyframes spin {
+    to {
+      transform: rotate(360deg);
+    }
+  }
+  :global(.spinner) {
+    display: inline-block;
+    animation: spin 1s linear infinite;
+  }
+  output {
+    display: block;
+    max-width: 600px;
+    overflow-wrap: anywhere;
+  }
 </style>

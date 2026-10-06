@@ -4,6 +4,9 @@ export type ScrollAreaScrollbarContext = () => 'horizontal' | 'vertical';
 const [get, set, has] = createContext<ScrollAreaScrollbarContext>();
 export const setScrollAreaScrollbarContext = set;
 export function useScrollAreaScrollbarContext() {
-  if (!has()) throw new Error('Base UI: ScrollAreaScrollbarContext is missing. ScrollAreaScrollbar parts must be placed within <ScrollArea.Scrollbar>.');
+  if (!has())
+    throw new Error(
+      'Base UI: ScrollAreaScrollbarContext is missing. ScrollAreaScrollbar parts must be placed within <ScrollArea.Scrollbar>.',
+    );
   return get();
 }

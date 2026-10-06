@@ -1,17 +1,38 @@
 <script lang="ts">
+  import { mergeComponentProps } from '../internals/mergeComponentProps.js';
+  import { createAttachmentKey } from 'svelte/attachments';
+
   // Adapted from mui/base-ui v1.8.0 AccordionPanel/useCollapsiblePanel,
   // 47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c. MIT: THIRD_PARTY_NOTICES.md.
-  import { onDestroy, tick, untrack } from 'svelte';
-  import Element from '../dialog/Element.svelte';
+  import { onDestroy, untrack } from 'svelte';
   import { resolveClassValue } from '../internals/resolveClassValue.js';
   import { createChangeEventDetails } from '../internals/createBaseUIEventDetails.js';
   import { getCollapsibleContext } from '../collapsible/context.js';
   import { getAccordionRootContext, getAccordionItemContext } from './context.js';
   import { stateAttributes } from './state.js';
-  import { afterAnimations, getAnimationType, getDimensions, preserveUnchangedInlineStyles, requestFrame, resetLayoutStyles, setTemporaryStyle, warnOnce, type AnimationType } from '../collapsible/animations.js';
+  import {
+    afterAnimations,
+    getAnimationType,
+    getDimensions,
+    requestFrame,
+    resetLayoutStyles,
+    setTemporaryStyle,
+    warnOnce,
+    type AnimationType,
+  } from '../collapsible/animations.js';
   import type { AccordionPanelProps, AccordionPanelState } from './types.js';
 
-  let { children, render, hiddenUntilFound: hiddenUntilFoundProp, keepMounted: keepMountedProp, id: idProp, class: classProp, style: styleProp, ref = $bindable(), ...props }: AccordionPanelProps = $props();
+  let {
+    children,
+    render,
+    hiddenUntilFound: hiddenUntilFoundProp,
+    keepMounted: keepMountedProp,
+    id: idProp,
+    class: classProp,
+    style: styleProp,
+    ref = $bindable(),
+    ...props
+  }: AccordionPanelProps = $props();
   const root = getAccordionRootContext();
   const context = getCollapsibleContext();
   const item = getAccordionItemContext();
@@ -33,8 +54,19 @@
   const hidden = $derived(!context.open && !context.mounted);
   const panelTransitionStatus = $derived(forcePanelIdle ? 'idle' : context.transitionStatus);
   const shouldPreventOpenAnimation = $derived(context.open && shouldPreventMountAnimation);
-  const renderedDimensions = $derived(!context.open && context.mounted && animationType === 'css-animation' && dimensions.height === undefined && dimensions.width === undefined ? lastMeasuredDimensions : dimensions);
-  const panelState: AccordionPanelState = $derived({ ...item.state, transitionStatus: panelTransitionStatus });
+  const renderedDimensions = $derived(
+    !context.open &&
+      context.mounted &&
+      animationType === 'css-animation' &&
+      dimensions.height === undefined &&
+      dimensions.width === undefined
+      ? lastMeasuredDimensions
+      : dimensions,
+  );
+  const panelState: AccordionPanelState = $derived({
+    ...item.state,
+    transitionStatus: panelTransitionStatus,
+  });
   const shouldRender = $derived(keepMounted || hiddenUntilFound || context.mounted || context.open);
 
   function setDimensions(next: Dimensions, cache = true) {
@@ -53,8 +85,6 @@
     };
   }
   function attach(element: HTMLElement) {
-    styledNode = element;
-    previousStyle = mergedStyle;
     node = element;
     return () => {
       restorePendingTemporaryStyle();
@@ -64,17 +94,22 @@
   onDestroy(restorePendingTemporaryStyle);
 
   const internal = $derived({
-    // The pin passes a boolean, then forces until-found in its state-owned
-    // effect. A replacement host does not rerun that effect by itself.
-    id, hidden,
+    id,
+    hidden: hidden && hiddenUntilFound ? 'until-found' : hidden,
     ...stateAttributes(panelState),
     role: 'region',
     'aria-labelledby': item.triggerId,
-    'data-starting-style': panelTransitionStatus === 'starting' || (hiddenUntilFound && hidden && animationType !== 'css-animation') ? '' : undefined,
+    'data-starting-style':
+      panelTransitionStatus === 'starting' ||
+      (hiddenUntilFound && hidden && animationType !== 'css-animation')
+        ? ''
+        : undefined,
     'data-ending-style': panelTransitionStatus === 'ending' ? '' : undefined,
     style: {
-      '--accordion-panel-height': renderedDimensions.height === undefined ? 'auto' : `${renderedDimensions.height}px`,
-      '--accordion-panel-width': renderedDimensions.width === undefined ? 'auto' : `${renderedDimensions.width}px`,
+      '--accordion-panel-height':
+        renderedDimensions.height === undefined ? 'auto' : `${renderedDimensions.height}px`,
+      '--accordion-panel-width':
+        renderedDimensions.width === undefined ? 'auto' : `${renderedDimensions.width}px`,
     },
   });
   const resolved = $derived.by(() => {
@@ -83,51 +118,33 @@
     return {
       ...props,
       class: classValue === undefined ? undefined : resolveClassValue(classValue),
-      style: shouldPreventOpenAnimation ? `${authoredStyle ?? ''};animation-name:none` : authoredStyle,
+      style: shouldPreventOpenAnimation
+        ? `${authoredStyle ?? ''};animation-name:none`
+        : authoredStyle,
     };
   });
-  const mergedStyle = $derived(`--accordion-panel-height:${internal.style['--accordion-panel-height']};--accordion-panel-width:${internal.style['--accordion-panel-width']}${resolved.style ? `;${resolved.style}` : ''}`);
 
   $effect(() => {
     if (hiddenUntilFound && keepMountedProp === false) {
-      warnOnce('The `keepMounted={false}` prop on an `Accordion.Panel` is ignored when `hiddenUntilFound` is enabled on the panel or root, since the panel must remain mounted while closed.');
+      warnOnce(
+        'The `keepMounted={false}` prop on an `Accordion.Panel` is ignored when `hiddenUntilFound` is enabled on the panel or root, since the panel must remain mounted while closed.',
+      );
     }
   });
 
   $effect(() => {
     const registered = registeredId;
-    untrack(() => context.setPanelIdState(current => registered ?? (current === null ? undefined : current)));
-    return () => untrack(() => context.setPanelIdState(current => current === registered ? null : current));
+    untrack(() =>
+      context.setPanelIdState((current) => registered ?? (current === null ? undefined : current)),
+    );
+    return () =>
+      untrack(() =>
+        context.setPanelIdState((current) => (current === registered ? null : current)),
+      );
   });
 
   $effect(() => {
     if (forcePanelIdle && context.transitionStatus !== 'starting') forcePanelIdle = false;
-  });
-
-  let styledNode: HTMLElement | null = null;
-  let previousStyle: string | undefined;
-  let restoreUnchangedStyles: (() => void) | undefined;
-  $effect.pre(() => {
-    const panel = node;
-    const nextStyle = mergedStyle;
-    if (!panel) {
-      styledNode = null;
-      previousStyle = undefined;
-      restoreUnchangedStyles = undefined;
-      return;
-    }
-    restoreUnchangedStyles = preserveUnchangedInlineStyles(panel, styledNode === panel ? previousStyle : undefined, nextStyle);
-    styledNode = panel;
-    previousStyle = nextStyle;
-  });
-  $effect(() => {
-    // Track the same commit as the snapshot, then restore before measurement.
-    const panel = node;
-    const nextStyle = mergedStyle;
-    untrack(() => {
-      if (panel === styledNode && nextStyle === previousStyle) restoreUnchangedStyles?.();
-      restoreUnchangedStyles = undefined;
-    });
   });
 
   // This effect runs after the corresponding DOM commit, while close's ending
@@ -206,10 +223,16 @@
   $effect(() => {
     const panel = node;
     if (!panel || !context.open || !context.mounted || panelTransitionStatus !== 'idle') return;
-    return untrack(() => afterAnimations(panel, () => {
-      // An animation microtask can run after close's commit but before cleanup.
-      if (node === panel && context.open) setDimensions(emptyDimensions, false);
-    }, true));
+    return untrack(() =>
+      afterAnimations(
+        panel,
+        () => {
+          // An animation microtask can run after close's commit but before cleanup.
+          if (node === panel && context.open) setDimensions(emptyDimensions, false);
+        },
+        true,
+      ),
+    );
   });
 
   $effect(() => {
@@ -221,35 +244,29 @@
     // to register a transition before the animation helper's observation frame.
     const cancelEndingFrame = requestFrame(panel, () => {
       if (abortController.signal.aborted) return;
-      stopObserving = afterAnimations(panel, () => {
-        if (abortController.signal.aborted || node !== panel || context.open) return;
-        context.setMounted(false);
-        setDimensions(emptyDimensions, false);
-      }, false, abortController.signal);
+      stopObserving = afterAnimations(
+        panel,
+        () => {
+          if (abortController.signal.aborted || node !== panel || context.open) return;
+          context.setMounted(false);
+          setDimensions(emptyDimensions, false);
+        },
+        false,
+        abortController.signal,
+      );
     });
-    return () => { cancelEndingFrame(); abortController.abort(); stopObserving?.(); };
+    return () => {
+      cancelEndingFrame();
+      abortController.abort();
+      stopObserving?.();
+    };
   });
 
-  $effect(() => {
-    const isHidden = hidden;
-    const untilFound = hiddenUntilFound;
-    const panel = untrack(() => node);
-    if (!panel || !untilFound || !isHidden) return;
-    let canceled = false;
-    // Restoration follows the same state dependencies as the pin, including
-    // forcing the string over consumer overrides on those state commits.
-    void tick().then(() => {
-      if (!canceled && node === panel && hiddenUntilFound && hidden) panel.setAttribute('hidden', 'until-found');
-    });
-    return () => { canceled = true; };
-  });
-
-  // The source subscribes on the component effect lifetime, rather than the
-  // changing host ref. Keep that ownership until replacement behavior is proven.
+  // Native listener ownership follows the actual panel and live business callbacks.
   $effect(() => {
     const onOpenChange = context.onOpenChange;
     const setOpen = context.setOpen;
-    const panel = untrack(() => node);
+    const panel = node;
     if (!panel) return;
     function beforeMatch(event: Event) {
       const details = createChangeEventDetails('none', event);
@@ -262,9 +279,36 @@
     return () => panel.removeEventListener('beforematch', beforeMatch);
   });
 
-
+  const hostAttachmentKey = createAttachmentKey();
+  function attachHost(host: HTMLElement) {
+    return untrack(() => {
+      ref = host;
+      const disposeHost = attach(host);
+      return () =>
+        untrack(() => {
+          if (ref === host) ref = null;
+          disposeHost?.();
+        });
+    });
+  }
+  const mergedProps = $derived.by(() => {
+    const { class: className, style, ...attributes } = resolved;
+    return {
+      ...mergeComponentProps(
+        panelState,
+        { class: className, style },
+        [internal, attributes],
+        false,
+      ),
+      [hostAttachmentKey]: attachHost,
+    };
+  });
 </script>
 
 {#if shouldRender}
-  <Element tag="div" {internal} props={resolved} state={panelState} {render} {children} bind:ref {attach} />
+  {#if render}
+    {@render render(mergedProps, panelState, children)}
+  {:else}
+    <div {...mergedProps}>{@render children?.()}</div>
+  {/if}
 {/if}

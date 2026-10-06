@@ -1,0 +1,53 @@
+{
+  "predecessor": "e5e26961c52d324eb9075fcbff71915f79f7e922",
+  "pin": "47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c",
+  "original": [
+    {
+      "path": "packages/react/src/menu/positioner/MenuPositioner.tsx",
+      "sha256": "aaaa717a48c32ae91b5ac7d3684292491eeada7843118aad05e9ba9f4a143943"
+    },
+    {
+      "path": "packages/react/src/menu/popup/MenuPopup.tsx",
+      "sha256": "3e20ba1ec7a8ea8030964f4a3f6364f94f14795ae857b0f495684ddf8efcefce"
+    }
+  ],
+  "runtime": [
+    {
+      "path": "packages/base/src/lib/menu/positioner/createMenuPositioner.svelte.ts",
+      "sha256": "58d6966fd6c904e8b6adca800731394803d0fee4f73d781ee0fa2a5776d6e063"
+    },
+    {
+      "path": "packages/base/src/lib/menu/Popup.svelte",
+      "sha256": "74f9bc6ece8cbde744d120e226a7a640511db802670bf62fcce08ea7ab2fb8e3"
+    }
+  ],
+  "ordinaryDeclarationCredit": 0,
+  "status": "Root-authorized minimal Source lifetime repairs and authored native DOM witnesses; unexecuted, no runtime repro/pass or final-head acceptance claim.",
+  "business": "Each of the three Menu.Positioner subscriptions and Menu.Popup close subscription captures exactly the event bus installed by that native effect. Cleanup removes that callback from that captured bus; all callbacks, live business reads, parent/current-trigger guards, cancellation and reason/event payloads remain unchanged. No generic lifecycle or renderer/ref custody.",
+  "actualCallers": [
+    "Active detached Menu.Trigger forwarding publishes its tree, node and parent-node into the same mounted MenuStore; public MenuHandle.open selects that real trigger.",
+    "MenuStore tree selector also follows a parent MenuStore and notifies subscribers when its tree changes."
+  ],
+  "witnesses": [
+    {
+      "path": "packages/base/tests/dom/MenuTreeTriggerOwner.svelte",
+      "sha256": "7885f8aadadbd1cbd10ffa066482272c6264b4751724e7bec24750ba50a48477"
+    },
+    {
+      "path": "packages/base/tests/dom/MenuTreeSubscriptionLifetimeFixture.svelte",
+      "sha256": "6d585895520573ae55cce37522ae6f7bbd6b54a4fb80b966086cb2ab759b706f"
+    },
+    {
+      "path": "packages/base/tests/dom/menu-tree-subscription-lifetime.test.ts",
+      "sha256": "c2b47600377ab821c34cbbac2ac3c380042ccd593c18bcab466e4a8fa845e87c"
+    }
+  ],
+  "cases": [
+    "Real public detached trigger handoff across native production tree/node contexts with stable MenuStore/Positioner/Popup hosts.",
+    "Old/new menu-open hover business isolation.",
+    "Old/new sibling-open, parent-close, item-hover and popup-close business/reason/event isolation with real consumer cancellation.",
+    "Unrelated-parent and current-trigger domain guards.",
+    "Whole component teardown and same-turn Store tree change plus actual Positioner/Popup subtree removal; external real floating-root emitter observer exposes leaked requests."
+  ],
+  "execution": "Pending Root coordinated actual DOM/runtime lane. Cached syntax/hash/official formatter checks do not execute these scenarios."
+}

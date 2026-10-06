@@ -1,5 +1,13 @@
 # Native API representation and current evidence
 
+## Current native successor
+
+The historical table below describes the c160/7448 checkpoint. Current integration follows accepted main's direct native branch directive: ListboxSeparator renders `render(mergedProps, state, children)` or its own div. It reuses unchanged `mergeComponentProps` and shared prop/state/class/style bodies. Native attachment publication sets the actual bindable ref through `untrack` at the imperative boundary; captured-host cleanup clears only its own current ref. Consumer attachments retain independent Svelte lifetimes. No generic renderer or React ref fanout remains in this closure.
+
+Public `style` is Svelte's native string attribute or a callback returning it; old record-style fixture inputs migrate to strings. Horizontal/presentation defaults, later consumer overrides and omission of ordinary Separator ARIA stay literal. Label tokens retain native authored Snippets/scalars and ordered comma-space separators. Native snippet/ref/style/false-text behavior grants zero unchanged upstream renderer credit. Existing scalar dirty/nullish/signed-zero/grouping/label branches remain unchanged business, including source malformed-entry failure.
+
+The [16-module current graph](current-main-native-graph.json), [receipt](current-main-read-receipt.json) and [correspondence](current-main-correspondence.md) supersede renderer/count claims below without altering historical originals. Proposed PR73 remains private prerequisite preparation. Actual Select consumers, complete Select behavior, final exact-head independent acceptance and CI are explicitly incomplete until executed evidence and lead disposition are recorded.
+
 Original: immutable MIT Base UI 1.8.0
 `47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c`;
 `internals/itemEquality.ts`, `internals/resolveValueLabel.tsx`,
