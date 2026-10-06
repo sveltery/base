@@ -363,6 +363,14 @@
       "predecessor": "6501d3523731c7edc6de6cc9368c919b956b6105",
       "disposition": "maintained-native-fixture-api-successor",
       "unchangedParityCredit": 0
+    },
+    {
+      "source": "packages/base/tests/dom/dialog-shared-primitives.test.ts",
+      "archive": "parity/native-snippets/acceptance-history/native-fixture-6501/packages/base/tests/dom/dialog-shared-primitives.test.ts",
+      "sha256": "1b7857355e31cddfe1cfa04be5e01d1ac9ceea3af71feec77daf676862c6c970",
+      "predecessor": "6501d3523731c7edc6de6cc9368c919b956b6105",
+      "disposition": "maintained-native-binding-attachment-test-successor",
+      "unchangedParityCredit": 0
     }
   ]
 }
