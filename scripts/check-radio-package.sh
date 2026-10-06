@@ -1,10 +1,10 @@
 #!/usr/bin/env bash
 set -euo pipefail
 cd "$(dirname "$0")/.."
-source scripts/toolchain.sh
+source scripts/package-artifacts.sh
 radio_consumer="$(mktemp -d "${TMPDIR:-/tmp}/sveltery-radio-consumer.XXXXXX")"
 trap 'rm -rf "$radio_consumer"' EXIT
-pnpm --filter @sveltery/base pack --pack-destination "$radio_consumer" > /dev/null
+sveltery_pack_package @sveltery/base "$radio_consumer" > /dev/null
 node --input-type=module - "$radio_consumer" <<'JS'
 import { readdirSync, writeFileSync } from 'node:fs';
 import { join } from 'node:path';
@@ -12,8 +12,9 @@ const directory = process.argv[2];
 const tarball = readdirSync(directory).find(name => name.endsWith('.tgz'));
 writeFileSync(join(directory, 'package.json'), JSON.stringify({ private: true, type: 'module', dependencies: { '@sveltery/base': `file:${join(directory, tarball)}`, svelte: '5.57.1' } }));
 JS
-pnpm --dir "$radio_consumer" --ignore-workspace install --ignore-scripts > /dev/null
-pnpm --dir "$radio_consumer" --ignore-workspace install --frozen-lockfile --ignore-scripts > /dev/null
+sveltery_prepare_consumer "$radio_consumer"
+pnpm --dir "$radio_consumer" install --ignore-scripts > /dev/null
+pnpm --dir "$radio_consumer" install --frozen-lockfile --ignore-scripts > /dev/null
 cmp LICENSE "$radio_consumer/node_modules/@sveltery/base/LICENSE"
 node --input-type=module - "$radio_consumer/node_modules/@sveltery/base/THIRD_PARTY_NOTICES.md" <<'JS'
 import assert from 'node:assert/strict';
@@ -28,9 +29,11 @@ cat > "$radio_consumer/Consumer.svelte" <<'SVELTE'
   import type { HTMLAttributes } from 'svelte/elements';
   const NumberGroup = RadioGroup<number>;
   const NumberRoot = Radio.Root<number>;
+  let groupInput = $state<HTMLInputElement | null>();
+  let rootInput = $state<HTMLInputElement | null>();
 </script>
-<Form><Field.Root name="storageType"><Field.Label>Storage</Field.Label><RadioGroup defaultValue="disk" onfocusin={(event) => { const native: FocusEvent = event; event.preventBaseUIHandler(); void native; }} onfocusout={(event) => event.preventBaseUIHandler()}>
-  <Radio.Root value="disk" inputRef={null}><Radio.Indicator />Disk</Radio.Root><SubRadio.Root value="cloud">Cloud</SubRadio.Root>
+<Form><Field.Root name="storageType"><Field.Label>Storage</Field.Label><RadioGroup bind:inputRef={groupInput} defaultValue="disk" onfocusin={(event) => { const native: FocusEvent = event; event.preventBaseUIHandler(); void native; }} onfocusout={(event) => event.preventBaseUIHandler()}>
+  <Radio.Root value="disk" bind:inputRef={rootInput}><Radio.Indicator />Disk</Radio.Root><SubRadio.Root value="cloud">Cloud</SubRadio.Root>
 </RadioGroup></Field.Root></Form>
 <SubGroup defaultValue={null} inputRef={null}><SubRadio.Root value={null} id="null-option">None</SubRadio.Root></SubGroup>
 <NumberGroup name="size" value={42} onValueChange={(value, details) => { const n: number = value; const event: Event = details.event; void [n, event]; }}>
@@ -68,6 +71,13 @@ declare const groupValueDefault: IsAny<GroupTypes.RadioGroupProps['value']>;
 exact<true, typeof rootValueDefault>(rootValueDefault);
 exact<true, typeof groupValueDefault>(groupValueDefault);
 const nullableGroupRef: GroupTypes.RadioGroupProps<string> = { value: 'disk', inputRef: null };
+// @ts-expect-error Native inputRef bindings reject callback refs.
+const callbackGroupRef: GroupTypes.RadioGroupProps<string> = { inputRef: (_input: HTMLInputElement | null) => {} };
+// @ts-expect-error Native inputRef bindings reject object refs.
+const objectRootRef: RadioTypes.RadioRootProps<number> = { value: 42, inputRef: { current: null } };
+const nativeGroupInput: GroupTypes.RadioGroupProps<string> = { inputRef: null as HTMLInputElement | null };
+const nativeRootInput: RadioTypes.RadioRootProps<number> = { value: 42, inputRef: null as HTMLInputElement | null };
+void [callbackGroupRef, objectRootRef, nativeGroupInput, nativeRootInput];
 const nullableRootRef: RadioTypes.RadioRootProps<number> = { value: 42, inputRef: null };
 // The pin permits explicitly undefined optional props even with exact optional checking.
 const undefinedRoot: RadioTypes.RadioRootProps<number> = { value: 42, disabled: undefined, required: undefined, readOnly: undefined, nativeButton: undefined, inputRef: undefined, ref: undefined, children: undefined, class: undefined, style: undefined, render: undefined };
@@ -114,8 +124,10 @@ JSON
 node --import "$sveltery_repo_root/scripts/svelte-ssr-loader.mjs" "$radio_consumer/check.mjs"
 node "$sveltery_repo_root/packages/base/node_modules/svelte-check/bin/svelte-check" --workspace "$radio_consumer" --tsconfig ./tsconfig.json
 
-# Diagnostic import of the installed private shared utility (no public export is added).
+# Diagnostic import of the actual installed public shared utility.
 # Test the native environment boundary with browser-style globals and no Node process.
+(
+cd "$radio_consumer"
 node --conditions=development --input-type=module - "$radio_consumer/node_modules/@sveltery/base" <<'JS'
 import assert from 'node:assert/strict';
 import { pathToFileURL } from 'node:url';
@@ -127,11 +139,12 @@ Object.defineProperty(globalThis, 'navigator', { configurable: true, value: {
 } });
 try {
   globalThis.process = undefined;
-  const { platform } = await import(new URL('utils/platform/index.js', installed));
+  const { platform } = await import('@sveltery/utils/platform');
   const { stopEvent, isClickLikeEvent } = await import(new URL('floating-ui/utils/event.js', installed));
   assert.equal(platform.os.ios, true); assert.equal(platform.os.mac, false); assert.equal(platform.engine.blink, true);
   const event = new Event('keydown', { cancelable: true }); stopEvent(event);
   assert.equal(event.defaultPrevented, true); assert.equal(event.cancelBubble, true); assert.equal(isClickLikeEvent(event), true);
 } finally { globalThis.process = nodeProcess; }
-console.log('Installed private native interaction platform imports without Node process and retains UA-CH/event branches: PASS');
+console.log('Installed public native interaction platform imports without Node process and retains UA-CH/event branches: PASS');
 JS
+)

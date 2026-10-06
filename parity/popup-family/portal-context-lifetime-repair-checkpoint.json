@@ -1,0 +1,19 @@
+{
+  "approvedBy": "Root precise measured native lifetime repair after frozen8cdcd54 retained-context failure/warning",
+  "predecessorFailureReceipt": "portal-context-lifetime-failure.json",
+  "change": "Only Full portalContext imperative getter reads canonical portal.node raw state. Active markup/focus derived projection retained; no new state/snapshot/lifetime facade/helper branch.",
+  "previousFullSha256": "62a028f0ee0d3d11ff2bb21724fc8e1e7fdb2305a8330e660dc626e00889e852",
+  "repairedFullSha256": "8111a018d91b947a0468565c84a636f6abb70196309da0a95fa5a4e86b3705b1",
+  "exactSingleGetterDelta": true,
+  "affectedReviewedWholeBodyHashes": {
+    "packages/base/src/lib/floating-ui/hooks/useClientPoint.svelte.ts": "6a2f7924b1d9cc4154bb74ebb44b1f1ef2da6c73f7641e66fe7ea41f4311270a",
+    "packages/base/src/lib/floating-ui/hooks/useFloatingPortalNode.svelte.ts": "32c9cd374708b2680ec719189a22da61e6af2719641457facdb52d75b8261ab0",
+    "packages/base/src/lib/floating-ui/components/FloatingPortal.svelte": "8111a018d91b947a0468565c84a636f6abb70196309da0a95fa5a4e86b3705b1",
+    "packages/base/src/lib/utils/FloatingPortalLite.svelte": "c506d0758a012c2789b9da39f17bd34d7bf3f10d67d3861368f998b6b4a12b72",
+    "packages/base/src/lib/floating-ui/components/PortalContent.svelte": "094ca8f25b2d4622ed70767b472ad6cecc481ae92470caa67385c72a3551f603"
+  },
+  "fixtureTypeCorrection": "Scope svelte-check at38c83bd found2 authored React createElement inline excess data-testid errors and0warnings. Using the same portalProps in a normal named object preserves exact values/expectations and strict public props without casts or weakened types. Failure log retained.",
+  "unchangedExpectations": "Original retained-context null/ref/disconnection/independent-remount expectations unchanged; additional native console.warn spy preserves output and asserts no warnings after repair.",
+  "execution": "Pending actual next frozen commit; independent delta review requested.",
+  "ordinaryDeclarationCredit": 0
+}

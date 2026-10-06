@@ -37,18 +37,52 @@
     if (cancel) details.cancel();
   };
 </script>
-<Form onFormSubmit={next => { values = next; }}>
+
+<Form
+  onFormSubmit={(next) => {
+    values = next;
+  }}
+>
   <Field.Root name="enabled" data-field>
     {#if mode === 'source'}
       {#if family === 'switch'}
-        <Switch.Root checked={controlled ? checked : undefined} defaultChecked={initial} {onCheckedChange} value="yes" />
+        <Switch.Root
+          checked={controlled ? checked : undefined}
+          defaultChecked={initial}
+          {onCheckedChange}
+          value="yes"
+        />
       {:else}
-        <Checkbox.Root checked={controlled ? checked : undefined} defaultChecked={initial} {onCheckedChange} value="yes" />
+        <Checkbox.Root
+          checked={controlled ? checked : undefined}
+          defaultChecked={initial}
+          {onCheckedChange}
+          value="yes"
+        />
       {/if}
     {:else if mode === 'native-prop'}
-      <input type="checkbox" name="enabled" value="yes" defaultChecked={initial} {checked} onclick={event => { if (cancel) event.preventDefault(); else setChecked(event.currentTarget.checked); }} />
+      <input
+        type="checkbox"
+        name="enabled"
+        value="yes"
+        defaultChecked={initial}
+        {checked}
+        onclick={(event) => {
+          if (cancel) event.preventDefault();
+          else setChecked(event.currentTarget.checked);
+        }}
+      />
     {:else}
-      <input type="checkbox" name="enabled" value="yes" defaultChecked={initial} bind:checked={getChecked, setChecked} onclick={event => { if (cancel) event.preventDefault(); }} />
+      <input
+        type="checkbox"
+        name="enabled"
+        value="yes"
+        defaultChecked={initial}
+        bind:checked={getChecked, setChecked}
+        onclick={(event) => {
+          if (cancel) event.preventDefault();
+        }}
+      />
     {/if}
   </Field.Root>
   <button type="submit">Submit</button>

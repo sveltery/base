@@ -13,7 +13,7 @@
     stop: false | true | 'propagation';
     cancel: boolean;
   } = $props();
-  const form = untrack(() => move === 'in' ? 'second' : 'first');
+  const form = untrack(() => (move === 'in' ? 'second' : 'first'));
   let firstForm: HTMLFormElement;
   let currentInput: HTMLInputElement;
 

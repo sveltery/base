@@ -5,11 +5,12 @@
   const numberPayloadHandle = AlertDialog.createHandle<number>();
   let triggerRef = $state<HTMLElement | null>(null);
 </script>
-<AlertDialog.Root handle={numberPayloadHandle}><AlertDialog.Portal/></AlertDialog.Root>
+
+<AlertDialog.Root handle={numberPayloadHandle}><AlertDialog.Portal /></AlertDialog.Root>
 <AlertDialog.Root handle={numberPayloadHandle}>
   {#snippet children({ payload })}
     {expectType<number | undefined, typeof payload>(payload) ?? ''}
   {/snippet}
 </AlertDialog.Root>
-<AlertDialog.Trigger handle={numberPayloadHandle} payload={42} bind:ref={triggerRef}/>
-<AlertDialog.Trigger handle={numberPayloadHandle}/>
+<AlertDialog.Trigger handle={numberPayloadHandle} payload={42} bind:ref={triggerRef} />
+<AlertDialog.Trigger handle={numberPayloadHandle} />

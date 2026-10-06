@@ -11,14 +11,30 @@ const { clsx, to_class } = await import(
 );
 
 it('normalizes ClassValue inputs like the pinned native Svelte clsx/to_class boundary', () => {
-  const version = JSON.parse(readFileSync(new URL('../node_modules/svelte/package.json', import.meta.url), 'utf8')).version;
+  const version = JSON.parse(
+    readFileSync(new URL('../node_modules/svelte/package.json', import.meta.url), 'utf8'),
+  ).version;
   expect(version).toBe('5.57.1');
   expect(typeof clsx).toBe('function');
   expect(typeof to_class).toBe('function');
-  const inherited = Object.assign(Object.create({ inherited: true, omitted: false }), { own: true });
+  const inherited = Object.assign(Object.create({ inherited: true, omitted: false }), {
+    own: true,
+  });
   const cases: ClassValue[] = [
-    undefined, null, '', false, true, 0, -0, NaN, 4, 1n, 'plain',
-    [], {}, inherited,
+    undefined,
+    null,
+    '',
+    false,
+    true,
+    0,
+    -0,
+    NaN,
+    4,
+    1n,
+    'plain',
+    [],
+    {},
+    inherited,
     ['first', [0, false, null, undefined, '', NaN, 'second', [4, true, 1n]], inherited],
     { visible: true, hidden: false, numeric: 1, zero: 0 },
   ];

@@ -1,11 +1,11 @@
 #!/usr/bin/env bash
 set -euo pipefail
 cd "$(dirname "$0")/.."
-source scripts/toolchain.sh
+source scripts/package-artifacts.sh
 alert_consumer="$(mktemp -d "${TMPDIR:-/tmp}/sveltery-alert-consumer.XXXXXX")"
 trap 'rm -rf "$alert_consumer"' EXIT
 node scripts/check-alert-dialog-types.mjs "$alert_consumer/source" --source
-pnpm --filter @sveltery/base pack --pack-destination "$alert_consumer" > /dev/null
+sveltery_pack_package @sveltery/base "$alert_consumer" > /dev/null
 node --input-type=module - "$alert_consumer" <<'JS'
 import { readdirSync, writeFileSync } from 'node:fs';
 import { join } from 'node:path';
@@ -13,8 +13,9 @@ const destination = process.argv[2];
 const tarball = readdirSync(destination).find(name => name.endsWith('.tgz'));
 writeFileSync(join(destination, 'package.json'), JSON.stringify({ private: true, type: 'module', dependencies: { '@sveltery/base': `file:${join(destination, tarball)}`, svelte: '5.57.1' } }));
 JS
-pnpm --dir "$alert_consumer" --ignore-workspace install --ignore-scripts > /dev/null
-pnpm --dir "$alert_consumer" --ignore-workspace install --frozen-lockfile --ignore-scripts > /dev/null
+sveltery_prepare_consumer "$alert_consumer"
+pnpm --dir "$alert_consumer" install --ignore-scripts > /dev/null
+pnpm --dir "$alert_consumer" install --frozen-lockfile --ignore-scripts > /dev/null
 cmp LICENSE "$alert_consumer/node_modules/@sveltery/base/LICENSE"
 cmp packages/base/THIRD_PARTY_NOTICES.md "$alert_consumer/node_modules/@sveltery/base/THIRD_PARTY_NOTICES.md"
 node scripts/check-alert-dialog-types.mjs "$alert_consumer"
@@ -53,13 +54,13 @@ const rootPayload: Equal<Parameters<NonNullable<ComponentProps<typeof First.Root
 const triggerPayload: Equal<ComponentProps<typeof Second.Trigger<number>>['payload'], number | undefined> = true;
 declare const plain: Snippet;
 const plainRoot: ComponentProps<typeof Second.Root<number>> = { children: plain };
-const strongTrigger: ComponentProps<typeof First.Trigger<number>> = { handle: factory, payload: 8, class: ['trigger', { active: true }], style: { width: 20 } };
+const strongTrigger: ComponentProps<typeof First.Trigger<number>> = { handle: factory, payload: 8, class: ['trigger', { active: true }], style: 'width: 20px' };
 const optionalRoot: First.Root.Props<number> = { handle: undefined, open: undefined, defaultOpen: undefined, triggerId: undefined, defaultTriggerId: undefined, actions: undefined, onOpenChange: undefined, onOpenChangeComplete: undefined, children: undefined };
 const optionalParts: [Second.Trigger.Props<number>, Second.Portal.Props, Second.Backdrop.Props, Second.Popup.Props, Second.Viewport.Props, Second.Close.Props] = [
   { handle: undefined, payload: undefined, disabled: undefined, nativeButton: undefined, type: undefined, ref: undefined },
   { container: undefined, keepMounted: undefined, children: undefined, ref: undefined },
   { forceRender: undefined }, { initialFocus: undefined, finalFocus: undefined },
-  { class: state => ['viewport', { open: state.open }], style: state => ({ '--nested': Number(state.nestedDialogOpen) }) },
+  { class: state => ['viewport', { open: state.open }], style: state => `--nested: ${Number(state.nestedDialogOpen)}` },
   { disabled: undefined, nativeButton: undefined },
 ];
 const viewportState: Equal<Second.Viewport.State, First.Popup.State> = true;
@@ -87,6 +88,7 @@ void [missingPayloadType, rootPayload, triggerPayload, plainRoot, strongTrigger,
 TS
 cat > "$alert_consumer/check.mjs" <<'JS'
 import assert from 'node:assert/strict';
+import { writeFileSync } from 'node:fs';
 import { render } from 'svelte/server';
 import { AlertDialog as First } from '@sveltery/base';
 import * as Second from '@sveltery/base/alert-dialog';
@@ -99,6 +101,7 @@ assert(new First.Handle() instanceof Dialog.Handle);
 const handle = First.createHandle();
 for (let request = 0; request < 2; request++) {
   const body = render(Consumer, { props: { handle } }).body;
+  if (request === 0) writeFileSync(new URL('./consumer-ssr.html', import.meta.url), body);
   assert.match(body, /id="plain">Plain children/); assert.match(body, /id="payload">No payload/);
   assert.match(body, /id="detached"[^>]*aria-expanded="false"/);
   assert.doesNotMatch(body, /data-popup-open|role="alertdialog"/); assert.equal(handle.isOpen, false);
@@ -130,7 +133,7 @@ cat > "$alert_consumer/DOMConsumer.svelte" <<'SVELTE'
 }} onOpenChangeComplete={open => changes.push(['complete', open])}>
   {#snippet children({ payload })}
     <AlertDialog.Portal {container} render={host} bind:ref={portal}>
-      <AlertDialog.Viewport bind:ref={viewport} class={state => ['viewport', { active: state.open }]} style={state => ({ '--open': Number(state.open) })}>
+      <AlertDialog.Viewport bind:ref={viewport} class={state => ['viewport', { active: state.open }]} style={state => `--open: ${Number(state.open)}`}>
         <AlertDialog.Backdrop />
         <AlertDialog.Popup>
           <AlertDialog.Title id="installed-title">Installed alert-dialog</AlertDialog.Title>
@@ -168,7 +171,7 @@ import { createRequire } from 'node:module';
 const tooling = createRequire(process.argv[2]);
 const { JSDOM } = tooling('jsdom');
 const dom = new JSDOM('<!doctype html><html><body><main></main><aside></aside></body></html>', { url: 'http://localhost', pretendToBeVisual: true });
-for (const key of ['window', 'document', 'navigator', 'HTMLElement', 'HTMLInputElement', 'HTMLButtonElement', 'Element', 'Node', 'Text', 'Comment', 'Event', 'MouseEvent', 'KeyboardEvent', 'MutationObserver', 'getComputedStyle', 'requestAnimationFrame', 'cancelAnimationFrame']) {
+for (const key of ['window', 'document', 'navigator', 'HTMLElement', 'HTMLInputElement', 'HTMLButtonElement', 'HTMLMediaElement', 'Element', 'Node', 'Text', 'Comment', 'Event', 'MouseEvent', 'KeyboardEvent', 'MutationObserver', 'getComputedStyle', 'requestAnimationFrame', 'cancelAnimationFrame']) {
   const value = typeof dom.window[key] === 'function' && ['getComputedStyle', 'requestAnimationFrame', 'cancelAnimationFrame'].includes(key) ? dom.window[key].bind(dom.window) : dom.window[key];
   Object.defineProperty(globalThis, key, { configurable: true, value });
 }
@@ -208,4 +211,69 @@ dom.window.close();
 console.log('Installed public AlertDialog DOM payload, source focus/portal/Viewport, deferred presence, re-open and cleanup: PASS');
 JS
 node --conditions=browser --import "$alert_consumer/dom-loader.mjs" "$alert_consumer/dom-check.mjs" "$sveltery_repo_root/packages/base/package.json"
-echo 'Isolated tarball AlertDialog public root/subpath nine parts, generic handle SSR, DOM and strict native types: PASS'
+# Native installed SSR → hydration supplement; zero ordinary upstream assertion credit.
+cat > "$alert_consumer/hydration-check.mjs" <<'JS'
+import assert from 'node:assert/strict';
+import { readFileSync } from 'node:fs';
+import { createRequire } from 'node:module';
+const tooling = createRequire(process.argv[2]);
+const { JSDOM } = tooling('jsdom');
+const body = readFileSync(new URL('./consumer-ssr.html', import.meta.url), 'utf8');
+const dom = new JSDOM(`<!doctype html><html><body><main>${body}</main></body></html>`, { url: 'http://localhost', pretendToBeVisual: true });
+for (const key of ['window', 'document', 'navigator', 'HTMLElement', 'HTMLInputElement', 'HTMLButtonElement', 'HTMLMediaElement', 'Element', 'Node', 'Text', 'Comment', 'Event', 'MouseEvent', 'KeyboardEvent', 'MutationObserver', 'getComputedStyle', 'requestAnimationFrame', 'cancelAnimationFrame']) {
+  const value = typeof dom.window[key] === 'function' && ['getComputedStyle', 'requestAnimationFrame', 'cancelAnimationFrame'].includes(key) ? dom.window[key].bind(dom.window) : dom.window[key];
+  Object.defineProperty(globalThis, key, { configurable: true, value });
+}
+const target = document.querySelector('main');
+const plain = document.getElementById('plain');
+const payload = document.getElementById('payload');
+const trigger = document.getElementById('detached');
+assert(plain); assert(payload); assert(trigger);
+assert.equal(document.querySelector('[role=alertdialog]'), null);
+const warnings = [];
+const originalWarn = console.warn;
+console.warn = (...args) => { warnings.push(args.join(' ')); originalWarn(...args); };
+const { hydrate, tick, unmount } = await import('svelte');
+const { AlertDialog: First, Dialog } = await import('@sveltery/base');
+const Second = await import('@sveltery/base/alert-dialog');
+const { default: Consumer } = await import('./Consumer.svelte');
+assert.equal(First.Handle, Second.Handle);
+assert.equal(First.createHandle, Second.createHandle);
+const handle = First.createHandle();
+assert(handle instanceof Second.Handle); assert(handle instanceof Dialog.Handle);
+const app = hydrate(Consumer, { target, props: { handle }, recover: false });
+async function settle() { await tick(); await new Promise(resolve => setTimeout(resolve, 60)); await tick(); }
+await settle();
+assert.equal(document.getElementById('plain'), plain);
+assert.equal(document.getElementById('payload'), payload);
+assert.equal(document.getElementById('detached'), trigger);
+assert.equal(handle.isOpen, true);
+assert.equal(handle.store.state.payload, 7);
+assert.equal(payload.textContent, '7');
+assert.equal(trigger.getAttribute('aria-expanded'), 'true');
+const popup = document.querySelector('[role=alertdialog]');
+assert(popup); assert.equal(popup.textContent, 'AlertDialog');
+assert(!target.contains(popup));
+handle.close(); await settle();
+assert.equal(handle.isOpen, false);
+assert.equal(document.querySelector('[role=alertdialog]'), null);
+assert.equal(trigger.getAttribute('aria-expanded'), 'false');
+trigger.click(); await settle();
+assert.equal(handle.isOpen, true);
+assert.equal(handle.store.state.payload, 7);
+assert(document.querySelector('[role=alertdialog]'));
+const attachedStore = handle.store;
+await unmount(app); await settle();
+assert.equal(handle.isOpen, false);
+assert.equal(handle.store, handle.serverStore);
+assert.equal(attachedStore.context.triggerElements.size, 0);
+assert.equal(document.querySelector('[role=alertdialog]'), null);
+assert.equal(document.querySelector('[data-base-ui-portal]'), null);
+assert.equal(target.children.length, 0);
+assert.equal(warnings.filter(message => /hydration_(?:mismatch|attribute_changed|html_changed)/.test(message)).length, 0);
+console.warn = originalWarn;
+dom.window.close();
+console.log('Installed public AlertDialog SSR → hydration node reuse, canonical handle, Portal, re-open and cleanup: PASS');
+JS
+node --conditions=browser --import "$alert_consumer/dom-loader.mjs" "$alert_consumer/hydration-check.mjs" "$sveltery_repo_root/packages/base/package.json"
+echo 'Isolated tarball AlertDialog public root/subpath nine parts, generic handle SSR/hydration, DOM and strict native types: PASS'

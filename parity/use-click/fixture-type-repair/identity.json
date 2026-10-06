@@ -1,0 +1,16 @@
+{
+  "predecessor": "0fa6e5464809dbd62f237fd0dd7e4be1db2b6087",
+  "predecessorTree": "5d217a0244cf973bddd93a2b890c4a279ef376ae",
+  "fixture": "packages/base/tests/dom/UseClickFixture.svelte",
+  "oldSHA256": "15a6f841980e722235fccbeb9b68db38e12fed534ebb619b3454b14b8c08e67e",
+  "correctedSHA256": "fc6c6d276f22a3ab9d04c5b43e97964cafe252ad9adbc650cf00192092007e28",
+  "exactAuthorizedReplacementsOnly": true,
+  "productionUnchanged": true,
+  "runtimeAssertionsUnchanged": true,
+  "importMembersKindsReachabilityUnchanged": true,
+  "libraryCheck": "0 errors/0 warnings",
+  "runtimeTests": "20 PASS one worker768MiB",
+  "oldDisposition": "runtime20 PASS/type FAIL complete fixture NOT CLEAR; production bodies CLEAR bounded scope",
+  "newDisposition": "fresh corrected whole fixture/type review and current CI/automatic review/Root approval pending",
+  "ordinaryDeclarationCredit": 0
+}

@@ -1,0 +1,2159 @@
+{
+  "candidate": "6ac65911f639fdac6aaf49fac27919ebeb698fe4",
+  "pin": "47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c",
+  "scope": "All120 reached native modules; comparative Source/native/maintainability review, not execution or whole unselected-family acceptance.",
+  "records": [
+    {
+      "local": "packages/base/src/lib/alert-dialog/Root.svelte",
+      "localSha256": "744e30e893773960ea60eef33cd6905faa80c768ea4855812c96c4cda76663cb",
+      "sourceBodies": [
+        "packages/react/src/alert-dialog/root/AlertDialogRoot.tsx"
+      ],
+      "reviewed": "full module and mapped selected/full bodies or explicit native boundary",
+      "checks": "Read complete local module and mapped pinned source body/types; examined actual import destinations. No new scoped business finding.",
+      "nativeSubstitutions": [
+        "Native component/namespace generics and binding metadata replace React JSX types; nominal handle brand erased; runtime component aliases and canonical Handle business retained."
+      ],
+      "findings": [],
+      "maintainability": "Shared helper reuse/direct native composition; no additional React lifecycle or state snapshot engine identified.",
+      "reviewer": "/root/migration_review"
+    },
+    {
+      "local": "packages/base/src/lib/alert-dialog/handle.ts",
+      "localSha256": "fa7b696012cbbc7820b8f9423dd563fa877f7bdb105e22819c08391a134f3e30",
+      "sourceBodies": [
+        "packages/react/src/alert-dialog/handle.ts"
+      ],
+      "reviewed": "full module and mapped selected/full bodies or explicit native boundary",
+      "checks": "Read complete local module and mapped pinned source body/types; examined actual import destinations. No new scoped business finding.",
+      "nativeSubstitutions": [
+        "Native component/namespace generics and binding metadata replace React JSX types; nominal handle brand erased; runtime component aliases and canonical Handle business retained."
+      ],
+      "findings": [],
+      "maintainability": "Shared helper reuse/direct native composition; no additional React lifecycle or state snapshot engine identified.",
+      "reviewer": "/root/migration_review"
+    },
+    {
+      "local": "packages/base/src/lib/alert-dialog/index.parts.ts",
+      "localSha256": "165d7c9cf45611f5bd98208ebdfd732db1fd5efaa4ec61b7377a694ddfb7e08d",
+      "sourceBodies": [
+        "packages/react/src/alert-dialog/index.parts.ts",
+        "packages/react/src/alert-dialog/trigger/AlertDialogTrigger.tsx"
+      ],
+      "reviewed": "full module and mapped selected/full bodies or explicit native boundary",
+      "checks": "Read complete local module and mapped pinned source body/types; examined actual import destinations. No new scoped business finding.",
+      "nativeSubstitutions": [
+        "Native component/namespace generics and binding metadata replace React JSX types; nominal handle brand erased; runtime component aliases and canonical Handle business retained."
+      ],
+      "findings": [],
+      "maintainability": "Shared helper reuse/direct native composition; no additional React lifecycle or state snapshot engine identified.",
+      "reviewer": "/root/migration_review"
+    },
+    {
+      "local": "packages/base/src/lib/alert-dialog/index.ts",
+      "localSha256": "7c7718433f59ec47b8bc4cd083c3a354bad21bb75132f45f7b4bd53a02a4ae60",
+      "sourceBodies": [
+        "packages/react/src/alert-dialog/index.ts"
+      ],
+      "reviewed": "full module and mapped selected/full bodies or explicit native boundary",
+      "checks": "Read complete local module and mapped pinned source body/types; examined actual import destinations. No new scoped business finding.",
+      "nativeSubstitutions": [
+        "Native component/namespace generics and binding metadata replace React JSX types; nominal handle brand erased; runtime component aliases and canonical Handle business retained."
+      ],
+      "findings": [],
+      "maintainability": "Shared helper reuse/direct native composition; no additional React lifecycle or state snapshot engine identified.",
+      "reviewer": "/root/migration_review"
+    },
+    {
+      "local": "packages/base/src/lib/alert-dialog/types.ts",
+      "localSha256": "6936fe880be6da3edfc958a5fdd95e877a702a1fc592180dfd437dafe14cd49a",
+      "sourceBodies": [
+        "packages/react/src/alert-dialog/trigger/AlertDialogTrigger.tsx"
+      ],
+      "reviewed": "full module and mapped selected/full bodies or explicit native boundary",
+      "checks": "Read complete local module and mapped pinned source body/types; examined actual import destinations. No new scoped business finding.",
+      "nativeSubstitutions": [
+        "Native component/namespace generics and binding metadata replace React JSX types; nominal handle brand erased; runtime component aliases and canonical Handle business retained.",
+        "Native Event/class/style/snippet/attachment representation; pure ordered merge and prevented-event branches retained. Native defaults earn no divergent unchanged assertion credit."
+      ],
+      "findings": [],
+      "maintainability": "Shared helper reuse/direct native composition; no additional React lifecycle or state snapshot engine identified.",
+      "reviewer": "/root/migration_review"
+    },
+    {
+      "local": "packages/base/src/lib/dialog/Backdrop.svelte",
+      "localSha256": "7602895ee9dcd2bcb3c7b86db7ecefbc8ea3d498403f17fda0b27cb176950838",
+      "sourceBodies": [
+        "packages/react/src/dialog/backdrop/DialogBackdrop.tsx"
+      ],
+      "reviewed": "full module and mapped selected/full bodies or explicit native boundary",
+      "checks": "Read complete local module and mapped pinned source body/types; examined actual import destinations. No new scoped business finding.",
+      "nativeSubstitutions": [
+        "Native runes/context/snippets/attachments replace React component/ref/effect representation; part role/hidden/state props and ordered handler/body composition checked."
+      ],
+      "findings": [],
+      "maintainability": "Shared helper reuse/direct native composition; no additional React lifecycle or state snapshot engine identified.",
+      "reviewer": "/root/migration_review"
+    },
+    {
+      "local": "packages/base/src/lib/dialog/Close.svelte",
+      "localSha256": "d87c2e4ade43d1f80fddb38dc2a5d1b1fad2aa1f4e1e5aee4a16dde235aafbe2",
+      "sourceBodies": [
+        "packages/react/src/dialog/close/DialogClose.tsx"
+      ],
+      "reviewed": "full module and mapped selected/full bodies or explicit native boundary",
+      "checks": "Read complete local module and mapped pinned source body/types; examined actual import destinations. No new scoped business finding.",
+      "nativeSubstitutions": [
+        "Native runes/context/snippets/attachments replace React component/ref/effect representation; part role/hidden/state props and ordered handler/body composition checked."
+      ],
+      "findings": [],
+      "maintainability": "Shared helper reuse/direct native composition; no additional React lifecycle or state snapshot engine identified.",
+      "reviewer": "/root/migration_review"
+    },
+    {
+      "local": "packages/base/src/lib/dialog/Description.svelte",
+      "localSha256": "e524839c87f9c2527ebe772c15ee28eeadc353bf69f0d2240bbcb2da64f99f31",
+      "sourceBodies": [
+        "packages/react/src/dialog/description/DialogDescription.tsx"
+      ],
+      "reviewed": "full module and mapped selected/full bodies or explicit native boundary",
+      "checks": "Read complete local module and mapped pinned source body/types; examined actual import destinations. No new scoped business finding.",
+      "nativeSubstitutions": [
+        "Native runes/context/snippets/attachments replace React component/ref/effect representation; part role/hidden/state props and ordered handler/body composition checked."
+      ],
+      "findings": [],
+      "maintainability": "Shared helper reuse/direct native composition; no additional React lifecycle or state snapshot engine identified.",
+      "reviewer": "/root/migration_review"
+    },
+    {
+      "local": "packages/base/src/lib/dialog/Popup.svelte",
+      "localSha256": "63e7e40d87ac22a280b4e4eff2a24025031f089614525f82e381d713fb03fbad",
+      "sourceBodies": [
+        "packages/react/src/dialog/popup/DialogPopup.tsx"
+      ],
+      "reviewed": "full module and mapped selected/full bodies or explicit native boundary",
+      "checks": "Read complete local module and mapped pinned source body/types; examined actual import destinations. No new scoped business finding.",
+      "nativeSubstitutions": [
+        "Native runes/context/snippets/attachments replace React component/ref/effect representation; part role/hidden/state props and ordered handler/body composition checked."
+      ],
+      "findings": [],
+      "maintainability": "Shared helper reuse/direct native composition; no additional React lifecycle or state snapshot engine identified.",
+      "reviewer": "/root/migration_review"
+    },
+    {
+      "local": "packages/base/src/lib/dialog/Portal.svelte",
+      "localSha256": "506034af9dfcc2d644b92ad3e23d8a93cccaa36af4a7f4cd9ee27de5231b6809",
+      "sourceBodies": [
+        "packages/react/src/dialog/portal/DialogPortal.tsx",
+        "packages/utils/src/inertValue.ts"
+      ],
+      "reviewed": "full module and mapped selected/full bodies or explicit native boundary",
+      "checks": "Read complete local module and mapped pinned source body/types; examined actual import destinations. No new scoped business finding.",
+      "nativeSubstitutions": [
+        "Native runes/context/snippets/attachments replace React component/ref/effect representation; part role/hidden/state props and ordered handler/body composition checked."
+      ],
+      "findings": [],
+      "maintainability": "Shared helper reuse/direct native composition; no additional React lifecycle or state snapshot engine identified.",
+      "reviewer": "/root/migration_review"
+    },
+    {
+      "local": "packages/base/src/lib/dialog/Root.svelte",
+      "localSha256": "cc04c59df714dfa739a7fdee16397845d65f77d0554286f1ed3f941d84536f66",
+      "sourceBodies": [
+        "packages/react/src/dialog/root/DialogRoot.tsx"
+      ],
+      "reviewed": "full module and mapped selected/full bodies or explicit native boundary",
+      "checks": "Read complete local module and mapped pinned source body/types; examined actual import destinations. No new scoped business finding.",
+      "nativeSubstitutions": [
+        "Native runes/context/snippets/attachments replace React component/ref/effect representation; part role/hidden/state props and ordered handler/body composition checked."
+      ],
+      "findings": [],
+      "maintainability": "Shared helper reuse/direct native composition; no additional React lifecycle or state snapshot engine identified.",
+      "reviewer": "/root/migration_review"
+    },
+    {
+      "local": "packages/base/src/lib/dialog/Title.svelte",
+      "localSha256": "c2d26f7b7ca392de3bbfe24dd9d7e5545dd82b3a8b6d0f1de11cc8666d49183d",
+      "sourceBodies": [
+        "packages/react/src/dialog/title/DialogTitle.tsx"
+      ],
+      "reviewed": "full module and mapped selected/full bodies or explicit native boundary",
+      "checks": "Read complete local module and mapped pinned source body/types; examined actual import destinations. No new scoped business finding.",
+      "nativeSubstitutions": [
+        "Native runes/context/snippets/attachments replace React component/ref/effect representation; part role/hidden/state props and ordered handler/body composition checked."
+      ],
+      "findings": [],
+      "maintainability": "Shared helper reuse/direct native composition; no additional React lifecycle or state snapshot engine identified.",
+      "reviewer": "/root/migration_review"
+    },
+    {
+      "local": "packages/base/src/lib/dialog/Trigger.svelte",
+      "localSha256": "4e84f51f9ef73c67ac269ea01b677611b1801c9d7dd6025c077dd3e4744a6d21",
+      "sourceBodies": [
+        "packages/react/src/alert-dialog/trigger/AlertDialogTrigger.tsx",
+        "packages/react/src/dialog/trigger/DialogTrigger.tsx"
+      ],
+      "reviewed": "full module and mapped selected/full bodies or explicit native boundary",
+      "checks": "Read complete local module and mapped pinned source body/types; examined actual import destinations. No new scoped business finding.",
+      "nativeSubstitutions": [
+        "Native runes/context/snippets/attachments replace React component/ref/effect representation; part role/hidden/state props and ordered handler/body composition checked."
+      ],
+      "findings": [],
+      "maintainability": "Shared helper reuse/direct native composition; no additional React lifecycle or state snapshot engine identified.",
+      "reviewer": "/root/migration_review"
+    },
+    {
+      "local": "packages/base/src/lib/dialog/Viewport.svelte",
+      "localSha256": "ff00771911f1ad5074cc2af6d84a639b17526906eedd5f8ee8c80339f28ad5bc",
+      "sourceBodies": [
+        "packages/react/src/dialog/viewport/DialogViewport.tsx"
+      ],
+      "reviewed": "full module and mapped selected/full bodies or explicit native boundary",
+      "checks": "Read complete local module and mapped pinned source body/types; examined actual import destinations. No new scoped business finding.",
+      "nativeSubstitutions": [
+        "Native runes/context/snippets/attachments replace React component/ref/effect representation; part role/hidden/state props and ordered handler/body composition checked."
+      ],
+      "findings": [],
+      "maintainability": "Shared helper reuse/direct native composition; no additional React lifecycle or state snapshot engine identified.",
+      "reviewer": "/root/migration_review"
+    },
+    {
+      "local": "packages/base/src/lib/dialog/context.ts",
+      "localSha256": "2bf8c514db4d0dd6fe97a1c9fe5e1e943e3cd5ca94618b89a7f201cc86637f2b",
+      "sourceBodies": [
+        "packages/react/src/dialog/portal/DialogPortalContext.ts",
+        "packages/react/src/dialog/root/DialogRootContext.ts"
+      ],
+      "reviewed": "full module and mapped selected/full bodies or explicit native boundary",
+      "checks": "Read complete local module and mapped pinned source body/types; examined actual import destinations. No new scoped business finding.",
+      "nativeSubstitutions": [
+        "Native runes/context/snippets/attachments replace React component/ref/effect representation; part role/hidden/state props and ordered handler/body composition checked."
+      ],
+      "findings": [],
+      "maintainability": "Shared helper reuse/direct native composition; no additional React lifecycle or state snapshot engine identified.",
+      "reviewer": "/root/migration_review"
+    },
+    {
+      "local": "packages/base/src/lib/dialog/handle.svelte.ts",
+      "localSha256": "369b9344e3947c68fa16a1b7616c26404d583a79e3e375bda486c613d0ec3681",
+      "sourceBodies": [],
+      "reviewed": "full module and mapped selected/full bodies or explicit native boundary",
+      "checks": "Read complete local module and mapped pinned source body/types; examined actual import destinations. No new scoped business finding.",
+      "nativeSubstitutions": [
+        "Native runes/context/snippets/attachments replace React component/ref/effect representation; part role/hidden/state props and ordered handler/body composition checked."
+      ],
+      "findings": [],
+      "maintainability": "Shared helper reuse/direct native composition; no additional React lifecycle or state snapshot engine identified.",
+      "reviewer": "/root/migration_review"
+    },
+    {
+      "local": "packages/base/src/lib/dialog/index.parts.ts",
+      "localSha256": "82d326b73c4c1ba7a2170a7648b5c3ea08c7fe10f8c2aedb3985a60649a938c7",
+      "sourceBodies": [],
+      "reviewed": "full module and mapped selected/full bodies or explicit native boundary",
+      "checks": "Read complete local module and mapped pinned source body/types; examined actual import destinations. No new scoped business finding.",
+      "nativeSubstitutions": [
+        "Native runes/context/snippets/attachments replace React component/ref/effect representation; part role/hidden/state props and ordered handler/body composition checked."
+      ],
+      "findings": [],
+      "maintainability": "Shared helper reuse/direct native composition; no additional React lifecycle or state snapshot engine identified.",
+      "reviewer": "/root/migration_review"
+    },
+    {
+      "local": "packages/base/src/lib/dialog/popup/DialogPopupCssVars.ts",
+      "localSha256": "b588d4da948a67e2c413e142352f643c048122fe2fabb05cf36d65f845b2d084",
+      "sourceBodies": [
+        "packages/react/src/dialog/popup/DialogPopupCssVars.ts"
+      ],
+      "reviewed": "full module and mapped selected/full bodies or explicit native boundary",
+      "checks": "Read complete local module and mapped pinned source body/types; examined actual import destinations. No new scoped business finding.",
+      "nativeSubstitutions": [
+        "Native runes/context/snippets/attachments replace React component/ref/effect representation; part role/hidden/state props and ordered handler/body composition checked."
+      ],
+      "findings": [],
+      "maintainability": "Shared helper reuse/direct native composition; no additional React lifecycle or state snapshot engine identified.",
+      "reviewer": "/root/migration_review"
+    },
+    {
+      "local": "packages/base/src/lib/dialog/popup/DialogPopupDataAttributes.ts",
+      "localSha256": "0131ebb4a06fb0a5ccc0adf4caa3ab042e2ddbe1bea93a56247c6f2136e8bae1",
+      "sourceBodies": [
+        "packages/react/src/dialog/popup/DialogPopupDataAttributes.ts"
+      ],
+      "reviewed": "full module and mapped selected/full bodies or explicit native boundary",
+      "checks": "Read complete local module and mapped pinned source body/types; examined actual import destinations. No new scoped business finding.",
+      "nativeSubstitutions": [
+        "Native runes/context/snippets/attachments replace React component/ref/effect representation; part role/hidden/state props and ordered handler/body composition checked."
+      ],
+      "findings": [],
+      "maintainability": "Shared helper reuse/direct native composition; no additional React lifecycle or state snapshot engine identified.",
+      "reviewer": "/root/migration_review"
+    },
+    {
+      "local": "packages/base/src/lib/dialog/root/DialogInteractions.svelte",
+      "localSha256": "d1d8fa649d9b08d7308b76e1399e101a108721dae745977eaa9d4859ca3a797d",
+      "sourceBodies": [
+        "packages/react/src/dialog/root/useDialogRoot.ts",
+        "packages/utils/src/useIsoLayoutEffect.ts"
+      ],
+      "reviewed": "full module and mapped selected/full bodies or explicit native boundary",
+      "checks": "Read complete local module and mapped pinned source body/types; examined actual import destinations. No new scoped business finding.",
+      "nativeSubstitutions": [
+        "Native runes/context/snippets/attachments replace React component/ref/effect representation; part role/hidden/state props and ordered handler/body composition checked."
+      ],
+      "findings": [],
+      "maintainability": "Shared helper reuse/direct native composition; no additional React lifecycle or state snapshot engine identified.",
+      "reviewer": "/root/migration_review"
+    },
+    {
+      "local": "packages/base/src/lib/dialog/root/DialogRootView.svelte",
+      "localSha256": "237820b6ed641658aac36141206ebb0236172259915b0219f475d0397bd4d9c4",
+      "sourceBodies": [
+        "packages/react/src/alert-dialog/root/AlertDialogRoot.tsx",
+        "packages/react/src/dialog/root/DialogRoot.tsx",
+        "packages/react/src/dialog/root/useRenderDialogRoot.tsx"
+      ],
+      "reviewed": "full module and mapped selected/full bodies or explicit native boundary",
+      "checks": "Read complete local module and mapped pinned source body/types; examined actual import destinations. No new scoped business finding.",
+      "nativeSubstitutions": [
+        "Native runes/context/snippets/attachments replace React component/ref/effect representation; part role/hidden/state props and ordered handler/body composition checked."
+      ],
+      "findings": [],
+      "maintainability": "Shared helper reuse/direct native composition; no additional React lifecycle or state snapshot engine identified.",
+      "reviewer": "/root/migration_review"
+    },
+    {
+      "local": "packages/base/src/lib/dialog/root/useRenderDialogRoot.svelte.ts",
+      "localSha256": "2bcea3fb73fe1b1578ebf52b656cdc5b284e68deecfe01d687aa25f6f790bac7",
+      "sourceBodies": [
+        "packages/react/src/alert-dialog/root/AlertDialogRoot.tsx",
+        "packages/react/src/dialog/root/useRenderDialogRoot.tsx"
+      ],
+      "reviewed": "full module and mapped selected/full bodies or explicit native boundary",
+      "checks": "Read complete local module and mapped pinned source body/types; examined actual import destinations. No new scoped business finding.",
+      "nativeSubstitutions": [
+        "Native runes/context/snippets/attachments replace React component/ref/effect representation; part role/hidden/state props and ordered handler/body composition checked."
+      ],
+      "findings": [],
+      "maintainability": "Shared helper reuse/direct native composition; no additional React lifecycle or state snapshot engine identified.",
+      "reviewer": "/root/migration_review"
+    },
+    {
+      "local": "packages/base/src/lib/dialog/store/DialogHandle.svelte.ts",
+      "localSha256": "a5cb05869d04ff9e87dce1422599c86a4f2974b88049a73b9c7f12383b83aca3",
+      "sourceBodies": [
+        "packages/react/src/dialog/store/DialogHandle.ts"
+      ],
+      "reviewed": "full module and mapped selected/full bodies or explicit native boundary",
+      "checks": "Read complete local module and mapped pinned source body/types; examined actual import destinations. No new scoped business finding.",
+      "nativeSubstitutions": [
+        "Native runes/context/snippets/attachments replace React component/ref/effect representation; part role/hidden/state props and ordered handler/body composition checked.",
+        "Plain authoritative Store and synchronous listener/updateTick/Object.is business retained; createSubscriber/direct effect/live context replace React external-store/fast-hook transport and diagnostics."
+      ],
+      "findings": [],
+      "maintainability": "Shared helper reuse/direct native composition; no additional React lifecycle or state snapshot engine identified.",
+      "reviewer": "/root/migration_review"
+    },
+    {
+      "local": "packages/base/src/lib/dialog/store/DialogStore.svelte.ts",
+      "localSha256": "d9d83c8c127a97a2d79a072b8998eafff242070dbea03d686fe774151741e343",
+      "sourceBodies": [
+        "packages/react/src/dialog/store/DialogStore.ts"
+      ],
+      "reviewed": "full module and mapped selected/full bodies or explicit native boundary",
+      "checks": "Read complete local module and mapped pinned source body/types; examined actual import destinations. No new scoped business finding.",
+      "nativeSubstitutions": [
+        "Native runes/context/snippets/attachments replace React component/ref/effect representation; part role/hidden/state props and ordered handler/body composition checked.",
+        "Plain authoritative Store and synchronous listener/updateTick/Object.is business retained; createSubscriber/direct effect/live context replace React external-store/fast-hook transport and diagnostics."
+      ],
+      "findings": [],
+      "maintainability": "Shared helper reuse/direct native composition; no additional React lifecycle or state snapshot engine identified.",
+      "reviewer": "/root/migration_review"
+    },
+    {
+      "local": "packages/base/src/lib/dialog/types.ts",
+      "localSha256": "d2b80a17a890020ddb9e7ba36c2cf2106e1677b76c722617575ef81a2728c567",
+      "sourceBodies": [],
+      "reviewed": "full module and mapped selected/full bodies or explicit native boundary",
+      "checks": "Read complete local module and mapped pinned source body/types; examined actual import destinations. No new scoped business finding.",
+      "nativeSubstitutions": [
+        "Native runes/context/snippets/attachments replace React component/ref/effect representation; part role/hidden/state props and ordered handler/body composition checked.",
+        "Native Event/class/style/snippet/attachment representation; pure ordered merge and prevented-event branches retained. Native defaults earn no divergent unchanged assertion credit."
+      ],
+      "findings": [],
+      "maintainability": "Shared helper reuse/direct native composition; no additional React lifecycle or state snapshot engine identified.",
+      "reviewer": "/root/migration_review"
+    },
+    {
+      "local": "packages/base/src/lib/dialog/utils/stateAttributesMapping.ts",
+      "localSha256": "082e909a214a4c806418daa1c6d5194d36bf7da1770d04294057b9a27bf48938",
+      "sourceBodies": [
+        "packages/react/src/dialog/utils/stateAttributesMapping.ts"
+      ],
+      "reviewed": "full module and mapped selected/full bodies or explicit native boundary",
+      "checks": "Read complete local module and mapped pinned source body/types; examined actual import destinations. No new scoped business finding.",
+      "nativeSubstitutions": [
+        "Native runes/context/snippets/attachments replace React component/ref/effect representation; part role/hidden/state props and ordered handler/body composition checked."
+      ],
+      "findings": [],
+      "maintainability": "Shared helper reuse/direct native composition; no additional React lifecycle or state snapshot engine identified.",
+      "reviewer": "/root/migration_review"
+    },
+    {
+      "local": "packages/base/src/lib/direction-provider/types.ts",
+      "localSha256": "a56af048e882453755ad2948782af4f2f832903e031d4812b8da9fc5f4b82aae",
+      "sourceBodies": [
+        "packages/react/src/internals/direction-context/DirectionContext.tsx"
+      ],
+      "reviewed": "full module and mapped selected/full bodies or explicit native boundary",
+      "checks": "Read complete local module and mapped pinned source body/types; examined actual import destinations. No new scoped business finding.",
+      "nativeSubstitutions": [
+        "Native Event/class/style/snippet/attachment representation; pure ordered merge and prevented-event branches retained. Native defaults earn no divergent unchanged assertion credit."
+      ],
+      "findings": [],
+      "maintainability": "Shared helper reuse/direct native composition; no additional React lifecycle or state snapshot engine identified.",
+      "reviewer": "/root/migration_review"
+    },
+    {
+      "sources": [
+        {
+          "path": "packages/react/src/floating-ui-react/components/FloatingFocusManager.tsx",
+          "sha256": "6ecb04f1ed908009718134b26fa2aa48eaf723010a65c4d541c5674290d47933",
+          "coverage": "full source file and paired native file compared; framework-only hook mappings examined as substitution roles"
+        }
+      ],
+      "review": "Source guard/children/guard composition directly preserved; focusin is native bubbling focus event and guard attachments publish actual elements.",
+      "status": "no actionable scoped migration defect; execution remains pending",
+      "sourceBodyDisposition": "Source guard/children/guard composition directly preserved; focusin is native bubbling focus event and guard attachments publish actual elements.",
+      "nativeBoundaryDisposition": "Direct native effects/context/snippets/attachments and live getters examined in complete paired bodies; no React lifecycle engine or parallel business implementation found in selected Alert paths.",
+      "maintainabilityDisposition": "Canonical shared helper reuse; readable source-derived bodies and proportionate native boundary. No additional abstraction required.",
+      "findings": [],
+      "local": "packages/base/src/lib/floating-ui/components/FloatingFocusManager.svelte",
+      "localSha256": "88b47ec0d8e7254d4ea022e5c05d272798d9e735c65e84c9ddfef38b8bd24342",
+      "reviewer": "/root/migration_review/source_focus"
+    },
+    {
+      "sources": [
+        {
+          "path": "packages/react/src/floating-ui-react/components/FloatingPortal.tsx",
+          "sha256": "602600ea7e232bec066b961eddc5dce4bb654a88694a902e369e0e3ca6b2e13c",
+          "coverage": "full source file and paired native file compared; framework-only hook mappings examined as substitution roles"
+        },
+        {
+          "path": "packages/utils/src/useIsoLayoutEffect.ts",
+          "sha256": "13a0ab28d24b04617dc290ad151c145f2435d1e0c381123847af74344ea4b9a0",
+          "coverage": "full source file and paired native file compared; framework-only hook mappings examined as substitution roles"
+        }
+      ],
+      "review": "Full paired source: container host precedes own context; child content receives own portal context; outside-before/aria-owner/content/outside-after ownership preserved despite physically separate mounts. Nonmodal tab-disabling capture listener, reopening reenable and before/after focus branches preserved. Native bindable outside guards are reactive; modal Alert does not invoke outside guards.",
+      "status": "no actionable scoped migration defect; execution remains pending",
+      "sourceBodyDisposition": "Full paired source: container host precedes own context; child content receives own portal context; outside-before/aria-owner/content/outside-after ownership preserved despite physically separate mounts. Nonmodal tab-disabling capture listener, reopening reenable and before/after focus branches preserved. Native bindable outside guards are reactive; modal Alert does not invoke outside guards.",
+      "nativeBoundaryDisposition": "Direct native effects/context/snippets/attachments and live getters examined in complete paired bodies; no React lifecycle engine or parallel business implementation found in selected Alert paths.",
+      "maintainabilityDisposition": "Canonical shared helper reuse; readable source-derived bodies and proportionate native boundary. No additional abstraction required.",
+      "findings": [],
+      "local": "packages/base/src/lib/floating-ui/components/FloatingPortal.svelte",
+      "localSha256": "d9360eddffb4f2f685ea80e8bfee84ed519ff348c1c5db9bf56bc254fd9e132d",
+      "reviewer": "/root/migration_review/source_focus"
+    },
+    {
+      "sources": [
+        {
+          "path": "packages/react/src/floating-ui-react/components/FloatingPortal.tsx",
+          "sha256": "602600ea7e232bec066b961eddc5dce4bb654a88694a902e369e0e3ca6b2e13c",
+          "coverage": "full source file and paired native file compared; framework-only hook mappings examined as substitution roles"
+        }
+      ],
+      "review": "Exact source context fields and state semantics represented by Svelte context and live portal getter; native details type, no React dispatcher.",
+      "status": "no actionable scoped migration defect; execution remains pending",
+      "sourceBodyDisposition": "Exact source context fields and state semantics represented by Svelte context and live portal getter; native details type, no React dispatcher.",
+      "nativeBoundaryDisposition": "Direct native effects/context/snippets/attachments and live getters examined in complete paired bodies; no React lifecycle engine or parallel business implementation found in selected Alert paths.",
+      "maintainabilityDisposition": "Canonical shared helper reuse; readable source-derived bodies and proportionate native boundary. No additional abstraction required.",
+      "findings": [],
+      "local": "packages/base/src/lib/floating-ui/components/FloatingPortalContext.ts",
+      "localSha256": "022afce07c643e0ee4a9bc2177ff8feb41fa5d6a1b63774eb682dd06d34494d5",
+      "reviewer": "/root/migration_review/source_focus"
+    },
+    {
+      "sources": [
+        {
+          "path": "packages/react/src/floating-ui-react/components/FloatingRootStore.ts",
+          "sha256": "1ed4e09c006f812df8f7e14afa4f9da3adaedc3537fd5c3c9bdb8d3603235c6e",
+          "coverage": "full source file and paired native file compared; framework-only hook mappings examined as substitution roles"
+        }
+      ],
+      "review": "All selectors, constructor defaults, syncOnly branch, syncOpenEvent click-like protection, dispatch payload and emitter-before-onOpenChange order are unchanged business; SvelteStore replaces ReactStore.",
+      "status": "no actionable scoped migration defect; execution remains pending",
+      "sourceBodyDisposition": "All selectors, constructor defaults, syncOnly branch, syncOpenEvent click-like protection, dispatch payload and emitter-before-onOpenChange order are unchanged business; SvelteStore replaces ReactStore.",
+      "nativeBoundaryDisposition": "Direct native effects/context/snippets/attachments and live getters examined in complete paired bodies; no React lifecycle engine or parallel business implementation found in selected Alert paths.",
+      "maintainabilityDisposition": "Canonical shared helper reuse; readable source-derived bodies and proportionate native boundary. No additional abstraction required.",
+      "findings": [],
+      "local": "packages/base/src/lib/floating-ui/components/FloatingRootStore.svelte.ts",
+      "localSha256": "8840439ae903d174103880ac84185b4ccb7d916761ac2e3e96b7f48a88f245d3",
+      "reviewer": "/root/migration_review/source_focus"
+    },
+    {
+      "sources": [
+        {
+          "path": "packages/react/src/floating-ui-react/components/FloatingTree.tsx",
+          "sha256": "0bf2b2b744cf1004f1f05893f795f8aede95aa85b9b7ebfd7e4a2c53c26fd548",
+          "coverage": "full source file and paired native file compared; framework-only hook mappings examined as substitution roles"
+        },
+        {
+          "path": "packages/utils/src/useIsoLayoutEffect.ts",
+          "sha256": "13a0ab28d24b04617dc290ad151c145f2435d1e0c381123847af74344ea4b9a0",
+          "coverage": "full source file and paired native file compared; framework-only hook mappings examined as substitution roles"
+        }
+      ],
+      "review": "Source parent/tree context queries, initialized tree owner, node add/remove captured identity and separate provider roles preserved by Svelte context/effect. Generated ID supplied from native component; Dialog selected context queries do not invent tree nodes. Native setup-only id argument does not grant other consumers live-node migration acceptance.",
+      "status": "no actionable scoped migration defect; execution remains pending",
+      "sourceBodyDisposition": "Source parent/tree context queries, initialized tree owner, node add/remove captured identity and separate provider roles preserved by Svelte context/effect. Generated ID supplied from native component; Dialog selected context queries do not invent tree nodes. Native setup-only id argument does not grant other consumers live-node migration acceptance.",
+      "nativeBoundaryDisposition": "Direct native effects/context/snippets/attachments and live getters examined in complete paired bodies; no React lifecycle engine or parallel business implementation found in selected Alert paths.",
+      "maintainabilityDisposition": "Canonical shared helper reuse; readable source-derived bodies and proportionate native boundary. No additional abstraction required.",
+      "findings": [],
+      "local": "packages/base/src/lib/floating-ui/components/FloatingTree.svelte.ts",
+      "localSha256": "4ba1a45eb3e58c4c1cdb7fc68d48c59da7ad7a5cbd5f9be7319c22af1ca60d8a",
+      "reviewer": "/root/migration_review/source_focus"
+    },
+    {
+      "sources": [
+        {
+          "path": "packages/react/src/floating-ui-react/components/FloatingTreeStore.ts",
+          "sha256": "2bff8cd44fbf2d39afda9e3f6b0f638c54266aba324ae9154b5df3deba5a0125",
+          "coverage": "full source file and paired native file compared; framework-only hook mappings examined as substitution roles"
+        }
+      ],
+      "review": "Entire add/remove/event-emitter business unchanged, including identity find/remove and missing-node no-op. Ref type is native plain owner.",
+      "status": "no actionable scoped migration defect; execution remains pending",
+      "sourceBodyDisposition": "Entire add/remove/event-emitter business unchanged, including identity find/remove and missing-node no-op. Ref type is native plain owner.",
+      "nativeBoundaryDisposition": "Direct native effects/context/snippets/attachments and live getters examined in complete paired bodies; no React lifecycle engine or parallel business implementation found in selected Alert paths.",
+      "maintainabilityDisposition": "Canonical shared helper reuse; readable source-derived bodies and proportionate native boundary. No additional abstraction required.",
+      "findings": [],
+      "local": "packages/base/src/lib/floating-ui/components/FloatingTreeStore.ts",
+      "localSha256": "eb351b05f9f15cd7acebfe9b093cb42eb07c27073f41bd670633c94c41effdd3",
+      "reviewer": "/root/migration_review/source_focus"
+    },
+    {
+      "sources": [
+        {
+          "path": "packages/react/src/floating-ui-react/components/FloatingPortal.tsx",
+          "sha256": "602600ea7e232bec066b961eddc5dce4bb654a88694a902e369e0e3ca6b2e13c",
+          "coverage": "full source file and paired native file compared; framework-only hook mappings examined as substitution roles"
+        }
+      ],
+      "review": "Original children createPortal representation replaced by mounted native snippet; source context composition retained.",
+      "status": "no actionable scoped migration defect; execution remains pending",
+      "sourceBodyDisposition": "Original children createPortal representation replaced by mounted native snippet; source context composition retained.",
+      "nativeBoundaryDisposition": "Direct native effects/context/snippets/attachments and live getters examined in complete paired bodies; no React lifecycle engine or parallel business implementation found in selected Alert paths.",
+      "maintainabilityDisposition": "Canonical shared helper reuse; readable source-derived bodies and proportionate native boundary. No additional abstraction required.",
+      "findings": [],
+      "local": "packages/base/src/lib/floating-ui/components/PortalContent.svelte",
+      "localSha256": "41cf8f68f099889990ab71c57ca1c5de2e1db746e2b54639fef873d9335c6600",
+      "reviewer": "/root/migration_review/source_focus"
+    },
+    {
+      "sources": [
+        {
+          "path": "packages/react/src/floating-ui-react/components/FloatingPortal.tsx",
+          "sha256": "602600ea7e232bec066b961eddc5dce4bb654a88694a902e369e0e3ca6b2e13c",
+          "coverage": "full source file and paired native file compared; framework-only hook mappings examined as substitution roles"
+        }
+      ],
+      "review": "Original useRenderElement host path substituted by direct native snippet/div branch; shared mergeComponentProps retains class/style business. Host attachment and native markup own actual portal target.",
+      "status": "no actionable scoped migration defect; execution remains pending",
+      "sourceBodyDisposition": "Original useRenderElement host path substituted by direct native snippet/div branch; shared mergeComponentProps retains class/style business. Host attachment and native markup own actual portal target.",
+      "nativeBoundaryDisposition": "Direct native effects/context/snippets/attachments and live getters examined in complete paired bodies; no React lifecycle engine or parallel business implementation found in selected Alert paths.",
+      "maintainabilityDisposition": "Canonical shared helper reuse; readable source-derived bodies and proportionate native boundary. No additional abstraction required.",
+      "findings": [],
+      "local": "packages/base/src/lib/floating-ui/components/PortalHost.svelte",
+      "localSha256": "ad42ba3985afa2e949cddb04f346c603411c45720d0c924c6e151d0e7d2e2d48",
+      "reviewer": "/root/migration_review/source_focus"
+    },
+    {
+      "sources": [
+        {
+          "path": "packages/react/src/floating-ui-react/components/FloatingFocusManager.tsx",
+          "sha256": "6ecb04f1ed908009718134b26fa2aa48eaf723010a65c4d541c5674290d47933",
+          "coverage": "full source file and paired native file compared; framework-only hook mappings examined as substitution roles"
+        },
+        {
+          "path": "packages/utils/src/useIsoLayoutEffect.ts",
+          "sha256": "13a0ab28d24b04617dc290ad151c145f2435d1e0c381123847af74344ea4b9a0",
+          "coverage": "full source file and paired native file compared; framework-only hook mappings examined as substitution roles"
+        },
+        {
+          "path": "packages/utils/src/useStableCallback.ts",
+          "sha256": "908cbd177f86c961983d0124a859f733d341be49e58bc5a553255f47725419c1",
+          "coverage": "full source file and paired native file compared; framework-only hook mappings examined as substitution roles"
+        },
+        {
+          "path": "packages/utils/src/useValueAsRef.ts",
+          "sha256": "ad85f215ea605641c7f579a0dd50841427a01c7412eee127b34c51318e744777",
+          "coverage": "full source file and paired native file compared; framework-only hook mappings examined as substitution roles"
+        }
+      ],
+      "review": "Full paired body: event type/previous-focus stack, tabindex, tab trapping, pointer bookkeeping, focus-out related-tree checks, restoration frame, outside marking, initial-focus queue, return-focus selection and cancellation guards, Safari blur, portal synchronization and before/after guard branches retain source order. Native derived live reads/effects/Timeout/AnimationFrame and attachments substitute hooks/refs; explicit React StrictMode exception removal is authorized native framework difference. Captured installed event bus and captured return-target cleanup preserved. Native disposed guards add lifetime safety without changing focus selection.",
+      "status": "no actionable scoped migration defect; execution remains pending",
+      "sourceBodyDisposition": "Full paired body: event type/previous-focus stack, tabindex, tab trapping, pointer bookkeeping, focus-out related-tree checks, restoration frame, outside marking, initial-focus queue, return-focus selection and cancellation guards, Safari blur, portal synchronization and before/after guard branches retain source order. Native derived live reads/effects/Timeout/AnimationFrame and attachments substitute hooks/refs; explicit React StrictMode exception removal is authorized native framework difference. Captured installed event bus and captured return-target cleanup preserved. Native disposed guards add lifetime safety without changing focus selection.",
+      "nativeBoundaryDisposition": "Direct native effects/context/snippets/attachments and live getters examined in complete paired bodies; no React lifecycle engine or parallel business implementation found in selected Alert paths.",
+      "maintainabilityDisposition": "Canonical shared helper reuse; readable source-derived bodies and proportionate native boundary. No additional abstraction required.",
+      "findings": [
+        {
+          "severity": "needs measured reproduction before any repair",
+          "path": "packages/base/src/lib/floating-ui/components/createFloatingFocusManager.svelte.ts",
+          "detail": "Initial-focus queueMicrotask reads live rune-backed initialFocusRef/openInteractionTypeRef before disposed check in inner rAF shouldFocus. Source also has uncancelled queue, so not an established business defect; native destroy-before-microtask safety requires execution."
+        }
+      ],
+      "local": "packages/base/src/lib/floating-ui/components/createFloatingFocusManager.svelte.ts",
+      "localSha256": "c6a2f4dc069dd6c8e663abaa706f7e65db32aee8a533bb2b2af02623ff15de1b",
+      "reviewer": "/root/migration_review/source_focus"
+    },
+    {
+      "sources": [
+        {
+          "path": "packages/react/src/floating-ui-react/hooks/useClick.ts",
+          "sha256": "9cc6a80220399b7c06d8919a7814becb1bd3df8bcb893444ac7466366a62b1ed",
+          "coverage": "full source file and paired native file compared; framework-only hook mappings examined as substitution roles"
+        }
+      ],
+      "review": "Full paired source branches: enabled, click/mousedown/mousedown-only, pointer virtual detection, ignoreMouse, button filter, typeable target, stickIfOpen, toggle, live store selection, rAF currentTarget capture and touch delay cancellation preserved. Derived handler construction captures selected options while store/dataRef remain live; native events replace nativeEvent.",
+      "status": "no actionable scoped migration defect; execution remains pending",
+      "sourceBodyDisposition": "Full paired source branches: enabled, click/mousedown/mousedown-only, pointer virtual detection, ignoreMouse, button filter, typeable target, stickIfOpen, toggle, live store selection, rAF currentTarget capture and touch delay cancellation preserved. Derived handler construction captures selected options while store/dataRef remain live; native events replace nativeEvent.",
+      "nativeBoundaryDisposition": "Direct native effects/context/snippets/attachments and live getters examined in complete paired bodies; no React lifecycle engine or parallel business implementation found in selected Alert paths.",
+      "maintainabilityDisposition": "Canonical shared helper reuse; readable source-derived bodies and proportionate native boundary. No additional abstraction required.",
+      "findings": [],
+      "local": "packages/base/src/lib/floating-ui/hooks/useClick.svelte.ts",
+      "localSha256": "3e8be914e6d27a0edb6efc9516de0ce9e793b4b32d127b538402c5551d6d4aeb",
+      "reviewer": "/root/migration_review/source_focus"
+    },
+    {
+      "sources": [
+        {
+          "path": "packages/react/src/floating-ui-react/hooks/useDismiss.ts",
+          "sha256": "caff943d9f6525ac0ad8c73c046679fc1354fd83b1b3422a217982e9da6757d5",
+          "coverage": "full source file and paired native file compared; framework-only hook mappings examined as substitution roles"
+        },
+        {
+          "path": "packages/utils/src/useIsoLayoutEffect.ts",
+          "sha256": "13a0ab28d24b04617dc290ad151c145f2435d1e0c381123847af74344ea4b9a0",
+          "coverage": "full source file and paired native file compared; framework-only hook mappings examined as substitution roles"
+        },
+        {
+          "path": "packages/utils/src/useStableCallback.ts",
+          "sha256": "908cbd177f86c961983d0124a859f733d341be49e58bc5a553255f47725419c1",
+          "coverage": "full source file and paired native file compared; framework-only hook mappings examined as substitution roles"
+        }
+      ],
+      "review": "Full paired source IME/escape cancellation and bubble guards, reference press, child blocking, drag-release suppression, touch intentional/sloppy coordinate/time policy, inert marker/new node and scrollbar exclusions, current document capture/target one-shot handlers, session reset and timer cleanup preserved. Native event/capture props replace synthetic event representation; installed event bus captured. Redundant event.defaultPrevented OR same value is harmless but cleanup opportunity.",
+      "status": "no actionable scoped migration defect; execution remains pending",
+      "sourceBodyDisposition": "Full paired source IME/escape cancellation and bubble guards, reference press, child blocking, drag-release suppression, touch intentional/sloppy coordinate/time policy, inert marker/new node and scrollbar exclusions, current document capture/target one-shot handlers, session reset and timer cleanup preserved. Native event/capture props replace synthetic event representation; installed event bus captured. Redundant event.defaultPrevented OR same value is harmless but cleanup opportunity.",
+      "nativeBoundaryDisposition": "Direct native effects/context/snippets/attachments and live getters examined in complete paired bodies; no React lifecycle engine or parallel business implementation found in selected Alert paths.",
+      "maintainabilityDisposition": "Canonical shared helper reuse; readable source-derived bodies and proportionate native boundary. No additional abstraction required.",
+      "findings": [
+        {
+          "severity": "informational",
+          "path": "packages/base/src/lib/floating-ui/hooks/useDismiss.svelte.ts",
+          "detail": "event.defaultPrevented || event.defaultPrevented is redundant native synthetic-event substitution; semantics unaffected."
+        }
+      ],
+      "local": "packages/base/src/lib/floating-ui/hooks/useDismiss.svelte.ts",
+      "localSha256": "ae4860fe2a3f4ea5686bccb2b425bf9c61a676b92072da7b6f733d69dc8afd51",
+      "reviewer": "/root/migration_review/source_focus"
+    },
+    {
+      "sources": [
+        {
+          "path": "packages/react/src/floating-ui-react/components/FloatingPortal.tsx",
+          "sha256": "602600ea7e232bec066b961eddc5dce4bb654a88694a902e369e0e3ca6b2e13c",
+          "coverage": "full source file and paired native file compared; framework-only hook mappings examined as substitution roles"
+        },
+        {
+          "path": "packages/utils/src/useIsoLayoutEffect.ts",
+          "sha256": "13a0ab28d24b04617dc290ad151c145f2435d1e0c381123847af74344ea4b9a0",
+          "coverage": "full source file and paired native file compared; framework-only hook mappings examined as substitution roles"
+        }
+      ],
+      "review": "Full paired source container:null wait, Node/ref resolution, parent portal/body fallback and changed container reset preserved. Native mount/unmount captured host and child instances, distinct context snapshots preserve provider boundary. Actual host ID observer replaces React rendered-element introspection; getWindow(node).MutationObserver is realm-aware. Opaque snippet attachment/id lifetime is native deliberate substitution.",
+      "status": "no actionable scoped migration defect; execution remains pending",
+      "sourceBodyDisposition": "Full paired source container:null wait, Node/ref resolution, parent portal/body fallback and changed container reset preserved. Native mount/unmount captured host and child instances, distinct context snapshots preserve provider boundary. Actual host ID observer replaces React rendered-element introspection; getWindow(node).MutationObserver is realm-aware. Opaque snippet attachment/id lifetime is native deliberate substitution.",
+      "nativeBoundaryDisposition": "Direct native effects/context/snippets/attachments and live getters examined in complete paired bodies; no React lifecycle engine or parallel business implementation found in selected Alert paths.",
+      "maintainabilityDisposition": "Canonical shared helper reuse; readable source-derived bodies and proportionate native boundary. No additional abstraction required.",
+      "findings": [],
+      "local": "packages/base/src/lib/floating-ui/hooks/useFloatingPortalNode.svelte.ts",
+      "localSha256": "16cef262e2368b881c58d59baa1257caddc9c0e97b4fb183f7099cc09f6dc84d",
+      "reviewer": "/root/migration_review/source_focus"
+    },
+    {
+      "sources": [
+        {
+          "path": "packages/react/src/floating-ui-react/hooks/useHoverShared.ts",
+          "sha256": "24d8edb07cb31c4f2b82ef77bea6db76e4a6ae2bacfa097dd4b01c50de5d2478",
+          "coverage": "full source file and paired native file compared; framework-only hook mappings examined as substitution roles"
+        }
+      ],
+      "review": "Full source pure helper bodies/types unchanged apart from canonical import paths; type-reached hover closure is not runtime hover acceptance.",
+      "status": "no actionable scoped migration defect; execution remains pending",
+      "sourceBodyDisposition": "Full source pure helper bodies/types unchanged apart from canonical import paths; type-reached hover closure is not runtime hover acceptance.",
+      "nativeBoundaryDisposition": "Direct native effects/context/snippets/attachments and live getters examined in complete paired bodies; no React lifecycle engine or parallel business implementation found in selected Alert paths.",
+      "maintainabilityDisposition": "Canonical shared helper reuse; readable source-derived bodies and proportionate native boundary. No additional abstraction required.",
+      "findings": [],
+      "local": "packages/base/src/lib/floating-ui/hooks/useHoverShared.ts",
+      "localSha256": "27321c9b2a6773e8743846b8af2a51a4339462f8189f1a9cad36b9702b4517df",
+      "reviewer": "/root/migration_review/source_focus"
+    },
+    {
+      "sources": [
+        {
+          "path": "packages/react/src/floating-ui-react/hooks/useSyncedFloatingRootContext.ts",
+          "sha256": "e9538f143d37f7c9ebfd5f87bb2fbb49d03bad14591a610e567bc4680bf1329f",
+          "coverage": "full source file and paired native file compared; framework-only hook mappings examined as substitution roles"
+        },
+        {
+          "path": "packages/utils/src/useIsoLayoutEffect.ts",
+          "sha256": "13a0ab28d24b04617dc290ad151c145f2435d1e0c381123847af74344ea4b9a0",
+          "coverage": "full source file and paired native file compared; framework-only hook mappings examined as substitution roles"
+        }
+      ],
+      "review": "Full paired source selection, once-created or supplied store, floatingId publication, isElement domReference update and positionReference equality protection preserved. Initial setup/context fields retained with native live supplied option getters; direct effect updates external store and untrack only initialization.",
+      "status": "no actionable scoped migration defect; execution remains pending",
+      "sourceBodyDisposition": "Full paired source selection, once-created or supplied store, floatingId publication, isElement domReference update and positionReference equality protection preserved. Initial setup/context fields retained with native live supplied option getters; direct effect updates external store and untrack only initialization.",
+      "nativeBoundaryDisposition": "Direct native effects/context/snippets/attachments and live getters examined in complete paired bodies; no React lifecycle engine or parallel business implementation found in selected Alert paths.",
+      "maintainabilityDisposition": "Canonical shared helper reuse; readable source-derived bodies and proportionate native boundary. No additional abstraction required.",
+      "findings": [],
+      "local": "packages/base/src/lib/floating-ui/hooks/useSyncedFloatingRootContext.svelte.ts",
+      "localSha256": "aa1374702cc5d76d0380c6b4080ffc10f2b22b496ecbfed24b97e70636669916",
+      "reviewer": "/root/migration_review/source_focus"
+    },
+    {
+      "sources": [
+        {
+          "path": "packages/react/src/floating-ui-react/safePolygon.ts",
+          "sha256": "682e2a9ff611e947ebe7f2bfc367f8df0060021c0e38a140f60003cfcac853a9",
+          "coverage": "full source file and paired native file compared; framework-only hook mappings examined as substitution roles"
+        }
+      ],
+      "review": "Full body unchanged except native type imports/alias/comments. Geometry, cursor speed tracking, buffer/intent bounds, timeout and child-node checks preserved. Type-reached by Alert; no hover-family runtime acceptance.",
+      "status": "no actionable scoped migration defect; execution remains pending",
+      "sourceBodyDisposition": "Full body unchanged except native type imports/alias/comments. Geometry, cursor speed tracking, buffer/intent bounds, timeout and child-node checks preserved. Type-reached by Alert; no hover-family runtime acceptance.",
+      "nativeBoundaryDisposition": "Direct native effects/context/snippets/attachments and live getters examined in complete paired bodies; no React lifecycle engine or parallel business implementation found in selected Alert paths.",
+      "maintainabilityDisposition": "Canonical shared helper reuse; readable source-derived bodies and proportionate native boundary. No additional abstraction required.",
+      "findings": [],
+      "local": "packages/base/src/lib/floating-ui/safePolygon.ts",
+      "localSha256": "ee7e5e41dcb23934c4be65722b2c1e52663c6c518e3beafff627b8968430a9e3",
+      "reviewer": "/root/migration_review/source_focus"
+    },
+    {
+      "sources": [
+        {
+          "path": "packages/react/src/floating-ui-react/types.ts",
+          "sha256": "45be5f5fc58eaec333ec9d4e4c8313f91b9670937cec7743a8115c524b29265c",
+          "coverage": "full source file and paired native file compared; framework-only hook mappings examined as substitution roles"
+        }
+      ],
+      "review": "Selected root/tree/node/interaction fields preserved with native events/refs/HTML props and DOM positioning types; unrelated source barrel export fanout is not a business implementation obligation. Type boundary includes full safePolygon canonical closure, which was body-compared.",
+      "status": "no actionable scoped migration defect; execution remains pending",
+      "sourceBodyDisposition": "Selected root/tree/node/interaction fields preserved with native events/refs/HTML props and DOM positioning types; unrelated source barrel export fanout is not a business implementation obligation. Type boundary includes full safePolygon canonical closure, which was body-compared.",
+      "nativeBoundaryDisposition": "Direct native effects/context/snippets/attachments and live getters examined in complete paired bodies; no React lifecycle engine or parallel business implementation found in selected Alert paths.",
+      "maintainabilityDisposition": "Canonical shared helper reuse; readable source-derived bodies and proportionate native boundary. No additional abstraction required.",
+      "findings": [],
+      "local": "packages/base/src/lib/floating-ui/types.ts",
+      "localSha256": "5c4e86d68644ba65a89798d584d75bb7c1dacde7f892c9ea9fdfdd64523d3473",
+      "reviewer": "/root/migration_review/source_focus"
+    },
+    {
+      "sources": [
+        {
+          "path": "packages/react/src/floating-ui-react/utils/composite.ts",
+          "sha256": "37b1dc55a5290245459ce608f8dda0af5d746e5b89b87b51b442cdef2d9d09d1",
+          "coverage": "full source file and paired native file compared; framework-only hook mappings examined as substitution roles"
+        }
+      ],
+      "review": "For floating facade: source algorithms reused through canonical navigation module, no second traversal. For internals Composite: complete keyboard/focus/scroll bodies compared; inherited structural isHTMLElement and owner-window style access differ from Source helper/global style accessor. Alert Popup selects keyboard constants only; unselected scrolling does not receive inherited Source acceptance.",
+      "status": "no actionable scoped migration defect; execution remains pending",
+      "sourceBodyDisposition": "For floating facade: source algorithms reused through canonical navigation module, no second traversal. For internals Composite: complete keyboard/focus/scroll bodies compared; inherited structural isHTMLElement and owner-window style access differ from Source helper/global style accessor. Alert Popup selects keyboard constants only; unselected scrolling does not receive inherited Source acceptance.",
+      "nativeBoundaryDisposition": "Direct native effects/context/snippets/attachments and live getters examined in complete paired bodies; no React lifecycle engine or parallel business implementation found in selected Alert paths.",
+      "maintainabilityDisposition": "Canonical shared helper reuse; readable source-derived bodies and proportionate native boundary. No additional abstraction required.",
+      "findings": [],
+      "local": "packages/base/src/lib/floating-ui/utils/composite.ts",
+      "localSha256": "96b8fde56711a770d9c1936cfae99d9576009539cc5c68ef139f463533893d27",
+      "reviewer": "/root/migration_review/source_focus"
+    },
+    {
+      "sources": [
+        {
+          "path": "packages/react/src/floating-ui-react/utils/constants.ts",
+          "sha256": "ee99e2e0b1fcbed2edbf65bc9713f46199299099d918fa8bd39c3aa33368f20b",
+          "coverage": "full source file and paired native file compared; framework-only hook mappings examined as substitution roles"
+        }
+      ],
+      "review": "Entire source constant values unchanged, MIT notice only.",
+      "status": "no actionable scoped migration defect; execution remains pending",
+      "sourceBodyDisposition": "Entire source constant values unchanged, MIT notice only.",
+      "nativeBoundaryDisposition": "Direct native effects/context/snippets/attachments and live getters examined in complete paired bodies; no React lifecycle engine or parallel business implementation found in selected Alert paths.",
+      "maintainabilityDisposition": "Canonical shared helper reuse; readable source-derived bodies and proportionate native boundary. No additional abstraction required.",
+      "findings": [],
+      "local": "packages/base/src/lib/floating-ui/utils/constants.ts",
+      "localSha256": "14ac30673b196081a83c1e023ecfd546294733ceb2f756d2bad01e3a9d24880b",
+      "reviewer": "/root/migration_review/source_focus"
+    },
+    {
+      "sources": [
+        {
+          "path": "packages/react/src/floating-ui-react/utils/createAttribute.ts",
+          "sha256": "d4d5b40c4b97d656eead0fe91a5b27d4d85860e8e396eee274619a3b40f73726",
+          "coverage": "full source file and paired native file compared; framework-only hook mappings examined as substitution roles"
+        }
+      ],
+      "review": "Entire source data-base-ui interpolation unchanged, MIT notice only.",
+      "status": "no actionable scoped migration defect; execution remains pending",
+      "sourceBodyDisposition": "Entire source data-base-ui interpolation unchanged, MIT notice only.",
+      "nativeBoundaryDisposition": "Direct native effects/context/snippets/attachments and live getters examined in complete paired bodies; no React lifecycle engine or parallel business implementation found in selected Alert paths.",
+      "maintainabilityDisposition": "Canonical shared helper reuse; readable source-derived bodies and proportionate native boundary. No additional abstraction required.",
+      "findings": [],
+      "local": "packages/base/src/lib/floating-ui/utils/createAttribute.ts",
+      "localSha256": "24fb1aacf4668a0ada9cfcb8d1f516b3ef7d5022df3f3b0a375394e260f07f4a",
+      "reviewer": "/root/migration_review/source_focus"
+    },
+    {
+      "sources": [
+        {
+          "path": "packages/react/src/floating-ui-react/utils/createEventEmitter.ts",
+          "sha256": "e746c6156536daf0a7d205d1daf25bcac1244b8958b5edf3d719982cdb7e3505",
+          "coverage": "full source file and paired native file compared; framework-only hook mappings examined as substitution roles"
+        }
+      ],
+      "review": "Entire Map/Set emit/on/off business unchanged including mutation traversal semantics; type-only native FloatingEvents and lint annotation only.",
+      "status": "no actionable scoped migration defect; execution remains pending",
+      "sourceBodyDisposition": "Entire Map/Set emit/on/off business unchanged including mutation traversal semantics; type-only native FloatingEvents and lint annotation only.",
+      "nativeBoundaryDisposition": "Direct native effects/context/snippets/attachments and live getters examined in complete paired bodies; no React lifecycle engine or parallel business implementation found in selected Alert paths.",
+      "maintainabilityDisposition": "Canonical shared helper reuse; readable source-derived bodies and proportionate native boundary. No additional abstraction required.",
+      "findings": [],
+      "local": "packages/base/src/lib/floating-ui/utils/createEventEmitter.ts",
+      "localSha256": "31ebcaf59c98304ec9944e91a86b0a3c3ed31359e76a102ea62c4213f5dff484",
+      "reviewer": "/root/migration_review/source_focus"
+    },
+    {
+      "sources": [
+        {
+          "path": "packages/react/src/floating-ui-react/utils/element.ts",
+          "sha256": "327171478f561a3f0e9d74ddbd14c31e4e7263309d6813484d1ce5c406df51f0",
+          "coverage": "full source file and paired native file compared; framework-only hook mappings examined as substitution roles"
+        },
+        {
+          "path": "packages/react/src/tooltip/trigger/TooltipTriggerDataAttributes.ts",
+          "sha256": "862b7dc7f1e0ba84331e9003fdafdf4352fb83defca1bd76789a98ff785b4b73",
+          "coverage": "full source file and paired native file compared; framework-only hook mappings examined as substitution roles"
+        }
+      ],
+      "review": "All source predicates and floating focus host selection retained; matchesFocusVisible extracted into canonical leaf; exact Tooltip disabled marker selected without unrelated family imports.",
+      "status": "no actionable scoped migration defect; execution remains pending",
+      "sourceBodyDisposition": "All source predicates and floating focus host selection retained; matchesFocusVisible extracted into canonical leaf; exact Tooltip disabled marker selected without unrelated family imports.",
+      "nativeBoundaryDisposition": "Direct native effects/context/snippets/attachments and live getters examined in complete paired bodies; no React lifecycle engine or parallel business implementation found in selected Alert paths.",
+      "maintainabilityDisposition": "Canonical shared helper reuse; readable source-derived bodies and proportionate native boundary. No additional abstraction required.",
+      "findings": [],
+      "local": "packages/base/src/lib/floating-ui/utils/element.ts",
+      "localSha256": "68a9ee68a6c3d8c0c1d9e8f68fffb3c214201c6f7fed4b0c374298b65fae3ff3",
+      "reviewer": "/root/migration_review/source_focus"
+    },
+    {
+      "sources": [
+        {
+          "path": "packages/react/src/floating-ui-react/utils/enqueueFocus.ts",
+          "sha256": "5bed83959e1b56d276bf6ea5edd5bf285077f576e3f8be3de8f0e23d2491ad99",
+          "coverage": "full source file and paired native file compared; framework-only hook mappings examined as substitution roles"
+        }
+      ],
+      "review": "Full source shared frame cancellation, optional preventScroll/shouldFocus guard and NOOP unchanged; canonical Utils NOOP import.",
+      "status": "no actionable scoped migration defect; execution remains pending",
+      "sourceBodyDisposition": "Full source shared frame cancellation, optional preventScroll/shouldFocus guard and NOOP unchanged; canonical Utils NOOP import.",
+      "nativeBoundaryDisposition": "Direct native effects/context/snippets/attachments and live getters examined in complete paired bodies; no React lifecycle engine or parallel business implementation found in selected Alert paths.",
+      "maintainabilityDisposition": "Canonical shared helper reuse; readable source-derived bodies and proportionate native boundary. No additional abstraction required.",
+      "findings": [],
+      "local": "packages/base/src/lib/floating-ui/utils/enqueueFocus.ts",
+      "localSha256": "b63028cbb1e9c547a40144090efd0c0d966fb0d188492bf0ced77fa1aac88440",
+      "reviewer": "/root/migration_review/source_focus"
+    },
+    {
+      "sources": [
+        {
+          "path": "packages/react/src/floating-ui-react/utils/event.ts",
+          "sha256": "be6f5d7635aa248e3c8aae845778522c50cd4132d71548d4719ef93b1c8eddde",
+          "coverage": "full source file and paired native file compared; framework-only hook mappings examined as substitution roles"
+        }
+      ],
+      "review": "All virtual click/pointer, mouse-like and click-like branches unchanged; React-specific detector omitted and native Event stopEvent replaces synthetic union.",
+      "status": "no actionable scoped migration defect; execution remains pending",
+      "sourceBodyDisposition": "All virtual click/pointer, mouse-like and click-like branches unchanged; React-specific detector omitted and native Event stopEvent replaces synthetic union.",
+      "nativeBoundaryDisposition": "Direct native effects/context/snippets/attachments and live getters examined in complete paired bodies; no React lifecycle engine or parallel business implementation found in selected Alert paths.",
+      "maintainabilityDisposition": "Canonical shared helper reuse; readable source-derived bodies and proportionate native boundary. No additional abstraction required.",
+      "findings": [],
+      "local": "packages/base/src/lib/floating-ui/utils/event.ts",
+      "localSha256": "32391b7e254d578d4a374a8f95270e0fea8c763e8f56c52db2e9931243ad5e56",
+      "reviewer": "/root/migration_review/source_focus"
+    },
+    {
+      "sources": [
+        {
+          "path": "packages/react/src/floating-ui-react/utils/markOthers.ts",
+          "sha256": "f9609aa96d9ab7ae63a2a61a8e3c54138a091d74490b71c2df2670e34b92b4ed",
+          "coverage": "full source file and paired native file compared; framework-only hook mappings examined as substitution roles"
+        }
+      ],
+      "review": "Entire source reference-counted mark/aria-hidden business and undo closures unchanged; owner helper import moved to Utils.",
+      "status": "no actionable scoped migration defect; execution remains pending",
+      "sourceBodyDisposition": "Entire source reference-counted mark/aria-hidden business and undo closures unchanged; owner helper import moved to Utils.",
+      "nativeBoundaryDisposition": "Direct native effects/context/snippets/attachments and live getters examined in complete paired bodies; no React lifecycle engine or parallel business implementation found in selected Alert paths.",
+      "maintainabilityDisposition": "Canonical shared helper reuse; readable source-derived bodies and proportionate native boundary. No additional abstraction required.",
+      "findings": [],
+      "local": "packages/base/src/lib/floating-ui/utils/markOthers.ts",
+      "localSha256": "1b40a2689b9546635a1609d2cc1642bee332e97ac9491b170043fcd95447cc03",
+      "reviewer": "/root/migration_review/source_focus"
+    },
+    {
+      "sources": [
+        {
+          "path": "packages/react/src/floating-ui-react/utils/element.ts",
+          "sha256": "327171478f561a3f0e9d74ddbd14c31e4e7263309d6813484d1ce5c406df51f0",
+          "coverage": "full source file and paired native file compared; framework-only hook mappings examined as substitution roles"
+        }
+      ],
+      "review": "Exact source null/jsdom true, try matches and catch true branches retained in extracted canonical leaf.",
+      "status": "no actionable scoped migration defect; execution remains pending",
+      "sourceBodyDisposition": "Exact source null/jsdom true, try matches and catch true branches retained in extracted canonical leaf.",
+      "nativeBoundaryDisposition": "Direct native effects/context/snippets/attachments and live getters examined in complete paired bodies; no React lifecycle engine or parallel business implementation found in selected Alert paths.",
+      "maintainabilityDisposition": "Canonical shared helper reuse; readable source-derived bodies and proportionate native boundary. No additional abstraction required.",
+      "findings": [],
+      "local": "packages/base/src/lib/floating-ui/utils/matchesFocusVisible.ts",
+      "localSha256": "4d5266137ceb919a50e3cd9ad29e23a219b08470f34c275852c320531cc949d3",
+      "reviewer": "/root/migration_review/source_focus"
+    },
+    {
+      "sources": [
+        {
+          "path": "packages/react/src/floating-ui-react/utils/nodes.ts",
+          "sha256": "f2ff4ef47af247991ac0940745e71e5e56d94d76f2ee008da58a5d951328b32c",
+          "coverage": "full source file and paired native file compared; framework-only hook mappings examined as substitution roles"
+        }
+      ],
+      "review": "Entire recursive child/ancestor/sibling algorithms unchanged apart from types/imports/comments. Shared pinned ShadowRoot guard-loop issue81 retained elsewhere in tabbable.",
+      "status": "no actionable scoped migration defect; execution remains pending",
+      "sourceBodyDisposition": "Entire recursive child/ancestor/sibling algorithms unchanged apart from types/imports/comments. Shared pinned ShadowRoot guard-loop issue81 retained elsewhere in tabbable.",
+      "nativeBoundaryDisposition": "Direct native effects/context/snippets/attachments and live getters examined in complete paired bodies; no React lifecycle engine or parallel business implementation found in selected Alert paths.",
+      "maintainabilityDisposition": "Canonical shared helper reuse; readable source-derived bodies and proportionate native boundary. No additional abstraction required.",
+      "findings": [],
+      "local": "packages/base/src/lib/floating-ui/utils/nodes.ts",
+      "localSha256": "b78d4c24b96237d20d09a60549535fad0d8e61661b38091cbf5368b53c43f544",
+      "reviewer": "/root/migration_review/source_focus"
+    },
+    {
+      "sources": [
+        {
+          "path": "packages/react/src/floating-ui-react/utils/tabbable.ts",
+          "sha256": "4991f9e1c049a525fcb1d70f7a05f78e6f56e62921b4f15fafa68e0ba89af80f",
+          "coverage": "full source file and paired native file compared; framework-only hook mappings examined as substitution roles"
+        }
+      ],
+      "review": "Entire source visibility, shadow traversal, focusable/tabbable, tabindex cache disable/enable and neighboring traversal branches unchanged; native FocusEvent types substitute React focus union. Shared issue81 loop preserved.",
+      "status": "no actionable scoped migration defect; execution remains pending",
+      "sourceBodyDisposition": "Entire source visibility, shadow traversal, focusable/tabbable, tabindex cache disable/enable and neighboring traversal branches unchanged; native FocusEvent types substitute React focus union. Shared issue81 loop preserved.",
+      "nativeBoundaryDisposition": "Direct native effects/context/snippets/attachments and live getters examined in complete paired bodies; no React lifecycle engine or parallel business implementation found in selected Alert paths.",
+      "maintainabilityDisposition": "Canonical shared helper reuse; readable source-derived bodies and proportionate native boundary. No additional abstraction required.",
+      "findings": [],
+      "local": "packages/base/src/lib/floating-ui/utils/tabbable.ts",
+      "localSha256": "83937949cf582078e63e085b1bd49ec588462f13bb4f5f178af83641f0e75c7f",
+      "reviewer": "/root/migration_review/source_focus"
+    },
+    {
+      "local": "packages/base/src/lib/internals/TransitionStatusDataAttributes.ts",
+      "localSha256": "d3e4a31041bcc80ba21b330d3fedadfadaeae3f498dc09e078e70470cfb98dfe",
+      "sourceBodies": [
+        "packages/react/src/internals/TransitionStatusDataAttributes.ts"
+      ],
+      "reviewed": "full module and mapped selected/full bodies or explicit native boundary",
+      "checks": "Read complete local module and mapped pinned source body/types; examined actual import destinations. No new scoped business finding.",
+      "nativeSubstitutions": [
+        "Pinned constant/function/export business retained with type/import representation changes as applicable."
+      ],
+      "findings": [],
+      "maintainability": "Shared helper reuse/direct native composition; no additional React lifecycle or state snapshot engine identified.",
+      "reviewer": "/root/migration_review"
+    },
+    {
+      "local": "packages/base/src/lib/internals/ValueChanged.svelte.ts",
+      "localSha256": "f169e9eec98d817327dd31fc0c39c019173cdb64fac3350b898004222107e54e",
+      "sourceBodies": [
+        "packages/react/src/internals/useValueChanged.ts",
+        "packages/utils/src/useIsoLayoutEffect.ts",
+        "packages/utils/src/useRefWithInit.ts",
+        "packages/utils/src/useStableCallback.ts",
+        "packages/react/src/internals/useValueChanged.ts"
+      ],
+      "reviewed": "full module and mapped selected/full bodies or explicit native boundary",
+      "checks": "Read complete local module and mapped pinned source body/types; examined actual import destinations. No new scoped business finding.",
+      "nativeSubstitutions": [
+        "Notification before previous-value update with strict inequality retained in class/direct effect; inherited map was wrong and corrected separately; Alert does not invoke broader useOpenInteractionType body."
+      ],
+      "findings": [],
+      "maintainability": "Shared helper reuse/direct native composition; no additional React lifecycle or state snapshot engine identified.",
+      "reviewer": "/root/migration_review"
+    },
+    {
+      "sources": [
+        {
+          "path": "packages/react/src/internals/composite/composite.ts",
+          "sha256": "771259b0b6a3f23c240603241547c5442ff2aac9c1915175f520c18410112449",
+          "coverage": "full source file and paired native file compared; framework-only hook mappings examined as substitution roles"
+        }
+      ],
+      "review": "For floating facade: source algorithms reused through canonical navigation module, no second traversal. For internals Composite: complete keyboard/focus/scroll bodies compared; inherited structural isHTMLElement and owner-window style access differ from Source helper/global style accessor. Alert Popup selects keyboard constants only; unselected scrolling does not receive inherited Source acceptance.",
+      "status": "no actionable scoped migration defect; execution remains pending",
+      "sourceBodyDisposition": "For floating facade: source algorithms reused through canonical navigation module, no second traversal. For internals Composite: complete keyboard/focus/scroll bodies compared; inherited structural isHTMLElement and owner-window style access differ from Source helper/global style accessor. Alert Popup selects keyboard constants only; unselected scrolling does not receive inherited Source acceptance.",
+      "nativeBoundaryDisposition": "Direct native effects/context/snippets/attachments and live getters examined in complete paired bodies; no React lifecycle engine or parallel business implementation found in selected Alert paths.",
+      "maintainabilityDisposition": "Canonical shared helper reuse; readable source-derived bodies and proportionate native boundary. No additional abstraction required.",
+      "findings": [
+        {
+          "severity": "scope limitation",
+          "path": "packages/base/src/lib/internals/composite/composite.ts",
+          "detail": "Inherited structural isHTMLElement predicate and owner-window getComputedStyle differ from exact source dependency/global accessor; selected Alert Popup key constants unaffected. Full composite runtime acceptance not established."
+        }
+      ],
+      "local": "packages/base/src/lib/internals/composite/composite.ts",
+      "localSha256": "f4e02dc8034a749a29f2c63d12f34c25d17c73ffd4075bc31e8f4a55306c0a9e",
+      "reviewer": "/root/migration_review/source_focus"
+    },
+    {
+      "sources": [
+        {
+          "path": "packages/react/src/internals/composite/root/CompositeRootContext.ts",
+          "sha256": "751bbbd1fa2b4ae5c5674dc878d302b59b0e15b5771763cccbaf2362eee1b9fa",
+          "coverage": "full source file and paired native file compared; framework-only hook mappings examined as substitution roles"
+        }
+      ],
+      "review": "Source missing-provider throw and optional branch/message retained; Svelte context replaces React context and native keyboard type replaces synthetic event.",
+      "status": "no actionable scoped migration defect; execution remains pending",
+      "sourceBodyDisposition": "Source missing-provider throw and optional branch/message retained; Svelte context replaces React context and native keyboard type replaces synthetic event.",
+      "nativeBoundaryDisposition": "Direct native effects/context/snippets/attachments and live getters examined in complete paired bodies; no React lifecycle engine or parallel business implementation found in selected Alert paths.",
+      "maintainabilityDisposition": "Canonical shared helper reuse; readable source-derived bodies and proportionate native boundary. No additional abstraction required.",
+      "findings": [],
+      "local": "packages/base/src/lib/internals/composite/root/CompositeRootContext.ts",
+      "localSha256": "b08d6af5d6e71ba46076718b4426c7d2e0485a059e9204759406af1f395b6f2c",
+      "reviewer": "/root/migration_review/source_focus"
+    },
+    {
+      "sources": [
+        {
+          "path": "packages/react/src/floating-ui-react/utils/composite.ts",
+          "sha256": "37b1dc55a5290245459ce608f8dda0af5d746e5b89b87b51b442cdef2d9d09d1",
+          "coverage": "full source file and paired native file compared; framework-only hook mappings examined as substitution roles"
+        }
+      ],
+      "review": "Full 524-line source algorithms retain disabled-index scans, inferred DOM rows/virtual gaps, LTR/RTL/grid loop/onLoop branches, grid-cell allocation/corners, visibility and native-disabled handling. Math.floor/type and DEV substitutions are representation changes; owner-window style accessor is inherited realm difference and not a Svelte inherent default.",
+      "status": "no actionable scoped migration defect; execution remains pending",
+      "sourceBodyDisposition": "Full 524-line source algorithms retain disabled-index scans, inferred DOM rows/virtual gaps, LTR/RTL/grid loop/onLoop branches, grid-cell allocation/corners, visibility and native-disabled handling. Math.floor/type and DEV substitutions are representation changes; owner-window style accessor is inherited realm difference and not a Svelte inherent default.",
+      "nativeBoundaryDisposition": "Direct native effects/context/snippets/attachments and live getters examined in complete paired bodies; no React lifecycle engine or parallel business implementation found in selected Alert paths.",
+      "maintainabilityDisposition": "Canonical shared helper reuse; readable source-derived bodies and proportionate native boundary. No additional abstraction required.",
+      "findings": [
+        {
+          "severity": "scope limitation",
+          "detail": "Inherited owner-window getComputedStyle substitution differs from Source global/dom helper; Alert selected visibility use is preserved under normal attached host documents, but full foreign/documentless Composite scrolling fidelity is not established and is not inherently a Svelte default."
+        }
+      ],
+      "local": "packages/base/src/lib/internals/composite/utils/navigation.ts",
+      "localSha256": "bcfb35db31e9b53c86be39c229e041eaaf48f82df10d4dfaac79b69ecfd5a6dd",
+      "reviewer": "/root/migration_review/source_focus"
+    },
+    {
+      "local": "packages/base/src/lib/internals/constants.ts",
+      "localSha256": "de12c9af7ce208e69f24e5bbfefb3df6840e5b4f284109597087188a338c6893",
+      "sourceBodies": [
+        "packages/react/src/internals/constants.ts"
+      ],
+      "reviewed": "full module and mapped selected/full bodies or explicit native boundary",
+      "checks": "Read complete local module and mapped pinned source body/types; examined actual import destinations. No new scoped business finding.",
+      "nativeSubstitutions": [
+        "Pinned constant/function/export business retained with type/import representation changes as applicable."
+      ],
+      "findings": [],
+      "maintainability": "Shared helper reuse/direct native composition; no additional React lifecycle or state snapshot engine identified.",
+      "reviewer": "/root/migration_review"
+    },
+    {
+      "local": "packages/base/src/lib/internals/createBaseUIEventDetails.ts",
+      "localSha256": "8c72d1cd966a450125d2177842154e603b52779f156660af0633101ea222c772",
+      "sourceBodies": [
+        "packages/react/src/internals/createBaseUIEventDetails.ts"
+      ],
+      "reviewed": "full module and mapped selected/full bodies or explicit native boundary",
+      "checks": "Read complete local module and mapped pinned source body/types; examined actual import destinations. No new scoped business finding.",
+      "nativeSubstitutions": [
+        "Pinned constant/function/export business retained with type/import representation changes as applicable."
+      ],
+      "findings": [],
+      "maintainability": "Shared helper reuse/direct native composition; no additional React lifecycle or state snapshot engine identified.",
+      "reviewer": "/root/migration_review"
+    },
+    {
+      "local": "packages/base/src/lib/internals/getStateAttributesProps.ts",
+      "localSha256": "e48367a890024a54cb200eabc5c2a0ba0a397256baacfaec8b0a05ced3b10344",
+      "sourceBodies": [
+        "packages/react/src/internals/getStateAttributesProps.ts"
+      ],
+      "reviewed": "full module and mapped selected/full bodies or explicit native boundary",
+      "checks": "Read complete local module and mapped pinned source body/types; examined actual import destinations. No new scoped business finding.",
+      "nativeSubstitutions": [
+        "Pinned constant/function/export business retained with type/import representation changes as applicable."
+      ],
+      "findings": [],
+      "maintainability": "Shared helper reuse/direct native composition; no additional React lifecycle or state snapshot engine identified.",
+      "reviewer": "/root/migration_review"
+    },
+    {
+      "local": "packages/base/src/lib/internals/mergeComponentProps.ts",
+      "localSha256": "803da5cb2c52515e1e68e16b66b61060c31ca03d183bb09d928b601bbb70cab7",
+      "sourceBodies": [
+        "packages/react/src/internals/useRenderElement.tsx"
+      ],
+      "reviewed": "full module and mapped selected/full bodies or explicit native boundary",
+      "checks": "Read complete local module and mapped pinned source body/types; examined actual import destinations. No new scoped business finding.",
+      "nativeSubstitutions": [
+        "Native Event/class/style/snippet/attachment representation; pure ordered merge and prevented-event branches retained. Native defaults earn no divergent unchanged assertion credit."
+      ],
+      "findings": [],
+      "maintainability": "Shared helper reuse/direct native composition; no additional React lifecycle or state snapshot engine identified.",
+      "reviewer": "/root/migration_review"
+    },
+    {
+      "local": "packages/base/src/lib/internals/nativeProps.ts",
+      "localSha256": "f081bf825f41a64924fe298108e148ac56314d02074c588cc1f9324ff6a92cc5",
+      "sourceBodies": [
+        "packages/react/src/internals/useRenderElement.tsx"
+      ],
+      "reviewed": "full module and mapped selected/full bodies or explicit native boundary",
+      "checks": "Read complete local module and mapped pinned source body/types; examined actual import destinations. No new scoped business finding.",
+      "nativeSubstitutions": [
+        "Native Event/class/style/snippet/attachment representation; pure ordered merge and prevented-event branches retained. Native defaults earn no divergent unchanged assertion credit."
+      ],
+      "findings": [],
+      "maintainability": "Shared helper reuse/direct native composition; no additional React lifecycle or state snapshot engine identified.",
+      "reviewer": "/root/migration_review"
+    },
+    {
+      "local": "packages/base/src/lib/internals/reason-parts.ts",
+      "localSha256": "0326d21ce4be2c41b5488c86e3687249faf3c51f5e10ae49c16e8efdc183abf5",
+      "sourceBodies": [
+        "packages/react/src/internals/reason-parts.ts"
+      ],
+      "reviewed": "full module and mapped selected/full bodies or explicit native boundary",
+      "checks": "Read complete local module and mapped pinned source body/types; examined actual import destinations. No new scoped business finding.",
+      "nativeSubstitutions": [
+        "Pinned constant/function/export business retained with type/import representation changes as applicable."
+      ],
+      "findings": [],
+      "maintainability": "Shared helper reuse/direct native composition; no additional React lifecycle or state snapshot engine identified.",
+      "reviewer": "/root/migration_review"
+    },
+    {
+      "local": "packages/base/src/lib/internals/reasons.ts",
+      "localSha256": "f1f52caeefb14448a7e7c9833e24413b923b7bbf40aa1818ca73dc93710b42e7",
+      "sourceBodies": [
+        "packages/react/src/internals/reasons.ts"
+      ],
+      "reviewed": "full module and mapped selected/full bodies or explicit native boundary",
+      "checks": "Read complete local module and mapped pinned source body/types; examined actual import destinations. No new scoped business finding.",
+      "nativeSubstitutions": [
+        "Pinned constant/function/export business retained with type/import representation changes as applicable."
+      ],
+      "findings": [],
+      "maintainability": "Shared helper reuse/direct native composition; no additional React lifecycle or state snapshot engine identified.",
+      "reviewer": "/root/migration_review"
+    },
+    {
+      "local": "packages/base/src/lib/internals/resolveClassValue.ts",
+      "localSha256": "584323b17cb1733a798e9ff86e9ff783d6a26d08ecf005a8c2b3c69917c1e722",
+      "sourceBodies": [
+        "packages/react/src/internals/useRenderElement.tsx"
+      ],
+      "reviewed": "full module and mapped selected/full bodies or explicit native boundary",
+      "checks": "Read complete local module and mapped pinned source body/types; examined actual import destinations. No new scoped business finding.",
+      "nativeSubstitutions": [
+        "Native Event/class/style/snippet/attachment representation; pure ordered merge and prevented-event branches retained. Native defaults earn no divergent unchanged assertion credit."
+      ],
+      "findings": [],
+      "maintainability": "Shared helper reuse/direct native composition; no additional React lifecycle or state snapshot engine identified.",
+      "reviewer": "/root/migration_review"
+    },
+    {
+      "local": "packages/base/src/lib/internals/stateAttributesMapping.ts",
+      "localSha256": "d04c73fe454de256e1641245b5db6a3d70824693f0da33272d0863f033b5230d",
+      "sourceBodies": [
+        "packages/react/src/internals/stateAttributesMapping.ts"
+      ],
+      "reviewed": "full module and mapped selected/full bodies or explicit native boundary",
+      "checks": "Read complete local module and mapped pinned source body/types; examined actual import destinations. No new scoped business finding.",
+      "nativeSubstitutions": [
+        "Pinned constant/function/export business retained with type/import representation changes as applicable."
+      ],
+      "findings": [],
+      "maintainability": "Shared helper reuse/direct native composition; no additional React lifecycle or state snapshot engine identified.",
+      "reviewer": "/root/migration_review"
+    },
+    {
+      "local": "packages/base/src/lib/internals/types.ts",
+      "localSha256": "6a36f5f103ef940b8a32d63f0288d897096c846fb2361b4ef44733e9a899907e",
+      "sourceBodies": [
+        "packages/react/src/internals/types.ts",
+        "packages/react/src/types/index.ts"
+      ],
+      "reviewed": "full module and mapped selected/full bodies or explicit native boundary",
+      "checks": "Read complete local module and mapped pinned source body/types; examined actual import destinations. No new scoped business finding.",
+      "nativeSubstitutions": [
+        "Native Event/class/style/snippet/attachment representation; pure ordered merge and prevented-event branches retained. Native defaults earn no divergent unchanged assertion credit."
+      ],
+      "findings": [],
+      "maintainability": "Shared helper reuse/direct native composition; no additional React lifecycle or state snapshot engine identified.",
+      "reviewer": "/root/migration_review"
+    },
+    {
+      "local": "packages/base/src/lib/internals/use-button/useButton.svelte.ts",
+      "localSha256": "48750528371fbf08dd09478dd7fb8e2a2b9a19494bf1e779610e5b90668e16d0",
+      "sourceBodies": [
+        "packages/react/src/internals/use-button/useButton.ts",
+        "packages/utils/src/useIsoLayoutEffect.ts",
+        "packages/utils/src/useStableCallback.ts"
+      ],
+      "reviewed": "full module and mapped selected/full bodies or explicit native boundary",
+      "checks": "Read complete local module and mapped pinned source body/types; examined actual import destinations. No new scoped business finding.",
+      "nativeSubstitutions": [
+        "Original keyboard/composite/disabled/link branch ordering and DEV diagnostics retained; live parameters/native Event/host attachment replace hooks/synthetic wrapper."
+      ],
+      "findings": [],
+      "maintainability": "Shared helper reuse/direct native composition; no additional React lifecycle or state snapshot engine identified.",
+      "reviewer": "/root/migration_review"
+    },
+    {
+      "local": "packages/base/src/lib/internals/useAnimationsFinished.ts",
+      "localSha256": "7abe48ef841cdfa7bf60b29045e9f0ffb7dbfb715b34351e8f6716131b2678f8",
+      "sourceBodies": [
+        "packages/react/src/internals/useAnimationsFinished.ts",
+        "packages/utils/src/useStableCallback.ts"
+      ],
+      "reviewed": "full module and mapped selected/full bodies or explicit native boundary",
+      "checks": "Read complete local module and mapped pinned source body/types; examined actual import destinations. No new scoped business finding.",
+      "nativeSubstitutions": [
+        "Invocation batch policy, observer/animation recursion/abort guards, queue order retained; native flushSync/untrack and onDestroy replace React commit/hooks."
+      ],
+      "findings": [],
+      "maintainability": "Shared helper reuse/direct native composition; no additional React lifecycle or state snapshot engine identified.",
+      "reviewer": "/root/migration_review"
+    },
+    {
+      "local": "packages/base/src/lib/internals/useBaseUiId.ts",
+      "localSha256": "3995d6f7b0b3b0c3bd734f8936778c7a95ec39cc1a701dc24cf49a1313414c92",
+      "sourceBodies": [
+        "packages/react/src/internals/useBaseUiId.ts"
+      ],
+      "reviewed": "full module and mapped selected/full bodies or explicit native boundary",
+      "checks": "Read complete local module and mapped pinned source body/types; examined actual import destinations. No new scoped business finding.",
+      "nativeSubstitutions": [
+        "Pinned constant/function/export business retained with type/import representation changes as applicable."
+      ],
+      "findings": [],
+      "maintainability": "Shared helper reuse/direct native composition; no additional React lifecycle or state snapshot engine identified.",
+      "reviewer": "/root/migration_review"
+    },
+    {
+      "local": "packages/base/src/lib/internals/useOpenChangeComplete.svelte.ts",
+      "localSha256": "b6174d1cc73b6ea3b6431cf87906a1acacc40b1d5c356a31124f92251d7fd038",
+      "sourceBodies": [
+        "packages/react/src/internals/useOpenChangeComplete.tsx",
+        "packages/utils/src/useIsoLayoutEffect.ts",
+        "packages/utils/src/useStableCallback.ts"
+      ],
+      "reviewed": "full module and mapped selected/full bodies or explicit native boundary",
+      "checks": "Read complete local module and mapped pinned source body/types; examined actual import destinations. No new scoped business finding.",
+      "nativeSubstitutions": [
+        "Invocation batch policy, observer/animation recursion/abort guards, queue order retained; native flushSync/untrack and onDestroy replace React commit/hooks."
+      ],
+      "findings": [
+        {
+          "severity": "informational",
+          "kind": "unverified comment claim",
+          "detail": "Comment asserts rendered-host changes cancel watcher; Dialog popupRef is plain, so standalone host replacement is not established tracked dependency. Original stable ref also lacks ref.current dependency. No repair requested absent exact-pin reproduction."
+        }
+      ],
+      "maintainability": "Shared helper reuse/direct native composition; no additional React lifecycle or state snapshot engine identified.",
+      "reviewer": "/root/migration_review"
+    },
+    {
+      "local": "packages/base/src/lib/internals/useTransitionStatus.svelte.ts",
+      "localSha256": "7fc531ccff0a7dfd77703c0f0ee7e1148fc080960682469eafffbc627056fa9e",
+      "sourceBodies": [
+        "packages/react/src/internals/useTransitionStatus.ts",
+        "packages/utils/src/useIsoLayoutEffect.ts"
+      ],
+      "reviewed": "full module and mapped selected/full bodies or explicit native boundary",
+      "checks": "Read complete local module and mapped pinned source body/types; examined actual import destinations. No new scoped business finding.",
+      "nativeSubstitutions": [
+        "Original initial phase/mounted and open/close/deferred/idle branches preserved with derived/pre-effect state and captured frame cancellation."
+      ],
+      "findings": [],
+      "maintainability": "Shared helper reuse/direct native composition; no additional React lifecycle or state snapshot engine identified.",
+      "reviewer": "/root/migration_review"
+    },
+    {
+      "local": "packages/base/src/lib/merge-props/index.ts",
+      "localSha256": "3ef38bba9b22f44bbcf69102d9556807f78897bedb69b410669c7b429971dd68",
+      "sourceBodies": [
+        "packages/react/src/merge-props/index.ts"
+      ],
+      "reviewed": "full module and mapped selected/full bodies or explicit native boundary",
+      "checks": "Read complete local module and mapped pinned source body/types; examined actual import destinations. No new scoped business finding.",
+      "nativeSubstitutions": [
+        "Pinned constant/function/export business retained with type/import representation changes as applicable."
+      ],
+      "findings": [],
+      "maintainability": "Shared helper reuse/direct native composition; no additional React lifecycle or state snapshot engine identified.",
+      "reviewer": "/root/migration_review"
+    },
+    {
+      "local": "packages/base/src/lib/merge-props/mergeProps.ts",
+      "localSha256": "b2c30a6df68fe9744f250f0d0b8e21d89de133146724efd6eed7cea0fce0f8b9",
+      "sourceBodies": [
+        "packages/react/src/merge-props/mergeProps.ts"
+      ],
+      "reviewed": "full module and mapped selected/full bodies or explicit native boundary",
+      "checks": "Read complete local module and mapped pinned source body/types; examined actual import destinations. No new scoped business finding.",
+      "nativeSubstitutions": [
+        "Native Event/class/style/snippet/attachment representation; pure ordered merge and prevented-event branches retained. Native defaults earn no divergent unchanged assertion credit."
+      ],
+      "findings": [],
+      "maintainability": "Shared helper reuse/direct native composition; no additional React lifecycle or state snapshot engine identified.",
+      "reviewer": "/root/migration_review"
+    },
+    {
+      "local": "packages/base/src/lib/utils/CommonPopupDataAttributes.ts",
+      "localSha256": "ed25a93130d096ba883e68999928e43dad59d09ae9dff52f0e8b68d5974abe15",
+      "sourceBodies": [
+        "packages/react/src/utils/CommonPopupDataAttributes.ts"
+      ],
+      "reviewed": "full module and mapped selected/full bodies or explicit native boundary",
+      "checks": "Read complete local module and mapped pinned source body/types; examined actual import destinations. No new scoped business finding.",
+      "nativeSubstitutions": [
+        "Pinned constant/function/export business retained with type/import representation changes as applicable."
+      ],
+      "findings": [],
+      "maintainability": "Shared helper reuse/direct native composition; no additional React lifecycle or state snapshot engine identified.",
+      "reviewer": "/root/migration_review"
+    },
+    {
+      "local": "packages/base/src/lib/utils/CommonTriggerDataAttributes.ts",
+      "localSha256": "199df87949923494ce8f3f6b3bfcc05e162744891afb12c033f5e7f9ba8f4f92",
+      "sourceBodies": [
+        "packages/react/src/utils/CommonTriggerDataAttributes.ts"
+      ],
+      "reviewed": "full module and mapped selected/full bodies or explicit native boundary",
+      "checks": "Read complete local module and mapped pinned source body/types; examined actual import destinations. No new scoped business finding.",
+      "nativeSubstitutions": [
+        "Pinned constant/function/export business retained with type/import representation changes as applicable."
+      ],
+      "findings": [],
+      "maintainability": "Shared helper reuse/direct native composition; no additional React lifecycle or state snapshot engine identified.",
+      "reviewer": "/root/migration_review"
+    },
+    {
+      "sources": [
+        {
+          "path": "packages/react/src/utils/FocusGuard.tsx",
+          "sha256": "80c4e93b1c90577cf77b211049a84c8f7bc3ada4b8c92996df9b500aa5eafb51",
+          "coverage": "full source file and paired native file compared; framework-only hook mappings examined as substitution roles"
+        }
+      ],
+      "review": "Full paired source fixed style/tabindex/data marker/aria-hidden and VoiceOver-WebKit role branch retained. Svelte setup computes platform branch instead of React layout-state setter; bindable host/spread attachment retain native lifetime. No synthetic callback ref transport.",
+      "status": "no actionable scoped migration defect; execution remains pending",
+      "sourceBodyDisposition": "Full paired source fixed style/tabindex/data marker/aria-hidden and VoiceOver-WebKit role branch retained. Svelte setup computes platform branch instead of React layout-state setter; bindable host/spread attachment retain native lifetime. No synthetic callback ref transport.",
+      "nativeBoundaryDisposition": "Direct native effects/context/snippets/attachments and live getters examined in complete paired bodies; no React lifecycle engine or parallel business implementation found in selected Alert paths.",
+      "maintainabilityDisposition": "Canonical shared helper reuse; readable source-derived bodies and proportionate native boundary. No additional abstraction required.",
+      "findings": [],
+      "local": "packages/base/src/lib/utils/FocusGuard.svelte",
+      "localSha256": "ea8acf8bdda2c5faf3859db06b580c84604e7978e2496553b5fdc56dc80472b3",
+      "reviewer": "/root/migration_review/source_focus"
+    },
+    {
+      "sources": [
+        {
+          "path": "packages/react/src/utils/InternalBackdrop.tsx",
+          "sha256": "dd05853455197e5e12d3b35762e02efd5e849a913eb4295a4bf229b4082552dc",
+          "coverage": "full source file and paired native file compared; framework-only hook mappings examined as substitution roles"
+        }
+      ],
+      "review": "Full paired source cutout bounding-rect polygon coordinate/order, fixed inset/userSelect/WebkitUserSelect style and inert marker/spread order retained. Native derived cutout/bindable host replace render/ref machinery; Svelte owns string style representation.",
+      "status": "no actionable scoped migration defect; execution remains pending",
+      "sourceBodyDisposition": "Full paired source cutout bounding-rect polygon coordinate/order, fixed inset/userSelect/WebkitUserSelect style and inert marker/spread order retained. Native derived cutout/bindable host replace render/ref machinery; Svelte owns string style representation.",
+      "nativeBoundaryDisposition": "Direct native effects/context/snippets/attachments and live getters examined in complete paired bodies; no React lifecycle engine or parallel business implementation found in selected Alert paths.",
+      "maintainabilityDisposition": "Canonical shared helper reuse; readable source-derived bodies and proportionate native boundary. No additional abstraction required.",
+      "findings": [],
+      "local": "packages/base/src/lib/utils/InternalBackdrop.svelte",
+      "localSha256": "0b29495ff7a71eab019e6667fd0f120f8f299e33e23c83c13cb1572ae465d88f",
+      "reviewer": "/root/migration_review/source_focus"
+    },
+    {
+      "local": "packages/base/src/lib/utils/NullStore.svelte.ts",
+      "localSha256": "f23ac9ae6b5303aa9adf6499e3101c06fa981a516e6d22e95f981903674ec49c",
+      "sourceBodies": [
+        "packages/react/src/utils/NullStore.ts"
+      ],
+      "reviewed": "full module and mapped selected/full bodies or explicit native boundary",
+      "checks": "Read complete local module and mapped pinned source body/types; examined actual import destinations. No new scoped business finding.",
+      "nativeSubstitutions": [
+        "Pinned constant/function/export business retained with type/import representation changes as applicable."
+      ],
+      "findings": [],
+      "maintainability": "Shared helper reuse/direct native composition; no additional React lifecycle or state snapshot engine identified.",
+      "reviewer": "/root/migration_review"
+    },
+    {
+      "local": "packages/base/src/lib/utils/dispatchClickWithModifiers.ts",
+      "localSha256": "fefaa5e71f09eeb27d246b5d1eafef16e2b62f6dd72414528ef7f917c125909a",
+      "sourceBodies": [
+        "packages/react/src/utils/dispatchClickWithModifiers.ts"
+      ],
+      "reviewed": "full module and mapped selected/full bodies or explicit native boundary",
+      "checks": "Read complete local module and mapped pinned source body/types; examined actual import destinations. No new scoped business finding.",
+      "nativeSubstitutions": [
+        "Pinned constant/function/export business retained with type/import representation changes as applicable."
+      ],
+      "findings": [],
+      "maintainability": "Shared helper reuse/direct native composition; no additional React lifecycle or state snapshot engine identified.",
+      "reviewer": "/root/migration_review"
+    },
+    {
+      "local": "packages/base/src/lib/utils/popupStateMapping.ts",
+      "localSha256": "07a2ecdd556f8e1371d395f7749cbfb1bff445b4f07b321d8e7d8ecf5393350d",
+      "sourceBodies": [
+        "packages/react/src/utils/popupStateMapping.ts"
+      ],
+      "reviewed": "full module and mapped selected/full bodies or explicit native boundary",
+      "checks": "Read complete local module and mapped pinned source body/types; examined actual import destinations. No new scoped business finding.",
+      "nativeSubstitutions": [
+        "Pinned constant/function/export business retained with type/import representation changes as applicable."
+      ],
+      "findings": [],
+      "maintainability": "Shared helper reuse/direct native composition; no additional React lifecycle or state snapshot engine identified.",
+      "reviewer": "/root/migration_review"
+    },
+    {
+      "local": "packages/base/src/lib/utils/popups/PopupHandleAttachment.svelte",
+      "localSha256": "437e6d44b586b4cc524d30d4214906695aa505239f1951a7840077780f562927",
+      "sourceBodies": [
+        "packages/react/src/utils/popups/popupStoreUtils.ts",
+        "packages/utils/src/useIsoLayoutEffect.ts"
+      ],
+      "reviewed": "full module and mapped selected/full bodies or explicit native boundary",
+      "checks": "Read complete local module and mapped pinned source body/types; examined actual import destinations. No new scoped business finding.",
+      "nativeSubstitutions": [
+        "Once-only setup/live getters and native effects/createSubscriber replace React hooks; captured registration/resource owner guards, initial defaults, controlled selectors, payload branches and callback/cancellation order checked."
+      ],
+      "findings": [],
+      "maintainability": "Shared helper reuse/direct native composition; no additional React lifecycle or state snapshot engine identified.",
+      "reviewer": "/root/migration_review"
+    },
+    {
+      "local": "packages/base/src/lib/utils/popups/index.ts",
+      "localSha256": "8685650fb9e3f7bfe7528330f062c4b3f94df89bf9adc8a48b13728774474e01",
+      "sourceBodies": [
+        "packages/react/src/utils/popups/index.ts"
+      ],
+      "reviewed": "full module and mapped selected/full bodies or explicit native boundary",
+      "checks": "Read complete local module and mapped pinned source body/types; examined actual import destinations. No new scoped business finding.",
+      "nativeSubstitutions": [
+        "Once-only setup/live getters and native effects/createSubscriber replace React hooks; captured registration/resource owner guards, initial defaults, controlled selectors, payload branches and callback/cancellation order checked."
+      ],
+      "findings": [],
+      "maintainability": "Shared helper reuse/direct native composition; no additional React lifecycle or state snapshot engine identified.",
+      "reviewer": "/root/migration_review"
+    },
+    {
+      "local": "packages/base/src/lib/utils/popups/popupHandle.svelte.ts",
+      "localSha256": "c3a56400141a1075b20c783a5da24f827911b7d622c5eb92f78a4cf1f49da778",
+      "sourceBodies": [
+        "packages/react/src/utils/popups/popupHandle.ts"
+      ],
+      "reviewed": "full module and mapped selected/full bodies or explicit native boundary",
+      "checks": "Read complete local module and mapped pinned source body/types; examined actual import destinations. No new scoped business finding.",
+      "nativeSubstitutions": [
+        "Once-only setup/live getters and native effects/createSubscriber replace React hooks; captured registration/resource owner guards, initial defaults, controlled selectors, payload branches and callback/cancellation order checked."
+      ],
+      "findings": [],
+      "maintainability": "Shared helper reuse/direct native composition; no additional React lifecycle or state snapshot engine identified.",
+      "reviewer": "/root/migration_review"
+    },
+    {
+      "local": "packages/base/src/lib/utils/popups/popupStoreUtils.svelte.ts",
+      "localSha256": "13b61b426eed8a0875580aa2a8e15a8caf5c7110e915174bf4d613f069f7b01a",
+      "sourceBodies": [
+        "packages/react/src/utils/popups/popupStoreUtils.ts",
+        "packages/utils/src/useIsoLayoutEffect.ts",
+        "packages/utils/src/useStableCallback.ts"
+      ],
+      "reviewed": "full module and mapped selected/full bodies or explicit native boundary",
+      "checks": "Read complete local module and mapped pinned source body/types; examined actual import destinations. No new scoped business finding.",
+      "nativeSubstitutions": [
+        "Once-only setup/live getters and native effects/createSubscriber replace React hooks; captured registration/resource owner guards, initial defaults, controlled selectors, payload branches and callback/cancellation order checked."
+      ],
+      "findings": [],
+      "maintainability": "Shared helper reuse/direct native composition; no additional React lifecycle or state snapshot engine identified.",
+      "reviewer": "/root/migration_review"
+    },
+    {
+      "local": "packages/base/src/lib/utils/popups/popupTriggerMap.svelte.ts",
+      "localSha256": "812f1d6cb454c0f5236cda69919932ccfc569611050c19fe8198617beacf6b2c",
+      "sourceBodies": [
+        "packages/react/src/utils/popups/popupTriggerMap.ts"
+      ],
+      "reviewed": "full module and mapped selected/full bodies or explicit native boundary",
+      "checks": "Read complete local module and mapped pinned source body/types; examined actual import destinations. No new scoped business finding.",
+      "nativeSubstitutions": [
+        "Once-only setup/live getters and native effects/createSubscriber replace React hooks; captured registration/resource owner guards, initial defaults, controlled selectors, payload branches and callback/cancellation order checked."
+      ],
+      "findings": [],
+      "maintainability": "Shared helper reuse/direct native composition; no additional React lifecycle or state snapshot engine identified.",
+      "reviewer": "/root/migration_review"
+    },
+    {
+      "local": "packages/base/src/lib/utils/popups/store.ts",
+      "localSha256": "6b9e93bb4642ec9ddf3b7721d909e0b8baf32871b5070b9831a3c3f464ca5f69",
+      "sourceBodies": [
+        "packages/react/src/utils/popups/store.ts"
+      ],
+      "reviewed": "full module and mapped selected/full bodies or explicit native boundary",
+      "checks": "Read complete local module and mapped pinned source body/types; examined actual import destinations. No new scoped business finding.",
+      "nativeSubstitutions": [
+        "Once-only setup/live getters and native effects/createSubscriber replace React hooks; captured registration/resource owner guards, initial defaults, controlled selectors, payload branches and callback/cancellation order checked."
+      ],
+      "findings": [],
+      "maintainability": "Shared helper reuse/direct native composition; no additional React lifecycle or state snapshot engine identified.",
+      "reviewer": "/root/migration_review"
+    },
+    {
+      "local": "packages/base/src/lib/utils/popups/usePopupHandleStore.svelte.ts",
+      "localSha256": "d96d4ca763135cddc2ddbc931e772954b47ceb057bf1172660ec73203c9dbd0b",
+      "sourceBodies": [
+        "packages/react/src/utils/popups/usePopupHandleStore.ts",
+        "packages/utils/src/useForcedRerendering.ts"
+      ],
+      "reviewed": "full module and mapped selected/full bodies or explicit native boundary",
+      "checks": "Read complete local module and mapped pinned source body/types; examined actual import destinations. No new scoped business finding.",
+      "nativeSubstitutions": [
+        "Once-only setup/live getters and native effects/createSubscriber replace React hooks; captured registration/resource owner guards, initial defaults, controlled selectors, payload branches and callback/cancellation order checked."
+      ],
+      "findings": [],
+      "maintainability": "Shared helper reuse/direct native composition; no additional React lifecycle or state snapshot engine identified.",
+      "reviewer": "/root/migration_review"
+    },
+    {
+      "local": "packages/base/src/lib/utils/resolveClassName.ts",
+      "localSha256": "b22aead630ca531851a08a63e5165e64ff8cdc9de5765ff20997f578071cb108",
+      "sourceBodies": [
+        "packages/react/src/utils/resolveClassName.ts"
+      ],
+      "reviewed": "full module and mapped selected/full bodies or explicit native boundary",
+      "checks": "Read complete local module and mapped pinned source body/types; examined actual import destinations. No new scoped business finding.",
+      "nativeSubstitutions": [
+        "Native Event/class/style/snippet/attachment representation; pure ordered merge and prevented-event branches retained. Native defaults earn no divergent unchanged assertion credit."
+      ],
+      "findings": [],
+      "maintainability": "Shared helper reuse/direct native composition; no additional React lifecycle or state snapshot engine identified.",
+      "reviewer": "/root/migration_review"
+    },
+    {
+      "local": "packages/base/src/lib/utils/resolveRef.ts",
+      "localSha256": "d8500030750c389af091f3f4f43b100f675772f3d22b6f1699a29db80d564d0a",
+      "sourceBodies": [
+        "packages/react/src/utils/resolveRef.ts"
+      ],
+      "reviewed": "full module and mapped selected/full bodies or explicit native boundary",
+      "checks": "Read complete local module and mapped pinned source body/types; examined actual import destinations. No new scoped business finding.",
+      "nativeSubstitutions": [
+        "Pinned constant/function/export business retained with type/import representation changes as applicable."
+      ],
+      "findings": [],
+      "maintainability": "Shared helper reuse/direct native composition; no additional React lifecycle or state snapshot engine identified.",
+      "reviewer": "/root/migration_review"
+    },
+    {
+      "local": "packages/base/src/lib/utils/resolveStyle.ts",
+      "localSha256": "cdc420598c1ae4b75a32e7f47ac8cc7f4fe444d4f006e2736f528951fb932977",
+      "sourceBodies": [
+        "packages/react/src/utils/resolveStyle.ts"
+      ],
+      "reviewed": "full module and mapped selected/full bodies or explicit native boundary",
+      "checks": "Read complete local module and mapped pinned source body/types; examined actual import destinations. No new scoped business finding.",
+      "nativeSubstitutions": [
+        "Native Event/class/style/snippet/attachment representation; pure ordered merge and prevented-event branches retained. Native defaults earn no divergent unchanged assertion credit."
+      ],
+      "findings": [],
+      "maintainability": "Shared helper reuse/direct native composition; no additional React lifecycle or state snapshot engine identified.",
+      "reviewer": "/root/migration_review"
+    },
+    {
+      "local": "packages/base/src/lib/utils/useFocusableWhenDisabled.ts",
+      "localSha256": "f30838a56f41ea3672d26627fb42145d016e3b54b512c4c381e6aafb05431db2",
+      "sourceBodies": [
+        "packages/react/src/utils/useFocusableWhenDisabled.ts"
+      ],
+      "reviewed": "full module and mapped selected/full bodies or explicit native boundary",
+      "checks": "Read complete local module and mapped pinned source body/types; examined actual import destinations. No new scoped business finding.",
+      "nativeSubstitutions": [
+        "Original keyboard/composite/disabled/link branch ordering and DEV diagnostics retained; live parameters/native Event/host attachment replace hooks/synthetic wrapper."
+      ],
+      "findings": [],
+      "maintainability": "Shared helper reuse/direct native composition; no additional React lifecycle or state snapshot engine identified.",
+      "reviewer": "/root/migration_review"
+    },
+    {
+      "local": "packages/base/src/lib/utils/useOpenInteractionType.svelte.ts",
+      "localSha256": "92fb932de384aef85dccc45311f5920dabbd8897584a656d27a5bcd8a012a966",
+      "sourceBodies": [
+        "packages/react/src/utils/useOpenInteractionType.ts"
+      ],
+      "reviewed": "full module and mapped selected/full bodies or explicit native boundary",
+      "checks": "Read complete local module and mapped pinned source body/types; examined actual import destinations. No new scoped business finding.",
+      "nativeSubstitutions": [
+        "Pinned constant/function/export business retained with type/import representation changes as applicable."
+      ],
+      "findings": [],
+      "maintainability": "Shared helper reuse/direct native composition; no additional React lifecycle or state snapshot engine identified.",
+      "reviewer": "/root/migration_review"
+    },
+    {
+      "local": "packages/utils/src/lib/addEventListener.ts",
+      "localSha256": "77880d75a5c8c5ac2d924e69d7cc7662c616b953d4895c8e6a24de53de4502bf",
+      "sourceBodies": [
+        "packages/utils/src/addEventListener.ts"
+      ],
+      "reviewed": "full module and mapped selected/full bodies or explicit native boundary",
+      "checks": "Read complete local module and mapped pinned source body/types; examined actual import destinations. No new scoped business finding.",
+      "nativeSubstitutions": [
+        "Pinned constant/function/export business retained with type/import representation changes as applicable."
+      ],
+      "findings": [],
+      "maintainability": "Shared helper reuse/direct native composition; no additional React lifecycle or state snapshot engine identified.",
+      "reviewer": "/root/migration_review"
+    },
+    {
+      "local": "packages/utils/src/lib/createLogOnce.ts",
+      "localSha256": "f9d8a63ce89aa2d0b31a8d88affb4ff7c49528f12152a9dc99223ee24dca90c9",
+      "sourceBodies": [
+        "packages/utils/src/createLogOnce.ts"
+      ],
+      "reviewed": "full module and mapped selected/full bodies or explicit native boundary",
+      "checks": "Read complete local module and mapped pinned source body/types; examined actual import destinations. No new scoped business finding.",
+      "nativeSubstitutions": [
+        "Pinned constant/function/export business retained with type/import representation changes as applicable."
+      ],
+      "findings": [],
+      "maintainability": "Shared helper reuse/direct native composition; no additional React lifecycle or state snapshot engine identified.",
+      "reviewer": "/root/migration_review"
+    },
+    {
+      "local": "packages/utils/src/lib/empty.ts",
+      "localSha256": "00dc8f5cccebba670a7c7f2a78a66f3a4c008e8fec496badfc909a2bb8664151",
+      "sourceBodies": [
+        "packages/utils/src/empty.ts"
+      ],
+      "reviewed": "full module and mapped selected/full bodies or explicit native boundary",
+      "checks": "Read complete local module and mapped pinned source body/types; examined actual import destinations. No new scoped business finding.",
+      "nativeSubstitutions": [
+        "Pinned constant/function/export business retained with type/import representation changes as applicable."
+      ],
+      "findings": [],
+      "maintainability": "Shared helper reuse/direct native composition; no additional React lifecycle or state snapshot engine identified.",
+      "reviewer": "/root/migration_review"
+    },
+    {
+      "local": "packages/utils/src/lib/error.ts",
+      "localSha256": "ebbe57877f3f8c77c83631ed4042bd288d13f98fb93afd5390128dbd0d7cec27",
+      "sourceBodies": [
+        "packages/utils/src/error.ts",
+        "packages/utils/src/warn.ts"
+      ],
+      "reviewed": "full module and mapped selected/full bodies or explicit native boundary",
+      "checks": "Read complete local module and mapped pinned source body/types; examined actual import destinations. No new scoped business finding.",
+      "nativeSubstitutions": [
+        "Pinned constant/function/export business retained with type/import representation changes as applicable."
+      ],
+      "findings": [],
+      "maintainability": "Shared helper reuse/direct native composition; no additional React lifecycle or state snapshot engine identified.",
+      "reviewer": "/root/migration_review"
+    },
+    {
+      "local": "packages/utils/src/lib/mergeCleanups.ts",
+      "localSha256": "28eb97759c815e7a3edcb4a5ac4464473790ae9294bda5a66ba268bca8efedcb",
+      "sourceBodies": [
+        "packages/utils/src/mergeCleanups.ts"
+      ],
+      "reviewed": "full module and mapped selected/full bodies or explicit native boundary",
+      "checks": "Read complete local module and mapped pinned source body/types; examined actual import destinations. No new scoped business finding.",
+      "nativeSubstitutions": [
+        "Pinned constant/function/export business retained with type/import representation changes as applicable."
+      ],
+      "findings": [],
+      "maintainability": "Shared helper reuse/direct native composition; no additional React lifecycle or state snapshot engine identified.",
+      "reviewer": "/root/migration_review"
+    },
+    {
+      "local": "packages/utils/src/lib/mergeObjects.ts",
+      "localSha256": "1e6cfa2be20c639f5ce6f8b0b6cc447da3413bbbc6750a5b1ab03f5810d81746",
+      "sourceBodies": [
+        "packages/utils/src/mergeObjects.ts"
+      ],
+      "reviewed": "full module and mapped selected/full bodies or explicit native boundary",
+      "checks": "Read complete local module and mapped pinned source body/types; examined actual import destinations. No new scoped business finding.",
+      "nativeSubstitutions": [
+        "Pinned constant/function/export business retained with type/import representation changes as applicable."
+      ],
+      "findings": [],
+      "maintainability": "Shared helper reuse/direct native composition; no additional React lifecycle or state snapshot engine identified.",
+      "reviewer": "/root/migration_review"
+    },
+    {
+      "local": "packages/utils/src/lib/owner.ts",
+      "localSha256": "759c607acc1a103b2d795840051555671fe65fd889dae7694606b9069803f986",
+      "sourceBodies": [
+        "packages/utils/src/owner.ts"
+      ],
+      "reviewed": "full module and mapped selected/full bodies or explicit native boundary",
+      "checks": "Read complete local module and mapped pinned source body/types; examined actual import destinations. No new scoped business finding.",
+      "nativeSubstitutions": [
+        "Pinned constant/function/export business retained with type/import representation changes as applicable."
+      ],
+      "findings": [],
+      "maintainability": "Shared helper reuse/direct native composition; no additional React lifecycle or state snapshot engine identified.",
+      "reviewer": "/root/migration_review"
+    },
+    {
+      "local": "packages/utils/src/lib/platform/engine.ts",
+      "localSha256": "e4745bcc586212a32cde2f7d206cc1aa4df86b8a29301f8d15cf3cd88996a987",
+      "sourceBodies": [
+        "packages/utils/src/platform/engine.ts"
+      ],
+      "reviewed": "full module and mapped selected/full bodies or explicit native boundary",
+      "checks": "Read complete local module and mapped pinned source body/types; examined actual import destinations. No new scoped business finding.",
+      "nativeSubstitutions": [
+        "Pinned detection branches/constants retained; DEV replaces production env transport without adding window state."
+      ],
+      "findings": [],
+      "maintainability": "Shared helper reuse/direct native composition; no additional React lifecycle or state snapshot engine identified.",
+      "reviewer": "/root/migration_review"
+    },
+    {
+      "local": "packages/utils/src/lib/platform/env.ts",
+      "localSha256": "dbd7cc1369986d370094b986c44b1bce3c10eba1f792f0e5c3e99c071e00eb9d",
+      "sourceBodies": [
+        "packages/utils/src/platform/env.ts"
+      ],
+      "reviewed": "full module and mapped selected/full bodies or explicit native boundary",
+      "checks": "Read complete local module and mapped pinned source body/types; examined actual import destinations. No new scoped business finding.",
+      "nativeSubstitutions": [
+        "Pinned detection branches/constants retained; DEV replaces production env transport without adding window state."
+      ],
+      "findings": [],
+      "maintainability": "Shared helper reuse/direct native composition; no additional React lifecycle or state snapshot engine identified.",
+      "reviewer": "/root/migration_review"
+    },
+    {
+      "local": "packages/utils/src/lib/platform/index.ts",
+      "localSha256": "c9c1174c0f82f01033187e382b461370123d356d8e14901a9ca7d85dbd2ea63c",
+      "sourceBodies": [
+        "packages/utils/src/platform/index.ts"
+      ],
+      "reviewed": "full module and mapped selected/full bodies or explicit native boundary",
+      "checks": "Read complete local module and mapped pinned source body/types; examined actual import destinations. No new scoped business finding.",
+      "nativeSubstitutions": [
+        "Pinned detection branches/constants retained; DEV replaces production env transport without adding window state."
+      ],
+      "findings": [],
+      "maintainability": "Shared helper reuse/direct native composition; no additional React lifecycle or state snapshot engine identified.",
+      "reviewer": "/root/migration_review"
+    },
+    {
+      "local": "packages/utils/src/lib/platform/media-query.ts",
+      "localSha256": "5e91ea2589962018778ad88498ff9acd432a5244fe37ee922d0a6014b1fb7ed9",
+      "sourceBodies": [
+        "packages/utils/src/platform/media-query.ts"
+      ],
+      "reviewed": "full module and mapped selected/full bodies or explicit native boundary",
+      "checks": "Read complete local module and mapped pinned source body/types; examined actual import destinations. No new scoped business finding.",
+      "nativeSubstitutions": [
+        "Pinned detection branches/constants retained; DEV replaces production env transport without adding window state."
+      ],
+      "findings": [],
+      "maintainability": "Shared helper reuse/direct native composition; no additional React lifecycle or state snapshot engine identified.",
+      "reviewer": "/root/migration_review"
+    },
+    {
+      "local": "packages/utils/src/lib/platform/os.ts",
+      "localSha256": "456f2f5814e890fb12d899c1cc2f08566529216fd8f6d40a9a8e5846b2c9c3d6",
+      "sourceBodies": [
+        "packages/utils/src/platform/os.ts"
+      ],
+      "reviewed": "full module and mapped selected/full bodies or explicit native boundary",
+      "checks": "Read complete local module and mapped pinned source body/types; examined actual import destinations. No new scoped business finding.",
+      "nativeSubstitutions": [
+        "Pinned detection branches/constants retained; DEV replaces production env transport without adding window state."
+      ],
+      "findings": [],
+      "maintainability": "Shared helper reuse/direct native composition; no additional React lifecycle or state snapshot engine identified.",
+      "reviewer": "/root/migration_review"
+    },
+    {
+      "local": "packages/utils/src/lib/platform/parts.ts",
+      "localSha256": "5382169dc9803fde93bc85e33062cbc85d7cdc0bf754d1a7f6f21eb2b4dcac29",
+      "sourceBodies": [
+        "packages/utils/src/platform/parts.ts"
+      ],
+      "reviewed": "full module and mapped selected/full bodies or explicit native boundary",
+      "checks": "Read complete local module and mapped pinned source body/types; examined actual import destinations. No new scoped business finding.",
+      "nativeSubstitutions": [
+        "Pinned detection branches/constants retained; DEV replaces production env transport without adding window state."
+      ],
+      "findings": [],
+      "maintainability": "Shared helper reuse/direct native composition; no additional React lifecycle or state snapshot engine identified.",
+      "reviewer": "/root/migration_review"
+    },
+    {
+      "local": "packages/utils/src/lib/platform/screen-reader.ts",
+      "localSha256": "c43ebce8b6557becf984c0ae7f36395da615110e7f878bab1c0dfd476ceb19a7",
+      "sourceBodies": [
+        "packages/utils/src/platform/screen-reader.ts"
+      ],
+      "reviewed": "full module and mapped selected/full bodies or explicit native boundary",
+      "checks": "Read complete local module and mapped pinned source body/types; examined actual import destinations. No new scoped business finding.",
+      "nativeSubstitutions": [
+        "Pinned detection branches/constants retained; DEV replaces production env transport without adding window state."
+      ],
+      "findings": [],
+      "maintainability": "Shared helper reuse/direct native composition; no additional React lifecycle or state snapshot engine identified.",
+      "reviewer": "/root/migration_review"
+    },
+    {
+      "local": "packages/utils/src/lib/platform/shared.ts",
+      "localSha256": "28621a4723495ed9f1370c09b12480a6f488f19e59c70e78524325fc6e080db2",
+      "sourceBodies": [
+        "packages/utils/src/platform/shared.ts"
+      ],
+      "reviewed": "full module and mapped selected/full bodies or explicit native boundary",
+      "checks": "Read complete local module and mapped pinned source body/types; examined actual import destinations. No new scoped business finding.",
+      "nativeSubstitutions": [
+        "Pinned detection branches/constants retained; DEV replaces production env transport without adding window state."
+      ],
+      "findings": [],
+      "maintainability": "Shared helper reuse/direct native composition; no additional React lifecycle or state snapshot engine identified.",
+      "reviewer": "/root/migration_review"
+    },
+    {
+      "local": "packages/utils/src/lib/shadowDom.ts",
+      "localSha256": "2cb79a4a3ccbe16581be29f7958d03bce459c5cf8cad8ae4b9f08ab981d42a2a",
+      "sourceBodies": [
+        "packages/utils/src/shadowDom.ts"
+      ],
+      "reviewed": "full module and mapped selected/full bodies or explicit native boundary",
+      "checks": "Read complete local module and mapped pinned source body/types; examined actual import destinations. No new scoped business finding.",
+      "nativeSubstitutions": [
+        "Pinned constant/function/export business retained with type/import representation changes as applicable."
+      ],
+      "findings": [],
+      "maintainability": "Shared helper reuse/direct native composition; no additional React lifecycle or state snapshot engine identified.",
+      "reviewer": "/root/migration_review"
+    },
+    {
+      "local": "packages/utils/src/lib/store/Store.svelte.ts",
+      "localSha256": "289f1c151106f981843140b9d508d300597ee1f5a90437dca446738b861cad3c",
+      "sourceBodies": [
+        "packages/utils/src/store/Store.ts"
+      ],
+      "reviewed": "full module and mapped selected/full bodies or explicit native boundary",
+      "checks": "Read complete local module and mapped pinned source body/types; examined actual import destinations. No new scoped business finding.",
+      "nativeSubstitutions": [
+        "Plain authoritative Store and synchronous listener/updateTick/Object.is business retained; createSubscriber/direct effect/live context replace React external-store/fast-hook transport and diagnostics."
+      ],
+      "findings": [],
+      "maintainability": "Shared helper reuse/direct native composition; no additional React lifecycle or state snapshot engine identified.",
+      "reviewer": "/root/migration_review"
+    },
+    {
+      "local": "packages/utils/src/lib/store/SvelteStore.svelte.ts",
+      "localSha256": "472b01d7a463c05348b85c85a413b70c55b950972f12b144ce632e4ab775102c",
+      "sourceBodies": [
+        "packages/utils/src/fastHooks.ts",
+        "packages/utils/src/store/ReactStore.ts",
+        "packages/utils/src/store/useStore.ts",
+        "packages/utils/src/useValueAsRef.ts"
+      ],
+      "reviewed": "full module and mapped selected/full bodies or explicit native boundary",
+      "checks": "Read complete local module and mapped pinned source body/types; examined actual import destinations. No new scoped business finding.",
+      "nativeSubstitutions": [
+        "Plain authoritative Store and synchronous listener/updateTick/Object.is business retained; createSubscriber/direct effect/live context replace React external-store/fast-hook transport and diagnostics."
+      ],
+      "findings": [],
+      "maintainability": "Shared helper reuse/direct native composition; no additional React lifecycle or state snapshot engine identified.",
+      "reviewer": "/root/migration_review"
+    },
+    {
+      "local": "packages/utils/src/lib/store/index.ts",
+      "localSha256": "996a1d7a865fe2ce8a362041ced6b58a7ef139d4d796773971376e5fec0d52d7",
+      "sourceBodies": [],
+      "reviewed": "full module and mapped selected/full bodies or explicit native boundary",
+      "checks": "Read complete local module and mapped pinned source body/types; examined actual import destinations. No new scoped business finding.",
+      "nativeSubstitutions": [
+        "Plain authoritative Store and synchronous listener/updateTick/Object.is business retained; createSubscriber/direct effect/live context replace React external-store/fast-hook transport and diagnostics."
+      ],
+      "findings": [],
+      "maintainability": "Shared helper reuse/direct native composition; no additional React lifecycle or state snapshot engine identified.",
+      "reviewer": "/root/migration_review"
+    },
+    {
+      "local": "packages/utils/src/lib/useAnimationFrame.ts",
+      "localSha256": "ec054003588b92e4223c6eea228388ae6395bf1895fb3aaf32a02706249652ce",
+      "sourceBodies": [
+        "packages/utils/src/useAnimationFrame.ts",
+        "packages/utils/src/useOnMount.ts",
+        "packages/utils/src/useRefWithInit.ts"
+      ],
+      "reviewed": "full module and mapped selected/full bodies or explicit native boundary",
+      "checks": "Read complete local module and mapped pinned source body/types; examined actual import destinations. No new scoped business finding.",
+      "nativeSubstitutions": [
+        "Exact class/scheduler/reset/cancel business retained; callers use native onDestroy instead of React hook wrappers."
+      ],
+      "findings": [],
+      "maintainability": "Shared helper reuse/direct native composition; no additional React lifecycle or state snapshot engine identified.",
+      "reviewer": "/root/migration_review"
+    },
+    {
+      "local": "packages/utils/src/lib/useEnhancedClickHandler.ts",
+      "localSha256": "6a045d6b74a7851d3446200f55711ffc1dcc22449a2e92680cdf328750a436d5",
+      "sourceBodies": [
+        "packages/utils/src/useEnhancedClickHandler.ts"
+      ],
+      "reviewed": "full module and mapped selected/full bodies or explicit native boundary",
+      "checks": "Read complete local module and mapped pinned source body/types; examined actual import destinations. No new scoped business finding.",
+      "nativeSubstitutions": [
+        "Pinned constant/function/export business retained with type/import representation changes as applicable."
+      ],
+      "findings": [],
+      "maintainability": "Shared helper reuse/direct native composition; no additional React lifecycle or state snapshot engine identified.",
+      "reviewer": "/root/migration_review"
+    },
+    {
+      "local": "packages/utils/src/lib/useId.ts",
+      "localSha256": "584864eb7f538f5adc40ab128461db75c960984c51265aead1ca3821e4bf879a",
+      "sourceBodies": [
+        "packages/utils/src/useId.ts"
+      ],
+      "reviewed": "full module and mapped selected/full bodies or explicit native boundary",
+      "checks": "Read complete local module and mapped pinned source body/types; examined actual import destinations. No new scoped business finding.",
+      "nativeSubstitutions": [
+        "Pinned constant/function/export business retained with type/import representation changes as applicable."
+      ],
+      "findings": [],
+      "maintainability": "Shared helper reuse/direct native composition; no additional React lifecycle or state snapshot engine identified.",
+      "reviewer": "/root/migration_review"
+    },
+    {
+      "sources": [
+        {
+          "path": "packages/utils/src/useIsoLayoutEffect.ts",
+          "sha256": "13a0ab28d24b04617dc290ad151c145f2435d1e0c381123847af74344ea4b9a0",
+          "coverage": "full source file and paired native file compared; framework-only hook mappings examined as substitution roles"
+        },
+        {
+          "path": "packages/utils/src/useScrollLock.ts",
+          "sha256": "7ff4eb004f0b610f0881f7c32d2a87106c7bb97fba295fd4c1b509adca3998cb",
+          "coverage": "full source file and paired native file compared; framework-only hook mappings examined as substitution roles"
+        }
+      ],
+      "review": "Entire ScrollLocker business (309 source lines), global ref counting and HTML/body snapshots, platform branches, scrollbar calculations, acquire/release, timeout and animation cleanup unchanged. Only hook wrapper changes to native live readers/$effect. Shared pinned priority-loss quirk remains; issue82 not repaired.",
+      "status": "no actionable scoped migration defect; execution remains pending",
+      "sourceBodyDisposition": "Entire ScrollLocker business (309 source lines), global ref counting and HTML/body snapshots, platform branches, scrollbar calculations, acquire/release, timeout and animation cleanup unchanged. Only hook wrapper changes to native live readers/$effect. Shared pinned priority-loss quirk remains; issue82 not repaired.",
+      "nativeBoundaryDisposition": "Direct native effects/context/snippets/attachments and live getters examined in complete paired bodies; no React lifecycle engine or parallel business implementation found in selected Alert paths.",
+      "maintainabilityDisposition": "Canonical shared helper reuse; readable source-derived bodies and proportionate native boundary. No additional abstraction required.",
+      "findings": [],
+      "local": "packages/utils/src/lib/useScrollLock.svelte.ts",
+      "localSha256": "bea63beb673cffb2bb25fcb5491b34f9724cb03453c1014273b501da4c5dfc35",
+      "reviewer": "/root/migration_review/source_focus"
+    },
+    {
+      "local": "packages/utils/src/lib/useTimeout.ts",
+      "localSha256": "06130c6374e14371471cc3af14638ddb3cadb514bb985fcbc4b8a7a606008b7f",
+      "sourceBodies": [
+        "packages/utils/src/useOnMount.ts",
+        "packages/utils/src/useRefWithInit.ts",
+        "packages/utils/src/useTimeout.ts"
+      ],
+      "reviewed": "full module and mapped selected/full bodies or explicit native boundary",
+      "checks": "Read complete local module and mapped pinned source body/types; examined actual import destinations. No new scoped business finding.",
+      "nativeSubstitutions": [
+        "Exact class/scheduler/reset/cancel business retained; callers use native onDestroy instead of React hook wrappers."
+      ],
+      "findings": [],
+      "maintainability": "Shared helper reuse/direct native composition; no additional React lifecycle or state snapshot engine identified.",
+      "reviewer": "/root/migration_review"
+    },
+    {
+      "local": "packages/utils/src/lib/visuallyHidden.ts",
+      "localSha256": "8f49185df1c0536608090368454cc3d30a3bfc1991b23a4b5e5239184ead8020",
+      "sourceBodies": [
+        "packages/utils/src/visuallyHidden.ts"
+      ],
+      "reviewed": "full module and mapped selected/full bodies or explicit native boundary",
+      "checks": "Read complete local module and mapped pinned source body/types; examined actual import destinations. No new scoped business finding.",
+      "nativeSubstitutions": [
+        "Pinned constant/function/export business retained with type/import representation changes as applicable."
+      ],
+      "findings": [],
+      "maintainability": "Shared helper reuse/direct native composition; no additional React lifecycle or state snapshot engine identified.",
+      "reviewer": "/root/migration_review"
+    }
+  ],
+  "unselectedOriginalFanout": [
+    {
+      "source": "packages/react/src/floating-ui-react/components/FloatingDelayGroup.tsx",
+      "decision": "Unselected barrel/type fanout; no used Dialog call to this business module. Other popup/geometry families remain outside this PR."
+    },
+    {
+      "source": "packages/react/src/floating-ui-react/hooks/gridNavigation.ts",
+      "decision": "Unselected barrel/type fanout; no used Dialog call to this business module. Other popup/geometry families remain outside this PR."
+    },
+    {
+      "source": "packages/react/src/floating-ui-react/hooks/useClientPoint.ts",
+      "decision": "Unselected barrel/type fanout; no used Dialog call to this business module. Other popup/geometry families remain outside this PR."
+    },
+    {
+      "source": "packages/react/src/floating-ui-react/hooks/useFloating.ts",
+      "decision": "Unselected barrel/type fanout; no used Dialog call to this business module. Other popup/geometry families remain outside this PR."
+    },
+    {
+      "source": "packages/react/src/floating-ui-react/hooks/useFloatingRootContext.ts",
+      "decision": "Unselected barrel/type fanout; no used Dialog call to this business module. Other popup/geometry families remain outside this PR."
+    },
+    {
+      "source": "packages/react/src/floating-ui-react/hooks/useFocus.ts",
+      "decision": "Unselected barrel/type fanout; no used Dialog call to this business module. Other popup/geometry families remain outside this PR."
+    },
+    {
+      "source": "packages/react/src/floating-ui-react/hooks/useHover.ts",
+      "decision": "Unselected barrel/type fanout; no used Dialog call to this business module. Other popup/geometry families remain outside this PR."
+    },
+    {
+      "source": "packages/react/src/floating-ui-react/hooks/useHoverFloatingInteraction.ts",
+      "decision": "Unselected barrel/type fanout; no used Dialog call to this business module. Other popup/geometry families remain outside this PR."
+    },
+    {
+      "source": "packages/react/src/floating-ui-react/hooks/useHoverInteractionSharedState.ts",
+      "decision": "Unselected barrel/type fanout; no used Dialog call to this business module. Other popup/geometry families remain outside this PR."
+    },
+    {
+      "source": "packages/react/src/floating-ui-react/hooks/useHoverReferenceInteraction.ts",
+      "decision": "Unselected barrel/type fanout; no used Dialog call to this business module. Other popup/geometry families remain outside this PR."
+    },
+    {
+      "source": "packages/react/src/floating-ui-react/hooks/useListNavigation.ts",
+      "decision": "Unselected barrel/type fanout; no used Dialog call to this business module. Other popup/geometry families remain outside this PR."
+    },
+    {
+      "source": "packages/react/src/floating-ui-react/hooks/useTypeahead.ts",
+      "decision": "Unselected barrel/type fanout; no used Dialog call to this business module. Other popup/geometry families remain outside this PR."
+    },
+    {
+      "source": "packages/react/src/floating-ui-react/index.ts",
+      "decision": "Original aggregator only; selected native consumers import the corresponding mapped modules directly."
+    },
+    {
+      "source": "packages/react/src/floating-ui-react/utils.ts",
+      "decision": "Original aggregator only; selected native consumers import the corresponding mapped modules directly."
+    },
+    {
+      "source": "packages/react/src/internals/use-button/index.ts",
+      "decision": "Original aggregator only; selected native consumers import the corresponding mapped modules directly."
+    },
+    {
+      "source": "packages/react/src/utils/popups/inlineRect.ts",
+      "decision": "Unselected barrel/type fanout; no used Dialog call to this business module. Other popup/geometry families remain outside this PR."
+    },
+    {
+      "source": "packages/utils/src/getReactElementRef.ts",
+      "decision": "Native bindings/attachments publish actual hosts; opaque snippets are not inspected as React elements."
+    },
+    {
+      "source": "packages/utils/src/reactVersion.ts",
+      "decision": "No React version branching under native Svelte rendering."
+    },
+    {
+      "source": "packages/utils/src/safeReact.ts",
+      "decision": "Native rendering; no React element/owner inspection."
+    },
+    {
+      "source": "packages/utils/src/store/createSelector.ts",
+      "decision": "Unselected barrel/type fanout; no used Dialog call to this business module. Other popup/geometry families remain outside this PR."
+    },
+    {
+      "source": "packages/utils/src/store/createSelectorMemoized.ts",
+      "decision": "Unselected barrel/type fanout; no used Dialog call to this business module. Other popup/geometry families remain outside this PR."
+    },
+    {
+      "source": "packages/utils/src/store/index.ts",
+      "decision": "Original aggregator only; selected native consumers import the corresponding mapped modules directly."
+    },
+    {
+      "source": "packages/utils/src/store/StoreInspector.tsx",
+      "decision": "Unselected barrel/type fanout; no used Dialog call to this business module. Other popup/geometry families remain outside this PR."
+    },
+    {
+      "source": "packages/utils/src/useMergedRefs.ts",
+      "decision": "Native bindable node outputs, bindings and independent attachments replace React callback-ref identity/fanout; no corresponding runtime helper retained."
+    }
+  ],
+  "limits": [
+    "Source review only, no execution or assertion credit.",
+    "No inherited PR42 acceptance.",
+    "Native renderer/default substitutions intentionally do not emulate React."
+  ],
+  "observations": [
+    {
+      "severity": "informational",
+      "path": "packages/base/src/lib/floating-ui/hooks/useDismiss.svelte.ts",
+      "detail": "event.defaultPrevented || event.defaultPrevented is redundant native synthetic-event substitution; semantics unaffected."
+    },
+    {
+      "severity": "needs measured reproduction before any repair",
+      "path": "packages/base/src/lib/floating-ui/components/createFloatingFocusManager.svelte.ts",
+      "detail": "Initial-focus queueMicrotask reads live rune-backed initialFocusRef/openInteractionTypeRef before disposed check in inner rAF shouldFocus. Source also has uncancelled queue, so not an established business defect; native destroy-before-microtask safety requires execution."
+    },
+    {
+      "severity": "scope limitation",
+      "path": "packages/base/src/lib/internals/composite/composite.ts",
+      "detail": "Inherited structural isHTMLElement predicate and owner-window getComputedStyle differ from exact source dependency/global accessor; selected Alert Popup key constants unaffected. Full composite runtime acceptance not established."
+    }
+  ],
+  "remainingBlockers": [
+    "Accepted PR42 main integration and exact successor re-review",
+    "Current candidate execution/secured browser/packed consumers/SSR/hydration/hosted CI",
+    "Native lifetime observation reproduction if demonstrated",
+    "Configured review and final stable pushed-head independent review"
+  ],
+  "distinctions": {
+    "authorizedNativeChanges": [
+      "React hook effects/state/context/render/ref representation replaced with native primitives",
+      "StrictMode workaround branch omission explicitly documented; zero divergent unchanged parity credit",
+      "actual opaque portal host ID observation/attachments/native event props"
+    ],
+    "sharedUpstreamBugsPreserved": [
+      "issue81 ShadowRoot guard exit loop",
+      "issue82 scroll-lock authored style priority loss"
+    ],
+    "notVerifiedSourceFidelityDefects": [
+      "Composite structural isHTMLElement dependency replacement outside selected Alert constant usage; not an exact-pin behavioral reproduction",
+      "Native queued initial-focus lifetime observation without execution; Source has same uncancelled queue business"
+    ]
+  },
+  "mappingCorrection": "ValueChanged wrong historical mapping was corrected in working documentation after6ac659; native hashes still correspond to6ac659. Eventual evidence-only SHA needs reconfirmation."
+}

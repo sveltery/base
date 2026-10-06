@@ -1,10 +1,25 @@
 <script lang="ts" generics="Payload = unknown">
-  // Source DialogRoot uses the one shared native root view (MIT).
+  // Base UI 1.8.0 Root → shared useRenderDialogRoot and native provider view (MIT).
+  // Pin 47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c; THIRD_PARTY_NOTICES.md.
+  import { onDestroy } from 'svelte';
   import DialogRootView from './root/DialogRootView.svelte';
+  import { useRenderDialogRoot } from './root/useRenderDialogRoot.svelte.js';
   import type { RootProps } from './types.js';
+  // eslint-disable-next-line no-useless-assignment -- Publishes native imperative actions to the owner.
   let { actions = $bindable(null), ...props }: RootProps<Payload> = $props();
   const generatedId = $props.id();
-  export function close() { actions?.close(); }
-  export function unmount() { actions?.unmount(); }
+  const root = useRenderDialogRoot<Payload>('dialog', () => props, generatedId);
+  export function close() {
+    root.close();
+  }
+  export function unmount() {
+    root.unmount();
+  }
+  // eslint-disable-next-line no-useless-assignment -- Native bind:actions replaces Source actionsRef.
+  actions = { close, unmount };
+  onDestroy(() => {
+    actions = null;
+  });
 </script>
-<DialogRootView mode="dialog" rootProps={props} floatingId={generatedId} bind:actions />
+
+<DialogRootView {root} rootProps={props} />

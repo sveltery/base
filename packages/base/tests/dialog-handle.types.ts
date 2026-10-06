@@ -20,4 +20,14 @@ handle.openWithPayload('invalid');
 function equality(payload: Parameters<NonNullable<RootProps<number>['children']>>[0]['payload']) {
   expectType<number | undefined, typeof payload>(payload);
 }
-void [constructed, missingPayloadType, root, trigger, withoutPayload, directRoot, invalid, equality, Fixture];
+void [
+  constructed,
+  missingPayloadType,
+  root,
+  trigger,
+  withoutPayload,
+  directRoot,
+  invalid,
+  equality,
+  Fixture,
+];

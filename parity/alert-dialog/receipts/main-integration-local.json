@@ -1,0 +1,445 @@
+{
+  "schema": 1,
+  "immutableSourcePin": "47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c",
+  "developmentMain": "aa4daff54ec82b96e34e1601648d1b3926ef08cf",
+  "businessCodeCandidate": "6ac65911f639fdac6aaf49fac27919ebeb698fe4",
+  "reviewedConsumerSuccessor": "9a2ac99e2d199c191cca2f3739d1e90ba95abda4",
+  "executionScope": "Development main normal merge plus working evidence/harness successors. All120 native body hashes unchanged. Final negative-literal syntax cleanup has fresh packed strict rerun; no historical CI is promoted. Exact eventual pushed head is recorded externally in PR handoff; accepted prerequisite integration invalidates final readiness.",
+  "limits": {
+    "heapMiB": 1024,
+    "heavyLocalProcesses": 1,
+    "vitestWorkers": 1,
+    "ordinaryCreditAdded": 0,
+    "securedBrowserExecuted": false,
+    "configuredReviewWaiver": false
+  },
+  "artifacts": {
+    "schema": 1,
+    "packages": {
+      "@sveltery/base": {
+        "version": "0.0.0",
+        "directory": "packages/base",
+        "tarball": "sveltery-base-0.0.0.tgz",
+        "sha256": "4a24a7c07db7f067a50d287a10b3ccb1f965e9908e3cdefe40684797da1a9768",
+        "dependencies": [
+          "@sveltery/utils"
+        ]
+      },
+      "@sveltery/utils": {
+        "version": "0.0.0",
+        "directory": "packages/utils",
+        "tarball": "sveltery-utils-0.0.0.tgz",
+        "sha256": "7e4f31b6939499af11fbad0375be4e2d164144969936547bcd95d15390450ac2",
+        "dependencies": []
+      }
+    }
+  },
+  "archivedLogs": [
+    {
+      "file": "parity/alert-dialog/receipts/main-integration-local/alert-dom.log.gz",
+      "encoding": "gzip",
+      "decodedSha256": "8ccbc2aafbc2bde1a6133b9662bf7a28c0107e8b0221d0e324f13d59b5e30cf4",
+      "decodedBytes": 485,
+      "archiveSha256": "0bc149ebbcaed494024ba00ec9ef43b00ffc5d1c92de9c951aa831084d36b315",
+      "archiveBytes": 337
+    },
+    {
+      "file": "parity/alert-dialog/receipts/main-integration-local/alert-package-final.log.gz",
+      "encoding": "gzip",
+      "decodedSha256": "84b9831f39b02bf1393321dd4c4c79c481da91c3dbda498e595e7aab5807622a",
+      "decodedBytes": 5452,
+      "archiveSha256": "67efced2f255261a897be34eb7a3631a5b5811dc8c62e23631afaa39e5b638bb",
+      "archiveBytes": 1038
+    },
+    {
+      "file": "parity/alert-dialog/receipts/main-integration-local/alert-package.log.gz",
+      "encoding": "gzip",
+      "decodedSha256": "c59d91f722c0102d91627cacc596b1c315a9011c0069ea2babff2321c7da764b",
+      "decodedBytes": 5452,
+      "archiveSha256": "fc34f1b49067756e4d7c365feea4d5c4bacd77cbfa83cc11d0eda6efbf304ed2",
+      "archiveBytes": 1043
+    },
+    {
+      "file": "parity/alert-dialog/receipts/main-integration-local/alert-provenance.log.gz",
+      "encoding": "gzip",
+      "decodedSha256": "e9e0b3b0bf0d4091e0923f487d8f93485cb296f7a4e06f9da7c153f24297d89c",
+      "decodedBytes": 320,
+      "archiveSha256": "9727532c50d0a82d6489954a1025c3b7d7aefc33646224538c9b917037080cf4",
+      "archiveBytes": 235
+    },
+    {
+      "file": "parity/alert-dialog/receipts/main-integration-local/all-package.log.gz",
+      "encoding": "gzip",
+      "decodedSha256": "c6086e1fb7862cdf3f22e3743de5c81776a27305c5345cfec3d6dbc45bc516b9",
+      "decodedBytes": 13543,
+      "archiveSha256": "2bbbf47ef83ebb367a68eb5bf126fce4804ec812026f1176b941ae456fa05e34",
+      "archiveBytes": 2934
+    },
+    {
+      "file": "parity/alert-dialog/receipts/main-integration-local/base-types-1024.log.gz",
+      "encoding": "gzip",
+      "decodedSha256": "705cb5ec09d075ee18190e806e47d386cbc4b022df7979baaec3c9d5a7aaf7f2",
+      "decodedBytes": 3457,
+      "archiveSha256": "cdabb504b54ddee4216a78b9160094a066ad46e60db1b442c25cc7339627ec01",
+      "archiveBytes": 870
+    },
+    {
+      "file": "parity/alert-dialog/receipts/main-integration-local/bootstrap.log.gz",
+      "encoding": "gzip",
+      "decodedSha256": "f8bfcd46598727604bdc84d36fff375c15c1ade37b888944a7be6220b9d2d258",
+      "decodedBytes": 2145,
+      "archiveSha256": "70d536d0248fb80d2e0e50938c9f1310c89966a4c514a7f109f37cf10bd79d05",
+      "archiveBytes": 825
+    },
+    {
+      "file": "parity/alert-dialog/receipts/main-integration-local/boundary.log.gz",
+      "encoding": "gzip",
+      "decodedSha256": "7eb14a3a2cac9fe7d677ef3a7519f5045bb935af2549e71f9ddf392ebb65a36d",
+      "decodedBytes": 61,
+      "archiveSha256": "e4b850e7b6f96f57ff98b7644a3de5a259674185c74fe8bb3f6975340e97b5b2",
+      "archiveBytes": 81
+    },
+    {
+      "file": "parity/alert-dialog/receipts/main-integration-local/browser-install-absolute-node.log.gz",
+      "encoding": "gzip",
+      "decodedSha256": "d75943f98f8f4153d9812002ee110e102708fd048f6df6f0afc381bc7b68fae3",
+      "decodedBytes": 4362,
+      "archiveSha256": "2cae268766037b0ddc3afdcb2f777802cfdbe4083803f62907f50032bf0d20b3",
+      "archiveBytes": 623
+    },
+    {
+      "file": "parity/alert-dialog/receipts/main-integration-local/browser-install.log.gz",
+      "encoding": "gzip",
+      "decodedSha256": "f2be186440bc81edf7240130d4ed165fd0d6ebb70198ecf7cb3a5a8ffd5f5ef8",
+      "decodedBytes": 5641,
+      "archiveSha256": "4ec8fe883dfdf412e336fd304bb2e7d501cb7c1987145e13b7f1d2290a1addd7",
+      "archiveBytes": 569
+    },
+    {
+      "file": "parity/alert-dialog/receipts/main-integration-local/dom.log.gz",
+      "encoding": "gzip",
+      "decodedSha256": "ce68863ad4cdd440df49b428b6bba67ddae8497c13d61d902525b13defa525d5",
+      "decodedBytes": 2747,
+      "archiveSha256": "69cc7c10cafff9ed2805d9b49673f7dcd4b4395dd7407e21e8309bf11f9a012c",
+      "archiveBytes": 806
+    },
+    {
+      "file": "parity/alert-dialog/receipts/main-integration-local/eslint-base-src.log.gz",
+      "encoding": "gzip",
+      "decodedSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "decodedBytes": 0,
+      "archiveSha256": "f61f27bd17de546264aa58f40f3aafaac7021e0ef69c17f6b1b4cd7664a037ec",
+      "archiveBytes": 20
+    },
+    {
+      "file": "parity/alert-dialog/receipts/main-integration-local/eslint-base-tests-corrected.log.gz",
+      "encoding": "gzip",
+      "decodedSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "decodedBytes": 0,
+      "archiveSha256": "f61f27bd17de546264aa58f40f3aafaac7021e0ef69c17f6b1b4cd7664a037ec",
+      "archiveBytes": 20
+    },
+    {
+      "file": "parity/alert-dialog/receipts/main-integration-local/eslint-base-tests.log.gz",
+      "encoding": "gzip",
+      "decodedSha256": "bab1621e9f447295c6a6a8f6e7e4dfc6e15350125883e18ea3970bb5fcbd9a25",
+      "decodedBytes": 163,
+      "archiveSha256": "996cc7b96c4f1aba64715e960507261495387ee2077a3dafc8f7b9ad1362bc09",
+      "archiveBytes": 150
+    },
+    {
+      "file": "parity/alert-dialog/receipts/main-integration-local/eslint-fixtures.log.gz",
+      "encoding": "gzip",
+      "decodedSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "decodedBytes": 0,
+      "archiveSha256": "f61f27bd17de546264aa58f40f3aafaac7021e0ef69c17f6b1b4cd7664a037ec",
+      "archiveBytes": 20
+    },
+    {
+      "file": "parity/alert-dialog/receipts/main-integration-local/eslint-other-corrected.log.gz",
+      "encoding": "gzip",
+      "decodedSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "decodedBytes": 0,
+      "archiveSha256": "f61f27bd17de546264aa58f40f3aafaac7021e0ef69c17f6b1b4cd7664a037ec",
+      "archiveBytes": 20
+    },
+    {
+      "file": "parity/alert-dialog/receipts/main-integration-local/eslint-other.log.gz",
+      "encoding": "gzip",
+      "decodedSha256": "ef0d8c833fdec2072daf68977d7f67c999e2f2b481e6a6358fe9df2d5baf367b",
+      "decodedBytes": 850,
+      "archiveSha256": "fef25a117e7158fad8dbf0db31d719da988980f08eaab219333e171ffa05df0c",
+      "archiveBytes": 271
+    },
+    {
+      "file": "parity/alert-dialog/receipts/main-integration-local/eslint-utils.log.gz",
+      "encoding": "gzip",
+      "decodedSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "decodedBytes": 0,
+      "archiveSha256": "f61f27bd17de546264aa58f40f3aafaac7021e0ef69c17f6b1b4cd7664a037ec",
+      "archiveBytes": 20
+    },
+    {
+      "file": "parity/alert-dialog/receipts/main-integration-local/eslint.log.gz",
+      "encoding": "gzip",
+      "decodedSha256": "9d75697f5ba36ac3e30a992830386af38c18359fb94d4f611c72864112633e2f",
+      "decodedBytes": 829,
+      "archiveSha256": "4aa2710e8c29f261490ca5ae4b41f8b5b7794e448f06fe10db19b803eec71e60",
+      "archiveBytes": 481
+    },
+    {
+      "file": "parity/alert-dialog/receipts/main-integration-local/fixture-build.log.gz",
+      "encoding": "gzip",
+      "decodedSha256": "d4eafd1fc58e2e00a526e722977c3484007df658ebfa5ed3f063f7c8f25cfd65",
+      "decodedBytes": 355811,
+      "archiveSha256": "d7ed70250280a535a1e4cb6ce9a7de6e1609d20e2e490ba77304546a391b71c0",
+      "archiveBytes": 15930
+    },
+    {
+      "file": "parity/alert-dialog/receipts/main-integration-local/format-closeout.log.gz",
+      "encoding": "gzip",
+      "decodedSha256": "da572db90d69b39ac3044621d4372c46c3447baabe1bd8d8d7958d6f83610769",
+      "decodedBytes": 86,
+      "archiveSha256": "7b9a5ed5f32f147c3e9a48ed06937c76e1e4c786a083534b3f77e8017ee95b36",
+      "archiveBytes": 87
+    },
+    {
+      "file": "parity/alert-dialog/receipts/main-integration-local/menu-package-resumed.log.gz",
+      "encoding": "gzip",
+      "decodedSha256": "7b4e6848aa6a049296188ebcbfeb8dd90654367e4aad600cf2d770453311e4f5",
+      "decodedBytes": 401,
+      "archiveSha256": "0ff832c993b12f9fdfc469ffe253de49a9ca50aa2388e33a7b42268130fc7a89",
+      "archiveBytes": 275
+    },
+    {
+      "file": "parity/alert-dialog/receipts/main-integration-local/prettier-final.log.gz",
+      "encoding": "gzip",
+      "decodedSha256": "17aa973d3f004560237d9a95171210b0671deff23d61628eecf7322ff5938f20",
+      "decodedBytes": 66,
+      "archiveSha256": "710c63d8d40d5688a62c3b08053dd1971c4e4ee87b2297f3f20c2540d22cd94e",
+      "archiveBytes": 82
+    },
+    {
+      "file": "parity/alert-dialog/receipts/main-integration-local/runtime.log.gz",
+      "encoding": "gzip",
+      "decodedSha256": "54270e40289a7a5119f3ff6815b2890a7f8509e2c4cb5c47004c8d968ac8ffe4",
+      "decodedBytes": 1245,
+      "archiveSha256": "4ccff74cbcbf64a47c0dce62cdd14051e8373b1517806d20d45415c39acbbca3",
+      "archiveBytes": 607
+    },
+    {
+      "file": "parity/alert-dialog/receipts/main-integration-local/script-rerun.log.gz",
+      "encoding": "gzip",
+      "decodedSha256": "d476cb2891231b03b3547bd30a81de6343cc7483bcea471942286d561e028edb",
+      "decodedBytes": 6627,
+      "archiveSha256": "4af98dc27f814cade4e0964bfa79fb2ce569ba85f98d13e65b1e42f9f9daded7",
+      "archiveBytes": 1374
+    },
+    {
+      "file": "parity/alert-dialog/receipts/main-integration-local/scripts-final.log.gz",
+      "encoding": "gzip",
+      "decodedSha256": "bf3254c9f1f91eb88a3bb408e002bac980e7d533d52a95fba4d206b8fff7af2a",
+      "decodedBytes": 12187,
+      "archiveSha256": "96f881a2de432c1dbaccf041fcf82c8b92b2355d9be21151a1af1b293e6ac7ba",
+      "archiveBytes": 4731
+    },
+    {
+      "file": "parity/alert-dialog/receipts/main-integration-local/standards.log.gz",
+      "encoding": "gzip",
+      "decodedSha256": "cec31c4ec5bdaf4a5aef4d17dfc754d2f157486a75cc9c7f573723d6366cbcb6",
+      "decodedBytes": 154,
+      "archiveSha256": "73f4dd2d761fdc02fbb9e2ca9ef5649267ddfe552806a89effb12ef89fddaf3f",
+      "archiveBytes": 148
+    },
+    {
+      "file": "parity/alert-dialog/receipts/main-integration-local/toolchain-absolute-node.log.gz",
+      "encoding": "gzip",
+      "decodedSha256": "569c967719a69fd2cbbc9c95179ed2970e81aa9bb5d96a6cd4aac862e7842388",
+      "decodedBytes": 553,
+      "archiveSha256": "7f8adc62df52038530d887e48a0b954b816a8fccd585b1345c034c38c77c8bb3",
+      "archiveBytes": 325
+    },
+    {
+      "file": "parity/alert-dialog/receipts/main-integration-local/types-corrected.log.gz",
+      "encoding": "gzip",
+      "decodedSha256": "4eb299454c1d36e54e43a40b1513abc08d139c75460a1673ee09e524318f68a0",
+      "decodedBytes": 4293,
+      "archiveSha256": "bfbd92f80a4bb173c5395d3f1be4b57602edaaff0b85df3d6e5a7e0edd2d4d65",
+      "archiveBytes": 1270
+    },
+    {
+      "file": "parity/alert-dialog/receipts/main-integration-local/types.log.gz",
+      "encoding": "gzip",
+      "decodedSha256": "74eb6a7e73d495d6fb256ec21b3eb1e7de00153c3e7889c44aada9f744802078",
+      "decodedBytes": 1544,
+      "archiveSha256": "6b3ebf8cc5a8c78f57aa0fefa65affa308b2683bb9487210f5fd73a07c39a0fc",
+      "archiveBytes": 848
+    },
+    {
+      "file": "parity/alert-dialog/receipts/main-integration-local/use-click-package.log.gz",
+      "encoding": "gzip",
+      "decodedSha256": "0aa8b03c15620ae8fe360dfc1c9019ce070d1bd481090448178ec4791de6ccfb",
+      "decodedBytes": 822,
+      "archiveSha256": "a2da7824727da258ac492484c3f28656cd383df24a453fde4a6e4e2466aefdae",
+      "archiveBytes": 497
+    },
+    {
+      "file": "parity/alert-dialog/receipts/main-integration-local/verify.log.gz",
+      "encoding": "gzip",
+      "decodedSha256": "b931312c3563c756ae0ef33985b4c6a43e08d2444af70d41735854c532668ca5",
+      "decodedBytes": 92568,
+      "archiveSha256": "42333ae848d5d152c8c573f7cac985d0e875f1bf6272b8a4691614894391bed8",
+      "archiveBytes": 14854
+    },
+    {
+      "file": "parity/alert-dialog/receipts/main-integration-local/prettier-closeout.log.gz",
+      "encoding": "gzip",
+      "decodedSha256": "17aa973d3f004560237d9a95171210b0671deff23d61628eecf7322ff5938f20",
+      "decodedBytes": 66,
+      "archiveSha256": "710c63d8d40d5688a62c3b08053dd1971c4e4ee87b2297f3f20c2540d22cd94e",
+      "archiveBytes": 82
+    }
+  ],
+  "commands": [
+    {
+      "command": "CI=1 NODE_OPTIONS=--max-old-space-size=1024 bash scripts/bootstrap.sh",
+      "log": "bootstrap.log.gz",
+      "result": "PASS frozen install, native dual-package build/publint"
+    },
+    {
+      "command": "NODE_OPTIONS=--max-old-space-size=768 bash scripts/verify.sh",
+      "log": "verify.log.gz",
+      "result": "INCOMPLETE:88 scripts80pass8fail;3 projection metadata corrected,5 relative process.execPath host errors resolved with absolute runtime Node"
+    },
+    {
+      "command": "$CODEX_PRIMARY_RUNTIME_NODE --test --test-concurrency=1 scripts/tests/*.test.mjs",
+      "log": "scripts-final.log.gz",
+      "result": "PASS88/88 with corrected metadata and actual absolute process.execPath"
+    },
+    {
+      "command": "pnpm test (workspace/artifacts ready)",
+      "log": "runtime.log.gz",
+      "result": "PASS Utils9/Base227"
+    },
+    {
+      "command": "pnpm test:dom (one worker, workspace/artifacts ready)",
+      "log": "dom.log.gz",
+      "result": "PASS Utils8/Base1803"
+    },
+    {
+      "command": "focused AlertDialog DOM Vitest selection --maxWorkers=1",
+      "log": "alert-dom.log.gz",
+      "result": "PASS7/7, native supplements earn no ordinary credit"
+    },
+    {
+      "command": "pnpm check with1024MiB cap after expect-error line correction",
+      "log": "types-corrected.log.gz",
+      "result": "INCOMPLETE:Utils0errors0warnings;Base0errors6 inherited fixture warnings;fixtures workspace OOM exit134"
+    },
+    {
+      "command": "pnpm --filter @sveltery/fixtures build",
+      "log": "fixture-build.log.gz",
+      "result": "PASS SSR/client build"
+    },
+    {
+      "command": "node --import ./scripts/svelte-ssr-loader.mjs scripts/check-runtime.mjs",
+      "log": "boundary.log.gz",
+      "result": "PASS packaged React/SvelteKit runtime exclusion"
+    },
+    {
+      "command": "bash scripts/check-package.sh with retained actual dual-package archives",
+      "log": "all-package.log.gz",
+      "result": "INCOMPLETE:Base/Utils artifact/publint/ATTW supported resolution and all25 installed Utils exports pass; public consumers through AlertDialog/Field/Radio/boolean families pass; remote-form strict positive types OOM134; final Menu stage resumed separately"
+    },
+    {
+      "command": "bash scripts/check-menu-family-package.sh with same archives",
+      "log": "menu-package-resumed.log.gz",
+      "result": "PASS native installed SSR/strict positives+nine negatives"
+    },
+    {
+      "command": "bash scripts/check-use-click-package.sh with same archives",
+      "log": "use-click-package.log.gz",
+      "result": "PASS legacy gate; its skipLibCheck:true does not earn AlertDialog strict declaration credit"
+    },
+    {
+      "command": "bash scripts/check-alert-dialog-package.sh after equivalent negative payload literal syntax lint correction",
+      "log": "alert-package-final.log.gz",
+      "result": "PASS explicit strict/exact optional/noUnchecked/skipLibCheck:false;source+installed6 payload+4brand rejections; additionalTS2590 preserved zero credit; nine parts/aliases/Handle/SSR/DOM/recover:false jsdom hydration server-node reuse and cleanup"
+    },
+    {
+      "command": "bash .github/standards/check.sh",
+      "log": "standards.log.gz",
+      "result": "Initial authored formatting fixed; whole ESLint resource terminated137;768MiB retry OOM134 preserved. Same unchanged maintained rules subsequently partitioned below; no lint config changes"
+    },
+    {
+      "command": "node node_modules/eslint/bin/eslint.js packages/base/src",
+      "log": "eslint-base-src.log.gz",
+      "result": "PASS"
+    },
+    {
+      "command": "node node_modules/eslint/bin/eslint.js packages/base/tests packages/base/*.ts",
+      "log": "eslint-base-tests-corrected.log.gz",
+      "result": "PASS (earlier nonexistent *.js pattern error preserved)"
+    },
+    {
+      "command": "node node_modules/eslint/bin/eslint.js packages/utils",
+      "log": "eslint-utils.log.gz",
+      "result": "PASS"
+    },
+    {
+      "command": "node node_modules/eslint/bin/eslint.js apps/fixtures",
+      "log": "eslint-fixtures.log.gz",
+      "result": "PASS"
+    },
+    {
+      "command": "node node_modules/eslint/bin/eslint.js . --ignore-pattern 'packages/**' --ignore-pattern 'apps/**'",
+      "log": "eslint-other-corrected.log.gz",
+      "result": "PASS after six authored literal syntax repairs; prior six-error log preserved. Partition union covers maintained source/tests/scripts/root configs"
+    },
+    {
+      "command": "Playwright official secured Chromium install with scratchTMPDIR/browser path and absolute runtimeNode",
+      "log": "browser-install-absolute-node.log.gz",
+      "result": "INCOMPLETE:invalid/truncated ZIP then compromised lock; no sandbox weakening, no actual browser acceptance"
+    },
+    {
+      "command": "node node_modules/prettier/bin/prettier.cjs --check .",
+      "log": "prettier-closeout.log.gz",
+      "result": "PASS all maintained files after docs/negative fixture closeout"
+    }
+  ],
+  "hydrationQualification": "Actual installed SSR runtime and identically pinned repository SSR compiler; actual installed peer compiler/runtime in fresh jsdom client. recover:false and3 server-node identity assertions. No physical secured Chromium/layout/hydration credit.",
+  "review": "120-module comparative report at6ac659 and12-file successor reconfirmation at9a2ac99e. Newly reported reached nativeProps empty-style defect reopens native acceptance; PR73 solely owns repair/witness. No Source/shared bug repair independently invented.",
+  "remaining": [
+    "Accepted PR42 main plus post-merge CI",
+    "Accepted reached canonical Button/Transition and PR73 nativeProps main integration;no Field validation reach",
+    "Fixtures workspace and remote-form consumer resource-incomplete checks via exact-head hosted Verification",
+    "Secured browser/component/Source/hydration/docs gates via exact-head hosted CI",
+    "Fresh entire-closure source/native/maintainability review at stable pushed head",
+    "Configured review disposition;no inferred quota waiver",
+    "Lead final acceptance/merge; no owner merge or Pages edit"
+  ],
+  "losslessTransport": "gzip with mtime0; decoded bytes/hash exactly equal original output including red diagnostics, ANSI escapes and trailing whitespace. No log normalization.",
+  "analysisArchives": [
+    {
+      "file": "parity/alert-dialog/receipts/main-integration-local/sveltery-base-0.0.0.attw.json.gz",
+      "encoding": "gzip",
+      "decodedSha256": "d45aea86fe086123f28b574b5bb520e88523146e80b5b89fd191bdb8881c22df",
+      "decodedBytes": 1628064,
+      "archiveSha256": "a001d244296f1a02d862dcd20e3af084da633099187c4e9882aa9f65c904861e",
+      "archiveBytes": 58950,
+      "producer": "Unchanged scripts/check-package-types.mjs; original unmodified JSON remains produced under .checks/npm-package and retained by hosted CI",
+      "reader": "gzip -dc <file> gives original JSON; JSON.parse applies with no filtering or diagnostic normalization"
+    },
+    {
+      "file": "parity/alert-dialog/receipts/main-integration-local/sveltery-utils-0.0.0.attw.json.gz",
+      "encoding": "gzip",
+      "decodedSha256": "77a6aaf5a8ac01e933c7e7c9ae9173ab1f306bd1ac32150ad6af8de319fbd30d",
+      "decodedBytes": 415225,
+      "archiveSha256": "8815995e9c3666af913186b32e2c9f2ccf5afa6936a41f7d130295201510c6de",
+      "archiveBytes": 8851,
+      "producer": "Unchanged scripts/check-package-types.mjs; original unmodified JSON remains produced under .checks/npm-package and retained by hosted CI",
+      "reader": "gzip -dc <file> gives original JSON; JSON.parse applies with no filtering or diagnostic normalization"
+    }
+  ],
+  "analysisTransport": "Only copied analysis archive containers changed for bounded GitHub object transport; actual producer, resolution filtering and original analysis bytes unchanged. No runtime or immutable Source archive compressed."
+}

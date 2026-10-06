@@ -1,0 +1,1497 @@
+{
+  "primary": [
+    {
+      "source": "packages/react/src/avatar/root/AvatarRoot.test.tsx",
+      "kind": "describeConformance",
+      "line": 8,
+      "title": "<Avatar.Root />",
+      "declarationSha256": "0e70e93f31a8dbf23a450b462d7b594e18cf30840a79d44f1d19a28dfb212e0d",
+      "bodySha256": "f0d8402c5422ef27f5773ab1163742bbd2f0c7def0ffb561bd99730e664b7d5f",
+      "assertions": []
+    },
+    {
+      "source": "packages/react/src/avatar/image/AvatarImage.test.tsx",
+      "kind": "describeConformance",
+      "line": 95,
+      "title": "<Avatar.Image src=\"test.png\" />",
+      "declarationSha256": "41e5cb2bc011fffbc4f3669326436c3eaded553f3f8efcf915b59b5b87c37745",
+      "bodySha256": "6ee4ca6044c2d7cf6a728210f2663854e37535e701010a2523d1bbbd0c234852",
+      "assertions": []
+    },
+    {
+      "source": "packages/react/src/avatar/image/AvatarImage.test.tsx",
+      "kind": "it",
+      "line": 102,
+      "title": "'passes native image props to the rendered image'",
+      "declarationSha256": "3427c479c6cc0280d3203b49be85e114a16f8147661a6be676243691fe3b5da8",
+      "bodySha256": "8f0dd3893b2204853054fb7b33680a6a84a0248ee93be78ed4a9c8a1c4405932",
+      "assertions": [
+        {
+          "line": 117,
+          "text": "expect(image).toHaveAttribute('crossorigin', 'anonymous')",
+          "sha256": "80cc69ef646408036ef9ad496564832f543f001484472df1c8210fd90e09a35d"
+        },
+        {
+          "line": 118,
+          "text": "expect(image).toHaveAttribute('referrerpolicy', 'no-referrer')",
+          "sha256": "845b4db2d28c7b1cfbcc536760c524fb0bae8ea0aa4cca09d82eaabd374429fe"
+        },
+        {
+          "line": 119,
+          "text": "expect(image).toHaveAttribute('sizes', '48px')",
+          "sha256": "c3d1ffacc42eeb3e0277ea3b41e2526daea230cd5ee1855d9c6f3ed767223a09"
+        },
+        {
+          "line": 120,
+          "text": "expect(image).toHaveAttribute('srcset', 'avatar.png 1x, avatar@2x.png 2x')",
+          "sha256": "9a0323f7423d9b11e8b682d427f421e7f8261b125bbfa23fb58e482a3bf26654"
+        }
+      ]
+    },
+    {
+      "source": "packages/react/src/avatar/image/AvatarImage.test.tsx",
+      "kind": "it",
+      "line": 123,
+      "title": "'shows the image when only srcSet is provided'",
+      "declarationSha256": "9b85bc3e4536307761dfac8199a8b8c010a6ec0d84d695e7723ffb40e03c16fe",
+      "bodySha256": "4b50107538a53d8e82fc421166594201d090b2b02aa077ff0f5935758837853c",
+      "assertions": [
+        {
+          "line": 131,
+          "text": "expect(screen.getByTestId('image')).toHaveAttribute('srcset', 'avatar.png 1x')",
+          "sha256": "dcba4ceec5046af13e93e5ea787f3f4b951e449b22766a2fff6740d3c476978d"
+        },
+        {
+          "line": 132,
+          "text": "expect(screen.queryByText('JD')).toBe(null)",
+          "sha256": "bc2ad774c138da47d64ef858a50d3f55325b6ce0c3448d0e15c44d584f225354"
+        }
+      ]
+    },
+    {
+      "source": "packages/react/src/avatar/image/AvatarImage.test.tsx",
+      "kind": "it",
+      "line": 135,
+      "title": "'passes responsive image props to the loading probe'",
+      "declarationSha256": "913e3e87041b7cf0c0a544c2f0e277378fa79f8a57a04106329f6d649cd85e1c",
+      "bodySha256": "b6ca94689dacad7c72ba5c560b9c6f58ed66800968deec149ae9dcf1f3b471a7",
+      "assertions": [
+        {
+          "line": 144,
+          "text": "expect(imageMock.images[0].sizes).toBe('48px')",
+          "sha256": "4371471f6cf58a159c11f145d275f9e9150fa7f4c47dcd45efa1c6b32f9e3aca"
+        },
+        {
+          "line": 145,
+          "text": "expect(imageMock.images[0].srcset).toBe('avatar.png 1x, avatar@2x.png 2x')",
+          "sha256": "386221dde1d9f27a51b00ca02aa573c39e39d23493142dab2c89ca8fcdd8b942"
+        },
+        {
+          "line": 146,
+          "text": "expect(imageMock.images[0].src).toBe('fallback.png')",
+          "sha256": "9b7758ab5e631f9cf411aa2d287ba3170d20d9c276f11ecf1f7ff369c3c53198"
+        }
+      ]
+    },
+    {
+      "source": "packages/react/src/avatar/image/AvatarImage.test.tsx",
+      "kind": "it",
+      "line": 150,
+      "title": "'fires when the image loads'",
+      "declarationSha256": "2e8551b703d3ae3e325c798fd946aa9847f52f0f4f2e7afa392475537a16b538",
+      "bodySha256": "630ce232fc270932bf1cbb0326bb194f44f80467211991164cadcd26a9dcc508",
+      "assertions": [
+        {
+          "line": 161,
+          "text": "expect(onLoadingStatusChange).toHaveBeenCalledWith('loading')",
+          "sha256": "c2643f9d9f26e6f72b99df699827fd2d1a86b6ade8977a0ff26d30a9bec4f619"
+        },
+        {
+          "line": 169,
+          "text": "expect(onLoadingStatusChange.mock.calls.map(([status]) => status)).toEqual([\n          'loading',\n          'loaded',\n        ])",
+          "sha256": "18f7a436ae307fa22be49ffcf85e23cb62a61bb0484ee013900c18734d725035"
+        }
+      ]
+    },
+    {
+      "source": "packages/react/src/avatar/image/AvatarImage.test.tsx",
+      "kind": "it",
+      "line": 176,
+      "title": "'fires when the image errors'",
+      "declarationSha256": "de5bf804f5d15ecb0dd14732b56f8c8a66109c3d6e261ff09973147916a85d9c",
+      "bodySha256": "2613de7dbb56fff305f3ee1fce2db387b4685fc07ca510c15d271650a8e34c6c",
+      "assertions": [
+        {
+          "line": 187,
+          "text": "expect(onLoadingStatusChange).toHaveBeenCalledWith('loading')",
+          "sha256": "c2643f9d9f26e6f72b99df699827fd2d1a86b6ade8977a0ff26d30a9bec4f619"
+        },
+        {
+          "line": 195,
+          "text": "expect(onLoadingStatusChange.mock.calls.map(([status]) => status)).toEqual([\n          'loading',\n          'error',\n        ])",
+          "sha256": "5a318bfd3024ec5d097f0dd89cdc44eb398f54af8ed60871489c3d2628334a8b"
+        }
+      ]
+    },
+    {
+      "source": "packages/react/src/avatar/image/AvatarImage.test.tsx",
+      "kind": "it",
+      "line": 202,
+      "title": "'fires for cached image errors without emitting idle'",
+      "declarationSha256": "c6914dcec54bd70edb7990addacddbed3348650f68ec9ff6f30777ac367d8c1f",
+      "bodySha256": "df109c00021c210d851abdfab2ffe19ea9bc11a7d0fdcfe8981694a795481b03",
+      "assertions": [
+        {
+          "line": 213,
+          "text": "expect(onLoadingStatusChange).toHaveBeenCalledWith('error')",
+          "sha256": "b87afdcc17fe19643743c38a0684f011fde1cf36873d89773e4637f165ecb415"
+        },
+        {
+          "line": 216,
+          "text": "expect(onLoadingStatusChange).not.toHaveBeenCalledWith('idle')",
+          "sha256": "a63f0e71d3fee1b7b60f6719aa05de772986628b83ba47ddbbe362fae91309ad"
+        }
+      ]
+    },
+    {
+      "source": "packages/react/src/avatar/image/AvatarImage.test.tsx",
+      "kind": "it",
+      "line": 221,
+      "title": "'mounts the image while loading without preloading it'",
+      "declarationSha256": "7ac266c219e2f2c9c1a9fe430300df5e995a2ea1db793543fa5fb514c78ac643",
+      "bodySha256": "7a3e2c566d25ba6abccfbadb758066b5f1b5d3d0cf208d7557e32a4bb8960279",
+      "assertions": [
+        {
+          "line": 231,
+          "text": "expect(screen.getByTestId('image')).toHaveAttribute('src', 'avatar.png')",
+          "sha256": "155b475f9f8be74ccbd85bffd9fc149ba5ef3db0ababb3aa7b7bd99a42867d85"
+        },
+        {
+          "line": 232,
+          "text": "expect(screen.getByText('JD')).not.toBe(null)",
+          "sha256": "b452cca9fb1d2a0e5cecf1149489d5e234e84d0a8987efa96231c6f259603354"
+        },
+        {
+          "line": 233,
+          "text": "expect(imageMock.images.length).toBe(0)",
+          "sha256": "60a98e70c7e107712c8b9d4c61318e193149366a550568020bd2663934fe8f5d"
+        }
+      ]
+    },
+    {
+      "source": "packages/react/src/avatar/image/AvatarImage.test.tsx",
+      "kind": "it",
+      "line": 236,
+      "title": "'derives the status from the rendered element load event'",
+      "declarationSha256": "e46ae322aa14de4011d08f8db9408304d11d37d2a7c0151351978d1d47b92ff9",
+      "bodySha256": "5d51f8c56b3121bb1a300fe0fd7e81cd159f5d8292460aae1eb6f3115dcb1e0a",
+      "assertions": [
+        {
+          "line": 254,
+          "text": "expect(screen.queryByText('JD')).toBe(null)",
+          "sha256": "bc2ad774c138da47d64ef858a50d3f55325b6ce0c3448d0e15c44d584f225354"
+        },
+        {
+          "line": 256,
+          "text": "expect(onLoadingStatusChange.mock.calls.map(([status]) => status)).toEqual([\n        'loading',\n        'loaded',\n      ])",
+          "sha256": "f9da1067f275d84ed6b0aa88eb220d6ead589780bd3053eaff2f4bbaa41a083d"
+        }
+      ]
+    },
+    {
+      "source": "packages/react/src/avatar/image/AvatarImage.test.tsx",
+      "kind": "it",
+      "line": 262,
+      "title": "'keeps the image mounted when it fails to load'",
+      "declarationSha256": "800dfb4a0c9b1e2339b74b7e069974cf5223bac780aef7b9eedfacb14a099a7d",
+      "bodySha256": "05bd99e25d70d3acb8777900b69096009c69c2078ab1051d3ebb7120f0f02533",
+      "assertions": [
+        {
+          "line": 280,
+          "text": "expect(onLoadingStatusChange).toHaveBeenCalledWith('error')",
+          "sha256": "b87afdcc17fe19643743c38a0684f011fde1cf36873d89773e4637f165ecb415"
+        },
+        {
+          "line": 282,
+          "text": "expect(onLoadingStatusChange.mock.calls.map(([status]) => status)).toEqual([\n        'loading',\n        'error',\n      ])",
+          "sha256": "6d055356417676a4cf94b79daceb8f5f6dbaa52afa05701f1ce0be86e8dbf5d1"
+        },
+        {
+          "line": 286,
+          "text": "expect(screen.getByTestId('image')).not.toBe(null)",
+          "sha256": "0a50e1cb40fa6b152a72937039083ed82d5aac0ad1f6a0bb9ef2b6a17ec5c19f"
+        },
+        {
+          "line": 287,
+          "text": "expect(screen.getByText('JD')).not.toBe(null)",
+          "sha256": "b452cca9fb1d2a0e5cecf1149489d5e234e84d0a8987efa96231c6f259603354"
+        }
+      ]
+    },
+    {
+      "source": "packages/react/src/avatar/image/AvatarImage.test.tsx",
+      "kind": "it",
+      "line": 290,
+      "title": "'calls the user onError handler'",
+      "declarationSha256": "c60442a51aaebdc40ef705b9beeb7db6c0b6f1358dc6e2d79045da2ee76d2d74",
+      "bodySha256": "05091807be7c245831f2f513a53fd2608eed1960578f009c1451b19ff9f85bc2",
+      "assertions": [
+        {
+          "line": 303,
+          "text": "expect(onError).toHaveBeenCalledTimes(1)",
+          "sha256": "c0dc066ca5c24e0e839ca52999df81fe15314f233c66a2f3547786401db5b12f"
+        },
+        {
+          "line": 305,
+          "text": "expect(screen.getByText('JD')).not.toBe(null)",
+          "sha256": "b452cca9fb1d2a0e5cecf1149489d5e234e84d0a8987efa96231c6f259603354"
+        }
+      ]
+    },
+    {
+      "source": "packages/react/src/avatar/image/AvatarImage.test.tsx",
+      "kind": "it",
+      "line": 308,
+      "title": "'calls the user onLoad handler'",
+      "declarationSha256": "e509139321b7a2a7e83dded1253764347619ceed3c837986ab0288bb61591d4c",
+      "bodySha256": "2ad08dfa8436e1ff47b11f9f33169b9f5a3a31479a09fc0ab3e67b4435972b6a",
+      "assertions": [
+        {
+          "line": 321,
+          "text": "expect(onLoad).toHaveBeenCalledTimes(1)",
+          "sha256": "bd3c4708cb0f048753da514f548c9f8523696b08c628e2583c5f2ace950ab38b"
+        },
+        {
+          "line": 324,
+          "text": "expect(screen.queryByText('JD')).toBe(null)",
+          "sha256": "bc2ad774c138da47d64ef858a50d3f55325b6ce0c3448d0e15c44d584f225354"
+        }
+      ]
+    },
+    {
+      "source": "packages/react/src/avatar/image/AvatarImage.test.tsx",
+      "kind": "it",
+      "line": 328,
+      "title": "'lets a user handler prevent the status update'",
+      "declarationSha256": "859016dfb1a2d35d1bcf0c627115c546e00d97d87cd957815b2d3d45ddd9893f",
+      "bodySha256": "a3cc75611bf5aab2ea21d64eeffdfcf08aa17a41daea1b9ef0bdf9ad82207b67",
+      "assertions": [
+        {
+          "line": 346,
+          "text": "expect(screen.getByTestId('image')).toHaveAttribute('data-loading')",
+          "sha256": "ef425f8d379d117db38fcf71f99fa03a12da5dff5fe27484cf3b311d5654a1be"
+        },
+        {
+          "line": 347,
+          "text": "expect(screen.getByText('JD')).not.toBe(null)",
+          "sha256": "b452cca9fb1d2a0e5cecf1149489d5e234e84d0a8987efa96231c6f259603354"
+        },
+        {
+          "line": 348,
+          "text": "expect(onLoadingStatusChange.mock.calls.map(([status]) => status)).toEqual(['loading'])",
+          "sha256": "ccb4c7e6d0287dc9cb44be4c4ff273219e85fec3d610b6b70ed0fc51bdd8dc15"
+        }
+      ]
+    },
+    {
+      "source": "packages/react/src/avatar/image/AvatarImage.test.tsx",
+      "kind": "it",
+      "line": 351,
+      "title": "'resets the status when a rendered image changes source'",
+      "declarationSha256": "13cddeda1404c50a8f0d9591c34b795fa6a56eba14ec420791f85d7cfcc900ce",
+      "bodySha256": "d5330ffe130b3bc4c5390a240af65e574f6670417257a5c5518a8f8fdf07b293",
+      "assertions": [
+        {
+          "line": 372,
+          "text": "expect(screen.queryByText('JD')).toBe(null)",
+          "sha256": "bc2ad774c138da47d64ef858a50d3f55325b6ce0c3448d0e15c44d584f225354"
+        },
+        {
+          "line": 379,
+          "text": "expect(onLoadingStatusChange).toHaveBeenCalledWith('loading')",
+          "sha256": "c2643f9d9f26e6f72b99df699827fd2d1a86b6ade8977a0ff26d30a9bec4f619"
+        },
+        {
+          "line": 381,
+          "text": "expect(screen.getByText('JD')).not.toBe(null)",
+          "sha256": "b452cca9fb1d2a0e5cecf1149489d5e234e84d0a8987efa96231c6f259603354"
+        },
+        {
+          "line": 387,
+          "text": "expect(screen.queryByText('JD')).toBe(null)",
+          "sha256": "bc2ad774c138da47d64ef858a50d3f55325b6ce0c3448d0e15c44d584f225354"
+        },
+        {
+          "line": 389,
+          "text": "expect(onLoadingStatusChange.mock.calls.map(([status]) => status)).toEqual([\n        'loading',\n        'loaded',\n      ])",
+          "sha256": "f9da1067f275d84ed6b0aa88eb220d6ead589780bd3053eaff2f4bbaa41a083d"
+        }
+      ]
+    },
+    {
+      "source": "packages/react/src/avatar/image/AvatarImage.test.tsx",
+      "kind": "it",
+      "line": 395,
+      "title": "'resets the status when the src prop changes'",
+      "declarationSha256": "0e543c1459c9d38d5fa8a52f88767bc3d4f0bc8cca8b8090ef7202e30f7c3f7f",
+      "bodySha256": "915ffea4a91b7a4c156bd9728d448f7a665b7e26f63980b0b714d343b4d50371",
+      "assertions": [
+        {
+          "line": 417,
+          "text": "expect(screen.queryByText('JD')).toBe(null)",
+          "sha256": "bc2ad774c138da47d64ef858a50d3f55325b6ce0c3448d0e15c44d584f225354"
+        },
+        {
+          "line": 424,
+          "text": "expect(onLoadingStatusChange).toHaveBeenCalledWith('loading')",
+          "sha256": "c2643f9d9f26e6f72b99df699827fd2d1a86b6ade8977a0ff26d30a9bec4f619"
+        },
+        {
+          "line": 426,
+          "text": "expect(screen.getByText('JD')).not.toBe(null)",
+          "sha256": "b452cca9fb1d2a0e5cecf1149489d5e234e84d0a8987efa96231c6f259603354"
+        }
+      ]
+    },
+    {
+      "source": "packages/react/src/avatar/image/AvatarImage.test.tsx",
+      "kind": "it",
+      "line": 429,
+      "title": "'renders the image in the server HTML and resolves cached images on hydration'",
+      "declarationSha256": "f69a9aa82b1b3d29d48cf0c4e1f447f0d6a05dcbe87d58ff48afe04711f5628c",
+      "bodySha256": "6237a604cd56b247a5655e3c759886fd41c5cf1b2eb779c11e4d8a544d0212e7",
+      "assertions": [
+        {
+          "line": 459,
+          "text": "expect(screen.getByTestId('image')).toHaveAttribute('src', TRANSPARENT_IMAGE_DATA_URI)",
+          "sha256": "33e91ec86764d78915d0b0187c506afaed7c8fd0182998a3f36563f24e355bd0"
+        },
+        {
+          "line": 460,
+          "text": "expect(screen.getByTestId('image')).toHaveAttribute('aria-hidden', 'true')",
+          "sha256": "f0d9ea40e3a8e5487379fc117bee41a8c6b4bbd0cc8fedae5d1aa2346b47b565"
+        },
+        {
+          "line": 461,
+          "text": "expect(screen.queryByRole('img')).toBe(null)",
+          "sha256": "29cec961546e4b615176f9a60f90444a34f719dc75b0f5ef426eef1d0782aaf6"
+        },
+        {
+          "line": 462,
+          "text": "expect(screen.getByText('JD')).toBeVisible()",
+          "sha256": "c27e11dc69970788ac394cf8c95bd44b92f26cdddb9056d59af2580dba343f34"
+        },
+        {
+          "line": 464,
+          "text": "expect((screen.getByTestId('image') as HTMLImageElement).complete).toBe(true)",
+          "sha256": "f01d22714d299bdd925c04064397c2f08b81a9823e4598be4c16e8574aacfe48"
+        },
+        {
+          "line": 471,
+          "text": "expect(screen.getByRole('img', { name: 'Jane Doe' })).toHaveAttribute(\n          'src',\n          TRANSPARENT_IMAGE_DATA_URI,\n        )",
+          "sha256": "de2af9f434cdefbece61aa493c96e85cdd09f58520f4d39fc7fc95384b147dbc"
+        },
+        {
+          "line": 475,
+          "text": "expect(screen.getByTestId('image')).not.toHaveAttribute('aria-hidden')",
+          "sha256": "c95a0f63837d6228059e317007b177476c428b16c885b20b71dc67edfae87644"
+        },
+        {
+          "line": 476,
+          "text": "expect(screen.queryByText('JD')).toBe(null)",
+          "sha256": "bc2ad774c138da47d64ef858a50d3f55325b6ce0c3448d0e15c44d584f225354"
+        }
+      ]
+    },
+    {
+      "source": "packages/react/src/avatar/image/AvatarImage.test.tsx",
+      "kind": "it",
+      "line": 480,
+      "title": "'loads the image without a detached preload'",
+      "declarationSha256": "c62734b806bd1d0dd4d007104865da9f54faf1d79800f5aa5871a1ec02216eb9",
+      "bodySha256": "cee82d40ccce3fea204c65a65c2c9b3cdf14af7d91464f58c0987b240e3d4154",
+      "assertions": [
+        {
+          "line": 509,
+          "text": "expect(screen.queryByText('JD')).toBe(null)",
+          "sha256": "bc2ad774c138da47d64ef858a50d3f55325b6ce0c3448d0e15c44d584f225354"
+        },
+        {
+          "line": 511,
+          "text": "expect(screen.getByTestId('image')).toHaveAttribute('src', TRANSPARENT_IMAGE_DATA_URI)",
+          "sha256": "33e91ec86764d78915d0b0187c506afaed7c8fd0182998a3f36563f24e355bd0"
+        },
+        {
+          "line": 512,
+          "text": "expect(constructed.length).toBe(0)",
+          "sha256": "4f74dcdeb29a77e87f8e422338bee813f9afffc312f23ec8a582070ca698ab11"
+        }
+      ]
+    },
+    {
+      "source": "packages/react/src/avatar/image/AvatarImage.test.tsx",
+      "kind": "it",
+      "line": 515,
+      "title": "'reports an error when there is no source'",
+      "declarationSha256": "816f259abec49a8b0076a73dec999e45b081f22af893c4b27f97e0216708b92a",
+      "bodySha256": "c7437f97b22600fbdf69b7608510831884c1369c35abb32b06f8b2f1132aa5e0",
+      "assertions": [
+        {
+          "line": 533,
+          "text": "expect(onLoadingStatusChange.mock.calls.map(([status]) => status)).toEqual(['error'])",
+          "sha256": "d40f4f9564c3a096aca5186bef43fa0cee9bf6318b0352ca2727797cc03d71b0"
+        },
+        {
+          "line": 534,
+          "text": "expect(screen.getByText('JD')).not.toBe(null)",
+          "sha256": "b452cca9fb1d2a0e5cecf1149489d5e234e84d0a8987efa96231c6f259603354"
+        }
+      ]
+    },
+    {
+      "source": "packages/react/src/avatar/image/AvatarImage.test.tsx",
+      "kind": "it",
+      "line": 537,
+      "title": "'preserves loaded status when the render element changes'",
+      "declarationSha256": "8c490bf64f0f3b45e11b59a869a7474acff9b4c1f88cd454b409d0632e763eb1",
+      "bodySha256": "6ed55bcc47a0ca6b09f387b5b0f9efbb6504a849a0b41a074c7f8c76fa149ae4",
+      "assertions": [
+        {
+          "line": 565,
+          "text": "expect(screen.queryByText('JD')).toBe(null)",
+          "sha256": "bc2ad774c138da47d64ef858a50d3f55325b6ce0c3448d0e15c44d584f225354"
+        },
+        {
+          "line": 571,
+          "text": "expect(screen.getByTestId('image')).toHaveClass('updated')",
+          "sha256": "6d4c911492e95e9df1be6c39aab671a196953522b5088be13686c94cfd4948ba"
+        },
+        {
+          "line": 572,
+          "text": "expect(onLoadingStatusChange).not.toHaveBeenCalled()",
+          "sha256": "7677f8237681263f9d8c5b1af97f7ef3c328f3230200027e487207d452da9fd8"
+        }
+      ]
+    },
+    {
+      "source": "packages/react/src/avatar/image/AvatarImage.test.tsx",
+      "kind": "it",
+      "line": 575,
+      "title": "'hides the image from assistive technology until it loads'",
+      "declarationSha256": "ce308f5e3e529c982aef2729a210cc88c9721929eba3c4f7f4c1291d8a67f215",
+      "bodySha256": "17d482136d6e5f44562dd263a2573546fbf3ffd60aecfc2ba741db13e93b11bd",
+      "assertions": [
+        {
+          "line": 584,
+          "text": "expect(screen.getByTestId('image')).toHaveAttribute('aria-hidden', 'true')",
+          "sha256": "f0d9ea40e3a8e5487379fc117bee41a8c6b4bbd0cc8fedae5d1aa2346b47b565"
+        },
+        {
+          "line": 585,
+          "text": "expect(screen.queryByRole('img')).toBe(null)",
+          "sha256": "29cec961546e4b615176f9a60f90444a34f719dc75b0f5ef426eef1d0782aaf6"
+        },
+        {
+          "line": 590,
+          "text": "expect(screen.getByTestId('image')).not.toHaveAttribute('aria-hidden')",
+          "sha256": "c95a0f63837d6228059e317007b177476c428b16c885b20b71dc67edfae87644"
+        },
+        {
+          "line": 592,
+          "text": "expect(screen.getByRole('img', { name: 'Jane Doe' })).not.toBe(null)",
+          "sha256": "08e3fed0115ba3fb768128404c7e187081604ef52ba1050d4cebc5dc6e074f36"
+        }
+      ]
+    },
+    {
+      "source": "packages/react/src/avatar/image/AvatarImage.test.tsx",
+      "kind": "it",
+      "line": 595,
+      "title": "'keeps the image hidden from assistive technology after an error'",
+      "declarationSha256": "1d016aa324ef80cff5b5ad9d693877301fef663d98120d208583241dfebb8440",
+      "bodySha256": "5c61710d57eaf5ee0411f90d54835cd5c09204a1d0226c0bb1cf633a5ddd8216",
+      "assertions": [
+        {
+          "line": 608,
+          "text": "expect(screen.getByTestId('image')).toHaveAttribute('data-error')",
+          "sha256": "1a85aa8f87d21a53eb019a8f23fc2eb8858615f1eb7cb634d04bc9f3fbc9f01d"
+        },
+        {
+          "line": 610,
+          "text": "expect(screen.getByTestId('image')).toHaveAttribute('aria-hidden', 'true')",
+          "sha256": "f0d9ea40e3a8e5487379fc117bee41a8c6b4bbd0cc8fedae5d1aa2346b47b565"
+        },
+        {
+          "line": 611,
+          "text": "expect(screen.getByText('JD')).not.toBe(null)",
+          "sha256": "b452cca9fb1d2a0e5cecf1149489d5e234e84d0a8987efa96231c6f259603354"
+        }
+      ]
+    },
+    {
+      "source": "packages/react/src/avatar/image/AvatarImage.test.tsx",
+      "kind": "it",
+      "line": 615,
+      "title": "'hides the image from assistive technology again when the source changes'",
+      "declarationSha256": "f81b9483e8238c65f9db752a9caba29c0c8bbe85c481b865a4bef5620c5861e5",
+      "bodySha256": "d37210f64b8a10754f942977c7a50dade7fb377e15b78752c11c424926590498",
+      "assertions": [
+        {
+          "line": 632,
+          "text": "expect(screen.getByTestId('image')).not.toHaveAttribute('aria-hidden')",
+          "sha256": "c95a0f63837d6228059e317007b177476c428b16c885b20b71dc67edfae87644"
+        },
+        {
+          "line": 638,
+          "text": "expect(screen.getByTestId('image')).toHaveAttribute('aria-hidden', 'true')",
+          "sha256": "f0d9ea40e3a8e5487379fc117bee41a8c6b4bbd0cc8fedae5d1aa2346b47b565"
+        }
+      ]
+    },
+    {
+      "source": "packages/react/src/avatar/image/AvatarImage.test.tsx",
+      "kind": "it",
+      "line": 643,
+      "title": "'preserves an explicitly provided aria-hidden value'",
+      "declarationSha256": "a1e53a76df96db1aac77d7e2b55c7a39ff8909e3cd3afe698320eb2c4f6f49ef",
+      "bodySha256": "24f554370764503760c5967d22ca232f98103d14ecb74613705f7dc359c10518",
+      "assertions": [
+        {
+          "line": 657,
+          "text": "expect(screen.getByTestId('image')).toHaveAttribute('aria-hidden', 'false')",
+          "sha256": "8e57fcccb6b052a796d6e25751d3ba5f622f8314e0ed42ddfc837915aef312a8"
+        },
+        {
+          "line": 662,
+          "text": "expect(screen.queryByText('JD')).toBe(null)",
+          "sha256": "bc2ad774c138da47d64ef858a50d3f55325b6ce0c3448d0e15c44d584f225354"
+        },
+        {
+          "line": 664,
+          "text": "expect(screen.getByTestId('image')).toHaveAttribute('aria-hidden', 'false')",
+          "sha256": "8e57fcccb6b052a796d6e25751d3ba5f622f8314e0ed42ddfc837915aef312a8"
+        }
+      ]
+    },
+    {
+      "source": "packages/react/src/avatar/image/AvatarImage.test.tsx",
+      "kind": "it",
+      "line": 667,
+      "title": "'marks the not-loaded states with data attributes'",
+      "declarationSha256": "5413b15cad1d8b9efa0a82ea1a5afd7df16b4bbd372974bc22e7e9b185e9a5c5",
+      "bodySha256": "b5c8b106be13d38f73285fe432c735ada87f6690af38220176141c2726e3633f",
+      "assertions": [
+        {
+          "line": 675,
+          "text": "expect(screen.getByTestId('image')).toHaveAttribute('data-loading')",
+          "sha256": "ef425f8d379d117db38fcf71f99fa03a12da5dff5fe27484cf3b311d5654a1be"
+        },
+        {
+          "line": 680,
+          "text": "expect(screen.getByTestId('image')).not.toHaveAttribute('data-loading')",
+          "sha256": "b4cd760f58e9f930795124b26dcd7388d04f48a7f0e4dcd863b4afcd558bf079"
+        },
+        {
+          "line": 682,
+          "text": "expect(screen.getByTestId('image')).not.toHaveAttribute('data-error')",
+          "sha256": "9bbdfef0cf0972611d1976f08d3ae4e5d500da1db986d39f6b450bb727ff0e9d"
+        },
+        {
+          "line": 687,
+          "text": "expect(screen.getByTestId('image')).toHaveAttribute('data-error')",
+          "sha256": "1a85aa8f87d21a53eb019a8f23fc2eb8858615f1eb7cb634d04bc9f3fbc9f01d"
+        }
+      ]
+    },
+    {
+      "source": "packages/react/src/avatar/image/AvatarImage.test.tsx",
+      "kind": "it",
+      "line": 691,
+      "title": "'does not override source props in a render callback'",
+      "declarationSha256": "ea5f8a6eaf6557649d620f81e41a17271925b126f393aa5489b6cb77d2342819",
+      "bodySha256": "97c38766211e1d0e960433edcef3f5ec9cec8e1f1c880ebf6d603d009c753402",
+      "assertions": [
+        {
+          "line": 712,
+          "text": "expect(image).toHaveAttribute('sizes', '48px')",
+          "sha256": "c3d1ffacc42eeb3e0277ea3b41e2526daea230cd5ee1855d9c6f3ed767223a09"
+        },
+        {
+          "line": 713,
+          "text": "expect(image).toHaveAttribute('src', 'avatar.png')",
+          "sha256": "c83256d589ce11ed5e41b21aff7e71e078793c82578a2be77240e5f9cc21c551"
+        },
+        {
+          "line": 714,
+          "text": "expect(image).toHaveAttribute('srcset', 'avatar.png 1x')",
+          "sha256": "168301f112a7b3b13421f2588eb646512a52b9b795f7404699ef77b4d8e6be8b"
+        }
+      ]
+    },
+    {
+      "source": "packages/react/src/avatar/image/AvatarImage.test.tsx",
+      "kind": "it",
+      "line": 717,
+      "title": "'applies the source props after the ones configuring the request'",
+      "declarationSha256": "acaeb3a1618465450e82127c2e1ebd4546aa7da5f45e1a7298cf385cd581f9c7",
+      "bodySha256": "9334d6db8d2dbdf2c61df31bd0b4f04c249980cceea54a99fd8998e666fd0663",
+      "assertions": [
+        {
+          "line": 741,
+          "text": "expect(keys.indexOf('src')).toBeGreaterThan(keys.indexOf('loading'))",
+          "sha256": "30c3106dc5395a58c3d98c926b6003a5962eb28abf870e179794ed93991a09f1"
+        },
+        {
+          "line": 742,
+          "text": "expect(keys.indexOf('src')).toBeGreaterThan(keys.indexOf('sizes'))",
+          "sha256": "2b6f0cbf666d7202c2ba78724e2ec5863968afdf5d99555fafd3b1616462d46e"
+        },
+        {
+          "line": 743,
+          "text": "expect(keys.indexOf('src')).toBeGreaterThan(keys.indexOf('srcSet'))",
+          "sha256": "0f0a0fc0210d03a24e4bd76e890dbddd46ba4bfe1d70716f9b89eb71d10f11f4"
+        }
+      ]
+    },
+    {
+      "source": "packages/react/src/avatar/image/AvatarImage.test.tsx",
+      "kind": "it",
+      "line": 747,
+      "title": "'keeps the status reported by an element that does not forward a ref'",
+      "declarationSha256": "6d4ddcc307938d4db53b94832deb23ee15a1cf1ff1284964e877c5ea5f0c961e",
+      "bodySha256": "1d456e85d4f696b8fa392193231fc67bf61f3bfb6fd90e5f623c90d52b2a58bb",
+      "assertions": [
+        {
+          "line": 784,
+          "text": "expect(screen.queryByText('JD')).toBe(null)",
+          "sha256": "bc2ad774c138da47d64ef858a50d3f55325b6ce0c3448d0e15c44d584f225354"
+        },
+        {
+          "line": 791,
+          "text": "expect(screen.queryByText('JD')).toBe(null)",
+          "sha256": "bc2ad774c138da47d64ef858a50d3f55325b6ce0c3448d0e15c44d584f225354"
+        },
+        {
+          "line": 793,
+          "text": "expect(onLoadingStatusChange.mock.calls.map(([status]) => status)).toEqual(['loaded'])",
+          "sha256": "03832d4957eb1ef1ac72f63c40b984ad8ee81c4f41e44723779b2a8999ac5c53"
+        }
+      ]
+    },
+    {
+      "source": "packages/react/src/avatar/image/AvatarImage.test.tsx",
+      "kind": "it",
+      "line": 797,
+      "title": "'resets the status when the source changes to an unloaded one'",
+      "declarationSha256": "b8e20032d42f3ca61786be21ed2231cf0f8225b2592461287389c9384cd2655d",
+      "bodySha256": "5b800e8e4f510ec0a97afed0c93076e31c9818a56f743162b010afb2f10585a9",
+      "assertions": [
+        {
+          "line": 819,
+          "text": "expect(screen.queryByText('JD')).toBe(null)",
+          "sha256": "bc2ad774c138da47d64ef858a50d3f55325b6ce0c3448d0e15c44d584f225354"
+        },
+        {
+          "line": 826,
+          "text": "expect(screen.getByTestId('image')).toHaveAttribute('data-loading')",
+          "sha256": "ef425f8d379d117db38fcf71f99fa03a12da5dff5fe27484cf3b311d5654a1be"
+        },
+        {
+          "line": 829,
+          "text": "expect(screen.getByTestId('image')).toHaveAttribute('data-error')",
+          "sha256": "1a85aa8f87d21a53eb019a8f23fc2eb8858615f1eb7cb634d04bc9f3fbc9f01d"
+        },
+        {
+          "line": 833,
+          "text": "expect(onLoadingStatusChange.mock.calls.map(([status]) => status)).toEqual([\n        'loaded',\n        'loading',\n        'error',\n      ])",
+          "sha256": "21d3c6808585da312a87b30fd53047f440feee7006ae24a6ca4ba01b75849211"
+        }
+      ]
+    },
+    {
+      "source": "packages/react/src/avatar/image/AvatarImage.test.tsx",
+      "kind": "it",
+      "line": 846,
+      "title": "'triggers enter animation via data-starting-style when mounting'",
+      "declarationSha256": "3071e37c56f2aa49f0071f15c7939b43fd3690a169fb08c2a9f1241d2288ff9d",
+      "bodySha256": "4e42973de04d839b3bc0e7b91caa0591c6cd2e2dad61f59587cace4e3a367893",
+      "assertions": [
+        {
+          "line": 899,
+          "text": "expect(screen.queryByTestId('image')).toBe(null)",
+          "sha256": "4c30ef7938b0b2cf1cc8bf9803bce590e54c729d79f09d60292bcfaba3b12bfe"
+        },
+        {
+          "line": 904,
+          "text": "expect(transitionFinished).toBe(true)",
+          "sha256": "8534a2087c5a3f194a438bad3f3c408ce8c13a738b5316d85ff6239babcb1693"
+        },
+        {
+          "line": 907,
+          "text": "expect(screen.getByTestId('image')).not.toBe(null)",
+          "sha256": "0a50e1cb40fa6b152a72937039083ed82d5aac0ad1f6a0bb9ef2b6a17ec5c19f"
+        },
+        {
+          "line": 908,
+          "text": "expect(getAnimations).not.toHaveBeenCalled()",
+          "sha256": "5baee3a11278c576d0c879c666e2dd16726c9145f486c696195dc4c060c8b3ba"
+        }
+      ]
+    },
+    {
+      "source": "packages/react/src/avatar/image/AvatarImage.test.tsx",
+      "kind": "it",
+      "line": 911,
+      "title": "'applies data-ending-style before unmount'",
+      "declarationSha256": "83019d93ef043c68c9da42176f6aa4d326cf55dc615ce93f98da2d17da8dce34",
+      "bodySha256": "2c8bdaa15bf7b24145b376b55b0319d3120afb4312ca9b90828de696a1b23333",
+      "assertions": [
+        {
+          "line": 950,
+          "text": "expect(screen.getByTestId('image')).not.toBe(null)",
+          "sha256": "0a50e1cb40fa6b152a72937039083ed82d5aac0ad1f6a0bb9ef2b6a17ec5c19f"
+        },
+        {
+          "line": 956,
+          "text": "expect(image).not.toBe(null)",
+          "sha256": "6faec706421dfdc75d8dc2dc2dfb1072abbf639cecb00c9d8c596f95aa4167a5"
+        },
+        {
+          "line": 957,
+          "text": "expect(image).toHaveAttribute('data-ending-style')",
+          "sha256": "c1a921dcf8367820d28cb93946c3a95f5df7d41bdab84debce852671ccb84839"
+        },
+        {
+          "line": 961,
+          "text": "expect(screen.queryByTestId('image')).toBe(null)",
+          "sha256": "4c30ef7938b0b2cf1cc8bf9803bce590e54c729d79f09d60292bcfaba3b12bfe"
+        }
+      ]
+    },
+    {
+      "source": "packages/react/src/avatar/image/AvatarImage.test.tsx",
+      "kind": "it",
+      "line": 965,
+      "title": "'does not apply the not-loaded state attributes without keepMounted'",
+      "declarationSha256": "4b90d4e6bb7fed3413f47c1f8fc85d21d71fed15f04dc5b330dab1a18c8daf3a",
+      "bodySha256": "a5845ba4a41c21fe7a36a10d8de9361ce40bf0144af22af400e9a651e7ff2364",
+      "assertions": [
+        {
+          "line": 1008,
+          "text": "expect(screen.getByTestId('image')).toHaveAttribute('data-ending-style')",
+          "sha256": "1a6f531e0dc337e636e2548b194f21568e1767c0309d7ef6c63e1faa57704a58"
+        },
+        {
+          "line": 1013,
+          "text": "expect(screen.getByTestId('image')).not.toHaveAttribute('data-error')",
+          "sha256": "9bbdfef0cf0972611d1976f08d3ae4e5d500da1db986d39f6b450bb727ff0e9d"
+        },
+        {
+          "line": 1014,
+          "text": "expect(screen.getByTestId('image')).not.toHaveAttribute('data-loading')",
+          "sha256": "b4cd760f58e9f930795124b26dcd7388d04f48a7f0e4dcd863b4afcd558bf079"
+        }
+      ]
+    },
+    {
+      "source": "packages/react/src/avatar/image/AvatarImage.test.tsx",
+      "kind": "it",
+      "line": 1017,
+      "title": "'does not apply data-ending-style with keepMounted'",
+      "declarationSha256": "bbd33e497b1bc1a057563183879a667aa7678bd82b6db6feff8aadb7b8faca1a",
+      "bodySha256": "780d9a81c691a56410f31893a90b24f0bd50bc024744243fe09891c50c532bca",
+      "assertions": [
+        {
+          "line": 1054,
+          "text": "expect(screen.getByTestId('image')).not.toHaveAttribute('data-loading')",
+          "sha256": "b4cd760f58e9f930795124b26dcd7388d04f48a7f0e4dcd863b4afcd558bf079"
+        },
+        {
+          "line": 1061,
+          "text": "expect(screen.getByTestId('image')).not.toHaveAttribute('data-ending-style')",
+          "sha256": "d0f2cc6a841351230bae0f3b3d0eff3079554bcbb498c1921a026701d53a8648"
+        },
+        {
+          "line": 1062,
+          "text": "expect(screen.getByTestId('image')).toHaveAttribute('data-loading')",
+          "sha256": "ef425f8d379d117db38fcf71f99fa03a12da5dff5fe27484cf3b311d5654a1be"
+        }
+      ]
+    },
+    {
+      "source": "packages/react/src/avatar/image/AvatarImage.test.tsx",
+      "kind": "it",
+      "line": 1065,
+      "title": "'does not replay the enter animation for a cached image on hydration'",
+      "declarationSha256": "1166ec0a5429414681f61158d08c31dd3521ac93fc233868323cbc67ac520bf2",
+      "bodySha256": "1543ec2f66e79f26398c25d0219eef8848b2842734e99de9951bd79cb87390a5",
+      "assertions": [
+        {
+          "line": 1085,
+          "text": "expect((screen.getByTestId('image') as HTMLImageElement).complete).toBe(true)",
+          "sha256": "f01d22714d299bdd925c04064397c2f08b81a9823e4598be4c16e8574aacfe48"
+        },
+        {
+          "line": 1091,
+          "text": "expect(screen.getByTestId('image')).not.toHaveAttribute('data-starting-style')",
+          "sha256": "d5d9317b906e7ad343ff655310ef82c0bd5f8d0dfb4104eaee46414914361a7c"
+        }
+      ]
+    },
+    {
+      "source": "packages/react/src/avatar/image/AvatarImage.test.tsx",
+      "kind": "it",
+      "line": 1100,
+      "title": "'does not flash fallback for a cached image during SSR hydration'",
+      "declarationSha256": "ae591958b71732e908e894296159af1df699a08318ac25fe9084587001023b23",
+      "bodySha256": "f5a18e2986e1bba6fff468d324526a73db19ff68696f16b6763a1d3a579ca5c8",
+      "assertions": [
+        {
+          "line": 1120,
+          "text": "expect(screen.getByText('JD')).toBeVisible()",
+          "sha256": "c27e11dc69970788ac394cf8c95bd44b92f26cdddb9056d59af2580dba343f34"
+        },
+        {
+          "line": 1121,
+          "text": "expect(screen.queryByRole('img')).toBe(null)",
+          "sha256": "29cec961546e4b615176f9a60f90444a34f719dc75b0f5ef426eef1d0782aaf6"
+        },
+        {
+          "line": 1131,
+          "text": "expect(screen.getByRole('img')).toHaveAttribute('src', DATA_URI)",
+          "sha256": "b6ecb6fe1c6d9ecdfc352d79574e02392e99aef8f271433eada655b868fbd9d9"
+        },
+        {
+          "line": 1132,
+          "text": "expect(screen.queryByText('JD')).toBe(null)",
+          "sha256": "bc2ad774c138da47d64ef858a50d3f55325b6ce0c3448d0e15c44d584f225354"
+        }
+      ]
+    },
+    {
+      "source": "packages/react/src/avatar/image/AvatarImage.test.tsx",
+      "kind": "it",
+      "line": 1136,
+      "title": "'shows the image immediately for a cached src'",
+      "declarationSha256": "d87d2567afee469fcbdc2ac73f339ee701f2f706d55302ee57e75d8f8ac36996",
+      "bodySha256": "c0791b2b507db7d804f9adc0b96d8c110b273a8ae348432c0cc00afd6e65ae16",
+      "assertions": [
+        {
+          "line": 1144,
+          "text": "expect(screen.getByRole('img')).toHaveAttribute('src', 'https://example.com/cached-avatar.png')",
+          "sha256": "1214cee766a6ff1b54a5155b62218f0e9f4d017a58e84d351886c83532dc39d8"
+        },
+        {
+          "line": 1145,
+          "text": "expect(screen.queryByText('JD')).toBe(null)",
+          "sha256": "bc2ad774c138da47d64ef858a50d3f55325b6ce0c3448d0e15c44d584f225354"
+        }
+      ]
+    },
+    {
+      "source": "packages/react/src/avatar/fallback/AvatarFallback.test.tsx",
+      "kind": "describeConformance",
+      "line": 31,
+      "title": "<Avatar.Fallback />",
+      "declarationSha256": "e92326b42e34a04622ec94161750227fde2cf37df7adee9ef482c5d2943b5a6d",
+      "bodySha256": "cad4c2e2e6d0b32c171eb10920be1308005e31e9d0edbac4f0132b5b4703c3f4",
+      "assertions": []
+    },
+    {
+      "source": "packages/react/src/avatar/fallback/AvatarFallback.test.tsx",
+      "kind": "it",
+      "line": 38,
+      "title": "'should not render the children if the image loaded'",
+      "declarationSha256": "f314906be7597563ec6c8124c890ea9c884e9c1bfcb16b638b248e7ccddacfde",
+      "bodySha256": "d6fefd9449387d071c564eb0fa9b798d348f3976568c870cd35d607900484d40",
+      "assertions": [
+        {
+          "line": 49,
+          "text": "expect(screen.queryByTestId('fallback')).toBe(null)",
+          "sha256": "a30cc0f48f36b2a178ff74767b89629c897adff388ae12d9a3a7221f8ed7bedc"
+        }
+      ]
+    },
+    {
+      "source": "packages/react/src/avatar/fallback/AvatarFallback.test.tsx",
+      "kind": "it",
+      "line": 53,
+      "title": "'should render the fallback if the image fails to load'",
+      "declarationSha256": "938f3704962c00cf49e0e8a2627fbc3f2ba77bc385fadb32c418e72f127f77d8",
+      "bodySha256": "d99da47d94b7c3dde2f0560aafb56fef14772899119a8dfef22411661ad61f23",
+      "assertions": [
+        {
+          "line": 64,
+          "text": "expect(screen.queryByText('AC')).not.toBe(null)",
+          "sha256": "60c259bb1c41ec5be86455f46fcc7301d0419a4811bc51ceb1b6d28a11cee9e1"
+        }
+      ]
+    },
+    {
+      "source": "packages/react/src/avatar/fallback/AvatarFallback.test.tsx",
+      "kind": "it",
+      "line": 68,
+      "title": "'shows the fallback when a loaded image is unmounted'",
+      "declarationSha256": "da9679b390ca8ee2da3d42522a49d7711346773418ce15d9dede2f67428ede3d",
+      "bodySha256": "8e791f35aa2f6bac4e48ddc941c1b4b7317fc9173d79411f255af9341857cd35",
+      "assertions": [
+        {
+          "line": 88,
+          "text": "expect(screen.queryByTestId('fallback')).toBe(null)",
+          "sha256": "a30cc0f48f36b2a178ff74767b89629c897adff388ae12d9a3a7221f8ed7bedc"
+        },
+        {
+          "line": 90,
+          "text": "expect(screen.getByTestId('image')).not.toBe(null)",
+          "sha256": "0a50e1cb40fa6b152a72937039083ed82d5aac0ad1f6a0bb9ef2b6a17ec5c19f"
+        },
+        {
+          "line": 95,
+          "text": "expect(screen.getByTestId('fallback')).not.toBe(null)",
+          "sha256": "656d26d5d6d9b329cdcf4e8dcff1a56ffab109e6a480a31b8fdc365b03299b60"
+        },
+        {
+          "line": 97,
+          "text": "expect(screen.queryByTestId('image')).toBe(null)",
+          "sha256": "4c30ef7938b0b2cf1cc8bf9803bce590e54c729d79f09d60292bcfaba3b12bfe"
+        }
+      ]
+    },
+    {
+      "source": "packages/react/src/avatar/fallback/AvatarFallback.test.tsx",
+      "kind": "it",
+      "line": 105,
+      "title": "'shows the fallback when the delay has elapsed'",
+      "declarationSha256": "af5728b5a86e66ab13b67f054e3316a97460c2a3445cab8d721aaa116571412c",
+      "bodySha256": "ef3e1bb437a84d4bc96140fe9758bd291637f159e08d39149d36b7593614a815",
+      "assertions": [
+        {
+          "line": 113,
+          "text": "expect(screen.queryByText('AC')).toBe(null)",
+          "sha256": "7fcd423b80aa8fd2c730a4d134417351ec54c62fea9d29afa78cabb8714cbaf6"
+        },
+        {
+          "line": 117,
+          "text": "expect(screen.queryByText('AC')).not.toBe(null)",
+          "sha256": "60c259bb1c41ec5be86455f46fcc7301d0419a4811bc51ceb1b6d28a11cee9e1"
+        }
+      ]
+    },
+    {
+      "source": "packages/react/src/avatar/fallback/AvatarFallback.test.tsx",
+      "kind": "it",
+      "line": 120,
+      "title": "'shows the fallback immediately when delay is 0'",
+      "declarationSha256": "46af8544ecbe4e5f3061d6564aa44f65452585d711229824ca53ac94b9915ec3",
+      "bodySha256": "ee051723bd233a5b2dd8307b6dbce2c604193f0d4ffb63267a0be03236f2ab24",
+      "assertions": [
+        {
+          "line": 131,
+          "text": "expect(screen.queryByText('AC')).not.toBe(null)",
+          "sha256": "60c259bb1c41ec5be86455f46fcc7301d0419a4811bc51ceb1b6d28a11cee9e1"
+        }
+      ]
+    },
+    {
+      "source": "packages/react/src/avatar/fallback/AvatarFallback.test.tsx",
+      "kind": "it",
+      "line": 134,
+      "title": "'shows the fallback when delay changes to 0'",
+      "declarationSha256": "2d82d26c6d7db32ac5bc77be5d0c6f470f1d7a65866eca062778f74df8f73486",
+      "bodySha256": "39ee9d463defe66d607e5308e776f8227912a3d69f06718334dedf83f4a4a3ea",
+      "assertions": [
+        {
+          "line": 148,
+          "text": "expect(screen.queryByText('AC')).toBe(null)",
+          "sha256": "7fcd423b80aa8fd2c730a4d134417351ec54c62fea9d29afa78cabb8714cbaf6"
+        },
+        {
+          "line": 152,
+          "text": "expect(screen.queryByText('AC')).not.toBe(null)",
+          "sha256": "60c259bb1c41ec5be86455f46fcc7301d0419a4811bc51ceb1b6d28a11cee9e1"
+        }
+      ]
+    },
+    {
+      "source": "packages/react/src/avatar/fallback/AvatarFallback.test.tsx",
+      "kind": "it",
+      "line": 155,
+      "title": "'keeps the fallback visible when delay changes from undefined to a number'",
+      "declarationSha256": "3af23332d63a0e38b1720d6e1aa87cfd647c89c9371630c9eefa53fccb967c69",
+      "bodySha256": "e7875edd769e78f9f4497c0145ca1dff7e106537098ff9ccb2e242658dc46404",
+      "assertions": [
+        {
+          "line": 169,
+          "text": "expect(screen.queryByText('AC')).not.toBe(null)",
+          "sha256": "60c259bb1c41ec5be86455f46fcc7301d0419a4811bc51ceb1b6d28a11cee9e1"
+        },
+        {
+          "line": 173,
+          "text": "expect(screen.queryByText('AC')).not.toBe(null)",
+          "sha256": "60c259bb1c41ec5be86455f46fcc7301d0419a4811bc51ceb1b6d28a11cee9e1"
+        }
+      ]
+    },
+    {
+      "source": "packages/react/src/avatar/fallback/AvatarFallback.test.tsx",
+      "kind": "it",
+      "line": 176,
+      "title": "'keeps the fallback visible across a number -> undefined -> number delay change'",
+      "declarationSha256": "b93bd541ca58012c94400d1302bd8b6d168eee7115a99b67c576a65538fe8aa1",
+      "bodySha256": "ae3c96c9f6a50ea625c5dde02e98b8e330b77213b5e66f26d8e6108bd951ff11",
+      "assertions": [
+        {
+          "line": 191,
+          "text": "expect(screen.queryByText('AC')).toBe(null)",
+          "sha256": "7fcd423b80aa8fd2c730a4d134417351ec54c62fea9d29afa78cabb8714cbaf6"
+        },
+        {
+          "line": 195,
+          "text": "expect(screen.queryByText('AC')).not.toBe(null)",
+          "sha256": "60c259bb1c41ec5be86455f46fcc7301d0419a4811bc51ceb1b6d28a11cee9e1"
+        },
+        {
+          "line": 199,
+          "text": "expect(screen.queryByText('AC')).not.toBe(null)",
+          "sha256": "60c259bb1c41ec5be86455f46fcc7301d0419a4811bc51ceb1b6d28a11cee9e1"
+        }
+      ]
+    },
+    {
+      "source": "packages/react/src/avatar/fallback/AvatarFallback.test.tsx",
+      "kind": "it",
+      "line": 203,
+      "title": "'keeps fallback mounted and image unmounted while the image is loading'",
+      "declarationSha256": "5096b5cb0bdaa996795cb0215f192e261f07dc0c35c55765a7447b815f359bcd",
+      "bodySha256": "403aa2e2135f573546a79c0bc0f8386a2b72543ed19c745cebbe86bed6936477",
+      "assertions": [
+        {
+          "line": 228,
+          "text": "expect(screen.queryByTestId('image')).toBe(null)",
+          "sha256": "4c30ef7938b0b2cf1cc8bf9803bce590e54c729d79f09d60292bcfaba3b12bfe"
+        },
+        {
+          "line": 229,
+          "text": "expect(screen.getByTestId('fallback')).not.toBe(null)",
+          "sha256": "656d26d5d6d9b329cdcf4e8dcff1a56ffab109e6a480a31b8fdc365b03299b60"
+        },
+        {
+          "line": 234,
+          "text": "expect(screen.queryByTestId('image')).toBe(null)",
+          "sha256": "4c30ef7938b0b2cf1cc8bf9803bce590e54c729d79f09d60292bcfaba3b12bfe"
+        },
+        {
+          "line": 235,
+          "text": "expect(screen.getByTestId('fallback')).not.toBe(null)",
+          "sha256": "656d26d5d6d9b329cdcf4e8dcff1a56ffab109e6a480a31b8fdc365b03299b60"
+        }
+      ]
+    },
+    {
+      "source": "packages/react/src/avatar/fallback/AvatarFallback.test.tsx",
+      "kind": "it",
+      "line": 245,
+      "title": "'keeps only one of image or fallback mounted when switching to image'",
+      "declarationSha256": "a1e7944185595b062e287a4d8d5904da97075a7d4e418cf7c828bb604e9a7937",
+      "bodySha256": "320c6c0bd99cd5610e77dffe5d4ec167c12bec49119357399edcfb972c3ce88c",
+      "assertions": [
+        {
+          "line": 286,
+          "text": "expect(screen.queryByTestId('image')).toBe(null)",
+          "sha256": "4c30ef7938b0b2cf1cc8bf9803bce590e54c729d79f09d60292bcfaba3b12bfe"
+        },
+        {
+          "line": 287,
+          "text": "expect(screen.getByTestId('fallback')).not.toBe(null)",
+          "sha256": "656d26d5d6d9b329cdcf4e8dcff1a56ffab109e6a480a31b8fdc365b03299b60"
+        },
+        {
+          "line": 292,
+          "text": "expect(screen.queryByTestId('image')).not.toBe(null)",
+          "sha256": "c91e8e3206ed8debcada063b992b56efc7fd3f27e574c07b64eb210fbb954350"
+        },
+        {
+          "line": 293,
+          "text": "expect(screen.queryByTestId('fallback')).toBe(null)",
+          "sha256": "a30cc0f48f36b2a178ff74767b89629c897adff388ae12d9a3a7221f8ed7bedc"
+        }
+      ]
+    },
+    {
+      "source": "packages/react/src/avatar/Avatar.spec.tsx",
+      "kind": "expectType",
+      "line": 7,
+      "title": "state.imageLoadingStatus",
+      "declarationSha256": "592dadaf6c4d128983812beb2a1907ffcc0e95d395b8034c3159f73d6c1e116d",
+      "bodySha256": null,
+      "assertions": []
+    },
+    {
+      "source": "packages/react/src/avatar/Avatar.spec.tsx",
+      "kind": "expectType",
+      "line": 18,
+      "title": "status",
+      "declarationSha256": "734506d52361f7a7f18313d1fd16399a45dd205aa23c05add6f9d53e522d8f6c",
+      "bodySha256": null,
+      "assertions": []
+    },
+    {
+      "source": "packages/react/src/avatar/Avatar.spec.tsx",
+      "kind": "expectType",
+      "line": 21,
+      "title": "props.src",
+      "declarationSha256": "8a0522faa5185ff50938105798a3c5fb60cbf6da46b4e84bc41f9d7082c3a851",
+      "bodySha256": null,
+      "assertions": []
+    },
+    {
+      "source": "packages/react/src/avatar/Avatar.spec.tsx",
+      "kind": "expectType",
+      "line": 22,
+      "title": "props.alt",
+      "declarationSha256": "bdcab9c6efb0ea42a7af97d6f190095a95d9a35f965b88b70352dce46230edf2",
+      "bodySha256": null,
+      "assertions": []
+    },
+    {
+      "source": "packages/react/src/avatar/Avatar.spec.tsx",
+      "kind": "expectType",
+      "line": 23,
+      "title": "state.imageLoadingStatus",
+      "declarationSha256": "592dadaf6c4d128983812beb2a1907ffcc0e95d395b8034c3159f73d6c1e116d",
+      "bodySha256": null,
+      "assertions": []
+    },
+    {
+      "source": "packages/react/src/avatar/Avatar.spec.tsx",
+      "kind": "expectType",
+      "line": 30,
+      "title": "state.imageLoadingStatus",
+      "declarationSha256": "592dadaf6c4d128983812beb2a1907ffcc0e95d395b8034c3159f73d6c1e116d",
+      "bodySha256": null,
+      "assertions": []
+    }
+  ],
+  "conformanceHelpers": [
+    {
+      "source": "packages/react/test/conformanceTests/propForwarding.tsx",
+      "kind": "it",
+      "line": 23,
+      "title": "'forwards custom props to the default element'",
+      "declarationSha256": "92e4264f2ee63b48bc2bf39c30202a078423b8f2edaaac499783ea2f0d800035",
+      "bodySha256": "c27d457e6b6e3166c66d90f8b5a39587563a607cd6977d520faea938266b5248",
+      "assertions": [
+        {
+          "line": 34,
+          "text": "expect(customRoot).toHaveAttribute('lang', otherProps.lang)",
+          "sha256": "38488fd99cd356f56c143331c334eff01f9f93c7ac4726244bb44e4527eb0e04"
+        },
+        {
+          "line": 35,
+          "text": "expect(customRoot).toHaveAttribute('data-foobar', otherProps['data-foobar'])",
+          "sha256": "34519c4bed4f1f46a413ba855416454e36a5ddcef44e652bc6476b769448bc36"
+        }
+      ]
+    },
+    {
+      "source": "packages/react/test/conformanceTests/propForwarding.tsx",
+      "kind": "it",
+      "line": 38,
+      "title": "'forwards custom props to the customized element defined with a function'",
+      "declarationSha256": "d03ad88b403553f73f3a2691b3072dbda66bfafba0c7a0fa6d6b39c290845c33",
+      "bodySha256": "ac63627df56b5d723ada085ba9d0b56c2727190f6918767d47fdbd1b50343cf6",
+      "assertions": [
+        {
+          "line": 57,
+          "text": "expect(customRoot).toHaveAttribute('lang', otherProps.lang)",
+          "sha256": "38488fd99cd356f56c143331c334eff01f9f93c7ac4726244bb44e4527eb0e04"
+        },
+        {
+          "line": 58,
+          "text": "expect(customRoot).toHaveAttribute('data-foobar', otherProps['data-foobar'])",
+          "sha256": "34519c4bed4f1f46a413ba855416454e36a5ddcef44e652bc6476b769448bc36"
+        }
+      ]
+    },
+    {
+      "source": "packages/react/test/conformanceTests/propForwarding.tsx",
+      "kind": "it",
+      "line": 61,
+      "title": "'forwards custom props to the customized element defined using JSX'",
+      "declarationSha256": "e690e142a12d9052ea14d2cbd6a9fd54b11195969206e33526a2bbef14f53bff",
+      "bodySha256": "35064256fd2eb73eea126f0a3231d6717e332f9be03bc0dc3e114c7ba8267035",
+      "assertions": [
+        {
+          "line": 78,
+          "text": "expect(customRoot).toHaveAttribute('lang', otherProps.lang)",
+          "sha256": "38488fd99cd356f56c143331c334eff01f9f93c7ac4726244bb44e4527eb0e04"
+        },
+        {
+          "line": 79,
+          "text": "expect(customRoot).toHaveAttribute('data-foobar', otherProps['data-foobar'])",
+          "sha256": "34519c4bed4f1f46a413ba855416454e36a5ddcef44e652bc6476b769448bc36"
+        }
+      ]
+    },
+    {
+      "source": "packages/react/test/conformanceTests/propForwarding.tsx",
+      "kind": "it",
+      "line": 82,
+      "title": "'forwards the custom `style` attribute defined on the component'",
+      "declarationSha256": "973533217db63f0fa12c551b9b5f5916971cdde1a2b0a97e889ff839d21791b4",
+      "bodySha256": "085a6cfe75f6bc9ef4451d4a8730efd7accfb06c4e898b3458370000293baffc",
+      "assertions": [
+        {
+          "line": 93,
+          "text": "expect(customRoot).toHaveAttribute('style')",
+          "sha256": "c216a3c51da7d02d469700120dce1947479658f4188b8386104b010211ffb178"
+        },
+        {
+          "line": 94,
+          "text": "expect(customRoot.getAttribute('style')).toContain('color: green')",
+          "sha256": "9a0482c9f4d23271a717e052b64a757dcae8dbdea338deb7a7904b3effc506b5"
+        }
+      ]
+    },
+    {
+      "source": "packages/react/test/conformanceTests/propForwarding.tsx",
+      "kind": "it",
+      "line": 97,
+      "title": "'forwards the custom `style` attribute defined on the render function'",
+      "declarationSha256": "97e59e364e4131042bb3d7f481348ae2da52e74573dea727ccf2838097133d14",
+      "bodySha256": "9301e7779c55992fc206702101c9db9c38a8f8838a3660da7f8e18e738eb8bca",
+      "assertions": [
+        {
+          "line": 110,
+          "text": "expect(customRoot).toHaveAttribute('style')",
+          "sha256": "c216a3c51da7d02d469700120dce1947479658f4188b8386104b010211ffb178"
+        },
+        {
+          "line": 111,
+          "text": "expect(customRoot.getAttribute('style')).toContain('color: green')",
+          "sha256": "9a0482c9f4d23271a717e052b64a757dcae8dbdea338deb7a7904b3effc506b5"
+        }
+      ]
+    },
+    {
+      "source": "packages/react/test/conformanceTests/propForwarding.tsx",
+      "kind": "it",
+      "line": 114,
+      "title": "'forwards the custom `style` attribute defined on the render function'",
+      "declarationSha256": "592d6df9028ae5665c5432b517945cd6dbe5508b0c8e6387a4dc7ee4a3608351",
+      "bodySha256": "63bb8e36a9114e19424e965328b78d45a12f07de5230d677a347934e950610ff",
+      "assertions": [
+        {
+          "line": 125,
+          "text": "expect(customRoot).toHaveAttribute('style')",
+          "sha256": "c216a3c51da7d02d469700120dce1947479658f4188b8386104b010211ffb178"
+        },
+        {
+          "line": 126,
+          "text": "expect(customRoot.getAttribute('style')).toContain('color: green')",
+          "sha256": "9a0482c9f4d23271a717e052b64a757dcae8dbdea338deb7a7904b3effc506b5"
+        }
+      ]
+    },
+    {
+      "source": "packages/react/test/conformanceTests/refForwarding.tsx",
+      "kind": "it",
+      "line": 32,
+      "title": "`attaches the ref`",
+      "declarationSha256": "f4c7eb24420f8e1330a53b1abbfdc5ec9de28cbb48b40242958ec79448e15110",
+      "bodySha256": "1fd649cb54b6037db814c9fd681dcf4e948b3c886a2716eb149ec687e5bbf0dd",
+      "assertions": [
+        {
+          "line": 36,
+          "text": "expect(instance).toBeInstanceOf(refInstanceof)",
+          "sha256": "3b12178edce3b656f1d7b506ceff0bcc911ecef45a34bdd5f38f37344c4842b1"
+        }
+      ]
+    },
+    {
+      "source": "packages/react/test/conformanceTests/renderProp.tsx",
+      "kind": "it",
+      "line": 41,
+      "title": "'renders a customized root element with a function'",
+      "declarationSha256": "3cfead9a253306920a43840dd06e8229f57a42bdb1ab95d486091a808c9a3f77",
+      "bodySha256": "f61cfa46dede42e60729b834baa1a8f4c9d8651d0ec030622853179f1b6ba5cf",
+      "assertions": [
+        {
+          "line": 55,
+          "text": "expect(screen.queryByTestId('base-ui-wrapper')).not.toBe(null)",
+          "sha256": "cd1de7914ebbb64184509f10bc313595f4248e49eda0667233fcde6fa4b5ab23"
+        },
+        {
+          "line": 57,
+          "text": "expect(screen.queryByTestId('wrapped')).not.toBe(null)",
+          "sha256": "17221c26a06fa4e33e8964ccab2aaa57c1740fd4da2d4ae5d844452c97994165"
+        },
+        {
+          "line": 58,
+          "text": "expect(screen.queryByTestId('wrapped')).toHaveAttribute('data-test-value', testValue)",
+          "sha256": "f71b26ef096b198b7cc7592c2a1fdc10d7b9f9cc357a98642168176208b5e889"
+        }
+      ]
+    },
+    {
+      "source": "packages/react/test/conformanceTests/renderProp.tsx",
+      "kind": "it",
+      "line": 61,
+      "title": "'renders a customized root element with an element'",
+      "declarationSha256": "bca53c6ff7a6cece1b0b22744afe6398e9a020d9895df6a5dc7d7186fd74d947",
+      "bodySha256": "3ba3a74aebf3558f1c53c65e49f1697cf0af60e393ffaf2650b0148504a8c0a2",
+      "assertions": [
+        {
+          "line": 72,
+          "text": "expect(screen.queryByTestId('base-ui-wrapper')).not.toBe(null)",
+          "sha256": "cd1de7914ebbb64184509f10bc313595f4248e49eda0667233fcde6fa4b5ab23"
+        },
+        {
+          "line": 74,
+          "text": "expect(screen.queryByTestId('wrapped')).not.toBe(null)",
+          "sha256": "17221c26a06fa4e33e8964ccab2aaa57c1740fd4da2d4ae5d844452c97994165"
+        },
+        {
+          "line": 75,
+          "text": "expect(screen.queryByTestId('wrapped')).toHaveAttribute('data-test-value', testValue)",
+          "sha256": "f71b26ef096b198b7cc7592c2a1fdc10d7b9f9cc357a98642168176208b5e889"
+        }
+      ]
+    },
+    {
+      "source": "packages/react/test/conformanceTests/renderProp.tsx",
+      "kind": "it",
+      "line": 78,
+      "title": "'renders a customized root element with an element'",
+      "declarationSha256": "599db42068497b507d31f4a05f8447acb343200b8ad08c74025d2d70b2cc581e",
+      "bodySha256": "35a70e00d038323fcd9faae97a37eaf86186f4cdce20d13b71d97fac64a6255c",
+      "assertions": [
+        {
+          "line": 87,
+          "text": "expect(screen.queryByTestId('base-ui-wrapper')).not.toBe(null)",
+          "sha256": "cd1de7914ebbb64184509f10bc313595f4248e49eda0667233fcde6fa4b5ab23"
+        },
+        {
+          "line": 89,
+          "text": "expect(screen.queryByTestId('wrapped')).not.toBe(null)",
+          "sha256": "17221c26a06fa4e33e8964ccab2aaa57c1740fd4da2d4ae5d844452c97994165"
+        }
+      ]
+    },
+    {
+      "source": "packages/react/test/conformanceTests/renderProp.tsx",
+      "kind": "it",
+      "line": 93,
+      "title": "'should pass the ref to the custom component'",
+      "declarationSha256": "e5bf84bceadc15af0c438f89339e02ee9907896e3eb7b26875f0f5884c9ff79a",
+      "bodySha256": "67cd5899bb4170488b495a7c3a33f21d077b8b12a44344ba4b389aa71de8459c",
+      "assertions": [
+        {
+          "line": 111,
+          "text": "expect(instanceFromRef!.tagName).toBe(Element.toUpperCase())",
+          "sha256": "e5cca82e543a4c058c1f282a9da297fc8f841fabfc354614862da479321a693f"
+        },
+        {
+          "line": 112,
+          "text": "expect(instanceFromRef!).toHaveAttribute('data-testid', 'wrapped')",
+          "sha256": "5f116c98532ad168df4bd850b7a709ee592834ac3ca16eb754ef304ff63e2e12"
+        }
+      ]
+    },
+    {
+      "source": "packages/react/test/conformanceTests/renderProp.tsx",
+      "kind": "it",
+      "line": 115,
+      "title": "'should merge the rendering element ref with the custom component ref'",
+      "declarationSha256": "db6bbc998b8e7845c5d4d2987840ba36522fb8522bf53bab5efaf3f4074d2a31",
+      "bodySha256": "9cf5f1e5b708022a76295eaca0bb4553147b48bad690a7379d969c8d1a20d1cd",
+      "assertions": [
+        {
+          "line": 138,
+          "text": "expect(refA).not.toBe(null)",
+          "sha256": "24d35d79b6425b63292a4b597a0802701f9ce5094b2d6afe0e1f2ce3d9e51a83"
+        },
+        {
+          "line": 139,
+          "text": "expect(refA!.tagName).toBe(Element.toUpperCase())",
+          "sha256": "16e5d63284e0cd2b780961c3a2db6ab5cde19d88d0aca6b69fc9d69165297fb5"
+        },
+        {
+          "line": 140,
+          "text": "expect(refA!).toHaveAttribute('data-testid', 'wrapped')",
+          "sha256": "23083a429329e5276ae11fd308bf29f9ef6865a023b90a40ad157001076db357"
+        },
+        {
+          "line": 141,
+          "text": "expect(refB).not.toBe(null)",
+          "sha256": "d4225ec15f7ba877e3fd17c4ee3486101ba55d262b95ef73d4b2ed035de2be94"
+        },
+        {
+          "line": 142,
+          "text": "expect(refB!.tagName).toBe(Element.toUpperCase())",
+          "sha256": "310e523875993de75f05e8092e2830a3f1f3ed61155522487bc2243f62e112e5"
+        },
+        {
+          "line": 143,
+          "text": "expect(refB!).toHaveAttribute('data-testid', 'wrapped')",
+          "sha256": "f6d1d47fce639d594c5792bd934f2c4f045698889232617913dadd8a0af0e7ea"
+        }
+      ]
+    },
+    {
+      "source": "packages/react/test/conformanceTests/renderProp.tsx",
+      "kind": "it",
+      "line": 146,
+      "title": "'should merge the rendering element className with the custom component className'",
+      "declarationSha256": "253ba3b6b9e3df7ddc132bc18ff94435d782f93f6d22c1a6a583e02a02933989",
+      "bodySha256": "86f4b910b10bc977dddb8c758634cbc1aba17ded7bd79710150058a457f3af95",
+      "assertions": [
+        {
+          "line": 159,
+          "text": "expect(component.classList.contains('component-classname')).toBe(true)",
+          "sha256": "47896e9bd87614ab32ed14003c0b8ad250aafeab3a366c7e81374a22786891fb"
+        },
+        {
+          "line": 160,
+          "text": "expect(component.classList.contains('render-prop-classname')).toBe(true)",
+          "sha256": "d5c9059918b118b0d72ab3e8c5d16504795ec8da0fb320a60602c55e7fa72386"
+        }
+      ]
+    },
+    {
+      "source": "packages/react/test/conformanceTests/renderProp.tsx",
+      "kind": "it",
+      "line": 163,
+      "title": "'should merge the rendering element resolved className with the custom component className'",
+      "declarationSha256": "caed823ba01f261a3c9a54a58b1b0b533ffb1c6495a006d7fd8e8e48f5813571",
+      "bodySha256": "cc73a906b911a7b9650543da1de90679da237af5f144ef382b4b14a52faebd5f",
+      "assertions": [
+        {
+          "line": 176,
+          "text": "expect(component.classList.contains('conditional-component-classname')).toBe(true)",
+          "sha256": "ba17baa5ddd908b3f24be3e62405e2e1ce027df62e37e8216711beb47d58674a"
+        },
+        {
+          "line": 177,
+          "text": "expect(component.classList.contains('render-prop-classname')).toBe(true)",
+          "sha256": "d5c9059918b118b0d72ab3e8c5d16504795ec8da0fb320a60602c55e7fa72386"
+        }
+      ]
+    },
+    {
+      "source": "packages/react/test/conformanceTests/className.tsx",
+      "kind": "it",
+      "line": 20,
+      "title": "'should apply the className when passed as a string'",
+      "declarationSha256": "5e59173eac2a5537f4ca1a61a832c45cc6f98477b2710ef2ba879a4f740d6cc5",
+      "bodySha256": "1b1c9568e00f73f5c56ce801760487d3d36b0d41369725eba7aa5fdfa94db4cd",
+      "assertions": [
+        {
+          "line": 22,
+          "text": "expect(document.querySelector('.test-class')).not.toBe(null)",
+          "sha256": "22d228bce74fc24fcfb67960f066a05821da0219e90395867605fd21c409512a"
+        }
+      ]
+    }
+  ]
+}

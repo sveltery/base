@@ -7,10 +7,15 @@ export function useDialogRootContext(optional?: false): DialogStore<unknown>;
 export function useDialogRootContext(optional: true): DialogStore<unknown> | undefined;
 export function useDialogRootContext(optional = false): DialogStore<unknown> | undefined {
   const store = getContext<DialogStore<unknown> | undefined>(ROOT);
-  if (!store && !optional) throw new Error('Base UI: DialogRootContext is missing. Dialog parts must be placed within <Dialog.Root>.');
+  if (!store && !optional)
+    throw new Error(
+      'Base UI: DialogRootContext is missing. Dialog parts must be placed within <Dialog.Root>.',
+    );
   return store;
 }
-export interface PortalContext { readonly keepMounted: boolean }
+export interface PortalContext {
+  readonly keepMounted: boolean;
+}
 export function useDialogPortalContext() {
   const value = getContext<PortalContext | undefined>(PORTAL);
   if (!value) throw new Error('Base UI: <Dialog.Portal> is missing.');

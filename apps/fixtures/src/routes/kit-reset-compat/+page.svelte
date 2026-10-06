@@ -12,25 +12,31 @@
   let counterReads = $state(0);
   let observedEffects = $state(0);
   let gate = $state<(() => void) | null>(null);
-  const descriptor = config.custom ? remote.enhance(async (submission) => {
-    customCalls++;
-    if (await submission.submit().updates() && !config.gated) {
-      await tick();
-      HTMLFormElement.prototype.reset.call(submission.element);
-    }
-  }) : remote;
-  if (config.gated || config.issues) remote.preflight({
-    '~standard': {
-      version: 1,
-      vendor: 'sdk-reset-preflight',
-      types: undefined as unknown as { input: Input; output: Input },
-      validate(value: unknown) {
-        const input = value as Input;
-        if (config.gated) return new Promise<{ value: Input }>(resolve => { gate = () => resolve({ value: input }); });
-        return { issues: [{ message: 'Client checkbox issue', path: ['enabled'] }] };
+  const descriptor = config.custom
+    ? remote.enhance(async (submission) => {
+        customCalls++;
+        if ((await submission.submit().updates()) && !config.gated) {
+          await tick();
+          HTMLFormElement.prototype.reset.call(submission.element);
+        }
+      })
+    : remote;
+  if (config.gated || config.issues)
+    remote.preflight({
+      '~standard': {
+        version: 1,
+        vendor: 'sdk-reset-preflight',
+        types: undefined as unknown as { input: Input; output: Input },
+        validate(value: unknown) {
+          const input = value as Input;
+          if (config.gated)
+            return new Promise<{ value: Input }>((resolve) => {
+              gate = () => resolve({ value: input });
+            });
+          return { issues: [{ message: 'Client checkbox issue', path: ['enabled'] }] };
+        },
       },
-    },
-  });
+    });
   async function refreshCounter() {
     await counter.refresh();
     observedEffects = await counter;
@@ -44,8 +50,13 @@
     resets++;
     if (config.cancel) event.preventDefault();
   }
-  onMount(() => { void refreshCounter().then(() => { hydrated = true; }); });
+  onMount(() => {
+    void refreshCounter().then(() => {
+      hydrated = true;
+    });
+  });
 </script>
+
 <main data-hydrated={hydrated}>
   <form id="reset-form" {...descriptor} {onreset}>
     <input {...remote.fields.id.as('hidden', config.instance)} />
@@ -54,11 +65,25 @@
     <button type="reset">Native reset</button>
     <button type="submit">Submit</button>
   </form>
-  <button onclick={() => { remote.fields.label.set('replacement'); remote.fields.enabled.set(true); }}>Set edited values</button>
-  <button onclick={() => { if (remote.element) HTMLFormElement.prototype.reset.call(remote.element); }}>Programmatic reset</button>
+  <button
+    onclick={() => {
+      remote.fields.label.set('replacement');
+      remote.fields.enabled.set(true);
+    }}>Set edited values</button
+  >
+  <button
+    onclick={() => {
+      if (remote.element) HTMLFormElement.prototype.reset.call(remote.element);
+    }}>Programmatic reset</button
+  >
   <button onclick={validate}>Validate touched fields</button>
   <button onclick={refreshCounter}>Read server counter</button>
-  {#if gate}<button onclick={() => { gate?.(); gate = null; }}>Release preflight</button>{/if}
+  {#if gate}<button
+      onclick={() => {
+        gate?.();
+        gate = null;
+      }}>Release preflight</button
+    >{/if}
   <output id="reset-owner">{JSON.stringify(remote.fields.value())}</output>
   <output id="reset-issues">{JSON.stringify(remote.fields.allIssues() ?? [])}</output>
   <output id="reset-result">{JSON.stringify(remote.result ?? null)}</output>
