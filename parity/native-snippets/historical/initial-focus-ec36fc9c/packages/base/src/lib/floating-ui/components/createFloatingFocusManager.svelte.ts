@@ -669,7 +669,7 @@ export function createFloatingFocusManager(getProps: () => FloatingFocusManagerP
     const doc = ownerDocument(floatingFocusElement);
     const previouslyFocusedElement = activeElement(doc);
 
-    // Wait for native state updates to set `tabIndex`.
+    // Wait for any layout effect state setters to execute to set `tabIndex`.
     queueMicrotask(() => {
       const initialFocusValueOrFn = initialFocusRef.current;
       const resolvedInitialFocus =
@@ -711,8 +711,6 @@ export function createFloatingFocusManager(getProps: () => FloatingFocusManagerP
       void enqueueFocus(elToFocus, {
         preventScroll: elToFocus === floatingFocusElement,
         shouldFocus() {
-          // Avoid reading rune-backed state after this owner is destroyed.
-          if (disposed) return false;
           // This focus is queued on the next animation frame. If the floating element has closed
           // before it runs — e.g. tabbing out of a kept-mounted popup — don't pull focus back
           // onto the initial element after it has legitimately moved elsewhere.
