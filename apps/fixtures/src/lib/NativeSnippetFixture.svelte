@@ -66,7 +66,7 @@
   export function setClass(value: ClassValue) {
     classValue = value;
   }
-  export function setStyle(value: NativeStyle) {
+  export function setStyle(value: Exclude<NativeStyle, undefined>) {
     styleValue = value;
   }
   export function setPressed(value: boolean) {
