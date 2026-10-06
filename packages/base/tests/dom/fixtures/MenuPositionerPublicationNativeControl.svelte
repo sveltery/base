@@ -3,6 +3,7 @@
   import { untrack } from 'svelte';
   import { createAttachmentKey } from 'svelte/attachments';
   let {
+    // eslint-disable-next-line no-useless-assignment -- $bindable enables native host/null publication to the parent.
     ref = $bindable(null),
     revision,
   }: {
