@@ -4,7 +4,12 @@ import { createSubscriber } from 'svelte/reactivity';
 import { Timeout } from '@sveltery/utils/useTimeout';
 import { createIdGenerator } from './id.js';
 import type { ToastManager } from './createToastManager.js';
-import type { ToastManagerAddOptions, ToastManagerPromiseOptions, ToastManagerUpdateOptions, ToastObject } from './types.js';
+import type {
+  ToastManagerAddOptions,
+  ToastManagerPromiseOptions,
+  ToastManagerUpdateOptions,
+  ToastObject,
+} from './types.js';
 import { resolvePromiseOptions } from './resolve-promise-options.js';
 type ToastInternalUpdateOptions<Data extends object> = Partial<
   Omit<ToastObject<Data>, 'id' | 'updateKey'>
@@ -103,12 +108,19 @@ export class ToastStore {
   private readonly removingLifecycles = new Set<object>();
 
   /** Snapshots are immutable by convention. Do not mutate their arrays or metadata. */
-  get state() { return this.getSnapshot(); }
-  getSnapshot = (): State => { this.track(); return this.snapshot; };
+  get state() {
+    return this.getSnapshot();
+  }
+  getSnapshot = (): State => {
+    this.track();
+    return this.snapshot;
+  };
   subscribe = (listener: () => void): (() => void) => {
     if (this.disposed) return () => {};
     this.listeners.add(listener);
-    return () => { this.listeners.delete(listener); };
+    return () => {
+      this.listeners.delete(listener);
+    };
   };
 
   set<Key extends keyof State>(key: Key, value: State[Key]) {
@@ -143,14 +155,19 @@ export class ToastStore {
   }
 
   /** Capture at Root mount; stale exit completion must not remove a replacement. */
-  getLifecycle(id: string): object | undefined { return this.lifecycles.get(id); }
+  getLifecycle(id: string): object | undefined {
+    return this.lifecycles.get(id);
+  }
 
   /** Unregister only this node/lifecycle, including while ending rejects ordinary writes. */
   clearToastRef(id: string, node: HTMLElement, expectedLifecycle?: object) {
-    if (this.disposed || (expectedLifecycle && this.lifecycles.get(id) !== expectedLifecycle)) return;
+    if (this.disposed || (expectedLifecycle && this.lifecycles.get(id) !== expectedLifecycle))
+      return;
     const toast = selectors.toast(this.state, id);
     if (toast?.ref !== node) return;
-    this.setToasts(this.state.toasts.map(item => item.id === id ? { ...item, ref: null } : item));
+    this.setToasts(
+      this.state.toasts.map((item) => (item.id === id ? { ...item, ref: null } : item)),
+    );
   }
 
   /** Viewport-owned DOM work runs after every onClose callback, synchronously. */
@@ -183,7 +200,18 @@ export class ToastStore {
 
   private areTimersPaused = false;
 
-  constructor(initialState: InitialState = { toasts: [], timeout: 5000, limit: 3, hovering: false, focused: false, isWindowFocused: true, viewport: null, prevFocusElement: null }) {
+  constructor(
+    initialState: InitialState = {
+      toasts: [],
+      timeout: 5000,
+      limit: 3,
+      hovering: false,
+      focused: false,
+      isWindowFocused: true,
+      viewport: null,
+      prevFocusElement: null,
+    },
+  ) {
     this.snapshot = {
       ...initialState,
       toastMetadata: createToastMetadata(initialState.toasts),
@@ -217,7 +245,13 @@ export class ToastStore {
 
   removeToast(toastId: string, skipOnRemove: boolean = false, expectedLifecycle?: object) {
     const lifecycle = this.lifecycles.get(toastId);
-    if (this.disposed || !lifecycle || (expectedLifecycle && lifecycle !== expectedLifecycle) || this.removingLifecycles.has(lifecycle)) return;
+    if (
+      this.disposed ||
+      !lifecycle ||
+      (expectedLifecycle && lifecycle !== expectedLifecycle) ||
+      this.removingLifecycles.has(lifecycle)
+    )
+      return;
     const toast = selectors.toast(this.state, toastId);
     if (!toast) return;
     this.removingLifecycles.add(lifecycle);
@@ -541,7 +575,6 @@ export class ToastStore {
 
     this.update(updates);
   }
-
 }
 
 interface TimerInfo {

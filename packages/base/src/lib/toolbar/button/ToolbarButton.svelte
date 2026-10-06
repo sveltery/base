@@ -21,9 +21,7 @@
   }: ToolbarButtonProps = $props();
   const toolbar = useToolbarRootContext();
   const groupContext = useToolbarGroupContext();
-  const disabled = $derived(
-    toolbar.disabled || (groupContext?.disabled ?? false) || disabledProp,
-  );
+  const disabled = $derived(toolbar.disabled || (groupContext?.disabled ?? false) || disabledProp);
   const itemMetadata = $derived({ disabled, focusableWhenDisabled });
   const { getButtonProps, buttonRef } = useButton(() => ({
     disabled,

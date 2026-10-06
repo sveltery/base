@@ -6,9 +6,7 @@ function resolveSources(sources?: ComponentPropSources): ComponentHostProps {
     ? mergePropsN(sources)
     : mergeProps(
         undefined,
-        sources as
-          | ComponentHostProps
-          | ((previous: ComponentHostProps) => ComponentHostProps),
+        sources as ComponentHostProps | ((previous: ComponentHostProps) => ComponentHostProps),
       );
 }
 import type { HTMLProps } from '../src/lib/internals/types.js';
@@ -29,52 +27,36 @@ it('preserves frozen later-getter assignment failures and no-write cases', () =>
   const frozen = Object.freeze({ id: 'before' });
   expect(resolveSources([() => frozen, { id: 'after' }]).id).toBe('after');
   expect(resolveSources([{}, () => frozen, {}])).toBe(frozen);
-  expect(() => resolveSources([{}, () => frozen, { id: 'after' }])).toThrow(
-    TypeError,
-  );
+  expect(() => resolveSources([{}, () => frozen, { id: 'after' }])).toThrow(TypeError);
   const handler = vi.fn(),
     frozenHandler = Object.freeze({ onmousedown: handler });
-  expect(() =>
-    resolveSources([{}, () => frozenHandler, { onmousedown: undefined }]),
-  ).toThrow(TypeError);
+  expect(() => resolveSources([{}, () => frozenHandler, { onmousedown: undefined }])).toThrow(
+    TypeError,
+  );
 });
 it('preserves getter-owned handler identity through later ordinary non-handler props', () => {
   const handler = vi.fn();
+  expect(resolveSources([() => ({ onmousedown: handler }), { id: 'after' }]).onmousedown).toBe(
+    handler,
+  );
   expect(
-    resolveSources([() => ({ onmousedown: handler }), { id: 'after' }])
-      .onmousedown,
-  ).toBe(handler);
-  expect(
-    resolveSources([
-      {},
-      () => ({ onmousedown: handler }),
-      { onmousedown: undefined },
-    ]).onmousedown,
+    resolveSources([{}, () => ({ onmousedown: handler }), { onmousedown: undefined }]).onmousedown,
   ).toBe(handler);
 });
 it('initializes slot zero even when falsy, preserving later getter ownership and inherited keys', () => {
   for (const initial of [undefined, null, false, 0, '']) {
     const owned = { id: 'before' };
-    const sources = [
-      initial,
-      () => owned,
-      { id: 'after' },
-    ] as unknown as ComponentPropSources;
+    const sources = [initial, () => owned, { id: 'after' }] as unknown as ComponentPropSources;
     expect(resolveSources(sources)).toBe(owned);
     expect(owned.id).toBe('after');
     const frozen = Object.freeze({ id: 'before' });
     expect(() =>
-      resolveSources([
-        initial,
-        () => frozen,
-        { id: 'after' },
-      ] as unknown as ComponentPropSources),
+      resolveSources([initial, () => frozen, { id: 'after' }] as unknown as ComponentPropSources),
     ).toThrow(TypeError);
     expect(
-      resolveSources([
-        initial,
-        Object.create({ 'data-inherited': 'yes' }),
-      ] as ComponentPropSources)['data-inherited'],
+      resolveSources([initial, Object.create({ 'data-inherited': 'yes' })] as ComponentPropSources)[
+        'data-inherited'
+      ],
     ).toBe('yes');
   }
 });
@@ -112,7 +94,5 @@ it('preserves source style object identity for one-sided merges and writes even 
   expect(resolveSources([{ style }, { style: undefined }]).style).toBe(style);
   expect(resolveSources([{}, { style }]).style).toBe(style);
   const frozen = Object.freeze({ style });
-  expect(() =>
-    resolveSources([{}, () => frozen, { style: undefined }]),
-  ).toThrow(TypeError);
+  expect(() => resolveSources([{}, () => frozen, { style: undefined }])).toThrow(TypeError);
 });

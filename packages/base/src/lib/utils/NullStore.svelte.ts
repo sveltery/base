@@ -3,7 +3,11 @@
 import { SvelteStore } from '@sveltery/utils/store';
 // eslint-disable-next-line @typescript-eslint/no-explicit-any -- Component selectors keep typed argument/return signatures.
 type Selector<State> = (state: State, ...args: any[]) => any;
-export class NullStore<State extends object, Context, Selectors extends Record<string, Selector<State>>> extends SvelteStore<State, Context, Selectors> {
+export class NullStore<
+  State extends object,
+  Context,
+  Selectors extends Record<string, Selector<State>>,
+> extends SvelteStore<State, Context, Selectors> {
   override setState(_newState: State) {}
   override update<const Key extends keyof State>(_changes: Pick<State, Key>) {}
   override set<Key extends keyof State>(_key: Key, _value: State[Key]) {}

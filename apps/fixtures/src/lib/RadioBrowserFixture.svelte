@@ -19,8 +19,7 @@
   const controlled = scenario.startsWith('controlled');
   const ownerAccepts = !scenario.includes('reject');
   const cancel = scenario.includes('cancel');
-  const disabled =
-    scenario.includes('disabled') && !scenario.includes('first-disabled');
+  const disabled = scenario.includes('disabled') && !scenario.includes('first-disabled');
   const readOnly = scenario.includes('readonly');
   const required = scenario.includes('required');
   const disabledFirst = scenario.includes('first-disabled');
@@ -43,10 +42,7 @@
   let submissions = $state<unknown[]>([]);
   let validationCalls = $state(0);
   let focusCalls = $state<unknown[]>([]);
-  function groupFocus(
-    phase: string,
-    event: FocusEvent & { preventBaseUIHandler(): void },
-  ) {
+  function groupFocus(phase: string, event: FocusEvent & { preventBaseUIHandler(): void }) {
     const host = event.currentTarget as HTMLElement;
     const textbox = event.target as HTMLInputElement;
     const field = document.querySelector('#field')!;
@@ -61,9 +57,7 @@
     if (scenario.includes('cancel')) event.preventBaseUIHandler();
   }
   function itemFocus(event: FocusEvent & { preventBaseUIHandler(): void }) {
-    focusCalls.push(
-      (event.currentTarget as HTMLElement).getAttribute('data-testid'),
-    );
+    focusCalls.push((event.currentTarget as HTMLElement).getAttribute('data-testid'));
     if (scenario.includes('cancel')) event.preventBaseUIHandler();
   }
   function validate(value: unknown) {
@@ -73,10 +67,7 @@
   onMount(() => {
     hydrated = true;
   });
-  function onChange(
-    value: string | null,
-    details: RadioGroupChangeEventDetails,
-  ) {
+  function onChange(value: string | null, details: RadioGroupChangeEventDetails) {
     calls.push({
       value,
       reason: details.reason,
@@ -116,14 +107,10 @@
   export function setValue(value: string | null) {
     owner = value;
   }
-  function changed(
-    value: string | null,
-    details: RadioGroupChangeEventDetails,
-  ) {
+  function changed(value: string | null, details: RadioGroupChangeEventDetails) {
     onChange?.(value, details);
     if (current.cancel) details.cancel();
-    if (current.controlled && current.ownerAccepts && !details.isCanceled)
-      owner = value;
+    if (current.controlled && current.ownerAccepts && !details.isCanceled) owner = value;
   }
 </script>
 
@@ -143,16 +130,11 @@
       name={current.fieldName}
       id="field"
       invalid={current.invalid}
-      validationMode={scenario === 'onblur' || groupFocusScenario
-        ? 'onBlur'
-        : undefined}
-      validate={scenario === 'onblur' || groupFocusScenario
-        ? validate
-        : undefined}
+      validationMode={scenario === 'onblur' || groupFocusScenario ? 'onBlur' : undefined}
+      validate={scenario === 'onblur' || groupFocusScenario ? validate : undefined}
     >
       {#if current.label}<Field.Label id="group-label">Group</Field.Label>{/if}
-      {#if current.description}<Field.Description id="description"
-          >Description</Field.Description
+      {#if current.description}<Field.Description id="description">Description</Field.Description
         >{/if}
       <Group
         id="radio-group"
@@ -165,15 +147,9 @@
         onValueChange={changed}
         bind:inputRef
         {form}
-        render={scenario.startsWith('focus-group-render')
-          ? groupHost
-          : undefined}
-        onfocusin={groupFocusScenario
-          ? (event) => groupFocus('enter', event)
-          : undefined}
-        onfocusout={groupFocusScenario
-          ? (event) => groupFocus('leave', event)
-          : undefined}
+        render={scenario.startsWith('focus-group-render') ? groupHost : undefined}
+        onfocusin={groupFocusScenario ? (event) => groupFocus('enter', event) : undefined}
+        onfocusout={groupFocusScenario ? (event) => groupFocus('leave', event) : undefined}
       >
         {#each current.items as value (value)}
           <Field.Item>
@@ -187,8 +163,7 @@
               onfocusin={itemFocusScenario ? itemFocus : undefined}
             >
               {#snippet render(props, _state, children)}
-                {#if current.nativeButton}<button
-                    {...props as HTMLAttributes<HTMLButtonElement>}
+                {#if current.nativeButton}<button {...props as HTMLAttributes<HTMLButtonElement>}
                     >{@render children?.()}</button
                   >{:else}<span {...props as HTMLAttributes<HTMLSpanElement>}
                     >{@render children?.()}</span
@@ -206,16 +181,11 @@
             </Radio.Root>
           </Field.Item>
         {/each}
-        {#if groupFocusScenario}<input
-            id="focus-textbox"
-            type="text"
-            value="hello"
-          />{/if}
+        {#if groupFocusScenario}<input id="focus-textbox" type="text" value="hello" />{/if}
       </Group>
       <Field.Error id="error" />
       <Field.Validity
-        >{#snippet children(state)}<output id="validity"
-            >{JSON.stringify(state)}</output
+        >{#snippet children(state)}<output id="validity">{JSON.stringify(state)}</output
           >{/snippet}</Field.Validity
       >
     </Field.Root>
@@ -231,15 +201,15 @@
           id="form"
           onclick={() => (ancestorClicks += 1)}
           onFormSubmit={(values) => onSubmit?.(values)}
-          >{@render content()}<button type="submit" id="submit">Submit</button
-          ><button type="reset" id="reset">Reset</button></Form
+          >{@render content()}<button type="submit" id="submit">Submit</button><button
+            type="reset"
+            id="reset">Reset</button
+          ></Form
         >{:else}{@render content()}{/if}
     </DirectionProvider>
 
     <button onclick={() => update({ items: ['c', 'a', 'b'] })}>Reorder</button>
-    <button onclick={() => update({ items: ['a', 'c'] })}
-      >Remove selected</button
-    >
+    <button onclick={() => update({ items: ['a', 'c'] })}>Remove selected</button>
     <button onclick={() => update({ items: [] })}>Remove all</button>
     <button onclick={() => setValue('c')}>Programmatic</button>
     <output id="ancestor-clicks">{ancestorClicks}</output>

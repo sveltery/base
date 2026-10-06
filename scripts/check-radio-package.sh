@@ -13,8 +13,8 @@ const tarball = readdirSync(directory).find(name => name.endsWith('.tgz'));
 writeFileSync(join(directory, 'package.json'), JSON.stringify({ private: true, type: 'module', dependencies: { '@sveltery/base': `file:${join(directory, tarball)}`, svelte: '5.57.1' } }));
 JS
 sveltery_prepare_consumer "$radio_consumer"
-pnpm --dir "$radio_consumer" --ignore-workspace install --ignore-scripts > /dev/null
-pnpm --dir "$radio_consumer" --ignore-workspace install --frozen-lockfile --ignore-scripts > /dev/null
+pnpm --dir "$radio_consumer" install --ignore-scripts > /dev/null
+pnpm --dir "$radio_consumer" install --frozen-lockfile --ignore-scripts > /dev/null
 cmp LICENSE "$radio_consumer/node_modules/@sveltery/base/LICENSE"
 node --input-type=module - "$radio_consumer/node_modules/@sveltery/base/THIRD_PARTY_NOTICES.md" <<'JS'
 import assert from 'node:assert/strict';

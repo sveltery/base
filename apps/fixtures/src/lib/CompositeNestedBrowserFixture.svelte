@@ -14,13 +14,21 @@
   let inner = $derived({ disabled: true, focusableWhenDisabled: false, owner: 'inner', revision });
   let map = $state.raw(new Map<Element, CompositeMetadata>());
   const disabledIndices = $derived(
-    [...map.values()].filter(item => item.disabled && !item.focusableWhenDisabled).map(item => item.index),
+    [...map.values()]
+      .filter((item) => item.disabled && !item.focusableWhenDisabled)
+      .map((item) => item.index),
   );
-  const observations = $derived([...map].map(([node, metadata]) => ({
-    testId: node.getAttribute('data-testid'), tag: node.tagName, ...metadata,
-  })));
+  const observations = $derived(
+    [...map].map(([node, metadata]) => ({
+      testId: node.getAttribute('data-testid'),
+      tag: node.tagName,
+      ...metadata,
+    })),
+  );
 
-  onMount(() => { hydrated = true; });
+  onMount(() => {
+    hydrated = true;
+  });
   export function updateInner() {
     revision += 1;
   }
@@ -37,12 +45,20 @@
   <button id="toggle-shared" onclick={() => setVisible(!visible)}>Toggle shared</button>
   <button id="replace-host" onclick={replaceHost}>Replace host</button>
   <output id="nested-map">{JSON.stringify(observations)}</output>
-  <CompositeRoot orientation="horizontal" {disabledIndices} onMapChange={value => { map = value; }}>
+  <CompositeRoot
+    orientation="horizontal"
+    {disabledIndices}
+    onMapChange={(value) => {
+      map = value;
+    }}
+  >
     <CompositeItem tag="button" metadata={outer} data-testid="first">First</CompositeItem>
     {#if visible}
       <CompositeItem tag="button" metadata={outer}>
         {#snippet render(props: HTMLProps)}
-          <CompositeItem tag={hostTag} metadata={inner} {...props} data-testid="shared">Shared</CompositeItem>
+          <CompositeItem tag={hostTag} metadata={inner} {...props} data-testid="shared"
+            >Shared</CompositeItem
+          >
         {/snippet}
       </CompositeItem>
     {/if}

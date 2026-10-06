@@ -1,10 +1,7 @@
 // Base UI v1.8.0 Radio public types, native Svelte props/snippets. MIT.
 import type { Snippet } from 'svelte';
 import type { HTMLAttributes } from 'svelte/elements';
-import type {
-  BaseUIComponentProps,
-  WithBaseUIEvent,
-} from '../internals/types.js';
+import type { BaseUIComponentProps, WithBaseUIEvent } from '../internals/types.js';
 import type { FieldRootState } from '../field/types.js';
 import type { TransitionStatus } from '../internals/useTransitionStatus.svelte.js';
 export interface RadioRootState extends FieldRootState {

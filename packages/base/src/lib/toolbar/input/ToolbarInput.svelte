@@ -17,9 +17,7 @@
   }: ToolbarInputProps = $props();
   const toolbar = useToolbarRootContext();
   const groupContext = useToolbarGroupContext();
-  const disabled = $derived(
-    toolbar.disabled || (groupContext?.disabled ?? false) || disabledProp,
-  );
+  const disabled = $derived(toolbar.disabled || (groupContext?.disabled ?? false) || disabledProp);
   const itemMetadata = $derived({ disabled, focusableWhenDisabled });
   const focusableWhenDisabledProps = $derived(
     useFocusableWhenDisabled({
@@ -41,11 +39,7 @@
     onclick: preventWhenDisabled,
     onpointerdown: preventWhenDisabled,
   };
-  const rendererProps = $derived([
-    defaultProps,
-    elementProps,
-    focusableWhenDisabledProps,
-  ]);
+  const rendererProps = $derived([defaultProps, elementProps, focusableWhenDisabledProps]);
 </script>
 
 <CompositeItem

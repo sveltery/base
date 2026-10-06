@@ -133,15 +133,11 @@ it('Full host custom render inherits the parent context while child content gets
   expect(app.readContext('host')).toBeNull();
   const context = app.readContext('child')!;
   expect(context.portalNode).toBe(node);
-  expect(document.querySelector('[aria-owns]')?.getAttribute('aria-owns')).toBe(
-    'custom-portal',
-  );
+  expect(document.querySelector('[aria-owns]')?.getAttribute('aria-owns')).toBe('custom-portal');
   app.setCustomId('replacement-id');
   await settle();
   expect(context.portalNode).toBe(node);
-  expect(document.querySelector('[aria-owns]')?.getAttribute('aria-owns')).toBe(
-    'replacement-id',
-  );
+  expect(document.querySelector('[aria-owns]')?.getAttribute('aria-owns')).toBe('replacement-id');
 });
 
 it('Lite custom render and child content preserve inherited context without installing a provider', () => {
@@ -172,9 +168,7 @@ for (const lite of [false, true])
 it('Full removes aria-owns when the actual custom host ID is removed', async () => {
   setup({ customHost: true, focus: true });
   const node = host()!;
-  expect(document.querySelector('[aria-owns]')?.getAttribute('aria-owns')).toBe(
-    'custom-portal',
-  );
+  expect(document.querySelector('[aria-owns]')?.getAttribute('aria-owns')).toBe('custom-portal');
   node.removeAttribute('id');
   await settle();
   expect(document.querySelector('[aria-owns]')).toBeNull();

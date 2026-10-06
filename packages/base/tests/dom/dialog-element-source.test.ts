@@ -8,22 +8,29 @@ import { PopupTriggerMap as SourceTriggerMap } from '../../../../apps/fixtures/n
 
 afterEach(() => document.body.replaceChildren());
 
-for (const reference of [false, true]) it(`${reference ? 'React reference' : 'Svelte'}: shared trigger classification retains the exact Tooltip marker for direct and descendant targets`, () => {
-  const trigger = document.createElement('button');
-  const child = document.createElement('span');
-  trigger.append(child); document.body.append(trigger);
-  const nativeMap = new PopupTriggerMap(); nativeMap.add('owner', trigger);
-  const sourceMap = new SourceTriggerMap(); sourceMap.add('owner', trigger);
-  const classify = reference
-    ? (target: EventTarget | null) => source(target, sourceMap)
-    : (target: EventTarget | null) => native(target, nativeMap);
+for (const reference of [false, true])
+  it(`${reference ? 'React reference' : 'Svelte'}: shared trigger classification retains the exact Tooltip marker for direct and descendant targets`, () => {
+    const trigger = document.createElement('button');
+    const child = document.createElement('span');
+    trigger.append(child);
+    document.body.append(trigger);
+    const nativeMap = new PopupTriggerMap();
+    nativeMap.add('owner', trigger);
+    const sourceMap = new SourceTriggerMap();
+    sourceMap.add('owner', trigger);
+    const classify = reference
+      ? (target: EventTarget | null) => source(target, sourceMap)
+      : (target: EventTarget | null) => native(target, nativeMap);
 
-  expect(classify(null)).toBe(false);
-  expect(classify(document.createElement('span'))).toBe(false);
-  for (const target of [trigger, child]) expect(classify(target)).toBe(true);
-  for (const [attribute, expected] of [['data-disabled', true], ['data-trigger-disabled', false]] as const) {
-    trigger.setAttribute(attribute, '');
-    for (const target of [trigger, child]) expect(classify(target)).toBe(expected);
-    trigger.removeAttribute(attribute);
-  }
-});
+    expect(classify(null)).toBe(false);
+    expect(classify(document.createElement('span'))).toBe(false);
+    for (const target of [trigger, child]) expect(classify(target)).toBe(true);
+    for (const [attribute, expected] of [
+      ['data-disabled', true],
+      ['data-trigger-disabled', false],
+    ] as const) {
+      trigger.setAttribute(attribute, '');
+      for (const target of [trigger, child]) expect(classify(target)).toBe(expected);
+      trigger.removeAttribute(attribute);
+    }
+  });

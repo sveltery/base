@@ -6,9 +6,13 @@ This bounded slice implements `Root`, `Trigger` and `Panel` against Base UI v1.8
 <script lang="ts">
   import { Collapsible } from '@sveltery/base';
 </script>
-<Collapsible.Root defaultOpen={false} onOpenChange={(open, details) => {
-  // Observe the request or call details.cancel() before the state write.
-}}>
+
+<Collapsible.Root
+  defaultOpen={false}
+  onOpenChange={(open, details) => {
+    // Observe the request or call details.cancel() before the state write.
+  }}
+>
   <Collapsible.Trigger>Show details</Collapsible.Trigger>
   <Collapsible.Panel>Details</Collapsible.Panel>
 </Collapsible.Root>

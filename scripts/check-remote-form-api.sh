@@ -22,8 +22,8 @@ const compilerOptions = { target: 'ESNext', lib: ['ESNext', 'DOM', 'DOM.Iterable
 for (const kind of ['positive', 'negative']) writeFileSync(join(destination, `tsconfig.${kind}.json`), JSON.stringify({ compilerOptions, include: kind === 'positive' ? ['Positive.svelte', 'NativeHosts.svelte'] : ['Negative.svelte'] }));
 JS
 sveltery_prepare_consumer "$remote_api_consumer"
-pnpm --dir "$remote_api_consumer" --ignore-workspace install --ignore-scripts > /dev/null
-pnpm --dir "$remote_api_consumer" --ignore-workspace install --frozen-lockfile --ignore-scripts > /dev/null
+pnpm --dir "$remote_api_consumer" install --ignore-scripts > /dev/null
+pnpm --dir "$remote_api_consumer" install --frozen-lockfile --ignore-scripts > /dev/null
 node "$sveltery_repo_root/packages/base/node_modules/svelte-check/bin/svelte-check" --workspace "$remote_api_consumer" --tsconfig ./tsconfig.positive.json
 if node "$sveltery_repo_root/packages/base/node_modules/svelte-check/bin/svelte-check" --workspace "$remote_api_consumer" --tsconfig ./tsconfig.negative.json --output machine > "$remote_api_consumer/negative.log"; then
   echo 'Invalid Form remote namespace consumers unexpectedly compiled.' >&2

@@ -46,25 +46,49 @@ export function useAnimationsFinished(
         if (!signal?.aborted) fnToExecute();
       });
     };
-    const animationsDisabled = (globalThis as typeof globalThis & { BASE_UI_ANIMATIONS_DISABLED?: boolean }).BASE_UI_ANIMATIONS_DISABLED;
-    if (typeof resolvedElement.getAnimations !== 'function' || animationsDisabled) { untrack(fnToExecute); return; }
+    const animationsDisabled = (
+      globalThis as typeof globalThis & { BASE_UI_ANIMATIONS_DISABLED?: boolean }
+    ).BASE_UI_ANIMATIONS_DISABLED;
+    if (typeof resolvedElement.getAnimations !== 'function' || animationsDisabled) {
+      untrack(fnToExecute);
+      return;
+    }
     function exec() {
-      Promise.all(resolvedElement.getAnimations().map(animation => animation.finished)).then(() => {
-        if (!signal?.aborted) done();
-      }, () => {
-        if (signal?.aborted) return;
-        const currentAnimations = resolvedElement.getAnimations();
-        if (currentAnimations.some(animation => animation.pending || animation.playState !== 'finished')) { exec(); return; }
-        done();
-      });
+      Promise.all(resolvedElement.getAnimations().map((animation) => animation.finished)).then(
+        () => {
+          if (!signal?.aborted) done();
+        },
+        () => {
+          if (signal?.aborted) return;
+          const currentAnimations = resolvedElement.getAnimations();
+          if (
+            currentAnimations.some(
+              (animation) => animation.pending || animation.playState !== 'finished',
+            )
+          ) {
+            exec();
+            return;
+          }
+          done();
+        },
+      );
     }
     if (getWaitForStartingStyleRemoved()) {
       const startingStyleAttribute = TransitionStatusDataAttributes.startingStyle;
-      if (!resolvedElement.hasAttribute(startingStyleAttribute)) { frame.request(exec); return; }
+      if (!resolvedElement.hasAttribute(startingStyleAttribute)) {
+        frame.request(exec);
+        return;
+      }
       const attributeObserver = new MutationObserver(() => {
-        if (!resolvedElement.hasAttribute(startingStyleAttribute)) { attributeObserver.disconnect(); exec(); }
+        if (!resolvedElement.hasAttribute(startingStyleAttribute)) {
+          attributeObserver.disconnect();
+          exec();
+        }
       });
-      attributeObserver.observe(resolvedElement, { attributes: true, attributeFilter: [startingStyleAttribute] });
+      attributeObserver.observe(resolvedElement, {
+        attributes: true,
+        attributeFilter: [startingStyleAttribute],
+      });
       signal?.addEventListener('abort', () => attributeObserver.disconnect(), { once: true });
       return;
     }

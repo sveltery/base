@@ -9,12 +9,12 @@
   import { useContextMenuRootContext } from '../context-menu/root/ContextMenuRootContext.js';
   import { REASONS } from '../internals/reasons.js';
   import type { MenuBackdropProps } from './types.js';
-  // eslint-disable-next-line no-useless-assignment -- Publishes native bindable host/action outputs to the owner.
   let {
     render,
     class: className,
     style,
     children,
+    // eslint-disable-next-line no-useless-assignment -- Publishes native bindable host/action outputs to the owner.
     ref = $bindable(null),
     ...elementProps
   }: MenuBackdropProps = $props();
@@ -48,10 +48,7 @@
           role: 'presentation',
           hidden: !mounted,
           style: {
-            pointerEvents:
-              lastOpenChangeReason === REASONS.triggerHover
-                ? 'none'
-                : undefined,
+            pointerEvents: lastOpenChangeReason === REASONS.triggerHover ? 'none' : undefined,
             userSelect: 'none',
             WebkitUserSelect: 'none',
           },

@@ -135,29 +135,33 @@ export function useClientPoint(
     store.set('positionReference', reference);
   };
 
-  const setReference = (newX: number | null, newY: number | null, referenceElement?: Element | null) => {
-      if (initialRef.current) {
-        return;
-      }
+  const setReference = (
+    newX: number | null,
+    newY: number | null,
+    referenceElement?: Element | null,
+  ) => {
+    if (initialRef.current) {
+      return;
+    }
 
-      // Prevent setting if the open event was not a mouse-like one
-      // (e.g. focus to open, then hover over the reference element).
-      // Only apply if the event exists.
-      if (dataRef.current.openEvent && !isMouseBasedEvent(dataRef.current.openEvent)) {
-        return;
-      }
+    // Prevent setting if the open event was not a mouse-like one
+    // (e.g. focus to open, then hover over the reference element).
+    // Only apply if the event exists.
+    if (dataRef.current.openEvent && !isMouseBasedEvent(dataRef.current.openEvent)) {
+      return;
+    }
 
-      store.set(
-        'positionReference',
-        createVirtualElement(referenceElement ?? domReference, {
-          x: newX,
-          y: newY,
-          axis,
-          dataRef,
-          pointerType,
-        }),
-      );
-    };
+    store.set(
+      'positionReference',
+      createVirtualElement(referenceElement ?? domReference, {
+        x: newX,
+        y: newY,
+        axis,
+        dataRef,
+        pointerType,
+      }),
+    );
+  };
 
   const handleReferenceEnterOrMove = (event: MouseEvent) => {
     if (!open) {
@@ -248,7 +252,11 @@ export function useClientPoint(
   };
 
   return {
-    get reference() { return enabled ? reference : undefined; },
-    get trigger() { return enabled ? reference : undefined; },
+    get reference() {
+      return enabled ? reference : undefined;
+    },
+    get trigger() {
+      return enabled ? reference : undefined;
+    },
   };
 }

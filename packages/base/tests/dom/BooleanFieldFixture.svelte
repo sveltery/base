@@ -62,18 +62,15 @@
   props: Record<string | symbol, unknown>,
   _state: unknown,
   children: Snippet | undefined,
-)}<button {...props as HTMLButtonAttributes}>{@render children?.()}</button
-  >{/snippet}
+)}<button {...props as HTMLButtonAttributes}>{@render children?.()}</button>{/snippet}
 {#snippet control(props: CheckboxRootProps)}
   {#if family === 'switch'}<Switch.Root
       {...props as SwitchRootProps}
       bind:inputRef={() => inputRef, publishInput}
       bind:ref={hostRef}><Switch.Thumb data-part /></Switch.Root
     >
-  {:else}<Checkbox.Root
-      {...props}
-      bind:inputRef={() => inputRef, publishInput}
-      bind:ref={hostRef}><Checkbox.Indicator data-part /></Checkbox.Root
+  {:else}<Checkbox.Root {...props} bind:inputRef={() => inputRef, publishInput} bind:ref={hostRef}
+      ><Checkbox.Indicator data-part /></Checkbox.Root
     >{/if}
 {/snippet}
 {#if scenario === 'controlled'}
@@ -100,13 +97,10 @@
       >
         <Checkbox.Root parent data-parent-control />
         <Field.Item
-          ><Checkbox.Root value={childValue} id="child-a" /><Field.Label
-            >A</Field.Label
-          ></Field.Item
+          ><Checkbox.Root value={childValue} id="child-a" /><Field.Label>A</Field.Label></Field.Item
         >
         <Field.Item disabled={rootProps.disabled}
-          ><Checkbox.Root value="b" id="child-b" /><Field.Label>B</Field.Label
-          ></Field.Item
+          ><Checkbox.Root value="b" id="child-b" /><Field.Label>B</Field.Label></Field.Item
         >
       </CheckboxGroup>
       <Field.Error />

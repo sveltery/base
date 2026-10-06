@@ -19,8 +19,7 @@
       ref = host;
       return () =>
         untrack(() => {
-          if (trigger.triggerRef.current === host)
-            trigger.triggerRef.current = null;
+          if (trigger.triggerRef.current === host) trigger.triggerRef.current = null;
           if (ref === host) ref = null;
         });
     });

@@ -18,10 +18,7 @@ import { useMenuPositionerContext } from '../positioner/MenuPositionerContext.js
 import { useTriggerRegistration } from '../../utils/popups/popupStoreUtils.svelte.js';
 import { useMenuSubmenuRootContext } from '../submenu-root/MenuSubmenuRootContext.js';
 import { REASONS } from '../../internals/reasons.js';
-import type {
-  MenuSubmenuTriggerProps,
-  MenuSubmenuTriggerState,
-} from '../types.js';
+import type { MenuSubmenuTriggerProps, MenuSubmenuTriggerState } from '../types.js';
 const VOICE_OVER_EXPANDED_PROPS = { 'aria-expanded': undefined };
 export function createMenuSubmenuTrigger(
   getProps: () => MenuSubmenuTriggerProps,
@@ -49,9 +46,7 @@ export function createMenuSubmenuTrigger(
   });
   const submenuRootContext = useMenuSubmenuRootContext();
   if (!submenuRootContext?.parentMenu) {
-    throw new Error(
-      'Base UI: <Menu.SubmenuTrigger> must be placed in <Menu.SubmenuRoot>.',
-    );
+    throw new Error('Base UI: <Menu.SubmenuTrigger> must be placed in <Menu.SubmenuRoot>.');
   }
   const listItem = useCompositeListItem(() => ({ guess: true, label }));
   const menuPositionerContext = useMenuPositionerContext();
@@ -69,11 +64,7 @@ export function createMenuSubmenuTrigger(
   // lifetime; the latest `closeDelay` is read when it runs.
   const registerTrigger = (element: Element | null) => {
     baseRegisterTrigger(element);
-    if (
-      element !== null &&
-      store.select('open') &&
-      store.select('activeTriggerId') == null
-    ) {
+    if (element !== null && store.select('open') && store.select('activeTriggerId') == null) {
       store.update({
         activeTriggerId: thisTriggerId ?? null,
         activeTriggerElement: element,
@@ -110,9 +101,7 @@ export function createMenuSubmenuTrigger(
     });
   }
   const itemProps = $derived(parentMenuStore.useState('itemProps'));
-  const highlighted = $derived(
-    parentMenuStore.useState('isActive', listItem.index()),
-  );
+  const highlighted = $derived(parentMenuStore.useState('isActive', listItem.index()));
   const itemMetadata = $derived.by(() => ({
     type: 'submenu-trigger' as const,
     setActive() {
@@ -142,8 +131,7 @@ export function createMenuSubmenuTrigger(
       move: true,
       restMs: delay,
       delay: { open: delay, close: closeDelay },
-      shouldOpen:
-        delay > 0 ? () => parentMenuStore.select('allowMouseEnter') : undefined,
+      shouldOpen: delay > 0 ? () => parentMenuStore.select('allowMouseEnter') : undefined,
       triggerElementRef,
       externalTree: floatingTreeRoot,
       isClosing: () => store.select('transitionStatus') === 'ending',
@@ -179,12 +167,9 @@ export function createMenuSubmenuTrigger(
   // Arrow keys open the submenu through list navigation without dispatching a click, so
   // `openMethod` stays null there; Enter and Space do dispatch one and report `keyboard`.
   const openedByKeyboard = $derived(
-    lastOpenChangeReason === REASONS.listNavigation ||
-      openMethod === 'keyboard',
+    lastOpenChangeReason === REASONS.listNavigation || openMethod === 'keyboard',
   );
-  const shouldOmitExpanded = $derived(
-    open && openedByKeyboard && platform.screenReader.voiceOver,
-  );
+  const shouldOmitExpanded = $derived(open && openedByKeyboard && platform.screenReader.voiceOver);
   const hostAttachmentKey = createAttachmentKey();
   function attachHost(host: HTMLElement) {
     setRef(host);

@@ -7,6 +7,7 @@
   const previewCard = PreviewCard.createHandle<number>();
   const tooltip = Tooltip.createHandle<number>();
 </script>
+
 <Popover.Root handle={popover}>
   {#snippet children({ payload })}
     {expectType<number | undefined, typeof payload>(payload)}
@@ -29,7 +30,9 @@
   {/snippet}
 </PreviewCard.Trigger>
 <Tooltip.Trigger handle={tooltip} payload={42}>
-  {#snippet render(props, _state, children)}<button {...props} type="button">{@render children?.()}</button>{/snippet}
+  {#snippet render(props, _state, children)}<button {...props} type="button"
+      >{@render children?.()}</button
+    >{/snippet}
 </Tooltip.Trigger>
 <Tooltip.Trigger>
   {#snippet render(props)}<input {...props} />{/snippet}

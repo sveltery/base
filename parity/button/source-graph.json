@@ -985,18 +985,36 @@
     "modules": [
       {
         "local": "packages/base/src/lib/button/Button.svelte",
-        "sha256": "eac67f49b5c020c9603a4faec37fa3e7e94e695d97ad852c9283585e832c8f38",
-        "declarations": [],
+        "sha256": "1dae2c85f6cf94510a7ea6805061a3253d4b2cc802edc12d8a63c95ead34b9ad",
+        "declarations": [
+          "attachHost"
+        ],
         "reachability": [
           "runtime"
         ],
         "imports": [
           {
-            "specifier": "../internals/RenderElement.svelte",
+            "specifier": "../internals/mergeComponentProps.js",
             "kind": "runtime",
-            "resolved": "packages/base/src/lib/internals/RenderElement.svelte",
+            "resolved": "packages/base/src/lib/internals/mergeComponentProps.ts",
             "names": [
-              "RenderElement"
+              "mergeComponentProps"
+            ]
+          },
+          {
+            "specifier": "svelte/attachments",
+            "kind": "runtime",
+            "resolved": "external:svelte/attachments",
+            "names": [
+              "createAttachmentKey"
+            ]
+          },
+          {
+            "specifier": "svelte",
+            "kind": "runtime",
+            "resolved": "external:svelte",
+            "names": [
+              "untrack"
             ]
           },
           {
@@ -1046,7 +1064,7 @@
       },
       {
         "local": "packages/base/src/lib/button/types.ts",
-        "sha256": "8fdbc4aa58e672a060f47ce188e887d10a8c8864acdd813087c0683d6bdd7fdc",
+        "sha256": "1a6eca75f2d0f29b9c4a23683a1469bd6a927025619a6d23fba11f78efdc6f00",
         "declarations": [
           "ButtonState",
           "ButtonProps"
@@ -1121,8 +1139,91 @@
         "imports": []
       },
       {
+        "local": "packages/base/src/lib/internals/mergeComponentProps.ts",
+        "sha256": "803da5cb2c52515e1e68e16b66b61060c31ca03d183bb09d928b601bbb70cab7",
+        "declarations": [
+          "PropSource",
+          "PropSources",
+          "mergeComponentProps"
+        ],
+        "reachability": [
+          "runtime"
+        ],
+        "imports": [
+          {
+            "specifier": "@sveltery/utils/mergeObjects",
+            "kind": "runtime",
+            "resolved": "packages/utils/src/lib/mergeObjects.ts",
+            "names": [
+              "mergeObjects"
+            ]
+          },
+          {
+            "specifier": "../merge-props/index.js",
+            "kind": "runtime",
+            "resolved": "packages/base/src/lib/merge-props/index.ts",
+            "names": [
+              "mergeProps",
+              "mergePropsN",
+              "mergeClassNames"
+            ]
+          },
+          {
+            "specifier": "./getStateAttributesProps.js",
+            "kind": "runtime",
+            "resolved": "packages/base/src/lib/internals/getStateAttributesProps.ts",
+            "names": [
+              "getStateAttributesProps"
+            ]
+          },
+          {
+            "specifier": "./getStateAttributesProps.js",
+            "kind": "type",
+            "resolved": "packages/base/src/lib/internals/getStateAttributesProps.ts",
+            "names": [
+              "StateAttributesMapping"
+            ]
+          },
+          {
+            "specifier": "../utils/resolveClassName.js",
+            "kind": "runtime",
+            "resolved": "packages/base/src/lib/utils/resolveClassName.ts",
+            "names": [
+              "resolveClassName"
+            ]
+          },
+          {
+            "specifier": "../utils/resolveStyle.js",
+            "kind": "runtime",
+            "resolved": "packages/base/src/lib/utils/resolveStyle.ts",
+            "names": [
+              "resolveStyle"
+            ]
+          },
+          {
+            "specifier": "./nativeProps.js",
+            "kind": "runtime",
+            "resolved": "packages/base/src/lib/internals/nativeProps.ts",
+            "names": [
+              "mergeNativeStyles",
+              "toNativeClass",
+              "toNativeStyle"
+            ]
+          },
+          {
+            "specifier": "./types.js",
+            "kind": "type",
+            "resolved": "packages/base/src/lib/internals/types.ts",
+            "names": [
+              "BaseUIComponentProps",
+              "HTMLProps"
+            ]
+          }
+        ]
+      },
+      {
         "local": "packages/base/src/lib/internals/nativeProps.ts",
-        "sha256": "fbb6178288b28dad7549551064e30bf2b432880f1a5b2476223b011f9e72a71a",
+        "sha256": "653fb2f684da7987d8c51b2384cbf5e8839c30a620a7b790f451bbeb87479cab",
         "declarations": [
           "NativeStyle",
           "toNativeStyle",
@@ -1162,120 +1263,6 @@
         ]
       },
       {
-        "local": "packages/base/src/lib/internals/nativeRefAttachment.ts",
-        "sha256": "659427aaebb2b294178e5ccd147f6cbb4cb87a9704c18c62ff04a2847a7e1a56",
-        "declarations": [
-          "NativeRefAttachment",
-          "isNativeRefAttachment",
-          "createRefAttachment"
-        ],
-        "reachability": [
-          "runtime",
-          "type"
-        ],
-        "imports": [
-          {
-            "specifier": "svelte",
-            "kind": "runtime",
-            "resolved": "external:svelte",
-            "names": [
-              "untrack"
-            ]
-          },
-          {
-            "specifier": "@sveltery/utils/useMergedRefs",
-            "kind": "type",
-            "resolved": "packages/utils/src/lib/useMergedRefs.ts",
-            "names": [
-              "MergedRefCallback"
-            ]
-          }
-        ]
-      },
-      {
-        "local": "packages/base/src/lib/internals/RenderElement.svelte",
-        "sha256": "bbc7cb9be3a6d554f07090d250923b06b5581b29f190d48d874b62698f1cdef5",
-        "declarations": [],
-        "reachability": [
-          "runtime"
-        ],
-        "imports": [
-          {
-            "specifier": "svelte",
-            "kind": "runtime",
-            "resolved": "external:svelte",
-            "names": [
-              "untrack"
-            ]
-          },
-          {
-            "specifier": "svelte",
-            "kind": "type",
-            "resolved": "external:svelte",
-            "names": [
-              "Snippet"
-            ]
-          },
-          {
-            "specifier": "svelte/attachments",
-            "kind": "runtime",
-            "resolved": "external:svelte/attachments",
-            "names": [
-              "createAttachmentKey"
-            ]
-          },
-          {
-            "specifier": "esm-env",
-            "kind": "runtime",
-            "resolved": "external:esm-env",
-            "names": [
-              "BROWSER"
-            ]
-          },
-          {
-            "specifier": "svelte/elements",
-            "kind": "type",
-            "resolved": "external:svelte/elements",
-            "names": [
-              "HTMLInputAttributes"
-            ]
-          },
-          {
-            "specifier": "./useRenderElement.js",
-            "kind": "runtime",
-            "resolved": "packages/base/src/lib/internals/useRenderElement.ts",
-            "names": [
-              "createRenderElement"
-            ]
-          },
-          {
-            "specifier": "./useRenderElement.js",
-            "kind": "type",
-            "resolved": "packages/base/src/lib/internals/useRenderElement.ts",
-            "names": [
-              "UseRenderElementComponentProps",
-              "UseRenderElementParameters"
-            ]
-          },
-          {
-            "specifier": "./nativeRefAttachment.js",
-            "kind": "runtime",
-            "resolved": "packages/base/src/lib/internals/nativeRefAttachment.ts",
-            "names": [
-              "createRefAttachment"
-            ]
-          },
-          {
-            "specifier": "./nativeProps.js",
-            "kind": "runtime",
-            "resolved": "packages/base/src/lib/internals/nativeProps.ts",
-            "names": [
-              "toNativeStyle"
-            ]
-          }
-        ]
-      },
-      {
         "local": "packages/base/src/lib/internals/resolveClassValue.ts",
         "sha256": "584323b17cb1733a798e9ff86e9ff783d6a26d08ecf005a8c2b3c69917c1e722",
         "declarations": [
@@ -1299,7 +1286,7 @@
       },
       {
         "local": "packages/base/src/lib/internals/types.ts",
-        "sha256": "56f62e49c3a1504981c523a1bee8764c45de90fb88f0fab5154bb7fc9d0c1bd3",
+        "sha256": "6a36f5f103ef940b8a32d63f0288d897096c846fb2361b4ef44733e9a899907e",
         "declarations": [
           "HTMLProps",
           "ComponentRenderFn",
@@ -1349,7 +1336,7 @@
       },
       {
         "local": "packages/base/src/lib/internals/use-button/useButton.svelte.ts",
-        "sha256": "f56c35343595eafbb9a37d5313b6e9b95129b875a537790667fa32fd4f71b4b2",
+        "sha256": "089f0b6e20b956d85db5cf2cd7a47151352ec8aada0d6582154ad264c59e20bf",
         "declarations": [
           "UseButtonParameters",
           "useButton",
@@ -1371,27 +1358,11 @@
             ]
           },
           {
-            "specifier": "@sveltery/utils/useStableCallback",
-            "kind": "runtime",
-            "resolved": "packages/utils/src/lib/useStableCallback.ts",
-            "names": [
-              "useStableCallback"
-            ]
-          },
-          {
             "specifier": "@sveltery/utils/error",
             "kind": "runtime",
             "resolved": "packages/utils/src/lib/error.ts",
             "names": [
               "error"
-            ]
-          },
-          {
-            "specifier": "@sveltery/utils/useIsoLayoutEffect",
-            "kind": "runtime",
-            "resolved": "packages/utils/src/lib/useIsoLayoutEffect.svelte.ts",
-            "names": [
-              "useIsoLayoutEffect"
             ]
           },
           {
@@ -1439,129 +1410,6 @@
         ]
       },
       {
-        "local": "packages/base/src/lib/internals/useRenderElement.ts",
-        "sha256": "d344184b30e91d54544e9c5b00583679762e0ec099306e9a682df8426655c31a",
-        "declarations": [
-          "createRenderElement",
-          "useRenderElement",
-          "useRenderElementProps",
-          "resolveRenderFunctionProps",
-          "evaluateRenderProp",
-          "renderTag",
-          "NativeRenderDescriptor",
-          "UseRenderElementParameters",
-          "UseRenderElementComponentProps"
-        ],
-        "reachability": [
-          "runtime",
-          "type"
-        ],
-        "imports": [
-          {
-            "specifier": "@sveltery/utils/useMergedRefs",
-            "kind": "runtime",
-            "resolved": "packages/utils/src/lib/useMergedRefs.ts",
-            "names": [
-              "createMergedRefs"
-            ]
-          },
-          {
-            "specifier": "@sveltery/utils/useMergedRefs",
-            "kind": "type",
-            "resolved": "packages/utils/src/lib/useMergedRefs.ts",
-            "names": [
-              "MergedRef",
-              "MergedRefCallback"
-            ]
-          },
-          {
-            "specifier": "@sveltery/utils/mergeObjects",
-            "kind": "runtime",
-            "resolved": "packages/utils/src/lib/mergeObjects.ts",
-            "names": [
-              "mergeObjects"
-            ]
-          },
-          {
-            "specifier": "@sveltery/utils/empty",
-            "kind": "runtime",
-            "resolved": "packages/utils/src/lib/empty.ts",
-            "names": [
-              "EMPTY_OBJECT"
-            ]
-          },
-          {
-            "specifier": "./getStateAttributesProps.js",
-            "kind": "runtime",
-            "resolved": "packages/base/src/lib/internals/getStateAttributesProps.ts",
-            "names": [
-              "getStateAttributesProps"
-            ]
-          },
-          {
-            "specifier": "./getStateAttributesProps.js",
-            "kind": "type",
-            "resolved": "packages/base/src/lib/internals/getStateAttributesProps.ts",
-            "names": [
-              "StateAttributesMapping"
-            ]
-          },
-          {
-            "specifier": "../utils/resolveClassName.js",
-            "kind": "runtime",
-            "resolved": "packages/base/src/lib/utils/resolveClassName.ts",
-            "names": [
-              "resolveClassName"
-            ]
-          },
-          {
-            "specifier": "../utils/resolveStyle.js",
-            "kind": "runtime",
-            "resolved": "packages/base/src/lib/utils/resolveStyle.ts",
-            "names": [
-              "resolveStyle"
-            ]
-          },
-          {
-            "specifier": "../merge-props/index.js",
-            "kind": "runtime",
-            "resolved": "packages/base/src/lib/merge-props/index.ts",
-            "names": [
-              "mergeProps",
-              "mergePropsN",
-              "mergeClassNames"
-            ]
-          },
-          {
-            "specifier": "./nativeProps.js",
-            "kind": "runtime",
-            "resolved": "packages/base/src/lib/internals/nativeProps.ts",
-            "names": [
-              "mergeNativeStyles",
-              "toNativeClass"
-            ]
-          },
-          {
-            "specifier": "./nativeRefAttachment.js",
-            "kind": "runtime",
-            "resolved": "packages/base/src/lib/internals/nativeRefAttachment.ts",
-            "names": [
-              "isNativeRefAttachment"
-            ]
-          },
-          {
-            "specifier": "./types.js",
-            "kind": "type",
-            "resolved": "packages/base/src/lib/internals/types.ts",
-            "names": [
-              "BaseUIComponentProps",
-              "ComponentRenderFn",
-              "HTMLProps"
-            ]
-          }
-        ]
-      },
-      {
         "local": "packages/base/src/lib/merge-props/index.ts",
         "sha256": "3ef38bba9b22f44bbcf69102d9556807f78897bedb69b410669c7b429971dd68",
         "declarations": [],
@@ -1582,7 +1430,7 @@
       },
       {
         "local": "packages/base/src/lib/merge-props/mergeProps.ts",
-        "sha256": "110f1b7615a7ccadcfc1e8775451eea5f9ca971bcafee6f3ffd4ea8470303d00",
+        "sha256": "b2c30a6df68fe9744f250f0d0b8e21d89de133146724efd6eed7cea0fce0f8b9",
         "declarations": [
           "PreventableEvent",
           "Props",
@@ -1662,8 +1510,7 @@
           "resolveClassName"
         ],
         "reachability": [
-          "runtime",
-          "type"
+          "runtime"
         ],
         "imports": [
           {
@@ -1683,8 +1530,7 @@
           "resolveStyle"
         ],
         "reachability": [
-          "runtime",
-          "type"
+          "runtime"
         ],
         "imports": [
           {
@@ -1699,7 +1545,7 @@
       },
       {
         "local": "packages/base/src/lib/utils/useFocusableWhenDisabled.ts",
-        "sha256": "8c52b8e41b8801cd46d4232802c5ed86588cb4e8008f814741970246b378742c",
+        "sha256": "f30838a56f41ea3672d26627fb42145d016e3b54b512c4c381e6aafb05431db2",
         "declarations": [
           "UseFocusableWhenDisabledParameters",
           "useFocusableWhenDisabled"
@@ -1738,18 +1584,6 @@
             ]
           }
         ]
-      },
-      {
-        "local": "packages/utils/src/lib/empty.ts",
-        "sha256": "4851f47e6160860fee67ddfa03056c8a26dee4cf87bb1a9aa7f30e988b03ad65",
-        "declarations": [
-          "NOOP"
-        ],
-        "reachability": [
-          "runtime",
-          "type"
-        ],
-        "imports": []
       },
       {
         "local": "packages/utils/src/lib/error.ts",
@@ -1805,101 +1639,6 @@
             "resolved": "external:@floating-ui/utils/dom",
             "names": [
               "ownerWindow"
-            ]
-          }
-        ]
-      },
-      {
-        "local": "packages/utils/src/lib/useIsoLayoutEffect.svelte.ts",
-        "sha256": "19e575ac14e03d20cbd088abda91d4784ed8b3b34944e03ef51e242e0c0247a7",
-        "declarations": [
-          "EffectCallback",
-          "useIsoLayoutEffect"
-        ],
-        "reachability": [
-          "runtime"
-        ],
-        "imports": [
-          {
-            "specifier": "svelte",
-            "kind": "runtime",
-            "resolved": "external:svelte",
-            "names": [
-              "untrack"
-            ]
-          }
-        ]
-      },
-      {
-        "local": "packages/utils/src/lib/useMergedRefs.ts",
-        "sha256": "d9420f3db2872a32aca95c7c32db1342da4df6595df68a17707f55a27ea41fe2",
-        "declarations": [
-          "MergedRef",
-          "MergedRefCallback",
-          "Empty",
-          "InputRef",
-          "Result",
-          "Cleanup",
-          "ForkRef",
-          "createMergedRefs",
-          "useMergedRefs",
-          "useMergedRefs",
-          "useMergedRefs",
-          "useMergedRefs",
-          "useMergedRefsN",
-          "createForkRef",
-          "didChange",
-          "didChangeN",
-          "update"
-        ],
-        "reachability": [
-          "runtime",
-          "type"
-        ],
-        "imports": [
-          {
-            "specifier": "./useRefWithInit.js",
-            "kind": "runtime",
-            "resolved": "packages/utils/src/lib/useRefWithInit.ts",
-            "names": [
-              "useRefWithInit"
-            ]
-          }
-        ]
-      },
-      {
-        "local": "packages/utils/src/lib/useRefWithInit.ts",
-        "sha256": "3c48fad5a3c2eddbb0ecb820210f825b9fa2144c92de0615a5a4cf2ea1c3b3c7",
-        "declarations": [
-          "InitializedRef",
-          "useRefWithInit",
-          "useRefWithInit",
-          "useRefWithInit"
-        ],
-        "reachability": [
-          "runtime",
-          "type"
-        ],
-        "imports": []
-      },
-      {
-        "local": "packages/utils/src/lib/useStableCallback.ts",
-        "sha256": "dca4f1866715df0bcb597ca5c083825f580717a96e267c77a5325ce22790d04c",
-        "declarations": [
-          "Callback",
-          "useStableCallback",
-          "createStableCallback"
-        ],
-        "reachability": [
-          "runtime"
-        ],
-        "imports": [
-          {
-            "specifier": "svelte",
-            "kind": "runtime",
-            "resolved": "external:svelte",
-            "names": [
-              "untrack"
             ]
           }
         ]

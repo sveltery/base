@@ -156,9 +156,7 @@
     const scrollTopFromStart = scrollbarYHidden
       ? 0
       : normalizeScrollOffset(scrollTop, maxScrollTop);
-    const scrollTopFromEnd = scrollbarYHidden
-      ? 0
-      : maxScrollTop - scrollTopFromStart;
+    const scrollTopFromEnd = scrollbarYHidden ? 0 : maxScrollTop - scrollTopFromStart;
     const nextWidth = scrollbarXHidden ? 0 : viewportWidth;
     const nextHeight = scrollbarYHidden ? 0 : viewportHeight;
 
@@ -171,8 +169,7 @@
 
     // Only subtract corner size from scrollbar dimensions if the corner hasn't been sized yet.
     // Once sized, the layout will already account for it.
-    const cornerNotYetSized =
-      root.cornerSize.width === 0 && root.cornerSize.height === 0;
+    const cornerNotYetSized = root.cornerSize.width === 0 && root.cornerSize.height === 0;
     const cornerWidthOffset = cornerNotYetSized ? nextCornerWidth : 0;
     const cornerHeightOffset = cornerNotYetSized ? nextCornerHeight : 0;
 
@@ -188,10 +185,7 @@
       ? Math.min(scrollbarXEl.offsetWidth - cornerWidthOffset, idealNextWidth)
       : idealNextWidth;
     const maxNextHeight = scrollbarYEl
-      ? Math.min(
-          scrollbarYEl.offsetHeight - cornerHeightOffset,
-          idealNextHeight,
-        )
+      ? Math.min(scrollbarYEl.offsetHeight - cornerHeightOffset, idealNextHeight)
       : idealNextHeight;
 
     const clampedNextWidth = Math.max(MIN_THUMB_SIZE, maxNextWidth * ratioX);
@@ -207,10 +201,7 @@
     // Handle Y (vertical) scroll
     if (scrollbarYEl && thumbYEl) {
       const maxThumbOffsetY =
-        scrollbarYEl.offsetHeight -
-        clampedNextHeight -
-        scrollbarYOffset -
-        thumbYOffset;
+        scrollbarYEl.offsetHeight - clampedNextHeight - scrollbarYOffset - thumbYOffset;
 
       const thumbOffsetY = applyOverscrollThumb(
         thumbYEl,
@@ -227,14 +218,10 @@
     // Handle X (horizontal) scroll
     if (scrollbarXEl && thumbXEl) {
       const maxThumbOffsetX =
-        scrollbarXEl.offsetWidth -
-        clampedNextWidth -
-        scrollbarXOffset -
-        thumbXOffset;
+        scrollbarXEl.offsetWidth - clampedNextWidth - scrollbarXOffset - thumbXOffset;
       // RTL scrolls from 0 down to `-maxScrollLeft`; measure from the inline start edge so the
       // overscroll math is direction-agnostic, then flip the resulting offset back below.
-      const scrollFromStart =
-        getDirection() === 'rtl' ? -scrollLeft : scrollLeft;
+      const scrollFromStart = getDirection() === 'rtl' ? -scrollLeft : scrollLeft;
 
       const offsetX = applyOverscrollThumb(
         thumbXEl,
@@ -275,17 +262,10 @@
     setHiddenState((prevState) => pickState(prevState, nextHiddenState));
 
     const nextOverflowEdges = {
-      xStart:
-        !scrollbarXHidden &&
-        scrollLeftFromStart > root.overflowEdgeThreshold.xStart,
-      xEnd:
-        !scrollbarXHidden &&
-        scrollLeftFromEnd > root.overflowEdgeThreshold.xEnd,
-      yStart:
-        !scrollbarYHidden &&
-        scrollTopFromStart > root.overflowEdgeThreshold.yStart,
-      yEnd:
-        !scrollbarYHidden && scrollTopFromEnd > root.overflowEdgeThreshold.yEnd,
+      xStart: !scrollbarXHidden && scrollLeftFromStart > root.overflowEdgeThreshold.xStart,
+      xEnd: !scrollbarXHidden && scrollLeftFromEnd > root.overflowEdgeThreshold.xEnd,
+      yStart: !scrollbarYHidden && scrollTopFromStart > root.overflowEdgeThreshold.yStart,
+      yEnd: !scrollbarYHidden && scrollTopFromEnd > root.overflowEdgeThreshold.yEnd,
     };
 
     setOverflowEdges((prev) => pickState(prev, nextOverflowEdges));
@@ -426,10 +406,7 @@
   ): number {
     const clamped = clamp(scrollFromStart, 0, maxScroll);
     const overscroll = scrollFromStart - clamped;
-    const nextSize = Math.max(
-      MIN_THUMB_SIZE,
-      (size * content) / (content + Math.abs(overscroll)),
-    );
+    const nextSize = Math.max(MIN_THUMB_SIZE, (size * content) / (content + Math.abs(overscroll)));
 
     // Passing an empty string removes the override, restoring the resting `var(...)` size.
     thumbEl.style.setProperty(sizeVar, overscroll ? `${nextSize}px` : '');

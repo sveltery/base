@@ -34,13 +34,9 @@
   }: ToggleGroupProps<Value> = $props();
   const toolbarContext = useToolbarRootContext(true);
   const toolbarGroupContext = useToolbarGroupContext();
-  const isValueInitialized = $derived(
-    valueProp !== undefined || defaultValueProp !== undefined,
-  );
+  const isValueInitialized = $derived(valueProp !== undefined || defaultValueProp !== undefined);
   const disabled = $derived(
-    (toolbarContext?.disabled ?? false) ||
-      (toolbarGroupContext?.disabled ?? false) ||
-      disabledProp,
+    (toolbarContext?.disabled ?? false) || (toolbarGroupContext?.disabled ?? false) || disabledProp,
   );
   const valueState = new Controlled<readonly Value[]>(
     () => valueProp,
@@ -92,12 +88,7 @@
     });
   }
   const mergedProps = $derived({
-    ...mergeComponentProps(
-      state,
-      { class: classProp, style: style },
-      rendererProps,
-      undefined,
-    ),
+    ...mergeComponentProps(state, { class: classProp, style: style }, rendererProps, undefined),
     [hostAttachmentKey]: attachHost,
   });
 </script>

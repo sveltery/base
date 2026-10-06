@@ -23,8 +23,7 @@
   const disabled = $derived(disabledProp ?? context.disabled);
   const state = $derived(context.state);
   const resolved = $derived.by(() => {
-    const classValue =
-      typeof classProp === 'function' ? classProp(state) : classProp;
+    const classValue = typeof classProp === 'function' ? classProp(state) : classProp;
     return getButtonProps(
       {
         ...props,
@@ -37,10 +36,7 @@
           },
           {
             ...props,
-            class:
-              classValue === undefined
-                ? undefined
-                : resolveClassValue(classValue),
+            class: classValue === undefined ? undefined : resolveClassValue(classValue),
           },
         ),
       },

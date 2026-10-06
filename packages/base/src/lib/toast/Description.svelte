@@ -8,20 +8,13 @@
   import { root } from './root-context.js';
   import { isRenderableContent } from './content.js';
   import type { ToastDescriptionProps } from './types.js';
-  let {
-    render,
-    children,
-    id,
-    ref = $bindable(),
-    ...props
-  }: ToastDescriptionProps = $props();
+  let { render, children, id, ref = $bindable(), ...props }: ToastDescriptionProps = $props();
   const controller = root();
   const generated = $props.id();
   const resolvedId = $derived(id ?? `base-ui-${generated}`);
   const content = $derived(children ?? controller.toast.description);
   $effect(() => {
-    if (isRenderableContent(content))
-      return controller.setDescriptionId(resolvedId);
+    if (isRenderableContent(content)) return controller.setDescriptionId(resolvedId);
   });
   const state = $derived({ type: controller.toast.type });
 

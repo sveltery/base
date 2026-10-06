@@ -7,6 +7,9 @@
   let store = $state.raw(untrack(() => first));
   const getReferenceProps = useHoverReferenceInteraction(() => store);
   const referenceProps = $derived(getReferenceProps());
-  export function change() { store = second; }
+  export function change() {
+    store = second;
+  }
 </script>
+
 <button id="migrating-hover" {...referenceProps}>Hover</button>

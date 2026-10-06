@@ -9,10 +9,7 @@
   import { createChangeEventDetails } from '../internals/createBaseUIEventDetails.js';
   import { setCollapsibleContext } from '../collapsible/context.js';
   import type { CollapsibleTransitionStatus } from '../collapsible/types.js';
-  import {
-    getAccordionRootContext,
-    setAccordionItemContext,
-  } from './context.js';
+  import { getAccordionRootContext, setAccordionItemContext } from './context.js';
   import { stateAttributes } from './state.js';
   import type {
     AccordionItemProps,
@@ -38,9 +35,7 @@
   const open = $derived(root.value.indexOf(value) !== -1);
   let index = $state(-1);
   let retainedMounted = $state(untrack(() => open));
-  let phase = $state<CollapsibleTransitionStatus>(
-    untrack(() => (open ? 'idle' : undefined)),
-  );
+  let phase = $state<CollapsibleTransitionStatus>(untrack(() => (open ? 'idle' : undefined)));
   const mounted = $derived(open || retainedMounted);
   const transitionStatus = $derived(
     open && !retainedMounted
@@ -60,21 +55,14 @@
   const defaultPanelId = `base-ui-${generatedId}-panel`;
   let registeredPanelId = $state<string | null | undefined>(undefined);
   const panelId = $derived(
-    registeredPanelId === null
-      ? undefined
-      : (registeredPanelId ?? defaultPanelId),
+    registeredPanelId === null ? undefined : (registeredPanelId ?? defaultPanelId),
   );
   const defaultTriggerId = `base-ui-${generatedId}-trigger`;
   let registeredTriggerId = $state<string | null | undefined>(undefined);
   const triggerId = $derived(
-    registeredTriggerId === null
-      ? undefined
-      : (registeredTriggerId ?? defaultTriggerId),
+    registeredTriggerId === null ? undefined : (registeredTriggerId ?? defaultTriggerId),
   );
-  function requestOpenChange(
-    next: boolean,
-    details: AccordionItemChangeEventDetails,
-  ) {
+  function requestOpenChange(next: boolean, details: AccordionItemChangeEventDetails) {
     const callback = onOpenChange;
     const itemValue = value;
     callback?.(next, details);
@@ -127,8 +115,7 @@
         | undefined
         | ((current: string | null | undefined) => string | null | undefined),
     ) {
-      registeredPanelId =
-        typeof next === 'function' ? next(registeredPanelId) : next;
+      registeredPanelId = typeof next === 'function' ? next(registeredPanelId) : next;
     },
   };
   setCollapsibleContext(collapsible);
@@ -152,17 +139,14 @@
         | undefined
         | ((current: string | null | undefined) => string | null | undefined),
     ) {
-      registeredTriggerId =
-        typeof next === 'function' ? next(registeredTriggerId) : next;
+      registeredTriggerId = typeof next === 'function' ? next(registeredTriggerId) : next;
     },
   });
   const resolved = $derived.by(() => {
-    const classValue =
-      typeof classProp === 'function' ? classProp(itemState) : classProp;
+    const classValue = typeof classProp === 'function' ? classProp(itemState) : classProp;
     return {
       ...props,
-      class:
-        classValue === undefined ? undefined : resolveClassValue(classValue),
+      class: classValue === undefined ? undefined : resolveClassValue(classValue),
     };
   });
   function attach(node: HTMLElement) {

@@ -45,8 +45,7 @@
       return () =>
         untrack(() => {
           if (ref === host) ref = null;
-          if (contentWrapperRef.current === host)
-            contentWrapperRef.current = null;
+          if (contentWrapperRef.current === host) contentWrapperRef.current = null;
         });
     });
   }
@@ -54,10 +53,7 @@
     ...mergeComponentProps(
       root.viewportState,
       { class: classProp, style: style },
-      [
-        { role: 'presentation', style: { minWidth: 'fit-content' } },
-        elementProps,
-      ],
+      [{ role: 'presentation', style: { minWidth: 'fit-content' } }, elementProps],
       scrollAreaStateAttributesMapping,
     ),
     [hostAttachmentKey]: attachHost,

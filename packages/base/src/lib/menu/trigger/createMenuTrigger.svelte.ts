@@ -30,11 +30,7 @@ import { useMixedToggleClickHandler } from '../../utils/useMixedToggleClickHandl
 import { useMenubarContext } from '../../menubar/MenubarContext.js';
 import { PATIENT_CLICK_THRESHOLD } from '../../internals/constants.js';
 import { mergeProps } from '../../merge-props/index.js';
-import type {
-  MenuTriggerProps,
-  MenuTriggerState,
-  MenuParent,
-} from '../types.js';
+import type { MenuTriggerProps, MenuTriggerState, MenuParent } from '../types.js';
 import type { MenuHandleStore } from '../store/MenuStore.svelte.js';
 export function createMenuTrigger<Payload>(
   getProps: () => MenuTriggerProps<Payload>,
@@ -72,13 +68,9 @@ export function createMenuTrigger<Payload>(
     return value as MenuHandleStore<unknown>;
   });
   const thisTriggerId = $derived(useBaseUiId(idProp ?? undefined, generatedId));
-  const isTriggerActive = $derived(
-    store.useState('isTriggerActive', thisTriggerId),
-  );
+  const isTriggerActive = $derived(store.useState('isTriggerActive', thisTriggerId));
   const floatingRootContext = $derived(store.useState('floatingRootContext'));
-  const isOpenedByThisTrigger = $derived(
-    store.useState('isOpenedByTrigger', thisTriggerId),
-  );
+  const isOpenedByThisTrigger = $derived(store.useState('isOpenedByTrigger', thisTriggerId));
   const popupId = $derived(store.useState('triggerPopupId', thisTriggerId));
   const triggerElementRef = { current: null as HTMLElement | null };
   const parent = useMenuParent();
@@ -109,9 +101,7 @@ export function createMenuTrigger<Payload>(
   const isInMenubar = $derived(parent.type === 'menubar');
   const rootDisabled = $derived(store.useState('disabled'));
   const disabled = $derived(
-    disabledProp ||
-      rootDisabled ||
-      (parent.type === 'menubar' && parent.context.disabled),
+    disabledProp || rootDisabled || (parent.type === 'menubar' && parent.context.disabled),
   );
   const { getButtonProps, buttonRef } = useButton(() => ({
     disabled,
@@ -139,10 +129,7 @@ export function createMenuTrigger<Payload>(
     ) {
       return;
     }
-    if (
-      mouseUpTarget != null &&
-      findRootOwnerId(mouseUpTarget) === store.select('rootId')
-    ) {
+    if (mouseUpTarget != null && findRootOwnerId(mouseUpTarget) === store.select('rootId')) {
       return;
     }
     if (isMouseWithinBounds(mouseEvent, triggerRef.current)) {
@@ -154,10 +141,7 @@ export function createMenuTrigger<Payload>(
     });
   };
   $effect(() => {
-    if (
-      isOpenedByThisTrigger &&
-      store.select('lastOpenChangeReason') === REASONS.triggerHover
-    ) {
+    if (isOpenedByThisTrigger && store.select('lastOpenChangeReason') === REASONS.triggerHover) {
       const doc = ownerDocument(triggerRef.current);
       doc.addEventListener('mouseup', handleDocumentMouseUp, { once: true });
     }
@@ -172,8 +156,7 @@ export function createMenuTrigger<Payload>(
       enabled:
         openOnHover &&
         !disabled &&
-        (!isInMenubar ||
-          (parentMenubarHasSubmenuOpen && !forwarding.isMountedByThisTrigger)),
+        (!isInMenubar || (parentMenubarHasSubmenuOpen && !forwarding.isMountedByThisTrigger)),
       handleClose: safePolygon({ blockPointerEvents: !isInMenubar }),
       mouseOnly: true,
       move: false,
@@ -213,9 +196,7 @@ export function createMenuTrigger<Payload>(
     enabled: isInMenubar,
     mouseDownAction: 'open',
   }));
-  const localInteractionProps = $derived.by(() =>
-    mergeProps(focus.reference, click.reference),
-  );
+  const localInteractionProps = $derived.by(() => mergeProps(focus.reference, click.reference));
   const rootTriggerProps = $derived(
     store.useState('triggerProps', forwarding.isMountedByThisTrigger),
   );
@@ -285,10 +266,7 @@ export function createMenuTrigger<Payload>(
     handleFocusTargetFocus,
   };
 }
-function useStickIfOpen(
-  getOpen: () => boolean,
-  getOpenReason: () => string | null,
-) {
+function useStickIfOpen(getOpen: () => boolean, getOpenReason: () => string | null) {
   const stickIfOpenTimeout = new Timeout();
   onDestroy(stickIfOpenTimeout.clear);
   let stickIfOpen = $state(false);

@@ -1,0 +1,23 @@
+{
+  "immutableOriginalPin": "47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c",
+  "ordinaryDeclarationCredit": 0,
+  "classification": "authored native supplement migration to the full pinned Scheduler cancellation contract",
+  "historicalTest": "parity/utils-package/predecessors/use-click-test-before-scheduler-witness.ts.txt",
+  "historicalTestSha256": "2c8c00a4180c0f8aa74484ca8f767eda17ff16026ee29ee9c2eca0206ce1401f",
+  "historicalTestHead": "3258070d64d83389e2c2295e8dc5031acaef3288",
+  "failedRun": ".checks/pr75-failures-3258070d/runtime-dom.log",
+  "source": "packages/utils/src/useAnimationFrame.ts",
+  "sourceRole": "Scheduler.cancel nulls the queued callback and decrements callbacksCount. It deliberately leaves the shared native frame scheduled; AnimationFrame.disposeEffect returns its logical cancel callback.",
+  "currentWitness": "Rendered native UseClick schedules a mousedown frame, unmounts, dispatches the retained pending native tick, and verifies no open-change/business callback publication. Native cancelAnimationFrame is not required or called.",
+  "originalAssertions": "Unchanged; the migrated assertion is an authored supplement and earns zero Original declaration credit.",
+  "historicalBodyProof": "parity/utils-package/predecessors/body-fidelity-before-toolkit-format.json",
+  "historicalBodyProofSha256": "4174ff6a6f8f1dd17e7659fd40d53517d0778fa14baab45abf7b2777431ac537",
+  "executionStatus": "Focused exact Source cancellation probe and actual native witness passed; full exact-successor DOM/CI/browser delivery remains pending.",
+  "historicalBodyProofHead": "5cd0ac1c7def66dc050f09574516e689d90f5408",
+  "historicalBodyProofStatus": "Exact pre-toolkit checkpoint receipt; archived bytes/hash retained, never current formatted-file equality or later acceptance.",
+  "currentBodyProof": "parity/utils-package/body-fidelity.json",
+  "pinnedSchedulerProbe": ".checks/pinned-scheduler-cancellation.json",
+  "pinnedSchedulerProbeScope": "Exact pinned pure Scheduler/reset/AnimationFrame and support statements; hook/lifecycle boundary is covered by the separate actual native UseClick witness.",
+  "focusedNativeWitness": "20 actual rendered UseClick tests passed; /workspace/utils-package-use-click-scheduler-witness.log",
+  "pinnedPureSourceProbe": "PASS: native cancellation calls0 and no business callback after dispose plus pending shared tick; /workspace/utils-package-pinned-scheduler-cancellation.log"
+}

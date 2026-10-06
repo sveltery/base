@@ -17,8 +17,7 @@ export const docs: Doc[] = [
     slug: '',
     group: 'Overview',
     title: 'Build on a thoughtful base.',
-    description:
-      'Unstyled building blocks for Svelte 5. Familiar parts, room for your own design.',
+    description: 'Unstyled building blocks for Svelte 5. Familiar parts, room for your own design.',
     sections: [
       {
         id: 'introduction',
@@ -55,8 +54,7 @@ export const docs: Doc[] = [
     slug: 'getting-started',
     group: 'Getting started',
     title: 'Getting started',
-    description:
-      'Run the source, explore a component, and understand what is available today.',
+    description: 'Run the source, explore a component, and understand what is available today.',
     sections: [
       {
         id: 'workspace',
@@ -164,8 +162,7 @@ export const docs: Doc[] = [
     slug: 'handbook/accessibility',
     group: 'Handbook',
     title: 'Accessibility',
-    description:
-      'Treat names, focus, and keyboard behavior as part of the design.',
+    description: 'Treat names, focus, and keyboard behavior as part of the design.',
     sections: [
       {
         id: 'names',
@@ -238,8 +235,7 @@ export const docs: Doc[] = [
     slug: 'handbook/composition',
     group: 'Handbook',
     title: 'Composition',
-    description:
-      'Choose an actual native host with the component’s render snippet.',
+    description: 'Choose an actual native host with the component’s render snippet.',
     sections: [
       {
         id: 'host',
@@ -284,8 +280,7 @@ export const docs: Doc[] = [
     slug: 'components/csp-provider',
     group: 'Components',
     title: 'CSP Provider',
-    description:
-      'Share optional CSP settings with descendant components as they gain support.',
+    description: 'Share optional CSP settings with descendant components as they gain support.',
     sections: [
       {
         id: 'provide',
@@ -379,8 +374,7 @@ export const docs: Doc[] = [
     slug: 'components/avatar',
     group: 'Components',
     title: 'Avatar',
-    description:
-      'A profile image with initials or a fallback icon while it loads.',
+    description: 'A profile image with initials or a fallback icon while it loads.',
     sections: [
       {
         id: 'anatomy',
@@ -481,8 +475,7 @@ export const docs: Doc[] = [
     slug: 'components/collapsible',
     group: 'Components',
     title: 'Collapsible',
-    description:
-      'A button and a panel that opens and closes with your CSS motion.',
+    description: 'A button and a panel that opens and closes with your CSS motion.',
     sections: [
       {
         id: 'anatomy',
@@ -525,8 +518,7 @@ export const docs: Doc[] = [
     slug: 'components/dialog',
     group: 'Components',
     title: 'Dialog',
-    description:
-      'A focused space for a short task. Composable parts, with experimental behavior.',
+    description: 'A focused space for a short task. Composable parts, with experimental behavior.',
     sections: [
       {
         id: 'anatomy',
@@ -586,8 +578,7 @@ export const docs: Doc[] = [
     slug: 'about',
     group: 'Overview',
     title: 'About & credits',
-    description:
-      'An independent project, with a clear debt to its foundations.',
+    description: 'An independent project, with a clear debt to its foundations.',
     sections: [
       {
         id: 'originals',

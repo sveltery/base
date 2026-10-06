@@ -49,9 +49,7 @@
   export function setHostTag(value: 'section' | 'article') {
     hostTag = value;
   }
-  export function mutateContainerCurrent(
-    value: HTMLElement | ShadowRoot | null,
-  ) {
+  export function mutateContainerCurrent(value: HTMLElement | ShadowRoot | null) {
     if (container && !('nodeType' in container)) container.current = value;
   }
 </script>
@@ -69,15 +67,11 @@
   <span data-testid="portal-child">Child</span>
   {#if nested === 'full'}
     <Full data-testid="nested-portal"
-      ><Probe name="nested-child" {report} /><span data-testid="nested-child"
-        >Nested</span
-      ></Full
+      ><Probe name="nested-child" {report} /><span data-testid="nested-child">Nested</span></Full
     >
   {:else if nested === 'lite'}
     <Lite data-testid="nested-portal"
-      ><Probe name="nested-child" {report} /><span data-testid="nested-child"
-        >Nested</span
-      ></Lite
+      ><Probe name="nested-child" {report} /><span data-testid="nested-child">Nested</span></Lite
     >
   {/if}
 {/snippet}

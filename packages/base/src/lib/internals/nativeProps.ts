@@ -34,10 +34,7 @@ export function toNativeClass(value: unknown): string | undefined {
 }
 
 /** Svelte attachment symbols are enumerable props, outside upstream string-keyed for-in loops. */
-export function copyAttachmentSymbols(
-  target: Record<string | symbol, unknown>,
-  source: object,
-) {
+export function copyAttachmentSymbols(target: Record<string | symbol, unknown>, source: object) {
   for (const key of Object.getOwnPropertySymbols(source)) {
     if (Object.prototype.propertyIsEnumerable.call(source, key))
       target[key] = (source as Record<symbol, unknown>)[key];

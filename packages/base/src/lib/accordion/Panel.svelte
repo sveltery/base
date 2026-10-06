@@ -8,10 +8,7 @@
   import { resolveClassValue } from '../internals/resolveClassValue.js';
   import { createChangeEventDetails } from '../internals/createBaseUIEventDetails.js';
   import { getCollapsibleContext } from '../collapsible/context.js';
-  import {
-    getAccordionRootContext,
-    getAccordionItemContext,
-  } from './context.js';
+  import { getAccordionRootContext, getAccordionItemContext } from './context.js';
   import { stateAttributes } from './state.js';
   import {
     afterAnimations,
@@ -39,9 +36,7 @@
   const root = getAccordionRootContext();
   const context = getCollapsibleContext();
   const item = getAccordionItemContext();
-  const hiddenUntilFound = $derived(
-    hiddenUntilFoundProp ?? root.hiddenUntilFound,
-  );
+  const hiddenUntilFound = $derived(hiddenUntilFoundProp ?? root.hiddenUntilFound);
   const keepMounted = $derived(keepMountedProp ?? root.keepMounted);
   const registeredId = $derived(idProp || undefined);
   const id = $derived(idProp ?? context.defaultPanelId);
@@ -57,12 +52,8 @@
   let pendingTemporaryStyleRestore: (() => void) | undefined;
 
   const hidden = $derived(!context.open && !context.mounted);
-  const panelTransitionStatus = $derived(
-    forcePanelIdle ? 'idle' : context.transitionStatus,
-  );
-  const shouldPreventOpenAnimation = $derived(
-    context.open && shouldPreventMountAnimation,
-  );
+  const panelTransitionStatus = $derived(forcePanelIdle ? 'idle' : context.transitionStatus);
+  const shouldPreventOpenAnimation = $derived(context.open && shouldPreventMountAnimation);
   const renderedDimensions = $derived(
     !context.open &&
       context.mounted &&
@@ -76,9 +67,7 @@
     ...item.state,
     transitionStatus: panelTransitionStatus,
   });
-  const shouldRender = $derived(
-    keepMounted || hiddenUntilFound || context.mounted || context.open,
-  );
+  const shouldRender = $derived(keepMounted || hiddenUntilFound || context.mounted || context.open);
 
   function setDimensions(next: Dimensions, cache = true) {
     if (cache) lastMeasuredDimensions = next;
@@ -118,24 +107,17 @@
     'data-ending-style': panelTransitionStatus === 'ending' ? '' : undefined,
     style: {
       '--accordion-panel-height':
-        renderedDimensions.height === undefined
-          ? 'auto'
-          : `${renderedDimensions.height}px`,
+        renderedDimensions.height === undefined ? 'auto' : `${renderedDimensions.height}px`,
       '--accordion-panel-width':
-        renderedDimensions.width === undefined
-          ? 'auto'
-          : `${renderedDimensions.width}px`,
+        renderedDimensions.width === undefined ? 'auto' : `${renderedDimensions.width}px`,
     },
   });
   const resolved = $derived.by(() => {
-    const authoredStyle =
-      typeof styleProp === 'function' ? styleProp(panelState) : styleProp;
-    const classValue =
-      typeof classProp === 'function' ? classProp(panelState) : classProp;
+    const authoredStyle = typeof styleProp === 'function' ? styleProp(panelState) : styleProp;
+    const classValue = typeof classProp === 'function' ? classProp(panelState) : classProp;
     return {
       ...props,
-      class:
-        classValue === undefined ? undefined : resolveClassValue(classValue),
+      class: classValue === undefined ? undefined : resolveClassValue(classValue),
       style: shouldPreventOpenAnimation
         ? `${authoredStyle ?? ''};animation-name:none`
         : authoredStyle,
@@ -153,21 +135,16 @@
   $effect(() => {
     const registered = registeredId;
     untrack(() =>
-      context.setPanelIdState(
-        (current) => registered ?? (current === null ? undefined : current),
-      ),
+      context.setPanelIdState((current) => registered ?? (current === null ? undefined : current)),
     );
     return () =>
       untrack(() =>
-        context.setPanelIdState((current) =>
-          current === registered ? null : current,
-        ),
+        context.setPanelIdState((current) => (current === registered ? null : current)),
       );
   });
 
   $effect(() => {
-    if (forcePanelIdle && context.transitionStatus !== 'starting')
-      forcePanelIdle = false;
+    if (forcePanelIdle && context.transitionStatus !== 'starting') forcePanelIdle = false;
   });
 
   // This effect runs after the corresponding DOM commit, while close's ending
@@ -185,12 +162,7 @@
       if (!open) restorePendingTemporaryStyle();
       const mode = getAnimationType(panel, preventOpenAnimation);
       animationType = mode;
-      if (
-        open &&
-        status === 'idle' &&
-        shouldPreventMountAnimation &&
-        mode === 'css-animation'
-      ) {
+      if (open && status === 'idle' && shouldPreventMountAnimation && mode === 'css-animation') {
         lastMeasuredDimensions = getDimensions(panel);
         return;
       }
@@ -206,9 +178,7 @@
           const restoreLayout = resetLayoutStyles(panel);
           setDimensions(getDimensions(panel));
           if (skipOpen) {
-            setPendingTemporaryStyleRestore(
-              setTemporaryStyle(panel, 'transition-duration', '0s'),
-            );
+            setPendingTemporaryStyleRestore(setTemporaryStyle(panel, 'transition-duration', '0s'));
             forcePanelIdle = true;
           }
           return restoreLayout;
@@ -219,11 +189,7 @@
           restoreName();
           return;
         }
-        const restoreDuration = setTemporaryStyle(
-          panel,
-          'animation-duration',
-          '0s',
-        );
+        const restoreDuration = setTemporaryStyle(panel, 'animation-duration', '0s');
         restoreName();
         setPendingTemporaryStyleRestore(restoreDuration);
         forcePanelIdle = true;
@@ -250,27 +216,19 @@
         return;
       }
       setDimensions(next);
-      if (mode === 'css-animation')
-        setTemporaryStyle(panel, 'animation-name', 'none')();
+      if (mode === 'css-animation') setTemporaryStyle(panel, 'animation-name', 'none')();
     });
   });
 
   $effect(() => {
     const panel = node;
-    if (
-      !panel ||
-      !context.open ||
-      !context.mounted ||
-      panelTransitionStatus !== 'idle'
-    )
-      return;
+    if (!panel || !context.open || !context.mounted || panelTransitionStatus !== 'idle') return;
     return untrack(() =>
       afterAnimations(
         panel,
         () => {
           // An animation microtask can run after close's commit but before cleanup.
-          if (node === panel && context.open)
-            setDimensions(emptyDimensions, false);
+          if (node === panel && context.open) setDimensions(emptyDimensions, false);
         },
         true,
       ),
@@ -279,13 +237,7 @@
 
   $effect(() => {
     const panel = node;
-    if (
-      !panel ||
-      context.open ||
-      !context.mounted ||
-      panelTransitionStatus !== 'ending'
-    )
-      return;
+    if (!panel || context.open || !context.mounted || panelTransitionStatus !== 'ending') return;
     const abortController = new AbortController();
     let stopObserving: (() => void) | undefined;
     // The ending attribute is committed now. Give Chrome one additional frame
@@ -295,8 +247,7 @@
       stopObserving = afterAnimations(
         panel,
         () => {
-          if (abortController.signal.aborted || node !== panel || context.open)
-            return;
+          if (abortController.signal.aborted || node !== panel || context.open) return;
           context.setMounted(false);
           setDimensions(emptyDimensions, false);
         },

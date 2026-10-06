@@ -26,8 +26,7 @@ function render(
     host,
     component,
     root: () => host.querySelector<HTMLElement>(`[role="${family}"]`)!,
-    input: () =>
-      host.querySelector<HTMLInputElement>('input[type="checkbox"]')!,
+    input: () => host.querySelector<HTMLInputElement>('input[type="checkbox"]')!,
     form: () => host.querySelector('form')!,
     click() {
       host.querySelector<HTMLElement>(`[role="${family}"]`)!.click();
@@ -40,16 +39,12 @@ for (const family of ['switch', 'checkbox'] as const)
     it('owns one root, hidden native checkbox, stateful part and Field registry', async () => {
       const submit = vi.fn();
       const view = render(family, { submit });
-      expect(view.host.querySelectorAll('input[type="checkbox"]')).toHaveLength(
-        1,
-      );
+      expect(view.host.querySelectorAll('input[type="checkbox"]')).toHaveLength(1);
       expect(view.root().getAttribute('aria-checked')).toBe('false');
       view.click();
       await tick();
       expect(view.root().getAttribute('aria-checked')).toBe('true');
-      expect(
-        view.host.querySelector('[data-part]')!.hasAttribute('data-checked'),
-      ).toBe(true);
+      expect(view.host.querySelector('[data-part]')!.hasAttribute('data-checked')).toBe(true);
       view.host.querySelector<HTMLButtonElement>('[type="submit"]')!.click();
       flushSync();
       await tick();
@@ -263,12 +258,8 @@ describe('CheckboxGroup actual source composition', () => {
     const values: string[] = [];
     view
       .form()
-      .addEventListener('input', (event) =>
-        values.push((event.target as HTMLInputElement).value),
-      );
-    const child = [
-      ...view.host.querySelectorAll<HTMLElement>('[role="checkbox"]'),
-    ][1];
+      .addEventListener('input', (event) => values.push((event.target as HTMLInputElement).value));
+    const child = [...view.host.querySelectorAll<HTMLElement>('[role="checkbox"]')][1];
     child.click();
     expect(values).toEqual(['']);
     flushSync();
@@ -284,29 +275,22 @@ describe('CheckboxGroup actual source composition', () => {
       flushSync();
       await tick();
       const children = () =>
-        [...view.host.querySelectorAll<HTMLElement>('[role="checkbox"]')].slice(
-          1,
-        );
+        [...view.host.querySelectorAll<HTMLElement>('[role="checkbox"]')].slice(1);
       const inputs = () =>
-        [
-          ...view.host.querySelectorAll<HTMLInputElement>(
-            'input[type="checkbox"]',
-          ),
-        ].slice(1);
-      expect(
-        children().map((child) => child.getAttribute('aria-checked')),
-      ).toEqual(['true', 'false']);
-      expect(inputs().map((input) => input.defaultChecked)).toEqual([
-        false,
-        false,
+        [...view.host.querySelectorAll<HTMLInputElement>('input[type="checkbox"]')].slice(1);
+      expect(children().map((child) => child.getAttribute('aria-checked'))).toEqual([
+        'true',
+        'false',
       ]);
+      expect(inputs().map((input) => input.defaultChecked)).toEqual([false, false]);
       view.form().reset();
       flushSync();
       await tick();
       expect(inputs().map((input) => input.checked)).toEqual([false, false]);
-      expect(
-        children().map((child) => child.getAttribute('aria-checked')),
-      ).toEqual(['true', 'false']);
+      expect(children().map((child) => child.getAttribute('aria-checked'))).toEqual([
+        'true',
+        'false',
+      ]);
       expect(new FormData(view.form()).getAll('choices')).toEqual([]);
       view.host.querySelector<HTMLButtonElement>('[type="submit"]')!.click();
       flushSync();
@@ -316,9 +300,10 @@ describe('CheckboxGroup actual source composition', () => {
         view.component.setGroupValue([]);
         flushSync();
         await tick();
-        expect(
-          children().map((child) => child.getAttribute('aria-checked')),
-        ).toEqual(['false', 'false']);
+        expect(children().map((child) => child.getAttribute('aria-checked'))).toEqual([
+          'false',
+          'false',
+        ]);
       }
     },
   );
@@ -327,16 +312,12 @@ describe('CheckboxGroup actual source composition', () => {
     const view = render('checkbox', { scenario: 'group', submit });
     const roots = view.host.querySelectorAll<HTMLElement>('[role="checkbox"]');
     expect(roots).toHaveLength(3);
-    expect(view.host.querySelector<HTMLLabelElement>('label')!.htmlFor).toBe(
-      '',
-    );
+    expect(view.host.querySelector<HTMLLabelElement>('label')!.htmlFor).toBe('');
     roots[1].click();
     flushSync();
     await tick();
     expect(roots[0].getAttribute('aria-checked')).toBe('mixed');
-    expect(roots[0].getAttribute('aria-controls')).toBe(
-      `${roots[1].id} ${roots[2].id}`,
-    );
+    expect(roots[0].getAttribute('aria-controls')).toBe(`${roots[1].id} ${roots[2].id}`);
     view.host.querySelector<HTMLButtonElement>('[type="submit"]')!.click();
     flushSync();
     await tick();
@@ -354,15 +335,12 @@ describe('CheckboxGroup actual source composition', () => {
     flushSync();
     expect(roots[0].getAttribute('aria-checked')).toBe('mixed');
     const canceled = render('checkbox', { scenario: 'group', canceled: true });
-    const canceledRoots =
-      canceled.host.querySelectorAll<HTMLElement>('[role="checkbox"]');
+    const canceledRoots = canceled.host.querySelectorAll<HTMLElement>('[role="checkbox"]');
     canceledRoots[1].click();
     flushSync();
     expect(canceledRoots[1].getAttribute('aria-checked')).toBe('false');
     expect(
-      canceled.host.querySelectorAll<HTMLInputElement>(
-        'input[type="checkbox"]',
-      )[1].checked,
+      canceled.host.querySelectorAll<HTMLInputElement>('input[type="checkbox"]')[1].checked,
     ).toBe(false);
   });
   it('parent respects disabled child successful controls', async () => {
@@ -384,20 +362,15 @@ describe('CheckboxGroup actual source composition', () => {
 });
 it('parts fail clearly outside their actual source root', () => {
   const target = document.createElement('div');
-  expect(() => mount(Switch.Thumb, { target })).toThrow(
-    'SwitchRootContext is missing',
-  );
-  expect(() => mount(Checkbox.Indicator, { target })).toThrow(
-    'CheckboxRootContext is missing',
-  );
+  expect(() => mount(Switch.Thumb, { target })).toThrow('SwitchRootContext is missing');
+  expect(() => mount(Checkbox.Indicator, { target })).toThrow('CheckboxRootContext is missing');
 });
 
 // Native event phase supplement. These checks deliberately do not assert that
 // React's synthetic/native default-prevention split exists in Svelte.
 describe('Checkbox native Enter submission boundary', () => {
   async function enterView(props: Record<string, unknown> = {}) {
-    const { default: EnterFixture } =
-      await import('./CheckboxEnterFixture.svelte');
+    const { default: EnterFixture } = await import('./CheckboxEnterFixture.svelte');
     const host = document.createElement('div');
     document.body.append(host);
     const component = mount(EnterFixture, { target: host, props });
@@ -509,17 +482,14 @@ describe('Checkbox native Enter submission boundary', () => {
 
 for (const family of ['switch', 'checkbox'] as const)
   it(`${family} serializes provider names while logical errors/registry remain source-owned`, async () => {
-    const { default: NameFixture } =
-      await import('./BooleanNativeNameFixture.svelte');
+    const { default: NameFixture } = await import('./BooleanNativeNameFixture.svelte');
     const submit = vi.fn();
     const target = document.createElement('div');
     document.body.append(target);
     const component = mount(NameFixture, { target, props: { family, submit } });
     cleanups.push(() => unmount(component));
     flushSync();
-    const input = target.querySelector<HTMLInputElement>(
-      'input[type="checkbox"]',
-    )!;
+    const input = target.querySelector<HTMLInputElement>('input[type="checkbox"]')!;
     const root = target.querySelector<HTMLElement>(`[role="${family}"]`)!;
     const form = target.querySelector('form')!;
     expect(input.name).toBe('b:enabled');

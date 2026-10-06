@@ -64,15 +64,11 @@ test('current Menu family reachability resolves actual native counterparts while
   );
   assert(
     closure.external.every((dependency) =>
-      /^external:(svelte(?:\/.*)?|esm-env|@floating-ui\/(dom|utils)(?:\/dom)?)$/.test(
-        dependency,
-      ),
+      /^external:(svelte(?:\/.*)?|esm-env|@floating-ui\/(dom|utils)(?:\/dom)?)$/.test(dependency),
     ),
   );
   assert(
-    !closure.modules.some((module) =>
-      /\/dialog\/(?:Root|Popup)\.svelte$/.test(module.source),
-    ),
+    !closure.modules.some((module) => /\/dialog\/(?:Root|Popup)\.svelte$/.test(module.source)),
   );
 });
 test('Original assertion declarations and conformance stay independently uncredited', () => {
@@ -83,14 +79,10 @@ test('Original assertion declarations and conformance stay independently uncredi
   assert(
     inventory.declarations.every(
       (declaration) =>
-        declaration.status === 'unported' &&
-        declaration.ordinaryDeclarationCredit === 0,
+        declaration.status === 'unported' && declaration.ordinaryDeclarationCredit === 0,
     ),
   );
   for (const declaration of inventory.declarations)
     for (const assertion of declaration.assertions)
-      assert.equal(
-        createHash('sha256').update(assertion.text).digest('hex'),
-        assertion.sha256,
-      );
+      assert.equal(createHash('sha256').update(assertion.text).digest('hex'), assertion.sha256);
 });

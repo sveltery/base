@@ -13,4 +13,5 @@
   }
   export const pending = () => ({ frame: frame.currentId, timeout: timeout.isStarted() });
 </script>
+
 <button type="button" onclick={schedule}>Schedule work</button>

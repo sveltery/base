@@ -9,11 +9,15 @@ export function usePopoverRootContext(optional: true): PopoverStore<unknown> | u
 export function usePopoverRootContext(optional = false): PopoverStore<unknown> | undefined {
   const context = getContext<PopoverStore<unknown> | undefined>(ROOT);
   if (context === undefined && !optional) {
-    throw new Error('Base UI: PopoverRootContext is missing. Popover parts must be placed within <Popover.Root>.');
+    throw new Error(
+      'Base UI: PopoverRootContext is missing. Popover parts must be placed within <Popover.Root>.',
+    );
   }
   return context;
 }
-export interface PopoverPortalContext { readonly keepMounted: boolean }
+export interface PopoverPortalContext {
+  readonly keepMounted: boolean;
+}
 export function usePopoverPortalContext() {
   const context = getContext<PopoverPortalContext | undefined>(PORTAL);
   if (context === undefined) throw new Error('Base UI: <Popover.Portal> is missing.');

@@ -30,6 +30,7 @@
     // Upstream deliberately consumes these props: Toggle never participates in a form.
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
     form: _form,
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars -- Consume the form type without forwarding it.
     type: _type,
     ...elementProps
   }: ToggleProps<Value> = $props();
@@ -41,11 +42,7 @@
   const disabled = $derived((disabledProp || groupContext?.disabled) ?? false);
   if (DEV) {
     $effect(() => {
-      if (
-        groupContext &&
-        valueProp === undefined &&
-        groupContext.isValueInitialized
-      ) {
+      if (groupContext && valueProp === undefined && groupContext.isValueInitialized) {
         error(
           'A `<Toggle>` component rendered in a `<ToggleGroup>` has no explicit `value` prop.',
           'This will cause issues between the Toggle Group and Toggle values.',
@@ -55,10 +52,7 @@
     });
   }
   const pressedState = new Controlled(
-    () =>
-      groupContext
-        ? value !== undefined && groupValue.indexOf(value) > -1
-        : pressedProp,
+    () => (groupContext ? value !== undefined && groupValue.indexOf(value) > -1 : pressedProp),
     untrack(() => defaultPressed),
   );
   const pressed = $derived(pressedState.value);
@@ -101,12 +95,7 @@
     });
   }
   const mergedProps = $derived({
-    ...mergeComponentProps(
-      state,
-      { class: classProp, style: style },
-      rendererProps,
-      undefined,
-    ),
+    ...mergeComponentProps(state, { class: classProp, style: style }, rendererProps, undefined),
     [hostAttachmentKey]: attachHost,
   });
 </script>

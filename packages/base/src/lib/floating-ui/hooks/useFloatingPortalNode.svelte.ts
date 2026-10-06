@@ -14,10 +14,7 @@ import { createAttribute } from '../utils/createAttribute.js';
 import { usePortalContext } from '../components/FloatingPortalContext.js';
 
 export type PortalContainer =
-  | HTMLElement
-  | ShadowRoot
-  | { current: HTMLElement | ShadowRoot | null }
-  | null;
+  HTMLElement | ShadowRoot | { current: HTMLElement | ShadowRoot | null } | null;
 
 export interface UseFloatingPortalNodeProps<State extends object> {
   onHost?: Attachment<HTMLElement> | undefined;
@@ -31,18 +28,11 @@ export interface UseFloatingPortalNodeResult {
   readonly nodeId: string | undefined;
 }
 
-export function useFloatingPortalNode<
-  State extends object = Record<string, never>,
->(
+export function useFloatingPortalNode<State extends object = Record<string, never>>(
   getProps: () => UseFloatingPortalNodeProps<State>,
   generatedId: string,
 ): UseFloatingPortalNodeResult {
-  const {
-    onHost,
-    container,
-    componentProps = {},
-    elementProps,
-  } = $derived(getProps());
+  const { onHost, container, componentProps = {}, elementProps } = $derived(getProps());
   const uniqueId = generatedId;
   const attr = createAttribute('portal');
   const parentPortal = usePortalContext();

@@ -6,12 +6,18 @@
   untrack(() => events.push(`child-setup:${stable()}`));
   $effect(() => {
     events.push(`child-effect:${stable()}`);
-    return () => { events.push('child-cleanup'); };
+    return () => {
+      events.push('child-cleanup');
+    };
   });
-  const refProps = { [attachmentKey]: () => {
-    events.push(`attachment:${stable()}`);
-    return () => { events.push('attachment-cleanup'); };
-  } };
+  const refProps = {
+    [attachmentKey]: () => {
+      events.push(`attachment:${stable()}`);
+      return () => {
+        events.push('attachment-cleanup');
+      };
+    },
+  };
 </script>
 
 <input {...refProps} aria-label="helper fixture" />

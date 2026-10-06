@@ -6,27 +6,16 @@
   import { onDestroy, untrack } from 'svelte';
   import { provider } from './context.js';
   import { selectors } from './store.js';
-  import {
-    activeElement,
-    contains,
-    getTarget,
-    isFocusVisible,
-  } from './viewport-focus.js';
+  import { activeElement, contains, getTarget, isFocusVisible } from './viewport-focus.js';
   import type { ToastViewportProps } from './types.js';
-  let {
-    render,
-    children,
-    ref = $bindable(),
-    ...props
-  }: ToastViewportProps = $props();
+  let { render, children, ref = $bindable(), ...props }: ToastViewportProps = $props();
   const { store } = provider();
   let viewport = $state<HTMLElement | null>(null);
   let handlingFocusGuard = false;
   let markedReadyForMouseLeave = false;
   let touchActive = false;
   let focusEventVersion = 0;
-  let pendingBlur:
-    { node: HTMLElement; source: Node | null; release: () => void } | undefined;
+  let pendingBlur: { node: HTMLElement; source: Node | null; release: () => void } | undefined;
   let focusTimeout: { win: Window; id: number } | undefined;
   onDestroy(() => {
     pendingBlur = undefined;
@@ -38,16 +27,13 @@
   const hasTransitioningToasts = $derived(
     snapshot.toasts.some((toast) => toast.transitionStatus === 'ending'),
   );
-  const highPriorityToasts = $derived(
-    snapshot.toasts.filter((toast) => toast.priority === 'high'),
-  );
+  const highPriorityToasts = $derived(snapshot.toasts.filter((toast) => toast.priority === 'high'));
   const hiddenStyle =
     'border:0;clip:rect(0,0,0,0);height:1px;margin:-1px;overflow:hidden;padding:0;position:fixed;white-space:nowrap;width:1px;top:0;left:0';
   function settlePendingBlur() {
     const pending = pendingBlur;
     pendingBlur = undefined;
-    if (pending?.node.isConnected && pending.source?.isConnected)
-      pending.release();
+    if (pending?.node.isConnected && pending.source?.isConnected) pending.release();
   }
   function restoreFocus() {
     store.state.prevFocusElement?.focus({ preventScroll: true });
@@ -65,11 +51,7 @@
     const toasts = store.state.toasts;
     const currentIndex = selectors.toastIndex(store.state, toastId);
     const scan = (from: number, step: number) => {
-      for (
-        let index = from;
-        index >= 0 && index < toasts.length;
-        index += step
-      ) {
+      for (let index = from; index >= 0 && index < toasts.length; index += step) {
         if (toasts[index].transitionStatus !== 'ending') return toasts[index];
       }
       return null;
@@ -114,11 +96,7 @@
       settlePendingBlur();
       if (event.relatedTarget) return;
       const target = getTarget(event);
-      if (
-        target === win ||
-        !contains(node, target) ||
-        !isFocusVisible(activeElement(doc))
-      )
+      if (target === win || !contains(node, target) || !isFocusVisible(activeElement(doc)))
         store.resumeTimers();
       if (focusTimeout) focusTimeout.win.clearTimeout(focusTimeout.id);
       const id = win!.setTimeout(() => {
@@ -129,11 +107,7 @@
     }
     function pointerdown(event: PointerEvent) {
       settlePendingBlur();
-      if (
-        event.pointerType !== 'touch' ||
-        contains(store.state.viewport, getTarget(event))
-      )
-        return;
+      if (event.pointerType !== 'touch' || contains(store.state.viewport, getTarget(event))) return;
       store.resumeTimers();
       store.update({ hovering: false, focused: false });
     }
@@ -237,11 +211,7 @@
   }
   function keydown(event: KeyboardEvent) {
     settlePendingBlur();
-    if (
-      event.key === 'Tab' &&
-      event.shiftKey &&
-      getTarget(event) === store.state.viewport
-    ) {
+    if (event.key === 'Tab' && event.shiftKey && getTarget(event) === store.state.viewport) {
       event.preventDefault();
       restoreFocus();
     }
@@ -251,9 +221,7 @@
     handlingFocusGuard = true;
     const first =
       event.relatedTarget === store.state.viewport
-        ? store.state.toasts.find(
-            (toast) => toast.transitionStatus !== 'ending' && !toast.limited,
-          )
+        ? store.state.toasts.find((toast) => toast.transitionStatus !== 'ending' && !toast.limited)
         : undefined;
     if (first) first.ref?.focus();
     else restoreFocus();

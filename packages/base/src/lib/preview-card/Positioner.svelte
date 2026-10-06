@@ -7,27 +7,21 @@
   import { useAnchorPositioning } from '../internals/anchor-positioning/useAnchorPositioning.svelte.js';
   import { usePositioner } from '../utils/usePositioner.svelte.js';
   import { POPUP_COLLISION_AVOIDANCE } from '../internals/constants.js';
-  import {
-    usePreviewCardRootContext,
-    usePreviewCardPortalContext,
-  } from './context.js';
+  import { usePreviewCardRootContext, usePreviewCardPortalContext } from './context.js';
   import { providePreviewCardPositionerContext } from './positioner/PreviewCardPositionerContext.js';
-  import type {
-    PreviewCardPositionerProps,
-    PreviewCardPositionerState,
-  } from './types.js';
+  import type { PreviewCardPositionerProps, PreviewCardPositionerState } from './types.js';
   import {
     useFloatingNodeId,
     provideFloatingNode,
   } from '../floating-ui/components/FloatingTree.svelte.js';
   import { createInlineMiddleware } from '../utils/popups/inlineRect.js';
 
-  // eslint-disable-next-line no-useless-assignment -- Native bindable ref output is published through the ordered Source ref callback.
   let {
     render,
     class: className,
     style,
     children,
+    // eslint-disable-next-line no-useless-assignment -- Native bindable ref output is published through the ordered Source ref callback.
     ref = $bindable(),
     anchor,
     positionMethod = 'absolute',

@@ -1,10 +1,7 @@
 // Base UI v1.8.0 Switch public types, native Svelte props/snippets. MIT.
 import type { Snippet } from 'svelte';
 import type { HTMLAttributes } from 'svelte/elements';
-import type {
-  BaseUIComponentProps,
-  WithBaseUIEvent,
-} from '../internals/types.js';
+import type { BaseUIComponentProps, WithBaseUIEvent } from '../internals/types.js';
 import type { FieldRootState } from '../field/types.js';
 import type { BaseUIChangeEventDetails } from '../internals/createBaseUIEventDetails.js';
 export interface SwitchRootState extends FieldRootState {
@@ -14,8 +11,7 @@ export interface SwitchRootState extends FieldRootState {
   required: boolean;
 }
 export type SwitchRootChangeEventReason = 'none';
-export type SwitchRootChangeEventDetails =
-  BaseUIChangeEventDetails<SwitchRootChangeEventReason>;
+export type SwitchRootChangeEventDetails = BaseUIChangeEventDetails<SwitchRootChangeEventReason>;
 export type SwitchRootProps = Omit<
   WithBaseUIEvent<HTMLAttributes<HTMLElement>>,
   'class' | 'style' | 'children' | 'onchange'
@@ -32,8 +28,7 @@ export type SwitchRootProps = Omit<
     form?: string | undefined;
     nativeButton?: boolean | undefined;
     onCheckedChange?:
-      | ((checked: boolean, details: SwitchRootChangeEventDetails) => void)
-      | undefined;
+      ((checked: boolean, details: SwitchRootChangeEventDetails) => void) | undefined;
     readOnly?: boolean | undefined;
     required?: boolean | undefined;
     uncheckedValue?: string | undefined;

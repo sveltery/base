@@ -60,8 +60,7 @@
       return () =>
         untrack(() => {
           if (ref === host) ref = null;
-          if (store.context.popupRef.current === host)
-            store.context.popupRef.current = null;
+          if (store.context.popupRef.current === host) store.context.popupRef.current = null;
           setPopupElement?.(null);
         });
     });

@@ -12,10 +12,7 @@
   import { setAccordionRootContext } from './context.js';
   import { createItemList } from './list.js';
   import { EMPTY_VALUE } from './value.js';
-  import type {
-    AccordionRootProps,
-    AccordionRootChangeEventDetails,
-  } from './types.js';
+  import type { AccordionRootProps, AccordionRootChangeEventDetails } from './types.js';
   let {
     children,
     render,
@@ -42,12 +39,10 @@
   const value = $derived(valueState.value);
   const rootState = $derived({ value, disabled, orientation });
   const resolved = $derived.by(() => {
-    const classValue =
-      typeof classProp === 'function' ? classProp(rootState) : classProp;
+    const classValue = typeof classProp === 'function' ? classProp(rootState) : classProp;
     return {
       ...props,
-      class:
-        classValue === undefined ? undefined : resolveClassValue(classValue),
+      class: classValue === undefined ? undefined : resolveClassValue(classValue),
     };
   });
   const list = createItemList();

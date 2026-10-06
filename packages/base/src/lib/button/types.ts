@@ -14,13 +14,14 @@ export interface ButtonState {
 export type ButtonProps = Omit<
   WithBaseUIEvent<HTMLButtonAttributes>,
   'class' | 'style' | 'children' | 'disabled'
-> & BaseUIComponentProps<ButtonState> & {
-  children?: Snippet | undefined;
-  /** Svelte adaptation of the forwarded ref: bind to the actual native host. */
-  ref?: HTMLElement | null | undefined;
-  disabled?: boolean | undefined;
-  /** Whether the render snippet supplies a native button. @default true */
-  nativeButton?: boolean | undefined;
-  /** Whether the button should remain focusable when disabled. @default false */
-  focusableWhenDisabled?: boolean | undefined;
-};
+> &
+  BaseUIComponentProps<ButtonState> & {
+    children?: Snippet | undefined;
+    /** Svelte adaptation of the forwarded ref: bind to the actual native host. */
+    ref?: HTMLElement | null | undefined;
+    disabled?: boolean | undefined;
+    /** Whether the render snippet supplies a native button. @default true */
+    nativeButton?: boolean | undefined;
+    /** Whether the button should remain focusable when disabled. @default false */
+    focusableWhenDisabled?: boolean | undefined;
+  };

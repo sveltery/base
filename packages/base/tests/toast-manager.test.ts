@@ -6,13 +6,24 @@ import { ToastStore, selectors } from '../src/lib/toast/store';
 
 function attached() {
   const manager = createToastManager();
-  const store = new ToastStore({ toasts: [], timeout: 5000, limit: 3, hovering: false, focused: false, isWindowFocused: true, viewport: null, prevFocusElement: null });
+  const store = new ToastStore({
+    toasts: [],
+    timeout: 5000,
+    limit: 3,
+    hovering: false,
+    focused: false,
+    isWindowFocused: true,
+    viewport: null,
+    prevFocusElement: null,
+  });
   store.attachManager(manager);
   return { manager, store, dispose: store.dispose };
 }
 
 describe('complete createToastManager add prerequisite at pinned source :53', () => {
-    it('returns a toast id', async () => {
+  // Preserve the immutable full callback body used by the Source gate.
+  // prettier-ignore
+  it('returns a toast id', async () => {
       const toastManager = createToastManager();
 
       const toastId = toastManager.add({
@@ -25,7 +36,9 @@ describe('complete createToastManager add prerequisite at pinned source :53', ()
 
 // These supplement the complete store leaves. They do not stand in for Provider/DOM mounting.
 describe('source-derived manager channel and timer prerequisites', () => {
-  afterEach(() => { vi.useRealTimers(); });
+  afterEach(() => {
+    vi.useRealTimers();
+  });
 
   it('does not queue events before subscription and unsubscribes cleanly', () => {
     const manager = createToastManager();
@@ -34,7 +47,10 @@ describe('source-derived manager channel and timer prerequisites', () => {
     const unsubscribe = manager[' subscribe'](listener);
     expect(listener).not.toHaveBeenCalled();
     expect(manager.add({ id: 'during' })).toBe('during');
-    expect(listener).toHaveBeenCalledWith({ action: 'add', options: { id: 'during', transitionStatus: 'starting' } });
+    expect(listener).toHaveBeenCalledWith({
+      action: 'add',
+      options: { id: 'during', transitionStatus: 'starting' },
+    });
     unsubscribe();
     manager.close();
     expect(listener).toHaveBeenCalledTimes(1);
@@ -47,7 +63,7 @@ describe('source-derived manager channel and timer prerequisites', () => {
     manager.add({ id: 'other', timeout: 0 });
     vi.advanceTimersByTime(900);
     manager.add({ id: 'save', title: 'Saved', timeout: 1000 });
-    expect(store.state.toasts.map(toast => toast.id)).toEqual(['other', 'save']);
+    expect(store.state.toasts.map((toast) => toast.id)).toEqual(['other', 'save']);
     expect(selectors.toast(store.state, 'save')?.updateKey).toBe(1);
     vi.advanceTimersByTime(999);
     expect(selectors.toast(store.state, 'save')?.transitionStatus).not.toBe('ending');
@@ -77,7 +93,11 @@ describe('source-derived manager channel and timer prerequisites', () => {
     vi.useFakeTimers();
     const { manager, store, dispose } = attached();
     const value = { saved: true };
-    const pending = manager.promise(Promise.resolve(value), { loading: { description: 'Loading', timeout: 0 }, success: result => ({ description: String(result.saved) }), error: 'Failed' });
+    const pending = manager.promise(Promise.resolve(value), {
+      loading: { description: 'Loading', timeout: 0 },
+      success: (result) => ({ description: String(result.saved) }),
+      error: 'Failed',
+    });
     expect(store.state.toasts[0]?.type).toBe('loading');
     expect(await pending).toBe(value);
     const id = store.state.toasts[0].id;
@@ -88,7 +108,13 @@ describe('source-derived manager channel and timer prerequisites', () => {
     vi.advanceTimersByTime(1);
     expect(selectors.toast(store.state, id)?.transitionStatus).toBe('ending');
     const error = new Error('failed');
-    await expect(manager.promise(Promise.reject(error), { loading: 'Loading', success: 'Done', error: result => ({ description: result.message }) })).rejects.toBe(error);
+    await expect(
+      manager.promise(Promise.reject(error), {
+        loading: 'Loading',
+        success: 'Done',
+        error: (result) => ({ description: result.message }),
+      }),
+    ).rejects.toBe(error);
     expect(store.state.toasts[0]?.description).toBe('failed');
     dispose();
   });
@@ -96,7 +122,12 @@ describe('source-derived manager channel and timer prerequisites', () => {
   it('does not revive a dismissed pending promise toast', async () => {
     const { manager, store, dispose } = attached();
     let resolve!: (result: number) => void;
-    const pending = manager.promise(new Promise<number>(callback => { resolve = callback; }), { loading: 'Loading', success: 'Done', error: 'Failed' });
+    const pending = manager.promise(
+      new Promise<number>((callback) => {
+        resolve = callback;
+      }),
+      { loading: 'Loading', success: 'Done', error: 'Failed' },
+    );
     const id = store.state.toasts[0].id;
     manager.close(id);
     resolve(7);

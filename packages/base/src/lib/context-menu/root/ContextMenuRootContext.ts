@@ -7,9 +7,11 @@ export interface ContextMenuRootContext {
   setAnchor: (anchor: ContextMenuRootContext['anchor']) => void;
   backdropRef: { current: HTMLDivElement | null };
   internalBackdropRef: { current: HTMLDivElement | null };
-  actionsRef: { current: {
-    setOpen: (nextOpen: boolean, eventDetails: ContextMenuRoot.ChangeEventDetails) => void;
-  } | null };
+  actionsRef: {
+    current: {
+      setOpen: (nextOpen: boolean, eventDetails: ContextMenuRoot.ChangeEventDetails) => void;
+    } | null;
+  };
   positionerRef: { current: HTMLElement | null };
   allowMouseUpTriggerRef: { current: boolean };
   initialCursorPointRef: { current: { x: number; y: number } | null };
@@ -17,12 +19,15 @@ export interface ContextMenuRootContext {
 }
 
 export const ContextMenuRootContext = Symbol('ContextMenuRootContext');
-export function provideContextMenuRootContext(value: ContextMenuRootContext | undefined) { setContext(ContextMenuRootContext, value); }
+export function provideContextMenuRootContext(value: ContextMenuRootContext | undefined) {
+  setContext(ContextMenuRootContext, value);
+}
 
 export function useContextMenuRootContext(optional: false): ContextMenuRootContext;
 export function useContextMenuRootContext(optional?: true): ContextMenuRootContext | undefined;
 export function useContextMenuRootContext(optional = true) {
-  const context = (getContext<ContextMenuRootContext | undefined>(ContextMenuRootContext) ?? undefined);
+  const context =
+    getContext<ContextMenuRootContext | undefined>(ContextMenuRootContext) ?? undefined;
   if (context === undefined && !optional) {
     throw new Error(
       'Base UI: ContextMenuRootContext is missing. ContextMenu parts must be placed within <ContextMenu.Root>.',

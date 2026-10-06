@@ -5,7 +5,7 @@ import Fixture from './NativeCallbackPublicationFixture.svelte';
 
 const mounted: ReturnType<typeof mount>[] = [];
 afterEach(async () => {
-  await Promise.all(mounted.splice(0).map(component => unmount(component)));
+  await Promise.all(mounted.splice(0).map((component) => unmount(component)));
   document.body.replaceChildren();
 });
 

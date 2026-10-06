@@ -7,27 +7,17 @@ import { extractCurrentFamilyProjection } from '../native-family-projection.mjs'
 const root = new URL('../../', import.meta.url);
 const read = (path) => readFileSync(new URL(path, root), 'utf8');
 const sha = (body) => createHash('sha256').update(body).digest('hex');
-const ts = createRequire(
-  new URL('../../packages/base/package.json', import.meta.url),
-)('typescript');
+const ts = createRequire(new URL('../../packages/base/package.json', import.meta.url))(
+  'typescript',
+);
 const parse = (path) => {
   const body = read(path);
   const source = path.endsWith('.svelte')
-    ? [
-        ...body.matchAll(
-          /<script\b(?:[^>"']|"[^"]*"|'[^']*')*>([\s\S]*?)<\/script>/g,
-        ),
-      ]
+    ? [...body.matchAll(/<script\b(?:[^>"']|"[^"]*"|'[^']*')*>([\s\S]*?)<\/script>/g)]
         .map((match) => match[1])
         .join('\n')
     : body;
-  return ts.createSourceFile(
-    path,
-    source,
-    ts.ScriptTarget.Latest,
-    true,
-    ts.ScriptKind.TS,
-  );
+  return ts.createSourceFile(path, source, ts.ScriptTarget.Latest, true, ts.ScriptKind.TS);
 };
 const nodes = (root, predicate) => {
   const found = [];
@@ -39,6 +29,37 @@ const nodes = (root, predicate) => {
   return found;
 };
 const expression = (node) => node.getText().replace(/\s+/g, '');
+// Compare the complete expression tree while ignoring optional presentation parentheses.
+// Optional-chain flags, evaluated literals and prefix/postfix operators remain binding.
+function assertExpression(actual, expected) {
+  const tree = ts.createSourceFile(
+    'expected.ts',
+    `const value = ${expected};`,
+    ts.ScriptTarget.Latest,
+    true,
+  );
+  assert.equal(tree.parseDiagnostics.length, 0);
+  function shape(node) {
+    if (ts.isParenthesizedExpression(node)) return shape(node.expression);
+    const children = [];
+    ts.forEachChild(node, (child) => {
+      children.push(shape(child));
+    });
+    return {
+      kind: node.kind,
+      flags: node.flags & (ts.NodeFlags.OptionalChain | ts.NodeFlags.Let | ts.NodeFlags.Const),
+      text: node.text,
+      rawText: node.rawText,
+      operator: node.operator,
+      children,
+    };
+  }
+  assert.deepEqual(
+    shape(actual),
+    shape(tree.statements[0].declarationList.declarations[0].initializer),
+  );
+}
+
 const variable = (root, name) => {
   const matches = nodes(
     root,
@@ -48,19 +69,13 @@ const variable = (root, name) => {
   return matches[0].initializer;
 };
 const bodyOf = (root, name) => {
-  const matches = nodes(
-    root,
-    (node) => ts.isFunctionDeclaration(node) && node.name?.text === name,
-  );
+  const matches = nodes(root, (node) => ts.isFunctionDeclaration(node) && node.name?.text === name);
   assert.equal(matches.length, 1, name);
   return matches[0].body;
 };
 test('private anchor foundation keeps immutable source/assertions and zero deferred ordinary credit', () => {
   const ledger = JSON.parse(read('parity/anchor-positioning/ledger.json'));
-  assert.equal(
-    ledger.upstream.commit,
-    '47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c',
-  );
+  assert.equal(ledger.upstream.commit, '47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c');
   for (const source of ledger.sources)
     assert.equal(sha(read(source.snapshot)), source.sha256, source.source);
   assert.deepEqual(ledger.counts, {
@@ -78,15 +93,11 @@ test('private anchor foundation keeps immutable source/assertions and zero defer
     const assertions = [];
     for (const declaration of port.declarations) {
       const end = lines.findIndex(
-        (line, i) =>
-          i >= declaration.line && (line === '  });' || line === '  );'),
+        (line, i) => i >= declaration.line && (line === '  });' || line === '  );'),
       );
       const body = lines.slice(declaration.line - 1, end + 1).join('\n') + '\n';
       assert.equal(sha(body), declaration.bodySha256);
-      assert.deepEqual(
-        body.match(/expect\([\s\S]*?;/g),
-        declaration.assertions,
-      );
+      assert.deepEqual(body.match(/expect\([\s\S]*?;/g), declaration.assertions);
       assertions.push(...declaration.assertions);
     }
     const normalize = (text) => text.replace(/\s+/g, '');
@@ -105,10 +116,7 @@ test('private anchor foundation keeps immutable source/assertions and zero defer
     select: 0,
   });
   for (const license of ['UPSTREAM_LICENSE', 'FLOATING_UI_LICENSE'])
-    assert.match(
-      read(`parity/anchor-positioning/${license}`),
-      /Permission is hereby granted/,
-    );
+    assert.match(read(`parity/anchor-positioning/${license}`), /Permission is hereby granted/);
   for (const path of [
     'packages/base/tests/dom/anchor-positioning-lifecycle.test.ts',
     'tests/browser/anchor-positioning.spec.ts',
@@ -121,10 +129,7 @@ test('private anchor foundation keeps immutable source/assertions and zero defer
     'packages/base/src/lib/internals/anchor-positioning/useFloating.svelte.ts',
   );
   assert.doesNotMatch(controller.replace(/\/\/[^\n]*/g, ''), /platform\s*:/);
-  assert.match(
-    controller,
-    /await computePosition\(currentReference, currentFloating, config\)/,
-  );
+  assert.match(controller, /await computePosition\(currentReference, currentFloating, config\)/);
   const anchor = read(
     'packages/base/src/lib/internals/anchor-positioning/useAnchorPositioning.svelte.ts',
   );
@@ -134,17 +139,12 @@ test('private anchor foundation keeps immutable source/assertions and zero defer
     anchor,
     /const position = rootContext[\s\S]*useBaseUIFloating\([\s\S]*: useFloating\(getFloatingOptions\)/,
   );
-  const bridge = read(
-    'packages/base/src/lib/floating-ui/hooks/useFloating.svelte.ts',
-  );
+  const bridge = read('packages/base/src/lib/floating-ui/hooks/useFloating.svelte.ts');
   assert.match(
     bridge,
     /useFloating as usePosition[\s\S]*anchor-positioning\/useFloating\.svelte\.js/,
   );
-  assert.doesNotMatch(
-    bridge.replace(/\/\/[^\n]*/g, ''),
-    /\bcomputePosition\s*\(/,
-  );
+  assert.doesNotMatch(bridge.replace(/\/\/[^\n]*/g, ''), /\bcomputePosition\s*\(/);
   assert.match(
     anchor,
     /createPositioningPolicy\(currentOptions, \(\) => currentArrow, isCurrent, currentMountSide\)/,
@@ -166,32 +166,31 @@ test('selected root-store bridge preserves reference ownership and delegates one
   const selected = variable(anchor, 'position');
   assert(ts.isConditionalExpression(selected));
   assert.equal(expression(selected.condition), 'rootContext');
-  assert.equal(
-    expression(selected.whenTrue),
-    'useBaseUIFloating(()=>({...getFloatingOptions(),rootContext,nodeId:options.nodeId,externalTree:options.externalTree}))',
-  );
-  assert.equal(
-    expression(selected.whenFalse),
-    'useFloating(getFloatingOptions)',
-  );
+  const baseCall = selected.whenTrue;
+  assert(ts.isCallExpression(baseCall));
+  assert.equal(expression(baseCall.expression), 'useBaseUIFloating');
+  assert.equal(baseCall.arguments.length, 1);
+  const getOptions = baseCall.arguments[0];
+  assert(ts.isArrowFunction(getOptions));
+  assert.equal(getOptions.parameters.length, 0);
+  assert.equal(getOptions.modifiers?.length ?? 0, 0);
+  assert(ts.isParenthesizedExpression(getOptions.body));
+  assert(ts.isObjectLiteralExpression(getOptions.body.expression));
+  assert.deepEqual(getOptions.body.expression.properties.map(expression), [
+    '...getFloatingOptions()',
+    'rootContext',
+    'nodeId:options.nodeId',
+    'externalTree:options.externalTree',
+  ]);
+  assert.equal(expression(selected.whenFalse), 'useFloating(getFloatingOptions)');
 
-  const bridgePath =
-    'packages/base/src/lib/floating-ui/hooks/useFloating.svelte.ts';
+  const bridgePath = 'packages/base/src/lib/floating-ui/hooks/useFloating.svelte.ts';
   const bridge = parse(bridgePath);
-  const forwarding = nodes(
-    bodyOf(bridge, 'useBaseUIFloating'),
-    ts.isReturnStatement,
-  );
+  const forwarding = nodes(bodyOf(bridge, 'useBaseUIFloating'), ts.isReturnStatement);
   assert.equal(forwarding.length, 1);
-  assert.equal(
-    expression(forwarding[0].expression),
-    'useFloatingWithStore(getOptions)',
-  );
+  assert.equal(expression(forwarding[0].expression), 'useFloatingWithStore(getOptions)');
   const business = bodyOf(bridge, 'useFloatingWithStore');
-  assert.equal(
-    expression(variable(business, 'store')),
-    '$derived(options.rootContext)',
-  );
+  assert.equal(expression(variable(business, 'store')), '$derived(options.rootContext)');
   for (const name of [
     'referenceElement',
     'floatingElement',
@@ -199,10 +198,7 @@ test('selected root-store bridge preserves reference ownership and delegates one
     'open',
     'floatingId',
   ]) {
-    assert.equal(
-      expression(variable(business, name)),
-      `$derived(store.useState('${name}'))`,
-    );
+    assert.equal(expression(variable(business, name)), `$derived(store.useState('${name}'))`);
   }
   assert.equal(
     expression(variable(business, 'position')),
@@ -212,15 +208,17 @@ test('selected root-store bridge preserves reference ownership and delegates one
     expression(variable(business, 'tree')),
     '$derived(options.externalTree??contextTree)',
   );
+  const syncedFloating = variable(business, 'syncedFloatingElement');
+  assert(ts.isCallExpression(syncedFloating));
+  assert.equal(expression(syncedFloating.expression), '$derived');
+  assert.equal(syncedFloating.arguments.length, 1);
   assert.equal(
-    expression(variable(business, 'syncedFloatingElement')),
-    '$derived(localFloatingElement===undefined?floatingElement:localFloatingElement)',
+    expression(syncedFloating.arguments[0]),
+    'localFloatingElement===undefined?floatingElement:localFloatingElement',
   );
   const updates = nodes(
     business,
-    (node) =>
-      ts.isCallExpression(node) &&
-      expression(node.expression) === 'store.update',
+    (node) => ts.isCallExpression(node) && expression(node.expression) === 'store.update',
   );
   assert.equal(updates.length, 1);
   assert.equal(
@@ -229,10 +227,16 @@ test('selected root-store bridge preserves reference ownership and delegates one
   );
 
   const setPosition = bodyOf(business, 'setPositionReference');
-  assert.equal(
-    expression(variable(setPosition, 'computedPositionReference')),
-    'isElement(node)?{getBoundingClientRect:()=>node.getBoundingClientRect(),getClientRects:()=>node.getClientRects(),contextElement:node}:node',
-  );
+  const computedReference = variable(setPosition, 'computedPositionReference');
+  assert(ts.isConditionalExpression(computedReference));
+  assert.equal(expression(computedReference.condition), 'isElement(node)');
+  assert(ts.isObjectLiteralExpression(computedReference.whenTrue));
+  assert.deepEqual(computedReference.whenTrue.properties.map(expression), [
+    'getBoundingClientRect:()=>node.getBoundingClientRect()',
+    'getClientRects:()=>node.getClientRects()',
+    'contextElement:node',
+  ]);
+  assert.equal(expression(computedReference.whenFalse), 'node');
   assert.deepEqual(setPosition.statements.slice(1).map(expression), [
     'positionReference=computedPositionReference;',
     'position.refs.setReference(computedPositionReference);',
@@ -240,10 +244,7 @@ test('selected root-store bridge preserves reference ownership and delegates one
   const setReference = bodyOf(business, 'setReference');
   assert.equal(setReference.statements.length, 2);
   assert(setReference.statements.every(ts.isIfStatement));
-  assert.equal(
-    expression(setReference.statements[0].expression),
-    'isElement(node)||node===null',
-  );
+  assert.equal(expression(setReference.statements[0].expression), 'isElement(node)||node===null');
   assert.equal(
     expression(setReference.statements[0].thenStatement),
     '{domReferenceRef.current=node;localDomReference=node;}',
@@ -259,43 +260,27 @@ test('selected root-store bridge preserves reference ownership and delegates one
   const context = variable(business, 'context');
   assert(ts.isObjectLiteralExpression(context));
   assert.equal(
-    expression(
-      context.properties.find((node) => node.name?.getText() === 'rootStore'),
-    ),
+    expression(context.properties.find((node) => node.name?.getText() === 'rootStore')),
     'getrootStore(){returnstore;}',
   );
   assert.equal(
-    expression(
-      context.properties.find(
-        (node) => node.name?.getText() === 'onOpenChange',
-      ),
-    ),
+    expression(context.properties.find((node) => node.name?.getText() === 'onOpenChange')),
     'onOpenChange(nextOpen,details){store.setOpen(nextOpen,details);}',
   );
   const assignments = nodes(
     business,
-    (node) =>
-      ts.isBinaryExpression(node) &&
-      node.operatorToken.kind === ts.SyntaxKind.EqualsToken,
+    (node) => ts.isBinaryExpression(node) && node.operatorToken.kind === ts.SyntaxKind.EqualsToken,
   );
-  assert.equal(
-    expression(variable(business, 'dataRef')),
-    'store.context.dataRef',
-  );
+  assert.equal(expression(variable(business, 'dataRef')), 'store.context.dataRef');
   assert(
-    assignments.some(
-      (node) => expression(node) === 'dataRef.current.floatingContext=context',
-    ),
+    assignments.some((node) => expression(node) === 'dataRef.current.floatingContext=context'),
   );
-  assert(
-    assignments.some((node) => expression(node) === 'node.context=context'),
-  );
+  assert(assignments.some((node) => expression(node) === 'node.context=context'));
   const publicationCleanup = nodes(
     business,
     (node) =>
       ts.isIfStatement(node) &&
-      expression(node.expression) ===
-        'dataRef.current.floatingContext===context',
+      expression(node.expression) === 'dataRef.current.floatingContext===context',
   );
   assert.equal(publicationCleanup.length, 1);
   assert.equal(
@@ -304,15 +289,10 @@ test('selected root-store bridge preserves reference ownership and delegates one
   );
   const nodeCleanup = nodes(
     business,
-    (node) =>
-      ts.isIfStatement(node) &&
-      expression(node.expression) === 'node?.context===context',
+    (node) => ts.isIfStatement(node) && expression(node.expression) === 'node?.context===context',
   );
   assert.equal(nodeCleanup.length, 1);
-  assert.equal(
-    expression(nodeCleanup[0].thenStatement),
-    'node.context=undefined;',
-  );
+  assert.equal(expression(nodeCleanup[0].thenStatement), 'node.context=undefined;');
 
   // Every used module is inspected for a positioning call: the bridge selects
   // real store elements, while the existing DOM driver owns async geometry.
@@ -320,21 +300,18 @@ test('selected root-store bridge preserves reference ownership and delegates one
   const calls = closure.modules.flatMap((module) =>
     nodes(
       parse(module.source),
-      (node) =>
-        ts.isCallExpression(node) &&
-        expression(node.expression) === 'computePosition',
+      (node) => ts.isCallExpression(node) && expression(node.expression) === 'computePosition',
     ).map((node) => ({ source: module.source, call: expression(node) })),
   );
   assert.deepEqual(calls, [
     {
-      source:
-        'packages/base/src/lib/internals/anchor-positioning/useFloating.svelte.ts',
+      source: 'packages/base/src/lib/internals/anchor-positioning/useFloating.svelte.ts',
       call: 'computePosition(currentReference,currentFloating,config)',
     },
   ]);
   const driver = parse(calls[0].source);
-  assert.equal(
-    expression(variable(driver, 'reference')),
+  assertExpression(
+    variable(driver, 'reference'),
     '$derived(options.elements?options.elements.reference||localReference:positionReference??domReference)',
   );
   const current = variable(driver, 'isCurrent');
@@ -345,8 +322,7 @@ test('selected root-store bridge preserves reference ownership and delegates one
   const afterCompute = nodes(
     driver,
     (node) =>
-      ts.isIfStatement(node) &&
-      expression(node.expression) === '!isCurrent(currentFloating)',
+      ts.isIfStatement(node) && expression(node.expression) === '!isCurrent(currentFloating)',
   );
   assert.equal(afterCompute.length, 1);
   assert.equal(expression(afterCompute[0].thenStatement), 'return;');

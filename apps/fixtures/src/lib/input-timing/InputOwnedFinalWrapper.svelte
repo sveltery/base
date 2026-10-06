@@ -5,10 +5,27 @@
   import { createChangeEventDetails } from '../../../../../packages/base/src/lib/internals/createBaseUIEventDetails.js';
   import type { InputProps } from '@sveltery/base/input';
   import type { HTMLInputAttributes } from 'svelte/elements';
-  let { children, render, disabled = false, id, value, defaultValue, onValueChange, ref = $bindable(), ...props }: InputProps = $props();
+  let {
+    children,
+    render,
+    disabled = false,
+    id,
+    value,
+    defaultValue,
+    onValueChange,
+    ref = $bindable(),
+    ...props
+  }: InputProps = $props();
   const instanceId = $props.id();
   const generatedId = `base-ui-${instanceId}`;
-  const state = $derived({ disabled, touched: false, dirty: false, filled: false, focused: false, valid: null });
+  const state = $derived({
+    disabled,
+    touched: false,
+    dirty: false,
+    filled: false,
+    focused: false,
+    valid: null,
+  });
   function attach(node: HTMLElement) {
     // Native Svelte does not restore a rejected controlled edit. Synchronize the external
     // DOM after the owner has processed its callback, without manufacturing reset defaults.
@@ -22,10 +39,15 @@
       });
     };
     node.addEventListener('input', restoreControlledEdit);
-    return () => { connected = false; node.removeEventListener('input', restoreControlledEdit); };
+    return () => {
+      connected = false;
+      node.removeEventListener('input', restoreControlledEdit);
+    };
   }
   const internal = $derived({
-    id: id ?? generatedId, disabled, 'data-disabled': disabled ? '' : undefined,
+    id: id ?? generatedId,
+    disabled,
+    'data-disabled': disabled ? '' : undefined,
     // Preserve native value/defaultValue setters, including both getters in remote .as spreads.
     ...(defaultValue !== undefined ? { defaultValue } : {}),
     ...(value !== undefined ? { value } : {}),
@@ -37,18 +59,32 @@
     },
   });
 </script>
+
 {#snippet nativeInput(nativeProps: Record<string | symbol, unknown>)}
-  <input {...nativeProps as HTMLInputAttributes} oninput={event => {
-    // Fixture-only change: restore from this component's own controlled prop getter.
-    // The surrounding script, merge path, attachment and runtime remain otherwise copied.
-    const input = event.currentTarget;
-    try { (nativeProps.oninput as ((event: Event) => void) | undefined)?.(event); }
-    finally {
-      if (value !== undefined) {
-        const next = value == null ? '' : String(value);
-        if (input.value !== next) input.value = next;
+  <input
+    {...nativeProps as HTMLInputAttributes}
+    oninput={(event) => {
+      // Fixture-only change: restore from this component's own controlled prop getter.
+      // The surrounding script, merge path, attachment and runtime remain otherwise copied.
+      const input = event.currentTarget;
+      try {
+        (nativeProps.oninput as ((event: Event) => void) | undefined)?.(event);
+      } finally {
+        if (value !== undefined) {
+          const next = value == null ? '' : String(value);
+          if (input.value !== next) input.value = next;
+        }
       }
-    }
-  }} />
+    }}
+  />
 {/snippet}
-<Element tag="input" {internal} {props} {state} render={render ?? nativeInput} {children} {attach} bind:ref />
+<Element
+  tag="input"
+  {internal}
+  {props}
+  {state}
+  render={render ?? nativeInput}
+  {children}
+  {attach}
+  bind:ref
+/>

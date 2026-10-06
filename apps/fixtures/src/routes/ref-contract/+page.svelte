@@ -4,10 +4,19 @@
   let { data } = $props();
   let hydrated = $state(false);
   let fixture = $state<ReturnType<typeof Fixture>>();
-  onMount(() => { hydrated = true; });
+  onMount(() => {
+    hydrated = true;
+  });
 </script>
+
 <main data-hydrated={hydrated}>
   <Fixture bind:this={fixture} {...data} />
-  <output data-testid="ref-state">{fixture?.getRef() === undefined ? 'undefined' : fixture.getRef() === null ? 'null' : fixture.getRef()?.tagName}</output>
+  <output data-testid="ref-state"
+    >{fixture?.getRef() === undefined
+      ? 'undefined'
+      : fixture.getRef() === null
+        ? 'null'
+        : fixture.getRef()?.tagName}</output
+  >
   <button onclick={() => fixture?.hide()}>Remove component</button>
 </main>

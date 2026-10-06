@@ -102,10 +102,7 @@ export type {
   ImageLoadingStatus,
 } from './avatar/index.js';
 export { DirectionProvider, useDirection } from './direction-provider/index.js';
-export type {
-  DirectionProviderProps,
-  TextDirection,
-} from './direction-provider/index.js';
+export type { DirectionProviderProps, TextDirection } from './direction-provider/index.js';
 export { Accordion } from './accordion/index.js';
 export type {
   AccordionValue,
@@ -125,10 +122,7 @@ export type {
   AccordionItemChangeEventDetails,
 } from './accordion/index.js';
 export { CSPProvider } from './csp-provider/index.js';
-export type {
-  CSPProviderProps,
-  CSPProviderState,
-} from './csp-provider/index.js';
+export type { CSPProviderProps, CSPProviderState } from './csp-provider/index.js';
 export type { HTMLProps, ComponentRenderFn } from './internals/types.js';
 
 export {

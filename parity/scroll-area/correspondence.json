@@ -3,12 +3,12 @@
   "preRuntimePlanCommit": "561dd1f",
   "scope": "Every56 actual local runtime/type closure modules, including inherited helper bodies and complete public PR55 platform closure. Conservative129 original module graph separately retains unselected barrel/type bodies without acceptance credit.",
   "nativePrimitiveMapping": [
-    "React useState/useMemo/useCallback/useStableCallback \u2192 native runes/derived getters/stable component setup functions",
-    "React ref/cloneElement/render and getReactElementRef \u2192 canonical native attachment/RenderElement/snippet boundary",
-    "React useIsoLayoutEffect/useOnMount/useTimeout ownership \u2192 native effect/onMount teardown with unchanged business timers/observer cleanup",
-    "React stylesheet href/precedence hoist/dedup \u2192 native style ownership, exact constant CSS/nonce; zero unchanged source credit",
-    "React forwardRef/intrinsic/event types \u2192 native bindable host refs, HTMLAttributes, Snippets and real DOM Event with business preventBaseUIHandler",
-    "React useId \u2192 canonical native $props.id override/default/hydration path"
+    "React useState/useMemo/useCallback/useStableCallback → native runes/derived getters/stable component setup functions",
+    "React ref/cloneElement/render and getReactElementRef → canonical native attachment/RenderElement/snippet boundary",
+    "React useIsoLayoutEffect/useOnMount/useTimeout ownership → native effect/onMount teardown with unchanged business timers/observer cleanup",
+    "React stylesheet href/precedence hoist/dedup → native style ownership, exact constant CSS/nonce; zero unchanged source credit",
+    "React forwardRef/intrinsic/event types → native bindable host refs, HTMLAttributes, Snippets and real DOM Event with business preventBaseUIHandler",
+    "React useId → canonical native $props.id override/default/hydration path"
   ],
   "canonicalDevelopmentReuse": [
     {
@@ -76,7 +76,7 @@
     },
     {
       "local": "packages/base/src/lib/internals/nativeProps.ts",
-      "localSha256": "fbb6178288b28dad7549551064e30bf2b432880f1a5b2476223b011f9e72a71a",
+      "localSha256": "653fb2f684da7987d8c51b2384cbf5e8839c30a620a7b790f451bbeb87479cab",
       "source": "packages/react/src/internals/useRenderElement.tsx",
       "sourceSha256": "0b55dc232a0d630a666a13873213d1bdde040e973031f2b307a64cc157644a4c",
       "kind": "native-renderer",
@@ -86,26 +86,30 @@
       "unchangedAssertionCredit": 0
     },
     {
-      "local": "packages/base/src/lib/internals/nativeRefAttachment.ts",
-      "localSha256": "659427aaebb2b294178e5ccd147f6cbb4cb87a9704c18c62ff04a2847a7e1a56",
+      "local": [],
       "source": "packages/utils/src/useMergedRefs.ts",
       "sourceSha256": "5fa12ae01abedc23ba814e9c59f015cf14d306044638b56c977780de43275ba3",
       "kind": "native-ref",
       "manualScope": "Canonical native attachment/ref lifetime; merged attach order, null/cleanup on detach.",
       "developerInspected": "full used local body plus selected original business body and native boundary; inherited bodies are not accepted solely by hash",
       "independentWholeReview": "pending",
-      "unchangedAssertionCredit": 0
+      "unchangedAssertionCredit": 0,
+      "nativeReplacement": "Runtime renderer/ref transport and public UseRender API are retired. Each actual component uses its own native snippet/intrinsic branch, binding and attachment; see parity/native-snippets/native-graph.json. No unchanged framework assertion credit.",
+      "nativeReplacementCredit": 0,
+      "currentNativeHostGraph": "parity/native-snippets/native-graph.json"
     },
     {
-      "local": "packages/base/src/lib/internals/RenderElement.svelte",
-      "localSha256": "bbc7cb9be3a6d554f07090d250923b06b5581b29f190d48d874b62698f1cdef5",
+      "local": [],
       "source": "packages/react/src/internals/useRenderElement.tsx",
       "sourceSha256": "0b55dc232a0d630a666a13873213d1bdde040e973031f2b307a64cc157644a4c",
       "kind": "native-renderer",
       "manualScope": "Canonical native host/snippet boundary, attachments, child transport and replacement lifecycle; no React element clone.",
       "developerInspected": "full used local body plus selected original business body and native boundary; inherited bodies are not accepted solely by hash",
       "independentWholeReview": "pending",
-      "unchangedAssertionCredit": 0
+      "unchangedAssertionCredit": 0,
+      "nativeReplacement": "Runtime renderer/ref transport and public UseRender API are retired. Each actual component uses its own native snippet/intrinsic branch, binding and attachment; see parity/native-snippets/native-graph.json. No unchanged framework assertion credit.",
+      "nativeReplacementCredit": 0,
+      "currentNativeHostGraph": "parity/native-snippets/native-graph.json"
     },
     {
       "local": "packages/base/src/lib/internals/resolveClassValue.ts",
@@ -120,7 +124,7 @@
     },
     {
       "local": "packages/base/src/lib/internals/types.ts",
-      "localSha256": "56f62e49c3a1504981c523a1bee8764c45de90fb88f0fab5154bb7fc9d0c1bd3",
+      "localSha256": "6a36f5f103ef940b8a32d63f0288d897096c846fb2361b4ef44733e9a899907e",
       "source": "packages/react/src/internals/types.ts",
       "sourceSha256": "ed0c29125011488378a038fe179287809ef624d9d84389d83d7207b25e3d416a",
       "kind": "native-types",
@@ -141,15 +145,18 @@
       "unchangedAssertionCredit": 0
     },
     {
-      "local": "packages/base/src/lib/internals/useRenderElement.ts",
-      "localSha256": "d344184b30e91d54544e9c5b00583679762e0ec099306e9a682df8426655c31a",
+      "local": "packages/base/src/lib/internals/mergeComponentProps.ts",
+      "localSha256": "803da5cb2c52515e1e68e16b66b61060c31ca03d183bb09d928b601bbb70cab7",
       "source": "packages/react/src/internals/useRenderElement.tsx",
       "sourceSha256": "0b55dc232a0d630a666a13873213d1bdde040e973031f2b307a64cc157644a4c",
       "kind": "native-renderer-business",
       "manualScope": "Canonical ordered state attributes, props, resolved class/style, ref composition and native replacement props; events remain source last-handler-first order.",
       "developerInspected": "full used local body plus selected original business body and native boundary; inherited bodies are not accepted solely by hash",
       "independentWholeReview": "pending",
-      "unchangedAssertionCredit": 0
+      "unchangedAssertionCredit": 0,
+      "nativeReplacement": "Only pure prop/appearance/event/cancellation/state-attribute composition remains in mergeComponentProps; actual rendering and DOM publication belong to each component native branch/attachment.",
+      "nativeReplacementCredit": 0,
+      "currentNativeHostGraph": "parity/native-snippets/native-graph.json"
     },
     {
       "local": "packages/base/src/lib/merge-props/index.ts",
@@ -164,7 +171,7 @@
     },
     {
       "local": "packages/base/src/lib/merge-props/mergeProps.ts",
-      "localSha256": "110f1b7615a7ccadcfc1e8775451eea5f9ca971bcafee6f3ffd4ea8470303d00",
+      "localSha256": "b2c30a6df68fe9744f250f0d0b8e21d89de133146724efd6eed7cea0fce0f8b9",
       "source": "packages/react/src/merge-props/mergeProps.ts",
       "sourceSha256": "cdc8fc165df88ddc4034fb2242ebf1ef32b504755404c343abf965cb3e4c90ce",
       "kind": "business",
@@ -186,7 +193,7 @@
     },
     {
       "local": "packages/base/src/lib/scroll-area/content/ScrollAreaContent.svelte",
-      "localSha256": "dfbe60324da3bc6960da9fa6affa479f2d5c09f91c32633aeac795dde8e6bf5f",
+      "localSha256": "560092de997a577fb23431e1de3e6133cbaee9c58b82a2826dc7ac626cc7796c",
       "source": "packages/react/src/scroll-area/content/ScrollAreaContent.tsx",
       "sourceSha256": "17df4f2658206fded9bd8a93f8948cdf1d442c68ab4b5cb823249614513160c9",
       "kind": "business-native-lifecycle",
@@ -197,7 +204,7 @@
     },
     {
       "local": "packages/base/src/lib/scroll-area/corner/ScrollAreaCorner.svelte",
-      "localSha256": "5966ce199be649381971ac8417d9e55ddc7725bda936c85da3a839d3e6170a0a",
+      "localSha256": "bb31350e05724d0f4c370edc9de6a008da21e543e4f0cd388468fcb1de7cecce",
       "source": "packages/react/src/scroll-area/corner/ScrollAreaCorner.tsx",
       "sourceSha256": "23d3d19c96bc9b0eb1cb206eb635b1cc81a6721075a06e0bc353c94dc2956c29",
       "kind": "business-native-renderer",
@@ -219,7 +226,7 @@
     },
     {
       "local": "packages/base/src/lib/scroll-area/index.ts",
-      "localSha256": "2d85c2c7f8c00b9a68c4cdb5db7a414c5df3d541f275a1ca5c5795ec49203621",
+      "localSha256": "cfb82305c417eed4428f94c961957c936911647a87c945270a1b1b6f7ddcb5c0",
       "source": "packages/react/src/scroll-area/index.ts",
       "sourceSha256": "f95f7aae9d66e01094ab1e13638b4a11f3b7621d30d7d966f8a341d9c5369db3",
       "kind": "business-or-barrel",
@@ -230,7 +237,7 @@
     },
     {
       "local": "packages/base/src/lib/scroll-area/root/ScrollAreaRoot.svelte",
-      "localSha256": "e7447b4e80edd96e1ef4c560131ef20883f771cb7a4ee88b828df2318b26d67f",
+      "localSha256": "13fd226f680d765dfa8175ae08203830edd0e7680966eff8c528cd5293a44359",
       "source": "packages/react/src/scroll-area/root/ScrollAreaRoot.tsx",
       "sourceSha256": "d896463fba2e039747d766543b72af77ec4f654db3e5cf0986009f7326259ed3",
       "kind": "business-native-lifecycle",
@@ -241,7 +248,7 @@
     },
     {
       "local": "packages/base/src/lib/scroll-area/root/ScrollAreaRootContext.ts",
-      "localSha256": "72fca323c65ce1e41396de8029385fad76d8f40e1e91f5f5617e9cc7e9e0356c",
+      "localSha256": "a7a4eb97aff8f97a0b38dea5ea0e59233374a936320baa2f2fdf2bf9bb41c3c0",
       "source": "packages/react/src/scroll-area/root/ScrollAreaRootContext.ts",
       "sourceSha256": "6b3bf8750ae85bcc6983ebb711ea0e6904da1ba1928d26102477b7ea12e6d9f9",
       "kind": "native-context",
@@ -285,7 +292,7 @@
     },
     {
       "local": "packages/base/src/lib/scroll-area/scrollbar/ScrollAreaScrollbar.svelte",
-      "localSha256": "eaed197a1393aa6e449ca6da7485b791f903ecb1b2166a505a3aee6b5fe9eb09",
+      "localSha256": "70c97699e919f05dfde65d2369d702d165c121d958c2e4199ac69380e9872fd1",
       "source": "packages/react/src/scroll-area/scrollbar/ScrollAreaScrollbar.tsx",
       "sourceSha256": "0658fb17cb20fba0b41c617c8e02d2fda928b5fd7a67d168ba923254385ff48e",
       "kind": "business-native-lifecycle",
@@ -296,7 +303,7 @@
     },
     {
       "local": "packages/base/src/lib/scroll-area/scrollbar/ScrollAreaScrollbarContext.ts",
-      "localSha256": "75af3a1d1a90971371105f00bf2d86ce20afc2046f9bf32a5e23cd38c1b4bebc",
+      "localSha256": "5e6125bb09a62db48b35ebb768b26301332be3713ef83d62cc4f4972885f57bd",
       "source": "packages/react/src/scroll-area/scrollbar/ScrollAreaScrollbarContext.ts",
       "sourceSha256": "29a806b65cf776d8582beb2640a06788393394c84d600369348d0729c490eed4",
       "kind": "native-context",
@@ -329,7 +336,7 @@
     },
     {
       "local": "packages/base/src/lib/scroll-area/thumb/ScrollAreaThumb.svelte",
-      "localSha256": "60c225e4fd2c4439ee9efc7b98c7acf94b0002ac0fc491dcf59175a84d3c890f",
+      "localSha256": "0e4b014e41eaa1385ff1f105936fb4e6808a557468390cd736a2d97d55b4ee77",
       "source": "packages/react/src/scroll-area/thumb/ScrollAreaThumb.tsx",
       "sourceSha256": "fa29ceb659aed174ac4ddf13068a89a3e4af78aff43fc35d901382b6dc1e3e7e",
       "kind": "business-native-lifecycle",
@@ -340,7 +347,7 @@
     },
     {
       "local": "packages/base/src/lib/scroll-area/types.ts",
-      "localSha256": "b131ac9f6a8cb94b9ce8ce934c9aac5ea8d3b8c0034810cce1d7ccd6a6b6e20a",
+      "localSha256": "a9dd1cfa3a3dcc5845c87e756291cbd6c5a31528ece75e8d3baa7b36bf64052f",
       "source": "packages/react/src/scroll-area/index.ts",
       "sourceSha256": "f95f7aae9d66e01094ab1e13638b4a11f3b7621d30d7d966f8a341d9c5369db3",
       "kind": "native-types",
@@ -362,7 +369,7 @@
     },
     {
       "local": "packages/base/src/lib/scroll-area/viewport/ScrollAreaViewport.svelte",
-      "localSha256": "d75079edf47f84064398e70ee0337edce99d8ebf1be88f793dfd9040445658b0",
+      "localSha256": "683dde25325e0c67c391d05484838267955764632bd096544ab9825aca1f28c2",
       "source": "packages/react/src/scroll-area/viewport/ScrollAreaViewport.tsx",
       "sourceSha256": "2de647b48d3863d681fb319b62528df01068a1342ea5986100302492323c7932",
       "kind": "business-native-lifecycle",
@@ -373,7 +380,7 @@
     },
     {
       "local": "packages/base/src/lib/scroll-area/viewport/ScrollAreaViewportContext.ts",
-      "localSha256": "2f426c29287b7936e8f96a727b1ac060b7900192dd40e83c4c0029ae1e3dafc9",
+      "localSha256": "46ce52a8867a50168e72d097a882b25233fa5c7debec6523d5332115815fc2e7",
       "source": "packages/react/src/scroll-area/viewport/ScrollAreaViewportContext.ts",
       "sourceSha256": "15b9f811e94589e6e4505651900e5796a6ad955b087bb9bfc1ad48a44ba1a19b",
       "kind": "native-context",
@@ -417,7 +424,7 @@
     },
     {
       "local": "packages/utils/src/lib/empty.ts",
-      "localSha256": "4851f47e6160860fee67ddfa03056c8a26dee4cf87bb1a9aa7f30e988b03ad65",
+      "localSha256": "00dc8f5cccebba670a7c7f2a78a66f3a4c008e8fec496badfc909a2bb8664151",
       "source": "packages/utils/src/empty.ts",
       "sourceSha256": "7d7c8625346dc2344dc551004c5c5da82878ab814818b7a8df4ad7082979ead6",
       "kind": "canonical-shared",
@@ -560,7 +567,7 @@
     },
     {
       "local": "packages/utils/src/lib/shadowDom.ts",
-      "localSha256": "5c922c6a0b4cbfd31bb463e486f45524de328687376d622527a5e6cdf12cb8f2",
+      "localSha256": "2cb79a4a3ccbe16581be29f7958d03bce459c5cf8cad8ae4b9f08ab981d42a2a",
       "source": "packages/utils/src/shadowDom.ts",
       "sourceSha256": "00307496a294b1bde9a09e4d0263cae4bf1eb75f43f5c9b85b37c712210e4e8a",
       "kind": "canonical-shared",
@@ -571,7 +578,7 @@
     },
     {
       "local": "packages/base/src/lib/utils/StyleDisableScrollbar.svelte",
-      "localSha256": "cbff60c27259f4ffcdf915c2807e9f2bb5a9eb5b9dd54bacf1608901ec972c7d",
+      "localSha256": "3b27cf497ab16aef7bb348b56b97c6deea735409c9a0fc00e7ab29d422fb8c48",
       "source": "packages/react/src/utils/styles.tsx",
       "sourceSha256": "983ea82a549314d94d7e733a259a6fc0d686961fba9142856491ab88996a2f0b",
       "kind": "native-style",
@@ -593,7 +600,7 @@
     },
     {
       "local": "packages/utils/src/lib/useId.ts",
-      "localSha256": "126f5436587c25942d9b12cf2ffbf353c7b87690bf37c0795da7ee5e14244e90",
+      "localSha256": "584864eb7f538f5adc40ab128461db75c960984c51265aead1ca3821e4bf879a",
       "source": "packages/utils/src/useId.ts",
       "sourceSha256": "7d01ffb745d3404ba406ebbd12ddfc8eb73325c3adea3dbda0868e2bad2eef05",
       "kind": "native-id",
@@ -603,48 +610,71 @@
       "unchangedAssertionCredit": 0
     },
     {
-      "local": "packages/utils/src/lib/useMergedRefs.ts",
-      "localSha256": "d9420f3db2872a32aca95c7c32db1342da4df6595df68a17707f55a27ea41fe2",
+      "local": [],
       "source": "packages/utils/src/useMergedRefs.ts",
       "sourceSha256": "5fa12ae01abedc23ba814e9c59f015cf14d306044638b56c977780de43275ba3",
       "kind": "native-ref",
       "manualScope": "Canonical merged ref assignment/order/cleanup under native attachment ownership; no StrictMode duplicate ref replay.",
       "developerInspected": "full used local body plus selected original business body and native boundary; inherited bodies are not accepted solely by hash",
       "independentWholeReview": "pending",
-      "unchangedAssertionCredit": 0
+      "unchangedAssertionCredit": 0,
+      "nativeReplacement": "React callback/object ref identity and fan-out transport is retired by PR77; component bindable refs, native bindings and independent attachments publish actual DOM hosts. There is no runtime adapter or Utils merged-ref export.",
+      "nativeReplacementCredit": 0,
+      "currentNativeHostGraph": "parity/native-snippets/native-graph.json"
     },
     {
-      "local": "packages/utils/src/lib/useOnMount.ts",
-      "localSha256": "e596fa519d81dd2fd7cdb1d5d00910622ad9ebed918aafa11111b70942c8ce25",
+      "local": [
+        "packages/base/src/lib/floating-ui/hooks/useHoverInteractionSharedState.svelte.ts",
+        "packages/utils/src/lib/useAnimationFrame.ts",
+        "packages/utils/src/lib/useTimeout.ts"
+      ],
       "source": "packages/utils/src/useOnMount.ts",
       "sourceSha256": "9d621d059249ec6ad10dbf35eef28153a8bc6ef893574d26a060385d4d13472b",
       "kind": "native-lifecycle",
       "manualScope": "Canonical native onMount effect/cleanup ownership.",
       "developerInspected": "full used local body plus selected original business body and native boundary; inherited bodies are not accepted solely by hash",
       "independentWholeReview": "pending",
-      "unchangedAssertionCredit": 0
+      "unchangedAssertionCredit": 0,
+      "nativeReplacement": "Source Scheduler/reset/AnimationFrame class business remains; useAnimationFrame setup factory removed and used owners construct the class with direct onDestroy cancellation. Source Timeout class remains; useTimeout setup factory removed and used owners construct the class with direct onDestroy clearing.",
+      "nativeReplacementCredit": 0,
+      "currentNativeHostGraph": "parity/native-snippets/native-graph.json"
     },
     {
-      "local": "packages/utils/src/lib/useRefWithInit.ts",
-      "localSha256": "3c48fad5a3c2eddbb0ecb820210f825b9fa2144c92de0615a5a4cf2ea1c3b3c7",
+      "local": [
+        "packages/base/src/lib/field/root/useFieldValidation.svelte.ts",
+        "packages/base/src/lib/floating-ui/hooks/useHoverInteractionSharedState.svelte.ts",
+        "packages/base/src/lib/internals/ValueChanged.svelte.ts",
+        "packages/base/src/lib/internals/field-register-control/useRegisterFieldControl.svelte.ts",
+        "packages/base/src/lib/internals/labelable-provider/createLabelableProvider.svelte.ts",
+        "packages/base/src/lib/internals/labelable-provider/useLabelableId.svelte.ts",
+        "packages/base/src/lib/menu/root/createMenuRoot.svelte.ts",
+        "packages/utils/src/lib/useAnimationFrame.ts",
+        "packages/utils/src/lib/useTimeout.ts"
+      ],
       "source": "packages/utils/src/useRefWithInit.ts",
       "sourceSha256": "183cb6e86ab1f8044a431d5b4115c750f7848c9835d519881b3c7a66dae98354",
       "kind": "native-lifecycle",
       "manualScope": "Canonical one initialization per native component setup.",
       "developerInspected": "full used local body plus selected original business body and native boundary; inherited bodies are not accepted solely by hash",
       "independentWholeReview": "pending",
-      "unchangedAssertionCredit": 0
+      "unchangedAssertionCredit": 0,
+      "nativeReplacement": "Source Scheduler/reset/AnimationFrame class business remains; useAnimationFrame setup factory removed and used owners construct the class with direct onDestroy cancellation. Source Timeout class remains; useTimeout setup factory removed and used owners construct the class with direct onDestroy clearing.",
+      "nativeReplacementCredit": 0,
+      "currentNativeHostGraph": "parity/native-snippets/native-graph.json"
     },
     {
       "local": "packages/utils/src/lib/useTimeout.ts",
-      "localSha256": "405103d9109d3d115db8b26eef5a9b3747156d4a45365c1f2f9764c172e4f0fb",
+      "localSha256": "06130c6374e14371471cc3af14638ddb3cadb514bb985fcbc4b8a7a606008b7f",
       "source": "packages/utils/src/useTimeout.ts",
       "sourceSha256": "8d9e4159d9f883e18035811e9f2b4d180afb0d724b55d86dbf4fda52c355e156",
       "kind": "business-native-lifecycle",
       "manualScope": "Canonical Timeout start clears prior timer, clear/dispose at native onMount teardown, initializer ownership.",
       "developerInspected": "full used local body plus selected original business body and native boundary; inherited bodies are not accepted solely by hash",
       "independentWholeReview": "pending",
-      "unchangedAssertionCredit": 0
+      "unchangedAssertionCredit": 0,
+      "nativeReplacement": "Source Timeout class remains; useTimeout setup factory removed and used owners construct the class with direct onDestroy clearing.",
+      "nativeReplacementCredit": 0,
+      "currentNativeHostGraph": "parity/native-snippets/native-graph.json"
     }
   ],
   "priorExactHeadSourceReviews": [

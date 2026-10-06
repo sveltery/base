@@ -5,9 +5,19 @@
   let host = $state<HTMLDivElement>();
   onMount(() => {
     if (!data.reference || !host) return;
-    const node = host; let stopped = false; let cleanup: (() => void) | undefined;
-    void import('../../lib/button-reference.js').then(({ mountButtonReference }) => { if (!stopped) cleanup = mountButtonReference(node, data.scenario); });
-    return () => { stopped = true; cleanup?.(); };
+    const node = host;
+    let stopped = false;
+    let cleanup: (() => void) | undefined;
+    void import('../../lib/button-reference.js').then(({ mountButtonReference }) => {
+      if (!stopped) cleanup = mountButtonReference(node, data.scenario);
+    });
+    return () => {
+      stopped = true;
+      cleanup?.();
+    };
   });
 </script>
-{#if data.reference}<div bind:this={host}></div>{:else}<ButtonFixture scenario={data.scenario} />{/if}
+
+{#if data.reference}<div bind:this={host}></div>{:else}<ButtonFixture
+    scenario={data.scenario}
+  />{/if}

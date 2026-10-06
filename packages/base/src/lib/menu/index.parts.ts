@@ -15,7 +15,12 @@ export namespace Backdrop {
   export type Props = MenuBackdropProps;
 }
 import CheckboxItemComponent from './CheckboxItem.svelte';
-import type { MenuCheckboxItemState, MenuCheckboxItemProps, MenuCheckboxItemChangeEventReason, MenuCheckboxItemChangeEventDetails } from './types.js';
+import type {
+  MenuCheckboxItemState,
+  MenuCheckboxItemProps,
+  MenuCheckboxItemChangeEventReason,
+  MenuCheckboxItemChangeEventDetails,
+} from './types.js';
 export const CheckboxItem: typeof CheckboxItemComponent = CheckboxItemComponent;
 export namespace CheckboxItem {
   export type State = MenuCheckboxItemState;
@@ -25,7 +30,8 @@ export namespace CheckboxItem {
 }
 import CheckboxItemIndicatorComponent from './CheckboxItemIndicator.svelte';
 import type { MenuCheckboxItemIndicatorProps, MenuCheckboxItemIndicatorState } from './types.js';
-export const CheckboxItemIndicator: typeof CheckboxItemIndicatorComponent = CheckboxItemIndicatorComponent;
+export const CheckboxItemIndicator: typeof CheckboxItemIndicatorComponent =
+  CheckboxItemIndicatorComponent;
 export namespace CheckboxItemIndicator {
   export type Props = MenuCheckboxItemIndicatorProps;
   export type State = MenuCheckboxItemIndicatorState;
@@ -80,7 +86,12 @@ export namespace Positioner {
   export type Props = MenuPositionerProps;
 }
 import RadioGroupComponent from './RadioGroup.svelte';
-import type { MenuRadioGroupProps, MenuRadioGroupState, MenuRadioGroupChangeEventReason, MenuRadioGroupChangeEventDetails } from './types.js';
+import type {
+  MenuRadioGroupProps,
+  MenuRadioGroupState,
+  MenuRadioGroupChangeEventReason,
+  MenuRadioGroupChangeEventDetails,
+} from './types.js';
 export const RadioGroup: typeof RadioGroupComponent = RadioGroupComponent;
 export namespace RadioGroup {
   export type Props = MenuRadioGroupProps;
@@ -103,7 +114,14 @@ export namespace RadioItemIndicator {
   export type State = MenuRadioItemIndicatorState;
 }
 import RootComponent from './Root.svelte';
-import type { MenuRootState, MenuRootProps, MenuRootActions, MenuRootChangeEventReason, MenuRootChangeEventDetails, MenuRootOrientation } from './types.js';
+import type {
+  MenuRootState,
+  MenuRootProps,
+  MenuRootActions,
+  MenuRootChangeEventReason,
+  MenuRootChangeEventDetails,
+  MenuRootOrientation,
+} from './types.js';
 export const Root: typeof RootComponent = RootComponent;
 export namespace Root {
   export type State = MenuRootState;
@@ -114,7 +132,12 @@ export namespace Root {
   export type Orientation = MenuRootOrientation;
 }
 import SubmenuRootComponent from './SubmenuRoot.svelte';
-import type { MenuSubmenuRootProps, MenuSubmenuRootState, MenuSubmenuRootChangeEventReason, MenuSubmenuRootChangeEventDetails } from './types.js';
+import type {
+  MenuSubmenuRootProps,
+  MenuSubmenuRootState,
+  MenuSubmenuRootChangeEventReason,
+  MenuSubmenuRootChangeEventDetails,
+} from './types.js';
 export const SubmenuRoot: typeof SubmenuRootComponent = SubmenuRootComponent;
 export namespace SubmenuRoot {
   export type Props = MenuSubmenuRootProps;
@@ -144,4 +167,7 @@ export namespace Viewport {
   export type State = MenuViewportState;
 }
 export { Separator } from '../separator/index.js';
-export { MenuHandle as Handle, createMenuHandle as createHandle } from './store/MenuHandle.svelte.js';
+export {
+  MenuHandle as Handle,
+  createMenuHandle as createHandle,
+} from './store/MenuHandle.svelte.js';

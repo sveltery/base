@@ -18,11 +18,7 @@
   }: FieldsetLegendProps = $props();
   const fieldset = useFieldsetRootContext();
   const nativeId = $props.id();
-  const getId = useRegisteredLabelId(
-    () => idProp ?? undefined,
-    fieldset.setLegendId,
-    nativeId,
-  );
+  const getId = useRegisteredLabelId(() => idProp ?? undefined, fieldset.setLegendId, nativeId);
   const legendState = $derived({ disabled: fieldset.disabled });
 
   const hostAttachmentKey = createAttachmentKey();

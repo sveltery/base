@@ -59,15 +59,17 @@ jobs:
       - name: Frozen workspace install
         run: bash scripts/bootstrap.sh
       - name: Script regressions
-        run: node --test scripts/tests/*.test.mjs
+        run: node --test --test-concurrency=1 scripts/tests/*.test.mjs
       - name: Fresh native library tarballs
-        run: bash scripts/prepare-package-artifacts.sh
+        run: |
+          bash scripts/prepare-package-artifacts.sh
+          echo "SVELTERY_WORKSPACE_READY=1" >> "$GITHUB_ENV"
       - name: Type and Svelte checks
         run: pnpm check
       - name: Runtime tests
         run: pnpm test
       - name: Svelte DOM wiring
-        run: pnpm --filter @sveltery/base test:dom
+        run: pnpm test:dom
       - name: Fixture SSR and client build
         run: pnpm --filter @sveltery/fixtures build
       - name: Packaged runtime boundary

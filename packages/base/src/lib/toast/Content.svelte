@@ -6,12 +6,7 @@
   // Derived from Base UI v1.8.0 Toast parts; MIT, see ../../../THIRD_PARTY_NOTICES.md.
   import { root } from './root-context.js';
   import type { ToastContentProps } from './types.js';
-  let {
-    render,
-    children,
-    ref = $bindable(),
-    ...props
-  }: ToastContentProps = $props();
+  let { render, children, ref = $bindable(), ...props }: ToastContentProps = $props();
   const controller = root();
   const state = $derived({
     expanded: controller.expanded,
@@ -25,12 +20,8 @@
     controller.recalculateHeight();
     const ownerWindow = node.ownerDocument.defaultView;
     if (!ownerWindow?.ResizeObserver || !ownerWindow.MutationObserver) return;
-    const resize = new ownerWindow.ResizeObserver(() =>
-      controller.recalculateHeight(true),
-    );
-    const mutation = new ownerWindow.MutationObserver(() =>
-      controller.recalculateHeight(true),
-    );
+    const resize = new ownerWindow.ResizeObserver(() => controller.recalculateHeight(true));
+    const mutation = new ownerWindow.MutationObserver(() => controller.recalculateHeight(true));
     resize.observe(node);
     mutation.observe(node, {
       childList: true,
@@ -58,12 +49,7 @@
   const mergedProps = $derived.by(() => {
     const { class: className, style, ...attributes } = props;
     return {
-      ...mergeComponentProps(
-        state,
-        { class: className, style },
-        [internal, attributes],
-        false,
-      ),
+      ...mergeComponentProps(state, { class: className, style }, [internal, attributes], false),
       [hostAttachmentKey]: attachHost,
     };
   });

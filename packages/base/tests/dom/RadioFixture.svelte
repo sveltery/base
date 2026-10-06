@@ -58,10 +58,7 @@
     groupName?: string;
     withForm?: boolean;
     fieldsetDisabled?: boolean;
-    onChange?: (
-      value: string | null,
-      details: RadioGroupChangeEventDetails,
-    ) => void;
+    onChange?: (value: string | null, details: RadioGroupChangeEventDetails) => void;
     onSubmit?: (values: Record<string, unknown>) => void;
     invalid?: boolean;
     label?: boolean;
@@ -109,14 +106,10 @@
   export function setValue(value: string | null) {
     owner = value;
   }
-  function changed(
-    value: string | null,
-    details: RadioGroupChangeEventDetails,
-  ) {
+  function changed(value: string | null, details: RadioGroupChangeEventDetails) {
     onChange?.(value, details);
     if (current.cancel) details.cancel();
-    if (current.controlled && current.ownerAccepts && !details.isCanceled)
-      owner = value;
+    if (current.controlled && current.ownerAccepts && !details.isCanceled) owner = value;
   }
 </script>
 
@@ -140,8 +133,7 @@
       {validate}
     >
       {#if current.label}<Field.Label id="group-label">Group</Field.Label>{/if}
-      {#if current.description}<Field.Description id="description"
-          >Description</Field.Description
+      {#if current.description}<Field.Description id="description">Description</Field.Description
         >{/if}
       <Group
         id="radio-group"
@@ -168,8 +160,7 @@
               {...radioFocusProps}
             >
               {#snippet render(props, _state, children)}
-                {#if current.nativeButton}<button
-                    {...props as HTMLAttributes<HTMLButtonElement>}
+                {#if current.nativeButton}<button {...props as HTMLAttributes<HTMLButtonElement>}
                     >{@render children?.()}</button
                   >{:else}<span {...props as HTMLAttributes<HTMLSpanElement>}
                     >{@render children?.()}</span
@@ -185,8 +176,7 @@
       </Group>
       <Field.Error id="error" />
       <Field.Validity
-        >{#snippet children(state)}<output id="validity"
-            >{JSON.stringify(state)}</output
+        >{#snippet children(state)}<output id="validity">{JSON.stringify(state)}</output
           >{/snippet}</Field.Validity
       >
     </Field.Root>
@@ -194,7 +184,9 @@
 {/snippet}
 <DirectionProvider direction={current.rtl ? 'rtl' : 'ltr'}>
   {#if withForm}<Form id="form" onFormSubmit={(values) => onSubmit?.(values)}
-      >{@render content()}<button type="submit" id="submit">Submit</button
-      ><button type="reset" id="reset">Reset</button></Form
+      >{@render content()}<button type="submit" id="submit">Submit</button><button
+        type="reset"
+        id="reset">Reset</button
+      ></Form
     >{:else}{@render content()}{/if}
 </DirectionProvider>

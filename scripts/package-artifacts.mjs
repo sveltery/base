@@ -1,47 +1,29 @@
 import assert from 'node:assert/strict';
 import { createHash } from 'node:crypto';
-import { copyFileSync, mkdirSync, readFileSync, writeFileSync } from 'node:fs';
+import { copyFileSync, existsSync, mkdirSync, readFileSync, writeFileSync } from 'node:fs';
 import { basename, dirname, join, relative, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
 const repository = resolve(dirname(fileURLToPath(import.meta.url)), '..');
 const [command, input, ...args] = process.argv.slice(2);
 const readJSON = (path) => JSON.parse(readFileSync(path, 'utf8'));
-const digest = (path) =>
-  createHash('sha256').update(readFileSync(path)).digest('hex');
+const digest = (path) => createHash('sha256').update(readFileSync(path)).digest('hex');
 
 function manifest(path) {
   const data = readJSON(path);
   assert.equal(data.schema, 1, 'known artifact manifest required');
-  assert(
-    data.packages && typeof data.packages === 'object',
-    'package artifacts required',
-  );
+  assert(data.packages && typeof data.packages === 'object', 'package artifacts required');
   for (const [name, entry] of Object.entries(data.packages)) {
-    assert.match(
-      name,
-      /^(?:@[a-z0-9._-]+\/)?[a-z0-9._-]+$/i,
-      'valid package name required',
-    );
+    assert.match(name, /^(?:@[a-z0-9._-]+\/)?[a-z0-9._-]+$/i, 'valid package name required');
     assert.equal(
       basename(entry.tarball),
       entry.tarball,
       `${name}: local artifact filename required`,
     );
-    assert.equal(
-      typeof entry.version,
-      'string',
-      `${name}: package version required`,
-    );
-    assert(
-      Array.isArray(entry.dependencies),
-      `${name}: workspace dependencies required`,
-    );
+    assert.equal(typeof entry.version, 'string', `${name}: package version required`);
+    assert(Array.isArray(entry.dependencies), `${name}: workspace dependencies required`);
     for (const dependency of entry.dependencies) {
-      assert(
-        Object.hasOwn(data.packages, dependency),
-        `${name}: missing ${dependency} artifact`,
-      );
+      assert(Object.hasOwn(data.packages, dependency), `${name}: missing ${dependency} artifact`);
     }
     assert.equal(
       digest(join(dirname(path), entry.tarball)),
@@ -67,16 +49,9 @@ function closure(packages, roots) {
 if (command === 'record') {
   const directory = resolve(args[0]);
   const projects = readJSON(input);
-  assert(
-    Array.isArray(projects) && projects.length,
-    'selected workspace packages required',
-  );
+  assert(Array.isArray(projects) && projects.length, 'selected workspace packages required');
   const names = new Set(projects.map((project) => project.name));
-  assert.equal(
-    names.size,
-    projects.length,
-    'unique workspace package names required',
-  );
+  assert.equal(names.size, projects.length, 'unique workspace package names required');
   const packages = {};
   for (const project of projects) {
     const metadata = readJSON(join(project.path, 'package.json'));
@@ -120,10 +95,7 @@ if (command === 'record') {
     const target = join(destination, entry.tarball);
     if (source !== target) copyFileSync(source, target);
   }
-  writeFileSync(
-    join(destination, 'artifacts.json'),
-    JSON.stringify(data, null, 2) + '\n',
-  );
+  writeFileSync(join(destination, 'artifacts.json'), JSON.stringify(data, null, 2) + '\n');
 } else if (command === 'entries') {
   const { packages } = manifest(input);
   for (const [name, entry] of Object.entries(packages)) {
@@ -134,26 +106,52 @@ if (command === 'record') {
   const { packages } = manifest(input);
   const path = join(directory, 'package.json');
   const metadata = readJSON(path);
-  const roots = Object.keys({
+  const requested = {
     ...metadata.dependencies,
     ...metadata.devDependencies,
-  }).filter((name) => Object.hasOwn(packages, name));
+  };
+  const roots = Object.keys(requested).filter((name) => Object.hasOwn(packages, name));
   assert(roots.length, 'consumer must install an actual workspace artifact');
   const selected = closure(packages, roots);
-  const dependencies = [...selected].filter((name) => !roots.includes(name));
-  if (dependencies.length) {
-    const destination = join(directory, '.workspace-artifacts');
-    mkdirSync(destination, { recursive: true });
-    metadata.dependencies ??= {};
-    for (const name of dependencies) {
-      const entry = packages[name];
-      const target = join(destination, entry.tarball);
+  const overrides = {};
+  for (const name of selected) {
+    const entry = packages[name];
+    let target;
+    if (roots.includes(name)) {
+      assert(requested[name].startsWith('file:'), `${name}: packed consumer dependency required`);
+      target = resolve(directory, requested[name].slice('file:'.length));
+      assert.equal(digest(target), entry.sha256, `${name}: consumer artifact bytes changed`);
+    } else {
+      const destination = join(directory, '.workspace-artifacts');
+      mkdirSync(destination, { recursive: true });
+      target = join(destination, entry.tarball);
       const source = resolve(dirname(input), entry.tarball);
       if (source !== target) copyFileSync(source, target);
+      metadata.dependencies ??= {};
       metadata.dependencies[name] = `file:${target}`;
     }
-    writeFileSync(path, JSON.stringify(metadata, null, 2) + '\n');
+    overrides[name] = `file:${target}`;
   }
+  // pnpm 12 reads native overrides from this isolated workspace root. An explicit
+  // root with no package globs also prevents discovery of the repository workspace.
+  const workspace = [
+    'packages: []',
+    'overrides:',
+    ...Object.entries(overrides).map(
+      ([name, archive]) => `  ${JSON.stringify(name)}: ${JSON.stringify(archive)}`,
+    ),
+    '',
+  ].join('\n');
+  const workspacePath = join(directory, 'pnpm-workspace.yaml');
+  if (existsSync(workspacePath)) {
+    assert.equal(
+      readFileSync(workspacePath, 'utf8'),
+      workspace,
+      'consumer workspace configuration must preserve the exact artifact overrides',
+    );
+  }
+  writeFileSync(path, JSON.stringify(metadata, null, 2) + '\n');
+  writeFileSync(workspacePath, workspace);
 } else {
   throw new Error(
     'Usage: package-artifacts.mjs record <projects.json> <directory> | copy <artifacts.json> <name> <directory> | retain <artifacts.json> <directory> | entries <artifacts.json> | consumer <artifacts.json> <directory>',

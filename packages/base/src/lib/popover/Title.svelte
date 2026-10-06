@@ -7,12 +7,12 @@
   import { usePopoverRootContext } from './context.js';
   import { useBaseUiId } from '../internals/useBaseUiId.js';
   import type { PopoverTitleProps } from './types.js';
-  // eslint-disable-next-line no-useless-assignment -- Native bindable ref output is published through the ordered Source ref callback.
   let {
     render,
     class: className,
     style,
     children,
+    // eslint-disable-next-line no-useless-assignment -- Native bindable ref output is published through the ordered Source ref callback.
     ref = $bindable(),
     ...elementProps
   }: PopoverTitleProps = $props();

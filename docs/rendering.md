@@ -9,11 +9,7 @@ Element parts render their own Svelte snippet or intrinsic HTML element. The rep
   import type { ButtonState } from '@sveltery/base/button';
 </script>
 
-{#snippet replacement(
-  props: HTMLProps,
-  state: ButtonState,
-  children: Snippet | undefined,
-)}
+{#snippet replacement(props: HTMLProps, state: ButtonState, children: Snippet | undefined)}
   <button {...props} data-custom-disabled={state.disabled}>
     {@render children?.()}
   </button>

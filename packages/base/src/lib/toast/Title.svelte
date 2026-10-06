@@ -8,13 +8,7 @@
   import { root } from './root-context.js';
   import { isRenderableContent } from './content.js';
   import type { ToastTitleProps } from './types.js';
-  let {
-    render,
-    children,
-    id,
-    ref = $bindable(),
-    ...props
-  }: ToastTitleProps = $props();
+  let { render, children, id, ref = $bindable(), ...props }: ToastTitleProps = $props();
   const controller = root();
   const generated = $props.id();
   const resolvedId = $derived(id ?? `base-ui-${generated}`);

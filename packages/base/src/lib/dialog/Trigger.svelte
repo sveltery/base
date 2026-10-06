@@ -77,8 +77,7 @@
           if (ref === host) ref = null;
           buttonRef?.(null);
           forwarding.registerTrigger?.(null);
-          if (triggerElementRef.current === host)
-            triggerElementRef.current = null;
+          if (triggerElementRef.current === host) triggerElementRef.current = null;
         });
     });
   }
