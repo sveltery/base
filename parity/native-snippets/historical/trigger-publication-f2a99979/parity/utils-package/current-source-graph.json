@@ -548,7 +548,7 @@
         },
         {
           "path": "packages/base/src/lib/menu/trigger/createMenuTrigger.svelte.ts",
-          "sha256": "ae04e18d492aa073757adc134e825f1fa8412283d742cb6cf9895a784215108f"
+          "sha256": "dee891cf185175885b51711b6307a20006fdec038c41f5e1ca08fa1a0d279488"
         },
         {
           "path": "packages/base/src/lib/menubar/Menubar.svelte",
@@ -596,7 +596,7 @@
         },
         {
           "path": "packages/base/src/lib/utils/popups/popupStoreUtils.svelte.ts",
-          "sha256": "7e9cbbd3b0a7835d25d2a54a90fca6f1bd403d30b8cb2165fa366232aa290960"
+          "sha256": "51f1c3945f9da39ae8e71a4fa336740ef0ad0be5f4a8f413deb1e98405d894d3"
         },
         {
           "path": "packages/base/src/lib/utils/useAnchoredPopupScrollLock.svelte.ts",
@@ -847,7 +847,7 @@
         },
         {
           "path": "packages/base/src/lib/menu/trigger/createMenuTrigger.svelte.ts",
-          "sha256": "ae04e18d492aa073757adc134e825f1fa8412283d742cb6cf9895a784215108f"
+          "sha256": "dee891cf185175885b51711b6307a20006fdec038c41f5e1ca08fa1a0d279488"
         },
         {
           "path": "packages/base/src/lib/radio-group/RadioGroup.svelte",
@@ -867,7 +867,7 @@
         },
         {
           "path": "packages/base/src/lib/utils/popups/popupStoreUtils.svelte.ts",
-          "sha256": "7e9cbbd3b0a7835d25d2a54a90fca6f1bd403d30b8cb2165fa366232aa290960"
+          "sha256": "51f1c3945f9da39ae8e71a4fa336740ef0ad0be5f4a8f413deb1e98405d894d3"
         },
         {
           "path": "packages/base/src/lib/utils/usePopupAutoResize.svelte.ts",
@@ -29606,12 +29606,12 @@
       },
       {
         "path": "packages/base/src/lib/menu/trigger/createMenuTrigger.svelte.ts",
-        "sha256": "ae04e18d492aa073757adc134e825f1fa8412283d742cb6cf9895a784215108f",
+        "sha256": "dee891cf185175885b51711b6307a20006fdec038c41f5e1ca08fa1a0d279488",
         "symbols": [
           {
             "name": "createMenuTrigger",
             "kind": "FunctionDeclaration",
-            "sha256": "1849bd29a621afb1e5f10b5ddaa6852ad9cab316072f4488bd1b2f05fe51cdbe"
+            "sha256": "974fffb5c8f9c87e9ea6f4ea20b81742c0e046655204a2d17fcd6cccb9056bd5"
           },
           {
             "name": "useStickIfOpen",
@@ -49905,7 +49905,7 @@
       },
       {
         "path": "packages/base/src/lib/utils/popups/popupStoreUtils.svelte.ts",
-        "sha256": "7e9cbbd3b0a7835d25d2a54a90fca6f1bd403d30b8cb2165fa366232aa290960",
+        "sha256": "51f1c3945f9da39ae8e71a4fa336740ef0ad0be5f4a8f413deb1e98405d894d3",
         "symbols": [
           {
             "name": "PopupStoreWithOpen",
@@ -49930,12 +49930,12 @@
           {
             "name": "useTriggerRegistration",
             "kind": "FunctionDeclaration",
-            "sha256": "ad862a67fbb498a0fb0ced640e99a7b3c05b1ffc625e4e6fa5b769e54e05c28a"
+            "sha256": "d3a45cdbb821111b9a4c0a660792b0c56643deef71dc91694e82d25fcbed980b"
           },
           {
             "name": "useTriggerDataForwarding",
             "kind": "FunctionDeclaration",
-            "sha256": "3a7e71256a2ed3d9535dab368c88bfaff90d890c0eb3cc16dee7a3775053aea6"
+            "sha256": "68e94b9d03271af3dee29c5ccc3eab17ae310c4246702f4b3361c5e0908502c9"
           },
           {
             "name": "useImplicitActiveTrigger",

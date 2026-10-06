@@ -210,7 +210,7 @@ export function createMenuTrigger<Payload>(
   function attachHost(host: HTMLElement) {
     triggerRef.current = host;
     setRef(host);
-    untrack(() => buttonRef(host));
+    buttonRef(host);
     forwarding.registerTrigger(host);
     triggerElementRef.current = host;
     return () => {

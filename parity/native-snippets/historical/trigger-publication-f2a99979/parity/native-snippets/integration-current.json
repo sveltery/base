@@ -3,18 +3,17 @@
   "nativeIntegrationParent": "96ade5322d396211cc41609f244803e92dfe0169",
   "nativeGetterPredecessor": "168c2717da1834fe728d76a4aeb94cb81b9b8a1f",
   "focusMetadataPredecessor": "42c04c5c4fb1d8a698435fee40e1d2bcb41d30e7",
-  "triggerPublicationPredecessor": "f2a99979a04a98c8bc60709a75d0db2397ec2470",
   "immutableOriginalPin": "47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c",
   "ordinaryDeclarationCredit": 0,
   "mode": "Source/parser/hash/import evidence only; no type program, runtime, SSR/hydration, compiled markup, artifact, installed consumer, browser, CI or merge acceptance credit.",
-  "method": "Complete current native two-package AST closure, immutable f0 full-body preimages and grouping-preserving script ASTs. Deliberate getter, label publication, Menu cleanup, captured focus metadata and trigger publication corrections are separate from formatter presentation changes. Getter and label publication retain their exact inherited bodies; exact complete-body Menu cleanup deltas are checked against e5, the focus metadata delta against42, and the three narrow trigger publication boundaries againstf2. Parse success supplies no behavior equivalence.",
+  "method": "Complete current native two-package AST closure, immutable f0 full-body preimages and grouping-preserving script ASTs. Deliberate PreviousValue, registered-label publication, captured Menu label/event-bus cleanup and captured focus metadata corrections are separate from formatter presentation changes. Getter and publication retain their exact inherited bodies; exact complete-body Menu cleanup deltas are checked against e5 and the narrow focus metadata delta against42. Parse success supplies no behavior equivalence.",
   "parserVersions": {
     "TypeScript": "6.0.3",
     "Svelte": "5.57.1"
   },
-  "currentGraphSha256": "7c9755100ec5f4a2815c663c71ac4c4e98c11645c2f6e3c20c1ef856f565574b",
-  "currentPublicHostGraphSha256": "536edd44c4399cb036b9522c048c7023e6f533697d11665c3dfb64da458a833d",
-  "proofToolSha256": "b30dc946585d503e4767f908c9345c063947595c3bc1614f960e799033b5b366",
+  "currentGraphSha256": "e23e9187d46335ba336a1d56d84c050c997b8a7b41a942b22e91eea30749e406",
+  "currentPublicHostGraphSha256": "d3d12a7977f6829c47bf21f4baaa0b9870a841eba5e4c47d60486c0b0f8eb851",
+  "proofToolSha256": "acd698c3003b978a24e4abad35619cf0333c72238095cba4f2be71d0c4a5a1e0",
   "controlledOwners": 11,
   "effectCalls": 187,
   "sourceBusinessCorrectionPaths": [
@@ -22,8 +21,6 @@
     "packages/base/src/lib/menu/GroupLabel.svelte",
     "packages/base/src/lib/menu/Popup.svelte",
     "packages/base/src/lib/menu/positioner/createMenuPositioner.svelte.ts",
-    "packages/base/src/lib/menu/trigger/createMenuTrigger.svelte.ts",
-    "packages/base/src/lib/utils/popups/popupStoreUtils.svelte.ts",
     "packages/base/src/lib/utils/useRegisteredLabelId.svelte.ts",
     "packages/utils/src/lib/PreviousValue.svelte.ts"
   ],
@@ -3090,23 +3087,10 @@
     {
       "path": "packages/base/src/lib/menu/trigger/createMenuTrigger.svelte.ts",
       "rendererSha256": "4d03b62e4b58b408d35abf7ce293e4d497f33c2be9e5797e6fd949a00a8124cf",
-      "currentSha256": "ae04e18d492aa073757adc134e825f1fa8412283d742cb6cf9895a784215108f",
-      "scriptStructuralAstEqual": false,
+      "currentSha256": "dee891cf185175885b51711b6307a20006fdec038c41f5e1ca08fa1a0d279488",
+      "scriptStructuralAstEqual": true,
       "sourceSyntaxValid": true,
-      "disposition": "Root-authorized narrow native registration/data/button publication boundaries; actual Store and ID acquired outside untrack, Original registration/count/data bodies and independent effects retained. Candidate runtime execution pending.",
-      "sourceBusinessCorrection": true,
-      "sourceBusinessPredecessor": "f2a99979a04a98c8bc60709a75d0db2397ec2470",
-      "sourceBusinessPredecessorSha256": "dee891cf185175885b51711b6307a20006fdec038c41f5e1ca08fa1a0d279488",
-      "exactAuthorizedCompleteBodyDelta": true,
-      "structuralDifferences": [
-        {
-          "path": "source.FunctionDeclaration[28].Block[6].FunctionDeclaration[40].Block[2].ExpressionStatement[2].CallExpression[0].Identifier[1]",
-          "beforeKind": "Identifier",
-          "afterKind": "ArrowFunction",
-          "before": "host",
-          "after": "() => buttonRef(host)"
-        }
-      ]
+      "disposition": "Complete structural script AST retained; full native markup/compiled-output behavior remains separately pending."
     },
     {
       "path": "packages/base/src/lib/menu/types.ts",
@@ -4798,25 +4782,11 @@
     {
       "path": "packages/base/src/lib/utils/popups/popupStoreUtils.svelte.ts",
       "rendererSha256": "f82a73387d00d82030fc061cdf43a1eaf1653d32ef13b90c425ddbc14909c1d5",
-      "currentSha256": "7e9cbbd3b0a7835d25d2a54a90fca6f1bd403d30b8cb2165fa366232aa290960",
+      "currentSha256": "51f1c3945f9da39ae8e71a4fa336740ef0ad0be5f4a8f413deb1e98405d894d3",
       "scriptStructuralAstEqual": false,
       "sourceSyntaxValid": true,
-      "disposition": "Root-authorized narrow native registration/data/button publication boundaries; actual Store and ID acquired outside untrack, Original registration/count/data bodies and independent effects retained. Candidate runtime execution pending.",
-      "sourceBusinessCorrection": true,
-      "sourceBusinessPredecessor": "f2a99979a04a98c8bc60709a75d0db2397ec2470",
-      "sourceBusinessPredecessorSha256": "51f1c3945f9da39ae8e71a4fa336740ef0ad0be5f4a8f413deb1e98405d894d3",
-      "exactAuthorizedCompleteBodyDelta": true,
+      "disposition": "Explicit presentation/grouping changes retained without normalization or structural equality credit; compiled-output disposition pending.",
       "structuralDifferences": [
-        {
-          "path": "source.FunctionDeclaration[15].Block[5].ReturnStatement[1].ArrowFunction[0].Block[2]",
-          "before": "{\n    const id = getId();\n    const store = getStore();\n    const registration = registrationRef.current;\n\n    if (registration !== null) {\n      if (\n        registration.element === element &&\n        registration.store === store &&\n        registration.id === id\n      ) {\n        // Already registered where it belongs, so the caller's migration effect is free on mount.\n        return;\n      }\n\n      registrationRef.current = null;\n      const registeredStore = registration.store;\n      if (\n        registeredStore.context.triggerElements.getById(registration.id) === registration.element\n      ) {\n        registeredStore.context.triggerElements.delete(registration.id);\n        syncTriggerCount(registeredStore);\n      }\n    }\n\n    if (element !== null && id !== undefined) {\n      registrationRef.current = { store, id, element };\n      store.context.triggerElements.add(id, element);\n      syncTriggerCount(store);\n    }\n  }",
-          "after": "{\n    const id = getId();\n    const store = getStore();\n    untrack(() => {\n      const registration = registrationRef.current;\n\n      if (registration !== null) {\n        if (\n          registration.element === element &&\n          registration.store === store &&\n          registration.id === id\n        ) {\n          // Already registered where it belongs, so the caller's migration effect is free on mount.\n          return;\n        }\n\n        registrationRef.current = null;\n        const registeredStore = registration.store;\n        if (\n          registeredStore.context.triggerElements.getById(registration.id) === registration.element\n        ) {\n          registeredStore.context.triggerElements.delete(registration.id);\n          syncTriggerCount(registeredStore);\n        }\n      }\n\n      if (element !== null && id !== undefined) {\n        registrationRef.current = { store, id, element };\n        store.context.triggerElements.add(id, element);\n        syncTriggerCount(store);\n      }\n    });\n  }"
-        },
-        {
-          "path": "source.FunctionDeclaration[16].Block[8].FirstStatement[5].VariableDeclarationList[0].VariableDeclaration[0].ArrowFunction[1].Block[2]",
-          "before": "{\n    const open = store.select('open');\n    const activeTriggerId = store.select('activeTriggerId');\n\n    if (activeTriggerId === triggerId) {\n      const changes = {\n        activeTriggerElement: element,\n        ...(open ? stateUpdates : null),\n      } as Pick<Readonly<State>, Key | 'activeTriggerElement'>;\n      store.update(changes);\n      return;\n    }\n\n    if (activeTriggerId == null && open) {\n      // If a popup is already open, a detached trigger can mount before any active trigger\n      // has been established. Claim the first registered trigger so trigger-owned focus\n      // management and ARIA relationships work.\n      const changes = {\n        activeTriggerId: triggerId ?? null,\n        activeTriggerElement: element,\n        ...stateUpdates,\n      } as Pick<Readonly<State>, Key | 'activeTriggerId' | 'activeTriggerElement'>;\n      store.update(changes);\n    }\n  }",
-          "after": "{\n    const owner = store;\n    const id = triggerId;\n    untrack(() => {\n      const open = owner.select('open');\n      const activeTriggerId = owner.select('activeTriggerId');\n\n      if (activeTriggerId === id) {\n        const changes = {\n          activeTriggerElement: element,\n          ...(open ? stateUpdates : null),\n        } as Pick<Readonly<State>, Key | 'activeTriggerElement'>;\n        owner.update(changes);\n        return;\n      }\n\n      if (activeTriggerId == null && open) {\n        // If a popup is already open, a detached trigger can mount before any active trigger\n        // has been established. Claim the first registered trigger so trigger-owned focus\n        // management and ARIA relationships work.\n        const changes = {\n          activeTriggerId: id ?? null,\n          activeTriggerElement: element,\n          ...stateUpdates,\n        } as Pick<Readonly<State>, Key | 'activeTriggerId' | 'activeTriggerElement'>;\n        owner.update(changes);\n      }\n    });\n  }"
-        },
         {
           "path": "source.FunctionDeclaration[18].Block[7].ExpressionStatement[2].CallExpression[0].ArrowFunction[1].ParenthesizedExpression[1]",
           "beforeKind": "ParenthesizedExpression",

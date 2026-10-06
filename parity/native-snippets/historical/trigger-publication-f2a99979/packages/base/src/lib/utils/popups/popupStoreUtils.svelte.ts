@@ -78,35 +78,33 @@ export function useTriggerRegistration<State extends PopupStoreState<unknown>>(
   return (element: Element | null) => {
     const id = getId();
     const store = getStore();
-    untrack(() => {
-      const registration = registrationRef.current;
+    const registration = registrationRef.current;
 
-      if (registration !== null) {
-        if (
-          registration.element === element &&
-          registration.store === store &&
-          registration.id === id
-        ) {
-          // Already registered where it belongs, so the caller's migration effect is free on mount.
-          return;
-        }
-
-        registrationRef.current = null;
-        const registeredStore = registration.store;
-        if (
-          registeredStore.context.triggerElements.getById(registration.id) === registration.element
-        ) {
-          registeredStore.context.triggerElements.delete(registration.id);
-          syncTriggerCount(registeredStore);
-        }
+    if (registration !== null) {
+      if (
+        registration.element === element &&
+        registration.store === store &&
+        registration.id === id
+      ) {
+        // Already registered where it belongs, so the caller's migration effect is free on mount.
+        return;
       }
 
-      if (element !== null && id !== undefined) {
-        registrationRef.current = { store, id, element };
-        store.context.triggerElements.add(id, element);
-        syncTriggerCount(store);
+      registrationRef.current = null;
+      const registeredStore = registration.store;
+      if (
+        registeredStore.context.triggerElements.getById(registration.id) === registration.element
+      ) {
+        registeredStore.context.triggerElements.delete(registration.id);
+        syncTriggerCount(registeredStore);
       }
-    });
+    }
+
+    if (element !== null && id !== undefined) {
+      registrationRef.current = { store, id, element };
+      store.context.triggerElements.add(id, element);
+      syncTriggerCount(store);
+    }
   };
 }
 
@@ -130,33 +128,29 @@ export function useTriggerDataForwarding<
   // Stable so payload/`stateUpdates` changes do not change the ref identity (which would needlessly
   // churn registration); it reads the latest closure values when invoked.
   const applyTriggerData = (element: Element) => {
-    const owner = store;
-    const id = triggerId;
-    untrack(() => {
-      const open = owner.select('open');
-      const activeTriggerId = owner.select('activeTriggerId');
+    const open = store.select('open');
+    const activeTriggerId = store.select('activeTriggerId');
 
-      if (activeTriggerId === id) {
-        const changes = {
-          activeTriggerElement: element,
-          ...(open ? stateUpdates : null),
-        } as Pick<Readonly<State>, Key | 'activeTriggerElement'>;
-        owner.update(changes);
-        return;
-      }
+    if (activeTriggerId === triggerId) {
+      const changes = {
+        activeTriggerElement: element,
+        ...(open ? stateUpdates : null),
+      } as Pick<Readonly<State>, Key | 'activeTriggerElement'>;
+      store.update(changes);
+      return;
+    }
 
-      if (activeTriggerId == null && open) {
-        // If a popup is already open, a detached trigger can mount before any active trigger
-        // has been established. Claim the first registered trigger so trigger-owned focus
-        // management and ARIA relationships work.
-        const changes = {
-          activeTriggerId: id ?? null,
-          activeTriggerElement: element,
-          ...stateUpdates,
-        } as Pick<Readonly<State>, Key | 'activeTriggerId' | 'activeTriggerElement'>;
-        owner.update(changes);
-      }
-    });
+    if (activeTriggerId == null && open) {
+      // If a popup is already open, a detached trigger can mount before any active trigger
+      // has been established. Claim the first registered trigger so trigger-owned focus
+      // management and ARIA relationships work.
+      const changes = {
+        activeTriggerId: triggerId ?? null,
+        activeTriggerElement: element,
+        ...stateUpdates,
+      } as Pick<Readonly<State>, Key | 'activeTriggerId' | 'activeTriggerElement'>;
+      store.update(changes);
+    }
   };
 
   // Stable, so the merged ref on the rendered element keeps its identity for the trigger's whole

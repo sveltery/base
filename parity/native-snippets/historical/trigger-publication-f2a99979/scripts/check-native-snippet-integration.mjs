@@ -15,7 +15,6 @@ const native = '168c2717da1834fe728d76a4aeb94cb81b9b8a1f';
 const nativeIntegrationParent = '96ade5322d396211cc41609f244803e92dfe0169';
 const cleanupPredecessor = 'e5e26961c52d324eb9075fcbff71915f79f7e922';
 const focusPredecessor = '42c04c5c4fb1d8a698435fee40e1d2bcb41d30e7';
-const registrationPredecessor = 'f2a99979a04a98c8bc60709a75d0db2397ec2470';
 const hash = (body) => createHash('sha256').update(body).digest('hex');
 const git = (...args) =>
   execFileSync('git', args, { cwd: root, encoding: 'utf8', maxBuffer: 20 * 1024 * 1024 });
@@ -170,46 +169,6 @@ for (const module of graph.native.modules) {
   ].includes(path);
   const focusMetadataCorrection =
     path === 'packages/base/src/lib/floating-ui/components/createFloatingFocusManager.svelte.ts';
-  const triggerPublicationCorrection = [
-    'packages/base/src/lib/utils/popups/popupStoreUtils.svelte.ts',
-    'packages/base/src/lib/menu/trigger/createMenuTrigger.svelte.ts',
-  ].includes(path);
-  if (triggerPublicationCorrection) {
-    let expected = git('show', `${registrationPredecessor}:${path}`);
-    if (path.endsWith('createMenuTrigger.svelte.ts')) {
-      expected = expected.replace('    buttonRef(host);', '    untrack(() => buttonRef(host));');
-    } else {
-      const indent = (body) => body.replace(/^(.+)$/gm, '  $1');
-      const registrationStart = expected.indexOf(
-        '    const registration = registrationRef.current;',
-      );
-      const registrationEnd = expected.indexOf('\n  };\n}', registrationStart);
-      assert(registrationStart > 0 && registrationEnd > registrationStart);
-      const registrationBody = expected.slice(registrationStart, registrationEnd);
-      expected =
-        expected.slice(0, registrationStart) +
-        '    untrack(() => {\n' +
-        indent(registrationBody) +
-        '\n    });' +
-        expected.slice(registrationEnd);
-      const dataStart = expected.indexOf("    const open = store.select('open');");
-      const dataEnd = expected.indexOf('\n  };', dataStart);
-      assert(dataStart > 0 && dataEnd > dataStart);
-      const dataBody = expected
-        .slice(dataStart, dataEnd)
-        .replaceAll('store.select(', 'owner.select(')
-        .replaceAll('store.update(', 'owner.update(')
-        .replaceAll('=== triggerId', '=== id')
-        .replaceAll('activeTriggerId: triggerId ?? null', 'activeTriggerId: id ?? null');
-      expected =
-        expected.slice(0, dataStart) +
-        '    const owner = store;\n    const id = triggerId;\n    untrack(() => {\n' +
-        indent(dataBody) +
-        '\n    });' +
-        expected.slice(dataEnd);
-    }
-    assert.equal(after, expected, `Only the authorized complete-body publication delta: ${path}`);
-  }
   if (focusMetadataCorrection) {
     const expected = git('show', `${focusPredecessor}:${path}`)
       .replace(
@@ -268,29 +227,26 @@ for (const module of graph.native.modules) {
     currentSha256: hash(after),
     scriptStructuralAstEqual: equal,
     sourceSyntaxValid: true,
-    disposition: triggerPublicationCorrection
-      ? 'Root-authorized narrow native registration/data/button publication boundaries; actual Store and ID acquired outside untrack, Original registration/count/data bodies and independent effects retained. Candidate runtime execution pending.'
-      : focusMetadataCorrection
-        ? 'Root-authorized native untrack of captured opening metadata only; actual node, disabled and bus resource dependencies plus latest disposal-time returnFocus reads retained. Candidate runtime execution pending.'
-        : installedLabelCorrection
-          ? 'Root-authorized effect-local installed label ID capture, preserving conditional replacement-label protection; actual DOM witnesses unexecuted.'
-          : installedTreeCorrection
-            ? 'Root-authorized effect-local installed event bus captures; complete callbacks, live business reads and domain guards retained; actual owner migration/unmount witnesses unexecuted.'
-            : labelPublicationCorrection
-              ? 'Exact native76 tracked installed ID with narrow untracked imperative receiver publication; live receiver and conditional cleanup retained. Integrated-head execution pending.'
-              : semanticOwnerCorrection
-                ? 'Exact native76 ordinary tracked getter correction; integrated execution/review pending.'
-                : equal
-                  ? 'Complete structural script AST retained; full native markup/compiled-output behavior remains separately pending.'
-                  : 'Explicit presentation/grouping changes retained without normalization or structural equality credit; compiled-output disposition pending.',
+    disposition: focusMetadataCorrection
+      ? 'Root-authorized native untrack of captured opening metadata only; actual node, disabled and bus resource dependencies plus latest disposal-time returnFocus reads retained. Candidate runtime execution pending.'
+      : installedLabelCorrection
+        ? 'Root-authorized effect-local installed label ID capture, preserving conditional replacement-label protection; actual DOM witnesses unexecuted.'
+        : installedTreeCorrection
+          ? 'Root-authorized effect-local installed event bus captures; complete callbacks, live business reads and domain guards retained; actual owner migration/unmount witnesses unexecuted.'
+          : labelPublicationCorrection
+            ? 'Exact native76 tracked installed ID with narrow untracked imperative receiver publication; live receiver and conditional cleanup retained. Integrated-head execution pending.'
+            : semanticOwnerCorrection
+              ? 'Exact native76 ordinary tracked getter correction; integrated execution/review pending.'
+              : equal
+                ? 'Complete structural script AST retained; full native markup/compiled-output behavior remains separately pending.'
+                : 'Explicit presentation/grouping changes retained without normalization or structural equality credit; compiled-output disposition pending.',
   };
   if (
     semanticOwnerCorrection ||
     labelPublicationCorrection ||
     installedLabelCorrection ||
     installedTreeCorrection ||
-    focusMetadataCorrection ||
-    triggerPublicationCorrection
+    focusMetadataCorrection
   )
     record.sourceBusinessCorrection = true;
   if (installedLabelCorrection || installedTreeCorrection) {
@@ -301,13 +257,6 @@ for (const module of graph.native.modules) {
   if (focusMetadataCorrection) {
     record.sourceBusinessPredecessor = focusPredecessor;
     record.sourceBusinessPredecessorSha256 = hash(git('show', `${focusPredecessor}:${path}`));
-    record.exactAuthorizedCompleteBodyDelta = true;
-  }
-  if (triggerPublicationCorrection) {
-    record.sourceBusinessPredecessor = registrationPredecessor;
-    record.sourceBusinessPredecessorSha256 = hash(
-      git('show', `${registrationPredecessor}:${path}`),
-    );
     record.exactAuthorizedCompleteBodyDelta = true;
   }
   if (labelPublicationCorrection) {
@@ -361,40 +310,16 @@ for (const witness of focusLifetime.witnesses) {
   assert.equal(hash(body), witness.sha256, `Changed focus witness body: ${witness.path}`);
   assert.equal(body.toString(), git('show', `${focusPredecessor}:${witness.path}`));
 }
-const triggerLifetime = JSON.parse(
-  readFileSync(resolve(root, 'parity/native-snippets/trigger-publication-lifetime.json'), 'utf8'),
-);
-assert.equal(triggerLifetime.predecessor, registrationPredecessor);
-assert.equal(triggerLifetime.pin, graph.immutableOriginalPin);
-for (const runtime of triggerLifetime.runtime) {
-  assert.equal(hash(readFileSync(resolve(root, runtime.path))), runtime.sha256);
-  assert.equal(
-    hash(git('show', `${registrationPredecessor}:${runtime.path}`)),
-    runtime.predecessorSha256,
-  );
-}
-for (const original of triggerLifetime.original)
-  assert.equal(hash(readFileSync(resolve(root, original.archive))), original.sha256);
-assert.equal(
-  hash(readFileSync(resolve(root, triggerLifetime.diagnosis.archive))),
-  triggerLifetime.diagnosis.sha256,
-);
-for (const witness of triggerLifetime.witnesses) {
-  const body = readFileSync(resolve(root, witness.path));
-  assert.equal(hash(body), witness.sha256, `Changed trigger witness body: ${witness.path}`);
-  assert.equal(body.toString(), git('show', `${registrationPredecessor}:${witness.path}`));
-}
 const output = {
   rendererPredecessor: renderer,
   nativeIntegrationParent,
   nativeGetterPredecessor: native,
   focusMetadataPredecessor: focusPredecessor,
-  triggerPublicationPredecessor: registrationPredecessor,
   immutableOriginalPin: graph.immutableOriginalPin,
   ordinaryDeclarationCredit: 0,
   mode: 'Source/parser/hash/import evidence only; no type program, runtime, SSR/hydration, compiled markup, artifact, installed consumer, browser, CI or merge acceptance credit.',
   method:
-    'Complete current native two-package AST closure, immutable f0 full-body preimages and grouping-preserving script ASTs. Deliberate getter, label publication, Menu cleanup, captured focus metadata and trigger publication corrections are separate from formatter presentation changes. Getter and label publication retain their exact inherited bodies; exact complete-body Menu cleanup deltas are checked against e5, the focus metadata delta against42, and the three narrow trigger publication boundaries againstf2. Parse success supplies no behavior equivalence.',
+    'Complete current native two-package AST closure, immutable f0 full-body preimages and grouping-preserving script ASTs. Deliberate PreviousValue, registered-label publication, captured Menu label/event-bus cleanup and captured focus metadata corrections are separate from formatter presentation changes. Getter and publication retain their exact inherited bodies; exact complete-body Menu cleanup deltas are checked against e5 and the narrow focus metadata delta against42. Parse success supplies no behavior equivalence.',
   parserVersions: { TypeScript: ts.version, Svelte: compiler.VERSION },
   currentGraphSha256: hash(
     readFileSync(resolve(root, 'parity/utils-package/current-source-graph.json')),
