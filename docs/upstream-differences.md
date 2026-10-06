@@ -618,3 +618,21 @@ remain unchanged; no stub, retry, private copy or duration change is introduced.
 This native lifetime repair grants zero unchanged Original assertion credit;
 fresh exact-head review, packed strict consumers, SSR/hydration, secured browsers
 and hosted CI remain pending.
+
+### PR #63 lossless receipt transport after Standards RED
+
+The [complete `0687fe40` Standards RED](../parity/menu-family/receipts/standards-0687/receipt.json)
+records that formatter and ESLint passed before `git show --format= --check HEAD`
+exited 2 for whitespace in three raw historical receipt logs. The successor
+compresses only those logs with deterministic gzip, proving decoded byte equality
+against the current preimage and immutable raw files at `0687fe40` before current
+raw-path removal. The [host-overlap manifest](../parity/menu-family/receipts/host-overlap-1696/receipt.json)
+now records actual `.log.gz` paths and archive SHA256 separately from unchanged
+decoded SHA256/byte counts. Exact failed Standards log bytes, BOM and original EOF
+are also preserved compressed; no whitespace, failure or provenance is erased.
+
+This receipt transport repair changes no runtime, shared bodies, assertions,
+checks or workflows and grants zero unchanged upstream assertion or product
+acceptance credit. Full successor script/provenance checks, Standards and genuine
+committed whitespace checking remain required; hosted final-head gates and review
+retain their separate acceptance status.

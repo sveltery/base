@@ -11,10 +11,10 @@
   },
   "files": {
     "artifact.zip": "0dedfcd62ed7d2a8ec52d9f6a7f5f4d2912eb30ea2c68248c41d1c62fa288b6b",
-    "job.log": "07cbd91388d8be856a0dd82fc6c06c8dcd4b5fb9d7befa189256ea5b90975292",
     "menu-family-results.json": "a1bad5ebb55f631a7d03261cbedfd204d6fc41dfc4047e2180243b95038670c3",
-    "positive-original-local.log": "209baefc142d6886be74fe489d2313db54747fa3d80ba6ec1f6803503080a18e",
-    "verification.log": "0c1c8966abd59986b9c6d34421b2d4678b9933d1657e6e12649134d628d92815"
+    "job.log.gz": "2e17126163b6a4180bad244991b8d40c34aafcfdc995e08386a00cb29832bbc5",
+    "verification.log.gz": "6927d13fb421e4f10668e4d4ca4635d42b9dcb3829d991faf1f30cb5aa547750",
+    "positive-original-local.log.gz": "6f33aff8b49257d90ac7b1fdde0323652fa6fc956652511ba3ef70e789b89a53"
   },
   "unchangedOriginalAssertionCredit": 0,
   "classification": {
@@ -26,7 +26,7 @@
     "testsPassed": 1,
     "workers": 1,
     "runtime": "locked @base-ui/react1.8.0 public Menu; Native counterpart not executed locally",
-    "log": "positive-original-local.log",
+    "log": "positive-original-local.log.gz",
     "source": "same authored comparator with public reference-import transport correction only",
     "testSourceSha256AtPositive": "57c6ddfb98c2d7b80054de49e4a9dd67ecd9861125c736f68b2b7f69252aea1e",
     "referenceSourceSha256AtPositive": "300bc855f6ccee829aa2c946881b39883f6265c9b1b6eb41c90b4309c35be803"
@@ -42,5 +42,40 @@
     "freshDualTarballs": "passed",
     "workspaceTypes": "failed: MenuTrigger props erased class annotation too broad",
     "runtimeDOMFixtureBoundaryConsumers": "skipped after workspace type failure; no hosted credit"
-  }
+  },
+  "historicalRawFiles": {
+    "job.log": {
+      "commit": "0687fe40b113f0510edb641e1f91befc555da2fe",
+      "sha256": "07cbd91388d8be856a0dd82fc6c06c8dcd4b5fb9d7befa189256ea5b90975292"
+    },
+    "verification.log": {
+      "commit": "0687fe40b113f0510edb641e1f91befc555da2fe",
+      "sha256": "0c1c8966abd59986b9c6d34421b2d4678b9933d1657e6e12649134d628d92815"
+    },
+    "positive-original-local.log": {
+      "commit": "0687fe40b113f0510edb641e1f91befc555da2fe",
+      "sha256": "209baefc142d6886be74fe489d2313db54747fa3d80ba6ec1f6803503080a18e"
+    }
+  },
+  "compressedLogs": {
+    "job.log.gz": {
+      "decodedSha256": "07cbd91388d8be856a0dd82fc6c06c8dcd4b5fb9d7befa189256ea5b90975292",
+      "decodedBytes": 68781,
+      "archiveSha256": "2e17126163b6a4180bad244991b8d40c34aafcfdc995e08386a00cb29832bbc5",
+      "encoding": "gzip level 9, mtime 0; decoded bytes unchanged"
+    },
+    "verification.log.gz": {
+      "decodedSha256": "0c1c8966abd59986b9c6d34421b2d4678b9933d1657e6e12649134d628d92815",
+      "decodedBytes": 116731,
+      "archiveSha256": "6927d13fb421e4f10668e4d4ca4635d42b9dcb3829d991faf1f30cb5aa547750",
+      "encoding": "gzip level 9, mtime 0; decoded bytes unchanged"
+    },
+    "positive-original-local.log.gz": {
+      "decodedSha256": "209baefc142d6886be74fe489d2313db54747fa3d80ba6ec1f6803503080a18e",
+      "decodedBytes": 226,
+      "archiveSha256": "6f33aff8b49257d90ac7b1fdde0323652fa6fc956652511ba3ef70e789b89a53",
+      "encoding": "gzip level 9, mtime 0; decoded bytes unchanged"
+    }
+  },
+  "transportStatus": "Lossless deterministic gzip transport avoids whitespace checking on raw log bytes; historical raw logs remain immutable at 0687fe40. No failures, expectations or product acceptance changed."
 }

@@ -1,0 +1,22 @@
+{
+  "head": "0687fe40b113f0510edb641e1f91befc555da2fe",
+  "sourcePin": "47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c",
+  "run": 37541687790,
+  "job": 112536342186,
+  "jobUrl": "https://github.com/sveltery/base/actions/runs/37541687790/job/112536342186",
+  "result": "RED: formatter and ESLint passed; git show --format= --check HEAD exited 2 for raw receipt trailing whitespace and EOF blank lines",
+  "log": {
+    "archive": "standards.log.gz",
+    "archiveSha256": "1816ee6f73ed3a05a0748d226cfc095f64b23104bf7d0667ca3d2318e1f429bf",
+    "decodedSha256": "5bcadb85005e24144ea2a55b9f4a29dc8379e572693fd47b70b06c70d54a4887",
+    "decodedBytes": 38110,
+    "encoding": "gzip level 9, mtime 0; exact connector UTF-8 bytes, including BOM and original EOF"
+  },
+  "offendingRawPaths": [
+    "parity/menu-family/receipts/host-overlap-1696/job.log",
+    "parity/menu-family/receipts/host-overlap-1696/verification.log",
+    "parity/menu-family/receipts/host-overlap-1696/positive-original-local.log"
+  ],
+  "successorScope": "Lossless receipt transport only. Raw preimages remain at historical head; decoded bytes and failed evidence preserved. Checks, assertions, workflows and runtime unchanged.",
+  "unchangedOriginalAssertionCredit": 0
+}

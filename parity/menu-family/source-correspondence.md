@@ -228,3 +228,29 @@ current-host removal assertions remain required on the successor. Focused lint
 and compilation add no secured browser acceptance or unchanged Original assertion
 credit; final source/native/maintainability review and required execution remain
 pending.
+
+
+## Lossless receipt transport after Standards RED
+
+Hosted Standards at `0687fe40b113f0510edb641e1f91befc555da2fe`
+([run 37541687790, job 112536342186](https://github.com/sveltery/base/actions/runs/37541687790/job/112536342186))
+passed the full formatter and ESLint stages, then failed genuine
+`git show --format= --check HEAD` with exit 2. The only reported whitespace
+findings were in the raw historical receipt logs `job.log`, `verification.log`
+and `positive-original-local.log`, not runtime or assertion source.
+
+The successor stores those three logs as deterministic gzip archives. Each
+archive was decoded and compared byte-for-byte with both the current preimage
+and its immutable raw file at `0687fe40` before removing the current raw path.
+The [host-overlap manifest](receipts/host-overlap-1696/receipt.json) records actual
+archive paths/hashes and separate unchanged decoded hashes/byte counts; its
+historical raw-file records preserve the original commit and SHA256. The
+[complete Standards RED receipt](receipts/standards-0687/receipt.json) similarly
+preserves exact connector UTF-8 bytes, including BOM and original EOF, in
+`standards.log.gz`. No trimming or log normalization occurred.
+
+This is transport-only: raw history, failures, assertions, workflows, checks and
+all current runtime/closure bodies remain unchanged. It grants zero Source
+assertion credit or product acceptance. The successor must pass full Standards,
+full script/provenance checks and genuine committed whitespace checking; final
+hosted acceptance remains separate.
