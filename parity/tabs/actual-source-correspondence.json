@@ -2705,5 +2705,17 @@
     "scope": "Full actual native successor graph, including Utils runtime/type closure. Changed/native replaced bodies do not inherit prior whole-head review.",
     "independentReview": "Exact stable final pushed head entire-closure Source/native/maintainability pending.",
     "issuePublication": "Verified issue80 tracks preserved Panel ID quirk."
+  },
+  "mechanicalPredecessorProofLimitation": {
+    "scope": "Utils current-source-graph.json and native-snippets/integration-current.json remain frozen 496-body extraction/native checkpoint evidence, not current Tabs/public514 closure acceptance.",
+    "actualRefusal": {
+      "command": "node scripts/check-native-snippet-integration.mjs --write",
+      "result": "Rejected before writing at line590: current Root export SHA25625286c1a44a33239dcaa5760d4f11bb09fb8c8ef330dc60c32207ac6404668d7 differs from checkpoint06dbc3ac673b441f7104d82fcc84822565bc10e61f0f1c855ff7c7d8dd77c75a.",
+      "additionalBound": "Line622 requires graph.native.modules.length496. Historical whole-body preservation proof cannot accept newly added Tabs current514 closure by rewriting its counts."
+    },
+    "currentEvidence": "Tabs actual73-module/196-edge closure and native public514 graph, plus current entire-closure independent source/native/maintainability review. Source inventory grants zero execution or acceptance credit.",
+    "regenerationLimit": "Exact original Git repository unavailable (clone403); record-utils-package-source requires immutable original commit. No replacement Git history fabricated and historical proof/assertions unchanged.",
+    "requiredInvocation": "No current mandatory CI/verify invocation of snippet integration proof identified by implementation owner; distinct scoped successor remains team-lead/owner work.",
+    "ordinaryDeclarationCredit": 0
   }
 }

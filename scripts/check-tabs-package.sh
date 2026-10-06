@@ -13,8 +13,8 @@ const tarball = readdirSync(directory).find(name => name.endsWith('.tgz'));
 writeFileSync(join(directory, 'package.json'), JSON.stringify({ private: true, type: 'module', dependencies: { '@sveltery/base': `file:${join(directory, tarball)}`, svelte: '5.57.1' } }));
 JS
 sveltery_prepare_consumer "$tabs_consumer"
-pnpm --dir "$tabs_consumer" --ignore-workspace install --ignore-scripts > /dev/null
-pnpm --dir "$tabs_consumer" --ignore-workspace install --frozen-lockfile --ignore-scripts > /dev/null
+pnpm --dir "$tabs_consumer" install --ignore-scripts > /dev/null
+pnpm --dir "$tabs_consumer" install --frozen-lockfile --ignore-scripts > /dev/null
 cmp LICENSE "$tabs_consumer/node_modules/@sveltery/base/LICENSE"
 cmp LICENSE "$tabs_consumer/node_modules/@sveltery/utils/LICENSE"
 cat > "$tabs_consumer/Consumer.svelte" <<'SVELTE'
@@ -25,9 +25,11 @@ cat > "$tabs_consumer/Consumer.svelte" <<'SVELTE'
   let tab = $state<HTMLElement | null>();
   let list = $state<HTMLElement | null>();
   let panel = $state<HTMLElement | null>();
+  let cancelSelection = $state(true);
+  export function allowSelection() { cancelSelection = false; }
 </script>
 <CSPProvider nonce={'safe"nonce'}>
-  <Tabs.Root defaultValue="first" orientation={undefined} onValueChange={(value, details) => { const native: Event = details.event; details.cancel(); void [value, native, details.activationDirection]; }}>
+  <Tabs.Root defaultValue="first" orientation={undefined} onValueChange={(value, details) => { const native: Event = details.event; if (cancelSelection) details.cancel(); void [value, native, details.activationDirection]; }}>
     <Tabs.List bind:ref={list} activateOnFocus={undefined} loopFocus={undefined} class={(state) => state.orientation} style={() => undefined}>
       <TabsTab value="first" bind:ref={tab} nativeButton={undefined} disabled={undefined} onclick={(event) => { const native: MouseEvent = event; event.preventBaseUIHandler(); void native; }}>
         {#snippet render(props, state, children)}<button {...props as HTMLAttributes<HTMLButtonElement>} data-active={state.active}>{@render children?.()}</button>{/snippet}
@@ -138,6 +140,11 @@ assert.equal(first.getAttribute('aria-selected'), 'true');
 const retained = [...target.querySelectorAll('[role="tabpanel"]')].find(panel => panel.textContent.includes('Retained content'));
 assert.equal(retained.hasAttribute('hidden'), true);
 const second = target.querySelectorAll('[role="tab"]')[1];
+second.click(); flushSync();
+assert.equal(first.getAttribute('aria-selected'), 'true');
+assert.equal(second.getAttribute('aria-selected'), 'false');
+assert.equal(retained.hasAttribute('hidden'), true);
+app.allowSelection(); flushSync();
 second.click(); flushSync();
 assert.equal(first.getAttribute('aria-selected'), 'false');
 assert.equal(second.getAttribute('aria-selected'), 'true');
