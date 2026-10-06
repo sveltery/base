@@ -3461,7 +3461,23 @@
     "scope": "Test-only bounded verification of actual archived TabsTab owner transport; no canonical shared helper or immutable Original business modification.",
     "mechanism": "Require full predecessor SHA and immutable pin, prove current whole TabsTab body equals the exact bounded owner transform, temporarily install full predecessor bytes, execute the same two secured client assertions expecting their exact named failures and actual host snapshots, restore exact current bytes in finally, then let normal full client suite establish repaired green.",
     "expectedPhysicalContract": "Predecessor new host retains physical disabled=true with aria-disabled=true; repaired host must have physical disabled=false while ARIA remains disabled. Diagnostic publication belongs to the live current host.",
-    "status": "Mechanism proposed; expected-red and restored-current normal-green require actual successor hosted execution. No local/hosted execution credit claimed here.",
+    "status": "Initial actual8bfd two predecessor-red cases/restoration executed, report validator serialization RED; bounded corrected validator awaits fresh hosted paired-gate/full normal green.",
     "ordinaryDeclarationCredit": 0
+  },
+  "nativeButtonReporterSerializationSuccessor": {
+    "head": "8bfd7b341b1b43d1b3d8538663788f60786e6388",
+    "job": "https://github.com/sveltery/base/actions/runs/37538069573/job/112524009976",
+    "archive": "native-button-owner-reporter-predecessor.json",
+    "actualResult": "Two real secured predecessor witnesses failed intended boolean assertions; physical disabled=true, disabledAttribute empty, ariaDisabled=true, disabledFieldset=false, clean ancestors. Current body restored exactly. JSON Error serialization rejected by AssertionError text validator; normal repaired component suite skipped.",
+    "restoredSha256": "2687254da3669b159def1cf40eed34e97ac74182a1c8863c7f9877ab8be5dd3c",
+    "successor": "Require exact named boolean Object.is firstline, pollchain, actual witness URL stackframe and separate default reporter AssertionError. Readonly actual-artifact validation passes; nine negative controls rejected. Runtime/test/Source bodies unchanged.",
+    "status": "PENDING_FRESH_HOSTED_PAIRED_GATE_AND_NORMAL_GREEN",
+    "ordinaryDeclarationCredit": 0,
+    "exactCallsites": {
+      "witnessSha256": "900a00cc32014849e6bb38d05e9ee986b051ddc1d0f70696bdd58ab4f7e25209",
+      "physical": "60:108",
+      "diagnostic": "74:125",
+      "purpose": "Actual current witness hash checked before mutation; each serialized error must identify its exact compiled callsite."
+    }
   }
 }

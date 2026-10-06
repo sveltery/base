@@ -189,7 +189,7 @@
     ]
   },
   "nativeButtonExpectedRedBrowserGate": {
-    "status": "PENDING_ACTUAL_EXECUTION",
+    "status": "Initial actual8bfd two predecessor-red cases/restoration executed, report validator serialization RED; bounded corrected validator awaits fresh hosted paired-gate/full normal green.",
     "tool": "scripts/check-tabs-button-owner-browser.mjs",
     "expectedRed": "Two exact named assertion failures against full hashed f7 predecessor transport, with real host physical/ARIA/diagnostic observations; no browser startup or suite error accepted.",
     "restoration": "Finally exact current TabsTab bytes/hash restored before ordinary full client suite.",
@@ -229,5 +229,73 @@
         "receipt": "Parent reports9fileformatting exit0; documentation consistency only."
       }
     ]
+  },
+  "nativeButtonReporterSerializationSuccessor": {
+    "head": "8bfd7b341b1b43d1b3d8538663788f60786e6388",
+    "job": "https://github.com/sveltery/base/actions/runs/37538069573/job/112524009976",
+    "archive": "native-button-owner-reporter-predecessor.json",
+    "actualResult": "Two real secured predecessor witnesses failed intended boolean assertions; physical disabled=true, disabledAttribute empty, ariaDisabled=true, disabledFieldset=false, clean ancestors. Current body restored exactly. JSON Error serialization rejected by AssertionError text validator; normal repaired component suite skipped.",
+    "restoredSha256": "2687254da3669b159def1cf40eed34e97ac74182a1c8863c7f9877ab8be5dd3c",
+    "successor": "Require exact named boolean Object.is firstline, pollchain, actual witness URL stackframe and separate default reporter AssertionError. Readonly actual-artifact validation passes; nine negative controls rejected. Runtime/test/Source bodies unchanged.",
+    "status": "PENDING_FRESH_HOSTED_PAIRED_GATE_AND_NORMAL_GREEN",
+    "ordinaryDeclarationCredit": 0,
+    "boundedChecks": [
+      {
+        "path": ".checks/tabs-closeout/tabs-button-owner-reporter-eslint.log",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "status": "PASS",
+        "preservedReceipt": ""
+      },
+      {
+        "path": ".checks/tabs-closeout/tabs-button-owner-reporter-readonly.log",
+        "sha256": "248dc311a08535b70c086060a7d620660b584ea8b45070c771b6187e4838228a",
+        "status": "PASS",
+        "preservedReceipt": "{\"status\":\"READ_ONLY_VALIDATED\",\"predecessor\":\"c07eceea2d3b76f11c24616894d94652c00033a09ec6c4512c52bf58510a78a6\",\"current\":\"2687254da3669b159def1cf40eed34e97ac74182a1c8863c7f9877ab8be5dd3c\",\"sourcePin\":\"47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c\"}\n"
+      },
+      {
+        "path": ".checks/tabs-closeout/tabs-button-owner-reporter-replay.log",
+        "sha256": "1831e5084dca5048916492b0fc584cc7f24cef7a657f59a1097e2e76525b5d60",
+        "status": "PASS",
+        "preservedReceipt": "{\"status\":\"READ_ONLY_ACTUAL_ARTIFACT_VALIDATED\",\"cases\":2,\"snapshots\":[{\"caseName\":\"disabled synchronization\",\"tag\":\"BUTTON\",\"role\":\"tab\",\"disabled\":true,\"disabledAttribute\":\"\",\"ariaDisabled\":\"true\",\"disabledFieldset\":false,\"ancestors\":[{\"tag\":\"DIV\",\"disabled\":false,\"ariaDisabled\":null,\"inert\":false},{\"tag\":\"DIV\",\"disabled\":false,\"ariaDisabled\":null,\"inert\":false},{\"tag\":\"DIV\",\"disabled\":false,\"ariaDisabled\":null,\"inert\":false},{\"tag\":\"BODY\",\"disabled\":false,\"ariaDisabled\":null,\"inert\":false},{\"tag\":\"HTML\",\"disabled\":false,\"ariaDisabled\":null,\"inert\":false}]},{\"caseName\":\"diagnostic\",\"tag\":\"BUTTON\",\"role\":\"tab\",\"disabled\":false,\"disabledAttribute\":null,\"ariaDisabled\":null,\"disabledFieldset\":false,\"ancestors\":[{\"tag\":\"DIV\",\"disabled\":false,\"ariaDisabled\":null,\"inert\":false},{\"tag\":\"DIV\",\"disabled\":false,\"ariaDisabled\":null,\"inert\":false},{\"tag\":\"DIV\",\"disabled\":false,\"ariaDisabled\":null,\"inert\":false},{\"tag\":\"BODY\",\"disabled\":false,\"ariaDisabled\":null,\"inert\":false},{\"tag\":\"HTML\",\"disabled\":false,\"ariaDisabled\":null,\"inert\":false}]}]}\n"
+      },
+      {
+        "path": ".checks/tabs-closeout/reporter-negative-controls/results.json",
+        "sha256": "7486b0f5f8341f32a5ae93e9f4e40bbba5676aa77e31db107a1dc2692dba5f95",
+        "status": "ALL_8_REJECTED",
+        "preservedReceipt": "[\n  {\n    \"control\": \"unrelated_error_same_boolean\",\n    \"exit\": 1,\n    \"rejected\": true\n  },\n  {\n    \"control\": \"wrong_witness_same_boolean\",\n    \"exit\": 1,\n    \"rejected\": true\n  },\n  {\n    \"control\": \"suite_error\",\n    \"exit\": 1,\n    \"rejected\": true\n  },\n  {\n    \"control\": \"launch_error_log\",\n    \"exit\": 1,\n    \"rejected\": true\n  },\n  {\n    \"control\": \"wrong_case_name\",\n    \"exit\": 1,\n    \"rejected\": true\n  },\n  {\n    \"control\": \"missing_case\",\n    \"exit\": 1,\n    \"rejected\": true\n  },\n  {\n    \"control\": \"wrong_physical_snapshot\",\n    \"exit\": 1,\n    \"rejected\": true\n  },\n  {\n    \"control\": \"missing_default_assertion_confirmation\",\n    \"exit\": 1,\n    \"rejected\": true\n  }\n]\n"
+      },
+      {
+        "path": ".checks/tabs-closeout/tabs-button-owner-exact-callsite-replay.log",
+        "sha256": "1831e5084dca5048916492b0fc584cc7f24cef7a657f59a1097e2e76525b5d60",
+        "status": "PASS",
+        "preservedReceipt": "{\"status\":\"READ_ONLY_ACTUAL_ARTIFACT_VALIDATED\",\"cases\":2,\"snapshots\":[{\"caseName\":\"disabled synchronization\",\"tag\":\"BUTTON\",\"role\":\"tab\",\"disabled\":true,\"disabledAttribute\":\"\",\"ariaDisabled\":\"true\",\"disabledFieldset\":false,\"ancestors\":[{\"tag\":\"DIV\",\"disabled\":false,\"ariaDisabled\":null,\"inert\":false},{\"tag\":\"DIV\",\"disabled\":false,\"ariaDisabled\":null,\"inert\":false},{\"tag\":\"DIV\",\"disabled\":false,\"ariaDisabled\":null,\"inert\":false},{\"tag\":\"BODY\",\"disabled\":false,\"ariaDisabled\":null,\"inert\":false},{\"tag\":\"HTML\",\"disabled\":false,\"ariaDisabled\":null,\"inert\":false}]},{\"caseName\":\"diagnostic\",\"tag\":\"BUTTON\",\"role\":\"tab\",\"disabled\":false,\"disabledAttribute\":null,\"ariaDisabled\":null,\"disabledFieldset\":false,\"ancestors\":[{\"tag\":\"DIV\",\"disabled\":false,\"ariaDisabled\":null,\"inert\":false},{\"tag\":\"DIV\",\"disabled\":false,\"ariaDisabled\":null,\"inert\":false},{\"tag\":\"DIV\",\"disabled\":false,\"ariaDisabled\":null,\"inert\":false},{\"tag\":\"BODY\",\"disabled\":false,\"ariaDisabled\":null,\"inert\":false},{\"tag\":\"HTML\",\"disabled\":false,\"ariaDisabled\":null,\"inert\":false}]}]}\n"
+      },
+      {
+        "path": ".checks/tabs-closeout/tabs-button-owner-exact-callsite-eslint.log",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "status": "PASS",
+        "preservedReceipt": ""
+      },
+      {
+        "path": ".checks/tabs-closeout/reporter-negative-controls/results.json",
+        "sha256": "e16663854e6128267e35062e8543d9b43fa9d53338a17736d0924f1b3aba2488",
+        "status": "ALL_9_REJECTED",
+        "preservedReceipt": "[\n  {\n    \"control\": \"unrelated_error_same_boolean\",\n    \"exit\": 1,\n    \"rejected\": true\n  },\n  {\n    \"control\": \"wrong_witness_same_boolean\",\n    \"exit\": 1,\n    \"rejected\": true\n  },\n  {\n    \"control\": \"suite_error\",\n    \"exit\": 1,\n    \"rejected\": true\n  },\n  {\n    \"control\": \"launch_error_log\",\n    \"exit\": 1,\n    \"rejected\": true\n  },\n  {\n    \"control\": \"wrong_case_name\",\n    \"exit\": 1,\n    \"rejected\": true\n  },\n  {\n    \"control\": \"missing_case\",\n    \"exit\": 1,\n    \"rejected\": true\n  },\n  {\n    \"control\": \"wrong_physical_snapshot\",\n    \"exit\": 1,\n    \"rejected\": true\n  },\n  {\n    \"control\": \"missing_default_assertion_confirmation\",\n    \"exit\": 1,\n    \"rejected\": true\n  },\n  {\n    \"control\": \"wrong_callsite\",\n    \"exit\": 1,\n    \"rejected\": true\n  }\n]\n",
+        "supersedes": "Historical eight-control receipt retained above; ninth wrong61:108 callsite rejected."
+      }
+    ],
+    "syntaxCheck": {
+      "command": "node --check scripts/check-tabs-button-owner-browser.mjs",
+      "exitCode": 0,
+      "reportedBy": "native owner",
+      "completedAtUTC": "2026-10-06T22:22:39Z"
+    },
+    "exactCallsites": {
+      "witnessSha256": "900a00cc32014849e6bb38d05e9ee986b051ddc1d0f70696bdd58ab4f7e25209",
+      "physical": "60:108",
+      "diagnostic": "74:125",
+      "purpose": "Actual current witness hash checked before mutation; each serialized error must identify its exact compiled callsite."
+    },
+    "completedAtUTC": "2026-10-06T22:24:14Z"
   }
 }
