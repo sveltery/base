@@ -1,0 +1,453 @@
+{
+  "schemaVersion": 1,
+  "immutablePin": "47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c",
+  "issue": "https://github.com/sveltery/base/issues/91",
+  "status": "verified shared Source/native live-owner-document resource behavior; preserve, no runtime repair; native supplements zero unchanged credit",
+  "scope": "Authored JSDOM MouseEvent named pointerdown; valid started session before adoption and disabling. Trusted pointer capture/outro remain unmeasured.",
+  "candidateRuntime": "45d1569ac4d33c7761c3615e599d2c2499e36dcb; no Control changes from014d",
+  "sourceControlSha256": "6de0e762a3077c6de79affca767d96138171f9e0460239ec49ce8202564fae44",
+  "nativeControlSha256": "5bea20202391bbe9a5d88bc6118338c9e0d5b3836e4a3e6e1b4548e02ab2da75",
+  "observationFileSha256": "fb18cae44dbb5299d25cefcedc7315ac765f0ed1efb7f5ef2ad15ef1b7618d07",
+  "observations": {
+    "head": "014d77ca0964cd140b8858e3d81fd81238cfb6d2",
+    "pin": "47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c",
+    "scope": "actual raw pinned React and Utils plus native components; authored MouseEvent named pointerdown; active original-document session before whole-container adoption then disabled live foreign host; JSDOM supplement zero credit, no pointercapture/trusted browser/outro proof",
+    "results": [
+      {
+        "framework": "Source",
+        "mode": "disable-live-adopted-host",
+        "cancel": false,
+        "afterUnmount": {
+          "original": {
+            "pointermove": 0,
+            "pointerup": 0
+          },
+          "foreign": {}
+        },
+        "started": {
+          "listeners": {
+            "original": {
+              "pointermove": 1,
+              "pointerup": 1
+            },
+            "foreign": {}
+          },
+          "calls": [
+            {
+              "value": 50,
+              "type": "pointerdown"
+            }
+          ]
+        },
+        "adopted": true,
+        "replacement": null,
+        "postCleanup": {
+          "original": {
+            "pointermove": 1,
+            "pointerup": 1
+          },
+          "foreign": {}
+        },
+        "beforeDispatch": {
+          "calls": 1,
+          "commits": 0
+        },
+        "afterDispatch": {
+          "calls": 1,
+          "commits": 0
+        },
+        "dispatchError": null,
+        "records": [
+          {
+            "name": "original",
+            "action": "add",
+            "type": "pointermove"
+          },
+          {
+            "name": "original",
+            "action": "add",
+            "type": "pointerup"
+          },
+          {
+            "name": "foreign",
+            "action": "remove",
+            "type": "pointermove",
+            "matched": false
+          },
+          {
+            "name": "foreign",
+            "action": "remove",
+            "type": "pointerup",
+            "matched": false
+          },
+          {
+            "name": "foreign",
+            "action": "remove",
+            "type": "pointermove",
+            "matched": false
+          },
+          {
+            "name": "foreign",
+            "action": "remove",
+            "type": "pointerup",
+            "matched": false
+          },
+          {
+            "name": "foreign",
+            "action": "remove",
+            "type": "pointermove",
+            "matched": false
+          },
+          {
+            "name": "foreign",
+            "action": "remove",
+            "type": "pointerup",
+            "matched": false
+          },
+          {
+            "name": "original",
+            "action": "remove",
+            "type": "pointermove",
+            "matched": true
+          },
+          {
+            "name": "original",
+            "action": "remove",
+            "type": "pointerup",
+            "matched": true
+          }
+        ]
+      },
+      {
+        "framework": "Source",
+        "mode": "disable-live-adopted-host",
+        "cancel": true,
+        "afterUnmount": {
+          "original": {
+            "pointermove": 0,
+            "pointerup": 0
+          },
+          "foreign": {}
+        },
+        "started": {
+          "listeners": {
+            "original": {
+              "pointermove": 1,
+              "pointerup": 1
+            },
+            "foreign": {}
+          },
+          "calls": [
+            {
+              "value": 50,
+              "type": "pointerdown"
+            }
+          ]
+        },
+        "adopted": true,
+        "replacement": null,
+        "postCleanup": {
+          "original": {
+            "pointermove": 1,
+            "pointerup": 1
+          },
+          "foreign": {}
+        },
+        "beforeDispatch": {
+          "calls": 1,
+          "commits": 0
+        },
+        "afterDispatch": {
+          "calls": 1,
+          "commits": 0
+        },
+        "dispatchError": null,
+        "records": [
+          {
+            "name": "original",
+            "action": "add",
+            "type": "pointermove"
+          },
+          {
+            "name": "original",
+            "action": "add",
+            "type": "pointerup"
+          },
+          {
+            "name": "foreign",
+            "action": "remove",
+            "type": "pointermove",
+            "matched": false
+          },
+          {
+            "name": "foreign",
+            "action": "remove",
+            "type": "pointerup",
+            "matched": false
+          },
+          {
+            "name": "foreign",
+            "action": "remove",
+            "type": "pointermove",
+            "matched": false
+          },
+          {
+            "name": "foreign",
+            "action": "remove",
+            "type": "pointerup",
+            "matched": false
+          },
+          {
+            "name": "foreign",
+            "action": "remove",
+            "type": "pointermove",
+            "matched": false
+          },
+          {
+            "name": "foreign",
+            "action": "remove",
+            "type": "pointerup",
+            "matched": false
+          },
+          {
+            "name": "original",
+            "action": "remove",
+            "type": "pointermove",
+            "matched": true
+          },
+          {
+            "name": "original",
+            "action": "remove",
+            "type": "pointerup",
+            "matched": true
+          }
+        ]
+      },
+      {
+        "framework": "native",
+        "mode": "disable-live-adopted-host",
+        "cancel": false,
+        "afterUnmount": {
+          "original": {
+            "pointermove": 0,
+            "pointerup": 0
+          },
+          "foreign": {}
+        },
+        "started": {
+          "listeners": {
+            "original": {
+              "pointermove": 1,
+              "pointerup": 1
+            },
+            "foreign": {}
+          },
+          "calls": [
+            {
+              "value": 50,
+              "type": "pointerdown"
+            }
+          ]
+        },
+        "adopted": true,
+        "replacement": null,
+        "postCleanup": {
+          "original": {
+            "pointermove": 1,
+            "pointerup": 1
+          },
+          "foreign": {}
+        },
+        "beforeDispatch": {
+          "calls": 1,
+          "commits": 0
+        },
+        "afterDispatch": {
+          "calls": 1,
+          "commits": 0
+        },
+        "dispatchError": null,
+        "records": [
+          {
+            "name": "original",
+            "action": "add",
+            "type": "pointermove"
+          },
+          {
+            "name": "original",
+            "action": "add",
+            "type": "pointerup"
+          },
+          {
+            "name": "foreign",
+            "action": "remove",
+            "type": "pointermove",
+            "matched": false
+          },
+          {
+            "name": "foreign",
+            "action": "remove",
+            "type": "pointerup",
+            "matched": false
+          },
+          {
+            "name": "foreign",
+            "action": "remove",
+            "type": "pointermove",
+            "matched": false
+          },
+          {
+            "name": "foreign",
+            "action": "remove",
+            "type": "pointerup",
+            "matched": false
+          },
+          {
+            "name": "foreign",
+            "action": "remove",
+            "type": "pointermove",
+            "matched": false
+          },
+          {
+            "name": "foreign",
+            "action": "remove",
+            "type": "pointerup",
+            "matched": false
+          },
+          {
+            "name": "original",
+            "action": "remove",
+            "type": "pointermove",
+            "matched": true
+          },
+          {
+            "name": "original",
+            "action": "remove",
+            "type": "pointerup",
+            "matched": true
+          }
+        ]
+      },
+      {
+        "framework": "native",
+        "mode": "disable-live-adopted-host",
+        "cancel": true,
+        "afterUnmount": {
+          "original": {
+            "pointermove": 0,
+            "pointerup": 0
+          },
+          "foreign": {}
+        },
+        "started": {
+          "listeners": {
+            "original": {
+              "pointermove": 1,
+              "pointerup": 1
+            },
+            "foreign": {}
+          },
+          "calls": [
+            {
+              "value": 50,
+              "type": "pointerdown"
+            }
+          ]
+        },
+        "adopted": true,
+        "replacement": null,
+        "postCleanup": {
+          "original": {
+            "pointermove": 1,
+            "pointerup": 1
+          },
+          "foreign": {}
+        },
+        "beforeDispatch": {
+          "calls": 1,
+          "commits": 0
+        },
+        "afterDispatch": {
+          "calls": 1,
+          "commits": 0
+        },
+        "dispatchError": null,
+        "records": [
+          {
+            "name": "original",
+            "action": "add",
+            "type": "pointermove"
+          },
+          {
+            "name": "original",
+            "action": "add",
+            "type": "pointerup"
+          },
+          {
+            "name": "foreign",
+            "action": "remove",
+            "type": "pointermove",
+            "matched": false
+          },
+          {
+            "name": "foreign",
+            "action": "remove",
+            "type": "pointerup",
+            "matched": false
+          },
+          {
+            "name": "foreign",
+            "action": "remove",
+            "type": "pointermove",
+            "matched": false
+          },
+          {
+            "name": "foreign",
+            "action": "remove",
+            "type": "pointerup",
+            "matched": false
+          },
+          {
+            "name": "foreign",
+            "action": "remove",
+            "type": "pointermove",
+            "matched": false
+          },
+          {
+            "name": "foreign",
+            "action": "remove",
+            "type": "pointerup",
+            "matched": false
+          },
+          {
+            "name": "original",
+            "action": "remove",
+            "type": "pointermove",
+            "matched": true
+          },
+          {
+            "name": "original",
+            "action": "remove",
+            "type": "pointerup",
+            "matched": true
+          }
+        ]
+      }
+    ]
+  },
+  "reproducer": {
+    "listener-disabled-check.mjs": {
+      "sha256": "788c48e0d32b70715d4734a3c2fcdc60f8ae4cca04112a64a2d0e07f10128a07",
+      "body": "import {createRequire} from 'node:module';import{writeFileSync}from'node:fs';\nconst base=createRequire(new URL('../../packages/base/package.json',import.meta.url));const fixture=createRequire(new URL('../../apps/fixtures/package.json',import.meta.url));\nconst {JSDOM}=base('jsdom');const dom=new JSDOM('<main></main>',{url:'http://localhost'});\nfor(const key of ['window','document','navigator','HTMLElement','HTMLInputElement','HTMLFormElement','Element','Node','Text','Comment','Event','KeyboardEvent','MouseEvent','FocusEvent','FormData','MutationObserver','getComputedStyle'])Object.defineProperty(globalThis,key,{configurable:true,value:dom.window[key]});\nglobalThis.requestAnimationFrame=(fn)=>setTimeout(fn,0);globalThis.cancelAnimationFrame=clearTimeout;globalThis.IS_REACT_ACT_ENVIRONMENT=true;\nconst React=fixture('react');const{createRoot}=fixture('react-dom/client');const Slider=await import('../../../pinned-source/packages/react/src/slider/index.parts.ts');const{mount,flushSync,unmount,tick}=await import('svelte');const{default:Native}=await import('./ListenerDisabled.svelte');\nconst results=[];\nfor(const framework of ['Source','native'])for(const mode of ['disable-live-adopted-host'])for(const cancel of [false,true]){\n const target=document.createElement('main');document.body.append(target);const frame=document.createElement('iframe');document.body.append(frame);const foreign=frame.contentDocument;const records=[],tracking=[];\n for(const [name,doc] of [['original',document],['foreign',foreign]]){const active=new Map(),add=doc.addEventListener.bind(doc),remove=doc.removeEventListener.bind(doc);doc.addEventListener=(type,fn,opt)=>{if(['pointermove','pointerup'].includes(type)){records.push({name,action:'add',type});if(!active.has(type))active.set(type,new Set());active.get(type).add(fn);}return add(type,fn,opt);};doc.removeEventListener=(type,fn,opt)=>{if(['pointermove','pointerup'].includes(type)){records.push({name,action:'remove',type,matched:active.get(type)?.has(fn)??false});active.get(type)?.delete(fn);}return remove(type,fn,opt);};tracking.push({name,doc,active,add,remove});}\n const snapshot=()=>Object.fromEntries(tracking.map(({name,active})=>[name,Object.fromEntries([...active].map(([type,fns])=>[type,fns.size]))]));\n const calls=[],commits=[];let app,alternate=false,disabled=false;const render=()=>React.createElement(Slider.Root,{disabled,defaultValue:40,onValueChange(value,d){calls.push({value,type:d.event.type});if(cancel)d.cancel();},onValueCommitted(value,d){commits.push({value,type:d.event.type});}},React.createElement(Slider.Control,{render:props=>React.createElement(alternate?'section':'div',{...props,id:'control'})},React.createElement(Slider.Thumb)));\n if(framework==='Source')await React.act(async()=>{app=createRoot(target);app.render(render());});else{app=mount(Native,{target,props:{calls,commits,cancel}});flushSync();await tick();}\n let host=target.querySelector('#control');host.getBoundingClientRect=()=>({left:0,top:0,width:100,height:20,right:100,bottom:20});\n const start=()=>host.dispatchEvent(new MouseEvent('pointerdown',{bubbles:true,button:0,clientX:50,clientY:10}));if(framework==='Source')await React.act(async()=>start());else{start();flushSync();await tick();}\n const started={listeners:snapshot(),calls:calls.slice()};if(!calls.length||snapshot().original.pointermove!==1||snapshot().original.pointerup!==1)throw Error('invalid session '+framework);\n foreign.body.append(target);const adopted=host.ownerDocument===foreign;let replacement=null;\n if(mode==='replace-then-unmount'){if(framework==='Source')await React.act(async()=>{alternate=true;app.render(render());});else{app.replace();flushSync();await tick();}replacement=snapshot();}\n if(framework==='Source')await React.act(async()=>{disabled=true;app.render(render());});else{app.disable();flushSync();await tick();}const postCleanup=snapshot(),beforeDispatch={calls:calls.length,commits:commits.length};let dispatchError=null;\n try{const emit=()=>{document.dispatchEvent(new MouseEvent('pointermove',{bubbles:true,clientX:70,clientY:10}));document.dispatchEvent(new MouseEvent('pointerup',{bubbles:true,clientX:70,clientY:10}));};if(framework==='Source')await React.act(async()=>emit());else{emit();flushSync();await tick();}}catch(e){dispatchError=String(e);}\n if(framework==='Source')await React.act(async()=>app.unmount());else await unmount(app);const afterUnmount=snapshot();results.push({framework,mode,cancel,afterUnmount,started,adopted,replacement,postCleanup,beforeDispatch,afterDispatch:{calls:calls.length,commits:commits.length},dispatchError,records});\n // Explicit diagnostic teardown of outstanding identities, not product repair.\n for(const {doc,active,add,remove} of tracking){for(const [type,fns]of active)for(const fn of fns)remove(type,fn);doc.addEventListener=add;doc.removeEventListener=remove;}frame.remove();target.remove();\n}\nconst evidence={head:'014d77ca0964cd140b8858e3d81fd81238cfb6d2',pin:'47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c',scope:'actual raw pinned React and Utils plus native components; authored MouseEvent named pointerdown; active original-document session before whole-container adoption then disabled live foreign host; JSDOM supplement zero credit, no pointercapture/trusted browser/outro proof',results};writeFileSync(new URL('./listener-disabled-result.json',import.meta.url),JSON.stringify(evidence,null,2));console.log(JSON.stringify(evidence));dom.window.close();\n"
+    },
+    "ListenerDisabled.svelte": {
+      "sha256": "b965b7c82f49820baa4dbb2237019e93a8cc200d4a3cec2e7a08267ffbb84ae9",
+      "body": "<script>import {Slider} from '../../packages/base/src/lib/slider/index.js';let {calls,commits,cancel=false}= $props();let alternate=$state(false);let disabled=$state(false);export function disable(){disabled=true;}export function replace(){alternate=!alternate;}</script>\n<Slider.Root {disabled} defaultValue={40} onValueChange={(value,d)=>{calls.push({value,type:d.event.type});if(cancel)d.cancel();}} onValueCommitted={(value,d)=>commits.push({value,type:d.event.type})}><Slider.Control>{#snippet render(props,state,children)}{#if alternate}<section id=\"control\" {...props}>{@render children?.()}</section>{:else}<div id=\"control\" {...props}>{@render children?.()}</div>{/if}{/snippet}<Slider.Thumb/></Slider.Control></Slider.Root>"
+    },
+    "loader.mjs": {
+      "sha256": "ea6bcfa59e2174af60bc5f418cf203386f8b2a904a4a96bc96cbb9269406dc8b",
+      "body": "import { registerHooks, createRequire } from 'node:module';\nimport { readFileSync, existsSync } from 'node:fs';\nimport { fileURLToPath } from 'node:url';\nconst base = createRequire(new URL('../../packages/base/package.json', import.meta.url));\nconst fixture = createRequire(new URL('../../apps/fixtures/package.json', import.meta.url));\nconst react = createRequire(fixture.resolve('@base-ui/react/package.json'));\nconst { compile, compileModule } = base('svelte/compiler');\nconst { transpileModule, ModuleKind, ScriptTarget, JsxEmit } = base('typescript');\nregisterHooks({\n resolve(specifier, context, next) {\n  if (context.parentURL?.includes('/pinned-source/')) {\n   if (specifier.startsWith('@base-ui/utils/')) { const source = new URL('../../../pinned-source/packages/utils/src/' + specifier.slice('@base-ui/utils/'.length) + '.ts', import.meta.url); if (existsSync(fileURLToPath(source))) return next(source.href, context); const index = new URL(source.href.replace(/\\.ts$/, '/index.ts')); if (existsSync(fileURLToPath(index))) return next(index.href, context); throw new Error('Missing pinned utils module: ' + specifier); }\n   if (!specifier.startsWith('.')) return next(react.resolve(specifier), context);\n   for (const suffix of ['', '.ts', '.tsx', '/index.ts', '/index.tsx']) { const target = new URL(specifier + suffix, context.parentURL); if (existsSync(fileURLToPath(target)) && /\\.[tj]sx?$/.test(target.pathname)) return next(target.href, context); }\n  }\n  if (specifier.startsWith('.') && specifier.endsWith('.js') && context.parentURL) {\n   const target = new URL(specifier, context.parentURL);\n   const source = new URL(target.href.replace(/\\.js$/, '.ts'));\n   if (!existsSync(fileURLToPath(target)) && existsSync(fileURLToPath(source))) return next(source.href, context);\n  }\n  return next(specifier, context);\n },\n load(url, context, next) {\n  if (!/\\.(svelte|tsx?|svelte\\.js)$/.test(url)) return next(url, context);\n  let raw = readFileSync(fileURLToPath(url), 'utf8');\n  if (/\\.tsx?$/.test(url)) raw = transpileModule(raw, { compilerOptions: { module: ModuleKind.ESNext, target: ScriptTarget.ESNext, verbatimModuleSyntax: false, jsx: JsxEmit.React } }).outputText;\n  if (/\\.svelte(?:\\.[jt]s)?$/.test(url)) raw = (url.endsWith('.svelte') ? compile(raw, {filename:fileURLToPath(url),generate:'client'}) : compileModule(raw, {filename:fileURLToPath(url),generate:'client'})).js.code;\n  return { format:'module', source:raw, shortCircuit:true };\n }\n});\n"
+    }
+  },
+  "command": "source scripts/toolchain.sh; NODE_OPTIONS=--max-old-space-size=768 node --conditions=browser --import ./.checks/slider-audit-014d/loader.mjs .checks/slider-audit-014d/listener-disabled-check.mjs"
+}

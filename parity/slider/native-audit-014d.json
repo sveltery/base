@@ -1,0 +1,2568 @@
+{
+  "schemaVersion": 1,
+  "diagnosticHead": "014d77ca0964cd140b8858e3d81fd81238cfb6d2",
+  "immutablePin": "47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c",
+  "status": "supplementary audit; no unchanged assertion credit; cross-document/outro acceptance pending",
+  "records": {
+    "phase-result.json": {
+      "sha256": "26a15bac05c22e599506d7214e9785f9f27fc137363417d5a9eff3c245ada21c",
+      "observations": {
+        "pin": "47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c",
+        "head": "014d77ca0964cd140b8858e3d81fd81238cfb6d2",
+        "scope": "actual pinned hook React19.2.8 and native helper SSR/CSR/hydration phase supplement; zero unchanged assertion credit; no browser parser claim",
+        "source": {
+          "server": {
+            "calls": [
+              true
+            ],
+            "html": "<span data-phase=\"true\">true</span>"
+          },
+          "client": {
+            "calls": [
+              false
+            ],
+            "html": "<span data-phase=\"false\">false</span>"
+          },
+          "hydration": {
+            "calls": [
+              true,
+              false
+            ],
+            "retained": true,
+            "html": "<span data-phase=\"false\">false</span>"
+          }
+        },
+        "native": {
+          "server": {
+            "html": "<!--[--><span data-phase=\"true\">true</span><!--]-->",
+            "calls": [
+              {
+                "phase": "setup",
+                "value": true
+              }
+            ]
+          },
+          "client": {
+            "calls": [
+              {
+                "phase": "setup",
+                "value": true
+              },
+              {
+                "phase": "mount",
+                "value": false
+              }
+            ],
+            "value": false,
+            "html": "<span data-phase=\"false\">false</span>"
+          },
+          "hydration": {
+            "calls": [
+              {
+                "phase": "setup",
+                "value": true
+              },
+              {
+                "phase": "mount",
+                "value": false
+              }
+            ],
+            "value": false,
+            "retained": true,
+            "html": "<!--[--><span data-phase=\"false\">false</span><!--]-->"
+          }
+        }
+      }
+    },
+    "events-before-tick.json": {
+      "sha256": "d0bf304032d37c26270ed1af5d7e8d11e13e217cb5f77b90c6d6dd58d3aa732d",
+      "observations": {
+        "scope": "Actual BaseUI1.8.0 React19.2.8 and current native Slider real JSDOM authored Event dispatch; supplementary, zero unchanged assertion credit. Does not establish trusted browser UA input/change order.",
+        "head": "014d77ca0964cd140b8858e3d81fd81238cfb6d2",
+        "results": [
+          {
+            "framework": "Source",
+            "cancel": false,
+            "sequence": "noop",
+            "observations": [
+              {
+                "type": "input",
+                "domValue": "40",
+                "calls": [],
+                "commits": []
+              },
+              {
+                "type": "change",
+                "domValue": "40",
+                "calls": [],
+                "commits": []
+              }
+            ]
+          },
+          {
+            "framework": "Source",
+            "cancel": false,
+            "sequence": "input-then-change",
+            "observations": [
+              {
+                "type": "input",
+                "domValue": "80",
+                "calls": [
+                  {
+                    "value": 80,
+                    "type": "input"
+                  }
+                ],
+                "commits": [
+                  {
+                    "value": 80,
+                    "type": "input"
+                  }
+                ]
+              },
+              {
+                "type": "change",
+                "domValue": "80",
+                "calls": [
+                  {
+                    "value": 80,
+                    "type": "input"
+                  }
+                ],
+                "commits": [
+                  {
+                    "value": 80,
+                    "type": "input"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "framework": "Source",
+            "cancel": false,
+            "sequence": "change-only",
+            "observations": [
+              {
+                "type": "change",
+                "domValue": "80",
+                "calls": [
+                  {
+                    "value": 80,
+                    "type": "change"
+                  }
+                ],
+                "commits": [
+                  {
+                    "value": 80,
+                    "type": "change"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "framework": "Source",
+            "cancel": false,
+            "sequence": "repeated-edit",
+            "observations": [
+              {
+                "type": "input",
+                "domValue": "80",
+                "calls": [
+                  {
+                    "value": 80,
+                    "type": "input"
+                  }
+                ],
+                "commits": [
+                  {
+                    "value": 80,
+                    "type": "input"
+                  }
+                ]
+              },
+              {
+                "type": "change",
+                "domValue": "80",
+                "calls": [
+                  {
+                    "value": 80,
+                    "type": "input"
+                  }
+                ],
+                "commits": [
+                  {
+                    "value": 80,
+                    "type": "input"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "framework": "Source",
+            "cancel": true,
+            "sequence": "noop",
+            "observations": [
+              {
+                "type": "input",
+                "domValue": "40",
+                "calls": [],
+                "commits": []
+              },
+              {
+                "type": "change",
+                "domValue": "40",
+                "calls": [],
+                "commits": []
+              }
+            ]
+          },
+          {
+            "framework": "Source",
+            "cancel": true,
+            "sequence": "input-then-change",
+            "observations": [
+              {
+                "type": "input",
+                "domValue": "40",
+                "calls": [
+                  {
+                    "value": 80,
+                    "type": "input"
+                  }
+                ],
+                "commits": []
+              },
+              {
+                "type": "change",
+                "domValue": "40",
+                "calls": [
+                  {
+                    "value": 80,
+                    "type": "input"
+                  }
+                ],
+                "commits": []
+              }
+            ]
+          },
+          {
+            "framework": "Source",
+            "cancel": true,
+            "sequence": "change-only",
+            "observations": [
+              {
+                "type": "change",
+                "domValue": "40",
+                "calls": [
+                  {
+                    "value": 80,
+                    "type": "change"
+                  }
+                ],
+                "commits": []
+              }
+            ]
+          },
+          {
+            "framework": "Source",
+            "cancel": true,
+            "sequence": "repeated-edit",
+            "observations": [
+              {
+                "type": "input",
+                "domValue": "40",
+                "calls": [
+                  {
+                    "value": 80,
+                    "type": "input"
+                  }
+                ],
+                "commits": []
+              },
+              {
+                "type": "change",
+                "domValue": "40",
+                "calls": [
+                  {
+                    "value": 80,
+                    "type": "input"
+                  },
+                  {
+                    "value": 80,
+                    "type": "change"
+                  }
+                ],
+                "commits": []
+              }
+            ]
+          },
+          {
+            "framework": "native",
+            "cancel": false,
+            "sequence": "noop",
+            "observations": [
+              {
+                "type": "input",
+                "domValue": "40",
+                "calls": [],
+                "commits": []
+              },
+              {
+                "type": "change",
+                "domValue": "40",
+                "calls": [],
+                "commits": []
+              }
+            ]
+          },
+          {
+            "framework": "native",
+            "cancel": false,
+            "sequence": "input-then-change",
+            "observations": [
+              {
+                "type": "input",
+                "domValue": "80",
+                "calls": [
+                  {
+                    "value": 80,
+                    "type": "input"
+                  }
+                ],
+                "commits": [
+                  {
+                    "value": 80,
+                    "type": "input"
+                  }
+                ]
+              },
+              {
+                "type": "change",
+                "domValue": "80",
+                "calls": [
+                  {
+                    "value": 80,
+                    "type": "input"
+                  }
+                ],
+                "commits": [
+                  {
+                    "value": 80,
+                    "type": "input"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "framework": "native",
+            "cancel": false,
+            "sequence": "change-only",
+            "observations": [
+              {
+                "type": "change",
+                "domValue": "80",
+                "calls": [
+                  {
+                    "value": 80,
+                    "type": "change"
+                  }
+                ],
+                "commits": [
+                  {
+                    "value": 80,
+                    "type": "change"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "framework": "native",
+            "cancel": false,
+            "sequence": "repeated-edit",
+            "observations": [
+              {
+                "type": "input",
+                "domValue": "80",
+                "calls": [
+                  {
+                    "value": 80,
+                    "type": "input"
+                  }
+                ],
+                "commits": [
+                  {
+                    "value": 80,
+                    "type": "input"
+                  }
+                ]
+              },
+              {
+                "type": "change",
+                "domValue": "80",
+                "calls": [
+                  {
+                    "value": 80,
+                    "type": "input"
+                  }
+                ],
+                "commits": [
+                  {
+                    "value": 80,
+                    "type": "input"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "framework": "native",
+            "cancel": true,
+            "sequence": "noop",
+            "observations": [
+              {
+                "type": "input",
+                "domValue": "40",
+                "calls": [],
+                "commits": []
+              },
+              {
+                "type": "change",
+                "domValue": "40",
+                "calls": [],
+                "commits": []
+              }
+            ]
+          },
+          {
+            "framework": "native",
+            "cancel": true,
+            "sequence": "input-then-change",
+            "observations": [
+              {
+                "type": "input",
+                "domValue": "80",
+                "calls": [
+                  {
+                    "value": 80,
+                    "type": "input"
+                  }
+                ],
+                "commits": []
+              },
+              {
+                "type": "change",
+                "domValue": "80",
+                "calls": [
+                  {
+                    "value": 80,
+                    "type": "input"
+                  },
+                  {
+                    "value": 80,
+                    "type": "change"
+                  }
+                ],
+                "commits": []
+              }
+            ]
+          },
+          {
+            "framework": "native",
+            "cancel": true,
+            "sequence": "change-only",
+            "observations": [
+              {
+                "type": "change",
+                "domValue": "80",
+                "calls": [
+                  {
+                    "value": 80,
+                    "type": "change"
+                  }
+                ],
+                "commits": []
+              }
+            ]
+          },
+          {
+            "framework": "native",
+            "cancel": true,
+            "sequence": "repeated-edit",
+            "observations": [
+              {
+                "type": "input",
+                "domValue": "80",
+                "calls": [
+                  {
+                    "value": 80,
+                    "type": "input"
+                  }
+                ],
+                "commits": []
+              },
+              {
+                "type": "change",
+                "domValue": "80",
+                "calls": [
+                  {
+                    "value": 80,
+                    "type": "input"
+                  },
+                  {
+                    "value": 80,
+                    "type": "change"
+                  }
+                ],
+                "commits": []
+              }
+            ]
+          }
+        ]
+      }
+    },
+    "events-result.json": {
+      "sha256": "2b3d65c9b561a415b00180fb850967417a743d16ff9f33b30dd14ec482f2710c",
+      "observations": {
+        "scope": "Actual BaseUI1.8.0 React19.2.8 and current native Slider real JSDOM authored Event dispatch; supplementary, zero unchanged assertion credit. Does not establish trusted browser UA input/change order.",
+        "head": "014d77ca0964cd140b8858e3d81fd81238cfb6d2",
+        "results": [
+          {
+            "framework": "Source",
+            "cancel": false,
+            "sequence": "noop",
+            "observations": [
+              {
+                "type": "input",
+                "domValue": "40",
+                "calls": [],
+                "commits": []
+              },
+              {
+                "type": "change",
+                "domValue": "40",
+                "calls": [],
+                "commits": []
+              }
+            ]
+          },
+          {
+            "framework": "Source",
+            "cancel": false,
+            "sequence": "input-then-change",
+            "observations": [
+              {
+                "type": "input",
+                "domValue": "80",
+                "calls": [
+                  {
+                    "value": 80,
+                    "type": "input"
+                  }
+                ],
+                "commits": [
+                  {
+                    "value": 80,
+                    "type": "input"
+                  }
+                ]
+              },
+              {
+                "type": "change",
+                "domValue": "80",
+                "calls": [
+                  {
+                    "value": 80,
+                    "type": "input"
+                  }
+                ],
+                "commits": [
+                  {
+                    "value": 80,
+                    "type": "input"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "framework": "Source",
+            "cancel": false,
+            "sequence": "change-only",
+            "observations": [
+              {
+                "type": "change",
+                "domValue": "80",
+                "calls": [
+                  {
+                    "value": 80,
+                    "type": "change"
+                  }
+                ],
+                "commits": [
+                  {
+                    "value": 80,
+                    "type": "change"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "framework": "Source",
+            "cancel": false,
+            "sequence": "repeated-edit",
+            "observations": [
+              {
+                "type": "input",
+                "domValue": "80",
+                "calls": [
+                  {
+                    "value": 80,
+                    "type": "input"
+                  }
+                ],
+                "commits": [
+                  {
+                    "value": 80,
+                    "type": "input"
+                  }
+                ]
+              },
+              {
+                "type": "change",
+                "domValue": "80",
+                "calls": [
+                  {
+                    "value": 80,
+                    "type": "input"
+                  }
+                ],
+                "commits": [
+                  {
+                    "value": 80,
+                    "type": "input"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "framework": "Source",
+            "cancel": true,
+            "sequence": "noop",
+            "observations": [
+              {
+                "type": "input",
+                "domValue": "40",
+                "calls": [],
+                "commits": []
+              },
+              {
+                "type": "change",
+                "domValue": "40",
+                "calls": [],
+                "commits": []
+              }
+            ]
+          },
+          {
+            "framework": "Source",
+            "cancel": true,
+            "sequence": "input-then-change",
+            "observations": [
+              {
+                "type": "input",
+                "domValue": "40",
+                "calls": [
+                  {
+                    "value": 80,
+                    "type": "input"
+                  }
+                ],
+                "commits": []
+              },
+              {
+                "type": "change",
+                "domValue": "40",
+                "calls": [
+                  {
+                    "value": 80,
+                    "type": "input"
+                  }
+                ],
+                "commits": []
+              }
+            ]
+          },
+          {
+            "framework": "Source",
+            "cancel": true,
+            "sequence": "change-only",
+            "observations": [
+              {
+                "type": "change",
+                "domValue": "40",
+                "calls": [
+                  {
+                    "value": 80,
+                    "type": "change"
+                  }
+                ],
+                "commits": []
+              }
+            ]
+          },
+          {
+            "framework": "Source",
+            "cancel": true,
+            "sequence": "repeated-edit",
+            "observations": [
+              {
+                "type": "input",
+                "domValue": "40",
+                "calls": [
+                  {
+                    "value": 80,
+                    "type": "input"
+                  }
+                ],
+                "commits": []
+              },
+              {
+                "type": "change",
+                "domValue": "40",
+                "calls": [
+                  {
+                    "value": 80,
+                    "type": "input"
+                  },
+                  {
+                    "value": 80,
+                    "type": "change"
+                  }
+                ],
+                "commits": []
+              }
+            ]
+          },
+          {
+            "framework": "native",
+            "cancel": false,
+            "sequence": "noop",
+            "observations": [
+              {
+                "phase": "same-task",
+                "type": "input",
+                "domValue": "40",
+                "calls": [],
+                "commits": []
+              },
+              {
+                "type": "input",
+                "domValue": "40",
+                "calls": [],
+                "commits": []
+              },
+              {
+                "phase": "same-task",
+                "type": "change",
+                "domValue": "40",
+                "calls": [],
+                "commits": []
+              },
+              {
+                "type": "change",
+                "domValue": "40",
+                "calls": [],
+                "commits": []
+              }
+            ]
+          },
+          {
+            "framework": "native",
+            "cancel": false,
+            "sequence": "input-then-change",
+            "observations": [
+              {
+                "phase": "same-task",
+                "type": "input",
+                "domValue": "80",
+                "calls": [
+                  {
+                    "value": 80,
+                    "type": "input"
+                  }
+                ],
+                "commits": [
+                  {
+                    "value": 80,
+                    "type": "input"
+                  }
+                ]
+              },
+              {
+                "type": "input",
+                "domValue": "80",
+                "calls": [
+                  {
+                    "value": 80,
+                    "type": "input"
+                  }
+                ],
+                "commits": [
+                  {
+                    "value": 80,
+                    "type": "input"
+                  }
+                ]
+              },
+              {
+                "phase": "same-task",
+                "type": "change",
+                "domValue": "80",
+                "calls": [
+                  {
+                    "value": 80,
+                    "type": "input"
+                  }
+                ],
+                "commits": [
+                  {
+                    "value": 80,
+                    "type": "input"
+                  }
+                ]
+              },
+              {
+                "type": "change",
+                "domValue": "80",
+                "calls": [
+                  {
+                    "value": 80,
+                    "type": "input"
+                  }
+                ],
+                "commits": [
+                  {
+                    "value": 80,
+                    "type": "input"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "framework": "native",
+            "cancel": false,
+            "sequence": "change-only",
+            "observations": [
+              {
+                "phase": "same-task",
+                "type": "change",
+                "domValue": "80",
+                "calls": [
+                  {
+                    "value": 80,
+                    "type": "change"
+                  }
+                ],
+                "commits": [
+                  {
+                    "value": 80,
+                    "type": "change"
+                  }
+                ]
+              },
+              {
+                "type": "change",
+                "domValue": "80",
+                "calls": [
+                  {
+                    "value": 80,
+                    "type": "change"
+                  }
+                ],
+                "commits": [
+                  {
+                    "value": 80,
+                    "type": "change"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "framework": "native",
+            "cancel": false,
+            "sequence": "repeated-edit",
+            "observations": [
+              {
+                "phase": "same-task",
+                "type": "input",
+                "domValue": "80",
+                "calls": [
+                  {
+                    "value": 80,
+                    "type": "input"
+                  }
+                ],
+                "commits": [
+                  {
+                    "value": 80,
+                    "type": "input"
+                  }
+                ]
+              },
+              {
+                "type": "input",
+                "domValue": "80",
+                "calls": [
+                  {
+                    "value": 80,
+                    "type": "input"
+                  }
+                ],
+                "commits": [
+                  {
+                    "value": 80,
+                    "type": "input"
+                  }
+                ]
+              },
+              {
+                "phase": "same-task",
+                "type": "change",
+                "domValue": "80",
+                "calls": [
+                  {
+                    "value": 80,
+                    "type": "input"
+                  }
+                ],
+                "commits": [
+                  {
+                    "value": 80,
+                    "type": "input"
+                  }
+                ]
+              },
+              {
+                "type": "change",
+                "domValue": "80",
+                "calls": [
+                  {
+                    "value": 80,
+                    "type": "input"
+                  }
+                ],
+                "commits": [
+                  {
+                    "value": 80,
+                    "type": "input"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "framework": "native",
+            "cancel": true,
+            "sequence": "noop",
+            "observations": [
+              {
+                "phase": "same-task",
+                "type": "input",
+                "domValue": "40",
+                "calls": [],
+                "commits": []
+              },
+              {
+                "type": "input",
+                "domValue": "40",
+                "calls": [],
+                "commits": []
+              },
+              {
+                "phase": "same-task",
+                "type": "change",
+                "domValue": "40",
+                "calls": [],
+                "commits": []
+              },
+              {
+                "type": "change",
+                "domValue": "40",
+                "calls": [],
+                "commits": []
+              }
+            ]
+          },
+          {
+            "framework": "native",
+            "cancel": true,
+            "sequence": "input-then-change",
+            "observations": [
+              {
+                "phase": "same-task",
+                "type": "input",
+                "domValue": "80",
+                "calls": [
+                  {
+                    "value": 80,
+                    "type": "input"
+                  }
+                ],
+                "commits": []
+              },
+              {
+                "type": "input",
+                "domValue": "40",
+                "calls": [
+                  {
+                    "value": 80,
+                    "type": "input"
+                  }
+                ],
+                "commits": []
+              },
+              {
+                "phase": "same-task",
+                "type": "change",
+                "domValue": "40",
+                "calls": [
+                  {
+                    "value": 80,
+                    "type": "input"
+                  }
+                ],
+                "commits": []
+              },
+              {
+                "type": "change",
+                "domValue": "40",
+                "calls": [
+                  {
+                    "value": 80,
+                    "type": "input"
+                  }
+                ],
+                "commits": []
+              }
+            ]
+          },
+          {
+            "framework": "native",
+            "cancel": true,
+            "sequence": "change-only",
+            "observations": [
+              {
+                "phase": "same-task",
+                "type": "change",
+                "domValue": "80",
+                "calls": [
+                  {
+                    "value": 80,
+                    "type": "change"
+                  }
+                ],
+                "commits": []
+              },
+              {
+                "type": "change",
+                "domValue": "80",
+                "calls": [
+                  {
+                    "value": 80,
+                    "type": "change"
+                  }
+                ],
+                "commits": []
+              }
+            ]
+          },
+          {
+            "framework": "native",
+            "cancel": true,
+            "sequence": "repeated-edit",
+            "observations": [
+              {
+                "phase": "same-task",
+                "type": "input",
+                "domValue": "80",
+                "calls": [
+                  {
+                    "value": 80,
+                    "type": "input"
+                  }
+                ],
+                "commits": []
+              },
+              {
+                "type": "input",
+                "domValue": "40",
+                "calls": [
+                  {
+                    "value": 80,
+                    "type": "input"
+                  }
+                ],
+                "commits": []
+              },
+              {
+                "phase": "same-task",
+                "type": "change",
+                "domValue": "80",
+                "calls": [
+                  {
+                    "value": 80,
+                    "type": "input"
+                  },
+                  {
+                    "value": 80,
+                    "type": "change"
+                  }
+                ],
+                "commits": []
+              },
+              {
+                "type": "change",
+                "domValue": "80",
+                "calls": [
+                  {
+                    "value": 80,
+                    "type": "input"
+                  },
+                  {
+                    "value": 80,
+                    "type": "change"
+                  }
+                ],
+                "commits": []
+              }
+            ]
+          }
+        ]
+      }
+    },
+    "events-pin-result.json": {
+      "sha256": "cd3110a53b8e2af6b981c21add40a414dc1bcedb771bfb9c3031989d56b4b451",
+      "observations": {
+        "scope": "Actual unchanged immutable-pin Slider closure React19.2.8 and current native Slider real JSDOM authored Event dispatch; supplementary, zero unchanged assertion credit. Does not establish trusted browser UA input/change order.",
+        "head": "014d77ca0964cd140b8858e3d81fd81238cfb6d2",
+        "results": [
+          {
+            "framework": "Source",
+            "cancel": false,
+            "sequence": "noop",
+            "observations": [
+              {
+                "type": "input",
+                "domValue": "40",
+                "calls": [],
+                "commits": []
+              },
+              {
+                "type": "change",
+                "domValue": "40",
+                "calls": [],
+                "commits": []
+              }
+            ]
+          },
+          {
+            "framework": "Source",
+            "cancel": false,
+            "sequence": "input-then-change",
+            "observations": [
+              {
+                "type": "input",
+                "domValue": "80",
+                "calls": [
+                  {
+                    "value": 80,
+                    "type": "input"
+                  }
+                ],
+                "commits": [
+                  {
+                    "value": 80,
+                    "type": "input"
+                  }
+                ]
+              },
+              {
+                "type": "change",
+                "domValue": "80",
+                "calls": [
+                  {
+                    "value": 80,
+                    "type": "input"
+                  }
+                ],
+                "commits": [
+                  {
+                    "value": 80,
+                    "type": "input"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "framework": "Source",
+            "cancel": false,
+            "sequence": "change-only",
+            "observations": [
+              {
+                "type": "change",
+                "domValue": "80",
+                "calls": [
+                  {
+                    "value": 80,
+                    "type": "change"
+                  }
+                ],
+                "commits": [
+                  {
+                    "value": 80,
+                    "type": "change"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "framework": "Source",
+            "cancel": false,
+            "sequence": "repeated-edit",
+            "observations": [
+              {
+                "type": "input",
+                "domValue": "80",
+                "calls": [
+                  {
+                    "value": 80,
+                    "type": "input"
+                  }
+                ],
+                "commits": [
+                  {
+                    "value": 80,
+                    "type": "input"
+                  }
+                ]
+              },
+              {
+                "type": "change",
+                "domValue": "80",
+                "calls": [
+                  {
+                    "value": 80,
+                    "type": "input"
+                  }
+                ],
+                "commits": [
+                  {
+                    "value": 80,
+                    "type": "input"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "framework": "Source",
+            "cancel": true,
+            "sequence": "noop",
+            "observations": [
+              {
+                "type": "input",
+                "domValue": "40",
+                "calls": [],
+                "commits": []
+              },
+              {
+                "type": "change",
+                "domValue": "40",
+                "calls": [],
+                "commits": []
+              }
+            ]
+          },
+          {
+            "framework": "Source",
+            "cancel": true,
+            "sequence": "input-then-change",
+            "observations": [
+              {
+                "type": "input",
+                "domValue": "40",
+                "calls": [
+                  {
+                    "value": 80,
+                    "type": "input"
+                  }
+                ],
+                "commits": []
+              },
+              {
+                "type": "change",
+                "domValue": "40",
+                "calls": [
+                  {
+                    "value": 80,
+                    "type": "input"
+                  }
+                ],
+                "commits": []
+              }
+            ]
+          },
+          {
+            "framework": "Source",
+            "cancel": true,
+            "sequence": "change-only",
+            "observations": [
+              {
+                "type": "change",
+                "domValue": "40",
+                "calls": [
+                  {
+                    "value": 80,
+                    "type": "change"
+                  }
+                ],
+                "commits": []
+              }
+            ]
+          },
+          {
+            "framework": "Source",
+            "cancel": true,
+            "sequence": "repeated-edit",
+            "observations": [
+              {
+                "type": "input",
+                "domValue": "40",
+                "calls": [
+                  {
+                    "value": 80,
+                    "type": "input"
+                  }
+                ],
+                "commits": []
+              },
+              {
+                "type": "change",
+                "domValue": "40",
+                "calls": [
+                  {
+                    "value": 80,
+                    "type": "input"
+                  },
+                  {
+                    "value": 80,
+                    "type": "change"
+                  }
+                ],
+                "commits": []
+              }
+            ]
+          },
+          {
+            "framework": "native",
+            "cancel": false,
+            "sequence": "noop",
+            "observations": [
+              {
+                "phase": "same-task",
+                "type": "input",
+                "domValue": "40",
+                "calls": [],
+                "commits": []
+              },
+              {
+                "type": "input",
+                "domValue": "40",
+                "calls": [],
+                "commits": []
+              },
+              {
+                "phase": "same-task",
+                "type": "change",
+                "domValue": "40",
+                "calls": [],
+                "commits": []
+              },
+              {
+                "type": "change",
+                "domValue": "40",
+                "calls": [],
+                "commits": []
+              }
+            ]
+          },
+          {
+            "framework": "native",
+            "cancel": false,
+            "sequence": "input-then-change",
+            "observations": [
+              {
+                "phase": "same-task",
+                "type": "input",
+                "domValue": "80",
+                "calls": [
+                  {
+                    "value": 80,
+                    "type": "input"
+                  }
+                ],
+                "commits": [
+                  {
+                    "value": 80,
+                    "type": "input"
+                  }
+                ]
+              },
+              {
+                "type": "input",
+                "domValue": "80",
+                "calls": [
+                  {
+                    "value": 80,
+                    "type": "input"
+                  }
+                ],
+                "commits": [
+                  {
+                    "value": 80,
+                    "type": "input"
+                  }
+                ]
+              },
+              {
+                "phase": "same-task",
+                "type": "change",
+                "domValue": "80",
+                "calls": [
+                  {
+                    "value": 80,
+                    "type": "input"
+                  }
+                ],
+                "commits": [
+                  {
+                    "value": 80,
+                    "type": "input"
+                  }
+                ]
+              },
+              {
+                "type": "change",
+                "domValue": "80",
+                "calls": [
+                  {
+                    "value": 80,
+                    "type": "input"
+                  }
+                ],
+                "commits": [
+                  {
+                    "value": 80,
+                    "type": "input"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "framework": "native",
+            "cancel": false,
+            "sequence": "change-only",
+            "observations": [
+              {
+                "phase": "same-task",
+                "type": "change",
+                "domValue": "80",
+                "calls": [
+                  {
+                    "value": 80,
+                    "type": "change"
+                  }
+                ],
+                "commits": [
+                  {
+                    "value": 80,
+                    "type": "change"
+                  }
+                ]
+              },
+              {
+                "type": "change",
+                "domValue": "80",
+                "calls": [
+                  {
+                    "value": 80,
+                    "type": "change"
+                  }
+                ],
+                "commits": [
+                  {
+                    "value": 80,
+                    "type": "change"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "framework": "native",
+            "cancel": false,
+            "sequence": "repeated-edit",
+            "observations": [
+              {
+                "phase": "same-task",
+                "type": "input",
+                "domValue": "80",
+                "calls": [
+                  {
+                    "value": 80,
+                    "type": "input"
+                  }
+                ],
+                "commits": [
+                  {
+                    "value": 80,
+                    "type": "input"
+                  }
+                ]
+              },
+              {
+                "type": "input",
+                "domValue": "80",
+                "calls": [
+                  {
+                    "value": 80,
+                    "type": "input"
+                  }
+                ],
+                "commits": [
+                  {
+                    "value": 80,
+                    "type": "input"
+                  }
+                ]
+              },
+              {
+                "phase": "same-task",
+                "type": "change",
+                "domValue": "80",
+                "calls": [
+                  {
+                    "value": 80,
+                    "type": "input"
+                  }
+                ],
+                "commits": [
+                  {
+                    "value": 80,
+                    "type": "input"
+                  }
+                ]
+              },
+              {
+                "type": "change",
+                "domValue": "80",
+                "calls": [
+                  {
+                    "value": 80,
+                    "type": "input"
+                  }
+                ],
+                "commits": [
+                  {
+                    "value": 80,
+                    "type": "input"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "framework": "native",
+            "cancel": true,
+            "sequence": "noop",
+            "observations": [
+              {
+                "phase": "same-task",
+                "type": "input",
+                "domValue": "40",
+                "calls": [],
+                "commits": []
+              },
+              {
+                "type": "input",
+                "domValue": "40",
+                "calls": [],
+                "commits": []
+              },
+              {
+                "phase": "same-task",
+                "type": "change",
+                "domValue": "40",
+                "calls": [],
+                "commits": []
+              },
+              {
+                "type": "change",
+                "domValue": "40",
+                "calls": [],
+                "commits": []
+              }
+            ]
+          },
+          {
+            "framework": "native",
+            "cancel": true,
+            "sequence": "input-then-change",
+            "observations": [
+              {
+                "phase": "same-task",
+                "type": "input",
+                "domValue": "80",
+                "calls": [
+                  {
+                    "value": 80,
+                    "type": "input"
+                  }
+                ],
+                "commits": []
+              },
+              {
+                "type": "input",
+                "domValue": "40",
+                "calls": [
+                  {
+                    "value": 80,
+                    "type": "input"
+                  }
+                ],
+                "commits": []
+              },
+              {
+                "phase": "same-task",
+                "type": "change",
+                "domValue": "40",
+                "calls": [
+                  {
+                    "value": 80,
+                    "type": "input"
+                  }
+                ],
+                "commits": []
+              },
+              {
+                "type": "change",
+                "domValue": "40",
+                "calls": [
+                  {
+                    "value": 80,
+                    "type": "input"
+                  }
+                ],
+                "commits": []
+              }
+            ]
+          },
+          {
+            "framework": "native",
+            "cancel": true,
+            "sequence": "change-only",
+            "observations": [
+              {
+                "phase": "same-task",
+                "type": "change",
+                "domValue": "80",
+                "calls": [
+                  {
+                    "value": 80,
+                    "type": "change"
+                  }
+                ],
+                "commits": []
+              },
+              {
+                "type": "change",
+                "domValue": "80",
+                "calls": [
+                  {
+                    "value": 80,
+                    "type": "change"
+                  }
+                ],
+                "commits": []
+              }
+            ]
+          },
+          {
+            "framework": "native",
+            "cancel": true,
+            "sequence": "repeated-edit",
+            "observations": [
+              {
+                "phase": "same-task",
+                "type": "input",
+                "domValue": "80",
+                "calls": [
+                  {
+                    "value": 80,
+                    "type": "input"
+                  }
+                ],
+                "commits": []
+              },
+              {
+                "type": "input",
+                "domValue": "40",
+                "calls": [
+                  {
+                    "value": 80,
+                    "type": "input"
+                  }
+                ],
+                "commits": []
+              },
+              {
+                "phase": "same-task",
+                "type": "change",
+                "domValue": "80",
+                "calls": [
+                  {
+                    "value": 80,
+                    "type": "input"
+                  },
+                  {
+                    "value": 80,
+                    "type": "change"
+                  }
+                ],
+                "commits": []
+              },
+              {
+                "type": "change",
+                "domValue": "80",
+                "calls": [
+                  {
+                    "value": 80,
+                    "type": "input"
+                  },
+                  {
+                    "value": 80,
+                    "type": "change"
+                  }
+                ],
+                "commits": []
+              }
+            ]
+          }
+        ]
+      }
+    },
+    "bare-result.json": {
+      "sha256": "be6b8c80c3035bf64939a8f5eaf25616bbea5aba65e2eca590fbf60daedede80",
+      "observations": {
+        "scope": "Bare Svelte 5.57.1 function binding JSDOM authored events; zero upstream assertion credit",
+        "results": [
+          {
+            "type": "input",
+            "sameTask": "80",
+            "settled": "40"
+          },
+          {
+            "type": "change",
+            "sameTask": "80",
+            "settled": "80"
+          }
+        ]
+      }
+    },
+    "listener-result.json": {
+      "sha256": "fa2eb85475edc570f1255c40e6888fcfeefff93f8388d4a87502dcfbd309c04a",
+      "observations": {
+        "head": "014d77ca0964cd140b8858e3d81fd81238cfb6d2",
+        "scope": "native actual component, authored MouseEvent named pointerdown, JSDOM supplementary ONLY; no trusted pointer capture/browser/outro/crossdocument or exactpin comparison",
+        "before": {
+          "active": [
+            "pointerdown",
+            "pointermove",
+            "pointerup"
+          ],
+          "calls": [
+            {
+              "value": 50,
+              "type": "pointerdown"
+            }
+          ]
+        },
+        "after": {
+          "active": [
+            "pointerdown"
+          ],
+          "calls": [
+            {
+              "value": 50,
+              "type": "pointerdown"
+            }
+          ]
+        },
+        "final": [],
+        "records": [
+          {
+            "action": "add",
+            "type": "pointerdown"
+          },
+          {
+            "action": "add",
+            "type": "pointermove"
+          },
+          {
+            "action": "add",
+            "type": "pointerup"
+          },
+          {
+            "action": "remove",
+            "type": "pointermove",
+            "matched": true
+          },
+          {
+            "action": "remove",
+            "type": "pointerup",
+            "matched": true
+          },
+          {
+            "action": "remove",
+            "type": "pointermove",
+            "matched": false
+          },
+          {
+            "action": "remove",
+            "type": "pointerup",
+            "matched": false
+          },
+          {
+            "action": "remove",
+            "type": "pointerdown",
+            "matched": true
+          }
+        ],
+        "calls": [
+          {
+            "value": 50,
+            "type": "pointerdown"
+          }
+        ],
+        "commits": []
+      }
+    },
+    "listener-adoption-result.json": {
+      "sha256": "3553fed2a68bd593c5e83f9964169615af8516771d5e63a147ba3f62afc15f5c",
+      "observations": {
+        "head": "014d77ca0964cd140b8858e3d81fd81238cfb6d2",
+        "scope": "native actual component, authored MouseEvent named pointerdown, JSDOM supplementary ONLY; foreign document adoption then native host replacement; no trusted pointer capture/browser/outro or exactpin comparison",
+        "before": {
+          "active": [
+            "pointerdown"
+          ],
+          "calls": []
+        },
+        "after": {
+          "active": [
+            "pointerdown"
+          ],
+          "calls": []
+        },
+        "foreignOutstanding": [],
+        "final": [],
+        "records": [
+          {
+            "action": "add",
+            "type": "pointerdown"
+          },
+          {
+            "action": "remove",
+            "type": "pointermove",
+            "matched": false
+          },
+          {
+            "action": "remove",
+            "type": "pointerup",
+            "matched": false
+          },
+          {
+            "action": "remove",
+            "type": "pointermove",
+            "matched": false
+          },
+          {
+            "action": "remove",
+            "type": "pointerup",
+            "matched": false
+          },
+          {
+            "action": "remove",
+            "type": "pointerdown",
+            "matched": true
+          }
+        ],
+        "calls": [],
+        "commits": []
+      }
+    },
+    "events-pin-installed-utils-result.json": {
+      "sha256": "cd3110a53b8e2af6b981c21add40a414dc1bcedb771bfb9c3031989d56b4b451",
+      "observations": {
+        "scope": "Historical raw immutable React bodies with installed @base-ui/utils; not full pinned closure proof. Authored JSDOM events; zero unchanged credit.",
+        "head": "014d77ca0964cd140b8858e3d81fd81238cfb6d2",
+        "results": [
+          {
+            "framework": "Source",
+            "cancel": false,
+            "sequence": "noop",
+            "observations": [
+              {
+                "type": "input",
+                "domValue": "40",
+                "calls": [],
+                "commits": []
+              },
+              {
+                "type": "change",
+                "domValue": "40",
+                "calls": [],
+                "commits": []
+              }
+            ]
+          },
+          {
+            "framework": "Source",
+            "cancel": false,
+            "sequence": "input-then-change",
+            "observations": [
+              {
+                "type": "input",
+                "domValue": "80",
+                "calls": [
+                  {
+                    "value": 80,
+                    "type": "input"
+                  }
+                ],
+                "commits": [
+                  {
+                    "value": 80,
+                    "type": "input"
+                  }
+                ]
+              },
+              {
+                "type": "change",
+                "domValue": "80",
+                "calls": [
+                  {
+                    "value": 80,
+                    "type": "input"
+                  }
+                ],
+                "commits": [
+                  {
+                    "value": 80,
+                    "type": "input"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "framework": "Source",
+            "cancel": false,
+            "sequence": "change-only",
+            "observations": [
+              {
+                "type": "change",
+                "domValue": "80",
+                "calls": [
+                  {
+                    "value": 80,
+                    "type": "change"
+                  }
+                ],
+                "commits": [
+                  {
+                    "value": 80,
+                    "type": "change"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "framework": "Source",
+            "cancel": false,
+            "sequence": "repeated-edit",
+            "observations": [
+              {
+                "type": "input",
+                "domValue": "80",
+                "calls": [
+                  {
+                    "value": 80,
+                    "type": "input"
+                  }
+                ],
+                "commits": [
+                  {
+                    "value": 80,
+                    "type": "input"
+                  }
+                ]
+              },
+              {
+                "type": "change",
+                "domValue": "80",
+                "calls": [
+                  {
+                    "value": 80,
+                    "type": "input"
+                  }
+                ],
+                "commits": [
+                  {
+                    "value": 80,
+                    "type": "input"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "framework": "Source",
+            "cancel": true,
+            "sequence": "noop",
+            "observations": [
+              {
+                "type": "input",
+                "domValue": "40",
+                "calls": [],
+                "commits": []
+              },
+              {
+                "type": "change",
+                "domValue": "40",
+                "calls": [],
+                "commits": []
+              }
+            ]
+          },
+          {
+            "framework": "Source",
+            "cancel": true,
+            "sequence": "input-then-change",
+            "observations": [
+              {
+                "type": "input",
+                "domValue": "40",
+                "calls": [
+                  {
+                    "value": 80,
+                    "type": "input"
+                  }
+                ],
+                "commits": []
+              },
+              {
+                "type": "change",
+                "domValue": "40",
+                "calls": [
+                  {
+                    "value": 80,
+                    "type": "input"
+                  }
+                ],
+                "commits": []
+              }
+            ]
+          },
+          {
+            "framework": "Source",
+            "cancel": true,
+            "sequence": "change-only",
+            "observations": [
+              {
+                "type": "change",
+                "domValue": "40",
+                "calls": [
+                  {
+                    "value": 80,
+                    "type": "change"
+                  }
+                ],
+                "commits": []
+              }
+            ]
+          },
+          {
+            "framework": "Source",
+            "cancel": true,
+            "sequence": "repeated-edit",
+            "observations": [
+              {
+                "type": "input",
+                "domValue": "40",
+                "calls": [
+                  {
+                    "value": 80,
+                    "type": "input"
+                  }
+                ],
+                "commits": []
+              },
+              {
+                "type": "change",
+                "domValue": "40",
+                "calls": [
+                  {
+                    "value": 80,
+                    "type": "input"
+                  },
+                  {
+                    "value": 80,
+                    "type": "change"
+                  }
+                ],
+                "commits": []
+              }
+            ]
+          },
+          {
+            "framework": "native",
+            "cancel": false,
+            "sequence": "noop",
+            "observations": [
+              {
+                "phase": "same-task",
+                "type": "input",
+                "domValue": "40",
+                "calls": [],
+                "commits": []
+              },
+              {
+                "type": "input",
+                "domValue": "40",
+                "calls": [],
+                "commits": []
+              },
+              {
+                "phase": "same-task",
+                "type": "change",
+                "domValue": "40",
+                "calls": [],
+                "commits": []
+              },
+              {
+                "type": "change",
+                "domValue": "40",
+                "calls": [],
+                "commits": []
+              }
+            ]
+          },
+          {
+            "framework": "native",
+            "cancel": false,
+            "sequence": "input-then-change",
+            "observations": [
+              {
+                "phase": "same-task",
+                "type": "input",
+                "domValue": "80",
+                "calls": [
+                  {
+                    "value": 80,
+                    "type": "input"
+                  }
+                ],
+                "commits": [
+                  {
+                    "value": 80,
+                    "type": "input"
+                  }
+                ]
+              },
+              {
+                "type": "input",
+                "domValue": "80",
+                "calls": [
+                  {
+                    "value": 80,
+                    "type": "input"
+                  }
+                ],
+                "commits": [
+                  {
+                    "value": 80,
+                    "type": "input"
+                  }
+                ]
+              },
+              {
+                "phase": "same-task",
+                "type": "change",
+                "domValue": "80",
+                "calls": [
+                  {
+                    "value": 80,
+                    "type": "input"
+                  }
+                ],
+                "commits": [
+                  {
+                    "value": 80,
+                    "type": "input"
+                  }
+                ]
+              },
+              {
+                "type": "change",
+                "domValue": "80",
+                "calls": [
+                  {
+                    "value": 80,
+                    "type": "input"
+                  }
+                ],
+                "commits": [
+                  {
+                    "value": 80,
+                    "type": "input"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "framework": "native",
+            "cancel": false,
+            "sequence": "change-only",
+            "observations": [
+              {
+                "phase": "same-task",
+                "type": "change",
+                "domValue": "80",
+                "calls": [
+                  {
+                    "value": 80,
+                    "type": "change"
+                  }
+                ],
+                "commits": [
+                  {
+                    "value": 80,
+                    "type": "change"
+                  }
+                ]
+              },
+              {
+                "type": "change",
+                "domValue": "80",
+                "calls": [
+                  {
+                    "value": 80,
+                    "type": "change"
+                  }
+                ],
+                "commits": [
+                  {
+                    "value": 80,
+                    "type": "change"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "framework": "native",
+            "cancel": false,
+            "sequence": "repeated-edit",
+            "observations": [
+              {
+                "phase": "same-task",
+                "type": "input",
+                "domValue": "80",
+                "calls": [
+                  {
+                    "value": 80,
+                    "type": "input"
+                  }
+                ],
+                "commits": [
+                  {
+                    "value": 80,
+                    "type": "input"
+                  }
+                ]
+              },
+              {
+                "type": "input",
+                "domValue": "80",
+                "calls": [
+                  {
+                    "value": 80,
+                    "type": "input"
+                  }
+                ],
+                "commits": [
+                  {
+                    "value": 80,
+                    "type": "input"
+                  }
+                ]
+              },
+              {
+                "phase": "same-task",
+                "type": "change",
+                "domValue": "80",
+                "calls": [
+                  {
+                    "value": 80,
+                    "type": "input"
+                  }
+                ],
+                "commits": [
+                  {
+                    "value": 80,
+                    "type": "input"
+                  }
+                ]
+              },
+              {
+                "type": "change",
+                "domValue": "80",
+                "calls": [
+                  {
+                    "value": 80,
+                    "type": "input"
+                  }
+                ],
+                "commits": [
+                  {
+                    "value": 80,
+                    "type": "input"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "framework": "native",
+            "cancel": true,
+            "sequence": "noop",
+            "observations": [
+              {
+                "phase": "same-task",
+                "type": "input",
+                "domValue": "40",
+                "calls": [],
+                "commits": []
+              },
+              {
+                "type": "input",
+                "domValue": "40",
+                "calls": [],
+                "commits": []
+              },
+              {
+                "phase": "same-task",
+                "type": "change",
+                "domValue": "40",
+                "calls": [],
+                "commits": []
+              },
+              {
+                "type": "change",
+                "domValue": "40",
+                "calls": [],
+                "commits": []
+              }
+            ]
+          },
+          {
+            "framework": "native",
+            "cancel": true,
+            "sequence": "input-then-change",
+            "observations": [
+              {
+                "phase": "same-task",
+                "type": "input",
+                "domValue": "80",
+                "calls": [
+                  {
+                    "value": 80,
+                    "type": "input"
+                  }
+                ],
+                "commits": []
+              },
+              {
+                "type": "input",
+                "domValue": "40",
+                "calls": [
+                  {
+                    "value": 80,
+                    "type": "input"
+                  }
+                ],
+                "commits": []
+              },
+              {
+                "phase": "same-task",
+                "type": "change",
+                "domValue": "40",
+                "calls": [
+                  {
+                    "value": 80,
+                    "type": "input"
+                  }
+                ],
+                "commits": []
+              },
+              {
+                "type": "change",
+                "domValue": "40",
+                "calls": [
+                  {
+                    "value": 80,
+                    "type": "input"
+                  }
+                ],
+                "commits": []
+              }
+            ]
+          },
+          {
+            "framework": "native",
+            "cancel": true,
+            "sequence": "change-only",
+            "observations": [
+              {
+                "phase": "same-task",
+                "type": "change",
+                "domValue": "80",
+                "calls": [
+                  {
+                    "value": 80,
+                    "type": "change"
+                  }
+                ],
+                "commits": []
+              },
+              {
+                "type": "change",
+                "domValue": "80",
+                "calls": [
+                  {
+                    "value": 80,
+                    "type": "change"
+                  }
+                ],
+                "commits": []
+              }
+            ]
+          },
+          {
+            "framework": "native",
+            "cancel": true,
+            "sequence": "repeated-edit",
+            "observations": [
+              {
+                "phase": "same-task",
+                "type": "input",
+                "domValue": "80",
+                "calls": [
+                  {
+                    "value": 80,
+                    "type": "input"
+                  }
+                ],
+                "commits": []
+              },
+              {
+                "type": "input",
+                "domValue": "40",
+                "calls": [
+                  {
+                    "value": 80,
+                    "type": "input"
+                  }
+                ],
+                "commits": []
+              },
+              {
+                "phase": "same-task",
+                "type": "change",
+                "domValue": "80",
+                "calls": [
+                  {
+                    "value": 80,
+                    "type": "input"
+                  },
+                  {
+                    "value": 80,
+                    "type": "change"
+                  }
+                ],
+                "commits": []
+              },
+              {
+                "type": "change",
+                "domValue": "80",
+                "calls": [
+                  {
+                    "value": 80,
+                    "type": "input"
+                  },
+                  {
+                    "value": 80,
+                    "type": "change"
+                  }
+                ],
+                "commits": []
+              }
+            ]
+          }
+        ]
+      }
+    }
+  },
+  "harnessHashes": {
+    "Bare.svelte": "5358407a3bfca47a80aea64a5c9fe7455ed7519f4ac5f2a693c8131f07c77fc8",
+    "Events.svelte": "b88d1026fe93df8c5f6495c559e5b40cec7e371c861c4da3419a0a2c241be682",
+    "Listener.svelte": "b60e994544086555f479a719816a037f264db6580fec6a610f2a6b4bac4b32d9",
+    "Phase.svelte": "4fb395171378ce131dfadcc9d6bd991d7825152db54f2c4e792989753a432611",
+    "bare-check.mjs": "d2b3e6739c374c0d4b533106c8432555e646c47c4d0e7245e78e247cfdfdbb77",
+    "events-before-tick.mjs": "0beccd7fbcf8852ef709a7e1d4b36fc3910a61395192620dba1e1c6b836daafb",
+    "events-check.mjs": "4abd6d22de887f39d90337877c446758ccf1ee14279997c70b90a23441b4ecf9",
+    "events-pin-check.mjs": "b893189de191aec9271f87c198938f357f7965c24813bb3f906c1beaf7b95c44",
+    "listener-adoption-check.mjs": "110f70405cd32b970ec41f44b067fe02cd8b4af038bd04360966b2bd7156f1f2",
+    "listener-check.mjs": "610590903201473df8b56419fb131c3570ed44bebf39421b959c7ca9e0d06ade",
+    "loader-before-tsx.mjs": "30bbef10c8c693626a3a0f1fa477480fa3f1a239b397aea3f74bcba45ef8e4ec",
+    "loader.mjs": "ea6bcfa59e2174af60bc5f418cf203386f8b2a904a4a96bc96cbb9269406dc8b",
+    "phase-check.mjs": "014472edf608f4c48f56d7cb988c84abcef32d882ac26883d3eaa0393e5d6b33",
+    "phase-ssr.mjs": "ecacf31e7950d571b8383f68aa6feb54feb392783a73583aa2b377328dce8930"
+  },
+  "sourceRouting": "Final loader resolves @base-ui/utils imports to unchanged pinned-source/packages/utils/src module or index.ts and throws if absent; React package dependencies remain installed React19.2.8. Earlier installed-utils run retained separately. No source business substitutions."
+}

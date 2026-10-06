@@ -2,7 +2,7 @@
   import { untrack } from 'svelte';
   // Source SliderIndicator.tsx at Base UI 47b40521; MIT.
   import { valueToPercent } from '../../utils/valueToPercent.js';
-  import { useIsHydrating } from '../../utils/useIsHydrating.svelte.js';
+  import { HydrationState } from '../../utils/useIsHydrating.svelte.js';
   import { mergeComponentProps } from '../../internals/mergeComponentProps.js';
   import { createAttachmentKey } from 'svelte/attachments';
   import { useSliderRootContext } from '../root/SliderRootContext.js';
@@ -47,7 +47,7 @@
     ...elementProps
   }: SliderIndicatorProps = $props();
   const context = useSliderRootContext();
-  const isHydrating = useIsHydrating();
+  const isHydrating = new HydrationState().read;
   const vertical = $derived(context.orientation === 'vertical');
   const range = $derived(context.values.length > 1);
   const indicatorStyle = $derived(

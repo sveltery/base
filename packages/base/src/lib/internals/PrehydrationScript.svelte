@@ -1,10 +1,10 @@
 <script lang="ts">
   // Native markup/lifetime boundary for Base UI PrehydrationScript at 47b40521; MIT.
-  import { useIsHydrating } from '../utils/useIsHydrating.svelte.js';
+  import { HydrationState } from '../utils/useIsHydrating.svelte.js';
   import { getCSPContext } from '../csp-provider/context.js';
   let { script }: { script: string } = $props();
   const csp = getCSPContext();
-  const isHydrating = useIsHydrating();
+  const isHydrating = new HydrationState().read;
   function escapeNonce(value: string) {
     return value
       .replace(/&/g, '&amp;')

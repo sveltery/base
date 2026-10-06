@@ -8,7 +8,7 @@
   import { formatNumber } from '@sveltery/utils/formatNumber';
   import { mergeProps } from '../../merge-props/index.js';
   import { useBaseUiId } from '../../internals/useBaseUiId.js';
-  import { useIsHydrating } from '../../utils/useIsHydrating.svelte.js';
+  import { HydrationState } from '../../utils/useIsHydrating.svelte.js';
   import { mergeComponentProps } from '../../internals/mergeComponentProps.js';
   import { createAttachmentKey } from 'svelte/attachments';
   import SliderThumbNativeInput from './SliderThumbNativeInput.svelte';
@@ -190,7 +190,7 @@
   const setPositionPercent = (value: number | undefined) => {
     positionPercent = value;
   };
-  const isHydrating = useIsHydrating();
+  const isHydrating = new HydrationState().read;
 
   const safeLastUsedThumbIndex = $derived(
     lastUsedThumbIndex >= 0 && lastUsedThumbIndex < sliderValues.length ? lastUsedThumbIndex : -1,

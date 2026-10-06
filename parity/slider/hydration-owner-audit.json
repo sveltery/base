@@ -1,0 +1,659 @@
+{
+  "schemaVersion": 1,
+  "immutablePin": "47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c",
+  "predecessor": "014d77ca0964cd140b8858e3d81fd81238cfb6d2",
+  "scope": "HydrationState class successor and valid active cross-document listener ownership audit; native/JSDOM supplements zero unchanged credit; no trusted pointer capture or outro proof",
+  "nativeRuntimeHashes": {
+    "packages/base/src/lib/utils/useIsHydrating.svelte.ts": "c75580e4bc73b25d777243594f13f8336d84a4ef7fa915c30a491f04d63d0041",
+    "packages/base/src/lib/internals/PrehydrationScript.svelte": "b50aea05196360b34bc1253ce8c5cfc67c278327d06bdab2b333d6dd7975c855",
+    "packages/base/src/lib/slider/thumb/SliderThumb.svelte": "e0d00ea93bb870e490369e17abf3ac8a444cbbad43deb294a367b64804de21e6",
+    "packages/base/src/lib/slider/indicator/SliderIndicator.svelte": "afad6464fec80074edca8a2243e198c0891b71178fc0bca90ad237292038b87b",
+    "packages/base/src/lib/slider/control/SliderControl.svelte": "5bea20202391bbe9a5d88bc6118338c9e0d5b3836e4a3e6e1b4548e02ab2da75"
+  },
+  "records": {
+    "phase-result.json": {
+      "sha256": "26a15bac05c22e599506d7214e9785f9f27fc137363417d5a9eff3c245ada21c",
+      "observations": {
+        "pin": "47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c",
+        "head": "014d77ca0964cd140b8858e3d81fd81238cfb6d2",
+        "scope": "actual pinned hook React19.2.8 and native helper SSR/CSR/hydration phase supplement; zero unchanged assertion credit; no browser parser claim",
+        "source": {
+          "server": {
+            "calls": [
+              true
+            ],
+            "html": "<span data-phase=\"true\">true</span>"
+          },
+          "client": {
+            "calls": [
+              false
+            ],
+            "html": "<span data-phase=\"false\">false</span>"
+          },
+          "hydration": {
+            "calls": [
+              true,
+              false
+            ],
+            "retained": true,
+            "html": "<span data-phase=\"false\">false</span>"
+          }
+        },
+        "native": {
+          "server": {
+            "html": "<!--[--><span data-phase=\"true\">true</span><!--]-->",
+            "calls": [
+              {
+                "phase": "setup",
+                "value": true
+              }
+            ]
+          },
+          "client": {
+            "calls": [
+              {
+                "phase": "setup",
+                "value": true
+              },
+              {
+                "phase": "mount",
+                "value": false
+              }
+            ],
+            "value": false,
+            "html": "<span data-phase=\"false\">false</span>"
+          },
+          "hydration": {
+            "calls": [
+              {
+                "phase": "setup",
+                "value": true
+              },
+              {
+                "phase": "mount",
+                "value": false
+              }
+            ],
+            "value": false,
+            "retained": true,
+            "html": "<!--[--><span data-phase=\"false\">false</span><!--]-->"
+          }
+        }
+      }
+    },
+    "listener-paired-result.json": {
+      "sha256": "d773a4e0b08ae0065cc102023b0a423213a039d82762c42503db4b6ca3608dda",
+      "observations": {
+        "head": "014d77ca0964cd140b8858e3d81fd81238cfb6d2",
+        "pin": "47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c",
+        "scope": "actual raw pinned React and Utils plus native components; authored MouseEvent named pointerdown; active original-document session before whole-container adoption; JSDOM supplement zero credit, no pointercapture/trusted browser/outro proof",
+        "results": [
+          {
+            "framework": "Source",
+            "mode": "unmount",
+            "cancel": false,
+            "started": {
+              "listeners": {
+                "original": {
+                  "pointermove": 1,
+                  "pointerup": 1
+                },
+                "foreign": {}
+              },
+              "calls": [
+                {
+                  "value": 50,
+                  "type": "pointerdown"
+                }
+              ]
+            },
+            "adopted": true,
+            "replacement": null,
+            "postCleanup": {
+              "original": {
+                "pointermove": 0,
+                "pointerup": 0
+              },
+              "foreign": {}
+            },
+            "beforeDispatch": {
+              "calls": 1,
+              "commits": 0
+            },
+            "afterDispatch": {
+              "calls": 1,
+              "commits": 0
+            },
+            "dispatchError": null,
+            "records": [
+              {
+                "name": "original",
+                "action": "add",
+                "type": "pointermove"
+              },
+              {
+                "name": "original",
+                "action": "add",
+                "type": "pointerup"
+              },
+              {
+                "name": "original",
+                "action": "remove",
+                "type": "pointermove",
+                "matched": true
+              },
+              {
+                "name": "original",
+                "action": "remove",
+                "type": "pointerup",
+                "matched": true
+              }
+            ]
+          },
+          {
+            "framework": "Source",
+            "mode": "unmount",
+            "cancel": true,
+            "started": {
+              "listeners": {
+                "original": {
+                  "pointermove": 1,
+                  "pointerup": 1
+                },
+                "foreign": {}
+              },
+              "calls": [
+                {
+                  "value": 50,
+                  "type": "pointerdown"
+                }
+              ]
+            },
+            "adopted": true,
+            "replacement": null,
+            "postCleanup": {
+              "original": {
+                "pointermove": 0,
+                "pointerup": 0
+              },
+              "foreign": {}
+            },
+            "beforeDispatch": {
+              "calls": 1,
+              "commits": 0
+            },
+            "afterDispatch": {
+              "calls": 1,
+              "commits": 0
+            },
+            "dispatchError": null,
+            "records": [
+              {
+                "name": "original",
+                "action": "add",
+                "type": "pointermove"
+              },
+              {
+                "name": "original",
+                "action": "add",
+                "type": "pointerup"
+              },
+              {
+                "name": "original",
+                "action": "remove",
+                "type": "pointermove",
+                "matched": true
+              },
+              {
+                "name": "original",
+                "action": "remove",
+                "type": "pointerup",
+                "matched": true
+              }
+            ]
+          },
+          {
+            "framework": "Source",
+            "mode": "replace-then-unmount",
+            "cancel": false,
+            "started": {
+              "listeners": {
+                "original": {
+                  "pointermove": 1,
+                  "pointerup": 1
+                },
+                "foreign": {}
+              },
+              "calls": [
+                {
+                  "value": 50,
+                  "type": "pointerdown"
+                }
+              ]
+            },
+            "adopted": true,
+            "replacement": {
+              "original": {
+                "pointermove": 1,
+                "pointerup": 1
+              },
+              "foreign": {}
+            },
+            "postCleanup": {
+              "original": {
+                "pointermove": 0,
+                "pointerup": 0
+              },
+              "foreign": {}
+            },
+            "beforeDispatch": {
+              "calls": 1,
+              "commits": 0
+            },
+            "afterDispatch": {
+              "calls": 1,
+              "commits": 0
+            },
+            "dispatchError": null,
+            "records": [
+              {
+                "name": "original",
+                "action": "add",
+                "type": "pointermove"
+              },
+              {
+                "name": "original",
+                "action": "add",
+                "type": "pointerup"
+              },
+              {
+                "name": "original",
+                "action": "remove",
+                "type": "pointermove",
+                "matched": true
+              },
+              {
+                "name": "original",
+                "action": "remove",
+                "type": "pointerup",
+                "matched": true
+              }
+            ]
+          },
+          {
+            "framework": "Source",
+            "mode": "replace-then-unmount",
+            "cancel": true,
+            "started": {
+              "listeners": {
+                "original": {
+                  "pointermove": 1,
+                  "pointerup": 1
+                },
+                "foreign": {}
+              },
+              "calls": [
+                {
+                  "value": 50,
+                  "type": "pointerdown"
+                }
+              ]
+            },
+            "adopted": true,
+            "replacement": {
+              "original": {
+                "pointermove": 1,
+                "pointerup": 1
+              },
+              "foreign": {}
+            },
+            "postCleanup": {
+              "original": {
+                "pointermove": 0,
+                "pointerup": 0
+              },
+              "foreign": {}
+            },
+            "beforeDispatch": {
+              "calls": 1,
+              "commits": 0
+            },
+            "afterDispatch": {
+              "calls": 1,
+              "commits": 0
+            },
+            "dispatchError": null,
+            "records": [
+              {
+                "name": "original",
+                "action": "add",
+                "type": "pointermove"
+              },
+              {
+                "name": "original",
+                "action": "add",
+                "type": "pointerup"
+              },
+              {
+                "name": "original",
+                "action": "remove",
+                "type": "pointermove",
+                "matched": true
+              },
+              {
+                "name": "original",
+                "action": "remove",
+                "type": "pointerup",
+                "matched": true
+              }
+            ]
+          },
+          {
+            "framework": "native",
+            "mode": "unmount",
+            "cancel": false,
+            "started": {
+              "listeners": {
+                "original": {
+                  "pointermove": 1,
+                  "pointerup": 1
+                },
+                "foreign": {}
+              },
+              "calls": [
+                {
+                  "value": 50,
+                  "type": "pointerdown"
+                }
+              ]
+            },
+            "adopted": true,
+            "replacement": null,
+            "postCleanup": {
+              "original": {
+                "pointermove": 0,
+                "pointerup": 0
+              },
+              "foreign": {}
+            },
+            "beforeDispatch": {
+              "calls": 1,
+              "commits": 0
+            },
+            "afterDispatch": {
+              "calls": 1,
+              "commits": 0
+            },
+            "dispatchError": null,
+            "records": [
+              {
+                "name": "original",
+                "action": "add",
+                "type": "pointermove"
+              },
+              {
+                "name": "original",
+                "action": "add",
+                "type": "pointerup"
+              },
+              {
+                "name": "original",
+                "action": "remove",
+                "type": "pointermove",
+                "matched": true
+              },
+              {
+                "name": "original",
+                "action": "remove",
+                "type": "pointerup",
+                "matched": true
+              }
+            ]
+          },
+          {
+            "framework": "native",
+            "mode": "unmount",
+            "cancel": true,
+            "started": {
+              "listeners": {
+                "original": {
+                  "pointermove": 1,
+                  "pointerup": 1
+                },
+                "foreign": {}
+              },
+              "calls": [
+                {
+                  "value": 50,
+                  "type": "pointerdown"
+                }
+              ]
+            },
+            "adopted": true,
+            "replacement": null,
+            "postCleanup": {
+              "original": {
+                "pointermove": 0,
+                "pointerup": 0
+              },
+              "foreign": {}
+            },
+            "beforeDispatch": {
+              "calls": 1,
+              "commits": 0
+            },
+            "afterDispatch": {
+              "calls": 1,
+              "commits": 0
+            },
+            "dispatchError": null,
+            "records": [
+              {
+                "name": "original",
+                "action": "add",
+                "type": "pointermove"
+              },
+              {
+                "name": "original",
+                "action": "add",
+                "type": "pointerup"
+              },
+              {
+                "name": "original",
+                "action": "remove",
+                "type": "pointermove",
+                "matched": true
+              },
+              {
+                "name": "original",
+                "action": "remove",
+                "type": "pointerup",
+                "matched": true
+              }
+            ]
+          },
+          {
+            "framework": "native",
+            "mode": "replace-then-unmount",
+            "cancel": false,
+            "started": {
+              "listeners": {
+                "original": {
+                  "pointermove": 1,
+                  "pointerup": 1
+                },
+                "foreign": {}
+              },
+              "calls": [
+                {
+                  "value": 50,
+                  "type": "pointerdown"
+                }
+              ]
+            },
+            "adopted": true,
+            "replacement": {
+              "original": {
+                "pointermove": 0,
+                "pointerup": 0
+              },
+              "foreign": {}
+            },
+            "postCleanup": {
+              "original": {
+                "pointermove": 0,
+                "pointerup": 0
+              },
+              "foreign": {}
+            },
+            "beforeDispatch": {
+              "calls": 1,
+              "commits": 0
+            },
+            "afterDispatch": {
+              "calls": 1,
+              "commits": 0
+            },
+            "dispatchError": null,
+            "records": [
+              {
+                "name": "original",
+                "action": "add",
+                "type": "pointermove"
+              },
+              {
+                "name": "original",
+                "action": "add",
+                "type": "pointerup"
+              },
+              {
+                "name": "original",
+                "action": "remove",
+                "type": "pointermove",
+                "matched": true
+              },
+              {
+                "name": "original",
+                "action": "remove",
+                "type": "pointerup",
+                "matched": true
+              },
+              {
+                "name": "original",
+                "action": "remove",
+                "type": "pointermove",
+                "matched": false
+              },
+              {
+                "name": "original",
+                "action": "remove",
+                "type": "pointerup",
+                "matched": false
+              }
+            ]
+          },
+          {
+            "framework": "native",
+            "mode": "replace-then-unmount",
+            "cancel": true,
+            "started": {
+              "listeners": {
+                "original": {
+                  "pointermove": 1,
+                  "pointerup": 1
+                },
+                "foreign": {}
+              },
+              "calls": [
+                {
+                  "value": 50,
+                  "type": "pointerdown"
+                }
+              ]
+            },
+            "adopted": true,
+            "replacement": {
+              "original": {
+                "pointermove": 0,
+                "pointerup": 0
+              },
+              "foreign": {}
+            },
+            "postCleanup": {
+              "original": {
+                "pointermove": 0,
+                "pointerup": 0
+              },
+              "foreign": {}
+            },
+            "beforeDispatch": {
+              "calls": 1,
+              "commits": 0
+            },
+            "afterDispatch": {
+              "calls": 1,
+              "commits": 0
+            },
+            "dispatchError": null,
+            "records": [
+              {
+                "name": "original",
+                "action": "add",
+                "type": "pointermove"
+              },
+              {
+                "name": "original",
+                "action": "add",
+                "type": "pointerup"
+              },
+              {
+                "name": "original",
+                "action": "remove",
+                "type": "pointermove",
+                "matched": true
+              },
+              {
+                "name": "original",
+                "action": "remove",
+                "type": "pointerup",
+                "matched": true
+              },
+              {
+                "name": "original",
+                "action": "remove",
+                "type": "pointermove",
+                "matched": false
+              },
+              {
+                "name": "original",
+                "action": "remove",
+                "type": "pointerup",
+                "matched": false
+              }
+            ]
+          }
+        ]
+      },
+      "executedNativeRuntime": "Native control bytes unchanged from014d; after class implementation only unrelated hydration owner changed. Its record retains named014d predecessor; no changedControl acceptance claim."
+    }
+  },
+  "harnessHashes": {
+    "Bare.svelte": "5358407a3bfca47a80aea64a5c9fe7455ed7519f4ac5f2a693c8131f07c77fc8",
+    "Events.svelte": "b88d1026fe93df8c5f6495c559e5b40cec7e371c861c4da3419a0a2c241be682",
+    "Listener.svelte": "b60e994544086555f479a719816a037f264db6580fec6a610f2a6b4bac4b32d9",
+    "ListenerPaired.svelte": "320d2d524a33fe2f64d1e5b9b753dba7502cf5b7f7b46e18b4857f59df0dd92d",
+    "Phase.svelte": "78486998d00d9b3786b00e4067716ec5b7528edd3c04466336e8dd927c8d1d6e",
+    "bare-check.mjs": "d2b3e6739c374c0d4b533106c8432555e646c47c4d0e7245e78e247cfdfdbb77",
+    "events-before-tick.mjs": "0beccd7fbcf8852ef709a7e1d4b36fc3910a61395192620dba1e1c6b836daafb",
+    "events-check.mjs": "4abd6d22de887f39d90337877c446758ccf1ee14279997c70b90a23441b4ecf9",
+    "events-pin-check.mjs": "b893189de191aec9271f87c198938f357f7965c24813bb3f906c1beaf7b95c44",
+    "listener-adoption-check.mjs": "110f70405cd32b970ec41f44b067fe02cd8b4af038bd04360966b2bd7156f1f2",
+    "listener-check.mjs": "610590903201473df8b56419fb131c3570ed44bebf39421b959c7ca9e0d06ade",
+    "listener-paired-check.mjs": "e189746ce74197656c346a43a0dd84ae49f10f13aab3d9194765d78e3912639c",
+    "loader-before-tsx.mjs": "30bbef10c8c693626a3a0f1fa477480fa3f1a239b397aea3f74bcba45ef8e4ec",
+    "loader.mjs": "ea6bcfa59e2174af60bc5f418cf203386f8b2a904a4a96bc96cbb9269406dc8b",
+    "phase-check.mjs": "014472edf608f4c48f56d7cb988c84abcef32d882ac26883d3eaa0393e5d6b33",
+    "phase-ssr.mjs": "ecacf31e7950d571b8383f68aa6feb54feb392783a73583aa2b377328dce8930"
+  },
+  "listenerConclusion": "Both pinned Source/native release original document listener identities on adopted-container unmount, with cancellation true/false. Native host replacement releases earlier; Source retains until unmount. No capture repair justified. Failed earlier adoption remains archived, zero proof. Trusted pointer/outro remains incomplete."
+}
