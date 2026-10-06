@@ -1,0 +1,19 @@
+{
+  "package": "@floating-ui/utils",
+  "version": "0.2.12",
+  "file": "dist/floating-ui.utils.dom.esm.js",
+  "fileSha256": "b6658b1eac47e2917e6d10ebbeefb9c4ac9a166f0052bed6e08c871ed848b680",
+  "scope": "Actual reused canonical style/window bodies only; no full external package acceptance",
+  "usedBodies": [
+    {
+      "function": "getComputedStyle",
+      "body": "function getComputedStyle(element) {\n  return getWindow(element).getComputedStyle(element);\n}",
+      "sha256": "7bf05755ab2d86d989793d08af6fec7209825126d5d895b51a853826157113ef"
+    },
+    {
+      "function": "getWindow",
+      "body": "function getWindow(node) {\n  var _node$ownerDocument;\n  return (node == null || (_node$ownerDocument = node.ownerDocument) == null ? void 0 : _node$ownerDocument.defaultView) || window;\n}",
+      "sha256": "2fa74de2d1b0a61bf57cf28c1a4558746facb77c20baec781a1501f3cbd76e6e"
+    }
+  ]
+}
