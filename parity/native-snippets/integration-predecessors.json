@@ -367,6 +367,138 @@
           "sha256": "789d4d7801e6d86294fb3d61e59eb48f4d34e9e199f89d38d14893e9c8a5f9c8"
         }
       ]
+    },
+    {
+      "commit": "36fd8607c8b89edbd168013a12889d2354abba56",
+      "scope": "Exact prior PR77 publication helper, current Source/API projection tools and LOCAL graphs/catalog before normal96 integration; all Menu runtime/witness bodies remain unchanged.",
+      "files": [
+        {
+          "predecessorPath": "packages/base/src/lib/utils/useRegisteredLabelId.svelte.ts",
+          "archive": "parity/native-snippets/historical/renderer-36fd8607/packages/base/src/lib/utils/useRegisteredLabelId.svelte.ts",
+          "sha256": "e05169d0f62fe7f2bfc955ff3cb1a1e154d71ed8cb8fd8263e2ebc9e9af93faa"
+        },
+        {
+          "predecessorPath": "scripts/check-native-snippet-integration.mjs",
+          "archive": "parity/native-snippets/historical/renderer-36fd8607/scripts/check-native-snippet-integration.mjs",
+          "sha256": "53e4d7cbc83cedc248117b6b49f43f7d509cbf02d7954a90b063f98ee7aedbfe"
+        },
+        {
+          "predecessorPath": "scripts/tests/button-provenance.test.mjs",
+          "archive": "parity/native-snippets/historical/renderer-36fd8607/scripts/tests/button-provenance.test.mjs",
+          "sha256": "20273a340aecbc481b825c8c846baa72bc5e2ef102cf133c89d32d834e287a23"
+        },
+        {
+          "predecessorPath": "scripts/tests/use-render-provenance.test.mjs",
+          "archive": "parity/native-snippets/historical/renderer-36fd8607/scripts/tests/use-render-provenance.test.mjs",
+          "sha256": "b0961daaba05ae255bd2defa77ad6670c56775cc9223d8dddf005ff960215ccb"
+        },
+        {
+          "predecessorPath": "parity/native-snippets/integration-current.json",
+          "archive": "parity/native-snippets/historical/renderer-36fd8607/parity/native-snippets/integration-current.json",
+          "sha256": "507d0a2318b8d666f9607fbfd499e0aa45f6498035a9d9411e196d60c38dec60"
+        },
+        {
+          "predecessorPath": "parity/native-snippets/native-graph.json",
+          "archive": "parity/native-snippets/historical/renderer-36fd8607/parity/native-snippets/native-graph.json",
+          "sha256": "9641761e14b5c9e56778aade5ffba9078acc6ce47fae446f60e5815cbfb896fc"
+        },
+        {
+          "predecessorPath": "parity/native-snippets/README.md",
+          "archive": "parity/native-snippets/historical/renderer-36fd8607/parity/native-snippets/README.md",
+          "sha256": "f3116f0ef4d15f492d042b53bff1f561951d96560b9178d8c09fa438df643c64"
+        },
+        {
+          "predecessorPath": "parity/utils-package/current-source-graph.json",
+          "archive": "parity/native-snippets/historical/renderer-36fd8607/parity/utils-package/current-source-graph.json",
+          "sha256": "a1242dec7f33d0f921e60fabb861fb9de65e3f0710b74073d26afc1aef0a1e96"
+        },
+        {
+          "predecessorPath": "parity/utils-package/correspondence-lineage.json",
+          "archive": "parity/native-snippets/historical/renderer-36fd8607/parity/utils-package/correspondence-lineage.json",
+          "sha256": "ba60b471268934ef8e72c2b1beb2cdd820c0b383b1a95957b3b437d3a4d56734"
+        },
+        {
+          "predecessorPath": "parity/utils-package/feature-successors.json",
+          "archive": "parity/native-snippets/historical/renderer-36fd8607/parity/utils-package/feature-successors.json",
+          "sha256": "586659b6bfb4459d3920a231f68bbf8a5ded58c319d2a86b296f3bbfad726beb"
+        },
+        {
+          "predecessorPath": "parity/boolean-controls/source-correspondence.json",
+          "archive": "parity/native-snippets/historical/renderer-36fd8607/parity/boolean-controls/source-correspondence.json",
+          "sha256": "681b9648453e5f68893343e3c6ac40425b7b6d2f5369c78fe3b20a1ff186452a"
+        },
+        {
+          "predecessorPath": "parity/radio/source-correspondence.json",
+          "archive": "parity/native-snippets/historical/renderer-36fd8607/parity/radio/source-correspondence.json",
+          "sha256": "a8870a98f57989fe2ecdeaa09b0311a3f9e8bc9abd0c731d83f67f77828d6b34"
+        },
+        {
+          "predecessorPath": "parity/shared-utils/source-graph.json",
+          "archive": "parity/native-snippets/historical/renderer-36fd8607/parity/shared-utils/source-graph.json",
+          "sha256": "6c817dc35a1e81bf0edb47adfcda518c459555091165d6734f5051713bb8ec73"
+        },
+        {
+          "predecessorPath": "parity/button/source-graph.json",
+          "archive": "parity/native-snippets/historical/renderer-36fd8607/parity/button/source-graph.json",
+          "sha256": "8821efab3b9ced3bde8b347ba26f5d5aa9f06e93d903659dc75645b2098ca3a7"
+        },
+        {
+          "predecessorPath": "parity/use-render/source-graph.json",
+          "archive": "parity/native-snippets/historical/renderer-36fd8607/parity/use-render/source-graph.json",
+          "sha256": "c9a2d74853ec6906017640526f60cefc31831061ce2d8cdc8a46f6705044280e"
+        },
+        {
+          "predecessorPath": "parity/catalog.json",
+          "archive": "parity/native-snippets/historical/renderer-36fd8607/parity/catalog.json",
+          "sha256": "1f92077521bf50f511996cfad628821a64a9cdc47199ed963da44fb74c8bed7a"
+        }
+      ]
+    },
+    {
+      "commit": "96ade5322d396211cc41609f244803e92dfe0169",
+      "scope": "Exact native76 LOCAL tools/graphs and semantic-formatting receipt before PR77 retirement-aware Source integration. This historical branch receipt supplies no PR77 execution/formatter acceptance.",
+      "files": [
+        {
+          "predecessorPath": "scripts/tests/button-provenance.test.mjs",
+          "archive": "parity/native-snippets/historical/native-96ade532/scripts/tests/button-provenance.test.mjs",
+          "sha256": "1fc3aac7fb6105d2823454c04dd009402734e13523e45c4f330c5c5c0bc36e4a"
+        },
+        {
+          "predecessorPath": "scripts/tests/use-render-provenance.test.mjs",
+          "archive": "parity/native-snippets/historical/native-96ade532/scripts/tests/use-render-provenance.test.mjs",
+          "sha256": "94230a71b2f692ffa759844e5c32e85cc0305323c6fc42dbba0469035f8fa847"
+        },
+        {
+          "predecessorPath": "parity/button/source-graph.json",
+          "archive": "parity/native-snippets/historical/native-96ade532/parity/button/source-graph.json",
+          "sha256": "faef0affab80b312e42531246b3d192e3de223a507ea13e6a7ee3f389d4e346a"
+        },
+        {
+          "predecessorPath": "parity/use-render/source-graph.json",
+          "archive": "parity/native-snippets/historical/native-96ade532/parity/use-render/source-graph.json",
+          "sha256": "50ec35640e41a3883ae758205db8daa4add64610f01548ef7be1626c434c7ef3"
+        },
+        {
+          "predecessorPath": "parity/native-framework/integration-formatting.json",
+          "archive": "parity/native-snippets/historical/native-96ade532/parity/native-framework/integration-formatting.json",
+          "sha256": "11ee2c47c68507439b2e39af39981360a68db68bfac63606f926504bbd8b9ba9"
+        },
+        {
+          "predecessorPath": "parity/utils-package/current-source-graph.json",
+          "archive": "parity/native-snippets/historical/native-96ade532/parity/utils-package/current-source-graph.json",
+          "sha256": "e7cb14bcd449a002e65c9df7fa11a5f39523c2df486f61ddc695686f265ea691"
+        },
+        {
+          "predecessorPath": "parity/utils-package/correspondence-lineage.json",
+          "archive": "parity/native-snippets/historical/native-96ade532/parity/utils-package/correspondence-lineage.json",
+          "sha256": "9b05c31ac832f67a367a8bf588e47943bb3c2ec35a56c5c0983de97e8527be48"
+        },
+        {
+          "predecessorPath": "parity/utils-package/feature-successors.json",
+          "archive": "parity/native-snippets/historical/native-96ade532/parity/utils-package/feature-successors.json",
+          "sha256": "df0311f4de538f134486eb428fc285f70e1f7052729124b26178ddfb98502a28"
+        }
+      ]
     }
   ]
 }

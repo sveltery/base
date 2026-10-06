@@ -1,5 +1,5 @@
 // Source/inventory consistency only; no product or ordinary parity credit.
-import { readFileSync } from 'node:fs';
+import { existsSync, readFileSync } from 'node:fs';
 import assert from 'node:assert/strict';
 import test from 'node:test';
 import { execFileSync } from 'node:child_process';
@@ -46,11 +46,29 @@ test('UseRender portable browser cases map exactly to bounded candidate scopes',
     /chromiumSandbox: true/,
   );
 });
-test('UseRender graph matches the actual canonical runtime and type closure', () => {
+test('UseRender retains Original history with its current public API and runtime retired', () => {
   const result = execFileSync(
     process.execPath,
     [new URL('../../parity/use-render/graph.mjs', import.meta.url).pathname, '--check'],
     { encoding: 'utf8' },
   );
-  assert.match(result, /21 immutable source modules, 19 actual used local modules/);
+  assert.match(result, /21 immutable Original modules; current public API\/runtime retired/);
+  const graph = JSON.parse(
+    readFileSync(new URL('../../parity/use-render/source-graph.json', import.meta.url), 'utf8'),
+  );
+  assert.deepEqual(graph.localClosure.roots, []);
+  assert.deepEqual(graph.localClosure.modules, []);
+  assert.equal(graph.localClosure.ordinaryDeclarationCredit, 0);
+  const exports = JSON.parse(
+    readFileSync(new URL('../../packages/base/package.json', import.meta.url), 'utf8'),
+  ).exports;
+  assert(!('./use-render' in exports));
+  for (const path of [
+    'packages/base/src/lib/use-render/index.ts',
+    'packages/base/src/lib/use-render/UseRender.svelte',
+    'packages/base/src/lib/use-render/RenderElement.svelte',
+    'packages/base/src/lib/use-render/types.ts',
+    'packages/utils/src/lib/useMergedRefs.ts',
+  ])
+    assert(!existsSync(new URL(`../../${path}`, import.meta.url)), path);
 });

@@ -1,19 +1,27 @@
 {
   "rendererPredecessor": "f0dbb89a05f032af1e9aac99461c6eccfa09e0d9",
-  "nativeIntegrationParent": "168c2717da1834fe728d76a4aeb94cb81b9b8a1f",
+  "nativeIntegrationParent": "96ade5322d396211cc41609f244803e92dfe0169",
+  "nativeGetterPredecessor": "168c2717da1834fe728d76a4aeb94cb81b9b8a1f",
   "immutableOriginalPin": "47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c",
   "ordinaryDeclarationCredit": 0,
   "mode": "Source/parser/hash/import evidence only; no type program, runtime, SSR/hydration, compiled markup, artifact, installed consumer, browser, CI or merge acceptance credit.",
-  "method": "Complete current native two-package AST closure, immutable f0 full-body preimages and grouping-preserving script ASTs. Deliberate PreviousValue and captured Menu label/event-bus cleanup corrections are separate from formatter presentation changes; exact complete-body cleanup deltas are checked against e5, and parse success supplies no behavior equivalence.",
+  "method": "Complete current native two-package AST closure, immutable f0 full-body preimages and grouping-preserving script ASTs. Deliberate PreviousValue, registered-label publication and captured Menu label/event-bus cleanup corrections are separate from formatter presentation changes. Getter and publication retain their exact inherited bodies; exact complete-body Menu cleanup deltas are checked against e5. Parse success supplies no behavior equivalence.",
   "parserVersions": {
     "TypeScript": "6.0.3",
     "Svelte": "5.57.1"
   },
-  "currentGraphSha256": "a1242dec7f33d0f921e60fabb861fb9de65e3f0710b74073d26afc1aef0a1e96",
-  "currentPublicHostGraphSha256": "9641761e14b5c9e56778aade5ffba9078acc6ce47fae446f60e5815cbfb896fc",
-  "proofToolSha256": "53e4d7cbc83cedc248117b6b49f43f7d509cbf02d7954a90b063f98ee7aedbfe",
+  "currentGraphSha256": "530e0604a3d08097de974e04586937d0c6f7aeaded44d2862e153c0a6cb05701",
+  "currentPublicHostGraphSha256": "551e813daa36c74d9f95c1c520c4777116cba14cacf2f52a1f03d3d8c33bafa3",
+  "proofToolSha256": "d78043a01dbcb20281822a9982cbcbae9d8db01b014d5655a58701932e4885e5",
   "controlledOwners": 11,
   "effectCalls": 187,
+  "sourceBusinessCorrectionPaths": [
+    "packages/base/src/lib/menu/GroupLabel.svelte",
+    "packages/base/src/lib/menu/Popup.svelte",
+    "packages/base/src/lib/menu/positioner/createMenuPositioner.svelte.ts",
+    "packages/base/src/lib/utils/useRegisteredLabelId.svelte.ts",
+    "packages/utils/src/lib/PreviousValue.svelte.ts"
+  ],
   "utilsExports": [
     "./Controlled",
     "./addEventListener",
@@ -41,6 +49,904 @@
     "./stringifyLocale",
     "./PreviousValue"
   ],
+  "baseExports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "svelte": "./dist/index.js",
+      "default": "./dist/index.js"
+    },
+    "./merge-props": {
+      "types": "./dist/merge-props/index.d.ts",
+      "default": "./dist/merge-props/index.js"
+    },
+    "./dialog": {
+      "types": "./dist/dialog/index.d.ts",
+      "svelte": "./dist/dialog/index.js",
+      "default": "./dist/dialog/index.js"
+    },
+    "./toast": {
+      "types": "./dist/toast/index.d.ts",
+      "svelte": "./dist/toast/index.js",
+      "default": "./dist/toast/index.js"
+    },
+    "./input": {
+      "types": "./dist/input/index.d.ts",
+      "svelte": "./dist/input/index.js",
+      "default": "./dist/input/index.js"
+    },
+    "./separator": {
+      "types": "./dist/separator/index.d.ts",
+      "svelte": "./dist/separator/index.js",
+      "default": "./dist/separator/index.js"
+    },
+    "./button": {
+      "types": "./dist/button/index.d.ts",
+      "svelte": "./dist/button/index.js",
+      "default": "./dist/button/index.js"
+    },
+    "./toggle": {
+      "types": "./dist/toggle/index.d.ts",
+      "svelte": "./dist/toggle/index.js",
+      "default": "./dist/toggle/index.js"
+    },
+    "./progress": {
+      "types": "./dist/progress/index.d.ts",
+      "svelte": "./dist/progress/index.js",
+      "default": "./dist/progress/index.js"
+    },
+    "./collapsible": {
+      "types": "./dist/collapsible/index.d.ts",
+      "svelte": "./dist/collapsible/index.js",
+      "default": "./dist/collapsible/index.js"
+    },
+    "./meter": {
+      "types": "./dist/meter/index.d.ts",
+      "svelte": "./dist/meter/index.js",
+      "default": "./dist/meter/index.js"
+    },
+    "./avatar": {
+      "types": "./dist/avatar/index.d.ts",
+      "svelte": "./dist/avatar/index.js",
+      "default": "./dist/avatar/index.js"
+    },
+    "./accordion": {
+      "types": "./dist/accordion/index.d.ts",
+      "svelte": "./dist/accordion/index.js",
+      "default": "./dist/accordion/index.js"
+    },
+    "./direction-provider": {
+      "types": "./dist/direction-provider/index.d.ts",
+      "svelte": "./dist/direction-provider/index.js",
+      "default": "./dist/direction-provider/index.js"
+    },
+    "./csp-provider": {
+      "types": "./dist/csp-provider/index.d.ts",
+      "svelte": "./dist/csp-provider/index.js",
+      "default": "./dist/csp-provider/index.js"
+    },
+    "./field": {
+      "types": "./dist/field/index.d.ts",
+      "svelte": "./dist/field/index.js",
+      "default": "./dist/field/index.js"
+    },
+    "./form": {
+      "types": "./dist/form/index.d.ts",
+      "svelte": "./dist/form/index.js",
+      "default": "./dist/form/index.js"
+    },
+    "./fieldset": {
+      "types": "./dist/fieldset/index.d.ts",
+      "svelte": "./dist/fieldset/index.js",
+      "default": "./dist/fieldset/index.js"
+    },
+    "./checkbox": {
+      "types": "./dist/checkbox/index.d.ts",
+      "svelte": "./dist/checkbox/index.js",
+      "default": "./dist/checkbox/index.js"
+    },
+    "./checkbox-group": {
+      "types": "./dist/checkbox-group/index.d.ts",
+      "svelte": "./dist/checkbox-group/index.js",
+      "default": "./dist/checkbox-group/index.js"
+    },
+    "./switch": {
+      "types": "./dist/switch/index.d.ts",
+      "svelte": "./dist/switch/index.js",
+      "default": "./dist/switch/index.js"
+    },
+    "./radio": {
+      "types": "./dist/radio/index.d.ts",
+      "svelte": "./dist/radio/index.js",
+      "default": "./dist/radio/index.js"
+    },
+    "./radio-group": {
+      "types": "./dist/radio-group/index.d.ts",
+      "svelte": "./dist/radio-group/index.js",
+      "default": "./dist/radio-group/index.js"
+    },
+    "./scroll-area": {
+      "types": "./dist/scroll-area/index.d.ts",
+      "svelte": "./dist/scroll-area/index.js",
+      "default": "./dist/scroll-area/index.js"
+    },
+    "./toggle-group": {
+      "types": "./dist/toggle-group/index.d.ts",
+      "svelte": "./dist/toggle-group/index.js",
+      "default": "./dist/toggle-group/index.js"
+    },
+    "./toolbar": {
+      "types": "./dist/toolbar/index.d.ts",
+      "svelte": "./dist/toolbar/index.js",
+      "default": "./dist/toolbar/index.js"
+    },
+    "./menu": {
+      "types": "./dist/menu/index.d.ts",
+      "svelte": "./dist/menu/index.js",
+      "default": "./dist/menu/index.js"
+    },
+    "./context-menu": {
+      "types": "./dist/context-menu/index.d.ts",
+      "svelte": "./dist/context-menu/index.js",
+      "default": "./dist/context-menu/index.js"
+    },
+    "./menubar": {
+      "types": "./dist/menubar/index.d.ts",
+      "svelte": "./dist/menubar/index.js",
+      "default": "./dist/menubar/index.js"
+    },
+    "./popover": {
+      "types": "./dist/popover/index.d.ts",
+      "svelte": "./dist/popover/index.js",
+      "default": "./dist/popover/index.js"
+    },
+    "./preview-card": {
+      "types": "./dist/preview-card/index.d.ts",
+      "svelte": "./dist/preview-card/index.js",
+      "default": "./dist/preview-card/index.js"
+    },
+    "./tooltip": {
+      "types": "./dist/tooltip/index.d.ts",
+      "svelte": "./dist/tooltip/index.js",
+      "default": "./dist/tooltip/index.js"
+    }
+  },
+  "sourceApi": {
+    "scope": "Actual package exports and root export AST edges only. Historical catalog module/assertion status is preserved separately; exported source does not establish complete component, type, runtime or parity acceptance.",
+    "baseManifestSha256": "9e11ddbca218d4989053beaaffc34a0529aaf7127e35b66a8568856d0fc635ef",
+    "utilsManifestSha256": "931838aabece7f5eebbf52c001beadb606df33ac1d276891fb4352c24d3d2bcf",
+    "rootEntry": {
+      "path": "packages/base/src/lib/index.ts",
+      "sha256": "06dbc3ac673b441f7104d82fcc84822565bc10e61f0f1c855ff7c7d8dd77c75a"
+    },
+    "historicalCatalog": {
+      "path": "parity/catalog.json",
+      "sha256": "1f92077521bf50f511996cfad628821a64a9cdc47199ed963da44fb74c8bed7a",
+      "immutableOriginalPin": "47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c"
+    },
+    "originalModuleCorrespondence": [
+      {
+        "originalModule": "accordion",
+        "currentPackageSubpath": "./accordion",
+        "rootExports": [
+          {
+            "specifier": "./accordion/index.js",
+            "kind": "runtime",
+            "members": [
+              {
+                "imported": "Accordion",
+                "local": "Accordion",
+                "typeOnly": false
+              }
+            ],
+            "syntax": "reexport",
+            "resolved": "packages/base/src/lib/accordion/index.ts"
+          }
+        ],
+        "currentSourceApiStatus": "Source export present; broader component acceptance remains separately pending."
+      },
+      {
+        "originalModule": "alert-dialog",
+        "currentPackageSubpath": null,
+        "rootExports": [],
+        "currentSourceApiStatus": "No current package/root Source export."
+      },
+      {
+        "originalModule": "autocomplete",
+        "currentPackageSubpath": null,
+        "rootExports": [],
+        "currentSourceApiStatus": "No current package/root Source export."
+      },
+      {
+        "originalModule": "avatar",
+        "currentPackageSubpath": "./avatar",
+        "rootExports": [
+          {
+            "specifier": "./avatar/index.js",
+            "kind": "runtime",
+            "members": [
+              {
+                "imported": "Avatar",
+                "local": "Avatar",
+                "typeOnly": false
+              }
+            ],
+            "syntax": "reexport",
+            "resolved": "packages/base/src/lib/avatar/index.ts"
+          }
+        ],
+        "currentSourceApiStatus": "Source export present; broader component acceptance remains separately pending."
+      },
+      {
+        "originalModule": "button",
+        "currentPackageSubpath": "./button",
+        "rootExports": [
+          {
+            "specifier": "./button/index.js",
+            "kind": "runtime",
+            "members": [
+              {
+                "imported": "Button",
+                "local": "Button",
+                "typeOnly": false
+              }
+            ],
+            "syntax": "reexport",
+            "resolved": "packages/base/src/lib/button/index.ts"
+          }
+        ],
+        "currentSourceApiStatus": "Source export present; broader component acceptance remains separately pending."
+      },
+      {
+        "originalModule": "checkbox",
+        "currentPackageSubpath": "./checkbox",
+        "rootExports": [
+          {
+            "specifier": "./checkbox/index.js",
+            "kind": "runtime",
+            "members": [],
+            "syntax": "reexport",
+            "resolved": "packages/base/src/lib/checkbox/index.ts"
+          }
+        ],
+        "currentSourceApiStatus": "Source export present; broader component acceptance remains separately pending."
+      },
+      {
+        "originalModule": "checkbox-group",
+        "currentPackageSubpath": "./checkbox-group",
+        "rootExports": [
+          {
+            "specifier": "./checkbox-group/index.js",
+            "kind": "runtime",
+            "members": [],
+            "syntax": "reexport",
+            "resolved": "packages/base/src/lib/checkbox-group/index.ts"
+          }
+        ],
+        "currentSourceApiStatus": "Source export present; broader component acceptance remains separately pending."
+      },
+      {
+        "originalModule": "collapsible",
+        "currentPackageSubpath": "./collapsible",
+        "rootExports": [
+          {
+            "specifier": "./collapsible/index.js",
+            "kind": "runtime",
+            "members": [
+              {
+                "imported": "Collapsible",
+                "local": "Collapsible",
+                "typeOnly": false
+              }
+            ],
+            "syntax": "reexport",
+            "resolved": "packages/base/src/lib/collapsible/index.ts"
+          }
+        ],
+        "currentSourceApiStatus": "Source export present; broader component acceptance remains separately pending."
+      },
+      {
+        "originalModule": "combobox",
+        "currentPackageSubpath": null,
+        "rootExports": [],
+        "currentSourceApiStatus": "No current package/root Source export."
+      },
+      {
+        "originalModule": "context-menu",
+        "currentPackageSubpath": "./context-menu",
+        "rootExports": [
+          {
+            "specifier": "./context-menu/index.js",
+            "kind": "runtime",
+            "members": [
+              {
+                "imported": "ContextMenu",
+                "local": "ContextMenu",
+                "typeOnly": false
+              }
+            ],
+            "syntax": "reexport",
+            "resolved": "packages/base/src/lib/context-menu/index.ts"
+          }
+        ],
+        "currentSourceApiStatus": "Source export present; broader component acceptance remains separately pending."
+      },
+      {
+        "originalModule": "csp-provider",
+        "currentPackageSubpath": "./csp-provider",
+        "rootExports": [
+          {
+            "specifier": "./csp-provider/index.js",
+            "kind": "runtime",
+            "members": [
+              {
+                "imported": "CSPProvider",
+                "local": "CSPProvider",
+                "typeOnly": false
+              }
+            ],
+            "syntax": "reexport",
+            "resolved": "packages/base/src/lib/csp-provider/index.ts"
+          }
+        ],
+        "currentSourceApiStatus": "Source export present; broader component acceptance remains separately pending."
+      },
+      {
+        "originalModule": "dialog",
+        "currentPackageSubpath": "./dialog",
+        "rootExports": [
+          {
+            "specifier": "./dialog/index.js",
+            "kind": "runtime",
+            "members": [
+              {
+                "imported": "Dialog",
+                "local": "Dialog",
+                "typeOnly": false
+              }
+            ],
+            "syntax": "reexport",
+            "resolved": "packages/base/src/lib/dialog/index.ts"
+          }
+        ],
+        "currentSourceApiStatus": "Source export present; broader component acceptance remains separately pending."
+      },
+      {
+        "originalModule": "direction-provider",
+        "currentPackageSubpath": "./direction-provider",
+        "rootExports": [
+          {
+            "specifier": "./direction-provider/index.js",
+            "kind": "runtime",
+            "members": [
+              {
+                "imported": "DirectionProvider",
+                "local": "DirectionProvider",
+                "typeOnly": false
+              },
+              {
+                "imported": "useDirection",
+                "local": "useDirection",
+                "typeOnly": false
+              }
+            ],
+            "syntax": "reexport",
+            "resolved": "packages/base/src/lib/direction-provider/index.ts"
+          }
+        ],
+        "currentSourceApiStatus": "Source export present; broader component acceptance remains separately pending."
+      },
+      {
+        "originalModule": "drawer",
+        "currentPackageSubpath": null,
+        "rootExports": [],
+        "currentSourceApiStatus": "No current package/root Source export."
+      },
+      {
+        "originalModule": "field",
+        "currentPackageSubpath": "./field",
+        "rootExports": [
+          {
+            "specifier": "./field/index.js",
+            "kind": "runtime",
+            "members": [
+              {
+                "imported": "Field",
+                "local": "Field",
+                "typeOnly": false
+              },
+              {
+                "imported": "FieldRoot",
+                "local": "FieldRoot",
+                "typeOnly": false
+              },
+              {
+                "imported": "FieldLabel",
+                "local": "FieldLabel",
+                "typeOnly": false
+              },
+              {
+                "imported": "FieldDescription",
+                "local": "FieldDescription",
+                "typeOnly": false
+              },
+              {
+                "imported": "FieldError",
+                "local": "FieldError",
+                "typeOnly": false
+              },
+              {
+                "imported": "FieldControl",
+                "local": "FieldControl",
+                "typeOnly": false
+              },
+              {
+                "imported": "FieldValidity",
+                "local": "FieldValidity",
+                "typeOnly": false
+              },
+              {
+                "imported": "FieldItem",
+                "local": "FieldItem",
+                "typeOnly": false
+              }
+            ],
+            "syntax": "reexport",
+            "resolved": "packages/base/src/lib/field/index.ts"
+          }
+        ],
+        "currentSourceApiStatus": "Source export present; broader component acceptance remains separately pending."
+      },
+      {
+        "originalModule": "fieldset",
+        "currentPackageSubpath": "./fieldset",
+        "rootExports": [
+          {
+            "specifier": "./fieldset/index.js",
+            "kind": "runtime",
+            "members": [
+              {
+                "imported": "Fieldset",
+                "local": "Fieldset",
+                "typeOnly": false
+              },
+              {
+                "imported": "FieldsetRoot",
+                "local": "FieldsetRoot",
+                "typeOnly": false
+              },
+              {
+                "imported": "FieldsetLegend",
+                "local": "FieldsetLegend",
+                "typeOnly": false
+              }
+            ],
+            "syntax": "reexport",
+            "resolved": "packages/base/src/lib/fieldset/index.ts"
+          }
+        ],
+        "currentSourceApiStatus": "Source export present; broader component acceptance remains separately pending."
+      },
+      {
+        "originalModule": "form",
+        "currentPackageSubpath": "./form",
+        "rootExports": [
+          {
+            "specifier": "./form/index.js",
+            "kind": "runtime",
+            "members": [
+              {
+                "imported": "Form",
+                "local": "Form",
+                "typeOnly": false
+              }
+            ],
+            "syntax": "reexport",
+            "resolved": "packages/base/src/lib/form/index.ts"
+          }
+        ],
+        "currentSourceApiStatus": "Source export present; broader component acceptance remains separately pending."
+      },
+      {
+        "originalModule": "input",
+        "currentPackageSubpath": "./input",
+        "rootExports": [
+          {
+            "specifier": "./input/index.js",
+            "kind": "runtime",
+            "members": [
+              {
+                "imported": "Input",
+                "local": "Input",
+                "typeOnly": false
+              }
+            ],
+            "syntax": "reexport",
+            "resolved": "packages/base/src/lib/input/index.ts"
+          }
+        ],
+        "currentSourceApiStatus": "Source export present; broader component acceptance remains separately pending."
+      },
+      {
+        "originalModule": "menu",
+        "currentPackageSubpath": "./menu",
+        "rootExports": [
+          {
+            "specifier": "./menu/index.js",
+            "kind": "runtime",
+            "members": [
+              {
+                "imported": "Menu",
+                "local": "Menu",
+                "typeOnly": false
+              }
+            ],
+            "syntax": "reexport",
+            "resolved": "packages/base/src/lib/menu/index.ts"
+          }
+        ],
+        "currentSourceApiStatus": "Source export present; broader component acceptance remains separately pending."
+      },
+      {
+        "originalModule": "menubar",
+        "currentPackageSubpath": "./menubar",
+        "rootExports": [
+          {
+            "specifier": "./menubar/index.js",
+            "kind": "runtime",
+            "members": [
+              {
+                "imported": "Menubar",
+                "local": "Menubar",
+                "typeOnly": false
+              }
+            ],
+            "syntax": "reexport",
+            "resolved": "packages/base/src/lib/menubar/index.ts"
+          }
+        ],
+        "currentSourceApiStatus": "Source export present; broader component acceptance remains separately pending."
+      },
+      {
+        "originalModule": "merge-props",
+        "currentPackageSubpath": "./merge-props",
+        "rootExports": [
+          {
+            "specifier": "./merge-props/index.js",
+            "kind": "runtime",
+            "members": [
+              {
+                "imported": "mergeProps",
+                "local": "mergeProps",
+                "typeOnly": false
+              },
+              {
+                "imported": "mergePropsN",
+                "local": "mergePropsN",
+                "typeOnly": false
+              }
+            ],
+            "syntax": "reexport",
+            "resolved": "packages/base/src/lib/merge-props/index.ts"
+          }
+        ],
+        "currentSourceApiStatus": "Source export present; broader component acceptance remains separately pending."
+      },
+      {
+        "originalModule": "meter",
+        "currentPackageSubpath": "./meter",
+        "rootExports": [
+          {
+            "specifier": "./meter/index.js",
+            "kind": "runtime",
+            "members": [
+              {
+                "imported": "Meter",
+                "local": "Meter",
+                "typeOnly": false
+              }
+            ],
+            "syntax": "reexport",
+            "resolved": "packages/base/src/lib/meter/index.ts"
+          }
+        ],
+        "currentSourceApiStatus": "Source export present; broader component acceptance remains separately pending."
+      },
+      {
+        "originalModule": "navigation-menu",
+        "currentPackageSubpath": null,
+        "rootExports": [],
+        "currentSourceApiStatus": "No current package/root Source export."
+      },
+      {
+        "originalModule": "number-field",
+        "currentPackageSubpath": null,
+        "rootExports": [],
+        "currentSourceApiStatus": "No current package/root Source export."
+      },
+      {
+        "originalModule": "otp-field",
+        "currentPackageSubpath": null,
+        "rootExports": [],
+        "currentSourceApiStatus": "No current package/root Source export."
+      },
+      {
+        "originalModule": "popover",
+        "currentPackageSubpath": "./popover",
+        "rootExports": [
+          {
+            "specifier": "./popover/index.js",
+            "kind": "runtime",
+            "members": [
+              {
+                "imported": "Popover",
+                "local": "Popover",
+                "typeOnly": false
+              }
+            ],
+            "syntax": "reexport",
+            "resolved": "packages/base/src/lib/popover/index.ts"
+          }
+        ],
+        "currentSourceApiStatus": "Source export present; broader component acceptance remains separately pending."
+      },
+      {
+        "originalModule": "preview-card",
+        "currentPackageSubpath": "./preview-card",
+        "rootExports": [
+          {
+            "specifier": "./preview-card/index.js",
+            "kind": "runtime",
+            "members": [
+              {
+                "imported": "PreviewCard",
+                "local": "PreviewCard",
+                "typeOnly": false
+              }
+            ],
+            "syntax": "reexport",
+            "resolved": "packages/base/src/lib/preview-card/index.ts"
+          }
+        ],
+        "currentSourceApiStatus": "Source export present; broader component acceptance remains separately pending."
+      },
+      {
+        "originalModule": "progress",
+        "currentPackageSubpath": "./progress",
+        "rootExports": [
+          {
+            "specifier": "./progress/index.js",
+            "kind": "runtime",
+            "members": [
+              {
+                "imported": "Progress",
+                "local": "Progress",
+                "typeOnly": false
+              }
+            ],
+            "syntax": "reexport",
+            "resolved": "packages/base/src/lib/progress/index.ts"
+          }
+        ],
+        "currentSourceApiStatus": "Source export present; broader component acceptance remains separately pending."
+      },
+      {
+        "originalModule": "radio",
+        "currentPackageSubpath": "./radio",
+        "rootExports": [
+          {
+            "specifier": "./radio/index.js",
+            "kind": "runtime",
+            "members": [
+              {
+                "imported": "Radio",
+                "local": "Radio",
+                "typeOnly": false
+              },
+              {
+                "imported": "RadioRoot",
+                "local": "RadioRoot",
+                "typeOnly": false
+              },
+              {
+                "imported": "RadioIndicator",
+                "local": "RadioIndicator",
+                "typeOnly": false
+              }
+            ],
+            "syntax": "reexport",
+            "resolved": "packages/base/src/lib/radio/index.ts"
+          }
+        ],
+        "currentSourceApiStatus": "Source export present; broader component acceptance remains separately pending."
+      },
+      {
+        "originalModule": "radio-group",
+        "currentPackageSubpath": "./radio-group",
+        "rootExports": [
+          {
+            "specifier": "./radio-group/index.js",
+            "kind": "runtime",
+            "members": [
+              {
+                "imported": "RadioGroup",
+                "local": "RadioGroup",
+                "typeOnly": false
+              }
+            ],
+            "syntax": "reexport",
+            "resolved": "packages/base/src/lib/radio-group/index.ts"
+          }
+        ],
+        "currentSourceApiStatus": "Source export present; broader component acceptance remains separately pending."
+      },
+      {
+        "originalModule": "scroll-area",
+        "currentPackageSubpath": "./scroll-area",
+        "rootExports": [
+          {
+            "specifier": "./scroll-area/index.js",
+            "kind": "runtime",
+            "members": [],
+            "syntax": "reexport",
+            "resolved": "packages/base/src/lib/scroll-area/index.ts"
+          }
+        ],
+        "currentSourceApiStatus": "Source export present; broader component acceptance remains separately pending."
+      },
+      {
+        "originalModule": "select",
+        "currentPackageSubpath": null,
+        "rootExports": [],
+        "currentSourceApiStatus": "No current package/root Source export."
+      },
+      {
+        "originalModule": "separator",
+        "currentPackageSubpath": "./separator",
+        "rootExports": [
+          {
+            "specifier": "./separator/index.js",
+            "kind": "runtime",
+            "members": [
+              {
+                "imported": "Separator",
+                "local": "Separator",
+                "typeOnly": false
+              }
+            ],
+            "syntax": "reexport",
+            "resolved": "packages/base/src/lib/separator/index.ts"
+          }
+        ],
+        "currentSourceApiStatus": "Source export present; broader component acceptance remains separately pending."
+      },
+      {
+        "originalModule": "slider",
+        "currentPackageSubpath": null,
+        "rootExports": [],
+        "currentSourceApiStatus": "No current package/root Source export."
+      },
+      {
+        "originalModule": "switch",
+        "currentPackageSubpath": "./switch",
+        "rootExports": [
+          {
+            "specifier": "./switch/index.js",
+            "kind": "runtime",
+            "members": [],
+            "syntax": "reexport",
+            "resolved": "packages/base/src/lib/switch/index.ts"
+          }
+        ],
+        "currentSourceApiStatus": "Source export present; broader component acceptance remains separately pending."
+      },
+      {
+        "originalModule": "tabs",
+        "currentPackageSubpath": null,
+        "rootExports": [],
+        "currentSourceApiStatus": "No current package/root Source export."
+      },
+      {
+        "originalModule": "toast",
+        "currentPackageSubpath": "./toast",
+        "rootExports": [
+          {
+            "specifier": "./toast/index.js",
+            "kind": "runtime",
+            "members": [],
+            "syntax": "reexport",
+            "resolved": "packages/base/src/lib/toast/index.ts"
+          }
+        ],
+        "currentSourceApiStatus": "Source export present; broader component acceptance remains separately pending."
+      },
+      {
+        "originalModule": "toggle",
+        "currentPackageSubpath": "./toggle",
+        "rootExports": [
+          {
+            "specifier": "./toggle/index.js",
+            "kind": "runtime",
+            "members": [
+              {
+                "imported": "Toggle",
+                "local": "Toggle",
+                "typeOnly": false
+              }
+            ],
+            "syntax": "reexport",
+            "resolved": "packages/base/src/lib/toggle/index.ts"
+          }
+        ],
+        "currentSourceApiStatus": "Source export present; broader component acceptance remains separately pending."
+      },
+      {
+        "originalModule": "toggle-group",
+        "currentPackageSubpath": "./toggle-group",
+        "rootExports": [
+          {
+            "specifier": "./toggle-group/index.js",
+            "kind": "runtime",
+            "members": [
+              {
+                "imported": "ToggleGroup",
+                "local": "ToggleGroup",
+                "typeOnly": false
+              }
+            ],
+            "syntax": "reexport",
+            "resolved": "packages/base/src/lib/toggle-group/index.ts"
+          }
+        ],
+        "currentSourceApiStatus": "Source export present; broader component acceptance remains separately pending."
+      },
+      {
+        "originalModule": "toolbar",
+        "currentPackageSubpath": "./toolbar",
+        "rootExports": [
+          {
+            "specifier": "./toolbar/index.js",
+            "kind": "runtime",
+            "members": [
+              {
+                "imported": "Toolbar",
+                "local": "Toolbar",
+                "typeOnly": false
+              }
+            ],
+            "syntax": "reexport",
+            "resolved": "packages/base/src/lib/toolbar/index.ts"
+          }
+        ],
+        "currentSourceApiStatus": "Source export present; broader component acceptance remains separately pending."
+      },
+      {
+        "originalModule": "tooltip",
+        "currentPackageSubpath": "./tooltip",
+        "rootExports": [
+          {
+            "specifier": "./tooltip/index.js",
+            "kind": "runtime",
+            "members": [
+              {
+                "imported": "Tooltip",
+                "local": "Tooltip",
+                "typeOnly": false
+              }
+            ],
+            "syntax": "reexport",
+            "resolved": "packages/base/src/lib/tooltip/index.ts"
+          }
+        ],
+        "currentSourceApiStatus": "Source export present; broader component acceptance remains separately pending."
+      },
+      {
+        "originalModule": "use-render",
+        "currentPackageSubpath": null,
+        "rootExports": [],
+        "currentSourceApiStatus": "Explicitly retired under the native snippet directive; Original history retained."
+      }
+    ]
+  },
   "retired": [
     "packages/base/src/lib/dialog/Element.svelte",
     "packages/base/src/lib/internals/RenderElement.svelte",
@@ -1882,6 +2788,7 @@
       "scriptStructuralAstEqual": false,
       "sourceSyntaxValid": true,
       "disposition": "Root-authorized effect-local installed label ID capture, preserving conditional replacement-label protection; actual DOM witnesses unexecuted.",
+      "sourceBusinessCorrection": true,
       "sourceBusinessPredecessor": "e5e26961c52d324eb9075fcbff71915f79f7e922",
       "sourceBusinessPredecessorSha256": "68b8627d246359ebb546813e3e68520815f31be7156bc926fe7f80cb2c7b5223",
       "exactAuthorizedCompleteBodyDelta": true,
@@ -1948,6 +2855,7 @@
       "scriptStructuralAstEqual": false,
       "sourceSyntaxValid": true,
       "disposition": "Root-authorized effect-local installed event bus captures; complete callbacks, live business reads and domain guards retained; actual owner migration/unmount witnesses unexecuted.",
+      "sourceBusinessCorrection": true,
       "sourceBusinessPredecessor": "e5e26961c52d324eb9075fcbff71915f79f7e922",
       "sourceBusinessPredecessorSha256": "fdd2652ce08cb387d404d8b917bc2e74bf48dd85f776b2e8780d193886660a40",
       "exactAuthorizedCompleteBodyDelta": true,
@@ -1990,6 +2898,7 @@
       "scriptStructuralAstEqual": false,
       "sourceSyntaxValid": true,
       "disposition": "Root-authorized effect-local installed event bus captures; complete callbacks, live business reads and domain guards retained; actual owner migration/unmount witnesses unexecuted.",
+      "sourceBusinessCorrection": true,
       "sourceBusinessPredecessor": "e5e26961c52d324eb9075fcbff71915f79f7e922",
       "sourceBusinessPredecessorSha256": "0f443aa45764512d4a92d903b69baab460b34feca8f86c32ac3a6259154dcc6c",
       "exactAuthorizedCompleteBodyDelta": true,
@@ -4025,17 +4934,19 @@
     {
       "path": "packages/base/src/lib/utils/useRegisteredLabelId.svelte.ts",
       "rendererSha256": "5f7258478a2d880e5280d92504253ffc936af0bd587d5cbc31d98086dc086993",
-      "currentSha256": "e05169d0f62fe7f2bfc955ff3cb1a1e154d71ed8cb8fd8263e2ebc9e9af93faa",
+      "currentSha256": "7d7c44fce0e1b01178ae76dfeb95d59907a5ffa402c49147be554a9c582addec",
       "scriptStructuralAstEqual": false,
       "sourceSyntaxValid": true,
-      "disposition": "Explicit presentation/grouping changes retained without normalization or structural equality credit; compiled-output disposition pending.",
+      "disposition": "Exact native76 tracked installed ID with narrow untracked imperative receiver publication; live receiver and conditional cleanup retained. Integrated-head execution pending.",
+      "sourceBusinessCorrection": true,
+      "sourceBusinessPredecessor": "6ec6710c1ec6d62a7b9decf3dfdaa335a76d3ce7",
+      "sourceBusinessPredecessorSha256": "e05169d0f62fe7f2bfc955ff3cb1a1e154d71ed8cb8fd8263e2ebc9e9af93faa",
+      "exactInheritedNativeParentBody": "96ade5322d396211cc41609f244803e92dfe0169",
       "structuralDifferences": [
         {
-          "path": "source.FunctionDeclaration[1].Block[5].ExpressionStatement[1].CallExpression[0].ArrowFunction[1].Block[1].ReturnStatement[2].ArrowFunction[0].Block[1].ExpressionStatement[0].CallExpression[0].ArrowFunction[1].ConditionalExpression[2]",
-          "beforeKind": "ConditionalExpression",
-          "afterKind": "ParenthesizedExpression",
-          "before": "currentId === installedId ? undefined : currentId",
-          "after": "(currentId === installedId ? undefined : currentId)"
+          "path": "source",
+          "before": "import { useBaseUiId } from '../internals/useBaseUiId.js';\n\nexport function useRegisteredLabelId(\n  getIdProp: () => string | undefined,\n  setLabelId: (value: string | undefined | ((previous: string | undefined) => string | undefined)) => void,\n  nativeId: string,\n) {\n  const id = $derived(useBaseUiId(getIdProp(), nativeId));\n  $effect(() => {\n    const installedId = id;\n    setLabelId(installedId);\n    return () => {\n      setLabelId((currentId) => currentId === installedId ? undefined : currentId);\n    };\n  });\n  return () => id;\n}\n",
+          "after": "import { untrack } from 'svelte';\nimport { useBaseUiId } from '../internals/useBaseUiId.js';\n\nexport function useRegisteredLabelId(\n  getIdProp: () => string | undefined,\n  setLabelId: (\n    value: string | undefined | ((previous: string | undefined) => string | undefined),\n  ) => void,\n  nativeId: string,\n) {\n  const id = $derived(useBaseUiId(getIdProp(), nativeId));\n  $effect(() => {\n    const installedId = id;\n    // Publishing the registration must not subscribe to the receiver's label state.\n    untrack(() => setLabelId(installedId));\n    return () => {\n      setLabelId((currentId) => (currentId === installedId ? undefined : currentId));\n    };\n  });\n  return () => id;\n}\n"
         }
       ]
     },
@@ -4214,6 +5125,7 @@
       "scriptStructuralAstEqual": false,
       "sourceSyntaxValid": true,
       "disposition": "Exact native76 ordinary tracked getter correction; integrated execution/review pending.",
+      "sourceBusinessCorrection": true,
       "structuralDifferences": [
         {
           "path": "source.ClassDeclaration[1]",

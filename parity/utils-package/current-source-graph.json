@@ -612,7 +612,7 @@
         },
         {
           "path": "packages/base/src/lib/utils/useRegisteredLabelId.svelte.ts",
-          "sha256": "e05169d0f62fe7f2bfc955ff3cb1a1e154d71ed8cb8fd8263e2ebc9e9af93faa"
+          "sha256": "7d7c44fce0e1b01178ae76dfeb95d59907a5ffa402c49147be554a9c582addec"
         },
         {
           "path": "packages/utils/src/lib/useScrollLock.svelte.ts",
@@ -51350,15 +51350,28 @@
       },
       {
         "path": "packages/base/src/lib/utils/useRegisteredLabelId.svelte.ts",
-        "sha256": "e05169d0f62fe7f2bfc955ff3cb1a1e154d71ed8cb8fd8263e2ebc9e9af93faa",
+        "sha256": "7d7c44fce0e1b01178ae76dfeb95d59907a5ffa402c49147be554a9c582addec",
         "symbols": [
           {
             "name": "useRegisteredLabelId",
             "kind": "FunctionDeclaration",
-            "sha256": "4203c9d7053e7456bf321e732de0248da937344029d1eeef88b5e50f9d25fb4c"
+            "sha256": "a35ff5e16f4dfa7fcafed70821859cb5632f08c4de0ee6cbde0f592ba492dd3d"
           }
         ],
         "imports": [
+          {
+            "specifier": "svelte",
+            "kind": "runtime",
+            "members": [
+              {
+                "imported": "untrack",
+                "local": "untrack",
+                "typeOnly": false
+              }
+            ],
+            "syntax": "import",
+            "resolved": "external:svelte"
+          },
           {
             "specifier": "../internals/useBaseUiId.js",
             "kind": "runtime",
