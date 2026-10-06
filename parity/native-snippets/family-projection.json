@@ -10,7 +10,7 @@
     ],
     "graph": {
       "path": "parity/native-snippets/native-graph.json",
-      "sha256": "5dfb01f21528cd00ea215a2ea027ee04187f9e3da98f9d68333a3deae9385d2c"
+      "sha256": "fa734917a1e346f57dd4af47453cadeb725b521efc2d629346ddfc2dceb6edfb"
     },
     "predecessor": {
       "path": "parity/toggle-toolbar/source-correspondence.json",
@@ -35,7 +35,7 @@
       },
       {
         "source": "packages/base/src/lib/internals/composite/composite.ts",
-        "sha256": "f4e02dc8034a749a29f2c63d12f34c25d17c73ffd4075bc31e8f4a55306c0a9e"
+        "sha256": "424c303bd107e8dff6007e8f1cdff48b43f3d654205cf31ca9348a673674813c"
       },
       {
         "source": "packages/base/src/lib/internals/composite/constants.ts",
@@ -79,7 +79,7 @@
       },
       {
         "source": "packages/base/src/lib/internals/composite/utils/navigation.ts",
-        "sha256": "bcfb35db31e9b53c86be39c229e041eaaf48f82df10d4dfaac79b69ecfd5a6dd"
+        "sha256": "535a40e0631363077ebd9eadee0a06132c81bdcaee78daf63a73409cd5707af3"
       },
       {
         "source": "packages/base/src/lib/internals/createBaseUIEventDetails.ts",
@@ -544,7 +544,7 @@
         "local": [
           {
             "source": "packages/base/src/lib/internals/composite/utils/navigation.ts",
-            "sha256": "bcfb35db31e9b53c86be39c229e041eaaf48f82df10d4dfaac79b69ecfd5a6dd"
+            "sha256": "535a40e0631363077ebd9eadee0a06132c81bdcaee78daf63a73409cd5707af3"
           }
         ],
         "retiredLocal": [],
@@ -649,7 +649,7 @@
         "local": [
           {
             "source": "packages/base/src/lib/internals/composite/composite.ts",
-            "sha256": "f4e02dc8034a749a29f2c63d12f34c25d17c73ffd4075bc31e8f4a55306c0a9e"
+            "sha256": "424c303bd107e8dff6007e8f1cdff48b43f3d654205cf31ca9348a673674813c"
           }
         ],
         "retiredLocal": [],
@@ -2015,7 +2015,7 @@
     ],
     "graph": {
       "path": "parity/native-snippets/native-graph.json",
-      "sha256": "5dfb01f21528cd00ea215a2ea027ee04187f9e3da98f9d68333a3deae9385d2c"
+      "sha256": "fa734917a1e346f57dd4af47453cadeb725b521efc2d629346ddfc2dceb6edfb"
     },
     "predecessor": {
       "path": "parity/menu-family/source-correspondence.json",
@@ -2244,7 +2244,7 @@
       },
       {
         "source": "packages/base/src/lib/internals/composite/composite.ts",
-        "sha256": "f4e02dc8034a749a29f2c63d12f34c25d17c73ffd4075bc31e8f4a55306c0a9e"
+        "sha256": "424c303bd107e8dff6007e8f1cdff48b43f3d654205cf31ca9348a673674813c"
       },
       {
         "source": "packages/base/src/lib/internals/composite/constants.ts",
@@ -2288,7 +2288,7 @@
       },
       {
         "source": "packages/base/src/lib/internals/composite/utils/navigation.ts",
-        "sha256": "bcfb35db31e9b53c86be39c229e041eaaf48f82df10d4dfaac79b69ecfd5a6dd"
+        "sha256": "535a40e0631363077ebd9eadee0a06132c81bdcaee78daf63a73409cd5707af3"
       },
       {
         "source": "packages/base/src/lib/internals/constants.ts",
@@ -3315,7 +3315,7 @@
           },
           {
             "source": "packages/base/src/lib/internals/composite/utils/navigation.ts",
-            "sha256": "bcfb35db31e9b53c86be39c229e041eaaf48f82df10d4dfaac79b69ecfd5a6dd"
+            "sha256": "535a40e0631363077ebd9eadee0a06132c81bdcaee78daf63a73409cd5707af3"
           }
         ],
         "retiredLocal": [],
@@ -3459,7 +3459,7 @@
         "local": [
           {
             "source": "packages/base/src/lib/internals/composite/composite.ts",
-            "sha256": "f4e02dc8034a749a29f2c63d12f34c25d17c73ffd4075bc31e8f4a55306c0a9e"
+            "sha256": "424c303bd107e8dff6007e8f1cdff48b43f3d654205cf31ca9348a673674813c"
           }
         ],
         "retiredLocal": [],

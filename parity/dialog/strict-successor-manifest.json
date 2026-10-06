@@ -1,0 +1,124 @@
+{
+  "predecessorRemote": "2ca156fae39d422ce7e64ddd17eb0644406591a3",
+  "predecessorLocal": "3b2f7124fded0e2dfddcdf0e85e2b8afff22f339",
+  "runtimeChanges": [],
+  "status": "separate corrective successor, class main integration and exact-head full gates pending",
+  "files": [
+    {
+      "path": "docs/dialog-first-slice.md",
+      "change": "M",
+      "sha256": "e169b2e9c48a480f74296dd5defeea87f26b60cfdc246ae62bf2e6038e38bc9e"
+    },
+    {
+      "path": "docs/upstream-differences.md",
+      "change": "M",
+      "sha256": "0355af2fd2c5e7eb433b083d6a5d740396174e94baed445558532f91ed91153b"
+    },
+    {
+      "path": "parity/dialog/composite-realm-repair.json",
+      "change": "M",
+      "sha256": "855d1b1834f569497277b3fe6ac47761f33856b6fdd7e4df4c9c404daa5c8d98"
+    },
+    {
+      "path": "parity/dialog/receipts/current-projections-green.log.gz",
+      "change": "A",
+      "sha256": "9686e581aaa9741ab190f41ee7d5b24228a113ae10980c3b3656ec41cd3b1786"
+    },
+    {
+      "path": "parity/dialog/receipts/dialog-composite-caller-red.log",
+      "change": "D",
+      "sha256": null
+    },
+    {
+      "path": "parity/dialog/receipts/dialog-composite-caller-red.log.gz",
+      "change": "A",
+      "sha256": "d2a090cbca1d68f7f16c11463ada8dc1a8b85814592a97274806c8e5fc14c83c"
+    },
+    {
+      "path": "parity/dialog/receipts/dialog-composite-realm-green.log",
+      "change": "D",
+      "sha256": null
+    },
+    {
+      "path": "parity/dialog/receipts/dialog-composite-realm-green.log.gz",
+      "change": "A",
+      "sha256": "8ba2507cb1a7156bcb328d480abfc85274f08d541f2b7e2741dbb489f1dd58b9"
+    },
+    {
+      "path": "parity/dialog/receipts/dialog-composite-realm-red-executed.log",
+      "change": "D",
+      "sha256": null
+    },
+    {
+      "path": "parity/dialog/receipts/dialog-composite-realm-red-executed.log.gz",
+      "change": "A",
+      "sha256": "ce87d9f5a91ad67bc74b326b59482cea80c7c920d1eccb15e7c55cdd1b659cb2"
+    },
+    {
+      "path": "parity/dialog/receipts/dialog-composite-realm-red-executed2.log",
+      "change": "D",
+      "sha256": null
+    },
+    {
+      "path": "parity/dialog/receipts/dialog-composite-realm-red-executed2.log.gz",
+      "change": "A",
+      "sha256": "d021eff7029f82b5a089157e8a13bf9979f631d5728800d82acd7cd6f51b20fb"
+    },
+    {
+      "path": "parity/dialog/receipts/dialog-composite-realm-red.log",
+      "change": "D",
+      "sha256": null
+    },
+    {
+      "path": "parity/dialog/receipts/dialog-composite-realm-red.log.gz",
+      "change": "A",
+      "sha256": "5e552b0c4e25f019ced9af052a74c2caaf63dfadccc973e6937b3d45c16b98fb"
+    },
+    {
+      "path": "parity/dialog/receipts/strict-click-consumer-green.log.gz",
+      "change": "A",
+      "sha256": "c10cfb646adc64821f6a90abe9077e3d3809904d8db1090138c397cf6fff8293"
+    },
+    {
+      "path": "parity/dialog/receipts/strict-dialog-hydration-green.log.gz",
+      "change": "A",
+      "sha256": "d239e8fceee15f8ad54ef665a5c2a10f95e187841c53c9cf4bf0b9d0e4b08757"
+    },
+    {
+      "path": "parity/dialog/receipts/strict-full-script-failure.log.gz",
+      "change": "A",
+      "sha256": "ec7647243ee05c3516a50074872e08b5e624284c37cb26ce09e90a778960b2e5"
+    },
+    {
+      "path": "parity/dialog/receipts/strict-full-script-retry.log.gz",
+      "change": "A",
+      "sha256": "5c56e176285e7c51b5033d6cbe1064c1b5ab979526fce1a2494d4bfb8ab238d9"
+    },
+    {
+      "path": "parity/dialog/receipts/strict-kit-check-green.log.gz",
+      "change": "A",
+      "sha256": "ac02f8de2bf9436ae9869757ba605066bb4f3b245bb840985f719ff8d9713c34"
+    },
+    {
+      "path": "parity/dialog/strict-consumer-audit.json",
+      "change": "A",
+      "sha256": "d8d394b7ffe8dfc8f876da549320a1871598f735815ee047cbc78f85973e67ae"
+    },
+    {
+      "path": "parity/native-snippets/family-projection.json",
+      "change": "M",
+      "sha256": "5d1e5841be5f2645ffdc1fbc5d0eefbe1969a4aa72a3753f82a7cb9e1a1efc0d"
+    },
+    {
+      "path": "scripts/check-dialog-handles-package.sh",
+      "change": "M",
+      "sha256": "ac8746febef3200b0f34fb29756ae2301916ac2d14c9971f3a6c7d16ca42445b"
+    },
+    {
+      "path": "scripts/check-use-click-package.sh",
+      "change": "M",
+      "sha256": "0686f1cfd6d219f692e7b7ac25d1bcaad0801a91723876c6f5af21f50a9da180"
+    }
+  ],
+  "selfExcluded": true
+}

@@ -1,0 +1,89 @@
+{
+  "publishedHistoricalCandidate": "2ca156fae39d422ce7e64ddd17eb0644406591a3",
+  "pin": "47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c",
+  "status": "separate corrective successor; frozen public head unchanged; class main integration and full exact-head gates pending",
+  "currentProjectionCorrection": "parity/native-snippets/family-projection.json regenerated; immutable historical records unchanged; six focused script tests pass",
+  "hostedFailure": {
+    "run": "https://github.com/sveltery/base/actions/runs/37530757336",
+    "job": 112499230120,
+    "stage": "Script regressions",
+    "failures": [
+      "menu-family-provenance current projection stale",
+      "navigation-source current projection stale"
+    ],
+    "laterStages": "skipped, no acceptance"
+  },
+  "strictConsumerAudit": {
+    "dialog": "explicit skipLibCheck:false already present, four negative assertions retained",
+    "nativeSnippets": "explicit skipLibCheck:false already present, negative assertions retained",
+    "click": "correct --skipLibCheck false; negative private export assertion retained; actual dual-tarball SSR/types and DOM pass",
+    "hydration": "actual dual-tarball installed Dialog strict declarations zero errors/warnings, SSR, existing mount and added same-node hydration all pass; jsdom supplement, secured hosted browser separately pending",
+    "browser": "playwright.config.ts chromiumSandbox:true, 1worker, 0retries; hosted Dialog pending"
+  },
+  "tarballs": {
+    "schema": 1,
+    "packages": {
+      "@sveltery/base": {
+        "version": "0.0.0",
+        "directory": "packages/base",
+        "tarball": "sveltery-base-0.0.0.tgz",
+        "sha256": "6f360d0e0d31afa5bfd6d57f95b3d4c69d5500570183f6ceb6eb15c462700992",
+        "dependencies": [
+          "@sveltery/utils"
+        ]
+      },
+      "@sveltery/utils": {
+        "version": "0.0.0",
+        "directory": "packages/utils",
+        "tarball": "sveltery-utils-0.0.0.tgz",
+        "sha256": "151dfad7a8f44072b16d315eef6f0885ee44c886f486e54334908b67cc082eac",
+        "dependencies": []
+      }
+    }
+  },
+  "ordinaryDeclarationCredit": 0,
+  "unreachedClassOwner": "useFieldValidation absent Dialog graph; no duplicate edit",
+  "reachedClassPrerequisites": [
+    "internals/use-button/useButton.svelte.ts",
+    "internals/useTransitionStatus.svelte.ts"
+  ],
+  "hydrationLimits": "Initially closed installed SSR with null Portal container, same-node hydration and subsequent portal opening. Initial-open portal hydration/trusted browser remain separate mandatory evidence.",
+  "fullScriptExecution": "After fixture dependency setup corrected: 86 cases81pass5failed managed isolated-PATH toolchain cases. Initial setup failures retained. Current projection6/6; no full gate waiver.",
+  "hostedStandards": {
+    "lintFormatting": "pass at frozen2ca",
+    "whitespace": "failed on preserved raw log blank EOF; successor stores exact decoded bytes losslessly gzip",
+    "run": "https://github.com/sveltery/base/actions/runs/37530757336"
+  },
+  "receiptStorage": {
+    "parity/dialog/receipts/dialog-composite-caller-red.log": {
+      "path": "parity/dialog/receipts/dialog-composite-caller-red.log.gz",
+      "sha256": "d2a090cbca1d68f7f16c11463ada8dc1a8b85814592a97274806c8e5fc14c83c",
+      "decodedSha256": "7c2b77142352520905ab9d7b6ac4ed4e4bf82607c653ee4c05c67b5d6bb8f11b",
+      "historicalRawURL": "https://github.com/sveltery/base/blob/2ca156fae39d422ce7e64ddd17eb0644406591a3/parity/dialog/receipts/dialog-composite-caller-red.log"
+    },
+    "parity/dialog/receipts/dialog-composite-realm-green.log": {
+      "path": "parity/dialog/receipts/dialog-composite-realm-green.log.gz",
+      "sha256": "8ba2507cb1a7156bcb328d480abfc85274f08d541f2b7e2741dbb489f1dd58b9",
+      "decodedSha256": "228c7d57dac02a9074ac4cf3245e732dfa7f1b7683b620a8d16086466693afff",
+      "historicalRawURL": "https://github.com/sveltery/base/blob/2ca156fae39d422ce7e64ddd17eb0644406591a3/parity/dialog/receipts/dialog-composite-realm-green.log"
+    },
+    "parity/dialog/receipts/dialog-composite-realm-red-executed.log": {
+      "path": "parity/dialog/receipts/dialog-composite-realm-red-executed.log.gz",
+      "sha256": "ce87d9f5a91ad67bc74b326b59482cea80c7c920d1eccb15e7c55cdd1b659cb2",
+      "decodedSha256": "84cefa6de7d7b0755b1ca6aa2555e0840ee9ff15a5db64adb3e9493d1e049920",
+      "historicalRawURL": "https://github.com/sveltery/base/blob/2ca156fae39d422ce7e64ddd17eb0644406591a3/parity/dialog/receipts/dialog-composite-realm-red-executed.log"
+    },
+    "parity/dialog/receipts/dialog-composite-realm-red-executed2.log": {
+      "path": "parity/dialog/receipts/dialog-composite-realm-red-executed2.log.gz",
+      "sha256": "d021eff7029f82b5a089157e8a13bf9979f631d5728800d82acd7cd6f51b20fb",
+      "decodedSha256": "2e5e29f6cf104ba6b34a941358c67828c088d6538a68f8803c39a8db5a45267e",
+      "historicalRawURL": "https://github.com/sveltery/base/blob/2ca156fae39d422ce7e64ddd17eb0644406591a3/parity/dialog/receipts/dialog-composite-realm-red-executed2.log"
+    },
+    "parity/dialog/receipts/dialog-composite-realm-red.log": {
+      "path": "parity/dialog/receipts/dialog-composite-realm-red.log.gz",
+      "sha256": "5e552b0c4e25f019ced9af052a74c2caaf63dfadccc973e6937b3d45c16b98fb",
+      "decodedSha256": "306e0d7200895d3df06d0ccddd7b4243904b5568a571f5e62fe6e01d0594f7d0",
+      "historicalRawURL": "https://github.com/sveltery/base/blob/2ca156fae39d422ce7e64ddd17eb0644406591a3/parity/dialog/receipts/dialog-composite-realm-red.log"
+    }
+  }
+}

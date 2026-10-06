@@ -142,23 +142,36 @@ registerHooks({
   },
 });
 JS
+cat > "$dialog_consumer/hydration-ssr.mjs" <<'JS'
+import { writeFileSync } from 'node:fs';
+import { render } from 'svelte/server';
+import { Dialog } from '@sveltery/base';
+import Consumer from './DOMConsumer.svelte';
+writeFileSync(new URL('./hydration.html', import.meta.url), render(Consumer, { props: { handle: Dialog.createHandle(), container: null } }).body);
+JS
+node --import "$sveltery_repo_root/scripts/svelte-ssr-loader.mjs" "$dialog_consumer/hydration-ssr.mjs"
 cat > "$dialog_consumer/dom-check.mjs" <<'JS'
 import assert from 'node:assert/strict';
 import { createRequire } from 'node:module';
+import { readFileSync } from 'node:fs';
+const hydration = process.argv[3] === '--hydrate';
 const tooling = createRequire(process.argv[2]);
 const { JSDOM } = tooling('jsdom');
-const dom = new JSDOM('<!doctype html><html><body><main></main><aside></aside></body></html>', { url: 'http://localhost', pretendToBeVisual: true });
+const serverHTML = hydration ? readFileSync(new URL('./hydration.html', import.meta.url), 'utf8') : '';
+const dom = new JSDOM(`<!doctype html><html><body><main>${serverHTML}</main><aside></aside></body></html>`, { url: 'http://localhost', pretendToBeVisual: true });
 for (const key of ['window', 'document', 'navigator', 'HTMLElement', 'HTMLInputElement', 'HTMLButtonElement', 'Element', 'Node', 'Text', 'Comment', 'Event', 'MouseEvent', 'KeyboardEvent', 'MutationObserver', 'getComputedStyle', 'requestAnimationFrame', 'cancelAnimationFrame']) {
   const value = typeof dom.window[key] === 'function' && ['getComputedStyle', 'requestAnimationFrame', 'cancelAnimationFrame'].includes(key) ? dom.window[key].bind(dom.window) : dom.window[key];
   Object.defineProperty(globalThis, key, { configurable: true, value });
 }
-const { mount, tick, unmount } = await import('svelte');
+const { mount, hydrate, tick, unmount } = await import('svelte');
 const { Dialog } = await import('@sveltery/base');
 const { default: Consumer } = await import('./DOMConsumer.svelte');
 const handle = Dialog.createHandle();
-const app = mount(Consumer, { target: document.querySelector('main'), props: { handle, container: document.querySelector('aside') } });
+const serverTrigger = document.getElementById('installed-trigger');
+const app = (hydration ? hydrate : mount)(Consumer, { target: document.querySelector('main'), props: { handle, container: document.querySelector('aside') } });
 async function settle() { await tick(); await new Promise(resolve => setTimeout(resolve, 60)); await tick(); }
 await settle();
+if (hydration) assert.equal(document.getElementById('installed-trigger'), serverTrigger);
 assert.equal(handle.isOpen, false); assert.equal(app.snapshot().portal, null);
 document.getElementById('installed-trigger').click(); await settle();
 const popup = document.querySelector('[role=dialog]'), { portal, viewport, actions } = app.snapshot();
@@ -171,6 +184,7 @@ assert.equal(viewport.style.getPropertyValue('--open'), '1');
 assert.equal(popup.getAttribute('aria-labelledby'), 'installed-title'); assert.equal(popup.getAttribute('aria-describedby'), 'installed-description');
 assert.equal(document.activeElement.id, 'installed-close');
 document.getElementById('installed-close').click(); await settle();
+if (hydration) assert.equal(document.getElementById('installed-trigger'), serverTrigger);
 assert.equal(handle.isOpen, false); assert.equal(handle.store.state.mounted, true);
 assert.equal(document.activeElement.id, 'installed-close');
 assert.deepEqual(app.snapshot().changes, [['change', true], ['complete', true], ['change', false]]);
@@ -188,4 +202,5 @@ dom.window.close();
 console.log('Installed public Dialog DOM payload, source focus/portal/Viewport, deferred presence, re-open and cleanup: PASS');
 JS
 node --conditions=browser --import "$dialog_consumer/dom-loader.mjs" "$dialog_consumer/dom-check.mjs" "$sveltery_repo_root/packages/base/package.json"
+node --conditions=browser --import "$dialog_consumer/dom-loader.mjs" "$dialog_consumer/dom-check.mjs" "$sveltery_repo_root/packages/base/package.json" --hydrate
 echo 'Isolated tarball Dialog public root/subpath nine parts, generic handle SSR, DOM and strict native types: PASS'
