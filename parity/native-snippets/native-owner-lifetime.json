@@ -1,0 +1,120 @@
+{
+  "predecessor": "c39271eaf4f893fc64131b22209dee50e74de657",
+  "pin": "47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c",
+  "ordinaryDeclarationCredit": 0,
+  "status": "Root-authorized five-path Source candidate; candidate runtime/warning outcome unexecuted, independent exact-head Source disposition and full gates pending.",
+  "original": [
+    {
+      "path": "packages/react/src/dialog/store/DialogStore.ts",
+      "archive": "parity/native-snippets/native-owner-source-original/packages/react/src/dialog/store/DialogStore.ts",
+      "sha256": "4be262c8e6b08cd727e5c902c5d5f274c3f38036643bb9ab68820bf51dad12b4"
+    },
+    {
+      "path": "packages/react/src/floating-ui-react/components/FloatingPortal.tsx",
+      "archive": "parity/native-snippets/native-owner-source-original/packages/react/src/floating-ui-react/components/FloatingPortal.tsx",
+      "sha256": "602600ea7e232bec066b961eddc5dce4bb654a88694a902e369e0e3ca6b2e13c"
+    },
+    {
+      "path": "packages/react/src/menu/root/MenuRoot.tsx",
+      "archive": "parity/native-snippets/native-owner-source-original/packages/react/src/menu/root/MenuRoot.tsx",
+      "sha256": "1ac421c640daa9cbecc0da47216995a691b20123ca2307bbdc21299c596fe54f"
+    },
+    {
+      "path": "packages/react/src/floating-ui-react/components/FloatingFocusManager.tsx",
+      "archive": "parity/native-snippets/native-owner-source-original/packages/react/src/floating-ui-react/components/FloatingFocusManager.tsx",
+      "sha256": "6ecb04f1ed908009718134b26fa2aa48eaf723010a65c4d541c5674290d47933"
+    },
+    {
+      "path": "packages/react/src/utils/popups/useTriggerFocusGuards.ts",
+      "archive": "parity/native-snippets/native-owner-source-original/packages/react/src/utils/popups/useTriggerFocusGuards.ts",
+      "sha256": "f2491d82873eb8e2e4dea454981b35a4671db180acf5520bc62bcfba392a3167"
+    }
+  ],
+  "diagnostics": [
+    {
+      "archive": "parity/native-snippets/historical/native-owners-c39271ea/diagnosis/diagnosis.md",
+      "sha256": "9d2262be5e35a0c28f5b179fb0babdf3670a01409de1b3c851fe96473e0cccde"
+    },
+    {
+      "archive": "parity/native-snippets/historical/native-owners-c39271ea/diagnosis/derived-inert-extension/diagnosis.md",
+      "sha256": "d82217c8d01fce5004d9522cb0edf55d654946c4c28d8e16922924b0c46842dc"
+    },
+    {
+      "archive": "parity/native-snippets/historical/native-owners-c39271ea/diagnosis/menu-trigger-binding-extension/diagnosis.md",
+      "sha256": "4260a60fec699364014589a0389e4d9702240b27adf875cfa4b8a8de935336ab"
+    },
+    {
+      "archive": "parity/native-snippets/historical/native-owners-c39271ea/diagnosis/menu-trigger-binding-extension/corrigendum.md",
+      "sha256": "f54ee00c1528779483432fb1d1b20185d8821433fc93814e9b4e9df042560355"
+    }
+  ],
+  "runtime": [
+    {
+      "path": "packages/base/src/lib/dialog/store/DialogStore.svelte.ts",
+      "sha256": "7a90ea83e70ca6f82011434787b93d3f75ca69fc9fb7eb8d8e586c5405ff8c3b",
+      "predecessorSha256": "bcfef95cae3d29ea6a193d62abcb678f78fe51cf90301c1fc528c86714bc8f32"
+    },
+    {
+      "path": "packages/base/src/lib/floating-ui/components/FloatingPortal.svelte",
+      "sha256": "d9360eddffb4f2f685ea80e8bfee84ed519ff348c1c5db9bf56bc254fd9e132d",
+      "predecessorSha256": "4532b577b66e7ae3333e38a235a3a3ec331ef12adaa4183cb4fcc8b579004ac9"
+    },
+    {
+      "path": "packages/base/src/lib/menu/root/createMenuRoot.svelte.ts",
+      "sha256": "c388e875d2a3f4c6fb748b17f1dc2e9c35ce347360d7de696dfe83295136616e",
+      "predecessorSha256": "7f06fa99bcfa89a2efcb6926413d47f9fb5bfc6539ecc8bd0e6b2ca51fc0458b"
+    },
+    {
+      "path": "packages/base/src/lib/floating-ui/components/createFloatingFocusManager.svelte.ts",
+      "sha256": "859655fcac3ce756ca68ab0021912e75daaec260864d8d9182cdaa6271b24626",
+      "predecessorSha256": "2bf134f5537129302dfa11bcde005471119ac9b845977c936c126709880f1e27"
+    },
+    {
+      "path": "packages/base/src/lib/utils/popups/useTriggerFocusGuards.svelte.ts",
+      "sha256": "31fe56072f7dd8093b4292afc5da43ce09f07ed01faa185e6fae8cdc11f5aac6",
+      "predecessorSha256": "546d28f868043bb4ba73eb8ce608cb07b4753c18361100e2720a296ed3f15c3a"
+    }
+  ],
+  "business": [
+    "DialogStore constructor creates its actual internalBackdropRef with native reactive .current property and passes that exact object into plain context; inert NullStore default and every outside-press/portal/modal guard remain.",
+    "FloatingPortal only makes the two actual outside guard node properties reactive; native bindings, actual DOM identity, inside guards, owner/body/SSR conditions and callbacks remain.",
+    "Menu only wraps its one-time inactiveTriggerProps store seed in native untrack; all live derived props/usePopupInteractionProps/getter synchronization stay tracked. The seed comment describes the initial native update.",
+    "FloatingFocusManager component-local disposed flag is set by native onDestroy and checked as FIRST statement in ONLY queued focus-out callback. Live-owner predicates, effect reruns, initial-focus queue and intentional captured-target return-focus teardown remain.",
+    "Shared Menu/Popover preFocusGuardRef only gains actual native reactive .current property; Source flushSync close then live node read, handlers, render predicates and real-node cleanup remain."
+  ],
+  "limits": "Warnings alone did not establish stale-ref or lost-live-prop business failures. Source supports a delayed focus-out owner lifetime gap but does not attribute either raw derived_inert occurrence to this callback. Diagnostic additive corrigendum preserves and corrects historical Trigger predecessor coverage; no false byte equivalence/Original credit is awarded.",
+  "predecessorExecution": "Acceptance9236046f with runtime-identicalc392 completed17 bounded native lifetime cases across5files,46excluded,exit0/15.06s, with unsuppressed warnings. This new candidate has not run; prior results do not establish its warning-free or broad acceptance.",
+  "witnesses": [
+    {
+      "path": "packages/base/tests/dom/dialog-source-business.test.ts",
+      "sha256": "d1c0b950884da90f1ae621c6df9fecfa4a914a882a9cbd1e1d2e4cf4dde34037",
+      "predecessor": "c39271eaf4f893fc64131b22209dee50e74de657",
+      "bodyUnchanged": true
+    },
+    {
+      "path": "packages/base/tests/dom/dialog-source-public-fixture.test.ts",
+      "sha256": "e78478a7fc139dada021a3784700bed60c1a7c66045277c29c55156b7499d11f",
+      "predecessor": "c39271eaf4f893fc64131b22209dee50e74de657",
+      "bodyUnchanged": true
+    },
+    {
+      "path": "packages/base/tests/dom/menu-family-retained-focus-matrix.test.ts",
+      "sha256": "b71af495e52f872252471e2a4facd089de10ff12c0afd4f798b89d26f7272473",
+      "predecessor": "c39271eaf4f893fc64131b22209dee50e74de657",
+      "bodyUnchanged": true
+    },
+    {
+      "path": "packages/base/tests/dom/menu-group-label-lifetime.test.ts",
+      "sha256": "a33882163ab62238465d81f127aa4e69bb9a4b756c4d3fd6da3dd147e8a94d11",
+      "predecessor": "c39271eaf4f893fc64131b22209dee50e74de657",
+      "bodyUnchanged": true
+    },
+    {
+      "path": "packages/base/tests/dom/menu-tree-subscription-lifetime.test.ts",
+      "sha256": "c2b47600377ab821c34cbbac2ac3c380042ccd593c18bcab466e4a8fa845e87c",
+      "predecessor": "c39271eaf4f893fc64131b22209dee50e74de657",
+      "bodyUnchanged": true
+    }
+  ],
+  "execution": "Root/PR78 test owner authors a meaningful real public DOM focus-out then owner-removal witness plus live-owner control, preserves every existing assertion, and coordinates finite current native17/affected caller checks and full gates after Source review. No runtime tests, compiler/type/build/package/browser jobs performed here."
+}

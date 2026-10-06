@@ -154,7 +154,7 @@
       ],
       "localHashes": {
         "packages/base/src/lib/floating-ui/components/FloatingFocusManager.svelte": "88b47ec0d8e7254d4ea022e5c05d272798d9e735c65e84c9ddfef38b8bd24342",
-        "packages/base/src/lib/floating-ui/components/createFloatingFocusManager.svelte.ts": "2bf134f5537129302dfa11bcde005471119ac9b845977c936c126709880f1e27"
+        "packages/base/src/lib/floating-ui/components/createFloatingFocusManager.svelte.ts": "859655fcac3ce756ca68ab0021912e75daaec260864d8d9182cdaa6271b24626"
       },
       "correspondence": "Full Original focus-manager business plus native host/component ownership. Reinspect inherited full body, flags, scheduling, focus restore and teardown.",
       "reviewStatus": "Entire used Source/native business, idiomatic Svelte and maintainability independent exact-head review pending; no acceptance by inventory."
@@ -171,7 +171,7 @@
         "packages/base/src/lib/floating-ui/components/PortalContent.svelte"
       ],
       "localHashes": {
-        "packages/base/src/lib/floating-ui/components/FloatingPortal.svelte": "4532b577b66e7ae3333e38a235a3a3ec331ef12adaa4183cb4fcc8b579004ac9",
+        "packages/base/src/lib/floating-ui/components/FloatingPortal.svelte": "d9360eddffb4f2f685ea80e8bfee84ed519ff348c1c5db9bf56bc254fd9e132d",
         "packages/base/src/lib/floating-ui/hooks/useFloatingPortalNode.svelte.ts": "16cef262e2368b881c58d59baa1257caddc9c0e97b4fb183f7099cc09f6dc84d",
         "packages/base/src/lib/floating-ui/components/FloatingPortalContext.ts": "022afce07c643e0ee4a9bc2177ff8feb41fa5d6a1b63774eb682dd06d34494d5",
         "packages/base/src/lib/floating-ui/components/PortalContent.svelte": "41cf8f68f099889990ab71c57ca1c5de2e1db746e2b54639fef873d9335c6600"
@@ -1449,7 +1449,7 @@
       "localHashes": {
         "packages/base/src/lib/menu/Root.svelte": "0c309094355a231846fda628081404221db6da6ff2affff93fe47a008ed88875",
         "packages/base/src/lib/menu/types.ts": "f70bd7769bbf0008b619ecc7d0eb7d4a56edc6c351c5c82fa11e9989d844e426",
-        "packages/base/src/lib/menu/root/createMenuRoot.svelte.ts": "7f06fa99bcfa89a2efcb6926413d47f9fb5bfc6539ecc8bd0e6b2ca51fc0458b"
+        "packages/base/src/lib/menu/root/createMenuRoot.svelte.ts": "c388e875d2a3f4c6fb748b17f1dc2e9c35ce347360d7de696dfe83295136616e"
       },
       "correspondence": "Original component business and public types retain their part boundary; native component/snippet/attachment/context/rune ownership replaces React host rendering. Compare the complete component and any used extracted business body together.",
       "reviewStatus": "Entire used Source/native business, idiomatic Svelte and maintainability independent exact-head review pending; no acceptance by inventory."
@@ -2069,7 +2069,7 @@
         "packages/base/src/lib/utils/popups/useTriggerFocusGuards.svelte.ts"
       ],
       "localHashes": {
-        "packages/base/src/lib/utils/popups/useTriggerFocusGuards.svelte.ts": "546d28f868043bb4ba73eb8ce608cb07b4753c18361100e2720a296ed3f15c3a"
+        "packages/base/src/lib/utils/popups/useTriggerFocusGuards.svelte.ts": "31fe56072f7dd8093b4292afc5da43ce09f07ed01faa185e6fae8cdc11f5aac6"
       },
       "correspondence": "Same canonical component/helper/context/store boundary with native Svelte framework substitution where required; compare entire Original and actual used body, including inherited code.",
       "reviewStatus": "Entire used Source/native business, idiomatic Svelte and maintainability independent exact-head review pending; no acceptance by inventory."
@@ -2706,9 +2706,9 @@
       ],
       "localHashes": {
         "packages/base/src/lib/context-menu/trigger/createContextMenuTrigger.svelte.ts": "c7b1cd5c8adc95071a449256413571762d3f762dcb39fc3adf71d78db83aae33",
-        "packages/base/src/lib/floating-ui/components/FloatingPortal.svelte": "4532b577b66e7ae3333e38a235a3a3ec331ef12adaa4183cb4fcc8b579004ac9",
+        "packages/base/src/lib/floating-ui/components/FloatingPortal.svelte": "d9360eddffb4f2f685ea80e8bfee84ed519ff348c1c5db9bf56bc254fd9e132d",
         "packages/base/src/lib/floating-ui/components/FloatingTree.svelte.ts": "4ba1a45eb3e58c4c1cdb7fc68d48c59da7ad7a5cbd5f9be7319c22af1ca60d8a",
-        "packages/base/src/lib/floating-ui/components/createFloatingFocusManager.svelte.ts": "2bf134f5537129302dfa11bcde005471119ac9b845977c936c126709880f1e27",
+        "packages/base/src/lib/floating-ui/components/createFloatingFocusManager.svelte.ts": "859655fcac3ce756ca68ab0021912e75daaec260864d8d9182cdaa6271b24626",
         "packages/base/src/lib/floating-ui/hooks/useDismiss.svelte.ts": "ae4860fe2a3f4ea5686bccb2b425bf9c61a676b92072da7b6f733d69dc8afd51",
         "packages/base/src/lib/floating-ui/hooks/useFloating.svelte.ts": "fb2a3d4ef440583702349947e7fbffb47608d736f3ec7289dd82091d4cb958b8",
         "packages/base/src/lib/floating-ui/hooks/useFloatingPortalNode.svelte.ts": "16cef262e2368b881c58d59baa1257caddc9c0e97b4fb183f7099cc09f6dc84d",
@@ -2726,7 +2726,7 @@
         "packages/base/src/lib/menu/GroupLabel.svelte": "743dad85f4b3e8c9fcca29c8b24c78cba2978e63557e491410ed481fd678070f",
         "packages/base/src/lib/menu/Popup.svelte": "74f9bc6ece8cbde744d120e226a7a640511db802670bf62fcce08ea7ab2fb8e3",
         "packages/base/src/lib/menu/positioner/createMenuPositioner.svelte.ts": "58d6966fd6c904e8b6adca800731394803d0fee4f73d781ee0fa2a5776d6e063",
-        "packages/base/src/lib/menu/root/createMenuRoot.svelte.ts": "7f06fa99bcfa89a2efcb6926413d47f9fb5bfc6539ecc8bd0e6b2ca51fc0458b",
+        "packages/base/src/lib/menu/root/createMenuRoot.svelte.ts": "c388e875d2a3f4c6fb748b17f1dc2e9c35ce347360d7de696dfe83295136616e",
         "packages/base/src/lib/menu/submenu-trigger/createMenuSubmenuTrigger.svelte.ts": "a27f25c9934a6c7d64004313fddb5bba8e96a901cf863ec8b9920d58ef4d7a12",
         "packages/base/src/lib/menu/trigger/createMenuTrigger.svelte.ts": "ae04e18d492aa073757adc134e825f1fa8412283d742cb6cf9895a784215108f",
         "packages/base/src/lib/menubar/Menubar.svelte": "9a3073b1739a7dbd5e1107d3b7a82d1fff068d640790d0f3a0e6adeeb12f98e8",
@@ -2803,7 +2803,7 @@
       "localHashes": {
         "packages/base/src/lib/floating-ui/hooks/useHoverInteractionSharedState.svelte.ts": "894478a3a44f74f94e416fc6aa6060af0625f0d67d80dbf59c10975916b842a3",
         "packages/base/src/lib/internals/ValueChanged.svelte.ts": "f169e9eec98d817327dd31fc0c39c019173cdb64fac3350b898004222107e54e",
-        "packages/base/src/lib/menu/root/createMenuRoot.svelte.ts": "7f06fa99bcfa89a2efcb6926413d47f9fb5bfc6539ecc8bd0e6b2ca51fc0458b",
+        "packages/base/src/lib/menu/root/createMenuRoot.svelte.ts": "c388e875d2a3f4c6fb748b17f1dc2e9c35ce347360d7de696dfe83295136616e",
         "packages/utils/src/lib/useAnimationFrame.ts": "ec054003588b92e4223c6eea228388ae6395bf1895fb3aaf32a02706249652ce",
         "packages/utils/src/lib/useTimeout.ts": "06130c6374e14371471cc3af14638ddb3cadb514bb985fcbc4b8a7a606008b7f"
       },
@@ -2853,7 +2853,7 @@
         "packages/base/src/lib/utils/usePopupViewport.svelte.ts"
       ],
       "localHashes": {
-        "packages/base/src/lib/floating-ui/components/createFloatingFocusManager.svelte.ts": "2bf134f5537129302dfa11bcde005471119ac9b845977c936c126709880f1e27",
+        "packages/base/src/lib/floating-ui/components/createFloatingFocusManager.svelte.ts": "859655fcac3ce756ca68ab0021912e75daaec260864d8d9182cdaa6271b24626",
         "packages/base/src/lib/floating-ui/hooks/useDismiss.svelte.ts": "ae4860fe2a3f4ea5686bccb2b425bf9c61a676b92072da7b6f733d69dc8afd51",
         "packages/base/src/lib/floating-ui/hooks/useHoverFloatingInteraction.svelte.ts": "0ab147a7643e45e94606193799839e6b449028367873d9acdcb4e2618af860ba",
         "packages/base/src/lib/floating-ui/hooks/useHoverReferenceInteraction.svelte.ts": "bd55a3a32c7465648d0a0640aae445b27f4faab8b08946e646e42459e176a060",
@@ -2865,7 +2865,7 @@
         "packages/base/src/lib/internals/useAnimationsFinished.ts": "7abe48ef841cdfa7bf60b29045e9f0ffb7dbfb715b34351e8f6716131b2678f8",
         "packages/base/src/lib/internals/useOpenChangeComplete.svelte.ts": "b6174d1cc73b6ea3b6431cf87906a1acacc40b1d5c356a31124f92251d7fd038",
         "packages/base/src/lib/menu/RadioGroup.svelte": "a9f743f853e33586d5cb789e6fdd4676749a68a20562d86bbb4ad78bc025ada3",
-        "packages/base/src/lib/menu/root/createMenuRoot.svelte.ts": "7f06fa99bcfa89a2efcb6926413d47f9fb5bfc6539ecc8bd0e6b2ca51fc0458b",
+        "packages/base/src/lib/menu/root/createMenuRoot.svelte.ts": "c388e875d2a3f4c6fb748b17f1dc2e9c35ce347360d7de696dfe83295136616e",
         "packages/base/src/lib/menu/submenu-trigger/createMenuSubmenuTrigger.svelte.ts": "a27f25c9934a6c7d64004313fddb5bba8e96a901cf863ec8b9920d58ef4d7a12",
         "packages/base/src/lib/menu/trigger/createMenuTrigger.svelte.ts": "ae04e18d492aa073757adc134e825f1fa8412283d742cb6cf9895a784215108f",
         "packages/base/src/lib/utils/popups/popupStoreUtils.svelte.ts": "13b61b426eed8a0875580aa2a8e15a8caf5c7110e915174bf4d613f069f7b01a",

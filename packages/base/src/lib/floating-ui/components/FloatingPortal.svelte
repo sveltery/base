@@ -54,12 +54,12 @@
   );
   const portalNode = $derived(portal.node);
   const portalNodeId = $derived(portal.nodeId);
-  const beforeOutsideRef: { current: HTMLSpanElement | null } = {
+  const beforeOutsideRef = $state<{ current: HTMLSpanElement | null }>({
     current: null,
-  };
-  const afterOutsideRef: { current: HTMLSpanElement | null } = {
+  });
+  const afterOutsideRef = $state<{ current: HTMLSpanElement | null }>({
     current: null,
-  };
+  });
   const beforeInsideRef: { current: HTMLSpanElement | null } = {
     current: null,
   };

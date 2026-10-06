@@ -488,7 +488,7 @@
     },
     {
       "local": "packages/base/src/lib/dialog/store/DialogStore.svelte.ts",
-      "sha256": "bcfef95cae3d29ea6a193d62abcb678f78fe51cf90301c1fc528c86714bc8f32",
+      "sha256": "7a90ea83e70ca6f82011434787b93d3f75ca69fc9fb7eb8d8e586c5405ff8c3b",
       "imports": [
         {
           "specifier": "@sveltery/utils/store",

@@ -38,7 +38,7 @@ export function useTriggerFocusGuards(
   triggerElementRef: { current: HTMLElement | null },
 ) {
   const store = $derived(getStore());
-  const preFocusGuardRef = { current: null as HTMLElement | null };
+  const preFocusGuardRef = $state<{ current: HTMLElement | null }>({ current: null });
 
   function handlePreFocusGuardFocus(event: FocusEvent) {
     flushSync(() => {

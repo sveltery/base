@@ -463,8 +463,8 @@ export function createMenuRoot<Payload>(
     return mergedProps;
   });
   // The initial render has no store subscribers yet. Seed these props before triggers render so
-  // the synchronization effect below doesn't make every trigger render twice in the first commit.
-  store.update({ inactiveTriggerProps });
+  // the synchronization effect below doesn't make every trigger render twice in the initial update.
+  untrack(() => store.update({ inactiveTriggerProps }));
   const popupProps = $derived.by(() =>
     mergeProps(
       FOCUSABLE_POPUP_PROPS,
