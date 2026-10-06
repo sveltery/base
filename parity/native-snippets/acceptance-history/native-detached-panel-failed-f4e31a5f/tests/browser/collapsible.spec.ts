@@ -838,6 +838,31 @@ for (const reference of [false, true]) {
     await frames(page, 3);
     await expect(panel).toHaveCount(0);
   });
+  for (const scenario of ['beforematch-transition', 'beforematch-keys'])
+    test(`supplement: ${framework} ${scenario} teardown restores authored duration`, async ({
+      page,
+    }) => {
+      const { panel } = await setup(page, scenario, reference);
+      await flush(page, 'beforematch');
+      await panel.evaluate((node) => {
+        (window as Window & { removedPanel?: HTMLElement }).removedPanel = node as HTMLElement;
+      });
+      await page.getByRole('button', { name: 'Toggle mounting', exact: true }).click();
+      await frames(page, 3);
+      await expect(panel).toHaveCount(0);
+      expect(
+        await page.evaluate((scenario) => {
+          const node = (window as Window & { removedPanel?: HTMLElement }).removedPanel!;
+          return {
+            connected: node.isConnected,
+            duration:
+              scenario === 'beforematch-keys'
+                ? node.style.animationDuration
+                : node.style.transitionDuration,
+          };
+        }, scenario),
+      ).toEqual({ connected: false, duration: '123ms' });
+    });
   test(`supplement: ${framework} authored important layout restoration characterization`, async ({
     page,
   }) => {
@@ -874,91 +899,6 @@ for (const reference of [false, true]) {
     expect(await calls(page)).toHaveLength(reference ? 0 : 1);
   });
 }
-
-for (const reference of [true]) {
-  const framework = reference ? 'React reference' : 'Svelte';
-  for (const scenario of ['beforematch-transition', 'beforematch-keys'])
-    test(`supplement: ${framework} ${scenario} teardown restores authored duration`, async ({
-      page,
-    }) => {
-      const { panel } = await setup(page, scenario, reference);
-      await flush(page, 'beforematch');
-      await panel.evaluate((node) => {
-        (window as Window & { removedPanel?: HTMLElement }).removedPanel = node as HTMLElement;
-      });
-      await page.getByRole('button', { name: 'Toggle mounting', exact: true }).click();
-      await frames(page, 3);
-      await expect(panel).toHaveCount(0);
-      expect(
-        await page.evaluate((scenario) => {
-          const node = (window as Window & { removedPanel?: HTMLElement }).removedPanel!;
-          return {
-            connected: node.isConnected,
-            duration:
-              scenario === 'beforematch-keys'
-                ? node.style.animationDuration
-                : node.style.transitionDuration,
-          };
-        }, scenario),
-      ).toEqual({ connected: false, duration: '123ms' });
-    });
-}
-
-for (const scenario of ['beforematch-transition', 'beforematch-keys'])
-  test(`native supplement: Svelte ${scenario} teardown retains last native duration`, async ({
-    page,
-  }) => {
-    const { trigger, panel } = await setup(page, scenario, false);
-    await flush(page, 'beforematch');
-    await expect(trigger).toHaveAttribute('aria-expanded', 'true');
-    await expect(panel).toHaveAttribute('data-open');
-    const beforeRemoval = await panel.evaluate((node: HTMLElement, scenario) => {
-      (window as Window & { removedPanel?: HTMLElement }).removedPanel = node;
-      return {
-        connected: node.isConnected,
-        duration:
-          scenario === 'beforematch-keys'
-            ? node.style.animationDuration
-            : node.style.transitionDuration,
-      };
-    }, scenario);
-    expect(beforeRemoval).toEqual({ connected: true, duration: '0s' });
-    const requests = await calls(page);
-    expect(requests).toHaveLength(1);
-    expect(requests[0]).toMatchObject({
-      open: true,
-      reason: 'none',
-      type: 'beforematch',
-      before: 'false',
-      canceled: false,
-    });
-    const orderBeforeRemoval = await page.getByTestId('order').innerText();
-    await page.getByRole('button', { name: 'Toggle mounting', exact: true }).click();
-    await frames(page, 3);
-    await expect(panel).toHaveCount(0);
-    await expect(trigger).toHaveCount(0);
-    expect(
-      await page.evaluate((scenario) => {
-        const node = (window as Window & { removedPanel?: HTMLElement }).removedPanel!;
-        return {
-          connected: node.isConnected,
-          duration:
-            scenario === 'beforematch-keys'
-              ? node.style.animationDuration
-              : node.style.transitionDuration,
-        };
-      }, scenario),
-    ).toEqual({ connected: false, duration: beforeRemoval.duration });
-    await page.evaluate(() => {
-      const node = (window as Window & { removedPanel?: HTMLElement }).removedPanel!;
-      node.dispatchEvent(new Event('beforematch', { bubbles: true }));
-    });
-    await frames(page);
-    expect(await calls(page)).toEqual(requests);
-    expect(await page.getByTestId('order').innerText()).toBe(orderBeforeRemoval);
-    await expect(panel).toHaveCount(0);
-    await expect(trigger).toHaveCount(0);
-  });
 
 for (const reference of [true]) {
   const framework = reference ? 'React reference' : 'Svelte';

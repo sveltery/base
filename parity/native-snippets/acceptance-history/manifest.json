@@ -615,6 +615,30 @@
       "identicalCurrentPreimageHead": "43b322f5a6171e9dea5479fb3e047fc0036026e1",
       "disposition": "complete-failed940-case-or-inaccurate-current-metadata-preserved-before-measured-plain-successor; zero acceptance credit",
       "unchangedParityCredit": 0
+    },
+    {
+      "source": "tests/browser/collapsible.spec.ts",
+      "archive": "parity/native-snippets/acceptance-history/native-detached-panel-failed-f4e31a5f/tests/browser/collapsible.spec.ts",
+      "sha256": "f4d3c1855c06f4d261bc4c446449bdec96657990262280619ae0febd77ac7ed2",
+      "predecessor": "f4e31a5f620c8050c48e6aea16461c0aa4ef89a0",
+      "disposition": "whole-failed-native-detached-test-or-current-metadata-prose-preserved-before-measured-native-counterpart; proposed and unexecuted; zero acceptance credit",
+      "unchangedParityCredit": 0
+    },
+    {
+      "source": "parity/native-snippets/native-test-counterparts.json",
+      "archive": "parity/native-snippets/acceptance-history/native-detached-panel-failed-f4e31a5f/parity/native-snippets/native-test-counterparts.json",
+      "sha256": "87c43660ced7b2480453a648b607a3cc7e1a4f7453e046e8f2c730bb335bcd8a",
+      "predecessor": "f4e31a5f620c8050c48e6aea16461c0aa4ef89a0",
+      "disposition": "whole-failed-native-detached-test-or-current-metadata-prose-preserved-before-measured-native-counterpart; proposed and unexecuted; zero acceptance credit",
+      "unchangedParityCredit": 0
+    },
+    {
+      "source": "parity/native-snippets/acceptance.md",
+      "archive": "parity/native-snippets/acceptance-history/native-detached-panel-failed-f4e31a5f/parity/native-snippets/acceptance.md",
+      "sha256": "8f6dc30260b621abcd3fe83d579dde4de51db0f60df547a0fafdc28c8d6a1618",
+      "predecessor": "f4e31a5f620c8050c48e6aea16461c0aa4ef89a0",
+      "disposition": "whole-failed-native-detached-test-or-current-metadata-prose-preserved-before-measured-native-counterpart; proposed and unexecuted; zero acceptance credit",
+      "unchangedParityCredit": 0
     }
   ]
 }
