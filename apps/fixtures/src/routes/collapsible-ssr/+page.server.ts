@@ -5,5 +5,9 @@ import { CollapsibleSSRReference } from '../../lib/collapsible-ssr-reference.js'
 export function load({ url }: { url: URL }) {
   const scenario = url.searchParams.get('case') ?? 'keys-initial';
   const reference = url.searchParams.has('reference');
-  return { scenario, reference, html: reference ? renderToString(h(CollapsibleSSRReference, { scenario })) : '' };
+  return {
+    scenario,
+    reference,
+    html: reference ? renderToString(h(CollapsibleSSRReference, { scenario })) : '',
+  };
 }

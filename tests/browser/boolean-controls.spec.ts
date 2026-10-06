@@ -13,10 +13,7 @@ async function setup(
   await expect(page.locator('main')).toHaveAttribute('data-hydrated', 'true');
   if (reference) {
     await expect(page.locator('main')).toHaveAttribute('data-reference-react', '19.2.8');
-    await expect(page.locator('main')).toHaveAttribute(
-      'data-reference-react-dom',
-      '19.2.8',
-    );
+    await expect(page.locator('main')).toHaveAttribute('data-reference-react-dom', '19.2.8');
   }
   return page.locator('[data-control]');
 }
@@ -35,9 +32,7 @@ for (const reference of [false, true])
       page,
     }) => {
       const control = await setup(page, family, 'shadow-label', reference);
-      await expect(page.locator('[data-shadow-host] input[type="checkbox"]')).toHaveCount(
-        1,
-      );
+      await expect(page.locator('[data-shadow-host] input[type="checkbox"]')).toHaveCount(1);
       await expect(control).not.toHaveAttribute('aria-labelledby');
       await page.getByRole('button', { name: 'Mount label', exact: true }).click();
       await expect(control).toHaveAttribute('aria-labelledby', 'native-label-a');
@@ -89,9 +84,7 @@ for (const reference of [false, true])
       expect(await data(page)).toEqual([['enabled', 'yes']]);
       await page.locator('#submit').click();
       expect(await json(page, 'submissions')).toEqual([{ enabled: true }]);
-      expect(await json(page, 'calls')).toEqual([
-        { checked: true, type: 'click', reason: 'none' },
-      ]);
+      expect(await json(page, 'calls')).toEqual([{ checked: true, type: 'click', reason: 'none' }]);
     });
     test(`${prefix} canceled checked activation records the native input phase and Field state`, async ({
       page,
@@ -104,9 +97,7 @@ for (const reference of [false, true])
       await expect(control).not.toHaveAttribute('data-filled');
       await expect(page.locator('#input-events')).toHaveText(reference ? '1' : '0');
       expect(await data(page)).toEqual([['enabled', 'no']]);
-      await page
-        .getByRole('button', { name: 'Toggle cancellation', exact: true })
-        .click();
+      await page.getByRole('button', { name: 'Toggle cancellation', exact: true }).click();
       await control.click();
       await expect(control).toHaveAttribute('aria-checked', 'true');
       await expect(page.locator('#input-events')).toHaveText(reference ? '2' : '1');
@@ -174,16 +165,13 @@ for (const reference of [false, true])
       await control.press('Space');
       await expect(control).toHaveAttribute('aria-checked', 'true');
       await control.press('Enter');
-      if (family === 'switch')
-        await expect(control).toHaveAttribute('aria-checked', 'false');
+      if (family === 'switch') await expect(control).toHaveAttribute('aria-checked', 'false');
       else {
         await expect(control).toHaveAttribute('aria-checked', 'true');
         expect(await json(page, 'submissions')).toEqual([{ enabled: true }]);
       }
     });
-    test(`${prefix} readonly and disabled controls exclude checked changes`, async ({
-      page,
-    }) => {
+    test(`${prefix} readonly and disabled controls exclude checked changes`, async ({ page }) => {
       for (const scenario of ['readonly', 'disabled']) {
         const control = await setup(page, family, scenario, reference);
         await control.click({ force: true });
@@ -196,12 +184,7 @@ for (const reference of [false, true])
       page,
     }) => {
       for (const initial of [false, true]) {
-        const control = await setup(
-          page,
-          family,
-          initial ? 'reset-true' : 'default',
-          reference,
-        );
+        const control = await setup(page, family, initial ? 'reset-true' : 'default', reference);
         const input = page.locator('#form input[type="checkbox"]');
         expect(
           await input.evaluate((element) => (element as HTMLInputElement).defaultChecked),
@@ -247,16 +230,12 @@ for (const reference of [false, true])
       await page.locator('#reset').click();
       // Same canceled native reset-button result as the literal Svelte witness.
       await expect(control).toHaveAttribute('aria-checked', String(reference));
-      expect(await page.locator('#form input[type="checkbox"]').isChecked()).toBe(
-        reference,
-      );
+      expect(await page.locator('#form input[type="checkbox"]').isChecked()).toBe(reference);
       expect(await data(page)).toEqual([['enabled', reference ? 'yes' : 'no']]);
       control = await setup(page, family, 'controlled-reject', reference);
       await control.click();
       await expect(control).toHaveAttribute('aria-checked', 'false');
-      expect(await page.locator('#form input[type="checkbox"]').isChecked()).toBe(
-        !reference,
-      );
+      expect(await page.locator('#form input[type="checkbox"]').isChecked()).toBe(!reference);
       expect(await data(page)).toEqual(
         reference
           ? [['enabled', 'no']]
@@ -278,19 +257,13 @@ for (const reference of [false, true]) {
     const child = page.locator('[data-child="a"]');
     await child.click();
     await expect(child).toHaveAttribute('aria-checked', 'true');
-    await page
-      .locator('#group-form')
-      .evaluate((form) => (form as HTMLFormElement).reset());
-    await expect(
-      page.locator('#group-form input[type="checkbox"]').nth(1),
-    ).not.toBeChecked();
+    await page.locator('#group-form').evaluate((form) => (form as HTMLFormElement).reset());
+    await expect(page.locator('#group-form input[type="checkbox"]').nth(1)).not.toBeChecked();
     await expect(child).toHaveAttribute('aria-checked', 'true');
     await expect(child).toHaveAttribute('data-filled', '');
     expect(await data(page, 'group-form')).toEqual([]);
     await page.locator('#group-submit').click();
-    expect(await json(page, 'submissions')).toEqual([
-      { choices: reference ? ['a'] : [] },
-    ]);
+    expect(await json(page, 'submissions')).toEqual([{ choices: reference ? ['a'] : [] }]);
   });
   test(`${prefix} CheckboxGroup parent and children share one array Field registration`, async ({
     page,
@@ -330,16 +303,12 @@ for (const reference of [false, true]) {
     await control.focus();
     await control.press('Enter');
     await expect(control).toHaveAttribute('aria-checked', 'false');
-    expect(await json(page, 'submissions')).toEqual(
-      reference ? [{ enabled: false }] : [],
-    );
+    expect(await json(page, 'submissions')).toEqual(reference ? [{ enabled: false }] : []);
     control = await setup(page, 'checkbox', 'native-ancestor-stop', reference);
     await control.focus();
     await control.press('Enter');
     await expect(control).toHaveAttribute('aria-checked', reference ? 'false' : 'true');
-    expect(await json(page, 'submissions')).toEqual(
-      reference ? [{ enabled: false }] : [],
-    );
+    expect(await json(page, 'submissions')).toEqual(reference ? [{ enabled: false }] : []);
   });
   test(`${prefix} later native window handler cannot retroactively change Svelte submission`, async ({
     page,

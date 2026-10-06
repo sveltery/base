@@ -6,9 +6,16 @@ import { Fieldset } from '../src/lib/fieldset/index.js';
 import { Form } from '../src/lib/form/index.js';
 import { Input } from '../src/lib/input/index.js';
 import type { FormProps, FormActions } from '../src/lib/form/index.js';
-import type { FieldRootProps, FieldRootActions, FieldValidityState } from '../src/lib/field/index.js';
+import type {
+  FieldRootProps,
+  FieldRootActions,
+  FieldValidityState,
+} from '../src/lib/field/index.js';
 import { expectType } from './expect-type.js';
-interface Values { name: string; age: number }
+interface Values {
+  name: string;
+  age: number;
+}
 const form: ComponentProps<typeof Form<Values>> = {
   onFormSubmit(values) {
     expectType<string, typeof values.name>(values.name); // Form.spec.tsx:12
@@ -28,10 +35,19 @@ const actionsRef: { current: FormActions | null } = { current: null };
 const fieldActionsRef: { current: FieldRootActions | null } = { current: null };
 const root: FieldRootProps = {
   actionsRef: fieldActionsRef,
-  validate: async (_value, allValues) => { const name: unknown = allValues.name; void name; return ['invalid']; },
-  class: state => [state.valid === false && 'invalid', { disabled: state.disabled }],
+  validate: async (_value, allValues) => {
+    const name: unknown = allValues.name;
+    void name;
+    return ['invalid'];
+  },
+  class: (state) => [state.valid === false && 'invalid', { disabled: state.disabled }],
 };
-const nativeForm: ComponentProps<typeof Form> = { noValidate: false, novalidate: true, method: 'post', actionsRef };
+const nativeForm: ComponentProps<typeof Form> = {
+  noValidate: false,
+  novalidate: true,
+  method: 'post',
+  actionsRef,
+};
 const fieldset: ComponentProps<typeof Fieldset.Root> = { disabled: true, name: 'group' };
 // @ts-expect-error Actions preserve the pinned source's validate method.
 const badAction: FieldRootActions = { reset() {} };

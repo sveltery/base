@@ -38,6 +38,9 @@ export type OverflowEdgesThreshold = { xStart: number; xEnd: number; yStart: num
 const [get, set, has] = createContext<ScrollAreaRootContext>();
 export const setScrollAreaRootContext = set;
 export function useScrollAreaRootContext() {
-  if (!has()) throw new Error('Base UI: ScrollAreaRootContext is missing. ScrollArea parts must be placed within <ScrollArea.Root>.');
+  if (!has())
+    throw new Error(
+      'Base UI: ScrollAreaRootContext is missing. ScrollArea parts must be placed within <ScrollArea.Root>.',
+    );
   return get();
 }

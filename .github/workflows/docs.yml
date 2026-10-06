@@ -31,7 +31,7 @@ jobs:
         run: bash scripts/bootstrap.sh
       - name: Build actual library
         run: |
-          pnpm --filter @sveltery/base build
+          pnpm package:build
       - name: Install official secured Chromium
         run: pnpm exec playwright install --with-deps chromium
       - name: Actual standalone SvelteKit documentation interactions

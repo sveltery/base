@@ -3,4 +3,7 @@
   let { name }: { name: string } = $props();
   const context = getCSPContext();
 </script>
-<output data-testid={name}>{context.nonce ?? 'undefined'}|{String(context.disableStyleElements)}</output>
+
+<output data-testid={name}
+  >{context.nonce ?? 'undefined'}|{String(context.disableStyleElements)}</output
+>

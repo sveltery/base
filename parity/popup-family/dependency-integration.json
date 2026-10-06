@@ -1,0 +1,107 @@
+{
+  "pin": "47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c",
+  "baseMain": "74f667da95ebc5670b0cc5bee38f2225e65fd0c0",
+  "status": "Public development dependencies normally integrated; not actual-main or whole-feature acceptance",
+  "ordinaryDeclarationCredit": 0,
+  "menu": {
+    "publicHead": "9493a4f3a787dc1879b10ccdc893cee7c7882392",
+    "publicRefProof": "git ls-remote --heads origin source-menu-family returned 9493a4f3a787dc1879b10ccdc893cee7c7882392 refs/heads/source-menu-family",
+    "mergeCommit": "fd5543f204f47b4fbb66389cf715fb5c8682ba60",
+    "ownerReview": "Owner reported independent eight-body delta review and final gates pending; inherited whole closure remains NOT CLEAR",
+    "testOnlySuccessor": {
+      "publicHead": "1dc439d3a36495dbc4fc19f3f85c6e253dcfc0af",
+      "publicRefProof": "git ls-remote --heads origin source-menu-family returned 1dc439d3a36495dbc4fc19f3f85c6e253dcfc0af refs/heads/source-menu-family",
+      "mergeCommit": "20d9f73350c92052574a361a032b12a6ef161b6a",
+      "runtimeDeltaAgainst949": [],
+      "purpose": "Normally integrate owner-repaired native test fixture type contracts. Runtime197 bodies/891edges remain exact949; full Verify/final review still pending."
+    }
+  },
+  "dialog": {
+    "publicHead": "f0d68ec7df329cb5b39fc5a1116c469bfb63fca5",
+    "mergeCommit": "058c14fa159677d5ec1d30b71617e18b2145db76",
+    "runtimeDeltaDuringMerge": [],
+    "resolution": "Only docs/upstream-differences.md conflicted. Retained Dialog actual-PR55-main paragraph plus complete public Navigation/Menu records; no runtime helper resolution/edit was needed.",
+    "wholeAcceptance": "Pending normal actual-main integration and exact-head inherited review"
+  },
+  "toolbarSelectedContext": {
+    "referencePublicHead": "d115303",
+    "local": "packages/base/src/lib/toolbar/root/ToolbarRootContext.ts",
+    "bodyEqualsPublicReference": true,
+    "scope": "Actual selected optional provider helper only; no new whole Toolbar port. Inherited sibling runtime availability remains development evidence."
+  },
+  "canonicalRuntimeBodies": [
+    {
+      "local": "packages/base/src/lib/floating-ui/components/FloatingPortal.svelte",
+      "sha256": "56ef7993c9378f0710f7724a40280f8ba31fa7fb515b218802d7935c3a95f75b",
+      "equalsPublicMenu949": true,
+      "reviewStatus": "Availability/body-identity only; full local Source/native acceptance remains pending"
+    },
+    {
+      "local": "packages/base/src/lib/floating-ui/components/PortalContent.svelte",
+      "sha256": "094ca8f25b2d4622ed70767b472ad6cecc481ae92470caa67385c72a3551f603",
+      "equalsPublicMenu949": true,
+      "reviewStatus": "Availability/body-identity only; full local Source/native acceptance remains pending"
+    },
+    {
+      "local": "packages/base/src/lib/floating-ui/components/FloatingRootStore.svelte.ts",
+      "sha256": "0f82be0f8c5c542753e3fc8bf5356066c20b71e2618b3decfa3698f5b91d5388",
+      "equalsPublicMenu949": true,
+      "reviewStatus": "Availability/body-identity only; full local Source/native acceptance remains pending"
+    },
+    {
+      "local": "packages/base/src/lib/floating-ui/hooks/useFloating.svelte.ts",
+      "sha256": "3cb683af9f2da1d7e2fdb289c55e4397ea596af3d1de90b02e9cf1ff94c4929c",
+      "equalsPublicMenu949": true,
+      "reviewStatus": "Availability/body-identity only; full local Source/native acceptance remains pending"
+    },
+    {
+      "local": "packages/base/src/lib/floating-ui/components/createFloatingFocusManager.svelte.ts",
+      "sha256": "c0d9f77faa3fa4fb8f78d01d958fdbc60ed960b043edfeb967f0b138ba367a9f",
+      "equalsPublicMenu949": true,
+      "reviewStatus": "Availability/body-identity only; full local Source/native acceptance remains pending"
+    },
+    {
+      "local": "packages/base/src/lib/utils/store/SvelteStore.svelte.ts",
+      "sha256": "1a3fe2b85c9b4c3dc0333f43f9988bbfa01e39eb5972b84b3648294199e111a2",
+      "equalsPublicMenu949": true,
+      "reviewStatus": "Availability/body-identity only; full local Source/native acceptance remains pending"
+    },
+    {
+      "local": "packages/base/src/lib/utils/popups/popupStoreUtils.svelte.ts",
+      "sha256": "6dbed9514bf1b8aa1c6deced9bf7e1bbba39021af9e8ef092dec351bb9ef5f00",
+      "equalsPublicMenu949": true,
+      "reviewStatus": "Availability/body-identity only; full local Source/native acceptance remains pending"
+    },
+    {
+      "local": "packages/base/src/lib/utils/useIsoLayoutEffect.svelte.ts",
+      "sha256": "0d24dd22dad18fc54341aaedb964a25829ae62322f10bf110a4fd8bde65dd1f3",
+      "equalsPublicMenu949": true,
+      "reviewStatus": "Availability/body-identity only; full local Source/native acceptance remains pending"
+    },
+    {
+      "local": "packages/base/src/lib/utils/useStableCallback.ts",
+      "sha256": "b790a02da99e0e9365bc05d35a434ef37dcffb2a4db8186b1327b949a994d05e",
+      "equalsPublicMenu949": true,
+      "reviewStatus": "Availability/body-identity only; full local Source/native acceptance remains pending"
+    },
+    {
+      "local": "packages/base/src/lib/utils/useTimeout.ts",
+      "sha256": "a04448de8715b8728243ee6e33572c57bc5b151674628304f6c3906966738c78",
+      "equalsPublicMenu949": true,
+      "reviewStatus": "Availability/body-identity only; full local Source/native acceptance remains pending"
+    },
+    {
+      "local": "packages/base/src/lib/toolbar/root/ToolbarRootContext.ts",
+      "sha256": "ac7081f4de2f79dcdf425ee5ca7690db2d577f9363f2ef03b75f3b5395adc6cb",
+      "equalsPublicMenu949": true,
+      "reviewStatus": "Availability/body-identity only; full local Source/native acceptance remains pending"
+    }
+  ],
+  "leasedNext": [
+    "One canonical FloatingDelayGroup/context/useDelayGroup/resetDelayRef",
+    "Whole Source useClientPoint including zero-coordinate truthiness and native listener restart",
+    "Approved one canonical useFloatingPortalNode/useFloatingPortalContent extraction, same Full/Lite node/content helpers",
+    "Append only applyPopupOpenChange preserving existing canonical popupStoreUtils bodies"
+  ],
+  "execution": "No product/helper tests, heavy build, browser or packed consumer were run for this integration checkpoint"
+}

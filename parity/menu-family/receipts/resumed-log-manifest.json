@@ -1,0 +1,228 @@
+{
+  "note": "Lossless compressed raw process output, decompressed bytes unchanged; gzip avoids treating terminal trailing blank lines as code whitespace.",
+  "logs": [
+    {
+      "archive": "resume-browser-list-44.log.gz",
+      "rawSha256": "91eabe17359d0b1c71417a4a9e12eb6e17a0266fe15a239075172a99261f9e81",
+      "rawBytes": 4319
+    },
+    {
+      "archive": "resume-build.log.gz",
+      "rawSha256": "9a4f84168e429925dd22c0ca2f38d299b0e9bd4344706a834e00c30d741a9ac1",
+      "rawBytes": 52
+    },
+    {
+      "archive": "resume-check-green.log.gz",
+      "rawSha256": "cad2dd362f5c456d227e055d6063dbe7d143cec086a7ed4b68c10d488b9f1bec",
+      "rawBytes": 193
+    },
+    {
+      "archive": "resume-expanded-first-dom.log.gz",
+      "rawSha256": "d8db7af8fa4d4cdc521c3bf215bbc9d3b6851435c8d13c5863a8df8f57e50c49",
+      "rawBytes": 5391
+    },
+    {
+      "archive": "resume-expanded-repeat-dom.log.gz",
+      "rawSha256": "14e2280e564be90b73e3e10e0220f905d980f76891a831b8140d78ee5fc5d45f",
+      "rawBytes": 5391
+    },
+    {
+      "archive": "resume-first-browser-list.log.gz",
+      "rawSha256": "9f71bc5e18a4fbfeb57d6f0d789bc5eec6feb5248ce265d6d425bf6834cf472f",
+      "rawBytes": 460
+    },
+    {
+      "archive": "resume-first-check.log.gz",
+      "rawSha256": "7290cf9371853d659243165e6c41b340ba28f5a502195985aaffe5a7b445027c",
+      "rawBytes": 1005
+    },
+    {
+      "archive": "resume-first-strict-package.log.gz",
+      "rawSha256": "e1eae630ae7faf06ecf031744b09dda2a740375e9f28f5f207fe594552a2243a",
+      "rawBytes": 1469
+    },
+    {
+      "archive": "resume-repair-build.log.gz",
+      "rawSha256": "9a4f84168e429925dd22c0ca2f38d299b0e9bd4344706a834e00c30d741a9ac1",
+      "rawBytes": 52
+    },
+    {
+      "archive": "resume-repair-dom.log.gz",
+      "rawSha256": "4b3ce34534f42e64522f41a46489440197b9b0502de7853aab5e6609a535d3ff",
+      "rawBytes": 299
+    },
+    {
+      "archive": "resume-repair-standards.log.gz",
+      "rawSha256": "1d35984f6c5301944f03a9f38d9b951e876392b66f3187d26a9a96cdedd4d580",
+      "rawBytes": 348
+    },
+    {
+      "archive": "resume-repair-strict-package.log.gz",
+      "rawSha256": "ebecd4e873a70365f84a778421b3cb03d01c18cb3c3a874368bbdb0ab0b80a2f",
+      "rawBytes": 369
+    },
+    {
+      "archive": "full-verify-ebc2473-failure.log.gz",
+      "rawSha256": "0f57219ae411f987778f1da33bd7a2156284791533777f06ba9839a08fe9f6ca",
+      "rawBytes": 23855
+    },
+    {
+      "archive": "secured-browser-ebc2473-first-failure.log.gz",
+      "rawSha256": "7e33996dc9cdb58efc15dc27dde5f1629e4e3062a5c8804dbee8f45336ca0f7f",
+      "rawBytes": 102492
+    },
+    {
+      "archive": "full-verify-a009-check-failure.log.gz",
+      "rawSha256": "b4125f09cd003310cd9a0b0b644785ee3fb8bea148f13c7cfe8898c2bf871e4c",
+      "rawBytes": 10333
+    },
+    {
+      "archive": "deep-focus-dom-first-failure.log.gz",
+      "rawSha256": "f68a92f6463a966c4c12d0ebd246a1b39bcd494e9d1e96cb238444902a294ec1",
+      "rawBytes": 17569
+    },
+    {
+      "archive": "deep-focus-dom-return-only-warning-failure.log.gz",
+      "rawSha256": "c00000c964fb809474707f8d63847c6e93582d9b691fa107ae3211e6d84e3b9e",
+      "rawBytes": 28508
+    },
+    {
+      "archive": "deep-focus-dom-lifetime-green.log.gz",
+      "rawSha256": "5017d5efae55e90cb29fde6bf34193f869105bf698bb6d7d840b048ac60f3390",
+      "rawBytes": 476
+    },
+    {
+      "archive": "viewport-capability-overloads-check-green.log.gz",
+      "rawSha256": "cad2dd362f5c456d227e055d6063dbe7d143cec086a7ed4b68c10d488b9f1bec",
+      "rawBytes": 193
+    },
+    {
+      "archive": "browser-ebc2473-exact-connector-job.log.gz",
+      "rawSha256": "3da66e9eb9e6a4370b8a23be97f1e7a26c18f327fd75038af86ea57c5468cc32",
+      "rawBytes": 102491,
+      "origin": "Exact decoded GitHub connector job log text, no trimming or added newline"
+    },
+    {
+      "archive": "anchor-ff42fea-exact-connector-job.log.gz",
+      "rawSha256": "b2b45ea4633e76ebd084f3220713edb9ea3480b910801d62aa6ac7044f077f34",
+      "rawBytes": 27302,
+      "origin": "Exact decoded GitHub connector job log text, no trimming or added newline"
+    },
+    {
+      "archive": "standards-ff42fea-exact-connector-job.log.gz",
+      "rawSha256": "5636f16e95d89069bf5ee5c6da095fd4ec9af7a26e3246b12baca9371da849d0",
+      "rawBytes": 22954,
+      "origin": "Exact decoded GitHub connector job log text, no trimming or added newline"
+    },
+    {
+      "archive": "full-verify-ff42fea-fixture-check-failure.log.gz",
+      "rawSha256": "e815fea9d887bb2a696fb07174ccbd162275d5946856fa4dfc08cbc576f9444a",
+      "rawBytes": 9461
+    },
+    {
+      "archive": "fixture-eaa0d3f-1gib-oom.log.gz",
+      "rawSha256": "fb735bfa63fd932b5ce04b585ebcdc4668dc1569b96d564d7942d00072bb9904",
+      "rawBytes": 1119
+    },
+    {
+      "archive": "anchor-eaa0d3f-menu-namespace-authoring-failure.log.gz",
+      "rawSha256": "77ed1e870de604f423f8de544a54b448f8628cd1ccf656801433351a3203a0be",
+      "rawBytes": 1652
+    },
+    {
+      "archive": "anchor-eaa0d3f-installed-lifecycle-failure.log.gz",
+      "rawSha256": "a93b1fbc359817046c1c0e8c870eace9cf9b2427b17d933e495fa852a73c52b2",
+      "rawBytes": 2027
+    },
+    {
+      "archive": "independent-ff42fea-retained-focus-red.log.gz",
+      "rawSha256": "0807969ac9eb86480e1bfceab4b9196f82c2a6ddb102c6239fba93af42b6bbac",
+      "rawBytes": 1890
+    },
+    {
+      "archive": "independent-ff42fea-hover-store-red.log.gz",
+      "rawSha256": "875dd3d458b4835d30db9e4e29c3a861b14633e321c357e02bc9b47afd684fcc",
+      "rawBytes": 2072
+    },
+    {
+      "archive": "independent-ff42fea-public-handle-handoff-red.log.gz",
+      "rawSha256": "51fdef95080a682a73abb06166c976aee1d2062bea4017c048a4fac224cd782e",
+      "rawBytes": 2135
+    },
+    {
+      "archive": "ff42fea-retained-matrix-red.log.gz",
+      "rawSha256": "2ec47bb68a43d1ead72400ec3745e86f7e523e281a80ad5a2ad2b41813314ca3",
+      "rawBytes": 16146
+    },
+    {
+      "archive": "private-three-fixes-99-green.log.gz",
+      "rawSha256": "7c8a173e4b780295350474b4f3bc14f61e6000be2ae1c3501f79d6ab2355b59b",
+      "rawBytes": 411
+    },
+    {
+      "archive": "private-driver-zero-warning-green.log.gz",
+      "rawSha256": "74fc0a26d4482fbc72cf6028cba51cc512e083ed58a77b685ca53ed505c68c38",
+      "rawBytes": 207
+    },
+    {
+      "archive": "private-public-handle-handoff-green.log.gz",
+      "rawSha256": "72065664a7f791e3829db4aec839055b7c88121cec868a0c33888ef2dc31854b",
+      "rawBytes": 208
+    },
+    {
+      "archive": "promoted-regressions-portability-parse-failure.log.gz",
+      "rawSha256": "174f917b2cecfc57f83fab98731d3fe1bc11b59cabdabe75daac18a460dd25f1",
+      "rawBytes": 5693
+    },
+    {
+      "archive": "promoted-reference-input-green.log.gz",
+      "rawSha256": "78d83c976b230416612defb123518d79d5078c0df6653206a9259dfbb6625e6a",
+      "rawBytes": 207
+    },
+    {
+      "archive": "successor-eight-provenance-green.log.gz",
+      "rawSha256": "8393aa5ae56824e0c9a548900cf52c8dc919f60ce66347038c4fbbb892773848",
+      "rawBytes": 992
+    },
+    {
+      "archive": "successor-standards-green.log.gz",
+      "rawSha256": "4c6122dea8c7e34c086493e81ed3552975ecd8580f11b28bf879ea858b7a4399",
+      "rawBytes": 348
+    },
+    {
+      "archive": "9493a4f-full-verification-author-types-red.log.gz",
+      "rawSha256": "09bdc201ff5ade2e7047ab95707ec9e063bc73e504fd85491dad473c73304969",
+      "rawBytes": 36259
+    },
+    {
+      "archive": "9493a4f-harness-types-green.log.gz",
+      "rawSha256": "cad2dd362f5c456d227e055d6063dbe7d143cec086a7ed4b68c10d488b9f1bec",
+      "rawBytes": 193
+    },
+    {
+      "archive": "9493a4f-harness-45-green.log.gz",
+      "rawSha256": "e6008211168a472cbaf4a68bff6b79c1b9da118f1c00cf5c2a81274079d46346",
+      "rawBytes": 551
+    },
+    {
+      "archive": "hosted-9493a4f-job-111386826958.log.gz",
+      "rawSha256": "9df3d524dc9944b6face866c773363410b443f0005bed57f42034d5ac56c203a",
+      "rawBytes": 72161
+    },
+    {
+      "archive": "hosted-9493a4f-job-111386826959.log.gz",
+      "rawSha256": "7b47c6a98fe7d5f8bdb9eadc34450c7fe52db7662fd2dcafe8e864b8d1d245b8",
+      "rawBytes": 67848
+    },
+    {
+      "archive": "hosted-9493a4f-job-111386827410.log.gz",
+      "rawSha256": "3a477d291f4fa2b092095123a3549cb6955489cf9bddf78bbb8841c12db2afbf",
+      "rawBytes": 53549
+    },
+    {
+      "archive": "hosted-9493a4f-job-111386826883.log.gz",
+      "rawSha256": "3e408c2045f1ef56830736d5d02e32f88ae0ba552ff5349622eebf80c5b232b1",
+      "rawBytes": 59646
+    }
+  ]
+}

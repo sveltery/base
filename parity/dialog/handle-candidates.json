@@ -1,0 +1,2141 @@
+{
+  "upstream": {
+    "repository": "https://github.com/mui/base-ui",
+    "tag": "v1.8.0",
+    "commit": "47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c",
+    "license": "MIT",
+    "notice": "UPSTREAM_LICENSE"
+  },
+  "scope": "Reviewable complete-body candidates, not executed credits or changes to the immutable inventory/shared manifest.",
+  "credits": 0,
+  "entries": [
+    {
+      "id": "packages/react/src/dialog/root/DialogRoot.detached-triggers.test.tsx:19",
+      "title": "hydrates a detached trigger from the stable fallback store",
+      "bodySha256": "4b9e2f4e8bfa741c4c73d2c283eeb3da907822c08f2c82bfb1ec2bfa0c225d15",
+      "sourceConditions": [],
+      "upstreamGuards": [],
+      "assertionLines": [
+        32,
+        33,
+        38,
+        40
+      ],
+      "variants": [
+        {}
+      ],
+      "status": "executed-awaiting-independent-mapping-review",
+      "ordinaryCredit": 0,
+      "test": "tests/browser/dialog-handle-hydration.spec.ts",
+      "nativeFixture": "apps/fixtures/src/lib/DialogHandleSsrFixture.svelte",
+      "actualReference": "apps/fixtures/src/lib/dialog-handle-hydration-reference.ts",
+      "unresolvedMapping": "real same-node SSR/hydration candidate requires fresh independent mapping review",
+      "rendererPreconditions": "renderer-preconditions.md",
+      "execution": {
+        "evidence": "handle-browser-evidence.json",
+        "head": "6453d173b37dd6c9e7ca2747616ec4edc567abc8",
+        "kind": "paired-same-node-ssr-hydration",
+        "review": "pending",
+        "ordinaryCredit": 0
+      }
+    },
+    {
+      "id": "packages/react/src/dialog/root/DialogRoot.detached-triggers.test.tsx:43",
+      "title": "keeps the server snapshot stable when the root closes before a delayed trigger hydrates",
+      "bodySha256": "9cb3291e72389f0caf195413e894aa0a942d88ef22e27e8d189768f5beb71f94",
+      "sourceConditions": [],
+      "upstreamGuards": [],
+      "assertionLines": [
+        76,
+        82,
+        86,
+        95
+      ],
+      "variants": [
+        {}
+      ],
+      "status": "unimplemented-framework",
+      "ordinaryCredit": 0,
+      "test": null,
+      "nativeFixture": null,
+      "actualReference": null,
+      "unresolvedMapping": true,
+      "rendererPreconditions": "renderer-preconditions.md"
+    },
+    {
+      "id": "packages/react/src/dialog/root/DialogRoot.detached-triggers.test.tsx:99",
+      "title": "opens from a descendant layout effect on initial mount",
+      "bodySha256": "abd2a598947366ef72b19d38c8fd925e2058a59d33e13f7e42f01bfd9186523d",
+      "sourceConditions": [],
+      "upstreamGuards": [],
+      "assertionLines": [
+        122,
+        123
+      ],
+      "variants": [
+        {}
+      ],
+      "status": "executed-awaiting-independent-mapping-review",
+      "ordinaryCredit": 0,
+      "test": "tests/browser/dialog-handles.spec.ts",
+      "nativeFixture": "apps/fixtures/src/lib/DialogHandlesFixture.svelte",
+      "actualReference": "apps/fixtures/src/lib/dialog-handles-reference.ts",
+      "unresolvedMapping": null,
+      "rendererPreconditions": "renderer-preconditions.md",
+      "execution": {
+        "evidence": "handle-browser-evidence.json",
+        "head": "6453d173b37dd6c9e7ca2747616ec4edc567abc8",
+        "kind": "paired-ordinary-browser",
+        "review": "pending",
+        "ordinaryCredit": 0
+      }
+    },
+    {
+      "id": "packages/react/src/dialog/root/DialogRoot.detached-triggers.test.tsx:126",
+      "title": "opens with a payload from a descendant layout effect on initial mount",
+      "bodySha256": "b25d7998d0776c14411ef2b8262a19a15cb4243d33b7bbddc21108984fa6fba2",
+      "sourceConditions": [],
+      "upstreamGuards": [],
+      "assertionLines": [
+        154,
+        155,
+        156
+      ],
+      "variants": [
+        {}
+      ],
+      "status": "executed-awaiting-independent-mapping-review",
+      "ordinaryCredit": 0,
+      "test": "tests/browser/dialog-handles.spec.ts",
+      "nativeFixture": "apps/fixtures/src/lib/DialogHandlesFixture.svelte",
+      "actualReference": "apps/fixtures/src/lib/dialog-handles-reference.ts",
+      "unresolvedMapping": null,
+      "rendererPreconditions": "renderer-preconditions.md",
+      "execution": {
+        "evidence": "handle-browser-evidence.json",
+        "head": "6453d173b37dd6c9e7ca2747616ec4edc567abc8",
+        "kind": "paired-ordinary-browser",
+        "review": "pending",
+        "ordinaryCredit": 0
+      }
+    },
+    {
+      "id": "packages/react/src/dialog/root/DialogRoot.detached-triggers.test.tsx:159",
+      "title": "closes from a descendant layout effect on an initially open root",
+      "bodySha256": "6c400bb8c8804ee193e0fb15ca5cf4bba7bb488b44a6e6006d5b9a5ee29a481c",
+      "sourceConditions": [],
+      "upstreamGuards": [],
+      "assertionLines": [
+        182,
+        183
+      ],
+      "variants": [
+        {}
+      ],
+      "status": "executed-awaiting-independent-mapping-review",
+      "ordinaryCredit": 0,
+      "test": "tests/browser/dialog-handles.spec.ts",
+      "nativeFixture": "apps/fixtures/src/lib/DialogHandlesFixture.svelte",
+      "actualReference": "apps/fixtures/src/lib/dialog-handles-reference.ts",
+      "unresolvedMapping": null,
+      "rendererPreconditions": "renderer-preconditions.md",
+      "execution": {
+        "evidence": "handle-browser-evidence.json",
+        "head": "6453d173b37dd6c9e7ca2747616ec4edc567abc8",
+        "kind": "paired-ordinary-browser",
+        "review": "pending",
+        "ordinaryCredit": 0
+      }
+    },
+    {
+      "id": "packages/react/src/dialog/root/DialogRoot.detached-triggers.test.tsx:186",
+      "title": "ignores imperative handle calls made before a root is attached",
+      "bodySha256": "9eb2e8369087d72a1a7c4aa915328c64f0c47831f5de3d730a10049b2fbf6d92",
+      "sourceConditions": [],
+      "upstreamGuards": [],
+      "assertionLines": [
+        199,
+        200,
+        220,
+        221,
+        225,
+        227
+      ],
+      "variants": [
+        {}
+      ],
+      "status": "executed-awaiting-independent-mapping-review",
+      "ordinaryCredit": 0,
+      "test": "tests/browser/dialog-handles.spec.ts",
+      "nativeFixture": "apps/fixtures/src/lib/DialogHandlesFixture.svelte",
+      "actualReference": "apps/fixtures/src/lib/dialog-handles-reference.ts",
+      "unresolvedMapping": null,
+      "rendererPreconditions": "renderer-preconditions.md",
+      "execution": {
+        "evidence": "handle-browser-evidence.json",
+        "head": "6453d173b37dd6c9e7ca2747616ec4edc567abc8",
+        "kind": "paired-ordinary-browser",
+        "review": "pending",
+        "ordinaryCredit": 0
+      }
+    },
+    {
+      "id": "packages/react/src/dialog/root/DialogRoot.detached-triggers.test.tsx:230",
+      "title": "does not warn for a detached payload open in production",
+      "bodySha256": "a2566de9ca7cc890a3e275d10304e4d1aeb6a3028f8fb515e668d7611023eba5",
+      "sourceConditions": [],
+      "upstreamGuards": [
+        "it.skipIf(!isJSDOM)"
+      ],
+      "assertionLines": [
+        241,
+        242
+      ],
+      "variants": [
+        {}
+      ],
+      "status": "executed-awaiting-independent-mapping-review",
+      "ordinaryCredit": 0,
+      "test": "packages/base/tests/dom/dialog-handles.test.ts",
+      "nativeFixture": null,
+      "actualReference": "scripts/tests/dialog-handle-reference.test.mjs",
+      "unresolvedMapping": null,
+      "rendererPreconditions": "renderer-preconditions.md",
+      "execution": {
+        "evidence": "handle-browser-evidence.json",
+        "head": "3129a04727fd549cb3db7c218c75293264131d2b",
+        "kind": "paired-node-jsdom",
+        "review": "pending",
+        "ordinaryCredit": 0
+      }
+    },
+    {
+      "id": "packages/react/src/dialog/root/DialogRoot.detached-triggers.test.tsx:249",
+      "title": "ignores imperative handle calls made after the root is detached",
+      "bodySha256": "324629244eed80c388f993126e89bed31610f166591b6261b4d89272d46ea818",
+      "sourceConditions": [],
+      "upstreamGuards": [],
+      "assertionLines": [
+        291,
+        293,
+        298,
+        299,
+        311,
+        312,
+        315,
+        316,
+        320,
+        322
+      ],
+      "variants": [
+        {}
+      ],
+      "status": "executed-awaiting-independent-mapping-review",
+      "ordinaryCredit": 0,
+      "test": "tests/browser/dialog-handles.spec.ts",
+      "nativeFixture": "apps/fixtures/src/lib/DialogHandlesFixture.svelte",
+      "actualReference": "apps/fixtures/src/lib/dialog-handles-reference.ts",
+      "unresolvedMapping": null,
+      "rendererPreconditions": "renderer-preconditions.md",
+      "execution": {
+        "evidence": "handle-browser-evidence.json",
+        "head": "6453d173b37dd6c9e7ca2747616ec4edc567abc8",
+        "kind": "paired-ordinary-browser",
+        "review": "pending",
+        "ordinaryCredit": 0
+      }
+    },
+    {
+      "id": "packages/react/src/dialog/root/DialogRoot.detached-triggers.test.tsx:325",
+      "title": "does not attach a replacement root store from an abandoned transition render",
+      "bodySha256": "fbe0145e70cc75f4e4e4b8338ac65a22c87ccdc3e6550204b0c481ed4196315b",
+      "sourceConditions": [],
+      "upstreamGuards": [],
+      "assertionLines": [
+        388,
+        390,
+        391,
+        392,
+        395,
+        397,
+        398,
+        399,
+        400,
+        401,
+        405,
+        406,
+        407,
+        408,
+        409
+      ],
+      "variants": [
+        {}
+      ],
+      "status": "unimplemented-framework",
+      "ordinaryCredit": 0,
+      "test": null,
+      "nativeFixture": null,
+      "actualReference": null,
+      "unresolvedMapping": true,
+      "rendererPreconditions": "renderer-preconditions.md"
+    },
+    {
+      "id": "packages/react/src/dialog/root/DialogRoot.detached-triggers.test.tsx:412",
+      "title": "attaches a fresh root store when the handle prop changes to a previously dirtied handle",
+      "bodySha256": "427d516f275667919b85f01e907d8f9fe74fedc3dfd471aec606eb2075e5853e",
+      "sourceConditions": [],
+      "upstreamGuards": [],
+      "assertionLines": [
+        466,
+        468,
+        471,
+        472,
+        473,
+        476,
+        477,
+        478,
+        484,
+        486,
+        487
+      ],
+      "variants": [
+        {}
+      ],
+      "status": "executed-awaiting-independent-mapping-review",
+      "ordinaryCredit": 0,
+      "test": "tests/browser/dialog-handles.spec.ts",
+      "nativeFixture": "apps/fixtures/src/lib/DialogHandlesFixture.svelte",
+      "actualReference": "apps/fixtures/src/lib/dialog-handles-reference.ts",
+      "unresolvedMapping": null,
+      "rendererPreconditions": "renderer-preconditions.md",
+      "execution": {
+        "evidence": "handle-browser-evidence.json",
+        "head": "6453d173b37dd6c9e7ca2747616ec4edc567abc8",
+        "kind": "paired-ordinary-browser",
+        "review": "pending",
+        "ordinaryCredit": 0
+      }
+    },
+    {
+      "id": "packages/react/src/dialog/root/DialogRoot.detached-triggers.test.tsx:490",
+      "title": "keeps a handle-backed dialog open and controllable across handle swaps on a live root",
+      "bodySha256": "2019957d44a29c1c534ba068ba151b37ce7ee2db23bfa96b62c6c0ba31c725c5",
+      "sourceConditions": [],
+      "upstreamGuards": [],
+      "assertionLines": [
+        522,
+        527,
+        528,
+        529,
+        531,
+        538,
+        539,
+        540,
+        545
+      ],
+      "variants": [
+        {}
+      ],
+      "status": "executed-awaiting-independent-mapping-review",
+      "ordinaryCredit": 0,
+      "test": "tests/browser/dialog-handles.spec.ts",
+      "nativeFixture": "apps/fixtures/src/lib/DialogHandlesFixture.svelte",
+      "actualReference": "apps/fixtures/src/lib/dialog-handles-reference.ts",
+      "unresolvedMapping": null,
+      "rendererPreconditions": "renderer-preconditions.md",
+      "execution": {
+        "evidence": "handle-browser-evidence.json",
+        "head": "6453d173b37dd6c9e7ca2747616ec4edc567abc8",
+        "kind": "paired-ordinary-browser",
+        "review": "pending",
+        "ordinaryCredit": 0
+      }
+    },
+    {
+      "id": "packages/react/src/dialog/root/DialogRoot.detached-triggers.test.tsx:549",
+      "title": "attaches and detaches a handle when the prop toggles on a live root",
+      "bodySha256": "5edce4b1ac887c3fcfef7fa019977d0b868335047d4246cf2e12621f39585f0c",
+      "sourceConditions": [],
+      "upstreamGuards": [],
+      "assertionLines": [
+        581,
+        582,
+        588,
+        590,
+        596,
+        601,
+        602,
+        609
+      ],
+      "variants": [
+        {}
+      ],
+      "status": "executed-awaiting-independent-mapping-review",
+      "ordinaryCredit": 0,
+      "test": "tests/browser/dialog-handles.spec.ts",
+      "nativeFixture": "apps/fixtures/src/lib/DialogHandlesFixture.svelte",
+      "actualReference": "apps/fixtures/src/lib/dialog-handles-reference.ts",
+      "unresolvedMapping": null,
+      "rendererPreconditions": "renderer-preconditions.md",
+      "execution": {
+        "evidence": "handle-browser-evidence.json",
+        "head": "6453d173b37dd6c9e7ca2747616ec4edc567abc8",
+        "kind": "paired-ordinary-browser",
+        "review": "pending",
+        "ordinaryCredit": 0
+      }
+    },
+    {
+      "id": "packages/react/src/dialog/root/DialogRoot.detached-triggers.test.tsx:612",
+      "title": "registers a detached trigger declared after the root",
+      "bodySha256": "d8c40bfed61729f9c623a2c179c969beeb251f9018d3f472bcff1af56fc62a3e",
+      "sourceConditions": [],
+      "upstreamGuards": [],
+      "assertionLines": [
+        632,
+        635,
+        636
+      ],
+      "variants": [
+        {}
+      ],
+      "status": "executed-awaiting-independent-mapping-review",
+      "ordinaryCredit": 0,
+      "test": "tests/browser/dialog-handles.spec.ts",
+      "nativeFixture": "apps/fixtures/src/lib/DialogHandlesFixture.svelte",
+      "actualReference": "apps/fixtures/src/lib/dialog-handles-reference.ts",
+      "unresolvedMapping": null,
+      "rendererPreconditions": "renderer-preconditions.md",
+      "execution": {
+        "evidence": "handle-browser-evidence.json",
+        "head": "6453d173b37dd6c9e7ca2747616ec4edc567abc8",
+        "kind": "paired-ordinary-browser",
+        "review": "pending",
+        "ordinaryCredit": 0
+      }
+    },
+    {
+      "id": "packages/react/src/dialog/root/DialogRoot.detached-triggers.test.tsx:641",
+      "title": "associates the requested trigger when opened by id in the same commit a root attaches",
+      "bodySha256": "20bd1192c6f15d1f0e9b972df270cadbc46457b7140f036b5bb7ec636d1724b5",
+      "sourceConditions": [],
+      "upstreamGuards": [],
+      "assertionLines": [
+        676,
+        682,
+        683,
+        686,
+        687
+      ],
+      "variants": [
+        {}
+      ],
+      "status": "executed-awaiting-independent-mapping-review",
+      "ordinaryCredit": 0,
+      "test": "tests/browser/dialog-handles.spec.ts",
+      "nativeFixture": "apps/fixtures/src/lib/DialogHandlesFixture.svelte",
+      "actualReference": "apps/fixtures/src/lib/dialog-handles-reference.ts",
+      "unresolvedMapping": null,
+      "rendererPreconditions": "renderer-preconditions.md",
+      "execution": {
+        "evidence": "handle-browser-evidence.json",
+        "head": "6453d173b37dd6c9e7ca2747616ec4edc567abc8",
+        "kind": "paired-ordinary-browser",
+        "review": "pending",
+        "ordinaryCredit": 0
+      }
+    },
+    {
+      "id": "packages/react/src/dialog/root/DialogRoot.detached-triggers.test.tsx:700",
+      "title": "does not warn when one root replaces another during a route transition",
+      "bodySha256": "5b81ab129ddb6fa5d22dff4cd70c7d2882ad80f639858dcd179c29e5d0c3d275",
+      "sourceConditions": [],
+      "upstreamGuards": [],
+      "assertionLines": [
+        734
+      ],
+      "variants": [
+        {}
+      ],
+      "status": "executed-awaiting-independent-mapping-review",
+      "ordinaryCredit": 0,
+      "test": "tests/browser/dialog-handles.spec.ts",
+      "nativeFixture": "apps/fixtures/src/lib/DialogHandlesFixture.svelte",
+      "actualReference": "apps/fixtures/src/lib/dialog-handles-reference.ts",
+      "unresolvedMapping": null,
+      "rendererPreconditions": "renderer-preconditions.md",
+      "execution": {
+        "evidence": "handle-browser-evidence.json",
+        "head": "6453d173b37dd6c9e7ca2747616ec4edc567abc8",
+        "kind": "paired-ordinary-browser",
+        "review": "pending",
+        "ordinaryCredit": 0
+      }
+    },
+    {
+      "id": "packages/react/src/dialog/root/DialogRoot.detached-triggers.test.tsx:738",
+      "title": "keeps the newer root attached after the older root unmounts",
+      "bodySha256": "2a2b49ec0ef6817c045248d0861ca5005ec1e8f282a4c6704efeccf770a3b5e4",
+      "sourceConditions": [],
+      "upstreamGuards": [],
+      "assertionLines": [
+        770,
+        771,
+        772
+      ],
+      "variants": [
+        {}
+      ],
+      "status": "executed-awaiting-independent-mapping-review",
+      "ordinaryCredit": 0,
+      "test": "tests/browser/dialog-handles.spec.ts",
+      "nativeFixture": "apps/fixtures/src/lib/DialogHandlesFixture.svelte",
+      "actualReference": "apps/fixtures/src/lib/dialog-handles-reference.ts",
+      "unresolvedMapping": null,
+      "rendererPreconditions": "renderer-preconditions.md",
+      "execution": {
+        "evidence": "handle-browser-evidence.json",
+        "head": "6453d173b37dd6c9e7ca2747616ec4edc567abc8",
+        "kind": "paired-ordinary-browser",
+        "review": "pending",
+        "ordinaryCredit": 0
+      }
+    },
+    {
+      "id": "packages/react/src/dialog/root/DialogRoot.detached-triggers.test.tsx:775",
+      "title": "restores control to the previous root when a newer overlapping root detaches",
+      "bodySha256": "f56675849f7fb758ceaac6e4e19e24f42e3d377916ab4d3444bf130a5b68f992",
+      "sourceConditions": [],
+      "upstreamGuards": [],
+      "assertionLines": [
+        812,
+        813,
+        814,
+        816
+      ],
+      "variants": [
+        {}
+      ],
+      "status": "executed-awaiting-independent-mapping-review",
+      "ordinaryCredit": 0,
+      "test": "tests/browser/dialog-handles.spec.ts",
+      "nativeFixture": "apps/fixtures/src/lib/DialogHandlesFixture.svelte",
+      "actualReference": "apps/fixtures/src/lib/dialog-handles-reference.ts",
+      "unresolvedMapping": null,
+      "rendererPreconditions": "renderer-preconditions.md",
+      "execution": {
+        "evidence": "handle-browser-evidence.json",
+        "head": "6453d173b37dd6c9e7ca2747616ec4edc567abc8",
+        "kind": "paired-ordinary-browser",
+        "review": "pending",
+        "ordinaryCredit": 0
+      }
+    },
+    {
+      "id": "packages/react/src/dialog/root/DialogRoot.detached-triggers.test.tsx:820",
+      "title": "keeps the root attached through Strict Mode effect replay",
+      "bodySha256": "047e86437df1852d34d749df58f0f0fcd930026a05deac9569eac3e0f801fe82",
+      "sourceConditions": [],
+      "upstreamGuards": [],
+      "assertionLines": [
+        836,
+        841,
+        842
+      ],
+      "variants": [
+        {}
+      ],
+      "status": "unimplemented-framework",
+      "ordinaryCredit": 0,
+      "test": null,
+      "nativeFixture": null,
+      "actualReference": null,
+      "unresolvedMapping": true,
+      "rendererPreconditions": "renderer-preconditions.md"
+    },
+    {
+      "id": "packages/react/src/dialog/root/DialogRoot.detached-triggers.test.tsx:845",
+      "title": "warns when a handle stays attached to more than one mounted root",
+      "bodySha256": "90898f0d7f8cfb62ada93b427660d0c63414704291f948b9427166cae536ada3",
+      "sourceConditions": [],
+      "upstreamGuards": [],
+      "assertionLines": [
+        867
+      ],
+      "variants": [
+        {}
+      ],
+      "status": "executed-awaiting-independent-mapping-review",
+      "ordinaryCredit": 0,
+      "test": "tests/browser/dialog-handles.spec.ts",
+      "nativeFixture": "apps/fixtures/src/lib/DialogHandlesFixture.svelte",
+      "actualReference": "apps/fixtures/src/lib/dialog-handles-reference.ts",
+      "unresolvedMapping": null,
+      "rendererPreconditions": "renderer-preconditions.md",
+      "execution": {
+        "evidence": "handle-browser-evidence.json",
+        "head": "6453d173b37dd6c9e7ca2747616ec4edc567abc8",
+        "kind": "paired-ordinary-browser",
+        "review": "pending",
+        "ordinaryCredit": 0
+      }
+    },
+    {
+      "id": "packages/react/src/dialog/root/DialogRoot.detached-triggers.test.tsx:871",
+      "title": "resolves a trigger still registered to the previous root during a transient overlap",
+      "bodySha256": "cc79efeb87668402a1dd316f0254e049de042fe99c7ad3d4167124a8ad7a1804",
+      "sourceConditions": [],
+      "upstreamGuards": [],
+      "assertionLines": [
+        921,
+        922,
+        923,
+        930
+      ],
+      "variants": [
+        {}
+      ],
+      "status": "executed-awaiting-independent-mapping-review",
+      "ordinaryCredit": 0,
+      "test": "tests/browser/dialog-handles.spec.ts",
+      "nativeFixture": "apps/fixtures/src/lib/DialogHandlesFixture.svelte",
+      "actualReference": "apps/fixtures/src/lib/dialog-handles-reference.ts",
+      "unresolvedMapping": null,
+      "rendererPreconditions": "renderer-preconditions.md",
+      "execution": {
+        "evidence": "handle-browser-evidence.json",
+        "head": "6453d173b37dd6c9e7ca2747616ec4edc567abc8",
+        "kind": "paired-ordinary-browser",
+        "review": "pending",
+        "ordinaryCredit": 0
+      }
+    },
+    {
+      "id": "packages/react/src/dialog/root/DialogRoot.detached-triggers.test.tsx:939",
+      "title": "opens the dialog with any trigger",
+      "bodySha256": "d65a0e46a2f57ac94fad49c4d07b1f7517e2c5151ec1e8f5c213454a67a0c0e2",
+      "sourceConditions": [],
+      "upstreamGuards": [
+        "describe.skipIf(isJSDOM)"
+      ],
+      "assertionLines": [
+        959,
+        963,
+        968,
+        973,
+        978,
+        983
+      ],
+      "variants": [
+        {}
+      ],
+      "status": "executed-awaiting-independent-mapping-review",
+      "ordinaryCredit": 0,
+      "test": "tests/browser/dialog-handles.spec.ts",
+      "nativeFixture": "apps/fixtures/src/lib/DialogHandlesFixture.svelte",
+      "actualReference": "apps/fixtures/src/lib/dialog-handles-reference.ts",
+      "unresolvedMapping": null,
+      "rendererPreconditions": "renderer-preconditions.md",
+      "execution": {
+        "evidence": "handle-browser-evidence.json",
+        "head": "6453d173b37dd6c9e7ca2747616ec4edc567abc8",
+        "kind": "paired-ordinary-browser",
+        "review": "pending",
+        "ordinaryCredit": 0
+      }
+    },
+    {
+      "id": "packages/react/src/dialog/root/DialogRoot.detached-triggers.test.tsx:987",
+      "title": "sets the payload and renders content based on its value",
+      "bodySha256": "91fcb1e406aedad46ad032fda09ff938a088b219ab608edb5bd1f5c1d9c6154d",
+      "sourceConditions": [],
+      "upstreamGuards": [
+        "describe.skipIf(isJSDOM)"
+      ],
+      "assertionLines": [
+        1011,
+        1016
+      ],
+      "variants": [
+        {}
+      ],
+      "status": "executed-awaiting-independent-mapping-review",
+      "ordinaryCredit": 0,
+      "test": "tests/browser/dialog-handles.spec.ts",
+      "nativeFixture": "apps/fixtures/src/lib/DialogHandlesFixture.svelte",
+      "actualReference": "apps/fixtures/src/lib/dialog-handles-reference.ts",
+      "unresolvedMapping": null,
+      "rendererPreconditions": "renderer-preconditions.md",
+      "execution": {
+        "evidence": "handle-browser-evidence.json",
+        "head": "6453d173b37dd6c9e7ca2747616ec4edc567abc8",
+        "kind": "paired-ordinary-browser",
+        "review": "pending",
+        "ordinaryCredit": 0
+      }
+    },
+    {
+      "id": "packages/react/src/dialog/root/DialogRoot.detached-triggers.test.tsx:1020",
+      "title": "reuses the popup DOM node when switching triggers",
+      "bodySha256": "c0f2a6807c5a95732c952f6f771206c417ffc23e3f05ada31979fd7ec4eaacff",
+      "sourceConditions": [],
+      "upstreamGuards": [
+        "describe.skipIf(isJSDOM)"
+      ],
+      "assertionLines": [
+        1045
+      ],
+      "variants": [
+        {}
+      ],
+      "status": "executed-awaiting-independent-mapping-review",
+      "ordinaryCredit": 0,
+      "test": "tests/browser/dialog-handles.spec.ts",
+      "nativeFixture": "apps/fixtures/src/lib/DialogHandlesFixture.svelte",
+      "actualReference": "apps/fixtures/src/lib/dialog-handles-reference.ts",
+      "unresolvedMapping": null,
+      "rendererPreconditions": "renderer-preconditions.md",
+      "execution": {
+        "evidence": "handle-browser-evidence.json",
+        "head": "6453d173b37dd6c9e7ca2747616ec4edc567abc8",
+        "kind": "paired-ordinary-browser",
+        "review": "pending",
+        "ordinaryCredit": 0
+      }
+    },
+    {
+      "id": "packages/react/src/dialog/root/DialogRoot.detached-triggers.test.tsx:1048",
+      "title": "synchronizes ARIA attributes on the active trigger",
+      "bodySha256": "fcaa4fb18fc04248ba1b78d41c21f2edefd9bc31c6ee50e2e6cdb6037c51bc6c",
+      "sourceConditions": [],
+      "upstreamGuards": [
+        "describe.skipIf(isJSDOM)"
+      ],
+      "assertionLines": [
+        1063,
+        1064,
+        1070,
+        1071,
+        1073,
+        1075
+      ],
+      "variants": [
+        {}
+      ],
+      "status": "executed-awaiting-independent-mapping-review",
+      "ordinaryCredit": 0,
+      "test": "tests/browser/dialog-handles.spec.ts",
+      "nativeFixture": "apps/fixtures/src/lib/DialogHandlesFixture.svelte",
+      "actualReference": "apps/fixtures/src/lib/dialog-handles-reference.ts",
+      "unresolvedMapping": null,
+      "rendererPreconditions": "renderer-preconditions.md",
+      "execution": {
+        "evidence": "handle-browser-evidence.json",
+        "head": "6453d173b37dd6c9e7ca2747616ec4edc567abc8",
+        "kind": "paired-ordinary-browser",
+        "review": "pending",
+        "ordinaryCredit": 0
+      }
+    },
+    {
+      "id": "packages/react/src/dialog/root/DialogRoot.detached-triggers.test.tsx:1078",
+      "title": "synchronizes ARIA attributes in controlled mode",
+      "bodySha256": "1d36e5d782a84b3cf6255af7ca2aaef3a1d3180d3e0f2d8fc6efe0257c04656a",
+      "sourceConditions": [],
+      "upstreamGuards": [
+        "describe.skipIf(isJSDOM)"
+      ],
+      "assertionLines": [
+        1094,
+        1095,
+        1096,
+        1097
+      ],
+      "variants": [
+        {}
+      ],
+      "status": "executed-awaiting-independent-mapping-review",
+      "ordinaryCredit": 0,
+      "test": "tests/browser/dialog-handles.spec.ts",
+      "nativeFixture": "apps/fixtures/src/lib/DialogHandlesFixture.svelte",
+      "actualReference": "apps/fixtures/src/lib/dialog-handles-reference.ts",
+      "unresolvedMapping": null,
+      "rendererPreconditions": "renderer-preconditions.md",
+      "execution": {
+        "evidence": "handle-browser-evidence.json",
+        "head": "6453d173b37dd6c9e7ca2747616ec4edc567abc8",
+        "kind": "paired-ordinary-browser",
+        "review": "pending",
+        "ordinaryCredit": 0
+      }
+    },
+    {
+      "id": "packages/react/src/dialog/root/DialogRoot.detached-triggers.test.tsx:1100",
+      "title": "sets the payload when opening programmatically with a controlled triggerId",
+      "bodySha256": "6587baa089f6262c0f24d17f33790bf5eb5d36e0ab4e7e5ba356594b131301ff",
+      "sourceConditions": [],
+      "upstreamGuards": [
+        "describe.skipIf(isJSDOM)"
+      ],
+      "assertionLines": [
+        1146,
+        1152,
+        1154
+      ],
+      "variants": [
+        {}
+      ],
+      "status": "executed-awaiting-independent-mapping-review",
+      "ordinaryCredit": 0,
+      "test": "tests/browser/dialog-handles.spec.ts",
+      "nativeFixture": "apps/fixtures/src/lib/DialogHandlesFixture.svelte",
+      "actualReference": "apps/fixtures/src/lib/dialog-handles-reference.ts",
+      "unresolvedMapping": null,
+      "rendererPreconditions": "renderer-preconditions.md",
+      "execution": {
+        "evidence": "handle-browser-evidence.json",
+        "head": "6453d173b37dd6c9e7ca2747616ec4edc567abc8",
+        "kind": "paired-ordinary-browser",
+        "review": "pending",
+        "ordinaryCredit": 0
+      }
+    },
+    {
+      "id": "packages/react/src/dialog/root/DialogRoot.detached-triggers.test.tsx:1157",
+      "title": "keeps the payload reactive",
+      "bodySha256": "68eeb3e44e64d7b2c11617dea290c0a163335604d72b52638670909dc708a19b",
+      "sourceConditions": [],
+      "upstreamGuards": [
+        "describe.skipIf(isJSDOM)"
+      ],
+      "assertionLines": [
+        1193,
+        1199
+      ],
+      "variants": [
+        {}
+      ],
+      "status": "executed-awaiting-independent-mapping-review",
+      "ordinaryCredit": 0,
+      "test": "tests/browser/dialog-handles.spec.ts",
+      "nativeFixture": "apps/fixtures/src/lib/DialogHandlesFixture.svelte",
+      "actualReference": "apps/fixtures/src/lib/dialog-handles-reference.ts",
+      "unresolvedMapping": null,
+      "rendererPreconditions": "renderer-preconditions.md",
+      "execution": {
+        "evidence": "handle-browser-evidence.json",
+        "head": "6453d173b37dd6c9e7ca2747616ec4edc567abc8",
+        "kind": "paired-ordinary-browser",
+        "review": "pending",
+        "ordinaryCredit": 0
+      }
+    },
+    {
+      "id": "packages/react/src/dialog/root/DialogRoot.detached-triggers.test.tsx:1274",
+      "title": "opens the dialog with any trigger",
+      "bodySha256": "346f8d00726222b921e95b9d67ed54b21375e6cb6fa6a1a8f06591c6c3c8674c",
+      "sourceConditions": [],
+      "upstreamGuards": [
+        "describe.skipIf(isJSDOM)"
+      ],
+      "assertionLines": [
+        1297,
+        1301,
+        1305,
+        1310,
+        1314,
+        1319
+      ],
+      "variants": [
+        {}
+      ],
+      "status": "executed-awaiting-independent-mapping-review",
+      "ordinaryCredit": 0,
+      "test": "tests/browser/dialog-handles.spec.ts",
+      "nativeFixture": "apps/fixtures/src/lib/DialogHandlesFixture.svelte",
+      "actualReference": "apps/fixtures/src/lib/dialog-handles-reference.ts",
+      "unresolvedMapping": null,
+      "rendererPreconditions": "renderer-preconditions.md",
+      "execution": {
+        "evidence": "handle-browser-evidence.json",
+        "head": "6453d173b37dd6c9e7ca2747616ec4edc567abc8",
+        "kind": "paired-ordinary-browser",
+        "review": "pending",
+        "ordinaryCredit": 0
+      }
+    },
+    {
+      "id": "packages/react/src/dialog/root/DialogRoot.detached-triggers.test.tsx:1323",
+      "title": "attaches fresh root state when the root remounts after being unmounted while open",
+      "bodySha256": "3b6aab249f362a331149938f8d6e7fcc2a6713eb0fc283aa2a0c60d0e143013f",
+      "sourceConditions": [],
+      "upstreamGuards": [
+        "describe.skipIf(isJSDOM)"
+      ],
+      "assertionLines": [
+        1365,
+        1369,
+        1372,
+        1374,
+        1379,
+        1382,
+        1383,
+        1386
+      ],
+      "variants": [
+        {}
+      ],
+      "status": "executed-awaiting-independent-mapping-review",
+      "ordinaryCredit": 0,
+      "test": "tests/browser/dialog-handles.spec.ts",
+      "nativeFixture": "apps/fixtures/src/lib/DialogHandlesFixture.svelte",
+      "actualReference": "apps/fixtures/src/lib/dialog-handles-reference.ts",
+      "unresolvedMapping": null,
+      "rendererPreconditions": "renderer-preconditions.md",
+      "execution": {
+        "evidence": "handle-browser-evidence.json",
+        "head": "6453d173b37dd6c9e7ca2747616ec4edc567abc8",
+        "kind": "paired-ordinary-browser",
+        "review": "pending",
+        "ordinaryCredit": 0
+      }
+    },
+    {
+      "id": "packages/react/src/dialog/root/DialogRoot.detached-triggers.test.tsx:1389",
+      "title": "resets stale payload when a handle-backed root remounts",
+      "bodySha256": "5a6ae5ff643911a192a5fd600d4ba404a90b08c242bc64c8723e270698e29d53",
+      "sourceConditions": [],
+      "upstreamGuards": [
+        "describe.skipIf(isJSDOM)"
+      ],
+      "assertionLines": [
+        1426,
+        1430,
+        1432,
+        1437,
+        1440,
+        1441
+      ],
+      "variants": [
+        {}
+      ],
+      "status": "executed-awaiting-independent-mapping-review",
+      "ordinaryCredit": 0,
+      "test": "tests/browser/dialog-handles.spec.ts",
+      "nativeFixture": "apps/fixtures/src/lib/DialogHandlesFixture.svelte",
+      "actualReference": "apps/fixtures/src/lib/dialog-handles-reference.ts",
+      "unresolvedMapping": null,
+      "rendererPreconditions": "renderer-preconditions.md",
+      "execution": {
+        "evidence": "handle-browser-evidence.json",
+        "head": "6453d173b37dd6c9e7ca2747616ec4edc567abc8",
+        "kind": "paired-ordinary-browser",
+        "review": "pending",
+        "ordinaryCredit": 0
+      }
+    },
+    {
+      "id": "packages/react/src/dialog/root/DialogRoot.detached-triggers.test.tsx:1444",
+      "title": "notifies persistent detached triggers after attaching fresh root state on remount",
+      "bodySha256": "9ce61c0831f8c560b50b4e1cc0c47cdc04310c7a383d4401f6e49238de112996",
+      "sourceConditions": [],
+      "upstreamGuards": [
+        "describe.skipIf(isJSDOM)"
+      ],
+      "assertionLines": [
+        1496,
+        1499,
+        1500,
+        1507,
+        1510,
+        1513,
+        1515
+      ],
+      "variants": [
+        {}
+      ],
+      "status": "executed-awaiting-independent-mapping-review",
+      "ordinaryCredit": 0,
+      "test": "tests/browser/dialog-handles.spec.ts",
+      "nativeFixture": "apps/fixtures/src/lib/DialogHandlesFixture.svelte",
+      "actualReference": "apps/fixtures/src/lib/dialog-handles-reference.ts",
+      "unresolvedMapping": null,
+      "rendererPreconditions": "renderer-preconditions.md",
+      "execution": {
+        "evidence": "handle-browser-evidence.json",
+        "head": "6453d173b37dd6c9e7ca2747616ec4edc567abc8",
+        "kind": "paired-ordinary-browser",
+        "review": "pending",
+        "ordinaryCredit": 0
+      }
+    },
+    {
+      "id": "packages/react/src/dialog/root/DialogRoot.detached-triggers.test.tsx:1518",
+      "title": "resets stale controlled open state when a handle-backed root remounts uncontrolled",
+      "bodySha256": "16c852461e17b981806023c71edaeb17fe557c0739b3b6a8d28ced2603a0a05c",
+      "sourceConditions": [],
+      "upstreamGuards": [
+        "describe.skipIf(isJSDOM)"
+      ],
+      "assertionLines": [
+        1567,
+        1573,
+        1576
+      ],
+      "variants": [
+        {}
+      ],
+      "status": "executed-awaiting-independent-mapping-review",
+      "ordinaryCredit": 0,
+      "test": "tests/browser/dialog-handles.spec.ts",
+      "nativeFixture": "apps/fixtures/src/lib/DialogHandlesFixture.svelte",
+      "actualReference": "apps/fixtures/src/lib/dialog-handles-reference.ts",
+      "unresolvedMapping": null,
+      "rendererPreconditions": "renderer-preconditions.md",
+      "execution": {
+        "evidence": "handle-browser-evidence.json",
+        "head": "6453d173b37dd6c9e7ca2747616ec4edc567abc8",
+        "kind": "paired-ordinary-browser",
+        "review": "pending",
+        "ordinaryCredit": 0
+      }
+    },
+    {
+      "id": "packages/react/src/dialog/root/DialogRoot.detached-triggers.test.tsx:1579",
+      "title": "does not warn when a handle-backed root remounts controlled after being uncontrolled",
+      "bodySha256": "3487a2cc49ec407f182624ad67c68bba7306867dfe2a8593d6cb56a2bc2f27e2",
+      "sourceConditions": [],
+      "upstreamGuards": [
+        "describe.skipIf(isJSDOM)"
+      ],
+      "assertionLines": [
+        1625,
+        1629,
+        1632
+      ],
+      "variants": [
+        {}
+      ],
+      "status": "executed-awaiting-independent-mapping-review",
+      "ordinaryCredit": 0,
+      "test": "tests/browser/dialog-handles.spec.ts",
+      "nativeFixture": "apps/fixtures/src/lib/DialogHandlesFixture.svelte",
+      "actualReference": "apps/fixtures/src/lib/dialog-handles-reference.ts",
+      "unresolvedMapping": null,
+      "rendererPreconditions": "renderer-preconditions.md",
+      "execution": {
+        "evidence": "handle-browser-evidence.json",
+        "head": "6453d173b37dd6c9e7ca2747616ec4edc567abc8",
+        "kind": "paired-ordinary-browser",
+        "review": "pending",
+        "ordinaryCredit": 0
+      }
+    },
+    {
+      "id": "packages/react/src/dialog/root/DialogRoot.detached-triggers.test.tsx:1646",
+      "title": "keeps detached triggers clickable when reparented (remove wrappers)",
+      "bodySha256": "9ebd26b4df9e3722ed6127a61a06798fd9da71a4c2b424ebf97911e8f54b8537",
+      "sourceConditions": [],
+      "upstreamGuards": [
+        "describe.skipIf(isJSDOM)"
+      ],
+      "assertionLines": [],
+      "variants": [
+        {}
+      ],
+      "status": "executed-awaiting-independent-mapping-review",
+      "ordinaryCredit": 0,
+      "test": "tests/browser/dialog-handles.spec.ts",
+      "nativeFixture": "apps/fixtures/src/lib/DialogHandlesFixture.svelte",
+      "actualReference": "apps/fixtures/src/lib/dialog-handles-reference.ts",
+      "unresolvedMapping": null,
+      "rendererPreconditions": "renderer-preconditions.md",
+      "execution": {
+        "evidence": "handle-browser-evidence.json",
+        "head": "6453d173b37dd6c9e7ca2747616ec4edc567abc8",
+        "kind": "paired-ordinary-browser",
+        "review": "pending",
+        "ordinaryCredit": 0
+      }
+    },
+    {
+      "id": "packages/react/src/dialog/root/DialogRoot.detached-triggers.test.tsx:1664",
+      "title": "keeps detached triggers clickable when reparented (add wrappers)",
+      "bodySha256": "f92b4fed6084a4c35df715228f1bf54f647c6d191645f864c5b98e6897fc184b",
+      "sourceConditions": [],
+      "upstreamGuards": [
+        "describe.skipIf(isJSDOM)"
+      ],
+      "assertionLines": [],
+      "variants": [
+        {}
+      ],
+      "status": "executed-awaiting-independent-mapping-review",
+      "ordinaryCredit": 0,
+      "test": "tests/browser/dialog-handles.spec.ts",
+      "nativeFixture": "apps/fixtures/src/lib/DialogHandlesFixture.svelte",
+      "actualReference": "apps/fixtures/src/lib/dialog-handles-reference.ts",
+      "unresolvedMapping": null,
+      "rendererPreconditions": "renderer-preconditions.md",
+      "execution": {
+        "evidence": "handle-browser-evidence.json",
+        "head": "6453d173b37dd6c9e7ca2747616ec4edc567abc8",
+        "kind": "paired-ordinary-browser",
+        "review": "pending",
+        "ordinaryCredit": 0
+      }
+    },
+    {
+      "id": "packages/react/src/dialog/root/DialogRoot.detached-triggers.test.tsx:1682",
+      "title": "keeps detached triggers clickable during Fast Refresh-like handle recreation",
+      "bodySha256": "dc0f0ed37a3733e36bc59c8d768e6d1e6665f42fc825210afbc38a6681891530",
+      "sourceConditions": [],
+      "upstreamGuards": [
+        "describe.skipIf(isJSDOM)"
+      ],
+      "assertionLines": [],
+      "variants": [
+        {}
+      ],
+      "status": "executed-awaiting-independent-mapping-review",
+      "ordinaryCredit": 0,
+      "test": "tests/browser/dialog-handles.spec.ts",
+      "nativeFixture": "apps/fixtures/src/lib/DialogHandlesFixture.svelte",
+      "actualReference": "apps/fixtures/src/lib/dialog-handles-reference.ts",
+      "unresolvedMapping": null,
+      "rendererPreconditions": "renderer-preconditions.md",
+      "execution": {
+        "evidence": "handle-browser-evidence.json",
+        "head": "6453d173b37dd6c9e7ca2747616ec4edc567abc8",
+        "kind": "paired-ordinary-browser",
+        "review": "pending",
+        "ordinaryCredit": 0
+      }
+    },
+    {
+      "id": "packages/react/src/dialog/root/DialogRoot.detached-triggers.test.tsx:1711",
+      "title": "keeps ARIA controls in sync when a detached handle is recreated while open",
+      "bodySha256": "4f80536d514c1822d88495841ef21b2b3bb419ad5f2c31f5da72bc3935def949",
+      "sourceConditions": [],
+      "upstreamGuards": [
+        "describe.skipIf(isJSDOM)"
+      ],
+      "assertionLines": [
+        1733,
+        1742
+      ],
+      "variants": [
+        {}
+      ],
+      "status": "executed-awaiting-independent-mapping-review",
+      "ordinaryCredit": 0,
+      "test": "tests/browser/dialog-handles.spec.ts",
+      "nativeFixture": "apps/fixtures/src/lib/DialogHandlesFixture.svelte",
+      "actualReference": "apps/fixtures/src/lib/dialog-handles-reference.ts",
+      "unresolvedMapping": null,
+      "rendererPreconditions": "renderer-preconditions.md",
+      "execution": {
+        "evidence": "handle-browser-evidence.json",
+        "head": "6453d173b37dd6c9e7ca2747616ec4edc567abc8",
+        "kind": "paired-ordinary-browser",
+        "review": "pending",
+        "ordinaryCredit": 0
+      }
+    },
+    {
+      "id": "packages/react/src/dialog/root/DialogRoot.detached-triggers.test.tsx:1746",
+      "title": "keeps detached triggers clickable when reparented during Fast Refresh-like handle recreation",
+      "bodySha256": "3ff5da4a62ad422f6f4ba23321985e1746878dd0279dc531fdef3f7ae4bc2737",
+      "sourceConditions": [],
+      "upstreamGuards": [
+        "describe.skipIf(isJSDOM)"
+      ],
+      "assertionLines": [],
+      "variants": [
+        {}
+      ],
+      "status": "executed-awaiting-independent-mapping-review",
+      "ordinaryCredit": 0,
+      "test": "tests/browser/dialog-handles.spec.ts",
+      "nativeFixture": "apps/fixtures/src/lib/DialogHandlesFixture.svelte",
+      "actualReference": "apps/fixtures/src/lib/dialog-handles-reference.ts",
+      "unresolvedMapping": null,
+      "rendererPreconditions": "renderer-preconditions.md",
+      "execution": {
+        "evidence": "handle-browser-evidence.json",
+        "head": "6453d173b37dd6c9e7ca2747616ec4edc567abc8",
+        "kind": "paired-ordinary-browser",
+        "review": "pending",
+        "ordinaryCredit": 0
+      }
+    },
+    {
+      "id": "packages/react/src/dialog/root/DialogRoot.detached-triggers.test.tsx:1764",
+      "title": "sets the payload and renders content based on its value",
+      "bodySha256": "80c26f493d7e10d381385700ea074c6953fb25dc041bcde1516212240b584a5c",
+      "sourceConditions": [],
+      "upstreamGuards": [
+        "describe.skipIf(isJSDOM)"
+      ],
+      "assertionLines": [
+        1793,
+        1798
+      ],
+      "variants": [
+        {}
+      ],
+      "status": "executed-awaiting-independent-mapping-review",
+      "ordinaryCredit": 0,
+      "test": "tests/browser/dialog-handles.spec.ts",
+      "nativeFixture": "apps/fixtures/src/lib/DialogHandlesFixture.svelte",
+      "actualReference": "apps/fixtures/src/lib/dialog-handles-reference.ts",
+      "unresolvedMapping": null,
+      "rendererPreconditions": "renderer-preconditions.md",
+      "execution": {
+        "evidence": "handle-browser-evidence.json",
+        "head": "6453d173b37dd6c9e7ca2747616ec4edc567abc8",
+        "kind": "paired-ordinary-browser",
+        "review": "pending",
+        "ordinaryCredit": 0
+      }
+    },
+    {
+      "id": "packages/react/src/dialog/root/DialogRoot.detached-triggers.test.tsx:1802",
+      "title": "reuses the popup DOM node when switching triggers",
+      "bodySha256": "653ffe2422daa0b6528f1027da384cc2f7846b26558a6b154b32e7877f08c46e",
+      "sourceConditions": [],
+      "upstreamGuards": [
+        "describe.skipIf(isJSDOM)"
+      ],
+      "assertionLines": [
+        1832
+      ],
+      "variants": [
+        {}
+      ],
+      "status": "executed-awaiting-independent-mapping-review",
+      "ordinaryCredit": 0,
+      "test": "tests/browser/dialog-handles.spec.ts",
+      "nativeFixture": "apps/fixtures/src/lib/DialogHandlesFixture.svelte",
+      "actualReference": "apps/fixtures/src/lib/dialog-handles-reference.ts",
+      "unresolvedMapping": null,
+      "rendererPreconditions": "renderer-preconditions.md",
+      "execution": {
+        "evidence": "handle-browser-evidence.json",
+        "head": "6453d173b37dd6c9e7ca2747616ec4edc567abc8",
+        "kind": "paired-ordinary-browser",
+        "review": "pending",
+        "ordinaryCredit": 0
+      }
+    },
+    {
+      "id": "packages/react/src/dialog/root/DialogRoot.detached-triggers.test.tsx:1835",
+      "title": "keeps the payload reactive",
+      "bodySha256": "a0fbb3751c5165063956b8e82fd647b70751ded198aa718c79096d9a3be1d87e",
+      "sourceConditions": [],
+      "upstreamGuards": [
+        "describe.skipIf(isJSDOM)"
+      ],
+      "assertionLines": [
+        1881,
+        1887
+      ],
+      "variants": [
+        {}
+      ],
+      "status": "executed-awaiting-independent-mapping-review",
+      "ordinaryCredit": 0,
+      "test": "tests/browser/dialog-handles.spec.ts",
+      "nativeFixture": "apps/fixtures/src/lib/DialogHandlesFixture.svelte",
+      "actualReference": "apps/fixtures/src/lib/dialog-handles-reference.ts",
+      "unresolvedMapping": null,
+      "rendererPreconditions": "renderer-preconditions.md",
+      "execution": {
+        "evidence": "handle-browser-evidence.json",
+        "head": "6453d173b37dd6c9e7ca2747616ec4edc567abc8",
+        "kind": "paired-ordinary-browser",
+        "review": "pending",
+        "ordinaryCredit": 0
+      }
+    },
+    {
+      "id": "packages/react/src/dialog/root/DialogRoot.detached-triggers.test.tsx:1891",
+      "title": "closes a non-modal dialog with Escape from an inactive detached trigger",
+      "bodySha256": "346f6ceb82ff5040e562ae09e3c7b29a533d68aa75cfcf370894b0d44bc46d21",
+      "sourceConditions": [],
+      "upstreamGuards": [
+        "describe.skipIf(isJSDOM)"
+      ],
+      "assertionLines": [
+        1907,
+        1915
+      ],
+      "variants": [
+        {}
+      ],
+      "status": "executed-awaiting-independent-mapping-review",
+      "ordinaryCredit": 0,
+      "test": "tests/browser/dialog-handles.spec.ts",
+      "nativeFixture": "apps/fixtures/src/lib/DialogHandlesFixture.svelte",
+      "actualReference": "apps/fixtures/src/lib/dialog-handles-reference.ts",
+      "unresolvedMapping": null,
+      "rendererPreconditions": "renderer-preconditions.md",
+      "execution": {
+        "evidence": "handle-browser-evidence.json",
+        "head": "6453d173b37dd6c9e7ca2747616ec4edc567abc8",
+        "kind": "paired-ordinary-browser",
+        "review": "pending",
+        "ordinaryCredit": 0
+      }
+    },
+    {
+      "id": "packages/react/src/dialog/root/DialogRoot.detached-triggers.test.tsx:1921",
+      "title": "opens and closes the dialog",
+      "bodySha256": "5ff26e39fec061665bf4e0488c53e4bc252b2f1432c87c52409203fdf0196a30",
+      "sourceConditions": [],
+      "upstreamGuards": [],
+      "assertionLines": [
+        1937,
+        1941,
+        1944,
+        1945,
+        1949,
+        1952
+      ],
+      "variants": [
+        {}
+      ],
+      "status": "executed-awaiting-independent-mapping-review",
+      "ordinaryCredit": 0,
+      "test": "tests/browser/dialog-handles.spec.ts",
+      "nativeFixture": "apps/fixtures/src/lib/DialogHandlesFixture.svelte",
+      "actualReference": "apps/fixtures/src/lib/dialog-handles-reference.ts",
+      "unresolvedMapping": null,
+      "rendererPreconditions": "renderer-preconditions.md",
+      "execution": {
+        "evidence": "handle-browser-evidence.json",
+        "head": "6453d173b37dd6c9e7ca2747616ec4edc567abc8",
+        "kind": "paired-ordinary-browser",
+        "review": "pending",
+        "ordinaryCredit": 0
+      }
+    },
+    {
+      "id": "packages/react/src/dialog/root/DialogRoot.detached-triggers.test.tsx:1955",
+      "title": "associates an imperative open-by-id with a persistent detached trigger after the root remounts",
+      "bodySha256": "dd1b74bfef8e9eb9a189a8aad1a5eef3a00efd757a7d5f4d469f9a9a173e555e",
+      "sourceConditions": [],
+      "upstreamGuards": [],
+      "assertionLines": [
+        1997,
+        1999,
+        2000,
+        2003,
+        2008,
+        2012,
+        2019,
+        2021,
+        2022,
+        2025
+      ],
+      "variants": [
+        {}
+      ],
+      "status": "executed-awaiting-independent-mapping-review",
+      "ordinaryCredit": 0,
+      "test": "tests/browser/dialog-handles.spec.ts",
+      "nativeFixture": "apps/fixtures/src/lib/DialogHandlesFixture.svelte",
+      "actualReference": "apps/fixtures/src/lib/dialog-handles-reference.ts",
+      "unresolvedMapping": null,
+      "rendererPreconditions": "renderer-preconditions.md",
+      "execution": {
+        "evidence": "handle-browser-evidence.json",
+        "head": "6453d173b37dd6c9e7ca2747616ec4edc567abc8",
+        "kind": "paired-ordinary-browser",
+        "review": "pending",
+        "ordinaryCredit": 0
+      }
+    },
+    {
+      "id": "packages/react/src/dialog/root/DialogRoot.detached-triggers.test.tsx:2028",
+      "title": "stops resolving a handle-A trigger after the root switches to handle B",
+      "bodySha256": "f9c97a9248d7529428aa613f1cd4b7d2d68b3178595ae6b3a0239092323a07f2",
+      "sourceConditions": [],
+      "upstreamGuards": [],
+      "assertionLines": [
+        2059,
+        2061,
+        2064,
+        2075,
+        2077,
+        2078
+      ],
+      "variants": [
+        {}
+      ],
+      "status": "executed-awaiting-independent-mapping-review",
+      "ordinaryCredit": 0,
+      "test": "tests/browser/dialog-handles.spec.ts",
+      "nativeFixture": "apps/fixtures/src/lib/DialogHandlesFixture.svelte",
+      "actualReference": "apps/fixtures/src/lib/dialog-handles-reference.ts",
+      "unresolvedMapping": null,
+      "rendererPreconditions": "renderer-preconditions.md",
+      "execution": {
+        "evidence": "handle-browser-evidence.json",
+        "head": "6453d173b37dd6c9e7ca2747616ec4edc567abc8",
+        "kind": "paired-ordinary-browser",
+        "review": "pending",
+        "ordinaryCredit": 0
+      }
+    },
+    {
+      "id": "packages/react/src/dialog/root/DialogRoot.detached-triggers.test.tsx:2088",
+      "title": "sets the payload assosiated with the trigger",
+      "bodySha256": "5c8b3ef95400f17c521ecbb3ebb223f021b506a75de90a868f351a6e00c28829",
+      "sourceConditions": [],
+      "upstreamGuards": [],
+      "assertionLines": [
+        2110,
+        2114,
+        2117,
+        2118,
+        2119,
+        2123,
+        2126
+      ],
+      "variants": [
+        {}
+      ],
+      "status": "executed-awaiting-independent-mapping-review",
+      "ordinaryCredit": 0,
+      "test": "tests/browser/dialog-handles.spec.ts",
+      "nativeFixture": "apps/fixtures/src/lib/DialogHandlesFixture.svelte",
+      "actualReference": "apps/fixtures/src/lib/dialog-handles-reference.ts",
+      "unresolvedMapping": null,
+      "rendererPreconditions": "renderer-preconditions.md",
+      "execution": {
+        "evidence": "handle-browser-evidence.json",
+        "head": "6453d173b37dd6c9e7ca2747616ec4edc567abc8",
+        "kind": "paired-ordinary-browser",
+        "review": "pending",
+        "ordinaryCredit": 0
+      }
+    },
+    {
+      "id": "packages/react/src/dialog/root/DialogRoot.detached-triggers.test.tsx:2129",
+      "title": "sets the payload programmatically",
+      "bodySha256": "cf7dfbba3b78b1723101c4cc53639645cc5a78e9511eddca773087bf60d34d6e",
+      "sourceConditions": [],
+      "upstreamGuards": [],
+      "assertionLines": [
+        2151,
+        2155,
+        2158,
+        2159,
+        2160,
+        2164
+      ],
+      "variants": [
+        {}
+      ],
+      "status": "executed-awaiting-independent-mapping-review",
+      "ordinaryCredit": 0,
+      "test": "tests/browser/dialog-handles.spec.ts",
+      "nativeFixture": "apps/fixtures/src/lib/DialogHandlesFixture.svelte",
+      "actualReference": "apps/fixtures/src/lib/dialog-handles-reference.ts",
+      "unresolvedMapping": null,
+      "rendererPreconditions": "renderer-preconditions.md",
+      "execution": {
+        "evidence": "handle-browser-evidence.json",
+        "head": "6453d173b37dd6c9e7ca2747616ec4edc567abc8",
+        "kind": "paired-ordinary-browser",
+        "review": "pending",
+        "ordinaryCredit": 0
+      }
+    },
+    {
+      "id": "packages/react/src/dialog/root/DialogRoot.test.tsx:280",
+      "title": "rewires dismiss interactions after closing and reopening",
+      "bodySha256": "08b7d325e438b9903b591fb21b513a2e0390e4bd0332d299d93f26646a27eaac",
+      "sourceConditions": [],
+      "upstreamGuards": [],
+      "assertionLines": [
+        287,
+        292,
+        297,
+        302
+      ],
+      "variants": [
+        {
+          "[\n    { name: 'contained triggers', Component: ContainedTriggerDialog },\n    { name: 'detached triggers', Component: DetachedTriggerDialog },\n    { name: 'multiple detached triggers', Component: MultipleDetachedTriggersDialog },\n  ]": {
+            "name": "contained triggers",
+            "Component": {
+              "source": "ContainedTriggerDialog"
+            }
+          }
+        },
+        {
+          "[\n    { name: 'contained triggers', Component: ContainedTriggerDialog },\n    { name: 'detached triggers', Component: DetachedTriggerDialog },\n    { name: 'multiple detached triggers', Component: MultipleDetachedTriggersDialog },\n  ]": {
+            "name": "detached triggers",
+            "Component": {
+              "source": "DetachedTriggerDialog"
+            }
+          }
+        },
+        {
+          "[\n    { name: 'contained triggers', Component: ContainedTriggerDialog },\n    { name: 'detached triggers', Component: DetachedTriggerDialog },\n    { name: 'multiple detached triggers', Component: MultipleDetachedTriggersDialog },\n  ]": {
+            "name": "multiple detached triggers",
+            "Component": {
+              "source": "MultipleDetachedTriggersDialog"
+            }
+          }
+        }
+      ],
+      "status": "executed-awaiting-independent-mapping-review",
+      "ordinaryCredit": 0,
+      "test": "tests/browser/dialog-root-handles.spec.ts",
+      "nativeFixture": "apps/fixtures/src/lib/DialogRootHandlesFixture.svelte",
+      "actualReference": "apps/fixtures/src/lib/dialog-root-handles-reference.ts",
+      "unresolvedMapping": null,
+      "rendererPreconditions": "renderer-preconditions.md",
+      "execution": {
+        "evidence": "handle-browser-evidence.json",
+        "head": "6453d173b37dd6c9e7ca2747616ec4edc567abc8",
+        "kind": "paired-ordinary-browser",
+        "review": "pending",
+        "ordinaryCredit": 0
+      }
+    },
+    {
+      "id": "packages/react/src/dialog/root/DialogRoot.test.tsx:306",
+      "title": "ARIA attributes",
+      "bodySha256": "92848f51222a45892e3ce5b813ba095e6cefc26c6b23423dcd4f5403e186bec6",
+      "sourceConditions": [],
+      "upstreamGuards": [],
+      "assertionLines": [
+        323,
+        325,
+        328
+      ],
+      "variants": [
+        {
+          "[\n    { name: 'contained triggers', Component: ContainedTriggerDialog },\n    { name: 'detached triggers', Component: DetachedTriggerDialog },\n    { name: 'multiple detached triggers', Component: MultipleDetachedTriggersDialog },\n  ]": {
+            "name": "contained triggers",
+            "Component": {
+              "source": "ContainedTriggerDialog"
+            }
+          }
+        },
+        {
+          "[\n    { name: 'contained triggers', Component: ContainedTriggerDialog },\n    { name: 'detached triggers', Component: DetachedTriggerDialog },\n    { name: 'multiple detached triggers', Component: MultipleDetachedTriggersDialog },\n  ]": {
+            "name": "detached triggers",
+            "Component": {
+              "source": "DetachedTriggerDialog"
+            }
+          }
+        },
+        {
+          "[\n    { name: 'contained triggers', Component: ContainedTriggerDialog },\n    { name: 'detached triggers', Component: DetachedTriggerDialog },\n    { name: 'multiple detached triggers', Component: MultipleDetachedTriggersDialog },\n  ]": {
+            "name": "multiple detached triggers",
+            "Component": {
+              "source": "MultipleDetachedTriggersDialog"
+            }
+          }
+        }
+      ],
+      "status": "executed-awaiting-independent-mapping-review",
+      "ordinaryCredit": 0,
+      "test": "tests/browser/dialog-root-handles.spec.ts",
+      "nativeFixture": "apps/fixtures/src/lib/DialogRootHandlesFixture.svelte",
+      "actualReference": "apps/fixtures/src/lib/dialog-root-handles-reference.ts",
+      "unresolvedMapping": null,
+      "rendererPreconditions": "renderer-preconditions.md",
+      "execution": {
+        "evidence": "handle-browser-evidence.json",
+        "head": "6453d173b37dd6c9e7ca2747616ec4edc567abc8",
+        "kind": "paired-ordinary-browser",
+        "review": "pending",
+        "ordinaryCredit": 0
+      }
+    },
+    {
+      "id": "packages/react/src/dialog/root/DialogRoot.test.tsx:333",
+      "title": "keeps accessible names and descriptions in sync when label parts change",
+      "bodySha256": "da88a5be2c205d6b49d2bb88d4b3f7cc15909556b436bc8b3b4951f26380f286",
+      "sourceConditions": [],
+      "upstreamGuards": [],
+      "assertionLines": [
+        361,
+        362,
+        370,
+        373,
+        375,
+        376,
+        381,
+        384
+      ],
+      "variants": [
+        {
+          "[\n    { name: 'contained triggers', Component: ContainedTriggerDialog },\n    { name: 'detached triggers', Component: DetachedTriggerDialog },\n    { name: 'multiple detached triggers', Component: MultipleDetachedTriggersDialog },\n  ]": {
+            "name": "contained triggers",
+            "Component": {
+              "source": "ContainedTriggerDialog"
+            }
+          }
+        },
+        {
+          "[\n    { name: 'contained triggers', Component: ContainedTriggerDialog },\n    { name: 'detached triggers', Component: DetachedTriggerDialog },\n    { name: 'multiple detached triggers', Component: MultipleDetachedTriggersDialog },\n  ]": {
+            "name": "detached triggers",
+            "Component": {
+              "source": "DetachedTriggerDialog"
+            }
+          }
+        },
+        {
+          "[\n    { name: 'contained triggers', Component: ContainedTriggerDialog },\n    { name: 'detached triggers', Component: DetachedTriggerDialog },\n    { name: 'multiple detached triggers', Component: MultipleDetachedTriggersDialog },\n  ]": {
+            "name": "multiple detached triggers",
+            "Component": {
+              "source": "MultipleDetachedTriggersDialog"
+            }
+          }
+        }
+      ],
+      "status": "executed-awaiting-independent-mapping-review",
+      "ordinaryCredit": 0,
+      "test": "tests/browser/dialog-root-handles.spec.ts",
+      "nativeFixture": "apps/fixtures/src/lib/DialogRootHandlesFixture.svelte",
+      "actualReference": "apps/fixtures/src/lib/dialog-root-handles-reference.ts",
+      "unresolvedMapping": null,
+      "rendererPreconditions": "renderer-preconditions.md",
+      "execution": {
+        "evidence": "handle-browser-evidence.json",
+        "head": "6453d173b37dd6c9e7ca2747616ec4edc567abc8",
+        "kind": "paired-ordinary-browser",
+        "review": "pending",
+        "ordinaryCredit": 0
+      }
+    },
+    {
+      "id": "packages/react/src/dialog/root/DialogRoot.test.tsx:389",
+      "title": "calls onOpenChange with the new open state",
+      "bodySha256": "9ca2db9a2df4f4f27db9c599fe144983ffafcd482ceb9369c6a3200102144737",
+      "sourceConditions": [],
+      "upstreamGuards": [],
+      "assertionLines": [
+        396,
+        401,
+        402,
+        407,
+        408
+      ],
+      "variants": [
+        {
+          "[\n    { name: 'contained triggers', Component: ContainedTriggerDialog },\n    { name: 'detached triggers', Component: DetachedTriggerDialog },\n    { name: 'multiple detached triggers', Component: MultipleDetachedTriggersDialog },\n  ]": {
+            "name": "contained triggers",
+            "Component": {
+              "source": "ContainedTriggerDialog"
+            }
+          }
+        },
+        {
+          "[\n    { name: 'contained triggers', Component: ContainedTriggerDialog },\n    { name: 'detached triggers', Component: DetachedTriggerDialog },\n    { name: 'multiple detached triggers', Component: MultipleDetachedTriggersDialog },\n  ]": {
+            "name": "detached triggers",
+            "Component": {
+              "source": "DetachedTriggerDialog"
+            }
+          }
+        },
+        {
+          "[\n    { name: 'contained triggers', Component: ContainedTriggerDialog },\n    { name: 'detached triggers', Component: DetachedTriggerDialog },\n    { name: 'multiple detached triggers', Component: MultipleDetachedTriggersDialog },\n  ]": {
+            "name": "multiple detached triggers",
+            "Component": {
+              "source": "MultipleDetachedTriggersDialog"
+            }
+          }
+        }
+      ],
+      "status": "executed-awaiting-independent-mapping-review",
+      "ordinaryCredit": 0,
+      "test": "tests/browser/dialog-root-handles.spec.ts",
+      "nativeFixture": "apps/fixtures/src/lib/DialogRootHandlesFixture.svelte",
+      "actualReference": "apps/fixtures/src/lib/dialog-root-handles-reference.ts",
+      "unresolvedMapping": null,
+      "rendererPreconditions": "renderer-preconditions.md",
+      "execution": {
+        "evidence": "handle-browser-evidence.json",
+        "head": "6453d173b37dd6c9e7ca2747616ec4edc567abc8",
+        "kind": "paired-ordinary-browser",
+        "review": "pending",
+        "ordinaryCredit": 0
+      }
+    },
+    {
+      "id": "packages/react/src/dialog/root/DialogRoot.test.tsx:411",
+      "title": "calls onOpenChange with the reason for change when clicked on trigger and close button",
+      "bodySha256": "f75781321cd1bb709180982a8952c0e7cec65cb005f6478367fb4372f336d395",
+      "sourceConditions": [],
+      "upstreamGuards": [],
+      "assertionLines": [
+        421,
+        422,
+        427,
+        428
+      ],
+      "variants": [
+        {
+          "[\n    { name: 'contained triggers', Component: ContainedTriggerDialog },\n    { name: 'detached triggers', Component: DetachedTriggerDialog },\n    { name: 'multiple detached triggers', Component: MultipleDetachedTriggersDialog },\n  ]": {
+            "name": "contained triggers",
+            "Component": {
+              "source": "ContainedTriggerDialog"
+            }
+          }
+        },
+        {
+          "[\n    { name: 'contained triggers', Component: ContainedTriggerDialog },\n    { name: 'detached triggers', Component: DetachedTriggerDialog },\n    { name: 'multiple detached triggers', Component: MultipleDetachedTriggersDialog },\n  ]": {
+            "name": "detached triggers",
+            "Component": {
+              "source": "DetachedTriggerDialog"
+            }
+          }
+        },
+        {
+          "[\n    { name: 'contained triggers', Component: ContainedTriggerDialog },\n    { name: 'detached triggers', Component: DetachedTriggerDialog },\n    { name: 'multiple detached triggers', Component: MultipleDetachedTriggersDialog },\n  ]": {
+            "name": "multiple detached triggers",
+            "Component": {
+              "source": "MultipleDetachedTriggersDialog"
+            }
+          }
+        }
+      ],
+      "status": "executed-awaiting-independent-mapping-review",
+      "ordinaryCredit": 0,
+      "test": "tests/browser/dialog-root-handles.spec.ts",
+      "nativeFixture": "apps/fixtures/src/lib/DialogRootHandlesFixture.svelte",
+      "actualReference": "apps/fixtures/src/lib/dialog-root-handles-reference.ts",
+      "unresolvedMapping": null,
+      "rendererPreconditions": "renderer-preconditions.md",
+      "execution": {
+        "evidence": "handle-browser-evidence.json",
+        "head": "6453d173b37dd6c9e7ca2747616ec4edc567abc8",
+        "kind": "paired-ordinary-browser",
+        "review": "pending",
+        "ordinaryCredit": 0
+      }
+    },
+    {
+      "id": "packages/react/src/dialog/root/DialogRoot.test.tsx:459",
+      "title": "calls onOpenChange with the reason for change when pressed Esc while the dialog is open",
+      "bodySha256": "1c5ec458c2aafdfcc15698a70df2c2989082adee6f5e1c9f1495a932ff08bab7",
+      "sourceConditions": [],
+      "upstreamGuards": [],
+      "assertionLines": [
+        468,
+        469
+      ],
+      "variants": [
+        {
+          "[\n    { name: 'contained triggers', Component: ContainedTriggerDialog },\n    { name: 'detached triggers', Component: DetachedTriggerDialog },\n    { name: 'multiple detached triggers', Component: MultipleDetachedTriggersDialog },\n  ]": {
+            "name": "contained triggers",
+            "Component": {
+              "source": "ContainedTriggerDialog"
+            }
+          }
+        },
+        {
+          "[\n    { name: 'contained triggers', Component: ContainedTriggerDialog },\n    { name: 'detached triggers', Component: DetachedTriggerDialog },\n    { name: 'multiple detached triggers', Component: MultipleDetachedTriggersDialog },\n  ]": {
+            "name": "detached triggers",
+            "Component": {
+              "source": "DetachedTriggerDialog"
+            }
+          }
+        },
+        {
+          "[\n    { name: 'contained triggers', Component: ContainedTriggerDialog },\n    { name: 'detached triggers', Component: DetachedTriggerDialog },\n    { name: 'multiple detached triggers', Component: MultipleDetachedTriggersDialog },\n  ]": {
+            "name": "multiple detached triggers",
+            "Component": {
+              "source": "MultipleDetachedTriggersDialog"
+            }
+          }
+        }
+      ],
+      "status": "executed-awaiting-independent-mapping-review",
+      "ordinaryCredit": 0,
+      "test": "tests/browser/dialog-root-handles.spec.ts",
+      "nativeFixture": "apps/fixtures/src/lib/DialogRootHandlesFixture.svelte",
+      "actualReference": "apps/fixtures/src/lib/dialog-root-handles-reference.ts",
+      "unresolvedMapping": null,
+      "rendererPreconditions": "renderer-preconditions.md",
+      "execution": {
+        "evidence": "handle-browser-evidence.json",
+        "head": "6453d173b37dd6c9e7ca2747616ec4edc567abc8",
+        "kind": "paired-ordinary-browser",
+        "review": "pending",
+        "ordinaryCredit": 0
+      }
+    },
+    {
+      "id": "packages/react/src/dialog/root/DialogRoot.test.tsx:472",
+      "title": "calls onOpenChange with the reason for change when user clicks backdrop while the modal dialog is open",
+      "bodySha256": "03f4c639876578ddaa30d85018791c9941ea9df817a6f064dd9e2a2d07ad6f87",
+      "sourceConditions": [],
+      "upstreamGuards": [],
+      "assertionLines": [
+        481,
+        482
+      ],
+      "variants": [
+        {
+          "[\n    { name: 'contained triggers', Component: ContainedTriggerDialog },\n    { name: 'detached triggers', Component: DetachedTriggerDialog },\n    { name: 'multiple detached triggers', Component: MultipleDetachedTriggersDialog },\n  ]": {
+            "name": "contained triggers",
+            "Component": {
+              "source": "ContainedTriggerDialog"
+            }
+          }
+        },
+        {
+          "[\n    { name: 'contained triggers', Component: ContainedTriggerDialog },\n    { name: 'detached triggers', Component: DetachedTriggerDialog },\n    { name: 'multiple detached triggers', Component: MultipleDetachedTriggersDialog },\n  ]": {
+            "name": "detached triggers",
+            "Component": {
+              "source": "DetachedTriggerDialog"
+            }
+          }
+        },
+        {
+          "[\n    { name: 'contained triggers', Component: ContainedTriggerDialog },\n    { name: 'detached triggers', Component: DetachedTriggerDialog },\n    { name: 'multiple detached triggers', Component: MultipleDetachedTriggersDialog },\n  ]": {
+            "name": "multiple detached triggers",
+            "Component": {
+              "source": "MultipleDetachedTriggersDialog"
+            }
+          }
+        }
+      ],
+      "status": "executed-awaiting-independent-mapping-review",
+      "ordinaryCredit": 0,
+      "test": "tests/browser/dialog-root-handles.spec.ts",
+      "nativeFixture": "apps/fixtures/src/lib/DialogRootHandlesFixture.svelte",
+      "actualReference": "apps/fixtures/src/lib/dialog-root-handles-reference.ts",
+      "unresolvedMapping": null,
+      "rendererPreconditions": "renderer-preconditions.md",
+      "execution": {
+        "evidence": "handle-browser-evidence.json",
+        "head": "6453d173b37dd6c9e7ca2747616ec4edc567abc8",
+        "kind": "paired-ordinary-browser",
+        "review": "pending",
+        "ordinaryCredit": 0
+      }
+    },
+    {
+      "id": "packages/react/src/dialog/root/DialogRoot.test.tsx:485",
+      "title": "calls onOpenChange with the reason for change when user clicks outside while the non-modal dialog is open",
+      "bodySha256": "ce52e4ea2670d1c3df1079f5993adebc910e4e5495a500aa007883a1bbb600ef",
+      "sourceConditions": [],
+      "upstreamGuards": [],
+      "assertionLines": [
+        496,
+        497
+      ],
+      "variants": [
+        {
+          "[\n    { name: 'contained triggers', Component: ContainedTriggerDialog },\n    { name: 'detached triggers', Component: DetachedTriggerDialog },\n    { name: 'multiple detached triggers', Component: MultipleDetachedTriggersDialog },\n  ]": {
+            "name": "contained triggers",
+            "Component": {
+              "source": "ContainedTriggerDialog"
+            }
+          }
+        },
+        {
+          "[\n    { name: 'contained triggers', Component: ContainedTriggerDialog },\n    { name: 'detached triggers', Component: DetachedTriggerDialog },\n    { name: 'multiple detached triggers', Component: MultipleDetachedTriggersDialog },\n  ]": {
+            "name": "detached triggers",
+            "Component": {
+              "source": "DetachedTriggerDialog"
+            }
+          }
+        },
+        {
+          "[\n    { name: 'contained triggers', Component: ContainedTriggerDialog },\n    { name: 'detached triggers', Component: DetachedTriggerDialog },\n    { name: 'multiple detached triggers', Component: MultipleDetachedTriggersDialog },\n  ]": {
+            "name": "multiple detached triggers",
+            "Component": {
+              "source": "MultipleDetachedTriggersDialog"
+            }
+          }
+        }
+      ],
+      "status": "executed-awaiting-independent-mapping-review",
+      "ordinaryCredit": 0,
+      "test": "tests/browser/dialog-root-handles.spec.ts",
+      "nativeFixture": "apps/fixtures/src/lib/DialogRootHandlesFixture.svelte",
+      "actualReference": "apps/fixtures/src/lib/dialog-root-handles-reference.ts",
+      "unresolvedMapping": null,
+      "rendererPreconditions": "renderer-preconditions.md",
+      "execution": {
+        "evidence": "handle-browser-evidence.json",
+        "head": "6453d173b37dd6c9e7ca2747616ec4edc567abc8",
+        "kind": "paired-ordinary-browser",
+        "review": "pending",
+        "ordinaryCredit": 0
+      }
+    },
+    {
+      "id": "packages/react/src/dialog/root/DialogRoot.test.tsx:535",
+      "title": "cancel() prevents opening while uncontrolled",
+      "bodySha256": "77816b34e90599c1ac551c96fc58f8c61ffb8dd9cba6833a61920ef59d2d46e0",
+      "sourceConditions": [],
+      "upstreamGuards": [],
+      "assertionLines": [
+        552
+      ],
+      "variants": [
+        {
+          "[\n    { name: 'contained triggers', Component: ContainedTriggerDialog },\n    { name: 'detached triggers', Component: DetachedTriggerDialog },\n    { name: 'multiple detached triggers', Component: MultipleDetachedTriggersDialog },\n  ]": {
+            "name": "contained triggers",
+            "Component": {
+              "source": "ContainedTriggerDialog"
+            }
+          }
+        },
+        {
+          "[\n    { name: 'contained triggers', Component: ContainedTriggerDialog },\n    { name: 'detached triggers', Component: DetachedTriggerDialog },\n    { name: 'multiple detached triggers', Component: MultipleDetachedTriggersDialog },\n  ]": {
+            "name": "detached triggers",
+            "Component": {
+              "source": "DetachedTriggerDialog"
+            }
+          }
+        },
+        {
+          "[\n    { name: 'contained triggers', Component: ContainedTriggerDialog },\n    { name: 'detached triggers', Component: DetachedTriggerDialog },\n    { name: 'multiple detached triggers', Component: MultipleDetachedTriggersDialog },\n  ]": {
+            "name": "multiple detached triggers",
+            "Component": {
+              "source": "MultipleDetachedTriggersDialog"
+            }
+          }
+        }
+      ],
+      "status": "executed-awaiting-independent-mapping-review",
+      "ordinaryCredit": 0,
+      "test": "tests/browser/dialog-root-handles.spec.ts",
+      "nativeFixture": "apps/fixtures/src/lib/DialogRootHandlesFixture.svelte",
+      "actualReference": "apps/fixtures/src/lib/dialog-root-handles-reference.ts",
+      "unresolvedMapping": null,
+      "rendererPreconditions": "renderer-preconditions.md",
+      "execution": {
+        "evidence": "handle-browser-evidence.json",
+        "head": "6453d173b37dd6c9e7ca2747616ec4edc567abc8",
+        "kind": "paired-ordinary-browser",
+        "review": "pending",
+        "ordinaryCredit": 0
+      }
+    },
+    {
+      "id": "packages/react/src/dialog/root/DialogRoot.test.tsx:555",
+      "title": "emits a single internal openchange when closing on Escape",
+      "bodySha256": "ec0cc120ea1da376e259d1532cd97303a7e5bc91e29e4e99c285d1e2ddbac157",
+      "sourceConditions": [],
+      "upstreamGuards": [],
+      "assertionLines": [
+        575,
+        576
+      ],
+      "variants": [
+        {
+          "[\n    { name: 'contained triggers', Component: ContainedTriggerDialog },\n    { name: 'detached triggers', Component: DetachedTriggerDialog },\n    { name: 'multiple detached triggers', Component: MultipleDetachedTriggersDialog },\n  ]": {
+            "name": "contained triggers",
+            "Component": {
+              "source": "ContainedTriggerDialog"
+            }
+          }
+        },
+        {
+          "[\n    { name: 'contained triggers', Component: ContainedTriggerDialog },\n    { name: 'detached triggers', Component: DetachedTriggerDialog },\n    { name: 'multiple detached triggers', Component: MultipleDetachedTriggersDialog },\n  ]": {
+            "name": "detached triggers",
+            "Component": {
+              "source": "DetachedTriggerDialog"
+            }
+          }
+        },
+        {
+          "[\n    { name: 'contained triggers', Component: ContainedTriggerDialog },\n    { name: 'detached triggers', Component: DetachedTriggerDialog },\n    { name: 'multiple detached triggers', Component: MultipleDetachedTriggersDialog },\n  ]": {
+            "name": "multiple detached triggers",
+            "Component": {
+              "source": "MultipleDetachedTriggersDialog"
+            }
+          }
+        }
+      ],
+      "status": "executed-awaiting-independent-mapping-review",
+      "ordinaryCredit": 0,
+      "test": "tests/browser/dialog-root-handles.spec.ts",
+      "nativeFixture": "apps/fixtures/src/lib/DialogRootHandlesFixture.svelte",
+      "actualReference": "apps/fixtures/src/lib/dialog-root-handles-reference.ts",
+      "unresolvedMapping": null,
+      "rendererPreconditions": "renderer-preconditions.md",
+      "execution": {
+        "evidence": "handle-browser-evidence.json",
+        "head": "6453d173b37dd6c9e7ca2747616ec4edc567abc8",
+        "kind": "paired-ordinary-browser",
+        "review": "pending",
+        "ordinaryCredit": 0
+      }
+    },
+    {
+      "id": "packages/react/src/dialog/root/DialogRoot.test.tsx:582",
+      "title": "does not emit internal openchange when an Escape close is canceled",
+      "bodySha256": "4c90d35038a1e3f9381c992281a11473b1adaa6bda5e2eed104962c65f2c259f",
+      "sourceConditions": [],
+      "upstreamGuards": [],
+      "assertionLines": [
+        609,
+        610
+      ],
+      "variants": [
+        {
+          "[\n    { name: 'contained triggers', Component: ContainedTriggerDialog },\n    { name: 'detached triggers', Component: DetachedTriggerDialog },\n    { name: 'multiple detached triggers', Component: MultipleDetachedTriggersDialog },\n  ]": {
+            "name": "contained triggers",
+            "Component": {
+              "source": "ContainedTriggerDialog"
+            }
+          }
+        },
+        {
+          "[\n    { name: 'contained triggers', Component: ContainedTriggerDialog },\n    { name: 'detached triggers', Component: DetachedTriggerDialog },\n    { name: 'multiple detached triggers', Component: MultipleDetachedTriggersDialog },\n  ]": {
+            "name": "detached triggers",
+            "Component": {
+              "source": "DetachedTriggerDialog"
+            }
+          }
+        },
+        {
+          "[\n    { name: 'contained triggers', Component: ContainedTriggerDialog },\n    { name: 'detached triggers', Component: DetachedTriggerDialog },\n    { name: 'multiple detached triggers', Component: MultipleDetachedTriggersDialog },\n  ]": {
+            "name": "multiple detached triggers",
+            "Component": {
+              "source": "MultipleDetachedTriggersDialog"
+            }
+          }
+        }
+      ],
+      "status": "executed-awaiting-independent-mapping-review",
+      "ordinaryCredit": 0,
+      "test": "tests/browser/dialog-root-handles.spec.ts",
+      "nativeFixture": "apps/fixtures/src/lib/DialogRootHandlesFixture.svelte",
+      "actualReference": "apps/fixtures/src/lib/dialog-root-handles-reference.ts",
+      "unresolvedMapping": null,
+      "rendererPreconditions": "renderer-preconditions.md",
+      "execution": {
+        "evidence": "handle-browser-evidence.json",
+        "head": "6453d173b37dd6c9e7ca2747616ec4edc567abc8",
+        "kind": "paired-ordinary-browser",
+        "review": "pending",
+        "ordinaryCredit": 0
+      }
+    },
+    {
+      "id": "packages/react/src/dialog/root/DialogRoot.test.tsx:1319",
+      "title": "is called on close when there is no exit animation defined",
+      "bodySha256": "2fb5acea1042c17bff544e0689ba2d4bc4b87763b07f884fa9faaa6c9256afc0",
+      "sourceConditions": [],
+      "upstreamGuards": [
+        "describe.skipIf(isJSDOM)"
+      ],
+      "assertionLines": [
+        1338,
+        1341,
+        1342
+      ],
+      "variants": [
+        {
+          "[\n    { name: 'contained triggers', Component: ContainedTriggerDialog },\n    { name: 'detached triggers', Component: DetachedTriggerDialog },\n    { name: 'multiple detached triggers', Component: MultipleDetachedTriggersDialog },\n  ]": {
+            "name": "contained triggers",
+            "Component": {
+              "source": "ContainedTriggerDialog"
+            }
+          }
+        },
+        {
+          "[\n    { name: 'contained triggers', Component: ContainedTriggerDialog },\n    { name: 'detached triggers', Component: DetachedTriggerDialog },\n    { name: 'multiple detached triggers', Component: MultipleDetachedTriggersDialog },\n  ]": {
+            "name": "detached triggers",
+            "Component": {
+              "source": "DetachedTriggerDialog"
+            }
+          }
+        },
+        {
+          "[\n    { name: 'contained triggers', Component: ContainedTriggerDialog },\n    { name: 'detached triggers', Component: DetachedTriggerDialog },\n    { name: 'multiple detached triggers', Component: MultipleDetachedTriggersDialog },\n  ]": {
+            "name": "multiple detached triggers",
+            "Component": {
+              "source": "MultipleDetachedTriggersDialog"
+            }
+          }
+        }
+      ],
+      "status": "executed-awaiting-independent-mapping-review",
+      "ordinaryCredit": 0,
+      "test": "tests/browser/dialog-root-handles.spec.ts",
+      "nativeFixture": "apps/fixtures/src/lib/DialogRootHandlesFixture.svelte",
+      "actualReference": "apps/fixtures/src/lib/dialog-root-handles-reference.ts",
+      "unresolvedMapping": null,
+      "rendererPreconditions": "renderer-preconditions.md",
+      "execution": {
+        "evidence": "handle-browser-evidence.json",
+        "head": "6453d173b37dd6c9e7ca2747616ec4edc567abc8",
+        "kind": "paired-ordinary-browser",
+        "review": "pending",
+        "ordinaryCredit": 0
+      }
+    },
+    {
+      "id": "packages/react/src/dialog/root/DialogRoot.test.tsx:1399",
+      "title": "is called on open when there is no enter animation defined",
+      "bodySha256": "a651b2ded6abe984dc2134dbc1a8e73c803bbbd2eb2b3982c2bafcfc35fce430",
+      "sourceConditions": [],
+      "upstreamGuards": [
+        "describe.skipIf(isJSDOM)"
+      ],
+      "assertionLines": [
+        1418,
+        1421,
+        1422
+      ],
+      "variants": [
+        {
+          "[\n    { name: 'contained triggers', Component: ContainedTriggerDialog },\n    { name: 'detached triggers', Component: DetachedTriggerDialog },\n    { name: 'multiple detached triggers', Component: MultipleDetachedTriggersDialog },\n  ]": {
+            "name": "contained triggers",
+            "Component": {
+              "source": "ContainedTriggerDialog"
+            }
+          }
+        },
+        {
+          "[\n    { name: 'contained triggers', Component: ContainedTriggerDialog },\n    { name: 'detached triggers', Component: DetachedTriggerDialog },\n    { name: 'multiple detached triggers', Component: MultipleDetachedTriggersDialog },\n  ]": {
+            "name": "detached triggers",
+            "Component": {
+              "source": "DetachedTriggerDialog"
+            }
+          }
+        },
+        {
+          "[\n    { name: 'contained triggers', Component: ContainedTriggerDialog },\n    { name: 'detached triggers', Component: DetachedTriggerDialog },\n    { name: 'multiple detached triggers', Component: MultipleDetachedTriggersDialog },\n  ]": {
+            "name": "multiple detached triggers",
+            "Component": {
+              "source": "MultipleDetachedTriggersDialog"
+            }
+          }
+        }
+      ],
+      "status": "unimplemented-framework",
+      "ordinaryCredit": 0,
+      "test": "tests/browser/dialog-root-handles.spec.ts",
+      "nativeFixture": null,
+      "actualReference": "apps/fixtures/src/lib/dialog-root-handles-reference.ts",
+      "unresolvedMapping": "React renderer StrictMode duplicate completion count; native row remains unimplemented by PM scope decision",
+      "decision": "https://github.com/sveltery/base/pull/42#pullrequestreview-5397221448",
+      "rendererPreconditions": "renderer-preconditions.md",
+      "execution": {
+        "evidence": "handle-browser-evidence.json",
+        "head": "6453d173b37dd6c9e7ca2747616ec4edc567abc8",
+        "kind": "actual-strict-source-only",
+        "actualSourcePasses": 3,
+        "nativePasses": 0,
+        "ordinaryCredit": 0
+      }
+    }
+  ]
+}

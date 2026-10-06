@@ -1,5 +1,7 @@
 # Bounded Button slice
 
+The earlier audit's public object-style extension below is historical proposed scope. Current component style declarations use native CSS strings/null/undefined and existing state callbacks; [native style counterparts](../native-snippets/public-style-native-counterparts.md) bind the changed authored public consumers. This type representation correction does not certify new execution or change Original assertion credit.
+
 Source authority: mui/base-ui v1.8.0, immutable commit `47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c`. Derived source and assertions retain [upstream MIT](UPSTREAM_LICENSE); regenerate with `node parity/button/inventory.mjs /path/to/base-ui --check`.
 
 The sections before “Source audit successor” record the historical PR17 bounded implementation and its execution/decision limits. The successor below describes current audited composition and behavior; historical receipts do not establish successor acceptance.

@@ -11,7 +11,7 @@ From the repository root, using Node 24.x:
 ```sh
 bash scripts/bootstrap.sh
 source scripts/toolchain.sh
-pnpm --filter @sveltery/base build
+pnpm package:build
 pnpm --filter @sveltery/docs dev --port 5178 --strictPort
 ```
 

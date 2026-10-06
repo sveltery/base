@@ -19,7 +19,6 @@ const key = Symbol('base-ui-radio-group');
 export function setRadioGroupContext<Value>(value: RadioGroupContext<Value>) {
   setContext(key, value);
 }
-export function useRadioGroupContext<Value>():
-  RadioGroupContext<Value> | undefined {
+export function useRadioGroupContext<Value>(): RadioGroupContext<Value> | undefined {
   return getContext<RadioGroupContext<Value> | undefined>(key);
 }

@@ -86,11 +86,15 @@
             class="ScrollAreaViewport DemoCodeBlockViewport"
             aria-hidden={!collapsibleOpen}
             data-closed={collapsibleOpen ? undefined : ''}
-            {...!collapsibleOpen && {
-              tabindex: undefined,
-              style: { overflow: undefined },
-            }}>{@render children?.()}</ScrollArea.Viewport
+            {...!collapsibleOpen && { tabindex: undefined }}
           >
+            {#snippet render(viewportProps, _viewportState, viewportChildren)}
+              <div
+                {...viewportProps}
+                style:overflow={collapsibleOpen ? 'scroll' : undefined}
+              >{@render viewportChildren?.()}</div>
+            {/snippet}
+          </ScrollArea.Viewport>
         {/snippet}
         {@render source()}
       </Collapsible.Panel>

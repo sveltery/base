@@ -10,16 +10,24 @@ const store = new ToastStore();
 const facade = createToastFacade<Payload>(store);
 expectType<ToastManagerFacade<Payload>, typeof facade>(facade);
 expectType<ToastObject<Payload>[], typeof facade.toasts>(facade.toasts);
-facade.update('a', previous => {
+facade.update('a', (previous) => {
   expectType<Payload | undefined, typeof previous.data>(previous.data);
   return { data: { count: 1 } };
 });
 const manager = createToastManager<Payload>();
-manager.add({ title: 0, description: false, actionProps: {
-  children: 'Act',
-  onclick(event) { event.preventBaseUIHandler(); },
-} });
-function acceptsSnippet(content: Snippet) { manager.add({ title: content }); }
+manager.add({
+  title: 0,
+  description: false,
+  actionProps: {
+    children: 'Act',
+    onclick(event) {
+      event.preventBaseUIHandler();
+    },
+  },
+});
+function acceptsSnippet(content: Snippet) {
+  manager.add({ title: content });
+}
 void acceptsSnippet;
 // @ts-expect-error -- Public add cannot register internal measurement.
 manager.add({ height: 10 });

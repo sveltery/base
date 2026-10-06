@@ -1,3 +1,4 @@
+import { resolveNativePackageSource } from '../../scripts/native-package-source.mjs';
 import ts from '../../packages/base/node_modules/typescript/lib/typescript.js';
 import {readFileSync,writeFileSync,existsSync} from 'node:fs';
 import {resolve,relative,dirname} from 'node:path';
@@ -6,6 +7,8 @@ const root=resolve(import.meta.dirname,'../..');
 const entries=['packages/base/src/lib/scroll-area/index.ts'];
 const queue=[...entries], records=new Map();
 function resolveImport(file,specifier) {
+ const owned=resolveNativePackageSource(root,specifier);
+ if(owned) return owned;
  if(!specifier.startsWith('.')) return `external:${specifier}`;
  const base=resolve(root,dirname(file),specifier);
  for(const candidate of [base,base.replace(/\.js$/,'.ts'),base.replace(/\.js$/,'.svelte.ts'),base+'.ts',base+'.svelte',base+'/index.ts']) if(existsSync(candidate)) return relative(root,candidate);

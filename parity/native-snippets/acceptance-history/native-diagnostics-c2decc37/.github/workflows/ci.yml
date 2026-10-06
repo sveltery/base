@@ -1,0 +1,383 @@
+name: CI
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  standards:
+    name: Standards
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6.1.0
+        with:
+          ref: ${{ github.event.pull_request.head.sha || github.sha }}
+          persist-credentials: false
+      - uses: pnpm/action-setup@fc06bc1257f339d1d5d8b3a19a8cae5388b55320 # v4.4.0
+        with:
+          version: 12.6.0
+          run_install: false
+      - uses: actions/setup-node@249970729cb0ef3589644e2896645e5dc5ba9c38 # v6.5.0
+        with:
+          node-version: '24'
+          package-manager-cache: false
+      - name: Frozen workspace install
+        run: bash scripts/bootstrap.sh
+      - name: ESLint and standards formatting
+        run: bash .github/standards/check.sh
+      - name: Whitespace
+        run: git show --format= --check HEAD
+  verification:
+    name: Verification
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    env:
+      SVELTERY_PACKAGE_ARTIFACTS: ${{ github.workspace }}/.checks/npm-package/artifacts.json
+    steps:
+      - uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6.1.0
+        with:
+          ref: ${{ github.event.pull_request.head.sha || github.sha }}
+          persist-credentials: false
+      - uses: pnpm/action-setup@fc06bc1257f339d1d5d8b3a19a8cae5388b55320 # v4.4.0
+        with:
+          version: 12.6.0
+          run_install: false
+      - uses: actions/setup-node@249970729cb0ef3589644e2896645e5dc5ba9c38 # v6.5.0
+        with:
+          node-version: '24'
+          package-manager-cache: false
+      - name: Frozen workspace install
+        run: bash scripts/bootstrap.sh
+      - name: Script regressions
+        run: node --test --test-concurrency=1 scripts/tests/*.test.mjs
+      - name: Fresh native library tarballs
+        run: |
+          bash scripts/prepare-package-artifacts.sh
+          echo "SVELTERY_WORKSPACE_READY=1" >> "$GITHUB_ENV"
+      - name: Type and Svelte checks
+        run: pnpm check
+      - name: Runtime tests
+        run: pnpm test
+      - name: Svelte DOM wiring
+        run: pnpm test:dom
+      - name: Fixture SSR and client build
+        run: pnpm --filter @sveltery/fixtures build
+      - name: Packaged runtime boundary
+        run: node --import ./scripts/svelte-ssr-loader.mjs scripts/check-runtime.mjs
+      - name: Validated Svelte tarball, consumers and license
+        run: bash scripts/check-package.sh
+      - name: Installed private click and public consumer boundary
+        run: bash scripts/check-use-click-package.sh
+      - name: Preserve npm artifact and complete type-resolution analysis
+        if: always()
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2
+        with:
+          name: npm-package-analysis
+          path: .checks/npm-package/
+          if-no-files-found: warn
+          retention-days: 14
+  dialog-browser:
+    name: Dialog browser
+    # Officially supported Playwright image; its default policy permits Chromium sandbox startup.
+    runs-on: ubuntu-22.04
+    timeout-minutes: 60
+    steps:
+      - uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6.1.0
+        with:
+          ref: ${{ github.event.pull_request.head.sha || github.sha }}
+          persist-credentials: false
+      - uses: pnpm/action-setup@fc06bc1257f339d1d5d8b3a19a8cae5388b55320 # v4.4.0
+        with:
+          version: 12.6.0
+          run_install: false
+      - uses: actions/setup-node@249970729cb0ef3589644e2896645e5dc5ba9c38 # v6.5.0
+        with:
+          node-version: '24'
+          package-manager-cache: false
+      - name: Frozen workspace install
+        run: bash scripts/bootstrap.sh
+      - name: Build actual Dialog library
+        run: pnpm --filter @sveltery/base build
+      - name: Install official Chromium and OS dependencies
+        run: pnpm exec playwright install --with-deps chromium
+      - name: Public Svelte component browser
+        run: pnpm test:component
+      - name: Record actual early-close Dialog animation samples
+        run: pnpm exec playwright test --config playwright.dialog-diagnostic.config.ts
+      - name: Preserve actual Dialog animation diagnostic
+        if: always()
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2
+        with:
+          name: dialog-animation-diagnostic
+          path: .checks/dialog-animation-diagnostic/
+          if-no-files-found: error
+          retention-days: 14
+      - name: Witness real pending Dialog exit animations
+        run: >-
+          pnpm exec playwright test --config playwright.source-core.config.ts
+          tests/browser/dialog.spec.ts tests/browser/dialog-motion-source.spec.ts
+          --grep 'completed exit cycles|returned focus marks|reopening while a physical exit'
+          --trace on --output .checks/dialog-animation-repair
+      - name: Preserve actual pending-exit Source animation witnesses
+        if: always()
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2
+        with:
+          name: dialog-animation-repair
+          path: .checks/dialog-animation-repair/
+          if-no-files-found: error
+          retention-days: 14
+      - name: Focused Dialog Source lifecycle pairs
+        run: >-
+          pnpm exec playwright test --config playwright.source-core.config.ts
+          tests/browser/dialog-nonmodal-focus.spec.ts
+          tests/browser/dialog-regressions.spec.ts
+          tests/browser/dialog-source-closure.spec.ts
+          tests/browser/dialog-motion-source.spec.ts
+      - name: Real React and Svelte Dialog acceptance
+        run: pnpm exec playwright test --config playwright.source-core.config.ts
+      - name: Preserve Dialog lifecycle failure traces
+        if: failure()
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2
+        with:
+          name: dialog-source-lifecycle
+          path: test-results/dialog-*/
+          if-no-files-found: warn
+          retention-days: 14
+
+      - name: Preserve docs browser smoke screenshots
+        if: always()
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2
+        with:
+          name: docs-browser-smoke
+          path: test-results/docs-*/
+          if-no-files-found: warn
+          retention-days: 14
+
+      - name: Preserve Input timing characterization traces
+        if: always()
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2
+        with:
+          name: input-timing-characterization
+          path: |
+            test-results/input-timing-*/
+            test-results/input-remote-*/
+          if-no-files-found: warn
+          retention-days: 14
+
+  collapsible-browser:
+    name: Collapsible browser
+    runs-on: ubuntu-22.04
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6.1.0
+        with:
+          ref: ${{ github.event.pull_request.head.sha || github.sha }}
+          persist-credentials: false
+      - uses: pnpm/action-setup@fc06bc1257f339d1d5d8b3a19a8cae5388b55320 # v4.4.0
+        with:
+          version: 12.6.0
+          run_install: false
+      - uses: actions/setup-node@249970729cb0ef3589644e2896645e5dc5ba9c38 # v6.5.0
+        with:
+          node-version: '24'
+          package-manager-cache: false
+      - name: Frozen workspace install
+        run: bash scripts/bootstrap.sh
+      - name: Build actual component library
+        run: pnpm --filter @sveltery/base build
+      - name: Install official Chromium and OS dependencies
+        run: pnpm exec playwright install --with-deps chromium
+      - name: Paired exact-pin Collapsible acceptance
+        # A failing run stops early for diagnosis; a passing run executes every case.
+        run: pnpm exec playwright test tests/browser/collapsible.spec.ts --max-failures=5
+      - name: Preserve Collapsible browser failure traces
+        if: failure()
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2
+        with:
+          name: collapsible-browser-failures
+          path: test-results/collapsible-*/
+          if-no-files-found: warn
+          retention-days: 14
+
+  meter-browser:
+    name: Meter browser
+    runs-on: ubuntu-22.04
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6.1.0
+        with:
+          ref: ${{ github.event.pull_request.head.sha || github.sha }}
+          persist-credentials: false
+      - uses: pnpm/action-setup@fc06bc1257f339d1d5d8b3a19a8cae5388b55320 # v4.4.0
+        with:
+          version: 12.6.0
+          run_install: false
+      - uses: actions/setup-node@249970729cb0ef3589644e2896645e5dc5ba9c38 # v6.5.0
+        with:
+          node-version: '24'
+          package-manager-cache: false
+      - name: Frozen workspace install
+        run: bash scripts/bootstrap.sh
+      - name: Build actual component library
+        run: pnpm --filter @sveltery/base build
+      - name: Install official Chromium and OS dependencies
+        run: pnpm exec playwright install --with-deps chromium
+      - name: Paired exact-pin Meter acceptance
+        # A failing run stops early for diagnosis; a passing run executes every case.
+        run: pnpm exec playwright test tests/browser/meter.spec.ts --max-failures=5
+      - name: Preserve Meter browser failure traces
+        if: failure()
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2
+        with:
+          name: meter-browser-failures
+          path: test-results/meter-*/
+          if-no-files-found: warn
+          retention-days: 14
+
+  avatar-browser:
+    name: Avatar browser
+    runs-on: ubuntu-22.04
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6.1.0
+        with:
+          ref: ${{ github.event.pull_request.head.sha || github.sha }}
+          persist-credentials: false
+      - uses: pnpm/action-setup@fc06bc1257f339d1d5d8b3a19a8cae5388b55320 # v4.4.0
+        with:
+          version: 12.6.0
+          run_install: false
+      - uses: actions/setup-node@249970729cb0ef3589644e2896645e5dc5ba9c38 # v6.5.0
+        with:
+          node-version: '24'
+          package-manager-cache: false
+      - name: Frozen workspace install
+        run: bash scripts/bootstrap.sh
+      - name: Build actual component library
+        run: pnpm --filter @sveltery/base build
+      - name: Install official Chromium and OS dependencies
+        run: pnpm exec playwright install --with-deps chromium
+      - name: Paired exact-pin Avatar acceptance
+        # A failing run stops early for diagnosis; a passing run executes every case.
+        run: pnpm exec playwright test tests/browser/avatar.spec.ts --max-failures=5
+      - name: Preserve Avatar browser failure traces
+        if: failure()
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2
+        with:
+          name: avatar-browser-failures
+          path: test-results/avatar-*/
+          if-no-files-found: warn
+          retention-days: 14
+
+  accordion-browser:
+    name: Accordion browser
+    runs-on: ubuntu-22.04
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6.1.0
+        with:
+          ref: ${{ github.event.pull_request.head.sha || github.sha }}
+          persist-credentials: false
+      - uses: pnpm/action-setup@fc06bc1257f339d1d5d8b3a19a8cae5388b55320 # v4.4.0
+        with:
+          version: 12.6.0
+          run_install: false
+      - uses: actions/setup-node@249970729cb0ef3589644e2896645e5dc5ba9c38 # v6.5.0
+        with:
+          node-version: '24'
+          package-manager-cache: false
+      - name: Frozen workspace install
+        run: bash scripts/bootstrap.sh
+      - name: Build actual component library
+        run: pnpm --filter @sveltery/base build
+      - name: Install official Chromium and OS dependencies
+        run: pnpm exec playwright install --with-deps chromium
+      - name: Paired exact-pin Accordion acceptance
+        # A failing run stops early for diagnosis; a passing run executes every case.
+        run: pnpm exec playwright test tests/browser/accordion.spec.ts --max-failures=5
+      - name: Preserve Accordion browser failure traces
+        if: failure()
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2
+        with:
+          name: accordion-browser-failures
+          path: test-results/accordion-*/
+          if-no-files-found: warn
+          retention-days: 14
+
+  direction-provider-browser:
+    name: DirectionProvider browser
+    runs-on: ubuntu-22.04
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6.1.0
+        with:
+          ref: ${{ github.event.pull_request.head.sha || github.sha }}
+          persist-credentials: false
+      - uses: pnpm/action-setup@fc06bc1257f339d1d5d8b3a19a8cae5388b55320 # v4.4.0
+        with:
+          version: 12.6.0
+          run_install: false
+      - uses: actions/setup-node@249970729cb0ef3589644e2896645e5dc5ba9c38 # v6.5.0
+        with:
+          node-version: '24'
+          package-manager-cache: false
+      - name: Frozen workspace install
+        run: bash scripts/bootstrap.sh
+      - name: Build actual component library
+        run: pnpm --filter @sveltery/base build
+      - name: Install official Chromium and OS dependencies
+        run: pnpm exec playwright install --with-deps chromium
+      - name: Paired exact-pin DirectionProvider acceptance
+        run: pnpm exec playwright test tests/browser/direction-provider.spec.ts --max-failures=5
+      - name: Preserve DirectionProvider browser failure traces
+        if: failure()
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2
+        with:
+          name: direction-provider-browser-failures
+          path: test-results/direction-provider-*/
+          if-no-files-found: warn
+          retention-days: 14
+
+  native-snippets-browser:
+    name: Native snippets browser
+    runs-on: ubuntu-22.04
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6.1.0
+        with:
+          ref: ${{ github.event.pull_request.head.sha || github.sha }}
+          persist-credentials: false
+      - uses: pnpm/action-setup@fc06bc1257f339d1d5d8b3a19a8cae5388b55320 # v4.4.0
+        with:
+          version: 12.6.0
+          run_install: false
+      - uses: actions/setup-node@249970729cb0ef3589644e2896645e5dc5ba9c38 # v6.5.0
+        with:
+          node-version: '24'
+          package-manager-cache: false
+      - name: Frozen workspace install
+        run: bash scripts/bootstrap.sh
+      - name: Build actual component library
+        run: pnpm --filter @sveltery/base build
+      - name: Install official Chromium and OS dependencies
+        run: pnpm exec playwright install --with-deps chromium
+      - name: Actual public native snippet acceptance
+        run: pnpm exec playwright test tests/browser/native-snippets.spec.ts --max-failures=5
+      - name: Preserve Native snippets browser failure traces
+        if: failure()
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2
+        with:
+          name: native-snippets-browser-failures
+          path: test-results/native-snippets-*/
+          if-no-files-found: warn
+          retention-days: 14

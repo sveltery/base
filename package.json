@@ -7,15 +7,44 @@
     "node": ">=24 <25"
   },
   "scripts": {
-    "check": "pnpm -r check",
-    "test": "pnpm --filter @sveltery/base test",
-    "build": "pnpm --filter @sveltery/base build && pnpm --filter @sveltery/fixtures build",
+    "dev": "pnpm package:build && pnpm --include-workspace-root run --parallel '/^dev:/'",
+    "check": "pnpm package:prepare && pnpm --recursive --sort --workspace-concurrency 1 run check",
+    "check:watch": "pnpm package:build && pnpm --include-workspace-root run --parallel '/^check:watch:/'",
+    "lint": "prettier --check . && eslint .",
+    "format": "prettier --write .",
+    "test": "pnpm package:prepare && pnpm --recursive --filter './packages/*' --sort --workspace-concurrency 1 run test",
+    "test:unit": "pnpm package:prepare && pnpm --recursive --filter './packages/*' --sort --workspace-concurrency 1 run test:unit",
+    "test:component": "pnpm package:prepare && pnpm --recursive --filter './packages/*' --sort --workspace-concurrency 1 run test:component",
+    "test:dom": "pnpm package:prepare && pnpm --recursive --filter './packages/*' --sort --workspace-concurrency 1 run test:dom",
+    "test:e2e": "playwright test",
+    "build": "pnpm --recursive --sort --workspace-concurrency 1 run build",
+    "package:check": "bash scripts/check-package.sh",
     "verify": "bash scripts/verify.sh",
     "test:browser": "playwright test",
-    "build:docs": "pnpm --filter @sveltery/base build && pnpm --filter @sveltery/docs build"
+    "package:build": "pnpm --recursive --filter './packages/*' --sort --workspace-concurrency 1 --if-present run prepack",
+    "package:prepare": "bash scripts/prepare-workspace.sh",
+    "dev:packages": "pnpm --recursive --parallel --filter './packages/*' run package:watch",
+    "dev:preview": "pnpm --filter @sveltery/base dev",
+    "dev:apps": "pnpm --recursive --parallel --filter './apps/*' --if-present run dev",
+    "check:watch:packages": "pnpm --recursive --parallel --filter './packages/*' run package:watch",
+    "check:watch:projects": "pnpm --recursive --parallel --if-present run check:watch",
+    "build:docs": "pnpm package:build && pnpm --filter @sveltery/docs build"
   },
   "license": "MIT",
   "devDependencies": {
-    "@playwright/test": "1.63.0"
+    "@arethetypeswrong/cli": "0.18.5",
+    "@arethetypeswrong/core": "0.18.5",
+    "@eslint/js": "10.0.1",
+    "@playwright/test": "1.63.0",
+    "eslint": "10.11.0",
+    "eslint-config-prettier": "10.1.8",
+    "eslint-plugin-svelte": "3.23.0",
+    "globals": "17.12.0",
+    "prettier": "3.9.9",
+    "prettier-plugin-svelte": "4.1.1",
+    "publint": "0.3.25",
+    "svelte": "5.57.1",
+    "typescript": "6.0.3",
+    "typescript-eslint": "8.71.0"
   }
 }

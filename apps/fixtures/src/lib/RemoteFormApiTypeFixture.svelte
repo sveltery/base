@@ -1,8 +1,16 @@
 <script lang="ts">
   import { Form, Switch } from '@sveltery/base';
   import type { RemoteForm } from '@sveltejs/kit';
-  let { remote }: { remote: RemoteForm<{ storageType: string; enabled: boolean; age: number; options: string[]; files: File[] }, unknown> } = $props();
+  let {
+    remote,
+  }: {
+    remote: RemoteForm<
+      { storageType: string; enabled: boolean; age: number; options: string[]; files: File[] },
+      unknown
+    >;
+  } = $props();
 </script>
+
 <Form {remote}>
   {#snippet children(Field)}
     <Field.Root name="storageType" as="text">
@@ -27,7 +35,9 @@
     </Field.Root>
     <Field.Root name="options" as="select multiple">
       <Field.Control>
-        {#snippet render(props)}<select {...props}><option value="a">A</option><option value="b">B</option></select>{/snippet}
+        {#snippet render(props)}<select {...props}
+            ><option value="a">A</option><option value="b">B</option></select
+          >{/snippet}
       </Field.Control>
     </Field.Root>
     <Field.Root name="files" as="file multiple">

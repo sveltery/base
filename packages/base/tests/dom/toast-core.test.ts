@@ -38,6 +38,10 @@ it('tracks live facade reads per Svelte consumer and cleans up external subscrip
     flushSync();
     expect(observerB).toHaveBeenCalledTimes(2);
   } finally {
-    cleanupA(); cleanupA2(); cleanupB(); a.dispose(); b.dispose();
+    cleanupA();
+    cleanupA2();
+    cleanupB();
+    a.dispose();
+    b.dispose();
   }
 });

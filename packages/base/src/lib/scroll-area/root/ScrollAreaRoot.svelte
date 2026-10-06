@@ -1,9 +1,12 @@
 <script lang="ts">
+  import { mergeComponentProps } from '../../internals/mergeComponentProps.js';
+  import { createAttachmentKey } from 'svelte/attachments';
+
+  import { onDestroy, untrack } from 'svelte';
   // Base UI1.8.0 ScrollAreaRoot.tsx source business bodies; MIT.
-  import RenderElement from '../../internals/RenderElement.svelte';
-  import { useTimeout } from '../../utils/useTimeout.js';
+  import { Timeout } from '@sveltery/utils/useTimeout';
   import { useBaseUiId } from '../../internals/useBaseUiId.js';
-  import { contains } from '../../utils/shadowDom.js';
+  import { contains } from '@sveltery/utils/shadowDom';
   import { getCSPContext } from '../../csp-provider/context.js';
   import { styleDisableScrollbar } from '../../utils/styles.js';
   import { setScrollAreaRootContext } from './ScrollAreaRootContext.js';
@@ -31,11 +34,11 @@
   }: ScrollAreaRootProps = $props();
   const nativeId = $props.id();
   const rootId = useBaseUiId(undefined, nativeId);
-  const overflowEdgeThreshold = $derived(
-    normalizeOverflowEdgeThreshold(overflowEdgeThresholdProp),
-  );
-  const scrollYTimeout = useTimeout();
-  const scrollXTimeout = useTimeout();
+  const overflowEdgeThreshold = $derived(normalizeOverflowEdgeThreshold(overflowEdgeThresholdProp));
+  const scrollYTimeout = new Timeout();
+  onDestroy(scrollYTimeout.clear);
+  const scrollXTimeout = new Timeout();
+  onDestroy(scrollXTimeout.clear);
   const csp = getCSPContext();
   let hovering = $state(false);
   let scrollingX = $state(false);
@@ -52,7 +55,9 @@
   });
   let hiddenState = $state<HiddenState>({ x: true, y: true, corner: true });
   const rootRef = $state<{ current: HTMLElement | null }>({ current: null });
-  const viewportRef = $state<{ current: HTMLElement | null }>({ current: null });
+  const viewportRef = $state<{ current: HTMLElement | null }>({
+    current: null,
+  });
   const scrollbarYRef = $state<{ current: HTMLElement | null }>({
     current: null,
   });
@@ -130,9 +135,7 @@
 
     if (activePointerIdRef.current !== null) {
       const activeThumb =
-        currentOrientationRef.current === 'vertical'
-          ? thumbYRef.current
-          : thumbXRef.current;
+        currentOrientationRef.current === 'vertical' ? thumbYRef.current : thumbXRef.current;
       // A live drag holds capture for the active pointer — ignore other pointers.
       // No capture means the release went missing entirely (silent capture drop
       // with an id that never reappears, e.g. a lost touch contact), so let the
@@ -157,9 +160,7 @@
     }
 
     const thumb =
-      currentOrientationRef.current === 'vertical'
-        ? thumbYRef.current
-        : thumbXRef.current;
+      currentOrientationRef.current === 'vertical' ? thumbYRef.current : thumbXRef.current;
     thumb?.setPointerCapture(event.pointerId);
   }
 
@@ -172,9 +173,7 @@
     // Clear the drag's scrolling state immediately rather than waiting for the
     // `SCROLL_TIMEOUT` timer armed by the last drag move, so every release path
     // (real, `pointercancel`, or the missed-release fallback) behaves the same.
-    (currentOrientationRef.current === 'vertical'
-      ? setScrollingY
-      : setScrollingX)(false);
+    (currentOrientationRef.current === 'vertical' ? setScrollingY : setScrollingX)(false);
 
     if (savedSnapTypeRef.current !== null) {
       if (viewportRef.current) {
@@ -184,9 +183,7 @@
     }
 
     const thumb =
-      currentOrientationRef.current === 'vertical'
-        ? thumbYRef.current
-        : thumbXRef.current;
+      currentOrientationRef.current === 'vertical' ? thumbYRef.current : thumbXRef.current;
     // `pointercancel` releases capture implicitly, so guard against releasing a
     // capture we no longer hold (which would throw).
     if (thumb?.hasPointerCapture(event.pointerId)) {
@@ -225,30 +222,18 @@
     const scrollbarOffset = getOffset(scrollbarEl, 'padding', axis);
     const thumbOffset = getOffset(thumbEl, 'margin', axis);
     const thumbSizePx = vertical ? thumbEl.offsetHeight : thumbEl.offsetWidth;
-    const trackSize = vertical
-      ? scrollbarEl.offsetHeight
-      : scrollbarEl.offsetWidth;
-    const maxThumbOffset =
-      trackSize - thumbSizePx - scrollbarOffset - thumbOffset;
+    const trackSize = vertical ? scrollbarEl.offsetHeight : scrollbarEl.offsetWidth;
+    const maxThumbOffset = trackSize - thumbSizePx - scrollbarOffset - thumbOffset;
     // A short or heavily padded track can drive `maxThumbOffset` to zero or
     // negative once the thumb hits its `MIN_THUMB_SIZE` floor. Dividing by it
     // would yield a non-finite (`Infinity`/`NaN`) or inverted scroll position.
-    const delta = vertical
-      ? event.clientY - startYRef.current
-      : event.clientX - startXRef.current;
+    const delta = vertical ? event.clientY - startYRef.current : event.clientX - startXRef.current;
     const scrollRatio = maxThumbOffset <= 0 ? 0 : delta / maxThumbOffset;
 
-    const scrollableSize = vertical
-      ? viewportEl.scrollHeight
-      : viewportEl.scrollWidth;
-    const viewportSize = vertical
-      ? viewportEl.clientHeight
-      : viewportEl.clientWidth;
-    const startScroll = vertical
-      ? startScrollTopRef.current
-      : startScrollLeftRef.current;
-    const nextScroll =
-      startScroll + scrollRatio * (scrollableSize - viewportSize);
+    const scrollableSize = vertical ? viewportEl.scrollHeight : viewportEl.scrollWidth;
+    const viewportSize = vertical ? viewportEl.clientHeight : viewportEl.clientWidth;
+    const startScroll = vertical ? startScrollTopRef.current : startScrollLeftRef.current;
+    const nextScroll = startScroll + scrollRatio * (scrollableSize - viewportSize);
 
     if (vertical) {
       viewportEl.scrollTop = nextScroll;
@@ -268,10 +253,7 @@
     handleTouchModalityChange(event);
 
     if (event.pointerType !== 'touch') {
-      const isTargetRootChild = contains(
-        rootRef.current,
-        event.target as Element,
-      );
+      const isTargetRootChild = contains(rootRef.current, event.target as Element);
       setHovering(isTargetRootChild);
     }
   }
@@ -308,8 +290,7 @@
       return hasMeasuredScrollbar;
     },
     setHasMeasuredScrollbar(value) {
-      hasMeasuredScrollbar =
-        typeof value === 'function' ? value(hasMeasuredScrollbar) : value;
+      hasMeasuredScrollbar = typeof value === 'function' ? value(hasMeasuredScrollbar) : value;
     },
     get touchModality() {
       return touchModality;
@@ -350,15 +331,7 @@
       return overflowEdgeThreshold;
     },
   });
-  const forwardedRef = {
-    get current() {
-      return ref ?? null;
-    },
-    set current(value: HTMLElement | null) {
-      ref = value;
-    },
-  };
-  const componentProps = $derived({ render, class: classProp, style });
+
   const internalProps = $derived({
     role: 'presentation',
     onpointerenter: handlePointerEnterOrMove,
@@ -373,12 +346,7 @@
       [ScrollAreaRootCssVars.scrollAreaCornerWidth]: `${cornerSize.width}px`,
     },
   });
-  const params = $derived({
-    state: rootState,
-    ref: [forwardedRef, rootRef],
-    props: [internalProps, elementProps],
-    stateAttributesMapping: scrollAreaStateAttributesMapping,
-  });
+
   function normalizeOverflowEdgeThreshold(
     threshold: ScrollAreaRootProps['overflowEdgeThreshold'] | undefined,
   ) {
@@ -399,6 +367,33 @@
       yEnd: Math.max(0, thresholds?.yEnd || 0),
     };
   }
+
+  const hostAttachmentKey = createAttachmentKey();
+  function attachHost(host: HTMLElement) {
+    return untrack(() => {
+      ref = host;
+      rootRef.current = host;
+      return () =>
+        untrack(() => {
+          if (ref === host) ref = null;
+          if (rootRef.current === host) rootRef.current = null;
+        });
+    });
+  }
+  const mergedProps = $derived({
+    ...mergeComponentProps(
+      rootState,
+      { class: classProp, style: style },
+      [internalProps, elementProps],
+      scrollAreaStateAttributesMapping,
+    ),
+    [hostAttachmentKey]: attachHost,
+  });
 </script>
+
 {#if !csp.disableStyleElements}<styleDisableScrollbar.getElement nonce={csp.nonce} />{/if}
-<RenderElement tag="div" {componentProps} {params} {children} />
+{#if render}
+  {@render render(mergedProps, rootState, children)}
+{:else}
+  <div {...mergedProps}>{@render children?.()}</div>
+{/if}

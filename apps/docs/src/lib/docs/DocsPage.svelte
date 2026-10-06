@@ -11,7 +11,6 @@
   import ReferenceTable from './ReferenceTable.svelte';
   let { doc }: { doc: Doc } = $props();
   const sourceDirectories: Record<string, string> = {
-    'use-render': 'use-render',
     'csp-provider': 'csp-provider',
     'direction-provider': 'direction-provider',
     avatar: 'avatar',

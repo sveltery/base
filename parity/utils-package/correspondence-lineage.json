@@ -1,0 +1,60 @@
+{
+  "ordinaryDeclarationCredit": 0,
+  "records": [
+    {
+      "record": "parity/shared-utils/source-graph.json",
+      "previousSha256": "7d136caaac64b2d7ffb56c6189225462e204f99fbdc880d22b9c573fbaf31763",
+      "currentSha256": "6c817dc35a1e81bf0edb47adfcda518c459555091165d6734f5051713bb8ec73",
+      "historicalRecords": "Original source hashes, assertions and frozen audit/review/run receipts unchanged."
+    },
+    {
+      "record": "parity/boolean-controls/source-correspondence.json",
+      "previousSha256": "13a04ceb98b395813149d4ce2dddfd4b9a5b6b2bb7e0fbf9960e0673e04303a8",
+      "currentSha256": "b121ef59c4cc2a736ff84ae8700f977571fba16cd32e3c970e5c9a18fc767182",
+      "historicalRecords": "Original source hashes, assertions and frozen audit/review/run receipts unchanged."
+    },
+    {
+      "record": "parity/dialog/source-correspondence.json",
+      "previousSha256": "4abf315446e2c46ab03a603794e10c4dd71a816cf6010fb3cecd4e713d935ee9",
+      "currentSha256": "c32b23340b5d78bb786f7d5059037d1bdc17b1b8e34a54b91fe786247eb53012",
+      "historicalRecords": "Original source hashes, assertions and frozen audit/review/run receipts unchanged."
+    },
+    {
+      "record": "parity/field-form/source-correspondence.json",
+      "previousSha256": "254db0ae3f985b139ec430e96083cf4e72ed2c0d17712ad65e6486c70c09d7bb",
+      "currentSha256": "cdf2c501f486e4892641019dce1aded73c6c88cbf257469795a96d6e3b4c39fb",
+      "historicalRecords": "Original source hashes, assertions and frozen audit/review/run receipts unchanged."
+    },
+    {
+      "record": "parity/radio/source-correspondence.json",
+      "previousSha256": "507e1268f9c38d70fc1655cca3b2e42f776e2f84a30dfe37dbcba8a0655f108c",
+      "currentSha256": "43d2a420fa9c51020c54ad581031a0021b33408c2e1335b007dae32958906e0a",
+      "historicalRecords": "Original source hashes, assertions and frozen audit/review/run receipts unchanged."
+    },
+    {
+      "record": "parity/toggle-toolbar/source-correspondence.json",
+      "previousSha256": "6cf2f0ac3735f9d049006735eeeb1cc3d553e5c163b871bcd4211a8d433fb2d6",
+      "currentSha256": "3d0b1c5353cb45052852582e2449ec6123a87bcdf58801f94eafa8670511898e",
+      "historicalRecords": "Original source hashes, assertions and frozen audit/review/run receipts unchanged."
+    },
+    {
+      "record": "parity/scroll-area/correspondence.json",
+      "previousSha256": "d3e26f65b0e2dfb007b89737decb27a75c09b1b36af1ddde3a25a114206dd47f",
+      "currentSha256": "6975dd2547147c2a46d0af4c38dbbcf9a5f96fe92cd060c4b0e593bd47d4239f",
+      "historicalRecords": "Original source hashes, assertions and frozen audit/review/run receipts unchanged."
+    },
+    {
+      "record": "parity/rendering/source-graph.json",
+      "previousSha256": "21652065bee5567e1a95de9b3b188d2c74ab2ea2dfb7fcbb101597dab89f49a0",
+      "currentSha256": "134b9db652e34ceeba918ebce7282fdf8d9be0af105e4e54a7483959a82d1206",
+      "historicalRecords": "Original source hashes, assertions and frozen audit/review/run receipts unchanged."
+    }
+  ],
+  "preservedHistoricalDirectories": [
+    "parity/avatar/source-audit",
+    "parity/menu-family/reviews",
+    "parity/use-click/prior-callback-review",
+    "parity/toggle-toolbar/historical"
+  ],
+  "scope": "Current destination projections only; actual fresh AST edge/module graph recorded separately. Original source arrays/hashes and historical receipts remain immutable."
+}
