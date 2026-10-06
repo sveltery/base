@@ -36,6 +36,13 @@
     "packages/base/src/lib/toast/Close.svelte",
     "packages/base/src/lib/toast/types.ts"
   ],
+  "hostBusinessPredecessor": "c04b7ca3c494df0cbe8c6c488dbaa0479b145f7f",
+  "hostBusinessAstPreservedBodies": 493,
+  "sourceHostBusinessLifetimeCorrectionPaths": [
+    "packages/base/src/lib/internals/use-button/useButton.svelte.ts",
+    "packages/base/src/lib/menu/submenu-trigger/createMenuSubmenuTrigger.svelte.ts",
+    "packages/base/src/lib/toolbar/button/ToolbarButton.svelte"
+  ],
   "sourceHostDefaultCorrectionPaths": [
     "packages/base/src/lib/button/Button.svelte",
     "packages/base/src/lib/dialog/Close.svelte",
@@ -51,26 +58,29 @@
   "immutableOriginalPin": "47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c",
   "ordinaryDeclarationCredit": 0,
   "mode": "Source/parser/hash/import evidence only; no type program, runtime, SSR/hydration, compiled markup, artifact, installed consumer, browser, CI or merge acceptance credit.",
-  "method": "Complete current native two-package AST closure, immutable f0 full-body preimages and grouping-preserving script ASTs. Deliberate source/native owner corrections remain separate from formatter presentation changes. Getter/label publication retain exact inherited bodies; full-body Menu cleanup deltas bind e5, captured focus metadata binds42, trigger publication bindsf2, and native ownership comments bind336 with its AST unchanged. The five native node/initial-seed/focus-out disposal owner deltas bindc392 while all earlier stages/history remain distinct. The subsequent 32 obsolete binding directives and one RadioGroup output-binding annotation bind 0d with all 496 complete bodies otherwise unchanged and every script AST identical. The next native initial-focus destroyed-owner predicate and adjacent timing comment bind ec36 as one complete Source-body delta; all other 495 current bodies/ASTs stay exact. This native owner adaptation earns zero unchanged Original credit. The subsequent real Popover trigger focus-target node property binds 0ba as one complete Source-body delta with 495 other current bodies/ASTs exact; earlier stages retain their own immutable preservation counts. The next ten intrinsic button fallback defaults bind d5 as exact literal attributes before props spread; all 496 script ASTs and 486 other full bodies remain unchanged. Custom render branches and merged props remain untouched. The Original fallback default is expressed as native host markup with no shared renderer or new assertion credit. The subsequent ten native declaration/producer contract repairs bind c0 as exact complete-body transforms; the other 486 bodies and script ASTs remain exact. Seven declaration paths, a ToastClose rune-collision identifier rename and two known appearance producers retain their existing business and handler composition. Type/runtime acceptance remains pending. Parse success supplies no behavior equivalence.",
+  "method": "Complete current native two-package AST closure, immutable f0 full-body preimages and grouping-preserving script ASTs. Deliberate source/native owner corrections remain separate from formatter presentation changes. Getter/label publication retain exact inherited bodies; full-body Menu cleanup deltas bind e5, captured focus metadata binds42, trigger publication bindsf2, and native ownership comments bind336 with its AST unchanged. The five native node/initial-seed/focus-out disposal owner deltas bindc392 while all earlier stages/history remain distinct. The subsequent 32 obsolete binding directives and one RadioGroup output-binding annotation bind 0d with all 496 complete bodies otherwise unchanged and every script AST identical. The next native initial-focus destroyed-owner predicate and adjacent timing comment bind ec36 as one complete Source-body delta; all other 495 current bodies/ASTs stay exact. This native owner adaptation earns zero unchanged Original credit. The subsequent real Popover trigger focus-target node property binds 0ba as one complete Source-body delta with 495 other current bodies/ASTs exact; earlier stages retain their own immutable preservation counts. The next ten intrinsic button fallback defaults bind d5 as exact literal attributes before props spread; all 496 script ASTs and 486 other full bodies remain unchanged. Custom render branches and merged props remain untouched. The Original fallback default is expressed as native host markup with no shared renderer or new assertion credit. The subsequent ten native declaration/producer contract repairs bind c0 as exact complete-body transforms; the other 486 bodies and script ASTs remain exact. Seven declaration paths, a ToastClose rune-collision identifier rename and two known appearance producers retain their existing business and handler composition. Type/runtime acceptance remains pending. The next three native host-business lifetime deltas bind c04 as exact complete bodies: an ordinary getter over the actual button node, Toolbar captured-host cleanup and narrow submenu imperative item/implicit-active publication. The other 493 current bodies/ASTs are exact, and prior c0/d5 preservation counts remain historical. Disabled/prop/event algorithms, tracked list acquisition and independent migration/closeDelay effects remain. Parse success supplies no behavior equivalence.",
   "parserVersions": {
     "TypeScript": "6.0.3",
     "Svelte": "5.57.1"
   },
-  "currentGraphSha256": "8dc6e4b42eaaca267f6e918e705976670c725fcb455ca90861e0dedf48bdb504",
-  "currentPublicHostGraphSha256": "96a0e4ba1a213264c3fa4d2c7a1db3afd35c600a88c8dc01ba997c96e21a57c1",
-  "proofToolSha256": "4c5d19f457599e33705cbe146c5b0a7603180949ec5863b2d39d8908cc3eb9c9",
+  "currentGraphSha256": "9eab5f8e8db2c7e35a2c83fc6b6233a38ca906477c17d7fef8c61ce7112f07ae",
+  "currentPublicHostGraphSha256": "2156ece7e48a290610b98b878a1378acd7c99358ea048fb9da48cba4c0a96acc",
+  "proofToolSha256": "c12afb55f5ab39e26db85671a223dd87e97baf7af68b70650ccc6d456014274a",
   "controlledOwners": 11,
   "effectCalls": 187,
   "sourceBusinessCorrectionPaths": [
     "packages/base/src/lib/dialog/store/DialogStore.svelte.ts",
     "packages/base/src/lib/floating-ui/components/createFloatingFocusManager.svelte.ts",
     "packages/base/src/lib/floating-ui/components/FloatingPortal.svelte",
+    "packages/base/src/lib/internals/use-button/useButton.svelte.ts",
     "packages/base/src/lib/menu/GroupLabel.svelte",
     "packages/base/src/lib/menu/Popup.svelte",
     "packages/base/src/lib/menu/positioner/createMenuPositioner.svelte.ts",
     "packages/base/src/lib/menu/root/createMenuRoot.svelte.ts",
+    "packages/base/src/lib/menu/submenu-trigger/createMenuSubmenuTrigger.svelte.ts",
     "packages/base/src/lib/menu/trigger/createMenuTrigger.svelte.ts",
     "packages/base/src/lib/popover/store/PopoverStore.svelte.ts",
+    "packages/base/src/lib/toolbar/button/ToolbarButton.svelte",
     "packages/base/src/lib/utils/popups/popupStoreUtils.svelte.ts",
     "packages/base/src/lib/utils/popups/useTriggerFocusGuards.svelte.ts",
     "packages/base/src/lib/utils/useRegisteredLabelId.svelte.ts",
@@ -2836,10 +2846,23 @@
     {
       "path": "packages/base/src/lib/internals/use-button/useButton.svelte.ts",
       "rendererSha256": "54d00b367e4cc9838f1130b61128e872f42c49df0b2ec06bb5275a76d11a52e1",
-      "currentSha256": "089f0b6e20b956d85db5cf2cd7a47151352ec8aada0d6582154ad264c59e20bf",
-      "scriptStructuralAstEqual": true,
+      "currentSha256": "48750528371fbf08dd09478dd7fb8e2a2b9a19494bf1e779610e5b90668e16d0",
+      "scriptStructuralAstEqual": false,
       "sourceSyntaxValid": true,
-      "disposition": "Complete structural script AST retained; full native markup/compiled-output behavior remains separately pending."
+      "disposition": "Root-authorized ordinary native getter over the existing actual useButton node property; no new state/mirror or disabled/prop business change. Execution pending.",
+      "sourceBusinessCorrection": true,
+      "sourceHostBusinessLifetimeCorrection": true,
+      "sourceHostBusinessPredecessor": "c04b7ca3c494df0cbe8c6c488dbaa0479b145f7f",
+      "sourceHostBusinessPredecessorSha256": "089f0b6e20b956d85db5cf2cd7a47151352ec8aada0d6582154ad264c59e20bf",
+      "exactAuthorizedCompleteBodyDelta": true,
+      "ordinaryDeclarationCredit": 0,
+      "structuralDifferences": [
+        {
+          "path": "source.FunctionDeclaration[8].Block[3].ReturnStatement[8].ObjectLiteralExpression[0]",
+          "before": "{ getButtonProps, buttonRef }",
+          "after": "{\n    getButtonProps,\n    buttonRef,\n    get element() {\n      return elementRef.current;\n    },\n  }"
+        }
+      ]
     },
     {
       "path": "packages/base/src/lib/internals/useAnimationsFinished.ts",
@@ -3270,10 +3293,30 @@
     {
       "path": "packages/base/src/lib/menu/submenu-trigger/createMenuSubmenuTrigger.svelte.ts",
       "rendererSha256": "5b9d184457c0a316383c977c855a5914fa81e9fb29668b7b9590fe3c050f09b9",
-      "currentSha256": "a27f25c9934a6c7d64004313fddb5bba8e96a901cf863ec8b9920d58ef4d7a12",
-      "scriptStructuralAstEqual": true,
+      "currentSha256": "3bdb83ab95cdfbe5ba3066f17bbd04c60915ba5e887e486db27f6484c4105691",
+      "scriptStructuralAstEqual": false,
       "sourceSyntaxValid": true,
-      "disposition": "Complete structural script AST retained; full native markup/compiled-output behavior remains separately pending."
+      "disposition": "Root-authorized narrow submenu item publication and implicit-active registration boundary with actual Store/ID acquisition outside untrack; tracked list acquisition, conditional closeDelay, migration/disabled synchronization, registration/cleanup order and all callbacks remain. Native owner comments replace merged-ref wording. Execution pending.",
+      "sourceBusinessCorrection": true,
+      "sourceHostBusinessLifetimeCorrection": true,
+      "sourceHostBusinessPredecessor": "c04b7ca3c494df0cbe8c6c488dbaa0479b145f7f",
+      "sourceHostBusinessPredecessorSha256": "a27f25c9934a6c7d64004313fddb5bba8e96a901cf863ec8b9920d58ef4d7a12",
+      "exactAuthorizedCompleteBodyDelta": true,
+      "ordinaryDeclarationCredit": 0,
+      "structuralDifferences": [
+        {
+          "path": "source.FunctionDeclaration[20].Block[5].FirstStatement[13].VariableDeclarationList[0].VariableDeclaration[0].ArrowFunction[1].Block[2]",
+          "before": "{\n    baseRegisterTrigger(element);\n    if (\n      element !== null &&\n      store.select('open') &&\n      store.select('activeTriggerId') == null\n    ) {\n      store.update({\n        activeTriggerId: thisTriggerId ?? null,\n        activeTriggerElement: element,\n        closeDelay,\n      });\n    }\n  }",
+          "after": "{\n    const owner = store;\n    const id = thisTriggerId;\n    baseRegisterTrigger(element);\n    untrack(() => {\n      if (element !== null && owner.select('open') && owner.select('activeTriggerId') == null) {\n        owner.update({\n          activeTriggerId: id ?? null,\n          activeTriggerElement: element,\n          closeDelay,\n        });\n      }\n    });\n  }"
+        },
+        {
+          "path": "source.FunctionDeclaration[20].Block[5].FunctionDeclaration[39].Block[2].FirstStatement[2].VariableDeclarationList[0].VariableDeclaration[0].CallExpression[1].Identifier[1]",
+          "beforeKind": "Identifier",
+          "afterKind": "ArrowFunction",
+          "before": "host",
+          "after": "() => attachItem(host)"
+        }
+      ]
     },
     {
       "path": "packages/base/src/lib/menu/SubmenuRoot.svelte",
@@ -4770,10 +4813,23 @@
     {
       "path": "packages/base/src/lib/toolbar/button/ToolbarButton.svelte",
       "rendererSha256": "573bd878caef462d0e9be5e2150fb7f911d9c26801a09028cb3da6a0a721b3d2",
-      "currentSha256": "eea9778b6137a015fd5fd1c1158e35cce8b50e97b5acf1e29d0e3d52400ce0fd",
-      "scriptStructuralAstEqual": true,
+      "currentSha256": "01e2dcade028ceafada0c9d7e7f319a2143fb68d5da047d22ab50087c25c3bac",
+      "scriptStructuralAstEqual": false,
       "sourceSyntaxValid": true,
-      "disposition": "Complete structural script AST retained; full native markup/compiled-output behavior remains separately pending."
+      "disposition": "Root-authorized captured-host identity guard for Toolbar cleanup of the existing actual button business node; forwarded disabled, prop sources, updateDisabled and native attachment setup remain. Execution pending.",
+      "sourceBusinessCorrection": true,
+      "sourceHostBusinessLifetimeCorrection": true,
+      "sourceHostBusinessPredecessor": "c04b7ca3c494df0cbe8c6c488dbaa0479b145f7f",
+      "sourceHostBusinessPredecessorSha256": "eea9778b6137a015fd5fd1c1158e35cce8b50e97b5acf1e29d0e3d52400ce0fd",
+      "exactAuthorizedCompleteBodyDelta": true,
+      "ordinaryDeclarationCredit": 0,
+      "structuralDifferences": [
+        {
+          "path": "source",
+          "before": "import { untrack } from 'svelte';\n  import { createAttachmentKey } from 'svelte/attachments';\n  // Source-ordered Base UI v1.8.0 ToolbarButton.tsx; MIT: THIRD_PARTY_NOTICES.md.\n  import { EMPTY_OBJECT } from '@sveltery/utils/empty';\n  import { useButton } from '../../internals/use-button/useButton.svelte.js';\n  import { useToolbarRootContext } from '../root/ToolbarRootContext.js';\n  import { useToolbarGroupContext } from '../group/ToolbarGroupContext.js';\n  import CompositeItem from '../../internals/composite/item/CompositeItem.svelte';\n  import type { ToolbarButtonProps, ToolbarButtonState } from '../types.js';\n  let {\n    class: classProp,\n    disabled: disabledProp = false,\n    focusableWhenDisabled = true,\n    render,\n    nativeButton,\n    style,\n    children,\n    ref = $bindable(),\n    ...elementProps\n  }: ToolbarButtonProps = $props();\n  const toolbar = useToolbarRootContext();\n  const groupContext = useToolbarGroupContext();\n  const disabled = $derived(\n    toolbar.disabled || (groupContext?.disabled ?? false) || disabledProp,\n  );\n  const itemMetadata = $derived({ disabled, focusableWhenDisabled });\n  const { getButtonProps, buttonRef } = useButton(() => ({\n    disabled,\n    focusableWhenDisabled,\n    native: nativeButton,\n  }));\n  const state: ToolbarButtonState = $derived({\n    disabled,\n    orientation: toolbar.orientation,\n    focusable: focusableWhenDisabled,\n  });\n  // Source forwards disabled to rendered components, while keeping default\n  // focusable disabled native buttons hoverable for interactions such as tooltips.\n  const rendererProps = $derived([\n    elementProps,\n    render ? { disabled } : EMPTY_OBJECT,\n    getButtonProps,\n  ]);\n  const buttonAttachmentKey = createAttachmentKey();\n  function attachButton(host: HTMLElement) {\n    untrack(() => buttonRef(host));\n    return () => untrack(() => buttonRef(null));\n  }\n",
+          "after": "import { untrack } from 'svelte';\n  import { createAttachmentKey } from 'svelte/attachments';\n  // Source-ordered Base UI v1.8.0 ToolbarButton.tsx; MIT: THIRD_PARTY_NOTICES.md.\n  import { EMPTY_OBJECT } from '@sveltery/utils/empty';\n  import { useButton } from '../../internals/use-button/useButton.svelte.js';\n  import { useToolbarRootContext } from '../root/ToolbarRootContext.js';\n  import { useToolbarGroupContext } from '../group/ToolbarGroupContext.js';\n  import CompositeItem from '../../internals/composite/item/CompositeItem.svelte';\n  import type { ToolbarButtonProps, ToolbarButtonState } from '../types.js';\n  let {\n    class: classProp,\n    disabled: disabledProp = false,\n    focusableWhenDisabled = true,\n    render,\n    nativeButton,\n    style,\n    children,\n    ref = $bindable(),\n    ...elementProps\n  }: ToolbarButtonProps = $props();\n  const toolbar = useToolbarRootContext();\n  const groupContext = useToolbarGroupContext();\n  const disabled = $derived(toolbar.disabled || (groupContext?.disabled ?? false) || disabledProp);\n  const itemMetadata = $derived({ disabled, focusableWhenDisabled });\n  const button = useButton(() => ({\n    disabled,\n    focusableWhenDisabled,\n    native: nativeButton,\n  }));\n  const { getButtonProps, buttonRef } = button;\n  const state: ToolbarButtonState = $derived({\n    disabled,\n    orientation: toolbar.orientation,\n    focusable: focusableWhenDisabled,\n  });\n  // Source forwards disabled to rendered components, while keeping default\n  // focusable disabled native buttons hoverable for interactions such as tooltips.\n  const rendererProps = $derived([\n    elementProps,\n    render ? { disabled } : EMPTY_OBJECT,\n    getButtonProps,\n  ]);\n  const buttonAttachmentKey = createAttachmentKey();\n  function attachButton(host: HTMLElement) {\n    untrack(() => buttonRef(host));\n    return () =>\n      untrack(() => {\n        if (button.element === host) buttonRef(null);\n      });\n  }\n"
+        }
+      ]
     },
     {
       "path": "packages/base/src/lib/toolbar/group/ToolbarGroup.svelte",

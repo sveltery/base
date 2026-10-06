@@ -6072,7 +6072,7 @@
         "packages/base/src/lib/internals/use-button/useButton.svelte.ts": "581abfd20827eed41d9478dc30dc5a7b1b944e32d8428ac238d86625545536f1"
       },
       "localHashes": {
-        "packages/base/src/lib/internals/use-button/useButton.svelte.ts": "089f0b6e20b956d85db5cf2cd7a47151352ec8aada0d6582154ad264c59e20bf"
+        "packages/base/src/lib/internals/use-button/useButton.svelte.ts": "48750528371fbf08dd09478dd7fb8e2a2b9a19494bf1e779610e5b90668e16d0"
       }
     },
     {
@@ -6225,7 +6225,7 @@
         "packages/base/src/lib/internals/use-button/useButton.svelte.ts": "581abfd20827eed41d9478dc30dc5a7b1b944e32d8428ac238d86625545536f1"
       },
       "localHashes": {
-        "packages/base/src/lib/internals/use-button/useButton.svelte.ts": "089f0b6e20b956d85db5cf2cd7a47151352ec8aada0d6582154ad264c59e20bf"
+        "packages/base/src/lib/internals/use-button/useButton.svelte.ts": "48750528371fbf08dd09478dd7fb8e2a2b9a19494bf1e779610e5b90668e16d0"
       }
     },
     {
@@ -7315,7 +7315,7 @@
       "status": "implemented-awaiting-independent-exact-head-review",
       "baseLocalHashes": {},
       "localHashes": {
-        "packages/base/src/lib/toolbar/button/ToolbarButton.svelte": "eea9778b6137a015fd5fd1c1158e35cce8b50e97b5acf1e29d0e3d52400ce0fd",
+        "packages/base/src/lib/toolbar/button/ToolbarButton.svelte": "01e2dcade028ceafada0c9d7e7f319a2143fb68d5da047d22ab50087c25c3bac",
         "packages/base/src/lib/toolbar/types.ts": "3bc3d1e84b480879fe78008f97ee8dbb7dba2b0d29040a2fc31df71b5de598ff"
       }
     },
@@ -10053,7 +10053,7 @@
       },
       "localHashes": {
         "packages/base/src/lib/internals/composite/list/useCompositeListItem.svelte.ts": "94d353c7d884b35bd002a9278a7701e7b1e835d536b8eb8a94f2a56d7fa72841",
-        "packages/base/src/lib/internals/use-button/useButton.svelte.ts": "089f0b6e20b956d85db5cf2cd7a47151352ec8aada0d6582154ad264c59e20bf"
+        "packages/base/src/lib/internals/use-button/useButton.svelte.ts": "48750528371fbf08dd09478dd7fb8e2a2b9a19494bf1e779610e5b90668e16d0"
       },
       "nativeReplacement": "Direct SSR-safe Svelte $effect at all 123 used runtime calls; actual native reads and cleanup, no dependency arrays or tuple/lifecycle cache.",
       "nativeReplacementCredit": 0
@@ -10198,7 +10198,7 @@
       },
       "localHashes": {
         "packages/base/src/lib/internals/composite/root/useCompositeRoot.svelte.ts": "bdd6ced8bc2a28c77a2572b6b54eab7ad09ee111ddf2bcdbe777686f947c39b6",
-        "packages/base/src/lib/internals/use-button/useButton.svelte.ts": "089f0b6e20b956d85db5cf2cd7a47151352ec8aada0d6582154ad264c59e20bf",
+        "packages/base/src/lib/internals/use-button/useButton.svelte.ts": "48750528371fbf08dd09478dd7fb8e2a2b9a19494bf1e779610e5b90668e16d0",
         "packages/base/src/lib/toggle-group/ToggleGroup.svelte": "1ee580381ce6ba31528bfcccf1a8826b4dc8eafcb079c4f8a8b8594bf1f47931"
       },
       "nativeReplacement": "Ordinary live setup closures at all 79 used runtime calls; narrow untrack only at imperative registration/publication/measurement boundaries.",

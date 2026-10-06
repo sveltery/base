@@ -516,7 +516,7 @@
         },
         {
           "path": "packages/base/src/lib/internals/use-button/useButton.svelte.ts",
-          "sha256": "089f0b6e20b956d85db5cf2cd7a47151352ec8aada0d6582154ad264c59e20bf"
+          "sha256": "48750528371fbf08dd09478dd7fb8e2a2b9a19494bf1e779610e5b90668e16d0"
         },
         {
           "path": "packages/base/src/lib/internals/useOpenChangeComplete.svelte.ts",
@@ -544,7 +544,7 @@
         },
         {
           "path": "packages/base/src/lib/menu/submenu-trigger/createMenuSubmenuTrigger.svelte.ts",
-          "sha256": "a27f25c9934a6c7d64004313fddb5bba8e96a901cf863ec8b9920d58ef4d7a12"
+          "sha256": "3bdb83ab95cdfbe5ba3066f17bbd04c60915ba5e887e486db27f6484c4105691"
         },
         {
           "path": "packages/base/src/lib/menu/trigger/createMenuTrigger.svelte.ts",
@@ -823,7 +823,7 @@
         },
         {
           "path": "packages/base/src/lib/internals/use-button/useButton.svelte.ts",
-          "sha256": "089f0b6e20b956d85db5cf2cd7a47151352ec8aada0d6582154ad264c59e20bf"
+          "sha256": "48750528371fbf08dd09478dd7fb8e2a2b9a19494bf1e779610e5b90668e16d0"
         },
         {
           "path": "packages/base/src/lib/internals/useAnimationsFinished.ts",
@@ -843,7 +843,7 @@
         },
         {
           "path": "packages/base/src/lib/menu/submenu-trigger/createMenuSubmenuTrigger.svelte.ts",
-          "sha256": "a27f25c9934a6c7d64004313fddb5bba8e96a901cf863ec8b9920d58ef4d7a12"
+          "sha256": "3bdb83ab95cdfbe5ba3066f17bbd04c60915ba5e887e486db27f6484c4105691"
         },
         {
           "path": "packages/base/src/lib/menu/trigger/createMenuTrigger.svelte.ts",
@@ -24187,7 +24187,7 @@
       },
       {
         "path": "packages/base/src/lib/internals/use-button/useButton.svelte.ts",
-        "sha256": "089f0b6e20b956d85db5cf2cd7a47151352ec8aada0d6582154ad264c59e20bf",
+        "sha256": "48750528371fbf08dd09478dd7fb8e2a2b9a19494bf1e779610e5b90668e16d0",
         "symbols": [
           {
             "name": "UseButtonParameters",
@@ -24197,7 +24197,7 @@
           {
             "name": "useButton",
             "kind": "FunctionDeclaration",
-            "sha256": "9d520f9a12989abc05897a241f7eecba6adc54596a5108bae429714b4d64238e"
+            "sha256": "c2efdbd0c65fd4cc0ac4d079d896974dcbe225f2a4b6140dec8cfe53baf72503"
           },
           {
             "name": "isButtonElement",
@@ -29121,12 +29121,12 @@
       },
       {
         "path": "packages/base/src/lib/menu/submenu-trigger/createMenuSubmenuTrigger.svelte.ts",
-        "sha256": "a27f25c9934a6c7d64004313fddb5bba8e96a901cf863ec8b9920d58ef4d7a12",
+        "sha256": "3bdb83ab95cdfbe5ba3066f17bbd04c60915ba5e887e486db27f6484c4105691",
         "symbols": [
           {
             "name": "createMenuSubmenuTrigger",
             "kind": "FunctionDeclaration",
-            "sha256": "99bb3d8fd1fb0d2baf5e40120c9ccf94987ca00ccb32d37ee84426a50452eb27"
+            "sha256": "f0c292701157699bad0444bb6a9cefadfe7a5f3af646d7ce32b81933b6e5c767"
           }
         ],
         "imports": [
@@ -45852,12 +45852,12 @@
       },
       {
         "path": "packages/base/src/lib/toolbar/button/ToolbarButton.svelte",
-        "sha256": "eea9778b6137a015fd5fd1c1158e35cce8b50e97b5acf1e29d0e3d52400ce0fd",
+        "sha256": "01e2dcade028ceafada0c9d7e7f319a2143fb68d5da047d22ab50087c25c3bac",
         "symbols": [
           {
             "name": "attachButton",
             "kind": "FunctionDeclaration",
-            "sha256": "ca3a5d3c99aa99790e29d9286a906bd20911b0966654d4a6c0b32b04c1461af5"
+            "sha256": "06abf24dd311e27211aac84cdfbeac2c20a97e5b62d721d03ade798af7191b54"
           }
         ],
         "imports": [

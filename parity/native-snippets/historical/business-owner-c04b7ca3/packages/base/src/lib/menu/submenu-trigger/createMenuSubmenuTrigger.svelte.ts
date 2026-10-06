@@ -60,28 +60,24 @@ export function createMenuSubmenuTrigger(
     () => thisTriggerId,
     () => store,
   );
-  // Publishes the native registration before claiming implicit active ownership.
-  // The latest `closeDelay` is read only in that branch; later changes stay synchronized below.
+  // Stable, so the merged ref on the rendered element keeps its identity for the trigger's whole
+  // lifetime; the latest `closeDelay` is read when it runs.
   const registerTrigger = (element: Element | null) => {
-    const owner = store;
-    const id = thisTriggerId;
     baseRegisterTrigger(element);
-    untrack(() => {
-      if (element !== null && owner.select('open') && owner.select('activeTriggerId') == null) {
-        owner.update({
-          activeTriggerId: id ?? null,
-          activeTriggerElement: element,
-          closeDelay,
-        });
-      }
-    });
+    if (element !== null && store.select('open') && store.select('activeTriggerId') == null) {
+      store.update({
+        activeTriggerId: thisTriggerId ?? null,
+        activeTriggerElement: element,
+        closeDelay,
+      });
+    }
   };
   const triggerElementRef = { current: null as HTMLElement | null };
   const handleTriggerElementRef = (el: HTMLElement | null) => {
     triggerElementRef.current = el;
     store.set('activeTriggerElement', el);
   };
-  // Native ID/Store changes migrate the published host registration.
+  // The rendered ref keeps its identity; native ID/Store changes migrate its registration.
   $effect(() => {
     void thisTriggerId;
     void store;
@@ -178,7 +174,7 @@ export function createMenuSubmenuTrigger(
   function attachHost(host: HTMLElement) {
     setRef(host);
     const unregisterItem = listItem.attach(host);
-    const disposeItem = untrack(() => attachItem(host));
+    const disposeItem = attachItem(host);
     registerTrigger(host);
     handleTriggerElementRef(host);
     return () => {

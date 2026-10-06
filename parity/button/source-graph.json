@@ -1336,7 +1336,7 @@
       },
       {
         "local": "packages/base/src/lib/internals/use-button/useButton.svelte.ts",
-        "sha256": "089f0b6e20b956d85db5cf2cd7a47151352ec8aada0d6582154ad264c59e20bf",
+        "sha256": "48750528371fbf08dd09478dd7fb8e2a2b9a19494bf1e779610e5b90668e16d0",
         "declarations": [
           "UseButtonParameters",
           "useButton",

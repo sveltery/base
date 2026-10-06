@@ -940,7 +940,7 @@
         "packages/base/src/lib/internals/use-button/useButton.svelte.ts"
       ],
       "localHashes": {
-        "packages/base/src/lib/internals/use-button/useButton.svelte.ts": "089f0b6e20b956d85db5cf2cd7a47151352ec8aada0d6582154ad264c59e20bf"
+        "packages/base/src/lib/internals/use-button/useButton.svelte.ts": "48750528371fbf08dd09478dd7fb8e2a2b9a19494bf1e779610e5b90668e16d0"
       },
       "correspondence": "Same canonical component/helper/context/store boundary with native Svelte framework substitution where required; compare entire Original and actual used body, including inherited code.",
       "reviewStatus": "Entire used Source/native business, idiomatic Svelte and maintainability independent exact-head review pending; no acceptance by inventory."
@@ -1539,7 +1539,7 @@
       "localHashes": {
         "packages/base/src/lib/menu/SubmenuTrigger.svelte": "8392ccbeaa5d720a9ed07d0f622c8b9b05edb16936c5da7b58de413f73eb05ae",
         "packages/base/src/lib/menu/types.ts": "f70bd7769bbf0008b619ecc7d0eb7d4a56edc6c351c5c82fa11e9989d844e426",
-        "packages/base/src/lib/menu/submenu-trigger/createMenuSubmenuTrigger.svelte.ts": "a27f25c9934a6c7d64004313fddb5bba8e96a901cf863ec8b9920d58ef4d7a12"
+        "packages/base/src/lib/menu/submenu-trigger/createMenuSubmenuTrigger.svelte.ts": "3bdb83ab95cdfbe5ba3066f17bbd04c60915ba5e887e486db27f6484c4105691"
       },
       "correspondence": "Original component business and public types retain their part boundary; native component/snippet/attachment/context/rune ownership replaces React host rendering. Compare the complete component and any used extracted business body together.",
       "reviewStatus": "Entire used Source/native business, idiomatic Svelte and maintainability independent exact-head review pending; no acceptance by inventory."
@@ -2720,14 +2720,14 @@
         "packages/base/src/lib/floating-ui/hooks/useTypeahead.svelte.ts": "740573664ed8d416194faebacbabd07597d97a2e50777d45ab77e45c3fe23727",
         "packages/base/src/lib/internals/ValueChanged.svelte.ts": "f169e9eec98d817327dd31fc0c39c019173cdb64fac3350b898004222107e54e",
         "packages/base/src/lib/internals/composite/list/useCompositeListItem.svelte.ts": "94d353c7d884b35bd002a9278a7701e7b1e835d536b8eb8a94f2a56d7fa72841",
-        "packages/base/src/lib/internals/use-button/useButton.svelte.ts": "089f0b6e20b956d85db5cf2cd7a47151352ec8aada0d6582154ad264c59e20bf",
+        "packages/base/src/lib/internals/use-button/useButton.svelte.ts": "48750528371fbf08dd09478dd7fb8e2a2b9a19494bf1e779610e5b90668e16d0",
         "packages/base/src/lib/internals/useOpenChangeComplete.svelte.ts": "b6174d1cc73b6ea3b6431cf87906a1acacc40b1d5c356a31124f92251d7fd038",
         "packages/base/src/lib/internals/useTransitionStatus.svelte.ts": "7fc531ccff0a7dfd77703c0f0ee7e1148fc080960682469eafffbc627056fa9e",
         "packages/base/src/lib/menu/GroupLabel.svelte": "743dad85f4b3e8c9fcca29c8b24c78cba2978e63557e491410ed481fd678070f",
         "packages/base/src/lib/menu/Popup.svelte": "ffe870ee1c658b8ed2d4d47e1228f75d23e51133fecc7bba738c69df45fc45c5",
         "packages/base/src/lib/menu/positioner/createMenuPositioner.svelte.ts": "58d6966fd6c904e8b6adca800731394803d0fee4f73d781ee0fa2a5776d6e063",
         "packages/base/src/lib/menu/root/createMenuRoot.svelte.ts": "c388e875d2a3f4c6fb748b17f1dc2e9c35ce347360d7de696dfe83295136616e",
-        "packages/base/src/lib/menu/submenu-trigger/createMenuSubmenuTrigger.svelte.ts": "a27f25c9934a6c7d64004313fddb5bba8e96a901cf863ec8b9920d58ef4d7a12",
+        "packages/base/src/lib/menu/submenu-trigger/createMenuSubmenuTrigger.svelte.ts": "3bdb83ab95cdfbe5ba3066f17bbd04c60915ba5e887e486db27f6484c4105691",
         "packages/base/src/lib/menu/trigger/createMenuTrigger.svelte.ts": "ae04e18d492aa073757adc134e825f1fa8412283d742cb6cf9895a784215108f",
         "packages/base/src/lib/menubar/Menubar.svelte": "8f5a232bc3f2246ffaa0cba4b84764f064687feecc365c837476bfc4f2dbbc43",
         "packages/base/src/lib/utils/popups/PopupHandleAttachment.svelte": "437e6d44b586b4cc524d30d4214906695aa505239f1951a7840077780f562927",
@@ -2861,12 +2861,12 @@
         "packages/base/src/lib/floating-ui/hooks/useTypeahead.svelte.ts": "740573664ed8d416194faebacbabd07597d97a2e50777d45ab77e45c3fe23727",
         "packages/base/src/lib/internals/ValueChanged.svelte.ts": "f169e9eec98d817327dd31fc0c39c019173cdb64fac3350b898004222107e54e",
         "packages/base/src/lib/internals/composite/root/useCompositeRoot.svelte.ts": "bdd6ced8bc2a28c77a2572b6b54eab7ad09ee111ddf2bcdbe777686f947c39b6",
-        "packages/base/src/lib/internals/use-button/useButton.svelte.ts": "089f0b6e20b956d85db5cf2cd7a47151352ec8aada0d6582154ad264c59e20bf",
+        "packages/base/src/lib/internals/use-button/useButton.svelte.ts": "48750528371fbf08dd09478dd7fb8e2a2b9a19494bf1e779610e5b90668e16d0",
         "packages/base/src/lib/internals/useAnimationsFinished.ts": "7abe48ef841cdfa7bf60b29045e9f0ffb7dbfb715b34351e8f6716131b2678f8",
         "packages/base/src/lib/internals/useOpenChangeComplete.svelte.ts": "b6174d1cc73b6ea3b6431cf87906a1acacc40b1d5c356a31124f92251d7fd038",
         "packages/base/src/lib/menu/RadioGroup.svelte": "a9f743f853e33586d5cb789e6fdd4676749a68a20562d86bbb4ad78bc025ada3",
         "packages/base/src/lib/menu/root/createMenuRoot.svelte.ts": "c388e875d2a3f4c6fb748b17f1dc2e9c35ce347360d7de696dfe83295136616e",
-        "packages/base/src/lib/menu/submenu-trigger/createMenuSubmenuTrigger.svelte.ts": "a27f25c9934a6c7d64004313fddb5bba8e96a901cf863ec8b9920d58ef4d7a12",
+        "packages/base/src/lib/menu/submenu-trigger/createMenuSubmenuTrigger.svelte.ts": "3bdb83ab95cdfbe5ba3066f17bbd04c60915ba5e887e486db27f6484c4105691",
         "packages/base/src/lib/menu/trigger/createMenuTrigger.svelte.ts": "ae04e18d492aa073757adc134e825f1fa8412283d742cb6cf9895a784215108f",
         "packages/base/src/lib/utils/popups/popupStoreUtils.svelte.ts": "13b61b426eed8a0875580aa2a8e15a8caf5c7110e915174bf4d613f069f7b01a",
         "packages/base/src/lib/utils/usePopupAutoResize.svelte.ts": "79908384bfa561421638c3362a8d0bf38526635fcc19780c72d2ff43f7b8ba9c",
