@@ -21,6 +21,25 @@ const nativeOwnerPredecessor = 'c39271eaf4f893fc64131b22209dee50e74de657';
 const bindingCommentPredecessor = '0d88a4e3fcb0ce57dab9b058b86a85e412f9d07c';
 const initialFocusPredecessor = 'ec36fc9cc5a8819260c2c6635e0a128acd563d4a';
 const popoverSlotPredecessor = '0ba754026de455a9647c32dde29b024924150cc2';
+const buttonDefaultPredecessor = 'd5fabc8d389c7514b0459737d894b00e3618a988';
+const buttonDefaultPaths = new Set([
+  'packages/base/src/lib/button/Button.svelte',
+  'packages/base/src/lib/dialog/Close.svelte',
+  'packages/base/src/lib/dialog/Trigger.svelte',
+  'packages/base/src/lib/internals/composite/item/CompositeItem.svelte',
+  'packages/base/src/lib/menu/Trigger.svelte',
+  'packages/base/src/lib/popover/Close.svelte',
+  'packages/base/src/lib/popover/Trigger.svelte',
+  'packages/base/src/lib/toast/Action.svelte',
+  'packages/base/src/lib/toast/Close.svelte',
+  'packages/base/src/lib/toggle/Toggle.svelte',
+]);
+function nativeButtonDefault(path, body) {
+  if (!buttonDefaultPaths.has(path)) return body;
+  const fallback = '<button {...mergedProps}>';
+  assert.equal(body.split(fallback).length, 2, `One intrinsic button fallback: ${path}`);
+  return body.replace(fallback, '<button type="button" {...mergedProps}>');
+}
 const popoverSlotRuntime = 'packages/base/src/lib/popover/store/PopoverStore.svelte.ts';
 function reactivePopoverFocusTarget(body) {
   return body
@@ -324,7 +343,9 @@ const records = [];
 let effectCalls = 0,
   controlledOwners = 0,
   initialFocusAstPreservedBodies = 0,
-  popoverSlotAstPreservedBodies = 0;
+  popoverSlotAstPreservedBodies = 0,
+  buttonDefaultAstPreservedBodies = 0,
+  buttonDefaultUnchangedBodies = 0;
 for (const module of graph.native.modules) {
   const path = module.path;
   const before = git('show', `${renderer}:${path}`);
@@ -363,18 +384,33 @@ for (const module of graph.native.modules) {
     assert(initialEqual);
     initialFocusAstPreservedBodies++;
   }
+  const buttonPreimage = git('show', `${buttonDefaultPredecessor}:${path}`);
   assert.equal(
-    after,
+    buttonPreimage,
     path === popoverSlotRuntime ? reactivePopoverFocusTarget(slotPreimage) : slotPreimage,
-    `Only the authorized real Popover trigger focus-target slot delta: ${path}`,
+    `Exact historical real Popover trigger focus-target slot delta: ${path}`,
   );
+  const buttonBefore = syntax(path, buttonPreimage);
   const slotEqual =
-    JSON.stringify(shape(slotBefore, slotBefore)) === JSON.stringify(shape(right, right));
+    JSON.stringify(shape(slotBefore, slotBefore)) ===
+    JSON.stringify(shape(buttonBefore, buttonBefore));
   if (path === popoverSlotRuntime) assert(!slotEqual);
   else {
     assert(slotEqual);
     popoverSlotAstPreservedBodies++;
   }
+  assert.equal(
+    after,
+    nativeButtonDefault(path, buttonPreimage),
+    `Exact native button default stage: ${path}`,
+  );
+  assert.equal(
+    JSON.stringify(shape(buttonBefore, buttonBefore)),
+    JSON.stringify(shape(right, right)),
+    `Button fallback default leaves the complete script AST unchanged: ${path}`,
+  );
+  buttonDefaultAstPreservedBodies++;
+  if (!buttonDefaultPaths.has(path)) buttonDefaultUnchangedBodies++;
   const semanticOwnerCorrection = path === 'packages/utils/src/lib/PreviousValue.svelte.ts';
   const labelPublicationCorrection =
     path === 'packages/base/src/lib/utils/useRegisteredLabelId.svelte.ts';
@@ -547,6 +583,14 @@ for (const module of graph.native.modules) {
     popoverSlotCorrection
   )
     record.sourceBusinessCorrection = true;
+  if (buttonDefaultPaths.has(path)) {
+    record.sourceHostDefaultCorrection = true;
+    record.sourceHostDefaultPredecessor = buttonDefaultPredecessor;
+    record.sourceHostDefaultPredecessorSha256 = hash(buttonPreimage);
+    record.exactAuthorizedCompleteBodyDelta = true;
+    record.disposition +=
+      ' Native intrinsic fallback restores the pinned non-submit default with literal type="button" before props spread; script AST and custom snippet props are unchanged. Execution pending.';
+  }
   if (installedLabelCorrection || installedTreeCorrection) {
     record.sourceBusinessPredecessor = cleanupPredecessor;
     record.sourceBusinessPredecessorSha256 = hash(git('show', `${cleanupPredecessor}:${path}`));
@@ -716,6 +760,19 @@ assert.equal(
   hash(readFileSync(resolve(root, slotStage.original.archive))),
   slotStage.original.sha256,
 );
+assert.equal(buttonDefaultAstPreservedBodies, 496);
+assert.equal(buttonDefaultUnchangedBodies, 486);
+const buttonDefaultOriginal = {
+  pin: graph.immutableOriginalPin,
+  path: 'packages/react/src/internals/useRenderElement.tsx',
+  archive: 'parity/menu-family/upstream/packages/react/src/internals/useRenderElement.tsx',
+  sha256: '0b55dc232a0d630a666a13873213d1bdde040e973031f2b307a64cc157644a4c',
+  contract:
+    'renderTag(button, props) supplies literal type="button" before the spread only for the intrinsic fallback; a custom render function receives unchanged props.',
+};
+const originalRendererBody = readFileSync(resolve(root, buttonDefaultOriginal.archive), 'utf8');
+assert.equal(hash(originalRendererBody), buttonDefaultOriginal.sha256);
+assert(originalRendererBody.includes('<button type="button" {...props} key={props.key} />'));
 const output = {
   rendererPredecessor: renderer,
   nativeIntegrationParent,
@@ -730,11 +787,18 @@ const output = {
   initialFocusAstPreservedBodies,
   popoverSlotPredecessor,
   popoverSlotAstPreservedBodies,
+  buttonDefaultPredecessor,
+  buttonDefaultAstPreservedBodies,
+  buttonDefaultUnchangedBodies,
+  buttonDefaultOriginal,
+  sourceHostDefaultCorrectionPaths: records
+    .filter((record) => record.sourceHostDefaultCorrection)
+    .map((record) => record.path),
   immutableOriginalPin: graph.immutableOriginalPin,
   ordinaryDeclarationCredit: 0,
   mode: 'Source/parser/hash/import evidence only; no type program, runtime, SSR/hydration, compiled markup, artifact, installed consumer, browser, CI or merge acceptance credit.',
   method:
-    'Complete current native two-package AST closure, immutable f0 full-body preimages and grouping-preserving script ASTs. Deliberate source/native owner corrections remain separate from formatter presentation changes. Getter/label publication retain exact inherited bodies; full-body Menu cleanup deltas bind e5, captured focus metadata binds42, trigger publication bindsf2, and native ownership comments bind336 with its AST unchanged. The five native node/initial-seed/focus-out disposal owner deltas bindc392 while all earlier stages/history remain distinct. The subsequent 32 obsolete binding directives and one RadioGroup output-binding annotation bind 0d with all 496 complete bodies otherwise unchanged and every script AST identical. The next native initial-focus destroyed-owner predicate and adjacent timing comment bind ec36 as one complete Source-body delta; all other 495 current bodies/ASTs stay exact. This native owner adaptation earns zero unchanged Original credit. The subsequent real Popover trigger focus-target node property binds 0ba as one complete Source-body delta with 495 other current bodies/ASTs exact; earlier stages retain their own immutable preservation counts. Parse success supplies no behavior equivalence.',
+    'Complete current native two-package AST closure, immutable f0 full-body preimages and grouping-preserving script ASTs. Deliberate source/native owner corrections remain separate from formatter presentation changes. Getter/label publication retain exact inherited bodies; full-body Menu cleanup deltas bind e5, captured focus metadata binds42, trigger publication bindsf2, and native ownership comments bind336 with its AST unchanged. The five native node/initial-seed/focus-out disposal owner deltas bindc392 while all earlier stages/history remain distinct. The subsequent 32 obsolete binding directives and one RadioGroup output-binding annotation bind 0d with all 496 complete bodies otherwise unchanged and every script AST identical. The next native initial-focus destroyed-owner predicate and adjacent timing comment bind ec36 as one complete Source-body delta; all other 495 current bodies/ASTs stay exact. This native owner adaptation earns zero unchanged Original credit. The subsequent real Popover trigger focus-target node property binds 0ba as one complete Source-body delta with 495 other current bodies/ASTs exact; earlier stages retain their own immutable preservation counts. The next ten intrinsic button fallback defaults bind d5 as exact literal attributes before props spread; all 496 script ASTs and 486 other full bodies remain unchanged. Custom render branches and merged props remain untouched. The Original fallback default is expressed as native host markup with no shared renderer or new assertion credit. Parse success supplies no behavior equivalence.',
   parserVersions: { TypeScript: ts.version, Svelte: compiler.VERSION },
   currentGraphSha256: hash(
     readFileSync(resolve(root, 'parity/utils-package/current-source-graph.json')),

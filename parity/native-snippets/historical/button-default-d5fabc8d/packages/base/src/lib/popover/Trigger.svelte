@@ -156,7 +156,7 @@
 {#if render}
   {@render render(mergedProps, state, children)}
 {:else}
-  <button type="button" {...mergedProps}>{@render children?.()}</button>
+  <button {...mergedProps}>{@render children?.()}</button>
 {/if}
 {#if forwarding.isMountedByThisTrigger && !focusManagerModal}
   <FocusGuard

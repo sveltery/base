@@ -28,13 +28,13 @@
     {
       "record": "parity/radio/source-correspondence.json",
       "previousSha256": "507e1268f9c38d70fc1655cca3b2e42f776e2f84a30dfe37dbcba8a0655f108c",
-      "currentSha256": "5e6ffaab565492ff69505369176c4e91daa25d6c972ddd9351f056ee52be26e0",
+      "currentSha256": "87685bb72414bf0355d07484aed2deee978068ed3007dbf507eae12f6a78a1b8",
       "historicalRecords": "Original source hashes, assertions and frozen audit/review/run receipts unchanged."
     },
     {
       "record": "parity/toggle-toolbar/source-correspondence.json",
       "previousSha256": "6cf2f0ac3735f9d049006735eeeb1cc3d553e5c163b871bcd4211a8d433fb2d6",
-      "currentSha256": "d925d9d38968f83a0e616c813204ece879646353911e94a92ed4c4f4b6dbd02d",
+      "currentSha256": "4bffe793745216decdf9e9664c0e7b19c00403e2d7b32aa8a551d170e7bb4f36",
       "historicalRecords": "Original source hashes, assertions and frozen audit/review/run receipts unchanged."
     },
     {

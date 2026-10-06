@@ -1157,11 +1157,11 @@
       "previousCallHashes": [
         "f553bbe95d9bd2bcc7865c619e0462e054f0803c541644b6bdc1a4e79268e7c3"
       ],
-      "currentFileSha256": "58da46cd37f9b80030ed7c4126c9984b180fa1cb9eb8b107d054cefa94fec97b",
+      "currentFileSha256": "200a69b75c442f3031e7434d29e3348e4f1824efa367058c02f26fccb3ddb57f",
       "currentOwners": [
         {
           "path": "packages/base/src/lib/toggle/Toggle.svelte",
-          "sha256": "58da46cd37f9b80030ed7c4126c9984b180fa1cb9eb8b107d054cefa94fec97b",
+          "sha256": "200a69b75c442f3031e7434d29e3348e4f1824efa367058c02f26fccb3ddb57f",
           "classes": []
         }
       ]

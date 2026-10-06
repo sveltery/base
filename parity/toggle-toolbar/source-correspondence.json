@@ -5081,7 +5081,7 @@
         "packages/base/src/lib/internals/composite/item/CompositeItem.svelte": "7447799f42b23f8003e251196e03199f8d703b77fda61d6d3422e657f95a5319"
       },
       "localHashes": {
-        "packages/base/src/lib/internals/composite/item/CompositeItem.svelte": "2f74c7d54df5fa6b0d31ed37518d070a343e8005fd82226a2e6eda0ec4dba0eb"
+        "packages/base/src/lib/internals/composite/item/CompositeItem.svelte": "23e78d87cbeb13db6e655c95b20f57d4dd19dfd16a91af90d73d954100be7797"
       }
     },
     {
@@ -7203,7 +7203,7 @@
         "packages/base/src/lib/toggle/types.ts": "5eca12c5fd4d7b7eedf850f7fb29fe4ac9f0f85dd567bc80b3b1e861c2d1420b"
       },
       "localHashes": {
-        "packages/base/src/lib/toggle/Toggle.svelte": "58da46cd37f9b80030ed7c4126c9984b180fa1cb9eb8b107d054cefa94fec97b",
+        "packages/base/src/lib/toggle/Toggle.svelte": "200a69b75c442f3031e7434d29e3348e4f1824efa367058c02f26fccb3ddb57f",
         "packages/base/src/lib/toggle/types.ts": "888b497d95050beab8098d2cf67a8b769ec4cab7a968e20866aec17aa6e8bf12"
       }
     },

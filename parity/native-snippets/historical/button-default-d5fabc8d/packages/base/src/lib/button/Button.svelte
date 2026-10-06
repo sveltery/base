@@ -3,32 +3,29 @@
   import { createAttachmentKey } from 'svelte/attachments';
   import { untrack } from 'svelte';
 
-  // Original DialogClose business/render/button composition (MIT).
+  // Source composition from Base UI v1.8.0 Button.tsx at
+  // 47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c. MIT: THIRD_PARTY_NOTICES.md.
   import { useButton } from '../internals/use-button/useButton.svelte.js';
-  import { createChangeEventDetails } from '../internals/createBaseUIEventDetails.js';
-  import { REASONS } from '../internals/reasons.js';
-  import { useDialogRootContext } from './context.js';
-  import type { DialogCloseProps } from './types.js';
+  import type { ButtonProps } from './types.js';
+
   let {
-    children,
     render,
     class: className,
-    style,
     disabled = false,
+    focusableWhenDisabled = false,
     nativeButton = true,
+    style,
+    children,
     ref = $bindable(),
     ...elementProps
-  }: DialogCloseProps = $props();
-  const store = useDialogRootContext();
+  }: ButtonProps = $props();
+
   const { getButtonProps, buttonRef } = useButton(() => ({
     disabled,
+    focusableWhenDisabled,
     native: nativeButton,
   }));
   const state = $derived({ disabled });
-  function handleClick(event: MouseEvent) {
-    if (store.select('open'))
-      store.setOpen(false, createChangeEventDetails(REASONS.closePress, event));
-  }
 
   const hostAttachmentKey = createAttachmentKey();
   function attachHost(host: HTMLElement) {
@@ -46,7 +43,7 @@
     ...mergeComponentProps(
       state,
       { class: className, style: style },
-      [{ onclick: handleClick }, elementProps, getButtonProps],
+      [elementProps, getButtonProps],
       undefined,
     ),
     [hostAttachmentKey]: attachHost,
@@ -56,5 +53,5 @@
 {#if render}
   {@render render(mergedProps, state, children)}
 {:else}
-  <button type="button" {...mergedProps}>{@render children?.()}</button>
+  <button {...mergedProps}>{@render children?.()}</button>
 {/if}

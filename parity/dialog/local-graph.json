@@ -44,7 +44,7 @@
     },
     {
       "local": "packages/base/src/lib/dialog/Close.svelte",
-      "sha256": "145f662b402baa79990528a67aa93bb159e89b5909223fd424d4b2bec846f625",
+      "sha256": "d87c2e4ade43d1f80fddb38dc2a5d1b1fad2aa1f4e1e5aee4a16dde235aafbe2",
       "imports": [
         {
           "specifier": "../internals/mergeComponentProps.js",
@@ -544,7 +544,7 @@
     },
     {
       "local": "packages/base/src/lib/dialog/Trigger.svelte",
-      "sha256": "aa65418447f5e9772e033a09cecf4cdafa419b43c14290391e88f95553784470",
+      "sha256": "4e84f51f9ef73c67ac269ea01b677611b1801c9d7dd6025c077dd3e4744a6d21",
       "imports": [
         {
           "specifier": "../internals/mergeComponentProps.js",

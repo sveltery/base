@@ -1669,7 +1669,7 @@
     },
     {
       "local": "packages/base/src/lib/internals/composite/item/CompositeItem.svelte",
-      "sha256": "2f74c7d54df5fa6b0d31ed37518d070a343e8005fd82226a2e6eda0ec4dba0eb",
+      "sha256": "23e78d87cbeb13db6e655c95b20f57d4dd19dfd16a91af90d73d954100be7797",
       "imports": [
         {
           "specifier": "../../mergeComponentProps.js",

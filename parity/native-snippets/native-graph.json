@@ -609,7 +609,7 @@
     },
     {
       "source": "packages/base/src/lib/button/Button.svelte",
-      "sha256": "1dae2c85f6cf94510a7ea6805061a3253d4b2cc802edc12d8a63c95ead34b9ad",
+      "sha256": "6075995f00a67363149461e87abeaa55de0ac85b1d103cc6dc11d393c316a89d",
       "imports": [
         {
           "specifier": "../internals/mergeComponentProps.js",
@@ -1802,7 +1802,7 @@
     },
     {
       "source": "packages/base/src/lib/dialog/Close.svelte",
-      "sha256": "145f662b402baa79990528a67aa93bb159e89b5909223fd424d4b2bec846f625",
+      "sha256": "d87c2e4ade43d1f80fddb38dc2a5d1b1fad2aa1f4e1e5aee4a16dde235aafbe2",
       "imports": [
         {
           "specifier": "../internals/mergeComponentProps.js",
@@ -2307,7 +2307,7 @@
     },
     {
       "source": "packages/base/src/lib/dialog/Trigger.svelte",
-      "sha256": "aa65418447f5e9772e033a09cecf4cdafa419b43c14290391e88f95553784470",
+      "sha256": "4e84f51f9ef73c67ac269ea01b677611b1801c9d7dd6025c077dd3e4744a6d21",
       "imports": [
         {
           "specifier": "../internals/mergeComponentProps.js",
@@ -5493,7 +5493,7 @@
     },
     {
       "source": "packages/base/src/lib/internals/composite/item/CompositeItem.svelte",
-      "sha256": "2f74c7d54df5fa6b0d31ed37518d070a343e8005fd82226a2e6eda0ec4dba0eb",
+      "sha256": "23e78d87cbeb13db6e655c95b20f57d4dd19dfd16a91af90d73d954100be7797",
       "imports": [
         {
           "specifier": "../../mergeComponentProps.js",
@@ -7928,7 +7928,7 @@
     },
     {
       "source": "packages/base/src/lib/menu/Trigger.svelte",
-      "sha256": "a8a61337748afe30cc1cf8cec2dff9c2d553c6b9f230ab15f10289154edf6fa8",
+      "sha256": "ee9cd19d28798f1e70a9e5a3215bd40f6144a2cfbc6fac7b3639d8eb4a7bebbb",
       "imports": [
         {
           "specifier": "../internals/mergeComponentProps.js",
@@ -8767,7 +8767,7 @@
     },
     {
       "source": "packages/base/src/lib/popover/Close.svelte",
-      "sha256": "a9acb37a8380d8284f347e2a62688c2c3a6c8da16b08d4575feaf51e4f406cba",
+      "sha256": "4d153e94b58af6f4c314c3c718bb41c309c1243ec97f3264bbbd2e0a1fcbaa72",
       "imports": [
         {
           "specifier": "../internals/mergeComponentProps.js",
@@ -9392,7 +9392,7 @@
     },
     {
       "source": "packages/base/src/lib/popover/Trigger.svelte",
-      "sha256": "a2acdd1e7bce56f5bafc9c65c39929ec74705b2964643a2e9085c9dbff46fdf7",
+      "sha256": "b24fee93cbf9d64690e9f381563706ca3dac652522c5585dcd5a040cba183cca",
       "imports": [
         {
           "specifier": "../internals/mergeComponentProps.js",
@@ -12318,7 +12318,7 @@
     },
     {
       "source": "packages/base/src/lib/toast/Action.svelte",
-      "sha256": "bc1331d605826ad97dd0e198a040597e140ce711f3bbf2f4291a727c20c0689b",
+      "sha256": "be2b58132678ea7b6c470b9230d56a61ac718122dc679b9673537a3f7544bd51",
       "imports": [
         {
           "specifier": "svelte",
@@ -12375,7 +12375,7 @@
     },
     {
       "source": "packages/base/src/lib/toast/Close.svelte",
-      "sha256": "e9d2f1521d870f957662c68dd2832fa80fb9e2e013bbdf31b581752f3e3c8ead",
+      "sha256": "73e63333e6c80ab9f768877695dd45915b57c4a94f0dd39a938153d64e6f0ae2",
       "imports": [
         {
           "specifier": "svelte",
@@ -13084,7 +13084,7 @@
     },
     {
       "source": "packages/base/src/lib/toggle/Toggle.svelte",
-      "sha256": "58da46cd37f9b80030ed7c4126c9984b180fa1cb9eb8b107d054cefa94fec97b",
+      "sha256": "200a69b75c442f3031e7434d29e3348e4f1824efa367058c02f26fccb3ddb57f",
       "imports": [
         {
           "specifier": "../internals/mergeComponentProps.js",

@@ -985,7 +985,7 @@
     "modules": [
       {
         "local": "packages/base/src/lib/button/Button.svelte",
-        "sha256": "1dae2c85f6cf94510a7ea6805061a3253d4b2cc802edc12d8a63c95ead34b9ad",
+        "sha256": "6075995f00a67363149461e87abeaa55de0ac85b1d103cc6dc11d393c316a89d",
         "declarations": [
           "attachHost"
         ],

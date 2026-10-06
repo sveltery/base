@@ -24,9 +24,11 @@ The component implementation uses this native pattern, with its actual fallback 
 {#if render}
   {@render render(mergedProps, state, children)}
 {:else}
-  <button {...mergedProps}>{@render children?.()}</button>
+  <button type="button" {...mergedProps}>{@render children?.()}</button>
 {/if}
 ```
+
+Intrinsic button fallbacks retain the pinned non-submit default through native `type="button"` before the props spread. Explicit merged type values keep their native spread precedence. Custom snippets receive the component props unchanged and own their authored host defaults.
 
 Pure shared helpers preserve state attributes, ordered prop getters, right-to-left event handlers, `preventBaseUIHandler()`, and class/style merging. Component business still supplies its own ARIA relationships, validation, button behavior, focus management and motion resources. Native snippets own their markup; the library does not clone elements, discover hosts with selectors, intercept attachments, or replay React ref/render/commit behavior.
 

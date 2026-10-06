@@ -12,17 +12,39 @@
   "initialFocusAstPreservedBodies": 495,
   "popoverSlotPredecessor": "0ba754026de455a9647c32dde29b024924150cc2",
   "popoverSlotAstPreservedBodies": 495,
+  "buttonDefaultPredecessor": "d5fabc8d389c7514b0459737d894b00e3618a988",
+  "buttonDefaultAstPreservedBodies": 496,
+  "buttonDefaultUnchangedBodies": 486,
+  "buttonDefaultOriginal": {
+    "pin": "47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c",
+    "path": "packages/react/src/internals/useRenderElement.tsx",
+    "archive": "parity/menu-family/upstream/packages/react/src/internals/useRenderElement.tsx",
+    "sha256": "0b55dc232a0d630a666a13873213d1bdde040e973031f2b307a64cc157644a4c",
+    "contract": "renderTag(button, props) supplies literal type=\"button\" before the spread only for the intrinsic fallback; a custom render function receives unchanged props."
+  },
+  "sourceHostDefaultCorrectionPaths": [
+    "packages/base/src/lib/button/Button.svelte",
+    "packages/base/src/lib/dialog/Close.svelte",
+    "packages/base/src/lib/dialog/Trigger.svelte",
+    "packages/base/src/lib/internals/composite/item/CompositeItem.svelte",
+    "packages/base/src/lib/menu/Trigger.svelte",
+    "packages/base/src/lib/popover/Close.svelte",
+    "packages/base/src/lib/popover/Trigger.svelte",
+    "packages/base/src/lib/toast/Action.svelte",
+    "packages/base/src/lib/toast/Close.svelte",
+    "packages/base/src/lib/toggle/Toggle.svelte"
+  ],
   "immutableOriginalPin": "47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c",
   "ordinaryDeclarationCredit": 0,
   "mode": "Source/parser/hash/import evidence only; no type program, runtime, SSR/hydration, compiled markup, artifact, installed consumer, browser, CI or merge acceptance credit.",
-  "method": "Complete current native two-package AST closure, immutable f0 full-body preimages and grouping-preserving script ASTs. Deliberate source/native owner corrections remain separate from formatter presentation changes. Getter/label publication retain exact inherited bodies; full-body Menu cleanup deltas bind e5, captured focus metadata binds42, trigger publication bindsf2, and native ownership comments bind336 with its AST unchanged. The five native node/initial-seed/focus-out disposal owner deltas bindc392 while all earlier stages/history remain distinct. The subsequent 32 obsolete binding directives and one RadioGroup output-binding annotation bind 0d with all 496 complete bodies otherwise unchanged and every script AST identical. The next native initial-focus destroyed-owner predicate and adjacent timing comment bind ec36 as one complete Source-body delta; all other 495 current bodies/ASTs stay exact. This native owner adaptation earns zero unchanged Original credit. The subsequent real Popover trigger focus-target node property binds 0ba as one complete Source-body delta with 495 other current bodies/ASTs exact; earlier stages retain their own immutable preservation counts. Parse success supplies no behavior equivalence.",
+  "method": "Complete current native two-package AST closure, immutable f0 full-body preimages and grouping-preserving script ASTs. Deliberate source/native owner corrections remain separate from formatter presentation changes. Getter/label publication retain exact inherited bodies; full-body Menu cleanup deltas bind e5, captured focus metadata binds42, trigger publication bindsf2, and native ownership comments bind336 with its AST unchanged. The five native node/initial-seed/focus-out disposal owner deltas bindc392 while all earlier stages/history remain distinct. The subsequent 32 obsolete binding directives and one RadioGroup output-binding annotation bind 0d with all 496 complete bodies otherwise unchanged and every script AST identical. The next native initial-focus destroyed-owner predicate and adjacent timing comment bind ec36 as one complete Source-body delta; all other 495 current bodies/ASTs stay exact. This native owner adaptation earns zero unchanged Original credit. The subsequent real Popover trigger focus-target node property binds 0ba as one complete Source-body delta with 495 other current bodies/ASTs exact; earlier stages retain their own immutable preservation counts. The next ten intrinsic button fallback defaults bind d5 as exact literal attributes before props spread; all 496 script ASTs and 486 other full bodies remain unchanged. Custom render branches and merged props remain untouched. The Original fallback default is expressed as native host markup with no shared renderer or new assertion credit. Parse success supplies no behavior equivalence.",
   "parserVersions": {
     "TypeScript": "6.0.3",
     "Svelte": "5.57.1"
   },
-  "currentGraphSha256": "5244840cff0b9344e531248b4332e9140cf0eea7f2df41ed3703b85c07772c74",
-  "currentPublicHostGraphSha256": "c3e1bf6d5feeb650f7f47377395ce3968a07ab95aaeb61d2eb4545fc33d92d97",
-  "proofToolSha256": "84396a765cf151abc023b57becd3f691befe0bdcd786b20613d9dfc23d93cb07",
+  "currentGraphSha256": "3dbd0f8d75a9b28254af0cff148fa90e97ef9180d56f17d7be5544f667d2d74b",
+  "currentPublicHostGraphSha256": "7b3e5f5e6d2bd1c2a505ac4d68b1313a3129db324b81d9d5fe9eb48e736f070a",
+  "proofToolSha256": "27c0bbb1a52b3d370ac9cf677492c739f79657fb3af72e406a6bfd7edfbfe6d1",
   "controlledOwners": 11,
   "effectCalls": 187,
   "sourceBusinessCorrectionPaths": [
@@ -1177,10 +1199,14 @@
     {
       "path": "packages/base/src/lib/button/Button.svelte",
       "rendererSha256": "1dae2c85f6cf94510a7ea6805061a3253d4b2cc802edc12d8a63c95ead34b9ad",
-      "currentSha256": "1dae2c85f6cf94510a7ea6805061a3253d4b2cc802edc12d8a63c95ead34b9ad",
+      "currentSha256": "6075995f00a67363149461e87abeaa55de0ac85b1d103cc6dc11d393c316a89d",
       "scriptStructuralAstEqual": true,
       "sourceSyntaxValid": true,
-      "disposition": "Complete structural script AST retained; full native markup/compiled-output behavior remains separately pending."
+      "disposition": "Complete structural script AST retained; full native markup/compiled-output behavior remains separately pending. Native intrinsic fallback restores the pinned non-submit default with literal type=\"button\" before props spread; script AST and custom snippet props are unchanged. Execution pending.",
+      "sourceHostDefaultCorrection": true,
+      "sourceHostDefaultPredecessor": "d5fabc8d389c7514b0459737d894b00e3618a988",
+      "sourceHostDefaultPredecessorSha256": "1dae2c85f6cf94510a7ea6805061a3253d4b2cc802edc12d8a63c95ead34b9ad",
+      "exactAuthorizedCompleteBodyDelta": true
     },
     {
       "path": "packages/base/src/lib/button/index.ts",
@@ -1511,10 +1537,14 @@
     {
       "path": "packages/base/src/lib/dialog/Close.svelte",
       "rendererSha256": "145f662b402baa79990528a67aa93bb159e89b5909223fd424d4b2bec846f625",
-      "currentSha256": "145f662b402baa79990528a67aa93bb159e89b5909223fd424d4b2bec846f625",
+      "currentSha256": "d87c2e4ade43d1f80fddb38dc2a5d1b1fad2aa1f4e1e5aee4a16dde235aafbe2",
       "scriptStructuralAstEqual": true,
       "sourceSyntaxValid": true,
-      "disposition": "Complete structural script AST retained; full native markup/compiled-output behavior remains separately pending."
+      "disposition": "Complete structural script AST retained; full native markup/compiled-output behavior remains separately pending. Native intrinsic fallback restores the pinned non-submit default with literal type=\"button\" before props spread; script AST and custom snippet props are unchanged. Execution pending.",
+      "sourceHostDefaultCorrection": true,
+      "sourceHostDefaultPredecessor": "d5fabc8d389c7514b0459737d894b00e3618a988",
+      "sourceHostDefaultPredecessorSha256": "145f662b402baa79990528a67aa93bb159e89b5909223fd424d4b2bec846f625",
+      "exactAuthorizedCompleteBodyDelta": true
     },
     {
       "path": "packages/base/src/lib/dialog/context.ts",
@@ -1664,10 +1694,14 @@
     {
       "path": "packages/base/src/lib/dialog/Trigger.svelte",
       "rendererSha256": "6e12e296b4d643ff86e78131a728a8f90769bf173e11c2b07c837ce0ae4c1e11",
-      "currentSha256": "aa65418447f5e9772e033a09cecf4cdafa419b43c14290391e88f95553784470",
+      "currentSha256": "4e84f51f9ef73c67ac269ea01b677611b1801c9d7dd6025c077dd3e4744a6d21",
       "scriptStructuralAstEqual": true,
       "sourceSyntaxValid": true,
-      "disposition": "Complete structural script AST retained; full native markup/compiled-output behavior remains separately pending."
+      "disposition": "Complete structural script AST retained; full native markup/compiled-output behavior remains separately pending. Native intrinsic fallback restores the pinned non-submit default with literal type=\"button\" before props spread; script AST and custom snippet props are unchanged. Execution pending.",
+      "sourceHostDefaultCorrection": true,
+      "sourceHostDefaultPredecessor": "d5fabc8d389c7514b0459737d894b00e3618a988",
+      "sourceHostDefaultPredecessorSha256": "aa65418447f5e9772e033a09cecf4cdafa419b43c14290391e88f95553784470",
+      "exactAuthorizedCompleteBodyDelta": true
     },
     {
       "path": "packages/base/src/lib/dialog/types.ts",
@@ -2423,10 +2457,14 @@
     {
       "path": "packages/base/src/lib/internals/composite/item/CompositeItem.svelte",
       "rendererSha256": "504019a96565afea85c1b178fce5267fa3508b95ffbcb8690f36589b4951e9ff",
-      "currentSha256": "2f74c7d54df5fa6b0d31ed37518d070a343e8005fd82226a2e6eda0ec4dba0eb",
+      "currentSha256": "23e78d87cbeb13db6e655c95b20f57d4dd19dfd16a91af90d73d954100be7797",
       "scriptStructuralAstEqual": true,
       "sourceSyntaxValid": true,
-      "disposition": "Complete structural script AST retained; full native markup/compiled-output behavior remains separately pending."
+      "disposition": "Complete structural script AST retained; full native markup/compiled-output behavior remains separately pending. Native intrinsic fallback restores the pinned non-submit default with literal type=\"button\" before props spread; script AST and custom snippet props are unchanged. Execution pending.",
+      "sourceHostDefaultCorrection": true,
+      "sourceHostDefaultPredecessor": "d5fabc8d389c7514b0459737d894b00e3618a988",
+      "sourceHostDefaultPredecessorSha256": "2f74c7d54df5fa6b0d31ed37518d070a343e8005fd82226a2e6eda0ec4dba0eb",
+      "exactAuthorizedCompleteBodyDelta": true
     },
     {
       "path": "packages/base/src/lib/internals/composite/item/useCompositeItem.svelte.ts",
@@ -3187,10 +3225,14 @@
     {
       "path": "packages/base/src/lib/menu/Trigger.svelte",
       "rendererSha256": "a8a61337748afe30cc1cf8cec2dff9c2d553c6b9f230ab15f10289154edf6fa8",
-      "currentSha256": "a8a61337748afe30cc1cf8cec2dff9c2d553c6b9f230ab15f10289154edf6fa8",
+      "currentSha256": "ee9cd19d28798f1e70a9e5a3215bd40f6144a2cfbc6fac7b3639d8eb4a7bebbb",
       "scriptStructuralAstEqual": true,
       "sourceSyntaxValid": true,
-      "disposition": "Complete structural script AST retained; full native markup/compiled-output behavior remains separately pending."
+      "disposition": "Complete structural script AST retained; full native markup/compiled-output behavior remains separately pending. Native intrinsic fallback restores the pinned non-submit default with literal type=\"button\" before props spread; script AST and custom snippet props are unchanged. Execution pending.",
+      "sourceHostDefaultCorrection": true,
+      "sourceHostDefaultPredecessor": "d5fabc8d389c7514b0459737d894b00e3618a988",
+      "sourceHostDefaultPredecessorSha256": "a8a61337748afe30cc1cf8cec2dff9c2d553c6b9f230ab15f10289154edf6fa8",
+      "exactAuthorizedCompleteBodyDelta": true
     },
     {
       "path": "packages/base/src/lib/menu/trigger/createMenuTrigger.svelte.ts",
@@ -3422,10 +3464,14 @@
     {
       "path": "packages/base/src/lib/popover/Close.svelte",
       "rendererSha256": "8e2683990a9c25d73b41a68775a5c9a0e70505ef42bd5a894fee6459faa958f7",
-      "currentSha256": "a9acb37a8380d8284f347e2a62688c2c3a6c8da16b08d4575feaf51e4f406cba",
+      "currentSha256": "4d153e94b58af6f4c314c3c718bb41c309c1243ec97f3264bbbd2e0a1fcbaa72",
       "scriptStructuralAstEqual": true,
       "sourceSyntaxValid": true,
-      "disposition": "Complete structural script AST retained; full native markup/compiled-output behavior remains separately pending.",
+      "disposition": "Complete structural script AST retained; full native markup/compiled-output behavior remains separately pending. Native intrinsic fallback restores the pinned non-submit default with literal type=\"button\" before props spread; script AST and custom snippet props are unchanged. Execution pending.",
+      "sourceHostDefaultCorrection": true,
+      "sourceHostDefaultPredecessor": "d5fabc8d389c7514b0459737d894b00e3618a988",
+      "sourceHostDefaultPredecessorSha256": "a9acb37a8380d8284f347e2a62688c2c3a6c8da16b08d4575feaf51e4f406cba",
+      "exactAuthorizedCompleteBodyDelta": true,
       "commentOnlyPredecessor": "0d88a4e3fcb0ce57dab9b058b86a85e412f9d07c",
       "commentOnlyPredecessorSha256": "f51032995539fee46994a58a2561b5fe312288282b638acdab6f4f56463f0b40",
       "commentOnlyStructuralAstEqual": true,
@@ -3579,10 +3625,14 @@
     {
       "path": "packages/base/src/lib/popover/Trigger.svelte",
       "rendererSha256": "c06bc4b26bf451bda0eb7d314e52e662764bee6d85a62c48210a924e8484c394",
-      "currentSha256": "a2acdd1e7bce56f5bafc9c65c39929ec74705b2964643a2e9085c9dbff46fdf7",
+      "currentSha256": "b24fee93cbf9d64690e9f381563706ca3dac652522c5585dcd5a040cba183cca",
       "scriptStructuralAstEqual": true,
       "sourceSyntaxValid": true,
-      "disposition": "Complete structural script AST retained; full native markup/compiled-output behavior remains separately pending.",
+      "disposition": "Complete structural script AST retained; full native markup/compiled-output behavior remains separately pending. Native intrinsic fallback restores the pinned non-submit default with literal type=\"button\" before props spread; script AST and custom snippet props are unchanged. Execution pending.",
+      "sourceHostDefaultCorrection": true,
+      "sourceHostDefaultPredecessor": "d5fabc8d389c7514b0459737d894b00e3618a988",
+      "sourceHostDefaultPredecessorSha256": "a2acdd1e7bce56f5bafc9c65c39929ec74705b2964643a2e9085c9dbff46fdf7",
+      "exactAuthorizedCompleteBodyDelta": true,
       "commentOnlyPredecessor": "0d88a4e3fcb0ce57dab9b058b86a85e412f9d07c",
       "commentOnlyPredecessorSha256": "f9dc015fd47a045c87b20eb839b9f9ff39cc6657398f783df93463928ffb7c82",
       "commentOnlyStructuralAstEqual": true,
@@ -4354,10 +4404,14 @@
     {
       "path": "packages/base/src/lib/toast/Action.svelte",
       "rendererSha256": "cdae37c12878b60341534993bfe6b1b7508f242318c124bc63be85696c1e1890",
-      "currentSha256": "bc1331d605826ad97dd0e198a040597e140ce711f3bbf2f4291a727c20c0689b",
+      "currentSha256": "be2b58132678ea7b6c470b9230d56a61ac718122dc679b9673537a3f7544bd51",
       "scriptStructuralAstEqual": true,
       "sourceSyntaxValid": true,
-      "disposition": "Complete structural script AST retained; full native markup/compiled-output behavior remains separately pending."
+      "disposition": "Complete structural script AST retained; full native markup/compiled-output behavior remains separately pending. Native intrinsic fallback restores the pinned non-submit default with literal type=\"button\" before props spread; script AST and custom snippet props are unchanged. Execution pending.",
+      "sourceHostDefaultCorrection": true,
+      "sourceHostDefaultPredecessor": "d5fabc8d389c7514b0459737d894b00e3618a988",
+      "sourceHostDefaultPredecessorSha256": "bc1331d605826ad97dd0e198a040597e140ce711f3bbf2f4291a727c20c0689b",
+      "exactAuthorizedCompleteBodyDelta": true
     },
     {
       "path": "packages/base/src/lib/toast/animations.ts",
@@ -4370,10 +4424,14 @@
     {
       "path": "packages/base/src/lib/toast/Close.svelte",
       "rendererSha256": "e9d2f1521d870f957662c68dd2832fa80fb9e2e013bbdf31b581752f3e3c8ead",
-      "currentSha256": "e9d2f1521d870f957662c68dd2832fa80fb9e2e013bbdf31b581752f3e3c8ead",
+      "currentSha256": "73e63333e6c80ab9f768877695dd45915b57c4a94f0dd39a938153d64e6f0ae2",
       "scriptStructuralAstEqual": true,
       "sourceSyntaxValid": true,
-      "disposition": "Complete structural script AST retained; full native markup/compiled-output behavior remains separately pending."
+      "disposition": "Complete structural script AST retained; full native markup/compiled-output behavior remains separately pending. Native intrinsic fallback restores the pinned non-submit default with literal type=\"button\" before props spread; script AST and custom snippet props are unchanged. Execution pending.",
+      "sourceHostDefaultCorrection": true,
+      "sourceHostDefaultPredecessor": "d5fabc8d389c7514b0459737d894b00e3618a988",
+      "sourceHostDefaultPredecessorSha256": "e9d2f1521d870f957662c68dd2832fa80fb9e2e013bbdf31b581752f3e3c8ead",
+      "exactAuthorizedCompleteBodyDelta": true
     },
     {
       "path": "packages/base/src/lib/toast/Content.svelte",
@@ -4587,10 +4645,14 @@
     {
       "path": "packages/base/src/lib/toggle/Toggle.svelte",
       "rendererSha256": "62cd838f1e166ffa2188b3dc36de6d422b0a4c53a57852fbd1b97f40ab5ef082",
-      "currentSha256": "58da46cd37f9b80030ed7c4126c9984b180fa1cb9eb8b107d054cefa94fec97b",
+      "currentSha256": "200a69b75c442f3031e7434d29e3348e4f1824efa367058c02f26fccb3ddb57f",
       "scriptStructuralAstEqual": false,
       "sourceSyntaxValid": true,
-      "disposition": "Explicit presentation/grouping changes retained without normalization or structural equality credit; compiled-output disposition pending.",
+      "disposition": "Explicit presentation/grouping changes retained without normalization or structural equality credit; compiled-output disposition pending. Native intrinsic fallback restores the pinned non-submit default with literal type=\"button\" before props spread; script AST and custom snippet props are unchanged. Execution pending.",
+      "sourceHostDefaultCorrection": true,
+      "sourceHostDefaultPredecessor": "d5fabc8d389c7514b0459737d894b00e3618a988",
+      "sourceHostDefaultPredecessorSha256": "58da46cd37f9b80030ed7c4126c9984b180fa1cb9eb8b107d054cefa94fec97b",
+      "exactAuthorizedCompleteBodyDelta": true,
       "structuralDifferences": [
         {
           "path": "source.FirstStatement[20].VariableDeclarationList[0].VariableDeclaration[0].NewExpression[1].ArrowFunction[1].ConditionalExpression[1]",
