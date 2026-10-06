@@ -2013,7 +2013,7 @@
         "packages/base/src/lib/utils/popups/popupStoreUtils.svelte.ts"
       ],
       "localHashes": {
-        "packages/base/src/lib/utils/popups/popupStoreUtils.svelte.ts": "13b61b426eed8a0875580aa2a8e15a8caf5c7110e915174bf4d613f069f7b01a"
+        "packages/base/src/lib/utils/popups/popupStoreUtils.svelte.ts": "7e9cbbd3b0a7835d25d2a54a90fca6f1bd403d30b8cb2165fa366232aa290960"
       },
       "correspondence": "Same canonical component/helper/context/store boundary with native Svelte framework substitution where required; compare entire Original and actual used body, including inherited code.",
       "reviewStatus": "Entire used Source/native business, idiomatic Svelte and maintainability independent exact-head review pending; no acceptance by inventory."
@@ -2731,7 +2731,7 @@
         "packages/base/src/lib/menu/trigger/createMenuTrigger.svelte.ts": "ae04e18d492aa073757adc134e825f1fa8412283d742cb6cf9895a784215108f",
         "packages/base/src/lib/menubar/Menubar.svelte": "9a3073b1739a7dbd5e1107d3b7a82d1fff068d640790d0f3a0e6adeeb12f98e8",
         "packages/base/src/lib/utils/popups/PopupHandleAttachment.svelte": "437e6d44b586b4cc524d30d4214906695aa505239f1951a7840077780f562927",
-        "packages/base/src/lib/utils/popups/popupStoreUtils.svelte.ts": "13b61b426eed8a0875580aa2a8e15a8caf5c7110e915174bf4d613f069f7b01a",
+        "packages/base/src/lib/utils/popups/popupStoreUtils.svelte.ts": "7e9cbbd3b0a7835d25d2a54a90fca6f1bd403d30b8cb2165fa366232aa290960",
         "packages/base/src/lib/utils/useAnchoredPopupScrollLock.svelte.ts": "21a07726eed55814307acd741228214b8ebc411a0dcbddcf1d32a13ccdc45060",
         "packages/base/src/lib/utils/usePopupAutoResize.svelte.ts": "79908384bfa561421638c3362a8d0bf38526635fcc19780c72d2ff43f7b8ba9c",
         "packages/base/src/lib/utils/usePopupViewport.svelte.ts": "7a3a49008f305ccbbdb0b3c048a3787e24128a6c687ad6d7dba6b000970acaf7",
@@ -2868,7 +2868,7 @@
         "packages/base/src/lib/menu/root/createMenuRoot.svelte.ts": "7f06fa99bcfa89a2efcb6926413d47f9fb5bfc6539ecc8bd0e6b2ca51fc0458b",
         "packages/base/src/lib/menu/submenu-trigger/createMenuSubmenuTrigger.svelte.ts": "a27f25c9934a6c7d64004313fddb5bba8e96a901cf863ec8b9920d58ef4d7a12",
         "packages/base/src/lib/menu/trigger/createMenuTrigger.svelte.ts": "ae04e18d492aa073757adc134e825f1fa8412283d742cb6cf9895a784215108f",
-        "packages/base/src/lib/utils/popups/popupStoreUtils.svelte.ts": "13b61b426eed8a0875580aa2a8e15a8caf5c7110e915174bf4d613f069f7b01a",
+        "packages/base/src/lib/utils/popups/popupStoreUtils.svelte.ts": "7e9cbbd3b0a7835d25d2a54a90fca6f1bd403d30b8cb2165fa366232aa290960",
         "packages/base/src/lib/utils/usePopupAutoResize.svelte.ts": "79908384bfa561421638c3362a8d0bf38526635fcc19780c72d2ff43f7b8ba9c",
         "packages/base/src/lib/utils/usePopupViewport.svelte.ts": "7a3a49008f305ccbbdb0b3c048a3787e24128a6c687ad6d7dba6b000970acaf7"
       },

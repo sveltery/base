@@ -23,7 +23,7 @@
   "runtime": [
     {
       "path": "packages/base/src/lib/utils/popups/popupStoreUtils.svelte.ts",
-      "sha256": "13b61b426eed8a0875580aa2a8e15a8caf5c7110e915174bf4d613f069f7b01a",
+      "sha256": "7e9cbbd3b0a7835d25d2a54a90fca6f1bd403d30b8cb2165fa366232aa290960",
       "predecessorSha256": "51f1c3945f9da39ae8e71a4fa336740ef0ad0be5f4a8f413deb1e98405d894d3"
     },
     {
@@ -72,11 +72,5 @@
     }
   ],
   "execution": "Repaired candidate unexecuted. Root/acceptance owner coordinates finite actual retained-focus, trigger owner/ID/store/payload/host migration, tree isolation/unmount and affected shared-helper caller checks after independent Source review. Parser/hash/formatter proof grants no behavior/pass or unchanged Original assertion credit.",
-  "projectionRefreshNote": "Actual current LOCAL remote-form closure also replaces its stale predecessor registered-label hash/import with the already-present inherited96/7d7c publication body. That runtime body is byte-identical to f2; exact prior projection is archived and no new label repair or execution credit is claimed.",
-  "ownershipCommentClarification": {
-    "predecessor": "336062b3be2dfe90db5899714aed6457f78836ae",
-    "predecessorRuntimeSha256": "7e9cbbd3b0a7835d25d2a54a90fca6f1bd403d30b8cb2165fa366232aa290960",
-    "scope": "Only four stale merged-ref/callback identity rationale blocks replaced with actual native host registration, conditional payload publication and independent Store/ID migration/data effect ownership. No runtime statement or complete structural AST changes.",
-    "status": "Root-authorized reviewer maintainability follow-up; final independent exact-head Source disposition and runtime gates pending."
-  }
+  "projectionRefreshNote": "Actual current LOCAL remote-form closure also replaces its stale predecessor registered-label hash/import with the already-present inherited96/7d7c publication body. That runtime body is byte-identical to f2; exact prior projection is archived and no new label repair or execution credit is claimed."
 }

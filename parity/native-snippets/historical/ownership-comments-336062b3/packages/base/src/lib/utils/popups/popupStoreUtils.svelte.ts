@@ -51,10 +51,11 @@ function syncTriggerCount(store: PopupTriggerDataStore<PopupStoreState<unknown>>
 }
 
 /**
- * Registers/unregisters the native trigger host in its current Store.
+ * Returns a stable callback ref that registers/unregisters the trigger element in the store.
  *
- * Each publication acquires the actual Store and ID. The captured `(store, id, element)`
- * registration targets its installed owner on removal, even after a Store or ID change.
+ * Stable so a downstream ref merger that retains the callback it was first given still reaches the
+ * trigger's current store. The registration is tracked as a `(store, id, element)` triple, so
+ * unregistering targets the store the element was actually registered in.
  *
  * Native effects observe the current Store and ID and migrate an already registered
  * element when either owner changes. Registration is an imperative publication boundary.
@@ -125,9 +126,9 @@ export function useTriggerDataForwarding<
 
   const baseRegisterTrigger = useTriggerRegistration(getTriggerId, getStore);
 
-  // Applies current trigger-owned state when its native host is published.
-  // The imperative boundary reads the latest payload only in its business branches;
-  // the independent data-forwarding effect below owns later reactive payload changes.
+  // Applies trigger-owned state (active-trigger ownership and payload) when the trigger registers.
+  // Stable so payload/`stateUpdates` changes do not change the ref identity (which would needlessly
+  // churn registration); it reads the latest closure values when invoked.
   const applyTriggerData = (element: Element) => {
     const owner = store;
     const id = triggerId;
@@ -158,7 +159,8 @@ export function useTriggerDataForwarding<
     });
   };
 
-  // Publishes the native host's registration before its current trigger-owned data.
+  // Stable, so the merged ref on the rendered element keeps its identity for the trigger's whole
+  // lifetime.
   const registerTrigger = (element: Element | null) => {
     baseRegisterTrigger(element);
     if (element) {
@@ -166,8 +168,8 @@ export function useTriggerDataForwarding<
     }
   };
 
-  // Store/ID changes migrate the published host independently of attachment setup:
-  // remove its captured previous registration, then publish it in the current owner.
+  // A stable ref does not re-fire on a store or id change, so migrate here instead: unregister from
+  // the previous store, then register the element the trigger still renders into the current one.
   $effect(() => {
     // Native identity reads own migration; registration publishes to the Store.
     void store;

@@ -16,44 +16,12 @@ const nativeIntegrationParent = '96ade5322d396211cc41609f244803e92dfe0169';
 const cleanupPredecessor = 'e5e26961c52d324eb9075fcbff71915f79f7e922';
 const focusPredecessor = '42c04c5c4fb1d8a698435fee40e1d2bcb41d30e7';
 const registrationPredecessor = 'f2a99979a04a98c8bc60709a75d0db2397ec2470';
-const ownershipCommentPredecessor = '336062b3be2dfe90db5899714aed6457f78836ae';
 const hash = (body) => createHash('sha256').update(body).digest('hex');
 const git = (...args) =>
   execFileSync('git', args, { cwd: root, encoding: 'utf8', maxBuffer: 20 * 1024 * 1024 });
 const graph = JSON.parse(
   readFileSync(resolve(root, 'parity/utils-package/current-source-graph.json'), 'utf8'),
 );
-function clarifyTriggerOwnership(body) {
-  return body
-    .replace(
-      ' * Returns a stable callback ref that registers/unregisters the trigger element in the store.\n *\n' +
-        ' * Stable so a downstream ref merger that retains the callback it was first given still reaches the\n' +
-        " * trigger's current store. The registration is tracked as a `(store, id, element)` triple, so\n" +
-        ' * unregistering targets the store the element was actually registered in.',
-      ' * Registers/unregisters the native trigger host in its current Store.\n *\n' +
-        ' * Each publication acquires the actual Store and ID. The captured `(store, id, element)`\n' +
-        ' * registration targets its installed owner on removal, even after a Store or ID change.',
-    )
-    .replace(
-      '  // Applies trigger-owned state (active-trigger ownership and payload) when the trigger registers.\n' +
-        '  // Stable so payload/`stateUpdates` changes do not change the ref identity (which would needlessly\n' +
-        '  // churn registration); it reads the latest closure values when invoked.',
-      '  // Applies current trigger-owned state when its native host is published.\n' +
-        '  // The imperative boundary reads the latest payload only in its business branches;\n' +
-        '  // the independent data-forwarding effect below owns later reactive payload changes.',
-    )
-    .replace(
-      "  // Stable, so the merged ref on the rendered element keeps its identity for the trigger's whole\n" +
-        '  // lifetime.',
-      "  // Publishes the native host's registration before its current trigger-owned data.",
-    )
-    .replace(
-      '  // A stable ref does not re-fire on a store or id change, so migrate here instead: unregister from\n' +
-        '  // the previous store, then register the element the trigger still renders into the current one.',
-      '  // Store/ID changes migrate the published host independently of attachment setup:\n' +
-        '  // remove its captured previous registration, then publish it in the current owner.',
-    );
-}
 const flags =
   ts.NodeFlags.Let |
   ts.NodeFlags.Const |
@@ -239,14 +207,6 @@ for (const module of graph.native.modules) {
         indent(dataBody) +
         '\n    });' +
         expected.slice(dataEnd);
-      expected = clarifyTriggerOwnership(expected);
-      const commentPreimage = git('show', `${ownershipCommentPredecessor}:${path}`);
-      assert.equal(after, clarifyTriggerOwnership(commentPreimage));
-      const commentBefore = syntax(path, commentPreimage);
-      assert.equal(
-        JSON.stringify(shape(commentBefore, commentBefore)),
-        JSON.stringify(shape(right, right)),
-      );
     }
     assert.equal(after, expected, `Only the authorized complete-body publication delta: ${path}`);
   }
@@ -349,13 +309,6 @@ for (const module of graph.native.modules) {
       git('show', `${registrationPredecessor}:${path}`),
     );
     record.exactAuthorizedCompleteBodyDelta = true;
-    if (path.endsWith('popupStoreUtils.svelte.ts')) {
-      record.commentOnlyPredecessor = ownershipCommentPredecessor;
-      record.commentOnlyPredecessorSha256 = hash(
-        git('show', `${ownershipCommentPredecessor}:${path}`),
-      );
-      record.commentOnlyStructuralAstEqual = true;
-    }
   }
   if (labelPublicationCorrection) {
     record.sourceBusinessPredecessor = '6ec6710c1ec6d62a7b9decf3dfdaa335a76d3ce7';
@@ -437,12 +390,11 @@ const output = {
   nativeGetterPredecessor: native,
   focusMetadataPredecessor: focusPredecessor,
   triggerPublicationPredecessor: registrationPredecessor,
-  ownershipCommentPredecessor,
   immutableOriginalPin: graph.immutableOriginalPin,
   ordinaryDeclarationCredit: 0,
   mode: 'Source/parser/hash/import evidence only; no type program, runtime, SSR/hydration, compiled markup, artifact, installed consumer, browser, CI or merge acceptance credit.',
   method:
-    'Complete current native two-package AST closure, immutable f0 full-body preimages and grouping-preserving script ASTs. Deliberate getter, label publication, Menu cleanup, captured focus metadata and trigger publication corrections are separate from formatter presentation changes. Getter and label publication retain their exact inherited bodies; exact complete-body Menu cleanup deltas are checked against e5, the focus metadata delta against42, and the three narrow trigger publication boundaries againstf2. Native ownership comment clarification is checked against336 with its complete script AST unchanged. Parse success supplies no behavior equivalence.',
+    'Complete current native two-package AST closure, immutable f0 full-body preimages and grouping-preserving script ASTs. Deliberate getter, label publication, Menu cleanup, captured focus metadata and trigger publication corrections are separate from formatter presentation changes. Getter and label publication retain their exact inherited bodies; exact complete-body Menu cleanup deltas are checked against e5, the focus metadata delta against42, and the three narrow trigger publication boundaries againstf2. Parse success supplies no behavior equivalence.',
   parserVersions: { TypeScript: ts.version, Svelte: compiler.VERSION },
   currentGraphSha256: hash(
     readFileSync(resolve(root, 'parity/utils-package/current-source-graph.json')),
