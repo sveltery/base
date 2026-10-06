@@ -38,11 +38,6 @@
   ],
   "hostBusinessPredecessor": "c04b7ca3c494df0cbe8c6c488dbaa0479b145f7f",
   "hostBusinessAstPreservedBodies": 493,
-  "positionerPublicationPredecessor": "d390353b69fd9b7761d4256f0a4fd39ef0a66fea",
-  "positionerPublicationAstPreservedBodies": 495,
-  "sourcePositionerPublicationCorrectionPaths": [
-    "packages/base/src/lib/menu/positioner/createMenuPositioner.svelte.ts"
-  ],
   "sourceHostBusinessLifetimeCorrectionPaths": [
     "packages/base/src/lib/internals/use-button/useButton.svelte.ts",
     "packages/base/src/lib/menu/submenu-trigger/createMenuSubmenuTrigger.svelte.ts",
@@ -63,14 +58,14 @@
   "immutableOriginalPin": "47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c",
   "ordinaryDeclarationCredit": 0,
   "mode": "Source/parser/hash/import evidence only; no type program, runtime, SSR/hydration, compiled markup, artifact, installed consumer, browser, CI or merge acceptance credit.",
-  "method": "Complete current native two-package AST closure, immutable f0 full-body preimages and grouping-preserving script ASTs. Deliberate source/native owner corrections remain separate from formatter presentation changes. Getter/label publication retain exact inherited bodies; full-body Menu cleanup deltas bind e5, captured focus metadata binds42, trigger publication bindsf2, and native ownership comments bind336 with its AST unchanged. The five native node/initial-seed/focus-out disposal owner deltas bindc392 while all earlier stages/history remain distinct. The subsequent 32 obsolete binding directives and one RadioGroup output-binding annotation bind 0d with all 496 complete bodies otherwise unchanged and every script AST identical. The next native initial-focus destroyed-owner predicate and adjacent timing comment bind ec36 as one complete Source-body delta; all other 495 current bodies/ASTs stay exact. This native owner adaptation earns zero unchanged Original credit. The subsequent real Popover trigger focus-target node property binds 0ba as one complete Source-body delta with 495 other current bodies/ASTs exact; earlier stages retain their own immutable preservation counts. The next ten intrinsic button fallback defaults bind d5 as exact literal attributes before props spread; all 496 script ASTs and 486 other full bodies remain unchanged. Custom render branches and merged props remain untouched. The Original fallback default is expressed as native host markup with no shared renderer or new assertion credit. The subsequent ten native declaration/producer contract repairs bind c0 as exact complete-body transforms; the other 486 bodies and script ASTs remain exact. Seven declaration paths, a ToastClose rune-collision identifier rename and two known appearance producers retain their existing business and handler composition. Type/runtime acceptance remains pending. The next three native host-business lifetime deltas bind c04 as exact complete bodies: an ordinary getter over the actual button node, Toolbar captured-host cleanup and narrow submenu imperative item/implicit-active publication. The other 493 current bodies/ASTs are exact, and prior c0/d5 preservation counts remain historical. Disabled/prop/event algorithms, tracked list acquisition and independent migration/closeDelay effects remain. Parse success supplies no behavior equivalence. The next single Positioner imperative publication/cleanup boundary binds the full d390 preimage; the other 495 complete bodies/ASTs stay exact, while all earlier historical stage counts remain unchanged. Actual context Store and host acquisition, pinned parent subscription, synchronous callback order and live positioning/effects remain. This source proof grants no runtime-cause, pass or unchanged Original assertion credit.",
+  "method": "Complete current native two-package AST closure, immutable f0 full-body preimages and grouping-preserving script ASTs. Deliberate source/native owner corrections remain separate from formatter presentation changes. Getter/label publication retain exact inherited bodies; full-body Menu cleanup deltas bind e5, captured focus metadata binds42, trigger publication bindsf2, and native ownership comments bind336 with its AST unchanged. The five native node/initial-seed/focus-out disposal owner deltas bindc392 while all earlier stages/history remain distinct. The subsequent 32 obsolete binding directives and one RadioGroup output-binding annotation bind 0d with all 496 complete bodies otherwise unchanged and every script AST identical. The next native initial-focus destroyed-owner predicate and adjacent timing comment bind ec36 as one complete Source-body delta; all other 495 current bodies/ASTs stay exact. This native owner adaptation earns zero unchanged Original credit. The subsequent real Popover trigger focus-target node property binds 0ba as one complete Source-body delta with 495 other current bodies/ASTs exact; earlier stages retain their own immutable preservation counts. The next ten intrinsic button fallback defaults bind d5 as exact literal attributes before props spread; all 496 script ASTs and 486 other full bodies remain unchanged. Custom render branches and merged props remain untouched. The Original fallback default is expressed as native host markup with no shared renderer or new assertion credit. The subsequent ten native declaration/producer contract repairs bind c0 as exact complete-body transforms; the other 486 bodies and script ASTs remain exact. Seven declaration paths, a ToastClose rune-collision identifier rename and two known appearance producers retain their existing business and handler composition. Type/runtime acceptance remains pending. The next three native host-business lifetime deltas bind c04 as exact complete bodies: an ordinary getter over the actual button node, Toolbar captured-host cleanup and narrow submenu imperative item/implicit-active publication. The other 493 current bodies/ASTs are exact, and prior c0/d5 preservation counts remain historical. Disabled/prop/event algorithms, tracked list acquisition and independent migration/closeDelay effects remain. Parse success supplies no behavior equivalence.",
   "parserVersions": {
     "TypeScript": "6.0.3",
     "Svelte": "5.57.1"
   },
-  "currentGraphSha256": "e47ca9ac0b58ece0b343e335f96e2ee112a88610f28550f515b8dab5189d3d90",
-  "currentPublicHostGraphSha256": "ddc8ee882eb263087da358d32e57e8b0a8ac97ee127fecda25d970f17a4a0660",
-  "proofToolSha256": "a982908ffb72ad17d5b46361bf4ff187d8b3ff9b6f1ca037b9913abaf8bda529",
+  "currentGraphSha256": "9eab5f8e8db2c7e35a2c83fc6b6233a38ca906477c17d7fef8c61ce7112f07ae",
+  "currentPublicHostGraphSha256": "2156ece7e48a290610b98b878a1378acd7c99358ea048fb9da48cba4c0a96acc",
+  "proofToolSha256": "c12afb55f5ab39e26db85671a223dd87e97baf7af68b70650ccc6d456014274a",
   "controlledOwners": 11,
   "effectCalls": 187,
   "sourceBusinessCorrectionPaths": [
@@ -3127,18 +3122,14 @@
     {
       "path": "packages/base/src/lib/menu/positioner/createMenuPositioner.svelte.ts",
       "rendererSha256": "55d2c56777e2d8fdb3a61962af41f82ed251251eca9e319d0f261e9c75c9af58",
-      "currentSha256": "71975122b40a64e64482a25696b6dfca6745c9c1063e3c41c305c75fbcaec5cd",
+      "currentSha256": "58d6966fd6c904e8b6adca800731394803d0fee4f73d781ee0fa2a5776d6e063",
       "scriptStructuralAstEqual": false,
       "sourceSyntaxValid": true,
-      "disposition": "Root-authorized effect-local installed event bus captures; complete callbacks, live business reads and domain guards retained; actual owner migration/unmount witnesses unexecuted. Root-authorized native untrack only around captured getRef/Store host publication and owned null cleanup; actual Store/host acquisition, publication order, pinned parent propagation and live positioning/effects remain. Candidate runtime execution pending.",
+      "disposition": "Root-authorized effect-local installed event bus captures; complete callbacks, live business reads and domain guards retained; actual owner migration/unmount witnesses unexecuted.",
       "sourceBusinessCorrection": true,
-      "sourcePositionerPublicationCorrection": true,
-      "sourcePositionerPublicationPredecessor": "d390353b69fd9b7761d4256f0a4fd39ef0a66fea",
-      "sourcePositionerPublicationPredecessorSha256": "58d6966fd6c904e8b6adca800731394803d0fee4f73d781ee0fa2a5776d6e063",
-      "exactAuthorizedCompleteBodyDelta": true,
-      "ordinaryDeclarationCredit": 0,
       "sourceBusinessPredecessor": "e5e26961c52d324eb9075fcbff71915f79f7e922",
       "sourceBusinessPredecessorSha256": "0f443aa45764512d4a92d903b69baab460b34feca8f86c32ac3a6259154dcc6c",
+      "exactAuthorizedCompleteBodyDelta": true,
       "structuralDifferences": [
         {
           "path": "source.FunctionDeclaration[15].Block[5].ExpressionStatement[24].CallExpression[0].ArrowFunction[1].Block[1]",
@@ -3154,11 +3145,6 @@
           "path": "source.FunctionDeclaration[15].Block[5].ExpressionStatement[29].CallExpression[0].ArrowFunction[1].Block[1]",
           "before": "{\n    function onItemHover(event: {\n      nodeId: string | undefined;\n      target: Element | null;\n    }) {\n      // If an item within our parent menu is hovered, and this menu's trigger is not that item,\n      // close this submenu. This ensures hovering a different item in the parent closes other branches.\n      if (!open || event.nodeId !== store.select('floatingParentNodeId')) {\n        return;\n      }\n      if (event.target && triggerElement && triggerElement !== event.target) {\n        const delay = store.select('closeDelay');\n        if (delay > 0) {\n          if (!closeTimeout.isStarted()) {\n            closeTimeout.start(delay, () => {\n              store.setOpen(\n                false,\n                createChangeEventDetails(REASONS.siblingOpen),\n              );\n            });\n          }\n        } else {\n          store.setOpen(false, createChangeEventDetails(REASONS.siblingOpen));\n        }\n      } else {\n        // User re-hovered the submenu trigger, cancel pending close.\n        closeTimeout.clear();\n      }\n    }\n    floatingTreeRoot.events.on('itemhover', onItemHover);\n    return () => {\n      floatingTreeRoot.events.off('itemhover', onItemHover);\n    };\n  }",
           "after": "{\n    function onItemHover(event: { nodeId: string | undefined; target: Element | null }) {\n      // If an item within our parent menu is hovered, and this menu's trigger is not that item,\n      // close this submenu. This ensures hovering a different item in the parent closes other branches.\n      if (!open || event.nodeId !== store.select('floatingParentNodeId')) {\n        return;\n      }\n      if (event.target && triggerElement && triggerElement !== event.target) {\n        const delay = store.select('closeDelay');\n        if (delay > 0) {\n          if (!closeTimeout.isStarted()) {\n            closeTimeout.start(delay, () => {\n              store.setOpen(false, createChangeEventDetails(REASONS.siblingOpen));\n            });\n          }\n        } else {\n          store.setOpen(false, createChangeEventDetails(REASONS.siblingOpen));\n        }\n      } else {\n        // User re-hovered the submenu trigger, cancel pending close.\n        closeTimeout.clear();\n      }\n    }\n    const installedEvents = floatingTreeRoot.events;\n    installedEvents.on('itemhover', onItemHover);\n    return () => {\n      installedEvents.off('itemhover', onItemHover);\n    };\n  }"
-        },
-        {
-          "path": "source.FunctionDeclaration[15].Block[5].FunctionDeclaration[37].Block[2]",
-          "before": "{\n    getRef(host);\n    setPositionerElement(host);\n    return () => {\n      getRef(null);\n      setPositionerElement(null);\n    };\n  }",
-          "after": "{\n    return untrack(() => {\n      getRef(host);\n      setPositionerElement(host);\n      return () =>\n        untrack(() => {\n          getRef(null);\n          setPositionerElement(null);\n        });\n    });\n  }"
         }
       ]
     },

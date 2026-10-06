@@ -536,7 +536,7 @@
         },
         {
           "path": "packages/base/src/lib/menu/positioner/createMenuPositioner.svelte.ts",
-          "sha256": "71975122b40a64e64482a25696b6dfca6745c9c1063e3c41c305c75fbcaec5cd"
+          "sha256": "58d6966fd6c904e8b6adca800731394803d0fee4f73d781ee0fa2a5776d6e063"
         },
         {
           "path": "packages/base/src/lib/menu/root/createMenuRoot.svelte.ts",
@@ -27396,7 +27396,7 @@
       },
       {
         "path": "packages/base/src/lib/menu/positioner/createMenuPositioner.svelte.ts",
-        "sha256": "71975122b40a64e64482a25696b6dfca6745c9c1063e3c41c305c75fbcaec5cd",
+        "sha256": "58d6966fd6c904e8b6adca800731394803d0fee4f73d781ee0fa2a5776d6e063",
         "symbols": [
           {
             "name": "MenuOpenEventDetails",
@@ -27406,7 +27406,7 @@
           {
             "name": "createMenuPositioner",
             "kind": "FunctionDeclaration",
-            "sha256": "1c08bf3d5dba85d90ca348117727ff266db815c5fcd53f35cf482c3af4867fa1"
+            "sha256": "f8c6281e27ec43ce5b0d295aedd66675394d6e65d96c31fa8e8aa241b6ab356d"
           }
         ],
         "imports": [

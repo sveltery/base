@@ -131,35 +131,6 @@ function nativeContract(path, body) {
   }
   return body;
 }
-const positionerPublicationPredecessor = 'd390353b69fd9b7761d4256f0a4fd39ef0a66fea';
-const positionerPublicationRuntime =
-  'packages/base/src/lib/menu/positioner/createMenuPositioner.svelte.ts';
-function positionerPublication(path, body) {
-  if (path !== positionerPublicationRuntime) return body;
-  const before = `  function attachHost(host: HTMLElement) {
-    getRef(host);
-    setPositionerElement(host);
-    return () => {
-      getRef(null);
-      setPositionerElement(null);
-    };
-  }
-`;
-  const after = `  function attachHost(host: HTMLElement) {
-    return untrack(() => {
-      getRef(host);
-      setPositionerElement(host);
-      return () =>
-        untrack(() => {
-          getRef(null);
-          setPositionerElement(null);
-        });
-    });
-  }
-`;
-  assert.equal(body.split(before).length, 2, 'One exact native Positioner publication span');
-  return body.replace(before, after);
-}
 const hostBusinessPredecessor = 'c04b7ca3c494df0cbe8c6c488dbaa0479b145f7f';
 const hostBusinessChanges = {
   'packages/base/src/lib/internals/use-button/useButton.svelte.ts': [
@@ -520,8 +491,7 @@ let effectCalls = 0,
   buttonDefaultAstPreservedBodies = 0,
   buttonDefaultUnchangedBodies = 0,
   nativeContractAstPreservedBodies = 0,
-  hostBusinessAstPreservedBodies = 0,
-  positionerPublicationAstPreservedBodies = 0;
+  hostBusinessAstPreservedBodies = 0;
 for (const module of graph.native.modules) {
   const path = module.path;
   const before = git('show', `${renderer}:${path}`);
@@ -604,34 +574,18 @@ for (const module of graph.native.modules) {
     assert(contractEqual);
     nativeContractAstPreservedBodies++;
   }
-  const publicationPreimage = git('show', `${positionerPublicationPredecessor}:${path}`);
-  const publicationBefore = syntax(path, publicationPreimage);
   assert.equal(
-    publicationPreimage,
+    after,
     hostBusiness(path, hostBusinessPreimage),
-    `Exact historical native host business successor: ${path}`,
+    `Exact native host business successor: ${path}`,
   );
   const hostBusinessEqual =
     JSON.stringify(shape(hostBusinessBefore, hostBusinessBefore)) ===
-    JSON.stringify(shape(publicationBefore, publicationBefore));
+    JSON.stringify(shape(right, right));
   if (hostBusinessPaths.has(path)) assert(!hostBusinessEqual);
   else {
     assert(hostBusinessEqual);
     hostBusinessAstPreservedBodies++;
-  }
-  assert.equal(
-    after,
-    positionerPublication(path, publicationPreimage),
-    `Only the exact native Positioner publication successor: ${path}`,
-  );
-  const positionerPublicationEqual =
-    JSON.stringify(shape(publicationBefore, publicationBefore)) ===
-    JSON.stringify(shape(right, right));
-  const positionerPublicationCorrection = path === positionerPublicationRuntime;
-  if (positionerPublicationCorrection) assert(!positionerPublicationEqual);
-  else {
-    assert(positionerPublicationEqual);
-    positionerPublicationAstPreservedBodies++;
   }
   const semanticOwnerCorrection = path === 'packages/utils/src/lib/PreviousValue.svelte.ts';
   const labelPublicationCorrection =
@@ -754,9 +708,9 @@ for (const module of graph.native.modules) {
           );
     }
     assert.equal(
-      publicationPreimage,
+      after,
       bindingDirectiveHygiene(path, expected),
-      `Only the historical complete-body cleanup delta and binding comment: ${path}`,
+      `Only the authorized complete-body cleanup delta and binding comment: ${path}`,
     );
   }
   if (semanticOwnerCorrection)
@@ -836,16 +790,6 @@ for (const module of graph.native.modules) {
       : path.endsWith('ToolbarButton.svelte')
         ? 'Root-authorized captured-host identity guard for Toolbar cleanup of the existing actual button business node; forwarded disabled, prop sources, updateDisabled and native attachment setup remain. Execution pending.'
         : 'Root-authorized narrow submenu item publication and implicit-active registration boundary with actual Store/ID acquisition outside untrack; tracked list acquisition, conditional closeDelay, migration/disabled synchronization, registration/cleanup order and all callbacks remain. Native owner comments replace merged-ref wording. Execution pending.';
-  }
-  if (positionerPublicationCorrection) {
-    record.sourceBusinessCorrection = true;
-    record.sourcePositionerPublicationCorrection = true;
-    record.sourcePositionerPublicationPredecessor = positionerPublicationPredecessor;
-    record.sourcePositionerPublicationPredecessorSha256 = hash(publicationPreimage);
-    record.exactAuthorizedCompleteBodyDelta = true;
-    record.ordinaryDeclarationCredit = 0;
-    record.disposition +=
-      ' Root-authorized native untrack only around captured getRef/Store host publication and owned null cleanup; actual Store/host acquisition, publication order, pinned parent propagation and live positioning/effects remain. Candidate runtime execution pending.';
   }
   if (installedLabelCorrection || installedTreeCorrection) {
     record.sourceBusinessPredecessor = cleanupPredecessor;
@@ -1020,32 +964,6 @@ assert.equal(buttonDefaultAstPreservedBodies, 496);
 assert.equal(buttonDefaultUnchangedBodies, 486);
 assert.equal(nativeContractAstPreservedBodies, 486);
 assert.equal(hostBusinessAstPreservedBodies, 493);
-assert.equal(positionerPublicationAstPreservedBodies, 495);
-const publicationLifetime = JSON.parse(
-  readFileSync(
-    resolve(root, 'parity/native-snippets/menu-positioner-publication-lifetime.json'),
-    'utf8',
-  ),
-);
-assert.equal(publicationLifetime.predecessor, positionerPublicationPredecessor);
-assert.equal(publicationLifetime.pin, graph.immutableOriginalPin);
-assert.equal(publicationLifetime.ordinaryDeclarationCredit, 0);
-assert.equal(publicationLifetime.runtime.path, positionerPublicationRuntime);
-assert.equal(
-  hash(readFileSync(resolve(root, publicationLifetime.runtime.path))),
-  publicationLifetime.runtime.sha256,
-);
-assert.equal(
-  hash(git('show', `${positionerPublicationPredecessor}:${positionerPublicationRuntime}`)),
-  publicationLifetime.runtime.predecessorSha256,
-);
-for (const original of publicationLifetime.original)
-  assert.equal(hash(readFileSync(resolve(root, original.archive))), original.sha256);
-for (const witness of publicationLifetime.unchangedWitnesses) {
-  const body = readFileSync(resolve(root, witness.path));
-  assert.equal(hash(body), witness.sha256, `Changed Positioner witness: ${witness.path}`);
-  assert.equal(body.toString(), git('show', `${positionerPublicationPredecessor}:${witness.path}`));
-}
 const buttonDefaultOriginal = {
   pin: graph.immutableOriginalPin,
   path: 'packages/react/src/internals/useRenderElement.tsx',
@@ -1082,11 +1000,6 @@ const output = {
     .map((record) => record.path),
   hostBusinessPredecessor,
   hostBusinessAstPreservedBodies,
-  positionerPublicationPredecessor,
-  positionerPublicationAstPreservedBodies,
-  sourcePositionerPublicationCorrectionPaths: records
-    .filter((record) => record.sourcePositionerPublicationCorrection)
-    .map((record) => record.path),
   sourceHostBusinessLifetimeCorrectionPaths: records
     .filter((record) => record.sourceHostBusinessLifetimeCorrection)
     .map((record) => record.path),
@@ -1097,7 +1010,7 @@ const output = {
   ordinaryDeclarationCredit: 0,
   mode: 'Source/parser/hash/import evidence only; no type program, runtime, SSR/hydration, compiled markup, artifact, installed consumer, browser, CI or merge acceptance credit.',
   method:
-    'Complete current native two-package AST closure, immutable f0 full-body preimages and grouping-preserving script ASTs. Deliberate source/native owner corrections remain separate from formatter presentation changes. Getter/label publication retain exact inherited bodies; full-body Menu cleanup deltas bind e5, captured focus metadata binds42, trigger publication bindsf2, and native ownership comments bind336 with its AST unchanged. The five native node/initial-seed/focus-out disposal owner deltas bindc392 while all earlier stages/history remain distinct. The subsequent 32 obsolete binding directives and one RadioGroup output-binding annotation bind 0d with all 496 complete bodies otherwise unchanged and every script AST identical. The next native initial-focus destroyed-owner predicate and adjacent timing comment bind ec36 as one complete Source-body delta; all other 495 current bodies/ASTs stay exact. This native owner adaptation earns zero unchanged Original credit. The subsequent real Popover trigger focus-target node property binds 0ba as one complete Source-body delta with 495 other current bodies/ASTs exact; earlier stages retain their own immutable preservation counts. The next ten intrinsic button fallback defaults bind d5 as exact literal attributes before props spread; all 496 script ASTs and 486 other full bodies remain unchanged. Custom render branches and merged props remain untouched. The Original fallback default is expressed as native host markup with no shared renderer or new assertion credit. The subsequent ten native declaration/producer contract repairs bind c0 as exact complete-body transforms; the other 486 bodies and script ASTs remain exact. Seven declaration paths, a ToastClose rune-collision identifier rename and two known appearance producers retain their existing business and handler composition. Type/runtime acceptance remains pending. The next three native host-business lifetime deltas bind c04 as exact complete bodies: an ordinary getter over the actual button node, Toolbar captured-host cleanup and narrow submenu imperative item/implicit-active publication. The other 493 current bodies/ASTs are exact, and prior c0/d5 preservation counts remain historical. Disabled/prop/event algorithms, tracked list acquisition and independent migration/closeDelay effects remain. Parse success supplies no behavior equivalence. The next single Positioner imperative publication/cleanup boundary binds the full d390 preimage; the other 495 complete bodies/ASTs stay exact, while all earlier historical stage counts remain unchanged. Actual context Store and host acquisition, pinned parent subscription, synchronous callback order and live positioning/effects remain. This source proof grants no runtime-cause, pass or unchanged Original assertion credit.',
+    'Complete current native two-package AST closure, immutable f0 full-body preimages and grouping-preserving script ASTs. Deliberate source/native owner corrections remain separate from formatter presentation changes. Getter/label publication retain exact inherited bodies; full-body Menu cleanup deltas bind e5, captured focus metadata binds42, trigger publication bindsf2, and native ownership comments bind336 with its AST unchanged. The five native node/initial-seed/focus-out disposal owner deltas bindc392 while all earlier stages/history remain distinct. The subsequent 32 obsolete binding directives and one RadioGroup output-binding annotation bind 0d with all 496 complete bodies otherwise unchanged and every script AST identical. The next native initial-focus destroyed-owner predicate and adjacent timing comment bind ec36 as one complete Source-body delta; all other 495 current bodies/ASTs stay exact. This native owner adaptation earns zero unchanged Original credit. The subsequent real Popover trigger focus-target node property binds 0ba as one complete Source-body delta with 495 other current bodies/ASTs exact; earlier stages retain their own immutable preservation counts. The next ten intrinsic button fallback defaults bind d5 as exact literal attributes before props spread; all 496 script ASTs and 486 other full bodies remain unchanged. Custom render branches and merged props remain untouched. The Original fallback default is expressed as native host markup with no shared renderer or new assertion credit. The subsequent ten native declaration/producer contract repairs bind c0 as exact complete-body transforms; the other 486 bodies and script ASTs remain exact. Seven declaration paths, a ToastClose rune-collision identifier rename and two known appearance producers retain their existing business and handler composition. Type/runtime acceptance remains pending. The next three native host-business lifetime deltas bind c04 as exact complete bodies: an ordinary getter over the actual button node, Toolbar captured-host cleanup and narrow submenu imperative item/implicit-active publication. The other 493 current bodies/ASTs are exact, and prior c0/d5 preservation counts remain historical. Disabled/prop/event algorithms, tracked list acquisition and independent migration/closeDelay effects remain. Parse success supplies no behavior equivalence.',
   parserVersions: { TypeScript: ts.version, Svelte: compiler.VERSION },
   currentGraphSha256: hash(
     readFileSync(resolve(root, 'parity/utils-package/current-source-graph.json')),
