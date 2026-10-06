@@ -226,6 +226,49 @@ const panelMotionChanges = [
     '          restoreName();\n          return;\n        }\n        skippedOpenMotion = { panel, type: mode };\n        restoreName();\n        forcePanelIdle = true;\n        return;\n      }\n',
   ],
 ];
+// Append public native style declarations after the frozen historical Panel successor.
+const publicStylePredecessor = '4aa4bc8d8d7c17e8dbec781837d56ca56112f9e3';
+const publicStyleChanges = {
+  'packages/base/src/lib/internals/nativeProps.ts': [
+    [
+      "import type { ClassValue } from 'svelte/elements';\n",
+      "import type { ClassValue, HTMLAttributes } from 'svelte/elements';\n",
+    ],
+    [
+      'export type NativeStyle = string | Record<string, unknown>;\n',
+      "// Public styles use Svelte's attribute representation; pure internal records still serialize below.\n" +
+        "export type NativeStyle = HTMLAttributes<HTMLElement>['style'];\n",
+    ],
+  ],
+  'packages/base/src/lib/dialog/types.ts': [
+    [
+      '  style?: string | ((state: State) => string | undefined);\n',
+      "  style?: BaseUIComponentProps<State>['style'];\n",
+    ],
+  ],
+  'packages/base/src/lib/avatar/types.ts': [
+    [
+      "import type { HTMLProps, WithBaseUIEvent } from '../internals/types.js';\n",
+      "import type { BaseUIComponentProps, HTMLProps, WithBaseUIEvent } from '../internals/types.js';\n",
+    ],
+    [
+      '  style?: string | ((state: State) => string | undefined);\n',
+      "  style?: BaseUIComponentProps<State>['style'];\n",
+    ],
+  ],
+  'packages/base/src/lib/toast/types.ts': [
+    [
+      "import type { ComponentRenderFn, HTMLProps } from '../internals/types.js';\n",
+      "import type { BaseUIComponentProps, ComponentRenderFn, HTMLProps } from '../internals/types.js';\n",
+    ],
+    [
+      '  style?: string | ((state: State) => string | undefined);\n',
+      "  style?: BaseUIComponentProps<State>['style'];\n",
+    ],
+  ],
+};
+const publicStylePaths = new Set(Object.keys(publicStyleChanges));
+assert.equal(publicStylePaths.size, 4);
 const hostBusinessPredecessor = 'c04b7ca3c494df0cbe8c6c488dbaa0479b145f7f';
 const hostBusinessChanges = {
   'packages/base/src/lib/internals/use-button/useButton.svelte.ts': [
@@ -593,7 +636,10 @@ let effectCalls = 0,
   fieldBusinessCorrectionBodies = 0,
   panelMotionAstPreservedBodies = 0,
   panelMotionUnchangedBodies = 0,
-  panelMotionCorrectionBodies = 0;
+  panelMotionCorrectionBodies = 0,
+  publicStyleAstPreservedBodies = 0,
+  publicStyleUnchangedBodies = 0,
+  publicStyleCorrectionBodies = 0;
 for (const module of graph.native.modules) {
   const path = module.path;
   const before = git('show', `${renderer}:${path}`);
@@ -750,23 +796,56 @@ for (const module of graph.native.modules) {
       );
       panelMotionExpected = panelMotionExpected.replace(before, after);
     }
+  const publicStylePreimage = git('show', `${publicStylePredecessor}:${path}`);
+  const publicStyleBefore = syntax(path, publicStylePreimage);
   assert.equal(
-    after,
+    publicStylePreimage,
     panelMotionExpected,
     `Only the exact one-body Collapsible Panel motion successor: ${path}`,
   );
   const panelMotionEqual =
     JSON.stringify(shape(panelMotionBefore, panelMotionBefore)) ===
-    JSON.stringify(shape(right, right));
+    JSON.stringify(shape(publicStyleBefore, publicStyleBefore));
   const panelMotionCorrection = path === panelMotionRuntime;
   if (panelMotionCorrection) {
     assert(!panelMotionEqual);
     panelMotionCorrectionBodies++;
   } else {
-    assert.equal(after, panelMotionPreimage, `Unchanged complete Panel motion stage body: ${path}`);
+    assert.equal(
+      publicStylePreimage,
+      panelMotionPreimage,
+      `Unchanged complete Panel motion stage body: ${path}`,
+    );
     assert(panelMotionEqual);
     panelMotionUnchangedBodies++;
     panelMotionAstPreservedBodies++;
+  }
+  let publicStyleExpected = publicStylePreimage;
+  for (const [before, after] of publicStyleChanges[path] ?? []) {
+    assert.equal(
+      publicStyleExpected.split(before).length,
+      2,
+      `One exact reviewed public style type/import span: ${path}`,
+    );
+    publicStyleExpected = publicStyleExpected.replace(before, after);
+  }
+  assert.equal(
+    after,
+    publicStyleExpected,
+    `Only the exact four-body native public style successor: ${path}`,
+  );
+  const publicStyleEqual =
+    JSON.stringify(shape(publicStyleBefore, publicStyleBefore)) ===
+    JSON.stringify(shape(right, right));
+  const publicStyleCorrection = publicStylePaths.has(path);
+  if (publicStyleCorrection) {
+    assert(!publicStyleEqual);
+    publicStyleCorrectionBodies++;
+  } else {
+    assert.equal(after, publicStylePreimage, `Unchanged complete public style stage body: ${path}`);
+    assert(publicStyleEqual);
+    publicStyleUnchangedBodies++;
+    publicStyleAstPreservedBodies++;
   }
   const semanticOwnerCorrection = path === 'packages/utils/src/lib/PreviousValue.svelte.ts';
   const labelPublicationCorrection =
@@ -1002,6 +1081,15 @@ for (const module of graph.native.modules) {
     record.ordinaryDeclarationCredit = 0;
     record.disposition =
       'Root-reviewed accepted-beforematch motion state for the actual host/open cycle feeds derived native markup through dimension commits; close resolves live authored duration before motion measurement. Captured host cleanup clears only its state. Detached hosts retain last native markup, and consumer important declarations/custom-host style directives keep native precedence. Public style remains string or state-to-string. Existing cancellation, skip consumption, measurement and observer business remain. Successor execution pending; zero divergent unchanged Original credit.';
+  }
+  if (publicStyleCorrection) {
+    record.sourceNativePublicStyleCorrection = true;
+    record.sourceNativePublicStylePredecessor = publicStylePredecessor;
+    record.sourceNativePublicStylePredecessorSha256 = hash(publicStylePreimage);
+    record.exactAuthorizedCompleteBodyDelta = true;
+    record.ordinaryDeclarationCredit = 0;
+    record.disposition +=
+      ' Native public style type/import successor derives CSS string/null/undefined from Svelte HTMLAttributes and preserves the existing exact state callback across canonical and legacy declarations. Only four complete type/import bodies change against 4aa; pure internal CSS records, serialization, merge/identity, functions/effects, hosts and all earlier runtime business remain exact. Source proof supplies no new type, artifact, runtime or Original assertion acceptance; execution pending.';
   }
   if (installedLabelCorrection || installedTreeCorrection) {
     record.sourceBusinessPredecessor = cleanupPredecessor;
@@ -1265,6 +1353,9 @@ for (const witness of fieldStage.unchangedWitnesses) {
 assert.equal(panelMotionAstPreservedBodies, 495);
 assert.equal(panelMotionUnchangedBodies, 495);
 assert.equal(panelMotionCorrectionBodies, 1);
+assert.equal(publicStyleAstPreservedBodies, 492);
+assert.equal(publicStyleUnchangedBodies, 492);
+assert.equal(publicStyleCorrectionBodies, 4);
 const panelMotionLifetime = JSON.parse(
   readFileSync(
     resolve(root, 'parity/native-snippets/collapsible-panel-motion-lifetime.json'),
@@ -1354,6 +1445,13 @@ const output = {
   sourceNativePanelMotionCorrectionPaths: records
     .filter((record) => record.sourceNativePanelMotionCorrection)
     .map((record) => record.path),
+  publicStylePredecessor,
+  publicStyleAstPreservedBodies,
+  publicStyleUnchangedBodies,
+  publicStyleCorrectionBodies,
+  sourceNativePublicStyleCorrectionPaths: records
+    .filter((record) => record.sourceNativePublicStyleCorrection)
+    .map((record) => record.path),
   sourceHostBusinessLifetimeCorrectionPaths: records
     .filter((record) => record.sourceHostBusinessLifetimeCorrection)
     .map((record) => record.path),
@@ -1364,7 +1462,7 @@ const output = {
   ordinaryDeclarationCredit: 0,
   mode: 'Source/parser/hash/import evidence only; no type program, runtime, SSR/hydration, compiled markup, artifact, installed consumer, browser, CI or merge acceptance credit.',
   method:
-    'Complete current native two-package AST closure, immutable f0 full-body preimages and grouping-preserving script ASTs. Deliberate source/native owner corrections remain separate from formatter presentation changes. Getter/label publication retain exact inherited bodies; full-body Menu cleanup deltas bind e5, captured focus metadata binds42, trigger publication bindsf2, and native ownership comments bind336 with its AST unchanged. The five native node/initial-seed/focus-out disposal owner deltas bindc392 while all earlier stages/history remain distinct. The subsequent 32 obsolete binding directives and one RadioGroup output-binding annotation bind 0d with all 496 complete bodies otherwise unchanged and every script AST identical. The next native initial-focus destroyed-owner predicate and adjacent timing comment bind ec36 as one complete Source-body delta; all other 495 current bodies/ASTs stay exact. This native owner adaptation earns zero unchanged Original credit. The subsequent real Popover trigger focus-target node property binds 0ba as one complete Source-body delta with 495 other current bodies/ASTs exact; earlier stages retain their own immutable preservation counts. The next ten intrinsic button fallback defaults bind d5 as exact literal attributes before props spread; all 496 script ASTs and 486 other full bodies remain unchanged. Custom render branches and merged props remain untouched. The Original fallback default is expressed as native host markup with no shared renderer or new assertion credit. The subsequent ten native declaration/producer contract repairs bind c0 as exact complete-body transforms; the other 486 bodies and script ASTs remain exact. Seven declaration paths, a ToastClose rune-collision identifier rename and two known appearance producers retain their existing business and handler composition. Type/runtime acceptance remains pending. The next three native host-business lifetime deltas bind c04 as exact complete bodies: an ordinary getter over the actual button node, Toolbar captured-host cleanup and narrow submenu imperative item/implicit-active publication. The other 493 current bodies/ASTs are exact, and prior c0/d5 preservation counts remain historical. Disabled/prop/event algorithms, tracked list acquisition and independent migration/closeDelay effects remain. Parse success supplies no behavior equivalence. The next single Positioner imperative publication/cleanup boundary binds the full d390 preimage; the other 495 complete bodies/ASTs stay exact, while all earlier historical stage counts remain unchanged. Actual context Store and host acquisition, pinned parent subscription, synchronous callback order and live positioning/effects remain. This source proof grants no runtime-cause, pass or unchanged Original assertion credit. The subsequent two reviewed Field business repairs bind the complete acde preimages: own supplied-child presence controls Error content and a live imperative message-ID resource publishes through native raw state. Only those exact reviewed spans change; the other 494 complete bodies and script ASTs stay exact. The d390 Menu boundary and every earlier preservation count remain historical. Original inventory/correspondence hashes and all existing Field witness bodies remain unchanged, with zero new declaration or execution credit. The next one-body Collapsible Panel stage binds the complete coherent Field predecessor with 495 other bodies and grouping-preserving script ASTs exact. Accepted-beforematch motion becomes actual-host/open-cycle native state and derived zero-duration markup; close resolves live authored duration. The acde-to-Field two-body 494 stage and d390-to-acde Menu 495 stage remain historical. Detached native markup and consumer important/custom-host overrides are intentional native boundaries with zero divergent unchanged Original credit. Separate favicon and supplemental assertion edits are non-runtime metadata; Source proof grants no successor execution or acceptance credit.',
+    'Complete current native two-package AST closure, immutable f0 full-body preimages and grouping-preserving script ASTs. Deliberate source/native owner corrections remain separate from formatter presentation changes. Getter/label publication retain exact inherited bodies; full-body Menu cleanup deltas bind e5, captured focus metadata binds42, trigger publication bindsf2, and native ownership comments bind336 with its AST unchanged. The five native node/initial-seed/focus-out disposal owner deltas bindc392 while all earlier stages/history remain distinct. The subsequent 32 obsolete binding directives and one RadioGroup output-binding annotation bind 0d with all 496 complete bodies otherwise unchanged and every script AST identical. The next native initial-focus destroyed-owner predicate and adjacent timing comment bind ec36 as one complete Source-body delta; all other 495 current bodies/ASTs stay exact. This native owner adaptation earns zero unchanged Original credit. The subsequent real Popover trigger focus-target node property binds 0ba as one complete Source-body delta with 495 other current bodies/ASTs exact; earlier stages retain their own immutable preservation counts. The next ten intrinsic button fallback defaults bind d5 as exact literal attributes before props spread; all 496 script ASTs and 486 other full bodies remain unchanged. Custom render branches and merged props remain untouched. The Original fallback default is expressed as native host markup with no shared renderer or new assertion credit. The subsequent ten native declaration/producer contract repairs bind c0 as exact complete-body transforms; the other 486 bodies and script ASTs remain exact. Seven declaration paths, a ToastClose rune-collision identifier rename and two known appearance producers retain their existing business and handler composition. Type/runtime acceptance remains pending. The next three native host-business lifetime deltas bind c04 as exact complete bodies: an ordinary getter over the actual button node, Toolbar captured-host cleanup and narrow submenu imperative item/implicit-active publication. The other 493 current bodies/ASTs are exact, and prior c0/d5 preservation counts remain historical. Disabled/prop/event algorithms, tracked list acquisition and independent migration/closeDelay effects remain. Parse success supplies no behavior equivalence. The next single Positioner imperative publication/cleanup boundary binds the full d390 preimage; the other 495 complete bodies/ASTs stay exact, while all earlier historical stage counts remain unchanged. Actual context Store and host acquisition, pinned parent subscription, synchronous callback order and live positioning/effects remain. This source proof grants no runtime-cause, pass or unchanged Original assertion credit. The subsequent two reviewed Field business repairs bind the complete acde preimages: own supplied-child presence controls Error content and a live imperative message-ID resource publishes through native raw state. Only those exact reviewed spans change; the other 494 complete bodies and script ASTs stay exact. The d390 Menu boundary and every earlier preservation count remain historical. Original inventory/correspondence hashes and all existing Field witness bodies remain unchanged, with zero new declaration or execution credit. The next one-body Collapsible Panel stage binds the complete coherent Field predecessor with 495 other bodies and grouping-preserving script ASTs exact. Accepted-beforematch motion becomes actual-host/open-cycle native state and derived zero-duration markup; close resolves live authored duration. The acde-to-Field two-body 494 stage and d390-to-acde Menu 495 stage remain historical. Detached native markup and consumer important/custom-host overrides are intentional native boundaries with zero divergent unchanged Original credit. Separate favicon and supplemental assertion edits are non-runtime metadata; Source proof grants no successor execution or acceptance credit. The subsequent four-body native public style type/import stage binds the complete 4aa predecessor, preserving all 492 other complete bodies and grouping-preserving script ASTs. The historical one-Panel 495, two-Field 494 and Menu 495 stages are frozen against their exact predecessor/successor bodies rather than rewritten for current declarations. Canonical NativeStyle derives Svelte CSS string/null/undefined, and legacy Dialog/Avatar/Toast reuse the same state-specific style slot. Internal style records, pure serialization and merge/identity function bodies remain; no runtime guard or object-business rewrite is introduced. Earlier authored public object-style API and prior receipts stay historical; this declaration correction earns zero divergent unchanged Original credit and no type/runtime/artifact/acceptance credit before actual gates.',
   parserVersions: { TypeScript: ts.version, Svelte: compiler.VERSION },
   currentGraphSha256: hash(
     readFileSync(resolve(root, 'parity/utils-package/current-source-graph.json')),

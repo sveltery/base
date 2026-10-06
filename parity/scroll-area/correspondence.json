@@ -76,7 +76,7 @@
     },
     {
       "local": "packages/base/src/lib/internals/nativeProps.ts",
-      "localSha256": "653fb2f684da7987d8c51b2384cbf5e8839c30a620a7b790f451bbeb87479cab",
+      "localSha256": "f081bf825f41a64924fe298108e148ac56314d02074c588cc1f9324ff6a92cc5",
       "source": "packages/react/src/internals/useRenderElement.tsx",
       "sourceSha256": "0b55dc232a0d630a666a13873213d1bdde040e973031f2b307a64cc157644a4c",
       "kind": "native-renderer",

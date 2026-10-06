@@ -29,7 +29,7 @@
     <ScrollArea.Root data-testid="root" overflowEdgeThreshold={threshold}>
       {#if !noViewport}<ScrollArea.Viewport
           data-testid="viewport"
-          style={{ scrollSnapType: 'y mandatory' }}
+          style="scroll-snap-type:y mandatory"
           ><ScrollArea.Content data-testid="content">Content</ScrollArea.Content
           ></ScrollArea.Viewport
         >{/if}

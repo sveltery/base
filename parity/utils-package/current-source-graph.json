@@ -4704,7 +4704,7 @@
       },
       {
         "path": "packages/base/src/lib/avatar/types.ts",
-        "sha256": "f2c8b5590802d4325320170b0095abd0dd01cb24fd99501ce40c284442759967",
+        "sha256": "afd2b4524f96fe9541ce29b2f22ccbb6644e4f5c5698fe826d44122cdd3f1b0b",
         "symbols": [
           {
             "name": "ImageLoadingStatus",
@@ -4729,7 +4729,7 @@
           {
             "name": "PartProps",
             "kind": "TypeAliasDeclaration",
-            "sha256": "4cf5291b028d298f114ab6e937b11404246d699f3c8f190839d29262f11673b4"
+            "sha256": "7df39c0add07602c3c1e1a7adafe18ec57ad8accc03b73370aff5084aebcf629"
           },
           {
             "name": "AvatarRootProps",
@@ -4788,6 +4788,11 @@
             "specifier": "../internals/types.js",
             "kind": "type",
             "members": [
+              {
+                "imported": "BaseUIComponentProps",
+                "local": "BaseUIComponentProps",
+                "typeOnly": true
+              },
               {
                 "imported": "HTMLProps",
                 "local": "HTMLProps",
@@ -10454,7 +10459,7 @@
       },
       {
         "path": "packages/base/src/lib/dialog/types.ts",
-        "sha256": "52778d4ca75e8c845ea35c3fd9524f498f11f5cbc8bca65ca81e9a7b28ffaaec",
+        "sha256": "d2b80a17a890020ddb9e7ba36c2cf2106e1677b76c722617575ef81a2728c567",
         "symbols": [
           {
             "name": "ChangeReason",
@@ -10534,7 +10539,7 @@
           {
             "name": "ElementProps",
             "kind": "TypeAliasDeclaration",
-            "sha256": "d05b93a0fa0f9c6c05d97920ed6f403911efcf888676c3d6be1bef27581e998d"
+            "sha256": "7804d5d7346428c96c8d1a89a2d3ff04a655e8fa3d372790c1ecdda924723a9e"
           },
           {
             "name": "DialogElementProps",
@@ -23878,12 +23883,12 @@
       },
       {
         "path": "packages/base/src/lib/internals/nativeProps.ts",
-        "sha256": "653fb2f684da7987d8c51b2384cbf5e8839c30a620a7b790f451bbeb87479cab",
+        "sha256": "f081bf825f41a64924fe298108e148ac56314d02074c588cc1f9324ff6a92cc5",
         "symbols": [
           {
             "name": "NativeStyle",
             "kind": "TypeAliasDeclaration",
-            "sha256": "1a2e758f5cd7fcf26cc6ef9dabdbfe0dee8dfe92a32333e22e5ee7fc3e7e74c0"
+            "sha256": "6a4dd322c1f53414b8a4c5436c2f8fe3c23c5f924c7d6dcb28658a025dc50b9e"
           },
           {
             "name": "toNativeStyle",
@@ -23914,6 +23919,11 @@
               {
                 "imported": "ClassValue",
                 "local": "ClassValue",
+                "typeOnly": true
+              },
+              {
+                "imported": "HTMLAttributes",
+                "local": "HTMLAttributes",
                 "typeOnly": true
               }
             ],
@@ -44761,7 +44771,7 @@
       },
       {
         "path": "packages/base/src/lib/toast/types.ts",
-        "sha256": "d28b459cdd1863d017ff641fe591fba369d7553056309f3943acb0cd4e0e9bb4",
+        "sha256": "a62103a16c9ff860307401c87f9a27057f32030c31d2e2d2be6403e7b634d13f",
         "symbols": [
           {
             "name": "ToastContent",
@@ -44836,7 +44846,7 @@
           {
             "name": "ToastElementProps",
             "kind": "TypeAliasDeclaration",
-            "sha256": "a858897cc4d71a59223db8dc296ab791ca38ff669cea95addd5fb322d29f6ed8"
+            "sha256": "c213877055fb9f79440c326df78012788c95d1c330caf23d87aa55834953f56a"
           },
           {
             "name": "ToastRootProps",
@@ -44902,6 +44912,11 @@
             "specifier": "../internals/types.js",
             "kind": "type",
             "members": [
+              {
+                "imported": "BaseUIComponentProps",
+                "local": "BaseUIComponentProps",
+                "typeOnly": true
+              },
               {
                 "imported": "ComponentRenderFn",
                 "local": "ComponentRenderFn",

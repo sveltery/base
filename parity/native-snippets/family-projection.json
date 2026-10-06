@@ -10,11 +10,11 @@
     ],
     "graph": {
       "path": "parity/native-snippets/native-graph.json",
-      "sha256": "7c8c11d1e50beaa6e3e7613eb508f57102259db4ed96a1a29294eb87c63caeeb"
+      "sha256": "5dfb01f21528cd00ea215a2ea027ee04187f9e3da98f9d68333a3deae9385d2c"
     },
     "predecessor": {
       "path": "parity/toggle-toolbar/source-correspondence.json",
-      "sha256": "16be28d7496b87be6ef4b76bc9facdeee0811908b93462934d6c8ae73ae49e10"
+      "sha256": "3d0b1c5353cb45052852582e2449ec6123a87bcdf58801f94eafa8670511898e"
     },
     "originalGraph": {
       "path": "parity/toggle-toolbar/source-graph.json",
@@ -95,7 +95,7 @@
       },
       {
         "source": "packages/base/src/lib/internals/nativeProps.ts",
-        "sha256": "653fb2f684da7987d8c51b2384cbf5e8839c30a620a7b790f451bbeb87479cab"
+        "sha256": "f081bf825f41a64924fe298108e148ac56314d02074c588cc1f9324ff6a92cc5"
       },
       {
         "source": "packages/base/src/lib/internals/reason-parts.ts",
@@ -1953,7 +1953,7 @@
       },
       {
         "source": "packages/base/src/lib/internals/nativeProps.ts",
-        "sha256": "653fb2f684da7987d8c51b2384cbf5e8839c30a620a7b790f451bbeb87479cab",
+        "sha256": "f081bf825f41a64924fe298108e148ac56314d02074c588cc1f9324ff6a92cc5",
         "status": "native-representation-or-split-business-counterpart-no-acceptance-credit"
       },
       {
@@ -2015,11 +2015,11 @@
     ],
     "graph": {
       "path": "parity/native-snippets/native-graph.json",
-      "sha256": "7c8c11d1e50beaa6e3e7613eb508f57102259db4ed96a1a29294eb87c63caeeb"
+      "sha256": "5dfb01f21528cd00ea215a2ea027ee04187f9e3da98f9d68333a3deae9385d2c"
     },
     "predecessor": {
       "path": "parity/menu-family/source-correspondence.json",
-      "sha256": "52ccef8c8e7988cad4eff0c2fe4e72652d70ea48c7988c06c0d99f23409a85c1"
+      "sha256": "06d21d3b4c760f8f6260543bdfee2f18cef48b15957eaf0b7d038ce1ed4a60c3"
     },
     "originalGraph": {
       "path": "parity/menu-family/source-graph.json",
@@ -2312,7 +2312,7 @@
       },
       {
         "source": "packages/base/src/lib/internals/nativeProps.ts",
-        "sha256": "653fb2f684da7987d8c51b2384cbf5e8839c30a620a7b790f451bbeb87479cab"
+        "sha256": "f081bf825f41a64924fe298108e148ac56314d02074c588cc1f9324ff6a92cc5"
       },
       {
         "source": "packages/base/src/lib/internals/reason-parts.ts",
@@ -5677,7 +5677,7 @@
       },
       {
         "source": "packages/base/src/lib/internals/nativeProps.ts",
-        "sha256": "653fb2f684da7987d8c51b2384cbf5e8839c30a620a7b790f451bbeb87479cab",
+        "sha256": "f081bf825f41a64924fe298108e148ac56314d02074c588cc1f9324ff6a92cc5",
         "status": "native-representation-or-split-business-counterpart-no-acceptance-credit"
       },
       {

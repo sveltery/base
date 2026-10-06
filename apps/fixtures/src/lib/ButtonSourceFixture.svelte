@@ -117,7 +117,7 @@
       bind:ref
       {@attach attached}
       class={(state) => ['source-class', { disabled: state.disabled }]}
-      style={(state) => ({ opacity: state.disabled ? 0.5 : 1 })}
+      style={(state) => `opacity:${state.disabled ? 0.5 : 1}`}
       onclick={() => record('click')}
       onkeydown={keydown}
       onkeyup={() => record('keyup')}>Source action</Button

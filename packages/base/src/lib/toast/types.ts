@@ -1,7 +1,7 @@
 // Derived from mui/base-ui at 47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c; MIT, see ../../../THIRD_PARTY_NOTICES.md.
 /* eslint-disable @typescript-eslint/no-explicit-any -- Preserve pinned data defaults and rejection callback typing. */
 import type { Snippet } from 'svelte';
-import type { ComponentRenderFn, HTMLProps } from '../internals/types.js';
+import type { BaseUIComponentProps, ComponentRenderFn, HTMLProps } from '../internals/types.js';
 import type { HTMLAttributes, HTMLButtonAttributes } from 'svelte/elements';
 import type { ToastManager } from './createToastManager.js';
 import type { PreventableEvent } from '../merge-props/index.js';
@@ -118,7 +118,7 @@ export type ToastElementProps<
   children?: Content;
   render?: ComponentRenderFn<HTMLProps, State> | undefined;
   class?: string | ((state: State) => string | undefined);
-  style?: string | ((state: State) => string | undefined);
+  style?: BaseUIComponentProps<State>['style'];
   ref?: HTMLElement | null;
 };
 export type ToastRootProps = ToastElementProps<ToastRootState> & {

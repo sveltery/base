@@ -21,10 +21,14 @@ cmp packages/utils/THIRD_PARTY_NOTICES.md "$snippet_consumer/node_modules/@svelt
 cp parity/native-snippets/catalog-projection.json "$snippet_consumer/native-catalog.json"
 cat > "$snippet_consumer/PublicTypes.ts" <<'TS'
 import type * as Root from '@sveltery/base';
+import type { SeparatorProps as SeparatorSubpathProps } from '@sveltery/base/separator';
+import type { ToastRootProps, ToastRootState } from '@sveltery/base/toast';
 import type { Snippet } from 'svelte';
 import type { HTMLAttributes } from 'svelte/elements';
 type Equal<A, B> = (<T>() => T extends A ? 1 : 2) extends (<T>() => T extends B ? 1 : 2) ? true : false;
 type Assert<T extends true> = T;
+type NativeStyleValue = HTMLAttributes<HTMLElement>['style'];
+type NativeComponentStyle<State> = NativeStyleValue | ((state: State) => NativeStyleValue);
 type NativeContracts = [
   Assert<Equal<Root.ComponentRenderFn<Root.HTMLProps, Root.ToggleState>, Snippet<[Root.HTMLProps, Root.ToggleState, Snippet | undefined]>>>,
   Assert<Equal<Root.HTMLProps[string], unknown>>,
@@ -33,7 +37,25 @@ type NativeContracts = [
   Assert<Equal<Root.SwitchRootProps['inputRef'], HTMLInputElement | null | undefined>>,
   Assert<Equal<Root.RadioRootProps['inputRef'], HTMLInputElement | null | undefined>>,
   Assert<Equal<Root.RadioGroupProps['inputRef'], HTMLInputElement | null | undefined>>,
+  Assert<Equal<Root.ButtonProps['style'], NativeComponentStyle<Root.ButtonState>>>,
+  Assert<Equal<Root.SeparatorProps['style'], NativeComponentStyle<Root.SeparatorState>>>,
+  Assert<Equal<SeparatorSubpathProps['style'], Root.SeparatorProps['style']>>,
+  Assert<Equal<Root.InputProps['style'], NativeComponentStyle<Root.InputState>>>,
+  Assert<Equal<Root.AvatarRootProps['style'], NativeComponentStyle<Root.AvatarRootState>>>,
+  Assert<Equal<ToastRootProps['style'], NativeComponentStyle<ToastRootState>>>,
 ];
+const nullableStyles: [Root.ButtonProps, SeparatorSubpathProps, Root.InputProps, Root.AvatarRootProps, ToastRootProps['style']] = [
+  { style: null }, { style: null }, { style: null }, { style: null }, null,
+];
+const nativeStyleCallback: SeparatorSubpathProps = {
+  style: state => state.orientation === 'vertical' ? null : 'color:green',
+};
+// @ts-expect-error Component styles use native CSS strings, not CSS-property objects.
+const objectStyle: Root.ButtonProps = { style: { opacity: 0.5 } };
+// @ts-expect-error State callbacks return native CSS strings/null/undefined.
+const objectStyleCallback: SeparatorSubpathProps = { style: state => ({ '--orientation': state.orientation }) };
+// @ts-expect-error Legacy Field/Input uses the same native public style value.
+const legacyObjectStyle: Root.InputProps = { style: { color: 'green' } };
 // @ts-expect-error The explicitly retired renderer is absent from the public root.
 import type { UseRender } from '@sveltery/base';
 // @ts-expect-error The explicitly retired renderer aliases are absent from the public root.
@@ -50,7 +72,7 @@ const invalidAttachment: Root.HTMLProps = { [Symbol()]: 123 };
 const callbackRef: Root.ButtonProps = { ref: () => {} };
 // @ts-expect-error Hidden input refs use native element bindings, not object transports.
 const objectInput: Root.CheckboxRootProps = { inputRef: { current: null } };
-void [invalidAttachment, callbackRef, objectInput];
+void [nullableStyles, nativeStyleCallback, objectStyle, objectStyleCallback, legacyObjectStyle, invalidAttachment, callbackRef, objectInput];
 export type { NativeContracts };
 TS
 cat > "$snippet_consumer/Consumer.svelte" <<'SVELTE'

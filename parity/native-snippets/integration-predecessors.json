@@ -1268,6 +1268,131 @@
           "sha256": "eae5c10d2befc706bcd4291d83356f021d5714c22b0bbaa811bc20a8ea106294"
         }
       ]
+    },
+    {
+      "commit": "4aa4bc8d8d7c17e8dbec781837d56ca56112f9e3",
+      "files": [
+        {
+          "predecessorPath": "packages/base/src/lib/avatar/types.ts",
+          "archive": "parity/native-snippets/historical/native-public-style-4aa4bc8d/packages/base/src/lib/avatar/types.ts",
+          "sha256": "f2c8b5590802d4325320170b0095abd0dd01cb24fd99501ce40c284442759967"
+        },
+        {
+          "predecessorPath": "packages/base/src/lib/dialog/types.ts",
+          "archive": "parity/native-snippets/historical/native-public-style-4aa4bc8d/packages/base/src/lib/dialog/types.ts",
+          "sha256": "52778d4ca75e8c845ea35c3fd9524f498f11f5cbc8bca65ca81e9a7b28ffaaec"
+        },
+        {
+          "predecessorPath": "packages/base/src/lib/internals/nativeProps.ts",
+          "archive": "parity/native-snippets/historical/native-public-style-4aa4bc8d/packages/base/src/lib/internals/nativeProps.ts",
+          "sha256": "653fb2f684da7987d8c51b2384cbf5e8839c30a620a7b790f451bbeb87479cab"
+        },
+        {
+          "predecessorPath": "packages/base/src/lib/toast/types.ts",
+          "archive": "parity/native-snippets/historical/native-public-style-4aa4bc8d/packages/base/src/lib/toast/types.ts",
+          "sha256": "d28b459cdd1863d017ff641fe591fba369d7553056309f3943acb0cd4e0e9bb4"
+        },
+        {
+          "predecessorPath": "docs/button.md",
+          "archive": "parity/native-snippets/historical/native-public-style-4aa4bc8d/docs/button.md",
+          "sha256": "cb23b5a6f1e83af5a52d253883ea367362c0ea1890291a24375f941fe2062bae"
+        },
+        {
+          "predecessorPath": "docs/rendering.md",
+          "archive": "parity/native-snippets/historical/native-public-style-4aa4bc8d/docs/rendering.md",
+          "sha256": "3fc0fab57291ba830958bfeaac0471f93bdf3cdf4065aee9071cd168c631682c"
+        },
+        {
+          "predecessorPath": "docs/upstream-differences.md",
+          "archive": "parity/native-snippets/historical/native-public-style-4aa4bc8d/docs/upstream-differences.md",
+          "sha256": "d8df71ea7262a402754bf7cc9b4f3e1a1d08d0e1c8fa8223dad728feee0a7cc3"
+        },
+        {
+          "predecessorPath": "parity/button/README.md",
+          "archive": "parity/native-snippets/historical/native-public-style-4aa4bc8d/parity/button/README.md",
+          "sha256": "95b973c1d7b5dd08241ea7d882600b6e3d33cab64e173f4e410055c579d5132a"
+        },
+        {
+          "predecessorPath": "parity/button/source-correspondence.md",
+          "archive": "parity/native-snippets/historical/native-public-style-4aa4bc8d/parity/button/source-correspondence.md",
+          "sha256": "784b0a47e32707d57f4aa02ad238fc5ac743506d77975a1599c2beb64b62e7c8"
+        },
+        {
+          "predecessorPath": "parity/native-snippets/README.md",
+          "archive": "parity/native-snippets/historical/native-public-style-4aa4bc8d/parity/native-snippets/README.md",
+          "sha256": "e1b6f065837d6d265202cd302e22e3c928ad3681a170ed4ee7b6dfc0b7eaa1a7"
+        },
+        {
+          "predecessorPath": "scripts/check-native-snippet-integration.mjs",
+          "archive": "parity/native-snippets/historical/native-public-style-4aa4bc8d/scripts/check-native-snippet-integration.mjs",
+          "sha256": "db4cd22165c4b3533575a9a644d589355d30a51878ee83c9d96e7b9712d84e96"
+        },
+        {
+          "predecessorPath": "parity/native-snippets/source-correspondence.md",
+          "archive": "parity/native-snippets/historical/native-public-style-4aa4bc8d/parity/native-snippets/source-correspondence.md",
+          "sha256": "03d7ab71f3b16cf85c5de0dbadd126e8aed58e9f76c6d7a9728edfbf399eef77"
+        },
+        {
+          "predecessorPath": "parity/native-snippets/integration-predecessors.json",
+          "archive": "parity/native-snippets/historical/native-public-style-4aa4bc8d/parity/native-snippets/integration-predecessors.json",
+          "sha256": "b41b05ccbc4414aefb0983459d68c72bdfe4b8dfc48ac33c2ed66df3b06d2770"
+        },
+        {
+          "predecessorPath": "parity/utils-package/current-source-graph.json",
+          "archive": "parity/native-snippets/historical/native-public-style-4aa4bc8d/parity/utils-package/current-source-graph.json",
+          "sha256": "adf4899d3df7859104a6f5b677420d2cc6cf655bd814dd1f98da39d99759209f"
+        },
+        {
+          "predecessorPath": "parity/native-snippets/native-graph.json",
+          "archive": "parity/native-snippets/historical/native-public-style-4aa4bc8d/parity/native-snippets/native-graph.json",
+          "sha256": "7c8c11d1e50beaa6e3e7613eb508f57102259db4ed96a1a29294eb87c63caeeb"
+        },
+        {
+          "predecessorPath": "parity/rendering/source-graph.json",
+          "archive": "parity/native-snippets/historical/native-public-style-4aa4bc8d/parity/rendering/source-graph.json",
+          "sha256": "7e6daae10cc8cb01ef29eccad493a70accb0afb292ba0395c2ec2c12d817623f"
+        },
+        {
+          "predecessorPath": "parity/scroll-area/correspondence.json",
+          "archive": "parity/native-snippets/historical/native-public-style-4aa4bc8d/parity/scroll-area/correspondence.json",
+          "sha256": "e52b9c7051e02b5ff20d6a612ac3a72e2695f87086d5b7f35ba862c4d3ed832a"
+        },
+        {
+          "predecessorPath": "parity/toggle-toolbar/source-correspondence.json",
+          "archive": "parity/native-snippets/historical/native-public-style-4aa4bc8d/parity/toggle-toolbar/source-correspondence.json",
+          "sha256": "16be28d7496b87be6ef4b76bc9facdeee0811908b93462934d6c8ae73ae49e10"
+        },
+        {
+          "predecessorPath": "parity/menu-family/source-correspondence.json",
+          "archive": "parity/native-snippets/historical/native-public-style-4aa4bc8d/parity/menu-family/source-correspondence.json",
+          "sha256": "52ccef8c8e7988cad4eff0c2fe4e72652d70ea48c7988c06c0d99f23409a85c1"
+        },
+        {
+          "predecessorPath": "parity/utils-package/feature-successors.json",
+          "archive": "parity/native-snippets/historical/native-public-style-4aa4bc8d/parity/utils-package/feature-successors.json",
+          "sha256": "e6abef4544da47bbee2e09793f675d387c778568eef5b2233d3c790c38ac6062"
+        },
+        {
+          "predecessorPath": "parity/utils-package/correspondence-lineage.json",
+          "archive": "parity/native-snippets/historical/native-public-style-4aa4bc8d/parity/utils-package/correspondence-lineage.json",
+          "sha256": "aa7d1a4e51b6720f28950d3f5c2a65c47f2976a2f6f5b31ea49c96d99419b48f"
+        },
+        {
+          "predecessorPath": "parity/native-snippets/integration-current.json",
+          "archive": "parity/native-snippets/historical/native-public-style-4aa4bc8d/parity/native-snippets/integration-current.json",
+          "sha256": "ab4a8452cbca10df143e785b7edd86536081cd3e22b4c5fe36a793ea519a4268"
+        },
+        {
+          "predecessorPath": "parity/native-snippets/family-projection.json",
+          "archive": "parity/native-snippets/historical/native-public-style-4aa4bc8d/parity/native-snippets/family-projection.json",
+          "sha256": "7d9f6685136d5dd4f73766648a95366d4d2709a5c316fbdc34d130bda5deb95c"
+        },
+        {
+          "predecessorPath": "docs/scroll-area.md",
+          "archive": "parity/native-snippets/historical/native-public-style-4aa4bc8d/docs/scroll-area.md",
+          "sha256": "b316a9d445ac30b850709e06df6f6a6eb1ef0afcf34533c44eed4fdc408f7835"
+        }
+      ]
     }
   ]
 }

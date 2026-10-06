@@ -58,6 +58,16 @@
   "sourceNativePanelMotionCorrectionPaths": [
     "packages/base/src/lib/collapsible/Panel.svelte"
   ],
+  "publicStylePredecessor": "4aa4bc8d8d7c17e8dbec781837d56ca56112f9e3",
+  "publicStyleAstPreservedBodies": 492,
+  "publicStyleUnchangedBodies": 492,
+  "publicStyleCorrectionBodies": 4,
+  "sourceNativePublicStyleCorrectionPaths": [
+    "packages/base/src/lib/avatar/types.ts",
+    "packages/base/src/lib/dialog/types.ts",
+    "packages/base/src/lib/internals/nativeProps.ts",
+    "packages/base/src/lib/toast/types.ts"
+  ],
   "sourceHostBusinessLifetimeCorrectionPaths": [
     "packages/base/src/lib/internals/use-button/useButton.svelte.ts",
     "packages/base/src/lib/menu/submenu-trigger/createMenuSubmenuTrigger.svelte.ts",
@@ -78,14 +88,14 @@
   "immutableOriginalPin": "47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c",
   "ordinaryDeclarationCredit": 0,
   "mode": "Source/parser/hash/import evidence only; no type program, runtime, SSR/hydration, compiled markup, artifact, installed consumer, browser, CI or merge acceptance credit.",
-  "method": "Complete current native two-package AST closure, immutable f0 full-body preimages and grouping-preserving script ASTs. Deliberate source/native owner corrections remain separate from formatter presentation changes. Getter/label publication retain exact inherited bodies; full-body Menu cleanup deltas bind e5, captured focus metadata binds42, trigger publication bindsf2, and native ownership comments bind336 with its AST unchanged. The five native node/initial-seed/focus-out disposal owner deltas bindc392 while all earlier stages/history remain distinct. The subsequent 32 obsolete binding directives and one RadioGroup output-binding annotation bind 0d with all 496 complete bodies otherwise unchanged and every script AST identical. The next native initial-focus destroyed-owner predicate and adjacent timing comment bind ec36 as one complete Source-body delta; all other 495 current bodies/ASTs stay exact. This native owner adaptation earns zero unchanged Original credit. The subsequent real Popover trigger focus-target node property binds 0ba as one complete Source-body delta with 495 other current bodies/ASTs exact; earlier stages retain their own immutable preservation counts. The next ten intrinsic button fallback defaults bind d5 as exact literal attributes before props spread; all 496 script ASTs and 486 other full bodies remain unchanged. Custom render branches and merged props remain untouched. The Original fallback default is expressed as native host markup with no shared renderer or new assertion credit. The subsequent ten native declaration/producer contract repairs bind c0 as exact complete-body transforms; the other 486 bodies and script ASTs remain exact. Seven declaration paths, a ToastClose rune-collision identifier rename and two known appearance producers retain their existing business and handler composition. Type/runtime acceptance remains pending. The next three native host-business lifetime deltas bind c04 as exact complete bodies: an ordinary getter over the actual button node, Toolbar captured-host cleanup and narrow submenu imperative item/implicit-active publication. The other 493 current bodies/ASTs are exact, and prior c0/d5 preservation counts remain historical. Disabled/prop/event algorithms, tracked list acquisition and independent migration/closeDelay effects remain. Parse success supplies no behavior equivalence. The next single Positioner imperative publication/cleanup boundary binds the full d390 preimage; the other 495 complete bodies/ASTs stay exact, while all earlier historical stage counts remain unchanged. Actual context Store and host acquisition, pinned parent subscription, synchronous callback order and live positioning/effects remain. This source proof grants no runtime-cause, pass or unchanged Original assertion credit. The subsequent two reviewed Field business repairs bind the complete acde preimages: own supplied-child presence controls Error content and a live imperative message-ID resource publishes through native raw state. Only those exact reviewed spans change; the other 494 complete bodies and script ASTs stay exact. The d390 Menu boundary and every earlier preservation count remain historical. Original inventory/correspondence hashes and all existing Field witness bodies remain unchanged, with zero new declaration or execution credit. The next one-body Collapsible Panel stage binds the complete coherent Field predecessor with 495 other bodies and grouping-preserving script ASTs exact. Accepted-beforematch motion becomes actual-host/open-cycle native state and derived zero-duration markup; close resolves live authored duration. The acde-to-Field two-body 494 stage and d390-to-acde Menu 495 stage remain historical. Detached native markup and consumer important/custom-host overrides are intentional native boundaries with zero divergent unchanged Original credit. Separate favicon and supplemental assertion edits are non-runtime metadata; Source proof grants no successor execution or acceptance credit.",
+  "method": "Complete current native two-package AST closure, immutable f0 full-body preimages and grouping-preserving script ASTs. Deliberate source/native owner corrections remain separate from formatter presentation changes. Getter/label publication retain exact inherited bodies; full-body Menu cleanup deltas bind e5, captured focus metadata binds42, trigger publication bindsf2, and native ownership comments bind336 with its AST unchanged. The five native node/initial-seed/focus-out disposal owner deltas bindc392 while all earlier stages/history remain distinct. The subsequent 32 obsolete binding directives and one RadioGroup output-binding annotation bind 0d with all 496 complete bodies otherwise unchanged and every script AST identical. The next native initial-focus destroyed-owner predicate and adjacent timing comment bind ec36 as one complete Source-body delta; all other 495 current bodies/ASTs stay exact. This native owner adaptation earns zero unchanged Original credit. The subsequent real Popover trigger focus-target node property binds 0ba as one complete Source-body delta with 495 other current bodies/ASTs exact; earlier stages retain their own immutable preservation counts. The next ten intrinsic button fallback defaults bind d5 as exact literal attributes before props spread; all 496 script ASTs and 486 other full bodies remain unchanged. Custom render branches and merged props remain untouched. The Original fallback default is expressed as native host markup with no shared renderer or new assertion credit. The subsequent ten native declaration/producer contract repairs bind c0 as exact complete-body transforms; the other 486 bodies and script ASTs remain exact. Seven declaration paths, a ToastClose rune-collision identifier rename and two known appearance producers retain their existing business and handler composition. Type/runtime acceptance remains pending. The next three native host-business lifetime deltas bind c04 as exact complete bodies: an ordinary getter over the actual button node, Toolbar captured-host cleanup and narrow submenu imperative item/implicit-active publication. The other 493 current bodies/ASTs are exact, and prior c0/d5 preservation counts remain historical. Disabled/prop/event algorithms, tracked list acquisition and independent migration/closeDelay effects remain. Parse success supplies no behavior equivalence. The next single Positioner imperative publication/cleanup boundary binds the full d390 preimage; the other 495 complete bodies/ASTs stay exact, while all earlier historical stage counts remain unchanged. Actual context Store and host acquisition, pinned parent subscription, synchronous callback order and live positioning/effects remain. This source proof grants no runtime-cause, pass or unchanged Original assertion credit. The subsequent two reviewed Field business repairs bind the complete acde preimages: own supplied-child presence controls Error content and a live imperative message-ID resource publishes through native raw state. Only those exact reviewed spans change; the other 494 complete bodies and script ASTs stay exact. The d390 Menu boundary and every earlier preservation count remain historical. Original inventory/correspondence hashes and all existing Field witness bodies remain unchanged, with zero new declaration or execution credit. The next one-body Collapsible Panel stage binds the complete coherent Field predecessor with 495 other bodies and grouping-preserving script ASTs exact. Accepted-beforematch motion becomes actual-host/open-cycle native state and derived zero-duration markup; close resolves live authored duration. The acde-to-Field two-body 494 stage and d390-to-acde Menu 495 stage remain historical. Detached native markup and consumer important/custom-host overrides are intentional native boundaries with zero divergent unchanged Original credit. Separate favicon and supplemental assertion edits are non-runtime metadata; Source proof grants no successor execution or acceptance credit. The subsequent four-body native public style type/import stage binds the complete 4aa predecessor, preserving all 492 other complete bodies and grouping-preserving script ASTs. The historical one-Panel 495, two-Field 494 and Menu 495 stages are frozen against their exact predecessor/successor bodies rather than rewritten for current declarations. Canonical NativeStyle derives Svelte CSS string/null/undefined, and legacy Dialog/Avatar/Toast reuse the same state-specific style slot. Internal style records, pure serialization and merge/identity function bodies remain; no runtime guard or object-business rewrite is introduced. Earlier authored public object-style API and prior receipts stay historical; this declaration correction earns zero divergent unchanged Original credit and no type/runtime/artifact/acceptance credit before actual gates.",
   "parserVersions": {
     "TypeScript": "6.0.3",
     "Svelte": "5.57.1"
   },
-  "currentGraphSha256": "adf4899d3df7859104a6f5b677420d2cc6cf655bd814dd1f98da39d99759209f",
-  "currentPublicHostGraphSha256": "7c8c11d1e50beaa6e3e7613eb508f57102259db4ed96a1a29294eb87c63caeeb",
-  "proofToolSha256": "db4cd22165c4b3533575a9a644d589355d30a51878ee83c9d96e7b9712d84e96",
+  "currentGraphSha256": "0155da90b856ac651ef8aebc1cbb4929e1515cda91651ced754c4cb7c20acf87",
+  "currentPublicHostGraphSha256": "5dfb01f21528cd00ea215a2ea027ee04187f9e3da98f9d68333a3deae9385d2c",
+  "proofToolSha256": "3e2d07e35745fed9ee4bae6481f44eaa52078d2034a04eee041f1a763f87a15e",
   "controlledOwners": 11,
   "effectCalls": 187,
   "sourceBusinessCorrectionPaths": [
@@ -1239,10 +1249,29 @@
     {
       "path": "packages/base/src/lib/avatar/types.ts",
       "rendererSha256": "4419401972d73c62286ec3b83c54416f11e57eee3fb850f4e183e8fc96873adb",
-      "currentSha256": "f2c8b5590802d4325320170b0095abd0dd01cb24fd99501ce40c284442759967",
-      "scriptStructuralAstEqual": true,
+      "currentSha256": "afd2b4524f96fe9541ce29b2f22ccbb6644e4f5c5698fe826d44122cdd3f1b0b",
+      "scriptStructuralAstEqual": false,
       "sourceSyntaxValid": true,
-      "disposition": "Complete structural script AST retained; full native markup/compiled-output behavior remains separately pending."
+      "disposition": "Explicit presentation/grouping changes retained without normalization or structural equality credit; compiled-output disposition pending. Native public style type/import successor derives CSS string/null/undefined from Svelte HTMLAttributes and preserves the existing exact state callback across canonical and legacy declarations. Only four complete type/import bodies change against 4aa; pure internal CSS records, serialization, merge/identity, functions/effects, hosts and all earlier runtime business remain exact. Source proof supplies no new type, artifact, runtime or Original assertion acceptance; execution pending.",
+      "sourceNativePublicStyleCorrection": true,
+      "sourceNativePublicStylePredecessor": "4aa4bc8d8d7c17e8dbec781837d56ca56112f9e3",
+      "sourceNativePublicStylePredecessorSha256": "f2c8b5590802d4325320170b0095abd0dd01cb24fd99501ce40c284442759967",
+      "exactAuthorizedCompleteBodyDelta": true,
+      "ordinaryDeclarationCredit": 0,
+      "structuralDifferences": [
+        {
+          "path": "source.ImportDeclaration[2].ImportClause[0].NamedImports[0]",
+          "before": "{ HTMLProps, WithBaseUIEvent }",
+          "after": "{ BaseUIComponentProps, HTMLProps, WithBaseUIEvent }"
+        },
+        {
+          "path": "source.TypeAliasDeclaration[7].IntersectionType[3].TypeLiteral[1].PropertySignature[2].UnionType[2]",
+          "beforeKind": "UnionType",
+          "afterKind": "IndexedAccessType",
+          "before": "string | ((state: State) => string | undefined)",
+          "after": "BaseUIComponentProps<State>['style']"
+        }
+      ]
     },
     {
       "path": "packages/base/src/lib/avatar/useImageLoadingStatus.svelte.ts",
@@ -1799,14 +1828,18 @@
     {
       "path": "packages/base/src/lib/dialog/types.ts",
       "rendererSha256": "733775a8fb40ec9b1472c752624da00ff9426078e253e194f996ed0b2267f858",
-      "currentSha256": "52778d4ca75e8c845ea35c3fd9524f498f11f5cbc8bca65ca81e9a7b28ffaaec",
+      "currentSha256": "d2b80a17a890020ddb9e7ba36c2cf2106e1677b76c722617575ef81a2728c567",
       "scriptStructuralAstEqual": false,
       "sourceSyntaxValid": true,
-      "disposition": "Root-authorized native HTMLElement host/output declarations and canonical snippet/Toast button contracts, ToastClose component-state rune-collision rename, or appearance producers retaining their known once-resolved class and consumer style. Existing business, handler composition and native host ownership retained; type/runtime execution pending.",
+      "disposition": "Root-authorized native HTMLElement host/output declarations and canonical snippet/Toast button contracts, ToastClose component-state rune-collision rename, or appearance producers retaining their known once-resolved class and consumer style. Existing business, handler composition and native host ownership retained; type/runtime execution pending. Native public style type/import successor derives CSS string/null/undefined from Svelte HTMLAttributes and preserves the existing exact state callback across canonical and legacy declarations. Only four complete type/import bodies change against 4aa; pure internal CSS records, serialization, merge/identity, functions/effects, hosts and all earlier runtime business remain exact. Source proof supplies no new type, artifact, runtime or Original assertion acceptance; execution pending.",
       "sourceNativeContractCorrection": true,
       "sourceNativeContractPredecessor": "c0da99c7e01f5d35e2572256df66136fce55cf41",
       "sourceNativeContractPredecessorSha256": "aa9e6e11495e8a8218fd5f69c913d10d8794338a6e01fc685d545c4d9729874c",
       "exactAuthorizedCompleteBodyDelta": true,
+      "sourceNativePublicStyleCorrection": true,
+      "sourceNativePublicStylePredecessor": "4aa4bc8d8d7c17e8dbec781837d56ca56112f9e3",
+      "sourceNativePublicStylePredecessorSha256": "52778d4ca75e8c845ea35c3fd9524f498f11f5cbc8bca65ca81e9a7b28ffaaec",
+      "ordinaryDeclarationCredit": 0,
       "structuralDifferences": [
         {
           "path": "source.TypeAliasDeclaration[24].IntersectionType[4].TypeLiteral[1].PropertySignature[1].TypeReference[2]",
@@ -1814,6 +1847,13 @@
           "afterKind": "IndexedAccessType",
           "before": "Snippet<[Record<string | symbol, unknown>, State, Snippet | undefined]>",
           "after": "BaseUIComponentProps<State>['render']"
+        },
+        {
+          "path": "source.TypeAliasDeclaration[24].IntersectionType[4].TypeLiteral[1].PropertySignature[3].UnionType[2]",
+          "beforeKind": "UnionType",
+          "afterKind": "IndexedAccessType",
+          "before": "string | ((state: State) => string | undefined)",
+          "after": "BaseUIComponentProps<State>['style']"
         }
       ]
     },
@@ -2835,10 +2875,29 @@
     {
       "path": "packages/base/src/lib/internals/nativeProps.ts",
       "rendererSha256": "598301c5f9e7fcfe39e8eaa45092b7935cd61e9d353a89766d45bc9230861a96",
-      "currentSha256": "653fb2f684da7987d8c51b2384cbf5e8839c30a620a7b790f451bbeb87479cab",
-      "scriptStructuralAstEqual": true,
+      "currentSha256": "f081bf825f41a64924fe298108e148ac56314d02074c588cc1f9324ff6a92cc5",
+      "scriptStructuralAstEqual": false,
       "sourceSyntaxValid": true,
-      "disposition": "Complete structural script AST retained; full native markup/compiled-output behavior remains separately pending."
+      "disposition": "Explicit presentation/grouping changes retained without normalization or structural equality credit; compiled-output disposition pending. Native public style type/import successor derives CSS string/null/undefined from Svelte HTMLAttributes and preserves the existing exact state callback across canonical and legacy declarations. Only four complete type/import bodies change against 4aa; pure internal CSS records, serialization, merge/identity, functions/effects, hosts and all earlier runtime business remain exact. Source proof supplies no new type, artifact, runtime or Original assertion acceptance; execution pending.",
+      "sourceNativePublicStyleCorrection": true,
+      "sourceNativePublicStylePredecessor": "4aa4bc8d8d7c17e8dbec781837d56ca56112f9e3",
+      "sourceNativePublicStylePredecessorSha256": "653fb2f684da7987d8c51b2384cbf5e8839c30a620a7b790f451bbeb87479cab",
+      "exactAuthorizedCompleteBodyDelta": true,
+      "ordinaryDeclarationCredit": 0,
+      "structuralDifferences": [
+        {
+          "path": "source.ImportDeclaration[0].ImportClause[0].NamedImports[0]",
+          "before": "{ ClassValue }",
+          "after": "{ ClassValue, HTMLAttributes }"
+        },
+        {
+          "path": "source.TypeAliasDeclaration[3].UnionType[2]",
+          "beforeKind": "UnionType",
+          "afterKind": "IndexedAccessType",
+          "before": "string | Record<string, unknown>",
+          "after": "HTMLAttributes<HTMLElement>['style']"
+        }
+      ]
     },
     {
       "path": "packages/base/src/lib/internals/reason-parts.ts",
@@ -4759,15 +4818,31 @@
     {
       "path": "packages/base/src/lib/toast/types.ts",
       "rendererSha256": "c19b1af6b515a3899501cc267902c5f030e6c5f9dbd754a59a4e2e839be761c5",
-      "currentSha256": "d28b459cdd1863d017ff641fe591fba369d7553056309f3943acb0cd4e0e9bb4",
+      "currentSha256": "a62103a16c9ff860307401c87f9a27057f32030c31d2e2d2be6403e7b634d13f",
       "scriptStructuralAstEqual": false,
       "sourceSyntaxValid": true,
-      "disposition": "Root-authorized native HTMLElement host/output declarations and canonical snippet/Toast button contracts, ToastClose component-state rune-collision rename, or appearance producers retaining their known once-resolved class and consumer style. Existing business, handler composition and native host ownership retained; type/runtime execution pending.",
+      "disposition": "Root-authorized native HTMLElement host/output declarations and canonical snippet/Toast button contracts, ToastClose component-state rune-collision rename, or appearance producers retaining their known once-resolved class and consumer style. Existing business, handler composition and native host ownership retained; type/runtime execution pending. Native public style type/import successor derives CSS string/null/undefined from Svelte HTMLAttributes and preserves the existing exact state callback across canonical and legacy declarations. Only four complete type/import bodies change against 4aa; pure internal CSS records, serialization, merge/identity, functions/effects, hosts and all earlier runtime business remain exact. Source proof supplies no new type, artifact, runtime or Original assertion acceptance; execution pending.",
       "sourceNativeContractCorrection": true,
       "sourceNativeContractPredecessor": "c0da99c7e01f5d35e2572256df66136fce55cf41",
       "sourceNativeContractPredecessorSha256": "c813412103d8c506cbc614c9bb676643e4a27d60cbcb6bcc3cf6d6d0ee9fc8e0",
       "exactAuthorizedCompleteBodyDelta": true,
+      "sourceNativePublicStyleCorrection": true,
+      "sourceNativePublicStylePredecessor": "4aa4bc8d8d7c17e8dbec781837d56ca56112f9e3",
+      "sourceNativePublicStylePredecessorSha256": "d28b459cdd1863d017ff641fe591fba369d7553056309f3943acb0cd4e0e9bb4",
+      "ordinaryDeclarationCredit": 0,
       "structuralDifferences": [
+        {
+          "path": "source.ImportDeclaration[1].ImportClause[0].NamedImports[0]",
+          "before": "{ ComponentRenderFn, HTMLProps }",
+          "after": "{ BaseUIComponentProps, ComponentRenderFn, HTMLProps }"
+        },
+        {
+          "path": "source.TypeAliasDeclaration[19].IntersectionType[5].TypeLiteral[1].PropertySignature[3].UnionType[2]",
+          "beforeKind": "UnionType",
+          "afterKind": "IndexedAccessType",
+          "before": "string | ((state: State) => string | undefined)",
+          "after": "BaseUIComponentProps<State>['style']"
+        },
         {
           "path": "source.TypeAliasDeclaration[25].IntersectionType[2].TypeReference[0]",
           "before": "ToastElementProps<\n  ToastLabelState,\n  HTMLButtonAttributes,\n  ToastContent\n>",

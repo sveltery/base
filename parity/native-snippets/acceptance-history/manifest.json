@@ -639,6 +639,118 @@
       "predecessor": "f4e31a5f620c8050c48e6aea16461c0aa4ef89a0",
       "disposition": "whole-failed-native-detached-test-or-current-metadata-prose-preserved-before-measured-native-counterpart; proposed and unexecuted; zero acceptance credit",
       "unchangedParityCredit": 0
+    },
+    {
+      "source": "apps/fixtures/src/lib/ButtonSourceFixture.svelte",
+      "archive": "parity/native-snippets/acceptance-history/native-public-style-4aa4bc8d/apps/fixtures/src/lib/ButtonSourceFixture.svelte",
+      "sha256": "37590e2a98b41b0f6202d004ce14657e306535f78107039af859e3ee33186b07",
+      "predecessor": "4aa4bc8d8d7c17e8dbec781837d56ca56112f9e3",
+      "disposition": "complete authored public-object-style predecessor preserved before native public string/null/undefined counterpart; unexecuted, zero divergent Original credit",
+      "unchangedParityCredit": 0
+    },
+    {
+      "source": "apps/fixtures/src/lib/DialogSourceClosureFixture.svelte",
+      "archive": "parity/native-snippets/acceptance-history/native-public-style-4aa4bc8d/apps/fixtures/src/lib/DialogSourceClosureFixture.svelte",
+      "sha256": "3082cac1b8c61fb036096c3704ba2417a0b6f191f5c3b034b722661c11b52e26",
+      "predecessor": "4aa4bc8d8d7c17e8dbec781837d56ca56112f9e3",
+      "disposition": "complete authored public-object-style predecessor preserved before native public string/null/undefined counterpart; unexecuted, zero divergent Original credit",
+      "unchangedParityCredit": 0
+    },
+    {
+      "source": "apps/fixtures/src/lib/NavigationFixture.svelte",
+      "archive": "parity/native-snippets/acceptance-history/native-public-style-4aa4bc8d/apps/fixtures/src/lib/NavigationFixture.svelte",
+      "sha256": "9ed6e1954d27211c7cb3b4401cfc2e09d52bd9c20a1c341b28887192b0e7f3f6",
+      "predecessor": "4aa4bc8d8d7c17e8dbec781837d56ca56112f9e3",
+      "disposition": "complete authored public-object-style predecessor preserved before native public string/null/undefined counterpart; unexecuted, zero divergent Original credit",
+      "unchangedParityCredit": 0
+    },
+    {
+      "source": "apps/fixtures/src/lib/ScrollAreaBrowserFixture.svelte",
+      "archive": "parity/native-snippets/acceptance-history/native-public-style-4aa4bc8d/apps/fixtures/src/lib/ScrollAreaBrowserFixture.svelte",
+      "sha256": "68168ac397f70c57642384ab716bb5d8a98ebbb1437a3b273ce7811c5da8c8bb",
+      "predecessor": "4aa4bc8d8d7c17e8dbec781837d56ca56112f9e3",
+      "disposition": "complete authored public-object-style predecessor preserved before native public string/null/undefined counterpart; unexecuted, zero divergent Original credit",
+      "unchangedParityCredit": 0
+    },
+    {
+      "source": "packages/base/tests/button.types.ts",
+      "archive": "parity/native-snippets/acceptance-history/native-public-style-4aa4bc8d/packages/base/tests/button.types.ts",
+      "sha256": "366e6f8f154e40f45a92e390126b73cb3ce878a70f786ad55010024db61bd4f6",
+      "predecessor": "4aa4bc8d8d7c17e8dbec781837d56ca56112f9e3",
+      "disposition": "complete authored public-object-style predecessor preserved before native public string/null/undefined counterpart; unexecuted, zero divergent Original credit",
+      "unchangedParityCredit": 0
+    },
+    {
+      "source": "packages/base/tests/dialog.types.ts",
+      "archive": "parity/native-snippets/acceptance-history/native-public-style-4aa4bc8d/packages/base/tests/dialog.types.ts",
+      "sha256": "682b2843b7817183444bd89737fd8ff0d4029d6d733d47f7fd03e5162ad67b5c",
+      "predecessor": "4aa4bc8d8d7c17e8dbec781837d56ca56112f9e3",
+      "disposition": "complete authored public-object-style predecessor preserved before native public string/null/undefined counterpart; unexecuted, zero divergent Original credit",
+      "unchangedParityCredit": 0
+    },
+    {
+      "source": "packages/base/tests/dom/DialogSourcePartsFixture.svelte",
+      "archive": "parity/native-snippets/acceptance-history/native-public-style-4aa4bc8d/packages/base/tests/dom/DialogSourcePartsFixture.svelte",
+      "sha256": "cb2f6fb6450dcbeb127b29ba7c9e8f0da4f0e817e941343094fb4844c37c5904",
+      "predecessor": "4aa4bc8d8d7c17e8dbec781837d56ca56112f9e3",
+      "disposition": "complete authored public-object-style predecessor preserved before native public string/null/undefined counterpart; unexecuted, zero divergent Original credit",
+      "unchangedParityCredit": 0
+    },
+    {
+      "source": "packages/base/tests/dom/ScrollAreaFixture.svelte",
+      "archive": "parity/native-snippets/acceptance-history/native-public-style-4aa4bc8d/packages/base/tests/dom/ScrollAreaFixture.svelte",
+      "sha256": "c63ecfa74b3e4f95ac868ad16a510423ba53ded4c7c928fd0cff72f4d8167395",
+      "predecessor": "4aa4bc8d8d7c17e8dbec781837d56ca56112f9e3",
+      "disposition": "complete authored public-object-style predecessor preserved before native public string/null/undefined counterpart; unexecuted, zero divergent Original credit",
+      "unchangedParityCredit": 0
+    },
+    {
+      "source": "scripts/check-button-package.sh",
+      "archive": "parity/native-snippets/acceptance-history/native-public-style-4aa4bc8d/scripts/check-button-package.sh",
+      "sha256": "d16949a0b9a8e3a470f080a555b328d10e8859cb24cd3ea2f4791eac90a6c92a",
+      "predecessor": "4aa4bc8d8d7c17e8dbec781837d56ca56112f9e3",
+      "disposition": "complete authored public-object-style predecessor preserved before native public string/null/undefined counterpart; unexecuted, zero divergent Original credit",
+      "unchangedParityCredit": 0
+    },
+    {
+      "source": "scripts/check-dialog-handles-package.sh",
+      "archive": "parity/native-snippets/acceptance-history/native-public-style-4aa4bc8d/scripts/check-dialog-handles-package.sh",
+      "sha256": "0185b91210600efccbeb8d533b5fa2ad600175cd6c31c8915125468671eac134",
+      "predecessor": "4aa4bc8d8d7c17e8dbec781837d56ca56112f9e3",
+      "disposition": "complete authored public-object-style predecessor preserved before native public string/null/undefined counterpart; unexecuted, zero divergent Original credit",
+      "unchangedParityCredit": 0
+    },
+    {
+      "source": "scripts/check-menu-family-package.sh",
+      "archive": "parity/native-snippets/acceptance-history/native-public-style-4aa4bc8d/scripts/check-menu-family-package.sh",
+      "sha256": "f58eb0770c36e2fba195a7adb6e4dc2c585894ec17f1203f8b6b6743b2fe27b9",
+      "predecessor": "4aa4bc8d8d7c17e8dbec781837d56ca56112f9e3",
+      "disposition": "complete authored public-object-style predecessor preserved before native public string/null/undefined counterpart; unexecuted, zero divergent Original credit",
+      "unchangedParityCredit": 0
+    },
+    {
+      "source": "scripts/check-native-snippets-package.sh",
+      "archive": "parity/native-snippets/acceptance-history/native-public-style-4aa4bc8d/scripts/check-native-snippets-package.sh",
+      "sha256": "0d3f415272225850745a16dbdcb290d704a1061215c03e3f29edf46c78bccd85",
+      "predecessor": "4aa4bc8d8d7c17e8dbec781837d56ca56112f9e3",
+      "disposition": "complete authored public-object-style predecessor preserved before native public string/null/undefined counterpart; unexecuted, zero divergent Original credit",
+      "unchangedParityCredit": 0
+    },
+    {
+      "source": "scripts/check-navigation-package.sh",
+      "archive": "parity/native-snippets/acceptance-history/native-public-style-4aa4bc8d/scripts/check-navigation-package.sh",
+      "sha256": "26f1203102647dc256dbafd34df5d2162f41d277694913b3856b9a939102ef27",
+      "predecessor": "4aa4bc8d8d7c17e8dbec781837d56ca56112f9e3",
+      "disposition": "complete authored public-object-style predecessor preserved before native public string/null/undefined counterpart; unexecuted, zero divergent Original credit",
+      "unchangedParityCredit": 0
+    },
+    {
+      "source": "scripts/check-scroll-area-package.sh",
+      "archive": "parity/native-snippets/acceptance-history/native-public-style-4aa4bc8d/scripts/check-scroll-area-package.sh",
+      "sha256": "0ad6cacbec4db06d01d95e49ca7dae6f016e3e086d599fafaad8844caef799ab",
+      "predecessor": "4aa4bc8d8d7c17e8dbec781837d56ca56112f9e3",
+      "disposition": "complete authored public-object-style predecessor preserved before native public string/null/undefined counterpart; unexecuted, zero divergent Original credit",
+      "unchangedParityCredit": 0
     }
   ]
 }
