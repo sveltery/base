@@ -46,7 +46,7 @@
         "packages/base/src/lib/context-menu/index.parts.ts": "682c5af33525e53dd8203253cade0919bc23923b2402b01c1eda036d748def11",
         "packages/base/src/lib/context-menu/types.ts": "eea17502bf6bb4655dd0fcd6db7fb1c1073460e684145cdbcbcc3808e941b0e4",
         "packages/base/src/lib/menu/Positioner.svelte": "ef00a005fba611ab6296cd9388ea5dd025ba753fcf9046b1c1d4f1e774308442",
-        "packages/base/src/lib/menu/positioner/createMenuPositioner.svelte.ts": "71975122b40a64e64482a25696b6dfca6745c9c1063e3c41c305c75fbcaec5cd"
+        "packages/base/src/lib/menu/positioner/createMenuPositioner.svelte.ts": "58d6966fd6c904e8b6adca800731394803d0fee4f73d781ee0fa2a5776d6e063"
       },
       "correspondence": "Original alias of MenuPositioner; fixed positioning/context offsets remain in the one canonical used MenuPositioner business body.",
       "reviewStatus": "Entire used Source/native business, idiomatic Svelte and maintainability independent exact-head review pending; no acceptance by inventory."
@@ -1341,7 +1341,7 @@
       "localHashes": {
         "packages/base/src/lib/menu/Positioner.svelte": "ef00a005fba611ab6296cd9388ea5dd025ba753fcf9046b1c1d4f1e774308442",
         "packages/base/src/lib/menu/types.ts": "f70bd7769bbf0008b619ecc7d0eb7d4a56edc6c351c5c82fa11e9989d844e426",
-        "packages/base/src/lib/menu/positioner/createMenuPositioner.svelte.ts": "71975122b40a64e64482a25696b6dfca6745c9c1063e3c41c305c75fbcaec5cd"
+        "packages/base/src/lib/menu/positioner/createMenuPositioner.svelte.ts": "58d6966fd6c904e8b6adca800731394803d0fee4f73d781ee0fa2a5776d6e063"
       },
       "correspondence": "Original component business and public types retain their part boundary; native component/snippet/attachment/context/rune ownership replaces React host rendering. Compare the complete component and any used extracted business body together.",
       "reviewStatus": "Entire used Source/native business, idiomatic Svelte and maintainability independent exact-head review pending; no acceptance by inventory."
@@ -2725,7 +2725,7 @@
         "packages/base/src/lib/internals/useTransitionStatus.svelte.ts": "7fc531ccff0a7dfd77703c0f0ee7e1148fc080960682469eafffbc627056fa9e",
         "packages/base/src/lib/menu/GroupLabel.svelte": "743dad85f4b3e8c9fcca29c8b24c78cba2978e63557e491410ed481fd678070f",
         "packages/base/src/lib/menu/Popup.svelte": "ffe870ee1c658b8ed2d4d47e1228f75d23e51133fecc7bba738c69df45fc45c5",
-        "packages/base/src/lib/menu/positioner/createMenuPositioner.svelte.ts": "71975122b40a64e64482a25696b6dfca6745c9c1063e3c41c305c75fbcaec5cd",
+        "packages/base/src/lib/menu/positioner/createMenuPositioner.svelte.ts": "58d6966fd6c904e8b6adca800731394803d0fee4f73d781ee0fa2a5776d6e063",
         "packages/base/src/lib/menu/root/createMenuRoot.svelte.ts": "c388e875d2a3f4c6fb748b17f1dc2e9c35ce347360d7de696dfe83295136616e",
         "packages/base/src/lib/menu/submenu-trigger/createMenuSubmenuTrigger.svelte.ts": "3bdb83ab95cdfbe5ba3066f17bbd04c60915ba5e887e486db27f6484c4105691",
         "packages/base/src/lib/menu/trigger/createMenuTrigger.svelte.ts": "ae04e18d492aa073757adc134e825f1fa8412283d742cb6cf9895a784215108f",
