@@ -2,6 +2,7 @@ import assert from 'node:assert/strict';
 import { existsSync, readFileSync } from 'node:fs';
 import { test } from 'node:test';
 import { execFileSync } from 'node:child_process';
+import { createHash } from 'node:crypto';
 const read = (path) => readFileSync(new URL(`../../${path}`, import.meta.url), 'utf8');
 test('Button ports retain complete direct declarations and selected non-composite support assertions', () => {
   const trace = JSON.parse(read('parity/button/upstream-inventory.json'));
@@ -53,5 +54,19 @@ test('Button graph retains the original source pin and hashes the actual canonic
     [new URL('../../parity/button/graph.mjs', import.meta.url).pathname, '--check'],
     { encoding: 'utf8' },
   );
-  assert.match(result, /30 immutable source modules \/ 27 actual used local modules/);
+  assert.match(result, /30 immutable source modules/);
+  const modules = JSON.parse(read('parity/button/source-graph.json')).localClosure.modules;
+  assert(!existsSync(new URL('../../packages/utils/src/lib/useMergedRefs.ts', import.meta.url)));
+  assert(!modules.some((module) => module.local === 'packages/utils/src/lib/useMergedRefs.ts'));
+  for (const module of modules) {
+    assert.doesNotMatch(
+      module.local,
+      /\/(useControlled|useIsoLayoutEffect|useStableCallback|useRefWithInit|useOnMount|usePreviousValue)(?:\.svelte)?\.ts$/,
+    );
+    assert.equal(
+      createHash('sha256').update(read(module.local)).digest('hex'),
+      module.sha256,
+      module.local,
+    );
+  }
 });

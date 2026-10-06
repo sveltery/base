@@ -27,3 +27,13 @@ Floating `useFocus`, `useHoverReferenceInteraction` and `useDismiss` capture onl
 These corrections repair inherited native invalidation/resource defects. They do not earn new Source assertion credit without exact-head executed counterparts, and they do not waive the remaining full-closure review or execution gates.
 
 FloatingFocusManager removes only the explicitly React StrictMode double-render focusout suppression. Previous-focus/returnFocus bookkeeping, nonmodal and combobox closing branches remain, and its actual event subscription captures the installed bus for cleanup. Native outside-focus behavior earns zero divergent unchanged Source assertion credit.
+
+## Captured Menu group-label registration
+
+The pinned `menu/group-label/MenuGroupLabel.tsx` effect closes over its render's ID and conditionally clears only that association. The native effect now captures its installed ID locally, retaining the same conditional guard rather than reading a later reactive ID during cleanup. This protects the actual Group association on same-turn ID change/unmount and preserves an independently installed replacement label. The [exact predecessor and authored native witnesses](group-label-lifetime.json) remain source evidence only: all three actual Menu.Group/GroupLabel DOM scenarios are unexecuted, and existing Original assertions/expectations remain unchanged. No renderer, ref transport or generic lifecycle abstraction is added.
+
+## Captured Menu tree subscriptions
+
+The actual detached Menu.Trigger forwarding path can publish a different tree into the same mounted MenuStore. Its selector can also follow a parent MenuStore's replacement tree. The three Positioner subscriptions and Popup close subscription now capture their installed event bus inside each native effect, then remove the callback from that exact bus during cleanup. Their full callbacks, live node/open/trigger reads, parent/current-trigger guards, close delays, cancellation and event/reason payloads remain unchanged.
+
+The [exact predecessor and authored native witnesses](menu-tree-lifetime.json) record real public detached triggers, MenuHandle selection, stable MenuStore/Positioner/Popup host identities, old/new emitter isolation, and owner teardown. A test-owned observer remains on the real floating-root emitter across teardown to expose any leaked requests. These eight native DOM scenarios remain unexecuted; syntax and Source hashes supply no repro/pass claim, Original assertion credit, or runtime acceptance.

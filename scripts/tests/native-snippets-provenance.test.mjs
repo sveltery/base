@@ -24,11 +24,31 @@ test('native rendering retirement preserves every exact predecessor body and Sou
     14,
   );
   assert.equal(trace.declarations.filter((site) => site.source.includes('/internals/')).length, 33);
+  const parameterized = trace.declarations.filter((site) => site.expression.startsWith('it.each'));
+  assert.equal(parameterized.length, 1);
+  assert.equal(parameterized[0].line, 584);
+  assert.match(parameterized[0].expression, /\['null', null\]/);
+  assert.equal(new Set(trace.declarations.map((site) => site.id)).size, 47);
+  for (const source of trace.sources) {
+    assert.match(source.sha256, /^[a-f0-9]{64}$/);
+    assert(source.url.includes(trace.upstream.commit));
+  }
   assert.equal(trace.typeAssertions.length, 7);
   for (const assertion of trace.typeAssertions) {
     assert.equal(assertion.status, 'divergent-unported');
     assert.equal(assertion.port, null);
   }
+  const cases = readFileSync(
+    new URL(
+      'parity/native-snippets/acceptance-history/apps/fixtures/src/lib/use-render-cases.ts',
+      root,
+    ),
+    'utf8',
+  );
+  const archivedCases = (name) =>
+    cases.match(new RegExp(`export const ${name} = \\[(.*?)\\];`, 's'))[1].match(/'[^']+'/g);
+  assert.equal(archivedCases('publicCases').length, 14);
+  assert.equal(archivedCases('internalCases').length, 21);
 });
 test('live public native rendering excludes the retired root/subpath API and keeps real secured acceptance', () => {
   const metadata = JSON.parse(readFileSync(new URL('packages/base/package.json', root), 'utf8'));
@@ -55,4 +75,24 @@ test('actual current native Source import graph and retirement exclusions remain
     { encoding: 'utf8' },
   );
   assert.match(result, /native snippet graph:/i);
+  const retired = execFileSync(
+    process.execPath,
+    [new URL('parity/use-render/graph.mjs', root).pathname, '--check'],
+    { encoding: 'utf8' },
+  );
+  assert.match(retired, /21 immutable Original modules; current public API\/runtime retired/);
+  const graph = JSON.parse(
+    readFileSync(new URL('parity/use-render/source-graph.json', root), 'utf8'),
+  );
+  assert.deepEqual(graph.localClosure.roots, []);
+  assert.deepEqual(graph.localClosure.modules, []);
+  assert.equal(graph.localClosure.ordinaryDeclarationCredit, 0);
+  for (const path of [
+    'packages/base/src/lib/use-render/index.ts',
+    'packages/base/src/lib/use-render/UseRender.svelte',
+    'packages/base/src/lib/use-render/RenderElement.svelte',
+    'packages/base/src/lib/use-render/types.ts',
+    'packages/utils/src/lib/useMergedRefs.ts',
+  ])
+    assert(!existsSync(new URL(path, root)), path);
 });

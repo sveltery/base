@@ -82,7 +82,7 @@ while (queue.length) {
       } else if (ts.isImportTypeNode(node) && ts.isLiteralTypeNode(node.argument) && ts.isStringLiteral(node.argument.literal)) {
         edge(node.argument.literal.text, 'type', []);
       }
-      if ((ts.isFunctionDeclaration(node) || ts.isInterfaceDeclaration(node) || ts.isTypeAliasDeclaration(node) || ts.isModuleDeclaration(node)) && node.name) declarations.push(node.name.text);
+      if ((ts.isFunctionDeclaration(node) || ts.isInterfaceDeclaration(node) || ts.isTypeAliasDeclaration(node) || ts.isModuleDeclaration(node) || ts.isClassDeclaration(node)) && node.name) declarations.push(node.name.text);
       ts.forEachChild(node, visit);
     }
     visit(ast);

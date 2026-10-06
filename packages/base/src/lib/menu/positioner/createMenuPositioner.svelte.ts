@@ -145,9 +145,10 @@ export function createMenuPositioner(
         }
       }
     }
-    floatingTreeRoot.events.on('menuopenchange', onMenuOpenChange);
+    const installedEvents = floatingTreeRoot.events;
+    installedEvents.on('menuopenchange', onMenuOpenChange);
     return () => {
-      floatingTreeRoot.events.off('menuopenchange', onMenuOpenChange);
+      installedEvents.off('menuopenchange', onMenuOpenChange);
     };
   });
   $effect(() => {
@@ -161,9 +162,10 @@ export function createMenuPositioner(
       const reason: MenuRoot.ChangeEventReason = details.reason ?? REASONS.siblingOpen;
       store.setOpen(false, createChangeEventDetails(reason));
     }
-    floatingTreeRoot.events.on('menuopenchange', onParentClose);
+    const installedEvents = floatingTreeRoot.events;
+    installedEvents.on('menuopenchange', onParentClose);
     return () => {
-      floatingTreeRoot.events.off('menuopenchange', onParentClose);
+      installedEvents.off('menuopenchange', onParentClose);
     };
   });
   const closeTimeout = new Timeout();
@@ -198,9 +200,10 @@ export function createMenuPositioner(
         closeTimeout.clear();
       }
     }
-    floatingTreeRoot.events.on('itemhover', onItemHover);
+    const installedEvents = floatingTreeRoot.events;
+    installedEvents.on('itemhover', onItemHover);
     return () => {
-      floatingTreeRoot.events.off('itemhover', onItemHover);
+      installedEvents.off('itemhover', onItemHover);
     };
   });
   $effect(() => {

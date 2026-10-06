@@ -12,6 +12,8 @@ const ts = require('typescript');
 const compiler = require('svelte/compiler');
 const renderer = 'f0dbb89a05f032af1e9aac99461c6eccfa09e0d9';
 const native = '168c2717da1834fe728d76a4aeb94cb81b9b8a1f';
+const nativeIntegrationParent = '96ade5322d396211cc41609f244803e92dfe0169';
+const cleanupPredecessor = 'e5e26961c52d324eb9075fcbff71915f79f7e922';
 const hash = (body) => createHash('sha256').update(body).digest('hex');
 const git = (...args) =>
   execFileSync('git', args, { cwd: root, encoding: 'utf8', maxBuffer: 20 * 1024 * 1024 });
@@ -100,6 +102,41 @@ for (const path of retired)
 const exports = JSON.parse(
   readFileSync(resolve(root, 'packages/base/package.json'), 'utf8'),
 ).exports;
+const catalog = JSON.parse(readFileSync(resolve(root, 'parity/catalog.json'), 'utf8'));
+const rootEntry = graph.native.modules.find(
+  (module) => module.path === 'packages/base/src/lib/index.ts',
+);
+assert(rootEntry);
+assert.equal(hash(readFileSync(resolve(root, rootEntry.path))), rootEntry.sha256);
+const sourceApi = {
+  scope:
+    'Actual package exports and root export AST edges only. Historical catalog module/assertion status is preserved separately; exported source does not establish complete component, type, runtime or parity acceptance.',
+  baseManifestSha256: hash(readFileSync(resolve(root, 'packages/base/package.json'))),
+  utilsManifestSha256: hash(readFileSync(resolve(root, 'packages/utils/package.json'))),
+  rootEntry: { path: rootEntry.path, sha256: rootEntry.sha256 },
+  historicalCatalog: {
+    path: 'parity/catalog.json',
+    sha256: hash(readFileSync(resolve(root, 'parity/catalog.json'))),
+    immutableOriginalPin: catalog.upstream.commit,
+  },
+  originalModuleCorrespondence: catalog.modules.map((module) => {
+    const subpath = `./${module.upstreamModule}`;
+    const rootExports = rootEntry.imports.filter(
+      (edge) => edge.kind === 'runtime' && edge.specifier.startsWith(`${subpath}/`),
+    );
+    return {
+      originalModule: module.upstreamModule,
+      currentPackageSubpath: subpath in exports ? subpath : null,
+      rootExports,
+      currentSourceApiStatus:
+        module.upstreamModule === 'use-render'
+          ? 'Explicitly retired under the native snippet directive; Original history retained.'
+          : subpath in exports || rootExports.length
+            ? 'Source export present; broader component acceptance remains separately pending.'
+            : 'No current package/root Source export.',
+    };
+  }),
+};
 assert(!('./use-render' in exports));
 assert(!('./useMergedRefs' in graph.utilsExports));
 assert.equal(graph.native.modules.length, 496);
@@ -122,11 +159,51 @@ for (const module of graph.native.modules) {
     right = syntax(path, after);
   const equal = JSON.stringify(shape(left, left)) === JSON.stringify(shape(right, right));
   const semanticOwnerCorrection = path === 'packages/utils/src/lib/PreviousValue.svelte.ts';
+  const labelPublicationCorrection =
+    path === 'packages/base/src/lib/utils/useRegisteredLabelId.svelte.ts';
+  const installedLabelCorrection = path === 'packages/base/src/lib/menu/GroupLabel.svelte';
+  const installedTreeCorrection = [
+    'packages/base/src/lib/menu/positioner/createMenuPositioner.svelte.ts',
+    'packages/base/src/lib/menu/Popup.svelte',
+  ].includes(path);
+  if (installedLabelCorrection || installedTreeCorrection) {
+    let expected = git('show', `${cleanupPredecessor}:${path}`);
+    if (installedLabelCorrection) {
+      expected = expected
+        .replace('    setLabelId(id);', '    const installedId = id;\n    setLabelId(installedId);')
+        .replace('currentId === id ?', 'currentId === installedId ?');
+    } else {
+      const subscriptions = path.endsWith('Popup.svelte')
+        ? [['close', 'handleClose']]
+        : [
+            ['menuopenchange', 'onMenuOpenChange'],
+            ['menuopenchange', 'onParentClose'],
+            ['itemhover', 'onItemHover'],
+          ];
+      for (const [event, callback] of subscriptions)
+        expected = expected
+          .replace(
+            `    floatingTreeRoot.events.on('${event}', ${callback});`,
+            `    const installedEvents = floatingTreeRoot.events;\n    installedEvents.on('${event}', ${callback});`,
+          )
+          .replace(
+            `      floatingTreeRoot.events.off('${event}', ${callback});`,
+            `      installedEvents.off('${event}', ${callback});`,
+          );
+    }
+    assert.equal(after, expected, `Only the authorized complete-body cleanup delta: ${path}`);
+  }
   if (semanticOwnerCorrection)
     assert.equal(
       after,
       git('show', `${native}:${path}`),
       'Inherit the exact minimal native owner correction',
+    );
+  if (labelPublicationCorrection)
+    assert.equal(
+      after,
+      git('show', `${nativeIntegrationParent}:${path}`),
+      'Inherit the exact narrow native registered-label publication correction',
     );
   const record = {
     path,
@@ -134,12 +211,37 @@ for (const module of graph.native.modules) {
     currentSha256: hash(after),
     scriptStructuralAstEqual: equal,
     sourceSyntaxValid: true,
-    disposition: semanticOwnerCorrection
-      ? 'Exact native76 ordinary tracked getter correction; integrated execution/review pending.'
-      : equal
-        ? 'Complete structural script AST retained; full native markup/compiled-output behavior remains separately pending.'
-        : 'Explicit presentation/grouping changes retained without normalization or structural equality credit; compiled-output disposition pending.',
+    disposition: installedLabelCorrection
+      ? 'Root-authorized effect-local installed label ID capture, preserving conditional replacement-label protection; actual DOM witnesses unexecuted.'
+      : installedTreeCorrection
+        ? 'Root-authorized effect-local installed event bus captures; complete callbacks, live business reads and domain guards retained; actual owner migration/unmount witnesses unexecuted.'
+        : labelPublicationCorrection
+          ? 'Exact native76 tracked installed ID with narrow untracked imperative receiver publication; live receiver and conditional cleanup retained. Integrated-head execution pending.'
+          : semanticOwnerCorrection
+            ? 'Exact native76 ordinary tracked getter correction; integrated execution/review pending.'
+            : equal
+              ? 'Complete structural script AST retained; full native markup/compiled-output behavior remains separately pending.'
+              : 'Explicit presentation/grouping changes retained without normalization or structural equality credit; compiled-output disposition pending.',
   };
+  if (
+    semanticOwnerCorrection ||
+    labelPublicationCorrection ||
+    installedLabelCorrection ||
+    installedTreeCorrection
+  )
+    record.sourceBusinessCorrection = true;
+  if (installedLabelCorrection || installedTreeCorrection) {
+    record.sourceBusinessPredecessor = cleanupPredecessor;
+    record.sourceBusinessPredecessorSha256 = hash(git('show', `${cleanupPredecessor}:${path}`));
+    record.exactAuthorizedCompleteBodyDelta = true;
+  }
+  if (labelPublicationCorrection) {
+    record.sourceBusinessPredecessor = '6ec6710c1ec6d62a7b9decf3dfdaa335a76d3ce7';
+    record.sourceBusinessPredecessorSha256 = hash(
+      git('show', `${record.sourceBusinessPredecessor}:${path}`),
+    );
+    record.exactInheritedNativeParentBody = nativeIntegrationParent;
+  }
   if (!equal) record.structuralDifferences = differences(left, right, left, right);
   records.push(record);
   function count(node) {
@@ -169,12 +271,13 @@ for (const checkpoint of preimages.checkpoints)
   }
 const output = {
   rendererPredecessor: renderer,
-  nativeIntegrationParent: native,
+  nativeIntegrationParent,
+  nativeGetterPredecessor: native,
   immutableOriginalPin: graph.immutableOriginalPin,
   ordinaryDeclarationCredit: 0,
   mode: 'Source/parser/hash/import evidence only; no type program, runtime, SSR/hydration, compiled markup, artifact, installed consumer, browser, CI or merge acceptance credit.',
   method:
-    'Complete current native two-package AST closure, immutable f0 full-body preimages and grouping-preserving script ASTs. Deliberate PreviousValue correction is separate from formatter presentation changes; parse success supplies no behavior equivalence.',
+    'Complete current native two-package AST closure, immutable f0 full-body preimages and grouping-preserving script ASTs. Deliberate PreviousValue, registered-label publication and captured Menu label/event-bus cleanup corrections are separate from formatter presentation changes. Getter and publication retain their exact inherited bodies; exact complete-body Menu cleanup deltas are checked against e5. Parse success supplies no behavior equivalence.',
   parserVersions: { TypeScript: ts.version, Svelte: compiler.VERSION },
   currentGraphSha256: hash(
     readFileSync(resolve(root, 'parity/utils-package/current-source-graph.json')),
@@ -185,7 +288,12 @@ const output = {
   proofToolSha256: hash(readFileSync(new URL(import.meta.url))),
   controlledOwners,
   effectCalls,
+  sourceBusinessCorrectionPaths: records
+    .filter((record) => record.sourceBusinessCorrection)
+    .map((record) => record.path),
   utilsExports: Object.keys(graph.utilsExports),
+  baseExports: exports,
+  sourceApi,
   retired,
   records,
 };

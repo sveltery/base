@@ -10,7 +10,7 @@
     ],
     "graph": {
       "path": "parity/native-snippets/native-graph.json",
-      "sha256": "314bcd594de88946f9e32bef146590ecce77b7b711f81e38a21155b6ac0fadda"
+      "sha256": "551e813daa36c74d9f95c1c520c4777116cba14cacf2f52a1f03d3d8c33bafa3"
     },
     "predecessor": {
       "path": "parity/toggle-toolbar/source-correspondence.json",
@@ -2016,11 +2016,11 @@
     ],
     "graph": {
       "path": "parity/native-snippets/native-graph.json",
-      "sha256": "314bcd594de88946f9e32bef146590ecce77b7b711f81e38a21155b6ac0fadda"
+      "sha256": "551e813daa36c74d9f95c1c520c4777116cba14cacf2f52a1f03d3d8c33bafa3"
     },
     "predecessor": {
       "path": "parity/menu-family/source-correspondence.json",
-      "sha256": "7687877bbb5e8f8ae4bcd9bb2220a08810b6509d5516c8724f726e7353eb70e5"
+      "sha256": "d8b718383070dd528907465c653f6f125897945cbe6d03c4be7918dc9f5ccfa4"
     },
     "originalGraph": {
       "path": "parity/menu-family/source-graph.json",
@@ -2377,7 +2377,7 @@
       },
       {
         "source": "packages/base/src/lib/menu/GroupLabel.svelte",
-        "sha256": "68b8627d246359ebb546813e3e68520815f31be7156bc926fe7f80cb2c7b5223"
+        "sha256": "743dad85f4b3e8c9fcca29c8b24c78cba2978e63557e491410ed481fd678070f"
       },
       {
         "source": "packages/base/src/lib/menu/Item.svelte",
@@ -2389,7 +2389,7 @@
       },
       {
         "source": "packages/base/src/lib/menu/Popup.svelte",
-        "sha256": "fdd2652ce08cb387d404d8b917bc2e74bf48dd85f776b2e8780d193886660a40"
+        "sha256": "74f9bc6ece8cbde744d120e226a7a640511db802670bf62fcce08ea7ab2fb8e3"
       },
       {
         "source": "packages/base/src/lib/menu/Portal.svelte",
@@ -2469,7 +2469,7 @@
       },
       {
         "source": "packages/base/src/lib/menu/positioner/createMenuPositioner.svelte.ts",
-        "sha256": "0f443aa45764512d4a92d903b69baab460b34feca8f86c32ac3a6259154dcc6c"
+        "sha256": "58d6966fd6c904e8b6adca800731394803d0fee4f73d781ee0fa2a5776d6e063"
       },
       {
         "source": "packages/base/src/lib/menu/radio-group/MenuRadioGroupContext.ts",
@@ -2859,7 +2859,7 @@
           },
           {
             "source": "packages/base/src/lib/menu/positioner/createMenuPositioner.svelte.ts",
-            "sha256": "0f443aa45764512d4a92d903b69baab460b34feca8f86c32ac3a6259154dcc6c"
+            "sha256": "58d6966fd6c904e8b6adca800731394803d0fee4f73d781ee0fa2a5776d6e063"
           }
         ],
         "retiredLocal": [],
@@ -3985,7 +3985,7 @@
         "local": [
           {
             "source": "packages/base/src/lib/menu/GroupLabel.svelte",
-            "sha256": "68b8627d246359ebb546813e3e68520815f31be7156bc926fe7f80cb2c7b5223"
+            "sha256": "743dad85f4b3e8c9fcca29c8b24c78cba2978e63557e491410ed481fd678070f"
           },
           {
             "source": "packages/base/src/lib/menu/types.ts",
@@ -4127,7 +4127,7 @@
         "local": [
           {
             "source": "packages/base/src/lib/menu/Popup.svelte",
-            "sha256": "fdd2652ce08cb387d404d8b917bc2e74bf48dd85f776b2e8780d193886660a40"
+            "sha256": "74f9bc6ece8cbde744d120e226a7a640511db802670bf62fcce08ea7ab2fb8e3"
           },
           {
             "source": "packages/base/src/lib/menu/types.ts",
@@ -4185,7 +4185,7 @@
           },
           {
             "source": "packages/base/src/lib/menu/positioner/createMenuPositioner.svelte.ts",
-            "sha256": "0f443aa45764512d4a92d903b69baab460b34feca8f86c32ac3a6259154dcc6c"
+            "sha256": "58d6966fd6c904e8b6adca800731394803d0fee4f73d781ee0fa2a5776d6e063"
           }
         ],
         "retiredLocal": [],
@@ -5749,7 +5749,7 @@
           "source": "packages/react/src/menu/group-label/MenuGroupLabel.tsx",
           "sourceSha256": "42630223aec69bd82c935d9a49c40b86c2c509af32801e08dfcc2bcfd4eedef2",
           "local": "packages/base/src/lib/menu/GroupLabel.svelte",
-          "localSha256": "68b8627d246359ebb546813e3e68520815f31be7156bc926fe7f80cb2c7b5223"
+          "localSha256": "743dad85f4b3e8c9fcca29c8b24c78cba2978e63557e491410ed481fd678070f"
         },
         {
           "source": "packages/react/src/menu/checkbox-item/MenuCheckboxItem.tsx",
@@ -5785,7 +5785,7 @@
           "source": "packages/react/src/menu/popup/MenuPopup.tsx",
           "sourceSha256": "3e20ba1ec7a8ea8030964f4a3f6364f94f14795ae857b0f495684ddf8efcefce",
           "local": "packages/base/src/lib/menu/Popup.svelte",
-          "localSha256": "fdd2652ce08cb387d404d8b917bc2e74bf48dd85f776b2e8780d193886660a40"
+          "localSha256": "74f9bc6ece8cbde744d120e226a7a640511db802670bf62fcce08ea7ab2fb8e3"
         },
         {
           "source": "packages/react/src/menu/positioner/MenuPositioner.tsx",

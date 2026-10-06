@@ -4568,7 +4568,7 @@
       ],
       "local": "packages/base/src/lib/utils/useRegisteredLabelId.svelte.ts",
       "correspondence": "Reused canonical Field/Form/shared-utility source dependency; Source registration and conditional cleanup through canonical layout helper and native stable id. Native effect cleanup captures the installed registration ID, matching the pinned render closure rather than reading a live rune during teardown. See parity/field-form/source-correspondence.json",
-      "localSha256": "e05169d0f62fe7f2bfc955ff3cb1a1e154d71ed8cb8fd8263e2ebc9e9af93faa",
+      "localSha256": "7d7c44fce0e1b01178ae76dfeb95d59907a5ffa402c49147be554a9c582addec",
       "status": "implemented-awaiting-exact-head-review"
     },
     {

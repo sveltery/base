@@ -528,15 +528,15 @@
         },
         {
           "path": "packages/base/src/lib/menu/GroupLabel.svelte",
-          "sha256": "68b8627d246359ebb546813e3e68520815f31be7156bc926fe7f80cb2c7b5223"
+          "sha256": "743dad85f4b3e8c9fcca29c8b24c78cba2978e63557e491410ed481fd678070f"
         },
         {
           "path": "packages/base/src/lib/menu/Popup.svelte",
-          "sha256": "fdd2652ce08cb387d404d8b917bc2e74bf48dd85f776b2e8780d193886660a40"
+          "sha256": "74f9bc6ece8cbde744d120e226a7a640511db802670bf62fcce08ea7ab2fb8e3"
         },
         {
           "path": "packages/base/src/lib/menu/positioner/createMenuPositioner.svelte.ts",
-          "sha256": "0f443aa45764512d4a92d903b69baab460b34feca8f86c32ac3a6259154dcc6c"
+          "sha256": "58d6966fd6c904e8b6adca800731394803d0fee4f73d781ee0fa2a5776d6e063"
         },
         {
           "path": "packages/base/src/lib/menu/root/createMenuRoot.svelte.ts",
@@ -612,7 +612,7 @@
         },
         {
           "path": "packages/base/src/lib/utils/useRegisteredLabelId.svelte.ts",
-          "sha256": "e05169d0f62fe7f2bfc955ff3cb1a1e154d71ed8cb8fd8263e2ebc9e9af93faa"
+          "sha256": "7d7c44fce0e1b01178ae76dfeb95d59907a5ffa402c49147be554a9c582addec"
         },
         {
           "path": "packages/utils/src/lib/useScrollLock.svelte.ts",
@@ -25259,7 +25259,7 @@
       },
       {
         "path": "packages/base/src/lib/menu/GroupLabel.svelte",
-        "sha256": "68b8627d246359ebb546813e3e68520815f31be7156bc926fe7f80cb2c7b5223",
+        "sha256": "743dad85f4b3e8c9fcca29c8b24c78cba2978e63557e491410ed481fd678070f",
         "symbols": [
           {
             "name": "attachHost",
@@ -26937,7 +26937,7 @@
       },
       {
         "path": "packages/base/src/lib/menu/Popup.svelte",
-        "sha256": "fdd2652ce08cb387d404d8b917bc2e74bf48dd85f776b2e8780d193886660a40",
+        "sha256": "74f9bc6ece8cbde744d120e226a7a640511db802670bf62fcce08ea7ab2fb8e3",
         "symbols": [
           {
             "name": "getDefaultReturnFocus",
@@ -27391,7 +27391,7 @@
       },
       {
         "path": "packages/base/src/lib/menu/positioner/createMenuPositioner.svelte.ts",
-        "sha256": "0f443aa45764512d4a92d903b69baab460b34feca8f86c32ac3a6259154dcc6c",
+        "sha256": "58d6966fd6c904e8b6adca800731394803d0fee4f73d781ee0fa2a5776d6e063",
         "symbols": [
           {
             "name": "MenuOpenEventDetails",
@@ -27401,7 +27401,7 @@
           {
             "name": "createMenuPositioner",
             "kind": "FunctionDeclaration",
-            "sha256": "accdb7dfb56a4624a954dc6b2949ea9047559d895e09ac8c10aa62c4f2a04310"
+            "sha256": "f8c6281e27ec43ce5b0d295aedd66675394d6e65d96c31fa8e8aa241b6ab356d"
           }
         ],
         "imports": [
@@ -51350,15 +51350,28 @@
       },
       {
         "path": "packages/base/src/lib/utils/useRegisteredLabelId.svelte.ts",
-        "sha256": "e05169d0f62fe7f2bfc955ff3cb1a1e154d71ed8cb8fd8263e2ebc9e9af93faa",
+        "sha256": "7d7c44fce0e1b01178ae76dfeb95d59907a5ffa402c49147be554a9c582addec",
         "symbols": [
           {
             "name": "useRegisteredLabelId",
             "kind": "FunctionDeclaration",
-            "sha256": "4203c9d7053e7456bf321e732de0248da937344029d1eeef88b5e50f9d25fb4c"
+            "sha256": "a35ff5e16f4dfa7fcafed70821859cb5632f08c4de0ee6cbde0f592ba492dd3d"
           }
         ],
         "imports": [
+          {
+            "specifier": "svelte",
+            "kind": "runtime",
+            "members": [
+              {
+                "imported": "untrack",
+                "local": "untrack",
+                "typeOnly": false
+              }
+            ],
+            "syntax": "import",
+            "resolved": "external:svelte"
+          },
           {
             "specifier": "../internals/useBaseUiId.js",
             "kind": "runtime",
