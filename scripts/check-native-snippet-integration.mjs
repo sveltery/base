@@ -20,6 +20,25 @@ const ownershipCommentPredecessor = '336062b3be2dfe90db5899714aed6457f78836ae';
 const nativeOwnerPredecessor = 'c39271eaf4f893fc64131b22209dee50e74de657';
 const bindingCommentPredecessor = '0d88a4e3fcb0ce57dab9b058b86a85e412f9d07c';
 const initialFocusPredecessor = 'ec36fc9cc5a8819260c2c6635e0a128acd563d4a';
+const popoverSlotPredecessor = '0ba754026de455a9647c32dde29b024924150cc2';
+const popoverSlotRuntime = 'packages/base/src/lib/popover/store/PopoverStore.svelte.ts';
+function reactivePopoverFocusTarget(body) {
+  return body
+    .replace(
+      '    const triggerElements = new PopupTriggerMap();\n    super(',
+      '    const triggerElements = new PopupTriggerMap();\n' +
+        '    const triggerFocusTargetRef = $state<{ current: HTMLElement | null }>({ current: null });\n    super(',
+    )
+    .replace(
+      '      createInitialContext(triggerElements),',
+      '      createInitialContext(triggerElements, triggerFocusTargetRef),',
+    )
+    .replace(
+      'function createInitialContext(triggerElements: PopupTriggerMap): Context {',
+      "function createInitialContext(\n  triggerElements: PopupTriggerMap,\n  triggerFocusTargetRef: Context['triggerFocusTargetRef'] = { current: null },\n): Context {",
+    )
+    .replace('    triggerFocusTargetRef: { current: null },', '    triggerFocusTargetRef,');
+}
 const initialFocusRuntime =
   'packages/base/src/lib/floating-ui/components/createFloatingFocusManager.svelte.ts';
 function disposeQueuedInitialFocus(body) {
@@ -304,7 +323,8 @@ assert.equal(Object.keys(graph.utilsExports).length, 25);
 const records = [];
 let effectCalls = 0,
   controlledOwners = 0,
-  initialFocusAstPreservedBodies = 0;
+  initialFocusAstPreservedBodies = 0,
+  popoverSlotAstPreservedBodies = 0;
 for (const module of graph.native.modules) {
   const path = module.path;
   const before = git('show', `${renderer}:${path}`);
@@ -330,17 +350,30 @@ for (const module of graph.native.modules) {
     JSON.stringify(shape(initialBefore, initialBefore)),
     `Historical binding comment successor AST changed: ${path}`,
   );
-  assert.equal(
-    after,
-    path === initialFocusRuntime ? disposeQueuedInitialFocus(initialPreimage) : initialPreimage,
-    `Only the authorized destroyed-owner initial-focus predicate/comment delta: ${path}`,
-  );
+  const initialStage =
+    path === initialFocusRuntime ? disposeQueuedInitialFocus(initialPreimage) : initialPreimage;
+  const slotPreimage = git('show', `${popoverSlotPredecessor}:${path}`);
+  assert.equal(initialStage, slotPreimage, `Exact historical initial-focus owner stage: ${path}`);
+  const slotBefore = syntax(path, slotPreimage);
   const initialEqual =
-    JSON.stringify(shape(initialBefore, initialBefore)) === JSON.stringify(shape(right, right));
+    JSON.stringify(shape(initialBefore, initialBefore)) ===
+    JSON.stringify(shape(slotBefore, slotBefore));
   if (path === initialFocusRuntime) assert(!initialEqual);
   else {
     assert(initialEqual);
     initialFocusAstPreservedBodies++;
+  }
+  assert.equal(
+    after,
+    path === popoverSlotRuntime ? reactivePopoverFocusTarget(slotPreimage) : slotPreimage,
+    `Only the authorized real Popover trigger focus-target slot delta: ${path}`,
+  );
+  const slotEqual =
+    JSON.stringify(shape(slotBefore, slotBefore)) === JSON.stringify(shape(right, right));
+  if (path === popoverSlotRuntime) assert(!slotEqual);
+  else {
+    assert(slotEqual);
+    popoverSlotAstPreservedBodies++;
   }
   const semanticOwnerCorrection = path === 'packages/utils/src/lib/PreviousValue.svelte.ts';
   const labelPublicationCorrection =
@@ -356,6 +389,7 @@ for (const module of graph.native.modules) {
     'packages/base/src/lib/utils/popups/popupStoreUtils.svelte.ts',
     'packages/base/src/lib/menu/trigger/createMenuTrigger.svelte.ts',
   ].includes(path);
+  const popoverSlotCorrection = path === popoverSlotRuntime;
   const nativeOwnerCorrection = [
     'packages/base/src/lib/dialog/store/DialogStore.svelte.ts',
     'packages/base/src/lib/floating-ui/components/FloatingPortal.svelte',
@@ -482,23 +516,25 @@ for (const module of graph.native.modules) {
     currentSha256: hash(after),
     scriptStructuralAstEqual: equal,
     sourceSyntaxValid: true,
-    disposition: nativeOwnerCorrection
-      ? 'Root-authorized actual native reactive node properties or narrow one-shot Menu seed publication; complete binding/callback/live synchronization business retained. Candidate execution pending.'
-      : triggerPublicationCorrection
-        ? 'Root-authorized narrow native registration/data/button publication boundaries; actual Store and ID acquired outside untrack, Original registration/count/data bodies and independent effects retained. Candidate runtime execution pending.'
-        : focusMetadataCorrection
-          ? 'Root-authorized native untrack of captured opening metadata and component-destroy guards for queued focus-out work and the first initial-focus frame predicate before rune-backed reads; actual node/disabled/bus dependencies, uncanceled frame mechanism, live-owner initial focus, latest returnFocus and intentional captured-target teardown retained. Candidate execution pending.'
-          : installedLabelCorrection
-            ? 'Root-authorized effect-local installed label ID capture, preserving conditional replacement-label protection; actual DOM witnesses unexecuted.'
-            : installedTreeCorrection
-              ? 'Root-authorized effect-local installed event bus captures; complete callbacks, live business reads and domain guards retained; actual owner migration/unmount witnesses unexecuted.'
-              : labelPublicationCorrection
-                ? 'Exact native76 tracked installed ID with narrow untracked imperative receiver publication; live receiver and conditional cleanup retained. Integrated-head execution pending.'
-                : semanticOwnerCorrection
-                  ? 'Exact native76 ordinary tracked getter correction; integrated execution/review pending.'
-                  : equal
-                    ? 'Complete structural script AST retained; full native markup/compiled-output behavior remains separately pending.'
-                    : 'Explicit presentation/grouping changes retained without normalization or structural equality credit; compiled-output disposition pending.',
+    disposition: popoverSlotCorrection
+      ? 'Root-authorized actual PopoverStore-owned native reactive trigger focus-target node property; plain inert default and shared DOM/focus/open/cleanup business retained. Candidate execution pending.'
+      : nativeOwnerCorrection
+        ? 'Root-authorized actual native reactive node properties or narrow one-shot Menu seed publication; complete binding/callback/live synchronization business retained. Candidate execution pending.'
+        : triggerPublicationCorrection
+          ? 'Root-authorized narrow native registration/data/button publication boundaries; actual Store and ID acquired outside untrack, Original registration/count/data bodies and independent effects retained. Candidate runtime execution pending.'
+          : focusMetadataCorrection
+            ? 'Root-authorized native untrack of captured opening metadata and component-destroy guards for queued focus-out work and the first initial-focus frame predicate before rune-backed reads; actual node/disabled/bus dependencies, uncanceled frame mechanism, live-owner initial focus, latest returnFocus and intentional captured-target teardown retained. Candidate execution pending.'
+            : installedLabelCorrection
+              ? 'Root-authorized effect-local installed label ID capture, preserving conditional replacement-label protection; actual DOM witnesses unexecuted.'
+              : installedTreeCorrection
+                ? 'Root-authorized effect-local installed event bus captures; complete callbacks, live business reads and domain guards retained; actual owner migration/unmount witnesses unexecuted.'
+                : labelPublicationCorrection
+                  ? 'Exact native76 tracked installed ID with narrow untracked imperative receiver publication; live receiver and conditional cleanup retained. Integrated-head execution pending.'
+                  : semanticOwnerCorrection
+                    ? 'Exact native76 ordinary tracked getter correction; integrated execution/review pending.'
+                    : equal
+                      ? 'Complete structural script AST retained; full native markup/compiled-output behavior remains separately pending.'
+                      : 'Explicit presentation/grouping changes retained without normalization or structural equality credit; compiled-output disposition pending.',
   };
   if (
     semanticOwnerCorrection ||
@@ -507,7 +543,8 @@ for (const module of graph.native.modules) {
     installedTreeCorrection ||
     focusMetadataCorrection ||
     triggerPublicationCorrection ||
-    nativeOwnerCorrection
+    nativeOwnerCorrection ||
+    popoverSlotCorrection
   )
     record.sourceBusinessCorrection = true;
   if (installedLabelCorrection || installedTreeCorrection) {
@@ -526,6 +563,12 @@ for (const module of graph.native.modules) {
     record.sourceResourceDisposalPredecessorSha256 = hash(
       git('show', `${nativeOwnerPredecessor}:${path}`),
     );
+  }
+  if (popoverSlotCorrection) {
+    record.sourceBusinessPredecessor = popoverSlotPredecessor;
+    record.sourceBusinessPredecessorSha256 = hash(slotPreimage);
+    record.exactAuthorizedCompleteBodyDelta = true;
+    record.ordinaryDeclarationCredit = 0;
   }
   if (nativeOwnerCorrection) {
     record.sourceBusinessPredecessor = nativeOwnerPredecessor;
@@ -659,6 +702,20 @@ for (const receipt of [focusLifetime, nativeLifetime]) {
   );
 }
 assert.equal(initialFocusAstPreservedBodies, 495);
+assert.equal(popoverSlotAstPreservedBodies, 495);
+const slotStage = nativeLifetime.nativePopoverFocusTargetStage;
+assert.equal(slotStage.predecessor, popoverSlotPredecessor);
+assert.equal(slotStage.ordinaryDeclarationCredit, 0);
+assert.equal(slotStage.runtime.path, popoverSlotRuntime);
+assert.equal(hash(readFileSync(resolve(root, slotStage.runtime.path))), slotStage.runtime.sha256);
+assert.equal(
+  hash(git('show', `${popoverSlotPredecessor}:${popoverSlotRuntime}`)),
+  slotStage.runtime.predecessorSha256,
+);
+assert.equal(
+  hash(readFileSync(resolve(root, slotStage.original.archive))),
+  slotStage.original.sha256,
+);
 const output = {
   rendererPredecessor: renderer,
   nativeIntegrationParent,
@@ -671,11 +728,13 @@ const output = {
   bindingCommentAstPreservedBodies: records.length,
   initialFocusPredecessor,
   initialFocusAstPreservedBodies,
+  popoverSlotPredecessor,
+  popoverSlotAstPreservedBodies,
   immutableOriginalPin: graph.immutableOriginalPin,
   ordinaryDeclarationCredit: 0,
   mode: 'Source/parser/hash/import evidence only; no type program, runtime, SSR/hydration, compiled markup, artifact, installed consumer, browser, CI or merge acceptance credit.',
   method:
-    'Complete current native two-package AST closure, immutable f0 full-body preimages and grouping-preserving script ASTs. Deliberate source/native owner corrections remain separate from formatter presentation changes. Getter/label publication retain exact inherited bodies; full-body Menu cleanup deltas bind e5, captured focus metadata binds42, trigger publication bindsf2, and native ownership comments bind336 with its AST unchanged. The five native node/initial-seed/focus-out disposal owner deltas bindc392 while all earlier stages/history remain distinct. The subsequent 32 obsolete binding directives and one RadioGroup output-binding annotation bind 0d with all 496 complete bodies otherwise unchanged and every script AST identical. The next native initial-focus destroyed-owner predicate and adjacent timing comment bind ec36 as one complete Source-body delta; all other 495 current bodies/ASTs stay exact. This native owner adaptation earns zero unchanged Original credit. Parse success supplies no behavior equivalence.',
+    'Complete current native two-package AST closure, immutable f0 full-body preimages and grouping-preserving script ASTs. Deliberate source/native owner corrections remain separate from formatter presentation changes. Getter/label publication retain exact inherited bodies; full-body Menu cleanup deltas bind e5, captured focus metadata binds42, trigger publication bindsf2, and native ownership comments bind336 with its AST unchanged. The five native node/initial-seed/focus-out disposal owner deltas bindc392 while all earlier stages/history remain distinct. The subsequent 32 obsolete binding directives and one RadioGroup output-binding annotation bind 0d with all 496 complete bodies otherwise unchanged and every script AST identical. The next native initial-focus destroyed-owner predicate and adjacent timing comment bind ec36 as one complete Source-body delta; all other 495 current bodies/ASTs stay exact. This native owner adaptation earns zero unchanged Original credit. The subsequent real Popover trigger focus-target node property binds 0ba as one complete Source-body delta with 495 other current bodies/ASTs exact; earlier stages retain their own immutable preservation counts. Parse success supplies no behavior equivalence.',
   parserVersions: { TypeScript: ts.version, Svelte: compiler.VERSION },
   currentGraphSha256: hash(
     readFileSync(resolve(root, 'parity/utils-package/current-source-graph.json')),

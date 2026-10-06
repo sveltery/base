@@ -122,5 +122,20 @@
     "predecessorRuntimeSha256": "859655fcac3ce756ca68ab0021912e75daaec260864d8d9182cdaa6271b24626",
     "ordinaryDeclarationCredit": 0,
     "scope": "The first initial-focus shouldFocus statement returns false for the existing destroyed native owner before rune-backed reads. Original uncanceled frame mechanism, live-owner predicates, microtask timing, focus-out and intentional captured-target return focus remain unchanged; the adjacent timing comment describes native state updates. Candidate runtime unexecuted."
+  },
+  "nativePopoverFocusTargetStage": {
+    "predecessor": "0ba754026de455a9647c32dde29b024924150cc2",
+    "runtime": {
+      "path": "packages/base/src/lib/popover/store/PopoverStore.svelte.ts",
+      "sha256": "d4fcb2ed56b4af8b6527373d933212489bbaa8844568fbbb83d63a8ea57b572a",
+      "predecessorSha256": "e2d1bf31c2183d8bbb8b68455557bfe80c9a625ce7302e8535ad1a50ac98751f"
+    },
+    "original": {
+      "path": "packages/react/src/popover/store/PopoverStore.ts",
+      "archive": "parity/popup-family/upstream/packages/react/src/popover/store/PopoverStore.ts",
+      "sha256": "938286be46fa40df94a1adf7d8c4ae5cee7a8d4dd64c493651e22efb75aae894"
+    },
+    "ordinaryDeclarationCredit": 0,
+    "scope": "The existing real PopoverStore constructor allocates the actual triggerFocusTargetRef.current node property with native $state and passes that same slot to plain context. NullStore retains a plain default; native Trigger binding, Popup forwarding, shared live readers and all focus/open/cleanup/return-focus business remain unchanged. Candidate runtime unexecuted; no warning-only stale-focus cause claimed."
   }
 }

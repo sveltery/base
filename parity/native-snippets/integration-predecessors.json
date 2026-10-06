@@ -924,6 +924,17 @@
           "sha256": "859655fcac3ce756ca68ab0021912e75daaec260864d8d9182cdaa6271b24626"
         }
       ]
+    },
+    {
+      "commit": "0ba754026de455a9647c32dde29b024924150cc2",
+      "scope": "Exact complete PopoverStore Source preimage before allocating its real native reactive trigger focus-target node property; inert NullStore default and prior Original/history/assertions remain unchanged.",
+      "files": [
+        {
+          "predecessorPath": "packages/base/src/lib/popover/store/PopoverStore.svelte.ts",
+          "archive": "parity/native-snippets/historical/popover-focus-slot-0ba75402/packages/base/src/lib/popover/store/PopoverStore.svelte.ts",
+          "sha256": "e2d1bf31c2183d8bbb8b68455557bfe80c9a625ce7302e8535ad1a50ac98751f"
+        }
+      ]
     }
   ]
 }
