@@ -120,6 +120,20 @@ jobs:
           path: .checks/dialog-animation-diagnostic/
           if-no-files-found: error
           retention-days: 14
+      - name: Witness real pending Dialog exit animations
+        run: >-
+          pnpm exec playwright test --config playwright.source-core.config.ts
+          tests/browser/dialog.spec.ts tests/browser/dialog-motion-source.spec.ts
+          --grep 'completed exit cycles|returned focus marks|reopening while a physical exit'
+          --trace on --output .checks/dialog-animation-repair
+      - name: Preserve actual pending-exit Source animation witnesses
+        if: always()
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2
+        with:
+          name: dialog-animation-repair
+          path: .checks/dialog-animation-repair/
+          if-no-files-found: error
+          retention-days: 14
       - name: Focused Dialog Source lifecycle pairs
         run: >-
           pnpm exec playwright test --config playwright.source-core.config.ts
