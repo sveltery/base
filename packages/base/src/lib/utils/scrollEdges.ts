@@ -1,5 +1,5 @@
 // Ported from Base UI v1.8.0 immutable47b40521; MIT: THIRD_PARTY_NOTICES.md.
-import { clamp } from './clamp.js';
+import { clamp } from '@sveltery/utils/clamp';
 
 export const SCROLL_EDGE_TOLERANCE_PX = 1;
 

@@ -1,0 +1,25 @@
+.checks/collapsible-type-probe/probe.ts(8,7): error TS2375: Type '{ ref: undefined; }' is not assignable to type 'CollapsibleRootProps' with 'exactOptionalPropertyTypes: true'. Consider adding 'undefined' to the types of the target's properties.
+  Type '{ ref: undefined; }' is not assignable to type 'Omit<ElementProps<CollapsibleRootState, HTMLAttributes<HTMLDivElement>>, "class">' with 'exactOptionalPropertyTypes: true'. Consider adding 'undefined' to the types of the target's properties.
+    Types of property 'ref' are incompatible.
+      Type 'undefined' is not assignable to type 'HTMLElement | null'.
+packages/base/src/lib/dialog/store/DialogHandle.svelte.ts(52,26): error TS2591: Cannot find name 'process'. Do you need to install type definitions for node? Try `npm i --save-dev @types/node` and then add 'node' to the types field in your tsconfig.
+packages/base/src/lib/dialog/store/DialogHandle.svelte.ts(52,53): error TS2591: Cannot find name 'process'. Do you need to install type definitions for node? Try `npm i --save-dev @types/node` and then add 'node' to the types field in your tsconfig.
+packages/base/src/lib/floating-ui/components/FloatingRootStore.svelte.ts(100,7): error TS2412: Type 'Event | undefined' is not assignable to type 'Event' with 'exactOptionalPropertyTypes: true'. Consider adding 'undefined' to the type of the target.
+  Type 'undefined' is not assignable to type 'Event'.
+packages/base/src/lib/floating-ui/components/FloatingRootStore.svelte.ts(110,11): error TS2375: Type '{ open: boolean; reason: string; nativeEvent: Event; nested: boolean; triggerElement: Element | undefined; }' is not assignable to type 'FloatingUIOpenChangeDetails' with 'exactOptionalPropertyTypes: true'. Consider adding 'undefined' to the types of the target's properties.
+  Types of property 'triggerElement' are incompatible.
+    Type 'Element | undefined' is not assignable to type 'Element'.
+      Type 'undefined' is not assignable to type 'Element'.
+packages/base/src/lib/utils/popups/popupHandle.svelte.ts(163,24): error TS2591: Cannot find name 'process'. Do you need to install type definitions for node? Try `npm i --save-dev @types/node` and then add 'node' to the types field in your tsconfig.
+packages/base/src/lib/utils/popups/popupHandle.svelte.ts(163,51): error TS2591: Cannot find name 'process'. Do you need to install type definitions for node? Try `npm i --save-dev @types/node` and then add 'node' to the types field in your tsconfig.
+packages/base/src/lib/utils/popups/popupHandle.svelte.ts(227,26): error TS2591: Cannot find name 'process'. Do you need to install type definitions for node? Try `npm i --save-dev @types/node` and then add 'node' to the types field in your tsconfig.
+packages/base/src/lib/utils/popups/popupHandle.svelte.ts(227,53): error TS2591: Cannot find name 'process'. Do you need to install type definitions for node? Try `npm i --save-dev @types/node` and then add 'node' to the types field in your tsconfig.
+packages/base/src/lib/utils/popups/popupHandle.svelte.ts(246,26): error TS2532: Object is possibly 'undefined'.
+packages/base/src/lib/utils/popups/popupHandle.svelte.ts(261,26): error TS2591: Cannot find name 'process'. Do you need to install type definitions for node? Try `npm i --save-dev @types/node` and then add 'node' to the types field in your tsconfig.
+packages/base/src/lib/utils/popups/popupHandle.svelte.ts(261,53): error TS2591: Cannot find name 'process'. Do you need to install type definitions for node? Try `npm i --save-dev @types/node` and then add 'node' to the types field in your tsconfig.
+packages/base/src/lib/utils/popups/popupHandle.svelte.ts(285,26): error TS2591: Cannot find name 'process'. Do you need to install type definitions for node? Try `npm i --save-dev @types/node` and then add 'node' to the types field in your tsconfig.
+packages/base/src/lib/utils/popups/popupHandle.svelte.ts(285,53): error TS2591: Cannot find name 'process'. Do you need to install type definitions for node? Try `npm i --save-dev @types/node` and then add 'node' to the types field in your tsconfig.
+packages/base/src/lib/utils/popups/popupTriggerMap.svelte.ts(44,24): error TS2591: Cannot find name 'process'. Do you need to install type definitions for node? Try `npm i --save-dev @types/node` and then add 'node' to the types field in your tsconfig.
+packages/base/src/lib/utils/popups/popupTriggerMap.svelte.ts(44,51): error TS2591: Cannot find name 'process'. Do you need to install type definitions for node? Try `npm i --save-dev @types/node` and then add 'node' to the types field in your tsconfig.
+packages/base/src/lib/utils/popups/popupTriggerMap.svelte.ts(72,24): error TS2591: Cannot find name 'process'. Do you need to install type definitions for node? Try `npm i --save-dev @types/node` and then add 'node' to the types field in your tsconfig.
+packages/base/src/lib/utils/popups/popupTriggerMap.svelte.ts(72,51): error TS2591: Cannot find name 'process'. Do you need to install type definitions for node? Try `npm i --save-dev @types/node` and then add 'node' to the types field in your tsconfig.

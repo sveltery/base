@@ -1,5 +1,6 @@
 import assert from 'node:assert/strict';
 import { createRequire } from 'node:module';
+import { readFileSync } from 'node:fs';
 const tooling = createRequire(process.argv[2]);
 const { JSDOM } = tooling('jsdom');
 const dom = new JSDOM('<!doctype html><html><body><main></main></body></html>', { url: 'http://localhost', pretendToBeVisual: true });
@@ -7,14 +8,31 @@ for (const key of ['window','document','navigator','HTMLElement','HTMLButtonElem
   Object.defineProperty(globalThis, key, { configurable: true, value: dom.window[key] });
 globalThis.requestAnimationFrame = dom.window.requestAnimationFrame.bind(dom.window);
 globalThis.cancelAnimationFrame = dom.window.cancelAnimationFrame.bind(dom.window);
-const { mount, flushSync, unmount } = await import('svelte');
+const { hydrate, flushSync, unmount } = await import('svelte');
 const { default: Consumer } = await import('./DOMConsumer.svelte');
 const target = document.querySelector('main');
-const app = mount(Consumer, { target }); flushSync();
+const seed = JSON.parse(readFileSync(new URL('./hydration-seed.json', import.meta.url), 'utf8'));
+target.innerHTML = seed.body;
+const serverRoot = target.querySelector('#packed-root');
+const serverTrigger = target.querySelector('#packed-trigger');
+const serverPanel = target.querySelector('[hidden="until-found"]');
+assert(serverRoot && serverTrigger && serverPanel);
+const serverPanelId = serverPanel.id;
+assert.match(serverPanelId, /^base-ui-/);
+const hydrationDiagnostics = [];
+const originalWarn = console.warn, originalError = console.error;
+console.warn = (...args) => hydrationDiagnostics.push(['warn', ...args]);
+console.error = (...args) => hydrationDiagnostics.push(['error', ...args]);
+let app;
+try { app = hydrate(Consumer, { target, recover: false }); flushSync(); }
+finally { console.warn = originalWarn; console.error = originalError; }
+assert.deepEqual(hydrationDiagnostics, [], 'SSR hydration emits no warnings or errors');
 const initial = app.snapshot();
-assert.equal(initial.root, target.querySelector('#packed-root'));
-assert.equal(initial.trigger, target.querySelector('#packed-trigger'));
-assert.equal(initial.panel, target.querySelector('#packed-panel'));
+assert.equal(initial.root, serverRoot);
+assert.equal(initial.trigger, serverTrigger);
+assert.equal(initial.panel, serverPanel);
+assert.equal(initial.panel.id, serverPanelId);
+assert.equal(initial.root.style.opacity, '1');
 assert.equal(initial.trigger.tagName, 'SPAN'); assert.equal(initial.trigger.getAttribute('role'), 'button');
 assert.equal(initial.panel.getAttribute('hidden'), 'until-found'); assert.equal(initial.panel.style.color, 'red');
 assert.equal(initial.trigger.className, 'trigger'); assert.equal(initial.trigger.style.opacity, '0.5');
@@ -25,7 +43,7 @@ initial.trigger.dispatchEvent(new KeyboardEvent('keydown', { key: 'Enter', bubbl
 assert.deepEqual(app.snapshot().calls.slice(-2), ['consumer','change:true:false']);
 assert.equal(initial.trigger.getAttribute('aria-expanded'), 'true');
 assert.equal(initial.trigger.className, 'trigger open'); assert.equal(initial.trigger.style.opacity, '1');
-assert.equal(initial.trigger.getAttribute('aria-controls'), 'packed-panel');
+assert.equal(initial.trigger.getAttribute('aria-controls'), serverPanelId);
 app.replace(); flushSync();
 const next = app.snapshot().panel;
 assert.notEqual(next, initial.panel); assert.equal(next.tagName, 'SECTION');
@@ -38,4 +56,4 @@ assert.equal(app.snapshot().root, null); assert.equal(app.snapshot().trigger, nu
 assert(app.snapshot().attachments.some(entry => entry.host === initial.trigger && !entry.attached));
 assert(app.snapshot().attachments.some(entry => entry.host === next && !entry.attached));
 await unmount(app); dom.window.close();
-console.log('Installed public Collapsible DOM refs/snippets/attachments, native events, cancellation and replacement cleanup: PASS');
+console.log('Installed public Collapsible SSR hydration without recovery/diagnostics, retained hosts/IDs/styles, DOM refs/snippets/attachments, native events, cancellation and replacement cleanup: PASS');

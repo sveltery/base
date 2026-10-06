@@ -10,7 +10,11 @@ afterEach(async () => {
   document.body.replaceChildren();
 });
 
-for (const [firstError, secondError] of [[false, false], [false, true], [true, true]]) {
+for (const [firstError, secondError] of [
+  [false, false],
+  [false, true],
+  [true, true],
+]) {
   it(`replaces and removes simultaneous message IDs (${firstError}/${secondError})`, () => {
     const host = document.createElement('div');
     document.body.append(host);

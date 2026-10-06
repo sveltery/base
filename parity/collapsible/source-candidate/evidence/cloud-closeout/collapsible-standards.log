@@ -1,0 +1,14 @@
+$ prettier --check . && eslint .
+Checking formatting...
+[warn] apps/fixtures/src/lib/CollapsibleCssNative.svelte
+[warn] apps/fixtures/src/lib/CollapsibleFixture.svelte
+[warn] apps/fixtures/src/lib/CollapsibleSourceBoundaryReference.ts
+[warn] apps/fixtures/src/routes/collapsible-css-native/+page.svelte
+[warn] apps/fixtures/src/routes/collapsible-dimensions/+page.svelte
+[warn] apps/fixtures/src/routes/collapsible-dimensions/+page.ts
+[warn] packages/base/tests/dom/collapsible-source-boundary.test.ts
+[warn] packages/base/tests/dom/collapsible/RenderDimensionsBoundary.svelte
+[warn] packages/base/vitest.collapsible-boundary.config.ts
+[warn] tests/browser/collapsible.spec.ts
+[warn] Code style issues found in 10 files. Run Prettier with --write to fix.
+[ELIFECYCLE] Command failed with exit code 1.

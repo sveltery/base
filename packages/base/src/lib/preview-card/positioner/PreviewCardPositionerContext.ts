@@ -3,9 +3,14 @@ import { getContext, setContext } from 'svelte';
 import type { useAnchorPositioning } from '../../internals/anchor-positioning/useAnchorPositioning.svelte.js';
 export type PreviewCardPositionerContext = ReturnType<typeof useAnchorPositioning>;
 const POSITIONER = Symbol('PreviewCard.Positioner');
-export function providePreviewCardPositionerContext(value: PreviewCardPositionerContext) { setContext(POSITIONER, value); }
+export function providePreviewCardPositionerContext(value: PreviewCardPositionerContext) {
+  setContext(POSITIONER, value);
+}
 export function usePreviewCardPositionerContext() {
   const context = getContext<PreviewCardPositionerContext | undefined>(POSITIONER);
-  if (context === undefined) throw new Error('Base UI: PreviewCardPositionerContext is missing. PreviewCardPositioner parts must be placed within <PreviewCard.Positioner>.');
+  if (context === undefined)
+    throw new Error(
+      'Base UI: PreviewCardPositionerContext is missing. PreviewCardPositioner parts must be placed within <PreviewCard.Positioner>.',
+    );
   return context;
 }

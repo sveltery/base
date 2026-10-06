@@ -5,11 +5,18 @@
   let host = $state<HTMLDivElement>();
   onMount(() => {
     if (!data.reference || !host) return;
-    const node = host; let stopped = false; let cleanup: (() => void) | undefined;
-    void import('../../lib/direction-provider-reference.js').then(({ mountDirectionProviderReference }) => {
-      if (!stopped) cleanup = mountDirectionProviderReference(node, data.scenario);
-    });
-    return () => { stopped = true; cleanup?.(); };
+    const node = host;
+    let stopped = false;
+    let cleanup: (() => void) | undefined;
+    void import('../../lib/direction-provider-reference.js').then(
+      ({ mountDirectionProviderReference }) => {
+        if (!stopped) cleanup = mountDirectionProviderReference(node, data.scenario);
+      },
+    );
+    return () => {
+      stopped = true;
+      cleanup?.();
+    };
   });
 </script>
 

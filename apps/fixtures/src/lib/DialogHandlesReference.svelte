@@ -5,4 +5,5 @@
   let host = $state<HTMLElement>(null!);
   onMount(() => mountHandlesReference(host, line));
 </script>
+
 <div bind:this={host}></div>

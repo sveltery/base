@@ -1,0 +1,136 @@
+✔ Accordion trace preserves ordinary, parameterized, Activity, helper and type scopes (17.347804ms)
+✔ I:9 React reference missing context retains exact upstream message (87.50605ms)
+✔ H:8 React reference missing context retains exact upstream message (11.906446ms)
+✔ React reference nested replacement Items sharing a host publish index zero independently (286.722592ms)
+✔ private anchor foundation keeps immutable source/assertions and zero deferred ordinary credit (6.77025ms)
+✔ selected root-store bridge preserves reference ownership and delegates one DOM driver (446.699052ms)
+✔ private native and actual React anchor policies SSR without browser measurements (1069.287044ms)
+✔ Avatar preserves immutable source bytes and separates ordinary, conformance, types and supplements (1003.419295ms)
+✔ Avatar paired SSR keepMounted=false runs without browser globals (1369.487255ms)
+✔ Avatar paired SSR keepMounted=true runs without browser globals (1712.818587ms)
+✔ Button ports retain complete direct declarations and selected non-composite support assertions (12.658454ms)
+✔ Button graph retains the original source pin and hashes the actual canonical closure (405.907557ms)
+✔ maintained catalog keeps every pinned module and distinguishes actual native API presence from acceptance or retirement (30.53605ms)
+✔ Collapsible ledger preserves exact ordinary inventory and portable versus Activity scope (12.182314ms)
+✔ P:799 paired exact-pin React/Svelte SSR initial keyframe suppression (1711.877698ms)
+✔ P:830 paired exact-pin React/Svelte SSR initial keyframe suppression (1832.398779ms)
+✔ CSP source ledger retains the pin, original dependent assertions and zero ordinary credit (4.686986ms)
+✔ CSPProvider SSR without browser globals preserves wrapperless context defaults and shadowing in both frameworks (1685.739794ms)
+✔ pinned canceled openWithPayload and ordinary close/unmount retain the payload write (475.703193ms)
+✔ pinned forceUnmount while logically open remounts without changing the logical open state (204.905618ms)
+✔ pinned external controlled opening prefers the previously focused external button (203.383669ms)
+✔ pinned completion characterization with renderer StrictMode=false (120.926027ms)
+✔ pinned completion characterization with renderer StrictMode=true (127.579715ms)
+✔ D:230 actual pinned JSDOM detached production payload warning body (10.687431ms)
+✔ pinned reopened nonmodal Root accepts a press-less virtual outside click (337.454802ms)
+✔ pinned external owner-control button.click also emits a virtual outside press (171.103758ms)
+✔ pinned close with Popup absent retains mounted state without a completion (128.334854ms)
+✔ pinned close with Popup remove-on-close retains mounted state without a completion (183.104149ms)
+✔ pinned Backdrop forwards exactly the open and transitionStatus state keys (99.797159ms)
+✔ SSR roots and successive requests isolate defaultOpen and generated relationships (1662.2595ms)
+✔ DirectionProvider keeps both pinned ordinary predicates separate from the callable-reader API adaptation (5.510854ms)
+✔ docs API matches actual local types and all public parts (70.323347ms)
+✔ Dialog docs extracts complete TypeScript from valid quoted Svelte generic attributes (0.355358ms)
+✔ docs metadata, navigation links and fragment targets are valid (0.677406ms)
+✔ Accordion docs API matches all five local part declarations (5.529652ms)
+✔ Input accepted reset limitation keeps its narrow decision, negative assertions and zero credit visible (31.791852ms)
+✔ Input source bytes and fifteen separate helper mappings retain zero ordinary declaration credit (87.292988ms)
+✔ Input supplemental native reset and real remote evidence cannot silently claim Field conformance (1.490066ms)
+✔ Input timing characterization preserves hashed raw phase observations and the explicit native decision (4.046727ms)
+✔ Current Input native-default source suites retain historical assertions without active failure waivers (2.010163ms)
+✔ Kit compatibility patch changes only submit cancellation and the reset task boundary at the exact pinned source (26.544838ms)
+✔ Kit compatibility patch and license ship as optional artifacts without a runtime Kit dependency (5.479706ms)
+✔ unpatched witness removes only this SDK patch and keeps unrelated patches and resolutions (5.879872ms)
+✔ complete original Menu family runtime and test/helper archives preserve the immutable pin (203.802209ms)
+✔ current Menu family reachability resolves actual native counterparts while preserving historical provenance without new acceptance credit (1205.663116ms)
+✔ Original assertion declarations and conformance stay independently uncredited (3.776057ms)
+✔ Meter preserves 22 ordinary declarations, four parameterized variants and separate full conformance (46.620212ms)
+✔ native rendering retirement preserves every exact predecessor body and Source declaration scope (33.011918ms)
+✔ live public native rendering excludes the retired root/subpath API and keeps real secured acceptance (0.883548ms)
+✔ actual current native Source import graph and retirement exclusions remain coherent (1598.58591ms)
+✔ owned navigation API snapshot derives all actual eight exported components and types (28.844309ms)
+✔ current navigation reachability and explicit native counterparts preserve exact current bytes without historical acceptance credit (66.539178ms)
+✔ navigation source graph resolves original index.parts and preserves immutable declaration accounting (10.29054ms)
+{"phase":"initial offline install","stdout":"Progress: resolved 1, reused 0, downloaded 0, added 0\nPackages are hard linked from the content-addressable store to the virtual store.\n  Content-addressable store is at: /.pnpm-store/v11\n  Virtual store is at:             node_modules/.pnpm\nPackages: +2\n++\nProgress: resolved 2, reused 0, downloaded 2, added 2, done\n\ndependencies:\n+ @test/base 0.0.0\n+ @test/utils 0.0.0\n\nDone in 28ms using pnpm v12.6.0"}
+{"phase":"frozen offline reinstall","stdout":"✓ Lockfile passes supply-chain policies (verified 714ms ago)\nLockfile is up to date, resolution step is skipped\nDone in 4ms using pnpm v12.6.0"}
+lockfileVersion: '9.0'
+
+settings:
+  autoInstallPeers: true
+  excludeLinksFromLockfile: false
+
+overrides:
+  '@test/base': file:/tmp/sveltery-artifacts-test.G2fbTO/consumer/test-base-0.0.0.tgz
+  '@test/utils': file:/tmp/sveltery-artifacts-test.G2fbTO/consumer/.workspace-artifacts/test-utils-0.0.0.tgz
+
+importers:
+
+  .:
+    dependencies:
+      '@test/base':
+        specifier: file:/tmp/sveltery-artifacts-test.G2fbTO/consumer/test-base-0.0.0.tgz
+        version: file:test-base-0.0.0.tgz
+      '@test/utils':
+        specifier: file:/tmp/sveltery-artifacts-test.G2fbTO/consumer/.workspace-artifacts/test-utils-0.0.0.tgz
+        version: file:.workspace-artifacts/test-utils-0.0.0.tgz
+
+packages:
+
+  '@test/base@file:test-base-0.0.0.tgz':
+    resolution: {integrity: sha512-zvRo/LqV+Qr3k7LBk2d5vtbu0v9LZKtUnWHgTMjRWqPwc29Ws64G5Ux3cDnS+UflY/qtPeAitBF6yrmyavIUkQ==, tarball: file:test-base-0.0.0.tgz}
+    version: 0.0.0
+
+  '@test/utils@file:.workspace-artifacts/test-utils-0.0.0.tgz':
+    resolution: {integrity: sha512-Co/YDY46Lrrq91/2B3DrOR2994fZVfqOVsenUTi8gRXIIM89HNUrWSB7F6uiJDxlf3XPqFZOj7icrTKUKO/NFg==, tarball: file:.workspace-artifacts/test-utils-0.0.0.tgz}
+    version: 0.0.0
+
+snapshots:
+
+  '@test/base@file:test-base-0.0.0.tgz':
+    dependencies:
+      '@test/utils': file:.workspace-artifacts/test-utils-0.0.0.tgz
+
+  '@test/utils@file:.workspace-artifacts/test-utils-0.0.0.tgz': {}
+
+{"artifacts":{"schema":1,"packages":{"@test/utils":{"version":"0.0.0","directory":"../../../../tmp/sveltery-artifacts-test.G2fbTO/utils","tarball":"test-utils-0.0.0.tgz","sha256":"af3f05ca323cc9a27f65ab2d725414fcd58178ae7357ca9c2ed7b387c967d423","dependencies":[]},"@test/base":{"version":"0.0.0","directory":"../../../../tmp/sveltery-artifacts-test.G2fbTO/base","tarball":"test-base-0.0.0.tgz","sha256":"962b6fa276cc552e72d02d2a2f345bec257a655e99a8ebf4161f26b9906ef6d7","dependencies":["@test/utils"]}}},"probe":"Base and the direct dependency resolve the same packed Utils module."}
+✔ reuses the exact Base archive and prepares its local Utils dependency without changing consumer peers (445.431157ms)
+✔ installs the real archive closure offline and preserves the same transitive Utils through a frozen reinstall (2347.128417ms)
+✔ fails closed when an artifact changes after packing or a requested package is absent (316.55126ms)
+✔ extracts multiline conditional names and keeps their declaration lines (7.561889ms)
+✔ counts existing template declarations once and excludes parameterized factories (1.151874ms)
+✔ preserves verification metadata, marks added declarations unported, and rejects lost cases (0.505816ms)
+✔ locates the exact pinned type assertion and rejects missing assertions (8.971693ms)
+✔ explicit dynamic declaration inventory counts the orientation source site once (7.851226ms)
+✔ credited Dialog leaves retain immutable assertions, real fixtures and browser evidence (10.023145ms)
+✔ documented aggregate credit agrees with the shared manifest and overlapping Dialog trace (9.628257ms)
+✔ state ports retain complete source assertions and all fixture variants without crediting supplements (13.490103ms)
+✔ Progress keeps immutable 20 ordinary declarations, 7 parameterized variants and separate conformance (10.452625ms)
+✔ remote names canonicalize actual numeric issue paths without changing native names (1.993288ms)
+✔ public Kit path grammar rejects malformed and protected dynamic paths (0.748724ms)
+✔ actual schema method-name fields and similar protected spellings remain resolvable (0.275928ms)
+✔ Separator immutable source bytes, two ordinary declarations and fifteen separate helper records remain traceable (124.68495ms)
+✔ actual Toast core runs all 25 unchanged full bodies and both metadata helpers (283.525947ms)
+✔ actual public manager retains the entire data spec and all expected errors (1.764962ms)
+✔ core and public entry imports are SSR-safe and isolated without browser globals (1023.379068ms)
+✔ Portal helper evidence retains immutable invocation/hashes without ordinary leaf credit (21.38829ms)
+✔ Toast provenance placeholders stay immutable and parameterized swipe variants remain explicit (1.418828ms)
+✔ every reference prerequisite retains the complete source body, assertions and metadata helpers (186.979021ms)
+✔ complete manager data type prerequisite retains every positive and negative assertion (1.05054ms)
+✔ rendering evidence preserves complete pinned provenance without crediting supplements (15.272852ms)
+✔ the context manager retains the full pinned data type spec with only its import adaptation (3.564126ms)
+✔ shared Toast credit includes only the thirteen complete hosted paired declarations (1.719032ms)
+✔ Toggle ledger preserves five complete standalone ports and two deferred group declarations (4.010532ms)
+✔ standalone Toggle renders SSR state and strips form/type/value without browser globals (809.0872ms)
+✔ matching pnpm builds native packages after the frozen bootstrap install (208.338366ms)
+✔ replaces default pnpm 11 for direct and nested package-script commands (313.177469ms)
+✔ Corepack fallback builds native packages after the frozen bootstrap install (150.443616ms)
+✔ rejects mismatched pnpm without Corepack before running commands (152.044985ms)
+✔ rejects a fallback that fails to select the pinned version (252.31071ms)
+ℹ tests 86
+ℹ suites 0
+ℹ pass 86
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 34000.986702

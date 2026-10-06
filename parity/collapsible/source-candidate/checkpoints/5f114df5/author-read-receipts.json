@@ -1,0 +1,693 @@
+{
+  "candidateHead": "5f114df5e013fd23527f196e8fca1cd0bae0fb53",
+  "pin": "47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c",
+  "scope": "Actual integrated production/type closure inventory; historical matching-body reads retained separately, new/changed bodies explicitly pending author and independent full reads. Test closure separately inventoried.",
+  "originalReceipt": "../source-audit/audit.json",
+  "Source": "NOT CLEAR",
+  "nativeSvelte": "NOT CLEAR",
+  "maintainability": "NOT CLEAR",
+  "receipts": [
+    {
+      "source": "packages/base/src/lib/collapsible/context.ts",
+      "sha256": "6cbc22f22839fdf32cb7b82709d6d71b0ea8eba60368c9f53efe43ac950c64bc",
+      "reachability": "runtime",
+      "authorRead": "PENDING current entire-body author read; graph/hash identity is inventory only.",
+      "finalIndependentRead": "PENDING exact final-head entire-closure review; no acceptance inferred from prior reads or graph identity",
+      "ordinaryCredit": 0
+    },
+    {
+      "source": "packages/base/src/lib/collapsible/index.parts.ts",
+      "sha256": "134a17c550a8afffbdaf4029e1d9e70a031e179a4a41113906db2ae8309fa8fb",
+      "reachability": "runtime",
+      "authorRead": "Historical unchanged-body receipt retained: Complete current feature-owned body read in bounded passes at the first attachment runtime checkpoint; actual composition and native substitutions mapped in source-correspondence.md; render override loss remains blocking.",
+      "finalIndependentRead": "PENDING exact final-head entire-closure review; no acceptance inferred from prior reads or graph identity",
+      "ordinaryCredit": 0
+    },
+    {
+      "source": "packages/base/src/lib/collapsible/index.ts",
+      "sha256": "a1a6196de2beaa325259e3b9b08a8bf52fba66201de00a75a088ef1178f20281",
+      "reachability": "runtime",
+      "authorRead": "PENDING current entire-body author read; graph/hash identity is inventory only.",
+      "finalIndependentRead": "PENDING exact final-head entire-closure review; no acceptance inferred from prior reads or graph identity",
+      "ordinaryCredit": 0
+    },
+    {
+      "source": "packages/base/src/lib/collapsible/Panel.svelte",
+      "sha256": "344b38a06d23634c8c6b7b043b96eacfc681ab728758d04ea8318576c6b0ca96",
+      "reachability": "runtime",
+      "authorRead": "PENDING current entire-body author read; graph/hash identity is inventory only.",
+      "finalIndependentRead": "PENDING exact final-head entire-closure review; no acceptance inferred from prior reads or graph identity",
+      "ordinaryCredit": 0
+    },
+    {
+      "source": "packages/base/src/lib/collapsible/panel/CollapsiblePanelCssVars.ts",
+      "sha256": "dce6a4cd3981794aed3a558cefbd10ee5c70e16b6787e7bb68c21926fca026c0",
+      "reachability": "runtime",
+      "authorRead": "Historical unchanged-body receipt retained: Complete current feature-owned body read in bounded passes at the first attachment runtime checkpoint; actual composition and native substitutions mapped in source-correspondence.md; render override loss remains blocking.",
+      "finalIndependentRead": "PENDING exact final-head entire-closure review; no acceptance inferred from prior reads or graph identity",
+      "ordinaryCredit": 0
+    },
+    {
+      "source": "packages/base/src/lib/collapsible/panel/CollapsiblePanelDataAttributes.ts",
+      "sha256": "59323c93ed4e783fc0929a69e5c1318af494cd42a370c9a485d651b9539751a2",
+      "reachability": "runtime",
+      "authorRead": "Historical unchanged-body receipt retained: Complete current feature-owned body read in bounded passes at the first attachment runtime checkpoint; actual composition and native substitutions mapped in source-correspondence.md; render override loss remains blocking.",
+      "finalIndependentRead": "PENDING exact final-head entire-closure review; no acceptance inferred from prior reads or graph identity",
+      "ordinaryCredit": 0
+    },
+    {
+      "source": "packages/base/src/lib/collapsible/panel/useCollapsiblePanel.svelte.ts",
+      "sha256": "1e335baa0e8c4ca4996b682f3f31c300bd3d4bbfb58de0874fe19e86c5550dcc",
+      "reachability": "runtime",
+      "authorRead": "PENDING current entire-body author read; graph/hash identity is inventory only.",
+      "finalIndependentRead": "PENDING exact final-head entire-closure review; no acceptance inferred from prior reads or graph identity",
+      "ordinaryCredit": 0
+    },
+    {
+      "source": "packages/base/src/lib/collapsible/Root.svelte",
+      "sha256": "421f6d681601ac84765d648565acec6b36222c062457d85aed6351015470e1a3",
+      "reachability": "runtime",
+      "authorRead": "PENDING current entire-body author read; graph/hash identity is inventory only.",
+      "finalIndependentRead": "PENDING exact final-head entire-closure review; no acceptance inferred from prior reads or graph identity",
+      "ordinaryCredit": 0
+    },
+    {
+      "source": "packages/base/src/lib/collapsible/root/stateAttributesMapping.ts",
+      "sha256": "e126e2d4639c7ebca36425f75f401995d6d427f9c77d2614bbdf2ce6b86cefa6",
+      "reachability": "runtime",
+      "authorRead": "Historical unchanged-body receipt retained: Complete current feature-owned body read in bounded passes at the first attachment runtime checkpoint; actual composition and native substitutions mapped in source-correspondence.md; render override loss remains blocking.",
+      "finalIndependentRead": "PENDING exact final-head entire-closure review; no acceptance inferred from prior reads or graph identity",
+      "ordinaryCredit": 0
+    },
+    {
+      "source": "packages/base/src/lib/collapsible/root/useCollapsibleRoot.svelte.ts",
+      "sha256": "e4155df81b6cd2b6dce6681151b7ead47e1020197f3daed0c9113933bb802459",
+      "reachability": "runtime",
+      "authorRead": "PENDING current entire-body read after explicit-undefined type fidelity repair; exact-pin probe is type evidence only.",
+      "finalIndependentRead": "PENDING exact final-head entire-closure review; no acceptance inferred from prior reads or graph identity",
+      "ordinaryCredit": 0
+    },
+    {
+      "source": "packages/base/src/lib/collapsible/Trigger.svelte",
+      "sha256": "b5d60602b91c33c7dd1fe531cf8f1780e0b5f946ee6d7d66533d5d8b81d6b157",
+      "reachability": "runtime",
+      "authorRead": "PENDING current entire-body author read; graph/hash identity is inventory only.",
+      "finalIndependentRead": "PENDING exact final-head entire-closure review; no acceptance inferred from prior reads or graph identity",
+      "ordinaryCredit": 0
+    },
+    {
+      "source": "packages/base/src/lib/collapsible/trigger/CollapsibleTriggerDataAttributes.ts",
+      "sha256": "f64554c40a3e3c989c4c7959b81bc176b726848535d1d8fffe98d6bc46f6a51b",
+      "reachability": "runtime",
+      "authorRead": "Historical unchanged-body receipt retained: Complete current feature-owned body read in bounded passes at the first attachment runtime checkpoint; actual composition and native substitutions mapped in source-correspondence.md; render override loss remains blocking.",
+      "finalIndependentRead": "PENDING exact final-head entire-closure review; no acceptance inferred from prior reads or graph identity",
+      "ordinaryCredit": 0
+    },
+    {
+      "source": "packages/base/src/lib/collapsible/types.ts",
+      "sha256": "313a2baae8f70341ea7828bb53c0b19cb0d21fb8380cbaff6b82f8faddb8f5c6",
+      "reachability": "type",
+      "authorRead": "PENDING current entire-body read after native ref exact-optional fidelity repair; exact-pin probe is type evidence only.",
+      "finalIndependentRead": "PENDING exact final-head entire-closure review; no acceptance inferred from prior reads or graph identity",
+      "ordinaryCredit": 0
+    },
+    {
+      "source": "packages/base/src/lib/dialog/handle.svelte.ts",
+      "sha256": "369b9344e3947c68fa16a1b7616c26404d583a79e3e375bda486c613d0ec3681",
+      "reachability": "type",
+      "authorRead": "PENDING current entire-body author read; graph/hash identity is inventory only.",
+      "finalIndependentRead": "PENDING exact final-head entire-closure review; no acceptance inferred from prior reads or graph identity",
+      "ordinaryCredit": 0
+    },
+    {
+      "source": "packages/base/src/lib/dialog/store/DialogHandle.svelte.ts",
+      "sha256": "a5cb05869d04ff9e87dce1422599c86a4f2974b88049a73b9c7f12383b83aca3",
+      "reachability": "type",
+      "authorRead": "PENDING current entire-body author read; graph/hash identity is inventory only.",
+      "finalIndependentRead": "PENDING exact final-head entire-closure review; no acceptance inferred from prior reads or graph identity",
+      "ordinaryCredit": 0
+    },
+    {
+      "source": "packages/base/src/lib/dialog/store/DialogStore.svelte.ts",
+      "sha256": "d9d83c8c127a97a2d79a072b8998eafff242070dbea03d686fe774151741e343",
+      "reachability": "type",
+      "authorRead": "PENDING current entire-body author read; graph/hash identity is inventory only.",
+      "finalIndependentRead": "PENDING exact final-head entire-closure review; no acceptance inferred from prior reads or graph identity",
+      "ordinaryCredit": 0
+    },
+    {
+      "source": "packages/base/src/lib/dialog/types.ts",
+      "sha256": "d2b80a17a890020ddb9e7ba36c2cf2106e1677b76c722617575ef81a2728c567",
+      "reachability": "type",
+      "authorRead": "PENDING current entire-body author read; graph/hash identity is inventory only.",
+      "finalIndependentRead": "PENDING exact final-head entire-closure review; no acceptance inferred from prior reads or graph identity",
+      "ordinaryCredit": 0
+    },
+    {
+      "source": "packages/base/src/lib/floating-ui/components/FloatingRootStore.svelte.ts",
+      "sha256": "8840439ae903d174103880ac84185b4ccb7d916761ac2e3e96b7f48a88f245d3",
+      "reachability": "type",
+      "authorRead": "PENDING current entire-body author read; graph/hash identity is inventory only.",
+      "finalIndependentRead": "PENDING exact final-head entire-closure review; no acceptance inferred from prior reads or graph identity",
+      "ordinaryCredit": 0
+    },
+    {
+      "source": "packages/base/src/lib/floating-ui/components/FloatingTree.svelte.ts",
+      "sha256": "4ba1a45eb3e58c4c1cdb7fc68d48c59da7ad7a5cbd5f9be7319c22af1ca60d8a",
+      "reachability": "type",
+      "authorRead": "PENDING current entire-body author read; graph/hash identity is inventory only.",
+      "finalIndependentRead": "PENDING exact final-head entire-closure review; no acceptance inferred from prior reads or graph identity",
+      "ordinaryCredit": 0
+    },
+    {
+      "source": "packages/base/src/lib/floating-ui/components/FloatingTreeStore.ts",
+      "sha256": "eb351b05f9f15cd7acebfe9b093cb42eb07c27073f41bd670633c94c41effdd3",
+      "reachability": "type",
+      "authorRead": "PENDING current entire-body author read; graph/hash identity is inventory only.",
+      "finalIndependentRead": "PENDING exact final-head entire-closure review; no acceptance inferred from prior reads or graph identity",
+      "ordinaryCredit": 0
+    },
+    {
+      "source": "packages/base/src/lib/floating-ui/hooks/useHoverShared.ts",
+      "sha256": "27321c9b2a6773e8743846b8af2a51a4339462f8189f1a9cad36b9702b4517df",
+      "reachability": "type",
+      "authorRead": "PENDING current entire-body author read; graph/hash identity is inventory only.",
+      "finalIndependentRead": "PENDING exact final-head entire-closure review; no acceptance inferred from prior reads or graph identity",
+      "ordinaryCredit": 0
+    },
+    {
+      "source": "packages/base/src/lib/floating-ui/hooks/useSyncedFloatingRootContext.svelte.ts",
+      "sha256": "aa1374702cc5d76d0380c6b4080ffc10f2b22b496ecbfed24b97e70636669916",
+      "reachability": "type",
+      "authorRead": "PENDING current entire-body author read; graph/hash identity is inventory only.",
+      "finalIndependentRead": "PENDING exact final-head entire-closure review; no acceptance inferred from prior reads or graph identity",
+      "ordinaryCredit": 0
+    },
+    {
+      "source": "packages/base/src/lib/floating-ui/safePolygon.ts",
+      "sha256": "ee7e5e41dcb23934c4be65722b2c1e52663c6c518e3beafff627b8968430a9e3",
+      "reachability": "type",
+      "authorRead": "PENDING current entire-body author read; graph/hash identity is inventory only.",
+      "finalIndependentRead": "PENDING exact final-head entire-closure review; no acceptance inferred from prior reads or graph identity",
+      "ordinaryCredit": 0
+    },
+    {
+      "source": "packages/base/src/lib/floating-ui/types.ts",
+      "sha256": "5c4e86d68644ba65a89798d584d75bb7c1dacde7f892c9ea9fdfdd64523d3473",
+      "reachability": "type",
+      "authorRead": "PENDING current entire-body author read; graph/hash identity is inventory only.",
+      "finalIndependentRead": "PENDING exact final-head entire-closure review; no acceptance inferred from prior reads or graph identity",
+      "ordinaryCredit": 0
+    },
+    {
+      "source": "packages/base/src/lib/floating-ui/utils/constants.ts",
+      "sha256": "14ac30673b196081a83c1e023ecfd546294733ceb2f756d2bad01e3a9d24880b",
+      "reachability": "type",
+      "authorRead": "PENDING current entire-body author read; graph/hash identity is inventory only.",
+      "finalIndependentRead": "PENDING exact final-head entire-closure review; no acceptance inferred from prior reads or graph identity",
+      "ordinaryCredit": 0
+    },
+    {
+      "source": "packages/base/src/lib/floating-ui/utils/createEventEmitter.ts",
+      "sha256": "31ebcaf59c98304ec9944e91a86b0a3c3ed31359e76a102ea62c4213f5dff484",
+      "reachability": "type",
+      "authorRead": "PENDING current entire-body author read; graph/hash identity is inventory only.",
+      "finalIndependentRead": "PENDING exact final-head entire-closure review; no acceptance inferred from prior reads or graph identity",
+      "ordinaryCredit": 0
+    },
+    {
+      "source": "packages/base/src/lib/floating-ui/utils/element.ts",
+      "sha256": "68a9ee68a6c3d8c0c1d9e8f68fffb3c214201c6f7fed4b0c374298b65fae3ff3",
+      "reachability": "type",
+      "authorRead": "PENDING current entire-body author read; graph/hash identity is inventory only.",
+      "finalIndependentRead": "PENDING exact final-head entire-closure review; no acceptance inferred from prior reads or graph identity",
+      "ordinaryCredit": 0
+    },
+    {
+      "source": "packages/base/src/lib/floating-ui/utils/event.ts",
+      "sha256": "32391b7e254d578d4a374a8f95270e0fea8c763e8f56c52db2e9931243ad5e56",
+      "reachability": "type",
+      "authorRead": "PENDING current entire-body author read; graph/hash identity is inventory only.",
+      "finalIndependentRead": "PENDING exact final-head entire-closure review; no acceptance inferred from prior reads or graph identity",
+      "ordinaryCredit": 0
+    },
+    {
+      "source": "packages/base/src/lib/floating-ui/utils/matchesFocusVisible.ts",
+      "sha256": "4d5266137ceb919a50e3cd9ad29e23a219b08470f34c275852c320531cc949d3",
+      "reachability": "type",
+      "authorRead": "PENDING current entire-body author read; graph/hash identity is inventory only.",
+      "finalIndependentRead": "PENDING exact final-head entire-closure review; no acceptance inferred from prior reads or graph identity",
+      "ordinaryCredit": 0
+    },
+    {
+      "source": "packages/base/src/lib/floating-ui/utils/nodes.ts",
+      "sha256": "b78d4c24b96237d20d09a60549535fad0d8e61661b38091cbf5368b53c43f544",
+      "reachability": "type",
+      "authorRead": "PENDING current entire-body author read; graph/hash identity is inventory only.",
+      "finalIndependentRead": "PENDING exact final-head entire-closure review; no acceptance inferred from prior reads or graph identity",
+      "ordinaryCredit": 0
+    },
+    {
+      "source": "packages/base/src/lib/index.ts",
+      "sha256": "06dbc3ac673b441f7104d82fcc84822565bc10e61f0f1c855ff7c7d8dd77c75a",
+      "reachability": "runtime",
+      "authorRead": "PENDING current entire-body author read; graph/hash identity is inventory only.",
+      "finalIndependentRead": "PENDING exact final-head entire-closure review; no acceptance inferred from prior reads or graph identity",
+      "ordinaryCredit": 0
+    },
+    {
+      "source": "packages/base/src/lib/internals/composite/root/CompositeRootContext.ts",
+      "sha256": "b08d6af5d6e71ba46076718b4426c7d2e0485a059e9204759406af1f395b6f2c",
+      "reachability": "runtime",
+      "authorRead": "Historical unchanged-body receipt retained: Canonical body unchanged from accepted Main; precode complete-body receipt is retained under source-audit/audit.json. Hash identity is not a new manual review.",
+      "finalIndependentRead": "PENDING exact final-head entire-closure review; no acceptance inferred from prior reads or graph identity",
+      "ordinaryCredit": 0
+    },
+    {
+      "source": "packages/base/src/lib/internals/createBaseUIEventDetails.ts",
+      "sha256": "8c72d1cd966a450125d2177842154e603b52779f156660af0633101ea222c772",
+      "reachability": "runtime",
+      "authorRead": "PENDING current entire-body author read; graph/hash identity is inventory only.",
+      "finalIndependentRead": "PENDING exact final-head entire-closure review; no acceptance inferred from prior reads or graph identity",
+      "ordinaryCredit": 0
+    },
+    {
+      "source": "packages/base/src/lib/internals/getStateAttributesProps.ts",
+      "sha256": "e48367a890024a54cb200eabc5c2a0ba0a397256baacfaec8b0a05ced3b10344",
+      "reachability": "runtime",
+      "authorRead": "Historical unchanged-body receipt retained: Canonical body unchanged from accepted Main; precode complete-body receipt is retained under source-audit/audit.json. Hash identity is not a new manual review.",
+      "finalIndependentRead": "PENDING exact final-head entire-closure review; no acceptance inferred from prior reads or graph identity",
+      "ordinaryCredit": 0
+    },
+    {
+      "source": "packages/base/src/lib/internals/mergeComponentProps.ts",
+      "sha256": "803da5cb2c52515e1e68e16b66b61060c31ca03d183bb09d928b601bbb70cab7",
+      "reachability": "runtime",
+      "authorRead": "PENDING current entire-body author read; graph/hash identity is inventory only.",
+      "finalIndependentRead": "PENDING exact final-head entire-closure review; no acceptance inferred from prior reads or graph identity",
+      "ordinaryCredit": 0
+    },
+    {
+      "source": "packages/base/src/lib/internals/nativeProps.ts",
+      "sha256": "f081bf825f41a64924fe298108e148ac56314d02074c588cc1f9324ff6a92cc5",
+      "reachability": "runtime",
+      "authorRead": "PENDING current entire-body author read; graph/hash identity is inventory only.",
+      "finalIndependentRead": "PENDING exact final-head entire-closure review; no acceptance inferred from prior reads or graph identity",
+      "ordinaryCredit": 0
+    },
+    {
+      "source": "packages/base/src/lib/internals/reason-parts.ts",
+      "sha256": "0326d21ce4be2c41b5488c86e3687249faf3c51f5e10ae49c16e8efdc183abf5",
+      "reachability": "runtime",
+      "authorRead": "Historical unchanged-body receipt retained: Canonical body unchanged from accepted Main; precode complete-body receipt is retained under source-audit/audit.json. Hash identity is not a new manual review.",
+      "finalIndependentRead": "PENDING exact final-head entire-closure review; no acceptance inferred from prior reads or graph identity",
+      "ordinaryCredit": 0
+    },
+    {
+      "source": "packages/base/src/lib/internals/reasons.ts",
+      "sha256": "f1f52caeefb14448a7e7c9833e24413b923b7bbf40aa1818ca73dc93710b42e7",
+      "reachability": "runtime",
+      "authorRead": "Historical unchanged-body receipt retained: Canonical body unchanged from accepted Main; precode complete-body receipt is retained under source-audit/audit.json. Hash identity is not a new manual review.",
+      "finalIndependentRead": "PENDING exact final-head entire-closure review; no acceptance inferred from prior reads or graph identity",
+      "ordinaryCredit": 0
+    },
+    {
+      "source": "packages/base/src/lib/internals/resolveClassValue.ts",
+      "sha256": "584323b17cb1733a798e9ff86e9ff783d6a26d08ecf005a8c2b3c69917c1e722",
+      "reachability": "runtime",
+      "authorRead": "Historical unchanged-body receipt retained: Canonical body unchanged from accepted Main; precode complete-body receipt is retained under source-audit/audit.json. Hash identity is not a new manual review.",
+      "finalIndependentRead": "PENDING exact final-head entire-closure review; no acceptance inferred from prior reads or graph identity",
+      "ordinaryCredit": 0
+    },
+    {
+      "source": "packages/base/src/lib/internals/stateAttributesMapping.ts",
+      "sha256": "d04c73fe454de256e1641245b5db6a3d70824693f0da33272d0863f033b5230d",
+      "reachability": "runtime",
+      "authorRead": "Historical unchanged-body receipt retained: Canonical body unchanged from accepted Main; precode complete-body receipt is retained under source-audit/audit.json. Hash identity is not a new manual review.",
+      "finalIndependentRead": "PENDING exact final-head entire-closure review; no acceptance inferred from prior reads or graph identity",
+      "ordinaryCredit": 0
+    },
+    {
+      "source": "packages/base/src/lib/internals/TransitionStatusDataAttributes.ts",
+      "sha256": "d3e4a31041bcc80ba21b330d3fedadfadaeae3f498dc09e078e70470cfb98dfe",
+      "reachability": "runtime",
+      "authorRead": "Historical unchanged-body receipt retained: Canonical body unchanged from accepted Main; precode complete-body receipt is retained under source-audit/audit.json. Hash identity is not a new manual review.",
+      "finalIndependentRead": "PENDING exact final-head entire-closure review; no acceptance inferred from prior reads or graph identity",
+      "ordinaryCredit": 0
+    },
+    {
+      "source": "packages/base/src/lib/internals/types.ts",
+      "sha256": "6a36f5f103ef940b8a32d63f0288d897096c846fb2361b4ef44733e9a899907e",
+      "reachability": "type",
+      "authorRead": "PENDING current entire-body author read; graph/hash identity is inventory only.",
+      "finalIndependentRead": "PENDING exact final-head entire-closure review; no acceptance inferred from prior reads or graph identity",
+      "ordinaryCredit": 0
+    },
+    {
+      "source": "packages/base/src/lib/internals/use-button/useButton.svelte.ts",
+      "sha256": "48750528371fbf08dd09478dd7fb8e2a2b9a19494bf1e779610e5b90668e16d0",
+      "reachability": "runtime",
+      "authorRead": "PENDING current entire-body author read; graph/hash identity is inventory only.",
+      "finalIndependentRead": "PENDING exact final-head entire-closure review; no acceptance inferred from prior reads or graph identity",
+      "ordinaryCredit": 0
+    },
+    {
+      "source": "packages/base/src/lib/internals/useAnimationsFinished.ts",
+      "sha256": "7abe48ef841cdfa7bf60b29045e9f0ffb7dbfb715b34351e8f6716131b2678f8",
+      "reachability": "runtime",
+      "authorRead": "PENDING current entire-body author read; graph/hash identity is inventory only.",
+      "finalIndependentRead": "PENDING exact final-head entire-closure review; no acceptance inferred from prior reads or graph identity",
+      "ordinaryCredit": 0
+    },
+    {
+      "source": "packages/base/src/lib/internals/useBaseUiId.ts",
+      "sha256": "3995d6f7b0b3b0c3bd734f8936778c7a95ec39cc1a701dc24cf49a1313414c92",
+      "reachability": "runtime",
+      "authorRead": "PENDING current entire-body author read; graph/hash identity is inventory only.",
+      "finalIndependentRead": "PENDING exact final-head entire-closure review; no acceptance inferred from prior reads or graph identity",
+      "ordinaryCredit": 0
+    },
+    {
+      "source": "packages/base/src/lib/internals/useOpenChangeComplete.svelte.ts",
+      "sha256": "b6174d1cc73b6ea3b6431cf87906a1acacc40b1d5c356a31124f92251d7fd038",
+      "reachability": "runtime",
+      "authorRead": "PENDING current entire-body author read; graph/hash identity is inventory only.",
+      "finalIndependentRead": "PENDING exact final-head entire-closure review; no acceptance inferred from prior reads or graph identity",
+      "ordinaryCredit": 0
+    },
+    {
+      "source": "packages/base/src/lib/internals/useTransitionStatus.svelte.ts",
+      "sha256": "7fc531ccff0a7dfd77703c0f0ee7e1148fc080960682469eafffbc627056fa9e",
+      "reachability": "runtime",
+      "authorRead": "PENDING current entire-body author read; graph/hash identity is inventory only.",
+      "finalIndependentRead": "PENDING exact final-head entire-closure review; no acceptance inferred from prior reads or graph identity",
+      "ordinaryCredit": 0
+    },
+    {
+      "source": "packages/base/src/lib/merge-props/index.ts",
+      "sha256": "3ef38bba9b22f44bbcf69102d9556807f78897bedb69b410669c7b429971dd68",
+      "reachability": "runtime",
+      "authorRead": "Historical unchanged-body receipt retained: Canonical body unchanged from accepted Main; precode complete-body receipt is retained under source-audit/audit.json. Hash identity is not a new manual review.",
+      "finalIndependentRead": "PENDING exact final-head entire-closure review; no acceptance inferred from prior reads or graph identity",
+      "ordinaryCredit": 0
+    },
+    {
+      "source": "packages/base/src/lib/merge-props/mergeProps.ts",
+      "sha256": "b2c30a6df68fe9744f250f0d0b8e21d89de133146724efd6eed7cea0fce0f8b9",
+      "reachability": "runtime",
+      "authorRead": "PENDING current entire-body author read; graph/hash identity is inventory only.",
+      "finalIndependentRead": "PENDING exact final-head entire-closure review; no acceptance inferred from prior reads or graph identity",
+      "ordinaryCredit": 0
+    },
+    {
+      "source": "packages/base/src/lib/utils/collapsibleOpenStateMapping.ts",
+      "sha256": "c61fe9e34d684527811bbc2bdc12093a9a690f759464daa99f730e97b01dd3d3",
+      "reachability": "runtime",
+      "authorRead": "Historical unchanged-body receipt retained: Complete current feature-owned body read in bounded passes at the first attachment runtime checkpoint; actual composition and native substitutions mapped in source-correspondence.md; render override loss remains blocking.",
+      "finalIndependentRead": "PENDING exact final-head entire-closure review; no acceptance inferred from prior reads or graph identity",
+      "ordinaryCredit": 0
+    },
+    {
+      "source": "packages/base/src/lib/utils/dispatchClickWithModifiers.ts",
+      "sha256": "fefaa5e71f09eeb27d246b5d1eafef16e2b62f6dd72414528ef7f917c125909a",
+      "reachability": "runtime",
+      "authorRead": "PENDING current entire-body author read; graph/hash identity is inventory only.",
+      "finalIndependentRead": "PENDING exact final-head entire-closure review; no acceptance inferred from prior reads or graph identity",
+      "ordinaryCredit": 0
+    },
+    {
+      "source": "packages/base/src/lib/utils/NullStore.svelte.ts",
+      "sha256": "f23ac9ae6b5303aa9adf6499e3101c06fa981a516e6d22e95f981903674ec49c",
+      "reachability": "type",
+      "authorRead": "PENDING current entire-body author read; graph/hash identity is inventory only.",
+      "finalIndependentRead": "PENDING exact final-head entire-closure review; no acceptance inferred from prior reads or graph identity",
+      "ordinaryCredit": 0
+    },
+    {
+      "source": "packages/base/src/lib/utils/popups/index.ts",
+      "sha256": "8685650fb9e3f7bfe7528330f062c4b3f94df89bf9adc8a48b13728774474e01",
+      "reachability": "type",
+      "authorRead": "PENDING current entire-body author read; graph/hash identity is inventory only.",
+      "finalIndependentRead": "PENDING exact final-head entire-closure review; no acceptance inferred from prior reads or graph identity",
+      "ordinaryCredit": 0
+    },
+    {
+      "source": "packages/base/src/lib/utils/popups/popupHandle.svelte.ts",
+      "sha256": "c3a56400141a1075b20c783a5da24f827911b7d622c5eb92f78a4cf1f49da778",
+      "reachability": "type",
+      "authorRead": "PENDING current entire-body author read; graph/hash identity is inventory only.",
+      "finalIndependentRead": "PENDING exact final-head entire-closure review; no acceptance inferred from prior reads or graph identity",
+      "ordinaryCredit": 0
+    },
+    {
+      "source": "packages/base/src/lib/utils/popups/popupStoreUtils.svelte.ts",
+      "sha256": "13b61b426eed8a0875580aa2a8e15a8caf5c7110e915174bf4d613f069f7b01a",
+      "reachability": "type",
+      "authorRead": "PENDING current entire-body author read; graph/hash identity is inventory only.",
+      "finalIndependentRead": "PENDING exact final-head entire-closure review; no acceptance inferred from prior reads or graph identity",
+      "ordinaryCredit": 0
+    },
+    {
+      "source": "packages/base/src/lib/utils/popups/popupTriggerMap.svelte.ts",
+      "sha256": "812f1d6cb454c0f5236cda69919932ccfc569611050c19fe8198617beacf6b2c",
+      "reachability": "type",
+      "authorRead": "PENDING current entire-body author read; graph/hash identity is inventory only.",
+      "finalIndependentRead": "PENDING exact final-head entire-closure review; no acceptance inferred from prior reads or graph identity",
+      "ordinaryCredit": 0
+    },
+    {
+      "source": "packages/base/src/lib/utils/popups/store.ts",
+      "sha256": "6b9e93bb4642ec9ddf3b7721d909e0b8baf32871b5070b9831a3c3f464ca5f69",
+      "reachability": "type",
+      "authorRead": "PENDING current entire-body author read; graph/hash identity is inventory only.",
+      "finalIndependentRead": "PENDING exact final-head entire-closure review; no acceptance inferred from prior reads or graph identity",
+      "ordinaryCredit": 0
+    },
+    {
+      "source": "packages/base/src/lib/utils/resolveClassName.ts",
+      "sha256": "b22aead630ca531851a08a63e5165e64ff8cdc9de5765ff20997f578071cb108",
+      "reachability": "runtime",
+      "authorRead": "Historical unchanged-body receipt retained: Canonical body unchanged from accepted Main; precode complete-body receipt is retained under source-audit/audit.json. Hash identity is not a new manual review.",
+      "finalIndependentRead": "PENDING exact final-head entire-closure review; no acceptance inferred from prior reads or graph identity",
+      "ordinaryCredit": 0
+    },
+    {
+      "source": "packages/base/src/lib/utils/resolveRef.ts",
+      "sha256": "d8500030750c389af091f3f4f43b100f675772f3d22b6f1699a29db80d564d0a",
+      "reachability": "runtime",
+      "authorRead": "PENDING current entire-body author read; graph/hash identity is inventory only.",
+      "finalIndependentRead": "PENDING exact final-head entire-closure review; no acceptance inferred from prior reads or graph identity",
+      "ordinaryCredit": 0
+    },
+    {
+      "source": "packages/base/src/lib/utils/resolveStyle.ts",
+      "sha256": "cdc420598c1ae4b75a32e7f47ac8cc7f4fe444d4f006e2736f528951fb932977",
+      "reachability": "runtime",
+      "authorRead": "Historical unchanged-body receipt retained: Canonical body unchanged from accepted Main; precode complete-body receipt is retained under source-audit/audit.json. Hash identity is not a new manual review.",
+      "finalIndependentRead": "PENDING exact final-head entire-closure review; no acceptance inferred from prior reads or graph identity",
+      "ordinaryCredit": 0
+    },
+    {
+      "source": "packages/base/src/lib/utils/useFocusableWhenDisabled.ts",
+      "sha256": "f30838a56f41ea3672d26627fb42145d016e3b54b512c4c381e6aafb05431db2",
+      "reachability": "runtime",
+      "authorRead": "PENDING current entire-body author read; graph/hash identity is inventory only.",
+      "finalIndependentRead": "PENDING exact final-head entire-closure review; no acceptance inferred from prior reads or graph identity",
+      "ordinaryCredit": 0
+    },
+    {
+      "source": "packages/utils/src/lib/addEventListener.ts",
+      "sha256": "77880d75a5c8c5ac2d924e69d7cc7662c616b953d4895c8e6a24de53de4502bf",
+      "reachability": "runtime",
+      "authorRead": "PENDING current entire-body author read; graph/hash identity is inventory only.",
+      "finalIndependentRead": "PENDING exact final-head entire-closure review; no acceptance inferred from prior reads or graph identity",
+      "ordinaryCredit": 0
+    },
+    {
+      "source": "packages/utils/src/lib/Controlled.svelte.ts",
+      "sha256": "3bb64556d51b6cd471e21e2db4c54179b3eb072757f043f7a4489a4134283304",
+      "reachability": "runtime",
+      "authorRead": "PENDING current entire-body author read; graph/hash identity is inventory only.",
+      "finalIndependentRead": "PENDING exact final-head entire-closure review; no acceptance inferred from prior reads or graph identity",
+      "ordinaryCredit": 0
+    },
+    {
+      "source": "packages/utils/src/lib/createLogOnce.ts",
+      "sha256": "f9d8a63ce89aa2d0b31a8d88affb4ff7c49528f12152a9dc99223ee24dca90c9",
+      "reachability": "runtime",
+      "authorRead": "PENDING current entire-body author read; graph/hash identity is inventory only.",
+      "finalIndependentRead": "PENDING exact final-head entire-closure review; no acceptance inferred from prior reads or graph identity",
+      "ordinaryCredit": 0
+    },
+    {
+      "source": "packages/utils/src/lib/empty.ts",
+      "sha256": "00dc8f5cccebba670a7c7f2a78a66f3a4c008e8fec496badfc909a2bb8664151",
+      "reachability": "runtime",
+      "authorRead": "PENDING current entire-body author read; graph/hash identity is inventory only.",
+      "finalIndependentRead": "PENDING exact final-head entire-closure review; no acceptance inferred from prior reads or graph identity",
+      "ordinaryCredit": 0
+    },
+    {
+      "source": "packages/utils/src/lib/error.ts",
+      "sha256": "ebbe57877f3f8c77c83631ed4042bd288d13f98fb93afd5390128dbd0d7cec27",
+      "reachability": "runtime",
+      "authorRead": "PENDING current entire-body author read; graph/hash identity is inventory only.",
+      "finalIndependentRead": "PENDING exact final-head entire-closure review; no acceptance inferred from prior reads or graph identity",
+      "ordinaryCredit": 0
+    },
+    {
+      "source": "packages/utils/src/lib/mergeObjects.ts",
+      "sha256": "1e6cfa2be20c639f5ce6f8b0b6cc447da3413bbbc6750a5b1ab03f5810d81746",
+      "reachability": "runtime",
+      "authorRead": "PENDING current entire-body author read; graph/hash identity is inventory only.",
+      "finalIndependentRead": "PENDING exact final-head entire-closure review; no acceptance inferred from prior reads or graph identity",
+      "ordinaryCredit": 0
+    },
+    {
+      "source": "packages/utils/src/lib/owner.ts",
+      "sha256": "759c607acc1a103b2d795840051555671fe65fd889dae7694606b9069803f986",
+      "reachability": "runtime",
+      "authorRead": "PENDING current entire-body author read; graph/hash identity is inventory only.",
+      "finalIndependentRead": "PENDING exact final-head entire-closure review; no acceptance inferred from prior reads or graph identity",
+      "ordinaryCredit": 0
+    },
+    {
+      "source": "packages/utils/src/lib/platform/engine.ts",
+      "sha256": "e4745bcc586212a32cde2f7d206cc1aa4df86b8a29301f8d15cf3cd88996a987",
+      "reachability": "type",
+      "authorRead": "PENDING current entire-body author read; graph/hash identity is inventory only.",
+      "finalIndependentRead": "PENDING exact final-head entire-closure review; no acceptance inferred from prior reads or graph identity",
+      "ordinaryCredit": 0
+    },
+    {
+      "source": "packages/utils/src/lib/platform/env.ts",
+      "sha256": "dbd7cc1369986d370094b986c44b1bce3c10eba1f792f0e5c3e99c071e00eb9d",
+      "reachability": "type",
+      "authorRead": "PENDING current entire-body author read; graph/hash identity is inventory only.",
+      "finalIndependentRead": "PENDING exact final-head entire-closure review; no acceptance inferred from prior reads or graph identity",
+      "ordinaryCredit": 0
+    },
+    {
+      "source": "packages/utils/src/lib/platform/index.ts",
+      "sha256": "c9c1174c0f82f01033187e382b461370123d356d8e14901a9ca7d85dbd2ea63c",
+      "reachability": "type",
+      "authorRead": "PENDING current entire-body author read; graph/hash identity is inventory only.",
+      "finalIndependentRead": "PENDING exact final-head entire-closure review; no acceptance inferred from prior reads or graph identity",
+      "ordinaryCredit": 0
+    },
+    {
+      "source": "packages/utils/src/lib/platform/media-query.ts",
+      "sha256": "5e91ea2589962018778ad88498ff9acd432a5244fe37ee922d0a6014b1fb7ed9",
+      "reachability": "type",
+      "authorRead": "PENDING current entire-body author read; graph/hash identity is inventory only.",
+      "finalIndependentRead": "PENDING exact final-head entire-closure review; no acceptance inferred from prior reads or graph identity",
+      "ordinaryCredit": 0
+    },
+    {
+      "source": "packages/utils/src/lib/platform/os.ts",
+      "sha256": "456f2f5814e890fb12d899c1cc2f08566529216fd8f6d40a9a8e5846b2c9c3d6",
+      "reachability": "type",
+      "authorRead": "PENDING current entire-body author read; graph/hash identity is inventory only.",
+      "finalIndependentRead": "PENDING exact final-head entire-closure review; no acceptance inferred from prior reads or graph identity",
+      "ordinaryCredit": 0
+    },
+    {
+      "source": "packages/utils/src/lib/platform/parts.ts",
+      "sha256": "5382169dc9803fde93bc85e33062cbc85d7cdc0bf754d1a7f6f21eb2b4dcac29",
+      "reachability": "type",
+      "authorRead": "PENDING current entire-body author read; graph/hash identity is inventory only.",
+      "finalIndependentRead": "PENDING exact final-head entire-closure review; no acceptance inferred from prior reads or graph identity",
+      "ordinaryCredit": 0
+    },
+    {
+      "source": "packages/utils/src/lib/platform/screen-reader.ts",
+      "sha256": "c43ebce8b6557becf984c0ae7f36395da615110e7f878bab1c0dfd476ceb19a7",
+      "reachability": "type",
+      "authorRead": "PENDING current entire-body author read; graph/hash identity is inventory only.",
+      "finalIndependentRead": "PENDING exact final-head entire-closure review; no acceptance inferred from prior reads or graph identity",
+      "ordinaryCredit": 0
+    },
+    {
+      "source": "packages/utils/src/lib/platform/shared.ts",
+      "sha256": "28621a4723495ed9f1370c09b12480a6f488f19e59c70e78524325fc6e080db2",
+      "reachability": "type",
+      "authorRead": "PENDING current entire-body author read; graph/hash identity is inventory only.",
+      "finalIndependentRead": "PENDING exact final-head entire-closure review; no acceptance inferred from prior reads or graph identity",
+      "ordinaryCredit": 0
+    },
+    {
+      "source": "packages/utils/src/lib/shadowDom.ts",
+      "sha256": "2cb79a4a3ccbe16581be29f7958d03bce459c5cf8cad8ae4b9f08ab981d42a2a",
+      "reachability": "type",
+      "authorRead": "PENDING current entire-body author read; graph/hash identity is inventory only.",
+      "finalIndependentRead": "PENDING exact final-head entire-closure review; no acceptance inferred from prior reads or graph identity",
+      "ordinaryCredit": 0
+    },
+    {
+      "source": "packages/utils/src/lib/store/index.ts",
+      "sha256": "996a1d7a865fe2ce8a362041ced6b58a7ef139d4d796773971376e5fec0d52d7",
+      "reachability": "type",
+      "authorRead": "PENDING current entire-body author read; graph/hash identity is inventory only.",
+      "finalIndependentRead": "PENDING exact final-head entire-closure review; no acceptance inferred from prior reads or graph identity",
+      "ordinaryCredit": 0
+    },
+    {
+      "source": "packages/utils/src/lib/store/Store.svelte.ts",
+      "sha256": "289f1c151106f981843140b9d508d300597ee1f5a90437dca446738b861cad3c",
+      "reachability": "type",
+      "authorRead": "PENDING current entire-body author read; graph/hash identity is inventory only.",
+      "finalIndependentRead": "PENDING exact final-head entire-closure review; no acceptance inferred from prior reads or graph identity",
+      "ordinaryCredit": 0
+    },
+    {
+      "source": "packages/utils/src/lib/store/SvelteStore.svelte.ts",
+      "sha256": "472b01d7a463c05348b85c85a413b70c55b950972f12b144ce632e4ab775102c",
+      "reachability": "type",
+      "authorRead": "PENDING current entire-body author read; graph/hash identity is inventory only.",
+      "finalIndependentRead": "PENDING exact final-head entire-closure review; no acceptance inferred from prior reads or graph identity",
+      "ordinaryCredit": 0
+    },
+    {
+      "source": "packages/utils/src/lib/useAnimationFrame.ts",
+      "sha256": "ec054003588b92e4223c6eea228388ae6395bf1895fb3aaf32a02706249652ce",
+      "reachability": "runtime",
+      "authorRead": "PENDING current entire-body author read; graph/hash identity is inventory only.",
+      "finalIndependentRead": "PENDING exact final-head entire-closure review; no acceptance inferred from prior reads or graph identity",
+      "ordinaryCredit": 0
+    },
+    {
+      "source": "packages/utils/src/lib/useEnhancedClickHandler.ts",
+      "sha256": "6a045d6b74a7851d3446200f55711ffc1dcc22449a2e92680cdf328750a436d5",
+      "reachability": "type",
+      "authorRead": "PENDING current entire-body author read; graph/hash identity is inventory only.",
+      "finalIndependentRead": "PENDING exact final-head entire-closure review; no acceptance inferred from prior reads or graph identity",
+      "ordinaryCredit": 0
+    },
+    {
+      "source": "packages/utils/src/lib/useId.ts",
+      "sha256": "584864eb7f538f5adc40ab128461db75c960984c51265aead1ca3821e4bf879a",
+      "reachability": "runtime",
+      "authorRead": "PENDING current entire-body author read; graph/hash identity is inventory only.",
+      "finalIndependentRead": "PENDING exact final-head entire-closure review; no acceptance inferred from prior reads or graph identity",
+      "ordinaryCredit": 0
+    },
+    {
+      "source": "packages/utils/src/lib/useTimeout.ts",
+      "sha256": "06130c6374e14371471cc3af14638ddb3cadb514bb985fcbc4b8a7a606008b7f",
+      "reachability": "type",
+      "authorRead": "PENDING current entire-body author read; graph/hash identity is inventory only.",
+      "finalIndependentRead": "PENDING exact final-head entire-closure review; no acceptance inferred from prior reads or graph identity",
+      "ordinaryCredit": 0
+    },
+    {
+      "source": "packages/utils/src/lib/warn.ts",
+      "sha256": "58267e2a1dd62afbc707faf9c031dee042605aa74d44dbf72dd997d2ad69db65",
+      "reachability": "runtime",
+      "authorRead": "PENDING current entire-body author read; graph/hash identity is inventory only.",
+      "finalIndependentRead": "PENDING exact final-head entire-closure review; no acceptance inferred from prior reads or graph identity",
+      "ordinaryCredit": 0
+    }
+  ],
+  "acceptedMain": "a879ce6970cf14407d1e3859ee5c9900ca17e372",
+  "priorCheckpoint": "checkpoints/5b83b91c/author-read-receipts.json"
+}

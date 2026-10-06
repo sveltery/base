@@ -5,7 +5,7 @@ import { resolve, dirname, join } from 'node:path';
 import { execFileSync } from 'node:child_process';
 import { createHash } from 'node:crypto';
 import { createRequire } from 'node:module';
-import { build, roots, publicMembers } from '../source-audit/generate.mjs';
+import { build, roots, publicMembers } from './graph.mjs';
 const ts = createRequire(resolve('packages/base/package.json'))('typescript');
 const output = resolve('parity/collapsible/source-candidate');
 const archivedOriginalRoot = resolve('parity/collapsible/source-audit/upstream');
@@ -111,6 +111,7 @@ writeFileSync(join(output, 'scope.json'), JSON.stringify({
     'Named reexports now record imported source members and exported aliases separately.',
     'Real Kit $lib alias imports now resolve to repository modules.',
     'Every actual public generated consumer body is represented and hashed separately.',
+    'Workspace @sveltery/utils imports resolve to actual shared package source closure.',
   ],
   closures: Object.fromEntries(Object.entries({ original, originalTests, native, nativeTests }).map(([name, graph]) => [name, { modules: graph.moduleCount, edges: graph.edgeCount, runtime: graph.runtimeModules, type: graph.typeModules }])),
 }, null, 2) + '\n');

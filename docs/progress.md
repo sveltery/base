@@ -6,6 +6,7 @@ Progress implements the pinned Base UI v1.8.0 Root, Label, Track, Indicator and 
 <script lang="ts">
   import { Progress } from '@sveltery/base/progress';
 </script>
+
 <Progress.Root value={30} min={20} max={40}>
   <Progress.Label>Upload</Progress.Label>
   <Progress.Value />

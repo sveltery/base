@@ -1,7 +1,7 @@
 // Original Base UI 1.8.0 useDelayGroup/resetDelayRef business, native live state.
 // MIT: THIRD_PARTY_NOTICES.md; pin 47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c.
 import { untrack } from 'svelte';
-import { useIsoLayoutEffect } from '../../utils/useIsoLayoutEffect.svelte.js';
+
 import { useFloatingDelayGroupContext } from '../components/FloatingDelayGroupContext.js';
 import { getDelay } from './useHoverShared.js';
 import type { FloatingRootContext, Delay, FloatingContext } from '../types.js';
@@ -35,23 +35,19 @@ export function useDelayGroup(
   const floatingId = $derived(store.useState('floatingId'));
 
   const groupContext = useFloatingDelayGroupContext();
-  const {
-    currentIdRef,
-    delayRef,
-    initialDelayRef,
-    currentContextRef,
-    hasProvider,
-    timeout,
-  } = groupContext;
+  const { currentIdRef, delayRef, initialDelayRef, currentContextRef, hasProvider, timeout } =
+    groupContext;
   const timeoutMs = $derived(groupContext.timeoutMs);
 
   let isInstantPhase = $state(false);
-  const setIsInstantPhase = (value: boolean) => { isInstantPhase = value; };
+  const setIsInstantPhase = (value: boolean) => {
+    isInstantPhase = value;
+  };
   const openRef = { current: untrack(() => open) };
 
   // Native effects dispose and register per effect. Release the old Source owner
   // before syncing new open state or registering takeover, as Original cleanup does.
-  useIsoLayoutEffect(() => {
+  $effect(() => {
     const ownedId = floatingId;
     return () => {
       if (currentIdRef.current === ownedId) {
@@ -66,13 +62,15 @@ export function useDelayGroup(
         timeout.clear();
       }
     };
-  }, () => [currentContextRef, currentIdRef, delayRef, floatingId, initialDelayRef, timeout]);
+  });
 
-  useIsoLayoutEffect(() => {
+  $effect(() => {
     openRef.current = open;
-  }, () => [open]);
+  });
 
-  useIsoLayoutEffect(() => {
+  $effect(() => {
+    // Closing must remain observed even before a plain group ref has an owner.
+    const isOpen = open;
     function unset() {
       currentContextRef.current?.setIsInstantPhase(false);
       currentIdRef.current = null;
@@ -85,7 +83,7 @@ export function useDelayGroup(
       return undefined;
     }
 
-    if (!open && currentIdRef.current === floatingId) {
+    if (!isOpen && currentIdRef.current === floatingId) {
       setIsInstantPhase(false);
 
       if (timeoutMs) {
@@ -112,19 +110,9 @@ export function useDelayGroup(
     }
 
     return undefined;
-  }, () => [
-    open,
-    floatingId,
-    currentIdRef,
-    delayRef,
-    timeoutMs,
-    initialDelayRef,
-    currentContextRef,
-    timeout,
-    store,
-  ]);
+  });
 
-  useIsoLayoutEffect(() => {
+  $effect(() => {
     if (!open) {
       return;
     }
@@ -150,21 +138,14 @@ export function useDelayGroup(
       setIsInstantPhase(false);
       prevContext?.setIsInstantPhase(false);
     }
-  }, () => [
-    open,
-    floatingId,
-    store,
-    currentIdRef,
-    delayRef,
-    initialDelayRef,
-    currentContextRef,
-    timeout,
-  ]);
+  });
 
   return {
     activeIdRef: currentIdRef,
     hasProvider,
     delayRef,
-    get isInstantPhase() { return isInstantPhase; },
+    get isInstantPhase() {
+      return isInstantPhase;
+    },
   };
 }

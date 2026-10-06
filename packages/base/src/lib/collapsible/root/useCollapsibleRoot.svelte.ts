@@ -1,55 +1,70 @@
-// Ported from Base UI v1.8.0 at 47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c.
-// MIT: THIRD_PARTY_NOTICES.md.
-import { useControlled } from '../../utils/useControlled.svelte.js';
-import { useStableCallback } from '../../utils/useStableCallback.js';
+// Ported from Base UI v1.8.0 useCollapsibleRoot at
+// 47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c. MIT: THIRD_PARTY_NOTICES.md.
+import { untrack } from 'svelte';
+import { Controlled } from '@sveltery/utils/Controlled';
 import { useBaseUiId } from '../../internals/useBaseUiId.js';
 import { REASONS } from '../../internals/reasons.js';
 import { createChangeEventDetails } from '../../internals/createBaseUIEventDetails.js';
 import { useTransitionStatus } from '../../internals/useTransitionStatus.svelte.js';
 import type { CollapsibleRootChangeEventDetails } from '../types.js';
-import type { SetStateAction } from '../../utils/useControlled.svelte.js';
 
 export interface UseCollapsibleRootParameters {
-  open?: boolean;
-  defaultOpen?: boolean;
+  open?: boolean | undefined;
+  defaultOpen?: boolean | undefined;
   onOpenChange: (open: boolean, details: CollapsibleRootChangeEventDetails) => void;
   disabled: boolean;
 }
 
-export function useCollapsibleRoot(getParameters: () => UseCollapsibleRootParameters, nativeId: string) {
-  const [open, setOpen] = useControlled(() => ({
-    controlled: getParameters().open,
-    default: getParameters().defaultOpen ?? false,
-    name: 'Collapsible',
-    state: 'open',
-  }));
-  const transition = useTransitionStatus(open, true, true);
-  const defaultPanelId = useBaseUiId(undefined, nativeId);
-  // undefined uses the generated fallback; null means the panel unmounted.
-  let registeredPanelId = $state<string | null | undefined>();
-  const panelId = $derived(registeredPanelId === null ? undefined : registeredPanelId ?? defaultPanelId);
+export class CollapsibleRoot {
+  #parameters: () => UseCollapsibleRootParameters;
+  #open: Controlled<boolean>;
+  #transition: ReturnType<typeof useTransitionStatus>;
+  #registeredPanelId = $state<string | null | undefined>();
+  readonly defaultPanelId: string;
 
-  const handleTrigger = useStableCallback((event: MouseEvent | KeyboardEvent) => {
-    const nextOpen = !open();
+  constructor(getParameters: () => UseCollapsibleRootParameters, nativeId: string) {
+    this.#parameters = getParameters;
+    this.#open = new Controlled(
+      () => getParameters().open,
+      untrack(() => getParameters().defaultOpen ?? false),
+    );
+    this.#transition = useTransitionStatus(() => this.open, true, true);
+    this.defaultPanelId = useBaseUiId(undefined, nativeId);
+  }
+
+  get disabled() {
+    return this.#parameters().disabled;
+  }
+  get mounted() {
+    return this.#transition.mounted;
+  }
+  get open() {
+    return this.#open.value;
+  }
+  get panelId() {
+    return this.#registeredPanelId === null
+      ? undefined
+      : (this.#registeredPanelId ?? this.defaultPanelId);
+  }
+  get transitionStatus() {
+    return this.#transition.transitionStatus;
+  }
+  setMounted = (next: boolean) => this.#transition.setMounted(next);
+  setOpen = (next: boolean) => this.#open.set(next);
+  setPanelIdState = (
+    next:
+      | string
+      | null
+      | undefined
+      | ((current: string | null | undefined) => string | null | undefined),
+  ) => {
+    this.#registeredPanelId = typeof next === 'function' ? next(this.#registeredPanelId) : next;
+  };
+  handleTrigger = (event: MouseEvent | KeyboardEvent) => {
+    const nextOpen = !this.open;
     const eventDetails = createChangeEventDetails(REASONS.triggerPress, event);
-    getParameters().onOpenChange(nextOpen, eventDetails);
+    this.#parameters().onOpenChange(nextOpen, eventDetails);
     if (eventDetails.isCanceled) return;
-    setOpen(nextOpen);
-  });
-
-  return {
-    defaultPanelId,
-    get disabled() { return getParameters().disabled; },
-    handleTrigger,
-    get mounted() { return transition.mounted; },
-    get open() { return open(); },
-    get panelId() { return panelId; },
-    setMounted: transition.setMounted,
-    setOpen,
-    setPanelIdState(next: SetStateAction<string | null | undefined>) {
-      registeredPanelId = typeof next === 'function' ? next(registeredPanelId) : next;
-    },
-    get transitionStatus() { return transition.transitionStatus; },
+    this.setOpen(nextOpen);
   };
 }
-export type UseCollapsibleRootReturnValue = ReturnType<typeof useCollapsibleRoot>;

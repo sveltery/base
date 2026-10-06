@@ -4,5 +4,13 @@ import { defineConfig } from 'vitest/config';
 export default defineConfig({
   plugins: [svelte({ compilerOptions: { dev: true, hmr: false } })],
   resolve: { conditions: ['browser'] },
-  test: { environment: 'jsdom', include: ['tests/dom/collapsible-source-boundary.test.ts', 'tests/dom/collapsible-dimensions-boundary.test.ts'], maxWorkers: 1, disableConsoleIntercept: true },
+  test: {
+    environment: 'jsdom',
+    include: [
+      'tests/dom/collapsible-source-boundary.test.ts',
+      'tests/dom/collapsible-dimensions-boundary.test.ts',
+    ],
+    maxWorkers: 1,
+    disableConsoleIntercept: true,
+  },
 });

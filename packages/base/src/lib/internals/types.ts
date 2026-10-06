@@ -10,7 +10,10 @@ export type HTMLProps = Record<string, unknown> & { [key: symbol]: HTMLAttribute
 export type ComponentRenderFn<Props, State> = Snippet<[Props, State, Snippet | undefined]>;
 export type BaseUIEvent<E extends Event> = E & PreventableEvent;
 type WithPreventBaseUIHandler<T> = T extends (event: infer E) => infer Return
-  ? E extends Event ? (event: BaseUIEvent<E>) => Return : T : T;
+  ? E extends Event
+    ? (event: BaseUIEvent<E>) => Return
+    : T
+  : T;
 export type WithBaseUIEvent<T> = { [Key in keyof T]: WithPreventBaseUIHandler<T[Key]> };
 export interface BaseUIComponentProps<State> {
   class?: ClassValue | ((state: State) => ClassValue | undefined) | undefined;

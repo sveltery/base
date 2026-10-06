@@ -1,0 +1,9 @@
+import type { CollapsibleRootProps, CollapsiblePanelProps } from '../../apps/fixtures/node_modules/@base-ui/react/collapsible/index.js';
+import type { CollapsibleRootProps as NativeRoot, CollapsiblePanelProps as NativePanel } from '../../packages/base/src/lib/collapsible/types.js';
+const originalRoot: CollapsibleRootProps = { open: undefined, defaultOpen: undefined, disabled: undefined, onOpenChange: undefined };
+const originalPanel: CollapsiblePanelProps = { keepMounted: undefined, hiddenUntilFound: undefined };
+const nativeRoot: NativeRoot = { open: undefined, defaultOpen: undefined, disabled: undefined, onOpenChange: undefined };
+const nativePanel: NativePanel = { keepMounted: undefined, hiddenUntilFound: undefined };
+const originalRef: CollapsibleRootProps = { ref: undefined };
+const nativeRef: NativeRoot = { ref: undefined };
+void originalRoot; void originalPanel; void nativeRoot; void nativePanel; void originalRef; void nativeRef;

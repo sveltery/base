@@ -1,7 +1,7 @@
 // Ported from Base UI v1.8.0 at 47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c.
 // MIT Copyright (c) 2019 Material-UI SAS; see THIRD_PARTY_NOTICES.md.
-import { SvelteStore } from '../../utils/store/SvelteStore.svelte.js';
-import { NOOP } from '../../utils/empty.js';
+import { SvelteStore } from '@sveltery/utils/store';
+import { NOOP } from '@sveltery/utils/empty';
 import type { TooltipRootChangeEventDetails, TooltipRootChangeEventReason } from '../types.js';
 import { createChangeEventDetails } from '../../internals/createBaseUIEventDetails.js';
 import { REASONS } from '../../internals/reasons.js';

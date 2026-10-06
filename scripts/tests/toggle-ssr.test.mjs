@@ -21,5 +21,9 @@ test('standalone Toggle renders SSR state and strips form/type/value without bro
       assert(!nonNative.includes('form=')); assert(!nonNative.includes('value='));
     }
   `;
-  execFileSync(process.execPath, ['--import', './scripts/svelte-ssr-loader.mjs', '--input-type=module', '-e', script], { cwd: new URL('../../', import.meta.url), stdio: 'pipe' });
+  execFileSync(
+    process.execPath,
+    ['--import', './scripts/svelte-ssr-loader.mjs', '--input-type=module', '-e', script],
+    { cwd: new URL('../../', import.meta.url), stdio: 'pipe' },
+  );
 });

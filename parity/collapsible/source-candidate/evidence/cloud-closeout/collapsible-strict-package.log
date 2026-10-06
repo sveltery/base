@@ -1,0 +1,39 @@
+Loading svelte-check in workspace: /tmp/sveltery-collapsible-consumer.40Y6rL
+Getting Svelte diagnostics...
+
+svelte-check found 0 errors and 0 warnings
+Loading svelte-check in workspace: /tmp/sveltery-collapsible-consumer.40Y6rL
+Getting Svelte diagnostics...
+
+/tmp/sveltery-collapsible-consumer.40Y6rL/DOMConsumer.svelte:22:13
+Error: Type '{ children: () => any; id: string; ref: HTMLElement | null | undefined; style: string; onOpenChange: (open: boolean, details: CollapsibleRootChangeEventDetails) => void; }' is not assignable to type 'Omit<ElementProps<CollapsibleRootState, HTMLAttributes<HTMLDivElement>>, "class"> & { class?: ClassValue | ((state: CollapsibleRootState) => ClassValue); } & { ...; }' with 'exactOptionalPropertyTypes: true'. Consider adding 'undefined' to the types of the target's properties.
+  Type '{ children: () => any; id: string; ref: HTMLElement | null | undefined; style: string; onOpenChange: (open: boolean, details: CollapsibleRootChangeEventDetails) => void; }' is not assignable to type 'Omit<ElementProps<CollapsibleRootState, HTMLAttributes<HTMLDivElement>>, "class">' with 'exactOptionalPropertyTypes: true'. Consider adding 'undefined' to the types of the target's properties.
+    Types of property 'ref' are incompatible.
+      Type 'HTMLElement | null | undefined' is not assignable to type 'HTMLElement | null'.
+        Type 'undefined' is not assignable to type 'HTMLElement | null'. (ts)
+{#if present}
+  <First.Root id="packed-root" bind:ref={root} style="opacity:1" onOpenChange={(open, details) => { calls.push(`change:${open}:${trigger?.getAttribute('aria-expanded')}`); if (cancel) { details.cancel(); cancel = false; } }}>
+    <Second.Trigger id="packed-trigger" render={triggerHost} nativeButton={false} bind:ref={trigger} {@attach attachHost}
+
+/tmp/sveltery-collapsible-consumer.40Y6rL/DOMConsumer.svelte:23:19
+Error: Type '{ [x: symbol]: (host: HTMLElement) => () => number; children: () => any; id: string; render: (props: HTMLProps, _state: CollapsibleRootState, children: Snippet<...> | undefined) => { ...; } & unique symbol; ... 4 more ...; style: (state: CollapsibleRootState) => string; }' is not assignable to type 'Omit<PartProps<CollapsibleRootState, HTMLButtonAttributes>, "disabled"> & { disabled?: boolean | undefined; nativeButton?: boolean | undefined; }' with 'exactOptionalPropertyTypes: true'. Consider adding 'undefined' to the types of the target's properties.
+  Type '{ [x: symbol]: (host: HTMLElement) => () => number; children: () => any; id: string; render: (props: HTMLProps, _state: CollapsibleRootState, children: Snippet<...> | undefined) => { ...; } & unique symbol; ... 4 more ...; style: (state: CollapsibleRootState) => string; }' is not assignable to type 'Omit<PartProps<CollapsibleRootState, HTMLButtonAttributes>, "disabled">' with 'exactOptionalPropertyTypes: true'. Consider adding 'undefined' to the types of the target's properties.
+    Types of property 'ref' are incompatible.
+      Type 'HTMLElement | null | undefined' is not assignable to type 'HTMLElement | null'.
+        Type 'undefined' is not assignable to type 'HTMLElement | null'. (ts)
+  <First.Root id="packed-root" bind:ref={root} style="opacity:1" onOpenChange={(open, details) => { calls.push(`change:${open}:${trigger?.getAttribute('aria-expanded')}`); if (cancel) { details.cancel(); cancel = false; } }}>
+    <Second.Trigger id="packed-trigger" render={triggerHost} nativeButton={false} bind:ref={trigger} {@attach attachHost}
+      onclick={() => calls.push('consumer')} class={state => ['trigger', { open: state.open }]} style={state => `opacity:${state.open ? 1 : 0.5}`}>Open</Second.Trigger>
+
+/tmp/sveltery-collapsible-consumer.40Y6rL/DOMConsumer.svelte:25:16
+Error: Type '{ [x: symbol]: (host: HTMLElement) => () => number; children: () => any; id: string; hiddenUntilFound: true; render: (props: HTMLProps, _state: CollapsiblePanelState, children: Snippet | undefined) => ReturnType<import("svelte").Snippet>; ref: HTMLElement | ... 1 more ... | undefined; style: string; }' is not assignable to type 'Omit<ElementProps<CollapsibleRootState, HTMLAttributes<HTMLDivElement>>, "class"> & { class?: ClassValue | ((state: CollapsibleRootState) => ClassValue); } & { ...; }' with 'exactOptionalPropertyTypes: true'. Consider adding 'undefined' to the types of the target's properties.
+  Type '{ [x: symbol]: (host: HTMLElement) => () => number; children: () => any; id: string; hiddenUntilFound: true; render: (props: HTMLProps, _state: CollapsiblePanelState, children: Snippet | undefined) => ReturnType<import("svelte").Snippet>; ref: HTMLElement | ... 1 more ... | undefined; style: string; }' is not assignable to type 'Omit<ElementProps<CollapsibleRootState, HTMLAttributes<HTMLDivElement>>, "class">' with 'exactOptionalPropertyTypes: true'. Consider adding 'undefined' to the types of the target's properties.
+    Types of property 'ref' are incompatible.
+      Type 'HTMLElement | null | undefined' is not assignable to type 'HTMLElement | null'.
+        Type 'undefined' is not assignable to type 'HTMLElement | null'. (ts)
+      onclick={() => calls.push('consumer')} class={state => ['trigger', { open: state.open }]} style={state => `opacity:${state.open ? 1 : 0.5}`}>Open</Second.Trigger>
+    <First.Panel id="packed-panel" hiddenUntilFound render={panelHost} bind:ref={panel} {@attach attachHost} style="color:red">Packed panel content</First.Panel>
+  </First.Root>
+
+====================================
+svelte-check found 3 errors and 0 warnings in 1 file

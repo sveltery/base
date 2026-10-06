@@ -1,10 +1,10 @@
 #!/usr/bin/env bash
 set -euo pipefail
 cd "$(dirname "$0")/.."
-source scripts/toolchain.sh
+source scripts/package-artifacts.sh
 menu_consumer="$(mktemp -d "${TMPDIR:-/tmp}/sveltery-menu-consumer.XXXXXX")"
 trap 'rm -rf "$menu_consumer"' EXIT
-pnpm --filter @sveltery/base pack --pack-destination "$menu_consumer" > /dev/null
+sveltery_pack_package @sveltery/base "$menu_consumer" > /dev/null
 node --input-type=module - "$menu_consumer" <<'JS'
 import { readdirSync, writeFileSync } from 'node:fs';
 import { join } from 'node:path';
@@ -12,8 +12,9 @@ const destination = process.argv[2];
 const tarball = readdirSync(destination).find(name => name.endsWith('.tgz'));
 writeFileSync(join(destination, 'package.json'), JSON.stringify({ private: true, type: 'module', dependencies: { '@sveltery/base': `file:${join(destination, tarball)}`, svelte: '5.57.1' } }));
 JS
-pnpm --dir "$menu_consumer" --ignore-workspace install --ignore-scripts > /dev/null
-pnpm --dir "$menu_consumer" --ignore-workspace install --frozen-lockfile --ignore-scripts > /dev/null
+sveltery_prepare_consumer "$menu_consumer"
+pnpm --dir "$menu_consumer" install --ignore-scripts > /dev/null
+pnpm --dir "$menu_consumer" install --frozen-lockfile --ignore-scripts > /dev/null
 cmp LICENSE "$menu_consumer/node_modules/@sveltery/base/LICENSE"
 test -f "$menu_consumer/node_modules/@sveltery/base/THIRD_PARTY_NOTICES.md"
 cat > "$menu_consumer/Consumer.svelte" <<'SVELTE'
@@ -29,7 +30,7 @@ cat > "$menu_consumer/Consumer.svelte" <<'SVELTE'
   let ref = $state<HTMLElement | null | undefined>();
   let actions = $state<Menu.Root.Actions | null>(null);
   const root: MenuRootProps<Payload> = { handle, modal: false, open: undefined, onOpenChange(value, details) { const open: boolean = value; const native: Event = details.event; details.cancel(); details.preventUnmountOnClose(); void [open, native]; } };
-  const trigger: MenuTriggerProps<Payload> = { handle, payload: { value: 7 }, disabled: undefined, nativeButton: undefined, class: state => ['trigger', { open: state.open }], style: state => ({ opacity: state.disabled ? 0.5 : 1 }) };
+  const trigger: MenuTriggerProps<Payload> = { handle, payload: { value: 7 }, disabled: undefined, nativeButton: undefined, class: state => ['trigger', { open: state.open }], style: state => `opacity:${state.disabled ? 0.5 : 1}` };
   const positioner: MenuPositionerProps = { side: 'inline-end', sideOffset: data => data.anchor.height + data.positioner.width, alignOffset: undefined, collisionBoundary: undefined };
   const checkbox: MenuCheckboxItemProps = { checked: undefined, defaultChecked: undefined, onCheckedChange: undefined, closeOnClick: undefined };
   const radios: MenuRadioGroupProps = { value: undefined, defaultValue: undefined, onValueChange: undefined };

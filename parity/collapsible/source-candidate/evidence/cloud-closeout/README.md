@@ -1,0 +1,29 @@
+# Cloud closeout validation receipts
+
+These raw reports identify actual executed checkpoints. They do not certify the later metadata commit or establish ready/source-clear status. One worker and modest memory were retained. Historical failures are preserved, including setup failures, isolated-PATH toolchain probes and exact-pin source/type red reproducers. Independent reports and complete read receipts for edaaaf31, 7e53c489, 5f114df5 and ca229e69 are under `../../reviews/`; they distinguish original production reads, type-transitive reads, carried blob identity and unreviewed test business.
+
+| Checkpoint / maintained command or selection | Actual outcome | Raw report |
+| --- | --- | --- |
+| 73394b05; maintained package Node stages (`pnpm --recursive --filter './packages/*' --sort --workspace-concurrency 1 run test`) | 235 passed: Utils 9, Base 226 | collapsible-node-tests.log |
+| 7e53c489; scoped Collapsible DOM/boundary selection | 37 passed, three files | collapsible-focused-dom.log |
+| 5f114df5; `bash scripts/check-collapsible-package.sh --public` | Packed strict types/SSR/mounted DOM passed | collapsible-strict-package-2.log |
+| 73394b05; maintained package DOM stages (`pnpm --recursive --filter './packages/*' --sort --workspace-concurrency 1 run test:dom`) | Utils 8 passed; Base deliberately interrupted (130). One observed sibling Original React popover composition failure; no full-suite pass or complete totals | collapsible-dom-tests.log |
+| df2cdc05; `.github/standards/check.sh` / `pnpm lint` | Prettier passed; ESLint killed (137), incomplete | collapsible-standards-final.log |
+| 51293420; `pnpm check` | Utils 0 errors/0 warnings; Base 0 errors/6 warnings in three files; fixture check killed (137), outer command failed (1) | collapsible-check.log |
+| 73394b05; fixture production SSR/client build | Passed; existing React use-client bundler warnings retained | collapsible-fixture-build.log |
+| 73394b05; `node --import ./scripts/svelte-ssr-loader.mjs scripts/check-runtime.mjs` | Passed | collapsible-runtime-check.log |
+| 73394b05; `bash scripts/check-package.sh` | Full maintained consumer chain passed; Base 32/Utils 25 artifact entries, strict publint and ATTW Bundler passed, Utils 22 raw/3 compiled passed. Actual Collapsible public substage passed | collapsible-general-package.log |
+| 73394b05; `bash scripts/check-use-click-package.sh` | Passed one installed DOM test; existing maintained compiler skipLibCheck limitation remains | collapsible-use-click-package.log |
+| 73394b05; `node --test --test-concurrency=1 scripts/tests/*.test.mjs` with actual absolute Node launcher | 86/86 passed; earlier relative-launcher isolated-PATH failures preserved separately | collapsible-script-tests-73394b05.log |
+| ca229e69; `bash scripts/check-collapsible-package.sh --public` | Two strict Svelte checks 0/0, six negatives and explicit-undefined positives passed. Genuine dual-tarball SSR seed → hydrate(recover:false) passed with zero diagnostics, retained hosts/generated IDs/styles and existing cancellation/ref/snippet/attachment/replacement checks | collapsible-strict-hydration-package.log |
+| 03d59095; actual absolute Node `--test --test-concurrency=1 scripts/tests/*.test.mjs`, then `node parity/collapsible/source-candidate/graph.mjs` | 86/86 passed; candidate graph check passed (0), after actual hydration metadata regeneration | collapsible-script-tests-03d59095.log; collapsible-graph-03d59095.log |
+| Local official `pnpm exec playwright install chromium` | Failed (1): truncated ZIP/central-directory signature; no browser installed | collapsible-chromium-install.log |
+| Maintained secured Chromium runner; R:19 Svelte selection | One failed before launch: missing executable. No secured launch or product predicate acceptance | collapsible-secured-browser-attempt.log |
+
+The hydration proof is jsdom with the actual isolated installed runtime and client compiler. SSR seed compilation uses the repository producer SSR loader/compiler; producer and installed peer both pin Svelte 5.57.1. This is not independent isolated-peer SSR compiler resolution and is not real Chromium hydration evidence. Consumer adaptations and supplements receive zero unchanged upstream assertion credit.
+
+## Required disposition and hosted plan
+
+Entire-closure Source/native remains NOT CLEAR. Lead-owned canonical `useTransitionStatus.svelte.ts` and `use-button/useButton.svelte.ts` durable class-owner prerequisites must land on accepted Main and be normally integrated. A further required inherited prerequisite is [PR73](https://github.com/sveltery/base/pull/73): `packages/base/src/lib/internals/nativeProps.ts` `toNativeStyle` drops `style:''`, whereas bare Svelte preserves an empty style attribute. It is actually reached through shared mergeComponentProps. No private workaround or fidelity fix is included here. The existing AnimationFrame-owned completion executor is unchanged and has no mandatory finding.
+
+The authorized diagnostic hosted batch must run against its actual pushed SHA: Standards with complete ESLint; Verification with all script, Node, uninterrupted full DOM, workspace fixture typing, SSR/client builds, runtime boundary and the full installed-package chain; the strict Collapsible dual-tarball type/jsdom-hydration gate; secured Chromium paired Collapsible motion/beforematch/style/render/ref/teardown and actual browser SSR hydration, plus the documented combined browser gate. Use one worker, zero retries and Chromium sandbox enabled. Cancelled or missing jobs remain incomplete. Obtain actual CI URLs/results and fresh independent entire-closure source/native/maintainability review at that same stable pushed SHA. After canonical prerequisite integration, rerun invalidated checks and final review. This plan authorizes no merge, release, deployment or review-quota waiver.

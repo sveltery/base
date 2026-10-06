@@ -2,7 +2,13 @@
 // MIT: parity/anchor-positioning/UPSTREAM_LICENSE. Native Svelte replaces React hook/renderer machinery.
 import { getAlignment, getSide } from '@floating-ui/utils';
 import { useDirection } from '../../direction-provider/context.js';
-import { autoUpdate, createPositioningPolicy, getAutoUpdateOptions, getLogicalSide, getPhysicalSide } from './policy.js';
+import {
+  autoUpdate,
+  createPositioningPolicy,
+  getAutoUpdateOptions,
+  getLogicalSide,
+  getPhysicalSide,
+} from './policy.js';
 import { DEFAULT_SIDES } from './adaptive-origin.js';
 import { useFloating } from './useFloating.svelte.js';
 import { useBaseUIFloating } from '../../floating-ui/hooks/useFloating.svelte.js';
@@ -28,12 +34,22 @@ export function useAnchorPositioning(readOptions: () => AnchorPositioningOptions
       getConfig: (isCurrent: (node: HTMLElement) => boolean) =>
         createPositioningPolicy(currentOptions, () => currentArrow, isCurrent, currentMountSide),
       whileElementsMounted: (reference: Reference, floating: HTMLElement, update: () => void) =>
-        autoUpdate(reference, floating, update, getAutoUpdateOptions(currentOptions.disableAnchorTracking)),
+        autoUpdate(
+          reference,
+          floating,
+          update,
+          getAutoUpdateOptions(currentOptions.disableAnchorTracking),
+        ),
     };
   };
   const rootContext = untrack(() => options.floatingRootContext);
   const position = rootContext
-    ? useBaseUIFloating(() => ({ ...getFloatingOptions(), rootContext, nodeId: options.nodeId, externalTree: options.externalTree }))
+    ? useBaseUIFloating(() => ({
+        ...getFloatingOptions(),
+        rootContext,
+        nodeId: options.nodeId,
+        externalTree: options.externalTree,
+      }))
     : useFloating(getFloatingOptions);
 
   // The source's resolved external anchor registration, with native reactive host ownership.
@@ -55,7 +71,11 @@ export function useAnchorPositioning(readOptions: () => AnchorPositioningOptions
     const { sideX, sideY } = position.data.middlewareData.adaptiveOrigin || DEFAULT_SIDES;
     const resolvedPosition = options.positionMethod ?? 'absolute';
     if (options.adaptiveOrigin) {
-      return { position: resolvedPosition, [sideX]: `${position.data.x}px`, [sideY]: `${position.data.y}px` };
+      return {
+        position: resolvedPosition,
+        [sideX]: `${position.data.x}px`,
+        [sideY]: `${position.data.y}px`,
+      };
     }
     return { ...position.floatingStyles, position: resolvedPosition };
   });
@@ -66,7 +86,16 @@ export function useAnchorPositioning(readOptions: () => AnchorPositioningOptions
     const node = position.elements.floating;
     if (!node) return;
     const styles = positionerStyles as Record<string, string>;
-    for (const property of ['position', 'top', 'left', 'right', 'bottom', 'transform', 'willChange', 'opacity'] as const) {
+    for (const property of [
+      'position',
+      'top',
+      'left',
+      'right',
+      'bottom',
+      'transform',
+      'willChange',
+      'opacity',
+    ] as const) {
       node.style[property] = styles[property] ?? '';
     }
   });
@@ -74,10 +103,15 @@ export function useAnchorPositioning(readOptions: () => AnchorPositioningOptions
   // Source lazy flip locks the preferred side only after a collision changes it.
   // It resets on logical unmount, independently of retained keepMounted hosts.
   $effect(() => {
-    if (!options.mounted) { mountSide = null; return; }
+    if (!options.mounted) {
+      mountSide = null;
+      return;
+    }
     const renderedSide = getSide(position.data.placement);
-    const side = mountSide || getPhysicalSide(options.side ?? 'bottom', options.direction === 'rtl');
-    if (options.lazyFlip && position.data.isPositioned && renderedSide !== side) mountSide = renderedSide;
+    const side =
+      mountSide || getPhysicalSide(options.side ?? 'bottom', options.direction === 'rtl');
+    if (options.lazyFlip && position.data.isPositioned && renderedSide !== side)
+      mountSide = renderedSide;
   });
 
   $effect(() => {
@@ -89,21 +123,68 @@ export function useAnchorPositioning(readOptions: () => AnchorPositioningOptions
   });
 
   return {
-    get context() { return 'context' in position ? position.context : undefined; },
-    arrowRef: { get current() { return arrow; }, set current(node: HTMLElement | null) { arrow = node; } },
-    get arrowStyles() { return { position: 'absolute', top: position.data.middlewareData.arrow?.y === undefined ? undefined : `${position.data.middlewareData.arrow.y}px`, left: position.data.middlewareData.arrow?.x === undefined ? undefined : `${position.data.middlewareData.arrow.x}px` }; },
-    get elements() { return { ...position.elements, arrow }; },
-    get result() { return position.data; },
-    get positionerStyles() { return positionerStyles; },
-    get error() { return position.error; },
-    get side() { return getLogicalSide(options.side ?? 'bottom', getSide(position.data.placement), options.direction === 'rtl'); },
-    get physicalSide() { return getSide(position.data.placement); },
-    get align() { return (getAlignment(position.data.placement) || 'center') as Align; },
-    get isPositioned() { return position.data.isPositioned; },
-    get anchorHidden() { return Boolean(position.data.middlewareData.hide?.referenceHidden); },
-    get arrowUncentered() { return position.data.middlewareData.arrow?.centerOffset !== 0; },
+    get context() {
+      return 'context' in position ? position.context : undefined;
+    },
+    arrowRef: {
+      get current() {
+        return arrow;
+      },
+      set current(node: HTMLElement | null) {
+        arrow = node;
+      },
+    },
+    get arrowStyles() {
+      return {
+        position: 'absolute',
+        top:
+          position.data.middlewareData.arrow?.y === undefined
+            ? undefined
+            : `${position.data.middlewareData.arrow.y}px`,
+        left:
+          position.data.middlewareData.arrow?.x === undefined
+            ? undefined
+            : `${position.data.middlewareData.arrow.x}px`,
+      };
+    },
+    get elements() {
+      return { ...position.elements, arrow };
+    },
+    get result() {
+      return position.data;
+    },
+    get positionerStyles() {
+      return positionerStyles;
+    },
+    get error() {
+      return position.error;
+    },
+    get side() {
+      return getLogicalSide(
+        options.side ?? 'bottom',
+        getSide(position.data.placement),
+        options.direction === 'rtl',
+      );
+    },
+    get physicalSide() {
+      return getSide(position.data.placement);
+    },
+    get align() {
+      return (getAlignment(position.data.placement) || 'center') as Align;
+    },
+    get isPositioned() {
+      return position.data.isPositioned;
+    },
+    get anchorHidden() {
+      return Boolean(position.data.middlewareData.hide?.referenceHidden);
+    },
+    get arrowUncentered() {
+      return position.data.middlewareData.arrow?.centerOffset !== 0;
+    },
     ...position.refs,
-    setArrow(node: HTMLElement | null) { arrow = node; },
+    setArrow(node: HTMLElement | null) {
+      arrow = node;
+    },
     update: position.update,
   };
 }

@@ -1,0 +1,10 @@
+Loading svelte-check in workspace: /tmp/sveltery-collapsible-consumer.AebW41
+Getting Svelte diagnostics...
+
+svelte-check found 0 errors and 0 warnings
+Loading svelte-check in workspace: /tmp/sveltery-collapsible-consumer.AebW41
+Getting Svelte diagnostics...
+
+svelte-check found 0 errors and 0 warnings
+Installed public Collapsible SSR hydration without recovery/diagnostics, retained hosts/IDs/styles, DOM refs/snippets/attachments, native events, cancellation and replacement cleanup: PASS
+Isolated tarball Collapsible public root/subpath SSR/hydration, DOM refs/snippets/attachments and strict positive/negative declarations: PASS

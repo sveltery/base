@@ -1,0 +1,23 @@
+Scope: 2 of 4 workspace projects
+$ vitest run --project dom
+
+ RUN  v5.0.3 /workspace/scratch/4b2513ebe1ef/collapsible-check/packages/utils
+
+
+ Test Files  3 passed (3)
+      Tests  8 passed (8)
+   Start at  22:02:29
+   Duration  7.13s (environment 55%, transform 38%, import 5%, tests 2%)
+
+Environment  |dom| jsdom was created 3 times · 3.44s total, 55% of tracked time
+             create it once per worker with pool: 'vmThreads' (keeps per-file isolation) or isolate: false (shares it across files)
+             learn more: https://vitest.dev/guide/improving-performance#test-environments
+
+$ vitest run --project dom
+
+ RUN  v5.0.3 /workspace/scratch/4b2513ebe1ef/collapsible-check/packages/base
+
+10:06:32 PM [vite-plugin-svelte] tests/dom/MenuTreeTriggerOwner.svelte:15:22 This reference only captures the initial value of `tree`. Did you mean to reference it inside a closure instead?
+https://svelte.dev/e/state_referenced_locally
+ ❯ |dom| tests/dom/popup-family-source.test.ts (48 tests | 1 failed) 17852ms
+   × Original React popover: complete public composition opens and escapes 321ms

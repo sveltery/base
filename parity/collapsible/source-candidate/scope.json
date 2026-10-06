@@ -1,7 +1,7 @@
 {
   "pin": "47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c",
   "preRepairHead": "c1600456d3b4e72910d42823b9df69280c74a262",
-  "candidateHead": "16caf0d78b5ab6ffde897cceffb25adaa62c40e9",
+  "candidateHead": "ca229e697d9089b65259eacbbe8707a7ac50399d",
   "OriginalAuthorities": [
     "original-graph.json",
     "originalTests-graph.json",
@@ -46,19 +46,25 @@
       "source": "parity/collapsible/source-candidate/generated-consumer/PublicTypes.ts",
       "sourceScript": "scripts/check-collapsible-package.sh",
       "sourceMode": "--public",
-      "sha256": "77320b6086ac298f6b564662fb1e9d0f4157d43869877ffeb0875f250f0a6ecc"
+      "sha256": "cabc84a160ddd68445e38474cb04d54a5335d3b7546a03c9c4667f12b05209a2"
     },
     {
       "source": "parity/collapsible/source-candidate/generated-consumer/tsconfig.json",
       "sourceScript": "scripts/check-collapsible-package.sh",
       "sourceMode": "--public",
-      "sha256": "09c2b52dc7df6289d011a33124c492d518cbff697a4ae42643afcbcde609edd8"
+      "sha256": "209c973d7262337a5ec205c1e5c68504077a8338199375b8804839776c95032e"
     },
     {
       "source": "parity/collapsible/source-candidate/generated-consumer/DOMConsumer.svelte",
       "sourceScript": "scripts/check-collapsible-package.sh",
       "sourceMode": "--public",
-      "sha256": "34394600487c8ef31e2371e8ee83e6e438036d9b1e34ab97d43cc29714527afb"
+      "sha256": "333009759ec0c0653d558f9aa8fffb776f5c91b9efd3d8577e3a3e01be6c303c"
+    },
+    {
+      "source": "parity/collapsible/source-candidate/generated-consumer/hydration-seed.mjs",
+      "sourceScript": "scripts/check-collapsible-package.sh",
+      "sourceMode": "--public",
+      "sha256": "1bf71491d9337904a2b89172a59417eff793c6df7c4bd7830cd9d09ab372f3c8"
     },
     {
       "source": "parity/collapsible/source-candidate/generated-consumer/dom-loader.mjs",
@@ -70,13 +76,14 @@
       "source": "parity/collapsible/source-candidate/generated-consumer/dom-check.mjs",
       "sourceScript": "scripts/check-collapsible-package.sh",
       "sourceMode": "--public",
-      "sha256": "a2e351dc836363db7b39d6624f05cf450998150dd0114101010c94152cab10bf"
+      "sha256": "89c9213dd3593cbef583d0dac076a3b5175777b487f0f4c1c8c053911b2c33bf"
     }
   ],
   "correctionsToHistoricalMetadata": [
     "Named reexports now record imported source members and exported aliases separately.",
     "Real Kit $lib alias imports now resolve to repository modules.",
-    "Every actual public generated consumer body is represented and hashed separately."
+    "Every actual public generated consumer body is represented and hashed separately.",
+    "Workspace @sveltery/utils imports resolve to actual shared package source closure."
   ],
   "closures": {
     "original": {
@@ -92,16 +99,16 @@
       "type": 2
     },
     "native": {
-      "modules": 56,
-      "edges": 151,
-      "runtime": 54,
-      "type": 2
+      "modules": 85,
+      "edges": 227,
+      "runtime": 46,
+      "type": 39
     },
     "nativeTests": {
-      "modules": 98,
-      "edges": 269,
-      "runtime": 95,
-      "type": 3
+      "modules": 128,
+      "edges": 348,
+      "runtime": 88,
+      "type": 40
     }
   }
 }

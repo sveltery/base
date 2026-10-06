@@ -6,7 +6,27 @@ import PopupComponent from './Popup.svelte';
 import ArrowComponent from './Arrow.svelte';
 import BackdropComponent from './Backdrop.svelte';
 import ViewportComponent from './Viewport.svelte';
-import type { PreviewCardRootProps, PreviewCardRootState, PreviewCardTriggerProps, PreviewCardTriggerState, PreviewCardPortalProps, PreviewCardPortalState, PreviewCardPositionerProps, PreviewCardPositionerState, PreviewCardPopupProps, PreviewCardPopupState, PreviewCardArrowProps, PreviewCardArrowState, PreviewCardBackdropProps, PreviewCardBackdropState, PreviewCardViewportProps, PreviewCardViewportState, PreviewCardRootActions, PreviewCardRootChangeEventReason, PreviewCardRootChangeEventDetails } from './types.js';
+import type {
+  PreviewCardRootProps,
+  PreviewCardRootState,
+  PreviewCardTriggerProps,
+  PreviewCardTriggerState,
+  PreviewCardPortalProps,
+  PreviewCardPortalState,
+  PreviewCardPositionerProps,
+  PreviewCardPositionerState,
+  PreviewCardPopupProps,
+  PreviewCardPopupState,
+  PreviewCardArrowProps,
+  PreviewCardArrowState,
+  PreviewCardBackdropProps,
+  PreviewCardBackdropState,
+  PreviewCardViewportProps,
+  PreviewCardViewportState,
+  PreviewCardRootActions,
+  PreviewCardRootChangeEventReason,
+  PreviewCardRootChangeEventDetails,
+} from './types.js';
 
 export const Root: typeof RootComponent = RootComponent;
 // eslint-disable-next-line @typescript-eslint/no-namespace -- Preserve pinned erased component namespace types.
@@ -59,4 +79,7 @@ export namespace Viewport {
   export type Props = PreviewCardViewportProps;
   export type State = PreviewCardViewportState;
 }
-export { PreviewCardHandle as Handle, createPreviewCardHandle as createHandle } from './handle.svelte.js';
+export {
+  PreviewCardHandle as Handle,
+  createPreviewCardHandle as createHandle,
+} from './handle.svelte.js';

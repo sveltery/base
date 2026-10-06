@@ -1,0 +1,26 @@
+apps/fixtures/src/lib/CollapsibleCssNative.svelte 375ms
+apps/fixtures/src/lib/CollapsibleDimensionsFixture.svelte 115ms (unchanged)
+apps/fixtures/src/lib/CollapsibleFixture.svelte 256ms
+apps/fixtures/src/lib/CollapsibleSourceBoundaryReference.ts 37ms
+apps/fixtures/src/routes/collapsible-css-native/+page.svelte 16ms
+apps/fixtures/src/routes/collapsible-dimensions/+page.svelte 5ms
+apps/fixtures/src/routes/collapsible-dimensions/+page.ts 11ms
+docs/collapsible.md 179ms (unchanged)
+docs/upstream-differences.md 750ms (unchanged)
+packages/base/src/lib/collapsible/Panel.svelte 38ms (unchanged)
+packages/base/src/lib/collapsible/Root.svelte 21ms (unchanged)
+packages/base/src/lib/collapsible/Trigger.svelte 26ms (unchanged)
+packages/base/src/lib/collapsible/context.ts 13ms (unchanged)
+packages/base/src/lib/collapsible/panel/CollapsiblePanelCssVars.ts 5ms (unchanged)
+packages/base/src/lib/collapsible/panel/CollapsiblePanelDataAttributes.ts 8ms (unchanged)
+packages/base/src/lib/collapsible/panel/useCollapsiblePanel.svelte.ts 110ms (unchanged)
+packages/base/src/lib/collapsible/root/stateAttributesMapping.ts 2ms (unchanged)
+packages/base/src/lib/collapsible/root/useCollapsibleRoot.svelte.ts 14ms (unchanged)
+packages/base/src/lib/collapsible/trigger/CollapsibleTriggerDataAttributes.ts 3ms (unchanged)
+packages/base/src/lib/utils/collapsibleOpenStateMapping.ts 7ms (unchanged)
+packages/base/tests/dom/collapsible-dimensions-boundary.test.ts 21ms (unchanged)
+packages/base/tests/dom/collapsible-source-boundary.test.ts 45ms
+packages/base/tests/dom/collapsible/NativeControlBoundary.svelte 18ms (unchanged)
+packages/base/tests/dom/collapsible/RenderDimensionsBoundary.svelte 11ms
+packages/base/vitest.collapsible-boundary.config.ts 9ms
+tests/browser/collapsible.spec.ts 711ms

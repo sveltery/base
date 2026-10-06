@@ -1,0 +1,34 @@
+Scope: all 4 workspace projects
+✓ Lockfile passes supply-chain policies (verified 1m ago)
+Lockfile is up to date, resolution step is skipped
+Update available! 12.6.0 → 12.9.1.
+Changelog: https://pnpm.io/v/12.9.1
+To update, run: curl -fsSL https://get.pnpm.io/install.sh | sh -
+Done in 4.2s using pnpm v12.6.0
+$ pnpm --recursive --filter './packages/*' --sort --workspace-concurrency 1 --if-present run prepack
+Scope: 2 of 4 workspace projects
+$ pnpm run build && publint --strict
+$ svelte-package
+src/lib -> dist
+Running publint v0.3.25 for @sveltery/utils...
+Packing files with `pnpm pack`...
+Linting...
+All good!
+$ svelte-kit sync && svelte-package && publint --strict
+> config_file_unsupported
+`svelte.config.js` is no longer used. Please pass configuration via the `sveltekit(...)` plugin in your Vite config.
+https://svelte.dev/e/kit/config_file_unsupported
+`svelte.config.js` is no longer used. Please pass configuration via the `sveltekit(...)` plugin in your Vite config.
+https://svelte.dev/e/kit/config_file_unsupported
+    at BasicMinimalPluginContext.handler (file:///workspace/scratch/4b2513ebe1ef/collapsible/node_modules/.pnpm/@sveltejs+kit@3.0.0_@sveltejs+vite-plugin-svelte@7.3.1_svelte@5.57.1_@typescript-eslint_d9c1e485a6bf6e904272c1b3fc6d1948/node_modules/@sveltejs/kit/src/exports/vite/index.js:278:9)
+    at runConfigHook (file:///workspace/scratch/4b2513ebe1ef/collapsible/node_modules/.pnpm/vite@8.3.1_@types+node@24.19.1/node_modules/vite/dist/node/chunks/node.js:37892:42)
+    at async Module.resolveConfig (file:///workspace/scratch/4b2513ebe1ef/collapsible/node_modules/.pnpm/vite@8.3.1_@types+node@24.19.1/node_modules/vite/dist/node/chunks/node.js:37298:11)
+    at async file:///workspace/scratch/4b2513ebe1ef/collapsible/node_modules/.pnpm/@sveltejs+kit@3.0.0_@sveltejs+vite-plugin-svelte@7.3.1_svelte@5.57.1_@typescript-eslint_d9c1e485a6bf6e904272c1b3fc6d1948/node_modules/@sveltejs/kit/src/cli.js:102:23
+[ELIFECYCLE] Command failed with exit code 1.
+Error, do this: mount -t proc proc /proc
+Error: ERR_PNPM_RECURSIVE_RUN_FIRST_FAIL
+
+  × "pnpm recursive run" failed in /workspace/scratch/4b2513ebe1ef/
+  │ collapsible/packages/base
+
+[ELIFECYCLE] Command failed with exit code 1.

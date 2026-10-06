@@ -15,9 +15,11 @@ const graph = JSON.parse(read('parity/menu-family/source-graph.json'));
 const native = extractNativeClosure();
 const localModules = new Map(native.modules.map(module => [module.source, module]));
 const root = 'packages/base/src/lib/';
+const utilityMoves = new Map(JSON.parse(read('parity/utils-package/extraction.json')).moves.map(move => [move.from, move.to]));
+const destination = path => path.startsWith('packages/') ? path : utilityMoves.get(root + path) ?? root + path;
 const overrides = new Map();
 function map(source, paths, correspondence) {
-  overrides.set(source, { paths: paths.map(path => root + path), correspondence });
+  overrides.set(source, { paths: paths.map(destination), correspondence });
 }
 for (const [name, part] of [['MenuArrow', 'Arrow'], ['MenuBackdrop', 'Backdrop'], ['MenuCheckboxItemIndicator', 'CheckboxItemIndicator'], ['MenuCheckboxItem', 'CheckboxItem'], ['MenuGroupLabel', 'GroupLabel'], ['MenuGroup', 'Group'], ['MenuItem', 'Item'], ['MenuLinkItem', 'LinkItem'], ['MenuPopup', 'Popup'], ['MenuPortal', 'Portal'], ['MenuPositioner', 'Positioner'], ['MenuRadioGroup', 'RadioGroup'], ['MenuRadioItemIndicator', 'RadioItemIndicator'], ['MenuRadioItem', 'RadioItem'], ['MenuRoot', 'Root'], ['MenuSubmenuRoot', 'SubmenuRoot'], ['MenuSubmenuTrigger', 'SubmenuTrigger'], ['MenuTrigger', 'Trigger'], ['MenuViewport', 'Viewport']]) {
   const source = graph.modules.find(module => module.source.endsWith(`/${name}.tsx`)).source;
@@ -50,6 +52,7 @@ map('packages/react/src/internals/useRenderElement.tsx', ['internals/useRenderEl
 map('packages/react/src/merge-props/mergeProps.ts', ['merge-props/index.ts', 'merge-props/mergeProps.ts'], 'One canonical complete Source prop/event merging business with lower-case native event/preventBaseUIHandler framework boundary; index.ts is a reexport of the actual mergeProps body.');
 map('packages/react/src/separator/Separator.tsx', ['separator/Separator.svelte', 'separator/types.ts', 'separator/index.ts'], 'Canonical public Separator alias preserves Original role/orientation defaults and native renderer composition.');
 map('packages/react/src/tooltip/trigger/TooltipTriggerDataAttributes.ts', ['utils/CommonTriggerDataAttributes.ts', 'menu/utils/stateAttributesMapping.ts'], 'Source popup-open/disabled attribute values use the canonical trigger constants and direct Menu state mapping; no Tooltip business dependency is introduced.');
+map('packages/utils/src/store/index.ts', ['packages/utils/src/lib/store/index.ts'], 'Used native store barrel exports only implemented Store/ReadonlyStore/SvelteStore. The Original ReactStore counterpart uses native subscriptions; useStore/selector factories/inspector React APIs remain deliberately omitted and are not promised by this package.');
 map('packages/utils/src/store/Store.ts', ['utils/store/Store.svelte.ts'], 'Canonical complete Original Store body remains unchanged; string-key convenience stays separate from Source selector/update/notify business.');
 map('packages/utils/src/store/ReactStore.ts', ['utils/store/SvelteStore.svelte.ts'], 'Native rune-backed Store facade and selected Original observe business; React hooks/debug inspector machinery use native state lifecycle instead.');
 map('packages/react/src/floating-ui-react/utils/element.ts', ['floating-ui/utils/element.ts', 'floating-ui/utils/matchesFocusVisible.ts'], 'Canonical complete selected element helpers; Source matchesFocusVisible is extracted once for shared native use without a second implementation. Accepted PR69 Main changes only the erased PopupTriggerMap type edge to its exact canonical leaf; runtime body predicates are unchanged and fresh affected type/member review remains pending.');
@@ -69,10 +72,18 @@ const nativeOnly = new Map([
   ['packages/utils/src/inertValue.ts', 'Native Svelte inert boolean attributes replace the React-version inert shim while preserving the browser inert property.'],
 ]);
 const unselected = new Set(['packages/react/src/floating-ui-react/components/FloatingDelayGroup.tsx', 'packages/react/src/floating-ui-react/hooks/useClientPoint.ts', 'packages/react/src/floating-ui-react/hooks/useFloatingRootContext.ts', 'packages/react/src/floating-ui-react/hooks/useHover.ts', 'packages/react/src/floating-ui-react/index.ts', 'packages/react/src/floating-ui-react/utils.ts', 'packages/react/src/types/index.ts', 'packages/react/src/internals/use-button/index.ts', 'packages/utils/src/store/index.ts', 'packages/utils/src/store/createSelector.ts', 'packages/utils/src/store/createSelectorMemoized.ts', 'packages/react/src/utils/popups/inlineRect.ts', 'packages/react/src/direction-provider/index.ts', 'packages/react/src/direction-provider/index.parts.ts']);
+const currentUtilityGraph = JSON.parse(read('parity/utils-package/current-source-graph.json'));
+for (const move of currentUtilityGraph.currentMoves) {
+  if (!move.currentOwners) continue;
+  const paths = move.currentOwners.map(owner => owner.path).filter(path => localModules.has(path));
+  if (paths.length) map(move.source, paths, move.currentReplacement);
+  else nativeOnly.set(move.source, move.currentReplacement);
+}
+map('packages/react/src/internals/useValueChanged.ts', ['internals/ValueChanged.svelte.ts'], 'Previous-value notification ordering remains in the shared ValueChanged class with a direct native effect and narrow observer publication boundary.');
 function automaticPaths(source) {
   let path = source.replace(/^packages\/react\/src\//, '').replace(/^packages\/utils\/src\//, 'utils/').replace('floating-ui-react/', 'floating-ui/');
   const candidates = [path, path.replace(/\.tsx?$/, '.svelte.ts'), path.replace(/\.tsx?$/, '.svelte')];
-  return candidates.map(path => root + path).filter(path => localModules.has(path));
+  return candidates.map(destination).filter(path => localModules.has(path));
 }
 const correspondence = graph.modules.map(module => {
   const body = read(`parity/menu-family/upstream/${module.source}`);

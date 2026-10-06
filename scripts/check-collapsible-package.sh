@@ -1,30 +1,37 @@
 #!/usr/bin/env bash
 set -euo pipefail
 cd "$(dirname "$0")/.."
-source scripts/toolchain.sh
+source scripts/package-artifacts.sh
 collapsible_consumer="$(mktemp -d "${TMPDIR:-/tmp}/sveltery-collapsible-consumer.XXXXXX")"
 trap 'rm -rf "$collapsible_consumer"' EXIT
-pnpm --filter @sveltery/base pack --pack-destination "$collapsible_consumer" > /dev/null
+sveltery_pack_package @sveltery/base "$collapsible_consumer" > /dev/null
 mkdir -p "$collapsible_consumer/node_modules/@sveltery/base"
 tar -xzf "$collapsible_consumer"/*.tgz --strip-components=1 -C "$collapsible_consumer/node_modules/@sveltery/base"
 test -f "$collapsible_consumer/node_modules/@sveltery/base/THIRD_PARTY_NOTICES.md"
 cmp LICENSE "$collapsible_consumer/node_modules/@sveltery/base/LICENSE"
+node --input-type=module - "$collapsible_consumer" <<'JS'
+import { readdirSync, writeFileSync } from 'node:fs';
+import { join } from 'node:path';
+const destination = process.argv[2];
+const tarball = readdirSync(destination).find(name => name.endsWith('.tgz'));
+writeFileSync(join(destination, 'package.json'), JSON.stringify({ private: true, type: 'module', dependencies: { '@sveltery/base': `file:${join(destination, tarball)}`, svelte: '5.57.1' } }));
+JS
+rm -rf "$collapsible_consumer/node_modules"
+sveltery_prepare_consumer "$collapsible_consumer"
+pnpm --dir "$collapsible_consumer" install --ignore-scripts > /dev/null
+pnpm --dir "$collapsible_consumer" install --frozen-lockfile --ignore-scripts > /dev/null
 if [[ "${1:-}" == '--public' ]]; then
   # Public acceptance must prove packed dependency metadata and real resolution.
   # The internal mode below is explicitly a source/package checkpoint only.
   node --input-type=module - "$collapsible_consumer" <<'JS'
 import assert from 'node:assert/strict';
-import { readFileSync, readdirSync, writeFileSync } from 'node:fs';
+import { readFileSync } from 'node:fs';
 import { join } from 'node:path';
 const destination = process.argv[2];
 const packed = JSON.parse(readFileSync(join(destination, 'node_modules/@sveltery/base/package.json'), 'utf8'));
 assert.equal(packed.dependencies?.['esm-env'], '1.2.2', 'the packed runtime must declare its environment dependency');
-const tarball = readdirSync(destination).find(name => name.endsWith('.tgz'));
-writeFileSync(join(destination, 'package.json'), JSON.stringify({ private: true, type: 'module', dependencies: { '@sveltery/base': `file:${join(destination, tarball)}`, svelte: '5.57.1' } }));
+
 JS
-  rm -rf "$collapsible_consumer/node_modules"
-  pnpm --dir "$collapsible_consumer" --ignore-workspace install --ignore-scripts > /dev/null
-  pnpm --dir "$collapsible_consumer" --ignore-workspace install --frozen-lockfile --ignore-scripts > /dev/null
   cat > "$collapsible_consumer/imports.js" <<'JS'
 export { Collapsible as First } from '@sveltery/base';
 export { Collapsible as Second } from '@sveltery/base/collapsible';
@@ -34,11 +41,6 @@ export { Collapsible as First, type CollapsibleRootProps, type CollapsibleTrigge
 export { Collapsible as Second } from '@sveltery/base/collapsible';
 TS
 else
-  ln -s "$sveltery_repo_root/packages/base/node_modules/svelte" "$collapsible_consumer/node_modules/svelte"
-  ln -s "$sveltery_repo_root/packages/base/node_modules/esm-env" "$collapsible_consumer/node_modules/esm-env"
-  cat > "$collapsible_consumer/package.json" <<'JSON'
-{"private":true,"type":"module"}
-JSON
   cat > "$collapsible_consumer/imports.js" <<'JS'
 export { Collapsible as First, Collapsible as Second } from './node_modules/@sveltery/base/dist/collapsible/index.js';
 JS
@@ -86,9 +88,12 @@ exact<Equal<Root.CollapsiblePanelState, Parts.CollapsiblePanelState>>();
 exact<Equal<Root.CollapsibleTransitionStatus, Parts.CollapsibleTransitionStatus>>();
 exact<Equal<Root.CollapsibleRootChangeEventReason, Parts.CollapsibleRootChangeEventReason>>();
 exact<Equal<Root.CollapsibleRootChangeEventDetails, Parts.CollapsibleRootChangeEventDetails>>();
-const style: Root.CollapsiblePanelProps['style'] = state => ({ opacity: state.open ? 1 : 0.5 });
+const style: Root.CollapsiblePanelProps['style'] = state => `opacity:${state.open ? 1 : 0.5}`;
 const event: Root.CollapsibleTriggerProps['onkeydown'] = event => event.preventBaseUIHandler();
-void style; void event;
+const rootUndefined: Root.CollapsibleRootProps = { open: undefined, defaultOpen: undefined, disabled: undefined, onOpenChange: undefined, ref: undefined };
+const panelUndefined: Parts.CollapsiblePanelProps = { keepMounted: undefined, hiddenUntilFound: undefined, ref: undefined };
+const triggerUndefined: Parts.CollapsibleTriggerProps = { disabled: undefined, nativeButton: undefined, ref: undefined };
+void style; void event; void rootUndefined; void panelUndefined; void triggerUndefined;
 // @ts-expect-error open remains boolean.
 const invalidOpen: Parts.CollapsibleRootProps = { open: 'yes' };
 // @ts-expect-error refs bind native hosts, not strings.
@@ -105,7 +110,7 @@ void invalidOpen; void invalidRef; void invalidRender; void invalidStyle; void i
 TS
 fi
 cat > "$collapsible_consumer/tsconfig.json" <<'JSON'
-{"compilerOptions":{"target":"ES2022","module":"ESNext","moduleResolution":"Bundler","strict":true,"skipLibCheck":false,"verbatimModuleSyntax":true,"lib":["ES2022","DOM","DOM.Iterable"]},"include":["*.svelte","*.ts"]}
+{"compilerOptions":{"target":"ES2022","module":"ESNext","moduleResolution":"Bundler","strict":true,"exactOptionalPropertyTypes":true,"noUncheckedIndexedAccess":true,"skipLibCheck":false,"verbatimModuleSyntax":true,"lib":["ES2022","DOM","DOM.Iterable"]},"include":["*.svelte","*.ts"]}
 JSON
 node --import "$sveltery_repo_root/scripts/svelte-ssr-loader.mjs" "$collapsible_consumer/check.mjs"
 node "$sveltery_repo_root/packages/base/node_modules/svelte-check/bin/svelte-check" --workspace "$collapsible_consumer" --tsconfig ./tsconfig.json
@@ -132,14 +137,22 @@ if [[ "${1:-}" == '--public' ]]; then
   {:else}<div {...props as HTMLAttributes<HTMLDivElement>}>{@render children?.()}</div>{/if}
 {/snippet}
 {#if present}
-  <First.Root id="packed-root" bind:ref={root} style={{ opacity: 1 }} onOpenChange={(open, details) => { calls.push(`change:${open}:${trigger?.getAttribute('aria-expanded')}`); if (cancel) { details.cancel(); cancel = false; } }}>
+  <First.Root id="packed-root" bind:ref={root} style="opacity:1" onOpenChange={(open, details) => { calls.push(`change:${open}:${trigger?.getAttribute('aria-expanded')}`); if (cancel) { details.cancel(); cancel = false; } }}>
     <Second.Trigger id="packed-trigger" render={triggerHost} nativeButton={false} bind:ref={trigger} {@attach attachHost}
-      onclick={() => calls.push('consumer')} class={state => ['trigger', { open: state.open }]} style={state => ({ opacity: state.open ? 1 : 0.5 })}>Open</Second.Trigger>
-    <First.Panel id="packed-panel" hiddenUntilFound render={panelHost} bind:ref={panel} {@attach attachHost} style={{ color: 'red' }}>Packed panel content</First.Panel>
+      onclick={() => calls.push('consumer')} class={state => ['trigger', { open: state.open }]} style={state => `opacity:${state.open ? 1 : 0.5}`}>Open</Second.Trigger>
+    <First.Panel hiddenUntilFound render={panelHost} bind:ref={panel} {@attach attachHost} style="color:red">Packed panel content</First.Panel>
   </First.Root>
 {/if}
 SVELTE
   node "$sveltery_repo_root/packages/base/node_modules/svelte-check/bin/svelte-check" --workspace "$collapsible_consumer" --tsconfig ./tsconfig.json
+  cat > "$collapsible_consumer/hydration-seed.mjs" <<'JS'
+import { writeFileSync } from 'node:fs';
+import { render } from 'svelte/server';
+import Consumer from './DOMConsumer.svelte';
+const { body } = render(Consumer);
+writeFileSync(new URL('./hydration-seed.json', import.meta.url), JSON.stringify({ body }));
+JS
+  node --import "$sveltery_repo_root/scripts/svelte-ssr-loader.mjs" "$collapsible_consumer/hydration-seed.mjs"
   cat > "$collapsible_consumer/dom-loader.mjs" <<'JS'
 // Installed peer compiler, native client output, development checks and no HMR.
 import { registerHooks, createRequire } from 'node:module';
@@ -160,6 +173,7 @@ JS
   cat > "$collapsible_consumer/dom-check.mjs" <<'JS'
 import assert from 'node:assert/strict';
 import { createRequire } from 'node:module';
+import { readFileSync } from 'node:fs';
 const tooling = createRequire(process.argv[2]);
 const { JSDOM } = tooling('jsdom');
 const dom = new JSDOM('<!doctype html><html><body><main></main></body></html>', { url: 'http://localhost', pretendToBeVisual: true });
@@ -167,14 +181,31 @@ for (const key of ['window','document','navigator','HTMLElement','HTMLButtonElem
   Object.defineProperty(globalThis, key, { configurable: true, value: dom.window[key] });
 globalThis.requestAnimationFrame = dom.window.requestAnimationFrame.bind(dom.window);
 globalThis.cancelAnimationFrame = dom.window.cancelAnimationFrame.bind(dom.window);
-const { mount, flushSync, unmount } = await import('svelte');
+const { hydrate, flushSync, unmount } = await import('svelte');
 const { default: Consumer } = await import('./DOMConsumer.svelte');
 const target = document.querySelector('main');
-const app = mount(Consumer, { target }); flushSync();
+const seed = JSON.parse(readFileSync(new URL('./hydration-seed.json', import.meta.url), 'utf8'));
+target.innerHTML = seed.body;
+const serverRoot = target.querySelector('#packed-root');
+const serverTrigger = target.querySelector('#packed-trigger');
+const serverPanel = target.querySelector('[hidden="until-found"]');
+assert(serverRoot && serverTrigger && serverPanel);
+const serverPanelId = serverPanel.id;
+assert.match(serverPanelId, /^base-ui-/);
+const hydrationDiagnostics = [];
+const originalWarn = console.warn, originalError = console.error;
+console.warn = (...args) => hydrationDiagnostics.push(['warn', ...args]);
+console.error = (...args) => hydrationDiagnostics.push(['error', ...args]);
+let app;
+try { app = hydrate(Consumer, { target, recover: false }); flushSync(); }
+finally { console.warn = originalWarn; console.error = originalError; }
+assert.deepEqual(hydrationDiagnostics, [], 'SSR hydration emits no warnings or errors');
 const initial = app.snapshot();
-assert.equal(initial.root, target.querySelector('#packed-root'));
-assert.equal(initial.trigger, target.querySelector('#packed-trigger'));
-assert.equal(initial.panel, target.querySelector('#packed-panel'));
+assert.equal(initial.root, serverRoot);
+assert.equal(initial.trigger, serverTrigger);
+assert.equal(initial.panel, serverPanel);
+assert.equal(initial.panel.id, serverPanelId);
+assert.equal(initial.root.style.opacity, '1');
 assert.equal(initial.trigger.tagName, 'SPAN'); assert.equal(initial.trigger.getAttribute('role'), 'button');
 assert.equal(initial.panel.getAttribute('hidden'), 'until-found'); assert.equal(initial.panel.style.color, 'red');
 assert.equal(initial.trigger.className, 'trigger'); assert.equal(initial.trigger.style.opacity, '0.5');
@@ -185,7 +216,7 @@ initial.trigger.dispatchEvent(new KeyboardEvent('keydown', { key: 'Enter', bubbl
 assert.deepEqual(app.snapshot().calls.slice(-2), ['consumer','change:true:false']);
 assert.equal(initial.trigger.getAttribute('aria-expanded'), 'true');
 assert.equal(initial.trigger.className, 'trigger open'); assert.equal(initial.trigger.style.opacity, '1');
-assert.equal(initial.trigger.getAttribute('aria-controls'), 'packed-panel');
+assert.equal(initial.trigger.getAttribute('aria-controls'), serverPanelId);
 app.replace(); flushSync();
 const next = app.snapshot().panel;
 assert.notEqual(next, initial.panel); assert.equal(next.tagName, 'SECTION');
@@ -198,12 +229,12 @@ assert.equal(app.snapshot().root, null); assert.equal(app.snapshot().trigger, nu
 assert(app.snapshot().attachments.some(entry => entry.host === initial.trigger && !entry.attached));
 assert(app.snapshot().attachments.some(entry => entry.host === next && !entry.attached));
 await unmount(app); dom.window.close();
-console.log('Installed public Collapsible DOM refs/snippets/attachments, native events, cancellation and replacement cleanup: PASS');
+console.log('Installed public Collapsible SSR hydration without recovery/diagnostics, retained hosts/IDs/styles, DOM refs/snippets/attachments, native events, cancellation and replacement cleanup: PASS');
 JS
   node --conditions=browser --import "$collapsible_consumer/dom-loader.mjs" "$collapsible_consumer/dom-check.mjs" "$sveltery_repo_root/packages/base/package.json"
 fi
 if [[ "${1:-}" == '--public' ]]; then
-  echo 'Isolated tarball Collapsible public root/subpath SSR, DOM refs/snippets/attachments and strict positive/negative declarations: PASS'
+  echo 'Isolated tarball Collapsible public root/subpath SSR/hydration, DOM refs/snippets/attachments and strict positive/negative declarations: PASS'
 else
   echo 'Isolated tarball Collapsible internal entry SSR and types: PASS (public entries await serialized integration)'
 fi

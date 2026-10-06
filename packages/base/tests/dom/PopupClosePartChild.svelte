@@ -1,7 +1,12 @@
 <script lang="ts">
-  import { useClosePartRegistration } from '../../src/lib/utils/closePart.svelte.js';
+  import { getContext, untrack } from 'svelte';
+  import {
+    ClosePartContext,
+    type ClosePartContextValue,
+  } from '../../src/lib/utils/closePart.svelte.js';
 
-  useClosePartRegistration();
+  const closePart = getContext<ClosePartContextValue | undefined>(ClosePartContext);
+  $effect(() => untrack(() => closePart?.register()));
 </script>
 
 <button type="button">Close-part lifecycle witness</button>

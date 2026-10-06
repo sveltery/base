@@ -8,8 +8,13 @@
   import { ROOT, usePopoverRootContext } from './context.js';
   import { createChangeEventDetails } from '../internals/createBaseUIEventDetails.js';
   import { REASONS } from '../internals/reasons.js';
-  import { useIsoLayoutEffect } from '../utils/useIsoLayoutEffect.svelte.js';
-  import { useImplicitActiveTrigger, useOpenStateTransitions, usePopupRootStore, usePopupRootSync } from '../utils/popups/popupStoreUtils.svelte.js';
+
+  import {
+    useImplicitActiveTrigger,
+    useOpenStateTransitions,
+    usePopupRootStore,
+    usePopupRootSync,
+  } from '../utils/popups/popupStoreUtils.svelte.js';
   import type { PopoverRootProps, PopoverRootChangeEventDetails } from './types.js';
   import { provideFloatingTree } from '../floating-ui/components/FloatingTree.svelte.js';
   // eslint-disable-next-line no-useless-assignment -- Native bind:actions publishes the imperative Source actionsRef result.
@@ -18,38 +23,60 @@
   const parentStore = usePopoverRootContext(true);
   if (!parentStore) provideFloatingTree();
   const modal = $derived(props.modal ?? false);
-  const store = usePopupRootStore<State<Payload>, Omit<PopoverRootChangeEventDetails, 'preventUnmountOnClose'>, PopoverStore<Payload>>(
-    (id, nested) => new PopoverStore<Payload>({
-      open: props.defaultOpen ?? false,
-      openProp: props.open,
-      activeTriggerId: props.defaultTriggerId ?? null,
-      triggerIdProp: props.triggerId,
-      modal,
-    }, id, nested),
+  const store = usePopupRootStore<
+    State<Payload>,
+    Omit<PopoverRootChangeEventDetails, 'preventUnmountOnClose'>,
+    PopoverStore<Payload>
+  >(
+    (id, nested) =>
+      new PopoverStore<Payload>(
+        {
+          open: props.defaultOpen ?? false,
+          openProp: props.open,
+          activeTriggerId: props.defaultTriggerId ?? null,
+          triggerIdProp: props.triggerId,
+          modal,
+        },
+        id,
+        nested,
+      ),
     floatingId,
   );
   store.useControlledProp('openProp', () => props.open);
   store.useControlledProp('triggerIdProp', () => props.triggerId);
   store.context.onOpenChange = (open, details) => props.onOpenChange?.(open, details);
-  store.context.onOpenChangeComplete = open => props.onOpenChangeComplete?.(open);
+  store.context.onOpenChangeComplete = (open) => props.onOpenChangeComplete?.(open);
   const open = $derived(store.select('open'));
   const mounted = $derived(store.select('mounted'));
   usePopupRootSync(store, () => open);
   useImplicitActiveTrigger(store);
-  const { forceUnmount } = useOpenStateTransitions(() => open, store, () => {
-    store.update({ stickIfOpen: true, openChangeReason: null });
-  });
+  const { forceUnmount } = useOpenStateTransitions(
+    () => open,
+    store,
+    () => {
+      store.update({ stickIfOpen: true, openChangeReason: null });
+    },
+  );
   store.useSyncedValues(() => ({ modal }));
-  useIsoLayoutEffect(() => { if (!open) store.context.stickIfOpenTimeout.clear(); }, () => [store, open]);
+  $effect(() => {
+    if (!open) store.context.stickIfOpenTimeout.clear();
+  });
   onDestroy(store.context.stickIfOpenTimeout.disposeEffect());
-  export function close() { store.setOpen(false, createChangeEventDetails(REASONS.imperativeAction)); }
-  export function unmount() { forceUnmount(); }
+  export function close() {
+    store.setOpen(false, createChangeEventDetails(REASONS.imperativeAction));
+  }
+  export function unmount() {
+    forceUnmount();
+  }
   // eslint-disable-next-line no-useless-assignment -- Native bind:actions replaces the Source actionsRef output.
   actions = { unmount, close };
-  onDestroy(() => { actions = null; });
+  onDestroy(() => {
+    actions = null;
+  });
   const shouldRenderInteractions = $derived(open || mounted);
   setContext(ROOT, store);
 </script>
+
 {#if props.handle}<PopupHandleAttachment handle={props.handle} {store} />{/if}
 {#if shouldRenderInteractions}
   <PopoverInteractions {store} {modal} />

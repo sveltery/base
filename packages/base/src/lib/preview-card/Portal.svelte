@@ -6,12 +6,13 @@
   import type { PreviewCardPortalProps } from './types.js';
   let { keepMounted = false, ref = $bindable(), ...portalProps }: PreviewCardPortalProps = $props();
   const store = usePreviewCardRootContext();
-  setContext(PORTAL, { get keepMounted() { return keepMounted; } });
-  function forwardedRef(node: HTMLElement | null) {
-    ref = node;
-    return () => { if (ref === node) ref = null; };
-  }
+  setContext(PORTAL, {
+    get keepMounted() {
+      return keepMounted;
+    },
+  });
 </script>
+
 {#if store.select('mounted') || keepMounted}
-  <FloatingPortal {...portalProps} ref={forwardedRef} />
+  <FloatingPortal {...portalProps} bind:ref />
 {/if}

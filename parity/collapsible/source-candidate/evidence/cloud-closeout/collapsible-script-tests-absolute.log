@@ -1,0 +1,230 @@
+✔ Accordion trace preserves ordinary, parameterized, Activity, helper and type scopes (31.186804ms)
+✔ I:9 React reference missing context retains exact upstream message (161.952155ms)
+✔ H:8 React reference missing context retains exact upstream message (11.314069ms)
+✔ React reference nested replacement Items sharing a host publish index zero independently (240.459611ms)
+✔ private anchor foundation keeps immutable source/assertions and zero deferred ordinary credit (28.926693ms)
+✔ selected root-store bridge preserves reference ownership and delegates one DOM driver (597.302768ms)
+✔ private native and actual React anchor policies SSR without browser measurements (1642.082536ms)
+✔ Avatar preserves immutable source bytes and separates ordinary, conformance, types and supplements (2093.004368ms)
+✔ Avatar paired SSR keepMounted=false runs without browser globals (3281.617595ms)
+✔ Avatar paired SSR keepMounted=true runs without browser globals (3117.345416ms)
+✔ Button ports retain complete direct declarations and selected non-composite support assertions (13.707918ms)
+✔ Button graph retains the original source pin and hashes the actual canonical closure (647.352451ms)
+✔ maintained catalog keeps every pinned module and distinguishes actual native API presence from acceptance or retirement (66.531614ms)
+✔ Collapsible ledger preserves exact ordinary inventory and portable versus Activity scope (16.29511ms)
+✔ P:799 paired exact-pin React/Svelte SSR initial keyframe suppression (3612.80598ms)
+✔ P:830 paired exact-pin React/Svelte SSR initial keyframe suppression (2100.770372ms)
+✔ CSP source ledger retains the pin, original dependent assertions and zero ordinary credit (10.166452ms)
+✔ CSPProvider SSR without browser globals preserves wrapperless context defaults and shadowing in both frameworks (1573.0464ms)
+✔ pinned canceled openWithPayload and ordinary close/unmount retain the payload write (581.286643ms)
+✔ pinned forceUnmount while logically open remounts without changing the logical open state (193.531116ms)
+✔ pinned external controlled opening prefers the previously focused external button (242.834784ms)
+✔ pinned completion characterization with renderer StrictMode=false (193.343062ms)
+✔ pinned completion characterization with renderer StrictMode=true (123.201207ms)
+✔ D:230 actual pinned JSDOM detached production payload warning body (16.486229ms)
+✔ pinned reopened nonmodal Root accepts a press-less virtual outside click (408.738238ms)
+✔ pinned external owner-control button.click also emits a virtual outside press (193.996997ms)
+✔ pinned close with Popup absent retains mounted state without a completion (220.099634ms)
+✔ pinned close with Popup remove-on-close retains mounted state without a completion (254.61338ms)
+✔ pinned Backdrop forwards exactly the open and transitionStatus state keys (139.823523ms)
+✔ SSR roots and successive requests isolate defaultOpen and generated relationships (2591.953101ms)
+✔ DirectionProvider keeps both pinned ordinary predicates separate from the callable-reader API adaptation (9.095599ms)
+✔ docs API matches actual local types and all public parts (100.943811ms)
+✔ Dialog docs extracts complete TypeScript from valid quoted Svelte generic attributes (0.292202ms)
+✔ docs metadata, navigation links and fragment targets are valid (0.491604ms)
+✔ Accordion docs API matches all five local part declarations (13.746399ms)
+✔ Input accepted reset limitation keeps its narrow decision, negative assertions and zero credit visible (44.712528ms)
+✔ Input source bytes and fifteen separate helper mappings retain zero ordinary declaration credit (337.909462ms)
+✔ Input supplemental native reset and real remote evidence cannot silently claim Field conformance (12.020217ms)
+✔ Input timing characterization preserves hashed raw phase observations and the explicit native decision (12.06217ms)
+✔ Current Input native-default source suites retain historical assertions without active failure waivers (6.031912ms)
+✔ Kit compatibility patch changes only submit cancellation and the reset task boundary at the exact pinned source (29.228849ms)
+✔ Kit compatibility patch and license ship as optional artifacts without a runtime Kit dependency (8.953875ms)
+✔ unpatched witness removes only this SDK patch and keeps unrelated patches and resolutions (4.899077ms)
+✔ complete original Menu family runtime and test/helper archives preserve the immutable pin (412.654405ms)
+✖ current Menu family reachability resolves actual native counterparts while preserving historical provenance without new acceptance credit (88.425385ms)
+✔ Original assertion declarations and conformance stay independently uncredited (4.5186ms)
+✔ Meter preserves 22 ordinary declarations, four parameterized variants and separate full conformance (27.751182ms)
+✔ native rendering retirement preserves every exact predecessor body and Source declaration scope (40.875059ms)
+✔ live public native rendering excludes the retired root/subpath API and keeps real secured acceptance (1.454923ms)
+✔ actual current native Source import graph and retirement exclusions remain coherent (3608.122616ms)
+✔ owned navigation API snapshot derives all actual eight exported components and types (43.928385ms)
+✖ current navigation reachability and explicit native counterparts preserve exact current bytes without historical acceptance credit (194.553337ms)
+✔ navigation source graph resolves original index.parts and preserves immutable declaration accounting (7.300222ms)
+{"phase":"initial offline install","stdout":"Progress: resolved 1, reused 0, downloaded 0, added 0\nPackages are hard linked from the content-addressable store to the virtual store.\n  Content-addressable store is at: /.pnpm-store/v11\n  Virtual store is at:             node_modules/.pnpm\nPackages: +2\n++\nProgress: resolved 2, reused 0, downloaded 2, added 2, done\n\ndependencies:\n+ @test/base 0.0.0\n+ @test/utils 0.0.0\n\nDone in 55ms using pnpm v12.6.0"}
+{"phase":"frozen offline reinstall","stdout":"✓ Lockfile passes supply-chain policies (verified 851ms ago)\nLockfile is up to date, resolution step is skipped\nDone in 10ms using pnpm v12.6.0"}
+lockfileVersion: '9.0'
+
+settings:
+  autoInstallPeers: true
+  excludeLinksFromLockfile: false
+
+overrides:
+  '@test/base': file:/tmp/sveltery-artifacts-test.b3MpfJ/consumer/test-base-0.0.0.tgz
+  '@test/utils': file:/tmp/sveltery-artifacts-test.b3MpfJ/consumer/.workspace-artifacts/test-utils-0.0.0.tgz
+
+importers:
+
+  .:
+    dependencies:
+      '@test/base':
+        specifier: file:/tmp/sveltery-artifacts-test.b3MpfJ/consumer/test-base-0.0.0.tgz
+        version: file:test-base-0.0.0.tgz
+      '@test/utils':
+        specifier: file:/tmp/sveltery-artifacts-test.b3MpfJ/consumer/.workspace-artifacts/test-utils-0.0.0.tgz
+        version: file:.workspace-artifacts/test-utils-0.0.0.tgz
+
+packages:
+
+  '@test/base@file:test-base-0.0.0.tgz':
+    resolution: {integrity: sha512-t0vzxLy+bUB6ii+tgeoaCzUlggtMl/2uyOWs0Ne7H6qv4WgBbhEu286QF+HSE4sCfENxtkQMXxUC2TcBQnQ4UQ==, tarball: file:test-base-0.0.0.tgz}
+    version: 0.0.0
+
+  '@test/utils@file:.workspace-artifacts/test-utils-0.0.0.tgz':
+    resolution: {integrity: sha512-DCvY+2MSj84yDMIeWOKrKCQbAliYVx/zUI3izj8kryuURm1n88Td50+DVbXMbqn7h0i+G46WV/8IrDdL1f0Nvw==, tarball: file:.workspace-artifacts/test-utils-0.0.0.tgz}
+    version: 0.0.0
+
+snapshots:
+
+  '@test/base@file:test-base-0.0.0.tgz':
+    dependencies:
+      '@test/utils': file:.workspace-artifacts/test-utils-0.0.0.tgz
+
+  '@test/utils@file:.workspace-artifacts/test-utils-0.0.0.tgz': {}
+
+{"artifacts":{"schema":1,"packages":{"@test/utils":{"version":"0.0.0","directory":"../../../../tmp/sveltery-artifacts-test.b3MpfJ/utils","tarball":"test-utils-0.0.0.tgz","sha256":"6bc8c4bb19980f03632914ed55d7ffe1e32b1a97e5d84776b57f74d329973238","dependencies":[]},"@test/base":{"version":"0.0.0","directory":"../../../../tmp/sveltery-artifacts-test.b3MpfJ/base","tarball":"test-base-0.0.0.tgz","sha256":"3e830abb567088d43ba34d5540429bb8311dbd4a69f971bf3edee58e9ce88d19","dependencies":["@test/utils"]}}},"probe":"Base and the direct dependency resolve the same packed Utils module."}
+✔ reuses the exact Base archive and prepares its local Utils dependency without changing consumer peers (525.345539ms)
+✔ installs the real archive closure offline and preserves the same transitive Utils through a frozen reinstall (3422.196667ms)
+✔ fails closed when an artifact changes after packing or a requested package is absent (495.24821ms)
+✔ extracts multiline conditional names and keeps their declaration lines (24.741827ms)
+✔ counts existing template declarations once and excludes parameterized factories (2.244999ms)
+✔ preserves verification metadata, marks added declarations unported, and rejects lost cases (0.83242ms)
+✔ locates the exact pinned type assertion and rejects missing assertions (7.065907ms)
+✔ explicit dynamic declaration inventory counts the orientation source site once (2.643392ms)
+✔ credited Dialog leaves retain immutable assertions, real fixtures and browser evidence (32.368533ms)
+✔ documented aggregate credit agrees with the shared manifest and overlapping Dialog trace (4.653385ms)
+✔ state ports retain complete source assertions and all fixture variants without crediting supplements (4.682589ms)
+✔ Progress keeps immutable 20 ordinary declarations, 7 parameterized variants and separate conformance (34.762067ms)
+✔ remote names canonicalize actual numeric issue paths without changing native names (3.390623ms)
+✔ public Kit path grammar rejects malformed and protected dynamic paths (0.874414ms)
+✔ actual schema method-name fields and similar protected spellings remain resolvable (0.300836ms)
+✔ Separator immutable source bytes, two ordinary declarations and fifteen separate helper records remain traceable (127.10817ms)
+✔ actual Toast core runs all 25 unchanged full bodies and both metadata helpers (283.845877ms)
+✔ actual public manager retains the entire data spec and all expected errors (0.676124ms)
+✔ core and public entry imports are SSR-safe and isolated without browser globals (1313.736849ms)
+✔ Portal helper evidence retains immutable invocation/hashes without ordinary leaf credit (15.134753ms)
+✔ Toast provenance placeholders stay immutable and parameterized swipe variants remain explicit (1.866025ms)
+✔ every reference prerequisite retains the complete source body, assertions and metadata helpers (445.836871ms)
+✔ complete manager data type prerequisite retains every positive and negative assertion (0.932571ms)
+✔ rendering evidence preserves complete pinned provenance without crediting supplements (31.763128ms)
+✔ the context manager retains the full pinned data type spec with only its import adaptation (5.496983ms)
+✔ shared Toast credit includes only the thirteen complete hosted paired declarations (3.762416ms)
+✔ Toggle ledger preserves five complete standalone ports and two deferred group declarations (23.125551ms)
+✔ standalone Toggle renders SSR state and strips form/type/value without browser globals (1354.428304ms)
+✔ matching pnpm builds native packages after the frozen bootstrap install (344.937373ms)
+✔ replaces default pnpm 11 for direct and nested package-script commands (378.800626ms)
+✔ Corepack fallback builds native packages after the frozen bootstrap install (318.42304ms)
+✔ rejects mismatched pnpm without Corepack before running commands (321.156805ms)
+✔ rejects a fallback that fails to select the pinned version (339.477828ms)
+ℹ tests 86
+ℹ suites 0
+ℹ pass 84
+ℹ fail 2
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 50511.972237
+
+✖ failing tests:
+
+test at scripts/tests/menu-family-provenance.test.mjs:35:1
+✖ current Menu family reachability resolves actual native counterparts while preserving historical provenance without new acceptance credit (88.425385ms)
+  AssertionError [ERR_ASSERTION]: Current native family projection is stale
+  + actual - expected
+  ... Skipped lines
+  
+    {
+      'menu-family': {
+        external: [
+          'external:@floating-ui/dom',
+          'external:@floating-ui/utils',
+  ...
+          path: 'parity/native-snippets/native-graph.json',
+  +       sha256: '5dfb01f21528cd00ea215a2ea027ee04187f9e3da98f9d68333a3deae9385d2c'
+  -       sha256: 'c272d2df8ddf0b8a169b11f6796f310aa6d6f83ef3c7c30a3df92d09604a45b6'
+        },
+        hostComposition: {
+          contracts: [
+            {
+              local: 'packages/base/src/lib/context-menu/Trigger.svelte',
+  ...
+          path: 'parity/native-snippets/native-graph.json',
+  +       sha256: '5dfb01f21528cd00ea215a2ea027ee04187f9e3da98f9d68333a3deae9385d2c'
+  -       sha256: 'c272d2df8ddf0b8a169b11f6796f310aa6d6f83ef3c7c30a3df92d09604a45b6'
+        },
+        hostComposition: {
+          contracts: [
+            {
+              local: 'packages/base/src/lib/internals/composite/item/CompositeItem.svelte',
+  
+      at verifyCurrentFamilyProjections (file:///workspace/scratch/4b2513ebe1ef/collapsible-check/scripts/native-family-projection.mjs:177:10)
+      at TestContext.<anonymous> (file:///workspace/scratch/4b2513ebe1ef/collapsible-check/scripts/tests/menu-family-provenance.test.mjs:36:3)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:960:18)
+      at Test.postRun (node:internal/test_runner/test:1522:19)
+      at Test.run (node:internal/test_runner/test:1447:12)
+      at async startSubtestAfterBootstrap (node:internal/test_runner/harness:387:3) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: { 'toggle-toolbar': { pin: '47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c', scope: 'Conservative current runtime-or-mixed/type reachability over the exact public native graph. This projection neither classifies AST-only execution edges nor grants Source review, assertion or receipt credit.', roots: [Array], graph: [Object], predecessor: [Object], originalGraph: [Object], modules: [Array], external: [Array], records: [Array], nativeRepresentationModules: [Array], hostComposition: [Object], unchangedParityCredit: 0 }, 'menu-family': { pin: '47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c', scope: 'Conservative current runtime-or-mixed/type reachability over the exact public native graph. This projection neither classifies AST-only execution edges nor grants Source review, assertion or receipt credit.', roots: [Array], graph: [Object], predecessor: [Object], originalGraph: [Object], modules: [Array], external: [Array], records: [Array], nativeRepresentationModules: [Array], hostComposition: [Object], unchangedParityCredit: 0 } },
+    expected: { 'toggle-toolbar': { pin: '47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c', scope: 'Conservative current runtime-or-mixed/type reachability over the exact public native graph. This projection neither classifies AST-only execution edges nor grants Source review, assertion or receipt credit.', roots: [Array], graph: [Object], predecessor: [Object], originalGraph: [Object], modules: [Array], external: [Array], records: [Array], nativeRepresentationModules: [Array], hostComposition: [Object], unchangedParityCredit: 0 }, 'menu-family': { pin: '47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c', scope: 'Conservative current runtime-or-mixed/type reachability over the exact public native graph. This projection neither classifies AST-only execution edges nor grants Source review, assertion or receipt credit.', roots: [Array], graph: [Object], predecessor: [Object], originalGraph: [Object], modules: [Array], external: [Array], records: [Array], nativeRepresentationModules: [Array], hostComposition: [Object], unchangedParityCredit: 0 } },
+    operator: 'deepStrictEqual',
+    diff: 'simple'
+  }
+
+test at scripts/tests/navigation-source.test.mjs:18:1
+✖ current navigation reachability and explicit native counterparts preserve exact current bytes without historical acceptance credit (194.553337ms)
+  AssertionError [ERR_ASSERTION]: Current native family projection is stale
+  + actual - expected
+  ... Skipped lines
+  
+    {
+      'menu-family': {
+        external: [
+          'external:@floating-ui/dom',
+          'external:@floating-ui/utils',
+  ...
+          path: 'parity/native-snippets/native-graph.json',
+  +       sha256: '5dfb01f21528cd00ea215a2ea027ee04187f9e3da98f9d68333a3deae9385d2c'
+  -       sha256: 'c272d2df8ddf0b8a169b11f6796f310aa6d6f83ef3c7c30a3df92d09604a45b6'
+        },
+        hostComposition: {
+          contracts: [
+            {
+              local: 'packages/base/src/lib/context-menu/Trigger.svelte',
+  ...
+          path: 'parity/native-snippets/native-graph.json',
+  +       sha256: '5dfb01f21528cd00ea215a2ea027ee04187f9e3da98f9d68333a3deae9385d2c'
+  -       sha256: 'c272d2df8ddf0b8a169b11f6796f310aa6d6f83ef3c7c30a3df92d09604a45b6'
+        },
+        hostComposition: {
+          contracts: [
+            {
+              local: 'packages/base/src/lib/internals/composite/item/CompositeItem.svelte',
+  
+      at verifyCurrentFamilyProjections (file:///workspace/scratch/4b2513ebe1ef/collapsible-check/scripts/native-family-projection.mjs:177:10)
+      at TestContext.<anonymous> (file:///workspace/scratch/4b2513ebe1ef/collapsible-check/scripts/tests/navigation-source.test.mjs:19:3)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:960:18)
+      at Test.postRun (node:internal/test_runner/test:1522:19)
+      at Test.run (node:internal/test_runner/test:1447:12)
+      at async startSubtestAfterBootstrap (node:internal/test_runner/harness:387:3) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: { 'toggle-toolbar': { pin: '47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c', scope: 'Conservative current runtime-or-mixed/type reachability over the exact public native graph. This projection neither classifies AST-only execution edges nor grants Source review, assertion or receipt credit.', roots: [Array], graph: [Object], predecessor: [Object], originalGraph: [Object], modules: [Array], external: [Array], records: [Array], nativeRepresentationModules: [Array], hostComposition: [Object], unchangedParityCredit: 0 }, 'menu-family': { pin: '47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c', scope: 'Conservative current runtime-or-mixed/type reachability over the exact public native graph. This projection neither classifies AST-only execution edges nor grants Source review, assertion or receipt credit.', roots: [Array], graph: [Object], predecessor: [Object], originalGraph: [Object], modules: [Array], external: [Array], records: [Array], nativeRepresentationModules: [Array], hostComposition: [Object], unchangedParityCredit: 0 } },
+    expected: { 'toggle-toolbar': { pin: '47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c', scope: 'Conservative current runtime-or-mixed/type reachability over the exact public native graph. This projection neither classifies AST-only execution edges nor grants Source review, assertion or receipt credit.', roots: [Array], graph: [Object], predecessor: [Object], originalGraph: [Object], modules: [Array], external: [Array], records: [Array], nativeRepresentationModules: [Array], hostComposition: [Object], unchangedParityCredit: 0 }, 'menu-family': { pin: '47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c', scope: 'Conservative current runtime-or-mixed/type reachability over the exact public native graph. This projection neither classifies AST-only execution edges nor grants Source review, assertion or receipt credit.', roots: [Array], graph: [Object], predecessor: [Object], originalGraph: [Object], modules: [Array], external: [Array], records: [Array], nativeRepresentationModules: [Array], hostComposition: [Object], unchangedParityCredit: 0 } },
+    operator: 'deepStrictEqual',
+    diff: 'simple'
+  }

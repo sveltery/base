@@ -1,0 +1,108 @@
+{
+  "pin": "47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c",
+  "preRepairHead": "c1600456d3b4e72910d42823b9df69280c74a262",
+  "candidateHead": "7e53c489d9277c9b85bbdc6e7c28a8d7f3854eb4",
+  "OriginalAuthorities": [
+    "original-graph.json",
+    "originalTests-graph.json",
+    "../source-audit/archives.json"
+  ],
+  "preservedHistoricalGraphs": [
+    "../source-audit/original-graph.json",
+    "../source-audit/originalTests-graph.json",
+    "../source-audit/native-graph.json",
+    "../source-audit/nativeTests-graph.json"
+  ],
+  "assertionCredit": 0,
+  "Source": "NOT CLEAR",
+  "nativeSvelte": "NOT CLEAR",
+  "maintainability": "NOT CLEAR",
+  "generatedSources": [
+    {
+      "source": "parity/collapsible/source-candidate/generated-consumer/imports.js",
+      "sourceScript": "scripts/check-collapsible-package.sh",
+      "sourceMode": "--public",
+      "sha256": "4e8802846c941dd34675bc8599c08019abc7b74621c3dc682632c9d888a6181e"
+    },
+    {
+      "source": "parity/collapsible/source-candidate/generated-consumer/imports.d.ts",
+      "sourceScript": "scripts/check-collapsible-package.sh",
+      "sourceMode": "--public",
+      "sha256": "9b7847a7aec99456401473f5d8d1d48cab105d610bcc7d50e6743ab98c03ca1b"
+    },
+    {
+      "source": "parity/collapsible/source-candidate/generated-consumer/Consumer.svelte",
+      "sourceScript": "scripts/check-collapsible-package.sh",
+      "sourceMode": "--public",
+      "sha256": "6288f3faecd6e4016325be2b83390075e353b36247bb3592a0b51627870838b9"
+    },
+    {
+      "source": "parity/collapsible/source-candidate/generated-consumer/check.mjs",
+      "sourceScript": "scripts/check-collapsible-package.sh",
+      "sourceMode": "--public",
+      "sha256": "0da0204a2b0125e3a70377fbf8f39330d54bf23667cb3981e354674c42a30d71"
+    },
+    {
+      "source": "parity/collapsible/source-candidate/generated-consumer/PublicTypes.ts",
+      "sourceScript": "scripts/check-collapsible-package.sh",
+      "sourceMode": "--public",
+      "sha256": "6ce127012ecb521eeee0f3a1ba257291e104fe00faa342411a62129789f554d9"
+    },
+    {
+      "source": "parity/collapsible/source-candidate/generated-consumer/tsconfig.json",
+      "sourceScript": "scripts/check-collapsible-package.sh",
+      "sourceMode": "--public",
+      "sha256": "209c973d7262337a5ec205c1e5c68504077a8338199375b8804839776c95032e"
+    },
+    {
+      "source": "parity/collapsible/source-candidate/generated-consumer/DOMConsumer.svelte",
+      "sourceScript": "scripts/check-collapsible-package.sh",
+      "sourceMode": "--public",
+      "sha256": "d5ea8874447539cdf7af6b7b738091d6afd1ee58b7fa5966ce091f658b5cad15"
+    },
+    {
+      "source": "parity/collapsible/source-candidate/generated-consumer/dom-loader.mjs",
+      "sourceScript": "scripts/check-collapsible-package.sh",
+      "sourceMode": "--public",
+      "sha256": "b8aa292013894ab2acfb3a083bdf70888cd4341dc0d26035dd5604a21bc64a51"
+    },
+    {
+      "source": "parity/collapsible/source-candidate/generated-consumer/dom-check.mjs",
+      "sourceScript": "scripts/check-collapsible-package.sh",
+      "sourceMode": "--public",
+      "sha256": "a2e351dc836363db7b39d6624f05cf450998150dd0114101010c94152cab10bf"
+    }
+  ],
+  "correctionsToHistoricalMetadata": [
+    "Named reexports now record imported source members and exported aliases separately.",
+    "Real Kit $lib alias imports now resolve to repository modules.",
+    "Every actual public generated consumer body is represented and hashed separately.",
+    "Workspace @sveltery/utils imports resolve to actual shared package source closure."
+  ],
+  "closures": {
+    "original": {
+      "modules": 55,
+      "edges": 151,
+      "runtime": 53,
+      "type": 2
+    },
+    "originalTests": {
+      "modules": 68,
+      "edges": 201,
+      "runtime": 66,
+      "type": 2
+    },
+    "native": {
+      "modules": 85,
+      "edges": 227,
+      "runtime": 46,
+      "type": 39
+    },
+    "nativeTests": {
+      "modules": 127,
+      "edges": 344,
+      "runtime": 87,
+      "type": 40
+    }
+  }
+}

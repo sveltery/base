@@ -1,0 +1,4 @@
+packages/base/tests/dom/collapsible/NativeControlBoundary.svelte 429ms
+packages/base/tests/dom/collapsible-dimensions-boundary.test.ts 107ms
+apps/fixtures/src/lib/CollapsibleDimensionsFixture.svelte 201ms
+tests/browser/collapsible.spec.ts 2201ms

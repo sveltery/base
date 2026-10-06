@@ -7,7 +7,29 @@ import BackdropComponent from './Backdrop.svelte';
 import TitleComponent from './Title.svelte';
 import DescriptionComponent from './Description.svelte';
 import CloseComponent from './Close.svelte';
-import type { DialogRootProps, DialogRootState, DialogRootActions, DialogRootChangeEventReason, DialogRootChangeEventDetails, DialogTriggerProps, DialogTriggerState, DialogPortalProps, DialogPortalState, DialogPopupProps, DialogPopupState, DialogViewportProps, DialogViewportState, DialogBackdropProps, DialogBackdropState, DialogTitleProps, DialogTitleState, DialogDescriptionProps, DialogDescriptionState, DialogCloseProps, DialogCloseState } from './types.js';
+import type {
+  DialogRootProps,
+  DialogRootState,
+  DialogRootActions,
+  DialogRootChangeEventReason,
+  DialogRootChangeEventDetails,
+  DialogTriggerProps,
+  DialogTriggerState,
+  DialogPortalProps,
+  DialogPortalState,
+  DialogPopupProps,
+  DialogPopupState,
+  DialogViewportProps,
+  DialogViewportState,
+  DialogBackdropProps,
+  DialogBackdropState,
+  DialogTitleProps,
+  DialogTitleState,
+  DialogDescriptionProps,
+  DialogDescriptionState,
+  DialogCloseProps,
+  DialogCloseState,
+} from './types.js';
 
 export const Root: typeof RootComponent = RootComponent;
 // eslint-disable-next-line @typescript-eslint/no-namespace -- Preserve pinned erased component namespace types.

@@ -1,0 +1,16 @@
+Installed public root/subpath, private file diagnostic, no-browser SSR and emitted runtime boundary: PASS
+10:16:16 PM [vite-plugin-svelte] no Svelte config found at /workspace/scratch/4b2513ebe1ef/collapsible-check/.checks/use-click-tmp/consumer.BdebDa - using default configuration.
+
+ RUN  v5.0.3 /workspace/scratch/4b2513ebe1ef/collapsible-check/.checks/use-click-tmp/consumer.BdebDa
+
+
+ Test Files  1 passed (1)
+      Tests  1 passed (1)
+   Start at  22:16:17
+   Duration  8.94s (transform 86%, environment 7%, import 7%, tests 1%)
+
+  Transform  transforming modules took 7.50s · 86% of tracked time, re-done on every run
+             persist transforms across runs with fsModuleCache: true
+             learn more: https://vitest.dev/guide/improving-performance#caching-between-reruns
+
+Installed useClick declaration and native public consumer: PASS

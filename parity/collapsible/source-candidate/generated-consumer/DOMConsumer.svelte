@@ -19,9 +19,9 @@
   {:else}<div {...props as HTMLAttributes<HTMLDivElement>}>{@render children?.()}</div>{/if}
 {/snippet}
 {#if present}
-  <First.Root id="packed-root" bind:ref={root} style={{ opacity: 1 }} onOpenChange={(open, details) => { calls.push(`change:${open}:${trigger?.getAttribute('aria-expanded')}`); if (cancel) { details.cancel(); cancel = false; } }}>
+  <First.Root id="packed-root" bind:ref={root} style="opacity:1" onOpenChange={(open, details) => { calls.push(`change:${open}:${trigger?.getAttribute('aria-expanded')}`); if (cancel) { details.cancel(); cancel = false; } }}>
     <Second.Trigger id="packed-trigger" render={triggerHost} nativeButton={false} bind:ref={trigger} {@attach attachHost}
-      onclick={() => calls.push('consumer')} class={state => ['trigger', { open: state.open }]} style={state => ({ opacity: state.open ? 1 : 0.5 })}>Open</Second.Trigger>
-    <First.Panel id="packed-panel" hiddenUntilFound render={panelHost} bind:ref={panel} {@attach attachHost} style={{ color: 'red' }}>Packed panel content</First.Panel>
+      onclick={() => calls.push('consumer')} class={state => ['trigger', { open: state.open }]} style={state => `opacity:${state.open ? 1 : 0.5}`}>Open</Second.Trigger>
+    <First.Panel hiddenUntilFound render={panelHost} bind:ref={panel} {@attach attachHost} style="color:red">Packed panel content</First.Panel>
   </First.Root>
 {/if}

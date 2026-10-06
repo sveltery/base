@@ -1,0 +1,32 @@
+{
+  "checkpoint": "35673e986ad33cbf8fd61f9a0e58054c1576d2bf",
+  "status": "Historical native assertions for superseded React transport; preserved, no current unchanged parity credit.",
+  "files": [
+    {
+      "originalPath": "packages/base/tests/dom/SharedSourceUtilsFixture.svelte",
+      "archive": "parity/native-framework/historical/SharedSourceUtilsFixture.svelte",
+      "sha256": "77bad13cf776becbe3f6fcddee546202f3ec19346d2e65815899a224cdabd2bc"
+    },
+    {
+      "originalPath": "packages/base/tests/dom/SharedSourceUtilsChild.svelte",
+      "archive": "parity/native-framework/historical/SharedSourceUtilsChild.svelte",
+      "sha256": "c9a8ed88409f1f8e2034b24a8e0fa197865621ee0d3540c6965d62dbe0bf44d5"
+    },
+    {
+      "originalPath": "packages/base/tests/dom/shared-source-utils.test.ts",
+      "archive": "parity/native-framework/historical/shared-source-utils.test.ts",
+      "sha256": "3ab2f37c4e544c37408957215fbc6c776f7a40871a59cc2fef707444ffbd8dfb"
+    },
+    {
+      "originalPath": "packages/base/tests/dom/collapsible.test.ts",
+      "archive": "parity/native-framework/historical/collapsible.test.ts",
+      "sha256": "d395e04971e9f33ce33c4506c56e028157224de5643e7b616a925cc3d0fbbf1f"
+    },
+    {
+      "originalPath": "parity/utils-package/body-fidelity.json",
+      "archive": "parity/native-framework/historical/utils-body-fidelity-pre-native.json",
+      "sha256": "4174ff6a6f8f1dd17e7659fd40d53517d0778fa14baab45abf7b2777431ac537",
+      "role": "Historical eight-declaration proof, including the removed React setup factory; baseline bytes unchanged."
+    }
+  ]
+}

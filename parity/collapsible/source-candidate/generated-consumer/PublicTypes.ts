@@ -11,9 +11,12 @@ exact<Equal<Root.CollapsiblePanelState, Parts.CollapsiblePanelState>>();
 exact<Equal<Root.CollapsibleTransitionStatus, Parts.CollapsibleTransitionStatus>>();
 exact<Equal<Root.CollapsibleRootChangeEventReason, Parts.CollapsibleRootChangeEventReason>>();
 exact<Equal<Root.CollapsibleRootChangeEventDetails, Parts.CollapsibleRootChangeEventDetails>>();
-const style: Root.CollapsiblePanelProps['style'] = state => ({ opacity: state.open ? 1 : 0.5 });
+const style: Root.CollapsiblePanelProps['style'] = state => `opacity:${state.open ? 1 : 0.5}`;
 const event: Root.CollapsibleTriggerProps['onkeydown'] = event => event.preventBaseUIHandler();
-void style; void event;
+const rootUndefined: Root.CollapsibleRootProps = { open: undefined, defaultOpen: undefined, disabled: undefined, onOpenChange: undefined, ref: undefined };
+const panelUndefined: Parts.CollapsiblePanelProps = { keepMounted: undefined, hiddenUntilFound: undefined, ref: undefined };
+const triggerUndefined: Parts.CollapsibleTriggerProps = { disabled: undefined, nativeButton: undefined, ref: undefined };
+void style; void event; void rootUndefined; void panelUndefined; void triggerUndefined;
 // @ts-expect-error open remains boolean.
 const invalidOpen: Parts.CollapsibleRootProps = { open: 'yes' };
 // @ts-expect-error refs bind native hosts, not strings.

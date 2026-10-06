@@ -1,0 +1,53 @@
+Scope: all 4 workspace projects
+? Verifying lockfile against supply-chain policies (344 entries)...
+Progress: resolved 322, reused 0, downloaded 1, added 0
+Update available! 12.6.0 → 12.9.1.
+Changelog: https://pnpm.io/v/12.9.1
+To update, run: curl -fsSL https://get.pnpm.io/install.sh | sh -
+Progress: resolved 322, reused 0, downloaded 94, added 64
+Progress: resolved 322, reused 0, downloaded 189, added 187
+Downloading @rolldown/binding-linux-x64-gnu@1.2.11: 0.00 B/7.94 MB
+Progress: resolved 322, reused 0, downloaded 285, added 256
+Downloading @rolldown/binding-linux-x64-gnu@1.2.11: 7.37 MB/7.94 MB
+✓ Lockfile passes supply-chain policies (344 entries in 9.4s)
+Lockfile is up to date, resolution step is skipped
+Packages: +322
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+Progress: resolved 322, reused 0, downloaded 319, added 322, done
+packages/base prepare$ svelte-kit sync
+packages/base prepare: Done
+apps/fixtures prepare$ svelte-kit sync
+apps/fixtures prepare: Done
+
+devDependencies:
++ @arethetypeswrong/cli 0.18.5
++ @arethetypeswrong/core 0.18.5
++ @eslint/js 10.0.1
++ @playwright/test 1.63.0
++ eslint 10.11.0
++ eslint-config-prettier 10.1.8
++ eslint-plugin-svelte 3.23.0
++ globals 17.12.0
++ prettier 3.9.9
++ prettier-plugin-svelte 4.1.1
++ publint 0.3.25
++ svelte 5.57.1
++ typescript 6.0.3
++ typescript-eslint 8.71.0
+
+Done in 14.9s using pnpm v12.6.0
+$ pnpm --recursive --filter './packages/*' --sort --workspace-concurrency 1 --if-present run prepack
+Scope: 2 of 4 workspace projects
+$ pnpm run build && publint --strict
+$ svelte-package
+src/lib -> dist
+Running publint v0.3.25 for @sveltery/utils...
+Packing files with `pnpm pack`...
+Linting...
+All good!
+$ svelte-kit sync && svelte-package && publint --strict
+src/lib -> dist
+Running publint v0.3.25 for @sveltery/base...
+Packing files with `pnpm pack`...
+Linting...
+All good!

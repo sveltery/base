@@ -9,13 +9,23 @@ const schema = {
     vendor: 'sdk-reset-compat',
     types: undefined as unknown as { input: Input; output: Input },
     validate(input: unknown): { value: Input } | { issues: { message: string; path: string[] }[] } {
-      if (!input || typeof input !== 'object') return { issues: [{ message: 'Object required', path: [] }] };
+      if (!input || typeof input !== 'object')
+        return { issues: [{ message: 'Object required', path: [] }] };
       const value = input as Partial<Input>;
-      if (typeof value.id !== 'string' || typeof value.label !== 'string' || (value.enabled !== undefined && typeof value.enabled !== 'boolean')) {
+      if (
+        typeof value.id !== 'string' ||
+        typeof value.label !== 'string' ||
+        (value.enabled !== undefined && typeof value.enabled !== 'boolean')
+      ) {
         return { issues: [{ message: 'Complete submission required', path: [] }] };
       }
       return { value: value as Input };
     },
   },
 };
-export const saveReset = form(schema, async ({ id, label, enabled }) => ({ id, label, enabled: enabled ?? false, effects: ++effects }));
+export const saveReset = form(schema, async ({ id, label, enabled }) => ({
+  id,
+  label,
+  enabled: enabled ?? false,
+  effects: ++effects,
+}));

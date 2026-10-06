@@ -1,9 +1,17 @@
 // Original trigger focus-guard complete business with native flushSync (MIT).
 import { flushSync } from 'svelte';
 import { contains } from '../../floating-ui/utils/element.js';
-import { getNextTabbable, getTabbableAfterElement, getTabbableBeforeElement, isOutsideEvent } from '../../floating-ui/utils/tabbable.js';
+import {
+  getNextTabbable,
+  getTabbableAfterElement,
+  getTabbableBeforeElement,
+  isOutsideEvent,
+} from '../../floating-ui/utils/tabbable.js';
 import type { FocusableElement } from '../../floating-ui/utils/tabbable.js';
-import { createChangeEventDetails, type BaseUIChangeEventDetails } from '../../internals/createBaseUIEventDetails.js';
+import {
+  createChangeEventDetails,
+  type BaseUIChangeEventDetails,
+} from '../../internals/createBaseUIEventDetails.js';
 import { REASONS } from '../../internals/reasons.js';
 /**
  * Minimal store interface required by the focus guard hook.
@@ -30,17 +38,13 @@ export function useTriggerFocusGuards(
   triggerElementRef: { current: HTMLElement | null },
 ) {
   const store = $derived(getStore());
-  const preFocusGuardRef = { current: null as HTMLElement | null };
+  const preFocusGuardRef = $state<{ current: HTMLElement | null }>({ current: null });
 
   function handlePreFocusGuardFocus(event: FocusEvent) {
     flushSync(() => {
       store.setOpen(
         false,
-        createChangeEventDetails(
-          REASONS.focusOut,
-          event,
-          event.currentTarget as HTMLElement,
-        ),
+        createChangeEventDetails(REASONS.focusOut, event, event.currentTarget as HTMLElement),
       );
     });
 
@@ -58,11 +62,7 @@ export function useTriggerFocusGuards(
       flushSync(() => {
         store.setOpen(
           false,
-          createChangeEventDetails(
-            REASONS.focusOut,
-            event,
-            event.currentTarget as HTMLElement,
-          ),
+          createChangeEventDetails(REASONS.focusOut, event, event.currentTarget as HTMLElement),
         );
       });
 

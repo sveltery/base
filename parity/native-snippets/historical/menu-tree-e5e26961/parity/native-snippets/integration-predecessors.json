@@ -1,0 +1,271 @@
+{
+  "ordinaryDeclarationCredit": 0,
+  "scope": "Exact complete predecessor projections and proof tools; immutable Original/history bytes remain evidence of those checkpoints only. Current source/native/runtime/type/artifact/browser/CI/merge acceptance is separate.",
+  "checkpoints": [
+    {
+      "commit": "f0dbb89a05f032af1e9aac99461c6eccfa09e0d9",
+      "files": [
+        {
+          "predecessorPath": "parity/native-snippets/native-graph.json",
+          "archive": "parity/native-snippets/historical/renderer-f0dbb89a/parity/native-snippets/native-graph.json",
+          "sha256": "5f1bebaeab6c504fb816f65f13976c4dedf89c95dfff76c3f1c4143753041174"
+        },
+        {
+          "predecessorPath": "parity/native-framework/callsite-inventory.json",
+          "archive": "parity/native-snippets/historical/renderer-f0dbb89a/parity/native-framework/callsite-inventory.json",
+          "sha256": "9e605d020e03a01ddd46467b7a255a828b1fab19f761092a3a1c896baac031d3"
+        },
+        {
+          "predecessorPath": "parity/utils-package/native-framework-status.json",
+          "archive": "parity/native-snippets/historical/renderer-f0dbb89a/parity/utils-package/native-framework-status.json",
+          "sha256": "22aaffa0568c06c2acbb9e81caf0a65f204e1942de13cacb13eee3e5e1a21881"
+        },
+        {
+          "predecessorPath": "parity/utils-package/current-source-graph.json",
+          "archive": "parity/native-snippets/historical/renderer-f0dbb89a/parity/utils-package/current-source-graph.json",
+          "sha256": "b08085e9584cbb4d3a62e78856997233d36c17d6a2ef8425602b38e42d2ea8d9"
+        },
+        {
+          "predecessorPath": "parity/utils-package/body-fidelity.json",
+          "archive": "parity/native-snippets/historical/renderer-f0dbb89a/parity/utils-package/body-fidelity.json",
+          "sha256": "0de164d8e98a2827cbfd3a6daeb1a40346b4e238155e7cd1bee63b850e28a8ef"
+        },
+        {
+          "predecessorPath": "parity/utils-package/feature-successors.json",
+          "archive": "parity/native-snippets/historical/renderer-f0dbb89a/parity/utils-package/feature-successors.json",
+          "sha256": "6fba20cf5da066beb1f2ea742ee56e37bbc6f56e420433cf46314619e7bb7853"
+        },
+        {
+          "predecessorPath": "parity/utils-package/correspondence-lineage.json",
+          "archive": "parity/native-snippets/historical/renderer-f0dbb89a/parity/utils-package/correspondence-lineage.json",
+          "sha256": "d085866848f3e728e8482ad9fdcf0f487e3c18719b064aa044a5b5e0d2665e15"
+        },
+        {
+          "predecessorPath": "parity/rendering/source-graph.json",
+          "archive": "parity/native-snippets/historical/renderer-f0dbb89a/parity/rendering/source-graph.json",
+          "sha256": "fdac6213656faadf2c017b6e17e3764bad8dc71b5a6268b45c8dda3b6a998fbc"
+        },
+        {
+          "predecessorPath": "parity/use-render/source-graph.json",
+          "archive": "parity/native-snippets/historical/renderer-f0dbb89a/parity/use-render/source-graph.json",
+          "sha256": "61825d25c5040130e5f27cbe4e0f67384d64ecde2c47290b6a8af3ad0bfd550e"
+        },
+        {
+          "predecessorPath": "parity/button/source-graph.json",
+          "archive": "parity/native-snippets/historical/renderer-f0dbb89a/parity/button/source-graph.json",
+          "sha256": "a0168a6dfb834fe9179cd8f25c0ccc038002c6bd5db733e2e7bfc8ae4ccb25f8"
+        },
+        {
+          "predecessorPath": "parity/shared-utils/source-graph.json",
+          "archive": "parity/native-snippets/historical/renderer-f0dbb89a/parity/shared-utils/source-graph.json",
+          "sha256": "df6424a5329630e2148f1c3cb84e4a3df2b7e9faa48049ffe0321e0d008d45c4"
+        },
+        {
+          "predecessorPath": "parity/boolean-controls/source-correspondence.json",
+          "archive": "parity/native-snippets/historical/renderer-f0dbb89a/parity/boolean-controls/source-correspondence.json",
+          "sha256": "3a99ea8ad4eaa0007d404c25e6f63a25ca3ad3b822c993dcc0ee698bf818fa60"
+        },
+        {
+          "predecessorPath": "parity/dialog/source-correspondence.json",
+          "archive": "parity/native-snippets/historical/renderer-f0dbb89a/parity/dialog/source-correspondence.json",
+          "sha256": "2afc1d514e3dd5269619808f6cf5f1c114fc242f2337838d6b03c25469a29478"
+        },
+        {
+          "predecessorPath": "parity/dialog/local-graph.json",
+          "archive": "parity/native-snippets/historical/renderer-f0dbb89a/parity/dialog/local-graph.json",
+          "sha256": "807015371e8059239b7c5357930cfbe32a5d0995b1b1d994eca1f46e19e65637"
+        },
+        {
+          "predecessorPath": "parity/field-form/source-correspondence.json",
+          "archive": "parity/native-snippets/historical/renderer-f0dbb89a/parity/field-form/source-correspondence.json",
+          "sha256": "5354200f9391197f1de232cef27455c9598f37827086cd191f32907f8dce3a38"
+        },
+        {
+          "predecessorPath": "parity/radio/source-correspondence.json",
+          "archive": "parity/native-snippets/historical/renderer-f0dbb89a/parity/radio/source-correspondence.json",
+          "sha256": "c2baaca82fa5284cc13b4ed411ffcf7e92051bc3929066afefc8d4fa9b7fa969"
+        },
+        {
+          "predecessorPath": "parity/scroll-area/correspondence.json",
+          "archive": "parity/native-snippets/historical/renderer-f0dbb89a/parity/scroll-area/correspondence.json",
+          "sha256": "f66bd4ae8d5c742a051482ed59170141b1d884c84b6e0539a6869157d89baaa1"
+        },
+        {
+          "predecessorPath": "parity/toggle-toolbar/source-correspondence.json",
+          "archive": "parity/native-snippets/historical/renderer-f0dbb89a/parity/toggle-toolbar/source-correspondence.json",
+          "sha256": "87e911724640c9060bab631c2ef0e03f3b02877c0f93c046cd93616d33f378f7"
+        },
+        {
+          "predecessorPath": "parity/toggle-toolbar/native-closure.json",
+          "archive": "parity/native-snippets/historical/renderer-f0dbb89a/parity/toggle-toolbar/native-closure.json",
+          "sha256": "89b4ba5a226a0b911c5598a1144a875ba9b4bc98cc60c56616d3771516bed14e"
+        },
+        {
+          "predecessorPath": "parity/menu-family/source-correspondence.json",
+          "archive": "parity/native-snippets/historical/renderer-f0dbb89a/parity/menu-family/source-correspondence.json",
+          "sha256": "5ef0409413d3b5bc718b3061f239637137693bf50ee2920bff019dc51f2f04d8"
+        },
+        {
+          "predecessorPath": "parity/menu-family/native-closure.json",
+          "archive": "parity/native-snippets/historical/renderer-f0dbb89a/parity/menu-family/native-closure.json",
+          "sha256": "f454f42c97391c8b3b002c6215f5fafb62efb2fcec2a365cedc343d509f87b9e"
+        },
+        {
+          "predecessorPath": "parity/popup-family/native-component-graph.json",
+          "archive": "parity/native-snippets/historical/renderer-f0dbb89a/parity/popup-family/native-component-graph.json",
+          "sha256": "2946ecc61cbbedd9b9213332c2a7e49b56d39d31dde096bd98d37ee1df4d014f"
+        },
+        {
+          "predecessorPath": "parity/popup-family/native-helper-graph.json",
+          "archive": "parity/native-snippets/historical/renderer-f0dbb89a/parity/popup-family/native-helper-graph.json",
+          "sha256": "33ef600d0843f3d00e57a72bc1ed1ba4fd24182b250b487fe7764be69065ea44"
+        },
+        {
+          "predecessorPath": "parity/remote-form-api/local-graph.json",
+          "archive": "parity/native-snippets/historical/renderer-f0dbb89a/parity/remote-form-api/local-graph.json",
+          "sha256": "b84d92171219fdfd5353f87d6198deae28312269e7b40116b53268bd0de72990"
+        }
+      ]
+    },
+    {
+      "commit": "168c2717da1834fe728d76a4aeb94cb81b9b8a1f",
+      "files": [
+        {
+          "predecessorPath": "parity/native-framework/callsite-inventory.json",
+          "archive": "parity/native-snippets/historical/native-168c2717/parity/native-framework/callsite-inventory.json",
+          "sha256": "9e605d020e03a01ddd46467b7a255a828b1fab19f761092a3a1c896baac031d3"
+        },
+        {
+          "predecessorPath": "parity/native-framework/integration-formatting.json",
+          "archive": "parity/native-snippets/historical/native-168c2717/parity/native-framework/integration-formatting.json",
+          "sha256": "94d27874dd05af3e1d44638777fe4c04af584b29bf3997d2f5d949088c370768"
+        },
+        {
+          "predecessorPath": "parity/native-framework/native-policy.json",
+          "archive": "parity/native-snippets/historical/native-168c2717/parity/native-framework/native-policy.json",
+          "sha256": "1f7958d7ef43b5adc22b06fe45db8c6d1fb5e12fd3264ec9abc69e3833551a81"
+        },
+        {
+          "predecessorPath": "parity/utils-package/native-framework-status.json",
+          "archive": "parity/native-snippets/historical/native-168c2717/parity/utils-package/native-framework-status.json",
+          "sha256": "22aaffa0568c06c2acbb9e81caf0a65f204e1942de13cacb13eee3e5e1a21881"
+        },
+        {
+          "predecessorPath": "parity/utils-package/current-source-graph.json",
+          "archive": "parity/native-snippets/historical/native-168c2717/parity/utils-package/current-source-graph.json",
+          "sha256": "479709269275b80e590159dff3300d4d8bb3c49b25ef9bda7bd694864686a112"
+        },
+        {
+          "predecessorPath": "parity/utils-package/body-fidelity.json",
+          "archive": "parity/native-snippets/historical/native-168c2717/parity/utils-package/body-fidelity.json",
+          "sha256": "307f44df1f7ce4f7db9d8eb83cbd8fee55b7b5781930d8a00646a5f086d3cbae"
+        },
+        {
+          "predecessorPath": "parity/utils-package/feature-successors.json",
+          "archive": "parity/native-snippets/historical/native-168c2717/parity/utils-package/feature-successors.json",
+          "sha256": "4cc66a2191a24d112717e0a6075d7d2fbee3e4a30b80b50d3fef4298555b2eae"
+        },
+        {
+          "predecessorPath": "parity/utils-package/correspondence-lineage.json",
+          "archive": "parity/native-snippets/historical/native-168c2717/parity/utils-package/correspondence-lineage.json",
+          "sha256": "fb7aa1ab4d304cae5f7766d3bcb95d2bdd34a7838007b652d8dbd6cd898dae82"
+        },
+        {
+          "predecessorPath": "parity/rendering/source-graph.json",
+          "archive": "parity/native-snippets/historical/native-168c2717/parity/rendering/source-graph.json",
+          "sha256": "025b5bd424729a71b36e871206590a9c6b406a945c246a856eb96d4a2fa37f68"
+        },
+        {
+          "predecessorPath": "parity/use-render/source-graph.json",
+          "archive": "parity/native-snippets/historical/native-168c2717/parity/use-render/source-graph.json",
+          "sha256": "2595b583581dabc54b41604576bbc96f7ae5d225a147929f9297ea730562703e"
+        },
+        {
+          "predecessorPath": "parity/button/source-graph.json",
+          "archive": "parity/native-snippets/historical/native-168c2717/parity/button/source-graph.json",
+          "sha256": "22aac44de8a50763b2fee9208722a959188954a8a3deaea5c59b16f192aed887"
+        },
+        {
+          "predecessorPath": "parity/shared-utils/source-graph.json",
+          "archive": "parity/native-snippets/historical/native-168c2717/parity/shared-utils/source-graph.json",
+          "sha256": "b42553123138957c214706e3d00d28dd4ca6f852948a45ab699f475ff96bc355"
+        },
+        {
+          "predecessorPath": "parity/boolean-controls/source-correspondence.json",
+          "archive": "parity/native-snippets/historical/native-168c2717/parity/boolean-controls/source-correspondence.json",
+          "sha256": "0f4e782579f237f7598976078b33cec4a2f02e89d4267aa376989d81f956be9c"
+        },
+        {
+          "predecessorPath": "parity/dialog/source-correspondence.json",
+          "archive": "parity/native-snippets/historical/native-168c2717/parity/dialog/source-correspondence.json",
+          "sha256": "e998d49f2a09f1132aea96f9893fd51462b84d239626828d87f0021c4bce2fa6"
+        },
+        {
+          "predecessorPath": "parity/dialog/local-graph.json",
+          "archive": "parity/native-snippets/historical/native-168c2717/parity/dialog/local-graph.json",
+          "sha256": "64f372e760688b9b5512a6331f09605bf6b307d26c181e2c47c473e4d38a8cbc"
+        },
+        {
+          "predecessorPath": "parity/field-form/source-correspondence.json",
+          "archive": "parity/native-snippets/historical/native-168c2717/parity/field-form/source-correspondence.json",
+          "sha256": "928c1bf9527bd9694dd65f5bab1a145a5a4a427c2ff2c39107bb6dce8abbd5ba"
+        },
+        {
+          "predecessorPath": "parity/radio/source-correspondence.json",
+          "archive": "parity/native-snippets/historical/native-168c2717/parity/radio/source-correspondence.json",
+          "sha256": "0d3c326e4b6a8615c9b195f98bd7a8156473dac3f44a5ef2f773371758b9de6f"
+        },
+        {
+          "predecessorPath": "parity/scroll-area/correspondence.json",
+          "archive": "parity/native-snippets/historical/native-168c2717/parity/scroll-area/correspondence.json",
+          "sha256": "491595d77f142f91ae73f548809c0a87d2d84dd7ccb93313a96ceb73e60b5196"
+        },
+        {
+          "predecessorPath": "parity/toggle-toolbar/source-correspondence.json",
+          "archive": "parity/native-snippets/historical/native-168c2717/parity/toggle-toolbar/source-correspondence.json",
+          "sha256": "0c24d16931be80789965307a090c34ee2922cff8b355f5b9bb411bfeef066cab"
+        },
+        {
+          "predecessorPath": "parity/toggle-toolbar/native-closure.json",
+          "archive": "parity/native-snippets/historical/native-168c2717/parity/toggle-toolbar/native-closure.json",
+          "sha256": "13a4510d9c5353799e7acd26a881ded310d146a485026d06f8edef9ebd0d000e"
+        },
+        {
+          "predecessorPath": "parity/menu-family/source-correspondence.json",
+          "archive": "parity/native-snippets/historical/native-168c2717/parity/menu-family/source-correspondence.json",
+          "sha256": "57f6365d04d2b9d92f6ac33632f90ed6aa24e227b3c57669b26b79d288541cb7"
+        },
+        {
+          "predecessorPath": "parity/menu-family/native-closure.json",
+          "archive": "parity/native-snippets/historical/native-168c2717/parity/menu-family/native-closure.json",
+          "sha256": "08948b286d7239f3f35c00dfecf644257d92fb470e4606a3993b4d9de7721f1b"
+        },
+        {
+          "predecessorPath": "parity/popup-family/native-component-graph.json",
+          "archive": "parity/native-snippets/historical/native-168c2717/parity/popup-family/native-component-graph.json",
+          "sha256": "ef528f98ff3bd0b30bfe2c6c50a53d1adf42abe0982a3e5d52d36559403d424a"
+        },
+        {
+          "predecessorPath": "parity/popup-family/native-helper-graph.json",
+          "archive": "parity/native-snippets/historical/native-168c2717/parity/popup-family/native-helper-graph.json",
+          "sha256": "eb1b81f237e0384770dfe4f102eab685fc155e2db3f7c3a40404196d5fd28ea6"
+        },
+        {
+          "predecessorPath": "parity/remote-form-api/local-graph.json",
+          "archive": "parity/native-snippets/historical/native-168c2717/parity/remote-form-api/local-graph.json",
+          "sha256": "b1aec03198e95177dd0db1fa2183bc7898e14b0d14dfb425afa09f23756ee7d3"
+        },
+        {
+          "predecessorPath": "scripts/record-native-framework-projections.mjs",
+          "archive": "parity/native-snippets/historical/native-168c2717/scripts/record-native-framework-projections.mjs",
+          "sha256": "a33d91402899ad5b63bdbc85198d04296d0aa3bea78a7f092ccbfcbcad500471"
+        },
+        {
+          "predecessorPath": "scripts/check-native-framework-integration.mjs",
+          "archive": "parity/native-snippets/historical/native-168c2717/scripts/check-native-framework-integration.mjs",
+          "sha256": "06e704b1d1766ef45d7b851384fb575f1274bf4ba1b10bac54630a0de861764c"
+        }
+      ]
+    }
+  ]
+}

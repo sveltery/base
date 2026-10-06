@@ -1,0 +1,5 @@
+packages/base/src/lib/collapsible/Root.svelte 152ms
+packages/base/src/lib/collapsible/Trigger.svelte 60ms
+packages/base/src/lib/collapsible/Panel.svelte 52ms
+packages/base/src/lib/collapsible/root/useCollapsibleRoot.svelte.ts 33ms
+packages/base/src/lib/collapsible/panel/useCollapsiblePanel.svelte.ts 80ms
