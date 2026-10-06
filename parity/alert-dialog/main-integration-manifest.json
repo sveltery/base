@@ -3025,7 +3025,125 @@
     "canonicalButtonTransition": "ReacheduseButton/useTransitionStatus;soleowneracceptedmainrequired",
     "PR73": "ReachednativeProps;lead-measuredempty-styledefect;soleowneracceptedrepair/mainrequired;no localworkaround",
     "FieldValidation": "Notreached;noinventedAlertdependency",
-    "configuredReview": "Pending;noquota waiver inferred"
+    "configuredReview": {
+      "reviewedPublicHead": "0b790e91841dfc182c65a1ef292984c0c1c0e70b",
+      "request": "https://github.com/sveltery/base/pull/62#issuecomment-6026523341",
+      "exhaustionResponse": "https://github.com/sveltery/base/pull/62#issuecomment-6026524677",
+      "exactBotResponse": "You have reached your Codex usage limits for code reviews.",
+      "disposition": "Verified configured-review exhaustion qualifies for the user-authorized quota waiver at this request; not passed review or approval. Independent final-head entire-closure review, owner deliveries and required CI/execution remain mandatory; native CLEAR withheld."
+    },
+    "retainedStateOwnerRepresentation": {
+      "reviewedPublicHead": "0b790e91841dfc182c65a1ef292984c0c1c0e70b",
+      "ownerMatrixSource": "https://github.com/sveltery/base/pull/42#issuecomment-6025741501",
+      "assignmentSource": "https://github.com/sveltery/base/pull/42#issuecomment-6025882484",
+      "actualReachedOmissionCount": 10,
+      "actualRetainedClassCount": 15,
+      "requiredCanonicalOwners": [
+        {
+          "owner": "Button/Transition",
+          "path": "packages/base/src/lib/internals/use-button/useButton.svelte.ts",
+          "function": "useButton",
+          "retainedRole": "host/disabled/handler durable identity",
+          "actualAlertInvocation": true,
+          "status": "Current AGENTS class-owner representation required; assigned canonical owner accepted-main delivery pending; no local duplicate or reproduced business-bug claim"
+        },
+        {
+          "owner": "Button/Transition",
+          "path": "packages/base/src/lib/internals/useTransitionStatus.svelte.ts",
+          "function": "useTransitionStatus",
+          "retainedRole": "mounted phase and scheduled lifecycle",
+          "actualAlertInvocation": true,
+          "status": "Current AGENTS class-owner representation required; assigned canonical owner accepted-main delivery pending; no local duplicate or reproduced business-bug claim"
+        },
+        {
+          "owner": "Floating",
+          "path": "packages/base/src/lib/floating-ui/hooks/useClick.svelte.ts",
+          "function": "useClick",
+          "retainedRole": "pointer session/frame/timeout",
+          "actualAlertInvocation": true,
+          "status": "Current AGENTS class-owner representation required; assigned canonical owner accepted-main delivery pending; no local duplicate or reproduced business-bug claim"
+        },
+        {
+          "owner": "Floating",
+          "path": "packages/base/src/lib/floating-ui/hooks/useDismiss.svelte.ts",
+          "function": "useDismiss",
+          "retainedRole": "press/prevention/IME/touch session listeners/timers",
+          "actualAlertInvocation": true,
+          "status": "Current AGENTS class-owner representation required; assigned canonical owner accepted-main delivery pending; no local duplicate or reproduced business-bug claim"
+        },
+        {
+          "owner": "Floating",
+          "path": "packages/base/src/lib/floating-ui/hooks/useFloatingPortalNode.svelte.ts",
+          "function": "useFloatingPortalNode",
+          "retainedRole": "container/node/id/observer/host lifetime",
+          "actualAlertInvocation": true,
+          "status": "Current AGENTS class-owner representation required; assigned canonical owner accepted-main delivery pending; no local duplicate or reproduced business-bug claim"
+        },
+        {
+          "owner": "Floating",
+          "path": "packages/base/src/lib/floating-ui/components/createFloatingFocusManager.svelte.ts",
+          "function": "createFloatingFocusManager",
+          "retainedRole": "focus history/guards/disposal and frame ownership",
+          "actualAlertInvocation": true,
+          "status": "Current AGENTS class-owner representation required; assigned canonical owner accepted-main delivery pending; no local duplicate or reproduced business-bug claim"
+        },
+        {
+          "owner": "Shared popup/Utils",
+          "path": "packages/base/src/lib/utils/popups/popupStoreUtils.svelte.ts",
+          "function": "useTriggerRegistration",
+          "retainedRole": "captured store/id/element migration+cleanup",
+          "actualAlertInvocation": true,
+          "status": "Current AGENTS class-owner representation required; assigned canonical owner accepted-main delivery pending; no local duplicate or reproduced business-bug claim"
+        },
+        {
+          "owner": "Shared popup/Utils",
+          "path": "packages/base/src/lib/utils/popups/popupStoreUtils.svelte.ts",
+          "function": "useImplicitActiveTrigger",
+          "retainedRole": "active-trigger reconciliation/lost-trigger close",
+          "actualAlertInvocation": true,
+          "status": "Current AGENTS class-owner representation required; assigned canonical owner accepted-main delivery pending; no local duplicate or reproduced business-bug claim"
+        },
+        {
+          "owner": "Shared popup/Utils",
+          "path": "packages/base/src/lib/utils/popups/usePopupHandleStore.svelte.ts",
+          "function": "usePopupHandleStore",
+          "retainedRole": "hydration committed flag",
+          "actualAlertInvocation": true,
+          "status": "Current AGENTS class-owner representation required; assigned canonical owner accepted-main delivery pending; no local duplicate or reproduced business-bug claim"
+        },
+        {
+          "owner": "Shared popup/Utils",
+          "path": "packages/utils/src/lib/useEnhancedClickHandler.ts",
+          "function": "useEnhancedClickHandler",
+          "retainedRole": "retained pointer modality",
+          "actualAlertInvocation": true,
+          "status": "Current AGENTS class-owner representation required; assigned canonical owner accepted-main delivery pending; no local duplicate or reproduced business-bug claim"
+        }
+      ],
+      "setupDelegation": [
+        {
+          "path": "packages/base/src/lib/floating-ui/hooks/useSyncedFloatingRootContext.svelte.ts",
+          "caller": "packages/base/src/lib/utils/popups/popupStoreUtils.svelte.ts:usePopupRootStore",
+          "classification": "Native setup/sync delegation to existing FloatingRootStore; no class named SyncedFloatingRootContext exists or independently proved wrapper requirement. Supplied-store/live-parameter fidelity requires Floating caller contract evidence, not fabricated bug."
+        },
+        {
+          "path": "packages/base/src/lib/utils/popups/store.ts",
+          "classification": "PopupStore is state/context/selectors types + initial-state/business factories; actual retained authoritative owner is DialogStore. No PopupStore class omission established."
+        },
+        {
+          "path": "packages/base/src/lib/utils/popups/popupStoreUtils.svelte.ts:usePopupRootSync",
+          "classification": "Separate openMethod reset/disposal policy; does not call SyncedFloatingRootContext."
+        }
+      ],
+      "excludedBroaderDependencies": {
+        "FieldLabelable": "Absent all120 module set; no Alert dependency established",
+        "Composite": "Context/constants/type import module reach does not imply useCompositeRoot or createCompositeList/item invocation; accepted42 exact two distinct computedStyle repair still prerequisite",
+        "PR63Menu": "createMenuRoot/createMenuTrigger/useStickIfOpen absent actual120; no direct Alert dependency on entire PR63 owner acceptance established",
+        "FloatingListTypeahead": "Not selected actual Alert algorithms; canonical floating reached roles above required",
+        "OpenInteractionType": "Whole module reached selects useOpenMethodTriggerProps; durable useOpenInteractionType Menu owner does not earn Alert invocation credit",
+        "useAnimationsFinished": "Delegates AnimationFrame/abort/bounded pending batch business; additional class requirement unestablished"
+      }
+    }
   },
-  "nativeAcceptance": "Reopened after lead-measured reached nativeProps defect; current exact closure/body correspondence is evidence, not acceptance"
+  "nativeAcceptance": "Final Source/native/maintainability CLEAR withheld: ten actually invoked canonical retained-state class-owner representation omissions, pending canonical supplied-store/live-parameter caller contract evidence and reached PR73 empty-style repair. Main body identity and diagnostic receipts grant no overall parity or final acceptance. Accepted owner main integration, fresh final-head entire-closure/configured review and mandatory CI/execution remain required."
 }
