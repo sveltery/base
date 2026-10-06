@@ -9,7 +9,16 @@
   import { getAccordionItemContext } from './context.js';
   import { stateAttributes } from './state.js';
   import type { AccordionTriggerProps } from './types.js';
-  let { children, render, disabled: disabledProp, nativeButton = true, id: idProp, class: classProp, ref = $bindable(), ...props }: AccordionTriggerProps = $props();
+  let {
+    children,
+    render,
+    disabled: disabledProp,
+    nativeButton = true,
+    id: idProp,
+    class: classProp,
+    ref = $bindable(),
+    ...props
+  }: AccordionTriggerProps = $props();
   const context = getCollapsibleContext();
   const item = getAccordionItemContext();
   const disabled = $derived(Boolean(disabledProp || context.disabled));
@@ -18,18 +27,38 @@
   const state = $derived(item.state);
   const resolved = $derived.by(() => {
     const classValue = typeof classProp === 'function' ? classProp(state) : classProp;
-    return getButtonProps(mergeProps({
-      ...stateAttributes(state, true),
-      'aria-controls': context.open ? context.panelId : undefined,
-      'aria-expanded': context.open,
-      id,
-      onclick: context.handleTrigger,
-    }, { ...props, class: classValue === undefined ? undefined : resolveClassValue(classValue) }), disabled, true, nativeButton);
+    return getButtonProps(
+      mergeProps(
+        {
+          ...stateAttributes(state, true),
+          'aria-controls': context.open ? context.panelId : undefined,
+          'aria-expanded': context.open,
+          id,
+          onclick: context.handleTrigger,
+        },
+        { ...props, class: classValue === undefined ? undefined : resolveClassValue(classValue) },
+      ),
+      disabled,
+      true,
+      nativeButton,
+    );
   });
   $effect(() => {
     const registered = registeredId;
-    untrack(() => item.setTriggerId(current => registered ?? (current === null ? undefined : current)));
-    return () => untrack(() => item.setTriggerId(current => current === registered ? null : current));
+    untrack(() =>
+      item.setTriggerId((current) => registered ?? (current === null ? undefined : current)),
+    );
+    return () =>
+      untrack(() => item.setTriggerId((current) => (current === registered ? null : current)));
   });
 </script>
-<Element tag="button" internal={render ? {} : { type: 'button' }} props={resolved} {state} {render} {children} bind:ref />
+
+<Element
+  tag="button"
+  internal={render ? {} : { type: 'button' }}
+  props={resolved}
+  {state}
+  {render}
+  {children}
+  bind:ref
+/>

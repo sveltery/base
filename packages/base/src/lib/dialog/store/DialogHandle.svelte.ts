@@ -1,7 +1,11 @@
 // Ported from Base UI v1.8.0 at 47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c.
 // MIT Copyright (c) 2019 Material-UI SAS; see THIRD_PARTY_NOTICES.md.
 import { DEV } from 'esm-env';
-import { DialogStore, createNullDialogStore, type DialogHandleStore } from './DialogStore.svelte.js';
+import {
+  DialogStore,
+  createNullDialogStore,
+  type DialogHandleStore,
+} from './DialogStore.svelte.js';
 import { createChangeEventDetails } from '../../internals/createBaseUIEventDetails.js';
 import { REASONS } from '../../internals/reasons.js';
 import { BasePopupHandle } from '../../utils/popups/popupHandle.svelte.js';

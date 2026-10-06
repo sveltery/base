@@ -9,6 +9,7 @@
   let { indexKeys = false }: { indexKeys?: boolean } = $props();
   const manager = getToastManager();
 </script>
+
 {#each manager.toasts as toast, index (indexKeys ? index : toast.id)}
   <Root {toast} swipeDirection={[]} data-testid="root">
     <Title data-testid="title" />

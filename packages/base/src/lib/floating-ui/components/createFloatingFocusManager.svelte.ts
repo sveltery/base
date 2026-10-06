@@ -1,16 +1,16 @@
 // Ported business body from Base UI v1.8.0 at 47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c.
 // MIT Copyright (c) 2019 Material-UI SAS; see THIRD_PARTY_NOTICES.md.
 import { getNodeName, isHTMLElement } from '@floating-ui/utils/dom';
-import { addEventListener } from '../../utils/addEventListener.js';
-import { mergeCleanups } from '../../utils/mergeCleanups.js';
-import { createMergedRefs } from '../../utils/useMergedRefs.js';
-import { useStableCallback } from '../../utils/useStableCallback.js';
-import { useIsoLayoutEffect } from '../../utils/useIsoLayoutEffect.svelte.js';
-import { useTimeout } from '../../utils/useTimeout.js';
-import { platform } from '../../utils/platform/index.js';
-import type { InteractionType } from '../../utils/useEnhancedClickHandler.js';
-import { useAnimationFrame } from '../../utils/useAnimationFrame.js';
-import { ownerDocument, ownerWindow } from '../../utils/owner.js';
+import { addEventListener } from '@sveltery/utils/addEventListener';
+import { mergeCleanups } from '@sveltery/utils/mergeCleanups';
+import { createMergedRefs } from '@sveltery/utils/useMergedRefs';
+import { useStableCallback } from '@sveltery/utils/useStableCallback';
+import { useIsoLayoutEffect } from '@sveltery/utils/useIsoLayoutEffect';
+import { useTimeout } from '@sveltery/utils/useTimeout';
+import { platform } from '@sveltery/utils/platform';
+import type { InteractionType } from '@sveltery/utils/useEnhancedClickHandler';
+import { useAnimationFrame } from '@sveltery/utils/useAnimationFrame';
+import { ownerDocument, ownerWindow } from '@sveltery/utils/owner';
 import {
   activeElement,
   contains,
@@ -143,7 +143,6 @@ function handleTabIndex(floatingFocusElement: HTMLElement) {
 }
 
 export interface FloatingFocusManagerProps {
-
   /**
    * The floating context returned from `useFloatingRootContext`.
    */
@@ -277,12 +276,30 @@ export function createFloatingFocusManager(getProps: () => FloatingFocusManagerP
   // has different focus semantics: focus is not trapped inside the floating element,
   // so in the modal case the guards are not rendered, but `aria-hidden` is still
   // applied to the outside nodes.
-  const isUntrappedTypeableCombobox = $derived(isTypeableCombobox(domReference) && ignoreInitialFocus);
+  const isUntrappedTypeableCombobox = $derived(
+    isTypeableCombobox(domReference) && ignoreInitialFocus,
+  );
 
-  const initialFocusRef = { get current() { return initialFocus; } };
-  const returnFocusRef = { get current() { return returnFocus; } };
-  const openInteractionTypeRef = { get current() { return openInteractionType; } };
-  const openRef = { get current() { return open; } };
+  const initialFocusRef = {
+    get current() {
+      return initialFocus;
+    },
+  };
+  const returnFocusRef = {
+    get current() {
+      return returnFocus;
+    },
+  };
+  const openInteractionTypeRef = {
+    get current() {
+      return openInteractionType;
+    },
+  };
+  const openRef = {
+    get current() {
+      return open;
+    },
+  };
 
   const contextTree = useFloatingTree();
   const tree = $derived(externalTree ?? contextTree);
@@ -300,12 +317,16 @@ export function createFloatingFocusManager(getProps: () => FloatingFocusManagerP
 
   const beforeRefs = createMergedRefs<HTMLSpanElement>();
   const afterRefs = createMergedRefs<HTMLSpanElement>();
-  const mergedBeforeGuardRef = $derived(beforeRefs.useMergedRefs(
-    beforeGuardRef,
-    beforeContentFocusGuardRef,
-    portalContext?.beforeInsideRef,
-  ));
-  const mergedAfterGuardRef = $derived(afterRefs.useMergedRefs(afterGuardRef, portalContext?.afterInsideRef));
+  const mergedBeforeGuardRef = $derived(
+    beforeRefs.useMergedRefs(
+      beforeGuardRef,
+      beforeContentFocusGuardRef,
+      portalContext?.beforeInsideRef,
+    ),
+  );
+  const mergedAfterGuardRef = $derived(
+    afterRefs.useMergedRefs(afterGuardRef, portalContext?.afterInsideRef),
+  );
 
   const blurTimeout = useTimeout();
   const pointerDownTimeout = useTimeout();
@@ -326,645 +347,678 @@ export function createFloatingFocusManager(getProps: () => FloatingFocusManagerP
   );
 
   // Prevent Tab from escaping the modal when there are no tabbable elements.
-  useIsoLayoutEffect(() => {
-    const { floatingFocusElement } = getFloatingElements();
-    if (disabled || !modal) {
-      return undefined;
-    }
+  useIsoLayoutEffect(
+    () => {
+      const { floatingFocusElement } = getFloatingElements();
+      if (disabled || !modal) {
+        return undefined;
+      }
 
-    function onkeydown(event: KeyboardEvent) {
-      if (event.key === 'Tab') {
-        // The focus guards have nothing to focus, so we need to stop the event.
-        if (
-          contains(floatingFocusElement, activeElement(ownerDocument(floatingFocusElement))) &&
-          getTabbableContent().length === 0 &&
-          !isUntrappedTypeableCombobox
-        ) {
-          stopEvent(event);
+      function onkeydown(event: KeyboardEvent) {
+        if (event.key === 'Tab') {
+          // The focus guards have nothing to focus, so we need to stop the event.
+          if (
+            contains(floatingFocusElement, activeElement(ownerDocument(floatingFocusElement))) &&
+            getTabbableContent().length === 0 &&
+            !isUntrappedTypeableCombobox
+          ) {
+            stopEvent(event);
+          }
         }
       }
-    }
 
-    const doc = ownerDocument(floatingFocusElement);
-    return addEventListener(doc, 'keydown', onkeydown);
-  }, () => [disabled, floatingFocusElement, modal, isUntrappedTypeableCombobox, getTabbableContent]);
+      const doc = ownerDocument(floatingFocusElement);
+      return addEventListener(doc, 'keydown', onkeydown);
+    },
+    () => [disabled, floatingFocusElement, modal, isUntrappedTypeableCombobox, getTabbableContent],
+  );
 
   // Track pointer/keyboard interactions to disambiguate focus and outside presses.
-  useIsoLayoutEffect(() => {
-    const { floating, domReference, floatingFocusElement } = getFloatingElements();
-    if (disabled || !open) {
-      return undefined;
-    }
+  useIsoLayoutEffect(
+    () => {
+      const { floating, domReference, floatingFocusElement } = getFloatingElements();
+      if (disabled || !open) {
+        return undefined;
+      }
 
-    const doc = ownerDocument(floatingFocusElement);
+      const doc = ownerDocument(floatingFocusElement);
 
-    function clearPointerDownOutside() {
-      pointerDownOutsideRef.current = false;
-    }
+      function clearPointerDownOutside() {
+        pointerDownOutsideRef.current = false;
+      }
 
-    function onpointerdown(event: PointerEvent) {
-      const target = getTarget(event) as Element | null;
-      const insideElements = getResolvedInsideElements();
-      const pointerTargetInside =
-        contains(floating, target) ||
-        contains(domReference, target) ||
-        contains(portalContext?.portalNode, target) ||
-        insideElements.some((element) => element === target || contains(element, target));
-      pointerDownOutsideRef.current = !pointerTargetInside;
-      lastInteractionTypeRef.current =
-        (event.pointerType as InteractionType) || 'keyboard';
+      function onpointerdown(event: PointerEvent) {
+        const target = getTarget(event) as Element | null;
+        const insideElements = getResolvedInsideElements();
+        const pointerTargetInside =
+          contains(floating, target) ||
+          contains(domReference, target) ||
+          contains(portalContext?.portalNode, target) ||
+          insideElements.some((element) => element === target || contains(element, target));
+        pointerDownOutsideRef.current = !pointerTargetInside;
+        lastInteractionTypeRef.current = (event.pointerType as InteractionType) || 'keyboard';
 
-      if (target?.closest(`[${CLICK_TRIGGER_IDENTIFIER}]`)) {
+        if (target?.closest(`[${CLICK_TRIGGER_IDENTIFIER}]`)) {
+          isPointerDownRef.current = true;
+          // Reset on the next tick so a single click on a click-trigger doesn't
+          // permanently suppress focus-out closing for the lifetime of the instance.
+          pointerDownTimeout.start(0, () => {
+            isPointerDownRef.current = false;
+          });
+        }
+      }
+
+      function onkeydown() {
+        lastInteractionTypeRef.current = 'keyboard';
+      }
+
+      return mergeCleanups(
+        addEventListener(doc, 'pointerdown', onpointerdown, true),
+        addEventListener(doc, 'pointerup', clearPointerDownOutside, true),
+        addEventListener(doc, 'pointercancel', clearPointerDownOutside, true),
+        addEventListener(doc, 'keydown', onkeydown, true),
+        // Avoid a stale `true` leaking into the next open (e.g. keep-mounted popups)
+        // if the popup dismissed between pointerdown and pointerup.
+        clearPointerDownOutside,
+      );
+    },
+    () => [
+      disabled,
+      floating,
+      domReference,
+      floatingFocusElement,
+      open,
+      portalContext,
+      pointerDownTimeout,
+      getResolvedInsideElements,
+    ],
+  );
+
+  // Close on focus out and restore focus within the floating tree when needed.
+  useIsoLayoutEffect(
+    () => {
+      const { floating, domReference, floatingFocusElement } = getFloatingElements();
+      if (disabled || !closeOnFocusOut) {
+        return undefined;
+      }
+
+      const doc = ownerDocument(floatingFocusElement);
+
+      // In Safari, buttons lose focus when pressing them.
+      function handlePointerDown() {
         isPointerDownRef.current = true;
-        // Reset on the next tick so a single click on a click-trigger doesn't
-        // permanently suppress focus-out closing for the lifetime of the instance.
         pointerDownTimeout.start(0, () => {
           isPointerDownRef.current = false;
         });
       }
-    }
 
-    function onkeydown() {
-      lastInteractionTypeRef.current = 'keyboard';
-    }
-
-    return mergeCleanups(
-      addEventListener(doc, 'pointerdown', onpointerdown, true),
-      addEventListener(doc, 'pointerup', clearPointerDownOutside, true),
-      addEventListener(doc, 'pointercancel', clearPointerDownOutside, true),
-      addEventListener(doc, 'keydown', onkeydown, true),
-      // Avoid a stale `true` leaking into the next open (e.g. keep-mounted popups)
-      // if the popup dismissed between pointerdown and pointerup.
-      clearPointerDownOutside,
-    );
-  }, () => [
-    disabled,
-    floating,
-    domReference,
-    floatingFocusElement,
-    open,
-    portalContext,
-    pointerDownTimeout,
-    getResolvedInsideElements,
-  ]);
-
-  // Close on focus out and restore focus within the floating tree when needed.
-  useIsoLayoutEffect(() => {
-    const { floating, domReference, floatingFocusElement } = getFloatingElements();
-    if (disabled || !closeOnFocusOut) {
-      return undefined;
-    }
-
-    const doc = ownerDocument(floatingFocusElement);
-
-    // In Safari, buttons lose focus when pressing them.
-    function handlePointerDown() {
-      isPointerDownRef.current = true;
-      pointerDownTimeout.start(0, () => {
-        isPointerDownRef.current = false;
-      });
-    }
-
-    function handleFocusIn(event: FocusEvent) {
-      const target = getTarget(event) as FocusableElement | null;
-      if (isTabbable(target)) {
-        lastFocusedTabbableRef.current = target;
-      }
-    }
-
-    function handleFocusOutside(event: FocusEvent) {
-      const relatedTarget = event.relatedTarget as HTMLElement | null;
-      const currentTarget = event.currentTarget;
-      const target = getTarget(event) as HTMLElement | null;
-
-      // When focus is lost to the body (e.g. on a backdrop press), record the element that
-      // had focus so a confirmation dialog opened while the body is focused can return focus
-      // to it. Scoped to `modal` to avoid non-modal popups polluting the shared stack.
-      if (modal && relatedTarget == null && target != null && contains(floating, target)) {
-        addPreviouslyFocusedElement(target);
+      function handleFocusIn(event: FocusEvent) {
+        const target = getTarget(event) as FocusableElement | null;
+        if (isTabbable(target)) {
+          lastFocusedTabbableRef.current = target;
+        }
       }
 
-      queueMicrotask(() => {
-        const nodeId = getNodeId();
-        const triggers = store.context.triggerElements;
-        const insideElements = getResolvedInsideElements();
-        const isRelatedFocusGuard =
-          relatedTarget?.hasAttribute(createAttribute('focus-guard')) &&
-          [
-            beforeGuardRef.current,
-            afterGuardRef.current,
-            portalContext?.beforeInsideRef.current,
-            portalContext?.afterInsideRef.current,
-            portalContext?.beforeOutsideRef.current,
-            portalContext?.afterOutsideRef.current,
-            resolveRef(previousFocusableElement),
-            resolveRef(nextFocusableElement),
-          ].includes(relatedTarget);
+      function handleFocusOutside(event: FocusEvent) {
+        const relatedTarget = event.relatedTarget as HTMLElement | null;
+        const currentTarget = event.currentTarget;
+        const target = getTarget(event) as HTMLElement | null;
 
-        const movedToUnrelatedNode = !(
-          contains(domReference, relatedTarget) ||
-          contains(floating, relatedTarget) ||
-          contains(relatedTarget, floating) ||
-          contains(portalContext?.portalNode, relatedTarget) ||
-          insideElements.some(
-            (element) => element === relatedTarget || contains(element, relatedTarget),
-          ) ||
-          triggers.hasMatchingElement((trigger) => contains(trigger, relatedTarget)) ||
-          isRelatedFocusGuard ||
-          (tree &&
-            (getNodeChildren(tree.nodesRef.current, nodeId).find(
-              (node) =>
-                contains(node.context?.elements.floating, relatedTarget) ||
-                contains(node.context?.elements.domReference, relatedTarget),
-            ) ||
-              getNodeAncestors(tree.nodesRef.current, nodeId).find(
-                (node) =>
-                  [
-                    node.context?.elements.floating,
-                    getFloatingFocusElement(node.context?.elements.floating),
-                  ].includes(relatedTarget) ||
-                  node.context?.elements.domReference === relatedTarget,
-              )))
-        );
-
-        if (currentTarget === domReference && floatingFocusElement) {
-          handleTabIndex(floatingFocusElement);
+        // When focus is lost to the body (e.g. on a backdrop press), record the element that
+        // had focus so a confirmation dialog opened while the body is focused can return focus
+        // to it. Scoped to `modal` to avoid non-modal popups polluting the shared stack.
+        if (modal && relatedTarget == null && target != null && contains(floating, target)) {
+          addPreviouslyFocusedElement(target);
         }
 
-        // Restore focus to the previously focused tabbable element to prevent
-        // focus from being lost outside the floating tree.
-        if (
-          restoreFocus &&
-          currentTarget !== domReference &&
-          !isElementVisible(target) &&
-          activeElement(doc) === doc.body
-        ) {
-          // Let `FloatingPortal` effect knows that focus is still inside the
-          // floating tree.
-          if (isHTMLElement(floatingFocusElement)) {
-            floatingFocusElement.focus();
-            // If explicitly requested to restore focus to the popup container, do not search
-            // for the next/previous tabbable element.
-            if (restoreFocus === 'popup') {
-              // If the focused element is removed on pointerdown, the browser
-              // tries to move focus to it right after the `.focus()` call above,
-              // but because it's removed in the same tick, focus is lost instead.
-              // Re-focusing asynchronously (next frame) wins that race.
-              restoreFocusFrame.request(() => {
-                floatingFocusElement.focus();
-              });
-              return;
+        queueMicrotask(() => {
+          const nodeId = getNodeId();
+          const triggers = store.context.triggerElements;
+          const insideElements = getResolvedInsideElements();
+          const isRelatedFocusGuard =
+            relatedTarget?.hasAttribute(createAttribute('focus-guard')) &&
+            [
+              beforeGuardRef.current,
+              afterGuardRef.current,
+              portalContext?.beforeInsideRef.current,
+              portalContext?.afterInsideRef.current,
+              portalContext?.beforeOutsideRef.current,
+              portalContext?.afterOutsideRef.current,
+              resolveRef(previousFocusableElement),
+              resolveRef(nextFocusableElement),
+            ].includes(relatedTarget);
+
+          const movedToUnrelatedNode = !(
+            contains(domReference, relatedTarget) ||
+            contains(floating, relatedTarget) ||
+            contains(relatedTarget, floating) ||
+            contains(portalContext?.portalNode, relatedTarget) ||
+            insideElements.some(
+              (element) => element === relatedTarget || contains(element, relatedTarget),
+            ) ||
+            triggers.hasMatchingElement((trigger) => contains(trigger, relatedTarget)) ||
+            isRelatedFocusGuard ||
+            (tree &&
+              (getNodeChildren(tree.nodesRef.current, nodeId).find(
+                (node) =>
+                  contains(node.context?.elements.floating, relatedTarget) ||
+                  contains(node.context?.elements.domReference, relatedTarget),
+              ) ||
+                getNodeAncestors(tree.nodesRef.current, nodeId).find(
+                  (node) =>
+                    [
+                      node.context?.elements.floating,
+                      getFloatingFocusElement(node.context?.elements.floating),
+                    ].includes(relatedTarget) ||
+                    node.context?.elements.domReference === relatedTarget,
+                )))
+          );
+
+          if (currentTarget === domReference && floatingFocusElement) {
+            handleTabIndex(floatingFocusElement);
+          }
+
+          // Restore focus to the previously focused tabbable element to prevent
+          // focus from being lost outside the floating tree.
+          if (
+            restoreFocus &&
+            currentTarget !== domReference &&
+            !isElementVisible(target) &&
+            activeElement(doc) === doc.body
+          ) {
+            // Let `FloatingPortal` effect knows that focus is still inside the
+            // floating tree.
+            if (isHTMLElement(floatingFocusElement)) {
+              floatingFocusElement.focus();
+              // If explicitly requested to restore focus to the popup container, do not search
+              // for the next/previous tabbable element.
+              if (restoreFocus === 'popup') {
+                // If the focused element is removed on pointerdown, the browser
+                // tries to move focus to it right after the `.focus()` call above,
+                // but because it's removed in the same tick, focus is lost instead.
+                // Re-focusing asynchronously (next frame) wins that race.
+                restoreFocusFrame.request(() => {
+                  floatingFocusElement.focus();
+                });
+                return;
+              }
+            }
+
+            const tabbableContent = getTabbableContent() as Array<Element | null>;
+            const prevTabbable = lastFocusedTabbableRef.current;
+            const nodeToFocus =
+              (prevTabbable && tabbableContent.includes(prevTabbable) ? prevTabbable : null) ||
+              tabbableContent[tabbableContent.length - 1] ||
+              floatingFocusElement;
+
+            if (isHTMLElement(nodeToFocus)) {
+              nodeToFocus.focus();
             }
           }
 
-          const tabbableContent = getTabbableContent() as Array<Element | null>;
-          const prevTabbable = lastFocusedTabbableRef.current;
-          const nodeToFocus =
-            (prevTabbable && tabbableContent.includes(prevTabbable) ? prevTabbable : null) ||
-            tabbableContent[tabbableContent.length - 1] ||
-            floatingFocusElement;
-
-          if (isHTMLElement(nodeToFocus)) {
-            nodeToFocus.focus();
+          // https://github.com/floating-ui/floating-ui/issues/3060
+          if (dataRef.current.insideTree) {
+            dataRef.current.insideTree = false;
+            return;
           }
-        }
 
-        // https://github.com/floating-ui/floating-ui/issues/3060
-        if (dataRef.current.insideTree) {
+          // Focus did not move inside the floating tree, and there are no tabbable
+          // portal guards to handle closing.
+          if (
+            (isUntrappedTypeableCombobox ? true : !modal) &&
+            relatedTarget &&
+            movedToUnrelatedNode &&
+            !isPointerDownRef.current &&
+            // Fix React 18 Strict Mode returnFocus due to double rendering.
+            // For an "untrapped" typeable combobox (input role=combobox with
+            // initialFocus=false), re-opening the popup and tabbing out should still close it even
+            // when the previously focused element (e.g. the next tabbable outside the popup) is
+            // focused again. Otherwise, the popup remains open on the second Tab sequence:
+            // click input -> Tab (closes) -> click input -> Tab.
+            // Allow closing when `isUntrappedTypeableCombobox` regardless of the previously focused element.
+            (isUntrappedTypeableCombobox || relatedTarget !== getPreviouslyFocusedElement())
+          ) {
+            preventReturnFocusRef.current = true;
+            store.setOpen(false, createChangeEventDetails(REASONS.focusOut, event));
+          }
+        });
+      }
+
+      function markInsideTree() {
+        if (pointerDownOutsideRef.current) {
+          return;
+        }
+        dataRef.current.insideTree = true;
+        blurTimeout.start(0, () => {
           dataRef.current.insideTree = false;
+        });
+      }
+
+      const domReferenceElement = isHTMLElement(domReference) ? domReference : null;
+      if (!floating && !domReferenceElement) {
+        return undefined;
+      }
+
+      return mergeCleanups(
+        domReferenceElement &&
+          addEventListener(domReferenceElement, 'focusout', handleFocusOutside),
+        domReferenceElement &&
+          addEventListener(domReferenceElement, 'pointerdown', handlePointerDown),
+        floating && addEventListener(floating, 'focusin', handleFocusIn),
+        floating && addEventListener(floating, 'focusout', handleFocusOutside),
+        floating && portalContext && addEventListener(floating, 'focusout', markInsideTree, true),
+      );
+    },
+    () => [
+      disabled,
+      domReference,
+      floating,
+      floatingFocusElement,
+      modal,
+      tree,
+      portalContext,
+      store,
+      closeOnFocusOut,
+      restoreFocus,
+      getTabbableContent,
+      isUntrappedTypeableCombobox,
+      getNodeId,
+      dataRef,
+      blurTimeout,
+      pointerDownTimeout,
+      restoreFocusFrame,
+      nextFocusableElement,
+      previousFocusableElement,
+      getResolvedInsideElements,
+    ],
+  );
+
+  // Hide everything outside the floating tree from assistive tech while open.
+  useIsoLayoutEffect(
+    () => {
+      const { floating, domReference } = getFloatingElements();
+      if (disabled || !floating || !open) {
+        return undefined;
+      }
+
+      // Don't hide portals nested within the parent portal.
+      const portalNodes = Array.from(
+        portalContext?.portalNode?.querySelectorAll(`[${createAttribute('portal')}]`) || [],
+      );
+
+      const ancestors = tree ? getNodeAncestors(tree.nodesRef.current, getNodeId()) : [];
+      const rootAncestorComboboxDomReference = ancestors.find((node) =>
+        isTypeableCombobox(node.context?.elements.domReference || null),
+      )?.context?.elements.domReference;
+
+      const controlInsideElements = [
+        floating,
+        ...portalNodes,
+        beforeGuardRef.current,
+        afterGuardRef.current,
+        portalContext?.beforeOutsideRef.current,
+        portalContext?.afterOutsideRef.current,
+        ...getResolvedInsideElements(),
+      ];
+      const insideElements = [
+        ...controlInsideElements,
+        rootAncestorComboboxDomReference,
+        resolveRef(previousFocusableElement),
+        resolveRef(nextFocusableElement),
+        isUntrappedTypeableCombobox ? domReference : null,
+      ].filter((x): x is Element => x != null);
+
+      const ariaHiddenCleanup = markOthers(insideElements, {
+        ariaHidden: modal || isUntrappedTypeableCombobox,
+        mark: false,
+      });
+
+      const markerInsideElements = [floating, ...portalNodes].filter(
+        (x): x is Element => x != null,
+      );
+      const markerCleanup = markOthers(markerInsideElements);
+
+      return () => {
+        markerCleanup();
+        ariaHiddenCleanup();
+      };
+    },
+    () => [
+      open,
+      disabled,
+      domReference,
+      floating,
+      modal,
+      portalContext,
+      isUntrappedTypeableCombobox,
+      tree,
+      getNodeId,
+      nextFocusableElement,
+      previousFocusableElement,
+      getResolvedInsideElements,
+    ],
+  );
+
+  // Focus the initial element when the floating element opens.
+  useIsoLayoutEffect(
+    () => {
+      const { floatingFocusElement } = getFloatingElements();
+      if (!open || disabled || !isHTMLElement(floatingFocusElement)) {
+        return;
+      }
+
+      closeTypeRef.current = '';
+      lastInteractionTypeRef.current = '';
+
+      const doc = ownerDocument(floatingFocusElement);
+      const previouslyFocusedElement = activeElement(doc);
+
+      // Wait for any layout effect state setters to execute to set `tabIndex`.
+      queueMicrotask(() => {
+        const initialFocusValueOrFn = initialFocusRef.current;
+        const resolvedInitialFocus =
+          typeof initialFocusValueOrFn === 'function'
+            ? initialFocusValueOrFn(openInteractionTypeRef.current || '')
+            : initialFocusValueOrFn;
+
+        // `null` should fallback to default behavior in case of an empty ref.
+        if (resolvedInitialFocus === undefined || resolvedInitialFocus === false) {
           return;
         }
 
-        // Focus did not move inside the floating tree, and there are no tabbable
-        // portal guards to handle closing.
-        if (
-          (isUntrappedTypeableCombobox ? true : !modal) &&
-          relatedTarget &&
-          movedToUnrelatedNode &&
-          !isPointerDownRef.current &&
-          // Fix React 18 Strict Mode returnFocus due to double rendering.
-          // For an "untrapped" typeable combobox (input role=combobox with
-          // initialFocus=false), re-opening the popup and tabbing out should still close it even
-          // when the previously focused element (e.g. the next tabbable outside the popup) is
-          // focused again. Otherwise, the popup remains open on the second Tab sequence:
-          // click input -> Tab (closes) -> click input -> Tab.
-          // Allow closing when `isUntrappedTypeableCombobox` regardless of the previously focused element.
-          (isUntrappedTypeableCombobox || relatedTarget !== getPreviouslyFocusedElement())
-        ) {
-          preventReturnFocusRef.current = true;
-          store.setOpen(false, createChangeEventDetails(REASONS.focusOut, event));
-        }
-      });
-    }
+        const focusAlreadyInsideFloatingEl = contains(
+          floatingFocusElement,
+          previouslyFocusedElement,
+        );
 
-    function markInsideTree() {
-      if (pointerDownOutsideRef.current) {
-        return;
-      }
-      dataRef.current.insideTree = true;
-      blurTimeout.start(0, () => {
-        dataRef.current.insideTree = false;
-      });
-    }
-
-    const domReferenceElement = isHTMLElement(domReference) ? domReference : null;
-    if (!floating && !domReferenceElement) {
-      return undefined;
-    }
-
-    return mergeCleanups(
-      domReferenceElement && addEventListener(domReferenceElement, 'focusout', handleFocusOutside),
-      domReferenceElement &&
-        addEventListener(domReferenceElement, 'pointerdown', handlePointerDown),
-      floating && addEventListener(floating, 'focusin', handleFocusIn),
-      floating && addEventListener(floating, 'focusout', handleFocusOutside),
-      floating &&
-        portalContext &&
-        addEventListener(floating, 'focusout', markInsideTree, true),
-    );
-  }, () => [
-    disabled,
-    domReference,
-    floating,
-    floatingFocusElement,
-    modal,
-    tree,
-    portalContext,
-    store,
-    closeOnFocusOut,
-    restoreFocus,
-    getTabbableContent,
-    isUntrappedTypeableCombobox,
-    getNodeId,
-    dataRef,
-    blurTimeout,
-    pointerDownTimeout,
-    restoreFocusFrame,
-    nextFocusableElement,
-    previousFocusableElement,
-    getResolvedInsideElements,
-  ]);
-
-  // Hide everything outside the floating tree from assistive tech while open.
-  useIsoLayoutEffect(() => {
-    const { floating, domReference } = getFloatingElements();
-    if (disabled || !floating || !open) {
-      return undefined;
-    }
-
-    // Don't hide portals nested within the parent portal.
-    const portalNodes = Array.from(
-      portalContext?.portalNode?.querySelectorAll(`[${createAttribute('portal')}]`) || [],
-    );
-
-    const ancestors = tree ? getNodeAncestors(tree.nodesRef.current, getNodeId()) : [];
-    const rootAncestorComboboxDomReference = ancestors.find((node) =>
-      isTypeableCombobox(node.context?.elements.domReference || null),
-    )?.context?.elements.domReference;
-
-    const controlInsideElements = [
-      floating,
-      ...portalNodes,
-      beforeGuardRef.current,
-      afterGuardRef.current,
-      portalContext?.beforeOutsideRef.current,
-      portalContext?.afterOutsideRef.current,
-      ...getResolvedInsideElements(),
-    ];
-    const insideElements = [
-      ...controlInsideElements,
-      rootAncestorComboboxDomReference,
-      resolveRef(previousFocusableElement),
-      resolveRef(nextFocusableElement),
-      isUntrappedTypeableCombobox ? domReference : null,
-    ].filter((x): x is Element => x != null);
-
-    const ariaHiddenCleanup = markOthers(insideElements, {
-      ariaHidden: modal || isUntrappedTypeableCombobox,
-      mark: false,
-    });
-
-    const markerInsideElements = [floating, ...portalNodes].filter((x): x is Element => x != null);
-    const markerCleanup = markOthers(markerInsideElements);
-
-    return () => {
-      markerCleanup();
-      ariaHiddenCleanup();
-    };
-  }, () => [
-    open,
-    disabled,
-    domReference,
-    floating,
-    modal,
-    portalContext,
-    isUntrappedTypeableCombobox,
-    tree,
-    getNodeId,
-    nextFocusableElement,
-    previousFocusableElement,
-    getResolvedInsideElements,
-  ]);
-
-  // Focus the initial element when the floating element opens.
-  useIsoLayoutEffect(() => {
-    const { floatingFocusElement } = getFloatingElements();
-    if (!open || disabled || !isHTMLElement(floatingFocusElement)) {
-      return;
-    }
-
-    closeTypeRef.current = '';
-    lastInteractionTypeRef.current = '';
-
-    const doc = ownerDocument(floatingFocusElement);
-    const previouslyFocusedElement = activeElement(doc);
-
-    // Wait for any layout effect state setters to execute to set `tabIndex`.
-    queueMicrotask(() => {
-      const initialFocusValueOrFn = initialFocusRef.current;
-      const resolvedInitialFocus =
-        typeof initialFocusValueOrFn === 'function'
-          ? initialFocusValueOrFn(openInteractionTypeRef.current || '')
-          : initialFocusValueOrFn;
-
-      // `null` should fallback to default behavior in case of an empty ref.
-      if (resolvedInitialFocus === undefined || resolvedInitialFocus === false) {
-        return;
-      }
-
-      const focusAlreadyInsideFloatingEl = contains(floatingFocusElement, previouslyFocusedElement);
-
-      if (focusAlreadyInsideFloatingEl) {
-        return;
-      }
-
-      let focusableElements: Array<FocusableElement> | null = null;
-      const getDefaultFocusElement = () => {
-        if (focusableElements == null) {
-          focusableElements = getTabbableContent(floatingFocusElement);
+        if (focusAlreadyInsideFloatingEl) {
+          return;
         }
 
-        return focusableElements[0] || floatingFocusElement;
-      };
-
-      let elToFocus: FocusableElement | null | undefined;
-      if (resolvedInitialFocus === true || resolvedInitialFocus === null) {
-        elToFocus = getDefaultFocusElement();
-      } else {
-        elToFocus = resolveRef(resolvedInitialFocus);
-      }
-      elToFocus = elToFocus || getDefaultFocusElement();
-
-      const hadFocusInside = contains(floatingFocusElement, activeElement(doc));
-
-      // enqueueFocus returns a rAF-cancel function; we intentionally don't cancel this focus.
-      void enqueueFocus(elToFocus, {
-        preventScroll: elToFocus === floatingFocusElement,
-        shouldFocus() {
-          // This focus is queued on the next animation frame. If the floating element has closed
-          // before it runs — e.g. tabbing out of a kept-mounted popup — don't pull focus back
-          // onto the initial element after it has legitimately moved elsewhere.
-          if (!openRef.current) {
-            return false;
+        let focusableElements: Array<FocusableElement> | null = null;
+        const getDefaultFocusElement = () => {
+          if (focusableElements == null) {
+            focusableElements = getTabbableContent(floatingFocusElement);
           }
 
-          if (hadFocusInside) {
-            return true;
-          }
+          return focusableElements[0] || floatingFocusElement;
+        };
 
-          const currentActiveElement = activeElement(doc);
-          const focusMovedInside =
-            currentActiveElement !== elToFocus &&
-            contains(floatingFocusElement, currentActiveElement);
+        let elToFocus: FocusableElement | null | undefined;
+        if (resolvedInitialFocus === true || resolvedInitialFocus === null) {
+          elToFocus = getDefaultFocusElement();
+        } else {
+          elToFocus = resolveRef(resolvedInitialFocus);
+        }
+        elToFocus = elToFocus || getDefaultFocusElement();
 
-          return !focusMovedInside;
-        },
+        const hadFocusInside = contains(floatingFocusElement, activeElement(doc));
+
+        // enqueueFocus returns a rAF-cancel function; we intentionally don't cancel this focus.
+        void enqueueFocus(elToFocus, {
+          preventScroll: elToFocus === floatingFocusElement,
+          shouldFocus() {
+            // This focus is queued on the next animation frame. If the floating element has closed
+            // before it runs — e.g. tabbing out of a kept-mounted popup — don't pull focus back
+            // onto the initial element after it has legitimately moved elsewhere.
+            if (!openRef.current) {
+              return false;
+            }
+
+            if (hadFocusInside) {
+              return true;
+            }
+
+            const currentActiveElement = activeElement(doc);
+            const focusMovedInside =
+              currentActiveElement !== elToFocus &&
+              contains(floatingFocusElement, currentActiveElement);
+
+            return !focusMovedInside;
+          },
+        });
       });
-    });
-  }, () => [
-    disabled,
-    open,
-    floatingFocusElement,
-    getTabbableContent,
-    initialFocusRef,
-    openInteractionTypeRef,
-    openRef,
-  ]);
+    },
+    () => [
+      disabled,
+      open,
+      floatingFocusElement,
+      getTabbableContent,
+      initialFocusRef,
+      openInteractionTypeRef,
+      openRef,
+    ],
+  );
 
   // Track return focus targets and restore focus on unmount/close.
-  useIsoLayoutEffect(() => {
-    const { floating, domReference, floatingFocusElement } = getFloatingElements();
-    if (disabled || !floatingFocusElement) {
-      return undefined;
-    }
-
-    const doc = ownerDocument(floatingFocusElement);
-    const elementFocusedBeforeOpen = activeElement(doc);
-    // Only an explicit `null` interaction type represents a programmatic open.
-    // `undefined` is normalized to `''` by the prop default, so it never reaches
-    // here as nullish and is intentionally not treated as programmatic.
-    const preferPreviousFocus = openInteractionTypeRef.current == null;
-
-    addPreviouslyFocusedElement(elementFocusedBeforeOpen);
-
-    function onOpenChangeLocal(details: FloatingUIOpenChangeDetails) {
-      if (!details.open) {
-        closeTypeRef.current = getEventType(details.nativeEvent, lastInteractionTypeRef.current);
+  useIsoLayoutEffect(
+    () => {
+      const { floating, domReference, floatingFocusElement } = getFloatingElements();
+      if (disabled || !floatingFocusElement) {
+        return undefined;
       }
 
-      if (details.reason === REASONS.triggerHover && details.nativeEvent.type === 'mouseleave') {
-        preventReturnFocusRef.current = true;
-      }
+      const doc = ownerDocument(floatingFocusElement);
+      const elementFocusedBeforeOpen = activeElement(doc);
+      // Only an explicit `null` interaction type represents a programmatic open.
+      // `undefined` is normalized to `''` by the prop default, so it never reaches
+      // here as nullish and is intentionally not treated as programmatic.
+      const preferPreviousFocus = openInteractionTypeRef.current == null;
 
-      if (details.reason !== REASONS.outsidePress) {
-        return;
-      }
+      addPreviouslyFocusedElement(elementFocusedBeforeOpen);
 
-      if (details.nested) {
-        preventReturnFocusRef.current = false;
-      } else if (
-        isVirtualClick(details.nativeEvent as MouseEvent) ||
-        isVirtualPointerEvent(details.nativeEvent as PointerEvent)
-      ) {
-        preventReturnFocusRef.current = false;
-      } else {
-        // On outside press, only return focus to the reference when the browser supports the
-        // `focus({ preventScroll })` option; without it, restoring focus scrolls the page.
-        // Chrome on Android and Samsung Internet still don't support `preventScroll`
-        // (https://issues.chromium.org/issues/41453122), so the runtime check keeps return
-        // focus disabled there to avoid the scroll jump.
-        let isPreventScrollSupported = false;
-        ownerDocument(floatingFocusElement)
-          .createElement('div')
-          .focus({
-            get preventScroll() {
-              isPreventScrollSupported = true;
-              return false;
-            },
-          });
+      function onOpenChangeLocal(details: FloatingUIOpenChangeDetails) {
+        if (!details.open) {
+          closeTypeRef.current = getEventType(details.nativeEvent, lastInteractionTypeRef.current);
+        }
 
-        if (isPreventScrollSupported) {
-          preventReturnFocusRef.current = false;
-        } else {
+        if (details.reason === REASONS.triggerHover && details.nativeEvent.type === 'mouseleave') {
           preventReturnFocusRef.current = true;
         }
-      }
-    }
 
-    events.on('openchange', onOpenChangeLocal);
-
-    function getReturnElement(closeType: InteractionType) {
-      const returnFocusValueOrFn = returnFocusRef.current;
-      let resolvedReturnFocusValue =
-        typeof returnFocusValueOrFn === 'function'
-          ? returnFocusValueOrFn(closeType)
-          : returnFocusValueOrFn;
-
-      // `null` should fallback to default behavior in case of an empty ref.
-      if (resolvedReturnFocusValue === undefined || resolvedReturnFocusValue === false) {
-        return null;
-      }
-
-      if (resolvedReturnFocusValue === null) {
-        resolvedReturnFocusValue = true;
-      }
-
-      const referenceReturnElement = domReference?.isConnected ? domReference : null;
-      const previousReturnElement =
-        elementFocusedBeforeOpen?.isConnected && getNodeName(elementFocusedBeforeOpen) !== 'body'
-          ? elementFocusedBeforeOpen
-          : null;
-
-      let defaultReturnElement = preferPreviousFocus
-        ? previousReturnElement || referenceReturnElement
-        : referenceReturnElement || previousReturnElement;
-
-      if (!defaultReturnElement) {
-        defaultReturnElement = getPreviouslyFocusedElement() || null;
-      }
-
-      if (typeof resolvedReturnFocusValue === 'boolean') {
-        return defaultReturnElement;
-      }
-
-      return resolveRef(resolvedReturnFocusValue) || defaultReturnElement || null;
-    }
-
-    return () => {
-      events.off('openchange', onOpenChangeLocal);
-
-      const activeEl = activeElement(doc);
-      const insideElements = getResolvedInsideElements();
-      const isFocusInsideFloatingTree =
-        contains(floating, activeEl) ||
-        insideElements.some((element) => element === activeEl || contains(element, activeEl)) ||
-        (tree &&
-          getNodeChildren(tree.nodesRef.current, getNodeId(), false).some((node) =>
-            contains(node.context?.elements.floating, activeEl),
-          ));
-
-      const returnFocusValueOrFn = returnFocusRef.current;
-      const closeType = closeTypeRef.current;
-      const returnElement = getReturnElement(closeType);
-
-      queueMicrotask(() => {
-        // `returnElement` if it is tabbable, otherwise its first tabbable child,
-        // otherwise `returnElement` itself (which may not be tabbable at all).
-        const tabbableReturnElement = getFirstTabbableElement(returnElement);
-        const hasExplicitReturnFocus = typeof returnFocusValueOrFn !== 'boolean';
-
-        if (
-          returnFocusValueOrFn &&
-          !preventReturnFocusRef.current &&
-          isHTMLElement(tabbableReturnElement) &&
-          // If the focus moved somewhere else after mount, avoid returning focus
-          // since it likely entered a different element which should be
-          // respected: https://github.com/floating-ui/floating-ui/issues/2607
-          (!hasExplicitReturnFocus && tabbableReturnElement !== activeEl && activeEl !== doc.body
-            ? isFocusInsideFloatingTree
-            : true)
-        ) {
-          const focusOptions: FocusOptions & { focusVisible?: boolean } = { preventScroll: true };
-          if (closeType === 'keyboard') {
-            focusOptions.focusVisible = true;
-          }
-          tabbableReturnElement.focus(focusOptions);
+        if (details.reason !== REASONS.outsidePress) {
+          return;
         }
 
-        preventReturnFocusRef.current = false;
-      });
-    };
-  }, () => [
-    disabled,
-    floating,
-    floatingFocusElement,
-    returnFocusRef,
-    openInteractionTypeRef,
-    events,
-    tree,
-    domReference,
-    getNodeId,
-    getResolvedInsideElements,
-  ]);
+        if (details.nested) {
+          preventReturnFocusRef.current = false;
+        } else if (
+          isVirtualClick(details.nativeEvent as MouseEvent) ||
+          isVirtualPointerEvent(details.nativeEvent as PointerEvent)
+        ) {
+          preventReturnFocusRef.current = false;
+        } else {
+          // On outside press, only return focus to the reference when the browser supports the
+          // `focus({ preventScroll })` option; without it, restoring focus scrolls the page.
+          // Chrome on Android and Samsung Internet still don't support `preventScroll`
+          // (https://issues.chromium.org/issues/41453122), so the runtime check keeps return
+          // focus disabled there to avoid the scroll jump.
+          let isPreventScrollSupported = false;
+          ownerDocument(floatingFocusElement)
+            .createElement('div')
+            .focus({
+              get preventScroll() {
+                isPreventScrollSupported = true;
+                return false;
+              },
+            });
+
+          if (isPreventScrollSupported) {
+            preventReturnFocusRef.current = false;
+          } else {
+            preventReturnFocusRef.current = true;
+          }
+        }
+      }
+
+      events.on('openchange', onOpenChangeLocal);
+
+      function getReturnElement(closeType: InteractionType) {
+        const returnFocusValueOrFn = returnFocusRef.current;
+        let resolvedReturnFocusValue =
+          typeof returnFocusValueOrFn === 'function'
+            ? returnFocusValueOrFn(closeType)
+            : returnFocusValueOrFn;
+
+        // `null` should fallback to default behavior in case of an empty ref.
+        if (resolvedReturnFocusValue === undefined || resolvedReturnFocusValue === false) {
+          return null;
+        }
+
+        if (resolvedReturnFocusValue === null) {
+          resolvedReturnFocusValue = true;
+        }
+
+        const referenceReturnElement = domReference?.isConnected ? domReference : null;
+        const previousReturnElement =
+          elementFocusedBeforeOpen?.isConnected && getNodeName(elementFocusedBeforeOpen) !== 'body'
+            ? elementFocusedBeforeOpen
+            : null;
+
+        let defaultReturnElement = preferPreviousFocus
+          ? previousReturnElement || referenceReturnElement
+          : referenceReturnElement || previousReturnElement;
+
+        if (!defaultReturnElement) {
+          defaultReturnElement = getPreviouslyFocusedElement() || null;
+        }
+
+        if (typeof resolvedReturnFocusValue === 'boolean') {
+          return defaultReturnElement;
+        }
+
+        return resolveRef(resolvedReturnFocusValue) || defaultReturnElement || null;
+      }
+
+      return () => {
+        events.off('openchange', onOpenChangeLocal);
+
+        const activeEl = activeElement(doc);
+        const insideElements = getResolvedInsideElements();
+        const isFocusInsideFloatingTree =
+          contains(floating, activeEl) ||
+          insideElements.some((element) => element === activeEl || contains(element, activeEl)) ||
+          (tree &&
+            getNodeChildren(tree.nodesRef.current, getNodeId(), false).some((node) =>
+              contains(node.context?.elements.floating, activeEl),
+            ));
+
+        const returnFocusValueOrFn = returnFocusRef.current;
+        const closeType = closeTypeRef.current;
+        const returnElement = getReturnElement(closeType);
+
+        queueMicrotask(() => {
+          // `returnElement` if it is tabbable, otherwise its first tabbable child,
+          // otherwise `returnElement` itself (which may not be tabbable at all).
+          const tabbableReturnElement = getFirstTabbableElement(returnElement);
+          const hasExplicitReturnFocus = typeof returnFocusValueOrFn !== 'boolean';
+
+          if (
+            returnFocusValueOrFn &&
+            !preventReturnFocusRef.current &&
+            isHTMLElement(tabbableReturnElement) &&
+            // If the focus moved somewhere else after mount, avoid returning focus
+            // since it likely entered a different element which should be
+            // respected: https://github.com/floating-ui/floating-ui/issues/2607
+            (!hasExplicitReturnFocus && tabbableReturnElement !== activeEl && activeEl !== doc.body
+              ? isFocusInsideFloatingTree
+              : true)
+          ) {
+            const focusOptions: FocusOptions & { focusVisible?: boolean } = { preventScroll: true };
+            if (closeType === 'keyboard') {
+              focusOptions.focusVisible = true;
+            }
+            tabbableReturnElement.focus(focusOptions);
+          }
+
+          preventReturnFocusRef.current = false;
+        });
+      };
+    },
+    () => [
+      disabled,
+      floating,
+      floatingFocusElement,
+      returnFocusRef,
+      openInteractionTypeRef,
+      events,
+      tree,
+      domReference,
+      getNodeId,
+      getResolvedInsideElements,
+    ],
+  );
 
   // Safari may randomly scroll to the bottom of the page if an input inside a popup has focus
   // when the popup unmounts from the DOM.
   // By blurring it before the popup unmounts, we can prevent this behavior.
-  useIsoLayoutEffect(() => {
-    const { floating } = getFloatingElements();
-    if (!platform.engine.webkit || open || !floating) {
-      return;
-    }
+  useIsoLayoutEffect(
+    () => {
+      const { floating } = getFloatingElements();
+      if (!platform.engine.webkit || open || !floating) {
+        return;
+      }
 
-    const activeEl = activeElement(ownerDocument(floating));
-    if (!isHTMLElement(activeEl) || !isTypeableElement(activeEl)) {
-      return;
-    }
+      const activeEl = activeElement(ownerDocument(floating));
+      if (!isHTMLElement(activeEl) || !isTypeableElement(activeEl)) {
+        return;
+      }
 
-    if (contains(floating, activeEl)) {
-      activeEl.blur();
-    }
-  }, () => [open, floating]);
+      if (contains(floating, activeEl)) {
+        activeEl.blur();
+      }
+    },
+    () => [open, floating],
+  );
 
   // Synchronize the focus manager state (modal, closeOnFocusOut, open, etc.) to the
   // FloatingPortal context, which uses it to decide whether to render its own guards.
-  useIsoLayoutEffect(() => {
-    const { domReference } = getFloatingElements();
-    if (disabled || !portalContext) {
-      return undefined;
-    }
+  useIsoLayoutEffect(
+    () => {
+      const { domReference } = getFloatingElements();
+      if (disabled || !portalContext) {
+        return undefined;
+      }
 
-    portalContext.setFocusManagerState({
-      modal,
-      closeOnFocusOut,
-      open,
-      onOpenChange: store.setOpen,
-      domReference,
-    });
+      portalContext.setFocusManagerState({
+        modal,
+        closeOnFocusOut,
+        open,
+        onOpenChange: store.setOpen,
+        domReference,
+      });
 
-    return () => {
-      portalContext.setFocusManagerState(null);
-    };
-  }, () => [disabled, portalContext, modal, open, store, closeOnFocusOut, domReference]);
+      return () => {
+        portalContext.setFocusManagerState(null);
+      };
+    },
+    () => [disabled, portalContext, modal, open, store, closeOnFocusOut, domReference],
+  );
 
   // Keep the floating element tabIndex in sync and clear stale focus records.
-  useIsoLayoutEffect(() => {
-    const { floatingFocusElement } = getFloatingElements();
-    if (disabled || !floatingFocusElement) {
-      return undefined;
-    }
-    handleTabIndex(floatingFocusElement);
-    return () => {
-      queueMicrotask(clearDisconnectedPreviouslyFocusedElements);
-    };
-  }, () => [disabled, floatingFocusElement]);
+  useIsoLayoutEffect(
+    () => {
+      const { floatingFocusElement } = getFloatingElements();
+      if (disabled || !floatingFocusElement) {
+        return undefined;
+      }
+      handleTabIndex(floatingFocusElement);
+      return () => {
+        queueMicrotask(clearDisconnectedPreviouslyFocusedElements);
+      };
+    },
+    () => [disabled, floatingFocusElement],
+  );
 
-  const shouldRenderGuards = $derived(!disabled && (modal ? !isUntrappedTypeableCombobox : true) && (isInsidePortal || modal));
-
+  const shouldRenderGuards = $derived(
+    !disabled && (modal ? !isUntrappedTypeableCombobox : true) && (isInsidePortal || modal),
+  );
 
   function onBeforeFocus(event: FocusEvent) {
-    if (modal) { const els = getTabbableContent(); void enqueueFocus(els[els.length - 1]); }
-    else if (portalContext?.portalNode) {
+    if (modal) {
+      const els = getTabbableContent();
+      void enqueueFocus(els[els.length - 1]);
+    } else if (portalContext?.portalNode) {
       preventReturnFocusRef.current = false;
       if (isOutsideEvent(event, portalContext.portalNode)) getNextTabbable(domReference)?.focus();
       else resolveRef(previousFocusableElement ?? portalContext.beforeOutsideRef)?.focus();
@@ -974,13 +1028,22 @@ export function createFloatingFocusManager(getProps: () => FloatingFocusManagerP
     if (modal) void enqueueFocus(getTabbableContent()[0]);
     else if (portalContext?.portalNode) {
       if (closeOnFocusOut) preventReturnFocusRef.current = true;
-      if (isOutsideEvent(event, portalContext.portalNode)) getPreviousTabbable(domReference)?.focus();
+      if (isOutsideEvent(event, portalContext.portalNode))
+        getPreviousTabbable(domReference)?.focus();
       else resolveRef(nextFocusableElement ?? portalContext.afterOutsideRef)?.focus();
     }
   }
   return {
-    get shouldRenderGuards() { return shouldRenderGuards; },
-    get beforeRef() { return mergedBeforeGuardRef; }, get afterRef() { return mergedAfterGuardRef; },
-    onBeforeFocus, onAfterFocus,
+    get shouldRenderGuards() {
+      return shouldRenderGuards;
+    },
+    get beforeRef() {
+      return mergedBeforeGuardRef;
+    },
+    get afterRef() {
+      return mergedAfterGuardRef;
+    },
+    onBeforeFocus,
+    onAfterFocus,
   };
 }

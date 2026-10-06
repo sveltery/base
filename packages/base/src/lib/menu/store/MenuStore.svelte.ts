@@ -1,7 +1,7 @@
 // Original Base UI 1.8.0 MenuStore business. MIT: THIRD_PARTY_NOTICES.md.
-import { SvelteStore } from '../../utils/store/SvelteStore.svelte.js';
-import { EMPTY_OBJECT, NOOP } from '../../utils/empty.js';
-import type { InteractionType } from '../../utils/useEnhancedClickHandler.js';
+import { SvelteStore } from '@sveltery/utils/store';
+import { EMPTY_OBJECT, NOOP } from '@sveltery/utils/empty';
+import type { InteractionType } from '@sveltery/utils/useEnhancedClickHandler';
 import type { MenuParent, MenuRoot } from '../types.js';
 import { FloatingTreeStore } from '../../floating-ui/components/FloatingTreeStore.js';
 import type { HTMLProps } from '../../internals/types.js';

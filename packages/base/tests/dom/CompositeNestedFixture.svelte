@@ -13,7 +13,9 @@
   let inner = $derived({ disabled: true, focusableWhenDisabled: false, owner: 'inner', revision });
   let map = $state.raw(new Map<Element, CompositeMetadata>());
   const disabledIndices = $derived(
-    [...map.values()].filter(item => item.disabled && !item.focusableWhenDisabled).map(item => item.index),
+    [...map.values()]
+      .filter((item) => item.disabled && !item.focusableWhenDisabled)
+      .map((item) => item.index),
   );
 
   export function updateInner() {
@@ -30,13 +32,18 @@
 <CompositeRoot
   orientation="horizontal"
   {disabledIndices}
-  onMapChange={value => { map = value; onMap(value); }}
+  onMapChange={(value) => {
+    map = value;
+    onMap(value);
+  }}
 >
   <CompositeItem tag="button" metadata={outer} data-testid="first">First</CompositeItem>
   {#if visible}
     <CompositeItem tag="button" metadata={outer}>
       {#snippet render(props: HTMLProps)}
-        <CompositeItem tag={hostTag} metadata={inner} {...props} data-testid="shared">Shared</CompositeItem>
+        <CompositeItem tag={hostTag} metadata={inner} {...props} data-testid="shared"
+          >Shared</CompositeItem
+        >
       {/snippet}
     </CompositeItem>
   {/if}

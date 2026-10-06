@@ -41,6 +41,8 @@ jobs:
     name: Verification
     runs-on: ubuntu-24.04
     timeout-minutes: 15
+    env:
+      SVELTERY_PACKAGE_ARTIFACTS: ${{ github.workspace }}/.checks/npm-package/artifacts.json
     steps:
       - uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6.1.0
         with:
@@ -57,23 +59,33 @@ jobs:
       - name: Frozen workspace install
         run: bash scripts/bootstrap.sh
       - name: Script regressions
-        run: node --test scripts/tests/*.test.mjs
-      - name: Library build
-        run: pnpm --filter @sveltery/base build
+        run: node --test --test-concurrency=1 scripts/tests/*.test.mjs
+      - name: Fresh native library tarballs
+        run: |
+          bash scripts/prepare-package-artifacts.sh
+          echo "SVELTERY_WORKSPACE_READY=1" >> "$GITHUB_ENV"
       - name: Type and Svelte checks
         run: pnpm check
       - name: Runtime tests
         run: pnpm test
       - name: Svelte DOM wiring
-        run: pnpm --filter @sveltery/base test:dom
+        run: pnpm test:dom
       - name: Fixture SSR and client build
         run: pnpm --filter @sveltery/fixtures build
       - name: Packaged runtime boundary
         run: node --import ./scripts/svelte-ssr-loader.mjs scripts/check-runtime.mjs
-      - name: Isolated tarball consumer and license
+      - name: Validated Svelte tarball, consumers and license
         run: bash scripts/check-package.sh
       - name: Installed private click and public consumer boundary
         run: bash scripts/check-use-click-package.sh
+      - name: Preserve npm artifact and complete type-resolution analysis
+        if: always()
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2
+        with:
+          name: npm-package-analysis
+          path: .checks/npm-package/
+          if-no-files-found: warn
+          retention-days: 14
   dialog-browser:
     name: Dialog browser
     # Officially supported Playwright image; its default policy permits Chromium sandbox startup.
@@ -98,6 +110,8 @@ jobs:
         run: pnpm --filter @sveltery/base build
       - name: Install official Chromium and OS dependencies
         run: pnpm exec playwright install --with-deps chromium
+      - name: Public Svelte component browser
+        run: pnpm test:component
       - name: Focused Dialog Source lifecycle pairs
         run: >-
           pnpm exec playwright test --config playwright.source-core.config.ts

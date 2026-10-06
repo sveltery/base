@@ -4,7 +4,7 @@ import type { HTMLAttributes } from 'svelte/elements';
 import type { BaseUIComponentProps, WithBaseUIEvent } from '../internals/types.js';
 import type { FieldRootState } from '../field/types.js';
 import type { BaseUIChangeEventDetails } from '../internals/createBaseUIEventDetails.js';
-import type { MergedRef } from '../utils/useMergedRefs.js';
+import type { MergedRef } from '@sveltery/utils/useMergedRefs';
 import type { TransitionStatus } from '../internals/useTransitionStatus.svelte.js';
 export interface CheckboxRootState extends FieldRootState {
   checked: boolean;

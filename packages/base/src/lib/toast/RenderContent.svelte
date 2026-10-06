@@ -3,6 +3,7 @@
   import type { ToastContent } from './types.js';
   let { content }: { content?: ToastContent } = $props();
 </script>
+
 {#if typeof content === 'function'}
   {@render content()}
 {:else if typeof content === 'string' || typeof content === 'number'}

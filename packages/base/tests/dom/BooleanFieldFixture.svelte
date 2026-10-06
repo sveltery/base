@@ -43,21 +43,47 @@
     childValue = value;
   }
 </script>
-{#snippet nativeButton(props: Record<string | symbol, unknown>, _state: unknown, children: Snippet | undefined)}<button {...props as HTMLButtonAttributes}>{@render children?.()}</button>{/snippet}
+
+{#snippet nativeButton(
+  props: Record<string | symbol, unknown>,
+  _state: unknown,
+  children: Snippet | undefined,
+)}<button {...props as HTMLButtonAttributes}>{@render children?.()}</button>{/snippet}
 {#snippet control(props: CheckboxRootProps)}
-  {#if family === 'switch'}<Switch.Root {...props as SwitchRootProps}><Switch.Thumb data-part /></Switch.Root>
+  {#if family === 'switch'}<Switch.Root {...props as SwitchRootProps}
+      ><Switch.Thumb data-part /></Switch.Root
+    >
   {:else}<Checkbox.Root {...props}><Checkbox.Indicator data-part /></Checkbox.Root>{/if}
 {/snippet}
 {#if scenario === 'controlled'}
-  {@render control({ ...rootProps, checked: controlledChecked, onCheckedChange: (next, details) => { rootProps.onCheckedChange?.(next, details); if (!details.isCanceled) controlledChecked = next; } })}
+  {@render control({
+    ...rootProps,
+    checked: controlledChecked,
+    onCheckedChange: (next, details) => {
+      rootProps.onCheckedChange?.(next, details);
+      if (!details.isCanceled) controlledChecked = next;
+    },
+  })}
 {:else if scenario === 'group' || scenario === 'group-uncontrolled'}
   <Form onFormSubmit={(values) => submit?.(values)}>
     <Field.Root name="choices" validate={validation}>
       <Field.Label>Choices</Field.Label>
-      <CheckboxGroup value={scenario === 'group' ? groupValue : undefined} defaultValue={['a']} allValues={['a', 'b']} onValueChange={(next, details) => { if (canceled) details.cancel(); if (!details.isCanceled) groupValue = next; }}>
+      <CheckboxGroup
+        value={scenario === 'group' ? groupValue : undefined}
+        defaultValue={['a']}
+        allValues={['a', 'b']}
+        onValueChange={(next, details) => {
+          if (canceled) details.cancel();
+          if (!details.isCanceled) groupValue = next;
+        }}
+      >
         <Checkbox.Root parent data-parent-control />
-        <Field.Item><Checkbox.Root value={childValue} id="child-a" /><Field.Label>A</Field.Label></Field.Item>
-        <Field.Item disabled={rootProps.disabled}><Checkbox.Root value="b" id="child-b" /><Field.Label>B</Field.Label></Field.Item>
+        <Field.Item
+          ><Checkbox.Root value={childValue} id="child-a" /><Field.Label>A</Field.Label></Field.Item
+        >
+        <Field.Item disabled={rootProps.disabled}
+          ><Checkbox.Root value="b" id="child-b" /><Field.Label>B</Field.Label></Field.Item
+        >
       </CheckboxGroup>
       <Field.Error />
     </Field.Root>

@@ -964,7 +964,8 @@
   "externalBoundaries": {
     "original": [
       "React framework/hooks/elements/types → native Svelte runes/context/snippets/attachments/element declarations",
-      "@floating-ui/utils/dom isHTMLElement/getWindow → canonical native helper host tag checks and utils/owner ownerDocument/defaultView; no Floating UI runtime in Button",
+      "@floating-ui/utils/dom getWindow is reused by canonical @sveltery/utils/owner; native host tag checks remain explicitly recorded.",
+      "@floating-ui/utils/dom getWindow via the actual Utils package dependency",
       "JavaScript and native DOM built-ins"
     ],
     "native": [
@@ -972,6 +973,7 @@
       "svelte/attachments",
       "svelte/elements type declarations",
       "esm-env DEV/BROWSER",
+      "@floating-ui/utils/dom getWindow via the actual Utils package dependency",
       "JavaScript and native DOM built-ins"
     ]
   },
@@ -1044,7 +1046,7 @@
       },
       {
         "local": "packages/base/src/lib/button/types.ts",
-        "sha256": "8fdbc4aa58e672a060f47ce188e887d10a8c8864acdd813087c0683d6bdd7fdc",
+        "sha256": "1a6eca75f2d0f29b9c4a23683a1469bd6a927025619a6d23fba11f78efdc6f00",
         "declarations": [
           "ButtonState",
           "ButtonProps"
@@ -1120,7 +1122,7 @@
       },
       {
         "local": "packages/base/src/lib/internals/nativeProps.ts",
-        "sha256": "d6b3999ffe54e8c70e0dcdac61474b3bf9f53e60f3b1207dd4f976ef5212e4eb",
+        "sha256": "4c1f8df953df631d3b410b9a12e48e156ad90bcd5fef6feaec97a4426068ec29",
         "declarations": [
           "NativeStyle",
           "toNativeStyle",
@@ -1150,9 +1152,9 @@
             ]
           },
           {
-            "specifier": "../utils/mergeObjects.js",
+            "specifier": "@sveltery/utils/mergeObjects",
             "kind": "runtime",
-            "resolved": "packages/base/src/lib/utils/mergeObjects.ts",
+            "resolved": "packages/utils/src/lib/mergeObjects.ts",
             "names": [
               "mergeObjects"
             ]
@@ -1161,7 +1163,7 @@
       },
       {
         "local": "packages/base/src/lib/internals/nativeRefAttachment.ts",
-        "sha256": "564718b20326d9f5e18bf75d30b3905ce2f93a093fbdfbb7027928e1fd20e319",
+        "sha256": "ab007711c5ea5bd558b06a704c5f06c2c37e46ff52b547c01c14e119116402d9",
         "declarations": [
           "NativeRefAttachment",
           "isNativeRefAttachment",
@@ -1181,9 +1183,9 @@
             ]
           },
           {
-            "specifier": "../utils/useMergedRefs.js",
+            "specifier": "@sveltery/utils/useMergedRefs",
             "kind": "type",
-            "resolved": "packages/base/src/lib/utils/useMergedRefs.ts",
+            "resolved": "packages/utils/src/lib/useMergedRefs.ts",
             "names": [
               "MergedRefCallback"
             ]
@@ -1192,7 +1194,7 @@
       },
       {
         "local": "packages/base/src/lib/internals/RenderElement.svelte",
-        "sha256": "bbc7cb9be3a6d554f07090d250923b06b5581b29f190d48d874b62698f1cdef5",
+        "sha256": "7468c314806abe0b4ed1fc2dd95d3a2defd6e86a9021012ced3f0154d0028daa",
         "declarations": [],
         "reachability": [
           "runtime"
@@ -1297,7 +1299,7 @@
       },
       {
         "local": "packages/base/src/lib/internals/types.ts",
-        "sha256": "56f62e49c3a1504981c523a1bee8764c45de90fb88f0fab5154bb7fc9d0c1bd3",
+        "sha256": "6a36f5f103ef940b8a32d63f0288d897096c846fb2361b4ef44733e9a899907e",
         "declarations": [
           "HTMLProps",
           "ComponentRenderFn",
@@ -1347,7 +1349,7 @@
       },
       {
         "local": "packages/base/src/lib/internals/use-button/useButton.svelte.ts",
-        "sha256": "ee71d7077c51139162152716111472919bf80b71e6e9cde62d15ff0b7ce56f59",
+        "sha256": "e56dc193c3f2b1317916711b4b9f549ccfc49e60ac13cf10842c5ab5cc8be68a",
         "declarations": [
           "UseButtonParameters",
           "useButton",
@@ -1369,25 +1371,25 @@
             ]
           },
           {
-            "specifier": "../../utils/useStableCallback.js",
+            "specifier": "@sveltery/utils/useStableCallback",
             "kind": "runtime",
-            "resolved": "packages/base/src/lib/utils/useStableCallback.ts",
+            "resolved": "packages/utils/src/lib/useStableCallback.ts",
             "names": [
               "useStableCallback"
             ]
           },
           {
-            "specifier": "../../utils/error.js",
+            "specifier": "@sveltery/utils/error",
             "kind": "runtime",
-            "resolved": "packages/base/src/lib/utils/error.ts",
+            "resolved": "packages/utils/src/lib/error.ts",
             "names": [
               "error"
             ]
           },
           {
-            "specifier": "../../utils/useIsoLayoutEffect.svelte.js",
+            "specifier": "@sveltery/utils/useIsoLayoutEffect",
             "kind": "runtime",
-            "resolved": "packages/base/src/lib/utils/useIsoLayoutEffect.svelte.ts",
+            "resolved": "packages/utils/src/lib/useIsoLayoutEffect.svelte.ts",
             "names": [
               "useIsoLayoutEffect"
             ]
@@ -1438,7 +1440,7 @@
       },
       {
         "local": "packages/base/src/lib/internals/useRenderElement.ts",
-        "sha256": "a8fb8a006629431ae42697dbbd9ea1177d9ce756bf953105c2e5f3eb5ed5a1e9",
+        "sha256": "851c5b39cef485c29b87f7f006daa9763dc3a131ac45c6c6f72d9b4b978ca617",
         "declarations": [
           "createRenderElement",
           "useRenderElement",
@@ -1456,34 +1458,34 @@
         ],
         "imports": [
           {
-            "specifier": "../utils/useMergedRefs.js",
+            "specifier": "@sveltery/utils/useMergedRefs",
             "kind": "runtime",
-            "resolved": "packages/base/src/lib/utils/useMergedRefs.ts",
+            "resolved": "packages/utils/src/lib/useMergedRefs.ts",
             "names": [
               "createMergedRefs"
             ]
           },
           {
-            "specifier": "../utils/useMergedRefs.js",
+            "specifier": "@sveltery/utils/useMergedRefs",
             "kind": "type",
-            "resolved": "packages/base/src/lib/utils/useMergedRefs.ts",
+            "resolved": "packages/utils/src/lib/useMergedRefs.ts",
             "names": [
               "MergedRef",
               "MergedRefCallback"
             ]
           },
           {
-            "specifier": "../utils/mergeObjects.js",
+            "specifier": "@sveltery/utils/mergeObjects",
             "kind": "runtime",
-            "resolved": "packages/base/src/lib/utils/mergeObjects.ts",
+            "resolved": "packages/utils/src/lib/mergeObjects.ts",
             "names": [
               "mergeObjects"
             ]
           },
           {
-            "specifier": "../utils/empty.js",
+            "specifier": "@sveltery/utils/empty",
             "kind": "runtime",
-            "resolved": "packages/base/src/lib/utils/empty.ts",
+            "resolved": "packages/utils/src/lib/empty.ts",
             "names": [
               "EMPTY_OBJECT"
             ]
@@ -1580,7 +1582,7 @@
       },
       {
         "local": "packages/base/src/lib/merge-props/mergeProps.ts",
-        "sha256": "7a097b833ae8854c5a26e34009adfb4e0297dd50f56ad5f0c1ac8afa8187f98b",
+        "sha256": "1b758134ab0efecd9601638e928440561944d226e5ebb9276d39723738d0301a",
         "declarations": [
           "PreventableEvent",
           "Props",
@@ -1623,9 +1625,9 @@
             ]
           },
           {
-            "specifier": "../utils/mergeObjects.js",
+            "specifier": "@sveltery/utils/mergeObjects",
             "kind": "runtime",
-            "resolved": "packages/base/src/lib/utils/mergeObjects.ts",
+            "resolved": "packages/utils/src/lib/mergeObjects.ts",
             "names": [
               "mergeObjects"
             ]
@@ -1633,29 +1635,8 @@
         ]
       },
       {
-        "local": "packages/base/src/lib/utils/createLogOnce.ts",
-        "sha256": "a3c52188a495927ef9b49765ca1e70bc384b37b68a5c896ca86df15852a279b1",
-        "declarations": [
-          "createLogOnce",
-          "reset"
-        ],
-        "reachability": [
-          "runtime"
-        ],
-        "imports": [
-          {
-            "specifier": "esm-env",
-            "kind": "runtime",
-            "resolved": "external:esm-env",
-            "names": [
-              "DEV"
-            ]
-          }
-        ]
-      },
-      {
         "local": "packages/base/src/lib/utils/dispatchClickWithModifiers.ts",
-        "sha256": "60aab2aa25eb9c0aeaa0a57fc8ccd37aab747577ea22f019aff163946cabd373",
+        "sha256": "fefaa5e71f09eeb27d246b5d1eafef16e2b62f6dd72414528ef7f917c125909a",
         "declarations": [
           "ModifierState",
           "dispatchClickWithModifiers"
@@ -1665,76 +1646,14 @@
         ],
         "imports": [
           {
-            "specifier": "./owner.js",
+            "specifier": "@sveltery/utils/owner",
             "kind": "runtime",
-            "resolved": "packages/base/src/lib/utils/owner.ts",
+            "resolved": "packages/utils/src/lib/owner.ts",
             "names": [
               "ownerWindow"
             ]
           }
         ]
-      },
-      {
-        "local": "packages/base/src/lib/utils/empty.ts",
-        "sha256": "eb679c977169a61764f98516194102fed5b70b6157992b34029dcd39af467d7b",
-        "declarations": [
-          "NOOP"
-        ],
-        "reachability": [
-          "runtime",
-          "type"
-        ],
-        "imports": []
-      },
-      {
-        "local": "packages/base/src/lib/utils/error.ts",
-        "sha256": "de9eeee73db42c056c110eb94f3aef8b51ae3003e97d5140bfaf876bdde52c69",
-        "declarations": [],
-        "reachability": [
-          "runtime"
-        ],
-        "imports": [
-          {
-            "specifier": "./createLogOnce.js",
-            "kind": "runtime",
-            "resolved": "packages/base/src/lib/utils/createLogOnce.ts",
-            "names": [
-              "createLogOnce"
-            ]
-          },
-          {
-            "specifier": "./createLogOnce.js",
-            "kind": "runtime",
-            "resolved": "packages/base/src/lib/utils/createLogOnce.ts",
-            "names": [
-              "reset"
-            ]
-          }
-        ]
-      },
-      {
-        "local": "packages/base/src/lib/utils/mergeObjects.ts",
-        "sha256": "1e6cfa2be20c639f5ce6f8b0b6cc447da3413bbbc6750a5b1ab03f5810d81746",
-        "declarations": [
-          "mergeObjects"
-        ],
-        "reachability": [
-          "runtime",
-          "type"
-        ],
-        "imports": []
-      },
-      {
-        "local": "packages/base/src/lib/utils/owner.ts",
-        "sha256": "4f32738229316fe875cf72e949caa4aa7d2fcdf924a2bd5b7f01e88ca5424185",
-        "declarations": [
-          "ownerDocument",
-          "ownerWindow"
-        ],
-        "reachability": [
-          "runtime"
-        ],
-        "imports": []
       },
       {
         "local": "packages/base/src/lib/utils/resolveClassName.ts",
@@ -1780,7 +1699,7 @@
       },
       {
         "local": "packages/base/src/lib/utils/useFocusableWhenDisabled.ts",
-        "sha256": "8c52b8e41b8801cd46d4232802c5ed86588cb4e8008f814741970246b378742c",
+        "sha256": "f30838a56f41ea3672d26627fb42145d016e3b54b512c4c381e6aafb05431db2",
         "declarations": [
           "UseFocusableWhenDisabledParameters",
           "useFocusableWhenDisabled"
@@ -1800,8 +1719,99 @@
         ]
       },
       {
-        "local": "packages/base/src/lib/utils/useIsoLayoutEffect.svelte.ts",
-        "sha256": "0d24dd22dad18fc54341aaedb964a25829ae62322f10bf110a4fd8bde65dd1f3",
+        "local": "packages/utils/src/lib/createLogOnce.ts",
+        "sha256": "f9d8a63ce89aa2d0b31a8d88affb4ff7c49528f12152a9dc99223ee24dca90c9",
+        "declarations": [
+          "createLogOnce",
+          "reset"
+        ],
+        "reachability": [
+          "runtime"
+        ],
+        "imports": [
+          {
+            "specifier": "esm-env",
+            "kind": "runtime",
+            "resolved": "external:esm-env",
+            "names": [
+              "DEV"
+            ]
+          }
+        ]
+      },
+      {
+        "local": "packages/utils/src/lib/empty.ts",
+        "sha256": "4851f47e6160860fee67ddfa03056c8a26dee4cf87bb1a9aa7f30e988b03ad65",
+        "declarations": [
+          "NOOP"
+        ],
+        "reachability": [
+          "runtime",
+          "type"
+        ],
+        "imports": []
+      },
+      {
+        "local": "packages/utils/src/lib/error.ts",
+        "sha256": "ebbe57877f3f8c77c83631ed4042bd288d13f98fb93afd5390128dbd0d7cec27",
+        "declarations": [],
+        "reachability": [
+          "runtime"
+        ],
+        "imports": [
+          {
+            "specifier": "./createLogOnce.js",
+            "kind": "runtime",
+            "resolved": "packages/utils/src/lib/createLogOnce.ts",
+            "names": [
+              "createLogOnce"
+            ]
+          },
+          {
+            "specifier": "./createLogOnce.js",
+            "kind": "runtime",
+            "resolved": "packages/utils/src/lib/createLogOnce.ts",
+            "names": [
+              "reset"
+            ]
+          }
+        ]
+      },
+      {
+        "local": "packages/utils/src/lib/mergeObjects.ts",
+        "sha256": "1e6cfa2be20c639f5ce6f8b0b6cc447da3413bbbc6750a5b1ab03f5810d81746",
+        "declarations": [
+          "mergeObjects"
+        ],
+        "reachability": [
+          "runtime",
+          "type"
+        ],
+        "imports": []
+      },
+      {
+        "local": "packages/utils/src/lib/owner.ts",
+        "sha256": "759c607acc1a103b2d795840051555671fe65fd889dae7694606b9069803f986",
+        "declarations": [
+          "ownerDocument"
+        ],
+        "reachability": [
+          "runtime"
+        ],
+        "imports": [
+          {
+            "specifier": "@floating-ui/utils/dom",
+            "kind": "runtime",
+            "resolved": "external:@floating-ui/utils/dom",
+            "names": [
+              "ownerWindow"
+            ]
+          }
+        ]
+      },
+      {
+        "local": "packages/utils/src/lib/useIsoLayoutEffect.svelte.ts",
+        "sha256": "19e575ac14e03d20cbd088abda91d4784ed8b3b34944e03ef51e242e0c0247a7",
         "declarations": [
           "EffectCallback",
           "useIsoLayoutEffect"
@@ -1821,8 +1831,8 @@
         ]
       },
       {
-        "local": "packages/base/src/lib/utils/useMergedRefs.ts",
-        "sha256": "d9420f3db2872a32aca95c7c32db1342da4df6595df68a17707f55a27ea41fe2",
+        "local": "packages/utils/src/lib/useMergedRefs.ts",
+        "sha256": "0c41f7c8a065fa8a464f56852ba4c8196d51865905a5277f139ebaaa4b81ce1b",
         "declarations": [
           "MergedRef",
           "MergedRefCallback",
@@ -1850,7 +1860,7 @@
           {
             "specifier": "./useRefWithInit.js",
             "kind": "runtime",
-            "resolved": "packages/base/src/lib/utils/useRefWithInit.ts",
+            "resolved": "packages/utils/src/lib/useRefWithInit.ts",
             "names": [
               "useRefWithInit"
             ]
@@ -1858,8 +1868,8 @@
         ]
       },
       {
-        "local": "packages/base/src/lib/utils/useRefWithInit.ts",
-        "sha256": "998166cdfed66790af4659ac61d8b36f49f1aa4c35a66bb532f6239771271036",
+        "local": "packages/utils/src/lib/useRefWithInit.ts",
+        "sha256": "3c48fad5a3c2eddbb0ecb820210f825b9fa2144c92de0615a5a4cf2ea1c3b3c7",
         "declarations": [
           "InitializedRef",
           "useRefWithInit",
@@ -1873,8 +1883,8 @@
         "imports": []
       },
       {
-        "local": "packages/base/src/lib/utils/useStableCallback.ts",
-        "sha256": "b790a02da99e0e9365bc05d35a434ef37dcffb2a4db8186b1327b949a994d05e",
+        "local": "packages/utils/src/lib/useStableCallback.ts",
+        "sha256": "dca4f1866715df0bcb597ca5c083825f580717a96e267c77a5325ce22790d04c",
         "declarations": [
           "Callback",
           "useStableCallback",

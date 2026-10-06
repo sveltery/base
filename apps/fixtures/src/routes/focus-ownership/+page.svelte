@@ -8,10 +8,18 @@
     const node = host;
     let stopped = false;
     let cleanup: (() => void) | undefined;
-    void import('../../lib/focus-ownership-reference.js').then(({ mountFocusOwnershipReference }) => {
-      if (!stopped) cleanup = mountFocusOwnershipReference(node, data.scenario);
-    });
-    return () => { stopped = true; cleanup?.(); };
+    void import('../../lib/focus-ownership-reference.js').then(
+      ({ mountFocusOwnershipReference }) => {
+        if (!stopped) cleanup = mountFocusOwnershipReference(node, data.scenario);
+      },
+    );
+    return () => {
+      stopped = true;
+      cleanup?.();
+    };
   });
 </script>
-{#if data.reference}<div bind:this={host}></div>{:else}<FocusOwnershipFixture scenario={data.scenario} />{/if}
+
+{#if data.reference}<div bind:this={host}></div>{:else}<FocusOwnershipFixture
+    scenario={data.scenario}
+  />{/if}

@@ -1,12 +1,14 @@
 import { afterEach, beforeEach, expect, it, vi } from 'vitest';
 import { mount, tick, unmount } from 'svelte';
 import Fixture from './SharedSourceUtilsFixture.svelte';
-import { reset } from '../../src/lib/utils/error.js';
-import { createLogOnce } from '../../src/lib/utils/createLogOnce.js';
-import { EMPTY_ARRAY, EMPTY_OBJECT } from '../../src/lib/utils/empty.js';
+import { reset } from '@sveltery/utils/error';
+import { createLogOnce } from '@sveltery/utils/createLogOnce';
+import { EMPTY_ARRAY, EMPTY_OBJECT } from '@sveltery/utils/empty';
 
 const mounted: ReturnType<typeof mount>[] = [];
-beforeEach(() => { reset(); });
+beforeEach(() => {
+  reset();
+});
 afterEach(async () => {
   await Promise.all(mounted.splice(0).map((component) => unmount(component)));
   document.body.replaceChildren();
@@ -18,7 +20,10 @@ async function setup(initialControlled?: unknown, initialDefault?: unknown) {
   const target = document.createElement('div');
   document.body.append(target);
   const events: string[] = [];
-  const component = mount(Fixture, { target, props: { initialControlled, initialDefault, events } });
+  const component = mount(Fixture, {
+    target,
+    props: { initialControlled, initialDefault, events },
+  });
   mounted.push(component);
   await tick();
   return { component, events, target };
@@ -34,7 +39,9 @@ it('preserves initial uncontrolled mode, default initialization and functional u
   await tick();
   expect(component.snapshot().value).toBe(2);
   expect(error).toHaveBeenCalledTimes(1);
-  expect(error.mock.calls[0][0]).toContain('changing the uncontrolled value state of SharedUtilsFixture to be controlled');
+  expect(error.mock.calls[0][0]).toContain(
+    'changing the uncontrolled value state of SharedUtilsFixture to be controlled',
+  );
   component.setLocal(4);
   await tick();
   expect(component.snapshot().value).toBe(4);
@@ -176,7 +183,9 @@ it('owns refs and timeout cancellation/reset/teardown per component', async () =
   expect(component.snapshot().initialized).toBe(1);
   expect(component.snapshot().ref).toEqual({ seed: 'updated' });
   const first = vi.fn();
-  const second = vi.fn(() => { expect(component.timerStarted()).toBe(false); });
+  const second = vi.fn(() => {
+    expect(component.timerStarted()).toBe(false);
+  });
   component.start(20, first);
   component.start(10, second);
   vi.advanceTimersByTime(20);
@@ -196,9 +205,12 @@ it('shares immutable empty fallbacks and once-only logger keys including severit
   const warn = vi.spyOn(console, 'warn').mockImplementation(() => {});
   const logError = createLogOnce('error', 'Base UI');
   const logWarn = createLogOnce('warn', 'Base UI');
-  logError('same', 'message'); logError('same message'); logWarn('same message');
+  logError('same', 'message');
+  logError('same message');
+  logWarn('same message');
   expect(error).toHaveBeenCalledExactlyOnceWith('Base UI: same message');
   expect(warn).toHaveBeenCalledExactlyOnceWith('Base UI: same message');
-  reset(); logError('same message');
+  reset();
+  logError('same message');
   expect(error).toHaveBeenCalledTimes(2);
 });

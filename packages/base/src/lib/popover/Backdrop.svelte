@@ -5,10 +5,45 @@
   import { popupTransitionStateMapping } from '../utils/popupStateMapping.js';
   import { REASONS } from '../internals/reasons.js';
   import type { PopoverBackdropProps } from './types.js';
-  // eslint-disable-next-line no-useless-assignment -- Native bindable ref output is published through the ordered Source ref callback.
-  let { render, class: className, style, children, ref = $bindable(), ...elementProps }: PopoverBackdropProps = $props();
+  let {
+    render,
+    class: className,
+    style,
+    children,
+    // eslint-disable-next-line no-useless-assignment -- Native bindable ref output is published through the ordered Source ref callback.
+    ref = $bindable(),
+    ...elementProps
+  }: PopoverBackdropProps = $props();
   const store = usePopoverRootContext();
-  const state = $derived({ open: store.select('open'), transitionStatus: store.select('transitionStatus') });
-  const forwardedRef = (node: HTMLElement | null) => { ref = node; };
+  const state = $derived({
+    open: store.select('open'),
+    transitionStatus: store.select('transitionStatus'),
+  });
+  const forwardedRef = (node: HTMLElement | null) => {
+    ref = node;
+  };
 </script>
-<RenderElement tag="div" componentProps={{ render, class: className, style }} params={{ state, ref: forwardedRef, props: [{ role: 'presentation', hidden: !store.select('mounted'), style: { pointerEvents: store.select('openChangeReason') === REASONS.triggerHover ? 'none' : undefined, userSelect: 'none', WebkitUserSelect: 'none' } }, elementProps], stateAttributesMapping: popupTransitionStateMapping }} {children} />
+
+<RenderElement
+  tag="div"
+  componentProps={{ render, class: className, style }}
+  params={{
+    state,
+    ref: forwardedRef,
+    props: [
+      {
+        role: 'presentation',
+        hidden: !store.select('mounted'),
+        style: {
+          pointerEvents:
+            store.select('openChangeReason') === REASONS.triggerHover ? 'none' : undefined,
+          userSelect: 'none',
+          WebkitUserSelect: 'none',
+        },
+      },
+      elementProps,
+    ],
+    stateAttributesMapping: popupTransitionStateMapping,
+  }}
+  {children}
+/>

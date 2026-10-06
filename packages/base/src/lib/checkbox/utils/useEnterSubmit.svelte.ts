@@ -1,7 +1,7 @@
 // Native event boundary replacing the React synthetic/native preventDefault split
 // in Base UI v1.8.0 CheckboxRoot.tsx:322-363. MIT: THIRD_PARTY_NOTICES.md.
 import type { BaseUIEvent } from '../../internals/types.js';
-import { getDefaultFormSubmitter } from '../../utils/getDefaultFormSubmitter.js';
+import { getDefaultFormSubmitter } from '@sveltery/utils/getDefaultFormSubmitter';
 export function useEnterSubmit(
   controlRef: { current: HTMLElement | null },
   inputRef: { current: HTMLInputElement | null },

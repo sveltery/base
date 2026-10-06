@@ -1,3 +1,4 @@
+import { resolveNativePackageSource } from '../../scripts/native-package-source.mjs';
 // Button's complete immutable-source and actual-used native import graphs. MIT source provenance.
 import ts from '../../packages/base/node_modules/typescript/lib/typescript.js';
 import { execFileSync } from 'node:child_process';
@@ -17,6 +18,8 @@ function trace(roots, original) {
   const modules = new Map();
   const queue = roots.map(file => ({ file, reachability: 'runtime' }));
   function resolveImport(file, specifier) {
+    const owned = !original && resolveNativePackageSource(root, specifier);
+    if (owned) return owned;
     let base;
     if (specifier.startsWith('.')) base = resolve('/', dirname(file), specifier).slice(1);
     else if (original && specifier.startsWith('@base-ui/utils/')) base = `packages/utils/src/${specifier.slice('@base-ui/utils/'.length)}`;
@@ -74,8 +77,8 @@ const graph = {
   roots,
   modules: upstream ? trace(roots, true) : JSON.parse(readFileSync(destination, 'utf8')).modules,
   externalBoundaries: {
-    original: ['React framework/hooks/elements/types → native Svelte runes/context/snippets/attachments/element declarations', '@floating-ui/utils/dom isHTMLElement/getWindow → canonical native helper host tag checks and utils/owner ownerDocument/defaultView; no Floating UI runtime in Button', 'JavaScript and native DOM built-ins'],
-    native: ['svelte public APIs and rune compiler', 'svelte/attachments', 'svelte/elements type declarations', 'esm-env DEV/BROWSER', 'JavaScript and native DOM built-ins'],
+    original: ['React framework/hooks/elements/types → native Svelte runes/context/snippets/attachments/element declarations', '@floating-ui/utils/dom getWindow is reused by canonical @sveltery/utils/owner; native host tag checks remain explicitly recorded.', '@floating-ui/utils/dom getWindow via the actual Utils package dependency', 'JavaScript and native DOM built-ins'],
+    native: ['svelte public APIs and rune compiler', 'svelte/attachments', 'svelte/elements type declarations', 'esm-env DEV/BROWSER', '@floating-ui/utils/dom getWindow via the actual Utils package dependency', 'JavaScript and native DOM built-ins'],
   },
 };
 if (!process.argv.includes('--source-only')) {

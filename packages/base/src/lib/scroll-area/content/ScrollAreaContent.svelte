@@ -47,10 +47,8 @@
     ref: [forwardedRef, contentWrapperRef],
     state: root.viewportState,
     stateAttributesMapping: scrollAreaStateAttributesMapping,
-    props: [
-      { role: 'presentation', style: { minWidth: 'fit-content' } },
-      elementProps,
-    ],
+    props: [{ role: 'presentation', style: { minWidth: 'fit-content' } }, elementProps],
   });
 </script>
+
 <RenderElement tag="div" {componentProps} {params} {children} />

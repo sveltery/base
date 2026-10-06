@@ -3,11 +3,8 @@
   // 47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c. MIT: THIRD_PARTY_NOTICES.md.
   import RenderElement from '../../internals/RenderElement.svelte';
   import CompositeItem from '../../internals/composite/item/CompositeItem.svelte';
-  import { useIsoLayoutEffect } from '../../utils/useIsoLayoutEffect.svelte.js';
-  import {
-    visuallyHidden,
-    visuallyHiddenInput,
-  } from '../../utils/visuallyHidden.js';
+  import { useIsoLayoutEffect } from '@sveltery/utils/useIsoLayoutEffect';
+  import { visuallyHidden, visuallyHiddenInput } from '@sveltery/utils/visuallyHidden';
   import { toNativeStyle } from '../../internals/nativeProps.js';
   import { createChangeEventDetails } from '../../internals/createBaseUIEventDetails.js';
   import { REASONS } from '../../internals/reasons.js';
@@ -110,8 +107,7 @@
       if (input) dispatchClickWithModifiers(input, event);
     },
     onfocusin(event: FocusEvent) {
-      if (event.defaultPrevented || disabled || readOnly || !group?.touched)
-        return;
+      if (event.defaultPrevented || disabled || readOnly || !group?.touched) return;
       inputRef.current?.click();
       group.setTouched(false);
     },
@@ -182,9 +178,7 @@
     getButtonProps,
     labelable.getDescriptionProps,
     (props: HTMLProps) =>
-      group?.validation
-        ? group.validation.getValidationProps(disabled, props)
-        : props,
+      group?.validation ? group.validation.getValidationProps(disabled, props) : props,
   ]);
   const componentProps = $derived({ render, class: classProp, style });
   const params = $derived({
@@ -198,8 +192,19 @@
     ref: [inputRefProp, inputRef, group?.registerInputRef, registerInput],
   });
 </script>
+
 {#if group}
-  <CompositeItem tag="span" {render} class={classProp} {style} state={rootState} {refs} props={rendererProps} {stateAttributesMapping} {children} />
+  <CompositeItem
+    tag="span"
+    {render}
+    class={classProp}
+    {style}
+    state={rootState}
+    {refs}
+    props={rendererProps}
+    {stateAttributesMapping}
+    {children}
+  />
 {:else}
   <RenderElement tag="span" {componentProps} {params} {children} />
 {/if}

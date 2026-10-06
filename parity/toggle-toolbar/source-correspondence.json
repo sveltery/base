@@ -4443,15 +4443,15 @@
           "edge": "export"
         }
       ],
-      "local": "packages/base/src/lib/utils/shadowDom.ts",
+      "local": "packages/utils/src/lib/shadowDom.ts",
       "selection": "selected-reused-closure",
       "correspondence": "Only selected getTarget/composite DOM readers are used through canonical shadowDom.ts; conservative original floating barrel exports are unselected and introduce no popup runtime.",
       "status": "reused-awaiting-independent-entire-closure-review",
       "baseLocalHashes": {
-        "packages/base/src/lib/utils/shadowDom.ts": "a5bfa768f801af70e62c012459ddd2b4289a3d2a27aa79c5e9e1414a50395ed1"
+        "packages/utils/src/lib/shadowDom.ts": "a5bfa768f801af70e62c012459ddd2b4289a3d2a27aa79c5e9e1414a50395ed1"
       },
       "localHashes": {
-        "packages/base/src/lib/utils/shadowDom.ts": "a5bfa768f801af70e62c012459ddd2b4289a3d2a27aa79c5e9e1414a50395ed1"
+        "packages/utils/src/lib/shadowDom.ts": "2cb79a4a3ccbe16581be29f7958d03bce459c5cf8cad8ae4b9f08ab981d42a2a"
       }
     },
     {
@@ -4541,7 +4541,7 @@
         "packages/base/src/lib/internals/composite/utils/navigation.ts": "93cd21a5e97c64c93a2272adf51a38b3c51142e860443247b260bf297e95203d"
       },
       "localHashes": {
-        "packages/base/src/lib/internals/composite/utils/navigation.ts": "bb61a6e117cc345c347a3a29618d01e6e608ef1027b8e6464e072d8b70b4a0aa"
+        "packages/base/src/lib/internals/composite/utils/navigation.ts": "bcfb35db31e9b53c86be39c229e041eaaf48f82df10d4dfaac79b69ecfd5a6dd"
       }
     },
     {
@@ -4683,15 +4683,15 @@
           "edge": "import"
         }
       ],
-      "local": "packages/base/src/lib/utils/shadowDom.ts",
+      "local": "packages/utils/src/lib/shadowDom.ts",
       "selection": "selected-reused-closure",
       "correspondence": "Only selected getTarget/composite DOM readers are used through canonical shadowDom.ts; conservative original floating barrel exports are unselected and introduce no popup runtime.",
       "status": "reused-awaiting-independent-entire-closure-review",
       "baseLocalHashes": {
-        "packages/base/src/lib/utils/shadowDom.ts": "a5bfa768f801af70e62c012459ddd2b4289a3d2a27aa79c5e9e1414a50395ed1"
+        "packages/utils/src/lib/shadowDom.ts": "a5bfa768f801af70e62c012459ddd2b4289a3d2a27aa79c5e9e1414a50395ed1"
       },
       "localHashes": {
-        "packages/base/src/lib/utils/shadowDom.ts": "a5bfa768f801af70e62c012459ddd2b4289a3d2a27aa79c5e9e1414a50395ed1"
+        "packages/utils/src/lib/shadowDom.ts": "2cb79a4a3ccbe16581be29f7958d03bce459c5cf8cad8ae4b9f08ab981d42a2a"
       }
     },
     {
@@ -4758,7 +4758,7 @@
         "packages/base/src/lib/internals/composite/utils/navigation.ts": "93cd21a5e97c64c93a2272adf51a38b3c51142e860443247b260bf297e95203d"
       },
       "localHashes": {
-        "packages/base/src/lib/floating-ui/utils/event.ts": "b489c469d9e2b134b6cd97baa3a408010decf1399dbaa1367a015d70c770832e"
+        "packages/base/src/lib/floating-ui/utils/event.ts": "32391b7e254d578d4a374a8f95270e0fea8c763e8f56c52db2e9931243ad5e56"
       }
     },
     {
@@ -4975,7 +4975,7 @@
         "packages/base/src/lib/internals/composite/composite.ts": "938a8b4ede73c5b5655a800777fe4748a94786a05bf828129de299c04cf94673"
       },
       "localHashes": {
-        "packages/base/src/lib/internals/composite/composite.ts": "938a8b4ede73c5b5655a800777fe4748a94786a05bf828129de299c04cf94673"
+        "packages/base/src/lib/internals/composite/composite.ts": "f4e02dc8034a749a29f2c63d12f34c25d17c73ffd4075bc31e8f4a55306c0a9e"
       }
     },
     {
@@ -5081,7 +5081,7 @@
         "packages/base/src/lib/internals/composite/item/CompositeItem.svelte": "7447799f42b23f8003e251196e03199f8d703b77fda61d6d3422e657f95a5319"
       },
       "localHashes": {
-        "packages/base/src/lib/internals/composite/item/CompositeItem.svelte": "7447799f42b23f8003e251196e03199f8d703b77fda61d6d3422e657f95a5319"
+        "packages/base/src/lib/internals/composite/item/CompositeItem.svelte": "cc6fb52a0a0c161bf52b52701739de6a3d6cf2df61d1e0862fb7980cc6e3d8f2"
       }
     },
     {
@@ -5158,7 +5158,7 @@
         "packages/base/src/lib/internals/composite/item/useCompositeItem.svelte.ts": "d0faf967447c35339c6ad06b8cc6218cf2002613844a4bdb7b1453fd5262afc3"
       },
       "localHashes": {
-        "packages/base/src/lib/internals/composite/item/useCompositeItem.svelte.ts": "d0faf967447c35339c6ad06b8cc6218cf2002613844a4bdb7b1453fd5262afc3"
+        "packages/base/src/lib/internals/composite/item/useCompositeItem.svelte.ts": "f4373372837e7254fa6a53bbe6cb3ed2d3a9a2780ee5efe8e10154bedfdaef86"
       }
     },
     {
@@ -5235,7 +5235,7 @@
         "packages/base/src/lib/internals/composite/list/createCompositeList.svelte.ts": "97758d379046d9f894997ae40ef7c6f59decf48fa0d985a2c1fb5f9f068ad016"
       },
       "localHashes": {
-        "packages/base/src/lib/internals/composite/list/createCompositeList.svelte.ts": "97758d379046d9f894997ae40ef7c6f59decf48fa0d985a2c1fb5f9f068ad016"
+        "packages/base/src/lib/internals/composite/list/createCompositeList.svelte.ts": "eb23334825782ebd6c5c2697f1aad75f6f557c1e387fa6ea0a78c276bfead975"
       }
     },
     {
@@ -5260,7 +5260,7 @@
         "packages/base/src/lib/internals/composite/list/CompositeListContext.ts": "c443b96e2b57642eed663be3a670fc7342dc4358bac081b7257bcb076c54ab17"
       },
       "localHashes": {
-        "packages/base/src/lib/internals/composite/list/CompositeListContext.ts": "c443b96e2b57642eed663be3a670fc7342dc4358bac081b7257bcb076c54ab17"
+        "packages/base/src/lib/internals/composite/list/CompositeListContext.ts": "17e4010bda5639d8c7d200bd965ffb9f29aa06a1e83c9f6756319a2dceb1fd38"
       }
     },
     {
@@ -5309,7 +5309,7 @@
         "packages/base/src/lib/internals/composite/list/useCompositeListItem.svelte.ts": "42f4066c8d830385f942f66b216e1b263728f1615dbd7b11cfd3a79db7242400"
       },
       "localHashes": {
-        "packages/base/src/lib/internals/composite/list/useCompositeListItem.svelte.ts": "42f4066c8d830385f942f66b216e1b263728f1615dbd7b11cfd3a79db7242400"
+        "packages/base/src/lib/internals/composite/list/useCompositeListItem.svelte.ts": "24439ae0169b37dcf90a711cd756bb019b37426b765b7cdd002b42a172d451d5"
       }
     },
     {
@@ -5466,7 +5466,7 @@
         "packages/base/src/lib/internals/composite/root/CompositeRoot.svelte": "5075468a96b01787b1789e48ee6dfecd178a7ec76ee7726c3a064b9cf663fe12"
       },
       "localHashes": {
-        "packages/base/src/lib/internals/composite/root/CompositeRoot.svelte": "5075468a96b01787b1789e48ee6dfecd178a7ec76ee7726c3a064b9cf663fe12"
+        "packages/base/src/lib/internals/composite/root/CompositeRoot.svelte": "aa0ec1d30f45ec09215f705a363585c5811124b6a8de1d030057cbcf43de0f6e"
       }
     },
     {
@@ -5564,7 +5564,7 @@
         "packages/base/src/lib/internals/composite/root/gridNavigation.ts": "11aa223e4f95a23b0287fee822bdda9f4b37cb6d33f99d02c9f7da8964949e9f"
       },
       "localHashes": {
-        "packages/base/src/lib/internals/composite/root/gridNavigation.ts": "11aa223e4f95a23b0287fee822bdda9f4b37cb6d33f99d02c9f7da8964949e9f"
+        "packages/base/src/lib/internals/composite/root/gridNavigation.ts": "d2ed3a04fffe1d9d73819d40d2494ab19f5707adbe3c7bd9849a81c30977315c"
       }
     },
     {
@@ -5793,7 +5793,7 @@
         "packages/base/src/lib/internals/composite/root/useCompositeRoot.svelte.ts": "8db12d19818afe6509addc02e10a55082126da9be7a40d03f9a8f62a6e6b5d78"
       },
       "localHashes": {
-        "packages/base/src/lib/internals/composite/root/useCompositeRoot.svelte.ts": "8db12d19818afe6509addc02e10a55082126da9be7a40d03f9a8f62a6e6b5d78"
+        "packages/base/src/lib/internals/composite/root/useCompositeRoot.svelte.ts": "de5c954f8c1b4fea9d8ae87eed7df97baa4d834f23d32037887c4de619adc46b"
       }
     },
     {
@@ -5855,7 +5855,7 @@
         "packages/base/src/lib/internals/createBaseUIEventDetails.ts": "1a9cb6cde2734d421a1bfb03ece9c744584b7e115a0eb3b9de974c22ab8ee684"
       },
       "localHashes": {
-        "packages/base/src/lib/internals/createBaseUIEventDetails.ts": "1a9cb6cde2734d421a1bfb03ece9c744584b7e115a0eb3b9de974c22ab8ee684"
+        "packages/base/src/lib/internals/createBaseUIEventDetails.ts": "8c72d1cd966a450125d2177842154e603b52779f156660af0633101ea222c772"
       }
     },
     {
@@ -6042,7 +6042,7 @@
         "packages/base/src/lib/field/props.ts": "ed3d25745d68f38c06c0f21ae46e9457147a07503e34ae52fd17dee7256d1357"
       },
       "localHashes": {
-        "packages/base/src/lib/internals/types.ts": "56f62e49c3a1504981c523a1bee8764c45de90fb88f0fab5154bb7fc9d0c1bd3"
+        "packages/base/src/lib/internals/types.ts": "6a36f5f103ef940b8a32d63f0288d897096c846fb2361b4ef44733e9a899907e"
       }
     },
     {
@@ -6072,7 +6072,7 @@
         "packages/base/src/lib/internals/use-button/useButton.svelte.ts": "581abfd20827eed41d9478dc30dc5a7b1b944e32d8428ac238d86625545536f1"
       },
       "localHashes": {
-        "packages/base/src/lib/internals/use-button/useButton.svelte.ts": "ee71d7077c51139162152716111472919bf80b71e6e9cde62d15ff0b7ce56f59"
+        "packages/base/src/lib/internals/use-button/useButton.svelte.ts": "e56dc193c3f2b1317916711b4b9f549ccfc49e60ac13cf10842c5ab5cc8be68a"
       }
     },
     {
@@ -6225,7 +6225,7 @@
         "packages/base/src/lib/internals/use-button/useButton.svelte.ts": "581abfd20827eed41d9478dc30dc5a7b1b944e32d8428ac238d86625545536f1"
       },
       "localHashes": {
-        "packages/base/src/lib/internals/use-button/useButton.svelte.ts": "ee71d7077c51139162152716111472919bf80b71e6e9cde62d15ff0b7ce56f59"
+        "packages/base/src/lib/internals/use-button/useButton.svelte.ts": "e56dc193c3f2b1317916711b4b9f549ccfc49e60ac13cf10842c5ab5cc8be68a"
       }
     },
     {
@@ -6325,7 +6325,7 @@
         "packages/base/src/lib/internals/useBaseUiId.ts": "fc6d9571f2fc0f71d6f75a8f34eb981a3e09a9a038fbb9aa8b4b83c2cbb3aaa3"
       },
       "localHashes": {
-        "packages/base/src/lib/internals/useBaseUiId.ts": "fc6d9571f2fc0f71d6f75a8f34eb981a3e09a9a038fbb9aa8b4b83c2cbb3aaa3"
+        "packages/base/src/lib/internals/useBaseUiId.ts": "3995d6f7b0b3b0c3bd734f8936778c7a95ec39cc1a701dc24cf49a1313414c92"
       }
     },
     {
@@ -6539,8 +6539,8 @@
         "packages/base/src/lib/internals/RenderElement.svelte": "bbc7cb9be3a6d554f07090d250923b06b5581b29f190d48d874b62698f1cdef5"
       },
       "localHashes": {
-        "packages/base/src/lib/internals/useRenderElement.ts": "a8fb8a006629431ae42697dbbd9ea1177d9ce756bf953105c2e5f3eb5ed5a1e9",
-        "packages/base/src/lib/internals/RenderElement.svelte": "bbc7cb9be3a6d554f07090d250923b06b5581b29f190d48d874b62698f1cdef5"
+        "packages/base/src/lib/internals/useRenderElement.ts": "851c5b39cef485c29b87f7f006daa9763dc3a131ac45c6c6f72d9b4b978ca617",
+        "packages/base/src/lib/internals/RenderElement.svelte": "7468c314806abe0b4ed1fc2dd95d3a2defd6e86a9021012ced3f0154d0028daa"
       }
     },
     {
@@ -6662,7 +6662,7 @@
         "packages/base/src/lib/merge-props/index.ts": "3ef38bba9b22f44bbcf69102d9556807f78897bedb69b410669c7b429971dd68"
       },
       "localHashes": {
-        "packages/base/src/lib/merge-props/mergeProps.ts": "7a097b833ae8854c5a26e34009adfb4e0297dd50f56ad5f0c1ac8afa8187f98b"
+        "packages/base/src/lib/merge-props/mergeProps.ts": "1b758134ab0efecd9601638e928440561944d226e5ebb9276d39723738d0301a"
       }
     },
     {
@@ -6753,8 +6753,8 @@
         "packages/base/src/lib/separator/types.ts": "a654dfef71404694b8cbd754fb7ec7bf1592f8c2ca154dd40137dc6d95dfa092"
       },
       "localHashes": {
-        "packages/base/src/lib/separator/Separator.svelte": "b42e090098cee72fcb49e7ab2a020a1eabdea6fddddcf972c5f763ebc3fd48d9",
-        "packages/base/src/lib/separator/types.ts": "b349b520840d7d7b3bbda5127105404312370ae300efe23bb354536c2d8c56dc"
+        "packages/base/src/lib/separator/Separator.svelte": "4440b067c96ac48515aa3b923bbfe941e319cb6d5a0ad2b930f5370f7a39ce20",
+        "packages/base/src/lib/separator/types.ts": "5ab346df307c50fad23dfdcb26e3931c9b4ba24de0ddc21881ef54441e6496e7"
       }
     },
     {
@@ -6789,7 +6789,7 @@
       "status": "implemented-awaiting-independent-exact-head-review",
       "baseLocalHashes": {},
       "localHashes": {
-        "packages/base/src/lib/toggle-group/index.ts": "eb6704fcba814d66839e0efe22d44efb35ab3e70f6daa741f57f3ffd96289023"
+        "packages/base/src/lib/toggle-group/index.ts": "0c7096366fb0832f151a83ca4b25a04aa5be79136965a6303e1303a9f9a87bdb"
       }
     },
     {
@@ -6952,8 +6952,8 @@
       "status": "implemented-awaiting-independent-exact-head-review",
       "baseLocalHashes": {},
       "localHashes": {
-        "packages/base/src/lib/toggle-group/ToggleGroup.svelte": "9f164706fc4c861cbfa215107680bd061a50307de53af17cedf89b29a0485012",
-        "packages/base/src/lib/toggle-group/types.ts": "31f48c53d49de3da61a0e944b0bdd24e59b618ddfdaeb9fe300aa4af95c6e35e"
+        "packages/base/src/lib/toggle-group/ToggleGroup.svelte": "f36d336a3ac1b41caa7dec0b0efa65184f53373c5e08e647838b1e277d16d3d5",
+        "packages/base/src/lib/toggle-group/types.ts": "fbbc121261c354d8e28c8563b0ca44f35b5b0ee01eb6b1ac10490301833c3752"
       }
     },
     {
@@ -7037,7 +7037,7 @@
         "packages/base/src/lib/toggle/index.ts": "5e0cf519839cfe2d95047b94522b5f70165de0f701d572dc223a1f1d1f704538"
       },
       "localHashes": {
-        "packages/base/src/lib/toggle/index.ts": "5e0cf519839cfe2d95047b94522b5f70165de0f701d572dc223a1f1d1f704538"
+        "packages/base/src/lib/toggle/index.ts": "749961f04be418dfc63c19ca4d1216e0361cdd496a8aceef153a4ce4605caba5"
       }
     },
     {
@@ -7203,8 +7203,8 @@
         "packages/base/src/lib/toggle/types.ts": "5eca12c5fd4d7b7eedf850f7fb29fe4ac9f0f85dd567bc80b3b1e861c2d1420b"
       },
       "localHashes": {
-        "packages/base/src/lib/toggle/Toggle.svelte": "0b75e099acb1b62751dc8f5ae84559b342cb4d3bb8ff5ffc21347da1a0fbcccd",
-        "packages/base/src/lib/toggle/types.ts": "f82cbee1e7c2ce7d88cfb87489a5947fb07fa67d82122c52fadc3864cf360950"
+        "packages/base/src/lib/toggle/Toggle.svelte": "407d005daa486ffc3d2a2f5877783c44cf386a2ba0e3e051858a46337e9ee05e",
+        "packages/base/src/lib/toggle/types.ts": "888b497d95050beab8098d2cf67a8b769ec4cab7a968e20866aec17aa6e8bf12"
       }
     },
     {
@@ -7315,8 +7315,8 @@
       "status": "implemented-awaiting-independent-exact-head-review",
       "baseLocalHashes": {},
       "localHashes": {
-        "packages/base/src/lib/toolbar/button/ToolbarButton.svelte": "452ffed6ea4bf216fcf5d130d4facf9b12a2458fd5662287674774837faa7166",
-        "packages/base/src/lib/toolbar/types.ts": "c7cc1b91797831826e2605d119313666bce3f67185583beff516a80af9104e78"
+        "packages/base/src/lib/toolbar/button/ToolbarButton.svelte": "65ab0070733369bb087cba963788264cf739f5005e10725604cde72839840456",
+        "packages/base/src/lib/toolbar/types.ts": "3bc3d1e84b480879fe78008f97ee8dbb7dba2b0d29040a2fc31df71b5de598ff"
       }
     },
     {
@@ -7399,8 +7399,8 @@
       "status": "implemented-awaiting-independent-exact-head-review",
       "baseLocalHashes": {},
       "localHashes": {
-        "packages/base/src/lib/toolbar/group/ToolbarGroup.svelte": "03acb9ef74482ed56a93309759a165ef6159e9678a963f502763d7c9e574c12e",
-        "packages/base/src/lib/toolbar/types.ts": "c7cc1b91797831826e2605d119313666bce3f67185583beff516a80af9104e78"
+        "packages/base/src/lib/toolbar/group/ToolbarGroup.svelte": "79038ec92ec181c95e11b51a86e5077b9a61ae7843439e3f66ec61139838c30e",
+        "packages/base/src/lib/toolbar/types.ts": "3bc3d1e84b480879fe78008f97ee8dbb7dba2b0d29040a2fc31df71b5de598ff"
       }
     },
     {
@@ -7423,7 +7423,7 @@
       "status": "implemented-awaiting-independent-exact-head-review",
       "baseLocalHashes": {},
       "localHashes": {
-        "packages/base/src/lib/toolbar/group/ToolbarGroupContext.ts": "bfba6dcfb67c6c5d8eb4abdd43a0a1fc0c5502f884ffe6d0ef4d37070611874f"
+        "packages/base/src/lib/toolbar/group/ToolbarGroupContext.ts": "d8e72834d984abda546691454db71dc231cd1e9ef9778a4a0abc3c7a8cc7b811"
       }
     },
     {
@@ -7600,7 +7600,7 @@
       "status": "implemented-awaiting-independent-exact-head-review",
       "baseLocalHashes": {},
       "localHashes": {
-        "packages/base/src/lib/toolbar/index.ts": "37e47173408b85ca5d3e8d3b17e2ca32265a84bab99b038335266211db0323dc"
+        "packages/base/src/lib/toolbar/index.ts": "a357051759821635ff94d9652fbaf3da9a23a202da753ba35ef5746c86857d60"
       }
     },
     {
@@ -7699,8 +7699,8 @@
       "status": "implemented-awaiting-independent-exact-head-review",
       "baseLocalHashes": {},
       "localHashes": {
-        "packages/base/src/lib/toolbar/input/ToolbarInput.svelte": "4848415a5e4a3c9a31ea8c20c906b6f1e01dc3d5847ef9cc5a582631f315de91",
-        "packages/base/src/lib/toolbar/types.ts": "c7cc1b91797831826e2605d119313666bce3f67185583beff516a80af9104e78"
+        "packages/base/src/lib/toolbar/input/ToolbarInput.svelte": "78bda1d89afb291271ba9147f8982f029f2639c0c2c8c4a1bbc2b32022162173",
+        "packages/base/src/lib/toolbar/types.ts": "3bc3d1e84b480879fe78008f97ee8dbb7dba2b0d29040a2fc31df71b5de598ff"
       }
     },
     {
@@ -7771,8 +7771,8 @@
       "status": "implemented-awaiting-independent-exact-head-review",
       "baseLocalHashes": {},
       "localHashes": {
-        "packages/base/src/lib/toolbar/link/ToolbarLink.svelte": "a2ffbfbcb8d6788e40112721629bb05d316e521a285f7be8a659e39b156a4430",
-        "packages/base/src/lib/toolbar/types.ts": "c7cc1b91797831826e2605d119313666bce3f67185583beff516a80af9104e78"
+        "packages/base/src/lib/toolbar/link/ToolbarLink.svelte": "f82027ca4c47f03ade26829e29152cab1a0427b72b6d5b27fadd01a3c486ac07",
+        "packages/base/src/lib/toolbar/types.ts": "3bc3d1e84b480879fe78008f97ee8dbb7dba2b0d29040a2fc31df71b5de598ff"
       }
     },
     {
@@ -7851,8 +7851,8 @@
       "status": "implemented-awaiting-independent-exact-head-review",
       "baseLocalHashes": {},
       "localHashes": {
-        "packages/base/src/lib/toolbar/root/ToolbarRoot.svelte": "c4f0432d7d4adefe0a4f2b2b8daf543790fa3ea84587fcd9d3326f8ea950b76a",
-        "packages/base/src/lib/toolbar/types.ts": "c7cc1b91797831826e2605d119313666bce3f67185583beff516a80af9104e78"
+        "packages/base/src/lib/toolbar/root/ToolbarRoot.svelte": "2368b082e3556fb919f6ef3e1c54d9f5b0e35f12b95da5d8ff807e76ad7097bd",
+        "packages/base/src/lib/toolbar/types.ts": "3bc3d1e84b480879fe78008f97ee8dbb7dba2b0d29040a2fc31df71b5de598ff"
       }
     },
     {
@@ -7887,7 +7887,7 @@
       "status": "implemented-awaiting-independent-exact-head-review",
       "baseLocalHashes": {},
       "localHashes": {
-        "packages/base/src/lib/toolbar/root/ToolbarRootContext.ts": "ac7081f4de2f79dcdf425ee5ca7690db2d577f9363f2ef03b75f3b5395adc6cb"
+        "packages/base/src/lib/toolbar/root/ToolbarRootContext.ts": "d2e5bd3ad75ddc60d8cef7c2cf2702802382e4b6317d7ab6b98b37eab100fd7b"
       }
     },
     {
@@ -7950,8 +7950,8 @@
       "status": "implemented-awaiting-independent-exact-head-review",
       "baseLocalHashes": {},
       "localHashes": {
-        "packages/base/src/lib/toolbar/separator/ToolbarSeparator.svelte": "2623e45fee7b042408f986bcf164b0b7eb34d4a843dabd50b8a00c0dd1ae62f4",
-        "packages/base/src/lib/toolbar/types.ts": "c7cc1b91797831826e2605d119313666bce3f67185583beff516a80af9104e78"
+        "packages/base/src/lib/toolbar/separator/ToolbarSeparator.svelte": "5e5e96b1aa089247d6a8385f8480ffabe7fba664e1ddd648f110a508e9bd489d",
+        "packages/base/src/lib/toolbar/types.ts": "3bc3d1e84b480879fe78008f97ee8dbb7dba2b0d29040a2fc31df71b5de598ff"
       }
     },
     {
@@ -8074,7 +8074,7 @@
         "packages/base/src/lib/utils/dispatchClickWithModifiers.ts": "60aab2aa25eb9c0aeaa0a57fc8ccd37aab747577ea22f019aff163946cabd373"
       },
       "localHashes": {
-        "packages/base/src/lib/utils/dispatchClickWithModifiers.ts": "60aab2aa25eb9c0aeaa0a57fc8ccd37aab747577ea22f019aff163946cabd373"
+        "packages/base/src/lib/utils/dispatchClickWithModifiers.ts": "fefaa5e71f09eeb27d246b5d1eafef16e2b62f6dd72414528ef7f917c125909a"
       }
     },
     {
@@ -8836,7 +8836,7 @@
         "packages/base/src/lib/utils/useFocusableWhenDisabled.ts": "8c52b8e41b8801cd46d4232802c5ed86588cb4e8008f814741970246b378742c"
       },
       "localHashes": {
-        "packages/base/src/lib/utils/useFocusableWhenDisabled.ts": "8c52b8e41b8801cd46d4232802c5ed86588cb4e8008f814741970246b378742c"
+        "packages/base/src/lib/utils/useFocusableWhenDisabled.ts": "f30838a56f41ea3672d26627fb42145d016e3b54b512c4c381e6aafb05431db2"
       }
     },
     {
@@ -8857,15 +8857,15 @@
       "url": "https://github.com/mui/base-ui/blob/47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c/packages/utils/src/createLogOnce.ts",
       "reachability": "runtime",
       "imports": [],
-      "local": "packages/base/src/lib/utils/createLogOnce.ts",
+      "local": "packages/utils/src/lib/createLogOnce.ts",
       "selection": "selected-reused-closure",
       "correspondence": "Reused canonical Field/Form/shared-utility source dependency; native source port; source review pending See parity/shared-utils/source-graph.json Reinspect actual used body at accepted main 6f1f983; historical green is not acceptance for this family.",
       "status": "reused-awaiting-independent-entire-closure-review",
       "baseLocalHashes": {
-        "packages/base/src/lib/utils/createLogOnce.ts": "a3c52188a495927ef9b49765ca1e70bc384b37b68a5c896ca86df15852a279b1"
+        "packages/utils/src/lib/createLogOnce.ts": "a3c52188a495927ef9b49765ca1e70bc384b37b68a5c896ca86df15852a279b1"
       },
       "localHashes": {
-        "packages/base/src/lib/utils/createLogOnce.ts": "a3c52188a495927ef9b49765ca1e70bc384b37b68a5c896ca86df15852a279b1"
+        "packages/utils/src/lib/createLogOnce.ts": "f9d8a63ce89aa2d0b31a8d88affb4ff7c49528f12152a9dc99223ee24dca90c9"
       }
     },
     {
@@ -8874,15 +8874,15 @@
       "url": "https://github.com/mui/base-ui/blob/47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c/packages/utils/src/empty.ts",
       "reachability": "runtime",
       "imports": [],
-      "local": "packages/base/src/lib/utils/empty.ts",
+      "local": "packages/utils/src/lib/empty.ts",
       "selection": "selected-reused-closure",
       "correspondence": "Reused canonical Field/Form/shared-utility source dependency; native source port; source review pending See parity/shared-utils/source-graph.json Reinspect actual used body at accepted main 6f1f983; historical green is not acceptance for this family.",
       "status": "reused-awaiting-independent-entire-closure-review",
       "baseLocalHashes": {
-        "packages/base/src/lib/utils/empty.ts": "eb679c977169a61764f98516194102fed5b70b6157992b34029dcd39af467d7b"
+        "packages/utils/src/lib/empty.ts": "eb679c977169a61764f98516194102fed5b70b6157992b34029dcd39af467d7b"
       },
       "localHashes": {
-        "packages/base/src/lib/utils/empty.ts": "eb679c977169a61764f98516194102fed5b70b6157992b34029dcd39af467d7b"
+        "packages/utils/src/lib/empty.ts": "4851f47e6160860fee67ddfa03056c8a26dee4cf87bb1a9aa7f30e988b03ad65"
       }
     },
     {
@@ -8916,15 +8916,15 @@
           "edge": "export"
         }
       ],
-      "local": "packages/base/src/lib/utils/error.ts",
+      "local": "packages/utils/src/lib/error.ts",
       "selection": "selected-reused-closure",
       "correspondence": "Reused canonical Field/Form/shared-utility source dependency; native source port; source review pending See parity/shared-utils/source-graph.json Reinspect actual used body at accepted main 6f1f983; historical green is not acceptance for this family.",
       "status": "reused-awaiting-independent-entire-closure-review",
       "baseLocalHashes": {
-        "packages/base/src/lib/utils/error.ts": "de9eeee73db42c056c110eb94f3aef8b51ae3003e97d5140bfaf876bdde52c69"
+        "packages/utils/src/lib/error.ts": "de9eeee73db42c056c110eb94f3aef8b51ae3003e97d5140bfaf876bdde52c69"
       },
       "localHashes": {
-        "packages/base/src/lib/utils/error.ts": "de9eeee73db42c056c110eb94f3aef8b51ae3003e97d5140bfaf876bdde52c69"
+        "packages/utils/src/lib/error.ts": "ebbe57877f3f8c77c83631ed4042bd288d13f98fb93afd5390128dbd0d7cec27"
       }
     },
     {
@@ -8997,15 +8997,15 @@
       "url": "https://github.com/mui/base-ui/blob/47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c/packages/utils/src/isElementDisabled.ts",
       "reachability": "runtime",
       "imports": [],
-      "local": "packages/base/src/lib/utils/isElementDisabled.ts",
+      "local": "packages/utils/src/lib/isElementDisabled.ts",
       "selection": "selected-reused-closure",
       "correspondence": "Same disabled and aria-disabled predicate. Reinspect actual used body at accepted main 6f1f983; historical green is not acceptance for this family.",
       "status": "reused-awaiting-independent-entire-closure-review",
       "baseLocalHashes": {
-        "packages/base/src/lib/utils/isElementDisabled.ts": "c2f6141d744cb16e458208163d616cefa465b8da0445658c4d9282a05a1b616e"
+        "packages/utils/src/lib/isElementDisabled.ts": "c2f6141d744cb16e458208163d616cefa465b8da0445658c4d9282a05a1b616e"
       },
       "localHashes": {
-        "packages/base/src/lib/utils/isElementDisabled.ts": "c2f6141d744cb16e458208163d616cefa465b8da0445658c4d9282a05a1b616e"
+        "packages/utils/src/lib/isElementDisabled.ts": "c2f6141d744cb16e458208163d616cefa465b8da0445658c4d9282a05a1b616e"
       }
     },
     {
@@ -9026,15 +9026,15 @@
       "url": "https://github.com/mui/base-ui/blob/47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c/packages/utils/src/mergeObjects.ts",
       "reachability": "runtime",
       "imports": [],
-      "local": "packages/base/src/lib/utils/mergeObjects.ts",
+      "local": "packages/utils/src/lib/mergeObjects.ts",
       "selection": "selected-reused-closure",
       "correspondence": "Canonical source identity-preserving object merge. Reinspect actual used body at accepted main 6f1f983; historical green is not acceptance for this family.",
       "status": "reused-awaiting-independent-entire-closure-review",
       "baseLocalHashes": {
-        "packages/base/src/lib/utils/mergeObjects.ts": "1e6cfa2be20c639f5ce6f8b0b6cc447da3413bbbc6750a5b1ab03f5810d81746"
+        "packages/utils/src/lib/mergeObjects.ts": "1e6cfa2be20c639f5ce6f8b0b6cc447da3413bbbc6750a5b1ab03f5810d81746"
       },
       "localHashes": {
-        "packages/base/src/lib/utils/mergeObjects.ts": "1e6cfa2be20c639f5ce6f8b0b6cc447da3413bbbc6750a5b1ab03f5810d81746"
+        "packages/utils/src/lib/mergeObjects.ts": "1e6cfa2be20c639f5ce6f8b0b6cc447da3413bbbc6750a5b1ab03f5810d81746"
       }
     },
     {
@@ -9056,15 +9056,15 @@
           "edge": "export"
         }
       ],
-      "local": "packages/base/src/lib/utils/owner.ts",
+      "local": "packages/utils/src/lib/owner.ts",
       "selection": "selected-reused-closure",
       "correspondence": "Reused canonical ownerDocument body and approved Boolean-owned ownerWindow native helper. Pinned owner.ts reexports getWindow as ownerWindow from @floating-ui/utils/dom; dispatchClickWithModifiers now directly imports and calls the shared local ownerWindow for its actual Element target. Native ownerDocument/defaultView/window lookup replaces that selected DOM boundary without a Floating/React runtime import. The separate Field-only correspondence selects ownerDocument; ownerWindow is part of the actual Radio closure. Reinspect actual used body at accepted main 6f1f983; historical green is not acceptance for this family.",
       "status": "reused-awaiting-independent-entire-closure-review",
       "baseLocalHashes": {
-        "packages/base/src/lib/utils/owner.ts": "4f32738229316fe875cf72e949caa4aa7d2fcdf924a2bd5b7f01e88ca5424185"
+        "packages/utils/src/lib/owner.ts": "4f32738229316fe875cf72e949caa4aa7d2fcdf924a2bd5b7f01e88ca5424185"
       },
       "localHashes": {
-        "packages/base/src/lib/utils/owner.ts": "4f32738229316fe875cf72e949caa4aa7d2fcdf924a2bd5b7f01e88ca5424185"
+        "packages/utils/src/lib/owner.ts": "759c607acc1a103b2d795840051555671fe65fd889dae7694606b9069803f986"
       }
     },
     {
@@ -9086,13 +9086,13 @@
           "edge": "import"
         }
       ],
-      "local": "packages/base/src/lib/utils/platform/engine.ts",
+      "local": "packages/utils/src/lib/platform/engine.ts",
       "selection": "shared-event-module-import-closure",
       "correspondence": "Actually reached canonical module through the shared event module platform import at actual main 74f667da95ebc5670b0cc5bee38f2225e65fd0c0. Preserve original module/re-export boundaries and whole-body static classifier branches; esm-env DEV replaces process.env.NODE_ENV in shared.ts. Platform traits used by unselected event exports do not become Toolbar feature algorithms. Independent final-head whole-module Source/native review remains required.",
       "status": "reused-awaiting-independent-entire-closure-review",
       "baseLocalHashes": {},
       "localHashes": {
-        "packages/base/src/lib/utils/platform/engine.ts": "e4745bcc586212a32cde2f7d206cc1aa4df86b8a29301f8d15cf3cd88996a987"
+        "packages/utils/src/lib/platform/engine.ts": "e4745bcc586212a32cde2f7d206cc1aa4df86b8a29301f8d15cf3cd88996a987"
       }
     },
     {
@@ -9114,13 +9114,13 @@
           "edge": "import"
         }
       ],
-      "local": "packages/base/src/lib/utils/platform/env.ts",
+      "local": "packages/utils/src/lib/platform/env.ts",
       "selection": "shared-event-module-import-closure",
       "correspondence": "Actually reached canonical module through the shared event module platform import at actual main 74f667da95ebc5670b0cc5bee38f2225e65fd0c0. Preserve original module/re-export boundaries and whole-body static classifier branches; esm-env DEV replaces process.env.NODE_ENV in shared.ts. Platform traits used by unselected event exports do not become Toolbar feature algorithms. Independent final-head whole-module Source/native review remains required.",
       "status": "reused-awaiting-independent-entire-closure-review",
       "baseLocalHashes": {},
       "localHashes": {
-        "packages/base/src/lib/utils/platform/env.ts": "dbd7cc1369986d370094b986c44b1bce3c10eba1f792f0e5c3e99c071e00eb9d"
+        "packages/utils/src/lib/platform/env.ts": "dbd7cc1369986d370094b986c44b1bce3c10eba1f792f0e5c3e99c071e00eb9d"
       }
     },
     {
@@ -9137,13 +9137,13 @@
           "edge": "export"
         }
       ],
-      "local": "packages/base/src/lib/utils/platform/index.ts",
+      "local": "packages/utils/src/lib/platform/index.ts",
       "selection": "shared-event-module-import-closure",
       "correspondence": "Actually reached canonical module through the shared event module platform import at actual main 74f667da95ebc5670b0cc5bee38f2225e65fd0c0. Preserve original module/re-export boundaries and whole-body static classifier branches; esm-env DEV replaces process.env.NODE_ENV in shared.ts. Platform traits used by unselected event exports do not become Toolbar feature algorithms. Independent final-head whole-module Source/native review remains required.",
       "status": "reused-awaiting-independent-entire-closure-review",
       "baseLocalHashes": {},
       "localHashes": {
-        "packages/base/src/lib/utils/platform/index.ts": "c9c1174c0f82f01033187e382b461370123d356d8e14901a9ca7d85dbd2ea63c"
+        "packages/utils/src/lib/platform/index.ts": "c9c1174c0f82f01033187e382b461370123d356d8e14901a9ca7d85dbd2ea63c"
       }
     },
     {
@@ -9152,13 +9152,13 @@
       "url": "https://github.com/mui/base-ui/blob/47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c/packages/utils/src/platform/media-query.ts",
       "reachability": "runtime",
       "imports": [],
-      "local": "packages/base/src/lib/utils/platform/media-query.ts",
+      "local": "packages/utils/src/lib/platform/media-query.ts",
       "selection": "shared-event-module-import-closure",
       "correspondence": "Actually reached canonical module through the shared event module platform import at actual main 74f667da95ebc5670b0cc5bee38f2225e65fd0c0. Preserve original module/re-export boundaries and whole-body static classifier branches; esm-env DEV replaces process.env.NODE_ENV in shared.ts. Platform traits used by unselected event exports do not become Toolbar feature algorithms. Independent final-head whole-module Source/native review remains required.",
       "status": "reused-awaiting-independent-entire-closure-review",
       "baseLocalHashes": {},
       "localHashes": {
-        "packages/base/src/lib/utils/platform/media-query.ts": "5e91ea2589962018778ad88498ff9acd432a5244fe37ee922d0a6014b1fb7ed9"
+        "packages/utils/src/lib/platform/media-query.ts": "5e91ea2589962018778ad88498ff9acd432a5244fe37ee922d0a6014b1fb7ed9"
       }
     },
     {
@@ -9188,13 +9188,13 @@
           "edge": "import"
         }
       ],
-      "local": "packages/base/src/lib/utils/platform/os.ts",
+      "local": "packages/utils/src/lib/platform/os.ts",
       "selection": "shared-event-module-import-closure",
       "correspondence": "Actually reached canonical module through the shared event module platform import at actual main 74f667da95ebc5670b0cc5bee38f2225e65fd0c0. Preserve original module/re-export boundaries and whole-body static classifier branches; esm-env DEV replaces process.env.NODE_ENV in shared.ts. Platform traits used by unselected event exports do not become Toolbar feature algorithms. Independent final-head whole-module Source/native review remains required.",
       "status": "reused-awaiting-independent-entire-closure-review",
       "baseLocalHashes": {},
       "localHashes": {
-        "packages/base/src/lib/utils/platform/os.ts": "456f2f5814e890fb12d899c1cc2f08566529216fd8f6d40a9a8e5846b2c9c3d6"
+        "packages/utils/src/lib/platform/os.ts": "456f2f5814e890fb12d899c1cc2f08566529216fd8f6d40a9a8e5846b2c9c3d6"
       }
     },
     {
@@ -9239,13 +9239,13 @@
           "edge": "export"
         }
       ],
-      "local": "packages/base/src/lib/utils/platform/parts.ts",
+      "local": "packages/utils/src/lib/platform/parts.ts",
       "selection": "shared-event-module-import-closure",
       "correspondence": "Actually reached canonical module through the shared event module platform import at actual main 74f667da95ebc5670b0cc5bee38f2225e65fd0c0. Preserve original module/re-export boundaries and whole-body static classifier branches; esm-env DEV replaces process.env.NODE_ENV in shared.ts. Platform traits used by unselected event exports do not become Toolbar feature algorithms. Independent final-head whole-module Source/native review remains required.",
       "status": "reused-awaiting-independent-entire-closure-review",
       "baseLocalHashes": {},
       "localHashes": {
-        "packages/base/src/lib/utils/platform/parts.ts": "5382169dc9803fde93bc85e33062cbc85d7cdc0bf754d1a7f6f21eb2b4dcac29"
+        "packages/utils/src/lib/platform/parts.ts": "5382169dc9803fde93bc85e33062cbc85d7cdc0bf754d1a7f6f21eb2b4dcac29"
       }
     },
     {
@@ -9267,13 +9267,13 @@
           "edge": "import"
         }
       ],
-      "local": "packages/base/src/lib/utils/platform/screen-reader.ts",
+      "local": "packages/utils/src/lib/platform/screen-reader.ts",
       "selection": "shared-event-module-import-closure",
       "correspondence": "Actually reached canonical module through the shared event module platform import at actual main 74f667da95ebc5670b0cc5bee38f2225e65fd0c0. Preserve original module/re-export boundaries and whole-body static classifier branches; esm-env DEV replaces process.env.NODE_ENV in shared.ts. Platform traits used by unselected event exports do not become Toolbar feature algorithms. Independent final-head whole-module Source/native review remains required.",
       "status": "reused-awaiting-independent-entire-closure-review",
       "baseLocalHashes": {},
       "localHashes": {
-        "packages/base/src/lib/utils/platform/screen-reader.ts": "c43ebce8b6557becf984c0ae7f36395da615110e7f878bab1c0dfd476ceb19a7"
+        "packages/utils/src/lib/platform/screen-reader.ts": "c43ebce8b6557becf984c0ae7f36395da615110e7f878bab1c0dfd476ceb19a7"
       }
     },
     {
@@ -9282,13 +9282,13 @@
       "url": "https://github.com/mui/base-ui/blob/47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c/packages/utils/src/platform/shared.ts",
       "reachability": "runtime",
       "imports": [],
-      "local": "packages/base/src/lib/utils/platform/shared.ts",
+      "local": "packages/utils/src/lib/platform/shared.ts",
       "selection": "shared-event-module-import-closure",
       "correspondence": "Actually reached canonical module through the shared event module platform import at actual main 74f667da95ebc5670b0cc5bee38f2225e65fd0c0. Preserve original module/re-export boundaries and whole-body static classifier branches; esm-env DEV replaces process.env.NODE_ENV in shared.ts. Platform traits used by unselected event exports do not become Toolbar feature algorithms. Independent final-head whole-module Source/native review remains required.",
       "status": "reused-awaiting-independent-entire-closure-review",
       "baseLocalHashes": {},
       "localHashes": {
-        "packages/base/src/lib/utils/platform/shared.ts": "28621a4723495ed9f1370c09b12480a6f488f19e59c70e78524325fc6e080db2"
+        "packages/utils/src/lib/platform/shared.ts": "28621a4723495ed9f1370c09b12480a6f488f19e59c70e78524325fc6e080db2"
       }
     },
     {
@@ -9350,15 +9350,15 @@
           "edge": "import"
         }
       ],
-      "local": "packages/base/src/lib/utils/shadowDom.ts",
+      "local": "packages/utils/src/lib/shadowDom.ts",
       "selection": "selected-reused-closure",
       "correspondence": "Full used activeElement/contains/getTarget source bodies. Native ShadowRoot node predicate replaces equivalent @floating-ui helper. Reinspect actual used body at accepted main 6f1f983; historical green is not acceptance for this family.",
       "status": "reused-awaiting-independent-entire-closure-review",
       "baseLocalHashes": {
-        "packages/base/src/lib/utils/shadowDom.ts": "a5bfa768f801af70e62c012459ddd2b4289a3d2a27aa79c5e9e1414a50395ed1"
+        "packages/utils/src/lib/shadowDom.ts": "a5bfa768f801af70e62c012459ddd2b4289a3d2a27aa79c5e9e1414a50395ed1"
       },
       "localHashes": {
-        "packages/base/src/lib/utils/shadowDom.ts": "a5bfa768f801af70e62c012459ddd2b4289a3d2a27aa79c5e9e1414a50395ed1"
+        "packages/utils/src/lib/shadowDom.ts": "2cb79a4a3ccbe16581be29f7958d03bce459c5cf8cad8ae4b9f08ab981d42a2a"
       }
     },
     {
@@ -9937,15 +9937,15 @@
           "edge": "import"
         }
       ],
-      "local": "packages/base/src/lib/utils/useControlled.svelte.ts",
+      "local": "packages/utils/src/lib/useControlled.svelte.ts",
       "selection": "selected-reused-closure",
       "correspondence": "Reused canonical Field/Form/shared-utility source dependency; native source port; source review pending See parity/shared-utils/source-graph.json Reinspect actual used body at accepted main 6f1f983; historical green is not acceptance for this family.",
       "status": "reused-awaiting-independent-entire-closure-review",
       "baseLocalHashes": {
-        "packages/base/src/lib/utils/useControlled.svelte.ts": "f74b9a8aa08b323835613037c871a6b85c938555c788c0a8ff51825c1863fd35"
+        "packages/utils/src/lib/useControlled.svelte.ts": "f74b9a8aa08b323835613037c871a6b85c938555c788c0a8ff51825c1863fd35"
       },
       "localHashes": {
-        "packages/base/src/lib/utils/useControlled.svelte.ts": "f74b9a8aa08b323835613037c871a6b85c938555c788c0a8ff51825c1863fd35"
+        "packages/utils/src/lib/useControlled.svelte.ts": "44a226c403bbe09dc85dec853303244f0c95ab94a708c3c599f606f4f93afd2f"
       }
     },
     {
@@ -10014,15 +10014,15 @@
           "edge": "import"
         }
       ],
-      "local": "packages/base/src/lib/utils/useId.ts",
+      "local": "packages/utils/src/lib/useId.ts",
       "selection": "selected-reused-closure",
       "correspondence": "Reused canonical Field/Form/shared-utility source dependency; Native Svelte $props.id replaces React.useId; unsupported React17 fallback omitted, no global counter. See parity/field-form/source-correspondence.json Reinspect actual used body at accepted main 6f1f983; historical green is not acceptance for this family.",
       "status": "reused-awaiting-independent-entire-closure-review",
       "baseLocalHashes": {
-        "packages/base/src/lib/utils/useId.ts": "126f5436587c25942d9b12cf2ffbf353c7b87690bf37c0795da7ee5e14244e90"
+        "packages/utils/src/lib/useId.ts": "126f5436587c25942d9b12cf2ffbf353c7b87690bf37c0795da7ee5e14244e90"
       },
       "localHashes": {
-        "packages/base/src/lib/utils/useId.ts": "126f5436587c25942d9b12cf2ffbf353c7b87690bf37c0795da7ee5e14244e90"
+        "packages/utils/src/lib/useId.ts": "584864eb7f538f5adc40ab128461db75c960984c51265aead1ca3821e4bf879a"
       }
     },
     {
@@ -10039,15 +10039,15 @@
           "edge": "import"
         }
       ],
-      "local": "packages/base/src/lib/utils/useIsoLayoutEffect.svelte.ts",
+      "local": "packages/utils/src/lib/useIsoLayoutEffect.svelte.ts",
       "selection": "selected-reused-closure",
       "correspondence": "Reused canonical Field/Form/shared-utility source dependency; native source port; source review pending See parity/shared-utils/source-graph.json Reinspect actual used body at accepted main 6f1f983; historical green is not acceptance for this family.",
       "status": "reused-awaiting-independent-entire-closure-review",
       "baseLocalHashes": {
-        "packages/base/src/lib/utils/useIsoLayoutEffect.svelte.ts": "0d24dd22dad18fc54341aaedb964a25829ae62322f10bf110a4fd8bde65dd1f3"
+        "packages/utils/src/lib/useIsoLayoutEffect.svelte.ts": "0d24dd22dad18fc54341aaedb964a25829ae62322f10bf110a4fd8bde65dd1f3"
       },
       "localHashes": {
-        "packages/base/src/lib/utils/useIsoLayoutEffect.svelte.ts": "0d24dd22dad18fc54341aaedb964a25829ae62322f10bf110a4fd8bde65dd1f3"
+        "packages/utils/src/lib/useIsoLayoutEffect.svelte.ts": "19e575ac14e03d20cbd088abda91d4784ed8b3b34944e03ef51e242e0c0247a7"
       }
     },
     {
@@ -10076,15 +10076,15 @@
           "edge": "import"
         }
       ],
-      "local": "packages/base/src/lib/utils/useMergedRefs.ts",
+      "local": "packages/utils/src/lib/useMergedRefs.ts",
       "selection": "selected-reused-closure",
       "correspondence": "Canonical source ref-fanout/cleanup storage, native attachment lifetime. Reinspect actual used body at accepted main 6f1f983; historical green is not acceptance for this family.",
       "status": "reused-awaiting-independent-entire-closure-review",
       "baseLocalHashes": {
-        "packages/base/src/lib/utils/useMergedRefs.ts": "d9420f3db2872a32aca95c7c32db1342da4df6595df68a17707f55a27ea41fe2"
+        "packages/utils/src/lib/useMergedRefs.ts": "d9420f3db2872a32aca95c7c32db1342da4df6595df68a17707f55a27ea41fe2"
       },
       "localHashes": {
-        "packages/base/src/lib/utils/useMergedRefs.ts": "d9420f3db2872a32aca95c7c32db1342da4df6595df68a17707f55a27ea41fe2"
+        "packages/utils/src/lib/useMergedRefs.ts": "0c41f7c8a065fa8a464f56852ba4c8196d51865905a5277f139ebaaa4b81ce1b"
       }
     },
     {
@@ -10133,15 +10133,15 @@
           "edge": "import"
         }
       ],
-      "local": "packages/base/src/lib/utils/useRefWithInit.ts",
+      "local": "packages/utils/src/lib/useRefWithInit.ts",
       "selection": "selected-reused-closure",
       "correspondence": "Reused canonical Field/Form/shared-utility source dependency; native source port; source review pending See parity/shared-utils/source-graph.json Reinspect actual used body at accepted main 6f1f983; historical green is not acceptance for this family.",
       "status": "reused-awaiting-independent-entire-closure-review",
       "baseLocalHashes": {
-        "packages/base/src/lib/utils/useRefWithInit.ts": "998166cdfed66790af4659ac61d8b36f49f1aa4c35a66bb532f6239771271036"
+        "packages/utils/src/lib/useRefWithInit.ts": "998166cdfed66790af4659ac61d8b36f49f1aa4c35a66bb532f6239771271036"
       },
       "localHashes": {
-        "packages/base/src/lib/utils/useRefWithInit.ts": "998166cdfed66790af4659ac61d8b36f49f1aa4c35a66bb532f6239771271036"
+        "packages/utils/src/lib/useRefWithInit.ts": "3c48fad5a3c2eddbb0ecb820210f825b9fa2144c92de0615a5a4cf2ea1c3b3c7"
       }
     },
     {
@@ -10175,15 +10175,15 @@
           "edge": "import"
         }
       ],
-      "local": "packages/base/src/lib/utils/useStableCallback.ts",
+      "local": "packages/utils/src/lib/useStableCallback.ts",
       "selection": "selected-reused-closure",
       "correspondence": "Reused canonical Field/Form/shared-utility source dependency; native source port; source review pending See parity/shared-utils/source-graph.json Reinspect actual used body at accepted main 6f1f983; historical green is not acceptance for this family.",
       "status": "reused-awaiting-independent-entire-closure-review",
       "baseLocalHashes": {
-        "packages/base/src/lib/utils/useStableCallback.ts": "b790a02da99e0e9365bc05d35a434ef37dcffb2a4db8186b1327b949a994d05e"
+        "packages/utils/src/lib/useStableCallback.ts": "b790a02da99e0e9365bc05d35a434ef37dcffb2a4db8186b1327b949a994d05e"
       },
       "localHashes": {
-        "packages/base/src/lib/utils/useStableCallback.ts": "b790a02da99e0e9365bc05d35a434ef37dcffb2a4db8186b1327b949a994d05e"
+        "packages/utils/src/lib/useStableCallback.ts": "dca4f1866715df0bcb597ca5c083825f580717a96e267c77a5325ce22790d04c"
       }
     },
     {
@@ -10388,12 +10388,12 @@
     },
     {
       "local": "packages/base/src/lib/internals/nativeProps.ts",
-      "sha256": "d6b3999ffe54e8c70e0dcdac61474b3bf9f53e60f3b1207dd4f976ef5212e4eb",
+      "sha256": "4c1f8df953df631d3b410b9a12e48e156ad90bcd5fef6feaec97a4426068ec29",
       "correspondence": "Svelte native ClassValue/CSS/attachment prop representation selected by canonical renderer."
     },
     {
       "local": "packages/base/src/lib/internals/nativeRefAttachment.ts",
-      "sha256": "564718b20326d9f5e18bf75d30b3905ce2f93a093fbdfbb7027928e1fd20e319",
+      "sha256": "ab007711c5ea5bd558b06a704c5f06c2c37e46ff52b547c01c14e119116402d9",
       "correspondence": "Native attachment/cleanup/ref forwarding lifetime selected by canonical renderer; no React clone/ref machinery."
     },
     {
@@ -10403,5 +10403,10 @@
     }
   ],
   "reviewStatus": "Implemented native Source composition; immutable pre-code evidence and historical base hashes retained. Actual main 74f667da95ebc5670b0cc5bee38f2225e65fd0c0 is normally integrated. Current local hashes and actual 75-module runtime/type closure (197 edges) are final-review candidates, not acceptance. The canonical event module selects only stopEvent for this family; its real platform module imports are included without inventing feature dependencies. Ordinary declaration credit stays zero; source selections and authored supplements are separately recorded.",
-  "integrationBase": "74f667da95ebc5670b0cc5bee38f2225e65fd0c0"
+  "integrationBase": "74f667da95ebc5670b0cc5bee38f2225e65fd0c0",
+  "utilsPackageSuccessor": {
+    "record": "../utils-package/current-source-graph.json",
+    "ordinaryDeclarationCredit": 0,
+    "status": "Current package destinations and hashes; frozen source/construction/acceptance/run receipts remain historical. Complete current graph and exact final-head Source/native/maintainability review supersede earlier inventory acceptance."
+  }
 }

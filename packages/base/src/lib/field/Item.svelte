@@ -6,13 +6,40 @@
   import { fieldValidityMapping } from '../internals/field-constants/constants.js';
   import { setFieldItemContext } from './item/FieldItemContext.js';
   import type { FieldItemProps } from './types.js';
-  let { children, render, class: classProp, style, disabled: disabledProp = false, ref = $bindable(), ...elementProps }: FieldItemProps = $props();
+  let {
+    children,
+    render,
+    class: classProp,
+    style,
+    disabled: disabledProp = false,
+    ref = $bindable(),
+    ...elementProps
+  }: FieldItemProps = $props();
   const field = useFieldRootContext(false);
   const disabled = $derived(field.disabled || disabledProp);
   const itemState = $derived({ ...field.state, disabled });
-  setFieldItemContext({ get disabled() { return disabled; } });
-  const forwardedRef = { get current() { return ref ?? null; }, set current(value: HTMLElement | null) { ref = value; } };
+  setFieldItemContext({
+    get disabled() {
+      return disabled;
+    },
+  });
+  const forwardedRef = {
+    get current() {
+      return ref ?? null;
+    },
+    set current(value: HTMLElement | null) {
+      ref = value;
+    },
+  };
   const componentProps = $derived({ render, class: classProp, style });
-  const params = $derived({ ref: forwardedRef, state: itemState, props: elementProps, stateAttributesMapping: fieldValidityMapping });
+  const params = $derived({
+    ref: forwardedRef,
+    state: itemState,
+    props: elementProps,
+    stateAttributesMapping: fieldValidityMapping,
+  });
 </script>
-<LabelableProvider><RenderElement tag="div" {componentProps} {params} {children} /></LabelableProvider>
+
+<LabelableProvider
+  ><RenderElement tag="div" {componentProps} {params} {children} /></LabelableProvider
+>

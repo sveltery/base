@@ -1,8 +1,8 @@
 <script lang="ts">
   // Base UI1.8.0 ScrollAreaScrollbar.tsx source wheel/track bodies; MIT.
   import RenderElement from '../../internals/RenderElement.svelte';
-  import { addEventListener } from '../../utils/addEventListener.js';
-  import { contains, getTarget } from '../../utils/shadowDom.js';
+  import { addEventListener } from '@sveltery/utils/addEventListener';
+  import { contains, getTarget } from '@sveltery/utils/shadowDom';
   import { useDirection } from '../../direction-provider/context.js';
   import { useScrollAreaRootContext } from '../root/ScrollAreaRootContext.js';
   import { setScrollAreaScrollbarContext } from './ScrollAreaScrollbarContext.js';
@@ -10,10 +10,7 @@
   import { getOffset } from '../utils/getOffset.js';
   import * as ScrollAreaRootCssVars from '../root/ScrollAreaRootCssVars.js';
   import * as ScrollAreaScrollbarCssVars from './ScrollAreaScrollbarCssVars.js';
-  import type {
-    ScrollAreaScrollbarProps,
-    ScrollAreaScrollbarState,
-  } from '../types.js';
+  import type { ScrollAreaScrollbarProps, ScrollAreaScrollbarState } from '../types.js';
   let {
     render,
     class: classProp,
@@ -45,9 +42,7 @@
     orientation,
   });
   const getDirection = useDirection();
-  const hideTrackUntilMeasured = $derived(
-    !root.hasMeasuredScrollbar && !keepMounted,
-  );
+  const hideTrackUntilMeasured = $derived(!root.hasMeasuredScrollbar && !keepMounted);
   const isHidden = $derived(vertical ? root.hiddenState.y : root.hiddenState.x);
   const shouldRender = $derived(keepMounted || !isHidden);
   setScrollAreaScrollbarContext(() => orientation);
@@ -86,10 +81,7 @@
 
       // At an edge (or with no overflow), let the wheel event chain to the
       // parent/page instead of swallowing it via `preventDefault`.
-      if (
-        (scrollValue <= minScroll && delta < 0) ||
-        (scrollValue >= maxScrollValue && delta > 0)
-      ) {
+      if ((scrollValue <= minScroll && delta < 0) || (scrollValue >= maxScrollValue && delta > 0)) {
         return;
       }
 
@@ -130,9 +122,7 @@
         return;
       }
 
-      const scrollbarEl = vertical
-        ? scrollbarYRef.current
-        : scrollbarXRef.current;
+      const scrollbarEl = vertical ? scrollbarYRef.current : scrollbarXRef.current;
 
       if (!thumbEl || !scrollbarEl) {
         return;
@@ -144,29 +134,14 @@
       const thumbSizePx = vertical ? thumbEl.offsetHeight : thumbEl.offsetWidth;
       const trackRect = scrollbarEl.getBoundingClientRect();
       const clickPosition = vertical
-        ? event.clientY -
-          trackRect.top -
-          thumbSizePx / 2 -
-          scrollbarOffset +
-          thumbOffset / 2
-        : event.clientX -
-          trackRect.left -
-          thumbSizePx / 2 -
-          scrollbarOffset +
-          thumbOffset / 2;
+        ? event.clientY - trackRect.top - thumbSizePx / 2 - scrollbarOffset + thumbOffset / 2
+        : event.clientX - trackRect.left - thumbSizePx / 2 - scrollbarOffset + thumbOffset / 2;
 
-      const scrollableSize = vertical
-        ? viewportEl.scrollHeight
-        : viewportEl.scrollWidth;
-      const viewportSize = vertical
-        ? viewportEl.clientHeight
-        : viewportEl.clientWidth;
-      const trackSize = vertical
-        ? scrollbarEl.offsetHeight
-        : scrollbarEl.offsetWidth;
+      const scrollableSize = vertical ? viewportEl.scrollHeight : viewportEl.scrollWidth;
+      const viewportSize = vertical ? viewportEl.clientHeight : viewportEl.clientWidth;
+      const trackSize = vertical ? scrollbarEl.offsetHeight : scrollbarEl.offsetWidth;
 
-      const maxThumbOffset =
-        trackSize - thumbSizePx - scrollbarOffset - thumbOffset;
+      const maxThumbOffset = trackSize - thumbSizePx - scrollbarOffset - thumbOffset;
       // A short or heavily padded track can drive `maxThumbOffset` to zero or
       // negative once the thumb hits its `MIN_THUMB_SIZE` floor. Dividing by it
       // would yield a non-finite (`Infinity`/`NaN`) or inverted scroll position.
@@ -242,4 +217,5 @@
     stateAttributesMapping: scrollAreaStateAttributesMapping,
   });
 </script>
+
 {#if shouldRender}<RenderElement tag="div" {componentProps} {params} {children} />{/if}

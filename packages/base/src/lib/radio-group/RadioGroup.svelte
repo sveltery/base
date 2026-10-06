@@ -3,10 +3,10 @@
   // 47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c. MIT: THIRD_PARTY_NOTICES.md.
   import CompositeRoot from '../internals/composite/root/CompositeRoot.svelte';
   import { SHIFT } from '../internals/composite/composite.js';
-  import { useControlled } from '../utils/useControlled.svelte.js';
-  import { useStableCallback } from '../utils/useStableCallback.js';
+  import { useControlled } from '@sveltery/utils/useControlled';
+  import { useStableCallback } from '@sveltery/utils/useStableCallback';
   import { useBaseUiId } from '../internals/useBaseUiId.js';
-  import { contains } from '../utils/shadowDom.js';
+  import { contains } from '@sveltery/utils/shadowDom';
   import { useFieldRootContext } from '../internals/field-root-context/FieldRootContext.js';
   import { useRegisterFieldControl } from '../internals/field-register-control/useRegisterFieldControl.svelte.js';
   import { fieldValidityMapping } from '../internals/field-constants/constants.js';
@@ -16,11 +16,7 @@
   import { useLabelableContext } from '../internals/labelable-provider/LabelableContext.js';
   import { useValueChanged } from '../internals/useValueChanged.svelte.js';
   import { setRadioGroupContext } from './RadioGroupContext.js';
-  import type {
-    RadioGroupProps,
-    RadioGroupState,
-    RadioGroupChangeEventDetails,
-  } from './types.js';
+  import type { RadioGroupProps, RadioGroupState, RadioGroupChangeEventDetails } from './types.js';
   import type { HTMLProps } from '../internals/types.js';
   const modifierKeys = [SHIFT];
   let {
@@ -87,8 +83,7 @@
         ? setInputRef(input)
         : undefined;
     return () => {
-      if (firstEnabledInputRef.current === input)
-        firstEnabledInputRef.current = null;
+      if (firstEnabledInputRef.current === input) firstEnabledInputRef.current = null;
       if (groupInputRef.current === input) {
         if (cleanup) {
           cleanup();
@@ -173,16 +168,10 @@
       field.setFocused(true);
     },
     onfocusout(event: FocusEvent) {
-      if (
-        !contains(
-          event.currentTarget as Element,
-          event.relatedTarget as Element | null,
-        )
-      ) {
+      if (!contains(event.currentTarget as Element, event.relatedTarget as Element | null)) {
         field.setTouched(true);
         field.setFocused(false);
-        if (field.validationMode === 'onBlur')
-          void field.validation.commit(checkedValue);
+        if (field.validationMode === 'onBlur') void field.validation.commit(checkedValue);
       }
     },
     onkeydowncapture(event: KeyboardEvent) {
@@ -203,8 +192,19 @@
   const rendererProps = $derived([
     defaultProps,
     elementProps,
-    (props: HTMLProps) =>
-      field.validation.getValidationProps(disabled ?? false, props),
+    (props: HTMLProps) => field.validation.getValidationProps(disabled ?? false, props),
   ]);
 </script>
-<CompositeRoot {render} class={classProp} {style} state={groupState} props={rendererProps} refs={[forwardedRef]} stateAttributesMapping={fieldValidityMapping} enableHomeAndEndKeys={false} {modifierKeys} {children} />
+
+<CompositeRoot
+  {render}
+  class={classProp}
+  {style}
+  state={groupState}
+  props={rendererProps}
+  refs={[forwardedRef]}
+  stateAttributesMapping={fieldValidityMapping}
+  enableHomeAndEndKeys={false}
+  {modifierKeys}
+  {children}
+/>

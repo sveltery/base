@@ -2,8 +2,8 @@
   // Original Base UI 1.8.0 FloatingDelayGroup provider business, native context.
   // MIT: THIRD_PARTY_NOTICES.md; pin 47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c.
   import { setContext, untrack, type Snippet } from 'svelte';
-  import { useTimeout } from '../../utils/useTimeout.js';
-  import { useIsoLayoutEffect } from '../../utils/useIsoLayoutEffect.svelte.js';
+  import { useTimeout } from '@sveltery/utils/useTimeout';
+  import { useIsoLayoutEffect } from '@sveltery/utils/useIsoLayoutEffect';
   import { getDelay } from '../hooks/useHoverShared.js';
   import type { Delay } from '../types.js';
   import {
@@ -25,26 +25,31 @@
   const currentContextRef: FloatingDelayGroupContextValue['currentContextRef'] = { current: null };
   const timeout = useTimeout();
 
-  useIsoLayoutEffect(() => {
-    initialDelayRef.current = delay;
+  useIsoLayoutEffect(
+    () => {
+      initialDelayRef.current = delay;
 
-    if (!currentIdRef.current) {
-      delayRef.current = delay;
-      return;
-    }
+      if (!currentIdRef.current) {
+        delayRef.current = delay;
+        return;
+      }
 
-    delayRef.current = {
-      open: getDelay(delayRef.current, 'open'),
-      close: getDelay(delay, 'close'),
-    };
-  }, () => [delay, currentIdRef, delayRef, initialDelayRef]);
+      delayRef.current = {
+        open: getDelay(delayRef.current, 'open'),
+        close: getDelay(delay, 'close'),
+      };
+    },
+    () => [delay, currentIdRef, delayRef, initialDelayRef],
+  );
 
   setContext<FloatingDelayGroupContextValue>(FloatingDelayGroupContext, {
     hasProvider: true,
     delayRef,
     initialDelayRef,
     currentIdRef,
-    get timeoutMs() { return timeoutMs; },
+    get timeoutMs() {
+      return timeoutMs;
+    },
     currentContextRef,
     timeout,
   });

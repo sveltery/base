@@ -2,13 +2,15 @@
 /* eslint-disable @typescript-eslint/no-empty-object-type, @typescript-eslint/no-namespace -- Original erased namespace and empty State contracts. */
 import type { Snippet } from 'svelte';
 import type { HTMLAttributes } from 'svelte/elements';
-import type { ElementProps, MenuRoot, MenuPositionerState, MenuPositionerProps } from '../menu/types.js';
+import type {
+  ElementProps,
+  MenuRoot,
+  MenuPositionerState,
+  MenuPositionerProps,
+} from '../menu/types.js';
 import type { BaseUIChangeEventDetails } from '../internals/createBaseUIEventDetails.js';
 
-
-
 export interface ContextMenuRootState {}
-
 
 export interface ContextMenuRootProps extends Omit<
   MenuRoot.Props,
@@ -40,14 +42,12 @@ export interface ContextMenuRootProps extends Omit<
   children?: Snippet | undefined;
 }
 
-
 export type ContextMenuRootActions = MenuRoot.Actions;
 
 export type ContextMenuRootChangeEventReason = MenuRoot.ChangeEventReason;
 
 export type ContextMenuRootChangeEventDetails =
   BaseUIChangeEventDetails<ContextMenuRoot.ChangeEventReason>;
-
 
 export namespace ContextMenuRoot {
   export type State = ContextMenuRootState;
@@ -57,7 +57,6 @@ export namespace ContextMenuRoot {
   export type ChangeEventDetails = ContextMenuRootChangeEventDetails;
 }
 
-
 export interface ContextMenuTriggerState {
   /**
    * Whether the context menu is currently open.
@@ -65,18 +64,17 @@ export interface ContextMenuTriggerState {
   open: boolean;
 }
 
-
-export interface ContextMenuTriggerProps extends ElementProps<ContextMenuTriggerState, HTMLAttributes<HTMLDivElement>> {}
-
+export interface ContextMenuTriggerProps extends ElementProps<
+  ContextMenuTriggerState,
+  HTMLAttributes<HTMLDivElement>
+> {}
 
 export namespace ContextMenuTrigger {
   export type State = ContextMenuTriggerState;
   export type Props = ContextMenuTriggerProps;
 }
 
-
 export interface ContextMenuPositionerState extends MenuPositionerState {}
-
 
 export interface ContextMenuPositionerProps
   extends
@@ -171,7 +169,6 @@ export interface ContextMenuPositionerProps
    */
   arrowPadding?: MenuPositionerProps['arrowPadding'] | undefined;
 }
-
 
 export namespace ContextMenuPositioner {
   export type Props = ContextMenuPositionerProps;

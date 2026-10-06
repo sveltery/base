@@ -1,7 +1,7 @@
 // Original Base UI 1.8.0 FloatingDelayGroup context, native Svelte lookup.
 // MIT: THIRD_PARTY_NOTICES.md; pin 47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c.
 import { getContext } from 'svelte';
-import { Timeout } from '../../utils/useTimeout.js';
+import { Timeout } from '@sveltery/utils/useTimeout';
 import type { BaseUIChangeEventDetails } from '../../internals/createBaseUIEventDetails.js';
 import type { Delay } from '../types.js';
 
@@ -33,6 +33,8 @@ const defaultContext: FloatingDelayGroupContextValue = {
 };
 
 export function useFloatingDelayGroupContext(): FloatingDelayGroupContextValue {
-  return getContext<FloatingDelayGroupContextValue | undefined>(FloatingDelayGroupContext)
-    ?? defaultContext;
+  return (
+    getContext<FloatingDelayGroupContextValue | undefined>(FloatingDelayGroupContext) ??
+    defaultContext
+  );
 }

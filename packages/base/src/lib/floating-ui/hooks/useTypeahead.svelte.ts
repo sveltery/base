@@ -1,10 +1,10 @@
 // Ported from Base UI 1.8.0 at 47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c.
 // MIT: THIRD_PARTY_NOTICES.md; native Svelte replaces React hooks and native focusout replaces bubbling synthetic blur.
 import { untrack } from 'svelte';
-import { useIsoLayoutEffect } from '../../utils/useIsoLayoutEffect.svelte.js';
-import { useStableCallback } from '../../utils/useStableCallback.js';
-import { useTimeout } from '../../utils/useTimeout.js';
-import { EMPTY_ARRAY } from '../../utils/empty.js';
+import { useIsoLayoutEffect } from '@sveltery/utils/useIsoLayoutEffect';
+import { useStableCallback } from '@sveltery/utils/useStableCallback';
+import { useTimeout } from '@sveltery/utils/useTimeout';
+import { EMPTY_ARRAY } from '@sveltery/utils/empty';
 import { isElementVisible, isListIndexDisabled, type DisabledIndices } from '../utils/composite.js';
 import type { ElementProps, FloatingContext, FloatingRootContext } from '../types.js';
 import { contains } from '../utils/element.js';
@@ -92,7 +92,9 @@ export function useTypeahead(
 
   const timeout = useTimeout();
   const stringRef = { current: '' };
-  const prevIndexRef = { current: untrack(() => selectedIndex ?? activeIndex ?? -1) as number | null };
+  const prevIndexRef = {
+    current: untrack(() => selectedIndex ?? activeIndex ?? -1) as number | null,
+  };
   const matchIndexRef = { current: null as number | null };
 
   const onKeyDown = useStableCallback((event: KeyboardEvent) => {
@@ -227,22 +229,29 @@ export function useTypeahead(
     onTyping?.(false);
   });
 
-  useIsoLayoutEffect(() => {
-    if (!open && selectedIndex !== null) {
-      return;
-    }
+  useIsoLayoutEffect(
+    () => {
+      if (!open && selectedIndex !== null) {
+        return;
+      }
 
-    timeout.clear();
-    matchIndexRef.current = null;
+      timeout.clear();
+      matchIndexRef.current = null;
 
-    if (stringRef.current !== '') {
-      stringRef.current = '';
-    }
-  }, () => [open, selectedIndex, timeout]);
+      if (stringRef.current !== '') {
+        stringRef.current = '';
+      }
+    },
+    () => [open, selectedIndex, timeout],
+  );
 
   const sharedProps = { onkeydown: onKeyDown, onfocusout: onBlur };
   return {
-    get reference() { return enabled ? sharedProps : undefined; },
-    get floating() { return enabled ? sharedProps : undefined; },
+    get reference() {
+      return enabled ? sharedProps : undefined;
+    },
+    get floating() {
+      return enabled ? sharedProps : undefined;
+    },
   };
 }

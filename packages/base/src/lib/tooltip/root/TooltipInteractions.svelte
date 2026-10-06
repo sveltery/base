@@ -7,13 +7,27 @@
   import type { TooltipStore } from '../store/TooltipStore.svelte.js';
   import { useClientPoint } from '../../floating-ui/hooks/useClientPoint.svelte.js';
   import { mergeProps } from '../../merge-props/index.js';
-  import { EMPTY_OBJECT } from '../../utils/empty.js';
-  let { store, disabled, trackCursorAxis }: { store: TooltipStore<Payload>; disabled: boolean; trackCursorAxis: 'none' | 'x' | 'y' | 'both' } = $props();
-  const dismiss = useDismiss(() => store.select('floatingRootContext'), () => ({ enabled: !disabled, referencePress: () => store.select('closeOnClick') }));
-  const clientPoint = useClientPoint(() => store.select('floatingRootContext'), () => ({
-    enabled: !disabled && trackCursorAxis !== 'none',
-    axis: trackCursorAxis === 'none' ? undefined : trackCursorAxis,
-  }));
+  import { EMPTY_OBJECT } from '@sveltery/utils/empty';
+  let {
+    store,
+    disabled,
+    trackCursorAxis,
+  }: {
+    store: TooltipStore<Payload>;
+    disabled: boolean;
+    trackCursorAxis: 'none' | 'x' | 'y' | 'both';
+  } = $props();
+  const dismiss = useDismiss(
+    () => store.select('floatingRootContext'),
+    () => ({ enabled: !disabled, referencePress: () => store.select('closeOnClick') }),
+  );
+  const clientPoint = useClientPoint(
+    () => store.select('floatingRootContext'),
+    () => ({
+      enabled: !disabled && trackCursorAxis !== 'none',
+      axis: trackCursorAxis === 'none' ? undefined : trackCursorAxis,
+    }),
+  );
   const triggerProps = $derived(mergeProps(clientPoint.reference, dismiss.reference));
   // The conditional interactions instance belongs to this Root-owned store.
   const initialStore = untrack(() => store);

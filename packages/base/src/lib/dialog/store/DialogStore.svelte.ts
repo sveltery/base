@@ -1,7 +1,7 @@
 // Ported from Base UI v1.8.0 at 47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c.
 // MIT Copyright (c) 2019 Material-UI SAS; see THIRD_PARTY_NOTICES.md.
-import { SvelteStore } from '../../utils/store/SvelteStore.svelte.js';
-import { type InteractionType } from '../../utils/useEnhancedClickHandler.js';
+import { SvelteStore } from '@sveltery/utils/store';
+import { type InteractionType } from '@sveltery/utils/useEnhancedClickHandler';
 import type { DialogRootChangeEventDetails } from '../types.js';
 import { NullStore } from '../../utils/NullStore.svelte.js';
 import {
@@ -32,7 +32,8 @@ type Context = PopupStoreContext<DialogRootChangeEventDetails> & {
   readonly backdropRef: { current: HTMLDivElement | null };
   readonly internalBackdropRef: { current: HTMLDivElement | null };
   readonly outsidePressEnabledRef: { current: boolean };
-  onInternalOpenChange?: ((open: boolean, details: DialogRootChangeEventDetails) => void) | undefined;
+  onInternalOpenChange?:
+    ((open: boolean, details: DialogRootChangeEventDetails) => void) | undefined;
   onNestedDialogOpen?: ((dialogCount: number, drawerCount: number) => void) | undefined;
 };
 

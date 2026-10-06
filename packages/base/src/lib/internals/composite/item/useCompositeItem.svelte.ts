@@ -1,5 +1,5 @@
 // Ported from Base UI v1.8.0 useCompositeItem; MIT: THIRD_PARTY_NOTICES.md.
-import { createMergedRefs } from '../../../utils/useMergedRefs.js';
+import { createMergedRefs } from '@sveltery/utils/useMergedRefs';
 import { useCompositeRootContext } from '../root/CompositeRootContext.js';
 import { useCompositeListItem } from '../list/useCompositeListItem.svelte.js';
 export function useCompositeItem(
@@ -23,8 +23,7 @@ export function useCompositeItem(
         onmousemove() {
           const element = itemRef.current;
           if (!root.highlightItemOnHover || !element) return;
-          const disabled =
-            element.hasAttribute('disabled') || element.ariaDisabled === 'true';
+          const disabled = element.hasAttribute('disabled') || element.ariaDisabled === 'true';
           if (!isHighlighted && !disabled) element.focus();
         },
       };

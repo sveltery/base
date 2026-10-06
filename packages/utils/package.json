@@ -1,0 +1,191 @@
+{
+  "name": "@sveltery/utils",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/sveltery/base.git",
+    "directory": "packages/utils"
+  },
+  "homepage": "https://github.com/sveltery/base#readme",
+  "bugs": {
+    "url": "https://github.com/sveltery/base/issues"
+  },
+  "description": "Experimental shared utilities for the unofficial Svelte 5 port of Base UI.",
+  "sideEffects": false,
+  "files": [
+    "dist",
+    "!dist/**/*.test.*",
+    "!dist/**/*.spec.*",
+    "THIRD_PARTY_NOTICES.md",
+    "LICENSE"
+  ],
+  "exports": {
+    "./addEventListener": {
+      "types": "./dist/addEventListener.d.ts",
+      "default": "./dist/addEventListener.js"
+    },
+    "./areArraysEqual": {
+      "types": "./dist/areArraysEqual.d.ts",
+      "default": "./dist/areArraysEqual.js"
+    },
+    "./clamp": {
+      "types": "./dist/clamp.d.ts",
+      "default": "./dist/clamp.js"
+    },
+    "./createLogOnce": {
+      "types": "./dist/createLogOnce.d.ts",
+      "default": "./dist/createLogOnce.js"
+    },
+    "./empty": {
+      "types": "./dist/empty.d.ts",
+      "default": "./dist/empty.js"
+    },
+    "./error": {
+      "types": "./dist/error.d.ts",
+      "default": "./dist/error.js"
+    },
+    "./getDefaultFormSubmitter": {
+      "types": "./dist/getDefaultFormSubmitter.d.ts",
+      "default": "./dist/getDefaultFormSubmitter.js"
+    },
+    "./isElementDisabled": {
+      "types": "./dist/isElementDisabled.d.ts",
+      "default": "./dist/isElementDisabled.js"
+    },
+    "./mergeCleanups": {
+      "types": "./dist/mergeCleanups.d.ts",
+      "default": "./dist/mergeCleanups.js"
+    },
+    "./mergeObjects": {
+      "types": "./dist/mergeObjects.d.ts",
+      "default": "./dist/mergeObjects.js"
+    },
+    "./owner": {
+      "types": "./dist/owner.d.ts",
+      "default": "./dist/owner.js"
+    },
+    "./shadowDom": {
+      "types": "./dist/shadowDom.d.ts",
+      "default": "./dist/shadowDom.js"
+    },
+    "./useAnimationFrame": {
+      "types": "./dist/useAnimationFrame.d.ts",
+      "default": "./dist/useAnimationFrame.js"
+    },
+    "./useControlled": {
+      "types": "./dist/useControlled.svelte.d.ts",
+      "svelte": "./dist/useControlled.svelte.js",
+      "default": "./dist/useControlled.svelte.js"
+    },
+    "./useEnhancedClickHandler": {
+      "types": "./dist/useEnhancedClickHandler.d.ts",
+      "default": "./dist/useEnhancedClickHandler.js"
+    },
+    "./useId": {
+      "types": "./dist/useId.d.ts",
+      "default": "./dist/useId.js"
+    },
+    "./useIsoLayoutEffect": {
+      "types": "./dist/useIsoLayoutEffect.svelte.d.ts",
+      "svelte": "./dist/useIsoLayoutEffect.svelte.js",
+      "default": "./dist/useIsoLayoutEffect.svelte.js"
+    },
+    "./useMergedRefs": {
+      "types": "./dist/useMergedRefs.d.ts",
+      "default": "./dist/useMergedRefs.js"
+    },
+    "./useOnMount": {
+      "types": "./dist/useOnMount.d.ts",
+      "default": "./dist/useOnMount.js"
+    },
+    "./usePreviousValue": {
+      "types": "./dist/usePreviousValue.svelte.d.ts",
+      "svelte": "./dist/usePreviousValue.svelte.js",
+      "default": "./dist/usePreviousValue.svelte.js"
+    },
+    "./useRefWithInit": {
+      "types": "./dist/useRefWithInit.d.ts",
+      "default": "./dist/useRefWithInit.js"
+    },
+    "./useScrollLock": {
+      "types": "./dist/useScrollLock.svelte.d.ts",
+      "svelte": "./dist/useScrollLock.svelte.js",
+      "default": "./dist/useScrollLock.svelte.js"
+    },
+    "./useStableCallback": {
+      "types": "./dist/useStableCallback.d.ts",
+      "default": "./dist/useStableCallback.js"
+    },
+    "./useTimeout": {
+      "types": "./dist/useTimeout.d.ts",
+      "default": "./dist/useTimeout.js"
+    },
+    "./visuallyHidden": {
+      "types": "./dist/visuallyHidden.d.ts",
+      "default": "./dist/visuallyHidden.js"
+    },
+    "./warn": {
+      "types": "./dist/warn.d.ts",
+      "default": "./dist/warn.js"
+    },
+    "./platform": {
+      "types": "./dist/platform/index.d.ts",
+      "svelte": "./dist/platform/index.js",
+      "default": "./dist/platform/index.js"
+    },
+    "./store": {
+      "types": "./dist/store/index.d.ts",
+      "svelte": "./dist/store/index.js",
+      "default": "./dist/store/index.js"
+    },
+    "./formatNumber": {
+      "types": "./dist/formatNumber.d.ts",
+      "default": "./dist/formatNumber.js"
+    },
+    "./stringifyLocale": {
+      "types": "./dist/stringifyLocale.d.ts",
+      "default": "./dist/stringifyLocale.js"
+    }
+  },
+  "keywords": [
+    "svelte",
+    "utilities",
+    "base-ui"
+  ],
+  "scripts": {
+    "dev": "svelte-package --watch",
+    "build": "svelte-package",
+    "prepack": "pnpm run build && publint --strict",
+    "check": "svelte-check --tsconfig ./tsconfig.json",
+    "check:watch": "svelte-check --tsconfig ./tsconfig.json --watch",
+    "test": "pnpm run test:unit --run",
+    "test:unit": "vitest --project server",
+    "test:dom": "vitest run --project dom",
+    "test:component": "vitest run --project client",
+    "package:watch": "svelte-package --watch"
+  },
+  "peerDependencies": {
+    "svelte": "^5.57.1"
+  },
+  "devDependencies": {
+    "@sveltejs/package": "3.0.0",
+    "@sveltejs/vite-plugin-svelte": "7.3.1",
+    "@types/jsdom": "30.0.0",
+    "@types/node": "24.19.1",
+    "@vitest/browser-playwright": "5.0.3",
+    "jsdom": "30.1.1",
+    "svelte": "5.57.1",
+    "svelte-check": "4.7.6",
+    "typescript": "6.0.3",
+    "vite": "8.3.1",
+    "vitest-browser-svelte": "3.1.0",
+    "vitest": "5.0.3"
+  },
+  "dependencies": {
+    "@floating-ui/utils": "0.2.12",
+    "esm-env": "1.2.2"
+  }
+}

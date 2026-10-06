@@ -11,8 +11,18 @@
   import { mergeProps } from '../merge-props/index.js';
   import type { HTMLProps } from '../internals/types.js';
   import type { MenuLinkItemProps } from './types.js';
-  // eslint-disable-next-line no-useless-assignment -- Publishes native bindable host/action outputs to the owner.
-  let { render, class: className, id: idProp, label, closeOnClick = false, style, children, ref = $bindable(null), ...elementProps }: MenuLinkItemProps = $props();
+  let {
+    render,
+    class: className,
+    id: idProp,
+    label,
+    closeOnClick = false,
+    style,
+    children,
+    // eslint-disable-next-line no-useless-assignment -- Publishes native bindable host/action outputs to the owner.
+    ref = $bindable(null),
+    ...elementProps
+  }: MenuLinkItemProps = $props();
   const generatedId = $props.id();
   const linkRef = { current: null as HTMLElement | null };
   const listItem = useCompositeListItem(() => ({ guess: true, label }));
@@ -23,9 +33,32 @@
   const itemProps = $derived(store.useState('itemProps'));
   const typingRef = store.context.typingRef;
   const { getButtonProps, buttonRef } = useButton(() => ({ native: false, composite: true }));
-  const commonProps = useMenuItemCommonProps(() => ({ closeOnClick, highlighted, id, nodeId: positioner?.context.nodeId, store, typingRef, itemRef: linkRef, itemMetadata: REGULAR_ITEM }));
-  function getItemProps(externalProps?: HTMLProps): HTMLProps { return mergeProps(commonProps(), externalProps, getButtonProps); }
+  const commonProps = useMenuItemCommonProps(() => ({
+    closeOnClick,
+    highlighted,
+    id,
+    nodeId: positioner?.context.nodeId,
+    store,
+    typingRef,
+    itemRef: linkRef,
+    itemMetadata: REGULAR_ITEM,
+  }));
+  function getItemProps(externalProps?: HTMLProps): HTMLProps {
+    return mergeProps(commonProps(), externalProps, getButtonProps);
+  }
   const componentState = $derived({ highlighted });
-  const setRef = (node: HTMLElement | null) => { ref = node; };
+  const setRef = (node: HTMLElement | null) => {
+    ref = node;
+  };
 </script>
-<RenderElement tag="a" componentProps={{ render, class: className, style }} params={{ state: componentState, props: [itemProps, elementProps, getItemProps], ref: [linkRef, buttonRef, setRef, listItem.ref] }} {children} />
+
+<RenderElement
+  tag="a"
+  componentProps={{ render, class: className, style }}
+  params={{
+    state: componentState,
+    props: [itemProps, elementProps, getItemProps],
+    ref: [linkRef, buttonRef, setRef, listItem.ref],
+  }}
+  {children}
+/>

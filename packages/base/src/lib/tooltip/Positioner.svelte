@@ -7,8 +7,27 @@
   import { useTooltipRootContext, useTooltipPortalContext } from './context.js';
   import { provideTooltipPositionerContext } from './positioner/TooltipPositionerContext.js';
   import type { TooltipPositionerProps, TooltipPositionerState } from './types.js';
-  // eslint-disable-next-line no-useless-assignment -- Native bindable ref output is published through the ordered Source ref callback.
-  let { render, class: className, style, children, ref = $bindable(), anchor, positionMethod = 'absolute', side = 'top', align = 'center', sideOffset = 0, alignOffset = 0, collisionBoundary = 'clipping-ancestors', collisionPadding = 5, arrowPadding = 5, sticky = false, disableAnchorTracking = false, collisionAvoidance = POPUP_COLLISION_AVOIDANCE, ...elementProps }: TooltipPositionerProps = $props();
+  let {
+    render,
+    class: className,
+    style,
+    children,
+    // eslint-disable-next-line no-useless-assignment -- Native bindable ref output is published through the ordered Source ref callback.
+    ref = $bindable(),
+    anchor,
+    positionMethod = 'absolute',
+    side = 'top',
+    align = 'center',
+    sideOffset = 0,
+    alignOffset = 0,
+    collisionBoundary = 'clipping-ancestors',
+    collisionPadding = 5,
+    arrowPadding = 5,
+    sticky = false,
+    disableAnchorTracking = false,
+    collisionAvoidance = POPUP_COLLISION_AVOIDANCE,
+    ...elementProps
+  }: TooltipPositionerProps = $props();
   const store = useTooltipRootContext();
   const portal = useTooltipPortalContext();
   const open = $derived(store.select('open'));
@@ -20,14 +39,52 @@
   const trackCursorAxis = $derived(store.select('trackCursorAxis'));
   const disableHoverablePopup = $derived(store.select('disableHoverablePopup'));
   const positioning = useAnchorPositioning(() => ({
-    anchor, floatingRootContext, open, mounted, positionMethod, side, align, sideOffset, alignOffset,
-    collisionBoundary, collisionPadding, arrowPadding, sticky, disableAnchorTracking,
-    keepMounted: portal.keepMounted, collisionAvoidance, adaptiveOrigin,
+    anchor,
+    floatingRootContext,
+    open,
+    mounted,
+    positionMethod,
+    side,
+    align,
+    sideOffset,
+    alignOffset,
+    collisionBoundary,
+    collisionPadding,
+    arrowPadding,
+    sticky,
+    disableAnchorTracking,
+    keepMounted: portal.keepMounted,
+    collisionAvoidance,
+    adaptiveOrigin,
   }));
-  const state: TooltipPositionerState = $derived({ open, side: positioning.side, align: positioning.align, anchorHidden: positioning.anchorHidden, instant: trackCursorAxis !== 'none' ? 'tracking-cursor' : instantType });
-  const forwardedRef = (node: HTMLElement | null) => { ref = node; };
+  const state: TooltipPositionerState = $derived({
+    open,
+    side: positioning.side,
+    align: positioning.align,
+    anchorHidden: positioning.anchorHidden,
+    instant: trackCursorAxis !== 'none' ? 'tracking-cursor' : instantType,
+  });
+  const forwardedRef = (node: HTMLElement | null) => {
+    ref = node;
+  };
   const setPositionerElement = store.useStateSetter('positionerElement');
-  const element = usePositioner(() => state, () => ({ styles: positioning.positionerStyles, transitionStatus, props: elementProps, refs: [forwardedRef, setPositionerElement], hidden: !mounted, inert: !open || trackCursorAxis === 'both' || disableHoverablePopup }));
+  const element = usePositioner(
+    () => state,
+    () => ({
+      styles: positioning.positionerStyles,
+      transitionStatus,
+      props: elementProps,
+      refs: [forwardedRef, setPositionerElement],
+      hidden: !mounted,
+      inert: !open || trackCursorAxis === 'both' || disableHoverablePopup,
+    }),
+  );
   provideTooltipPositionerContext(positioning);
 </script>
-<RenderElement tag="div" componentProps={{ render, class: className, style }} params={element.params} {children} />
+
+<RenderElement
+  tag="div"
+  componentProps={{ render, class: className, style }}
+  params={element.params}
+  {children}
+/>

@@ -5,13 +5,13 @@
   import { useFieldControlNativeName } from '../../internals/field-control-name/FieldControlNameContext.js';
   import { useFieldControlNativeValue } from '../../internals/field-control-value/FieldControlValueContext.js';
   import RenderElement from '../../internals/RenderElement.svelte';
-  import { createMergedRefs } from '../../utils/useMergedRefs.js';
+  import { createMergedRefs } from '@sveltery/utils/useMergedRefs';
   import { createRefAttachment } from '../../internals/nativeRefAttachment.js';
   import { mergePropsN } from '../../merge-props/index.js';
   import type { HTMLInputAttributes } from 'svelte/elements';
-  import { useControlled } from '../../utils/useControlled.svelte.js';
-  import { useIsoLayoutEffect } from '../../utils/useIsoLayoutEffect.svelte.js';
-  import { visuallyHidden, visuallyHiddenInput } from '../../utils/visuallyHidden.js';
+  import { useControlled } from '@sveltery/utils/useControlled';
+  import { useIsoLayoutEffect } from '@sveltery/utils/useIsoLayoutEffect';
+  import { visuallyHidden, visuallyHiddenInput } from '@sveltery/utils/visuallyHidden';
   import { toNativeStyle } from '../../internals/nativeProps.js';
   import { useEnterSubmit } from '../utils/useEnterSubmit.svelte.js';
   import { getCheckboxStateAttributesMapping } from '../utils/getCheckboxStateAttributesMapping.js';
@@ -74,9 +74,7 @@
   const value = $derived(valueProp ?? name);
   const instanceId = $props.id();
   const id = useBaseUiId(undefined, instanceId);
-  const ownsControlId = $derived(
-    groupContext?.registerControlId !== labelable.registerControlId,
-  );
+  const ownsControlId = $derived(groupContext?.registerControlId !== labelable.registerControlId);
   const getControlId = useLabelableId(
     () => ({ id: idProp || undefined, enabled: ownsControlId }),
     `${id}-input`,
@@ -207,12 +205,7 @@
         return;
       }
       setCheckedState(nextChecked);
-      if (
-        value !== undefined &&
-        groupContext !== undefined &&
-        !parent &&
-        !isGroupedWithParent
-      ) {
+      if (value !== undefined && groupContext !== undefined && !parent && !isGroupedWithParent) {
         groupContext.setValue(
           nextChecked
             ? [...groupContext.value, value]
@@ -285,9 +278,7 @@
     const update = () =>
       untrack(() => {
         unregister?.();
-        unregister = element.id
-          ? context.registerChildId(childValue, element.id)
-          : undefined;
+        unregister = element.id ? context.registerChildId(childValue, element.id) : undefined;
       });
     update();
     const observer = new element.ownerDocument.defaultView!.MutationObserver(update);
@@ -335,6 +326,7 @@
     ),
   );
 </script>
+
 <RenderElement tag="span" {componentProps} {params} {children} />
 {#if !checked && !groupContext && name && !parent && uncheckedValue !== undefined}
   <input type="hidden" {form} name={nativeName} value={uncheckedValue} {disabled} />

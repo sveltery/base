@@ -1,11 +1,11 @@
 <script lang="ts">
   // Source business port of Base UI v1.8.0 CheckboxGroup.tsx. MIT.
   import RenderElement from '../internals/RenderElement.svelte';
-  import { useControlled } from '../utils/useControlled.svelte.js';
-  import { useIsoLayoutEffect } from '../utils/useIsoLayoutEffect.svelte.js';
-  import { useStableCallback } from '../utils/useStableCallback.js';
-  import { EMPTY_ARRAY } from '../utils/empty.js';
-  import { areArraysEqual } from '../utils/areArraysEqual.js';
+  import { useControlled } from '@sveltery/utils/useControlled';
+  import { useIsoLayoutEffect } from '@sveltery/utils/useIsoLayoutEffect';
+  import { useStableCallback } from '@sveltery/utils/useStableCallback';
+  import { EMPTY_ARRAY } from '@sveltery/utils/empty';
+  import { areArraysEqual } from '@sveltery/utils/areArraysEqual';
   import { useBaseUiId } from '../internals/useBaseUiId.js';
   import { setCheckboxGroupContext } from './CheckboxGroupContext.js';
   import { isEligibleInput } from '../field/root/useFieldValidation.svelte.js';
@@ -76,7 +76,8 @@
     for (const [input, registration] of field.validation.registeredInputs) {
       if (
         registration.value !== undefined &&
-        'checked' in input && input.checked &&
+        'checked' in input &&
+        input.checked &&
         isEligibleInput(input, formElement)
       )
         successfulValues.add(registration.value);
@@ -142,4 +143,5 @@
     stateAttributesMapping: fieldValidityMapping,
   });
 </script>
+
 <RenderElement tag="div" {componentProps} {params} {children} />

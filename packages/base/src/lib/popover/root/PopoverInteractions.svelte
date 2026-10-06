@@ -6,7 +6,15 @@
   import { usePopupInteractionProps } from '../../utils/popups/popupStoreUtils.svelte.js';
   import type { PopoverStore } from '../store/PopoverStore.svelte.js';
   let { store, modal }: { store: PopoverStore<Payload>; modal: boolean | 'trap-focus' } = $props();
-  const dismiss = useDismiss(() => store.select('floatingRootContext'), () => ({ outsidePressEvent: { mouse: modal === 'trap-focus' ? 'sloppy' : 'intentional', touch: 'sloppy' } }));
+  const dismiss = useDismiss(
+    () => store.select('floatingRootContext'),
+    () => ({
+      outsidePressEvent: {
+        mouse: modal === 'trap-focus' ? 'sloppy' : 'intentional',
+        touch: 'sloppy',
+      },
+    }),
+  );
   // The conditional interactions instance belongs to this Root-owned store.
   const initialStore = untrack(() => store);
   usePopupInteractionProps(initialStore, () => ({

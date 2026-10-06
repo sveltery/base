@@ -5,9 +5,24 @@ import type { BaseUIChangeEventDetails } from '../internals/createBaseUIEventDet
 import type { PopoverHandle } from './store/PopoverHandle.svelte.js';
 // eslint-disable-next-line @typescript-eslint/no-empty-object-type -- Preserve Source empty State assignability.
 export interface PopoverRootState {}
-export type PopoverRootChangeEventReason = 'trigger-hover' | 'trigger-focus' | 'trigger-press' | 'outside-press' | 'escape-key' | 'close-press' | 'focus-out' | 'imperative-action' | 'none';
-export type PopoverRootChangeEventDetails = BaseUIChangeEventDetails<PopoverRootChangeEventReason, { preventUnmountOnClose(): void }>;
-export interface PopoverRootActions { unmount(): void; close(): void }
+export type PopoverRootChangeEventReason =
+  | 'trigger-hover'
+  | 'trigger-focus'
+  | 'trigger-press'
+  | 'outside-press'
+  | 'escape-key'
+  | 'close-press'
+  | 'focus-out'
+  | 'imperative-action'
+  | 'none';
+export type PopoverRootChangeEventDetails = BaseUIChangeEventDetails<
+  PopoverRootChangeEventReason,
+  { preventUnmountOnClose(): void }
+>;
+export interface PopoverRootActions {
+  unmount(): void;
+  close(): void;
+}
 export interface PopoverRootProps<Payload = unknown> {
   defaultOpen?: boolean | undefined;
   open?: boolean | undefined;
@@ -23,20 +38,38 @@ export interface PopoverRootProps<Payload = unknown> {
 
 import type { HTMLAttributes } from 'svelte/elements';
 import type { BaseUIComponentProps, WithBaseUIEvent } from '../internals/types.js';
-import type { Side, Align, AnchorPositioningOptions } from '../internals/anchor-positioning/types.js';
+import type {
+  Side,
+  Align,
+  AnchorPositioningOptions,
+} from '../internals/anchor-positioning/types.js';
 import type { TransitionStatus } from '../internals/useTransitionStatus.svelte.js';
-export type ElementProps<State, Native = HTMLAttributes<HTMLElement>> = Omit<WithBaseUIEvent<Native>, 'class' | 'style' | 'children'> & BaseUIComponentProps<State> & { children?: Snippet | undefined; ref?: HTMLElement | null | undefined };
+export type ElementProps<State, Native = HTMLAttributes<HTMLElement>> = Omit<
+  WithBaseUIEvent<Native>,
+  'class' | 'style' | 'children'
+> &
+  BaseUIComponentProps<State> & {
+    children?: Snippet | undefined;
+    ref?: HTMLElement | null | undefined;
+  };
 // eslint-disable-next-line @typescript-eslint/no-empty-object-type -- Preserve Source empty State assignability.
 export interface PopoverPortalState {}
 export type PopoverPortalProps = ElementProps<PopoverPortalState> & {
   keepMounted?: boolean | undefined;
-  container?: HTMLElement | ShadowRoot | { current: HTMLElement | ShadowRoot | null } | null | undefined;
+  container?:
+    HTMLElement | ShadowRoot | { current: HTMLElement | ShadowRoot | null } | null | undefined;
 };
 export interface PopoverArrowState {
-  open: boolean; side: Side; align: Align; uncentered: boolean;
+  open: boolean;
+  side: Side;
+  align: Align;
+  uncentered: boolean;
 }
 export type PopoverArrowProps = ElementProps<PopoverArrowState>;
-export interface PopoverBackdropState { open: boolean; transitionStatus: TransitionStatus }
+export interface PopoverBackdropState {
+  open: boolean;
+  transitionStatus: TransitionStatus;
+}
 export type PopoverBackdropProps = ElementProps<PopoverBackdropState>;
 
 import type { HTMLButtonAttributes } from 'svelte/elements';
@@ -48,9 +81,18 @@ export interface PopoverDescriptionState {}
 export interface PopoverCloseState {}
 export type PopoverTitleProps = ElementProps<PopoverTitleState>;
 export type PopoverDescriptionProps = ElementProps<PopoverDescriptionState>;
-export type PopoverCloseProps = ElementProps<PopoverCloseState, HTMLButtonAttributes> & { nativeButton?: boolean | undefined; disabled?: boolean | undefined };
-export interface PopoverTriggerState { disabled: boolean; open: boolean }
-export type PopoverTriggerProps<Payload = unknown> = Omit<ElementProps<PopoverTriggerState, HTMLButtonAttributes>, 'disabled'> & {
+export type PopoverCloseProps = ElementProps<PopoverCloseState, HTMLButtonAttributes> & {
+  nativeButton?: boolean | undefined;
+  disabled?: boolean | undefined;
+};
+export interface PopoverTriggerState {
+  disabled: boolean;
+  open: boolean;
+}
+export type PopoverTriggerProps<Payload = unknown> = Omit<
+  ElementProps<PopoverTriggerState, HTMLButtonAttributes>,
+  'disabled'
+> & {
   handle?: PopoverHandle<Payload> | undefined;
   payload?: NoInfer<Payload> | undefined;
   delay?: number | undefined;
@@ -61,17 +103,55 @@ export type PopoverTriggerProps<Payload = unknown> = Omit<ElementProps<PopoverTr
 };
 
 // Source public shared positioning fields; private mounted/tree/middleware fields stay internal.
-type PublicAnchorPositioning = Pick<AnchorPositioningOptions, 'anchor' | 'positionMethod' | 'side' | 'align' | 'sideOffset' | 'alignOffset' | 'collisionBoundary' | 'collisionPadding' | 'sticky' | 'arrowPadding' | 'disableAnchorTracking' | 'collisionAvoidance'>;
-type PositioningProps = { [K in keyof PublicAnchorPositioning]?: PublicAnchorPositioning[K] | undefined };
-export interface PopoverPositionerState { open: boolean; side: Side; align: Align; anchorHidden: boolean; instant: string | undefined }
+type PublicAnchorPositioning = Pick<
+  AnchorPositioningOptions,
+  | 'anchor'
+  | 'positionMethod'
+  | 'side'
+  | 'align'
+  | 'sideOffset'
+  | 'alignOffset'
+  | 'collisionBoundary'
+  | 'collisionPadding'
+  | 'sticky'
+  | 'arrowPadding'
+  | 'disableAnchorTracking'
+  | 'collisionAvoidance'
+>;
+type PositioningProps = {
+  [K in keyof PublicAnchorPositioning]?: PublicAnchorPositioning[K] | undefined;
+};
+export interface PopoverPositionerState {
+  open: boolean;
+  side: Side;
+  align: Align;
+  anchorHidden: boolean;
+  instant: string | undefined;
+}
 export type PopoverPositionerProps = ElementProps<PopoverPositionerState> & PositioningProps;
 
-export interface PopoverPopupState { open: boolean; side: Side; align: Align; instant: 'dismiss' | 'click' | 'focus' | 'trigger-change' | undefined; transitionStatus: TransitionStatus }
-import type { InteractionType } from '../utils/useEnhancedClickHandler.js';
-export type PopoverPopupFocusTarget = boolean | { current: HTMLElement | null } | ((interactionType: InteractionType) => void | boolean | HTMLElement | null);
-export type PopoverPopupProps = ElementProps<PopoverPopupState> & { initialFocus?: PopoverPopupFocusTarget | undefined; finalFocus?: PopoverPopupFocusTarget | undefined };
+export interface PopoverPopupState {
+  open: boolean;
+  side: Side;
+  align: Align;
+  instant: 'dismiss' | 'click' | 'focus' | 'trigger-change' | undefined;
+  transitionStatus: TransitionStatus;
+}
+import type { InteractionType } from '@sveltery/utils/useEnhancedClickHandler';
+export type PopoverPopupFocusTarget =
+  | boolean
+  | { current: HTMLElement | null }
+  | ((interactionType: InteractionType) => void | boolean | HTMLElement | null);
+export type PopoverPopupProps = ElementProps<PopoverPopupState> & {
+  initialFocus?: PopoverPopupFocusTarget | undefined;
+  finalFocus?: PopoverPopupFocusTarget | undefined;
+};
 
-export interface PopoverViewportState { activationDirection: string | undefined; transitioning: boolean; instant: 'dismiss' | 'click' | 'focus' | 'trigger-change' | undefined }
+export interface PopoverViewportState {
+  activationDirection: string | undefined;
+  transitioning: boolean;
+  instant: 'dismiss' | 'click' | 'focus' | 'trigger-change' | undefined;
+}
 export type PopoverViewportProps = ElementProps<PopoverViewportState>;
 
 // eslint-disable-next-line @typescript-eslint/no-namespace -- Preserve the pinned prefixed erased part namespace.

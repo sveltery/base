@@ -1,5 +1,5 @@
 // Base UI v1.8.0 getElementTransform at 47b40521; MIT: THIRD_PARTY_NOTICES.md.
-import { ownerWindow } from './owner.js';
+import { ownerWindow } from '@sveltery/utils/owner';
 
 /**
  * Extracts the 2D translation and scale from the element's computed `transform` matrix.

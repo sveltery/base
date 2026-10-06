@@ -7,14 +7,36 @@
   import { usePopoverRootContext, usePopoverPortalContext } from './context.js';
   import { providePopoverPositionerContext } from './positioner/PopoverPositionerContext.js';
   import type { PopoverPositionerProps, PopoverPositionerState } from './types.js';
-  import { useFloatingNodeId, provideFloatingNode } from '../floating-ui/components/FloatingTree.svelte.js';
+  import {
+    useFloatingNodeId,
+    provideFloatingNode,
+  } from '../floating-ui/components/FloatingTree.svelte.js';
   import InternalBackdrop from '../utils/InternalBackdrop.svelte';
   import { useAnimationsFinished } from '../internals/useAnimationsFinished.js';
   import { useAnchoredPopupScrollLock } from '../utils/useAnchoredPopupScrollLock.svelte.js';
-  import { useIsoLayoutEffect } from '../utils/useIsoLayoutEffect.svelte.js';
+  import { useIsoLayoutEffect } from '@sveltery/utils/useIsoLayoutEffect';
   import { REASONS } from '../internals/reasons.js';
-  // eslint-disable-next-line no-useless-assignment -- Native bindable ref output is published through the ordered Source ref callback.
-  let { render, class: className, style, children, ref = $bindable(), anchor, positionMethod, side, align, sideOffset, alignOffset, collisionBoundary = 'clipping-ancestors', collisionPadding, arrowPadding, sticky, disableAnchorTracking = false, collisionAvoidance = POPUP_COLLISION_AVOIDANCE, ...elementProps }: PopoverPositionerProps = $props();
+  let {
+    render,
+    class: className,
+    style,
+    children,
+    // eslint-disable-next-line no-useless-assignment -- Native bindable ref output is published through the ordered Source ref callback.
+    ref = $bindable(),
+    anchor,
+    positionMethod,
+    side,
+    align,
+    sideOffset,
+    alignOffset,
+    collisionBoundary = 'clipping-ancestors',
+    collisionPadding,
+    arrowPadding,
+    sticky,
+    disableAnchorTracking = false,
+    collisionAvoidance = POPUP_COLLISION_AVOIDANCE,
+    ...elementProps
+  }: PopoverPositionerProps = $props();
   const store = usePopoverRootContext();
   const portal = usePopoverPortalContext();
   const open = $derived(store.select('open'));
@@ -31,35 +53,90 @@
   const openMethod = $derived(store.select('openMethod'));
   const positionerElement = $derived(store.select('positionerElement'));
   const prevTriggerElementRef = { current: null as Element | null };
-  const runOnceAnimationsFinish = useAnimationsFinished({ get current() { return positionerElement; } });
+  const runOnceAnimationsFinish = useAnimationsFinished({
+    get current() {
+      return positionerElement;
+    },
+  });
   const positioning = useAnchorPositioning(() => ({
-    anchor, floatingRootContext, open, mounted, positionMethod, side, align, sideOffset, alignOffset,
-    collisionBoundary, collisionPadding, arrowPadding, sticky, disableAnchorTracking,
-    keepMounted: portal.keepMounted, collisionAvoidance, adaptiveOrigin, nodeId,
+    anchor,
+    floatingRootContext,
+    open,
+    mounted,
+    positionMethod,
+    side,
+    align,
+    sideOffset,
+    alignOffset,
+    collisionBoundary,
+    collisionPadding,
+    arrowPadding,
+    sticky,
+    disableAnchorTracking,
+    keepMounted: portal.keepMounted,
+    collisionAvoidance,
+    adaptiveOrigin,
+    nodeId,
   }));
   const domReference = $derived(floatingRootContext.useState('domReferenceElement'));
-  useIsoLayoutEffect(() => {
-    const currentTriggerElement = domReference;
-    const prevTriggerElement = prevTriggerElementRef.current;
-    if (currentTriggerElement) prevTriggerElementRef.current = currentTriggerElement;
-    if (prevTriggerElement && currentTriggerElement && currentTriggerElement !== prevTriggerElement) {
-      store.set('instantType', undefined);
-      const ac = new AbortController();
-      runOnceAnimationsFinish(() => store.set('instantType', 'trigger-change'), ac.signal);
-      return () => ac.abort();
-    }
-    return undefined;
-  }, () => [domReference, runOnceAnimationsFinish, store]);
+  useIsoLayoutEffect(
+    () => {
+      const currentTriggerElement = domReference;
+      const prevTriggerElement = prevTriggerElementRef.current;
+      if (currentTriggerElement) prevTriggerElementRef.current = currentTriggerElement;
+      if (
+        prevTriggerElement &&
+        currentTriggerElement &&
+        currentTriggerElement !== prevTriggerElement
+      ) {
+        store.set('instantType', undefined);
+        const ac = new AbortController();
+        runOnceAnimationsFinish(() => store.set('instantType', 'trigger-change'), ac.signal);
+        return () => ac.abort();
+      }
+      return undefined;
+    },
+    () => [domReference, runOnceAnimationsFinish, store],
+  );
   const trueModalNonHover = $derived(modal === true && openReason !== REASONS.triggerHover);
-  useAnchoredPopupScrollLock(() => open && trueModalNonHover, () => openMethod === 'touch', () => positionerElement, () => triggerElement);
-  const state: PopoverPositionerState = $derived({ open, side: positioning.side, align: positioning.align, anchorHidden: positioning.anchorHidden, instant: instantType });
-  const forwardedRef = (node: HTMLElement | null) => { ref = node; };
+  useAnchoredPopupScrollLock(
+    () => open && trueModalNonHover,
+    () => openMethod === 'touch',
+    () => positionerElement,
+    () => triggerElement,
+  );
+  const state: PopoverPositionerState = $derived({
+    open,
+    side: positioning.side,
+    align: positioning.align,
+    anchorHidden: positioning.anchorHidden,
+    instant: instantType,
+  });
+  const forwardedRef = (node: HTMLElement | null) => {
+    ref = node;
+  };
   const setPositionerElement = store.useStateSetter('positionerElement');
-  const element = usePositioner(() => state, () => ({ styles: positioning.positionerStyles, transitionStatus, props: elementProps, refs: [forwardedRef, setPositionerElement], hidden: !mounted, inert: !open }));
+  const element = usePositioner(
+    () => state,
+    () => ({
+      styles: positioning.positionerStyles,
+      transitionStatus,
+      props: elementProps,
+      refs: [forwardedRef, setPositionerElement],
+      hidden: !mounted,
+      inert: !open,
+    }),
+  );
   providePopoverPositionerContext(positioning);
   provideFloatingNode(() => nodeId);
 </script>
+
 {#if mounted && trueModalNonHover}
   <InternalBackdrop inert={!open} cutout={triggerElement} />
 {/if}
-<RenderElement tag="div" componentProps={{ render, class: className, style }} params={element.params} {children} />
+<RenderElement
+  tag="div"
+  componentProps={{ render, class: className, style }}
+  params={element.params}
+  {children}
+/>

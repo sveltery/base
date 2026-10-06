@@ -10,6 +10,23 @@ bash scripts/verify.sh
 bash .github/standards/check.sh
 ```
 
+For a focused fresh library build and npm artifact check, run `pnpm package:check`. It validates the packed Svelte source/declarations with publint and AreTheTypesWrong before the existing installed consumers. The producer and standards compiler is TypeScript 6.0.3; the isolated TS5.9.3 remote-contract consumer remains minimum-compiler coverage. See [release preparation](docs/releasing.md) for artifact and supported-resolution details.
+
+The library development setup follows the official `sv create` library template with ESLint, Prettier, Vitest and Playwright, adapted to this workspace. Run `pnpm dev` for the small public-component preview in `packages/base`; the paired reference fixtures remain in `apps/fixtures`.
+
+| Command                     | Purpose                                                             |
+| --------------------------- | ------------------------------------------------------------------- |
+| `pnpm check`                | Workspace TypeScript and Svelte diagnostics                         |
+| `pnpm lint` / `pnpm format` | Check or format maintained source, tests, configs and documentation |
+| `pnpm test`                 | Existing Node runtime suites                                        |
+| `pnpm test:unit`            | Watch the Node runtime suites                                       |
+| `pnpm test:dom`             | Existing jsdom characterization suites                              |
+| `pnpm test:component`       | Real Chromium public-component tests                                |
+| `pnpm test:e2e`             | Existing paired Playwright browser suites                           |
+| `pnpm build`                | Build workspace packages and applications                           |
+
+Install official Chromium once with `pnpm exec playwright install chromium` before browser checks. Both browser runners enable the Chromium sandbox, use one worker and zero retries; use a supported host rather than disabling that sandbox.
+
 Keep pull requests focused. Explain the behavior before and after, link the upstream contract or issue, and distinguish upstream assertion ports from new regressions. Update parity claims only with executed evidence. An independent reviewer must examine the exact final commit; rerun relevant checks after changes.
 
 ## Source-first implementation and review
@@ -26,9 +43,9 @@ Use native Svelte 5 state, derived values, snippets and event props. Use an effe
 
 For markup-local values, use `{const ...}` and `{let ...}` declaration tags, available since Svelte 5.56. Wrap changing expressions in `$derived(...)`; declaration initializers do not implicitly stay reactive. Keep component-lifetime state and context initialization in the script when moving them into a block would change their lifetime. The installed Svelte 5.57.1 and library peer range `^5.57.1` support this syntax. ESLint rejects legacy `{@const ...}` in runes mode through `svelte/no-at-const-tags`, available since eslint-plugin-svelte 3.20.0 and installed at 3.23.0. See the [scoped modernization record](docs/modern-svelte.md) for the fixture and tooling changes.
 
-ESLint checks TypeScript, JavaScript and Svelte source plus tests and scripts. Prettier currently checks the project standards files listed in `.github/standards/check.sh`. Existing source formatting is not standardized by this PR; expand formatting in a coordinated change to avoid rewriting active component work. Standards dependencies have an independent frozen lockfile under `.github/standards`, so component dependencies remain owned by the workspace. Underscore-prefixed unused parameters are allowed for type assertion helpers. Empty object defaults are allowed only in the upstream-derived event-detail type file. The narrowly scoped `no-self-assign` exception preserves an existing upstream-derived no-op branch in `mergeProps` and should be removed when that port is revised.
+The visible root `eslint.config.js` and `prettier.config.js` share one frozen workspace toolchain. ESLint checks maintained TypeScript, JavaScript and Svelte source, tests and scripts. Prettier includes the official Svelte plugin and keeps the project's two-space, single-quote style. Immutable upstream/parity archives, generated output, lockfiles and shipped patch/attribution bytes are excluded from formatting. `.github/standards/check.sh` delegates to `pnpm lint` without a second dependency installation. Underscore-prefixed unused parameters remain allowed for type assertion helpers. Empty object defaults are allowed only in the upstream-derived event-detail type file. The narrow `no-self-assign` exception preserves the source-derived no-op branch in `mergeProps`; JavaScript retains `no-undef` while TypeScript checks its own undeclared names.
 
-Both [CI checks](docs/ci.md) must pass on the reviewed head before merging. Browser acceptance remains a separate requirement for component changes until a real browser suite is connected to CI. Do not substitute an empty job or an environment probe for component acceptance. Package publication is a separate, explicitly approved operation; see [release preparation](docs/releasing.md).
+The [CI checks](docs/ci.md) must pass on the reviewed head before merging, including the real browser gates for affected components. Do not substitute an empty job or an environment probe for component acceptance. Package publication is a separate, explicitly approved operation; see [release preparation](docs/releasing.md).
 
 ## Upstream porting policy
 

@@ -5,23 +5,39 @@ import type { HTMLAttributes, HTMLButtonAttributes, HTMLAnchorAttributes } from 
 import type { BaseUIComponentProps, WithBaseUIEvent } from '../internals/types.js';
 import type { BaseUIChangeEventDetails } from '../internals/createBaseUIEventDetails.js';
 import type { TransitionStatus } from '../internals/useTransitionStatus.svelte.js';
-import type { Side, Align, AnchorPositioningOptions } from '../internals/anchor-positioning/types.js';
-import type { InteractionType } from '../utils/useEnhancedClickHandler.js';
+import type {
+  Side,
+  Align,
+  AnchorPositioningOptions,
+} from '../internals/anchor-positioning/types.js';
+import type { InteractionType } from '@sveltery/utils/useEnhancedClickHandler';
 import type { MenuHandle } from './store/MenuHandle.svelte.js';
 import type { MenuStore } from './store/MenuStore.svelte.js';
 import type { MenuRootContext } from './root/MenuRootContext.js';
 import type { MenubarContext } from '../menubar/MenubarContext.js';
 import type { ContextMenuRootContext } from '../context-menu/root/ContextMenuRootContext.js';
 import { REASONS } from '../internals/reasons.js';
-export type ElementProps<State, Native = HTMLAttributes<HTMLElement>> = Omit<WithBaseUIEvent<Native>, 'class' | 'style' | 'children'> & BaseUIComponentProps<State> & { children?: Snippet | undefined; ref?: HTMLElement | null | undefined };
-interface NativeButtonProps { nativeButton?: boolean | undefined }
+export type ElementProps<State, Native = HTMLAttributes<HTMLElement>> = Omit<
+  WithBaseUIEvent<Native>,
+  'class' | 'style' | 'children'
+> &
+  BaseUIComponentProps<State> & {
+    children?: Snippet | undefined;
+    ref?: HTMLElement | null | undefined;
+  };
+interface NativeButtonProps {
+  nativeButton?: boolean | undefined;
+}
 type NonNativeButtonProps = NativeButtonProps;
 type PayloadChildRenderFunction<Payload> = Snippet<[{ payload: Payload | undefined }]>;
 // Public Original positioning props explicitly accept undefined with exact optional types.
-type PublicAnchorPositioningOptions = { [Key in keyof AnchorPositioningOptions]: AnchorPositioningOptions[Key] | undefined };
-type UseAnchorPositioningSharedParameters = Omit<PublicAnchorPositioningOptions, 'open' | 'mounted' | 'collisionAvoidance' | 'floatingRootContext' | 'externalTree' | 'nodeId'> & { collisionAvoidance?: AnchorPositioningOptions['collisionAvoidance'] | undefined };
-
-
+type PublicAnchorPositioningOptions = {
+  [Key in keyof AnchorPositioningOptions]: AnchorPositioningOptions[Key] | undefined;
+};
+type UseAnchorPositioningSharedParameters = Omit<
+  PublicAnchorPositioningOptions,
+  'open' | 'mounted' | 'collisionAvoidance' | 'floatingRootContext' | 'externalTree' | 'nodeId'
+> & { collisionAvoidance?: AnchorPositioningOptions['collisionAvoidance'] | undefined };
 
 export interface MenuArrowState {
   /**
@@ -42,15 +58,15 @@ export interface MenuArrowState {
   uncentered: boolean;
 }
 
-
-export interface MenuArrowProps extends ElementProps<MenuArrowState, HTMLAttributes<HTMLDivElement>> {}
-
+export interface MenuArrowProps extends ElementProps<
+  MenuArrowState,
+  HTMLAttributes<HTMLDivElement>
+> {}
 
 export namespace MenuArrow {
   export type State = MenuArrowState;
   export type Props = MenuArrowProps;
 }
-
 
 export interface MenuBackdropState {
   /**
@@ -63,15 +79,15 @@ export interface MenuBackdropState {
   transitionStatus: TransitionStatus;
 }
 
-
-export interface MenuBackdropProps extends ElementProps<MenuBackdropState, HTMLAttributes<HTMLDivElement>> {}
-
+export interface MenuBackdropProps extends ElementProps<
+  MenuBackdropState,
+  HTMLAttributes<HTMLDivElement>
+> {}
 
 export namespace MenuBackdrop {
   export type State = MenuBackdropState;
   export type Props = MenuBackdropProps;
 }
-
 
 export interface MenuCheckboxItemState {
   /**
@@ -88,9 +104,10 @@ export interface MenuCheckboxItemState {
   checked: boolean;
 }
 
-
 export interface MenuCheckboxItemProps
-  extends NonNativeButtonProps, ElementProps<MenuCheckboxItemState, HTMLAttributes<HTMLDivElement>> {
+  extends
+    NonNativeButtonProps,
+    ElementProps<MenuCheckboxItemState, HTMLAttributes<HTMLDivElement>> {
   /**
    * Whether the checkbox item is currently ticked.
    *
@@ -112,7 +129,8 @@ export interface MenuCheckboxItemProps
   /**
    * The click handler for the menu item.
    */
-  onclick?: ElementProps<MenuCheckboxItemState, HTMLAttributes<HTMLDivElement>>['onclick'] | undefined;
+  onclick?:
+    ElementProps<MenuCheckboxItemState, HTMLAttributes<HTMLDivElement>>['onclick'] | undefined;
   /**
    * Whether the component should ignore user interaction.
    * @default false
@@ -133,11 +151,9 @@ export interface MenuCheckboxItemProps
   closeOnClick?: boolean | undefined;
 }
 
-
 export type MenuCheckboxItemChangeEventReason = MenuRoot.ChangeEventReason;
 
 export type MenuCheckboxItemChangeEventDetails = MenuRoot.ChangeEventDetails;
-
 
 export namespace MenuCheckboxItem {
   export type State = MenuCheckboxItemState;
@@ -146,15 +162,16 @@ export namespace MenuCheckboxItem {
   export type ChangeEventDetails = MenuCheckboxItemChangeEventDetails;
 }
 
-
-export interface MenuCheckboxItemIndicatorProps extends ElementProps<MenuCheckboxItemIndicatorState, HTMLAttributes<HTMLSpanElement>> {
+export interface MenuCheckboxItemIndicatorProps extends ElementProps<
+  MenuCheckboxItemIndicatorState,
+  HTMLAttributes<HTMLSpanElement>
+> {
   /**
    * Whether to keep the HTML element in the DOM when the checkbox item is not checked.
    * @default false
    */
   keepMounted?: boolean | undefined;
 }
-
 
 export interface MenuCheckboxItemIndicatorState {
   /**
@@ -175,41 +192,39 @@ export interface MenuCheckboxItemIndicatorState {
   transitionStatus: TransitionStatus;
 }
 
-
 export namespace MenuCheckboxItemIndicator {
   export type Props = MenuCheckboxItemIndicatorProps;
   export type State = MenuCheckboxItemIndicatorState;
 }
 
-
-export interface MenuGroupProps extends ElementProps<MenuGroupState, HTMLAttributes<HTMLDivElement>> {
+export interface MenuGroupProps extends ElementProps<
+  MenuGroupState,
+  HTMLAttributes<HTMLDivElement>
+> {
   /**
    * The content of the component.
    */
   children?: Snippet | undefined;
 }
 
-
 export interface MenuGroupState {}
-
 
 export namespace MenuGroup {
   export type Props = MenuGroupProps;
   export type State = MenuGroupState;
 }
 
-
-export interface MenuGroupLabelProps extends ElementProps<MenuGroupLabelState, HTMLAttributes<HTMLDivElement>> {}
-
+export interface MenuGroupLabelProps extends ElementProps<
+  MenuGroupLabelState,
+  HTMLAttributes<HTMLDivElement>
+> {}
 
 export interface MenuGroupLabelState {}
-
 
 export namespace MenuGroupLabel {
   export type Props = MenuGroupLabelProps;
   export type State = MenuGroupLabelState;
 }
-
 
 export interface MenuItemState {
   /**
@@ -221,7 +236,6 @@ export interface MenuItemState {
    */
   highlighted: boolean;
 }
-
 
 export interface MenuItemProps
   extends NonNativeButtonProps, ElementProps<MenuItemState, HTMLAttributes<HTMLDivElement>> {
@@ -250,12 +264,10 @@ export interface MenuItemProps
   closeOnClick?: boolean | undefined;
 }
 
-
 export namespace MenuItem {
   export type State = MenuItemState;
   export type Props = MenuItemProps;
 }
-
 
 export interface MenuLinkItemState {
   /**
@@ -263,7 +275,6 @@ export interface MenuLinkItemState {
    */
   highlighted: boolean;
 }
-
 
 export interface MenuLinkItemProps extends ElementProps<MenuLinkItemState, HTMLAnchorAttributes> {
   /**
@@ -281,14 +292,15 @@ export interface MenuLinkItemProps extends ElementProps<MenuLinkItemState, HTMLA
   closeOnClick?: boolean | undefined;
 }
 
-
 export namespace MenuLinkItem {
   export type State = MenuLinkItemState;
   export type Props = MenuLinkItemProps;
 }
 
-
-export interface MenuPopupProps extends ElementProps<MenuPopupState, HTMLAttributes<HTMLDivElement>> {
+export interface MenuPopupProps extends ElementProps<
+  MenuPopupState,
+  HTMLAttributes<HTMLDivElement>
+> {
   children?: Snippet | undefined;
   /**
    * @ignore
@@ -309,7 +321,6 @@ export interface MenuPopupProps extends ElementProps<MenuPopupState, HTMLAttribu
     | ((closeType: InteractionType) => boolean | HTMLElement | null | void)
     | undefined;
 }
-
 
 export interface MenuPopupState {
   /**
@@ -338,17 +349,17 @@ export interface MenuPopupState {
   instant: 'dismiss' | 'click' | 'group' | 'trigger-change' | undefined;
 }
 
-
 export namespace MenuPopup {
   export type Props = MenuPopupProps;
   export type State = MenuPopupState;
 }
 
-
 export interface MenuPortalState {}
 
-
-export interface MenuPortalProps extends ElementProps<MenuPortalState, HTMLAttributes<HTMLDivElement>> {
+export interface MenuPortalProps extends ElementProps<
+  MenuPortalState,
+  HTMLAttributes<HTMLDivElement>
+> {
   /**
    * Whether to keep the portal mounted in the DOM while the popup is hidden.
    * @default false
@@ -361,12 +372,10 @@ export interface MenuPortalProps extends ElementProps<MenuPortalState, HTMLAttri
     HTMLElement | ShadowRoot | { current: HTMLElement | ShadowRoot | null } | null | undefined;
 }
 
-
 export namespace MenuPortal {
   export type State = MenuPortalState;
   export type Props = MenuPortalProps;
 }
-
 
 export interface MenuPositionerState {
   /**
@@ -395,7 +404,6 @@ export interface MenuPositionerState {
   instant: string | undefined;
 }
 
-
 export interface MenuPositionerProps
   extends
     Omit<UseAnchorPositioningSharedParameters, 'side' | 'align'>,
@@ -417,14 +425,15 @@ export interface MenuPositionerProps
   side?: UseAnchorPositioningSharedParameters['side'] | undefined;
 }
 
-
 export namespace MenuPositioner {
   export type State = MenuPositionerState;
   export type Props = MenuPositionerProps;
 }
 
-
-export interface MenuRadioGroupProps extends ElementProps<MenuRadioGroupState, HTMLAttributes<HTMLDivElement>> {
+export interface MenuRadioGroupProps extends ElementProps<
+  MenuRadioGroupState,
+  HTMLAttributes<HTMLDivElement>
+> {
   /**
    * The content of the component.
    */
@@ -454,7 +463,6 @@ export interface MenuRadioGroupProps extends ElementProps<MenuRadioGroupState, H
   disabled?: boolean | undefined;
 }
 
-
 export interface MenuRadioGroupState {
   /**
    * Whether the component is disabled.
@@ -462,11 +470,9 @@ export interface MenuRadioGroupState {
   disabled: boolean;
 }
 
-
 export type MenuRadioGroupChangeEventReason = MenuRoot.ChangeEventReason;
 
 export type MenuRadioGroupChangeEventDetails = MenuRoot.ChangeEventDetails;
-
 
 export namespace MenuRadioGroup {
   export type Props = MenuRadioGroupProps;
@@ -474,7 +480,6 @@ export namespace MenuRadioGroup {
   export type ChangeEventReason = MenuRadioGroupChangeEventReason;
   export type ChangeEventDetails = MenuRadioGroupChangeEventDetails;
 }
-
 
 export interface MenuRadioItemState {
   /**
@@ -490,7 +495,6 @@ export interface MenuRadioItemState {
    */
   checked: boolean;
 }
-
 
 export interface MenuRadioItemProps
   extends NonNativeButtonProps, ElementProps<MenuRadioItemState, HTMLAttributes<HTMLDivElement>> {
@@ -523,21 +527,21 @@ export interface MenuRadioItemProps
   closeOnClick?: boolean | undefined;
 }
 
-
 export namespace MenuRadioItem {
   export type State = MenuRadioItemState;
   export type Props = MenuRadioItemProps;
 }
 
-
-export interface MenuRadioItemIndicatorProps extends ElementProps<MenuRadioItemIndicatorState, HTMLAttributes<HTMLSpanElement>> {
+export interface MenuRadioItemIndicatorProps extends ElementProps<
+  MenuRadioItemIndicatorState,
+  HTMLAttributes<HTMLSpanElement>
+> {
   /**
    * Whether to keep the HTML element in the DOM when the radio item is inactive.
    * @default false
    */
   keepMounted?: boolean | undefined;
 }
-
 
 export interface MenuRadioItemIndicatorState {
   /**
@@ -558,15 +562,12 @@ export interface MenuRadioItemIndicatorState {
   transitionStatus: TransitionStatus;
 }
 
-
 export namespace MenuRadioItemIndicator {
   export type Props = MenuRadioItemIndicatorProps;
   export type State = MenuRadioItemIndicatorState;
 }
 
-
 export interface MenuRootState {}
-
 
 export interface MenuRootProps<Payload = unknown> {
   /**
@@ -658,12 +659,10 @@ export interface MenuRootProps<Payload = unknown> {
   children?: PayloadChildRenderFunction<Payload> | undefined;
 }
 
-
 export interface MenuRootActions {
   unmount: () => void;
   close: () => void;
 }
-
 
 export type MenuRootChangeEventReason =
   | typeof REASONS.triggerHover
@@ -680,14 +679,11 @@ export type MenuRootChangeEventReason =
   | typeof REASONS.imperativeAction
   | typeof REASONS.none;
 
-
 export type MenuRootChangeEventDetails = BaseUIChangeEventDetails<MenuRoot.ChangeEventReason> & {
   preventUnmountOnClose(): void;
 };
 
-
 export type MenuRootOrientation = 'horizontal' | 'vertical';
-
 
 export type MenuParent =
   | {
@@ -711,7 +707,6 @@ export type MenuParent =
       type: undefined;
     };
 
-
 export namespace MenuRoot {
   export type State = MenuRootState;
   export type Props<Payload = unknown> = MenuRootProps<Payload>;
@@ -720,7 +715,6 @@ export namespace MenuRoot {
   export type ChangeEventDetails = MenuRootChangeEventDetails;
   export type Orientation = MenuRootOrientation;
 }
-
 
 export interface MenuSubmenuRootProps extends Omit<
   MenuRoot.Props,
@@ -749,14 +743,11 @@ export interface MenuSubmenuRootProps extends Omit<
   children?: Snippet | undefined;
 }
 
-
 export interface MenuSubmenuRootState {}
-
 
 export type MenuSubmenuRootChangeEventReason = MenuRoot.ChangeEventReason;
 
 export type MenuSubmenuRootChangeEventDetails = MenuRoot.ChangeEventDetails;
-
 
 export namespace MenuSubmenuRoot {
   export type Props = MenuSubmenuRootProps;
@@ -764,7 +755,6 @@ export namespace MenuSubmenuRoot {
   export type ChangeEventReason = MenuSubmenuRootChangeEventReason;
   export type ChangeEventDetails = MenuSubmenuRootChangeEventDetails;
 }
-
 
 export interface MenuSubmenuTriggerState {
   /**
@@ -781,10 +771,12 @@ export interface MenuSubmenuTriggerState {
   open: boolean;
 }
 
-
 export interface MenuSubmenuTriggerProps
-  extends NonNativeButtonProps, ElementProps<MenuSubmenuTriggerState, HTMLAttributes<HTMLDivElement>> {
-  onclick?: ElementProps<MenuSubmenuTriggerState, HTMLAttributes<HTMLDivElement>>['onclick'] | undefined;
+  extends
+    NonNativeButtonProps,
+    ElementProps<MenuSubmenuTriggerState, HTMLAttributes<HTMLDivElement>> {
+  onclick?:
+    ElementProps<MenuSubmenuTriggerState, HTMLAttributes<HTMLDivElement>>['onclick'] | undefined;
   /**
    * Overrides the text label to use when the item is matched during keyboard text navigation.
    */
@@ -820,12 +812,10 @@ export interface MenuSubmenuTriggerProps
   openOnHover?: boolean | undefined;
 }
 
-
 export namespace MenuSubmenuTrigger {
   export type Props = MenuSubmenuTriggerProps;
   export type State = MenuSubmenuTriggerState;
 }
-
 
 export interface MenuTriggerProps<Payload = unknown>
   extends NativeButtonProps, ElementProps<MenuTriggerState, HTMLButtonAttributes> {
@@ -864,7 +854,6 @@ export interface MenuTriggerProps<Payload = unknown>
   openOnHover?: boolean | undefined;
 }
 
-
 export interface MenuTriggerState {
   /**
    * Whether the menu is currently open and was opened by this trigger.
@@ -876,12 +865,10 @@ export interface MenuTriggerState {
   disabled: boolean;
 }
 
-
 export namespace MenuTrigger {
   export type Props<Payload = unknown> = MenuTriggerProps<Payload>;
   export type State = MenuTriggerState;
 }
-
 
 export interface MenuViewportState {
   /**
@@ -898,14 +885,15 @@ export interface MenuViewportState {
   instant: 'dismiss' | 'click' | 'group' | 'trigger-change' | undefined;
 }
 
-
-export interface MenuViewportProps extends ElementProps<MenuViewportState, HTMLAttributes<HTMLDivElement>> {
+export interface MenuViewportProps extends ElementProps<
+  MenuViewportState,
+  HTMLAttributes<HTMLDivElement>
+> {
   /**
    * The content to render inside the transition container.
    */
   children?: Snippet | undefined;
 }
-
 
 export namespace MenuViewport {
   export type Props = MenuViewportProps;

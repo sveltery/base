@@ -22,14 +22,7 @@ export const END = 'End';
 export const PAGE_UP = 'PageUp';
 export const PAGE_DOWN = 'PageDown';
 
-export const COMPOSITE_KEYS = new Set([
-  ARROW_UP,
-  ARROW_DOWN,
-  ARROW_LEFT,
-  ARROW_RIGHT,
-  HOME,
-  END,
-]);
+export const COMPOSITE_KEYS = new Set([ARROW_UP, ARROW_DOWN, ARROW_LEFT, ARROW_RIGHT, HOME, END]);
 
 export const SHIFT = 'Shift' as const;
 export const MODIFIER_KEYS = [SHIFT, 'Control', 'Alt', 'Meta'] as const;
@@ -64,10 +57,8 @@ export function scrollIntoViewIfNeeded(
   let targetX = scrollContainer.scrollLeft;
   let targetY = scrollContainer.scrollTop;
 
-  const isOverflowingX =
-    scrollContainer.clientWidth < scrollContainer.scrollWidth;
-  const isOverflowingY =
-    scrollContainer.clientHeight < scrollContainer.scrollHeight;
+  const isOverflowingX = scrollContainer.clientWidth < scrollContainer.scrollWidth;
+  const isOverflowingY = scrollContainer.clientHeight < scrollContainer.scrollHeight;
 
   if (isOverflowingX && orientation !== 'vertical') {
     const elementOffsetLeft = getOffset(scrollContainer, element, 'left');
@@ -76,9 +67,7 @@ export function scrollIntoViewIfNeeded(
 
     if (direction === 'ltr') {
       if (
-        elementOffsetLeft +
-          element.offsetWidth +
-          elementStyles.scrollMarginRight >
+        elementOffsetLeft + element.offsetWidth + elementStyles.scrollMarginRight >
         scrollContainer.scrollLeft +
           scrollContainer.clientWidth -
           containerStyles.scrollPaddingRight
@@ -96,9 +85,7 @@ export function scrollIntoViewIfNeeded(
       ) {
         // overflow to the left, scroll to align left edges
         targetX =
-          elementOffsetLeft -
-          elementStyles.scrollMarginLeft -
-          containerStyles.scrollPaddingLeft;
+          elementOffsetLeft - elementStyles.scrollMarginLeft - containerStyles.scrollPaddingLeft;
       }
     }
 
@@ -109,13 +96,9 @@ export function scrollIntoViewIfNeeded(
       ) {
         // overflow to the left, scroll to align left edges
         targetX =
-          elementOffsetLeft -
-          elementStyles.scrollMarginLeft -
-          containerStyles.scrollPaddingLeft;
+          elementOffsetLeft - elementStyles.scrollMarginLeft - containerStyles.scrollPaddingLeft;
       } else if (
-        elementOffsetLeft +
-          element.offsetWidth +
-          elementStyles.scrollMarginRight >
+        elementOffsetLeft + element.offsetWidth + elementStyles.scrollMarginRight >
         scrollContainer.scrollLeft +
           scrollContainer.clientWidth -
           containerStyles.scrollPaddingRight
@@ -141,17 +124,10 @@ export function scrollIntoViewIfNeeded(
       scrollContainer.scrollTop + containerStyles.scrollPaddingTop
     ) {
       // overflow upwards, align top edges
-      targetY =
-        elementOffsetTop -
-        elementStyles.scrollMarginTop -
-        containerStyles.scrollPaddingTop;
+      targetY = elementOffsetTop - elementStyles.scrollMarginTop - containerStyles.scrollPaddingTop;
     } else if (
-      elementOffsetTop +
-        element.offsetHeight +
-        elementStyles.scrollMarginBottom >
-      scrollContainer.scrollTop +
-        scrollContainer.clientHeight -
-        containerStyles.scrollPaddingBottom
+      elementOffsetTop + element.offsetHeight + elementStyles.scrollMarginBottom >
+      scrollContainer.scrollTop + scrollContainer.clientHeight - containerStyles.scrollPaddingBottom
     ) {
       // overflow downwards, align bottom edges
       targetY =
@@ -170,11 +146,7 @@ export function scrollIntoViewIfNeeded(
   });
 }
 
-function getOffset(
-  ancestor: HTMLElement,
-  element: HTMLElement,
-  side: 'left' | 'top',
-) {
+function getOffset(ancestor: HTMLElement, element: HTMLElement, side: 'left' | 'top') {
   const propName = side === 'left' ? 'offsetLeft' : 'offsetTop';
 
   let result = 0;

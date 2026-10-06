@@ -1,6 +1,6 @@
 // Original MenuGroupContext, native setter/context boundary (MIT).
 import { getContext, setContext } from 'svelte';
-import type { SetStateAction } from '../../utils/useControlled.svelte.js';
+import type { SetStateAction } from '@sveltery/utils/useControlled';
 
 export type MenuGroupContext = (value: SetStateAction<string | undefined>) => void;
 
@@ -17,4 +17,6 @@ export function useMenuGroupRootContext() {
   return context;
 }
 
-export function provideMenuGroupContext(value: MenuGroupContext) { setContext(MenuGroupContext, value); }
+export function provideMenuGroupContext(value: MenuGroupContext) {
+  setContext(MenuGroupContext, value);
+}

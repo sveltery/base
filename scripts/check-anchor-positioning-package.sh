@@ -1,10 +1,10 @@
 #!/usr/bin/env bash
 set -euo pipefail
 cd "$(dirname "$0")/.."
-source scripts/toolchain.sh
+source scripts/package-artifacts.sh
 anchor_consumer="$(mktemp -d "${TMPDIR:-/tmp}/sveltery-anchor-consumer.XXXXXX")"
 trap 'rm -rf "$anchor_consumer"' EXIT
-pnpm --filter @sveltery/base pack --pack-destination "$anchor_consumer" > /dev/null
+sveltery_pack_package @sveltery/base "$anchor_consumer" > /dev/null
 node --input-type=module - "$anchor_consumer" <<'JS'
 import { readdirSync, writeFileSync } from 'node:fs';
 import { join } from 'node:path';
@@ -12,8 +12,9 @@ const destination = process.argv[2];
 const tarball = readdirSync(destination).find(name => name.endsWith('.tgz'));
 writeFileSync(join(destination, 'package.json'), JSON.stringify({ private: true, type: 'module', dependencies: { '@sveltery/base': `file:${join(destination, tarball)}`, svelte: '5.57.1' }, devDependencies: { '@sveltejs/vite-plugin-svelte': '7.3.1', vitest: '5.0.3', jsdom: '30.1.1' } }));
 JS
-pnpm --dir "$anchor_consumer" --ignore-workspace install --ignore-scripts > /dev/null
-pnpm --dir "$anchor_consumer" --ignore-workspace install --frozen-lockfile --ignore-scripts > /dev/null
+sveltery_prepare_consumer "$anchor_consumer"
+pnpm --dir "$anchor_consumer" install --ignore-scripts > /dev/null
+pnpm --dir "$anchor_consumer" install --frozen-lockfile --ignore-scripts > /dev/null
 cat > "$anchor_consumer/private-types.ts" <<'TS'
 import type { AnchorPositioningOptions, OffsetFunction, Boundary, Reference } from './node_modules/@sveltery/base/dist/internals/anchor-positioning/types.js';
 import type { AnchorPositioningController } from './node_modules/@sveltery/base/dist/internals/anchor-positioning/controller.svelte.js';
@@ -142,4 +143,4 @@ test('installed private geometry attaches, retains exit presence and tears down 
   await position.update(); target.remove();
 });
 JS
-pnpm --dir "$anchor_consumer" --ignore-workspace exec vitest run --config vitest.config.js
+pnpm --dir "$anchor_consumer" exec vitest run --config vitest.config.js

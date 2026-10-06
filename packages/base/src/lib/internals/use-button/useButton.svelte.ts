@@ -1,9 +1,9 @@
 // Source business body from Base UI v1.8.0 useButton.ts at
 // 47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c. MIT: THIRD_PARTY_NOTICES.md.
 import { DEV } from 'esm-env';
-import { useStableCallback } from '../../utils/useStableCallback.js';
-import { error } from '../../utils/error.js';
-import { useIsoLayoutEffect } from '../../utils/useIsoLayoutEffect.svelte.js';
+import { useStableCallback } from '@sveltery/utils/useStableCallback';
+import { error } from '@sveltery/utils/error';
+import { useIsoLayoutEffect } from '@sveltery/utils/useIsoLayoutEffect';
 import { makeEventPreventable, mergeProps } from '../../merge-props/index.js';
 import { useCompositeRootContext } from '../composite/root/CompositeRootContext.js';
 import type { BaseUIEvent, HTMLProps } from '../types.js';
@@ -68,8 +68,7 @@ export function useButton(getParameters: () => UseButtonParameters = () => ({}))
     return [disabled, isCompositeItem, focusableWhenDisabledProps.disabled];
   });
   function getButtonProps(externalProps: HTMLProps = {}): HTMLProps {
-    const { disabled, isNativeButton, isCompositeItem, focusableWhenDisabledProps } =
-      parameters();
+    const { disabled, isNativeButton, isCompositeItem, focusableWhenDisabledProps } = parameters();
     const {
       onclick: externalOnClick,
       onmousedown: externalOnMouseDown,
@@ -94,9 +93,7 @@ export function useButton(getParameters: () => UseButtonParameters = () => ({}))
         onkeydown(event: BaseUIEvent<KeyboardEvent>) {
           if (disabled) return;
           makeEventPreventable(event);
-          (
-            externalOnKeyDown as ((event: BaseUIEvent<KeyboardEvent>) => void) | undefined
-          )?.(event);
+          (externalOnKeyDown as ((event: BaseUIEvent<KeyboardEvent>) => void) | undefined)?.(event);
           if (event.baseUIHandlerPrevented) return;
           const isCurrentTarget = event.target === event.currentTarget;
           const currentTarget = event.currentTarget as HTMLElement;
@@ -131,9 +128,7 @@ export function useButton(getParameters: () => UseButtonParameters = () => ({}))
         onkeyup(event: BaseUIEvent<KeyboardEvent>) {
           if (disabled) return;
           makeEventPreventable(event);
-          (
-            externalOnKeyUp as ((event: BaseUIEvent<KeyboardEvent>) => void) | undefined
-          )?.(event);
+          (externalOnKeyUp as ((event: BaseUIEvent<KeyboardEvent>) => void) | undefined)?.(event);
           if (
             event.target === event.currentTarget &&
             isNativeButton &&

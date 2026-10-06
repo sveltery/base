@@ -67,7 +67,7 @@
       "url": "https://github.com/mui/base-ui/blob/47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c/packages/utils/src/empty.ts",
       "reachability": "runtime",
       "imports": [],
-      "localDestination": "packages/base/src/lib/utils/empty.ts (merged shared utility PR46 reviewed head 64662d3)"
+      "localDestination": "packages/utils/src/lib/empty.ts (merged shared utility PR46 reviewed head 64662d3)"
     },
     {
       "source": "packages/react/src/internals/reasons.ts",
@@ -172,7 +172,7 @@
           "resolved": "packages/utils/src/useRefWithInit.ts"
         }
       ],
-      "localDestination": "packages/base/src/lib/utils/useMergedRefs.ts"
+      "localDestination": "packages/utils/src/lib/useMergedRefs.ts"
     },
     {
       "source": "packages/utils/src/useRefWithInit.ts",
@@ -186,7 +186,7 @@
           "resolved": "external:react"
         }
       ],
-      "localDestination": "packages/base/src/lib/utils/useRefWithInit.ts (merged shared utility PR46 reviewed head 64662d3)"
+      "localDestination": "packages/utils/src/lib/useRefWithInit.ts (merged shared utility PR46 reviewed head 64662d3)"
     },
     {
       "source": "packages/utils/src/getReactElementRef.ts",
@@ -227,7 +227,7 @@
       "url": "https://github.com/mui/base-ui/blob/47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c/packages/utils/src/mergeObjects.ts",
       "reachability": "runtime",
       "imports": [],
-      "localDestination": "packages/base/src/lib/utils/mergeObjects.ts"
+      "localDestination": "packages/utils/src/lib/mergeObjects.ts"
     },
     {
       "source": "packages/utils/src/warn.ts",
@@ -330,7 +330,7 @@
     "modules": [
       {
         "local": "packages/base/src/lib/dialog/Element.svelte",
-        "sha256": "9848ecc10f04a04d12b22322ca8ac93f01273ff99d3e0b69f170073e751b24e3",
+        "sha256": "53a3a0399f4afa7145d14115ccab6f48b8907a1d77eb6e5ad2e7f91bb27825e1",
         "reachability": [
           "runtime"
         ],
@@ -422,7 +422,7 @@
       },
       {
         "local": "packages/base/src/lib/internals/nativeProps.ts",
-        "sha256": "d6b3999ffe54e8c70e0dcdac61474b3bf9f53e60f3b1207dd4f976ef5212e4eb",
+        "sha256": "4c1f8df953df631d3b410b9a12e48e156ad90bcd5fef6feaec97a4426068ec29",
         "reachability": [
           "type",
           "runtime"
@@ -458,7 +458,7 @@
           {
             "specifier": "../utils/mergeObjects.js",
             "kind": "runtime",
-            "resolved": "packages/base/src/lib/utils/mergeObjects.ts",
+            "resolved": "packages/utils/src/lib/mergeObjects.ts",
             "runtimeNames": [
               "mergeObjects"
             ],
@@ -468,7 +468,7 @@
       },
       {
         "local": "packages/base/src/lib/internals/nativeRefAttachment.ts",
-        "sha256": "564718b20326d9f5e18bf75d30b3905ce2f93a093fbdfbb7027928e1fd20e319",
+        "sha256": "ab007711c5ea5bd558b06a704c5f06c2c37e46ff52b547c01c14e119116402d9",
         "reachability": [
           "runtime"
         ],
@@ -492,7 +492,7 @@
           {
             "specifier": "../utils/useMergedRefs.js",
             "kind": "type",
-            "resolved": "packages/base/src/lib/utils/useMergedRefs.ts",
+            "resolved": "packages/utils/src/lib/useMergedRefs.ts",
             "runtimeNames": [],
             "typeNames": [
               "MergedRefCallback"
@@ -502,7 +502,7 @@
       },
       {
         "local": "packages/base/src/lib/internals/RenderElement.svelte",
-        "sha256": "bbc7cb9be3a6d554f07090d250923b06b5581b29f190d48d874b62698f1cdef5",
+        "sha256": "7468c314806abe0b4ed1fc2dd95d3a2defd6e86a9021012ced3f0154d0028daa",
         "reachability": [
           "runtime"
         ],
@@ -618,7 +618,7 @@
       },
       {
         "local": "packages/base/src/lib/internals/types.ts",
-        "sha256": "56f62e49c3a1504981c523a1bee8764c45de90fb88f0fab5154bb7fc9d0c1bd3",
+        "sha256": "6a36f5f103ef940b8a32d63f0288d897096c846fb2361b4ef44733e9a899907e",
         "reachability": [
           "type"
         ],
@@ -671,7 +671,7 @@
       },
       {
         "local": "packages/base/src/lib/internals/useRenderElement.ts",
-        "sha256": "a8fb8a006629431ae42697dbbd9ea1177d9ce756bf953105c2e5f3eb5ed5a1e9",
+        "sha256": "851c5b39cef485c29b87f7f006daa9763dc3a131ac45c6c6f72d9b4b978ca617",
         "reachability": [
           "runtime"
         ],
@@ -692,7 +692,7 @@
           {
             "specifier": "../utils/useMergedRefs.js",
             "kind": "runtime",
-            "resolved": "packages/base/src/lib/utils/useMergedRefs.ts",
+            "resolved": "packages/utils/src/lib/useMergedRefs.ts",
             "runtimeNames": [
               "createMergedRefs"
             ],
@@ -704,7 +704,7 @@
           {
             "specifier": "../utils/mergeObjects.js",
             "kind": "runtime",
-            "resolved": "packages/base/src/lib/utils/mergeObjects.ts",
+            "resolved": "packages/utils/src/lib/mergeObjects.ts",
             "runtimeNames": [
               "mergeObjects"
             ],
@@ -713,7 +713,7 @@
           {
             "specifier": "../utils/empty.js",
             "kind": "runtime",
-            "resolved": "packages/base/src/lib/utils/empty.ts",
+            "resolved": "packages/utils/src/lib/empty.ts",
             "runtimeNames": [
               "EMPTY_OBJECT"
             ],
@@ -816,7 +816,7 @@
       },
       {
         "local": "packages/base/src/lib/merge-props/mergeProps.ts",
-        "sha256": "7a097b833ae8854c5a26e34009adfb4e0297dd50f56ad5f0c1ac8afa8187f98b",
+        "sha256": "1b758134ab0efecd9601638e928440561944d226e5ebb9276d39723738d0301a",
         "reachability": [
           "runtime",
           "type"
@@ -863,7 +863,7 @@
           {
             "specifier": "../utils/mergeObjects.js",
             "kind": "runtime",
-            "resolved": "packages/base/src/lib/utils/mergeObjects.ts",
+            "resolved": "packages/utils/src/lib/mergeObjects.ts",
             "runtimeNames": [
               "mergeObjects"
             ],
@@ -872,8 +872,8 @@
         ]
       },
       {
-        "local": "packages/base/src/lib/utils/empty.ts",
-        "sha256": "eb679c977169a61764f98516194102fed5b70b6157992b34029dcd39af467d7b",
+        "local": "packages/utils/src/lib/empty.ts",
+        "sha256": "4851f47e6160860fee67ddfa03056c8a26dee4cf87bb1a9aa7f30e988b03ad65",
         "reachability": [
           "runtime"
         ],
@@ -888,7 +888,7 @@
         "imports": []
       },
       {
-        "local": "packages/base/src/lib/utils/mergeObjects.ts",
+        "local": "packages/utils/src/lib/mergeObjects.ts",
         "sha256": "1e6cfa2be20c639f5ce6f8b0b6cc447da3413bbbc6750a5b1ab03f5810d81746",
         "reachability": [
           "runtime",
@@ -957,8 +957,8 @@
         ]
       },
       {
-        "local": "packages/base/src/lib/utils/useMergedRefs.ts",
-        "sha256": "d9420f3db2872a32aca95c7c32db1342da4df6595df68a17707f55a27ea41fe2",
+        "local": "packages/utils/src/lib/useMergedRefs.ts",
+        "sha256": "0c41f7c8a065fa8a464f56852ba4c8196d51865905a5277f139ebaaa4b81ce1b",
         "reachability": [
           "runtime",
           "type"
@@ -984,7 +984,7 @@
           {
             "specifier": "./useRefWithInit.js",
             "kind": "runtime",
-            "resolved": "packages/base/src/lib/utils/useRefWithInit.ts",
+            "resolved": "packages/utils/src/lib/useRefWithInit.ts",
             "runtimeNames": [
               "useRefWithInit"
             ],
@@ -993,8 +993,8 @@
         ]
       },
       {
-        "local": "packages/base/src/lib/utils/useRefWithInit.ts",
-        "sha256": "998166cdfed66790af4659ac61d8b36f49f1aa4c35a66bb532f6239771271036",
+        "local": "packages/utils/src/lib/useRefWithInit.ts",
+        "sha256": "3c48fad5a3c2eddbb0ecb820210f825b9fa2144c92de0615a5a4cf2ea1c3b3c7",
         "reachability": [
           "runtime",
           "type"
@@ -1097,5 +1097,10 @@
       ],
       "status": "Implemented; fresh exact-head independent helper/source review and execution gates pending. Original graph and ordinary assertion credit unchanged."
     }
+  },
+  "utilsPackageSuccessor": {
+    "record": "../utils-package/current-source-graph.json",
+    "ordinaryDeclarationCredit": 0,
+    "status": "Current package destinations and hashes; frozen source/construction/acceptance/run receipts remain historical. Complete current graph and exact final-head Source/native/maintainability review supersede earlier inventory acceptance."
   }
 }

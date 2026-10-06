@@ -10,7 +10,9 @@ test('docs API matches actual local types and all public parts', () => {
     new URL('../../packages/base/src/lib/dialog/index.parts.ts', import.meta.url),
     'utf8',
   );
-  const names = [...exports.matchAll(/export const (\w+)(?:: typeof \w+Component)? = \w+Component;/g)]
+  const names = [
+    ...exports.matchAll(/export const (\w+)(?:: typeof \w+Component)? = \w+Component;/g),
+  ]
     .map((match) => match[1])
     .sort();
   assert.deepEqual(
@@ -35,17 +37,12 @@ test('docs metadata, navigation links and fragment targets are valid', () => {
   for (const doc of docs) {
     assert.ok(groups.includes(doc.group));
     assert.ok(doc.title && doc.description && doc.sections.length);
-    assert.equal(
-      new Set(doc.sections.map((section) => section.id)).size,
-      doc.sections.length,
-    );
+    assert.equal(new Set(doc.sections.map((section) => section.id)).size, doc.sections.length);
     for (const section of doc.sections)
       for (const link of section.links ?? []) {
         if (link.href.startsWith('/docs')) {
           const [path, fragment] = link.href.split('#');
-          const target = docs.find(
-            (item) => '/docs' + (item.slug ? '/' + item.slug : '') === path,
-          );
+          const target = docs.find((item) => '/docs' + (item.slug ? '/' + item.slug : '') === path);
           assert.ok(target, `Missing page: ${link.href}`);
           if (fragment)
             assert.ok(
@@ -59,5 +56,8 @@ test('docs metadata, navigation links and fragment targets are valid', () => {
 
 test('Accordion docs API matches all five local part declarations', () => {
   checkAccordionApi();
-  assert.deepEqual(extractAccordionApi().parts.map(part => part.name), ['Root', 'Item', 'Header', 'Trigger', 'Panel']);
+  assert.deepEqual(
+    extractAccordionApi().parts.map((part) => part.name),
+    ['Root', 'Item', 'Header', 'Trigger', 'Panel'],
+  );
 });

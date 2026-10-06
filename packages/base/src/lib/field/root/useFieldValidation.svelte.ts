@@ -1,9 +1,9 @@
 // Mechanically ported from Base UI v1.8.0 field/root/useFieldValidation.ts.
 // 47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c; MIT: THIRD_PARTY_NOTICES.md.
-import { EMPTY_OBJECT } from '../../utils/empty.js';
-import { useTimeout } from '../../utils/useTimeout.js';
-import { useStableCallback } from '../../utils/useStableCallback.js';
-import { useRefWithInit } from '../../utils/useRefWithInit.js';
+import { EMPTY_OBJECT } from '@sveltery/utils/empty';
+import { useTimeout } from '@sveltery/utils/useTimeout';
+import { useStableCallback } from '@sveltery/utils/useStableCallback';
+import { useRefWithInit } from '@sveltery/utils/useRefWithInit';
 import { useLabelableContext } from '../../internals/labelable-provider/LabelableContext.js';
 import { mergeProps } from '../../merge-props/index.js';
 import { DEFAULT_VALIDITY_STATE } from '../../internals/field-constants/constants.js';
@@ -30,7 +30,10 @@ export type RegisteredInputs = Map<NativeValidationControl, RegisteredInput>;
  * registration is context-driven, so portaled inputs (for example inside a dialog) still belong to
  * the form for both validation and values projected into `onFormSubmit`.
  */
-export function isEligibleInput(input: NativeValidationControl, formElement: HTMLFormElement | null) {
+export function isEligibleInput(
+  input: NativeValidationControl,
+  formElement: HTMLFormElement | null,
+) {
   if (input.matches(':disabled')) {
     return false;
   }
@@ -79,7 +82,6 @@ export function useFieldValidation(
 ): UseFieldValidationReturnValue {
   const { elementRef, formRef } = useFormContext();
 
-
   const labelable = useLabelableContext();
 
   const timeout = useTimeout();
@@ -88,7 +90,9 @@ export function useFieldValidation(
   const registeredInputs = useRefWithInit<RegisteredInputs>(() => new Map()).current;
   const validationCommitIdRef = { current: 0 };
   // Tracks the message installed by Base UI and the custom message it displaced.
-  const customValidityRef = { current: null as [element: NativeValidationControl, message: string, displaced: string] | null };
+  const customValidityRef = {
+    current: null as [element: NativeValidationControl, message: string, displaced: string] | null,
+  };
 
   // Groups register several inputs against a single field so focus, validation, and form-value
   // projection can use the same live controls. This also ensures a `required` checkbox can't be
@@ -352,27 +356,32 @@ export function useFieldValidation(
   });
 
   const getValidationProps = (disabled: boolean, externalProps: HTMLProps = EMPTY_OBJECT) =>
-      mergeProps(
-        labelable.getDescriptionProps(externalProps),
-        params.state.valid === false && !params.state.disabled && !disabled
-          ? { 'aria-invalid': true }
-          : EMPTY_OBJECT,
-      );
+    mergeProps(
+      labelable.getDescriptionProps(externalProps),
+      params.state.valid === false && !params.state.disabled && !disabled
+        ? { 'aria-invalid': true }
+        : EMPTY_OBJECT,
+    );
 
   return {
-      getValidationProps,
-      inputRef,
-      registeredInputs,
-      registerInput,
-      getInputControl,
-      commit,
-      change,
+    getValidationProps,
+    inputRef,
+    registeredInputs,
+    registerInput,
+    getInputControl,
+    commit,
+    change,
   };
 }
 
 export interface UseFieldValidationParameters {
-  setValidityData: (data: FieldValidityData | ((previous: FieldValidityData) => FieldValidityData)) => void;
-  validate: (value: unknown, formValues: FormValues) => string | string[] | null | void | Promise<string | string[] | null | void>;
+  setValidityData: (
+    data: FieldValidityData | ((previous: FieldValidityData) => FieldValidityData),
+  ) => void;
+  validate: (
+    value: unknown,
+    formValues: FormValues,
+  ) => string | string[] | null | void | Promise<string | string[] | null | void>;
   readonly validityData: FieldValidityData;
   readonly validationDebounceTime: number;
   readonly invalid: boolean;
@@ -386,7 +395,10 @@ export interface UseFieldValidationReturnValue {
   getValidationProps(disabled: boolean, props?: HTMLProps): HTMLProps;
   inputRef: { current: HTMLInputElement | null };
   registeredInputs: RegisteredInputs;
-  registerInput(element: NativeValidationControl, registration: RegisteredInput): void | (() => void);
+  registerInput(
+    element: NativeValidationControl,
+    registration: RegisteredInput,
+  ): void | (() => void);
   getInputControl(): HTMLElement | null;
   commit(value: unknown): Promise<void>;
   change(value: unknown, cancelPending?: boolean): void;

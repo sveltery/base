@@ -1,5 +1,5 @@
 <script module lang="ts">
-  import { platform } from '../../utils/platform/index.js';
+  import { platform } from '@sveltery/utils/platform';
   import * as ScrollAreaViewportCssVars from './ScrollAreaViewportCssVars.js';
   const OVERFLOW_EDGE_VARS = [
     ScrollAreaViewportCssVars.scrollAreaOverflowXStart,
@@ -48,12 +48,13 @@
     scrollAreaOverflowVarsRegistered = true;
   }
 </script>
+
 <script lang="ts">
   // Base UI1.8.0 ScrollAreaViewport.tsx source geometry/lifetimes; MIT.
   import { onMount, untrack } from 'svelte';
   import RenderElement from '../../internals/RenderElement.svelte';
-  import { useTimeout } from '../../utils/useTimeout.js';
-  import { clamp } from '../../utils/clamp.js';
+  import { useTimeout } from '@sveltery/utils/useTimeout';
+  import { clamp } from '@sveltery/utils/clamp';
   import { styleDisableScrollbar } from '../../utils/styles.js';
   import { useDirection } from '../../direction-provider/context.js';
   import { useScrollAreaRootContext } from '../root/ScrollAreaRootContext.js';
@@ -151,9 +152,7 @@
     const scrollTopFromStart = scrollbarYHidden
       ? 0
       : normalizeScrollOffset(scrollTop, maxScrollTop);
-    const scrollTopFromEnd = scrollbarYHidden
-      ? 0
-      : maxScrollTop - scrollTopFromStart;
+    const scrollTopFromEnd = scrollbarYHidden ? 0 : maxScrollTop - scrollTopFromStart;
     const nextWidth = scrollbarXHidden ? 0 : viewportWidth;
     const nextHeight = scrollbarYHidden ? 0 : viewportHeight;
 
@@ -166,8 +165,7 @@
 
     // Only subtract corner size from scrollbar dimensions if the corner hasn't been sized yet.
     // Once sized, the layout will already account for it.
-    const cornerNotYetSized =
-      root.cornerSize.width === 0 && root.cornerSize.height === 0;
+    const cornerNotYetSized = root.cornerSize.width === 0 && root.cornerSize.height === 0;
     const cornerWidthOffset = cornerNotYetSized ? nextCornerWidth : 0;
     const cornerHeightOffset = cornerNotYetSized ? nextCornerHeight : 0;
 
@@ -196,10 +194,7 @@
     // Handle Y (vertical) scroll
     if (scrollbarYEl && thumbYEl) {
       const maxThumbOffsetY =
-        scrollbarYEl.offsetHeight -
-        clampedNextHeight -
-        scrollbarYOffset -
-        thumbYOffset;
+        scrollbarYEl.offsetHeight - clampedNextHeight - scrollbarYOffset - thumbYOffset;
 
       const thumbOffsetY = applyOverscrollThumb(
         thumbYEl,
@@ -216,10 +211,7 @@
     // Handle X (horizontal) scroll
     if (scrollbarXEl && thumbXEl) {
       const maxThumbOffsetX =
-        scrollbarXEl.offsetWidth -
-        clampedNextWidth -
-        scrollbarXOffset -
-        thumbXOffset;
+        scrollbarXEl.offsetWidth - clampedNextWidth - scrollbarXOffset - thumbXOffset;
       // RTL scrolls from 0 down to `-maxScrollLeft`; measure from the inline start edge so the
       // overscroll math is direction-agnostic, then flip the resulting offset back below.
       const scrollFromStart = getDirection() === 'rtl' ? -scrollLeft : scrollLeft;
@@ -260,16 +252,10 @@
     setHiddenState((prevState) => pickState(prevState, nextHiddenState));
 
     const nextOverflowEdges = {
-      xStart:
-        !scrollbarXHidden &&
-        scrollLeftFromStart > root.overflowEdgeThreshold.xStart,
-      xEnd:
-        !scrollbarXHidden && scrollLeftFromEnd > root.overflowEdgeThreshold.xEnd,
-      yStart:
-        !scrollbarYHidden &&
-        scrollTopFromStart > root.overflowEdgeThreshold.yStart,
-      yEnd:
-        !scrollbarYHidden && scrollTopFromEnd > root.overflowEdgeThreshold.yEnd,
+      xStart: !scrollbarXHidden && scrollLeftFromStart > root.overflowEdgeThreshold.xStart,
+      xEnd: !scrollbarXHidden && scrollLeftFromEnd > root.overflowEdgeThreshold.xEnd,
+      yStart: !scrollbarYHidden && scrollTopFromStart > root.overflowEdgeThreshold.yStart,
+      yEnd: !scrollbarYHidden && scrollTopFromEnd > root.overflowEdgeThreshold.yEnd,
     };
 
     setOverflowEdges((prev) => pickState(prev, nextOverflowEdges));
@@ -424,10 +410,7 @@
   ): number {
     const clamped = clamp(scrollFromStart, 0, maxScroll);
     const overscroll = scrollFromStart - clamped;
-    const nextSize = Math.max(
-      MIN_THUMB_SIZE,
-      (size * content) / (content + Math.abs(overscroll)),
-    );
+    const nextSize = Math.max(MIN_THUMB_SIZE, (size * content) / (content + Math.abs(overscroll)));
 
     // Passing an empty string removes the override, restoring the resting `var(...)` size.
     thumbEl.style.setProperty(sizeVar, overscroll ? `${nextSize}px` : '');
@@ -438,4 +421,5 @@
     return offset + (overscroll > 0 ? size - nextSize : 0);
   }
 </script>
+
 <RenderElement tag="div" {componentProps} {params} {children} />

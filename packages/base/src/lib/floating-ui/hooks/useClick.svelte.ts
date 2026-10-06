@@ -1,7 +1,7 @@
 // Ported business body from Base UI v1.8.0 at 47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c.
 // MIT Copyright (c) 2019 Material-UI SAS; see THIRD_PARTY_NOTICES.md.
-import { useAnimationFrame } from '../../utils/useAnimationFrame.js';
-import { useTimeout } from '../../utils/useTimeout.js';
+import { useAnimationFrame } from '@sveltery/utils/useAnimationFrame';
+import { useTimeout } from '@sveltery/utils/useTimeout';
 import type { ElementProps, FloatingContext, FloatingRootContext } from '../types.js';
 import { getTarget, isTypeableElement } from '../utils/element.js';
 import { isMouseLikePointerType, isVirtualPointerEvent } from '../utils/event.js';

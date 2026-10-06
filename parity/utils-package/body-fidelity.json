@@ -1,0 +1,139 @@
+{
+  "immutableOriginalPin": "47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c",
+  "ordinaryDeclarationCredit": 0,
+  "method": "Full named declaration structural TypeScript AST comparison preserves every statement, branch, identifier, literal/raw template, operator, grouping tree, type, modifier, optional-chain/declaration flag, callback, cancellation and normalization body. Only positions, comments and formatting line breaks are excluded; the literal Source process.env development expression is replaced only by esm-env DEV. Parse diagnostics fail the proof. Import spelling/native useRefWithInit/useOnMount wrappers are independently reviewed. Printed-body equality remains separately reported.",
+  "negativeControls": [
+    {
+      "name": "directive boundary",
+      "rejected": true
+    },
+    {
+      "name": "arithmetic precedence",
+      "rejected": true
+    },
+    {
+      "name": "optional chain call boundary",
+      "rejected": true
+    },
+    {
+      "name": "declaration kind",
+      "rejected": true
+    },
+    {
+      "name": "literal value",
+      "rejected": true
+    },
+    {
+      "name": "raw template spelling",
+      "rejected": true
+    },
+    {
+      "name": "type",
+      "rejected": true
+    },
+    {
+      "name": "modifier",
+      "rejected": true
+    }
+  ],
+  "parseDiagnosticControl": "invalid syntax rejected",
+  "records": [
+    {
+      "source": "packages/utils/src/useAnimationFrame.ts",
+      "local": "packages/utils/src/lib/useAnimationFrame.ts",
+      "symbol": "Scheduler",
+      "sourceFileSha256": "229943cee6d42305da4db33ed395ff8ccdde915c2e4e922c5af0c7b0aeeddf82",
+      "localFileSha256": "07601e67af74f8cb6151f78cc525075cb25202476684199510aa8ac60f629aea",
+      "sourceBodySha256": "9d226e67318dffc39e6206440c661b574c1a263baa40882df21f75c52673d8da",
+      "localBodySha256": "81fc7e64b0f05cc880daba9c0abad06c2bd4ffc9c45cf737cb69394672b8a67c",
+      "comparableAstSha256": "5a89ca0dcf290352763d182f5a078b267675438704a5d13b067e2f792cb4ec78",
+      "printedBodyEqual": false,
+      "equal": true
+    },
+    {
+      "source": "packages/utils/src/useAnimationFrame.ts",
+      "local": "packages/utils/src/lib/useAnimationFrame.ts",
+      "symbol": "resetAnimationFrameScheduler",
+      "sourceFileSha256": "229943cee6d42305da4db33ed395ff8ccdde915c2e4e922c5af0c7b0aeeddf82",
+      "localFileSha256": "07601e67af74f8cb6151f78cc525075cb25202476684199510aa8ac60f629aea",
+      "sourceBodySha256": "2e4664a225ff6306f10bf2299728815f58a18eed87bf3dab7c9546dc1a974290",
+      "localBodySha256": "2e4664a225ff6306f10bf2299728815f58a18eed87bf3dab7c9546dc1a974290",
+      "comparableAstSha256": "5c58a3ba972dc3c63b7b0b37a789ac3edd63ae468a3464f3442fcc888f0d97e1",
+      "printedBodyEqual": true,
+      "equal": true
+    },
+    {
+      "source": "packages/utils/src/useAnimationFrame.ts",
+      "local": "packages/utils/src/lib/useAnimationFrame.ts",
+      "symbol": "AnimationFrame",
+      "sourceFileSha256": "229943cee6d42305da4db33ed395ff8ccdde915c2e4e922c5af0c7b0aeeddf82",
+      "localFileSha256": "07601e67af74f8cb6151f78cc525075cb25202476684199510aa8ac60f629aea",
+      "sourceBodySha256": "e486911d804bd793cd7da6f5da019c009653a9e71daeb1799baa3ba3c2f2b8dc",
+      "localBodySha256": "20e3466a3a9a5b89c35f6e7b006aae966e503c55bc981f9140ab063ea047f8a3",
+      "comparableAstSha256": "213361d02bdfa1b96dc1da273781b622e7ab2151f1ec2e087ea613349dffa14a",
+      "printedBodyEqual": true,
+      "equal": true
+    },
+    {
+      "source": "packages/utils/src/useAnimationFrame.ts",
+      "local": "packages/utils/src/lib/useAnimationFrame.ts",
+      "symbol": "useAnimationFrame",
+      "sourceFileSha256": "229943cee6d42305da4db33ed395ff8ccdde915c2e4e922c5af0c7b0aeeddf82",
+      "localFileSha256": "07601e67af74f8cb6151f78cc525075cb25202476684199510aa8ac60f629aea",
+      "sourceBodySha256": "7b22e612b8488f235a7878496123296d1a68e6a2a87e5d369df464eb35174e59",
+      "localBodySha256": "7b22e612b8488f235a7878496123296d1a68e6a2a87e5d369df464eb35174e59",
+      "comparableAstSha256": "3bf960e34110c9386b299e433b7995eda5b9e589e851a72b6a20931f108b522f",
+      "printedBodyEqual": true,
+      "equal": true
+    },
+    {
+      "source": "packages/utils/src/owner.ts",
+      "local": "packages/utils/src/lib/owner.ts",
+      "symbol": "ownerDocument",
+      "sourceFileSha256": "94a825206d926b388459df70639476133442c28c83a7e3be750399cb323ea623",
+      "localFileSha256": "759c607acc1a103b2d795840051555671fe65fd889dae7694606b9069803f986",
+      "sourceBodySha256": "2d0ff1eaeefbc972bbaceba31c2c0b67d86c6ac356bc5fd698f8a15e7abefc4e",
+      "localBodySha256": "2d0ff1eaeefbc972bbaceba31c2c0b67d86c6ac356bc5fd698f8a15e7abefc4e",
+      "comparableAstSha256": "070f055bf9fdb4fafa5b0cc939aca3a506947de7744793711e296051e939b50a",
+      "printedBodyEqual": true,
+      "equal": true
+    },
+    {
+      "source": "packages/utils/src/formatNumber.ts",
+      "local": "packages/utils/src/lib/formatNumber.ts",
+      "symbol": "getFormatter",
+      "sourceFileSha256": "a4629b5d279b5e919bf0ecf7d1fcad6d3d21fed35828cae29b9a470854c6dec9",
+      "localFileSha256": "71b3405e185351c665027dcda7e42dcc079cbe20eccb781e7d9f8ab3a21f01a4",
+      "sourceBodySha256": "45c60df2b659f8524d1fcbfcda592196e73870401941787d89c75fcec4b36b9b",
+      "localBodySha256": "45c60df2b659f8524d1fcbfcda592196e73870401941787d89c75fcec4b36b9b",
+      "comparableAstSha256": "a2cba5593930cbcc545d29fc85530da89da3ddc872467cb418ccb0fd678b516a",
+      "printedBodyEqual": true,
+      "equal": true
+    },
+    {
+      "source": "packages/utils/src/formatNumber.ts",
+      "local": "packages/utils/src/lib/formatNumber.ts",
+      "symbol": "formatNumber",
+      "sourceFileSha256": "a4629b5d279b5e919bf0ecf7d1fcad6d3d21fed35828cae29b9a470854c6dec9",
+      "localFileSha256": "71b3405e185351c665027dcda7e42dcc079cbe20eccb781e7d9f8ab3a21f01a4",
+      "sourceBodySha256": "7bf4335f4db6d885e24d7c37c83f0331361de6e3bf7994eee5f849a096488592",
+      "localBodySha256": "7bf4335f4db6d885e24d7c37c83f0331361de6e3bf7994eee5f849a096488592",
+      "comparableAstSha256": "8969285e403dcba5cca9946709403f940824a1aa5a927fd2b1c4db6b743cbc5e",
+      "printedBodyEqual": true,
+      "equal": true
+    },
+    {
+      "source": "packages/utils/src/stringifyLocale.ts",
+      "local": "packages/utils/src/lib/stringifyLocale.ts",
+      "symbol": "stringifyLocale",
+      "sourceFileSha256": "c78c878e1a6c3169414572301c93b2da604bb816723920c22ad9143b13bbb6e0",
+      "localFileSha256": "6dcaaf0a33d459da71d44c922acb444c596bfd28d37e0c0421dc169864079d8b",
+      "sourceBodySha256": "25454d59c2cbf9ce331c75ce5c0c885b013b3819e86a23d80b3031cb05d30c23",
+      "localBodySha256": "25454d59c2cbf9ce331c75ce5c0c885b013b3819e86a23d80b3031cb05d30c23",
+      "comparableAstSha256": "500b235a18053dced4bbbdd1d61da0afca95ec17ebf0a6ab700a91b4185f5cc0",
+      "printedBodyEqual": true,
+      "equal": true
+    }
+  ],
+  "scope": "Bounded Scheduler/reset/AnimationFrame/owner/format/locale equality only; not full moved-closure or feature acceptance."
+}

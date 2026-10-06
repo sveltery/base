@@ -1,7 +1,7 @@
 // Mechanically ported from Base UI v1.8.0 useFieldControlRegistration.ts.
 // 47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c; MIT: THIRD_PARTY_NOTICES.md.
-import { useIsoLayoutEffect } from '../../utils/useIsoLayoutEffect.svelte.js';
-import { useStableCallback } from '../../utils/useStableCallback.js';
+import { useIsoLayoutEffect } from '@sveltery/utils/useIsoLayoutEffect';
+import { useStableCallback } from '@sveltery/utils/useStableCallback';
 import { getCombinedFieldValidityData } from '../../field/utils/getCombinedFieldValidityData.js';
 import { useFormContext } from '../form-context/FormContext.js';
 import type { FieldValidityData } from '../../field/types.js';
@@ -14,7 +14,6 @@ export interface FieldControlRegistration {
 }
 
 export function useFieldControlRegistration(params: UseFieldControlRegistrationParameters) {
-
   const { formRef } = useFormContext();
 
   const activeFieldControlSourceRef = { current: null as symbol | null };
@@ -90,33 +89,47 @@ export function useFieldControlRegistration(params: UseFieldControlRegistrationP
     );
   }
 
-  useIsoLayoutEffect(() => {
-    const registration = registrationRef.current;
-    if (!registration || !registration.id) {
-      return;
-    }
-
-    params.setRegisteredFieldName(params.name ? undefined : registration.name);
-
-    formRef.current.fields.set(registration.id, {
-      getValue: getValueForForm,
-      name: params.name ?? registration.name,
-      controlRef: registration.controlRef,
-      validityData: getCombinedFieldValidityData(params.validityData, params.invalid),
-      validate,
-    });
-  }, () => [formRef, getValueForForm, params.invalid, params.name, params.setRegisteredFieldName, validate, params.validityData]);
-
-  useIsoLayoutEffect(() => {
-    const fields = formRef.current.fields;
-
-    return () => {
-      const id = registrationRef.current?.id;
-      if (id) {
-        fields.delete(id);
+  useIsoLayoutEffect(
+    () => {
+      const registration = registrationRef.current;
+      if (!registration || !registration.id) {
+        return;
       }
-    };
-  }, () => [formRef]);
+
+      params.setRegisteredFieldName(params.name ? undefined : registration.name);
+
+      formRef.current.fields.set(registration.id, {
+        getValue: getValueForForm,
+        name: params.name ?? registration.name,
+        controlRef: registration.controlRef,
+        validityData: getCombinedFieldValidityData(params.validityData, params.invalid),
+        validate,
+      });
+    },
+    () => [
+      formRef,
+      getValueForForm,
+      params.invalid,
+      params.name,
+      params.setRegisteredFieldName,
+      validate,
+      params.validityData,
+    ],
+  );
+
+  useIsoLayoutEffect(
+    () => {
+      const fields = formRef.current.fields;
+
+      return () => {
+        const id = registrationRef.current?.id;
+        if (id) {
+          fields.delete(id);
+        }
+      };
+    },
+    () => [formRef],
+  );
 
   const register = useStableCallback(
     (source: symbol, registration: FieldControlRegistration | undefined) => {
@@ -167,6 +180,8 @@ export interface UseFieldControlRegistrationParameters {
   readonly name: string | undefined;
   setRegisteredFieldName(name: string | undefined): void;
   registeredFieldIdRef: { current: string | undefined };
-  setValidityData(data: FieldValidityData | ((previous: FieldValidityData) => FieldValidityData)): void;
+  setValidityData(
+    data: FieldValidityData | ((previous: FieldValidityData) => FieldValidityData),
+  ): void;
   readonly validityData: FieldValidityData;
 }

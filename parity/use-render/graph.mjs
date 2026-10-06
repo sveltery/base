@@ -1,3 +1,4 @@
+import { resolveNativePackageSource } from '../../scripts/native-package-source.mjs';
 // Actual used UseRender runtime/type closure; source evidence adds no assertion credit.
 import ts from '../../packages/base/node_modules/typescript/lib/typescript.js';
 import { createHash } from 'node:crypto';
@@ -16,6 +17,8 @@ const records = new Map();
 const queue = roots.map(local => ({ local, reachability: 'runtime' }));
 
 function resolveImport(file, specifier) {
+  const owned = resolveNativePackageSource(root, specifier);
+  if (owned) return owned;
   if (!specifier.startsWith('.')) return `external:${specifier}`;
   const base = resolve(root, dirname(file), specifier);
   for (const candidate of [base, base.replace(/\.js$/, '.ts'), base.replace(/\.js$/, '.svelte.ts'), `${base}.ts`, `${base}/index.ts`]) {

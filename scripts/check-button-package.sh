@@ -1,10 +1,10 @@
 #!/usr/bin/env bash
 set -euo pipefail
 cd "$(dirname "$0")/.."
-source scripts/toolchain.sh
+source scripts/package-artifacts.sh
 button_consumer="$(mktemp -d "${TMPDIR:-/tmp}/sveltery-button-consumer.XXXXXX")"
 trap 'rm -rf "$button_consumer"' EXIT
-pnpm --filter @sveltery/base pack --pack-destination "$button_consumer" > /dev/null
+sveltery_pack_package @sveltery/base "$button_consumer" > /dev/null
 node --input-type=module - "$button_consumer" <<'JS'
 import { readdirSync, writeFileSync } from 'node:fs';
 import { join } from 'node:path';
@@ -12,8 +12,9 @@ const directory = process.argv[2];
 const tarball = readdirSync(directory).find(name => name.endsWith('.tgz'));
 writeFileSync(join(directory, 'package.json'), JSON.stringify({ private: true, type: 'module', dependencies: { '@sveltery/base': `file:${join(directory, tarball)}`, svelte: '5.57.1' } }));
 JS
-pnpm --dir "$button_consumer" --ignore-workspace install --ignore-scripts > /dev/null
-pnpm --dir "$button_consumer" --ignore-workspace install --frozen-lockfile --ignore-scripts > /dev/null
+sveltery_prepare_consumer "$button_consumer"
+pnpm --dir "$button_consumer" install --ignore-scripts > /dev/null
+pnpm --dir "$button_consumer" install --frozen-lockfile --ignore-scripts > /dev/null
 cmp LICENSE "$button_consumer/node_modules/@sveltery/base/LICENSE"
 cmp packages/base/THIRD_PARTY_NOTICES.md "$button_consumer/node_modules/@sveltery/base/THIRD_PARTY_NOTICES.md"
 cat > "$button_consumer/PublicTypes.ts" <<'TS'

@@ -9,10 +9,22 @@
   import type { CollapsibleTransitionStatus } from '../collapsible/types.js';
   import { getAccordionRootContext, setAccordionItemContext } from './context.js';
   import { stateAttributes } from './state.js';
-  import type { AccordionItemProps, AccordionItemState, AccordionItemChangeEventDetails } from './types.js';
+  import type {
+    AccordionItemProps,
+    AccordionItemState,
+    AccordionItemChangeEventDetails,
+  } from './types.js';
 
-  let { children, render, value: valueProp, disabled: disabledProp = false,
-    onOpenChange, class: classProp, ref = $bindable(), ...props }: AccordionItemProps = $props();
+  let {
+    children,
+    render,
+    value: valueProp,
+    disabled: disabledProp = false,
+    onOpenChange,
+    class: classProp,
+    ref = $bindable(),
+    ...props
+  }: AccordionItemProps = $props();
   const root = getAccordionRootContext();
   const generatedId = $props.id();
   const fallbackValue = `base-ui-${generatedId}`;
@@ -21,17 +33,33 @@
   const open = $derived(root.value.indexOf(value) !== -1);
   let index = $state(-1);
   let retainedMounted = $state(untrack(() => open));
-  let phase = $state<CollapsibleTransitionStatus>(untrack(() => open ? 'idle' : undefined));
+  let phase = $state<CollapsibleTransitionStatus>(untrack(() => (open ? 'idle' : undefined)));
   const mounted = $derived(open || retainedMounted);
-  const transitionStatus = $derived(open && !retainedMounted ? 'starting' : !open && !mounted && phase === 'ending' ? undefined : phase);
+  const transitionStatus = $derived(
+    open && !retainedMounted
+      ? 'starting'
+      : !open && !mounted && phase === 'ending'
+        ? undefined
+        : phase,
+  );
   const collapsibleState = $derived({ open, disabled, transitionStatus });
-  const itemState: AccordionItemState = $derived({ ...root.state, hidden: !open && !mounted, index, disabled, open });
+  const itemState: AccordionItemState = $derived({
+    ...root.state,
+    hidden: !open && !mounted,
+    index,
+    disabled,
+    open,
+  });
   const defaultPanelId = `base-ui-${generatedId}-panel`;
   let registeredPanelId = $state<string | null | undefined>(undefined);
-  const panelId = $derived(registeredPanelId === null ? undefined : registeredPanelId ?? defaultPanelId);
+  const panelId = $derived(
+    registeredPanelId === null ? undefined : (registeredPanelId ?? defaultPanelId),
+  );
   const defaultTriggerId = `base-ui-${generatedId}-trigger`;
   let registeredTriggerId = $state<string | null | undefined>(undefined);
-  const triggerId = $derived(registeredTriggerId === null ? undefined : registeredTriggerId ?? defaultTriggerId);
+  const triggerId = $derived(
+    registeredTriggerId === null ? undefined : (registeredTriggerId ?? defaultTriggerId),
+  );
   let committedOpen = untrack(() => open);
   let committedValue = untrack(() => value);
   let committedCallback = untrack(() => onOpenChange);
@@ -44,14 +72,37 @@
     root.handleValueChange(itemValue, next, details);
   }
   const collapsible = {
-    get open() { return open; }, get disabled() { return disabled; },
-    get mounted() { return mounted; }, get transitionStatus() { return transitionStatus; },
-    get state() { return collapsibleState; }, get defaultPanelId() { return defaultPanelId; },
-    get registeredPanelId() { return registeredPanelId; }, get panelId() { return panelId; },
+    get open() {
+      return open;
+    },
+    get disabled() {
+      return disabled;
+    },
+    get mounted() {
+      return mounted;
+    },
+    get transitionStatus() {
+      return transitionStatus;
+    },
+    get state() {
+      return collapsibleState;
+    },
+    get defaultPanelId() {
+      return defaultPanelId;
+    },
+    get registeredPanelId() {
+      return registeredPanelId;
+    },
+    get panelId() {
+      return panelId;
+    },
     // Every Accordion item supplies a controlled open value to Collapsible.
     setOpen(_next: boolean) {},
     // Preserve the source's idle status after an unanimated close (#33).
-    setMounted(next: boolean) { retainedMounted = next; if (!next && !open && phase === 'ending') phase = undefined; },
+    setMounted(next: boolean) {
+      retainedMounted = next;
+      if (!next && !open && phase === 'ending') phase = undefined;
+    },
     onOpenChange: requestOpenChange,
     handleTrigger(event: MouseEvent | KeyboardEvent) {
       const next = !committedOpen;
@@ -59,24 +110,51 @@
       requestOpenChange(next, details);
       if (!details.isCanceled) collapsible.setOpen(next);
     },
-    setPanelIdState(next: string | null | undefined | ((current: string | null | undefined) => string | null | undefined)) {
+    setPanelIdState(
+      next:
+        | string
+        | null
+        | undefined
+        | ((current: string | null | undefined) => string | null | undefined),
+    ) {
       registeredPanelId = typeof next === 'function' ? next(registeredPanelId) : next;
     },
   };
   setCollapsibleContext(collapsible);
   setAccordionItemContext({
-    get state() { return itemState; }, get open() { return open; },
-    get defaultTriggerId() { return defaultTriggerId; }, get triggerId() { return triggerId; },
-    setTriggerId(next: string | null | undefined | ((current: string | null | undefined) => string | null | undefined)) {
+    get state() {
+      return itemState;
+    },
+    get open() {
+      return open;
+    },
+    get defaultTriggerId() {
+      return defaultTriggerId;
+    },
+    get triggerId() {
+      return triggerId;
+    },
+    setTriggerId(
+      next:
+        | string
+        | null
+        | undefined
+        | ((current: string | null | undefined) => string | null | undefined),
+    ) {
       registeredTriggerId = typeof next === 'function' ? next(registeredTriggerId) : next;
     },
   });
   const resolved = $derived.by(() => {
     const classValue = typeof classProp === 'function' ? classProp(itemState) : classProp;
-    return { ...props, class: classValue === undefined ? undefined : resolveClassValue(classValue) };
+    return {
+      ...props,
+      class: classValue === undefined ? undefined : resolveClassValue(classValue),
+    };
   });
   function attach(node: HTMLElement) {
-    return root.registerItem(node, next => { index = next; });
+    return root.registerItem(node, (next) => {
+      index = next;
+    });
   }
   $effect.pre(() => {
     committedOpen = open;
@@ -99,4 +177,13 @@
   });
 </script>
 
-<Element tag="div" internal={stateAttributes(itemState)} props={resolved} state={itemState} {render} {children} bind:ref {attach} />
+<Element
+  tag="div"
+  internal={stateAttributes(itemState)}
+  props={resolved}
+  state={itemState}
+  {render}
+  {children}
+  bind:ref
+  {attach}
+/>

@@ -6,6 +6,13 @@
   import type { TooltipProviderProps } from './types.js';
   let { delay, closeDelay, timeout = 400, children }: TooltipProviderProps = $props();
   const delayValue = $derived({ open: delay, close: closeDelay });
-  setContext<TooltipProviderContext>(PROVIDER, { get delay() { return delay; } });
+  setContext<TooltipProviderContext>(PROVIDER, {
+    get delay() {
+      return delay;
+    },
+  });
 </script>
-<FloatingDelayGroup delay={delayValue} timeoutMs={timeout}>{@render children?.()}</FloatingDelayGroup>
+
+<FloatingDelayGroup delay={delayValue} timeoutMs={timeout}
+  >{@render children?.()}</FloatingDelayGroup
+>

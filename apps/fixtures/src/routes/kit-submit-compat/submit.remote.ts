@@ -9,9 +9,15 @@ const schema = {
     vendor: 'sdk-submit-compat',
     types: undefined as unknown as { input: Input; output: Input },
     validate(input: unknown): { value: Input } | { issues: { message: string; path: string[] }[] } {
-      if (!input || typeof input !== 'object') return { issues: [{ message: 'Object required', path: [] }] };
+      if (!input || typeof input !== 'object')
+        return { issues: [{ message: 'Object required', path: [] }] };
       const value = input as Partial<Input>;
-      if (typeof value.id !== 'string' || typeof value.email !== 'string' || !value.email.includes('@') || typeof value.intent !== 'string') {
+      if (
+        typeof value.id !== 'string' ||
+        typeof value.email !== 'string' ||
+        !value.email.includes('@') ||
+        typeof value.intent !== 'string'
+      ) {
         return { issues: [{ message: 'Complete submission required', path: [] }] };
       }
       // The server deliberately accepts blocked@example.com: only Field rejects it.
@@ -19,4 +25,9 @@ const schema = {
     },
   },
 };
-export const saveCompat = form(schema, async ({ id, email, intent }) => ({ id, email, intent, effects: ++effects }));
+export const saveCompat = form(schema, async ({ id, email, intent }) => ({
+  id,
+  email,
+  intent,
+  effects: ++effects,
+}));

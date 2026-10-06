@@ -8,8 +8,18 @@
   import type { Snippet } from 'svelte';
   let host = $state<HTMLElement | null>();
 </script>
-<Button bind:ref={host} onclick={event => { console.log(event.currentTarget); }}>Save</Button>
-<Button nativeButton={false} class={state => ['action', { disabled: state.disabled }]} style={{ opacity: 1 }}>
+
+<Button
+  bind:ref={host}
+  onclick={(event) => {
+    console.log(event.currentTarget);
+  }}>Save</Button
+>
+<Button
+  nativeButton={false}
+  class={(state) => ['action', { disabled: state.disabled }]}
+  style={{ opacity: 1 }}
+>
   {#snippet render(props: HTMLProps, state: { disabled: boolean }, children: Snippet | undefined)}
     <span {...props} data-render-disabled={state.disabled}>{@render children?.()}</span>
   {/snippet}
