@@ -939,24 +939,17 @@
       "predecessorSha256": "5f7258478a2d880e5280d92504253ffc936af0bd587d5cbc31d98086dc086993",
       "formattedSha256": "e05169d0f62fe7f2bfc955ff3cb1a1e154d71ed8cb8fd8263e2ebc9e9af93faa",
       "changed": true,
-      "actualSuccessorSha256": "7d7c44fce0e1b01178ae76dfeb95d59907a5ffa402c49147be554a9c582addec",
+      "actualSuccessorSha256": "e05169d0f62fe7f2bfc955ff3cb1a1e154d71ed8cb8fd8263e2ebc9e9af93faa",
       "scriptStructuralAstEqual": false,
       "structuralDifferences": [
         {
-          "path": "source",
-          "before": "import { useBaseUiId } from '../internals/useBaseUiId.js';\n\nexport function useRegisteredLabelId(\n  getIdProp: () => string | undefined,\n  setLabelId: (value: string | undefined | ((previous: string | undefined) => string | undefined)) => void,\n  nativeId: string,\n) {\n  const id = $derived(useBaseUiId(getIdProp(), nativeId));\n  $effect(() => {\n    const installedId = id;\n    setLabelId(installedId);\n    return () => {\n      setLabelId((currentId) => currentId === installedId ? undefined : currentId);\n    };\n  });\n  return () => id;\n}\n",
-          "after": "import { untrack } from 'svelte';\nimport { useBaseUiId } from '../internals/useBaseUiId.js';\n\nexport function useRegisteredLabelId(\n  getIdProp: () => string | undefined,\n  setLabelId: (\n    value: string | undefined | ((previous: string | undefined) => string | undefined),\n  ) => void,\n  nativeId: string,\n) {\n  const id = $derived(useBaseUiId(getIdProp(), nativeId));\n  $effect(() => {\n    const installedId = id;\n    // Publishing the registration must not subscribe to the receiver's label state.\n    untrack(() => setLabelId(installedId));\n    return () => {\n      setLabelId((currentId) => (currentId === installedId ? undefined : currentId));\n    };\n  });\n  return () => id;\n}\n"
+          "path": "source.FunctionDeclaration[1].Block[5].ExpressionStatement[1].CallExpression[0].ArrowFunction[1].Block[1].ReturnStatement[2].ArrowFunction[0].Block[1].ExpressionStatement[0].CallExpression[0].ArrowFunction[1].ConditionalExpression[2]",
+          "beforeKind": "ConditionalExpression",
+          "afterKind": "ParenthesizedExpression",
+          "before": "currentId === installedId ? undefined : currentId",
+          "after": "(currentId === installedId ? undefined : currentId)"
         }
-      ],
-      "semanticSuccessor": {
-        "path": "packages/base/src/lib/utils/useRegisteredLabelId.svelte.ts",
-        "predecessorCommit": "6ec6710c1ec6d62a7b9decf3dfdaa335a76d3ce7",
-        "predecessorArchive": "parity/native-framework/historical/label-publication-6ec6710c/packages/base/src/lib/utils/useRegisteredLabelId.svelte.ts",
-        "predecessorSha256": "e05169d0f62fe7f2bfc955ff3cb1a1e154d71ed8cb8fd8263e2ebc9e9af93faa",
-        "currentSha256": "7d7c44fce0e1b01178ae76dfeb95d59907a5ffa402c49147be554a9c582addec",
-        "decision": "Read the installed ID as a native dependency, then untrack only its imperative publication. Preserve live receiver and complete conditional owner cleanup; no tuple, cache or lifecycle adapter.",
-        "source": "packages/react/src/utils/useRegisteredLabelId.ts"
-      }
+      ]
     },
     {
       "path": "packages/base/tests/dom/NativeCallbackPublicationFixture.svelte",
