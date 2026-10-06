@@ -1019,7 +1019,7 @@
       ],
       "localHashes": {
         "packages/base/src/lib/internals/mergeComponentProps.ts": "803da5cb2c52515e1e68e16b66b61060c31ca03d183bb09d928b601bbb70cab7",
-        "packages/base/src/lib/internals/nativeProps.ts": "f081bf825f41a64924fe298108e148ac56314d02074c588cc1f9324ff6a92cc5",
+        "packages/base/src/lib/internals/nativeProps.ts": "d815afcfdacace885ce9a74f568d2e0dcb167e72003372cd2f398603f2cacd5a",
         "packages/base/src/lib/internals/resolveClassValue.ts": "584323b17cb1733a798e9ff86e9ff783d6a26d08ecf005a8c2b3c69917c1e722"
       },
       "correspondence": "Canonical Source prop/state/disabled/ref composition with native ClassValue/CSS/native event/snippet/attachment/host representation helpers. Native host resolution replaces React element internals.",

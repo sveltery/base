@@ -7,8 +7,8 @@ import { mergeObjects } from '@sveltery/utils/mergeObjects';
 export type NativeStyle = HTMLAttributes<HTMLElement>['style'];
 
 export function toNativeStyle(value: unknown): string | undefined {
-  if (!value) return undefined;
   if (typeof value === 'string') return value;
+  if (!value) return undefined;
   return Object.entries(value as Record<string, unknown>)
     .filter(([, value]) => value !== undefined)
     .map(

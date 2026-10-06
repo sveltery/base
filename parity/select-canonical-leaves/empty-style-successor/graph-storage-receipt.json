@@ -1,0 +1,100 @@
+{
+  "reviewedPreContainerHead": "6f3b35ad5f5610becb08eff5248855939eea21cf",
+  "reviewedPreContainerTree": "e8ad1de877c8a2b29f44389a6a1eba0fd1e53076",
+  "logicalGraph": {
+    "path": "parity/utils-package/current-source-graph.json",
+    "gitBlobSha1": "49b56582042011d0d99323f6c91c59f17b540e7a",
+    "bytes": 1742239,
+    "sha256": "91e619581bf5d5c732937157c107a5bee316937b54f37bc7e3d0ca5d63872e24",
+    "preservedCompleteBytesIn": "parity/utils-package/current-source-graph.json.gz"
+  },
+  "storage": {
+    "descriptor": "parity/utils-package/current-source-graph.json",
+    "payload": "parity/utils-package/current-source-graph.json.gz",
+    "payloadBytes": 161030,
+    "gzipSha256": "2979e278c453e79588b9164ffa35589e02dc0a5cdacf0751377b946b0723dd13",
+    "decision": "User-authorized deliberate lossless container; producer/readers/provenance hash contracts decode verified logical bytes. Physical descriptor and payload change tree; decoded Source/native graph and runtime bodies remain identical.",
+    "producer": "scripts/record-utils-package-source.mjs",
+    "readers": [
+      "scripts/record-native-framework-projections.mjs",
+      "scripts/record-utils-package-successors.mjs",
+      "scripts/record-native-snippet-owners.mjs",
+      "scripts/check-native-snippet-integration.mjs",
+      "parity/menu-family/evidence.mjs"
+    ],
+    "integrity": "Compressed SHA-256, bounded decompression, decoded byte count and SHA-256, then JSON parse. Historical ordinary JSON returned with exact raw bytes. Existing currentGraphSha256 contracts retain logical content hash."
+  },
+  "predecessors": {
+    "archive": "graph-storage-tool-predecessors.tar.gz",
+    "archiveBytes": 86350,
+    "archiveSha256": "756086038ee71267731b50681d86c64e9023c9b0cce11a5d2d942501a18f9d09",
+    "files": [
+      {
+        "path": "scripts/record-utils-package-source.mjs",
+        "bytes": 11717,
+        "sha256": "8a76c6aa2a7dcbd39936bd066885820f71be2b8a7cfca4ce529b2cc9ee5c6859"
+      },
+      {
+        "path": "scripts/record-native-framework-projections.mjs",
+        "bytes": 10741,
+        "sha256": "fd64f143cae0beb8fda482684b73381a4f2286b00f03ba201b0c60e145ddeb2b"
+      },
+      {
+        "path": "scripts/record-utils-package-successors.mjs",
+        "bytes": 2426,
+        "sha256": "50d9ddaf3efc385350ac36064a72d52cb2aa526afbbc6b771120e8c5808db41b"
+      },
+      {
+        "path": "scripts/record-native-snippet-owners.mjs",
+        "bytes": 2839,
+        "sha256": "f552a3b23507e04b955a57382b64c241e2d2efe87b855c9b677e57fad43adcd7"
+      },
+      {
+        "path": "scripts/check-native-snippet-integration.mjs",
+        "bytes": 86798,
+        "sha256": "20b1baf4ad194807841ab495ee263d15a388df10fa087978b6795094a7288fb7"
+      },
+      {
+        "path": "parity/menu-family/evidence.mjs",
+        "bytes": 22045,
+        "sha256": "27dae96afc4c9510b9a44be4278ae8637e68b99c401b0753ae13ce5fb657c5ca"
+      },
+      {
+        "path": "docs/upstream-differences.md",
+        "bytes": 144355,
+        "sha256": "ccae6bbae743489dbe21a5b38ee19512b3b3a6ae56fa29018bb42046758fe58e"
+      },
+      {
+        "path": "parity/native-snippets/source-correspondence.md",
+        "bytes": 30527,
+        "sha256": "28f375ea31fcb84273b382a0a6f4ec970e2580155f201e99a241f6056693ab1e"
+      },
+      {
+        "path": "parity/utils-package/README.md",
+        "bytes": 7057,
+        "sha256": "36d739dffc88c819e62766c81392b2e96f961fcac8e5cea3da5efd086a216db8"
+      }
+    ]
+  },
+  "publicationDiagnostic": {
+    "expectedPartialTree": "0ad2a0127797ff092c222841c42b4920b4596ffd",
+    "expectedOversizedBlob": "49b56582042011d0d99323f6c91c59f17b540e7a",
+    "canonicalReads": [
+      {
+        "url": "https://api.github.com/repos/sveltery/base/git/trees/0ad2a0127797ff092c222841c42b4920b4596ffd",
+        "status": 404,
+        "observedMessage": "Not Found"
+      },
+      {
+        "url": "https://api.github.com/repos/sveltery/base/git/blobs/49b56582042011d0d99323f6c91c59f17b540e7a",
+        "status": 404,
+        "observedMessage": "Not Found"
+      }
+    ],
+    "structuredResult": "No usable result retained. Orchestration failed at store(r.structuredContent): Script error: Unable to store \"textSuccessorTree\". Only plain serializable objects can be stored.",
+    "limits": "Original create-tree response is unknown. These observations establish neither an API rejection reason nor an automatic approval denial. No oversized retry or branch change is claimed; public branch was still 74c at diagnosis."
+  },
+  "runtimeHelperSha256": "d815afcfdacace885ce9a74f568d2e0dcb167e72003372cd2f398603f2cacd5a",
+  "unchangedOriginalCredit": 0,
+  "acceptance": "Representation/provenance adaptation only; fresh exact-head review and mandatory hosted checks remain required."
+}

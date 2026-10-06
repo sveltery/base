@@ -1,7 +1,8 @@
+import { writeLosslessJsonBytes } from './lossless-json.mjs';
 // Current two-package Source closure inventory. Inventory grants zero parity credit.
 import { execFileSync } from 'node:child_process';
 import { createHash } from 'node:crypto';
-import { existsSync, readFileSync, statSync, writeFileSync } from 'node:fs';
+import { existsSync, readFileSync, statSync } from 'node:fs';
 import { createRequire } from 'node:module';
 import { dirname, relative, resolve, posix } from 'node:path';
 import { resolveNativePackageSource } from './native-package-source.mjs';
@@ -288,7 +289,7 @@ const output = {
     'Source/native/maintainability independent review, actual dual-tarball SSR/types/Svelte/browser consumers, secured hosted browser execution and CI remain pending.',
 };
 output.nativeFrameworkCleanup = nativeFrameworkCleanup;
-writeFileSync(
+writeLosslessJsonBytes(
   resolve(root, 'parity/utils-package/current-source-graph.json'),
   JSON.stringify(output, null, 2) + '\n',
 );
