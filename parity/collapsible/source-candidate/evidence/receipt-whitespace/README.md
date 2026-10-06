@@ -1,0 +1,7 @@
+# Immutable receipt whitespace
+
+Public28c023 Standards lint and formatting passed; its unchanged `git show --format= --check HEAD` gate rejected terminal whitespace in24 archived raw log paths. Exact-path whitespace attributes follow existing repository immutable-terminal-capture precedent and CONTRIBUTING’s immutable parity formatting exclusion. Each path disables only its observed blank-at-eol and/or blank-at-eof class. No maintained source, test, script, workflow, directory wildcard or other whitespace class is exempted. Raw log bytes, Git blob hashes and SHA256 values in the manifest remain unchanged. This is archival treatment, not product validation or Source assertion credit.
+
+At localb2f83fba, both the new commit check and rechecking actual public28c023 with these current attributes pass (exit0). All24 SHA256/blob comparisons match before/after. Maintained Panel, browser test and CI workflow attributes remain unspecified. A dry-run maintained Panel patch containing trailing spaces is rejected by `git apply --check --whitespace=error` (exit128); no source was edited. This negative control confirms maintained-source whitespace checks remain active.
+
+The negative-control output is stored as a JSON string so its intentional trailing-space demonstration does not itself require another archive exception. Intermediatee614159d check correctly rejected the literal negative log; its successor preserves that output in JSON.

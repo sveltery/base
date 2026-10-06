@@ -1,0 +1,5 @@
+{
+  "exitCode": 128,
+  "rawOutput": "/workspace/scratch/4b2513ebe1ef/pr72-whitespace-negative.patch:5: trailing whitespace.\n// maintained-source whitespace control   \nerror: 1 line adds whitespace errors.\n",
+  "kind": "JSON preserves terminal spaces as string bytes; original raw scratch receipt retained"
+}

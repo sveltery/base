@@ -1,0 +1,230 @@
+{
+  "publicHead": "28c023e39bc29b93926a69387162772885ba5b3b",
+  "gate": "git show --format= --check HEAD",
+  "allFindingsImmutableRawLogPaths": true,
+  "repositoryEdits": false,
+  "paths": [
+    {
+      "path": "parity/collapsible/source-candidate/checkpoints/2152c5d-css-harness/ci2152-collapsible.log",
+      "observed": [
+        "new blank line at EOF",
+        "trailing whitespace"
+      ],
+      "sha256": "6bc315f298ba99d25a76b8a2d487d99d816c21918a78b33a3212322c1d76bcde",
+      "blobSha": "57426ba7e01087deb06e2ca0f87501529dba4307",
+      "proposedAttribute": "whitespace=-blank-at-eof,-blank-at-eol"
+    },
+    {
+      "path": "parity/collapsible/source-candidate/checkpoints/2152c5d-css-harness/ci2152-verification.log",
+      "observed": [
+        "new blank line at EOF",
+        "trailing whitespace"
+      ],
+      "sha256": "a10f49ccb2df8102fd5a392212e737caa81d49f394e8a22b9c371ca17346ecf8",
+      "blobSha": "fb0614951451179f966881f553ec9fafb499bcec",
+      "proposedAttribute": "whitespace=-blank-at-eof,-blank-at-eol"
+    },
+    {
+      "path": "parity/collapsible/source-candidate/checkpoints/2152c5d-panel-facade/hosted-standards.log",
+      "observed": [
+        "new blank line at EOF",
+        "trailing whitespace"
+      ],
+      "sha256": "74ab09ebd3081cf814a81880d49e88c657bd9bd7d7895aab4f7eaddad719b0cd",
+      "blobSha": "005619d94b08c46f812d46cefbf11d592b849655",
+      "proposedAttribute": "whitespace=-blank-at-eof,-blank-at-eol"
+    },
+    {
+      "path": "parity/collapsible/source-candidate/evidence/cloud-closeout/collapsible-bootstrap.log",
+      "observed": [
+        "new blank line at EOF"
+      ],
+      "sha256": "79d0036d6f396527f633e16b86caf9c3b784de45b0baae4d7d725119fbfd55d1",
+      "blobSha": "03fe4452fd770fa6bdf0af8271faf47192fa63fe",
+      "proposedAttribute": "whitespace=-blank-at-eof"
+    },
+    {
+      "path": "parity/collapsible/source-candidate/evidence/cloud-closeout/collapsible-fixture-build.log",
+      "observed": [
+        "new blank line at EOF",
+        "trailing whitespace"
+      ],
+      "sha256": "3659102932ea57fd2dfc4893f209bfd50d9c65afdaa3288f46d0a5fd0a6565cd",
+      "blobSha": "66ed73f0a7c02416da872e4b7af461e5c0c0dd2d",
+      "proposedAttribute": "whitespace=-blank-at-eof,-blank-at-eol"
+    },
+    {
+      "path": "parity/collapsible/source-candidate/evidence/cloud-closeout/collapsible-focused-dom.log",
+      "observed": [
+        "new blank line at EOF"
+      ],
+      "sha256": "ca368dbc849130894f9e77e90850e260bbcf762a409482ef207a5105fae71a77",
+      "blobSha": "20809b08bf5a78514b19205e8bbbb44a41774682",
+      "proposedAttribute": "whitespace=-blank-at-eof"
+    },
+    {
+      "path": "parity/collapsible/source-candidate/evidence/cloud-closeout/collapsible-node-tests.log",
+      "observed": [
+        "new blank line at EOF"
+      ],
+      "sha256": "f20791d47907c812a6474bf7c07785a6649d16fba964c2bf24ce291c6bf485ca",
+      "blobSha": "0ffdc22f9c0e5e4408a53327662f922d3db17f34",
+      "proposedAttribute": "whitespace=-blank-at-eof"
+    },
+    {
+      "path": "parity/collapsible/source-candidate/evidence/cloud-closeout/collapsible-script-tests-absolute.log",
+      "observed": [
+        "trailing whitespace"
+      ],
+      "sha256": "cd3c3511310064ab619a1bef6eaceb46e6b861fc92f486384582172374d274d6",
+      "blobSha": "ead4a263d59dfe4a42a07a24ac698b4a93512963",
+      "proposedAttribute": "whitespace=-blank-at-eol"
+    },
+    {
+      "path": "parity/collapsible/source-candidate/evidence/cloud-closeout/collapsible-script-tests.log",
+      "observed": [
+        "trailing whitespace"
+      ],
+      "sha256": "39a9a6c7f3243efd012e0cf98aee4e1845c1fd0e9c7d0fb4cf82f1610e1c6439",
+      "blobSha": "c594451aa76efe9a529e94357cf3532021e5dcbf",
+      "proposedAttribute": "whitespace=-blank-at-eol"
+    },
+    {
+      "path": "parity/collapsible/source-candidate/evidence/css-harness/css-harness-fixture-check.log",
+      "observed": [
+        "new blank line at EOF",
+        "trailing whitespace"
+      ],
+      "sha256": "9cfde044517a36f665cdb4146d4ff3922602f5760bc876a8ee5429bc246580c5",
+      "blobSha": "95cd2ce8f52794e6fe0e57a30c2d2a94535dd4f5",
+      "proposedAttribute": "whitespace=-blank-at-eof,-blank-at-eol"
+    },
+    {
+      "path": "parity/collapsible/source-candidate/evidence/direct-source-dom.log",
+      "observed": [
+        "new blank line at EOF"
+      ],
+      "sha256": "7a53da3c9f46ce9c8429fbe055a1f95f45e3952686c30e66a15f2bfe73066297",
+      "blobSha": "67fcb25c8739e9c74d96e8f4ca8ea2d0a1aca27a",
+      "proposedAttribute": "whitespace=-blank-at-eof"
+    },
+    {
+      "path": "parity/collapsible/source-candidate/evidence/hosted-52c6c2c-collapsible.log",
+      "observed": [
+        "new blank line at EOF",
+        "trailing whitespace"
+      ],
+      "sha256": "f11eb9496ca97f4002125e30c4bf5ba40c218ec7f6f6618e25757d143b406135",
+      "blobSha": "89794aa5ac7c2371ffb235ffb1a778acd28245d8",
+      "proposedAttribute": "whitespace=-blank-at-eof,-blank-at-eol"
+    },
+    {
+      "path": "parity/collapsible/source-candidate/evidence/initial-compile-failure.log",
+      "observed": [
+        "new blank line at EOF"
+      ],
+      "sha256": "7e1b077e115a2e2b1aa1b1d982d7347cefc4f71edda1d91348446b499f972fd0",
+      "blobSha": "80ff9c2022f9db3f59910e912e8251e370ac5e42",
+      "proposedAttribute": "whitespace=-blank-at-eof"
+    },
+    {
+      "path": "parity/collapsible/source-candidate/evidence/initial-ssr.log",
+      "observed": [
+        "new blank line at EOF"
+      ],
+      "sha256": "e2d1fc512294ed7c09c788a3f656f153a8588d101a108554b4f682a1400e7324",
+      "blobSha": "079d4e066e0942aae6c5ca188b22a8c68031f632",
+      "proposedAttribute": "whitespace=-blank-at-eof"
+    },
+    {
+      "path": "parity/collapsible/source-candidate/evidence/local-secured-chromium.log",
+      "observed": [
+        "trailing whitespace"
+      ],
+      "sha256": "4f1b77eb355ccc34aa580cc1a07f4961a3cd8496e0199bceea22d7d9ce69af04",
+      "blobSha": "3e0e4c44edeaba36e0ec6122174e5f94d5a2e052",
+      "proposedAttribute": "whitespace=-blank-at-eol"
+    },
+    {
+      "path": "parity/collapsible/source-candidate/evidence/native-control-boundary-bootstrap-failure.log",
+      "observed": [
+        "new blank line at EOF"
+      ],
+      "sha256": "8538d681a03cb875527d1fda10c2a2db857afe16f6b9c988b45d33d3667df37d",
+      "blobSha": "f00af792b76175495ea2b88e4d957f9f685fb85a",
+      "proposedAttribute": "whitespace=-blank-at-eof"
+    },
+    {
+      "path": "parity/collapsible/source-candidate/evidence/native-control-boundary.log",
+      "observed": [
+        "new blank line at EOF"
+      ],
+      "sha256": "d10a99388956d53af86b07d8291beeb5339913b7c9d7dabffbb2f4e66e5ef96c",
+      "blobSha": "1043f2f8b7dee52f5ac80c815a36132efd2ee401",
+      "proposedAttribute": "whitespace=-blank-at-eof"
+    },
+    {
+      "path": "parity/collapsible/source-candidate/evidence/native-control-isolated.log",
+      "observed": [
+        "new blank line at EOF"
+      ],
+      "sha256": "b0d7a1a50905f0851baf7773e7e2a504b57eaca901cba2c5e090bbfe5497c844",
+      "blobSha": "76e27a5d52774552edac8f84ec42fb2120ec5e08",
+      "proposedAttribute": "whitespace=-blank-at-eof"
+    },
+    {
+      "path": "parity/collapsible/source-candidate/evidence/native-expectations-dom.log",
+      "observed": [
+        "new blank line at EOF"
+      ],
+      "sha256": "9c1e643dc98e816c16fd6c129883b63cf2d529bc61f1670ef7a8896feb3b126c",
+      "blobSha": "63c5e66af4e813b88dff4e3c18e45450d7d12eae",
+      "proposedAttribute": "whitespace=-blank-at-eof"
+    },
+    {
+      "path": "parity/collapsible/source-candidate/evidence/owned-dimensions-boundary-observations.log",
+      "observed": [
+        "new blank line at EOF"
+      ],
+      "sha256": "ae9597bf15409ebb34def29ad506641118a0f992edd13a9787f21298aa10d720",
+      "blobSha": "d55e06e47ee7527fcfecc3126eaeccac57699f62",
+      "proposedAttribute": "whitespace=-blank-at-eof"
+    },
+    {
+      "path": "parity/collapsible/source-candidate/evidence/owned-dimensions-boundary.log",
+      "observed": [
+        "new blank line at EOF"
+      ],
+      "sha256": "cb7a056faa491bdaf4ac6d48cb82af4520917dae422b2e3577e3bde4ff809413",
+      "blobSha": "598086fc68a22daaec0a6211c1a3ed4613049e2a",
+      "proposedAttribute": "whitespace=-blank-at-eof"
+    },
+    {
+      "path": "parity/collapsible/source-candidate/evidence/owned-dimensions-dom.log",
+      "observed": [
+        "new blank line at EOF"
+      ],
+      "sha256": "9f07261a70a4abc179bb34d07874be063123fe28b960f5c9a8af6dc072984b41",
+      "blobSha": "32979a810badb38b41575c6937a3fcb090c3eaae",
+      "proposedAttribute": "whitespace=-blank-at-eof"
+    },
+    {
+      "path": "parity/collapsible/source-candidate/evidence/owned-dimensions-fixture-types.log",
+      "observed": [
+        "trailing whitespace"
+      ],
+      "sha256": "6e1d69e8452f733bb0ec2e4f37bcbb7674dcb496c0906bbb751a06de03bd986c",
+      "blobSha": "49c0d79481097f9859d745186cc160f00b0921a7",
+      "proposedAttribute": "whitespace=-blank-at-eol"
+    },
+    {
+      "path": "parity/collapsible/source-candidate/evidence/panel-direct-class/panel-class-focused-dom.log",
+      "observed": [
+        "new blank line at EOF"
+      ],
+      "sha256": "915bca4eb6c8c1846b38af179570b0d27a7e3b79ece564da5a1986782f67138b",
+      "blobSha": "ff227169596cc1b7a17d15642b9ed7971eead70c",
+      "proposedAttribute": "whitespace=-blank-at-eof"
+    }
+  ]
+}

@@ -20,3 +20,30 @@ parity/use-click/prior-callback-review/old-18-baseline-completed.log whitespace=
 parity/use-click/prior-callback-review/old-20-meaningful-red.log whitespace=-blank-at-eof,-blank-at-eol
 # Preserve the later exact fixture runtime/type-failure captures as historical evidence.
 parity/use-click/fixture-type-repair/*.log whitespace=-blank-at-eof,-blank-at-eol
+
+# Preserve these immutable raw Collapsible terminal receipts byte-for-byte.
+# CONTRIBUTING formatting exclusions apply to archived evidence; maintained source stays checked.
+parity/collapsible/source-candidate/checkpoints/2152c5d-css-harness/ci2152-collapsible.log whitespace=-blank-at-eof,-blank-at-eol
+parity/collapsible/source-candidate/checkpoints/2152c5d-css-harness/ci2152-verification.log whitespace=-blank-at-eof,-blank-at-eol
+parity/collapsible/source-candidate/checkpoints/2152c5d-panel-facade/hosted-standards.log whitespace=-blank-at-eof,-blank-at-eol
+parity/collapsible/source-candidate/evidence/cloud-closeout/collapsible-bootstrap.log whitespace=-blank-at-eof
+parity/collapsible/source-candidate/evidence/cloud-closeout/collapsible-fixture-build.log whitespace=-blank-at-eof,-blank-at-eol
+parity/collapsible/source-candidate/evidence/cloud-closeout/collapsible-focused-dom.log whitespace=-blank-at-eof
+parity/collapsible/source-candidate/evidence/cloud-closeout/collapsible-node-tests.log whitespace=-blank-at-eof
+parity/collapsible/source-candidate/evidence/cloud-closeout/collapsible-script-tests-absolute.log whitespace=-blank-at-eol
+parity/collapsible/source-candidate/evidence/cloud-closeout/collapsible-script-tests.log whitespace=-blank-at-eol
+parity/collapsible/source-candidate/evidence/css-harness/css-harness-fixture-check.log whitespace=-blank-at-eof,-blank-at-eol
+parity/collapsible/source-candidate/evidence/direct-source-dom.log whitespace=-blank-at-eof
+parity/collapsible/source-candidate/evidence/hosted-52c6c2c-collapsible.log whitespace=-blank-at-eof,-blank-at-eol
+parity/collapsible/source-candidate/evidence/initial-compile-failure.log whitespace=-blank-at-eof
+parity/collapsible/source-candidate/evidence/initial-ssr.log whitespace=-blank-at-eof
+parity/collapsible/source-candidate/evidence/local-secured-chromium.log whitespace=-blank-at-eol
+parity/collapsible/source-candidate/evidence/native-control-boundary-bootstrap-failure.log whitespace=-blank-at-eof
+parity/collapsible/source-candidate/evidence/native-control-boundary.log whitespace=-blank-at-eof
+parity/collapsible/source-candidate/evidence/native-control-isolated.log whitespace=-blank-at-eof
+parity/collapsible/source-candidate/evidence/native-expectations-dom.log whitespace=-blank-at-eof
+parity/collapsible/source-candidate/evidence/owned-dimensions-boundary-observations.log whitespace=-blank-at-eof
+parity/collapsible/source-candidate/evidence/owned-dimensions-boundary.log whitespace=-blank-at-eof
+parity/collapsible/source-candidate/evidence/owned-dimensions-dom.log whitespace=-blank-at-eof
+parity/collapsible/source-candidate/evidence/owned-dimensions-fixture-types.log whitespace=-blank-at-eol
+parity/collapsible/source-candidate/evidence/panel-direct-class/panel-class-focused-dom.log whitespace=-blank-at-eof
