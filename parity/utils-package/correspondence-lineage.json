@@ -28,7 +28,7 @@
     {
       "record": "parity/radio/source-correspondence.json",
       "previousSha256": "507e1268f9c38d70fc1655cca3b2e42f776e2f84a30dfe37dbcba8a0655f108c",
-      "currentSha256": "89d7abe1a59f0911b4fdc2f7954b48da06204af6fc7804445494225ca0188b69",
+      "currentSha256": "5e6ffaab565492ff69505369176c4e91daa25d6c972ddd9351f056ee52be26e0",
       "historicalRecords": "Original source hashes, assertions and frozen audit/review/run receipts unchanged."
     },
     {

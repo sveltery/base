@@ -18,6 +18,61 @@ const focusPredecessor = '42c04c5c4fb1d8a698435fee40e1d2bcb41d30e7';
 const registrationPredecessor = 'f2a99979a04a98c8bc60709a75d0db2397ec2470';
 const ownershipCommentPredecessor = '336062b3be2dfe90db5899714aed6457f78836ae';
 const nativeOwnerPredecessor = 'c39271eaf4f893fc64131b22209dee50e74de657';
+const bindingCommentPredecessor = '0d88a4e3fcb0ce57dab9b058b86a85e412f9d07c';
+// Exactly the unused directive paths reported by the actual 9bdc Standards run.
+const obsoleteBindingDirectivePaths = new Set([
+  'packages/base/src/lib/context-menu/Trigger.svelte',
+  'packages/base/src/lib/menu/Arrow.svelte',
+  'packages/base/src/lib/menu/Backdrop.svelte',
+  'packages/base/src/lib/menu/CheckboxItem.svelte',
+  'packages/base/src/lib/menu/CheckboxItemIndicator.svelte',
+  'packages/base/src/lib/menu/Item.svelte',
+  'packages/base/src/lib/menu/LinkItem.svelte',
+  'packages/base/src/lib/menu/Popup.svelte',
+  'packages/base/src/lib/menu/Portal.svelte',
+  'packages/base/src/lib/menu/RadioItem.svelte',
+  'packages/base/src/lib/menu/RadioItemIndicator.svelte',
+  'packages/base/src/lib/menubar/Menubar.svelte',
+  'packages/base/src/lib/popover/Arrow.svelte',
+  'packages/base/src/lib/popover/Backdrop.svelte',
+  'packages/base/src/lib/popover/Close.svelte',
+  'packages/base/src/lib/popover/Description.svelte',
+  'packages/base/src/lib/popover/Popup.svelte',
+  'packages/base/src/lib/popover/Positioner.svelte',
+  'packages/base/src/lib/popover/Title.svelte',
+  'packages/base/src/lib/popover/Trigger.svelte',
+  'packages/base/src/lib/popover/Viewport.svelte',
+  'packages/base/src/lib/preview-card/Arrow.svelte',
+  'packages/base/src/lib/preview-card/Backdrop.svelte',
+  'packages/base/src/lib/preview-card/Popup.svelte',
+  'packages/base/src/lib/preview-card/Positioner.svelte',
+  'packages/base/src/lib/preview-card/Trigger.svelte',
+  'packages/base/src/lib/preview-card/Viewport.svelte',
+  'packages/base/src/lib/tooltip/Arrow.svelte',
+  'packages/base/src/lib/tooltip/Popup.svelte',
+  'packages/base/src/lib/tooltip/Positioner.svelte',
+  'packages/base/src/lib/tooltip/Trigger.svelte',
+  'packages/base/src/lib/tooltip/Viewport.svelte',
+]);
+const radioBindingPath = 'packages/base/src/lib/radio-group/RadioGroup.svelte';
+function bindingDirectiveHygiene(path, body) {
+  if (obsoleteBindingDirectivePaths.has(path)) {
+    const directive =
+      /^ +\/\/ eslint-disable-next-line no-useless-assignment -- (?:Publishes native bindable host\/action outputs to the owner\.|Native bindable ref output is published through the ordered Source ref callback\.)\n/gm;
+    assert.equal([...body.matchAll(directive)].length, 1);
+    return body.replace(directive, '');
+  }
+  if (path === radioBindingPath) {
+    const property = '    inputRef = $bindable(),';
+    assert.equal(body.split(property).length, 2);
+    return body.replace(
+      property,
+      '    // eslint-disable-next-line no-useless-assignment -- Svelte output binding publishes the selected input to its caller.\n' +
+        property,
+    );
+  }
+  return body;
+}
 const hash = (body) => createHash('sha256').update(body).digest('hex');
 const git = (...args) =>
   execFileSync('git', args, { cwd: root, encoding: 'utf8', maxBuffer: 20 * 1024 * 1024 });
@@ -245,6 +300,18 @@ for (const module of graph.native.modules) {
   const left = syntax(path, before),
     right = syntax(path, after);
   const equal = JSON.stringify(shape(left, left)) === JSON.stringify(shape(right, right));
+  const bindingPreimage = git('show', `${bindingCommentPredecessor}:${path}`);
+  assert.equal(
+    after,
+    bindingDirectiveHygiene(path, bindingPreimage),
+    `Only the authorized binding comment delta: ${path}`,
+  );
+  const bindingBefore = syntax(path, bindingPreimage);
+  assert.equal(
+    JSON.stringify(shape(bindingBefore, bindingBefore)),
+    JSON.stringify(shape(right, right)),
+    `Binding comment successor AST changed: ${path}`,
+  );
   const semanticOwnerCorrection = path === 'packages/utils/src/lib/PreviousValue.svelte.ts';
   const labelPublicationCorrection =
     path === 'packages/base/src/lib/utils/useRegisteredLabelId.svelte.ts';
@@ -359,7 +426,11 @@ for (const module of graph.native.modules) {
             `      installedEvents.off('${event}', ${callback});`,
           );
     }
-    assert.equal(after, expected, `Only the authorized complete-body cleanup delta: ${path}`);
+    assert.equal(
+      after,
+      bindingDirectiveHygiene(path, expected),
+      `Only the authorized complete-body cleanup delta and binding comment: ${path}`,
+    );
   }
   if (semanticOwnerCorrection)
     assert.equal(
@@ -446,6 +517,15 @@ for (const module of graph.native.modules) {
       git('show', `${record.sourceBusinessPredecessor}:${path}`),
     );
     record.exactInheritedNativeParentBody = nativeIntegrationParent;
+  }
+  if (obsoleteBindingDirectivePaths.has(path) || path === radioBindingPath) {
+    record.commentOnlyPredecessor = bindingCommentPredecessor;
+    record.commentOnlyPredecessorSha256 = hash(bindingPreimage);
+    record.commentOnlyStructuralAstEqual = true;
+    record.commentOnlyDisposition =
+      path === radioBindingPath
+        ? 'Documents the real Svelte output-binding macro; no value/read/API change. Standards rerun pending.'
+        : 'Removes exactly one proven unused no-useless-assignment directive; native host binding unchanged. Standards rerun pending.';
   }
   if (!equal) record.structuralDifferences = differences(left, right, left, right);
   records.push(record);
@@ -543,11 +623,13 @@ const output = {
   triggerPublicationPredecessor: registrationPredecessor,
   ownershipCommentPredecessor,
   nativeOwnerPredecessor,
+  bindingCommentPredecessor,
+  bindingCommentAstPreservedBodies: records.length,
   immutableOriginalPin: graph.immutableOriginalPin,
   ordinaryDeclarationCredit: 0,
   mode: 'Source/parser/hash/import evidence only; no type program, runtime, SSR/hydration, compiled markup, artifact, installed consumer, browser, CI or merge acceptance credit.',
   method:
-    'Complete current native two-package AST closure, immutable f0 full-body preimages and grouping-preserving script ASTs. Deliberate source/native owner corrections remain separate from formatter presentation changes. Getter/label publication retain exact inherited bodies; full-body Menu cleanup deltas bind e5, captured focus metadata binds42, trigger publication bindsf2, and native ownership comments bind336 with its AST unchanged. The five native node/initial-seed/focus-out disposal owner deltas bindc392 while all earlier stages/history remain distinct. Parse success supplies no behavior equivalence.',
+    'Complete current native two-package AST closure, immutable f0 full-body preimages and grouping-preserving script ASTs. Deliberate source/native owner corrections remain separate from formatter presentation changes. Getter/label publication retain exact inherited bodies; full-body Menu cleanup deltas bind e5, captured focus metadata binds42, trigger publication bindsf2, and native ownership comments bind336 with its AST unchanged. The five native node/initial-seed/focus-out disposal owner deltas bindc392 while all earlier stages/history remain distinct. The subsequent 32 obsolete binding directives and one RadioGroup output-binding annotation bind 0d with all 496 complete bodies otherwise unchanged and every script AST identical. Parse success supplies no behavior equivalence.',
   parserVersions: { TypeScript: ts.version, Svelte: compiler.VERSION },
   currentGraphSha256: hash(
     readFileSync(resolve(root, 'parity/utils-package/current-source-graph.json')),

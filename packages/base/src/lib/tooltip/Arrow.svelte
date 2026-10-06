@@ -13,7 +13,6 @@
     class: className,
     style,
     children,
-    // eslint-disable-next-line no-useless-assignment -- Native bindable ref output is published through the ordered Source ref callback.
     ref = $bindable(),
     ...elementProps
   }: TooltipArrowProps = $props();

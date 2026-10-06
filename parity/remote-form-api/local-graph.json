@@ -2491,7 +2491,7 @@
     },
     {
       "local": "packages/base/src/lib/radio-group/RadioGroup.svelte",
-      "sha256": "df000859f9ee9ed305d845902c1797ae7d178b7464d711d15257aab27a85d1a1",
+      "sha256": "8b1b6a390fba2b142e0d50aa125737c6dd8360808a74c4ce4b2b6f3e78ff4822",
       "imports": [
         {
           "specifier": "svelte",
