@@ -11,19 +11,11 @@ type API = {
   updateAttachment(): void;
   hide(): void;
 };
-async function command(
-  page: Page,
-  name: Exclude<keyof API, 'snapshot'>,
-  value?: unknown,
-) {
+async function command(page: Page, name: Exclude<keyof API, 'snapshot'>, value?: unknown) {
   await page.locator('main').evaluate(
     (node, [method, argument]) => {
       const api = (node as HTMLElement & { nativeSnippet: API }).nativeSnippet;
-      (
-        api[method as Exclude<keyof API, 'snapshot'>] as (
-          value?: unknown,
-        ) => void
-      )(argument);
+      (api[method as Exclude<keyof API, 'snapshot'>] as (value?: unknown) => void)(argument);
     },
     [name, value] as const,
   );
@@ -64,10 +56,7 @@ test('native-snippets SSR hydrates the actual Toggle host and preserves its chil
   const errors: string[] = [];
   page.on('pageerror', (error) => errors.push(error.message));
   page.on('console', (message) => {
-    if (
-      message.type() === 'error' ||
-      message.text().includes('hydration_mismatch')
-    )
+    if (message.type() === 'error' || message.text().includes('hydration_mismatch'))
       errors.push(message.text());
   });
   await page.reload();
@@ -79,13 +68,8 @@ test('native-snippets SSR hydrates the actual Toggle host and preserves its chil
     same: true,
   });
   await page.locator('#native-toggle').click();
-  await expect(page.locator('#native-toggle')).toHaveAttribute(
-    'aria-pressed',
-    'true',
-  );
-  await expect(page.locator('#native-toggle')).toHaveText(
-    'Native children pressed',
-  );
+  await expect(page.locator('#native-toggle')).toHaveAttribute('aria-pressed', 'true');
+  await expect(page.locator('#native-toggle')).toHaveText('Native children pressed');
   expect(errors).toEqual([]);
 });
 test('native-snippets spreads real component props, attachment symbols, state and children onto a replacement', async ({
@@ -120,16 +104,11 @@ test('native-snippets spreads real component props, attachment symbols, state an
   ).toBe(true);
 });
 for (const mode of ['default', 'span'] as const)
-  test(`native-snippets ${mode} preserves event-detail cancellation`, async ({
-    page,
-  }) => {
+  test(`native-snippets ${mode} preserves event-detail cancellation`, async ({ page }) => {
     await command(page, 'setMode', mode);
     await command(page, 'setCanceled', true);
     await page.locator('#native-toggle').click();
-    await expect(page.locator('#native-toggle')).toHaveAttribute(
-      'aria-pressed',
-      'false',
-    );
+    await expect(page.locator('#native-toggle')).toHaveAttribute('aria-pressed', 'false');
     expect(
       (await snapshot(page)).calls.filter(
         (call) => call.startsWith('consumer') || call.startsWith('change'),
@@ -159,14 +138,10 @@ test('native-snippets honors native identity replacement and independent authore
   await command(page, 'setMode', 'span');
   await page
     .locator('#native-toggle')
-    .evaluate((node) =>
-      Object.assign(document.querySelector('main')!, { initialHost: node }),
-    );
+    .evaluate((node) => Object.assign(document.querySelector('main')!, { initialHost: node }));
   await command(page, 'updateAttachment');
   expect((await snapshot(page)).ref?.same).toBe(true);
-  expect((await snapshot(page)).calls).toContain(
-    'cleanup:0:SPAN:true:owned before',
-  );
+  expect((await snapshot(page)).calls).toContain('cleanup:0:SPAN:true:owned before');
   await command(page, 'setMode', 'same-span');
   expect(
     await page.locator('#native-toggle').evaluate(
@@ -179,10 +154,55 @@ test('native-snippets honors native identity replacement and independent authore
         ).initialHost,
     ),
   ).toBe(false);
-  expect((await snapshot(page)).calls).toContain(
-    'cleanup:1:SPAN:false:owned before',
-  );
+  expect((await snapshot(page)).calls).toContain('cleanup:1:SPAN:false:owned before');
   await command(page, 'hide');
   await expect(page.locator('#native-toggle')).toHaveCount(0);
   expect((await snapshot(page)).ref).toBeNull();
+});
+
+test('native-snippets retains the replacement Toolbar button binding and disabled focusability after the old host outro', async ({
+  page,
+}) => {
+  const errors: string[] = [];
+  page.on('pageerror', (error) => errors.push(error.message));
+  await page.goto('/native-snippets?case=button-outro');
+  await expect(page.locator('main')).toHaveAttribute('data-hydrated', 'true');
+  const old = page.getByTestId('old-toolbar-host');
+  const current = page.getByTestId('current-toolbar-host');
+  await page.getByRole('button', { name: 'Replace toolbar host' }).click();
+  await expect(old).toHaveCount(1);
+  await expect(current).toHaveText('Toolbar children');
+  async function bindings() {
+    return page.locator('main').evaluate((host) => {
+      const { ref, bareRef, calls } = (
+        host as HTMLElement & {
+          nativeButtonOutro: {
+            snapshot(): { ref: HTMLElement | null; bareRef: HTMLElement | null; calls: string[] };
+          };
+        }
+      ).nativeButtonOutro.snapshot();
+      return {
+        component: ref === host.querySelector('[data-testid=current-toolbar-host]'),
+        native: bareRef === host.querySelector('[data-testid=current-bare-host]'),
+        calls,
+      };
+    });
+  }
+  expect(await bindings()).toEqual({ component: true, native: true, calls: [] });
+  await expect(old).toHaveCount(0);
+  await expect(page.getByTestId('old-bare-host')).toHaveCount(0);
+  expect(await bindings()).toEqual({ component: true, native: true, calls: [] });
+  await page.getByRole('button', { name: 'Disable toolbar button' }).click();
+  await expect(current).toHaveAttribute('aria-disabled', 'true');
+  await expect(current).toHaveJSProperty('disabled', false);
+  expect(
+    await current.evaluate((host) => {
+      const button = host as HTMLButtonElement;
+      button.focus();
+      button.click();
+      return document.activeElement === button;
+    }),
+  ).toBe(true);
+  expect((await bindings()).calls).toEqual([]);
+  expect(errors).toEqual([]);
 });

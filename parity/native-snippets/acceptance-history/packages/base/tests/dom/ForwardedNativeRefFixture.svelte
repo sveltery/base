@@ -46,7 +46,6 @@
     return [outerElement, innerElement];
   }
 </script>
-
 {#if visible}
   <RenderElement
     tag="button"

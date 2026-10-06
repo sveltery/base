@@ -32,9 +32,10 @@ it('uses the real default button, state, children and host binding', () => {
   expect(app.snapshot().ref).toBe(host());
   host().click();
   flushSync();
-  expect(
-    app.snapshot().calls.filter((call) => !call.startsWith('attach')),
-  ).toEqual(['consumer:false', 'change:true:false:click']);
+  expect(app.snapshot().calls.filter((call) => !call.startsWith('attach'))).toEqual([
+    'consumer:false',
+    'change:true:false:click',
+  ]);
   expect(host().getAttribute('aria-pressed')).toBe('true');
   expect(host().getAttribute('data-pressed')).toBe('');
   expect(host().textContent).toContain('Native children pressed');
@@ -50,9 +51,7 @@ it('passes complete merged props, the real typed state and children to the nativ
   });
   expect(received.state).toEqual({ disabled: false, pressed: false });
   expect(typeof received.children).toBe('function');
-  expect(Object.getOwnPropertySymbols(received.props).length).toBeGreaterThan(
-    0,
-  );
+  expect(Object.getOwnPropertySymbols(received.props).length).toBeGreaterThan(0);
   expect(host().tagName).toBe('SPAN');
   expect(app.snapshot().ref).toBe(host());
   expect(host().className).toBe('owned before');
@@ -75,9 +74,7 @@ it('retains a stable snippet host while state, class, style and children update'
   expect(host().style.padding).toBe('20px');
   expect(host().getAttribute('data-snippet-pressed')).toBe('true');
   expect(host().textContent).toContain('Native children pressed');
-  expect(
-    app.snapshot().calls.filter((call) => call.startsWith('attach')),
-  ).toHaveLength(1);
+  expect(app.snapshot().calls.filter((call) => call.startsWith('attach'))).toHaveLength(1);
 });
 for (const [before, after, beforeTag, afterTag] of [
   ['default', 'span', 'BUTTON', 'SPAN'],
@@ -95,9 +92,7 @@ for (const [before, after, beforeTag, afterTag] of [
     expect(host().tagName).toBe(afterTag);
     expect(app.snapshot().ref).toBe(host());
     expect(
-      app
-        .snapshot()
-        .calls.some((call) => call.startsWith(`cleanup:0:${beforeTag}:false:`)),
+      app.snapshot().calls.some((call) => call.startsWith(`cleanup:0:${beforeTag}:false:`)),
     ).toBe(true);
   });
 it('lets authored attachments update independently while the component binding retains its host', () => {
@@ -128,9 +123,7 @@ for (const mode of ['default', 'span'] as const)
     expect(
       app
         .snapshot()
-        .calls.filter(
-          (call) => call.startsWith('consumer') || call.startsWith('change'),
-        ),
+        .calls.filter((call) => call.startsWith('consumer') || call.startsWith('change')),
     ).toEqual(['consumer:false', 'change:true:false:click']);
   });
 for (const prevention of ['none', 'default', 'base'] as const)
@@ -141,9 +134,9 @@ for (const prevention of ['none', 'default', 'base'] as const)
     flushSync();
     expect(event.defaultPrevented).toBe(prevention === 'default');
     expect(app.snapshot().pressed).toBe(prevention !== 'base');
-    expect(
-      app.snapshot().calls.filter((call) => call.startsWith('change')),
-    ).toHaveLength(prevention === 'base' ? 0 : 1);
+    expect(app.snapshot().calls.filter((call) => call.startsWith('change'))).toHaveLength(
+      prevention === 'base' ? 0 : 1,
+    );
   });
 for (const mode of ['default', 'span'] as const)
   it(`preserves disabled business props and suppresses activation on ${mode}`, () => {
@@ -152,9 +145,7 @@ for (const mode of ['default', 'span'] as const)
     flushSync();
     expect(host().hasAttribute('data-disabled')).toBe(true);
     expect(app.snapshot().pressed).toBe(false);
-    expect(
-      app.snapshot().calls.filter((call) => call.startsWith('change')),
-    ).toEqual([]);
+    expect(app.snapshot().calls.filter((call) => call.startsWith('change'))).toEqual([]);
   });
 it('forwards nested real Button attachments independently and clears both native bindings', () => {
   const target = document.createElement('main');
@@ -165,16 +156,12 @@ it('forwards nested real Button attachments independently and clears both native
   const button = target.querySelector('button')!;
   expect(app.snapshot()).toMatchObject({ outer: button, inner: button });
   expect(button.textContent).toBe('Nested children');
-  expect(
-    app.snapshot().calls.filter((call) => call.startsWith('outer:')),
-  ).toHaveLength(1);
+  expect(app.snapshot().calls.filter((call) => call.startsWith('outer:'))).toHaveLength(1);
   app.updateInner();
   flushSync();
   expect(target.querySelector('button')).toBe(button);
   expect(app.snapshot()).toMatchObject({ outer: button, inner: button });
-  expect(
-    app.snapshot().calls.filter((call) => call.startsWith('outer:')),
-  ).toHaveLength(1);
+  expect(app.snapshot().calls.filter((call) => call.startsWith('outer:'))).toHaveLength(1);
   expect(app.snapshot().calls).toContain('inner-cleanup:0:true');
   expect(app.snapshot().calls).toContain('inner:1:BUTTON');
   app.hide();

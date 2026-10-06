@@ -37,11 +37,7 @@
     validate={(value) => (value === 'blocked' ? 'Blocked value' : null)}
   >
     <Field.Label id="native-late-label">Late control</Field.Label>
-    {#if present}<Input
-        id="native-late-control"
-        defaultValue="seed"
-        bind:ref={input}
-      />{/if}
+    {#if present}<Input id="native-late-control" defaultValue="seed" bind:ref={input} />{/if}
     <Field.Error id="native-late-error" />
   </Field.Root>
   <button type="submit">Submit</button>

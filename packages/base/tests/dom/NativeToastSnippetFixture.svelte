@@ -58,11 +58,9 @@
   }
 </script>
 
-{#snippet rootHost(
-  props: HTMLProps,
-  state: ToastRootState,
-  children: Snippet | undefined,
-)}<section {...observe(props, state, children)}>
+{#snippet rootHost(props: HTMLProps, state: ToastRootState, children: Snippet | undefined)}<section
+    {...observe(props, state, children)}
+  >
     {@render children?.()}
   </section>{/snippet}
 {#snippet viewportHost(
@@ -79,11 +77,9 @@
 )}<article {...observe(props, state, children)}>
     {@render children?.()}
   </article>{/snippet}
-{#snippet titleHost(
-  props: HTMLProps,
-  state: ToastLabelState,
-  children: Snippet | undefined,
-)}<h4 {...observe(props, state, children)}>{@render children?.()}</h4>{/snippet}
+{#snippet titleHost(props: HTMLProps, state: ToastLabelState, children: Snippet | undefined)}<h4
+    {...observe(props, state, children)}>{@render children?.()}</h4
+  >{/snippet}
 {#snippet descriptionHost(
   props: HTMLProps,
   state: ToastLabelState,
@@ -95,14 +91,12 @@
   props: HTMLProps,
   state: ToastLabelState,
   children: Snippet | undefined,
-)}<button {...observe(props, state, children)}>{@render children?.()}</button
-  >{/snippet}
+)}<button {...observe(props, state, children)}>{@render children?.()}</button>{/snippet}
 {#snippet nonButtonHost(
   props: HTMLProps,
   state: ToastLabelState,
   children: Snippet | undefined,
-)}<span {...observe(props, state, children)}>{@render children?.()}</span
-  >{/snippet}
+)}<span {...observe(props, state, children)}>{@render children?.()}</span>{/snippet}
 <Toast.Provider timeout={0}>
   {#if present}
     <Toast.Viewport

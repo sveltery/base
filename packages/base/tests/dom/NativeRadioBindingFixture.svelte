@@ -19,14 +19,9 @@
 
 {#if visible}
   <RadioGroup defaultValue={initial} bind:inputRef={groupInput}>
-    <Radio.Root
-      value="a"
-      disabled={disabledFirst}
-      bind:inputRef={firstInput}
-      data-radio="a">A</Radio.Root
+    <Radio.Root value="a" disabled={disabledFirst} bind:inputRef={firstInput} data-radio="a"
+      >A</Radio.Root
     >
-    <Radio.Root value="b" bind:inputRef={secondInput} data-radio="b"
-      >B</Radio.Root
-    >
+    <Radio.Root value="b" bind:inputRef={secondInput} data-radio="b">B</Radio.Root>
   </RadioGroup>
 {/if}

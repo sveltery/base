@@ -33,15 +33,9 @@
       }}
     />
     <ScrollArea.Viewport
-      ><ScrollArea.Content>Scrollable content</ScrollArea.Content
-      ></ScrollArea.Viewport
+      ><ScrollArea.Content>Scrollable content</ScrollArea.Content></ScrollArea.Viewport
     >
-    <ScrollArea.Scrollbar
-      id="native-scrollbar"
-      {orientation}
-      keepMounted
-      bind:ref={scrollbar}
-    >
+    <ScrollArea.Scrollbar id="native-scrollbar" {orientation} keepMounted bind:ref={scrollbar}>
       <ScrollArea.Thumb id="native-thumb" bind:ref={thumb} />
     </ScrollArea.Scrollbar>
   </ScrollArea.Root>

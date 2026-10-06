@@ -9,13 +9,7 @@ it('hydrates the actual Separator using native empty-class normalization and sta
   const script = `import { createRequire } from 'node:module'; import Fixture from './packages/base/tests/dom/NativeClassComparisonFixture.svelte'; const require = createRequire(new URL('./packages/base/package.json', import.meta.url)); const { render } = require('svelte/server'); process.stdout.write(render(Fixture, { props: { value: '' } }).body);`;
   const markup = execFileSync(
     process.execPath,
-    [
-      '--import',
-      './scripts/svelte-ssr-loader.mjs',
-      '--input-type=module',
-      '-e',
-      script,
-    ],
+    ['--import', './scripts/svelte-ssr-loader.mjs', '--input-type=module', '-e', script],
     { cwd: resolve(process.cwd(), '../..'), encoding: 'utf8' },
   );
   const target = document.createElement('main');

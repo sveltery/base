@@ -27,9 +27,7 @@ for (const part of ['item', 'link', 'checkbox', 'radio'] as const)
     expect(document.getElementById('native-label-target')).toBe(item);
     expect(item.textContent).toBe('Dynamic item');
     first.focus();
-    first.dispatchEvent(
-      new KeyboardEvent('keydown', { key: 'z', bubbles: true }),
-    );
+    first.dispatchEvent(new KeyboardEvent('keydown', { key: 'z', bubbles: true }));
     await settle();
     expect(document.activeElement).toBe(item);
   });

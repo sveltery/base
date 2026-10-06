@@ -23,11 +23,7 @@
   }
 </script>
 
-{#snippet rootHost(
-  props: HTMLProps,
-  state: FieldRootState,
-  children: Snippet | undefined,
-)}
+{#snippet rootHost(props: HTMLProps, state: FieldRootState, children: Snippet | undefined)}
   <section
     {...mergeProps(props, {
       class: 'owned-field',
@@ -37,11 +33,7 @@
     {@render children?.()}
   </section>
 {/snippet}
-{#snippet inputHost(
-  props: HTMLProps,
-  state: FieldRootState,
-  _children: Snippet | undefined,
-)}
+{#snippet inputHost(props: HTMLProps, state: FieldRootState, _children: Snippet | undefined)}
   <input
     {...mergeProps(props, {
       class: 'owned-input',
@@ -52,12 +44,7 @@
 {/snippet}
 <Form id="native-form" onFormSubmit={(values) => submitted.push(values)}>
   {#if present}
-    <Field.Root
-      name="email"
-      id="native-field"
-      render={rootHost}
-      bind:ref={field}
-    >
+    <Field.Root name="email" id="native-field" render={rootHost} bind:ref={field}>
       <Field.Label id="native-label" bind:ref={label}>Email</Field.Label>
       <Input
         id="native-input"

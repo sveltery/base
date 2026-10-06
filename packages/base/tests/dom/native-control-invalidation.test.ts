@@ -12,9 +12,7 @@ it('refreshes a later mounted Field control name, explicit invalidity and live v
   await tick();
   const form = target.querySelector<HTMLFormElement>('#native-late-form')!;
   function submit() {
-    form.dispatchEvent(
-      new Event('submit', { bubbles: true, cancelable: true }),
-    );
+    form.dispatchEvent(new Event('submit', { bubbles: true, cancelable: true }));
     flushSync();
   }
   try {
@@ -22,9 +20,7 @@ it('refreshes a later mounted Field control name, explicit invalidity and live v
     app.show();
     flushSync();
     await tick();
-    const input = target.querySelector<HTMLInputElement>(
-      '#native-late-control',
-    )!;
+    const input = target.querySelector<HTMLInputElement>('#native-late-control')!;
     expect(app.snapshot().input).toBe(input);
     expect(target.querySelector('label')?.htmlFor).toBe(input.id);
     submit();
@@ -34,10 +30,7 @@ it('refreshes a later mounted Field control name, explicit invalidity and live v
     await tick();
     expect(input.name).toBe('second');
     submit();
-    expect(app.snapshot().submitted).toEqual([
-      { first: 'seed' },
-      { second: 'seed' },
-    ]);
+    expect(app.snapshot().submitted).toEqual([{ first: 'seed' }, { second: 'seed' }]);
     app.setInvalid(true);
     flushSync();
     await tick();
@@ -52,9 +45,7 @@ it('refreshes a later mounted Field control name, explicit invalidity and live v
     flushSync();
     await tick();
     expect(input.getAttribute('aria-invalid')).toBe('true');
-    expect(target.querySelector('#native-late-error')?.textContent).toBe(
-      'Blocked value',
-    );
+    expect(target.querySelector('#native-late-error')?.textContent).toBe('Blocked value');
     submit();
     expect(app.snapshot().submitted).toHaveLength(2);
     input.value = 'accepted';

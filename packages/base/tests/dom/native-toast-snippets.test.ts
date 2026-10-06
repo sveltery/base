@@ -26,11 +26,8 @@ for (const custom of [false, true])
       'action',
       'close',
     ] as const) {
-      expect(snapshot[part]).toBe(
-        target.querySelector(`#native-toast-${part}`),
-      );
-      if (custom)
-        expect(snapshot[part]?.classList.contains('owned-toast')).toBe(true);
+      expect(snapshot[part]).toBe(target.querySelector(`#native-toast-${part}`));
+      if (custom) expect(snapshot[part]?.classList.contains('owned-toast')).toBe(true);
     }
     expect(snapshot.title?.textContent).toBe('Toast title');
     expect(snapshot.description?.textContent).toBe('Toast description');
@@ -38,18 +35,12 @@ for (const custom of [false, true])
     expect(snapshot.close?.textContent).toBe('Close toast');
     expect(snapshot.action?.tagName).toBe('BUTTON');
     expect(snapshot.action?.getAttribute('type')).toBe('button');
-    expect(snapshot.root?.getAttribute('aria-labelledby')).toBe(
-      'native-toast-title',
-    );
-    expect(snapshot.root?.getAttribute('aria-describedby')).toBe(
-      'native-toast-description',
-    );
+    expect(snapshot.root?.getAttribute('aria-labelledby')).toBe('native-toast-title');
+    expect(snapshot.root?.getAttribute('aria-describedby')).toBe('native-toast-description');
     if (custom) {
       expect(snapshot.root?.tagName).toBe('SECTION');
       expect(snapshot.title?.tagName).toBe('H4');
-      const action = snapshot.received.find(
-        (record) => record.id === 'native-toast-action',
-      );
+      const action = snapshot.received.find((record) => record.id === 'native-toast-action');
       expect(action?.state).toEqual({ type: 'success' });
       expect(typeof action?.children).toBe('function');
     }
@@ -91,8 +82,7 @@ for (const part of ['action', 'close'] as const) {
         }),
       );
       flushSync();
-      const clickCalls = () =>
-        app.snapshot().calls.filter((call) => !call.startsWith('key:'));
+      const clickCalls = () => app.snapshot().calls.filter((call) => !call.startsWith('key:'));
       expect(clickCalls()).toEqual(
         activation === ' '
           ? []
@@ -109,9 +99,7 @@ for (const part of ['action', 'close'] as const) {
       );
       flushSync();
       expect(clickCalls()).toEqual(
-        part === 'action'
-          ? ['action:toast', 'action:component']
-          : ['close:component'],
+        part === 'action' ? ['action:toast', 'action:component'] : ['close:component'],
       );
       expect(document.activeElement).toBe(host);
     });
@@ -144,9 +132,7 @@ for (const part of ['action', 'close'] as const) {
         );
       }
       flushSync();
-      expect(
-        app.snapshot().calls.filter((call) => !call.startsWith('key:')),
-      ).toEqual([]);
+      expect(app.snapshot().calls.filter((call) => !call.startsWith('key:'))).toEqual([]);
     });
   it(`suppresses click and keyboard activation on a disabled nonbutton Toast.${part}`, async () => {
     const target = document.createElement('main');
@@ -163,9 +149,7 @@ for (const part of ['action', 'close'] as const) {
     host.click();
     for (const key of ['Enter', ' '])
       for (const type of ['keydown', 'keyup'])
-        host.dispatchEvent(
-          new KeyboardEvent(type, { key, bubbles: true, cancelable: true }),
-        );
+        host.dispatchEvent(new KeyboardEvent(type, { key, bubbles: true, cancelable: true }));
     flushSync();
     expect(app.snapshot().calls).toEqual([]);
   });

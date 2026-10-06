@@ -65,28 +65,18 @@ export function extractCurrentFamilyProjection(name) {
   assert.ok(Object.hasOwn(families, name), `Unknown family: ${name}`);
   const graphPath = 'parity/native-snippets/native-graph.json';
   const graph = json(graphPath);
-  const modules = new Map(
-    graph.modules.map((module) => [module.source, module]),
-  );
+  const modules = new Map(graph.modules.map((module) => [module.source, module]));
   const catalog = json('parity/native-snippets/catalog-projection.json');
   const roots = families[name].map((subpath) => {
-    const entry = catalog.modules.find(
-      (module) => module.upstreamModule === subpath,
-    );
-    assert.ok(
-      entry?.sourceEntry,
-      `Missing actual public family entry: ${subpath}`,
-    );
+    const entry = catalog.modules.find((module) => module.upstreamModule === subpath);
+    assert.ok(entry?.sourceEntry, `Missing actual public family entry: ${subpath}`);
     return entry.sourceEntry;
   });
   const reached = new Set();
   function visit(source) {
     if (reached.has(source)) return;
     const module = modules.get(source);
-    assert.ok(
-      module,
-      `Family entry/import missing from current graph: ${source}`,
-    );
+    assert.ok(module, `Family entry/import missing from current graph: ${source}`);
     reached.add(source);
     for (const edge of module.imports)
       if (!edge.resolved.startsWith('external:')) visit(edge.resolved);
@@ -95,16 +85,10 @@ export function extractCurrentFamilyProjection(name) {
   const predecessorPath = `parity/${name}/source-correspondence.json`;
   const predecessor = json(predecessorPath);
   const original = json(`parity/${name}/source-graph.json`);
-  const originals = new Map(
-    original.modules.map((module) => [module.source, module]),
-  );
+  const originals = new Map(original.modules.map((module) => [module.source, module]));
   assert.equal(predecessor.pin, graph.pin);
   const records = predecessor.records.map((record) => {
-    assert.equal(
-      record.sha256,
-      originals.get(record.source)?.sha256,
-      record.source,
-    );
+    assert.equal(record.sha256, originals.get(record.source)?.sha256, record.source);
     if (name === 'menu-family')
       assert.equal(
         hash(read(`parity/${name}/upstream/${record.source}`)),
@@ -147,9 +131,7 @@ export function extractCurrentFamilyProjection(name) {
       path: `parity/${name}/source-graph.json`,
       sha256: hash(read(`parity/${name}/source-graph.json`)),
     },
-    modules: [...reached]
-      .sort()
-      .map((source) => ({ source, sha256: modules.get(source).sha256 })),
+    modules: [...reached].sort().map((source) => ({ source, sha256: modules.get(source).sha256 })),
     external: [
       ...new Set(
         [...reached].flatMap((source) =>
@@ -167,8 +149,7 @@ export function extractCurrentFamilyProjection(name) {
       .map((source) => ({
         source,
         sha256: modules.get(source).sha256,
-        status:
-          'native-representation-or-split-business-counterpart-no-acceptance-credit',
+        status: 'native-representation-or-split-business-counterpart-no-acceptance-credit',
       })),
     hostComposition: {
       scope:
@@ -188,10 +169,7 @@ export function extractCurrentFamilyProjection(name) {
 
 export function extractCurrentFamilyProjections() {
   return Object.fromEntries(
-    Object.keys(families).map((name) => [
-      name,
-      extractCurrentFamilyProjection(name),
-    ]),
+    Object.keys(families).map((name) => [name, extractCurrentFamilyProjection(name)]),
   );
 }
 

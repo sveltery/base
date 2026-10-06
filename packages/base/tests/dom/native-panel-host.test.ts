@@ -10,25 +10,15 @@ for (const family of ['collapsible', 'accordion'] as const) {
     const script = `import { createRequire } from 'node:module'; import Fixture from './packages/base/tests/dom/NativePanelFixture.svelte'; const require = createRequire(new URL('./packages/base/package.json', import.meta.url)); const { render } = require('svelte/server'); process.stdout.write(render(Fixture, { props: { family: ${JSON.stringify(family)} } }).body);`;
     const markup = execFileSync(
       process.execPath,
-      [
-        '--import',
-        './scripts/svelte-ssr-loader.mjs',
-        '--input-type=module',
-        '-e',
-        script,
-      ],
+      ['--import', './scripts/svelte-ssr-loader.mjs', '--input-type=module', '-e', script],
       { cwd: resolve(process.cwd(), '../..'), encoding: 'utf8' },
     );
     const target = document.createElement('main');
     target.innerHTML = markup;
-    expect(target.querySelector('#native-panel')?.getAttribute('hidden')).toBe(
-      'until-found',
+    expect(target.querySelector('#native-panel')?.getAttribute('hidden')).toBe('until-found');
+    expect(target.querySelector('#native-panel-trigger')?.getAttribute('aria-expanded')).toBe(
+      'false',
     );
-    expect(
-      target
-        .querySelector('#native-panel-trigger')
-        ?.getAttribute('aria-expanded'),
-    ).toBe('false');
   });
   it(`moves ${family} beforematch ownership to the actual replacement host and tracks disabled state`, async () => {
     const target = document.createElement('main');
@@ -63,11 +53,9 @@ for (const family of ['collapsible', 'accordion'] as const) {
       expect(app.snapshot().requests).toEqual([{ open: true, reason: 'none' }]);
       expect(current.hasAttribute('data-open')).toBe(true);
       expect(current.hasAttribute('hidden')).toBe(false);
-      expect(
-        target
-          .querySelector('#native-panel-trigger')
-          ?.getAttribute('aria-controls'),
-      ).toBe('native-panel');
+      expect(target.querySelector('#native-panel-trigger')?.getAttribute('aria-controls')).toBe(
+        'native-panel',
+      );
     } finally {
       await unmount(app);
       target.remove();

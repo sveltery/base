@@ -10,11 +10,11 @@
     ],
     "graph": {
       "path": "parity/native-snippets/native-graph.json",
-      "sha256": "5f1bebaeab6c504fb816f65f13976c4dedf89c95dfff76c3f1c4143753041174"
+      "sha256": "314bcd594de88946f9e32bef146590ecce77b7b711f81e38a21155b6ac0fadda"
     },
     "predecessor": {
       "path": "parity/toggle-toolbar/source-correspondence.json",
-      "sha256": "87e911724640c9060bab631c2ef0e03f3b02877c0f93c046cd93616d33f378f7"
+      "sha256": "d925d9d38968f83a0e616c813204ece879646353911e94a92ed4c4f4b6dbd02d"
     },
     "originalGraph": {
       "path": "parity/toggle-toolbar/source-graph.json",
@@ -31,11 +31,11 @@
       },
       {
         "source": "packages/base/src/lib/floating-ui/utils/event.ts",
-        "sha256": "d1ee6542732cf647dc9a02e9f40b664de30296df7d2756744a6810e8b3447b5c"
+        "sha256": "32391b7e254d578d4a374a8f95270e0fea8c763e8f56c52db2e9931243ad5e56"
       },
       {
         "source": "packages/base/src/lib/internals/composite/composite.ts",
-        "sha256": "938a8b4ede73c5b5655a800777fe4748a94786a05bf828129de299c04cf94673"
+        "sha256": "f4e02dc8034a749a29f2c63d12f34c25d17c73ffd4075bc31e8f4a55306c0a9e"
       },
       {
         "source": "packages/base/src/lib/internals/composite/constants.ts",
@@ -43,27 +43,27 @@
       },
       {
         "source": "packages/base/src/lib/internals/composite/item/CompositeItem.svelte",
-        "sha256": "504019a96565afea85c1b178fce5267fa3508b95ffbcb8690f36589b4951e9ff"
+        "sha256": "2f74c7d54df5fa6b0d31ed37518d070a343e8005fd82226a2e6eda0ec4dba0eb"
       },
       {
         "source": "packages/base/src/lib/internals/composite/item/useCompositeItem.svelte.ts",
-        "sha256": "c699cfa82e8ea2a8c0a8912f1b02f9af2f4aaf841284048d1083ce644bddbc57"
+        "sha256": "d90708b23dde83c4381ea1085767ec30135307525c1ea9e5422e9879a522daad"
       },
       {
         "source": "packages/base/src/lib/internals/composite/list/CompositeListContext.ts",
-        "sha256": "c443b96e2b57642eed663be3a670fc7342dc4358bac081b7257bcb076c54ab17"
+        "sha256": "17e4010bda5639d8c7d200bd965ffb9f29aa06a1e83c9f6756319a2dceb1fd38"
       },
       {
         "source": "packages/base/src/lib/internals/composite/list/createCompositeList.svelte.ts",
-        "sha256": "97758d379046d9f894997ae40ef7c6f59decf48fa0d985a2c1fb5f9f068ad016"
+        "sha256": "eb23334825782ebd6c5c2697f1aad75f6f557c1e387fa6ea0a78c276bfead975"
       },
       {
         "source": "packages/base/src/lib/internals/composite/list/useCompositeListItem.svelte.ts",
-        "sha256": "6665db18996004710613ee13ed67d8750da067cb348bf5bbc5eb7e9eb91f8eab"
+        "sha256": "94d353c7d884b35bd002a9278a7701e7b1e835d536b8eb8a94f2a56d7fa72841"
       },
       {
         "source": "packages/base/src/lib/internals/composite/root/CompositeRoot.svelte",
-        "sha256": "05dfdf1b4c35e254d686e4105e1481e5819f6d4157f6ce92508c4ff4a8784308"
+        "sha256": "29241d2982ea752a27d65c8c15cc9e3675efd2cfbc0917a4b112c5179c7d2e4e"
       },
       {
         "source": "packages/base/src/lib/internals/composite/root/CompositeRootContext.ts",
@@ -71,15 +71,15 @@
       },
       {
         "source": "packages/base/src/lib/internals/composite/root/gridNavigation.ts",
-        "sha256": "11aa223e4f95a23b0287fee822bdda9f4b37cb6d33f99d02c9f7da8964949e9f"
+        "sha256": "d2ed3a04fffe1d9d73819d40d2494ab19f5707adbe3c7bd9849a81c30977315c"
       },
       {
         "source": "packages/base/src/lib/internals/composite/root/useCompositeRoot.svelte.ts",
-        "sha256": "edb7e84e824764ec76db1b1853ac45ef4b890731670b62d00dcc6cbac19e47f7"
+        "sha256": "bdd6ced8bc2a28c77a2572b6b54eab7ad09ee111ddf2bcdbe777686f947c39b6"
       },
       {
         "source": "packages/base/src/lib/internals/composite/utils/navigation.ts",
-        "sha256": "bb61a6e117cc345c347a3a29618d01e6e608ef1027b8e6464e072d8b70b4a0aa"
+        "sha256": "bcfb35db31e9b53c86be39c229e041eaaf48f82df10d4dfaac79b69ecfd5a6dd"
       },
       {
         "source": "packages/base/src/lib/internals/createBaseUIEventDetails.ts",
@@ -91,11 +91,11 @@
       },
       {
         "source": "packages/base/src/lib/internals/mergeComponentProps.ts",
-        "sha256": "9bac34159edaa562b7a018594a875a51873c16ac8293f4a8351d5583f595ac67"
+        "sha256": "803da5cb2c52515e1e68e16b66b61060c31ca03d183bb09d928b601bbb70cab7"
       },
       {
         "source": "packages/base/src/lib/internals/nativeProps.ts",
-        "sha256": "598301c5f9e7fcfe39e8eaa45092b7935cd61e9d353a89766d45bc9230861a96"
+        "sha256": "653fb2f684da7987d8c51b2384cbf5e8839c30a620a7b790f451bbeb87479cab"
       },
       {
         "source": "packages/base/src/lib/internals/reason-parts.ts",
@@ -111,11 +111,11 @@
       },
       {
         "source": "packages/base/src/lib/internals/types.ts",
-        "sha256": "56f62e49c3a1504981c523a1bee8764c45de90fb88f0fab5154bb7fc9d0c1bd3"
+        "sha256": "6a36f5f103ef940b8a32d63f0288d897096c846fb2361b4ef44733e9a899907e"
       },
       {
         "source": "packages/base/src/lib/internals/use-button/useButton.svelte.ts",
-        "sha256": "54d00b367e4cc9838f1130b61128e872f42c49df0b2ec06bb5275a76d11a52e1"
+        "sha256": "089f0b6e20b956d85db5cf2cd7a47151352ec8aada0d6582154ad264c59e20bf"
       },
       {
         "source": "packages/base/src/lib/internals/useBaseUiId.ts",
@@ -127,7 +127,7 @@
       },
       {
         "source": "packages/base/src/lib/merge-props/mergeProps.ts",
-        "sha256": "bb7b19346a441bd93ebb41f21a46893ef4578e8ad7444fe8bf9369edad32a126"
+        "sha256": "b2c30a6df68fe9744f250f0d0b8e21d89de133146724efd6eed7cea0fce0f8b9"
       },
       {
         "source": "packages/base/src/lib/separator/Separator.svelte",
@@ -139,11 +139,11 @@
       },
       {
         "source": "packages/base/src/lib/separator/types.ts",
-        "sha256": "b349b520840d7d7b3bbda5127105404312370ae300efe23bb354536c2d8c56dc"
+        "sha256": "5ab346df307c50fad23dfdcb26e3931c9b4ba24de0ddc21881ef54441e6496e7"
       },
       {
         "source": "packages/base/src/lib/toggle-group/ToggleGroup.svelte",
-        "sha256": "74e4e69dd79cd3a6b5d34fe4ea8768b5504c958088a4d67cbefaefaa5654aff7"
+        "sha256": "1ee580381ce6ba31528bfcccf1a8826b4dc8eafcb079c4f8a8b8594bf1f47931"
       },
       {
         "source": "packages/base/src/lib/toggle-group/ToggleGroupContext.ts",
@@ -151,27 +151,27 @@
       },
       {
         "source": "packages/base/src/lib/toggle-group/index.ts",
-        "sha256": "eb6704fcba814d66839e0efe22d44efb35ab3e70f6daa741f57f3ffd96289023"
+        "sha256": "0c7096366fb0832f151a83ca4b25a04aa5be79136965a6303e1303a9f9a87bdb"
       },
       {
         "source": "packages/base/src/lib/toggle-group/types.ts",
-        "sha256": "31f48c53d49de3da61a0e944b0bdd24e59b618ddfdaeb9fe300aa4af95c6e35e"
+        "sha256": "fbbc121261c354d8e28c8563b0ca44f35b5b0ee01eb6b1ac10490301833c3752"
       },
       {
         "source": "packages/base/src/lib/toggle/Toggle.svelte",
-        "sha256": "62cd838f1e166ffa2188b3dc36de6d422b0a4c53a57852fbd1b97f40ab5ef082"
+        "sha256": "58da46cd37f9b80030ed7c4126c9984b180fa1cb9eb8b107d054cefa94fec97b"
       },
       {
         "source": "packages/base/src/lib/toggle/index.ts",
-        "sha256": "5e0cf519839cfe2d95047b94522b5f70165de0f701d572dc223a1f1d1f704538"
+        "sha256": "749961f04be418dfc63c19ca4d1216e0361cdd496a8aceef153a4ce4605caba5"
       },
       {
         "source": "packages/base/src/lib/toggle/types.ts",
-        "sha256": "f82cbee1e7c2ce7d88cfb87489a5947fb07fa67d82122c52fadc3864cf360950"
+        "sha256": "888b497d95050beab8098d2cf67a8b769ec4cab7a968e20866aec17aa6e8bf12"
       },
       {
         "source": "packages/base/src/lib/toolbar/button/ToolbarButton.svelte",
-        "sha256": "573bd878caef462d0e9be5e2150fb7f911d9c26801a09028cb3da6a0a721b3d2"
+        "sha256": "eea9778b6137a015fd5fd1c1158e35cce8b50e97b5acf1e29d0e3d52400ce0fd"
       },
       {
         "source": "packages/base/src/lib/toolbar/group/ToolbarGroup.svelte",
@@ -179,7 +179,7 @@
       },
       {
         "source": "packages/base/src/lib/toolbar/group/ToolbarGroupContext.ts",
-        "sha256": "bfba6dcfb67c6c5d8eb4abdd43a0a1fc0c5502f884ffe6d0ef4d37070611874f"
+        "sha256": "d8e72834d984abda546691454db71dc231cd1e9ef9778a4a0abc3c7a8cc7b811"
       },
       {
         "source": "packages/base/src/lib/toolbar/index.parts.ts",
@@ -187,11 +187,11 @@
       },
       {
         "source": "packages/base/src/lib/toolbar/index.ts",
-        "sha256": "37e47173408b85ca5d3e8d3b17e2ca32265a84bab99b038335266211db0323dc"
+        "sha256": "a357051759821635ff94d9652fbaf3da9a23a202da753ba35ef5746c86857d60"
       },
       {
         "source": "packages/base/src/lib/toolbar/input/ToolbarInput.svelte",
-        "sha256": "19b5360d86fa365b2439679c436d2283e7c58fbd800fc3ac6aca91f82a65bb19"
+        "sha256": "2bbd9f6adf440cd47e0c15c2da2ffea8517998cd913a2fcc0ca1d199fd3c7694"
       },
       {
         "source": "packages/base/src/lib/toolbar/link/ToolbarLink.svelte",
@@ -203,15 +203,15 @@
       },
       {
         "source": "packages/base/src/lib/toolbar/root/ToolbarRootContext.ts",
-        "sha256": "ac7081f4de2f79dcdf425ee5ca7690db2d577f9363f2ef03b75f3b5395adc6cb"
+        "sha256": "d2e5bd3ad75ddc60d8cef7c2cf2702802382e4b6317d7ab6b98b37eab100fd7b"
       },
       {
         "source": "packages/base/src/lib/toolbar/separator/ToolbarSeparator.svelte",
-        "sha256": "2623e45fee7b042408f986bcf164b0b7eb34d4a843dabd50b8a00c0dd1ae62f4"
+        "sha256": "5e5e96b1aa089247d6a8385f8480ffabe7fba664e1ddd648f110a508e9bd489d"
       },
       {
         "source": "packages/base/src/lib/toolbar/types.ts",
-        "sha256": "c7cc1b91797831826e2605d119313666bce3f67185583beff516a80af9104e78"
+        "sha256": "3bc3d1e84b480879fe78008f97ee8dbb7dba2b0d29040a2fc31df71b5de598ff"
       },
       {
         "source": "packages/base/src/lib/utils/dispatchClickWithModifiers.ts",
@@ -227,7 +227,7 @@
       },
       {
         "source": "packages/base/src/lib/utils/useFocusableWhenDisabled.ts",
-        "sha256": "8c52b8e41b8801cd46d4232802c5ed86588cb4e8008f814741970246b378742c"
+        "sha256": "f30838a56f41ea3672d26627fb42145d016e3b54b512c4c381e6aafb05431db2"
       },
       {
         "source": "packages/utils/src/lib/Controlled.svelte.ts",
@@ -291,11 +291,11 @@
       },
       {
         "source": "packages/utils/src/lib/shadowDom.ts",
-        "sha256": "5c922c6a0b4cbfd31bb463e486f45524de328687376d622527a5e6cdf12cb8f2"
+        "sha256": "2cb79a4a3ccbe16581be29f7958d03bce459c5cf8cad8ae4b9f08ab981d42a2a"
       },
       {
         "source": "packages/utils/src/lib/useId.ts",
-        "sha256": "126f5436587c25942d9b12cf2ffbf353c7b87690bf37c0795da7ee5e14244e90"
+        "sha256": "584864eb7f538f5adc40ab128461db75c960984c51265aead1ca3821e4bf879a"
       }
     ],
     "external": [
@@ -531,7 +531,7 @@
         "local": [
           {
             "source": "packages/utils/src/lib/shadowDom.ts",
-            "sha256": "5c922c6a0b4cbfd31bb463e486f45524de328687376d622527a5e6cdf12cb8f2"
+            "sha256": "2cb79a4a3ccbe16581be29f7958d03bce459c5cf8cad8ae4b9f08ab981d42a2a"
           }
         ],
         "retiredLocal": [],
@@ -545,7 +545,7 @@
         "local": [
           {
             "source": "packages/base/src/lib/internals/composite/utils/navigation.ts",
-            "sha256": "bb61a6e117cc345c347a3a29618d01e6e608ef1027b8e6464e072d8b70b4a0aa"
+            "sha256": "bcfb35db31e9b53c86be39c229e041eaaf48f82df10d4dfaac79b69ecfd5a6dd"
           }
         ],
         "retiredLocal": [],
@@ -586,7 +586,7 @@
         "local": [
           {
             "source": "packages/utils/src/lib/shadowDom.ts",
-            "sha256": "5c922c6a0b4cbfd31bb463e486f45524de328687376d622527a5e6cdf12cb8f2"
+            "sha256": "2cb79a4a3ccbe16581be29f7958d03bce459c5cf8cad8ae4b9f08ab981d42a2a"
           }
         ],
         "retiredLocal": [],
@@ -609,7 +609,7 @@
         "local": [
           {
             "source": "packages/base/src/lib/floating-ui/utils/event.ts",
-            "sha256": "d1ee6542732cf647dc9a02e9f40b664de30296df7d2756744a6810e8b3447b5c"
+            "sha256": "32391b7e254d578d4a374a8f95270e0fea8c763e8f56c52db2e9931243ad5e56"
           }
         ],
         "retiredLocal": [],
@@ -650,7 +650,7 @@
         "local": [
           {
             "source": "packages/base/src/lib/internals/composite/composite.ts",
-            "sha256": "938a8b4ede73c5b5655a800777fe4748a94786a05bf828129de299c04cf94673"
+            "sha256": "f4e02dc8034a749a29f2c63d12f34c25d17c73ffd4075bc31e8f4a55306c0a9e"
           }
         ],
         "retiredLocal": [],
@@ -678,7 +678,7 @@
         "local": [
           {
             "source": "packages/base/src/lib/internals/composite/item/CompositeItem.svelte",
-            "sha256": "504019a96565afea85c1b178fce5267fa3508b95ffbcb8690f36589b4951e9ff"
+            "sha256": "2f74c7d54df5fa6b0d31ed37518d070a343e8005fd82226a2e6eda0ec4dba0eb"
           }
         ],
         "retiredLocal": [],
@@ -692,7 +692,7 @@
         "local": [
           {
             "source": "packages/base/src/lib/internals/composite/item/useCompositeItem.svelte.ts",
-            "sha256": "c699cfa82e8ea2a8c0a8912f1b02f9af2f4aaf841284048d1083ce644bddbc57"
+            "sha256": "d90708b23dde83c4381ea1085767ec30135307525c1ea9e5422e9879a522daad"
           }
         ],
         "retiredLocal": [],
@@ -706,7 +706,7 @@
         "local": [
           {
             "source": "packages/base/src/lib/internals/composite/list/createCompositeList.svelte.ts",
-            "sha256": "97758d379046d9f894997ae40ef7c6f59decf48fa0d985a2c1fb5f9f068ad016"
+            "sha256": "eb23334825782ebd6c5c2697f1aad75f6f557c1e387fa6ea0a78c276bfead975"
           }
         ],
         "retiredLocal": [],
@@ -720,7 +720,7 @@
         "local": [
           {
             "source": "packages/base/src/lib/internals/composite/list/CompositeListContext.ts",
-            "sha256": "c443b96e2b57642eed663be3a670fc7342dc4358bac081b7257bcb076c54ab17"
+            "sha256": "17e4010bda5639d8c7d200bd965ffb9f29aa06a1e83c9f6756319a2dceb1fd38"
           }
         ],
         "retiredLocal": [],
@@ -734,7 +734,7 @@
         "local": [
           {
             "source": "packages/base/src/lib/internals/composite/list/useCompositeListItem.svelte.ts",
-            "sha256": "6665db18996004710613ee13ed67d8750da067cb348bf5bbc5eb7e9eb91f8eab"
+            "sha256": "94d353c7d884b35bd002a9278a7701e7b1e835d536b8eb8a94f2a56d7fa72841"
           }
         ],
         "retiredLocal": [],
@@ -748,7 +748,7 @@
         "local": [
           {
             "source": "packages/base/src/lib/internals/composite/root/CompositeRoot.svelte",
-            "sha256": "05dfdf1b4c35e254d686e4105e1481e5819f6d4157f6ce92508c4ff4a8784308"
+            "sha256": "29241d2982ea752a27d65c8c15cc9e3675efd2cfbc0917a4b112c5179c7d2e4e"
           }
         ],
         "retiredLocal": [],
@@ -776,7 +776,7 @@
         "local": [
           {
             "source": "packages/base/src/lib/internals/composite/root/gridNavigation.ts",
-            "sha256": "11aa223e4f95a23b0287fee822bdda9f4b37cb6d33f99d02c9f7da8964949e9f"
+            "sha256": "d2ed3a04fffe1d9d73819d40d2494ab19f5707adbe3c7bd9849a81c30977315c"
           }
         ],
         "retiredLocal": [],
@@ -790,7 +790,7 @@
         "local": [
           {
             "source": "packages/base/src/lib/internals/composite/root/useCompositeRoot.svelte.ts",
-            "sha256": "edb7e84e824764ec76db1b1853ac45ef4b890731670b62d00dcc6cbac19e47f7"
+            "sha256": "bdd6ced8bc2a28c77a2572b6b54eab7ad09ee111ddf2bcdbe777686f947c39b6"
           }
         ],
         "retiredLocal": [],
@@ -901,7 +901,7 @@
         "local": [
           {
             "source": "packages/base/src/lib/internals/types.ts",
-            "sha256": "56f62e49c3a1504981c523a1bee8764c45de90fb88f0fab5154bb7fc9d0c1bd3"
+            "sha256": "6a36f5f103ef940b8a32d63f0288d897096c846fb2361b4ef44733e9a899907e"
           }
         ],
         "retiredLocal": [],
@@ -915,7 +915,7 @@
         "local": [
           {
             "source": "packages/base/src/lib/internals/use-button/useButton.svelte.ts",
-            "sha256": "54d00b367e4cc9838f1130b61128e872f42c49df0b2ec06bb5275a76d11a52e1"
+            "sha256": "089f0b6e20b956d85db5cf2cd7a47151352ec8aada0d6582154ad264c59e20bf"
           }
         ],
         "retiredLocal": [],
@@ -929,7 +929,7 @@
         "local": [
           {
             "source": "packages/base/src/lib/internals/use-button/useButton.svelte.ts",
-            "sha256": "54d00b367e4cc9838f1130b61128e872f42c49df0b2ec06bb5275a76d11a52e1"
+            "sha256": "089f0b6e20b956d85db5cf2cd7a47151352ec8aada0d6582154ad264c59e20bf"
           }
         ],
         "retiredLocal": [],
@@ -975,13 +975,10 @@
         "local": [
           {
             "source": "packages/base/src/lib/internals/mergeComponentProps.ts",
-            "sha256": "9bac34159edaa562b7a018594a875a51873c16ac8293f4a8351d5583f595ac67"
+            "sha256": "803da5cb2c52515e1e68e16b66b61060c31ca03d183bb09d928b601bbb70cab7"
           }
         ],
-        "retiredLocal": [
-          "packages/base/src/lib/internals/useRenderElement.ts",
-          "packages/base/src/lib/internals/RenderElement.svelte"
-        ],
+        "retiredLocal": [],
         "nativeReplacement": "Each actual part directly renders its three-argument snippet or intrinsic fallback. Bindings and independent attachments publish actual hosts; the pure helper retains prop/state/appearance merging business.",
         "status": "current-counterpart-projection-pending-executed-acceptance",
         "unchangedParityCredit": 0
@@ -1016,7 +1013,7 @@
         "local": [
           {
             "source": "packages/base/src/lib/merge-props/mergeProps.ts",
-            "sha256": "bb7b19346a441bd93ebb41f21a46893ef4578e8ad7444fe8bf9369edad32a126"
+            "sha256": "b2c30a6df68fe9744f250f0d0b8e21d89de133146724efd6eed7cea0fce0f8b9"
           }
         ],
         "retiredLocal": [],
@@ -1048,7 +1045,7 @@
           },
           {
             "source": "packages/base/src/lib/separator/types.ts",
-            "sha256": "b349b520840d7d7b3bbda5127105404312370ae300efe23bb354536c2d8c56dc"
+            "sha256": "5ab346df307c50fad23dfdcb26e3931c9b4ba24de0ddc21881ef54441e6496e7"
           }
         ],
         "retiredLocal": [],
@@ -1062,7 +1059,7 @@
         "local": [
           {
             "source": "packages/base/src/lib/toggle-group/index.ts",
-            "sha256": "eb6704fcba814d66839e0efe22d44efb35ab3e70f6daa741f57f3ffd96289023"
+            "sha256": "0c7096366fb0832f151a83ca4b25a04aa5be79136965a6303e1303a9f9a87bdb"
           }
         ],
         "retiredLocal": [],
@@ -1076,11 +1073,11 @@
         "local": [
           {
             "source": "packages/base/src/lib/toggle-group/ToggleGroup.svelte",
-            "sha256": "74e4e69dd79cd3a6b5d34fe4ea8768b5504c958088a4d67cbefaefaa5654aff7"
+            "sha256": "1ee580381ce6ba31528bfcccf1a8826b4dc8eafcb079c4f8a8b8594bf1f47931"
           },
           {
             "source": "packages/base/src/lib/toggle-group/types.ts",
-            "sha256": "31f48c53d49de3da61a0e944b0bdd24e59b618ddfdaeb9fe300aa4af95c6e35e"
+            "sha256": "fbbc121261c354d8e28c8563b0ca44f35b5b0ee01eb6b1ac10490301833c3752"
           }
         ],
         "retiredLocal": [],
@@ -1108,7 +1105,7 @@
         "local": [
           {
             "source": "packages/base/src/lib/toggle/index.ts",
-            "sha256": "5e0cf519839cfe2d95047b94522b5f70165de0f701d572dc223a1f1d1f704538"
+            "sha256": "749961f04be418dfc63c19ca4d1216e0361cdd496a8aceef153a4ce4605caba5"
           }
         ],
         "retiredLocal": [],
@@ -1122,11 +1119,11 @@
         "local": [
           {
             "source": "packages/base/src/lib/toggle/Toggle.svelte",
-            "sha256": "62cd838f1e166ffa2188b3dc36de6d422b0a4c53a57852fbd1b97f40ab5ef082"
+            "sha256": "58da46cd37f9b80030ed7c4126c9984b180fa1cb9eb8b107d054cefa94fec97b"
           },
           {
             "source": "packages/base/src/lib/toggle/types.ts",
-            "sha256": "f82cbee1e7c2ce7d88cfb87489a5947fb07fa67d82122c52fadc3864cf360950"
+            "sha256": "888b497d95050beab8098d2cf67a8b769ec4cab7a968e20866aec17aa6e8bf12"
           }
         ],
         "retiredLocal": [],
@@ -1140,11 +1137,11 @@
         "local": [
           {
             "source": "packages/base/src/lib/toolbar/button/ToolbarButton.svelte",
-            "sha256": "573bd878caef462d0e9be5e2150fb7f911d9c26801a09028cb3da6a0a721b3d2"
+            "sha256": "eea9778b6137a015fd5fd1c1158e35cce8b50e97b5acf1e29d0e3d52400ce0fd"
           },
           {
             "source": "packages/base/src/lib/toolbar/types.ts",
-            "sha256": "c7cc1b91797831826e2605d119313666bce3f67185583beff516a80af9104e78"
+            "sha256": "3bc3d1e84b480879fe78008f97ee8dbb7dba2b0d29040a2fc31df71b5de598ff"
           }
         ],
         "retiredLocal": [],
@@ -1162,7 +1159,7 @@
           },
           {
             "source": "packages/base/src/lib/toolbar/types.ts",
-            "sha256": "c7cc1b91797831826e2605d119313666bce3f67185583beff516a80af9104e78"
+            "sha256": "3bc3d1e84b480879fe78008f97ee8dbb7dba2b0d29040a2fc31df71b5de598ff"
           }
         ],
         "retiredLocal": [],
@@ -1176,7 +1173,7 @@
         "local": [
           {
             "source": "packages/base/src/lib/toolbar/group/ToolbarGroupContext.ts",
-            "sha256": "bfba6dcfb67c6c5d8eb4abdd43a0a1fc0c5502f884ffe6d0ef4d37070611874f"
+            "sha256": "d8e72834d984abda546691454db71dc231cd1e9ef9778a4a0abc3c7a8cc7b811"
           }
         ],
         "retiredLocal": [],
@@ -1204,7 +1201,7 @@
         "local": [
           {
             "source": "packages/base/src/lib/toolbar/index.ts",
-            "sha256": "37e47173408b85ca5d3e8d3b17e2ca32265a84bab99b038335266211db0323dc"
+            "sha256": "a357051759821635ff94d9652fbaf3da9a23a202da753ba35ef5746c86857d60"
           }
         ],
         "retiredLocal": [],
@@ -1218,11 +1215,11 @@
         "local": [
           {
             "source": "packages/base/src/lib/toolbar/input/ToolbarInput.svelte",
-            "sha256": "19b5360d86fa365b2439679c436d2283e7c58fbd800fc3ac6aca91f82a65bb19"
+            "sha256": "2bbd9f6adf440cd47e0c15c2da2ffea8517998cd913a2fcc0ca1d199fd3c7694"
           },
           {
             "source": "packages/base/src/lib/toolbar/types.ts",
-            "sha256": "c7cc1b91797831826e2605d119313666bce3f67185583beff516a80af9104e78"
+            "sha256": "3bc3d1e84b480879fe78008f97ee8dbb7dba2b0d29040a2fc31df71b5de598ff"
           }
         ],
         "retiredLocal": [],
@@ -1240,7 +1237,7 @@
           },
           {
             "source": "packages/base/src/lib/toolbar/types.ts",
-            "sha256": "c7cc1b91797831826e2605d119313666bce3f67185583beff516a80af9104e78"
+            "sha256": "3bc3d1e84b480879fe78008f97ee8dbb7dba2b0d29040a2fc31df71b5de598ff"
           }
         ],
         "retiredLocal": [],
@@ -1258,7 +1255,7 @@
           },
           {
             "source": "packages/base/src/lib/toolbar/types.ts",
-            "sha256": "c7cc1b91797831826e2605d119313666bce3f67185583beff516a80af9104e78"
+            "sha256": "3bc3d1e84b480879fe78008f97ee8dbb7dba2b0d29040a2fc31df71b5de598ff"
           }
         ],
         "retiredLocal": [],
@@ -1272,7 +1269,7 @@
         "local": [
           {
             "source": "packages/base/src/lib/toolbar/root/ToolbarRootContext.ts",
-            "sha256": "ac7081f4de2f79dcdf425ee5ca7690db2d577f9363f2ef03b75f3b5395adc6cb"
+            "sha256": "d2e5bd3ad75ddc60d8cef7c2cf2702802382e4b6317d7ab6b98b37eab100fd7b"
           }
         ],
         "retiredLocal": [],
@@ -1286,11 +1283,11 @@
         "local": [
           {
             "source": "packages/base/src/lib/toolbar/separator/ToolbarSeparator.svelte",
-            "sha256": "2623e45fee7b042408f986bcf164b0b7eb34d4a843dabd50b8a00c0dd1ae62f4"
+            "sha256": "5e5e96b1aa089247d6a8385f8480ffabe7fba664e1ddd648f110a508e9bd489d"
           },
           {
             "source": "packages/base/src/lib/toolbar/types.ts",
-            "sha256": "c7cc1b91797831826e2605d119313666bce3f67185583beff516a80af9104e78"
+            "sha256": "3bc3d1e84b480879fe78008f97ee8dbb7dba2b0d29040a2fc31df71b5de598ff"
           }
         ],
         "retiredLocal": [],
@@ -1472,7 +1469,7 @@
         "local": [
           {
             "source": "packages/base/src/lib/utils/useFocusableWhenDisabled.ts",
-            "sha256": "8c52b8e41b8801cd46d4232802c5ed86588cb4e8008f814741970246b378742c"
+            "sha256": "f30838a56f41ea3672d26627fb42145d016e3b54b512c4c381e6aafb05431db2"
           }
         ],
         "retiredLocal": [],
@@ -1736,7 +1733,7 @@
         "local": [
           {
             "source": "packages/utils/src/lib/shadowDom.ts",
-            "sha256": "5c922c6a0b4cbfd31bb463e486f45524de328687376d622527a5e6cdf12cb8f2"
+            "sha256": "2cb79a4a3ccbe16581be29f7958d03bce459c5cf8cad8ae4b9f08ab981d42a2a"
           }
         ],
         "retiredLocal": [],
@@ -1825,9 +1822,7 @@
             "sha256": "3bb64556d51b6cd471e21e2db4c54179b3eb072757f043f7a4489a4134283304"
           }
         ],
-        "retiredLocal": [
-          "packages/utils/src/lib/useControlled.svelte.ts"
-        ],
+        "retiredLocal": [],
         "nativeReplacement": "The canonical Controlled class owns initial mode, live controlled reads, initial default fallback and direct value setting.",
         "status": "current-counterpart-projection-pending-executed-acceptance",
         "unchangedParityCredit": 0
@@ -1857,7 +1852,7 @@
         "local": [
           {
             "source": "packages/utils/src/lib/useId.ts",
-            "sha256": "126f5436587c25942d9b12cf2ffbf353c7b87690bf37c0795da7ee5e14244e90"
+            "sha256": "584864eb7f538f5adc40ab128461db75c960984c51265aead1ca3821e4bf879a"
           }
         ],
         "retiredLocal": [],
@@ -1869,9 +1864,7 @@
         "sourceSha256": "13a0ab28d24b04617dc290ad151c145f2435d1e0c381123847af74344ea4b9a0",
         "predecessorSelection": "selected-reused-closure",
         "local": [],
-        "retiredLocal": [
-          "packages/utils/src/lib/useIsoLayoutEffect.svelte.ts"
-        ],
+        "retiredLocal": [],
         "nativeReplacement": "Actual component/resource owners use SSR-safe native $effect and captured-resource cleanup; no React layout-effect wrapper remains.",
         "status": "current-counterpart-projection-pending-executed-acceptance",
         "unchangedParityCredit": 0
@@ -1881,9 +1874,7 @@
         "sourceSha256": "5fa12ae01abedc23ba814e9c59f015cf14d306044638b56c977780de43275ba3",
         "predecessorSelection": "selected-reused-closure",
         "local": [],
-        "retiredLocal": [
-          "packages/utils/src/lib/useMergedRefs.ts"
-        ],
+        "retiredLocal": [],
         "nativeReplacement": "Actual component bindable element refs, native bindings and independent attachment lifetimes replace callback/object ref fanout. The utility export is retired.",
         "status": "current-counterpart-projection-pending-executed-acceptance",
         "unchangedParityCredit": 0
@@ -1903,9 +1894,7 @@
         "sourceSha256": "183cb6e86ab1f8044a431d5b4115c750f7848c9835d519881b3c7a66dae98354",
         "predecessorSelection": "selected-reused-closure",
         "local": [],
-        "retiredLocal": [
-          "packages/utils/src/lib/useRefWithInit.ts"
-        ],
+        "retiredLocal": [],
         "nativeReplacement": "Native component initialization directly creates the real instance-owned class/object; no React ref-initialization hook remains.",
         "status": "current-counterpart-projection-pending-executed-acceptance",
         "unchangedParityCredit": 0
@@ -1915,9 +1904,7 @@
         "sourceSha256": "908cbd177f86c961983d0124a859f733d341be49e58bc5a553255f47725419c1",
         "predecessorSelection": "selected-reused-closure",
         "local": [],
-        "retiredLocal": [
-          "packages/utils/src/lib/useStableCallback.ts"
-        ],
+        "retiredLocal": [],
         "nativeReplacement": "Native closures read live component/store business state; no React stable-callback hook or callback identity transport remains.",
         "status": "current-counterpart-projection-pending-executed-acceptance",
         "unchangedParityCredit": 0
@@ -1967,7 +1954,7 @@
       },
       {
         "source": "packages/base/src/lib/internals/nativeProps.ts",
-        "sha256": "598301c5f9e7fcfe39e8eaa45092b7935cd61e9d353a89766d45bc9230861a96",
+        "sha256": "653fb2f684da7987d8c51b2384cbf5e8839c30a620a7b790f451bbeb87479cab",
         "status": "native-representation-or-split-business-counterpart-no-acceptance-credit"
       },
       {
@@ -1983,13 +1970,13 @@
           "source": "packages/react/src/internals/composite/item/CompositeItem.tsx",
           "sourceSha256": "036f04a428d090fe235076b64069755495005e9a0ec49b3b4a43162539c36157",
           "local": "packages/base/src/lib/internals/composite/item/CompositeItem.svelte",
-          "localSha256": "504019a96565afea85c1b178fce5267fa3508b95ffbcb8690f36589b4951e9ff"
+          "localSha256": "2f74c7d54df5fa6b0d31ed37518d070a343e8005fd82226a2e6eda0ec4dba0eb"
         },
         {
           "source": "packages/react/src/internals/composite/root/CompositeRoot.tsx",
           "sourceSha256": "af03574d9028283ede87df4592b08e0d0dda801c0c9d4454fbc64eccde11b0d2",
           "local": "packages/base/src/lib/internals/composite/root/CompositeRoot.svelte",
-          "localSha256": "05dfdf1b4c35e254d686e4105e1481e5819f6d4157f6ce92508c4ff4a8784308"
+          "localSha256": "29241d2982ea752a27d65c8c15cc9e3675efd2cfbc0917a4b112c5179c7d2e4e"
         },
         {
           "source": "packages/react/src/separator/Separator.tsx",
@@ -2001,13 +1988,13 @@
           "source": "packages/react/src/toggle-group/ToggleGroup.tsx",
           "sourceSha256": "517ec3e2cf216a45eb68070d48b9067dc8971298c8f54ecaf99317b55ef565f7",
           "local": "packages/base/src/lib/toggle-group/ToggleGroup.svelte",
-          "localSha256": "74e4e69dd79cd3a6b5d34fe4ea8768b5504c958088a4d67cbefaefaa5654aff7"
+          "localSha256": "1ee580381ce6ba31528bfcccf1a8826b4dc8eafcb079c4f8a8b8594bf1f47931"
         },
         {
           "source": "packages/react/src/toggle/Toggle.tsx",
           "sourceSha256": "ac1dd7f726bf3562e52447e11c024e29b52d6ecd14e93b5bf48826a057b8b8d0",
           "local": "packages/base/src/lib/toggle/Toggle.svelte",
-          "localSha256": "62cd838f1e166ffa2188b3dc36de6d422b0a4c53a57852fbd1b97f40ab5ef082"
+          "localSha256": "58da46cd37f9b80030ed7c4126c9984b180fa1cb9eb8b107d054cefa94fec97b"
         },
         {
           "source": "packages/react/src/toolbar/group/ToolbarGroup.tsx",
@@ -2029,11 +2016,11 @@
     ],
     "graph": {
       "path": "parity/native-snippets/native-graph.json",
-      "sha256": "5f1bebaeab6c504fb816f65f13976c4dedf89c95dfff76c3f1c4143753041174"
+      "sha256": "314bcd594de88946f9e32bef146590ecce77b7b711f81e38a21155b6ac0fadda"
     },
     "predecessor": {
       "path": "parity/menu-family/source-correspondence.json",
-      "sha256": "5ef0409413d3b5bc718b3061f239637137693bf50ee2920bff019dc51f2f04d8"
+      "sha256": "7687877bbb5e8f8ae4bcd9bb2220a08810b6509d5516c8724f726e7353eb70e5"
     },
     "originalGraph": {
       "path": "parity/menu-family/source-graph.json",
@@ -2042,31 +2029,31 @@
     "modules": [
       {
         "source": "packages/base/src/lib/context-menu/Root.svelte",
-        "sha256": "51113addbc9a22141f7f803ea543c5267647e0ed6a69b8fd4ecdfd935a9543d8"
+        "sha256": "c3acfbcc1ff41febefa580445159987ae24ad7b59a79af0d29b8019ea0c5144a"
       },
       {
         "source": "packages/base/src/lib/context-menu/Trigger.svelte",
-        "sha256": "3f675b9621bfe84c1ef6ffbe4eeef7dd1fe14a0af0830fcafa68aeba4c46faa1"
+        "sha256": "1bcc4a7d667b7b0c17cdad52d67f7b39c0c892df291ed90bf84b74ccd16d1df4"
       },
       {
         "source": "packages/base/src/lib/context-menu/index.parts.ts",
-        "sha256": "2980fe116f09eab095929614bdbcd363c6074bbe97bdbfc46e6177b0a094e9ce"
+        "sha256": "682c5af33525e53dd8203253cade0919bc23923b2402b01c1eda036d748def11"
       },
       {
         "source": "packages/base/src/lib/context-menu/index.ts",
-        "sha256": "ee6285dbaf87ac0b5993d018da25f6559735074f780d5d111ec0bca8add298d9"
+        "sha256": "713d1def2a37f735ecc7bd93e276ea6fccc52cc94339f94e064b58d8f5946008"
       },
       {
         "source": "packages/base/src/lib/context-menu/root/ContextMenuRootContext.ts",
-        "sha256": "4a3b2d1a07f7f0cef35fee20c08852749799ee70e3cca25ea38bbd6612805cee"
+        "sha256": "159228643c1997e8d49e02016bd850f19a2c61d74ff14d08ad302e2aee0f2206"
       },
       {
         "source": "packages/base/src/lib/context-menu/trigger/createContextMenuTrigger.svelte.ts",
-        "sha256": "3e0d8efcdaf72eee729fcf0f840a9dd1541c134a536ec178ece4a55f8ed1be5b"
+        "sha256": "c7b1cd5c8adc95071a449256413571762d3f762dcb39fc3adf71d78db83aae33"
       },
       {
         "source": "packages/base/src/lib/context-menu/types.ts",
-        "sha256": "ca3beace949e1d0ef5c07256c34ed2cb8fe6083510d235332301247d3799f1ed"
+        "sha256": "eea17502bf6bb4655dd0fcd6db7fb1c1073460e684145cdbcbcc3808e941b0e4"
       },
       {
         "source": "packages/base/src/lib/direction-provider/context.ts",
@@ -2078,15 +2065,15 @@
       },
       {
         "source": "packages/base/src/lib/floating-ui/components/FloatingFocusManager.svelte",
-        "sha256": "7842c784915f91970cc102e3947bdc227b99e60cee2d58cf044ced699484a6ac"
+        "sha256": "88b47ec0d8e7254d4ea022e5c05d272798d9e735c65e84c9ddfef38b8bd24342"
       },
       {
         "source": "packages/base/src/lib/floating-ui/components/FloatingPortal.svelte",
-        "sha256": "e4117fa248790d8b03f1ebb9dc017cd62bea212828c0994c627a8470d447556e"
+        "sha256": "4532b577b66e7ae3333e38a235a3a3ec331ef12adaa4183cb4fcc8b579004ac9"
       },
       {
         "source": "packages/base/src/lib/floating-ui/components/FloatingPortalContext.ts",
-        "sha256": "897245ee2d655ee10875e45707bca62d75b11170e2cb5b8a575c6a2848533833"
+        "sha256": "022afce07c643e0ee4a9bc2177ff8feb41fa5d6a1b63774eb682dd06d34494d5"
       },
       {
         "source": "packages/base/src/lib/floating-ui/components/FloatingRootStore.svelte.ts",
@@ -2094,7 +2081,7 @@
       },
       {
         "source": "packages/base/src/lib/floating-ui/components/FloatingTree.svelte.ts",
-        "sha256": "12f9449d63fda04918fd35a0def26c903f06b6df1eda13a826c0da3adcae65f3"
+        "sha256": "4ba1a45eb3e58c4c1cdb7fc68d48c59da7ad7a5cbd5f9be7319c22af1ca60d8a"
       },
       {
         "source": "packages/base/src/lib/floating-ui/components/FloatingTreeStore.ts",
@@ -2102,15 +2089,15 @@
       },
       {
         "source": "packages/base/src/lib/floating-ui/components/PortalContent.svelte",
-        "sha256": "094ca8f25b2d4622ed70767b472ad6cecc481ae92470caa67385c72a3551f603"
+        "sha256": "41cf8f68f099889990ab71c57ca1c5de2e1db746e2b54639fef873d9335c6600"
       },
       {
         "source": "packages/base/src/lib/floating-ui/components/PortalHost.svelte",
-        "sha256": "ba2cf7b5f41449705ab203e9c5c007030595571cb62752e4dfa561415e875d1a"
+        "sha256": "ad42ba3985afa2e949cddb04f346c603411c45720d0c924c6e151d0e7d2e2d48"
       },
       {
         "source": "packages/base/src/lib/floating-ui/components/createFloatingFocusManager.svelte.ts",
-        "sha256": "98849b1174e3df19901abbf0622834e52c20dd72244d7df13aae6f398b8d8787"
+        "sha256": "d5b1035fd53c72ca3dee75fb5c4dbf08093ca09142e859dd87a44d911079e018"
       },
       {
         "source": "packages/base/src/lib/floating-ui/hooks/gridNavigation.ts",
@@ -2122,31 +2109,31 @@
       },
       {
         "source": "packages/base/src/lib/floating-ui/hooks/useDismiss.svelte.ts",
-        "sha256": "60527bbe6aec547b3c04b426d65d4622070d2f54f771b25105b652c48aeb3365"
+        "sha256": "ae4860fe2a3f4ea5686bccb2b425bf9c61a676b92072da7b6f733d69dc8afd51"
       },
       {
         "source": "packages/base/src/lib/floating-ui/hooks/useFloating.svelte.ts",
-        "sha256": "4e2a54739cf0ac7264f3dcbe935394168b997f829f49712da29cfd58520468e3"
+        "sha256": "fb2a3d4ef440583702349947e7fbffb47608d736f3ec7289dd82091d4cb958b8"
       },
       {
         "source": "packages/base/src/lib/floating-ui/hooks/useFloatingPortalNode.svelte.ts",
-        "sha256": "13f71eb41b94c7cfc19bfd50676dd919ef5d46e1fed693648a5bde7e2e2cdff9"
+        "sha256": "16cef262e2368b881c58d59baa1257caddc9c0e97b4fb183f7099cc09f6dc84d"
       },
       {
         "source": "packages/base/src/lib/floating-ui/hooks/useFocus.svelte.ts",
-        "sha256": "62b4297a472d497258da824c3ca80d190cfc3cdb1f89456780c824084c0b4724"
+        "sha256": "a78f67d9e8682c70324543e5ab9953c9379a38686abf2af1c7d94ba8e5534b86"
       },
       {
         "source": "packages/base/src/lib/floating-ui/hooks/useHoverFloatingInteraction.svelte.ts",
-        "sha256": "cecd4674386777e60e2e2cadedfa80d8e646d4551930771752befa084765926d"
+        "sha256": "0ab147a7643e45e94606193799839e6b449028367873d9acdcb4e2618af860ba"
       },
       {
         "source": "packages/base/src/lib/floating-ui/hooks/useHoverInteractionSharedState.svelte.ts",
-        "sha256": "e91c4a29295b018d18e1880b607f05db78feccfc6b22a64ca3dda8a8494568a7"
+        "sha256": "894478a3a44f74f94e416fc6aa6060af0625f0d67d80dbf59c10975916b842a3"
       },
       {
         "source": "packages/base/src/lib/floating-ui/hooks/useHoverReferenceInteraction.svelte.ts",
-        "sha256": "748c13125fa60bd64f2bf95dc296ac4aadadb966146aece7e1e81b36ece282b7"
+        "sha256": "bd55a3a32c7465648d0a0640aae445b27f4faab8b08946e646e42459e176a060"
       },
       {
         "source": "packages/base/src/lib/floating-ui/hooks/useHoverShared.ts",
@@ -2154,15 +2141,15 @@
       },
       {
         "source": "packages/base/src/lib/floating-ui/hooks/useListNavigation.svelte.ts",
-        "sha256": "06b3738e0f294d24b5f2a1682ace245e3a59bb49002096d0aa172b1bf477c8b0"
+        "sha256": "a35b727cdf040c483d4b6375bd9ace15a755619504a8a75ab5b7bb5f3abdf4d5"
       },
       {
         "source": "packages/base/src/lib/floating-ui/hooks/useSyncedFloatingRootContext.svelte.ts",
-        "sha256": "4ae43dcf0c11179ab6235da17a227c15160b93b3093731cd18df0f00c4c8ec65"
+        "sha256": "aa1374702cc5d76d0380c6b4080ffc10f2b22b496ecbfed24b97e70636669916"
       },
       {
         "source": "packages/base/src/lib/floating-ui/hooks/useTypeahead.svelte.ts",
-        "sha256": "2157f5db94426f3656d6b8bfdfc0c5f4c759cafefceaab2ded1dd45f9d2f20a2"
+        "sha256": "740573664ed8d416194faebacbabd07597d97a2e50777d45ab77e45c3fe23727"
       },
       {
         "source": "packages/base/src/lib/floating-ui/safePolygon.ts",
@@ -2170,7 +2157,7 @@
       },
       {
         "source": "packages/base/src/lib/floating-ui/types.ts",
-        "sha256": "d75465f0e2fa7f46beab37d200f2f9e5a152dd4ca4a5751e5c9ca2811caed3d5"
+        "sha256": "5c4e86d68644ba65a89798d584d75bb7c1dacde7f892c9ea9fdfdd64523d3473"
       },
       {
         "source": "packages/base/src/lib/floating-ui/utils/composite.ts",
@@ -2198,7 +2185,7 @@
       },
       {
         "source": "packages/base/src/lib/floating-ui/utils/event.ts",
-        "sha256": "d1ee6542732cf647dc9a02e9f40b664de30296df7d2756744a6810e8b3447b5c"
+        "sha256": "32391b7e254d578d4a374a8f95270e0fea8c763e8f56c52db2e9931243ad5e56"
       },
       {
         "source": "packages/base/src/lib/floating-ui/utils/markOthers.ts",
@@ -2226,7 +2213,7 @@
       },
       {
         "source": "packages/base/src/lib/internals/anchor-positioning/adaptive-origin.ts",
-        "sha256": "af5859dc474117523d5fa7c93acad144667590bd3d35248b72ffd2164e6dd86e"
+        "sha256": "15cd34d1cddc4427617558e3f81830f40fe650a308330405468a4d6d5f2ce7e8"
       },
       {
         "source": "packages/base/src/lib/internals/anchor-positioning/arrow.ts",
@@ -2242,23 +2229,23 @@
       },
       {
         "source": "packages/base/src/lib/internals/anchor-positioning/policy.ts",
-        "sha256": "66337d95ad094898b0ae95c94c4e07ea14fd041c32cad6a4c2ec8113859cb42d"
+        "sha256": "9e7580733d7aed91fd0ba12f7e8e4113d3c34e7f3b48d9e1104606a557de34d2"
       },
       {
         "source": "packages/base/src/lib/internals/anchor-positioning/types.ts",
-        "sha256": "fa56b8d2b5fac3e9c1ed9597f89631d6381e1e73d5da507b1d41ec566917b82b"
+        "sha256": "2c4a76f723edabaec250e51c87662aed05ecaf0969a56cc927dc65145bd10406"
       },
       {
         "source": "packages/base/src/lib/internals/anchor-positioning/useAnchorPositioning.svelte.ts",
-        "sha256": "a2b7d8284ece515de3ca1c65d342fcdbae395d5484a4f8fd121d9d11f835876d"
+        "sha256": "21a813d5a40d36c4691d995e8cbf560b5966011a62fa01e9b1fa9b98337b3c2a"
       },
       {
         "source": "packages/base/src/lib/internals/anchor-positioning/useFloating.svelte.ts",
-        "sha256": "9f504f4289d1b38e2fc78830320beec60d5ec6fe40f183b132916594c7027c8a"
+        "sha256": "65c7d8c1bf6780d8d172a8e26e1ebadfdb84c949283aac0c6bcc010d43bab3bf"
       },
       {
         "source": "packages/base/src/lib/internals/composite/composite.ts",
-        "sha256": "938a8b4ede73c5b5655a800777fe4748a94786a05bf828129de299c04cf94673"
+        "sha256": "f4e02dc8034a749a29f2c63d12f34c25d17c73ffd4075bc31e8f4a55306c0a9e"
       },
       {
         "source": "packages/base/src/lib/internals/composite/constants.ts",
@@ -2266,27 +2253,27 @@
       },
       {
         "source": "packages/base/src/lib/internals/composite/item/CompositeItem.svelte",
-        "sha256": "504019a96565afea85c1b178fce5267fa3508b95ffbcb8690f36589b4951e9ff"
+        "sha256": "2f74c7d54df5fa6b0d31ed37518d070a343e8005fd82226a2e6eda0ec4dba0eb"
       },
       {
         "source": "packages/base/src/lib/internals/composite/item/useCompositeItem.svelte.ts",
-        "sha256": "c699cfa82e8ea2a8c0a8912f1b02f9af2f4aaf841284048d1083ce644bddbc57"
+        "sha256": "d90708b23dde83c4381ea1085767ec30135307525c1ea9e5422e9879a522daad"
       },
       {
         "source": "packages/base/src/lib/internals/composite/list/CompositeListContext.ts",
-        "sha256": "c443b96e2b57642eed663be3a670fc7342dc4358bac081b7257bcb076c54ab17"
+        "sha256": "17e4010bda5639d8c7d200bd965ffb9f29aa06a1e83c9f6756319a2dceb1fd38"
       },
       {
         "source": "packages/base/src/lib/internals/composite/list/createCompositeList.svelte.ts",
-        "sha256": "97758d379046d9f894997ae40ef7c6f59decf48fa0d985a2c1fb5f9f068ad016"
+        "sha256": "eb23334825782ebd6c5c2697f1aad75f6f557c1e387fa6ea0a78c276bfead975"
       },
       {
         "source": "packages/base/src/lib/internals/composite/list/useCompositeListItem.svelte.ts",
-        "sha256": "6665db18996004710613ee13ed67d8750da067cb348bf5bbc5eb7e9eb91f8eab"
+        "sha256": "94d353c7d884b35bd002a9278a7701e7b1e835d536b8eb8a94f2a56d7fa72841"
       },
       {
         "source": "packages/base/src/lib/internals/composite/root/CompositeRoot.svelte",
-        "sha256": "05dfdf1b4c35e254d686e4105e1481e5819f6d4157f6ce92508c4ff4a8784308"
+        "sha256": "29241d2982ea752a27d65c8c15cc9e3675efd2cfbc0917a4b112c5179c7d2e4e"
       },
       {
         "source": "packages/base/src/lib/internals/composite/root/CompositeRootContext.ts",
@@ -2294,15 +2281,15 @@
       },
       {
         "source": "packages/base/src/lib/internals/composite/root/gridNavigation.ts",
-        "sha256": "11aa223e4f95a23b0287fee822bdda9f4b37cb6d33f99d02c9f7da8964949e9f"
+        "sha256": "d2ed3a04fffe1d9d73819d40d2494ab19f5707adbe3c7bd9849a81c30977315c"
       },
       {
         "source": "packages/base/src/lib/internals/composite/root/useCompositeRoot.svelte.ts",
-        "sha256": "edb7e84e824764ec76db1b1853ac45ef4b890731670b62d00dcc6cbac19e47f7"
+        "sha256": "bdd6ced8bc2a28c77a2572b6b54eab7ad09ee111ddf2bcdbe777686f947c39b6"
       },
       {
         "source": "packages/base/src/lib/internals/composite/utils/navigation.ts",
-        "sha256": "bb61a6e117cc345c347a3a29618d01e6e608ef1027b8e6464e072d8b70b4a0aa"
+        "sha256": "bcfb35db31e9b53c86be39c229e041eaaf48f82df10d4dfaac79b69ecfd5a6dd"
       },
       {
         "source": "packages/base/src/lib/internals/constants.ts",
@@ -2322,11 +2309,11 @@
       },
       {
         "source": "packages/base/src/lib/internals/mergeComponentProps.ts",
-        "sha256": "9bac34159edaa562b7a018594a875a51873c16ac8293f4a8351d5583f595ac67"
+        "sha256": "803da5cb2c52515e1e68e16b66b61060c31ca03d183bb09d928b601bbb70cab7"
       },
       {
         "source": "packages/base/src/lib/internals/nativeProps.ts",
-        "sha256": "598301c5f9e7fcfe39e8eaa45092b7935cd61e9d353a89766d45bc9230861a96"
+        "sha256": "653fb2f684da7987d8c51b2384cbf5e8839c30a620a7b790f451bbeb87479cab"
       },
       {
         "source": "packages/base/src/lib/internals/reason-parts.ts",
@@ -2346,15 +2333,15 @@
       },
       {
         "source": "packages/base/src/lib/internals/types.ts",
-        "sha256": "56f62e49c3a1504981c523a1bee8764c45de90fb88f0fab5154bb7fc9d0c1bd3"
+        "sha256": "6a36f5f103ef940b8a32d63f0288d897096c846fb2361b4ef44733e9a899907e"
       },
       {
         "source": "packages/base/src/lib/internals/use-button/useButton.svelte.ts",
-        "sha256": "54d00b367e4cc9838f1130b61128e872f42c49df0b2ec06bb5275a76d11a52e1"
+        "sha256": "089f0b6e20b956d85db5cf2cd7a47151352ec8aada0d6582154ad264c59e20bf"
       },
       {
         "source": "packages/base/src/lib/internals/useAnimationsFinished.ts",
-        "sha256": "541e40aa71a7af68cd10592ade98c00176b3ce30cc7b4e1764859cee4666d767"
+        "sha256": "7abe48ef841cdfa7bf60b29045e9f0ffb7dbfb715b34351e8f6716131b2678f8"
       },
       {
         "source": "packages/base/src/lib/internals/useBaseUiId.ts",
@@ -2362,31 +2349,31 @@
       },
       {
         "source": "packages/base/src/lib/internals/useOpenChangeComplete.svelte.ts",
-        "sha256": "696f5cb87f7e22f00969559ebd93ea3d74f8c4efbc63d90fd3493bdeffe1694f"
+        "sha256": "b6174d1cc73b6ea3b6431cf87906a1acacc40b1d5c356a31124f92251d7fd038"
       },
       {
         "source": "packages/base/src/lib/internals/useTransitionStatus.svelte.ts",
-        "sha256": "f704f6e4c2093b0a6a2d5ec656267b9da796f3dab05abb807a4ca4dfebfa300e"
+        "sha256": "7fc531ccff0a7dfd77703c0f0ee7e1148fc080960682469eafffbc627056fa9e"
       },
       {
         "source": "packages/base/src/lib/menu/Arrow.svelte",
-        "sha256": "6490f60a1e91c2fa2e6cbccff6afc639d555b4788437adf958eb83b1fdfe7890"
+        "sha256": "6d52ce6a978c73fd3b438b8ce0740010f85dff4ae4498277c7d62b14a1fc88f2"
       },
       {
         "source": "packages/base/src/lib/menu/Backdrop.svelte",
-        "sha256": "f10c9c1fe2b825451da259f58fd381dc1da4df9b371a923b82985118ebf6f717"
+        "sha256": "ec312da1e068eec9796d1c095d59620f5e6e34d388aef4f577bfa9c7a9ba44e1"
       },
       {
         "source": "packages/base/src/lib/menu/CheckboxItem.svelte",
-        "sha256": "5f2820a951b645fae95aa23b1ca1eaf32588aa6aa3c6f37e8522f068676ce5cc"
+        "sha256": "02ba507eb8e75052c66c4d59602b878bd77fae4d0ca02dde9af6ea3de5954a07"
       },
       {
         "source": "packages/base/src/lib/menu/CheckboxItemIndicator.svelte",
-        "sha256": "c2e49738eb420de28c58836f1eb21bc0ee9d065ec2873995e3a2e6f3654506d5"
+        "sha256": "af11c5bbdfaeca445ff15b110974791993aab6e81ac0f095bd765f6215b43809"
       },
       {
         "source": "packages/base/src/lib/menu/Group.svelte",
-        "sha256": "5d928b23b6e229fc7a88478dc827fc147c1e3508fc1c28c6caf5aab68a4f72ec"
+        "sha256": "89ffff8084bdd19d9fc144a34aed3540a98f5d2b65b77e6447a3cad4368cb0dd"
       },
       {
         "source": "packages/base/src/lib/menu/GroupLabel.svelte",
@@ -2394,43 +2381,43 @@
       },
       {
         "source": "packages/base/src/lib/menu/Item.svelte",
-        "sha256": "59b581b44f5c8f25294b870d50e87020b90d568a4357010e726cdeb37f219532"
+        "sha256": "cc7dd696a5e97f3be807759626071615f17779d5fb10609f9d01b018d8856f54"
       },
       {
         "source": "packages/base/src/lib/menu/LinkItem.svelte",
-        "sha256": "188cf6739f2bda3d9690b9896b6bccee2aaf3a457bec7bb4cf3c75f872f3a12a"
+        "sha256": "1d771af5ccd9ef0079d538a24d44e76002a372c910ac3a648f79ab19a09d8cd6"
       },
       {
         "source": "packages/base/src/lib/menu/Popup.svelte",
-        "sha256": "3c071e821c295924e0ef78804a38d8cec3b29ec73f7797d9d55d152321118366"
+        "sha256": "fdd2652ce08cb387d404d8b917bc2e74bf48dd85f776b2e8780d193886660a40"
       },
       {
         "source": "packages/base/src/lib/menu/Portal.svelte",
-        "sha256": "b5f77ec45dc6e0ef65afb96ff4e2fa70310ea86f852c7be161e33c0935afe513"
+        "sha256": "f1f86a820e10847f46769e8c67c711e904e89744f997a9c8549e765657e31b1c"
       },
       {
         "source": "packages/base/src/lib/menu/Positioner.svelte",
-        "sha256": "c1cc5b0bcf49de1210e760cd1b99bdfc0283877dcf8c018947b929abb057a658"
+        "sha256": "ef00a005fba611ab6296cd9388ea5dd025ba753fcf9046b1c1d4f1e774308442"
       },
       {
         "source": "packages/base/src/lib/menu/RadioGroup.svelte",
-        "sha256": "dfd8fccedde4a41c4ed26c6332a6f821fe753512abfa7a729148e8329112ebad"
+        "sha256": "a9f743f853e33586d5cb789e6fdd4676749a68a20562d86bbb4ad78bc025ada3"
       },
       {
         "source": "packages/base/src/lib/menu/RadioItem.svelte",
-        "sha256": "a91d29760c30b4b12e2707598c5e5c4d32fa4bae2c8c8564518e127ac784ad2e"
+        "sha256": "82057f97bf68f0070c0d62e12ff6e25e7c503492733252257efecc760d0abf77"
       },
       {
         "source": "packages/base/src/lib/menu/RadioItemIndicator.svelte",
-        "sha256": "f1dfae985b1fea38c0464c06e9cdb609b045a88dd210c2da38a9556f651a61a0"
+        "sha256": "c5a4676c2588a2e9998f35459c70e88e5b57508bc6693e4f06fd2a0d408fc7f3"
       },
       {
         "source": "packages/base/src/lib/menu/Root.svelte",
-        "sha256": "31dd8dd4d71caf6eca4d0a89a4c530f454e3139cd4420fcc84966760377f3e24"
+        "sha256": "0c309094355a231846fda628081404221db6da6ff2affff93fe47a008ed88875"
       },
       {
         "source": "packages/base/src/lib/menu/SubmenuRoot.svelte",
-        "sha256": "89013c00a269ea4743dd6b88603f012c845b73b539920e1db461a498c8667380"
+        "sha256": "5258723759309ef97e67738ad0013c3a448d0135a6ca1cc0353a805c9599ed3d"
       },
       {
         "source": "packages/base/src/lib/menu/SubmenuTrigger.svelte",
@@ -2442,11 +2429,11 @@
       },
       {
         "source": "packages/base/src/lib/menu/Viewport.svelte",
-        "sha256": "cfd61ebe9697aab9705a25e6ee009e7e355b9d282932007150df86f88ce23d83"
+        "sha256": "c5740050aa002ff57ebbc888d4d6a2536ad08be3a6858f7a58ac6fbc41216aa3"
       },
       {
         "source": "packages/base/src/lib/menu/checkbox-item/MenuCheckboxItemContext.ts",
-        "sha256": "1e7f3b3fc8a8fddf5db9710db2a2c9f1d927e21f275792315bf730510954f65a"
+        "sha256": "90aabb781ba084ddbe6f148446d6dddd35f17e90d9a56dfd4ccbb4b12233b5de"
       },
       {
         "source": "packages/base/src/lib/menu/checkbox-item/MenuCheckboxItemDataAttributes.ts",
@@ -2454,51 +2441,51 @@
       },
       {
         "source": "packages/base/src/lib/menu/group/MenuGroupContext.ts",
-        "sha256": "ff7eecb60b1f4bf443f050f9627920b02a7eb057e9da1e624a6261055a1848b5"
+        "sha256": "60e64aaa5836c50e12bd5f8d283e9abbc3ac31b472d95cc47d6faa721e35582d"
       },
       {
         "source": "packages/base/src/lib/menu/index.parts.ts",
-        "sha256": "9e9caf42117568e106d88faad2e2098eb16d77cc50c0a1f2878854d26fc4e2af"
+        "sha256": "db8cca236721e5e17ac739a1914064673293d7cc596aa910f35a3f573e09e713"
       },
       {
         "source": "packages/base/src/lib/menu/index.ts",
-        "sha256": "0ffcbb12af56545dc5077b9b32fcf1bdc76eae95050bdad25559debf66ee6316"
+        "sha256": "b00f7c58d4962fa77161e815a72df323df71c13575a8352335f58e7bb8fccf46"
       },
       {
         "source": "packages/base/src/lib/menu/item/useMenuItem.svelte.ts",
-        "sha256": "6113d408a99d6a031899c2719a5d7fdae7b0d397a7c33b2502e7433a24a03684"
+        "sha256": "786f3673917262681cb14b31f5cc4280cb51dfa28a918c523e6adcc8b5f7b578"
       },
       {
         "source": "packages/base/src/lib/menu/item/useMenuItemCommonProps.svelte.ts",
-        "sha256": "343c94ec543d7508d8f070f7d19c65ba54906095b4277cfb01b0c66295a243ac"
+        "sha256": "38a5df4550da997011152df9a9bed346951f99ecfb9775097f368c26de998cf1"
       },
       {
         "source": "packages/base/src/lib/menu/portal/MenuPortalContext.ts",
-        "sha256": "c35a18a984e592b8654adb0f4c8c17a9e4c1bc978d2f993fe055c379164646c7"
+        "sha256": "2289e4730331fed8baefb9550a9f1c1b75d0c1e969a1117d56669ce932e6f1ed"
       },
       {
         "source": "packages/base/src/lib/menu/positioner/MenuPositionerContext.ts",
-        "sha256": "a1a53bc1c9133b46ea6ffe55d88dc2c88ea7201439ddf26166e059053ee5d5ec"
+        "sha256": "dd80915474429940282b0831c259692ce1784a8fe22a6f2d8bc0845be8da5967"
       },
       {
         "source": "packages/base/src/lib/menu/positioner/createMenuPositioner.svelte.ts",
-        "sha256": "55d2c56777e2d8fdb3a61962af41f82ed251251eca9e319d0f261e9c75c9af58"
+        "sha256": "0f443aa45764512d4a92d903b69baab460b34feca8f86c32ac3a6259154dcc6c"
       },
       {
         "source": "packages/base/src/lib/menu/radio-group/MenuRadioGroupContext.ts",
-        "sha256": "0fcf746b752761eaea2de8015bcd9df5e41438e2df058681092e5513bed5dd9a"
+        "sha256": "0ab8488e1a07d9d14c5d214264b41e5088f26bb22c329cc267a5eed9798994cc"
       },
       {
         "source": "packages/base/src/lib/menu/radio-item/MenuRadioItemContext.ts",
-        "sha256": "7d74e55c08ab41d976be9dadf82b83f958843e314d434c2470da941bd5adeaec"
+        "sha256": "b1f0dae7ebe9cf8cebdc9a140e86065609ad49cd69031b63fea9d43bf31c978f"
       },
       {
         "source": "packages/base/src/lib/menu/root/MenuRootContext.ts",
-        "sha256": "322f644694648a02df90bb5f1ef1362b41dc8adc1b869125de33d0b769f78144"
+        "sha256": "2867e48a1ee5c6ef93110809af753e813c630eab7afb7d4da2730c4a72c774fa"
       },
       {
         "source": "packages/base/src/lib/menu/root/createMenuRoot.svelte.ts",
-        "sha256": "273d29260868e06f36bffe02f53b890a5b680a2d9e6acdb071d2ee65d3fcb1f0"
+        "sha256": "7f06fa99bcfa89a2efcb6926413d47f9fb5bfc6539ecc8bd0e6b2ca51fc0458b"
       },
       {
         "source": "packages/base/src/lib/menu/store/MenuHandle.svelte.ts",
@@ -2510,19 +2497,19 @@
       },
       {
         "source": "packages/base/src/lib/menu/submenu-root/MenuSubmenuRootContext.ts",
-        "sha256": "91856a8c9fc2eebe831884f1ac2a15d75be0acad677e9c0006b036cb330cb25c"
+        "sha256": "8a61ac81cde507efe0e34b8a7e9be9f938938ed6314146366b483fa23f8d9a1f"
       },
       {
         "source": "packages/base/src/lib/menu/submenu-trigger/createMenuSubmenuTrigger.svelte.ts",
-        "sha256": "5b9d184457c0a316383c977c855a5914fa81e9fb29668b7b9590fe3c050f09b9"
+        "sha256": "a27f25c9934a6c7d64004313fddb5bba8e96a901cf863ec8b9920d58ef4d7a12"
       },
       {
         "source": "packages/base/src/lib/menu/trigger/createMenuTrigger.svelte.ts",
-        "sha256": "4d03b62e4b58b408d35abf7ce293e4d497f33c2be9e5797e6fd949a00a8124cf"
+        "sha256": "dee891cf185175885b51711b6307a20006fdec038c41f5e1ca08fa1a0d279488"
       },
       {
         "source": "packages/base/src/lib/menu/types.ts",
-        "sha256": "e9a6f3eb850a56e1d8600deab6906162d706fa2fded58cfb3f1d5e2db9414069"
+        "sha256": "f70bd7769bbf0008b619ecc7d0eb7d4a56edc6c351c5c82fa11e9989d844e426"
       },
       {
         "source": "packages/base/src/lib/menu/utils/findRootOwnerId.ts",
@@ -2534,19 +2521,19 @@
       },
       {
         "source": "packages/base/src/lib/menubar/Menubar.svelte",
-        "sha256": "a2cba809b2ec7eb5ac73136b38c9de5f34f2e89cb8d7b7ce0ea838cca6a1799b"
+        "sha256": "9a3073b1739a7dbd5e1107d3b7a82d1fff068d640790d0f3a0e6adeeb12f98e8"
       },
       {
         "source": "packages/base/src/lib/menubar/MenubarContext.ts",
-        "sha256": "7bdfa9dcbc2544bf838842f6198951a15856dbee276eb916ddbf6fd2b1c94173"
+        "sha256": "6e9019638551ddeaf66f610c0d3be4ace2729e70aa915675188ee1e889fcc87b"
       },
       {
         "source": "packages/base/src/lib/menubar/index.ts",
-        "sha256": "2914e01ea43042b3cd23798a2b968c951fab7f7667dce154802ef903e03f5e58"
+        "sha256": "95404f22f28fa1b0b4989864e6510bbfbf60dda41b033205be0a3ed25571c57e"
       },
       {
         "source": "packages/base/src/lib/menubar/types.ts",
-        "sha256": "9da4fbbf8d50ae7e1f4f24c012f3dd82c785fcc6f991043910619e4105c2f57c"
+        "sha256": "91b24a36c05ac1d7e848fdb9fd8b5186d28b5bf3344962cd59e7d826a9a99169"
       },
       {
         "source": "packages/base/src/lib/merge-props/index.ts",
@@ -2554,7 +2541,7 @@
       },
       {
         "source": "packages/base/src/lib/merge-props/mergeProps.ts",
-        "sha256": "bb7b19346a441bd93ebb41f21a46893ef4578e8ad7444fe8bf9369edad32a126"
+        "sha256": "b2c30a6df68fe9744f250f0d0b8e21d89de133146724efd6eed7cea0fce0f8b9"
       },
       {
         "source": "packages/base/src/lib/separator/Separator.svelte",
@@ -2566,15 +2553,15 @@
       },
       {
         "source": "packages/base/src/lib/separator/types.ts",
-        "sha256": "b349b520840d7d7b3bbda5127105404312370ae300efe23bb354536c2d8c56dc"
+        "sha256": "5ab346df307c50fad23dfdcb26e3931c9b4ba24de0ddc21881ef54441e6496e7"
       },
       {
         "source": "packages/base/src/lib/toolbar/root/ToolbarRootContext.ts",
-        "sha256": "ac7081f4de2f79dcdf425ee5ca7690db2d577f9363f2ef03b75f3b5395adc6cb"
+        "sha256": "d2e5bd3ad75ddc60d8cef7c2cf2702802382e4b6317d7ab6b98b37eab100fd7b"
       },
       {
         "source": "packages/base/src/lib/toolbar/types.ts",
-        "sha256": "c7cc1b91797831826e2605d119313666bce3f67185583beff516a80af9104e78"
+        "sha256": "3bc3d1e84b480879fe78008f97ee8dbb7dba2b0d29040a2fc31df71b5de598ff"
       },
       {
         "source": "packages/base/src/lib/utils/CommonPopupCssVars.ts",
@@ -2598,7 +2585,7 @@
       },
       {
         "source": "packages/base/src/lib/utils/FocusGuard.svelte",
-        "sha256": "a1c8d5f8dfc33ea1d6ecae560679428eb103e6e9018d724e37501dcca7a20907"
+        "sha256": "ea8acf8bdda2c5faf3859db06b580c84604e7978e2496553b5fdc56dc80472b3"
       },
       {
         "source": "packages/base/src/lib/utils/InternalBackdrop.svelte",
@@ -2606,7 +2593,7 @@
       },
       {
         "source": "packages/base/src/lib/utils/NullStore.svelte.ts",
-        "sha256": "6192e6fd5b423b4f5f8557c9faaf785c300be4ac55251b73e4dae6126cf96059"
+        "sha256": "f23ac9ae6b5303aa9adf6499e3101c06fa981a516e6d22e95f981903674ec49c"
       },
       {
         "source": "packages/base/src/lib/utils/dispatchClickWithModifiers.ts",
@@ -2626,7 +2613,7 @@
       },
       {
         "source": "packages/base/src/lib/utils/popups/PopupHandleAttachment.svelte",
-        "sha256": "a4afc586582ecf50aa65f39c579c7a7effa6957192ce98795498e487b5ab0df5"
+        "sha256": "437e6d44b586b4cc524d30d4214906695aa505239f1951a7840077780f562927"
       },
       {
         "source": "packages/base/src/lib/utils/popups/index.ts",
@@ -2634,11 +2621,11 @@
       },
       {
         "source": "packages/base/src/lib/utils/popups/popupHandle.svelte.ts",
-        "sha256": "5d8a5b18004cfac22fdac1839a0afd1a8b8b41089368b2642e8c567546a77998"
+        "sha256": "c3a56400141a1075b20c783a5da24f827911b7d622c5eb92f78a4cf1f49da778"
       },
       {
         "source": "packages/base/src/lib/utils/popups/popupStoreUtils.svelte.ts",
-        "sha256": "f82a73387d00d82030fc061cdf43a1eaf1653d32ef13b90c425ddbc14909c1d5"
+        "sha256": "51f1c3945f9da39ae8e71a4fa336740ef0ad0be5f4a8f413deb1e98405d894d3"
       },
       {
         "source": "packages/base/src/lib/utils/popups/popupTriggerMap.svelte.ts",
@@ -2650,11 +2637,11 @@
       },
       {
         "source": "packages/base/src/lib/utils/popups/usePopupHandleStore.svelte.ts",
-        "sha256": "3bbe4fd4132a3acdeb82b575f734b01caccc7c3033b8162fa64ad619a8bfbf58"
+        "sha256": "d96d4ca763135cddc2ddbc931e772954b47ceb057bf1172660ec73203c9dbd0b"
       },
       {
         "source": "packages/base/src/lib/utils/popups/useTriggerFocusGuards.svelte.ts",
-        "sha256": "61c4a5e3e40b0f8ff0d48d40208687ef43a209818cbe4bb6a9058050d91a1678"
+        "sha256": "546d28f868043bb4ba73eb8ce608cb07b4753c18361100e2720a296ed3f15c3a"
       },
       {
         "source": "packages/base/src/lib/utils/resolveClassName.ts",
@@ -2662,7 +2649,7 @@
       },
       {
         "source": "packages/base/src/lib/utils/resolveRef.ts",
-        "sha256": "ac85daa436a61800f824aa34ea08ff4cbe492c86c12be327de957a381acddaa7"
+        "sha256": "d8500030750c389af091f3f4f43b100f675772f3d22b6f1699a29db80d564d0a"
       },
       {
         "source": "packages/base/src/lib/utils/resolveStyle.ts",
@@ -2670,31 +2657,31 @@
       },
       {
         "source": "packages/base/src/lib/utils/useAnchoredPopupScrollLock.svelte.ts",
-        "sha256": "5782915d7bab0070cfff27289645e6f3b5b26264ff360bd5217610a497944626"
+        "sha256": "21a07726eed55814307acd741228214b8ebc411a0dcbddcf1d32a13ccdc45060"
       },
       {
         "source": "packages/base/src/lib/utils/useFocusableWhenDisabled.ts",
-        "sha256": "8c52b8e41b8801cd46d4232802c5ed86588cb4e8008f814741970246b378742c"
+        "sha256": "f30838a56f41ea3672d26627fb42145d016e3b54b512c4c381e6aafb05431db2"
       },
       {
         "source": "packages/base/src/lib/utils/useMixedToggleClickHandler.svelte.ts",
-        "sha256": "0deca833e26221079988379a4d8c2272dc67577c277bcb5c627f506e1a7c87a5"
+        "sha256": "b74eca3d30ea1e198f8baa626e514a12be2797062e1881a0d83e44126ee8a194"
       },
       {
         "source": "packages/base/src/lib/utils/useOpenInteractionType.svelte.ts",
-        "sha256": "090cf39ee1e6832e4fa9017b85a9c17227552c293ffa98bf1c49dfb6ec5d5699"
+        "sha256": "92fb932de384aef85dccc45311f5920dabbd8897584a656d27a5bcd8a012a966"
       },
       {
         "source": "packages/base/src/lib/utils/usePopupAutoResize.svelte.ts",
-        "sha256": "e5380f6859941be33711370643d373a96e3f81ff99ca776f7f35f893d0b58870"
+        "sha256": "79908384bfa561421638c3362a8d0bf38526635fcc19780c72d2ff43f7b8ba9c"
       },
       {
         "source": "packages/base/src/lib/utils/usePopupViewport.svelte.ts",
-        "sha256": "28aa4c167556cc5a0f2302b4271e48c19119665ecb267f5fb61c488f1b8e3e59"
+        "sha256": "7a3a49008f305ccbbdb0b3c048a3787e24128a6c687ad6d7dba6b000970acaf7"
       },
       {
         "source": "packages/base/src/lib/utils/usePositioner.svelte.ts",
-        "sha256": "d3f15131eafc10837a154e9cf4dc4005fd4657e2a528f1b1b044e7e6c554a1d2"
+        "sha256": "835ae5ad14e38b0e931a1e878783af644a023704816022c0c2985978073145bd"
       },
       {
         "source": "packages/utils/src/lib/Controlled.svelte.ts",
@@ -2702,7 +2689,7 @@
       },
       {
         "source": "packages/utils/src/lib/PreviousValue.svelte.ts",
-        "sha256": "dd2568c59abea39decf4e350c2855b11a26c8b384a766706a9e755706367ee9c"
+        "sha256": "bbbb29cc921915446913f248a23c7ae09000eaf7fe69986ed5ada572acfbb856"
       },
       {
         "source": "packages/utils/src/lib/addEventListener.ts",
@@ -2770,15 +2757,15 @@
       },
       {
         "source": "packages/utils/src/lib/shadowDom.ts",
-        "sha256": "5c922c6a0b4cbfd31bb463e486f45524de328687376d622527a5e6cdf12cb8f2"
+        "sha256": "2cb79a4a3ccbe16581be29f7958d03bce459c5cf8cad8ae4b9f08ab981d42a2a"
       },
       {
         "source": "packages/utils/src/lib/store/Store.svelte.ts",
-        "sha256": "cb14e7e3e12bffcb353761c48bc275e41949bad5706860f0d877ea3344e0b600"
+        "sha256": "289f1c151106f981843140b9d508d300597ee1f5a90437dca446738b861cad3c"
       },
       {
         "source": "packages/utils/src/lib/store/SvelteStore.svelte.ts",
-        "sha256": "69b0b43706f60a326cdd320313d8cff85b30e85e065095f0d73161e07eb48606"
+        "sha256": "472b01d7a463c05348b85c85a413b70c55b950972f12b144ce632e4ab775102c"
       },
       {
         "source": "packages/utils/src/lib/store/index.ts",
@@ -2786,7 +2773,7 @@
       },
       {
         "source": "packages/utils/src/lib/useAnimationFrame.ts",
-        "sha256": "ebc5b091057ebe56bb4d1aade43ad89177edbac18929cf99643978411b63a88b"
+        "sha256": "ec054003588b92e4223c6eea228388ae6395bf1895fb3aaf32a02706249652ce"
       },
       {
         "source": "packages/utils/src/lib/useEnhancedClickHandler.ts",
@@ -2794,11 +2781,11 @@
       },
       {
         "source": "packages/utils/src/lib/useId.ts",
-        "sha256": "126f5436587c25942d9b12cf2ffbf353c7b87690bf37c0795da7ee5e14244e90"
+        "sha256": "584864eb7f538f5adc40ab128461db75c960984c51265aead1ca3821e4bf879a"
       },
       {
         "source": "packages/utils/src/lib/useScrollLock.svelte.ts",
-        "sha256": "bc1ca9bc05badf4935c35d4bc3492173a6ee462e065e21a542b4efecb6d202d3"
+        "sha256": "bea63beb673cffb2bb25fcb5491b34f9724cb03453c1014273b501da4c5dfc35"
       },
       {
         "source": "packages/utils/src/lib/useTimeout.ts",
@@ -2832,7 +2819,7 @@
         "local": [
           {
             "source": "packages/base/src/lib/context-menu/index.parts.ts",
-            "sha256": "2980fe116f09eab095929614bdbcd363c6074bbe97bdbfc46e6177b0a094e9ce"
+            "sha256": "682c5af33525e53dd8203253cade0919bc23923b2402b01c1eda036d748def11"
           }
         ],
         "retiredLocal": [],
@@ -2846,7 +2833,7 @@
         "local": [
           {
             "source": "packages/base/src/lib/context-menu/index.ts",
-            "sha256": "ee6285dbaf87ac0b5993d018da25f6559735074f780d5d111ec0bca8add298d9"
+            "sha256": "713d1def2a37f735ecc7bd93e276ea6fccc52cc94339f94e064b58d8f5946008"
           }
         ],
         "retiredLocal": [],
@@ -2860,19 +2847,19 @@
         "local": [
           {
             "source": "packages/base/src/lib/context-menu/index.parts.ts",
-            "sha256": "2980fe116f09eab095929614bdbcd363c6074bbe97bdbfc46e6177b0a094e9ce"
+            "sha256": "682c5af33525e53dd8203253cade0919bc23923b2402b01c1eda036d748def11"
           },
           {
             "source": "packages/base/src/lib/context-menu/types.ts",
-            "sha256": "ca3beace949e1d0ef5c07256c34ed2cb8fe6083510d235332301247d3799f1ed"
+            "sha256": "eea17502bf6bb4655dd0fcd6db7fb1c1073460e684145cdbcbcc3808e941b0e4"
           },
           {
             "source": "packages/base/src/lib/menu/Positioner.svelte",
-            "sha256": "c1cc5b0bcf49de1210e760cd1b99bdfc0283877dcf8c018947b929abb057a658"
+            "sha256": "ef00a005fba611ab6296cd9388ea5dd025ba753fcf9046b1c1d4f1e774308442"
           },
           {
             "source": "packages/base/src/lib/menu/positioner/createMenuPositioner.svelte.ts",
-            "sha256": "55d2c56777e2d8fdb3a61962af41f82ed251251eca9e319d0f261e9c75c9af58"
+            "sha256": "0f443aa45764512d4a92d903b69baab460b34feca8f86c32ac3a6259154dcc6c"
           }
         ],
         "retiredLocal": [],
@@ -2886,11 +2873,11 @@
         "local": [
           {
             "source": "packages/base/src/lib/context-menu/Root.svelte",
-            "sha256": "51113addbc9a22141f7f803ea543c5267647e0ed6a69b8fd4ecdfd935a9543d8"
+            "sha256": "c3acfbcc1ff41febefa580445159987ae24ad7b59a79af0d29b8019ea0c5144a"
           },
           {
             "source": "packages/base/src/lib/context-menu/types.ts",
-            "sha256": "ca3beace949e1d0ef5c07256c34ed2cb8fe6083510d235332301247d3799f1ed"
+            "sha256": "eea17502bf6bb4655dd0fcd6db7fb1c1073460e684145cdbcbcc3808e941b0e4"
           }
         ],
         "retiredLocal": [],
@@ -2904,7 +2891,7 @@
         "local": [
           {
             "source": "packages/base/src/lib/context-menu/root/ContextMenuRootContext.ts",
-            "sha256": "4a3b2d1a07f7f0cef35fee20c08852749799ee70e3cca25ea38bbd6612805cee"
+            "sha256": "159228643c1997e8d49e02016bd850f19a2c61d74ff14d08ad302e2aee0f2206"
           }
         ],
         "retiredLocal": [],
@@ -2918,15 +2905,15 @@
         "local": [
           {
             "source": "packages/base/src/lib/context-menu/Trigger.svelte",
-            "sha256": "3f675b9621bfe84c1ef6ffbe4eeef7dd1fe14a0af0830fcafa68aeba4c46faa1"
+            "sha256": "1bcc4a7d667b7b0c17cdad52d67f7b39c0c892df291ed90bf84b74ccd16d1df4"
           },
           {
             "source": "packages/base/src/lib/context-menu/trigger/createContextMenuTrigger.svelte.ts",
-            "sha256": "3e0d8efcdaf72eee729fcf0f840a9dd1541c134a536ec178ece4a55f8ed1be5b"
+            "sha256": "c7b1cd5c8adc95071a449256413571762d3f762dcb39fc3adf71d78db83aae33"
           },
           {
             "source": "packages/base/src/lib/context-menu/types.ts",
-            "sha256": "ca3beace949e1d0ef5c07256c34ed2cb8fe6083510d235332301247d3799f1ed"
+            "sha256": "eea17502bf6bb4655dd0fcd6db7fb1c1073460e684145cdbcbcc3808e941b0e4"
           }
         ],
         "retiredLocal": [],
@@ -2981,11 +2968,11 @@
         "local": [
           {
             "source": "packages/base/src/lib/floating-ui/components/FloatingFocusManager.svelte",
-            "sha256": "7842c784915f91970cc102e3947bdc227b99e60cee2d58cf044ced699484a6ac"
+            "sha256": "88b47ec0d8e7254d4ea022e5c05d272798d9e735c65e84c9ddfef38b8bd24342"
           },
           {
             "source": "packages/base/src/lib/floating-ui/components/createFloatingFocusManager.svelte.ts",
-            "sha256": "98849b1174e3df19901abbf0622834e52c20dd72244d7df13aae6f398b8d8787"
+            "sha256": "d5b1035fd53c72ca3dee75fb5c4dbf08093ca09142e859dd87a44d911079e018"
           }
         ],
         "retiredLocal": [],
@@ -2999,19 +2986,19 @@
         "local": [
           {
             "source": "packages/base/src/lib/floating-ui/components/FloatingPortal.svelte",
-            "sha256": "e4117fa248790d8b03f1ebb9dc017cd62bea212828c0994c627a8470d447556e"
+            "sha256": "4532b577b66e7ae3333e38a235a3a3ec331ef12adaa4183cb4fcc8b579004ac9"
           },
           {
             "source": "packages/base/src/lib/floating-ui/hooks/useFloatingPortalNode.svelte.ts",
-            "sha256": "13f71eb41b94c7cfc19bfd50676dd919ef5d46e1fed693648a5bde7e2e2cdff9"
+            "sha256": "16cef262e2368b881c58d59baa1257caddc9c0e97b4fb183f7099cc09f6dc84d"
           },
           {
             "source": "packages/base/src/lib/floating-ui/components/FloatingPortalContext.ts",
-            "sha256": "897245ee2d655ee10875e45707bca62d75b11170e2cb5b8a575c6a2848533833"
+            "sha256": "022afce07c643e0ee4a9bc2177ff8feb41fa5d6a1b63774eb682dd06d34494d5"
           },
           {
             "source": "packages/base/src/lib/floating-ui/components/PortalContent.svelte",
-            "sha256": "094ca8f25b2d4622ed70767b472ad6cecc481ae92470caa67385c72a3551f603"
+            "sha256": "41cf8f68f099889990ab71c57ca1c5de2e1db746e2b54639fef873d9335c6600"
           }
         ],
         "retiredLocal": [],
@@ -3039,7 +3026,7 @@
         "local": [
           {
             "source": "packages/base/src/lib/floating-ui/components/FloatingTree.svelte.ts",
-            "sha256": "12f9449d63fda04918fd35a0def26c903f06b6df1eda13a826c0da3adcae65f3"
+            "sha256": "4ba1a45eb3e58c4c1cdb7fc68d48c59da7ad7a5cbd5f9be7319c22af1ca60d8a"
           }
         ],
         "retiredLocal": [],
@@ -3104,7 +3091,7 @@
         "local": [
           {
             "source": "packages/base/src/lib/floating-ui/hooks/useDismiss.svelte.ts",
-            "sha256": "60527bbe6aec547b3c04b426d65d4622070d2f54f771b25105b652c48aeb3365"
+            "sha256": "ae4860fe2a3f4ea5686bccb2b425bf9c61a676b92072da7b6f733d69dc8afd51"
           }
         ],
         "retiredLocal": [],
@@ -3118,11 +3105,11 @@
         "local": [
           {
             "source": "packages/base/src/lib/floating-ui/hooks/useFloating.svelte.ts",
-            "sha256": "4e2a54739cf0ac7264f3dcbe935394168b997f829f49712da29cfd58520468e3"
+            "sha256": "fb2a3d4ef440583702349947e7fbffb47608d736f3ec7289dd82091d4cb958b8"
           },
           {
             "source": "packages/base/src/lib/internals/anchor-positioning/useFloating.svelte.ts",
-            "sha256": "9f504f4289d1b38e2fc78830320beec60d5ec6fe40f183b132916594c7027c8a"
+            "sha256": "65c7d8c1bf6780d8d172a8e26e1ebadfdb84c949283aac0c6bcc010d43bab3bf"
           }
         ],
         "retiredLocal": [],
@@ -3145,7 +3132,7 @@
         "local": [
           {
             "source": "packages/base/src/lib/floating-ui/hooks/useFocus.svelte.ts",
-            "sha256": "62b4297a472d497258da824c3ca80d190cfc3cdb1f89456780c824084c0b4724"
+            "sha256": "a78f67d9e8682c70324543e5ab9953c9379a38686abf2af1c7d94ba8e5534b86"
           }
         ],
         "retiredLocal": [],
@@ -3168,7 +3155,7 @@
         "local": [
           {
             "source": "packages/base/src/lib/floating-ui/hooks/useHoverFloatingInteraction.svelte.ts",
-            "sha256": "cecd4674386777e60e2e2cadedfa80d8e646d4551930771752befa084765926d"
+            "sha256": "0ab147a7643e45e94606193799839e6b449028367873d9acdcb4e2618af860ba"
           }
         ],
         "retiredLocal": [],
@@ -3182,7 +3169,7 @@
         "local": [
           {
             "source": "packages/base/src/lib/floating-ui/hooks/useHoverInteractionSharedState.svelte.ts",
-            "sha256": "e91c4a29295b018d18e1880b607f05db78feccfc6b22a64ca3dda8a8494568a7"
+            "sha256": "894478a3a44f74f94e416fc6aa6060af0625f0d67d80dbf59c10975916b842a3"
           }
         ],
         "retiredLocal": [],
@@ -3196,7 +3183,7 @@
         "local": [
           {
             "source": "packages/base/src/lib/floating-ui/hooks/useHoverReferenceInteraction.svelte.ts",
-            "sha256": "748c13125fa60bd64f2bf95dc296ac4aadadb966146aece7e1e81b36ece282b7"
+            "sha256": "bd55a3a32c7465648d0a0640aae445b27f4faab8b08946e646e42459e176a060"
           }
         ],
         "retiredLocal": [],
@@ -3224,7 +3211,7 @@
         "local": [
           {
             "source": "packages/base/src/lib/floating-ui/hooks/useListNavigation.svelte.ts",
-            "sha256": "06b3738e0f294d24b5f2a1682ace245e3a59bb49002096d0aa172b1bf477c8b0"
+            "sha256": "a35b727cdf040c483d4b6375bd9ace15a755619504a8a75ab5b7bb5f3abdf4d5"
           }
         ],
         "retiredLocal": [],
@@ -3238,7 +3225,7 @@
         "local": [
           {
             "source": "packages/base/src/lib/floating-ui/hooks/useSyncedFloatingRootContext.svelte.ts",
-            "sha256": "4ae43dcf0c11179ab6235da17a227c15160b93b3093731cd18df0f00c4c8ec65"
+            "sha256": "aa1374702cc5d76d0380c6b4080ffc10f2b22b496ecbfed24b97e70636669916"
           }
         ],
         "retiredLocal": [],
@@ -3252,7 +3239,7 @@
         "local": [
           {
             "source": "packages/base/src/lib/floating-ui/hooks/useTypeahead.svelte.ts",
-            "sha256": "2157f5db94426f3656d6b8bfdfc0c5f4c759cafefceaab2ded1dd45f9d2f20a2"
+            "sha256": "740573664ed8d416194faebacbabd07597d97a2e50777d45ab77e45c3fe23727"
           }
         ],
         "retiredLocal": [],
@@ -3303,7 +3290,7 @@
         "local": [
           {
             "source": "packages/base/src/lib/floating-ui/types.ts",
-            "sha256": "d75465f0e2fa7f46beab37d200f2f9e5a152dd4ca4a5751e5c9ca2811caed3d5"
+            "sha256": "5c4e86d68644ba65a89798d584d75bb7c1dacde7f892c9ea9fdfdd64523d3473"
           }
         ],
         "retiredLocal": [],
@@ -3330,7 +3317,7 @@
           },
           {
             "source": "packages/base/src/lib/internals/composite/utils/navigation.ts",
-            "sha256": "bb61a6e117cc345c347a3a29618d01e6e608ef1027b8e6464e072d8b70b4a0aa"
+            "sha256": "bcfb35db31e9b53c86be39c229e041eaaf48f82df10d4dfaac79b69ecfd5a6dd"
           }
         ],
         "retiredLocal": [],
@@ -3418,7 +3405,7 @@
         "local": [
           {
             "source": "packages/base/src/lib/floating-ui/utils/event.ts",
-            "sha256": "d1ee6542732cf647dc9a02e9f40b664de30296df7d2756744a6810e8b3447b5c"
+            "sha256": "32391b7e254d578d4a374a8f95270e0fea8c763e8f56c52db2e9931243ad5e56"
           }
         ],
         "retiredLocal": [],
@@ -3474,7 +3461,7 @@
         "local": [
           {
             "source": "packages/base/src/lib/internals/composite/composite.ts",
-            "sha256": "938a8b4ede73c5b5655a800777fe4748a94786a05bf828129de299c04cf94673"
+            "sha256": "f4e02dc8034a749a29f2c63d12f34c25d17c73ffd4075bc31e8f4a55306c0a9e"
           }
         ],
         "retiredLocal": [],
@@ -3502,7 +3489,7 @@
         "local": [
           {
             "source": "packages/base/src/lib/internals/composite/item/CompositeItem.svelte",
-            "sha256": "504019a96565afea85c1b178fce5267fa3508b95ffbcb8690f36589b4951e9ff"
+            "sha256": "2f74c7d54df5fa6b0d31ed37518d070a343e8005fd82226a2e6eda0ec4dba0eb"
           }
         ],
         "retiredLocal": [],
@@ -3516,7 +3503,7 @@
         "local": [
           {
             "source": "packages/base/src/lib/internals/composite/item/useCompositeItem.svelte.ts",
-            "sha256": "c699cfa82e8ea2a8c0a8912f1b02f9af2f4aaf841284048d1083ce644bddbc57"
+            "sha256": "d90708b23dde83c4381ea1085767ec30135307525c1ea9e5422e9879a522daad"
           }
         ],
         "retiredLocal": [],
@@ -3530,7 +3517,7 @@
         "local": [
           {
             "source": "packages/base/src/lib/internals/composite/list/createCompositeList.svelte.ts",
-            "sha256": "97758d379046d9f894997ae40ef7c6f59decf48fa0d985a2c1fb5f9f068ad016"
+            "sha256": "eb23334825782ebd6c5c2697f1aad75f6f557c1e387fa6ea0a78c276bfead975"
           }
         ],
         "retiredLocal": [],
@@ -3544,7 +3531,7 @@
         "local": [
           {
             "source": "packages/base/src/lib/internals/composite/list/CompositeListContext.ts",
-            "sha256": "c443b96e2b57642eed663be3a670fc7342dc4358bac081b7257bcb076c54ab17"
+            "sha256": "17e4010bda5639d8c7d200bd965ffb9f29aa06a1e83c9f6756319a2dceb1fd38"
           }
         ],
         "retiredLocal": [],
@@ -3558,7 +3545,7 @@
         "local": [
           {
             "source": "packages/base/src/lib/internals/composite/list/useCompositeListItem.svelte.ts",
-            "sha256": "6665db18996004710613ee13ed67d8750da067cb348bf5bbc5eb7e9eb91f8eab"
+            "sha256": "94d353c7d884b35bd002a9278a7701e7b1e835d536b8eb8a94f2a56d7fa72841"
           }
         ],
         "retiredLocal": [],
@@ -3572,7 +3559,7 @@
         "local": [
           {
             "source": "packages/base/src/lib/internals/composite/root/CompositeRoot.svelte",
-            "sha256": "05dfdf1b4c35e254d686e4105e1481e5819f6d4157f6ce92508c4ff4a8784308"
+            "sha256": "29241d2982ea752a27d65c8c15cc9e3675efd2cfbc0917a4b112c5179c7d2e4e"
           }
         ],
         "retiredLocal": [],
@@ -3600,7 +3587,7 @@
         "local": [
           {
             "source": "packages/base/src/lib/internals/composite/root/gridNavigation.ts",
-            "sha256": "11aa223e4f95a23b0287fee822bdda9f4b37cb6d33f99d02c9f7da8964949e9f"
+            "sha256": "d2ed3a04fffe1d9d73819d40d2494ab19f5707adbe3c7bd9849a81c30977315c"
           }
         ],
         "retiredLocal": [],
@@ -3614,7 +3601,7 @@
         "local": [
           {
             "source": "packages/base/src/lib/internals/composite/root/useCompositeRoot.svelte.ts",
-            "sha256": "edb7e84e824764ec76db1b1853ac45ef4b890731670b62d00dcc6cbac19e47f7"
+            "sha256": "bdd6ced8bc2a28c77a2572b6b54eab7ad09ee111ddf2bcdbe777686f947c39b6"
           }
         ],
         "retiredLocal": [],
@@ -3754,7 +3741,7 @@
         "local": [
           {
             "source": "packages/base/src/lib/internals/types.ts",
-            "sha256": "56f62e49c3a1504981c523a1bee8764c45de90fb88f0fab5154bb7fc9d0c1bd3"
+            "sha256": "6a36f5f103ef940b8a32d63f0288d897096c846fb2361b4ef44733e9a899907e"
           }
         ],
         "retiredLocal": [],
@@ -3777,7 +3764,7 @@
         "local": [
           {
             "source": "packages/base/src/lib/internals/use-button/useButton.svelte.ts",
-            "sha256": "54d00b367e4cc9838f1130b61128e872f42c49df0b2ec06bb5275a76d11a52e1"
+            "sha256": "089f0b6e20b956d85db5cf2cd7a47151352ec8aada0d6582154ad264c59e20bf"
           }
         ],
         "retiredLocal": [],
@@ -3791,11 +3778,11 @@
         "local": [
           {
             "source": "packages/base/src/lib/internals/anchor-positioning/useAnchorPositioning.svelte.ts",
-            "sha256": "a2b7d8284ece515de3ca1c65d342fcdbae395d5484a4f8fd121d9d11f835876d"
+            "sha256": "21a813d5a40d36c4691d995e8cbf560b5966011a62fa01e9b1fa9b98337b3c2a"
           },
           {
             "source": "packages/base/src/lib/internals/anchor-positioning/policy.ts",
-            "sha256": "66337d95ad094898b0ae95c94c4e07ea14fd041c32cad6a4c2ec8113859cb42d"
+            "sha256": "9e7580733d7aed91fd0ba12f7e8e4113d3c34e7f3b48d9e1104606a557de34d2"
           },
           {
             "source": "packages/base/src/lib/internals/anchor-positioning/css-vars.ts",
@@ -3803,7 +3790,7 @@
           },
           {
             "source": "packages/base/src/lib/internals/anchor-positioning/types.ts",
-            "sha256": "fa56b8d2b5fac3e9c1ed9597f89631d6381e1e73d5da507b1d41ec566917b82b"
+            "sha256": "2c4a76f723edabaec250e51c87662aed05ecaf0969a56cc927dc65145bd10406"
           }
         ],
         "retiredLocal": [],
@@ -3817,7 +3804,7 @@
         "local": [
           {
             "source": "packages/base/src/lib/internals/useAnimationsFinished.ts",
-            "sha256": "541e40aa71a7af68cd10592ade98c00176b3ce30cc7b4e1764859cee4666d767"
+            "sha256": "7abe48ef841cdfa7bf60b29045e9f0ffb7dbfb715b34351e8f6716131b2678f8"
           }
         ],
         "retiredLocal": [],
@@ -3845,7 +3832,7 @@
         "local": [
           {
             "source": "packages/base/src/lib/internals/useOpenChangeComplete.svelte.ts",
-            "sha256": "696f5cb87f7e22f00969559ebd93ea3d74f8c4efbc63d90fd3493bdeffe1694f"
+            "sha256": "b6174d1cc73b6ea3b6431cf87906a1acacc40b1d5c356a31124f92251d7fd038"
           }
         ],
         "retiredLocal": [],
@@ -3859,14 +3846,10 @@
         "local": [
           {
             "source": "packages/base/src/lib/internals/mergeComponentProps.ts",
-            "sha256": "9bac34159edaa562b7a018594a875a51873c16ac8293f4a8351d5583f595ac67"
+            "sha256": "803da5cb2c52515e1e68e16b66b61060c31ca03d183bb09d928b601bbb70cab7"
           }
         ],
-        "retiredLocal": [
-          "packages/base/src/lib/internals/useRenderElement.ts",
-          "packages/base/src/lib/internals/RenderElement.svelte",
-          "packages/base/src/lib/internals/nativeRefAttachment.ts"
-        ],
+        "retiredLocal": [],
         "nativeReplacement": "Each actual part directly renders its three-argument snippet or intrinsic fallback. Bindings and independent attachments publish actual hosts; the pure helper retains prop/state/appearance merging business.",
         "status": "current-counterpart-projection-pending-executed-acceptance",
         "unchangedParityCredit": 0
@@ -3878,7 +3861,7 @@
         "local": [
           {
             "source": "packages/base/src/lib/internals/useTransitionStatus.svelte.ts",
-            "sha256": "f704f6e4c2093b0a6a2d5ec656267b9da796f3dab05abb807a4ca4dfebfa300e"
+            "sha256": "7fc531ccff0a7dfd77703c0f0ee7e1148fc080960682469eafffbc627056fa9e"
           }
         ],
         "retiredLocal": [],
@@ -3890,9 +3873,7 @@
         "sourceSha256": "fa36f17e32a4a0b3f8edabe219810a505cefa9c926d3ae807310c6013f57de6d",
         "predecessorSelection": "used-business-or-type-port",
         "local": [],
-        "retiredLocal": [
-          "packages/base/src/lib/internals/useValueChanged.svelte.ts"
-        ],
+        "retiredLocal": [],
         "nativeReplacement": "Native tracked component values and effects replace React render-cycle change bookkeeping under the explicit native-framework directive.",
         "status": "current-counterpart-projection-pending-executed-acceptance",
         "unchangedParityCredit": 0
@@ -3904,11 +3885,11 @@
         "local": [
           {
             "source": "packages/base/src/lib/menu/Arrow.svelte",
-            "sha256": "6490f60a1e91c2fa2e6cbccff6afc639d555b4788437adf958eb83b1fdfe7890"
+            "sha256": "6d52ce6a978c73fd3b438b8ce0740010f85dff4ae4498277c7d62b14a1fc88f2"
           },
           {
             "source": "packages/base/src/lib/menu/types.ts",
-            "sha256": "e9a6f3eb850a56e1d8600deab6906162d706fa2fded58cfb3f1d5e2db9414069"
+            "sha256": "f70bd7769bbf0008b619ecc7d0eb7d4a56edc6c351c5c82fa11e9989d844e426"
           }
         ],
         "retiredLocal": [],
@@ -3922,11 +3903,11 @@
         "local": [
           {
             "source": "packages/base/src/lib/menu/Backdrop.svelte",
-            "sha256": "f10c9c1fe2b825451da259f58fd381dc1da4df9b371a923b82985118ebf6f717"
+            "sha256": "ec312da1e068eec9796d1c095d59620f5e6e34d388aef4f577bfa9c7a9ba44e1"
           },
           {
             "source": "packages/base/src/lib/menu/types.ts",
-            "sha256": "e9a6f3eb850a56e1d8600deab6906162d706fa2fded58cfb3f1d5e2db9414069"
+            "sha256": "f70bd7769bbf0008b619ecc7d0eb7d4a56edc6c351c5c82fa11e9989d844e426"
           }
         ],
         "retiredLocal": [],
@@ -3940,11 +3921,11 @@
         "local": [
           {
             "source": "packages/base/src/lib/menu/CheckboxItemIndicator.svelte",
-            "sha256": "c2e49738eb420de28c58836f1eb21bc0ee9d065ec2873995e3a2e6f3654506d5"
+            "sha256": "af11c5bbdfaeca445ff15b110974791993aab6e81ac0f095bd765f6215b43809"
           },
           {
             "source": "packages/base/src/lib/menu/types.ts",
-            "sha256": "e9a6f3eb850a56e1d8600deab6906162d706fa2fded58cfb3f1d5e2db9414069"
+            "sha256": "f70bd7769bbf0008b619ecc7d0eb7d4a56edc6c351c5c82fa11e9989d844e426"
           }
         ],
         "retiredLocal": [],
@@ -3958,11 +3939,11 @@
         "local": [
           {
             "source": "packages/base/src/lib/menu/CheckboxItem.svelte",
-            "sha256": "5f2820a951b645fae95aa23b1ca1eaf32588aa6aa3c6f37e8522f068676ce5cc"
+            "sha256": "02ba507eb8e75052c66c4d59602b878bd77fae4d0ca02dde9af6ea3de5954a07"
           },
           {
             "source": "packages/base/src/lib/menu/types.ts",
-            "sha256": "e9a6f3eb850a56e1d8600deab6906162d706fa2fded58cfb3f1d5e2db9414069"
+            "sha256": "f70bd7769bbf0008b619ecc7d0eb7d4a56edc6c351c5c82fa11e9989d844e426"
           }
         ],
         "retiredLocal": [],
@@ -3976,7 +3957,7 @@
         "local": [
           {
             "source": "packages/base/src/lib/menu/checkbox-item/MenuCheckboxItemContext.ts",
-            "sha256": "1e7f3b3fc8a8fddf5db9710db2a2c9f1d927e21f275792315bf730510954f65a"
+            "sha256": "90aabb781ba084ddbe6f148446d6dddd35f17e90d9a56dfd4ccbb4b12233b5de"
           }
         ],
         "retiredLocal": [],
@@ -4008,7 +3989,7 @@
           },
           {
             "source": "packages/base/src/lib/menu/types.ts",
-            "sha256": "e9a6f3eb850a56e1d8600deab6906162d706fa2fded58cfb3f1d5e2db9414069"
+            "sha256": "f70bd7769bbf0008b619ecc7d0eb7d4a56edc6c351c5c82fa11e9989d844e426"
           }
         ],
         "retiredLocal": [],
@@ -4022,11 +4003,11 @@
         "local": [
           {
             "source": "packages/base/src/lib/menu/Group.svelte",
-            "sha256": "5d928b23b6e229fc7a88478dc827fc147c1e3508fc1c28c6caf5aab68a4f72ec"
+            "sha256": "89ffff8084bdd19d9fc144a34aed3540a98f5d2b65b77e6447a3cad4368cb0dd"
           },
           {
             "source": "packages/base/src/lib/menu/types.ts",
-            "sha256": "e9a6f3eb850a56e1d8600deab6906162d706fa2fded58cfb3f1d5e2db9414069"
+            "sha256": "f70bd7769bbf0008b619ecc7d0eb7d4a56edc6c351c5c82fa11e9989d844e426"
           }
         ],
         "retiredLocal": [],
@@ -4040,7 +4021,7 @@
         "local": [
           {
             "source": "packages/base/src/lib/menu/group/MenuGroupContext.ts",
-            "sha256": "ff7eecb60b1f4bf443f050f9627920b02a7eb057e9da1e624a6261055a1848b5"
+            "sha256": "60e64aaa5836c50e12bd5f8d283e9abbc3ac31b472d95cc47d6faa721e35582d"
           }
         ],
         "retiredLocal": [],
@@ -4054,7 +4035,7 @@
         "local": [
           {
             "source": "packages/base/src/lib/menu/index.parts.ts",
-            "sha256": "9e9caf42117568e106d88faad2e2098eb16d77cc50c0a1f2878854d26fc4e2af"
+            "sha256": "db8cca236721e5e17ac739a1914064673293d7cc596aa910f35a3f573e09e713"
           }
         ],
         "retiredLocal": [],
@@ -4068,7 +4049,7 @@
         "local": [
           {
             "source": "packages/base/src/lib/menu/index.ts",
-            "sha256": "0ffcbb12af56545dc5077b9b32fcf1bdc76eae95050bdad25559debf66ee6316"
+            "sha256": "b00f7c58d4962fa77161e815a72df323df71c13575a8352335f58e7bb8fccf46"
           }
         ],
         "retiredLocal": [],
@@ -4082,11 +4063,11 @@
         "local": [
           {
             "source": "packages/base/src/lib/menu/Item.svelte",
-            "sha256": "59b581b44f5c8f25294b870d50e87020b90d568a4357010e726cdeb37f219532"
+            "sha256": "cc7dd696a5e97f3be807759626071615f17779d5fb10609f9d01b018d8856f54"
           },
           {
             "source": "packages/base/src/lib/menu/types.ts",
-            "sha256": "e9a6f3eb850a56e1d8600deab6906162d706fa2fded58cfb3f1d5e2db9414069"
+            "sha256": "f70bd7769bbf0008b619ecc7d0eb7d4a56edc6c351c5c82fa11e9989d844e426"
           }
         ],
         "retiredLocal": [],
@@ -4100,7 +4081,7 @@
         "local": [
           {
             "source": "packages/base/src/lib/menu/item/useMenuItem.svelte.ts",
-            "sha256": "6113d408a99d6a031899c2719a5d7fdae7b0d397a7c33b2502e7433a24a03684"
+            "sha256": "786f3673917262681cb14b31f5cc4280cb51dfa28a918c523e6adcc8b5f7b578"
           }
         ],
         "retiredLocal": [],
@@ -4114,7 +4095,7 @@
         "local": [
           {
             "source": "packages/base/src/lib/menu/item/useMenuItemCommonProps.svelte.ts",
-            "sha256": "343c94ec543d7508d8f070f7d19c65ba54906095b4277cfb01b0c66295a243ac"
+            "sha256": "38a5df4550da997011152df9a9bed346951f99ecfb9775097f368c26de998cf1"
           }
         ],
         "retiredLocal": [],
@@ -4128,11 +4109,11 @@
         "local": [
           {
             "source": "packages/base/src/lib/menu/LinkItem.svelte",
-            "sha256": "188cf6739f2bda3d9690b9896b6bccee2aaf3a457bec7bb4cf3c75f872f3a12a"
+            "sha256": "1d771af5ccd9ef0079d538a24d44e76002a372c910ac3a648f79ab19a09d8cd6"
           },
           {
             "source": "packages/base/src/lib/menu/types.ts",
-            "sha256": "e9a6f3eb850a56e1d8600deab6906162d706fa2fded58cfb3f1d5e2db9414069"
+            "sha256": "f70bd7769bbf0008b619ecc7d0eb7d4a56edc6c351c5c82fa11e9989d844e426"
           }
         ],
         "retiredLocal": [],
@@ -4146,11 +4127,11 @@
         "local": [
           {
             "source": "packages/base/src/lib/menu/Popup.svelte",
-            "sha256": "3c071e821c295924e0ef78804a38d8cec3b29ec73f7797d9d55d152321118366"
+            "sha256": "fdd2652ce08cb387d404d8b917bc2e74bf48dd85f776b2e8780d193886660a40"
           },
           {
             "source": "packages/base/src/lib/menu/types.ts",
-            "sha256": "e9a6f3eb850a56e1d8600deab6906162d706fa2fded58cfb3f1d5e2db9414069"
+            "sha256": "f70bd7769bbf0008b619ecc7d0eb7d4a56edc6c351c5c82fa11e9989d844e426"
           }
         ],
         "retiredLocal": [],
@@ -4164,11 +4145,11 @@
         "local": [
           {
             "source": "packages/base/src/lib/menu/Portal.svelte",
-            "sha256": "b5f77ec45dc6e0ef65afb96ff4e2fa70310ea86f852c7be161e33c0935afe513"
+            "sha256": "f1f86a820e10847f46769e8c67c711e904e89744f997a9c8549e765657e31b1c"
           },
           {
             "source": "packages/base/src/lib/menu/types.ts",
-            "sha256": "e9a6f3eb850a56e1d8600deab6906162d706fa2fded58cfb3f1d5e2db9414069"
+            "sha256": "f70bd7769bbf0008b619ecc7d0eb7d4a56edc6c351c5c82fa11e9989d844e426"
           }
         ],
         "retiredLocal": [],
@@ -4182,7 +4163,7 @@
         "local": [
           {
             "source": "packages/base/src/lib/menu/portal/MenuPortalContext.ts",
-            "sha256": "c35a18a984e592b8654adb0f4c8c17a9e4c1bc978d2f993fe055c379164646c7"
+            "sha256": "2289e4730331fed8baefb9550a9f1c1b75d0c1e969a1117d56669ce932e6f1ed"
           }
         ],
         "retiredLocal": [],
@@ -4196,15 +4177,15 @@
         "local": [
           {
             "source": "packages/base/src/lib/menu/Positioner.svelte",
-            "sha256": "c1cc5b0bcf49de1210e760cd1b99bdfc0283877dcf8c018947b929abb057a658"
+            "sha256": "ef00a005fba611ab6296cd9388ea5dd025ba753fcf9046b1c1d4f1e774308442"
           },
           {
             "source": "packages/base/src/lib/menu/types.ts",
-            "sha256": "e9a6f3eb850a56e1d8600deab6906162d706fa2fded58cfb3f1d5e2db9414069"
+            "sha256": "f70bd7769bbf0008b619ecc7d0eb7d4a56edc6c351c5c82fa11e9989d844e426"
           },
           {
             "source": "packages/base/src/lib/menu/positioner/createMenuPositioner.svelte.ts",
-            "sha256": "55d2c56777e2d8fdb3a61962af41f82ed251251eca9e319d0f261e9c75c9af58"
+            "sha256": "0f443aa45764512d4a92d903b69baab460b34feca8f86c32ac3a6259154dcc6c"
           }
         ],
         "retiredLocal": [],
@@ -4218,7 +4199,7 @@
         "local": [
           {
             "source": "packages/base/src/lib/menu/positioner/MenuPositionerContext.ts",
-            "sha256": "a1a53bc1c9133b46ea6ffe55d88dc2c88ea7201439ddf26166e059053ee5d5ec"
+            "sha256": "dd80915474429940282b0831c259692ce1784a8fe22a6f2d8bc0845be8da5967"
           }
         ],
         "retiredLocal": [],
@@ -4232,11 +4213,11 @@
         "local": [
           {
             "source": "packages/base/src/lib/menu/RadioGroup.svelte",
-            "sha256": "dfd8fccedde4a41c4ed26c6332a6f821fe753512abfa7a729148e8329112ebad"
+            "sha256": "a9f743f853e33586d5cb789e6fdd4676749a68a20562d86bbb4ad78bc025ada3"
           },
           {
             "source": "packages/base/src/lib/menu/types.ts",
-            "sha256": "e9a6f3eb850a56e1d8600deab6906162d706fa2fded58cfb3f1d5e2db9414069"
+            "sha256": "f70bd7769bbf0008b619ecc7d0eb7d4a56edc6c351c5c82fa11e9989d844e426"
           }
         ],
         "retiredLocal": [],
@@ -4250,7 +4231,7 @@
         "local": [
           {
             "source": "packages/base/src/lib/menu/radio-group/MenuRadioGroupContext.ts",
-            "sha256": "0fcf746b752761eaea2de8015bcd9df5e41438e2df058681092e5513bed5dd9a"
+            "sha256": "0ab8488e1a07d9d14c5d214264b41e5088f26bb22c329cc267a5eed9798994cc"
           }
         ],
         "retiredLocal": [],
@@ -4264,11 +4245,11 @@
         "local": [
           {
             "source": "packages/base/src/lib/menu/RadioItemIndicator.svelte",
-            "sha256": "f1dfae985b1fea38c0464c06e9cdb609b045a88dd210c2da38a9556f651a61a0"
+            "sha256": "c5a4676c2588a2e9998f35459c70e88e5b57508bc6693e4f06fd2a0d408fc7f3"
           },
           {
             "source": "packages/base/src/lib/menu/types.ts",
-            "sha256": "e9a6f3eb850a56e1d8600deab6906162d706fa2fded58cfb3f1d5e2db9414069"
+            "sha256": "f70bd7769bbf0008b619ecc7d0eb7d4a56edc6c351c5c82fa11e9989d844e426"
           }
         ],
         "retiredLocal": [],
@@ -4282,11 +4263,11 @@
         "local": [
           {
             "source": "packages/base/src/lib/menu/RadioItem.svelte",
-            "sha256": "a91d29760c30b4b12e2707598c5e5c4d32fa4bae2c8c8564518e127ac784ad2e"
+            "sha256": "82057f97bf68f0070c0d62e12ff6e25e7c503492733252257efecc760d0abf77"
           },
           {
             "source": "packages/base/src/lib/menu/types.ts",
-            "sha256": "e9a6f3eb850a56e1d8600deab6906162d706fa2fded58cfb3f1d5e2db9414069"
+            "sha256": "f70bd7769bbf0008b619ecc7d0eb7d4a56edc6c351c5c82fa11e9989d844e426"
           }
         ],
         "retiredLocal": [],
@@ -4300,7 +4281,7 @@
         "local": [
           {
             "source": "packages/base/src/lib/menu/radio-item/MenuRadioItemContext.ts",
-            "sha256": "7d74e55c08ab41d976be9dadf82b83f958843e314d434c2470da941bd5adeaec"
+            "sha256": "b1f0dae7ebe9cf8cebdc9a140e86065609ad49cd69031b63fea9d43bf31c978f"
           }
         ],
         "retiredLocal": [],
@@ -4314,15 +4295,15 @@
         "local": [
           {
             "source": "packages/base/src/lib/menu/Root.svelte",
-            "sha256": "31dd8dd4d71caf6eca4d0a89a4c530f454e3139cd4420fcc84966760377f3e24"
+            "sha256": "0c309094355a231846fda628081404221db6da6ff2affff93fe47a008ed88875"
           },
           {
             "source": "packages/base/src/lib/menu/types.ts",
-            "sha256": "e9a6f3eb850a56e1d8600deab6906162d706fa2fded58cfb3f1d5e2db9414069"
+            "sha256": "f70bd7769bbf0008b619ecc7d0eb7d4a56edc6c351c5c82fa11e9989d844e426"
           },
           {
             "source": "packages/base/src/lib/menu/root/createMenuRoot.svelte.ts",
-            "sha256": "273d29260868e06f36bffe02f53b890a5b680a2d9e6acdb071d2ee65d3fcb1f0"
+            "sha256": "7f06fa99bcfa89a2efcb6926413d47f9fb5bfc6539ecc8bd0e6b2ca51fc0458b"
           }
         ],
         "retiredLocal": [],
@@ -4336,7 +4317,7 @@
         "local": [
           {
             "source": "packages/base/src/lib/menu/root/MenuRootContext.ts",
-            "sha256": "322f644694648a02df90bb5f1ef1362b41dc8adc1b869125de33d0b769f78144"
+            "sha256": "2867e48a1ee5c6ef93110809af753e813c630eab7afb7d4da2730c4a72c774fa"
           }
         ],
         "retiredLocal": [],
@@ -4378,11 +4359,11 @@
         "local": [
           {
             "source": "packages/base/src/lib/menu/SubmenuRoot.svelte",
-            "sha256": "89013c00a269ea4743dd6b88603f012c845b73b539920e1db461a498c8667380"
+            "sha256": "5258723759309ef97e67738ad0013c3a448d0135a6ca1cc0353a805c9599ed3d"
           },
           {
             "source": "packages/base/src/lib/menu/types.ts",
-            "sha256": "e9a6f3eb850a56e1d8600deab6906162d706fa2fded58cfb3f1d5e2db9414069"
+            "sha256": "f70bd7769bbf0008b619ecc7d0eb7d4a56edc6c351c5c82fa11e9989d844e426"
           }
         ],
         "retiredLocal": [],
@@ -4396,7 +4377,7 @@
         "local": [
           {
             "source": "packages/base/src/lib/menu/submenu-root/MenuSubmenuRootContext.ts",
-            "sha256": "91856a8c9fc2eebe831884f1ac2a15d75be0acad677e9c0006b036cb330cb25c"
+            "sha256": "8a61ac81cde507efe0e34b8a7e9be9f938938ed6314146366b483fa23f8d9a1f"
           }
         ],
         "retiredLocal": [],
@@ -4414,11 +4395,11 @@
           },
           {
             "source": "packages/base/src/lib/menu/types.ts",
-            "sha256": "e9a6f3eb850a56e1d8600deab6906162d706fa2fded58cfb3f1d5e2db9414069"
+            "sha256": "f70bd7769bbf0008b619ecc7d0eb7d4a56edc6c351c5c82fa11e9989d844e426"
           },
           {
             "source": "packages/base/src/lib/menu/submenu-trigger/createMenuSubmenuTrigger.svelte.ts",
-            "sha256": "5b9d184457c0a316383c977c855a5914fa81e9fb29668b7b9590fe3c050f09b9"
+            "sha256": "a27f25c9934a6c7d64004313fddb5bba8e96a901cf863ec8b9920d58ef4d7a12"
           }
         ],
         "retiredLocal": [],
@@ -4436,11 +4417,11 @@
           },
           {
             "source": "packages/base/src/lib/menu/types.ts",
-            "sha256": "e9a6f3eb850a56e1d8600deab6906162d706fa2fded58cfb3f1d5e2db9414069"
+            "sha256": "f70bd7769bbf0008b619ecc7d0eb7d4a56edc6c351c5c82fa11e9989d844e426"
           },
           {
             "source": "packages/base/src/lib/menu/trigger/createMenuTrigger.svelte.ts",
-            "sha256": "4d03b62e4b58b408d35abf7ce293e4d497f33c2be9e5797e6fd949a00a8124cf"
+            "sha256": "dee891cf185175885b51711b6307a20006fdec038c41f5e1ca08fa1a0d279488"
           }
         ],
         "retiredLocal": [],
@@ -4482,7 +4463,7 @@
         "local": [
           {
             "source": "packages/base/src/lib/menu/types.ts",
-            "sha256": "e9a6f3eb850a56e1d8600deab6906162d706fa2fded58cfb3f1d5e2db9414069"
+            "sha256": "f70bd7769bbf0008b619ecc7d0eb7d4a56edc6c351c5c82fa11e9989d844e426"
           }
         ],
         "retiredLocal": [],
@@ -4496,11 +4477,11 @@
         "local": [
           {
             "source": "packages/base/src/lib/menu/Viewport.svelte",
-            "sha256": "cfd61ebe9697aab9705a25e6ee009e7e355b9d282932007150df86f88ce23d83"
+            "sha256": "c5740050aa002ff57ebbc888d4d6a2536ad08be3a6858f7a58ac6fbc41216aa3"
           },
           {
             "source": "packages/base/src/lib/menu/types.ts",
-            "sha256": "e9a6f3eb850a56e1d8600deab6906162d706fa2fded58cfb3f1d5e2db9414069"
+            "sha256": "f70bd7769bbf0008b619ecc7d0eb7d4a56edc6c351c5c82fa11e9989d844e426"
           }
         ],
         "retiredLocal": [],
@@ -4514,7 +4495,7 @@
         "local": [
           {
             "source": "packages/base/src/lib/menubar/index.ts",
-            "sha256": "2914e01ea43042b3cd23798a2b968c951fab7f7667dce154802ef903e03f5e58"
+            "sha256": "95404f22f28fa1b0b4989864e6510bbfbf60dda41b033205be0a3ed25571c57e"
           }
         ],
         "retiredLocal": [],
@@ -4528,11 +4509,11 @@
         "local": [
           {
             "source": "packages/base/src/lib/menubar/Menubar.svelte",
-            "sha256": "a2cba809b2ec7eb5ac73136b38c9de5f34f2e89cb8d7b7ce0ea838cca6a1799b"
+            "sha256": "9a3073b1739a7dbd5e1107d3b7a82d1fff068d640790d0f3a0e6adeeb12f98e8"
           },
           {
             "source": "packages/base/src/lib/menubar/types.ts",
-            "sha256": "9da4fbbf8d50ae7e1f4f24c012f3dd82c785fcc6f991043910619e4105c2f57c"
+            "sha256": "91b24a36c05ac1d7e848fdb9fd8b5186d28b5bf3344962cd59e7d826a9a99169"
           }
         ],
         "retiredLocal": [],
@@ -4546,7 +4527,7 @@
         "local": [
           {
             "source": "packages/base/src/lib/menubar/MenubarContext.ts",
-            "sha256": "7bdfa9dcbc2544bf838842f6198951a15856dbee276eb916ddbf6fd2b1c94173"
+            "sha256": "6e9019638551ddeaf66f610c0d3be4ace2729e70aa915675188ee1e889fcc87b"
           }
         ],
         "retiredLocal": [],
@@ -4560,7 +4541,7 @@
         "local": [
           {
             "source": "packages/base/src/lib/menubar/Menubar.svelte",
-            "sha256": "a2cba809b2ec7eb5ac73136b38c9de5f34f2e89cb8d7b7ce0ea838cca6a1799b"
+            "sha256": "9a3073b1739a7dbd5e1107d3b7a82d1fff068d640790d0f3a0e6adeeb12f98e8"
           }
         ],
         "retiredLocal": [],
@@ -4592,7 +4573,7 @@
           },
           {
             "source": "packages/base/src/lib/merge-props/mergeProps.ts",
-            "sha256": "bb7b19346a441bd93ebb41f21a46893ef4578e8ad7444fe8bf9369edad32a126"
+            "sha256": "b2c30a6df68fe9744f250f0d0b8e21d89de133146724efd6eed7cea0fce0f8b9"
           }
         ],
         "retiredLocal": [],
@@ -4610,7 +4591,7 @@
           },
           {
             "source": "packages/base/src/lib/separator/types.ts",
-            "sha256": "b349b520840d7d7b3bbda5127105404312370ae300efe23bb354536c2d8c56dc"
+            "sha256": "5ab346df307c50fad23dfdcb26e3931c9b4ba24de0ddc21881ef54441e6496e7"
           },
           {
             "source": "packages/base/src/lib/separator/index.ts",
@@ -4628,11 +4609,11 @@
         "local": [
           {
             "source": "packages/base/src/lib/toolbar/root/ToolbarRootContext.ts",
-            "sha256": "ac7081f4de2f79dcdf425ee5ca7690db2d577f9363f2ef03b75f3b5395adc6cb"
+            "sha256": "d2e5bd3ad75ddc60d8cef7c2cf2702802382e4b6317d7ab6b98b37eab100fd7b"
           },
           {
             "source": "packages/base/src/lib/toolbar/types.ts",
-            "sha256": "c7cc1b91797831826e2605d119313666bce3f67185583beff516a80af9104e78"
+            "sha256": "3bc3d1e84b480879fe78008f97ee8dbb7dba2b0d29040a2fc31df71b5de598ff"
           }
         ],
         "retiredLocal": [],
@@ -4673,7 +4654,7 @@
         "local": [
           {
             "source": "packages/base/src/lib/internals/anchor-positioning/adaptive-origin.ts",
-            "sha256": "af5859dc474117523d5fa7c93acad144667590bd3d35248b72ffd2164e6dd86e"
+            "sha256": "15cd34d1cddc4427617558e3f81830f40fe650a308330405468a4d6d5f2ce7e8"
           }
         ],
         "retiredLocal": [],
@@ -4687,7 +4668,7 @@
         "local": [
           {
             "source": "packages/base/src/lib/internals/anchor-positioning/adaptive-origin.ts",
-            "sha256": "af5859dc474117523d5fa7c93acad144667590bd3d35248b72ffd2164e6dd86e"
+            "sha256": "15cd34d1cddc4427617558e3f81830f40fe650a308330405468a4d6d5f2ce7e8"
           }
         ],
         "retiredLocal": [],
@@ -4785,7 +4766,7 @@
         "local": [
           {
             "source": "packages/base/src/lib/utils/FocusGuard.svelte",
-            "sha256": "a1c8d5f8dfc33ea1d6ecae560679428eb103e6e9018d724e37501dcca7a20907"
+            "sha256": "ea8acf8bdda2c5faf3859db06b580c84604e7978e2496553b5fdc56dc80472b3"
           }
         ],
         "retiredLocal": [],
@@ -4855,7 +4836,7 @@
         "local": [
           {
             "source": "packages/base/src/lib/utils/NullStore.svelte.ts",
-            "sha256": "6192e6fd5b423b4f5f8557c9faaf785c300be4ac55251b73e4dae6126cf96059"
+            "sha256": "f23ac9ae6b5303aa9adf6499e3101c06fa981a516e6d22e95f981903674ec49c"
           }
         ],
         "retiredLocal": [],
@@ -4892,11 +4873,11 @@
         "local": [
           {
             "source": "packages/base/src/lib/utils/popups/popupHandle.svelte.ts",
-            "sha256": "5d8a5b18004cfac22fdac1839a0afd1a8b8b41089368b2642e8c567546a77998"
+            "sha256": "c3a56400141a1075b20c783a5da24f827911b7d622c5eb92f78a4cf1f49da778"
           },
           {
             "source": "packages/base/src/lib/utils/popups/PopupHandleAttachment.svelte",
-            "sha256": "a4afc586582ecf50aa65f39c579c7a7effa6957192ce98795498e487b5ab0df5"
+            "sha256": "437e6d44b586b4cc524d30d4214906695aa505239f1951a7840077780f562927"
           }
         ],
         "retiredLocal": [],
@@ -4910,7 +4891,7 @@
         "local": [
           {
             "source": "packages/base/src/lib/utils/popups/popupStoreUtils.svelte.ts",
-            "sha256": "f82a73387d00d82030fc061cdf43a1eaf1653d32ef13b90c425ddbc14909c1d5"
+            "sha256": "51f1c3945f9da39ae8e71a4fa336740ef0ad0be5f4a8f413deb1e98405d894d3"
           }
         ],
         "retiredLocal": [],
@@ -4952,7 +4933,7 @@
         "local": [
           {
             "source": "packages/base/src/lib/utils/popups/usePopupHandleStore.svelte.ts",
-            "sha256": "3bbe4fd4132a3acdeb82b575f734b01caccc7c3033b8162fa64ad619a8bfbf58"
+            "sha256": "d96d4ca763135cddc2ddbc931e772954b47ceb057bf1172660ec73203c9dbd0b"
           }
         ],
         "retiredLocal": [],
@@ -4966,7 +4947,7 @@
         "local": [
           {
             "source": "packages/base/src/lib/utils/popups/useTriggerFocusGuards.svelte.ts",
-            "sha256": "61c4a5e3e40b0f8ff0d48d40208687ef43a209818cbe4bb6a9058050d91a1678"
+            "sha256": "546d28f868043bb4ba73eb8ce608cb07b4753c18361100e2720a296ed3f15c3a"
           }
         ],
         "retiredLocal": [],
@@ -5008,7 +4989,7 @@
         "local": [
           {
             "source": "packages/base/src/lib/utils/resolveRef.ts",
-            "sha256": "ac85daa436a61800f824aa34ea08ff4cbe492c86c12be327de957a381acddaa7"
+            "sha256": "d8500030750c389af091f3f4f43b100f675772f3d22b6f1699a29db80d564d0a"
           }
         ],
         "retiredLocal": [],
@@ -5036,7 +5017,7 @@
         "local": [
           {
             "source": "packages/base/src/lib/utils/useAnchoredPopupScrollLock.svelte.ts",
-            "sha256": "5782915d7bab0070cfff27289645e6f3b5b26264ff360bd5217610a497944626"
+            "sha256": "21a07726eed55814307acd741228214b8ebc411a0dcbddcf1d32a13ccdc45060"
           }
         ],
         "retiredLocal": [],
@@ -5050,7 +5031,7 @@
         "local": [
           {
             "source": "packages/base/src/lib/utils/useFocusableWhenDisabled.ts",
-            "sha256": "8c52b8e41b8801cd46d4232802c5ed86588cb4e8008f814741970246b378742c"
+            "sha256": "f30838a56f41ea3672d26627fb42145d016e3b54b512c4c381e6aafb05431db2"
           }
         ],
         "retiredLocal": [],
@@ -5064,7 +5045,7 @@
         "local": [
           {
             "source": "packages/base/src/lib/utils/useMixedToggleClickHandler.svelte.ts",
-            "sha256": "0deca833e26221079988379a4d8c2272dc67577c277bcb5c627f506e1a7c87a5"
+            "sha256": "b74eca3d30ea1e198f8baa626e514a12be2797062e1881a0d83e44126ee8a194"
           }
         ],
         "retiredLocal": [],
@@ -5078,7 +5059,7 @@
         "local": [
           {
             "source": "packages/base/src/lib/utils/useOpenInteractionType.svelte.ts",
-            "sha256": "090cf39ee1e6832e4fa9017b85a9c17227552c293ffa98bf1c49dfb6ec5d5699"
+            "sha256": "92fb932de384aef85dccc45311f5920dabbd8897584a656d27a5bcd8a012a966"
           }
         ],
         "retiredLocal": [],
@@ -5092,7 +5073,7 @@
         "local": [
           {
             "source": "packages/base/src/lib/utils/usePopupAutoResize.svelte.ts",
-            "sha256": "e5380f6859941be33711370643d373a96e3f81ff99ca776f7f35f893d0b58870"
+            "sha256": "79908384bfa561421638c3362a8d0bf38526635fcc19780c72d2ff43f7b8ba9c"
           }
         ],
         "retiredLocal": [],
@@ -5106,7 +5087,7 @@
         "local": [
           {
             "source": "packages/base/src/lib/utils/usePopupViewport.svelte.ts",
-            "sha256": "28aa4c167556cc5a0f2302b4271e48c19119665ecb267f5fb61c488f1b8e3e59"
+            "sha256": "7a3a49008f305ccbbdb0b3c048a3787e24128a6c687ad6d7dba6b000970acaf7"
           }
         ],
         "retiredLocal": [],
@@ -5120,7 +5101,7 @@
         "local": [
           {
             "source": "packages/base/src/lib/utils/usePositioner.svelte.ts",
-            "sha256": "d3f15131eafc10837a154e9cf4dc4005fd4657e2a528f1b1b044e7e6c554a1d2"
+            "sha256": "835ae5ad14e38b0e931a1e878783af644a023704816022c0c2985978073145bd"
           }
         ],
         "retiredLocal": [],
@@ -5403,7 +5384,7 @@
         "local": [
           {
             "source": "packages/utils/src/lib/shadowDom.ts",
-            "sha256": "5c922c6a0b4cbfd31bb463e486f45524de328687376d622527a5e6cdf12cb8f2"
+            "sha256": "2cb79a4a3ccbe16581be29f7958d03bce459c5cf8cad8ae4b9f08ab981d42a2a"
           }
         ],
         "retiredLocal": [],
@@ -5449,7 +5430,7 @@
         "local": [
           {
             "source": "packages/utils/src/lib/store/SvelteStore.svelte.ts",
-            "sha256": "69b0b43706f60a326cdd320313d8cff85b30e85e065095f0d73161e07eb48606"
+            "sha256": "472b01d7a463c05348b85c85a413b70c55b950972f12b144ce632e4ab775102c"
           }
         ],
         "retiredLocal": [],
@@ -5463,7 +5444,7 @@
         "local": [
           {
             "source": "packages/utils/src/lib/store/Store.svelte.ts",
-            "sha256": "cb14e7e3e12bffcb353761c48bc275e41949bad5706860f0d877ea3344e0b600"
+            "sha256": "289f1c151106f981843140b9d508d300597ee1f5a90437dca446738b861cad3c"
           }
         ],
         "retiredLocal": [],
@@ -5495,7 +5476,7 @@
         "local": [
           {
             "source": "packages/utils/src/lib/useAnimationFrame.ts",
-            "sha256": "ebc5b091057ebe56bb4d1aade43ad89177edbac18929cf99643978411b63a88b"
+            "sha256": "ec054003588b92e4223c6eea228388ae6395bf1895fb3aaf32a02706249652ce"
           }
         ],
         "retiredLocal": [],
@@ -5512,9 +5493,7 @@
             "sha256": "3bb64556d51b6cd471e21e2db4c54179b3eb072757f043f7a4489a4134283304"
           }
         ],
-        "retiredLocal": [
-          "packages/utils/src/lib/useControlled.svelte.ts"
-        ],
+        "retiredLocal": [],
         "nativeReplacement": "The canonical Controlled class owns initial mode, live controlled reads, initial default fallback and direct value setting.",
         "status": "current-counterpart-projection-pending-executed-acceptance",
         "unchangedParityCredit": 0
@@ -5549,7 +5528,7 @@
         "local": [
           {
             "source": "packages/utils/src/lib/useId.ts",
-            "sha256": "126f5436587c25942d9b12cf2ffbf353c7b87690bf37c0795da7ee5e14244e90"
+            "sha256": "584864eb7f538f5adc40ab128461db75c960984c51265aead1ca3821e4bf879a"
           }
         ],
         "retiredLocal": [],
@@ -5561,9 +5540,7 @@
         "sourceSha256": "13a0ab28d24b04617dc290ad151c145f2435d1e0c381123847af74344ea4b9a0",
         "predecessorSelection": "used-business-or-type-port",
         "local": [],
-        "retiredLocal": [
-          "packages/utils/src/lib/useIsoLayoutEffect.svelte.ts"
-        ],
+        "retiredLocal": [],
         "nativeReplacement": "Actual component/resource owners use SSR-safe native $effect and captured-resource cleanup; no React layout-effect wrapper remains.",
         "status": "current-counterpart-projection-pending-executed-acceptance",
         "unchangedParityCredit": 0
@@ -5573,9 +5550,7 @@
         "sourceSha256": "5fa12ae01abedc23ba814e9c59f015cf14d306044638b56c977780de43275ba3",
         "predecessorSelection": "used-business-or-type-port",
         "local": [],
-        "retiredLocal": [
-          "packages/utils/src/lib/useMergedRefs.ts"
-        ],
+        "retiredLocal": [],
         "nativeReplacement": "Actual component bindable element refs, native bindings and independent attachment lifetimes replace callback/object ref fanout. The utility export is retired.",
         "status": "current-counterpart-projection-pending-executed-acceptance",
         "unchangedParityCredit": 0
@@ -5585,9 +5560,7 @@
         "sourceSha256": "9d621d059249ec6ad10dbf35eef28153a8bc6ef893574d26a060385d4d13472b",
         "predecessorSelection": "used-business-or-type-port",
         "local": [],
-        "retiredLocal": [
-          "packages/utils/src/lib/useOnMount.ts"
-        ],
+        "retiredLocal": [],
         "nativeReplacement": "Native component initialization and actual $effect resource lifetimes replace the React mount-hook transport.",
         "status": "current-counterpart-projection-pending-executed-acceptance",
         "unchangedParityCredit": 0
@@ -5599,12 +5572,10 @@
         "local": [
           {
             "source": "packages/utils/src/lib/PreviousValue.svelte.ts",
-            "sha256": "dd2568c59abea39decf4e350c2855b11a26c8b384a766706a9e755706367ee9c"
+            "sha256": "bbbb29cc921915446913f248a23c7ae09000eaf7fe69986ed5ada572acfbb856"
           }
         ],
-        "retiredLocal": [
-          "packages/utils/src/lib/usePreviousValue.svelte.ts"
-        ],
+        "retiredLocal": [],
         "nativeReplacement": "The canonical PreviousValue class retains current/previous/Object.is business with native reactive ownership.",
         "status": "current-counterpart-projection-pending-executed-acceptance",
         "unchangedParityCredit": 0
@@ -5614,9 +5585,7 @@
         "sourceSha256": "183cb6e86ab1f8044a431d5b4115c750f7848c9835d519881b3c7a66dae98354",
         "predecessorSelection": "used-business-or-type-port",
         "local": [],
-        "retiredLocal": [
-          "packages/utils/src/lib/useRefWithInit.ts"
-        ],
+        "retiredLocal": [],
         "nativeReplacement": "Native component initialization directly creates the real instance-owned class/object; no React ref-initialization hook remains.",
         "status": "current-counterpart-projection-pending-executed-acceptance",
         "unchangedParityCredit": 0
@@ -5628,7 +5597,7 @@
         "local": [
           {
             "source": "packages/utils/src/lib/useScrollLock.svelte.ts",
-            "sha256": "bc1ca9bc05badf4935c35d4bc3492173a6ee462e065e21a542b4efecb6d202d3"
+            "sha256": "bea63beb673cffb2bb25fcb5491b34f9724cb03453c1014273b501da4c5dfc35"
           }
         ],
         "retiredLocal": [],
@@ -5640,9 +5609,7 @@
         "sourceSha256": "908cbd177f86c961983d0124a859f733d341be49e58bc5a553255f47725419c1",
         "predecessorSelection": "used-business-or-type-port",
         "local": [],
-        "retiredLocal": [
-          "packages/utils/src/lib/useStableCallback.ts"
-        ],
+        "retiredLocal": [],
         "nativeReplacement": "Native closures read live component/store business state; no React stable-callback hook or callback identity transport remains.",
         "status": "current-counterpart-projection-pending-executed-acceptance",
         "unchangedParityCredit": 0
@@ -5702,7 +5669,7 @@
     "nativeRepresentationModules": [
       {
         "source": "packages/base/src/lib/floating-ui/components/PortalHost.svelte",
-        "sha256": "ba2cf7b5f41449705ab203e9c5c007030595571cb62752e4dfa561415e875d1a",
+        "sha256": "ad42ba3985afa2e949cddb04f346c603411c45720d0c924c6e151d0e7d2e2d48",
         "status": "native-representation-or-split-business-counterpart-no-acceptance-credit"
       },
       {
@@ -5712,7 +5679,7 @@
       },
       {
         "source": "packages/base/src/lib/internals/nativeProps.ts",
-        "sha256": "598301c5f9e7fcfe39e8eaa45092b7935cd61e9d353a89766d45bc9230861a96",
+        "sha256": "653fb2f684da7987d8c51b2384cbf5e8839c30a620a7b790f451bbeb87479cab",
         "status": "native-representation-or-split-business-counterpart-no-acceptance-credit"
       },
       {
@@ -5728,55 +5695,55 @@
           "source": "packages/react/src/context-menu/trigger/ContextMenuTrigger.tsx",
           "sourceSha256": "e0466c84499528be466b1cd6bef649872766f190d8e6d1856a5406cdc289d625",
           "local": "packages/base/src/lib/context-menu/Trigger.svelte",
-          "localSha256": "3f675b9621bfe84c1ef6ffbe4eeef7dd1fe14a0af0830fcafa68aeba4c46faa1"
+          "localSha256": "1bcc4a7d667b7b0c17cdad52d67f7b39c0c892df291ed90bf84b74ccd16d1df4"
         },
         {
           "source": "packages/react/src/internals/composite/item/CompositeItem.tsx",
           "sourceSha256": "036f04a428d090fe235076b64069755495005e9a0ec49b3b4a43162539c36157",
           "local": "packages/base/src/lib/internals/composite/item/CompositeItem.svelte",
-          "localSha256": "504019a96565afea85c1b178fce5267fa3508b95ffbcb8690f36589b4951e9ff"
+          "localSha256": "2f74c7d54df5fa6b0d31ed37518d070a343e8005fd82226a2e6eda0ec4dba0eb"
         },
         {
           "source": "packages/react/src/internals/composite/root/CompositeRoot.tsx",
           "sourceSha256": "af03574d9028283ede87df4592b08e0d0dda801c0c9d4454fbc64eccde11b0d2",
           "local": "packages/base/src/lib/internals/composite/root/CompositeRoot.svelte",
-          "localSha256": "05dfdf1b4c35e254d686e4105e1481e5819f6d4157f6ce92508c4ff4a8784308"
+          "localSha256": "29241d2982ea752a27d65c8c15cc9e3675efd2cfbc0917a4b112c5179c7d2e4e"
         },
         {
           "source": "packages/react/src/menu/arrow/MenuArrow.tsx",
           "sourceSha256": "96a59ddd1b52f2ccbe57993a773de5315f86dec6eef57bebd7dddb2563549c64",
           "local": "packages/base/src/lib/menu/Arrow.svelte",
-          "localSha256": "6490f60a1e91c2fa2e6cbccff6afc639d555b4788437adf958eb83b1fdfe7890"
+          "localSha256": "6d52ce6a978c73fd3b438b8ce0740010f85dff4ae4498277c7d62b14a1fc88f2"
         },
         {
           "source": "packages/react/src/menu/backdrop/MenuBackdrop.tsx",
           "sourceSha256": "cf5e9f901a6ef13ce37a2c6eaef039f7900cd034d7d31ae7c61c456faaf624b5",
           "local": "packages/base/src/lib/menu/Backdrop.svelte",
-          "localSha256": "f10c9c1fe2b825451da259f58fd381dc1da4df9b371a923b82985118ebf6f717"
+          "localSha256": "ec312da1e068eec9796d1c095d59620f5e6e34d388aef4f577bfa9c7a9ba44e1"
         },
         {
           "source": "packages/react/src/menu/checkbox-item/MenuCheckboxItem.tsx",
           "sourceSha256": "d9d0ae53bb048beb25a68322c6984286cb813ea7f6c165d1cdb0883515c1c03e",
           "local": "packages/base/src/lib/menu/CheckboxItem.svelte",
-          "localSha256": "5f2820a951b645fae95aa23b1ca1eaf32588aa6aa3c6f37e8522f068676ce5cc"
+          "localSha256": "02ba507eb8e75052c66c4d59602b878bd77fae4d0ca02dde9af6ea3de5954a07"
         },
         {
           "source": "packages/react/src/menu/checkbox-item-indicator/MenuCheckboxItemIndicator.tsx",
           "sourceSha256": "5a9e8e0f344e58d01fcbf66e4c62fec2b4f4e640a1e3718c930541c5c113f3cc",
           "local": "packages/base/src/lib/menu/CheckboxItemIndicator.svelte",
-          "localSha256": "c2e49738eb420de28c58836f1eb21bc0ee9d065ec2873995e3a2e6f3654506d5"
+          "localSha256": "af11c5bbdfaeca445ff15b110974791993aab6e81ac0f095bd765f6215b43809"
         },
         {
           "source": "packages/react/src/menu/group/MenuGroup.tsx",
           "sourceSha256": "986bd22f378e73844e80c0b22415b77a1c2d180449877a69a298030d36970f84",
           "local": "packages/base/src/lib/menu/Group.svelte",
-          "localSha256": "5d928b23b6e229fc7a88478dc827fc147c1e3508fc1c28c6caf5aab68a4f72ec"
+          "localSha256": "89ffff8084bdd19d9fc144a34aed3540a98f5d2b65b77e6447a3cad4368cb0dd"
         },
         {
           "source": "packages/react/src/menu/radio-group/MenuRadioGroup.tsx",
           "sourceSha256": "b0c4451622aa0b7bb6b361289cf793ed178a509b9a5d212f3e92808ba9660785",
           "local": "packages/base/src/lib/menu/Group.svelte",
-          "localSha256": "5d928b23b6e229fc7a88478dc827fc147c1e3508fc1c28c6caf5aab68a4f72ec"
+          "localSha256": "89ffff8084bdd19d9fc144a34aed3540a98f5d2b65b77e6447a3cad4368cb0dd"
         },
         {
           "source": "packages/react/src/menu/group-label/MenuGroupLabel.tsx",
@@ -5788,61 +5755,61 @@
           "source": "packages/react/src/menu/checkbox-item/MenuCheckboxItem.tsx",
           "sourceSha256": "d9d0ae53bb048beb25a68322c6984286cb813ea7f6c165d1cdb0883515c1c03e",
           "local": "packages/base/src/lib/menu/Item.svelte",
-          "localSha256": "59b581b44f5c8f25294b870d50e87020b90d568a4357010e726cdeb37f219532"
+          "localSha256": "cc7dd696a5e97f3be807759626071615f17779d5fb10609f9d01b018d8856f54"
         },
         {
           "source": "packages/react/src/menu/item/MenuItem.tsx",
           "sourceSha256": "9659caa89a9fdeeb449d804599633437e47191f729b4450f91245cb2be5cc100",
           "local": "packages/base/src/lib/menu/Item.svelte",
-          "localSha256": "59b581b44f5c8f25294b870d50e87020b90d568a4357010e726cdeb37f219532"
+          "localSha256": "cc7dd696a5e97f3be807759626071615f17779d5fb10609f9d01b018d8856f54"
         },
         {
           "source": "packages/react/src/menu/link-item/MenuLinkItem.tsx",
           "sourceSha256": "5129b1675c7831e5bfc0bf808e5a5bff3a8c0ac588321fd2f0be6c7a887ba74d",
           "local": "packages/base/src/lib/menu/Item.svelte",
-          "localSha256": "59b581b44f5c8f25294b870d50e87020b90d568a4357010e726cdeb37f219532"
+          "localSha256": "cc7dd696a5e97f3be807759626071615f17779d5fb10609f9d01b018d8856f54"
         },
         {
           "source": "packages/react/src/menu/radio-item/MenuRadioItem.tsx",
           "sourceSha256": "ef50105b292eccd144eee4eebcff6da92aca50130f4580d566bc4ce9388f2b75",
           "local": "packages/base/src/lib/menu/Item.svelte",
-          "localSha256": "59b581b44f5c8f25294b870d50e87020b90d568a4357010e726cdeb37f219532"
+          "localSha256": "cc7dd696a5e97f3be807759626071615f17779d5fb10609f9d01b018d8856f54"
         },
         {
           "source": "packages/react/src/menu/link-item/MenuLinkItem.tsx",
           "sourceSha256": "5129b1675c7831e5bfc0bf808e5a5bff3a8c0ac588321fd2f0be6c7a887ba74d",
           "local": "packages/base/src/lib/menu/LinkItem.svelte",
-          "localSha256": "188cf6739f2bda3d9690b9896b6bccee2aaf3a457bec7bb4cf3c75f872f3a12a"
+          "localSha256": "1d771af5ccd9ef0079d538a24d44e76002a372c910ac3a648f79ab19a09d8cd6"
         },
         {
           "source": "packages/react/src/menu/popup/MenuPopup.tsx",
           "sourceSha256": "3e20ba1ec7a8ea8030964f4a3f6364f94f14795ae857b0f495684ddf8efcefce",
           "local": "packages/base/src/lib/menu/Popup.svelte",
-          "localSha256": "3c071e821c295924e0ef78804a38d8cec3b29ec73f7797d9d55d152321118366"
+          "localSha256": "fdd2652ce08cb387d404d8b917bc2e74bf48dd85f776b2e8780d193886660a40"
         },
         {
           "source": "packages/react/src/menu/positioner/MenuPositioner.tsx",
           "sourceSha256": "aaaa717a48c32ae91b5ac7d3684292491eeada7843118aad05e9ba9f4a143943",
           "local": "packages/base/src/lib/menu/Positioner.svelte",
-          "localSha256": "c1cc5b0bcf49de1210e760cd1b99bdfc0283877dcf8c018947b929abb057a658"
+          "localSha256": "ef00a005fba611ab6296cd9388ea5dd025ba753fcf9046b1c1d4f1e774308442"
         },
         {
           "source": "packages/react/src/menu/radio-group/MenuRadioGroup.tsx",
           "sourceSha256": "b0c4451622aa0b7bb6b361289cf793ed178a509b9a5d212f3e92808ba9660785",
           "local": "packages/base/src/lib/menu/RadioGroup.svelte",
-          "localSha256": "dfd8fccedde4a41c4ed26c6332a6f821fe753512abfa7a729148e8329112ebad"
+          "localSha256": "a9f743f853e33586d5cb789e6fdd4676749a68a20562d86bbb4ad78bc025ada3"
         },
         {
           "source": "packages/react/src/menu/radio-item/MenuRadioItem.tsx",
           "sourceSha256": "ef50105b292eccd144eee4eebcff6da92aca50130f4580d566bc4ce9388f2b75",
           "local": "packages/base/src/lib/menu/RadioItem.svelte",
-          "localSha256": "a91d29760c30b4b12e2707598c5e5c4d32fa4bae2c8c8564518e127ac784ad2e"
+          "localSha256": "82057f97bf68f0070c0d62e12ff6e25e7c503492733252257efecc760d0abf77"
         },
         {
           "source": "packages/react/src/menu/radio-item-indicator/MenuRadioItemIndicator.tsx",
           "sourceSha256": "3edf74c98a018e144eeebf557c96493c4c8aafa2f610ce20d01ce276e2b8d2f9",
           "local": "packages/base/src/lib/menu/RadioItemIndicator.svelte",
-          "localSha256": "f1dfae985b1fea38c0464c06e9cdb609b045a88dd210c2da38a9556f651a61a0"
+          "localSha256": "c5a4676c2588a2e9998f35459c70e88e5b57508bc6693e4f06fd2a0d408fc7f3"
         },
         {
           "source": "packages/react/src/menu/submenu-trigger/MenuSubmenuTrigger.tsx",
@@ -5866,7 +5833,7 @@
           "source": "packages/react/src/menu/viewport/MenuViewport.tsx",
           "sourceSha256": "b0460927dd35d784a2133dc29df33ee685dcfb4a910603822947bc7dc2931bc9",
           "local": "packages/base/src/lib/menu/Viewport.svelte",
-          "localSha256": "cfd61ebe9697aab9705a25e6ee009e7e355b9d282932007150df86f88ce23d83"
+          "localSha256": "c5740050aa002ff57ebbc888d4d6a2536ad08be3a6858f7a58ac6fbc41216aa3"
         },
         {
           "source": "packages/react/src/separator/Separator.tsx",

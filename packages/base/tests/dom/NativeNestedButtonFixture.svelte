@@ -30,17 +30,11 @@
   }
 </script>
 
-{#snippet nested(
-  props: HTMLProps,
-  _state: { disabled: boolean },
-  children: Snippet | undefined,
-)}
+{#snippet nested(props: HTMLProps, _state: { disabled: boolean }, children: Snippet | undefined)}
   <Button {...props} bind:ref={inner} {...{ [innerKey]: innerAttachment }}
     >{@render children?.()}</Button
   >
 {/snippet}
-{#if present}<Button
-    bind:ref={outer}
-    render={nested}
-    {...{ [outerKey]: outerAttachment }}>Nested children</Button
+{#if present}<Button bind:ref={outer} render={nested} {...{ [outerKey]: outerAttachment }}
+    >Nested children</Button
   >{/if}

@@ -1,13 +1,7 @@
 <script lang="ts">
   import type { Snippet } from 'svelte';
-  import {
-    Collapsible,
-    type CollapsiblePanelState,
-  } from '../../src/lib/collapsible/index.js';
-  import {
-    Accordion,
-    type AccordionPanelState,
-  } from '../../src/lib/accordion/index.js';
+  import { Collapsible, type CollapsiblePanelState } from '../../src/lib/collapsible/index.js';
+  import { Accordion, type AccordionPanelState } from '../../src/lib/accordion/index.js';
   import type { HTMLProps } from '../../src/lib/internals/types.js';
   let {
     family = 'collapsible',
@@ -18,10 +12,7 @@
   let panel = $state<HTMLElement | null>();
   let ownedHeight = $state<string | undefined>();
   const requests: { open: boolean; reason: string }[] = [];
-  function change(
-    open: boolean,
-    details: { reason: string; cancel: () => void },
-  ) {
+  function change(open: boolean, details: { reason: string; cancel: () => void }) {
     requests.push({ open, reason: details.reason });
     if (cancel && details.reason === 'none') details.cancel();
   }
@@ -57,21 +48,16 @@
     {@render children?.()}
   </article>
 {/snippet}
-<section data-bare style="height:73px" style:height={ownedHeight}>
-  Bare Svelte host
-</section>
+<section data-bare style="height:73px" style:height={ownedHeight}> Bare Svelte host </section>
 {#if family === 'collapsible'}
   <Collapsible.Root {disabled} onOpenChange={change}>
-    <Collapsible.Trigger id="native-panel-trigger"
-      >Toggle panel</Collapsible.Trigger
-    >
+    <Collapsible.Trigger id="native-panel-trigger">Toggle panel</Collapsible.Trigger>
     <Collapsible.Panel
       id="native-panel"
       hiddenUntilFound
       style="height:73px"
       bind:ref={panel}
-      render={replacement ? articleHost : sectionHost}
-      >Panel children</Collapsible.Panel
+      render={replacement ? articleHost : sectionHost}>Panel children</Collapsible.Panel
     >
   </Collapsible.Root>
 {:else}
@@ -82,16 +68,14 @@
   >
     <Accordion.Item value="item">
       <Accordion.Header
-        ><Accordion.Trigger id="native-panel-trigger"
-          >Toggle panel</Accordion.Trigger
+        ><Accordion.Trigger id="native-panel-trigger">Toggle panel</Accordion.Trigger
         ></Accordion.Header
       >
       <Accordion.Panel
         id="native-panel"
         style="height:73px"
         bind:ref={panel}
-        render={replacement ? articleHost : sectionHost}
-        >Panel children</Accordion.Panel
+        render={replacement ? articleHost : sectionHost}>Panel children</Accordion.Panel
       >
     </Accordion.Item>
   </Accordion.Root>

@@ -19,13 +19,9 @@ it('keeps source state attributes, falsy omission, inherited keys and explicit m
   for (const key of ['no', 'zero', 'nan', 'blank', 'nil', 'custom'])
     expect(props).not.toHaveProperty(`data-${key}`);
   expect(
-    mergeComponentProps({ active: true }, {}, { 'data-active': 'author' })[
-      'data-active'
-    ],
+    mergeComponentProps({ active: true }, {}, { 'data-active': 'author' })['data-active'],
   ).toBe('author');
-  expect(mergeComponentProps({ active: true }, {}, undefined, false)).toEqual(
-    {},
-  );
+  expect(mergeComponentProps({ active: true }, {}, undefined, false)).toEqual({});
 });
 it('preserves exact state identity, source getter replacement and component class/style precedence', () => {
   const state = { active: true };

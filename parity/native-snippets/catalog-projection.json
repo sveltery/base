@@ -2,7 +2,7 @@
   "pin": "47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c",
   "scope": "Current declared manifest/source runtime namespace facts. Structural projection only; no new Original, type, runtime, browser or installed-consumer pass credit.",
   "rootEntry": "packages/base/src/lib/index.ts",
-  "rootEntrySha256": "aa4350286c88e7b1ba72712248860c15b0084b840c94b9d550ee2e2254feef25",
+  "rootEntrySha256": "06dbc3ac673b441f7104d82fcc84822565bc10e61f0f1c855ff7c7d8dd77c75a",
   "rootRuntimeExports": [
     "Accordion",
     "Avatar",
@@ -70,7 +70,7 @@
       "packageSubpath": "./accordion",
       "publishedTarget": "./dist/accordion/index.js",
       "sourceEntry": "packages/base/src/lib/accordion/index.ts",
-      "sourceEntrySha256": "baa5f4d1d68f7481edbd47478adaa868815c84cdf0cc100c970d3d11076df653",
+      "sourceEntrySha256": "e24f9fe980656d471e4ff2203c21d017012e8a7a9c584b3601c4a6004a36be85",
       "rootExports": [
         "Accordion"
       ],
@@ -112,7 +112,7 @@
       "packageSubpath": "./avatar",
       "publishedTarget": "./dist/avatar/index.js",
       "sourceEntry": "packages/base/src/lib/avatar/index.ts",
-      "sourceEntrySha256": "7c4417358ec429507d350b54572579071d927a14c5251cfcdbb7271ef23f94ec",
+      "sourceEntrySha256": "3c75b30c3029b108aac2af5f58d734760ca2624bd21c1335d02c67e377f1f3a5",
       "rootExports": [
         "Avatar"
       ],
@@ -172,7 +172,7 @@
       "packageSubpath": "./collapsible",
       "publishedTarget": "./dist/collapsible/index.js",
       "sourceEntry": "packages/base/src/lib/collapsible/index.ts",
-      "sourceEntrySha256": "7e4f8baf91a2371f9e5d67bb2c31850ed4b9165322eeecfcf86767a16aa6f4c5",
+      "sourceEntrySha256": "a1a6196de2beaa325259e3b9b08a8bf52fba66201de00a75a088ef1178f20281",
       "rootExports": [
         "Collapsible"
       ],
@@ -201,7 +201,7 @@
       "packageSubpath": "./context-menu",
       "publishedTarget": "./dist/context-menu/index.js",
       "sourceEntry": "packages/base/src/lib/context-menu/index.ts",
-      "sourceEntrySha256": "ee6285dbaf87ac0b5993d018da25f6559735074f780d5d111ec0bca8add298d9",
+      "sourceEntrySha256": "713d1def2a37f735ecc7bd93e276ea6fccc52cc94339f94e064b58d8f5946008",
       "rootExports": [
         "ContextMenu"
       ],
@@ -250,7 +250,7 @@
       "packageSubpath": "./dialog",
       "publishedTarget": "./dist/dialog/index.js",
       "sourceEntry": "packages/base/src/lib/dialog/index.ts",
-      "sourceEntrySha256": "022a685e1df8e6452b2f44e8374eb91f0f364d5b9f186e83d78de64f7a42ebe5",
+      "sourceEntrySha256": "f790a9f627040be2b4d54c2c0c9923a9b7b7a4b5e0c85e17b0b825f53e6fe8bc",
       "rootExports": [
         "Dialog"
       ],
@@ -352,7 +352,7 @@
       "packageSubpath": "./form",
       "publishedTarget": "./dist/form/index.js",
       "sourceEntry": "packages/base/src/lib/form/index.ts",
-      "sourceEntrySha256": "adef7fd51c09119a7fa5517cb78fef9b7fee550977d1205f2ee47d016439bc83",
+      "sourceEntrySha256": "6b4ed326a46b445885eb8798b63586e103a7943d02a5ad6a0afa820cbaaec2ee",
       "rootExports": [
         "Form"
       ],
@@ -367,7 +367,7 @@
       "packageSubpath": "./input",
       "publishedTarget": "./dist/input/index.js",
       "sourceEntry": "packages/base/src/lib/input/index.ts",
-      "sourceEntrySha256": "bee0bd6dc6ecde43afd343c2082077b359c78e1af958602a0a77a2ba2e26249d",
+      "sourceEntrySha256": "9c9df3c850e21d36a8db6190962e6125f262e6daae4b4ac9e4cfea6a10a21f13",
       "rootExports": [
         "Input"
       ],
@@ -382,7 +382,7 @@
       "packageSubpath": "./menu",
       "publishedTarget": "./dist/menu/index.js",
       "sourceEntry": "packages/base/src/lib/menu/index.ts",
-      "sourceEntrySha256": "0ffcbb12af56545dc5077b9b32fcf1bdc76eae95050bdad25559debf66ee6316",
+      "sourceEntrySha256": "b00f7c58d4962fa77161e815a72df323df71c13575a8352335f58e7bb8fccf46",
       "rootExports": [
         "Menu"
       ],
@@ -419,7 +419,7 @@
       "packageSubpath": "./menubar",
       "publishedTarget": "./dist/menubar/index.js",
       "sourceEntry": "packages/base/src/lib/menubar/index.ts",
-      "sourceEntrySha256": "2914e01ea43042b3cd23798a2b968c951fab7f7667dce154802ef903e03f5e58",
+      "sourceEntrySha256": "95404f22f28fa1b0b4989864e6510bbfbf60dda41b033205be0a3ed25571c57e",
       "rootExports": [
         "Menubar"
       ],
@@ -506,7 +506,7 @@
       "packageSubpath": "./popover",
       "publishedTarget": "./dist/popover/index.js",
       "sourceEntry": "packages/base/src/lib/popover/index.ts",
-      "sourceEntrySha256": "a4e4c6012f8db5fb135061882c7cb1448cbbe49a1296e75c3d3a89029f2524c3",
+      "sourceEntrySha256": "2377fe010f645bbe443db67229277219723cd23a86eff2b03d585714ec0345a8",
       "rootExports": [
         "Popover"
       ],
@@ -534,7 +534,7 @@
       "packageSubpath": "./preview-card",
       "publishedTarget": "./dist/preview-card/index.js",
       "sourceEntry": "packages/base/src/lib/preview-card/index.ts",
-      "sourceEntrySha256": "b10d6f1c9fc4c303851250eacb36738d30f2eeaa8f4848d1b51febb4dba6d3c3",
+      "sourceEntrySha256": "a1b1e4e46913e5e596040688866ce2bd0abe3b34f0f9cc1074faacef0d6180fc",
       "rootExports": [
         "PreviewCard"
       ],
@@ -613,7 +613,7 @@
       "packageSubpath": "./scroll-area",
       "publishedTarget": "./dist/scroll-area/index.js",
       "sourceEntry": "packages/base/src/lib/scroll-area/index.ts",
-      "sourceEntrySha256": "2d85c2c7f8c00b9a68c4cdb5db7a414c5df3d541f275a1ca5c5795ec49203621",
+      "sourceEntrySha256": "cfb82305c417eed4428f94c961957c936911647a87c945270a1b1b6f7ddcb5c0",
       "rootExports": [
         "ScrollArea",
         "ScrollAreaContent",
@@ -703,7 +703,7 @@
       "packageSubpath": "./toast",
       "publishedTarget": "./dist/toast/index.js",
       "sourceEntry": "packages/base/src/lib/toast/index.ts",
-      "sourceEntrySha256": "b2c6322e9f78b0185937daec24b746a4a1da55e860e3c8ee952534159a2c2809",
+      "sourceEntrySha256": "0259ad4d37e0f90d26ca9202bb99950425896f8c56f83e55a106c9c0f50efc91",
       "rootExports": [
         "Toast"
       ],
@@ -728,7 +728,7 @@
       "packageSubpath": "./toggle",
       "publishedTarget": "./dist/toggle/index.js",
       "sourceEntry": "packages/base/src/lib/toggle/index.ts",
-      "sourceEntrySha256": "5e0cf519839cfe2d95047b94522b5f70165de0f701d572dc223a1f1d1f704538",
+      "sourceEntrySha256": "749961f04be418dfc63c19ca4d1216e0361cdd496a8aceef153a4ce4605caba5",
       "rootExports": [
         "Toggle"
       ],
@@ -743,7 +743,7 @@
       "packageSubpath": "./toggle-group",
       "publishedTarget": "./dist/toggle-group/index.js",
       "sourceEntry": "packages/base/src/lib/toggle-group/index.ts",
-      "sourceEntrySha256": "eb6704fcba814d66839e0efe22d44efb35ab3e70f6daa741f57f3ffd96289023",
+      "sourceEntrySha256": "0c7096366fb0832f151a83ca4b25a04aa5be79136965a6303e1303a9f9a87bdb",
       "rootExports": [
         "ToggleGroup"
       ],
@@ -758,7 +758,7 @@
       "packageSubpath": "./toolbar",
       "publishedTarget": "./dist/toolbar/index.js",
       "sourceEntry": "packages/base/src/lib/toolbar/index.ts",
-      "sourceEntrySha256": "37e47173408b85ca5d3e8d3b17e2ca32265a84bab99b038335266211db0323dc",
+      "sourceEntrySha256": "a357051759821635ff94d9652fbaf3da9a23a202da753ba35ef5746c86857d60",
       "rootExports": [
         "Toolbar"
       ],
@@ -773,7 +773,7 @@
       "packageSubpath": "./tooltip",
       "publishedTarget": "./dist/tooltip/index.js",
       "sourceEntry": "packages/base/src/lib/tooltip/index.ts",
-      "sourceEntrySha256": "d36fe380f343baaa38bfa08de2ac844dc188b9bf3ca9e37002aae8544b72c0f2",
+      "sourceEntrySha256": "034392a25a8ecb718f89a0b38ec59215f4b3b5b1aa1c523616122542874df0e0",
       "rootExports": [
         "Tooltip"
       ],

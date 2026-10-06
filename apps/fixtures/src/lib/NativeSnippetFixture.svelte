@@ -51,11 +51,7 @@
         `cleanup:${current}:${host.tagName}:${host.isConnected}:${host.getAttribute('class')}`,
       );
   }
-  function record(
-    props: HTMLProps,
-    state: ToggleState,
-    children: Snippet | undefined,
-  ) {
+  function record(props: HTMLProps, state: ToggleState, children: Snippet | undefined) {
     received.push({ props, state, children });
     return mergeProps(props, { class: ownedClass, style: ownedStyle });
   }
@@ -115,38 +111,21 @@
   }
 </script>
 
-{#snippet span(
-  props: HTMLProps,
-  state: ToggleState,
-  children: Snippet | undefined,
-)}
+{#snippet span(props: HTMLProps, state: ToggleState, children: Snippet | undefined)}
   {const merged = $derived(record(props, state, children))}
-  <span
-    {...merged as HTMLAttributes<HTMLSpanElement>}
-    data-snippet-pressed={String(state.pressed)}>{@render children?.()}</span
+  <span {...merged as HTMLAttributes<HTMLSpanElement>} data-snippet-pressed={String(state.pressed)}
+    >{@render children?.()}</span
   >
 {/snippet}
-{#snippet sameSpan(
-  props: HTMLProps,
-  state: ToggleState,
-  children: Snippet | undefined,
-)}
+{#snippet sameSpan(props: HTMLProps, state: ToggleState, children: Snippet | undefined)}
   {const merged = $derived(record(props, state, children))}
-  <span
-    {...merged as HTMLAttributes<HTMLSpanElement>}
-    data-snippet-pressed={String(state.pressed)}>{@render children?.()}</span
+  <span {...merged as HTMLAttributes<HTMLSpanElement>} data-snippet-pressed={String(state.pressed)}
+    >{@render children?.()}</span
   >
 {/snippet}
-{#snippet section(
-  props: HTMLProps,
-  state: ToggleState,
-  children: Snippet | undefined,
-)}
+{#snippet section(props: HTMLProps, state: ToggleState, children: Snippet | undefined)}
   {const merged = $derived(record(props, state, children))}
-  <section
-    {...merged as HTMLAttributes<HTMLElement>}
-    data-snippet-pressed={String(state.pressed)}
-  >
+  <section {...merged as HTMLAttributes<HTMLElement>} data-snippet-pressed={String(state.pressed)}>
     {@render children?.()}
   </section>
 {/snippet}

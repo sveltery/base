@@ -16,9 +16,12 @@ it('forwarded refs share source order, return cleanups and bound elements while 
   flushSync();
   const button = host.querySelector('button')!;
   expect(app.getElements()).toEqual([button, button]);
-  const sourceEvents = () => events.filter((event) => !event.startsWith('authored'));
+  const sourceEvents = () =>
+    events.filter((event) => !event.startsWith('authored'));
   expect(sourceEvents()).toEqual(['inner attach 0', 'outer attach']);
-  expect(events.filter((event) => event.startsWith('authored'))).toEqual(['authored attach 0']);
+  expect(events.filter((event) => event.startsWith('authored'))).toEqual([
+    'authored attach 0',
+  ]);
   app.updateAuthored();
   flushSync();
   expect(sourceEvents()).toEqual(['inner attach 0', 'outer attach']);
@@ -48,6 +51,11 @@ it('forwarded refs share source order, return cleanups and bound elements while 
   flushSync();
   expect(button.isConnected).toBe(false);
   expect(app.getElements()).toEqual([null, null]);
-  expect(sourceEvents().slice(-2)).toEqual(['inner cleanup 1', 'outer cleanup']);
-  expect(events.filter((event) => event === 'authored cleanup 1')).toHaveLength(1);
+  expect(sourceEvents().slice(-2)).toEqual([
+    'inner cleanup 1',
+    'outer cleanup',
+  ]);
+  expect(events.filter((event) => event === 'authored cleanup 1')).toHaveLength(
+    1,
+  );
 });

@@ -14,10 +14,7 @@
     changes.push(value);
   }}
 >
-  <Checkbox.Root
-    value="choice"
-    indeterminate
-    bind:inputRef={input}
-    id="native-mixed-checkbox">Mixed choice</Checkbox.Root
+  <Checkbox.Root value="choice" indeterminate bind:inputRef={input} id="native-mixed-checkbox"
+    >Mixed choice</Checkbox.Root
   >
 </CheckboxGroup>

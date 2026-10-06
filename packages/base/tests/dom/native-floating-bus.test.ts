@@ -33,9 +33,7 @@ for (const kind of ['focus', 'hover', 'dismiss'] as const)
     let detachSecond: (() => void) | undefined;
     let stopped = false;
     try {
-      const host = target.querySelector<HTMLButtonElement>(
-        '#native-floating-reference',
-      )!;
+      const host = target.querySelector<HTMLButtonElement>('#native-floating-reference')!;
       const firstListeners = firstOn.mock.calls
         .filter(([event]) => event === 'openchange')
         .map(([, listener]) => listener);
@@ -44,9 +42,7 @@ for (const kind of ['focus', 'hover', 'dismiss'] as const)
       flushSync();
       await tick();
       expect(target.querySelector('#native-floating-reference')).toBe(host);
-      expect(second.state.floatingRootContext.state.domReferenceElement).toBe(
-        host,
-      );
+      expect(second.state.floatingRootContext.state.domReferenceElement).toBe(host);
       for (const listener of firstListeners)
         expect(firstOff).toHaveBeenCalledWith('openchange', listener);
       const secondListeners = secondOn.mock.calls
@@ -71,12 +67,9 @@ for (const kind of ['focus', 'hover', 'dismiss'] as const)
       await tick();
       for (const listener of secondListeners)
         expect(secondOff).toHaveBeenCalledWith('openchange', listener);
-      expect(
-        second.state.floatingRootContext.state.domReferenceElement,
-      ).toBeNull();
+      expect(second.state.floatingRootContext.state.domReferenceElement).toBeNull();
       expect(watcherCleanups.length).toBeGreaterThan(0);
-      for (const dispose of watcherCleanups)
-        expect(dispose).toHaveBeenCalledOnce();
+      for (const dispose of watcherCleanups) expect(dispose).toHaveBeenCalledOnce();
     } finally {
       if (!stopped) await unmount(app);
       detachSecond?.();

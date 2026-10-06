@@ -48,11 +48,9 @@ function runtimeExports(entry, seen = new Set()) {
   seen.add(entry);
   const source = readFileSync(entry, 'utf8');
   const names = new Set(
-    [
-      ...source.matchAll(
-        /export\s+(?:async\s+)?(?:const|let|var|function|class)\s+([\w$]+)/g,
-      ),
-    ].map((match) => match[1]),
+    [...source.matchAll(/export\s+(?:async\s+)?(?:const|let|var|function|class)\s+([\w$]+)/g)].map(
+      (match) => match[1],
+    ),
   );
   for (const declaration of reexports(source)) {
     const resolved = resolveImport(entry, declaration.specifier);
@@ -84,15 +82,10 @@ export function currentNativeCatalog() {
     const key = `./${item.upstreamModule}`;
     const published = manifest.exports[key];
     const target =
-      typeof published === 'string'
-        ? published
-        : (published?.svelte ?? published?.default);
+      typeof published === 'string' ? published : (published?.svelte ?? published?.default);
     const entry = target ? sourceForTarget(target) : null;
     const rootExports = declarations
-      .filter(
-        (declaration) =>
-          entry && resolveImport(rootEntry, declaration.specifier) === entry,
-      )
+      .filter((declaration) => entry && resolveImport(rootEntry, declaration.specifier) === entry)
       .flatMap((declaration) =>
         declaration.namespace
           ? [declaration.namespace]
@@ -130,10 +123,7 @@ export function currentNativeCatalog() {
     counts: Object.fromEntries(
       [...new Set(modules.map((item) => item.status))]
         .sort()
-        .map((status) => [
-          status,
-          modules.filter((item) => item.status === status).length,
-        ]),
+        .map((status) => [status, modules.filter((item) => item.status === status).length]),
     ),
     modules,
   };
@@ -183,10 +173,7 @@ function writeCurrentProjection() {
     ),
   );
 }
-if (
-  process.argv[1] &&
-  resolve(process.argv[1]) === fileURLToPath(import.meta.url)
-) {
+if (process.argv[1] && resolve(process.argv[1]) === fileURLToPath(import.meta.url)) {
   if (process.argv.includes('--write')) writeCurrentProjection();
   else verifyCurrentNativeCatalog();
   process.stdout.write(
