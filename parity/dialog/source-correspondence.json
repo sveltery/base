@@ -440,7 +440,7 @@
         "packages/base/src/lib/floating-ui/utils/composite.ts",
         "packages/base/src/lib/internals/composite/utils/navigation.ts"
       ],
-      "decision": "Selected visibility/navigation bodies are canonical shared imports, not another traversal implementation.",
+      "decision": "isElementVisible uses canonical @floating-ui/utils/dom getComputedStyle import, matching pinned Source; null-defaultView paired actual helper reproduction retained in composite-realm-repair.json.",
       "reviewStatus": "final source/native/maintainability review pending"
     },
     {
@@ -541,7 +541,7 @@
       "local": [
         "packages/base/src/lib/internals/composite/composite.ts"
       ],
-      "decision": "Inherited canonical Composite key/type constants used by Popup.",
+      "decision": "getStyles calls browser-global getComputedStyle exactly as pinned Source, distinct from navigation canonical import; paired actual scrolling reproduction retained in composite-realm-repair.json.",
       "reviewStatus": "final source/native/maintainability review pending"
     },
     {

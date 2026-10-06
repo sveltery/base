@@ -1,0 +1,30 @@
+{
+  "head": "0324249af029e53fa0131c46b35ac07d02bac980",
+  "disposition": "blocked; retained historical independent review",
+  "nativeCoverage": {
+    "modules": 115,
+    "edges": 373,
+    "groups": {
+      "Dialog": 21,
+      "Floating": 27,
+      "internals": 20,
+      "BaseUtilsPopups": 19,
+      "Utils": 25,
+      "mergeProps": 2,
+      "Direction": 1
+    }
+  },
+  "originalGraph": {
+    "modules": 139,
+    "edges": 637,
+    "pin": "47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c"
+  },
+  "findings": [
+    "P2 navigation canonical style lookup fidelity defect",
+    "Adjacent composite scrolling global-style source difference",
+    "Native class-state-owner representation not established; lead assigns bounded useTransitionStatus/useButton changes to separate canonical owner",
+    "popupStoreUtils omitted-export correspondence mismatch",
+    "Inherited PointerEvent-to-MouseEvent fallback needs explicit native correspondence"
+  ],
+  "manualReviewLimits": "All115 native bodies and selected original business counterparts inspected. Not every unrelated/unselected Original barrel body or external implementation was manually inspected; final reviewer must cover remaining scope. No test/CI/SSR/browser gate credit."
+}

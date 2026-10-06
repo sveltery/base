@@ -1,0 +1,12 @@
+<script lang="ts">
+  import { Dialog } from '../../src/lib/index.js';
+  let { container }: { container: HTMLElement } = $props();
+</script>
+
+<Dialog.Root defaultOpen modal={false} disablePointerDismissal>
+  <Dialog.Portal {container}>
+    <Dialog.Popup initialFocus={false} finalFocus={false} data-testid="realm-popup">
+      <button data-testid="realm-hidden" style="display:none">Hidden</button>
+    </Dialog.Popup>
+  </Dialog.Portal>
+</Dialog.Root>

@@ -1,0 +1,36 @@
+// Actual public Original/native Dialog focus-restoration callers; supplements, zero ordinary credit.
+// MIT, Base UI 1.8.0 47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c.
+import { expect, it, vi } from 'vitest';
+import { flushSync, mount, tick, unmount } from 'svelte';
+import Fixture from './DialogCompositeRealmFixture.svelte';
+import { mountCompositeRealmDialogReference } from '../../../../apps/fixtures/src/lib/composite-realm-reference.js';
+for (const original of [true, false]) {
+  it(`${original ? 'Original' : 'native'}: Dialog Popup restores focus when hidden content loses focus in a null-defaultView document`, async () => {
+    const foreign = document.implementation.createHTMLDocument('Dialog restore-focus realm');
+    const container = foreign.createElement('section');
+    foreign.body.append(container);
+    expect(foreign.defaultView).toBeNull();
+    const target = document.createElement('main');
+    document.body.append(target);
+    const stop = original ? mountCompositeRealmDialogReference(target, container) : undefined;
+    const native = original ? undefined : mount(Fixture, { target, props: { container } });
+    try {
+      flushSync();
+      await tick();
+      await new Promise((resolve) => setTimeout(resolve, 40));
+      const popup = container.querySelector<HTMLElement>('[data-testid=realm-popup]')!;
+      const hidden = container.querySelector<HTMLElement>('[data-testid=realm-hidden]')!;
+      expect(popup).not.toBeNull();
+      expect(hidden).not.toBeNull();
+      expect(foreign.activeElement).toBe(foreign.body);
+      hidden.dispatchEvent(new FocusEvent('focusout', { bubbles: true, relatedTarget: null }));
+      await vi.waitFor(() => expect(foreign.activeElement).toBe(popup));
+      expect(container.querySelector('[role=dialog]')).toBe(popup);
+    } finally {
+      stop?.();
+      if (native) await unmount(native);
+      target.remove();
+    }
+    expect(container.children.length).toBe(0);
+  });
+}

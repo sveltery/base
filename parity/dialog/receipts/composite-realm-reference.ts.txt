@@ -1,0 +1,35 @@
+// Actual Base UI 1.8.0 public Dialog caller, reference-only React boundary.
+// MIT: THIRD_PARTY_NOTICES.md; pin 47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c.
+import { createElement } from 'react';
+import { createRoot } from 'react-dom/client';
+import { flushSync } from 'react-dom';
+import { Dialog } from '@base-ui/react/dialog';
+export function mountCompositeRealmDialogReference(target: HTMLElement, container: HTMLElement) {
+  const root = createRoot(target);
+  flushSync(() =>
+    root.render(
+      createElement(
+        Dialog.Root,
+        {
+          defaultOpen: true,
+          modal: false,
+          disablePointerDismissal: true,
+        },
+        createElement(
+          Dialog.Portal,
+          { container },
+          createElement(
+            Dialog.Popup,
+            { initialFocus: false, finalFocus: false, 'data-testid': 'realm-popup' },
+            createElement(
+              'button',
+              { 'data-testid': 'realm-hidden', style: { display: 'none' } },
+              'Hidden',
+            ),
+          ),
+        ),
+      ),
+    ),
+  );
+  return () => flushSync(() => root.unmount());
+}

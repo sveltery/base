@@ -1,0 +1,33 @@
+
+ RUN  v5.0.3 /workspace/scratch/5fe281c917f6/dialog-successor/packages/base
+
+ ❯ |dom| tests/dom/composite-realm-source.test.ts (0 test)
+
+⎯⎯⎯⎯⎯⎯ Failed Suites 1 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  |dom| tests/dom/composite-realm-source.test.ts [ tests/dom/composite-realm-source.test.ts ]
+Error: Failed to resolve import "@sveltery/utils/platform" from "src/lib/floating-ui/utils/event.ts". Does the file exist?
+  Plugin: vite:import-analysis
+  File: /workspace/scratch/5fe281c917f6/dialog-successor/packages/base/src/lib/floating-ui/utils/event.ts:3:25
+  1  |  // Ported from Base UI v1.8.0 at 47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c.
+  2  |  // MIT Copyright (c) 2019 Material-UI SAS; see THIRD_PARTY_NOTICES.md.
+  3  |  import { platform } from "@sveltery/utils/platform";
+     |                            ^
+  4  |  export function stopEvent(event) {
+  5  |  	event.preventDefault();
+ ❯ TransformPluginContext._formatLog ../../node_modules/.pnpm/vite@8.3.1_@types+node@24.19.1/node_modules/vite/dist/node/chunks/node.js:8736:39
+ ❯ TransformPluginContext.error ../../node_modules/.pnpm/vite@8.3.1_@types+node@24.19.1/node_modules/vite/dist/node/chunks/node.js:8733:14
+ ❯ normalizeUrl ../../node_modules/.pnpm/vite@8.3.1_@types+node@24.19.1/node_modules/vite/dist/node/chunks/node.js:26423:18
+ ❯ ../../node_modules/.pnpm/vite@8.3.1_@types+node@24.19.1/node_modules/vite/dist/node/chunks/node.js:26493:30
+ ❯ TransformPluginContext.transform ../../node_modules/.pnpm/vite@8.3.1_@types+node@24.19.1/node_modules/vite/dist/node/chunks/node.js:26459:4
+ ❯ EnvironmentPluginContainer.transform ../../node_modules/.pnpm/vite@8.3.1_@types+node@24.19.1/node_modules/vite/dist/node/chunks/node.js:8515:14
+ ❯ loadAndTransform ../../node_modules/.pnpm/vite@8.3.1_@types+node@24.19.1/node_modules/vite/dist/node/chunks/node.js:19998:26
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯
+
+
+ Test Files  1 failed (1)
+      Tests  no tests
+   Start at  21:45:02
+   Duration  3.64s (environment 100%)
+

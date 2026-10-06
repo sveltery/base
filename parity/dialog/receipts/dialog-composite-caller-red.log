@@ -1,0 +1,92 @@
+
+ RUN  v5.0.3 /workspace/scratch/5fe281c917f6/dialog-successor/packages/base
+
+ ❯ |dom| tests/dom/dialog-composite-realm.test.ts (2 tests | 2 failed) 2468ms
+   × Original: Dialog Popup restores focus when hidden content loses focus in a null-defaultView document 1283ms
+   × native: Dialog Popup restores focus when hidden content loses focus in a null-defaultView document 1183ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 2 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  |dom| tests/dom/dialog-composite-realm.test.ts > Original: Dialog Popup restores focus when hidden content loses focus in a null-defaultView document
+AssertionError: expected <body><section>…(1)</section></body> to be <div data-open id="_r_0_" …(5)>…(1)</div> // Object.is equality
+
+- Expected
++ Received
+
+- <div
+-   data-base-ui-focusable=""
+-   data-open=""
+-   data-testid="realm-popup"
+-   id="_r_0_"
+-   role="dialog"
+-   style="--nested-dialogs: 0;"
+-   tabindex="-1"
+- >
+-   <button
+-     data-testid="realm-hidden"
+-     style="display: none;"
+-   >
+-     Hidden
+-   </button>
+- </div>
++ <body>
++   <section />
++ </body>
+
+ ❯ tests/dom/dialog-composite-realm.test.ts:27:60
+     25|       expect(foreign.activeElement).toBe(foreign.body);
+     26|       hidden.dispatchEvent(new FocusEvent('focusout', { bubbles: true,…
+     27|       await vi.waitFor(() => expect(foreign.activeElement).toBe(popup)…
+       |                                                            ^
+     28|       expect(container.querySelector('[role=dialog]')).toBe(popup);
+     29|     } finally {
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/2]⎯
+
+ FAIL  |dom| tests/dom/dialog-composite-realm.test.ts > native: Dialog Popup restores focus when hidden content loses focus in a null-defaultView document
+AssertionError: expected <body><section>…(1)</section></body> to be <div data-open id="c1" …(5)>…(1)</div> // Object.is equality
+
+- Expected
++ Received
+
+- <div
+-   data-base-ui-focusable=""
+-   data-open=""
+-   data-testid="realm-popup"
+-   id="c1"
+-   role="dialog"
+-   style="--nested-dialogs: 0;"
+-   tabindex="-1"
+- >
+-   <button
+-     data-testid="realm-hidden"
+-     style="display:none"
+-   >
+-     Hidden
+-   </button>
+-   <!---->
+- </div>
++ <body>
++   <section />
++ </body>
+
+ ❯ tests/dom/dialog-composite-realm.test.ts:27:60
+     25|       expect(foreign.activeElement).toBe(foreign.body);
+     26|       hidden.dispatchEvent(new FocusEvent('focusout', { bubbles: true,…
+     27|       await vi.waitFor(() => expect(foreign.activeElement).toBe(popup)…
+       |                                                            ^
+     28|       expect(container.querySelector('[role=dialog]')).toBe(popup);
+     29|     } finally {
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/2]⎯
+
+
+ Test Files  1 failed (1)
+      Tests  2 failed (2)
+   Start at  21:47:07
+   Duration  16.64s (transform 66%, tests 15%, environment 11%, import 7%)
+
+  Transform  |dom| transforming modules took 10.79s · 66% of tracked time, re-done on every run
+             persist transforms across runs with fsModuleCache: true
+             learn more: https://vitest.dev/guide/improving-performance#caching-between-reruns
+

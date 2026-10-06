@@ -1,0 +1,94 @@
+{
+  "pin": "47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c",
+  "historicalCandidate": "0324249af029e53fa0131c46b35ac07d02bac980",
+  "status": "paired helper fidelity repair proved; final exact-head full gates/independent review/class-prerequisite integration pending",
+  "ordinaryDeclarationCredit": 0,
+  "callSites": [
+    {
+      "original": "packages/react/src/floating-ui-react/utils/composite.ts:isElementVisible/isListIndexDisabled",
+      "native": "packages/base/src/lib/internals/composite/utils/navigation.ts:isElementVisible/isListIndexDisabled",
+      "before": "private ownerDocument.defaultView!.getComputedStyle throws for connected null-defaultView elements",
+      "after": "exact canonical @floating-ui/utils/dom getComputedStyle import, preserving all visibility/disabled/checkVisibility branches",
+      "sourceLookup": "canonical imported style utility at the pin",
+      "callers": [
+        "packages/base/src/lib/floating-ui/components/createFloatingFocusManager.svelte.ts:restore-focus isElementVisible(target) without supplied styles",
+        "packages/base/src/lib/floating-ui/utils/tabbable.ts:supplied style path already uses canonical lookup",
+        "packages/base/src/lib/internals/composite/root/useCompositeRoot.svelte.ts:disabled-index selection",
+        "packages/base/src/lib/floating-ui/hooks/useListNavigation.svelte.ts",
+        "packages/base/src/lib/floating-ui/hooks/useTypeahead.svelte.ts"
+      ]
+    },
+    {
+      "original": "packages/react/src/internals/composite/composite.ts:getStyles/scrollIntoViewIfNeeded",
+      "native": "packages/base/src/lib/internals/composite/composite.ts:getStyles/scrollIntoViewIfNeeded",
+      "before": "ownerDocument.defaultView! lookup substituted for pinned browser global and throws on null-defaultView document",
+      "after": "restore getComputedStyle(element) browser-global call exactly; no canonical external import added to this source callsite",
+      "sourceLookup": "browser global at pinned line163; distinct from imported lookup in floating composite",
+      "callers": [
+        "packages/base/src/lib/internals/composite/root/useCompositeRoot.svelte.ts:scroll selected item"
+      ]
+    }
+  ],
+  "proof": {
+    "reference": "actual installed @base-ui/react1.8.0 exported helper bodies, same full source counterparts preserved in parity/popup-family/upstream at the immutable pin",
+    "test": "packages/base/tests/dom/composite-realm-source.test.ts",
+    "preEditExecuted": "6 actual cases: 4 passed, 2 native failures; all 3 Original cases pass",
+    "repairedExecuted": "same unchanged test predicates plus existing Portal/nested Composite tests: 22/22 across3 files",
+    "command": "in packages/base: node node_modules/vitest/vitest.mjs run --project dom --maxWorkers=1 --no-file-parallelism tests/dom/composite-realm-source.test.ts tests/dom/dialog-portal-container.test.ts tests/dom/composite-nested-source.test.ts",
+    "limits": "JSDOM real HTMLElement/style helpers with explicit layout metrics for scroll, supplemental; no trusted-browser focus/CSS or ordinary declaration credit"
+  },
+  "inapplicablePublicFocusProbe": {
+    "bodyArchive": "parity/dialog/receipts/dialog-composite-realm.test.ts.txt",
+    "fixtureArchive": "parity/dialog/receipts/DialogCompositeRealmFixture.svelte.txt",
+    "referenceArchive": "parity/dialog/receipts/composite-realm-reference.ts.txt",
+    "log": "parity/dialog/receipts/dialog-composite-caller-red.log",
+    "result": "both actual Original and native fail the authored focus-return expectation; not a one-sided repair witness, assertion parity or green acceptance. Archived rather than weakened."
+  },
+  "affectedClosure": "parity/dialog/composite-realm-affected-closure.json",
+  "dependencies": [
+    "Canonical Main body is shared by Dialog, popup/menu/navigation, Radio/Composite, ToggleGroup and Toolbar consumers; sole repair owned by PR42",
+    "Separate canonical prerequisite owner repairs TransitionStatus and useButton state-owner class representation. Dialog reaches both; final acceptance pending normal accepted-main integration. No duplicated class edits. useAnimationsFinished additional class not established and stays unchanged."
+  ],
+  "receipts": [
+    {
+      "path": "parity/dialog/receipts/composite-realm-predecessor.ts.txt",
+      "sha256": "f4e02dc8034a749a29f2c63d12f34c25d17c73ffd4075bc31e8f4a55306c0a9e"
+    },
+    {
+      "path": "parity/dialog/receipts/composite-realm-reference.ts.txt",
+      "sha256": "c7590ab80544306132af911dbef9df2017822d3c33fa259c18b3a070bad892b0"
+    },
+    {
+      "path": "parity/dialog/receipts/dialog-composite-realm-green.log",
+      "sha256": "228c7d57dac02a9074ac4cf3245e732dfa7f1b7683b620a8d16086466693afff"
+    },
+    {
+      "path": "parity/dialog/receipts/dialog-composite-realm-red-executed.log",
+      "sha256": "84cefa6de7d7b0755b1ca6aa2555e0840ee9ff15a5db64adb3e9493d1e049920"
+    },
+    {
+      "path": "parity/dialog/receipts/dialog-composite-realm-red-executed2.log",
+      "sha256": "2e5e29f6cf104ba6b34a941358c67828c088d6538a68f8803c39a8db5a45267e"
+    },
+    {
+      "path": "parity/dialog/receipts/dialog-composite-realm-red.log",
+      "sha256": "306e0d7200895d3df06d0ccddd7b4243904b5568a571f5e62fe6e01d0594f7d0"
+    },
+    {
+      "path": "parity/dialog/receipts/dialog-composite-realm.test.ts.txt",
+      "sha256": "f5a599561f19e2d507858229914acc292eedcc41053656cfb2a9b4fb43c5667b"
+    },
+    {
+      "path": "parity/dialog/receipts/navigation-realm-predecessor.ts.txt",
+      "sha256": "bcfb35db31e9b53c86be39c229e041eaaf48f82df10d4dfaac79b69ecfd5a6dd"
+    },
+    {
+      "path": "parity/dialog/receipts/portal-realm-new-green.log.gz",
+      "sha256": "fa237127d74a591454ffbf1ef4e0cca274d3d7c5e91443d79f4bccb4a47fe97e"
+    },
+    {
+      "path": "parity/dialog/receipts/portal-realm-old-red.log.gz",
+      "sha256": "fd86adc596f671ceda2da0daa1312b23ccff2cbc0fcde8dab9ef02ec7e8233f5"
+    }
+  ]
+}

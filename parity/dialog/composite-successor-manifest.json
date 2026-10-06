@@ -1,0 +1,113 @@
+{
+  "historicalCandidate": "0324249af029e53fa0131c46b35ac07d02bac980",
+  "upstreamPin": "47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c",
+  "status": "bounded Composite successor; full gates and independent exact-head review pending; canonical class prerequisite main integration pending",
+  "runtimeChanges": {
+    "packages/base/src/lib/internals/composite/utils/navigation.ts": "isElementVisible canonical imported style lookup",
+    "packages/base/src/lib/internals/composite/composite.ts": "getStyles exact original browser-global lookup"
+  },
+  "files": [
+    {
+      "path": "docs/dialog-first-slice.md",
+      "sha256": "bdf4dbe58ea3c08c155b89311465bd79161e0fb1410c13ae33b4b9fba96f2df8"
+    },
+    {
+      "path": "docs/upstream-differences.md",
+      "sha256": "6912cbbc14ea7024cee982a6e514ca497f42162536fb0080310f8922ff98e191"
+    },
+    {
+      "path": "packages/base/src/lib/internals/composite/composite.ts",
+      "sha256": "424c303bd107e8dff6007e8f1cdff48b43f3d654205cf31ca9348a673674813c"
+    },
+    {
+      "path": "packages/base/src/lib/internals/composite/utils/navigation.ts",
+      "sha256": "535a40e0631363077ebd9eadee0a06132c81bdcaee78daf63a73409cd5707af3"
+    },
+    {
+      "path": "packages/base/tests/dom/composite-realm-source.test.ts",
+      "sha256": "306114659661092f3c341269feb85803083cecfe7e101b16e86048a08aa5ac48"
+    },
+    {
+      "path": "parity/dialog/composite-realm-affected-closure.json",
+      "sha256": "753df2c76a7b73865da6b93bc0b08b8dcd53bfb6011ece2821734d643b8cd810"
+    },
+    {
+      "path": "parity/dialog/composite-realm-repair.json",
+      "sha256": "dad11bd546c02fa6dc5c037334bb2aa485e7ec9395b9b29070f730bed26ccd96"
+    },
+    {
+      "path": "parity/dialog/independent-review-032.json",
+      "sha256": "712f7f7d3bcff775fae03d872821d021505fa3cbb88123567450db586e1a3b9d"
+    },
+    {
+      "path": "parity/dialog/local-graph.json",
+      "sha256": "f084a1846f41f37ccbba50c0bd37b77c0745f939fd2666d4a46f1d8d011d37dd"
+    },
+    {
+      "path": "parity/dialog/receipts/DialogCompositeRealmFixture.svelte.txt",
+      "sha256": "7c37846eed5116d58e52b2fefc90d5c74d54624469835d63a7899717ba36cf58"
+    },
+    {
+      "path": "parity/dialog/receipts/composite-realm-predecessor.ts.txt",
+      "sha256": "f4e02dc8034a749a29f2c63d12f34c25d17c73ffd4075bc31e8f4a55306c0a9e"
+    },
+    {
+      "path": "parity/dialog/receipts/composite-realm-reference.ts.txt",
+      "sha256": "c7590ab80544306132af911dbef9df2017822d3c33fa259c18b3a070bad892b0"
+    },
+    {
+      "path": "parity/dialog/receipts/dialog-composite-caller-red.log",
+      "sha256": "7c2b77142352520905ab9d7b6ac4ed4e4bf82607c653ee4c05c67b5d6bb8f11b"
+    },
+    {
+      "path": "parity/dialog/receipts/dialog-composite-realm-green.log",
+      "sha256": "228c7d57dac02a9074ac4cf3245e732dfa7f1b7683b620a8d16086466693afff"
+    },
+    {
+      "path": "parity/dialog/receipts/dialog-composite-realm-red-executed.log",
+      "sha256": "84cefa6de7d7b0755b1ca6aa2555e0840ee9ff15a5db64adb3e9493d1e049920"
+    },
+    {
+      "path": "parity/dialog/receipts/dialog-composite-realm-red-executed2.log",
+      "sha256": "2e5e29f6cf104ba6b34a941358c67828c088d6538a68f8803c39a8db5a45267e"
+    },
+    {
+      "path": "parity/dialog/receipts/dialog-composite-realm-red.log",
+      "sha256": "306e0d7200895d3df06d0ccddd7b4243904b5568a571f5e62fe6e01d0594f7d0"
+    },
+    {
+      "path": "parity/dialog/receipts/dialog-composite-realm.test.ts.txt",
+      "sha256": "f5a599561f19e2d507858229914acc292eedcc41053656cfb2a9b4fb43c5667b"
+    },
+    {
+      "path": "parity/dialog/receipts/navigation-realm-predecessor.ts.txt",
+      "sha256": "bcfb35db31e9b53c86be39c229e041eaaf48f82df10d4dfaac79b69ecfd5a6dd"
+    },
+    {
+      "path": "parity/dialog/source-correspondence.json",
+      "sha256": "6cb8b6804b5d0c18e73d6389b6d74e5430997e6df7aba2d8e64829fb9a244bb8"
+    },
+    {
+      "path": "parity/dialog/source-correspondence.md",
+      "sha256": "7a89bf1f455f57aeca5a8f07739f2655bb4aa7be010c6b25371f0c4fe6099827"
+    },
+    {
+      "path": "parity/native-snippets/native-graph.json",
+      "sha256": "fa734917a1e346f57dd4af47453cadeb725b521efc2d629346ddfc2dceb6edfb"
+    },
+    {
+      "path": "parity/radio/source-correspondence.md",
+      "sha256": "6d36f85de6c09c67795b5a269999385f2f72c82ca55800f659aa439045ddf17e"
+    }
+  ],
+  "manifestSelfExcluded": true,
+  "closureMapping": "source-correspondence.json",
+  "currentClosure": "local-graph.json",
+  "affectedClosure": "composite-realm-affected-closure.json",
+  "classDependencies": [
+    "packages/base/src/lib/internals/useTransitionStatus.svelte.ts",
+    "packages/base/src/lib/internals/use-button/useButton.svelte.ts"
+  ],
+  "runtimeEqualsActualMain": false,
+  "supersedesHistoricalAcceptanceClaims": "native-main-closeout.json describes only frozen032 tree equality; successor changes two shared runtime helpers and does not inherit acceptance"
+}

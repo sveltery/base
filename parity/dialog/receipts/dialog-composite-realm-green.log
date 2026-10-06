@@ -1,0 +1,13 @@
+
+ RUN  v5.0.3 /workspace/scratch/5fe281c917f6/dialog-successor/packages/base
+
+
+ Test Files  3 passed (3)
+      Tests  22 passed (22)
+   Start at  21:48:31
+   Duration  27.20s (transform 62%, environment 20%, tests 11%, import 7%)
+
+  Transform  |dom| transforming modules took 16.22s · 62% of tracked time, re-done on every run
+             persist transforms across runs with fsModuleCache: true
+             learn more: https://vitest.dev/guide/improving-performance#caching-between-reruns
+

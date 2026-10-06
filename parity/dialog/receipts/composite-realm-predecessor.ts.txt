@@ -163,7 +163,7 @@ function getOffset(ancestor: HTMLElement, element: HTMLElement, side: 'left' | '
 }
 
 function getStyles(element: HTMLElement) {
-  const styles = getComputedStyle(element);
+  const styles = element.ownerDocument.defaultView!.getComputedStyle(element);
   return {
     scrollMarginTop: parseFloat(styles.scrollMarginTop) || 0,
     scrollMarginRight: parseFloat(styles.scrollMarginRight) || 0,
