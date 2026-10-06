@@ -8055,7 +8055,7 @@
       ],
       "originalPin": "47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c",
       "businessRole": "Same-microtask completion batching, finished promises, retry/abort/starting-attribute observer",
-      "primitiveReplacement": "Svelte flushSync/native lifecycle, canonical AnimationFrame class",
+      "primitiveReplacement": "Native lifecycle/flushSync delegate around real AnimationFrame class; invocation-local observer/signal/retry closures and Source module-shared pendingCallbacks remain shared. No independent persistent facade owner or new class prerequisite.",
       "status": "documentation-plan-reviewed; inherited runtime acceptance not granted",
       "reviewCheck": "Source abort guards and batching distinction; frame cancellation and observer signals; no fake exit presence.",
       "bodyReading": "Previously read entire supplied native-review-7 through native-review-12 bodies; no new full-body reread claimed.",
@@ -8079,7 +8079,8 @@
             "currentAnimations",
             "startingStyleAttribute",
             "attributeObserver"
-          ]
+          ],
+          "primitiveReplacement": "Native lifecycle/flushSync delegate around real AnimationFrame class; invocation-local observer/signal/retry closures and Source module-shared pendingCallbacks remain shared. No independent persistent facade owner or new class prerequisite."
         }
       ],
       "actualSymbols": [
@@ -10415,8 +10416,8 @@
       "actualSymbols": [
         "usePopupHandleStore"
       ],
-      "businessRole": "Native mount switches server fallback to live subscribed handle pointer; fixture-only snapshot role.",
-      "primitiveReplacement": "Native onMount and createSubscriber-backed handle getter preserve SSR fallback pointer without a React render/commit replay engine.",
+      "businessRole": "Retained per-instance committed hydration flag selects inert server fallback before mount and current live handle store after mount; actual Popover Trigger fixture only.",
+      "primitiveReplacement": "Native onMount and createSubscriber-backed getter retain actual hydration history; explicitly assigned Popup owner class pending, no accepted provider SHA. No React commit replay engine.",
       "status": "Existing provider body inspected for documentation composition; no inherited runtime/class acceptance inferred.",
       "reviewCheck": "Whole body previously read; actual business/composition/cleanup role reassessed here. Source roles and native substitutions kept explicit; this mapping does not grant runtime/parity credit.",
       "readingContinuity": "Complete body read during initial collective review; unchanged provider identity verified at892e0b0c. This subsequent per-body business/primitive mapping assessment is not a fresh entire-body reread.",

@@ -2,7 +2,7 @@
   "providerCommit": "aa4daff54ec82b96e34e1601648d1b3926ef08cf",
   "sourcePin": "47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c",
   "scope": "All212 actual physical providers:209 graph union plus3 appendix. Earlier whole-body reading continues by exact identity; newly classified retained roles freshly inspected collectively. No unused barrel features or external package bodies added.",
-  "ownerTaskStatus": "Lead reports canonical cloud ownership for reached families. Specific-body task assignment, exact PR/provider SHA, final class bodies and acceptance are not supplied; unknown subroles such as completion/anchored scroll require owner coordination, not invented assignments.",
+  "ownerTaskStatus": "Lead reports canonical cloud ownership for reached families, including usePopupHandleStore and useAnchoredPopupScrollLock in the assigned Popup owner scope. Exact accepted class provider SHA and acceptance are not supplied. useAnimationsFinished has no independently retained state beyond the existing AnimationFrame class and per-invocation closures; a new class facade is unnecessary.",
   "modules": [
     {
       "source": "packages/base/src/lib/checkbox-group/CheckboxGroupContext.ts",
@@ -4939,18 +4939,12 @@
       "source": "packages/base/src/lib/internals/useAnimationsFinished.ts",
       "sha256": "7abe48ef841cdfa7bf60b29045e9f0ffb7dbfb715b34351e8f6716131b2678f8",
       "classification": {
-        "category": "retained-reusable-owner-function-pending-canonical-class",
-        "existingClassSymbols": [],
-        "businessRole": "Same-microtask completion batching, finished promises, retry/abort/starting-attribute observer",
-        "pendingOwner": {
-          "family": "Popup/shared completion",
-          "symbols": [
-            "useAnimationsFinished"
-          ],
-          "usedScope": "Select completion dependencies plus actual Field/Popup fixtures",
-          "retainedOwnership": "per-instance replacement frame, attribute observer, retry/abort and completion batch ownership",
-          "taskStatus": "Canonical family ownership reported; specific-body task scope, final class provider/hash and acceptance remain unconfirmed. Coordinate through that owner, do not create a parallel helper."
-        },
+        "category": "native-context-lifecycle-or-publication-glue",
+        "existingClassSymbols": [
+          "AnimationFrame"
+        ],
+        "businessRole": "Native lifecycle/callback delegate around existing AnimationFrame owner; per-invocation observer/signal/promise/retry closures and module-shared Source completion batch remain recognizable.",
+        "pendingOwner": null,
         "graphReachability": [
           {
             "selectedSymbols": [
@@ -4978,7 +4972,8 @@
             ]
           }
         ],
-        "acceptance": "Class representation classification only; no inherited runtime/provider acceptance. Missing business leaves remain separate."
+        "acceptance": "Class representation classification only; no inherited runtime/provider acceptance. Missing business leaves remain separate.",
+        "maintainability": "No additional independently retained per-instance bookkeeping beyond AnimationFrame. Keep onDestroy(frame.cancel), request replacement cancellation, observer abort/disconnect, replacement-animation retry, signal guards and module-shared pendingCallbacks batching; no unnecessary class facade or new per-instance batch queue."
       }
     },
     {
@@ -6801,10 +6796,18 @@
       "source": "packages/base/src/lib/utils/popups/usePopupHandleStore.svelte.ts",
       "sha256": "d96d4ca763135cddc2ddbc931e772954b47ceb057bf1172660ec73203c9dbd0b",
       "classification": {
-        "category": "native-context-lifecycle-or-publication-glue",
+        "category": "retained-reusable-owner-function-pending-canonical-class",
         "existingClassSymbols": [],
-        "businessRole": "Native mount switches server fallback to live subscribed handle pointer; fixture-only snapshot role.",
-        "pendingOwner": null,
+        "businessRole": "Per-instance committed hydration flag retains server-fallback versus mounted live handle history; actual nested Popover Trigger fixture only.",
+        "pendingOwner": {
+          "family": "Popup",
+          "symbols": [
+            "usePopupHandleStore"
+          ],
+          "usedScope": "Actual nested Popover Trigger fixture only; no new Select core handle API requested",
+          "retainedOwnership": "committed=$state(false) persists per instance; onMount switches future getter reads from handle.serverStore to handle.store while undefined handles stay undefined",
+          "taskStatus": "Explicitly assigned canonical Popup owner task per lead; class representation pending, no accepted provider SHA or acceptance supplied."
+        },
         "graphReachability": [
           {
             "selectedSymbols": [
@@ -7027,7 +7030,7 @@
           ],
           "usedScope": "Select core and actual positioned Popover fixtures",
           "retainedOwnership": "touch-width eligibility state delegates shared ScrollLocker class",
-          "taskStatus": "Canonical family ownership reported; specific-body task scope, final class provider/hash and acceptance remain unconfirmed. Coordinate through that owner, do not create a parallel helper."
+          "taskStatus": "Explicitly assigned canonical Popup owner task per lead; retained touch/width eligibility state needs class representation. No accepted provider SHA or acceptance supplied."
         },
         "graphReachability": [
           {
@@ -8505,5 +8508,13 @@
   "missingBusinessLeaves": 5,
   "nativeStyleRepair": "Separate PR73 minimal string transport repair preserving actual Svelte defaults remains future implementation prerequisite.",
   "documentationAcceptance": "Accurate plan may be accepted after exact public-head substantive independent review, configured review and mandatory CI; future class/runtime dependencies do not require landing before documentation acceptance.",
-  "typeOnlyRetainedOwnerRows": 1
+  "typeOnlyRetainedOwnerRows": 1,
+  "classificationCorrectionProvenance": {
+    "priorPublicCommit": "f3c8ca18484db77c1c8ce5718d47485d745ffae3",
+    "priorInventoryGitBlob": "eb8350f4e22c223ee356082856750a66c7fd6773",
+    "priorInventorySha256": "28b7fd48b4100d26862ccf524e7ade1c7a00617159a0f3593291ca4258f6cd5f",
+    "priorInventoryUrl": "https://github.com/sveltery/base/blob/f3c8ca18484db77c1c8ce5718d47485d745ffae3/parity/select/canonical-owner-classification.json",
+    "correction": "Fresh full actual/pinned popup-handle and animation-completion bodies plus actual AnimationFrame body distinguish persistent hydration history from existing-class/native delegate. One runtime owner row added and one removed; count28 remains, no new missing business leaves/runtime changes/acceptance.",
+    "leadAttestation": "Lead freshly read complete pinned/current useAnimationsFinished and useAnchoredPopupScrollLock: existing AnimationFrame instance alone owns persistent completion frame state; pendingCallbacks stays module-shared, lifecycle cancellation delegates, no completion facade. Anchored-scroll retained eligibility is assigned Popup task7; PopupHandleStore committed hydration history is assigned Popup task6. These task labels are lead-reported, not accepted runtime/class providers."
+  }
 }

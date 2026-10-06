@@ -1003,19 +1003,19 @@
   "manualNotes": [
     {
       "path": "source-plan.md",
-      "sha256": "37c534127f906ade2c3e1e7075b6997bb53145fcfd892e4a67a5819ce52558a5"
+      "sha256": "4b80f6991780c267466685202249b057797b02fb304893ebf3a1c0e6dbbf9110"
     },
     {
       "path": "source-correspondence.md",
-      "sha256": "3d81c818b6173539a210559cd77fc3281ceb24ea309c94c716e42dad080b67a9"
+      "sha256": "e7d869be9f690c96c04abc464c38b5d57e0b9fbe9010ed2f6584e116c4cd38bd"
     },
     {
       "path": "native-composition.md",
-      "sha256": "7221de1463a24d74ca4c28f28122afd4e1aee784ff8d32bd708b727ec35636f6"
+      "sha256": "e217fe131732444b3830b7d7bf9348a24f679b0ad17c7a6402eb835a538aa0d5"
     },
     {
       "path": "manual-test-plan.md",
-      "sha256": "4f43632fec990eb93c7ca5432380524ec06ada63babc533ac2cae633a403ca14"
+      "sha256": "116732f9028340d08fd3bd21e05b5886cd7c3b63f8c78ac8e9c088ea984a4541"
     },
     {
       "path": "remote-select-contract.md",
@@ -1343,10 +1343,10 @@
     "status": "Individual mappings assess actual business/native/maintainability separately from hashes. Whole-body collective reading scope explicitly attributed; final-head disposition external. Zero runtime acceptance and ordinary credit.",
     "hashes": {
       "per-body-source-mapping.json": "e18b637139e64074594924c77f98db2682a59e97263226626c48f97d636fa742",
-      "per-body-native-mapping.json": "2adc387753ab1bac26d7e41c9bd191710a98b0f5d840804b66300a691b8cb5a7",
+      "per-body-native-mapping.json": "fa8067ceee7a1e86b777e0696f0c55592e8d2be4a9d44bc66cf1c13ce437926e",
       "existing-provider-appendix.json": "7a68ed1e19722650ae864d11aea0c285f24ef080c14371f2c5caa4be1b7cc2c3",
       "independent-body-reading-ledger.json": "9410737cceb9bd0286c34d09b285fa4e159a7b57884b1cf3643e3e128fd2aa31",
-      "canonical-owner-classification.json": "28b7fd48b4100d26862ccf524e7ade1c7a00617159a0f3593291ca4258f6cd5f"
+      "canonical-owner-classification.json": "27a174a47d44e6fdc62dbc820be1427dd5335d71474abcc77ee981300d71ee8e"
     },
     "independentWholeBodyReadingLedger": "independent-body-reading-ledger.json",
     "sourceTestClosureBodiesRead": 279,
@@ -1411,7 +1411,8 @@
     "actualProviders": 212,
     "runtimeReachedOwnerRows": 28,
     "typeOnlyOwnerAuditRows": 1,
-    "status": "Lead-reported canonical family owners pending; no invented task PR/provider hashes/acceptance. Five absent business leaves stay separate. Accurate documentation can complete after final-public-head substantive/configured review and mandatory CI."
+    "status": "Lead-reported canonical family owners pending; no invented task PR/provider hashes/acceptance. Five absent business leaves stay separate. Accurate documentation can complete after final-public-head substantive/configured review and mandatory CI.",
+    "correction": "usePopupHandleStore retained committed hydration history added as explicitly assigned Popup owner; useAnimationsFinished delegates real AnimationFrame with per-invocation resources and shared Source batching, no extra facade. One in/one out leaves28 runtime rows. Prior f3 inventory exact blob/hash preserved in inventory provenance."
   },
   "currentRemoteAuthoredRouteProposal": {
     "flag": "Field.Control authoredSelect=true",
