@@ -7,4 +7,5 @@
   const toolbar = useToolbarRootContext();
   const orientation = $derived(toolbar.orientation === 'vertical' ? 'horizontal' : 'vertical');
 </script>
+
 <Separator {orientation} {...props} bind:ref />

@@ -4,4 +4,7 @@
   // Base UI v1.8.0; MIT: THIRD_PARTY_NOTICES.md.
   let { messages }: { messages: string[] } = $props();
 </script>
-<ul>{#each messages as message}<li>{message}</li>{/each}</ul>
+
+<ul
+  >{#each messages as message}<li>{message}</li>{/each}</ul
+>

@@ -23,12 +23,29 @@
     observeCorner?: (state: object) => void;
   } = $props();
 </script>
-<DirectionProvider {direction}><CSPProvider {nonce} {disableStyleElements}>
-  <ScrollArea.Root data-testid="root" overflowEdgeThreshold={threshold}>
-    {#if !noViewport}<ScrollArea.Viewport data-testid="viewport" style={{ scrollSnapType: 'y mandatory' }}><ScrollArea.Content data-testid="content">Content</ScrollArea.Content></ScrollArea.Viewport>{/if}
-    <ScrollArea.Scrollbar keepMounted data-testid="vertical"><ScrollArea.Thumb data-testid="vertical-thumb" onpointermove={event => { if (preventMove) event.preventBaseUIHandler(); }} /></ScrollArea.Scrollbar>
-    <ScrollArea.Scrollbar orientation="horizontal" keepMounted data-testid="horizontal"><ScrollArea.Thumb data-testid="horizontal-thumb" /></ScrollArea.Scrollbar>
-    <ScrollArea.Corner data-testid="corner" />
-    {#if observeCorner}<StateProbe observe={observeCorner} />{/if}
-  </ScrollArea.Root>
-</CSPProvider></DirectionProvider>
+
+<DirectionProvider {direction}
+  ><CSPProvider {nonce} {disableStyleElements}>
+    <ScrollArea.Root data-testid="root" overflowEdgeThreshold={threshold}>
+      {#if !noViewport}<ScrollArea.Viewport
+          data-testid="viewport"
+          style="scroll-snap-type:y mandatory"
+          ><ScrollArea.Content data-testid="content">Content</ScrollArea.Content
+          ></ScrollArea.Viewport
+        >{/if}
+      <ScrollArea.Scrollbar keepMounted data-testid="vertical"
+        ><ScrollArea.Thumb
+          data-testid="vertical-thumb"
+          onpointermove={(event) => {
+            if (preventMove) event.preventBaseUIHandler();
+          }}
+        /></ScrollArea.Scrollbar
+      >
+      <ScrollArea.Scrollbar orientation="horizontal" keepMounted data-testid="horizontal"
+        ><ScrollArea.Thumb data-testid="horizontal-thumb" /></ScrollArea.Scrollbar
+      >
+      <ScrollArea.Corner data-testid="corner" />
+      {#if observeCorner}<StateProbe observe={observeCorner} />{/if}
+    </ScrollArea.Root>
+  </CSPProvider></DirectionProvider
+>

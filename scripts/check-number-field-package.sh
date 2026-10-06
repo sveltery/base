@@ -1,18 +1,19 @@
 #!/usr/bin/env bash
 set -euo pipefail
 cd "$(dirname "$0")/.."
-source scripts/toolchain.sh
+source scripts/package-artifacts.sh
 number_field_consumer="$(mktemp -d "${TMPDIR:-/tmp}/sveltery-number-field-consumer.XXXXXX")"
 trap 'rm -rf "$number_field_consumer"' EXIT
-pnpm --filter @sveltery/base pack --pack-destination "$number_field_consumer" > /dev/null
+sveltery_pack_package @sveltery/base "$number_field_consumer" > /dev/null
 node --input-type=module - "$number_field_consumer" <<'JS'
 import { readdirSync, writeFileSync } from 'node:fs';
 import { join } from 'node:path';
 const directory = process.argv[2], tarball = readdirSync(directory).find(name => name.endsWith('.tgz'));
 writeFileSync(join(directory, 'package.json'), JSON.stringify({ private: true, type: 'module', dependencies: { '@sveltery/base': `file:${join(directory, tarball)}`, svelte: '5.57.1', '@sveltejs/kit': '2.70.3' }, devDependencies: { vite: '8.3.1', '@types/node': '26.6.3' } }));
 JS
-pnpm --dir "$number_field_consumer" --ignore-workspace install --ignore-scripts > /dev/null
-pnpm --dir "$number_field_consumer" --ignore-workspace install --frozen-lockfile --ignore-scripts > /dev/null
+sveltery_prepare_consumer "$number_field_consumer"
+pnpm --dir "$number_field_consumer" install --ignore-scripts > /dev/null
+pnpm --dir "$number_field_consumer" install --frozen-lockfile --ignore-scripts > /dev/null
 cmp LICENSE "$number_field_consumer/node_modules/@sveltery/base/LICENSE"
 cat > "$number_field_consumer/Consumer.svelte" <<'SVELTE'
 <script lang="ts">

@@ -3,7 +3,7 @@ import { createRequire } from 'node:module';
 import { resolve } from 'node:path';
 import { afterEach, expect, it, vi } from 'vitest';
 import { flushSync, mount, unmount } from 'svelte';
-import { reset } from '../../src/lib/utils/error.js';
+import { reset } from '@sveltery/utils/error';
 import Fixture from './NumberFieldButtonDiagnostics.svelte';
 
 const require = createRequire(resolve(process.cwd(), '../../apps/fixtures/package.json'));
@@ -14,8 +14,10 @@ const { Field } = require('@base-ui/react/field');
 const { Form } = require('@base-ui/react/form');
 const cleanups: (() => Promise<void>)[] = [];
 const messages = {
-  native: 'Base UI: A component that acts as a button expected a native <button> because the `nativeButton` prop is true. Rendering a non-<button> removes native button semantics, which can impact forms and accessibility. Use a real <button> in the `render` prop, or set `nativeButton` to `false`.',
-  nonNative: 'Base UI: A component that acts as a button expected a non-<button> because the `nativeButton` prop is false. Rendering a <button> keeps native behavior while Base UI applies non-native attributes and handlers, which can add unintended extra attributes (such as `role` or `aria-disabled`). Use a non-<button> in the `render` prop, or set `nativeButton` to `true`.',
+  native:
+    'Base UI: A component that acts as a button expected a native <button> because the `nativeButton` prop is true. Rendering a non-<button> removes native button semantics, which can impact forms and accessibility. Use a real <button> in the `render` prop, or set `nativeButton` to `false`.',
+  nonNative:
+    'Base UI: A component that acts as a button expected a non-<button> because the `nativeButton` prop is false. Rendering a <button> keeps native behavior while Base UI applies non-native attributes and handlers, which can add unintended extra attributes (such as `role` or `aria-disabled`). Use a non-<button> in the `render` prop, or set `nativeButton` to `true`.',
 };
 
 afterEach(async () => {
@@ -45,13 +47,33 @@ for (const framework of ['original', 'native'] as const) {
             await React.act(async () => root.unmount());
             Reflect.set(globalThis, 'IS_REACT_ACT_ENVIRONMENT', previousActEnvironment);
           });
-          await React.act(async () => root.render(h(Form, null,
-            h(Field.Root, { name: 'amount' }, h(Field.Label, null, 'Amount'),
-              h(NumberField.Root, { defaultValue: 2, locale: 'en-US' },
-                h(NumberField.Input),
-                h(NumberField.Increment, { nativeButton, render: renderButton ? undefined : h('span') }, 'Increase'))))));
+          await React.act(async () =>
+            root.render(
+              h(
+                Form,
+                null,
+                h(
+                  Field.Root,
+                  { name: 'amount' },
+                  h(Field.Label, null, 'Amount'),
+                  h(
+                    NumberField.Root,
+                    { defaultValue: 2, locale: 'en-US' },
+                    h(NumberField.Input),
+                    h(
+                      NumberField.Increment,
+                      { nativeButton, render: renderButton ? undefined : h('span') },
+                      'Increase',
+                    ),
+                  ),
+                ),
+              ),
+            ),
+          );
         }
-        const diagnostics = errors.mock.calls.map(args => String(args[0])).filter(message => message.startsWith('Base UI: A component that acts as a button'));
+        const diagnostics = errors.mock.calls
+          .map((args) => String(args[0]))
+          .filter((message) => message.startsWith('Base UI: A component that acts as a button'));
         if (nativeButton === renderButton) expect(diagnostics).toEqual([]);
         else {
           expect(diagnostics).toHaveLength(1);
@@ -63,7 +85,10 @@ for (const framework of ['original', 'native'] as const) {
         const button = host.querySelector<HTMLElement>('[aria-label="Increase"]')!;
         expect(button.tagName).toBe(renderButton ? 'BUTTON' : 'SPAN');
         if (framework === 'original') await React.act(async () => button.click());
-        else { button.click(); flushSync(); }
+        else {
+          button.click();
+          flushSync();
+        }
         expect(host.querySelector<HTMLInputElement>('input[type="number"]')!.value).toBe('3');
       });
     }

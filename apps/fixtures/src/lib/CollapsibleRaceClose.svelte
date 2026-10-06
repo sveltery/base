@@ -4,9 +4,10 @@
   import { untrack } from 'svelte';
   let { open }: { open: boolean } = $props();
   $effect.pre(() => {
-    if (!open) untrack(() => {
-      const browser = window as Window & { race?: Animation; raceStarted?: boolean };
-      if (browser.raceStarted) browser.race?.finish();
-    });
+    if (!open)
+      untrack(() => {
+        const browser = window as Window & { race?: Animation; raceStarted?: boolean };
+        if (browser.raceStarted) browser.race?.finish();
+      });
   });
 </script>

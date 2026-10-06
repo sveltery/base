@@ -1,0 +1,10 @@
+$ prettier --check . && eslint .
+Checking formatting...
+[warn] apps/fixtures/src/lib/number-field-reference.ts
+[warn] apps/fixtures/src/routes/number-field-remote/+page.svelte
+[warn] apps/fixtures/src/routes/number-field-remote/number.remote.ts
+[warn] apps/fixtures/src/routes/number-field/+page.svelte
+[warn] apps/fixtures/src/routes/number-field/+page.ts
+[warn] tests/browser/number-field.spec.ts
+[warn] Code style issues found in 6 files. Run Prettier with --write to fix.
+[ELIFECYCLE] Command failed with exit code 1.

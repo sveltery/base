@@ -1,7 +1,7 @@
 // Ported from Base UI v1.8.0 at 47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c.
 // MIT Copyright (c) 2019 Material-UI SAS; see THIRD_PARTY_NOTICES.md.
-import { clamp } from '../../utils/clamp.js';
-import { getFormatter } from '../../utils/formatNumber.js';
+import { clamp } from '@sveltery/utils/clamp';
+import { getFormatter } from '@sveltery/utils/formatNumber';
 import { parseNumber } from './parse.js';
 
 // A relative factor scaled by the step size when snapping (`stepSize * STEP_EPSILON_FACTOR`).

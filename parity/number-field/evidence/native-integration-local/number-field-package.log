@@ -1,0 +1,5 @@
+Isolated installed NumberField root/subpath, seven parts, 18 exact type exports, native SSR/MIT/runtime boundary: PASS
+Loading svelte-check in workspace: /tmp/sveltery-number-field-consumer.sShrU3
+Getting Svelte diagnostics...
+
+svelte-check found 0 errors and 0 warnings

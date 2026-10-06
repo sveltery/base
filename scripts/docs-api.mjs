@@ -5,17 +5,17 @@ import { resolve } from 'node:path';
 const root = fileURLToPath(new URL('../', import.meta.url));
 const require = createRequire(resolve(root, 'packages/base/package.json'));
 const ts = require('typescript');
+export function extractTypeScript(component) {
+  // Svelte attributes can contain quoted > characters (for example generic bounds).
+  const tags = component.matchAll(/<script\b((?:[^>"']|"[^"]*"|'[^']*')*)>([\s\S]*?)<\/script>/g);
+  for (const [, attributes, script] of tags) {
+    if (/\blang\s*=\s*(["'])ts\1/.test(attributes)) return script;
+  }
+  return undefined;
+}
 export function extractDialogApi() {
-  const source = readFileSync(
-    resolve(root, 'packages/base/src/lib/dialog/types.ts'),
-    'utf8',
-  );
-  const ast = ts.createSourceFile(
-    'types.ts',
-    source,
-    ts.ScriptTarget.Latest,
-    true,
-  );
+  const source = readFileSync(resolve(root, 'packages/base/src/lib/dialog/types.ts'), 'utf8');
+  const ast = ts.createSourceFile('types.ts', source, ts.ScriptTarget.Latest, true);
   const rootProps = ast.statements.find(
     (node) => ts.isInterfaceDeclaration(node) && node.name.text === 'RootProps',
   );
@@ -30,6 +30,7 @@ export function extractDialogApi() {
     'Trigger',
     'Portal',
     'Backdrop',
+    'Viewport',
     'Popup',
     'Title',
     'Description',
@@ -39,16 +40,9 @@ export function extractDialogApi() {
       resolve(root, `packages/base/src/lib/dialog/${name}.svelte`),
       'utf8',
     );
-    const script = component.match(
-      /<script lang="ts">([\s\S]*?)<\/script>/,
-    )?.[1];
+    const script = extractTypeScript(component);
     if (!script) throw new Error(`Missing script: ${name}`);
-    const file = ts.createSourceFile(
-      `${name}.ts`,
-      script,
-      ts.ScriptTarget.Latest,
-      true,
-    );
+    const file = ts.createSourceFile(`${name}.ts`, script, ts.ScriptTarget.Latest, true);
     let signature;
     function visit(node) {
       if (
@@ -68,14 +62,10 @@ export function extractDialogApi() {
 }
 const output = resolve(root, 'apps/fixtures/src/lib/docs/dialog-api.json');
 export function checkDialogApi() {
-  if (
-    readFileSync(output, 'utf8') !==
-    JSON.stringify(extractDialogApi(), null, 2) + '\n'
-  )
+  if (readFileSync(output, 'utf8') !== JSON.stringify(extractDialogApi(), null, 2) + '\n')
     throw new Error('Dialog docs API is stale. Run node scripts/docs-api.mjs');
 }
 if (process.argv[1] === fileURLToPath(import.meta.url)) {
   if (process.argv.includes('--check')) checkDialogApi();
-  else
-    writeFileSync(output, JSON.stringify(extractDialogApi(), null, 2) + '\n');
+  else writeFileSync(output, JSON.stringify(extractDialogApi(), null, 2) + '\n');
 }

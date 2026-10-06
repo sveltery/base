@@ -1,27 +1,47 @@
 // Source business body from Base UI v1.8.0 useNumberFieldStepperButton.ts (MIT).
 import { useButton } from '../../internals/use-button/useButton.svelte.js';
-import { isTouchLikePointerType, usePressAndHold } from '../../internals/usePressAndHold.svelte.js';
+import { isTouchLikePointerType, PressAndHold } from '../../internals/usePressAndHold.svelte.js';
 import { parseNumber } from '../utils/parse.js';
-import { createChangeEventDetails, createGenericEventDetails } from '../../internals/createBaseUIEventDetails.js';
+import {
+  createChangeEventDetails,
+  createGenericEventDetails,
+} from '../../internals/createBaseUIEventDetails.js';
 import type { EventWithOptionalKeyState } from '../utils/types.js';
 import type { NumberFieldRootChangeEventReason } from '../types.js';
 import type { HTMLProps } from '../../internals/types.js';
 import { REASONS } from '../../internals/reasons.js';
 import { useNumberFieldRootContext } from './NumberFieldRootContext.js';
 const SELECT_NONE_STYLE = 'user-select:none;-webkit-user-select:none';
-export function useNumberFieldStepperButton(getParameters: () => { isIncrement: boolean; disabled: boolean; nativeButton: boolean }) {
+export function useNumberFieldStepperButton(
+  getParameters: () => { isIncrement: boolean; disabled: boolean; nativeButton: boolean },
+) {
   const { isIncrement, disabled: disabledProp, nativeButton } = $derived(getParameters());
   const context = useNumberFieldRootContext();
-  const { allowInputSyncRef, formatOptionsRef, getStepAmount, incrementValue, inputRef, focusInput, setValue, valueRef, lastChangedValueRef, onValueCommitted } = context;
+  const {
+    allowInputSyncRef,
+    formatOptionsRef,
+    getStepAmount,
+    incrementValue,
+    inputRef,
+    focusInput,
+    setValue,
+    valueRef,
+    lastChangedValueRef,
+    onValueCommitted,
+  } = context;
   const id = $derived(context.id);
   const maxWithDefault = $derived(context.maxWithDefault);
   const minWithDefault = $derived(context.minWithDefault);
   const state = $derived(context.state);
   const { disabled: contextDisabled, readOnly, value, inputValue } = $derived(state);
   const locale = $derived(context.locale);
-  const isAtBoundary = $derived(value != null && (isIncrement ? value >= maxWithDefault : value <= minWithDefault));
+  const isAtBoundary = $derived(
+    value != null && (isIncrement ? value >= maxWithDefault : value <= minWithDefault),
+  );
   const disabled = $derived(disabledProp || contextDisabled || isAtBoundary);
-  const pressReason: NumberFieldRootChangeEventReason = $derived(isIncrement ? REASONS.incrementPress : REASONS.decrementPress);
+  const pressReason: NumberFieldRootChangeEventReason = $derived(
+    isIncrement ? REASONS.incrementPress : REASONS.decrementPress,
+  );
   function commitValue(nativeEvent: MouseEvent) {
     const shouldCommitInputValue = !allowInputSyncRef.current;
     allowInputSyncRef.current = true;
@@ -53,7 +73,7 @@ export function useNumberFieldStepperButton(getParameters: () => { isIncrement: 
     }
   }
 
-  const { pointerHandlers, shouldSkipClick } = usePressAndHold(() => ({
+  const { pointerHandlers, shouldSkipClick } = new PressAndHold(() => ({
     disabled: disabled || readOnly,
     elementRef: inputRef,
     tick(triggerEvent) {
@@ -135,5 +155,14 @@ export function useNumberFieldStepperButton(getParameters: () => { isIncrement: 
   }));
 
   const buttonState = $derived({ ...state, disabled });
-  return { get props() { return props; }, get state() { return buttonState; }, buttonRef, getButtonProps };
+  return {
+    get props() {
+      return props;
+    },
+    get state() {
+      return buttonState;
+    },
+    buttonRef,
+    getButtonProps,
+  };
 }

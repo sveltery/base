@@ -6,10 +6,16 @@
   import { Form } from '../../src/lib/form/index.js';
   let { nativeButton, renderButton }: { nativeButton: boolean; renderButton: boolean } = $props();
 </script>
-<Form><Field.Root name="amount"><Field.Label>Amount</Field.Label>
-  <NumberField.Root defaultValue={2} locale="en-US">
-    <NumberField.Input />
-    <NumberField.Increment {nativeButton} render={renderButton ? undefined : span}>Increase</NumberField.Increment>
-  </NumberField.Root>
-</Field.Root></Form>
+
+<Form
+  ><Field.Root name="amount"
+    ><Field.Label>Amount</Field.Label>
+    <NumberField.Root defaultValue={2} locale="en-US">
+      <NumberField.Input />
+      <NumberField.Increment {nativeButton} render={renderButton ? undefined : span}
+        >Increase</NumberField.Increment
+      >
+    </NumberField.Root>
+  </Field.Root></Form
+>
 {#snippet span(props: HTMLAttributes<HTMLSpanElement>)}<span {...props}>Increase</span>{/snippet}

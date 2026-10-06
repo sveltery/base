@@ -23,12 +23,17 @@ export interface ScrollAreaThumbState {
   orientation: 'horizontal' | 'vertical';
 }
 export type ScrollAreaCornerState = Record<string, never>;
-type PartProps<State> = Omit<WithBaseUIEvent<HTMLAttributes<HTMLDivElement>>, 'class' | 'style' | 'children'> & BaseUIComponentProps<State> & {
-  children?: Snippet | undefined;
-  ref?: HTMLElement | null | undefined;
-};
+type PartProps<State> = Omit<
+  WithBaseUIEvent<HTMLAttributes<HTMLDivElement>>,
+  'class' | 'style' | 'children'
+> &
+  BaseUIComponentProps<State> & {
+    children?: Snippet | undefined;
+    ref?: HTMLElement | null | undefined;
+  };
 export type ScrollAreaRootProps = PartProps<ScrollAreaRootState> & {
-  overflowEdgeThreshold?: number | Partial<{ xStart: number; xEnd: number; yStart: number; yEnd: number }> | undefined;
+  overflowEdgeThreshold?:
+    number | Partial<{ xStart: number; xEnd: number; yStart: number; yEnd: number }> | undefined;
 };
 export type ScrollAreaViewportProps = PartProps<ScrollAreaViewportState>;
 export type ScrollAreaContentProps = PartProps<ScrollAreaContentState>;

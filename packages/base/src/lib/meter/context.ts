@@ -10,6 +10,9 @@ const [get, set, has] = createContext<MeterContext>();
 export const setMeterContext = set;
 export function getMeterContext(): MeterContext {
   const context = has() ? get() : undefined;
-  if (!context) throw new Error('Base UI: MeterRootContext is missing. Meter parts must be placed within <Meter.Root>.');
+  if (!context)
+    throw new Error(
+      'Base UI: MeterRootContext is missing. Meter parts must be placed within <Meter.Root>.',
+    );
   return context;
 }

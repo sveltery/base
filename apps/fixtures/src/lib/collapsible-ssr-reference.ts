@@ -2,13 +2,37 @@
 import { createElement as h, Fragment, useEffect } from 'react';
 import { Collapsible } from '@base-ui/react/collapsible';
 import { collapsibleCss } from './collapsible-config.js';
-export function CollapsibleSSRReference({ scenario, onHydrated }: { scenario: string; onHydrated?: () => void }) {
-  const panelProps = { 'data-testid': 'panel', className: 'keys',
-    style: scenario === 'keys-inline' ? { animationDuration: '100ms', animationName: 'panel-down', animationTimingFunction: 'linear' } : undefined,
+export function CollapsibleSSRReference({
+  scenario,
+  onHydrated,
+}: {
+  scenario: string;
+  onHydrated?: () => void;
+}) {
+  const panelProps = {
+    'data-testid': 'panel',
+    className: 'keys',
+    style:
+      scenario === 'keys-inline'
+        ? {
+            animationDuration: '100ms',
+            animationName: 'panel-down',
+            animationTimingFunction: 'linear',
+          }
+        : undefined,
   };
-  useEffect(() => { onHydrated?.(); }, [onHydrated]);
-  return h(Fragment, null, h('style', null, collapsibleCss),
-    h(Collapsible.Root, { defaultOpen: true },
+  useEffect(() => {
+    onHydrated?.();
+  }, [onHydrated]);
+  return h(
+    Fragment,
+    null,
+    h('style', null, collapsibleCss),
+    h(
+      Collapsible.Root,
+      { defaultOpen: true },
       h(Collapsible.Trigger, { id: 'tested-trigger' }, 'Trigger'),
-      h(Collapsible.Panel, panelProps, 'This is panel content')));
+      h(Collapsible.Panel, panelProps, 'This is panel content'),
+    ),
+  );
 }

@@ -1,6 +1,6 @@
 // Ported from Base UI v1.8.0 at 47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c.
 // MIT Copyright (c) 2019 Material-UI SAS; see THIRD_PARTY_NOTICES.md.
-import { getFormatter } from '../../utils/formatNumber.js';
+import { getFormatter } from '@sveltery/utils/formatNumber';
 
 // Han numerals in digit order, with both zero forms first ('零' at 0, '〇' at 1), so a
 // character's digit value is `max(indexOf - 1, 0)`.
@@ -186,7 +186,12 @@ export function parseNumber(
   ];
 
   let unformatted = replacements.reduce((acc, [regex, replacement]) => {
-    return regex ? acc.replace(regex, replacement as string & ((substring: string, ...args: unknown[]) => string)) : acc;
+    return regex
+      ? acc.replace(
+          regex,
+          replacement as string & ((substring: string, ...args: unknown[]) => string),
+        )
+      : acc;
   }, input);
 
   // Mixed-locale safety: keep only the last '.' as decimal

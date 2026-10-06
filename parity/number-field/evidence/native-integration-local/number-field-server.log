@@ -1,0 +1,13 @@
+
+ RUN  v5.0.3 /workspace/scratch/2bab9a276da0/number-field-integration/packages/base
+
+
+ Test Files  3 passed (3)
+      Tests  142 passed | 2 skipped (144)
+   Start at  21:44:40
+   Duration  8.75s (transform 89%, import 6%, tests 4%)
+
+  Transform  |server| transforming modules took 6.73s · 89% of tracked time, re-done on every run
+             persist transforms across runs with fsModuleCache: true
+             learn more: https://vitest.dev/guide/improving-performance#caching-between-reruns
+

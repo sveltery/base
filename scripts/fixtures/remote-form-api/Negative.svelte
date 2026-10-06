@@ -1,8 +1,13 @@
 <script lang="ts">
   import { Form } from '@sveltery/base';
   import type { RemoteForm } from '@sveltejs/kit';
-  let { remote }: { remote: RemoteForm<{ text: string; age: number; enabled: boolean; choices: string[] }, unknown> } = $props();
+  let {
+    remote,
+  }: {
+    remote: RemoteForm<{ text: string; age: number; enabled: boolean; choices: string[] }, unknown>;
+  } = $props();
 </script>
+
 <Form {remote}>
   {#snippet children(Field)}
     <!-- reject: nonexistent logical name -->

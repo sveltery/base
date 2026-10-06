@@ -1,7 +1,11 @@
 // Original complete Base UI 1.8.0 helper assertion bodies; MIT. Conditional guards retained.
 import { expect, describe, it } from 'vitest';
 const isJSDOM = typeof navigator !== 'undefined' && navigator.userAgent.includes('jsdom');
-import { getNumberLocaleDetails, isNumeralChar, parseNumber } from '../src/lib/number-field/utils/parse.js';
+import {
+  getNumberLocaleDetails,
+  isNumeralChar,
+  parseNumber,
+} from '../src/lib/number-field/utils/parse.js';
 
 describe('NumberField parse', () => {
   describe('getNumberLocaleDetails', () => {

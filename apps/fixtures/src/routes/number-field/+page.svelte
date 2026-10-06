@@ -13,7 +13,14 @@
     void import('../../lib/number-field-reference.js').then(({ mountNumberFieldReference }) => {
       if (!disposed) cleanup = mountNumberFieldReference(node, data.scenario, data.renderMode);
     });
-    return () => { disposed = true; cleanup?.(); };
+    return () => {
+      disposed = true;
+      cleanup?.();
+    };
   });
 </script>
-{#if data.reference}<section bind:this={host}></section>{:else if data.renderMode !== 'csr' || mounted}<Fixture scenario={data.scenario} />{/if}
+
+{#if data.reference}<section bind:this={host}
+  ></section>{:else if data.renderMode !== 'csr' || mounted}<Fixture
+    scenario={data.scenario}
+  />{/if}

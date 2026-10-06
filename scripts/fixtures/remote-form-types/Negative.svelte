@@ -2,13 +2,16 @@
   import { Field, type TypedField } from './imports.js';
   import { survey, other, transformed, matrix, blocked, uncertainName } from './forms.js';
   import CompilerRoot from './TypedRoot.svelte';
-  function namespace<Fields extends object>(): TypedField<Fields> { return { ...Field, Root: CompilerRoot }; }
+  function namespace<Fields extends object>(): TypedField<Fields> {
+    return { ...Field, Root: CompilerRoot };
+  }
   const Root = namespace<typeof survey.fields>().Root;
   const Other = namespace<typeof other.fields>().Root;
   const Transformed = namespace<typeof transformed.fields>().Root;
   const Matrix = namespace<typeof matrix.fields>().Root;
   const Blocked = namespace<typeof blocked.fields>().Root;
 </script>
+
 <!-- reject: typo -->
 <Root name="storageTyp" as="text" />
 <!-- reject: wrong-control -->

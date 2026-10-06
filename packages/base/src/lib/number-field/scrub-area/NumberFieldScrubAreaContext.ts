@@ -7,9 +7,14 @@ export interface NumberFieldScrubAreaContext {
   scrubAreaCursorRef: { current: HTMLSpanElement | null };
 }
 const key = Symbol('base-ui-number-field-scrub-area');
-export function setNumberFieldScrubAreaContext(context: NumberFieldScrubAreaContext) { setContext(key, context); }
+export function setNumberFieldScrubAreaContext(context: NumberFieldScrubAreaContext) {
+  setContext(key, context);
+}
 export function useNumberFieldScrubAreaContext(): NumberFieldScrubAreaContext {
   const context = getContext<NumberFieldScrubAreaContext | undefined>(key);
-  if (context === undefined) throw new Error('Base UI: NumberFieldScrubAreaContext is missing. NumberFieldScrubArea parts must be placed within <NumberField.ScrubArea>.');
+  if (context === undefined)
+    throw new Error(
+      'Base UI: NumberFieldScrubAreaContext is missing. NumberFieldScrubArea parts must be placed within <NumberField.ScrubArea>.',
+    );
   return context;
 }

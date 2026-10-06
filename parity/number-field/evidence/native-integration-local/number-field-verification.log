@@ -1,0 +1,3278 @@
+packages/utils prepack$ pnpm run build && publint --strict
+packages/utils prepack: $ svelte-package
+packages/utils prepack: src/lib -> dist
+packages/utils prepack: Running publint v0.3.25 for @sveltery/utils...
+packages/utils prepack: Packing files with `pnpm pack`...
+packages/utils prepack: Linting...
+packages/utils prepack: All good!
+packages/utils prepack: Done
+packages/base prepack$ svelte-kit sync && svelte-package && publint --strict
+packages/base prepack: src/lib -> dist
+packages/base prepack: Running publint v0.3.25 for @sveltery/base...
+packages/base prepack: Packing files with `pnpm pack`...
+packages/base prepack: Linting...
+packages/base prepack: All good!
+packages/base prepack: Done
+packages/base prepare$ svelte-kit sync
+packages/base prepare: Done
+package: @sveltery/utils@0.0.0
+Tarball Contents
+dist/addEventListener.d.ts
+dist/addEventListener.js
+dist/areArraysEqual.d.ts
+dist/areArraysEqual.js
+dist/clamp.d.ts
+dist/clamp.js
+dist/Controlled.svelte.d.ts
+dist/Controlled.svelte.js
+dist/createLogOnce.d.ts
+dist/createLogOnce.js
+dist/empty.d.ts
+dist/empty.js
+dist/error.d.ts
+dist/error.js
+dist/formatNumber.d.ts
+dist/formatNumber.js
+dist/getDefaultFormSubmitter.d.ts
+dist/getDefaultFormSubmitter.js
+dist/isElementDisabled.d.ts
+dist/isElementDisabled.js
+dist/mergeCleanups.d.ts
+dist/mergeCleanups.js
+dist/mergeObjects.d.ts
+dist/mergeObjects.js
+dist/owner.d.ts
+dist/owner.js
+dist/platform/engine.d.ts
+dist/platform/engine.js
+dist/platform/env.d.ts
+dist/platform/env.js
+dist/platform/index.d.ts
+dist/platform/index.js
+dist/platform/media-query.d.ts
+dist/platform/media-query.js
+dist/platform/os.d.ts
+dist/platform/os.js
+dist/platform/parts.d.ts
+dist/platform/parts.js
+dist/platform/screen-reader.d.ts
+dist/platform/screen-reader.js
+dist/platform/shared.d.ts
+dist/platform/shared.js
+dist/PreviousValue.svelte.d.ts
+dist/PreviousValue.svelte.js
+dist/shadowDom.d.ts
+dist/shadowDom.js
+dist/store/index.d.ts
+dist/store/index.js
+dist/store/Store.svelte.d.ts
+dist/store/Store.svelte.js
+dist/store/SvelteStore.svelte.d.ts
+dist/store/SvelteStore.svelte.js
+dist/stringifyLocale.d.ts
+dist/stringifyLocale.js
+dist/useAnimationFrame.d.ts
+dist/useAnimationFrame.js
+dist/useEnhancedClickHandler.d.ts
+dist/useEnhancedClickHandler.js
+dist/useId.d.ts
+dist/useId.js
+dist/useInterval.d.ts
+dist/useInterval.js
+dist/useScrollLock.svelte.d.ts
+dist/useScrollLock.svelte.js
+dist/useTimeout.d.ts
+dist/useTimeout.js
+dist/visuallyHidden.d.ts
+dist/visuallyHidden.js
+dist/warn.d.ts
+dist/warn.js
+LICENSE
+package.json
+README.md
+THIRD_PARTY_NOTICES.md
+Tarball Details
+/tmp/sveltery-artifacts.KTlTCO/sveltery-utils-0.0.0.tgz
+
+package: @sveltery/base@0.0.0
+Tarball Contents
+dist/accordion/context.d.ts
+dist/accordion/context.js
+dist/accordion/Header.svelte
+dist/accordion/Header.svelte.d.ts
+dist/accordion/index.d.ts
+dist/accordion/index.js
+dist/accordion/index.parts.d.ts
+dist/accordion/index.parts.js
+dist/accordion/Item.svelte
+dist/accordion/Item.svelte.d.ts
+dist/accordion/list.d.ts
+dist/accordion/list.js
+dist/accordion/Panel.svelte
+dist/accordion/Panel.svelte.d.ts
+dist/accordion/Root.svelte
+dist/accordion/Root.svelte.d.ts
+dist/accordion/state.d.ts
+dist/accordion/state.js
+dist/accordion/Trigger.svelte
+dist/accordion/Trigger.svelte.d.ts
+dist/accordion/types.d.ts
+dist/accordion/types.js
+dist/accordion/value.d.ts
+dist/accordion/value.js
+dist/avatar/context.d.ts
+dist/avatar/context.js
+dist/avatar/Fallback.svelte
+dist/avatar/Fallback.svelte.d.ts
+dist/avatar/Image.svelte
+dist/avatar/Image.svelte.d.ts
+dist/avatar/index.d.ts
+dist/avatar/index.js
+dist/avatar/index.parts.d.ts
+dist/avatar/index.parts.js
+dist/avatar/Root.svelte
+dist/avatar/Root.svelte.d.ts
+dist/avatar/stateAttributesMapping.d.ts
+dist/avatar/stateAttributesMapping.js
+dist/avatar/types.d.ts
+dist/avatar/types.js
+dist/avatar/useImageLoadingStatus.svelte.d.ts
+dist/avatar/useImageLoadingStatus.svelte.js
+dist/button/Button.svelte
+dist/button/Button.svelte.d.ts
+dist/button/index.d.ts
+dist/button/index.js
+dist/button/props.d.ts
+dist/button/props.js
+dist/button/types.d.ts
+dist/button/types.js
+dist/checkbox-group/CheckboxGroup.svelte
+dist/checkbox-group/CheckboxGroup.svelte.d.ts
+dist/checkbox-group/CheckboxGroupContext.d.ts
+dist/checkbox-group/CheckboxGroupContext.js
+dist/checkbox-group/index.d.ts
+dist/checkbox-group/index.js
+dist/checkbox-group/types.d.ts
+dist/checkbox-group/types.js
+dist/checkbox-group/useCheckboxGroupParent.svelte.d.ts
+dist/checkbox-group/useCheckboxGroupParent.svelte.js
+dist/checkbox/index.d.ts
+dist/checkbox/index.js
+dist/checkbox/index.parts.d.ts
+dist/checkbox/index.parts.js
+dist/checkbox/indicator/CheckboxIndicator.svelte
+dist/checkbox/indicator/CheckboxIndicator.svelte.d.ts
+dist/checkbox/root/CheckboxRoot.svelte
+dist/checkbox/root/CheckboxRoot.svelte.d.ts
+dist/checkbox/root/CheckboxRootContext.d.ts
+dist/checkbox/root/CheckboxRootContext.js
+dist/checkbox/root/CheckboxRootDataAttributes.d.ts
+dist/checkbox/root/CheckboxRootDataAttributes.js
+dist/checkbox/types.d.ts
+dist/checkbox/types.js
+dist/checkbox/utils/getCheckboxStateAttributesMapping.d.ts
+dist/checkbox/utils/getCheckboxStateAttributesMapping.js
+dist/checkbox/utils/useEnterSubmit.svelte.d.ts
+dist/checkbox/utils/useEnterSubmit.svelte.js
+dist/collapsible/animations.d.ts
+dist/collapsible/animations.js
+dist/collapsible/context.d.ts
+dist/collapsible/context.js
+dist/collapsible/index.d.ts
+dist/collapsible/index.js
+dist/collapsible/index.parts.d.ts
+dist/collapsible/index.parts.js
+dist/collapsible/Panel.svelte
+dist/collapsible/Panel.svelte.d.ts
+dist/collapsible/Root.svelte
+dist/collapsible/Root.svelte.d.ts
+dist/collapsible/state.d.ts
+dist/collapsible/state.js
+dist/collapsible/Trigger.svelte
+dist/collapsible/Trigger.svelte.d.ts
+dist/collapsible/types.d.ts
+dist/collapsible/types.js
+dist/context-menu/index.d.ts
+dist/context-menu/index.js
+dist/context-menu/index.parts.d.ts
+dist/context-menu/index.parts.js
+dist/context-menu/Root.svelte
+dist/context-menu/Root.svelte.d.ts
+dist/context-menu/root/ContextMenuRootContext.d.ts
+dist/context-menu/root/ContextMenuRootContext.js
+dist/context-menu/Trigger.svelte
+dist/context-menu/Trigger.svelte.d.ts
+dist/context-menu/trigger/createContextMenuTrigger.svelte.d.ts
+dist/context-menu/trigger/createContextMenuTrigger.svelte.js
+dist/context-menu/types.d.ts
+dist/context-menu/types.js
+dist/csp-provider/context.d.ts
+dist/csp-provider/context.js
+dist/csp-provider/CSPProvider.svelte
+dist/csp-provider/CSPProvider.svelte.d.ts
+dist/csp-provider/index.d.ts
+dist/csp-provider/index.js
+dist/csp-provider/types.d.ts
+dist/csp-provider/types.js
+dist/dialog/Backdrop.svelte
+dist/dialog/Backdrop.svelte.d.ts
+dist/dialog/Close.svelte
+dist/dialog/Close.svelte.d.ts
+dist/dialog/context.d.ts
+dist/dialog/context.js
+dist/dialog/Description.svelte
+dist/dialog/Description.svelte.d.ts
+dist/dialog/handle.svelte.d.ts
+dist/dialog/handle.svelte.js
+dist/dialog/index.d.ts
+dist/dialog/index.js
+dist/dialog/index.parts.d.ts
+dist/dialog/index.parts.js
+dist/dialog/Popup.svelte
+dist/dialog/Popup.svelte.d.ts
+dist/dialog/popup/DialogPopupCssVars.d.ts
+dist/dialog/popup/DialogPopupCssVars.js
+dist/dialog/popup/DialogPopupDataAttributes.d.ts
+dist/dialog/popup/DialogPopupDataAttributes.js
+dist/dialog/Portal.svelte
+dist/dialog/Portal.svelte.d.ts
+dist/dialog/Root.svelte
+dist/dialog/Root.svelte.d.ts
+dist/dialog/root/DialogInteractions.svelte
+dist/dialog/root/DialogInteractions.svelte.d.ts
+dist/dialog/root/useRenderDialogRoot.svelte.d.ts
+dist/dialog/root/useRenderDialogRoot.svelte.js
+dist/dialog/store/DialogHandle.svelte.d.ts
+dist/dialog/store/DialogHandle.svelte.js
+dist/dialog/store/DialogStore.svelte.d.ts
+dist/dialog/store/DialogStore.svelte.js
+dist/dialog/Title.svelte
+dist/dialog/Title.svelte.d.ts
+dist/dialog/Trigger.svelte
+dist/dialog/Trigger.svelte.d.ts
+dist/dialog/types.d.ts
+dist/dialog/types.js
+dist/dialog/utils/stateAttributesMapping.d.ts
+dist/dialog/utils/stateAttributesMapping.js
+dist/dialog/Viewport.svelte
+dist/dialog/Viewport.svelte.d.ts
+dist/direction-provider/context.d.ts
+dist/direction-provider/context.js
+dist/direction-provider/DirectionProvider.svelte
+dist/direction-provider/DirectionProvider.svelte.d.ts
+dist/direction-provider/index.d.ts
+dist/direction-provider/index.js
+dist/direction-provider/types.d.ts
+dist/direction-provider/types.js
+dist/field/Control.svelte
+dist/field/Control.svelte.d.ts
+dist/field/Description.svelte
+dist/field/Description.svelte.d.ts
+dist/field/Error.svelte
+dist/field/Error.svelte.d.ts
+dist/field/ErrorMessageList.svelte
+dist/field/ErrorMessageList.svelte.d.ts
+dist/field/index.d.ts
+dist/field/index.js
+dist/field/index.parts.d.ts
+dist/field/index.parts.js
+dist/field/Item.svelte
+dist/field/Item.svelte.d.ts
+dist/field/item/FieldItemContext.d.ts
+dist/field/item/FieldItemContext.js
+dist/field/Label.svelte
+dist/field/Label.svelte.d.ts
+dist/field/props.d.ts
+dist/field/props.js
+dist/field/Root.svelte
+dist/field/Root.svelte.d.ts
+dist/field/root/FieldRootInner.svelte
+dist/field/root/FieldRootInner.svelte.d.ts
+dist/field/root/useFieldValidation.svelte.d.ts
+dist/field/root/useFieldValidation.svelte.js
+dist/field/types.d.ts
+dist/field/types.js
+dist/field/utils/getCombinedFieldValidityData.d.ts
+dist/field/utils/getCombinedFieldValidityData.js
+dist/field/Validity.svelte
+dist/field/Validity.svelte.d.ts
+dist/fieldset/index.d.ts
+dist/fieldset/index.js
+dist/fieldset/index.parts.d.ts
+dist/fieldset/index.parts.js
+dist/fieldset/Legend.svelte
+dist/fieldset/Legend.svelte.d.ts
+dist/fieldset/Root.svelte
+dist/fieldset/Root.svelte.d.ts
+dist/fieldset/root/FieldsetRootContext.d.ts
+dist/fieldset/root/FieldsetRootContext.js
+dist/fieldset/types.d.ts
+dist/fieldset/types.js
+dist/floating-ui/components/createFloatingFocusManager.svelte.d.ts
+dist/floating-ui/components/createFloatingFocusManager.svelte.js
+dist/floating-ui/components/FloatingDelayGroup.svelte
+dist/floating-ui/components/FloatingDelayGroup.svelte.d.ts
+dist/floating-ui/components/FloatingDelayGroupContext.d.ts
+dist/floating-ui/components/FloatingDelayGroupContext.js
+dist/floating-ui/components/FloatingFocusManager.svelte
+dist/floating-ui/components/FloatingFocusManager.svelte.d.ts
+dist/floating-ui/components/FloatingPortal.svelte
+dist/floating-ui/components/FloatingPortal.svelte.d.ts
+dist/floating-ui/components/FloatingPortalContext.d.ts
+dist/floating-ui/components/FloatingPortalContext.js
+dist/floating-ui/components/FloatingRootStore.svelte.d.ts
+dist/floating-ui/components/FloatingRootStore.svelte.js
+dist/floating-ui/components/FloatingTree.svelte.d.ts
+dist/floating-ui/components/FloatingTree.svelte.js
+dist/floating-ui/components/FloatingTreeStore.d.ts
+dist/floating-ui/components/FloatingTreeStore.js
+dist/floating-ui/components/PortalContent.svelte
+dist/floating-ui/components/PortalContent.svelte.d.ts
+dist/floating-ui/components/PortalHost.svelte
+dist/floating-ui/components/PortalHost.svelte.d.ts
+dist/floating-ui/hooks/gridNavigation.d.ts
+dist/floating-ui/hooks/gridNavigation.js
+dist/floating-ui/hooks/useClick.svelte.d.ts
+dist/floating-ui/hooks/useClick.svelte.js
+dist/floating-ui/hooks/useClientPoint.svelte.d.ts
+dist/floating-ui/hooks/useClientPoint.svelte.js
+dist/floating-ui/hooks/useDelayGroup.svelte.d.ts
+dist/floating-ui/hooks/useDelayGroup.svelte.js
+dist/floating-ui/hooks/useDismiss.svelte.d.ts
+dist/floating-ui/hooks/useDismiss.svelte.js
+dist/floating-ui/hooks/useFloating.svelte.d.ts
+dist/floating-ui/hooks/useFloating.svelte.js
+dist/floating-ui/hooks/useFloatingPortalNode.svelte.d.ts
+dist/floating-ui/hooks/useFloatingPortalNode.svelte.js
+dist/floating-ui/hooks/useFocus.svelte.d.ts
+dist/floating-ui/hooks/useFocus.svelte.js
+dist/floating-ui/hooks/useHoverFloatingInteraction.svelte.d.ts
+dist/floating-ui/hooks/useHoverFloatingInteraction.svelte.js
+dist/floating-ui/hooks/useHoverInteractionSharedState.svelte.d.ts
+dist/floating-ui/hooks/useHoverInteractionSharedState.svelte.js
+dist/floating-ui/hooks/useHoverReferenceInteraction.svelte.d.ts
+dist/floating-ui/hooks/useHoverReferenceInteraction.svelte.js
+dist/floating-ui/hooks/useHoverShared.d.ts
+dist/floating-ui/hooks/useHoverShared.js
+dist/floating-ui/hooks/useListNavigation.svelte.d.ts
+dist/floating-ui/hooks/useListNavigation.svelte.js
+dist/floating-ui/hooks/useSyncedFloatingRootContext.svelte.d.ts
+dist/floating-ui/hooks/useSyncedFloatingRootContext.svelte.js
+dist/floating-ui/hooks/useTypeahead.svelte.d.ts
+dist/floating-ui/hooks/useTypeahead.svelte.js
+dist/floating-ui/safePolygon.d.ts
+dist/floating-ui/safePolygon.js
+dist/floating-ui/types.d.ts
+dist/floating-ui/types.js
+dist/floating-ui/utils/composite.d.ts
+dist/floating-ui/utils/composite.js
+dist/floating-ui/utils/constants.d.ts
+dist/floating-ui/utils/constants.js
+dist/floating-ui/utils/createAttribute.d.ts
+dist/floating-ui/utils/createAttribute.js
+dist/floating-ui/utils/createEventEmitter.d.ts
+dist/floating-ui/utils/createEventEmitter.js
+dist/floating-ui/utils/element.d.ts
+dist/floating-ui/utils/element.js
+dist/floating-ui/utils/enqueueFocus.d.ts
+dist/floating-ui/utils/enqueueFocus.js
+dist/floating-ui/utils/event.d.ts
+dist/floating-ui/utils/event.js
+dist/floating-ui/utils/markOthers.d.ts
+dist/floating-ui/utils/markOthers.js
+dist/floating-ui/utils/matchesFocusVisible.d.ts
+dist/floating-ui/utils/matchesFocusVisible.js
+dist/floating-ui/utils/nodes.d.ts
+dist/floating-ui/utils/nodes.js
+dist/floating-ui/utils/tabbable.d.ts
+dist/floating-ui/utils/tabbable.js
+dist/form/context.d.ts
+dist/form/context.js
+dist/form/Form.svelte
+dist/form/Form.svelte.d.ts
+dist/form/index.d.ts
+dist/form/index.js
+dist/form/types.d.ts
+dist/form/types.js
+dist/index.d.ts
+dist/index.js
+dist/input/index.d.ts
+dist/input/index.js
+dist/input/Input.svelte
+dist/input/Input.svelte.d.ts
+dist/input/types.d.ts
+dist/input/types.js
+dist/internals/anchor-positioning/adaptive-origin.d.ts
+dist/internals/anchor-positioning/adaptive-origin.js
+dist/internals/anchor-positioning/arrow.d.ts
+dist/internals/anchor-positioning/arrow.js
+dist/internals/anchor-positioning/attachments.d.ts
+dist/internals/anchor-positioning/attachments.js
+dist/internals/anchor-positioning/controller.svelte.d.ts
+dist/internals/anchor-positioning/controller.svelte.js
+dist/internals/anchor-positioning/css-vars.d.ts
+dist/internals/anchor-positioning/css-vars.js
+dist/internals/anchor-positioning/hide.d.ts
+dist/internals/anchor-positioning/hide.js
+dist/internals/anchor-positioning/policy.d.ts
+dist/internals/anchor-positioning/policy.js
+dist/internals/anchor-positioning/types.d.ts
+dist/internals/anchor-positioning/types.js
+dist/internals/anchor-positioning/useAnchorPositioning.svelte.d.ts
+dist/internals/anchor-positioning/useAnchorPositioning.svelte.js
+dist/internals/anchor-positioning/useFloating.svelte.d.ts
+dist/internals/anchor-positioning/useFloating.svelte.js
+dist/internals/composite/composite.d.ts
+dist/internals/composite/composite.js
+dist/internals/composite/constants.d.ts
+dist/internals/composite/constants.js
+dist/internals/composite/item/CompositeItem.svelte
+dist/internals/composite/item/CompositeItem.svelte.d.ts
+dist/internals/composite/item/useCompositeItem.svelte.d.ts
+dist/internals/composite/item/useCompositeItem.svelte.js
+dist/internals/composite/list/CompositeListContext.d.ts
+dist/internals/composite/list/CompositeListContext.js
+dist/internals/composite/list/createCompositeList.svelte.d.ts
+dist/internals/composite/list/createCompositeList.svelte.js
+dist/internals/composite/list/useCompositeListItem.svelte.d.ts
+dist/internals/composite/list/useCompositeListItem.svelte.js
+dist/internals/composite/root/CompositeRoot.svelte
+dist/internals/composite/root/CompositeRoot.svelte.d.ts
+dist/internals/composite/root/CompositeRootContext.d.ts
+dist/internals/composite/root/CompositeRootContext.js
+dist/internals/composite/root/gridNavigation.d.ts
+dist/internals/composite/root/gridNavigation.js
+dist/internals/composite/root/useCompositeRoot.svelte.d.ts
+dist/internals/composite/root/useCompositeRoot.svelte.js
+dist/internals/composite/utils/navigation.d.ts
+dist/internals/composite/utils/navigation.js
+dist/internals/constants.d.ts
+dist/internals/constants.js
+dist/internals/createBaseUIEventDetails.d.ts
+dist/internals/createBaseUIEventDetails.js
+dist/internals/field-constants/constants.d.ts
+dist/internals/field-constants/constants.js
+dist/internals/field-control-name/FieldControlNameContext.d.ts
+dist/internals/field-control-name/FieldControlNameContext.js
+dist/internals/field-control-value/FieldControlValueContext.d.ts
+dist/internals/field-control-value/FieldControlValueContext.js
+dist/internals/field-register-control/FieldControlRegistration.svelte.d.ts
+dist/internals/field-register-control/FieldControlRegistration.svelte.js
+dist/internals/field-register-control/useRegisterFieldControl.svelte.d.ts
+dist/internals/field-register-control/useRegisterFieldControl.svelte.js
+dist/internals/field-root-context/FieldRootContext.d.ts
+dist/internals/field-root-context/FieldRootContext.js
+dist/internals/form-context/FormContext.d.ts
+dist/internals/form-context/FormContext.js
+dist/internals/getDisabledMountTransitionStyles.d.ts
+dist/internals/getDisabledMountTransitionStyles.js
+dist/internals/getStateAttributesProps.d.ts
+dist/internals/getStateAttributesProps.js
+dist/internals/labelable-provider/createLabelableProvider.svelte.d.ts
+dist/internals/labelable-provider/createLabelableProvider.svelte.js
+dist/internals/labelable-provider/LabelableContext.d.ts
+dist/internals/labelable-provider/LabelableContext.js
+dist/internals/labelable-provider/LabelableProvider.svelte
+dist/internals/labelable-provider/LabelableProvider.svelte.d.ts
+dist/internals/labelable-provider/useAriaLabelledBy.svelte.d.ts
+dist/internals/labelable-provider/useAriaLabelledBy.svelte.js
+dist/internals/labelable-provider/useLabel.svelte.d.ts
+dist/internals/labelable-provider/useLabel.svelte.js
+dist/internals/labelable-provider/useLabelableId.svelte.d.ts
+dist/internals/labelable-provider/useLabelableId.svelte.js
+dist/internals/mergeComponentProps.d.ts
+dist/internals/mergeComponentProps.js
+dist/internals/nativeProps.d.ts
+dist/internals/nativeProps.js
+dist/internals/reason-parts.d.ts
+dist/internals/reason-parts.js
+dist/internals/reasons.d.ts
+dist/internals/reasons.js
+dist/internals/resolveClassValue.d.ts
+dist/internals/resolveClassValue.js
+dist/internals/serializeValue.d.ts
+dist/internals/serializeValue.js
+dist/internals/stateAttributesMapping.d.ts
+dist/internals/stateAttributesMapping.js
+dist/internals/TransitionStatusDataAttributes.d.ts
+dist/internals/TransitionStatusDataAttributes.js
+dist/internals/types.d.ts
+dist/internals/types.js
+dist/internals/use-button/useButton.svelte.d.ts
+dist/internals/use-button/useButton.svelte.js
+dist/internals/useAnimationsFinished.d.ts
+dist/internals/useAnimationsFinished.js
+dist/internals/useBaseUiId.d.ts
+dist/internals/useBaseUiId.js
+dist/internals/useOpenChangeComplete.svelte.d.ts
+dist/internals/useOpenChangeComplete.svelte.js
+dist/internals/usePressAndHold.svelte.d.ts
+dist/internals/usePressAndHold.svelte.js
+dist/internals/useTransitionStatus.svelte.d.ts
+dist/internals/useTransitionStatus.svelte.js
+dist/internals/ValueChanged.svelte.d.ts
+dist/internals/ValueChanged.svelte.js
+dist/menu/Arrow.svelte
+dist/menu/Arrow.svelte.d.ts
+dist/menu/Backdrop.svelte
+dist/menu/Backdrop.svelte.d.ts
+dist/menu/checkbox-item/MenuCheckboxItemContext.d.ts
+dist/menu/checkbox-item/MenuCheckboxItemContext.js
+dist/menu/checkbox-item/MenuCheckboxItemDataAttributes.d.ts
+dist/menu/checkbox-item/MenuCheckboxItemDataAttributes.js
+dist/menu/CheckboxItem.svelte
+dist/menu/CheckboxItem.svelte.d.ts
+dist/menu/CheckboxItemIndicator.svelte
+dist/menu/CheckboxItemIndicator.svelte.d.ts
+dist/menu/Group.svelte
+dist/menu/Group.svelte.d.ts
+dist/menu/group/MenuGroupContext.d.ts
+dist/menu/group/MenuGroupContext.js
+dist/menu/GroupLabel.svelte
+dist/menu/GroupLabel.svelte.d.ts
+dist/menu/index.d.ts
+dist/menu/index.js
+dist/menu/index.parts.d.ts
+dist/menu/index.parts.js
+dist/menu/Item.svelte
+dist/menu/Item.svelte.d.ts
+dist/menu/item/useMenuItem.svelte.d.ts
+dist/menu/item/useMenuItem.svelte.js
+dist/menu/item/useMenuItemCommonProps.svelte.d.ts
+dist/menu/item/useMenuItemCommonProps.svelte.js
+dist/menu/LinkItem.svelte
+dist/menu/LinkItem.svelte.d.ts
+dist/menu/Popup.svelte
+dist/menu/Popup.svelte.d.ts
+dist/menu/Portal.svelte
+dist/menu/Portal.svelte.d.ts
+dist/menu/portal/MenuPortalContext.d.ts
+dist/menu/portal/MenuPortalContext.js
+dist/menu/Positioner.svelte
+dist/menu/Positioner.svelte.d.ts
+dist/menu/positioner/createMenuPositioner.svelte.d.ts
+dist/menu/positioner/createMenuPositioner.svelte.js
+dist/menu/positioner/MenuPositionerContext.d.ts
+dist/menu/positioner/MenuPositionerContext.js
+dist/menu/radio-group/MenuRadioGroupContext.d.ts
+dist/menu/radio-group/MenuRadioGroupContext.js
+dist/menu/radio-item/MenuRadioItemContext.d.ts
+dist/menu/radio-item/MenuRadioItemContext.js
+dist/menu/RadioGroup.svelte
+dist/menu/RadioGroup.svelte.d.ts
+dist/menu/RadioItem.svelte
+dist/menu/RadioItem.svelte.d.ts
+dist/menu/RadioItemIndicator.svelte
+dist/menu/RadioItemIndicator.svelte.d.ts
+dist/menu/Root.svelte
+dist/menu/Root.svelte.d.ts
+dist/menu/root/createMenuRoot.svelte.d.ts
+dist/menu/root/createMenuRoot.svelte.js
+dist/menu/root/MenuRootContext.d.ts
+dist/menu/root/MenuRootContext.js
+dist/menu/store/MenuHandle.svelte.d.ts
+dist/menu/store/MenuHandle.svelte.js
+dist/menu/store/MenuStore.svelte.d.ts
+dist/menu/store/MenuStore.svelte.js
+dist/menu/submenu-root/MenuSubmenuRootContext.d.ts
+dist/menu/submenu-root/MenuSubmenuRootContext.js
+dist/menu/submenu-trigger/createMenuSubmenuTrigger.svelte.d.ts
+dist/menu/submenu-trigger/createMenuSubmenuTrigger.svelte.js
+dist/menu/SubmenuRoot.svelte
+dist/menu/SubmenuRoot.svelte.d.ts
+dist/menu/SubmenuTrigger.svelte
+dist/menu/SubmenuTrigger.svelte.d.ts
+dist/menu/Trigger.svelte
+dist/menu/Trigger.svelte.d.ts
+dist/menu/trigger/createMenuTrigger.svelte.d.ts
+dist/menu/trigger/createMenuTrigger.svelte.js
+dist/menu/types.d.ts
+dist/menu/types.js
+dist/menu/utils/findRootOwnerId.d.ts
+dist/menu/utils/findRootOwnerId.js
+dist/menu/utils/stateAttributesMapping.d.ts
+dist/menu/utils/stateAttributesMapping.js
+dist/menu/Viewport.svelte
+dist/menu/Viewport.svelte.d.ts
+dist/menubar/index.d.ts
+dist/menubar/index.js
+dist/menubar/Menubar.svelte
+dist/menubar/Menubar.svelte.d.ts
+dist/menubar/MenubarContext.d.ts
+dist/menubar/MenubarContext.js
+dist/menubar/types.d.ts
+dist/menubar/types.js
+dist/merge-props/index.d.ts
+dist/merge-props/index.js
+dist/merge-props/mergeProps.d.ts
+dist/merge-props/mergeProps.js
+dist/meter/context.d.ts
+dist/meter/context.js
+dist/meter/helpers.d.ts
+dist/meter/helpers.js
+dist/meter/index.d.ts
+dist/meter/index.js
+dist/meter/index.parts.d.ts
+dist/meter/index.parts.js
+dist/meter/Indicator.svelte
+dist/meter/Indicator.svelte.d.ts
+dist/meter/Label.svelte
+dist/meter/Label.svelte.d.ts
+dist/meter/Root.svelte
+dist/meter/Root.svelte.d.ts
+dist/meter/Track.svelte
+dist/meter/Track.svelte.d.ts
+dist/meter/types.d.ts
+dist/meter/types.js
+dist/meter/Value.svelte
+dist/meter/Value.svelte.d.ts
+dist/number-field/decrement/NumberFieldDecrement.svelte
+dist/number-field/decrement/NumberFieldDecrement.svelte.d.ts
+dist/number-field/group/NumberFieldGroup.svelte
+dist/number-field/group/NumberFieldGroup.svelte.d.ts
+dist/number-field/increment/NumberFieldIncrement.svelte
+dist/number-field/increment/NumberFieldIncrement.svelte.d.ts
+dist/number-field/index.d.ts
+dist/number-field/index.js
+dist/number-field/index.parts.d.ts
+dist/number-field/index.parts.js
+dist/number-field/input/NumberFieldInput.svelte
+dist/number-field/input/NumberFieldInput.svelte.d.ts
+dist/number-field/root/NumberFieldRoot.svelte
+dist/number-field/root/NumberFieldRoot.svelte.d.ts
+dist/number-field/root/NumberFieldRootContext.d.ts
+dist/number-field/root/NumberFieldRootContext.js
+dist/number-field/root/StepperButton.svelte
+dist/number-field/root/StepperButton.svelte.d.ts
+dist/number-field/root/useNumberFieldStepperButton.svelte.d.ts
+dist/number-field/root/useNumberFieldStepperButton.svelte.js
+dist/number-field/scrub-area-cursor/NumberFieldScrubAreaCursor.svelte
+dist/number-field/scrub-area-cursor/NumberFieldScrubAreaCursor.svelte.d.ts
+dist/number-field/scrub-area/NumberFieldScrubArea.svelte
+dist/number-field/scrub-area/NumberFieldScrubArea.svelte.d.ts
+dist/number-field/scrub-area/NumberFieldScrubAreaContext.d.ts
+dist/number-field/scrub-area/NumberFieldScrubAreaContext.js
+dist/number-field/types.d.ts
+dist/number-field/types.js
+dist/number-field/utils/getViewportRect.d.ts
+dist/number-field/utils/getViewportRect.js
+dist/number-field/utils/parse.d.ts
+dist/number-field/utils/parse.js
+dist/number-field/utils/stateAttributesMapping.d.ts
+dist/number-field/utils/stateAttributesMapping.js
+dist/number-field/utils/types.d.ts
+dist/number-field/utils/types.js
+dist/number-field/utils/validate.d.ts
+dist/number-field/utils/validate.js
+dist/popover/Arrow.svelte
+dist/popover/Arrow.svelte.d.ts
+dist/popover/Backdrop.svelte
+dist/popover/Backdrop.svelte.d.ts
+dist/popover/Close.svelte
+dist/popover/Close.svelte.d.ts
+dist/popover/context.d.ts
+dist/popover/context.js
+dist/popover/Description.svelte
+dist/popover/Description.svelte.d.ts
+dist/popover/handle.svelte.d.ts
+dist/popover/handle.svelte.js
+dist/popover/index.d.ts
+dist/popover/index.js
+dist/popover/index.parts.d.ts
+dist/popover/index.parts.js
+dist/popover/Popup.svelte
+dist/popover/Popup.svelte.d.ts
+dist/popover/Portal.svelte
+dist/popover/Portal.svelte.d.ts
+dist/popover/Positioner.svelte
+dist/popover/Positioner.svelte.d.ts
+dist/popover/positioner/PopoverPositionerContext.d.ts
+dist/popover/positioner/PopoverPositionerContext.js
+dist/popover/Root.svelte
+dist/popover/Root.svelte.d.ts
+dist/popover/root/PopoverInteractions.svelte
+dist/popover/root/PopoverInteractions.svelte.d.ts
+dist/popover/store/PopoverHandle.svelte.d.ts
+dist/popover/store/PopoverHandle.svelte.js
+dist/popover/store/PopoverStore.svelte.d.ts
+dist/popover/store/PopoverStore.svelte.js
+dist/popover/Title.svelte
+dist/popover/Title.svelte.d.ts
+dist/popover/Trigger.svelte
+dist/popover/Trigger.svelte.d.ts
+dist/popover/types.d.ts
+dist/popover/types.js
+dist/popover/utils/constants.d.ts
+dist/popover/utils/constants.js
+dist/popover/Viewport.svelte
+dist/popover/Viewport.svelte.d.ts
+dist/preview-card/Arrow.svelte
+dist/preview-card/Arrow.svelte.d.ts
+dist/preview-card/Backdrop.svelte
+dist/preview-card/Backdrop.svelte.d.ts
+dist/preview-card/context.d.ts
+dist/preview-card/context.js
+dist/preview-card/handle.svelte.d.ts
+dist/preview-card/handle.svelte.js
+dist/preview-card/index.d.ts
+dist/preview-card/index.js
+dist/preview-card/index.parts.d.ts
+dist/preview-card/index.parts.js
+dist/preview-card/Popup.svelte
+dist/preview-card/Popup.svelte.d.ts
+dist/preview-card/Portal.svelte
+dist/preview-card/Portal.svelte.d.ts
+dist/preview-card/Positioner.svelte
+dist/preview-card/Positioner.svelte.d.ts
+dist/preview-card/positioner/PreviewCardPositionerContext.d.ts
+dist/preview-card/positioner/PreviewCardPositionerContext.js
+dist/preview-card/Root.svelte
+dist/preview-card/Root.svelte.d.ts
+dist/preview-card/root/PreviewCardInteractions.svelte
+dist/preview-card/root/PreviewCardInteractions.svelte.d.ts
+dist/preview-card/store/PreviewCardHandle.svelte.d.ts
+dist/preview-card/store/PreviewCardHandle.svelte.js
+dist/preview-card/store/PreviewCardStore.svelte.d.ts
+dist/preview-card/store/PreviewCardStore.svelte.js
+dist/preview-card/Trigger.svelte
+dist/preview-card/Trigger.svelte.d.ts
+dist/preview-card/types.d.ts
+dist/preview-card/types.js
+dist/preview-card/utils/constants.d.ts
+dist/preview-card/utils/constants.js
+dist/preview-card/Viewport.svelte
+dist/preview-card/Viewport.svelte.d.ts
+dist/progress/context.d.ts
+dist/progress/context.js
+dist/progress/helpers.d.ts
+dist/progress/helpers.js
+dist/progress/index.d.ts
+dist/progress/index.js
+dist/progress/index.parts.d.ts
+dist/progress/index.parts.js
+dist/progress/Indicator.svelte
+dist/progress/Indicator.svelte.d.ts
+dist/progress/Label.svelte
+dist/progress/Label.svelte.d.ts
+dist/progress/Root.svelte
+dist/progress/Root.svelte.d.ts
+dist/progress/Track.svelte
+dist/progress/Track.svelte.d.ts
+dist/progress/types.d.ts
+dist/progress/types.js
+dist/progress/Value.svelte
+dist/progress/Value.svelte.d.ts
+dist/radio-group/index.d.ts
+dist/radio-group/index.js
+dist/radio-group/RadioGroup.svelte
+dist/radio-group/RadioGroup.svelte.d.ts
+dist/radio-group/RadioGroupContext.d.ts
+dist/radio-group/RadioGroupContext.js
+dist/radio-group/types.d.ts
+dist/radio-group/types.js
+dist/radio/index.d.ts
+dist/radio/index.js
+dist/radio/index.parts.d.ts
+dist/radio/index.parts.js
+dist/radio/indicator/RadioIndicator.svelte
+dist/radio/indicator/RadioIndicator.svelte.d.ts
+dist/radio/root/RadioRoot.svelte
+dist/radio/root/RadioRoot.svelte.d.ts
+dist/radio/root/RadioRootContext.d.ts
+dist/radio/root/RadioRootContext.js
+dist/radio/root/RadioRootDataAttributes.d.ts
+dist/radio/root/RadioRootDataAttributes.js
+dist/radio/stateAttributesMapping.d.ts
+dist/radio/stateAttributesMapping.js
+dist/radio/types.d.ts
+dist/radio/types.js
+dist/remote-forms/control.types.d.ts
+dist/remote-forms/control.types.js
+dist/remote-forms/index.parts.d.ts
+dist/remote-forms/index.parts.js
+dist/remote-forms/nativeControlValue.d.ts
+dist/remote-forms/nativeControlValue.js
+dist/remote-forms/RemoteBooleanControl.svelte
+dist/remote-forms/RemoteBooleanControl.svelte.d.ts
+dist/remote-forms/RemoteControl.svelte
+dist/remote-forms/RemoteControl.svelte.d.ts
+dist/remote-forms/RemoteFieldContext.d.ts
+dist/remote-forms/RemoteFieldContext.js
+dist/remote-forms/RemoteFormContext.d.ts
+dist/remote-forms/RemoteFormContext.js
+dist/remote-forms/RemoteNativeControl.svelte
+dist/remote-forms/RemoteNativeControl.svelte.d.ts
+dist/remote-forms/RemoteRoot.svelte
+dist/remote-forms/RemoteRoot.svelte.d.ts
+dist/remote-forms/RemoteTextControl.svelte
+dist/remote-forms/RemoteTextControl.svelte.d.ts
+dist/remote-forms/runtime.d.ts
+dist/remote-forms/runtime.js
+dist/remote-forms/types.d.ts
+dist/remote-forms/types.js
+dist/scroll-area/constants.d.ts
+dist/scroll-area/constants.js
+dist/scroll-area/content/ScrollAreaContent.svelte
+dist/scroll-area/content/ScrollAreaContent.svelte.d.ts
+dist/scroll-area/corner/ScrollAreaCorner.svelte
+dist/scroll-area/corner/ScrollAreaCorner.svelte.d.ts
+dist/scroll-area/index.d.ts
+dist/scroll-area/index.js
+dist/scroll-area/index.parts.d.ts
+dist/scroll-area/index.parts.js
+dist/scroll-area/root/ScrollAreaRoot.svelte
+dist/scroll-area/root/ScrollAreaRoot.svelte.d.ts
+dist/scroll-area/root/ScrollAreaRootContext.d.ts
+dist/scroll-area/root/ScrollAreaRootContext.js
+dist/scroll-area/root/ScrollAreaRootCssVars.d.ts
+dist/scroll-area/root/ScrollAreaRootCssVars.js
+dist/scroll-area/root/ScrollAreaRootDataAttributes.d.ts
+dist/scroll-area/root/ScrollAreaRootDataAttributes.js
+dist/scroll-area/root/stateAttributes.d.ts
+dist/scroll-area/root/stateAttributes.js
+dist/scroll-area/scrollbar/ScrollAreaScrollbar.svelte
+dist/scroll-area/scrollbar/ScrollAreaScrollbar.svelte.d.ts
+dist/scroll-area/scrollbar/ScrollAreaScrollbarContext.d.ts
+dist/scroll-area/scrollbar/ScrollAreaScrollbarContext.js
+dist/scroll-area/scrollbar/ScrollAreaScrollbarCssVars.d.ts
+dist/scroll-area/scrollbar/ScrollAreaScrollbarCssVars.js
+dist/scroll-area/scrollbar/ScrollAreaScrollbarDataAttributes.d.ts
+dist/scroll-area/scrollbar/ScrollAreaScrollbarDataAttributes.js
+dist/scroll-area/thumb/ScrollAreaThumb.svelte
+dist/scroll-area/thumb/ScrollAreaThumb.svelte.d.ts
+dist/scroll-area/types.d.ts
+dist/scroll-area/types.js
+dist/scroll-area/utils/getOffset.d.ts
+dist/scroll-area/utils/getOffset.js
+dist/scroll-area/viewport/ScrollAreaViewport.svelte
+dist/scroll-area/viewport/ScrollAreaViewport.svelte.d.ts
+dist/scroll-area/viewport/ScrollAreaViewportContext.d.ts
+dist/scroll-area/viewport/ScrollAreaViewportContext.js
+dist/scroll-area/viewport/ScrollAreaViewportCssVars.d.ts
+dist/scroll-area/viewport/ScrollAreaViewportCssVars.js
+dist/separator/index.d.ts
+dist/separator/index.js
+dist/separator/Separator.svelte
+dist/separator/Separator.svelte.d.ts
+dist/separator/types.d.ts
+dist/separator/types.js
+dist/switch/index.d.ts
+dist/switch/index.js
+dist/switch/index.parts.d.ts
+dist/switch/index.parts.js
+dist/switch/root/SwitchRoot.svelte
+dist/switch/root/SwitchRoot.svelte.d.ts
+dist/switch/root/SwitchRootContext.d.ts
+dist/switch/root/SwitchRootContext.js
+dist/switch/root/SwitchRootDataAttributes.d.ts
+dist/switch/root/SwitchRootDataAttributes.js
+dist/switch/stateAttributesMapping.d.ts
+dist/switch/stateAttributesMapping.js
+dist/switch/thumb/SwitchThumb.svelte
+dist/switch/thumb/SwitchThumb.svelte.d.ts
+dist/switch/types.d.ts
+dist/switch/types.js
+dist/toast/Action.svelte
+dist/toast/Action.svelte.d.ts
+dist/toast/animations.d.ts
+dist/toast/animations.js
+dist/toast/Close.svelte
+dist/toast/Close.svelte.d.ts
+dist/toast/content.d.ts
+dist/toast/content.js
+dist/toast/Content.svelte
+dist/toast/Content.svelte.d.ts
+dist/toast/context.d.ts
+dist/toast/context.js
+dist/toast/createToastManager.d.ts
+dist/toast/createToastManager.js
+dist/toast/Description.svelte
+dist/toast/Description.svelte.d.ts
+dist/toast/facade.d.ts
+dist/toast/facade.js
+dist/toast/getToastManager.d.ts
+dist/toast/getToastManager.js
+dist/toast/id.d.ts
+dist/toast/id.js
+dist/toast/index.d.ts
+dist/toast/index.js
+dist/toast/Portal.svelte
+dist/toast/Portal.svelte.d.ts
+dist/toast/Provider.svelte
+dist/toast/Provider.svelte.d.ts
+dist/toast/RenderContent.svelte
+dist/toast/RenderContent.svelte.d.ts
+dist/toast/resolve-promise-options.d.ts
+dist/toast/resolve-promise-options.js
+dist/toast/root-context.d.ts
+dist/toast/root-context.js
+dist/toast/Root.svelte
+dist/toast/Root.svelte.d.ts
+dist/toast/store.d.ts
+dist/toast/store.js
+dist/toast/Title.svelte
+dist/toast/Title.svelte.d.ts
+dist/toast/types.d.ts
+dist/toast/types.js
+dist/toast/viewport-focus.d.ts
+dist/toast/viewport-focus.js
+dist/toast/Viewport.svelte
+dist/toast/Viewport.svelte.d.ts
+dist/toggle-group/index.d.ts
+dist/toggle-group/index.js
+dist/toggle-group/ToggleGroup.svelte
+dist/toggle-group/ToggleGroup.svelte.d.ts
+dist/toggle-group/ToggleGroupContext.d.ts
+dist/toggle-group/ToggleGroupContext.js
+dist/toggle-group/types.d.ts
+dist/toggle-group/types.js
+dist/toggle/index.d.ts
+dist/toggle/index.js
+dist/toggle/Toggle.svelte
+dist/toggle/Toggle.svelte.d.ts
+dist/toggle/types.d.ts
+dist/toggle/types.js
+dist/toolbar/button/ToolbarButton.svelte
+dist/toolbar/button/ToolbarButton.svelte.d.ts
+dist/toolbar/group/ToolbarGroup.svelte
+dist/toolbar/group/ToolbarGroup.svelte.d.ts
+dist/toolbar/group/ToolbarGroupContext.d.ts
+dist/toolbar/group/ToolbarGroupContext.js
+dist/toolbar/index.d.ts
+dist/toolbar/index.js
+dist/toolbar/index.parts.d.ts
+dist/toolbar/index.parts.js
+dist/toolbar/input/ToolbarInput.svelte
+dist/toolbar/input/ToolbarInput.svelte.d.ts
+dist/toolbar/link/ToolbarLink.svelte
+dist/toolbar/link/ToolbarLink.svelte.d.ts
+dist/toolbar/root/ToolbarRoot.svelte
+dist/toolbar/root/ToolbarRoot.svelte.d.ts
+dist/toolbar/root/ToolbarRootContext.d.ts
+dist/toolbar/root/ToolbarRootContext.js
+dist/toolbar/separator/ToolbarSeparator.svelte
+dist/toolbar/separator/ToolbarSeparator.svelte.d.ts
+dist/toolbar/types.d.ts
+dist/toolbar/types.js
+dist/tooltip/Arrow.svelte
+dist/tooltip/Arrow.svelte.d.ts
+dist/tooltip/context.d.ts
+dist/tooltip/context.js
+dist/tooltip/handle.svelte.d.ts
+dist/tooltip/handle.svelte.js
+dist/tooltip/index.d.ts
+dist/tooltip/index.js
+dist/tooltip/index.parts.d.ts
+dist/tooltip/index.parts.js
+dist/tooltip/Popup.svelte
+dist/tooltip/Popup.svelte.d.ts
+dist/tooltip/Portal.svelte
+dist/tooltip/Portal.svelte.d.ts
+dist/tooltip/Positioner.svelte
+dist/tooltip/Positioner.svelte.d.ts
+dist/tooltip/positioner/TooltipPositionerContext.d.ts
+dist/tooltip/positioner/TooltipPositionerContext.js
+dist/tooltip/Provider.svelte
+dist/tooltip/Provider.svelte.d.ts
+dist/tooltip/provider/TooltipProviderContext.d.ts
+dist/tooltip/provider/TooltipProviderContext.js
+dist/tooltip/Root.svelte
+dist/tooltip/Root.svelte.d.ts
+dist/tooltip/root/TooltipInteractions.svelte
+dist/tooltip/root/TooltipInteractions.svelte.d.ts
+dist/tooltip/store/TooltipHandle.svelte.d.ts
+dist/tooltip/store/TooltipHandle.svelte.js
+dist/tooltip/store/TooltipStore.svelte.d.ts
+dist/tooltip/store/TooltipStore.svelte.js
+dist/tooltip/Trigger.svelte
+dist/tooltip/Trigger.svelte.d.ts
+dist/tooltip/types.d.ts
+dist/tooltip/types.js
+dist/tooltip/utils/constants.d.ts
+dist/tooltip/utils/constants.js
+dist/tooltip/Viewport.svelte
+dist/tooltip/Viewport.svelte.d.ts
+dist/utils/closePart.svelte.d.ts
+dist/utils/closePart.svelte.js
+dist/utils/CommonPopupCssVars.d.ts
+dist/utils/CommonPopupCssVars.js
+dist/utils/CommonPopupDataAttributes.d.ts
+dist/utils/CommonPopupDataAttributes.js
+dist/utils/CommonPositionerCssVars.d.ts
+dist/utils/CommonPositionerCssVars.js
+dist/utils/CommonTriggerDataAttributes.d.ts
+dist/utils/CommonTriggerDataAttributes.js
+dist/utils/CommonViewportDataAttributes.d.ts
+dist/utils/CommonViewportDataAttributes.js
+dist/utils/dispatchClickWithModifiers.d.ts
+dist/utils/dispatchClickWithModifiers.js
+dist/utils/FloatingPortalLite.svelte
+dist/utils/FloatingPortalLite.svelte.d.ts
+dist/utils/FocusGuard.svelte
+dist/utils/FocusGuard.svelte.d.ts
+dist/utils/formatNumber.d.ts
+dist/utils/formatNumber.js
+dist/utils/getCssDimensions.d.ts
+dist/utils/getCssDimensions.js
+dist/utils/getElementTransform.d.ts
+dist/utils/getElementTransform.js
+dist/utils/getPseudoElementBounds.d.ts
+dist/utils/getPseudoElementBounds.js
+dist/utils/InternalBackdrop.svelte
+dist/utils/InternalBackdrop.svelte.d.ts
+dist/utils/mergeCleanups.d.ts
+dist/utils/mergeCleanups.js
+dist/utils/NullStore.svelte.d.ts
+dist/utils/NullStore.svelte.js
+dist/utils/popups/index.d.ts
+dist/utils/popups/index.js
+dist/utils/popups/inlineRect.d.ts
+dist/utils/popups/inlineRect.js
+dist/utils/popups/popupHandle.svelte.d.ts
+dist/utils/popups/popupHandle.svelte.js
+dist/utils/popups/PopupHandleAttachment.svelte
+dist/utils/popups/PopupHandleAttachment.svelte.d.ts
+dist/utils/popups/popupStoreUtils.svelte.d.ts
+dist/utils/popups/popupStoreUtils.svelte.js
+dist/utils/popups/popupTriggerMap.svelte.d.ts
+dist/utils/popups/popupTriggerMap.svelte.js
+dist/utils/popups/store.d.ts
+dist/utils/popups/store.js
+dist/utils/popups/usePopupHandleStore.svelte.d.ts
+dist/utils/popups/usePopupHandleStore.svelte.js
+dist/utils/popups/useTriggerFocusGuards.svelte.d.ts
+dist/utils/popups/useTriggerFocusGuards.svelte.js
+dist/utils/popupStateMapping.d.ts
+dist/utils/popupStateMapping.js
+dist/utils/resolveClassName.d.ts
+dist/utils/resolveClassName.js
+dist/utils/resolveRef.d.ts
+dist/utils/resolveRef.js
+dist/utils/resolveStyle.d.ts
+dist/utils/resolveStyle.js
+dist/utils/scrollEdges.d.ts
+dist/utils/scrollEdges.js
+dist/utils/stringifyLocale.d.ts
+dist/utils/stringifyLocale.js
+dist/utils/StyleDisableScrollbar.svelte
+dist/utils/StyleDisableScrollbar.svelte.d.ts
+dist/utils/styles.d.ts
+dist/utils/styles.js
+dist/utils/useAnchoredPopupScrollLock.svelte.d.ts
+dist/utils/useAnchoredPopupScrollLock.svelte.js
+dist/utils/useFocusableWhenDisabled.d.ts
+dist/utils/useFocusableWhenDisabled.js
+dist/utils/useInterval.d.ts
+dist/utils/useInterval.js
+dist/utils/useMixedToggleClickHandler.svelte.d.ts
+dist/utils/useMixedToggleClickHandler.svelte.js
+dist/utils/useOpenInteractionType.svelte.d.ts
+dist/utils/useOpenInteractionType.svelte.js
+dist/utils/usePopupAutoResize.svelte.d.ts
+dist/utils/usePopupAutoResize.svelte.js
+dist/utils/usePopupViewport.svelte.d.ts
+dist/utils/usePopupViewport.svelte.js
+dist/utils/usePositioner.svelte.d.ts
+dist/utils/usePositioner.svelte.js
+dist/utils/useRegisteredLabelId.svelte.d.ts
+dist/utils/useRegisteredLabelId.svelte.js
+LICENSE
+package.json
+patches/@sveltejs__kit@2.70.3.patch
+patches/LICENSE.sveltekit
+patches/README.md
+THIRD_PARTY_NOTICES.md
+Tarball Details
+/tmp/sveltery-artifacts.KTlTCO/sveltery-base-0.0.0.tgz
+✔ Accordion trace preserves ordinary, parameterized, Activity, helper and type scopes (19.535274ms)
+✔ I:9 React reference missing context retains exact upstream message (166.002053ms)
+✔ H:8 React reference missing context retains exact upstream message (11.53364ms)
+✔ React reference nested replacement Items sharing a host publish index zero independently (181.233514ms)
+✔ private anchor foundation keeps immutable source/assertions and zero deferred ordinary credit (9.083717ms)
+✔ selected root-store bridge preserves reference ownership and delegates one DOM driver (368.626512ms)
+✔ private native and actual React anchor policies SSR without browser measurements (1087.970772ms)
+✔ Avatar preserves immutable source bytes and separates ordinary, conformance, types and supplements (1174.724124ms)
+✔ Avatar paired SSR keepMounted=false runs without browser globals (1704.939701ms)
+✔ Avatar paired SSR keepMounted=true runs without browser globals (2540.21237ms)
+✔ Button ports retain complete direct declarations and selected non-composite support assertions (6.038238ms)
+✔ Button graph retains the original source pin and hashes the actual canonical closure (389.609113ms)
+✔ maintained catalog keeps every pinned module and distinguishes actual native API presence from acceptance or retirement (33.650698ms)
+✔ Collapsible ledger preserves exact ordinary inventory and portable versus Activity scope (21.789263ms)
+✔ P:799 paired exact-pin React/Svelte SSR initial keyframe suppression (2055.260711ms)
+✔ P:830 paired exact-pin React/Svelte SSR initial keyframe suppression (1937.466439ms)
+✔ CSP source ledger retains the pin, original dependent assertions and zero ordinary credit (14.776956ms)
+✔ CSPProvider SSR without browser globals preserves wrapperless context defaults and shadowing in both frameworks (1597.385294ms)
+✔ pinned canceled openWithPayload and ordinary close/unmount retain the payload write (608.894722ms)
+✔ pinned forceUnmount while logically open remounts without changing the logical open state (242.958434ms)
+✔ pinned external controlled opening prefers the previously focused external button (270.114314ms)
+✔ pinned completion characterization with renderer StrictMode=false (140.711381ms)
+✔ pinned completion characterization with renderer StrictMode=true (149.319509ms)
+✔ D:230 actual pinned JSDOM detached production payload warning body (21.812317ms)
+✔ pinned reopened nonmodal Root accepts a press-less virtual outside click (391.847741ms)
+✔ pinned external owner-control button.click also emits a virtual outside press (201.769717ms)
+✔ pinned close with Popup absent retains mounted state without a completion (138.121572ms)
+✔ pinned close with Popup remove-on-close retains mounted state without a completion (195.633777ms)
+✔ pinned Backdrop forwards exactly the open and transitionStatus state keys (132.359754ms)
+✔ SSR roots and successive requests isolate defaultOpen and generated relationships (2099.713819ms)
+✔ DirectionProvider keeps both pinned ordinary predicates separate from the callable-reader API adaptation (16.424836ms)
+✔ docs API matches actual local types and all public parts (100.416985ms)
+✔ Dialog docs extracts complete TypeScript from valid quoted Svelte generic attributes (0.331071ms)
+✔ docs metadata, navigation links and fragment targets are valid (0.675152ms)
+✔ Accordion docs API matches all five local part declarations (4.401744ms)
+✔ Input accepted reset limitation keeps its narrow decision, negative assertions and zero credit visible (29.008808ms)
+✔ Input source bytes and fifteen separate helper mappings retain zero ordinary declaration credit (246.910202ms)
+✔ Input supplemental native reset and real remote evidence cannot silently claim Field conformance (2.256306ms)
+✔ Input timing characterization preserves hashed raw phase observations and the explicit native decision (9.006716ms)
+✔ Current Input native-default source suites retain historical assertions without active failure waivers (2.070625ms)
+✔ Kit compatibility patch changes only submit cancellation and the reset task boundary at the exact pinned source (26.100259ms)
+✔ Kit compatibility patch and license ship as optional artifacts without a runtime Kit dependency (4.090873ms)
+✔ unpatched witness removes only this SDK patch and keeps unrelated patches and resolutions (13.147735ms)
+✔ complete original Menu family runtime and test/helper archives preserve the immutable pin (228.509523ms)
+✖ current Menu family reachability resolves actual native counterparts while preserving historical provenance without new acceptance credit (1692.751639ms)
+✔ Original assertion declarations and conformance stay independently uncredited (7.3897ms)
+✔ Meter preserves 22 ordinary declarations, four parameterized variants and separate full conformance (46.316562ms)
+node:internal/modules/run_main:107
+    triggerUncaughtException(
+    ^
+
+AssertionError [ERR_ASSERTION]: Current native graph is stale; run node parity/native-snippets/graph.mjs --write
++ actual - expected
+... Skipped lines
+
+  '{\n' +
+    '  "pin": "47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c",\n' +
+    '  "roots": [\n' +
+    '    "packages/base/src/lib/index.ts"\n' +
+    '  ],\n' +
+...
+    '      "source": "packages/base/src/lib/accordion/Trigger.svelte",\n' +
++   '      "sha256": "6be562aacf4df95c054c825d74102c63e5111df9d8b72f0f52c8dcb08f6b'... 520322 more characters
+-   '      "sha256": "6be562aacf4df95c054c825d74102c63e5111df9d8b72f0f52c8dcb08f6b'... 548570 more characters
+
+    at file:///workspace/scratch/2bab9a276da0/number-field-integration/parity/native-snippets/graph.mjs:114:10
+    at ModuleJob.run (node:internal/modules/esm/module_job:439:25)
+    at async node:internal/modules/esm/loader:643:26
+    at async asyncRunEntryPointWithESMLoader (node:internal/modules/run_main:101:5) {
+  generatedMessage: false,
+  code: 'ERR_ASSERTION',
+  actual: '{\n' +
+    '  "pin": "47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c",\n' +
+    '  "roots": [\n' +
+    '    "packages/base/src/lib/index.ts"\n' +
+    '  ],\n' +
+    '  "modules": [\n' +
+    '    {\n' +
+    '      "source": "packages/base/src/lib/accordion/context.ts",\n' +
+    '      "sha256": "31d2514f0ab906bb0c7faaa08e6381f0ac800530d4e5f3fc61736df73c688266",\n' +
+    '      "imports": [\n' +
+    '        {\n' +
+    '          "specifier": "svelte",\n' +
+    '          "kind": "runtime-or-mixed",\n' +
+    '          "resolved": "external:svelte"\n' +
+    '        },\n' +
+    '        {\n' +
+    '          "specifier": "./types.js",\n' +
+    '          "kind": "type",\n' +
+    '          "resolved": "packages/base/src/lib/accordion/types.ts"\n' +
+    '        }\n' +
+    '      ]\n' +
+    '    },\n' +
+    '    {\n' +
+    '      "source": "packages/base/src/lib/accordion/Header.svelte",\n' +
+    '      "sha256": "aea63345dc0279d55aff3c4d8d92e9833882c9cf679aaa910f69f8257d517da4",\n' +
+    '      "imports": [\n' +
+    '        {\n' +
+    '          "specifier": "../internals/mergeComponentProps.js",\n' +
+    '          "kind": "runtime-or-mixed",\n' +
+    '          "resolved": "packages/base/src/lib/internals/mergeComponentProps.ts"\n' +
+    '        },\n' +
+    '        {\n' +
+    '          "specifier": "svelte/attachments",\n' +
+    '          "kind": "runtime-or-mixed",\n' +
+    '          "resolved": "external:svelte/attachments"\n' +
+    '        },\n' +
+    '        {\n' +
+    '          "specifier": "svelte",\n' +
+    '          "kind": "runtime-or-mixed",\n' +
+    '          "resolved": "external:svelte"\n' +
+    '        },\n' +
+    '        {\n' +
+    '          "specifier": "../internals/resolveClassValue.js",\n' +
+    '          "kind": "runtime-or-mixed",\n' +
+    '          "resolved": "packages/base/src/lib/internals/resolveClassValue.ts"\n' +
+    '        },\n' +
+    '        {\n' +
+    '          "specifier": "./context.js",\n' +
+    '          "kind": "runtime-or-mixed",\n' +
+    '          "resolved": "packages/base/src/lib/accordion/context.ts"\n' +
+    '        },\n' +
+    '        {\n' +
+    '          "specifier": "./state.js",\n' +
+    '          "kind": "runtime-or-mixed",\n' +
+    '          "resolved": "packages/base/src/lib/accordion/state.ts"\n' +
+    '        },\n' +
+    '        {\n' +
+    '          "specifier": "./types.js",\n' +
+    '          "kind": "type",\n' +
+    '          "resolved": "packages/base/src/lib/accordion/types.ts"\n' +
+    '        }\n' +
+    '      ]\n' +
+    '    },\n' +
+    '    {\n' +
+    '      "source": "packages/base/src/lib/accordion/index.parts.ts",\n' +
+    '      "sha256": "95f157aa9705199941fc9e54dd45e666b6cd36f7970d99a7b7eda30e9ac509be",\n' +
+    '      "imports": [\n' +
+    '        {\n' +
+    '          "specifier": "./Root.svelte",\n' +
+    '          "kind": "runtime-or-mixed",\n' +
+    '          "resolved": "packages/base/src/lib/accordion/Root.svelte"\n' +
+    '        },\n' +
+    '        {\n' +
+    '          "specifier": "./Item.svelte",\n' +
+    '          "kind": "runtime-or-mixed",\n' +
+    '          "resolved": "packages/base/src/lib/accordion/Item.svelte"\n' +
+    '        },\n' +
+    '        {\n' +
+    '          "specifier": "./Header.svelte",\n' +
+    '          "kind": "runtime-or-mixed",\n' +
+    '          "resolved": "packages/base/src/lib/accordion/Header.svelte"\n' +
+    '        },\n' +
+    '        {\n' +
+    '          "specifier": "./Trigger.svelte",\n' +
+    '          "kind": "runtime-or-mixed",\n' +
+    '          "resolved": "packages/base/src/lib/accordion/Trigger.svelte"\n' +
+    '        },\n' +
+    '        {\n' +
+    '          "specifier": "./Panel.svelte",\n' +
+    '          "kind": "runtime-or-mixed",\n' +
+    '          "resolved": "packages/base/src/lib/accordion/Panel.svelte"\n' +
+    '        }\n' +
+    '      ]\n' +
+    '    },\n' +
+    '    {\n' +
+    '      "source": "packages/base/src/lib/accordion/index.ts",\n' +
+    '      "sha256": "e24f9fe980656d471e4ff2203c21d017012e8a7a9c584b3601c4a6004a36be85",\n' +
+    '      "imports": [\n' +
+    '        {\n' +
+    '          "specifier": "./index.parts.js",\n' +
+    '          "kind": "runtime-or-mixed",\n' +
+    '          "resolved": "packages/base/src/lib/accordion/index.parts.ts"\n' +
+    '        },\n' +
+    '        {\n' +
+    '          "specifier": "./index.parts.js",\n' +
+    '          "kind": "runtime-or-mixed",\n' +
+    '          "resolved": "packages/base/src/lib/accordion/index.parts.ts"\n' +
+    '        },\n' +
+    '        {\n' +
+    '          "specifier": "./types.js",\n' +
+    '          "kind": "type",\n' +
+    '          "resolved": "packages/base/src/lib/accordion/types.ts"\n' +
+    '        }\n' +
+    '      ]\n' +
+    '    },\n' +
+    '    {\n' +
+    '      "source": "packages/base/src/lib/accordion/Item.svelte",\n' +
+    '      "sha256": "4a21b81b2c5820296de25d116169629da1526fb24b0dae0eef6a297d7de34875",\n' +
+    '      "imports": [\n' +
+    '        {\n' +
+    '          "specifier": "../internals/mergeComponentProps.js",\n' +
+    '          "kind": "runtime-or-mixed",\n' +
+    '          "resolved": "packages/base/src/lib/internals/mergeComponentProps.ts"\n' +
+    '        },\n' +
+    '        {\n' +
+    '          "specifier": "svelte/attachments",\n' +
+    '          "kind": "runtime-or-mixed",\n' +
+    '          "resolved": "external:svelte/attachments"\n' +
+    '        },\n' +
+    '        {\n' +
+    '          "specifier": "svelte",\n' +
+    '          "kind": "runtime-or-mixed",\n' +
+    '          "resolved": "external:svelte"\n' +
+    '        },\n' +
+    '        {\n' +
+    '          "specifier": "../internals/resolveClassValue.js",\n' +
+    '          "kind": "runtime-or-mixed",\n' +
+    '          "resolved": "packages/base/src/lib/internals/resolveClassValue.ts"\n' +
+    '        },\n' +
+    '        {\n' +
+    '          "specifier": "../internals/createBaseUIEventDetails.js",\n' +
+    '          "kind": "runtime-or-mixed",\n' +
+    '          "resolved": "packages/base/src/lib/internals/createBaseUIEventDetails.ts"\n' +
+    '        },\n' +
+    '        {\n' +
+    '          "specifier": "../collapsible/context.js",\n' +
+    '          "kind": "runtime-or-mixed",\n' +
+    '          "resolved": "packages/base/src/lib/collapsible/context.ts"\n' +
+    '        },\n' +
+    '        {\n' +
+    '          "specifier": "../collapsible/types.js",\n' +
+    '          "kind": "type",\n' +
+    '          "resolved": "packages/base/src/lib/collapsible/types.ts"\n' +
+    '        },\n' +
+    '        {\n' +
+    '          "specifier": "./context.js",\n' +
+    '          "kind": "runtime-or-mixed",\n' +
+    '          "resolved": "packages/base/src/lib/accordion/context.ts"\n' +
+    '        },\n' +
+    '        {\n' +
+    '          "specifier": "./state.js",\n' +
+    '          "kind": "runtime-or-mixed",\n' +
+    '          "resolved": "packages/base/src/lib/accordion/state.ts"\n' +
+    '        },\n' +
+    '        {\n' +
+    '          "specifier": "./types.js",\n' +
+    '          "kind": "type",\n' +
+    '          "resolved": "packages/base/src/lib/accordion/types.ts"\n' +
+    '        }\n' +
+    '      ]\n' +
+    '    },\n' +
+    '    {\n' +
+    '      "source": "packages/base/src/lib/accordion/list.ts",\n' +
+    '      "sha256": "0a19ac99ed5a047409e89d61658236762fb86c03e78c9c1bc46f84e3c78633a1",\n' +
+    '      "imports": []\n' +
+    '    },\n' +
+    '    {\n' +
+    '      "source": "packages/base/src/lib/accordion/Panel.svelte",\n' +
+    '      "sha256": "6b0d6d2d8971812958fdb6d29c0591bfd2b7a26c876fca465732be26ecf32ce9",\n' +
+    '      "imports": [\n' +
+    '        {\n' +
+    '          "specifier": "../internals/mergeComponentProps.js",\n' +
+    '          "kind": "runtime-or-mixed",\n' +
+    '          "resolved": "packages/base/src/lib/internals/mergeComponentProps.ts"\n' +
+    '        },\n' +
+    '        {\n' +
+    '          "specifier": "svelte/attachments",\n' +
+    '          "kind": "runtime-or-mixed",\n' +
+    '          "resolved": "external:svelte/attachments"\n' +
+    '        },\n' +
+    '        {\n' +
+    '          "specifier": "svelte",\n' +
+    '          "kind": "runtime-or-mixed",\n' +
+    '          "resolved": "external:svelte"\n' +
+    '        },\n' +
+    '        {\n' +
+    '          "specifier": "../internals/resolveClassValue.js",\n' +
+    '          "kind": "runtime-or-mixed",\n' +
+    '          "resolved": "packages/base/src/lib/internals/resolveClassValue.ts"\n' +
+    '        },\n' +
+    '        {\n' +
+    '          "specifier": "../internals/createBaseUIEventDetails.js",\n' +
+    '          "kind": "runtime-or-mixed",\n' +
+    '          "resolved": "packages/base/src/lib/internals/createBaseUIEventDetails.ts"\n' +
+    '        },\n' +
+    '        {\n' +
+    '          "specifier": "../collapsible/context.js",\n' +
+    '          "kind": "runtime-or-mixed",\n' +
+    '          "resolved": "packages/base/src/lib/collapsible/context.ts"\n' +
+    '        },\n' +
+    '        {\n' +
+    '          "specifier": "./context.js",\n' +
+    '          "kind": "runtime-or-mixed",\n' +
+    '          "resolved": "packages/base/src/lib/accordion/context.ts"\n' +
+    '        },\n' +
+    '        {\n' +
+    '          "specifier": "./state.js",\n' +
+    '          "kind": "runtime-or-mixed",\n' +
+    '          "resolved": "packages/base/src/lib/accordion/state.ts"\n' +
+    '        },\n' +
+    '        {\n' +
+    '          "specifier": "../collapsible/animations.js",\n' +
+    '          "kind": "runtime-or-mixed",\n' +
+    '          "resolved": "packages/base/src/lib/collapsible/animations.ts"\n' +
+    '        },\n' +
+    '        {\n' +
+    '          "specifier": "./types.js",\n' +
+    '          "kind": "type",\n' +
+    '          "resolved": "packages/base/src/lib/accordion/types.ts"\n' +
+    '        }\n' +
+    '      ]\n' +
+    '    },\n' +
+    '    {\n' +
+    '      "source": "packages/base/src/lib/accordion/Root.svelte",\n' +
+    '      "sha256": "abc765724de7e7c633d486d69fd6fd13b3abebe974857386ca1829ba3cd2c564",\n' +
+    '      "imports": [\n' +
+    '        {\n' +
+    '          "specifier": "../internals/mergeComponentProps.js",\n' +
+    '          "kind": "runtime-or-mixed",\n' +
+    '          "resolved": "packages/base/src/lib/internals/mergeComponentProps.ts"\n' +
+    '        },\n' +
+    '        {\n' +
+    '          "specifier": "svelte/attachments",\n' +
+    '          "kind": "runtime-or-mixed",\n' +
+    '          "resolved": "external:svelte/attachments"\n' +
+    '        },\n' +
+    '        {\n' +
+    '          "specifier": "svelte",\n' +
+    '          "kind": "runtime-or-mixed",\n' +
+    '          "resolved": "external:svelte"\n' +
+    '        },\n' +
+    '        {\n' +
+    '          "specifier": "@sveltery/utils/Controlled",\n' +
+    '          "kind": "runtime-or-mixed",\n' +
+    '          "resolved": "packages/utils/src/lib/Controlled.svelte.ts"\n' +
+    '        },\n' +
+    '        {\n' +
+    '          "specifier": "../internals/resolveClassValue.js",\n' +
+    '          "kind": "runtime-or-mixed",\n' +
+    '          "resolved": "packages/base/src/lib/internals/resolveClassValue.ts"\n' +
+    '        },\n' +
+    '        {\n' +
+    '          "specifier": "../collapsible/animations.js",\n' +
+    '          "kind": "runtime-or-mixed",\n' +
+    '          "resolved": "packages/base/src/lib/collapsible/animations.ts"\n' +
+    '        },\n' +
+    '        {\n' +
+    '          "specifier": "./context.js",\n' +
+    '          "kind": "runtime-or-mixed",\n' +
+    '          "resolved": "packages/base/src/lib/accordion/context.ts"\n' +
+    '        },\n' +
+    '        {\n' +
+    '          "specifier": "./list.js",\n' +
+    '          "kind": "runtime-or-mixed",\n' +
+    '          "resolved": "packages/base/src/lib/accordion/list.ts"\n' +
+    '        },\n' +
+    '        {\n' +
+    '          "specifier": "./value.js",\n' +
+    '          "kind": "runtime-or-mixed",\n' +
+    '          "resolved": "packages/base/src/lib/accordion/value.ts"\n' +
+    '        },\n' +
+    '        {\n' +
+    '          "specifier": "./types.js",\n' +
+    '          "kind": "type",\n' +
+    '          "resolved": "packages/base/src/lib/accordion/types.ts"\n' +
+    '        }\n' +
+    '      ]\n' +
+    '    },\n' +
+    '    {\n' +
+    '      "source": "packages/base/src/lib/accordion/state.ts",\n' +
+    '      "sha256": "b6b15143e0c243bafc7c437d933df487bce474879e22eb93b1ef2e0b654686a3",\n' +
+    '      "imports": [\n' +
+    '        {\n' +
+    '          "specifier": "./types.js",\n' +
+    '          "kind": "type",\n' +
+    '          "resolved": "packages/base/src/lib/accordion/types.ts"\n' +
+    '        }\n' +
+    '      ]\n' +
+    '    },\n' +
+    '    {\n' +
+    '      "source": "packages/base/src/lib/accordion/Trigger.svelte",\n' +
+    '      "sha256": "6be562aacf4df95c054c825d74102c63e5111df9d8b72f0f52c8dcb08f6b'... 520322 more characters,
+  expected: '{\n' +
+    '  "pin": "47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c",\n' +
+    '  "roots": [\n' +
+    '    "packages/base/src/lib/index.ts"\n' +
+    '  ],\n' +
+    '  "modules": [\n' +
+    '    {\n' +
+    '      "source": "packages/base/src/lib/accordion/context.ts",\n' +
+    '      "sha256": "31d2514f0ab906bb0c7faaa08e6381f0ac800530d4e5f3fc61736df73c688266",\n' +
+    '      "imports": [\n' +
+    '        {\n' +
+    '          "specifier": "svelte",\n' +
+    '          "kind": "runtime-or-mixed",\n' +
+    '          "resolved": "external:svelte"\n' +
+    '        },\n' +
+    '        {\n' +
+    '          "specifier": "./types.js",\n' +
+    '          "kind": "type",\n' +
+    '          "resolved": "packages/base/src/lib/accordion/types.ts"\n' +
+    '        }\n' +
+    '      ]\n' +
+    '    },\n' +
+    '    {\n' +
+    '      "source": "packages/base/src/lib/accordion/Header.svelte",\n' +
+    '      "sha256": "aea63345dc0279d55aff3c4d8d92e9833882c9cf679aaa910f69f8257d517da4",\n' +
+    '      "imports": [\n' +
+    '        {\n' +
+    '          "specifier": "../internals/mergeComponentProps.js",\n' +
+    '          "kind": "runtime-or-mixed",\n' +
+    '          "resolved": "packages/base/src/lib/internals/mergeComponentProps.ts"\n' +
+    '        },\n' +
+    '        {\n' +
+    '          "specifier": "svelte/attachments",\n' +
+    '          "kind": "runtime-or-mixed",\n' +
+    '          "resolved": "external:svelte/attachments"\n' +
+    '        },\n' +
+    '        {\n' +
+    '          "specifier": "svelte",\n' +
+    '          "kind": "runtime-or-mixed",\n' +
+    '          "resolved": "external:svelte"\n' +
+    '        },\n' +
+    '        {\n' +
+    '          "specifier": "../internals/resolveClassValue.js",\n' +
+    '          "kind": "runtime-or-mixed",\n' +
+    '          "resolved": "packages/base/src/lib/internals/resolveClassValue.ts"\n' +
+    '        },\n' +
+    '        {\n' +
+    '          "specifier": "./context.js",\n' +
+    '          "kind": "runtime-or-mixed",\n' +
+    '          "resolved": "packages/base/src/lib/accordion/context.ts"\n' +
+    '        },\n' +
+    '        {\n' +
+    '          "specifier": "./state.js",\n' +
+    '          "kind": "runtime-or-mixed",\n' +
+    '          "resolved": "packages/base/src/lib/accordion/state.ts"\n' +
+    '        },\n' +
+    '        {\n' +
+    '          "specifier": "./types.js",\n' +
+    '          "kind": "type",\n' +
+    '          "resolved": "packages/base/src/lib/accordion/types.ts"\n' +
+    '        }\n' +
+    '      ]\n' +
+    '    },\n' +
+    '    {\n' +
+    '      "source": "packages/base/src/lib/accordion/index.parts.ts",\n' +
+    '      "sha256": "95f157aa9705199941fc9e54dd45e666b6cd36f7970d99a7b7eda30e9ac509be",\n' +
+    '      "imports": [\n' +
+    '        {\n' +
+    '          "specifier": "./Root.svelte",\n' +
+    '          "kind": "runtime-or-mixed",\n' +
+    '          "resolved": "packages/base/src/lib/accordion/Root.svelte"\n' +
+    '        },\n' +
+    '        {\n' +
+    '          "specifier": "./Item.svelte",\n' +
+    '          "kind": "runtime-or-mixed",\n' +
+    '          "resolved": "packages/base/src/lib/accordion/Item.svelte"\n' +
+    '        },\n' +
+    '        {\n' +
+    '          "specifier": "./Header.svelte",\n' +
+    '          "kind": "runtime-or-mixed",\n' +
+    '          "resolved": "packages/base/src/lib/accordion/Header.svelte"\n' +
+    '        },\n' +
+    '        {\n' +
+    '          "specifier": "./Trigger.svelte",\n' +
+    '          "kind": "runtime-or-mixed",\n' +
+    '          "resolved": "packages/base/src/lib/accordion/Trigger.svelte"\n' +
+    '        },\n' +
+    '        {\n' +
+    '          "specifier": "./Panel.svelte",\n' +
+    '          "kind": "runtime-or-mixed",\n' +
+    '          "resolved": "packages/base/src/lib/accordion/Panel.svelte"\n' +
+    '        }\n' +
+    '      ]\n' +
+    '    },\n' +
+    '    {\n' +
+    '      "source": "packages/base/src/lib/accordion/index.ts",\n' +
+    '      "sha256": "e24f9fe980656d471e4ff2203c21d017012e8a7a9c584b3601c4a6004a36be85",\n' +
+    '      "imports": [\n' +
+    '        {\n' +
+    '          "specifier": "./index.parts.js",\n' +
+    '          "kind": "runtime-or-mixed",\n' +
+    '          "resolved": "packages/base/src/lib/accordion/index.parts.ts"\n' +
+    '        },\n' +
+    '        {\n' +
+    '          "specifier": "./index.parts.js",\n' +
+    '          "kind": "runtime-or-mixed",\n' +
+    '          "resolved": "packages/base/src/lib/accordion/index.parts.ts"\n' +
+    '        },\n' +
+    '        {\n' +
+    '          "specifier": "./types.js",\n' +
+    '          "kind": "type",\n' +
+    '          "resolved": "packages/base/src/lib/accordion/types.ts"\n' +
+    '        }\n' +
+    '      ]\n' +
+    '    },\n' +
+    '    {\n' +
+    '      "source": "packages/base/src/lib/accordion/Item.svelte",\n' +
+    '      "sha256": "4a21b81b2c5820296de25d116169629da1526fb24b0dae0eef6a297d7de34875",\n' +
+    '      "imports": [\n' +
+    '        {\n' +
+    '          "specifier": "../internals/mergeComponentProps.js",\n' +
+    '          "kind": "runtime-or-mixed",\n' +
+    '          "resolved": "packages/base/src/lib/internals/mergeComponentProps.ts"\n' +
+    '        },\n' +
+    '        {\n' +
+    '          "specifier": "svelte/attachments",\n' +
+    '          "kind": "runtime-or-mixed",\n' +
+    '          "resolved": "external:svelte/attachments"\n' +
+    '        },\n' +
+    '        {\n' +
+    '          "specifier": "svelte",\n' +
+    '          "kind": "runtime-or-mixed",\n' +
+    '          "resolved": "external:svelte"\n' +
+    '        },\n' +
+    '        {\n' +
+    '          "specifier": "../internals/resolveClassValue.js",\n' +
+    '          "kind": "runtime-or-mixed",\n' +
+    '          "resolved": "packages/base/src/lib/internals/resolveClassValue.ts"\n' +
+    '        },\n' +
+    '        {\n' +
+    '          "specifier": "../internals/createBaseUIEventDetails.js",\n' +
+    '          "kind": "runtime-or-mixed",\n' +
+    '          "resolved": "packages/base/src/lib/internals/createBaseUIEventDetails.ts"\n' +
+    '        },\n' +
+    '        {\n' +
+    '          "specifier": "../collapsible/context.js",\n' +
+    '          "kind": "runtime-or-mixed",\n' +
+    '          "resolved": "packages/base/src/lib/collapsible/context.ts"\n' +
+    '        },\n' +
+    '        {\n' +
+    '          "specifier": "../collapsible/types.js",\n' +
+    '          "kind": "type",\n' +
+    '          "resolved": "packages/base/src/lib/collapsible/types.ts"\n' +
+    '        },\n' +
+    '        {\n' +
+    '          "specifier": "./context.js",\n' +
+    '          "kind": "runtime-or-mixed",\n' +
+    '          "resolved": "packages/base/src/lib/accordion/context.ts"\n' +
+    '        },\n' +
+    '        {\n' +
+    '          "specifier": "./state.js",\n' +
+    '          "kind": "runtime-or-mixed",\n' +
+    '          "resolved": "packages/base/src/lib/accordion/state.ts"\n' +
+    '        },\n' +
+    '        {\n' +
+    '          "specifier": "./types.js",\n' +
+    '          "kind": "type",\n' +
+    '          "resolved": "packages/base/src/lib/accordion/types.ts"\n' +
+    '        }\n' +
+    '      ]\n' +
+    '    },\n' +
+    '    {\n' +
+    '      "source": "packages/base/src/lib/accordion/list.ts",\n' +
+    '      "sha256": "0a19ac99ed5a047409e89d61658236762fb86c03e78c9c1bc46f84e3c78633a1",\n' +
+    '      "imports": []\n' +
+    '    },\n' +
+    '    {\n' +
+    '      "source": "packages/base/src/lib/accordion/Panel.svelte",\n' +
+    '      "sha256": "6b0d6d2d8971812958fdb6d29c0591bfd2b7a26c876fca465732be26ecf32ce9",\n' +
+    '      "imports": [\n' +
+    '        {\n' +
+    '          "specifier": "../internals/mergeComponentProps.js",\n' +
+    '          "kind": "runtime-or-mixed",\n' +
+    '          "resolved": "packages/base/src/lib/internals/mergeComponentProps.ts"\n' +
+    '        },\n' +
+    '        {\n' +
+    '          "specifier": "svelte/attachments",\n' +
+    '          "kind": "runtime-or-mixed",\n' +
+    '          "resolved": "external:svelte/attachments"\n' +
+    '        },\n' +
+    '        {\n' +
+    '          "specifier": "svelte",\n' +
+    '          "kind": "runtime-or-mixed",\n' +
+    '          "resolved": "external:svelte"\n' +
+    '        },\n' +
+    '        {\n' +
+    '          "specifier": "../internals/resolveClassValue.js",\n' +
+    '          "kind": "runtime-or-mixed",\n' +
+    '          "resolved": "packages/base/src/lib/internals/resolveClassValue.ts"\n' +
+    '        },\n' +
+    '        {\n' +
+    '          "specifier": "../internals/createBaseUIEventDetails.js",\n' +
+    '          "kind": "runtime-or-mixed",\n' +
+    '          "resolved": "packages/base/src/lib/internals/createBaseUIEventDetails.ts"\n' +
+    '        },\n' +
+    '        {\n' +
+    '          "specifier": "../collapsible/context.js",\n' +
+    '          "kind": "runtime-or-mixed",\n' +
+    '          "resolved": "packages/base/src/lib/collapsible/context.ts"\n' +
+    '        },\n' +
+    '        {\n' +
+    '          "specifier": "./context.js",\n' +
+    '          "kind": "runtime-or-mixed",\n' +
+    '          "resolved": "packages/base/src/lib/accordion/context.ts"\n' +
+    '        },\n' +
+    '        {\n' +
+    '          "specifier": "./state.js",\n' +
+    '          "kind": "runtime-or-mixed",\n' +
+    '          "resolved": "packages/base/src/lib/accordion/state.ts"\n' +
+    '        },\n' +
+    '        {\n' +
+    '          "specifier": "../collapsible/animations.js",\n' +
+    '          "kind": "runtime-or-mixed",\n' +
+    '          "resolved": "packages/base/src/lib/collapsible/animations.ts"\n' +
+    '        },\n' +
+    '        {\n' +
+    '          "specifier": "./types.js",\n' +
+    '          "kind": "type",\n' +
+    '          "resolved": "packages/base/src/lib/accordion/types.ts"\n' +
+    '        }\n' +
+    '      ]\n' +
+    '    },\n' +
+    '    {\n' +
+    '      "source": "packages/base/src/lib/accordion/Root.svelte",\n' +
+    '      "sha256": "abc765724de7e7c633d486d69fd6fd13b3abebe974857386ca1829ba3cd2c564",\n' +
+    '      "imports": [\n' +
+    '        {\n' +
+    '          "specifier": "../internals/mergeComponentProps.js",\n' +
+    '          "kind": "runtime-or-mixed",\n' +
+    '          "resolved": "packages/base/src/lib/internals/mergeComponentProps.ts"\n' +
+    '        },\n' +
+    '        {\n' +
+    '          "specifier": "svelte/attachments",\n' +
+    '          "kind": "runtime-or-mixed",\n' +
+    '          "resolved": "external:svelte/attachments"\n' +
+    '        },\n' +
+    '        {\n' +
+    '          "specifier": "svelte",\n' +
+    '          "kind": "runtime-or-mixed",\n' +
+    '          "resolved": "external:svelte"\n' +
+    '        },\n' +
+    '        {\n' +
+    '          "specifier": "@sveltery/utils/Controlled",\n' +
+    '          "kind": "runtime-or-mixed",\n' +
+    '          "resolved": "packages/utils/src/lib/Controlled.svelte.ts"\n' +
+    '        },\n' +
+    '        {\n' +
+    '          "specifier": "../internals/resolveClassValue.js",\n' +
+    '          "kind": "runtime-or-mixed",\n' +
+    '          "resolved": "packages/base/src/lib/internals/resolveClassValue.ts"\n' +
+    '        },\n' +
+    '        {\n' +
+    '          "specifier": "../collapsible/animations.js",\n' +
+    '          "kind": "runtime-or-mixed",\n' +
+    '          "resolved": "packages/base/src/lib/collapsible/animations.ts"\n' +
+    '        },\n' +
+    '        {\n' +
+    '          "specifier": "./context.js",\n' +
+    '          "kind": "runtime-or-mixed",\n' +
+    '          "resolved": "packages/base/src/lib/accordion/context.ts"\n' +
+    '        },\n' +
+    '        {\n' +
+    '          "specifier": "./list.js",\n' +
+    '          "kind": "runtime-or-mixed",\n' +
+    '          "resolved": "packages/base/src/lib/accordion/list.ts"\n' +
+    '        },\n' +
+    '        {\n' +
+    '          "specifier": "./value.js",\n' +
+    '          "kind": "runtime-or-mixed",\n' +
+    '          "resolved": "packages/base/src/lib/accordion/value.ts"\n' +
+    '        },\n' +
+    '        {\n' +
+    '          "specifier": "./types.js",\n' +
+    '          "kind": "type",\n' +
+    '          "resolved": "packages/base/src/lib/accordion/types.ts"\n' +
+    '        }\n' +
+    '      ]\n' +
+    '    },\n' +
+    '    {\n' +
+    '      "source": "packages/base/src/lib/accordion/state.ts",\n' +
+    '      "sha256": "b6b15143e0c243bafc7c437d933df487bce474879e22eb93b1ef2e0b654686a3",\n' +
+    '      "imports": [\n' +
+    '        {\n' +
+    '          "specifier": "./types.js",\n' +
+    '          "kind": "type",\n' +
+    '          "resolved": "packages/base/src/lib/accordion/types.ts"\n' +
+    '        }\n' +
+    '      ]\n' +
+    '    },\n' +
+    '    {\n' +
+    '      "source": "packages/base/src/lib/accordion/Trigger.svelte",\n' +
+    '      "sha256": "6be562aacf4df95c054c825d74102c63e5111df9d8b72f0f52c8dcb08f6b'... 548570 more characters,
+  operator: 'strictEqual',
+  diff: 'simple'
+}
+
+Node.js v24.19.0
+✔ native rendering retirement preserves every exact predecessor body and Source declaration scope (58.65085ms)
+✔ live public native rendering excludes the retired root/subpath API and keeps real secured acceptance (1.996873ms)
+✖ actual current native Source import graph and retirement exclusions remain coherent (2136.930791ms)
+✔ owned navigation API snapshot derives all actual eight exported components and types (24.599489ms)
+✔ current navigation reachability and explicit native counterparts preserve exact current bytes without historical acceptance credit (40.532414ms)
+✔ navigation source graph resolves original index.parts and preserves immutable declaration accounting (6.973679ms)
+{"phase":"initial offline install","stdout":"Progress: resolved 1, reused 0, downloaded 0, added 0\nPackages are hard linked from the content-addressable store to the virtual store.\n  Content-addressable store is at: /.pnpm-store/v11\n  Virtual store is at:             node_modules/.pnpm\nPackages: +2\n++\nProgress: resolved 2, reused 0, downloaded 2, added 2, done\n\ndependencies:\n+ @test/base 0.0.0\n+ @test/utils 0.0.0\n\nDone in 28ms using pnpm v12.6.0"}
+{"phase":"frozen offline reinstall","stdout":"✓ Lockfile passes supply-chain policies (verified 1s ago)\nLockfile is up to date, resolution step is skipped\nDone in 18ms using pnpm v12.6.0"}
+lockfileVersion: '9.0'
+
+settings:
+  autoInstallPeers: true
+  excludeLinksFromLockfile: false
+
+overrides:
+  '@test/base': file:/tmp/sveltery-artifacts-test.lOITkh/consumer/test-base-0.0.0.tgz
+  '@test/utils': file:/tmp/sveltery-artifacts-test.lOITkh/consumer/.workspace-artifacts/test-utils-0.0.0.tgz
+
+importers:
+
+  .:
+    dependencies:
+      '@test/base':
+        specifier: file:/tmp/sveltery-artifacts-test.lOITkh/consumer/test-base-0.0.0.tgz
+        version: file:test-base-0.0.0.tgz
+      '@test/utils':
+        specifier: file:/tmp/sveltery-artifacts-test.lOITkh/consumer/.workspace-artifacts/test-utils-0.0.0.tgz
+        version: file:.workspace-artifacts/test-utils-0.0.0.tgz
+
+packages:
+
+  '@test/base@file:test-base-0.0.0.tgz':
+    resolution: {integrity: sha512-SLgm7p83EGe/89uFKLQ6vGOIC68nel1CfAG/uMqY7PMzxVfgx1JyHnFWQde2O3leemSEktpzBMxBqIPzAXnbkA==, tarball: file:test-base-0.0.0.tgz}
+    version: 0.0.0
+
+  '@test/utils@file:.workspace-artifacts/test-utils-0.0.0.tgz':
+    resolution: {integrity: sha512-s7wfK5VjTWdOMhZKSQaCdcKvsTyqa7X2tpBmDbxTplricvch3aCsWifD1AJl2nyfeYeU7jU003Ij8SQZl67ryQ==, tarball: file:.workspace-artifacts/test-utils-0.0.0.tgz}
+    version: 0.0.0
+
+snapshots:
+
+  '@test/base@file:test-base-0.0.0.tgz':
+    dependencies:
+      '@test/utils': file:.workspace-artifacts/test-utils-0.0.0.tgz
+
+  '@test/utils@file:.workspace-artifacts/test-utils-0.0.0.tgz': {}
+
+{"artifacts":{"schema":1,"packages":{"@test/utils":{"version":"0.0.0","directory":"../../../../tmp/sveltery-artifacts-test.lOITkh/utils","tarball":"test-utils-0.0.0.tgz","sha256":"9d302a6f1de7c897bb748c77cc69f983d8518d5c548c462e4564cc4b5261a20b","dependencies":[]},"@test/base":{"version":"0.0.0","directory":"../../../../tmp/sveltery-artifacts-test.lOITkh/base","tarball":"test-base-0.0.0.tgz","sha256":"c31b26ab1922e9fcbc0d57c41578a624587b8068c3ad6a43b57ca904eb4df5d5","dependencies":["@test/utils"]}}},"probe":"Base and the direct dependency resolve the same packed Utils module."}
+✔ reuses the exact Base archive and prepares its local Utils dependency without changing consumer peers (511.483408ms)
+✔ installs the real archive closure offline and preserves the same transitive Utils through a frozen reinstall (3710.751003ms)
+✔ fails closed when an artifact changes after packing or a requested package is absent (394.440389ms)
+✔ extracts multiline conditional names and keeps their declaration lines (17.207695ms)
+✔ counts existing template declarations once and excludes parameterized factories (2.517912ms)
+✔ preserves verification metadata, marks added declarations unported, and rejects lost cases (1.055689ms)
+✔ locates the exact pinned type assertion and rejects missing assertions (3.359066ms)
+✔ explicit dynamic declaration inventory counts the orientation source site once (8.880887ms)
+✔ credited Dialog leaves retain immutable assertions, real fixtures and browser evidence (8.858392ms)
+✔ documented aggregate credit agrees with the shared manifest and overlapping Dialog trace (17.289989ms)
+✔ state ports retain complete source assertions and all fixture variants without crediting supplements (7.627199ms)
+✔ Progress keeps immutable 20 ordinary declarations, 7 parameterized variants and separate conformance (46.22504ms)
+✔ remote names canonicalize actual numeric issue paths without changing native names (2.611414ms)
+✔ public Kit path grammar rejects malformed and protected dynamic paths (0.745869ms)
+✔ actual schema method-name fields and similar protected spellings remain resolvable (0.463302ms)
+✔ Separator immutable source bytes, two ordinary declarations and fifteen separate helper records remain traceable (192.216739ms)
+✔ actual Toast core runs all 25 unchanged full bodies and both metadata helpers (363.250514ms)
+✔ actual public manager retains the entire data spec and all expected errors (0.708363ms)
+✔ core and public entry imports are SSR-safe and isolated without browser globals (2408.762591ms)
+✔ Portal helper evidence retains immutable invocation/hashes without ordinary leaf credit (31.140616ms)
+✔ Toast provenance placeholders stay immutable and parameterized swipe variants remain explicit (11.197483ms)
+✔ every reference prerequisite retains the complete source body, assertions and metadata helpers (396.639083ms)
+✔ complete manager data type prerequisite retains every positive and negative assertion (4.796632ms)
+✔ rendering evidence preserves complete pinned provenance without crediting supplements (14.227249ms)
+✔ the context manager retains the full pinned data type spec with only its import adaptation (2.735121ms)
+✔ shared Toast credit includes only the thirteen complete hosted paired declarations (3.253746ms)
+✔ Toggle ledger preserves five complete standalone ports and two deferred group declarations (10.152832ms)
+✔ standalone Toggle renders SSR state and strips form/type/value without browser globals (1421.524944ms)
+✖ matching pnpm builds native packages after the frozen bootstrap install (35.691058ms)
+✖ replaces default pnpm 11 for direct and nested package-script commands (21.366351ms)
+✖ Corepack fallback builds native packages after the frozen bootstrap install (21.09567ms)
+✖ rejects mismatched pnpm without Corepack before running commands (21.584581ms)
+✖ rejects a fallback that fails to select the pinned version (37.767062ms)
+ℹ tests 86
+ℹ suites 0
+ℹ pass 79
+ℹ fail 7
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 43395.258637
+
+✖ failing tests:
+
+test at scripts/tests/menu-family-provenance.test.mjs:35:1
+✖ current Menu family reachability resolves actual native counterparts while preserving historical provenance without new acceptance credit (1692.751639ms)
+  Error: Command failed: node parity/native-snippets/graph.mjs
+  node:internal/modules/run_main:107
+      triggerUncaughtException(
+      ^
+  
+  AssertionError [ERR_ASSERTION]: Current native graph is stale; run node parity/native-snippets/graph.mjs --write
+  + actual - expected
+  ... Skipped lines
+  
+    '{\n' +
+      '  "pin": "47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c",\n' +
+      '  "roots": [\n' +
+      '    "packages/base/src/lib/index.ts"\n' +
+      '  ],\n' +
+  ...
+      '      "source": "packages/base/src/lib/accordion/Trigger.svelte",\n' +
+  +   '      "sha256": "6be562aacf4df95c054c825d74102c63e5111df9d8b72f0f52c8dcb08f6b'... 520322 more characters
+  -   '      "sha256": "6be562aacf4df95c054c825d74102c63e5111df9d8b72f0f52c8dcb08f6b'... 548570 more characters
+  
+      at file:///workspace/scratch/2bab9a276da0/number-field-integration/parity/native-snippets/graph.mjs:114:10
+      at ModuleJob.run (node:internal/modules/esm/module_job:439:25)
+      at async node:internal/modules/esm/loader:643:26
+      at async asyncRunEntryPointWithESMLoader (node:internal/modules/run_main:101:5) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: '{\n' +
+      '  "pin": "47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c",\n' +
+      '  "roots": [\n' +
+      '    "packages/base/src/lib/index.ts"\n' +
+      '  ],\n' +
+      '  "modules": [\n' +
+      '    {\n' +
+      '      "source": "packages/base/src/lib/accordion/context.ts",\n' +
+      '      "sha256": "31d2514f0ab906bb0c7faaa08e6381f0ac800530d4e5f3fc61736df73c688266",\n' +
+      '      "imports": [\n' +
+      '        {\n' +
+      '          "specifier": "svelte",\n' +
+      '          "kind": "runtime-or-mixed",\n' +
+      '          "resolved": "external:svelte"\n' +
+      '        },\n' +
+      '        {\n' +
+      '          "specifier": "./types.js",\n' +
+      '          "kind": "type",\n' +
+      '          "resolved": "packages/base/src/lib/accordion/types.ts"\n' +
+      '        }\n' +
+      '      ]\n' +
+      '    },\n' +
+      '    {\n' +
+      '      "source": "packages/base/src/lib/accordion/Header.svelte",\n' +
+      '      "sha256": "aea63345dc0279d55aff3c4d8d92e9833882c9cf679aaa910f69f8257d517da4",\n' +
+      '      "imports": [\n' +
+      '        {\n' +
+      '          "specifier": "../internals/mergeComponentProps.js",\n' +
+      '          "kind": "runtime-or-mixed",\n' +
+      '          "resolved": "packages/base/src/lib/internals/mergeComponentProps.ts"\n' +
+      '        },\n' +
+      '        {\n' +
+      '          "specifier": "svelte/attachments",\n' +
+      '          "kind": "runtime-or-mixed",\n' +
+      '          "resolved": "external:svelte/attachments"\n' +
+      '        },\n' +
+      '        {\n' +
+      '          "specifier": "svelte",\n' +
+      '          "kind": "runtime-or-mixed",\n' +
+      '          "resolved": "external:svelte"\n' +
+      '        },\n' +
+      '        {\n' +
+      '          "specifier": "../internals/resolveClassValue.js",\n' +
+      '          "kind": "runtime-or-mixed",\n' +
+      '          "resolved": "packages/base/src/lib/internals/resolveClassValue.ts"\n' +
+      '        },\n' +
+      '        {\n' +
+      '          "specifier": "./context.js",\n' +
+      '          "kind": "runtime-or-mixed",\n' +
+      '          "resolved": "packages/base/src/lib/accordion/context.ts"\n' +
+      '        },\n' +
+      '        {\n' +
+      '          "specifier": "./state.js",\n' +
+      '          "kind": "runtime-or-mixed",\n' +
+      '          "resolved": "packages/base/src/lib/accordion/state.ts"\n' +
+      '        },\n' +
+      '        {\n' +
+      '          "specifier": "./types.js",\n' +
+      '          "kind": "type",\n' +
+      '          "resolved": "packages/base/src/lib/accordion/types.ts"\n' +
+      '        }\n' +
+      '      ]\n' +
+      '    },\n' +
+      '    {\n' +
+      '      "source": "packages/base/src/lib/accordion/index.parts.ts",\n' +
+      '      "sha256": "95f157aa9705199941fc9e54dd45e666b6cd36f7970d99a7b7eda30e9ac509be",\n' +
+      '      "imports": [\n' +
+      '        {\n' +
+      '          "specifier": "./Root.svelte",\n' +
+      '          "kind": "runtime-or-mixed",\n' +
+      '          "resolved": "packages/base/src/lib/accordion/Root.svelte"\n' +
+      '        },\n' +
+      '        {\n' +
+      '          "specifier": "./Item.svelte",\n' +
+      '          "kind": "runtime-or-mixed",\n' +
+      '          "resolved": "packages/base/src/lib/accordion/Item.svelte"\n' +
+      '        },\n' +
+      '        {\n' +
+      '          "specifier": "./Header.svelte",\n' +
+      '          "kind": "runtime-or-mixed",\n' +
+      '          "resolved": "packages/base/src/lib/accordion/Header.svelte"\n' +
+      '        },\n' +
+      '        {\n' +
+      '          "specifier": "./Trigger.svelte",\n' +
+      '          "kind": "runtime-or-mixed",\n' +
+      '          "resolved": "packages/base/src/lib/accordion/Trigger.svelte"\n' +
+      '        },\n' +
+      '        {\n' +
+      '          "specifier": "./Panel.svelte",\n' +
+      '          "kind": "runtime-or-mixed",\n' +
+      '          "resolved": "packages/base/src/lib/accordion/Panel.svelte"\n' +
+      '        }\n' +
+      '      ]\n' +
+      '    },\n' +
+      '    {\n' +
+      '      "source": "packages/base/src/lib/accordion/index.ts",\n' +
+      '      "sha256": "e24f9fe980656d471e4ff2203c21d017012e8a7a9c584b3601c4a6004a36be85",\n' +
+      '      "imports": [\n' +
+      '        {\n' +
+      '          "specifier": "./index.parts.js",\n' +
+      '          "kind": "runtime-or-mixed",\n' +
+      '          "resolved": "packages/base/src/lib/accordion/index.parts.ts"\n' +
+      '        },\n' +
+      '        {\n' +
+      '          "specifier": "./index.parts.js",\n' +
+      '          "kind": "runtime-or-mixed",\n' +
+      '          "resolved": "packages/base/src/lib/accordion/index.parts.ts"\n' +
+      '        },\n' +
+      '        {\n' +
+      '          "specifier": "./types.js",\n' +
+      '          "kind": "type",\n' +
+      '          "resolved": "packages/base/src/lib/accordion/types.ts"\n' +
+      '        }\n' +
+      '      ]\n' +
+      '    },\n' +
+      '    {\n' +
+      '      "source": "packages/base/src/lib/accordion/Item.svelte",\n' +
+      '      "sha256": "4a21b81b2c5820296de25d116169629da1526fb24b0dae0eef6a297d7de34875",\n' +
+      '      "imports": [\n' +
+      '        {\n' +
+      '          "specifier": "../internals/mergeComponentProps.js",\n' +
+      '          "kind": "runtime-or-mixed",\n' +
+      '          "resolved": "packages/base/src/lib/internals/mergeComponentProps.ts"\n' +
+      '        },\n' +
+      '        {\n' +
+      '          "specifier": "svelte/attachments",\n' +
+      '          "kind": "runtime-or-mixed",\n' +
+      '          "resolved": "external:svelte/attachments"\n' +
+      '        },\n' +
+      '        {\n' +
+      '          "specifier": "svelte",\n' +
+      '          "kind": "runtime-or-mixed",\n' +
+      '          "resolved": "external:svelte"\n' +
+      '        },\n' +
+      '        {\n' +
+      '          "specifier": "../internals/resolveClassValue.js",\n' +
+      '          "kind": "runtime-or-mixed",\n' +
+      '          "resolved": "packages/base/src/lib/internals/resolveClassValue.ts"\n' +
+      '        },\n' +
+      '        {\n' +
+      '          "specifier": "../internals/createBaseUIEventDetails.js",\n' +
+      '          "kind": "runtime-or-mixed",\n' +
+      '          "resolved": "packages/base/src/lib/internals/createBaseUIEventDetails.ts"\n' +
+      '        },\n' +
+      '        {\n' +
+      '          "specifier": "../collapsible/context.js",\n' +
+      '          "kind": "runtime-or-mixed",\n' +
+      '          "resolved": "packages/base/src/lib/collapsible/context.ts"\n' +
+      '        },\n' +
+      '        {\n' +
+      '          "specifier": "../collapsible/types.js",\n' +
+      '          "kind": "type",\n' +
+      '          "resolved": "packages/base/src/lib/collapsible/types.ts"\n' +
+      '        },\n' +
+      '        {\n' +
+      '          "specifier": "./context.js",\n' +
+      '          "kind": "runtime-or-mixed",\n' +
+      '          "resolved": "packages/base/src/lib/accordion/context.ts"\n' +
+      '        },\n' +
+      '        {\n' +
+      '          "specifier": "./state.js",\n' +
+      '          "kind": "runtime-or-mixed",\n' +
+      '          "resolved": "packages/base/src/lib/accordion/state.ts"\n' +
+      '        },\n' +
+      '        {\n' +
+      '          "specifier": "./types.js",\n' +
+      '          "kind": "type",\n' +
+      '          "resolved": "packages/base/src/lib/accordion/types.ts"\n' +
+      '        }\n' +
+      '      ]\n' +
+      '    },\n' +
+      '    {\n' +
+      '      "source": "packages/base/src/lib/accordion/list.ts",\n' +
+      '      "sha256": "0a19ac99ed5a047409e89d61658236762fb86c03e78c9c1bc46f84e3c78633a1",\n' +
+      '      "imports": []\n' +
+      '    },\n' +
+      '    {\n' +
+      '      "source": "packages/base/src/lib/accordion/Panel.svelte",\n' +
+      '      "sha256": "6b0d6d2d8971812958fdb6d29c0591bfd2b7a26c876fca465732be26ecf32ce9",\n' +
+      '      "imports": [\n' +
+      '        {\n' +
+      '          "specifier": "../internals/mergeComponentProps.js",\n' +
+      '          "kind": "runtime-or-mixed",\n' +
+      '          "resolved": "packages/base/src/lib/internals/mergeComponentProps.ts"\n' +
+      '        },\n' +
+      '        {\n' +
+      '          "specifier": "svelte/attachments",\n' +
+      '          "kind": "runtime-or-mixed",\n' +
+      '          "resolved": "external:svelte/attachments"\n' +
+      '        },\n' +
+      '        {\n' +
+      '          "specifier": "svelte",\n' +
+      '          "kind": "runtime-or-mixed",\n' +
+      '          "resolved": "external:svelte"\n' +
+      '        },\n' +
+      '        {\n' +
+      '          "specifier": "../internals/resolveClassValue.js",\n' +
+      '          "kind": "runtime-or-mixed",\n' +
+      '          "resolved": "packages/base/src/lib/internals/resolveClassValue.ts"\n' +
+      '        },\n' +
+      '        {\n' +
+      '          "specifier": "../internals/createBaseUIEventDetails.js",\n' +
+      '          "kind": "runtime-or-mixed",\n' +
+      '          "resolved": "packages/base/src/lib/internals/createBaseUIEventDetails.ts"\n' +
+      '        },\n' +
+      '        {\n' +
+      '          "specifier": "../collapsible/context.js",\n' +
+      '          "kind": "runtime-or-mixed",\n' +
+      '          "resolved": "packages/base/src/lib/collapsible/context.ts"\n' +
+      '        },\n' +
+      '        {\n' +
+      '          "specifier": "./context.js",\n' +
+      '          "kind": "runtime-or-mixed",\n' +
+      '          "resolved": "packages/base/src/lib/accordion/context.ts"\n' +
+      '        },\n' +
+      '        {\n' +
+      '          "specifier": "./state.js",\n' +
+      '          "kind": "runtime-or-mixed",\n' +
+      '          "resolved": "packages/base/src/lib/accordion/state.ts"\n' +
+      '        },\n' +
+      '        {\n' +
+      '          "specifier": "../collapsible/animations.js",\n' +
+      '          "kind": "runtime-or-mixed",\n' +
+      '          "resolved": "packages/base/src/lib/collapsible/animations.ts"\n' +
+      '        },\n' +
+      '        {\n' +
+      '          "specifier": "./types.js",\n' +
+      '          "kind": "type",\n' +
+      '          "resolved": "packages/base/src/lib/accordion/types.ts"\n' +
+      '        }\n' +
+      '      ]\n' +
+      '    },\n' +
+      '    {\n' +
+      '      "source": "packages/base/src/lib/accordion/Root.svelte",\n' +
+      '      "sha256": "abc765724de7e7c633d486d69fd6fd13b3abebe974857386ca1829ba3cd2c564",\n' +
+      '      "imports": [\n' +
+      '        {\n' +
+      '          "specifier": "../internals/mergeComponentProps.js",\n' +
+      '          "kind": "runtime-or-mixed",\n' +
+      '          "resolved": "packages/base/src/lib/internals/mergeComponentProps.ts"\n' +
+      '        },\n' +
+      '        {\n' +
+      '          "specifier": "svelte/attachments",\n' +
+      '          "kind": "runtime-or-mixed",\n' +
+      '          "resolved": "external:svelte/attachments"\n' +
+      '        },\n' +
+      '        {\n' +
+      '          "specifier": "svelte",\n' +
+      '          "kind": "runtime-or-mixed",\n' +
+      '          "resolved": "external:svelte"\n' +
+      '        },\n' +
+      '        {\n' +
+      '          "specifier": "@sveltery/utils/Controlled",\n' +
+      '          "kind": "runtime-or-mixed",\n' +
+      '          "resolved": "packages/utils/src/lib/Controlled.svelte.ts"\n' +
+      '        },\n' +
+      '        {\n' +
+      '          "specifier": "../internals/resolveClassValue.js",\n' +
+      '          "kind": "runtime-or-mixed",\n' +
+      '          "resolved": "packages/base/src/lib/internals/resolveClassValue.ts"\n' +
+      '        },\n' +
+      '        {\n' +
+      '          "specifier": "../collapsible/animations.js",\n' +
+      '          "kind": "runtime-or-mixed",\n' +
+      '          "resolved": "packages/base/src/lib/collapsible/animations.ts"\n' +
+      '        },\n' +
+      '        {\n' +
+      '          "specifier": "./context.js",\n' +
+      '          "kind": "runtime-or-mixed",\n' +
+      '          "resolved": "packages/base/src/lib/accordion/context.ts"\n' +
+      '        },\n' +
+      '        {\n' +
+      '          "specifier": "./list.js",\n' +
+      '          "kind": "runtime-or-mixed",\n' +
+      '          "resolved": "packages/base/src/lib/accordion/list.ts"\n' +
+      '        },\n' +
+      '        {\n' +
+      '          "specifier": "./value.js",\n' +
+      '          "kind": "runtime-or-mixed",\n' +
+      '          "resolved": "packages/base/src/lib/accordion/value.ts"\n' +
+      '        },\n' +
+      '        {\n' +
+      '          "specifier": "./types.js",\n' +
+      '          "kind": "type",\n' +
+      '          "resolved": "packages/base/src/lib/accordion/types.ts"\n' +
+      '        }\n' +
+      '      ]\n' +
+      '    },\n' +
+      '    {\n' +
+      '      "source": "packages/base/src/lib/accordion/state.ts",\n' +
+      '      "sha256": "b6b15143e0c243bafc7c437d933df487bce474879e22eb93b1ef2e0b654686a3",\n' +
+      '      "imports": [\n' +
+      '        {\n' +
+      '          "specifier": "./types.js",\n' +
+      '          "kind": "type",\n' +
+      '          "resolved": "packages/base/src/lib/accordion/types.ts"\n' +
+      '        }\n' +
+      '      ]\n' +
+      '    },\n' +
+      '    {\n' +
+      '      "source": "packages/base/src/lib/accordion/Trigger.svelte",\n' +
+      '      "sha256": "6be562aacf4df95c054c825d74102c63e5111df9d8b72f0f52c8dcb08f6b'... 520322 more characters,
+    expected: '{\n' +
+      '  "pin": "47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c",\n' +
+      '  "roots": [\n' +
+      '    "packages/base/src/lib/index.ts"\n' +
+      '  ],\n' +
+      '  "modules": [\n' +
+      '    {\n' +
+      '      "source": "packages/base/src/lib/accordion/context.ts",\n' +
+      '      "sha256": "31d2514f0ab906bb0c7faaa08e6381f0ac800530d4e5f3fc61736df73c688266",\n' +
+      '      "imports": [\n' +
+      '        {\n' +
+      '          "specifier": "svelte",\n' +
+      '          "kind": "runtime-or-mixed",\n' +
+      '          "resolved": "external:svelte"\n' +
+      '        },\n' +
+      '        {\n' +
+      '          "specifier": "./types.js",\n' +
+      '          "kind": "type",\n' +
+      '          "resolved": "packages/base/src/lib/accordion/types.ts"\n' +
+      '        }\n' +
+      '      ]\n' +
+      '    },\n' +
+      '    {\n' +
+      '      "source": "packages/base/src/lib/accordion/Header.svelte",\n' +
+      '      "sha256": "aea63345dc0279d55aff3c4d8d92e9833882c9cf679aaa910f69f8257d517da4",\n' +
+      '      "imports": [\n' +
+      '        {\n' +
+      '          "specifier": "../internals/mergeComponentProps.js",\n' +
+      '          "kind": "runtime-or-mixed",\n' +
+      '          "resolved": "packages/base/src/lib/internals/mergeComponentProps.ts"\n' +
+      '        },\n' +
+      '        {\n' +
+      '          "specifier": "svelte/attachments",\n' +
+      '          "kind": "runtime-or-mixed",\n' +
+      '          "resolved": "external:svelte/attachments"\n' +
+      '        },\n' +
+      '        {\n' +
+      '          "specifier": "svelte",\n' +
+      '          "kind": "runtime-or-mixed",\n' +
+      '          "resolved": "external:svelte"\n' +
+      '        },\n' +
+      '        {\n' +
+      '          "specifier": "../internals/resolveClassValue.js",\n' +
+      '          "kind": "runtime-or-mixed",\n' +
+      '          "resolved": "packages/base/src/lib/internals/resolveClassValue.ts"\n' +
+      '        },\n' +
+      '        {\n' +
+      '          "specifier": "./context.js",\n' +
+      '          "kind": "runtime-or-mixed",\n' +
+      '          "resolved": "packages/base/src/lib/accordion/context.ts"\n' +
+      '        },\n' +
+      '        {\n' +
+      '          "specifier": "./state.js",\n' +
+      '          "kind": "runtime-or-mixed",\n' +
+      '          "resolved": "packages/base/src/lib/accordion/state.ts"\n' +
+      '        },\n' +
+      '        {\n' +
+      '          "specifier": "./types.js",\n' +
+      '          "kind": "type",\n' +
+      '          "resolved": "packages/base/src/lib/accordion/types.ts"\n' +
+      '        }\n' +
+      '      ]\n' +
+      '    },\n' +
+      '    {\n' +
+      '      "source": "packages/base/src/lib/accordion/index.parts.ts",\n' +
+      '      "sha256": "95f157aa9705199941fc9e54dd45e666b6cd36f7970d99a7b7eda30e9ac509be",\n' +
+      '      "imports": [\n' +
+      '        {\n' +
+      '          "specifier": "./Root.svelte",\n' +
+      '          "kind": "runtime-or-mixed",\n' +
+      '          "resolved": "packages/base/src/lib/accordion/Root.svelte"\n' +
+      '        },\n' +
+      '        {\n' +
+      '          "specifier": "./Item.svelte",\n' +
+      '          "kind": "runtime-or-mixed",\n' +
+      '          "resolved": "packages/base/src/lib/accordion/Item.svelte"\n' +
+      '        },\n' +
+      '        {\n' +
+      '          "specifier": "./Header.svelte",\n' +
+      '          "kind": "runtime-or-mixed",\n' +
+      '          "resolved": "packages/base/src/lib/accordion/Header.svelte"\n' +
+      '        },\n' +
+      '        {\n' +
+      '          "specifier": "./Trigger.svelte",\n' +
+      '          "kind": "runtime-or-mixed",\n' +
+      '          "resolved": "packages/base/src/lib/accordion/Trigger.svelte"\n' +
+      '        },\n' +
+      '        {\n' +
+      '          "specifier": "./Panel.svelte",\n' +
+      '          "kind": "runtime-or-mixed",\n' +
+      '          "resolved": "packages/base/src/lib/accordion/Panel.svelte"\n' +
+      '        }\n' +
+      '      ]\n' +
+      '    },\n' +
+      '    {\n' +
+      '      "source": "packages/base/src/lib/accordion/index.ts",\n' +
+      '      "sha256": "e24f9fe980656d471e4ff2203c21d017012e8a7a9c584b3601c4a6004a36be85",\n' +
+      '      "imports": [\n' +
+      '        {\n' +
+      '          "specifier": "./index.parts.js",\n' +
+      '          "kind": "runtime-or-mixed",\n' +
+      '          "resolved": "packages/base/src/lib/accordion/index.parts.ts"\n' +
+      '        },\n' +
+      '        {\n' +
+      '          "specifier": "./index.parts.js",\n' +
+      '          "kind": "runtime-or-mixed",\n' +
+      '          "resolved": "packages/base/src/lib/accordion/index.parts.ts"\n' +
+      '        },\n' +
+      '        {\n' +
+      '          "specifier": "./types.js",\n' +
+      '          "kind": "type",\n' +
+      '          "resolved": "packages/base/src/lib/accordion/types.ts"\n' +
+      '        }\n' +
+      '      ]\n' +
+      '    },\n' +
+      '    {\n' +
+      '      "source": "packages/base/src/lib/accordion/Item.svelte",\n' +
+      '      "sha256": "4a21b81b2c5820296de25d116169629da1526fb24b0dae0eef6a297d7de34875",\n' +
+      '      "imports": [\n' +
+      '        {\n' +
+      '          "specifier": "../internals/mergeComponentProps.js",\n' +
+      '          "kind": "runtime-or-mixed",\n' +
+      '          "resolved": "packages/base/src/lib/internals/mergeComponentProps.ts"\n' +
+      '        },\n' +
+      '        {\n' +
+      '          "specifier": "svelte/attachments",\n' +
+      '          "kind": "runtime-or-mixed",\n' +
+      '          "resolved": "external:svelte/attachments"\n' +
+      '        },\n' +
+      '        {\n' +
+      '          "specifier": "svelte",\n' +
+      '          "kind": "runtime-or-mixed",\n' +
+      '          "resolved": "external:svelte"\n' +
+      '        },\n' +
+      '        {\n' +
+      '          "specifier": "../internals/resolveClassValue.js",\n' +
+      '          "kind": "runtime-or-mixed",\n' +
+      '          "resolved": "packages/base/src/lib/internals/resolveClassValue.ts"\n' +
+      '        },\n' +
+      '        {\n' +
+      '          "specifier": "../internals/createBaseUIEventDetails.js",\n' +
+      '          "kind": "runtime-or-mixed",\n' +
+      '          "resolved": "packages/base/src/lib/internals/createBaseUIEventDetails.ts"\n' +
+      '        },\n' +
+      '        {\n' +
+      '          "specifier": "../collapsible/context.js",\n' +
+      '          "kind": "runtime-or-mixed",\n' +
+      '          "resolved": "packages/base/src/lib/collapsible/context.ts"\n' +
+      '        },\n' +
+      '        {\n' +
+      '          "specifier": "../collapsible/types.js",\n' +
+      '          "kind": "type",\n' +
+      '          "resolved": "packages/base/src/lib/collapsible/types.ts"\n' +
+      '        },\n' +
+      '        {\n' +
+      '          "specifier": "./context.js",\n' +
+      '          "kind": "runtime-or-mixed",\n' +
+      '          "resolved": "packages/base/src/lib/accordion/context.ts"\n' +
+      '        },\n' +
+      '        {\n' +
+      '          "specifier": "./state.js",\n' +
+      '          "kind": "runtime-or-mixed",\n' +
+      '          "resolved": "packages/base/src/lib/accordion/state.ts"\n' +
+      '        },\n' +
+      '        {\n' +
+      '          "specifier": "./types.js",\n' +
+      '          "kind": "type",\n' +
+      '          "resolved": "packages/base/src/lib/accordion/types.ts"\n' +
+      '        }\n' +
+      '      ]\n' +
+      '    },\n' +
+      '    {\n' +
+      '      "source": "packages/base/src/lib/accordion/list.ts",\n' +
+      '      "sha256": "0a19ac99ed5a047409e89d61658236762fb86c03e78c9c1bc46f84e3c78633a1",\n' +
+      '      "imports": []\n' +
+      '    },\n' +
+      '    {\n' +
+      '      "source": "packages/base/src/lib/accordion/Panel.svelte",\n' +
+      '      "sha256": "6b0d6d2d8971812958fdb6d29c0591bfd2b7a26c876fca465732be26ecf32ce9",\n' +
+      '      "imports": [\n' +
+      '        {\n' +
+      '          "specifier": "../internals/mergeComponentProps.js",\n' +
+      '          "kind": "runtime-or-mixed",\n' +
+      '          "resolved": "packages/base/src/lib/internals/mergeComponentProps.ts"\n' +
+      '        },\n' +
+      '        {\n' +
+      '          "specifier": "svelte/attachments",\n' +
+      '          "kind": "runtime-or-mixed",\n' +
+      '          "resolved": "external:svelte/attachments"\n' +
+      '        },\n' +
+      '        {\n' +
+      '          "specifier": "svelte",\n' +
+      '          "kind": "runtime-or-mixed",\n' +
+      '          "resolved": "external:svelte"\n' +
+      '        },\n' +
+      '        {\n' +
+      '          "specifier": "../internals/resolveClassValue.js",\n' +
+      '          "kind": "runtime-or-mixed",\n' +
+      '          "resolved": "packages/base/src/lib/internals/resolveClassValue.ts"\n' +
+      '        },\n' +
+      '        {\n' +
+      '          "specifier": "../internals/createBaseUIEventDetails.js",\n' +
+      '          "kind": "runtime-or-mixed",\n' +
+      '          "resolved": "packages/base/src/lib/internals/createBaseUIEventDetails.ts"\n' +
+      '        },\n' +
+      '        {\n' +
+      '          "specifier": "../collapsible/context.js",\n' +
+      '          "kind": "runtime-or-mixed",\n' +
+      '          "resolved": "packages/base/src/lib/collapsible/context.ts"\n' +
+      '        },\n' +
+      '        {\n' +
+      '          "specifier": "./context.js",\n' +
+      '          "kind": "runtime-or-mixed",\n' +
+      '          "resolved": "packages/base/src/lib/accordion/context.ts"\n' +
+      '        },\n' +
+      '        {\n' +
+      '          "specifier": "./state.js",\n' +
+      '          "kind": "runtime-or-mixed",\n' +
+      '          "resolved": "packages/base/src/lib/accordion/state.ts"\n' +
+      '        },\n' +
+      '        {\n' +
+      '          "specifier": "../collapsible/animations.js",\n' +
+      '          "kind": "runtime-or-mixed",\n' +
+      '          "resolved": "packages/base/src/lib/collapsible/animations.ts"\n' +
+      '        },\n' +
+      '        {\n' +
+      '          "specifier": "./types.js",\n' +
+      '          "kind": "type",\n' +
+      '          "resolved": "packages/base/src/lib/accordion/types.ts"\n' +
+      '        }\n' +
+      '      ]\n' +
+      '    },\n' +
+      '    {\n' +
+      '      "source": "packages/base/src/lib/accordion/Root.svelte",\n' +
+      '      "sha256": "abc765724de7e7c633d486d69fd6fd13b3abebe974857386ca1829ba3cd2c564",\n' +
+      '      "imports": [\n' +
+      '        {\n' +
+      '          "specifier": "../internals/mergeComponentProps.js",\n' +
+      '          "kind": "runtime-or-mixed",\n' +
+      '          "resolved": "packages/base/src/lib/internals/mergeComponentProps.ts"\n' +
+      '        },\n' +
+      '        {\n' +
+      '          "specifier": "svelte/attachments",\n' +
+      '          "kind": "runtime-or-mixed",\n' +
+      '          "resolved": "external:svelte/attachments"\n' +
+      '        },\n' +
+      '        {\n' +
+      '          "specifier": "svelte",\n' +
+      '          "kind": "runtime-or-mixed",\n' +
+      '          "resolved": "external:svelte"\n' +
+      '        },\n' +
+      '        {\n' +
+      '          "specifier": "@sveltery/utils/Controlled",\n' +
+      '          "kind": "runtime-or-mixed",\n' +
+      '          "resolved": "packages/utils/src/lib/Controlled.svelte.ts"\n' +
+      '        },\n' +
+      '        {\n' +
+      '          "specifier": "../internals/resolveClassValue.js",\n' +
+      '          "kind": "runtime-or-mixed",\n' +
+      '          "resolved": "packages/base/src/lib/internals/resolveClassValue.ts"\n' +
+      '        },\n' +
+      '        {\n' +
+      '          "specifier": "../collapsible/animations.js",\n' +
+      '          "kind": "runtime-or-mixed",\n' +
+      '          "resolved": "packages/base/src/lib/collapsible/animations.ts"\n' +
+      '        },\n' +
+      '        {\n' +
+      '          "specifier": "./context.js",\n' +
+      '          "kind": "runtime-or-mixed",\n' +
+      '          "resolved": "packages/base/src/lib/accordion/context.ts"\n' +
+      '        },\n' +
+      '        {\n' +
+      '          "specifier": "./list.js",\n' +
+      '          "kind": "runtime-or-mixed",\n' +
+      '          "resolved": "packages/base/src/lib/accordion/list.ts"\n' +
+      '        },\n' +
+      '        {\n' +
+      '          "specifier": "./value.js",\n' +
+      '          "kind": "runtime-or-mixed",\n' +
+      '          "resolved": "packages/base/src/lib/accordion/value.ts"\n' +
+      '        },\n' +
+      '        {\n' +
+      '          "specifier": "./types.js",\n' +
+      '          "kind": "type",\n' +
+      '          "resolved": "packages/base/src/lib/accordion/types.ts"\n' +
+      '        }\n' +
+      '      ]\n' +
+      '    },\n' +
+      '    {\n' +
+      '      "source": "packages/base/src/lib/accordion/state.ts",\n' +
+      '      "sha256": "b6b15143e0c243bafc7c437d933df487bce474879e22eb93b1ef2e0b654686a3",\n' +
+      '      "imports": [\n' +
+      '        {\n' +
+      '          "specifier": "./types.js",\n' +
+      '          "kind": "type",\n' +
+      '          "resolved": "packages/base/src/lib/accordion/types.ts"\n' +
+      '        }\n' +
+      '      ]\n' +
+      '    },\n' +
+      '    {\n' +
+      '      "source": "packages/base/src/lib/accordion/Trigger.svelte",\n' +
+      '      "sha256": "6be562aacf4df95c054c825d74102c63e5111df9d8b72f0f52c8dcb08f6b'... 548570 more characters,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+  
+  Node.js v24.19.0
+  
+      at genericNodeError (node:internal/errors:985:15)
+      at wrappedFn (node:internal/errors:539:14)
+      at checkExecSyncError (node:child_process:942:11)
+      at execFileSync (node:child_process:978:15)
+      at TestContext.<anonymous> (file:///workspace/scratch/2bab9a276da0/number-field-integration/scripts/tests/menu-family-provenance.test.mjs:37:3)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:960:18)
+      at Test.postRun (node:internal/test_runner/test:1522:19)
+      at Test.run (node:internal/test_runner/test:1447:12) {
+    status: 1,
+    signal: null,
+    output: [ null, <Buffer >, <Buffer 6e 6f 64 65 3a 69 6e 74 65 72 6e 61 6c 2f 6d 6f 64 75 6c 65 73 2f 72 75 6e 5f 6d 61 69 6e 3a 31 30 37 0a 20 20 20 20 74 72 69 67 67 65 72 55 6e 63 61 ... 27168 more bytes> ],
+    pid: 772,
+    stdout: <Buffer >,
+    stderr: <Buffer 6e 6f 64 65 3a 69 6e 74 65 72 6e 61 6c 2f 6d 6f 64 75 6c 65 73 2f 72 75 6e 5f 6d 61 69 6e 3a 31 30 37 0a 20 20 20 20 74 72 69 67 67 65 72 55 6e 63 61 ... 27168 more bytes>
+  }
+
+test at scripts/tests/native-snippets-provenance.test.mjs:71:1
+✖ actual current native Source import graph and retirement exclusions remain coherent (2136.930791ms)
+  Error: Command failed: node /workspace/scratch/2bab9a276da0/number-field-integration/parity/native-snippets/graph.mjs
+  node:internal/modules/run_main:107
+      triggerUncaughtException(
+      ^
+  
+  AssertionError [ERR_ASSERTION]: Current native graph is stale; run node parity/native-snippets/graph.mjs --write
+  + actual - expected
+  ... Skipped lines
+  
+    '{\n' +
+      '  "pin": "47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c",\n' +
+      '  "roots": [\n' +
+      '    "packages/base/src/lib/index.ts"\n' +
+      '  ],\n' +
+  ...
+      '      "source": "packages/base/src/lib/accordion/Trigger.svelte",\n' +
+  +   '      "sha256": "6be562aacf4df95c054c825d74102c63e5111df9d8b72f0f52c8dcb08f6b'... 520322 more characters
+  -   '      "sha256": "6be562aacf4df95c054c825d74102c63e5111df9d8b72f0f52c8dcb08f6b'... 548570 more characters
+  
+      at file:///workspace/scratch/2bab9a276da0/number-field-integration/parity/native-snippets/graph.mjs:114:10
+      at ModuleJob.run (node:internal/modules/esm/module_job:439:25)
+      at async node:internal/modules/esm/loader:643:26
+      at async asyncRunEntryPointWithESMLoader (node:internal/modules/run_main:101:5) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: '{\n' +
+      '  "pin": "47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c",\n' +
+      '  "roots": [\n' +
+      '    "packages/base/src/lib/index.ts"\n' +
+      '  ],\n' +
+      '  "modules": [\n' +
+      '    {\n' +
+      '      "source": "packages/base/src/lib/accordion/context.ts",\n' +
+      '      "sha256": "31d2514f0ab906bb0c7faaa08e6381f0ac800530d4e5f3fc61736df73c688266",\n' +
+      '      "imports": [\n' +
+      '        {\n' +
+      '          "specifier": "svelte",\n' +
+      '          "kind": "runtime-or-mixed",\n' +
+      '          "resolved": "external:svelte"\n' +
+      '        },\n' +
+      '        {\n' +
+      '          "specifier": "./types.js",\n' +
+      '          "kind": "type",\n' +
+      '          "resolved": "packages/base/src/lib/accordion/types.ts"\n' +
+      '        }\n' +
+      '      ]\n' +
+      '    },\n' +
+      '    {\n' +
+      '      "source": "packages/base/src/lib/accordion/Header.svelte",\n' +
+      '      "sha256": "aea63345dc0279d55aff3c4d8d92e9833882c9cf679aaa910f69f8257d517da4",\n' +
+      '      "imports": [\n' +
+      '        {\n' +
+      '          "specifier": "../internals/mergeComponentProps.js",\n' +
+      '          "kind": "runtime-or-mixed",\n' +
+      '          "resolved": "packages/base/src/lib/internals/mergeComponentProps.ts"\n' +
+      '        },\n' +
+      '        {\n' +
+      '          "specifier": "svelte/attachments",\n' +
+      '          "kind": "runtime-or-mixed",\n' +
+      '          "resolved": "external:svelte/attachments"\n' +
+      '        },\n' +
+      '        {\n' +
+      '          "specifier": "svelte",\n' +
+      '          "kind": "runtime-or-mixed",\n' +
+      '          "resolved": "external:svelte"\n' +
+      '        },\n' +
+      '        {\n' +
+      '          "specifier": "../internals/resolveClassValue.js",\n' +
+      '          "kind": "runtime-or-mixed",\n' +
+      '          "resolved": "packages/base/src/lib/internals/resolveClassValue.ts"\n' +
+      '        },\n' +
+      '        {\n' +
+      '          "specifier": "./context.js",\n' +
+      '          "kind": "runtime-or-mixed",\n' +
+      '          "resolved": "packages/base/src/lib/accordion/context.ts"\n' +
+      '        },\n' +
+      '        {\n' +
+      '          "specifier": "./state.js",\n' +
+      '          "kind": "runtime-or-mixed",\n' +
+      '          "resolved": "packages/base/src/lib/accordion/state.ts"\n' +
+      '        },\n' +
+      '        {\n' +
+      '          "specifier": "./types.js",\n' +
+      '          "kind": "type",\n' +
+      '          "resolved": "packages/base/src/lib/accordion/types.ts"\n' +
+      '        }\n' +
+      '      ]\n' +
+      '    },\n' +
+      '    {\n' +
+      '      "source": "packages/base/src/lib/accordion/index.parts.ts",\n' +
+      '      "sha256": "95f157aa9705199941fc9e54dd45e666b6cd36f7970d99a7b7eda30e9ac509be",\n' +
+      '      "imports": [\n' +
+      '        {\n' +
+      '          "specifier": "./Root.svelte",\n' +
+      '          "kind": "runtime-or-mixed",\n' +
+      '          "resolved": "packages/base/src/lib/accordion/Root.svelte"\n' +
+      '        },\n' +
+      '        {\n' +
+      '          "specifier": "./Item.svelte",\n' +
+      '          "kind": "runtime-or-mixed",\n' +
+      '          "resolved": "packages/base/src/lib/accordion/Item.svelte"\n' +
+      '        },\n' +
+      '        {\n' +
+      '          "specifier": "./Header.svelte",\n' +
+      '          "kind": "runtime-or-mixed",\n' +
+      '          "resolved": "packages/base/src/lib/accordion/Header.svelte"\n' +
+      '        },\n' +
+      '        {\n' +
+      '          "specifier": "./Trigger.svelte",\n' +
+      '          "kind": "runtime-or-mixed",\n' +
+      '          "resolved": "packages/base/src/lib/accordion/Trigger.svelte"\n' +
+      '        },\n' +
+      '        {\n' +
+      '          "specifier": "./Panel.svelte",\n' +
+      '          "kind": "runtime-or-mixed",\n' +
+      '          "resolved": "packages/base/src/lib/accordion/Panel.svelte"\n' +
+      '        }\n' +
+      '      ]\n' +
+      '    },\n' +
+      '    {\n' +
+      '      "source": "packages/base/src/lib/accordion/index.ts",\n' +
+      '      "sha256": "e24f9fe980656d471e4ff2203c21d017012e8a7a9c584b3601c4a6004a36be85",\n' +
+      '      "imports": [\n' +
+      '        {\n' +
+      '          "specifier": "./index.parts.js",\n' +
+      '          "kind": "runtime-or-mixed",\n' +
+      '          "resolved": "packages/base/src/lib/accordion/index.parts.ts"\n' +
+      '        },\n' +
+      '        {\n' +
+      '          "specifier": "./index.parts.js",\n' +
+      '          "kind": "runtime-or-mixed",\n' +
+      '          "resolved": "packages/base/src/lib/accordion/index.parts.ts"\n' +
+      '        },\n' +
+      '        {\n' +
+      '          "specifier": "./types.js",\n' +
+      '          "kind": "type",\n' +
+      '          "resolved": "packages/base/src/lib/accordion/types.ts"\n' +
+      '        }\n' +
+      '      ]\n' +
+      '    },\n' +
+      '    {\n' +
+      '      "source": "packages/base/src/lib/accordion/Item.svelte",\n' +
+      '      "sha256": "4a21b81b2c5820296de25d116169629da1526fb24b0dae0eef6a297d7de34875",\n' +
+      '      "imports": [\n' +
+      '        {\n' +
+      '          "specifier": "../internals/mergeComponentProps.js",\n' +
+      '          "kind": "runtime-or-mixed",\n' +
+      '          "resolved": "packages/base/src/lib/internals/mergeComponentProps.ts"\n' +
+      '        },\n' +
+      '        {\n' +
+      '          "specifier": "svelte/attachments",\n' +
+      '          "kind": "runtime-or-mixed",\n' +
+      '          "resolved": "external:svelte/attachments"\n' +
+      '        },\n' +
+      '        {\n' +
+      '          "specifier": "svelte",\n' +
+      '          "kind": "runtime-or-mixed",\n' +
+      '          "resolved": "external:svelte"\n' +
+      '        },\n' +
+      '        {\n' +
+      '          "specifier": "../internals/resolveClassValue.js",\n' +
+      '          "kind": "runtime-or-mixed",\n' +
+      '          "resolved": "packages/base/src/lib/internals/resolveClassValue.ts"\n' +
+      '        },\n' +
+      '        {\n' +
+      '          "specifier": "../internals/createBaseUIEventDetails.js",\n' +
+      '          "kind": "runtime-or-mixed",\n' +
+      '          "resolved": "packages/base/src/lib/internals/createBaseUIEventDetails.ts"\n' +
+      '        },\n' +
+      '        {\n' +
+      '          "specifier": "../collapsible/context.js",\n' +
+      '          "kind": "runtime-or-mixed",\n' +
+      '          "resolved": "packages/base/src/lib/collapsible/context.ts"\n' +
+      '        },\n' +
+      '        {\n' +
+      '          "specifier": "../collapsible/types.js",\n' +
+      '          "kind": "type",\n' +
+      '          "resolved": "packages/base/src/lib/collapsible/types.ts"\n' +
+      '        },\n' +
+      '        {\n' +
+      '          "specifier": "./context.js",\n' +
+      '          "kind": "runtime-or-mixed",\n' +
+      '          "resolved": "packages/base/src/lib/accordion/context.ts"\n' +
+      '        },\n' +
+      '        {\n' +
+      '          "specifier": "./state.js",\n' +
+      '          "kind": "runtime-or-mixed",\n' +
+      '          "resolved": "packages/base/src/lib/accordion/state.ts"\n' +
+      '        },\n' +
+      '        {\n' +
+      '          "specifier": "./types.js",\n' +
+      '          "kind": "type",\n' +
+      '          "resolved": "packages/base/src/lib/accordion/types.ts"\n' +
+      '        }\n' +
+      '      ]\n' +
+      '    },\n' +
+      '    {\n' +
+      '      "source": "packages/base/src/lib/accordion/list.ts",\n' +
+      '      "sha256": "0a19ac99ed5a047409e89d61658236762fb86c03e78c9c1bc46f84e3c78633a1",\n' +
+      '      "imports": []\n' +
+      '    },\n' +
+      '    {\n' +
+      '      "source": "packages/base/src/lib/accordion/Panel.svelte",\n' +
+      '      "sha256": "6b0d6d2d8971812958fdb6d29c0591bfd2b7a26c876fca465732be26ecf32ce9",\n' +
+      '      "imports": [\n' +
+      '        {\n' +
+      '          "specifier": "../internals/mergeComponentProps.js",\n' +
+      '          "kind": "runtime-or-mixed",\n' +
+      '          "resolved": "packages/base/src/lib/internals/mergeComponentProps.ts"\n' +
+      '        },\n' +
+      '        {\n' +
+      '          "specifier": "svelte/attachments",\n' +
+      '          "kind": "runtime-or-mixed",\n' +
+      '          "resolved": "external:svelte/attachments"\n' +
+      '        },\n' +
+      '        {\n' +
+      '          "specifier": "svelte",\n' +
+      '          "kind": "runtime-or-mixed",\n' +
+      '          "resolved": "external:svelte"\n' +
+      '        },\n' +
+      '        {\n' +
+      '          "specifier": "../internals/resolveClassValue.js",\n' +
+      '          "kind": "runtime-or-mixed",\n' +
+      '          "resolved": "packages/base/src/lib/internals/resolveClassValue.ts"\n' +
+      '        },\n' +
+      '        {\n' +
+      '          "specifier": "../internals/createBaseUIEventDetails.js",\n' +
+      '          "kind": "runtime-or-mixed",\n' +
+      '          "resolved": "packages/base/src/lib/internals/createBaseUIEventDetails.ts"\n' +
+      '        },\n' +
+      '        {\n' +
+      '          "specifier": "../collapsible/context.js",\n' +
+      '          "kind": "runtime-or-mixed",\n' +
+      '          "resolved": "packages/base/src/lib/collapsible/context.ts"\n' +
+      '        },\n' +
+      '        {\n' +
+      '          "specifier": "./context.js",\n' +
+      '          "kind": "runtime-or-mixed",\n' +
+      '          "resolved": "packages/base/src/lib/accordion/context.ts"\n' +
+      '        },\n' +
+      '        {\n' +
+      '          "specifier": "./state.js",\n' +
+      '          "kind": "runtime-or-mixed",\n' +
+      '          "resolved": "packages/base/src/lib/accordion/state.ts"\n' +
+      '        },\n' +
+      '        {\n' +
+      '          "specifier": "../collapsible/animations.js",\n' +
+      '          "kind": "runtime-or-mixed",\n' +
+      '          "resolved": "packages/base/src/lib/collapsible/animations.ts"\n' +
+      '        },\n' +
+      '        {\n' +
+      '          "specifier": "./types.js",\n' +
+      '          "kind": "type",\n' +
+      '          "resolved": "packages/base/src/lib/accordion/types.ts"\n' +
+      '        }\n' +
+      '      ]\n' +
+      '    },\n' +
+      '    {\n' +
+      '      "source": "packages/base/src/lib/accordion/Root.svelte",\n' +
+      '      "sha256": "abc765724de7e7c633d486d69fd6fd13b3abebe974857386ca1829ba3cd2c564",\n' +
+      '      "imports": [\n' +
+      '        {\n' +
+      '          "specifier": "../internals/mergeComponentProps.js",\n' +
+      '          "kind": "runtime-or-mixed",\n' +
+      '          "resolved": "packages/base/src/lib/internals/mergeComponentProps.ts"\n' +
+      '        },\n' +
+      '        {\n' +
+      '          "specifier": "svelte/attachments",\n' +
+      '          "kind": "runtime-or-mixed",\n' +
+      '          "resolved": "external:svelte/attachments"\n' +
+      '        },\n' +
+      '        {\n' +
+      '          "specifier": "svelte",\n' +
+      '          "kind": "runtime-or-mixed",\n' +
+      '          "resolved": "external:svelte"\n' +
+      '        },\n' +
+      '        {\n' +
+      '          "specifier": "@sveltery/utils/Controlled",\n' +
+      '          "kind": "runtime-or-mixed",\n' +
+      '          "resolved": "packages/utils/src/lib/Controlled.svelte.ts"\n' +
+      '        },\n' +
+      '        {\n' +
+      '          "specifier": "../internals/resolveClassValue.js",\n' +
+      '          "kind": "runtime-or-mixed",\n' +
+      '          "resolved": "packages/base/src/lib/internals/resolveClassValue.ts"\n' +
+      '        },\n' +
+      '        {\n' +
+      '          "specifier": "../collapsible/animations.js",\n' +
+      '          "kind": "runtime-or-mixed",\n' +
+      '          "resolved": "packages/base/src/lib/collapsible/animations.ts"\n' +
+      '        },\n' +
+      '        {\n' +
+      '          "specifier": "./context.js",\n' +
+      '          "kind": "runtime-or-mixed",\n' +
+      '          "resolved": "packages/base/src/lib/accordion/context.ts"\n' +
+      '        },\n' +
+      '        {\n' +
+      '          "specifier": "./list.js",\n' +
+      '          "kind": "runtime-or-mixed",\n' +
+      '          "resolved": "packages/base/src/lib/accordion/list.ts"\n' +
+      '        },\n' +
+      '        {\n' +
+      '          "specifier": "./value.js",\n' +
+      '          "kind": "runtime-or-mixed",\n' +
+      '          "resolved": "packages/base/src/lib/accordion/value.ts"\n' +
+      '        },\n' +
+      '        {\n' +
+      '          "specifier": "./types.js",\n' +
+      '          "kind": "type",\n' +
+      '          "resolved": "packages/base/src/lib/accordion/types.ts"\n' +
+      '        }\n' +
+      '      ]\n' +
+      '    },\n' +
+      '    {\n' +
+      '      "source": "packages/base/src/lib/accordion/state.ts",\n' +
+      '      "sha256": "b6b15143e0c243bafc7c437d933df487bce474879e22eb93b1ef2e0b654686a3",\n' +
+      '      "imports": [\n' +
+      '        {\n' +
+      '          "specifier": "./types.js",\n' +
+      '          "kind": "type",\n' +
+      '          "resolved": "packages/base/src/lib/accordion/types.ts"\n' +
+      '        }\n' +
+      '      ]\n' +
+      '    },\n' +
+      '    {\n' +
+      '      "source": "packages/base/src/lib/accordion/Trigger.svelte",\n' +
+      '      "sha256": "6be562aacf4df95c054c825d74102c63e5111df9d8b72f0f52c8dcb08f6b'... 520322 more characters,
+    expected: '{\n' +
+      '  "pin": "47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c",\n' +
+      '  "roots": [\n' +
+      '    "packages/base/src/lib/index.ts"\n' +
+      '  ],\n' +
+      '  "modules": [\n' +
+      '    {\n' +
+      '      "source": "packages/base/src/lib/accordion/context.ts",\n' +
+      '      "sha256": "31d2514f0ab906bb0c7faaa08e6381f0ac800530d4e5f3fc61736df73c688266",\n' +
+      '      "imports": [\n' +
+      '        {\n' +
+      '          "specifier": "svelte",\n' +
+      '          "kind": "runtime-or-mixed",\n' +
+      '          "resolved": "external:svelte"\n' +
+      '        },\n' +
+      '        {\n' +
+      '          "specifier": "./types.js",\n' +
+      '          "kind": "type",\n' +
+      '          "resolved": "packages/base/src/lib/accordion/types.ts"\n' +
+      '        }\n' +
+      '      ]\n' +
+      '    },\n' +
+      '    {\n' +
+      '      "source": "packages/base/src/lib/accordion/Header.svelte",\n' +
+      '      "sha256": "aea63345dc0279d55aff3c4d8d92e9833882c9cf679aaa910f69f8257d517da4",\n' +
+      '      "imports": [\n' +
+      '        {\n' +
+      '          "specifier": "../internals/mergeComponentProps.js",\n' +
+      '          "kind": "runtime-or-mixed",\n' +
+      '          "resolved": "packages/base/src/lib/internals/mergeComponentProps.ts"\n' +
+      '        },\n' +
+      '        {\n' +
+      '          "specifier": "svelte/attachments",\n' +
+      '          "kind": "runtime-or-mixed",\n' +
+      '          "resolved": "external:svelte/attachments"\n' +
+      '        },\n' +
+      '        {\n' +
+      '          "specifier": "svelte",\n' +
+      '          "kind": "runtime-or-mixed",\n' +
+      '          "resolved": "external:svelte"\n' +
+      '        },\n' +
+      '        {\n' +
+      '          "specifier": "../internals/resolveClassValue.js",\n' +
+      '          "kind": "runtime-or-mixed",\n' +
+      '          "resolved": "packages/base/src/lib/internals/resolveClassValue.ts"\n' +
+      '        },\n' +
+      '        {\n' +
+      '          "specifier": "./context.js",\n' +
+      '          "kind": "runtime-or-mixed",\n' +
+      '          "resolved": "packages/base/src/lib/accordion/context.ts"\n' +
+      '        },\n' +
+      '        {\n' +
+      '          "specifier": "./state.js",\n' +
+      '          "kind": "runtime-or-mixed",\n' +
+      '          "resolved": "packages/base/src/lib/accordion/state.ts"\n' +
+      '        },\n' +
+      '        {\n' +
+      '          "specifier": "./types.js",\n' +
+      '          "kind": "type",\n' +
+      '          "resolved": "packages/base/src/lib/accordion/types.ts"\n' +
+      '        }\n' +
+      '      ]\n' +
+      '    },\n' +
+      '    {\n' +
+      '      "source": "packages/base/src/lib/accordion/index.parts.ts",\n' +
+      '      "sha256": "95f157aa9705199941fc9e54dd45e666b6cd36f7970d99a7b7eda30e9ac509be",\n' +
+      '      "imports": [\n' +
+      '        {\n' +
+      '          "specifier": "./Root.svelte",\n' +
+      '          "kind": "runtime-or-mixed",\n' +
+      '          "resolved": "packages/base/src/lib/accordion/Root.svelte"\n' +
+      '        },\n' +
+      '        {\n' +
+      '          "specifier": "./Item.svelte",\n' +
+      '          "kind": "runtime-or-mixed",\n' +
+      '          "resolved": "packages/base/src/lib/accordion/Item.svelte"\n' +
+      '        },\n' +
+      '        {\n' +
+      '          "specifier": "./Header.svelte",\n' +
+      '          "kind": "runtime-or-mixed",\n' +
+      '          "resolved": "packages/base/src/lib/accordion/Header.svelte"\n' +
+      '        },\n' +
+      '        {\n' +
+      '          "specifier": "./Trigger.svelte",\n' +
+      '          "kind": "runtime-or-mixed",\n' +
+      '          "resolved": "packages/base/src/lib/accordion/Trigger.svelte"\n' +
+      '        },\n' +
+      '        {\n' +
+      '          "specifier": "./Panel.svelte",\n' +
+      '          "kind": "runtime-or-mixed",\n' +
+      '          "resolved": "packages/base/src/lib/accordion/Panel.svelte"\n' +
+      '        }\n' +
+      '      ]\n' +
+      '    },\n' +
+      '    {\n' +
+      '      "source": "packages/base/src/lib/accordion/index.ts",\n' +
+      '      "sha256": "e24f9fe980656d471e4ff2203c21d017012e8a7a9c584b3601c4a6004a36be85",\n' +
+      '      "imports": [\n' +
+      '        {\n' +
+      '          "specifier": "./index.parts.js",\n' +
+      '          "kind": "runtime-or-mixed",\n' +
+      '          "resolved": "packages/base/src/lib/accordion/index.parts.ts"\n' +
+      '        },\n' +
+      '        {\n' +
+      '          "specifier": "./index.parts.js",\n' +
+      '          "kind": "runtime-or-mixed",\n' +
+      '          "resolved": "packages/base/src/lib/accordion/index.parts.ts"\n' +
+      '        },\n' +
+      '        {\n' +
+      '          "specifier": "./types.js",\n' +
+      '          "kind": "type",\n' +
+      '          "resolved": "packages/base/src/lib/accordion/types.ts"\n' +
+      '        }\n' +
+      '      ]\n' +
+      '    },\n' +
+      '    {\n' +
+      '      "source": "packages/base/src/lib/accordion/Item.svelte",\n' +
+      '      "sha256": "4a21b81b2c5820296de25d116169629da1526fb24b0dae0eef6a297d7de34875",\n' +
+      '      "imports": [\n' +
+      '        {\n' +
+      '          "specifier": "../internals/mergeComponentProps.js",\n' +
+      '          "kind": "runtime-or-mixed",\n' +
+      '          "resolved": "packages/base/src/lib/internals/mergeComponentProps.ts"\n' +
+      '        },\n' +
+      '        {\n' +
+      '          "specifier": "svelte/attachments",\n' +
+      '          "kind": "runtime-or-mixed",\n' +
+      '          "resolved": "external:svelte/attachments"\n' +
+      '        },\n' +
+      '        {\n' +
+      '          "specifier": "svelte",\n' +
+      '          "kind": "runtime-or-mixed",\n' +
+      '          "resolved": "external:svelte"\n' +
+      '        },\n' +
+      '        {\n' +
+      '          "specifier": "../internals/resolveClassValue.js",\n' +
+      '          "kind": "runtime-or-mixed",\n' +
+      '          "resolved": "packages/base/src/lib/internals/resolveClassValue.ts"\n' +
+      '        },\n' +
+      '        {\n' +
+      '          "specifier": "../internals/createBaseUIEventDetails.js",\n' +
+      '          "kind": "runtime-or-mixed",\n' +
+      '          "resolved": "packages/base/src/lib/internals/createBaseUIEventDetails.ts"\n' +
+      '        },\n' +
+      '        {\n' +
+      '          "specifier": "../collapsible/context.js",\n' +
+      '          "kind": "runtime-or-mixed",\n' +
+      '          "resolved": "packages/base/src/lib/collapsible/context.ts"\n' +
+      '        },\n' +
+      '        {\n' +
+      '          "specifier": "../collapsible/types.js",\n' +
+      '          "kind": "type",\n' +
+      '          "resolved": "packages/base/src/lib/collapsible/types.ts"\n' +
+      '        },\n' +
+      '        {\n' +
+      '          "specifier": "./context.js",\n' +
+      '          "kind": "runtime-or-mixed",\n' +
+      '          "resolved": "packages/base/src/lib/accordion/context.ts"\n' +
+      '        },\n' +
+      '        {\n' +
+      '          "specifier": "./state.js",\n' +
+      '          "kind": "runtime-or-mixed",\n' +
+      '          "resolved": "packages/base/src/lib/accordion/state.ts"\n' +
+      '        },\n' +
+      '        {\n' +
+      '          "specifier": "./types.js",\n' +
+      '          "kind": "type",\n' +
+      '          "resolved": "packages/base/src/lib/accordion/types.ts"\n' +
+      '        }\n' +
+      '      ]\n' +
+      '    },\n' +
+      '    {\n' +
+      '      "source": "packages/base/src/lib/accordion/list.ts",\n' +
+      '      "sha256": "0a19ac99ed5a047409e89d61658236762fb86c03e78c9c1bc46f84e3c78633a1",\n' +
+      '      "imports": []\n' +
+      '    },\n' +
+      '    {\n' +
+      '      "source": "packages/base/src/lib/accordion/Panel.svelte",\n' +
+      '      "sha256": "6b0d6d2d8971812958fdb6d29c0591bfd2b7a26c876fca465732be26ecf32ce9",\n' +
+      '      "imports": [\n' +
+      '        {\n' +
+      '          "specifier": "../internals/mergeComponentProps.js",\n' +
+      '          "kind": "runtime-or-mixed",\n' +
+      '          "resolved": "packages/base/src/lib/internals/mergeComponentProps.ts"\n' +
+      '        },\n' +
+      '        {\n' +
+      '          "specifier": "svelte/attachments",\n' +
+      '          "kind": "runtime-or-mixed",\n' +
+      '          "resolved": "external:svelte/attachments"\n' +
+      '        },\n' +
+      '        {\n' +
+      '          "specifier": "svelte",\n' +
+      '          "kind": "runtime-or-mixed",\n' +
+      '          "resolved": "external:svelte"\n' +
+      '        },\n' +
+      '        {\n' +
+      '          "specifier": "../internals/resolveClassValue.js",\n' +
+      '          "kind": "runtime-or-mixed",\n' +
+      '          "resolved": "packages/base/src/lib/internals/resolveClassValue.ts"\n' +
+      '        },\n' +
+      '        {\n' +
+      '          "specifier": "../internals/createBaseUIEventDetails.js",\n' +
+      '          "kind": "runtime-or-mixed",\n' +
+      '          "resolved": "packages/base/src/lib/internals/createBaseUIEventDetails.ts"\n' +
+      '        },\n' +
+      '        {\n' +
+      '          "specifier": "../collapsible/context.js",\n' +
+      '          "kind": "runtime-or-mixed",\n' +
+      '          "resolved": "packages/base/src/lib/collapsible/context.ts"\n' +
+      '        },\n' +
+      '        {\n' +
+      '          "specifier": "./context.js",\n' +
+      '          "kind": "runtime-or-mixed",\n' +
+      '          "resolved": "packages/base/src/lib/accordion/context.ts"\n' +
+      '        },\n' +
+      '        {\n' +
+      '          "specifier": "./state.js",\n' +
+      '          "kind": "runtime-or-mixed",\n' +
+      '          "resolved": "packages/base/src/lib/accordion/state.ts"\n' +
+      '        },\n' +
+      '        {\n' +
+      '          "specifier": "../collapsible/animations.js",\n' +
+      '          "kind": "runtime-or-mixed",\n' +
+      '          "resolved": "packages/base/src/lib/collapsible/animations.ts"\n' +
+      '        },\n' +
+      '        {\n' +
+      '          "specifier": "./types.js",\n' +
+      '          "kind": "type",\n' +
+      '          "resolved": "packages/base/src/lib/accordion/types.ts"\n' +
+      '        }\n' +
+      '      ]\n' +
+      '    },\n' +
+      '    {\n' +
+      '      "source": "packages/base/src/lib/accordion/Root.svelte",\n' +
+      '      "sha256": "abc765724de7e7c633d486d69fd6fd13b3abebe974857386ca1829ba3cd2c564",\n' +
+      '      "imports": [\n' +
+      '        {\n' +
+      '          "specifier": "../internals/mergeComponentProps.js",\n' +
+      '          "kind": "runtime-or-mixed",\n' +
+      '          "resolved": "packages/base/src/lib/internals/mergeComponentProps.ts"\n' +
+      '        },\n' +
+      '        {\n' +
+      '          "specifier": "svelte/attachments",\n' +
+      '          "kind": "runtime-or-mixed",\n' +
+      '          "resolved": "external:svelte/attachments"\n' +
+      '        },\n' +
+      '        {\n' +
+      '          "specifier": "svelte",\n' +
+      '          "kind": "runtime-or-mixed",\n' +
+      '          "resolved": "external:svelte"\n' +
+      '        },\n' +
+      '        {\n' +
+      '          "specifier": "@sveltery/utils/Controlled",\n' +
+      '          "kind": "runtime-or-mixed",\n' +
+      '          "resolved": "packages/utils/src/lib/Controlled.svelte.ts"\n' +
+      '        },\n' +
+      '        {\n' +
+      '          "specifier": "../internals/resolveClassValue.js",\n' +
+      '          "kind": "runtime-or-mixed",\n' +
+      '          "resolved": "packages/base/src/lib/internals/resolveClassValue.ts"\n' +
+      '        },\n' +
+      '        {\n' +
+      '          "specifier": "../collapsible/animations.js",\n' +
+      '          "kind": "runtime-or-mixed",\n' +
+      '          "resolved": "packages/base/src/lib/collapsible/animations.ts"\n' +
+      '        },\n' +
+      '        {\n' +
+      '          "specifier": "./context.js",\n' +
+      '          "kind": "runtime-or-mixed",\n' +
+      '          "resolved": "packages/base/src/lib/accordion/context.ts"\n' +
+      '        },\n' +
+      '        {\n' +
+      '          "specifier": "./list.js",\n' +
+      '          "kind": "runtime-or-mixed",\n' +
+      '          "resolved": "packages/base/src/lib/accordion/list.ts"\n' +
+      '        },\n' +
+      '        {\n' +
+      '          "specifier": "./value.js",\n' +
+      '          "kind": "runtime-or-mixed",\n' +
+      '          "resolved": "packages/base/src/lib/accordion/value.ts"\n' +
+      '        },\n' +
+      '        {\n' +
+      '          "specifier": "./types.js",\n' +
+      '          "kind": "type",\n' +
+      '          "resolved": "packages/base/src/lib/accordion/types.ts"\n' +
+      '        }\n' +
+      '      ]\n' +
+      '    },\n' +
+      '    {\n' +
+      '      "source": "packages/base/src/lib/accordion/state.ts",\n' +
+      '      "sha256": "b6b15143e0c243bafc7c437d933df487bce474879e22eb93b1ef2e0b654686a3",\n' +
+      '      "imports": [\n' +
+      '        {\n' +
+      '          "specifier": "./types.js",\n' +
+      '          "kind": "type",\n' +
+      '          "resolved": "packages/base/src/lib/accordion/types.ts"\n' +
+      '        }\n' +
+      '      ]\n' +
+      '    },\n' +
+      '    {\n' +
+      '      "source": "packages/base/src/lib/accordion/Trigger.svelte",\n' +
+      '      "sha256": "6be562aacf4df95c054c825d74102c63e5111df9d8b72f0f52c8dcb08f6b'... 548570 more characters,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+  
+  Node.js v24.19.0
+  
+      at genericNodeError (node:internal/errors:985:15)
+      at wrappedFn (node:internal/errors:539:14)
+      at checkExecSyncError (node:child_process:942:11)
+      at execFileSync (node:child_process:978:15)
+      at TestContext.<anonymous> (file:///workspace/scratch/2bab9a276da0/number-field-integration/scripts/tests/native-snippets-provenance.test.mjs:72:18)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:960:18)
+      at Test.postRun (node:internal/test_runner/test:1522:19)
+      at Test.run (node:internal/test_runner/test:1447:12) {
+    status: 1,
+    signal: null,
+    output: [ null, '', `node:internal/modules/run_main:107\n    triggerUncaughtException(\n    ^\n\nAssertionError [ERR_ASSERTION]: Current native graph is stale; run node parity/native-snippets/graph.mjs --write\n+ actual - expected\n... Skipped lines\n\n  '{\\n' +\n    '  "pin": "47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c",\\n' +\n    '  "roots": [\\n' +\n    '    "packages/base/src/lib/index.ts"\\n' +\n    '  ],\\n' +\n...\n    '      "source": "packages/base/src/lib/accordion/Trigger.svelte",\\n' +\n+   '      "sha256": "6be562aacf4df95c054c825d74102c63e5111df9d8b72f0f52c8dcb08f6b'... 520322 more characters\n-   '      "sha256": "6be562aacf4df95c054c825d74102c63e5111df9d8b72f0f52c8dcb08f6b'... 548570 more characters\n\n    at file:///workspace/scratch/2bab9a276da0/number-field-integration/parity/native-snippets/graph.mjs:114:10\n    at ModuleJob.run (node:internal/modules/esm/module_job:439:25)\n    at async node:internal/modules/esm/loader:643:26\n    at async asyncRunEntryPointWithESMLoader (node:internal/modules/run_main:101:5) {\n  generatedMessage: false,\n  code: 'ERR_ASSERTION',\n  actual: '{\\n' +\n    '  "pin": "47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c",\\n' +\n    '  "roots": [\\n' +\n    '    "packages/base/src/lib/index.ts"\\n' +\n    '  ],\\n' +\n    '  "modules": [\\n' +\n    '    {\\n' +\n    '      "source": "packages/base/src/lib/accordion/context.ts",\\n' +\n    '      "sha256": "31d2514f0ab906bb0c7faaa08e6381f0ac800530d4e5f3fc61736df73c688266",\\n' +\n    '      "imports": [\\n' +\n    '        {\\n' +\n    '          "specifier": "svelte",\\n' +\n    '          "kind": "runtime-or-mixed",\\n' +\n    '          "resolved": "external:svelte"\\n' +\n    '        },\\n' +\n    '        {\\n' +\n    '          "specifier": "./types.js",\\n' +\n    '          "kind": "type",\\n' +\n    '          "resolved": "packages/base/src/lib/accordion/types.ts"\\n' +\n    '        }\\n' +\n    '      ]\\n' +\n    '    },\\n' +\n    '    {\\n' +\n    '      "source": "packages/base/src/lib/accordion/Header.svelte",\\n' +\n    '      "sha256": "aea63345dc0279d55aff3c4d8d92e9833882c9cf679aaa910f69f8257d517da4",\\n' +\n    '      "imports": [\\n' +\n    '        {\\n' +\n    '          "specifier": "../internals/mergeComponentProps.js",\\n' +\n    '          "kind": "runtime-or-mixed",\\n' +\n    '          "resolved": "packages/base/src/lib/internals/mergeComponentProps.ts"\\n' +\n    '        },\\n' +\n    '        {\\n' +\n    '          "specifier": "svelte/attachments",\\n' +\n    '          "kind": "runtime-or-mixed",\\n' +\n    '          "resolved": "external:svelte/attachments"\\n' +\n    '        },\\n' +\n    '        {\\n' +\n    '          "specifier": "svelte",\\n' +\n    '          "kind": "runtime-or-mixed",\\n' +\n    '          "resolved": "external:svelte"\\n' +\n    '        },\\n' +\n    '        {\\n' +\n    '          "specifier": "../internals/resolveClassValue.js",\\n' +\n    '          "kind": "runtime-or-mixed",\\n' +\n    '          "resolved": "packages/base/src/lib/internals/resolveClassValue.ts"\\n' +\n    '        },\\n' +\n    '        {\\n' +\n    '          "specifier": "./context.js",\\n' +\n    '          "kind": "runtime-or-mixed",\\n' +\n    '          "resolved": "packages/base/src/lib/accordion/context.ts"\\n' +\n    '        },\\n' +\n    '        {\\n' +\n    '          "specifier": "./state.js",\\n' +\n    '          "kind": "runtime-or-mixed",\\n' +\n    '          "resolved": "packages/base/src/lib/accordion/state.ts"\\n' +\n    '        },\\n' +\n    '        {\\n' +\n    '          "specifier": "./types.js",\\n' +\n    '          "kind": "type",\\n' +\n    '          "resolved": "packages/base/src/lib/accordion/types.ts"\\n' +\n    '        }\\n' +\n    '      ]\\n' +\n    '    },\\n' +\n    '    {\\n' +\n    '      "source": "packages/base/src/lib/accordion/index.parts.ts",\\n' +\n    '      "sha256": "95f157aa9705199941fc9e54dd45e666b6cd36f7970d99a7b7eda30e9ac509be",\\n' +\n    '      "imports": [\\n' +\n    '        {\\n' +\n    '          "specifier": "./Root.svelte",\\n' +\n    '          "kind": "runtime-or-mixed",\\n' +\n    '          "resolved": "packages/base/src/lib/accordion/Root.svelte"\\n' +\n    '        },\\n' +\n    '        {\\n' +\n    '          "specifier": "./Item.svelte",\\n' +\n    '          "kind": "runtime-or-mixed",\\n' +\n    '          "resolved": "packages/base/src/lib/accordion/Item.svelte"\\n' +\n    '        },\\n' +\n    '        {\\n' +\n    '          "specifier": "./Header.svelte",\\n' +\n    '          "kind": "runtime-or-mixed",\\n' +\n    '          "resolved": "packages/base/src/lib/accordion/Header.svelte"\\n' +\n    '        },\\n' +\n    '        {\\n' +\n    '          "specifier": "./Trigger.svelte",\\n' +\n    '          "kind": "runtime-or-mixed",\\n' +\n    '          "resolved": "packages/base/src/lib/accordion/Trigger.svelte"\\n' +\n    '        },\\n' +\n    '        {\\n' +\n    '          "specifier": "./Panel.svelte",\\n' +\n    '          "kind": "runtime-or-mixed",\\n' +\n    '          "resolved": "packages/base/src/lib/accordion/Panel.svelte"\\n' +\n    '        }\\n' +\n    '      ]\\n' +\n    '    },\\n' +\n    '    {\\n' +\n    '      "source": "packages/base/src/lib/accordion/index.ts",\\n' +\n    '      "sha256": "e24f9fe980656d471e4ff2203c21d017012e8a7a9c584b3601c4a6004a36be85",\\n' +\n    '      "imports": [\\n' +\n    '        {\\n' +\n    '          "specifier": "./index.parts.js",\\n' +\n    '          "kind": "runtime-or-mixed",\\n' +\n    '          "resolved": "packages/base/src/lib/accordion/index.parts.ts"\\n' +\n    '        },\\n' +\n    '        {\\n' +\n    '          "specifier": "./index.parts.js",\\n' +\n    '          "kind": "runtime-or-mixed",\\n' +\n    '          "resolved": "packages/base/src/lib/accordion/index.parts.ts"\\n' +\n    '        },\\n' +\n    '        {\\n' +\n    '          "specifier": "./types.js",\\n' +\n    '          "kind": "type",\\n' +\n    '          "resolved": "packages/base/src/lib/accordion/types.ts"\\n' +\n    '        }\\n' +\n    '      ]\\n' +\n    '    },\\n' +\n    '    {\\n' +\n    '      "source": "packages/base/src/lib/accordion/Item.svelte",\\n' +\n    '      "sha256": "4a21b81b2c5820296de25d116169629da1526fb24b0dae0eef6a297d7de34875",\\n' +\n    '      "imports": [\\n' +\n    '        {\\n' +\n    '          "specifier": "../internals/mergeComponentProps.js",\\n' +\n    '          "kind": "runtime-or-mixed",\\n' +\n    '          "resolved": "packages/base/src/lib/internals/mergeComponentProps.ts"\\n' +\n    '        },\\n' +\n    '        {\\n' +\n    '          "specifier": "svelte/attachments",\\n' +\n    '          "kind": "runtime-or-mixed",\\n' +\n    '          "resolved": "external:svelte/attachments"\\n' +\n    '        },\\n' +\n    '        {\\n' +\n    '          "specifier": "svelte",\\n' +\n    '          "kind": "runtime-or-mixed",\\n' +\n    '          "resolved": "external:svelte"\\n' +\n    '        },\\n' +\n    '        {\\n' +\n    '          "specifier": "../internals/resolveClassValue.js",\\n' +\n    '          "kind": "runtime-or-mixed",\\n' +\n    '          "resolved": "packages/base/src/lib/internals/resolveClassValue.ts"\\n' +\n    '        },\\n' +\n    '        {\\n' +\n    '          "specifier": "../internals/createBaseUIEventDetails.js",\\n' +\n    '          "kind": "runtime-or-mixed",\\n' +\n    '          "resolved": "packages/base/src/lib/internals/createBaseUIEventDetails.ts"\\n' +\n    '        },\\n' +\n    '        {\\n' +\n    '          "specifier": "../collapsible/context.js",\\n' +\n    '          "kind": "runtime-or-mixed",\\n' +\n    '          "resolved": "packages/base/src/lib/collapsible/context.ts"\\n' +\n    '        },\\n' +\n    '        {\\n' +\n    '          "specifier": "../collapsible/types.js",\\n' +\n    '          "kind": "type",\\n' +\n    '          "resolved": "packages/base/src/lib/collapsible/types.ts"\\n' +\n    '        },\\n' +\n    '        {\\n' +\n    '          "specifier": "./context.js",\\n' +\n    '          "kind": "runtime-or-mixed",\\n' +\n    '          "resolved": "packages/base/src/lib/accordion/context.ts"\\n' +\n    '        },\\n' +\n    '        {\\n' +\n    '          "specifier": "./state.js",\\n' +\n    '          "kind": "runtime-or-mixed",\\n' +\n    '          "resolved": "packages/base/src/lib/accordion/state.ts"\\n' +\n    '        },\\n' +\n    '        {\\n' +\n    '          "specifier": "./types.js",\\n' +\n    '          "kind": "type",\\n' +\n    '          "resolved": "packages/base/src/lib/accordion/types.ts"\\n' +\n    '        }\\n' +\n    '      ]\\n' +\n    '    },\\n' +\n    '    {\\n' +\n    '      "source": "packages/base/src/lib/accordion/list.ts",\\n' +\n    '      "sha256": "0a19ac99ed5a047409e89d61658236762fb86c03e78c9c1bc46f84e3c78633a1",\\n' +\n    '      "imports": []\\n' +\n    '    },\\n' +\n    '    {\\n' +\n    '      "source": "packages/base/src/lib/accordion/Panel.svelte",\\n' +\n    '      "sha256": "6b0d6d2d8971812958fdb6d29c0591bfd2b7a26c876fca465732be26ecf32ce9",\\n' +\n    '      "imports": [\\n' +\n    '        {\\n' +\n    '          "specifier": "../internals/mergeComponentProps.js",\\n' +\n    '          "kind": "runtime-or-mixed",\\n' +\n    '          "resolved": "packages/base/src/lib/internals/mergeComponentProps.ts"\\n' +\n    '        },\\n' +\n    '        {\\n' +\n    '          "specifier": "svelte/attachments",\\n' +\n    '          "kind": "runtime-or-mixed",\\n' +\n    '          "resolved": "external:svelte/attachments"\\n' +\n    '        },\\n' +\n    '        {\\n' +\n    '          "specifier": "svelte",\\n' +\n    '          "kind": "runtime-or-mixed",\\n' +\n    '          "resolved": "external:svelte"\\n' +\n    '        },\\n' +\n    '        {\\n' +\n    '          "specifier": "../internals/resolveClassValue.js",\\n' +\n    '          "kind": "runtime-or-mixed",\\n' +\n    '          "resolved": "packages/base/src/lib/internals/resolveClassValue.ts"\\n' +\n    '        },\\n' +\n    '        {\\n' +\n    '          "specifier": "../internals/createBaseUIEventDetails.js",\\n' +\n    '          "kind": "runtime-or-mixed",\\n' +\n    '          "resolved": "packages/base/src/lib/internals/createBaseUIEventDetails.ts"\\n' +\n    '        },\\n' +\n    '        {\\n' +\n    '          "specifier": "../collapsible/context.js",\\n' +\n    '          "`... 17218 more characters ],
+    pid: 796,
+    stdout: '',
+    stderr: `node:internal/modules/run_main:107\n    triggerUncaughtException(\n    ^\n\nAssertionError [ERR_ASSERTION]: Current native graph is stale; run node parity/native-snippets/graph.mjs --write\n+ actual - expected\n... Skipped lines\n\n  '{\\n' +\n    '  "pin": "47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c",\\n' +\n    '  "roots": [\\n' +\n    '    "packages/base/src/lib/index.ts"\\n' +\n    '  ],\\n' +\n...\n    '      "source": "packages/base/src/lib/accordion/Trigger.svelte",\\n' +\n+   '      "sha256": "6be562aacf4df95c054c825d74102c63e5111df9d8b72f0f52c8dcb08f6b'... 520322 more characters\n-   '      "sha256": "6be562aacf4df95c054c825d74102c63e5111df9d8b72f0f52c8dcb08f6b'... 548570 more characters\n\n    at file:///workspace/scratch/2bab9a276da0/number-field-integration/parity/native-snippets/graph.mjs:114:10\n    at ModuleJob.run (node:internal/modules/esm/module_job:439:25)\n    at async node:internal/modules/esm/loader:643:26\n    at async asyncRunEntryPointWithESMLoader (node:internal/modules/run_main:101:5) {\n  generatedMessage: false,\n  code: 'ERR_ASSERTION',\n  actual: '{\\n' +\n    '  "pin": "47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c",\\n' +\n    '  "roots": [\\n' +\n    '    "packages/base/src/lib/index.ts"\\n' +\n    '  ],\\n' +\n    '  "modules": [\\n' +\n    '    {\\n' +\n    '      "source": "packages/base/src/lib/accordion/context.ts",\\n' +\n    '      "sha256": "31d2514f0ab906bb0c7faaa08e6381f0ac800530d4e5f3fc61736df73c688266",\\n' +\n    '      "imports": [\\n' +\n    '        {\\n' +\n    '          "specifier": "svelte",\\n' +\n    '          "kind": "runtime-or-mixed",\\n' +\n    '          "resolved": "external:svelte"\\n' +\n    '        },\\n' +\n    '        {\\n' +\n    '          "specifier": "./types.js",\\n' +\n    '          "kind": "type",\\n' +\n    '          "resolved": "packages/base/src/lib/accordion/types.ts"\\n' +\n    '        }\\n' +\n    '      ]\\n' +\n    '    },\\n' +\n    '    {\\n' +\n    '      "source": "packages/base/src/lib/accordion/Header.svelte",\\n' +\n    '      "sha256": "aea63345dc0279d55aff3c4d8d92e9833882c9cf679aaa910f69f8257d517da4",\\n' +\n    '      "imports": [\\n' +\n    '        {\\n' +\n    '          "specifier": "../internals/mergeComponentProps.js",\\n' +\n    '          "kind": "runtime-or-mixed",\\n' +\n    '          "resolved": "packages/base/src/lib/internals/mergeComponentProps.ts"\\n' +\n    '        },\\n' +\n    '        {\\n' +\n    '          "specifier": "svelte/attachments",\\n' +\n    '          "kind": "runtime-or-mixed",\\n' +\n    '          "resolved": "external:svelte/attachments"\\n' +\n    '        },\\n' +\n    '        {\\n' +\n    '          "specifier": "svelte",\\n' +\n    '          "kind": "runtime-or-mixed",\\n' +\n    '          "resolved": "external:svelte"\\n' +\n    '        },\\n' +\n    '        {\\n' +\n    '          "specifier": "../internals/resolveClassValue.js",\\n' +\n    '          "kind": "runtime-or-mixed",\\n' +\n    '          "resolved": "packages/base/src/lib/internals/resolveClassValue.ts"\\n' +\n    '        },\\n' +\n    '        {\\n' +\n    '          "specifier": "./context.js",\\n' +\n    '          "kind": "runtime-or-mixed",\\n' +\n    '          "resolved": "packages/base/src/lib/accordion/context.ts"\\n' +\n    '        },\\n' +\n    '        {\\n' +\n    '          "specifier": "./state.js",\\n' +\n    '          "kind": "runtime-or-mixed",\\n' +\n    '          "resolved": "packages/base/src/lib/accordion/state.ts"\\n' +\n    '        },\\n' +\n    '        {\\n' +\n    '          "specifier": "./types.js",\\n' +\n    '          "kind": "type",\\n' +\n    '          "resolved": "packages/base/src/lib/accordion/types.ts"\\n' +\n    '        }\\n' +\n    '      ]\\n' +\n    '    },\\n' +\n    '    {\\n' +\n    '      "source": "packages/base/src/lib/accordion/index.parts.ts",\\n' +\n    '      "sha256": "95f157aa9705199941fc9e54dd45e666b6cd36f7970d99a7b7eda30e9ac509be",\\n' +\n    '      "imports": [\\n' +\n    '        {\\n' +\n    '          "specifier": "./Root.svelte",\\n' +\n    '          "kind": "runtime-or-mixed",\\n' +\n    '          "resolved": "packages/base/src/lib/accordion/Root.svelte"\\n' +\n    '        },\\n' +\n    '        {\\n' +\n    '          "specifier": "./Item.svelte",\\n' +\n    '          "kind": "runtime-or-mixed",\\n' +\n    '          "resolved": "packages/base/src/lib/accordion/Item.svelte"\\n' +\n    '        },\\n' +\n    '        {\\n' +\n    '          "specifier": "./Header.svelte",\\n' +\n    '          "kind": "runtime-or-mixed",\\n' +\n    '          "resolved": "packages/base/src/lib/accordion/Header.svelte"\\n' +\n    '        },\\n' +\n    '        {\\n' +\n    '          "specifier": "./Trigger.svelte",\\n' +\n    '          "kind": "runtime-or-mixed",\\n' +\n    '          "resolved": "packages/base/src/lib/accordion/Trigger.svelte"\\n' +\n    '        },\\n' +\n    '        {\\n' +\n    '          "specifier": "./Panel.svelte",\\n' +\n    '          "kind": "runtime-or-mixed",\\n' +\n    '          "resolved": "packages/base/src/lib/accordion/Panel.svelte"\\n' +\n    '        }\\n' +\n    '      ]\\n' +\n    '    },\\n' +\n    '    {\\n' +\n    '      "source": "packages/base/src/lib/accordion/index.ts",\\n' +\n    '      "sha256": "e24f9fe980656d471e4ff2203c21d017012e8a7a9c584b3601c4a6004a36be85",\\n' +\n    '      "imports": [\\n' +\n    '        {\\n' +\n    '          "specifier": "./index.parts.js",\\n' +\n    '          "kind": "runtime-or-mixed",\\n' +\n    '          "resolved": "packages/base/src/lib/accordion/index.parts.ts"\\n' +\n    '        },\\n' +\n    '        {\\n' +\n    '          "specifier": "./index.parts.js",\\n' +\n    '          "kind": "runtime-or-mixed",\\n' +\n    '          "resolved": "packages/base/src/lib/accordion/index.parts.ts"\\n' +\n    '        },\\n' +\n    '        {\\n' +\n    '          "specifier": "./types.js",\\n' +\n    '          "kind": "type",\\n' +\n    '          "resolved": "packages/base/src/lib/accordion/types.ts"\\n' +\n    '        }\\n' +\n    '      ]\\n' +\n    '    },\\n' +\n    '    {\\n' +\n    '      "source": "packages/base/src/lib/accordion/Item.svelte",\\n' +\n    '      "sha256": "4a21b81b2c5820296de25d116169629da1526fb24b0dae0eef6a297d7de34875",\\n' +\n    '      "imports": [\\n' +\n    '        {\\n' +\n    '          "specifier": "../internals/mergeComponentProps.js",\\n' +\n    '          "kind": "runtime-or-mixed",\\n' +\n    '          "resolved": "packages/base/src/lib/internals/mergeComponentProps.ts"\\n' +\n    '        },\\n' +\n    '        {\\n' +\n    '          "specifier": "svelte/attachments",\\n' +\n    '          "kind": "runtime-or-mixed",\\n' +\n    '          "resolved": "external:svelte/attachments"\\n' +\n    '        },\\n' +\n    '        {\\n' +\n    '          "specifier": "svelte",\\n' +\n    '          "kind": "runtime-or-mixed",\\n' +\n    '          "resolved": "external:svelte"\\n' +\n    '        },\\n' +\n    '        {\\n' +\n    '          "specifier": "../internals/resolveClassValue.js",\\n' +\n    '          "kind": "runtime-or-mixed",\\n' +\n    '          "resolved": "packages/base/src/lib/internals/resolveClassValue.ts"\\n' +\n    '        },\\n' +\n    '        {\\n' +\n    '          "specifier": "../internals/createBaseUIEventDetails.js",\\n' +\n    '          "kind": "runtime-or-mixed",\\n' +\n    '          "resolved": "packages/base/src/lib/internals/createBaseUIEventDetails.ts"\\n' +\n    '        },\\n' +\n    '        {\\n' +\n    '          "specifier": "../collapsible/context.js",\\n' +\n    '          "kind": "runtime-or-mixed",\\n' +\n    '          "resolved": "packages/base/src/lib/collapsible/context.ts"\\n' +\n    '        },\\n' +\n    '        {\\n' +\n    '          "specifier": "../collapsible/types.js",\\n' +\n    '          "kind": "type",\\n' +\n    '          "resolved": "packages/base/src/lib/collapsible/types.ts"\\n' +\n    '        },\\n' +\n    '        {\\n' +\n    '          "specifier": "./context.js",\\n' +\n    '          "kind": "runtime-or-mixed",\\n' +\n    '          "resolved": "packages/base/src/lib/accordion/context.ts"\\n' +\n    '        },\\n' +\n    '        {\\n' +\n    '          "specifier": "./state.js",\\n' +\n    '          "kind": "runtime-or-mixed",\\n' +\n    '          "resolved": "packages/base/src/lib/accordion/state.ts"\\n' +\n    '        },\\n' +\n    '        {\\n' +\n    '          "specifier": "./types.js",\\n' +\n    '          "kind": "type",\\n' +\n    '          "resolved": "packages/base/src/lib/accordion/types.ts"\\n' +\n    '        }\\n' +\n    '      ]\\n' +\n    '    },\\n' +\n    '    {\\n' +\n    '      "source": "packages/base/src/lib/accordion/list.ts",\\n' +\n    '      "sha256": "0a19ac99ed5a047409e89d61658236762fb86c03e78c9c1bc46f84e3c78633a1",\\n' +\n    '      "imports": []\\n' +\n    '    },\\n' +\n    '    {\\n' +\n    '      "source": "packages/base/src/lib/accordion/Panel.svelte",\\n' +\n    '      "sha256": "6b0d6d2d8971812958fdb6d29c0591bfd2b7a26c876fca465732be26ecf32ce9",\\n' +\n    '      "imports": [\\n' +\n    '        {\\n' +\n    '          "specifier": "../internals/mergeComponentProps.js",\\n' +\n    '          "kind": "runtime-or-mixed",\\n' +\n    '          "resolved": "packages/base/src/lib/internals/mergeComponentProps.ts"\\n' +\n    '        },\\n' +\n    '        {\\n' +\n    '          "specifier": "svelte/attachments",\\n' +\n    '          "kind": "runtime-or-mixed",\\n' +\n    '          "resolved": "external:svelte/attachments"\\n' +\n    '        },\\n' +\n    '        {\\n' +\n    '          "specifier": "svelte",\\n' +\n    '          "kind": "runtime-or-mixed",\\n' +\n    '          "resolved": "external:svelte"\\n' +\n    '        },\\n' +\n    '        {\\n' +\n    '          "specifier": "../internals/resolveClassValue.js",\\n' +\n    '          "kind": "runtime-or-mixed",\\n' +\n    '          "resolved": "packages/base/src/lib/internals/resolveClassValue.ts"\\n' +\n    '        },\\n' +\n    '        {\\n' +\n    '          "specifier": "../internals/createBaseUIEventDetails.js",\\n' +\n    '          "kind": "runtime-or-mixed",\\n' +\n    '          "resolved": "packages/base/src/lib/internals/createBaseUIEventDetails.ts"\\n' +\n    '        },\\n' +\n    '        {\\n' +\n    '          "specifier": "../collapsible/context.js",\\n' +\n    '          "`... 17218 more characters
+  }
+
+test at scripts/tests/toolchain.test.mjs:67:1
+✖ matching pnpm builds native packages after the frozen bootstrap install (35.691058ms)
+  AssertionError [ERR_ASSERTION]: scripts/toolchain.sh: line 5: node: command not found
+  Sveltery requires Node 24.x for this reproducible toolchain.
+  
+  
+  1 !== 0
+  
+      at TestContext.<anonymous> (file:///workspace/scratch/2bab9a276da0/number-field-integration/scripts/tests/toolchain.test.mjs:69:10)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.start (node:internal/test_runner/test:1242:17)
+      at startSubtestAfterBootstrap (node:internal/test_runner/harness:387:17) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: 1,
+    expected: 0,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at scripts/tests/toolchain.test.mjs:73:1
+✖ replaces default pnpm 11 for direct and nested package-script commands (21.366351ms)
+  AssertionError [ERR_ASSERTION]: scripts/toolchain.sh: line 5: node: command not found
+  Sveltery requires Node 24.x for this reproducible toolchain.
+  
+  
+  1 !== 0
+  
+      at TestContext.<anonymous> (file:///workspace/scratch/2bab9a276da0/number-field-integration/scripts/tests/toolchain.test.mjs:75:10)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:960:18)
+      at Test.postRun (node:internal/test_runner/test:1522:19)
+      at Test.run (node:internal/test_runner/test:1447:12)
+      at async startSubtestAfterBootstrap (node:internal/test_runner/harness:387:3) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: 1,
+    expected: 0,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at scripts/tests/toolchain.test.mjs:79:1
+✖ Corepack fallback builds native packages after the frozen bootstrap install (21.09567ms)
+  AssertionError [ERR_ASSERTION]: scripts/toolchain.sh: line 5: node: command not found
+  Sveltery requires Node 24.x for this reproducible toolchain.
+  
+  
+  1 !== 0
+  
+      at TestContext.<anonymous> (file:///workspace/scratch/2bab9a276da0/number-field-integration/scripts/tests/toolchain.test.mjs:81:10)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:960:18)
+      at Test.postRun (node:internal/test_runner/test:1522:19)
+      at Test.run (node:internal/test_runner/test:1447:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: 1,
+    expected: 0,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at scripts/tests/toolchain.test.mjs:88:1
+✖ rejects mismatched pnpm without Corepack before running commands (21.584581ms)
+  AssertionError [ERR_ASSERTION]: The input did not match the regular expression /Install pnpm 12\.6\.0 or provide Corepack/. Input:
+  
+  'scripts/toolchain.sh: line 5: node: command not found\n' +
+    'Sveltery requires Node 24.x for this reproducible toolchain.\n'
+  
+      at TestContext.<anonymous> (file:///workspace/scratch/2bab9a276da0/number-field-integration/scripts/tests/toolchain.test.mjs:91:10)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:960:18)
+      at Test.postRun (node:internal/test_runner/test:1522:19)
+      at Test.run (node:internal/test_runner/test:1447:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: 'scripts/toolchain.sh: line 5: node: command not found\nSveltery requires Node 24.x for this reproducible toolchain.\n',
+    expected: /Install pnpm 12\.6\.0 or provide Corepack/,
+    operator: 'match',
+    diff: 'simple'
+  }
+
+test at scripts/tests/toolchain.test.mjs:95:1
+✖ rejects a fallback that fails to select the pinned version (37.767062ms)
+  AssertionError [ERR_ASSERTION]: The input did not match the regular expression /Could not select pinned pnpm 12\.6\.0/. Input:
+  
+  'scripts/toolchain.sh: line 5: node: command not found\n' +
+    'Sveltery requires Node 24.x for this reproducible toolchain.\n'
+  
+      at TestContext.<anonymous> (file:///workspace/scratch/2bab9a276da0/number-field-integration/scripts/tests/toolchain.test.mjs:98:10)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:960:18)
+      at Test.postRun (node:internal/test_runner/test:1522:19)
+      at Test.run (node:internal/test_runner/test:1447:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: 'scripts/toolchain.sh: line 5: node: command not found\nSveltery requires Node 24.x for this reproducible toolchain.\n',
+    expected: /Could not select pinned pnpm 12\.6\.0/,
+    operator: 'match',
+    diff: 'simple'
+  }

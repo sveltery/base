@@ -9,7 +9,28 @@ export { default as Action } from './Action.svelte';
 export { default as Close } from './Close.svelte';
 export { getToastManager } from './getToastManager.js';
 export type { ToastManager } from './createToastManager.js';
-export type { ToastObject, ToastContent, ToastActionProps, ToastManagerAddOptions, ToastManagerUpdateOptions, ToastManagerPromiseOptions, ToastManagerFacade } from './types.js';
-export type { ToastProviderProps, ToastRootProps, ToastRootState, ToastViewportProps, ToastViewportState, ToastContentProps, ToastContentState, ToastTitleProps, ToastDescriptionProps, ToastLabelState, ToastActionComponentProps, ToastCloseProps } from './types.js';
+export type {
+  ToastObject,
+  ToastContent,
+  ToastActionProps,
+  ToastManagerAddOptions,
+  ToastManagerUpdateOptions,
+  ToastManagerPromiseOptions,
+  ToastManagerFacade,
+} from './types.js';
+export type {
+  ToastProviderProps,
+  ToastRootProps,
+  ToastRootState,
+  ToastViewportProps,
+  ToastViewportState,
+  ToastContentProps,
+  ToastContentState,
+  ToastTitleProps,
+  ToastDescriptionProps,
+  ToastLabelState,
+  ToastActionComponentProps,
+  ToastCloseProps,
+} from './types.js';
 export { default as Portal } from './Portal.svelte';
 export type { ToastPortalProps, ToastPortalState } from './types.js';

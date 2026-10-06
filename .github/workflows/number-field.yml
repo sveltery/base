@@ -41,7 +41,9 @@ jobs:
           path: .checks/number-field/upstream
           persist-credentials: false
       - name: Verify complete source and assertion hashes with exact installed references
-        run: node parity/number-field/verify-source.mjs .checks/number-field/upstream
+        run: |
+          node parity/number-field/verify-source.mjs .checks/number-field/upstream
+          node parity/number-field/native-integration-graph.mjs --check
       - name: Build actual library
         run: pnpm --filter @sveltery/base build
       - name: Installed public root and NumberField subpath consumer

@@ -1,0 +1,54 @@
+{
+  "sourcePin": "47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c",
+  "integratedMain": "aa4daff54ec82b96e34e1601648d1b3926ef08cf",
+  "sourceCandidate": "9c822ba2de658e62e2c042e4c06046fa4803be10",
+  "scope": "Local preparation only; final pushed SHA recorded externally. No whole-library parity or browser acceptance.",
+  "passes": {
+    "bootstrap": "Frozen pnpm12.6.0 Node24 install + Utils/Base prepack/publint",
+    "source": "155 immutable source modules +14 test/type files and exact installed reference versions",
+    "focusedDOM": {
+      "command": "pnpm --filter @sveltery/base exec vitest run --project dom number-field",
+      "passed": 45,
+      "retainedSkips": 1,
+      "workers": 1,
+      "heapMiB": 768
+    },
+    "focusedServer": {
+      "command": "pnpm --filter @sveltery/base exec vitest run --project server number-field",
+      "passed": 142,
+      "retainedSkips": 2,
+      "workers": 1,
+      "heapMiB": 768
+    },
+    "installedConsumer": "Real Base+Utils archives, root/subpath/seven parts/18 exact public types, strict exactOptionalPropertyTypes/negative diagnostics, native SSR, actual Kit2.70.3, MIT and runtime boundary; svelte-check0 errors0warnings",
+    "fixtureBuild": "actual SSR/client fixture build passed, heap1024MiB",
+    "affectedESLint": "NumberField runtime, press/Interval, authored tests/fixtures/routes/reference: passed",
+    "metadata": "Native/catalog/family/NumberField successor checks passed; six affected metadata script tests passed after regeneration"
+  },
+  "incompleteOrFailed": {
+    "browser": "Official Chromium153 download invalid ZIP/lock failure; no secured local browser/hydration/Kit browser executed. No sandbox weakening.",
+    "type768": "Full Base svelte-check heap exhausted at768MiB. A later broad diagnostic run returned actual migration errors; those were repaired and packed strict consumer passes. Full workspace type gate remains hosted-required.",
+    "standards": "First attempt formatting found six unformatted inherited PR58 files, repaired. Subsequent full Prettier passed; full ESLint killed exit137. Scoped ESLint passed. Full Standards remains hosted-required.",
+    "verification": "Full documented verify packs Base/Utils successfully then executes all86 mandatory script tests:79pass7fail. Two stale projections repaired and6 affected tests pass; five isolated toolchain tests fail host node/PATH resolution. Supplemental direct absolute-Node attempt fails /tmp visibility. Remaining full workspace types/server/DOM/runtime/installed consumers not completed by verify after script failure.",
+    "selection": "Initial glob filter collected zero tests; corrected number-field filter passed45DOM. This failed startup earns no test credit."
+  },
+  "hostedPlan": "Lead explicitly authorizes scoped diagnostic draft push after feasible local checks. Unchanged mandatory hosted full Verification/Standards/package and sandbox-enabled worker1/retry0 browser gates run at exact pushed SHA; candidate validation only, no waiver or acceptance.",
+  "dependency": "PR42 owns sole Composite computed-style fallback fix. Family import graph reaches context, composed ancestor can relay navigation; exact accepted successor integration/final composed acceptance pending lead handoff.",
+  "unchangedOrdinaryAssertionCredit": 0,
+  "logs": {
+    "number-field-package.log": "f498f287d33339a97e07f0f64e13d491efdc88839add5eda8be206c168be93fe",
+    "number-field-dom-final.log": "b061441ebf6c4067861784da8727d5f5165704184c99c0bf9b992fe22672cd4f",
+    "number-field-eslint-final.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "number-field-standards-final.log": "cec31c4ec5bdaf4a5aef4d17dfc754d2f157486a75cc9c7f573723d6366cbcb6",
+    "number-field-dom.log": "2951af88543ddca02ee4a85d7432e8169e4e6ee4777918d84999a0b2a7f04860",
+    "number-field-types.log": "771c0d1ce894ba8df7fb1144ad74c9d98417a640d08b75d657f09f5b20c0f826",
+    "number-field-toolchain-final.log": "59823eb197e845384d6f2d18430a116cfbd4e9145afccc3a8a57e42b25e4b756",
+    "number-field-metadata-final.log": "6743c999657be3ec1161efccb5d835780a4755e00f96153d508b05004e1b5f9c",
+    "number-field-standards.log": "71c2cb221b55f4ed1b0334dacca67c9664f1f8d45d1429783a7db78549b78d64",
+    "number-field-metadata.log": "3c6ab3b592e74b21e08044d3ac80a68988dd49b01ab75da5ad86bc6b96f71e45",
+    "number-field-verification.log": "35be7390ecb77104c0b987bb94c4364d00df0eca26a0c402e098fec77d7f0106",
+    "number-field-fixtures-build.log": "b4bd76124e884f8952c3a4dbd06d5b2b48e8fadeb2fc66612952edc8b25dc340",
+    "browser-download.txt": "dd054d9fd60ae19fcc27539234d6513426ebd97e1a018ad232b1d62d0515699f",
+    "number-field-server.log": "e9c01df442af16d36b582616b69a2fc93b18019cf7d10255e0dc93a01edead29"
+  }
+}

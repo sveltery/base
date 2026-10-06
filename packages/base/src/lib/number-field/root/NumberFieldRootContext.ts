@@ -1,6 +1,10 @@
 // Base UI v1.8.0 NumberFieldRootContext, native Svelte context (MIT).
 import { getContext, setContext } from 'svelte';
-import type { NumberFieldRootState, NumberFieldRootChangeEventDetails, NumberFieldRootCommitEventDetails } from '../types.js';
+import type {
+  NumberFieldRootState,
+  NumberFieldRootChangeEventDetails,
+  NumberFieldRootCommitEventDetails,
+} from '../types.js';
 import type { EventWithOptionalKeyState, IncrementValueParameters } from '../utils/types.js';
 export type InputMode = 'numeric' | 'decimal' | 'text';
 export interface NumberFieldRootContext {
@@ -30,9 +34,14 @@ export interface NumberFieldRootContext {
   onValueCommitted(value: number | null, details: NumberFieldRootCommitEventDetails): void;
 }
 const key = Symbol('base-ui-number-field');
-export function setNumberFieldRootContext(context: NumberFieldRootContext) { setContext(key, context); }
+export function setNumberFieldRootContext(context: NumberFieldRootContext) {
+  setContext(key, context);
+}
 export function useNumberFieldRootContext(): NumberFieldRootContext {
   const context = getContext<NumberFieldRootContext | undefined>(key);
-  if (context === undefined) throw new Error('Base UI: NumberFieldRootContext is missing. NumberField parts must be placed within <NumberField.Root>.');
+  if (context === undefined)
+    throw new Error(
+      'Base UI: NumberFieldRootContext is missing. NumberField parts must be placed within <NumberField.Root>.',
+    );
   return context;
 }

@@ -1,26 +1,46 @@
 <script lang="ts">
   // Actual Base UI v1.8.0 NumberFieldScrubArea business body (MIT).
   import { flushSync, onDestroy, untrack } from 'svelte';
-  import { addEventListener } from '../../utils/addEventListener.js';
-  import { mergeCleanups } from '../../utils/mergeCleanups.js';
-  import { ownerWindow, ownerDocument } from '../../utils/owner.js';
-  import { platform } from '../../utils/platform/index.js';
-  import { useStableCallback } from '../../utils/useStableCallback.js';
-  import { useTimeout } from '../../utils/useTimeout.js';
+  import { addEventListener } from '@sveltery/utils/addEventListener';
+  import { mergeCleanups } from '@sveltery/utils/mergeCleanups';
+  import { ownerWindow, ownerDocument } from '@sveltery/utils/owner';
+  import { platform } from '@sveltery/utils/platform';
+  import { Timeout } from '@sveltery/utils/useTimeout';
   import type { HTMLProps } from '../../internals/types.js';
   import { useNumberFieldRootContext } from '../root/NumberFieldRootContext.js';
   import { stateAttributesMapping } from '../utils/stateAttributesMapping.js';
   import { setNumberFieldScrubAreaContext } from './NumberFieldScrubAreaContext.js';
-  import RenderElement from '../../internals/RenderElement.svelte';
+  import { mergeComponentProps } from '../../internals/mergeComponentProps.js';
+  import { createAttachmentKey } from 'svelte/attachments';
   import { getViewportRect } from '../utils/getViewportRect.js';
   import { createGenericEventDetails } from '../../internals/createBaseUIEventDetails.js';
   import { REASONS } from '../../internals/reasons.js';
-  import { getTarget } from '../../utils/shadowDom.js';
+  import { getTarget } from '@sveltery/utils/shadowDom';
   import type { NumberFieldScrubAreaProps } from '../types.js';
   const SCRUB_AREA_STYLE = 'touch-action:none;-webkit-user-select:none;user-select:none';
-  let { render, class: classProp, direction = 'horizontal', pixelSensitivity = 2, teleportDistance, style, children, ref = $bindable(), ...elementProps }: NumberFieldScrubAreaProps = $props();
+  let {
+    render,
+    class: classProp,
+    direction = 'horizontal',
+    pixelSensitivity = 2,
+    teleportDistance,
+    style,
+    children,
+    ref = $bindable(),
+    ...elementProps
+  }: NumberFieldScrubAreaProps = $props();
   const context = useNumberFieldRootContext();
-  const { setIsScrubbing: setRootScrubbing, inputRef, focusInput, incrementValue, allowInputSyncRef, getStepAmount, onValueCommitted, lastChangedValueRef, valueRef } = context;
+  const {
+    setIsScrubbing: setRootScrubbing,
+    inputRef,
+    focusInput,
+    incrementValue,
+    allowInputSyncRef,
+    getStepAmount,
+    onValueCommitted,
+    lastChangedValueRef,
+    valueRef,
+  } = context;
   const scrubState = $derived(context.state);
   const { disabled, readOnly } = $derived(scrubState);
   const scrubAreaRef = $state<{ current: HTMLSpanElement | null }>({ current: null });
@@ -29,7 +49,8 @@
   const pointerDownTargetRef = { current: null as EventTarget | null };
   const scrubAreaCursorRef = { current: null as HTMLSpanElement | null };
   const virtualCursorCoords = { current: { x: 0, y: 0 } };
-  const exitPointerLockTimeout = useTimeout();
+  const exitPointerLockTimeout = new Timeout();
+  onDestroy(exitPointerLockTimeout.clear);
   let isTouchInput = $state(false);
   let isPointerLockDenied = $state(false);
   let isScrubbing = $state(false);
@@ -40,7 +61,7 @@
     virtualCursor.style.transform = `translate3d(${x}px,${y}px,0) scale(${1 / scale})`;
   }
 
-  const onScrub = useStableCallback(({ movementX, movementY }: PointerEvent) => {
+  const onScrub = ({ movementX, movementY }: PointerEvent) => {
     const virtualCursor = scrubAreaCursorRef.current;
     const scrubAreaEl = scrubAreaRef.current;
 
@@ -81,34 +102,33 @@
     virtualCursorCoords.current = newCoords;
 
     updateCursorTransform(virtualCursor, newCoords.x, newCoords.y);
-  });
+  };
 
-  const onScrubbingChange = useStableCallback(
-    (scrubbingValue: boolean, { clientX, clientY }: PointerEvent) => {
-      flushSync(() => {
-        isScrubbing = scrubbingValue;
-        setRootScrubbing(scrubbingValue);
-      });
+  const onScrubbingChange = (scrubbingValue: boolean, { clientX, clientY }: PointerEvent) => {
+    flushSync(() => {
+      isScrubbing = scrubbingValue;
+      setRootScrubbing(scrubbingValue);
+    });
 
-      const virtualCursor = scrubAreaCursorRef.current;
-      if (!virtualCursor || !scrubbingValue) {
-        return;
-      }
+    const virtualCursor = scrubAreaCursorRef.current;
+    if (!virtualCursor || !scrubbingValue) {
+      return;
+    }
 
-      const initialCoords = {
-        x: clientX - virtualCursor.offsetWidth / 2,
-        y: clientY - virtualCursor.offsetHeight / 2,
-      };
+    const initialCoords = {
+      x: clientX - virtualCursor.offsetWidth / 2,
+      y: clientY - virtualCursor.offsetHeight / 2,
+    };
 
-      virtualCursorCoords.current = initialCoords;
+    virtualCursorCoords.current = initialCoords;
 
-      updateCursorTransform(virtualCursor, initialCoords.x, initialCoords.y);
-    },
-  );
+    updateCursorTransform(virtualCursor, initialCoords.x, initialCoords.y);
+  };
 
   $effect(() => {
     const enabled = inputRef.current && !disabled && !readOnly && isScrubbing;
-    void direction; void pixelSensitivity;
+    void direction;
+    void pixelSensitivity;
     if (!enabled) return;
     return untrack(() => {
       let cumulativeDelta = 0;
@@ -206,19 +226,23 @@
     if (isScrubbingRef.current) {
       isScrubbingRef.current = false;
       setRootScrubbing(false);
-      try { ownerDocument(scrubAreaRef.current).exitPointerLock(); } catch { /* original ignored errors */ }
+      try {
+        ownerDocument(scrubAreaRef.current).exitPointerLock();
+      } catch {
+        /* original ignored errors */
+      }
     }
   });
   $effect(() => {
     const element = scrubAreaRef.current;
     if (!element || disabled || readOnly) return;
-      function handleTouchStart(event: TouchEvent) {
-        if (event.touches.length === 1) {
-          event.preventDefault();
-        }
+    function handleTouchStart(event: TouchEvent) {
+      if (event.touches.length === 1) {
+        event.preventDefault();
       }
+    }
 
-      return addEventListener(element, 'touchstart', handleTouchStart, { passive: false });
+    return addEventListener(element, 'touchstart', handleTouchStart, { passive: false });
   });
   const defaultProps: HTMLProps = {
     role: 'presentation',
@@ -263,6 +287,43 @@
     },
   };
 
-  setNumberFieldScrubAreaContext({ get isScrubbing() { return isScrubbing; }, get isTouchInput() { return isTouchInput; }, get isPointerLockDenied() { return isPointerLockDenied; }, scrubAreaCursorRef });
+  setNumberFieldScrubAreaContext({
+    get isScrubbing() {
+      return isScrubbing;
+    },
+    get isTouchInput() {
+      return isTouchInput;
+    },
+    get isPointerLockDenied() {
+      return isPointerLockDenied;
+    },
+    scrubAreaCursorRef,
+  });
+  const hostAttachmentKey = createAttachmentKey();
+  function attachHost(host: HTMLElement) {
+    return untrack(() => {
+      ref = host;
+      scrubAreaRef.current = host as HTMLSpanElement;
+      return () =>
+        untrack(() => {
+          if (ref === host) ref = null;
+          if (scrubAreaRef.current === host) scrubAreaRef.current = null;
+        });
+    });
+  }
+  const mergedProps = $derived({
+    ...mergeComponentProps(
+      scrubState,
+      { class: classProp, style },
+      [defaultProps, elementProps],
+      stateAttributesMapping,
+    ),
+    [hostAttachmentKey]: attachHost,
+  });
 </script>
-<RenderElement tag="span" componentProps={{ render, class: classProp, style }} params={{ ref: [scrubAreaRef], state: scrubState, props: [defaultProps, elementProps], stateAttributesMapping }} bind:element={ref}>{@render children?.()}</RenderElement>
+
+{#if render}
+  {@render render(mergedProps, scrubState, children)}
+{:else}
+  <span {...mergedProps}>{@render children?.()}</span>
+{/if}

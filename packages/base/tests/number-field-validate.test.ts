@@ -1,6 +1,9 @@
 // Original complete Base UI 1.8.0 helper assertion bodies; MIT. Conditional guards retained.
 import { expect, describe, it } from 'vitest';
-import { toValidatedNumber as toValidatedNumberImpl, removeFloatingPointErrors } from '../src/lib/number-field/utils/validate.js';
+import {
+  toValidatedNumber as toValidatedNumberImpl,
+  removeFloatingPointErrors,
+} from '../src/lib/number-field/utils/validate.js';
 
 const min = Number.MIN_SAFE_INTEGER;
 const max = Number.MAX_SAFE_INTEGER;

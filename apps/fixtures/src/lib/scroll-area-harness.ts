@@ -16,8 +16,7 @@ export interface ScrollAreaOptions {
   thumbMargin: number;
   trackHeight: number | null;
   trackThickness: number;
-  threshold:
-    number | { xStart?: number; xEnd?: number; yStart?: number; yEnd?: number };
+  threshold: number | { xStart?: number; xEnd?: number; yStart?: number; yEnd?: number };
   snap: string;
   nonce: string | undefined;
   disableStyleElements: boolean;

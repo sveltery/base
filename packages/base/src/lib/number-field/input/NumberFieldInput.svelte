@@ -2,28 +2,69 @@
   // Actual Base UI v1.8.0 NumberFieldInput business handlers in source order (MIT).
   import { untrack } from 'svelte';
   import { DEV } from 'esm-env';
-  import { createLogOnce } from '../../utils/createLogOnce.js';
+  import { createLogOnce } from '@sveltery/utils/createLogOnce';
   import type { HTMLProps } from '../../internals/types.js';
   import type { HTMLInputAttributes } from 'svelte/elements';
-  import RenderElement from '../../internals/RenderElement.svelte';
-  import { formatNumber } from '../../utils/formatNumber.js';
+  import { mergeComponentProps } from '../../internals/mergeComponentProps.js';
+  import { createAttachmentKey } from 'svelte/attachments';
+  import { formatNumber } from '@sveltery/utils/formatNumber';
   import { useNumberFieldRootContext } from '../root/NumberFieldRootContext.js';
   import { useFieldRootContext } from '../../internals/field-root-context/FieldRootContext.js';
   import { useRegisterFieldControl } from '../../internals/field-register-control/useRegisterFieldControl.svelte.js';
   import { useFormContext } from '../../internals/form-context/FormContext.js';
   import { useLabelableContext } from '../../internals/labelable-provider/LabelableContext.js';
-  import { getNumberLocaleDetails, isNumeralChar, parseNumber, ANY_MINUS_RE, ANY_PLUS_RE, ANY_MINUS_DETECT_RE, ANY_PLUS_DETECT_RE, FORMAT_CONTROL_DETECT_RE } from '../utils/parse.js';
+  import {
+    getNumberLocaleDetails,
+    isNumeralChar,
+    parseNumber,
+    ANY_MINUS_RE,
+    ANY_PLUS_RE,
+    ANY_MINUS_DETECT_RE,
+    ANY_PLUS_DETECT_RE,
+    FORMAT_CONTROL_DETECT_RE,
+  } from '../utils/parse.js';
   import { stateAttributesMapping } from '../utils/stateAttributesMapping.js';
-  import { createChangeEventDetails, createGenericEventDetails } from '../../internals/createBaseUIEventDetails.js';
-  import { useValueChanged } from '../../internals/useValueChanged.svelte.js';
+  import {
+    createChangeEventDetails,
+    createGenericEventDetails,
+  } from '../../internals/createBaseUIEventDetails.js';
+  import { ValueChanged } from '../../internals/ValueChanged.svelte.js';
   import { REASONS } from '../../internals/reasons.js';
   import { hasNumberFormatRoundingOptions, removeFloatingPointErrors } from '../utils/validate.js';
   import type { NumberFieldInputProps } from '../types.js';
-  const NAVIGATE_KEYS = new Set(['Backspace', 'Delete', 'ArrowLeft', 'ArrowRight', 'Tab', 'Enter', 'Escape']);
+  const NAVIGATE_KEYS = new Set([
+    'Backspace',
+    'Delete',
+    'ArrowLeft',
+    'ArrowRight',
+    'Tab',
+    'Enter',
+    'Escape',
+  ]);
   const warn = createLogOnce('warn', 'Base UI');
-  let { render, class: classProp, style, children, ref = $bindable(), ...elementProps }: NumberFieldInputProps = $props();
+  let {
+    render,
+    class: classProp,
+    style,
+    children,
+    ref = $bindable(),
+    ...elementProps
+  }: NumberFieldInputProps = $props();
   const context = useNumberFieldRootContext();
-  const { allowInputSyncRef, formatOptionsRef, getAllowedNonNumericKeys, getStepAmount, incrementValue, setValue, setInputValue, inputRef, onValueCommitted, lastChangedValueRef, hasPendingCommitRef, valueRef } = context;
+  const {
+    allowInputSyncRef,
+    formatOptionsRef,
+    getAllowedNonNumericKeys,
+    getStepAmount,
+    incrementValue,
+    setValue,
+    setInputValue,
+    inputRef,
+    onValueCommitted,
+    lastChangedValueRef,
+    hasPendingCommitRef,
+    valueRef,
+  } = context;
   const id = $derived(context.id);
   const inputMode = $derived(context.inputMode);
   const max = $derived(context.max);
@@ -41,7 +82,14 @@
   const labelId = $derived(labelable.labelId);
   const blockRevalidationRef = { current: false };
   const pendingCaretRef = { current: null as number | null };
-  useRegisterFieldControl(inputRef, () => id, () => value, undefined, () => !disabled, () => context.nameProp);
+  useRegisterFieldControl(
+    inputRef,
+    () => id,
+    () => value,
+    undefined,
+    () => !disabled,
+    () => context.nameProp,
+  );
   // The post-DOM effect restores the selection after the pasted text has rendered.
   $effect(() => {
     void inputValue;
@@ -53,14 +101,17 @@
       }
     });
   });
-  useValueChanged(() => value, () => () => {
-    clearErrors(name);
-    if (blockRevalidationRef.current && !shouldValidateOnChange()) {
-      blockRevalidationRef.current = false;
-      return;
-    }
-    validation.change(value);
-  });
+  new ValueChanged(
+    () => value,
+    () => () => {
+      clearErrors(name);
+      if (blockRevalidationRef.current && !shouldValidateOnChange()) {
+        blockRevalidationRef.current = false;
+        return;
+      }
+      validation.change(value);
+    },
+  );
   const inputProps: HTMLProps & HTMLInputAttributes = $derived({
     id,
     required,
@@ -401,5 +452,31 @@
     },
   });
 
+  const hostAttachmentKey = createAttachmentKey();
+  function attachHost(host: HTMLElement) {
+    return untrack(() => {
+      ref = host;
+      inputRef.current = host as HTMLInputElement;
+      return () =>
+        untrack(() => {
+          if (ref === host) ref = null;
+          if (inputRef.current === host) inputRef.current = null;
+        });
+    });
+  }
+  const mergedProps = $derived({
+    ...mergeComponentProps(
+      inputState,
+      { class: classProp, style },
+      [inputProps, elementProps, (props) => validation.getValidationProps(disabled, props)],
+      stateAttributesMapping,
+    ),
+    [hostAttachmentKey]: attachHost,
+  });
 </script>
-<RenderElement tag="input" componentProps={{ render, class: classProp, style }} params={{ ref: [inputRef], state: inputState, props: [inputProps, elementProps, (props) => validation.getValidationProps(disabled, props)], stateAttributesMapping }} bind:element={ref}>{@render children?.()}</RenderElement>
+
+{#if render}
+  {@render render(mergedProps, inputState, children)}
+{:else}
+  <input {...mergedProps} />
+{/if}

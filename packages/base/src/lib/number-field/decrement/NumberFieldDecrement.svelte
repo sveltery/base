@@ -4,4 +4,5 @@
   import type { NumberFieldDecrementProps } from '../types.js';
   let { ref = $bindable(), ...props }: NumberFieldDecrementProps = $props();
 </script>
+
 <StepperButton {...props} isIncrement={false} bind:ref />

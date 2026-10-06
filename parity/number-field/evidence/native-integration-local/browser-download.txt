@@ -1,0 +1,6 @@
+Observed official Playwright Chromium153.0.8010.12 install failure on this host. Full original tool output remains in this conversation. No actual local browser test ran.
+
+Error: End of central directory record signature not found. Either not a zip file, or file is truncated.
+Error: Unable to update lock within the stale threshold Path: .checks/cache/ms-playwright/__dirlock
+
+The initial direct pnpm invocation also failed ERR_PNPM_ABORTED_REMOVE_MODULES_DIR_NO_TTY; the maintained toolchain was used for the actual official download attempt. No sandbox bypass, browser substitution, expectation change or retry weakening.
