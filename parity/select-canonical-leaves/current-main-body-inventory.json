@@ -2107,13 +2107,13 @@
     },
     {
       "path": "packages/base/src/lib/internals/nativeProps.ts",
-      "sha256": "f081bf825f41a64924fe298108e148ac56314d02074c588cc1f9324ff6a92cc5",
+      "sha256": "d815afcfdacace885ce9a74f568d2e0dcb167e72003372cd2f398603f2cacd5a",
       "functions": [
         {
           "name": "toNativeStyle",
           "startLine": 9,
           "endLine": 19,
-          "bodySha256": "67e68e3e5187091704345778650b008a1373c1cad77da85d9236811ac13210a2"
+          "bodySha256": "25801345190db9fe1b880bbe763966a741e0b46771c81bcc40773dc1bb2637fb"
         },
         {
           "name": "<anonymous:13>",

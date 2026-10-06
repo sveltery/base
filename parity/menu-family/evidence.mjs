@@ -1,3 +1,4 @@
+import { readLosslessJson } from '../../scripts/lossless-json.mjs';
 // Preserve immutable assertion provenance and reconcile actual used Source/native boundaries.
 // No declaration or conformance credit is granted by this inventory.
 import { createHash } from 'node:crypto';
@@ -72,7 +73,7 @@ const nativeOnly = new Map([
   ['packages/utils/src/inertValue.ts', 'Native Svelte inert boolean attributes replace the React-version inert shim while preserving the browser inert property.'],
 ]);
 const unselected = new Set(['packages/react/src/floating-ui-react/components/FloatingDelayGroup.tsx', 'packages/react/src/floating-ui-react/hooks/useClientPoint.ts', 'packages/react/src/floating-ui-react/hooks/useFloatingRootContext.ts', 'packages/react/src/floating-ui-react/hooks/useHover.ts', 'packages/react/src/floating-ui-react/index.ts', 'packages/react/src/floating-ui-react/utils.ts', 'packages/react/src/types/index.ts', 'packages/react/src/internals/use-button/index.ts', 'packages/utils/src/store/index.ts', 'packages/utils/src/store/createSelector.ts', 'packages/utils/src/store/createSelectorMemoized.ts', 'packages/react/src/utils/popups/inlineRect.ts', 'packages/react/src/direction-provider/index.ts', 'packages/react/src/direction-provider/index.parts.ts']);
-const currentUtilityGraph = JSON.parse(read('parity/utils-package/current-source-graph.json'));
+const currentUtilityGraph = readLosslessJson(new URL('parity/utils-package/current-source-graph.json', repo));
 for (const move of currentUtilityGraph.currentMoves) {
   if (!move.currentOwners) continue;
   const paths = move.currentOwners.map(owner => owner.path).filter(path => localModules.has(path));

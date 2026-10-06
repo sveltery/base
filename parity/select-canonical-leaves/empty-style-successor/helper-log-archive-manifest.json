@@ -1,0 +1,29 @@
+{
+  "method": "Lossless deterministic gzip,mtime0. Both successful helper execution and wrong-CLI red log retain all original bytes.",
+  "files": [
+    {
+      "historicalPath": "helper-tests-successor.log",
+      "archivePath": "helper-tests-successor.log.gz",
+      "plaintextBytes": 218,
+      "plaintextSha256": "fd3d6ea5760004fdcce628f429b88d90316e494e75403c50bbb9a301c0c80146",
+      "gzipBytes": 186,
+      "gzipSha256": "881ecd2056977ff851d77997894305adda880e81ee4059f4012429a310d014ce",
+      "decompress": "gzip -dc parity/select-canonical-leaves/empty-style-successor/helper-tests-successor.log.gz"
+    },
+    {
+      "historicalPath": "helper-tests.log",
+      "archivePath": "helper-tests.log.gz",
+      "plaintextBytes": 790,
+      "plaintextSha256": "b606d135bd4e6dec3371634bbd58ec5d192db32fccd79b426cb3f7e584f434e2",
+      "gzipBytes": 377,
+      "gzipSha256": "3870fe8468518d929d5edac064a0e969391142c03a5fc71a26bc4818236800ea",
+      "decompress": "gzip -dc parity/select-canonical-leaves/empty-style-successor/helper-tests.log.gz"
+    }
+  ],
+  "originalReceipt": {
+    "path": "receipt-before-helper-log-packaging.json.gz",
+    "plaintextSha256": "9b62043ca19af8d93fd281b4be4e6b15ad6ecc6b34f0b5cebb148d51111e0090",
+    "plaintextBytes": 6231,
+    "decompress": "gzip -dc parity/select-canonical-leaves/empty-style-successor/receipt-before-helper-log-packaging.json.gz"
+  }
+}
