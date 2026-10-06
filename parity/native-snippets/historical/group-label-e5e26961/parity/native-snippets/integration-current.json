@@ -4,14 +4,14 @@
   "immutableOriginalPin": "47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c",
   "ordinaryDeclarationCredit": 0,
   "mode": "Source/parser/hash/import evidence only; no type program, runtime, SSR/hydration, compiled markup, artifact, installed consumer, browser, CI or merge acceptance credit.",
-  "method": "Complete current native two-package AST closure, immutable f0 full-body preimages and grouping-preserving script ASTs. Deliberate PreviousValue and captured Menu label/event-bus cleanup corrections are separate from formatter presentation changes; exact complete-body cleanup deltas are checked against e5, and parse success supplies no behavior equivalence.",
+  "method": "Complete current native two-package AST closure, immutable f0 full-body preimages and grouping-preserving script ASTs. Deliberate PreviousValue correction is separate from formatter presentation changes; parse success supplies no behavior equivalence.",
   "parserVersions": {
     "TypeScript": "6.0.3",
     "Svelte": "5.57.1"
   },
-  "currentGraphSha256": "a1242dec7f33d0f921e60fabb861fb9de65e3f0710b74073d26afc1aef0a1e96",
-  "currentPublicHostGraphSha256": "9641761e14b5c9e56778aade5ffba9078acc6ce47fae446f60e5815cbfb896fc",
-  "proofToolSha256": "53e4d7cbc83cedc248117b6b49f43f7d509cbf02d7954a90b063f98ee7aedbfe",
+  "currentGraphSha256": "fa7ed7ab481504c993500803772f11c2c3fcf3e110deacfe5969eaebb3930d7b",
+  "currentPublicHostGraphSha256": "314bcd594de88946f9e32bef146590ecce77b7b711f81e38a21155b6ac0fadda",
+  "proofToolSha256": "c7693748a8f072b3da3a97fd40aeb9fab8a374a6fdc43d2da5a0119d89e293bc",
   "controlledOwners": 11,
   "effectCalls": 187,
   "utilsExports": [
@@ -1878,20 +1878,10 @@
     {
       "path": "packages/base/src/lib/menu/GroupLabel.svelte",
       "rendererSha256": "68b8627d246359ebb546813e3e68520815f31be7156bc926fe7f80cb2c7b5223",
-      "currentSha256": "743dad85f4b3e8c9fcca29c8b24c78cba2978e63557e491410ed481fd678070f",
-      "scriptStructuralAstEqual": false,
+      "currentSha256": "68b8627d246359ebb546813e3e68520815f31be7156bc926fe7f80cb2c7b5223",
+      "scriptStructuralAstEqual": true,
       "sourceSyntaxValid": true,
-      "disposition": "Root-authorized effect-local installed label ID capture, preserving conditional replacement-label protection; actual DOM witnesses unexecuted.",
-      "sourceBusinessPredecessor": "e5e26961c52d324eb9075fcbff71915f79f7e922",
-      "sourceBusinessPredecessorSha256": "68b8627d246359ebb546813e3e68520815f31be7156bc926fe7f80cb2c7b5223",
-      "exactAuthorizedCompleteBodyDelta": true,
-      "structuralDifferences": [
-        {
-          "path": "source.ExpressionStatement[10].CallExpression[0].ArrowFunction[1].Block[1]",
-          "before": "{\n    setLabelId(id);\n    return () => {\n      setLabelId((currentId) => (currentId === id ? undefined : currentId));\n    };\n  }",
-          "after": "{\n    const installedId = id;\n    setLabelId(installedId);\n    return () => {\n      setLabelId((currentId) => (currentId === installedId ? undefined : currentId));\n    };\n  }"
-        }
-      ]
+      "disposition": "Complete structural script AST retained; full native markup/compiled-output behavior remains separately pending."
     },
     {
       "path": "packages/base/src/lib/menu/index.parts.ts",
@@ -1944,20 +1934,10 @@
     {
       "path": "packages/base/src/lib/menu/Popup.svelte",
       "rendererSha256": "3c071e821c295924e0ef78804a38d8cec3b29ec73f7797d9d55d152321118366",
-      "currentSha256": "74f9bc6ece8cbde744d120e226a7a640511db802670bf62fcce08ea7ab2fb8e3",
-      "scriptStructuralAstEqual": false,
+      "currentSha256": "fdd2652ce08cb387d404d8b917bc2e74bf48dd85f776b2e8780d193886660a40",
+      "scriptStructuralAstEqual": true,
       "sourceSyntaxValid": true,
-      "disposition": "Root-authorized effect-local installed event bus captures; complete callbacks, live business reads and domain guards retained; actual owner migration/unmount witnesses unexecuted.",
-      "sourceBusinessPredecessor": "e5e26961c52d324eb9075fcbff71915f79f7e922",
-      "sourceBusinessPredecessorSha256": "fdd2652ce08cb387d404d8b917bc2e74bf48dd85f776b2e8780d193886660a40",
-      "exactAuthorizedCompleteBodyDelta": true,
-      "structuralDifferences": [
-        {
-          "path": "source.ExpressionStatement[35].CallExpression[0].ArrowFunction[1].Block[1]",
-          "before": "{\n    function handleClose(event: {\n      domEvent: Event | undefined;\n      reason: MenuRoot.ChangeEventReason;\n    }) {\n      store.setOpen(\n        false,\n        createChangeEventDetails(event.reason, event.domEvent),\n      );\n    }\n    floatingTreeRoot.events.on('close', handleClose);\n    return () => {\n      floatingTreeRoot.events.off('close', handleClose);\n    };\n  }",
-          "after": "{\n    function handleClose(event: {\n      domEvent: Event | undefined;\n      reason: MenuRoot.ChangeEventReason;\n    }) {\n      store.setOpen(false, createChangeEventDetails(event.reason, event.domEvent));\n    }\n    const installedEvents = floatingTreeRoot.events;\n    installedEvents.on('close', handleClose);\n    return () => {\n      installedEvents.off('close', handleClose);\n    };\n  }"
-        }
-      ]
+      "disposition": "Complete structural script AST retained; full native markup/compiled-output behavior remains separately pending."
     },
     {
       "path": "packages/base/src/lib/menu/Portal.svelte",
@@ -1986,30 +1966,10 @@
     {
       "path": "packages/base/src/lib/menu/positioner/createMenuPositioner.svelte.ts",
       "rendererSha256": "55d2c56777e2d8fdb3a61962af41f82ed251251eca9e319d0f261e9c75c9af58",
-      "currentSha256": "58d6966fd6c904e8b6adca800731394803d0fee4f73d781ee0fa2a5776d6e063",
-      "scriptStructuralAstEqual": false,
+      "currentSha256": "0f443aa45764512d4a92d903b69baab460b34feca8f86c32ac3a6259154dcc6c",
+      "scriptStructuralAstEqual": true,
       "sourceSyntaxValid": true,
-      "disposition": "Root-authorized effect-local installed event bus captures; complete callbacks, live business reads and domain guards retained; actual owner migration/unmount witnesses unexecuted.",
-      "sourceBusinessPredecessor": "e5e26961c52d324eb9075fcbff71915f79f7e922",
-      "sourceBusinessPredecessorSha256": "0f443aa45764512d4a92d903b69baab460b34feca8f86c32ac3a6259154dcc6c",
-      "exactAuthorizedCompleteBodyDelta": true,
-      "structuralDifferences": [
-        {
-          "path": "source.FunctionDeclaration[15].Block[5].ExpressionStatement[24].CallExpression[0].ArrowFunction[1].Block[1]",
-          "before": "{\n    function onMenuOpenChange(details: MenuOpenEventDetails) {\n      if (details.open) {\n        if (details.parentNodeId === floatingNodeId) {\n          store.set('hoverEnabled', false);\n        }\n        if (\n          details.nodeId !== floatingNodeId &&\n          details.parentNodeId === store.select('floatingParentNodeId')\n        ) {\n          store.setOpen(false, createChangeEventDetails(REASONS.siblingOpen));\n        }\n      }\n    }\n    floatingTreeRoot.events.on('menuopenchange', onMenuOpenChange);\n    return () => {\n      floatingTreeRoot.events.off('menuopenchange', onMenuOpenChange);\n    };\n  }",
-          "after": "{\n    function onMenuOpenChange(details: MenuOpenEventDetails) {\n      if (details.open) {\n        if (details.parentNodeId === floatingNodeId) {\n          store.set('hoverEnabled', false);\n        }\n        if (\n          details.nodeId !== floatingNodeId &&\n          details.parentNodeId === store.select('floatingParentNodeId')\n        ) {\n          store.setOpen(false, createChangeEventDetails(REASONS.siblingOpen));\n        }\n      }\n    }\n    const installedEvents = floatingTreeRoot.events;\n    installedEvents.on('menuopenchange', onMenuOpenChange);\n    return () => {\n      installedEvents.off('menuopenchange', onMenuOpenChange);\n    };\n  }"
-        },
-        {
-          "path": "source.FunctionDeclaration[15].Block[5].ExpressionStatement[25].CallExpression[0].ArrowFunction[1].Block[1]",
-          "before": "{\n    if (store.select('floatingParentNodeId') == null) {\n      return undefined;\n    }\n    function onParentClose(details: MenuOpenEventDetails) {\n      if (\n        details.open ||\n        details.nodeId !== store.select('floatingParentNodeId')\n      ) {\n        return;\n      }\n      const reason: MenuRoot.ChangeEventReason =\n        details.reason ?? REASONS.siblingOpen;\n      store.setOpen(false, createChangeEventDetails(reason));\n    }\n    floatingTreeRoot.events.on('menuopenchange', onParentClose);\n    return () => {\n      floatingTreeRoot.events.off('menuopenchange', onParentClose);\n    };\n  }",
-          "after": "{\n    if (store.select('floatingParentNodeId') == null) {\n      return undefined;\n    }\n    function onParentClose(details: MenuOpenEventDetails) {\n      if (details.open || details.nodeId !== store.select('floatingParentNodeId')) {\n        return;\n      }\n      const reason: MenuRoot.ChangeEventReason = details.reason ?? REASONS.siblingOpen;\n      store.setOpen(false, createChangeEventDetails(reason));\n    }\n    const installedEvents = floatingTreeRoot.events;\n    installedEvents.on('menuopenchange', onParentClose);\n    return () => {\n      installedEvents.off('menuopenchange', onParentClose);\n    };\n  }"
-        },
-        {
-          "path": "source.FunctionDeclaration[15].Block[5].ExpressionStatement[29].CallExpression[0].ArrowFunction[1].Block[1]",
-          "before": "{\n    function onItemHover(event: {\n      nodeId: string | undefined;\n      target: Element | null;\n    }) {\n      // If an item within our parent menu is hovered, and this menu's trigger is not that item,\n      // close this submenu. This ensures hovering a different item in the parent closes other branches.\n      if (!open || event.nodeId !== store.select('floatingParentNodeId')) {\n        return;\n      }\n      if (event.target && triggerElement && triggerElement !== event.target) {\n        const delay = store.select('closeDelay');\n        if (delay > 0) {\n          if (!closeTimeout.isStarted()) {\n            closeTimeout.start(delay, () => {\n              store.setOpen(\n                false,\n                createChangeEventDetails(REASONS.siblingOpen),\n              );\n            });\n          }\n        } else {\n          store.setOpen(false, createChangeEventDetails(REASONS.siblingOpen));\n        }\n      } else {\n        // User re-hovered the submenu trigger, cancel pending close.\n        closeTimeout.clear();\n      }\n    }\n    floatingTreeRoot.events.on('itemhover', onItemHover);\n    return () => {\n      floatingTreeRoot.events.off('itemhover', onItemHover);\n    };\n  }",
-          "after": "{\n    function onItemHover(event: { nodeId: string | undefined; target: Element | null }) {\n      // If an item within our parent menu is hovered, and this menu's trigger is not that item,\n      // close this submenu. This ensures hovering a different item in the parent closes other branches.\n      if (!open || event.nodeId !== store.select('floatingParentNodeId')) {\n        return;\n      }\n      if (event.target && triggerElement && triggerElement !== event.target) {\n        const delay = store.select('closeDelay');\n        if (delay > 0) {\n          if (!closeTimeout.isStarted()) {\n            closeTimeout.start(delay, () => {\n              store.setOpen(false, createChangeEventDetails(REASONS.siblingOpen));\n            });\n          }\n        } else {\n          store.setOpen(false, createChangeEventDetails(REASONS.siblingOpen));\n        }\n      } else {\n        // User re-hovered the submenu trigger, cancel pending close.\n        closeTimeout.clear();\n      }\n    }\n    const installedEvents = floatingTreeRoot.events;\n    installedEvents.on('itemhover', onItemHover);\n    return () => {\n      installedEvents.off('itemhover', onItemHover);\n    };\n  }"
-        }
-      ]
+      "disposition": "Complete structural script AST retained; full native markup/compiled-output behavior remains separately pending."
     },
     {
       "path": "packages/base/src/lib/menu/positioner/MenuPositionerContext.ts",

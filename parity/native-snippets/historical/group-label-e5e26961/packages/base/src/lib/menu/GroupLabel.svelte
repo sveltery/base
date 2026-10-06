@@ -21,10 +21,9 @@
   const id = $derived(useBaseUiId(idProp ?? undefined, generatedId));
   const setLabelId = useMenuGroupRootContext();
   $effect(() => {
-    const installedId = id;
-    setLabelId(installedId);
+    setLabelId(id);
     return () => {
-      setLabelId((currentId) => (currentId === installedId ? undefined : currentId));
+      setLabelId((currentId) => (currentId === id ? undefined : currentId));
     };
   });
 

@@ -1,0 +1,27 @@
+{
+  "predecessor": "e5e26961c52d324eb9075fcbff71915f79f7e922",
+  "pin": "47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c",
+  "original": "packages/react/src/menu/group-label/MenuGroupLabel.tsx",
+  "originalSha256": "42630223aec69bd82c935d9a49c40b86c2c509af32801e08dfcc2bcfd4eedef2",
+  "runtime": "packages/base/src/lib/menu/GroupLabel.svelte",
+  "runtimeSha256": "743dad85f4b3e8c9fcca29c8b24c78cba2978e63557e491410ed481fd678070f",
+  "ordinaryDeclarationCredit": 0,
+  "status": "Root-authorized minimal Source lifetime repair and authored native DOM witnesses; unexecuted, no repro/pass or final-head Source/runtime acceptance claim.",
+  "business": "Capture the ID actually installed by each native effect, then conditionally clear only that ID during cleanup. The pinned captured-render ID conditional and replacement-label protection remain. No registration token, generic lifecycle, renderer or ref transport is added.",
+  "witnesses": [
+    {
+      "path": "packages/base/tests/dom/MenuGroupLabelLifetimeFixture.svelte",
+      "sha256": "745b463ddd3d4e65533206c220925947f525714ebfa1eb2956dcef19700e8589"
+    },
+    {
+      "path": "packages/base/tests/dom/menu-group-label-lifetime.test.ts",
+      "sha256": "a33882163ab62238465d81f127aa4e69bb9a4b756c4d3fd6da3dd147e8a94d11"
+    }
+  ],
+  "cases": [
+    "Mounted label ID update and subsequent removal",
+    "Same-turn ID change plus label unmount clears the captured installed association",
+    "A replacement label survives when the older label changes to its ID before unmount"
+  ],
+  "execution": "Pending Root coordinated actual DOM/runtime lane. Cached syntax/hash/formatter checks do not execute these scenarios."
+}

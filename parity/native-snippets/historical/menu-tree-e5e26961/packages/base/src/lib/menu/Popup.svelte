@@ -61,10 +61,9 @@
     }) {
       store.setOpen(false, createChangeEventDetails(event.reason, event.domEvent));
     }
-    const installedEvents = floatingTreeRoot.events;
-    installedEvents.on('close', handleClose);
+    floatingTreeRoot.events.on('close', handleClose);
     return () => {
-      installedEvents.off('close', handleClose);
+      floatingTreeRoot.events.off('close', handleClose);
     };
   });
   useHoverFloatingInteraction(

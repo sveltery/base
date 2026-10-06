@@ -6658,7 +6658,7 @@
     },
     {
       "source": "packages/base/src/lib/menu/GroupLabel.svelte",
-      "sha256": "743dad85f4b3e8c9fcca29c8b24c78cba2978e63557e491410ed481fd678070f",
+      "sha256": "68b8627d246359ebb546813e3e68520815f31be7156bc926fe7f80cb2c7b5223",
       "reachability": "runtime",
       "imports": [
         {
@@ -8032,7 +8032,7 @@
     },
     {
       "source": "packages/base/src/lib/menu/Popup.svelte",
-      "sha256": "74f9bc6ece8cbde744d120e226a7a640511db802670bf62fcce08ea7ab2fb8e3",
+      "sha256": "fdd2652ce08cb387d404d8b917bc2e74bf48dd85f776b2e8780d193886660a40",
       "reachability": "runtime",
       "imports": [
         {
@@ -8419,7 +8419,7 @@
     },
     {
       "source": "packages/base/src/lib/menu/positioner/createMenuPositioner.svelte.ts",
-      "sha256": "58d6966fd6c904e8b6adca800731394803d0fee4f73d781ee0fa2a5776d6e063",
+      "sha256": "0f443aa45764512d4a92d903b69baab460b34feca8f86c32ac3a6259154dcc6c",
       "reachability": "runtime",
       "imports": [
         {
