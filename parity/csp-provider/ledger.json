@@ -5,7 +5,7 @@
     "version": "1.8.0",
     "license": "MIT"
   },
-  "scope": "Provider and optional private context foundation with an actual canonical Tabs prehydration script consumer. Four downstream ScrollArea/Select ordinary declarations remain deferred and uncredited on this Tabs branch.",
+  "scope": "Provider/private context foundation plus implemented ScrollArea stylesheet and canonical Tabs prehydration script context consumers recorded separately. Four complete downstream ordinary declaration ports remain deferred and uncredited.",
   "sources": [
     {
       "source": "packages/react/src/csp-provider/CSPProvider.tsx",
@@ -47,7 +47,10 @@
     {
       "source": "packages/react/src/scroll-area/root/ScrollAreaRoot.tsx",
       "sha256": "d896463fba2e039747d766543b72af77ec4f654db3e5cf0986009f7326259ed3",
-      "status": "deferred-unimplemented-consumer"
+      "status": "implemented-consumer-ordinary-ports-deferred-uncredited",
+      "local": "packages/base/src/lib/scroll-area/root/ScrollAreaRoot.svelte",
+      "evidence": "parity/scroll-area/README.md",
+      "ordinaryCredit": 0
     },
     {
       "source": "packages/react/src/select/popup/SelectPopup.tsx",
@@ -68,8 +71,8 @@
           "text": "expect(queryDisableScrollbarStyle()).toBeNull();"
         }
       ],
-      "status": "deferred-unimplemented-consumers",
-      "reason": "Requires actual ScrollArea.",
+      "status": "deferred-uncredited-complete-port-review",
+      "reason": "Actual ScrollArea CSP consumer is implemented and has DOM/SSR/browser supplements; complete original ordinary-port provenance/reconciliation and review remain pending. Supplements supply zero declaration credit.",
       "port": null,
       "evidence": null
     },
@@ -106,8 +109,8 @@
           "text": "expect(style).toHaveAttribute('nonce', 'test-nonce');"
         }
       ],
-      "status": "deferred-unimplemented-consumers",
-      "reason": "Requires actual ScrollArea.",
+      "status": "deferred-uncredited-complete-port-review",
+      "reason": "Actual ScrollArea CSP consumer is implemented and has DOM/SSR/browser supplements; complete original ordinary-port provenance/reconciliation and review remain pending. Supplements supply zero declaration credit.",
       "port": null,
       "evidence": null
     },
@@ -123,8 +126,8 @@
           "text": "expect(style).not.toBeNull();"
         }
       ],
-      "status": "deferred-unimplemented-consumers",
-      "reason": "Requires actual ScrollArea.",
+      "status": "deferred-uncredited-complete-port-review",
+      "reason": "Actual ScrollArea CSP consumer is implemented and has DOM/SSR/browser supplements; complete original ordinary-port provenance/reconciliation and review remain pending. Supplements supply zero declaration credit.",
       "port": null,
       "evidence": null
     }
@@ -173,6 +176,20 @@
       "setup": "Wrapper-only provider omitted context initialization; all other fixture and observable assertions retained.",
       "command": "pnpm --dir packages/base exec vitest run --config vitest.dom.config.ts tests/dom/csp-provider.test.ts",
       "result": "3 assertion failures: provider initial, live update and remount read default fallback instead of provider values."
+    },
+    "scrollAreaConsumer": {
+      "implementation": "packages/base/src/lib/scroll-area/root/ScrollAreaRoot.svelte",
+      "context": "packages/base/src/lib/csp-provider/context.ts",
+      "dom": "packages/base/tests/dom/scroll-area.test.ts",
+      "browser": "tests/browser/scroll-area.spec.ts",
+      "evidence": "parity/scroll-area/README.md",
+      "historicalHead": "cfc7a845380b1628829ea37687724928bbc3d9b4",
+      "run": 37253842500,
+      "job": 111586710558,
+      "result": "historical-focused123-and-strict-installed-types-SSR-DOM-PASS; final-head gates separate",
+      "behavior": "Actual stylesheet suppression, supplied nonce/CSS, real HTTP-header CSP and native DOM/SSR/hydration supplements. React repeated Roots style1→1; native Svelte per-Root style2→0.",
+      "ordinaryCredit": 0,
+      "unchangedRendererCredit": 0
     }
   },
   "decision": {

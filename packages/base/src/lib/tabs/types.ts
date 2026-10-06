@@ -1,17 +1,13 @@
 // Base UI v1.8.0 Tabs public contracts at 47b40521; native Svelte types. MIT.
 import type { Snippet } from 'svelte';
 import type { HTMLAttributes, HTMLButtonAttributes } from 'svelte/elements';
-import type {
-  BaseUIComponentProps,
-  WithBaseUIEvent,
-} from '../internals/types.js';
+import type { BaseUIComponentProps, WithBaseUIEvent } from '../internals/types.js';
 import type { BaseUIChangeEventDetails } from '../internals/createBaseUIEventDetails.js';
 import type { TransitionStatus } from '../internals/useTransitionStatus.svelte.js';
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any -- The pinned Source Value accepts any value, including null.
 export type TabsTabValue = any | null;
-export type TabsTabActivationDirection =
-  'left' | 'right' | 'up' | 'down' | 'none';
+export type TabsTabActivationDirection = 'left' | 'right' | 'up' | 'down' | 'none';
 export type TabsRootOrientation = 'horizontal' | 'vertical';
 export interface TabsTabPosition {
   left: number;
@@ -58,28 +54,19 @@ type ElementProps<State, Attributes> = Omit<
     /** Native Svelte element binding, also available through render snippet attachment props. */
     ref?: HTMLElement | null | undefined;
   };
-export type TabsRootChangeEventReason =
-  'none' | 'disabled' | 'missing' | 'initial';
+export type TabsRootChangeEventReason = 'none' | 'disabled' | 'missing' | 'initial';
 export type TabsRootChangeEventDetails = BaseUIChangeEventDetails<
   TabsRootChangeEventReason,
   { activationDirection: TabsTabActivationDirection }
 >;
-export type TabsRootProps = ElementProps<
-  TabsRootState,
-  HTMLAttributes<HTMLDivElement>
-> & {
+export type TabsRootProps = ElementProps<TabsRootState, HTMLAttributes<HTMLDivElement>> & {
   value?: TabsTabValue | undefined;
   defaultValue?: TabsTabValue | undefined;
   orientation?: TabsRootOrientation | undefined;
   /** Automatic initial/disabled/missing fallbacks cannot be canceled. */
-  onValueChange?:
-    | ((value: TabsTabValue, details: TabsRootChangeEventDetails) => void)
-    | undefined;
+  onValueChange?: ((value: TabsTabValue, details: TabsRootChangeEventDetails) => void) | undefined;
 };
-export type TabsListProps = ElementProps<
-  TabsListState,
-  HTMLAttributes<HTMLDivElement>
-> & {
+export type TabsListProps = ElementProps<TabsListState, HTMLAttributes<HTMLDivElement>> & {
   activateOnFocus?: boolean | undefined;
   loopFocus?: boolean | undefined;
 };
@@ -91,10 +78,7 @@ export type TabsTabProps = Omit<
   disabled?: boolean | undefined;
   nativeButton?: boolean | undefined;
 };
-export type TabsPanelProps = ElementProps<
-  TabsPanelState,
-  HTMLAttributes<HTMLDivElement>
-> & {
+export type TabsPanelProps = ElementProps<TabsPanelState, HTMLAttributes<HTMLDivElement>> & {
   value: TabsTabValue;
   keepMounted?: boolean | undefined;
 };

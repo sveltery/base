@@ -7,4 +7,5 @@
   const instanceId = $props.id();
   createLabelableProvider(useBaseUiId(undefined, instanceId));
 </script>
+
 {@render children?.()}

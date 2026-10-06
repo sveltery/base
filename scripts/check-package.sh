@@ -1,14 +1,25 @@
 #!/usr/bin/env bash
 set -euo pipefail
 cd "$(dirname "$0")/.."
-source scripts/toolchain.sh
+source scripts/package-artifacts.sh
 consumer_dir="$(mktemp -d "${TMPDIR:-/tmp}/sveltery-consumer.XXXXXX")"
 trap 'rm -rf "$consumer_dir"' EXIT
-pnpm --filter @sveltery/base pack --pack-destination "$consumer_dir"
-mkdir -p "$consumer_dir/node_modules/@sveltery/base"
-tar -xzf "$consumer_dir"/*.tgz --strip-components=1 -C "$consumer_dir/node_modules/@sveltery/base"
-test -f "$consumer_dir/node_modules/@sveltery/base/THIRD_PARTY_NOTICES.md"
-cmp LICENSE "$consumer_dir/node_modules/@sveltery/base/LICENSE"
+sveltery_pack_package @sveltery/base "$consumer_dir"
+# Retain and validate every native workspace dependency artifact, without another pack.
+node scripts/package-artifacts.mjs retain "$SVELTERY_PACKAGE_ARTIFACTS" .checks/npm-package
+export SVELTERY_PACKAGE_ARTIFACTS="$sveltery_repo_root/.checks/npm-package/artifacts.json"
+node scripts/package-artifacts.mjs entries "$SVELTERY_PACKAGE_ARTIFACTS" > "$consumer_dir/artifacts.tsv"
+while IFS=$'\t' read -r package_name package_directory tarball; do
+  extracted="$consumer_dir/node_modules/$package_name"
+  mkdir -p "$extracted"
+  tar -xzf ".checks/npm-package/$tarball" --strip-components=1 -C "$extracted"
+  node scripts/check-package-artifact.mjs "$extracted" "$sveltery_repo_root/$package_directory" "$SVELTERY_PACKAGE_ARTIFACTS"
+  pnpm exec publint ".checks/npm-package/$tarball" --strict
+  node scripts/check-package-types.mjs ".checks/npm-package/$tarball" ".checks/npm-package/${tarball%.tgz}.attw.json" "$sveltery_repo_root/$package_directory"
+done < "$consumer_dir/artifacts.tsv"
+if [[ -f packages/utils/package.json ]]; then
+  bash scripts/check-utils-package.sh
+fi
 cat > "$consumer_dir/check.mjs" <<'JS'
 import assert from 'node:assert/strict';
 import { readFile } from 'node:fs/promises';
@@ -39,8 +50,9 @@ const tarball = readdirSync(destination).find(name => name.endsWith('.tgz'));
 writeFileSync(join(destination, 'package.json'), JSON.stringify({ private: true, type: 'module', dependencies: { '@sveltery/base': `file:${join(destination, tarball)}`, svelte: '5.57.1' } }));
 JS
 rm -rf "$consumer_dir/node_modules"
-pnpm --dir "$consumer_dir" --ignore-workspace install --ignore-scripts > /dev/null
-pnpm --dir "$consumer_dir" --ignore-workspace install --frozen-lockfile --ignore-scripts > /dev/null
+sveltery_prepare_consumer "$consumer_dir"
+pnpm --dir "$consumer_dir" install --ignore-scripts > /dev/null
+pnpm --dir "$consumer_dir" install --frozen-lockfile --ignore-scripts > /dev/null
 cat > "$consumer_dir/DialogConsumer.svelte" <<'SVELTE'
 <script>
   import { Dialog } from '@sveltery/base';
@@ -188,8 +200,11 @@ bash "$sveltery_repo_root/scripts/check-direction-provider-package.sh" --public
 # Shared CSP provider foundation: actual public root/subpath consumer, not a private-entry stand-in.
 bash scripts/check-csp-provider-package.sh
 
-# Installed public UseRender root/subpath, SSR, native DOM and nine type aliases.
-bash "$sveltery_repo_root/scripts/check-use-render-package.sh" --public
+# Installed real native snippet hosts, strict public types, SSR, DOM and retired API exclusions.
+bash "$sveltery_repo_root/scripts/check-native-snippets-package.sh"
+
+# Installed public Dialog nine parts, payload handles, SSR, native DOM and strict types.
+bash scripts/check-dialog-handles-package.sh
 # Installed public source Field/Form/Fieldset anatomy, SSR and 31 named types.
 bash "$sveltery_repo_root/scripts/check-field-form-package.sh" --public
 
@@ -203,3 +218,5 @@ bash "$sveltery_repo_root/scripts/check-remote-form-types.sh" --public
 
 # Installed public Tabs Source aliases, strict generated declarations and native SSR consumer.
 bash "$sveltery_repo_root/scripts/check-tabs-package.sh"
+# Actual strict installed Menu/ContextMenu/Menubar anatomy, generics, native SSR and types.
+bash "$sveltery_repo_root/scripts/check-menu-family-package.sh"

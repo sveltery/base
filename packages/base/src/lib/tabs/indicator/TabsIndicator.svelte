@@ -1,15 +1,12 @@
 <script lang="ts">
   // Source business body: Base UI v1.8.0 TabsIndicator.tsx at 47b40521. MIT.
   import { untrack } from 'svelte';
-  import {
-    getParentNode,
-    isHTMLElement,
-    isLastTraversableNode,
-  } from '@floating-ui/utils/dom';
-  import { ownerWindow } from '../../utils/owner.js';
+  import { getParentNode, isHTMLElement, isLastTraversableNode } from '@floating-ui/utils/dom';
+  import { ownerWindow } from '@sveltery/utils/owner';
   import { getCssDimensions } from '../../utils/getCssDimensions.js';
   import { getElementTransform } from '../../utils/getElementTransform.js';
-  import RenderElement from '../../internals/RenderElement.svelte';
+  import { mergeComponentProps } from '../../internals/mergeComponentProps.js';
+  import { createAttachmentKey } from 'svelte/attachments';
   import PrehydrationScript from '../../internals/PrehydrationScript.svelte';
   import { script as prehydrationScript } from './prehydrationScript.min.js';
   import { useTabsRootContext } from '../root/TabsRootContext.js';
@@ -59,15 +56,12 @@
       if (activeTab != null) {
         isTabSelected = true;
 
-        const { width: computedWidth, height: computedHeight } =
-          getCssDimensions(activeTab);
-        const { width: tabListWidth, height: tabListHeight } =
-          getCssDimensions(tabsListElement);
+        const { width: computedWidth, height: computedHeight } = getCssDimensions(activeTab);
+        const { width: tabListWidth, height: tabListHeight } = getCssDimensions(tabsListElement);
         const tabRect = activeTab.getBoundingClientRect();
         const tabsListRect = tabsListElement.getBoundingClientRect();
         const scaleX = tabListWidth > 0 ? tabsListRect.width / tabListWidth : 1;
-        const scaleY =
-          tabListHeight > 0 ? tabsListRect.height / tabListHeight : 1;
+        const scaleY = tabListHeight > 0 ? tabsListRect.height / tabListHeight : 1;
 
         // Layout offsets are immune to transforms, but lose sub-pixel precision.
         const layoutOffset = getLayoutOffset(activeTab, tabsListElement);
@@ -97,8 +91,7 @@
         // sibling of the tab and does not inherit its transform.
         const tabTranslation = getActiveTabTranslation(activeTab);
         if (
-          Math.abs(rectLeft - tabTranslation.x - left) <=
-            MAX_LAYOUT_ROUNDING_ERROR &&
+          Math.abs(rectLeft - tabTranslation.x - left) <= MAX_LAYOUT_ROUNDING_ERROR &&
           Math.abs(rectTop - tabTranslation.y - top) <= MAX_LAYOUT_ROUNDING_ERROR
         ) {
           left = rectLeft;
@@ -137,27 +130,31 @@
     activeTabSize: geometry.activeTabSize,
     tabActivationDirection: root.tabActivationDirection,
   });
-  const forwardedRef = {
-    get current() {
-      return ref ?? null;
-    },
-    set current(element: HTMLElement | null) {
-      ref = element;
-    },
-  };
-  const componentProps = $derived({ render, class: classProp, style });
-  const params = $derived({
-    state: partState,
-    ref: forwardedRef,
-    props: [
-      {
-        role: 'presentation',
-        style: geometry.style,
-        hidden: !geometry.displayIndicator,
-      },
-      elementProps,
-    ],
-    stateAttributesMapping,
+  const hostAttachmentKey = createAttachmentKey();
+  function attachHost(host: HTMLElement) {
+    return untrack(() => {
+      ref = host;
+      return () =>
+        untrack(() => {
+          if (ref === host) ref = null;
+        });
+    });
+  }
+  const mergedProps = $derived({
+    ...mergeComponentProps(
+      partState,
+      { class: classProp, style },
+      [
+        {
+          role: 'presentation',
+          style: geometry.style,
+          hidden: !geometry.displayIndicator,
+        },
+        elementProps,
+      ],
+      stateAttributesMapping,
+    ),
+    [hostAttachmentKey]: attachHost,
   });
   function getLayoutOffset(element: HTMLElement, ancestor: HTMLElement) {
     const elementOffset = getCumulativeOffset(element);
@@ -176,11 +173,7 @@
     // `getParentNode` crosses shadow boundaries (and slots), so a tab inside a shadow root still
     // reaches the scroll containers between it and the list.
     let node: Node | null = getParentNode(element);
-    while (
-      isHTMLElement(node) &&
-      node !== ancestor &&
-      !isLastTraversableNode(node)
-    ) {
+    while (isHTMLElement(node) && node !== ancestor && !isLastTraversableNode(node)) {
       left -= node.scrollLeft;
       top -= node.scrollTop;
       node = getParentNode(node);
@@ -240,10 +233,7 @@
   // the given border-box size; anything that isn't a plain number or percentage (e.g.
   // `calc(...)`) is treated as no translation, so the indicator falls back to the tab's
   // layout slot rather than guessing.
-  function resolveTranslateLength(
-    value: string | undefined,
-    referenceSize: number,
-  ): number {
+  function resolveTranslateLength(value: string | undefined, referenceSize: number): number {
     if (!value) {
       return 0;
     }
@@ -254,7 +244,12 @@
     return value.endsWith('%') ? (numeric / 100) * referenceSize : numeric;
   }
 </script>
+
 {#if root.value != null}
-  <RenderElement tag="span" {componentProps} {params} {children} />
+  {#if render}
+    {@render render(mergedProps, partState, children)}
+  {:else}
+    <span {...mergedProps}>{@render children?.()}</span>
+  {/if}
   {#if renderBeforeHydration}<PrehydrationScript script={prehydrationScript} />{/if}
 {/if}

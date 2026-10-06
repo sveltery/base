@@ -10,9 +10,38 @@ bash scripts/verify.sh
 bash .github/standards/check.sh
 ```
 
+For a focused fresh library build and npm artifact check, run `pnpm package:check`. It validates the packed Svelte source/declarations with publint and AreTheTypesWrong before the existing installed consumers. The producer and standards compiler is TypeScript 6.0.3; the isolated TS5.9.3 remote-contract consumer remains minimum-compiler coverage. See [release preparation](docs/releasing.md) for artifact and supported-resolution details.
+
+The library development setup follows the official `sv create` library template with ESLint, Prettier, Vitest and Playwright, adapted to this workspace. Run `pnpm dev` for the small public-component preview in `packages/base`; the paired reference fixtures remain in `apps/fixtures`.
+
+| Command                     | Purpose                                                             |
+| --------------------------- | ------------------------------------------------------------------- |
+| `pnpm check`                | Workspace TypeScript and Svelte diagnostics                         |
+| `pnpm lint` / `pnpm format` | Check or format maintained source, tests, configs and documentation |
+| `pnpm test`                 | Existing Node runtime suites                                        |
+| `pnpm test:unit`            | Watch the Node runtime suites                                       |
+| `pnpm test:dom`             | Existing jsdom characterization suites                              |
+| `pnpm test:component`       | Real Chromium public-component tests                                |
+| `pnpm test:e2e`             | Existing paired Playwright browser suites                           |
+| `pnpm build`                | Build workspace packages and applications                           |
+
+Install official Chromium once with `pnpm exec playwright install chromium` before browser checks. Both browser runners enable the Chromium sandbox, use one worker and zero retries; use a supported host rather than disabling that sandbox.
+
 Keep pull requests focused. Explain the behavior before and after, link the upstream contract or issue, and distinguish upstream assertion ports from new regressions. Update parity claims only with executed evidence. An independent reviewer must examine the exact final commit; rerun relevant checks after changes.
 
+## Before pushing a reviewed batch
+
+Commit local work regularly; publish coherent batches after their complete source delta is reviewed. Record the exact candidate commit, commands, logs and actual results locally. Check affected generated metadata first, then run `bash scripts/bootstrap.sh`, `bash .github/standards/check.sh` and `bash scripts/verify.sh`, or complete the same maintained stages individually under the documented CI/PM sequential plan without repeating passed checks whose inputs are unchanged. Verification includes the full `node --test --test-concurrency=1 scripts/tests/*.test.mjs` stage, creates fresh native package archives and runs type, Node/DOM, fixture SSR/client build, runtime-boundary and installed-consumer checks. Also run the meaningful affected component, hydration and secured-browser selections required by the change.
+
+Rerun checks invalidated by later edits against the resulting candidate. Historical passes cover only their recorded commits. Missing, interrupted or resource-preempted checks remain incomplete; PM must record a concrete execution plan for them, and static/source review alone does not authorize an ordinary push.
+
+If this workspace cannot run secured browsers, disclose the exact unexecuted checks and the host limitation. Only after all feasible local checks pass may PM explicitly authorize one hosted diagnostic push. Wait for its actual results and PM disposition before further publication; do not publish repeated static-only checkpoints or skip or weaken required CI gates. Full browser acceptance applies to the reviewed publish batch, not every local commit.
+
 ## Source-first implementation and review
+
+The user’s current native-framework directive supersedes earlier hook-parity guidance: replace React-specific machinery that has a Svelte equivalent with the native primitive and its behavior; port real business mechanisms that have no equivalent. Use classes for reusable state-owner roles previously carried by custom hooks, and keep stateless business functions as functions. Controlled state uses the small `Controlled` class with initial mode, live controlled reads, initial-default fallback and direct value setting. React controlled/default diagnostics, serializers, functional dispatch adapters and explicit effect dependency tuples are unnecessary. Use `$effect` directly; it is SSR-safe without SvelteKit. Preserve real cancellation, registration, resource invalidation and cleanup. Use `untrack` at actual imperative subscription or side-effect boundaries, never as blanket React dependency emulation. Record native expectation changes separately with zero divergent unchanged upstream parity credit.
+
+Element parts use their own direct native branch: `{#if render}{@render render(mergedProps, state, children)}{:else}<button {...mergedProps}>{@render children?.()}</button>{/if}`, substituting the part's actual intrinsic fallback. Do not add `UseRender`, a generic tag renderer, clone/selector host discovery, React callback-ref identity/fanout, render/commit emulation, attachment interception or CSS snapshot/style custody. Pure shared prop, class/style and state-attribute business helpers remain reusable. Publish actual hosts with `$bindable`, native bindings and attachments; capture real registration inputs before untracking the imperative publication, and clean up the captured resource owner. Native snippet/element/style defaults and independent attachment lifetimes are binding under the user's directive.
 
 Before writing implementation code, read the original component and recursively trace its imports at Base UI v1.8.0 `47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c`. Use the pinned source bodies as the starting point with MIT notices; preserve recognizable component composition, business algorithms, dependency boundaries/reuse, names, operation order, branches, state and cancellation. Implement each shared business helper once. In particular, Input delegates to a real Field.Control port; a standalone replacement algorithm or constant Field state does not fulfill that source dependency.
 
@@ -26,9 +55,9 @@ Use native Svelte 5 state, derived values, snippets and event props. Use an effe
 
 For markup-local values, use `{const ...}` and `{let ...}` declaration tags, available since Svelte 5.56. Wrap changing expressions in `$derived(...)`; declaration initializers do not implicitly stay reactive. Keep component-lifetime state and context initialization in the script when moving them into a block would change their lifetime. The installed Svelte 5.57.1 and library peer range `^5.57.1` support this syntax. ESLint rejects legacy `{@const ...}` in runes mode through `svelte/no-at-const-tags`, available since eslint-plugin-svelte 3.20.0 and installed at 3.23.0. See the [scoped modernization record](docs/modern-svelte.md) for the fixture and tooling changes.
 
-ESLint checks TypeScript, JavaScript and Svelte source plus tests and scripts. Prettier currently checks the project standards files listed in `.github/standards/check.sh`. Existing source formatting is not standardized by this PR; expand formatting in a coordinated change to avoid rewriting active component work. Standards dependencies have an independent frozen lockfile under `.github/standards`, so component dependencies remain owned by the workspace. Underscore-prefixed unused parameters are allowed for type assertion helpers. Empty object defaults are allowed only in the upstream-derived event-detail type file. The narrowly scoped `no-self-assign` exception preserves an existing upstream-derived no-op branch in `mergeProps` and should be removed when that port is revised.
+The visible root `eslint.config.js` and `prettier.config.js` share one frozen workspace toolchain. ESLint checks maintained TypeScript, JavaScript and Svelte source, tests and scripts. Prettier includes the official Svelte plugin and keeps the project's two-space, single-quote style. Immutable upstream/parity archives, generated output, lockfiles and shipped patch/attribution bytes are excluded from formatting. `.github/standards/check.sh` delegates to `pnpm lint` without a second dependency installation. Underscore-prefixed unused parameters remain allowed for type assertion helpers. Empty object defaults are allowed only in the upstream-derived event-detail type file. The narrow `no-self-assign` exception preserves the source-derived no-op branch in `mergeProps`; JavaScript retains `no-undef` while TypeScript checks its own undeclared names.
 
-Both [CI checks](docs/ci.md) must pass on the reviewed head before merging. Browser acceptance remains a separate requirement for component changes until a real browser suite is connected to CI. Do not substitute an empty job or an environment probe for component acceptance. Package publication is a separate, explicitly approved operation; see [release preparation](docs/releasing.md).
+The [CI checks](docs/ci.md) must pass on the reviewed head before merging, including the real browser gates for affected components. Do not substitute an empty job or an environment probe for component acceptance. Package publication is a separate, explicitly approved operation; see [release preparation](docs/releasing.md).
 
 ## Upstream porting policy
 

@@ -6,7 +6,9 @@ import type { ToastStore } from '../../src/lib/toast/store';
 export function observeCore(store: ToastStore, observe: (titles: string[]) => void) {
   const facade = createToastFacade(store);
   const cleanup = $effect.root(() => {
-    $effect(() => { observe(facade.toasts.map(toast => String(toast.title))); });
+    $effect(() => {
+      observe(facade.toasts.map((toast) => String(toast.title)));
+    });
   });
   flushSync();
   return cleanup;

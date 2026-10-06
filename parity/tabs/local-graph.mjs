@@ -17,6 +17,11 @@ const sourcePlan = JSON.parse(
   ),
 );
 const graph = { pin: originalGraph.pin };
+const utilsPackage = JSON.parse(readFileSync(resolve(root, 'packages/utils/package.json'), 'utf8'));
+const utilsLineage = JSON.parse(readFileSync(resolve(root, 'parity/utils-package/current-source-graph.json'), 'utf8'));
+const relocatedSources = new Map(utilsLineage.currentMoves.map((item) => [item.to, [item.source]]));
+relocatedSources.set('packages/utils/src/lib/Controlled.svelte.ts', ['packages/utils/src/useControlled.ts']);
+relocatedSources.set('packages/utils/src/lib/PreviousValue.svelte.ts', ['packages/utils/src/usePreviousValue.ts']);
 const selectedByLocal = new Map();
 for (const item of sourcePlan.modules.filter((item) => item.selected)) {
   if (!item.local.startsWith('packages/')) continue;
@@ -46,7 +51,8 @@ const nativeSources = {
   'internals/composite/root/gridNavigation.ts': [
     'packages/react/src/internals/composite/root/gridNavigation.ts',
   ],
-  'internals/nativeProps.ts': [
+  'internals/nativeProps.ts': ['packages/react/src/internals/useRenderElement.tsx'],
+  'internals/mergeComponentProps.ts': [
     'packages/react/src/internals/useRenderElement.tsx',
     'packages/react/src/merge-props/mergeProps.ts',
   ],
@@ -86,8 +92,15 @@ const records = new Map();
 const queue = roots.map((local) => ({ local, reachability: 'runtime' }));
 
 function resolveImport(file, specifier) {
-  if (!specifier.startsWith('.')) return `external:${specifier}`;
-  const base = resolve(root, dirname(file), specifier);
+  let base;
+  if (specifier.startsWith('@sveltery/utils/')) {
+    const entry = utilsPackage.exports[`./${specifier.slice('@sveltery/utils/'.length)}`];
+    if (!entry) throw new Error(`Undeclared Utils export ${specifier}`);
+    base = resolve(root, 'packages/utils', (entry.svelte ?? entry.default).replace('./dist/', './src/lib/'));
+  } else {
+    if (!specifier.startsWith('.')) return `external:${specifier}`;
+    base = resolve(root, dirname(file), specifier);
+  }
   for (const candidate of [
     base,
     base.replace(/\.js$/, '.ts'),
@@ -191,6 +204,7 @@ while (queue.length) {
     visit(ast);
     const previous = inherited.get(local);
     const originals =
+      relocatedSources.get(local) ??
       selectedByLocal.get(local) ??
       previous?.originalSources ??
       nativeSources[local.replace('packages/base/src/lib/', '')] ??
@@ -258,11 +272,10 @@ graph.localClosure = {
           : 'Existing locked direct Floating UI utility dependency; selected dimensions/DOM traversal algorithms retained. No dependency or lock change.',
     })),
   nativeClassReference: shared.nativeClassReference,
-  nativeRefCompositionRepair: {
-    implementation:
-      'Canonical current-main internals/useRenderElement and nativeRefAttachment, normally merged in PR50. Marked library attachments join source fanout after inner refs; authored attachments retain native lifetime.',
-    checks: shared.nativeRefCompositionRepair.checks,
+  nativeRendering: {
+    implementation: 'Each Tabs part owns its direct render snippet/intrinsic fallback, bindable host and native attachment lifetime. Pure mergeComponentProps/state/class/style helpers remain shared. React renderer/ref fanout machinery is removed.',
     ordinaryDeclarationCredit: 0,
+    acceptance: 'Actual closure inventory only; exact-head Source/native/maintainability and execution gates pending.',
   },
 };
 const output = JSON.stringify(graph, null, 2) + '\n';

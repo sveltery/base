@@ -1,0 +1,208 @@
+{
+  "status": "Root and independent Source-reviewed native expectation counterpart adopted in this follow-up; exact-head paired reference/native execution pending",
+  "actualEvidenceHead": "f4e31a5f620c8050c48e6aea16461c0aa4ef89a0",
+  "upstream": {
+    "release": "Base UI v1.8.0",
+    "commit": "47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c",
+    "license": "MIT"
+  },
+  "sourceBaseline": {
+    "base": "aa5c6c130e6b21c99a48412831daf4c20ee12973",
+    "utils": "c9ab258fc82d8d81b0925dc2c139b843ae3ee2fd",
+    "panelSha256": "1ece09dc06e6c51e7191b5aa5e63d96a1d08dfc1abda4596762528965000157a",
+    "fixtureSha256": "fc451193238dde6f0b1038519f7aa3c34807849e353ff71130b3b9b6414b58ab"
+  },
+  "retainedCanonicalFailure": {
+    "packet": "/workspace/reviews/native-f4-detached2-diagnosis",
+    "dispositionSha256": "ac8757161db2e7a036b088a50fed4bf6766f48b19f8c48f82205e9802816d63e",
+    "manifestSha256": "3c1cad6c50d6c82be8f6d8436cb125307663835420469fe38f0f9e44bdc8c6a8",
+    "rawLogSha256": "e6444a68e1be5a56ac39ebe6f5c4d42b256692b777f41a38277a59459e2ad6a3",
+    "officialResults": "/workspace/reviews/native-f4-detached2-diagnosis/official-output/run/results.json",
+    "officialResultsSha256": "a5175b077f722cd587f1a1172a093e0a82cc241f53928063b638e286196d8ac4",
+    "actualExit": 1,
+    "failed": 2,
+    "expected": 0,
+    "skipped": 0,
+    "flaky": 0,
+    "cases": [
+      {
+        "title": "supplement: Svelte beforematch-transition teardown restores authored duration",
+        "status": "failed",
+        "expected": {
+          "connected": false,
+          "duration": "123ms"
+        },
+        "actual": {
+          "connected": false,
+          "duration": "0s"
+        },
+        "assertionLine": 864
+      },
+      {
+        "title": "supplement: Svelte beforematch-keys teardown restores authored duration",
+        "status": "failed",
+        "expected": {
+          "connected": false,
+          "duration": "123ms"
+        },
+        "actual": {
+          "connected": false,
+          "duration": "0s"
+        },
+        "assertionLine": 864
+      }
+    ],
+    "passingGateCredit": 0
+  },
+  "separateLiteralEvidence": {
+    "packet": "/workspace/reviews/native-f4-types-panel-validation",
+    "completeVector": "/workspace/reviews/native-f4-types-panel-validation/panel-complete-vector.json",
+    "completeVectorSha256": "a768fd33c31ed3c3755f48f87687027c0d7cbfb327fa87131c6b9fa1e9eb245f",
+    "driverSha256": "9ef942fe34888a784cefae2db1ae325d8259399f8415dc61be4ac23601af28ff",
+    "literalConsumerSha256": "baa74ef922226fd66fdf9c4a2f44ce0fdb8a0b31ef8260c99617d3020d223039",
+    "actualExit": 0,
+    "diagnosticDeclarationsPassed": 1,
+    "diagnosticVectors": 13,
+    "observations": 276,
+    "selectedRows": [
+      {
+        "index": 165,
+        "route": "consumer:live:transition",
+        "label": "before-native-removal:snapshot"
+      },
+      {
+        "index": 166,
+        "route": "consumer:live:transition",
+        "label": "before-native-removal:frame1"
+      },
+      {
+        "index": 167,
+        "route": "consumer:live:transition",
+        "label": "before-native-removal:frame2"
+      },
+      {
+        "index": 168,
+        "route": "consumer:live:transition",
+        "label": "after-native-removal:flush"
+      },
+      {
+        "index": 169,
+        "route": "consumer:live:transition",
+        "label": "after-native-removal:frame1"
+      },
+      {
+        "index": 170,
+        "route": "consumer:live:transition",
+        "label": "after-native-removal:frame2"
+      },
+      {
+        "index": 171,
+        "route": "consumer:live:transition",
+        "label": "external-detached-old-find:flush"
+      },
+      {
+        "index": 172,
+        "route": "consumer:live:transition",
+        "label": "external-detached-old-find:frame1"
+      },
+      {
+        "index": 173,
+        "route": "consumer:live:transition",
+        "label": "external-detached-old-find:frame2"
+      },
+      {
+        "index": 195,
+        "route": "consumer:live:animation",
+        "label": "before-native-removal:snapshot"
+      },
+      {
+        "index": 196,
+        "route": "consumer:live:animation",
+        "label": "before-native-removal:frame1"
+      },
+      {
+        "index": 197,
+        "route": "consumer:live:animation",
+        "label": "before-native-removal:frame2"
+      },
+      {
+        "index": 198,
+        "route": "consumer:live:animation",
+        "label": "after-native-removal:flush"
+      },
+      {
+        "index": 199,
+        "route": "consumer:live:animation",
+        "label": "after-native-removal:frame1"
+      },
+      {
+        "index": 200,
+        "route": "consumer:live:animation",
+        "label": "after-native-removal:frame2"
+      },
+      {
+        "index": 201,
+        "route": "consumer:live:animation",
+        "label": "external-detached-old-find:flush"
+      },
+      {
+        "index": 202,
+        "route": "consumer:live:animation",
+        "label": "external-detached-old-find:frame1"
+      },
+      {
+        "index": 203,
+        "route": "consumer:live:animation",
+        "label": "external-detached-old-find:frame2"
+      }
+    ],
+    "observation": "Both live consumer motion forms capture actual native and independent literal connected DIV nodes with inline0s, remove both under their native conditional, retain disconnected old/oldLiteral at unchanged inline0s through flush/frame1/frame2, and dispatch detached find without changing the full callback vector. The literal is explicitly authored with ordinary trailing0s; it does not copy Panel suppression business. Live consumer authored duration was246ms before its second reveal/removal, whereas canonical native cases use123ms. Shared last-native-markup lifetime is the measured correspondence.",
+    "limits": "Replacement routes have literal:null; they provide no literal controls. No native ref value is exposed in these canonical fixtures. Complete13 diagnostic pass supplies no canonical2 pass, whole Collapsible/family acceptance or unchanged Original credit.",
+    "passingGateCredit": 0
+  },
+  "proposedCounterparts": {
+    "test": "tests/browser/collapsible.spec.ts",
+    "predecessorSha256": "f4d3c1855c06f4d261bc4c446449bdec96657990262280619ae0febd77ac7ed2",
+    "proposedSha256": "6816d7dad8d8914203a2665ce3d28ed9188edfa560cd48136c30733b6784c6d8",
+    "scenarios": [
+      "beforematch-transition",
+      "beforematch-keys"
+    ],
+    "referenceCaseSha256": "de5765f9f45e03e6cb77ef196a34caecef973f757b9563f0ae8a53e71d406516",
+    "actualRefAssertions": 0,
+    "nativeRefLimit": "Current fixture bind:ref is not externally exposed; no direct ref cleanup assertion or execution claim is invented. Direct detached dispatch tests actual listener cleanup via retained callback/order outputs.",
+    "unchangedOriginalCredit": 0
+  },
+  "preservation": {
+    "wholeArchives": [
+      {
+        "source": "tests/browser/collapsible.spec.ts",
+        "archive": "parity/native-snippets/acceptance-history/native-detached-panel-failed-f4e31a5f/tests/browser/collapsible.spec.ts",
+        "sha256": "f4d3c1855c06f4d261bc4c446449bdec96657990262280619ae0febd77ac7ed2",
+        "predecessor": "f4e31a5f620c8050c48e6aea16461c0aa4ef89a0",
+        "disposition": "whole-failed-native-detached-test-or-current-metadata-prose-preserved-before-measured-native-counterpart; proposed and unexecuted; zero acceptance credit",
+        "unchangedParityCredit": 0
+      },
+      {
+        "source": "parity/native-snippets/native-test-counterparts.json",
+        "archive": "parity/native-snippets/acceptance-history/native-detached-panel-failed-f4e31a5f/parity/native-snippets/native-test-counterparts.json",
+        "sha256": "87c43660ced7b2480453a648b607a3cc7e1a4f7453e046e8f2c730bb335bcd8a",
+        "predecessor": "f4e31a5f620c8050c48e6aea16461c0aa4ef89a0",
+        "disposition": "whole-failed-native-detached-test-or-current-metadata-prose-preserved-before-measured-native-counterpart; proposed and unexecuted; zero acceptance credit",
+        "unchangedParityCredit": 0
+      },
+      {
+        "source": "parity/native-snippets/acceptance.md",
+        "archive": "parity/native-snippets/acceptance-history/native-detached-panel-failed-f4e31a5f/parity/native-snippets/acceptance.md",
+        "sha256": "8f6dc30260b621abcd3fe83d579dde4de51db0f60df547a0fafdc28c8d6a1618",
+        "predecessor": "f4e31a5f620c8050c48e6aea16461c0aa4ef89a0",
+        "disposition": "whole-failed-native-detached-test-or-current-metadata-prose-preserved-before-measured-native-counterpart; proposed and unexecuted; zero acceptance credit",
+        "unchangedParityCredit": 0
+      }
+    ],
+    "previousHistoryRecordsPreserved": 81,
+    "allOtherCaseBytesUnchanged": true,
+    "OriginalPinVersionInventoryAndBodiesUnchanged": true
+  },
+  "decision": "Current source already explicitly retains last native markup on detached hosts. Proposed tests record that inherent native lifetime and retain business cleanup assertions. No React duration snapshot/replay, style custody, library/fixture/config/deadline change, skip or passing relabel. Prior actual failures remain failed. Root and fresh independent Source review cleared these exact counterparts; adopted browser execution remains required."
+}

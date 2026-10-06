@@ -4,23 +4,45 @@ import { expect, it } from 'vitest';
 import { flushSync, mount, tick, unmount } from 'svelte';
 import Fixture from './TabsIdAssociationFixture.svelte';
 import { resolve } from 'node:path';
-const referenceRequire = createRequire(resolve(import.meta.dirname, '../../../../apps/fixtures/package.json'));
+const referenceRequire = createRequire(
+  resolve(import.meta.dirname, '../../../../apps/fixtures/package.json'),
+);
 const { createElement: h, act } = referenceRequire('react');
 const { createRoot } = referenceRequire('react-dom/client');
 const { Tabs } = referenceRequire('@base-ui/react/tabs');
 for (const framework of ['react', 'svelte']) {
   for (const panelMode of ['omitted', 'authored', 'undefined'] as const) {
     it(`${framework} generated association and reactive explicit Tab overrides; Panel ID=${panelMode}`, async () => {
-      (globalThis as typeof globalThis & { IS_REACT_ACT_ENVIRONMENT: boolean }).IS_REACT_ACT_ENVIRONMENT = true;
-      const host = document.createElement('div'); document.body.append(host);
-      const native = framework === 'svelte' ? mount(Fixture, { target: host, props: { panelMode } }) : undefined;
+      (
+        globalThis as typeof globalThis & { IS_REACT_ACT_ENVIRONMENT: boolean }
+      ).IS_REACT_ACT_ENVIRONMENT = true;
+      const host = document.createElement('div');
+      document.body.append(host);
+      const native =
+        framework === 'svelte' ? mount(Fixture, { target: host, props: { panelMode } }) : undefined;
       const reference = framework === 'react' ? createRoot(host) : undefined;
-      const original = (id: string | null | undefined) => h(Tabs.Root, { defaultValue: 0 },
-        h(Tabs.List, {}, h(Tabs.Tab, { value: 0, id }, 'First')),
-        h(Tabs.Panel, { value: 0, ...(panelMode === 'omitted' ? {} : { id: panelMode === 'authored' ? 'authored-panel' : undefined }) }, 'Panel'));
+      const original = (id: string | null | undefined) =>
+        h(
+          Tabs.Root,
+          { defaultValue: 0 },
+          h(Tabs.List, {}, h(Tabs.Tab, { value: 0, id }, 'First')),
+          h(
+            Tabs.Panel,
+            {
+              value: 0,
+              ...(panelMode === 'omitted'
+                ? {}
+                : { id: panelMode === 'authored' ? 'authored-panel' : undefined }),
+            },
+            'Panel',
+          ),
+        );
       try {
         if (reference) await act(async () => reference.render(original(undefined)));
-        else { flushSync(); await tick(); }
+        else {
+          flushSync();
+          await tick();
+        }
         const tab = () => host.querySelector<HTMLElement>('[role=tab]')!;
         const panel = () => host.querySelector<HTMLElement>('[role=tabpanel]')!;
         const generatedTabId = tab().id;
@@ -30,7 +52,12 @@ for (const framework of ['react', 'svelte']) {
         expect(registeredPanelId).not.toBe(generatedTabId);
         for (const next of ['authored-tab', '', null, undefined]) {
           if (reference) await act(async () => reference.render(original(next)));
-          else { native!.setTabId(next); flushSync(); await tick(); flushSync(); }
+          else {
+            native!.setTabId(next);
+            flushSync();
+            await tick();
+            flushSync();
+          }
           expect(tab().id).toBe(next ?? generatedTabId);
           expect(panel().getAttribute('aria-labelledby')).toBe(next ?? generatedTabId);
           expect(tab().getAttribute('aria-controls')).toBe(registeredPanelId);

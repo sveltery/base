@@ -2,9 +2,12 @@
   import { Field as Source, type TypedField } from './imports.js';
   import CompilerRoot from './TypedRoot.svelte';
   import { tree } from './forms.js';
-  function namespace<Fields extends object>(): TypedField<Fields> { return { ...Source, Root: CompilerRoot }; }
+  function namespace<Fields extends object>(): TypedField<Fields> {
+    return { ...Source, Root: CompilerRoot };
+  }
   const Field = namespace<typeof tree.fields>();
 </script>
+
 <!-- reject: recursive-typo -->
 <Field.Root name="children[0].children[1].typo" as="text" />
 <!-- reject: recursive-wrong-as -->

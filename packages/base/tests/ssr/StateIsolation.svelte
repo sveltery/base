@@ -1,7 +1,9 @@
 <script lang="ts">
   import * as Dialog from '../../src/lib/dialog/index.js';
-  let { firstOpen = false, secondOpen = false }: { firstOpen?: boolean; secondOpen?: boolean } = $props();
+  let { firstOpen = false, secondOpen = false }: { firstOpen?: boolean; secondOpen?: boolean } =
+    $props();
 </script>
+
 <Dialog.Root defaultOpen={firstOpen} defaultTriggerId="first-trigger" modal={false}>
   <Dialog.Trigger id="first-trigger">First</Dialog.Trigger>
   <Dialog.Title>First title</Dialog.Title>

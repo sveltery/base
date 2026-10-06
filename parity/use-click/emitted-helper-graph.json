@@ -1,0 +1,725 @@
+{
+  "pin": "47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c",
+  "entries": [
+    "packages/base/dist/floating-ui/hooks/useClick.svelte.js",
+    "packages/base/dist/floating-ui/components/FloatingRootStore.svelte.js",
+    "packages/base/dist/utils/popups/popupTriggerMap.svelte.js"
+  ],
+  "method": "Full TypeScript AST imports/reexports/import-types, member inventory and transitive runtime reachability. Type/barrel inventory grants no selected business or assertion credit.",
+  "ordinaryDeclarationCredit": 0,
+  "modules": [
+    {
+      "path": "packages/base/dist/floating-ui/components/FloatingRootStore.svelte.js",
+      "sha256": "82e40546fca4fe07d8235fdf02ae85f4ee3a38c27642886ce7b000ff32cff4f4",
+      "imports": [
+        {
+          "specifier": "../../utils/store/SvelteStore.svelte.js",
+          "kind": "runtime",
+          "members": [
+            {
+              "imported": "SvelteStore",
+              "local": "SvelteStore",
+              "kind": "runtime"
+            }
+          ],
+          "resolved": "packages/base/dist/utils/store/SvelteStore.svelte.js"
+        },
+        {
+          "specifier": "../../internals/createBaseUIEventDetails.js",
+          "kind": "runtime",
+          "members": [],
+          "resolved": "packages/base/dist/internals/createBaseUIEventDetails.js"
+        },
+        {
+          "specifier": "../utils/createEventEmitter.js",
+          "kind": "runtime",
+          "members": [
+            {
+              "imported": "createEventEmitter",
+              "local": "createEventEmitter",
+              "kind": "runtime"
+            }
+          ],
+          "resolved": "packages/base/dist/floating-ui/utils/createEventEmitter.js"
+        },
+        {
+          "specifier": "../types.js",
+          "kind": "runtime",
+          "members": [],
+          "resolved": "packages/base/dist/floating-ui/types.js"
+        },
+        {
+          "specifier": "../../utils/popups/popupTriggerMap.svelte.js",
+          "kind": "runtime",
+          "members": [],
+          "resolved": "packages/base/dist/utils/popups/popupTriggerMap.svelte.js"
+        },
+        {
+          "specifier": "../utils/event.js",
+          "kind": "runtime",
+          "members": [
+            {
+              "imported": "isClickLikeEvent",
+              "local": "isClickLikeEvent",
+              "kind": "runtime"
+            }
+          ],
+          "resolved": "packages/base/dist/floating-ui/utils/event.js"
+        }
+      ],
+      "reachability": "runtime"
+    },
+    {
+      "path": "packages/base/dist/floating-ui/hooks/useClick.svelte.js",
+      "sha256": "3906f36ca82bcf81947fda07e58e99339cde10dba2fc9357c6dbc79308fcbae8",
+      "imports": [
+        {
+          "specifier": "../../utils/useAnimationFrame.js",
+          "kind": "runtime",
+          "members": [
+            {
+              "imported": "useAnimationFrame",
+              "local": "useAnimationFrame",
+              "kind": "runtime"
+            }
+          ],
+          "resolved": "packages/base/dist/utils/useAnimationFrame.js"
+        },
+        {
+          "specifier": "../../utils/useTimeout.js",
+          "kind": "runtime",
+          "members": [
+            {
+              "imported": "useTimeout",
+              "local": "useTimeout",
+              "kind": "runtime"
+            }
+          ],
+          "resolved": "packages/base/dist/utils/useTimeout.js"
+        },
+        {
+          "specifier": "../utils/element.js",
+          "kind": "runtime",
+          "members": [
+            {
+              "imported": "getTarget",
+              "local": "getTarget",
+              "kind": "runtime"
+            },
+            {
+              "imported": "isTypeableElement",
+              "local": "isTypeableElement",
+              "kind": "runtime"
+            }
+          ],
+          "resolved": "packages/base/dist/floating-ui/utils/element.js"
+        },
+        {
+          "specifier": "../utils/event.js",
+          "kind": "runtime",
+          "members": [
+            {
+              "imported": "isMouseLikePointerType",
+              "local": "isMouseLikePointerType",
+              "kind": "runtime"
+            },
+            {
+              "imported": "isVirtualPointerEvent",
+              "local": "isVirtualPointerEvent",
+              "kind": "runtime"
+            }
+          ],
+          "resolved": "packages/base/dist/floating-ui/utils/event.js"
+        },
+        {
+          "specifier": "../../internals/createBaseUIEventDetails.js",
+          "kind": "runtime",
+          "members": [
+            {
+              "imported": "createChangeEventDetails",
+              "local": "createChangeEventDetails",
+              "kind": "runtime"
+            }
+          ],
+          "resolved": "packages/base/dist/internals/createBaseUIEventDetails.js"
+        },
+        {
+          "specifier": "../../internals/reasons.js",
+          "kind": "runtime",
+          "members": [
+            {
+              "imported": "REASONS",
+              "local": "REASONS",
+              "kind": "runtime"
+            }
+          ],
+          "resolved": "packages/base/dist/internals/reasons.js"
+        }
+      ],
+      "reachability": "runtime"
+    },
+    {
+      "path": "packages/base/dist/floating-ui/types.js",
+      "sha256": "8e609bb71c20b858c77f0e9f90bb1319db8477b13f9f965f1a1e18524bf50881",
+      "imports": [],
+      "reachability": "runtime"
+    },
+    {
+      "path": "packages/base/dist/floating-ui/utils/constants.js",
+      "sha256": "e4bbf341cb127c48d8fb28ce4518c648baebf1cbd9cd7dd84662657c40098aca",
+      "imports": [],
+      "reachability": "runtime"
+    },
+    {
+      "path": "packages/base/dist/floating-ui/utils/createEventEmitter.js",
+      "sha256": "40ad89450cfb24b4bdb133b87ba3a900de754f00acdf4b5d9177119cf8f5b42b",
+      "imports": [],
+      "reachability": "runtime"
+    },
+    {
+      "path": "packages/base/dist/floating-ui/utils/element.js",
+      "sha256": "b9f2dc1adec2beb01d3b5df24ed8481601ffae8e80d4d8b527f418c687dc452b",
+      "imports": [
+        {
+          "specifier": "@floating-ui/utils/dom",
+          "kind": "runtime",
+          "members": [
+            {
+              "imported": "isElement",
+              "local": "isElement",
+              "kind": "runtime"
+            },
+            {
+              "imported": "isHTMLElement",
+              "local": "isHTMLElement",
+              "kind": "runtime"
+            }
+          ],
+          "resolved": "external:@floating-ui/utils/dom"
+        },
+        {
+          "specifier": "../../utils/shadowDom.js",
+          "kind": "runtime",
+          "members": [
+            {
+              "imported": "activeElement",
+              "local": "activeElement",
+              "kind": "runtime"
+            },
+            {
+              "imported": "contains",
+              "local": "contains",
+              "kind": "runtime"
+            },
+            {
+              "imported": "getTarget",
+              "local": "getTarget",
+              "kind": "runtime"
+            }
+          ],
+          "resolved": "packages/base/dist/utils/shadowDom.js"
+        },
+        {
+          "specifier": "./constants.js",
+          "kind": "runtime",
+          "members": [
+            {
+              "imported": "FOCUSABLE_ATTRIBUTE",
+              "local": "FOCUSABLE_ATTRIBUTE",
+              "kind": "runtime"
+            },
+            {
+              "imported": "TYPEABLE_SELECTOR",
+              "local": "TYPEABLE_SELECTOR",
+              "kind": "runtime"
+            }
+          ],
+          "resolved": "packages/base/dist/floating-ui/utils/constants.js"
+        },
+        {
+          "specifier": "./matchesFocusVisible.js",
+          "kind": "runtime",
+          "members": [
+            {
+              "imported": "matchesFocusVisible",
+              "local": "matchesFocusVisible",
+              "kind": "runtime"
+            }
+          ],
+          "resolved": "packages/base/dist/floating-ui/utils/matchesFocusVisible.js"
+        }
+      ],
+      "reachability": "runtime"
+    },
+    {
+      "path": "packages/base/dist/floating-ui/utils/event.js",
+      "sha256": "3b2ca2b106180b4aed1a60a837f06894ca0372477f92a08221a12de2110ead79",
+      "imports": [
+        {
+          "specifier": "../../utils/platform/index.js",
+          "kind": "runtime",
+          "members": [
+            {
+              "imported": "platform",
+              "local": "platform",
+              "kind": "runtime"
+            }
+          ],
+          "resolved": "packages/base/dist/utils/platform/index.js"
+        }
+      ],
+      "reachability": "runtime"
+    },
+    {
+      "path": "packages/base/dist/floating-ui/utils/matchesFocusVisible.js",
+      "sha256": "1abe738f27130cd6f9d749a452bcc45d8e1d6107dacd33fd36ad00ba1af413cf",
+      "imports": [
+        {
+          "specifier": "../../utils/platform/index.js",
+          "kind": "runtime",
+          "members": [
+            {
+              "imported": "platform",
+              "local": "platform",
+              "kind": "runtime"
+            }
+          ],
+          "resolved": "packages/base/dist/utils/platform/index.js"
+        }
+      ],
+      "reachability": "runtime"
+    },
+    {
+      "path": "packages/base/dist/internals/createBaseUIEventDetails.js",
+      "sha256": "a31de5cb84acc904a40c2f5389c01c61de47ab8a92a9bde80bcb7b639919b448",
+      "imports": [
+        {
+          "specifier": "../utils/empty.js",
+          "kind": "runtime",
+          "members": [
+            {
+              "imported": "EMPTY_OBJECT",
+              "local": "EMPTY_OBJECT",
+              "kind": "runtime"
+            }
+          ],
+          "resolved": "packages/base/dist/utils/empty.js"
+        },
+        {
+          "specifier": "./reasons.js",
+          "kind": "runtime",
+          "members": [
+            {
+              "imported": "REASONS",
+              "local": "REASONS",
+              "kind": "runtime"
+            }
+          ],
+          "resolved": "packages/base/dist/internals/reasons.js"
+        }
+      ],
+      "reachability": "runtime"
+    },
+    {
+      "path": "packages/base/dist/internals/reason-parts.js",
+      "sha256": "b5190284bc449fdc4148cccd3c3b0ec9f7c37eb9fb69cd86ccfff4476b48801a",
+      "imports": [],
+      "reachability": "runtime"
+    },
+    {
+      "path": "packages/base/dist/internals/reasons.js",
+      "sha256": "c5fc66e6f0b3188bcadc2f207f2b69743c9d01219cdf665b97a1798a6ebc10a2",
+      "imports": [
+        {
+          "specifier": "./reason-parts.js",
+          "kind": "runtime",
+          "members": [
+            {
+              "imported": "*",
+              "local": "REASONS",
+              "kind": "runtime"
+            }
+          ],
+          "resolved": "packages/base/dist/internals/reason-parts.js"
+        }
+      ],
+      "reachability": "runtime"
+    },
+    {
+      "path": "packages/base/dist/utils/empty.js",
+      "sha256": "8a7c4e340a4f8bb92ad343321930ffa292ddd2280203f259e1805c31d0afb925",
+      "imports": [],
+      "reachability": "runtime"
+    },
+    {
+      "path": "packages/base/dist/utils/platform/engine.js",
+      "sha256": "18c57de63628f4e6fb44b66319601252dc52acbe61bd391c0ae9dd39467dbd74",
+      "imports": [
+        {
+          "specifier": "./shared.js",
+          "kind": "runtime",
+          "members": [
+            {
+              "imported": "lowerUserAgent",
+              "local": "lowerUserAgent",
+              "kind": "runtime"
+            }
+          ],
+          "resolved": "packages/base/dist/utils/platform/shared.js"
+        }
+      ],
+      "reachability": "runtime"
+    },
+    {
+      "path": "packages/base/dist/utils/platform/env.js",
+      "sha256": "ebe1d487bbc7f32f041d88954cd6eeb868de3309c587d94fc7ce2ab28537cc25",
+      "imports": [
+        {
+          "specifier": "./shared.js",
+          "kind": "runtime",
+          "members": [
+            {
+              "imported": "lowerUserAgent",
+              "local": "lowerUserAgent",
+              "kind": "runtime"
+            }
+          ],
+          "resolved": "packages/base/dist/utils/platform/shared.js"
+        }
+      ],
+      "reachability": "runtime"
+    },
+    {
+      "path": "packages/base/dist/utils/platform/index.js",
+      "sha256": "9bd5ac2709140971a1558a5857731f99d8f54092ec5aa179f2ec852959ffffb3",
+      "imports": [
+        {
+          "specifier": "./parts.js",
+          "kind": "runtime",
+          "members": [
+            {
+              "imported": "*",
+              "kind": "runtime"
+            }
+          ],
+          "resolved": "packages/base/dist/utils/platform/parts.js"
+        }
+      ],
+      "reachability": "runtime"
+    },
+    {
+      "path": "packages/base/dist/utils/platform/media-query.js",
+      "sha256": "5e91ea2589962018778ad88498ff9acd432a5244fe37ee922d0a6014b1fb7ed9",
+      "imports": [],
+      "reachability": "runtime"
+    },
+    {
+      "path": "packages/base/dist/utils/platform/os.js",
+      "sha256": "4bc6a7ca246193093185f87594956e0189bd4cd6ad401b0b2055ba963372b2bf",
+      "imports": [
+        {
+          "specifier": "./shared.js",
+          "kind": "runtime",
+          "members": [
+            {
+              "imported": "lowerUserAgent",
+              "local": "lowerUserAgent",
+              "kind": "runtime"
+            },
+            {
+              "imported": "lowerPlatform",
+              "local": "lowerPlatform",
+              "kind": "runtime"
+            },
+            {
+              "imported": "maxTouchPoints",
+              "local": "maxTouchPoints",
+              "kind": "runtime"
+            }
+          ],
+          "resolved": "packages/base/dist/utils/platform/shared.js"
+        }
+      ],
+      "reachability": "runtime"
+    },
+    {
+      "path": "packages/base/dist/utils/platform/parts.js",
+      "sha256": "5382169dc9803fde93bc85e33062cbc85d7cdc0bf754d1a7f6f21eb2b4dcac29",
+      "imports": [
+        {
+          "specifier": "./os.js",
+          "kind": "runtime",
+          "members": [
+            {
+              "imported": "*",
+              "kind": "runtime"
+            }
+          ],
+          "resolved": "packages/base/dist/utils/platform/os.js"
+        },
+        {
+          "specifier": "./engine.js",
+          "kind": "runtime",
+          "members": [
+            {
+              "imported": "*",
+              "kind": "runtime"
+            }
+          ],
+          "resolved": "packages/base/dist/utils/platform/engine.js"
+        },
+        {
+          "specifier": "./screen-reader.js",
+          "kind": "runtime",
+          "members": [
+            {
+              "imported": "*",
+              "kind": "runtime"
+            }
+          ],
+          "resolved": "packages/base/dist/utils/platform/screen-reader.js"
+        },
+        {
+          "specifier": "./env.js",
+          "kind": "runtime",
+          "members": [
+            {
+              "imported": "*",
+              "kind": "runtime"
+            }
+          ],
+          "resolved": "packages/base/dist/utils/platform/env.js"
+        },
+        {
+          "specifier": "./media-query.js",
+          "kind": "runtime",
+          "members": [
+            {
+              "imported": "*",
+              "kind": "runtime"
+            }
+          ],
+          "resolved": "packages/base/dist/utils/platform/media-query.js"
+        }
+      ],
+      "reachability": "runtime"
+    },
+    {
+      "path": "packages/base/dist/utils/platform/screen-reader.js",
+      "sha256": "458c6caa1e86b756909c15f6e77ebd854acb9f11932487b57f80e6b577549150",
+      "imports": [
+        {
+          "specifier": "./os.js",
+          "kind": "runtime",
+          "members": [
+            {
+              "imported": "apple",
+              "local": "apple",
+              "kind": "runtime"
+            }
+          ],
+          "resolved": "packages/base/dist/utils/platform/os.js"
+        }
+      ],
+      "reachability": "runtime"
+    },
+    {
+      "path": "packages/base/dist/utils/platform/shared.js",
+      "sha256": "367e35c2b3458120e677b8aa55f7a6415daef0e398f57b67d2b2b5507c150987",
+      "imports": [
+        {
+          "specifier": "esm-env",
+          "kind": "runtime",
+          "members": [
+            {
+              "imported": "DEV",
+              "local": "DEV",
+              "kind": "runtime"
+            }
+          ],
+          "resolved": "external:esm-env"
+        }
+      ],
+      "reachability": "runtime"
+    },
+    {
+      "path": "packages/base/dist/utils/popups/popupTriggerMap.svelte.js",
+      "sha256": "d63746b3d61e09b7d70b41917b5bd169bbf385b4eea6b1806316bea265a73a1c",
+      "imports": [
+        {
+          "specifier": "esm-env",
+          "kind": "runtime",
+          "members": [
+            {
+              "imported": "DEV",
+              "local": "DEV",
+              "kind": "runtime"
+            }
+          ],
+          "resolved": "external:esm-env"
+        }
+      ],
+      "reachability": "runtime"
+    },
+    {
+      "path": "packages/base/dist/utils/shadowDom.js",
+      "sha256": "61199098808d7df61374afa504bcd3d900c9bb11cd6dab02dae65af9a7446f60",
+      "imports": [],
+      "reachability": "runtime"
+    },
+    {
+      "path": "packages/base/dist/utils/store/Store.svelte.js",
+      "sha256": "0b973360170b5e99bb4b7a344a1af590e33ba2180481cf58b273ad4e0923bb6e",
+      "imports": [],
+      "reachability": "runtime"
+    },
+    {
+      "path": "packages/base/dist/utils/store/SvelteStore.svelte.js",
+      "sha256": "56a0733af72104082d9c301ccc3301bde66d01dd9898211802fb8ed54bfd4c2b",
+      "imports": [
+        {
+          "specifier": "svelte",
+          "kind": "runtime",
+          "members": [
+            {
+              "imported": "untrack",
+              "local": "untrack",
+              "kind": "runtime"
+            }
+          ],
+          "resolved": "external:svelte"
+        },
+        {
+          "specifier": "svelte/reactivity",
+          "kind": "runtime",
+          "members": [
+            {
+              "imported": "createSubscriber",
+              "local": "createSubscriber",
+              "kind": "runtime"
+            }
+          ],
+          "resolved": "external:svelte/reactivity"
+        },
+        {
+          "specifier": "esm-env",
+          "kind": "runtime",
+          "members": [
+            {
+              "imported": "DEV",
+              "local": "DEV",
+              "kind": "runtime"
+            }
+          ],
+          "resolved": "external:esm-env"
+        },
+        {
+          "specifier": "./Store.svelte.js",
+          "kind": "runtime",
+          "members": [
+            {
+              "imported": "Store",
+              "local": "Store",
+              "kind": "runtime"
+            }
+          ],
+          "resolved": "packages/base/dist/utils/store/Store.svelte.js"
+        }
+      ],
+      "reachability": "runtime"
+    },
+    {
+      "path": "packages/base/dist/utils/useAnimationFrame.js",
+      "sha256": "de7044d333ad00ab15a372d577589aaf41fc68b609a030bc8c8e342bf440d717",
+      "imports": [
+        {
+          "specifier": "./useRefWithInit.js",
+          "kind": "runtime",
+          "members": [
+            {
+              "imported": "useRefWithInit",
+              "local": "useRefWithInit",
+              "kind": "runtime"
+            }
+          ],
+          "resolved": "packages/base/dist/utils/useRefWithInit.js"
+        },
+        {
+          "specifier": "./useOnMount.js",
+          "kind": "runtime",
+          "members": [
+            {
+              "imported": "useOnMount",
+              "local": "useOnMount",
+              "kind": "runtime"
+            }
+          ],
+          "resolved": "packages/base/dist/utils/useOnMount.js"
+        }
+      ],
+      "reachability": "runtime"
+    },
+    {
+      "path": "packages/base/dist/utils/useOnMount.js",
+      "sha256": "e653a382d20164727acf3fe888821a73b23358cce3b5565e4e32ab4e83c69b07",
+      "imports": [
+        {
+          "specifier": "svelte",
+          "kind": "runtime",
+          "members": [
+            {
+              "imported": "onMount",
+              "local": "onMount",
+              "kind": "runtime"
+            }
+          ],
+          "resolved": "external:svelte"
+        }
+      ],
+      "reachability": "runtime"
+    },
+    {
+      "path": "packages/base/dist/utils/useRefWithInit.js",
+      "sha256": "6de119e7070e1d1222584fd633c0059d5f8bbf3bddd8ba2b1ecff401a2343fea",
+      "imports": [],
+      "reachability": "runtime"
+    },
+    {
+      "path": "packages/base/dist/utils/useTimeout.js",
+      "sha256": "61d9634ada6f77606986ad8b380950d2f4f190d5f74d9ec262d48b1fba66a2cc",
+      "imports": [
+        {
+          "specifier": "./useRefWithInit.js",
+          "kind": "runtime",
+          "members": [
+            {
+              "imported": "useRefWithInit",
+              "local": "useRefWithInit",
+              "kind": "runtime"
+            }
+          ],
+          "resolved": "packages/base/dist/utils/useRefWithInit.js"
+        },
+        {
+          "specifier": "./useOnMount.js",
+          "kind": "runtime",
+          "members": [
+            {
+              "imported": "useOnMount",
+              "local": "useOnMount",
+              "kind": "runtime"
+            }
+          ],
+          "resolved": "packages/base/dist/utils/useOnMount.js"
+        }
+      ],
+      "reachability": "runtime"
+    }
+  ],
+  "counts": {
+    "modules": 28,
+    "edges": 42,
+    "runtime": 28,
+    "typeOnly": 0
+  }
+}

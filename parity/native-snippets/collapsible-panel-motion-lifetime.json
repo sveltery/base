@@ -1,0 +1,45 @@
+{
+  "predecessor": "826eb1d863a231928c4cc040f894737449563d4b",
+  "pin": "47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c",
+  "ordinaryDeclarationCredit": 0,
+  "status": "Root and independent Source review clear the exact one-file ordinary-style production proposal and intentional native override/lifetime boundaries. Candidate parser/types/runtime/browser/package/CI and final acceptance remain pending.",
+  "runtime": {
+    "path": "packages/base/src/lib/collapsible/Panel.svelte",
+    "sha256": "1ece09dc06e6c51e7191b5aa5e63d96a1d08dfc1abda4596762528965000157a",
+    "predecessorSha256": "9b052932470f1f42bdb6b9afd7be61c7c68aeb63fe7dc9f72d1cc5ed241a1e4c",
+    "predecessorArchive": "parity/native-snippets/historical/collapsible-panel-motion-826eb1d8/packages/base/src/lib/collapsible/Panel.svelte"
+  },
+  "original": [
+    {
+      "path": "packages/react/src/collapsible/panel/CollapsiblePanel.tsx",
+      "sha256": "b2694e75cd711224adc1e586cc36efa6832354657d0979c00a28a9bb4d8bef79",
+      "url": "https://github.com/mui/base-ui/blob/47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c/packages/react/src/collapsible/panel/CollapsiblePanel.tsx"
+    },
+    {
+      "path": "packages/react/src/collapsible/panel/useCollapsiblePanel.ts",
+      "sha256": "5f2b096ff87493217f032f6252c8d73c152594d6ceb379753168238ab3ba8e04",
+      "url": "https://github.com/mui/base-ui/blob/47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c/packages/react/src/collapsible/panel/useCollapsiblePanel.ts"
+    }
+  ],
+  "sourceCorrespondence": {
+    "acceptedBeforematch": "Pinned useCollapsiblePanel callback-before-cancellation-before-skip/open order and one-shot skip consumption remain byte-unchanged. Existing detected motion becomes a $state.raw record of its actual host/type for this open cycle; derived native markup keeps ordinary zero duration through measured-dimension and dimensions-to-auto commits.",
+    "firstClose": "Pinned pending imperative duration restore before getAnimationType is expressed by context.open removing suppression from derived markup before the existing post-commit measurement effect reads motion, then clearing the state. Current authored string/state-to-string duration resolves live; no author value/priority snapshot is replayed.",
+    "resourceCleanup": "Captured native attachment cleanup clears only its matching motion record. Suppression cannot migrate to a replacement host. The detached old node retains its final native markup rather than receiving an imperative CSS snapshot restore."
+  },
+  "nativeBoundaries": {
+    "consumerPrecedence": "The appended zero duration is an ordinary CSS declaration. Authored important duration or a consumer Svelte/custom-host style directive may override it under native precedence. This is intentional, provides no instant-reveal guarantee for such overriding styles, and earns zero divergent unchanged Original credit. No CSS priority parser, interception or snapshot/replay custody is introduced.",
+    "detachedLifetime": "Detached hosts keep their last native markup. Cleanup releases captured business state without restoring detached inline duration; this native lifetime substitution earns zero divergent unchanged Original credit.",
+    "publicStyle": "Public Panel style remains a string or state-to-string function. Reusing the existing pure native serializer does not introduce a public object-style API."
+  },
+  "retainedBusiness": "Canceled/refused/repeated find ordering, ordinary animated opens, initial-mount suppression, measurement/cache fallback, alignment reset/restoration, temporary animation-name restart, force-idle release, null-host return, Root deferred ending, captured observer/abort/reopen guards and completion cleanup remain. Native snippet/intrinsic markup and host publication remain direct.",
+  "predecessorFailureEvidence": {
+    "commit": "acdebb8eeb910c48230343324f6284b682bf289b",
+    "observed": "Failed secured CSS diagnostic: 80 observations across nine routes, 18 native reveal/motion errors on three routes, two separate pinned-reference diagnostic errors, one favicon console assertion and two ENOSPC artifact errors. Three native first-close duration/measurement/ending/completion vectors and canceled following-open vectors passed their predicates within that failed run; they do not establish a successor pass.",
+    "observationsSha256": "bb1be00f75a61b1306afb06be61626d7beb523ca5464c98a78acf88ba683026c",
+    "officialResultsSha256": "993870abfcfc35820fed8f4cd91ec9899a880f637e8cd456082eea554af0aa39",
+    "traceSha256": "1eaa849b6a4af1a334e85b6df479f917e7a147c5ebcff311e3e75c547f66d510"
+  },
+  "proof": "The maintained integration checker freezes acde-to-Field as two exact whole-body transforms with 494 other bodies/ASTs preserved, then appends this one exact complete Panel transform with 495 other bodies/grouping-preserving script ASTs preserved. Menu d390-to-acde retains 495 and all prior archives remain exact. Current 496-module hash/import/export/retirement boundaries remain.",
+  "separateNonRuntimeMetadata": "Reviewed favicon wiring and reference/controlled supplemental test corrections are separate fixture/assertion metadata, grant no runtime transform or unchanged Original credit and do not imply asset/test execution. Their provenance/archives are owned by the separate acceptance-history stage.",
+  "execution": "The production successor has not been executed. Immediate/frame1/frame2 ordinary-style full reveal/no entrance motion, first-close/cancel/completion tails, host replacement, refused/repeated finds, live authored style and native overriding styles require truthful final-head execution disposition. Source review grants no parser/type/DOM/SSR/hydration/browser/artifact/consumer/CI/merge acceptance."
+}

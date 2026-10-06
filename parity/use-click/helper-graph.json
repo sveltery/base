@@ -1,0 +1,1422 @@
+{
+  "pin": "47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c",
+  "entries": [
+    "packages/base/src/lib/floating-ui/hooks/useClick.svelte.ts",
+    "packages/base/src/lib/floating-ui/components/FloatingRootStore.svelte.ts",
+    "packages/base/src/lib/utils/popups/popupTriggerMap.svelte.ts"
+  ],
+  "method": "Full TypeScript AST imports/reexports/import-types, member inventory and transitive runtime reachability. Type/barrel inventory grants no selected business or assertion credit.",
+  "ordinaryDeclarationCredit": 0,
+  "modules": [
+    {
+      "path": "packages/base/src/lib/floating-ui/components/FloatingRootStore.svelte.ts",
+      "sha256": "8840439ae903d174103880ac84185b4ccb7d916761ac2e3e96b7f48a88f245d3",
+      "imports": [
+        {
+          "specifier": "@sveltery/utils/store",
+          "kind": "runtime",
+          "members": [
+            {
+              "imported": "SvelteStore",
+              "local": "SvelteStore",
+              "kind": "runtime"
+            }
+          ],
+          "resolved": "packages/utils/src/lib/store/index.ts"
+        },
+        {
+          "specifier": "../types.js",
+          "kind": "type",
+          "members": [
+            {
+              "imported": "FloatingEvents",
+              "local": "FloatingEvents",
+              "kind": "type"
+            },
+            {
+              "imported": "ContextData",
+              "local": "ContextData",
+              "kind": "type"
+            },
+            {
+              "imported": "ReferenceType",
+              "local": "ReferenceType",
+              "kind": "type"
+            },
+            {
+              "imported": "FloatingUIOpenChangeDetails",
+              "local": "FloatingUIOpenChangeDetails",
+              "kind": "type"
+            }
+          ],
+          "resolved": "packages/base/src/lib/floating-ui/types.ts"
+        },
+        {
+          "specifier": "../../internals/createBaseUIEventDetails.js",
+          "kind": "type",
+          "members": [
+            {
+              "imported": "BaseUIChangeEventDetails",
+              "local": "BaseUIChangeEventDetails",
+              "kind": "type"
+            }
+          ],
+          "resolved": "packages/base/src/lib/internals/createBaseUIEventDetails.ts"
+        },
+        {
+          "specifier": "../utils/createEventEmitter.js",
+          "kind": "runtime",
+          "members": [
+            {
+              "imported": "createEventEmitter",
+              "local": "createEventEmitter",
+              "kind": "runtime"
+            }
+          ],
+          "resolved": "packages/base/src/lib/floating-ui/utils/createEventEmitter.ts"
+        },
+        {
+          "specifier": "../../utils/popups/popupTriggerMap.svelte.js",
+          "kind": "type",
+          "members": [
+            {
+              "imported": "PopupTriggerMap",
+              "local": "PopupTriggerMap",
+              "kind": "type"
+            }
+          ],
+          "resolved": "packages/base/src/lib/utils/popups/popupTriggerMap.svelte.ts"
+        },
+        {
+          "specifier": "../utils/event.js",
+          "kind": "runtime",
+          "members": [
+            {
+              "imported": "isClickLikeEvent",
+              "local": "isClickLikeEvent",
+              "kind": "runtime"
+            }
+          ],
+          "resolved": "packages/base/src/lib/floating-ui/utils/event.ts"
+        },
+        {
+          "specifier": "../../internals/useTransitionStatus.svelte.js",
+          "kind": "type",
+          "members": [
+            {
+              "imported": "TransitionStatus",
+              "local": "TransitionStatus",
+              "kind": "type"
+            }
+          ],
+          "resolved": "packages/base/src/lib/internals/useTransitionStatus.svelte.ts"
+        }
+      ],
+      "reachability": "runtime"
+    },
+    {
+      "path": "packages/base/src/lib/floating-ui/components/FloatingTreeStore.ts",
+      "sha256": "eb351b05f9f15cd7acebfe9b093cb42eb07c27073f41bd670633c94c41effdd3",
+      "imports": [
+        {
+          "specifier": "../types.js",
+          "kind": "type",
+          "members": [
+            {
+              "imported": "FloatingNodeType",
+              "local": "FloatingNodeType",
+              "kind": "type"
+            },
+            {
+              "imported": "FloatingEvents",
+              "local": "FloatingEvents",
+              "kind": "type"
+            }
+          ],
+          "resolved": "packages/base/src/lib/floating-ui/types.ts"
+        },
+        {
+          "specifier": "../utils/createEventEmitter.js",
+          "kind": "runtime",
+          "members": [
+            {
+              "imported": "createEventEmitter",
+              "local": "createEventEmitter",
+              "kind": "runtime"
+            }
+          ],
+          "resolved": "packages/base/src/lib/floating-ui/utils/createEventEmitter.ts"
+        }
+      ],
+      "reachability": "type-only"
+    },
+    {
+      "path": "packages/base/src/lib/floating-ui/hooks/useClick.svelte.ts",
+      "sha256": "5344a064e9911e05be6b3fbf58d9d8c522cb5d9d534d8ad7d9e2631eae5d44cf",
+      "imports": [
+        {
+          "specifier": "@sveltery/utils/useAnimationFrame",
+          "kind": "runtime",
+          "members": [
+            {
+              "imported": "useAnimationFrame",
+              "local": "useAnimationFrame",
+              "kind": "runtime"
+            }
+          ],
+          "resolved": "packages/utils/src/lib/useAnimationFrame.ts"
+        },
+        {
+          "specifier": "@sveltery/utils/useTimeout",
+          "kind": "runtime",
+          "members": [
+            {
+              "imported": "useTimeout",
+              "local": "useTimeout",
+              "kind": "runtime"
+            }
+          ],
+          "resolved": "packages/utils/src/lib/useTimeout.ts"
+        },
+        {
+          "specifier": "../types.js",
+          "kind": "type",
+          "members": [
+            {
+              "imported": "ElementProps",
+              "local": "ElementProps",
+              "kind": "type"
+            },
+            {
+              "imported": "FloatingContext",
+              "local": "FloatingContext",
+              "kind": "type"
+            },
+            {
+              "imported": "FloatingRootContext",
+              "local": "FloatingRootContext",
+              "kind": "type"
+            }
+          ],
+          "resolved": "packages/base/src/lib/floating-ui/types.ts"
+        },
+        {
+          "specifier": "../utils/element.js",
+          "kind": "runtime",
+          "members": [
+            {
+              "imported": "getTarget",
+              "local": "getTarget",
+              "kind": "runtime"
+            },
+            {
+              "imported": "isTypeableElement",
+              "local": "isTypeableElement",
+              "kind": "runtime"
+            }
+          ],
+          "resolved": "packages/base/src/lib/floating-ui/utils/element.ts"
+        },
+        {
+          "specifier": "../utils/event.js",
+          "kind": "runtime",
+          "members": [
+            {
+              "imported": "isMouseLikePointerType",
+              "local": "isMouseLikePointerType",
+              "kind": "runtime"
+            },
+            {
+              "imported": "isVirtualPointerEvent",
+              "local": "isVirtualPointerEvent",
+              "kind": "runtime"
+            }
+          ],
+          "resolved": "packages/base/src/lib/floating-ui/utils/event.ts"
+        },
+        {
+          "specifier": "../../internals/createBaseUIEventDetails.js",
+          "kind": "runtime",
+          "members": [
+            {
+              "imported": "createChangeEventDetails",
+              "local": "createChangeEventDetails",
+              "kind": "runtime"
+            }
+          ],
+          "resolved": "packages/base/src/lib/internals/createBaseUIEventDetails.ts"
+        },
+        {
+          "specifier": "../../internals/reasons.js",
+          "kind": "runtime",
+          "members": [
+            {
+              "imported": "REASONS",
+              "local": "REASONS",
+              "kind": "runtime"
+            }
+          ],
+          "resolved": "packages/base/src/lib/internals/reasons.ts"
+        }
+      ],
+      "reachability": "runtime"
+    },
+    {
+      "path": "packages/base/src/lib/floating-ui/hooks/useHoverShared.ts",
+      "sha256": "27321c9b2a6773e8743846b8af2a51a4339462f8189f1a9cad36b9702b4517df",
+      "imports": [
+        {
+          "specifier": "../utils/event.js",
+          "kind": "runtime",
+          "members": [
+            {
+              "imported": "isMouseLikePointerType",
+              "local": "isMouseLikePointerType",
+              "kind": "runtime"
+            }
+          ],
+          "resolved": "packages/base/src/lib/floating-ui/utils/event.ts"
+        },
+        {
+          "specifier": "../types.js",
+          "kind": "type",
+          "members": [
+            {
+              "imported": "ExtendedElements",
+              "local": "ExtendedElements",
+              "kind": "type"
+            },
+            {
+              "imported": "FloatingTreeType",
+              "local": "FloatingTreeType",
+              "kind": "type"
+            },
+            {
+              "imported": "Placement",
+              "local": "Placement",
+              "kind": "type"
+            }
+          ],
+          "resolved": "packages/base/src/lib/floating-ui/types.ts"
+        },
+        {
+          "specifier": "../utils/element.js",
+          "kind": "runtime",
+          "members": [
+            {
+              "imported": "isTargetInsideEnabledTrigger",
+              "local": "isInsideEnabledTrigger",
+              "kind": "runtime"
+            }
+          ],
+          "resolved": "packages/base/src/lib/floating-ui/utils/element.ts"
+        }
+      ],
+      "reachability": "type-only"
+    },
+    {
+      "path": "packages/base/src/lib/floating-ui/safePolygon.ts",
+      "sha256": "ee7e5e41dcb23934c4be65722b2c1e52663c6c518e3beafff627b8968430a9e3",
+      "imports": [
+        {
+          "specifier": "@floating-ui/utils/dom",
+          "kind": "runtime",
+          "members": [
+            {
+              "imported": "isElement",
+              "local": "isElement",
+              "kind": "runtime"
+            }
+          ],
+          "resolved": "external:@floating-ui/utils/dom"
+        },
+        {
+          "specifier": "@sveltery/utils/useTimeout",
+          "kind": "runtime",
+          "members": [
+            {
+              "imported": "Timeout",
+              "local": "Timeout",
+              "kind": "runtime"
+            }
+          ],
+          "resolved": "packages/utils/src/lib/useTimeout.ts"
+        },
+        {
+          "specifier": "@floating-ui/dom",
+          "kind": "type",
+          "members": [
+            {
+              "imported": "Rect",
+              "local": "Rect",
+              "kind": "type"
+            },
+            {
+              "imported": "Side",
+              "local": "Side",
+              "kind": "type"
+            }
+          ],
+          "resolved": "external:@floating-ui/dom"
+        },
+        {
+          "specifier": "./hooks/useHoverShared.js",
+          "kind": "type",
+          "members": [
+            {
+              "imported": "HandleClose",
+              "local": "HandleClose",
+              "kind": "type"
+            },
+            {
+              "imported": "HandleCloseOptions",
+              "local": "HandleCloseOptions",
+              "kind": "type"
+            }
+          ],
+          "resolved": "packages/base/src/lib/floating-ui/hooks/useHoverShared.ts"
+        },
+        {
+          "specifier": "./utils/element.js",
+          "kind": "runtime",
+          "members": [
+            {
+              "imported": "contains",
+              "local": "contains",
+              "kind": "runtime"
+            },
+            {
+              "imported": "getTarget",
+              "local": "getTarget",
+              "kind": "runtime"
+            }
+          ],
+          "resolved": "packages/base/src/lib/floating-ui/utils/element.ts"
+        },
+        {
+          "specifier": "./utils/nodes.js",
+          "kind": "runtime",
+          "members": [
+            {
+              "imported": "getNodeChildren",
+              "local": "getNodeChildren",
+              "kind": "runtime"
+            }
+          ],
+          "resolved": "packages/base/src/lib/floating-ui/utils/nodes.ts"
+        }
+      ],
+      "reachability": "type-only"
+    },
+    {
+      "path": "packages/base/src/lib/floating-ui/types.ts",
+      "sha256": "d75465f0e2fa7f46beab37d200f2f9e5a152dd4ca4a5751e5c9ca2811caed3d5",
+      "imports": [
+        {
+          "specifier": "@floating-ui/dom",
+          "kind": "type",
+          "members": [
+            {
+              "imported": "VirtualElement",
+              "local": "VirtualElement",
+              "kind": "type"
+            },
+            {
+              "imported": "Placement",
+              "local": "Placement",
+              "kind": "type"
+            },
+            {
+              "imported": "Strategy",
+              "local": "Strategy",
+              "kind": "type"
+            },
+            {
+              "imported": "MiddlewareData",
+              "local": "MiddlewareData",
+              "kind": "type"
+            },
+            {
+              "imported": "Placement",
+              "local": "Placement",
+              "kind": "type"
+            }
+          ],
+          "resolved": "external:@floating-ui/dom"
+        },
+        {
+          "specifier": "../internals/createBaseUIEventDetails.js",
+          "kind": "type",
+          "members": [
+            {
+              "imported": "BaseUIChangeEventDetails",
+              "local": "BaseUIChangeEventDetails",
+              "kind": "type"
+            }
+          ],
+          "resolved": "packages/base/src/lib/internals/createBaseUIEventDetails.ts"
+        },
+        {
+          "specifier": "../internals/types.js",
+          "kind": "type",
+          "members": [
+            {
+              "imported": "HTMLProps",
+              "local": "HTMLProps",
+              "kind": "type"
+            }
+          ],
+          "resolved": "packages/base/src/lib/internals/types.ts"
+        },
+        {
+          "specifier": "./components/FloatingRootStore.svelte.js",
+          "kind": "type",
+          "members": [
+            {
+              "imported": "FloatingRootStore",
+              "local": "FloatingRootStore",
+              "kind": "type"
+            }
+          ],
+          "resolved": "packages/base/src/lib/floating-ui/components/FloatingRootStore.svelte.ts"
+        },
+        {
+          "specifier": "./components/FloatingTreeStore.js",
+          "kind": "type",
+          "members": [
+            {
+              "imported": "FloatingTreeStore",
+              "local": "FloatingTreeStore",
+              "kind": "type"
+            }
+          ],
+          "resolved": "packages/base/src/lib/floating-ui/components/FloatingTreeStore.ts"
+        },
+        {
+          "specifier": "./safePolygon.js",
+          "kind": "type",
+          "members": [
+            {
+              "imported": "SafePolygonOptions",
+              "local": "SafePolygonOptions",
+              "kind": "type"
+            }
+          ],
+          "resolved": "packages/base/src/lib/floating-ui/safePolygon.ts"
+        }
+      ],
+      "reachability": "type-only"
+    },
+    {
+      "path": "packages/base/src/lib/floating-ui/utils/constants.ts",
+      "sha256": "14ac30673b196081a83c1e023ecfd546294733ceb2f756d2bad01e3a9d24880b",
+      "imports": [],
+      "reachability": "runtime"
+    },
+    {
+      "path": "packages/base/src/lib/floating-ui/utils/createEventEmitter.ts",
+      "sha256": "31ebcaf59c98304ec9944e91a86b0a3c3ed31359e76a102ea62c4213f5dff484",
+      "imports": [
+        {
+          "specifier": "../types.js",
+          "kind": "type",
+          "members": [
+            {
+              "imported": "FloatingEvents",
+              "local": "FloatingEvents",
+              "kind": "type"
+            }
+          ],
+          "resolved": "packages/base/src/lib/floating-ui/types.ts"
+        }
+      ],
+      "reachability": "runtime"
+    },
+    {
+      "path": "packages/base/src/lib/floating-ui/utils/element.ts",
+      "sha256": "68a9ee68a6c3d8c0c1d9e8f68fffb3c214201c6f7fed4b0c374298b65fae3ff3",
+      "imports": [
+        {
+          "specifier": "@floating-ui/utils/dom",
+          "kind": "runtime",
+          "members": [
+            {
+              "imported": "isElement",
+              "local": "isElement",
+              "kind": "runtime"
+            },
+            {
+              "imported": "isHTMLElement",
+              "local": "isHTMLElement",
+              "kind": "runtime"
+            }
+          ],
+          "resolved": "external:@floating-ui/utils/dom"
+        },
+        {
+          "specifier": "@sveltery/utils/shadowDom",
+          "kind": "runtime",
+          "members": [
+            {
+              "imported": "activeElement",
+              "local": "activeElement",
+              "kind": "runtime"
+            },
+            {
+              "imported": "contains",
+              "local": "contains",
+              "kind": "runtime"
+            },
+            {
+              "imported": "getTarget",
+              "local": "getTarget",
+              "kind": "runtime"
+            }
+          ],
+          "resolved": "packages/utils/src/lib/shadowDom.ts"
+        },
+        {
+          "specifier": "./constants.js",
+          "kind": "runtime",
+          "members": [
+            {
+              "imported": "FOCUSABLE_ATTRIBUTE",
+              "local": "FOCUSABLE_ATTRIBUTE",
+              "kind": "runtime"
+            },
+            {
+              "imported": "TYPEABLE_SELECTOR",
+              "local": "TYPEABLE_SELECTOR",
+              "kind": "runtime"
+            }
+          ],
+          "resolved": "packages/base/src/lib/floating-ui/utils/constants.ts"
+        },
+        {
+          "specifier": "../../utils/popups/popupTriggerMap.svelte.js",
+          "kind": "type",
+          "members": [
+            {
+              "imported": "PopupTriggerMap",
+              "local": "PopupTriggerMap",
+              "kind": "type"
+            }
+          ],
+          "resolved": "packages/base/src/lib/utils/popups/popupTriggerMap.svelte.ts"
+        },
+        {
+          "specifier": "./matchesFocusVisible.js",
+          "kind": "runtime",
+          "members": [
+            {
+              "imported": "matchesFocusVisible",
+              "local": "matchesFocusVisible",
+              "kind": "runtime"
+            }
+          ],
+          "resolved": "packages/base/src/lib/floating-ui/utils/matchesFocusVisible.ts"
+        }
+      ],
+      "reachability": "runtime"
+    },
+    {
+      "path": "packages/base/src/lib/floating-ui/utils/event.ts",
+      "sha256": "d1ee6542732cf647dc9a02e9f40b664de30296df7d2756744a6810e8b3447b5c",
+      "imports": [
+        {
+          "specifier": "@sveltery/utils/platform",
+          "kind": "runtime",
+          "members": [
+            {
+              "imported": "platform",
+              "local": "platform",
+              "kind": "runtime"
+            }
+          ],
+          "resolved": "packages/utils/src/lib/platform/index.ts"
+        }
+      ],
+      "reachability": "runtime"
+    },
+    {
+      "path": "packages/base/src/lib/floating-ui/utils/matchesFocusVisible.ts",
+      "sha256": "4d5266137ceb919a50e3cd9ad29e23a219b08470f34c275852c320531cc949d3",
+      "imports": [
+        {
+          "specifier": "@sveltery/utils/platform",
+          "kind": "runtime",
+          "members": [
+            {
+              "imported": "platform",
+              "local": "platform",
+              "kind": "runtime"
+            }
+          ],
+          "resolved": "packages/utils/src/lib/platform/index.ts"
+        }
+      ],
+      "reachability": "runtime"
+    },
+    {
+      "path": "packages/base/src/lib/floating-ui/utils/nodes.ts",
+      "sha256": "b78d4c24b96237d20d09a60549535fad0d8e61661b38091cbf5368b53c43f544",
+      "imports": [
+        {
+          "specifier": "../types.js",
+          "kind": "type",
+          "members": [
+            {
+              "imported": "FloatingNodeType",
+              "local": "FloatingNodeType",
+              "kind": "type"
+            }
+          ],
+          "resolved": "packages/base/src/lib/floating-ui/types.ts"
+        }
+      ],
+      "reachability": "type-only"
+    },
+    {
+      "path": "packages/base/src/lib/internals/createBaseUIEventDetails.ts",
+      "sha256": "8c72d1cd966a450125d2177842154e603b52779f156660af0633101ea222c772",
+      "imports": [
+        {
+          "specifier": "@sveltery/utils/empty",
+          "kind": "runtime",
+          "members": [
+            {
+              "imported": "EMPTY_OBJECT",
+              "local": "EMPTY_OBJECT",
+              "kind": "runtime"
+            }
+          ],
+          "resolved": "packages/utils/src/lib/empty.ts"
+        },
+        {
+          "specifier": "./reasons.js",
+          "kind": "runtime",
+          "members": [
+            {
+              "imported": "REASONS",
+              "local": "REASONS",
+              "kind": "runtime"
+            }
+          ],
+          "resolved": "packages/base/src/lib/internals/reasons.ts"
+        }
+      ],
+      "reachability": "runtime"
+    },
+    {
+      "path": "packages/base/src/lib/internals/nativeProps.ts",
+      "sha256": "fbb6178288b28dad7549551064e30bf2b432880f1a5b2476223b011f9e72a71a",
+      "imports": [
+        {
+          "specifier": "svelte/elements",
+          "kind": "type",
+          "members": [
+            {
+              "imported": "ClassValue",
+              "local": "ClassValue",
+              "kind": "type"
+            }
+          ],
+          "resolved": "external:svelte/elements"
+        },
+        {
+          "specifier": "./resolveClassValue.js",
+          "kind": "runtime",
+          "members": [
+            {
+              "imported": "resolveClassValue",
+              "local": "resolveClassValue",
+              "kind": "runtime"
+            }
+          ],
+          "resolved": "packages/base/src/lib/internals/resolveClassValue.ts"
+        },
+        {
+          "specifier": "@sveltery/utils/mergeObjects",
+          "kind": "runtime",
+          "members": [
+            {
+              "imported": "mergeObjects",
+              "local": "mergeObjects",
+              "kind": "runtime"
+            }
+          ],
+          "resolved": "packages/utils/src/lib/mergeObjects.ts"
+        }
+      ],
+      "reachability": "type-only"
+    },
+    {
+      "path": "packages/base/src/lib/internals/reason-parts.ts",
+      "sha256": "0326d21ce4be2c41b5488c86e3687249faf3c51f5e10ae49c16e8efdc183abf5",
+      "imports": [],
+      "reachability": "runtime"
+    },
+    {
+      "path": "packages/base/src/lib/internals/reasons.ts",
+      "sha256": "f1f52caeefb14448a7e7c9833e24413b923b7bbf40aa1818ca73dc93710b42e7",
+      "imports": [
+        {
+          "specifier": "./reason-parts.js",
+          "kind": "runtime",
+          "members": [
+            {
+              "imported": "*",
+              "local": "REASONS",
+              "kind": "runtime"
+            }
+          ],
+          "resolved": "packages/base/src/lib/internals/reason-parts.ts"
+        }
+      ],
+      "reachability": "runtime"
+    },
+    {
+      "path": "packages/base/src/lib/internals/resolveClassValue.ts",
+      "sha256": "584323b17cb1733a798e9ff86e9ff783d6a26d08ecf005a8c2b3c69917c1e722",
+      "imports": [
+        {
+          "specifier": "svelte/elements",
+          "kind": "type",
+          "members": [
+            {
+              "imported": "ClassValue",
+              "local": "ClassValue",
+              "kind": "type"
+            }
+          ],
+          "resolved": "external:svelte/elements"
+        }
+      ],
+      "reachability": "type-only"
+    },
+    {
+      "path": "packages/base/src/lib/internals/types.ts",
+      "sha256": "56f62e49c3a1504981c523a1bee8764c45de90fb88f0fab5154bb7fc9d0c1bd3",
+      "imports": [
+        {
+          "specifier": "svelte",
+          "kind": "type",
+          "members": [
+            {
+              "imported": "Snippet",
+              "local": "Snippet",
+              "kind": "type"
+            }
+          ],
+          "resolved": "external:svelte"
+        },
+        {
+          "specifier": "svelte/elements",
+          "kind": "type",
+          "members": [
+            {
+              "imported": "ClassValue",
+              "local": "ClassValue",
+              "kind": "type"
+            },
+            {
+              "imported": "HTMLAttributes",
+              "local": "HTMLAttributes",
+              "kind": "type"
+            }
+          ],
+          "resolved": "external:svelte/elements"
+        },
+        {
+          "specifier": "../merge-props/index.js",
+          "kind": "type",
+          "members": [
+            {
+              "imported": "PreventableEvent",
+              "local": "PreventableEvent",
+              "kind": "type"
+            }
+          ],
+          "resolved": "packages/base/src/lib/merge-props/index.ts"
+        },
+        {
+          "specifier": "./nativeProps.js",
+          "kind": "type",
+          "members": [
+            {
+              "imported": "NativeStyle",
+              "local": "NativeStyle",
+              "kind": "type"
+            }
+          ],
+          "resolved": "packages/base/src/lib/internals/nativeProps.ts"
+        }
+      ],
+      "reachability": "type-only"
+    },
+    {
+      "path": "packages/base/src/lib/internals/useTransitionStatus.svelte.ts",
+      "sha256": "87ad2d4de3657585d704d2bd7137a65545e8c471d62d0e51349c2ca17f8daa7d",
+      "imports": [
+        {
+          "specifier": "svelte",
+          "kind": "runtime",
+          "members": [
+            {
+              "imported": "untrack",
+              "local": "untrack",
+              "kind": "runtime"
+            }
+          ],
+          "resolved": "external:svelte"
+        },
+        {
+          "specifier": "@sveltery/utils/useIsoLayoutEffect",
+          "kind": "runtime",
+          "members": [
+            {
+              "imported": "useIsoLayoutEffect",
+              "local": "useIsoLayoutEffect",
+              "kind": "runtime"
+            }
+          ],
+          "resolved": "packages/utils/src/lib/useIsoLayoutEffect.svelte.ts"
+        },
+        {
+          "specifier": "@sveltery/utils/useAnimationFrame",
+          "kind": "runtime",
+          "members": [
+            {
+              "imported": "AnimationFrame",
+              "local": "AnimationFrame",
+              "kind": "runtime"
+            }
+          ],
+          "resolved": "packages/utils/src/lib/useAnimationFrame.ts"
+        }
+      ],
+      "reachability": "type-only"
+    },
+    {
+      "path": "packages/base/src/lib/merge-props/index.ts",
+      "sha256": "3ef38bba9b22f44bbcf69102d9556807f78897bedb69b410669c7b429971dd68",
+      "imports": [
+        {
+          "specifier": "./mergeProps.js",
+          "kind": "runtime",
+          "members": [
+            {
+              "imported": "*",
+              "kind": "runtime"
+            }
+          ],
+          "resolved": "packages/base/src/lib/merge-props/mergeProps.ts"
+        }
+      ],
+      "reachability": "type-only"
+    },
+    {
+      "path": "packages/base/src/lib/merge-props/mergeProps.ts",
+      "sha256": "110f1b7615a7ccadcfc1e8775451eea5f9ca971bcafee6f3ffd4ea8470303d00",
+      "imports": [
+        {
+          "specifier": "../internals/nativeProps.js",
+          "kind": "runtime",
+          "members": [
+            {
+              "imported": "copyAttachmentSymbols",
+              "local": "copyAttachmentSymbols",
+              "kind": "runtime"
+            },
+            {
+              "imported": "mergeNativeStyles",
+              "local": "mergeNativeStyles",
+              "kind": "runtime"
+            },
+            {
+              "imported": "toNativeClass",
+              "local": "toNativeClass",
+              "kind": "runtime"
+            }
+          ],
+          "resolved": "packages/base/src/lib/internals/nativeProps.ts"
+        },
+        {
+          "specifier": "@sveltery/utils/mergeObjects",
+          "kind": "runtime",
+          "members": [
+            {
+              "imported": "mergeObjects",
+              "local": "mergeObjects",
+              "kind": "runtime"
+            }
+          ],
+          "resolved": "packages/utils/src/lib/mergeObjects.ts"
+        }
+      ],
+      "reachability": "type-only"
+    },
+    {
+      "path": "packages/base/src/lib/utils/popups/popupTriggerMap.svelte.ts",
+      "sha256": "812f1d6cb454c0f5236cda69919932ccfc569611050c19fe8198617beacf6b2c",
+      "imports": [
+        {
+          "specifier": "esm-env",
+          "kind": "runtime",
+          "members": [
+            {
+              "imported": "DEV",
+              "local": "DEV",
+              "kind": "runtime"
+            }
+          ],
+          "resolved": "external:esm-env"
+        }
+      ],
+      "reachability": "runtime"
+    },
+    {
+      "path": "packages/utils/src/lib/empty.ts",
+      "sha256": "4851f47e6160860fee67ddfa03056c8a26dee4cf87bb1a9aa7f30e988b03ad65",
+      "imports": [],
+      "reachability": "runtime"
+    },
+    {
+      "path": "packages/utils/src/lib/mergeObjects.ts",
+      "sha256": "1e6cfa2be20c639f5ce6f8b0b6cc447da3413bbbc6750a5b1ab03f5810d81746",
+      "imports": [],
+      "reachability": "type-only"
+    },
+    {
+      "path": "packages/utils/src/lib/platform/engine.ts",
+      "sha256": "e4745bcc586212a32cde2f7d206cc1aa4df86b8a29301f8d15cf3cd88996a987",
+      "imports": [
+        {
+          "specifier": "./shared.js",
+          "kind": "runtime",
+          "members": [
+            {
+              "imported": "lowerUserAgent",
+              "local": "lowerUserAgent",
+              "kind": "runtime"
+            }
+          ],
+          "resolved": "packages/utils/src/lib/platform/shared.ts"
+        }
+      ],
+      "reachability": "runtime"
+    },
+    {
+      "path": "packages/utils/src/lib/platform/env.ts",
+      "sha256": "dbd7cc1369986d370094b986c44b1bce3c10eba1f792f0e5c3e99c071e00eb9d",
+      "imports": [
+        {
+          "specifier": "./shared.js",
+          "kind": "runtime",
+          "members": [
+            {
+              "imported": "lowerUserAgent",
+              "local": "lowerUserAgent",
+              "kind": "runtime"
+            }
+          ],
+          "resolved": "packages/utils/src/lib/platform/shared.ts"
+        }
+      ],
+      "reachability": "runtime"
+    },
+    {
+      "path": "packages/utils/src/lib/platform/index.ts",
+      "sha256": "c9c1174c0f82f01033187e382b461370123d356d8e14901a9ca7d85dbd2ea63c",
+      "imports": [
+        {
+          "specifier": "./parts.js",
+          "kind": "runtime",
+          "members": [
+            {
+              "imported": "*",
+              "kind": "runtime"
+            }
+          ],
+          "resolved": "packages/utils/src/lib/platform/parts.ts"
+        }
+      ],
+      "reachability": "runtime"
+    },
+    {
+      "path": "packages/utils/src/lib/platform/media-query.ts",
+      "sha256": "5e91ea2589962018778ad88498ff9acd432a5244fe37ee922d0a6014b1fb7ed9",
+      "imports": [],
+      "reachability": "runtime"
+    },
+    {
+      "path": "packages/utils/src/lib/platform/os.ts",
+      "sha256": "456f2f5814e890fb12d899c1cc2f08566529216fd8f6d40a9a8e5846b2c9c3d6",
+      "imports": [
+        {
+          "specifier": "./shared.js",
+          "kind": "runtime",
+          "members": [
+            {
+              "imported": "lowerUserAgent",
+              "local": "lowerUserAgent",
+              "kind": "runtime"
+            },
+            {
+              "imported": "lowerPlatform",
+              "local": "lowerPlatform",
+              "kind": "runtime"
+            },
+            {
+              "imported": "maxTouchPoints",
+              "local": "maxTouchPoints",
+              "kind": "runtime"
+            }
+          ],
+          "resolved": "packages/utils/src/lib/platform/shared.ts"
+        }
+      ],
+      "reachability": "runtime"
+    },
+    {
+      "path": "packages/utils/src/lib/platform/parts.ts",
+      "sha256": "5382169dc9803fde93bc85e33062cbc85d7cdc0bf754d1a7f6f21eb2b4dcac29",
+      "imports": [
+        {
+          "specifier": "./os.js",
+          "kind": "runtime",
+          "members": [
+            {
+              "imported": "*",
+              "kind": "runtime"
+            }
+          ],
+          "resolved": "packages/utils/src/lib/platform/os.ts"
+        },
+        {
+          "specifier": "./engine.js",
+          "kind": "runtime",
+          "members": [
+            {
+              "imported": "*",
+              "kind": "runtime"
+            }
+          ],
+          "resolved": "packages/utils/src/lib/platform/engine.ts"
+        },
+        {
+          "specifier": "./screen-reader.js",
+          "kind": "runtime",
+          "members": [
+            {
+              "imported": "*",
+              "kind": "runtime"
+            }
+          ],
+          "resolved": "packages/utils/src/lib/platform/screen-reader.ts"
+        },
+        {
+          "specifier": "./env.js",
+          "kind": "runtime",
+          "members": [
+            {
+              "imported": "*",
+              "kind": "runtime"
+            }
+          ],
+          "resolved": "packages/utils/src/lib/platform/env.ts"
+        },
+        {
+          "specifier": "./media-query.js",
+          "kind": "runtime",
+          "members": [
+            {
+              "imported": "*",
+              "kind": "runtime"
+            }
+          ],
+          "resolved": "packages/utils/src/lib/platform/media-query.ts"
+        }
+      ],
+      "reachability": "runtime"
+    },
+    {
+      "path": "packages/utils/src/lib/platform/screen-reader.ts",
+      "sha256": "c43ebce8b6557becf984c0ae7f36395da615110e7f878bab1c0dfd476ceb19a7",
+      "imports": [
+        {
+          "specifier": "./os.js",
+          "kind": "runtime",
+          "members": [
+            {
+              "imported": "apple",
+              "local": "apple",
+              "kind": "runtime"
+            }
+          ],
+          "resolved": "packages/utils/src/lib/platform/os.ts"
+        }
+      ],
+      "reachability": "runtime"
+    },
+    {
+      "path": "packages/utils/src/lib/platform/shared.ts",
+      "sha256": "28621a4723495ed9f1370c09b12480a6f488f19e59c70e78524325fc6e080db2",
+      "imports": [
+        {
+          "specifier": "esm-env",
+          "kind": "runtime",
+          "members": [
+            {
+              "imported": "DEV",
+              "local": "DEV",
+              "kind": "runtime"
+            }
+          ],
+          "resolved": "external:esm-env"
+        }
+      ],
+      "reachability": "runtime"
+    },
+    {
+      "path": "packages/utils/src/lib/shadowDom.ts",
+      "sha256": "5c922c6a0b4cbfd31bb463e486f45524de328687376d622527a5e6cdf12cb8f2",
+      "imports": [
+        {
+          "specifier": "@floating-ui/utils/dom",
+          "kind": "runtime",
+          "members": [
+            {
+              "imported": "isShadowRoot",
+              "local": "isShadowRoot",
+              "kind": "runtime"
+            }
+          ],
+          "resolved": "external:@floating-ui/utils/dom"
+        }
+      ],
+      "reachability": "runtime"
+    },
+    {
+      "path": "packages/utils/src/lib/store/index.ts",
+      "sha256": "996a1d7a865fe2ce8a362041ced6b58a7ef139d4d796773971376e5fec0d52d7",
+      "imports": [
+        {
+          "specifier": "./Store.svelte.js",
+          "kind": "runtime",
+          "members": [
+            {
+              "imported": "Store",
+              "local": "Store",
+              "kind": "runtime"
+            },
+            {
+              "imported": "ReadonlyStore",
+              "local": "ReadonlyStore",
+              "kind": "type"
+            }
+          ],
+          "resolved": "packages/utils/src/lib/store/Store.svelte.ts"
+        },
+        {
+          "specifier": "./SvelteStore.svelte.js",
+          "kind": "runtime",
+          "members": [
+            {
+              "imported": "SvelteStore",
+              "local": "SvelteStore",
+              "kind": "runtime"
+            }
+          ],
+          "resolved": "packages/utils/src/lib/store/SvelteStore.svelte.ts"
+        }
+      ],
+      "reachability": "runtime"
+    },
+    {
+      "path": "packages/utils/src/lib/store/Store.svelte.ts",
+      "sha256": "cb14e7e3e12bffcb353761c48bc275e41949bad5706860f0d877ea3344e0b600",
+      "imports": [],
+      "reachability": "runtime"
+    },
+    {
+      "path": "packages/utils/src/lib/store/SvelteStore.svelte.ts",
+      "sha256": "cbc2de3e2d78c8cb79bab4613c5f490d799d32f5e3de6d39f51ccc3fa995ca9f",
+      "imports": [
+        {
+          "specifier": "svelte",
+          "kind": "runtime",
+          "members": [
+            {
+              "imported": "untrack",
+              "local": "untrack",
+              "kind": "runtime"
+            }
+          ],
+          "resolved": "external:svelte"
+        },
+        {
+          "specifier": "svelte/reactivity",
+          "kind": "runtime",
+          "members": [
+            {
+              "imported": "createSubscriber",
+              "local": "createSubscriber",
+              "kind": "runtime"
+            }
+          ],
+          "resolved": "external:svelte/reactivity"
+        },
+        {
+          "specifier": "esm-env",
+          "kind": "runtime",
+          "members": [
+            {
+              "imported": "DEV",
+              "local": "DEV",
+              "kind": "runtime"
+            }
+          ],
+          "resolved": "external:esm-env"
+        },
+        {
+          "specifier": "./Store.svelte.js",
+          "kind": "runtime",
+          "members": [
+            {
+              "imported": "Store",
+              "local": "Store",
+              "kind": "runtime"
+            }
+          ],
+          "resolved": "packages/utils/src/lib/store/Store.svelte.ts"
+        }
+      ],
+      "reachability": "runtime"
+    },
+    {
+      "path": "packages/utils/src/lib/useAnimationFrame.ts",
+      "sha256": "d662506c6d7bd1f69b87ea59f3bd7445c413474de2fcda723d1e3248215c9267",
+      "imports": [
+        {
+          "specifier": "esm-env",
+          "kind": "runtime",
+          "members": [
+            {
+              "imported": "DEV",
+              "local": "DEV",
+              "kind": "runtime"
+            }
+          ],
+          "resolved": "external:esm-env"
+        },
+        {
+          "specifier": "./useRefWithInit.js",
+          "kind": "runtime",
+          "members": [
+            {
+              "imported": "useRefWithInit",
+              "local": "useRefWithInit",
+              "kind": "runtime"
+            }
+          ],
+          "resolved": "packages/utils/src/lib/useRefWithInit.ts"
+        },
+        {
+          "specifier": "./useOnMount.js",
+          "kind": "runtime",
+          "members": [
+            {
+              "imported": "useOnMount",
+              "local": "useOnMount",
+              "kind": "runtime"
+            }
+          ],
+          "resolved": "packages/utils/src/lib/useOnMount.ts"
+        }
+      ],
+      "reachability": "runtime"
+    },
+    {
+      "path": "packages/utils/src/lib/useIsoLayoutEffect.svelte.ts",
+      "sha256": "19e575ac14e03d20cbd088abda91d4784ed8b3b34944e03ef51e242e0c0247a7",
+      "imports": [
+        {
+          "specifier": "svelte",
+          "kind": "runtime",
+          "members": [
+            {
+              "imported": "untrack",
+              "local": "untrack",
+              "kind": "runtime"
+            }
+          ],
+          "resolved": "external:svelte"
+        }
+      ],
+      "reachability": "type-only"
+    },
+    {
+      "path": "packages/utils/src/lib/useOnMount.ts",
+      "sha256": "e596fa519d81dd2fd7cdb1d5d00910622ad9ebed918aafa11111b70942c8ce25",
+      "imports": [
+        {
+          "specifier": "svelte",
+          "kind": "runtime",
+          "members": [
+            {
+              "imported": "onMount",
+              "local": "onMount",
+              "kind": "runtime"
+            }
+          ],
+          "resolved": "external:svelte"
+        }
+      ],
+      "reachability": "runtime"
+    },
+    {
+      "path": "packages/utils/src/lib/useRefWithInit.ts",
+      "sha256": "3c48fad5a3c2eddbb0ecb820210f825b9fa2144c92de0615a5a4cf2ea1c3b3c7",
+      "imports": [],
+      "reachability": "runtime"
+    },
+    {
+      "path": "packages/utils/src/lib/useTimeout.ts",
+      "sha256": "405103d9109d3d115db8b26eef5a9b3747156d4a45365c1f2f9764c172e4f0fb",
+      "imports": [
+        {
+          "specifier": "./useRefWithInit.js",
+          "kind": "runtime",
+          "members": [
+            {
+              "imported": "useRefWithInit",
+              "local": "useRefWithInit",
+              "kind": "runtime"
+            }
+          ],
+          "resolved": "packages/utils/src/lib/useRefWithInit.ts"
+        },
+        {
+          "specifier": "./useOnMount.js",
+          "kind": "runtime",
+          "members": [
+            {
+              "imported": "useOnMount",
+              "local": "useOnMount",
+              "kind": "runtime"
+            }
+          ],
+          "resolved": "packages/utils/src/lib/useOnMount.ts"
+        }
+      ],
+      "reachability": "runtime"
+    }
+  ],
+  "counts": {
+    "modules": 41,
+    "edges": 83,
+    "runtime": 28,
+    "typeOnly": 13
+  }
+}

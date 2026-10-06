@@ -1,24 +1,11 @@
 // Actual Base UI 1.8.0 fixture on React/ReactDOM 19.2.8. Reference-only, MIT.
-import {
-  createElement as h,
-  useEffect,
-  useState,
-  version as reactVersion,
-} from 'react';
+import { createElement as h, useEffect, useState, version as reactVersion } from 'react';
 import { version as reactDomVersion } from 'react-dom';
 import { createRoot } from 'react-dom/client';
-import {
-  Tabs,
-  type TabsRootChangeEventDetails,
-  type TabsTabValue,
-} from '@base-ui/react/tabs';
+import { Tabs, type TabsRootChangeEventDetails, type TabsTabValue } from '@base-ui/react/tabs';
 import { DirectionProvider } from '@base-ui/react/direction-provider';
 import { CSPProvider } from '@base-ui/react/csp-provider';
-export function TabsReferenceFixture({
-  scenario = 'default',
-}: {
-  scenario?: string;
-}) {
+export function TabsReferenceFixture({ scenario = 'default' }: { scenario?: string }) {
   const implicit = scenario.includes('implicit') || scenario === 'all-disabled';
   const controlled = scenario.includes('controlled');
   const initial = scenario.includes('null')
@@ -29,9 +16,7 @@ export function TabsReferenceFixture({
         ? 2
         : 0;
   const [values] = useState(() =>
-    scenario.includes('objects')
-      ? [{ key: 'a' }, { key: 'b' }, { key: 'c' }]
-      : [0, 1, 2],
+    scenario.includes('objects') ? [{ key: 'a' }, { key: 'b' }, { key: 'c' }] : [0, 1, 2],
   );
   const [owner, setOwner] = useState<TabsTabValue>(
     initial === null ? null : (values[initial] ?? initial),
@@ -72,11 +57,7 @@ export function TabsReferenceFixture({
     ]);
     if (!scenario.includes('reject') && !details.isCanceled) setOwner(next);
   }
-  function consumer(event: {
-    type: string;
-    preventBaseUIHandler(): void;
-    preventDefault(): void;
-  }) {
+  function consumer(event: { type: string; preventBaseUIHandler(): void; preventDefault(): void }) {
     setEvents((previous) => [...previous, event.type]);
     if (scenario.includes('prevent-handler')) event.preventBaseUIHandler();
     if (scenario.includes('prevent-default')) event.preventDefault();
@@ -87,9 +68,7 @@ export function TabsReferenceFixture({
       {
         key: index,
         className: 'tab-wrapper',
-        style: scenario.includes('inner-scroll')
-          ? { width: 110, overflow: 'auto' }
-          : undefined,
+        style: scenario.includes('inner-scroll') ? { width: 110, overflow: 'auto' } : undefined,
       },
       h(
         Tabs.Tab,
@@ -116,9 +95,7 @@ export function TabsReferenceFixture({
           onFocus: scenario.includes('prevent-focus') ? consumer : undefined,
           autoFocus: scenario.includes('autofocus') && index === 2,
           render:
-            scenario.includes('custom') ||
-            scenario.includes('caret') ||
-            (swapped && index === 1)
+            scenario.includes('custom') || scenario.includes('caret') || (swapped && index === 1)
               ? h('div', { className: 'tabs-tab' })
               : h('button', { className: 'tabs-tab' }),
         },
@@ -154,20 +131,14 @@ export function TabsReferenceFixture({
     ),
     button('enable', 'Enable all', () => setDisabled([])),
     button('remove', 'Remove selected', () =>
-      setItems((previous) =>
-        previous.filter((index) => values[index] !== owner),
-      ),
+      setItems((previous) => previous.filter((index) => values[index] !== owner)),
     ),
     button('clear', 'Remove all', () => setItems([])),
     button('insert', 'Restore', () => setItems([0, 1, 2])),
-    button('reorder', 'Reverse', () =>
-      setItems((previous) => [...previous].reverse()),
-    ),
+    button('reorder', 'Reverse', () => setItems((previous) => [...previous].reverse())),
     button('swap', 'Swap tab host', () => setSwapped((previous) => !previous)),
     button('resize', 'Resize', () => setWide((previous) => !previous)),
-    button('duplicate', 'Duplicate panel', () =>
-      setDuplicate((previous) => !previous),
-    ),
+    button('duplicate', 'Duplicate panel', () => setDuplicate((previous) => !previous)),
     button('drop-original', 'Toggle original panel', () =>
       setDropOriginal((previous) => !previous),
     ),

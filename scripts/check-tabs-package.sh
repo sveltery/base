@@ -1,10 +1,10 @@
 #!/usr/bin/env bash
 set -euo pipefail
 cd "$(dirname "$0")/.."
-source scripts/toolchain.sh
+source scripts/package-artifacts.sh
 tabs_consumer="$(mktemp -d "${TMPDIR:-/tmp}/sveltery-tabs-consumer.XXXXXX")"
 trap 'rm -rf "$tabs_consumer"' EXIT
-pnpm --filter @sveltery/base pack --pack-destination "$tabs_consumer" > /dev/null
+sveltery_pack_package @sveltery/base "$tabs_consumer" > /dev/null
 node --input-type=module - "$tabs_consumer" <<'JS'
 import { readdirSync, writeFileSync } from 'node:fs';
 import { join } from 'node:path';
@@ -12,9 +12,11 @@ const directory = process.argv[2];
 const tarball = readdirSync(directory).find(name => name.endsWith('.tgz'));
 writeFileSync(join(directory, 'package.json'), JSON.stringify({ private: true, type: 'module', dependencies: { '@sveltery/base': `file:${join(directory, tarball)}`, svelte: '5.57.1' } }));
 JS
+sveltery_prepare_consumer "$tabs_consumer"
 pnpm --dir "$tabs_consumer" --ignore-workspace install --ignore-scripts > /dev/null
 pnpm --dir "$tabs_consumer" --ignore-workspace install --frozen-lockfile --ignore-scripts > /dev/null
 cmp LICENSE "$tabs_consumer/node_modules/@sveltery/base/LICENSE"
+cmp LICENSE "$tabs_consumer/node_modules/@sveltery/utils/LICENSE"
 cat > "$tabs_consumer/Consumer.svelte" <<'SVELTE'
 <script lang="ts">
   import { Tabs, TabsTab, TabsPanel, CSPProvider } from '@sveltery/base';
@@ -63,7 +65,7 @@ void [rootNamed, rootAlias, indicatorAlias, fromComponent, invalidFlag, invalidR
 JS
 cat > "$tabs_consumer/check.mjs" <<'JS'
 import assert from 'node:assert/strict';
-import { readFileSync } from 'node:fs';
+import { readFileSync, writeFileSync } from 'node:fs';
 import { render } from 'svelte/server';
 import { Tabs, TabsRoot, TabsList, TabsTab, TabsPanel, TabsIndicator } from '@sveltery/base';
 import * as Parts from '@sveltery/base/tabs';
@@ -75,6 +77,7 @@ for (const [name, Component] of Object.entries({ Root: TabsRoot, List: TabsList,
   assert.equal(Parts.Tabs[name], Component);
 }
 const body = render(Consumer).body;
+writeFileSync(new URL('./server.html', import.meta.url), body);
 const markup = body.replace(/<script\b[^>]*>[\s\S]*?<\/script>/g, '');
 assert.equal((markup.match(/role="tablist"/g) ?? []).length, 2);
 assert.equal((markup.match(/role="tab"/g) ?? []).length, 3);
@@ -95,3 +98,55 @@ cat > "$tabs_consumer/tsconfig.json" <<'JSON'
 JSON
 node --import "$sveltery_repo_root/scripts/svelte-ssr-loader.mjs" "$tabs_consumer/check.mjs"
 node "$sveltery_repo_root/packages/base/node_modules/svelte-check/bin/svelte-check" --workspace "$tabs_consumer" --tsconfig ./tsconfig.json
+
+cat > "$tabs_consumer/dom-loader.mjs" <<'JS'
+import { registerHooks, createRequire } from 'node:module';
+import { readFileSync } from 'node:fs';
+import { fileURLToPath } from 'node:url';
+const require = createRequire(new URL('./package.json', import.meta.url));
+const { compile, compileModule } = require('svelte/compiler');
+registerHooks({ load(url, context, nextLoad) {
+  if (url.endsWith('.svelte') || url.endsWith('.svelte.js')) {
+    const source = readFileSync(fileURLToPath(url), 'utf8');
+    const options = { filename: fileURLToPath(url), generate: 'client' };
+    const result = url.endsWith('.svelte') ? compile(source, options) : compileModule(source, options);
+    return { format: 'module', source: result.js.code, shortCircuit: true };
+  }
+  return nextLoad(url, context);
+} });
+JS
+cat > "$tabs_consumer/dom-check.mjs" <<'JS'
+import assert from 'node:assert/strict';
+import { createRequire } from 'node:module';
+import { readFileSync } from 'node:fs';
+const tooling = createRequire(process.argv[2]);
+const { JSDOM } = tooling('jsdom');
+const dom = new JSDOM('<!doctype html><main></main>', { url: 'http://localhost', pretendToBeVisual: true });
+for (const key of ['window', 'document', 'navigator', 'HTMLElement', 'HTMLButtonElement', 'Element', 'Node', 'Text', 'Comment', 'Event', 'MouseEvent', 'KeyboardEvent', 'MutationObserver', 'getComputedStyle']) {
+  Object.defineProperty(globalThis, key, { configurable: true, value: dom.window[key] });
+}
+globalThis.requestAnimationFrame = dom.window.requestAnimationFrame.bind(dom.window);
+globalThis.cancelAnimationFrame = dom.window.cancelAnimationFrame.bind(dom.window);
+const { hydrate, flushSync, unmount } = await import('svelte');
+const { default: Consumer } = await import('./Consumer.svelte');
+const target = document.querySelector('main');
+target.innerHTML = readFileSync(new URL('./server.html', import.meta.url), 'utf8');
+const first = target.querySelector('[role="tab"]');
+const app = hydrate(Consumer, { target }); flushSync();
+assert.equal(target.querySelector('[role="tab"]'), first);
+assert.equal(first.getAttribute('aria-selected'), 'true');
+const retained = [...target.querySelectorAll('[role="tabpanel"]')].find(panel => panel.textContent.includes('Retained content'));
+assert.equal(retained.hasAttribute('hidden'), true);
+const second = target.querySelectorAll('[role="tab"]')[1];
+second.click(); flushSync();
+assert.equal(first.getAttribute('aria-selected'), 'false');
+assert.equal(second.getAttribute('aria-selected'), 'true');
+assert.equal(retained.isConnected, true);
+assert.equal(retained.hasAttribute('hidden'), false);
+assert.equal([...target.querySelectorAll('[role="tabpanel"]')].some(panel => panel.textContent.includes('First content')), false);
+await unmount(app);
+assert.equal(target.childElementCount, 0);
+dom.window.close();
+console.log('Installed dual-tarball Tabs actual native hydrate host reuse, selection, keepMounted and teardown: PASS (jsdom; secured browser geometry/CSP remain separate)');
+JS
+node --conditions=browser --import "$tabs_consumer/dom-loader.mjs" "$tabs_consumer/dom-check.mjs" "$sveltery_repo_root/packages/base/package.json"

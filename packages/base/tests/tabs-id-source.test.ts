@@ -4,15 +4,32 @@ import { expect, it } from 'vitest';
 import { render } from 'svelte/server';
 import { JSDOM } from 'jsdom';
 import Fixture from './ssr/TabsIds.svelte';
-const referenceRequire = createRequire(new URL('../../../apps/fixtures/package.json', import.meta.url));
+const referenceRequire = createRequire(
+  new URL('../../../apps/fixtures/package.json', import.meta.url),
+);
 const { createElement: h } = referenceRequire('react');
 const { renderToString } = referenceRequire('react-dom/server');
 const { Tabs } = referenceRequire('@base-ui/react/tabs');
 function ids(framework: string, tabId?: string | null) {
-  const body = framework === 'react'
-    ? renderToString(h(Tabs.Root, { defaultValue: 0 }, h(Tabs.List, {}, h(Tabs.Tab, { value: 0, id: tabId }, 'First'), h(Tabs.Tab, { value: 1 }, 'Second')), h(Tabs.Panel, { value: 0 }, 'First panel')))
-    : render(Fixture, { props: { tabId }, idPrefix: 'tabs-native' }).body;
-  return [...new JSDOM(body).window.document.querySelectorAll('[role=tab],[role=tabpanel]')].map(node => node.id);
+  const body =
+    framework === 'react'
+      ? renderToString(
+          h(
+            Tabs.Root,
+            { defaultValue: 0 },
+            h(
+              Tabs.List,
+              {},
+              h(Tabs.Tab, { value: 0, id: tabId }, 'First'),
+              h(Tabs.Tab, { value: 1 }, 'Second'),
+            ),
+            h(Tabs.Panel, { value: 0 }, 'First panel'),
+          ),
+        )
+      : render(Fixture, { props: { tabId }, idPrefix: 'tabs-native' }).body;
+  return [...new JSDOM(body).window.document.querySelectorAll('[role=tab],[role=tabpanel]')].map(
+    (node) => node.id,
+  );
 }
 for (const framework of ['react', 'svelte']) {
   it(`${framework} actual Tabs SSR preserves library namespace and unique framework suffixes`, () => {

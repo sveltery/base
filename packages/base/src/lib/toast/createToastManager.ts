@@ -105,5 +105,19 @@ export interface ToastManager<Data extends object = any> {
 export type ToastManagerEvent =
   | { action: 'add'; options: ToastObject<any> }
   | { action: 'close'; options: { id?: string } }
-  | { action: 'update'; options: { id: string; updates: ToastManagerUpdateOptions<any> | ((previous: ToastObject<any>) => ToastManagerUpdateOptions<any>) } }
-  | { action: 'promise'; options: ToastManagerPromiseOptions<any, any> & { promise: Promise<any>; setPromise(promise: Promise<any>): void } };
+  | {
+      action: 'update';
+      options: {
+        id: string;
+        updates:
+          | ToastManagerUpdateOptions<any>
+          | ((previous: ToastObject<any>) => ToastManagerUpdateOptions<any>);
+      };
+    }
+  | {
+      action: 'promise';
+      options: ToastManagerPromiseOptions<any, any> & {
+        promise: Promise<any>;
+        setPromise(promise: Promise<any>): void;
+      };
+    };

@@ -1,0 +1,285 @@
+{
+  "pin": "47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c",
+  "preCodeReadingCommit": "41b708601a8cbc72e74a46e550fc79b99da3d0ed",
+  "predecessor": "c70acc3",
+  "status": "All 27 public family parts, three namespace/subpath surfaces and distinct stores/handles are present. Scoped strict/public-layer check and scoped lint pass. Behavioral, packed consumer, Source/native/maintainability and secured browser gates remain pending.",
+  "sharedHelperRuntimeEdits": [],
+  "ordinaryDeclarationCredit": 0,
+  "sourceBodies": "All 27 complete Source component bodies reread from the physical exact-pin checkout. Complete regular family tests reread through Viewport, plus Root/Trigger/Popup/Positioner/Provider and seven type specs. Detached Root test reread remains pending beyond the recorded pre-code full reading.",
+  "files": [
+    {
+      "path": "packages/base/src/lib/popover/Arrow.svelte",
+      "sha256": "fb9f9d4493f12be35d6779061e1aa6b21d2da23e81a4019cb1a8a1354d1c8d11"
+    },
+    {
+      "path": "packages/base/src/lib/popover/Backdrop.svelte",
+      "sha256": "1412553267405c19885afdf95d2d41d3410107d4a5752d3978644be704cb5282"
+    },
+    {
+      "path": "packages/base/src/lib/popover/Close.svelte",
+      "sha256": "c76941acda8819c7ddbf8e7276a9614a85f2b0cc26a9eed8ea32d9a5842ee940"
+    },
+    {
+      "path": "packages/base/src/lib/popover/Description.svelte",
+      "sha256": "330b0388e9186e4ea24452008a99a58a7b70fb4d6f30e1b0e28d89c5c05e0233"
+    },
+    {
+      "path": "packages/base/src/lib/popover/Popup.svelte",
+      "sha256": "e3e7bb68b209421402cad03a0cf2227c09a3d8a18171ab7107fd21d968bfd8f6"
+    },
+    {
+      "path": "packages/base/src/lib/popover/Portal.svelte",
+      "sha256": "d7fa637af3621b2118cdfe3c72fd9f4f83d69c4d753ffcef250324c23821bbdb"
+    },
+    {
+      "path": "packages/base/src/lib/popover/Positioner.svelte",
+      "sha256": "f7f928ff3360c9cda92744e8cea20ec5a655b562e36a78dc2029519d6b634e2f"
+    },
+    {
+      "path": "packages/base/src/lib/popover/Root.svelte",
+      "sha256": "9605e92f2aa58ccf5076f957983da4877d4aafbf6c6b447fcaa6b17cd4fd6130"
+    },
+    {
+      "path": "packages/base/src/lib/popover/Title.svelte",
+      "sha256": "5e43c07f543ad2601b5cc0a1f095419ba4c56be74c061b86fcbc6ea587ae09c3"
+    },
+    {
+      "path": "packages/base/src/lib/popover/Trigger.svelte",
+      "sha256": "f53f01856584df96dcd251007547451099b8719073dfa14e315346097c309cfd"
+    },
+    {
+      "path": "packages/base/src/lib/popover/Viewport.svelte",
+      "sha256": "1125d2edb88bc84ff6a3d8bc06e65dc7864812950cb927494e1dd01940a6840b"
+    },
+    {
+      "path": "packages/base/src/lib/popover/context.ts",
+      "sha256": "1ad794ae8713b062cd6437548a0b37bef3e7ae68c21cc396adc8a381ac0f337a"
+    },
+    {
+      "path": "packages/base/src/lib/popover/handle.svelte.ts",
+      "sha256": "364723acc45390c9f91947672d9e39ea83b7a04225bccc59217ea736176e2d43"
+    },
+    {
+      "path": "packages/base/src/lib/popover/index.parts.ts",
+      "sha256": "b1ab6cebec3a51f5208e170b908b7ab7cc1c50059ebabeb875b4c651dc5c8c8c"
+    },
+    {
+      "path": "packages/base/src/lib/popover/index.ts",
+      "sha256": "2aba4f1d98d6befc2bdb9cd910a7f695d22da9ee27da996abf7e15560f5fad43"
+    },
+    {
+      "path": "packages/base/src/lib/popover/positioner/PopoverPositionerContext.ts",
+      "sha256": "de7c427adf76adcb5178351f5c14cc11b5c486c06605c35c9772b3804f83b503"
+    },
+    {
+      "path": "packages/base/src/lib/popover/root/PopoverInteractions.svelte",
+      "sha256": "df00246317da632a4c83b01aa18a1e6baae62e2397e68d3e267722000d1752ee"
+    },
+    {
+      "path": "packages/base/src/lib/popover/store/PopoverHandle.svelte.ts",
+      "sha256": "8a3a1c93803ff557264199309062d242f183963f15cf2a1adb59ab877bcfe5f7"
+    },
+    {
+      "path": "packages/base/src/lib/popover/store/PopoverStore.svelte.ts",
+      "sha256": "5893b45b9120dbc282213f6c61781134e29bc3822c208f15f2680d575050c7fb"
+    },
+    {
+      "path": "packages/base/src/lib/popover/types.ts",
+      "sha256": "effff58c33d69f76b9fb4da14ea948f72b3e4f77361403f7b68ac10edfce8f18"
+    },
+    {
+      "path": "packages/base/src/lib/popover/utils/constants.ts",
+      "sha256": "69a03145627953aab05636e24bfbe7b3e27a772314debe3038d5f634c052f90d"
+    },
+    {
+      "path": "packages/base/src/lib/preview-card/Arrow.svelte",
+      "sha256": "efb4e56c39da4625ac5603fb06cb18f745abfd88c51608e8d41731ff08e07e23"
+    },
+    {
+      "path": "packages/base/src/lib/preview-card/Backdrop.svelte",
+      "sha256": "3eef5e82926985a8d8d4d39c972007a4499f0b19dbb14dabcd21ef5b98a885e8"
+    },
+    {
+      "path": "packages/base/src/lib/preview-card/Popup.svelte",
+      "sha256": "5e6e0779c7d667edd217b6f0bd0a4196c60c93bd99ff015ae67e8496e32062c6"
+    },
+    {
+      "path": "packages/base/src/lib/preview-card/Portal.svelte",
+      "sha256": "f2f210e094fce2699dad636ac421ec56fa4ce5c5e051ad8de239696a787a0a8a"
+    },
+    {
+      "path": "packages/base/src/lib/preview-card/Positioner.svelte",
+      "sha256": "5de5491630bf8d2facf2d974ad04f69df192856d49722889658e9badbf492524"
+    },
+    {
+      "path": "packages/base/src/lib/preview-card/Root.svelte",
+      "sha256": "22e297499a4001f720ce577e7fedf0b5a55d760e25d6c389a3c1133b02b1fd05"
+    },
+    {
+      "path": "packages/base/src/lib/preview-card/Trigger.svelte",
+      "sha256": "660084d904d9006b9a12caae524b9c0170f67f2a0062dcf3205d8af9d3f21794"
+    },
+    {
+      "path": "packages/base/src/lib/preview-card/Viewport.svelte",
+      "sha256": "6e50db1c9ce42783479361db3a87b26192026df9a240d851c100984d0bcc502b"
+    },
+    {
+      "path": "packages/base/src/lib/preview-card/context.ts",
+      "sha256": "932dc38f805f22f1b0a4f830fc7ec9f2a233b67451a332c1d9173c129af59d28"
+    },
+    {
+      "path": "packages/base/src/lib/preview-card/handle.svelte.ts",
+      "sha256": "fbc4aa31048a26d66c98e3b08fe935565a00d58b2bbd919050587d63f9bcd11e"
+    },
+    {
+      "path": "packages/base/src/lib/preview-card/index.parts.ts",
+      "sha256": "3053724c3fadccd959d44d93d8c02cfb17b19f54eb9ef8d2921509b4dff16241"
+    },
+    {
+      "path": "packages/base/src/lib/preview-card/index.ts",
+      "sha256": "25eeb8d91b72287c0f2f77946b8191fa056007c2eca430860e199defd31c1f6b"
+    },
+    {
+      "path": "packages/base/src/lib/preview-card/positioner/PreviewCardPositionerContext.ts",
+      "sha256": "a1b0389697380077fc36be07f197f8119c6bf09ae41099e236292f245763edd3"
+    },
+    {
+      "path": "packages/base/src/lib/preview-card/root/PreviewCardInteractions.svelte",
+      "sha256": "341c48b849c27d5da6a76dbcd9380f7cd4a6f23d708e05c79d07aa6df395c278"
+    },
+    {
+      "path": "packages/base/src/lib/preview-card/store/PreviewCardHandle.svelte.ts",
+      "sha256": "6ef3415bc8dbbc682d4de9d1d4034499e37e962e8fb4248e0e2c41b56b4cffe8"
+    },
+    {
+      "path": "packages/base/src/lib/preview-card/store/PreviewCardStore.svelte.ts",
+      "sha256": "aa3c78ab836e5ff87e5d0f3d6d56da8712504fe3cebdc67b9fc871697c0811d8"
+    },
+    {
+      "path": "packages/base/src/lib/preview-card/types.ts",
+      "sha256": "6a71f6e339e88cd479b8965cb203e7ed2a8e0896bdda19d55ccc08f6490fcfe7"
+    },
+    {
+      "path": "packages/base/src/lib/preview-card/utils/constants.ts",
+      "sha256": "9d0cc589117e266bd607f809a6e70a1784cb73cf5402cddb9a7ea4684fa65438"
+    },
+    {
+      "path": "packages/base/src/lib/tooltip/Arrow.svelte",
+      "sha256": "961e8214407cd4b74fc0a32b72da7c765463299b80082a41d5b522c77e793f4b"
+    },
+    {
+      "path": "packages/base/src/lib/tooltip/Popup.svelte",
+      "sha256": "e1d77b9e5b0bd3cc51aa144f0cb00bfedb83ad152d06bfbf86d13e0f82bf640a"
+    },
+    {
+      "path": "packages/base/src/lib/tooltip/Portal.svelte",
+      "sha256": "e78111981a772562a1c181f733b601e43e94c9fd24283a6949feb97c0c17c5c3"
+    },
+    {
+      "path": "packages/base/src/lib/tooltip/Positioner.svelte",
+      "sha256": "390832a18620e038ac10d877be19f1f741deaf71f11434a57f91e2a20e603657"
+    },
+    {
+      "path": "packages/base/src/lib/tooltip/Provider.svelte",
+      "sha256": "f12f449463cbc1b0ddfee26f607bfbfdad1744a4acf7f2af086a080d2091bba4"
+    },
+    {
+      "path": "packages/base/src/lib/tooltip/Root.svelte",
+      "sha256": "4e822ff9b34bc6f25f61bba4da669ed25cbc41d9cd512184d3390665953bf2eb"
+    },
+    {
+      "path": "packages/base/src/lib/tooltip/Trigger.svelte",
+      "sha256": "8dbcb7d31709801bf5275f16af8db7d50f631c13851bb1dc22bc3a01217f9aa8"
+    },
+    {
+      "path": "packages/base/src/lib/tooltip/Viewport.svelte",
+      "sha256": "a17da7ac90b08fdb0df8d356e0102b064034d65bd227399c8d6d6a64c8fa9f53"
+    },
+    {
+      "path": "packages/base/src/lib/tooltip/context.ts",
+      "sha256": "c642d892b21d918bfb5c3322ec8d7496fad3ed1e9cff2d864744594219ddb297"
+    },
+    {
+      "path": "packages/base/src/lib/tooltip/handle.svelte.ts",
+      "sha256": "4c2eb76636093c7bda40d1a20156ed8023aebb9958b37db1b68aa361de221418"
+    },
+    {
+      "path": "packages/base/src/lib/tooltip/index.parts.ts",
+      "sha256": "936cf205b53ef9394afc3fdeb94a50c3229a87a23a8eccb8fa9febbc0960f559"
+    },
+    {
+      "path": "packages/base/src/lib/tooltip/index.ts",
+      "sha256": "615f14d59054d6c536b0d4d57cf970a2c55c1f571ea69676debb70c73ee2aa91"
+    },
+    {
+      "path": "packages/base/src/lib/tooltip/positioner/TooltipPositionerContext.ts",
+      "sha256": "5f9a2af9abeafe222dac49ad246730519d4464f218078f1339e84d6fd60e747b"
+    },
+    {
+      "path": "packages/base/src/lib/tooltip/provider/TooltipProviderContext.ts",
+      "sha256": "f8e3d2ff7f7ed85e1936013b653f56aa1e145b1e062204580550a35cc0be1db1"
+    },
+    {
+      "path": "packages/base/src/lib/tooltip/root/TooltipInteractions.svelte",
+      "sha256": "0a33edb0edd9d3c97846159ec46482b9ba05df50a5adaaa2d903f9afebf74f17"
+    },
+    {
+      "path": "packages/base/src/lib/tooltip/store/TooltipHandle.svelte.ts",
+      "sha256": "79d3d7aef5796a0d4705c31bedab98c7c67685b1fe97f65c681f50b35d6d3687"
+    },
+    {
+      "path": "packages/base/src/lib/tooltip/store/TooltipStore.svelte.ts",
+      "sha256": "ac92eb68e9eed9d321322c3decca2789c03cdc16fc8d57d5cb499f7a1260b2f8"
+    },
+    {
+      "path": "packages/base/src/lib/tooltip/types.ts",
+      "sha256": "fd8248551e36e90590bcd9e311abe29e9c7e51a186d64dc3640770f283a0ebe1"
+    },
+    {
+      "path": "packages/base/src/lib/tooltip/utils/constants.ts",
+      "sha256": "ae787b9977ba3e23f7cc07478e949bb7ccaf31f9c1f755cbf7f706dd653235ce"
+    }
+  ],
+  "receipts": [
+    {
+      "log": "parity/popup-family/receipts/popup-leaf-trigger-types.log.gz",
+      "rawSha256": "a364ac88476d59f8d9fd7b155c75cf3a55c361b0741ae5df2c53ac3eb3e2b6f1",
+      "gzipSha256": "9a0ce98729154dc1cbcd35e4cd9adfb3925f4fa4e40c911f2fa2de0eb92ce5ba"
+    },
+    {
+      "log": "parity/popup-family/receipts/popup-positioner-types.log.gz",
+      "rawSha256": "0b760301db4a3e58cc0c0daae076714c4ffe06c6b1ce0e6b99073001e892df43",
+      "gzipSha256": "89c8288d14f4c7b79634ac9b6a71fb59545c9b87e12346d4907b3cad8a8fbc0c"
+    },
+    {
+      "log": "parity/popup-family/receipts/popup-popup-types.log.gz",
+      "rawSha256": "7e27dd779e05a54111112a73012731d0bd0a37ddfa3fc12e8a5b0ab2f516b343",
+      "gzipSha256": "9df8f289a5b910673db185c632a005816eda07e2e4d429f5e7e0065c36c718ec"
+    },
+    {
+      "log": "parity/popup-family/receipts/popup-components-types.log.gz",
+      "rawSha256": "7e27dd779e05a54111112a73012731d0bd0a37ddfa3fc12e8a5b0ab2f516b343",
+      "gzipSha256": "9df8f289a5b910673db185c632a005816eda07e2e4d429f5e7e0065c36c718ec"
+    },
+    {
+      "log": "parity/popup-family/receipts/popup-leaf-trigger-positioner-popup-lint.log.gz",
+      "rawSha256": "8d3b6dbfa713767b9daa6e7a6c4d606feae4132df7d153a5fa6461da7c2e92b3",
+      "gzipSha256": "1ba2aa37d67183177da94ad815e89b6bc9438c3264314bcaf9d69ad2f308bc7e"
+    },
+    {
+      "log": "parity/popup-family/receipts/popup-components-lint.log.gz",
+      "rawSha256": "d7d32266cc120862f729929e0fcb67caf2adbd084f7ea5de74dd698d7333e965",
+      "gzipSha256": "345262f0ed53188f962b6adac4a47aaddbdb46a5e0e2beb82310f2b4c570647f"
+    },
+    {
+      "log": "parity/popup-family/receipts/popup-components-public-types.log.gz",
+      "rawSha256": "7e27dd779e05a54111112a73012731d0bd0a37ddfa3fc12e8a5b0ab2f516b343",
+      "gzipSha256": "9df8f289a5b910673db185c632a005816eda07e2e4d429f5e7e0065c36c718ec"
+    },
+    {
+      "log": "parity/popup-family/receipts/popup-components-lint-green.log.gz",
+      "rawSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "gzipSha256": "f61f27bd17de546264aa58f40f3aafaac7021e0ef69c17f6b1b4cd7664a037ec"
+    }
+  ]
+}

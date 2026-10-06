@@ -1,8 +1,19 @@
 <script lang="ts">
   import { Field, type TypedField } from './imports.js';
-  import { survey, other, transformed, matrix, blocked, uncertainName, stringName, correlated } from './forms.js';
+  import {
+    survey,
+    other,
+    transformed,
+    matrix,
+    blocked,
+    uncertainName,
+    stringName,
+    correlated,
+  } from './forms.js';
   import CompilerRoot from './TypedRoot.svelte';
-  function namespace<Fields extends object>(): TypedField<Fields> { return { ...Field, Root: CompilerRoot }; }
+  function namespace<Fields extends object>(): TypedField<Fields> {
+    return { ...Field, Root: CompilerRoot };
+  }
   const Root = namespace<typeof survey.fields>().Root;
   const Other = namespace<typeof other.fields>().Root;
   const Transformed = namespace<typeof transformed.fields>().Root;
@@ -10,6 +21,7 @@
   const Matrix = namespace<typeof matrix.fields>().Root;
   const Blocked = namespace<typeof blocked.fields>().Root;
 </script>
+
 <Root name="storageType" as="text"><Field.Control /></Root>
 <Root name="storageType" as="radio" value="cloud" />
 <Root name="size" as="number"><Field.Control min={0} /></Root>
@@ -30,7 +42,9 @@
 <Root name="as" as="checkbox" />
 <Root name="set" as="text" />
 <Root name="allIssues" as="text" />
-<Root name="storageType"><Field.Control {...survey.fields.storageType.as('text')} id="override" /></Root>
+<Root name="storageType"
+  ><Field.Control {...survey.fields.storageType.as('text')} id="override" /></Root
+>
 <Other name="count" as="number" />
 <Other name={uncertainName} />
 <Other {...correlated} />
@@ -44,6 +58,10 @@
 <Blocked name="nested.constructorValue" as="text" />
 <Blocked name="rows[0].prototypeValue" as="text" />
 <Transformed name="quantity" as="text" />
-<Typed.Root name="enabled" as="checkbox"><Typed.Label>Enabled</Typed.Label><Typed.Control /><Typed.Error /></Typed.Root>
-<Field.Root name="external-library-name" invalid><Field.Control id="external-control" value="manual" /></Field.Root>
+<Typed.Root name="enabled" as="checkbox"
+  ><Typed.Label>Enabled</Typed.Label><Typed.Control /><Typed.Error /></Typed.Root
+>
+<Field.Root name="external-library-name" invalid
+  ><Field.Control id="external-control" value="manual" /></Field.Root
+>
 <Field.Root name="constructor"><Field.Control value="ordinary-native-field" /></Field.Root>

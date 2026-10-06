@@ -4,19 +4,37 @@ import { afterEach, expect, it, vi } from 'vitest';
 import { flushSync, mount, tick, unmount } from 'svelte';
 import Fixture from './TabsAnimationCompletionFixture.svelte';
 const cleanups: Array<() => Promise<void>> = [];
-afterEach(async () => { for (const cleanup of cleanups.splice(0)) await cleanup(); vi.useRealTimers(); document.body.replaceChildren(); });
+afterEach(async () => {
+  for (const cleanup of cleanups.splice(0)) await cleanup();
+  vi.useRealTimers();
+  document.body.replaceChildren();
+});
 async function setup(firstBatch: boolean, secondBatch: boolean) {
   vi.useFakeTimers();
-  const host = document.createElement('div'); document.body.append(host);
+  const host = document.createElement('div');
+  document.body.append(host);
   let finish!: () => void;
-  const finished = new Promise<void>(resolve => { finish = resolve; });
+  const finished = new Promise<void>((resolve) => {
+    finish = resolve;
+  });
   const component = mount(Fixture, { target: host, props: { finished, firstBatch, secondBatch } });
   let mounted = true;
-  const dispose = async () => { if (mounted) { mounted = false; await unmount(component); } };
+  const dispose = async () => {
+    if (mounted) {
+      mounted = false;
+      await unmount(component);
+    }
+  };
   cleanups.push(dispose);
-  flushSync(); await tick();
+  flushSync();
+  await tick();
   await vi.advanceTimersByTimeAsync(20);
-  async function complete() { finish(); for (let index = 0; index < 5; index++) await Promise.resolve(); flushSync(); await tick(); }
+  async function complete() {
+    finish();
+    for (let index = 0; index < 5; index++) await Promise.resolve();
+    flushSync();
+    await tick();
+  }
   return { component, host, complete, dispose };
 }
 for (const [first, second, expected] of [
@@ -34,7 +52,8 @@ for (const [first, second, expected] of [
 }
 it('native Tabs used-helper unmount aborts pending completions and clears DOM', async () => {
   const fixture = await setup(true, false);
-  await fixture.dispose(); await fixture.complete();
+  await fixture.dispose();
+  await fixture.complete();
   expect(fixture.component.getCalls()).toEqual([]);
   expect(fixture.host.children).toHaveLength(0);
 });

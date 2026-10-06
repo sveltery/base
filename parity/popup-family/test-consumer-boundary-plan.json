@@ -1,0 +1,4077 @@
+{
+  "pin": "47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c",
+  "ordinaryDeclarationCredit": 0,
+  "status": "Original whole-body dependency evidence read; local acceptance and execution pending",
+  "actualTestConsumerNamespaces": {
+    "Menu": [
+      "Root",
+      "Trigger",
+      "Portal",
+      "Positioner",
+      "Popup",
+      "Item"
+    ],
+    "Combobox": [
+      "Root",
+      "Input",
+      "Portal",
+      "Positioner",
+      "Popup",
+      "List",
+      "Item"
+    ],
+    "Toolbar": [
+      "Root",
+      "Button"
+    ]
+  },
+  "method": "The named-export graph conservatively requests namespace values in full. The supplemental actual-member projection follows the explicit namespace uses in the Original test bodies and all their complete selected runtime/type/helper modules. Modules selected for type evidence remain complete-body reading evidence, not runtime implementation scope.",
+  "additionalSelectedBodies": [
+    {
+      "source": "packages/react/src/combobox/chips/ComboboxChipsContext.ts",
+      "sha256": "e813c7f862a9cffb3fa08aabd588855076bcfa93551e83579667df41385d4871",
+      "url": "https://github.com/mui/base-ui/blob/47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c/packages/react/src/combobox/chips/ComboboxChipsContext.ts",
+      "declaredExports": [
+        "ComboboxChipsContext",
+        "ComboboxChipsContext",
+        "useComboboxChipsContext"
+      ],
+      "symbols": [
+        {
+          "name": "ComboboxChipsContext",
+          "syntax": "InterfaceDeclaration",
+          "line": 4,
+          "bodySha256": "f4f5530da817aeadd6297b9a906f8972879c6ea9f63f3283ab9ca9dd13ff845a"
+        },
+        {
+          "name": "ComboboxChipsContext",
+          "syntax": "VariableDeclaration",
+          "line": 10,
+          "bodySha256": "61492533461cd6b461468ed2eba51268f8c6ae49817d697ca0cd08adfa3b0828"
+        },
+        {
+          "name": "useComboboxChipsContext",
+          "syntax": "FunctionDeclaration",
+          "line": 14,
+          "bodySha256": "209bec6e17b42ebadfbf9c96e6502bb346863c5d5d9e5bae09e01100bb869e77"
+        }
+      ],
+      "owner": "Canonical sibling/source helper owner; no edit lease granted for this popup port",
+      "scope": "Original test consumer dependency evidence only; do not implement a sibling family or private fixture engine",
+      "decision": "Use accepted canonical sibling implementation for its exact selected fixture parts and preserve shared helper identities. Until acceptance/test execution this dependent test scope stays incomplete.",
+      "manualStatus": "Original whole body read; local whole-body acceptance and execution pending"
+    },
+    {
+      "source": "packages/react/src/combobox/collection/ComboboxCollection.tsx",
+      "sha256": "e6dd05db5daa3d4bf617032056ff48eb6e2cfe391366df17964c7df1554dae00",
+      "url": "https://github.com/mui/base-ui/blob/47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c/packages/react/src/combobox/collection/ComboboxCollection.tsx",
+      "declaredExports": [
+        "ComboboxCollection",
+        "ComboboxCollectionState",
+        "ComboboxCollectionProps",
+        "ComboboxCollection"
+      ],
+      "symbols": [
+        {
+          "name": "ComboboxCollection",
+          "syntax": "FunctionDeclaration",
+          "line": 14,
+          "bodySha256": "3077480fcb3fd27b97ac5fbe82caf202436915c9d6d98c582a8689bc44ccda0c"
+        },
+        {
+          "name": "ComboboxCollectionState",
+          "syntax": "InterfaceDeclaration",
+          "line": 25,
+          "bodySha256": "8de30985b65f4b80d10d6d61ab58a2fe98df8ed586aba0b17f7e53fb520477b4"
+        },
+        {
+          "name": "ComboboxCollectionProps",
+          "syntax": "InterfaceDeclaration",
+          "line": 27,
+          "bodySha256": "b2022bd646fb06f0f68a800630b6e6c389413d8a05558544e60ece471da0930e"
+        },
+        {
+          "name": "ComboboxCollection",
+          "syntax": "ModuleDeclaration",
+          "line": 31,
+          "bodySha256": "aa1002a54d97cc302d68a28978c3cdd522b2e57f20a10df6a4a00b31ad30b3c6"
+        }
+      ],
+      "owner": "Canonical sibling/source helper owner; no edit lease granted for this popup port",
+      "scope": "Original test consumer dependency evidence only; do not implement a sibling family or private fixture engine",
+      "decision": "Use accepted canonical sibling implementation for its exact selected fixture parts and preserve shared helper identities. Until acceptance/test execution this dependent test scope stays incomplete.",
+      "manualStatus": "Original whole body read; local whole-body acceptance and execution pending"
+    },
+    {
+      "source": "packages/react/src/combobox/collection/GroupCollectionContext.tsx",
+      "sha256": "4ff8457e200b4a8f41de929d23d151c0aab900e179afbe5c94af770ea5aff3be",
+      "url": "https://github.com/mui/base-ui/blob/47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c/packages/react/src/combobox/collection/GroupCollectionContext.tsx",
+      "declaredExports": [
+        "useGroupCollectionContext",
+        "GroupCollectionProvider"
+      ],
+      "symbols": [
+        {
+          "name": "GroupCollectionContext",
+          "syntax": "InterfaceDeclaration",
+          "line": 4,
+          "bodySha256": "d5506e24c3a23e512213ee055038d2778679341f2acd3fc61d483d2717506ff5"
+        },
+        {
+          "name": "GroupCollectionContext",
+          "syntax": "VariableDeclaration",
+          "line": 8,
+          "bodySha256": "270c1975e4087e579c7d607a8523acee4bf937183b20b429c0a0524b923cb635"
+        },
+        {
+          "name": "useGroupCollectionContext",
+          "syntax": "FunctionDeclaration",
+          "line": 10,
+          "bodySha256": "3ee1dff2e26b3d64c72bf0c917450297afd02de6cfd31dbd3bdec7048e41efcd"
+        },
+        {
+          "name": "GroupCollectionProvider",
+          "syntax": "FunctionDeclaration",
+          "line": 14,
+          "bodySha256": "d160c0307a3d6dbf51531b90768ee05d9bc0cff6f7167c3a66a8516d1a22de4d"
+        },
+        {
+          "name": "GroupCollectionProvider",
+          "syntax": "ModuleDeclaration",
+          "line": 26,
+          "bodySha256": "ea2191c5abc038fe104b2b17b3d6009add47c58f8435b9a5a7b3a85cb9c1ed77"
+        }
+      ],
+      "owner": "Canonical sibling/source helper owner; no edit lease granted for this popup port",
+      "scope": "Original test consumer dependency evidence only; do not implement a sibling family or private fixture engine",
+      "decision": "Use accepted canonical sibling implementation for its exact selected fixture parts and preserve shared helper identities. Until acceptance/test execution this dependent test scope stays incomplete.",
+      "manualStatus": "Original whole body read; local whole-body acceptance and execution pending"
+    },
+    {
+      "source": "packages/react/src/combobox/index.parts.ts",
+      "sha256": "2e3d265847197e2e03362ecbf37a7ac52af911e1d93861f7f84df790be58a7da",
+      "url": "https://github.com/mui/base-ui/blob/47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c/packages/react/src/combobox/index.parts.ts",
+      "declaredExports": [],
+      "symbols": [],
+      "owner": "Canonical sibling/source helper owner; no edit lease granted for this popup port",
+      "scope": "Original test consumer dependency evidence only; do not implement a sibling family or private fixture engine",
+      "decision": "Use accepted canonical sibling implementation for its exact selected fixture parts and preserve shared helper identities. Until acceptance/test execution this dependent test scope stays incomplete.",
+      "manualStatus": "Original whole body read; local whole-body acceptance and execution pending"
+    },
+    {
+      "source": "packages/react/src/combobox/index.ts",
+      "sha256": "33cde796f2dc3b85cd1530e2fc1fc4067b6b2f445ce2df30d95be9c7ba1faa9d",
+      "url": "https://github.com/mui/base-ui/blob/47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c/packages/react/src/combobox/index.ts",
+      "declaredExports": [],
+      "symbols": [],
+      "owner": "Canonical sibling/source helper owner; no edit lease granted for this popup port",
+      "scope": "Original test consumer dependency evidence only; do not implement a sibling family or private fixture engine",
+      "decision": "Use accepted canonical sibling implementation for its exact selected fixture parts and preserve shared helper identities. Until acceptance/test execution this dependent test scope stays incomplete.",
+      "manualStatus": "Original whole body read; local whole-body acceptance and execution pending"
+    },
+    {
+      "source": "packages/react/src/combobox/input/ComboboxInput.tsx",
+      "sha256": "9051ecdb8f39e3bf0eee72b05a3bddc2190ede5f1fe2e7b97ab2dba39bcc4c0d",
+      "url": "https://github.com/mui/base-ui/blob/47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c/packages/react/src/combobox/input/ComboboxInput.tsx",
+      "declaredExports": [
+        "ComboboxInput",
+        "ComboboxInputState",
+        "ComboboxInputProps",
+        "ComboboxInput"
+      ],
+      "symbols": [
+        {
+          "name": "ComboboxInput",
+          "syntax": "VariableDeclaration",
+          "line": 40,
+          "bodySha256": "bb15f20565beaae4ef6eb7a757a866d317a0e7880f08de7cc0413041fee4eb10"
+        },
+        {
+          "name": "ComboboxInputState",
+          "syntax": "InterfaceDeclaration",
+          "line": 478,
+          "bodySha256": "8ddc85a73387537c8900eb235e9f56b263686042c0b4da25b1f5a18b1ad31d9d"
+        },
+        {
+          "name": "ComboboxInputProps",
+          "syntax": "InterfaceDeclaration",
+          "line": 497,
+          "bodySha256": "db2f0d6097748ffc61ee130eb95a7110e44d1d4f3e61bfcd9a42e883e4dd26d9"
+        },
+        {
+          "name": "ComboboxInput",
+          "syntax": "ModuleDeclaration",
+          "line": 505,
+          "bodySha256": "d59f7543c000075df99062f49baeae96d427494ae84598125a53400a146c415b"
+        }
+      ],
+      "owner": "Canonical sibling/source helper owner; no edit lease granted for this popup port",
+      "scope": "Original test consumer dependency evidence only; do not implement a sibling family or private fixture engine",
+      "decision": "Use accepted canonical sibling implementation for its exact selected fixture parts and preserve shared helper identities. Until acceptance/test execution this dependent test scope stays incomplete.",
+      "manualStatus": "Original whole body read; local whole-body acceptance and execution pending"
+    },
+    {
+      "source": "packages/react/src/combobox/input/ComboboxInputDataAttributes.ts",
+      "sha256": "96ca9088e79bf6b687a650c77f7e6136c7abaafd57f3e8e6177768efb97994c7",
+      "url": "https://github.com/mui/base-ui/blob/47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c/packages/react/src/combobox/input/ComboboxInputDataAttributes.ts",
+      "declaredExports": [
+        "popupOpen",
+        "pressed",
+        "disabled",
+        "readonly",
+        "popupSide",
+        "required",
+        "valid",
+        "invalid",
+        "touched",
+        "dirty",
+        "filled",
+        "focused",
+        "listEmpty"
+      ],
+      "symbols": [
+        {
+          "name": "popupOpen",
+          "syntax": "VariableDeclaration",
+          "line": 6,
+          "bodySha256": "8159a7cdbffdbf5c6fcbe84670e9c4beb7235ea4e3acf70cb261bfa5b23abb20"
+        },
+        {
+          "name": "pressed",
+          "syntax": "VariableDeclaration",
+          "line": 10,
+          "bodySha256": "353fc2bd89b3a9c70332c18f55e7292af690812a1055789c80c79dc5873a5199"
+        },
+        {
+          "name": "disabled",
+          "syntax": "VariableDeclaration",
+          "line": 14,
+          "bodySha256": "a2ebac218e524fa23f57764468dac13c6acb7e02317bc85ce98f93d8ffb85750"
+        },
+        {
+          "name": "readonly",
+          "syntax": "VariableDeclaration",
+          "line": 18,
+          "bodySha256": "a6e92058e4c3f18a2cac653f0bf6a18232acde67ae3848e7881e2c60361c91ab"
+        },
+        {
+          "name": "popupSide",
+          "syntax": "VariableDeclaration",
+          "line": 23,
+          "bodySha256": "0b74af08b3acc152c47f74cb414e66f92e18bdd423551fef5b80d98dfc068f8c"
+        },
+        {
+          "name": "required",
+          "syntax": "VariableDeclaration",
+          "line": 27,
+          "bodySha256": "dc12e98c406315e9500c65772dc7a66ecc419d45f7cda6050138ca5899ddb24f"
+        },
+        {
+          "name": "valid",
+          "syntax": "VariableDeclaration",
+          "line": 31,
+          "bodySha256": "58706295bace21b5bd9180a0f1a9be4209359ffd202b693a2b007b8e44d43bde"
+        },
+        {
+          "name": "invalid",
+          "syntax": "VariableDeclaration",
+          "line": 35,
+          "bodySha256": "aa6d70b885b6154ee248e357635e773ad08705edacd5478764905a6b371da601"
+        },
+        {
+          "name": "touched",
+          "syntax": "VariableDeclaration",
+          "line": 39,
+          "bodySha256": "5e936aa7b3ca5902405a706d3a1a3bce0adb8f1dad06f782355865fa7c2120a8"
+        },
+        {
+          "name": "dirty",
+          "syntax": "VariableDeclaration",
+          "line": 43,
+          "bodySha256": "e3eb4e6deaeb86bf0f7f5d58851e1698be784a0ab54fbe3c8e42f65448dcb3df"
+        },
+        {
+          "name": "filled",
+          "syntax": "VariableDeclaration",
+          "line": 47,
+          "bodySha256": "b78a8ba0e7a72ac0ec2a475e42c44dfc23b2ae2ca257e7acf4bca309a8cb259a"
+        },
+        {
+          "name": "focused",
+          "syntax": "VariableDeclaration",
+          "line": 51,
+          "bodySha256": "cb8b400af3f8a2aec5caff20a97b84eb146d7c70596f6f7582d90b5635b93587"
+        },
+        {
+          "name": "listEmpty",
+          "syntax": "VariableDeclaration",
+          "line": 55,
+          "bodySha256": "9f45d94b0bb245319dceddc6a375f31982e2d059aeadb8da450c4cf393ba7740"
+        }
+      ],
+      "owner": "Canonical sibling/source helper owner; no edit lease granted for this popup port",
+      "scope": "Original test consumer dependency evidence only; do not implement a sibling family or private fixture engine",
+      "decision": "Use accepted canonical sibling implementation for its exact selected fixture parts and preserve shared helper identities. Until acceptance/test execution this dependent test scope stays incomplete.",
+      "manualStatus": "Original whole body read; local whole-body acceptance and execution pending"
+    },
+    {
+      "source": "packages/react/src/combobox/item/ComboboxItem.tsx",
+      "sha256": "289c2ad9901210844a84de008185792f68aec0e66db632e958c1926fe3414ab9",
+      "url": "https://github.com/mui/base-ui/blob/47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c/packages/react/src/combobox/item/ComboboxItem.tsx",
+      "declaredExports": [
+        "ComboboxItem",
+        "ComboboxItemState",
+        "ComboboxItemProps",
+        "ComboboxItem"
+      ],
+      "symbols": [
+        {
+          "name": "ComboboxItemInnerProps",
+          "syntax": "InterfaceDeclaration",
+          "line": 22,
+          "bodySha256": "b5e3ce9153a8fd8970644fd0101fc54258458429621d26a3f5566692b5deb0c3"
+        },
+        {
+          "name": "ComboboxItemInner",
+          "syntax": "FunctionDeclaration",
+          "line": 38,
+          "bodySha256": "8bafa42f5950a85c67eaac4bf675bfc701bcf1f2ffa8f2974cd0733f51f0b920"
+        },
+        {
+          "name": "ComboboxItemVirtualizedIndex",
+          "syntax": "FunctionDeclaration",
+          "line": 228,
+          "bodySha256": "850173446ea3d222991f2281f0900f1c48f73cf3fbacbc70ba53dbeed2cf9f02"
+        },
+        {
+          "name": "ComboboxItem",
+          "syntax": "VariableDeclaration",
+          "line": 258,
+          "bodySha256": "e41cefc2be3907e97ca9f6b49c59c54c11d1b90a49f9cf0fe18a2063c0d092cf"
+        },
+        {
+          "name": "ComboboxItemState",
+          "syntax": "InterfaceDeclaration",
+          "line": 286,
+          "bodySha256": "1b15d88e4c8650cf8a36d4b82fb788e6ac5702a6456e34d147d2b531b8563b5a"
+        },
+        {
+          "name": "ComboboxItemProps",
+          "syntax": "InterfaceDeclaration",
+          "line": 301,
+          "bodySha256": "506bc2560c9a7b954494be0d2cc539a785c379c386dbef0f61a10dd5c8b1b929"
+        },
+        {
+          "name": "ComboboxItem",
+          "syntax": "ModuleDeclaration",
+          "line": 325,
+          "bodySha256": "00402126c69b6c773948be8c58e1af3a462d46db2e3215cad3299ab3592831ab"
+        }
+      ],
+      "owner": "Canonical sibling/source helper owner; no edit lease granted for this popup port",
+      "scope": "Original test consumer dependency evidence only; do not implement a sibling family or private fixture engine",
+      "decision": "Use accepted canonical sibling implementation for its exact selected fixture parts and preserve shared helper identities. Until acceptance/test execution this dependent test scope stays incomplete.",
+      "manualStatus": "Original whole body read; local whole-body acceptance and execution pending"
+    },
+    {
+      "source": "packages/react/src/combobox/item/ComboboxItemContext.ts",
+      "sha256": "5d7833c4a8b87536d30f5461ca25bbb91fd6393f6a91029dd9bb86ddbdc64359",
+      "url": "https://github.com/mui/base-ui/blob/47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c/packages/react/src/combobox/item/ComboboxItemContext.ts",
+      "declaredExports": [
+        "ComboboxItemContext",
+        "ComboboxItemContext",
+        "useComboboxItemContext"
+      ],
+      "symbols": [
+        {
+          "name": "ComboboxItemContext",
+          "syntax": "InterfaceDeclaration",
+          "line": 4,
+          "bodySha256": "45fbc15ed9d367a44224412c24423153761b114d4ebbc7baadbd754c4e6461dc"
+        },
+        {
+          "name": "ComboboxItemContext",
+          "syntax": "VariableDeclaration",
+          "line": 9,
+          "bodySha256": "f71c969b2606cd6c57cffc17400a200262a16fa4016ff97ee062d1af3d9d170e"
+        },
+        {
+          "name": "useComboboxItemContext",
+          "syntax": "FunctionDeclaration",
+          "line": 11,
+          "bodySha256": "80e8231dadc9fc9937d1f1166e4e83788cd1c424666c88c11c6a8bbca5e9b53d"
+        }
+      ],
+      "owner": "Canonical sibling/source helper owner; no edit lease granted for this popup port",
+      "scope": "Original test consumer dependency evidence only; do not implement a sibling family or private fixture engine",
+      "decision": "Use accepted canonical sibling implementation for its exact selected fixture parts and preserve shared helper identities. Until acceptance/test execution this dependent test scope stays incomplete.",
+      "manualStatus": "Original whole body read; local whole-body acceptance and execution pending"
+    },
+    {
+      "source": "packages/react/src/combobox/items/itemCollection.ts",
+      "sha256": "d81e8d94a3aa4b4e8eabd898a01ee565a29b9661b3c194eae5c606e7ba19595d",
+      "url": "https://github.com/mui/base-ui/blob/47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c/packages/react/src/combobox/items/itemCollection.ts",
+      "declaredExports": [
+        "findCollectionItem",
+        "ComboboxItemCollection",
+        "ItemCollection"
+      ],
+      "symbols": [
+        {
+          "name": "findCollectionItem",
+          "syntax": "FunctionDeclaration",
+          "line": 8,
+          "bodySha256": "aefd40c4ccdb49bc7ea08791c0d535fa6bb0ac02d4768756a29a8e7ab67d57c2"
+        },
+        {
+          "name": "ComboboxItemCollection",
+          "syntax": "ClassDeclaration",
+          "line": 35,
+          "bodySha256": "bed2b500a655ba0adc1a690317441d178cd4410a123c865c54f4f8da6b7fabfa"
+        },
+        {
+          "name": "ItemCollection",
+          "syntax": "InterfaceDeclaration",
+          "line": 44,
+          "bodySha256": "4674ae787c96223aa7949fce7467e1034e035148699fd9b8965fcdfd5f66a2c8"
+        }
+      ],
+      "owner": "Canonical sibling/source helper owner; no edit lease granted for this popup port",
+      "scope": "Original test consumer dependency evidence only; do not implement a sibling family or private fixture engine",
+      "decision": "Use accepted canonical sibling implementation for its exact selected fixture parts and preserve shared helper identities. Until acceptance/test execution this dependent test scope stays incomplete.",
+      "manualStatus": "Original whole body read; local whole-body acceptance and execution pending"
+    },
+    {
+      "source": "packages/react/src/combobox/list/ComboboxList.tsx",
+      "sha256": "c7b1b84216a909b38055ec36b5a1ea403af933084d7d64fb6208f59c53b469a8",
+      "url": "https://github.com/mui/base-ui/blob/47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c/packages/react/src/combobox/list/ComboboxList.tsx",
+      "declaredExports": [
+        "ComboboxList",
+        "ComboboxListState",
+        "ComboboxListProps",
+        "ComboboxList"
+      ],
+      "symbols": [
+        {
+          "name": "ComboboxList",
+          "syntax": "VariableDeclaration",
+          "line": 23,
+          "bodySha256": "85c78ee05346f145ec1e44f6941ea6e49b9d737507fe97fc4e99140efac20b11"
+        },
+        {
+          "name": "ComboboxListState",
+          "syntax": "InterfaceDeclaration",
+          "line": 127,
+          "bodySha256": "f5452d16a25909a8caa4ff05626582c19520ff370cae0332224323445ea32fbf"
+        },
+        {
+          "name": "ComboboxListProps",
+          "syntax": "InterfaceDeclaration",
+          "line": 134,
+          "bodySha256": "ead87192283946a3e354a94f83469199a9d168bf523e1e619ff1697bab44c493"
+        },
+        {
+          "name": "ComboboxList",
+          "syntax": "ModuleDeclaration",
+          "line": 141,
+          "bodySha256": "ed77fc059dab4e7d525d11110c85c061a4acb491e3522a329bf318baff0f5f3c"
+        }
+      ],
+      "owner": "Canonical sibling/source helper owner; no edit lease granted for this popup port",
+      "scope": "Original test consumer dependency evidence only; do not implement a sibling family or private fixture engine",
+      "decision": "Use accepted canonical sibling implementation for its exact selected fixture parts and preserve shared helper identities. Until acceptance/test execution this dependent test scope stays incomplete.",
+      "manualStatus": "Original whole body read; local whole-body acceptance and execution pending"
+    },
+    {
+      "source": "packages/react/src/combobox/popup/ComboboxPopup.tsx",
+      "sha256": "85a4691ccdf7632b64a8a060e22563506284393213819b64e82b5f932772c619",
+      "url": "https://github.com/mui/base-ui/blob/47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c/packages/react/src/combobox/popup/ComboboxPopup.tsx",
+      "declaredExports": [
+        "ComboboxPopup",
+        "ComboboxPopupState",
+        "ComboboxPopupProps",
+        "ComboboxPopup"
+      ],
+      "symbols": [
+        {
+          "name": "stateAttributesMapping",
+          "syntax": "VariableDeclaration",
+          "line": 22,
+          "bodySha256": "1f5ddd29cd09c74f75201841eb941905befa96a7fcf1c56398a98794507d7a05"
+        },
+        {
+          "name": "ComboboxPopup",
+          "syntax": "VariableDeclaration",
+          "line": 33,
+          "bodySha256": "5cf6e3eb3fcc10b1f9f19fe2221039da723830baff687f9345b7c6a4b6e9ea26"
+        },
+        {
+          "name": "ComboboxPopupState",
+          "syntax": "InterfaceDeclaration",
+          "line": 148,
+          "bodySha256": "241c337a9526b9114711361bf5a3097ef49e0e5827dded84ee4128ce5536c400"
+        },
+        {
+          "name": "ComboboxPopupProps",
+          "syntax": "InterfaceDeclaration",
+          "line": 175,
+          "bodySha256": "3c1c6a2aad86a793e7c7ddf8348ab4b007c6ddb135259aa1cad7ee4fe550fd46"
+        },
+        {
+          "name": "ComboboxPopup",
+          "syntax": "ModuleDeclaration",
+          "line": 206,
+          "bodySha256": "c498c1d83e6cc1fb636313697a24d1ab658e890b3a9e1305804af96a2add718e"
+        }
+      ],
+      "owner": "Canonical sibling/source helper owner; no edit lease granted for this popup port",
+      "scope": "Original test consumer dependency evidence only; do not implement a sibling family or private fixture engine",
+      "decision": "Use accepted canonical sibling implementation for its exact selected fixture parts and preserve shared helper identities. Until acceptance/test execution this dependent test scope stays incomplete.",
+      "manualStatus": "Original whole body read; local whole-body acceptance and execution pending"
+    },
+    {
+      "source": "packages/react/src/combobox/portal/ComboboxPortal.tsx",
+      "sha256": "f7756ffdedef6549c7ed5f6adcae96a329738533bd5b4c65491900552c95ab3d",
+      "url": "https://github.com/mui/base-ui/blob/47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c/packages/react/src/combobox/portal/ComboboxPortal.tsx",
+      "declaredExports": [
+        "ComboboxPortal",
+        "ComboboxPortalState",
+        "ComboboxPortalProps",
+        "ComboboxPortal"
+      ],
+      "symbols": [
+        {
+          "name": "ComboboxPortal",
+          "syntax": "VariableDeclaration",
+          "line": 15,
+          "bodySha256": "51c3c5272f16c6c9dcb7fb1617bb6ffb9a080b1ac97316f99e15024f54a49e34"
+        },
+        {
+          "name": "ComboboxPortalState",
+          "syntax": "InterfaceDeclaration",
+          "line": 38,
+          "bodySha256": "80ac8aeef4154d0ba8f49d6d565cb7bd9717b2e32860b955e0cb9173dd53e6cc"
+        },
+        {
+          "name": "ComboboxPortalProps",
+          "syntax": "InterfaceDeclaration",
+          "line": 40,
+          "bodySha256": "4587f13b2ba9f6a2383d5e4a495bee3a695e141611cfe14d2810e5f8b720f272"
+        },
+        {
+          "name": "ComboboxPortal",
+          "syntax": "ModuleDeclaration",
+          "line": 53,
+          "bodySha256": "a62da3b81241dbf885af78b50d1cbad3efa9f067f0075f0419a8b0666017fdc5"
+        }
+      ],
+      "owner": "Canonical sibling/source helper owner; no edit lease granted for this popup port",
+      "scope": "Original test consumer dependency evidence only; do not implement a sibling family or private fixture engine",
+      "decision": "Use accepted canonical sibling implementation for its exact selected fixture parts and preserve shared helper identities. Until acceptance/test execution this dependent test scope stays incomplete.",
+      "manualStatus": "Original whole body read; local whole-body acceptance and execution pending"
+    },
+    {
+      "source": "packages/react/src/combobox/portal/ComboboxPortalContext.tsx",
+      "sha256": "881b6bc4234c4a1be575d407373ceff346de7f17464b61ee756c318f464485b0",
+      "url": "https://github.com/mui/base-ui/blob/47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c/packages/react/src/combobox/portal/ComboboxPortalContext.tsx",
+      "declaredExports": [
+        "ComboboxPortalContext",
+        "useComboboxPortalContext"
+      ],
+      "symbols": [
+        {
+          "name": "ComboboxPortalContext",
+          "syntax": "VariableDeclaration",
+          "line": 4,
+          "bodySha256": "fad09deeb89db1e0f066f3d96aa11da4075b09ccdcfc201c49be25f88bb77c9c"
+        },
+        {
+          "name": "useComboboxPortalContext",
+          "syntax": "FunctionDeclaration",
+          "line": 6,
+          "bodySha256": "66913bd177454362b508b00dac624144683faf7e0f96547b01642c0d10332a20"
+        }
+      ],
+      "owner": "Canonical sibling/source helper owner; no edit lease granted for this popup port",
+      "scope": "Original test consumer dependency evidence only; do not implement a sibling family or private fixture engine",
+      "decision": "Use accepted canonical sibling implementation for its exact selected fixture parts and preserve shared helper identities. Until acceptance/test execution this dependent test scope stays incomplete.",
+      "manualStatus": "Original whole body read; local whole-body acceptance and execution pending"
+    },
+    {
+      "source": "packages/react/src/combobox/positioner/ComboboxPositioner.tsx",
+      "sha256": "8aa636919f4b697707a275429cfddbba4ebde045ba46d3651634cb71540df560",
+      "url": "https://github.com/mui/base-ui/blob/47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c/packages/react/src/combobox/positioner/ComboboxPositioner.tsx",
+      "declaredExports": [
+        "ComboboxPositioner",
+        "ComboboxPositionerState",
+        "ComboboxPositionerProps",
+        "ComboboxPositioner"
+      ],
+      "symbols": [
+        {
+          "name": "ComboboxPositioner",
+          "syntax": "VariableDeclaration",
+          "line": 28,
+          "bodySha256": "5ce67acf739a32d71b541aec0a82ee18f062f00513ef535fc3a7884e8ad5cdfd"
+        },
+        {
+          "name": "ComboboxPositionerState",
+          "syntax": "InterfaceDeclaration",
+          "line": 136,
+          "bodySha256": "7b5c0073329e249c5ed059c523e8c24468cc330705875d5e1cd6c7076847e049"
+        },
+        {
+          "name": "ComboboxPositionerProps",
+          "syntax": "InterfaceDeclaration",
+          "line": 159,
+          "bodySha256": "a08fca6d42820e18e4d0c9acf0a44cafea0faaeb26364a39a429369800ed182d"
+        },
+        {
+          "name": "ComboboxPositioner",
+          "syntax": "ModuleDeclaration",
+          "line": 164,
+          "bodySha256": "250a278ec4c17c17532ec7673d68f822ebd8cdd17ec6effa66858cbf912967b1"
+        }
+      ],
+      "owner": "Canonical sibling/source helper owner; no edit lease granted for this popup port",
+      "scope": "Original test consumer dependency evidence only; do not implement a sibling family or private fixture engine",
+      "decision": "Use accepted canonical sibling implementation for its exact selected fixture parts and preserve shared helper identities. Until acceptance/test execution this dependent test scope stays incomplete.",
+      "manualStatus": "Original whole body read; local whole-body acceptance and execution pending"
+    },
+    {
+      "source": "packages/react/src/combobox/positioner/ComboboxPositionerContext.tsx",
+      "sha256": "810a07d27f0d26e71a427c1a2773a75f7523ebb1ed35981001a72894e473a2ba",
+      "url": "https://github.com/mui/base-ui/blob/47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c/packages/react/src/combobox/positioner/ComboboxPositionerContext.tsx",
+      "declaredExports": [
+        "ComboboxPositionerContext",
+        "ComboboxPositionerContext",
+        "useComboboxPositionerContext",
+        "useComboboxPositionerContext",
+        "useComboboxPositionerContext"
+      ],
+      "symbols": [
+        {
+          "name": "ComboboxPositionerContext",
+          "syntax": "TypeAliasDeclaration",
+          "line": 5,
+          "bodySha256": "22f6a06c4cb9264c78b0e1bfe7eaa3e0f5a83cf3a6e263ce0f96035aa4519217"
+        },
+        {
+          "name": "ComboboxPositionerContext",
+          "syntax": "VariableDeclaration",
+          "line": 16,
+          "bodySha256": "dcb186ac2590bd76a785af8b2d95e0f53479a0394353e7a977be1febe07b1b98"
+        },
+        {
+          "name": "useComboboxPositionerContext",
+          "syntax": "FunctionDeclaration",
+          "line": 20,
+          "bodySha256": "d2a54259439960aa1a2d75fe8636d3651133895d887bc335597069844eb1cdfd"
+        },
+        {
+          "name": "useComboboxPositionerContext",
+          "syntax": "FunctionDeclaration",
+          "line": 21,
+          "bodySha256": "70bc0b15ff16b84dfb872a00cbb46dee17162035961d1aac7a89d8f36abde517"
+        },
+        {
+          "name": "useComboboxPositionerContext",
+          "syntax": "FunctionDeclaration",
+          "line": 22,
+          "bodySha256": "52125f596ae0f7d43a3680a3cb195a0bad3ca466b77dc2e98f29b3a777950197"
+        }
+      ],
+      "owner": "Canonical sibling/source helper owner; no edit lease granted for this popup port",
+      "scope": "Original test consumer dependency evidence only; do not implement a sibling family or private fixture engine",
+      "decision": "Use accepted canonical sibling implementation for its exact selected fixture parts and preserve shared helper identities. Until acceptance/test execution this dependent test scope stays incomplete.",
+      "manualStatus": "Original whole body read; local whole-body acceptance and execution pending"
+    },
+    {
+      "source": "packages/react/src/combobox/root/AriaCombobox.tsx",
+      "sha256": "b9e7ffcba3be6184e2acd2fe6c98f70574cc5487ee2ec5266145749622657570",
+      "url": "https://github.com/mui/base-ui/blob/47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c/packages/react/src/combobox/root/AriaCombobox.tsx",
+      "declaredExports": [
+        "AriaCombobox",
+        "AriaCombobox",
+        "AriaCombobox",
+        "AriaComboboxState",
+        "AriaComboboxProps",
+        "AriaCombobox"
+      ],
+      "symbols": [
+        {
+          "name": "InternalAriaComboboxProps",
+          "syntax": "TypeAliasDeclaration",
+          "line": 78,
+          "bodySha256": "08a75c711e483d47230d79cf99ecdf30d321e45a556b91971f204c25bbff206e"
+        },
+        {
+          "name": "AriaCombobox",
+          "syntax": "FunctionDeclaration",
+          "line": 89,
+          "bodySha256": "adc5090cd78a4f10d153fc513facb6dcfd6ccb0e83762455e826a1126a54644f"
+        },
+        {
+          "name": "AriaCombobox",
+          "syntax": "FunctionDeclaration",
+          "line": 94,
+          "bodySha256": "fc46113e0ca747c6d96ef53e3a6eb64cad9b61226b8d0139ef86e038e5b85cb8"
+        },
+        {
+          "name": "AriaCombobox",
+          "syntax": "FunctionDeclaration",
+          "line": 99,
+          "bodySha256": "4114582cbe98f05c2746ef5ab075350884f30902ae910ce0ae793b0cb72f75fe"
+        },
+        {
+          "name": "SelectionMode",
+          "syntax": "TypeAliasDeclaration",
+          "line": 1658,
+          "bodySha256": "77cb61f30df4bdacb046eb2c86bd55b8ba0a8ed7811ea8b75d7db12715580a35"
+        },
+        {
+          "name": "ComboboxItemValueType",
+          "syntax": "TypeAliasDeclaration",
+          "line": 1660,
+          "bodySha256": "b4262f6dc72877016238159e79b619ca63916ab3208c8850f08981d8de1c4b70"
+        },
+        {
+          "name": "ComboboxRootProps",
+          "syntax": "InterfaceDeclaration",
+          "line": 1664,
+          "bodySha256": "c5b903053452d9f8ef0422e392e24013c5a4c419080412dade6cc5c87970694e"
+        },
+        {
+          "name": "AriaComboboxState",
+          "syntax": "InterfaceDeclaration",
+          "line": 1894,
+          "bodySha256": "8229f1ad05ccd59286edf47e4fd2b1019b78bd593d8f0d55b885b0ea6fda5b3e"
+        },
+        {
+          "name": "AriaComboboxProps",
+          "syntax": "TypeAliasDeclaration",
+          "line": 1896,
+          "bodySha256": "8b2b9f3a88354d1231473869c4316848825b1f57ef4e3c6b6545f5bf98af54e7"
+        },
+        {
+          "name": "AriaCombobox",
+          "syntax": "ModuleDeclaration",
+          "line": 1929,
+          "bodySha256": "bd084ca03d01e97733bed81d5b5f56d3e2674a48800f94794df9e278fc7c98ed"
+        }
+      ],
+      "owner": "Canonical sibling/source helper owner; no edit lease granted for this popup port",
+      "scope": "Original test consumer dependency evidence only; do not implement a sibling family or private fixture engine",
+      "decision": "Use accepted canonical sibling implementation for its exact selected fixture parts and preserve shared helper identities. Until acceptance/test execution this dependent test scope stays incomplete.",
+      "manualStatus": "Original whole body read; local whole-body acceptance and execution pending"
+    },
+    {
+      "source": "packages/react/src/combobox/root/ComboboxRoot.tsx",
+      "sha256": "6a62b47d2f3eb605470f70b7ea8530c629042b9a25f63b06725b313f40738bd8",
+      "url": "https://github.com/mui/base-ui/blob/47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c/packages/react/src/combobox/root/ComboboxRoot.tsx",
+      "declaredExports": [
+        "ComboboxRoot",
+        "ComboboxRootProps",
+        "ComboboxRootState",
+        "ComboboxRootActions",
+        "ComboboxRootChangeEventReason",
+        "ComboboxRootChangeEventDetails",
+        "ComboboxRootHighlightEventReason",
+        "ComboboxRootHighlightEventDetails",
+        "ComboboxRoot"
+      ],
+      "symbols": [
+        {
+          "name": "ComboboxRoot",
+          "syntax": "FunctionDeclaration",
+          "line": 11,
+          "bodySha256": "33ea624a90a6f51e5036df5399c59b184a0e56bf945e40253ad1c0a05697202c"
+        },
+        {
+          "name": "ModeFromMultiple",
+          "syntax": "TypeAliasDeclaration",
+          "line": 35,
+          "bodySha256": "fcf0cef041bc1dd25c9a903397a3f572bd4c4fe2d40ec0f9a9cc3cfbb7853dc9"
+        },
+        {
+          "name": "ComboboxValueType",
+          "syntax": "TypeAliasDeclaration",
+          "line": 39,
+          "bodySha256": "d05cab76558859d17f1322f3a5958dddb6afbb8a047f8d4110ee434688258ada"
+        },
+        {
+          "name": "ComboboxRootProps",
+          "syntax": "TypeAliasDeclaration",
+          "line": 43,
+          "bodySha256": "dbacb9d7bc3f86c3dc8e7f2a61c9183cb75de32012f83ae00d4efb7449899618"
+        },
+        {
+          "name": "ComboboxRootState",
+          "syntax": "InterfaceDeclaration",
+          "line": 161,
+          "bodySha256": "5e5774ebf36a6637b3ce3b91befb2b47c82f4120ff127fba631581cb49725e2b"
+        },
+        {
+          "name": "ComboboxRootActions",
+          "syntax": "TypeAliasDeclaration",
+          "line": 163,
+          "bodySha256": "98a8e0f7ae09a46f332ec8907022df0fd24c92339ada1a5802fb8bfc9c1f0724"
+        },
+        {
+          "name": "ComboboxRootChangeEventReason",
+          "syntax": "TypeAliasDeclaration",
+          "line": 165,
+          "bodySha256": "6cb6b1642981de58cfcac002e2ce831143015a8a2ce1f8991a60a8ef6c70f849"
+        },
+        {
+          "name": "ComboboxRootChangeEventDetails",
+          "syntax": "TypeAliasDeclaration",
+          "line": 166,
+          "bodySha256": "1078d3dee69b8f2ecd49c6c5fb292ec7a3255518b78de054b2057cad11eb3083"
+        },
+        {
+          "name": "ComboboxRootHighlightEventReason",
+          "syntax": "TypeAliasDeclaration",
+          "line": 168,
+          "bodySha256": "7e9fa93b419a80149f562ef99b177a401a787d5991883f6f843f6f694b47820c"
+        },
+        {
+          "name": "ComboboxRootHighlightEventDetails",
+          "syntax": "TypeAliasDeclaration",
+          "line": 169,
+          "bodySha256": "09129417e701cb15d8ab993181194ba70a5928ba660f39eca19fda8009a6953c"
+        },
+        {
+          "name": "ComboboxRoot",
+          "syntax": "ModuleDeclaration",
+          "line": 171,
+          "bodySha256": "0727c77a83a37a8266367b2948a8421539550da18426877e7eb7787448cd547a"
+        }
+      ],
+      "owner": "Canonical sibling/source helper owner; no edit lease granted for this popup port",
+      "scope": "Original test consumer dependency evidence only; do not implement a sibling family or private fixture engine",
+      "decision": "Use accepted canonical sibling implementation for its exact selected fixture parts and preserve shared helper identities. Until acceptance/test execution this dependent test scope stays incomplete.",
+      "manualStatus": "Original whole body read; local whole-body acceptance and execution pending"
+    },
+    {
+      "source": "packages/react/src/combobox/root/ComboboxRootContext.tsx",
+      "sha256": "600756607d0b45940123302880ac7763313f44a7bc06565c886e51682f2edaad",
+      "url": "https://github.com/mui/base-ui/blob/47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c/packages/react/src/combobox/root/ComboboxRootContext.tsx",
+      "declaredExports": [
+        "ComboboxDerivedItemsContext",
+        "ComboboxRootContext",
+        "ComboboxFloatingContext",
+        "ComboboxDerivedItemsContext",
+        "ComboboxHasItemsContext",
+        "ComboboxInputValueContext",
+        "useComboboxRootContext",
+        "useComboboxFloatingContext",
+        "useComboboxDerivedItemsContext",
+        "useComboboxInputValueContext",
+        "useComboboxHasItemsContext"
+      ],
+      "symbols": [
+        {
+          "name": "ComboboxDerivedItemsContext",
+          "syntax": "InterfaceDeclaration",
+          "line": 6,
+          "bodySha256": "b4cad1c032f358b5edc17bd7b396163a90f8eab2d6b36e305902f880b775b42a"
+        },
+        {
+          "name": "ComboboxRootContext",
+          "syntax": "VariableDeclaration",
+          "line": 17,
+          "bodySha256": "4c9eced84b93b076d93a40353900f2e9fbf3cfcb9cddd03f19e61fbf5398081c"
+        },
+        {
+          "name": "ComboboxFloatingContext",
+          "syntax": "VariableDeclaration",
+          "line": 18,
+          "bodySha256": "c46dfe6ed768da67e2bc8f046f8af51b8587c5f356bf4640e6fed515c0c7620e"
+        },
+        {
+          "name": "ComboboxDerivedItemsContext",
+          "syntax": "VariableDeclaration",
+          "line": 21,
+          "bodySha256": "86c8be3a2cfb4b31797a8a26df18c8496dff9de3b8d1fe7c3d109809813f4d62"
+        },
+        {
+          "name": "ComboboxHasItemsContext",
+          "syntax": "VariableDeclaration",
+          "line": 24,
+          "bodySha256": "a9d7255ef188ae5bbd68527762e0e18bb6a8a9012c22f3ad06c0199fa850537c"
+        },
+        {
+          "name": "ComboboxInputValueContext",
+          "syntax": "VariableDeclaration",
+          "line": 27,
+          "bodySha256": "d644fe48f0962d7fdbec48a7873fe855676fbe0a8b7c0c8152d50e6e894eed69"
+        },
+        {
+          "name": "useComboboxRootContext",
+          "syntax": "FunctionDeclaration",
+          "line": 30,
+          "bodySha256": "ae3bde282c0cf3e6c1c472b6a6229100a32e37eb253b5dae31ff9c1e894c9971"
+        },
+        {
+          "name": "useComboboxFloatingContext",
+          "syntax": "FunctionDeclaration",
+          "line": 40,
+          "bodySha256": "8473c8e2b505b43474b1cc5f139e915fe6084671f6433e6a1a03b595f68fc833"
+        },
+        {
+          "name": "useComboboxDerivedItemsContext",
+          "syntax": "FunctionDeclaration",
+          "line": 50,
+          "bodySha256": "ec57bfd382e38892ccb71b4e00df48eb70a19e0a5e412e11bc877b5cca7d24fb"
+        },
+        {
+          "name": "useComboboxInputValueContext",
+          "syntax": "FunctionDeclaration",
+          "line": 60,
+          "bodySha256": "249b2b44522ecd73355357df189a4946e8f17c7b58bbcacde98540e45211e4d0"
+        },
+        {
+          "name": "useComboboxHasItemsContext",
+          "syntax": "FunctionDeclaration",
+          "line": 64,
+          "bodySha256": "e2fb335deea7b3a0bb7d1e9ae41c9d9e948b7375bcb4789ec906d21e9f0c62c9"
+        }
+      ],
+      "owner": "Canonical sibling/source helper owner; no edit lease granted for this popup port",
+      "scope": "Original test consumer dependency evidence only; do not implement a sibling family or private fixture engine",
+      "decision": "Use accepted canonical sibling implementation for its exact selected fixture parts and preserve shared helper identities. Until acceptance/test execution this dependent test scope stays incomplete.",
+      "manualStatus": "Original whole body read; local whole-body acceptance and execution pending"
+    },
+    {
+      "source": "packages/react/src/combobox/root/utils/constants.ts",
+      "sha256": "d5e128ca8e127856cda9649a4baa291117cfc7fe6e603f14c25d9029f987c51a",
+      "url": "https://github.com/mui/base-ui/blob/47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c/packages/react/src/combobox/root/utils/constants.ts",
+      "declaredExports": [
+        "NO_ACTIVE_VALUE",
+        "INITIAL_LAST_HIGHLIGHT"
+      ],
+      "symbols": [
+        {
+          "name": "NO_ACTIVE_VALUE",
+          "syntax": "VariableDeclaration",
+          "line": 1,
+          "bodySha256": "418b75b120d8f868912c01b93e52359f5b402002e369ea1ddfc20ee357e3f8fb"
+        },
+        {
+          "name": "INITIAL_LAST_HIGHLIGHT",
+          "syntax": "VariableDeclaration",
+          "line": 2,
+          "bodySha256": "9be24a05ca893a766531de38ff6ed833b67dca5b2afc009a707751379e9f821b"
+        }
+      ],
+      "owner": "Canonical sibling/source helper owner; no edit lease granted for this popup port",
+      "scope": "Original test consumer dependency evidence only; do not implement a sibling family or private fixture engine",
+      "decision": "Use accepted canonical sibling implementation for its exact selected fixture parts and preserve shared helper identities. Until acceptance/test execution this dependent test scope stays incomplete.",
+      "manualStatus": "Original whole body read; local whole-body acceptance and execution pending"
+    },
+    {
+      "source": "packages/react/src/combobox/root/utils/index.ts",
+      "sha256": "a385eed80f43c90844b71352864ca93d1be6dd63fcf01225b68599a6673ed702",
+      "url": "https://github.com/mui/base-ui/blob/47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c/packages/react/src/combobox/root/utils/index.ts",
+      "declaredExports": [
+        "FilterItemToString",
+        "getComboboxPopupId",
+        "createCollatorItemFilter",
+        "createSingleSelectionCollatorFilter"
+      ],
+      "symbols": [
+        {
+          "name": "FilterItemToString",
+          "syntax": "TypeAliasDeclaration",
+          "line": 4,
+          "bodySha256": "807862289bc6e52a2a371030a1b336d656cada8ed38033996a3349d202338064"
+        },
+        {
+          "name": "getComboboxPopupId",
+          "syntax": "FunctionDeclaration",
+          "line": 13,
+          "bodySha256": "6e0eb5a856ca08da8ad44906a3bb8f2ed3e541460ab8ff2f975dc58c5f6e21d4"
+        },
+        {
+          "name": "createCollatorItemFilter",
+          "syntax": "FunctionDeclaration",
+          "line": 23,
+          "bodySha256": "57289117c1e278bec53ea8167fd46df1e3238c38b83736f3e4befbe697dc14e6"
+        },
+        {
+          "name": "createSingleSelectionCollatorFilter",
+          "syntax": "FunctionDeclaration",
+          "line": 40,
+          "bodySha256": "4586094962178c2a3b0eefb219ddbb0c21af61778db33c7277b4ee4796f97126"
+        }
+      ],
+      "owner": "Canonical sibling/source helper owner; no edit lease granted for this popup port",
+      "scope": "Original test consumer dependency evidence only; do not implement a sibling family or private fixture engine",
+      "decision": "Use accepted canonical sibling implementation for its exact selected fixture parts and preserve shared helper identities. Until acceptance/test execution this dependent test scope stays incomplete.",
+      "manualStatus": "Original whole body read; local whole-body acceptance and execution pending"
+    },
+    {
+      "source": "packages/react/src/combobox/root/utils/useFilter.ts",
+      "sha256": "4957b81a38f6b5e2ed1d615590e9c941a2e46e3505da722ef7c6b78f326a51a0",
+      "url": "https://github.com/mui/base-ui/blob/47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c/packages/react/src/combobox/root/utils/useFilter.ts",
+      "declaredExports": [
+        "Filter",
+        "UseFilterOptions",
+        "useCoreFilter",
+        "UseComboboxFilterOptions",
+        "useComboboxFilter"
+      ],
+      "symbols": [
+        {
+          "name": "useCoreFilter",
+          "syntax": "VariableDeclaration",
+          "line": 15,
+          "bodySha256": "aba00a4940318faae462f1f3ed81e09489b71247e3db0808ef584e74b3b566d1"
+        },
+        {
+          "name": "UseComboboxFilterOptions",
+          "syntax": "InterfaceDeclaration",
+          "line": 17,
+          "bodySha256": "ced1167a055e95c56daa2adf32f14f49006ca3fbc6202b8f235d72d434f07426"
+        },
+        {
+          "name": "useComboboxFilter",
+          "syntax": "FunctionDeclaration",
+          "line": 33,
+          "bodySha256": "fc7707a190707f14462a165da1e7e52547e385c5e97bae3dea0cfb91549342b5"
+        }
+      ],
+      "owner": "Canonical sibling/source helper owner; no edit lease granted for this popup port",
+      "scope": "Original test consumer dependency evidence only; do not implement a sibling family or private fixture engine",
+      "decision": "Use accepted canonical sibling implementation for its exact selected fixture parts and preserve shared helper identities. Until acceptance/test execution this dependent test scope stays incomplete.",
+      "manualStatus": "Original whole body read; local whole-body acceptance and execution pending"
+    },
+    {
+      "source": "packages/react/src/combobox/row/ComboboxRowContext.ts",
+      "sha256": "ae6a0a32e2e5a0fcd2a7604ff6bc0432c864a671ba4a23881043e2c38282fbaa",
+      "url": "https://github.com/mui/base-ui/blob/47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c/packages/react/src/combobox/row/ComboboxRowContext.ts",
+      "declaredExports": [
+        "ComboboxRowContext",
+        "useComboboxRowContext"
+      ],
+      "symbols": [
+        {
+          "name": "ComboboxRowContext",
+          "syntax": "VariableDeclaration",
+          "line": 4,
+          "bodySha256": "802d050f9b7ce0c40cf36ec88b34b428cfa9e54229fc55dac03f410e36dd5a64"
+        },
+        {
+          "name": "useComboboxRowContext",
+          "syntax": "FunctionDeclaration",
+          "line": 6,
+          "bodySha256": "5f6ce3a1c62cb5368bd583ed5bbb2193855900fba340d97f8a20eab865b9d134"
+        }
+      ],
+      "owner": "Canonical sibling/source helper owner; no edit lease granted for this popup port",
+      "scope": "Original test consumer dependency evidence only; do not implement a sibling family or private fixture engine",
+      "decision": "Use accepted canonical sibling implementation for its exact selected fixture parts and preserve shared helper identities. Until acceptance/test execution this dependent test scope stays incomplete.",
+      "manualStatus": "Original whole body read; local whole-body acceptance and execution pending"
+    },
+    {
+      "source": "packages/react/src/combobox/store.ts",
+      "sha256": "6a3be3810757cbea482928017396a6c31ad72d1e628a09f39d1b6e92551ef343",
+      "url": "https://github.com/mui/base-ui/blob/47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c/packages/react/src/combobox/store.ts",
+      "declaredExports": [
+        "State",
+        "ComboboxStoreContext",
+        "selectors",
+        "ComboboxStore"
+      ],
+      "symbols": [
+        {
+          "name": "State",
+          "syntax": "TypeAliasDeclaration",
+          "line": 10,
+          "bodySha256": "aaebf0f20c875e9b03db2f2cb05562d06f21430f15338d726a93b71529c7e2f0"
+        },
+        {
+          "name": "ComboboxStoreContext",
+          "syntax": "TypeAliasDeclaration",
+          "line": 69,
+          "bodySha256": "b45706320f9d3e352a567486c6db3a9225ddb9f37928b4e1faa2615b16444b95"
+        },
+        {
+          "name": "selectors",
+          "syntax": "VariableDeclaration",
+          "line": 122,
+          "bodySha256": "fd74d9fcff53effab65d012d6948d559bbe953a02bef981c1da3612cdb43faa8"
+        },
+        {
+          "name": "ComboboxStore",
+          "syntax": "TypeAliasDeclaration",
+          "line": 205,
+          "bodySha256": "8dc0362512a8083b8f9a6c10230f11dcd1beda8bc883d5ee4b8620d7e18f3b4b"
+        }
+      ],
+      "owner": "Canonical sibling/source helper owner; no edit lease granted for this popup port",
+      "scope": "Original test consumer dependency evidence only; do not implement a sibling family or private fixture engine",
+      "decision": "Use accepted canonical sibling implementation for its exact selected fixture parts and preserve shared helper identities. Until acceptance/test execution this dependent test scope stays incomplete.",
+      "manualStatus": "Original whole body read; local whole-body acceptance and execution pending"
+    },
+    {
+      "source": "packages/react/src/combobox/utils/ComboboxInternalDismissButton.tsx",
+      "sha256": "271355e34e7e53994194da0adb4d78017cf1565acf32253e39317e7e7da3e062",
+      "url": "https://github.com/mui/base-ui/blob/47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c/packages/react/src/combobox/utils/ComboboxInternalDismissButton.tsx",
+      "declaredExports": [
+        "ComboboxInternalDismissButton"
+      ],
+      "symbols": [
+        {
+          "name": "DismissEvent",
+          "syntax": "TypeAliasDeclaration",
+          "line": 10,
+          "bodySha256": "9456a925c8dff69dab6030f98481bd5db3df7a605dc93bbe3780df5786cc4095"
+        },
+        {
+          "name": "ComboboxInternalDismissButton",
+          "syntax": "VariableDeclaration",
+          "line": 15,
+          "bodySha256": "0e74b4b729a5db8cbec7fbb0f90096b94bbf3684ca3bfd177bd585410a152922"
+        }
+      ],
+      "owner": "Canonical sibling/source helper owner; no edit lease granted for this popup port",
+      "scope": "Original test consumer dependency evidence only; do not implement a sibling family or private fixture engine",
+      "decision": "Use accepted canonical sibling implementation for its exact selected fixture parts and preserve shared helper identities. Until acceptance/test execution this dependent test scope stays incomplete.",
+      "manualStatus": "Original whole body read; local whole-body acceptance and execution pending"
+    },
+    {
+      "source": "packages/react/src/combobox/utils/parts.ts",
+      "sha256": "ebbebc7ae7ed670d3ddea779df7451dd40762e785566d0450950a0fc479f7b95",
+      "url": "https://github.com/mui/base-ui/blob/47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c/packages/react/src/combobox/utils/parts.ts",
+      "declaredExports": [
+        "usePopupSide",
+        "useListEmpty",
+        "getChipNavigationKeys",
+        "getIndexAfterChipRemoval",
+        "clickHighlightedItem"
+      ],
+      "symbols": [
+        {
+          "name": "usePopupSide",
+          "syntax": "FunctionDeclaration",
+          "line": 10,
+          "bodySha256": "a743b08ed10e01c5c117567509de1b1eb3ad5459b1491f1c83d6ee3897424970"
+        },
+        {
+          "name": "useListEmpty",
+          "syntax": "FunctionDeclaration",
+          "line": 21,
+          "bodySha256": "15e35540cdace14d8d59d9b9b33f51eabeffdfbc68e7373395aeec29f3fb3110"
+        },
+        {
+          "name": "getChipNavigationKeys",
+          "syntax": "FunctionDeclaration",
+          "line": 28,
+          "bodySha256": "30ad78110a2f9049cd272332f5bd50c6033b0ae6926b2b34811e67b2e20681e1"
+        },
+        {
+          "name": "getIndexAfterChipRemoval",
+          "syntax": "FunctionDeclaration",
+          "line": 37,
+          "bodySha256": "33b2e80b8ed2158c6b93ed8537d05f547fe9fb28d18d7e4ad304aa0d50742b4c"
+        },
+        {
+          "name": "clickHighlightedItem",
+          "syntax": "FunctionDeclaration",
+          "line": 46,
+          "bodySha256": "6464bc7e1c4008427bc4010a741bd95ec9298746d73bdda4dceaa64ed9de1e46"
+        }
+      ],
+      "owner": "Canonical sibling/source helper owner; no edit lease granted for this popup port",
+      "scope": "Original test consumer dependency evidence only; do not implement a sibling family or private fixture engine",
+      "decision": "Use accepted canonical sibling implementation for its exact selected fixture parts and preserve shared helper identities. Until acceptance/test execution this dependent test scope stays incomplete.",
+      "manualStatus": "Original whole body read; local whole-body acceptance and execution pending"
+    },
+    {
+      "source": "packages/react/src/combobox/utils/stateAttributesMapping.ts",
+      "sha256": "5a576f1e3472b7606400f2711df7c7cea37f3f40603b4f8e7fe57f2ddcb9b058",
+      "url": "https://github.com/mui/base-ui/blob/47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c/packages/react/src/combobox/utils/stateAttributesMapping.ts",
+      "declaredExports": [
+        "triggerStateAttributesMapping"
+      ],
+      "symbols": [
+        {
+          "name": "triggerStateAttributesMapping",
+          "syntax": "VariableDeclaration",
+          "line": 7,
+          "bodySha256": "3c4eea10dbf6bdf13eacfea8a561c650fca80735288f19d77276133e27098222"
+        }
+      ],
+      "owner": "Canonical sibling/source helper owner; no edit lease granted for this popup port",
+      "scope": "Original test consumer dependency evidence only; do not implement a sibling family or private fixture engine",
+      "decision": "Use accepted canonical sibling implementation for its exact selected fixture parts and preserve shared helper identities. Until acceptance/test execution this dependent test scope stays incomplete.",
+      "manualStatus": "Original whole body read; local whole-body acceptance and execution pending"
+    },
+    {
+      "source": "packages/react/src/context-menu/root/ContextMenuRoot.tsx",
+      "sha256": "e0fb4af32954da54bf8177bf9326b5862711a6fa158427e74b6ff606d023cafa",
+      "url": "https://github.com/mui/base-ui/blob/47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c/packages/react/src/context-menu/root/ContextMenuRoot.tsx",
+      "declaredExports": [
+        "ContextMenuRoot",
+        "ContextMenuRootState",
+        "ContextMenuRootProps",
+        "ContextMenuRootActions",
+        "ContextMenuRootChangeEventReason",
+        "ContextMenuRootChangeEventDetails",
+        "ContextMenuRoot"
+      ],
+      "symbols": [
+        {
+          "name": "ContextMenuRoot",
+          "syntax": "FunctionDeclaration",
+          "line": 16,
+          "bodySha256": "13df28228790e8d9c38d0cfafcdbbe42b5d83b533833d476b58a7721113fdb5d"
+        },
+        {
+          "name": "ContextMenuRootState",
+          "syntax": "InterfaceDeclaration",
+          "line": 55,
+          "bodySha256": "c080d67b4bf5eb3e2634743869ca526f3feaecf640bc47d1301a3fc94db834b1"
+        },
+        {
+          "name": "ContextMenuRootProps",
+          "syntax": "InterfaceDeclaration",
+          "line": 57,
+          "bodySha256": "e619163ef92f896e2c88326cab90d09712ed141cdc58601f683f0f2ce288dbac"
+        },
+        {
+          "name": "ContextMenuRootActions",
+          "syntax": "TypeAliasDeclaration",
+          "line": 87,
+          "bodySha256": "a07f3e377ff3eb6c7c674cc0115920e88ffaadc34900d4fa43a407bd5f58bdd8"
+        },
+        {
+          "name": "ContextMenuRootChangeEventReason",
+          "syntax": "TypeAliasDeclaration",
+          "line": 88,
+          "bodySha256": "d658f8c8bdd13def5c7f129f5dcd2d1a5abb727f711734bf72cc8f3c99719f9b"
+        },
+        {
+          "name": "ContextMenuRootChangeEventDetails",
+          "syntax": "TypeAliasDeclaration",
+          "line": 89,
+          "bodySha256": "3d958f8b7285fb2b57ac6c4d48b2d00323b683162cf0a383635e062c1cc2bd5d"
+        },
+        {
+          "name": "ContextMenuRoot",
+          "syntax": "ModuleDeclaration",
+          "line": 92,
+          "bodySha256": "be4acac0c2c4806dfa1b6b89113298d37f8c2383d427cd2af5acdb27f06c3d70"
+        }
+      ],
+      "owner": "Menu developer, canonical implementation only",
+      "scope": "Original test consumer dependency evidence only; do not implement a sibling family or private fixture engine",
+      "decision": "Use accepted canonical sibling implementation for its exact selected fixture parts and preserve shared helper identities. Until acceptance/test execution this dependent test scope stays incomplete.",
+      "manualStatus": "Original whole body read; local whole-body acceptance and execution pending"
+    },
+    {
+      "source": "packages/react/src/context-menu/root/ContextMenuRootContext.ts",
+      "sha256": "a8ed145ba0dbc46000b73f74c0485de4467d1d98443170d58304945493ef71df",
+      "url": "https://github.com/mui/base-ui/blob/47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c/packages/react/src/context-menu/root/ContextMenuRootContext.ts",
+      "declaredExports": [
+        "ContextMenuRootContext",
+        "ContextMenuRootContext",
+        "useContextMenuRootContext",
+        "useContextMenuRootContext",
+        "useContextMenuRootContext"
+      ],
+      "symbols": [
+        {
+          "name": "ContextMenuRootContext",
+          "syntax": "InterfaceDeclaration",
+          "line": 5,
+          "bodySha256": "a649e97ac325903fa54c075a174c38ffbfcb547822f27d2c1ea517631682e112"
+        },
+        {
+          "name": "ContextMenuRootContext",
+          "syntax": "VariableDeclaration",
+          "line": 19,
+          "bodySha256": "591b2f730f65d6562d195c62f3404831e18d0cb3a921f8490042a3b79aeb7e95"
+        },
+        {
+          "name": "useContextMenuRootContext",
+          "syntax": "FunctionDeclaration",
+          "line": 23,
+          "bodySha256": "a3874e7d22f08809c6d205c8db8085c117a37ab2b3ade72d011eeb8549c1a57e"
+        },
+        {
+          "name": "useContextMenuRootContext",
+          "syntax": "FunctionDeclaration",
+          "line": 24,
+          "bodySha256": "03804f80a6e04bf851d5118a069a756c6450a954f6c7d59a17037c0572eb7072"
+        },
+        {
+          "name": "useContextMenuRootContext",
+          "syntax": "FunctionDeclaration",
+          "line": 25,
+          "bodySha256": "33d8fd8609ff233a7301b9ef91d1d8f6952b5cb96eeed637893193439d74cdff"
+        }
+      ],
+      "owner": "Menu developer, canonical implementation only",
+      "scope": "Original test consumer dependency evidence only; do not implement a sibling family or private fixture engine",
+      "decision": "Use accepted canonical sibling implementation for its exact selected fixture parts and preserve shared helper identities. Until acceptance/test execution this dependent test scope stays incomplete.",
+      "manualStatus": "Original whole body read; local whole-body acceptance and execution pending"
+    },
+    {
+      "source": "packages/react/src/field/control/FieldControlDataAttributes.ts",
+      "sha256": "cbdf610a0e3492927587685b1d4f9bf8ae5ac2cba01e5f39e4001de9f9d0b1d3",
+      "url": "https://github.com/mui/base-ui/blob/47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c/packages/react/src/field/control/FieldControlDataAttributes.ts",
+      "declaredExports": [
+        "disabled",
+        "valid",
+        "invalid",
+        "touched",
+        "dirty",
+        "filled",
+        "focused"
+      ],
+      "symbols": [
+        {
+          "name": "disabled",
+          "syntax": "VariableDeclaration",
+          "line": 4,
+          "bodySha256": "a2ebac218e524fa23f57764468dac13c6acb7e02317bc85ce98f93d8ffb85750"
+        },
+        {
+          "name": "valid",
+          "syntax": "VariableDeclaration",
+          "line": 8,
+          "bodySha256": "58706295bace21b5bd9180a0f1a9be4209359ffd202b693a2b007b8e44d43bde"
+        },
+        {
+          "name": "invalid",
+          "syntax": "VariableDeclaration",
+          "line": 12,
+          "bodySha256": "aa6d70b885b6154ee248e357635e773ad08705edacd5478764905a6b371da601"
+        },
+        {
+          "name": "touched",
+          "syntax": "VariableDeclaration",
+          "line": 16,
+          "bodySha256": "5e936aa7b3ca5902405a706d3a1a3bce0adb8f1dad06f782355865fa7c2120a8"
+        },
+        {
+          "name": "dirty",
+          "syntax": "VariableDeclaration",
+          "line": 20,
+          "bodySha256": "e3eb4e6deaeb86bf0f7f5d58851e1698be784a0ab54fbe3c8e42f65448dcb3df"
+        },
+        {
+          "name": "filled",
+          "syntax": "VariableDeclaration",
+          "line": 24,
+          "bodySha256": "b78a8ba0e7a72ac0ec2a475e42c44dfc23b2ae2ca257e7acf4bca309a8cb259a"
+        },
+        {
+          "name": "focused",
+          "syntax": "VariableDeclaration",
+          "line": 28,
+          "bodySha256": "cb8b400af3f8a2aec5caff20a97b84eb146d7c70596f6f7582d90b5635b93587"
+        }
+      ],
+      "owner": "Canonical sibling/source helper owner; no edit lease granted for this popup port",
+      "scope": "Original test consumer dependency evidence only; do not implement a sibling family or private fixture engine",
+      "decision": "Use accepted canonical sibling implementation for its exact selected fixture parts and preserve shared helper identities. Until acceptance/test execution this dependent test scope stays incomplete.",
+      "manualStatus": "Original whole body read; local whole-body acceptance and execution pending"
+    },
+    {
+      "source": "packages/react/src/field/root/FieldRoot.tsx",
+      "sha256": "1f9861ae4813ab53a0092c5c5c760716a80fa618a11343f065f4ad4dee62a36e",
+      "url": "https://github.com/mui/base-ui/blob/47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c/packages/react/src/field/root/FieldRoot.tsx",
+      "declaredExports": [
+        "FieldRoot",
+        "FieldValidityData",
+        "FieldRootActions",
+        "FieldRootState",
+        "FieldRootProps",
+        "FieldRoot"
+      ],
+      "symbols": [
+        {
+          "name": "FieldRootInner",
+          "syntax": "VariableDeclaration",
+          "line": 22,
+          "bodySha256": "89e1249b1305ca6bbbc6b667eb8ef21fe9c1270b825bc4813d4b5f3761754984"
+        },
+        {
+          "name": "FieldRoot",
+          "syntax": "VariableDeclaration",
+          "line": 202,
+          "bodySha256": "b3c453981b1185c8bcc7979297213dfdca6fd4529083a20d14f40572560c1243"
+        },
+        {
+          "name": "FieldValidityData",
+          "syntax": "InterfaceDeclaration",
+          "line": 213,
+          "bodySha256": "3bf8384760aa5b1c8203b25d9fda6dc571d4880783bdc2e897041749cc697687"
+        },
+        {
+          "name": "FieldRootActions",
+          "syntax": "InterfaceDeclaration",
+          "line": 233,
+          "bodySha256": "94912435134d6fbeefc18420e04d0d68d8562dc1955b7f0cab62c8c1242eb497"
+        },
+        {
+          "name": "FieldRootState",
+          "syntax": "InterfaceDeclaration",
+          "line": 237,
+          "bodySha256": "a298a2b0490d7bc9f2774dafc60ef21e14e00c813174a563b64a4890795e8ad6"
+        },
+        {
+          "name": "FieldRootProps",
+          "syntax": "InterfaceDeclaration",
+          "line": 264,
+          "bodySha256": "a220da0df70fb58a6a5c408484464eb86446cd06c6734573231a1318a2ad9849"
+        },
+        {
+          "name": "FieldRoot",
+          "syntax": "ModuleDeclaration",
+          "line": 328,
+          "bodySha256": "351815c5948b610843411bb9828b06f963fe54fd53c3011a194e3cd2b996e5b9"
+        }
+      ],
+      "owner": "Canonical sibling/source helper owner; no edit lease granted for this popup port",
+      "scope": "Original test consumer dependency evidence only; do not implement a sibling family or private fixture engine",
+      "decision": "Use accepted canonical sibling implementation for its exact selected fixture parts and preserve shared helper identities. Until acceptance/test execution this dependent test scope stays incomplete.",
+      "manualStatus": "Original whole body read; local whole-body acceptance and execution pending"
+    },
+    {
+      "source": "packages/react/src/field/root/useFieldValidation.ts",
+      "sha256": "f34d2c7c03621494f8a8ca8867c3a66a8b7c8089b022e851211db5429b63de89",
+      "url": "https://github.com/mui/base-ui/blob/47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c/packages/react/src/field/root/useFieldValidation.ts",
+      "declaredExports": [
+        "RegisteredInput",
+        "RegisteredInputs",
+        "isEligibleInput",
+        "useFieldValidation",
+        "UseFieldValidationParameters",
+        "UseFieldValidationReturnValue"
+      ],
+      "symbols": [
+        {
+          "name": "validityKeys",
+          "syntax": "VariableDeclaration",
+          "line": 16,
+          "bodySha256": "29e1eeb6a454a22b4e08284399c572dabab66ec136758da71121d856e72eb9e9"
+        },
+        {
+          "name": "RegisteredInput",
+          "syntax": "TypeAliasDeclaration",
+          "line": 18,
+          "bodySha256": "7edab9c633ee9a4716150538fa389df9d383909550424e66bfc7a1a41f0c1460"
+        },
+        {
+          "name": "RegisteredInputs",
+          "syntax": "TypeAliasDeclaration",
+          "line": 23,
+          "bodySha256": "e0b5c07af8a726819a73a0f5351a62b179eb991c037db896dea3805db4790792"
+        },
+        {
+          "name": "isEligibleInput",
+          "syntax": "FunctionDeclaration",
+          "line": 32,
+          "bodySha256": "5d2f55a04cec252537ba88309850a7fcdad0d98129e7a7cd455773df1e63df09"
+        },
+        {
+          "name": "findRepresentativeInput",
+          "syntax": "FunctionDeclaration",
+          "line": 51,
+          "bodySha256": "e5156c63ac814b27590bcea22a55166677775175bd4112ac3ef38bd055158b30"
+        },
+        {
+          "name": "makeState",
+          "syntax": "FunctionDeclaration",
+          "line": 68,
+          "bodySha256": "6367a8cc2bcc211fc56ff9c56a7d0fc74cb6fa419594776372f8f944292b5f92"
+        },
+        {
+          "name": "getNativeErrors",
+          "syntax": "FunctionDeclaration",
+          "line": 72,
+          "bodySha256": "e11e80fa37dd769ae7a3510a38c3049e26538be894de9872333830e7ec427995"
+        },
+        {
+          "name": "useFieldValidation",
+          "syntax": "FunctionDeclaration",
+          "line": 76,
+          "bodySha256": "09807cde82b9cc0858b133dca2f5ac652c4319ff814d097054db0150df1a4f56"
+        },
+        {
+          "name": "UseFieldValidationParameters",
+          "syntax": "InterfaceDeclaration",
+          "line": 392,
+          "bodySha256": "08475207fe60bc5b2af50dba7c027ed9e48fee94779b37d91bb571991b324fe5"
+        },
+        {
+          "name": "UseFieldValidationReturnValue",
+          "syntax": "InterfaceDeclaration",
+          "line": 408,
+          "bodySha256": "04637d6b774e171ef95ae7ae41c8372170640757cd609b609613d1bb31cb571c"
+        }
+      ],
+      "owner": "Canonical sibling/source helper owner; no edit lease granted for this popup port",
+      "scope": "Original test consumer dependency evidence only; do not implement a sibling family or private fixture engine",
+      "decision": "Use accepted canonical sibling implementation for its exact selected fixture parts and preserve shared helper identities. Until acceptance/test execution this dependent test scope stays incomplete.",
+      "manualStatus": "Original whole body read; local whole-body acceptance and execution pending"
+    },
+    {
+      "source": "packages/react/src/field/utils/getCombinedFieldValidityData.ts",
+      "sha256": "ad1121fec3eb304d56da1e2aeadb647bcb6e0a0ae87c45dca4773b002b840f3a",
+      "url": "https://github.com/mui/base-ui/blob/47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c/packages/react/src/field/utils/getCombinedFieldValidityData.ts",
+      "declaredExports": [
+        "getCombinedFieldValidityData"
+      ],
+      "symbols": [
+        {
+          "name": "getCombinedFieldValidityData",
+          "syntax": "FunctionDeclaration",
+          "line": 7,
+          "bodySha256": "1e8549e49a1edd1be05cf2189341373024667f7a961638709da021a078a36a0f"
+        }
+      ],
+      "owner": "Canonical sibling/source helper owner; no edit lease granted for this popup port",
+      "scope": "Original test consumer dependency evidence only; do not implement a sibling family or private fixture engine",
+      "decision": "Use accepted canonical sibling implementation for its exact selected fixture parts and preserve shared helper identities. Until acceptance/test execution this dependent test scope stays incomplete.",
+      "manualStatus": "Original whole body read; local whole-body acceptance and execution pending"
+    },
+    {
+      "source": "packages/react/src/fieldset/root/FieldsetRootContext.ts",
+      "sha256": "f4d9dbeb41dc4bab42b3ba6dca1ce51ff83c009a6f7e5507a2b1f840e3708dcc",
+      "url": "https://github.com/mui/base-ui/blob/47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c/packages/react/src/fieldset/root/FieldsetRootContext.ts",
+      "declaredExports": [
+        "FieldsetRootContext",
+        "FieldsetRootContext",
+        "useFieldsetRootContext",
+        "useFieldsetRootContext",
+        "useFieldsetRootContext"
+      ],
+      "symbols": [
+        {
+          "name": "FieldsetRootContext",
+          "syntax": "InterfaceDeclaration",
+          "line": 4,
+          "bodySha256": "fcc4ab619cb6e13925eccc7ec97428159c270dc7a78686372ac7370c3c0d791a"
+        },
+        {
+          "name": "FieldsetRootContext",
+          "syntax": "VariableDeclaration",
+          "line": 10,
+          "bodySha256": "a4acfd3507a2652ecd3bf0282e8e4e3ed6c61517eb954c7f12843a3960d303d6"
+        },
+        {
+          "name": "useFieldsetRootContext",
+          "syntax": "FunctionDeclaration",
+          "line": 12,
+          "bodySha256": "3e2fe95df14e04581821e879391e3091421fb9b653e869457d041a67691907a5"
+        },
+        {
+          "name": "useFieldsetRootContext",
+          "syntax": "FunctionDeclaration",
+          "line": 13,
+          "bodySha256": "44340c34c4f6ae6ebdc5bff332240c6957283cc068e88e1ee2b584a1ac6d394e"
+        },
+        {
+          "name": "useFieldsetRootContext",
+          "syntax": "FunctionDeclaration",
+          "line": 14,
+          "bodySha256": "d85f5f1a60288e302808aff324dcb7141b99245f5aa0cbf342ecd97d5c51e554"
+        }
+      ],
+      "owner": "Canonical sibling/source helper owner; no edit lease granted for this popup port",
+      "scope": "Original test consumer dependency evidence only; do not implement a sibling family or private fixture engine",
+      "decision": "Use accepted canonical sibling implementation for its exact selected fixture parts and preserve shared helper identities. Until acceptance/test execution this dependent test scope stays incomplete.",
+      "manualStatus": "Original whole body read; local whole-body acceptance and execution pending"
+    },
+    {
+      "source": "packages/react/src/form/Form.tsx",
+      "sha256": "c8a77589d2a3de310b46623154e38ddf6b9fc4c7ff71299f690411949d23898b",
+      "url": "https://github.com/mui/base-ui/blob/47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c/packages/react/src/form/Form.tsx",
+      "declaredExports": [
+        "Form",
+        "FormSubmitEventReason",
+        "FormSubmitEventDetails",
+        "FormValidationMode",
+        "FormActions",
+        "FormState",
+        "FormProps",
+        "Form"
+      ],
+      "symbols": [
+        {
+          "name": "Form",
+          "syntax": "VariableDeclaration",
+          "line": 21,
+          "bodySha256": "a126349cb8aada53630e494249b660c18c4f0c85d4b702c5c9a9cbd98750ac4f"
+        },
+        {
+          "name": "FormSubmitEventReason",
+          "syntax": "TypeAliasDeclaration",
+          "line": 180,
+          "bodySha256": "ce8b0ffe20ada7f62599697c537154497a95ce220a81ade1c50cff11fda18834"
+        },
+        {
+          "name": "FormSubmitEventDetails",
+          "syntax": "TypeAliasDeclaration",
+          "line": 181,
+          "bodySha256": "f14943b7050196469431f436a4a8826447f8c60937b6647ee127a7da4d3ce7cb"
+        },
+        {
+          "name": "FormValidationMode",
+          "syntax": "TypeAliasDeclaration",
+          "line": 183,
+          "bodySha256": "7ae9efa5eaaab24f04a7d48208cb4f82dbcff8b50c4c0e415ed9dd3be6c8f9c6"
+        },
+        {
+          "name": "FormActions",
+          "syntax": "InterfaceDeclaration",
+          "line": 185,
+          "bodySha256": "79f932a5e617d32ab063a1203a870bb64c9e0a158729eae30eabea31d90fc878"
+        },
+        {
+          "name": "FormState",
+          "syntax": "InterfaceDeclaration",
+          "line": 189,
+          "bodySha256": "8f8e4149bb4b81185cd1c017cd516055790eeeda25f4c1c9c5adefed711f1a0b"
+        },
+        {
+          "name": "FormProps",
+          "syntax": "InterfaceDeclaration",
+          "line": 191,
+          "bodySha256": "16a899460c6478ea04cabb1c4854c4d359d23cc680d3e90d6314140716917856"
+        },
+        {
+          "name": "Form",
+          "syntax": "ModuleDeclaration",
+          "line": 232,
+          "bodySha256": "f52e79e7a38ce1d675f963d2793652e5972b8c8a97aec9fb13b648023725184e"
+        },
+        {
+          "name": "comesBeforeInSameTree",
+          "syntax": "FunctionDeclaration",
+          "line": 245,
+          "bodySha256": "3b28668e2905e6e39ecdf68f75048c064b4a78ec6ad4ec4ac25a121cb4ca4873"
+        }
+      ],
+      "owner": "Canonical sibling/source helper owner; no edit lease granted for this popup port",
+      "scope": "Original test consumer dependency evidence only; do not implement a sibling family or private fixture engine",
+      "decision": "Use accepted canonical sibling implementation for its exact selected fixture parts and preserve shared helper identities. Until acceptance/test execution this dependent test scope stays incomplete.",
+      "manualStatus": "Original whole body read; local whole-body acceptance and execution pending"
+    },
+    {
+      "source": "packages/react/src/form/index.ts",
+      "sha256": "307b2a028920f531705827c9d9e43ea26193e734bffbac98170b9718f90ea9f8",
+      "url": "https://github.com/mui/base-ui/blob/47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c/packages/react/src/form/index.ts",
+      "declaredExports": [],
+      "symbols": [],
+      "owner": "Canonical sibling/source helper owner; no edit lease granted for this popup port",
+      "scope": "Original test consumer dependency evidence only; do not implement a sibling family or private fixture engine",
+      "decision": "Use accepted canonical sibling implementation for its exact selected fixture parts and preserve shared helper identities. Until acceptance/test execution this dependent test scope stays incomplete.",
+      "manualStatus": "Original whole body read; local whole-body acceptance and execution pending"
+    },
+    {
+      "source": "packages/react/src/index.ts",
+      "sha256": "bdc94b38f7d1ab96c528b46d28b87db4e20caaf65629acec6ffd9b5f16bb90ed",
+      "url": "https://github.com/mui/base-ui/blob/47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c/packages/react/src/index.ts",
+      "declaredExports": [],
+      "symbols": [],
+      "owner": "Canonical sibling/source helper owner; no edit lease granted for this popup port",
+      "scope": "Original test consumer dependency evidence only; do not implement a sibling family or private fixture engine",
+      "decision": "Use accepted canonical sibling implementation for its exact selected fixture parts and preserve shared helper identities. Until acceptance/test execution this dependent test scope stays incomplete.",
+      "manualStatus": "Original whole body read; local whole-body acceptance and execution pending"
+    },
+    {
+      "source": "packages/react/src/internals/composite/constants.ts",
+      "sha256": "494b3845bb2c22da3ef9e8d3856ee582ee3a7b2cadbbe14bef9dcd6968bbf415",
+      "url": "https://github.com/mui/base-ui/blob/47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c/packages/react/src/internals/composite/constants.ts",
+      "declaredExports": [
+        "ACTIVE_COMPOSITE_ITEM"
+      ],
+      "symbols": [
+        {
+          "name": "ACTIVE_COMPOSITE_ITEM",
+          "syntax": "VariableDeclaration",
+          "line": 1,
+          "bodySha256": "e7434ee3ea0b90d7d93463d0320524fcbdfc144631ec7eed4e3dbf880e852050"
+        }
+      ],
+      "owner": "Canonical sibling/source helper owner; no edit lease granted for this popup port",
+      "scope": "Original test consumer dependency evidence only; do not implement a sibling family or private fixture engine",
+      "decision": "Use accepted canonical sibling implementation for its exact selected fixture parts and preserve shared helper identities. Until acceptance/test execution this dependent test scope stays incomplete.",
+      "manualStatus": "Original whole body read; local whole-body acceptance and execution pending"
+    },
+    {
+      "source": "packages/react/src/internals/composite/item/CompositeItem.tsx",
+      "sha256": "036f04a428d090fe235076b64069755495005e9a0ec49b3b4a43162539c36157",
+      "url": "https://github.com/mui/base-ui/blob/47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c/packages/react/src/internals/composite/item/CompositeItem.tsx",
+      "declaredExports": [
+        "CompositeItem",
+        "CompositeItemState",
+        "CompositeItemProps",
+        "CompositeItem"
+      ],
+      "symbols": [
+        {
+          "name": "CompositeItem",
+          "syntax": "FunctionDeclaration",
+          "line": 9,
+          "bodySha256": "2def1170db4c6788ef60711a28cec1bddbcf905612969c19669f38bb01a6f230"
+        },
+        {
+          "name": "CompositeItemState",
+          "syntax": "InterfaceDeclaration",
+          "line": 36,
+          "bodySha256": "2bc490e977216ff7ccce784dd3d81324ac2cfad2c8cb6a2db5112b7ca4eba90d"
+        },
+        {
+          "name": "CompositeItemProps",
+          "syntax": "InterfaceDeclaration",
+          "line": 38,
+          "bodySha256": "5e91030423cbcc29b5b4f9670527bfe415ddb5601862857eeca2331f6569e65f"
+        },
+        {
+          "name": "CompositeItem",
+          "syntax": "ModuleDeclaration",
+          "line": 51,
+          "bodySha256": "25206ee3510c9819f945a0938164c17b57f4d4cf64900a2509368d727f42314c"
+        }
+      ],
+      "owner": "Canonical sibling/source helper owner; no edit lease granted for this popup port",
+      "scope": "Original test consumer dependency evidence only; do not implement a sibling family or private fixture engine",
+      "decision": "Use accepted canonical sibling implementation for its exact selected fixture parts and preserve shared helper identities. Until acceptance/test execution this dependent test scope stays incomplete.",
+      "manualStatus": "Original whole body read; local whole-body acceptance and execution pending"
+    },
+    {
+      "source": "packages/react/src/internals/composite/item/useCompositeItem.ts",
+      "sha256": "40cffee55d4e92efbe36bc7e9fea9708a0e640f888f8e7eb92f3e0fe48a5fc50",
+      "url": "https://github.com/mui/base-ui/blob/47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c/packages/react/src/internals/composite/item/useCompositeItem.ts",
+      "declaredExports": [
+        "UseCompositeItemParameters",
+        "useCompositeItem"
+      ],
+      "symbols": [
+        {
+          "name": "UseCompositeItemParameters",
+          "syntax": "InterfaceDeclaration",
+          "line": 11,
+          "bodySha256": "94225b0367dcf6c4dd08351ba14ba6f368fee8c96ca9070bdd198930162400b6"
+        },
+        {
+          "name": "useCompositeItem",
+          "syntax": "FunctionDeclaration",
+          "line": 16,
+          "bodySha256": "8e5f9c3b7496a2997e0a7e1283ee6d710419925c32e76b721c23fdd7dd4ad986"
+        }
+      ],
+      "owner": "Canonical sibling/source helper owner; no edit lease granted for this popup port",
+      "scope": "Original test consumer dependency evidence only; do not implement a sibling family or private fixture engine",
+      "decision": "Use accepted canonical sibling implementation for its exact selected fixture parts and preserve shared helper identities. Until acceptance/test execution this dependent test scope stays incomplete.",
+      "manualStatus": "Original whole body read; local whole-body acceptance and execution pending"
+    },
+    {
+      "source": "packages/react/src/internals/composite/list/CompositeList.tsx",
+      "sha256": "ee4a1b881541f30c7c0b3165fe66ffe88dc6a990f073a6afaa42da6199004afb",
+      "url": "https://github.com/mui/base-ui/blob/47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c/packages/react/src/internals/composite/list/CompositeList.tsx",
+      "declaredExports": [
+        "CompositeMetadata",
+        "CompositeList",
+        "CompositeListState",
+        "CompositeListProps",
+        "CompositeList"
+      ],
+      "symbols": [
+        {
+          "name": "CompositeMetadata",
+          "syntax": "TypeAliasDeclaration",
+          "line": 9,
+          "bodySha256": "86ced4d829dc919d4c8b7e12f04a8cd2139953cbec11361b72a32fa68094483c"
+        },
+        {
+          "name": "CompositeListItem",
+          "syntax": "InterfaceDeclaration",
+          "line": 13,
+          "bodySha256": "06687483a7bb57aaaa886099f2d80d7bcf21a7b68cd00004c3ece46bfc1e9b99"
+        },
+        {
+          "name": "CompositeList",
+          "syntax": "FunctionDeclaration",
+          "line": 22,
+          "bodySha256": "5683cd7aa2a19ef9c5928f4ceb944a385a830c697697cf500df038ae62ffe45b"
+        },
+        {
+          "name": "createMap",
+          "syntax": "FunctionDeclaration",
+          "line": 219,
+          "bodySha256": "e7efa7376619c18493e4f028fc4bdcea8a6f6babd994ebba26784f272f22bc55"
+        },
+        {
+          "name": "createListeners",
+          "syntax": "FunctionDeclaration",
+          "line": 223,
+          "bodySha256": "3972348e8049352099c1d6f1a89c35be788a90f6f8727f26dfd94cd424ec9823"
+        },
+        {
+          "name": "getCompositeListSnapshot",
+          "syntax": "FunctionDeclaration",
+          "line": 227,
+          "bodySha256": "655275d869e5b98cded7f22ce94d5d4fcf183905d69f84ee9066539c5d8a47a3"
+        },
+        {
+          "name": "getCommonAncestor",
+          "syntax": "FunctionDeclaration",
+          "line": 274,
+          "bodySha256": "f5ab8d17c424b14fe23aa5a860d42e5ffb720d6158f1a20eb7e20c3fa2307a18"
+        },
+        {
+          "name": "hasMovedNode",
+          "syntax": "FunctionDeclaration",
+          "line": 286,
+          "bodySha256": "8af2b99192f356d07a1270f98c546f48367c1df2b212dd9dd188293ab6b30cdb"
+        },
+        {
+          "name": "sortByDocumentPosition",
+          "syntax": "FunctionDeclaration",
+          "line": 298,
+          "bodySha256": "6969e237c988e4b15f38dd814f26445158df968891f39e3a5c5d85cc7cff2a33"
+        },
+        {
+          "name": "CompositeListState",
+          "syntax": "InterfaceDeclaration",
+          "line": 304,
+          "bodySha256": "7d08281fde8381a937e975cebc14a5e02b556837cf1f3e34f959c0141b1e8a8c"
+        },
+        {
+          "name": "CompositeListProps",
+          "syntax": "InterfaceDeclaration",
+          "line": 306,
+          "bodySha256": "9e2f32117d06223be832e15f7d09cd386b767e95c18c3baae35907e7c3a4c1c0"
+        },
+        {
+          "name": "CompositeList",
+          "syntax": "ModuleDeclaration",
+          "line": 322,
+          "bodySha256": "4ba8d7f183e5cd1d67ecce196251f58f7caca2b4ec58c583f0c1a836acb86bea"
+        }
+      ],
+      "owner": "Canonical sibling/source helper owner; no edit lease granted for this popup port",
+      "scope": "Original test consumer dependency evidence only; do not implement a sibling family or private fixture engine",
+      "decision": "Use accepted canonical sibling implementation for its exact selected fixture parts and preserve shared helper identities. Until acceptance/test execution this dependent test scope stays incomplete.",
+      "manualStatus": "Original whole body read; local whole-body acceptance and execution pending"
+    },
+    {
+      "source": "packages/react/src/internals/composite/list/CompositeListContext.ts",
+      "sha256": "b1784a885314c1674957071998093c686c28cf50761d3e9ac4f3dfc4741c47ee",
+      "url": "https://github.com/mui/base-ui/blob/47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c/packages/react/src/internals/composite/list/CompositeListContext.ts",
+      "declaredExports": [
+        "CompositeListRegistration",
+        "CompositeListContextValue",
+        "CompositeListContext",
+        "useCompositeListContext"
+      ],
+      "symbols": [
+        {
+          "name": "CompositeListRegistration",
+          "syntax": "InterfaceDeclaration",
+          "line": 4,
+          "bodySha256": "a607961f1a0d0f7f39597499b0de8666a365bd12b4cf9c83b980b82ecacae74d"
+        },
+        {
+          "name": "CompositeListContextValue",
+          "syntax": "InterfaceDeclaration",
+          "line": 11,
+          "bodySha256": "c963a9855d0afe0d46d332164a585abd5a495838592bccd189c44699684beb7f"
+        },
+        {
+          "name": "CompositeListContext",
+          "syntax": "VariableDeclaration",
+          "line": 18,
+          "bodySha256": "475d790fe740b12e7a861be522f1f3f635c6167492d09b4908b0e775e70d62b8"
+        },
+        {
+          "name": "useCompositeListContext",
+          "syntax": "FunctionDeclaration",
+          "line": 25,
+          "bodySha256": "bef66bdfbd48bffc1e8c2e64b3c1ea17022cbb4cc32dc7dd28b2655f5867773f"
+        }
+      ],
+      "owner": "Canonical sibling/source helper owner; no edit lease granted for this popup port",
+      "scope": "Original test consumer dependency evidence only; do not implement a sibling family or private fixture engine",
+      "decision": "Use accepted canonical sibling implementation for its exact selected fixture parts and preserve shared helper identities. Until acceptance/test execution this dependent test scope stays incomplete.",
+      "manualStatus": "Original whole body read; local whole-body acceptance and execution pending"
+    },
+    {
+      "source": "packages/react/src/internals/composite/list/useCompositeListItem.ts",
+      "sha256": "dbfec49eb3286458a425639c8cd2a4a17419fed1017c88c1636929e312e36542",
+      "url": "https://github.com/mui/base-ui/blob/47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c/packages/react/src/internals/composite/list/useCompositeListItem.ts",
+      "declaredExports": [
+        "UseCompositeListItemParameters",
+        "useCompositeListItem"
+      ],
+      "symbols": [
+        {
+          "name": "UseCompositeListItemParameters",
+          "syntax": "InterfaceDeclaration",
+          "line": 6,
+          "bodySha256": "a033dd0845e04271401baa0c4c6250c63d8a2a63a00e3ff61ce435c29b4ce1c4"
+        },
+        {
+          "name": "UseCompositeListItemReturnValue",
+          "syntax": "InterfaceDeclaration",
+          "line": 24,
+          "bodySha256": "e216e0a8b4cbb4489c716a4802f62b2401c51c9a9c489b0095a5fbd9ee17c616"
+        },
+        {
+          "name": "useCompositeListItem",
+          "syntax": "FunctionDeclaration",
+          "line": 32,
+          "bodySha256": "055ee019b42bf8f723652dc579a0745cf68e27f2e39d1aa973846313e4bb4a75"
+        }
+      ],
+      "owner": "Canonical sibling/source helper owner; no edit lease granted for this popup port",
+      "scope": "Original test consumer dependency evidence only; do not implement a sibling family or private fixture engine",
+      "decision": "Use accepted canonical sibling implementation for its exact selected fixture parts and preserve shared helper identities. Until acceptance/test execution this dependent test scope stays incomplete.",
+      "manualStatus": "Original whole body read; local whole-body acceptance and execution pending"
+    },
+    {
+      "source": "packages/react/src/internals/composite/root/CompositeRoot.tsx",
+      "sha256": "af03574d9028283ede87df4592b08e0d0dda801c0c9d4454fbc64eccde11b0d2",
+      "url": "https://github.com/mui/base-ui/blob/47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c/packages/react/src/internals/composite/root/CompositeRoot.tsx",
+      "declaredExports": [
+        "CompositeRoot",
+        "CompositeRootState",
+        "CompositeRootProps",
+        "CompositeRoot"
+      ],
+      "symbols": [
+        {
+          "name": "CompositeRoot",
+          "syntax": "FunctionDeclaration",
+          "line": 14,
+          "bodySha256": "6db0ef3a033b6e9358ea00b0806033ed724260837a991d56af806eafd9c21ce3"
+        },
+        {
+          "name": "CompositeRootState",
+          "syntax": "InterfaceDeclaration",
+          "line": 98,
+          "bodySha256": "3fc455fcef1f4bc756d0ab4571189b2dd90ef636e7b52ac2ae00c85d52ef32ce"
+        },
+        {
+          "name": "CompositeRootProps",
+          "syntax": "InterfaceDeclaration",
+          "line": 100,
+          "bodySha256": "eb63a16a961d85bb632dd6a61b251fca681aa547904828768eeac42fe4f6e061"
+        },
+        {
+          "name": "CompositeRoot",
+          "syntax": "ModuleDeclaration",
+          "line": 132,
+          "bodySha256": "6db693849c04a6ac2ba4aca99a4477473c0d7280cb64684e75a1382c0e587733"
+        }
+      ],
+      "owner": "Canonical sibling/source helper owner; no edit lease granted for this popup port",
+      "scope": "Original test consumer dependency evidence only; do not implement a sibling family or private fixture engine",
+      "decision": "Use accepted canonical sibling implementation for its exact selected fixture parts and preserve shared helper identities. Until acceptance/test execution this dependent test scope stays incomplete.",
+      "manualStatus": "Original whole body read; local whole-body acceptance and execution pending"
+    },
+    {
+      "source": "packages/react/src/internals/composite/root/gridNavigation.ts",
+      "sha256": "85fa455d31592be6afff2f9692ac24502943c614eabb66b9dc4e5e6694ec2e8a",
+      "url": "https://github.com/mui/base-ui/blob/47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c/packages/react/src/internals/composite/root/gridNavigation.ts",
+      "declaredExports": [
+        "CompositeGridItemSize",
+        "CompositeGridConfig",
+        "CompositeGridNavigationState",
+        "CompositeGridNavigator",
+        "gridNavigation"
+      ],
+      "symbols": [
+        {
+          "name": "CompositeGridElementsRef",
+          "syntax": "TypeAliasDeclaration",
+          "line": 11,
+          "bodySha256": "17e6aeb9b641ef3c54be58401aff5d1f5608e6c696ec8b9e1005217326dafa24"
+        },
+        {
+          "name": "CompositeGridOnLoop",
+          "syntax": "TypeAliasDeclaration",
+          "line": 12,
+          "bodySha256": "dccdcba7bb2fdb9de0395d124f7e7a5dca4eebfc2cde5c6089dd9a2019123cfa"
+        },
+        {
+          "name": "CompositeGridItemSize",
+          "syntax": "InterfaceDeclaration",
+          "line": 18,
+          "bodySha256": "4cd3749f8988c7ffb35b3a8b91ebf0219dfe109df0afabebf988f7deb2a84667"
+        },
+        {
+          "name": "CompositeGridConfig",
+          "syntax": "InterfaceDeclaration",
+          "line": 23,
+          "bodySha256": "589525836d3ba676e9b8e298aa286c62d9c3b9eebc4394a0da3dd26aaf02dfb5"
+        },
+        {
+          "name": "CompositeGridNavigationState",
+          "syntax": "InterfaceDeclaration",
+          "line": 29,
+          "bodySha256": "30ed6f64bc07360778d79fdec7b5276017223c4530ca2d6633718eb3e252fd0e"
+        },
+        {
+          "name": "CompositeGridNavigator",
+          "syntax": "TypeAliasDeclaration",
+          "line": 42,
+          "bodySha256": "a03b33d5fb8c154046686fc46139f2b13ab7afdc280c7a7428b4f71fe57db23e"
+        },
+        {
+          "name": "gridNavigation",
+          "syntax": "FunctionDeclaration",
+          "line": 50,
+          "bodySha256": "427b154d9979e73672f6a4099ede787e3795b758aa8ea8601a88f253846c2a14"
+        }
+      ],
+      "owner": "Canonical sibling/source helper owner; no edit lease granted for this popup port",
+      "scope": "Original test consumer dependency evidence only; do not implement a sibling family or private fixture engine",
+      "decision": "Use accepted canonical sibling implementation for its exact selected fixture parts and preserve shared helper identities. Until acceptance/test execution this dependent test scope stays incomplete.",
+      "manualStatus": "Original whole body read; local whole-body acceptance and execution pending"
+    },
+    {
+      "source": "packages/react/src/internals/composite/root/useCompositeRoot.ts",
+      "sha256": "848c7a6c3543bba01f2299799a75d69986dbecc5289d70e15d41620bd732b023",
+      "url": "https://github.com/mui/base-ui/blob/47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c/packages/react/src/internals/composite/root/useCompositeRoot.ts",
+      "declaredExports": [
+        "UseCompositeRootParameters",
+        "useCompositeRoot"
+      ],
+      "symbols": [
+        {
+          "name": "UseCompositeRootParameters",
+          "syntax": "InterfaceDeclaration",
+          "line": 33,
+          "bodySha256": "b46d13adac27147dcfacd187c7c2da7acd31e64c236417f7639bfbabee610983"
+        },
+        {
+          "name": "useCompositeRoot",
+          "syntax": "FunctionDeclaration",
+          "line": 74,
+          "bodySha256": "79560947e3f30222edaaeb74e91d9df2469319369b985c9c3faea14ee4f2278e"
+        },
+        {
+          "name": "getFallbackIndex",
+          "syntax": "FunctionDeclaration",
+          "line": 345,
+          "bodySha256": "4328b22ff8b437d65996a6001636f960abc506f8bae6f15a9a3810a1eb7392b6"
+        },
+        {
+          "name": "isModifierKeySet",
+          "syntax": "FunctionDeclaration",
+          "line": 367,
+          "bodySha256": "308ba654e7fb2c1afe88ecdb581bfc1df815928f2625e0081ff8166ee9dc995b"
+        }
+      ],
+      "owner": "Canonical sibling/source helper owner; no edit lease granted for this popup port",
+      "scope": "Original test consumer dependency evidence only; do not implement a sibling family or private fixture engine",
+      "decision": "Use accepted canonical sibling implementation for its exact selected fixture parts and preserve shared helper identities. Until acceptance/test execution this dependent test scope stays incomplete.",
+      "manualStatus": "Original whole body read; local whole-body acceptance and execution pending"
+    },
+    {
+      "source": "packages/react/src/internals/field-constants/constants.ts",
+      "sha256": "c6f1fc10dbd8b45a6c3fdb83f441a19880c4501d1776f725dbfdae4fd742f3fb",
+      "url": "https://github.com/mui/base-ui/blob/47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c/packages/react/src/internals/field-constants/constants.ts",
+      "declaredExports": [
+        "DEFAULT_VALIDITY_STATE",
+        "DEFAULT_FIELD_STATE_ATTRIBUTES",
+        "DEFAULT_FIELD_ROOT_STATE",
+        "fieldValidityMapping"
+      ],
+      "symbols": [
+        {
+          "name": "DEFAULT_VALIDITY_STATE",
+          "syntax": "VariableDeclaration",
+          "line": 4,
+          "bodySha256": "1b563d7fbd3b4ad0613daf6b8d877d3d6e41d324102bc62029572a58f68401aa"
+        },
+        {
+          "name": "DEFAULT_FIELD_STATE_ATTRIBUTES",
+          "syntax": "VariableDeclaration",
+          "line": 18,
+          "bodySha256": "5e03cd4b594e1b2b4ee569b1f3e9a2636c0caf0c96ef46bd1771d83113a13aff"
+        },
+        {
+          "name": "DEFAULT_FIELD_ROOT_STATE",
+          "syntax": "VariableDeclaration",
+          "line": 29,
+          "bodySha256": "f9ecd6318bcc01ebda90d88a6c02f26ee2ec9dd32d79f1c8944c1fe52159290f"
+        },
+        {
+          "name": "fieldValidityMapping",
+          "syntax": "VariableDeclaration",
+          "line": 34,
+          "bodySha256": "72712d09ba715eebb5482d19f7d50855c5d749bac8a3befc7dc4e7493c7e88ad"
+        }
+      ],
+      "owner": "Canonical sibling/source helper owner; no edit lease granted for this popup port",
+      "scope": "Original test consumer dependency evidence only; do not implement a sibling family or private fixture engine",
+      "decision": "Use accepted canonical sibling implementation for its exact selected fixture parts and preserve shared helper identities. Until acceptance/test execution this dependent test scope stays incomplete.",
+      "manualStatus": "Original whole body read; local whole-body acceptance and execution pending"
+    },
+    {
+      "source": "packages/react/src/internals/field-register-control/useFieldControlRegistration.ts",
+      "sha256": "a49c20dc0a508dc11b73bdac52043aa4b1ba94d1baf8a43c2095f42726ca1cd6",
+      "url": "https://github.com/mui/base-ui/blob/47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c/packages/react/src/internals/field-register-control/useFieldControlRegistration.ts",
+      "declaredExports": [
+        "FieldControlRegistration",
+        "useFieldControlRegistration",
+        "UseFieldControlRegistrationParameters"
+      ],
+      "symbols": [
+        {
+          "name": "FieldControlRegistration",
+          "syntax": "InterfaceDeclaration",
+          "line": 9,
+          "bodySha256": "d15b4d837d8caa982cb13895b35248107470215f1f49f949eb1672b45c5cb2c7"
+        },
+        {
+          "name": "useFieldControlRegistration",
+          "syntax": "FunctionDeclaration",
+          "line": 17,
+          "bodySha256": "d03bad580eae13be915e1ca47bb2b2c2bbc1f27f6d3d819f03f41961cbe9864f"
+        },
+        {
+          "name": "UseFieldControlRegistrationParameters",
+          "syntax": "InterfaceDeclaration",
+          "line": 174,
+          "bodySha256": "6f82980dc61154642380b2764933053eaa5658afa665cbac4fd662b11b5187d6"
+        }
+      ],
+      "owner": "Canonical sibling/source helper owner; no edit lease granted for this popup port",
+      "scope": "Original test consumer dependency evidence only; do not implement a sibling family or private fixture engine",
+      "decision": "Use accepted canonical sibling implementation for its exact selected fixture parts and preserve shared helper identities. Until acceptance/test execution this dependent test scope stays incomplete.",
+      "manualStatus": "Original whole body read; local whole-body acceptance and execution pending"
+    },
+    {
+      "source": "packages/react/src/internals/field-register-control/useRegisterFieldControl.ts",
+      "sha256": "830625bb0728b4cc6976a8c27148172ac06b74c880569f74c75cfa1201140804",
+      "url": "https://github.com/mui/base-ui/blob/47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c/packages/react/src/internals/field-register-control/useRegisterFieldControl.ts",
+      "declaredExports": [
+        "useRegisterFieldControl"
+      ],
+      "symbols": [
+        {
+          "name": "useRegisterFieldControl",
+          "syntax": "FunctionDeclaration",
+          "line": 7,
+          "bodySha256": "46789f2db90732f6d1cdefaeb9a609c4f0d9f6954ebecea95b735af3ae7f81f6"
+        }
+      ],
+      "owner": "Canonical sibling/source helper owner; no edit lease granted for this popup port",
+      "scope": "Original test consumer dependency evidence only; do not implement a sibling family or private fixture engine",
+      "decision": "Use accepted canonical sibling implementation for its exact selected fixture parts and preserve shared helper identities. Until acceptance/test execution this dependent test scope stays incomplete.",
+      "manualStatus": "Original whole body read; local whole-body acceptance and execution pending"
+    },
+    {
+      "source": "packages/react/src/internals/field-root-context/FieldRootContext.ts",
+      "sha256": "578d7ea53808a70bf6f439b4d679c78a025e2d8219a0e8459b92f948c6a3c959",
+      "url": "https://github.com/mui/base-ui/blob/47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c/packages/react/src/internals/field-root-context/FieldRootContext.ts",
+      "declaredExports": [
+        "FieldRootContext",
+        "DEFAULT_FIELD_ROOT_CONTEXT",
+        "FieldRootContext",
+        "useFieldRootContext"
+      ],
+      "symbols": [
+        {
+          "name": "FieldRootContext",
+          "syntax": "InterfaceDeclaration",
+          "line": 12,
+          "bodySha256": "8d91e4b068303386fe13bc5406650d792fe60f822b49b0f52fddb80082b82bbf"
+        },
+        {
+          "name": "DEFAULT_FIELD_ROOT_CONTEXT",
+          "syntax": "VariableDeclaration",
+          "line": 32,
+          "bodySha256": "749629c5d9ec6e70aea157e6fa3c0701397a0e03a21b2777e5986b428004ac17"
+        },
+        {
+          "name": "FieldRootContext",
+          "syntax": "VariableDeclaration",
+          "line": 63,
+          "bodySha256": "7ac097e38019cb5b8e767447171e96c3ce71246295899385eaafd8d127421622"
+        },
+        {
+          "name": "useFieldRootContext",
+          "syntax": "FunctionDeclaration",
+          "line": 65,
+          "bodySha256": "eb5d3263e07e642480d301d65b9d85a5a2f2e5cadf2afe8cc5dbf9a7944e88de"
+        }
+      ],
+      "owner": "Canonical sibling/source helper owner; no edit lease granted for this popup port",
+      "scope": "Original test consumer dependency evidence only; do not implement a sibling family or private fixture engine",
+      "decision": "Use accepted canonical sibling implementation for its exact selected fixture parts and preserve shared helper identities. Until acceptance/test execution this dependent test scope stays incomplete.",
+      "manualStatus": "Original whole body read; local whole-body acceptance and execution pending"
+    },
+    {
+      "source": "packages/react/src/internals/filter.ts",
+      "sha256": "90eaeb7368edfd6c6a0aed36cf22e3f502b98fe8fbbd866a46e0ff83eb0fa3ff",
+      "url": "https://github.com/mui/base-ui/blob/47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c/packages/react/src/internals/filter.ts",
+      "declaredExports": [
+        "getFilter",
+        "GetFilterParameters",
+        "Filter"
+      ],
+      "symbols": [
+        {
+          "name": "filterCache",
+          "syntax": "VariableDeclaration",
+          "line": 4,
+          "bodySha256": "35228677355942a8e28d3233321fd8cf4672bb14a49d33b103999f510480a14b"
+        },
+        {
+          "name": "getFilter",
+          "syntax": "FunctionDeclaration",
+          "line": 6,
+          "bodySha256": "1e2deb106a2386b8389f11034fd8f4af6b9674dbd2d19490214e006163bad56c"
+        },
+        {
+          "name": "GetFilterParameters",
+          "syntax": "InterfaceDeclaration",
+          "line": 67,
+          "bodySha256": "76204043b2564c86232a6c5aeeaecdb43d522f7836fdbb32d105788f0b0640ac"
+        },
+        {
+          "name": "Filter",
+          "syntax": "InterfaceDeclaration",
+          "line": 75,
+          "bodySha256": "225802559817ae19a6a5f51d8074b992cc1bbfc1783ccd074e97fd1049246d0c"
+        }
+      ],
+      "owner": "Canonical sibling/source helper owner; no edit lease granted for this popup port",
+      "scope": "Original test consumer dependency evidence only; do not implement a sibling family or private fixture engine",
+      "decision": "Use accepted canonical sibling implementation for its exact selected fixture parts and preserve shared helper identities. Until acceptance/test execution this dependent test scope stays incomplete.",
+      "manualStatus": "Original whole body read; local whole-body acceptance and execution pending"
+    },
+    {
+      "source": "packages/react/src/internals/form-context/FormContext.ts",
+      "sha256": "bc1c728160e21caebb1641eada2a029b2987ecde498e8745dff9b72ad3f46539",
+      "url": "https://github.com/mui/base-ui/blob/47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c/packages/react/src/internals/form-context/FormContext.ts",
+      "declaredExports": [
+        "Errors",
+        "FormContext",
+        "FormContext",
+        "useFormContext"
+      ],
+      "symbols": [
+        {
+          "name": "Errors",
+          "syntax": "TypeAliasDeclaration",
+          "line": 7,
+          "bodySha256": "54eecf5f9b3584e305460ed537d3e9beaa004c562bb6329503f106dd02eb6e53"
+        },
+        {
+          "name": "FormContext",
+          "syntax": "InterfaceDeclaration",
+          "line": 9,
+          "bodySha256": "260afcc5a6e491d558c8cedf2413f2702ae126dfc41204b8aeba842dfb95dce2"
+        },
+        {
+          "name": "FormContext",
+          "syntax": "VariableDeclaration",
+          "line": 33,
+          "bodySha256": "b65df6703412eb78534ddf9be0e6d0778aff536cfb28953731838db520cd5825"
+        },
+        {
+          "name": "useFormContext",
+          "syntax": "FunctionDeclaration",
+          "line": 48,
+          "bodySha256": "e4ea0d9036cfcd8b4f2510fd099857533f14b37a2c58853aed08b0040eb7bd6f"
+        }
+      ],
+      "owner": "Canonical sibling/source helper owner; no edit lease granted for this popup port",
+      "scope": "Original test consumer dependency evidence only; do not implement a sibling family or private fixture engine",
+      "decision": "Use accepted canonical sibling implementation for its exact selected fixture parts and preserve shared helper identities. Until acceptance/test execution this dependent test scope stays incomplete.",
+      "manualStatus": "Original whole body read; local whole-body acceptance and execution pending"
+    },
+    {
+      "source": "packages/react/src/internals/itemEquality.ts",
+      "sha256": "beb68077d5bf5f26ea3805953ebb23d592ae8f78515e1dde90dd030a8e18777c",
+      "url": "https://github.com/mui/base-ui/blob/47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c/packages/react/src/internals/itemEquality.ts",
+      "declaredExports": [
+        "ItemEqualityComparer",
+        "defaultItemEquality",
+        "compareItemEquality",
+        "isSelectedValueDirty",
+        "selectedValueIncludes",
+        "findItemIndex",
+        "findSelectionIndex",
+        "resolveSelectedIndex",
+        "removeItem"
+      ],
+      "symbols": [
+        {
+          "name": "ItemEqualityComparer",
+          "syntax": "TypeAliasDeclaration",
+          "line": 3,
+          "bodySha256": "02539828153e74a2d35fb6c1e277b952fa2fcc64ec5d759cf69c52084566f5d8"
+        },
+        {
+          "name": "defaultItemEquality",
+          "syntax": "VariableDeclaration",
+          "line": 9,
+          "bodySha256": "9fada0b53a026c05879ffeff6cfea7616af3e7fb1a106134c1b7aa3070da2985"
+        },
+        {
+          "name": "compareItemEquality",
+          "syntax": "FunctionDeclaration",
+          "line": 12,
+          "bodySha256": "2f4957e4574dd5b5ed43002833a5536f2f5f73fad65e92b5dfa1040c8bd224cc"
+        },
+        {
+          "name": "isSelectedValueDirty",
+          "syntax": "FunctionDeclaration",
+          "line": 23,
+          "bodySha256": "ccb0623164a3026fc7d8318793490dc7eddb8be93328c676c537f3f8837ff855"
+        },
+        {
+          "name": "selectedValueIncludes",
+          "syntax": "FunctionDeclaration",
+          "line": 37,
+          "bodySha256": "0cb19f259a51a38805d1aeca080a7d71dea7bc0a139a53c0637c5d321f31121d"
+        },
+        {
+          "name": "findItemIndex",
+          "syntax": "FunctionDeclaration",
+          "line": 53,
+          "bodySha256": "bcda0b91365b80cf718ba97d5f23046b3f633f100d371138659c41576a35621f"
+        },
+        {
+          "name": "createSelectionMatcher",
+          "syntax": "FunctionDeclaration",
+          "line": 71,
+          "bodySha256": "bd554af00cbac02fdfd47391d30391fdf380e6b525a60c7edc24b65acfbead3d"
+        },
+        {
+          "name": "findSelectionIndex",
+          "syntax": "FunctionDeclaration",
+          "line": 86,
+          "bodySha256": "808488f3df5f458b4fe01a157cb5ed28ca30cbe15f575f4af2c49fbcf94085ca"
+        },
+        {
+          "name": "resolveSelectedIndex",
+          "syntax": "FunctionDeclaration",
+          "line": 104,
+          "bodySha256": "b82e867139c7dc78bccc19a3b24dc0fbb209c6591e5beca74c6c8fb115a84593"
+        },
+        {
+          "name": "removeItem",
+          "syntax": "FunctionDeclaration",
+          "line": 126,
+          "bodySha256": "7b93759401abc1ed98a77055632b67d909f038ccb5581449ea95aed8aae18a32"
+        }
+      ],
+      "owner": "Canonical sibling/source helper owner; no edit lease granted for this popup port",
+      "scope": "Original test consumer dependency evidence only; do not implement a sibling family or private fixture engine",
+      "decision": "Use accepted canonical sibling implementation for its exact selected fixture parts and preserve shared helper identities. Until acceptance/test execution this dependent test scope stays incomplete.",
+      "manualStatus": "Original whole body read; local whole-body acceptance and execution pending"
+    },
+    {
+      "source": "packages/react/src/internals/labelable-provider/index.ts",
+      "sha256": "4d8302189e162dc309f8c7d4bd0f7e10ee164a53226ce577690970a823ca0316",
+      "url": "https://github.com/mui/base-ui/blob/47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c/packages/react/src/internals/labelable-provider/index.ts",
+      "declaredExports": [],
+      "symbols": [],
+      "owner": "Canonical sibling/source helper owner; no edit lease granted for this popup port",
+      "scope": "Original test consumer dependency evidence only; do not implement a sibling family or private fixture engine",
+      "decision": "Use accepted canonical sibling implementation for its exact selected fixture parts and preserve shared helper identities. Until acceptance/test execution this dependent test scope stays incomplete.",
+      "manualStatus": "Original whole body read; local whole-body acceptance and execution pending"
+    },
+    {
+      "source": "packages/react/src/internals/labelable-provider/LabelableContext.ts",
+      "sha256": "c8c7814fd72a66386f30c784f3cafcaa473d7a385dc441be610154086d99663d",
+      "url": "https://github.com/mui/base-ui/blob/47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c/packages/react/src/internals/labelable-provider/LabelableContext.ts",
+      "declaredExports": [
+        "LabelableContext",
+        "LabelableContext",
+        "useLabelableContext"
+      ],
+      "symbols": [
+        {
+          "name": "LabelableContext",
+          "syntax": "InterfaceDeclaration",
+          "line": 6,
+          "bodySha256": "9b4515b9b3b50a478f741eecb88feee670cc5b66f991c970aacaeb8d5e5d8706"
+        },
+        {
+          "name": "LabelableContext",
+          "syntax": "VariableDeclaration",
+          "line": 32,
+          "bodySha256": "c60fbabd715ceea697b10f3dae2be4ea1d62c921443ad6b40a235965bc3cbb19"
+        },
+        {
+          "name": "useLabelableContext",
+          "syntax": "FunctionDeclaration",
+          "line": 43,
+          "bodySha256": "d587e9c91ab3fa08a7d014affc247324dba828ca7a5ff1a3b5e2437d506a3f5f"
+        }
+      ],
+      "owner": "Canonical sibling/source helper owner; no edit lease granted for this popup port",
+      "scope": "Original test consumer dependency evidence only; do not implement a sibling family or private fixture engine",
+      "decision": "Use accepted canonical sibling implementation for its exact selected fixture parts and preserve shared helper identities. Until acceptance/test execution this dependent test scope stays incomplete.",
+      "manualStatus": "Original whole body read; local whole-body acceptance and execution pending"
+    },
+    {
+      "source": "packages/react/src/internals/labelable-provider/LabelableProvider.tsx",
+      "sha256": "f098e676a1e108ef96774499f3ee44cc9adba246b33dc81018b836bc99cbc2d1",
+      "url": "https://github.com/mui/base-ui/blob/47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c/packages/react/src/internals/labelable-provider/LabelableProvider.tsx",
+      "declaredExports": [
+        "LabelableProvider",
+        "LabelableProviderState",
+        "LabelableProviderProps",
+        "LabelableProvider"
+      ],
+      "symbols": [
+        {
+          "name": "LabelableProvider",
+          "syntax": "VariableDeclaration",
+          "line": 9,
+          "bodySha256": "b53fa589e69e43006eeac7c01d9578e4aef3d47c7f2001eeba47c2ee7fc3abdc"
+        },
+        {
+          "name": "LabelableProviderState",
+          "syntax": "InterfaceDeclaration",
+          "line": 111,
+          "bodySha256": "64921a27b0d67757911480ae4680b1a798d5f6782d856f64498375dfef27873d"
+        },
+        {
+          "name": "LabelableProviderProps",
+          "syntax": "InterfaceDeclaration",
+          "line": 113,
+          "bodySha256": "c55d385550bb526c55fe474afa89a3f0bf33bc2a43efa1e61060fc2f16b98e71"
+        },
+        {
+          "name": "LabelableProvider",
+          "syntax": "ModuleDeclaration",
+          "line": 117,
+          "bodySha256": "39efef9957e656dabed4787100da79890cef74e3dc230b98b8f84922c4cab18e"
+        }
+      ],
+      "owner": "Canonical sibling/source helper owner; no edit lease granted for this popup port",
+      "scope": "Original test consumer dependency evidence only; do not implement a sibling family or private fixture engine",
+      "decision": "Use accepted canonical sibling implementation for its exact selected fixture parts and preserve shared helper identities. Until acceptance/test execution this dependent test scope stays incomplete.",
+      "manualStatus": "Original whole body read; local whole-body acceptance and execution pending"
+    },
+    {
+      "source": "packages/react/src/internals/labelable-provider/useLabelableId.ts",
+      "sha256": "e3a9d52c70bccc823163dbc132fbe9b64a3ec6e64e90a79c9acb08fdf2672faf",
+      "url": "https://github.com/mui/base-ui/blob/47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c/packages/react/src/internals/labelable-provider/useLabelableId.ts",
+      "declaredExports": [
+        "useLabelableId",
+        "UseLabelableIdParameters",
+        "UseLabelableIdReturnValue",
+        "UseLabelableIdState"
+      ],
+      "symbols": [
+        {
+          "name": "useLabelableId",
+          "syntax": "FunctionDeclaration",
+          "line": 10,
+          "bodySha256": "d6084a993ef4a86ad4d6e83996a37f58e4c6ca8c5d24b3506d87c0cf26e104a5"
+        },
+        {
+          "name": "UseLabelableIdParameters",
+          "syntax": "InterfaceDeclaration",
+          "line": 85,
+          "bodySha256": "300fc7c7db71e8876f7f4f27a8322c1d4882a1e856bbcff811a4b700d32ecfc2"
+        },
+        {
+          "name": "UseLabelableIdReturnValue",
+          "syntax": "TypeAliasDeclaration",
+          "line": 98,
+          "bodySha256": "8d61a93af9464d1461cea8f023312138b3e066d62f1e86fe2f2bb5c88dbea0f2"
+        },
+        {
+          "name": "UseLabelableIdState",
+          "syntax": "InterfaceDeclaration",
+          "line": 100,
+          "bodySha256": "c1a31c801b080e8d02d8367d5b25620a7c64e2e5992d6d18702455d1cdd6c78a"
+        }
+      ],
+      "owner": "Canonical sibling/source helper owner; no edit lease granted for this popup port",
+      "scope": "Original test consumer dependency evidence only; do not implement a sibling family or private fixture engine",
+      "decision": "Use accepted canonical sibling implementation for its exact selected fixture parts and preserve shared helper identities. Until acceptance/test execution this dependent test scope stays incomplete.",
+      "manualStatus": "Original whole body read; local whole-body acceptance and execution pending"
+    },
+    {
+      "source": "packages/react/src/internals/noop.ts",
+      "sha256": "268edb20da01bc632fc8335f808298027500d577ad3872d340080c40a21fc3a0",
+      "url": "https://github.com/mui/base-ui/blob/47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c/packages/react/src/internals/noop.ts",
+      "declaredExports": [],
+      "symbols": [],
+      "owner": "Canonical sibling/source helper owner; no edit lease granted for this popup port",
+      "scope": "Original test consumer dependency evidence only; do not implement a sibling family or private fixture engine",
+      "decision": "Use accepted canonical sibling implementation for its exact selected fixture parts and preserve shared helper identities. Until acceptance/test execution this dependent test scope stays incomplete.",
+      "manualStatus": "Original whole body read; local whole-body acceptance and execution pending"
+    },
+    {
+      "source": "packages/react/src/internals/resolveValueLabel.tsx",
+      "sha256": "bc54306db732b6a1d7570f753ea57c53a2131cab78373d65a07a98839ce73a2a",
+      "url": "https://github.com/mui/base-ui/blob/47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c/packages/react/src/internals/resolveValueLabel.tsx",
+      "declaredExports": [
+        "Group",
+        "isGroupedItems",
+        "flattenLeafItems",
+        "hasNullItemLabel",
+        "stringifyAsLabel",
+        "stringifyAsValue",
+        "resolveSelectedLabel",
+        "resolveMultipleLabels"
+      ],
+      "symbols": [
+        {
+          "name": "ItemRecord",
+          "syntax": "TypeAliasDeclaration",
+          "line": 5,
+          "bodySha256": "219a5f911b0ae71800fea8aeb411359e2167703c7fed0a6f9ce1ebb8aa6b9240"
+        },
+        {
+          "name": "ItemsInput",
+          "syntax": "TypeAliasDeclaration",
+          "line": 6,
+          "bodySha256": "bdbbdae987b2283717474b8fb279b0668f8c7e09269d0d3836a636360acfa5ec"
+        },
+        {
+          "name": "LabeledItem",
+          "syntax": "InterfaceDeclaration",
+          "line": 8,
+          "bodySha256": "18278add589778adbd6ee9a65b03b80b241fa3807cabd7684ad9777b8023f5d9"
+        },
+        {
+          "name": "Group",
+          "syntax": "InterfaceDeclaration",
+          "line": 13,
+          "bodySha256": "1eeb998a17c786a922abe03c6e25916239e1c2dc73701cfa5419d10e80b125e7"
+        },
+        {
+          "name": "isGroup",
+          "syntax": "FunctionDeclaration",
+          "line": 18,
+          "bodySha256": "665ce03e57c1cc86d31cc3450c2033a744551c1c5da920feec51b19e318651e1"
+        },
+        {
+          "name": "isGroupedItems",
+          "syntax": "FunctionDeclaration",
+          "line": 22,
+          "bodySha256": "d6242d4a58bef2cfcf0310ff66ac17397b2539c5c6e9ba1f0dca3142316e76b4"
+        },
+        {
+          "name": "flattenLeafItems",
+          "syntax": "FunctionDeclaration",
+          "line": 30,
+          "bodySha256": "54551a130cf3c203fc202afaa589c2380db61705d5967f31449358558c7ce6ec"
+        },
+        {
+          "name": "hasNullItemLabel",
+          "syntax": "FunctionDeclaration",
+          "line": 41,
+          "bodySha256": "baa65e274c1920d36093219cca93d1f83909508b10ef3ac161739715e08444fa"
+        },
+        {
+          "name": "stringifyAsLabel",
+          "syntax": "FunctionDeclaration",
+          "line": 68,
+          "bodySha256": "698b8b8223001c695b55f719079d2a716214a217424aaaa3992ac2ca6becbfd0"
+        },
+        {
+          "name": "stringifyAsValue",
+          "syntax": "FunctionDeclaration",
+          "line": 83,
+          "bodySha256": "64275b298ded77fcc902393d1ce12b803cfb990755a3bd2d145614c2bf985a3f"
+        },
+        {
+          "name": "resolveSelectedLabel",
+          "syntax": "FunctionDeclaration",
+          "line": 93,
+          "bodySha256": "9a6121838c375b00f23633b8cb9d5b8920c3b98667770f7bd69d467cb6ce20e8"
+        },
+        {
+          "name": "resolveMultipleLabels",
+          "syntax": "FunctionDeclaration",
+          "line": 142,
+          "bodySha256": "17e97222eae76bb878a14f36c41b7ee91bb4e657c7f2d8450eb346d0240aef79"
+        }
+      ],
+      "owner": "Canonical sibling/source helper owner; no edit lease granted for this popup port",
+      "scope": "Original test consumer dependency evidence only; do not implement a sibling family or private fixture engine",
+      "decision": "Use accepted canonical sibling implementation for its exact selected fixture parts and preserve shared helper identities. Until acceptance/test execution this dependent test scope stays incomplete.",
+      "manualStatus": "Original whole body read; local whole-body acceptance and execution pending"
+    },
+    {
+      "source": "packages/react/src/internals/serializeValue.ts",
+      "sha256": "200e70d64db36ca0161d8dc2370a26564d8381a21409f0949192fc5e45db5fd2",
+      "url": "https://github.com/mui/base-ui/blob/47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c/packages/react/src/internals/serializeValue.ts",
+      "declaredExports": [
+        "serializeValue"
+      ],
+      "symbols": [
+        {
+          "name": "serializeValue",
+          "syntax": "FunctionDeclaration",
+          "line": 1,
+          "bodySha256": "6faba1916d0a3c750811eb21092f3d3e376d74445217489af4983fa03759c768"
+        }
+      ],
+      "owner": "Canonical sibling/source helper owner; no edit lease granted for this popup port",
+      "scope": "Original test consumer dependency evidence only; do not implement a sibling family or private fixture engine",
+      "decision": "Use accepted canonical sibling implementation for its exact selected fixture parts and preserve shared helper identities. Until acceptance/test execution this dependent test scope stays incomplete.",
+      "manualStatus": "Original whole body read; local whole-body acceptance and execution pending"
+    },
+    {
+      "source": "packages/react/src/menu/index.parts.ts",
+      "sha256": "c15049f6149015edf4a27e37c07a7ca1fd8048723be0a6762a6a659c26ede825",
+      "url": "https://github.com/mui/base-ui/blob/47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c/packages/react/src/menu/index.parts.ts",
+      "declaredExports": [],
+      "symbols": [],
+      "owner": "Menu developer, canonical implementation only",
+      "scope": "Original test consumer dependency evidence only; do not implement a sibling family or private fixture engine",
+      "decision": "Use accepted canonical sibling implementation for its exact selected fixture parts and preserve shared helper identities. Until acceptance/test execution this dependent test scope stays incomplete.",
+      "manualStatus": "Original whole body read; local whole-body acceptance and execution pending"
+    },
+    {
+      "source": "packages/react/src/menu/index.ts",
+      "sha256": "68f31069857e89aa41cb75f8d8033c80d6f4d4c6774865a985e170a1b8887593",
+      "url": "https://github.com/mui/base-ui/blob/47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c/packages/react/src/menu/index.ts",
+      "declaredExports": [],
+      "symbols": [],
+      "owner": "Menu developer, canonical implementation only",
+      "scope": "Original test consumer dependency evidence only; do not implement a sibling family or private fixture engine",
+      "decision": "Use accepted canonical sibling implementation for its exact selected fixture parts and preserve shared helper identities. Until acceptance/test execution this dependent test scope stays incomplete.",
+      "manualStatus": "Original whole body read; local whole-body acceptance and execution pending"
+    },
+    {
+      "source": "packages/react/src/menu/item/MenuItem.tsx",
+      "sha256": "9659caa89a9fdeeb449d804599633437e47191f729b4450f91245cb2be5cc100",
+      "url": "https://github.com/mui/base-ui/blob/47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c/packages/react/src/menu/item/MenuItem.tsx",
+      "declaredExports": [
+        "MenuItem",
+        "MenuItemState",
+        "MenuItemProps",
+        "MenuItem"
+      ],
+      "symbols": [
+        {
+          "name": "MenuItem",
+          "syntax": "VariableDeclaration",
+          "line": 17,
+          "bodySha256": "5d1668c89b9cd2ced17a47c795c251994a220c56f8441f3437404429a40c8b01"
+        },
+        {
+          "name": "MenuItemState",
+          "syntax": "InterfaceDeclaration",
+          "line": 66,
+          "bodySha256": "dde2f94034a60c37d9c6aa9665dcb3b23b06234270d12b823342ac9bd8ee420d"
+        },
+        {
+          "name": "MenuItemProps",
+          "syntax": "InterfaceDeclaration",
+          "line": 77,
+          "bodySha256": "9810090f0e3fd724043a510abf3ad05cf67648d4a6f62bb39876134488f3d4c9"
+        },
+        {
+          "name": "MenuItem",
+          "syntax": "ModuleDeclaration",
+          "line": 104,
+          "bodySha256": "0c83e1f52c1239695805d00636092b37cdbd16f674606dc9193464c4aaa56178"
+        }
+      ],
+      "owner": "Menu developer, canonical implementation only",
+      "scope": "Original test consumer dependency evidence only; do not implement a sibling family or private fixture engine",
+      "decision": "Use accepted canonical sibling implementation for its exact selected fixture parts and preserve shared helper identities. Until acceptance/test execution this dependent test scope stays incomplete.",
+      "manualStatus": "Original whole body read; local whole-body acceptance and execution pending"
+    },
+    {
+      "source": "packages/react/src/menu/item/useMenuItem.ts",
+      "sha256": "def002c3647f09a9a813e74b6b47352c1c5a01aa0298ee7be4e32e07fab4c8d0",
+      "url": "https://github.com/mui/base-ui/blob/47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c/packages/react/src/menu/item/useMenuItem.ts",
+      "declaredExports": [
+        "REGULAR_ITEM",
+        "useMenuItem",
+        "UseMenuItemParameters",
+        "UseMenuItemMetadata",
+        "UseMenuItemReturnValue",
+        "UseMenuItemState"
+      ],
+      "symbols": [
+        {
+          "name": "REGULAR_ITEM",
+          "syntax": "VariableDeclaration",
+          "line": 10,
+          "bodySha256": "c088700106fe83c1271303ecd41033a0b644d6559761563a3805c8dcf122179e"
+        },
+        {
+          "name": "useMenuItem",
+          "syntax": "FunctionDeclaration",
+          "line": 14,
+          "bodySha256": "4442a6ebfb2d0373afc4a5f3ab5d2752d0d24007a185584388c275721d7a14da"
+        },
+        {
+          "name": "UseMenuItemParameters",
+          "syntax": "InterfaceDeclaration",
+          "line": 78,
+          "bodySha256": "e34c08f7ef59d188df8fd600161c15a8ac5b5054c360767d780c561cb072cd72"
+        },
+        {
+          "name": "UseMenuItemMetadata",
+          "syntax": "TypeAliasDeclaration",
+          "line": 121,
+          "bodySha256": "b7bd4fe316e5008ed719062dcd415a6dd5e667d5159cce77ecb9c56bf806997e"
+        },
+        {
+          "name": "UseMenuItemReturnValue",
+          "syntax": "InterfaceDeclaration",
+          "line": 128,
+          "bodySha256": "2a72a78535b03bc00f6aff350441b76f6bbda0b8d3be3a25118db21dc85941c9"
+        },
+        {
+          "name": "UseMenuItemState",
+          "syntax": "InterfaceDeclaration",
+          "line": 141,
+          "bodySha256": "2f6e47ea777b8827f2f8b0f5f907bb749a4404a8aded604a5232ca74bdc31be4"
+        }
+      ],
+      "owner": "Menu developer, canonical implementation only",
+      "scope": "Original test consumer dependency evidence only; do not implement a sibling family or private fixture engine",
+      "decision": "Use accepted canonical sibling implementation for its exact selected fixture parts and preserve shared helper identities. Until acceptance/test execution this dependent test scope stays incomplete.",
+      "manualStatus": "Original whole body read; local whole-body acceptance and execution pending"
+    },
+    {
+      "source": "packages/react/src/menu/item/useMenuItemCommonProps.ts",
+      "sha256": "b725702925f0bff8af3b971c4c2aa84d6a81a3014e318d7bad3bcada47dc427f",
+      "url": "https://github.com/mui/base-ui/blob/47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c/packages/react/src/menu/item/useMenuItemCommonProps.ts",
+      "declaredExports": [
+        "UseMenuItemCommonPropsParameters",
+        "useMenuItemCommonProps",
+        "UseMenuItemCommonPropsState"
+      ],
+      "symbols": [
+        {
+          "name": "UseMenuItemCommonPropsParameters",
+          "syntax": "InterfaceDeclaration",
+          "line": 11,
+          "bodySha256": "a2ae578e21b72c9723b92fbc70e1033ba04dce9fc44e3b5ecd02219bcbbfe5e8"
+        },
+        {
+          "name": "useMenuItemCommonProps",
+          "syntax": "FunctionDeclaration",
+          "line": 51,
+          "bodySha256": "4a1636b0cdf7e2ebd2fbc1ddd4e7ab25fd3194b48ffa77b3aef2003bcca45070"
+        },
+        {
+          "name": "UseMenuItemCommonPropsState",
+          "syntax": "InterfaceDeclaration",
+          "line": 138,
+          "bodySha256": "e50802582680db31adb105725d723e1643266e12999de009f42df8afe1a2faa2"
+        }
+      ],
+      "owner": "Menu developer, canonical implementation only",
+      "scope": "Original test consumer dependency evidence only; do not implement a sibling family or private fixture engine",
+      "decision": "Use accepted canonical sibling implementation for its exact selected fixture parts and preserve shared helper identities. Until acceptance/test execution this dependent test scope stays incomplete.",
+      "manualStatus": "Original whole body read; local whole-body acceptance and execution pending"
+    },
+    {
+      "source": "packages/react/src/menu/popup/MenuPopup.tsx",
+      "sha256": "3e20ba1ec7a8ea8030964f4a3f6364f94f14795ae857b0f495684ddf8efcefce",
+      "url": "https://github.com/mui/base-ui/blob/47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c/packages/react/src/menu/popup/MenuPopup.tsx",
+      "declaredExports": [
+        "MenuPopup",
+        "MenuPopupProps",
+        "MenuPopupState",
+        "MenuPopup"
+      ],
+      "symbols": [
+        {
+          "name": "MenuPopup",
+          "syntax": "VariableDeclaration",
+          "line": 26,
+          "bodySha256": "93752d21061540169e432e7a615bc2b2a02e6836a26addcf9c0f9fedea775728"
+        },
+        {
+          "name": "MenuPopupProps",
+          "syntax": "InterfaceDeclaration",
+          "line": 145,
+          "bodySha256": "6d5aebdd9a89c8c8f4dbbdff0ee1e34ea47598c70eab0c57f1b2b32e5051c030"
+        },
+        {
+          "name": "MenuPopupState",
+          "syntax": "InterfaceDeclaration",
+          "line": 167,
+          "bodySha256": "89bbf890295084b8b322b0fcf80c9c7c687b270d105cc031261da2c6136cca0a"
+        },
+        {
+          "name": "MenuPopup",
+          "syntax": "ModuleDeclaration",
+          "line": 194,
+          "bodySha256": "de21a563d86e26cf1adede0a3a8fece8c3804f0a36e5ecb9a6bdccd8720ea8b0"
+        }
+      ],
+      "owner": "Menu developer, canonical implementation only",
+      "scope": "Original test consumer dependency evidence only; do not implement a sibling family or private fixture engine",
+      "decision": "Use accepted canonical sibling implementation for its exact selected fixture parts and preserve shared helper identities. Until acceptance/test execution this dependent test scope stays incomplete.",
+      "manualStatus": "Original whole body read; local whole-body acceptance and execution pending"
+    },
+    {
+      "source": "packages/react/src/menu/portal/MenuPortal.tsx",
+      "sha256": "d0fd72e861b1a2cda83f9d88a3429a021f2078c61bb2d27bb1b95ca707e91bee",
+      "url": "https://github.com/mui/base-ui/blob/47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c/packages/react/src/menu/portal/MenuPortal.tsx",
+      "declaredExports": [
+        "MenuPortal",
+        "MenuPortalState",
+        "MenuPortalProps",
+        "MenuPortal"
+      ],
+      "symbols": [
+        {
+          "name": "MenuPortal",
+          "syntax": "VariableDeclaration",
+          "line": 15,
+          "bodySha256": "c6a7b50cf1c07fc1b0c777997b6f7e76ca572ee6f76e17455bdb177d03f92239"
+        },
+        {
+          "name": "MenuPortalState",
+          "syntax": "InterfaceDeclaration",
+          "line": 42,
+          "bodySha256": "385c7aff80055552cc2ff9a08b77821259f51b2cbc98b14b71f8af85ad75e125"
+        },
+        {
+          "name": "MenuPortalProps",
+          "syntax": "InterfaceDeclaration",
+          "line": 44,
+          "bodySha256": "725b9fd3780c46d469b380e9ab0a73751ee50912308195b617edfbb48ddbafd5"
+        },
+        {
+          "name": "MenuPortal",
+          "syntax": "ModuleDeclaration",
+          "line": 57,
+          "bodySha256": "78348f3d02c5c804d979814e252ecf24841b7031f04d6b28bc2d7c56828a31f7"
+        }
+      ],
+      "owner": "Menu developer, canonical implementation only",
+      "scope": "Original test consumer dependency evidence only; do not implement a sibling family or private fixture engine",
+      "decision": "Use accepted canonical sibling implementation for its exact selected fixture parts and preserve shared helper identities. Until acceptance/test execution this dependent test scope stays incomplete.",
+      "manualStatus": "Original whole body read; local whole-body acceptance and execution pending"
+    },
+    {
+      "source": "packages/react/src/menu/portal/MenuPortalContext.ts",
+      "sha256": "12cf67055ce3d3714beaf7560962573b527cf2735bdbb722295e3c95513a738a",
+      "url": "https://github.com/mui/base-ui/blob/47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c/packages/react/src/menu/portal/MenuPortalContext.ts",
+      "declaredExports": [
+        "MenuPortalContext",
+        "useMenuPortalContext"
+      ],
+      "symbols": [
+        {
+          "name": "MenuPortalContext",
+          "syntax": "VariableDeclaration",
+          "line": 4,
+          "bodySha256": "3ae28c215af80014938c5f54635afe923a611d0d5a4f3aede3eef2d46ca60daa"
+        },
+        {
+          "name": "useMenuPortalContext",
+          "syntax": "FunctionDeclaration",
+          "line": 6,
+          "bodySha256": "4f34c28cf6750e3e177300f29fabd785c0de69ce3cea6702aa9f3fc2d0c25b80"
+        }
+      ],
+      "owner": "Menu developer, canonical implementation only",
+      "scope": "Original test consumer dependency evidence only; do not implement a sibling family or private fixture engine",
+      "decision": "Use accepted canonical sibling implementation for its exact selected fixture parts and preserve shared helper identities. Until acceptance/test execution this dependent test scope stays incomplete.",
+      "manualStatus": "Original whole body read; local whole-body acceptance and execution pending"
+    },
+    {
+      "source": "packages/react/src/menu/positioner/MenuPositioner.tsx",
+      "sha256": "aaaa717a48c32ae91b5ac7d3684292491eeada7843118aad05e9ba9f4a143943",
+      "url": "https://github.com/mui/base-ui/blob/47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c/packages/react/src/menu/positioner/MenuPositioner.tsx",
+      "declaredExports": [
+        "MenuPositioner",
+        "MenuPositionerState",
+        "MenuPositionerProps",
+        "MenuPositioner"
+      ],
+      "symbols": [
+        {
+          "name": "MenuPositioner",
+          "syntax": "VariableDeclaration",
+          "line": 35,
+          "bodySha256": "d6066289a29050becc2d8fc62a73dc7bc086312b83cff1204947330a0e0623db"
+        },
+        {
+          "name": "MenuPositionerState",
+          "syntax": "InterfaceDeclaration",
+          "line": 325,
+          "bodySha256": "0bc158364ba8e31ed92db3e9a20ed3315b1d585d2bfc5ddbe4eb28d507ce79e3"
+        },
+        {
+          "name": "MenuPositionerProps",
+          "syntax": "InterfaceDeclaration",
+          "line": 352,
+          "bodySha256": "686671b1295f86bd4975244b40f08b43ed1080fa38a3c5e68a8594edee4bec56"
+        },
+        {
+          "name": "MenuPositioner",
+          "syntax": "ModuleDeclaration",
+          "line": 373,
+          "bodySha256": "4a432ab1b81b052784e2215b4ca95f763554bedbdf1b0705da1e8f4ae96c0c64"
+        }
+      ],
+      "owner": "Menu developer, canonical implementation only",
+      "scope": "Original test consumer dependency evidence only; do not implement a sibling family or private fixture engine",
+      "decision": "Use accepted canonical sibling implementation for its exact selected fixture parts and preserve shared helper identities. Until acceptance/test execution this dependent test scope stays incomplete.",
+      "manualStatus": "Original whole body read; local whole-body acceptance and execution pending"
+    },
+    {
+      "source": "packages/react/src/menu/positioner/MenuPositionerContext.ts",
+      "sha256": "a39dd176a7df67b456ea35b969ce3a5a6e7bbc5eb9ca29f312def526b6e921ae",
+      "url": "https://github.com/mui/base-ui/blob/47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c/packages/react/src/menu/positioner/MenuPositionerContext.ts",
+      "declaredExports": [
+        "MenuPositionerContext",
+        "MenuPositionerContext",
+        "useMenuPositionerContext",
+        "useMenuPositionerContext",
+        "useMenuPositionerContext"
+      ],
+      "symbols": [
+        {
+          "name": "MenuPositionerContext",
+          "syntax": "TypeAliasDeclaration",
+          "line": 5,
+          "bodySha256": "86b6612ac93320f19677c2c1ccda92e3d7893095e4973f995f24715c3f77ec97"
+        },
+        {
+          "name": "MenuPositionerContext",
+          "syntax": "VariableDeclaration",
+          "line": 10,
+          "bodySha256": "411464bd0665aff1e6d70d71b2e912d5aa82a2c5e1a699d629821f6b4468db24"
+        },
+        {
+          "name": "useMenuPositionerContext",
+          "syntax": "FunctionDeclaration",
+          "line": 14,
+          "bodySha256": "3b7886ac2ecc54c36dfdde3fae703376745b0f37d6a84d3fbb92745f38bd4afc"
+        },
+        {
+          "name": "useMenuPositionerContext",
+          "syntax": "FunctionDeclaration",
+          "line": 15,
+          "bodySha256": "917692fe48b93561c9d54b316842dfbcaa206ee0cc92d831d0da01b239ca51be"
+        },
+        {
+          "name": "useMenuPositionerContext",
+          "syntax": "FunctionDeclaration",
+          "line": 16,
+          "bodySha256": "32e3a3eec3c278b7b6dba495f315f615441337978de7c1cecd1b57e8b0ec9ab0"
+        }
+      ],
+      "owner": "Menu developer, canonical implementation only",
+      "scope": "Original test consumer dependency evidence only; do not implement a sibling family or private fixture engine",
+      "decision": "Use accepted canonical sibling implementation for its exact selected fixture parts and preserve shared helper identities. Until acceptance/test execution this dependent test scope stays incomplete.",
+      "manualStatus": "Original whole body read; local whole-body acceptance and execution pending"
+    },
+    {
+      "source": "packages/react/src/menu/root/MenuRoot.tsx",
+      "sha256": "1ac421c640daa9cbecc0da47216995a691b20123ca2307bbdc21299c596fe54f",
+      "url": "https://github.com/mui/base-ui/blob/47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c/packages/react/src/menu/root/MenuRoot.tsx",
+      "declaredExports": [
+        "MenuRoot",
+        "MenuRootState",
+        "MenuRootProps",
+        "MenuRootActions",
+        "MenuRootChangeEventReason",
+        "MenuRootChangeEventDetails",
+        "MenuRootOrientation",
+        "MenuParent",
+        "MenuRoot"
+      ],
+      "symbols": [
+        {
+          "name": "MenuRoot",
+          "syntax": "VariableDeclaration",
+          "line": 55,
+          "bodySha256": "cd5fbb9451ba736161503d806d66a1666b049820b9c609dd91cc3ee07581b833"
+        },
+        {
+          "name": "useMenuRootStore",
+          "syntax": "FunctionDeclaration",
+          "line": 651,
+          "bodySha256": "8627aedfcd6c7bdfa5168012ad23e1efdf45ba7431e81bdd3f5c1d6772439a99"
+        },
+        {
+          "name": "MenuRootState",
+          "syntax": "InterfaceDeclaration",
+          "line": 668,
+          "bodySha256": "3c8aadc839c2bf44c69f326e327a1b14f786107c488678f6c7fe70a2d99baf4f"
+        },
+        {
+          "name": "MenuRootProps",
+          "syntax": "InterfaceDeclaration",
+          "line": 670,
+          "bodySha256": "d31fb2c13836f5b9752c55b523a3409d2354dbf0f672b1475043ff1fc8413d4a"
+        },
+        {
+          "name": "MenuRootActions",
+          "syntax": "InterfaceDeclaration",
+          "line": 760,
+          "bodySha256": "e80060b3917ae790c7d4c7f85cbc18d7955c274e5d8656dc301207925b7cc9d5"
+        },
+        {
+          "name": "MenuRootChangeEventReason",
+          "syntax": "TypeAliasDeclaration",
+          "line": 765,
+          "bodySha256": "bf8ba3aa821d557551627e3675d6b309d17d80bd78f2cf7c8f61098367b53e4d"
+        },
+        {
+          "name": "MenuRootChangeEventDetails",
+          "syntax": "TypeAliasDeclaration",
+          "line": 780,
+          "bodySha256": "d63cee80eff2c25ebc2fa77ef186d63bd55ae2d1467723d06cdf54b7c8364404"
+        },
+        {
+          "name": "MenuRootOrientation",
+          "syntax": "TypeAliasDeclaration",
+          "line": 784,
+          "bodySha256": "1bb4f3cc0861df2558ff74b48655ce1dfebe6e18572e2063356717534d77eeb5"
+        },
+        {
+          "name": "MenuParent",
+          "syntax": "TypeAliasDeclaration",
+          "line": 786,
+          "bodySha256": "ae8dbe7057267b76be5b155f0ad8be723daab1b5770216b19c9eaa6d8e2c0666"
+        },
+        {
+          "name": "MenuRoot",
+          "syntax": "ModuleDeclaration",
+          "line": 808,
+          "bodySha256": "cb653783785b3ff1c17ef55f3cb4cab39cac8aedda8430d0d3215c4096b30e60"
+        }
+      ],
+      "owner": "Menu developer, canonical implementation only",
+      "scope": "Original test consumer dependency evidence only; do not implement a sibling family or private fixture engine",
+      "decision": "Use accepted canonical sibling implementation for its exact selected fixture parts and preserve shared helper identities. Until acceptance/test execution this dependent test scope stays incomplete.",
+      "manualStatus": "Original whole body read; local whole-body acceptance and execution pending"
+    },
+    {
+      "source": "packages/react/src/menu/root/MenuRootContext.ts",
+      "sha256": "d75b8f5cd28085ba93f72fee9286e093bf9b96fdc166670d2ce4bd3ba8e853e8",
+      "url": "https://github.com/mui/base-ui/blob/47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c/packages/react/src/menu/root/MenuRootContext.ts",
+      "declaredExports": [
+        "MenuRootContext",
+        "MenuRootContext",
+        "useMenuRootContext",
+        "useMenuRootContext",
+        "useMenuRootContext"
+      ],
+      "symbols": [
+        {
+          "name": "MenuRootContext",
+          "syntax": "InterfaceDeclaration",
+          "line": 6,
+          "bodySha256": "289735555496be4eef4868507593bd7b6e73c28a8006bca72fd1ccc75a1500f6"
+        },
+        {
+          "name": "MenuRootContext",
+          "syntax": "VariableDeclaration",
+          "line": 11,
+          "bodySha256": "df478531a8d023192a54ce374a3f805130ec6a3100f0bea6bcda8d4b4717aeae"
+        },
+        {
+          "name": "useMenuRootContext",
+          "syntax": "FunctionDeclaration",
+          "line": 13,
+          "bodySha256": "4af97f7daac0dd46715cd12b48dabcb1ad55ca06645a8cb510b690eac1c90260"
+        },
+        {
+          "name": "useMenuRootContext",
+          "syntax": "FunctionDeclaration",
+          "line": 14,
+          "bodySha256": "8e016d9c4d843c462b4ee630ca77ff32b73212d452528e7c59837c7752841386"
+        },
+        {
+          "name": "useMenuRootContext",
+          "syntax": "FunctionDeclaration",
+          "line": 15,
+          "bodySha256": "47871709676dfb10c3690e118e72c7461e3da2e69ca91b5b3a638e548624b4aa"
+        }
+      ],
+      "owner": "Menu developer, canonical implementation only",
+      "scope": "Original test consumer dependency evidence only; do not implement a sibling family or private fixture engine",
+      "decision": "Use accepted canonical sibling implementation for its exact selected fixture parts and preserve shared helper identities. Until acceptance/test execution this dependent test scope stays incomplete.",
+      "manualStatus": "Original whole body read; local whole-body acceptance and execution pending"
+    },
+    {
+      "source": "packages/react/src/menu/store/MenuHandle.ts",
+      "sha256": "88bcfa9db1e81114fa84d381386e1c682398c30c23a4aa05f6d26a79cae2da6c",
+      "url": "https://github.com/mui/base-ui/blob/47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c/packages/react/src/menu/store/MenuHandle.ts",
+      "declaredExports": [
+        "MenuHandle",
+        "createMenuHandle"
+      ],
+      "symbols": [
+        {
+          "name": "MenuHandle",
+          "syntax": "ClassDeclaration",
+          "line": 12,
+          "bodySha256": "11a31b0b80974a2ca45cd44a1fc85157d4207501f30dcfc5734b6407302ed0f6"
+        },
+        {
+          "name": "createMenuHandle",
+          "syntax": "FunctionDeclaration",
+          "line": 52,
+          "bodySha256": "1b2f04c91fd1940e23b3c245b838fda0586d40c9234f618f4a187ab03e8b9923"
+        }
+      ],
+      "owner": "Menu developer, canonical implementation only",
+      "scope": "Original test consumer dependency evidence only; do not implement a sibling family or private fixture engine",
+      "decision": "Use accepted canonical sibling implementation for its exact selected fixture parts and preserve shared helper identities. Until acceptance/test execution this dependent test scope stays incomplete.",
+      "manualStatus": "Original whole body read; local whole-body acceptance and execution pending"
+    },
+    {
+      "source": "packages/react/src/menu/store/MenuStore.ts",
+      "sha256": "c8994700db03b38238ac5696ff2cf7218b7fcd25e7f63f4e530dffc4b2da9834",
+      "url": "https://github.com/mui/base-ui/blob/47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c/packages/react/src/menu/store/MenuStore.ts",
+      "declaredExports": [
+        "State",
+        "MenuHandleStore",
+        "MenuStore",
+        "createNullMenuStore"
+      ],
+      "symbols": [
+        {
+          "name": "State",
+          "syntax": "TypeAliasDeclaration",
+          "line": 19,
+          "bodySha256": "6b572e6406ec5234ab88151d669997a07e0da96bbb01c05dc75f81fdd9422fe5"
+        },
+        {
+          "name": "Context",
+          "syntax": "TypeAliasDeclaration",
+          "line": 40,
+          "bodySha256": "f404ecf930e0711cb73df3ff59d77a1bd2fc4c8edaa9b9dde9a9ad66f5253628"
+        },
+        {
+          "name": "selectors",
+          "syntax": "VariableDeclaration",
+          "line": 51,
+          "bodySha256": "fb7e66086169a2c723686f01d8b1cd412df5bb386b375c69c6578ee850d2d77c"
+        },
+        {
+          "name": "Selectors",
+          "syntax": "TypeAliasDeclaration",
+          "line": 103,
+          "bodySha256": "ad8109f876910b0c8361d08e7e30568a26ca78b0b4cd17d1149152bc309e2477"
+        },
+        {
+          "name": "MenuHandleStore",
+          "syntax": "TypeAliasDeclaration",
+          "line": 112,
+          "bodySha256": "2f8156203056f03a5907bc9427abd5a9eae3619f912e6097166228b97af065f2"
+        },
+        {
+          "name": "MenuStore",
+          "syntax": "ClassDeclaration",
+          "line": 114,
+          "bodySha256": "df5a5bb39b528a0e53afb1dddccfac25cce20dd6f87d60d78a9f23199052a9c7"
+        },
+        {
+          "name": "createNullMenuStore",
+          "syntax": "FunctionDeclaration",
+          "line": 179,
+          "bodySha256": "c9432e3aced514d034d41f0681dc10b9a38ab1a745fe8632ffdaeffd6deeac91"
+        },
+        {
+          "name": "createInitialContext",
+          "syntax": "FunctionDeclaration",
+          "line": 189,
+          "bodySha256": "e09ce53e18da17ae6060678342f12fc5bf7583e48183f6bb09a9eb0fc415e0fc"
+        },
+        {
+          "name": "createInitialState",
+          "syntax": "FunctionDeclaration",
+          "line": 204,
+          "bodySha256": "18a0d4b6cd4563c0c9005f15a08270cf4827613a413009c822af7ded1cd52beb"
+        }
+      ],
+      "owner": "Menu developer, canonical implementation only",
+      "scope": "Original test consumer dependency evidence only; do not implement a sibling family or private fixture engine",
+      "decision": "Use accepted canonical sibling implementation for its exact selected fixture parts and preserve shared helper identities. Until acceptance/test execution this dependent test scope stays incomplete.",
+      "manualStatus": "Original whole body read; local whole-body acceptance and execution pending"
+    },
+    {
+      "source": "packages/react/src/menu/submenu-root/MenuSubmenuRootContext.ts",
+      "sha256": "262b535c2c949d868fa4a324ea9709bca4763c50a170adc97e0ce8a68acba882",
+      "url": "https://github.com/mui/base-ui/blob/47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c/packages/react/src/menu/submenu-root/MenuSubmenuRootContext.ts",
+      "declaredExports": [
+        "MenuSubmenuRootContext",
+        "MenuSubmenuRootContext",
+        "useMenuSubmenuRootContext"
+      ],
+      "symbols": [
+        {
+          "name": "MenuSubmenuRootContext",
+          "syntax": "VariableDeclaration",
+          "line": 5,
+          "bodySha256": "5c9441867fa8ba20f97d4f25802e7bb0c7583b0b16f26a474c000e28a7bb45f2"
+        },
+        {
+          "name": "MenuSubmenuRootContext",
+          "syntax": "InterfaceDeclaration",
+          "line": 9,
+          "bodySha256": "d2e5a6784554a983f21bcc655dfa8ba0566cf00e0a88527cd81fa9b9e0b732a9"
+        },
+        {
+          "name": "useMenuSubmenuRootContext",
+          "syntax": "FunctionDeclaration",
+          "line": 13,
+          "bodySha256": "efbc2797ee1e2c4134897b57a9b24af84f80199745d72d79ab0d7411e682d77d"
+        }
+      ],
+      "owner": "Menu developer, canonical implementation only",
+      "scope": "Original test consumer dependency evidence only; do not implement a sibling family or private fixture engine",
+      "decision": "Use accepted canonical sibling implementation for its exact selected fixture parts and preserve shared helper identities. Until acceptance/test execution this dependent test scope stays incomplete.",
+      "manualStatus": "Original whole body read; local whole-body acceptance and execution pending"
+    },
+    {
+      "source": "packages/react/src/menu/trigger/MenuTrigger.tsx",
+      "sha256": "caa4f62155184e668f1f8ea238bf067fba7089d672d36c0116d73a4d82794ee0",
+      "url": "https://github.com/mui/base-ui/blob/47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c/packages/react/src/menu/trigger/MenuTrigger.tsx",
+      "declaredExports": [
+        "MenuTrigger",
+        "MenuTrigger",
+        "MenuTriggerProps",
+        "MenuTriggerState",
+        "MenuTrigger"
+      ],
+      "symbols": [
+        {
+          "name": "MenuTrigger",
+          "syntax": "VariableDeclaration",
+          "line": 47,
+          "bodySha256": "bf778c16cd1a50b8eccf3a3d3ac2ae479186b17d17adf0505bb5bc57e534873d"
+        },
+        {
+          "name": "MenuTrigger",
+          "syntax": "InterfaceDeclaration",
+          "line": 296,
+          "bodySha256": "210959387f9ddb0d9ddf775963d54d25d67ee1cd66fc45e13c003a401365619d"
+        },
+        {
+          "name": "MenuTriggerProps",
+          "syntax": "InterfaceDeclaration",
+          "line": 302,
+          "bodySha256": "5854bfc5c0188f496ad26b12639e6beccc2edff18080c46327d38367652cbca9"
+        },
+        {
+          "name": "MenuTriggerState",
+          "syntax": "InterfaceDeclaration",
+          "line": 339,
+          "bodySha256": "2d6eecdd006acaaf405d951b514bee8de9d9d1d1a36cb9a79b98d1207189d8f9"
+        },
+        {
+          "name": "MenuTrigger",
+          "syntax": "ModuleDeclaration",
+          "line": 350,
+          "bodySha256": "2c911c1a32835eceba40df34bdb7b924d6dbb2666dd08b796c5464246714e5cf"
+        },
+        {
+          "name": "useStickIfOpen",
+          "syntax": "FunctionDeclaration",
+          "line": 358,
+          "bodySha256": "7432094bddc3ac82fe995b84363a5f5abaac4dd3d705b5935d7b24c05ae9c802"
+        },
+        {
+          "name": "useMenuParent",
+          "syntax": "FunctionDeclaration",
+          "line": 378,
+          "bodySha256": "ed06631f65a8907f70a0d349fb14e469649aba7c35b35eb21061b379c450dd55"
+        }
+      ],
+      "owner": "Menu developer, canonical implementation only",
+      "scope": "Original test consumer dependency evidence only; do not implement a sibling family or private fixture engine",
+      "decision": "Use accepted canonical sibling implementation for its exact selected fixture parts and preserve shared helper identities. Until acceptance/test execution this dependent test scope stays incomplete.",
+      "manualStatus": "Original whole body read; local whole-body acceptance and execution pending"
+    },
+    {
+      "source": "packages/react/src/menu/utils/findRootOwnerId.ts",
+      "sha256": "d43e0c3e1f7e2974ad25a1b5b6da9581fa576b6db2687d107097842b42b0cbc3",
+      "url": "https://github.com/mui/base-ui/blob/47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c/packages/react/src/menu/utils/findRootOwnerId.ts",
+      "declaredExports": [
+        "findRootOwnerId"
+      ],
+      "symbols": [
+        {
+          "name": "findRootOwnerId",
+          "syntax": "FunctionDeclaration",
+          "line": 3,
+          "bodySha256": "7255f392b9c9604e7a8dd3c9afacf91d7d9a8b29c0707e72e3d786f056ef15dd"
+        }
+      ],
+      "owner": "Menu developer, canonical implementation only",
+      "scope": "Original test consumer dependency evidence only; do not implement a sibling family or private fixture engine",
+      "decision": "Use accepted canonical sibling implementation for its exact selected fixture parts and preserve shared helper identities. Until acceptance/test execution this dependent test scope stays incomplete.",
+      "manualStatus": "Original whole body read; local whole-body acceptance and execution pending"
+    },
+    {
+      "source": "packages/react/src/menu/utils/types.ts",
+      "sha256": "9473921aa15eeb2e891bb1e7e2c354eea274c4e76fa4737274594ae2d5fbf43c",
+      "url": "https://github.com/mui/base-ui/blob/47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c/packages/react/src/menu/utils/types.ts",
+      "declaredExports": [
+        "MenuOpenEventDetails"
+      ],
+      "symbols": [
+        {
+          "name": "MenuOpenEventDetails",
+          "syntax": "InterfaceDeclaration",
+          "line": 3,
+          "bodySha256": "52acf365bb0894ec5fc48a8a6211fab99e4b02e9b35a78c2a507c18491c41632"
+        }
+      ],
+      "owner": "Menu developer, canonical implementation only",
+      "scope": "Original test consumer dependency evidence only; do not implement a sibling family or private fixture engine",
+      "decision": "Use accepted canonical sibling implementation for its exact selected fixture parts and preserve shared helper identities. Until acceptance/test execution this dependent test scope stays incomplete.",
+      "manualStatus": "Original whole body read; local whole-body acceptance and execution pending"
+    },
+    {
+      "source": "packages/react/src/menubar/MenubarContext.ts",
+      "sha256": "0fcffd5eb9fa6dde8145bd9dc1a37794d75b1d8b67d23c869e312c12f9abdcf5",
+      "url": "https://github.com/mui/base-ui/blob/47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c/packages/react/src/menubar/MenubarContext.ts",
+      "declaredExports": [
+        "MenubarContext",
+        "MenubarContext",
+        "useMenubarContext",
+        "useMenubarContext",
+        "useMenubarContext"
+      ],
+      "symbols": [
+        {
+          "name": "MenubarContext",
+          "syntax": "InterfaceDeclaration",
+          "line": 5,
+          "bodySha256": "67ab12c162af00735d0d69bf1cc901a51fbefac5050e6cec8aab4ad5e4d7f4d1"
+        },
+        {
+          "name": "MenubarContext",
+          "syntax": "VariableDeclaration",
+          "line": 17,
+          "bodySha256": "9f85689d1c4c0f77d1ee5d5587c74d442b2a8a1e8ce33cca3413067cdac14e86"
+        },
+        {
+          "name": "useMenubarContext",
+          "syntax": "FunctionDeclaration",
+          "line": 19,
+          "bodySha256": "31cfa36dba39fa364290d66e720f9b5226d35e6298416f65384d64a21b95c757"
+        },
+        {
+          "name": "useMenubarContext",
+          "syntax": "FunctionDeclaration",
+          "line": 20,
+          "bodySha256": "9bfa25a75577a17cbd1ca2151cd6eb769d3f7d0a63b66cc35b9a4e2eab8c215e"
+        },
+        {
+          "name": "useMenubarContext",
+          "syntax": "FunctionDeclaration",
+          "line": 21,
+          "bodySha256": "6a8ae6a07d6f81f0f4806f11b05bb338363750bd2b4b8434b6eb6a15f28deeed"
+        }
+      ],
+      "owner": "Menu developer, canonical implementation only",
+      "scope": "Original test consumer dependency evidence only; do not implement a sibling family or private fixture engine",
+      "decision": "Use accepted canonical sibling implementation for its exact selected fixture parts and preserve shared helper identities. Until acceptance/test execution this dependent test scope stays incomplete.",
+      "manualStatus": "Original whole body read; local whole-body acceptance and execution pending"
+    },
+    {
+      "source": "packages/react/src/toolbar/button/ToolbarButton.tsx",
+      "sha256": "cfae20179213a9bdedc69eb151b2547956b9a061cc4941f1a56130c4bee6ed37",
+      "url": "https://github.com/mui/base-ui/blob/47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c/packages/react/src/toolbar/button/ToolbarButton.tsx",
+      "declaredExports": [
+        "ToolbarButton",
+        "ToolbarButtonState",
+        "ToolbarButtonProps",
+        "ToolbarButton"
+      ],
+      "symbols": [
+        {
+          "name": "ToolbarButton",
+          "syntax": "VariableDeclaration",
+          "line": 17,
+          "bodySha256": "55b743b6162a983debc3f16c3b24a1d3ee67c543d0c69079875ba063b3cb2b37"
+        },
+        {
+          "name": "ToolbarButtonState",
+          "syntax": "InterfaceDeclaration",
+          "line": 78,
+          "bodySha256": "b429a281f5711f1a2c62cb8c0cf64beaea0fa0ddc99132812de3458552948182"
+        },
+        {
+          "name": "ToolbarButtonProps",
+          "syntax": "InterfaceDeclaration",
+          "line": 89,
+          "bodySha256": "b0a2fcc432cdf3a0a9b84f1272e6a521554a9c9e0ca431667a627dbaa505c2ab"
+        },
+        {
+          "name": "ToolbarButton",
+          "syntax": "ModuleDeclaration",
+          "line": 103,
+          "bodySha256": "61658b75e38a34ad634e58fa4b976e8fe90b0a0b4f41f5af93c238065bcbd380"
+        }
+      ],
+      "owner": "Toolbar developer, canonical implementation only",
+      "scope": "Original test consumer dependency evidence only; do not implement a sibling family or private fixture engine",
+      "decision": "Use accepted canonical sibling implementation for its exact selected fixture parts and preserve shared helper identities. Until acceptance/test execution this dependent test scope stays incomplete.",
+      "manualStatus": "Original whole body read; local whole-body acceptance and execution pending"
+    },
+    {
+      "source": "packages/react/src/toolbar/group/ToolbarGroupContext.ts",
+      "sha256": "eb2fe8fbe347e32ead8274a310f678ae0fad7390f7b1c41504b30109d55140eb",
+      "url": "https://github.com/mui/base-ui/blob/47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c/packages/react/src/toolbar/group/ToolbarGroupContext.ts",
+      "declaredExports": [
+        "ToolbarGroupContext",
+        "ToolbarGroupContext",
+        "useToolbarGroupContext"
+      ],
+      "symbols": [
+        {
+          "name": "ToolbarGroupContext",
+          "syntax": "InterfaceDeclaration",
+          "line": 4,
+          "bodySha256": "20360c187a80d5cac67169dee13624924e3f1497eadd5702a4d691a6503bfc1a"
+        },
+        {
+          "name": "ToolbarGroupContext",
+          "syntax": "VariableDeclaration",
+          "line": 8,
+          "bodySha256": "5eb3e40170a1fa5fe3ffd39278c4da104e9fcbe9876d1a3cad06090c4b268753"
+        },
+        {
+          "name": "useToolbarGroupContext",
+          "syntax": "FunctionDeclaration",
+          "line": 10,
+          "bodySha256": "9b9d9e1957126d5c96698a25e86fe36cc55b7952265a3b9ea5ffd0c3a428a8a9"
+        }
+      ],
+      "owner": "Toolbar developer, canonical implementation only",
+      "scope": "Original test consumer dependency evidence only; do not implement a sibling family or private fixture engine",
+      "decision": "Use accepted canonical sibling implementation for its exact selected fixture parts and preserve shared helper identities. Until acceptance/test execution this dependent test scope stays incomplete.",
+      "manualStatus": "Original whole body read; local whole-body acceptance and execution pending"
+    },
+    {
+      "source": "packages/react/src/toolbar/index.parts.ts",
+      "sha256": "40eaa4d90de494cd1f8617fcf1cd44b7d3f69bbce53ac28c2a3e28697fa3f313",
+      "url": "https://github.com/mui/base-ui/blob/47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c/packages/react/src/toolbar/index.parts.ts",
+      "declaredExports": [],
+      "symbols": [],
+      "owner": "Toolbar developer, canonical implementation only",
+      "scope": "Original test consumer dependency evidence only; do not implement a sibling family or private fixture engine",
+      "decision": "Use accepted canonical sibling implementation for its exact selected fixture parts and preserve shared helper identities. Until acceptance/test execution this dependent test scope stays incomplete.",
+      "manualStatus": "Original whole body read; local whole-body acceptance and execution pending"
+    },
+    {
+      "source": "packages/react/src/toolbar/index.ts",
+      "sha256": "e5882a35fa595891bac1ba00e1cf3ed48a5dbec20d0970fd315415ecfd1d91d2",
+      "url": "https://github.com/mui/base-ui/blob/47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c/packages/react/src/toolbar/index.ts",
+      "declaredExports": [],
+      "symbols": [],
+      "owner": "Toolbar developer, canonical implementation only",
+      "scope": "Original test consumer dependency evidence only; do not implement a sibling family or private fixture engine",
+      "decision": "Use accepted canonical sibling implementation for its exact selected fixture parts and preserve shared helper identities. Until acceptance/test execution this dependent test scope stays incomplete.",
+      "manualStatus": "Original whole body read; local whole-body acceptance and execution pending"
+    },
+    {
+      "source": "packages/react/src/toolbar/root/ToolbarRoot.tsx",
+      "sha256": "215a8370a16ea53a26af92badfb28e7fbdf51a3571db0511fc5303d8800dd346",
+      "url": "https://github.com/mui/base-ui/blob/47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c/packages/react/src/toolbar/root/ToolbarRoot.tsx",
+      "declaredExports": [
+        "ToolbarRoot",
+        "ToolbarRootItemMetadata",
+        "ToolbarRootOrientation",
+        "ToolbarRootState",
+        "ToolbarRootProps",
+        "ToolbarRoot"
+      ],
+      "symbols": [
+        {
+          "name": "ToolbarRoot",
+          "syntax": "VariableDeclaration",
+          "line": 18,
+          "bodySha256": "58ce1aed3eb92dee643a7d2ad28ffeb97f0e5c0ca39f5074df889a6ebf4cc7c6"
+        },
+        {
+          "name": "ToolbarRootItemMetadata",
+          "syntax": "InterfaceDeclaration",
+          "line": 81,
+          "bodySha256": "d8ea29addffe3bb71e28426951c36f6f97ab737c3d1b8e90c2c3b946d123882b"
+        },
+        {
+          "name": "ToolbarRootOrientation",
+          "syntax": "TypeAliasDeclaration",
+          "line": 86,
+          "bodySha256": "e87eadf49a3c21f51fa94059b28935ccd385da55ff3ebfbdb8da489e931aa4ae"
+        },
+        {
+          "name": "ToolbarRootState",
+          "syntax": "InterfaceDeclaration",
+          "line": 88,
+          "bodySha256": "a079d53ca8c65be6cefd4720973f6de11885e8c4a5676cbc6781fca7d205620a"
+        },
+        {
+          "name": "ToolbarRootProps",
+          "syntax": "InterfaceDeclaration",
+          "line": 99,
+          "bodySha256": "d4c1778cb011da75251fe644f11cea0aa50b0c8a3a43b2ccb4eef07afc5ce5f4"
+        },
+        {
+          "name": "ToolbarRoot",
+          "syntax": "ModuleDeclaration",
+          "line": 114,
+          "bodySha256": "25f5c701f893f0eb2324f270bbb439c87558fdd3d37fcd34debb1648438dfec1"
+        }
+      ],
+      "owner": "Toolbar developer, canonical implementation only",
+      "scope": "Original test consumer dependency evidence only; do not implement a sibling family or private fixture engine",
+      "decision": "Use accepted canonical sibling implementation for its exact selected fixture parts and preserve shared helper identities. Until acceptance/test execution this dependent test scope stays incomplete.",
+      "manualStatus": "Original whole body read; local whole-body acceptance and execution pending"
+    },
+    {
+      "source": "packages/react/src/utils/getPseudoElementBounds.ts",
+      "sha256": "6d9309cbbd5986bd8237be793a81aec1bbe72ca41d3554b23f8a466cfe0b0db5",
+      "url": "https://github.com/mui/base-ui/blob/47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c/packages/react/src/utils/getPseudoElementBounds.ts",
+      "declaredExports": [
+        "isMouseWithinBounds",
+        "getPseudoElementBounds"
+      ],
+      "symbols": [
+        {
+          "name": "ElementBounds",
+          "syntax": "InterfaceDeclaration",
+          "line": 4,
+          "bodySha256": "9024f17c6e6ba665fbc0e87c1f8a141817293586b91c7633c3880340222ef946"
+        },
+        {
+          "name": "BOUNDARY_OFFSET",
+          "syntax": "VariableDeclaration",
+          "line": 14,
+          "bodySha256": "30325e31a609dbb7fd84c3a6a884e6f9ea7e2c462d8cdb3c2785f37303306521"
+        },
+        {
+          "name": "isMouseWithinBounds",
+          "syntax": "FunctionDeclaration",
+          "line": 20,
+          "bodySha256": "67781da8a6d9def53153675ee30098a06d4c3355d5b224b23aa7972171c572df"
+        },
+        {
+          "name": "getPseudoElementBounds",
+          "syntax": "FunctionDeclaration",
+          "line": 31,
+          "bodySha256": "d08ef0606dfeba8682ba2645609db694260233eef6254cd8fd7b401f3f0a6dc4"
+        }
+      ],
+      "owner": "Canonical sibling/source helper owner; no edit lease granted for this popup port",
+      "scope": "Original test consumer dependency evidence only; do not implement a sibling family or private fixture engine",
+      "decision": "Use accepted canonical sibling implementation for its exact selected fixture parts and preserve shared helper identities. Until acceptance/test execution this dependent test scope stays incomplete.",
+      "manualStatus": "Original whole body read; local whole-body acceptance and execution pending"
+    },
+    {
+      "source": "packages/react/src/utils/scrollable.ts",
+      "sha256": "964f01cb0c96c0db0d183d4a69870f82a19ef52355fa950e122c397c976ccf84",
+      "url": "https://github.com/mui/base-ui/blob/47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c/packages/react/src/utils/scrollable.ts",
+      "declaredExports": [
+        "ScrollAxis",
+        "isScrollableY",
+        "isScrollableX",
+        "isScrollable",
+        "hasScrollableAncestor",
+        "findScrollableTouchTarget"
+      ],
+      "symbols": [
+        {
+          "name": "ScrollAxis",
+          "syntax": "TypeAliasDeclaration",
+          "line": 8,
+          "bodySha256": "cdc521f792c37bc4f294441c63f2fa06f81ca308df82c5a5a62ccf9f93078365"
+        },
+        {
+          "name": "isScrollableY",
+          "syntax": "FunctionDeclaration",
+          "line": 10,
+          "bodySha256": "16ca02df8a287c2fe9c455099df3c704aeb12f7cf1d0d0c8742246b26b612462"
+        },
+        {
+          "name": "isScrollableX",
+          "syntax": "FunctionDeclaration",
+          "line": 23,
+          "bodySha256": "acdbf559813be7767755659eefde44db54b0906bb6c5eb5c38c478c93b9220ac"
+        },
+        {
+          "name": "isScrollable",
+          "syntax": "FunctionDeclaration",
+          "line": 31,
+          "bodySha256": "e954ab079be51a41d7c6423d6f53088186663dfbda69598be53c3caadc41bf82"
+        },
+        {
+          "name": "hasScrollableAncestor",
+          "syntax": "FunctionDeclaration",
+          "line": 41,
+          "bodySha256": "73180fef04cb8ff18417441a3febea8d67bf56e765cead1b9db7b83509e59fe5"
+        },
+        {
+          "name": "findScrollableTouchTarget",
+          "syntax": "FunctionDeclaration",
+          "line": 60,
+          "bodySha256": "b42b37a9d50dea51d224a0459226d0ee627b8718ce4d8c5e299ebab5513f75bc"
+        }
+      ],
+      "owner": "Canonical sibling/source helper owner; no edit lease granted for this popup port",
+      "scope": "Original test consumer dependency evidence only; do not implement a sibling family or private fixture engine",
+      "decision": "Use accepted canonical sibling implementation for its exact selected fixture parts and preserve shared helper identities. Until acceptance/test execution this dependent test scope stays incomplete.",
+      "manualStatus": "Original whole body read; local whole-body acceptance and execution pending"
+    },
+    {
+      "source": "packages/react/src/utils/useMixedToggleClickHandler.ts",
+      "sha256": "c848b13e484dbc7c6f4c1facd2f0af6121a16349b167260b387a2bb51fc07b2a",
+      "url": "https://github.com/mui/base-ui/blob/47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c/packages/react/src/utils/useMixedToggleClickHandler.ts",
+      "declaredExports": [
+        "useMixedToggleClickHandler",
+        "UseMixedToggleClickHandlerParameters",
+        "UseMixedToggleClickHandlerState"
+      ],
+      "symbols": [
+        {
+          "name": "useMixedToggleClickHandler",
+          "syntax": "FunctionDeclaration",
+          "line": 12,
+          "bodySha256": "39c7905d587349023b6edbeddb2c129b74f84fe2ebe7aa444a4968b0d461cacf"
+        },
+        {
+          "name": "UseMixedToggleClickHandlerParameters",
+          "syntax": "InterfaceDeclaration",
+          "line": 45,
+          "bodySha256": "845f5da00c50f842b4b79677bc4ff9d7901150f3f23f38961ad9daf4948fb602"
+        },
+        {
+          "name": "UseMixedToggleClickHandlerState",
+          "syntax": "InterfaceDeclaration",
+          "line": 61,
+          "bodySha256": "8ba26841915717bde446129f2425526b9dfff0f7615920d5b6f6a9183e4cdbe8"
+        }
+      ],
+      "owner": "Canonical sibling/source helper owner; no edit lease granted for this popup port",
+      "scope": "Original test consumer dependency evidence only; do not implement a sibling family or private fixture engine",
+      "decision": "Use accepted canonical sibling implementation for its exact selected fixture parts and preserve shared helper identities. Until acceptance/test execution this dependent test scope stays incomplete.",
+      "manualStatus": "Original whole body read; local whole-body acceptance and execution pending"
+    },
+    {
+      "source": "packages/utils/src/areArraysEqual.ts",
+      "sha256": "2edc0f6f199b353ec557a7c9e4943ed4af5449da8c488076647a3f77fd3dac75",
+      "url": "https://github.com/mui/base-ui/blob/47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c/packages/utils/src/areArraysEqual.ts",
+      "declaredExports": [
+        "areArraysEqual"
+      ],
+      "symbols": [
+        {
+          "name": "ItemComparer",
+          "syntax": "TypeAliasDeclaration",
+          "line": 2,
+          "bodySha256": "e854c21ae5ae031ffccbc30e59b7841323bc3b4fffa98cce5e84e74b4235df74"
+        },
+        {
+          "name": "areArraysEqual",
+          "syntax": "FunctionDeclaration",
+          "line": 9,
+          "bodySha256": "33e6057a62e6ce2e0d3d9e4e7a6055faa22e23243e69a6984fcdc8e87290533c"
+        }
+      ],
+      "owner": "Canonical sibling/source helper owner; no edit lease granted for this popup port",
+      "scope": "Original test consumer dependency evidence only; do not implement a sibling family or private fixture engine",
+      "decision": "Use accepted canonical sibling implementation for its exact selected fixture parts and preserve shared helper identities. Until acceptance/test execution this dependent test scope stays incomplete.",
+      "manualStatus": "Original whole body read; local whole-body acceptance and execution pending"
+    },
+    {
+      "source": "packages/utils/src/isElementDisabled.ts",
+      "sha256": "4b052139323bc44e55964414b7ea6a090023e5637c991ab2d31861012a736b05",
+      "url": "https://github.com/mui/base-ui/blob/47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c/packages/utils/src/isElementDisabled.ts",
+      "declaredExports": [
+        "isElementDisabled"
+      ],
+      "symbols": [
+        {
+          "name": "isElementDisabled",
+          "syntax": "FunctionDeclaration",
+          "line": 1,
+          "bodySha256": "d1fab6832e1be3249d06c0efa9e77c29bd7127b45b727ef1dbdf37b948350ab6"
+        }
+      ],
+      "owner": "Canonical sibling/source helper owner; no edit lease granted for this popup port",
+      "scope": "Original test consumer dependency evidence only; do not implement a sibling family or private fixture engine",
+      "decision": "Use accepted canonical sibling implementation for its exact selected fixture parts and preserve shared helper identities. Until acceptance/test execution this dependent test scope stays incomplete.",
+      "manualStatus": "Original whole body read; local whole-body acceptance and execution pending"
+    },
+    {
+      "source": "packages/utils/src/stringifyLocale.ts",
+      "sha256": "c78c878e1a6c3169414572301c93b2da604bb816723920c22ad9143b13bbb6e0",
+      "url": "https://github.com/mui/base-ui/blob/47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c/packages/utils/src/stringifyLocale.ts",
+      "declaredExports": [
+        "stringifyLocale"
+      ],
+      "symbols": [
+        {
+          "name": "stringifyLocale",
+          "syntax": "FunctionDeclaration",
+          "line": 1,
+          "bodySha256": "25454d59c2cbf9ce331c75ce5c0c885b013b3819e86a23d80b3031cb05d30c23"
+        }
+      ],
+      "owner": "Canonical sibling/source helper owner; no edit lease granted for this popup port",
+      "scope": "Original test consumer dependency evidence only; do not implement a sibling family or private fixture engine",
+      "decision": "Use accepted canonical sibling implementation for its exact selected fixture parts and preserve shared helper identities. Until acceptance/test execution this dependent test scope stays incomplete.",
+      "manualStatus": "Original whole body read; local whole-body acceptance and execution pending"
+    },
+    {
+      "source": "packages/utils/src/useControlled.ts",
+      "sha256": "487bc45fa3ef1a70177867bb03598230f9926601aed8e3c7f46470feb225f886",
+      "url": "https://github.com/mui/base-ui/blob/47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c/packages/utils/src/useControlled.ts",
+      "declaredExports": [
+        "UseControlledProps",
+        "useControlled",
+        "useControlled",
+        "useControlled"
+      ],
+      "symbols": [
+        {
+          "name": "UseControlledProps",
+          "syntax": "InterfaceDeclaration",
+          "line": 7,
+          "bodySha256": "149851c368c5fd827f20780d2a44c7420b582641af66cedcbd1fdfc6880025d7"
+        },
+        {
+          "name": "useControlled",
+          "syntax": "FunctionDeclaration",
+          "line": 28,
+          "bodySha256": "20b694d1aa258bdd6cc4cce1db9885cc5261f1d18072f4e53f5e96d44de4490b"
+        },
+        {
+          "name": "useControlled",
+          "syntax": "FunctionDeclaration",
+          "line": 31,
+          "bodySha256": "3b520ff25892575a5d776beaa4b8197647fd93274affdf9617b4939a75ca703d"
+        },
+        {
+          "name": "useControlled",
+          "syntax": "FunctionDeclaration",
+          "line": 34,
+          "bodySha256": "f447ddde97f7ea697cd3e619910aaae1d4ae2297c1dc8c514edfea7476e54944"
+        },
+        {
+          "name": "serializeToDevModeString",
+          "syntax": "FunctionDeclaration",
+          "line": 94,
+          "bodySha256": "6274769f2b81e1f78c78d8aabb852373a5e8e0774ad7aad5d3deb1a9bde5a0b5"
+        }
+      ],
+      "owner": "Canonical sibling/source helper owner; no edit lease granted for this popup port",
+      "scope": "Original test consumer dependency evidence only; do not implement a sibling family or private fixture engine",
+      "decision": "Use accepted canonical sibling implementation for its exact selected fixture parts and preserve shared helper identities. Until acceptance/test execution this dependent test scope stays incomplete.",
+      "manualStatus": "Original whole body read; local whole-body acceptance and execution pending"
+    },
+    {
+      "source": "packages/utils/src/useOnFirstRender.ts",
+      "sha256": "9abb7970e93a91f5edde2efcee28ae5fe47ff3849a50346d079fab48cd7387f2",
+      "url": "https://github.com/mui/base-ui/blob/47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c/packages/utils/src/useOnFirstRender.ts",
+      "declaredExports": [
+        "useOnFirstRender"
+      ],
+      "symbols": [
+        {
+          "name": "useOnFirstRender",
+          "syntax": "FunctionDeclaration",
+          "line": 4,
+          "bodySha256": "3bac9b3ad4951ba8af9c0d84fe14ab200bc497ce1ff3d01596ecafba125e0224"
+        }
+      ],
+      "owner": "Canonical sibling/source helper owner; no edit lease granted for this popup port",
+      "scope": "Original test consumer dependency evidence only; do not implement a sibling family or private fixture engine",
+      "decision": "Use accepted canonical sibling implementation for its exact selected fixture parts and preserve shared helper identities. Until acceptance/test execution this dependent test scope stays incomplete.",
+      "manualStatus": "Original whole body read; local whole-body acceptance and execution pending"
+    }
+  ],
+  "excludedNamespaceFanoutBodies": [
+    {
+      "source": "packages/react/src/combobox/arrow/ComboboxArrow.tsx",
+      "sha256": "f2790ff89603bdeaefc915fb2e2674f6c93d25460520c29c1024a9ae697250fe",
+      "decision": "Not selected by actual Original test consumer namespace member use; preserve archive only; no new sibling port scope or manual body-reading claim."
+    },
+    {
+      "source": "packages/react/src/combobox/backdrop/ComboboxBackdrop.tsx",
+      "sha256": "2543745b8f65a0770e63c2999197276deaab54d99b411d65cb76c4ce7041ca3a",
+      "decision": "Not selected by actual Original test consumer namespace member use; preserve archive only; no new sibling port scope or manual body-reading claim."
+    },
+    {
+      "source": "packages/react/src/combobox/chip-remove/ComboboxChipRemove.tsx",
+      "sha256": "76a65cf4b0ff9dc8debd1abe11af3b2df4327ba36a99c54f9eeef1faa64f7240",
+      "decision": "Not selected by actual Original test consumer namespace member use; preserve archive only; no new sibling port scope or manual body-reading claim."
+    },
+    {
+      "source": "packages/react/src/combobox/chip/ComboboxChip.tsx",
+      "sha256": "1aa6f3b6073e59629b142993a12347848b6eba8729a5bfc3dc9406d57b65ee0e",
+      "decision": "Not selected by actual Original test consumer namespace member use; preserve archive only; no new sibling port scope or manual body-reading claim."
+    },
+    {
+      "source": "packages/react/src/combobox/chip/ComboboxChipContext.ts",
+      "sha256": "b3fa38ca600d2e9c7a826508305e2c94cf51103fa826edf3527a9daf57b9b10d",
+      "decision": "Not selected by actual Original test consumer namespace member use; preserve archive only; no new sibling port scope or manual body-reading claim."
+    },
+    {
+      "source": "packages/react/src/combobox/chips/ComboboxChips.tsx",
+      "sha256": "876fc537c32c434e774dfdad8574fdd22b6a7db823d264e12c0634c233f82aa6",
+      "decision": "Not selected by actual Original test consumer namespace member use; preserve archive only; no new sibling port scope or manual body-reading claim."
+    },
+    {
+      "source": "packages/react/src/combobox/clear/ComboboxClear.tsx",
+      "sha256": "1b7af20217a5afb3d8baa2f8bc38ad01cd715fc27162bc1d33cf924ef6538ad6",
+      "decision": "Not selected by actual Original test consumer namespace member use; preserve archive only; no new sibling port scope or manual body-reading claim."
+    },
+    {
+      "source": "packages/react/src/combobox/empty/ComboboxEmpty.tsx",
+      "sha256": "9da05ac281d2e077c206cdc5fa990c878b79a2d51717544cf92d16ae9d62f976",
+      "decision": "Not selected by actual Original test consumer namespace member use; preserve archive only; no new sibling port scope or manual body-reading claim."
+    },
+    {
+      "source": "packages/react/src/combobox/group-label/ComboboxGroupLabel.tsx",
+      "sha256": "4997352a5c19e4876b29f4c0e638e27536ea90501f6d79b36c1297d0529f11d1",
+      "decision": "Not selected by actual Original test consumer namespace member use; preserve archive only; no new sibling port scope or manual body-reading claim."
+    },
+    {
+      "source": "packages/react/src/combobox/group/ComboboxGroup.tsx",
+      "sha256": "4052add43900e1b235fe5e32de423204f312dec51bc87ee8561d8d44eda65224",
+      "decision": "Not selected by actual Original test consumer namespace member use; preserve archive only; no new sibling port scope or manual body-reading claim."
+    },
+    {
+      "source": "packages/react/src/combobox/group/ComboboxGroupContext.ts",
+      "sha256": "3a07d1c12981f1b1595f3621424cddebcaad3b7b780a79110428673f7f5fa281",
+      "decision": "Not selected by actual Original test consumer namespace member use; preserve archive only; no new sibling port scope or manual body-reading claim."
+    },
+    {
+      "source": "packages/react/src/combobox/icon/ComboboxIcon.tsx",
+      "sha256": "aa2e640dbcdb68d2a4f269bd1583367f05d1e87ff5f2a956eb2f0e991c1b9da5",
+      "decision": "Not selected by actual Original test consumer namespace member use; preserve archive only; no new sibling port scope or manual body-reading claim."
+    },
+    {
+      "source": "packages/react/src/combobox/input-group/ComboboxInputGroup.tsx",
+      "sha256": "2282b74d8f63c13d473d65061274bfede7ac27ac31195f0ca9df0451ae3cc186",
+      "decision": "Not selected by actual Original test consumer namespace member use; preserve archive only; no new sibling port scope or manual body-reading claim."
+    },
+    {
+      "source": "packages/react/src/combobox/item-indicator/ComboboxItemIndicator.tsx",
+      "sha256": "38187f3b80fe1ca23e6c86ad0c698c149bee7fc188a00e5cdb5d86835e183a3d",
+      "decision": "Not selected by actual Original test consumer namespace member use; preserve archive only; no new sibling port scope or manual body-reading claim."
+    },
+    {
+      "source": "packages/react/src/combobox/items/createItems.ts",
+      "sha256": "d3d5b043bdf4fcf999da1f2cb8d4d5f3f39abffc3a73defb29255835f652bacd",
+      "decision": "Not selected by actual Original test consumer namespace member use; preserve archive only; no new sibling port scope or manual body-reading claim."
+    },
+    {
+      "source": "packages/react/src/combobox/label/ComboboxLabel.tsx",
+      "sha256": "de888fab562b503dea901856cf00c15b2a01b1c4aa236e9c8467e01595a3da6e",
+      "decision": "Not selected by actual Original test consumer namespace member use; preserve archive only; no new sibling port scope or manual body-reading claim."
+    },
+    {
+      "source": "packages/react/src/combobox/root/utils/useFilteredItems.ts",
+      "sha256": "e0fa326421cc1c3da9d673c5bee1247595b1cd14d5602065eca4bdef7cf7a28b",
+      "decision": "Not selected by actual Original test consumer namespace member use; preserve archive only; no new sibling port scope or manual body-reading claim."
+    },
+    {
+      "source": "packages/react/src/combobox/row/ComboboxRow.tsx",
+      "sha256": "ed133f21aebfecccf4e3f8925b9efc0e012954490a128c1725ea8c55aa193994",
+      "decision": "Not selected by actual Original test consumer namespace member use; preserve archive only; no new sibling port scope or manual body-reading claim."
+    },
+    {
+      "source": "packages/react/src/combobox/separator/ComboboxSeparator.tsx",
+      "sha256": "c90769b1ea20085d72902bdcf2ccfd3f5d55b71b5dceab895f92193390e6728f",
+      "decision": "Not selected by actual Original test consumer namespace member use; preserve archive only; no new sibling port scope or manual body-reading claim."
+    },
+    {
+      "source": "packages/react/src/combobox/status/ComboboxStatus.tsx",
+      "sha256": "e48628d8291171ef10d24620de22dd13c1e8293135286a69c706868f2805ef32",
+      "decision": "Not selected by actual Original test consumer namespace member use; preserve archive only; no new sibling port scope or manual body-reading claim."
+    },
+    {
+      "source": "packages/react/src/combobox/trigger/ComboboxTrigger.tsx",
+      "sha256": "33abbdca63d5d4113faea099980e2d2bba583ad678e766aa6eeb6890e46fa5cf",
+      "decision": "Not selected by actual Original test consumer namespace member use; preserve archive only; no new sibling port scope or manual body-reading claim."
+    },
+    {
+      "source": "packages/react/src/combobox/utils/handleInputPress.ts",
+      "sha256": "e2161590336d38e035f5aacb29c044c76eb7907f7aba50d0d30df624d54ff66c",
+      "decision": "Not selected by actual Original test consumer namespace member use; preserve archive only; no new sibling port scope or manual body-reading claim."
+    },
+    {
+      "source": "packages/react/src/combobox/utils/useInitialLiveRegionTextMutation.ts",
+      "sha256": "a7432daddd5dbb6f32e0030084afb25f0faab32c7185cdabb1a28a6ceec501cb",
+      "decision": "Not selected by actual Original test consumer namespace member use; preserve archive only; no new sibling port scope or manual body-reading claim."
+    },
+    {
+      "source": "packages/react/src/combobox/value/ComboboxValue.tsx",
+      "sha256": "813cdc0b6341658f417cc5a8d0fe90897eb189afabb5a19d23b588419eeea88b",
+      "decision": "Not selected by actual Original test consumer namespace member use; preserve archive only; no new sibling port scope or manual body-reading claim."
+    },
+    {
+      "source": "packages/react/src/internals/labelable-provider/useLabel.ts",
+      "sha256": "e8bc584b4cc36db672b97f1f460da09f61a2d35f4c7432c038a89cfc8cd4c741",
+      "decision": "Not selected by actual Original test consumer namespace member use; preserve archive only; no new sibling port scope or manual body-reading claim."
+    },
+    {
+      "source": "packages/react/src/menu/arrow/MenuArrow.tsx",
+      "sha256": "96a59ddd1b52f2ccbe57993a773de5315f86dec6eef57bebd7dddb2563549c64",
+      "decision": "Not selected by actual Original test consumer namespace member use; preserve archive only; no new sibling port scope or manual body-reading claim."
+    },
+    {
+      "source": "packages/react/src/menu/backdrop/MenuBackdrop.tsx",
+      "sha256": "cf5e9f901a6ef13ce37a2c6eaef039f7900cd034d7d31ae7c61c456faaf624b5",
+      "decision": "Not selected by actual Original test consumer namespace member use; preserve archive only; no new sibling port scope or manual body-reading claim."
+    },
+    {
+      "source": "packages/react/src/menu/checkbox-item-indicator/MenuCheckboxItemIndicator.tsx",
+      "sha256": "5a9e8e0f344e58d01fcbf66e4c62fec2b4f4e640a1e3718c930541c5c113f3cc",
+      "decision": "Not selected by actual Original test consumer namespace member use; preserve archive only; no new sibling port scope or manual body-reading claim."
+    },
+    {
+      "source": "packages/react/src/menu/checkbox-item/MenuCheckboxItem.tsx",
+      "sha256": "d9d0ae53bb048beb25a68322c6984286cb813ea7f6c165d1cdb0883515c1c03e",
+      "decision": "Not selected by actual Original test consumer namespace member use; preserve archive only; no new sibling port scope or manual body-reading claim."
+    },
+    {
+      "source": "packages/react/src/menu/checkbox-item/MenuCheckboxItemContext.ts",
+      "sha256": "b2f588720faf6379df3932b66de38a31ed378e3c5bf7fcb5d792bd64f3ef37e5",
+      "decision": "Not selected by actual Original test consumer namespace member use; preserve archive only; no new sibling port scope or manual body-reading claim."
+    },
+    {
+      "source": "packages/react/src/menu/checkbox-item/MenuCheckboxItemDataAttributes.ts",
+      "sha256": "ce062d85444b398bccbcbfeb6fbd4db200d1ba513b98adb68d20fa884320e89f",
+      "decision": "Not selected by actual Original test consumer namespace member use; preserve archive only; no new sibling port scope or manual body-reading claim."
+    },
+    {
+      "source": "packages/react/src/menu/group-label/MenuGroupLabel.tsx",
+      "sha256": "42630223aec69bd82c935d9a49c40b86c2c509af32801e08dfcc2bcfd4eedef2",
+      "decision": "Not selected by actual Original test consumer namespace member use; preserve archive only; no new sibling port scope or manual body-reading claim."
+    },
+    {
+      "source": "packages/react/src/menu/group/MenuGroup.tsx",
+      "sha256": "986bd22f378e73844e80c0b22415b77a1c2d180449877a69a298030d36970f84",
+      "decision": "Not selected by actual Original test consumer namespace member use; preserve archive only; no new sibling port scope or manual body-reading claim."
+    },
+    {
+      "source": "packages/react/src/menu/group/MenuGroupContext.ts",
+      "sha256": "4e0216a721fc80d725bc97d0746f1d5025594a0079406826e85d6c4b0c2c885c",
+      "decision": "Not selected by actual Original test consumer namespace member use; preserve archive only; no new sibling port scope or manual body-reading claim."
+    },
+    {
+      "source": "packages/react/src/menu/link-item/MenuLinkItem.tsx",
+      "sha256": "5129b1675c7831e5bfc0bf808e5a5bff3a8c0ac588321fd2f0be6c7a887ba74d",
+      "decision": "Not selected by actual Original test consumer namespace member use; preserve archive only; no new sibling port scope or manual body-reading claim."
+    },
+    {
+      "source": "packages/react/src/menu/radio-group/MenuRadioGroup.tsx",
+      "sha256": "b0c4451622aa0b7bb6b361289cf793ed178a509b9a5d212f3e92808ba9660785",
+      "decision": "Not selected by actual Original test consumer namespace member use; preserve archive only; no new sibling port scope or manual body-reading claim."
+    },
+    {
+      "source": "packages/react/src/menu/radio-group/MenuRadioGroupContext.ts",
+      "sha256": "23132f75efeb726ae5fd6c9ddb3f580a0136b018c7d09eb186a7ba917cf2bf09",
+      "decision": "Not selected by actual Original test consumer namespace member use; preserve archive only; no new sibling port scope or manual body-reading claim."
+    },
+    {
+      "source": "packages/react/src/menu/radio-item-indicator/MenuRadioItemIndicator.tsx",
+      "sha256": "3edf74c98a018e144eeebf557c96493c4c8aafa2f610ce20d01ce276e2b8d2f9",
+      "decision": "Not selected by actual Original test consumer namespace member use; preserve archive only; no new sibling port scope or manual body-reading claim."
+    },
+    {
+      "source": "packages/react/src/menu/radio-item/MenuRadioItem.tsx",
+      "sha256": "ef50105b292eccd144eee4eebcff6da92aca50130f4580d566bc4ce9388f2b75",
+      "decision": "Not selected by actual Original test consumer namespace member use; preserve archive only; no new sibling port scope or manual body-reading claim."
+    },
+    {
+      "source": "packages/react/src/menu/radio-item/MenuRadioItemContext.ts",
+      "sha256": "a84e6aeb05b1bafef66905d7499b5f5d524360f1e0808c438fe23556e125543d",
+      "decision": "Not selected by actual Original test consumer namespace member use; preserve archive only; no new sibling port scope or manual body-reading claim."
+    },
+    {
+      "source": "packages/react/src/menu/submenu-root/MenuSubmenuRoot.tsx",
+      "sha256": "109133fedd90d5ae22ffd44e34e88be73ba48a1d22cc63759e26cba9c06b6e29",
+      "decision": "Not selected by actual Original test consumer namespace member use; preserve archive only; no new sibling port scope or manual body-reading claim."
+    },
+    {
+      "source": "packages/react/src/menu/submenu-trigger/MenuSubmenuTrigger.tsx",
+      "sha256": "fdf8d69ecfda719fafba0ded5acf5fda7671c1a2bf95bdfac24943ee2490fc5a",
+      "decision": "Not selected by actual Original test consumer namespace member use; preserve archive only; no new sibling port scope or manual body-reading claim."
+    },
+    {
+      "source": "packages/react/src/menu/utils/stateAttributesMapping.ts",
+      "sha256": "28ccca860f4392cd8d43d1b74ae359dbd91ff9f66a538de3c62b9aca13b4823b",
+      "decision": "Not selected by actual Original test consumer namespace member use; preserve archive only; no new sibling port scope or manual body-reading claim."
+    },
+    {
+      "source": "packages/react/src/menu/viewport/MenuViewport.tsx",
+      "sha256": "b0460927dd35d784a2133dc29df33ee685dcfb4a910603822947bc7dc2931bc9",
+      "decision": "Not selected by actual Original test consumer namespace member use; preserve archive only; no new sibling port scope or manual body-reading claim."
+    },
+    {
+      "source": "packages/react/src/separator/index.ts",
+      "sha256": "4a0131380b491ed30f0766dde5d4e32cf67e9d8d2be20e2e3c6fa6ef535b9b08",
+      "decision": "Not selected by actual Original test consumer namespace member use; preserve archive only; no new sibling port scope or manual body-reading claim."
+    },
+    {
+      "source": "packages/react/src/separator/Separator.tsx",
+      "sha256": "9f96ca74136dd0fcf9d9c972862561b348bbee99278b966e9bd6f71668c0c017",
+      "decision": "Not selected by actual Original test consumer namespace member use; preserve archive only; no new sibling port scope or manual body-reading claim."
+    },
+    {
+      "source": "packages/react/src/toolbar/group/ToolbarGroup.tsx",
+      "sha256": "80b5022bb2b8b6883f8811241f3e8bac7e6638871c8bb79a0a2d2d8b588f1e60",
+      "decision": "Not selected by actual Original test consumer namespace member use; preserve archive only; no new sibling port scope or manual body-reading claim."
+    },
+    {
+      "source": "packages/react/src/toolbar/input/ToolbarInput.tsx",
+      "sha256": "951da18ae58b5a5bde8ef4d242d5afc320d29f33e51b72267ea3ac2ce0ba5035",
+      "decision": "Not selected by actual Original test consumer namespace member use; preserve archive only; no new sibling port scope or manual body-reading claim."
+    },
+    {
+      "source": "packages/react/src/toolbar/link/ToolbarLink.tsx",
+      "sha256": "4daf390a1d789aac3e8b81b9585154e35fc728e676359e0151f3a82a89a4ac1a",
+      "decision": "Not selected by actual Original test consumer namespace member use; preserve archive only; no new sibling port scope or manual body-reading claim."
+    },
+    {
+      "source": "packages/react/src/toolbar/separator/ToolbarSeparator.tsx",
+      "sha256": "66bf1e9792f19053cf660d3cecb607187ee658c9d3f794762bfda3e5c3955086",
+      "decision": "Not selected by actual Original test consumer namespace member use; preserve archive only; no new sibling port scope or manual body-reading claim."
+    },
+    {
+      "source": "packages/react/src/utils/listbox-separator/ListboxSeparator.tsx",
+      "sha256": "5ef03b4144a6ff8763d38a7562c4dc06d497aebc602673f606cd563a819c3679",
+      "decision": "Not selected by actual Original test consumer namespace member use; preserve archive only; no new sibling port scope or manual body-reading claim."
+    },
+    {
+      "source": "packages/react/src/utils/resolveAriaLabelledBy.ts",
+      "sha256": "3202ba176f81d5fada8f1972cef3d95b3a572dc3ee13a74069deced481ebcec9",
+      "decision": "Not selected by actual Original test consumer namespace member use; preserve archive only; no new sibling port scope or manual body-reading claim."
+    },
+    {
+      "source": "packages/react/src/utils/useRegisteredLabelId.ts",
+      "sha256": "400156404e561e86b73303a22a78d555793b86844efc9fd574f79acd912a56f7",
+      "decision": "Not selected by actual Original test consumer namespace member use; preserve archive only; no new sibling port scope or manual body-reading claim."
+    },
+    {
+      "source": "packages/utils/src/platform/media-query.ts",
+      "sha256": "cb5f9941ec4c24667d7d4061392fbe2b57064c333cf4e94435d2239a0ed45a65",
+      "decision": "Not selected by actual Original test consumer namespace member use; preserve archive only; no new sibling port scope or manual body-reading claim."
+    }
+  ]
+}

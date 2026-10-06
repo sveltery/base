@@ -1,13 +1,15 @@
 <script lang="ts">
   import { Tabs } from '../../src/lib/tabs/index.js';
   import { CSPProvider } from '../../src/lib/csp-provider/index.js';
-  let {
-    scenario = 'default',
-    nonce = 'tabs-nonce',
-  }: { scenario?: string; nonce?: string } = $props();
+  let { scenario = 'default', nonce = 'tabs-nonce' }: { scenario?: string; nonce?: string } =
+    $props();
 </script>
+
 <CSPProvider {nonce}>
-  <Tabs.Root defaultValue={scenario === 'null' ? null : 0} orientation={scenario === 'vertical' ? 'vertical' : 'horizontal'}>
+  <Tabs.Root
+    defaultValue={scenario === 'null' ? null : 0}
+    orientation={scenario === 'vertical' ? 'vertical' : 'horizontal'}
+  >
     <Tabs.List>
       <Tabs.Tab value={0} disabled={scenario === 'disabled'}>First</Tabs.Tab>
       <Tabs.Tab value={1}>Second</Tabs.Tab>

@@ -26,7 +26,9 @@ describe('Dialog prerequisite: upstream merge assertions through native adapter'
     nativeHandler(mergedProps, 'onclick')(new Event('click'));
     nativeHandler(mergedProps, 'onkeydown')(new Event('keydown'));
     nativeHandler(mergedProps, 'onpaste')(new Event('paste'));
-    expect(theirProps.onclick.mock.invocationCallOrder[0]).toBeLessThan(ourProps.onclick.mock.invocationCallOrder[0]);
+    expect(theirProps.onclick.mock.invocationCallOrder[0]).toBeLessThan(
+      ourProps.onclick.mock.invocationCallOrder[0],
+    );
     expect(theirProps.onclick.mock.calls.length).toBe(1);
     expect(ourProps.onclick.mock.calls.length).toBe(1);
     expect(theirProps.onkeydown.mock.calls.length).toBe(1);
@@ -37,11 +39,14 @@ describe('Dialog prerequisite: upstream merge assertions through native adapter'
     const log: string[] = [];
     let ran = false;
     const inputs = scenario.handlersLeftToRight.map((action) => ({
-      onclick: action === null ? undefined : (event: PreventableEvent) => {
-        if (action.preventBaseUIHandler) event.preventBaseUIHandler();
-        if (action.setsRan) ran = true;
-        if (action.log !== undefined) log.push(action.log);
-      },
+      onclick:
+        action === null
+          ? undefined
+          : (event: PreventableEvent) => {
+              if (action.preventBaseUIHandler) event.preventBaseUIHandler();
+              if (action.setsRan) ran = true;
+              if (action.log !== undefined) log.push(action.log);
+            },
     }));
     nativeHandler(mergeProps(...inputs), 'onclick')(new Event('click'));
     if (scenario.expectedLog !== undefined) expect(log).toEqual(scenario.expectedLog);

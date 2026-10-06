@@ -1,16 +1,18 @@
 <script lang="ts">
+  import { untrack } from 'svelte';
   // Source business body: Base UI v1.8.0 TabsTab.tsx at 47b40521. MIT.
-  import { ownerDocument } from '../../utils/owner.js';
-  import { useId } from '../../utils/useId.js';
-  import { activeElement, contains } from '../../utils/shadowDom.js';
-  import { useIsoLayoutEffect } from '../../utils/useIsoLayoutEffect.svelte.js';
+  import { ownerDocument } from '@sveltery/utils/owner';
+  import { useId } from '@sveltery/utils/useId';
+  import { activeElement, contains } from '@sveltery/utils/shadowDom';
+
   import { useButton } from '../../internals/use-button/useButton.svelte.js';
   import { useCompositeItem } from '../../internals/composite/item/useCompositeItem.svelte.js';
   import { useCompositeRootContext } from '../../internals/composite/root/CompositeRootContext.js';
   import { ACTIVE_COMPOSITE_ITEM } from '../../internals/composite/constants.js';
   import { createChangeEventDetails } from '../../internals/createBaseUIEventDetails.js';
   import { REASONS } from '../../internals/reasons.js';
-  import RenderElement from '../../internals/RenderElement.svelte';
+  import { mergeComponentProps } from '../../internals/mergeComponentProps.js';
+  import { createAttachmentKey } from 'svelte/attachments';
   import { useTabsRootContext } from '../root/TabsRootContext.js';
   import { useTabsListContext } from '../list/TabsListContext.js';
   import { tabsStateAttributesMapping } from '../root/stateAttributesMapping.js';
@@ -43,30 +45,23 @@
       ? list.registerTabResizeObserverElement(element)
       : null;
   }
-  useIsoLayoutEffect(
-    () => {
-      if (isNavigatingRef.current) {
-        isNavigatingRef.current = false;
-        return;
-      }
-      const index = composite.index();
-      if (!(active && index > -1 && compositeRoot.highlightedIndex !== index))
-        return;
-      const listElement = list.tabsListElement;
-      if (listElement != null) {
-        const activeEl = activeElement(ownerDocument(listElement));
-        if (activeEl && contains(listElement, activeEl)) return;
-      }
-      if (!disabled) compositeRoot.onHighlightedIndexChange(index);
-    },
-    () => [
-      active,
-      composite.index(),
-      compositeRoot.highlightedIndex,
-      disabled,
-      list.tabsListElement,
-    ],
-  );
+  $effect(() => {
+    const isActive = active;
+    const index = composite.index();
+    const highlightedIndex = compositeRoot.highlightedIndex;
+    const isDisabled = disabled;
+    const listElement = list.tabsListElement;
+    if (isNavigatingRef.current) {
+      isNavigatingRef.current = false;
+      return;
+    }
+    if (!(isActive && index > -1 && highlightedIndex !== index)) return;
+    if (listElement != null) {
+      const activeEl = activeElement(ownerDocument(listElement));
+      if (activeEl && contains(listElement, activeEl)) return;
+    }
+    if (!isDisabled) untrack(() => compositeRoot.onHighlightedIndexChange(index));
+  });
   const { getButtonProps, buttonRef } = useButton(() => ({
     disabled,
     native: nativeButton,
@@ -89,10 +84,7 @@
   }
   function onFocus(event: FocusEvent) {
     if (active || disabled) return;
-    if (
-      list.activateOnFocus &&
-      (!isPressingRef.current || isMainButtonRef.current)
-    )
+    if (list.activateOnFocus && (!isPressingRef.current || isMainButtonRef.current))
       activate(event);
   }
   function onPointerDown(event: PointerEvent) {
@@ -115,37 +107,52 @@
     orientation: root.orientation,
     tabActivationDirection: root.tabActivationDirection,
   });
-  const forwardedRef = {
-    get current() {
-      return ref ?? null;
-    },
-    set current(element: HTMLElement | null) {
-      ref = element;
-    },
-  };
-  const componentProps = $derived({ render, class: classProp, style });
-  const params = $derived({
-    state: partState,
-    ref: [forwardedRef, buttonRef, composite.compositeRef, observeTabElement],
-    props: [
-      composite.compositeProps,
-      {
-        role: 'tab',
-        'aria-controls': tabPanelId,
-        'aria-selected': active,
-        id,
-        onclick: onClick,
-        onfocusin: onFocus,
-        onpointerdown: onPointerDown,
-        [ACTIVE_COMPOSITE_ITEM]: active ? '' : undefined,
-        onkeydowncapture() {
-          isNavigatingRef.current = true;
+  const hostAttachmentKey = createAttachmentKey();
+  function attachHost(host: HTMLElement) {
+    return untrack(() => {
+      ref = host;
+      buttonRef?.(host);
+      observeTabElement(host);
+      const unobserve = unobserveTabElementRef.current;
+      return () =>
+        untrack(() => {
+          if (ref === host) ref = null;
+          buttonRef?.(null);
+          unobserve?.();
+          if (unobserveTabElementRef.current === unobserve) unobserveTabElementRef.current = null;
+        });
+    });
+  }
+  const mergedProps = $derived({
+    ...mergeComponentProps(
+      partState,
+      { class: classProp, style },
+      [
+        composite.compositeProps,
+        {
+          role: 'tab',
+          'aria-controls': tabPanelId,
+          'aria-selected': active,
+          id,
+          onclick: onClick,
+          onfocusin: onFocus,
+          onpointerdown: onPointerDown,
+          [ACTIVE_COMPOSITE_ITEM]: active ? '' : undefined,
+          onkeydowncapture() {
+            isNavigatingRef.current = true;
+          },
         },
-      },
-      elementProps,
-      getButtonProps,
-    ],
-    stateAttributesMapping: tabsStateAttributesMapping,
+        elementProps,
+        getButtonProps,
+      ],
+      tabsStateAttributesMapping,
+    ),
+    [hostAttachmentKey]: attachHost,
   });
 </script>
-<RenderElement tag="button" {componentProps} {params} {children} />
+
+{#if render}
+  {@render render(mergedProps, partState, children)}
+{:else}
+  <button type="button" {...mergedProps}>{@render children?.()}</button>
+{/if}

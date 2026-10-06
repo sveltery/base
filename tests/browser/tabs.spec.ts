@@ -9,15 +9,10 @@ const calls = async (page: Page) =>
     canceled: boolean;
   }>;
 const open = async (page: Page, framework: string, scenario = 'default') => {
-  await page.goto(
-    `/tabs?scenario=${scenario}${framework === 'react' ? '&reference=react' : ''}`,
-  );
+  await page.goto(`/tabs?scenario=${scenario}${framework === 'react' ? '&reference=react' : ''}`);
   await expect(page.locator('main')).toHaveAttribute('data-hydrated', 'true');
   if (framework === 'react')
-    await expect(page.locator('main')).toHaveAttribute(
-      'data-renderer',
-      '19.2.8/19.2.8',
-    );
+    await expect(page.locator('main')).toHaveAttribute('data-renderer', '19.2.8/19.2.8');
 };
 const selected = (page: Page) => page.locator('[role=tab][aria-selected=true]');
 test('native public render snippets publish element bindings and clear them on teardown', async ({
@@ -35,10 +30,7 @@ test('native public render snippets publish element bindings and clear them on t
 });
 async function observeParser(page: Page) {
   await page.addInitScript(() => {
-    const descriptor = Object.getOwnPropertyDescriptor(
-      Document.prototype,
-      'currentScript',
-    )!;
+    const descriptor = Object.getOwnPropertyDescriptor(Document.prototype, 'currentScript')!;
     const observations = { executions: 0, nonce: [] as string[] };
     Object.assign(window, { tabsParser: observations });
     Object.defineProperty(Document.prototype, 'currentScript', {
@@ -88,10 +80,7 @@ for (const framework of ['react', 'svelte']) {
         'data-activation-direction',
         backward,
       );
-      expect((await calls(page)).map((entry) => entry.direction)).toEqual([
-        forward,
-        backward,
-      ]);
+      expect((await calls(page)).map((entry) => entry.direction)).toEqual([forward, backward]);
       await page.locator('#reorder').click();
       await page.getByTestId('tab-2').click();
       await expect(page.locator('#tabs-root')).toHaveAttribute(
@@ -121,14 +110,10 @@ for (const framework of ['react', 'svelte']) {
       input.focus();
     });
     await expect(page.getByTestId('tab-1')).toHaveAttribute('tabindex', '0');
-    await page
-      .locator('#external')
-      .evaluate((element) => (element as HTMLElement).click());
+    await page.locator('#external').evaluate((element) => (element as HTMLElement).click());
     await expect(selected(page)).toHaveAttribute('data-testid', 'tab-2');
     await expect(page.getByTestId('tab-1')).toHaveAttribute('tabindex', '0');
-    await expect(
-      page.getByRole('textbox', { name: 'Shadow textbox' }),
-    ).toBeFocused();
+    await expect(page.getByRole('textbox', { name: 'Shadow textbox' })).toBeFocused();
   });
   test(`${framework} Source navigation scrolls the actual list to the focused item`, async ({
     page,
@@ -136,33 +121,23 @@ for (const framework of ['react', 'svelte']) {
     await open(page, framework);
     await page.locator('#tabs-list').evaluate((element) => {
       (element as HTMLElement).style.width = '150px';
-      for (const wrapper of element.querySelectorAll<HTMLElement>(
-        '.tab-wrapper',
-      ))
+      for (const wrapper of element.querySelectorAll<HTMLElement>('.tab-wrapper'))
         wrapper.style.flexShrink = '0';
     });
     await page.getByTestId('tab-0').focus();
     await page.getByTestId('tab-0').press('End');
     await expect(page.getByTestId('tab-2')).toBeFocused();
     expect(
-      await page
-        .locator('#tabs-list')
-        .evaluate((element) => element.scrollLeft),
+      await page.locator('#tabs-list').evaluate((element) => element.scrollLeft),
     ).toBeGreaterThan(0);
     const list = await page.locator('#tabs-list').boundingBox(),
       tab = await page.getByTestId('tab-2').boundingBox();
     expect(tab!.x + tab!.width).toBeLessThanOrEqual(list!.x + list!.width + 1);
     await page.getByTestId('tab-2').press('Home');
     await expect(page.getByTestId('tab-0')).toBeFocused();
-    expect(
-      await page
-        .locator('#tabs-list')
-        .evaluate((element) => element.scrollLeft),
-    ).toBe(4); // Source aligns the first tab offset with the content edge, retaining the 4px padding offset.
+    expect(await page.locator('#tabs-list').evaluate((element) => element.scrollLeft)).toBe(4); // Source aligns the first tab offset with the content edge, retaining the 4px padding offset.
     const first = await page.getByTestId('tab-0').boundingBox();
-    const border = await page
-      .locator('#tabs-list')
-      .evaluate((element) => element.clientLeft);
+    const border = await page.locator('#tabs-list').evaluate((element) => element.clientLeft);
     expect(Math.abs(first!.x - list!.x - border)).toBeLessThanOrEqual(1);
   });
   for (const transform of [
@@ -181,9 +156,7 @@ for (const framework of ['react', 'svelte']) {
       await page.locator('#tabs-root').evaluate((element, value) => {
         (element as HTMLElement).style.transform = value;
       }, transform);
-      await page
-        .getByTestId('tab-2')
-        .evaluate((element) => (element as HTMLElement).click());
+      await page.getByTestId('tab-2').evaluate((element) => (element as HTMLElement).click());
       const values = await geometry(page);
       expect(Object.values(values).every(Number.isFinite)).toBe(true);
       expect(values.width).toBe(100);
@@ -209,9 +182,7 @@ for (const framework of ['react', 'svelte']) {
         wrapper.scrollLeft = 20;
       });
     await page.getByTestId('tab-2').click();
-    await page
-      .getByTestId('tab-0')
-      .evaluate((element) => (element as HTMLElement).click());
+    await page.getByTestId('tab-0').evaluate((element) => (element as HTMLElement).click());
     const tab = await page.getByTestId('tab-0').boundingBox(),
       bubble = await page.getByTestId('indicator').boundingBox();
     expect(Math.abs(tab!.x - bubble!.x)).toBeLessThanOrEqual(1);
@@ -229,24 +200,16 @@ for (const framework of ['react', 'svelte']) {
     await expect(panel).toHaveAttribute('data-ending-style', '');
     await expect(panel).toHaveAttribute('inert', '');
     await expect(panel).toHaveAttribute('tabindex', '-1');
-    await expect(page.getByTestId('tab-0')).toHaveAttribute(
-      'aria-controls',
-      panelId!,
-    );
+    await expect(page.getByTestId('tab-0')).toHaveAttribute('aria-controls', panelId!);
     await page.getByTestId('tab-0').click();
     await expect(panel).not.toHaveAttribute('inert');
     await expect(panel).not.toHaveAttribute('data-ending-style');
     await page.waitForTimeout(900);
     await expect(panel).toBeVisible();
-    await expect(page.getByTestId('tab-0')).toHaveAttribute(
-      'aria-controls',
-      panelId!,
-    );
+    await expect(page.getByTestId('tab-0')).toHaveAttribute('aria-controls', panelId!);
     await page.getByTestId('tab-2').click();
     await expect(panel).toHaveCount(0);
-    await expect(page.getByTestId('tab-0')).not.toHaveAttribute(
-      'aria-controls',
-    );
+    await expect(page.getByTestId('tab-0')).not.toHaveAttribute('aria-controls');
     await page.getByTestId('tab-0').click();
     await expect(panel).toBeVisible();
     await page.getByTestId('tab-1').click();
@@ -280,15 +243,9 @@ for (const framework of ['react', 'svelte']) {
     }) => {
       await open(page, framework, scenario);
       if (expected === null) await expect(selected(page)).toHaveCount(0);
-      else
-        await expect(selected(page)).toHaveAttribute(
-          'data-testid',
-          `tab-${expected}`,
-        );
+      else await expect(selected(page)).toHaveAttribute('data-testid', `tab-${expected}`);
       const log = await calls(page);
-      expect(log.map((entry) => entry.reason)).toEqual(
-        reason === null ? [] : [reason],
-      );
+      expect(log.map((entry) => entry.reason)).toEqual(reason === null ? [] : [reason]);
       if (reason !== null)
         expect(log[0]).toMatchObject({
           value: expected,
@@ -310,13 +267,8 @@ for (const framework of ['react', 'svelte']) {
     await expect(first).toHaveAttribute('data-index', '0');
     await page.getByTestId('tab-1').click();
     await expect(first).toHaveCount(0);
-    await expect(page.getByTestId('tab-0')).not.toHaveAttribute(
-      'aria-controls',
-    );
-    await expect(page.getByTestId('panel-1')).toHaveAttribute(
-      'aria-labelledby',
-      'tab-1',
-    );
+    await expect(page.getByTestId('tab-0')).not.toHaveAttribute('aria-controls');
+    await expect(page.getByTestId('panel-1')).toHaveAttribute('aria-labelledby', 'tab-1');
     await expect(page.getByTestId('tab-1')).toHaveAttribute(
       'aria-controls',
       (await page.getByTestId('panel-1').getAttribute('id')) as string,
@@ -329,11 +281,7 @@ for (const framework of ['react', 'svelte']) {
       await open(page, framework, scenario);
       await page.getByTestId('tab-0').focus();
       const forward =
-        scenario === 'vertical'
-          ? 'ArrowDown'
-          : scenario === 'rtl'
-            ? 'ArrowLeft'
-            : 'ArrowRight';
+        scenario === 'vertical' ? 'ArrowDown' : scenario === 'rtl' ? 'ArrowLeft' : 'ArrowRight';
       await page.getByTestId('tab-0').press(forward);
       await expect(page.getByTestId('tab-1')).toBeFocused();
       await expect(selected(page)).toHaveAttribute('data-testid', 'tab-0');
@@ -372,10 +320,7 @@ for (const framework of ['react', 'svelte']) {
     await page.getByTestId('tab-0').focus();
     await page.getByTestId('tab-0').press('ArrowRight');
     await expect(page.getByTestId('tab-1')).toBeFocused();
-    await expect(page.getByTestId('tab-1')).toHaveAttribute(
-      'aria-disabled',
-      'true',
-    );
+    await expect(page.getByTestId('tab-1')).toHaveAttribute('aria-disabled', 'true');
     await page.getByTestId('tab-1').press('Enter');
     await expect(selected(page)).toHaveAttribute('data-testid', 'tab-0');
     await page.getByTestId('tab-1').press('ArrowRight');
@@ -397,15 +342,8 @@ for (const framework of ['react', 'svelte']) {
     await expect(selected(page)).toHaveAttribute('data-testid', 'tab-2');
     expect((await calls(page)).map((entry) => entry.value)).toEqual([1, 2]);
   });
-  for (const scenario of [
-    'cancel',
-    'controlled-reject',
-    'prevent-handler',
-    'prevent-default',
-  ]) {
-    test(`${framework} Source cancellation/composed handler ${scenario}`, async ({
-      page,
-    }) => {
+  for (const scenario of ['cancel', 'controlled-reject', 'prevent-handler', 'prevent-default']) {
+    test(`${framework} Source cancellation/composed handler ${scenario}`, async ({ page }) => {
       await open(page, framework, scenario);
       await page.getByTestId('tab-1').click();
       await expect(selected(page)).toHaveAttribute(
@@ -415,8 +353,7 @@ for (const framework of ['react', 'svelte']) {
       expect((await calls(page)).map((entry) => entry.value)).toEqual(
         scenario === 'prevent-handler' ? [] : [1],
       );
-      if (scenario === 'cancel')
-        expect((await calls(page))[0].canceled).toBe(true);
+      if (scenario === 'cancel') expect((await calls(page))[0].canceled).toBe(true);
     });
   }
   test(`${framework} Source automatic initial and disabled fallbacks cannot be canceled`, async ({
@@ -431,10 +368,7 @@ for (const framework of ['react', 'svelte']) {
     });
     await page.locator('#disable').click();
     await expect(selected(page)).toHaveAttribute('data-testid', 'tab-0');
-    expect((await calls(page)).map((entry) => entry.reason)).toEqual([
-      'initial',
-      'disabled',
-    ]);
+    expect((await calls(page)).map((entry) => entry.reason)).toEqual(['initial', 'disabled']);
     expect((await calls(page))[1]).toMatchObject({
       value: 0,
       direction: 'none',
@@ -471,9 +405,7 @@ for (const framework of ['react', 'svelte']) {
   }) => {
     await open(page, framework, 'controlled');
     await page.getByTestId('tab-1').focus();
-    await page.evaluate(() =>
-      (document.querySelector('#external') as HTMLElement).click(),
-    );
+    await page.evaluate(() => (document.querySelector('#external') as HTMLElement).click());
     await expect(selected(page)).toHaveAttribute('data-testid', 'tab-2');
     await expect(page.getByTestId('tab-1')).toBeFocused();
     await expect(page.getByTestId('tab-1')).toHaveAttribute('tabindex', '0');
@@ -481,9 +413,7 @@ for (const framework of ['react', 'svelte']) {
     await expect(page.getByTestId('tab-2')).toBeFocused();
     expect(await calls(page)).toEqual([]);
   });
-  test(`${framework} Source object values preserve identity selection`, async ({
-    page,
-  }) => {
+  test(`${framework} Source object values preserve identity selection`, async ({ page }) => {
     await open(page, framework, 'objects');
     await page.getByTestId('tab-2').click();
     await expect(selected(page)).toHaveAttribute('data-testid', 'tab-2');
@@ -520,9 +450,7 @@ for (const framework of ['react', 'svelte']) {
       (await page.getByTestId('duplicate-panel').getAttribute('id')) as string,
     );
     await page.locator('#duplicate').click();
-    await expect(page.getByTestId('tab-0')).not.toHaveAttribute(
-      'aria-controls',
-    );
+    await expect(page.getByTestId('tab-0')).not.toHaveAttribute('aria-controls');
     // The original Source registration was shadowed; removing its replacement does not restore it.
     expect(original).not.toBe('');
   });
@@ -542,9 +470,7 @@ for (const framework of ['react', 'svelte']) {
       .toEqual([0, 4]);
     await input.press('ArrowRight');
     await expect(input).toBeFocused();
-    await input.evaluate((node) =>
-      (node as HTMLInputElement).setSelectionRange(4, 4),
-    );
+    await input.evaluate((node) => (node as HTMLInputElement).setSelectionRange(4, 4));
     await input.press('ArrowRight');
     await expect(page.getByTestId('tab-1')).toBeFocused();
   });
@@ -577,14 +503,12 @@ for (const framework of ['react', 'svelte']) {
       };
       await checkOverlay();
       await page.locator('#resize').click();
-      await expect
-        .poll(async () => (await geometry(page)).right)
-        .not.toBe(before.right);
+      await expect.poll(async () => (await geometry(page)).right).not.toBe(before.right);
       await checkOverlay();
       if (scenario === 'multiple-indicators')
-        expect(
-          await page.getByTestId('indicator-two').getAttribute('style'),
-        ).toBe(await page.getByTestId('indicator').getAttribute('style'));
+        expect(await page.getByTestId('indicator-two').getAttribute('style')).toBe(
+          await page.getByTestId('indicator').getAttribute('style'),
+        );
     });
   }
   test(`${framework} Source resize observation follows a swapped rendered tab host`, async ({
@@ -597,9 +521,7 @@ for (const framework of ['react', 'svelte']) {
     await page.getByTestId('tab-1').evaluate((node) => {
       (node as HTMLElement).style.width = '160px';
     });
-    await expect
-      .poll(async () => (await geometry(page)).left)
-      .toBeCloseTo(before.left + 60, 1);
+    await expect.poll(async () => (await geometry(page)).left).toBeCloseTo(before.left + 60, 1);
     await page.locator('#unmount').click();
     await expect(page.getByTestId('indicator')).toHaveCount(0);
     await page.locator('#unmount').click();
@@ -610,14 +532,8 @@ for (const framework of ['react', 'svelte']) {
   }) => {
     await open(page, framework, 'controlled-missing');
     await expect(page.getByTestId('indicator')).toBeHidden();
-    await expect(page.getByTestId('indicator')).toHaveAttribute(
-      'data-position',
-      'null',
-    );
-    await expect(page.getByTestId('indicator')).toHaveAttribute(
-      'data-size',
-      'null',
-    );
+    await expect(page.getByTestId('indicator')).toHaveAttribute('data-position', 'null');
+    await expect(page.getByTestId('indicator')).toHaveAttribute('data-size', 'null');
     await page.locator('#external-null').click();
     await expect(page.getByTestId('indicator')).toHaveCount(0);
   });
@@ -632,50 +548,32 @@ for (const framework of ['react', 'svelte']) {
       await observeParser(page);
       const errors: string[] = [];
       page.on('console', (message) => {
-        if (['error', 'warning'].includes(message.type()))
-          errors.push(message.text());
+        if (['error', 'warning'].includes(message.type())) errors.push(message.text());
       });
       page.on('pageerror', (error) => errors.push(error.message));
       await page.goto(`/tabs-ssr?framework=${framework}&scenario=${scenario}`);
-      await expect(page.locator('main')).toHaveAttribute(
-        'data-hydrated',
-        'false',
-      );
+      await expect(page.locator('main')).toHaveAttribute('data-hydrated', 'false');
       await expect(page.getByTestId('indicator')).toBeVisible();
       const before = await geometry(page);
       expect(before.width).toBeCloseTo(100, 1);
       expect(before.height).toBeCloseTo(40, 1);
       expect(
-        await page.evaluate(
-          () => (window as unknown as { tabsParser: unknown }).tabsParser,
-        ),
+        await page.evaluate(() => (window as unknown as { tabsParser: unknown }).tabsParser),
       ).toEqual({ executions: 1, nonce: ['tabs-nonce'] });
       expect(
         await page
           .locator('script')
-          .evaluateAll(
-            (nodes) =>
-              nodes.filter((node) => node.nonce === 'tabs-nonce').length,
-          ),
+          .evaluateAll((nodes) => nodes.filter((node) => node.nonce === 'tabs-nonce').length),
       ).toBe(1);
       expect(errors).toEqual([]);
-      await page.goto(
-        `/tabs-ssr?framework=${framework}&scenario=${scenario}&hydrate=true`,
-      );
-      await expect(page.locator('main')).toHaveAttribute(
-        'data-hydrated',
-        'true',
-      );
-      await expect(
-        page.locator('script[nonce="tabs-nonce"]:not([type=module])'),
-      ).toHaveCount(0);
+      await page.goto(`/tabs-ssr?framework=${framework}&scenario=${scenario}&hydrate=true`);
+      await expect(page.locator('main')).toHaveAttribute('data-hydrated', 'true');
+      await expect(page.locator('script[nonce="tabs-nonce"]:not([type=module])')).toHaveCount(0);
       const after = await geometry(page);
       for (const name of ['left', 'right', 'top', 'bottom', 'width', 'height'])
         expect(after[name]).toBeCloseTo(before[name], 1);
       expect(
-        await page.evaluate(
-          () => (window as unknown as { tabsParser: unknown }).tabsParser,
-        ),
+        await page.evaluate(() => (window as unknown as { tabsParser: unknown }).tabsParser),
       ).toEqual({ executions: 1, nonce: ['tabs-nonce'] });
       expect(errors).toEqual([]);
       await page.getByTestId('tab-0').click();
@@ -689,8 +587,7 @@ for (const framework of ['react', 'svelte']) {
     await page.goto(`/tabs-ssr?framework=${framework}&hidden=true`);
     await expect(page.getByTestId('indicator')).toHaveAttribute('hidden', '');
     await page.evaluate(() => {
-      (document.querySelector('#hydration-host') as HTMLElement).style.display =
-        '';
+      (document.querySelector('#hydration-host') as HTMLElement).style.display = '';
     });
     await expect(page.getByTestId('indicator')).toBeVisible();
     expect((await geometry(page)).width).toBe(100);
@@ -701,8 +598,7 @@ for (const framework of ['react', 'svelte']) {
     await page.goto(`/tabs-ssr?framework=${framework}&hidden=true`);
     await page.evaluate(() => {
       document.querySelector('[data-active]')?.removeAttribute('data-active');
-      (document.querySelector('#hydration-host') as HTMLElement).style.display =
-        '';
+      (document.querySelector('#hydration-host') as HTMLElement).style.display = '';
     });
     await expect(page.getByTestId('indicator')).toHaveAttribute('hidden', '');
     await page.getByTestId('tab-2').evaluate((element) => {
@@ -719,13 +615,11 @@ for (const framework of ['react', 'svelte']) {
     await expect(page.getByTestId('indicator')).toBeVisible();
     expect((await geometry(page)).width).toBe(100);
     expect(
-      await page.evaluate(
-        () => (window as unknown as { tabsParser: unknown }).tabsParser,
-      ),
+      await page.evaluate(() => (window as unknown as { tabsParser: unknown }).tabsParser),
     ).toEqual({ executions: 0, nonce: [] });
-    await expect(
-      page.locator('script').filter({ hasText: 'previousElementSibling' }),
-    ).toHaveCount(0);
+    await expect(page.locator('script').filter({ hasText: 'previousElementSibling' })).toHaveCount(
+      0,
+    );
   });
   test(`${framework} real SSR without JavaScript retains native selection and hidden unresolved indicator`, async ({
     browser,
@@ -736,10 +630,7 @@ for (const framework of ['react', 'svelte']) {
     await expect(selected(page)).toHaveAttribute('data-testid', 'tab-2');
     await expect(page.getByTestId('panel-2')).toBeVisible();
     await expect(page.getByTestId('indicator')).toBeHidden();
-    await expect(page.locator('main')).toHaveAttribute(
-      'data-hydrated',
-      'false',
-    );
+    await expect(page.locator('main')).toHaveAttribute('data-hydrated', 'false');
     await context.close();
   });
 }

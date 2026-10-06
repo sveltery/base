@@ -2,8 +2,24 @@
 import type { ComponentProps } from 'svelte';
 import { TabsRoot, TabsTab, TabsList, TabsPanel, TabsIndicator } from '../src/lib/tabs/index.js';
 import type { TabsRoot as RootContract, TabsTab as TabContract } from '../src/lib/tabs/index.js';
-const root: ComponentProps<typeof TabsRoot> = { value: undefined, defaultValue: undefined, orientation: undefined, onValueChange: undefined, render: undefined, ref: undefined, class: undefined, style: undefined };
-const tab: ComponentProps<typeof TabsTab> = { value: { arbitrary: true }, disabled: undefined, nativeButton: undefined, onclick(event) { event.preventBaseUIHandler(); } };
+const root: ComponentProps<typeof TabsRoot> = {
+  value: undefined,
+  defaultValue: undefined,
+  orientation: undefined,
+  onValueChange: undefined,
+  render: undefined,
+  ref: undefined,
+  class: undefined,
+  style: undefined,
+};
+const tab: ComponentProps<typeof TabsTab> = {
+  value: { arbitrary: true },
+  disabled: undefined,
+  nativeButton: undefined,
+  onclick(event) {
+    event.preventBaseUIHandler();
+  },
+};
 const nullableTabId: ComponentProps<typeof TabsTab> = { value: 0, id: null };
 const list: ComponentProps<typeof TabsList> = { activateOnFocus: undefined, loopFocus: undefined };
 const panel: ComponentProps<typeof TabsPanel> = { value: null, keepMounted: undefined };

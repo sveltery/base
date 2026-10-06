@@ -1,11 +1,13 @@
 <script lang="ts">
+  import { untrack } from 'svelte';
   // Source business body: Base UI v1.8.0 TabsPanel.tsx at 47b40521. MIT.
-  import RenderElement from '../../internals/RenderElement.svelte';
+  import { mergeComponentProps } from '../../internals/mergeComponentProps.js';
+  import { createAttachmentKey } from 'svelte/attachments';
   import { useCompositeListItem } from '../../internals/composite/list/useCompositeListItem.svelte.js';
   import { useTransitionStatus } from '../../internals/useTransitionStatus.svelte.js';
   import { useOpenChangeComplete } from '../../internals/useOpenChangeComplete.svelte.js';
-  import { useIsoLayoutEffect } from '../../utils/useIsoLayoutEffect.svelte.js';
-  import { useId } from '../../utils/useId.js';
+
+  import { useId } from '@sveltery/utils/useId';
   import { transitionStatusMapping } from '../../internals/stateAttributesMapping.js';
   import { useTabsRootContext } from '../root/TabsRootContext.js';
   import { tabsStateAttributesMapping } from '../root/stateAttributesMapping.js';
@@ -39,32 +41,40 @@
     tabActivationDirection: root.tabActivationDirection,
     transitionStatus: transition.transitionStatus,
   });
-  const panelRef = { current: null as HTMLElement | null };
-  const forwardedRef = {
-    get current() {
-      return ref ?? null;
-    },
-    set current(element: HTMLElement | null) {
-      ref = element;
-    },
-  };
-  const componentProps = $derived({ render, class: classProp, style });
-  const params = $derived({
-    state: partState,
-    ref: [forwardedRef, listItem.ref, panelRef],
-    props: [
-      {
-        'aria-labelledby': correspondingTabId,
-        hidden,
-        id,
-        role: 'tabpanel',
-        tabindex: open ? 0 : -1,
-        inert: !open,
-        [TabsPanelDataAttributes.index]: listItem.index(),
-      },
-      elementProps,
-    ],
-    stateAttributesMapping,
+  const panelRef = $state({ current: null as HTMLElement | null });
+  const hostAttachmentKey = createAttachmentKey();
+  function attachHost(host: HTMLElement) {
+    const unregister = listItem.attach(host);
+    return untrack(() => {
+      ref = host;
+      panelRef.current = host;
+      return () =>
+        untrack(() => {
+          if (ref === host) ref = null;
+          unregister();
+          if (panelRef.current === host) panelRef.current = null;
+        });
+    });
+  }
+  const mergedProps = $derived({
+    ...mergeComponentProps(
+      partState,
+      { class: classProp, style },
+      [
+        {
+          'aria-labelledby': correspondingTabId,
+          hidden,
+          id,
+          role: 'tabpanel',
+          tabindex: open ? 0 : -1,
+          inert: !open,
+          [TabsPanelDataAttributes.index]: listItem.index(),
+        },
+        elementProps,
+      ],
+      stateAttributesMapping,
+    ),
+    [hostAttachmentKey]: attachHost,
   });
   useOpenChangeComplete({
     get open() {
@@ -75,15 +85,22 @@
       if (!open) transition.setMounted(false);
     },
   });
-  useIsoLayoutEffect(
-    () => {
-      if (id == null || (hidden && !keepMounted)) return;
-      return root.registerMountedTabPanel(value, id);
-    },
-    () => [hidden, keepMounted, value, id, root.registerMountedTabPanel],
-  );
+  $effect(() => {
+    const panelId = id,
+      panelValue = value,
+      isHidden = hidden,
+      retain = keepMounted;
+    if (panelId == null || (isHidden && !retain)) return;
+    const owner = root;
+    return untrack(() => owner.registerMountedTabPanel(panelValue, panelId));
+  });
   const shouldRender = $derived(keepMounted || transition.mounted);
 </script>
+
 {#if shouldRender}
-  <RenderElement tag="div" {componentProps} {params} {children} />
+  {#if render}
+    {@render render(mergedProps, partState, children)}
+  {:else}
+    <div {...mergedProps}>{@render children?.()}</div>
+  {/if}
 {/if}

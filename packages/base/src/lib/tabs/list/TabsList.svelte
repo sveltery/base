@@ -1,8 +1,9 @@
 <script lang="ts">
   // Source business body: Base UI v1.8.0 TabsList.tsx at 47b40521. MIT.
   import { untrack } from 'svelte';
+  import { createAttachmentKey } from 'svelte/attachments';
   import CompositeRoot from '../../internals/composite/root/CompositeRoot.svelte';
-  import { EMPTY_ARRAY } from '../../utils/empty.js';
+  import { EMPTY_ARRAY } from '@sveltery/utils/empty';
   import { useTabsRootContext } from '../root/TabsRootContext.js';
   import { tabsStateAttributesMapping } from '../root/stateAttributesMapping.js';
   import { setTabsListContext } from './TabsListContext.js';
@@ -31,9 +32,7 @@
     );
     resizeObserverRef.current = resizeObserver;
     if (element) resizeObserver.observe(element);
-    tabResizeObserverElementsRef.current.forEach((element) =>
-      resizeObserver.observe(element),
-    );
+    tabResizeObserverElementsRef.current.forEach((element) => resizeObserver.observe(element));
     return () => {
       resizeObserver.disconnect();
       resizeObserverRef.current = null;
@@ -71,21 +70,34 @@
     'aria-orientation': root.orientation === 'vertical' ? 'vertical' : undefined,
     role: 'tablist',
   });
-  const forwardedRef = {
-    get current() {
-      return ref ?? null;
-    },
-    set current(element: HTMLElement | null) {
-      ref = element;
-    },
-  };
-  function setTabsListElement(element: HTMLElement | null) {
-    untrack(() => {
-      tabsListElement = element;
+  const hostAttachmentKey = createAttachmentKey();
+  function attachHost(host: HTMLElement) {
+    return untrack(() => {
+      tabsListElement = host;
+      return () =>
+        untrack(() => {
+          if (tabsListElement === host) tabsListElement = null;
+        });
     });
   }
 </script>
-<CompositeRoot {render} class={classProp} {style} state={partState} refs={[forwardedRef, setTabsListElement]} props={[defaultProps, elementProps]}
-  stateAttributesMapping={tabsStateAttributesMapping} highlightedIndex={highlightedTabIndex} enableHomeAndEndKeys
-  {loopFocus} orientation={root.orientation} onHighlightedIndexChange={index => { highlightedTabIndex = index; }}
-  onMapChange={root.setTabMap} disabledIndices={EMPTY_ARRAY} {children} />
+
+<CompositeRoot
+  {render}
+  class={classProp}
+  {style}
+  state={partState}
+  bind:ref
+  props={[defaultProps, elementProps, { [hostAttachmentKey]: attachHost }]}
+  stateAttributesMapping={tabsStateAttributesMapping}
+  highlightedIndex={highlightedTabIndex}
+  enableHomeAndEndKeys
+  {loopFocus}
+  orientation={root.orientation}
+  onHighlightedIndexChange={(index) => {
+    highlightedTabIndex = index;
+  }}
+  onMapChange={root.setTabMap}
+  disabledIndices={EMPTY_ARRAY}
+  {children}
+/>

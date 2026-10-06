@@ -2,8 +2,9 @@
   // Source business body: Base UI v1.8.0 TabsRoot.tsx at 47b40521. MIT.
   import { untrack } from 'svelte';
   import { SvelteMap } from 'svelte/reactivity';
-  import { useControlled } from '../../utils/useControlled.svelte.js';
-  import RenderElement from '../../internals/RenderElement.svelte';
+  import { Controlled } from '@sveltery/utils/Controlled';
+  import { mergeComponentProps } from '../../internals/mergeComponentProps.js';
+  import { createAttachmentKey } from 'svelte/attachments';
   import { createCompositeList } from '../../internals/composite/list/createCompositeList.svelte.js';
   import type { CompositeMetadata } from '../../internals/composite/list/CompositeListContext.js';
   import { createChangeEventDetails } from '../../internals/createBaseUIEventDetails.js';
@@ -31,22 +32,18 @@
     children,
     ...elementProps
   }: TabsRootProps = $props();
-  const defaultValueProp = $derived(
-    defaultValueAuthored === undefined ? 0 : defaultValueAuthored,
-  );
+  const defaultValueProp = $derived(defaultValueAuthored === undefined ? 0 : defaultValueAuthored);
   const hasExplicitDefault = untrack(() => defaultValueAuthored !== undefined);
   const tabPanelRefs = { current: [] as Array<HTMLElement | null> };
   let mountedTabPanels = $state.raw(new Map<TabsTabValue, string>());
-  const [value, setValue] = useControlled(() => ({
-    controlled: valueProp,
-    default: defaultValueProp,
-    name: 'Tabs',
-    state: 'value',
-  }));
-  const isControlled = $derived(valueProp !== undefined);
-  let tabMap = $state.raw(
-    new Map<Element, CompositeMetadata & Partial<TabsTabMetadata>>(),
+  const valueState = new Controlled<TabsTabValue>(
+    () => valueProp,
+    untrack(() => defaultValueProp),
   );
+  const value = () => valueState.value;
+  const setValue = (next: TabsTabValue) => valueState.set(next);
+  const isControlled = $derived(valueProp !== undefined);
+  let tabMap = $state.raw(new Map<Element, CompositeMetadata & Partial<TabsTabMetadata>>());
   const lastKnownTabElementRef = { current: undefined as Element | undefined };
   const getTabElementBySelectedValue = (selectedValue: TabsTabValue) =>
     findTabElement(tabMap, selectedValue);
@@ -57,10 +54,8 @@
     })),
   );
   const activationDirection = $derived.by(() => {
-    const {
-      previousValue,
-      tabActivationDirection: committedTabActivationDirection,
-    } = activationDirectionState;
+    const { previousValue, tabActivationDirection: committedTabActivationDirection } =
+      activationDirectionState;
     let tabActivationDirection = committedTabActivationDirection;
     let directionComputationIncomplete = false;
     if (previousValue !== value()) {
@@ -71,13 +66,9 @@
         tabMap,
       );
       directionComputationIncomplete =
-        previousValue != null &&
-        value() != null &&
-        getTabElementBySelectedValue(value()) == null;
+        previousValue != null && value() != null && getTabElementBySelectedValue(value()) == null;
     }
-    const nextPreviousValue = directionComputationIncomplete
-      ? previousValue
-      : value();
+    const nextPreviousValue = directionComputationIncomplete ? previousValue : value();
     const shouldSyncActivationDirectionState =
       previousValue !== nextPreviousValue ||
       committedTabActivationDirection !== tabActivationDirection;
@@ -88,21 +79,15 @@
     };
   });
   $effect(() => {
-    const {
-      nextPreviousValue,
-      tabActivationDirection,
-      shouldSyncActivationDirectionState,
-    } = activationDirection;
+    const { nextPreviousValue, tabActivationDirection, shouldSyncActivationDirectionState } =
+      activationDirection;
     if (!shouldSyncActivationDirectionState) return;
     activationDirectionState = {
       previousValue: nextPreviousValue,
       tabActivationDirection,
     };
   });
-  function onValueChange(
-    newValue: TabsTabValue,
-    eventDetails: TabsRootChangeEventDetails,
-  ) {
+  function onValueChange(newValue: TabsTabValue, eventDetails: TabsRootChangeEventDetails) {
     eventDetails.activationDirection = computeActivationDirection(
       value(),
       newValue,
@@ -113,15 +98,14 @@
     if (eventDetails.isCanceled) return;
     setValue(newValue);
   }
-  function notifyAutomaticValueChange(
-    nextValue: TabsTabValue,
-    reason: TabsRootChangeEventReason,
-  ) {
-    onValueChangeProp?.(
-      nextValue,
-      createChangeEventDetails(reason, undefined, undefined, {
-        activationDirection: 'none',
-      }),
+  function notifyAutomaticValueChange(nextValue: TabsTabValue, reason: TabsRootChangeEventReason) {
+    untrack(() =>
+      onValueChangeProp?.(
+        nextValue,
+        createChangeEventDetails(reason, undefined, undefined, {
+          activationDirection: 'none',
+        }),
+      ),
     );
   }
   function registerMountedTabPanel(panelValue: TabsTabValue, panelId: string) {
@@ -135,11 +119,9 @@
       mountedTabPanels = next;
     };
   }
-  const getTabPanelIdByValue = (tabValue: TabsTabValue) =>
-    mountedTabPanels.get(tabValue);
+  const getTabPanelIdByValue = (tabValue: TabsTabValue) => mountedTabPanels.get(tabValue);
   function getTabIdByPanelValue(panelValue: TabsTabValue) {
-    for (const metadata of tabMap.values())
-      if (panelValue === metadata.value) return metadata.id;
+    for (const metadata of tabMap.values()) if (panelValue === metadata.value) return metadata.id;
     return undefined;
   }
   setTabsRootContext({
@@ -162,13 +144,11 @@
     },
   });
   const selectedTabMetadata = $derived.by(() => {
-    for (const metadata of tabMap.values())
-      if (metadata.value === value()) return metadata;
+    for (const metadata of tabMap.values()) if (metadata.value === value()) return metadata;
     return undefined;
   });
   const firstEnabledTabValue = $derived.by(() => {
-    for (const metadata of tabMap.values())
-      if (!metadata.disabled) return metadata.value;
+    for (const metadata of tabMap.values()) if (!metadata.disabled) return metadata.value;
     return undefined;
   });
   const shouldNotifyInitialValueChangeRef = { current: !hasExplicitDefault };
@@ -176,85 +156,81 @@
   const shouldHonorDisabledDefaultValueRef = { current: hasExplicitDefault };
   const didRegisterTabsRef = { current: false };
   $effect(() => {
-    // These are the Source automatic-fallback dependencies. Callbacks remain untracked.
-    void firstEnabledTabValue;
-    void selectedTabMetadata;
-    void tabMap;
-    void value();
     if (isControlled) return;
-    untrack(() => {
-      function commitAutomaticValueChange(
-        fallbackValue: TabsTabValue,
-        fallbackReason: TabsRootChangeEventReason,
-      ) {
-        setValue(fallbackValue);
-        activationDirectionState = {
-          previousValue: fallbackValue,
-          tabActivationDirection: 'none',
-        };
-        notifyAutomaticValueChange(fallbackValue, fallbackReason);
-        shouldNotifyInitialValueChangeRef.current = false;
-      }
-      if (tabMap.size === 0) {
-        if (
-          didRegisterTabsRef.current &&
-          value() !== null &&
-          !lastKnownTabElementRef.current?.isConnected
-        )
-          commitAutomaticValueChange(null, REASONS.missing);
-        return;
-      }
-      didRegisterTabsRef.current = true;
-      lastKnownTabElementRef.current = tabMap.keys().next().value;
-      const selectionIsDisabled = selectedTabMetadata?.disabled;
-      const selectionIsMissing = selectedTabMetadata == null && value() !== null;
-      if (!selectionIsDisabled && value() === initialDefaultValueRef.current)
-        shouldHonorDisabledDefaultValueRef.current = false;
+    function commitAutomaticValueChange(
+      fallbackValue: TabsTabValue,
+      fallbackReason: TabsRootChangeEventReason,
+    ) {
+      setValue(fallbackValue);
+      activationDirectionState = {
+        previousValue: fallbackValue,
+        tabActivationDirection: 'none',
+      };
+      notifyAutomaticValueChange(fallbackValue, fallbackReason);
+      shouldNotifyInitialValueChangeRef.current = false;
+    }
+    if (tabMap.size === 0) {
       if (
-        shouldHonorDisabledDefaultValueRef.current &&
-        selectionIsDisabled &&
-        value() === initialDefaultValueRef.current
+        didRegisterTabsRef.current &&
+        value() !== null &&
+        !lastKnownTabElementRef.current?.isConnected
       )
-        return;
-      const shouldNotifyInitialValueChange =
-        shouldNotifyInitialValueChangeRef.current;
-      if (selectionIsDisabled || selectionIsMissing) {
-        const fallbackValue = firstEnabledTabValue ?? null;
-        if (value() === fallbackValue) {
-          shouldNotifyInitialValueChangeRef.current = false;
-          return;
-        }
-        let fallbackReason: TabsRootChangeEventReason = REASONS.missing;
-        if (shouldNotifyInitialValueChange) fallbackReason = REASONS.initial;
-        else if (selectionIsDisabled) fallbackReason = REASONS.disabled;
-        commitAutomaticValueChange(fallbackValue, fallbackReason);
-        return;
-      }
-      if (shouldNotifyInitialValueChange && selectedTabMetadata != null) {
-        notifyAutomaticValueChange(value(), REASONS.initial);
+        commitAutomaticValueChange(null, REASONS.missing);
+      return;
+    }
+    didRegisterTabsRef.current = true;
+    lastKnownTabElementRef.current = tabMap.keys().next().value;
+    const selectionIsDisabled = selectedTabMetadata?.disabled;
+    const selectionIsMissing = selectedTabMetadata == null && value() !== null;
+    if (!selectionIsDisabled && value() === initialDefaultValueRef.current)
+      shouldHonorDisabledDefaultValueRef.current = false;
+    if (
+      shouldHonorDisabledDefaultValueRef.current &&
+      selectionIsDisabled &&
+      value() === initialDefaultValueRef.current
+    )
+      return;
+    const shouldNotifyInitialValueChange = shouldNotifyInitialValueChangeRef.current;
+    if (selectionIsDisabled || selectionIsMissing) {
+      const fallbackValue = firstEnabledTabValue ?? null;
+      if (value() === fallbackValue) {
         shouldNotifyInitialValueChangeRef.current = false;
+        return;
       }
-    });
+      let fallbackReason: TabsRootChangeEventReason = REASONS.missing;
+      if (shouldNotifyInitialValueChange) fallbackReason = REASONS.initial;
+      else if (selectionIsDisabled) fallbackReason = REASONS.disabled;
+      commitAutomaticValueChange(fallbackValue, fallbackReason);
+      return;
+    }
+    if (shouldNotifyInitialValueChange && selectedTabMetadata != null) {
+      notifyAutomaticValueChange(value(), REASONS.initial);
+      shouldNotifyInitialValueChangeRef.current = false;
+    }
   });
   createCompositeList(() => ({ elementsRef: tabPanelRefs }));
   const partState: TabsRootState = $derived({
     orientation,
     tabActivationDirection: activationDirection.tabActivationDirection,
   });
-  const forwardedRef = {
-    get current() {
-      return ref ?? null;
-    },
-    set current(element: HTMLElement | null) {
-      ref = element;
-    },
-  };
-  const componentProps = $derived({ render, class: classProp, style });
-  const params = $derived({
-    state: partState,
-    ref: forwardedRef,
-    props: elementProps,
-    stateAttributesMapping: tabsStateAttributesMapping,
+  const hostAttachmentKey = createAttachmentKey();
+  function attachHost(host: HTMLElement) {
+    return untrack(() => {
+      ref = host;
+      return () =>
+        untrack(() => {
+          if (ref === host) ref = null;
+        });
+    });
+  }
+  const mergedProps = $derived({
+    ...mergeComponentProps(
+      partState,
+      { class: classProp, style },
+      elementProps,
+      tabsStateAttributesMapping,
+    ),
+    [hostAttachmentKey]: attachHost,
   });
   function findTabElement(
     map: Map<Element, CompositeMetadata & Partial<TabsTabMetadata>>,
@@ -293,4 +269,9 @@
     return 'none';
   }
 </script>
-<RenderElement tag="div" {componentProps} {params} {children} />
+
+{#if render}
+  {@render render(mergedProps, partState, children)}
+{:else}
+  <div {...mergedProps}>{@render children?.()}</div>
+{/if}

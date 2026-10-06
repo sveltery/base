@@ -6,6 +6,7 @@
 <script lang="ts">
   import { CSPProvider } from '@sveltery/base/csp-provider';
 </script>
+
 <CSPProvider nonce="server-provided-nonce" disableStyleElements>
   <p>Child content renders without a provider wrapper.</p>
 </CSPProvider>
@@ -17,6 +18,8 @@ A missing provider supplies the private context fallback `{ disableStyleElements
 
 Tabs.Indicator now uses the single canonical [PrehydrationScript](../packages/base/src/lib/internals/PrehydrationScript.svelte) consumer when `renderBeforeHydration` is enabled. It reads the real CSP context, applies the supplied nonce with escaping, emits the immutable Tabs payload during SSR, and removes the tag on native mount. `disableStyleElements` does not suppress scripts. [Tabs evidence](../parity/tabs/README.md) records actual SSR nonce/payload checks and secured paired CSP/parser/hydration/no-JS execution; these supplements earn zero ordinary CSP declaration credit.
 
-ScrollArea and Select remain unimplemented on this Tabs branch. All four pinned CSPProvider ordinary declarations require those actual style consumers and remain deferred and uncredited; the Tabs script consumer does not establish their style-tag removal or nonce assertions. Future style consumers must use the same context and port their complete observable tests. No feature in this slice generates a nonce, writes response headers, modifies arbitrary authored tags or changes inline style attributes.
+[ScrollArea](scroll-area.md) is an implemented consumer of this same private context. Each Root emits its native scrollbar stylesheet with the supplied nonce unless `disableStyleElements` is true. Its real DOM, SSR/hydration and paired browser supplements exercise nonce/CSS application, style suppression and an enforced CSP supplied by the actual fixture HTTP response. Repeated Roots retain native framework ownership: React produces one hoisted style retained after unmount, while Svelte produces two per-Root styles removed at teardown. That divergent observation earns zero unchanged assertion credit.
+
+Select remains unimplemented. The three pinned CSPProvider declarations requiring ScrollArea remain deferred and uncredited because their complete original assertion ports have not been reconciled and reviewed; ScrollArea supplements do not supply that credit. The fourth declaration remains blocked by missing Select. Future consumers must use the same context, and complete ordinary ports require their own assertion provenance and review. `disableStyleElements` concerns generated style elements, never scripts. The provider generates no nonce or response headers and does not modify authored tags or inline style attributes; the enforced HTTP header is a test-fixture responsibility.
 
 See [source and supplemental evidence](../parity/csp-provider/README.md) for paired SSR, local DOM/types, public isolated tarball consumers, browser acceptance and remaining gates. [CSP-01](upstream-differences.md#csp-01-csp-provider-framework-substitutions) records the Svelte child/context/type substitutions and PM implementation-scope decision. Supplemental evidence adds zero ordinary declaration credit; complete library or cross-browser parity is not claimed.
