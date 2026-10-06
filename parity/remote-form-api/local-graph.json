@@ -3528,7 +3528,7 @@
     },
     {
       "local": "packages/base/src/lib/utils/popups/popupStoreUtils.svelte.ts",
-      "sha256": "51f1c3945f9da39ae8e71a4fa336740ef0ad0be5f4a8f413deb1e98405d894d3",
+      "sha256": "13b61b426eed8a0875580aa2a8e15a8caf5c7110e915174bf4d613f069f7b01a",
       "imports": [
         {
           "specifier": "svelte",
@@ -3674,8 +3674,13 @@
     },
     {
       "local": "packages/base/src/lib/utils/useRegisteredLabelId.svelte.ts",
-      "sha256": "e05169d0f62fe7f2bfc955ff3cb1a1e154d71ed8cb8fd8263e2ebc9e9af93faa",
+      "sha256": "7d7c44fce0e1b01178ae76dfeb95d59907a5ffa402c49147be554a9c582addec",
       "imports": [
+        {
+          "specifier": "svelte",
+          "kind": "runtime",
+          "resolved": "external:svelte"
+        },
         {
           "specifier": "../internals/useBaseUiId.js",
           "kind": "runtime",

@@ -51,11 +51,10 @@ function syncTriggerCount(store: PopupTriggerDataStore<PopupStoreState<unknown>>
 }
 
 /**
- * Returns a stable callback ref that registers/unregisters the trigger element in the store.
+ * Registers/unregisters the native trigger host in its current Store.
  *
- * Stable so a downstream ref merger that retains the callback it was first given still reaches the
- * trigger's current store. The registration is tracked as a `(store, id, element)` triple, so
- * unregistering targets the store the element was actually registered in.
+ * Each publication acquires the actual Store and ID. The captured `(store, id, element)`
+ * registration targets its installed owner on removal, even after a Store or ID change.
  *
  * Native effects observe the current Store and ID and migrate an already registered
  * element when either owner changes. Registration is an imperative publication boundary.
@@ -78,33 +77,35 @@ export function useTriggerRegistration<State extends PopupStoreState<unknown>>(
   return (element: Element | null) => {
     const id = getId();
     const store = getStore();
-    const registration = registrationRef.current;
+    untrack(() => {
+      const registration = registrationRef.current;
 
-    if (registration !== null) {
-      if (
-        registration.element === element &&
-        registration.store === store &&
-        registration.id === id
-      ) {
-        // Already registered where it belongs, so the caller's migration effect is free on mount.
-        return;
+      if (registration !== null) {
+        if (
+          registration.element === element &&
+          registration.store === store &&
+          registration.id === id
+        ) {
+          // Already registered where it belongs, so the caller's migration effect is free on mount.
+          return;
+        }
+
+        registrationRef.current = null;
+        const registeredStore = registration.store;
+        if (
+          registeredStore.context.triggerElements.getById(registration.id) === registration.element
+        ) {
+          registeredStore.context.triggerElements.delete(registration.id);
+          syncTriggerCount(registeredStore);
+        }
       }
 
-      registrationRef.current = null;
-      const registeredStore = registration.store;
-      if (
-        registeredStore.context.triggerElements.getById(registration.id) === registration.element
-      ) {
-        registeredStore.context.triggerElements.delete(registration.id);
-        syncTriggerCount(registeredStore);
+      if (element !== null && id !== undefined) {
+        registrationRef.current = { store, id, element };
+        store.context.triggerElements.add(id, element);
+        syncTriggerCount(store);
       }
-    }
-
-    if (element !== null && id !== undefined) {
-      registrationRef.current = { store, id, element };
-      store.context.triggerElements.add(id, element);
-      syncTriggerCount(store);
-    }
+    });
   };
 }
 
@@ -124,37 +125,40 @@ export function useTriggerDataForwarding<
 
   const baseRegisterTrigger = useTriggerRegistration(getTriggerId, getStore);
 
-  // Applies trigger-owned state (active-trigger ownership and payload) when the trigger registers.
-  // Stable so payload/`stateUpdates` changes do not change the ref identity (which would needlessly
-  // churn registration); it reads the latest closure values when invoked.
+  // Applies current trigger-owned state when its native host is published.
+  // The imperative boundary reads the latest payload only in its business branches;
+  // the independent data-forwarding effect below owns later reactive payload changes.
   const applyTriggerData = (element: Element) => {
-    const open = store.select('open');
-    const activeTriggerId = store.select('activeTriggerId');
+    const owner = store;
+    const id = triggerId;
+    untrack(() => {
+      const open = owner.select('open');
+      const activeTriggerId = owner.select('activeTriggerId');
 
-    if (activeTriggerId === triggerId) {
-      const changes = {
-        activeTriggerElement: element,
-        ...(open ? stateUpdates : null),
-      } as Pick<Readonly<State>, Key | 'activeTriggerElement'>;
-      store.update(changes);
-      return;
-    }
+      if (activeTriggerId === id) {
+        const changes = {
+          activeTriggerElement: element,
+          ...(open ? stateUpdates : null),
+        } as Pick<Readonly<State>, Key | 'activeTriggerElement'>;
+        owner.update(changes);
+        return;
+      }
 
-    if (activeTriggerId == null && open) {
-      // If a popup is already open, a detached trigger can mount before any active trigger
-      // has been established. Claim the first registered trigger so trigger-owned focus
-      // management and ARIA relationships work.
-      const changes = {
-        activeTriggerId: triggerId ?? null,
-        activeTriggerElement: element,
-        ...stateUpdates,
-      } as Pick<Readonly<State>, Key | 'activeTriggerId' | 'activeTriggerElement'>;
-      store.update(changes);
-    }
+      if (activeTriggerId == null && open) {
+        // If a popup is already open, a detached trigger can mount before any active trigger
+        // has been established. Claim the first registered trigger so trigger-owned focus
+        // management and ARIA relationships work.
+        const changes = {
+          activeTriggerId: id ?? null,
+          activeTriggerElement: element,
+          ...stateUpdates,
+        } as Pick<Readonly<State>, Key | 'activeTriggerId' | 'activeTriggerElement'>;
+        owner.update(changes);
+      }
+    });
   };
 
-  // Stable, so the merged ref on the rendered element keeps its identity for the trigger's whole
-  // lifetime.
+  // Publishes the native host's registration before its current trigger-owned data.
   const registerTrigger = (element: Element | null) => {
     baseRegisterTrigger(element);
     if (element) {
@@ -162,8 +166,8 @@ export function useTriggerDataForwarding<
     }
   };
 
-  // A stable ref does not re-fire on a store or id change, so migrate here instead: unregister from
-  // the previous store, then register the element the trigger still renders into the current one.
+  // Store/ID changes migrate the published host independently of attachment setup:
+  // remove its captured previous registration, then publish it in the current owner.
   $effect(() => {
     // Native identity reads own migration; registration publishes to the Store.
     void store;

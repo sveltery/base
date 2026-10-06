@@ -605,6 +605,198 @@
           "sha256": "7da59d24d7de1429ca421cdbb408afd94878255381f2bd6a19c0f2da6f2f8152"
         }
       ]
+    },
+    {
+      "commit": "f2a99979a04a98c8bc60709a75d0db2397ec2470",
+      "scope": "Exact complete PR77 shared registration/data and Menu button publication bodies, unchanged existing witnesses and affected current LOCAL projections before the three native publication boundaries; no historical credit is retargeted.",
+      "files": [
+        {
+          "predecessorPath": "packages/base/src/lib/utils/popups/popupStoreUtils.svelte.ts",
+          "archive": "parity/native-snippets/historical/trigger-publication-f2a99979/packages/base/src/lib/utils/popups/popupStoreUtils.svelte.ts",
+          "sha256": "51f1c3945f9da39ae8e71a4fa336740ef0ad0be5f4a8f413deb1e98405d894d3"
+        },
+        {
+          "predecessorPath": "packages/base/src/lib/menu/trigger/createMenuTrigger.svelte.ts",
+          "archive": "parity/native-snippets/historical/trigger-publication-f2a99979/packages/base/src/lib/menu/trigger/createMenuTrigger.svelte.ts",
+          "sha256": "dee891cf185175885b51711b6307a20006fdec038c41f5e1ca08fa1a0d279488"
+        },
+        {
+          "predecessorPath": "packages/base/tests/dom/menu-family-retained-focus-matrix.test.ts",
+          "archive": "parity/native-snippets/historical/trigger-publication-f2a99979/packages/base/tests/dom/menu-family-retained-focus-matrix.test.ts",
+          "sha256": "b71af495e52f872252471e2a4facd089de10ff12c0afd4f798b89d26f7272473"
+        },
+        {
+          "predecessorPath": "packages/base/tests/dom/menu-family-source.test.ts",
+          "archive": "parity/native-snippets/historical/trigger-publication-f2a99979/packages/base/tests/dom/menu-family-source.test.ts",
+          "sha256": "7619eb48e303740ae96644e956d8d8fa627a84e5cf3d8e6ccb50a5ad49cf98b5"
+        },
+        {
+          "predecessorPath": "packages/base/tests/dom/menu-tree-subscription-lifetime.test.ts",
+          "archive": "parity/native-snippets/historical/trigger-publication-f2a99979/packages/base/tests/dom/menu-tree-subscription-lifetime.test.ts",
+          "sha256": "c2b47600377ab821c34cbbac2ac3c380042ccd593c18bcab466e4a8fa845e87c"
+        },
+        {
+          "predecessorPath": "packages/base/tests/dom/menu-family-detached-hover-handoff.test.ts",
+          "archive": "parity/native-snippets/historical/trigger-publication-f2a99979/packages/base/tests/dom/menu-family-detached-hover-handoff.test.ts",
+          "sha256": "35b9aa29dde86759c212f96c7a9f015a0a9f72d9d1171c15d0c4b951018ab417"
+        },
+        {
+          "predecessorPath": "scripts/check-native-snippet-integration.mjs",
+          "archive": "parity/native-snippets/historical/trigger-publication-f2a99979/scripts/check-native-snippet-integration.mjs",
+          "sha256": "acd698c3003b978a24e4abad35619cf0333c72238095cba4f2be71d0c4a5a1e0"
+        },
+        {
+          "predecessorPath": "parity/native-snippets/integration-current.json",
+          "archive": "parity/native-snippets/historical/trigger-publication-f2a99979/parity/native-snippets/integration-current.json",
+          "sha256": "6185e7ababf248899e503ab4a15d6f8ef21638eabf641c754015a789ee0593d2"
+        },
+        {
+          "predecessorPath": "parity/native-snippets/integration-predecessors.json",
+          "archive": "parity/native-snippets/historical/trigger-publication-f2a99979/parity/native-snippets/integration-predecessors.json",
+          "sha256": "6e9857d469c1a39f801784095caec6d99e52c20e871c3289193d6cc20b86bc5e"
+        },
+        {
+          "predecessorPath": "parity/native-snippets/source-correspondence.md",
+          "archive": "parity/native-snippets/historical/trigger-publication-f2a99979/parity/native-snippets/source-correspondence.md",
+          "sha256": "5f6a68bed2ab414de6ea55223693fef654cc36b7f8ca26c12148bfd2bf8e36eb"
+        },
+        {
+          "predecessorPath": "parity/native-snippets/native-graph.json",
+          "archive": "parity/native-snippets/historical/trigger-publication-f2a99979/parity/native-snippets/native-graph.json",
+          "sha256": "d3d12a7977f6829c47bf21f4baaa0b9870a841eba5e4c47d60486c0b0f8eb851"
+        },
+        {
+          "predecessorPath": "parity/native-framework/callsite-inventory.json",
+          "archive": "parity/native-snippets/historical/trigger-publication-f2a99979/parity/native-framework/callsite-inventory.json",
+          "sha256": "16d3e68d4560691bb92c785e3d99ec4c65a5324e9d271fbbedf845be1bb78cb0"
+        },
+        {
+          "predecessorPath": "parity/utils-package/current-source-graph.json",
+          "archive": "parity/native-snippets/historical/trigger-publication-f2a99979/parity/utils-package/current-source-graph.json",
+          "sha256": "e23e9187d46335ba336a1d56d84c050c997b8a7b41a942b22e91eea30749e406"
+        },
+        {
+          "predecessorPath": "parity/utils-package/feature-successors.json",
+          "archive": "parity/native-snippets/historical/trigger-publication-f2a99979/parity/utils-package/feature-successors.json",
+          "sha256": "4e2b9b216b13f38af20ea52d4fd2704d9effdb406a66d2a9806879683c59765a"
+        },
+        {
+          "predecessorPath": "parity/menu-family/native-closure.json",
+          "archive": "parity/native-snippets/historical/trigger-publication-f2a99979/parity/menu-family/native-closure.json",
+          "sha256": "3dff4dfb07f0cfac59f3195e807d1d1415b680e687fb1c1b47a11df6ba41c866"
+        },
+        {
+          "predecessorPath": "parity/menu-family/source-correspondence.json",
+          "archive": "parity/native-snippets/historical/trigger-publication-f2a99979/parity/menu-family/source-correspondence.json",
+          "sha256": "7b3b82fbd0b55d30dd5fad6e04a3e68256dadd234755e52a9eccd46aa9d83161"
+        },
+        {
+          "predecessorPath": "parity/dialog/local-graph.json",
+          "archive": "parity/native-snippets/historical/trigger-publication-f2a99979/parity/dialog/local-graph.json",
+          "sha256": "ef5a79680dcfbcaeffc5e5c9712a46a324972545f6b47ccf8ec412aab628f634"
+        },
+        {
+          "predecessorPath": "parity/remote-form-api/local-graph.json",
+          "archive": "parity/native-snippets/historical/trigger-publication-f2a99979/parity/remote-form-api/local-graph.json",
+          "sha256": "e862aa080224fea9253b17bd6b4f8647ab45366ae8c01a0e634164a27e52cbf0"
+        },
+        {
+          "predecessorPath": "parity/popup-family/native-component-graph.json",
+          "archive": "parity/native-snippets/historical/trigger-publication-f2a99979/parity/popup-family/native-component-graph.json",
+          "sha256": "96d1209383520cd31eb871b8408bc608098f05dfb15704a9919f8e02eecce82f"
+        },
+        {
+          "predecessorPath": "parity/popup-family/native-helper-graph.json",
+          "archive": "parity/native-snippets/historical/trigger-publication-f2a99979/parity/popup-family/native-helper-graph.json",
+          "sha256": "45fb6a514dfe5c601c3169374f844fd0f3e77491968b83e3fdcb714bde93d4f3"
+        },
+        {
+          "predecessorPath": "docs/upstream-differences.md",
+          "archive": "parity/native-snippets/historical/trigger-publication-f2a99979/docs/upstream-differences.md",
+          "sha256": "9976ebdb1a37172c2eddcc2a64e20cb54fc30a05f05d335e7a1edc31d52f60c3"
+        }
+      ]
+    },
+    {
+      "commit": "336062b3be2dfe90db5899714aed6457f78836ae",
+      "scope": "Exact complete Source/helper projections before the localized native host/registration/payload ownership comment clarification; runtime AST and every existing test/Original/history byte remain unchanged.",
+      "files": [
+        {
+          "predecessorPath": "packages/base/src/lib/utils/popups/popupStoreUtils.svelte.ts",
+          "archive": "parity/native-snippets/historical/ownership-comments-336062b3/packages/base/src/lib/utils/popups/popupStoreUtils.svelte.ts",
+          "sha256": "7e9cbbd3b0a7835d25d2a54a90fca6f1bd403d30b8cb2165fa366232aa290960"
+        },
+        {
+          "predecessorPath": "scripts/check-native-snippet-integration.mjs",
+          "archive": "parity/native-snippets/historical/ownership-comments-336062b3/scripts/check-native-snippet-integration.mjs",
+          "sha256": "b30dc946585d503e4767f908c9345c063947595c3bc1614f960e799033b5b366"
+        },
+        {
+          "predecessorPath": "parity/native-snippets/integration-current.json",
+          "archive": "parity/native-snippets/historical/ownership-comments-336062b3/parity/native-snippets/integration-current.json",
+          "sha256": "ee7cd6de7d0527e26b5f782a168dfa24227ee495d689fefa81b17d6f949b641e"
+        },
+        {
+          "predecessorPath": "parity/native-snippets/integration-predecessors.json",
+          "archive": "parity/native-snippets/historical/ownership-comments-336062b3/parity/native-snippets/integration-predecessors.json",
+          "sha256": "855dc71ef4340c1d508f8fe3c84f739ca0d14c51888962b69d0045a36e72a934"
+        },
+        {
+          "predecessorPath": "parity/native-snippets/trigger-publication-lifetime.json",
+          "archive": "parity/native-snippets/historical/ownership-comments-336062b3/parity/native-snippets/trigger-publication-lifetime.json",
+          "sha256": "05dbb2670510881f8f68b6e4c914c18b1cd0dad62ca4ce4bb325d7c450a63bf7"
+        },
+        {
+          "predecessorPath": "parity/native-snippets/native-graph.json",
+          "archive": "parity/native-snippets/historical/ownership-comments-336062b3/parity/native-snippets/native-graph.json",
+          "sha256": "536edd44c4399cb036b9522c048c7023e6f533697d11665c3dfb64da458a833d"
+        },
+        {
+          "predecessorPath": "parity/native-framework/callsite-inventory.json",
+          "archive": "parity/native-snippets/historical/ownership-comments-336062b3/parity/native-framework/callsite-inventory.json",
+          "sha256": "92ea666c584ae6427e651e54ff7347ff1b7ac5f6de50e21414023804c2a5313c"
+        },
+        {
+          "predecessorPath": "parity/utils-package/current-source-graph.json",
+          "archive": "parity/native-snippets/historical/ownership-comments-336062b3/parity/utils-package/current-source-graph.json",
+          "sha256": "7c9755100ec5f4a2815c663c71ac4c4e98c11645c2f6e3c20c1ef856f565574b"
+        },
+        {
+          "predecessorPath": "parity/utils-package/feature-successors.json",
+          "archive": "parity/native-snippets/historical/ownership-comments-336062b3/parity/utils-package/feature-successors.json",
+          "sha256": "035637831a9743989743c429df64eb5853b6c13ea472cafa8389f6e63f742902"
+        },
+        {
+          "predecessorPath": "parity/menu-family/native-closure.json",
+          "archive": "parity/native-snippets/historical/ownership-comments-336062b3/parity/menu-family/native-closure.json",
+          "sha256": "1dcdc2e195a87e319f7905f275c6825e820dcbc7f93ca16138a8ff6b8f0bda1a"
+        },
+        {
+          "predecessorPath": "parity/menu-family/source-correspondence.json",
+          "archive": "parity/native-snippets/historical/ownership-comments-336062b3/parity/menu-family/source-correspondence.json",
+          "sha256": "ecd26ae76e678e08899fe1757a324fd59f65a86ad07577e44e4bebdc0679960f"
+        },
+        {
+          "predecessorPath": "parity/dialog/local-graph.json",
+          "archive": "parity/native-snippets/historical/ownership-comments-336062b3/parity/dialog/local-graph.json",
+          "sha256": "56bd1362c5fdcbd9a03864a9aa326d5c5514ae2dd2d2c73bd524be83e49f3df9"
+        },
+        {
+          "predecessorPath": "parity/remote-form-api/local-graph.json",
+          "archive": "parity/native-snippets/historical/ownership-comments-336062b3/parity/remote-form-api/local-graph.json",
+          "sha256": "1881b5b865d1d55b1d795fbb366233567baa941910194160ecb6b9c326bc3d8a"
+        },
+        {
+          "predecessorPath": "parity/popup-family/native-component-graph.json",
+          "archive": "parity/native-snippets/historical/ownership-comments-336062b3/parity/popup-family/native-component-graph.json",
+          "sha256": "a014ba67d7afcfbae46798cad9fdaf0bb6d95771ee97ced624b8ee9f555dbbbb"
+        },
+        {
+          "predecessorPath": "parity/popup-family/native-helper-graph.json",
+          "archive": "parity/native-snippets/historical/ownership-comments-336062b3/parity/popup-family/native-helper-graph.json",
+          "sha256": "38b5c2c2ebcaa2cbdca6e90bde6d06ec857f8f38bb3ee1a2e703f3850990af41"
+        }
+      ]
     }
   ]
 }
