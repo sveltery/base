@@ -460,6 +460,30 @@
       "predecessorProposalSha256": "8544e21588c52fe3090385825a0a754f9736b1e0de31740eff7f28f1979bdd70",
       "disposition": "retired-unneeded-external-browser-config-never-active-in-c2",
       "unchangedParityCredit": 0
+    },
+    {
+      "source": "packages/base/tests/dom/fixtures/MenuPositionerPublicationNativeControl.svelte",
+      "archive": "parity/native-snippets/acceptance-history/native-rune-shadow-c60dc54a/packages/base/tests/dom/fixtures/MenuPositionerPublicationNativeControl.svelte",
+      "sha256": "85b57d51a86ee486757e86157bed020ebe1d15cc3425a0cd8e6566ad611f08f3",
+      "predecessor": "c60dc54a84774fa2ad0ff8e3144ea322a7b5dde5",
+      "disposition": "native-fixture-rune-name-or-current-witness-narrative-correction",
+      "unchangedParityCredit": 0
+    },
+    {
+      "source": "parity/native-snippets/source-correspondence.md",
+      "archive": "parity/native-snippets/acceptance-history/native-rune-shadow-c60dc54a/parity/native-snippets/source-correspondence.md",
+      "sha256": "2c73850e0d7aa0d5ea4e7a857493f2c6f8778062286d089949db3e9edb644cc0",
+      "predecessor": "c60dc54a84774fa2ad0ff8e3144ea322a7b5dde5",
+      "disposition": "native-fixture-rune-name-or-current-witness-narrative-correction",
+      "unchangedParityCredit": 0
+    },
+    {
+      "source": "parity/native-snippets/menu-positioner-publication-lifetime.json",
+      "archive": "parity/native-snippets/acceptance-history/native-rune-shadow-c60dc54a/parity/native-snippets/menu-positioner-publication-lifetime.json",
+      "sha256": "e3f245da908ead567aa835df415755581fb569273ffc2c37983389636e0b4460",
+      "predecessor": "c60dc54a84774fa2ad0ff8e3144ea322a7b5dde5",
+      "disposition": "native-fixture-rune-name-or-current-witness-narrative-correction",
+      "unchangedParityCredit": 0
     }
   ]
 }

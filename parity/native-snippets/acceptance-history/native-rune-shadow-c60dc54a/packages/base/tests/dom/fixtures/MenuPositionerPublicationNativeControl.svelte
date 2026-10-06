@@ -18,9 +18,9 @@
         });
     });
   }
-  const attachmentProps = { [createAttachmentKey()]: attachHost };
+  const props = { [createAttachmentKey()]: attachHost };
 </script>
 
 {#key revision}
-  <section {...attachmentProps} id={`publication-positioner-${revision}`}></section>
+  <section {...props} id={`publication-positioner-${revision}`}></section>
 {/key}
