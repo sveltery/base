@@ -58,6 +58,11 @@ jobs:
           package-manager-cache: false
       - name: Frozen workspace install
         run: bash scripts/bootstrap.sh
+      - name: Secure immutable provenance predecessor
+        run: |
+          provenance_predecessor=aa4daff54ec82b96e34e1601648d1b3926ef08cf
+          git fetch --no-tags --no-recurse-submodules --depth=1 origin "$provenance_predecessor"
+          test "$(git rev-parse "${provenance_predecessor}^{commit}")" = "$provenance_predecessor"
       - name: Script regressions
         run: node --test --test-concurrency=1 scripts/tests/*.test.mjs
       - name: Fresh native library tarballs
