@@ -384,7 +384,7 @@
     },
     {
       "source": "packages/base/src/lib/context-menu/Root.svelte",
-      "sha256": "c3acfbcc1ff41febefa580445159987ae24ad7b59a79af0d29b8019ea0c5144a",
+      "sha256": "7ae8f888c2f9c8d4f902934e7e6ae0930558daded14073fce2bfa4eb27becec1",
       "reachability": "runtime",
       "imports": [
         {
@@ -440,7 +440,7 @@
     },
     {
       "source": "packages/base/src/lib/context-menu/root/ContextMenuRootContext.ts",
-      "sha256": "159228643c1997e8d49e02016bd850f19a2c61d74ff14d08ad302e2aee0f2206",
+      "sha256": "693025717dd64709148878045577c66cbe6e3a9cb97b62a6d11091d9ba28d3eb",
       "reachability": "runtime",
       "imports": [
         {
@@ -554,7 +554,7 @@
     },
     {
       "source": "packages/base/src/lib/context-menu/trigger/createContextMenuTrigger.svelte.ts",
-      "sha256": "c7b1cd5c8adc95071a449256413571762d3f762dcb39fc3adf71d78db83aae33",
+      "sha256": "c1a67ab6ba6034d58293f4add7d1ad9ebf392e91e17b17ab5e27d2be1ae1dc07",
       "reachability": "runtime",
       "imports": [
         {

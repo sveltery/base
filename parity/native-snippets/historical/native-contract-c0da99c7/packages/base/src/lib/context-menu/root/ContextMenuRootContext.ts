@@ -5,7 +5,7 @@ import type { ContextMenuRoot } from '../types.js';
 export interface ContextMenuRootContext {
   anchor: { getBoundingClientRect: () => DOMRect };
   setAnchor: (anchor: ContextMenuRootContext['anchor']) => void;
-  backdropRef: { current: HTMLElement | null };
+  backdropRef: { current: HTMLDivElement | null };
   internalBackdropRef: { current: HTMLDivElement | null };
   actionsRef: {
     current: {

@@ -66,7 +66,7 @@ export type ElementProps<
   NativeProps = HTMLAttributes<HTMLElement>,
 > = Omit<PreventableHandlers<NativeProps>, 'class' | 'style' | 'children'> & {
   children?: Snippet;
-  render?: BaseUIComponentProps<State>['render'];
+  render?: Snippet<[Record<string | symbol, unknown>, State, Snippet | undefined]>;
   class?: string | ((state: State) => string | undefined);
   style?: string | ((state: State) => string | undefined);
   ref?: HTMLElement | null;

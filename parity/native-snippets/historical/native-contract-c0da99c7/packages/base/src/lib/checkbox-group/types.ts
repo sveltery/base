@@ -16,7 +16,7 @@ export type CheckboxGroupProps = Omit<
 > &
   BaseUIComponentProps<CheckboxGroupState> & {
     children?: Snippet | undefined;
-    ref?: HTMLElement | null | undefined;
+    ref?: HTMLDivElement | null | undefined;
     value?: string[] | undefined;
     defaultValue?: string[] | undefined;
     onValueChange?:

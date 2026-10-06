@@ -991,6 +991,62 @@
           "sha256": "e9d2f1521d870f957662c68dd2832fa80fb9e2e013bbdf31b581752f3e3c8ead"
         }
       ]
+    },
+    {
+      "commit": "c0da99c7e01f5d35e2572256df66136fce55cf41",
+      "scope": "Exact ten complete native Source preimages before bounded actual HTMLElement/output and canonical snippet/Toast button contracts, ToastClose component-state rune-collision rename and two producers retaining their known once-resolved class/consumer style. Fixed internal div slots, existing business bodies/order, tests and Original/prior history remain unchanged.",
+      "files": [
+        {
+          "predecessorPath": "packages/base/src/lib/dialog/store/DialogStore.svelte.ts",
+          "archive": "parity/native-snippets/historical/native-contract-c0da99c7/packages/base/src/lib/dialog/store/DialogStore.svelte.ts",
+          "sha256": "7a90ea83e70ca6f82011434787b93d3f75ca69fc9fb7eb8d8e586c5405ff8c3b"
+        },
+        {
+          "predecessorPath": "packages/base/src/lib/checkbox-group/types.ts",
+          "archive": "parity/native-snippets/historical/native-contract-c0da99c7/packages/base/src/lib/checkbox-group/types.ts",
+          "sha256": "11f60dbbc9279270d57c957da0a587b4328c6a50b6538f11a3cbccb1808d2fa2"
+        },
+        {
+          "predecessorPath": "packages/base/src/lib/context-menu/root/ContextMenuRootContext.ts",
+          "archive": "parity/native-snippets/historical/native-contract-c0da99c7/packages/base/src/lib/context-menu/root/ContextMenuRootContext.ts",
+          "sha256": "159228643c1997e8d49e02016bd850f19a2c61d74ff14d08ad302e2aee0f2206"
+        },
+        {
+          "predecessorPath": "packages/base/src/lib/context-menu/Root.svelte",
+          "archive": "parity/native-snippets/historical/native-contract-c0da99c7/packages/base/src/lib/context-menu/Root.svelte",
+          "sha256": "c3acfbcc1ff41febefa580445159987ae24ad7b59a79af0d29b8019ea0c5144a"
+        },
+        {
+          "predecessorPath": "packages/base/src/lib/context-menu/trigger/createContextMenuTrigger.svelte.ts",
+          "archive": "parity/native-snippets/historical/native-contract-c0da99c7/packages/base/src/lib/context-menu/trigger/createContextMenuTrigger.svelte.ts",
+          "sha256": "c7b1cd5c8adc95071a449256413571762d3f762dcb39fc3adf71d78db83aae33"
+        },
+        {
+          "predecessorPath": "packages/base/src/lib/dialog/types.ts",
+          "archive": "parity/native-snippets/historical/native-contract-c0da99c7/packages/base/src/lib/dialog/types.ts",
+          "sha256": "aa9e6e11495e8a8218fd5f69c913d10d8794338a6e01fc685d545c4d9729874c"
+        },
+        {
+          "predecessorPath": "packages/base/src/lib/toast/types.ts",
+          "archive": "parity/native-snippets/historical/native-contract-c0da99c7/packages/base/src/lib/toast/types.ts",
+          "sha256": "c813412103d8c506cbc614c9bb676643e4a27d60cbcb6bcc3cf6d6d0ee9fc8e0"
+        },
+        {
+          "predecessorPath": "packages/base/src/lib/toast/Close.svelte",
+          "archive": "parity/native-snippets/historical/native-contract-c0da99c7/packages/base/src/lib/toast/Close.svelte",
+          "sha256": "73e63333e6c80ab9f768877695dd45915b57c4a94f0dd39a938153d64e6f0ae2"
+        },
+        {
+          "predecessorPath": "packages/base/src/lib/accordion/Trigger.svelte",
+          "archive": "parity/native-snippets/historical/native-contract-c0da99c7/packages/base/src/lib/accordion/Trigger.svelte",
+          "sha256": "c089bbb4cc27c499a749921c736a2f21693eb7ebd7d611fa6459fd620962fbfa"
+        },
+        {
+          "predecessorPath": "packages/base/src/lib/collapsible/Trigger.svelte",
+          "archive": "parity/native-snippets/historical/native-contract-c0da99c7/packages/base/src/lib/collapsible/Trigger.svelte",
+          "sha256": "666eee678a184815301dc01a2077be86b1e87cfd1c702409002cea42b098d50b"
+        }
+      ]
     }
   ]
 }

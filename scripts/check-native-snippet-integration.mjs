@@ -40,6 +40,97 @@ function nativeButtonDefault(path, body) {
   assert.equal(body.split(fallback).length, 2, `One intrinsic button fallback: ${path}`);
   return body.replace(fallback, '<button type="button" {...mergedProps}>');
 }
+const nativeContractPredecessor = 'c0da99c7e01f5d35e2572256df66136fce55cf41';
+const nativeContractChanges = {
+  'packages/base/src/lib/dialog/store/DialogStore.svelte.ts': [
+    [
+      '  readonly backdropRef: { current: HTMLDivElement | null };\n',
+      '  readonly backdropRef: { current: HTMLElement | null };\n',
+    ],
+  ],
+  'packages/base/src/lib/checkbox-group/types.ts': [
+    [
+      '    ref?: HTMLDivElement | null | undefined;\n',
+      '    ref?: HTMLElement | null | undefined;\n',
+    ],
+  ],
+  'packages/base/src/lib/context-menu/root/ContextMenuRootContext.ts': [
+    [
+      '  backdropRef: { current: HTMLDivElement | null };\n',
+      '  backdropRef: { current: HTMLElement | null };\n',
+    ],
+  ],
+  'packages/base/src/lib/context-menu/Root.svelte': [
+    [
+      '  const backdropRef = { current: null as HTMLDivElement | null };\n',
+      '  const backdropRef = { current: null as HTMLElement | null };\n',
+    ],
+  ],
+  'packages/base/src/lib/context-menu/trigger/createContextMenuTrigger.svelte.ts': [
+    [
+      '  const triggerRef = { current: null as HTMLDivElement | null };\n',
+      '  const triggerRef = { current: null as HTMLElement | null };\n',
+    ],
+  ],
+  'packages/base/src/lib/dialog/types.ts': [
+    [
+      '  render?: Snippet<[Record<string | symbol, unknown>, State, Snippet | undefined]>;\n',
+      "  render?: BaseUIComponentProps<State>['render'];\n",
+    ],
+  ],
+  'packages/base/src/lib/toast/types.ts': [
+    [
+      'export type ToastActionComponentProps = ToastElementProps<\n  ToastLabelState,\n  HTMLButtonAttributes,\n  ToastContent\n',
+      "export type ToastActionComponentProps = Omit<\n  ToastElementProps<ToastLabelState, HTMLButtonAttributes, ToastContent>,\n  'disabled'\n",
+    ],
+    [
+      '  /** Set false when render supplies a non-button host. */\n',
+      '  disabled?: boolean | undefined;\n  /** Set false when render supplies a non-button host. */\n',
+    ],
+    [
+      "export type ToastPortalProps = import('../dialog/types.js').ElementProps<\n  ToastPortalState,\n  HTMLAttributes<HTMLDivElement>\n> & {\n",
+      'export type ToastPortalProps = ToastElementProps<ToastPortalState> & {\n',
+    ],
+  ],
+  'packages/base/src/lib/toast/Close.svelte': [
+    [
+      '  const state = $derived({ type: controller.toast.type });\n',
+      '  const componentState = $derived({ type: controller.toast.type });\n',
+    ],
+    [
+      '    ...mergeComponentProps(state, { class: classProp, style }, [\n',
+      '    ...mergeComponentProps(componentState, { class: classProp, style }, [\n',
+    ],
+    [
+      '  {@render render(mergedProps, state, hostChildren)}\n',
+      '  {@render render(mergedProps, componentState, hostChildren)}\n',
+    ],
+  ],
+  'packages/base/src/lib/accordion/Trigger.svelte': [
+    [
+      "    return getButtonProps(\n      mergeProps(\n        {\n          ...stateAttributes(state, true),\n          'aria-controls': context.open ? context.panelId : undefined,\n          'aria-expanded': context.open,\n          id,\n          onclick: context.handleTrigger,\n        },\n        {\n          ...props,\n          class: classValue === undefined ? undefined : resolveClassValue(classValue),\n        },\n",
+      "    const className = classValue === undefined ? undefined : resolveClassValue(classValue);\n    return {\n      ...getButtonProps(\n        mergeProps(\n          {\n            ...stateAttributes(state, true),\n            'aria-controls': context.open ? context.panelId : undefined,\n            'aria-expanded': context.open,\n            id,\n            onclick: context.handleTrigger,\n          },\n          {\n            ...props,\n            class: className,\n          },\n        ),\n        disabled,\n        true,\n        nativeButton,\n",
+    ],
+    [
+      '      disabled,\n      true,\n      nativeButton,\n    );\n',
+      '      class: className,\n      style: props.style,\n    };\n',
+    ],
+  ],
+  'packages/base/src/lib/collapsible/Trigger.svelte': [
+    [
+      "    return getButtonProps(\n      {\n        ...props,\n        ...mergeProps(\n          {\n            ...stateAttributes(state, true),\n            'aria-controls': context.open ? context.panelId : undefined,\n            'aria-expanded': context.open,\n            onclick: context.handleTrigger,\n          },\n          {\n            ...props,\n            class: classValue === undefined ? undefined : resolveClassValue(classValue),\n          },\n        ),\n      },\n      disabled,\n      true,\n      nativeButton,\n    );\n",
+      "    const className = classValue === undefined ? undefined : resolveClassValue(classValue);\n    return {\n      ...getButtonProps(\n        {\n          ...props,\n          ...mergeProps(\n            {\n              ...stateAttributes(state, true),\n              'aria-controls': context.open ? context.panelId : undefined,\n              'aria-expanded': context.open,\n              onclick: context.handleTrigger,\n            },\n            {\n              ...props,\n              class: className,\n            },\n          ),\n        },\n        disabled,\n        true,\n        nativeButton,\n      ),\n      class: className,\n      style: props.style,\n    };\n",
+    ],
+  ],
+};
+const nativeContractPaths = new Set(Object.keys(nativeContractChanges));
+function nativeContract(path, body) {
+  for (const [before, after] of nativeContractChanges[path] ?? []) {
+    assert.equal(body.split(before).length, 2, `One exact contract producer span: ${path}`);
+    body = body.replace(before, after);
+  }
+  return body;
+}
 const popoverSlotRuntime = 'packages/base/src/lib/popover/store/PopoverStore.svelte.ts';
 function reactivePopoverFocusTarget(body) {
   return body
@@ -345,7 +436,8 @@ let effectCalls = 0,
   initialFocusAstPreservedBodies = 0,
   popoverSlotAstPreservedBodies = 0,
   buttonDefaultAstPreservedBodies = 0,
-  buttonDefaultUnchangedBodies = 0;
+  buttonDefaultUnchangedBodies = 0,
+  nativeContractAstPreservedBodies = 0;
 for (const module of graph.native.modules) {
   const path = module.path;
   const before = git('show', `${renderer}:${path}`);
@@ -399,18 +491,32 @@ for (const module of graph.native.modules) {
     assert(slotEqual);
     popoverSlotAstPreservedBodies++;
   }
+  const contractPreimage = git('show', `${nativeContractPredecessor}:${path}`);
+  const contractBefore = syntax(path, contractPreimage);
   assert.equal(
-    after,
+    contractPreimage,
     nativeButtonDefault(path, buttonPreimage),
     `Exact native button default stage: ${path}`,
   );
   assert.equal(
     JSON.stringify(shape(buttonBefore, buttonBefore)),
-    JSON.stringify(shape(right, right)),
+    JSON.stringify(shape(contractBefore, contractBefore)),
     `Button fallback default leaves the complete script AST unchanged: ${path}`,
   );
   buttonDefaultAstPreservedBodies++;
   if (!buttonDefaultPaths.has(path)) buttonDefaultUnchangedBodies++;
+  assert.equal(
+    after,
+    nativeContract(path, contractPreimage),
+    `Exact native contract successor: ${path}`,
+  );
+  const contractEqual =
+    JSON.stringify(shape(contractBefore, contractBefore)) === JSON.stringify(shape(right, right));
+  if (nativeContractPaths.has(path)) assert(!contractEqual);
+  else {
+    assert(contractEqual);
+    nativeContractAstPreservedBodies++;
+  }
   const semanticOwnerCorrection = path === 'packages/utils/src/lib/PreviousValue.svelte.ts';
   const labelPublicationCorrection =
     path === 'packages/base/src/lib/utils/useRegisteredLabelId.svelte.ts';
@@ -435,7 +541,10 @@ for (const module of graph.native.modules) {
   if (nativeOwnerCorrection)
     assert.equal(
       after,
-      reactiveNativeOwners(path, git('show', `${nativeOwnerPredecessor}:${path}`)),
+      nativeContract(
+        path,
+        reactiveNativeOwners(path, git('show', `${nativeOwnerPredecessor}:${path}`)),
+      ),
       `Only the authorized complete-body native owner delta: ${path}`,
     );
   if (triggerPublicationCorrection) {
@@ -590,6 +699,14 @@ for (const module of graph.native.modules) {
     record.exactAuthorizedCompleteBodyDelta = true;
     record.disposition +=
       ' Native intrinsic fallback restores the pinned non-submit default with literal type="button" before props spread; script AST and custom snippet props are unchanged. Execution pending.';
+  }
+  if (nativeContractPaths.has(path)) {
+    record.sourceNativeContractCorrection = true;
+    record.sourceNativeContractPredecessor = nativeContractPredecessor;
+    record.sourceNativeContractPredecessorSha256 = hash(contractPreimage);
+    record.exactAuthorizedCompleteBodyDelta = true;
+    record.disposition =
+      'Root-authorized native HTMLElement host/output declarations and canonical snippet/Toast button contracts, ToastClose component-state rune-collision rename, or appearance producers retaining their known once-resolved class and consumer style. Existing business, handler composition and native host ownership retained; type/runtime execution pending.';
   }
   if (installedLabelCorrection || installedTreeCorrection) {
     record.sourceBusinessPredecessor = cleanupPredecessor;
@@ -762,6 +879,7 @@ assert.equal(
 );
 assert.equal(buttonDefaultAstPreservedBodies, 496);
 assert.equal(buttonDefaultUnchangedBodies, 486);
+assert.equal(nativeContractAstPreservedBodies, 486);
 const buttonDefaultOriginal = {
   pin: graph.immutableOriginalPin,
   path: 'packages/react/src/internals/useRenderElement.tsx',
@@ -791,6 +909,11 @@ const output = {
   buttonDefaultAstPreservedBodies,
   buttonDefaultUnchangedBodies,
   buttonDefaultOriginal,
+  nativeContractPredecessor,
+  nativeContractAstPreservedBodies,
+  sourceNativeContractCorrectionPaths: records
+    .filter((record) => record.sourceNativeContractCorrection)
+    .map((record) => record.path),
   sourceHostDefaultCorrectionPaths: records
     .filter((record) => record.sourceHostDefaultCorrection)
     .map((record) => record.path),
@@ -798,7 +921,7 @@ const output = {
   ordinaryDeclarationCredit: 0,
   mode: 'Source/parser/hash/import evidence only; no type program, runtime, SSR/hydration, compiled markup, artifact, installed consumer, browser, CI or merge acceptance credit.',
   method:
-    'Complete current native two-package AST closure, immutable f0 full-body preimages and grouping-preserving script ASTs. Deliberate source/native owner corrections remain separate from formatter presentation changes. Getter/label publication retain exact inherited bodies; full-body Menu cleanup deltas bind e5, captured focus metadata binds42, trigger publication bindsf2, and native ownership comments bind336 with its AST unchanged. The five native node/initial-seed/focus-out disposal owner deltas bindc392 while all earlier stages/history remain distinct. The subsequent 32 obsolete binding directives and one RadioGroup output-binding annotation bind 0d with all 496 complete bodies otherwise unchanged and every script AST identical. The next native initial-focus destroyed-owner predicate and adjacent timing comment bind ec36 as one complete Source-body delta; all other 495 current bodies/ASTs stay exact. This native owner adaptation earns zero unchanged Original credit. The subsequent real Popover trigger focus-target node property binds 0ba as one complete Source-body delta with 495 other current bodies/ASTs exact; earlier stages retain their own immutable preservation counts. The next ten intrinsic button fallback defaults bind d5 as exact literal attributes before props spread; all 496 script ASTs and 486 other full bodies remain unchanged. Custom render branches and merged props remain untouched. The Original fallback default is expressed as native host markup with no shared renderer or new assertion credit. Parse success supplies no behavior equivalence.',
+    'Complete current native two-package AST closure, immutable f0 full-body preimages and grouping-preserving script ASTs. Deliberate source/native owner corrections remain separate from formatter presentation changes. Getter/label publication retain exact inherited bodies; full-body Menu cleanup deltas bind e5, captured focus metadata binds42, trigger publication bindsf2, and native ownership comments bind336 with its AST unchanged. The five native node/initial-seed/focus-out disposal owner deltas bindc392 while all earlier stages/history remain distinct. The subsequent 32 obsolete binding directives and one RadioGroup output-binding annotation bind 0d with all 496 complete bodies otherwise unchanged and every script AST identical. The next native initial-focus destroyed-owner predicate and adjacent timing comment bind ec36 as one complete Source-body delta; all other 495 current bodies/ASTs stay exact. This native owner adaptation earns zero unchanged Original credit. The subsequent real Popover trigger focus-target node property binds 0ba as one complete Source-body delta with 495 other current bodies/ASTs exact; earlier stages retain their own immutable preservation counts. The next ten intrinsic button fallback defaults bind d5 as exact literal attributes before props spread; all 496 script ASTs and 486 other full bodies remain unchanged. Custom render branches and merged props remain untouched. The Original fallback default is expressed as native host markup with no shared renderer or new assertion credit. The subsequent ten native declaration/producer contract repairs bind c0 as exact complete-body transforms; the other 486 bodies and script ASTs remain exact. Seven declaration paths, a ToastClose rune-collision identifier rename and two known appearance producers retain their existing business and handler composition. Type/runtime acceptance remains pending. Parse success supplies no behavior equivalence.',
   parserVersions: { TypeScript: ts.version, Svelte: compiler.VERSION },
   currentGraphSha256: hash(
     readFileSync(resolve(root, 'parity/utils-package/current-source-graph.json')),

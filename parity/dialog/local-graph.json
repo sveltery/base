@@ -477,7 +477,7 @@
     },
     {
       "local": "packages/base/src/lib/dialog/store/DialogStore.svelte.ts",
-      "sha256": "7a90ea83e70ca6f82011434787b93d3f75ca69fc9fb7eb8d8e586c5405ff8c3b",
+      "sha256": "d9d83c8c127a97a2d79a072b8998eafff242070dbea03d686fe774151741e343",
       "imports": [
         {
           "specifier": "@sveltery/utils/store",
@@ -620,7 +620,7 @@
     },
     {
       "local": "packages/base/src/lib/dialog/types.ts",
-      "sha256": "aa9e6e11495e8a8218fd5f69c913d10d8794338a6e01fc685d545c4d9729874c",
+      "sha256": "52778d4ca75e8c845ea35c3fd9524f498f11f5cbc8bca65ca81e9a7b28ffaaec",
       "imports": [
         {
           "specifier": "svelte",

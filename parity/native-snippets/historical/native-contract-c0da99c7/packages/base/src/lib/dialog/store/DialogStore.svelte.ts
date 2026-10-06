@@ -29,7 +29,7 @@ export type State<Payload> = PopupStoreState<Payload> & {
 
 type Context = PopupStoreContext<DialogRootChangeEventDetails> & {
   readonly popupRef: { current: HTMLElement | null };
-  readonly backdropRef: { current: HTMLElement | null };
+  readonly backdropRef: { current: HTMLDivElement | null };
   readonly internalBackdropRef: { current: HTMLDivElement | null };
   readonly outsidePressEnabledRef: { current: boolean };
   onInternalOpenChange?:

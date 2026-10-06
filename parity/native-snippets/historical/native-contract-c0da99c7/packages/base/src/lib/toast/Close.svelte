@@ -22,7 +22,7 @@
   const controller = root();
   const { store } = provider();
   let hasFocus = $state(false);
-  const componentState = $derived({ type: controller.toast.type });
+  const state = $derived({ type: controller.toast.type });
   const { getButtonProps, buttonRef } = useButton(() => ({
     disabled,
     native: nativeButton,
@@ -40,7 +40,7 @@
     });
   }
   const mergedProps = $derived({
-    ...mergeComponentProps(componentState, { class: classProp, style }, [
+    ...mergeComponentProps(state, { class: classProp, style }, [
       {
         'aria-hidden': !controller.expanded && !hasFocus,
         onclick: () => store.closeToast(controller.toast.id),
@@ -60,7 +60,7 @@
 
 {#snippet hostChildren()}<RenderContent content={children} />{/snippet}
 {#if render}
-  {@render render(mergedProps, componentState, hostChildren)}
+  {@render render(mergedProps, state, hostChildren)}
 {:else}
   <button type="button" {...mergedProps}>{@render hostChildren()}</button>
 {/if}
