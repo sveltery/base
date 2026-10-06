@@ -323,6 +323,46 @@
       "predecessor": "0da3d9712d25831a97be208c563234a452da067d",
       "disposition": "maintained-native-source-api-projection-successor",
       "unchangedParityCredit": 0
+    },
+    {
+      "source": "packages/base/tests/dom/NativeFloatingBusFixture.svelte",
+      "archive": "parity/native-snippets/acceptance-history/native-fixture-6501/packages/base/tests/dom/NativeFloatingBusFixture.svelte",
+      "sha256": "aa4a6e7e46752fbcdfcba6af40297f8c3e8a5b366a84094e698347e30ef56774",
+      "predecessor": "6501d3523731c7edc6de6cc9368c919b956b6105",
+      "disposition": "maintained-native-fixture-api-successor",
+      "unchangedParityCredit": 0
+    },
+    {
+      "source": "packages/base/tests/dom/NativeToastSnippetFixture.svelte",
+      "archive": "parity/native-snippets/acceptance-history/native-fixture-6501/packages/base/tests/dom/NativeToastSnippetFixture.svelte",
+      "sha256": "1ae3fbce046b4b45871974c82b4613007e9e3ef2dbdeccafc501323c6bc32e36",
+      "predecessor": "6501d3523731c7edc6de6cc9368c919b956b6105",
+      "disposition": "maintained-native-fixture-api-successor",
+      "unchangedParityCredit": 0
+    },
+    {
+      "source": "packages/base/tests/dom/NativeCallbackPublicationFixture.svelte",
+      "archive": "parity/native-snippets/acceptance-history/native-fixture-6501/packages/base/tests/dom/NativeCallbackPublicationFixture.svelte",
+      "sha256": "0e199cb64364c95f9ba26d9a703b35c89b8e22d84bdc6d625582cfa6fab97e7d",
+      "predecessor": "6501d3523731c7edc6de6cc9368c919b956b6105",
+      "disposition": "maintained-native-fixture-api-successor",
+      "unchangedParityCredit": 0
+    },
+    {
+      "source": "apps/fixtures/src/lib/RefContractFixture.svelte",
+      "archive": "parity/native-snippets/acceptance-history/native-fixture-6501/apps/fixtures/src/lib/RefContractFixture.svelte",
+      "sha256": "117f9cd1a6548be42c264d070d098a5ed2a8696bb53da6d79841efbfa9ae5725",
+      "predecessor": "6501d3523731c7edc6de6cc9368c919b956b6105",
+      "disposition": "maintained-native-fixture-api-successor",
+      "unchangedParityCredit": 0
+    },
+    {
+      "source": "apps/fixtures/src/lib/input-timing/InputOwnedFinalWrapper.svelte",
+      "archive": "parity/native-snippets/acceptance-history/native-fixture-6501/apps/fixtures/src/lib/input-timing/InputOwnedFinalWrapper.svelte",
+      "sha256": "dc45e2fcfec85f31612a39db3c4ecc70bd091e210ec85306dded347021382a07",
+      "predecessor": "6501d3523731c7edc6de6cc9368c919b956b6105",
+      "disposition": "maintained-native-fixture-api-successor",
+      "unchangedParityCredit": 0
     }
   ]
 }

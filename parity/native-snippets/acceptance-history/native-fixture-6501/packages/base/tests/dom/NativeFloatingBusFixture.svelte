@@ -16,7 +16,7 @@
       : undefined;
   const dismiss =
     consumer === 'dismiss' ? useDismiss(() => handle.store.state.floatingRootContext) : undefined;
-  const interactionProps = $derived(focus?.reference ?? hover?.() ?? dismiss?.reference);
+  const props = $derived(focus?.reference ?? hover?.() ?? dismiss?.reference);
   const key = createAttachmentKey();
   function attach(host: HTMLButtonElement) {
     const root = handle.store.state.floatingRootContext;
@@ -29,6 +29,6 @@
   }
 </script>
 
-<button id="native-floating-reference" type="button" {...interactionProps} {...{ [key]: attach }}
+<button id="native-floating-reference" type="button" {...props} {...{ [key]: attach }}
   >Native interaction consumer</button
 >

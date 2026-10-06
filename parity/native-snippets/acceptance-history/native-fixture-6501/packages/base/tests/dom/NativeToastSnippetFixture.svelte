@@ -1,6 +1,6 @@
 <script lang="ts">
   import type { Snippet } from 'svelte';
-  import * as Toast from '../../src/lib/toast/index.js';
+  import { Toast } from '../../src/lib/toast/index.js';
   import { mergeProps } from '../../src/lib/merge-props/index.js';
   import type { HTMLProps } from '../../src/lib/internals/types.js';
   import type { BaseUIEvent } from '../../src/lib/internals/types.js';
