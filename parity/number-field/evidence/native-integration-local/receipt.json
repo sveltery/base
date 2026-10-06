@@ -20,7 +20,7 @@
       "workers": 1,
       "heapMiB": 768
     },
-    "installedConsumer": "Real Base+Utils archives, root/subpath/seven parts/18 exact public types, strict exactOptionalPropertyTypes/negative diagnostics, native SSR, actual Kit2.70.3, MIT and runtime boundary; svelte-check0 errors0warnings",
+    "installedConsumer": "Real Base+Utils archives, root/subpath/seven parts/18 exact public types, strict exactOptionalPropertyTypes/negative diagnostics, native SSR, actual Kit2.70.3, MIT and runtime boundary; svelte-check0 errors0warnings; explicit skipLibCheck:false checks installed library declarations",
     "fixtureBuild": "actual SSR/client fixture build passed, heap1024MiB",
     "affectedESLint": "NumberField runtime, press/Interval, authored tests/fixtures/routes/reference: passed",
     "metadata": "Native/catalog/family/NumberField successor checks passed; six affected metadata script tests passed after regeneration"
@@ -33,7 +33,7 @@
     "selection": "Initial glob filter collected zero tests; corrected number-field filter passed45DOM. This failed startup earns no test credit."
   },
   "hostedPlan": "Lead explicitly authorizes scoped diagnostic draft push after feasible local checks. Unchanged mandatory hosted full Verification/Standards/package and sandbox-enabled worker1/retry0 browser gates run at exact pushed SHA; candidate validation only, no waiver or acceptance.",
-  "dependency": "PR42 owns sole Composite computed-style fallback fix. Family import graph reaches context, composed ancestor can relay navigation; exact accepted successor integration/final composed acceptance pending lead handoff.",
+  "dependency": "PR42 owns Composite fallback; useButton context inference and ancestor bubbled/custom-composed navigation retain composed acceptance pending accepted successor. Actual provider closure reaches canonical FieldValidation and Transition, steppers reach Button. Stepper captured-host disposal witness/caller update pending accepted Button class integration.",
   "unchangedOrdinaryAssertionCredit": 0,
   "logs": {
     "number-field-package.log": "f498f287d33339a97e07f0f64e13d491efdc88839add5eda8be206c168be93fe",
@@ -50,5 +50,96 @@
     "number-field-fixtures-build.log": "b4bd76124e884f8952c3a4dbd06d5b2b48e8fadeb2fc66612952edc8b25dc340",
     "browser-download.txt": "dd054d9fd60ae19fcc27539234d6513426ebd97e1a018ad232b1d62d0515699f",
     "number-field-server.log": "e9c01df442af16d36b582616b69a2fc93b18019cf7d10255e0dc93a01edead29"
+  },
+  "logStorage": {
+    "reason": "Lossless byte-preserving packaging after exact-head hosted Standards whitespace rejection. Decode with gzip; original decoded hashes and failed predecessor remain immutable. No checks or expectations changed.",
+    "files": {
+      "number-field-dom-final.log": {
+        "path": "number-field-dom-final.log.gz",
+        "encoding": "gzip",
+        "decodedSha256": "b061441ebf6c4067861784da8727d5f5165704184c99c0bf9b992fe22672cd4f",
+        "storedSha256": "2ba096705f9d7c2b3421cabe8923bd41a100d5c4931aea0548d52cf7633e11e2"
+      },
+      "number-field-dom.log": {
+        "path": "number-field-dom.log.gz",
+        "encoding": "gzip",
+        "decodedSha256": "2951af88543ddca02ee4a85d7432e8169e4e6ee4777918d84999a0b2a7f04860",
+        "storedSha256": "87fe875ed5557fdd1713aece2e9015c092be382936432cbb715032997cad364b"
+      },
+      "number-field-eslint-final.log": {
+        "path": "number-field-eslint-final.log.gz",
+        "encoding": "gzip",
+        "decodedSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "storedSha256": "f61f27bd17de546264aa58f40f3aafaac7021e0ef69c17f6b1b4cd7664a037ec"
+      },
+      "number-field-fixtures-build.log": {
+        "path": "number-field-fixtures-build.log.gz",
+        "encoding": "gzip",
+        "decodedSha256": "b4bd76124e884f8952c3a4dbd06d5b2b48e8fadeb2fc66612952edc8b25dc340",
+        "storedSha256": "5dc00c6f72cd4384e0fd550a0d81c640c5d0421e192e5bbff5a77b54385343b2"
+      },
+      "number-field-metadata-final.log": {
+        "path": "number-field-metadata-final.log.gz",
+        "encoding": "gzip",
+        "decodedSha256": "6743c999657be3ec1161efccb5d835780a4755e00f96153d508b05004e1b5f9c",
+        "storedSha256": "4544c57e7622a8a4328e686951650e1dbf84a947c32a623b6916a9dc4943f46b"
+      },
+      "number-field-metadata.log": {
+        "path": "number-field-metadata.log.gz",
+        "encoding": "gzip",
+        "decodedSha256": "3c6ab3b592e74b21e08044d3ac80a68988dd49b01ab75da5ad86bc6b96f71e45",
+        "storedSha256": "c91470c3ca48c55b6349adb9e9b75ae464b673c58a58a108bc43fa5f499bb894"
+      },
+      "number-field-package.log": {
+        "path": "number-field-package.log.gz",
+        "encoding": "gzip",
+        "decodedSha256": "f498f287d33339a97e07f0f64e13d491efdc88839add5eda8be206c168be93fe",
+        "storedSha256": "827905a7741a7856b814513b4912a21e8d5e3f0672860353154022014892718d"
+      },
+      "number-field-server.log": {
+        "path": "number-field-server.log.gz",
+        "encoding": "gzip",
+        "decodedSha256": "e9c01df442af16d36b582616b69a2fc93b18019cf7d10255e0dc93a01edead29",
+        "storedSha256": "5bf55836b525e4e1f577db4d56d1f599dcc5ce06c03cf5638227f6d2bc35e5d3"
+      },
+      "number-field-standards-final.log": {
+        "path": "number-field-standards-final.log.gz",
+        "encoding": "gzip",
+        "decodedSha256": "cec31c4ec5bdaf4a5aef4d17dfc754d2f157486a75cc9c7f573723d6366cbcb6",
+        "storedSha256": "73f4dd2d761fdc02fbb9e2ca9ef5649267ddfe552806a89effb12ef89fddaf3f"
+      },
+      "number-field-standards.log": {
+        "path": "number-field-standards.log.gz",
+        "encoding": "gzip",
+        "decodedSha256": "71c2cb221b55f4ed1b0334dacca67c9664f1f8d45d1429783a7db78549b78d64",
+        "storedSha256": "506d51fd0828af03b3e6172fd4e7c4287d3260b34fdec41b1d1470e13f021b6b"
+      },
+      "number-field-toolchain-final.log": {
+        "path": "number-field-toolchain-final.log.gz",
+        "encoding": "gzip",
+        "decodedSha256": "59823eb197e845384d6f2d18430a116cfbd4e9145afccc3a8a57e42b25e4b756",
+        "storedSha256": "61ca4c42d644496c2c1bfab536aafd19be1a664b77b619f9070be529dc060080"
+      },
+      "number-field-types.log": {
+        "path": "number-field-types.log.gz",
+        "encoding": "gzip",
+        "decodedSha256": "771c0d1ce894ba8df7fb1144ad74c9d98417a640d08b75d657f09f5b20c0f826",
+        "storedSha256": "416c5a7ed2ec049ef479848d03e5b6b9e07fe442fa13af6cc0b33b7af72e72f0"
+      },
+      "number-field-verification.log": {
+        "path": "number-field-verification.log.gz",
+        "encoding": "gzip",
+        "decodedSha256": "35be7390ecb77104c0b987bb94c4364d00df0eca26a0c402e098fec77d7f0106",
+        "storedSha256": "7d9bd9b09f331fbd8623ccd6c320586e39ca957c4ccb253bdba69cae1ecbd112"
+      }
+    }
+  },
+  "diagnosticPredecessor": {
+    "sha": "ce2e79eb93350782d1c54d1bc395d49e3173800c",
+    "standards": "https://github.com/sveltery/base/actions/runs/37530806231/job/112499383887",
+    "failure": "ESLint/Prettier passed; git show whitespace rejected raw log trailing/EOF whitespace.",
+    "numberField": "https://github.com/sveltery/base/actions/runs/37530806204",
+    "browserPassed": 62,
+    "artifact": "https://github.com/sveltery/base/actions/runs/37530806204/artifacts/11444985630"
   }
 }

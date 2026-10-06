@@ -1,5 +1,0 @@
-$ prettier --check . && eslint .
-Checking formatting...
-All matched files use Prettier code style!
-Killed
-[ELIFECYCLE] Command failed with exit code 137.
