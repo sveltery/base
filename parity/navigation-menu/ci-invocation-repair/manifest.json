@@ -1,0 +1,98 @@
+{
+  "sourcePin": "47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c",
+  "ordinaryCredit": 0,
+  "failedHead": "a2f6bafaeb04643b8bf319c94a30abc620aa2346",
+  "failedTree": "3400c40218ee0bcdfea21d4172d2849d8456eabb",
+  "runId": 37539888519,
+  "jobId": 112530025825,
+  "runUrl": "https://github.com/sveltery/base/actions/runs/37539888519",
+  "jobUrl": "https://github.com/sveltery/base/actions/runs/37539888519/job/112530025825",
+  "runner": "Ubuntu22.04.5 image20260927.309.1 runner2.337.0",
+  "hostWorkerId": "13b28113-17fc-4e3b-993f-b67b24308e90",
+  "startedUTC": "2026-10-06T22:35:47.7964626Z",
+  "endedUTC": "2026-10-06T22:36:47.2662643Z",
+  "strictConsumerPassUTC": "2026-10-06T22:36:46.0927504Z",
+  "startupFailureUTC": "2026-10-06T22:36:46.8859096Z",
+  "result": "DOM runner configuration startup failure before test collection/assertions; not product assertion red",
+  "passedSteps": [
+    "Frozen workspace install",
+    "Verify complete immutable Original runtime fixture bodies",
+    "Build library and check actual isolated public package"
+  ],
+  "failedStep": "Supplemental native DOM probes",
+  "failedInvocation": "pnpm --filter @sveltery/base exec vitest run --config vitest.dom.config.ts <same9DOMpaths>",
+  "cause": "Current native project uses maintained vitest.config.ts DOM project; removed vitest.dom.config.ts cannot resolve. Stale workflow invocation failed config loading.",
+  "browserSteps": "Install officialChromium, environment/browser recording and Original/native paired browser assertions skipped after startup failure",
+  "artifact": "Upload step ran but found no files; no artifact uploaded",
+  "strictConsumer": "Actual isolated dualtarball strict8Original/native13parts SSRcheckbuildPASS before runner startupfailure; scoped hosted packagepass does not establish DOM/browser acceptance",
+  "workflowFixCommit": "86d63bd9a49b63225e57cc85b114cd5da4968926",
+  "fixedInvocation": "pnpm --filter @sveltery/base run test:dom --maxWorkers=1 --no-file-parallelism --retry=0 <same9DOMpaths>",
+  "unchanged": "No source/test/assertion/config/consumer changes. Same nine DOM file selections; securedChromium sandbox, browser0retry1worker and optionalWebKit policy unchanged.",
+  "rawReceipts": [
+    {
+      "archive": "a2f6-job112530025825.log.gz",
+      "sha256": "e6c609774370f00da5ec77b06876a99e1e55684232c3f7021b2e7a026a8bb7b2",
+      "archiveSha256": "8a31f98c7a47a8e008e433501768a4955c6809e21d1db0b6547c7968271c2588",
+      "bytes": 36144
+    },
+    {
+      "archive": "navigation-menu.yml.a2f6.gz",
+      "sha256": "ee23bbd76816a41a742e02a96cba9cc8f4af3c3b41ab2394486ef98c366ec296",
+      "archiveSha256": "e329733b377cefaa87a8645e462b950dee7dd45dbc177f5878ab54d95cfb2cea",
+      "bytes": 5055
+    }
+  ],
+  "localCommandProof": {
+    "candidate": "86d63bd9a49b63225e57cc85b114cd5da4968926",
+    "executionValidationHead": "fe3727e2d6191657760a5153c36b7eaab3c7b1c6",
+    "exactTrackedInputFiles": 1237,
+    "result": {
+      "files": 9,
+      "passed": 53,
+      "failed": 0,
+      "exitCode": 0,
+      "durationSeconds": 16.78
+    },
+    "workers": 1,
+    "fileParallelism": false,
+    "retry": 0,
+    "memoryMiB": 2048,
+    "node": "actualNode24.19",
+    "TMPDIR": "writable task workspace",
+    "format": "workflowPrettier passed using dependency-ready config; initial no-dependency candidate plugin resolution was setup-only",
+    "diffCheck": "gitdiff--check passed per execution owner",
+    "receipts": [
+      {
+        "archive": "ci-invocation-input-proof.json.gz",
+        "sha256": "0ec86a6668c6c40dc7d09f61bc0607568fdc8b546fa528bca6312dbee0dd95d8",
+        "archiveSha256": "15b5a67a40d851e2ff6feec6f1451abd3f0f0e411a112d30027bb153d993c1b8",
+        "bytes": 204286
+      },
+      {
+        "archive": "ci-invocation-nine-dom.log.gz",
+        "sha256": "e3394bcc2803307097e76bd765634f9eb460a4ecd81cf831c9e077c29022e778",
+        "archiveSha256": "6bab94f0e48ddca3961eb9013d399e83e137195f63d0a81c7b0b5ebdf2e9fda5",
+        "bytes": 1032
+      },
+      {
+        "archive": "ci-invocation-nine-dom.exit.gz",
+        "sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa",
+        "archiveSha256": "cabc3a30b39528db601f65ca3ced008dd775595c901102d08ac8ae8976b29bcf",
+        "bytes": 2
+      },
+      {
+        "archive": "ci-invocation-prettier.log.gz",
+        "sha256": "17aa973d3f004560237d9a95171210b0671deff23d61628eecf7322ff5938f20",
+        "archiveSha256": "710c63d8d40d5688a62c3b08053dd1971c4e4ee87b2297f3f20c2540d22cd94e",
+        "bytes": 66
+      }
+    ],
+    "scope": "Canonical DOM runner and same nine suites actually execute; no browser run or new unchanged Source assertion credit."
+  },
+  "remaining": "Corrected final-head hosted execution/review pending; d763historical4reds,17nativeownerroles and PR42/73accepted-main dependencies remain. No ordinary assertion credit or feature acceptance.",
+  "correctedWorkflowSha256": "89dcd996070d8365db5e4f97db94037d53f7e3181f2cfffbc6a2ad7a45903921",
+  "configInputs": {
+    "packages/base/package.json": "c657ad16b7a08e40376702d7510726e82259ac90e4d6b344fb0215128f129778",
+    "packages/base/vitest.config.ts": "df62175800979dc1f0c51f0f29adcee873a578eb732e7c097e066721a6dd337e"
+  }
+}
