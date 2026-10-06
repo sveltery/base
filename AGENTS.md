@@ -2,6 +2,8 @@
 
 Read [CONTRIBUTING.md](CONTRIBUTING.md), the [source-porting gate](docs/source-porting.md), the pinned source contracts and the [upstream differences](docs/upstream-differences.md) before porting or reviewing changes. Inspect current main and any relevant repository skills before editing. Keep changes focused and preserve upstream attribution.
 
+Commit locally regularly and follow [the pre-push workflow](CONTRIBUTING.md#before-pushing-a-reviewed-batch) before publishing reviewed batches. Missing or resource-preempted checks are incomplete; obtain PM’s recorded execution plan and explicit hosted-diagnostic disposition rather than publishing from static/source review alone.
+
 ## Source structure gate
 
 The user’s current native-framework directive supersedes earlier hook-parity guidance: replace React-specific machinery that has a Svelte equivalent with the native primitive and its behavior; port real business mechanisms that have no equivalent. Use classes for reusable state-owner roles previously carried by custom hooks, and keep stateless business functions as functions. Controlled state uses the small `Controlled` class with initial mode, live controlled reads, initial-default fallback and direct value setting. React controlled/default diagnostics, serializers, functional dispatch adapters and explicit effect dependency tuples are unnecessary. Use `$effect` directly; it is SSR-safe without SvelteKit. Preserve real cancellation, registration, resource invalidation and cleanup. Use `untrack` at actual imperative subscription or side-effect boundaries, never as blanket React dependency emulation. Record native expectation changes separately with zero divergent unchanged upstream parity credit.
