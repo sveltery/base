@@ -5,30 +5,27 @@ import { existsSync, readFileSync, writeFileSync } from 'node:fs';
 import { createRequire } from 'node:module';
 import { posix, resolve } from 'node:path';
 import { promisify } from 'node:util';
+import { gzipSync, gunzipSync } from 'node:zlib';
 
 const args = process.argv.slice(2);
 const option = name => { const i = args.indexOf(name); return i < 0 ? undefined : args[i + 1]; };
 const main = resolve(option('--main') ?? '../base');
-const popup = resolve(option('--popup') ?? '../popup-family-source');
-const mainPin = 'c1600456d3b4e72910d42823b9df69280c74a262';
-const popupPin = '8a4aaf077142f3cfb77cec357afc07d2595d576a';
+const mainPin = 'aa4daff54ec82b96e34e1601648d1b3926ef08cf';
 const ts = createRequire(resolve(option('--dependencies') ?? 'packages/base', 'package.json'))('typescript');
-if (ts.version !== '5.9.3') throw new Error(`Use repository-pinned TypeScript 5.9.3, got ${ts.version}`);
+if (ts.version !== '6.0.3') throw new Error(`Use repository-pinned TypeScript 6.0.3, got ${ts.version}`);
 const execute = promisify(execFile);
 const git = async (directory, ...argv) => (await execute('git', ['-C', directory, ...argv], { encoding: 'utf8', maxBuffer: 16 * 1024 * 1024 })).stdout;
 const blobMap = async (directory, pin) => new Map((await git(directory, 'ls-tree', '-r', pin)).trim().split('\n').map(line => { const [header, path] = line.split('\t'); return [path, header.split(' ')[2]]; }));
-const [mainFiles, popupFiles] = await Promise.all([blobMap(main, mainPin), blobMap(popup, popupPin)]);
+const mainFiles = await blobMap(main, mainPin);
 const sha256 = body => createHash('sha256').update(body).digest('hex');
 const lib = 'packages/base/src/lib/';
-// Only these existing geometry files require the pending owner's bridge changes.
-const pendingOverrides = new Set(['internals/anchor-positioning/types.ts', 'internals/anchor-positioning/useAnchorPositioning.svelte.ts', 'internals/anchor-positioning/useFloating.svelte.ts'].map(path => lib + path));
 const roots = [
   'internals/field-root-context/FieldRootContext.ts', 'internals/form-context/FormContext.ts',
-  'internals/field-register-control/useRegisterFieldControl.svelte.ts', 'internals/field-register-control/useFieldControlRegistration.svelte.ts',
+  'internals/field-register-control/useRegisterFieldControl.svelte.ts', 'internals/field-register-control/FieldControlRegistration.svelte.ts',
   'field/root/useFieldValidation.svelte.ts', 'field/Control.svelte', 'internals/field-control-name/FieldControlNameContext.ts',
   'internals/labelable-provider/useLabel.svelte.ts', 'internals/labelable-provider/useLabelableId.svelte.ts',
   'internals/composite/list/createCompositeList.svelte.ts', 'internals/composite/list/useCompositeListItem.svelte.ts',
-  'internals/use-button/useButton.svelte.ts', 'internals/RenderElement.svelte',
+  'internals/use-button/useButton.svelte.ts', 'internals/mergeComponentProps.ts',
   'internals/useTransitionStatus.svelte.ts', 'internals/useOpenChangeComplete.svelte.ts',
   'floating-ui/components/FloatingRootStore.svelte.ts', 'floating-ui/hooks/useClick.svelte.ts',
   'floating-ui/hooks/useFloating.svelte.ts', 'floating-ui/hooks/useSyncedFloatingRootContext.svelte.ts',
@@ -49,11 +46,13 @@ const fixtureRoots = [
   'field/Root.svelte', 'field/Label.svelte', 'field/Control.svelte',
   'field/Error.svelte', 'field/Validity.svelte',
 ].map(path => lib + path);
-const chosenProvider = path => pendingOverrides.has(path) || !mainFiles.has(path) ? 'pending-popup' : 'accepted-main';
-const has = path => mainFiles.has(path) || popupFiles.has(path);
+const chosenProvider = () => 'accepted-main';
+const has = path => mainFiles.has(path);
 function resolveImport(path, specifier) {
-  if (!specifier.startsWith('.')) return `external:${specifier}`;
-  const stem = posix.normalize(posix.join(posix.dirname(path), specifier)).replace(/\.js$/, '');
+  let stem;
+  if (specifier.startsWith('@sveltery/utils/')) stem = 'packages/utils/src/lib/' + specifier.slice('@sveltery/utils/'.length);
+  else if (specifier.startsWith('.')) stem = posix.normalize(posix.join(posix.dirname(path), specifier)).replace(/\.js$/, '');
+  else return `external:${specifier}`;
   const found = [stem, `${stem}.ts`, `${stem}.svelte.ts`, `${stem}.svelte`, `${stem}/index.ts`].find(has);
   if (!found) throw new Error(`Unresolved native import ${path} -> ${specifier}`);
   return found;
@@ -61,8 +60,8 @@ function resolveImport(path, specifier) {
 const parsed = new Map();
 function parse(path) {
   if (parsed.has(path)) return parsed.get(path);
-  const provider = chosenProvider(path), directory = provider === 'accepted-main' ? main : popup;
-  const files = provider === 'accepted-main' ? mainFiles : popupFiles;
+  const provider = chosenProvider(path), directory = main;
+  const files = mainFiles;
   if (!files.has(path)) throw new Error(`Missing proposed provider file ${provider}:${path}`);
   const bytes = readFileSync(resolve(directory, path));
   const blob = createHash('sha1').update(`blob ${bytes.length}\0`).update(bytes).digest('hex');
@@ -105,7 +104,7 @@ function parse(path) {
     }
     if (ts.isExportDeclaration(statement) && !statement.moduleSpecifier && statement.exportClause && ts.isNamedExports(statement.exportClause)) exports.push(...statement.exportClause.elements.map(e => e.name.text));
   }
-  const record = { source: path, provider, commit: provider === 'accepted-main' ? mainPin : popupPin, sha256: sha256(body), gitBlob: blob, lines: body.split('\n').length - 1, pendingChangesExistingMainFile: mainFiles.has(path) && provider === 'pending-popup', imports, members, exports };
+  const record = { source: path, provider, commit: mainPin, sha256: sha256(body), gitBlob: blob, lines: body.split('\n').length - 1, pendingChangesExistingMainFile: false, imports, members, exports };
   parsed.set(path, record);
   return record;
 }
@@ -144,8 +143,8 @@ return [...records.values()].sort((a, b) => a.source.localeCompare(b.source));
 }
 const result = {
   status: 'Unapproved proposed helper integration only. Member-selected recursive runtime/type/reexport/dynamic-import review scope, retaining complete selected module bodies; no runtime implementation, helper lease, SourceFull or assertion credit.',
-  originalPin: '47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c', acceptedMain: mainPin, pendingPopup: popupPin,
-  method: 'Verify every actual physical helper body against immutable provider Git blob. Prefer accepted Main except three explicitly pending geometry bridge files; use pending Popup only for concrete missing helper files. Select import members through barrel reexports, retain whole bodies/all imports of selected non-barrels, and propagate inherited type-only reachability. External package declarations remain external and are not claimed manually read.',
+  originalPin: '47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c', acceptedMain: mainPin,
+  method: 'Verify every actual physical helper body against immutable provider Git blob. All existing providers come from the single integrated Main commit. Resolve @sveltery/utils subpaths to their real source modules; no former Popup override or renderer shim. Select import members through barrel reexports, retain whole bodies/all imports of selected non-barrels, and propagate inherited type-only reachability. External package declarations remain external and are not claimed manually read.',
   roots, integrationRoots, modules: collect([...roots, ...integrationRoots]),
 };
 const fixtureResult = { ...result,
@@ -153,8 +152,26 @@ const fixtureResult = { ...result,
   roots: fixtureRoots, integrationRoots: [], modules: collect(fixtureRoots),
 };
 for (const [name, graph] of [['proposed-native-helper-graph', result], ['proposed-native-fixture-graph', fixtureResult]]) {
-  const output = resolve(import.meta.dirname, `${name}.json`), serialized = JSON.stringify(graph, null, 2) + '\n';
-  if (args.includes('--check')) { if (!existsSync(output) || readFileSync(output, 'utf8') !== serialized) throw new Error(`Proposed native evidence differs: ${name}`); }
-  else writeFileSync(output, serialized);
-  console.log(JSON.stringify({ graph: name, mode: args.includes('--check') ? 'check' : 'generate', modules: graph.modules.length, lines: graph.modules.reduce((n, m) => n + m.lines, 0), edges: graph.modules.reduce((n, m) => n + m.followedEdges.length, 0), providers: Object.fromEntries(['accepted-main', 'pending-popup'].map(p => [p, graph.modules.filter(m => m.provider === p).length])), typeOnly: graph.modules.filter(m => m.reachability.every(k => k === 'type')).length, ordinaryCredit: 0 }));
+  const serialized = Buffer.from(JSON.stringify(graph, null, 2) + '\n');
+  const compressed = gzipSync(serialized, { level: 9 });
+  // Normalize the gzip OS header across producer platforms; mtime is zero and no filename is stored.
+  compressed[9] = 255;
+  const output = resolve(import.meta.dirname, `${name}.json.gz`);
+  const manifestOutput = resolve(import.meta.dirname, `${name}-storage.json`);
+  const manifest = JSON.stringify({
+    status: 'Lossless deterministic storage only; decompression restores the exact generated JSON. No changed graph semantics, new reading or acceptance credit.',
+    originalGraphPath: `${name}.json`, storedGraphPath: `${name}.json.gz`,
+    originalGitBlob: createHash('sha1').update(`blob ${serialized.length}\0`).update(serialized).digest('hex'),
+    originalSha256: sha256(serialized), originalBytes: serialized.length,
+    compressedSha256: sha256(compressed), compressedBytes: compressed.length,
+    compression: { format: 'gzip', level: 9, mtime: 0, filename: '', osByte: 255 },
+    modules: graph.modules.length, providerCommit: mainPin,
+    decompressionCommand: `gzip -dc parity/select/${name}.json.gz > /tmp/${name}.json`,
+    verificationCommand: `git hash-object /tmp/${name}.json`,
+  }, null, 2) + '\n';
+  if (args.includes('--check')) {
+    if (!existsSync(output) || !gunzipSync(readFileSync(output)).equals(serialized) || !readFileSync(output).equals(compressed)
+      || !existsSync(manifestOutput) || readFileSync(manifestOutput, 'utf8') !== manifest) throw new Error(`Proposed native evidence differs: ${name}`);
+  } else { writeFileSync(output, compressed); writeFileSync(manifestOutput, manifest); }
+  console.log(JSON.stringify({ graph: name, mode: args.includes('--check') ? 'check' : 'generate', modules: graph.modules.length, lines: graph.modules.reduce((n, m) => n + m.lines, 0), edges: graph.modules.reduce((n, m) => n + m.followedEdges.length, 0), providers: Object.fromEntries(['accepted-main'].map(p => [p, graph.modules.filter(m => m.provider === p).length])), typeOnly: graph.modules.filter(m => m.reachability.every(k => k === 'type')).length, ordinaryCredit: 0 }));
 }

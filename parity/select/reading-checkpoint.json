@@ -1,9 +1,8 @@
 {
-  "status": "Unapproved repaired precode checkpoint; historical preparing-author whole-body attestations preserved separately from current bounded fresh reading. Select unimplemented; zero SourceFull/ordinary/runtime credit.",
-  "date": "2026-10-05",
+  "status": "Documentation-only current-main precode proposal. Historical whole-body and bounded attestations preserved; fresh final-head review recorded externally. Select unimplemented; zero runtime/assertion credit.",
+  "date": "2026-10-06",
   "originalPin": "47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c",
-  "acceptedMain": "c1600456d3b4e72910d42823b9df69280c74a262",
-  "pendingPopup": "8a4aaf077142f3cfb77cec357afc07d2595d576a",
+  "acceptedMain": "aa4daff54ec82b96e34e1601648d1b3926ef08cf",
   "unknownPredecessor": "Untouched; initial read-only head/status/14-file SHA snapshot is preparation-provenance.json.",
   "originalSource": {
     "graph": "selected-source-graph.json",
@@ -20,18 +19,20 @@
     "readStatus": "Historical preparing-author whole-body reading attestation retained after listed identity checks; not a fresh whole-closure reading or independent acceptance. Current reader reopened only the precise bodies in plan-repair-evidence.json."
   },
   "nativeHelper": {
-    "graph": "proposed-native-helper-graph.json",
-    "sha256": "ad8a969cde60a9dd51eeb2122c51b96e3cedbefa3a92481a2794bd1b906a2388",
-    "modules": 174,
-    "lines": 13379,
-    "readStatus": "Historical preparing-author whole-body reading attestation retained after listed identity checks; not a fresh whole-closure reading or independent acceptance. Current reader reopened only the precise bodies in plan-repair-evidence.json."
+    "graph": "proposed-native-helper-graph.json.gz",
+    "sha256": "1dc3c640966df807ae2d904626ac91db449a631ea06c4939986dc11ef1823203",
+    "modules": 175,
+    "lines": 15235,
+    "readStatus": "Refreshed exact-main Git-blob/AST provenance only. Historical reading preserved in history/native-precode-94c23.json.gz; independent fresh entire-closure review is recorded externally at the stable final SHA.",
+    "sha256Basis": "Exact decompressed generated JSON bytes; compressed storage identity is recorded separately in nativeGraphStorage."
   },
   "nativeFixtures": {
-    "graph": "proposed-native-fixture-graph.json",
-    "sha256": "1a59ae97c7070d2da6c64af86cff623215a8a8cdfa958decd22c9cefbe301cd7",
-    "modules": 201,
-    "lines": 15476,
-    "readStatus": "Historical preparing-author whole-body reading attestation retained after listed identity checks; not a fresh whole-closure reading or independent acceptance. Current reader reopened only the precise bodies in plan-repair-evidence.json."
+    "graph": "proposed-native-fixture-graph.json.gz",
+    "sha256": "055c81c10c1c4cb615cdd56f12f2301bc51e744c9dd2439b439c204458811d84",
+    "modules": 199,
+    "lines": 17375,
+    "readStatus": "Refreshed exact-main Git-blob/AST provenance only. Historical reading preserved in history/native-precode-94c23.json.gz; independent fresh entire-closure review is recorded externally at the stable final SHA.",
+    "sha256Basis": "Exact decompressed generated JSON bytes; compressed storage identity is recorded separately in nativeGraphStorage."
   },
   "extraSelectDataFiles": [
     {
@@ -1002,19 +1003,19 @@
   "manualNotes": [
     {
       "path": "source-plan.md",
-      "sha256": "bfa3376f1fe09145a2dc92fd1082b96fd4283fa0df0703143e0835592caf1127"
+      "sha256": "07ca040d6d551bc3501e193e044bcdc2da7e8cc6e1c39a52ef3649297ef5746f"
     },
     {
       "path": "source-correspondence.md",
-      "sha256": "33de4e58e714aa4daeeef707ddc6c06d0199e2f31861f18cc245a11de2268e29"
+      "sha256": "f60453fd3421c11b1b1a3c5fbd4837e550f00b7ae231c92f33315932ac7f6675"
     },
     {
       "path": "native-composition.md",
-      "sha256": "53c2fb0939d52b22424bccd8988445446258d441c7fd832e80feb73f6e603987"
+      "sha256": "c5dd34ad9d8dcefd19c317fabf2283d5b3e5755aee290bc14b453a325d59e621"
     },
     {
       "path": "manual-test-plan.md",
-      "sha256": "2d4e19e3705c7cbbc6e610cfece84a60b963bee00b27ed4ba03f56097e43e3b5"
+      "sha256": "83993c70f2fac30276002e0c82a88513fcd1f96696fe3d2579c4c3d3e3a75187"
     },
     {
       "path": "remote-select-contract.md",
@@ -1036,21 +1037,364 @@
   },
   "correctedObservation": "Original useListNavigation348\u2013350 item && ... references the later function-scope memo item-props bag; native later derived item bag is Source-same. Initial incomplete-read concern corrected; no blocker, issue or helper repair lease.",
   "remainingGates": [
-    "Independent complete precode Source/native/maintainability review and Root approval.",
-    "Pending Popup exact integrated hash acceptance and scoped leases for four missing helpers and remote authored-Select extension.",
-    "Actual product implementation with faithful per-body/variant/helper/type mapping; paired native-default witnesses and separate supplements.",
-    "Exact implementation-head SourceFull/inherited helper/native/maintainability review, focused/SSR/same-node hydration/secured browser/CI/full verification and installed public consumers."
+    "Exact final-head independent complete precode Source/native/maintainability review and lead approval.",
+    "Accepted PR73 owner integration for three private leaves; separate unsynced floating-root and pure label-resolver business leases; accepted canonical useButton/useTransitionStatus class providers; separate remote adapter/type leases.",
+    "Actual Select product implementation and separate per-body/variant/helper/type/native evidence, all currently zero-credit.",
+    "Exact implementation-head Source/native/maintainability, SSR/hydration, secured browser, full CI/verification and packed public consumers.",
+    "PR73 sole-owner nativeProps/toNativeStyle empty-string transport repair, measured exact-head native evidence, review/gates and accepted-main normal integration before future implementation acceptance; documentation-only plan review and hosted gates remain separate."
   ],
   "historicalProposal": {
     "commit": "82032b16ddadb3dfb51ce5d7528beed5835cde48",
     "receipt": "history/native-precode-82032.json",
-    "currentReaderScope": "plan-repair-evidence.json"
+    "currentReaderScope": "plan-repair-evidence.json",
+    "currentMainRefresh": "history/native-precode-94c23.json.gz"
   },
   "correctedCoreDependency": {
     "source": "packages/base/src/lib/utils/useOpenInteractionType.svelte.ts",
     "actualCaller": "Pinned SelectRoot.tsx lines47/140; merge order and current/previous exit method in full caller body.",
-    "provider": "8a4aaf077142f3cfb77cec357afc07d2595d576a",
+    "provider": "aa4daff54ec82b96e34e1601648d1b3926ef08cf",
     "newImplementationNeeded": false,
-    "currentRepairReading": "Original/native whole helper, actual complete Root caller and listed dependencies freshly reopened; three existing native graph proofs remain historical scope, not independent acceptance."
+    "currentRepairReading": "Provider now actual main; preceding bounded body reading remains historical, no inherited fresh review claim."
+  },
+  "nativeFixtureSourceBeyondCore": [
+    {
+      "source": "packages/base/src/lib/floating-ui/hooks/useHoverFloatingInteraction.svelte.ts",
+      "sha256": "0ab147a7643e45e94606193799839e6b449028367873d9acdcb4e2618af860ba",
+      "commit": "aa4daff54ec82b96e34e1601648d1b3926ef08cf",
+      "provider": "accepted-main",
+      "lines": 223,
+      "readStatus": "Current identity only; independent entire-closure review external."
+    },
+    {
+      "source": "packages/base/src/lib/floating-ui/hooks/useHoverInteractionSharedState.svelte.ts",
+      "sha256": "894478a3a44f74f94e416fc6aa6060af0625f0d67d80dbf59c10975916b842a3",
+      "commit": "aa4daff54ec82b96e34e1601648d1b3926ef08cf",
+      "provider": "accepted-main",
+      "lines": 136,
+      "readStatus": "Current identity only; independent entire-closure review external."
+    },
+    {
+      "source": "packages/base/src/lib/floating-ui/hooks/useHoverReferenceInteraction.svelte.ts",
+      "sha256": "bd55a3a32c7465648d0a0640aae445b27f4faab8b08946e646e42459e176a060",
+      "commit": "aa4daff54ec82b96e34e1601648d1b3926ef08cf",
+      "provider": "accepted-main",
+      "lines": 449,
+      "readStatus": "Current identity only; independent entire-closure review external."
+    },
+    {
+      "source": "packages/base/src/lib/floating-ui/hooks/useHoverShared.ts",
+      "sha256": "27321c9b2a6773e8743846b8af2a51a4339462f8189f1a9cad36b9702b4517df",
+      "commit": "aa4daff54ec82b96e34e1601648d1b3926ef08cf",
+      "provider": "accepted-main",
+      "lines": 73,
+      "readStatus": "Current identity only; independent entire-closure review external."
+    },
+    {
+      "source": "packages/base/src/lib/floating-ui/safePolygon.ts",
+      "sha256": "ee7e5e41dcb23934c4be65722b2c1e52663c6c518e3beafff627b8968430a9e3",
+      "commit": "aa4daff54ec82b96e34e1601648d1b3926ef08cf",
+      "provider": "accepted-main",
+      "lines": 449,
+      "readStatus": "Current identity only; independent entire-closure review external."
+    },
+    {
+      "source": "packages/base/src/lib/internals/composite/constants.ts",
+      "sha256": "bf9445674ea41f593d2948d874d80077cb90932a20f820bd0ec1d84a39ebb7ab",
+      "commit": "aa4daff54ec82b96e34e1601648d1b3926ef08cf",
+      "provider": "accepted-main",
+      "lines": 3,
+      "readStatus": "Current identity only; independent entire-closure review external."
+    },
+    {
+      "source": "packages/base/src/lib/internals/composite/item/CompositeItem.svelte",
+      "sha256": "23e78d87cbeb13db6e655c95b20f57d4dd19dfd16a91af90d73d954100be7797",
+      "commit": "aa4daff54ec82b96e34e1601648d1b3926ef08cf",
+      "provider": "accepted-main",
+      "lines": 61,
+      "readStatus": "Current identity only; independent entire-closure review external."
+    },
+    {
+      "source": "packages/base/src/lib/internals/composite/item/useCompositeItem.svelte.ts",
+      "sha256": "d90708b23dde83c4381ea1085767ec30135307525c1ea9e5422e9879a522daad",
+      "commit": "aa4daff54ec82b96e34e1601648d1b3926ef08cf",
+      "provider": "accepted-main",
+      "lines": 39,
+      "readStatus": "Current identity only; independent entire-closure review external."
+    },
+    {
+      "source": "packages/base/src/lib/internals/composite/root/CompositeRoot.svelte",
+      "sha256": "29241d2982ea752a27d65c8c15cc9e3675efd2cfbc0917a4b112c5179c7d2e4e",
+      "commit": "aa4daff54ec82b96e34e1601648d1b3926ef08cf",
+      "provider": "accepted-main",
+      "lines": 102,
+      "readStatus": "Current identity only; independent entire-closure review external."
+    },
+    {
+      "source": "packages/base/src/lib/internals/composite/root/gridNavigation.ts",
+      "sha256": "d2ed3a04fffe1d9d73819d40d2494ab19f5707adbe3c7bd9849a81c30977315c",
+      "commit": "aa4daff54ec82b96e34e1601648d1b3926ef08cf",
+      "provider": "accepted-main",
+      "lines": 123,
+      "readStatus": "Current identity only; independent entire-closure review external."
+    },
+    {
+      "source": "packages/base/src/lib/internals/composite/root/useCompositeRoot.svelte.ts",
+      "sha256": "bdd6ced8bc2a28c77a2572b6b54eab7ad09ee111ddf2bcdbe777686f947c39b6",
+      "commit": "aa4daff54ec82b96e34e1601648d1b3926ef08cf",
+      "provider": "accepted-main",
+      "lines": 375,
+      "readStatus": "Current identity only; independent entire-closure review external."
+    },
+    {
+      "source": "packages/base/src/lib/popover/context.ts",
+      "sha256": "625603bf406d3a7c7f8fdf489d141d777554e45ebb4f7190c2ea1236931665b1",
+      "commit": "aa4daff54ec82b96e34e1601648d1b3926ef08cf",
+      "provider": "accepted-main",
+      "lines": 25,
+      "readStatus": "Current identity only; independent entire-closure review external."
+    },
+    {
+      "source": "packages/base/src/lib/popover/Popup.svelte",
+      "sha256": "7bf0ffbca306fbfa93d63f2bebb54af2b792e908441cb3f96e29819e1892283f",
+      "commit": "aa4daff54ec82b96e34e1601648d1b3926ef08cf",
+      "provider": "accepted-main",
+      "lines": 138,
+      "readStatus": "Current identity only; independent entire-closure review external."
+    },
+    {
+      "source": "packages/base/src/lib/popover/Portal.svelte",
+      "sha256": "583295746ee2d2b922e40217425cdbc338bdd436d4dac7df0d98ab3e65063157",
+      "commit": "aa4daff54ec82b96e34e1601648d1b3926ef08cf",
+      "provider": "accepted-main",
+      "lines": 18,
+      "readStatus": "Current identity only; independent entire-closure review external."
+    },
+    {
+      "source": "packages/base/src/lib/popover/Positioner.svelte",
+      "sha256": "b7938faaf2ebc3346ccf0d6a413cfec499b084a7520cb83720d9adb80585a44b",
+      "commit": "aa4daff54ec82b96e34e1601648d1b3926ef08cf",
+      "provider": "accepted-main",
+      "lines": 160,
+      "readStatus": "Current identity only; independent entire-closure review external."
+    },
+    {
+      "source": "packages/base/src/lib/popover/positioner/PopoverPositionerContext.ts",
+      "sha256": "db9cb0976ec9934229af3b5c3a511d8ec7a62b0432f87d2846d72c6b32a7aa67",
+      "commit": "aa4daff54ec82b96e34e1601648d1b3926ef08cf",
+      "provider": "accepted-main",
+      "lines": 16,
+      "readStatus": "Current identity only; independent entire-closure review external."
+    },
+    {
+      "source": "packages/base/src/lib/popover/Root.svelte",
+      "sha256": "c9033272f735e37e3749427f82301a8bc1ee156d952172d4cc660e43bb9d5f39",
+      "commit": "aa4daff54ec82b96e34e1601648d1b3926ef08cf",
+      "provider": "accepted-main",
+      "lines": 84,
+      "readStatus": "Current identity only; independent entire-closure review external."
+    },
+    {
+      "source": "packages/base/src/lib/popover/root/PopoverInteractions.svelte",
+      "sha256": "06bb65fcec36319c38276332f53d6218245172b2547b2eaccec95ab88fab6fb7",
+      "commit": "aa4daff54ec82b96e34e1601648d1b3926ef08cf",
+      "provider": "accepted-main",
+      "lines": 25,
+      "readStatus": "Current identity only; independent entire-closure review external."
+    },
+    {
+      "source": "packages/base/src/lib/popover/store/PopoverHandle.svelte.ts",
+      "sha256": "7d699cfec5733990e9202182c5a7a637dae0343364dff2e765e6f15a04f835f4",
+      "commit": "aa4daff54ec82b96e34e1601648d1b3926ef08cf",
+      "provider": "accepted-main",
+      "lines": 60,
+      "readStatus": "Current identity only; independent entire-closure review external."
+    },
+    {
+      "source": "packages/base/src/lib/popover/store/PopoverStore.svelte.ts",
+      "sha256": "d4fcb2ed56b4af8b6527373d933212489bbaa8844568fbbb83d63a8ea57b572a",
+      "commit": "aa4daff54ec82b96e34e1601648d1b3926ef08cf",
+      "provider": "accepted-main",
+      "lines": 233,
+      "readStatus": "Current identity only; independent entire-closure review external."
+    },
+    {
+      "source": "packages/base/src/lib/popover/Trigger.svelte",
+      "sha256": "b24fee93cbf9d64690e9f381563706ca3dac652522c5585dcd5a040cba183cca",
+      "commit": "aa4daff54ec82b96e34e1601648d1b3926ef08cf",
+      "provider": "accepted-main",
+      "lines": 166,
+      "readStatus": "Current identity only; independent entire-closure review external."
+    },
+    {
+      "source": "packages/base/src/lib/popover/types.ts",
+      "sha256": "8eecd8cd7c3c69e39d9b650d45173888287ccff99b4072d7e3fd3eb2b4c87f31",
+      "commit": "aa4daff54ec82b96e34e1601648d1b3926ef08cf",
+      "provider": "accepted-main",
+      "lines": 224,
+      "readStatus": "Current identity only; independent entire-closure review external."
+    },
+    {
+      "source": "packages/base/src/lib/popover/utils/constants.ts",
+      "sha256": "69a03145627953aab05636e24bfbe7b3e27a772314debe3038d5f634c052f90d",
+      "commit": "aa4daff54ec82b96e34e1601648d1b3926ef08cf",
+      "provider": "accepted-main",
+      "lines": 3,
+      "readStatus": "Current identity only; independent entire-closure review external."
+    },
+    {
+      "source": "packages/base/src/lib/separator/types.ts",
+      "sha256": "5ab346df307c50fad23dfdcb26e3931c9b4ba24de0ddc21881ef54441e6496e7",
+      "commit": "aa4daff54ec82b96e34e1601648d1b3926ef08cf",
+      "provider": "accepted-main",
+      "lines": 16,
+      "readStatus": "Current identity only; independent entire-closure review external."
+    },
+    {
+      "source": "packages/base/src/lib/toolbar/button/ToolbarButton.svelte",
+      "sha256": "01e2dcade028ceafada0c9d7e7f319a2143fb68d5da047d22ab50087c25c3bac",
+      "commit": "aa4daff54ec82b96e34e1601648d1b3926ef08cf",
+      "provider": "accepted-main",
+      "lines": 64,
+      "readStatus": "Current identity only; independent entire-closure review external."
+    },
+    {
+      "source": "packages/base/src/lib/toolbar/group/ToolbarGroupContext.ts",
+      "sha256": "d8e72834d984abda546691454db71dc231cd1e9ef9778a4a0abc3c7a8cc7b811",
+      "commit": "aa4daff54ec82b96e34e1601648d1b3926ef08cf",
+      "provider": "accepted-main",
+      "lines": 12,
+      "readStatus": "Current identity only; independent entire-closure review external."
+    },
+    {
+      "source": "packages/base/src/lib/toolbar/root/ToolbarRoot.svelte",
+      "sha256": "af28517c34c005c1dabe305d4d78824b6740f81c9baab41d8dd88db7d7a39b80",
+      "commit": "aa4daff54ec82b96e34e1601648d1b3926ef08cf",
+      "provider": "accepted-main",
+      "lines": 57,
+      "readStatus": "Current identity only; independent entire-closure review external."
+    },
+    {
+      "source": "packages/base/src/lib/toolbar/root/ToolbarRootContext.ts",
+      "sha256": "d2e5bd3ad75ddc60d8cef7c2cf2702802382e4b6317d7ab6b98b37eab100fd7b",
+      "commit": "aa4daff54ec82b96e34e1601648d1b3926ef08cf",
+      "provider": "accepted-main",
+      "lines": 22,
+      "readStatus": "Current identity only; independent entire-closure review external."
+    },
+    {
+      "source": "packages/base/src/lib/toolbar/types.ts",
+      "sha256": "3bc3d1e84b480879fe78008f97ee8dbb7dba2b0d29040a2fc31df71b5de598ff",
+      "commit": "aa4daff54ec82b96e34e1601648d1b3926ef08cf",
+      "provider": "accepted-main",
+      "lines": 73,
+      "readStatus": "Current identity only; independent entire-closure review external."
+    },
+    {
+      "source": "packages/base/src/lib/utils/closePart.svelte.ts",
+      "sha256": "6c2d6274e65c38289c2731dfe11b16eba4c692b1df4b753fb843b06cfa5d1818",
+      "commit": "aa4daff54ec82b96e34e1601648d1b3926ef08cf",
+      "provider": "accepted-main",
+      "lines": 25,
+      "readStatus": "Current identity only; independent entire-closure review external."
+    },
+    {
+      "source": "packages/base/src/lib/utils/popups/PopupHandleAttachment.svelte",
+      "sha256": "437e6d44b586b4cc524d30d4214906695aa505239f1951a7840077780f562927",
+      "commit": "aa4daff54ec82b96e34e1601648d1b3926ef08cf",
+      "provider": "accepted-main",
+      "lines": 7,
+      "readStatus": "Current identity only; independent entire-closure review external."
+    },
+    {
+      "source": "packages/base/src/lib/utils/popups/usePopupHandleStore.svelte.ts",
+      "sha256": "d96d4ca763135cddc2ddbc931e772954b47ceb057bf1172660ec73203c9dbd0b",
+      "commit": "aa4daff54ec82b96e34e1601648d1b3926ef08cf",
+      "provider": "accepted-main",
+      "lines": 19,
+      "readStatus": "Current identity only; independent entire-closure review external."
+    },
+    {
+      "source": "packages/base/src/lib/utils/popups/useTriggerFocusGuards.svelte.ts",
+      "sha256": "31fe56072f7dd8093b4292afc5da43ce09f07ed01faa185e6fae8cdc11f5aac6",
+      "commit": "aa4daff54ec82b96e34e1601648d1b3926ef08cf",
+      "provider": "accepted-main",
+      "lines": 86,
+      "readStatus": "Current identity only; independent entire-closure review external."
+    },
+    {
+      "source": "packages/utils/src/lib/isElementDisabled.ts",
+      "sha256": "c2f6141d744cb16e458208163d616cefa465b8da0445658c4d9282a05a1b616e",
+      "commit": "aa4daff54ec82b96e34e1601648d1b3926ef08cf",
+      "provider": "accepted-main",
+      "lines": 9,
+      "readStatus": "Current identity only; independent entire-closure review external."
+    }
+  ],
+  "completePerBodyAssessment": {
+    "sourceModules": 178,
+    "extraSelectDataFiles": 10,
+    "sourceMapping": "per-body-source-mapping.json",
+    "nativeMapping": "per-body-native-mapping.json",
+    "recordedNativeUnion": 209,
+    "actualExistingProviderAppendix": "existing-provider-appendix.json",
+    "additionalProviderBodies": 3,
+    "collectivePhysicalNativeScope": 212,
+    "absentBusinessLeaves": 5,
+    "pendingCanonicalClassRepresentations": 2,
+    "status": "Individual mappings assess actual business/native/maintainability separately from hashes. Whole-body collective reading scope explicitly attributed; final-head disposition external. Zero runtime acceptance and ordinary credit.",
+    "hashes": {
+      "per-body-source-mapping.json": "7b264814844f3a6328a9acb9340e2a7b4610737358dc4c413fa3f725f41273aa",
+      "per-body-native-mapping.json": "a28d56e78793e8c12b2c793e69b6cc206d8565ee8f462e33ae6819f22c0c1b64",
+      "existing-provider-appendix.json": "391d8e29c15560f333838f951df92e80570650f9384b37f3975076c5766f9174",
+      "independent-body-reading-ledger.json": "9410737cceb9bd0286c34d09b285fa4e159a7b57884b1cf3643e3e128fd2aa31"
+    },
+    "independentWholeBodyReadingLedger": "independent-body-reading-ledger.json",
+    "sourceTestClosureBodiesRead": 279,
+    "sourceTestClosureLinesRead": 39459,
+    "independentPrecodeDisposition": "Complete collective whole-body reading and individual Source/data/native business mapping proposal clear; five business leaves/two classes pending. Exact successor local/public SHA independent review external; no SourceFull/runtime acceptance."
+  },
+  "historicalReceiptStorage": {
+    "manifest": "history/native-precode-94c23-storage.json",
+    "rawGitBlob": "431785b57da3374fe697fa10bac13e44c5779cfd",
+    "rawSha256": "524228b0bce9cbf851aef6e4a1018778b5a52ed3eb45c667d74203ff8f9e0b7a",
+    "rawBytes": 2725764,
+    "compressedSha256": "3fab5d2e03c1373e8960ee966a6d8c9513bbe17d999c7cbd7d6ce86fc5f0bbcc",
+    "compressedBytes": 233015,
+    "status": "Exact original historical JSON restored by decompression; no replaced reading attestations or new acceptance."
+  },
+  "nativeTransportAcceptanceDependency": {
+    "path": "packages/base/src/lib/internals/nativeProps.ts",
+    "symbol": "toNativeStyle",
+    "actualProviderCommit": "aa4daff54ec82b96e34e1601648d1b3926ef08cf",
+    "actualSha256": "f081bf825f41a64924fe298108e148ac56314d02074c588cc1f9324ff6a92cc5",
+    "observation": "Actual current body returns undefined for empty string at its falsy guard. Exact PR73 review/witness at74c437 reports client bare literal/dynamic/spread retaining an empty style attribute versus Listbox omission; SSR literal/spread retain it, dynamic and Listbox omit it. Pinned React CSSProperties excludes string; undefined/empty object/empty string omit style and valid nonempty objects retain it. No approved native empty-string normalization found. PR70 has not executed those witnesses; native transport acceptance pending, not an upstream bug.",
+    "owner": "PR73 sole canonical helper owner; no copy or runtime repair in PR70",
+    "ownerObservedHead": "74c437a9a337a26fd808f44f6fa36f7d7542385b",
+    "ownerObservedStatus": "open draft; API mergeable true, mergeable_state unstable; this does not establish acceptance",
+    "status": "Pending owner repair, exact-head review/gates and accepted-main integration before future implementation acceptance. Documentation-only plan acceptance remains subject to actual-public-final-head substantive independent review, configured-model review and mandatory hosted CI; no runtime/provider acceptance.",
+    "unchangedAssertionCredit": 0,
+    "witnessLinks": [
+      "https://github.com/sveltery/base/pull/73#pullrequestreview-5434640789",
+      "https://github.com/sveltery/base/pull/73#issuecomment-6025527104"
+    ]
+  },
+  "currentDiagnosticDisposition": "Historical independent precode proposal clears remain attributed to their original candidate. Documentation-only plan acceptance requires actual-public-final-head substantive independent review, configured-model review and mandatory hosted CI. Sole-owner PR73 nativeProps empty-string transport decision/repair, measured gates and accepted-main integration remain future implementation dependencies, separate from five absent business leaves and two pending class representations. No runtime/provider/SourceFull acceptance.",
+  "nativeGraphStorage": {
+    "proposed-native-helper-graph.json.gz": {
+      "manifest": "proposed-native-helper-graph-storage.json",
+      "rawGitBlob": "045a8e1a4d8aff752b39d7629e70bb55a3ca00e8",
+      "rawSha256": "1dc3c640966df807ae2d904626ac91db449a631ea06c4939986dc11ef1823203",
+      "rawBytes": 1019093,
+      "compressedSha256": "b28d58def8348991ad81c26c19dbc3388edabe217929f44caf742f9ac397b456",
+      "compressedBytes": 95952
+    },
+    "proposed-native-fixture-graph.json.gz": {
+      "manifest": "proposed-native-fixture-graph-storage.json",
+      "rawGitBlob": "324617abfd87c49b3a62fbf0183659050436d19d",
+      "rawSha256": "055c81c10c1c4cb615cdd56f12f2301bc51e744c9dd2439b439c204458811d84",
+      "rawBytes": 1218123,
+      "compressedSha256": "2acc28079670dcf5312e9d2bf98fc6b8a9c60e7bdeda25361d6864ed4712b09a",
+      "compressedBytes": 114133
+    }
   }
 }
