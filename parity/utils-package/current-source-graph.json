@@ -685,7 +685,7 @@
       "currentOwners": [
         {
           "path": "packages/base/src/lib/field/root/useFieldValidation.svelte.ts",
-          "sha256": "e13730d7f6c5b992fbc987a866777323638e226a52c462eda839128786c27a22"
+          "sha256": "2975e22550023cee24959abe4757add5d3c28ca4293c78db36e216d951d83d60"
         },
         {
           "path": "packages/base/src/lib/floating-ui/hooks/useHoverInteractionSharedState.svelte.ts",
@@ -763,7 +763,7 @@
         },
         {
           "path": "packages/base/src/lib/field/root/useFieldValidation.svelte.ts",
-          "sha256": "e13730d7f6c5b992fbc987a866777323638e226a52c462eda839128786c27a22"
+          "sha256": "2975e22550023cee24959abe4757add5d3c28ca4293c78db36e216d951d83d60"
         },
         {
           "path": "packages/base/src/lib/floating-ui/components/createFloatingFocusManager.svelte.ts",
@@ -12514,7 +12514,7 @@
       },
       {
         "path": "packages/base/src/lib/field/root/useFieldValidation.svelte.ts",
-        "sha256": "e13730d7f6c5b992fbc987a866777323638e226a52c462eda839128786c27a22",
+        "sha256": "2975e22550023cee24959abe4757add5d3c28ca4293c78db36e216d951d83d60",
         "symbols": [
           {
             "name": "HTMLProps",
@@ -12559,7 +12559,7 @@
           {
             "name": "FieldValidationOwner",
             "kind": "ClassDeclaration",
-            "sha256": "90691f401b010b867738f98bfee1e359310e06f28a2339720ecb69c7ad5a7bd2"
+            "sha256": "10f62f085a0db25ef90fe5ce550db17bf242a928964b3fd78110014ed4f4579b"
           },
           {
             "name": "UseFieldValidationParameters",

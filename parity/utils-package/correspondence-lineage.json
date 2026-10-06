@@ -10,7 +10,7 @@
     {
       "record": "parity/boolean-controls/source-correspondence.json",
       "previousSha256": "13a04ceb98b395813149d4ce2dddfd4b9a5b6b2bb7e0fbf9960e0673e04303a8",
-      "currentSha256": "a3ec913ff71dd3548e731eea60a30487c911b47b29a0d74e52a67748edc16014",
+      "currentSha256": "d86f23e91b4d37413050f5b1c261805ee26e5b9b73b14a568106fa5f63db2bd8",
       "historicalRecords": "Original source hashes, assertions and frozen audit/review/run receipts unchanged."
     },
     {
@@ -28,7 +28,7 @@
     {
       "record": "parity/radio/source-correspondence.json",
       "previousSha256": "507e1268f9c38d70fc1655cca3b2e42f776e2f84a30dfe37dbcba8a0655f108c",
-      "currentSha256": "d651266272ed6f10b1f737f75048685414dede48ff725549e64bc8b1ebf40368",
+      "currentSha256": "8fc51880890bd799af1db201f7037373136a48dbecf20a3998ba47150abad806",
       "historicalRecords": "Original source hashes, assertions and frozen audit/review/run receipts unchanged."
     },
     {

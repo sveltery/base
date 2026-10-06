@@ -285,6 +285,261 @@
       "compressedBytes": 499,
       "sourceCandidate": "992d6c98eb755a22bb96341c362248057396c86f",
       "interpretation": "Fresh installed useClick declarations and actual native consumer1test passed."
+    },
+    {
+      "file": "async-immutable-class-red.log.gz",
+      "rawSha256": "70c0966b19c16801cc9d16ba1b28c8385e9569c1a3d8fb38daf88b5039387a6a",
+      "gzipSha256": "c02e77f7d24928bcc265a28ca8d3dca85c0dcf5dcc6b01db426c98e5be36bfe1",
+      "rawBytes": 3100,
+      "compressedBytes": 745,
+      "interpretation": "Async public Source/native development diagnostic. Only immutable-closure runs use pinned React AND Utils source. Class/preclass red runs prove inherited mismatch; green2 passes two authored paired witnesses. Other logs preserve setup failures, early insufficient settling and debugging, not final proof. Zero unchanged Source credit."
+    },
+    {
+      "file": "async-immutable-closure-green.log.gz",
+      "rawSha256": "e31bfdc566c464c23fecce1fa29b9da95807ba7c75a05761d0a69ba31968b56d",
+      "gzipSha256": "d3572fa8887a1918f4e72f3691883d2a450ba29d7a514ed34eac298d2cf78eb8",
+      "rawBytes": 2256,
+      "compressedBytes": 806,
+      "interpretation": "Async public Source/native development diagnostic. Only immutable-closure runs use pinned React AND Utils source. Class/preclass red runs prove inherited mismatch; green2 passes two authored paired witnesses. Other logs preserve setup failures, early insufficient settling and debugging, not final proof. Zero unchanged Source credit."
+    },
+    {
+      "file": "async-immutable-closure-green2.log.gz",
+      "rawSha256": "8da789da8d57d6722a51a6006637e7cb531e17aa0a798f62e772630256461568",
+      "gzipSha256": "702de8ad3f45bbad9202bb375d8d7aaa8d52f590962fc9282c1fd49de6044f5a",
+      "rawBytes": 216,
+      "compressedBytes": 185,
+      "interpretation": "Async public Source/native development diagnostic. Only immutable-closure runs use pinned React AND Utils source. Class/preclass red runs prove inherited mismatch; green2 passes two authored paired witnesses. Other logs preserve setup failures, early insufficient settling and debugging, not final proof. Zero unchanged Source credit."
+    },
+    {
+      "file": "async-immutable-preclass-red.log.gz",
+      "rawSha256": "e1d89ff6980bb2887084c7013077c38d70f609a7f78b4f9d62e309594aacfeee",
+      "gzipSha256": "1745608de6574d3387611a43866718bb93057a68c1da3d448fcadc8f0407cb5c",
+      "rawBytes": 3100,
+      "compressedBytes": 745,
+      "interpretation": "Async public Source/native development diagnostic. Only immutable-closure runs use pinned React AND Utils source. Class/preclass red runs prove inherited mismatch; green2 passes two authored paired witnesses. Other logs preserve setup failures, early insufficient settling and debugging, not final proof. Zero unchanged Source credit."
+    },
+    {
+      "file": "async-pin-debug.log.gz",
+      "rawSha256": "c6010c2e79a8eb1f6f40e1553ccc99da4807db898b2eaf5aee5ed287d6383f5b",
+      "gzipSha256": "94d156e87bb75f0920193c47cdd77a0b6e99b2ef143ec25381af4533f739ca3a",
+      "rawBytes": 3293,
+      "compressedBytes": 765,
+      "interpretation": "Async public Source/native development diagnostic. Only immutable-closure runs use pinned React AND Utils source. Class/preclass red runs prove inherited mismatch; green2 passes two authored paired witnesses. Other logs preserve setup failures, early insufficient settling and debugging, not final proof. Zero unchanged Source credit."
+    },
+    {
+      "file": "async-pin-green.log.gz",
+      "rawSha256": "f47465f81af73aabea749d128b643b182ddd0010a18ee3a8eb91af72b847197a",
+      "gzipSha256": "901aef29858eb613a18ae1ca489b3aa66089ce0e4489bec60e08464571297288",
+      "rawBytes": 3062,
+      "compressedBytes": 727,
+      "interpretation": "Async public Source/native development diagnostic. Only immutable-closure runs use pinned React AND Utils source. Class/preclass red runs prove inherited mismatch; green2 passes two authored paired witnesses. Other logs preserve setup failures, early insufficient settling and debugging, not final proof. Zero unchanged Source credit."
+    },
+    {
+      "file": "async-pin-paired-green.log.gz",
+      "rawSha256": "7820e6f052ef7d94202c82db0d34acc2cc71ea91c7b8f4b89a9ef4208cca33b8",
+      "gzipSha256": "a958021d2e94b3e24996573107b10f05aa15172ac2f9f71ef9366051c56ca1f6",
+      "rawBytes": 216,
+      "compressedBytes": 185,
+      "interpretation": "Async public Source/native development diagnostic. Only immutable-closure runs use pinned React AND Utils source. Class/preclass red runs prove inherited mismatch; green2 passes two authored paired witnesses. Other logs preserve setup failures, early insufficient settling and debugging, not final proof. Zero unchanged Source credit."
+    },
+    {
+      "file": "async-pin-preclass-red.log.gz",
+      "rawSha256": "29ab6f51ea203c14c9e9fa3b059f6e13e55da728b4107d9a7ddcb91f79c68649",
+      "gzipSha256": "8408df7df9ecfdbc5bfa21c7fab8e8bfb194599a13e5ca8be771f7ca53e22ed2",
+      "rawBytes": 3062,
+      "compressedBytes": 727,
+      "interpretation": "Async public Source/native development diagnostic. Only immutable-closure runs use pinned React AND Utils source. Class/preclass red runs prove inherited mismatch; green2 passes two authored paired witnesses. Other logs preserve setup failures, early insufficient settling and debugging, not final proof. Zero unchanged Source credit."
+    },
+    {
+      "file": "async-pin-red-run.log.gz",
+      "rawSha256": "30217fbd8d254bf02f07be4c01b4f2ed0f90de6193a105ff969ec6a7339d5b09",
+      "gzipSha256": "5a845f1dd39481d7e1b9e64789ae7b85ec247993defdecad9e6c77fd2620c2b0",
+      "rawBytes": 2198,
+      "compressedBytes": 765,
+      "interpretation": "Async public Source/native development diagnostic. Only immutable-closure runs use pinned React AND Utils source. Class/preclass red runs prove inherited mismatch; green2 passes two authored paired witnesses. Other logs preserve setup failures, early insufficient settling and debugging, not final proof. Zero unchanged Source credit."
+    },
+    {
+      "file": "async-pin-red-run2.log.gz",
+      "rawSha256": "60a3556b7e94bd6ed27ce1b205c0c263038c46421fcdf5813865ded0db5235fc",
+      "gzipSha256": "fe05057dd8a72f69bfe4b58db8912eb15564b46363ee9e3ea37941a5c7f610f7",
+      "rawBytes": 3063,
+      "compressedBytes": 727,
+      "interpretation": "Async public Source/native development diagnostic. Only immutable-closure runs use pinned React AND Utils source. Class/preclass red runs prove inherited mismatch; green2 passes two authored paired witnesses. Other logs preserve setup failures, early insufficient settling and debugging, not final proof. Zero unchanged Source credit."
+    },
+    {
+      "file": "async-pin-red.log.gz",
+      "rawSha256": "dd57d060edf0db72ae9af52a9c5b0851695e9e6dcf7f055ea1002ef1487c160e",
+      "gzipSha256": "9f8df258d4328af9f799b7f6a1c9e069e6f114fdb81875c5bfe138208b6764a8",
+      "rawBytes": 755,
+      "compressedBytes": 434,
+      "interpretation": "Async public Source/native development diagnostic. Only immutable-closure runs use pinned React AND Utils source. Class/preclass red runs prove inherited mismatch; green2 passes two authored paired witnesses. Other logs preserve setup failures, early insufficient settling and debugging, not final proof. Zero unchanged Source credit."
+    },
+    {
+      "file": "async-pin-settled-class-red.log.gz",
+      "rawSha256": "9aee374b1b34458d1863a7e08e59555879e8255d24877e7fa2d36b9b5c01579f",
+      "gzipSha256": "d31e621804816accde455c1d0ab748c64f68066eee6f2a38567fb6b561eb8bb5",
+      "rawBytes": 3087,
+      "compressedBytes": 733,
+      "interpretation": "Async public Source/native development diagnostic. Only immutable-closure runs use pinned React AND Utils source. Class/preclass red runs prove inherited mismatch; green2 passes two authored paired witnesses. Other logs preserve setup failures, early insufficient settling and debugging, not final proof. Zero unchanged Source credit."
+    },
+    {
+      "file": "async-pin-settled-preclass-red.log.gz",
+      "rawSha256": "d4d5d49e03073856bb111fc04590d0a2b0aa64848e7545ceea983fe4c9137db9",
+      "gzipSha256": "36f9a33d5fa29c2b41a5600529cf3328d164be3420459d0e02352e022737e75d",
+      "rawBytes": 3086,
+      "compressedBytes": 734,
+      "interpretation": "Async public Source/native development diagnostic. Only immutable-closure runs use pinned React AND Utils source. Class/preclass red runs prove inherited mismatch; green2 passes two authored paired witnesses. Other logs preserve setup failures, early insufficient settling and debugging, not final proof. Zero unchanged Source credit."
+    },
+    {
+      "file": "async-pin-settled.log.gz",
+      "rawSha256": "120b117fa23bf2c429ece63573192ec0fad0a9bd24fe9cc9902c48d95770baf1",
+      "gzipSha256": "d4756fae134e0761454e302a2ab81db9b0f92ab03d540365226aa5af86addfb2",
+      "rawBytes": 216,
+      "compressedBytes": 180,
+      "interpretation": "Async public Source/native development diagnostic. Only immutable-closure runs use pinned React AND Utils source. Class/preclass red runs prove inherited mismatch; green2 passes two authored paired witnesses. Other logs preserve setup failures, early insufficient settling and debugging, not final proof. Zero unchanged Source credit."
+    },
+    {
+      "file": "async-script-tests.log.gz",
+      "command": "node --test --test-concurrency=1 scripts/tests/*.test.mjs",
+      "exitCode": 1,
+      "rawSha256": "8b9e59ed3cc2089c4acc9fcc4ebc0d040162d965dbbf7de86486f10d124f812d",
+      "gzipSha256": "6925f5152dd4081b851c5a69e013bd30725fc86776932e108507d901eb118a5f",
+      "rawBytes": 29402,
+      "compressedBytes": 5364,
+      "sourceCandidate": "34999f6c190d71e390b282ba8d22206090302633",
+      "interpretation": "Initial run default TMPDIR read-only; incomplete, superseded by full Verification script phase."
+    },
+    {
+      "file": "async-full-verification.log.gz",
+      "command": "bash scripts/verify.sh",
+      "exitCode": 1,
+      "rawSha256": "65cd50d68fe1a35881244532ede41852d8143a6640cf609451eec69836e3bbfd",
+      "gzipSha256": "e6fdc5137dd978a8f9c61aa2c8d89c3170c9faea7faee75d3423ec8d3c424a1b",
+      "rawBytes": 48566,
+      "compressedBytes": 9659,
+      "sourceCandidate": "34999f6c190d71e390b282ba8d22206090302633",
+      "interpretation": "Fresh Base/Utils pack/build/strict publint passed. Script phase85passed1failed: real offline artifact install lock EROFS. Remaining Verification stages did not execute in this invocation."
+    },
+    {
+      "file": "async-artifact-writable-state.log.gz",
+      "command": "node --test --test-concurrency=1 scripts/tests/package-artifacts.test.mjs",
+      "exitCode": 1,
+      "rawSha256": "93a5236518e0fd13be84bff22ab09a1f18de7e0069fcbc09a4c474dccaf4877c",
+      "gzipSha256": "b4cf292f7bfc25ca3b936a6b0639c7c6b2951e38398efebc52c623f25c768aac",
+      "rawBytes": 2606,
+      "compressedBytes": 988,
+      "sourceCandidate": "34999f6c190d71e390b282ba8d22206090302633",
+      "interpretation": "Bounded explicit writable XDG_STATE_HOME attempt still failed pnpm operation lock. No weakening or waiver."
+    },
+    {
+      "file": "async-artifact-lock-trace.log.gz",
+      "command": "strace -f -e trace=file node --test --test-name-pattern=installs scripts/tests/package-artifacts.test.mjs",
+      "exitCode": 1,
+      "rawSha256": "01c79a7d47475a07737aecab58d739206fd0dcf4a572f2efdab84f037f393c00",
+      "gzipSha256": "389388cd4548ab8268c99cfcaf3b77d23238dd844a8103cfd858b2fbdb97149c",
+      "rawBytes": 247,
+      "compressedBytes": 162,
+      "sourceCandidate": "34999f6c190d71e390b282ba8d22206090302633",
+      "interpretation": "Tracing unavailable EPERM before tests; no test credit or permission escalation."
+    },
+    {
+      "file": "async-workspace-check.log.gz",
+      "command": "pnpm check",
+      "exitCode": 1,
+      "rawSha256": "713ea69323823dcf2ceb14742fc72d5bba3a194faeca6f5bbb10ac4353a317bd",
+      "gzipSha256": "bd894e3124679fc8dcc101d6d341bc984c8d654803cdde746eb70429d898bf85",
+      "rawBytes": 316,
+      "compressedBytes": 215,
+      "sourceCandidate": "34999f6c190d71e390b282ba8d22206090302633",
+      "interpretation": "Continuation lacked required prepared archive manifest guard; zero workspace diagnostics credit."
+    },
+    {
+      "file": "async-retained-pack.log.gz",
+      "command": "sveltery_create_package_artifacts .checks/async-package-artifacts @sveltery/base",
+      "exitCode": 0,
+      "rawSha256": "fdc89d6cfe8627af1e513a343f319865ccca223ec361cfa37a7dfd38ccc4a8c2",
+      "gzipSha256": "2dd9e7c8fee5b198b4a317098b030d7264d3570e78be1974420f3854a33af796",
+      "rawBytes": 37322,
+      "compressedBytes": 5276,
+      "sourceCandidate": "34999f6c190d71e390b282ba8d22206090302633",
+      "interpretation": "Fresh retained archives and strict publint/build pass; used for remaining stages."
+    },
+    {
+      "file": "async-workspace-check-successor.log.gz",
+      "command": "pnpm check",
+      "exitCode": 0,
+      "rawSha256": "bea972fa8d9cfe9218ee47c4bcf2815fa2d7a596cd3cd92fd73ce4c186cb8efc",
+      "gzipSha256": "418b71f3c493202091fa86b50ceab3d418adaed93e08d9076f0e665ee01c01c8",
+      "rawBytes": 3498,
+      "compressedBytes": 772,
+      "sourceCandidate": "34999f6c190d71e390b282ba8d22206090302633",
+      "interpretation": "0errors/6baseline fixturewarnings; prepared fresh archive manifest supplied."
+    },
+    {
+      "file": "async-node-tests.log.gz",
+      "command": "pnpm test",
+      "exitCode": 0,
+      "rawSha256": "11ff50ae6cff2241c2f9b6eb72237b0abbacbffd6b99df77f5c0f611b6760a01",
+      "gzipSha256": "eb5b0f3eb2d01adfc3fa19ebd371a661d323d59ac6ac385b936c0e9edf08444a",
+      "rawBytes": 1031,
+      "compressedBytes": 524,
+      "sourceCandidate": "34999f6c190d71e390b282ba8d22206090302633",
+      "interpretation": "235Node tests:226Base+9Utils."
+    },
+    {
+      "file": "async-dom-tests.log.gz",
+      "command": "pnpm test:dom",
+      "exitCode": 0,
+      "rawSha256": "62888483dc2bf2a96f10ddc87a4ea016000603d0fd32aa9640f5403a43e12d02",
+      "gzipSha256": "35d7d1ee2dd9abeb518924d7edec24fd9a806dd14abbf732811b4e6fdb8ace70",
+      "rawBytes": 2637,
+      "compressedBytes": 884,
+      "sourceCandidate": "34999f6c190d71e390b282ba8d22206090302633",
+      "interpretation": "1809DOM tests:1801Base+8Utils; full oneworker0retry run includes native public baseline regression."
+    },
+    {
+      "file": "async-fixture-build.log.gz",
+      "command": "pnpm --filter @sveltery/fixtures build",
+      "exitCode": 0,
+      "rawSha256": "6fb1489433442bcbb2c39a39356e067bd0bff15218b6751624db1bd0daef4176",
+      "gzipSha256": "21e9c55844832b10cab00387c20e7c40cf6ebfe3fbef79d95a4d89041539a08e",
+      "rawBytes": 350142,
+      "compressedBytes": 15657,
+      "sourceCandidate": "34999f6c190d71e390b282ba8d22206090302633",
+      "interpretation": "Actual SSR/client build passed."
+    },
+    {
+      "file": "async-runtime-boundary.log.gz",
+      "command": "node --import ./scripts/svelte-ssr-loader.mjs scripts/check-runtime.mjs",
+      "exitCode": 0,
+      "rawSha256": "7eb14a3a2cac9fe7d677ef3a7519f5045bb935af2549e71f9ddf392ebb65a36d",
+      "gzipSha256": "e4b850e7b6f96f57ff98b7644a3de5a259674185c74fe8bb3f6975340e97b5b2",
+      "rawBytes": 61,
+      "compressedBytes": 81,
+      "sourceCandidate": "34999f6c190d71e390b282ba8d22206090302633",
+      "interpretation": "Runtime imports/boundary passed."
+    },
+    {
+      "file": "async-package-check.log.gz",
+      "command": "bash scripts/check-package.sh",
+      "exitCode": 1,
+      "rawSha256": "c362d8b22b41092d65b2afe3b2b7ea8f1f533c5daec8abc5ebcdffcfef5e0ed4",
+      "gzipSha256": "623de0410d1500508df9db0a5d4d173ae1ea4e1d3915cdd278cad514415498c8",
+      "rawBytes": 1747,
+      "compressedBytes": 784,
+      "sourceCandidate": "34999f6c190d71e390b282ba8d22206090302633",
+      "interpretation": "Fresh both archives declaration/attribution/publint/ATTW analysis passed. Installed consumer setup failed pnpm operation lock EROFS; strict installed types/SSR/hydration/useClick and browsers remain incomplete for this runtime."
+    },
+    {
+      "file": "async-final-standards.log.gz",
+      "command": "pnpm lint",
+      "exitCode": 0,
+      "rawSha256": "899f899c4056a64c8cf29ca9089dfe6821ca8521061c59efd32e7296da4df97f",
+      "gzipSha256": "5b963f13065ff6abedad3e4fe5c8e5916d21fba4a17254161b1628a5fc20b0c8",
+      "rawBytes": 99,
+      "compressedBytes": 105,
+      "sourceCandidate": "34999f6c190d71e390b282ba8d22206090302633",
+      "interpretation": "Full Standards passed; final additions are receipt/README metadata only. Runtime/test/harness inputs unchanged."
     }
   ],
   "mutation": {

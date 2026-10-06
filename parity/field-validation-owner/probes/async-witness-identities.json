@@ -1,0 +1,32 @@
+{
+  "pin": "47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c",
+  "classPredecessor": "af5a14cedb7436d3d3c71b43afa0a77261a2b61b",
+  "preclassMain": "aa4daff54ec82b96e34e1601648d1b3926ef08cf",
+  "repairedCandidate": "34999f6c190d71e390b282ba8d22206090302633",
+  "zeroUnchangedSourceAssertionCredit": true,
+  "probes": {
+    "pending-registration-paired.test.ts.txt": "bce98392208a82e633d8ce42fb39fb4247df8281ce59ae766cb71e5ca6a95b67",
+    "vitest.pin.config.ts.txt": "b4f365e78f632d05d23f0f605e46eebfc3614ebcf10c3c46c0c9d313f93c386f",
+    "async-source-identities.json": "7f1c7c775ce8e7a3f160828f00b2479558b5c9eb4ca8f962ae95885b43c900d4"
+  },
+  "decisiveReceipts": {
+    "async-immutable-class-red.log.gz": {
+      "rawSha256": "70c0966b19c16801cc9d16ba1b28c8385e9569c1a3d8fb38daf88b5039387a6a",
+      "gzipSha256": "c02e77f7d24928bcc265a28ca8d3dca85c0dcf5dcc6b01db426c98e5be36bfe1",
+      "rawBytes": 3100,
+      "compressedBytes": 745
+    },
+    "async-immutable-closure-green2.log.gz": {
+      "rawSha256": "8da789da8d57d6722a51a6006637e7cb531e17aa0a798f62e772630256461568",
+      "gzipSha256": "702de8ad3f45bbad9202bb375d8d7aaa8d52f590962fc9282c1fd49de6044f5a",
+      "rawBytes": 216,
+      "compressedBytes": 185
+    },
+    "async-immutable-preclass-red.log.gz": {
+      "rawSha256": "e1d89ff6980bb2887084c7013077c38d70f609a7f78b4f9d62e309594aacfeee",
+      "gzipSha256": "1745608de6574d3387611a43866718bb93057a68c1da3d448fcadc8f0407cb5c",
+      "rawBytes": 3100,
+      "compressedBytes": 745
+    }
+  }
+}

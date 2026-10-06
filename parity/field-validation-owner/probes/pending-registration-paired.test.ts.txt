@@ -1,0 +1,76 @@
+// Exact-pin public async witness; authored supplement, zero unchanged Source credit.
+import { expect, it } from 'vitest';
+import { mount, unmount, flushSync } from 'svelte';
+import { createElement as h, act } from '../../../../apps/fixtures/node_modules/react/index.js';
+import { createRoot } from '../../../../apps/fixtures/node_modules/react-dom/client.js';
+import { Field } from '../../../../../upstream/packages/react/src/field/index.ts';
+import type { FieldRootActions } from '../../src/lib/field/types.js';
+import Fixture from './FieldPendingRegistrationFixture.svelte';
+
+it('pending public validation retains the invocation baseline across first control registration', async () => {
+  const sourceHost = document.createElement('div');
+  const nativeHost = document.createElement('div');
+  document.body.append(sourceHost, nativeHost);
+  let sourceResolve!: (value: null) => void;
+  let nativeResolve!: (value: null) => void;
+  const sourceActions = { current: null as { validate(): void } | null };
+  const nativeActions = { current: null as FieldRootActions | null };
+  const root = createRoot(sourceHost);
+  const sourceValues: unknown[] = []; const nativeValues: unknown[] = [];
+  const sourceValidate = (value: unknown) => (sourceValues.push(value), new Promise<null>((resolve) => (sourceResolve = resolve)));
+  function source(shown: boolean) {
+    return h(Field.Root, { validate: sourceValidate, actionsRef: sourceActions },
+      shown ? h(Field.Control, { defaultValue: 'first baseline' }) : null,
+      h(Field.Validity, { children: (state) => h('output', null, JSON.stringify(state.initialValue)) }));
+  }
+  await act(async () => root.render(source(false)));
+  const component = mount(Fixture, { target: nativeHost, props: { validate: (value) => (nativeValues.push(value), new Promise<null>((resolve) => (nativeResolve = resolve))), actionsRef: nativeActions } });
+  flushSync();
+  try {
+    await act(async () => sourceActions.current!.validate());
+    nativeActions.current!.validate();
+    flushSync();
+    await act(async () => root.render(source(true)));
+    nativeHost.querySelector('button')!.click();
+    flushSync();
+    expect(sourceHost.querySelector('output')!.textContent).toBe('"first baseline"');
+    expect(nativeHost.querySelector('output')!.textContent).toBe('"first baseline"');
+    await act(async () => sourceResolve(null));
+    nativeResolve(null);
+    await new Promise((resolve) => setTimeout(resolve, 0));
+    flushSync();
+    expect(sourceValues).toEqual([null]);
+    expect(nativeValues).toEqual([null]);
+    expect(sourceHost.querySelector('output')!.textContent).toBe('null');
+    expect(nativeHost.querySelector('output')!.textContent).toBe(sourceHost.querySelector('output')!.textContent);
+  } finally {
+    await act(async () => root.unmount());
+    await unmount(component);
+    sourceHost.remove(); nativeHost.remove();
+  }
+});
+
+ it('public invalid, same-control ID and validator changes during pending work preserve reachable results', async () => {
+  const sourceHost = document.createElement('div'); const nativeHost = document.createElement('div'); document.body.append(sourceHost,nativeHost);
+  let sourceResolve!: (value: string) => void; let nativeResolve!: (value: string) => void;
+  const sourceActions = { current: null as { validate(): void } | null }; const nativeActions = { current: null as FieldRootActions | null };
+  const root = createRoot(sourceHost);
+  const sourceValidate = () => new Promise<string>(resolve => sourceResolve = resolve);
+  const nativeValidate = () => new Promise<string>(resolve => nativeResolve = resolve);
+  function source(invalid: boolean, id: string, validate = sourceValidate as (...args: unknown[]) => unknown) {
+    return h(Field.Root, { validate, invalid, actionsRef: sourceActions }, h(Field.Control, { id, defaultValue: 'first baseline' }), h(Field.Validity, { children: state => h('output', {className:'verdict'}, JSON.stringify({valid: state.validity.valid, error: state.error})) }));
+  }
+  await act(async () => root.render(source(false,'control-before')));
+  const component = mount(Fixture,{target:nativeHost,props:{validate:nativeValidate,actionsRef:nativeActions}}); flushSync(); nativeHost.querySelector('button')!.click(); flushSync();
+  try {
+    await act(async () => sourceActions.current!.validate()); nativeActions.current!.validate(); flushSync();
+    await act(async () => root.render(source(true,'control-after',() => 'replacement validator')));
+    component.update(true,'control-after',() => 'replacement validator'); flushSync();
+    await act(async () => sourceResolve('pending validator')); nativeResolve('pending validator'); await new Promise(resolve => setTimeout(resolve,0)); flushSync();
+    expect(sourceHost.querySelector('input')!.id).toBe('control-after'); expect(nativeHost.querySelector('input')!.id).toBe('control-after');
+    const verdict = (host: HTMLElement) => host.querySelector('.verdict')!.textContent;
+    expect(verdict(sourceHost)).toBe(JSON.stringify({valid:false,error:'pending validator'})); expect(verdict(nativeHost)).toBe(verdict(sourceHost));
+    await act(async () => sourceActions.current!.validate()); nativeActions.current!.validate(); await new Promise(resolve => setTimeout(resolve,0)); flushSync();
+    expect(verdict(sourceHost)).toBe(JSON.stringify({valid:false,error:'replacement validator'})); expect(verdict(nativeHost)).toBe(verdict(sourceHost));
+  } finally { await act(async () => root.unmount()); await unmount(component); sourceHost.remove(); nativeHost.remove(); }
+ });

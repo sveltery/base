@@ -1,0 +1,29 @@
+{
+  "pin": "47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c",
+  "executedOriginalSources": [
+    {
+      "path": "packages/react/src/field/root/useFieldValidation.ts",
+      "sha256": "f34d2c7c03621494f8a8ca8867c3a66a8b7c8089b022e851211db5429b63de89"
+    },
+    {
+      "path": "packages/react/src/field/root/FieldRoot.tsx",
+      "sha256": "1f9861ae4813ab53a0092c5c5c760716a80fa618a11343f065f4ad4dee62a36e"
+    },
+    {
+      "path": "packages/react/src/internals/field-register-control/useFieldControlRegistration.ts",
+      "sha256": "a49c20dc0a508dc11b73bdac52043aa4b1ba94d1baf8a43c2095f42726ca1cd6"
+    },
+    {
+      "path": "packages/utils/src/useStableCallback.ts",
+      "sha256": "908cbd177f86c961983d0124a859f733d341be49e58bc5a553255f47725419c1"
+    },
+    {
+      "path": "packages/utils/src/useAnimationFrame.ts",
+      "sha256": "229943cee6d42305da4db33ed395ff8ccdde915c2e4e922c5af0c7b0aeeddf82"
+    },
+    {
+      "path": "packages/utils/src/useTimeout.ts",
+      "sha256": "8d9e4159d9f883e18035811e9f2b4d180afb0d724b55d86dbf4fda52c355e156"
+    }
+  ]
+}

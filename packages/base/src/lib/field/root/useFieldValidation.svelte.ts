@@ -126,6 +126,8 @@ export class FieldValidationOwner implements UseFieldValidationReturnValue {
 
   commit = async (value: unknown, revalidate = false) => {
     const params = this.#params;
+    // The pinned invocation retains its baseline across an awaited validator.
+    const initialValue = params.validityData.initialValue;
     const elementRef = this.#elementRef;
     const formRef = this.#formRef;
     const labelable = this.#labelable;
@@ -172,7 +174,7 @@ export class FieldValidationOwner implements UseFieldValidationReturnValue {
         state: validityState,
         error: errors[0] ?? '',
         errors,
-        initialValue: params.validityData.initialValue,
+        initialValue,
       };
     }
 

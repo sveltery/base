@@ -1,0 +1,2 @@
+import { defineConfig } from 'vitest/config';
+export default defineConfig({test:{maxWorkers:1,fileParallelism:false,retry:0,projects:[{extends:'./vite.config.ts',resolve:{conditions:['browser'],alias:[{find:'@base-ui/utils/platform',replacement:'/workspace/scratch/20877d489179/upstream/packages/utils/src/platform/index.ts'},{find:/^@base-ui\/utils\/(.+)$/,replacement:'/workspace/scratch/20877d489179/upstream/packages/utils/src/$1.ts'}]},test:{name:'dom',environment:'jsdom',include:['tests/dom/field-pending-registration.test.ts']}}]}});
