@@ -6788,7 +6788,7 @@
       },
       {
         "path": "packages/base/src/lib/collapsible/Panel.svelte",
-        "sha256": "1ece09dc06e6c51e7191b5aa5e63d96a1d08dfc1abda4596762528965000157a",
+        "sha256": "9b052932470f1f42bdb6b9afd7be61c7c68aeb63fe7dc9f72d1cc5ed241a1e4c",
         "symbols": [
           {
             "name": "Dimensions",
@@ -6801,9 +6801,19 @@
             "sha256": "5b09b3d48b8f921a6d30ca198a1fdd960961ddcfd3507a5919282bd849f59a98"
           },
           {
+            "name": "restorePendingTemporaryStyle",
+            "kind": "FunctionDeclaration",
+            "sha256": "3c1ed121959f7493367182234390fd58a4756e7b588158230fc2b68031cb2fb6"
+          },
+          {
+            "name": "setPendingTemporaryStyleRestore",
+            "kind": "FunctionDeclaration",
+            "sha256": "63c32caaae3512c85de823c8495271cd0b21fd7c07cea0ea48487f168cae80cc"
+          },
+          {
             "name": "attach",
             "kind": "FunctionDeclaration",
-            "sha256": "20a94d5ec8b886a5d9d8b22d5ad7f56b9c764ab28a4d3d594a625d7217cac6df"
+            "sha256": "71b8f6e3018b8c4b6631c87143e05a6bc8411abbeb0d35958806f00c2a554986"
           },
           {
             "name": "attachHost",
@@ -6843,6 +6853,11 @@
             "kind": "runtime",
             "members": [
               {
+                "imported": "onDestroy",
+                "local": "onDestroy",
+                "typeOnly": false
+              },
+              {
                 "imported": "untrack",
                 "local": "untrack",
                 "typeOnly": false
@@ -6850,19 +6865,6 @@
             ],
             "syntax": "import",
             "resolved": "external:svelte"
-          },
-          {
-            "specifier": "../internals/nativeProps.js",
-            "kind": "runtime",
-            "members": [
-              {
-                "imported": "toNativeStyle",
-                "local": "toNativeStyle",
-                "typeOnly": false
-              }
-            ],
-            "syntax": "import",
-            "resolved": "packages/base/src/lib/internals/nativeProps.ts"
           },
           {
             "specifier": "../internals/resolveClassValue.js",

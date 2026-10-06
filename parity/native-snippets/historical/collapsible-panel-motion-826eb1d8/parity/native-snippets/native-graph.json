@@ -1290,7 +1290,7 @@
     },
     {
       "source": "packages/base/src/lib/collapsible/Panel.svelte",
-      "sha256": "1ece09dc06e6c51e7191b5aa5e63d96a1d08dfc1abda4596762528965000157a",
+      "sha256": "9b052932470f1f42bdb6b9afd7be61c7c68aeb63fe7dc9f72d1cc5ed241a1e4c",
       "imports": [
         {
           "specifier": "../internals/mergeComponentProps.js",
@@ -1306,11 +1306,6 @@
           "specifier": "svelte",
           "kind": "runtime-or-mixed",
           "resolved": "external:svelte"
-        },
-        {
-          "specifier": "../internals/nativeProps.js",
-          "kind": "runtime-or-mixed",
-          "resolved": "packages/base/src/lib/internals/nativeProps.ts"
         },
         {
           "specifier": "../internals/resolveClassValue.js",

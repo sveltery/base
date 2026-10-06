@@ -4,8 +4,7 @@
 
   // Adapted from mui/base-ui v1.8.0 CollapsiblePanel/useCollapsiblePanel,
   // 47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c. MIT: THIRD_PARTY_NOTICES.md.
-  import { untrack } from 'svelte';
-  import { toNativeStyle } from '../internals/nativeProps.js';
+  import { onDestroy, untrack } from 'svelte';
   import { resolveClassValue } from '../internals/resolveClassValue.js';
   import { createChangeEventDetails } from '../internals/createBaseUIEventDetails.js';
   import { getCollapsibleContext } from './context.js';
@@ -45,10 +44,7 @@
   let shouldPreventMountAnimation = $state(untrack(() => context.open));
   let shouldSkipNextOpen = false;
   let forcePanelIdle = $state(false);
-  // Accepted beforematch motion suppression belongs to this actual host's open cycle.
-  let skippedOpenMotion = $state.raw<
-    { panel: HTMLElement; type: Exclude<AnimationType, 'none'> } | undefined
-  >();
+  let pendingTemporaryStyleRestore: (() => void) | undefined;
 
   const hidden = $derived(!context.open && !context.mounted);
   const panelTransitionStatus = $derived(forcePanelIdle ? 'idle' : context.transitionStatus);
@@ -72,13 +68,25 @@
     if (cache) lastMeasuredDimensions = next;
     dimensions = next;
   }
+  function restorePendingTemporaryStyle() {
+    pendingTemporaryStyleRestore?.();
+    pendingTemporaryStyleRestore = undefined;
+  }
+  function setPendingTemporaryStyleRestore(restore: () => void) {
+    restorePendingTemporaryStyle();
+    pendingTemporaryStyleRestore = () => {
+      pendingTemporaryStyleRestore = undefined;
+      restore();
+    };
+  }
   function attach(element: HTMLElement) {
     node = element;
     return () => {
-      if (skippedOpenMotion?.panel === element) skippedOpenMotion = undefined;
+      restorePendingTemporaryStyle();
       if (node === element) node = null;
     };
   }
+  onDestroy(restorePendingTemporaryStyle);
 
   const internal = $derived({
     id,
@@ -102,21 +110,12 @@
   const resolved = $derived.by(() => {
     const authoredStyle = typeof styleProp === 'function' ? styleProp(panelState) : styleProp;
     const classValue = typeof classProp === 'function' ? classProp(panelState) : classProp;
-    const styleValue = shouldPreventOpenAnimation
-      ? `${authoredStyle ?? ''};animation-name:none`
-      : authoredStyle;
-    const skippedMotion =
-      context.open && skippedOpenMotion && skippedOpenMotion.panel === node
-        ? skippedOpenMotion.type
-        : undefined;
     return {
       ...props,
       class: classValue === undefined ? undefined : resolveClassValue(classValue),
-      // Keep the one-shot business override in native markup through dimension commits.
-      // Closing resolves live authored duration before the measurement effect detects motion.
-      style: skippedMotion
-        ? `${toNativeStyle(styleValue) ?? ''};${skippedMotion === 'css-transition' ? 'transition-duration' : 'animation-duration'}:0s`
-        : styleValue,
+      style: shouldPreventOpenAnimation
+        ? `${authoredStyle ?? ''};animation-name:none`
+        : authoredStyle,
     };
   });
 
@@ -155,7 +154,7 @@
     // remains retained. Finalizing here would correct shared source behavior.
     if (!panel) return;
     return untrack(() => {
-      if (!open) skippedOpenMotion = undefined;
+      if (!open) restorePendingTemporaryStyle();
       const mode = getAnimationType(panel, preventOpenAnimation);
       animationType = mode;
       if (open && status === 'idle' && shouldPreventMountAnimation && mode === 'css-animation') {
@@ -174,7 +173,7 @@
           const restoreLayout = resetLayoutStyles(panel);
           setDimensions(getDimensions(panel));
           if (skipOpen) {
-            skippedOpenMotion = { panel, type: mode };
+            setPendingTemporaryStyleRestore(setTemporaryStyle(panel, 'transition-duration', '0s'));
             forcePanelIdle = true;
           }
           return restoreLayout;
@@ -185,8 +184,9 @@
           restoreName();
           return;
         }
-        skippedOpenMotion = { panel, type: mode };
+        const restoreDuration = setTemporaryStyle(panel, 'animation-duration', '0s');
         restoreName();
+        setPendingTemporaryStyleRestore(restoreDuration);
         forcePanelIdle = true;
         return;
       }

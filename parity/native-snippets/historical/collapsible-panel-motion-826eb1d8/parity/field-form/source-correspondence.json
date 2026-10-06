@@ -2319,7 +2319,6 @@
       }
     ],
     "proof": "scripts/check-native-snippet-integration.mjs appends exact acde-to-current transforms for these two whole bodies and strict whole-body/grouping-preserving script AST equality for the other 494 of 496. Earlier stages, Menu 495 and all prior archives remain historical and exact.",
-    "execution": "The finalized acde predecessor DOM log records 11 Field failures across the unchanged three suites. Candidate parsing/types/DOM/package/browser/CI results remain pending; all existing assertion tails must execute unchanged. No new Original or ordinary declaration credit.",
-    "historicalSourceSuccessor": "826eb1d863a231928c4cc040f894737449563d4b"
+    "execution": "The finalized acde predecessor DOM log records 11 Field failures across the unchanged three suites. Candidate parsing/types/DOM/package/browser/CI results remain pending; all existing assertion tails must execute unchanged. No new Original or ordinary declaration credit."
   }
 }
