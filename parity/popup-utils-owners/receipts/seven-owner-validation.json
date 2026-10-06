@@ -1,0 +1,103 @@
+{
+  "schema": 1,
+  "unchangedUpstreamAssertionCredit": 0,
+  "runtime": "seven owners / six files; registration API unchanged",
+  "commands": [
+    "source scripts/toolchain.sh; NODE_OPTIONS=--max-old-space-size=768; SVELTERY_WORKSPACE_READY=1",
+    "bash scripts/prepare-package-artifacts.sh",
+    "pnpm --filter @sveltery/base exec vitest run --project dom tests/dom/anchored-scroll-owner.test.ts tests/dom/popup-registration-owner.test.ts tests/dom/trigger-focus-guard-owner.test.ts",
+    "SVELTERY_PACKAGE_ARTIFACTS=$PWD/.checks/npm-package/artifacts.json bash scripts/check-{popup-family,menu-family,native-snippets}-package.sh (sequential)",
+    "node --import ./scripts/svelte-ssr-loader.mjs scripts/check-runtime.mjs",
+    "TMPDIR=$PWD/.checks/tmp $CODEX_PRIMARY_RUNTIME_NODE --test --test-concurrency=1 scripts/tests/*.test.mjs",
+    "pnpm --filter @sveltery/fixtures build",
+    "pnpm exec prettier --check .",
+    "pnpm exec eslint (six runtime files and authored TypeScript supplements)"
+  ],
+  "workers": {
+    "vitestMaxWorkers": 1,
+    "fileParallelism": false,
+    "browserWorkers": 1,
+    "browserRetries": 0,
+    "browserSandbox": true
+  },
+  "artifacts": {
+    "schema": 1,
+    "packages": {
+      "@sveltery/base": {
+        "version": "0.0.0",
+        "directory": "packages/base",
+        "tarball": "sveltery-base-0.0.0.tgz",
+        "sha256": "44442364b7f033853107eb6137636405ac03951bb5a4584b388176d4aebf0920",
+        "dependencies": [
+          "@sveltery/utils"
+        ]
+      },
+      "@sveltery/utils": {
+        "version": "0.0.0",
+        "directory": "packages/utils",
+        "tarball": "sveltery-utils-0.0.0.tgz",
+        "sha256": "778c72497f186d3af6edfb4dab82bd3a84efc756ed044f963d4f63ac1dc13f28",
+        "dependencies": []
+      }
+    }
+  },
+  "receipts": [
+    {
+      "file": "extension-artifacts.log.gz",
+      "rawSha256": "df2dafd1429b398f3c523ab873a76b71aefb9170b80b194a12b6c9d3025f29d6",
+      "exit": 0
+    },
+    {
+      "file": "extension-dom.log.gz",
+      "rawSha256": "a08a031c965e83b6f0aa7bfd094d6cf2c6cb17b400454792d28a0119149f42c6",
+      "exit": 0
+    },
+    {
+      "file": "extension-popup-package.log.gz",
+      "rawSha256": "41deb9a822435e89bac5e2598e77e194247daf72665158e05387dc7d753133e0",
+      "exit": 0
+    },
+    {
+      "file": "extension-menu-package.log.gz",
+      "rawSha256": "2e14a78264db8d3933a6226504e4841a44e76fab046506af15894068a9c0f267",
+      "exit": 0
+    },
+    {
+      "file": "extension-snippets-package.log.gz",
+      "rawSha256": "22206432d758184a07534b5243257f92e21e1798448621df66a6650449791f3c",
+      "exit": 0
+    },
+    {
+      "file": "extension-boundary.log.gz",
+      "rawSha256": "7eb14a3a2cac9fe7d677ef3a7519f5045bb935af2549e71f9ddf392ebb65a36d",
+      "exit": 0
+    },
+    {
+      "file": "extension-scripts.log.gz",
+      "rawSha256": "d6ee0eb24b997e80328a53557fdd270b4e1cf8434c60209a7da03758a5fcefa3",
+      "exit": 0
+    },
+    {
+      "file": "extension-fixtures.log.gz",
+      "rawSha256": "295e783dc553cbb54b90f8167fb5c3e1d02feaf6eb42a6d8229ebde5f83e36ea",
+      "exit": 0
+    },
+    {
+      "file": "extension-prettier.log.gz",
+      "rawSha256": "17aa973d3f004560237d9a95171210b0671deff23d61628eecf7322ff5938f20",
+      "exit": 0
+    },
+    {
+      "file": "extension-eslint.log.gz",
+      "rawSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "exit": 0
+    }
+  ],
+  "limits": [
+    "Full Base check and full ESLint exceeded bounded 768MiB in prior six-owner stage; not rerun redundantly.",
+    "Aggregate strict packed consumer reached remote-form check then exceeded bounded heap; retained historical failure.",
+    "Official Chromium installer and launcher used same explicit .checks/playwright cache; download truncated, launcher lacked executable. No local browser execution credit. Hosted secured gates unchanged.",
+    "Menu captured-host API deferred until exact-pin causal comparator; caller remains Menu owner scope.",
+    "All supplements/hash/type/SSR/native differing expectations grant zero unchanged assertion credit."
+  ]
+}

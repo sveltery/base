@@ -33,14 +33,16 @@ interface TriggerFocusGuardStore {
  * the trigger. These handlers close the popup and move focus to the appropriate
  * tabbable element when the guards receive focus (i.e. when the user tabs out).
  */
-export function useTriggerFocusGuards(
-  getStore: () => TriggerFocusGuardStore,
-  triggerElementRef: { current: HTMLElement | null },
-) {
-  const store = $derived(getStore());
-  const preFocusGuardRef = $state<{ current: HTMLElement | null }>({ current: null });
+export class TriggerFocusGuards {
+  readonly preFocusGuardRef = $state<{ current: HTMLElement | null }>({ current: null });
 
-  function handlePreFocusGuardFocus(event: FocusEvent) {
+  constructor(
+    private readonly getStore: () => TriggerFocusGuardStore,
+    private readonly triggerElementRef: { current: HTMLElement | null },
+  ) {}
+
+  readonly handlePreFocusGuardFocus = (event: FocusEvent) => {
+    const store = this.getStore();
     flushSync(() => {
       store.setOpen(
         false,
@@ -49,12 +51,13 @@ export function useTriggerFocusGuards(
     });
 
     const previousTabbable: FocusableElement | null = getTabbableBeforeElement(
-      preFocusGuardRef.current,
+      this.preFocusGuardRef.current,
     );
     previousTabbable?.focus();
-  }
+  };
 
-  function handleFocusTargetFocus(event: FocusEvent) {
+  readonly handleFocusTargetFocus = (event: FocusEvent) => {
+    const store = this.getStore();
     const positionerElement = store.select('positionerElement');
     if (positionerElement && isOutsideEvent(event, positionerElement)) {
       store.context.beforeContentFocusGuardRef.current?.focus();
@@ -67,7 +70,7 @@ export function useTriggerFocusGuards(
       });
 
       let nextTabbable = getTabbableAfterElement(
-        store.context.triggerFocusTargetRef.current || triggerElementRef.current,
+        store.context.triggerFocusTargetRef.current || this.triggerElementRef.current,
       );
 
       while (nextTabbable !== null && contains(positionerElement, nextTabbable)) {
@@ -80,7 +83,12 @@ export function useTriggerFocusGuards(
 
       nextTabbable?.focus();
     }
-  }
+  };
+}
 
-  return { preFocusGuardRef, handlePreFocusGuardFocus, handleFocusTargetFocus };
+export function useTriggerFocusGuards(
+  getStore: () => TriggerFocusGuardStore,
+  triggerElementRef: { current: HTMLElement | null },
+) {
+  return new TriggerFocusGuards(getStore, triggerElementRef);
 }

@@ -96,3 +96,90 @@ test('actual current native Source import graph and retirement exclusions remain
   ])
     assert(!existsSync(new URL(path, root)), path);
 });
+test('six-role construction checkpoint retains complete aa4 bodies and zero assertion credit', () => {
+  const evidence = JSON.parse(
+    readFileSync(new URL('parity/popup-utils-owners/class-successor.json', root), 'utf8'),
+  );
+  assert.equal(
+    createHash('sha256')
+      .update(readFileSync(new URL('parity/popup-utils-owners/class-successor.json', root)))
+      .digest('hex'),
+    'e24a6f7603aa7f6d2482214d79da3122f87f51cac3f73e79bd5247123080fcfa',
+  );
+  assert.equal(evidence.predecessor, 'aa4daff54ec82b96e34e1601648d1b3926ef08cf');
+  assert.equal(evidence.pin, history.pin);
+  assert.equal(evidence.ordinaryDeclarationCredit, 0);
+  assert.equal(evidence.unchangedAssertionCredit, 0);
+  assert.equal(evidence.runtime.length, 5);
+  assert.equal(evidence.runtime.flatMap((record) => record.roles).length, 6);
+  const hash = (body) => createHash('sha256').update(body).digest('hex');
+  for (const record of evidence.runtime) {
+    assert.equal(hash(record.predecessorBody), record.predecessorSha256);
+    assert.equal(hash(record.currentBody), record.currentSha256);
+    const predecessor = execFileSync('git', ['show', `${evidence.predecessor}:${record.path}`], {
+      cwd: root,
+      encoding: 'utf8',
+    });
+    assert.equal(record.predecessorBody, predecessor);
+    assert.notEqual(record.currentBody, predecessor);
+  }
+});
+test('focused construction checkpoint preserves immutable precode scope and graph hashes', () => {
+  const projection = JSON.parse(
+    readFileSync(new URL('parity/popup-utils-owners/candidate-graph.json', root), 'utf8'),
+  );
+  const precodeBytes = readFileSync(new URL(projection.precodeGraph, root));
+  const precode = JSON.parse(precodeBytes);
+  const hash = (body) => createHash('sha256').update(body).digest('hex');
+  assert.equal(hash(precodeBytes), projection.precodeGraphSha256);
+  assert.equal(projection.predecessor, precode.nativePrecodeHead);
+  assert.equal(projection.ordinaryDeclarationCredit, 0);
+  assert.equal(projection.unchangedAssertionCredit, 0);
+  assert.deepEqual(
+    projection.modules.map((module) => module.path),
+    precode.modules.map((module) => module.path),
+  );
+  assert.equal(
+    hash(readFileSync(new URL('parity/popup-utils-owners/candidate-graph.json', root))),
+    '506c2ed53a10de4ce57dc1e3d9f9a6f99d506aa47e3dc892ca4c812afd09abec',
+  );
+});
+
+test('seventh retained-state owner extension binds six actual full bodies and zero credit', () => {
+  const evidence = JSON.parse(
+    readFileSync(new URL('parity/popup-utils-owners/class-extension.json', root), 'utf8'),
+  );
+  assert.equal(evidence.predecessor, 'aa4daff54ec82b96e34e1601648d1b3926ef08cf');
+  assert.equal(evidence.pin, history.pin);
+  assert.equal(evidence.ordinaryDeclarationCredit, 0);
+  assert.equal(evidence.unchangedAssertionCredit, 0);
+  assert.equal(evidence.runtime.length, 6);
+  assert.equal(evidence.runtime.flatMap((record) => record.roles).length, 7);
+  const hash = (body) => createHash('sha256').update(body).digest('hex');
+  for (const record of evidence.runtime) {
+    assert.equal(hash(record.predecessorBody), record.predecessorSha256);
+    assert.equal(hash(record.currentBody), record.currentSha256);
+    assert.equal(readFileSync(new URL(record.path, root), 'utf8'), record.currentBody);
+    assert.equal(
+      execFileSync('git', ['show', `${evidence.predecessor}:${record.path}`], {
+        cwd: root,
+        encoding: 'utf8',
+      }),
+      record.predecessorBody,
+    );
+  }
+  const original = evidence.anchoredOriginal;
+  assert.equal(hash(readFileSync(new URL(original.archive, root))), original.sha256);
+  const projection = JSON.parse(
+    readFileSync(new URL('parity/popup-utils-owners/candidate-extension-graph.json', root), 'utf8'),
+  );
+  const expectedPaths = new Set();
+  for (const graph of projection.precodeGraphs) {
+    const bytes = readFileSync(new URL(graph.path, root));
+    assert.equal(hash(bytes), graph.sha256);
+    for (const module of JSON.parse(bytes).modules) expectedPaths.add(module.path);
+  }
+  assert.deepEqual(new Set(projection.modules.map((module) => module.path)), expectedPaths);
+  for (const module of projection.modules)
+    assert.equal(hash(readFileSync(new URL(module.path, root))), module.sha256, module.path);
+});

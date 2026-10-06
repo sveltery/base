@@ -10,7 +10,7 @@
     ],
     "graph": {
       "path": "parity/native-snippets/native-graph.json",
-      "sha256": "5dfb01f21528cd00ea215a2ea027ee04187f9e3da98f9d68333a3deae9385d2c"
+      "sha256": "aff687d038ce22380881ec5a689a251007a1633017ecb1ce368be5e7aadd0690"
     },
     "predecessor": {
       "path": "parity/toggle-toolbar/source-correspondence.json",
@@ -2015,11 +2015,11 @@
     ],
     "graph": {
       "path": "parity/native-snippets/native-graph.json",
-      "sha256": "5dfb01f21528cd00ea215a2ea027ee04187f9e3da98f9d68333a3deae9385d2c"
+      "sha256": "aff687d038ce22380881ec5a689a251007a1633017ecb1ce368be5e7aadd0690"
     },
     "predecessor": {
       "path": "parity/menu-family/source-correspondence.json",
-      "sha256": "06d21d3b4c760f8f6260543bdfee2f18cef48b15957eaf0b7d038ce1ed4a60c3"
+      "sha256": "87ce9b2493c4ad8d94300cdb9ea658435f108d59054879ecf3ae350c1dc1ed06"
     },
     "originalGraph": {
       "path": "parity/menu-family/source-graph.json",
@@ -2624,7 +2624,7 @@
       },
       {
         "source": "packages/base/src/lib/utils/popups/popupStoreUtils.svelte.ts",
-        "sha256": "13b61b426eed8a0875580aa2a8e15a8caf5c7110e915174bf4d613f069f7b01a"
+        "sha256": "31b9b5846b583ab845099da30e822e0146deb9cbc50f7ef51bdcb190092deb82"
       },
       {
         "source": "packages/base/src/lib/utils/popups/popupTriggerMap.svelte.ts",
@@ -2636,11 +2636,11 @@
       },
       {
         "source": "packages/base/src/lib/utils/popups/usePopupHandleStore.svelte.ts",
-        "sha256": "d96d4ca763135cddc2ddbc931e772954b47ceb057bf1172660ec73203c9dbd0b"
+        "sha256": "41c73ec1ce36c36d773a4ab7f61e85c44b0bd717c87ca1448bff1b92e0270954"
       },
       {
         "source": "packages/base/src/lib/utils/popups/useTriggerFocusGuards.svelte.ts",
-        "sha256": "31fe56072f7dd8093b4292afc5da43ce09f07ed01faa185e6fae8cdc11f5aac6"
+        "sha256": "e6d09ce43802118ad7bf2b0852372c9087fcaa71b12613cc06a9fd4c5396a09f"
       },
       {
         "source": "packages/base/src/lib/utils/resolveClassName.ts",
@@ -2656,7 +2656,7 @@
       },
       {
         "source": "packages/base/src/lib/utils/useAnchoredPopupScrollLock.svelte.ts",
-        "sha256": "21a07726eed55814307acd741228214b8ebc411a0dcbddcf1d32a13ccdc45060"
+        "sha256": "6d8a8fb8469ee277692c4defb9503b46f1e4916f98314f85816e1ce1c684adbc"
       },
       {
         "source": "packages/base/src/lib/utils/useFocusableWhenDisabled.ts",
@@ -2668,7 +2668,7 @@
       },
       {
         "source": "packages/base/src/lib/utils/useOpenInteractionType.svelte.ts",
-        "sha256": "92fb932de384aef85dccc45311f5920dabbd8897584a656d27a5bcd8a012a966"
+        "sha256": "2240790b90d2947cd6f91a130068cc6ae5ab76ee798122a579a9a5f5cf07528d"
       },
       {
         "source": "packages/base/src/lib/utils/usePopupAutoResize.svelte.ts",
@@ -2776,7 +2776,7 @@
       },
       {
         "source": "packages/utils/src/lib/useEnhancedClickHandler.ts",
-        "sha256": "6a045d6b74a7851d3446200f55711ffc1dcc22449a2e92680cdf328750a436d5"
+        "sha256": "cc0e6c0c7f6131b365253ef7fc61dcb2bba61f0e228e4cdbcdbc0cb5e9bd9e84"
       },
       {
         "source": "packages/utils/src/lib/useId.ts",
@@ -4889,7 +4889,7 @@
         "local": [
           {
             "source": "packages/base/src/lib/utils/popups/popupStoreUtils.svelte.ts",
-            "sha256": "13b61b426eed8a0875580aa2a8e15a8caf5c7110e915174bf4d613f069f7b01a"
+            "sha256": "31b9b5846b583ab845099da30e822e0146deb9cbc50f7ef51bdcb190092deb82"
           }
         ],
         "retiredLocal": [],
@@ -4931,7 +4931,7 @@
         "local": [
           {
             "source": "packages/base/src/lib/utils/popups/usePopupHandleStore.svelte.ts",
-            "sha256": "d96d4ca763135cddc2ddbc931e772954b47ceb057bf1172660ec73203c9dbd0b"
+            "sha256": "41c73ec1ce36c36d773a4ab7f61e85c44b0bd717c87ca1448bff1b92e0270954"
           }
         ],
         "retiredLocal": [],
@@ -4945,7 +4945,7 @@
         "local": [
           {
             "source": "packages/base/src/lib/utils/popups/useTriggerFocusGuards.svelte.ts",
-            "sha256": "31fe56072f7dd8093b4292afc5da43ce09f07ed01faa185e6fae8cdc11f5aac6"
+            "sha256": "e6d09ce43802118ad7bf2b0852372c9087fcaa71b12613cc06a9fd4c5396a09f"
           }
         ],
         "retiredLocal": [],
@@ -5015,7 +5015,7 @@
         "local": [
           {
             "source": "packages/base/src/lib/utils/useAnchoredPopupScrollLock.svelte.ts",
-            "sha256": "21a07726eed55814307acd741228214b8ebc411a0dcbddcf1d32a13ccdc45060"
+            "sha256": "6d8a8fb8469ee277692c4defb9503b46f1e4916f98314f85816e1ce1c684adbc"
           }
         ],
         "retiredLocal": [],
@@ -5057,7 +5057,7 @@
         "local": [
           {
             "source": "packages/base/src/lib/utils/useOpenInteractionType.svelte.ts",
-            "sha256": "92fb932de384aef85dccc45311f5920dabbd8897584a656d27a5bcd8a012a966"
+            "sha256": "2240790b90d2947cd6f91a130068cc6ae5ab76ee798122a579a9a5f5cf07528d"
           }
         ],
         "retiredLocal": [],
@@ -5503,7 +5503,7 @@
         "local": [
           {
             "source": "packages/utils/src/lib/useEnhancedClickHandler.ts",
-            "sha256": "6a045d6b74a7851d3446200f55711ffc1dcc22449a2e92680cdf328750a436d5"
+            "sha256": "cc0e6c0c7f6131b365253ef7fc61dcb2bba61f0e228e4cdbcdbc0cb5e9bd9e84"
           }
         ],
         "retiredLocal": [],

@@ -1,0 +1,121 @@
+{
+  "credit": 0,
+  "note": "Raw bounded local receipts preserved. Six-owner passes are construction history. Types/Standards Base OOM; aggregate packed remote-form OOM; official browser installer truncated and launch missing executable. Listing is not execution. Toolchain host PATH-only failures subsequently passed five of five with absolute runtime node and writable TMPDIR. No acceptance or quota waiver inferred. Fresh seven-owner receipts added separately.",
+  "receipts": [
+    {
+      "file": "bootstrap.log.gz",
+      "rawSha256": "120c3a1a84f7b930b0044c2b24a7d53b837736f4414bf353aa8e16219d59af18",
+      "stage": "historical-six-owner"
+    },
+    {
+      "file": "candidate-build.log.gz",
+      "rawSha256": "b8ff848a08207f05960a866fecbe80ad92e3bc67d2bf8dd02db973785300e712",
+      "stage": "historical-six-owner"
+    },
+    {
+      "file": "focused-dom.log.gz",
+      "rawSha256": "9d97b5fe41a1197f62ffc3352ad41a14aad64160f28244debcf8a84e812e5d05",
+      "stage": "historical-six-owner"
+    },
+    {
+      "file": "utils-owner-test.log.gz",
+      "rawSha256": "57324c4b434579f39f1da1657cddfdc7591a7035b419105f9bb203cec64c94d6",
+      "stage": "historical-six-owner"
+    },
+    {
+      "file": "focus-owner-test.log.gz",
+      "rawSha256": "d29e5ec471a5acc53eac4ec3f17ef662cd03882ca8c04d7d4dbbd18312e10950",
+      "stage": "historical-six-owner"
+    },
+    {
+      "file": "types.log.gz",
+      "rawSha256": "f701abecf3fc118f0228753afeb96d63201932d7e2d85cb08647563898bcdc9f",
+      "stage": "historical-six-owner"
+    },
+    {
+      "file": "standards.log.gz",
+      "rawSha256": "35d697389e2477f26fdc8f174e39ccfa1fee772e62e1b6c6c7c4762232edb370",
+      "stage": "historical-six-owner"
+    },
+    {
+      "file": "scripts.log.gz",
+      "rawSha256": "00ec181fe4d7efd0fd84231e623ac26824c68e4f1fcee98bcc30121c4a459606",
+      "stage": "historical-six-owner"
+    },
+    {
+      "file": "toolchain-absolute-node.log.gz",
+      "rawSha256": "3c4656c3e03774db39c1bacb56c47655e3f10b597d0a41403fbc972140baebea",
+      "stage": "historical-six-owner"
+    },
+    {
+      "file": "chromium-install.log.gz",
+      "rawSha256": "1f43bcdadd19c65bdc644cc5f9a096d12198bd97825cbcd9cd2b570782fd2625",
+      "stage": "historical-six-owner"
+    },
+    {
+      "file": "browser-list.log.gz",
+      "rawSha256": "05e0ae8d13d83b8a378694d7e5536875a3dac49b53d4f5b000e660847540fe70",
+      "stage": "historical-six-owner"
+    },
+    {
+      "file": "browser-launch.log.gz",
+      "rawSha256": "3bf0c48f1978e4ebd087c01aa4a01734be192246667a9230845fc259f7788266",
+      "stage": "historical-six-owner"
+    },
+    {
+      "file": "artifacts.log.gz",
+      "rawSha256": "df2dafd1429b398f3c523ab873a76b71aefb9170b80b194a12b6c9d3025f29d6",
+      "stage": "historical-six-owner"
+    },
+    {
+      "file": "runtime.log.gz",
+      "rawSha256": "aa9a6f1cfab9dac206c186ca48b494694c233eeb0080a7feaa3e464008171575",
+      "stage": "historical-six-owner"
+    },
+    {
+      "file": "dom.log.gz",
+      "rawSha256": "f1d8d59b5823c8b96d0185e28a4b8fa12ca86f76ae8d10e3722b63ad3e4e5c3c",
+      "stage": "historical-six-owner"
+    },
+    {
+      "file": "fixtures.log.gz",
+      "rawSha256": "77470a79a80e226367d9b0b6d88486c2fdaa8aa32d91105f3461f23ea5ccfd71",
+      "stage": "historical-six-owner"
+    },
+    {
+      "file": "boundary.log.gz",
+      "rawSha256": "7eb14a3a2cac9fe7d677ef3a7519f5045bb935af2549e71f9ddf392ebb65a36d",
+      "stage": "historical-six-owner"
+    },
+    {
+      "file": "utils-package.log.gz",
+      "rawSha256": "e25de5542688ac0013d984d3298f96ac5e0332c94e8365eea23919617abbb22d",
+      "stage": "historical-six-owner"
+    },
+    {
+      "file": "popup-package.log.gz",
+      "rawSha256": "2e864074b64ef8dc25b35767a266c6d520f690f4cf911d5a35cfc92730cf30ec",
+      "stage": "historical-six-owner"
+    },
+    {
+      "file": "menu-package.log.gz",
+      "rawSha256": "21cf9c5e57b47c6f29cf5903383c481fb0b28909ec1d1080c2786ec72ae34d95",
+      "stage": "historical-six-owner"
+    },
+    {
+      "file": "snippets-package.log.gz",
+      "rawSha256": "15496a8a7201f250922ee81ef315e8e6b86395e7e5c1400ddf994d0927fe4680",
+      "stage": "historical-six-owner"
+    },
+    {
+      "file": "aggregate-package.log.gz",
+      "rawSha256": "0536357d7a792591263ede09d0d215dff04757dc58a660caf8477bc07abf3d1c",
+      "stage": "historical-six-owner"
+    },
+    {
+      "file": "anchored-dom.log.gz",
+      "rawSha256": "62513afc148fdaa54c56edba6d6755e68fd6251a611823c17cada7c31e6f202c",
+      "stage": "seven-owner-focused"
+    }
+  ]
+}

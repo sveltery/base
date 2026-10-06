@@ -1260,12 +1260,15 @@
         "0318c777e82d99abd964fa684fee3114ce7faef0896befaeb81814e0c9f01601",
         "b309b47478034ea9a5963efde91d4808027f0f7d48d99cfa57b8eda8c5095ad4"
       ],
-      "currentFileSha256": "13b61b426eed8a0875580aa2a8e15a8caf5c7110e915174bf4d613f069f7b01a",
+      "currentFileSha256": "31b9b5846b583ab845099da30e822e0146deb9cbc50f7ef51bdcb190092deb82",
       "currentOwners": [
         {
           "path": "packages/base/src/lib/utils/popups/popupStoreUtils.svelte.ts",
-          "sha256": "13b61b426eed8a0875580aa2a8e15a8caf5c7110e915174bf4d613f069f7b01a",
-          "classes": []
+          "sha256": "31b9b5846b583ab845099da30e822e0146deb9cbc50f7ef51bdcb190092deb82",
+          "classes": [
+            "TriggerRegistration",
+            "ImplicitActiveTrigger"
+          ]
         }
       ]
     },
@@ -1277,12 +1280,14 @@
       "previousCallHashes": [
         "2140db6d0cc05d033996169bdcee0463853a584aa35ef12914d52e0e63967da9"
       ],
-      "currentFileSha256": "21a07726eed55814307acd741228214b8ebc411a0dcbddcf1d32a13ccdc45060",
+      "currentFileSha256": "6d8a8fb8469ee277692c4defb9503b46f1e4916f98314f85816e1ce1c684adbc",
       "currentOwners": [
         {
           "path": "packages/base/src/lib/utils/useAnchoredPopupScrollLock.svelte.ts",
-          "sha256": "21a07726eed55814307acd741228214b8ebc411a0dcbddcf1d32a13ccdc45060",
-          "classes": []
+          "sha256": "6d8a8fb8469ee277692c4defb9503b46f1e4916f98314f85816e1ce1c684adbc",
+          "classes": [
+            "AnchoredPopupScrollLock"
+          ]
         }
       ]
     },
@@ -1480,6 +1485,55 @@
       "sha256": "86fd30d4dc3ab9fe9892c287a214e82e3fdb34c9e0ccff4e294dbb4d2d039db3",
       "classes": [
         "FieldControlRegistrationOwner"
+      ]
+    },
+    {
+      "path": "packages/base/src/lib/utils/popups/popupStoreUtils.svelte.ts",
+      "role": "Trigger registration resource and implicit active-trigger reconciliation owners",
+      "sha256": "31b9b5846b583ab845099da30e822e0146deb9cbc50f7ef51bdcb190092deb82",
+      "classes": [
+        "TriggerRegistration",
+        "ImplicitActiveTrigger"
+      ]
+    },
+    {
+      "path": "packages/base/src/lib/utils/popups/usePopupHandleStore.svelte.ts",
+      "role": "Popup handle Store lifetime and committed native hydration owner",
+      "sha256": "41c73ec1ce36c36d773a4ab7f61e85c44b0bd717c87ca1448bff1b92e0270954",
+      "classes": [
+        "PopupHandleStore"
+      ]
+    },
+    {
+      "path": "packages/base/src/lib/utils/popups/useTriggerFocusGuards.svelte.ts",
+      "role": "Pre-focus host and live guard event owner",
+      "sha256": "e6d09ce43802118ad7bf2b0852372c9087fcaa71b12613cc06a9fd4c5396a09f",
+      "classes": [
+        "TriggerFocusGuards"
+      ]
+    },
+    {
+      "path": "packages/base/src/lib/utils/useOpenInteractionType.svelte.ts",
+      "role": "Open modality and close observation owner",
+      "sha256": "2240790b90d2947cd6f91a130068cc6ae5ab76ee798122a579a9a5f5cf07528d",
+      "classes": [
+        "OpenInteractionType"
+      ]
+    },
+    {
+      "path": "packages/utils/src/lib/useEnhancedClickHandler.ts",
+      "role": "Last pointer type and stable detached click callback owner",
+      "sha256": "cc0e6c0c7f6131b365253ef7fc61dcb2bba61f0e228e4cdbcdbc0cb5e9bd9e84",
+      "classes": [
+        "EnhancedClickHandler"
+      ]
+    },
+    {
+      "path": "packages/base/src/lib/utils/useAnchoredPopupScrollLock.svelte.ts",
+      "role": "Touch-open popup width decision and canonical scroll-lock resource owner",
+      "sha256": "6d8a8fb8469ee277692c4defb9503b46f1e4916f98314f85816e1ce1c684adbc",
+      "classes": [
+        "AnchoredPopupScrollLock"
       ]
     }
   ],

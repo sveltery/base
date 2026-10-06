@@ -52,6 +52,38 @@ if (!data.nativeOwners.some((owner) => owner.path === field))
     sha256: modules.get(field).sha256,
     classes: classes(modules.get(field)),
   });
+for (const [path, role] of [
+  [
+    'packages/base/src/lib/utils/popups/popupStoreUtils.svelte.ts',
+    'Trigger registration resource and implicit active-trigger reconciliation owners',
+  ],
+  [
+    'packages/base/src/lib/utils/popups/usePopupHandleStore.svelte.ts',
+    'Popup handle Store lifetime and committed native hydration owner',
+  ],
+  [
+    'packages/base/src/lib/utils/popups/useTriggerFocusGuards.svelte.ts',
+    'Pre-focus host and live guard event owner',
+  ],
+  [
+    'packages/base/src/lib/utils/useOpenInteractionType.svelte.ts',
+    'Open modality and close observation owner',
+  ],
+  [
+    'packages/base/src/lib/utils/useAnchoredPopupScrollLock.svelte.ts',
+    'Touch-open popup width decision and canonical scroll-lock resource owner',
+  ],
+  [
+    'packages/utils/src/lib/useEnhancedClickHandler.ts',
+    'Last pointer type and stable detached click callback owner',
+  ],
+]) {
+  const module = modules.get(path);
+  const owner = { path, role, sha256: module.sha256, classes: classes(module) };
+  const index = data.nativeOwners.findIndex((existing) => existing.path === path);
+  if (index === -1) data.nativeOwners.push(owner);
+  else data.nativeOwners[index] = { ...data.nativeOwners[index], ...owner };
+}
 data.checkpointEvidence.currentIntegration =
   'Actual PR77 source-only body/parser/import proof is parity/native-snippets/integration-current.json. Earlier scan/execution entries describe their predecessor checkpoint and supply zero integrated acceptance.';
 writeFileSync(path, JSON.stringify(data, null, 2) + '\n');

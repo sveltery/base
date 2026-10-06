@@ -621,6 +621,60 @@ assert(!('./use-render' in exports));
 assert(!('./useMergedRefs' in graph.utilsExports));
 assert.equal(graph.native.modules.length, 496);
 assert.equal(Object.keys(graph.utilsExports).length, 25);
+// Additive retained-state owner stage: frozen historical stages still examine aa4 bodies.
+const popupUtilsPredecessor = 'aa4daff54ec82b96e34e1601648d1b3926ef08cf';
+const popupUtilsCheckpointBytes = readFileSync(
+  resolve(root, 'parity/popup-utils-owners/class-successor.json'),
+);
+assert.equal(
+  hash(popupUtilsCheckpointBytes),
+  'e24a6f7603aa7f6d2482214d79da3122f87f51cac3f73e79bd5247123080fcfa',
+);
+assert.equal(
+  hash(readFileSync(resolve(root, 'parity/popup-utils-owners/candidate-graph.json'))),
+  '506c2ed53a10de4ce57dc1e3d9f9a6f99d506aa47e3dc892ca4c812afd09abec',
+);
+assert.equal(
+  hash(readFileSync(resolve(root, 'parity/popup-utils-owners/construction-integration.json'))),
+  'b279b9193bb05341e790663f899c4dd458edb32f53da7c67a80650543286c8d1',
+);
+const popupUtilsCheckpoint = JSON.parse(popupUtilsCheckpointBytes);
+assert.equal(popupUtilsCheckpoint.runtime.length, 5);
+for (const record of popupUtilsCheckpoint.runtime) {
+  assert.equal(record.predecessorBody, git('show', `${popupUtilsPredecessor}:${record.path}`));
+  assert.equal(hash(record.predecessorBody), record.predecessorSha256);
+  assert.equal(hash(record.currentBody), record.currentSha256);
+}
+const popupUtilsSuccessor = JSON.parse(
+  readFileSync(resolve(root, 'parity/popup-utils-owners/class-extension.json'), 'utf8'),
+);
+assert.equal(popupUtilsSuccessor.predecessor, popupUtilsPredecessor);
+assert.equal(popupUtilsSuccessor.pin, graph.immutableOriginalPin);
+assert.equal(popupUtilsSuccessor.ordinaryDeclarationCredit, 0);
+assert.equal(popupUtilsSuccessor.unchangedAssertionCredit, 0);
+const popupUtilsPaths = new Set([
+  'packages/base/src/lib/utils/popups/popupStoreUtils.svelte.ts',
+  'packages/base/src/lib/utils/popups/usePopupHandleStore.svelte.ts',
+  'packages/base/src/lib/utils/popups/useTriggerFocusGuards.svelte.ts',
+  'packages/base/src/lib/utils/useOpenInteractionType.svelte.ts',
+  'packages/utils/src/lib/useEnhancedClickHandler.ts',
+  'packages/base/src/lib/utils/useAnchoredPopupScrollLock.svelte.ts',
+]);
+assert.deepEqual(
+  new Set(popupUtilsSuccessor.runtime.map((record) => record.path)),
+  popupUtilsPaths,
+);
+for (const record of popupUtilsSuccessor.runtime) {
+  assert.equal(record.predecessorBody, git('show', `${popupUtilsPredecessor}:${record.path}`));
+  assert.equal(hash(record.predecessorBody), record.predecessorSha256);
+  assert.equal(hash(record.currentBody), record.currentSha256);
+  assert.equal(readFileSync(resolve(root, record.path), 'utf8'), record.currentBody);
+}
+const historicalRuntime = (path) =>
+  popupUtilsPaths.has(path)
+    ? git('show', `${popupUtilsPredecessor}:${path}`)
+    : readFileSync(resolve(root, path), 'utf8');
+let popupUtilsUnchangedBodies = 0;
 const records = [];
 let effectCalls = 0,
   controlledOwners = 0,
@@ -643,14 +697,20 @@ let effectCalls = 0,
 for (const module of graph.native.modules) {
   const path = module.path;
   const before = git('show', `${renderer}:${path}`);
-  const after = readFileSync(resolve(root, path), 'utf8');
-  assert.equal(hash(after), module.sha256, `Stale actual current graph: ${path}`);
+  const currentBody = readFileSync(resolve(root, path), 'utf8');
+  const after = historicalRuntime(path);
+  assert.equal(hash(currentBody), module.sha256, `Stale actual current graph: ${path}`);
   assert(
     !/\b(?:UseRender|createRenderElement|isNativeRefAttachment|preserveUnchangedInlineStyles)\b|<RenderElement\b/.test(
-      after,
+      currentBody,
     ),
     `Retired runtime transport: ${path}`,
   );
+  assert.equal(after, git('show', `${popupUtilsPredecessor}:${path}`), `Frozen aa4 stage: ${path}`);
+  if (!popupUtilsPaths.has(path)) {
+    assert.equal(currentBody, after, `Out-of-scope owner body changed: ${path}`);
+    popupUtilsUnchangedBodies++;
+  }
   const left = syntax(path, before),
     right = syntax(path, after);
   const equal = JSON.stringify(shape(left, left)) === JSON.stringify(shape(right, right));
@@ -1150,18 +1210,32 @@ for (const module of graph.native.modules) {
         : 'Removes exactly one proven unused no-useless-assignment directive; native host binding unchanged. Standards rerun pending.';
   }
   if (!equal) record.structuralDifferences = differences(left, right, left, right);
+  if (popupUtilsPaths.has(path)) {
+    const currentSyntax = syntax(path, currentBody);
+    record.historicalAa4Sha256 = hash(after);
+    record.priorSourceStagesApplyToHistoricalAa4Only = true;
+    record.currentSha256 = hash(currentBody);
+    record.scriptStructuralAstEqual =
+      JSON.stringify(shape(left, left)) === JSON.stringify(shape(currentSyntax, currentSyntax));
+    record.structuralDifferences = differences(left, currentSyntax, left, currentSyntax);
+    record.sourcePopupUtilsClassCorrection = true;
+    record.sourcePopupUtilsClassPredecessor = popupUtilsPredecessor;
+    record.disposition =
+      'Focused class owner successor preserves recorded Source business with native effect/registration ownership; exact full bodies recorded separately. Source-only evidence grants zero unchanged Original assertion or execution credit.';
+  }
   records.push(record);
+  const currentTree = syntax(path, currentBody);
   function count(node) {
     if (
       ts.isCallExpression(node) &&
-      ['$effect', '$effect.pre'].includes(node.expression.getText(right))
+      ['$effect', '$effect.pre'].includes(node.expression.getText(currentTree))
     )
       effectCalls++;
-    if (ts.isNewExpression(node) && node.expression.getText(right) === 'Controlled')
+    if (ts.isNewExpression(node) && node.expression.getText(currentTree) === 'Controlled')
       controlledOwners++;
     ts.forEachChild(node, count);
   }
-  count(right);
+  count(currentTree);
 }
 const preimages = JSON.parse(
   readFileSync(resolve(root, 'parity/native-snippets/integration-predecessors.json'), 'utf8'),
@@ -1199,7 +1273,7 @@ const triggerLifetime = JSON.parse(
 assert.equal(triggerLifetime.predecessor, registrationPredecessor);
 assert.equal(triggerLifetime.pin, graph.immutableOriginalPin);
 for (const runtime of triggerLifetime.runtime) {
-  assert.equal(hash(readFileSync(resolve(root, runtime.path))), runtime.sha256);
+  assert.equal(hash(historicalRuntime(runtime.path)), runtime.sha256);
   assert.equal(
     hash(git('show', `${registrationPredecessor}:${runtime.path}`)),
     runtime.predecessorSha256,
@@ -1222,7 +1296,7 @@ const nativeLifetime = JSON.parse(
 assert.equal(nativeLifetime.predecessor, nativeOwnerPredecessor);
 assert.equal(nativeLifetime.pin, graph.immutableOriginalPin);
 for (const runtime of nativeLifetime.runtime) {
-  assert.equal(hash(readFileSync(resolve(root, runtime.path))), runtime.sha256);
+  assert.equal(hash(historicalRuntime(runtime.path)), runtime.sha256);
   assert.equal(
     hash(git('show', `${nativeOwnerPredecessor}:${runtime.path}`)),
     runtime.predecessorSha256,
@@ -1306,7 +1380,7 @@ assert.deepEqual(
   [...fieldBusinessPaths],
 );
 for (const runtime of fieldStage.runtime) {
-  assert.equal(hash(readFileSync(resolve(root, runtime.path))), runtime.sha256);
+  assert.equal(hash(historicalRuntime(runtime.path)), runtime.sha256);
   assert.equal(
     hash(git('show', `${fieldBusinessPredecessor}:${runtime.path}`)),
     runtime.predecessorSha256,
@@ -1481,6 +1555,26 @@ const output = {
   sourceApi,
   retired,
   records,
+};
+assert.equal(popupUtilsUnchangedBodies, 490);
+output.method +=
+  ' The focused retained-state popup/Utils class successor freezes all earlier stage bodies/counts against aa4daff54. Its six full reviewed candidate bodies are bound by additive explicit successor hashes; all 490 unrelated bodies remain identical to aa4. Earlier per-record Source-stage flags on those six modules describe historicalAa4Sha256 only. Current parser/count/difference projections use actual candidate bodies. This structural stage earns zero unchanged Original assertion or executed acceptance credit.';
+output.popupUtilsClassStage = {
+  predecessor: popupUtilsPredecessor,
+  checkpointStage: {
+    changedBodies: 5,
+    unchangedBodies: 491,
+    evidence: 'parity/popup-utils-owners/class-successor.json',
+    evidenceSha256: hash(popupUtilsCheckpointBytes),
+  },
+  changedBodies: 6,
+  unchangedBodies: popupUtilsUnchangedBodies,
+  evidence: 'parity/popup-utils-owners/class-extension.json',
+  evidenceSha256: hash(
+    readFileSync(resolve(root, 'parity/popup-utils-owners/class-extension.json')),
+  ),
+  ordinaryDeclarationCredit: 0,
+  unchangedAssertionCredit: 0,
 };
 const destination = resolve(root, 'parity/native-snippets/integration-current.json');
 const text = JSON.stringify(output, null, 2) + '\n';

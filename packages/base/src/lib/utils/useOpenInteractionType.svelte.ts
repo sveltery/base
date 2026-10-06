@@ -20,19 +20,26 @@ export function useOpenMethodTriggerProps(
 }
 
 /** Original useOpenInteractionType state and close-reset composition. */
+export class OpenInteractionType {
+  private openMethodValue = $state<InteractionType | null>(null);
+  readonly triggerProps: ReturnType<typeof useOpenMethodTriggerProps>;
+
+  private readonly setOpenMethod = (interactionType: InteractionType | null) => {
+    this.openMethodValue = interactionType;
+  };
+
+  get openMethod() {
+    return this.openMethodValue;
+  }
+
+  constructor(getOpen: () => boolean) {
+    this.triggerProps = useOpenMethodTriggerProps(getOpen, this.setOpenMethod);
+    new ValueChanged(getOpen, () => (previousOpen) => {
+      if (previousOpen && !getOpen()) this.setOpenMethod(null);
+    });
+  }
+}
+
 export function useOpenInteractionType(getOpen: () => boolean) {
-  let openMethod = $state<InteractionType | null>(null);
-  const setOpenMethod = (interactionType: InteractionType | null) => {
-    openMethod = interactionType;
-  };
-  const triggerProps = useOpenMethodTriggerProps(getOpen, setOpenMethod);
-  new ValueChanged(getOpen, () => (previousOpen) => {
-    if (previousOpen && !getOpen()) setOpenMethod(null);
-  });
-  return {
-    get openMethod() {
-      return openMethod;
-    },
-    triggerProps,
-  };
+  return new OpenInteractionType(getOpen);
 }

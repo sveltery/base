@@ -1,0 +1,7 @@
+# Popup/Utils retained-state prerequisite
+
+The seven canonical popup/Utils owners use native classes behind unchanged callable factories. See the [source correspondence, graphs and explicit limits](../parity/popup-utils-owners/README.md) and [PUO-01 compatibility record](upstream-differences.md#puo-01-focused-popuputils-retained-state-classes-proposed). This internal representation preserves public popup APIs and requires no Menu caller rewrite.
+
+Registration cleans up the captured Store/ID/element only while its map entry still belongs to that element. Active-trigger reconciliation preserves pending hydration, same-element reassociation, deferred same-ID replacement and canceled-close ownership. Handle observers retain the server-to-mounted native snapshot boundary. Focus handlers remain safe to destructure; modality and last pointer type remain per-owner state. Anchored scroll locking retains the positive-width/20 px eligibility predicate and delegates all actual lock resources to the existing shared ScrollLocker. Native Svelte effects and attachments keep their existing lifetimes.
+
+This is a proposed focused prerequisite, not whole-popup acceptance. Separately owned navigation, renderer transport, Button/Transition, Composite, Floating and Menu owners remain integration/review dependencies. Historical assertion provenance is preserved, all supplements earn zero unchanged upstream credit, and full parity remains incomplete. The draft PR holds exact-head execution and independent/configured review results.

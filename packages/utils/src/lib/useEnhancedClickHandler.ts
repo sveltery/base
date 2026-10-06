@@ -2,23 +2,36 @@
 export type InteractionType = 'mouse' | 'touch' | 'pen' | 'keyboard' | '';
 
 /** Records pointerdown on browsers whose click event does not expose pointerType. */
+export class EnhancedClickHandler {
+  private readonly lastClickInteractionTypeRef = { current: '' as InteractionType };
+
+  constructor(
+    private readonly handler: (
+      event: MouseEvent | PointerEvent,
+      interactionType: InteractionType,
+    ) => void,
+  ) {}
+
+  readonly onpointerdown = (event: PointerEvent) => {
+    if (event.defaultPrevented) return;
+    this.lastClickInteractionTypeRef.current = event.pointerType as InteractionType;
+    this.handler(event, event.pointerType as InteractionType);
+  };
+
+  readonly onclick = (event: MouseEvent | PointerEvent) => {
+    if (event.detail === 0) {
+      this.handler(event, 'keyboard');
+      return;
+    }
+    if ('pointerType' in event) this.handler(event, event.pointerType as InteractionType);
+    else this.handler(event, this.lastClickInteractionTypeRef.current);
+    this.lastClickInteractionTypeRef.current = '';
+  };
+}
+
 export function useEnhancedClickHandler(
   handler: (event: MouseEvent | PointerEvent, interactionType: InteractionType) => void,
 ) {
-  const lastClickInteractionTypeRef = { current: '' as InteractionType };
-  function onpointerdown(event: PointerEvent) {
-    if (event.defaultPrevented) return;
-    lastClickInteractionTypeRef.current = event.pointerType as InteractionType;
-    handler(event, event.pointerType as InteractionType);
-  }
-  function onclick(event: MouseEvent | PointerEvent) {
-    if (event.detail === 0) {
-      handler(event, 'keyboard');
-      return;
-    }
-    if ('pointerType' in event) handler(event, event.pointerType as InteractionType);
-    else handler(event, lastClickInteractionTypeRef.current);
-    lastClickInteractionTypeRef.current = '';
-  }
+  const { onclick, onpointerdown } = new EnhancedClickHandler(handler);
   return { onclick, onpointerdown };
 }

@@ -528,7 +528,7 @@
         {
           "old": "packages/base/src/lib/utils/useEnhancedClickHandler.ts",
           "current": "packages/utils/src/lib/useEnhancedClickHandler.ts",
-          "currentSha256": "6a045d6b74a7851d3446200f55711ffc1dcc22449a2e92680cdf328750a436d5"
+          "currentSha256": "cc0e6c0c7f6131b365253ef7fc61dcb2bba61f0e228e4cdbcdbc0cb5e9bd9e84"
         },
         {
           "old": "packages/base/src/lib/utils/useId.ts",
@@ -716,7 +716,7 @@
         {
           "old": "packages/base/src/lib/utils/useEnhancedClickHandler.ts",
           "current": "packages/utils/src/lib/useEnhancedClickHandler.ts",
-          "currentSha256": "6a045d6b74a7851d3446200f55711ffc1dcc22449a2e92680cdf328750a436d5"
+          "currentSha256": "cc0e6c0c7f6131b365253ef7fc61dcb2bba61f0e228e4cdbcdbc0cb5e9bd9e84"
         },
         {
           "old": "packages/base/src/lib/utils/useId.ts",
@@ -911,7 +911,7 @@
         {
           "old": "packages/base/src/lib/utils/useEnhancedClickHandler.ts",
           "current": "packages/utils/src/lib/useEnhancedClickHandler.ts",
-          "currentSha256": "6a045d6b74a7851d3446200f55711ffc1dcc22449a2e92680cdf328750a436d5"
+          "currentSha256": "cc0e6c0c7f6131b365253ef7fc61dcb2bba61f0e228e4cdbcdbc0cb5e9bd9e84"
         },
         {
           "old": "packages/base/src/lib/utils/useId.ts",
@@ -1084,7 +1084,7 @@
         {
           "old": "packages/base/src/lib/utils/useEnhancedClickHandler.ts",
           "current": "packages/utils/src/lib/useEnhancedClickHandler.ts",
-          "currentSha256": "6a045d6b74a7851d3446200f55711ffc1dcc22449a2e92680cdf328750a436d5"
+          "currentSha256": "cc0e6c0c7f6131b365253ef7fc61dcb2bba61f0e228e4cdbcdbc0cb5e9bd9e84"
         },
         {
           "old": "packages/base/src/lib/utils/useId.ts",
@@ -1742,5 +1742,5 @@
     "avatar-successor/nativeTests-graph.json"
   ],
   "scope": "Old package-path receipts remain byte-identical historical evidence. This explicit successor points every affected old path to the actual current owner and fresh complete two-package graph.",
-  "currentGraphSha256": "0155da90b856ac651ef8aebc1cbb4929e1515cda91651ced754c4cb7c20acf87"
+  "currentGraphSha256": "495834275a712a76b4ce46c7ea01efe868944d3f94923d91a08567f682bd435c"
 }

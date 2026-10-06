@@ -2013,7 +2013,7 @@
         "packages/base/src/lib/utils/popups/popupStoreUtils.svelte.ts"
       ],
       "localHashes": {
-        "packages/base/src/lib/utils/popups/popupStoreUtils.svelte.ts": "13b61b426eed8a0875580aa2a8e15a8caf5c7110e915174bf4d613f069f7b01a"
+        "packages/base/src/lib/utils/popups/popupStoreUtils.svelte.ts": "31b9b5846b583ab845099da30e822e0146deb9cbc50f7ef51bdcb190092deb82"
       },
       "correspondence": "Same canonical component/helper/context/store boundary with native Svelte framework substitution where required; compare entire Original and actual used body, including inherited code.",
       "reviewStatus": "Entire used Source/native business, idiomatic Svelte and maintainability independent exact-head review pending; no acceptance by inventory."
@@ -2055,7 +2055,7 @@
         "packages/base/src/lib/utils/popups/usePopupHandleStore.svelte.ts"
       ],
       "localHashes": {
-        "packages/base/src/lib/utils/popups/usePopupHandleStore.svelte.ts": "d96d4ca763135cddc2ddbc931e772954b47ceb057bf1172660ec73203c9dbd0b"
+        "packages/base/src/lib/utils/popups/usePopupHandleStore.svelte.ts": "41c73ec1ce36c36d773a4ab7f61e85c44b0bd717c87ca1448bff1b92e0270954"
       },
       "correspondence": "Same canonical component/helper/context/store boundary with native Svelte framework substitution where required; compare entire Original and actual used body, including inherited code.",
       "reviewStatus": "Entire used Source/native business, idiomatic Svelte and maintainability independent exact-head review pending; no acceptance by inventory."
@@ -2069,7 +2069,7 @@
         "packages/base/src/lib/utils/popups/useTriggerFocusGuards.svelte.ts"
       ],
       "localHashes": {
-        "packages/base/src/lib/utils/popups/useTriggerFocusGuards.svelte.ts": "31fe56072f7dd8093b4292afc5da43ce09f07ed01faa185e6fae8cdc11f5aac6"
+        "packages/base/src/lib/utils/popups/useTriggerFocusGuards.svelte.ts": "e6d09ce43802118ad7bf2b0852372c9087fcaa71b12613cc06a9fd4c5396a09f"
       },
       "correspondence": "Same canonical component/helper/context/store boundary with native Svelte framework substitution where required; compare entire Original and actual used body, including inherited code.",
       "reviewStatus": "Entire used Source/native business, idiomatic Svelte and maintainability independent exact-head review pending; no acceptance by inventory."
@@ -2139,7 +2139,7 @@
         "packages/base/src/lib/utils/useAnchoredPopupScrollLock.svelte.ts"
       ],
       "localHashes": {
-        "packages/base/src/lib/utils/useAnchoredPopupScrollLock.svelte.ts": "21a07726eed55814307acd741228214b8ebc411a0dcbddcf1d32a13ccdc45060"
+        "packages/base/src/lib/utils/useAnchoredPopupScrollLock.svelte.ts": "6d8a8fb8469ee277692c4defb9503b46f1e4916f98314f85816e1ce1c684adbc"
       },
       "correspondence": "Same canonical component/helper/context/store boundary with native Svelte framework substitution where required; compare entire Original and actual used body, including inherited code.",
       "reviewStatus": "Entire used Source/native business, idiomatic Svelte and maintainability independent exact-head review pending; no acceptance by inventory."
@@ -2181,7 +2181,7 @@
         "packages/base/src/lib/utils/useOpenInteractionType.svelte.ts"
       ],
       "localHashes": {
-        "packages/base/src/lib/utils/useOpenInteractionType.svelte.ts": "92fb932de384aef85dccc45311f5920dabbd8897584a656d27a5bcd8a012a966"
+        "packages/base/src/lib/utils/useOpenInteractionType.svelte.ts": "2240790b90d2947cd6f91a130068cc6ae5ab76ee798122a579a9a5f5cf07528d"
       },
       "correspondence": "Same canonical component/helper/context/store boundary with native Svelte framework substitution where required; compare entire Original and actual used body, including inherited code.",
       "reviewStatus": "Entire used Source/native business, idiomatic Svelte and maintainability independent exact-head review pending; no acceptance by inventory."
@@ -2637,7 +2637,7 @@
         "packages/utils/src/lib/useEnhancedClickHandler.ts"
       ],
       "localHashes": {
-        "packages/utils/src/lib/useEnhancedClickHandler.ts": "6a045d6b74a7851d3446200f55711ffc1dcc22449a2e92680cdf328750a436d5"
+        "packages/utils/src/lib/useEnhancedClickHandler.ts": "cc0e6c0c7f6131b365253ef7fc61dcb2bba61f0e228e4cdbcdbc0cb5e9bd9e84"
       },
       "correspondence": "Same canonical component/helper/context/store boundary with native Svelte framework substitution where required; compare entire Original and actual used body, including inherited code.",
       "reviewStatus": "Entire used Source/native business, idiomatic Svelte and maintainability independent exact-head review pending; no acceptance by inventory."
@@ -2731,8 +2731,8 @@
         "packages/base/src/lib/menu/trigger/createMenuTrigger.svelte.ts": "ae04e18d492aa073757adc134e825f1fa8412283d742cb6cf9895a784215108f",
         "packages/base/src/lib/menubar/Menubar.svelte": "8f5a232bc3f2246ffaa0cba4b84764f064687feecc365c837476bfc4f2dbbc43",
         "packages/base/src/lib/utils/popups/PopupHandleAttachment.svelte": "437e6d44b586b4cc524d30d4214906695aa505239f1951a7840077780f562927",
-        "packages/base/src/lib/utils/popups/popupStoreUtils.svelte.ts": "13b61b426eed8a0875580aa2a8e15a8caf5c7110e915174bf4d613f069f7b01a",
-        "packages/base/src/lib/utils/useAnchoredPopupScrollLock.svelte.ts": "21a07726eed55814307acd741228214b8ebc411a0dcbddcf1d32a13ccdc45060",
+        "packages/base/src/lib/utils/popups/popupStoreUtils.svelte.ts": "31b9b5846b583ab845099da30e822e0146deb9cbc50f7ef51bdcb190092deb82",
+        "packages/base/src/lib/utils/useAnchoredPopupScrollLock.svelte.ts": "6d8a8fb8469ee277692c4defb9503b46f1e4916f98314f85816e1ce1c684adbc",
         "packages/base/src/lib/utils/usePopupAutoResize.svelte.ts": "79908384bfa561421638c3362a8d0bf38526635fcc19780c72d2ff43f7b8ba9c",
         "packages/base/src/lib/utils/usePopupViewport.svelte.ts": "7a3a49008f305ccbbdb0b3c048a3787e24128a6c687ad6d7dba6b000970acaf7",
         "packages/utils/src/lib/useScrollLock.svelte.ts": "bea63beb673cffb2bb25fcb5491b34f9724cb03453c1014273b501da4c5dfc35"
@@ -2868,7 +2868,7 @@
         "packages/base/src/lib/menu/root/createMenuRoot.svelte.ts": "c388e875d2a3f4c6fb748b17f1dc2e9c35ce347360d7de696dfe83295136616e",
         "packages/base/src/lib/menu/submenu-trigger/createMenuSubmenuTrigger.svelte.ts": "3bdb83ab95cdfbe5ba3066f17bbd04c60915ba5e887e486db27f6484c4105691",
         "packages/base/src/lib/menu/trigger/createMenuTrigger.svelte.ts": "ae04e18d492aa073757adc134e825f1fa8412283d742cb6cf9895a784215108f",
-        "packages/base/src/lib/utils/popups/popupStoreUtils.svelte.ts": "13b61b426eed8a0875580aa2a8e15a8caf5c7110e915174bf4d613f069f7b01a",
+        "packages/base/src/lib/utils/popups/popupStoreUtils.svelte.ts": "31b9b5846b583ab845099da30e822e0146deb9cbc50f7ef51bdcb190092deb82",
         "packages/base/src/lib/utils/usePopupAutoResize.svelte.ts": "79908384bfa561421638c3362a8d0bf38526635fcc19780c72d2ff43f7b8ba9c",
         "packages/base/src/lib/utils/usePopupViewport.svelte.ts": "7a3a49008f305ccbbdb0b3c048a3787e24128a6c687ad6d7dba6b000970acaf7"
       },

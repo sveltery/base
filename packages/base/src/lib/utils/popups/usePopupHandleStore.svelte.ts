@@ -3,17 +3,23 @@
 // onMount chooses the committed pointer after the source-compatible inert server snapshot.
 import { onMount } from 'svelte';
 import type { PopupHandleStoreProvider } from './popupHandle.svelte.js';
+export class PopupHandleStore<HandleStore> {
+  private committed = $state(false);
+
+  constructor(private readonly getHandle: () => PopupHandleStoreProvider<HandleStore> | undefined) {
+    onMount(() => {
+      this.committed = true;
+    });
+  }
+
+  get store() {
+    const handle = this.getHandle();
+    return handle === undefined ? undefined : this.committed ? handle.store : handle.serverStore;
+  }
+}
+
 export function usePopupHandleStore<HandleStore>(
   getHandle: () => PopupHandleStoreProvider<HandleStore> | undefined,
 ) {
-  let committed = $state(false);
-  onMount(() => {
-    committed = true;
-  });
-  return {
-    get store() {
-      const handle = getHandle();
-      return handle === undefined ? undefined : committed ? handle.store : handle.serverStore;
-    },
-  };
+  return new PopupHandleStore(getHandle);
 }

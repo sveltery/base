@@ -376,7 +376,7 @@
       "to": "packages/utils/src/lib/useEnhancedClickHandler.ts",
       "baselineLocalSha256": "6a045d6b74a7851d3446200f55711ffc1dcc22449a2e92680cdf328750a436d5",
       "extractedLocalSha256": "6a045d6b74a7851d3446200f55711ffc1dcc22449a2e92680cdf328750a436d5",
-      "currentLocalSha256": "6a045d6b74a7851d3446200f55711ffc1dcc22449a2e92680cdf328750a436d5",
+      "currentLocalSha256": "cc0e6c0c7f6131b365253ef7fc61dcb2bba61f0e228e4cdbcdbc0cb5e9bd9e84",
       "reviewStatus": "Source/native/maintainability final-head review pending; extraction hash is immutable initial lineage."
     },
     {
@@ -596,11 +596,11 @@
         },
         {
           "path": "packages/base/src/lib/utils/popups/popupStoreUtils.svelte.ts",
-          "sha256": "13b61b426eed8a0875580aa2a8e15a8caf5c7110e915174bf4d613f069f7b01a"
+          "sha256": "31b9b5846b583ab845099da30e822e0146deb9cbc50f7ef51bdcb190092deb82"
         },
         {
           "path": "packages/base/src/lib/utils/useAnchoredPopupScrollLock.svelte.ts",
-          "sha256": "21a07726eed55814307acd741228214b8ebc411a0dcbddcf1d32a13ccdc45060"
+          "sha256": "6d8a8fb8469ee277692c4defb9503b46f1e4916f98314f85816e1ce1c684adbc"
         },
         {
           "path": "packages/base/src/lib/utils/usePopupAutoResize.svelte.ts",
@@ -867,7 +867,7 @@
         },
         {
           "path": "packages/base/src/lib/utils/popups/popupStoreUtils.svelte.ts",
-          "sha256": "13b61b426eed8a0875580aa2a8e15a8caf5c7110e915174bf4d613f069f7b01a"
+          "sha256": "31b9b5846b583ab845099da30e822e0146deb9cbc50f7ef51bdcb190092deb82"
         },
         {
           "path": "packages/base/src/lib/utils/usePopupAutoResize.svelte.ts",
@@ -49907,7 +49907,7 @@
       },
       {
         "path": "packages/base/src/lib/utils/popups/popupStoreUtils.svelte.ts",
-        "sha256": "13b61b426eed8a0875580aa2a8e15a8caf5c7110e915174bf4d613f069f7b01a",
+        "sha256": "31b9b5846b583ab845099da30e822e0146deb9cbc50f7ef51bdcb190092deb82",
         "symbols": [
           {
             "name": "PopupStoreWithOpen",
@@ -49930,9 +49930,14 @@
             "sha256": "e37a5d4d0a6bb5fe6a880ec32856273f8a3dcc70893ca4dbc51af5d7f4f7154d"
           },
           {
+            "name": "TriggerRegistration",
+            "kind": "ClassDeclaration",
+            "sha256": "7b10c8f9fb78f828844709e99151f4b7ba833b8b88db3f67c1e9c3beaf7ee502"
+          },
+          {
             "name": "useTriggerRegistration",
             "kind": "FunctionDeclaration",
-            "sha256": "ad862a67fbb498a0fb0ced640e99a7b3c05b1ffc625e4e6fa5b769e54e05c28a"
+            "sha256": "ec876d61a553905b3004531961b163a79722b95d448d0567e14bf1a63e0e2b93"
           },
           {
             "name": "useTriggerDataForwarding",
@@ -49940,9 +49945,14 @@
             "sha256": "9d2285948c659ea5890040861c969c637a68ea28fc7a42b1715d16d5edfc7cf4"
           },
           {
+            "name": "ImplicitActiveTrigger",
+            "kind": "ClassDeclaration",
+            "sha256": "2096f3548b8b764cd2d9b5a6a7d9d84c5deb142fb2d543527a32c069ae1681c3"
+          },
+          {
             "name": "useImplicitActiveTrigger",
             "kind": "FunctionDeclaration",
-            "sha256": "f707e3a97b1027db127fc2b3bd905a80d16d4c2b32e0971934e94b62f0e3f0c1"
+            "sha256": "32b2bd277450345d77245116771ff784e79d2a989c48b1f12a869f1f3dfb53aa"
           },
           {
             "name": "useOpenStateTransitions",
@@ -50321,12 +50331,17 @@
       },
       {
         "path": "packages/base/src/lib/utils/popups/usePopupHandleStore.svelte.ts",
-        "sha256": "d96d4ca763135cddc2ddbc931e772954b47ceb057bf1172660ec73203c9dbd0b",
+        "sha256": "41c73ec1ce36c36d773a4ab7f61e85c44b0bd717c87ca1448bff1b92e0270954",
         "symbols": [
+          {
+            "name": "PopupHandleStore",
+            "kind": "ClassDeclaration",
+            "sha256": "70ea7c19e8dbe6df366d5808cd8237d2b5ae3e9b0c21a2a9a6b281da90f839a8"
+          },
           {
             "name": "usePopupHandleStore",
             "kind": "FunctionDeclaration",
-            "sha256": "938c8b4cac78678890b54a8f37ec70535ee7dd85bce506ad9f50878d30ac33e6"
+            "sha256": "fff738d56a67c2bf99ea8313d7d8619971bb04977ef2845d3ee9d635030508c0"
           }
         ],
         "imports": [
@@ -50361,7 +50376,7 @@
       },
       {
         "path": "packages/base/src/lib/utils/popups/useTriggerFocusGuards.svelte.ts",
-        "sha256": "31fe56072f7dd8093b4292afc5da43ce09f07ed01faa185e6fae8cdc11f5aac6",
+        "sha256": "e6d09ce43802118ad7bf2b0852372c9087fcaa71b12613cc06a9fd4c5396a09f",
         "symbols": [
           {
             "name": "TriggerFocusGuardStore",
@@ -50369,9 +50384,14 @@
             "sha256": "131d63a014c9af0b2d9383ae4c51a688253ede35bfad2739cee24af95f90b59d"
           },
           {
+            "name": "TriggerFocusGuards",
+            "kind": "ClassDeclaration",
+            "sha256": "5a6a5f9b661a52057d423a6179df59d5a3f1333d55dd3ae1da85a090b719a06f"
+          },
+          {
             "name": "useTriggerFocusGuards",
             "kind": "FunctionDeclaration",
-            "sha256": "f6a77ba9b2ae4e0c1fd8a44c13fdcd4454789ba3aa325c158baf5f2feebd94b1"
+            "sha256": "ba978c292cde7772c5fd96f50ff82804ebc6572162fbeb0dc463a3dfaf1ee53d"
           }
         ],
         "imports": [
@@ -50692,12 +50712,17 @@
       },
       {
         "path": "packages/base/src/lib/utils/useAnchoredPopupScrollLock.svelte.ts",
-        "sha256": "21a07726eed55814307acd741228214b8ebc411a0dcbddcf1d32a13ccdc45060",
+        "sha256": "6d8a8fb8469ee277692c4defb9503b46f1e4916f98314f85816e1ce1c684adbc",
         "symbols": [
+          {
+            "name": "AnchoredPopupScrollLock",
+            "kind": "ClassDeclaration",
+            "sha256": "d55d3bdfa359f6907f31b3fdce7f42e3a0d86f8688928261f821a37e07baa412"
+          },
           {
             "name": "useAnchoredPopupScrollLock",
             "kind": "FunctionDeclaration",
-            "sha256": "536094a98ba4654644edb7a976caac631f21097fdfe244438d4506054a50d36f"
+            "sha256": "b771c1ec774eb163cee638ad75b0c6dd3e95a30a71c6b2000ca761a4d000d05f"
           }
         ],
         "imports": [
@@ -50827,7 +50852,7 @@
       },
       {
         "path": "packages/base/src/lib/utils/useOpenInteractionType.svelte.ts",
-        "sha256": "92fb932de384aef85dccc45311f5920dabbd8897584a656d27a5bcd8a012a966",
+        "sha256": "2240790b90d2947cd6f91a130068cc6ae5ab76ee798122a579a9a5f5cf07528d",
         "symbols": [
           {
             "name": "useOpenMethodTriggerProps",
@@ -50835,9 +50860,14 @@
             "sha256": "8ed2081e0e8581d136784f2bafc9cd29457b872a1119fe992cfa54dec80c95a7"
           },
           {
+            "name": "OpenInteractionType",
+            "kind": "ClassDeclaration",
+            "sha256": "49fb0d5d9582045e6ac333e5d5531259d5aab972364854193f7ad1a096dfacaa"
+          },
+          {
             "name": "useOpenInteractionType",
             "kind": "FunctionDeclaration",
-            "sha256": "eeef89932517673bda9b036857c1581e7d59546bec105792ddc484ec6f3fa7fe"
+            "sha256": "ae6d03acc5d6ec94f2c14426491f0ee467583fff8466bba88c5113d53574eb93"
           }
         ],
         "imports": [
@@ -52139,7 +52169,7 @@
       },
       {
         "path": "packages/utils/src/lib/useEnhancedClickHandler.ts",
-        "sha256": "6a045d6b74a7851d3446200f55711ffc1dcc22449a2e92680cdf328750a436d5",
+        "sha256": "cc0e6c0c7f6131b365253ef7fc61dcb2bba61f0e228e4cdbcdbc0cb5e9bd9e84",
         "symbols": [
           {
             "name": "InteractionType",
@@ -52147,9 +52177,14 @@
             "sha256": "e9ea8d56b275f34dd8ec14f85c7b9835a9b5405655dfbc4bac625de6658da794"
           },
           {
+            "name": "EnhancedClickHandler",
+            "kind": "ClassDeclaration",
+            "sha256": "cbb1ecce28f3c0f92bee3662352f8504a9b758cfc5dca186718063f2f2383a7d"
+          },
+          {
             "name": "useEnhancedClickHandler",
             "kind": "FunctionDeclaration",
-            "sha256": "3d1836decb62e78ffad33b90f034e634a57bd8f0ae43232a53d891ffeb1839b2"
+            "sha256": "d472738763916e103ecf236bd6a8d702176a6e078c9ad59b3e9b5528a30a3b38"
           }
         ],
         "imports": [],

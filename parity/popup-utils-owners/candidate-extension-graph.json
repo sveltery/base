@@ -1,0 +1,3750 @@
+{
+  "immutableOriginalPin": "47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c",
+  "predecessor": "aa4daff54ec82b96e34e1601648d1b3926ef08cf",
+  "constructionCheckpoint": "parity/popup-utils-owners/candidate-graph.json",
+  "precodeGraphs": [
+    {
+      "path": "parity/popup-utils-owners/native-graph.json",
+      "sha256": "4a15d0c72f241eab16093041018eb533ecfd982420d546c1cef167b0c6c4e47e"
+    },
+    {
+      "path": "parity/popup-utils-owners/extension-native-graph.json",
+      "sha256": "d4deaf9576c3d7a5a653fa6c188d6a92c4b452b7210c3f45909ca7db121ce6f5"
+    }
+  ],
+  "method": "Current conservative union of six-role construction and anchored-scroll extension dependency modules; actual current bytes/imports/symbols. Selected-owner/sibling distinctions retain precode records. No unchanged Original assertion, execution or independent acceptance credit.",
+  "ordinaryDeclarationCredit": 0,
+  "unchangedAssertionCredit": 0,
+  "modules": [
+    {
+      "path": "packages/base/src/lib/direction-provider/types.ts",
+      "sha256": "a56af048e882453755ad2948782af4f2f832903e031d4812b8da9fc5f4b82aae",
+      "symbols": [
+        {
+          "name": "TextDirection",
+          "kind": "TypeAliasDeclaration",
+          "sha256": "67643be5241405e28f56fb33d531087fc323a89117af58af7b75f10550b81d5d"
+        },
+        {
+          "name": "DirectionProviderProps",
+          "kind": "InterfaceDeclaration",
+          "sha256": "1631d60b40724ae01c1c68f80d8d43ed2d604f2a50afb393041314d915188713"
+        }
+      ],
+      "imports": [
+        {
+          "specifier": "svelte",
+          "kind": "type",
+          "members": [
+            {
+              "imported": "Snippet",
+              "local": "Snippet",
+              "typeOnly": true
+            }
+          ],
+          "syntax": "import",
+          "resolved": "external:svelte"
+        }
+      ],
+      "reachability": "type-only"
+    },
+    {
+      "path": "packages/base/src/lib/floating-ui/components/FloatingRootStore.svelte.ts",
+      "sha256": "8840439ae903d174103880ac84185b4ccb7d916761ac2e3e96b7f48a88f245d3",
+      "symbols": [
+        {
+          "name": "FloatingRootState",
+          "kind": "InterfaceDeclaration",
+          "sha256": "0b4b448540b53bf1855d3bdd32e7f1823c0a52a6673306083552f285eba93be8"
+        },
+        {
+          "name": "FloatingRootStoreContext",
+          "kind": "InterfaceDeclaration",
+          "sha256": "4ff7f82532d866418346a721bfa8f9f2b408cd3cc48ba18fc1abb29c71e71415"
+        },
+        {
+          "name": "FloatingRootStoreOptions",
+          "kind": "InterfaceDeclaration",
+          "sha256": "b2e330d68d9c9cb4c77eb7b8b445cf2dbd662b7307ed4b250503bd3e36a6607f"
+        },
+        {
+          "name": "FloatingRootStore",
+          "kind": "ClassDeclaration",
+          "sha256": "15de2df0766df06b0e8163ac84f53fa0fc503f2d3751737536f30f3f229021e3"
+        }
+      ],
+      "imports": [
+        {
+          "specifier": "@sveltery/utils/store",
+          "kind": "runtime",
+          "members": [
+            {
+              "imported": "SvelteStore",
+              "local": "SvelteStore",
+              "typeOnly": false
+            }
+          ],
+          "syntax": "import",
+          "resolved": "packages/utils/src/lib/store/index.ts"
+        },
+        {
+          "specifier": "../types.js",
+          "kind": "type",
+          "members": [
+            {
+              "imported": "FloatingEvents",
+              "local": "FloatingEvents",
+              "typeOnly": true
+            },
+            {
+              "imported": "ContextData",
+              "local": "ContextData",
+              "typeOnly": true
+            },
+            {
+              "imported": "ReferenceType",
+              "local": "ReferenceType",
+              "typeOnly": true
+            }
+          ],
+          "syntax": "import",
+          "resolved": "packages/base/src/lib/floating-ui/types.ts"
+        },
+        {
+          "specifier": "../../internals/createBaseUIEventDetails.js",
+          "kind": "type",
+          "members": [
+            {
+              "imported": "BaseUIChangeEventDetails",
+              "local": "BaseUIChangeEventDetails",
+              "typeOnly": true
+            }
+          ],
+          "syntax": "import",
+          "resolved": "packages/base/src/lib/internals/createBaseUIEventDetails.ts"
+        },
+        {
+          "specifier": "../utils/createEventEmitter.js",
+          "kind": "runtime",
+          "members": [
+            {
+              "imported": "createEventEmitter",
+              "local": "createEventEmitter",
+              "typeOnly": false
+            }
+          ],
+          "syntax": "import",
+          "resolved": "packages/base/src/lib/floating-ui/utils/createEventEmitter.ts"
+        },
+        {
+          "specifier": "../types.js",
+          "kind": "type",
+          "members": [
+            {
+              "imported": "FloatingUIOpenChangeDetails",
+              "local": "FloatingUIOpenChangeDetails",
+              "typeOnly": true
+            }
+          ],
+          "syntax": "import",
+          "resolved": "packages/base/src/lib/floating-ui/types.ts"
+        },
+        {
+          "specifier": "../../utils/popups/popupTriggerMap.svelte.js",
+          "kind": "type",
+          "members": [
+            {
+              "imported": "PopupTriggerMap",
+              "local": "PopupTriggerMap",
+              "typeOnly": true
+            }
+          ],
+          "syntax": "import",
+          "resolved": "packages/base/src/lib/utils/popups/popupTriggerMap.svelte.ts"
+        },
+        {
+          "specifier": "../utils/event.js",
+          "kind": "runtime",
+          "members": [
+            {
+              "imported": "isClickLikeEvent",
+              "local": "isClickLikeEvent",
+              "typeOnly": false
+            }
+          ],
+          "syntax": "import",
+          "resolved": "packages/base/src/lib/floating-ui/utils/event.ts"
+        },
+        {
+          "specifier": "../../internals/useTransitionStatus.svelte.js",
+          "kind": "type",
+          "members": [
+            {
+              "imported": "TransitionStatus",
+              "local": "TransitionStatus",
+              "typeOnly": true
+            }
+          ],
+          "syntax": "import",
+          "resolved": "packages/base/src/lib/internals/useTransitionStatus.svelte.ts"
+        }
+      ],
+      "reachability": "runtime"
+    },
+    {
+      "path": "packages/base/src/lib/floating-ui/components/FloatingTree.svelte.ts",
+      "sha256": "4ba1a45eb3e58c4c1cdb7fc68d48c59da7ad7a5cbd5f9be7319c22af1ca60d8a",
+      "symbols": [
+        {
+          "name": "useFloatingParentNodeId",
+          "kind": "FunctionDeclaration",
+          "sha256": "eecb1ea5d460574d9d3f976e2d22174eaa3d113c20a97ec16bf3ffb95772bf59"
+        },
+        {
+          "name": "useFloatingTree",
+          "kind": "FunctionDeclaration",
+          "sha256": "7b8114d225be74728991fa7890afc1611a4a62b59ca13678558ee6c21a61b28e"
+        },
+        {
+          "name": "provideFloatingTree",
+          "kind": "FunctionDeclaration",
+          "sha256": "682bf4430fd6f48094a6ef48d9f510b39160be7f6593817be40993c3d6d26002"
+        },
+        {
+          "name": "useFloatingNodeId",
+          "kind": "FunctionDeclaration",
+          "sha256": "e20d8752d574d5de1c911b47738bfb35ac370c50bd72c8b23ce6d53f82d7b095"
+        },
+        {
+          "name": "provideFloatingNode",
+          "kind": "FunctionDeclaration",
+          "sha256": "7702cd5170fcdd3ed38c9110b92e4f29a761450073aa035303d6666fb354ea11"
+        }
+      ],
+      "imports": [
+        {
+          "specifier": "svelte",
+          "kind": "runtime",
+          "members": [
+            {
+              "imported": "getContext",
+              "local": "getContext",
+              "typeOnly": false
+            },
+            {
+              "imported": "setContext",
+              "local": "setContext",
+              "typeOnly": false
+            }
+          ],
+          "syntax": "import",
+          "resolved": "external:svelte"
+        },
+        {
+          "specifier": "./FloatingTreeStore.js",
+          "kind": "runtime",
+          "members": [
+            {
+              "imported": "FloatingTreeStore",
+              "local": "FloatingTreeStore",
+              "typeOnly": false
+            }
+          ],
+          "syntax": "import",
+          "resolved": "packages/base/src/lib/floating-ui/components/FloatingTreeStore.ts"
+        },
+        {
+          "specifier": "../types.js",
+          "kind": "type",
+          "members": [
+            {
+              "imported": "FloatingNodeType",
+              "local": "FloatingNodeType",
+              "typeOnly": true
+            }
+          ],
+          "syntax": "import",
+          "resolved": "packages/base/src/lib/floating-ui/types.ts"
+        }
+      ],
+      "reachability": "runtime"
+    },
+    {
+      "path": "packages/base/src/lib/floating-ui/components/FloatingTreeStore.ts",
+      "sha256": "eb351b05f9f15cd7acebfe9b093cb42eb07c27073f41bd670633c94c41effdd3",
+      "symbols": [
+        {
+          "name": "FloatingTreeStore",
+          "kind": "ClassDeclaration",
+          "sha256": "92afb6117b0fa3422caee77495487f2abc1af74caf99dcb150cbdde370b12d5e"
+        }
+      ],
+      "imports": [
+        {
+          "specifier": "../types.js",
+          "kind": "type",
+          "members": [
+            {
+              "imported": "FloatingNodeType",
+              "local": "FloatingNodeType",
+              "typeOnly": true
+            },
+            {
+              "imported": "FloatingEvents",
+              "local": "FloatingEvents",
+              "typeOnly": true
+            }
+          ],
+          "syntax": "import",
+          "resolved": "packages/base/src/lib/floating-ui/types.ts"
+        },
+        {
+          "specifier": "../utils/createEventEmitter.js",
+          "kind": "runtime",
+          "members": [
+            {
+              "imported": "createEventEmitter",
+              "local": "createEventEmitter",
+              "typeOnly": false
+            }
+          ],
+          "syntax": "import",
+          "resolved": "packages/base/src/lib/floating-ui/utils/createEventEmitter.ts"
+        }
+      ],
+      "reachability": "runtime"
+    },
+    {
+      "path": "packages/base/src/lib/floating-ui/hooks/useHoverShared.ts",
+      "sha256": "27321c9b2a6773e8743846b8af2a51a4339462f8189f1a9cad36b9702b4517df",
+      "symbols": [
+        {
+          "name": "HandleCloseOptions",
+          "kind": "InterfaceDeclaration",
+          "sha256": "0b72c220042f3f730af0a776b28483ce4f3a8e7534b957ebb3402d27817b1310"
+        },
+        {
+          "name": "HandleCloseContext",
+          "kind": "InterfaceDeclaration",
+          "sha256": "1fb2e11b8a366b4b170acc09f5dfb94887c819e31e0dc0505707d610f456de39"
+        },
+        {
+          "name": "HandleCloseContextBase",
+          "kind": "TypeAliasDeclaration",
+          "sha256": "c21700f14149472ebea9d667aa322c44bbb68409164afb0f92696aeae558a576"
+        },
+        {
+          "name": "HandleClose",
+          "kind": "InterfaceDeclaration",
+          "sha256": "f22b0db409692e4ad510def911e6716fa3730293065f32cec2b0d8027f4f2576"
+        },
+        {
+          "name": "HoverDelay",
+          "kind": "TypeAliasDeclaration",
+          "sha256": "20138d72237d833be7f9ce9aa66970cd7eba78d062562501c0d3a37fb6ba6ec6"
+        },
+        {
+          "name": "resolveValue",
+          "kind": "FunctionDeclaration",
+          "sha256": "4d9e32446354b2e5e97534efbe794437404c21a191154d3ed84b6d29cc01ca42"
+        },
+        {
+          "name": "getDelay",
+          "kind": "FunctionDeclaration",
+          "sha256": "192d24d214ae50c48eaa749dab23d922c25559b4b91f7bcc010a4ae2479046e5"
+        },
+        {
+          "name": "getRestMs",
+          "kind": "FunctionDeclaration",
+          "sha256": "286cbd8baafd80e1be3cfe5721629c79257983003b90f6a536f402a0b6687b55"
+        },
+        {
+          "name": "isClickLikeOpenEvent",
+          "kind": "FunctionDeclaration",
+          "sha256": "5cc3b361e87bf4b5ed4cc2faf8c44c8d551d2bd996529e4110e9bce195d54144"
+        },
+        {
+          "name": "isHoverOpenEvent",
+          "kind": "FunctionDeclaration",
+          "sha256": "fc8d443daa41ec48d9dae931d22532daaee0ec3d9c641f7ddf4e149381f52ec1"
+        }
+      ],
+      "imports": [
+        {
+          "specifier": "../utils/event.js",
+          "kind": "runtime",
+          "members": [
+            {
+              "imported": "isMouseLikePointerType",
+              "local": "isMouseLikePointerType",
+              "typeOnly": false
+            }
+          ],
+          "syntax": "import",
+          "resolved": "packages/base/src/lib/floating-ui/utils/event.ts"
+        },
+        {
+          "specifier": "../types.js",
+          "kind": "type",
+          "members": [
+            {
+              "imported": "ExtendedElements",
+              "local": "ExtendedElements",
+              "typeOnly": true
+            },
+            {
+              "imported": "FloatingTreeType",
+              "local": "FloatingTreeType",
+              "typeOnly": true
+            },
+            {
+              "imported": "Placement",
+              "local": "Placement",
+              "typeOnly": true
+            }
+          ],
+          "syntax": "import",
+          "resolved": "packages/base/src/lib/floating-ui/types.ts"
+        },
+        {
+          "specifier": "../utils/element.js",
+          "kind": "runtime",
+          "members": [
+            {
+              "imported": "isTargetInsideEnabledTrigger",
+              "local": "isInsideEnabledTrigger",
+              "typeOnly": false
+            }
+          ],
+          "syntax": "reexport",
+          "resolved": "packages/base/src/lib/floating-ui/utils/element.ts"
+        }
+      ],
+      "reachability": "runtime"
+    },
+    {
+      "path": "packages/base/src/lib/floating-ui/hooks/useSyncedFloatingRootContext.svelte.ts",
+      "sha256": "aa1374702cc5d76d0380c6b4080ffc10f2b22b496ecbfed24b97e70636669916",
+      "symbols": [
+        {
+          "name": "useSyncedFloatingRootContext",
+          "kind": "FunctionDeclaration",
+          "sha256": "1b073466a757eaca0044c6ee0ec7029bcba694b1f3327610f86e4e9448a52002"
+        }
+      ],
+      "imports": [
+        {
+          "specifier": "svelte",
+          "kind": "runtime",
+          "members": [
+            {
+              "imported": "untrack",
+              "local": "untrack",
+              "typeOnly": false
+            }
+          ],
+          "syntax": "import",
+          "resolved": "external:svelte"
+        },
+        {
+          "specifier": "@floating-ui/utils/dom",
+          "kind": "runtime",
+          "members": [
+            {
+              "imported": "isElement",
+              "local": "isElement",
+              "typeOnly": false
+            }
+          ],
+          "syntax": "import",
+          "resolved": "external:@floating-ui/utils/dom"
+        },
+        {
+          "specifier": "../components/FloatingRootStore.svelte.js",
+          "kind": "runtime",
+          "members": [
+            {
+              "imported": "FloatingRootStore",
+              "local": "FloatingRootStore",
+              "typeOnly": false
+            },
+            {
+              "imported": "FloatingRootState",
+              "local": "FloatingRootState",
+              "typeOnly": true
+            }
+          ],
+          "syntax": "import",
+          "resolved": "packages/base/src/lib/floating-ui/components/FloatingRootStore.svelte.ts"
+        },
+        {
+          "specifier": "../../utils/popups/store.js",
+          "kind": "type",
+          "members": [
+            {
+              "imported": "PopupStoreState",
+              "local": "PopupStoreState",
+              "typeOnly": true
+            },
+            {
+              "imported": "PopupTriggerDataStore",
+              "local": "PopupTriggerDataStore",
+              "typeOnly": true
+            }
+          ],
+          "syntax": "import",
+          "resolved": "packages/base/src/lib/utils/popups/store.ts"
+        },
+        {
+          "specifier": "../../internals/createBaseUIEventDetails.js",
+          "kind": "type",
+          "members": [
+            {
+              "imported": "BaseUIChangeEventDetails",
+              "local": "BaseUIChangeEventDetails",
+              "typeOnly": true
+            }
+          ],
+          "syntax": "import",
+          "resolved": "packages/base/src/lib/internals/createBaseUIEventDetails.ts"
+        }
+      ],
+      "reachability": "runtime"
+    },
+    {
+      "path": "packages/base/src/lib/floating-ui/safePolygon.ts",
+      "sha256": "ee7e5e41dcb23934c4be65722b2c1e52663c6c518e3beafff627b8968430a9e3",
+      "symbols": [
+        {
+          "name": "hasIntersectingEdge",
+          "kind": "FunctionDeclaration",
+          "sha256": "133a316e2dbb5a70722844935b4577ea1648d72b2a5db07d01ad10b52422e34a"
+        },
+        {
+          "name": "isPointInQuadrilateral",
+          "kind": "FunctionDeclaration",
+          "sha256": "be5b141d09c3bbaec9126dc006929f2797e43aa63b9c381f745b66f387293432"
+        },
+        {
+          "name": "isInsideRect",
+          "kind": "FunctionDeclaration",
+          "sha256": "01e65193f52b98591159c5f82990cde792abddcb946c1c726522f58aaf11f782"
+        },
+        {
+          "name": "isInsideAxisAlignedRect",
+          "kind": "FunctionDeclaration",
+          "sha256": "eac73e2d729b3e3dfad241c7ffe9370b8e9d319538031f1b3a8db1ad8a7b66d6"
+        },
+        {
+          "name": "SafePolygonOptions",
+          "kind": "TypeAliasDeclaration",
+          "sha256": "f964c5f1feea0f81e53937ce29e8100c9f7ab44990d82c2bbe481a79c10896ad"
+        },
+        {
+          "name": "safePolygon",
+          "kind": "FunctionDeclaration",
+          "sha256": "5444263ad26b2c00dc7cb3ff48cd8d1172204cb3062502f1ccb1fc828ebf2a2e"
+        }
+      ],
+      "imports": [
+        {
+          "specifier": "@floating-ui/utils/dom",
+          "kind": "runtime",
+          "members": [
+            {
+              "imported": "isElement",
+              "local": "isElement",
+              "typeOnly": false
+            }
+          ],
+          "syntax": "import",
+          "resolved": "external:@floating-ui/utils/dom"
+        },
+        {
+          "specifier": "@sveltery/utils/useTimeout",
+          "kind": "runtime",
+          "members": [
+            {
+              "imported": "Timeout",
+              "local": "Timeout",
+              "typeOnly": false
+            }
+          ],
+          "syntax": "import",
+          "resolved": "packages/utils/src/lib/useTimeout.ts"
+        },
+        {
+          "specifier": "@floating-ui/dom",
+          "kind": "type",
+          "members": [
+            {
+              "imported": "Rect",
+              "local": "Rect",
+              "typeOnly": true
+            },
+            {
+              "imported": "Side",
+              "local": "Side",
+              "typeOnly": true
+            }
+          ],
+          "syntax": "import",
+          "resolved": "external:@floating-ui/dom"
+        },
+        {
+          "specifier": "./hooks/useHoverShared.js",
+          "kind": "type",
+          "members": [
+            {
+              "imported": "HandleClose",
+              "local": "HandleClose",
+              "typeOnly": true
+            },
+            {
+              "imported": "HandleCloseOptions",
+              "local": "HandleCloseOptions",
+              "typeOnly": true
+            }
+          ],
+          "syntax": "import",
+          "resolved": "packages/base/src/lib/floating-ui/hooks/useHoverShared.ts"
+        },
+        {
+          "specifier": "./utils/element.js",
+          "kind": "runtime",
+          "members": [
+            {
+              "imported": "contains",
+              "local": "contains",
+              "typeOnly": false
+            },
+            {
+              "imported": "getTarget",
+              "local": "getTarget",
+              "typeOnly": false
+            }
+          ],
+          "syntax": "import",
+          "resolved": "packages/base/src/lib/floating-ui/utils/element.ts"
+        },
+        {
+          "specifier": "./utils/nodes.js",
+          "kind": "runtime",
+          "members": [
+            {
+              "imported": "getNodeChildren",
+              "local": "getNodeChildren",
+              "typeOnly": false
+            }
+          ],
+          "syntax": "import",
+          "resolved": "packages/base/src/lib/floating-ui/utils/nodes.ts"
+        }
+      ],
+      "reachability": "runtime"
+    },
+    {
+      "path": "packages/base/src/lib/floating-ui/types.ts",
+      "sha256": "5c4e86d68644ba65a89798d584d75bb7c1dacde7f892c9ea9fdfdd64523d3473",
+      "symbols": [
+        {
+          "name": "FloatingEvents",
+          "kind": "InterfaceDeclaration",
+          "sha256": "e229a180324c6ebc9964eea396ca7567c61cdd9a3e4e15ab1c266f4fefa25d79"
+        },
+        {
+          "name": "ContextData",
+          "kind": "InterfaceDeclaration",
+          "sha256": "d5d6fe8342e75c0587b4d2ced683f70db9c826064dc5ce14da7f89aa38d92244"
+        },
+        {
+          "name": "ReferenceType",
+          "kind": "TypeAliasDeclaration",
+          "sha256": "3f10ad68b14c4154a6c16a7dcc57e14b8ad29b3437828ce9e2df7b30b0e009eb"
+        },
+        {
+          "name": "FloatingRootContext",
+          "kind": "TypeAliasDeclaration",
+          "sha256": "ffd4858714cd7395ba2f15f8fd02d635b470c64d636ab2c1660079fdacde71d1"
+        },
+        {
+          "name": "FloatingContext",
+          "kind": "InterfaceDeclaration",
+          "sha256": "173896b5e9c1ea96a359e125c234737e27bc58b8fc30f1977be5461d126b6eca"
+        },
+        {
+          "name": "PositionedFloatingContext",
+          "kind": "InterfaceDeclaration",
+          "sha256": "5cf872b3c79852c3d825137502106916395fef76dda428c1a4f8a39b0c7e42d4"
+        },
+        {
+          "name": "FloatingNodeType",
+          "kind": "InterfaceDeclaration",
+          "sha256": "955e810802050010c1028ce9e251d6a80bf8f2fea23dba9cf83a55fc0457e82f"
+        },
+        {
+          "name": "FloatingTreeType",
+          "kind": "TypeAliasDeclaration",
+          "sha256": "f470c5d4840854e22520cf81625120dc88244e9e82d4011fd86b6c64bcfe0e28"
+        },
+        {
+          "name": "ElementProps",
+          "kind": "InterfaceDeclaration",
+          "sha256": "d7b8e0c04e134e52e173bbaf17b6d32e29f9f2fa1f66669940d4e34e6b1fc47c"
+        },
+        {
+          "name": "FloatingUIOpenChangeDetails",
+          "kind": "InterfaceDeclaration",
+          "sha256": "21e59f1bdd539eb59e0e8c9d4108183db20ce4886131db7847a52e95c25ffe20"
+        },
+        {
+          "name": "Delay",
+          "kind": "TypeAliasDeclaration",
+          "sha256": "b34b740d228212c38ca041fd7dca2fc7bbd8ef490ca6d25b75b44531204fbdbf"
+        },
+        {
+          "name": "ExtendedElements",
+          "kind": "TypeAliasDeclaration",
+          "sha256": "f2ff154f163b15019f84ef711ea86dedb9c1db121312d6263b963affd51809c4"
+        }
+      ],
+      "imports": [
+        {
+          "specifier": "@floating-ui/dom",
+          "kind": "type",
+          "members": [
+            {
+              "imported": "VirtualElement",
+              "local": "VirtualElement",
+              "typeOnly": true
+            },
+            {
+              "imported": "Placement",
+              "local": "Placement",
+              "typeOnly": true
+            },
+            {
+              "imported": "Strategy",
+              "local": "Strategy",
+              "typeOnly": true
+            },
+            {
+              "imported": "MiddlewareData",
+              "local": "MiddlewareData",
+              "typeOnly": true
+            }
+          ],
+          "syntax": "import",
+          "resolved": "external:@floating-ui/dom"
+        },
+        {
+          "specifier": "../internals/createBaseUIEventDetails.js",
+          "kind": "type",
+          "members": [
+            {
+              "imported": "BaseUIChangeEventDetails",
+              "local": "BaseUIChangeEventDetails",
+              "typeOnly": true
+            }
+          ],
+          "syntax": "import",
+          "resolved": "packages/base/src/lib/internals/createBaseUIEventDetails.ts"
+        },
+        {
+          "specifier": "../internals/types.js",
+          "kind": "type",
+          "members": [
+            {
+              "imported": "HTMLProps",
+              "local": "HTMLProps",
+              "typeOnly": true
+            }
+          ],
+          "syntax": "import",
+          "resolved": "packages/base/src/lib/internals/types.ts"
+        },
+        {
+          "specifier": "./components/FloatingRootStore.svelte.js",
+          "kind": "type",
+          "members": [
+            {
+              "imported": "FloatingRootStore",
+              "local": "FloatingRootStore",
+              "typeOnly": true
+            }
+          ],
+          "syntax": "import",
+          "resolved": "packages/base/src/lib/floating-ui/components/FloatingRootStore.svelte.ts"
+        },
+        {
+          "specifier": "./components/FloatingTreeStore.js",
+          "kind": "type",
+          "members": [
+            {
+              "imported": "FloatingTreeStore",
+              "local": "FloatingTreeStore",
+              "typeOnly": true
+            }
+          ],
+          "syntax": "import",
+          "resolved": "packages/base/src/lib/floating-ui/components/FloatingTreeStore.ts"
+        },
+        {
+          "specifier": "@floating-ui/dom",
+          "kind": "type",
+          "members": [
+            {
+              "imported": "Placement",
+              "local": "Placement",
+              "typeOnly": true
+            }
+          ],
+          "syntax": "reexport",
+          "resolved": "external:@floating-ui/dom"
+        },
+        {
+          "specifier": "./safePolygon.js",
+          "kind": "type",
+          "members": [
+            {
+              "imported": "SafePolygonOptions",
+              "local": "SafePolygonOptions",
+              "typeOnly": true
+            }
+          ],
+          "syntax": "reexport",
+          "resolved": "packages/base/src/lib/floating-ui/safePolygon.ts"
+        }
+      ],
+      "reachability": "type-only"
+    },
+    {
+      "path": "packages/base/src/lib/floating-ui/utils/composite.ts",
+      "sha256": "96b8fde56711a770d9c1936cfae99d9576009539cc5c68ef139f463533893d27",
+      "symbols": [],
+      "imports": [
+        {
+          "specifier": "../../internals/composite/utils/navigation.js",
+          "kind": "runtime",
+          "members": [],
+          "syntax": "reexport",
+          "resolved": "packages/base/src/lib/internals/composite/utils/navigation.ts"
+        }
+      ],
+      "reachability": "runtime"
+    },
+    {
+      "path": "packages/base/src/lib/floating-ui/utils/constants.ts",
+      "sha256": "14ac30673b196081a83c1e023ecfd546294733ceb2f756d2bad01e3a9d24880b",
+      "symbols": [],
+      "imports": [],
+      "reachability": "runtime"
+    },
+    {
+      "path": "packages/base/src/lib/floating-ui/utils/createEventEmitter.ts",
+      "sha256": "31ebcaf59c98304ec9944e91a86b0a3c3ed31359e76a102ea62c4213f5dff484",
+      "symbols": [
+        {
+          "name": "createEventEmitter",
+          "kind": "FunctionDeclaration",
+          "sha256": "2863359a74838ed9dfc06f845a2701ef6347d38215cb3a67b36e8e8b2fb222f8"
+        }
+      ],
+      "imports": [
+        {
+          "specifier": "../types.js",
+          "kind": "type",
+          "members": [
+            {
+              "imported": "FloatingEvents",
+              "local": "FloatingEvents",
+              "typeOnly": true
+            }
+          ],
+          "syntax": "import",
+          "resolved": "packages/base/src/lib/floating-ui/types.ts"
+        }
+      ],
+      "reachability": "runtime"
+    },
+    {
+      "path": "packages/base/src/lib/floating-ui/utils/element.ts",
+      "sha256": "68a9ee68a6c3d8c0c1d9e8f68fffb3c214201c6f7fed4b0c374298b65fae3ff3",
+      "symbols": [
+        {
+          "name": "isTargetInsideEnabledTrigger",
+          "kind": "FunctionDeclaration",
+          "sha256": "6c769065b991635a668d563be11f10a7ab6d742a5e9277a00213ffce7db02cf5"
+        },
+        {
+          "name": "isEventTargetWithin",
+          "kind": "FunctionDeclaration",
+          "sha256": "85ad0ab320f30eb9f00259748e4cf824fe549658da9673a3c003464f368938a8"
+        },
+        {
+          "name": "isRootElement",
+          "kind": "FunctionDeclaration",
+          "sha256": "8d86e910ff64dc7574c28af676632d66ff8a9d16dddd57d37356f02f680436ac"
+        },
+        {
+          "name": "isTypeableElement",
+          "kind": "FunctionDeclaration",
+          "sha256": "a9d41f934a5e1c0c3885408c58d593772d0d88e75babad084d2be1ca11b3a096"
+        },
+        {
+          "name": "isInteractiveElement",
+          "kind": "FunctionDeclaration",
+          "sha256": "4cf620df8b9d4e440aca211f51f9c243c94e89aad8113d8293b59e4b722d581f"
+        },
+        {
+          "name": "isTypeableCombobox",
+          "kind": "FunctionDeclaration",
+          "sha256": "bb473f56f0340a90af6047570dd09eefff3268139172f005f8f24b4e4d504f1f"
+        },
+        {
+          "name": "getFloatingFocusElement",
+          "kind": "FunctionDeclaration",
+          "sha256": "c489ad4bbfe7b5708337d1d828b3e0299add3500cc5f5abe39d3d139920f0eb2"
+        }
+      ],
+      "imports": [
+        {
+          "specifier": "@floating-ui/utils/dom",
+          "kind": "runtime",
+          "members": [
+            {
+              "imported": "isElement",
+              "local": "isElement",
+              "typeOnly": false
+            },
+            {
+              "imported": "isHTMLElement",
+              "local": "isHTMLElement",
+              "typeOnly": false
+            }
+          ],
+          "syntax": "import",
+          "resolved": "external:@floating-ui/utils/dom"
+        },
+        {
+          "specifier": "@sveltery/utils/shadowDom",
+          "kind": "runtime",
+          "members": [
+            {
+              "imported": "activeElement",
+              "local": "activeElement",
+              "typeOnly": false
+            },
+            {
+              "imported": "contains",
+              "local": "contains",
+              "typeOnly": false
+            },
+            {
+              "imported": "getTarget",
+              "local": "getTarget",
+              "typeOnly": false
+            }
+          ],
+          "syntax": "import",
+          "resolved": "packages/utils/src/lib/shadowDom.ts"
+        },
+        {
+          "specifier": "./constants.js",
+          "kind": "runtime",
+          "members": [
+            {
+              "imported": "FOCUSABLE_ATTRIBUTE",
+              "local": "FOCUSABLE_ATTRIBUTE",
+              "typeOnly": false
+            },
+            {
+              "imported": "TYPEABLE_SELECTOR",
+              "local": "TYPEABLE_SELECTOR",
+              "typeOnly": false
+            }
+          ],
+          "syntax": "import",
+          "resolved": "packages/base/src/lib/floating-ui/utils/constants.ts"
+        },
+        {
+          "specifier": "../../utils/popups/popupTriggerMap.svelte.js",
+          "kind": "type",
+          "members": [
+            {
+              "imported": "PopupTriggerMap",
+              "local": "PopupTriggerMap",
+              "typeOnly": true
+            }
+          ],
+          "syntax": "import",
+          "resolved": "packages/base/src/lib/utils/popups/popupTriggerMap.svelte.ts"
+        },
+        {
+          "specifier": "./matchesFocusVisible.js",
+          "kind": "runtime",
+          "members": [
+            {
+              "imported": "matchesFocusVisible",
+              "local": "matchesFocusVisible",
+              "typeOnly": false
+            }
+          ],
+          "syntax": "reexport",
+          "resolved": "packages/base/src/lib/floating-ui/utils/matchesFocusVisible.ts"
+        }
+      ],
+      "reachability": "runtime"
+    },
+    {
+      "path": "packages/base/src/lib/floating-ui/utils/event.ts",
+      "sha256": "32391b7e254d578d4a374a8f95270e0fea8c763e8f56c52db2e9931243ad5e56",
+      "symbols": [
+        {
+          "name": "stopEvent",
+          "kind": "FunctionDeclaration",
+          "sha256": "e90124eaefe3e5a918b82fac86c74b68bd9b83e90068129614a2ce5f84c323fd"
+        },
+        {
+          "name": "isVirtualClick",
+          "kind": "FunctionDeclaration",
+          "sha256": "ed1d7f0fda4a462b78e76343ad7599b33189c2cef85ca71ed29c63483b852958"
+        },
+        {
+          "name": "isVirtualPointerEvent",
+          "kind": "FunctionDeclaration",
+          "sha256": "76b47922f66741088869287bfe485f499a7f6fdcc23115c2b7420160f630ef15"
+        },
+        {
+          "name": "isMouseLikePointerType",
+          "kind": "FunctionDeclaration",
+          "sha256": "aa60d7edd99c2d3422db94ca4d5c0ec1e404ad9ddbc1b07b57316c1c96aa20f5"
+        },
+        {
+          "name": "isClickLikeEvent",
+          "kind": "FunctionDeclaration",
+          "sha256": "6d1cd9cc8b73ccb3e3480010c63653494d095b15f955486b24dc72dbfd1a670c"
+        }
+      ],
+      "imports": [
+        {
+          "specifier": "@sveltery/utils/platform",
+          "kind": "runtime",
+          "members": [
+            {
+              "imported": "platform",
+              "local": "platform",
+              "typeOnly": false
+            }
+          ],
+          "syntax": "import",
+          "resolved": "packages/utils/src/lib/platform/index.ts"
+        }
+      ],
+      "reachability": "runtime"
+    },
+    {
+      "path": "packages/base/src/lib/floating-ui/utils/matchesFocusVisible.ts",
+      "sha256": "4d5266137ceb919a50e3cd9ad29e23a219b08470f34c275852c320531cc949d3",
+      "symbols": [
+        {
+          "name": "matchesFocusVisible",
+          "kind": "FunctionDeclaration",
+          "sha256": "c7368bd8d5210cf4b961480d2d17d3e03dd05a24984b772d1af7b1f6f04719d4"
+        }
+      ],
+      "imports": [
+        {
+          "specifier": "@sveltery/utils/platform",
+          "kind": "runtime",
+          "members": [
+            {
+              "imported": "platform",
+              "local": "platform",
+              "typeOnly": false
+            }
+          ],
+          "syntax": "import",
+          "resolved": "packages/utils/src/lib/platform/index.ts"
+        }
+      ],
+      "reachability": "runtime"
+    },
+    {
+      "path": "packages/base/src/lib/floating-ui/utils/nodes.ts",
+      "sha256": "b78d4c24b96237d20d09a60549535fad0d8e61661b38091cbf5368b53c43f544",
+      "symbols": [
+        {
+          "name": "getNodeChildren",
+          "kind": "FunctionDeclaration",
+          "sha256": "fb253e612144dd451251f8eb0bfb9c36574a2ba8342fb3d240c30bfedf6d040b"
+        },
+        {
+          "name": "getDeepestNode",
+          "kind": "FunctionDeclaration",
+          "sha256": "9a6bd356d477b7d5ab316683fc81df8c2293fc582d7ae3d69457dfaddda125e3"
+        },
+        {
+          "name": "getNodeAncestors",
+          "kind": "FunctionDeclaration",
+          "sha256": "836d4c67c0b7a1c1ee7e38d88ba6b55f74f3416d84cf4fceb5b2c02ad8f8fad9"
+        }
+      ],
+      "imports": [
+        {
+          "specifier": "../types.js",
+          "kind": "type",
+          "members": [
+            {
+              "imported": "FloatingNodeType",
+              "local": "FloatingNodeType",
+              "typeOnly": true
+            }
+          ],
+          "syntax": "import",
+          "resolved": "packages/base/src/lib/floating-ui/types.ts"
+        }
+      ],
+      "reachability": "runtime"
+    },
+    {
+      "path": "packages/base/src/lib/floating-ui/utils/tabbable.ts",
+      "sha256": "83937949cf582078e63e085b1bd49ec588462f13bb4f5f178af83641f0e75c7f",
+      "symbols": [
+        {
+          "name": "FocusableElement",
+          "kind": "TypeAliasDeclaration",
+          "sha256": "a0bde0bff14b91e126984075684d110cf5379f707dee8d1c8b4a94825b5570a3"
+        },
+        {
+          "name": "getParentElement",
+          "kind": "FunctionDeclaration",
+          "sha256": "550e2ffac6e2880c5a85e19dd5c08d61d8789de0ddeec5d60c9ee2f7c09faba9"
+        },
+        {
+          "name": "getDetailsSummary",
+          "kind": "FunctionDeclaration",
+          "sha256": "6c1a63654b65cbb18234c4949e1d00d628d21a7239c06452c08697102fc77523"
+        },
+        {
+          "name": "isWithinOpenDetailsSummary",
+          "kind": "FunctionDeclaration",
+          "sha256": "e8450e5724cfba2e58bb24d3ef62bfd6bbbe3110f135170e3726571d383a9f54"
+        },
+        {
+          "name": "isFocusableCandidate",
+          "kind": "FunctionDeclaration",
+          "sha256": "aed1ae9f8e4ec4fe5973cee0d8265c4c4e9b2617875a228dc87bbcf9992effcc"
+        },
+        {
+          "name": "isFocusableElement",
+          "kind": "FunctionDeclaration",
+          "sha256": "34288a42333be8e38d83bb2e460a856b2f2f2e61d0ad48ad7c91c95ded4727df"
+        },
+        {
+          "name": "isVisibleInTabbableTree",
+          "kind": "FunctionDeclaration",
+          "sha256": "e8bb8482d442a5878a54ceddbb5cce47a628ce07e315f1ad8be8dd26f8dd9fd2"
+        },
+        {
+          "name": "getTabIndex",
+          "kind": "FunctionDeclaration",
+          "sha256": "365afd0bb84eb09dcb9d225c8c91683598c08d1c144513ebfa1347f139c017b0"
+        },
+        {
+          "name": "getNamedRadioInput",
+          "kind": "FunctionDeclaration",
+          "sha256": "b3d5e0eb73fbe3ad66737386715b92ecde4a45e7aaf0561b20b9937a805b100e"
+        },
+        {
+          "name": "isTabbableRadio",
+          "kind": "FunctionDeclaration",
+          "sha256": "f9431ea7b719c13c0bc2cb53e5381fe13a07ca6adc67b8ba9845f07ebd10a530"
+        },
+        {
+          "name": "getComposedChildren",
+          "kind": "FunctionDeclaration",
+          "sha256": "14cc0bae93701aba3326f3d6fa32383b723bb018b1bf68e30870382710b77a4d"
+        },
+        {
+          "name": "appendCandidates",
+          "kind": "FunctionDeclaration",
+          "sha256": "efc4a08a1cd34598046fc7acee91ac4eb043d455358c1e014d2dd8e1a0cf0845"
+        },
+        {
+          "name": "appendMatchingElements",
+          "kind": "FunctionDeclaration",
+          "sha256": "9ccab4fc77722d7eb006ac05a65e9ab3254f8517a84ae8320289718487a7b6af"
+        },
+        {
+          "name": "isTabbable",
+          "kind": "FunctionDeclaration",
+          "sha256": "4cd9b5f29fba77a24fc8af26ea2ff72fbb4590f7523b77d13f41efa8b492c82e"
+        },
+        {
+          "name": "focusable",
+          "kind": "FunctionDeclaration",
+          "sha256": "ae1ddf85f1f57c4c04bbe49dd863f62700b364b0b1bb9aa8daf5e54a6614e38d"
+        },
+        {
+          "name": "tabbable",
+          "kind": "FunctionDeclaration",
+          "sha256": "b6b6845d4241071c59b799e5d685715bce9e66bdaf249e91b9a4969260fa88b1"
+        },
+        {
+          "name": "getTabbableIn",
+          "kind": "FunctionDeclaration",
+          "sha256": "3a7fe3818ac6c771b6e5be7d8b011e24f8889f20b19199fc2205227e2f70b00c"
+        },
+        {
+          "name": "getNextTabbable",
+          "kind": "FunctionDeclaration",
+          "sha256": "684ad2ede889339c91ecffbdd081aecd73cf82468136e00165405b57f0056f78"
+        },
+        {
+          "name": "getPreviousTabbable",
+          "kind": "FunctionDeclaration",
+          "sha256": "aa33b31a0b2dccb837647e0d5e7309e2f2ffde0ef7a39e0f8cdb2853fb76622d"
+        },
+        {
+          "name": "getTabbableNearElement",
+          "kind": "FunctionDeclaration",
+          "sha256": "6b268d5a6b74ba4d47502f655034ca010969c6434b99adbcfb932777e6deead8"
+        },
+        {
+          "name": "getTabbableAfterElement",
+          "kind": "FunctionDeclaration",
+          "sha256": "fa6af46b1cb8710fb1d993a79e56fce4e1e703246fa72076262dc06cc3b50ebb"
+        },
+        {
+          "name": "getTabbableBeforeElement",
+          "kind": "FunctionDeclaration",
+          "sha256": "16184f09f88c94ec76a4a7606e925477ae9ca29a9f165feee0064443032aeaba"
+        },
+        {
+          "name": "isOutsideEvent",
+          "kind": "FunctionDeclaration",
+          "sha256": "e39a073a549548d844dd8de6a1b83b8a1fddb37ea5d9e9c6da039f122102e2d3"
+        },
+        {
+          "name": "disableFocusInside",
+          "kind": "FunctionDeclaration",
+          "sha256": "547c83ce01bf8372beeb8e2671c047ca5c9d63d19c939f7e38af81491a0a4663"
+        },
+        {
+          "name": "enableFocusInside",
+          "kind": "FunctionDeclaration",
+          "sha256": "bedb73a27348cc50c7c7a01cc681b4e0bc98eba0c4c86372edaffc2d50d6875d"
+        }
+      ],
+      "imports": [
+        {
+          "specifier": "@floating-ui/utils/dom",
+          "kind": "runtime",
+          "members": [
+            {
+              "imported": "getComputedStyle",
+              "local": "getComputedStyle",
+              "typeOnly": false
+            },
+            {
+              "imported": "getNodeName",
+              "local": "getNodeName",
+              "typeOnly": false
+            },
+            {
+              "imported": "isHTMLElement",
+              "local": "isHTMLElement",
+              "typeOnly": false
+            },
+            {
+              "imported": "isShadowRoot",
+              "local": "isShadowRoot",
+              "typeOnly": false
+            }
+          ],
+          "syntax": "import",
+          "resolved": "external:@floating-ui/utils/dom"
+        },
+        {
+          "specifier": "@sveltery/utils/owner",
+          "kind": "runtime",
+          "members": [
+            {
+              "imported": "ownerDocument",
+              "local": "ownerDocument",
+              "typeOnly": false
+            }
+          ],
+          "syntax": "import",
+          "resolved": "packages/utils/src/lib/owner.ts"
+        },
+        {
+          "specifier": "./element.js",
+          "kind": "runtime",
+          "members": [
+            {
+              "imported": "activeElement",
+              "local": "activeElement",
+              "typeOnly": false
+            },
+            {
+              "imported": "contains",
+              "local": "contains",
+              "typeOnly": false
+            }
+          ],
+          "syntax": "import",
+          "resolved": "packages/base/src/lib/floating-ui/utils/element.ts"
+        },
+        {
+          "specifier": "./composite.js",
+          "kind": "runtime",
+          "members": [
+            {
+              "imported": "isElementVisible",
+              "local": "isElementVisible",
+              "typeOnly": false
+            }
+          ],
+          "syntax": "import",
+          "resolved": "packages/base/src/lib/floating-ui/utils/composite.ts"
+        }
+      ],
+      "reachability": "runtime"
+    },
+    {
+      "path": "packages/base/src/lib/internals/TransitionStatusDataAttributes.ts",
+      "sha256": "d3e4a31041bcc80ba21b330d3fedadfadaeae3f498dc09e078e70470cfb98dfe",
+      "symbols": [],
+      "imports": [],
+      "reachability": "runtime"
+    },
+    {
+      "path": "packages/base/src/lib/internals/ValueChanged.svelte.ts",
+      "sha256": "f169e9eec98d817327dd31fc0c39c019173cdb64fac3350b898004222107e54e",
+      "symbols": [
+        {
+          "name": "ValueChanged",
+          "kind": "ClassDeclaration",
+          "sha256": "21dad3a02e403aafa8f3c53c1144f402eee05e0ea81ce924099c6a82002660b3"
+        }
+      ],
+      "imports": [
+        {
+          "specifier": "svelte",
+          "kind": "runtime",
+          "members": [
+            {
+              "imported": "untrack",
+              "local": "untrack",
+              "typeOnly": false
+            }
+          ],
+          "syntax": "import",
+          "resolved": "external:svelte"
+        }
+      ],
+      "reachability": "runtime"
+    },
+    {
+      "path": "packages/base/src/lib/internals/composite/composite.ts",
+      "sha256": "f4e02dc8034a749a29f2c63d12f34c25d17c73ffd4075bc31e8f4a55306c0a9e",
+      "symbols": [
+        {
+          "name": "isHTMLElement",
+          "kind": "FunctionDeclaration",
+          "sha256": "7291ad5cdd76f4c56cb7e701ec8811a8cad4b0b284ca77e3162a40f54e7dc80d"
+        },
+        {
+          "name": "ModifierKey",
+          "kind": "TypeAliasDeclaration",
+          "sha256": "7f3b264851cff5534a5434550735e39f1dddbd2525b716682fd726eb4e4a5357"
+        },
+        {
+          "name": "isInputElement",
+          "kind": "FunctionDeclaration",
+          "sha256": "33dbd4d76cc35ac37ca656905940e583140f2f26624ea957b068a697c0dbd25c"
+        },
+        {
+          "name": "isNativeInput",
+          "kind": "FunctionDeclaration",
+          "sha256": "d1041faec973d3f6c26668fed414c37455851bf877ed0a369a832c480df68228"
+        },
+        {
+          "name": "scrollIntoViewIfNeeded",
+          "kind": "FunctionDeclaration",
+          "sha256": "81ae4ff66777f34bea06f3d6a30bb8c2393b9776c75fcf7d85e8bd951c2899e7"
+        },
+        {
+          "name": "getOffset",
+          "kind": "FunctionDeclaration",
+          "sha256": "649b8f1bd152afd0bb99f9dbcc414347cde5aff75cc9a19418072bec0941fb2e"
+        },
+        {
+          "name": "getStyles",
+          "kind": "FunctionDeclaration",
+          "sha256": "9d564f0894f4a25297f66a3daadf2f0ce3cf6e79ae87a7d76e56069cd13c227d"
+        }
+      ],
+      "imports": [
+        {
+          "specifier": "../../direction-provider/types.js",
+          "kind": "type",
+          "members": [
+            {
+              "imported": "TextDirection",
+              "local": "TextDirection",
+              "typeOnly": true
+            }
+          ],
+          "syntax": "import",
+          "resolved": "packages/base/src/lib/direction-provider/types.ts"
+        },
+        {
+          "specifier": "./utils/navigation.js",
+          "kind": "runtime",
+          "members": [
+            {
+              "imported": "isIndexOutOfListBounds",
+              "local": "isIndexOutOfListBounds",
+              "typeOnly": false
+            },
+            {
+              "imported": "isListIndexDisabled",
+              "local": "isListIndexDisabled",
+              "typeOnly": false
+            },
+            {
+              "imported": "findNonDisabledListIndex",
+              "local": "findNonDisabledListIndex",
+              "typeOnly": false
+            },
+            {
+              "imported": "getMaxListIndex",
+              "local": "getMaxListIndex",
+              "typeOnly": false
+            },
+            {
+              "imported": "getMinListIndex",
+              "local": "getMinListIndex",
+              "typeOnly": false
+            }
+          ],
+          "syntax": "reexport",
+          "resolved": "packages/base/src/lib/internals/composite/utils/navigation.ts"
+        }
+      ],
+      "reachability": "runtime"
+    },
+    {
+      "path": "packages/base/src/lib/internals/composite/utils/navigation.ts",
+      "sha256": "bcfb35db31e9b53c86be39c229e041eaaf48f82df10d4dfaac79b69ecfd5a6dd",
+      "symbols": [
+        {
+          "name": "getComputedStyle",
+          "kind": "FunctionDeclaration",
+          "sha256": "55ae58e4b1b6519d46498d314e54a0c275f4f0256b5ccfc60ac6ef75db33bc72"
+        },
+        {
+          "name": "Dimensions",
+          "kind": "InterfaceDeclaration",
+          "sha256": "c31476d288ae102a600672fee2d29161319fe3e06a9accfc64117e1d6cd64393"
+        },
+        {
+          "name": "DisabledIndices",
+          "kind": "TypeAliasDeclaration",
+          "sha256": "9f8fb67931a3a8b64f47ba4b73cac2e0fb1aff32c00e939531205deb99aafa24"
+        },
+        {
+          "name": "isDifferentGridRow",
+          "kind": "FunctionDeclaration",
+          "sha256": "f3b8503d517c68f1bdcc135ca47dcd2772310c78e27a7a7f5b287f95178147c6"
+        },
+        {
+          "name": "isIndexOutOfListBounds",
+          "kind": "FunctionDeclaration",
+          "sha256": "c1991b05f6720c323f398a7fde37a038d726adac577632fe0f7c7d1624c05391"
+        },
+        {
+          "name": "getMinListIndex",
+          "kind": "FunctionDeclaration",
+          "sha256": "5b5099381b2201f5ad6c9712c2e029559f0962e53a9c57a90364747e57bfd007"
+        },
+        {
+          "name": "getMaxListIndex",
+          "kind": "FunctionDeclaration",
+          "sha256": "78f7db663fefc30a435a74f69272fc041e0a0901012dac4da91a62d96cf83c41"
+        },
+        {
+          "name": "findNonDisabledListIndex",
+          "kind": "FunctionDeclaration",
+          "sha256": "ff23d2c40ebe8f77004efa42765466884796b1debebb70d6dfe4e8255b6fe8ab"
+        },
+        {
+          "name": "getGridNavigatedIndex",
+          "kind": "FunctionDeclaration",
+          "sha256": "41f4c0354e0f7f1700f4e1e6d96fd4359fede0618d2da7cc1b745ffd81b7f319"
+        },
+        {
+          "name": "createGridCellMap",
+          "kind": "FunctionDeclaration",
+          "sha256": "fa49c711ddef753403aae0a8261c4b7821341a8a1c1fa28a97f733c699df45d8"
+        },
+        {
+          "name": "getGridCellIndexOfCorner",
+          "kind": "FunctionDeclaration",
+          "sha256": "3779b6288606ffda6f62a96ed34120aa48c6ecd59a0e3f2c9195430217befcaa"
+        },
+        {
+          "name": "getGridCellIndices",
+          "kind": "FunctionDeclaration",
+          "sha256": "d6fdf11fb2f2fcf9509ade50a6c6f1f0ffad351cb31842d32d7e8257f920733e"
+        },
+        {
+          "name": "isListIndexDisabled",
+          "kind": "FunctionDeclaration",
+          "sha256": "8962a557173d53623a15b4fd0ee2aee43d4cfae03707f950c55566a74d662bcd"
+        },
+        {
+          "name": "isHiddenByStyles",
+          "kind": "FunctionDeclaration",
+          "sha256": "4c54eb9a2fd686ad4d132ceb25205915cbaaef530882662eb275aabd1305fae5"
+        },
+        {
+          "name": "isElementVisible",
+          "kind": "FunctionDeclaration",
+          "sha256": "26f6fe5d14e792d8022363300908aaf93f909175ada1ee423f8dd17f795d4104"
+        }
+      ],
+      "imports": [
+        {
+          "specifier": "esm-env",
+          "kind": "runtime",
+          "members": [
+            {
+              "imported": "DEV",
+              "local": "DEV",
+              "typeOnly": false
+            }
+          ],
+          "syntax": "import",
+          "resolved": "external:esm-env"
+        },
+        {
+          "specifier": "../../../floating-ui/utils/event.js",
+          "kind": "runtime",
+          "members": [
+            {
+              "imported": "stopEvent",
+              "local": "stopEvent",
+              "typeOnly": false
+            }
+          ],
+          "syntax": "import",
+          "resolved": "packages/base/src/lib/floating-ui/utils/event.ts"
+        },
+        {
+          "specifier": "../composite.js",
+          "kind": "runtime",
+          "members": [
+            {
+              "imported": "ARROW_DOWN",
+              "local": "ARROW_DOWN",
+              "typeOnly": false
+            },
+            {
+              "imported": "ARROW_LEFT",
+              "local": "ARROW_LEFT",
+              "typeOnly": false
+            },
+            {
+              "imported": "ARROW_RIGHT",
+              "local": "ARROW_RIGHT",
+              "typeOnly": false
+            },
+            {
+              "imported": "ARROW_UP",
+              "local": "ARROW_UP",
+              "typeOnly": false
+            }
+          ],
+          "syntax": "import",
+          "resolved": "packages/base/src/lib/internals/composite/composite.ts"
+        }
+      ],
+      "reachability": "runtime"
+    },
+    {
+      "path": "packages/base/src/lib/internals/createBaseUIEventDetails.ts",
+      "sha256": "8c72d1cd966a450125d2177842154e603b52779f156660af0633101ea222c772",
+      "symbols": [
+        {
+          "name": "ReasonToEventMap",
+          "kind": "InterfaceDeclaration",
+          "sha256": "2c809089fb652316ed1cb5f80e82d39e0880fc9ad7d1ae05ccffb0aace58aa29"
+        },
+        {
+          "name": "ReasonToEvent",
+          "kind": "TypeAliasDeclaration",
+          "sha256": "b57977dc39fba2ee86c0191c85919922efd21441786ee98326331542d47b6504"
+        },
+        {
+          "name": "BaseUIChangeEventDetail",
+          "kind": "TypeAliasDeclaration",
+          "sha256": "40417f2a77dcbbe2718f03d7cb7e76f8eacc6e955a5fdf306df555c9a5d1a773"
+        },
+        {
+          "name": "BaseUIChangeEventDetails",
+          "kind": "TypeAliasDeclaration",
+          "sha256": "44923d5872cef675bf83d64288bd835a809a2220f4fc61043ad8e3a3a6a7fe90"
+        },
+        {
+          "name": "BaseUIGenericEventDetail",
+          "kind": "TypeAliasDeclaration",
+          "sha256": "1c8e7ed984157502e835ee7218cd3eef9040f68079cfa5c42543c8766b39e518"
+        },
+        {
+          "name": "BaseUIGenericEventDetails",
+          "kind": "TypeAliasDeclaration",
+          "sha256": "18ba5e89b06fef827df98391c2a51da7024d0fd3dac2b08a7d6a89491ee523bf"
+        },
+        {
+          "name": "createChangeEventDetails",
+          "kind": "FunctionDeclaration",
+          "sha256": "996b12af4ff9f567a25fe9972abdde1605a97bcbfc50ec461d1c6d20dd9bb1cd"
+        },
+        {
+          "name": "createGenericEventDetails",
+          "kind": "FunctionDeclaration",
+          "sha256": "f45faeedb1d8147ce5c44a2ce71a168373efe202927e6c2f332ceb63e8c0c483"
+        }
+      ],
+      "imports": [
+        {
+          "specifier": "@sveltery/utils/empty",
+          "kind": "runtime",
+          "members": [
+            {
+              "imported": "EMPTY_OBJECT",
+              "local": "EMPTY_OBJECT",
+              "typeOnly": false
+            }
+          ],
+          "syntax": "import",
+          "resolved": "packages/utils/src/lib/empty.ts"
+        },
+        {
+          "specifier": "./reasons.js",
+          "kind": "runtime",
+          "members": [
+            {
+              "imported": "REASONS",
+              "local": "REASONS",
+              "typeOnly": false
+            }
+          ],
+          "syntax": "import",
+          "resolved": "packages/base/src/lib/internals/reasons.ts"
+        }
+      ],
+      "reachability": "runtime"
+    },
+    {
+      "path": "packages/base/src/lib/internals/nativeProps.ts",
+      "sha256": "f081bf825f41a64924fe298108e148ac56314d02074c588cc1f9324ff6a92cc5",
+      "symbols": [
+        {
+          "name": "NativeStyle",
+          "kind": "TypeAliasDeclaration",
+          "sha256": "6a4dd322c1f53414b8a4c5436c2f8fe3c23c5f924c7d6dcb28658a025dc50b9e"
+        },
+        {
+          "name": "toNativeStyle",
+          "kind": "FunctionDeclaration",
+          "sha256": "458d1febeb6b617be502a9d5652a94f20ca68777b8a0e4dea37c80fab21ac23a"
+        },
+        {
+          "name": "mergeNativeStyles",
+          "kind": "FunctionDeclaration",
+          "sha256": "0142607d7ca9201ef113fa02f42a001052cdb6f0e58204e2881c0dcf323136a0"
+        },
+        {
+          "name": "toNativeClass",
+          "kind": "FunctionDeclaration",
+          "sha256": "87054f84404966fdc538cb20582df91c9337f9a74370e99ead3c7f15c35a03db"
+        },
+        {
+          "name": "copyAttachmentSymbols",
+          "kind": "FunctionDeclaration",
+          "sha256": "49275d3e872492a205912bea78bfddb9e58e176d5e18736019fa017a315dfa3e"
+        }
+      ],
+      "imports": [
+        {
+          "specifier": "svelte/elements",
+          "kind": "type",
+          "members": [
+            {
+              "imported": "ClassValue",
+              "local": "ClassValue",
+              "typeOnly": true
+            },
+            {
+              "imported": "HTMLAttributes",
+              "local": "HTMLAttributes",
+              "typeOnly": true
+            }
+          ],
+          "syntax": "import",
+          "resolved": "external:svelte/elements"
+        },
+        {
+          "specifier": "./resolveClassValue.js",
+          "kind": "runtime",
+          "members": [
+            {
+              "imported": "resolveClassValue",
+              "local": "resolveClassValue",
+              "typeOnly": false
+            }
+          ],
+          "syntax": "import",
+          "resolved": "packages/base/src/lib/internals/resolveClassValue.ts"
+        },
+        {
+          "specifier": "@sveltery/utils/mergeObjects",
+          "kind": "runtime",
+          "members": [
+            {
+              "imported": "mergeObjects",
+              "local": "mergeObjects",
+              "typeOnly": false
+            }
+          ],
+          "syntax": "import",
+          "resolved": "packages/utils/src/lib/mergeObjects.ts"
+        }
+      ],
+      "reachability": "runtime"
+    },
+    {
+      "path": "packages/base/src/lib/internals/reason-parts.ts",
+      "sha256": "0326d21ce4be2c41b5488c86e3687249faf3c51f5e10ae49c16e8efdc183abf5",
+      "symbols": [],
+      "imports": [],
+      "reachability": "runtime"
+    },
+    {
+      "path": "packages/base/src/lib/internals/reasons.ts",
+      "sha256": "f1f52caeefb14448a7e7c9833e24413b923b7bbf40aa1818ca73dc93710b42e7",
+      "symbols": [
+        {
+          "name": "BaseUIEventReasons",
+          "kind": "TypeAliasDeclaration",
+          "sha256": "9efd3e0e780ffbd03e04fc29b18ccce1cd860237aa81b438ba9d91544149bc17"
+        },
+        {
+          "name": "BaseUIEventReason",
+          "kind": "TypeAliasDeclaration",
+          "sha256": "3859385eb2b0ce0f2077d8700ae1ebbc70da414b53d3f42a608ffa82da43be30"
+        }
+      ],
+      "imports": [
+        {
+          "specifier": "./reason-parts.js",
+          "kind": "runtime",
+          "members": [
+            {
+              "imported": "*",
+              "local": "REASONS",
+              "typeOnly": false
+            }
+          ],
+          "syntax": "import",
+          "resolved": "packages/base/src/lib/internals/reason-parts.ts"
+        }
+      ],
+      "reachability": "runtime"
+    },
+    {
+      "path": "packages/base/src/lib/internals/resolveClassValue.ts",
+      "sha256": "584323b17cb1733a798e9ff86e9ff783d6a26d08ecf005a8c2b3c69917c1e722",
+      "symbols": [
+        {
+          "name": "tokens",
+          "kind": "FunctionDeclaration",
+          "sha256": "18e73bc0ab4eb4a403b7fed911d5bcf4d47e8019c951f86d526de6712e230f6c"
+        },
+        {
+          "name": "resolveClassValue",
+          "kind": "FunctionDeclaration",
+          "sha256": "5e32a092501a094bebe30a0c510754aede28faf384d3a8bbf963f6aaca541673"
+        }
+      ],
+      "imports": [
+        {
+          "specifier": "svelte/elements",
+          "kind": "type",
+          "members": [
+            {
+              "imported": "ClassValue",
+              "local": "ClassValue",
+              "typeOnly": true
+            }
+          ],
+          "syntax": "import",
+          "resolved": "external:svelte/elements"
+        }
+      ],
+      "reachability": "runtime"
+    },
+    {
+      "path": "packages/base/src/lib/internals/types.ts",
+      "sha256": "6a36f5f103ef940b8a32d63f0288d897096c846fb2361b4ef44733e9a899907e",
+      "symbols": [
+        {
+          "name": "HTMLProps",
+          "kind": "TypeAliasDeclaration",
+          "sha256": "7bfdd68608ae8038a9066ad1755b7715e7d5d12fda200b8ad02e5667ce436ca1"
+        },
+        {
+          "name": "ComponentRenderFn",
+          "kind": "TypeAliasDeclaration",
+          "sha256": "41ef657ebc798f02fea17a9a22bfdf5a126fed325b20bff549399ae66425430f"
+        },
+        {
+          "name": "BaseUIEvent",
+          "kind": "TypeAliasDeclaration",
+          "sha256": "a2b528b06abc6b19d26b7158e6b13c6239dbf50baf00c56d1d268e247a89ca48"
+        },
+        {
+          "name": "WithPreventBaseUIHandler",
+          "kind": "TypeAliasDeclaration",
+          "sha256": "f51b81b366ebe45b8013888f257eb8a6d93d962b63f940366767f5c61b23d558"
+        },
+        {
+          "name": "WithBaseUIEvent",
+          "kind": "TypeAliasDeclaration",
+          "sha256": "5154c1b31ec1e901375c02c71b30c48914e475fd441dbd3fdb1408be0980a422"
+        },
+        {
+          "name": "BaseUIComponentProps",
+          "kind": "InterfaceDeclaration",
+          "sha256": "f95c31f44acc097619d97b4270566f46e450076b9d00de7ef5221eea3df9821c"
+        }
+      ],
+      "imports": [
+        {
+          "specifier": "svelte",
+          "kind": "type",
+          "members": [
+            {
+              "imported": "Snippet",
+              "local": "Snippet",
+              "typeOnly": true
+            }
+          ],
+          "syntax": "import",
+          "resolved": "external:svelte"
+        },
+        {
+          "specifier": "svelte/elements",
+          "kind": "type",
+          "members": [
+            {
+              "imported": "ClassValue",
+              "local": "ClassValue",
+              "typeOnly": true
+            },
+            {
+              "imported": "HTMLAttributes",
+              "local": "HTMLAttributes",
+              "typeOnly": true
+            }
+          ],
+          "syntax": "import",
+          "resolved": "external:svelte/elements"
+        },
+        {
+          "specifier": "../merge-props/index.js",
+          "kind": "type",
+          "members": [
+            {
+              "imported": "PreventableEvent",
+              "local": "PreventableEvent",
+              "typeOnly": true
+            }
+          ],
+          "syntax": "import",
+          "resolved": "packages/base/src/lib/merge-props/index.ts"
+        },
+        {
+          "specifier": "./nativeProps.js",
+          "kind": "type",
+          "members": [
+            {
+              "imported": "NativeStyle",
+              "local": "NativeStyle",
+              "typeOnly": true
+            }
+          ],
+          "syntax": "import",
+          "resolved": "packages/base/src/lib/internals/nativeProps.ts"
+        }
+      ],
+      "reachability": "type-only"
+    },
+    {
+      "path": "packages/base/src/lib/internals/useAnimationsFinished.ts",
+      "sha256": "7abe48ef841cdfa7bf60b29045e9f0ffb7dbfb715b34351e8f6716131b2678f8",
+      "symbols": [
+        {
+          "name": "flushBeforePaint",
+          "kind": "FunctionDeclaration",
+          "sha256": "d8db7ee86814a60117e4855ea53caf1fabb5edf38b9d91a028d9fcf77ae0aef0"
+        },
+        {
+          "name": "useAnimationsFinished",
+          "kind": "FunctionDeclaration",
+          "sha256": "eda5a2c872034eca77d7616daabbd6b4c8a9031fd6ec638fc411b2a079840969"
+        }
+      ],
+      "imports": [
+        {
+          "specifier": "svelte",
+          "kind": "runtime",
+          "members": [
+            {
+              "imported": "onDestroy",
+              "local": "onDestroy",
+              "typeOnly": false
+            },
+            {
+              "imported": "flushSync",
+              "local": "flushSync",
+              "typeOnly": false
+            },
+            {
+              "imported": "untrack",
+              "local": "untrack",
+              "typeOnly": false
+            }
+          ],
+          "syntax": "import",
+          "resolved": "external:svelte"
+        },
+        {
+          "specifier": "@sveltery/utils/useAnimationFrame",
+          "kind": "runtime",
+          "members": [
+            {
+              "imported": "AnimationFrame",
+              "local": "AnimationFrame",
+              "typeOnly": false
+            }
+          ],
+          "syntax": "import",
+          "resolved": "packages/utils/src/lib/useAnimationFrame.ts"
+        },
+        {
+          "specifier": "../utils/resolveRef.js",
+          "kind": "runtime",
+          "members": [
+            {
+              "imported": "resolveRef",
+              "local": "resolveRef",
+              "typeOnly": false
+            }
+          ],
+          "syntax": "import",
+          "resolved": "packages/base/src/lib/utils/resolveRef.ts"
+        },
+        {
+          "specifier": "./TransitionStatusDataAttributes.js",
+          "kind": "runtime",
+          "members": [
+            {
+              "imported": "*",
+              "local": "TransitionStatusDataAttributes",
+              "typeOnly": false
+            }
+          ],
+          "syntax": "import",
+          "resolved": "packages/base/src/lib/internals/TransitionStatusDataAttributes.ts"
+        }
+      ],
+      "reachability": "runtime"
+    },
+    {
+      "path": "packages/base/src/lib/internals/useOpenChangeComplete.svelte.ts",
+      "sha256": "b6174d1cc73b6ea3b6431cf87906a1acacc40b1d5c356a31124f92251d7fd038",
+      "symbols": [
+        {
+          "name": "UseOpenChangeCompleteParameters",
+          "kind": "InterfaceDeclaration",
+          "sha256": "7b17031175656804f6bb7be1afb3fb5b09513952019ebed9bd662fa217fbfc25"
+        },
+        {
+          "name": "useOpenChangeComplete",
+          "kind": "FunctionDeclaration",
+          "sha256": "2dfc360bd0c2ce21e9cb92a76e10fe5dbf6e74d0c35e3ecaf4934cb5ae474741"
+        }
+      ],
+      "imports": [
+        {
+          "specifier": "./useAnimationsFinished.js",
+          "kind": "runtime",
+          "members": [
+            {
+              "imported": "useAnimationsFinished",
+              "local": "useAnimationsFinished",
+              "typeOnly": false
+            }
+          ],
+          "syntax": "import",
+          "resolved": "packages/base/src/lib/internals/useAnimationsFinished.ts"
+        }
+      ],
+      "reachability": "runtime"
+    },
+    {
+      "path": "packages/base/src/lib/internals/useTransitionStatus.svelte.ts",
+      "sha256": "7fc531ccff0a7dfd77703c0f0ee7e1148fc080960682469eafffbc627056fa9e",
+      "symbols": [
+        {
+          "name": "TransitionStatus",
+          "kind": "TypeAliasDeclaration",
+          "sha256": "cd265f92f24f2a11ef0626678a864594a6104e3bf17abd36b426d8d0bdf370bf"
+        },
+        {
+          "name": "useTransitionStatus",
+          "kind": "FunctionDeclaration",
+          "sha256": "77d65e867dd35bbb2fcedc65f26b3317cb49d41a1baa201e00361590f3af236c"
+        }
+      ],
+      "imports": [
+        {
+          "specifier": "svelte",
+          "kind": "runtime",
+          "members": [
+            {
+              "imported": "untrack",
+              "local": "untrack",
+              "typeOnly": false
+            }
+          ],
+          "syntax": "import",
+          "resolved": "external:svelte"
+        },
+        {
+          "specifier": "@sveltery/utils/useAnimationFrame",
+          "kind": "runtime",
+          "members": [
+            {
+              "imported": "AnimationFrame",
+              "local": "AnimationFrame",
+              "typeOnly": false
+            }
+          ],
+          "syntax": "import",
+          "resolved": "packages/utils/src/lib/useAnimationFrame.ts"
+        }
+      ],
+      "reachability": "runtime"
+    },
+    {
+      "path": "packages/base/src/lib/merge-props/index.ts",
+      "sha256": "3ef38bba9b22f44bbcf69102d9556807f78897bedb69b410669c7b429971dd68",
+      "symbols": [],
+      "imports": [
+        {
+          "specifier": "./mergeProps.js",
+          "kind": "runtime",
+          "members": [],
+          "syntax": "reexport",
+          "resolved": "packages/base/src/lib/merge-props/mergeProps.ts"
+        }
+      ],
+      "reachability": "runtime"
+    },
+    {
+      "path": "packages/base/src/lib/merge-props/mergeProps.ts",
+      "sha256": "b2c30a6df68fe9744f250f0d0b8e21d89de133146724efd6eed7cea0fce0f8b9",
+      "symbols": [
+        {
+          "name": "PreventableEvent",
+          "kind": "TypeAliasDeclaration",
+          "sha256": "eb9ac06cc3684a805a70e0ca3d47b657638e349cacb7d24316f482fccf587dda"
+        },
+        {
+          "name": "Props",
+          "kind": "TypeAliasDeclaration",
+          "sha256": "195274195bed978e090b21ea17efb889e71e811e3521340ae5682750329faa9d"
+        },
+        {
+          "name": "InputProps",
+          "kind": "TypeAliasDeclaration",
+          "sha256": "e68621259584e864c007946eb93e02d4e470ad7a867d0435bc4f60368f5d32ee"
+        },
+        {
+          "name": "Handler",
+          "kind": "TypeAliasDeclaration",
+          "sha256": "4c2d9b0c6552ab98e3e85ca6fd93ac212e5aad42b346159bc7eff944aaaccbb4"
+        },
+        {
+          "name": "mergeProps",
+          "kind": "FunctionDeclaration",
+          "sha256": "d4a3325d351ebc2054cc341a23cd246e82dd00db2ca9cff20867f648409699ef"
+        },
+        {
+          "name": "mergeProps",
+          "kind": "FunctionDeclaration",
+          "sha256": "9ff445ad854163caaa125d0f06a2fef8f22775dd9d4c9b86e0d817fd2cb38071"
+        },
+        {
+          "name": "mergeProps",
+          "kind": "FunctionDeclaration",
+          "sha256": "a49a721f4cc8e41abac7373963dc444662b629b6146e7bd602b974ec1b452a03"
+        },
+        {
+          "name": "mergeProps",
+          "kind": "FunctionDeclaration",
+          "sha256": "0139bb239a6205666ba2270db639ed76d6e11dc92aab8c55fd800e4e75aea3c6"
+        },
+        {
+          "name": "mergeProps",
+          "kind": "FunctionDeclaration",
+          "sha256": "1c6e467e8125b15c2dcc59054a9cff38d98670f12ffa46ee259e4fdc902ec4fb"
+        },
+        {
+          "name": "mergeProps",
+          "kind": "FunctionDeclaration",
+          "sha256": "16bd3551c3ce75896e85267f30c5e9c2ae2aadd5e37c20dab4e33b997a59b8a6"
+        },
+        {
+          "name": "mergeProps",
+          "kind": "FunctionDeclaration",
+          "sha256": "0f4dfacbaf25bf0579a913adddaf24b1d8120066f85fbe9d29242c3e7c0b001d"
+        },
+        {
+          "name": "mergePropsN",
+          "kind": "FunctionDeclaration",
+          "sha256": "0cb5cc98b550c04029d01d19160d60e9f1c7ea5afe3d579f578a7cdbb483fe6a"
+        },
+        {
+          "name": "createInitialMergedProps",
+          "kind": "FunctionDeclaration",
+          "sha256": "4b2c445cdca5a056615310b66323b5ca205e8ac3b03f7b83b2be525a4cf2ea89"
+        },
+        {
+          "name": "mergeInto",
+          "kind": "FunctionDeclaration",
+          "sha256": "ee730a32d6c593e5cab7775e3c8bec9895fec8b181ec8f70a6396ef690e5771f"
+        },
+        {
+          "name": "copyInitialProps",
+          "kind": "FunctionDeclaration",
+          "sha256": "9f922bb16c0b65e6efaf46d7fc4c6e8dd4e1cf3c18c3e182c7415364f10fac79"
+        },
+        {
+          "name": "mutablyMergeInto",
+          "kind": "FunctionDeclaration",
+          "sha256": "8d8716ea08b8e9559b319a780208ac3ca464962fd1b6577841e6024a8df70878"
+        },
+        {
+          "name": "isEventHandler",
+          "kind": "FunctionDeclaration",
+          "sha256": "10096270103b8558b635917443ae06a3ea6896f2cacb4f9307b92514d892df7e"
+        },
+        {
+          "name": "isPropsGetter",
+          "kind": "FunctionDeclaration",
+          "sha256": "2136a8eaa9d03c4b3715245e09e476a049ffff00e3c261dc3f56a664dd39b533"
+        },
+        {
+          "name": "resolvePropsGetter",
+          "kind": "FunctionDeclaration",
+          "sha256": "0ab78ad7aa10b9aca2a276186a7e4a42304980726f7cd36c05b3ed926dd244b8"
+        },
+        {
+          "name": "mergeEventHandlers",
+          "kind": "FunctionDeclaration",
+          "sha256": "48a25fc8abbe12cc9488b99ba23c8c98253392335bfdcf46eca08e6c4ddcd9bd"
+        },
+        {
+          "name": "wrapEventHandler",
+          "kind": "FunctionDeclaration",
+          "sha256": "85682b58d008c123e1fae838901bf6ec31a3704e52f3c40c95382a4143942f56"
+        },
+        {
+          "name": "makeEventPreventable",
+          "kind": "FunctionDeclaration",
+          "sha256": "e7ffba1aefb74f4ffef2708150baf28e1b55412358d77185745574b7b5288129"
+        },
+        {
+          "name": "mergeClassNames",
+          "kind": "FunctionDeclaration",
+          "sha256": "a17545be45f71e90c4ee6e8511e5a5d7e6880d44e0aea82d7396dcbdac6f8a9a"
+        },
+        {
+          "name": "isSyntheticEvent",
+          "kind": "FunctionDeclaration",
+          "sha256": "95ea9afa3a4959763cb8abc67e51d8f119d015f528a71e2df1a53245fdea5231"
+        }
+      ],
+      "imports": [
+        {
+          "specifier": "../internals/nativeProps.js",
+          "kind": "runtime",
+          "members": [
+            {
+              "imported": "copyAttachmentSymbols",
+              "local": "copyAttachmentSymbols",
+              "typeOnly": false
+            },
+            {
+              "imported": "mergeNativeStyles",
+              "local": "mergeNativeStyles",
+              "typeOnly": false
+            },
+            {
+              "imported": "toNativeClass",
+              "local": "toNativeClass",
+              "typeOnly": false
+            }
+          ],
+          "syntax": "import",
+          "resolved": "packages/base/src/lib/internals/nativeProps.ts"
+        },
+        {
+          "specifier": "@sveltery/utils/mergeObjects",
+          "kind": "runtime",
+          "members": [
+            {
+              "imported": "mergeObjects",
+              "local": "mergeObjects",
+              "typeOnly": false
+            }
+          ],
+          "syntax": "import",
+          "resolved": "packages/utils/src/lib/mergeObjects.ts"
+        }
+      ],
+      "reachability": "runtime"
+    },
+    {
+      "path": "packages/base/src/lib/utils/popups/popupHandle.svelte.ts",
+      "sha256": "c3a56400141a1075b20c783a5da24f827911b7d622c5eb92f78a4cf1f49da778",
+      "symbols": [
+        {
+          "name": "PopupHandleStoreProvider",
+          "kind": "InterfaceDeclaration",
+          "sha256": "6ab679e65ca37cc2f52b234f17115bd143ae5c5d515f825ebb36465bf8d88699"
+        },
+        {
+          "name": "PopupHandleStoreWithTriggers",
+          "kind": "InterfaceDeclaration",
+          "sha256": "9c9934d5b6ccee1cc7b97e34031af5fc1d44d45e65e28abd4f32c88c7274d4f9"
+        },
+        {
+          "name": "PopupHandleStoreWithOpen",
+          "kind": "InterfaceDeclaration",
+          "sha256": "4841c776b675aa12539c9a554791891c70ab779335b8f2640ef3eda7451ff0ff"
+        },
+        {
+          "name": "BasePopupHandle",
+          "kind": "ClassDeclaration",
+          "sha256": "d0bba9f261bbec9d85abdc9ef646a4a1c465774fb0bfde2cf8dd268ac9052744"
+        }
+      ],
+      "imports": [
+        {
+          "specifier": "esm-env",
+          "kind": "runtime",
+          "members": [
+            {
+              "imported": "DEV",
+              "local": "DEV",
+              "typeOnly": false
+            }
+          ],
+          "syntax": "import",
+          "resolved": "external:esm-env"
+        },
+        {
+          "specifier": "svelte/reactivity",
+          "kind": "runtime",
+          "members": [
+            {
+              "imported": "createSubscriber",
+              "local": "createSubscriber",
+              "typeOnly": false
+            }
+          ],
+          "syntax": "import",
+          "resolved": "external:svelte/reactivity"
+        },
+        {
+          "specifier": "@sveltery/utils/useAnimationFrame",
+          "kind": "runtime",
+          "members": [
+            {
+              "imported": "AnimationFrame",
+              "local": "AnimationFrame",
+              "typeOnly": false
+            }
+          ],
+          "syntax": "import",
+          "resolved": "packages/utils/src/lib/useAnimationFrame.ts"
+        },
+        {
+          "specifier": "../../internals/createBaseUIEventDetails.js",
+          "kind": "runtime",
+          "members": [
+            {
+              "imported": "createChangeEventDetails",
+              "local": "createChangeEventDetails",
+              "typeOnly": false
+            },
+            {
+              "imported": "BaseUIChangeEventDetails",
+              "local": "BaseUIChangeEventDetails",
+              "typeOnly": true
+            }
+          ],
+          "syntax": "import",
+          "resolved": "packages/base/src/lib/internals/createBaseUIEventDetails.ts"
+        },
+        {
+          "specifier": "../../internals/reasons.js",
+          "kind": "runtime",
+          "members": [
+            {
+              "imported": "REASONS",
+              "local": "REASONS",
+              "typeOnly": false
+            }
+          ],
+          "syntax": "import",
+          "resolved": "packages/base/src/lib/internals/reasons.ts"
+        },
+        {
+          "specifier": "./popupTriggerMap.svelte.js",
+          "kind": "type",
+          "members": [
+            {
+              "imported": "PopupTriggerMap",
+              "local": "PopupTriggerMap",
+              "typeOnly": true
+            }
+          ],
+          "syntax": "import",
+          "resolved": "packages/base/src/lib/utils/popups/popupTriggerMap.svelte.ts"
+        }
+      ],
+      "reachability": "runtime"
+    },
+    {
+      "path": "packages/base/src/lib/utils/popups/popupStoreUtils.svelte.ts",
+      "sha256": "31b9b5846b583ab845099da30e822e0146deb9cbc50f7ef51bdcb190092deb82",
+      "symbols": [
+        {
+          "name": "PopupStoreWithOpen",
+          "kind": "TypeAliasDeclaration",
+          "sha256": "e4a97083cabca0700315b23aedbdf5c5b2f028c5dfe0c73810946de7ac2c6371"
+        },
+        {
+          "name": "PopupOpenState",
+          "kind": "TypeAliasDeclaration",
+          "sha256": "731f93cec1eaa327598616a686aceb9df1c841c834a94f04bd972cfaa589191b"
+        },
+        {
+          "name": "createPopupOpenState",
+          "kind": "FunctionDeclaration",
+          "sha256": "4ff8bf8ac9a8e1f7d0114e11b7bfd64c94ed9d6305e2051951357c02d5929765"
+        },
+        {
+          "name": "syncTriggerCount",
+          "kind": "FunctionDeclaration",
+          "sha256": "e37a5d4d0a6bb5fe6a880ec32856273f8a3dcc70893ca4dbc51af5d7f4f7154d"
+        },
+        {
+          "name": "TriggerRegistration",
+          "kind": "ClassDeclaration",
+          "sha256": "7b10c8f9fb78f828844709e99151f4b7ba833b8b88db3f67c1e9c3beaf7ee502"
+        },
+        {
+          "name": "useTriggerRegistration",
+          "kind": "FunctionDeclaration",
+          "sha256": "ec876d61a553905b3004531961b163a79722b95d448d0567e14bf1a63e0e2b93"
+        },
+        {
+          "name": "useTriggerDataForwarding",
+          "kind": "FunctionDeclaration",
+          "sha256": "9d2285948c659ea5890040861c969c637a68ea28fc7a42b1715d16d5edfc7cf4"
+        },
+        {
+          "name": "ImplicitActiveTrigger",
+          "kind": "ClassDeclaration",
+          "sha256": "2096f3548b8b764cd2d9b5a6a7d9d84c5deb142fb2d543527a32c069ae1681c3"
+        },
+        {
+          "name": "useImplicitActiveTrigger",
+          "kind": "FunctionDeclaration",
+          "sha256": "32b2bd277450345d77245116771ff784e79d2a989c48b1f12a869f1f3dfb53aa"
+        },
+        {
+          "name": "useOpenStateTransitions",
+          "kind": "FunctionDeclaration",
+          "sha256": "5eaf55f30a1089067c4b70fc9f0864084ad698560a4f86bf818729c39ef40c79"
+        },
+        {
+          "name": "usePopupRootSync",
+          "kind": "FunctionDeclaration",
+          "sha256": "f0078eb8cfb9ad3433b2726f1fe64b40d0658ad9d4c597f66e58ca4469283064"
+        },
+        {
+          "name": "createDefaultInitialFocus",
+          "kind": "FunctionDeclaration",
+          "sha256": "ce9c96d09579a3e44ec2e67bedab7c8c0c72ed163d3be1c1115bd3162f323276"
+        },
+        {
+          "name": "usePopupRootStore",
+          "kind": "FunctionDeclaration",
+          "sha256": "fd233d03d2a2c48783012a2761cd9944be21639275175c75edfd849528e568c5"
+        },
+        {
+          "name": "usePopupInteractionProps",
+          "kind": "FunctionDeclaration",
+          "sha256": "4688466cf376be94f12b7f41745a06dc194407d7e911095687a82e99c9b9a32a"
+        },
+        {
+          "name": "attachPreventUnmountOnClose",
+          "kind": "FunctionDeclaration",
+          "sha256": "acf061a491cbd5601f75f144c5d3a55a104420985bf911b9a20fd748fc46878d"
+        },
+        {
+          "name": "applyPopupOpenChange",
+          "kind": "FunctionDeclaration",
+          "sha256": "1cc765a933746a4ca50098df5f443690d20e6953a35193ff220891cd6a690bde"
+        }
+      ],
+      "imports": [
+        {
+          "specifier": "svelte",
+          "kind": "runtime",
+          "members": [
+            {
+              "imported": "flushSync",
+              "local": "flushSync",
+              "typeOnly": false
+            },
+            {
+              "imported": "untrack",
+              "local": "untrack",
+              "typeOnly": false
+            }
+          ],
+          "syntax": "import",
+          "resolved": "external:svelte"
+        },
+        {
+          "specifier": "./store.js",
+          "kind": "type",
+          "members": [
+            {
+              "imported": "PopupStoreState",
+              "local": "PopupStoreState",
+              "typeOnly": true
+            },
+            {
+              "imported": "PopupStoreContext",
+              "local": "PopupStoreContext",
+              "typeOnly": true
+            }
+          ],
+          "syntax": "import",
+          "resolved": "packages/base/src/lib/utils/popups/store.ts"
+        },
+        {
+          "specifier": "@sveltery/utils/empty",
+          "kind": "runtime",
+          "members": [
+            {
+              "imported": "EMPTY_OBJECT",
+              "local": "EMPTY_OBJECT",
+              "typeOnly": false
+            }
+          ],
+          "syntax": "import",
+          "resolved": "packages/utils/src/lib/empty.ts"
+        },
+        {
+          "specifier": "../../floating-ui/components/FloatingTree.svelte.js",
+          "kind": "runtime",
+          "members": [
+            {
+              "imported": "useFloatingParentNodeId",
+              "local": "useFloatingParentNodeId",
+              "typeOnly": false
+            }
+          ],
+          "syntax": "import",
+          "resolved": "packages/base/src/lib/floating-ui/components/FloatingTree.svelte.ts"
+        },
+        {
+          "specifier": "../../floating-ui/hooks/useSyncedFloatingRootContext.svelte.js",
+          "kind": "runtime",
+          "members": [
+            {
+              "imported": "useSyncedFloatingRootContext",
+              "local": "useSyncedFloatingRootContext",
+              "typeOnly": false
+            }
+          ],
+          "syntax": "import",
+          "resolved": "packages/base/src/lib/floating-ui/hooks/useSyncedFloatingRootContext.svelte.ts"
+        },
+        {
+          "specifier": "../../internals/useTransitionStatus.svelte.js",
+          "kind": "runtime",
+          "members": [
+            {
+              "imported": "useTransitionStatus",
+              "local": "useTransitionStatus",
+              "typeOnly": false
+            }
+          ],
+          "syntax": "import",
+          "resolved": "packages/base/src/lib/internals/useTransitionStatus.svelte.ts"
+        },
+        {
+          "specifier": "../../internals/useOpenChangeComplete.svelte.js",
+          "kind": "runtime",
+          "members": [
+            {
+              "imported": "useOpenChangeComplete",
+              "local": "useOpenChangeComplete",
+              "typeOnly": false
+            }
+          ],
+          "syntax": "import",
+          "resolved": "packages/base/src/lib/internals/useOpenChangeComplete.svelte.ts"
+        },
+        {
+          "specifier": "../../internals/createBaseUIEventDetails.js",
+          "kind": "runtime",
+          "members": [
+            {
+              "imported": "createChangeEventDetails",
+              "local": "createChangeEventDetails",
+              "typeOnly": false
+            },
+            {
+              "imported": "BaseUIChangeEventDetails",
+              "local": "BaseUIChangeEventDetails",
+              "typeOnly": true
+            }
+          ],
+          "syntax": "import",
+          "resolved": "packages/base/src/lib/internals/createBaseUIEventDetails.ts"
+        },
+        {
+          "specifier": "../../internals/reasons.js",
+          "kind": "runtime",
+          "members": [
+            {
+              "imported": "REASONS",
+              "local": "REASONS",
+              "typeOnly": false
+            }
+          ],
+          "syntax": "import",
+          "resolved": "packages/base/src/lib/internals/reasons.ts"
+        },
+        {
+          "specifier": "@sveltery/utils/useEnhancedClickHandler",
+          "kind": "type",
+          "members": [
+            {
+              "imported": "InteractionType",
+              "local": "InteractionType",
+              "typeOnly": true
+            }
+          ],
+          "syntax": "import",
+          "resolved": "packages/utils/src/lib/useEnhancedClickHandler.ts"
+        },
+        {
+          "specifier": "./store.js",
+          "kind": "type",
+          "members": [
+            {
+              "imported": "PopupTriggerDataStore",
+              "local": "PopupTriggerDataStore",
+              "typeOnly": true
+            }
+          ],
+          "syntax": "import",
+          "resolved": "packages/base/src/lib/utils/popups/store.ts"
+        }
+      ],
+      "reachability": "runtime"
+    },
+    {
+      "path": "packages/base/src/lib/utils/popups/popupTriggerMap.svelte.ts",
+      "sha256": "812f1d6cb454c0f5236cda69919932ccfc569611050c19fe8198617beacf6b2c",
+      "symbols": [
+        {
+          "name": "getDevElementIds",
+          "kind": "FunctionDeclaration",
+          "sha256": "90aa1d70f6f7e915d55020fe593bcefb47c814acdb8ab27d1ef0f3b758fff386"
+        },
+        {
+          "name": "PopupTriggerMap",
+          "kind": "ClassDeclaration",
+          "sha256": "083f65d4f89d1a94ba9729e5e127591df17f3c0a99c58578bf7d4a6ab64e9198"
+        }
+      ],
+      "imports": [
+        {
+          "specifier": "esm-env",
+          "kind": "runtime",
+          "members": [
+            {
+              "imported": "DEV",
+              "local": "DEV",
+              "typeOnly": false
+            }
+          ],
+          "syntax": "import",
+          "resolved": "external:esm-env"
+        }
+      ],
+      "reachability": "runtime"
+    },
+    {
+      "path": "packages/base/src/lib/utils/popups/store.ts",
+      "sha256": "6b9e93bb4642ec9ddf3b7721d909e0b8baf32871b5070b9831a3c3f464ca5f69",
+      "symbols": [
+        {
+          "name": "PopupStoreState",
+          "kind": "TypeAliasDeclaration",
+          "sha256": "351f5f6d1086760464ba8460b4ae6dabe1fd74eff15ccdda26dc3c0238000ba7"
+        },
+        {
+          "name": "createInitialPopupStoreState",
+          "kind": "FunctionDeclaration",
+          "sha256": "e31bd6639a381a55b38485e9382e9f46b7d3166ae5b5f62d58c355a95cf86146"
+        },
+        {
+          "name": "PopupStoreContext",
+          "kind": "TypeAliasDeclaration",
+          "sha256": "446f793e7144fb734e15f95acca68a2388f324474c83d421d33aa62b476e2e86"
+        },
+        {
+          "name": "S",
+          "kind": "TypeAliasDeclaration",
+          "sha256": "d31fcfd503c65b91f79f2a784f8a97ab5cbb1a67fe59b2965d4c725fc0e92f1d"
+        },
+        {
+          "name": "triggerOwnsOpenPopup",
+          "kind": "FunctionDeclaration",
+          "sha256": "24b717c13f6eb00733c78851dd2f7a0ad8c8495fa8a59d5ce27507c41348aab2"
+        },
+        {
+          "name": "triggerOwnsOpenPopupOrIsOnlyTrigger",
+          "kind": "FunctionDeclaration",
+          "sha256": "ab2a81b1ce857199231d465d529437f8c2304efb2781f409154daa4c64ad0009"
+        },
+        {
+          "name": "PopupStoreSelectors",
+          "kind": "TypeAliasDeclaration",
+          "sha256": "8e366c415919c7bd3ba997e8abcd1723db2a2810fd353f9675138e5cbe06441e"
+        },
+        {
+          "name": "PopupTriggerStoreKeys",
+          "kind": "TypeAliasDeclaration",
+          "sha256": "c4c8d4e806460a966299f0e8d85b58842be90c0b7e07a33baa075c1776b68dcc"
+        },
+        {
+          "name": "PopupTriggerDataStore",
+          "kind": "TypeAliasDeclaration",
+          "sha256": "1c90e0b809c4856154e7c893c4e2efd2f6f9c81b76d4dbfd132acbe06ced5625"
+        }
+      ],
+      "imports": [
+        {
+          "specifier": "@sveltery/utils/store",
+          "kind": "type",
+          "members": [
+            {
+              "imported": "SvelteStore",
+              "local": "SvelteStore",
+              "typeOnly": true
+            }
+          ],
+          "syntax": "import",
+          "resolved": "packages/utils/src/lib/store/index.ts"
+        },
+        {
+          "specifier": "@sveltery/utils/empty",
+          "kind": "runtime",
+          "members": [
+            {
+              "imported": "EMPTY_OBJECT",
+              "local": "EMPTY_OBJECT",
+              "typeOnly": false
+            }
+          ],
+          "syntax": "import",
+          "resolved": "packages/utils/src/lib/empty.ts"
+        },
+        {
+          "specifier": "../../floating-ui/types.js",
+          "kind": "type",
+          "members": [
+            {
+              "imported": "FloatingRootContext",
+              "local": "FloatingRootContext",
+              "typeOnly": true
+            }
+          ],
+          "syntax": "import",
+          "resolved": "packages/base/src/lib/floating-ui/types.ts"
+        },
+        {
+          "specifier": "../../floating-ui/components/FloatingRootStore.svelte.js",
+          "kind": "runtime",
+          "members": [
+            {
+              "imported": "FloatingRootStore",
+              "local": "FloatingRootStore",
+              "typeOnly": false
+            }
+          ],
+          "syntax": "import",
+          "resolved": "packages/base/src/lib/floating-ui/components/FloatingRootStore.svelte.ts"
+        },
+        {
+          "specifier": "../../internals/useTransitionStatus.svelte.js",
+          "kind": "type",
+          "members": [
+            {
+              "imported": "TransitionStatus",
+              "local": "TransitionStatus",
+              "typeOnly": true
+            }
+          ],
+          "syntax": "import",
+          "resolved": "packages/base/src/lib/internals/useTransitionStatus.svelte.ts"
+        },
+        {
+          "specifier": "./popupTriggerMap.svelte.js",
+          "kind": "runtime",
+          "members": [
+            {
+              "imported": "PopupTriggerMap",
+              "local": "PopupTriggerMap",
+              "typeOnly": false
+            }
+          ],
+          "syntax": "import",
+          "resolved": "packages/base/src/lib/utils/popups/popupTriggerMap.svelte.ts"
+        },
+        {
+          "specifier": "../../internals/types.js",
+          "kind": "type",
+          "members": [
+            {
+              "imported": "HTMLProps",
+              "local": "HTMLProps",
+              "typeOnly": true
+            }
+          ],
+          "syntax": "import",
+          "resolved": "packages/base/src/lib/internals/types.ts"
+        }
+      ],
+      "reachability": "runtime"
+    },
+    {
+      "path": "packages/base/src/lib/utils/popups/usePopupHandleStore.svelte.ts",
+      "sha256": "41c73ec1ce36c36d773a4ab7f61e85c44b0bd717c87ca1448bff1b92e0270954",
+      "symbols": [
+        {
+          "name": "PopupHandleStore",
+          "kind": "ClassDeclaration",
+          "sha256": "70ea7c19e8dbe6df366d5808cd8237d2b5ae3e9b0c21a2a9a6b281da90f839a8"
+        },
+        {
+          "name": "usePopupHandleStore",
+          "kind": "FunctionDeclaration",
+          "sha256": "fff738d56a67c2bf99ea8313d7d8619971bb04977ef2845d3ee9d635030508c0"
+        }
+      ],
+      "imports": [
+        {
+          "specifier": "svelte",
+          "kind": "runtime",
+          "members": [
+            {
+              "imported": "onMount",
+              "local": "onMount",
+              "typeOnly": false
+            }
+          ],
+          "syntax": "import",
+          "resolved": "external:svelte"
+        },
+        {
+          "specifier": "./popupHandle.svelte.js",
+          "kind": "type",
+          "members": [
+            {
+              "imported": "PopupHandleStoreProvider",
+              "local": "PopupHandleStoreProvider",
+              "typeOnly": true
+            }
+          ],
+          "syntax": "import",
+          "resolved": "packages/base/src/lib/utils/popups/popupHandle.svelte.ts"
+        }
+      ],
+      "reachability": "runtime"
+    },
+    {
+      "path": "packages/base/src/lib/utils/popups/useTriggerFocusGuards.svelte.ts",
+      "sha256": "e6d09ce43802118ad7bf2b0852372c9087fcaa71b12613cc06a9fd4c5396a09f",
+      "symbols": [
+        {
+          "name": "TriggerFocusGuardStore",
+          "kind": "InterfaceDeclaration",
+          "sha256": "131d63a014c9af0b2d9383ae4c51a688253ede35bfad2739cee24af95f90b59d"
+        },
+        {
+          "name": "TriggerFocusGuards",
+          "kind": "ClassDeclaration",
+          "sha256": "5a6a5f9b661a52057d423a6179df59d5a3f1333d55dd3ae1da85a090b719a06f"
+        },
+        {
+          "name": "useTriggerFocusGuards",
+          "kind": "FunctionDeclaration",
+          "sha256": "ba978c292cde7772c5fd96f50ff82804ebc6572162fbeb0dc463a3dfaf1ee53d"
+        }
+      ],
+      "imports": [
+        {
+          "specifier": "svelte",
+          "kind": "runtime",
+          "members": [
+            {
+              "imported": "flushSync",
+              "local": "flushSync",
+              "typeOnly": false
+            }
+          ],
+          "syntax": "import",
+          "resolved": "external:svelte"
+        },
+        {
+          "specifier": "../../floating-ui/utils/element.js",
+          "kind": "runtime",
+          "members": [
+            {
+              "imported": "contains",
+              "local": "contains",
+              "typeOnly": false
+            }
+          ],
+          "syntax": "import",
+          "resolved": "packages/base/src/lib/floating-ui/utils/element.ts"
+        },
+        {
+          "specifier": "../../floating-ui/utils/tabbable.js",
+          "kind": "runtime",
+          "members": [
+            {
+              "imported": "getNextTabbable",
+              "local": "getNextTabbable",
+              "typeOnly": false
+            },
+            {
+              "imported": "getTabbableAfterElement",
+              "local": "getTabbableAfterElement",
+              "typeOnly": false
+            },
+            {
+              "imported": "getTabbableBeforeElement",
+              "local": "getTabbableBeforeElement",
+              "typeOnly": false
+            },
+            {
+              "imported": "isOutsideEvent",
+              "local": "isOutsideEvent",
+              "typeOnly": false
+            }
+          ],
+          "syntax": "import",
+          "resolved": "packages/base/src/lib/floating-ui/utils/tabbable.ts"
+        },
+        {
+          "specifier": "../../floating-ui/utils/tabbable.js",
+          "kind": "type",
+          "members": [
+            {
+              "imported": "FocusableElement",
+              "local": "FocusableElement",
+              "typeOnly": true
+            }
+          ],
+          "syntax": "import",
+          "resolved": "packages/base/src/lib/floating-ui/utils/tabbable.ts"
+        },
+        {
+          "specifier": "../../internals/createBaseUIEventDetails.js",
+          "kind": "runtime",
+          "members": [
+            {
+              "imported": "createChangeEventDetails",
+              "local": "createChangeEventDetails",
+              "typeOnly": false
+            },
+            {
+              "imported": "BaseUIChangeEventDetails",
+              "local": "BaseUIChangeEventDetails",
+              "typeOnly": true
+            }
+          ],
+          "syntax": "import",
+          "resolved": "packages/base/src/lib/internals/createBaseUIEventDetails.ts"
+        },
+        {
+          "specifier": "../../internals/reasons.js",
+          "kind": "runtime",
+          "members": [
+            {
+              "imported": "REASONS",
+              "local": "REASONS",
+              "typeOnly": false
+            }
+          ],
+          "syntax": "import",
+          "resolved": "packages/base/src/lib/internals/reasons.ts"
+        }
+      ],
+      "reachability": "runtime"
+    },
+    {
+      "path": "packages/base/src/lib/utils/resolveRef.ts",
+      "sha256": "d8500030750c389af091f3f4f43b100f675772f3d22b6f1699a29db80d564d0a",
+      "symbols": [
+        {
+          "name": "resolveRef",
+          "kind": "FunctionDeclaration",
+          "sha256": "128fbc94ffc1bb5ab06a9354d253bfe3e50ac5562510a7769c6b243291135447"
+        }
+      ],
+      "imports": [],
+      "reachability": "runtime"
+    },
+    {
+      "path": "packages/base/src/lib/utils/useAnchoredPopupScrollLock.svelte.ts",
+      "sha256": "6d8a8fb8469ee277692c4defb9503b46f1e4916f98314f85816e1ce1c684adbc",
+      "symbols": [
+        {
+          "name": "AnchoredPopupScrollLock",
+          "kind": "ClassDeclaration",
+          "sha256": "d55d3bdfa359f6907f31b3fdce7f42e3a0d86f8688928261f821a37e07baa412"
+        },
+        {
+          "name": "useAnchoredPopupScrollLock",
+          "kind": "FunctionDeclaration",
+          "sha256": "b771c1ec774eb163cee638ad75b0c6dd3e95a30a71c6b2000ca761a4d000d05f"
+        }
+      ],
+      "imports": [
+        {
+          "specifier": "@sveltery/utils/owner",
+          "kind": "runtime",
+          "members": [
+            {
+              "imported": "ownerDocument",
+              "local": "ownerDocument",
+              "typeOnly": false
+            }
+          ],
+          "syntax": "import",
+          "resolved": "packages/utils/src/lib/owner.ts"
+        },
+        {
+          "specifier": "@sveltery/utils/useScrollLock",
+          "kind": "runtime",
+          "members": [
+            {
+              "imported": "useScrollLock",
+              "local": "useScrollLock",
+              "typeOnly": false
+            }
+          ],
+          "syntax": "import",
+          "resolved": "packages/utils/src/lib/useScrollLock.svelte.ts"
+        }
+      ],
+      "reachability": "runtime"
+    },
+    {
+      "path": "packages/base/src/lib/utils/useOpenInteractionType.svelte.ts",
+      "sha256": "2240790b90d2947cd6f91a130068cc6ae5ab76ee798122a579a9a5f5cf07528d",
+      "symbols": [
+        {
+          "name": "useOpenMethodTriggerProps",
+          "kind": "FunctionDeclaration",
+          "sha256": "8ed2081e0e8581d136784f2bafc9cd29457b872a1119fe992cfa54dec80c95a7"
+        },
+        {
+          "name": "OpenInteractionType",
+          "kind": "ClassDeclaration",
+          "sha256": "49fb0d5d9582045e6ac333e5d5531259d5aab972364854193f7ad1a096dfacaa"
+        },
+        {
+          "name": "useOpenInteractionType",
+          "kind": "FunctionDeclaration",
+          "sha256": "ae6d03acc5d6ec94f2c14426491f0ee467583fff8466bba88c5113d53574eb93"
+        }
+      ],
+      "imports": [
+        {
+          "specifier": "@sveltery/utils/useEnhancedClickHandler",
+          "kind": "runtime",
+          "members": [
+            {
+              "imported": "useEnhancedClickHandler",
+              "local": "useEnhancedClickHandler",
+              "typeOnly": false
+            },
+            {
+              "imported": "InteractionType",
+              "local": "InteractionType",
+              "typeOnly": true
+            }
+          ],
+          "syntax": "import",
+          "resolved": "packages/utils/src/lib/useEnhancedClickHandler.ts"
+        },
+        {
+          "specifier": "@sveltery/utils/platform",
+          "kind": "runtime",
+          "members": [
+            {
+              "imported": "platform",
+              "local": "platform",
+              "typeOnly": false
+            }
+          ],
+          "syntax": "import",
+          "resolved": "packages/utils/src/lib/platform/index.ts"
+        },
+        {
+          "specifier": "../internals/ValueChanged.svelte.js",
+          "kind": "runtime",
+          "members": [
+            {
+              "imported": "ValueChanged",
+              "local": "ValueChanged",
+              "typeOnly": false
+            }
+          ],
+          "syntax": "import",
+          "resolved": "packages/base/src/lib/internals/ValueChanged.svelte.ts"
+        }
+      ],
+      "reachability": "runtime"
+    },
+    {
+      "path": "packages/utils/src/lib/addEventListener.ts",
+      "sha256": "77880d75a5c8c5ac2d924e69d7cc7662c616b953d4895c8e6a24de53de4502bf",
+      "symbols": [
+        {
+          "name": "EventTargetWithListeners",
+          "kind": "TypeAliasDeclaration",
+          "sha256": "88db4185d5b449086911de5e7aa0355918d30df462591a6095d05b618b8287ef"
+        },
+        {
+          "name": "KnownEventTarget",
+          "kind": "TypeAliasDeclaration",
+          "sha256": "f025b3367e994e2e42b619431b1e9e1793905cf455fba86689cf20ebdff6031e"
+        },
+        {
+          "name": "EventMap",
+          "kind": "TypeAliasDeclaration",
+          "sha256": "a53a6e68a842c745a3ca7e084c5cd51278dacfc6aface640d8bb6d7faaaa622d"
+        },
+        {
+          "name": "TypedEventListener",
+          "kind": "TypeAliasDeclaration",
+          "sha256": "7a5c5362271babea54646e857b5299189f2ff430531d77ec3110e26d42d25bc4"
+        },
+        {
+          "name": "addEventListener",
+          "kind": "FunctionDeclaration",
+          "sha256": "92d09575c58b4069c3ff91bf9364ab3bc4a0565e8885357762f4c3a952f46bb1"
+        },
+        {
+          "name": "addEventListener",
+          "kind": "FunctionDeclaration",
+          "sha256": "e8ebb8af5ae2c19c04f71417aa1948534ea40ad6cb79e69e318c9c843fac1ce1"
+        },
+        {
+          "name": "addEventListener",
+          "kind": "FunctionDeclaration",
+          "sha256": "7d0437943113ec7da574a05953b2043ab981eac906b27e9bcd05927c515d4dd7"
+        }
+      ],
+      "imports": [],
+      "reachability": "runtime"
+    },
+    {
+      "path": "packages/utils/src/lib/empty.ts",
+      "sha256": "00dc8f5cccebba670a7c7f2a78a66f3a4c008e8fec496badfc909a2bb8664151",
+      "symbols": [
+        {
+          "name": "NOOP",
+          "kind": "FunctionDeclaration",
+          "sha256": "352d3e2c94be333a1103c82653bda7b5df94ceb67ba1a93fa81a11ae4b27eab8"
+        }
+      ],
+      "imports": [],
+      "reachability": "runtime"
+    },
+    {
+      "path": "packages/utils/src/lib/mergeObjects.ts",
+      "sha256": "1e6cfa2be20c639f5ce6f8b0b6cc447da3413bbbc6750a5b1ab03f5810d81746",
+      "symbols": [
+        {
+          "name": "mergeObjects",
+          "kind": "FunctionDeclaration",
+          "sha256": "b23c95ea2ea291cada1cc5967871fe8bb60f1fb880398d02715d35a2926d845b"
+        }
+      ],
+      "imports": [],
+      "reachability": "runtime"
+    },
+    {
+      "path": "packages/utils/src/lib/owner.ts",
+      "sha256": "759c607acc1a103b2d795840051555671fe65fd889dae7694606b9069803f986",
+      "symbols": [
+        {
+          "name": "ownerDocument",
+          "kind": "FunctionDeclaration",
+          "sha256": "2d0ff1eaeefbc972bbaceba31c2c0b67d86c6ac356bc5fd698f8a15e7abefc4e"
+        }
+      ],
+      "imports": [
+        {
+          "specifier": "@floating-ui/utils/dom",
+          "kind": "runtime",
+          "members": [
+            {
+              "imported": "getWindow",
+              "local": "ownerWindow",
+              "typeOnly": false
+            }
+          ],
+          "syntax": "reexport",
+          "resolved": "external:@floating-ui/utils/dom"
+        }
+      ],
+      "reachability": "runtime"
+    },
+    {
+      "path": "packages/utils/src/lib/platform/engine.ts",
+      "sha256": "e4745bcc586212a32cde2f7d206cc1aa4df86b8a29301f8d15cf3cd88996a987",
+      "symbols": [],
+      "imports": [
+        {
+          "specifier": "./shared.js",
+          "kind": "runtime",
+          "members": [
+            {
+              "imported": "lowerUserAgent",
+              "local": "lowerUserAgent",
+              "typeOnly": false
+            }
+          ],
+          "syntax": "import",
+          "resolved": "packages/utils/src/lib/platform/shared.ts"
+        }
+      ],
+      "reachability": "runtime"
+    },
+    {
+      "path": "packages/utils/src/lib/platform/env.ts",
+      "sha256": "dbd7cc1369986d370094b986c44b1bce3c10eba1f792f0e5c3e99c071e00eb9d",
+      "symbols": [],
+      "imports": [
+        {
+          "specifier": "./shared.js",
+          "kind": "runtime",
+          "members": [
+            {
+              "imported": "lowerUserAgent",
+              "local": "lowerUserAgent",
+              "typeOnly": false
+            }
+          ],
+          "syntax": "import",
+          "resolved": "packages/utils/src/lib/platform/shared.ts"
+        }
+      ],
+      "reachability": "runtime"
+    },
+    {
+      "path": "packages/utils/src/lib/platform/index.ts",
+      "sha256": "c9c1174c0f82f01033187e382b461370123d356d8e14901a9ca7d85dbd2ea63c",
+      "symbols": [],
+      "imports": [
+        {
+          "specifier": "./parts.js",
+          "kind": "runtime",
+          "members": [],
+          "syntax": "reexport",
+          "resolved": "packages/utils/src/lib/platform/parts.ts"
+        }
+      ],
+      "reachability": "runtime"
+    },
+    {
+      "path": "packages/utils/src/lib/platform/media-query.ts",
+      "sha256": "5e91ea2589962018778ad88498ff9acd432a5244fe37ee922d0a6014b1fb7ed9",
+      "symbols": [],
+      "imports": [],
+      "reachability": "runtime"
+    },
+    {
+      "path": "packages/utils/src/lib/platform/os.ts",
+      "sha256": "456f2f5814e890fb12d899c1cc2f08566529216fd8f6d40a9a8e5846b2c9c3d6",
+      "symbols": [],
+      "imports": [
+        {
+          "specifier": "./shared.js",
+          "kind": "runtime",
+          "members": [
+            {
+              "imported": "lowerUserAgent",
+              "local": "lowerUserAgent",
+              "typeOnly": false
+            },
+            {
+              "imported": "lowerPlatform",
+              "local": "lowerPlatform",
+              "typeOnly": false
+            },
+            {
+              "imported": "maxTouchPoints",
+              "local": "maxTouchPoints",
+              "typeOnly": false
+            }
+          ],
+          "syntax": "import",
+          "resolved": "packages/utils/src/lib/platform/shared.ts"
+        }
+      ],
+      "reachability": "runtime"
+    },
+    {
+      "path": "packages/utils/src/lib/platform/parts.ts",
+      "sha256": "5382169dc9803fde93bc85e33062cbc85d7cdc0bf754d1a7f6f21eb2b4dcac29",
+      "symbols": [],
+      "imports": [
+        {
+          "specifier": "./os.js",
+          "kind": "runtime",
+          "members": [],
+          "syntax": "reexport",
+          "resolved": "packages/utils/src/lib/platform/os.ts"
+        },
+        {
+          "specifier": "./engine.js",
+          "kind": "runtime",
+          "members": [],
+          "syntax": "reexport",
+          "resolved": "packages/utils/src/lib/platform/engine.ts"
+        },
+        {
+          "specifier": "./screen-reader.js",
+          "kind": "runtime",
+          "members": [],
+          "syntax": "reexport",
+          "resolved": "packages/utils/src/lib/platform/screen-reader.ts"
+        },
+        {
+          "specifier": "./env.js",
+          "kind": "runtime",
+          "members": [],
+          "syntax": "reexport",
+          "resolved": "packages/utils/src/lib/platform/env.ts"
+        },
+        {
+          "specifier": "./media-query.js",
+          "kind": "runtime",
+          "members": [],
+          "syntax": "reexport",
+          "resolved": "packages/utils/src/lib/platform/media-query.ts"
+        }
+      ],
+      "reachability": "runtime"
+    },
+    {
+      "path": "packages/utils/src/lib/platform/screen-reader.ts",
+      "sha256": "c43ebce8b6557becf984c0ae7f36395da615110e7f878bab1c0dfd476ceb19a7",
+      "symbols": [],
+      "imports": [
+        {
+          "specifier": "./os.js",
+          "kind": "runtime",
+          "members": [
+            {
+              "imported": "apple",
+              "local": "apple",
+              "typeOnly": false
+            }
+          ],
+          "syntax": "import",
+          "resolved": "packages/utils/src/lib/platform/os.ts"
+        }
+      ],
+      "reachability": "runtime"
+    },
+    {
+      "path": "packages/utils/src/lib/platform/shared.ts",
+      "sha256": "28621a4723495ed9f1370c09b12480a6f488f19e59c70e78524325fc6e080db2",
+      "symbols": [
+        {
+          "name": "NavigatorUAData",
+          "kind": "InterfaceDeclaration",
+          "sha256": "215fa59eef2af04ff0c49aa31ed8b85bc40638303f6fc1a1c931615dbb070ff5"
+        },
+        {
+          "name": "RawNavigatorData",
+          "kind": "InterfaceDeclaration",
+          "sha256": "9bc263ee1d62021f06b582afefcb44bb2f8479d15cff6f336e8a1a87c5e4dd17"
+        },
+        {
+          "name": "readRawData",
+          "kind": "FunctionDeclaration",
+          "sha256": "b6f5f29e7af45116afe8b0b45bcebb001052899cc42715b69a1329c26f4229da"
+        }
+      ],
+      "imports": [
+        {
+          "specifier": "esm-env",
+          "kind": "runtime",
+          "members": [
+            {
+              "imported": "DEV",
+              "local": "DEV",
+              "typeOnly": false
+            }
+          ],
+          "syntax": "import",
+          "resolved": "external:esm-env"
+        }
+      ],
+      "reachability": "runtime"
+    },
+    {
+      "path": "packages/utils/src/lib/shadowDom.ts",
+      "sha256": "2cb79a4a3ccbe16581be29f7958d03bce459c5cf8cad8ae4b9f08ab981d42a2a",
+      "symbols": [
+        {
+          "name": "activeElement",
+          "kind": "FunctionDeclaration",
+          "sha256": "5c0ce487f87da826740dbf3f2b61148cd5c367c8497336b9c5725855a90917ea"
+        },
+        {
+          "name": "contains",
+          "kind": "FunctionDeclaration",
+          "sha256": "49454442e1a8b62c23f0b845ad7761219bf2748ef20eb2a2e10547515de512fb"
+        },
+        {
+          "name": "getTarget",
+          "kind": "FunctionDeclaration",
+          "sha256": "0bd2d8086e4c351952e020f19cde08fac511fc8d4d729cedede981df65874080"
+        }
+      ],
+      "imports": [
+        {
+          "specifier": "@floating-ui/utils/dom",
+          "kind": "runtime",
+          "members": [
+            {
+              "imported": "isShadowRoot",
+              "local": "isShadowRoot",
+              "typeOnly": false
+            }
+          ],
+          "syntax": "import",
+          "resolved": "external:@floating-ui/utils/dom"
+        }
+      ],
+      "reachability": "runtime"
+    },
+    {
+      "path": "packages/utils/src/lib/store/Store.svelte.ts",
+      "sha256": "289f1c151106f981843140b9d508d300597ee1f5a90437dca446738b861cad3c",
+      "symbols": [
+        {
+          "name": "Listener",
+          "kind": "TypeAliasDeclaration",
+          "sha256": "2b4bffa37fc18b618b6a2dba64a48ed89ea5a1236f2fd312c9bfb7f717177c64"
+        },
+        {
+          "name": "Store",
+          "kind": "ClassDeclaration",
+          "sha256": "e542513a901ee5fefd5b3d274eb42b5e97793439c8dc9f562136c8bdd383c234"
+        },
+        {
+          "name": "ReadonlyStore",
+          "kind": "TypeAliasDeclaration",
+          "sha256": "52ca753d3b755a3267d34c404555974d2368546d17c911ef823d20447265a21c"
+        }
+      ],
+      "imports": [],
+      "reachability": "runtime"
+    },
+    {
+      "path": "packages/utils/src/lib/store/SvelteStore.svelte.ts",
+      "sha256": "472b01d7a463c05348b85c85a413b70c55b950972f12b144ce632e4ab775102c",
+      "symbols": [
+        {
+          "name": "Selector",
+          "kind": "TypeAliasDeclaration",
+          "sha256": "e4e26c4ecc0b1dad163ce8688e6e3938672e3779fcf0a9b90c8952c99961377c"
+        },
+        {
+          "name": "Tail",
+          "kind": "TypeAliasDeclaration",
+          "sha256": "0a7cf15c6066214e4f78df2c9b93c2faca3308025fdff3d5c912eb8d28bf1109"
+        },
+        {
+          "name": "SelectorArgs",
+          "kind": "TypeAliasDeclaration",
+          "sha256": "72922e390d80684df839faa67c9e929f405edadce254100161e83f835cfef842"
+        },
+        {
+          "name": "KeysAllowingUndefined",
+          "kind": "TypeAliasDeclaration",
+          "sha256": "d8cfaf3ea17a475fde37c43675f0d48a6fa733ac055b28836a68fd801fd269e6"
+        },
+        {
+          "name": "ObserveSelector",
+          "kind": "TypeAliasDeclaration",
+          "sha256": "13558d747df1491556c2856f85dfe7dfc7d2b286239845cabe182dd50cb19521"
+        },
+        {
+          "name": "SvelteStore",
+          "kind": "ClassDeclaration",
+          "sha256": "38edf97e40aa43581375055a85aa765d38c74e0bcfdb71b59b518af182d28ead"
+        }
+      ],
+      "imports": [
+        {
+          "specifier": "svelte",
+          "kind": "runtime",
+          "members": [
+            {
+              "imported": "untrack",
+              "local": "untrack",
+              "typeOnly": false
+            }
+          ],
+          "syntax": "import",
+          "resolved": "external:svelte"
+        },
+        {
+          "specifier": "svelte/reactivity",
+          "kind": "runtime",
+          "members": [
+            {
+              "imported": "createSubscriber",
+              "local": "createSubscriber",
+              "typeOnly": false
+            }
+          ],
+          "syntax": "import",
+          "resolved": "external:svelte/reactivity"
+        },
+        {
+          "specifier": "./Store.svelte.js",
+          "kind": "runtime",
+          "members": [
+            {
+              "imported": "Store",
+              "local": "Store",
+              "typeOnly": false
+            }
+          ],
+          "syntax": "import",
+          "resolved": "packages/utils/src/lib/store/Store.svelte.ts"
+        }
+      ],
+      "reachability": "runtime"
+    },
+    {
+      "path": "packages/utils/src/lib/store/index.ts",
+      "sha256": "996a1d7a865fe2ce8a362041ced6b58a7ef139d4d796773971376e5fec0d52d7",
+      "symbols": [],
+      "imports": [
+        {
+          "specifier": "./Store.svelte.js",
+          "kind": "runtime",
+          "members": [
+            {
+              "imported": "Store",
+              "local": "Store",
+              "typeOnly": false
+            },
+            {
+              "imported": "ReadonlyStore",
+              "local": "ReadonlyStore",
+              "typeOnly": true
+            }
+          ],
+          "syntax": "reexport",
+          "resolved": "packages/utils/src/lib/store/Store.svelte.ts"
+        },
+        {
+          "specifier": "./SvelteStore.svelte.js",
+          "kind": "runtime",
+          "members": [
+            {
+              "imported": "SvelteStore",
+              "local": "SvelteStore",
+              "typeOnly": false
+            }
+          ],
+          "syntax": "reexport",
+          "resolved": "packages/utils/src/lib/store/SvelteStore.svelte.ts"
+        }
+      ],
+      "reachability": "runtime"
+    },
+    {
+      "path": "packages/utils/src/lib/useAnimationFrame.ts",
+      "sha256": "ec054003588b92e4223c6eea228388ae6395bf1895fb3aaf32a02706249652ce",
+      "symbols": [
+        {
+          "name": "AnimationFrameId",
+          "kind": "TypeAliasDeclaration",
+          "sha256": "2e32108a1a6e0adf64b3adf5988e06f857a3ef4a9b97e0fb6f4b3ffd3fee3159"
+        },
+        {
+          "name": "Scheduler",
+          "kind": "ClassDeclaration",
+          "sha256": "81fc7e64b0f05cc880daba9c0abad06c2bd4ffc9c45cf737cb69394672b8a67c"
+        },
+        {
+          "name": "resetAnimationFrameScheduler",
+          "kind": "FunctionDeclaration",
+          "sha256": "2e4664a225ff6306f10bf2299728815f58a18eed87bf3dab7c9546dc1a974290"
+        },
+        {
+          "name": "AnimationFrame",
+          "kind": "ClassDeclaration",
+          "sha256": "20e3466a3a9a5b89c35f6e7b006aae966e503c55bc981f9140ab063ea047f8a3"
+        }
+      ],
+      "imports": [
+        {
+          "specifier": "esm-env",
+          "kind": "runtime",
+          "members": [
+            {
+              "imported": "DEV",
+              "local": "DEV",
+              "typeOnly": false
+            }
+          ],
+          "syntax": "import",
+          "resolved": "external:esm-env"
+        }
+      ],
+      "reachability": "runtime"
+    },
+    {
+      "path": "packages/utils/src/lib/useEnhancedClickHandler.ts",
+      "sha256": "cc0e6c0c7f6131b365253ef7fc61dcb2bba61f0e228e4cdbcdbc0cb5e9bd9e84",
+      "symbols": [
+        {
+          "name": "InteractionType",
+          "kind": "TypeAliasDeclaration",
+          "sha256": "e9ea8d56b275f34dd8ec14f85c7b9835a9b5405655dfbc4bac625de6658da794"
+        },
+        {
+          "name": "EnhancedClickHandler",
+          "kind": "ClassDeclaration",
+          "sha256": "cbb1ecce28f3c0f92bee3662352f8504a9b758cfc5dca186718063f2f2383a7d"
+        },
+        {
+          "name": "useEnhancedClickHandler",
+          "kind": "FunctionDeclaration",
+          "sha256": "d472738763916e103ecf236bd6a8d702176a6e078c9ad59b3e9b5528a30a3b38"
+        }
+      ],
+      "imports": [],
+      "reachability": "runtime"
+    },
+    {
+      "path": "packages/utils/src/lib/useScrollLock.svelte.ts",
+      "sha256": "bea63beb673cffb2bb25fcb5491b34f9724cb03453c1014273b501da4c5dfc35",
+      "symbols": [
+        {
+          "name": "getViewportScroller",
+          "kind": "FunctionDeclaration",
+          "sha256": "502793b1ebcba0038750c0ee1a714e2c317771d5015364493ad342eb1ea61ee1"
+        },
+        {
+          "name": "isPageScrollLocked",
+          "kind": "FunctionDeclaration",
+          "sha256": "6e0c6fb8f052ba37fe998d2965bcba2c6c933e60124c062c05e4ee447585b34b"
+        },
+        {
+          "name": "hasInsetScrollbars",
+          "kind": "FunctionDeclaration",
+          "sha256": "a98f359c8e27750165ffc6edfeb18bc8a1cd8907711e8f7acff358777a7d0f74"
+        },
+        {
+          "name": "supportsStableScrollbarGutter",
+          "kind": "FunctionDeclaration",
+          "sha256": "7e83de33610bc437e73190acbf3813fbef1b17e0a610ae3469cf3f54a70bd695"
+        },
+        {
+          "name": "preventScrollOverlayScrollbars",
+          "kind": "FunctionDeclaration",
+          "sha256": "c69944d0406056ddbd5c876af0397a8d24998b7644703b7caec125ce1a6f312b"
+        },
+        {
+          "name": "preventScrollInsetScrollbars",
+          "kind": "FunctionDeclaration",
+          "sha256": "a346c395afe43aef39f25a2cb37c3b7dde291a33d44fb2022e1bc72de7e99223"
+        },
+        {
+          "name": "ScrollLocker",
+          "kind": "ClassDeclaration",
+          "sha256": "3de253a447554de1f0447de27b37f0c1d4e61c50d1a44cbf22a84f32c13ff896"
+        },
+        {
+          "name": "useScrollLock",
+          "kind": "FunctionDeclaration",
+          "sha256": "ff27287bb6e63887a9e764b4cc7aa945b5b8a3aef35b7fbb82279ed1f4ca16bd"
+        }
+      ],
+      "imports": [
+        {
+          "specifier": "@floating-ui/utils/dom",
+          "kind": "runtime",
+          "members": [
+            {
+              "imported": "isOverflowElement",
+              "local": "isOverflowElement",
+              "typeOnly": false
+            }
+          ],
+          "syntax": "import",
+          "resolved": "external:@floating-ui/utils/dom"
+        },
+        {
+          "specifier": "./addEventListener.js",
+          "kind": "runtime",
+          "members": [
+            {
+              "imported": "addEventListener",
+              "local": "addEventListener",
+              "typeOnly": false
+            }
+          ],
+          "syntax": "import",
+          "resolved": "packages/utils/src/lib/addEventListener.ts"
+        },
+        {
+          "specifier": "./platform/index.js",
+          "kind": "runtime",
+          "members": [
+            {
+              "imported": "platform",
+              "local": "platform",
+              "typeOnly": false
+            }
+          ],
+          "syntax": "import",
+          "resolved": "packages/utils/src/lib/platform/index.ts"
+        },
+        {
+          "specifier": "./owner.js",
+          "kind": "runtime",
+          "members": [
+            {
+              "imported": "ownerDocument",
+              "local": "ownerDocument",
+              "typeOnly": false
+            },
+            {
+              "imported": "ownerWindow",
+              "local": "ownerWindow",
+              "typeOnly": false
+            }
+          ],
+          "syntax": "import",
+          "resolved": "packages/utils/src/lib/owner.ts"
+        },
+        {
+          "specifier": "./useTimeout.js",
+          "kind": "runtime",
+          "members": [
+            {
+              "imported": "Timeout",
+              "local": "Timeout",
+              "typeOnly": false
+            }
+          ],
+          "syntax": "import",
+          "resolved": "packages/utils/src/lib/useTimeout.ts"
+        },
+        {
+          "specifier": "./useAnimationFrame.js",
+          "kind": "runtime",
+          "members": [
+            {
+              "imported": "AnimationFrame",
+              "local": "AnimationFrame",
+              "typeOnly": false
+            }
+          ],
+          "syntax": "import",
+          "resolved": "packages/utils/src/lib/useAnimationFrame.ts"
+        }
+      ],
+      "reachability": "runtime"
+    },
+    {
+      "path": "packages/utils/src/lib/useTimeout.ts",
+      "sha256": "06130c6374e14371471cc3af14638ddb3cadb514bb985fcbc4b8a7a606008b7f",
+      "symbols": [
+        {
+          "name": "TimeoutId",
+          "kind": "TypeAliasDeclaration",
+          "sha256": "587195b3b341c57c57abda441ad698c1ec714854dcbf1732595c0ba4c7839e22"
+        },
+        {
+          "name": "Timeout",
+          "kind": "ClassDeclaration",
+          "sha256": "b827621736df38b2d17ef5be91f0cfc5e46216501fda4a991b3a20139f401eb6"
+        }
+      ],
+      "imports": [],
+      "reachability": "runtime"
+    }
+  ]
+}

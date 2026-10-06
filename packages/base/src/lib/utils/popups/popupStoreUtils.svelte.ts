@@ -62,23 +62,23 @@ function syncTriggerCount(store: PopupTriggerDataStore<PopupStoreState<unknown>>
  * @param id Id of the trigger.
  * @param store The Store instance where the trigger should be registered.
  */
-export function useTriggerRegistration<State extends PopupStoreState<unknown>>(
-  getId: () => string | undefined,
-  getStore: () => PopupTriggerDataStore<State>,
-) {
-  const registrationRef: {
-    current: {
-      store: PopupTriggerDataStore<State>;
-      id: string;
-      element: Element;
-    } | null;
-  } = { current: null };
+export class TriggerRegistration<State extends PopupStoreState<unknown>> {
+  private registration: {
+    store: PopupTriggerDataStore<State>;
+    id: string;
+    element: Element;
+  } | null = null;
 
-  return (element: Element | null) => {
-    const id = getId();
-    const store = getStore();
+  constructor(
+    private readonly getId: () => string | undefined,
+    private readonly getStore: () => PopupTriggerDataStore<State>,
+  ) {}
+
+  readonly register = (element: Element | null) => {
+    const id = this.getId();
+    const store = this.getStore();
     untrack(() => {
-      const registration = registrationRef.current;
+      const registration = this.registration;
 
       if (registration !== null) {
         if (
@@ -90,7 +90,7 @@ export function useTriggerRegistration<State extends PopupStoreState<unknown>>(
           return;
         }
 
-        registrationRef.current = null;
+        this.registration = null;
         const registeredStore = registration.store;
         if (
           registeredStore.context.triggerElements.getById(registration.id) === registration.element
@@ -101,12 +101,20 @@ export function useTriggerRegistration<State extends PopupStoreState<unknown>>(
       }
 
       if (element !== null && id !== undefined) {
-        registrationRef.current = { store, id, element };
+        this.registration = { store, id, element };
         store.context.triggerElements.add(id, element);
         syncTriggerCount(store);
       }
     });
   };
+}
+
+/** Stateless construction glue; callers retain the installed owner's stable callback. */
+export function useTriggerRegistration<State extends PopupStoreState<unknown>>(
+  getId: () => string | undefined,
+  getStore: () => PopupTriggerDataStore<State>,
+) {
+  return new TriggerRegistration(getId, getStore).register;
 }
 
 export function useTriggerDataForwarding<
@@ -195,110 +203,119 @@ export function useTriggerDataForwarding<
   };
 }
 
-export function useImplicitActiveTrigger<State extends PopupStoreState<unknown>>(
-  store: PopupStoreWithOpen<State>,
-  options: {
-    closeOnActiveTriggerUnmount?: boolean | undefined;
-  } = {},
-) {
-  const { closeOnActiveTriggerUnmount = false } = options;
-  // Distinguishes a trigger that unmounted from a new active trigger that has not hydrated yet.
-  const resolvedActiveTriggerIdRef: { current: string | null } = { current: null };
-  const open = $derived(store.useState('open'));
+export class ImplicitActiveTrigger<State extends PopupStoreState<unknown>> {
+  // Distinguishes a trigger that unmounted from one that has not hydrated yet.
+  private resolvedActiveTriggerId: string | null = null;
 
-  $effect(() => {
-    if (!open) {
-      resolvedActiveTriggerIdRef.current = null;
-      if (store.state.triggerCount !== 0) {
-        store.set('triggerCount', 0);
-      }
-      return;
-    }
+  constructor(
+    store: PopupStoreWithOpen<State>,
+    options: { closeOnActiveTriggerUnmount?: boolean | undefined } = {},
+  ) {
+    const { closeOnActiveTriggerUnmount = false } = options;
+    const open = $derived(store.useState('open'));
 
-    const triggerCount = store.context.triggerElements.size;
-    const stateUpdates = {} as Pick<
-      State,
-      'triggerCount' | 'activeTriggerId' | 'activeTriggerElement'
-    >;
-
-    if (store.state.triggerCount !== triggerCount) {
-      stateUpdates.triggerCount = triggerCount;
-    }
-
-    const currentActiveTriggerId = store.select('activeTriggerId');
-    let lostActiveTriggerId: string | null = null;
-
-    if (currentActiveTriggerId) {
-      const activeTriggerElement = store.context.triggerElements.getById(currentActiveTriggerId);
-      if (!activeTriggerElement) {
-        for (const [triggerId, triggerElement] of store.context.triggerElements.entries()) {
-          if (triggerElement === store.state.activeTriggerElement) {
-            stateUpdates.activeTriggerId = triggerId;
-            stateUpdates.activeTriggerElement = triggerElement;
-            resolvedActiveTriggerIdRef.current = triggerId;
-            break;
-          }
+    $effect(() => {
+      if (!open) {
+        this.resolvedActiveTriggerId = null;
+        if (store.state.triggerCount !== 0) {
+          store.set('triggerCount', 0);
         }
+        return;
+      }
 
-        if (stateUpdates.activeTriggerId === undefined) {
-          if (resolvedActiveTriggerIdRef.current === currentActiveTriggerId) {
-            lostActiveTriggerId = currentActiveTriggerId;
-          } else {
-            resolvedActiveTriggerIdRef.current = null;
+      const triggerCount = store.context.triggerElements.size;
+      const stateUpdates = {} as Pick<
+        State,
+        'triggerCount' | 'activeTriggerId' | 'activeTriggerElement'
+      >;
+
+      if (store.state.triggerCount !== triggerCount) {
+        stateUpdates.triggerCount = triggerCount;
+      }
+
+      const currentActiveTriggerId = store.select('activeTriggerId');
+      let lostActiveTriggerId: string | null = null;
+
+      if (currentActiveTriggerId) {
+        const activeTriggerElement = store.context.triggerElements.getById(currentActiveTriggerId);
+        if (!activeTriggerElement) {
+          for (const [triggerId, triggerElement] of store.context.triggerElements.entries()) {
+            if (triggerElement === store.state.activeTriggerElement) {
+              stateUpdates.activeTriggerId = triggerId;
+              stateUpdates.activeTriggerElement = triggerElement;
+              this.resolvedActiveTriggerId = triggerId;
+              break;
+            }
+          }
+
+          if (stateUpdates.activeTriggerId === undefined) {
+            if (this.resolvedActiveTriggerId === currentActiveTriggerId) {
+              lostActiveTriggerId = currentActiveTriggerId;
+            } else {
+              this.resolvedActiveTriggerId = null;
+            }
+          }
+        } else {
+          this.resolvedActiveTriggerId = currentActiveTriggerId;
+          if (activeTriggerElement !== store.state.activeTriggerElement) {
+            stateUpdates.activeTriggerElement = activeTriggerElement;
           }
         }
       } else {
-        resolvedActiveTriggerIdRef.current = currentActiveTriggerId;
-        if (activeTriggerElement !== store.state.activeTriggerElement) {
-          stateUpdates.activeTriggerElement = activeTriggerElement;
+        this.resolvedActiveTriggerId = null;
+      }
+
+      if (!lostActiveTriggerId && !currentActiveTriggerId && triggerCount === 1) {
+        const iteratorResult = store.context.triggerElements.entries().next();
+        if (!iteratorResult.done) {
+          const [implicitTriggerId, implicitTriggerElement] = iteratorResult.value;
+          stateUpdates.activeTriggerId = implicitTriggerId;
+          stateUpdates.activeTriggerElement = implicitTriggerElement;
+          this.resolvedActiveTriggerId = implicitTriggerId;
         }
       }
-    } else {
-      resolvedActiveTriggerIdRef.current = null;
-    }
 
-    if (!lostActiveTriggerId && !currentActiveTriggerId && triggerCount === 1) {
-      const iteratorResult = store.context.triggerElements.entries().next();
-      if (!iteratorResult.done) {
-        const [implicitTriggerId, implicitTriggerElement] = iteratorResult.value;
-        stateUpdates.activeTriggerId = implicitTriggerId;
-        stateUpdates.activeTriggerElement = implicitTriggerElement;
-        resolvedActiveTriggerIdRef.current = implicitTriggerId;
+      if (
+        stateUpdates.triggerCount !== undefined ||
+        stateUpdates.activeTriggerId !== undefined ||
+        stateUpdates.activeTriggerElement !== undefined
+      ) {
+        store.update(stateUpdates);
       }
-    }
 
-    if (
-      stateUpdates.triggerCount !== undefined ||
-      stateUpdates.activeTriggerId !== undefined ||
-      stateUpdates.activeTriggerElement !== undefined
-    ) {
-      store.update(stateUpdates);
-    }
-
-    if (lostActiveTriggerId) {
-      if (closeOnActiveTriggerUnmount) {
-        // Defer so a same-tick replacement trigger with the same id can register first.
-        queueMicrotask(() => {
-          if (
-            store.select('open') &&
-            store.select('activeTriggerId') === lostActiveTriggerId &&
-            !store.context.triggerElements.getById(lostActiveTriggerId)
-          ) {
-            const eventDetails = createChangeEventDetails(REASONS.none);
-            store.setOpen(false, eventDetails);
-            // If closing is canceled, keep the previous active trigger ownership for the
-            // still-open popup instead of claiming another trigger implicitly.
-            if (!eventDetails.isCanceled) {
-              store.update({
-                activeTriggerId: null,
-                activeTriggerElement: null,
-              });
+      if (lostActiveTriggerId) {
+        if (closeOnActiveTriggerUnmount) {
+          // Defer so a same-tick replacement trigger with the same id can register first.
+          queueMicrotask(() => {
+            if (
+              store.select('open') &&
+              store.select('activeTriggerId') === lostActiveTriggerId &&
+              !store.context.triggerElements.getById(lostActiveTriggerId)
+            ) {
+              const eventDetails = createChangeEventDetails(REASONS.none);
+              store.setOpen(false, eventDetails);
+              // If closing is canceled, keep the previous active trigger ownership for the
+              // still-open popup instead of claiming another trigger implicitly.
+              if (!eventDetails.isCanceled) {
+                store.update({
+                  activeTriggerId: null,
+                  activeTriggerElement: null,
+                });
+              }
             }
-          }
-        });
+          });
+        }
       }
-    }
-  });
+    });
+  }
+}
+
+/** Stateless Root composition around the retained reconciliation owner. */
+export function useImplicitActiveTrigger<State extends PopupStoreState<unknown>>(
+  store: PopupStoreWithOpen<State>,
+  options: { closeOnActiveTriggerUnmount?: boolean | undefined } = {},
+) {
+  return new ImplicitActiveTrigger(store, options);
 }
 
 /** Source popup presence/ownership lifecycle; native canonical transition and completion owners. */
