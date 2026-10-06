@@ -185,3 +185,77 @@ for (const reference of [false, true]) {
     await expect(page.locator('[data-testid=popup]')).toHaveCount(0);
   });
 }
+
+for (const reference of [true, false]) {
+  test(`${reference ? 'Original React' : 'native Svelte'}: replacing a render host preserves the current ref and registration`, async ({
+    page,
+  }) => {
+    await page.goto(`/menu-trigger-host-overlap${reference ? '?reference' : ''}`);
+    const main = page.locator('main');
+    await expect(main).toHaveAttribute('data-hydrated', 'true');
+    test.info().annotations.push({
+      type: 'browser-version',
+      description: page.context().browser()?.version() ?? 'unavailable',
+    });
+    const snapshot = () =>
+      main.evaluate((element) =>
+        (
+          element as HTMLElement & {
+            hostSnapshot(): {
+              boundHost: string | null;
+              registeredHost: string | null;
+              oldOutroEnded: boolean;
+              beforeConnected: boolean;
+              currentConnected: boolean;
+            };
+          }
+        ).hostSnapshot(),
+      );
+    const run = (value: string) =>
+      main.evaluate(
+        (element, command) =>
+          (element as HTMLElement & { hostCommand(value: string): void }).hostCommand(command),
+        value,
+      );
+    const record = async (phase: string) => {
+      const value = {
+        ...(await snapshot()),
+        beforeHostCount: await page.locator('[data-host="before"]').count(),
+        afterHostCount: await page.locator('[data-host="after"]').count(),
+      };
+      await test.info().attach(`host-${phase}`, {
+        body: JSON.stringify(
+          { framework: reference ? 'Original' : 'native', phase, ...value },
+          null,
+          2,
+        ),
+        contentType: 'application/json',
+      });
+      return value;
+    };
+    expect(await record('before')).toMatchObject({ boundHost: 'before', registeredHost: 'before' });
+    await run('swap');
+    await expect(page.locator('[data-host="after"]')).toHaveCount(1);
+    if (!reference) {
+      // Real Svelte out:fade keeps the old actual host mounted while publishing its replacement.
+      await expect(page.locator('[data-host="before"]')).toHaveCount(1);
+    }
+    const overlap = await record('replacement-published');
+    if (!reference)
+      expect(overlap).toMatchObject({ beforeConnected: true, currentConnected: true });
+    expect(overlap).toMatchObject({ boundHost: 'after', registeredHost: 'after' });
+    await expect(page.locator('[data-host="before"]')).toHaveCount(0);
+    await expect(page.locator('[data-host="after"]')).toHaveCount(1);
+    expect(await record('previous-host-removed')).toMatchObject({
+      afterHostCount: 1,
+      boundHost: 'after',
+      registeredHost: 'after',
+    });
+    await run('remove');
+    await expect(page.locator('[data-host="after"]')).toHaveCount(0);
+    expect(await record('trigger-removed')).toMatchObject({
+      boundHost: null,
+      registeredHost: null,
+    });
+  });
+}

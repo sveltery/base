@@ -121,3 +121,27 @@ representation work grants zero unchanged Original assertion credit; final
 candidate/source/native/maintainability review, strict packed consumer,
 SSR/hydration and secured hosted gates are still required after accepted-main
 integration.
+
+
+## Trigger host-outro hypothesis and reproducer
+
+The lead reopened native attachment teardown at public `41d4b708`: the old
+host disposer guards local trigger refs but unconditionally clears the consumer
+bindable ref, Button host and current forwarding registration. Pinned
+MenuTrigger's ref list uses the canonical renderer/merged-ref ordinary replacement
+ordering. The authored actual pinned React ordinary button-to-anchor comparator
+passes ref/registration replacement and removal. A separate real native
+`out:fade` witness is in the existing secured Menu browser suite; it records old
+and replacement DOM counts, bound host and actual registry before replacement,
+during overlap, after old removal and on final teardown. No callback/lifecycle or
+WAAPI stub is used.
+
+Status: native hypothesis pending actual secured execution, no repair or new
+upstream bug claim. Root's live ctx cleanup remains an unconfirmed hypothesis:
+supported detached Menu parent migration does not reach a changing ContextMenu
+owner, whose public API excludes handles. StickIfOpen's openReason dependency
+matches the pin and has no finding. This authored witness earns zero unchanged
+Original assertion credit. Historical green/review receipts remain historical;
+the native red result, if measured, must be preserved before the Menu caller-only
+captured-host cleanup repair. Shared Popup/Button APIs and bodies remain solely
+owned by their assigned canonical owners.

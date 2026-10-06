@@ -538,3 +538,18 @@ React empty-style emulation. Fresh exact candidate review and full unchanged
 verification/package/SSR/hydration/secured browser gates remain pending. These
 framework replacements and authored supplements grant zero unchanged upstream
 assertion credit; original assertion hashes and historical red receipts remain.
+
+### PR #63 native Trigger host-overlap hypothesis
+
+At `41d4b708`, lead review reopened the captured attachment disposer in
+MenuTrigger: stale old-host teardown may clear the replacement's bindable ref,
+Button host and forwarding registration after a native render snippet outro.
+The exact pinned React ordinary render swap comparator passes replacement and
+final removal. A real Svelte fade-overlap witness records physical DOM/ref/registry
+phases in the unchanged secured Menu browser gate, without animation emulation.
+See [hypothesis and reproducer](../parity/menu-family/source-correspondence.md#trigger-host-outro-hypothesis-and-reproducer).
+Status: unconfirmed native resource-lifetime finding pending measured browser RED;
+no runtime repair, upstream bug claim or final acceptance yet. The user native
+lifetime directive governs independent attachment cleanup; Original assertion
+credit stays zero. Root ctx migration is not established in supported composition
+and is unchanged; StickIfOpen's reason dependency matches the immutable pin.
