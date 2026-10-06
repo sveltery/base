@@ -97,7 +97,7 @@ browser, packed consumer and hosted CI gates remain required.
 
 ## Focused Menu state-owner representation
 
-The one added edge is an erased PropSources type import for the Trigger accessor;
+The one added edge is an erased PropSource type import for the Trigger accessor;
 no business dependency changes. The mandatory owner audit and Menu assignment identify three reusable retained-state
 roles, rather than pure selectors or native component-local glue. The immutable
 MenuRoot and MenuTrigger bodies and their source hashes remain unchanged in the
@@ -123,6 +123,28 @@ SSR/hydration and secured hosted gates are still required after accepted-main
 integration.
 
 
+## Trigger accessor annotation correction
+
+Hosted `1696a07a` Verification reported the owner successor's overly broad
+`readProps(): PropSources` annotation: it permits a single object, function or
+undefined, whereas the actual constructor always composes an array and the
+consuming CompositeItem requires an array. The correction imports canonical
+`PropSource` from the same module and declares
+`readProps(): readonly Exclude<PropSource, undefined>[]`. It changes only erased
+types in one complete MenuTrigger file; runtime business, state, attachments,
+ordering and canonical owner dependencies are unchanged. The family remains
+193 modules / 863 edges, with the existing erased edge selecting a different
+type member. Full-body hashes and current source correspondence are refreshed;
+this successor is no longer a test-only or all-body-identical delta.
+
+The hosted type error and skipped later consumer stages remain incomplete failed
+evidence, not passes. Focused lint and native compilation verify only their
+bounded scopes; exact-head strict packed consumers, full Verification and
+independent review remain required. This annotation correction grants no runtime
+acceptance or unchanged Original assertion credit and does not repair the separate
+host-outro finding.
+
+
 ## Trigger host-outro hypothesis and reproducer
 
 The lead reopened native attachment teardown at public `41d4b708`: the old
@@ -131,17 +153,78 @@ bindable ref, Button host and current forwarding registration. Pinned
 MenuTrigger's ref list uses the canonical renderer/merged-ref ordinary replacement
 ordering. The authored actual pinned React ordinary button-to-anchor comparator
 passes ref/registration replacement and removal. A separate real native
-`out:fade` witness is in the existing secured Menu browser suite; it records old
-and replacement DOM counts, bound host and actual registry before replacement,
-during overlap, after old removal and on final teardown. No callback/lifecycle or
-WAAPI stub is used.
+`out:fade` witness is in the existing secured Menu browser suite. At `1696a07a`,
+sequential browser command, locator and snapshot requests could miss the 800 ms
+outro before reaching ref/registry identity assertions. The actual run completed
+44 passing and 2 failing cases. Native execution reached the final old-host-removed
+assertion: one replacement DOM host remained, but the bindable ref and actual
+trigger-map entry were both null. This is measured native failure evidence after
+observed overlap, rather than a missing-overlap claim. The hosted Original case
+was blocked before comparison by Vite development interop: the unused private
+FloatingRootStore import in the probe barrel lacked its named export.
 
-Status: native hypothesis pending actual secured execution, no repair or new
-upstream bug claim. Root's live ctx cleanup remains an unconfirmed hypothesis:
+The reference fixture successor imports only public React, ReactDOM and Menu
+entry points from the same locked immutable Base UI 1.8.0 runtime, without a
+private copy or changed business logic. Its one-worker local Original ordinary
+host-swap/removal comparator passes again after this import-only change (1 test,
+Node 24 / pnpm 12.6.0). Historical local positive evidence remains; a successful
+hosted Original comparator and the precise saved-phase native execution are still
+required. Raw hosted failures, attachments, traces and job logs are preserved by
+the implementation owner, without converting the interop failure into a product
+finding.
+
+The test-only successor records immutable fixture-collected phases after native
+publication flush and at the actual `outrostart` event in the same browser
+lifetime. Saved values include old/new physical connected state and scoped DOM
+counts, plus bindable-ref and actual trigger-map equality with the replacement's
+real bound DOM node. The native command returns synchronously; the test polls
+bounded readiness of the saved actual-event phase, whose evidence persists after
+the outro. A finally block attaches all saved phases even when readiness fails,
+before successful execution asserts causal overlap. Final old-host
+removal, replacement ref/map identity and teardown assertions remain. Duration
+stays 800 ms; no retry, runtime change, callback/lifecycle or WAAPI stub is added.
+Missing recorded overlap means instrumentation is unconfirmed, not that a product
+bug has been demonstrated. Preserve raw failures when actually measured.
+
+Status: the native final-null failure is measured at `1696a07a`; precise
+saved-phase browser reproduction and a positive hosted Original comparison remain
+pending for validation. The lead explicitly authorized the scoped caller repair
+after the measured native ownership loss; no new upstream bug or acceptance is
+claimed. Root's live ctx cleanup remains an unconfirmed hypothesis:
 supported detached Menu parent migration does not reach a changing ContextMenu
 owner, whose public API excludes handles. StickIfOpen's openReason dependency
 matches the pin and has no finding. This authored witness earns zero unchanged
 Original assertion credit. Historical green/review receipts remain historical;
-the native red result, if measured, must be preserved before the Menu caller-only
-captured-host cleanup repair. Shared Popup/Button APIs and bodies remain solely
+the measured native red result and hosted Original fixture failure must remain
+preserved before any Menu caller-only captured-host cleanup repair. Shared Popup/Button APIs and bodies remain solely
 owned by their assigned canonical owners.
+
+
+## Trigger captured-host cleanup repair
+
+The measured hosted native red at `1696a07a` leaves one replacement host in the
+DOM but clears its bindable ref and actual trigger-map entry when the old
+outro host is disposed. The [immutable receipt](receipts/host-overlap-1696/receipt.json)
+retains raw results, traces, attachments and job logs separately from the Original
+fixture interop blockage. The actual pinned Original ordinary replacement/removal
+comparator passes locally after public-import transport correction. Original
+MenuTrigger/useRenderElement/useMergedRefs at immutable MIT
+`47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c` serialize prior ref cleanup before new
+publication; native independent outro attachments require captured-host ownership.
+
+Under the lead's explicit repair authorization, only MenuTrigger's actual
+attachment disposer now returns immediately when `triggerRef.current !== host`.
+A stale old-host disposer therefore cannot release the replacement's consumer
+ref, canonical Button host or canonical forwarding registration. The final
+current-host disposer retains the existing ref/Button/registration/element-ref
+cleanup order. Shared Button/Popup APIs and bodies, Root context cleanup, state,
+timeouts and business branches are unchanged; no private helper copy is added.
+This source/native lifetime repair is separate from the erased accessor annotation
+correction above. Current body hashes and projections change for this one
+MenuTrigger file; neither historical identity nor green evidence covers it.
+
+The unchanged precise real-fade witness, public Original comparator and final
+current-host removal assertions remain required on the successor. Focused lint
+and compilation add no secured browser acceptance or unchanged Original assertion
+credit; final source/native/maintainability review and required execution remain
+pending.

@@ -539,17 +539,82 @@ verification/package/SSR/hydration/secured browser gates remain pending. These
 framework replacements and authored supplements grant zero unchanged upstream
 assertion credit; original assertion hashes and historical red receipts remain.
 
+### PR #63 Trigger accessor annotation correction
+
+Hosted `1696a07a` Verification found the owner successor's overly broad
+`readProps(): PropSources` annotation incompatible with CompositeItem's array
+input; the actual constructor always supplies an array. The erased correction
+uses canonical `PropSource` from the same existing module and narrows the reader
+to `readonly Exclude<PropSource, undefined>[]`. One complete MenuTrigger file hash
+changes, while its runtime business, state, ordering and attachment bodies remain
+unchanged. The current family is still 193 modules / 863 edges; the existing erased
+import selects the narrower member. Current hashes/correspondence require refresh
+and fresh review, so this candidate is not an all-body-identical test-only delta.
+The hosted type failure and skipped later consumer gates stay incomplete;
+focused lint/compile supplies no strict packed consumer or Verification pass.
+No runtime acceptance, upstream assertion credit or host-outro repair is claimed.
+
 ### PR #63 native Trigger host-overlap hypothesis
 
 At `41d4b708`, lead review reopened the captured attachment disposer in
 MenuTrigger: stale old-host teardown may clear the replacement's bindable ref,
 Button host and forwarding registration after a native render snippet outro.
 The exact pinned React ordinary render swap comparator passes replacement and
-final removal. A real Svelte fade-overlap witness records physical DOM/ref/registry
-phases in the unchanged secured Menu browser gate, without animation emulation.
+final removal. At `1696a07a`, sequential browser command, locator and snapshot
+requests could miss the 800 ms native outro before ref/registry identity checks;
+the actual run completed 44 passing and 2 failing cases. Native execution reached
+the old-host-removed assertion with one replacement DOM host still present, but
+both its bindable ref and actual trigger-map entry null. Hosted Original readiness
+was blocked before comparison by the unused probe barrel's private
+FloatingRootStore named-export interop in Vite development mode. The reference
+fixture now imports only public React, ReactDOM and Menu entry points from the
+same locked exact-pin Base UI 1.8.0 package; its one-worker local ordinary
+swap/removal comparator passes again (1 test), retaining historical local positive
+evidence. Hosted Original positive comparison and precise native saved-phase
+execution remain required; preserve both raw hosted failures separately.
+
+The test-only successor collects immutable phases inside the native fixture after publication
+flush and at actual `outrostart`, including old/new physical connected state,
+scoped DOM counts and bound-ref/trigger-map equality with the actual replacement
+DOM node. The native command returns synchronously, and bounded polling checks
+readiness of the saved actual-event phase. A finally block attaches all collected
+phases even when readiness fails; successful execution then asserts saved causal
+overlap. Final old removal,
+current-host identity and teardown checks remain. Duration is still 800 ms, with
+no retries, runtime changes or animation emulation. Missing saved overlap is
+unconfirmed instrumentation, not a demonstrated product bug; preserve raw failed
+receipts once measured.
 See [hypothesis and reproducer](../parity/menu-family/source-correspondence.md#trigger-host-outro-hypothesis-and-reproducer).
-Status: unconfirmed native resource-lifetime finding pending measured browser RED;
-no runtime repair, upstream bug claim or final acceptance yet. The user native
+Status: native final-null failure is measured at `1696a07a`; precise saved-phase
+browser reproduction and positive hosted Original comparison remain pending
+for successor validation. The lead explicitly authorizes the caller-only repair
+following measured native ownership loss; no upstream bug claim or final
+acceptance is granted. The user native
 lifetime directive governs independent attachment cleanup; Original assertion
 credit stays zero. Root ctx migration is not established in supported composition
 and is unchanged; StickIfOpen's reason dependency matches the immutable pin.
+
+### PR #63 Trigger captured-host cleanup repair
+
+The [actual `1696a07a` receipt](../parity/menu-family/receipts/host-overlap-1696/receipt.json)
+retains native final-null evidence and the separate hosted Original fixture
+interop blockage. The immutable MIT Source is MenuTrigger/useRenderElement/
+useMergedRefs at `47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c`: ordinary React
+replacement serializes old ref cleanup before new publication, while native
+Svelte outro attachments can coexist. The local actual pinned ordinary
+swap/removal comparator passes; exact hosted positive and precise native
+saved-phase successor gates remain required.
+
+The authorized Menu-only repair adds a captured-host early return when the
+disposer's host is no longer `triggerRef.current`. It prevents an old outro's
+cleanup from releasing the replacement's bindable ref, canonical Button host
+and canonical forwarding registration. Current-host final removal retains its
+existing cleanup sequence. The shared Button/Popup APIs and bodies, Root ctx,
+state/timer/business ordering and exact-pinned archives remain unchanged.
+The erased array-reader type correction is recorded separately. One complete
+MenuTrigger body hash changes, so inherited all-body identity and earlier passes
+provide no successor acceptance. The real-fade and public Original assertions
+remain unchanged; no stub, retry, private copy or duration change is introduced.
+This native lifetime repair grants zero unchanged Original assertion credit;
+fresh exact-head review, packed strict consumers, SSR/hydration, secured browsers
+and hosted CI remain pending.

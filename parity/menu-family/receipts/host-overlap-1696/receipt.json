@@ -1,0 +1,46 @@
+{
+  "head": "1696a07aaa40ee6b648e8eaecc5f24a61bfd5af7",
+  "sourcePin": "47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c",
+  "run": 37538005603,
+  "job": 112523797254,
+  "artifact": 11447961974,
+  "artifactUrl": "https://github.com/sveltery/base/actions/runs/37538005603/artifacts/11447961974",
+  "result": {
+    "passed": 44,
+    "failed": 2
+  },
+  "files": {
+    "artifact.zip": "0dedfcd62ed7d2a8ec52d9f6a7f5f4d2912eb30ea2c68248c41d1c62fa288b6b",
+    "job.log": "07cbd91388d8be856a0dd82fc6c06c8dcd4b5fb9d7befa189256ea5b90975292",
+    "menu-family-results.json": "a1bad5ebb55f631a7d03261cbedfd204d6fc41dfc4047e2180243b95038670c3",
+    "positive-original-local.log": "209baefc142d6886be74fe489d2313db54747fa3d80ba6ec1f6803503080a18e",
+    "verification.log": "0c1c8966abd59986b9c6d34421b2d4678b9933d1657e6e12649134d628d92815"
+  },
+  "unchangedOriginalAssertionCredit": 0,
+  "classification": {
+    "Original": "Fixture import interop failure before hydration/comparator execution; no hosted positive comparator credit.",
+    "native": "Observed old/new physical overlap and current ref/map replacement; after old host removal replacement DOM count remains1 but bound ref and registry null. Preserve native red; precision successor must establish exact host equality and positive pinned ordinary comparator before repair."
+  },
+  "localPositiveOriginal": {
+    "test": "packages/base/tests/dom/menu-trigger-host-replacement.test.ts",
+    "testsPassed": 1,
+    "workers": 1,
+    "runtime": "locked @base-ui/react1.8.0 public Menu; Native counterpart not executed locally",
+    "log": "positive-original-local.log",
+    "source": "same authored comparator with public reference-import transport correction only",
+    "testSourceSha256AtPositive": "57c6ddfb98c2d7b80054de49e4a9dd67ecd9861125c736f68b2b7f69252aea1e",
+    "referenceSourceSha256AtPositive": "300bc855f6ccee829aa2c946881b39883f6265c9b1b6eb41c90b4309c35be803"
+  },
+  "verification": {
+    "run": 37538005003,
+    "job": 112524139390,
+    "artifact": 11447917148,
+    "artifactUrl": "https://github.com/sveltery/base/actions/runs/37538005003/artifacts/11447917148",
+    "artifactSha256": "efa5b48980ae8566264e3ef0b1c65403470a4e06d371b8e586cd9e70c1054e71",
+    "Standards": "passed",
+    "scripts": "passed",
+    "freshDualTarballs": "passed",
+    "workspaceTypes": "failed: MenuTrigger props erased class annotation too broad",
+    "runtimeDOMFixtureBoundaryConsumers": "skipped after workspace type failure; no hosted credit"
+  }
+}

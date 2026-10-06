@@ -10230,7 +10230,7 @@
     },
     {
       "source": "packages/base/src/lib/menu/trigger/createMenuTrigger.svelte.ts",
-      "sha256": "bfc605f52038d255a01ea03b7cbfe20fac34b28d8cd41b6d9f75a3e480484385",
+      "sha256": "7df47d663c64fde7a8676431803941aa5c97f34b07f1b30c0c6c47329a0e7ed5",
       "reachability": "runtime",
       "imports": [
         {
@@ -10594,7 +10594,7 @@
           "kind": "type",
           "symbols": [
             {
-              "imported": "PropSources",
+              "imported": "PropSource",
               "typeOnly": false
             }
           ],

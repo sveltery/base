@@ -5,7 +5,12 @@
   import type { mountMenuTriggerHostOverlapReference } from '../../lib/menu-trigger-host-overlap-reference.js';
   let { data } = $props();
   let host = $state<HTMLElement>();
-  let fixture = $state<{ swapHost(): void; removeTrigger(): void; snapshot(): object }>();
+  let fixture = $state<{
+    swapHost(): void;
+    removeTrigger(): void;
+    snapshot(): object;
+    recordedPhases(): readonly object[];
+  }>();
   onMount(() => {
     if (!host) return;
     const node = host;
@@ -17,6 +22,7 @@
         if (value === 'remove') (reference ?? fixture)?.removeTrigger();
       },
       hostSnapshot: () => (reference ?? fixture)?.snapshot(),
+      hostRecordedPhases: () => fixture?.recordedPhases() ?? [],
     });
     if (data.reference)
       void import('../../lib/menu-trigger-host-overlap-reference.js').then(

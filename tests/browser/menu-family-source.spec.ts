@@ -207,6 +207,8 @@ for (const reference of [true, false]) {
               oldOutroEnded: boolean;
               beforeConnected: boolean;
               currentConnected: boolean;
+              boundIsReplacement?: boolean;
+              registeredIsReplacement?: boolean;
             };
           }
         ).hostSnapshot(),
@@ -214,7 +216,7 @@ for (const reference of [true, false]) {
     const run = (value: string) =>
       main.evaluate(
         (element, command) =>
-          (element as HTMLElement & { hostCommand(value: string): void }).hostCommand(command),
+          (element as HTMLElement & { hostCommand(value: string): unknown }).hostCommand(command),
         value,
       );
     const record = async (phase: string) => {
@@ -234,23 +236,100 @@ for (const reference of [true, false]) {
       return value;
     };
     expect(await record('before')).toMatchObject({ boundHost: 'before', registeredHost: 'before' });
-    await run('swap');
-    await expect(page.locator('[data-host="after"]')).toHaveCount(1);
     if (!reference) {
-      // Real Svelte out:fade keeps the old actual host mounted while publishing its replacement.
-      await expect(page.locator('[data-host="before"]')).toHaveCount(1);
+      const readPhases = () =>
+        main.evaluate((element) =>
+          (
+            element as HTMLElement & {
+              hostRecordedPhases(): {
+                phase: string;
+                boundHost: string | null;
+                registeredHost: string | null;
+                boundIsPrevious: boolean;
+                registeredIsPrevious: boolean;
+                boundIsReplacement: boolean;
+                registeredIsReplacement: boolean;
+                beforeConnected: boolean;
+                replacementConnected: boolean;
+                beforeHostCount: number;
+                afterHostCount: number;
+              }[];
+            }
+          ).hostRecordedPhases(),
+        );
+      let phases: Awaited<ReturnType<typeof readPhases>>;
+      try {
+        // Issue the native swap without adopting an asynchronous browser command result.
+        await main.evaluate((element) => {
+          (element as HTMLElement & { hostCommand(value: string): void }).hostCommand('swap');
+        });
+        await expect
+          .poll(async () => (await readPhases()).some((value) => value.phase === 'outrostart'), {
+            timeout: 2000,
+            message:
+              'actual native outrostart must be recorded before interpreting overlap evidence',
+          })
+          .toBe(true);
+      } finally {
+        // Missing-event instrumentation still preserves all phases collected before failure.
+        phases = await readPhases();
+        await test.info().attach('native-causal-host-phases', {
+          body: JSON.stringify(phases, null, 2),
+          contentType: 'application/json',
+        });
+      }
+      expect(phases.find((value) => value.phase === 'before-swap')).toMatchObject({
+        boundIsPrevious: true,
+        registeredIsPrevious: true,
+        beforeHostCount: 1,
+        afterHostCount: 0,
+      });
+      // Saved inside the actual native outrostart event, after native publication flush.
+      // A missing overlap is an instrumentation failure, not evidence of a product defect.
+      const overlap = phases.find((value) => value.phase === 'outrostart');
+      expect(
+        overlap,
+        'native outrostart overlap must be confirmed by fixture-collected evidence',
+      ).toMatchObject({
+        beforeConnected: true,
+        replacementConnected: true,
+        beforeHostCount: 1,
+        afterHostCount: 1,
+      });
+      expect(overlap).toMatchObject({
+        boundHost: 'after',
+        registeredHost: 'after',
+        boundIsReplacement: true,
+        registeredIsReplacement: true,
+      });
+      expect(
+        phases.find((value) => value.phase === 'replacement-published-after-flush'),
+      ).toMatchObject({
+        boundHost: 'after',
+        registeredHost: 'after',
+        boundIsReplacement: true,
+        registeredIsReplacement: true,
+      });
+    } else {
+      await run('swap');
+      expect(await record('replacement-published')).toMatchObject({
+        boundHost: 'after',
+        registeredHost: 'after',
+      });
     }
-    const overlap = await record('replacement-published');
-    if (!reference)
-      expect(overlap).toMatchObject({ beforeConnected: true, currentConnected: true });
-    expect(overlap).toMatchObject({ boundHost: 'after', registeredHost: 'after' });
     await expect(page.locator('[data-host="before"]')).toHaveCount(0);
     await expect(page.locator('[data-host="after"]')).toHaveCount(1);
-    expect(await record('previous-host-removed')).toMatchObject({
+    const afterOldRemoval = await record('previous-host-removed');
+    expect(afterOldRemoval).toMatchObject({
       afterHostCount: 1,
       boundHost: 'after',
       registeredHost: 'after',
     });
+    if (!reference)
+      expect(afterOldRemoval).toMatchObject({
+        boundIsReplacement: true,
+        registeredIsReplacement: true,
+      });
     await run('remove');
     await expect(page.locator('[data-host="after"]')).toHaveCount(0);
     expect(await record('trigger-removed')).toMatchObject({

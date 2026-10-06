@@ -1,5 +1,8 @@
 // Actual immutable Base UI1.8.0 ordinary render-host swap; authored supplement, no assertion credit.
-import { React, createRoot, flushSync, Menu } from './menu-family-probe-original.js';
+import * as React from 'react';
+import { createRoot } from 'react-dom/client';
+import { flushSync } from 'react-dom';
+import { Menu } from '@base-ui/react/menu';
 
 export function mountMenuTriggerHostOverlapReference(target: HTMLElement) {
   const root = createRoot(target);

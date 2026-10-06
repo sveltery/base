@@ -32,14 +32,14 @@ import { PATIENT_CLICK_THRESHOLD } from '../../internals/constants.js';
 import { mergeProps } from '../../merge-props/index.js';
 import type { MenuTriggerProps, MenuTriggerState, MenuParent } from '../types.js';
 import type { MenuHandleStore } from '../store/MenuStore.svelte.js';
-import type { PropSources } from '../../internals/mergeComponentProps.js';
+import type { PropSource } from '../../internals/mergeComponentProps.js';
 export class MenuTrigger<Payload> {
   private readonly triggerElementRef: { current: HTMLElement | null };
   private readonly triggerRef: { current: HTMLElement | null };
   private readonly allowMouseUpTriggerTimeout: Timeout;
   private readonly stickIfOpen: StickIfOpen;
   private readonly readState: () => MenuTriggerState;
-  private readonly readProps: () => PropSources;
+  private readonly readProps: () => readonly Exclude<PropSource, undefined>[];
   private readonly readIsInMenubar: () => boolean;
   private readonly readIsOpenedByThisTrigger: () => boolean;
   readonly store: () => MenuHandleStore<unknown>;
@@ -249,6 +249,7 @@ export class MenuTrigger<Payload> {
       forwarding.registerTrigger(host);
       triggerElementRef.current = host;
       return () => {
+        if (triggerRef.current !== host) return;
         if (triggerRef.current === host) triggerRef.current = null;
         setRef(null);
         buttonRef(null);
