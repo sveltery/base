@@ -1,0 +1,8 @@
+{
+  "candidateSha": "ac55012e0b205c0ef342742f3662deb928d3754e",
+  "scriptSha256": "e78b18da4e9e52ab0097537d3ed75f3dad23c28f558282408c26cafa5d8b3d66",
+  "logSha256": "d27b3aa9888d7d2e28f1296b23a65d8981354d6a5722d37c1d5f27a9908f1955",
+  "capturedLog": "package-ac550.log.txt.gz",
+  "result": "Installed Toast SSR/hydration and ownership passed; strict checks twice found zero errors and three native consumer warnings. Captured full package log includes subsequent unrelated 1024MiB heap exhaustion; this receipt does not claim full package completion.",
+  "credit": "Supplemental native consumer; zero unchanged Original assertion credit."
+}

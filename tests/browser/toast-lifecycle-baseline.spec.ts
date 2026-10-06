@@ -202,3 +202,106 @@ for (const reference of [false, true])
       await expect(page.getByTestId('close-observations')).toHaveText('[]');
       await expect(page.getByTestId('root')).not.toHaveAttribute('data-ending-style');
     });
+
+// Supplemental diagnostic only: no divergent or unchanged Original assertion credit.
+// Preserve the disputed baseline until actual Source/bare/native event receipts settle it.
+test('diagnostic: focused conditional removal in raw DOM, bare Svelte and actual Toast', async ({
+  page,
+}, testInfo) => {
+  const errors: string[] = [];
+  page.on('pageerror', (error) => errors.push(error.message));
+  const observations: unknown[] = [];
+  async function trace() {
+    await page.evaluate(() => {
+      const state = window as Window & { removalTrace?: unknown[] };
+      state.removalTrace = [];
+      for (const type of ['focus', 'blur', 'focusin', 'focusout']) {
+        document.addEventListener(
+          type,
+          (event) => {
+            const focus = event as FocusEvent;
+            const target = event.target as HTMLElement | null;
+            const related = focus.relatedTarget as HTMLElement | null;
+            state.removalTrace!.push({
+              type,
+              target: target?.id || target?.getAttribute('data-testid') || target?.tagName,
+              connected: target?.isConnected,
+              related: related?.id || related?.tagName || null,
+              active: document.activeElement?.id || document.activeElement?.tagName,
+            });
+          },
+          true,
+        );
+      }
+    });
+  }
+  async function snapshot(label: string, phase: string) {
+    observations.push(
+      await page.evaluate(
+        ({ label, phase }) => ({
+          label,
+          phase,
+          active: document.activeElement?.id || document.activeElement?.tagName,
+          events: [...((window as Window & { removalTrace?: unknown[] }).removalTrace ?? [])],
+          closes: document.querySelector('[data-testid="close-observations"]')?.textContent ?? null,
+        }),
+        { label, phase },
+      ),
+    );
+  }
+  for (const label of ['raw DOM', 'bare Svelte']) {
+    await page.goto('/toast-removal-control');
+    await expect(page.getByTestId('removal-control')).toHaveAttribute('data-hydrated', 'true');
+    await trace();
+    if (label === 'raw DOM')
+      await page.evaluate(() => {
+        const node = document.createElement('div');
+        node.id = 'raw-focused-host';
+        node.tabIndex = -1;
+        document.body.append(node);
+        node.focus();
+      });
+    else await page.locator('#bare-focused-host').focus();
+    await snapshot(label, 'before removal');
+    await page.evaluate((label) => {
+      if (label === 'raw DOM') document.querySelector('#raw-focused-host')!.remove();
+      else
+        (
+          document.querySelector('[data-testid="removal-control"]') as HTMLElement & {
+            removeFocusedControl(): void;
+          }
+        ).removeFocusedControl();
+    }, label);
+    await expect(
+      page.locator(label === 'raw DOM' ? '#raw-focused-host' : '#bare-focused-host'),
+    ).toHaveCount(0);
+    await snapshot(label, 'after removal');
+  }
+  const start = new Date('2026-01-01T00:00:00Z');
+  await page.clock.install({ time: start });
+  await page.clock.pauseAt(start);
+  for (const reference of [true, false]) {
+    const label = reference ? 'Original pinned Toast' : 'native Toast';
+    await page.goto(`/${reference ? 'toast-reference' : 'toast'}?case=lifecycle`);
+    await expect(page.locator('main')).toHaveAttribute('data-hydrated', 'true');
+    await page.clock.setSystemTime(start);
+    await trace();
+    // Exact call sequence from the existing disputed conditional-focus baseline.
+    await click(page, 'add timer');
+    await page.keyboard.press('F6');
+    await expect(page.getByTestId('viewport')).toBeFocused();
+    await snapshot(label, 'paused before removal');
+    await click(page, 'hide viewport');
+    await expect(page.getByTestId('viewport')).toHaveCount(0);
+    await snapshot(label, 'after removal before replacement');
+    await click(page, 'add timer');
+    await page.clock.runFor(100);
+    await snapshot(label, 'after same-ID replacement and 100ms');
+  }
+  await testInfo.attach('toast-focused-removal-diagnostic', {
+    body: JSON.stringify(observations, null, 2),
+    contentType: 'application/json',
+  });
+  console.info(`Toast focused-removal diagnostic ${JSON.stringify(observations)}`);
+  expect(errors).toEqual([]);
+});

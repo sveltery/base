@@ -22,7 +22,7 @@ cp parity/native-snippets/catalog-projection.json "$snippet_consumer/native-cata
 cat > "$snippet_consumer/PublicTypes.ts" <<'TS'
 import type * as Root from '@sveltery/base';
 import type { SeparatorProps as SeparatorSubpathProps } from '@sveltery/base/separator';
-import type { ToastRootProps, ToastRootState } from '@sveltery/base/toast';
+import type { ToastRootProps, ToastRootState, ToastManagerFacade } from '@sveltery/base/toast';
 import type { Snippet } from 'svelte';
 import type { HTMLAttributes } from 'svelte/elements';
 type Equal<A, B> = (<T>() => T extends A ? 1 : 2) extends (<T>() => T extends B ? 1 : 2) ? true : false;
@@ -50,6 +50,14 @@ const nullableStyles: [Root.ButtonProps, SeparatorSubpathProps, Root.InputProps,
 const nativeStyleCallback: SeparatorSubpathProps = {
   style: state => state.orientation === 'vertical' ? null : 'color:green',
 };
+declare const typedToastManager: ToastManagerFacade<{ receipt: string }>;
+// @ts-expect-error Toast data must satisfy the configured public generic constraint.
+typedToastManager.add({ data: { receipt: 123 } });
+// @ts-expect-error Published manager IDs are strings.
+typedToastManager.update(123, { title: 'Invalid ID' });
+// @ts-expect-error Toast refs bind actual native hosts, not callback transports.
+const callbackToastRef: ToastRootProps['ref'] = () => {};
+void callbackToastRef;
 // @ts-expect-error Component styles use native CSS strings, not CSS-property objects.
 const objectStyle: Root.ButtonProps = { style: { opacity: 0.5 } };
 // @ts-expect-error State callbacks return native CSS strings/null/undefined.
@@ -98,13 +106,55 @@ cat > "$snippet_consumer/Consumer.svelte" <<'SVELTE'
   <Toast.Description /><Toast.Action children="Ignored action">{#snippet render(props, _state, children)}<button {...props}>{@render children?.()}</button>{/snippet}</Toast.Action>
 </Toast.Root></Toast.Viewport></Toast.Provider>
 SVELTE
+cat > "$snippet_consumer/ToastHydrationParts.svelte" <<'SVELTE'
+<script lang="ts">
+  import { Toast } from '@sveltery/base';
+  import { untrack } from 'svelte';
+  let { parts = Toast, prefix }: { parts?: typeof Toast; prefix: string } = $props();
+  const manager = untrack(() => parts.getToastManager());
+  const id = untrack(() => `${prefix}-packed-toast`);
+  manager.add({ id, title: 'Packed hydration title', description: 'Packed hydration description', timeout: 0, actionProps: { children: 'Packed hydration action' } });
+  let host = $state<HTMLElement | null>(null);
+  export function snapshot() { return { host, manager }; }
+  export function update() { manager.update(id, { title: 'Updated hydration title', description: 'Updated hydration description' }); }
+</script>
+<parts.Viewport>
+  {#each manager.toasts as toast (toast.id)}
+    <parts.Root {toast} swipeDirection={[]} bind:ref={host} data-packed-toast={prefix}>
+      <parts.Content><parts.Title /><parts.Description /><parts.Action /><parts.Close>Close packed toast</parts.Close></parts.Content>
+    </parts.Root>
+  {/each}
+</parts.Viewport>
+SVELTE
+cat > "$snippet_consumer/ToastHydrationConsumer.svelte" <<'SVELTE'
+<script lang="ts">
+  import { Toast } from '@sveltery/base';
+  import * as SubpathToast from '@sveltery/base/toast';
+  import Parts from './ToastHydrationParts.svelte';
+  let visible = $state(true);
+  let root = $state<ReturnType<typeof Parts> | undefined>();
+  let subpath = $state<ReturnType<typeof Parts> | undefined>();
+  function instances() {
+    if (!root || !subpath) throw new Error('Toast consumer instances are not mounted');
+    return [root, subpath] as const;
+  }
+  export function snapshot() { return instances().map(instance => instance.snapshot()); }
+  export function update() { for (const instance of instances()) instance.update(); }
+  export function hide() { visible = false; }
+</script>
+{#if visible}
+  <Toast.Provider><Parts prefix="root" bind:this={root} /></Toast.Provider>
+  <SubpathToast.Provider><Parts parts={SubpathToast} prefix="subpath" bind:this={subpath} /></SubpathToast.Provider>
+{/if}
+SVELTE
 cat > "$snippet_consumer/check.mjs" <<'JS'
 import assert from 'node:assert/strict';
-import { readFileSync } from 'node:fs';
+import { readFileSync, writeFileSync } from 'node:fs';
 import { render } from 'svelte/server';
 import * as root from '@sveltery/base';
 import { Button } from '@sveltery/base/button';
 import Consumer from './Consumer.svelte';
+import ToastHydrationConsumer from './ToastHydrationConsumer.svelte';
 assert.equal(root.Button, Button); assert.equal(Object.hasOwn(root, 'UseRender'), false);
 await assert.rejects(import('@sveltery/base/use-render'), { code: 'ERR_PACKAGE_PATH_NOT_EXPORTED' });
 const utilsMetadata = JSON.parse(readFileSync(new URL('./node_modules/@sveltery/utils/package.json', import.meta.url), 'utf8'));
@@ -122,6 +172,13 @@ for (const surface of catalog.modules) {
   for (const name of surface.rootExports) assert.equal(root[name], Object.hasOwn(namespace, name) ? namespace[name] : namespace, `${surface.upstreamModule}: ${name}`);
 }
 assert.equal(typeof window, 'undefined'); assert.equal(typeof document, 'undefined');
+const toastBody = render(ToastHydrationConsumer).body;
+assert.equal((toastBody.match(/data-packed-toast=/g) ?? []).length, 2);
+assert.match(toastBody, /Packed hydration title/); assert.match(toastBody, /Packed hydration description/);
+assert.match(toastBody, /Packed hydration action/); assert.match(toastBody, /Close packed toast/);
+// Native label registration is an effect: generated IDs exist on the server, ARIA links appear after hydration.
+assert.doesNotMatch(toastBody, /aria-labelledby=|aria-describedby=/);
+writeFileSync(new URL('./toast-hydration.html', import.meta.url), toastBody);
 const body = render(Consumer).body;
 assert.match(body, /type="button"/); assert.match(body, /type="submit"/); assert.match(body, /Packed children/);
 assert.match(body, /class="owned base"/); assert.match(body, /data-state="true"/); assert.match(body, /Replacement children/);
@@ -194,10 +251,13 @@ JS
 cat > "$snippet_consumer/dom-check.mjs" <<'JS'
 import assert from 'node:assert/strict';
 import { createRequire } from 'node:module';
+import { readFileSync } from 'node:fs';
 const tooling = createRequire(process.argv[2]); const { JSDOM } = tooling('jsdom');
-const dom = new JSDOM('<!doctype html><html><body><main></main></body></html>', { url: 'http://localhost' });
+const dom = new JSDOM('<!doctype html><html><body><main></main></body></html>', { url: 'http://localhost', pretendToBeVisual: true });
 for (const key of ['window', 'document', 'navigator', 'HTMLElement', 'HTMLInputElement', 'HTMLFormElement', 'HTMLButtonElement', 'HTMLMediaElement', 'Element', 'SVGElement', 'Node', 'Text', 'Comment', 'Event', 'MouseEvent', 'MutationObserver', 'getComputedStyle']) Object.defineProperty(globalThis, key, { configurable: true, value: dom.window[key] });
-const { mount, flushSync, unmount } = await import('svelte');
+globalThis.requestAnimationFrame = dom.window.requestAnimationFrame.bind(dom.window);
+globalThis.cancelAnimationFrame = dom.window.cancelAnimationFrame.bind(dom.window);
+const { mount, hydrate, flushSync, unmount } = await import('svelte');
 const { default: Consumer } = await import('./DOMConsumer.svelte');
 const app = mount(Consumer, { target: document.querySelector('main') }); flushSync();
 const host = () => document.querySelector('#packed-live'); let current = host();
@@ -216,7 +276,43 @@ app.advance(); flushSync(); assert.equal(host(), current); assert.equal(host().g
 app.advance(); flushSync(); assert.equal(host(), null);
 for (const key of ['element', 'checkboxInput', 'switchInput', 'radioInput', 'groupInput']) assert.equal(app.snapshot()[key], null);
 assert.deepEqual(app.snapshot().calls.slice(5), [['cleanup', 'next', 'SPAN', false, 'reactive']]);
-await unmount(app); assert.equal(document.querySelector('main').children.length, 0); dom.window.close();
+await unmount(app); assert.equal(document.querySelector('main').children.length, 0);
+const target = document.querySelector('main');
+target.innerHTML = readFileSync(new URL('./toast-hydration.html', import.meta.url), 'utf8');
+const rows = [...target.querySelectorAll('[data-packed-toast]')];
+assert.equal(rows.length, 2);
+const labels = rows.map(row => ({ title: row.querySelector('h2'), description: row.querySelector('p') }));
+for (const label of labels) { assert(label.title?.id); assert(label.description?.id); }
+assert.equal(new Set(labels.flatMap(label => [label.title.id, label.description.id])).size, 4);
+const { default: ToastConsumer } = await import('./ToastHydrationConsumer.svelte');
+const hydrationDiagnostics = [];
+const originalWarn = console.warn, originalError = console.error;
+console.warn = (...args) => { hydrationDiagnostics.push(args); originalWarn(...args); };
+console.error = (...args) => { hydrationDiagnostics.push(args); originalError(...args); };
+let toastApp;
+try { toastApp = hydrate(ToastConsumer, { target }); flushSync(); }
+finally { console.warn = originalWarn; console.error = originalError; }
+assert.deepEqual(hydrationDiagnostics, []);
+function checkToastOwnership() {
+  const snapshots = toastApp.snapshot();
+  rows.forEach((row, index) => {
+    assert.equal(target.querySelector(`[data-packed-toast="${index === 0 ? 'root' : 'subpath'}"]`), row);
+    assert.equal(row.querySelector('h2'), labels[index].title);
+    assert.equal(row.querySelector('p'), labels[index].description);
+    assert.equal(row.getAttribute('aria-labelledby'), labels[index].title.id);
+    assert.equal(row.getAttribute('aria-describedby'), labels[index].description.id);
+    assert.equal(snapshots[index].host, row);
+    assert.equal(snapshots[index].manager.toasts[0].ref, row);
+  });
+}
+checkToastOwnership(); toastApp.update(); flushSync(); checkToastOwnership();
+for (const label of labels) { assert.equal(label.title.textContent, 'Updated hydration title'); assert.equal(label.description.textContent, 'Updated hydration description'); }
+const retained = toastApp.snapshot();
+toastApp.hide(); flushSync();
+assert.equal(target.children.length, 0);
+for (const snapshot of retained) assert.equal(snapshot.manager.toasts[0].ref, null);
+await unmount(toastApp); assert.equal(target.children.length, 0); dom.window.close();
+console.log('Installed Toast root/subpath SSR/hydration: preserved hosts and generated IDs, effect-owned ARIA, native ref bindings, live manager updates and provider teardown: PASS');
 console.log('Installed native public snippets, actual host/input bindings, native update/removal and independent cleanup: PASS');
 JS
 node --conditions=browser --import "$snippet_consumer/dom-loader.mjs" "$snippet_consumer/dom-check.mjs" "$sveltery_repo_root/packages/base/package.json"

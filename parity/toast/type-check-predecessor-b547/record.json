@@ -1,0 +1,28 @@
+{
+  "head": "b5477dd5b9d5f9760be65ef429c87a1c009d3137",
+  "command": "pnpm check",
+  "result": "10 errors and 6 warnings; compiler failure preserved, no parity credit",
+  "files": [
+    {
+      "path": "packages/base/src/lib/toast/Title.svelte",
+      "archive": "Title.svelte.txt",
+      "sha256": "b538866fe2b9a80773f393143247b7f6ef0ba86a1c60eca8880191a58fed469d"
+    },
+    {
+      "path": "packages/base/src/lib/toast/Description.svelte",
+      "archive": "Description.svelte.txt",
+      "sha256": "b418b4bb2b16f414beb6956f36a087814c4188ac407cb606b6e593fd218e200b"
+    },
+    {
+      "path": "apps/fixtures/src/lib/ToastLabelFidelity.svelte",
+      "archive": "ToastLabelFidelity.svelte.txt",
+      "sha256": "53a8ee24a661a92569bfa50d5932f12ef6853a7479470ad968e906581980fa0f"
+    },
+    {
+      "path": "packages/base/tests/dom/ToastLabelOverlapFixture.svelte",
+      "archive": "ToastLabelOverlapFixture.svelte.txt",
+      "sha256": "1e65f65ba503b8683d3600896662a3508c32756d1d1712168df6d7af4f041e4e"
+    }
+  ],
+  "logSha256": "dd63581212a3d94809e1a9bdfad1be37834aff23a6fbee45b0ab11fef54065d9"
+}

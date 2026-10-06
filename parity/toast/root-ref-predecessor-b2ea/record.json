@@ -1,0 +1,62 @@
+{
+  "head": "b2ea517c4dee72226bf1fc22d4f940fc6dcbff9a",
+  "pin": "47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c",
+  "sourcePath": "packages/react/src/toast/root/ToastRoot.tsx",
+  "sourceSha256": "66a637af3b6b02f54d850af4c1c767fb2ff60eec0583a5927812de46ecfb5674",
+  "pairedCommand": "NODE_OPTIONS=--max-old-space-size=1024 pnpm --filter @sveltery/base exec vitest run --project dom tests/dom/toast-root-ref-source.test.ts --maxWorkers=1 --no-file-parallelism",
+  "pairedResult": "Actual Original public Provider/useToastManager/Viewport/Root passed; native failed with null stored ref after initial measurement while actual DOM host exists (2 cases, 1 pass, 1 fail).",
+  "broadResult": "130 files:127 passed3failed.1817tests:1809passed8failed; Root3,Viewport4, authored timer-only cleanup expectation1.518.51seconds.",
+  "cause": "Native Root cleanup read toast.id through the changing toast object prop; initial measurement cloned that object, invalidating the cleanup despite stable ID/host. Native derived ID narrows actual ownership input to value changes. No React effect dependency tuple transport.",
+  "preimages": [
+    {
+      "path": "packages/base/src/lib/toast/Root.svelte",
+      "archive": "Root.svelte.txt",
+      "sha256": "c645ecd1f2fd9313aa0e7cd6a9cd2824f00b24bf6dc1ec89f404738abb7bd1f2"
+    },
+    {
+      "path": "apps/fixtures/src/lib/toast-root-ref-reference.ts",
+      "archive": "toast-root-ref-reference.ts.txt",
+      "sha256": "36d9b0b957377efedd31643515497e65b9db62703fc7ac860a01447099b4323e"
+    },
+    {
+      "path": "packages/base/tests/dom/toast-root-ref-source.test.ts",
+      "archive": "toast-root-ref-source.test.ts.txt",
+      "sha256": "32341a47acf115271cb23546e890ac066979d4a2591f6346b3d52e57688cfa30"
+    },
+    {
+      "path": "packages/base/tests/dom/toast-core.test.ts",
+      "archive": "toast-core.test.ts.txt",
+      "sha256": "898ff3da3fb484188efb0a5ece0d5b3e93b37098b6b8689c935f60fa9f63767f"
+    },
+    {
+      "path": "packages/base/tests/dom/toast-root.test.ts",
+      "archive": "toast-root.test.ts.txt",
+      "sha256": "42c0587ee0407c21c4f45ee6ba8d98ae5f310f8993a7dba09dd2bb95113335a6"
+    },
+    {
+      "path": "packages/base/tests/dom/toast-viewport.test.ts",
+      "archive": "toast-viewport.test.ts.txt",
+      "sha256": "ebe8845117329b4628cdb893734617a1dc3fffffd8f50e8423a13d45ecd1c815"
+    }
+  ],
+  "logs": [
+    {
+      "archive": "dom.log.txt.gz",
+      "uncompressedSha256": "5e2560869ea6db9a90a82fb0e5661bbeb8c3105a921eb02df9b3e638903fdad5"
+    },
+    {
+      "archive": "root-ref-red.log.txt.gz",
+      "uncompressedSha256": "95459574094fd656c0c7790b6fcdb2ada7567fecaac56ed51676cbf060171d69"
+    }
+  ],
+  "credit": "Supplemental native lifetime transport/representation and authored disposal expectation; zero unchanged Original assertion credit for additions or divergences.",
+  "repair": {
+    "command": "NODE_OPTIONS=--max-old-space-size=1024 pnpm --filter @sveltery/base exec vitest run --project dom tests/dom/toast-root-ref-source.test.ts tests/dom/toast-root.test.ts tests/dom/toast-viewport.test.ts tests/dom/toast-core.test.ts --maxWorkers=1 --no-file-parallelism",
+    "result": "4 files and 44 tests passed; actual Original/native Root pair2, existing Root4 and Viewport37 without expectation changes, authored core subscription1.21.16seconds.",
+    "archive": "repair.log.txt.gz",
+    "uncompressedSha256": "b91d8bddf9a850fc79dd385d93c213244c8703ffc70cd77c73270a026f1d3043",
+    "nativeRootSha256": "082f03597039d1a4a2adc0bda1b48bade776b96dfe1888f2eb70eeb2545ef9b9",
+    "nativeCoreTestSha256": "9aaf21b594dffe7cfcc90ea8cd6f7fd2c3c856ce9aee2bb314b57bdbdf447734",
+    "scope": "Single native derived ID value dependency for actual host cleanup; Source algorithms/state ownership/cancellation unchanged. Source mutable ref vs direct native HTMLElement publication remains a zero-credit native representation."
+  }
+}

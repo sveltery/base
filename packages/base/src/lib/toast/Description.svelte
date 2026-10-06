@@ -21,7 +21,7 @@
     if (!host || !shouldRender) return;
     return untrack(() => controller.setDescriptionId(id));
   });
-  const state = $derived({ type: controller.toast.type });
+  const componentState = $derived({ type: controller.toast.type });
 
   const hostAttachmentKey = createAttachmentKey();
   function attachHost(host: HTMLElement) {
@@ -39,9 +39,9 @@
     const { class: className, style, ...attributes } = props;
     return {
       ...mergeComponentProps(
-        state,
+        componentState,
         { class: className, style },
-        [{ id: resolvedId, 'data-type': state.type }, attributes],
+        [{ id: resolvedId, 'data-type': componentState.type }, attributes],
         false,
       ),
       [hostAttachmentKey]: attachHost,
@@ -54,7 +54,7 @@
     <RenderContent {content} />
   {/snippet}
   {#if render}
-    {@render render(mergedProps, state, hostChildren)}
+    {@render render(mergedProps, componentState, hostChildren)}
   {:else}
     <p {...mergedProps}>{@render hostChildren?.()}</p>
   {/if}

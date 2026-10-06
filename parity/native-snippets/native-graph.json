@@ -12368,17 +12368,6 @@
       ]
     },
     {
-      "source": "packages/base/src/lib/toast/animations.ts",
-      "sha256": "c1585c7df86f582f0c9450bef56931c9859a796025bf64dd9805cf80343f0154",
-      "imports": [
-        {
-          "specifier": "svelte",
-          "kind": "runtime-or-mixed",
-          "resolved": "external:svelte"
-        }
-      ]
-    },
-    {
       "source": "packages/base/src/lib/toast/Close.svelte",
       "sha256": "32fc52b4a96b101199dae6875fe26f5b1fc5d27a4ec13402e120ad3451d64c91",
       "imports": [
@@ -12426,7 +12415,7 @@
     },
     {
       "source": "packages/base/src/lib/toast/Content.svelte",
-      "sha256": "bcf9a0dc38e84f2d4fdd399acb880e31d1b7951abbeb5d0d555fe52756cb917a",
+      "sha256": "97a4947460667fe9611125d08bef099dd30beb79bf2af732f8f2ea40b80a8e98",
       "imports": [
         {
           "specifier": "../internals/mergeComponentProps.js",
@@ -12442,6 +12431,11 @@
           "specifier": "svelte",
           "kind": "runtime-or-mixed",
           "resolved": "external:svelte"
+        },
+        {
+          "specifier": "@sveltery/utils/owner",
+          "kind": "runtime-or-mixed",
+          "resolved": "packages/utils/src/lib/owner.ts"
         },
         {
           "specifier": "./root-context.js",
@@ -12489,12 +12483,12 @@
     },
     {
       "source": "packages/base/src/lib/toast/createToastManager.ts",
-      "sha256": "09c27f7d73fedd2c6c93645656346f44b2d45b1edb2c57407af266acb8ca54f9",
+      "sha256": "05fbec75977d0be7b4408865efdfaa47bda996583eb37606dc4d82ed4b8519fc",
       "imports": [
         {
-          "specifier": "./id.js",
+          "specifier": "@sveltery/utils/generateId",
           "kind": "runtime-or-mixed",
-          "resolved": "packages/base/src/lib/toast/id.ts"
+          "resolved": "packages/utils/src/lib/generateId.ts"
         },
         {
           "specifier": "./types.js",
@@ -12505,7 +12499,7 @@
     },
     {
       "source": "packages/base/src/lib/toast/Description.svelte",
-      "sha256": "93529bee684a878ca292409a7bec70881ee7d8d266d9ac6d6683c2aa7ca04462",
+      "sha256": "8302de259265f26e55f0570b9618c0c2a5aeaded30ca88a5fea5c1e654f2a4e8",
       "imports": [
         {
           "specifier": "../internals/mergeComponentProps.js",
@@ -12546,7 +12540,7 @@
     },
     {
       "source": "packages/base/src/lib/toast/facade.ts",
-      "sha256": "8f9f62c55280a9ba97e0bc5f540e4fdb03f5e7b3797e87f113c17161f40cde00",
+      "sha256": "ab85f71cbd9ca05493482a2d1440a854c0351bfed2ee158c54d6882288c371ac",
       "imports": [
         {
           "specifier": "./types.js",
@@ -12575,11 +12569,6 @@
           "resolved": "packages/base/src/lib/toast/types.ts"
         }
       ]
-    },
-    {
-      "source": "packages/base/src/lib/toast/id.ts",
-      "sha256": "4f5977c36515bd13e49aa6efe6dc43ec43ec6983ee259f63a4ab9cfb85359801",
-      "imports": []
     },
     {
       "source": "packages/base/src/lib/toast/index.ts",
@@ -12680,7 +12669,7 @@
     },
     {
       "source": "packages/base/src/lib/toast/Provider.svelte",
-      "sha256": "dbca8f29f3e6b9f521222238e485febface9c01a835157865bef56d40bc6840e",
+      "sha256": "f547e782dbe63dc7cf39fc83c1b9c611e530fd58ccf9b9ec505346d4ccc0b980",
       "imports": [
         {
           "specifier": "svelte",
@@ -12749,7 +12738,7 @@
     },
     {
       "source": "packages/base/src/lib/toast/Root.svelte",
-      "sha256": "bf65b4a3332aec5750feacdf672015b6ed833254adff7d539b1b4141a95eeafb",
+      "sha256": "082f03597039d1a4a2adc0bda1b48bade776b96dfe1888f2eb70eeb2545ef9b9",
       "imports": [
         {
           "specifier": "../internals/mergeComponentProps.js",
@@ -12777,19 +12766,14 @@
           "resolved": "packages/base/src/lib/toast/root-context.ts"
         },
         {
-          "specifier": "./store.js",
+          "specifier": "../internals/useOpenChangeComplete.svelte.js",
           "kind": "runtime-or-mixed",
-          "resolved": "packages/base/src/lib/toast/store.ts"
+          "resolved": "packages/base/src/lib/internals/useOpenChangeComplete.svelte.ts"
         },
         {
-          "specifier": "./animations.js",
+          "specifier": "@sveltery/utils/shadowDom",
           "kind": "runtime-or-mixed",
-          "resolved": "packages/base/src/lib/toast/animations.ts"
-        },
-        {
-          "specifier": "./viewport-focus.js",
-          "kind": "runtime-or-mixed",
-          "resolved": "packages/base/src/lib/toast/viewport-focus.ts"
+          "resolved": "packages/utils/src/lib/shadowDom.ts"
         },
         {
           "specifier": "./types.js",
@@ -12800,27 +12784,27 @@
     },
     {
       "source": "packages/base/src/lib/toast/store.ts",
-      "sha256": "294c911d0731f05b3e180a9325684e42af0c6f1aa7e81a85440d65b6b29688d2",
+      "sha256": "101622d5ffe5f8953e8c83e76760090e5281fb0e48bf9129b1f86417fc7aa121",
       "imports": [
         {
-          "specifier": "svelte/reactivity",
+          "specifier": "@sveltery/utils/store",
           "kind": "runtime-or-mixed",
-          "resolved": "external:svelte/reactivity"
+          "resolved": "packages/utils/src/lib/store/index.ts"
+        },
+        {
+          "specifier": "@sveltery/utils/generateId",
+          "kind": "runtime-or-mixed",
+          "resolved": "packages/utils/src/lib/generateId.ts"
+        },
+        {
+          "specifier": "@sveltery/utils/owner",
+          "kind": "runtime-or-mixed",
+          "resolved": "packages/utils/src/lib/owner.ts"
         },
         {
           "specifier": "@sveltery/utils/useTimeout",
           "kind": "runtime-or-mixed",
           "resolved": "packages/utils/src/lib/useTimeout.ts"
-        },
-        {
-          "specifier": "./id.js",
-          "kind": "runtime-or-mixed",
-          "resolved": "packages/base/src/lib/toast/id.ts"
-        },
-        {
-          "specifier": "./createToastManager.js",
-          "kind": "type",
-          "resolved": "packages/base/src/lib/toast/createToastManager.ts"
         },
         {
           "specifier": "./types.js",
@@ -12831,12 +12815,22 @@
           "specifier": "./resolve-promise-options.js",
           "kind": "runtime-or-mixed",
           "resolved": "packages/base/src/lib/toast/resolve-promise-options.ts"
+        },
+        {
+          "specifier": "@sveltery/utils/shadowDom",
+          "kind": "runtime-or-mixed",
+          "resolved": "packages/utils/src/lib/shadowDom.ts"
+        },
+        {
+          "specifier": "../floating-ui/utils/matchesFocusVisible.js",
+          "kind": "runtime-or-mixed",
+          "resolved": "packages/base/src/lib/floating-ui/utils/matchesFocusVisible.ts"
         }
       ]
     },
     {
       "source": "packages/base/src/lib/toast/Title.svelte",
-      "sha256": "89e90abcd55e1978e516b289e97d1cab8648af07354a78315cf74d5aab8ab382",
+      "sha256": "da5e89a20e351ed968f6847ec3333077c1941e17065c82180b29f8ab564f8bc0",
       "imports": [
         {
           "specifier": "../internals/mergeComponentProps.js",
@@ -12907,13 +12901,8 @@
       ]
     },
     {
-      "source": "packages/base/src/lib/toast/viewport-focus.ts",
-      "sha256": "13bcfc9f5ba62944bef18800d609e8f39ff1db6b99bfb2680449866fe1ee11ff",
-      "imports": []
-    },
-    {
       "source": "packages/base/src/lib/toast/Viewport.svelte",
-      "sha256": "ee0408b452961deb1043cbb9eafe432b26250592618c686296b661fd8871d436",
+      "sha256": "b59dde30d920e7c380b9ede0ed10b09bf256c99722f2d4a4ede4fd0a08888ed4",
       "imports": [
         {
           "specifier": "../internals/mergeComponentProps.js",
@@ -12931,19 +12920,54 @@
           "resolved": "external:svelte"
         },
         {
+          "specifier": "@sveltery/utils/addEventListener",
+          "kind": "runtime-or-mixed",
+          "resolved": "packages/utils/src/lib/addEventListener.ts"
+        },
+        {
+          "specifier": "@sveltery/utils/mergeCleanups",
+          "kind": "runtime-or-mixed",
+          "resolved": "packages/utils/src/lib/mergeCleanups.ts"
+        },
+        {
+          "specifier": "@sveltery/utils/owner",
+          "kind": "runtime-or-mixed",
+          "resolved": "packages/utils/src/lib/owner.ts"
+        },
+        {
+          "specifier": "@sveltery/utils/visuallyHidden",
+          "kind": "runtime-or-mixed",
+          "resolved": "packages/utils/src/lib/visuallyHidden.ts"
+        },
+        {
+          "specifier": "@sveltery/utils/useTimeout",
+          "kind": "runtime-or-mixed",
+          "resolved": "packages/utils/src/lib/useTimeout.ts"
+        },
+        {
+          "specifier": "@sveltery/utils/shadowDom",
+          "kind": "runtime-or-mixed",
+          "resolved": "packages/utils/src/lib/shadowDom.ts"
+        },
+        {
+          "specifier": "../floating-ui/utils/matchesFocusVisible.js",
+          "kind": "runtime-or-mixed",
+          "resolved": "packages/base/src/lib/floating-ui/utils/matchesFocusVisible.ts"
+        },
+        {
+          "specifier": "../internals/nativeProps.js",
+          "kind": "runtime-or-mixed",
+          "resolved": "packages/base/src/lib/internals/nativeProps.ts"
+        },
+        {
+          "specifier": "../utils/FocusGuard.svelte",
+          "kind": "runtime-or-mixed",
+          "resolved": "packages/base/src/lib/utils/FocusGuard.svelte"
+        },
+        {
           "specifier": "./context.js",
           "kind": "runtime-or-mixed",
           "resolved": "packages/base/src/lib/toast/context.ts"
-        },
-        {
-          "specifier": "./store.js",
-          "kind": "runtime-or-mixed",
-          "resolved": "packages/base/src/lib/toast/store.ts"
-        },
-        {
-          "specifier": "./viewport-focus.js",
-          "kind": "runtime-or-mixed",
-          "resolved": "packages/base/src/lib/toast/viewport-focus.ts"
         },
         {
           "specifier": "./types.js",
@@ -14985,6 +15009,11 @@
           "resolved": "packages/utils/src/lib/stringifyLocale.ts"
         }
       ]
+    },
+    {
+      "source": "packages/utils/src/lib/generateId.ts",
+      "sha256": "9221feb1a1108520240a723ef503a3a7581ab6c183f92c681839f8f1932df11f",
+      "imports": []
     },
     {
       "source": "packages/utils/src/lib/getDefaultFormSubmitter.ts",

@@ -1,0 +1,42 @@
+{
+  "head": "0fb0db41e9f0f8279b5ad71ab61ddf834515c957",
+  "pin": "47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c",
+  "sourcePath": "packages/react/src/toast/content/ToastContent.tsx",
+  "sourceSha256": "0e844b413181e9540af6134a173ed64db0aebfd899af5b3bab2e0f9acd79bedb",
+  "actualReferenceRuntime": "apps/fixtures/node_modules/@base-ui/react/toast/content/ToastContent.mjs",
+  "compiledReferenceSha256": "273a08cbca9fe8a4475f312b4cb5ca8f3fff6decc4fcacaf4ebb06c9cf441270",
+  "command": "NODE_OPTIONS=--max-old-space-size=1024 pnpm --filter @sveltery/base exec vitest run --project dom tests/dom/toast-content-owner.test.ts",
+  "result": "Original normal and detached host cases passed; native normal passed; native detached failed with zero observer registrations (4 cases, 3 pass, 1 fail). Initial harness import error collected zero tests and is separate, with no behavior credit.",
+  "preimages": [
+    {
+      "path": "packages/base/src/lib/toast/Content.svelte",
+      "archive": "Content.svelte.txt",
+      "sha256": "bcf9a0dc38e84f2d4fdd399acb880e31d1b7951abbeb5d0d555fe52756cb917a"
+    },
+    {
+      "path": "apps/fixtures/src/lib/toast-content-owner-reference.ts",
+      "archive": "toast-content-owner-reference.ts.txt",
+      "sha256": "bedf814e35e7a726514e6184450eac980902a918568b54eda2b1564a09353d33"
+    },
+    {
+      "path": "packages/base/tests/dom/ToastContentOwnerFixture.svelte",
+      "archive": "ToastContentOwnerFixture.svelte.txt",
+      "sha256": "ee71360688dfaf9a79fd41627e93598d07fd0d9ba7f89e02fc2acaa3b18e49a5"
+    },
+    {
+      "path": "packages/base/tests/dom/toast-content-owner.test.ts",
+      "archive": "toast-content-owner.test.ts.txt",
+      "sha256": "1c4358501a5c7fcdb147716a71b1dbdbb07c8a5801607fa1d7a35609da0a714d"
+    }
+  ],
+  "credit": "Supplemental paired Source/native reproduction, zero unchanged Original assertion credit.",
+  "repair": {
+    "command": "NODE_OPTIONS=--max-old-space-size=1024 pnpm --filter @sveltery/base exec vitest run --project dom tests/dom/toast-content-owner.test.ts --project server tests/toast-provider-ssr.test.ts",
+    "result": "2 files and 7 tests passed: 6 paired actual Content cases plus authored native SSR cleanup case",
+    "archive": "repair.log.txt.gz",
+    "uncompressedSha256": "371d284977853603045b7e166f39e60032279d4efc5f6d947578be7e4c4ac071",
+    "boundary": "Original constructors use module globals. Native constructors retain actual host Window; detached Document resolves through canonical ownerWindow fallback. Iframe constructor realm differs and grants zero unchanged Source assertion credit.",
+    "nativeContentSha256": "97a4947460667fe9611125d08bef099dd30beb79bf2af732f8f2ea40b80a8e98",
+    "testSha256": "91ac0e8e46d45a3515b6c534daaa5e6265aa1aa09e657cd88b68705997d32b62"
+  }
+}

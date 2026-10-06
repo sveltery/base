@@ -1,3 +1,4 @@
+// Supplemental native SSR evidence; zero unchanged Original assertion credit.
 import { expect, it, vi } from 'vitest';
 import { render } from 'svelte/server';
 import Fixture from './dom/ToastProviderFixture.svelte';
@@ -30,10 +31,21 @@ it('creates isolated Provider stores for SSR requests and never attaches a manag
   expect(contexts[0].store).not.toBe(contexts[1].store);
   expect(contexts[0].manager).not.toBe(contexts[1].manager);
   expect(subscribe).not.toHaveBeenCalled();
-  contexts.forEach(({ store, manager: facade }) => {
+  manager.add({ id: 'unattached-channel', title: 'No SSR subscription', timeout: 0 });
+  expect(contexts.map(({ manager: facade }) => facade.toasts)).toEqual([[], []]);
+  contexts.forEach(({ store, manager: facade }, index) => {
     const snapshot = store.state;
-    facade.add({ id: 'after-render', title: 'Disposed SSR store', timeout: 0 });
-    expect(store.state).toBe(snapshot);
-    expect(facade.toasts).toEqual([]);
+    expect(facade.add({ id: 'after-render', title: 'Retained SSR facade', timeout: 0 })).toBe(
+      'after-render',
+    );
+    expect(store.state).not.toBe(snapshot);
+    expect(facade.toasts).toHaveLength(1);
+    expect(facade.toasts[0]).toMatchObject({
+      id: 'after-render',
+      title: 'Retained SSR facade',
+      updateKey: 0,
+      transitionStatus: 'starting',
+    });
+    if (index === 0) expect(contexts[1].manager.toasts).toEqual([]);
   });
 });

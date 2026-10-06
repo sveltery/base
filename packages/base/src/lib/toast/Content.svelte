@@ -4,6 +4,7 @@
   import { untrack } from 'svelte';
 
   // Derived from Base UI v1.8.0 Toast parts; MIT, see ../../../THIRD_PARTY_NOTICES.md.
+  import { ownerWindow } from '@sveltery/utils/owner';
   import { root } from './root-context.js';
   import type { ToastContentProps } from './types.js';
   let { render, children, ref = $bindable(), ...props }: ToastContentProps = $props();
@@ -18,10 +19,11 @@
   });
   function attach(node: HTMLElement) {
     controller.recalculateHeight();
-    const ownerWindow = node.ownerDocument.defaultView;
-    if (!ownerWindow?.ResizeObserver || !ownerWindow.MutationObserver) return;
-    const resize = new ownerWindow.ResizeObserver(() => controller.recalculateHeight(true));
-    const mutation = new ownerWindow.MutationObserver(() => controller.recalculateHeight(true));
+    const win = ownerWindow(node);
+    if (typeof win.ResizeObserver !== 'function' || typeof win.MutationObserver !== 'function')
+      return;
+    const resize = new win.ResizeObserver(() => controller.recalculateHeight(true));
+    const mutation = new win.MutationObserver(() => controller.recalculateHeight(true));
     resize.observe(node);
     mutation.observe(node, {
       childList: true,

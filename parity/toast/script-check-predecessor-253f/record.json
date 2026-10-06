@@ -1,0 +1,17 @@
+{
+  "head": "253f1343459974e88ac834829271deee5532cde6",
+  "command": "node --test --test-concurrency=1 scripts/tests/*.test.mjs",
+  "result": "79 passed, 7 failed: 2 stale native graph receipts and 5 toolchain environment failures",
+  "note": "Toolchain tests remain unchanged. Rerun with absolute configured Node executable; graph regeneration updates current projection only, preserving this predecessor.",
+  "logArchive": "scripts.log.txt.gz",
+  "logUncompressedSha256": "4809e7f18c7a19351d506ffabad05470ff615df1efef9418b047a698dee7a208",
+  "graphArchive": "native-graph.json.txt",
+  "graphSha256": "5dfb01f21528cd00ea215a2ea027ee04187f9e3da98f9d68333a3deae9385d2c",
+  "absoluteNodeRerun": {
+    "head": "0fb0db41e9f0f8279b5ad71ab61ddf834515c957",
+    "command": "\"$CODEX_PRIMARY_RUNTIME_NODE\" --test --test-concurrency=1 scripts/tests/*.test.mjs",
+    "result": "84 passed, 2 failed: dependent current family projection still contained the prior current graph hash",
+    "archive": "scripts-0fb0.log.txt.gz",
+    "uncompressedSha256": "1e1a0b73e6112d711b0b25577cff40aa40bd4e137fa9188b3e5263578ca8ed01"
+  }
+}

@@ -110,6 +110,20 @@ jobs:
         run: pnpm --filter @sveltery/base build
       - name: Install official Chromium and OS dependencies
         run: pnpm exec playwright install --with-deps chromium
+      - name: Bounded Toast Source store, labels and native lifecycle pairs
+        run: >-
+          pnpm exec playwright test --config playwright.source-core.config.ts
+          tests/browser/toast.spec.ts tests/browser/toast-label-source-fidelity.spec.ts
+          tests/browser/toast-lifecycle-baseline.spec.ts tests/browser/toast-portal.spec.ts
+          --output .checks/toast-source-pairs
+      - name: Preserve bounded Toast traces and removal diagnostic attachments
+        if: always()
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2
+        with:
+          name: toast-source-pairs
+          path: .checks/toast-source-pairs/
+          if-no-files-found: warn
+          retention-days: 14
       - name: Public Svelte component browser
         run: pnpm test:component
       - name: Record actual early-close Dialog animation samples
@@ -145,6 +159,14 @@ jobs:
           tests/browser/dialog-motion-source.spec.ts
       - name: Real React and Svelte Dialog acceptance
         run: pnpm exec playwright test --config playwright.source-core.config.ts
+      - name: Preserve full Source Toast traces and removal diagnostic attachments
+        if: always()
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2
+        with:
+          name: toast-source-lifecycle
+          path: test-results/toast-*/
+          if-no-files-found: warn
+          retention-days: 14
       - name: Preserve Dialog lifecycle failure traces
         if: failure()
         uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2

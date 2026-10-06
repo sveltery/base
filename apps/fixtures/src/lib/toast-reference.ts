@@ -8,7 +8,8 @@ import { mountToastLabelFidelityReference } from './toast-label-fidelity-referen
 const testId = (value: string) => ({ 'data-testid': value });
 
 export function mountToastReference(node: HTMLElement, scenario: string) {
-  if (scenario.startsWith('label-fidelity')) return mountToastLabelFidelityReference(node, scenario);
+  if (scenario.startsWith('label-fidelity'))
+    return mountToastLabelFidelityReference(node, scenario);
   if (scenario.startsWith('lifecycle')) return mountToastLifecycleReference(node, scenario);
   const external = Toast.createToastManager();
   function ProviderContents({ label, title }: { label: string; title: string }) {

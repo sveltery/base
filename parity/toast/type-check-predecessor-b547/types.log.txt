@@ -1,0 +1,167 @@
+$ pnpm package:prepare && pnpm --recursive --sort --workspace-concurrency 1 run check
+$ bash scripts/prepare-workspace.sh
+$ pnpm --recursive --filter './packages/*' --sort --workspace-concurrency 1 --if-present run prepack
+Scope: 2 of 4 workspace projects
+$ pnpm run build && publint --strict
+$ svelte-package
+src/lib -> dist
+Running publint v0.3.25 for @sveltery/utils...
+Packing files with `pnpm pack`...
+Linting...
+All good!
+$ svelte-kit sync && svelte-package && publint --strict
+src/lib -> dist
+Running publint v0.3.25 for @sveltery/base...
+Packing files with `pnpm pack`...
+Linting...
+All good!
+Scope: 3 of 4 workspace projects
+$ svelte-check --tsconfig ./tsconfig.json
+Loading svelte-check in workspace: /workspace/scratch/fe6e55ef14c2/base/packages/utils
+Getting Svelte diagnostics...
+
+svelte-check found 0 errors and 0 warnings
+$ svelte-kit sync && svelte-check --tsconfig ./tsconfig.json
+Loading svelte-check in workspace: /workspace/scratch/fe6e55ef14c2/base/packages/base
+Getting Svelte diagnostics...
+
+/workspace/scratch/fe6e55ef14c2/base/packages/base/src/lib/toast/Title.svelte:13:14
+Error: Block-scoped variable '$state' used before its declaration. (ts)
+  const controller = root();
+  let node = $state<HTMLElement | null>(null);
+  const generated = $props.id();
+
+/workspace/scratch/fe6e55ef14c2/base/packages/base/src/lib/toast/Title.svelte:13:14
+Error: Untyped function calls may not accept type arguments. (ts)
+  const controller = root();
+  let node = $state<HTMLElement | null>(null);
+  const generated = $props.id();
+
+/workspace/scratch/fe6e55ef14c2/base/packages/base/src/lib/toast/Title.svelte:13:14
+Error: Cannot use 'state' as a store. 'state' needs to be an object with a subscribe method on it.
+
+No overload matches this call.
+  Overload 1 of 2, '(store: SvelteStore<any>): any', gave the following error.
+    Argument of type '{ type: string | undefined; }' is not assignable to parameter of type 'SvelteStore<any>'.
+      Property 'subscribe' is missing in type '{ type: string | undefined; }' but required in type 'SvelteStore<any>'.
+  Overload 2 of 2, '(store: SvelteStore<any> | null | undefined): any', gave the following error.
+    Argument of type '{ type: string | undefined; }' is not assignable to parameter of type 'SvelteStore<any>'.
+      Property 'subscribe' is missing in type '{ type: string | undefined; }' but required in type 'SvelteStore<any>'. (ts)
+  const controller = root();
+  let node = $state<HTMLElement | null>(null);
+  const generated = $props.id();
+
+/workspace/scratch/fe6e55ef14c2/base/packages/base/src/lib/toast/Description.svelte:13:14
+Error: Block-scoped variable '$state' used before its declaration. (ts)
+  const controller = root();
+  let node = $state<HTMLElement | null>(null);
+  const generated = $props.id();
+
+/workspace/scratch/fe6e55ef14c2/base/packages/base/src/lib/toast/Description.svelte:13:14
+Error: Untyped function calls may not accept type arguments. (ts)
+  const controller = root();
+  let node = $state<HTMLElement | null>(null);
+  const generated = $props.id();
+
+/workspace/scratch/fe6e55ef14c2/base/packages/base/src/lib/toast/Description.svelte:13:14
+Error: Cannot use 'state' as a store. 'state' needs to be an object with a subscribe method on it.
+
+No overload matches this call.
+  Overload 1 of 2, '(store: SvelteStore<any>): any', gave the following error.
+    Argument of type '{ type: string | undefined; }' is not assignable to parameter of type 'SvelteStore<any>'.
+      Property 'subscribe' is missing in type '{ type: string | undefined; }' but required in type 'SvelteStore<any>'.
+  Overload 2 of 2, '(store: SvelteStore<any> | null | undefined): any', gave the following error.
+    Argument of type '{ type: string | undefined; }' is not assignable to parameter of type 'SvelteStore<any>'.
+      Property 'subscribe' is missing in type '{ type: string | undefined; }' but required in type 'SvelteStore<any>'. (ts)
+  const controller = root();
+  let node = $state<HTMLElement | null>(null);
+  const generated = $props.id();
+
+/workspace/scratch/fe6e55ef14c2/base/packages/base/tests/dom/fixtures/UtilsStoreSync.svelte:12:37
+Warn: This reference only captures the initial value of `initialValue`. Did you mean to reference it inside a derived instead?
+https://svelte.dev/e/state_referenced_locally (svelte)
+  } = $props();
+  let value = $state.raw({ current: initialValue });
+  if (cleanup) store.useSyncedValueWithCleanup('value', () => value.current);
+
+/workspace/scratch/fe6e55ef14c2/base/packages/base/tests/dom/fixtures/UtilsStoreSync.svelte:13:7
+Warn: This reference only captures the initial value of `cleanup`. Did you mean to reference it inside a closure instead?
+https://svelte.dev/e/state_referenced_locally (svelte)
+  let value = $state.raw({ current: initialValue });
+  if (cleanup) store.useSyncedValueWithCleanup('value', () => value.current);
+  else store.useSyncedValue('value', () => value.current);
+
+/workspace/scratch/fe6e55ef14c2/base/packages/base/tests/dom/fixtures/UtilsStoreSync.svelte:13:16
+Warn: This reference only captures the initial value of `store`. Did you mean to reference it inside a closure instead?
+https://svelte.dev/e/state_referenced_locally (svelte)
+  let value = $state.raw({ current: initialValue });
+  if (cleanup) store.useSyncedValueWithCleanup('value', () => value.current);
+  else store.useSyncedValue('value', () => value.current);
+
+/workspace/scratch/fe6e55ef14c2/base/packages/base/tests/dom/fixtures/UtilsStoreSync.svelte:14:8
+Warn: This reference only captures the initial value of `store`. Did you mean to reference it inside a closure instead?
+https://svelte.dev/e/state_referenced_locally (svelte)
+  if (cleanup) store.useSyncedValueWithCleanup('value', () => value.current);
+  else store.useSyncedValue('value', () => value.current);
+  export const updateValue = (next: number) => {
+
+/workspace/scratch/fe6e55ef14c2/base/packages/base/tests/dom/MenuTreeTriggerOwner.svelte:15:23
+Warn: This reference only captures the initial value of `tree`. Did you mean to reference it inside a closure instead?
+https://svelte.dev/e/state_referenced_locally (svelte)
+  }: { tree: FloatingTreeStore; parentNodeId: string; children: Snippet } = $props();
+  provideFloatingTree(tree);
+  provideFloatingNode(() => parentNodeId);
+
+/workspace/scratch/fe6e55ef14c2/base/packages/base/tests/dom/NativeScrollAreaProbe.svelte:7:3
+Warn: This reference only captures the initial value of `capture`. Did you mean to reference it inside a closure instead?
+https://svelte.dev/e/state_referenced_locally (svelte)
+  let { capture }: { capture: (context: ScrollAreaRootContext) => void } = $props();
+  capture(useScrollAreaRootContext());
+</script>
+
+/workspace/scratch/fe6e55ef14c2/base/packages/base/../../apps/fixtures/src/lib/ToastLabelFidelity.svelte:28:19
+Error: Argument of type '{ [x: string]: unknown; [x: symbol]: unknown; }' is not assignable to parameter of type 'HTMLProps<"h3", HTMLAttributes<any>>'.
+  Type '{ [x: string]: unknown; [x: symbol]: unknown; }' is not assignable to type 'Omit<HTMLAttributes<HTMLHeadingElement>, never>'.
+    'symbol' index signatures are incompatible.
+      Type 'unknown' is not assignable to type 'false | Attachment<HTMLHeadingElement> | null | undefined'. (ts)
+{#snippet titleHost(props: Record<string | symbol, unknown>, _state: unknown, children?: Snippet)}
+  {#if rendered}<h3 {...props}>{@render children?.()}</h3>{/if}
+{/snippet}
+
+/workspace/scratch/fe6e55ef14c2/base/packages/base/../../apps/fixtures/src/lib/ToastLabelFidelity.svelte:35:24
+Error: Argument of type '{ [x: string]: unknown; [x: symbol]: unknown; }' is not assignable to parameter of type 'HTMLProps<"section", HTMLAttributes<any>>'.
+  Type '{ [x: string]: unknown; [x: symbol]: unknown; }' is not assignable to type 'Omit<HTMLAttributes<HTMLElement>, never>'.
+    'symbol' index signatures are incompatible.
+      Type 'unknown' is not assignable to type 'false | Attachment<HTMLElement> | null | undefined'. (ts)
+)}
+  {#if rendered}<section {...props}>{@render children?.()}</section>{/if}
+{/snippet}
+
+/workspace/scratch/fe6e55ef14c2/base/packages/base/tests/dom/ToastLabelOverlapFixture.svelte:28:19
+Error: Argument of type '{ [x: string]: unknown; [x: symbol]: unknown; }' is not assignable to parameter of type 'HTMLProps<"h3", HTMLAttributes<any>>'.
+  Type '{ [x: string]: unknown; [x: symbol]: unknown; }' is not assignable to type 'Omit<HTMLAttributes<HTMLHeadingElement>, never>'.
+    'symbol' index signatures are incompatible.
+      Type 'unknown' is not assignable to type 'false | Attachment<HTMLHeadingElement> | null | undefined'. (ts)
+{#snippet titleHost(props: Record<string | symbol, unknown>, _state: unknown, children?: Snippet)}
+  {#if rendered}<h3 {...props}>{@render children?.()}</h3>{/if}
+{/snippet}
+
+/workspace/scratch/fe6e55ef14c2/base/packages/base/tests/dom/ToastLabelOverlapFixture.svelte:35:24
+Error: Argument of type '{ [x: string]: unknown; [x: symbol]: unknown; }' is not assignable to parameter of type 'HTMLProps<"section", HTMLAttributes<any>>'.
+  Type '{ [x: string]: unknown; [x: symbol]: unknown; }' is not assignable to type 'Omit<HTMLAttributes<HTMLElement>, never>'.
+    'symbol' index signatures are incompatible.
+      Type 'unknown' is not assignable to type 'false | Attachment<HTMLElement> | null | undefined'. (ts)
+)}
+  {#if rendered}<section {...props}>{@render children?.()}</section>{/if}
+{/snippet}
+
+====================================
+svelte-check found 10 errors and 6 warnings in 7 files
+[ELIFECYCLE] Command failed with exit code 1.
+Error, do this: mount -t proc proc /proc
+Error: ERR_PNPM_RECURSIVE_RUN_FIRST_FAIL
+
+  × "pnpm recursive run" failed in /workspace/scratch/fe6e55ef14c2/base/
+  │ packages/base
+
+[ELIFECYCLE] Command failed with exit code 1.

@@ -1,0 +1,10 @@
+{
+  "head": "253f1343459974e88ac834829271deee5532cde6",
+  "pin": "47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c",
+  "command": "pnpm test",
+  "result": "Utils9passed; Base216passed1failed. Authored SSR test expected terminal disposal; Source timer-only cleanup remains unchanged.",
+  "testPreimageSha256": "3d94b38ad816df3f4122965c0a8e5e45aafc394b3d310ccc4c52068a020e33b2",
+  "logUncompressedSha256": "0285440ae90eb7107495dfa7fbe29bc6d557b34ce170a962a2987f6bb20eb6c1",
+  "upstreamSource": "packages/react/src/toast/store.ts disposeEffect",
+  "credit": "Supplemental native SSR assertion only; zero unchanged Original assertion credit."
+}

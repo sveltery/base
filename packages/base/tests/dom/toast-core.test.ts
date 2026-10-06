@@ -1,3 +1,4 @@
+// Supplemental native selected-read/subscription evidence; zero unchanged Original assertion credit.
 import { flushSync, tick } from 'svelte';
 import { expect, it, vi } from 'vitest';
 import { ToastStore } from '../../src/lib/toast/store';
@@ -34,9 +35,14 @@ it('tracks live facade reads per Svelte consumer and cleans up external subscrip
     expect(observerA2).toHaveBeenCalledTimes(3);
     expect(observerB).toHaveBeenLastCalledWith(['Second']);
     b.dispose();
-    b.addToast({ title: 'Ignored' });
+    b.addToast({ title: 'Retained after timer cleanup', timeout: 0 });
     flushSync();
-    expect(observerB).toHaveBeenCalledTimes(2);
+    expect(observerB).toHaveBeenLastCalledWith(['Retained after timer cleanup', 'Second']);
+    expect(observerB).toHaveBeenCalledTimes(3);
+    cleanupB();
+    b.addToast({ title: 'After consumer cleanup', timeout: 0 });
+    flushSync();
+    expect(observerB).toHaveBeenCalledTimes(3);
   } finally {
     cleanupA();
     cleanupA2();

@@ -20,6 +20,7 @@
   }: ToastRootProps = $props();
   const store = provider().store;
   let node = $state<HTMLElement | null>(null);
+  const toastId = $derived(toast.id);
   let titleId = $state<string>();
   let descriptionId = $state<string>();
   let lastToastId: string | undefined;
@@ -100,10 +101,10 @@
     if (swipeDirection.length)
       throw new Error('Base UI: this Toast.Root slice requires swipeDirection={[]}.');
   });
-  // Capture the actual native host/ID pair for binding cleanup.
+  // Capture the actual native host/ID pair, independent of same-ID toast clones.
   $effect(() => {
     const element = node;
-    const id = toast.id;
+    const id = toastId;
     if (!element) return;
     return () => untrack(() => store.clearToastRef(id, element));
   });

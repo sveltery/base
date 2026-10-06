@@ -1,0 +1,20 @@
+{
+  "sourcePin": "47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c",
+  "nativeSha": "0fb0db41e9f0f8279b5ad71ab61ddf834515c957",
+  "method": "Extract complete isButtonElement/isValidLinkElement declarations with TypeScript AST from git-show exact Source/native revisions; transpile those unchanged declarations; evaluate with actual installed Floating Utils 0.2.12 isHTMLElement and jsdom-created DOM nodes.",
+  "sourcePath": "packages/react/src/internals/use-button/useButton.ts",
+  "nativePath": "packages/base/src/lib/internals/use-button/useButton.svelte.ts",
+  "observations": [
+    { "name": "html button", "tagName": "BUTTON", "HTMLElement": true, "sourceButton": true, "nativeButton": true, "sourceLink": false, "nativeLink": false },
+    { "name": "uppercase SVG BUTTON", "tagName": "BUTTON", "HTMLElement": false, "sourceButton": false, "nativeButton": true, "sourceLink": false, "nativeLink": false },
+    { "name": "html link", "tagName": "A", "HTMLElement": true, "sourceButton": false, "nativeButton": false, "sourceLink": true, "nativeLink": true },
+    { "name": "uppercase SVG A", "tagName": "A", "HTMLElement": false, "sourceButton": false, "nativeButton": false, "sourceLink": false, "nativeLink": false }
+  ],
+  "scope": "Inherited pure predicate guard deviation, outside bounded Toast store/label repair.",
+  "limitations": [
+    "Extracted actual pure predicates only; not an actual rendered public component or browser receipt.",
+    "Public Toast host/ref contract is HTMLElement; SVG probe lies outside that declared host contract.",
+    "No supported public runtime defect or issue-required business bug established.",
+    "No repair, unchanged upstream assertion credit, or final-head acceptance inferred."
+  ]
+}

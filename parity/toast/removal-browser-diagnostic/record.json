@@ -1,0 +1,47 @@
+{
+  "historicalHostedHead": "8dcfb0edab34c27375411bd64651247794bf977d",
+  "historicalHostedJob": "https://github.com/sveltery/base/actions/runs/37528315665/job/112490897669",
+  "historicalResult": "Actual complete decoded job log:2731passed7failed41.4m; parent verified every character matches connector output.",
+  "pin": "47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c",
+  "sourceViewportSha256": "59aa35fd191c58fdb37df245dae392a14f0ee79cdf32bcc8d20ed436d884bb9e",
+  "mapping": [
+    {
+      "cases": "Nested close outer successor, Svelte ID/index keys (2)",
+      "path": "Store close successor selection consumes actual Root ref."
+    },
+    {
+      "cases": "Delayed index-slot removal oldest focus, Svelte (1)",
+      "path": "Requires successful first successor focus before measuring later deliberate index-slot host loss."
+    },
+    {
+      "cases": "Manager/facade close-all focus callback order, Svelte (2)",
+      "path": "Viewport Tab firstFocusableToast.ref plus Store close/restore live ref."
+    },
+    {
+      "cases": "F6/Tab Root traversal, Svelte (1)",
+      "path": "Viewport handleFocusGuard uses firstFocusableToast.ref."
+    },
+    {
+      "cases": "Conditional Viewport removal retains focus pause, Svelte (1)",
+      "path": "Native removal focusout can execute handleBlur/resumeTimers; React synthetic onBlur lifecycle is separate from native removal event delivery. Not proven resolved by stableRootID."
+    }
+  ],
+  "localCausalEvidence": "Actual pinnedOriginal/native publicRoot pair reproduced null-ref-after-measurement and narrowderivedID repair;44focusedtests and1819fullDOM passed. They do not claim seven secured browser cases passed. JSdom removal witness monkeypatches Element.remove to explicit blur; cannot substitute actual Chromium removal order.",
+  "preparedDiagnostic": "Isolated rawDOM/bareSvelte controls plus actualPinnedOriginal/native lifecycle exact sequence addtimer,F6,hideviewport,addsametimer,run100ms. Document capture records nativefocus/blur/focusin/focusout order,targetconnected,relatedTarget,activeElement; snapshots record actualonClose callbacks. Pause/timer behavior measured by same-ID callback outcome, not an exposed or fakeStore. Structuredconsole receipt, pageerrors assertion only; existing disputedbaseline unchanged.",
+  "status": "Prepared; local fixture build and secured hosted execution pending. No browser localretry.",
+  "credit": "Supplemental native diagnostic; zero unchanged Original assertion credit.",
+  "historicalHostedRun": "https://github.com/sveltery/base/actions/runs/37528315665",
+  "historicalLog": {
+    "archive": "browser-8dc-full.log.txt.gz",
+    "uncompressedBytes": 762373,
+    "uncompressedSha256": "c19992bd31eadad35221576dbb5912884f01cbf57ccd9b6473dcbd4e46847342"
+  },
+  "historicalArtifactLimit": {
+    "artifactId": 11444994070,
+    "bytes": 4313,
+    "sha256": "41a4b8868cb3b9a8d9416913342c1c8bf431c2f3319b627936bb09b294486afb",
+    "actualContents": "Exactly5Dialogexit-animation-timeline.json files; noToastentries ortrace.zip. Old7Toasttrace files logged but not uploaded/not recoverable from listed artifact. Complete historical decoded log preserved."
+  },
+  "successorPreservation": "Diagnostic attaches JSON via testInfo.attach; earlyToast output .checks/toast-source-pairs uploadedalways immediately before laterPlaywright runs; fullSource test-results/toast-* uploadedalways alongside existingDialog failure artifact. Existing pinnedupload action/retries/workers/browser sandbox controls unchanged.",
+  "localSuccessorBuild": "Fixture SSR/client build at3f17d6fe passed exit0; later workflow/specattachment/docs-only changes do not alter route/runtime. Fresh currenthead scripts/format/hosted browser execution remain pending."
+}

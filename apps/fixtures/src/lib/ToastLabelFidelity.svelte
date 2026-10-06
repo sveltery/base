@@ -1,6 +1,6 @@
 <script lang="ts">
   import type { Snippet } from 'svelte';
-  import { Toast } from '@sveltery/base';
+  import { Toast, type HTMLProps } from '@sveltery/base';
   import type { ToastContent } from '@sveltery/base/toast';
   let { sameId = true, customRender = false }: { sameId?: boolean; customRender?: boolean } =
     $props();
@@ -24,14 +24,10 @@
   }
 </script>
 
-{#snippet titleHost(props: Record<string | symbol, unknown>, _state: unknown, children?: Snippet)}
+{#snippet titleHost(props: HTMLProps, _state: unknown, children?: Snippet)}
   {#if rendered}<h3 {...props}>{@render children?.()}</h3>{/if}
 {/snippet}
-{#snippet descriptionHost(
-  props: Record<string | symbol, unknown>,
-  _state: unknown,
-  children?: Snippet,
-)}
+{#snippet descriptionHost(props: HTMLProps, _state: unknown, children?: Snippet)}
   {#if rendered}<section {...props}>{@render children?.()}</section>{/if}
 {/snippet}
 <Toast.Provider timeout={0}>

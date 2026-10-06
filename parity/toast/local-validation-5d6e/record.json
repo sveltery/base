@@ -1,0 +1,99 @@
+{
+  "runtimeSourceSha": "1be153bc455daff2f87a937127d57fe703c5b660",
+  "installedConsumerSha": "5d6e2c44bf40026803de4175b2ffe38916e42789",
+  "runtimeSourceUnchangedThroughConsumerSha": true,
+  "immutableSourcePin": "47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c",
+  "results": {
+    "fullDom": "131 files,1819 tests passed;477.43s; runtime1be",
+    "scripts": "86/86 passed at1be",
+    "installedNativeConsumer": "5d6e strict0errors0warnings twice; actual root/subpath Toast SSR/hydration/ref/store ownership/update/teardown PASS; all preexisting nativeSnippet DOM assertions PASS; actual dual tarballs/MIT checks PASS",
+    "fixtureBuild": "SSR/client build passed at1be",
+    "runtimeBoundary": "Packaged entry imports and runtime dependency boundary passed at1be",
+    "standards": "Prettier passed at1be; ESLint process killed137 at1024MiB, incomplete",
+    "typePredecessor": "At253f Base/Utils0errors; Base6preexistingwarnings; Fixtures resource killed137, incomplete",
+    "browser": "Official local browser download truncated; local secured browser gate incomplete; hosted final-head gate pending",
+    "fullPackagePredecessor": "ac550 Toast consumer passed0errors3warnings; later unrelated consumer heap exhaustion; full package incomplete",
+    "remainingPackageStages": {
+      "menu": "Maintained installed Menu consumer at5d6e passed strict0errors0warnings/nine negative assertions.",
+      "remoteFormPublicTypes": "Maintained RemoteForm/public type stage at2286 passed bounded1536MiB retry with0errors0warnings; all50 invalid consumers rejected across51diagnostics.",
+      "privateClick": "Maintained private click consumer at2286 passed1/1; its unchanged declaration check uses skipLibCheck:true, outside Toast closure, not strict Toast declaration evidence.",
+      "pipelineLimit": "These maintained stages completed individually using the same real dual artifacts. Original full package pipeline ac550 exit134 remains historical; no full pipeline pass claimed."
+    },
+    "standardsRetry": "Direct absolute Node768MiB ESLint at2286 exited134 heapOOM. Earlier1024MiB full Standards killed137. No local ESLint completion; hosted exact final-head Standards required. No further local retry planned.",
+    "finalScriptRerun": "Atf3c684fd all86 tests passed,0failures,30.350s. Subsequent receipt changes documentation/evidence only; source and scripts unchanged."
+  },
+  "artifactManifestSha256": "790d29f2485d726ffea97e77bae3977c1c26568758aab171b5993e3e4df350f8",
+  "receipts": [
+    {
+      "file": "native-consumer-5d6e.log.txt.gz",
+      "uncompressedBytes": 856,
+      "uncompressedSha256": "fe97f60ce8a9410dab9795809185dd96ea6aa5d59d9e546cf36471dde52e1297"
+    },
+    {
+      "file": "dom-1be1.log.txt.gz",
+      "uncompressedBytes": 1977,
+      "uncompressedSha256": "44edeff7c67e6a7666cb16261a788ac1bf429992754794ea9a4a5f8ba2c6714a"
+    },
+    {
+      "file": "scripts-1be1.log.txt.gz",
+      "uncompressedBytes": 11734,
+      "uncompressedSha256": "3a7762b71878f7836cdab1b7a33e0664f68c030b05b3d9836148766b440878b7"
+    },
+    {
+      "file": "fixture-build-1be1.log.txt.gz",
+      "uncompressedBytes": 350946,
+      "uncompressedSha256": "798dd28699a42bb3ee6363353c8f29a8cf2189443763b5cf2631b5a53419bc7f"
+    },
+    {
+      "file": "runtime-boundary-1be1.log.txt.gz",
+      "uncompressedBytes": 61,
+      "uncompressedSha256": "7eb14a3a2cac9fe7d677ef3a7519f5045bb935af2549e71f9ddf392ebb65a36d"
+    },
+    {
+      "file": "artifacts-1be1.log.txt.gz",
+      "uncompressedBytes": 37190,
+      "uncompressedSha256": "b081860c3c44794d038b8d3be267141112d09a1eae3fe6a94022a9a0e77614ca"
+    },
+    {
+      "file": "standards-1be1.log.txt.gz",
+      "uncompressedBytes": 154,
+      "uncompressedSha256": "cec31c4ec5bdaf4a5aef4d17dfc754d2f157486a75cc9c7f573723d6366cbcb6"
+    },
+    {
+      "file": "types-253f.log.txt.gz",
+      "uncompressedBytes": 4096,
+      "uncompressedSha256": "6892e3dad8543923fc88d123fe3225280f46b29fa04b7f155bf7ecb1d140e1cb"
+    },
+    {
+      "file": "menu-consumer-5d6e.log.txt.gz",
+      "uncompressedBytes": 350,
+      "uncompressedSha256": "4519d28637bc63c1dc99077cfcc576b7630705ff6d534285c8c6559596f2a593"
+    },
+    {
+      "file": "remote-types-2286.log.txt.gz",
+      "uncompressedBytes": 295,
+      "uncompressedSha256": "0d2b6bc13902009fa40834f37167be88de3a3dc459544e8ed4c368380135e938"
+    },
+    {
+      "file": "private-click-2286.log.txt.gz",
+      "uncompressedBytes": 829,
+      "uncompressedSha256": "e2b627c04f114359b36caae78e9ccce908a064bb6db4b1bd5a9b7b35d0e5b908"
+    },
+    {
+      "file": "eslint-2286-768.log.txt.gz",
+      "uncompressedBytes": 1405,
+      "uncompressedSha256": "6828246e356a920f0aa34d7950da8eeb5056c786f9bad0858c08ef9ef29f736e"
+    },
+    {
+      "file": "scripts-f3c6.log.txt.gz",
+      "uncompressedBytes": 11719,
+      "uncompressedSha256": "209606aafe7392e1dc44d0af5fb1f2dfd7e77c56a9334ced54f78ef77182d28f"
+    }
+  ],
+  "acceptanceLimits": [
+    "Supplemental native witnesses earn zero unchanged Original assertion credit.",
+    "Final hostedCI, exact final-head independent review and accepted main integration of reached useButton and #73nativeProps corrections pending.",
+    "useTransitionStatus type-only; FieldValidation unreached.",
+    "Anchored/swipeToast and Drawer remain explicitly planned."
+  ]
+}
