@@ -77,9 +77,7 @@
     {
       "id": "composite-plain-dom-partial",
       "test": "packages/base/tests/dom/composite-nested-source.test.ts",
-      "source": [
-        "packages/react/src/internals/composite/root/CompositeRoot.test.tsx"
-      ],
+      "source": ["packages/react/src/internals/composite/root/CompositeRoot.test.tsx"],
       "originalAssignment": "React title and original outer metadata/shared navigation expectations retained in the React branch.",
       "nativeAssignment": "Measured plain native counterpart uses the unchanged actual Fixture: initial inner/false revision0, updates1-3 retain the real shared host, removal reindexes first/last, reinsertion and SPAN replacement use new physical hosts, and every first-to-ArrowRight navigation skips shared to last. Explicit unmount asserts empty DOM and the last emitted Map retains three disconnected keys. Whole failed940 case and wrong metadata/prose are archived.",
       "evidence": "parity/native-snippets/plain-composite-native-evidence.json binds each actual plain record to complete-vectors.json SHA741632beb22af76e6de8e64477f01b342245cf6546fd529701cade4633d7a63b at43b322f5a6171e9dea5479fb3e047fc0036026e1. Acde and940 failed initially, not at first update; raw matcher hid revision. The first3-case exit0 capture had no console vectors; command-only verbose/silent=false acquired all data. Acquisition grants no canonical gate pass.",
@@ -197,24 +195,6 @@
         "packages/base/src/lib/collapsible/Panel.svelte",
         "packages/base/src/lib/collapsible/Root.svelte"
       ]
-    },
-    {
-      "id": "collapsible-native-alignment-browser",
-      "test": "tests/browser/collapsible.spec.ts",
-      "title": "native counterpart: Svelte opening measurements preserve authored alignment through native style commits",
-      "source": [
-        "packages/react/src/collapsible/panel/useCollapsiblePanel.ts",
-        "packages/react/src/collapsible/panel/CollapsiblePanel.test.tsx"
-      ],
-      "originalAssignment": "Complete immutable React P358 assertion body preserved byte-identically in reference-only loop; full prior browser file and current ledger remain archived. Existing DOM supplement retains all four initial!important alignment resets at actual production scroll reads.",
-      "nativeAssignment": "Literal Svelte baseline verifies initial!important before native state write and center/empty priority after actual flush on the same connected host. Real Panel opening uses same-turn flush and requires same connected host, open/starting/unhidden, exact authored center/empty priority, measured pixels equal actual scroll dimensions, positive dimensions, matching ARIA, one uncanceled trigger-press request, consumer-before-change order, exact mixed-motion warning and next-frame authored alignment.",
-      "evidence": "alignment-browser-native-evidence.json",
-      "status": "Proposed and unexecuted successor; exact-f137 baseline measurements are prior executed evidence, not a successor pass",
-      "unchangedOriginalCredit": 0,
-      "localBusiness": [
-        "packages/base/src/lib/collapsible/Panel.svelte",
-        "packages/base/src/lib/collapsible/animations.ts"
-      ]
     }
   ],
   "retainedActualEvidence": [
@@ -236,10 +216,7 @@
       "receipt": "/workspace/reviews/native-43-plain-acquisition-verbose/complete-vectors.json",
       "sha256": "741632beb22af76e6de8e64477f01b342245cf6546fd529701cade4633d7a63b",
       "actualExecutionHead": "43b322f5a6171e9dea5479fb3e047fc0036026e1",
-      "realFixturePhases": [
-        20,
-        20
-      ],
+      "realFixturePhases": [20, 20],
       "literalPhases": 8,
       "literalEvents": 18,
       "runExit": 0,
@@ -331,16 +308,6 @@
     "testSha256": "6816d7dad8d8914203a2665ce3d28ed9188edfa560cd48136c30733b6784c6d8",
     "ReactCaseTitleActionsAssertions": "Complete old teardown loop and case preserved byte-for-byte on reference-only branch; all other complete file bytes retained",
     "actualFailedNativeCases": 2,
-    "unchangedOriginalCredit": 0
-  },
-  "alignmentBrowserMeasuredSuccessor": {
-    "predecessorHead": "f1376eb69e8733590d95e4a3a197c0173e19a36a",
-    "evidence": "alignment-browser-native-evidence.json",
-    "status": "Proposal; actual new counterpart execution and final acceptance remain pending",
-    "predecessorTestSha256": "6816d7dad8d8914203a2665ce3d28ed9188edfa560cd48136c30733b6784c6d8",
-    "testSha256": "76004c1f14b2642ab9d4722697a7cc119d1ce3742879d4e4d69894aaad0d04c6",
-    "ReactCaseTitleActionsAssertions": "Complete P358 body moved byte-identically to reference-only branch; all other existing browser bodies remain unchanged",
-    "actualFailedNativeCases": 1,
     "unchangedOriginalCredit": 0
   }
 }

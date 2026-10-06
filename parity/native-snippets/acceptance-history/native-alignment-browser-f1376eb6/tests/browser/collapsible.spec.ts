@@ -372,6 +372,24 @@ for (const reference of [false, true]) {
     await expect(panel).toHaveCount(0);
     expect((await calls(page)).map((call) => call.open)).toEqual([false]);
   });
+  test(`P:358 ${framework} preserves inline alignment styles while measuring an opening panel`, async ({
+    page,
+  }) => {
+    const warnings: string[] = [];
+    page.on('console', (message) => {
+      if (message.type() === 'warning') warnings.push(message.text());
+    });
+    const { panel } = await setup(page, 'mixed', reference);
+    const state = await flush(page);
+    expect(state?.starting).toBe(true);
+    expect(state?.alignment).toBe('initial');
+    expect(state?.priority).toBe('important');
+    expect(warnings).toContain(
+      'Base UI: CSS transitions and CSS animations both detected on Collapsible or Accordion panel. Only one of either animation type should be used.',
+    );
+    await frames(page, 1);
+    expect(await panel.evaluate((node: HTMLElement) => node.style.justifyContent)).toBe('center');
+  });
   test(`P:422 ${framework} keeps exit transitions working after close interrupted by reopening`, async ({
     page,
   }) => {
@@ -856,124 +874,6 @@ for (const reference of [false, true]) {
     expect(await calls(page)).toHaveLength(reference ? 0 : 1);
   });
 }
-
-for (const reference of [true]) {
-  const framework = reference ? 'React reference' : 'Svelte';
-  test(`P:358 ${framework} preserves inline alignment styles while measuring an opening panel`, async ({
-    page,
-  }) => {
-    const warnings: string[] = [];
-    page.on('console', (message) => {
-      if (message.type() === 'warning') warnings.push(message.text());
-    });
-    const { panel } = await setup(page, 'mixed', reference);
-    const state = await flush(page);
-    expect(state?.starting).toBe(true);
-    expect(state?.alignment).toBe('initial');
-    expect(state?.priority).toBe('important');
-    expect(warnings).toContain(
-      'Base UI: CSS transitions and CSS animations both detected on Collapsible or Accordion panel. Only one of either animation type should be used.',
-    );
-    await frames(page, 1);
-    expect(await panel.evaluate((node: HTMLElement) => node.style.justifyContent)).toBe('center');
-  });
-}
-
-// Native renderer counterpart of P358; divergent expectations earn zero Original credit.
-test('native counterpart: Svelte opening measurements preserve authored alignment through native style commits', async ({
-  page,
-}) => {
-  await page.goto('/native-snippets');
-  await expect(page.locator('main')).toHaveAttribute('data-hydrated', 'true');
-  const baseline = await page.getByTestId('literal-native-style').evaluate((node) =>
-    (
-      node as HTMLDivElement & {
-        nativeStyle: {
-          write(property: string): {
-            beforeStateWrite: { properties: Record<string, { value: string; priority: string }> };
-            afterFlush: {
-              connected: boolean;
-              properties: Record<string, { value: string; priority: string }>;
-            };
-            sameHost: boolean;
-          };
-        };
-      }
-    ).nativeStyle.write('justify-content'),
-  );
-  expect(baseline.beforeStateWrite.properties['justify-content']).toEqual({
-    value: 'initial',
-    priority: 'important',
-  });
-  expect(baseline.sameHost).toBe(true);
-  expect(baseline.afterFlush.connected).toBe(true);
-  expect(baseline.afterFlush.properties['justify-content']).toEqual({
-    value: 'center',
-    priority: '',
-  });
-
-  const warnings: string[] = [];
-  page.on('console', (message) => {
-    if (message.type() === 'warning') warnings.push(message.text());
-  });
-  const { panel } = await setup(page, 'mixed', false);
-  const opening = await panel.evaluate((original: HTMLElement) => {
-    (window as Window & { collapsibleFlush(action: string): void }).collapsibleFlush('click');
-    const node = document.querySelector('[data-testid="panel"]') as HTMLElement;
-    const trigger = document.getElementById('tested-trigger')!;
-    return {
-      sameHost: node === original,
-      connected: node.isConnected,
-      open: node.hasAttribute('data-open'),
-      starting: node.hasAttribute('data-starting-style'),
-      hidden: node.hasAttribute('hidden'),
-      alignment: node.style.justifyContent,
-      priority: node.style.getPropertyPriority('justify-content'),
-      dimensions: [
-        node.style.getPropertyValue('--collapsible-panel-height'),
-        node.style.getPropertyValue('--collapsible-panel-width'),
-      ],
-      scrollDimensions: [node.scrollHeight, node.scrollWidth],
-      expanded: trigger.getAttribute('aria-expanded'),
-      controls: trigger.getAttribute('aria-controls'),
-      id: node.id,
-      calls: JSON.parse(document.querySelector('[data-testid="calls"]')!.textContent!),
-      order: JSON.parse(document.querySelector('[data-testid="order"]')!.textContent!),
-    };
-  });
-  expect(opening).toMatchObject({
-    sameHost: true,
-    connected: true,
-    open: true,
-    starting: true,
-    hidden: false,
-    alignment: 'center',
-    priority: '',
-    expanded: 'true',
-    controls: opening.id,
-  });
-  expect(opening.dimensions).toEqual(opening.scrollDimensions.map((dimension) => `${dimension}px`));
-  expect(opening.scrollDimensions.every((dimension) => dimension > 0)).toBe(true);
-  expect(opening.calls).toHaveLength(1);
-  expect(opening.calls[0]).toMatchObject({
-    open: true,
-    reason: 'trigger-press',
-    type: 'click',
-    before: 'false',
-    canceled: false,
-  });
-  expect(opening.order).toEqual(['consumer', 'change']);
-  expect(warnings).toEqual([
-    'Base UI: CSS transitions and CSS animations both detected on Collapsible or Accordion panel. Only one of either animation type should be used.',
-  ]);
-  await frames(page, 1);
-  expect(
-    await panel.evaluate((node: HTMLElement) => ({
-      alignment: node.style.justifyContent,
-      priority: node.style.getPropertyPriority('justify-content'),
-    })),
-  ).toEqual({ alignment: 'center', priority: '' });
-});
 
 for (const reference of [true]) {
   const framework = reference ? 'React reference' : 'Svelte';

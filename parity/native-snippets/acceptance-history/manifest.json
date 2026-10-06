@@ -751,6 +751,70 @@
       "predecessor": "4aa4bc8d8d7c17e8dbec781837d56ca56112f9e3",
       "disposition": "complete authored public-object-style predecessor preserved before native public string/null/undefined counterpart; unexecuted, zero divergent Original credit",
       "unchangedParityCredit": 0
+    },
+    {
+      "source": "tests/browser/collapsible.spec.ts",
+      "archive": "parity/native-snippets/acceptance-history/native-alignment-browser-f1376eb6/tests/browser/collapsible.spec.ts",
+      "sha256": "6816d7dad8d8914203a2665ce3d28ed9188edfa560cd48136c30733b6784c6d8",
+      "predecessor": "f1376eb69e8733590d95e4a3a197c0173e19a36a",
+      "disposition": "complete f137 native alignment browser repair predecessor; historical receipt preserved, zero divergent Original credit",
+      "unchangedParityCredit": 0
+    },
+    {
+      "source": "parity/collapsible/ports.json",
+      "archive": "parity/native-snippets/acceptance-history/native-alignment-browser-f1376eb6/parity/collapsible/ports.json",
+      "sha256": "c7593f73e367fc83fa93f59792efad26780b50a527afb7227c77e427db47b4c6",
+      "predecessor": "f1376eb69e8733590d95e4a3a197c0173e19a36a",
+      "disposition": "complete f137 native alignment browser repair predecessor; historical receipt preserved, zero divergent Original credit",
+      "unchangedParityCredit": 0
+    },
+    {
+      "source": "scripts/tests/collapsible-provenance.test.mjs",
+      "archive": "parity/native-snippets/acceptance-history/native-alignment-browser-f1376eb6/scripts/tests/collapsible-provenance.test.mjs",
+      "sha256": "88ca09be20c1aa39a243b9a5fc12169c49defb2c3d68faca70960a701146af1e",
+      "predecessor": "f1376eb69e8733590d95e4a3a197c0173e19a36a",
+      "disposition": "complete f137 native alignment browser repair predecessor; historical receipt preserved, zero divergent Original credit",
+      "unchangedParityCredit": 0
+    },
+    {
+      "source": "parity/native-snippets/native-test-counterparts.json",
+      "archive": "parity/native-snippets/acceptance-history/native-alignment-browser-f1376eb6/parity/native-snippets/native-test-counterparts.json",
+      "sha256": "f58e2dd5433f08aea85a553d15d691aa49617cf24ecf48e0276c2bb47e4d0bf3",
+      "predecessor": "f1376eb69e8733590d95e4a3a197c0173e19a36a",
+      "disposition": "complete f137 native alignment browser repair predecessor; historical receipt preserved, zero divergent Original credit",
+      "unchangedParityCredit": 0
+    },
+    {
+      "source": "parity/native-snippets/acceptance.md",
+      "archive": "parity/native-snippets/acceptance-history/native-alignment-browser-f1376eb6/parity/native-snippets/acceptance.md",
+      "sha256": "55f8c56ee13b81a8a86010bc4055b2f31ce03ffd72a75d41c23690337554b4ee",
+      "predecessor": "f1376eb69e8733590d95e4a3a197c0173e19a36a",
+      "disposition": "complete f137 native alignment browser repair predecessor; historical receipt preserved, zero divergent Original credit",
+      "unchangedParityCredit": 0
+    },
+    {
+      "source": "parity/collapsible/compatibility.md",
+      "archive": "parity/native-snippets/acceptance-history/native-alignment-browser-f1376eb6/parity/collapsible/compatibility.md",
+      "sha256": "cb90acadd506b8a52647f4813a856aae4bb46e306b0cedb28269b53e43c2b484",
+      "predecessor": "f1376eb69e8733590d95e4a3a197c0173e19a36a",
+      "disposition": "complete f137 native alignment browser repair predecessor; historical receipt preserved, zero divergent Original credit",
+      "unchangedParityCredit": 0
+    },
+    {
+      "source": "docs/collapsible.md",
+      "archive": "parity/native-snippets/acceptance-history/native-alignment-browser-f1376eb6/docs/collapsible.md",
+      "sha256": "479ace660fdec56fbefe7a6f2a18d9db0ff75c3b57bab1a481dcbf9b68f9721b",
+      "predecessor": "f1376eb69e8733590d95e4a3a197c0173e19a36a",
+      "disposition": "complete f137 native alignment browser repair predecessor; historical receipt preserved, zero divergent Original credit",
+      "unchangedParityCredit": 0
+    },
+    {
+      "source": "docs/upstream-differences.md",
+      "archive": "parity/native-snippets/acceptance-history/native-alignment-browser-f1376eb6/docs/upstream-differences.md",
+      "sha256": "1376cac77cdcbc820bb94ab96190ad3bb900b87a62bfd3296b8fe13e518aba20",
+      "predecessor": "f1376eb69e8733590d95e4a3a197c0173e19a36a",
+      "disposition": "complete f137 native alignment browser repair predecessor; historical receipt preserved, zero divergent Original credit",
+      "unchangedParityCredit": 0
     }
   ]
 }
