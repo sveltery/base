@@ -671,30 +671,22 @@ for (const reference of [false, true]) {
         ).toBe('sent');
       }
     });
-  // Native live state/callback timing earns zero divergent unchanged Original credit.
   for (const scenario of [
     'controlled-consumer',
     'controlled-render',
     'callback-consumer',
     'callback-render',
   ])
-    test(`supplement: ${framework} ${scenario} ${reference ? 'rendered callback snapshot' : 'live state and callbacks'}`, async ({
-      page,
-    }) => {
+    test(`supplement: ${framework} ${scenario} rendered callback snapshot`, async ({ page }) => {
       const { trigger } = await setup(page, scenario, reference);
-      const liveControlled = !reference && scenario.startsWith('controlled');
       await trigger.click();
-      await expect(trigger).toHaveAttribute('aria-expanded', liveControlled ? 'false' : 'true');
+      await expect(trigger).toHaveAttribute('aria-expanded', 'true');
       expect((await calls(page))[0].before).toBe('false');
       await trigger.click();
       await expect(trigger).toHaveAttribute('aria-expanded', 'false');
-      expect((await calls(page)).map((call) => call.open)).toEqual(
-        liveControlled ? [false, false] : [true, false],
-      );
+      expect((await calls(page)).map((call) => call.open)).toEqual([true, false]);
       if (scenario.startsWith('callback'))
-        await expect(page.getByTestId('callback-owners')).toHaveText(
-          reference ? '["old","new"]' : '["new","new"]',
-        );
+        await expect(page.getByTestId('callback-owners')).toHaveText('["old","new"]');
     });
   test(`supplement: ${framework} IDs follow removal remount and explicit changes`, async ({
     page,

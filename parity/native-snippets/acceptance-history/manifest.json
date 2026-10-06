@@ -371,6 +371,22 @@
       "predecessor": "6501d3523731c7edc6de6cc9368c919b956b6105",
       "disposition": "maintained-native-binding-attachment-test-successor",
       "unchangedParityCredit": 0
+    },
+    {
+      "source": "tests/browser/accordion.spec.ts",
+      "archive": "parity/native-snippets/acceptance-history/native-fixture-6501/tests/browser/accordion.spec.ts",
+      "sha256": "391095e96759c744172b227586582499059250cc3d56a1b834f593c703f75953",
+      "predecessor": "6501d3523731c7edc6de6cc9368c919b956b6105",
+      "disposition": "maintained-native-browser-framework-expectation-successor",
+      "unchangedParityCredit": 0
+    },
+    {
+      "source": "tests/browser/collapsible.spec.ts",
+      "archive": "parity/native-snippets/acceptance-history/native-fixture-6501/tests/browser/collapsible.spec.ts",
+      "sha256": "f20431963013f7104dde91a95742f942db4a5338439243880344b3ec483b02fa",
+      "predecessor": "6501d3523731c7edc6de6cc9368c919b956b6105",
+      "disposition": "maintained-native-browser-framework-expectation-successor",
+      "unchangedParityCredit": 0
     }
   ]
 }

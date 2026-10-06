@@ -650,8 +650,7 @@ for (const reference of [false, true]) {
       })),
     ).toEqual({ value: 'center', priority: '' });
   });
-  // Native host ownership differs from the React listener snapshot; zero Original credit.
-  test(`supplement: ${framework} ${reference ? 'inherited issue31 beforematch listener stays on original host' : 'beforematch listener follows the replacement host'}`, async ({
+  test(`supplement: ${framework} inherited issue31 beforematch listener stays on original host`, async ({
     page,
   }) => {
     const { trigger, panel } = await setup(page, 'replaced-host', reference);
@@ -665,44 +664,9 @@ for (const reference of [false, true]) {
           node === (window as Window & { originalAccordionPanel?: Element }).originalAccordionPanel,
       ),
     ).toBe(false);
-    if (reference) {
-      await panel.dispatchEvent('beforematch');
-      await expect(trigger).toHaveAttribute('aria-expanded', 'false');
-      expect(await calls(page)).toHaveLength(0);
-    } else {
-      expect(
-        await page.evaluate(
-          () =>
-            (window as Window & { originalAccordionPanel?: Element }).originalAccordionPanel!
-              .isConnected,
-        ),
-      ).toBe(false);
-      await page.evaluate(() =>
-        (
-          window as Window & { originalAccordionPanel?: Element }
-        ).originalAccordionPanel!.dispatchEvent(new Event('beforematch')),
-      );
-      await expect(trigger).toHaveAttribute('aria-expanded', 'false');
-      expect(await calls(page)).toHaveLength(0);
-      expect(await itemCalls(page)).toHaveLength(0);
-      await expect(page.getByTestId('order')).toHaveText('[]');
-      expect(await panel.evaluate((node) => node.tagName)).toBe('SECTION');
-      await panel.dispatchEvent('beforematch');
-      await opened(trigger, panel);
-      expect(await itemCalls(page)).toHaveLength(1);
-      expect((await itemCalls(page))[0]).toMatchObject({
-        open: true,
-        reason: 'none',
-        type: 'beforematch',
-      });
-      expect(await calls(page)).toHaveLength(1);
-      expect((await calls(page))[0]).toMatchObject({
-        value: [0],
-        reason: 'none',
-        type: 'beforematch',
-      });
-      await expect(page.getByTestId('order')).toHaveText('["item","root"]');
-    }
+    await panel.dispatchEvent('beforematch');
+    await expect(trigger).toHaveAttribute('aria-expanded', 'false');
+    expect(await calls(page)).toHaveLength(0);
   });
   for (const overrideHidden of [false, true])
     test(`supplement: ${framework} hiddenUntilFound replacement preserves ${overrideHidden ? 'consumer override' : 'boolean prop'} without rerunning state effect`, async ({
@@ -713,12 +677,11 @@ for (const reference of [false, true]) {
         overrideHidden ? 'replaced-hidden-override' : 'replaced-hidden-boolean',
         reference,
       );
-      if (!reference && overrideHidden) await expect(panel).not.toHaveAttribute('hidden');
-      else await expect(panel).toHaveAttribute('hidden', 'until-found');
+      await expect(panel).toHaveAttribute('hidden', 'until-found');
       await page.getByRole('button', { name: 'Replace host', exact: true }).click();
       expect(await panel.evaluate((node) => node.tagName)).toBe('SECTION');
       if (overrideHidden) await expect(panel).not.toHaveAttribute('hidden');
-      else await expect(panel).toHaveAttribute('hidden', reference ? '' : 'until-found');
+      else await expect(panel).toHaveAttribute('hidden', '');
       await expect(trigger).toHaveAttribute('aria-expanded', 'false');
       expect(await calls(page)).toHaveLength(0);
     });
