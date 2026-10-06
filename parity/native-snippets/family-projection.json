@@ -10,7 +10,7 @@
     ],
     "graph": {
       "path": "parity/native-snippets/native-graph.json",
-      "sha256": "551e813daa36c74d9f95c1c520c4777116cba14cacf2f52a1f03d3d8c33bafa3"
+      "sha256": "d3d12a7977f6829c47bf21f4baaa0b9870a841eba5e4c47d60486c0b0f8eb851"
     },
     "predecessor": {
       "path": "parity/toggle-toolbar/source-correspondence.json",
@@ -2016,11 +2016,11 @@
     ],
     "graph": {
       "path": "parity/native-snippets/native-graph.json",
-      "sha256": "551e813daa36c74d9f95c1c520c4777116cba14cacf2f52a1f03d3d8c33bafa3"
+      "sha256": "d3d12a7977f6829c47bf21f4baaa0b9870a841eba5e4c47d60486c0b0f8eb851"
     },
     "predecessor": {
       "path": "parity/menu-family/source-correspondence.json",
-      "sha256": "d8b718383070dd528907465c653f6f125897945cbe6d03c4be7918dc9f5ccfa4"
+      "sha256": "7b3b82fbd0b55d30dd5fad6e04a3e68256dadd234755e52a9eccd46aa9d83161"
     },
     "originalGraph": {
       "path": "parity/menu-family/source-graph.json",
@@ -2097,7 +2097,7 @@
       },
       {
         "source": "packages/base/src/lib/floating-ui/components/createFloatingFocusManager.svelte.ts",
-        "sha256": "d5b1035fd53c72ca3dee75fb5c4dbf08093ca09142e859dd87a44d911079e018"
+        "sha256": "2bf134f5537129302dfa11bcde005471119ac9b845977c936c126709880f1e27"
       },
       {
         "source": "packages/base/src/lib/floating-ui/hooks/gridNavigation.ts",
@@ -2972,7 +2972,7 @@
           },
           {
             "source": "packages/base/src/lib/floating-ui/components/createFloatingFocusManager.svelte.ts",
-            "sha256": "d5b1035fd53c72ca3dee75fb5c4dbf08093ca09142e859dd87a44d911079e018"
+            "sha256": "2bf134f5537129302dfa11bcde005471119ac9b845977c936c126709880f1e27"
           }
         ],
         "retiredLocal": [],
