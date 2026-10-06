@@ -19,11 +19,7 @@ class Observer {
 function node(id: string) {
   return document.querySelector<HTMLElement>(`[data-testid="${id}"]`)!;
 }
-function pointer(
-  id: string,
-  type: string,
-  init: Partial<PointerEventInit> = {},
-) {
+function pointer(id: string, type: string, init: Partial<PointerEventInit> = {}) {
   const event = new MouseEvent(type, {
     bubbles: true,
     cancelable: true,
@@ -82,9 +78,7 @@ async function setup(props: Record<string, unknown> = {}) {
     });
   }
   await tick();
-  observers.forEach((observer) =>
-    observer.callback([], observer as unknown as ResizeObserver),
-  );
+  observers.forEach((observer) => observer.callback([], observer as unknown as ResizeObserver));
   await tick();
 }
 beforeEach(() => {
@@ -155,9 +149,7 @@ describe('ScrollArea pinned rendered assertion ports', () => {
     vi.mocked(thumb.setPointerCapture).mockImplementation((id) => {
       active = id;
     });
-    vi.mocked(thumb.hasPointerCapture).mockImplementation(
-      (id) => active === id,
-    );
+    vi.mocked(thumb.hasPointerCapture).mockImplementation((id) => active === id);
     vi.mocked(thumb.releasePointerCapture).mockImplementation(() => {
       active = null;
     });
@@ -232,9 +224,7 @@ describe('ScrollArea pinned rendered assertion ports', () => {
   it('S:19/39/C:50 states and aria default belong to actual rendered parts', async () => {
     await setup();
     expect(node('vertical').getAttribute('aria-hidden')).toBe('true');
-    expect(node('horizontal').getAttribute('data-orientation')).toBe(
-      'horizontal',
-    );
+    expect(node('horizontal').getAttribute('data-orientation')).toBe('horizontal');
     expect(node('corner').getAttribute('aria-hidden')).toBe('true');
   });
   it('native supplement consumer preventBaseUIHandler precedes and suppresses drag movement', async () => {
@@ -285,9 +275,7 @@ describe('ScrollArea pinned rendered assertion ports', () => {
     expect(() => mount(Missing, { target, props: { part: 'thumb' } })).toThrow(
       'Base UI: ScrollAreaScrollbarContext is missing. ScrollAreaScrollbar parts must be placed within <ScrollArea.Scrollbar>.',
     );
-    expect(() =>
-      mount(Missing, { target, props: { part: 'content' } }),
-    ).toThrow(
+    expect(() => mount(Missing, { target, props: { part: 'content' } })).toThrow(
       'Base UI: ScrollAreaViewportContext missing. ScrollAreaViewport parts must be placed within <ScrollArea.Viewport>.',
     );
   });

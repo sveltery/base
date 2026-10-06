@@ -1,0 +1,27 @@
+{
+  "candidate": "6cfd4a49088347301db195fe661357ea73742d3f",
+  "pin": "47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c",
+  "moduleCount": 137,
+  "statementCount": 542,
+  "graphSha256": "b7be0e3bf0f1e438efe3fae356bbfced15ecdf06ba2dfaa4e0932b25e3e493c3",
+  "findings": 17,
+  "ordinaryCredit": 0,
+  "status": "Immutable local source/native owner-role diagnostic; not final pushed-head review, runtime result or newly verified business bug.",
+  "records": [
+    {
+      "source": "owner-role-6cfd.md",
+      "archive": "owner-role-6cfd.md.gz",
+      "sha256": "6dd0341dc43d4bb558654237471ba31b184b3fe788c3a46f06fb323fe9d7b7f2",
+      "archiveSha256": "e4bd3cc6aca5a2e14e11beaa30b21f0bbf6cc27fcd2da222514948f7b958cfcb",
+      "bytes": 6192
+    },
+    {
+      "source": "owner-role-6cfd.json",
+      "archive": "owner-role-6cfd.json.gz",
+      "sha256": "499da11aae111ff26d18ce624d32af1b043e4b6a3734b56bca81fc6e6bc381c5",
+      "archiveSha256": "720a86e97b5407f6d516cf81236f7a329aa6725f480f60de82c538068a672445",
+      "bytes": 309108
+    }
+  ],
+  "coordination": "Only two hover roles have known canonical class lane; other15requireleadassignment. PR42Compositefallback andPR73emptyStyle scopes do not assign class roles."
+}

@@ -1,6 +1,8 @@
 <script lang="ts">
   // Original NavigationMenuPopup state, physical-origin pinning and canonical renderer (MIT).
-  import RenderElement from '../internals/RenderElement.svelte';
+  import { mergeComponentProps } from '../internals/mergeComponentProps.js';
+  import { untrack } from 'svelte';
+  import { createAttachmentKey } from 'svelte/attachments';
   import { useNavigationMenuRootContext } from './root/NavigationMenuRootContext.js';
   import { useNavigationMenuPositionerContext } from './positioner/NavigationMenuPositionerContext.js';
   import { useDirection } from '../direction-provider/context.js';
@@ -9,7 +11,6 @@
   import { getDisabledMountTransitionStyles } from '../internals/getDisabledMountTransitionStyles.js';
   import type { NavigationMenuPopupProps } from './types.js';
   let {
-    // eslint-disable-next-line no-useless-assignment -- Native bind:ref publishes the host.
     ref = $bindable(null),
     render,
     class: classProp,
@@ -35,22 +36,26 @@
       positioning.side === (direction() === 'rtl' ? 'inline-end' : 'inline-start'),
   );
   const isOriginSide = $derived(positioning.side === 'top' || isPhysicalLeft);
-  const componentProps = $derived({ render, class: classProp, style });
-  const refs = [
-    (node: HTMLElement | null) => {
-      ref = node;
-      root.setPopupElement(node);
-    },
-  ];
+  const hostAttachmentKey = createAttachmentKey();
+  function attachHost(host: HTMLElement) {
+    return untrack(() => {
+      ref = host;
+      root.setPopupElement(host);
+
+      return () =>
+        untrack(() => {
+          if (ref === host) ref = null;
+          if (root.popupElement === host) root.setPopupElement(null);
+        });
+    });
+  }
   const params = $derived({
     state,
-    ref: refs,
     props: [
       {
         id,
         tabindex: -1,
         style: {
-          ...root.popupSizeStyles,
           ...(isOriginSide
             ? {
                 position: 'absolute',
@@ -65,5 +70,17 @@
     ],
     stateAttributesMapping: popupTransitionStateMapping,
   });
+  const mergedProps = $derived({
+    ...mergeComponentProps(
+      state,
+      { class: classProp, style },
+      params.props,
+      params.stateAttributesMapping,
+    ),
+    [hostAttachmentKey]: attachHost,
+  });
 </script>
-<RenderElement tag="nav" {componentProps} {params} {children} />
+
+{#if render}{@render render(mergedProps, state, children)}{:else}<nav {...mergedProps}
+    >{@render children?.()}</nav
+  >{/if}

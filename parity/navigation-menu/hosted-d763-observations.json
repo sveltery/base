@@ -1,0 +1,339 @@
+{
+  "head": "d763528613efd9fb5b067ec2ce966e0db9d6dd36",
+  "sourcePin": "47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c",
+  "runId": 37359951405,
+  "artifactId": 11366049354,
+  "artifactSha256": "d67d1b0c613a2681024bc5ef62acbbe25921638b183bae7ca1487a0cdc42b151",
+  "browser": {
+    "engine": "official Playwright Chromium",
+    "version": "153.0.8010.12",
+    "chromiumSandbox": true,
+    "workers": 1,
+    "retries": 0
+  },
+  "collected": 660,
+  "passed": 656,
+  "failed": 4,
+  "skipped": 0,
+  "ordinaryCredit": 0,
+  "status": "Immutable historical secured receipt; Original330/330 pass and native326/330 pass. Four unchanged native Source sequences remain red. No successor execution or acceptance claim.",
+  "frameworkTotals": {
+    "Original": {
+      "total": 330,
+      "passed": 330,
+      "failed": 0
+    },
+    "native": {
+      "total": 330,
+      "passed": 326,
+      "failed": 4
+    }
+  },
+  "suiteTotals": {
+    "native Svelte Root conformance": {
+      "total": 15,
+      "passed": 15,
+      "failed": 0
+    },
+    "native Svelte List conformance": {
+      "total": 15,
+      "passed": 15,
+      "failed": 0
+    },
+    "native Svelte Item conformance": {
+      "total": 15,
+      "passed": 15,
+      "failed": 0
+    },
+    "native Svelte Icon conformance": {
+      "total": 15,
+      "passed": 15,
+      "failed": 0
+    },
+    "native Svelte Link conformance": {
+      "total": 15,
+      "passed": 15,
+      "failed": 0
+    },
+    "native Svelte Trigger conformance": {
+      "total": 15,
+      "passed": 15,
+      "failed": 0
+    },
+    "native Svelte Portal conformance": {
+      "total": 15,
+      "passed": 15,
+      "failed": 0
+    },
+    "native Svelte Positioner conformance": {
+      "total": 15,
+      "passed": 15,
+      "failed": 0
+    },
+    "native Svelte Popup conformance": {
+      "total": 15,
+      "passed": 15,
+      "failed": 0
+    },
+    "native Svelte Backdrop conformance": {
+      "total": 15,
+      "passed": 15,
+      "failed": 0
+    },
+    "native Svelte Arrow conformance": {
+      "total": 15,
+      "passed": 15,
+      "failed": 0
+    },
+    "native Svelte Viewport conformance": {
+      "total": 15,
+      "passed": 15,
+      "failed": 0
+    },
+    "Original React Root conformance": {
+      "total": 15,
+      "passed": 15,
+      "failed": 0
+    },
+    "Original React List conformance": {
+      "total": 15,
+      "passed": 15,
+      "failed": 0
+    },
+    "Original React Item conformance": {
+      "total": 15,
+      "passed": 15,
+      "failed": 0
+    },
+    "Original React Icon conformance": {
+      "total": 15,
+      "passed": 15,
+      "failed": 0
+    },
+    "Original React Link conformance": {
+      "total": 15,
+      "passed": 15,
+      "failed": 0
+    },
+    "Original React Trigger conformance": {
+      "total": 15,
+      "passed": 15,
+      "failed": 0
+    },
+    "Original React Portal conformance": {
+      "total": 15,
+      "passed": 15,
+      "failed": 0
+    },
+    "Original React Positioner conformance": {
+      "total": 15,
+      "passed": 15,
+      "failed": 0
+    },
+    "Original React Popup conformance": {
+      "total": 15,
+      "passed": 15,
+      "failed": 0
+    },
+    "Original React Backdrop conformance": {
+      "total": 15,
+      "passed": 15,
+      "failed": 0
+    },
+    "Original React Arrow conformance": {
+      "total": 15,
+      "passed": 15,
+      "failed": 0
+    },
+    "Original React Viewport conformance": {
+      "total": 15,
+      "passed": 15,
+      "failed": 0
+    },
+    "native Svelte exact parts": {
+      "total": 24,
+      "passed": 24,
+      "failed": 0
+    },
+    "Original React exact parts": {
+      "total": 24,
+      "passed": 24,
+      "failed": 0
+    },
+    "native Svelte exact sizing": {
+      "total": 19,
+      "passed": 18,
+      "failed": 1
+    },
+    "Original React exact sizing": {
+      "total": 19,
+      "passed": 19,
+      "failed": 0
+    },
+    "native Svelte exact Root sequences": {
+      "total": 81,
+      "passed": 78,
+      "failed": 3
+    },
+    "Original React exact Root sequences": {
+      "total": 81,
+      "passed": 81,
+      "failed": 0
+    },
+    "native Svelte": {
+      "total": 26,
+      "passed": 26,
+      "failed": 0
+    },
+    "Original React": {
+      "total": 26,
+      "passed": 26,
+      "failed": 0
+    }
+  },
+  "failures": [
+    {
+      "file": "navigation-menu-sizing.spec.ts",
+      "suite": "native Svelte exact sizing",
+      "title": "R:3917 temporary zero close retains auto measured size",
+      "status": "unexpected",
+      "result": "failed",
+      "error": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoEqual\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m) // deep equality\u001b[22m\n\n\u001b[32m- Expected  - 2\u001b[39m\n\u001b[31m+ Received  + 2\u001b[39m\n\n\u001b[2m  Object {\u001b[22m\n\u001b[2m    \"height\": \"120px\",\u001b[22m\n\u001b[32m-   \"popupHeight\": \"120px\",\u001b[39m\n\u001b[32m-   \"popupWidth\": \"250px\",\u001b[39m\n\u001b[31m+   \"popupHeight\": \"auto\",\u001b[39m\n\u001b[31m+   \"popupWidth\": \"auto\",\u001b[39m\n\u001b[2m    \"width\": \"250px\",\u001b[22m\n\u001b[2m  }\u001b[22m"
+    },
+    {
+      "file": "navigation-menu-source-sequences.spec.ts",
+      "suite": "native Svelte exact Root sequences",
+      "title": "R:2339 interaction with actual nested Dialog retains menu",
+      "status": "unexpected",
+      "result": "failed",
+      "error": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoHaveCount\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m)\u001b[22m failed\n\nLocator:  getByTestId('popup-1')\nExpected: \u001b[32m1\u001b[39m\nReceived: \u001b[31m0\u001b[39m\nTimeout:  5000ms\n\nCall log:\n\u001b[2m  - Expect \"toHaveCount\" getByTestId('popup-1') with timeout 5000ms\u001b[22m\n\u001b[2m  - waiting for getByTestId('popup-1')\u001b[22m\n\u001b[2m    14 \u00d7 locator resolved to 0 elements\u001b[22m\n\u001b[2m       - unexpected value \"0\"\u001b[22m\n"
+    },
+    {
+      "file": "navigation-menu-source-sequences.spec.ts",
+      "suite": "native Svelte exact Root sequences",
+      "title": "R:2538 nested closeOnClick propagation",
+      "status": "unexpected",
+      "result": "failed",
+      "error": "Error: locator.evaluate: Error: Unable to perform pointer interaction as the element has `pointer-events: none`:\n\nA(testId=nested-link-1)\n    at assertPointerEvents (http://127.0.0.1:5173/node_modules/.vite/deps/@testing-library_user-event.js?v=5fcd6207:2543:110)\n    at Object.enter (http://127.0.0.1:5173/node_modules/.vite/deps/@testing-library_user-event.js?v=5fcd6207:2630:5)\n    at PointerHost.move (http://127.0.0.1:5173/node_modules/.vite/deps/@testing-library_user-event.js?v=5fcd6207:2730:65)\n    at pointerAction (http://127.0.0.1:5173/node_modules/.vite/deps/@testing-library_user-event.js?v=5fcd6207:3144:33)\n    at Object.pointer$1 [as pointer] (http://127.0.0.1:5173/node_modules/.vite/deps/@testing-library_user-event.js?v=5fcd6207:3112:9)\n    at async Object.input (http://127.0.0.1:5173/src/lib/navigation-menu-test-transport.ts:126:9)\n    at async eval (eval at evaluate (:311:30), <anonymous>:5:5)\n    at async <anonymous>:337:30"
+    },
+    {
+      "file": "navigation-menu-source-sequences.spec.ts",
+      "suite": "native Svelte exact Root sequences",
+      "title": "R:2568 nested closeOnClick propagation",
+      "status": "unexpected",
+      "result": "failed",
+      "error": "Error: locator.evaluate: Error: Unable to perform pointer interaction as the element has `pointer-events: none`:\n\nA(testId=nested-link-1)\n    at assertPointerEvents (http://127.0.0.1:5173/node_modules/.vite/deps/@testing-library_user-event.js?v=5fcd6207:2543:110)\n    at Object.enter (http://127.0.0.1:5173/node_modules/.vite/deps/@testing-library_user-event.js?v=5fcd6207:2630:5)\n    at PointerHost.move (http://127.0.0.1:5173/node_modules/.vite/deps/@testing-library_user-event.js?v=5fcd6207:2730:65)\n    at pointerAction (http://127.0.0.1:5173/node_modules/.vite/deps/@testing-library_user-event.js?v=5fcd6207:3144:33)\n    at Object.pointer$1 [as pointer] (http://127.0.0.1:5173/node_modules/.vite/deps/@testing-library_user-event.js?v=5fcd6207:3112:9)\n    at async Object.input (http://127.0.0.1:5173/src/lib/navigation-menu-test-transport.ts:126:9)\n    at async eval (eval at evaluate (:311:30), <anonymous>:5:5)\n    at async <anonymous>:337:30"
+    }
+  ],
+  "rawArchive": [
+    {
+      "source": ".checks/navigation-menu/browser-results.json",
+      "archive": "hosted-d763-browser-results.json.gz",
+      "sourceSha256": "28ffc043cd9e2bea308e5b37e866a99d7f61a429b178e6b0905737857a674294",
+      "archiveSha256": "b96d45dd66805e34141a7ccafe3e9a40c0d13fef259e961a3407b2d0b23f341c",
+      "sourceBytes": 1037464
+    },
+    {
+      "source": ".checks/navigation-menu/environment.json",
+      "archive": "hosted-d763-environment.json.gz",
+      "sourceSha256": "41eef4d6802e3b521c3b4b4976b9d7e9bb5e018ac8c9350c14e686563e990a65",
+      "archiveSha256": "11f6681bb39b3dc2a63c17721e4891ac16e784728ab79808e7f72b94730c5103",
+      "sourceBytes": 583
+    },
+    {
+      "source": ".checks/navigation-menu/browser.log",
+      "archive": "hosted-d763-browser.log.gz",
+      "sourceSha256": "6657b951ce26b8e8fe9b2fcf1fe06bd813e07746fd31dc1f16cd619c7683ac16",
+      "archiveSha256": "c7e3daff41180eca1ca41915b24e45f75e9cd0af443b1db6bb917617e96ce091",
+      "sourceBytes": 121862
+    }
+  ],
+  "artifactFailureFiles": [
+    {
+      "path": "test-results/navigation-menu-sizing-nat-69b67--retains-auto-measured-size-secured-chromium/error-context.md",
+      "sha256": "7c93f499e0b46ee16ff5a4e7910fc25725fcbb333a1495d23936272578f0f493",
+      "bytes": 22768
+    },
+    {
+      "path": "test-results/navigation-menu-sizing-nat-69b67--retains-auto-measured-size-secured-chromium/trace.zip",
+      "sha256": "97e236f04ca74ccca5a34e8b835f768cad80bf58b91016edb384873198865737",
+      "bytes": 47639
+    },
+    {
+      "path": "test-results/navigation-menu-source-seq-4c457--nested-Dialog-retains-menu-secured-chromium/error-context.md",
+      "sha256": "1a6ccdda2387ff4f42b74ed79b882bddacd016b5f359edb610276ba0a13d0fb0",
+      "bytes": 32493
+    },
+    {
+      "path": "test-results/navigation-menu-source-seq-4c457--nested-Dialog-retains-menu-secured-chromium/trace.zip",
+      "sha256": "11d723609b32b63bb3764d957b2019b25a2366865f32396200b8bb424b1055de",
+      "bytes": 58646
+    },
+    {
+      "path": "test-results/navigation-menu-source-seq-e92d1-ed-closeOnClick-propagation-secured-chromium/error-context.md",
+      "sha256": "46978252451fb701a0ddae5edf300365d525c1297edbd6d8f0d3ffaf408e2aae",
+      "bytes": 1361
+    },
+    {
+      "path": "test-results/navigation-menu-source-seq-e92d1-ed-closeOnClick-propagation-secured-chromium/trace.zip",
+      "sha256": "c8a24515c024d57a076795a37ab801b419207c2ea8b4a0b10645719603bab721",
+      "bytes": 51886
+    },
+    {
+      "path": "test-results/navigation-menu-source-seq-f9941-ed-closeOnClick-propagation-secured-chromium/error-context.md",
+      "sha256": "e1c3ecf807e04204ae92fa6c637c7f82b51e2ffaa240fd1e35392678432fff57",
+      "bytes": 1361
+    },
+    {
+      "path": "test-results/navigation-menu-source-seq-f9941-ed-closeOnClick-propagation-secured-chromium/trace.zip",
+      "sha256": "e65d9772cc7cc33d430f3cf665ffe2ea2f2fa28cc201fd805c90808096290fc6",
+      "bytes": 51140
+    }
+  ],
+  "localReproduction": {
+    "frozenHead": "d763528613efd9fb5b067ec2ce966e0db9d6dd36",
+    "bootstrapAndBuild": "passed (root-owned logs)",
+    "focusedDOM": "7files50pass (root-owned logs)",
+    "focusedBrowser": "8tests failed before assertion execution: official executable missing after install returned invalid0MiB ZIP and stale lock",
+    "classification": "browser setup failure; zero product assertion credit; no successor pass claim",
+    "archives": [
+      {
+        "archive": "local-d763-bootstrap.log.gz",
+        "sourceSha256": "41ce07eefa4d471060ba3c6e9c03c0f91f44a11d50d05c8a032bc2e46c85a157",
+        "archiveSha256": "dab4ae1f479c33970b02354be7abee59680ec550ea1c71d73f26e9ce6f31513e",
+        "sourceBytes": 5026
+      },
+      {
+        "archive": "local-d763-predecessor-dom.log.gz",
+        "sourceSha256": "9a375a18af4464ebe3ffef4a9e634ba78cff90697d3db024a54cf08718a70a26",
+        "archiveSha256": "e94b0d487af547c1476e6d837ed33680b9f0828196e81da1b655a36d13e5198d",
+        "sourceBytes": 486
+      },
+      {
+        "archive": "local-d763-predecessor-build-browser-install.log.gz",
+        "sourceSha256": "3091f46ba42cbb0bcbf1a5376491d511e50fe013d44b8503137796947c49c915",
+        "archiveSha256": "bfee7251facb7ef322b890fd56e556d4378848d16ac034f106e1d09aead77dcf",
+        "sourceBytes": 3433
+      },
+      {
+        "archive": "local-d763-predecessor-secured-attempt.log.gz",
+        "sourceSha256": "d30ddf3de3a58d6d71df6a6db76ac27801b636afbd3cd37a45222b3cdd7fcac7",
+        "archiveSha256": "2929f444f81f7c57ff9558225f56f80e72f3da1561283ed7759a34e52f0911cf",
+        "sourceBytes": 21210
+      }
+    ]
+  },
+  "broadCI": {
+    "runId": 37359951534,
+    "jobId": 111931764681,
+    "passed": 3239,
+    "failed": 4,
+    "classification": "Root-confirmed broad historical receipt; no new product or unchanged assertion credit",
+    "jobUrl": "https://github.com/sveltery/base/actions/runs/37359951534/job/111931764681"
+  },
+  "remainingScope": "Four Original assertions stay unchanged and red. Native boundary supplements earn zero unchanged Original credit. Optional WebKit and complete feature acceptance remain pending.",
+  "tree": "ca9176d324f0ab7d9a7dd14e2c0fd2ad6bcb470e",
+  "jobId": 111931762097,
+  "runUrl": "https://github.com/sveltery/base/actions/runs/37359951405",
+  "jobUrl": "https://github.com/sveltery/base/actions/runs/37359951405/job/111931762097"
+}

@@ -1,0 +1,100 @@
+{
+  "sourcePin": "47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c",
+  "license": "MIT; parity/navigation-menu/UPSTREAM_LICENSE",
+  "preRepairHead": "8153bee67a9050af49680d8e321b1346cd55840f",
+  "executedHead": "974c722ef718493dcdc48e79d10002fed2a85b93",
+  "redReceipt": {
+    "archive": "final-dom-red.log.gz",
+    "sha256": "f474ba564161577449ddcb06f1cf613374acc463b2b1341ab85ac2a3eba28c9f",
+    "passed": 1833,
+    "failed": 3,
+    "selectedHoverCases": {
+      "OriginalPassed": 2,
+      "nativeFailed": 2,
+      "expectedStore": 0,
+      "observedNativeStore": 1,
+      "elapsed": 100,
+      "enabled": [
+        true,
+        false
+      ]
+    },
+    "otherFailure": "navigation-menu-size-style-ownership native pre-color dimension; separate native CSS boundary investigation"
+  },
+  "preimages": [
+    {
+      "path": "packages/base/src/lib/floating-ui/hooks/useHoverFloatingInteraction.svelte.ts",
+      "archive": "useHoverFloatingInteraction.svelte.ts.pre-repair.gz",
+      "sha256": "0ab147a7643e45e94606193799839e6b449028367873d9acdcb4e2618af860ba"
+    },
+    {
+      "path": "packages/base/src/lib/floating-ui/hooks/useHoverInteractionSharedState.svelte.ts",
+      "archive": "useHoverInteractionSharedState.svelte.ts.pre-repair.gz",
+      "sha256": "894478a3a44f74f94e416fc6aa6060af0625f0d67d80dbf59c10975916b842a3"
+    },
+    {
+      "path": "packages/base/tests/dom/hover-floating-ownership.test.ts",
+      "archive": "hover-floating-ownership.test.ts.pre-repair.gz",
+      "sha256": "e95f28b25a4a046ff637daa3cc4695461ded949a452122b3366b60341b682a04"
+    },
+    {
+      "path": "packages/base/tests/dom/HoverFloatingDispatchObserver.svelte",
+      "archive": "HoverFloatingDispatchObserver.svelte.pre-repair.gz",
+      "sha256": "b77d67bb9a56d15af679c88df313475b4f2a2f81d630a6a4d2c853e930d959ed"
+    },
+    {
+      "path": "packages/utils/src/lib/useTimeout.ts",
+      "archive": "useTimeout.ts.pre-repair.gz",
+      "sha256": "06130c6374e14371471cc3af14638ddb3cadb514bb985fcbc4b8a7a606008b7f"
+    }
+  ],
+  "originals": [
+    {
+      "path": "packages/react/src/floating-ui-react/hooks/useHoverFloatingInteraction.ts",
+      "archive": "useHoverFloatingInteraction.ts.original.gz",
+      "sha256": "9a244dbacb63b7cfd3cf4715d289a0fcf257c39a6d8f4864b1385ba0b300d0aa"
+    },
+    {
+      "path": "packages/react/src/floating-ui-react/hooks/useHoverInteractionSharedState.ts",
+      "archive": "useHoverInteractionSharedState.ts.original.gz",
+      "sha256": "b987cb5c94f6154bd0e8c4aca2a44dfbc0ff6fff96a8697dc3447d1fbfe3420e"
+    },
+    {
+      "path": "packages/utils/src/useTimeout.ts",
+      "archive": "useTimeout.ts.original.gz",
+      "sha256": "8d9e4159d9f883e18035811e9f2b4d180afb0d724b55d86dbf4fda52c355e156"
+    }
+  ],
+  "ordinaryCredit": 0,
+  "successorExecution": "Unchanged paired four ownership cases pass at1b0197a1; broader affected caller/final-head gates remain separate.",
+  "scope": "Native listener effect tracks actual resource inputs, scheduled callbacks retain the owning Store; original cleanup/cancellation/timing/callback bodies otherwise unchanged. No Source bug fix or React snapshot machinery.",
+  "greenReceipt": {
+    "head": "1b0197a1c01babe3be324abb8fac0e822f848186",
+    "archive": "focused-1b-green.log.gz",
+    "sha256": "2c970ffc24662a4ee54c31e338c560760b3c52ccd290f5d546d3eb54b880743a",
+    "archiveSha256": "80c04c56628e47af3dcc256637895b7947ab904c7de04bd1e1a1236a2ad7d483",
+    "selectedResult": {
+      "total": 4,
+      "passed": 4,
+      "failed": 0,
+      "OriginalPassed": 2,
+      "nativePassed": 2,
+      "enabled": [
+        true,
+        false
+      ],
+      "elapsed": 100,
+      "expectedStore": 0
+    },
+    "unchangedTestSha256": "e95f28b25a4a046ff637daa3cc4695461ded949a452122b3366b60341b682a04",
+    "runtimeBodySha256": "515e806e8ef7473ae3d8d568d7faf374a1a6fa4eae31c421ca625aa8a261842b",
+    "runtimeBodyIdenticalToRepairCommit": "bd6f8662",
+    "fullFocusedRun": {
+      "passed": 17,
+      "failed": 1,
+      "total": 18,
+      "remainingFailure": "Historical native sizing mirror test pre-color blank variable, separate work"
+    },
+    "scope": "Four unchanged scheduled owner assertions only; no whole-feature/browser/CI acceptance or ordinary credit."
+  }
+}

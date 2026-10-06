@@ -11,7 +11,13 @@
     void import('../../lib/state-reference.js').then(({ mountStateReference }) => {
       if (!stopped) cleanup = mountStateReference(node, data.scenario);
     });
-    return () => { stopped = true; cleanup?.(); };
+    return () => {
+      stopped = true;
+      cleanup?.();
+    };
   });
 </script>
-{#if data.reference}<div bind:this={host}></div>{:else}<StateFixture scenario={data.scenario} />{/if}
+
+{#if data.reference}<div bind:this={host}></div>{:else}<StateFixture
+    scenario={data.scenario}
+  />{/if}

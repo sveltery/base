@@ -1,0 +1,149 @@
+{
+  "sourceCandidate": "974c722ef718493dcdc48e79d10002fed2a85b93",
+  "ordinaryCredit": 0,
+  "status": "Completed historical local validation batch; subsequent source/type/tooling repairs require affected successor gates. No all-green, hosted or complete parity claim.",
+  "results": {
+    "bootstrap": "passed",
+    "initialStandards": "40formatissues; formatting-only5ccbceec successor separate",
+    "initialVerify": "failed before tests:Base packaging ENOENTdist/internals/.rsync-tmp; generated workspace-copy setup failure",
+    "retryVerify": "script gate80/86, catalog1metadata failure and5launcher environment failures; unchanged actual-nativeNode toolchain5/5 passed separately per root",
+    "finalScripts": {
+      "passed": 86,
+      "failed": 0
+    },
+    "finalTypes": "1test-harness cast error+6inherited warnings;8153bee6 type-only repair pending successor check",
+    "units": {
+      "Base": 226,
+      "Utils": 9,
+      "failed": 0
+    },
+    "DOM": {
+      "Base": {
+        "passed": 1833,
+        "failed": 3,
+        "total": 1836
+      },
+      "Utils": {
+        "passed": 8,
+        "failed": 0
+      }
+    },
+    "DOMFailures": [
+      "hover-floating-ownership:enabled=true selected Store",
+      "hover-floating-ownership:enabled=false selected Store",
+      "navigation-menu-size-style-ownership:color-only rendered style retained dimensions"
+    ],
+    "fixtureBuild": "passed per root",
+    "runtimeBoundary": "passed",
+    "genericInstalledConsumers": "passed",
+    "useClickInstalledConsumer": "passed",
+    "NavigationMenuInstalledConsumer": "failed setup:old.svelte-kit/tsconfig.json path missing under installed Kit3;33e375c6 tooling repair pending actual successor execution",
+    "finalStandards": "Prettierpassed; ESLint resource-preempted/killed137 with no finding; separate full-file sequential batches pending",
+    "securedBrowser": "Official Chromium install invalid0MiBZIP with actualNode+writableTMPDIR; local browser gates unexecuted, not product assertion reds"
+  },
+  "records": [
+    {
+      "source": "bootstrap.log",
+      "archive": "bootstrap.log.gz",
+      "sha256": "06c51b366d9478bc98c1a73f625a4417e52a93cb77423daeaa9e3b61ab39643d",
+      "archiveSha256": "4622b64e60faf453d9724f77349c54a0af6d77e602f1004aa0c2c72d09ad9052"
+    },
+    {
+      "source": "standards.log",
+      "archive": "standards.log.gz",
+      "sha256": "1f0df511a97c2b11ad20abfedbf49b0d9593de7bf9c04d4ce4ccc180472f3ca2",
+      "archiveSha256": "ab3d0002e82d514428f26ff93b33f447a8dcda644a0b0668c7da52fd1b47589c"
+    },
+    {
+      "source": "verify.log",
+      "archive": "verify.log.gz",
+      "sha256": "58cd68b03f592ac333fa681b61b84754c521f7f14fd018b7e0d3f65c9205d447",
+      "archiveSha256": "bbbe8f9b89459ee69e660fe31d59cf5a45203232629f4507411e74591a09e7db"
+    },
+    {
+      "source": "verify-retry.log",
+      "archive": "verify-retry.log.gz",
+      "sha256": "8e51e7c2a766e12d106addc95954cbc7b70da43cd7318c3392115d28a279785e",
+      "archiveSha256": "549c6f45514e610e2ec8336bd61f4a8af1203e65278402ac2276a441da14d7a7"
+    },
+    {
+      "source": "final-artifacts.log",
+      "archive": "final-artifacts.log.gz",
+      "sha256": "2aedcaf0ce2d7b5f1ff9f035be8b6699ace047cea4d65d411f031ce7eb5cf75f",
+      "archiveSha256": "968a09fa148cb09553d82288ed7e8f64a18080c624c0d521cf8baa46a73a0e0d"
+    },
+    {
+      "source": "final-scripts.log",
+      "archive": "final-scripts.log.gz",
+      "sha256": "c538dcb8e4d0a1e44953fcfcc69d7f4ccc9b45557b3805cd52e202bd0d4fae35",
+      "archiveSha256": "1b10b21c34d7a1846b078cdc2a0eb601441feb0e78c02342fbe9d4ee2e9d8641"
+    },
+    {
+      "source": "final-types.log",
+      "archive": "final-types.log.gz",
+      "sha256": "1fe44016dd5ee7628c984a6ebb1b7d468d3cf21c808f42ca0e6489f11fb7d066",
+      "archiveSha256": "b2048a6207a6d47fbcba4e0b46f60337b611c47a83b87e29e497ff0708917bd3"
+    },
+    {
+      "source": "final-unit.log",
+      "archive": "final-unit.log.gz",
+      "sha256": "1eec94f0467177c7a0135f40f7c19c0fa1c5db23970d1e9b1c700f15c1abeaa0",
+      "archiveSha256": "3a331df7c9035ec3014a4933011921eef3383fe3c4d7ce20f4c9e956fac3a554"
+    },
+    {
+      "source": "final-dom.log",
+      "archive": "final-dom.log.gz",
+      "sha256": "f474ba564161577449ddcb06f1cf613374acc463b2b1341ab85ac2a3eba28c9f",
+      "archiveSha256": "be64bb6ffc052d86a842da7132f4b757917b52f743b5cf659fadd1b45aad1a0b"
+    },
+    {
+      "source": "final-fixture-build.log",
+      "archive": "final-fixture-build.log.gz",
+      "sha256": "7282eb87256b83ef1117d6a1263aa6281ca299f5c06be283364b6afe8f46dae6",
+      "archiveSha256": "b81f22baaad85f32e2ae7ba253448e067b87eae32870226a6b600b7cc7b9e0ba"
+    },
+    {
+      "source": "final-runtime.log",
+      "archive": "final-runtime.log.gz",
+      "sha256": "7eb14a3a2cac9fe7d677ef3a7519f5045bb935af2549e71f9ddf392ebb65a36d",
+      "archiveSha256": "e4b850e7b6f96f57ff98b7644a3de5a259674185c74fe8bb3f6975340e97b5b2"
+    },
+    {
+      "source": "final-consumer.log",
+      "archive": "final-consumer.log.gz",
+      "sha256": "ede45b895bb1afb8c108b078c7972f3e60932a2838a9e02f268420bd2a3e5877",
+      "archiveSha256": "4c1adf120a62225b97df444848369056b42c6e894d8b65aa8fe91636f4f834b9"
+    },
+    {
+      "source": "final-use-click-consumer.log",
+      "archive": "final-use-click-consumer.log.gz",
+      "sha256": "3069cdd014f0d96045bbbe8892fc60f410063b17027a7a2f78427d47cf810700",
+      "archiveSha256": "b313c479b9c162bc31939658e7273756366aac0de690990ae6c743bc6682a2a8"
+    },
+    {
+      "source": "final-navigation-consumer.log",
+      "archive": "final-navigation-consumer.log.gz",
+      "sha256": "0427e56201124189a7ca59f476ba420fe69a4ffc39c6c6d8ae7387876081e6d0",
+      "archiveSha256": "2765babb2becab2c965a35ddac8fa3033718949e44b60866c7cd3c3173d307ee"
+    },
+    {
+      "source": "final-standards.log",
+      "archive": "final-standards.log.gz",
+      "sha256": "cec31c4ec5bdaf4a5aef4d17dfc754d2f157486a75cc9c7f573723d6366cbcb6",
+      "archiveSha256": "73f4dd2d761fdc02fbb9e2ca9ef5649267ddfe552806a89effb12ef89fddaf3f"
+    },
+    {
+      "source": "base/.checks/owner-evidence/official-browser-native-install-writable.log",
+      "archive": "official-browser-native-install-writable.log.gz",
+      "sha256": "c8e03ec61b85bc6c6562b2da01bee94a2b147f2965dfd961df6fd319bdff10b0",
+      "archiveSha256": "318c96b5774331f29be031c1d041aef55a9169648507b214452d0d4ade7e1fb0"
+    }
+  ],
+  "successors": "bd6f8662 Hover scoped repair,48a0f083 sizing red/native witness proof,8153bee6 harness type repair,33e375c6 Kit3 consumer tooling fix remain separate; final hosted CI and fresh entire-closure review required.",
+  "initialSetupCandidate": "9bff865078ea90b12f59eea0952cfb87b9e0256b",
+  "warningScope": {
+    "compiler": "Six inherited warnings retained in predecessor type log; separate from harness cast error.",
+    "successorRuntime": "Public native-part probes emit refbinding_property_non_reactive warnings per root observations. No warning-free thirteen-part claim or warning-driven runtime fix.",
+    "bareNativeControl": "Separate bare-style controls reject hydration warnings at their own boundary only; this does not certify public-part warning freedom."
+  }
+}

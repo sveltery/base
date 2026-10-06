@@ -1,0 +1,39 @@
+{
+  "pin": "47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c",
+  "license": "MIT; parity/navigation-menu/UPSTREAM_LICENSE",
+  "ordinaryCredit": 0,
+  "sources": {
+    "packages/react/src/utils/adaptiveOriginMiddleware.ts": {
+      "sha256": "47962a9afe25fb86a4a001345099783fa3894d7ba3840b3b2f92c645998ea4c8",
+      "archive": "adaptiveOriginMiddleware.ts.original.txt"
+    },
+    "packages/react/src/utils/adaptiveOriginConstants.ts": {
+      "sha256": "b6ef7f13689b2678fe93e2fd94be3aac1ecef978fc7bdc7e3f296e340c454449",
+      "archive": "adaptiveOriginConstants.ts.original.txt"
+    },
+    "packages/utils/src/owner.ts": {
+      "sha256": "94a825206d926b388459df70639476133442c28c83a7e3be750399cb323ea623",
+      "archive": "owner.ts.original.txt"
+    },
+    "packages/react/src/utils/CommonPositionerCssVars.ts": {
+      "sha256": "457560d32ec1afda1f3880e9b284bd162f6923348830bf8983fb3a5d050ab74e",
+      "archive": "CommonPositionerCssVars.ts.original.txt"
+    },
+    "packages/react/src/internals/useAnchorPositioning.ts": {
+      "sha256": "7a246214e615510eca9990f995fc9e31bd669184baf5c2322412758ebd9d3805",
+      "archive": "useAnchorPositioning.ts.original.txt"
+    }
+  },
+  "transforms": {
+    "adaptiveOriginMiddleware.ts": "Only original imports resolve to unchanged owner/constant fixtures and Floating UI DOM erased Middleware type. Complete fn body unchanged.",
+    "adaptiveOriginConstants.ts": "Complete DEFAULT_SIDES declaration; unused React-independent nonportable-type note/type omitted.",
+    "useAnchorPositioningSize.ts": "Complete original size({...}) expression extracted byte-for-byte from useAnchorPositioning.ts; hook captured mountedRef/commonCollisionProps supplied at test boundary; original constants and ownerWindow imports. No callback business edits."
+  },
+  "sizeExpression": {
+    "startLine": 351,
+    "endLine": 370,
+    "sha256": "1dbd06b75da05a808007ac45536a3cbd50108fb0f921135c45aeadb2d624975f",
+    "completeCallbackAndMiddlewareExpression": true
+  },
+  "scope": "Supplemental full-body ownerWindow boundary reproduction; zero unchanged upstream assertion credit; no complete feature acceptance."
+}

@@ -13,21 +13,13 @@ interface Dimensions {
 import { stopEvent } from '../../../floating-ui/utils/event.js';
 import { ARROW_DOWN, ARROW_LEFT, ARROW_RIGHT, ARROW_UP } from '../composite.js';
 
-export type DisabledIndices =
-  ReadonlyArray<number> | ((index: number) => boolean);
+export type DisabledIndices = ReadonlyArray<number> | ((index: number) => boolean);
 
-export function isDifferentGridRow(
-  index: number,
-  cols: number,
-  prevRow: number,
-) {
+export function isDifferentGridRow(index: number, cols: number, prevRow: number) {
   return Math.floor(index / cols) !== prevRow;
 }
 
-export function isIndexOutOfListBounds(
-  list: Array<HTMLElement | null>,
-  index: number,
-) {
+export function isIndexOutOfListBounds(list: Array<HTMLElement | null>, index: number) {
   return index < 0 || index >= list.length;
 }
 
@@ -93,9 +85,7 @@ export function getGridNavigatedIndex(
     event: KeyboardEvent;
     orientation: 'horizontal' | 'vertical' | 'both';
     loopFocus: boolean;
-    onLoop?:
-      | ((event: KeyboardEvent, prevIndex: number, nextIndex: number) => number)
-      | undefined;
+    onLoop?: ((event: KeyboardEvent, prevIndex: number, nextIndex: number) => number) | undefined;
     rtl: boolean;
     cols: number;
     disabledIndices: DisabledIndices | undefined;
@@ -182,11 +172,7 @@ export function getGridNavigatedIndex(
       const colInRow = rows[currentRow].indexOf(prevIndex);
       const step = direction === 'up' ? -1 : 1;
 
-      for (
-        let nextRow = currentRow + step, i = 0;
-        i < rows.length;
-        i += 1, nextRow += step
-      ) {
+      for (let nextRow = currentRow + step, i = 0; i < rows.length; i += 1, nextRow += step) {
         if (nextRow < 0 || nextRow >= rows.length) {
           if (!loopFocus || hasVirtualizedGaps) {
             return undefined;
@@ -194,19 +180,14 @@ export function getGridNavigatedIndex(
           nextRow = nextRow < 0 ? rows.length - 1 : 0;
           if (onLoop) {
             const clampedCol = Math.min(colInRow, rows[nextRow].length - 1);
-            const targetItemIndex =
-              rows[nextRow][clampedCol] ?? rows[nextRow][0];
+            const targetItemIndex = rows[nextRow][clampedCol] ?? rows[nextRow][0];
             const returnedItemIndex = onLoop(event, prevIndex, targetItemIndex);
             nextRow = rowIndexMap[returnedItemIndex] ?? nextRow;
           }
         }
 
         const targetRow = rows[nextRow];
-        for (
-          let col = Math.min(colInRow, targetRow.length - 1);
-          col >= 0;
-          col -= 1
-        ) {
+        for (let col = Math.min(colInRow, targetRow.length - 1); col >= 0; col -= 1) {
           const candidate = targetRow[col];
           if (!isListIndexDisabled(list, candidate, disabledIndices)) {
             return candidate;
@@ -275,10 +256,7 @@ export function getGridNavigatedIndex(
       });
 
       if (loopFocus) {
-        if (
-          verticalDirection === 'up' &&
-          (prevIndex - verticalCols < minIndex || nextIndex < 0)
-        ) {
+        if (verticalDirection === 'up' && (prevIndex - verticalCols < minIndex || nextIndex < 0)) {
           const col = prevIndex % verticalCols;
           const maxCol = maxIndex % verticalCols;
           const offset = maxIndex - (maxCol - col);
@@ -293,10 +271,7 @@ export function getGridNavigatedIndex(
           }
         }
 
-        if (
-          verticalDirection === 'down' &&
-          prevIndex + verticalCols > maxIndex
-        ) {
+        if (verticalDirection === 'down' && prevIndex + verticalCols > maxIndex) {
           nextIndex = findNonDisabledListIndex(list, {
             startingIndex: (prevIndex % verticalCols) - verticalCols,
             amount: verticalCols,
@@ -415,11 +390,7 @@ export function getGridNavigatedIndex(
 }
 
 /** For each cell index, gets the item index that occupies that cell */
-export function createGridCellMap(
-  sizes: Dimensions[],
-  cols: number,
-  dense: boolean,
-) {
+export function createGridCellMap(sizes: Dimensions[], cols: number, dense: boolean) {
   const cellMap: (number | undefined)[] = [];
   let startIndex = 0;
   sizes.forEach(({ width, height }, index) => {
@@ -499,9 +470,7 @@ export function getGridCellIndices(
   indices: (number | undefined)[],
   cellMap: (number | undefined)[],
 ) {
-  return cellMap.flatMap((index, cellIndex) =>
-    indices.includes(index) ? [cellIndex] : [],
-  );
+  return cellMap.flatMap((index, cellIndex) => (indices.includes(index) ? [cellIndex] : []));
 }
 
 export function isListIndexDisabled(
@@ -536,8 +505,7 @@ export function isListIndexDisabled(
 
   return (
     !disabledIndices &&
-    (element.hasAttribute('disabled') ||
-      element.getAttribute('aria-disabled') === 'true')
+    (element.hasAttribute('disabled') || element.getAttribute('aria-disabled') === 'true')
   );
 }
 
@@ -547,9 +515,7 @@ export function isHiddenByStyles(styles: CSSStyleDeclaration) {
 
 export function isElementVisible(
   element: Element | null,
-  styles: CSSStyleDeclaration | null = element
-    ? getComputedStyle(element)
-    : null,
+  styles: CSSStyleDeclaration | null = element ? getComputedStyle(element) : null,
 ) {
   if (!element || !element.isConnected || !styles || isHiddenByStyles(styles)) {
     return false;

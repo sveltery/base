@@ -3,16 +3,20 @@
   "private": true,
   "type": "module",
   "scripts": {
+    "prepare": "svelte-kit sync",
     "dev": "vite dev --host 0.0.0.0",
     "check": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json",
     "build": "vite build",
-    "preview": "vite preview --host 0.0.0.0"
+    "preview": "vite preview --host 0.0.0.0",
+    "check:watch": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json --watch"
   },
   "dependencies": {
-    "@sveltery/base": "workspace:*"
+    "@sveltery/base": "workspace:*",
+    "@sveltery/utils": "workspace:*"
   },
   "devDependencies": {
     "@base-ui/react": "1.8.0",
+    "@base-ui/utils": "0.4.0",
     "@sveltejs/adapter-auto": "7.0.1",
     "@sveltejs/kit": "2.70.3",
     "@sveltejs/vite-plugin-svelte": "7.3.1",
@@ -25,7 +29,7 @@
     "react-dom": "19.2.8",
     "svelte": "5.57.1",
     "svelte-check": "4.7.6",
-    "typescript": "5.9.3",
+    "typescript": "6.0.3",
     "vite": "8.3.1"
   }
 }

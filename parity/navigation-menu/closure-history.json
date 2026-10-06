@@ -1,0 +1,32 @@
+{
+  "archives": [
+    {
+      "path": "pre-main-integration-actual-native-graph.json.gz",
+      "sha256": "f2850d5ab620829effd7d55428ec964bad25ba0cb24868c633ffdb25019ea6af",
+      "uncompressedSha256": "a4c4fd9b20672fdd148b8e8996cb8ed6c27f2bb23596039c1b15f840ca5b3068",
+      "status": "Historical pre-main-integration public closure; no rewriting of prior authority.",
+      "ordinaryCredit": 0
+    },
+    {
+      "path": "pre-owner-window-repair-actual-native-graph.json.gz",
+      "sha256": "75710b4d626c36a174827a8e0fbff588f4a4e6da5cc6e704f349d5151cc9d10d",
+      "uncompressedSha256": "71c55580c7fe4ae27467b89e1da48017c5f3ec25aae5e7b555d2fe591425c076",
+      "status": "Historical pre-owner-window fidelity repair closure and unreproduced audit flags; superseded by exact-pin reproduction and bounded canonical helper repair.",
+      "ordinaryCredit": 0
+    },
+    {
+      "path": "pre-hover-owner-repair-actual-native-graph.json.gz",
+      "sha256": "b0d3fa6970d5b1ef40bb1cd04fadb4681190231dbbe9e5f1e85c20805fe1627b",
+      "uncompressedSha256": "59742d7b93a6f2d15835804d96378325ce1e1fbdb8b4d8f800528094689d2648",
+      "status": "Historical pre-bd6f8662 Hover owner repair closure; preserves full previous current hashes and correspondence, zero acceptance credit.",
+      "ordinaryCredit": 0
+    },
+    {
+      "path": "pre-lint-cleanup-actual-native-graph.json.gz",
+      "sha256": "674cd0435291f40f81a991f4187b4947d23f12be09ca595474eec60027dc269b",
+      "uncompressedSha256": "e21f12312857d93fa468f248e0367d38d910ab41b4422eca38f8566a7d06281f",
+      "status": "Historical pre-1b0197a1 dead-import and obsolete-directive cleanup graph; retained exact runtime/type/body projection, zero acceptance credit.",
+      "ordinaryCredit": 0
+    }
+  ]
+}

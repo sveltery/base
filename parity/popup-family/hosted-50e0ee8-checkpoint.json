@@ -1,0 +1,76 @@
+{
+  "head": "50e0ee81416fd2dec89c3e88d24f51862ab82a4b",
+  "status": "Historical guard-only head before accepted Main canonical click and ScrollArea integration; exact used product equals frozen de989. No final current-head acceptance or ordinary credit.",
+  "ordinaryDeclarationCredit": 0,
+  "popupBrowser": {
+    "run": 37262433461,
+    "job": 111612282314,
+    "result": "SUCCESS",
+    "artifact": 11325193157,
+    "zipSha256": "b407ae0d38564f6b11502dad16d8f309f620e9efdd2521e7399d17870c332f5a",
+    "rawJsonSha256": "d18685636edf39907c658125f0b5e063b650b7bdf264fa1b6211dae63575566c",
+    "expected": 48,
+    "skipped": 0,
+    "unexpected": 0,
+    "flaky": 0,
+    "browserVersion": "153.0.8010.12",
+    "workers": 1,
+    "retries": 0,
+    "chromiumSandbox": true,
+    "actualGitCommitMetadata": "50e0ee81416fd2dec89c3e88d24f51862ab82a4b",
+    "syntheticCIMetadataCommit": "ccbad14e0d35e480aa2ba7002d7156b851383116",
+    "identity": "Exact job checkout plus artifact workflow_run.head_sha and raw metadata.gitCommit.hash agree; metadata.ci.commitHash is separately synthetic merge."
+  },
+  "anchor": {
+    "run": 37262433472,
+    "job": 111612282547,
+    "result": "SUCCESS",
+    "nativeSSRAndProvenance": 18,
+    "lifecycle": 1,
+    "actualPrivatePackageAndTypeGuard": "PASS",
+    "securePairedGeometry": 33,
+    "artifact": 11324779165,
+    "zipSha256": "d1defcb7f97211b7764ed3659836aab3a471c963c502bcec1b063970bf9a466f",
+    "environmentCommit": "50e0ee81416fd2dec89c3e88d24f51862ab82a4b"
+  },
+  "menuBrowser": {
+    "run": 37262433518,
+    "result": "SUCCESS",
+    "scope": "approved workflow status, raw artifact not independently downloaded here"
+  },
+  "ci": {
+    "run": 37262433410,
+    "verificationJob": 111612345800,
+    "verification": "SUCCESS through scripts/library/types/runtime/DOM/fixture builds/generic package and license consumer",
+    "standards": "SUCCESS",
+    "lastOverallSnapshot": "in_progress; only Dialog browser111612345732 still in_progress; do not claim overall CI success",
+    "ownedPopupPackedGate": "This generic Verification does not execute scripts/check-popup-family-package.sh; dedicated owned gate recorded separately."
+  },
+  "receipts": [
+    {
+      "path": "parity/popup-family/receipts/hosted-anchor-50e0ee8.log.gz",
+      "rawSha256": "c5aabde647e153649bdda1c586f0d3308592c6192b9a65cf0c9656d95ef94c2e",
+      "gzipSha256": "1d4f5d6d7c552038006eb80d59ae0b5f2d1fda995cfa1c90955687cededa7251"
+    },
+    {
+      "path": "parity/popup-family/receipts/hosted-browser-50e0ee8.log.gz",
+      "rawSha256": "34fae2786443574fd6d45d79c62f37d48368b6eb1aa9a86c0119b0e81bec4992",
+      "gzipSha256": "f4da76ded8f59f89de1571f263f44da61136c552f9a074b2b61a7e5ecbbf12bb"
+    },
+    {
+      "path": "parity/popup-family/receipts/hosted-verify-50e0ee8.log.gz",
+      "rawSha256": "71107cbb346d2c91ec8faa87dd0de58ed425bfa53e01578b29102db4681ce556",
+      "gzipSha256": "b799fb71496d22e55437f9b24d54d3f24d4c9168f59254c1e1456e0c5512b973"
+    },
+    {
+      "path": "parity/popup-family/receipts/hosted-50e0ee8-popup-family-results.json.gz",
+      "rawSha256": "d18685636edf39907c658125f0b5e063b650b7bdf264fa1b6211dae63575566c",
+      "gzipSha256": "039ea9a947c8d3960b3863704efdd5788e8b800b81e90a9564d6049e1e312099"
+    },
+    {
+      "path": "parity/popup-family/receipts/hosted-50e0ee8-anchor-positioning-environment.json.gz",
+      "rawSha256": "c451dbb99b173084f615ea3c628c5f03943da56c1a8312452ae53ec4b480d845",
+      "gzipSha256": "047475c18abbcf35ea5346e281d979ed36d3267c37fe7dc7489155e960d67adf"
+    }
+  ]
+}

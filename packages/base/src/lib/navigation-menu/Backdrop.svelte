@@ -1,11 +1,12 @@
 <script lang="ts">
   // Original NavigationMenuBackdrop state/hidden/user-selection branches (MIT).
-  import RenderElement from '../internals/RenderElement.svelte';
+  import { mergeComponentProps } from '../internals/mergeComponentProps.js';
+  import { untrack } from 'svelte';
+  import { createAttachmentKey } from 'svelte/attachments';
   import { useNavigationMenuRootContext } from './root/NavigationMenuRootContext.js';
   import { popupTransitionStateMapping } from '../utils/popupStateMapping.js';
   import type { NavigationMenuBackdropProps } from './types.js';
   let {
-    // eslint-disable-next-line no-useless-assignment -- Native bind:ref publishes the host.
     ref = $bindable(null),
     render,
     class: classProp,
@@ -15,15 +16,19 @@
   }: NavigationMenuBackdropProps = $props();
   const root = useNavigationMenuRootContext();
   const state = $derived({ open: root.open, transitionStatus: root.transitionStatus });
-  const componentProps = $derived({ render, class: classProp, style });
-  const refs = [
-    (node: HTMLElement | null) => {
-      ref = node;
-    },
-  ];
+  const hostAttachmentKey = createAttachmentKey();
+  function attachHost(host: HTMLElement) {
+    return untrack(() => {
+      ref = host;
+
+      return () =>
+        untrack(() => {
+          if (ref === host) ref = null;
+        });
+    });
+  }
   const params = $derived({
     state,
-    ref: refs,
     props: [
       {
         role: 'presentation',
@@ -34,5 +39,17 @@
     ],
     stateAttributesMapping: popupTransitionStateMapping,
   });
+  const mergedProps = $derived({
+    ...mergeComponentProps(
+      state,
+      { class: classProp, style },
+      params.props,
+      params.stateAttributesMapping,
+    ),
+    [hostAttachmentKey]: attachHost,
+  });
 </script>
-<RenderElement tag="div" {componentProps} {params} {children} />
+
+{#if render}{@render render(mergedProps, state, children)}{:else}<div {...mergedProps}
+    >{@render children?.()}</div
+  >{/if}

@@ -28,6 +28,10 @@ for (const keepMounted of [false, true]) {
         }
       }
     `;
-    execFileSync(process.execPath, ['--import', './scripts/svelte-ssr-loader.mjs', '--input-type=module', '-e', script], { cwd: new URL('../../', import.meta.url), stdio: 'pipe' });
+    execFileSync(
+      process.execPath,
+      ['--import', './scripts/svelte-ssr-loader.mjs', '--input-type=module', '-e', script],
+      { cwd: new URL('../../', import.meta.url), stdio: 'pipe' },
+    );
   });
 }

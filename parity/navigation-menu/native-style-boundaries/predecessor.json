@@ -1,0 +1,23 @@
+{
+  "sourcePin": "47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c",
+  "license": "MIT",
+  "executionHead": "974c722ef718493dcdc48e79d10002fed2a85b93",
+  "observed": "Full native DOM 1833/1836. Native size ownership fails before color update: empty positioner width vs 300px; paired Original passes. Two hover failures separate. Successor bare/public measurement pending; no assertion credit or accepted expectation claimed.",
+  "files": [
+    {
+      "source": "packages/base/tests/dom/navigation-menu-size-style-ownership.test.ts",
+      "archive": "navigation-menu-size-style-ownership.test.ts.gz",
+      "sha256": "0cced7c14de93c8871f5a51edb835024d41682a0138daff5b3e8ea06a3b950b7"
+    },
+    {
+      "source": "packages/base/tests/dom/NavigationMenuSizeStyleOwner.svelte",
+      "archive": "NavigationMenuSizeStyleOwner.svelte.gz",
+      "sha256": "f63378eab43a0b20f99a46db9d41b282bed9df81955fdcae9ca0b801551e8f3f"
+    },
+    {
+      "source": "/workspace/scratch/0fbd3ad4fc74/navigation-validation-63f/.checks/owner-evidence/final-dom.log",
+      "archive": "final-dom.log.gz",
+      "sha256": "f474ba564161577449ddcb06f1cf613374acc463b2b1341ab85ac2a3eba28c9f"
+    }
+  ]
+}

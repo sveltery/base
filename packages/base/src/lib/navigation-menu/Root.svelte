@@ -3,9 +3,9 @@
   // Original NavigationMenuRoot/TreeContext business bodies, native Svelte state/provider/markup (MIT).
   import { onDestroy, untrack } from 'svelte';
   import { isHTMLElement } from '@floating-ui/utils/dom';
-  import { ownerDocument } from '../utils/owner.js';
-  import { useControlled } from '../utils/useControlled.svelte.js';
-  import { useIsoLayoutEffect } from '../utils/useIsoLayoutEffect.svelte.js';
+  import { ownerDocument } from '@sveltery/utils/owner';
+  import { Controlled } from '@sveltery/utils/Controlled';
+
   import { activeElement, contains } from '../floating-ui/utils/element.js';
   import {
     useFloatingParentNodeId,
@@ -13,7 +13,8 @@
     useFloatingNodeId,
   } from '../floating-ui/components/FloatingTree.svelte.js';
   import type { FloatingRootContext } from '../floating-ui/types.js';
-  import RenderElement from '../internals/RenderElement.svelte';
+  import { mergeComponentProps } from '../internals/mergeComponentProps.js';
+  import { createAttachmentKey } from 'svelte/attachments';
   import { useTransitionStatus } from '../internals/useTransitionStatus.svelte.js';
   import { useOpenChangeComplete } from '../internals/useOpenChangeComplete.svelte.js';
   import { REASONS } from '../internals/reasons.js';
@@ -23,7 +24,6 @@
     type NavigationMenuRootContext,
   } from './root/NavigationMenuRootContext.js';
   import { setSharedFixedSize } from './utils/setSharedFixedSize.js';
-  import * as NavigationMenuPopupCssVars from './popup/NavigationMenuPopupCssVars.js';
   import * as NavigationMenuPositionerCssVars from './positioner/NavigationMenuPositionerCssVars.js';
   import TreeContext from './root/TreeContext.svelte';
   import type {
@@ -35,7 +35,6 @@
   const absentActions = Symbol('absent actions');
   let {
     actions = $bindable(absentActions as unknown as NavigationMenuRootActions),
-    // eslint-disable-next-line no-useless-assignment -- Native bind:ref publishes the host.
     ref = $bindable(null),
     defaultValue = null,
     value: valueParam,
@@ -58,40 +57,15 @@
   const parentRootContext = useNavigationMenuRootContext<Value>(true);
   if (!nested) provideFloatingTree();
   const nodeId = useFloatingNodeId(`${nativeId}-node`);
-  const [getValue, setValueUnwrapped] = useControlled<Value | null>(() => ({
-    controlled: valueParam,
-    default: defaultValue,
-    name: 'NavigationMenu',
-    state: 'value',
-  }));
-  const value = $derived(getValue());
+  const controlledValue = new Controlled<Value | null>(
+    () => valueParam,
+    untrack(() => defaultValue),
+  );
+  const value = $derived(controlledValue.value);
   const open = $derived(value != null);
   let closeReason = $state<NavigationMenuRootChangeEventReason | undefined>();
   let positionerElement = $state.raw<HTMLElement | null>(null);
   let popupElement = $state.raw<HTMLElement | null>(null);
-  // Mirror only completed NavigationMenu sizing writes into the native rendered style.
-  // Authored styles remain later in the canonical renderer's merge order.
-  let popupSizeStyles = $state.raw<Record<string, string>>({});
-  let positionerSizeStyles = $state.raw<Record<string, string>>({});
-  function syncSizeStyles(element: HTMLElement) {
-    const popup = element === popupElement;
-    if (!popup && element !== positionerElement) return;
-    const keys = popup
-      ? [NavigationMenuPopupCssVars.popupWidth, NavigationMenuPopupCssVars.popupHeight]
-      : [
-          NavigationMenuPositionerCssVars.positionerWidth,
-          NavigationMenuPositionerCssVars.positionerHeight,
-        ];
-    const previous = popup ? popupSizeStyles : positionerSizeStyles;
-    const next: Record<string, string> = {};
-    for (const key of keys) {
-      const value = element.style.getPropertyValue(key);
-      if (value) next[key] = value;
-    }
-    if (keys.every((key) => previous[key] === next[key])) return;
-    if (popup) popupSizeStyles = next;
-    else positionerSizeStyles = next;
-  }
   let viewportElement = $state.raw<HTMLElement | null>(null);
   let viewportTargetElement = $state.raw<HTMLElement | null>(null);
   let activationDirection = $state<NavigationMenuRootContext['activationDirection']>(null);
@@ -133,24 +107,17 @@
     if (width <= 0 || height <= 0) return null;
     return { width, height };
   }
-  useIsoLayoutEffect(
-    () => {
-      if (open || !positionerElement || !popupElement) return;
-      const size = getPositionerFixedSize(positionerElement);
-      if (size) {
-        setSharedFixedSize(popupElement, positionerElement, size.width, size.height);
-        syncSizeStyles(popupElement);
-        syncSizeStyles(positionerElement);
-      }
-    },
-    () => [open, popupElement, positionerElement],
-  );
-  useIsoLayoutEffect(
-    () => {
-      viewportInert = false;
-    },
-    () => [value],
-  );
+  $effect(() => {
+    if (open || !positionerElement || !popupElement) return;
+    const size = getPositionerFixedSize(positionerElement);
+    if (size) {
+      setSharedFixedSize(popupElement, positionerElement, size.width, size.height);
+    }
+  });
+  $effect(() => {
+    void value;
+    viewportInert = false;
+  });
   function setValue(nextValue: Value | null, eventDetails: NavigationMenuRootChangeEventDetails) {
     if (nextValue == null) closeReason = eventDetails.reason;
     if (nextValue !== value) onValueChange?.(nextValue, eventDetails);
@@ -159,8 +126,13 @@
       activationDirection = null;
       floatingRootContext = undefined;
     }
-    setValueUnwrapped(nextValue);
-    if (nested && nextValue == null && eventDetails.reason === REASONS.linkPress && parentRootContext)
+    controlledValue.set(nextValue);
+    if (
+      nested &&
+      nextValue == null &&
+      eventDetails.reason === REASONS.linkPress &&
+      parentRootContext
+    )
       parentRootContext.setValue(null, eventDetails);
   }
   function handleUnmount() {
@@ -238,23 +210,14 @@
       return popupElement;
     },
     setPopupElement(node) {
-      if (node !== popupElement) popupSizeStyles = {};
       popupElement = node;
     },
     get positionerElement() {
       return positionerElement;
     },
     setPositionerElement(node) {
-      if (node !== positionerElement) positionerSizeStyles = {};
       positionerElement = node;
     },
-    get popupSizeStyles() {
-      return popupSizeStyles;
-    },
-    get positionerSizeStyles() {
-      return positionerSizeStyles;
-    },
-    syncSizeStyles,
     get viewportElement() {
       return viewportElement;
     },
@@ -305,16 +268,29 @@
     },
   };
   provideNavigationMenuRootContext(context);
-  const componentProps = $derived({ render, class: classProp, style });
   const partState = $derived({ open, nested });
-  const refs = [
-    (node: HTMLElement | null) => {
-      ref = node;
-      rootRef.current = node;
-    },
-  ];
-  const params = $derived({ state: partState, ref: refs, props: elementProps });
+  const hostAttachmentKey = createAttachmentKey();
+  function attachHost(host: HTMLElement) {
+    return untrack(() => {
+      ref = host;
+      rootRef.current = host;
+
+      return () =>
+        untrack(() => {
+          if (ref === host) ref = null;
+          if (rootRef.current === host) rootRef.current = null;
+        });
+    });
+  }
+  const params = $derived({ state: partState, props: elementProps });
+  const mergedProps = $derived({
+    ...mergeComponentProps(partState, { class: classProp, style }, params.props, undefined),
+    [hostAttachmentKey]: attachHost,
+  });
 </script>
+
 <TreeContext {nodeId}>
-  <RenderElement tag={nested ? 'div' : 'nav'} {componentProps} {params} {children} />
+  {#if render}{@render render(mergedProps, partState, children)}{:else if nested}<div
+      {...mergedProps}>{@render children?.()}</div
+    >{:else}<nav {...mergedProps}>{@render children?.()}</nav>{/if}
 </TreeContext>

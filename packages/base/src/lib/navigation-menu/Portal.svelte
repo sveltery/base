@@ -7,7 +7,6 @@
   import type { NavigationMenuPortalProps } from './types.js';
   let {
     keepMounted = false,
-    // eslint-disable-next-line no-useless-assignment -- Native bind:ref publishes the host.
     ref = $bindable(null),
     ...portalProps
   }: NavigationMenuPortalProps = $props();
@@ -15,4 +14,8 @@
   provideNavigationMenuPortalContext(() => keepMounted);
   const shouldRender = $derived(root.mounted || keepMounted);
 </script>
-{#if shouldRender}<FloatingPortal {...(portalProps as ComponentProps<typeof FloatingPortal>)} ref={(node) => { ref = node; }} />{/if}
+
+{#if shouldRender}<FloatingPortal
+    {...portalProps as ComponentProps<typeof FloatingPortal>}
+    bind:ref
+  />{/if}

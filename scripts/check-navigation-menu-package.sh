@@ -1,23 +1,32 @@
 #!/usr/bin/env bash
 set -euo pipefail
 cd "$(dirname "$0")/.."
-source scripts/toolchain.sh
+source scripts/package-artifacts.sh
 navigation_menu_consumer="$(mktemp -d "${TMPDIR:-/tmp}/sveltery-navigation-menu-consumer.XXXXXX")"
 trap 'rm -rf "$navigation_menu_consumer"' EXIT
-pnpm --filter @sveltery/base pack --pack-destination "$navigation_menu_consumer" > /dev/null
+sveltery_pack_package @sveltery/base "$navigation_menu_consumer" > /dev/null
 node --input-type=module - "$navigation_menu_consumer" <<'JS'
-import { readdirSync, writeFileSync } from 'node:fs';
+import { copyFileSync, mkdirSync, readdirSync, writeFileSync } from 'node:fs';
 import { join } from 'node:path';
 const destination = process.argv[2];
 const tarball = readdirSync(destination).find((name) => name.endsWith('.tgz'));
 writeFileSync(join(destination, 'package.json'), JSON.stringify({ private: true, type: 'module', dependencies: {
   '@sveltery/base': `file:${join(destination, tarball)}`, svelte: '5.57.1', '@base-ui/react': '1.8.0',
   react: '19.2.8', 'react-dom': '19.2.8', '@types/react': '19.2.18', '@types/react-dom': '19.2.4',
+  '@sveltejs/kit': '3.0.0', '@sveltejs/adapter-auto': '8.0.0', '@sveltejs/vite-plugin-svelte': '7.3.1', vite: '8.3.1',
+  typescript: '6.0.3', 'svelte-check': '4.7.6', '@types/node': '24.19.1',
 } }));
+mkdirSync(join(destination, 'src/routes'), { recursive: true });
+copyFileSync('apps/fixtures/src/app.html', join(destination, 'src/app.html'));
+copyFileSync('packages/base/vite.config.ts', join(destination, 'vite.config.ts'));
+writeFileSync(join(destination, 'src/routes/+page.svelte'), '<script>import Consumer from \'../../Consumer.svelte\';</script><Consumer />\n');
 JS
-pnpm --dir "$navigation_menu_consumer" --ignore-workspace install --ignore-scripts > /dev/null
-pnpm --dir "$navigation_menu_consumer" --ignore-workspace install --frozen-lockfile --ignore-scripts > /dev/null
+sveltery_prepare_consumer "$navigation_menu_consumer"
+pnpm --dir "$navigation_menu_consumer" install --ignore-scripts > /dev/null
+pnpm --dir "$navigation_menu_consumer" install --frozen-lockfile --ignore-scripts > /dev/null
 cmp LICENSE "$navigation_menu_consumer/node_modules/@sveltery/base/LICENSE"
+cmp LICENSE "$navigation_menu_consumer/node_modules/@sveltery/utils/LICENSE"
+test -f "$navigation_menu_consumer/node_modules/@sveltery/utils/package.json"
 cmp packages/base/THIRD_PARTY_NOTICES.md "$navigation_menu_consumer/node_modules/@sveltery/base/THIRD_PARTY_NOTICES.md"
 cat > "$navigation_menu_consumer/Consumer.svelte" <<'SVELTE'
 <script lang="ts">
@@ -50,11 +59,15 @@ cat > "$navigation_menu_consumer/Consumer.svelte" <<'SVELTE'
   const invalidComponent: Parameters<typeof UnionRoot>[1] = { value: 'c' };
   // @ts-expect-error The Source action surface contains only unmount.
   const invalidAction: keyof NavigationMenu.Root.Actions = 'open';
+  const nativeStyle: NavigationMenu.Popup.Props['style'] = state => `opacity:${state.open ? 1 : 0.5}`;
+  // @ts-expect-error Native Svelte style representation excludes React object styles.
+  const invalidStyle: NavigationMenu.Popup.Props['style'] = { opacity: 1 };
+  let triggerRef = $state<HTMLElement | null | undefined>();
   const keep: NavigationMenu.Content.Props = { keepMounted: true };
   const item: NavigationMenu.Item.Props = { value: false };
   const linked: NavigationMenu.Link.Props = { href: '/products', active: true, closeOnClick: true };
   const snippet: Snippet<[HTMLAnchorAttributes, NavigationMenu.Link.State, Snippet | undefined]> | undefined = undefined;
-  void [alias, rootState, selected, invalid, invalidComponent, invalidAction, keep, item, linked, snippet];
+  void [alias, rootState, selected, invalid, invalidComponent, invalidAction, keep, item, linked, snippet, invalidStyle];
 </script>
 <!-- Original Root.spec.tsx:10/17/25/32/39 actual component inference. -->
 <NavigationMenu.Root value={stringValue} onValueChange={value => { const exact: Equal<typeof value, string | null> = true; void exact; }} />
@@ -73,17 +86,18 @@ cat > "$navigation_menu_consumer/Consumer.svelte" <<'SVELTE'
 <Wrapper value={1} />
 <NavigationMenu.Root bind:actions>
   <NavigationMenu.List><NavigationMenu.Item value={0}>
-    <NavigationMenu.Trigger>Products <NavigationMenu.Icon /></NavigationMenu.Trigger>
-    <NavigationMenu.Content keepMounted><NavigationMenu.Link {...linked}>
+    <NavigationMenu.Trigger bind:ref={triggerRef}>Products <NavigationMenu.Icon /></NavigationMenu.Trigger>
+    <NavigationMenu.Content keepMounted><NavigationMenu.Link {...linked} style="color:red">
       {#snippet render(props, state, children)}
         {const hrefType: Equal<typeof props.href, HTMLAnchorAttributes['href']> = true}
-        <a {...props} data-active={state.active} data-type={hrefType}>{@render children?.()}</a>
+        {const nativeStyle: string | null | undefined = props.style}
+        <a {...props} data-active={state.active} data-type={hrefType} data-native-style={nativeStyle}>{@render children?.()}</a>
       {/snippet}
       Products
     </NavigationMenu.Link></NavigationMenu.Content>
   </NavigationMenu.Item></NavigationMenu.List>
   <NavigationMenu.Portal keepMounted><NavigationMenu.Backdrop /><NavigationMenu.Positioner>
-    <NavigationMenu.Popup><NavigationMenu.Arrow /><NavigationMenu.Viewport /></NavigationMenu.Popup>
+    <NavigationMenu.Popup style={nativeStyle}><NavigationMenu.Arrow /><NavigationMenu.Viewport /></NavigationMenu.Popup>
   </NavigationMenu.Positioner></NavigationMenu.Portal>
 </NavigationMenu.Root>
 SVELTE
@@ -110,10 +124,11 @@ assert.match(html, /<li/);
 assert.match(html, /aria-expanded="false"/);
 assert.match(html, /hidden/);
 assert.match(html, /Products/);
+assert.match(html, /data-native-style="color:red"/);
 assert.doesNotMatch(html, /data-base-ui-portal/);
 JS
 cat > "$navigation_menu_consumer/tsconfig.json" <<'JSON'
-{"compilerOptions":{"target":"ES2022","module":"ESNext","moduleResolution":"Bundler","strict":true,"skipLibCheck":true,"verbatimModuleSyntax":true,"jsx":"react-jsx","lib":["ES2022","DOM","DOM.Iterable"]},"include":["*.svelte","*.ts","*.tsx"]}
+{"extends":"$app/tsconfig","compilerOptions":{"strict":true,"exactOptionalPropertyTypes":true,"skipLibCheck":false,"verbatimModuleSyntax":true,"jsx":"react-jsx","types":["$app/types","node"],"lib":["ES2022","DOM","DOM.Iterable"]},"include":["*.svelte","*.ts","*.tsx","src/**/*.svelte"]}
 JSON
 node --input-type=module - "$navigation_menu_consumer" "$sveltery_repo_root" <<'JS'
 import assert from 'node:assert/strict';
@@ -134,6 +149,8 @@ for (const [part, subpath] of [['Root', 'root'], ['Link', 'link']]) {
 }
 writeFileSync(join(destination, 'OriginalTestUtils.ts'), execFileSync('tar', ['-xOf', archive, './packages/utils/src/testUtils.ts']));
 JS
+pnpm --dir "$navigation_menu_consumer" exec svelte-kit sync
 node --import "$sveltery_repo_root/scripts/svelte-ssr-loader.mjs" "$navigation_menu_consumer/check.mjs"
-node "$sveltery_repo_root/packages/base/node_modules/svelte-check/bin/svelte-check" --workspace "$navigation_menu_consumer" --tsconfig ./tsconfig.json
-echo 'Isolated installed NavigationMenu public root/subpath, thirteen parts, SSR, actual Original and native strict types: PASS'
+pnpm --dir "$navigation_menu_consumer" exec svelte-check --tsconfig ./tsconfig.json
+pnpm --dir "$navigation_menu_consumer" exec vite build > /dev/null
+echo 'Isolated dual-tarball NavigationMenu public root/subpath, thirteen parts, SSR, Original strict types, native string styles/bindings, generated Kit consumer check/build: PASS'

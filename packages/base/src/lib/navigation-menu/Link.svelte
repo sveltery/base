@@ -1,4 +1,6 @@
 <script lang="ts">
+  import { untrack } from 'svelte';
+  import { createAttachmentKey } from 'svelte/attachments';
   // Original NavigationMenuLink optional closure and tree/root containment (MIT).
   import CompositeItem from '../internals/composite/item/CompositeItem.svelte';
   import { useFloatingTree } from '../floating-ui/components/FloatingTree.svelte.js';
@@ -11,7 +13,6 @@
   import { REASONS } from '../internals/reasons.js';
   import type { NavigationMenuLinkProps } from './types.js';
   let {
-    // eslint-disable-next-line no-useless-assignment -- Native bind:ref publishes the host.
     ref = $bindable(null),
     render,
     class: classProp,
@@ -25,11 +26,19 @@
   const nodeId = useNavigationMenuTreeContext();
   const tree = useFloatingTree();
   const state = $derived({ active });
-  const refs = [
-    (node: HTMLElement | null) => {
-      ref = node;
-    },
-  ];
+  const hostAttachmentKey = createAttachmentKey();
+  function attachHost(host: HTMLElement) {
+    return untrack(() => {
+      ref = host;
+
+      return () =>
+        untrack(() => {
+          if (ref === host) ref = null;
+        });
+    });
+  }
+  const hostProps = { [hostAttachmentKey]: attachHost };
+
   const defaultProps = $derived({
     'aria-current': active ? 'page' : undefined,
     tabindex: undefined,
@@ -52,4 +61,13 @@
     },
   });
 </script>
-<CompositeItem tag="a" {render} class={classProp} {style} {state} {refs} props={[defaultProps, elementProps]} {children} />
+
+<CompositeItem
+  tag="a"
+  {render}
+  class={classProp}
+  {style}
+  {state}
+  props={[defaultProps, elementProps, hostProps]}
+  {children}
+/>

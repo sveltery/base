@@ -4,7 +4,11 @@
   import type { DirectionProviderProps } from './types.js';
 
   let { direction = 'ltr', children }: DirectionProviderProps = $props();
-  setDirectionContext({ get direction() { return direction; } });
+  setDirectionContext({
+    get direction() {
+      return direction;
+    },
+  });
 </script>
 
 {@render children?.()}

@@ -1,5 +1,7 @@
 # Contained Dialog draft verification
 
+**Current source replacement:** PR #42 now replaces the historical controller/overlay foundation with the whole pinned Dialog business closure, including Viewport and canonical stores/focus/dismissal/portal/scroll helpers. See [whole-source correspondence](source-correspondence.md) and [current feature/API record](../../docs/dialog-first-slice.md). The records below preserve earlier checkpoints; their controller structure, unsupported style objects and D-01/D-02 corrections do not describe the proposed replacement. Whole-source review and current hosted acceptance remain pending; ordinary assertion credits are unchanged.
+
 2026-10-01, saved Linux environment, Node **24.19.0** / pinned pnpm **12.6.0**. Final feature base: main **`9b72e7c0a746f4b0a551a666209cc82fa07d44bf`**, including merged foundation and contracts. Initial verified PR2 head `76c81aa8bb18c7f569b590157f4be7cd16d4455c` was replaced by the parent's reviewed rebase `9a2633aca8f22ac96061c49491d9cda5687e6ee5`, then merged to main; feature commits were replayed without editing those contracts.
 
 ## Executed

@@ -8,13 +8,29 @@
     const node = host;
     let stopped = false;
     let cleanup: (() => void) | undefined;
-    void Promise.all([import('react'), import('react-dom/client'), import('../../../lib/navigation-menu-conformance-reference.js')]).then(([React, { createRoot }, { NavigationMenuConformanceReference }]) => {
+    void Promise.all([
+      import('react'),
+      import('react-dom/client'),
+      import('../../../lib/navigation-menu-conformance-reference.js'),
+    ]).then(([React, { createRoot }, { NavigationMenuConformanceReference }]) => {
       if (stopped) return;
       const root = createRoot(node);
-      root.render(React.createElement(NavigationMenuConformanceReference, { part: data.part, probe: data.probe }));
+      root.render(
+        React.createElement(NavigationMenuConformanceReference, {
+          part: data.part,
+          probe: data.probe,
+        }),
+      );
       cleanup = () => root.unmount();
     });
-    return () => { stopped = true; cleanup?.(); };
+    return () => {
+      stopped = true;
+      cleanup?.();
+    };
   });
 </script>
-{#if data.reference}<section bind:this={host}></section>{:else}<Fixture part={data.part} probe={data.probe} />{/if}
+
+{#if data.reference}<section bind:this={host}></section>{:else}<Fixture
+    part={data.part}
+    probe={data.probe}
+  />{/if}

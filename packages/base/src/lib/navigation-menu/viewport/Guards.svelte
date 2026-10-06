@@ -11,16 +11,25 @@
   const hasPositioner = Boolean(useNavigationMenuPositionerContext(true));
   const referenceElement = $derived(root.positionerElement || root.viewportElement);
 </script>
+
 {#if !root.floatingRootContext && !hasPositioner}
   {@render children?.()}
 {:else}
-  <FocusGuard ref={root.beforeInsideRef} onfocusin={(event) => {
-    if (referenceElement && isOutsideEvent(event, referenceElement)) getNextTabbable(referenceElement)?.focus();
-    else root.beforeOutsideRef.current?.focus();
-  }} />
+  <FocusGuard
+    bind:ref={root.beforeInsideRef.current}
+    onfocusin={(event) => {
+      if (referenceElement && isOutsideEvent(event, referenceElement))
+        getNextTabbable(referenceElement)?.focus();
+      else root.beforeOutsideRef.current?.focus();
+    }}
+  />
   {@render children?.()}
-  <FocusGuard ref={root.afterInsideRef} onfocusin={(event) => {
-    if (referenceElement && isOutsideEvent(event, referenceElement)) getPreviousTabbable(referenceElement)?.focus();
-    else root.afterOutsideRef.current?.focus();
-  }} />
+  <FocusGuard
+    bind:ref={root.afterInsideRef.current}
+    onfocusin={(event) => {
+      if (referenceElement && isOutsideEvent(event, referenceElement))
+        getPreviousTabbable(referenceElement)?.focus();
+      else root.afterOutsideRef.current?.focus();
+    }}
+  />
 {/if}

@@ -1,12 +1,13 @@
 <script lang="ts">
+  import { createAttachmentKey } from 'svelte/attachments';
   // Original NavigationMenuTrigger complete sizing, timing, cancellation and activation business body (MIT).
-  import { flushSync } from 'svelte';
-  import { addEventListener } from '../utils/addEventListener.js';
-  import { useIsoLayoutEffect } from '../utils/useIsoLayoutEffect.svelte.js';
-  import { ownerWindow } from '../utils/owner.js';
-  import { useStableCallback } from '../utils/useStableCallback.js';
-  import { useTimeout } from '../utils/useTimeout.js';
-  import { useAnimationFrame } from '../utils/useAnimationFrame.js';
+  import { flushSync, onDestroy, untrack } from 'svelte';
+  import { addEventListener } from '@sveltery/utils/addEventListener';
+
+  import { ownerWindow } from '@sveltery/utils/owner';
+
+  import { Timeout } from '@sveltery/utils/useTimeout';
+  import { AnimationFrame } from '@sveltery/utils/useAnimationFrame';
   import { safePolygon } from '../floating-ui/safePolygon.js';
   import { useClick } from '../floating-ui/hooks/useClick.svelte.js';
   import { useFloatingRootContext } from '../floating-ui/hooks/useFloatingRootContext.svelte.js';
@@ -58,7 +59,6 @@
   } from './types.js';
   const DEFAULT_SIZE = { width: 0, height: 0 };
   let {
-    // eslint-disable-next-line no-useless-assignment -- Native bind:ref publishes the host.
     ref = $bindable(null),
     render,
     class: classProp,
@@ -104,10 +104,10 @@
   const getDirection = useDirection();
   const direction = $derived(getDirection());
 
-  const stickIfOpenTimeout = useTimeout();
-  const mutationFrame = useAnimationFrame();
-  const resizeFrame = useAnimationFrame();
-  const sizeFrame = useAnimationFrame();
+  const stickIfOpenTimeout = new Timeout();
+  const mutationFrame = new AnimationFrame();
+  const resizeFrame = new AnimationFrame();
+  const sizeFrame = new AnimationFrame();
 
   let triggerElement = $state.raw<HTMLElement | null>(null);
   let stickIfOpen = $state(true);
@@ -140,7 +140,7 @@
     triggerElement = element;
   }
 
-  const cancelAutoSizeReset = useStableCallback((force = false) => {
+  const cancelAutoSizeReset = (force = false) => {
     if (!force && popupAutoSizeResetRef.current.owner !== itemValue) {
       return;
     }
@@ -148,25 +148,21 @@
     popupAutoSizeResetRef.current.abortController?.abort();
     popupAutoSizeResetRef.current.abortController = null;
     popupAutoSizeResetRef.current.owner = null;
+  };
+
+  $effect(() => {
+    if (isActiveItem) {
+      return;
+    }
+
+    mutationFrame.cancel();
+    sizeFrame.cancel();
+    cancelAutoSizeReset();
   });
-
-  useIsoLayoutEffect(
-    () => {
-      if (isActiveItem) {
-        return;
-      }
-
-      mutationFrame.cancel();
-      sizeFrame.cancel();
-      cancelAutoSizeReset();
-    },
-    () => [isActiveItem, mutationFrame, sizeFrame, cancelAutoSizeReset],
-  );
 
   function setAutoSizes(element: HTMLElement) {
     element.style.setProperty(NavigationMenuPopupCssVars.popupWidth, 'auto');
     element.style.setProperty(NavigationMenuPopupCssVars.popupHeight, 'auto');
-    root.syncSizeStyles(element);
   }
 
   function clearFixedSizes(popup: HTMLElement, positioner: HTMLElement) {
@@ -174,8 +170,6 @@
     popup.style.removeProperty(NavigationMenuPopupCssVars.popupHeight);
     positioner.style.removeProperty(NavigationMenuPositionerCssVars.positionerWidth);
     positioner.style.removeProperty(NavigationMenuPositionerCssVars.positionerHeight);
-    root.syncSizeStyles(popup);
-    root.syncSizeStyles(positioner);
   }
 
   function scheduleAutoSizeReset(popup: HTMLElement) {
@@ -192,96 +186,88 @@
     }, abortController.signal);
   }
 
-  const handleValueChange = useStableCallback(
-    (popup: HTMLElement, positioner: HTMLElement, currentWidth: number, currentHeight: number) => {
-      cancelAutoSizeReset(true);
+  const handleValueChange = (
+    popup: HTMLElement,
+    positioner: HTMLElement,
+    currentWidth: number,
+    currentHeight: number,
+  ) => {
+    cancelAutoSizeReset(true);
 
-      clearFixedSizes(popup, positioner);
+    clearFixedSizes(popup, positioner);
 
-      const { width, height } = getCssDimensions(popup);
-      const measuredWidth = width || prevSizeRef.current.width;
-      const measuredHeight = height || prevSizeRef.current.height;
+    const { width, height } = getCssDimensions(popup);
+    const measuredWidth = width || prevSizeRef.current.width;
+    const measuredHeight = height || prevSizeRef.current.height;
 
-      if (currentHeight === 0 || currentWidth === 0) {
-        currentWidth = measuredWidth;
-        currentHeight = measuredHeight;
-      }
+    if (currentHeight === 0 || currentWidth === 0) {
+      currentWidth = measuredWidth;
+      currentHeight = measuredHeight;
+    }
 
-      popup.style.setProperty(NavigationMenuPopupCssVars.popupWidth, `${currentWidth}px`);
-      popup.style.setProperty(NavigationMenuPopupCssVars.popupHeight, `${currentHeight}px`);
-      positioner.style.setProperty(
-        NavigationMenuPositionerCssVars.positionerWidth,
-        `${measuredWidth}px`,
-      );
-      positioner.style.setProperty(
-        NavigationMenuPositionerCssVars.positionerHeight,
-        `${measuredHeight}px`,
-      );
-      root.syncSizeStyles(popup);
-      root.syncSizeStyles(positioner);
+    popup.style.setProperty(NavigationMenuPopupCssVars.popupWidth, `${currentWidth}px`);
+    popup.style.setProperty(NavigationMenuPopupCssVars.popupHeight, `${currentHeight}px`);
+    positioner.style.setProperty(
+      NavigationMenuPositionerCssVars.positionerWidth,
+      `${measuredWidth}px`,
+    );
+    positioner.style.setProperty(
+      NavigationMenuPositionerCssVars.positionerHeight,
+      `${measuredHeight}px`,
+    );
 
-      sizeFrame.request(() => {
-        if (!isActiveItemRef.current) {
-          return;
-        }
-
-        popup.style.setProperty(NavigationMenuPopupCssVars.popupWidth, `${measuredWidth}px`);
-        popup.style.setProperty(NavigationMenuPopupCssVars.popupHeight, `${measuredHeight}px`);
-        root.syncSizeStyles(popup);
-
-        scheduleAutoSizeReset(popup);
-      });
-    },
-  );
-
-  const handleInterruptedMutationResize = useStableCallback(
-    (popup: HTMLElement, positioner: HTMLElement, currentWidth: number, currentHeight: number) => {
-      sizeFrame.cancel();
-      mutationFrame.cancel();
-      cancelAutoSizeReset(true);
-
-      if (currentWidth === 0 || currentHeight === 0) {
+    sizeFrame.request(() => {
+      if (!isActiveItemRef.current) {
         return;
       }
 
-      setSharedFixedSize(popup, positioner, currentWidth, currentHeight);
+      popup.style.setProperty(NavigationMenuPopupCssVars.popupWidth, `${measuredWidth}px`);
+      popup.style.setProperty(NavigationMenuPopupCssVars.popupHeight, `${measuredHeight}px`);
 
-      root.syncSizeStyles(popup);
+      scheduleAutoSizeReset(popup);
+    });
+  };
 
-      root.syncSizeStyles(positioner);
+  const handleInterruptedMutationResize = (
+    popup: HTMLElement,
+    positioner: HTMLElement,
+    currentWidth: number,
+    currentHeight: number,
+  ) => {
+    sizeFrame.cancel();
+    mutationFrame.cancel();
+    cancelAutoSizeReset(true);
 
+    if (currentWidth === 0 || currentHeight === 0) {
+      return;
+    }
+
+    setSharedFixedSize(popup, positioner, currentWidth, currentHeight);
+
+    mutationFrame.request(() => {
       mutationFrame.request(() => {
-        mutationFrame.request(() => {
-          clearFixedSizes(popup, positioner);
+        clearFixedSizes(popup, positioner);
 
-          const { width, height } = getCssDimensions(popup);
-          const measuredWidth = width || currentWidth;
-          const measuredHeight = height || currentHeight;
+        const { width, height } = getCssDimensions(popup);
+        const measuredWidth = width || currentWidth;
+        const measuredHeight = height || currentHeight;
 
-          setSharedFixedSize(popup, positioner, currentWidth, currentHeight);
+        setSharedFixedSize(popup, positioner, currentWidth, currentHeight);
 
-          root.syncSizeStyles(popup);
+        sizeFrame.request(() => {
+          if (!isActiveItemRef.current) {
+            return;
+          }
 
-          root.syncSizeStyles(positioner);
+          setSharedFixedSize(popup, positioner, measuredWidth, measuredHeight);
 
-          sizeFrame.request(() => {
-            if (!isActiveItemRef.current) {
-              return;
-            }
-
-            setSharedFixedSize(popup, positioner, measuredWidth, measuredHeight);
-
-            root.syncSizeStyles(popup);
-
-            root.syncSizeStyles(positioner);
-            scheduleAutoSizeReset(popup);
-          });
+          scheduleAutoSizeReset(popup);
         });
       });
-    },
-  );
+    });
+  };
 
-  const syncCurrentSize = useStableCallback((popup: HTMLElement, positioner: HTMLElement) => {
+  const syncCurrentSize = (popup: HTMLElement, positioner: HTMLElement) => {
     sizeFrame.cancel();
     cancelAutoSizeReset(true);
 
@@ -297,10 +283,9 @@
     setAutoSizes(popup);
     positioner.style.setProperty(NavigationMenuPositionerCssVars.positionerWidth, `${width}px`);
     positioner.style.setProperty(NavigationMenuPositionerCssVars.positionerHeight, `${height}px`);
-    root.syncSizeStyles(positioner);
-  });
+  };
 
-  const getMutationBaseline = useStableCallback((popup: HTMLElement) => {
+  const getMutationBaseline = (popup: HTMLElement) => {
     const popupWidth = popup.style.getPropertyValue(NavigationMenuPopupCssVars.popupWidth);
     const popupHeight = popup.style.getPropertyValue(NavigationMenuPopupCssVars.popupHeight);
     const isResizing =
@@ -317,161 +302,125 @@
       },
       syncPositioner: true,
     };
+  };
+
+  $effect(() => {
+    if (!open) {
+      stickIfOpenTimeout.clear();
+      mutationFrame.cancel();
+      resizeFrame.cancel();
+      sizeFrame.cancel();
+      cancelAutoSizeReset(true);
+      skipAutoSizeSyncRef.current = false;
+      pointerType = '';
+    }
   });
 
-  useIsoLayoutEffect(
-    () => {
-      if (!open) {
-        stickIfOpenTimeout.clear();
-        mutationFrame.cancel();
-        resizeFrame.cancel();
-        sizeFrame.cancel();
-        cancelAutoSizeReset(true);
-        skipAutoSizeSyncRef.current = false;
-        pointerType = '';
-      }
-    },
-    () => [stickIfOpenTimeout, open, mutationFrame, resizeFrame, sizeFrame, cancelAutoSizeReset],
-  );
+  $effect(() => {
+    if (!mounted) {
+      prevSizeRef.current = DEFAULT_SIZE;
+    }
+  });
 
-  useIsoLayoutEffect(
-    () => {
-      if (!mounted) {
-        prevSizeRef.current = DEFAULT_SIZE;
-      }
-    },
-    () => [mounted],
-  );
-
-  useIsoLayoutEffect(
-    () => {
-      if (!popupElement || typeof ResizeObserver !== 'function') {
-        return undefined;
-      }
-
-      const resizeObserver = new ResizeObserver(() => {
-        prevSizeRef.current = {
-          width: popupElement.offsetWidth,
-          height: popupElement.offsetHeight,
-        };
-      });
-
-      resizeObserver.observe(popupElement);
-
-      return () => {
-        resizeObserver.disconnect();
-      };
-    },
-    () => [popupElement],
-  );
-
-  useIsoLayoutEffect(
-    () => {
-      if (!open || !isActiveItem || !popupElement || !positionerElement) {
-        return undefined;
-      }
-
-      const popup = popupElement;
-      const positioner = positionerElement;
-      const win = ownerWindow(positioner);
-      function handleResize() {
-        resizeFrame.cancel();
-        resizeFrame.request(() => syncCurrentSize(popup, positioner));
-      }
-
-      const unsubscribe = addEventListener(win, 'resize', handleResize);
-
-      return () => {
-        resizeFrame.cancel();
-        unsubscribe();
-      };
-    },
-    () => [open, isActiveItem, popupElement, positionerElement, resizeFrame, syncCurrentSize],
-  );
-
-  useIsoLayoutEffect(
-    () => {
-      const observedElement = currentContentRef.current;
-
-      if (
-        !observedElement ||
-        !popupElement ||
-        !positionerElement ||
-        !isActiveItem ||
-        typeof MutationObserver !== 'function'
-      ) {
-        return undefined;
-      }
-
-      const mutationObserver = new MutationObserver(() => {
-        if (
-          transitionStatus === 'starting' ||
-          popupElement.hasAttribute(TransitionStatusDataAttributes.startingStyle)
-        ) {
-          syncCurrentSize(popupElement, positionerElement);
-          return;
-        }
-
-        const { size, syncPositioner } = getMutationBaseline(popupElement);
-
-        if (syncPositioner) {
-          handleInterruptedMutationResize(popupElement, positionerElement, size.width, size.height);
-          return;
-        }
-
-        handleValueChange(popupElement, positionerElement, size.width, size.height);
-      });
-
-      mutationObserver.observe(observedElement, {
-        childList: true,
-        subtree: true,
-        characterData: true,
-        // `keepMounted` submenu switches update dimensions by toggling hidden
-        // content rather than inserting or removing content nodes.
-        attributes: true,
-        attributeFilter: ['hidden'],
-      });
-
-      return () => {
-        mutationObserver.disconnect();
-      };
-    },
-    () => [
-      currentContentRef.current,
-      popupElement,
-      positionerElement,
-      isActiveItem,
-      transitionStatus,
-      getMutationBaseline,
-      handleInterruptedMutationResize,
-      handleValueChange,
-      syncCurrentSize,
-    ],
-  );
-
-  useIsoLayoutEffect(
-    () => {
-      if (isActiveItemRef.current && open && popupElement && positionerElement) {
-        if (skipAutoSizeSyncRef.current) {
-          skipAutoSizeSyncRef.current = false;
-          return undefined;
-        }
-
-        const { width, height } = getCssDimensions(popupElement);
-        handleValueChange(popupElement, positionerElement, width, height);
-      }
+  $effect(() => {
+    if (!popupElement || typeof ResizeObserver !== 'function') {
       return undefined;
-    },
-    () => [
-      currentContentRef.current,
-      handleValueChange,
-      isActiveItemRef,
-      open,
-      popupElement,
-      positionerElement,
-      transitionStatus,
-    ],
-  );
+    }
+
+    const resizeObserver = new ResizeObserver(() => {
+      prevSizeRef.current = {
+        width: popupElement.offsetWidth,
+        height: popupElement.offsetHeight,
+      };
+    });
+
+    resizeObserver.observe(popupElement);
+
+    return () => {
+      resizeObserver.disconnect();
+    };
+  });
+
+  $effect(() => {
+    if (!open || !isActiveItem || !popupElement || !positionerElement) {
+      return undefined;
+    }
+
+    const popup = popupElement;
+    const positioner = positionerElement;
+    const win = ownerWindow(positioner);
+    function handleResize() {
+      resizeFrame.cancel();
+      resizeFrame.request(() => syncCurrentSize(popup, positioner));
+    }
+
+    const unsubscribe = addEventListener(win, 'resize', handleResize);
+
+    return () => {
+      resizeFrame.cancel();
+      unsubscribe();
+    };
+  });
+
+  $effect(() => {
+    const observedElement = currentContentRef.current;
+
+    if (
+      !observedElement ||
+      !popupElement ||
+      !positionerElement ||
+      !isActiveItem ||
+      typeof MutationObserver !== 'function'
+    ) {
+      return undefined;
+    }
+
+    const mutationObserver = new MutationObserver(() => {
+      if (
+        transitionStatus === 'starting' ||
+        popupElement.hasAttribute(TransitionStatusDataAttributes.startingStyle)
+      ) {
+        syncCurrentSize(popupElement, positionerElement);
+        return;
+      }
+
+      const { size, syncPositioner } = getMutationBaseline(popupElement);
+
+      if (syncPositioner) {
+        handleInterruptedMutationResize(popupElement, positionerElement, size.width, size.height);
+        return;
+      }
+
+      handleValueChange(popupElement, positionerElement, size.width, size.height);
+    });
+
+    mutationObserver.observe(observedElement, {
+      childList: true,
+      subtree: true,
+      characterData: true,
+      // `keepMounted` submenu switches update dimensions by toggling hidden
+      // content rather than inserting or removing content nodes.
+      attributes: true,
+      attributeFilter: ['hidden'],
+    });
+
+    return () => {
+      mutationObserver.disconnect();
+    };
+  });
+
+  $effect(() => {
+    if (isActiveItemRef.current && open && popupElement && positionerElement) {
+      if (skipAutoSizeSyncRef.current) {
+        skipAutoSizeSyncRef.current = false;
+        return undefined;
+      }
+
+      const { width, height } = getCssDimensions(popupElement);
+      handleValueChange(popupElement, positionerElement, width, height);
+    }
+    return undefined;
+  });
 
   function handleOpenChange(nextOpen: boolean, eventDetails: NavigationMenuRootChangeEventDetails) {
     const isHover = eventDetails.reason === REASONS.triggerHover;
@@ -532,31 +481,28 @@
   const hoverInteractionState = $derived(getHoverInteractionState());
   const shouldBlockSafePolygonPointerEvents = $derived(pointerType !== 'touch');
 
-  useIsoLayoutEffect(
-    () => {
-      if (!open) {
-        context.context.dataRef.current.openEvent = undefined;
-        hoverInteractionState.pointerType = undefined;
-        hoverInteractionState.interactedInside = false;
-        hoverInteractionState.restTimeoutPending = false;
-        hoverInteractionState.openChangeTimeout.clear();
-        hoverInteractionState.restTimeout.clear();
-      }
+  $effect(() => {
+    if (!open) {
+      context.context.dataRef.current.openEvent = undefined;
+      hoverInteractionState.pointerType = undefined;
+      hoverInteractionState.interactedInside = false;
+      hoverInteractionState.restTimeoutPending = false;
+      hoverInteractionState.openChangeTimeout.clear();
+      hoverInteractionState.restTimeout.clear();
+    }
 
-      return () => {
-        clearSafePolygonPointerEventsMutation(hoverInteractionState);
-      };
-    },
-    () => [context, hoverInteractionState, open],
-  );
+    return () => {
+      clearSafePolygonPointerEventsMutation(hoverInteractionState);
+    };
+  });
 
-  const getInlineHandleCloseContext = useStableCallback(() => {
+  const getInlineHandleCloseContext = () => {
     if (!nested || positionerElement || !triggerElementRef.current || !hoverFloatingElement) {
       return null;
     }
 
     return getHandleCloseContext(triggerElementRef.current, hoverFloatingElement, nodeId);
-  });
+  };
 
   function getScope() {
     if (nested && positionerElement) {
@@ -589,92 +535,87 @@
   );
   const referenceProps = $derived(mergeProps(click.reference, hover?.reference));
 
-  useIsoLayoutEffect(
-    () => {
-      if (isActiveItem) {
-        setFloatingRootContext(context);
-        prevTriggerElementRef.current = triggerElement;
-      }
-    },
-    () => [isActiveItem, context, setFloatingRootContext, prevTriggerElementRef, triggerElement],
-  );
+  $effect(() => {
+    if (isActiveItem) {
+      setFloatingRootContext(context);
+      prevTriggerElementRef.current = triggerElement;
+    }
+  });
 
-  // Source constructs this ordinary callback in its component scope. Retain
-  // those selected scalars through flushSync; refs and Store reads stay live.
-  const handleActivation = $derived.by(() => {
+  // Capture this operation's pre-request values when the native event starts.
+  // Ref/Store reads and cancellation owners remain live; no render snapshot is kept.
+  function handleActivation(event: MouseEvent | KeyboardEvent) {
     const { value, mounted, orientation, nested, positionerElement } = root;
     const { value: itemValue } = item;
     const activationTrigger = triggerElement;
     const activationPointerType = pointerType;
     const activationFloating = positionerElement || root.viewportElement;
     const blockPointerEvents = shouldBlockSafePolygonPointerEvents;
-    return (event: MouseEvent | KeyboardEvent) => {
-      flushSync(() => {
-        const currentTarget = event.currentTarget as HTMLElement;
-        const prevTriggerRect = prevTriggerElementRef.current?.getBoundingClientRect();
+    flushSync(() => {
+      const currentTarget = event.currentTarget as HTMLElement;
+      const prevTriggerRect = prevTriggerElementRef.current?.getBoundingClientRect();
 
-        if (mounted && prevTriggerRect && activationTrigger) {
-          const nextTriggerRect = activationTrigger.getBoundingClientRect();
-          const isMovingRight = nextTriggerRect.left > prevTriggerRect.left;
-          const isMovingDown = nextTriggerRect.top > prevTriggerRect.top;
+      if (mounted && prevTriggerRect && activationTrigger) {
+        const nextTriggerRect = activationTrigger.getBoundingClientRect();
+        const isMovingRight = nextTriggerRect.left > prevTriggerRect.left;
+        const isMovingDown = nextTriggerRect.top > prevTriggerRect.top;
 
-          if (orientation === 'horizontal' && nextTriggerRect.left !== prevTriggerRect.left) {
-            setActivationDirection(isMovingRight ? 'right' : 'left');
-          } else if (orientation === 'vertical' && nextTriggerRect.top !== prevTriggerRect.top) {
-            setActivationDirection(isMovingDown ? 'down' : 'up');
-          }
+        if (orientation === 'horizontal' && nextTriggerRect.left !== prevTriggerRect.left) {
+          setActivationDirection(isMovingRight ? 'right' : 'left');
+        } else if (orientation === 'vertical' && nextTriggerRect.top !== prevTriggerRect.top) {
+          setActivationDirection(isMovingDown ? 'down' : 'up');
         }
+      }
 
-        // Reset the `openEvent` to `undefined` when the active item changes so that a
-        // `click` -> `hover` on new trigger -> `hover` back to old trigger doesn't unexpectedly
-        // cause the popup to remain stuck open when leaving the old trigger.
-        if (event.type !== 'click' && value != null) {
-          context.context.dataRef.current.openEvent = undefined;
+      // Reset the `openEvent` to `undefined` when the active item changes so that a
+      // `click` -> `hover` on new trigger -> `hover` back to old trigger doesn't unexpectedly
+      // cause the popup to remain stuck open when leaving the old trigger.
+      if (event.type !== 'click' && value != null) {
+        context.context.dataRef.current.openEvent = undefined;
+      }
+
+      if (activationPointerType === 'touch' && event.type !== 'click') {
+        return;
+      }
+
+      // Keyboard open events reach this activation path after `onkeydown` has already set
+      // the value with the `listNavigation` reason.
+      if (value != null && event.type !== 'keydown') {
+        setValue(
+          itemValue,
+          createChangeEventDetails(
+            event.type === 'mouseenter' ? REASONS.triggerHover : REASONS.triggerPress,
+            event,
+          ),
+        );
+      }
+
+      if (
+        event.type === 'mouseenter' &&
+        blockPointerEvents &&
+        (!nested || !positionerElement) &&
+        activationFloating
+      ) {
+        const applyPointerEventsMutation = () => {
+          const scopeElement = getScope() ?? currentTarget.ownerDocument.body;
+
+          applySafePolygonPointerEventsMutation(hoverInteractionState, {
+            scopeElement,
+            referenceElement: currentTarget,
+            floatingElement: activationFloating,
+          });
+        };
+
+        if (value != null && value !== itemValue) {
+          queueMicrotask(applyPointerEventsMutation);
+        } else {
+          applyPointerEventsMutation();
         }
+      }
+    });
+  }
 
-        if (activationPointerType === 'touch' && event.type !== 'click') {
-          return;
-        }
-
-        // Keyboard open events reach this activation path after `onkeydown` has already set
-        // the value with the `listNavigation` reason.
-        if (value != null && event.type !== 'keydown') {
-          setValue(
-            itemValue,
-            createChangeEventDetails(
-              event.type === 'mouseenter' ? REASONS.triggerHover : REASONS.triggerPress,
-              event,
-            ),
-          );
-        }
-
-        if (
-          event.type === 'mouseenter' &&
-          blockPointerEvents &&
-          (!nested || !positionerElement) &&
-          activationFloating
-        ) {
-          const applyPointerEventsMutation = () => {
-            const scopeElement = getScope() ?? currentTarget.ownerDocument.body;
-
-            applySafePolygonPointerEventsMutation(hoverInteractionState, {
-              scopeElement,
-              referenceElement: currentTarget,
-              floatingElement: activationFloating,
-            });
-          };
-
-          if (value != null && value !== itemValue) {
-            queueMicrotask(applyPointerEventsMutation);
-          } else {
-            applyPointerEventsMutation();
-          }
-        }
-      });
-    };
-  });
-
-  const handleOpenEvent = useStableCallback((event: MouseEvent | KeyboardEvent) => {
+  const handleOpenEvent = (event: MouseEvent | KeyboardEvent) => {
     if (disabled) {
       return;
     }
@@ -695,7 +636,7 @@
     }
 
     handleValueChange(popupElement, positionerElement, width, height);
-  });
+  };
 
   const partState: NavigationMenuTriggerState = $derived({ open: isActiveItem, disabled });
 
@@ -770,13 +711,23 @@
   }));
 
   const referenceElement = $derived(hoverFloatingElement);
-  const refs = [
-    (node: HTMLElement | null) => {
-      ref = node;
-    },
-    handleTriggerElement,
-    buttonRef,
-  ];
+  const hostAttachmentKey = createAttachmentKey();
+  function attachHost(host: HTMLElement) {
+    return untrack(() => {
+      ref = host;
+      handleTriggerElement(host);
+      buttonRef(host);
+      return () =>
+        untrack(() => {
+          if (ref === host) ref = null;
+          if (triggerElement === host) {
+            handleTriggerElement(null);
+            buttonRef(null);
+          }
+        });
+    });
+  }
+  const hostProps = { [hostAttachmentKey]: attachHost };
 
   function getPlacementFromElements(
     domReferenceElement: Element,
@@ -812,25 +763,62 @@
       nodeId,
     };
   }
+
+  onDestroy(() => {
+    stickIfOpenTimeout.clear();
+    sizeFrame.cancel();
+    resizeFrame.cancel();
+    mutationFrame.cancel();
+  });
 </script>
-<CompositeItem tag="button" {render} class={classProp} {style} state={partState} stateAttributesMapping={pressableTriggerOpenStateMapping}
-  {refs}
-  props={[referenceProps, dismissProps?.reference || {}, defaultProps, elementProps, getButtonProps]} {children} />
+
+<CompositeItem
+  tag="button"
+  {render}
+  class={classProp}
+  {style}
+  state={partState}
+  stateAttributesMapping={pressableTriggerOpenStateMapping}
+  props={[
+    referenceProps,
+    dismissProps?.reference || {},
+    defaultProps,
+    elementProps,
+    getButtonProps,
+    hostProps,
+  ]}
+  {children}
+/>
 {#if isActiveItem}
-  <FocusGuard ref={beforeOutsideRef} onfocusin={(event) => {
-    if (referenceElement && isOutsideEvent(event, referenceElement)) beforeInsideRef.current?.focus();
-    else getPreviousTabbable(triggerElement)?.focus();
-  }} />
+  <FocusGuard
+    bind:ref={beforeOutsideRef.current}
+    onfocusin={(event) => {
+      if (referenceElement && isOutsideEvent(event, referenceElement))
+        beforeInsideRef.current?.focus();
+      else getPreviousTabbable(triggerElement)?.focus();
+    }}
+  />
   <span aria-owns={viewportElement?.id} style={toNativeStyle(ownerVisuallyHidden)}></span>
-  <FocusGuard ref={afterOutsideRef} onfocusin={(event) => {
-    if (referenceElement && isOutsideEvent(event, referenceElement)) {
-      flushSync(() => setViewportInert(false));
-      (afterInsideRef.current || triggerElement)?.focus();
-    } else {
-      let nextTabbable = getNextTabbable(triggerElement);
-      if (nested && !positionerElement && referenceElement && nextTabbable && contains(referenceElement, nextTabbable)) nextTabbable = getTabbableAfterElement(afterInsideRef.current);
-      nextTabbable?.focus();
-      if ((!nested || positionerElement) && !contains(rootRef.current, nextTabbable)) setValue(null, createChangeEventDetails(REASONS.focusOut, event));
-    }
-  }} />
+  <FocusGuard
+    bind:ref={afterOutsideRef.current}
+    onfocusin={(event) => {
+      if (referenceElement && isOutsideEvent(event, referenceElement)) {
+        flushSync(() => setViewportInert(false));
+        (afterInsideRef.current || triggerElement)?.focus();
+      } else {
+        let nextTabbable = getNextTabbable(triggerElement);
+        if (
+          nested &&
+          !positionerElement &&
+          referenceElement &&
+          nextTabbable &&
+          contains(referenceElement, nextTabbable)
+        )
+          nextTabbable = getTabbableAfterElement(afterInsideRef.current);
+        nextTabbable?.focus();
+        if ((!nested || positionerElement) && !contains(rootRef.current, nextTabbable))
+          setValue(null, createChangeEventDetails(REASONS.focusOut, event));
+      }
+    }}
+  />
 {/if}

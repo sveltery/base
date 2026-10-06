@@ -1,21 +1,44 @@
+import { resolveNativePackageSource } from '../../scripts/native-package-source.mjs';
 // Actual used UseRender runtime/type closure; source evidence adds no assertion credit.
-import ts from '../../packages/base/node_modules/typescript/lib/typescript.js';
+import { createRequire } from 'node:module';
 import { createHash } from 'node:crypto';
 import { execFileSync } from 'node:child_process';
 import { existsSync, readFileSync, writeFileSync } from 'node:fs';
 import { dirname, relative, resolve } from 'node:path';
 
 const root = resolve(import.meta.dirname, '../..');
+const ts = createRequire(new URL('../../packages/base/package.json', import.meta.url))('typescript');
 const destination = resolve(import.meta.dirname, 'source-graph.json');
 const graph = JSON.parse(readFileSync(destination, 'utf8'));
 const shared = JSON.parse(readFileSync(resolve(root, 'parity/rendering/source-graph.json'), 'utf8')).localClosure;
 const inherited = new Map(shared.modules.map(module => [module.local, module]));
 const hash = text => createHash('sha256').update(text).digest('hex');
+const baseExports = JSON.parse(readFileSync(resolve(root, 'packages/base/package.json'), 'utf8')).exports;
+if (!('./use-render' in baseExports)) {
+  for (const path of ['index.ts', 'RenderElement.svelte', 'UseRender.svelte', 'types.ts'])
+    if (existsSync(resolve(root, 'packages/base/src/lib/use-render', path)))
+      throw new Error(`Retired UseRender runtime source exists: ${path}`);
+  graph.localClosure = {
+    roots: [],
+    modules: [],
+    status: 'Public UseRender API and generic runtime renderer retired in PR77. Original arrays and exact predecessor LOCAL projection remain historical; actual native host composition is parity/native-snippets/native-graph.json.',
+    currentNativeHostGraph: 'parity/native-snippets/native-graph.json',
+    ordinaryDeclarationCredit: 0,
+  };
+  const output = JSON.stringify(graph, null, 2) + '\n';
+  if (process.argv.includes('--check')) {
+    if (readFileSync(destination, 'utf8') !== output) throw new Error('Retired UseRender current API projection is stale');
+  } else writeFileSync(destination, output);
+  console.log(`UseRender graph: ${graph.modules.length} immutable Original modules; current public API/runtime retired.`);
+  process.exit(0);
+}
 const roots = ['packages/base/src/lib/use-render/index.ts', 'packages/base/src/lib/use-render/RenderElement.svelte'];
 const records = new Map();
 const queue = roots.map(local => ({ local, reachability: 'runtime' }));
 
 function resolveImport(file, specifier) {
+  const owned = resolveNativePackageSource(root, specifier);
+  if (owned) return owned;
   if (!specifier.startsWith('.')) return `external:${specifier}`;
   const base = resolve(root, dirname(file), specifier);
   for (const candidate of [base, base.replace(/\.js$/, '.ts'), base.replace(/\.js$/, '.svelte.ts'), `${base}.ts`, `${base}/index.ts`]) {
@@ -59,7 +82,7 @@ while (queue.length) {
       } else if (ts.isImportTypeNode(node) && ts.isLiteralTypeNode(node.argument) && ts.isStringLiteral(node.argument.literal)) {
         edge(node.argument.literal.text, 'type', []);
       }
-      if ((ts.isFunctionDeclaration(node) || ts.isInterfaceDeclaration(node) || ts.isTypeAliasDeclaration(node) || ts.isModuleDeclaration(node)) && node.name) declarations.push(node.name.text);
+      if ((ts.isFunctionDeclaration(node) || ts.isInterfaceDeclaration(node) || ts.isTypeAliasDeclaration(node) || ts.isModuleDeclaration(node) || ts.isClassDeclaration(node)) && node.name) declarations.push(node.name.text);
       ts.forEachChild(node, visit);
     }
     visit(ast);

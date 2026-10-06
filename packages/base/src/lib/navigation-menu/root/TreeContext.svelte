@@ -7,4 +7,5 @@
   provideNavigationMenuTreeContext(untrack(() => nodeId));
   provideFloatingNode(() => nodeId);
 </script>
+
 {@render children?.()}

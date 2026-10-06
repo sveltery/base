@@ -170,14 +170,22 @@ it('native: unmount cancels delayed touch opening', async () => {
   vi.advanceTimersByTime(100);
   expect(component.snapshot()).toEqual([]);
 });
-it('native: unmount cancels owned mousedown frame', async () => {
-  vi.spyOn(window, 'requestAnimationFrame').mockReturnValue(37);
+it('native: unmount cancels the owned callback before the shared mousedown frame', async () => {
+  let pendingFrame: FrameRequestCallback | undefined;
+  vi.spyOn(window, 'requestAnimationFrame').mockImplementation((callback) => {
+    pendingFrame = callback;
+    return 37;
+  });
   const canceled = vi.spyOn(window, 'cancelAnimationFrame');
   const component = await setup({ options: { event: 'mousedown' } });
   await pressMouse();
+  expect(pendingFrame).toBeTypeOf('function');
   await unmount(component);
   mounted.splice(mounted.indexOf(component), 1);
-  expect(canceled).toHaveBeenCalledWith(37);
+  // The full pinned Scheduler cancels its callback slot, retaining the shared native tick.
+  expect(canceled).not.toHaveBeenCalled();
+  pendingFrame!(0);
+  await tick();
   expect(component.snapshot()).toEqual([]);
 });
 it('native: selected reason/delay stay with the scheduled callback', async () => {

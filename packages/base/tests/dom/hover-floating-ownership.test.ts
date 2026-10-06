@@ -28,11 +28,7 @@ for (const original of [false, true])
         elapsed: number;
       }> = [];
       let elapsed = 0;
-      const report = (
-        store: number,
-        open: boolean,
-        details: { reason: string; event: Event },
-      ) =>
+      const report = (store: number, open: boolean, details: { reason: string; event: Event }) =>
         rows.push({
           store,
           open,
@@ -41,11 +37,7 @@ for (const original of [false, true])
           elapsed,
         });
       const transport = createNavigationMenuTestTransport();
-      let select: (next: {
-        selection: number;
-        enabled: boolean;
-        closeDelay: number;
-      }) => void;
+      let select: (next: { selection: number; enabled: boolean; closeDelay: number }) => void;
       if (original) {
         const sourceRequire = createRequire(
           resolve(process.cwd(), '../../apps/fixtures/package.json'),
@@ -57,22 +49,14 @@ for (const original of [false, true])
         const { FloatingRootStore } = await import(
           `${sourceRoot}/floating-ui-react/components/FloatingRootStore.mjs`
         );
-        const { PopupTriggerMap } = await import(
-          `${sourceRoot}/utils/popups/index.mjs`
-        );
+        const { PopupTriggerMap } = await import(`${sourceRoot}/utils/popups/index.mjs`);
         const { useHoverFloatingInteraction } = await import(
           `${sourceRoot}/floating-ui-react/hooks/useHoverFloatingInteraction.mjs`
         );
         const { React, renderer, referenceTransport } =
           await import('../../../../apps/fixtures/src/lib/navigation-menu-reference-renderer.js');
-        function Reference({
-          selection = 0,
-          enabled = true,
-          closeDelay = 100,
-        }) {
-          const stores = React.useRef<Array<
-            InstanceType<typeof FloatingRootStore>
-          > | null>(null);
+        function Reference({ selection = 0, enabled = true, closeDelay = 100 }) {
+          const stores = React.useRef<Array<InstanceType<typeof FloatingRootStore>> | null>(null);
           if (!stores.current)
             stores.current = [0, 1].map((index) => {
               const store = new FloatingRootStore({
@@ -84,14 +68,10 @@ for (const original of [false, true])
                 floatingId: `observer-${index}`,
                 syncOnly: false,
                 nested: false,
-                onOpenChange: (
-                  open: boolean,
-                  details: { reason: string; event: Event },
-                ) => report(index, open, details),
+                onOpenChange: (open: boolean, details: { reason: string; event: Event }) =>
+                  report(index, open, details),
               });
-              store.context.dataRef.current.openEvent = new MouseEvent(
-                'mouseenter',
-              );
+              store.context.dataRef.current.openEvent = new MouseEvent('mouseenter');
               return store;
             });
           useHoverFloatingInteraction(stores.current[selection], {

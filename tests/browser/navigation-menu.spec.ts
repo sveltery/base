@@ -1,23 +1,45 @@
 // Source assertion candidates from Base UI v1.8.0 at 47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c.
 // MIT: parity/navigation-menu/UPSTREAM_LICENSE. The separate ledger owns declaration credit.
 import { expect, test, type Page } from '@playwright/test';
-type FixtureAPI = { snapshot(): { calls: { value: unknown; reason: string; type: string; canceled: boolean }[]; completions: boolean[] }; setValue(value: unknown): void; removeFirst(): void; removeRoot(): void; setContent(text: string): void; unmount(): void };
+type FixtureAPI = {
+  snapshot(): {
+    calls: { value: unknown; reason: string; type: string; canceled: boolean }[];
+    completions: boolean[];
+  };
+  setValue(value: unknown): void;
+  removeFirst(): void;
+  removeRoot(): void;
+  setContent(text: string): void;
+  unmount(): void;
+};
 async function visit(page: Page, reference: boolean, scenario = 'default', query = '') {
   const failures: string[] = [];
-  page.on('pageerror', error => failures.push(error.message));
+  page.on('pageerror', (error) => failures.push(error.message));
   await page.goto(`/navigation-menu?case=${scenario}${reference ? '&reference' : ''}${query}`);
-  await page.waitForFunction(() => Boolean((window as unknown as { navigationMenuFixture?: FixtureAPI }).navigationMenuFixture));
+  await page.waitForFunction(() =>
+    Boolean((window as unknown as { navigationMenuFixture?: FixtureAPI }).navigationMenuFixture),
+  );
   expect(failures).toEqual([]);
 }
 async function snapshot(page: Page) {
-  return page.evaluate(() => (window as unknown as { navigationMenuFixture: FixtureAPI }).navigationMenuFixture.snapshot());
+  return page.evaluate(() =>
+    (window as unknown as { navigationMenuFixture: FixtureAPI }).navigationMenuFixture.snapshot(),
+  );
 }
 async function owner(page: Page, value: unknown) {
-  await page.evaluate(value => (window as unknown as { navigationMenuFixture: FixtureAPI }).navigationMenuFixture.setValue(value), value);
+  await page.evaluate(
+    (value) =>
+      (window as unknown as { navigationMenuFixture: FixtureAPI }).navigationMenuFixture.setValue(
+        value,
+      ),
+    value,
+  );
 }
 for (const reference of [false, true]) {
   test.describe(reference ? 'Original React' : 'native Svelte', () => {
-    test('R:1034 does not apply aria-orientation to the top-level list or root', async ({ page }) => {
+    test('R:1034 does not apply aria-orientation to the top-level list or root', async ({
+      page,
+    }) => {
       await visit(page, reference);
       await expect(page.locator('#tested-root')).not.toHaveAttribute('aria-orientation');
       await expect(page.locator('#tested-list')).not.toHaveAttribute('aria-orientation');
@@ -34,7 +56,9 @@ for (const reference of [false, true]) {
       await expect(page.locator('#tested-popup')).toBeVisible();
       await expect(page.locator('#first-trigger')).toHaveAttribute('aria-expanded', 'true');
     });
-    test('R:1440 does not close the menu when clicking a different mouse trigger', async ({ page }) => {
+    test('R:1440 does not close the menu when clicking a different mouse trigger', async ({
+      page,
+    }) => {
       await visit(page, reference);
       await page.locator('#first-trigger').dispatchEvent('click');
       await expect(page.locator('#first-content')).toHaveCount(1);
@@ -54,9 +78,13 @@ for (const reference of [false, true]) {
     test('R:1657 calls onValueChange when value changes', async ({ page }) => {
       await visit(page, reference);
       await page.locator('#first-trigger').dispatchEvent('click');
-      await expect.poll(async () => (await snapshot(page)).calls.map(call => call.value)).toEqual(['first']);
+      await expect
+        .poll(async () => (await snapshot(page)).calls.map((call) => call.value))
+        .toEqual(['first']);
       await page.locator('#second-trigger').dispatchEvent('click');
-      await expect.poll(async () => (await snapshot(page)).calls.map(call => call.value)).toEqual(['first', 'second']);
+      await expect
+        .poll(async () => (await snapshot(page)).calls.map((call) => call.value))
+        .toEqual(['first', 'second']);
     });
     test('R:1674 cancellation prevents opening', async ({ page }) => {
       await visit(page, reference, 'cancel');
@@ -69,17 +97,25 @@ for (const reference of [false, true]) {
       await visit(page, reference);
       await page.locator('#first-trigger').click();
       await expect(page.locator('#first-content')).toBeVisible();
-      expect((await snapshot(page)).calls.map(call => call.value)).toEqual(['first']);
+      expect((await snapshot(page)).calls.map((call) => call.value)).toEqual(['first']);
       await page.locator('#first-trigger').focus();
       await page.keyboard.press('ArrowRight');
       await expect(page.locator('#second-trigger')).toBeFocused();
-      expect((await snapshot(page)).calls.filter(call => call.value === 'second')).toHaveLength(0);
+      expect((await snapshot(page)).calls.filter((call) => call.value === 'second')).toHaveLength(
+        0,
+      );
       await page.keyboard.press('ArrowDown');
       await expect(page.locator('#second-content')).toBeVisible();
-      expect((await snapshot(page)).calls.filter(call => call.value === 'second')).toHaveLength(1);
+      expect((await snapshot(page)).calls.filter((call) => call.value === 'second')).toHaveLength(
+        1,
+      );
       await expect(page.locator('#second-trigger')).toHaveAttribute('aria-expanded', 'true');
     });
-    for (const [scenario, value] of [['zero', 0], ['false', false], ['empty', '']] as const) {
+    for (const [scenario, value] of [
+      ['zero', 0],
+      ['false', false],
+      ['empty', ''],
+    ] as const) {
       test(`R:1716 valid falsy value ${scenario}`, async ({ page }) => {
         await visit(page, reference, scenario);
         await page.locator('#first-trigger').click();
@@ -116,7 +152,11 @@ for (const reference of [false, true]) {
       await expect(page.locator('#first-trigger')).toHaveAttribute('aria-expanded', 'false');
       await expect(page.locator('#tested-popup')).toHaveCount(1);
       expect((await snapshot(page)).completions).toEqual([]);
-      await page.evaluate(() => (window as unknown as { navigationMenuFixture: FixtureAPI }).navigationMenuFixture.unmount());
+      await page.evaluate(() =>
+        (
+          window as unknown as { navigationMenuFixture: FixtureAPI }
+        ).navigationMenuFixture.unmount(),
+      );
       await expect(page.locator('#tested-popup')).toHaveCount(0);
       expect((await snapshot(page)).completions).toEqual([false]);
     });
@@ -146,12 +186,17 @@ for (const reference of [false, true]) {
     test('L:134 null relatedTarget preserves open', async ({ page }) => {
       await visit(page, reference, 'open');
       await page.locator('#first-link').focus();
-      await page.locator('#first-link').evaluate(node => { (node as HTMLElement).blur(); });
+      await page.locator('#first-link').evaluate((node) => {
+        (node as HTMLElement).blur();
+      });
       await expect(page.locator('#first-trigger')).toHaveAttribute('aria-expanded', 'true');
       await expect(page.locator('#first-link')).toHaveCount(1);
     });
     for (const keep of [false, true]) {
-      test(`C:${keep ? '30/81' : '55/107'} SSR and hydration preserve keepMounted=${keep}`, async ({ page, request }) => {
+      test(`C:${keep ? '30/81' : '55/107'} SSR and hydration preserve keepMounted=${keep}`, async ({
+        page,
+        request,
+      }) => {
         const url = `/navigation-menu?case=${keep ? 'ssr-keep' : 'default'}${reference ? '&reference' : ''}`;
         const html = await (await request.get(url)).text();
         expect((html.match(/id="first-content"/g) ?? []).length).toBe(keep ? 1 : 0);
@@ -164,11 +209,27 @@ for (const reference of [false, true]) {
       await visit(page, reference, 'content-keep');
       await page.locator('#first-trigger').dispatchEvent('click');
       await expect(page.locator('#first-content')).toBeVisible();
-      expect(await page.locator('#tested-viewport').evaluate(node => node.contains(document.getElementById('first-content')))).toBe(true);
-      expect(await page.locator('#tested-list').evaluate(node => node.contains(document.getElementById('first-content')))).toBe(false);
+      expect(
+        await page
+          .locator('#tested-viewport')
+          .evaluate((node) => node.contains(document.getElementById('first-content'))),
+      ).toBe(true);
+      expect(
+        await page
+          .locator('#tested-list')
+          .evaluate((node) => node.contains(document.getElementById('first-content'))),
+      ).toBe(false);
       await page.locator('#second-trigger').dispatchEvent('click');
       await expect(page.locator('#second-content')).toBeVisible();
-      expect(await page.locator('#tested-viewport').evaluate(node => node.contains(document.getElementById('first-content')) && node.contains(document.getElementById('second-content')))).toBe(true);
+      expect(
+        await page
+          .locator('#tested-viewport')
+          .evaluate(
+            (node) =>
+              node.contains(document.getElementById('first-content')) &&
+              node.contains(document.getElementById('second-content')),
+          ),
+      ).toBe(true);
     });
     test('C:185 kept Portal retains hidden Content inside Viewport on close', async ({ page }) => {
       await visit(page, reference, 'keep');
@@ -176,7 +237,11 @@ for (const reference of [false, true]) {
       await expect(page.locator('#first-content')).toBeVisible();
       await page.keyboard.press('Escape');
       await expect(page.locator('#first-content')).toHaveAttribute('hidden');
-      expect(await page.locator('#tested-viewport').evaluate(node => node.contains(document.getElementById('first-content')))).toBe(true);
+      expect(
+        await page
+          .locator('#tested-viewport')
+          .evaluate((node) => node.contains(document.getElementById('first-content'))),
+      ).toBe(true);
     });
     test('R:2538 nested closeOnClick closes the parent', async ({ page }) => {
       await visit(page, reference, 'nested');

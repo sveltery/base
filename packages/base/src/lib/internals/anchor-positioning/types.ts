@@ -1,5 +1,13 @@
 // Private, framework-neutral contract derived from Base UI 1.8.0; MIT: parity/anchor-positioning/UPSTREAM_LICENSE.
-import type { Middleware, MiddlewareData, Padding, Placement, Rect, Strategy, VirtualElement } from '@floating-ui/dom';
+import type {
+  Middleware,
+  MiddlewareData,
+  Padding,
+  Placement,
+  Rect,
+  Strategy,
+  VirtualElement,
+} from '@floating-ui/dom';
 import type { FloatingRootContext } from '../../floating-ui/types.js';
 import type { FloatingTreeStore } from '../../floating-ui/components/FloatingTreeStore.js';
 
@@ -9,12 +17,17 @@ export type Boundary = 'clipping-ancestors' | Element | Element[] | Rect;
 export type Reference = Element | VirtualElement;
 export type Anchor = Reference | null | { current: Reference | null } | (() => Reference | null);
 export type OffsetFunction = (data: {
-  side: Side; align: Align;
+  side: Side;
+  align: Align;
   anchor: { width: number; height: number };
   positioner: { width: number; height: number };
 }) => number;
 export type CollisionAvoidance =
-  | { side?: 'flip' | 'none'; align?: 'flip' | 'shift' | 'none'; fallbackAxisSide?: 'start' | 'end' | 'none' }
+  | {
+      side?: 'flip' | 'none';
+      align?: 'flip' | 'shift' | 'none';
+      fallbackAxisSide?: 'start' | 'end' | 'none';
+    }
   | { side: 'shift'; align?: 'shift' | 'none'; fallbackAxisSide?: 'start' | 'end' | 'none' };
 
 export interface AnchorPositioningOptions {
@@ -51,6 +64,10 @@ export interface AnchorPositioningOptions {
 }
 
 export interface PositioningResult {
-  x: number; y: number; placement: Placement;
-  strategy: Strategy; middlewareData: MiddlewareData; isPositioned: boolean;
+  x: number;
+  y: number;
+  placement: Placement;
+  strategy: Strategy;
+  middlewareData: MiddlewareData;
+  isPositioned: boolean;
 }

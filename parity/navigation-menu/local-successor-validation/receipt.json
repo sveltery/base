@@ -1,0 +1,453 @@
+{
+  "ordinaryCredit": 0,
+  "status": "Completed feasible local stages with exact predecessor/successor scopes; diagnostic publication evidence only, no ready/merge acceptance.",
+  "runtimeCandidate": "0ff75e6787505bec2efef0a0b07cddf4c73c97a1",
+  "typeBuildProofCandidate": "48ace1945541f0d75e4d2ab0614b1382462bb6a8",
+  "captureLintProofCandidate": "fe3727e2d6191657760a5153c36b7eaab3c7b1c6",
+  "currentRuntimeGraph": {
+    "modules": 137,
+    "statements": 542,
+    "hashesMatch": true,
+    "sourceStatus": "Runtime137body bytes unchanged from0ff/6cfd; subsequent direct bare fixtures/tests/tooling/docs tracked separately"
+  },
+  "results": {
+    "nativeArtifacts": "passed",
+    "scripts": {
+      "passed": 86,
+      "failed": 0
+    },
+    "DOM": {
+      "Base": {
+        "passed": 1838,
+        "failed": 0,
+        "files": 135
+      },
+      "Utils": {
+        "passed": 8,
+        "failed": 0
+      }
+    },
+    "strengthenedNativeProof48ace": {
+      "publicStyleBareStyleBareCapturePassed": 3,
+      "failed": 0
+    },
+    "captureFeSuccessor": {
+      "passed": 1,
+      "failed": 0
+    },
+    "packedNavigationMenu": "dualBase/Utils isolated strict skipLibCheckfalse, unchanged8Original type assertions, native13parts/stringstyles/bindings SSRcheckbuild passed",
+    "runtimeBoundary": "passed",
+    "typeCheck48ace": {
+      "Base": {
+        "errors": 0,
+        "warnings": 6
+      },
+      "Utils": {
+        "errors": 0,
+        "warnings": 0
+      },
+      "fixtures": {
+        "errors": 0,
+        "warnings": 0
+      }
+    },
+    "typePredecessor": "1GBheapOOM retained separately; successful successor does not erase setup failure",
+    "fixtureSSRClientBuild48ace": "passed",
+    "prettier48ace": "globalpassed; finalnewdiagnosticdocs formatting checked separately",
+    "ESLint": "same1347file maintained scope covered by43originalpasses+corrected5/20reruns;9newaffected files covered8passed+fixedbarecapturefe rerun; no new waiver",
+    "warningScope": "Six inherited compiler warnings, three inert SourceReactdirective warnings and runtime refbinding_property_non_reactive observations remain explicit; bare nohydrationwarnings is local control scope only, no warning-free13parts claim"
+  },
+  "lint": {
+    "archive": "lint-batches.tar.gz",
+    "archiveSha256": "710c926978053c35b037d51a3fa24d117c3d066160a787b35eec690900dd87f9",
+    "scopeCandidate": "48a0f0832700c1a0ab76d07f7c2c820b24967ceb",
+    "scopeSha256": "d012271fb65cbb862d1f68dc08e7e6a11a8167393e0ee7f3b5e3d065680491b5",
+    "selectedFiles": 1347,
+    "batches": 45,
+    "initialPassed": 43,
+    "initialFindingBatches": [
+      5,
+      20
+    ],
+    "correctiveReruns": "5/20passed after6872da57/1b0197a1; later8affected files passed, ninthbarecapturefe3727e2 rerunpassed",
+    "warningStatus": "Three immutable upstream React directives remain inert warnings; normal rules retained, no strict-rule waiver",
+    "files": [
+      {
+        "path": "batch-001.log",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "bytes": 0
+      },
+      {
+        "path": "batch-002.log",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "bytes": 0
+      },
+      {
+        "path": "batch-003.log",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "bytes": 0
+      },
+      {
+        "path": "batch-004.log",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "bytes": 0
+      },
+      {
+        "path": "batch-005.log",
+        "sha256": "401c95ba9bdce0a1319d2b5e30662fc5036e80ba52a9064844070a9686dd4451",
+        "bytes": 412
+      },
+      {
+        "path": "batch-006.log",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "bytes": 0
+      },
+      {
+        "path": "batch-007.log",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "bytes": 0
+      },
+      {
+        "path": "batch-008.log",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "bytes": 0
+      },
+      {
+        "path": "batch-009.log",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "bytes": 0
+      },
+      {
+        "path": "batch-010.log",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "bytes": 0
+      },
+      {
+        "path": "batch-011.log",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "bytes": 0
+      },
+      {
+        "path": "batch-012.log",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "bytes": 0
+      },
+      {
+        "path": "batch-013.log",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "bytes": 0
+      },
+      {
+        "path": "batch-014.log",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "bytes": 0
+      },
+      {
+        "path": "batch-015.log",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "bytes": 0
+      },
+      {
+        "path": "batch-016.log",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "bytes": 0
+      },
+      {
+        "path": "batch-017.log",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "bytes": 0
+      },
+      {
+        "path": "batch-018.log",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "bytes": 0
+      },
+      {
+        "path": "batch-019.log",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "bytes": 0
+      },
+      {
+        "path": "batch-020.log",
+        "sha256": "bf3888e15f891ac25d5efa6fcfdcd244d9640d3efb5f43f7bd798afcd5c21b7a",
+        "bytes": 3075
+      },
+      {
+        "path": "batch-021.log",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "bytes": 0
+      },
+      {
+        "path": "batch-022.log",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "bytes": 0
+      },
+      {
+        "path": "batch-023.log",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "bytes": 0
+      },
+      {
+        "path": "batch-024.log",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "bytes": 0
+      },
+      {
+        "path": "batch-025.log",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "bytes": 0
+      },
+      {
+        "path": "batch-026.log",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "bytes": 0
+      },
+      {
+        "path": "batch-027.log",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "bytes": 0
+      },
+      {
+        "path": "batch-028.log",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "bytes": 0
+      },
+      {
+        "path": "batch-029.log",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "bytes": 0
+      },
+      {
+        "path": "batch-030.log",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "bytes": 0
+      },
+      {
+        "path": "batch-031.log",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "bytes": 0
+      },
+      {
+        "path": "batch-032.log",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "bytes": 0
+      },
+      {
+        "path": "batch-033.log",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "bytes": 0
+      },
+      {
+        "path": "batch-034.log",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "bytes": 0
+      },
+      {
+        "path": "batch-035.log",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "bytes": 0
+      },
+      {
+        "path": "batch-036.log",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "bytes": 0
+      },
+      {
+        "path": "batch-037.log",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "bytes": 0
+      },
+      {
+        "path": "batch-038.log",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "bytes": 0
+      },
+      {
+        "path": "batch-039.log",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "bytes": 0
+      },
+      {
+        "path": "batch-040.log",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "bytes": 0
+      },
+      {
+        "path": "batch-041.log",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "bytes": 0
+      },
+      {
+        "path": "batch-042.log",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "bytes": 0
+      },
+      {
+        "path": "batch-043.log",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "bytes": 0
+      },
+      {
+        "path": "batch-044.log",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "bytes": 0
+      },
+      {
+        "path": "batch-045.log",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "bytes": 0
+      },
+      {
+        "path": "rerun-20.log",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "bytes": 0
+      },
+      {
+        "path": "rerun-5.log",
+        "sha256": "a5832546d05ef6b2be391b4e5a4b71014040f18d01aa5dc8cbcde0ddd7af51ad",
+        "bytes": 571
+      },
+      {
+        "path": "results.json",
+        "sha256": "b41b279bf4d9e00f2f7ecb7ad6a3ef4aee078ac7954f2e9c7007dd74a469a2de",
+        "bytes": 88818
+      },
+      {
+        "path": "scope.json",
+        "sha256": "c933a6e6d8aa849dd8788df1b0268c47ee338df62367eaf73083c51d6411cdb8",
+        "bytes": 359186
+      }
+    ]
+  },
+  "records": [
+    {
+      "source": "successor-artifacts.log",
+      "archive": "successor-artifacts.log.gz",
+      "sha256": "b5aeb99ef7081e3a64a69972c33eee07c98e7a159c8b5960bf53c9d0273da205",
+      "archiveSha256": "f9582e2e0b878be3d88ad63705a9708b46c5b44fec9840259d94b8d17e114f0a",
+      "bytes": 41524
+    },
+    {
+      "source": "successor-scripts.log",
+      "archive": "successor-scripts.log.gz",
+      "sha256": "6331be2e090838d4975f6148ee7762d35fc830031ed1c9febcb0713d90977839",
+      "archiveSha256": "2183395a2804b9dda5b604fb0b46fc2448b210fe3b4d7e90880a1853feac29ab",
+      "bytes": 12018
+    },
+    {
+      "source": "successor-dom.log",
+      "archive": "successor-dom.log.gz",
+      "sha256": "52537602482b5a5befe89c384aede4af62b1ce2a72c34bc35c57681729c77e7f",
+      "archiveSha256": "70efba04d3b0cb83ea464665ca5d53a213a9274f12e7dec9aec5f5a3f4496c6f",
+      "bytes": 2668
+    },
+    {
+      "source": "successor-navigation-consumer.log",
+      "archive": "successor-navigation-consumer.log.gz",
+      "sha256": "4a974ee8faa6483f2fd84b657bcd65a7e2fc5b531f5e9ecac7a6a4429821da16",
+      "archiveSha256": "58b5f1fdc967b0918647feffe528a1648699873b72d10c1b47d61ae36a21b38c",
+      "bytes": 889
+    },
+    {
+      "source": "successor-runtime.log",
+      "archive": "successor-runtime.log.gz",
+      "sha256": "7eb14a3a2cac9fe7d677ef3a7519f5045bb935af2549e71f9ddf392ebb65a36d",
+      "archiveSha256": "e4b850e7b6f96f57ff98b7644a3de5a259674185c74fe8bb3f6975340e97b5b2",
+      "bytes": 61
+    },
+    {
+      "source": "successor-types.log",
+      "archive": "successor-types.log.gz",
+      "sha256": "75adb313c2b57487c1926f66338d9747866a5fe735cc0431034645f3559b467e",
+      "archiveSha256": "50683aa7622f3cecfd41aae7a4dfde7c9471842611c011fbdb525dd39eb934fb",
+      "bytes": 1577
+    },
+    {
+      "source": "final48-types.log",
+      "archive": "final48-types.log.gz",
+      "sha256": "a7b23b0596fdfcb23c276f462ee96a4d45d9c2ac7210bfa606b2634b29bc9358",
+      "archiveSha256": "c4821dba71097bba275f74c0cd159685367a6993c47994317cd95cc59a6770a1",
+      "bytes": 3687
+    },
+    {
+      "source": "final48-fixture-build.log",
+      "archive": "final48-fixture-build.log.gz",
+      "sha256": "6075340728ad9cc088179e713bc0df542c7e46f5c624ff8b5f7aa1c17ec9c0fa",
+      "archiveSha256": "52185299c1200779c6f28b04bcfda001061130cb4d7d121765791f90bef8fe1e",
+      "bytes": 374929
+    },
+    {
+      "source": "final48-prettier.log",
+      "archive": "final48-prettier.log.gz",
+      "sha256": "17aa973d3f004560237d9a95171210b0671deff23d61628eecf7322ff5938f20",
+      "archiveSha256": "710c63d8d40d5688a62c3b08053dd1971c4e4ee87b2297f3f20c2540d22cd94e",
+      "bytes": 66
+    },
+    {
+      "source": "final48-affected-lint.log",
+      "archive": "final48-affected-lint.log.gz",
+      "sha256": "2dbb8a3607e247cc408f49b94497491b06046d99d006fa2c5b521355155c32cc",
+      "archiveSha256": "ed5a6bb93448f1e96555861246d3b3d35d9dadfe908488b874dd8f44ff6ca440",
+      "bytes": 344
+    },
+    {
+      "source": "native-three-48ace.log",
+      "archive": "native-three-48ace.log.gz",
+      "sha256": "79eb6b113f253f36c6563186674c714f6bbf1f0373eaa70b6bc414a3e8ee2ae7",
+      "archiveSha256": "812367862aaeebeb3faa99496afc0de74c9123a43d0856f441c9e55a864d4317",
+      "bytes": 9932
+    },
+    {
+      "source": "capture-lint-fe.log",
+      "archive": "capture-lint-fe.log.gz",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "archiveSha256": "f61f27bd17de546264aa58f40f3aafaac7021e0ef69c17f6b1b4cd7664a037ec",
+      "bytes": 0
+    },
+    {
+      "source": "capture-fe.log",
+      "archive": "capture-fe.log.gz",
+      "sha256": "6dc2ee9fc33bb390ba26f1239b6a6ae9de72be9d46cfd5e4f5ae691a9bf18581",
+      "archiveSha256": "4f81ae58ddad7aa3424656e699ecdfe2d5369c48e77b7c099ba17b19e9ad7a83",
+      "bytes": 1009
+    },
+    {
+      "source": "lint-batches.log",
+      "archive": "lint-batches.log.gz",
+      "sha256": "17889784a0bd7b9d66d86c49b50cb91f9888b46416397bc5950acea0436365cb",
+      "archiveSha256": "c889fabbe10502ee42db36c1cb62826d05485d9f7126a8520decb3beb364d9c1",
+      "bytes": 1640
+    }
+  ],
+  "localReviews": [
+    {
+      "source": "navigation-menu-0ff-independent-review.md",
+      "archive": "navigation-menu-0ff-independent-review.md.gz",
+      "sha256": "ca243388f3225327f15e899560b6cf020e624aaf93c001d116612e9662a6a878",
+      "archiveSha256": "e68bd992ec85d166793cba3335fba5024a6da1ad8db7df31791712e6556a70db",
+      "status": "Local diagnostic/bounded source review at its recorded head; not independent final stable pushed-head acceptance."
+    },
+    {
+      "source": "navigation-menu-48ace-capture-review.md",
+      "archive": "navigation-menu-48ace-capture-review.md.gz",
+      "sha256": "970adf03c03a17ea2e5932fba9da9a5cac658d75bd4189790b0fffa548ca33ef",
+      "archiveSha256": "34c2c1442fe0eb8d080799d238cb3fc8b7e96a664c503aa28018a5a00794b9b3",
+      "status": "Local diagnostic/bounded source review at its recorded head; not independent final stable pushed-head acceptance."
+    },
+    {
+      "source": "hover-floating-bd6f-independent-review.md",
+      "archive": "hover-floating-bd6f-independent-review.md.gz",
+      "sha256": "3834a290cd89ccdfb24f32eb2dfd443f0526c85d9c4b6c5403ca84171ef3e524",
+      "archiveSha256": "97c2cc76c146d2266696974dec05b6646a55736d6eb5cd603a4a11cfc5c414cd",
+      "status": "Local diagnostic/bounded source review at its recorded head; not independent final stable pushed-head acceptance."
+    },
+    {
+      "source": "hover-class-role-additive-correction.md",
+      "archive": "hover-class-role-additive-correction.md.gz",
+      "sha256": "e3753982818291020851137c64f07332f2bdcd41904eeef4b293e3c62d622775",
+      "archiveSha256": "bbb9ccfdea6cc921d7abf3135521a51afd4bb8a0523565a9ea7b7237a81b1eb4",
+      "status": "Local diagnostic/bounded source review at its recorded head; not independent final stable pushed-head acceptance."
+    }
+  ],
+  "remaining": "Official secured Chromium unavailable after invalid0MiB ZIP; local real browser gates unexecuted. Preserve four d763Source reds. Seventeen native owner-role functions remain blocked: two knownHoverlane/fifteenleadassignments; PR42Compositefallback/PR73emptyStyle accepted-main handoffs pending. Required final pushed-head hostedCI, secured native/public browser controls and fresh independent entire-closure source/native/maintainability review pending. No complete parity, release, merge or final Source acceptance."
+}

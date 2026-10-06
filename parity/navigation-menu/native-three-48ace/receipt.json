@@ -1,0 +1,13 @@
+{
+  "candidate": "48ace1945541f0d75e4d2ab0614b1382462bb6a8",
+  "ordinaryCredit": 0,
+  "result": {
+    "passed": 3,
+    "failed": 0
+  },
+  "scope": "Public style, bare style and bare context capture DOM proof only; no hosted R2339/pointer/business acceptance or warning-free thirteen-part claim.",
+  "archive": "native-three-48ace.log.gz",
+  "sha256": "79eb6b113f253f36c6563186674c714f6bbf1f0373eaa70b6bc414a3e8ee2ae7",
+  "archiveSha256": "812367862aaeebeb3faa99496afc0de74c9123a43d0856f441c9e55a864d4317",
+  "pending": "final types/fixture/lint results, accepted-main owner-role/Composite/nativeProps dependencies and hosted final-headCI/review remain separate."
+}

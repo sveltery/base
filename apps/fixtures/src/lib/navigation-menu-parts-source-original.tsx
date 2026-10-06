@@ -1,6 +1,8 @@
 // Complete immutable Original render expressions; pin47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c; MIT.
 import * as React from 'react';
-import {NavigationMenu} from '@base-ui/react/navigation-menu';
+import { NavigationMenu } from '@base-ui/react/navigation-menu';
+// Preserve the complete immutable pinned source body/expression.
+// prettier-ignore
 export function NavigationMenuPartsOriginal({scenario}:{scenario:string}) {
  const [showFirst,setShowFirst]=React.useState(true);
  const navigate=React.useRef(()=>{});
@@ -407,6 +409,8 @@ export function NavigationMenuPartsOriginal({scenario}:{scenario:string}) {
 
 // Original describe callbacks construct these App types once. Keep that scope
 // while retaining each complete immutable function body below.
+// Preserve the complete immutable pinned source body/expression.
+// prettier-ignore
 const ListRemoval = (() => {
 function App({ showFirst }: { showFirst: boolean }) {
       return (
@@ -430,6 +434,8 @@ function App({ showFirst }: { showFirst: boolean }) {
 return App;
 })();
 
+// Preserve the complete immutable pinned source body/expression.
+// prettier-ignore
 const TriggerEnable = (() => {
 function App() {
       const [disabled, setDisabled] = React.useState(true);
@@ -453,6 +459,8 @@ function App() {
 return App;
 })();
 
+// Preserve the complete immutable pinned source body/expression.
+// prettier-ignore
 function TestActiveItemDropsTrigger({
   registerNavigate,
 }: {

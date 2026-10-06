@@ -8,7 +8,7 @@
   let value = $state('');
 </script>
 
-<Input {value} onValueChange={next => value = next} name="title" required />
+<Input {value} onValueChange={(next) => (value = next)} name="title" required />
 ```
 
 The Field.Control body follows the pinned source's ordering: resolve Field/Form/Labelable contexts, derive controlled state and serialized value, register the control, synchronize filled/changed Field state, and render the native host with ordered validation props. Each native input edit calls `onValueChange(value, details)` with reason `none`. A controlled Field reads accepted state from the owner prop; an uncontrolled Field marks dirty/filled before the cancellation check and changes validation only when the native event and details are uncanceled. Consumer handler prevention remains independent from native `preventDefault()`.

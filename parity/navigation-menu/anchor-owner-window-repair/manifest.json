@@ -1,0 +1,89 @@
+{
+  "sourcePin": "47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c",
+  "preRepairHead": "a98364a0855d9d555faebaf239d578049c9755c4",
+  "executedProbeHead": "dcd397a0",
+  "ordinaryCredit": 0,
+  "redResult": {
+    "total": 10,
+    "passed": 8,
+    "failed": 2,
+    "Original": {
+      "passed": 5,
+      "failed": 0
+    },
+    "native": {
+      "passed": 3,
+      "failed": 2
+    },
+    "failures": [
+      "adaptiveOrigin createHTMLDocument null defaultView getComputedStyle",
+      "size apply createHTMLDocument null defaultView devicePixelRatio"
+    ]
+  },
+  "records": [
+    {
+      "path": "packages/base/src/lib/internals/anchor-positioning/adaptive-origin.ts",
+      "archive": "adaptive-origin.ts.pre-repair.gz",
+      "sha256": "15cd34d1cddc4427617558e3f81830f40fe650a308330405468a4d6d5f2ce7e8",
+      "archiveSha256": "d7ff85ce0b8d263e156dcc4194b09319df7b8a04c8b04021924218e617e419eb"
+    },
+    {
+      "path": "packages/base/src/lib/internals/anchor-positioning/policy.ts",
+      "archive": "policy.ts.pre-repair.gz",
+      "sha256": "9e7580733d7aed91fd0ba12f7e8e4113d3c34e7f3b48d9e1104606a557de34d2",
+      "archiveSha256": "659ce617edf3de3e29d83ad47f09322af8c9fdbd72a0ed7fe7729ed8dd502328"
+    },
+    {
+      "path": "packages/base/tests/dom/anchor-navigation-owner-window.test.ts",
+      "archive": "anchor-navigation-owner-window.test.ts.pre-repair.gz",
+      "sha256": "239205279fd2b58e5e48408d9e8e50b17155d6d80b478b0c1e0dec906789e9b3",
+      "archiveSha256": "e029f8567996eebc91c80f01a33ed187c67f0318e00a8d045aec9517c85d870e"
+    },
+    {
+      "path": ".checks/owner-evidence/anchor-owner-red.log",
+      "archive": "anchor-owner-red.log.gz",
+      "sha256": "45885203258fb32b1f4dc2cba88ddd4102783126b5c1a7d910d14081d2cb84d3",
+      "archiveSha256": "ab40c21114f3f9ea3b50575efd18cd19c22ecc0c72d80bd59502cdd345dc8f8d"
+    },
+    {
+      "path": "packages/utils/src/lib/owner.ts",
+      "archive": "owner.ts.pre-repair.gz",
+      "sha256": "759c607acc1a103b2d795840051555671fe65fd889dae7694606b9069803f986",
+      "archiveSha256": "44937d3eacbb03bafff9a4ad8314bd82a6fe87490b60df20b5cd6c6118c046d6"
+    }
+  ],
+  "immutableOriginalFixtures": "../../../packages/base/tests/dom/fixtures/anchor-owner-window/manifest.json",
+  "scope": "Restore only two canonical Source ownerWindow reads after exact-pin reproduction; no new intentional difference, Composite changes, or whole-feature acceptance.",
+  "successorExecution": "Unchanged ten exact-pin paired tests pass10/10 locally at63f62857; broader required exact-head gates remain pending.",
+  "greenReceipt": {
+    "executionHead": "63f6285739e498fadab78fa3893d453f7c69b9d8",
+    "source": ".checks/owner-evidence/anchor-owner-green.log",
+    "archive": "anchor-owner-green.log.gz",
+    "sha256": "06e472b7711449c45d282ef7bf14eed952395f8d56305524be82342c1950d4d6",
+    "archiveSha256": "e68371f7ecb1358930fa2f3930cad7123cda13bac5d5619161ec986993469abf",
+    "result": {
+      "total": 10,
+      "passed": 10,
+      "failed": 0,
+      "Original": {
+        "passed": 5,
+        "failed": 0
+      },
+      "native": {
+        "passed": 5,
+        "failed": 0
+      }
+    },
+    "scope": "Unchanged exact-pin paired anchor probes only; no whole-feature or hosted/browser acceptance."
+  },
+  "probeTypeRepresentationRepair": {
+    "preTypeFixHead": "974c722ef718493dcdc48e79d10002fed2a85b93",
+    "probeArchive": "anchor-navigation-owner-window.test.ts.pre-type-fix.gz",
+    "probeSha256": "11a6674fa08af634e5c3665fecf4e4d280c09d745bf226111855ed0eafd6d67c",
+    "typeReceipt": "anchor-final-types-pre-fix.log.gz",
+    "typeReceiptSha256": "1fe44016dd5ee7628c984a6ebb1b7d468d3cf21c808f42ca0e6489f11fb7d066",
+    "change": "Explicit unknown cast for deliberately partial geometry platform and erased unknown node parameter annotation. No production platform stub or business/runtime change.",
+    "assertions": "Same ten assertion identities, predicates and expected values; red/green executed probe bytes remain historical archives.",
+    "successorTypecheck": "Pending root final-types rerun."
+  }
+}

@@ -1,0 +1,82 @@
+{
+  "testedPushedHead": "03939903434f614e3dfb5ab4442aefb53225e1df",
+  "localSuccessor": "713a7fba6372151b7ec47f5d31b4ad92dd79c6da",
+  "ordinaryDeclarationCredit": 0,
+  "browser": {
+    "run": 37254652260,
+    "job": 111589038743,
+    "url": "https://github.com/sveltery/base/actions/runs/37254652260",
+    "stats": {
+      "startTime": "2026-10-05T02:17:57.508Z",
+      "duration": 82464.967,
+      "expected": 48,
+      "skipped": 0,
+      "unexpected": 0,
+      "flaky": 0
+    },
+    "workers": 1,
+    "projects": [
+      {
+        "name": "",
+        "retries": 0
+      }
+    ],
+    "officialChromium": "153.0.8010.12",
+    "artifactId": 11322233918,
+    "artifactZipSha256": "4b04b1e7508bcb9a788694b492809f3d35e6b4e658fb7bc040f3c1c719017271"
+  },
+  "blockingGates": {
+    "CI": {
+      "run": 37254652161,
+      "verifyJob": 111589038594,
+      "status": "failed",
+      "cause": "82/83 script guards pass; Menu actual native closure differs from recorded bytes. Full later library/check/runtime/pack gates skipped; no gate acceptance."
+    },
+    "Anchor": {
+      "run": 37254652233,
+      "job": 111589038581,
+      "status": "failed",
+      "cause": "Isolated private anchor script generated check.mjs:11 still asserts Popover/Tooltip public root exports absent. Newly authorized real public families violate this old structural denylist. Geometry browser stage skipped."
+    }
+  },
+  "regularRootLocal": {
+    "status": "114/117 initially pass; three unchanged expected hover-close assertions remain failing and under actual pinned Original/literal native transport characterization. No runtime change or weakened expectation.",
+    "failures": [
+      "preview-card multiple-detached controlled trigger hover-close",
+      "preview-card multiple-detached controlled floating hover-close",
+      "tooltip multiple-detached controlled trigger hover-close"
+    ]
+  },
+  "receipts": [
+    {
+      "path": "parity/popup-family/receipts/popup-hosted-browser-039399.log.gz",
+      "rawSha256": "cf16999ba758d77762e7a7593eb905059b6ec9f818e1680ee858772c31e26b89",
+      "gzipSha256": "d41655da45b3598489d5d72c0d35fa8baea856508c4bc355fb8f0c3c0550a657"
+    },
+    {
+      "path": "parity/popup-family/receipts/popup-hosted-verify-039399.log.gz",
+      "rawSha256": "a19f0b2989269373b45396dad90b199886803f9d6dc36505d81967f830f3bcd3",
+      "gzipSha256": "3dda719fa58425ae9e05ff82da9b8f4cdf48071f3f79adaaddcd4defa7a6c0f3"
+    },
+    {
+      "path": "parity/popup-family/receipts/popup-hosted-anchor-039399.log.gz",
+      "rawSha256": "7f0ae464b4b6a18ae8984472938196114fc4627974272ea6f9cdc8634c5597f1",
+      "gzipSha256": "08fa4ad734b970d2d1e2c774536267de3f27becfa9eac052c66bdbba8df0c3b5"
+    },
+    {
+      "path": "parity/popup-family/receipts/popup-hosted-browser-results-039399.json.gz",
+      "rawSha256": "12eb7daee05c2f88f8a5bcd705882d2539424af9383dfcc09d5c02c88655bfd4",
+      "gzipSha256": "ac89e5ef2000ea36eb88d52670ae4c0415bdf12e62678152440b5d55fe23f561"
+    },
+    {
+      "path": "parity/popup-family/receipts/popup-root-source-first.log.gz",
+      "rawSha256": "817b4036adca057ba8b3366462aada8412fa75fcbf54712b9827014fb174c822",
+      "gzipSha256": "dc7fae3afb7c3458813ffa7ff19f8ad721fdf23aa3492582c0d1bcdd7e32220e"
+    },
+    {
+      "path": "parity/popup-family/receipts/popup-root-source-diagnostic.log.gz",
+      "rawSha256": "9120934e5230255350cd13197c3ab44f4b7360ee6b95e1fca0778c55dbee0dfb",
+      "gzipSha256": "6cbdb9d57fba12e59e2c80124f4eedb25f6f9448d12c0bb4b611043bd1f6b48d"
+    }
+  ]
+}

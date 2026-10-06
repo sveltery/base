@@ -15,10 +15,24 @@ const previous = read('prospective-native-reuse-graph.json');
 const authority = new Map(previous.modules.map((record) => [record.source, record]));
 const canonical = new Map(reuse.modules.map((record) => [record.local, record]));
 const extraction = new Map(transferred.portalExtractionFiles.map((record) => [record.path, record]));
+const sharedUtilities = JSON.parse(fs.readFileSync(path.join(repo, 'parity/shared-utils/source-graph.json'), 'utf8'));
+const utilityOrigins = new Map(sharedUtilities.modules.map((record) => [record.local, record]));
 
+// Resolve the canonical workspace package through its actual public exports.
+// Distribution declarations and runtime files both correspond to source bodies;
+// import declarations keep their own runtime/type classification below.
+const utilsPackage = JSON.parse(fs.readFileSync(path.join(repo, 'packages/utils/package.json'), 'utf8'));
 function resolve(from, specifier) {
-  if (!specifier.startsWith('.')) return `external:${specifier}`;
-  const base = path.resolve(repo, path.dirname(from), specifier);
+  let base;
+  if (specifier.startsWith('@sveltery/utils/')) {
+    const subpath = `./${specifier.slice('@sveltery/utils/'.length)}`;
+    const exported = utilsPackage.exports[subpath];
+    const target = typeof exported === 'string' ? exported : exported?.svelte ?? exported?.default ?? exported?.types;
+    if (!target || !target.startsWith('./dist/')) throw new Error(`Unresolved workspace export ${from} -> ${specifier}`);
+    base = path.resolve(repo, 'packages/utils/src/lib', target.slice('./dist/'.length).replace(/\.d\.ts$/, '.ts'));
+  } else if (specifier.startsWith('.')) {
+    base = path.resolve(repo, path.dirname(from), specifier);
+  } else return `external:${specifier}`;
   for (const candidate of [base, base.replace(/\.js$/, '.ts'), base.replace(/\.js$/, '.svelte'), `${base}.ts`, `${base}.svelte`, `${base}/index.ts`]) {
     if (fs.existsSync(candidate) && fs.statSync(candidate).isFile()) return path.relative(repo, candidate);
   }
@@ -66,11 +80,15 @@ while (queue.length) {
     visit(ast);
     const sha256 = hash(bytes);
     const prior = authority.get(source);
-    const planned = canonical.get(source);
+    const historicalUtilityPath = source.startsWith('packages/utils/src/lib/')
+      ? source.replace('packages/utils/src/lib/', 'packages/base/src/lib/utils/') : source;
+    const planned = canonical.get(source) ?? canonical.get(historicalUtilityPath);
+    const utilityOrigin = utilityOrigins.get(source);
     const portal = extraction.get(source);
     record = {
       source, sha256, bytes: bytes.length, imports, typeQueries: queries, declarations, reachability: [],
-      originalModules: planned?.selectedFromOriginal ?? [],
+      originalModules: planned?.selectedFromOriginal ?? (utilityOrigin ? [utilityOrigin.source] : []),
+      nativeReplacement: utilityOrigin?.nativeReplacement ?? null,
       exactInheritedNativeBody: prior?.sha256 === sha256,
       inheritedWholeBodyAuthority: prior?.sha256 === sha256 ? prior.completeBodyAuthority : null,
       exactReviewedPortalExtraction: portal?.sha256 === sha256,
@@ -89,7 +107,29 @@ const modules = [...records.values()].sort((a, b) => a.source.localeCompare(b.so
 const graph = {
   pin: original.pin, roots, status: 'Actual public syntax runtime/type closure; member/body acceptance is separate and pending',
   moduleCount: modules.length, statementCount: modules.reduce((total, record) => total + record.imports.length + record.typeQueries.length, 0),
-  ordinaryCredit: 0, modules,
+  ordinaryCredit: 0,
+  dependencyStatus: [{
+    pr: 'https://github.com/sveltery/base/pull/42',
+    scope: 'Canonical Composite reached through List/Content/Trigger/viewport guards',
+    status: 'Sole shared owner has bounded owner-window getComputedStyle repair pending exact lead handoff; inherited Composite source acceptance remains pending. No duplicate local fix.',
+  }],
+  resolvedSourceFindings: [
+    {
+      source: 'packages/base/src/lib/internals/anchor-positioning/adaptive-origin.ts',
+      line: 20,
+      contract: 'Pinned ownerWindow getComputedStyle fallback',
+      status: 'Exact-pin paired reproduction verified native mismatch; canonical ownerWindow fidelity repair executes unchanged probes10/10 at63f62857. Broader final-head acceptance pending; no shared upstream bug or ordinary assertion credit.',
+      receipt: 'parity/navigation-menu/anchor-owner-window-repair/manifest.json',
+    },
+    {
+      source: 'packages/base/src/lib/internals/anchor-positioning/policy.ts',
+      line: 223,
+      contract: 'Pinned ownerWindow devicePixelRatio fallback',
+      status: 'Exact-pin paired reproduction verified native mismatch; canonical ownerWindow fidelity repair executes unchanged probes10/10 at63f62857. Broader final-head acceptance pending; no shared upstream bug or ordinary assertion credit.',
+      receipt: 'parity/navigation-menu/anchor-owner-window-repair/manifest.json',
+    },
+  ],
+  modules,
 };
 fs.writeFileSync(path.join(evidence, 'actual-native-graph.json'), JSON.stringify(graph, null, 2) + '\n');
 const inventory = read('original-assertions.json');

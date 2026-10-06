@@ -18,16 +18,11 @@ for (const renderer of ['react', 'svelte']) {
         document.body.append(host);
         if (renderer === 'react') {
           cleanups.push(
-            mountRadioReference(
-              host,
-              value === '' ? 'standalone-empty' : 'standalone-nonempty',
-            ),
+            mountRadioReference(host, value === '' ? 'standalone-empty' : 'standalone-nonempty'),
           );
           await vi.waitFor(() => {
             expect(
-              host
-                .querySelector('main[data-hydrated="true"]')
-                ?.getAttribute('data-renderer'),
+              host.querySelector('main[data-hydrated="true"]')?.getAttribute('data-renderer'),
             ).toBe('19.2.8/19.2.8');
           });
         } else {
@@ -36,15 +31,10 @@ for (const renderer of ['react', 'svelte']) {
           flushSync();
         }
         const field = host.querySelector<HTMLElement>('#standalone-field')!;
-        const radio = host.querySelector<HTMLElement>(
-          '[data-testid="standalone-radio"]',
-        )!;
-        const input =
-          host.querySelector<HTMLInputElement>('#standalone-input')!;
+        const radio = host.querySelector<HTMLElement>('[data-testid="standalone-radio"]')!;
+        const input = host.querySelector<HTMLInputElement>('#standalone-input')!;
         const selected = value === '';
-        await vi.waitFor(() =>
-          expect(field.hasAttribute('data-filled')).toBe(selected),
-        );
+        await vi.waitFor(() => expect(field.hasAttribute('data-filled')).toBe(selected));
         expect(input.checked).toBe(selected);
         expect(radio.getAttribute('aria-checked')).toBe(String(selected));
         expect(field.hasAttribute('data-touched')).toBe(false);
@@ -56,9 +46,7 @@ for (const renderer of ['react', 'svelte']) {
         else input.click();
         flushSync();
         await tick();
-        await vi.waitFor(() =>
-          expect(field.hasAttribute('data-touched')).toBe(!selected),
-        );
+        await vi.waitFor(() => expect(field.hasAttribute('data-touched')).toBe(!selected));
 
         expect(radio.getAttribute('aria-checked')).toBe(String(selected));
         expect(field.hasAttribute('data-filled')).toBe(selected);

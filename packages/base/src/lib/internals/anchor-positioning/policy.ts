@@ -1,6 +1,20 @@
 // Derived from Base UI 1.8.0 at 47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c; MIT: parity/anchor-positioning/UPSTREAM_LICENSE.
-import { autoUpdate, inline, flip, limitShift, offset, shift as floatingShift, size, type Middleware, type MiddlewareState, type Placement, type AutoUpdateOptions, type Side as PhysicalSide } from '@floating-ui/dom';
+import {
+  autoUpdate,
+  inline,
+  flip,
+  limitShift,
+  offset,
+  shift as floatingShift,
+  size,
+  type Middleware,
+  type MiddlewareState,
+  type Placement,
+  type AutoUpdateOptions,
+  type Side as PhysicalSide,
+} from '@floating-ui/dom';
 import { getSide, getAlignment, getSideAxis } from '@floating-ui/utils';
+import { ownerWindow } from '@sveltery/utils/owner';
 import { baseArrow as arrow } from './arrow.js';
 import { hide } from './hide.js';
 import * as CommonPositionerCssVars from './css-vars.js';
@@ -33,19 +47,38 @@ function getOffsetData(state: MiddlewareState, sideParam: Side, isRtl: boolean) 
 }
 
 export function getPhysicalSide(side: Side, isRtl: boolean): PhysicalSide {
-  return ({
-    top: 'top', right: 'right', bottom: 'bottom', left: 'left',
-    'inline-end': isRtl ? 'left' : 'right',
-    'inline-start': isRtl ? 'right' : 'left',
-  } satisfies Record<Side, PhysicalSide>)[side];
+  return (
+    {
+      top: 'top',
+      right: 'right',
+      bottom: 'bottom',
+      left: 'left',
+      'inline-end': isRtl ? 'left' : 'right',
+      'inline-start': isRtl ? 'right' : 'left',
+    } satisfies Record<Side, PhysicalSide>
+  )[side];
 }
 
-export function createPositioningPolicy(options: AnchorPositioningOptions & { direction?: 'ltr' | 'rtl' }, getArrow: () => Element | null, isCurrent: (floating: HTMLElement) => boolean, mountSide: PhysicalSide | null = null) {
+export function createPositioningPolicy(
+  options: AnchorPositioningOptions & { direction?: 'ltr' | 'rtl' },
+  getArrow: () => Element | null,
+  isCurrent: (floating: HTMLElement) => boolean,
+  mountSide: PhysicalSide | null = null,
+) {
   const {
-    positionMethod = 'absolute', side: sideParam = 'bottom', sideOffset = 0,
-    align = 'center', alignOffset = 0, collisionBoundary,
-    collisionPadding: collisionPaddingParam = 5, sticky = false, arrowPadding = 5,
-    collisionAvoidance, shift, inline, adaptiveOrigin,
+    positionMethod = 'absolute',
+    side: sideParam = 'bottom',
+    sideOffset = 0,
+    align = 'center',
+    alignOffset = 0,
+    collisionBoundary,
+    collisionPadding: collisionPaddingParam = 5,
+    sticky = false,
+    arrowPadding = 5,
+    collisionAvoidance,
+    shift,
+    inline,
+    adaptiveOrigin,
   } = options;
   const isRtl = options.direction === 'rtl';
   const collisionAvoidanceSide = collisionAvoidance.side || 'flip';
@@ -100,26 +133,18 @@ export function createPositioningPolicy(options: AnchorPositioningOptions & { di
   const middleware: Array<Middleware | null | undefined> = [];
   if (inline) middleware.push(inline);
   middleware.push(
-    offset(
-      (state) => {
-        const data = getOffsetData(state, sideParam, isRtl);
+    offset((state) => {
+      const data = getOffsetData(state, sideParam, isRtl);
 
-        const sideAxis =
-          typeof sideOffset === 'function'
-            ? sideOffset(data)
-            : sideOffset;
-        const alignAxis =
-          typeof alignOffset === 'function'
-            ? alignOffset(data)
-            : alignOffset;
+      const sideAxis = typeof sideOffset === 'function' ? sideOffset(data) : sideOffset;
+      const alignAxis = typeof alignOffset === 'function' ? alignOffset(data) : alignOffset;
 
-        return {
-          mainAxis: sideAxis,
-          crossAxis: alignAxis,
-          alignmentAxis: alignAxis,
-        };
-      },
-    ),
+      return {
+        mainAxis: sideAxis,
+        crossAxis: alignAxis,
+        alignmentAxis: alignAxis,
+      };
+    }),
   );
 
   const shiftDisabled = collisionAvoidanceAlign === 'none' && collisionAvoidanceSide !== 'shift';
@@ -145,34 +170,32 @@ export function createPositioningPolicy(options: AnchorPositioningOptions & { di
         });
   const shiftMiddleware = shiftDisabled
     ? null
-    : floatingShift(
-        {
-          ...commonCollisionProps,
-          // Use the Layout Viewport to avoid shifting around when pinch-zooming.
-          rootBoundary: shiftRootBoundary,
-          mainAxis: collisionAvoidanceAlign !== 'none',
-          crossAxis: crossAxisShiftEnabled,
-          limiter:
-            sticky || shiftCrossAxis
-              ? undefined
-              : limitShift((limitData) => {
-                  const arrowElement = getArrow();
-                  if (!arrowElement) {
-                    return {};
-                  }
-                  const { width, height } = arrowElement.getBoundingClientRect();
-                  const sideAxis = getSideAxis(getSide(limitData.placement));
-                  const arrowSize = sideAxis === 'y' ? width : height;
-                  const offsetAmount =
-                    sideAxis === 'y'
-                      ? collisionPadding.left + collisionPadding.right
-                      : collisionPadding.top + collisionPadding.bottom;
-                  return {
-                    offset: arrowSize / 2 + offsetAmount / 2,
-                  };
-                }),
-        },
-      );
+    : floatingShift({
+        ...commonCollisionProps,
+        // Use the Layout Viewport to avoid shifting around when pinch-zooming.
+        rootBoundary: shiftRootBoundary,
+        mainAxis: collisionAvoidanceAlign !== 'none',
+        crossAxis: crossAxisShiftEnabled,
+        limiter:
+          sticky || shiftCrossAxis
+            ? undefined
+            : limitShift((limitData) => {
+                const arrowElement = getArrow();
+                if (!arrowElement) {
+                  return {};
+                }
+                const { width, height } = arrowElement.getBoundingClientRect();
+                const sideAxis = getSideAxis(getSide(limitData.placement));
+                const arrowSize = sideAxis === 'y' ? width : height;
+                const offsetAmount =
+                  sideAxis === 'y'
+                    ? collisionPadding.left + collisionPadding.right
+                    : collisionPadding.top + collisionPadding.bottom;
+                return {
+                  offset: arrowSize / 2 + offsetAmount / 2,
+                };
+              }),
+      });
 
   // https://floating-ui.com/docs/flip#combining-with-shift
   if (
@@ -198,7 +221,7 @@ export function createPositioningPolicy(options: AnchorPositioningOptions & { di
         floatingStyle.setProperty(AVAILABLE_HEIGHT_VAR, `${availableHeight}px`);
 
         // Snap anchor dimensions to device pixels to ensure the popup's visual width matches the anchor's one.
-        const dpr = floating.ownerDocument.defaultView!.devicePixelRatio || 1;
+        const dpr = ownerWindow(floating).devicePixelRatio || 1;
         const { x, y, width, height } = rects.reference;
         const anchorWidth = (Math.round((x + width) * dpr) - Math.round(x * dpr)) / dpr;
         const anchorHeight = (Math.round((y + height) * dpr) - Math.round(y * dpr)) / dpr;
@@ -207,16 +230,14 @@ export function createPositioningPolicy(options: AnchorPositioningOptions & { di
         floatingStyle.setProperty(CommonPositionerCssVars.anchorHeight, `${anchorHeight}px`);
       },
     }),
-    arrow(
-      (state) => ({
-        // `transform-origin` calculations rely on an element existing. If the arrow hasn't been set,
-        // we'll create a fake element.
-        element: getArrow() || state.elements.floating.ownerDocument.createElement('div'),
-        // No padding for the fake arrow: it would displace aligned popups on narrow anchors.
-        padding: getArrow() ? arrowPadding : 0,
-        offsetParent: 'floating',
-      }),
-    ),
+    arrow((state) => ({
+      // `transform-origin` calculations rely on an element existing. If the arrow hasn't been set,
+      // we'll create a fake element.
+      element: getArrow() || state.elements.floating.ownerDocument.createElement('div'),
+      // No padding for the fake arrow: it would displace aligned popups on narrow anchors.
+      padding: getArrow() ? arrowPadding : 0,
+      offsetParent: 'floating',
+    })),
     {
       name: 'transformOrigin',
       async fn(state) {
@@ -249,7 +270,8 @@ export function createPositioningPolicy(options: AnchorPositioningOptions & { di
         ) {
           // The platform direction, not `isRtl`: it must match what Floating UI placed with.
           crossOrigin =
-            (renderedAlign === 'start') === (isVertical && (await platform.isRTL?.(floating)) === true)
+            (renderedAlign === 'start') ===
+            (isVertical && (await platform.isRTL?.(floating)) === true)
               ? '100%'
               : '0%';
         } else {
@@ -286,7 +308,11 @@ export function createPositioningPolicy(options: AnchorPositioningOptions & { di
     adaptiveOrigin,
   );
 
-  return { placement, strategy: positionMethod, middleware: middleware.filter((item): item is Middleware => item != null) };
+  return {
+    placement,
+    strategy: positionMethod,
+    middleware: middleware.filter((item): item is Middleware => item != null),
+  };
 }
 
 /** Preserve source ambient constructor checks and ancestorResize's default. */

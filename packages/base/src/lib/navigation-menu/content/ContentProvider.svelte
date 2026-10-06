@@ -5,4 +5,5 @@
   let { nodeId, children }: { nodeId: string | undefined; children?: Snippet } = $props();
   provideFloatingNode(() => nodeId);
 </script>
+
 {@render children?.()}

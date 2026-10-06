@@ -1,11 +1,12 @@
 <script lang="ts">
   // Original NavigationMenuItem with native nullish ID/context/rendering (MIT).
-  import RenderElement from '../internals/RenderElement.svelte';
+  import { mergeComponentProps } from '../internals/mergeComponentProps.js';
+  import { untrack } from 'svelte';
+  import { createAttachmentKey } from 'svelte/attachments';
   import { useBaseUiId } from '../internals/useBaseUiId.js';
   import { provideNavigationMenuItemContext } from './item/NavigationMenuItemContext.js';
   import type { NavigationMenuItemProps } from './types.js';
   let {
-    // eslint-disable-next-line no-useless-assignment -- Native bind:ref publishes the host.
     ref = $bindable(null),
     value: valueProp,
     render,
@@ -22,12 +23,24 @@
       return value;
     },
   });
-  const componentProps = $derived({ render, class: classProp, style });
-  const refs = [
-    (node: HTMLElement | null) => {
-      ref = node;
-    },
-  ];
-  const params = $derived({ ref: refs, props: elementProps });
+  const hostAttachmentKey = createAttachmentKey();
+  function attachHost(host: HTMLElement) {
+    return untrack(() => {
+      ref = host;
+
+      return () =>
+        untrack(() => {
+          if (ref === host) ref = null;
+        });
+    });
+  }
+  const params = $derived({ props: elementProps });
+  const mergedProps = $derived({
+    ...mergeComponentProps({}, { class: classProp, style }, params.props, undefined),
+    [hostAttachmentKey]: attachHost,
+  });
 </script>
-<RenderElement tag="li" {componentProps} {params} {children} />
+
+{#if render}{@render render(mergedProps, {}, children)}{:else}<li {...mergedProps}
+    >{@render children?.()}</li
+  >{/if}

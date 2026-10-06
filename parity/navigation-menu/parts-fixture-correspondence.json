@@ -138,9 +138,9 @@
   "ordinaryCredit": 0,
   "status": "Complete Original render expressions unchanged; native API counterparts and secured execution/review pending",
   "reference": "apps/fixtures/src/lib/navigation-menu-parts-source-original.tsx",
-  "referenceSha256": "424ab44e17df278fd1fdad5f0eaa2b9a8f80b6daac8d72086811b363135930cd",
+  "referenceSha256": "500cade7cef5f48d522e196ed42a47a5bbafd88af9dd50cd7a0e2feb80207623",
   "native": "apps/fixtures/src/lib/NavigationMenuPartsSourceFixture.svelte",
-  "nativeSha256": "1cb647737902901f1a3a5956f1d402b3bee823145f0c0da815881beb738e636a",
+  "nativeSha256": "7747c0beddf47f466399c8b536bd50704ad49aa3bd2754e17bd300b142457019",
   "originalFunctions": [
     {
       "source": "packages/react/src/navigation-menu/list/NavigationMenuList.test.tsx",

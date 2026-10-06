@@ -3,7 +3,10 @@
 import type { HTMLImgAttributes } from 'svelte/elements';
 import type { ImageLoadingStatus } from './types.js';
 
-type UseImageLoadingStatusOptions = Pick<HTMLImgAttributes, 'referrerpolicy' | 'crossorigin' | 'sizes' | 'srcset'>;
+type UseImageLoadingStatusOptions = Pick<
+  HTMLImgAttributes,
+  'referrerpolicy' | 'crossorigin' | 'sizes' | 'srcset'
+>;
 
 export function useImageLoadingStatus(
   getSrc: () => string | undefined,
@@ -11,7 +14,9 @@ export function useImageLoadingStatus(
   getEnabled: () => boolean,
 ) {
   let loadingStatus = $state<ImageLoadingStatus>('idle');
-  function setLoadingStatus(status: ImageLoadingStatus) { loadingStatus = status; }
+  function setLoadingStatus(status: ImageLoadingStatus) {
+    loadingStatus = status;
+  }
 
   // Probe after component setup, as the source layout effect does: transition
   // state must initialize from idle before a cached probe publishes loaded.
@@ -20,7 +25,10 @@ export function useImageLoadingStatus(
     if (!getEnabled()) return;
     const src = getSrc();
     const { referrerpolicy, crossorigin, sizes, srcset } = getOptions();
-    if (!src && !srcset) { setLoadingStatus('error'); return; }
+    if (!src && !srcset) {
+      setLoadingStatus('error');
+      return;
+    }
 
     let isMounted = true;
     const image = new window.Image();
@@ -36,8 +44,15 @@ export function useImageLoadingStatus(
     if (srcset) image.srcset = srcset;
     if (src) image.src = src;
     if (image.complete) setLoadingStatus(image.naturalWidth > 0 ? 'loaded' : 'error');
-    return () => { isMounted = false; };
+    return () => {
+      isMounted = false;
+    };
   });
 
-  return { get loadingStatus() { return loadingStatus; }, setLoadingStatus };
+  return {
+    get loadingStatus() {
+      return loadingStatus;
+    },
+    setLoadingStatus,
+  };
 }

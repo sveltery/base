@@ -17,8 +17,7 @@ export const docs: Doc[] = [
     slug: '',
     group: 'Overview',
     title: 'Build on a thoughtful base.',
-    description:
-      'Unstyled building blocks for Svelte 5. Familiar parts, room for your own design.',
+    description: 'Unstyled building blocks for Svelte 5. Familiar parts, room for your own design.',
     sections: [
       {
         id: 'introduction',
@@ -39,7 +38,7 @@ export const docs: Doc[] = [
         id: 'status',
         title: 'A foundation in progress',
         paragraphs: [
-          'The repository catalog accounts for 23 bounded modules and 19 unimplemented modules, including providers and utilities. Field, Form, Fieldset, Checkbox, CheckboxGroup, Switch, Radio and RadioGroup are available alongside UseRender composition and the earlier components. Remote Form exposes typed Field children and control descriptors. Complete upstream compatibility remains unfinished; the catalog ledger records each exported scope and its limits.',
+          'The current catalog has 25 bounded modules, 7 available native modules awaiting acceptance, 9 unimplemented modules, and 1 retired standalone renderer API. Field, Form, Fieldset, Checkbox, CheckboxGroup, Switch, Radio and RadioGroup are available alongside native render snippets and the earlier components. Remote Form exposes typed Field children and control descriptors. Complete upstream compatibility remains unfinished; the catalog ledger records each exported scope and its limits.',
           'The package is private and unpublished. APIs may change. Use this workspace to evaluate the current slice; check the repository contracts before depending on a behavior.',
         ],
         links: [
@@ -55,8 +54,7 @@ export const docs: Doc[] = [
     slug: 'getting-started',
     group: 'Getting started',
     title: 'Getting started',
-    description:
-      'Run the source, explore a component, and understand what is available today.',
+    description: 'Run the source, explore a component, and understand what is available today.',
     sections: [
       {
         id: 'workspace',
@@ -158,14 +156,50 @@ export const docs: Doc[] = [
           },
         ],
       },
+      {
+        id: 'host',
+        title: 'Use the native default host',
+        paragraphs: [
+          'Each component renders its own native element. Button renders a button; Input delegates to Field.Control and renders an input. State, event handlers and attributes remain owned by that component.',
+        ],
+        code: '<script lang="ts">\n  import { Button } from "@sveltery/base";\n</script>\n<Button class="action">Action</Button>',
+      },
+      {
+        id: 'compose',
+        title: 'Compose a snippet',
+        paragraphs: [
+          'A render snippet receives merged props, component state and the children snippet. Spread the supplied props onto the actual host to preserve business attachments, focus and registration. Use mergeProps to add native props with source class, style and event precedence.',
+        ],
+        code: '<script lang="ts">\n  import { Toggle, mergeProps } from "@sveltery/base";\n</script>\n<Toggle nativeButton={false}>\n  {#snippet render(props, state, children)}\n    <span {...mergeProps(props, { class: "owned" })} data-selected={state.pressed}>\n      {@render children?.()}\n    </span>\n  {/snippet}\n  Content\n</Toggle>',
+      },
+      {
+        id: 'bindings',
+        title: 'Observe the actual element',
+        paragraphs: [
+          'Use bind:ref for the actual component host and bind:inputRef for Checkbox, Switch, Radio.Root or RadioGroup native inputs. Native attachments belong on the host you render and clean up with Svelte’s attachment lifetime.',
+        ],
+        code: '<script lang="ts">\n  import { Checkbox } from "@sveltery/base";\n  let input = $state<HTMLInputElement | null>();\n</script>\n<Checkbox.Root bind:inputRef={input} />',
+      },
+      {
+        id: 'identity',
+        title: 'Keep snippet identity stable',
+        paragraphs: [
+          'Reactive snippet arguments update a retained host. A changed snippet identity or branch can replace it. Native attachments observe actual Svelte update and removal timing.',
+        ],
+        links: [
+          {
+            label: 'Read native component composition',
+            href: 'https://github.com/sveltery/base/blob/main/docs/rendering.md',
+          },
+        ],
+      },
     ],
   },
   {
     slug: 'handbook/accessibility',
     group: 'Handbook',
     title: 'Accessibility',
-    description:
-      'Treat names, focus, and keyboard behavior as part of the design.',
+    description: 'Treat names, focus, and keyboard behavior as part of the design.',
     sections: [
       {
         id: 'names',
@@ -235,74 +269,248 @@ export const docs: Doc[] = [
     ],
   },
   {
-    slug: 'components/use-render', group: 'Components', title: 'UseRender',
-    description: 'Render a native host or compose a replacement snippet with state and actual element references.',
-    sections: [
-      { id: 'host', title: 'Render a host', paragraphs: ['UseRender renders a div by default. Choose an HTML or SVG tag with defaultTagName, pass native attributes in props and pass component state through state. True state values become empty data attributes; other truthy values stringify.'], code: '<script lang="ts">\n  import { UseRender } from "@sveltery/base/use-render";\n</script>\n<UseRender defaultTagName="button" props={{ class: "action" }} state={{ active: true }}>\n  Action\n</UseRender>' },
-      { id: 'compose', title: 'Compose a snippet', paragraphs: ['A replacement snippet receives merged host props, current state and children. Spread the supplied props onto its actual host to forward attachments. Use mergeProps to add replacement-owned native props last. Keep snippet identity stable and update reactive arguments to retain its host and refs.'], code: '<script lang="ts">\n  import { UseRender, mergeProps } from "@sveltery/base";\n</script>\n<UseRender state={{ active: true }}>\n  {#snippet render(supplied, state, children)}\n    <span {...mergeProps(supplied, { class: "owned" })} data-selected={state.active}>\n      {@render children?.()}\n    </span>\n  {/snippet}\n  Content\n</UseRender>' },
-      { id: 'refs', title: 'Observe the actual element', paragraphs: ['Use bind:element for the resolved host, or pass callback/object refs and arrays through ref. Callback cleanup supersedes null delivery. Disabled rendering removes its host and skips new render/state work. A default button receives type=button; a default image receives alt="". Replacement snippets own their defaults.'] },
-      { id: 'limits', title: 'Compatibility limits', paragraphs: ['UseRender is a native Svelte component representation of a React hook. Changed snippet identity replaces the native host even when the tag matches. Full owner unmount or host replacement inside an unchanged snippet can call cleanup after removal. React return typing, lazy/Flight/RSC and diagnostics remain unimplemented. Public props accepts an ordinary object; ordered getters and class/style callbacks remain private.'], links: [{ label: 'Read the UseRender contract and evidence', href: 'https://github.com/sveltery/base/blob/main/docs/use-render.md' }] },
-    ],
-  },
-  {
-    slug: 'components/csp-provider', group: 'Components', title: 'CSP Provider',
+    slug: 'components/csp-provider',
+    group: 'Components',
+    title: 'CSP Provider',
     description: 'Share optional CSP settings with descendant components as they gain support.',
     sections: [
-      { id: 'provide', title: 'Provide settings', paragraphs: ['CSPProvider renders its children without a wrapper element. It accepts an optional string nonce and optional boolean disableStyleElements.'], code: '<script lang="ts">\n  import { CSPProvider } from "@sveltery/base/csp-provider";\n</script>\n<CSPProvider nonce="server-provided-nonce" disableStyleElements>\n  <Content />\n</CSPProvider>' },
-      { id: 'defaults', title: 'Defaults and nesting', paragraphs: ['Without a provider, the internal default has disableStyleElements=false. A provider supplies its own optional values, including undefined when omitted. Nested providers replace outer settings, and prop updates reach existing descendants.'] },
-      { id: 'imports', title: 'Imports and types', paragraphs: ['Import CSPProvider from @sveltery/base or @sveltery/base/csp-provider. CSPProviderProps and CSPProviderState are named type exports from either entry. CSPProvider.Props and CSPProvider.State preserve the pinned type-only aliases without runtime properties. Children use a Svelte snippet; the provider has no native host attributes or public context reader.'] },
-      { id: 'limits', title: 'Current support', paragraphs: ['This release provides the context foundation. No downstream style or script consumer is implemented yet: ScrollArea, Select and prehydration scripts remain future work. Passing a nonce does not currently establish nonce application or style-tag suppression. The provider does not generate a nonce or set response headers. Four dependent upstream declarations remain deferred and uncredited.'], links: [{ label: 'Read the CSPProvider contract and evidence', href: 'https://github.com/sveltery/base/blob/main/docs/csp-provider.md' }] },
+      {
+        id: 'provide',
+        title: 'Provide settings',
+        paragraphs: [
+          'CSPProvider renders its children without a wrapper element. It accepts an optional string nonce and optional boolean disableStyleElements.',
+        ],
+        code: '<script lang="ts">\n  import { CSPProvider } from "@sveltery/base/csp-provider";\n</script>\n<CSPProvider nonce="server-provided-nonce" disableStyleElements>\n  <Content />\n</CSPProvider>',
+      },
+      {
+        id: 'defaults',
+        title: 'Defaults and nesting',
+        paragraphs: [
+          'Without a provider, the internal default has disableStyleElements=false. A provider supplies its own optional values, including undefined when omitted. Nested providers replace outer settings, and prop updates reach existing descendants.',
+        ],
+      },
+      {
+        id: 'imports',
+        title: 'Imports and types',
+        paragraphs: [
+          'Import CSPProvider from @sveltery/base or @sveltery/base/csp-provider. CSPProviderProps and CSPProviderState are named type exports from either entry. CSPProvider.Props and CSPProvider.State preserve the pinned type-only aliases without runtime properties. Children use a Svelte snippet; the provider has no native host attributes or public context reader.',
+        ],
+      },
+      {
+        id: 'limits',
+        title: 'Current support',
+        paragraphs: [
+          'This release provides the context foundation. No downstream style or script consumer is implemented yet: ScrollArea, Select and prehydration scripts remain future work. Passing a nonce does not currently establish nonce application or style-tag suppression. The provider does not generate a nonce or set response headers. Four dependent upstream declarations remain deferred and uncredited.',
+        ],
+        links: [
+          {
+            label: 'Read the CSPProvider contract and evidence',
+            href: 'https://github.com/sveltery/base/blob/main/docs/csp-provider.md',
+          },
+        ],
+      },
     ],
   },
   {
-    slug: 'components/direction-provider', group: 'Components', title: 'Direction Provider',
+    slug: 'components/direction-provider',
+    group: 'Components',
+    title: 'Direction Provider',
     description: 'Share a text reading direction with descendant components.',
     sections: [
-      { id: 'provide', title: 'Provide a direction', paragraphs: ['Wrap content in DirectionProvider with direction="rtl" or direction="ltr". It supplies context without adding an element or setting dir on your document.'], code: '<DirectionProvider direction="rtl"><Content /></DirectionProvider>' },
-      { id: 'read', title: 'Read reactive direction', paragraphs: ['In a descendant component, call useDirection once during initialization. Retain the returned reader and call it in markup, $derived or event handlers. Reading once during initialization captures only that value.'], code: '<script lang="ts">\n  import { useDirection } from "@sveltery/base/direction-provider";\n  const direction = useDirection();\n  let isRTL = $derived(direction() === "rtl");\n</script>\n<span dir={direction()}>{isRTL ? "RTL content" : "LTR content"}</span>' },
-      { id: 'defaults', title: 'Defaults and nesting', paragraphs: ['Readers outside a provider return ltr. An omitted or undefined provider direction also defaults to ltr. A nested provider owns its direction and defaults to ltr rather than inheriting its parent. Prop updates reach its existing descendants.'] },
-      { id: 'imports', title: 'Imports and types', paragraphs: ['Import DirectionProvider and useDirection from @sveltery/base or @sveltery/base/direction-provider. DirectionProviderProps and TextDirection are named types; DirectionProvider.Props and the empty DirectionProvider.State are type-only aliases. The hook takes no override argument.'] },
-      { id: 'limits', title: 'Compatibility limits', paragraphs: ['The reader is a callable Svelte API. It reads live owner changes, including inside the same event handler. Existing controls are not automatically connected to this context, and full directional interaction compatibility remains unfinished.'], links: [{ label: 'Read the DirectionProvider contract and evidence', href: 'https://github.com/sveltery/base/blob/main/docs/direction-provider.md' }] },
+      {
+        id: 'provide',
+        title: 'Provide a direction',
+        paragraphs: [
+          'Wrap content in DirectionProvider with direction="rtl" or direction="ltr". It supplies context without adding an element or setting dir on your document.',
+        ],
+        code: '<DirectionProvider direction="rtl"><Content /></DirectionProvider>',
+      },
+      {
+        id: 'read',
+        title: 'Read reactive direction',
+        paragraphs: [
+          'In a descendant component, call useDirection once during initialization. Retain the returned reader and call it in markup, $derived or event handlers. Reading once during initialization captures only that value.',
+        ],
+        code: '<script lang="ts">\n  import { useDirection } from "@sveltery/base/direction-provider";\n  const direction = useDirection();\n  let isRTL = $derived(direction() === "rtl");\n</script>\n<span dir={direction()}>{isRTL ? "RTL content" : "LTR content"}</span>',
+      },
+      {
+        id: 'defaults',
+        title: 'Defaults and nesting',
+        paragraphs: [
+          'Readers outside a provider return ltr. An omitted or undefined provider direction also defaults to ltr. A nested provider owns its direction and defaults to ltr rather than inheriting its parent. Prop updates reach its existing descendants.',
+        ],
+      },
+      {
+        id: 'imports',
+        title: 'Imports and types',
+        paragraphs: [
+          'Import DirectionProvider and useDirection from @sveltery/base or @sveltery/base/direction-provider. DirectionProviderProps and TextDirection are named types; DirectionProvider.Props and the empty DirectionProvider.State are type-only aliases. The hook takes no override argument.',
+        ],
+      },
+      {
+        id: 'limits',
+        title: 'Compatibility limits',
+        paragraphs: [
+          'The reader is a callable Svelte API. It reads live owner changes, including inside the same event handler. Existing controls are not automatically connected to this context, and full directional interaction compatibility remains unfinished.',
+        ],
+        links: [
+          {
+            label: 'Read the DirectionProvider contract and evidence',
+            href: 'https://github.com/sveltery/base/blob/main/docs/direction-provider.md',
+          },
+        ],
+      },
     ],
   },
   {
-    slug: 'components/avatar', group: 'Components', title: 'Avatar',
+    slug: 'components/avatar',
+    group: 'Components',
+    title: 'Avatar',
     description: 'A profile image with initials or a fallback icon while it loads.',
     sections: [
-      { id: 'anatomy', title: 'Assemble the parts', paragraphs: ['Root owns the image loading status. Image loads a source and Fallback displays initials until it is ready.'], code: '<Avatar.Root><Avatar.Image src="/avatar.png" alt="Jane Doe" /><Avatar.Fallback>JD</Avatar.Fallback></Avatar.Root>' },
-      { id: 'loading', title: 'Load the image', paragraphs: ['The default mode preloads the source and mounts the image when loaded. Set keepMounted to load in the rendered image, including lazy images and replacement image snippets. Pass native srcset and sizes for responsive images. onLoadingStatusChange reports loading, loaded and error.'] },
-      { id: 'fallback', title: 'Delay the fallback', paragraphs: ['Set delay in milliseconds to wait before showing the fallback. Once shown, later delay changes keep it available until the image loads.'] },
-      { id: 'motion', title: 'Style loading and motion', paragraphs: ['Image exposes data-starting-style and, in default mode, data-ending-style while exiting. The keepMounted mode exposes data-loading and data-error and hides an unready image from assistive technology. Root and Fallback expose imageLoadingStatus to class, style and render callbacks.'] },
-      { id: 'limits', title: 'Compatibility limits', paragraphs: ['The bounded Root, Image and Fallback port uses native Svelte props, snippets, bindings and CSS strings. Ordinary assertions, conformance, types and supplemental evidence are separate; complete library and assistive-technology compatibility remain unclaimed.'], links: [{ label: 'Read compatibility limits', href: '/docs/handbook/compatibility' }] },
+      {
+        id: 'anatomy',
+        title: 'Assemble the parts',
+        paragraphs: [
+          'Root owns the image loading status. Image loads a source and Fallback displays initials until it is ready.',
+        ],
+        code: '<Avatar.Root><Avatar.Image src="/avatar.png" alt="Jane Doe" /><Avatar.Fallback>JD</Avatar.Fallback></Avatar.Root>',
+      },
+      {
+        id: 'loading',
+        title: 'Load the image',
+        paragraphs: [
+          'The default mode preloads the source and mounts the image when loaded. Set keepMounted to load in the rendered image, including lazy images and replacement image snippets. Pass native srcset and sizes for responsive images. onLoadingStatusChange reports loading, loaded and error.',
+        ],
+      },
+      {
+        id: 'fallback',
+        title: 'Delay the fallback',
+        paragraphs: [
+          'Set delay in milliseconds to wait before showing the fallback. Once shown, later delay changes keep it available until the image loads.',
+        ],
+      },
+      {
+        id: 'motion',
+        title: 'Style loading and motion',
+        paragraphs: [
+          'Image exposes data-starting-style and, in default mode, data-ending-style while exiting. The keepMounted mode exposes data-loading and data-error and hides an unready image from assistive technology. Root and Fallback expose imageLoadingStatus to class, style and render callbacks.',
+        ],
+      },
+      {
+        id: 'limits',
+        title: 'Compatibility limits',
+        paragraphs: [
+          'The bounded Root, Image and Fallback port uses native Svelte props, snippets, bindings and CSS strings. Ordinary assertions, conformance, types and supplemental evidence are separate; complete library and assistive-technology compatibility remain unclaimed.',
+        ],
+        links: [
+          {
+            label: 'Read compatibility limits',
+            href: '/docs/handbook/compatibility',
+          },
+        ],
+      },
     ],
   },
   {
-    slug: 'components/accordion', group: 'Components', title: 'Accordion',
-    description: 'Compose labelled, collapsible sections with array values and cancellable requests.',
+    slug: 'components/accordion',
+    group: 'Components',
+    title: 'Accordion',
+    description:
+      'Compose labelled, collapsible sections with array values and cancellable requests.',
     sections: [
-      { id: 'anatomy', title: 'Assemble the parts', paragraphs: ['Root groups Items. Each Item pairs Header and Trigger with a Panel. Values are arrays; use defaultValue for initial uncontrolled selection or value and onValueChange for controlled selection. multiple allows more than one selected item.'], code: "<Accordion.Root defaultValue={['details']}><Accordion.Item value=\"details\"><Accordion.Header><Accordion.Trigger>Details</Accordion.Trigger></Accordion.Header><Accordion.Panel>Panel content</Accordion.Panel></Accordion.Item></Accordion.Root>" },
-      { id: 'interaction', title: 'Requests and keyboard', paragraphs: ['Item onOpenChange runs before Root onValueChange; either can cancel the request through details.cancel(). Item cancellation stops the Root callback. Disabled state combines with ancestors. Enter and Space activate Triggers; deprecated orientation and loopFocus do not provide roving focus.'] },
-      { id: 'motion', title: 'Style and retain panels', paragraphs: ['Use --accordion-panel-height and --accordion-panel-width, and open/closed/starting/ending attributes on Panel. Panel overrides Root keepMounted and hiddenUntilFound defaults. hiddenUntilFound retains hidden contents for browser search.'] },
-      { id: 'api-reference', title: 'Local API reference', paragraphs: ['The signatures below are extracted from local declarations. Root props and state retain generic value arrays and the permissive upstream default. Explicit generic props constrain values and callback arrays.'] },
-      { id: 'limits', title: 'Compatibility limits', paragraphs: ['The immutable v1.8.0 inventory has 39 ordinary declaration sites / 43 variants. Portable scope is 38 / 42; one React.Activity Panel declaration remains deferred. Parameterized disabled, conformance, types and supplements are separate evidence. Final-head package, browser and review acceptance remain required.'], links: [{ label: 'Base UI Accordion reference', href: 'https://base-ui.com/react/components/accordion' }] },
+      {
+        id: 'anatomy',
+        title: 'Assemble the parts',
+        paragraphs: [
+          'Root groups Items. Each Item pairs Header and Trigger with a Panel. Values are arrays; use defaultValue for initial uncontrolled selection or value and onValueChange for controlled selection. multiple allows more than one selected item.',
+        ],
+        code: '<Accordion.Root defaultValue={[\'details\']}><Accordion.Item value="details"><Accordion.Header><Accordion.Trigger>Details</Accordion.Trigger></Accordion.Header><Accordion.Panel>Panel content</Accordion.Panel></Accordion.Item></Accordion.Root>',
+      },
+      {
+        id: 'interaction',
+        title: 'Requests and keyboard',
+        paragraphs: [
+          'Item onOpenChange runs before Root onValueChange; either can cancel the request through details.cancel(). Item cancellation stops the Root callback. Disabled state combines with ancestors. Enter and Space activate Triggers; deprecated orientation and loopFocus do not provide roving focus.',
+        ],
+      },
+      {
+        id: 'motion',
+        title: 'Style and retain panels',
+        paragraphs: [
+          'Use --accordion-panel-height and --accordion-panel-width, and open/closed/starting/ending attributes on Panel. Panel overrides Root keepMounted and hiddenUntilFound defaults. hiddenUntilFound retains hidden contents for browser search.',
+        ],
+      },
+      {
+        id: 'api-reference',
+        title: 'Local API reference',
+        paragraphs: [
+          'The signatures below are extracted from local declarations. Root props and state retain generic value arrays and the permissive upstream default. Explicit generic props constrain values and callback arrays.',
+        ],
+      },
+      {
+        id: 'limits',
+        title: 'Compatibility limits',
+        paragraphs: [
+          'The immutable v1.8.0 inventory has 39 ordinary declaration sites / 43 variants. Portable scope is 38 / 42; one React.Activity Panel declaration remains deferred. Parameterized disabled, conformance, types and supplements are separate evidence. Final-head package, browser and review acceptance remain required.',
+        ],
+        links: [
+          {
+            label: 'Base UI Accordion reference',
+            href: 'https://base-ui.com/react/components/accordion',
+          },
+        ],
+      },
     ],
   },
   {
-    slug: 'components/collapsible', group: 'Components', title: 'Collapsible',
+    slug: 'components/collapsible',
+    group: 'Components',
+    title: 'Collapsible',
     description: 'A button and a panel that opens and closes with your CSS motion.',
     sections: [
-      { id: 'anatomy', title: 'Assemble the parts', paragraphs: ['Root groups a Trigger and Panel. Root defaults to closed and enabled. Set defaultOpen for an uncontrolled initial value, or open and onOpenChange for an owner-controlled panel.'], code: "<Collapsible.Root><Collapsible.Trigger>Details</Collapsible.Trigger><Collapsible.Panel>Panel content</Collapsible.Panel></Collapsible.Root>" },
-      { id: 'motion', title: 'Style the panel', paragraphs: ['Use --collapsible-panel-height and --collapsible-panel-width for measured dimensions. State attributes expose open, closed, starting and ending phases. Initially open panels suppress entrance keyframes; later close and reopen cycles follow authored CSS.'] },
-      { id: 'presence', title: 'Keep content available', paragraphs: ['keepMounted retains a hidden closed panel. hiddenUntilFound overrides keepMounted and allows browser find-in-page to reveal its contents. Cancel onOpenChange through details.cancel() to keep the current state.'] },
-      { id: 'limits', title: 'Compatibility limits', paragraphs: ['The bounded Root, Trigger and Panel port uses Svelte snippets, native events, bindings and CSS strings. Six external React.Activity cases remain deferred. The source ledger separates ordinary assertions from helper, type and supplemental evidence; complete compatibility is unclaimed.'], links: [{ label: 'Read compatibility limits', href: '/docs/handbook/compatibility' }] },
+      {
+        id: 'anatomy',
+        title: 'Assemble the parts',
+        paragraphs: [
+          'Root groups a Trigger and Panel. Root defaults to closed and enabled. Set defaultOpen for an uncontrolled initial value, or open and onOpenChange for an owner-controlled panel.',
+        ],
+        code: '<Collapsible.Root><Collapsible.Trigger>Details</Collapsible.Trigger><Collapsible.Panel>Panel content</Collapsible.Panel></Collapsible.Root>',
+      },
+      {
+        id: 'motion',
+        title: 'Style the panel',
+        paragraphs: [
+          'Use --collapsible-panel-height and --collapsible-panel-width for measured dimensions. State attributes expose open, closed, starting and ending phases. Initially open panels suppress entrance keyframes; later close and reopen cycles follow authored CSS.',
+        ],
+      },
+      {
+        id: 'presence',
+        title: 'Keep content available',
+        paragraphs: [
+          'keepMounted retains a hidden closed panel. hiddenUntilFound overrides keepMounted and allows browser find-in-page to reveal its contents. Cancel onOpenChange through details.cancel() to keep the current state.',
+        ],
+      },
+      {
+        id: 'limits',
+        title: 'Compatibility limits',
+        paragraphs: [
+          'The bounded Root, Trigger and Panel port uses Svelte snippets, native events, bindings and CSS strings. Six external React.Activity cases remain deferred. The source ledger separates ordinary assertions from helper, type and supplemental evidence; complete compatibility is unclaimed.',
+        ],
+        links: [
+          {
+            label: 'Read compatibility limits',
+            href: '/docs/handbook/compatibility',
+          },
+        ],
+      },
     ],
   },
   {
     slug: 'components/dialog',
     group: 'Components',
     title: 'Dialog',
-    description:
-      'A focused space for a short task. Composable parts, with experimental behavior.',
+    description: 'A focused space for a short task. Composable parts, with experimental behavior.',
     sections: [
       {
         id: 'anatomy',
@@ -362,8 +570,7 @@ export const docs: Doc[] = [
     slug: 'about',
     group: 'Overview',
     title: 'About & credits',
-    description:
-      'An independent project, with a clear debt to its foundations.',
+    description: 'An independent project, with a clear debt to its foundations.',
     sections: [
       {
         id: 'originals',

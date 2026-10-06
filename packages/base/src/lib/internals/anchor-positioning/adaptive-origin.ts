@@ -1,6 +1,7 @@
 // Source port: Base UI 1.8.0 adaptiveOriginMiddleware.ts at 47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c.
 // MIT: parity/anchor-positioning/UPSTREAM_LICENSE. Uses Floating UI DOM's default platform.
 import { getSide } from '@floating-ui/utils';
+import { ownerWindow } from '@sveltery/utils/owner';
 import type { Middleware } from '@floating-ui/dom';
 
 export const DEFAULT_SIDES = { sideX: 'left', sideY: 'top' } as const;
@@ -9,10 +10,15 @@ export const adaptiveOrigin: Middleware = {
   name: 'adaptiveOrigin',
   async fn(state) {
     const {
-      x: rawX, y: rawY, rects: { floating: floatRect },
-      elements: { floating }, platform, strategy, placement,
+      x: rawX,
+      y: rawY,
+      rects: { floating: floatRect },
+      elements: { floating },
+      platform,
+      strategy,
+      placement,
     } = state;
-    const win = floating.ownerDocument.defaultView!;
+    const win = ownerWindow(floating);
     const styles = win.getComputedStyle(floating);
     const hasTransition = styles.transitionDuration !== '0s' && styles.transitionDuration !== '';
     if (!hasTransition) return { x: rawX, y: rawY, data: DEFAULT_SIDES };
@@ -23,7 +29,10 @@ export const adaptiveOrigin: Middleware = {
       offsetDimensions = { width: win.visualViewport.width, height: win.visualViewport.height };
     } else if (offsetParent === win) {
       const doc = floating.ownerDocument;
-      offsetDimensions = { width: doc.documentElement.clientWidth, height: doc.documentElement.clientHeight };
+      offsetDimensions = {
+        width: doc.documentElement.clientWidth,
+        height: doc.documentElement.clientHeight,
+      };
     } else if (await platform.isElement?.(offsetParent)) {
       offsetDimensions = await platform.getDimensions(offsetParent as Element);
     }
@@ -34,7 +43,8 @@ export const adaptiveOrigin: Middleware = {
     if (currentSide === 'left') x = offsetDimensions.width - (rawX + floatRect.width);
     if (currentSide === 'top') y = offsetDimensions.height - (rawY + floatRect.height);
     return {
-      x, y,
+      x,
+      y,
       data: {
         sideX: currentSide === 'left' ? 'right' : DEFAULT_SIDES.sideX,
         sideY: currentSide === 'top' ? 'bottom' : DEFAULT_SIDES.sideY,

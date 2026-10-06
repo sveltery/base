@@ -1,6 +1,8 @@
 <script lang="ts">
   // Original NavigationMenuList branches and canonical Composite/hover/dismiss composition (MIT).
-  import RenderElement from '../internals/RenderElement.svelte';
+  import { mergeComponentProps } from '../internals/mergeComponentProps.js';
+  import { untrack } from 'svelte';
+  import { createAttachmentKey } from 'svelte/attachments';
   import CompositeRoot from '../internals/composite/root/CompositeRoot.svelte';
   import { useHoverFloatingInteraction } from '../floating-ui/hooks/useHoverFloatingInteraction.svelte.js';
   import { useDismiss } from '../floating-ui/hooks/useDismiss.svelte.js';
@@ -15,7 +17,6 @@
   import type { NavigationMenuListProps } from './types.js';
   import type { HTMLProps } from '../internals/types.js';
   let {
-    // eslint-disable-next-line no-useless-assignment -- Native bind:ref publishes the host.
     ref = $bindable(null),
     render,
     class: classProp,
@@ -69,16 +70,46 @@
         },
   );
   const renderProps = $derived([dismissProps?.floating || {}, defaultProps, elementProps]);
-  const refs = [
-    (node: HTMLElement | null) => {
-      ref = node;
-    },
-  ];
-  const componentProps = $derived({ render, class: classProp, style });
-  const params = $derived({ state, ref: refs, props: renderProps });
+  const hostAttachmentKey = createAttachmentKey();
+  function attachHost(host: HTMLElement) {
+    return untrack(() => {
+      ref = host;
+
+      return () =>
+        untrack(() => {
+          if (ref === host) ref = null;
+        });
+    });
+  }
+  const params = $derived({ state, props: renderProps });
+  const mergedProps = $derived({
+    ...mergeComponentProps(state, { class: classProp, style }, params.props, undefined),
+    [hostAttachmentKey]: attachHost,
+  });
 </script>
+
+{#snippet listRender(
+  props: import('../internals/types.js').HTMLProps,
+  state: { open: boolean },
+  children: import('svelte').Snippet | undefined,
+)}
+  {#if render}{@render render(props, state, children)}{:else}<ul {...props}
+      >{@render children?.()}</ul
+    >{/if}
+{/snippet}
 {#if root.nested}
-  <RenderElement tag="ul" {componentProps} {params} {children} />
+  {#if render}{@render render(mergedProps, state, children)}{:else}<ul {...mergedProps}
+      >{@render children?.()}</ul
+    >{/if}
 {:else}
-  <CompositeRoot tag="ul" {render} class={classProp} {style} {state} {refs} props={renderProps} loopFocus={false} orientation={root.orientation} {children} />
+  <CompositeRoot
+    render={listRender}
+    class={classProp}
+    {style}
+    {state}
+    props={[...renderProps, { [hostAttachmentKey]: attachHost }]}
+    loopFocus={false}
+    orientation={root.orientation}
+    {children}
+  />
 {/if}

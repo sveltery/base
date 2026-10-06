@@ -4,7 +4,10 @@ import { afterEach, expect, it, vi } from 'vitest';
 import { mount, tick, unmount } from 'svelte';
 import Fixture from './NavigationMenuFixture.svelte';
 import { createNavigationMenuTestTransport } from '../../../../apps/fixtures/src/lib/navigation-menu-test-transport.js';
-import { mockAnimations, mockBoundingClientRect } from '../../../../apps/fixtures/src/lib/navigation-menu-source-mocks.js';
+import {
+  mockAnimations,
+  mockBoundingClientRect,
+} from '../../../../apps/fixtures/src/lib/navigation-menu-source-mocks.js';
 const mounted: ReturnType<typeof mount>[] = [];
 const transports: ReturnType<typeof createNavigationMenuTestTransport>[] = [];
 async function setup(scenario = 'default') {
@@ -39,18 +42,27 @@ it('supplement: Source composition opens and moves the active Content into the a
   await settle();
   expect(first().getAttribute('aria-expanded')).toBe('true');
   expect(first().getAttribute('aria-controls')).toBe('tested-popup');
-  expect(document.getElementById('tested-viewport')?.contains(document.getElementById('first-content'))).toBe(true);
-  expect(component.snapshot().events).toEqual([{ value: 'first', reason: 'trigger-press', canceled: false }]);
+  expect(
+    document.getElementById('tested-viewport')?.contains(document.getElementById('first-content')),
+  ).toBe(true);
+  expect(component.snapshot().events).toEqual([
+    { value: 'first', reason: 'trigger-press', canceled: false },
+  ]);
   expect(document.getElementById('tested-icon')?.hasAttribute('data-popup-open')).toBe(true);
 });
 
-it.each(['zero', 'false', 'empty'])('supplement: preserves the valid falsy Item value %s', async (scenario) => {
-  const component = await setup(scenario);
-  first().click();
-  await settle();
-  expect(first().getAttribute('aria-expanded')).toBe('true');
-  expect(component.snapshot().events[0].value).toBe(scenario === 'zero' ? 0 : scenario === 'false' ? false : '');
-});
+it.each(['zero', 'false', 'empty'])(
+  'supplement: preserves the valid falsy Item value %s',
+  async (scenario) => {
+    const component = await setup(scenario);
+    first().click();
+    await settle();
+    expect(first().getAttribute('aria-expanded')).toBe('true');
+    expect(component.snapshot().events[0].value).toBe(
+      scenario === 'zero' ? 0 : scenario === 'false' ? false : '',
+    );
+  },
+);
 
 it('supplement: canceled uncontrolled requests preserve value and presence', async () => {
   const component = await setup('cancel');
@@ -58,17 +70,24 @@ it('supplement: canceled uncontrolled requests preserve value and presence', asy
   await settle();
   expect(first().getAttribute('aria-expanded')).toBe('false');
   expect(popup()).toBeNull();
-  expect(component.snapshot().events).toEqual([{ value: 'first', reason: 'trigger-press', canceled: true }]);
+  expect(component.snapshot().events).toEqual([
+    { value: 'first', reason: 'trigger-press', canceled: true },
+  ]);
 });
 
 it('Source Root:1657 switching by dispatched click emits only the two requested values', async () => {
   const component = await setup();
   first().click();
   await settle();
-  expect(component.snapshot().events.map((event: { value: unknown }) => event.value)).toEqual(['first']);
+  expect(component.snapshot().events.map((event: { value: unknown }) => event.value)).toEqual([
+    'first',
+  ]);
   (document.getElementById('second-trigger') as HTMLButtonElement).click();
   await settle();
-  expect(component.snapshot().events.map((event: { value: unknown }) => event.value)).toEqual(['first', 'second']);
+  expect(component.snapshot().events.map((event: { value: unknown }) => event.value)).toEqual([
+    'first',
+    'second',
+  ]);
 });
 
 it('supplement: a direct hover switch retains the new trigger pointer lock after old hover cleanup', async () => {
@@ -85,7 +104,10 @@ it('supplement: a direct hover switch retains the new trigger pointer lock after
   second.dispatchEvent(new MouseEvent('mousemove', { bubbles: true }));
   await tick();
   await Promise.resolve();
-  expect(component.snapshot().events.map((event: { value: unknown }) => event.value)).toEqual(['first', 'second']);
+  expect(component.snapshot().events.map((event: { value: unknown }) => event.value)).toEqual([
+    'first',
+    'second',
+  ]);
   expect(first().getAttribute('aria-expanded')).toBe('false');
   expect(second.getAttribute('aria-expanded')).toBe('true');
   expect(list.style.pointerEvents).toBe('none');
@@ -150,7 +172,9 @@ it('supplement: controlled requests wait for live owner state and change active 
   component.setValue('second');
   await settle();
   expect(document.getElementById('second-trigger')?.getAttribute('aria-expanded')).toBe('true');
-  expect(document.getElementById('tested-viewport')?.contains(document.getElementById('second-content'))).toBe(true);
+  expect(
+    document.getElementById('tested-viewport')?.contains(document.getElementById('second-content')),
+  ).toBe(true);
   component.setValue(null);
   await settle();
   expect(popup()).toBeNull();

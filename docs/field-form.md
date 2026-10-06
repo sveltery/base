@@ -6,6 +6,7 @@ Field supplies shared validation, labels, descriptions, error messages and inter
 <script>
   import { Field, Form, Input, Fieldset } from '@sveltery/base';
 </script>
+
 <Form onFormSubmit={(values) => console.log(values)}>
   <Fieldset.Root>
     <Fieldset.Legend>Account</Fieldset.Legend>
@@ -38,7 +39,12 @@ Pass the original remote object to `remote` and spread its original enhancement.
   import { survey } from './survey.remote.js';
 </script>
 
-<Form remote={survey} {...survey.enhance(async ({ submit }) => { await submit(); })}>
+<Form
+  remote={survey}
+  {...survey.enhance(async ({ submit }) => {
+    await submit();
+  })}
+>
   {#snippet children(Field)}
     <Field.Root name="storageType" as="text">
       <Field.Label>Storage type</Field.Label>

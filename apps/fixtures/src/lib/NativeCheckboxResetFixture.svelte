@@ -6,9 +6,17 @@
     hydrated = true;
   });
 </script>
+
 <main data-hydrated={hydrated} data-framework="native-svelte">
   <form id="form">
-    <input data-control type="checkbox" name="enabled" value="yes" defaultChecked={false} bind:checked />
+    <input
+      data-control
+      type="checkbox"
+      name="enabled"
+      value="yes"
+      defaultChecked={false}
+      bind:checked
+    />
     <button id="reset" type="reset">Reset</button>
   </form>
   <output id="owner">{String(checked)}</output>

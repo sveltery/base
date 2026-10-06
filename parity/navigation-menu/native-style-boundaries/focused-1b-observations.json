@@ -1,0 +1,476 @@
+{
+  "sourcePin": "47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c",
+  "license": "MIT",
+  "executionLabel": "focused-1b",
+  "sourceHead": "1b0197a1c01babe3be324abb8fac0e822f848186",
+  "observed": {
+    "passed": 17,
+    "failed": 1,
+    "durationSeconds": 10.67,
+    "failure": "Historical native sizing supplement requires 300px before color; actual empty. Paired Original supplement passed."
+  },
+  "log": {
+    "archive": "focused-1b.log.gz",
+    "sha256": "2c970ffc24662a4ee54c31e338c560760b3c52ccd290f5d546d3eb54b880743a"
+  },
+  "preimage": {
+    "archive": "focused-1b-size-style-preimage.test.ts.gz",
+    "sha256": "0cced7c14de93c8871f5a51edb835024d41682a0138daff5b3e8ea06a3b950b7"
+  },
+  "traces": {
+    "navigation-menu-native-public-style": [
+      {
+        "phase": "mount",
+        "operation": "setProperty:--popup-width",
+        "host": "popup",
+        "value": {
+          "assigned": "300px",
+          "observed": {
+            "connected": true,
+            "color": "red",
+            "pointer": "",
+            "popupWidth": "300px",
+            "popupHeight": "",
+            "positionerWidth": "",
+            "positionerHeight": ""
+          }
+        }
+      },
+      {
+        "phase": "mount",
+        "operation": "setProperty:--popup-height",
+        "host": "popup",
+        "value": {
+          "assigned": "200px",
+          "observed": {
+            "connected": true,
+            "color": "red",
+            "pointer": "",
+            "popupWidth": "300px",
+            "popupHeight": "200px",
+            "positionerWidth": "",
+            "positionerHeight": ""
+          }
+        }
+      },
+      {
+        "phase": "mount",
+        "operation": "setProperty:--positioner-width",
+        "host": "positioner",
+        "value": {
+          "assigned": "300px",
+          "observed": {
+            "connected": true,
+            "color": "red",
+            "pointer": "",
+            "popupWidth": "",
+            "popupHeight": "",
+            "positionerWidth": "300px",
+            "positionerHeight": ""
+          }
+        }
+      },
+      {
+        "phase": "mount",
+        "operation": "setProperty:--positioner-height",
+        "host": "positioner",
+        "value": {
+          "assigned": "200px",
+          "observed": {
+            "connected": true,
+            "color": "red",
+            "pointer": "",
+            "popupWidth": "",
+            "popupHeight": "",
+            "positionerWidth": "300px",
+            "positionerHeight": "200px"
+          }
+        }
+      },
+      {
+        "phase": "mount",
+        "operation": "after-mount",
+        "host": "positioner",
+        "value": {
+          "connected": true,
+          "color": "red",
+          "pointer": "",
+          "popupWidth": "",
+          "popupHeight": "",
+          "positionerWidth": "300px",
+          "positionerHeight": "200px"
+        }
+      },
+      {
+        "phase": "mount",
+        "operation": "after-mount",
+        "host": "popup",
+        "value": {
+          "connected": true,
+          "color": "red",
+          "pointer": "",
+          "popupWidth": "300px",
+          "popupHeight": "200px",
+          "positionerWidth": "",
+          "positionerHeight": ""
+        }
+      },
+      {
+        "phase": "switch",
+        "operation": "setProperty:--popup-width",
+        "host": "popup",
+        "value": {
+          "assigned": "300px",
+          "observed": {
+            "connected": true,
+            "color": "red",
+            "pointer": "",
+            "popupWidth": "300px",
+            "popupHeight": "",
+            "positionerWidth": "",
+            "positionerHeight": ""
+          }
+        }
+      },
+      {
+        "phase": "switch",
+        "operation": "setProperty:--popup-height",
+        "host": "popup",
+        "value": {
+          "assigned": "200px",
+          "observed": {
+            "connected": true,
+            "color": "red",
+            "pointer": "",
+            "popupWidth": "300px",
+            "popupHeight": "200px",
+            "positionerWidth": "",
+            "positionerHeight": ""
+          }
+        }
+      },
+      {
+        "phase": "switch",
+        "operation": "setProperty:--positioner-width",
+        "host": "positioner",
+        "value": {
+          "assigned": "300px",
+          "observed": {
+            "connected": true,
+            "color": "red",
+            "pointer": "",
+            "popupWidth": "",
+            "popupHeight": "",
+            "positionerWidth": "300px",
+            "positionerHeight": ""
+          }
+        }
+      },
+      {
+        "phase": "switch",
+        "operation": "setProperty:--positioner-height",
+        "host": "positioner",
+        "value": {
+          "assigned": "200px",
+          "observed": {
+            "connected": true,
+            "color": "red",
+            "pointer": "",
+            "popupWidth": "",
+            "popupHeight": "",
+            "positionerWidth": "300px",
+            "positionerHeight": "200px"
+          }
+        }
+      },
+      {
+        "phase": "switch",
+        "operation": "setProperty:--popup-width",
+        "host": "popup",
+        "value": {
+          "assigned": "300px",
+          "observed": {
+            "connected": true,
+            "color": "red",
+            "pointer": "",
+            "popupWidth": "300px",
+            "popupHeight": "",
+            "positionerWidth": "",
+            "positionerHeight": ""
+          }
+        }
+      },
+      {
+        "phase": "switch",
+        "operation": "setProperty:--popup-height",
+        "host": "popup",
+        "value": {
+          "assigned": "200px",
+          "observed": {
+            "connected": true,
+            "color": "red",
+            "pointer": "",
+            "popupWidth": "300px",
+            "popupHeight": "200px",
+            "positionerWidth": "",
+            "positionerHeight": ""
+          }
+        }
+      },
+      {
+        "phase": "switch",
+        "operation": "setProperty:--positioner-width",
+        "host": "positioner",
+        "value": {
+          "assigned": "300px",
+          "observed": {
+            "connected": true,
+            "color": "red",
+            "pointer": "",
+            "popupWidth": "",
+            "popupHeight": "",
+            "positionerWidth": "300px",
+            "positionerHeight": ""
+          }
+        }
+      },
+      {
+        "phase": "switch",
+        "operation": "setProperty:--positioner-height",
+        "host": "positioner",
+        "value": {
+          "assigned": "200px",
+          "observed": {
+            "connected": true,
+            "color": "red",
+            "pointer": "",
+            "popupWidth": "",
+            "popupHeight": "",
+            "positionerWidth": "300px",
+            "positionerHeight": "200px"
+          }
+        }
+      },
+      {
+        "phase": "switch",
+        "operation": "setProperty:--popup-width",
+        "host": "popup",
+        "value": {
+          "assigned": "300px",
+          "observed": {
+            "connected": true,
+            "color": "red",
+            "pointer": "",
+            "popupWidth": "300px",
+            "popupHeight": "200px",
+            "positionerWidth": "",
+            "positionerHeight": ""
+          }
+        }
+      },
+      {
+        "phase": "switch",
+        "operation": "setProperty:--popup-height",
+        "host": "popup",
+        "value": {
+          "assigned": "200px",
+          "observed": {
+            "connected": true,
+            "color": "red",
+            "pointer": "",
+            "popupWidth": "300px",
+            "popupHeight": "200px",
+            "positionerWidth": "",
+            "positionerHeight": ""
+          }
+        }
+      },
+      {
+        "phase": "switch",
+        "operation": "setProperty:--popup-width",
+        "host": "popup",
+        "value": {
+          "assigned": "auto",
+          "observed": {
+            "connected": true,
+            "color": "red",
+            "pointer": "",
+            "popupWidth": "auto",
+            "popupHeight": "200px",
+            "positionerWidth": "",
+            "positionerHeight": ""
+          }
+        }
+      },
+      {
+        "phase": "switch",
+        "operation": "setProperty:--popup-height",
+        "host": "popup",
+        "value": {
+          "assigned": "auto",
+          "observed": {
+            "connected": true,
+            "color": "red",
+            "pointer": "",
+            "popupWidth": "auto",
+            "popupHeight": "auto",
+            "positionerWidth": "",
+            "positionerHeight": ""
+          }
+        }
+      },
+      {
+        "phase": "switch",
+        "operation": "after-switch",
+        "host": "positioner",
+        "value": {
+          "connected": true,
+          "color": "red",
+          "pointer": "",
+          "popupWidth": "",
+          "popupHeight": "",
+          "positionerWidth": "",
+          "positionerHeight": ""
+        }
+      },
+      {
+        "phase": "switch",
+        "operation": "after-switch",
+        "host": "popup",
+        "value": {
+          "connected": true,
+          "color": "red",
+          "pointer": "",
+          "popupWidth": "auto",
+          "popupHeight": "auto",
+          "positionerWidth": "",
+          "positionerHeight": ""
+        }
+      },
+      {
+        "phase": "color",
+        "operation": "after-color",
+        "host": "positioner",
+        "value": {
+          "connected": true,
+          "color": "blue",
+          "pointer": "",
+          "popupWidth": "",
+          "popupHeight": "",
+          "positionerWidth": "",
+          "positionerHeight": ""
+        }
+      },
+      {
+        "phase": "color",
+        "operation": "after-color",
+        "host": "popup",
+        "value": {
+          "connected": true,
+          "color": "blue",
+          "pointer": "",
+          "popupWidth": "",
+          "popupHeight": "",
+          "positionerWidth": "",
+          "positionerHeight": ""
+        }
+      }
+    ],
+    "navigation-menu-native-bare-style": [
+      {
+        "phase": "hydrated",
+        "hosts": [
+          {
+            "connected": true,
+            "color": "red",
+            "pointer": "",
+            "popupWidth": "",
+            "popupHeight": "",
+            "positionerWidth": "",
+            "positionerHeight": ""
+          },
+          {
+            "connected": true,
+            "color": "red",
+            "pointer": "",
+            "popupWidth": "",
+            "popupHeight": "",
+            "positionerWidth": "",
+            "positionerHeight": ""
+          }
+        ]
+      },
+      {
+        "phase": "write",
+        "hosts": [
+          {
+            "connected": true,
+            "color": "red",
+            "pointer": "auto",
+            "popupWidth": "250px",
+            "popupHeight": "120px",
+            "positionerWidth": "250px",
+            "positionerHeight": "120px"
+          },
+          {
+            "connected": true,
+            "color": "red",
+            "pointer": "auto",
+            "popupWidth": "250px",
+            "popupHeight": "120px",
+            "positionerWidth": "250px",
+            "positionerHeight": "120px"
+          }
+        ]
+      },
+      {
+        "phase": "update",
+        "hosts": [
+          {
+            "connected": true,
+            "color": "blue",
+            "pointer": "",
+            "popupWidth": "",
+            "popupHeight": "",
+            "positionerWidth": "",
+            "positionerHeight": ""
+          },
+          {
+            "connected": true,
+            "color": "blue",
+            "pointer": "",
+            "popupWidth": "",
+            "popupHeight": "",
+            "positionerWidth": "",
+            "positionerHeight": ""
+          }
+        ]
+      },
+      {
+        "phase": "author",
+        "hosts": [
+          {
+            "connected": true,
+            "color": "blue",
+            "pointer": "auto",
+            "popupWidth": "375px",
+            "popupHeight": "160px",
+            "positionerWidth": "375px",
+            "positionerHeight": "160px"
+          },
+          {
+            "connected": true,
+            "color": "blue",
+            "pointer": "auto",
+            "popupWidth": "375px",
+            "popupHeight": "160px",
+            "positionerWidth": "375px",
+            "positionerHeight": "160px"
+          }
+        ]
+      }
+    ]
+  },
+  "credit": "zero unchanged Original assertion credit",
+  "status": "Actual local DOM Source-write and bare SSR/hydration evidence only; secured browser pointer/logical portal and final-head acceptance pending."
+}

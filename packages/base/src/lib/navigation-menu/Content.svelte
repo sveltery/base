@@ -1,10 +1,11 @@
 <script lang="ts">
+  import { createAttachmentKey } from 'svelte/attachments';
   // Original NavigationMenuContent presence, sizing-owner and relocation branches (MIT).
-  import { getAllContexts } from 'svelte';
+  import { getAllContexts, untrack } from 'svelte';
   import CompositeRoot from '../internals/composite/root/CompositeRoot.svelte';
   import { contains, getTarget } from '../floating-ui/utils/element.js';
   import { useFloatingPortalContent } from '../floating-ui/hooks/useFloatingPortalNode.svelte.js';
-  import { useIsoLayoutEffect } from '../utils/useIsoLayoutEffect.svelte.js';
+
   import { useTransitionStatus } from '../internals/useTransitionStatus.svelte.js';
   import { useOpenChangeComplete } from '../internals/useOpenChangeComplete.svelte.js';
   import { transitionStatusMapping } from '../internals/stateAttributesMapping.js';
@@ -20,7 +21,6 @@
   import type { StateAttributesMapping } from '../internals/getStateAttributesProps.js';
   import type { HTMLProps } from '../internals/types.js';
   let {
-    // eslint-disable-next-line no-useless-assignment -- Native bind:ref publishes the host.
     ref = $bindable(null),
     render,
     class: classProp,
@@ -53,12 +53,9 @@
       if (!open) presence.setMounted(false);
     },
   });
-  useIsoLayoutEffect(
-    () => {
-      if (open && element) root.currentContentRef.current = element;
-    },
-    () => [open, element],
-  );
+  $effect(() => {
+    if (open && element) root.currentContentRef.current = element;
+  });
   const partState = $derived({
     open,
     transitionStatus: presence.transitionStatus,
@@ -98,12 +95,27 @@
     if (keepMounted && portalContainer && !hasMountedInPortal) hasMountedInPortal = true;
   });
   const shouldPortal = $derived(Boolean(portalContainer) && (presence.mounted || keepMounted));
-  const refs = [handleCurrentContentRef];
-  const inlineRefs = [
-    (node: HTMLElement | null) => {
-      ref = node;
-    },
-  ];
+  const hostAttachmentKey = createAttachmentKey();
+  function attachHost(host: HTMLElement) {
+    return untrack(() => {
+      handleCurrentContentRef(host);
+      return () =>
+        untrack(() => {
+          if (element === host) handleCurrentContentRef(null);
+        });
+    });
+  }
+  const hostProps = { [hostAttachmentKey]: attachHost };
+
+  const inlineAttachmentKey = createAttachmentKey();
+  function attachInline(host: HTMLElement) {
+    ref = host;
+    return () => {
+      if (ref === host) ref = null;
+    };
+  }
+  const inlineProps = { [inlineAttachmentKey]: attachInline };
+
   // Captured logical context is the native replacement for React createPortal inheritance.
   useFloatingPortalContent(
     () => (shouldPortal ? portalContainer : null),
@@ -111,13 +123,30 @@
     getAllContexts(),
   );
 </script>
+
 {#snippet portalContent()}
   {#if shouldPortal}
     <ContentProvider {nodeId}>
-      <CompositeRoot {render} class={classProp} {style} state={partState} {refs} props={[defaultProps, hidden ? { hidden: true } : {}, elementProps]} {stateAttributesMapping} {children} />
+      <CompositeRoot
+        {render}
+        class={classProp}
+        {style}
+        state={partState}
+        props={[defaultProps, hidden ? { hidden: true } : {}, elementProps, hostProps]}
+        {stateAttributesMapping}
+        {children}
+      />
     </ContentProvider>
   {/if}
 {/snippet}
 {#if shouldRenderInline}
-  <CompositeRoot {render} class={classProp} {style} state={partState} refs={inlineRefs} props={[defaultProps, { hidden: true }, elementProps]} {stateAttributesMapping} {children} />
+  <CompositeRoot
+    {render}
+    class={classProp}
+    {style}
+    state={partState}
+    props={[defaultProps, { hidden: true }, elementProps, inlineProps]}
+    {stateAttributesMapping}
+    {children}
+  />
 {/if}

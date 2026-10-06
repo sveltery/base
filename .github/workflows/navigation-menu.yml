@@ -47,17 +47,18 @@ jobs:
           node parity/navigation-menu/parts-fixtures.mjs
       - name: Build library and check actual isolated public package
         run: |
+          pnpm --filter @sveltery/utils build
           pnpm --filter @sveltery/base build
           bash scripts/check-navigation-menu-package.sh
       - name: Supplemental native DOM probes
         run: |
           pnpm --filter @sveltery/fixtures exec svelte-kit sync
-          pnpm --filter @sveltery/base exec vitest run --config vitest.dom.config.ts tests/dom/navigation-menu.test.ts tests/dom/navigation-menu-boundaries.test.ts tests/dom/use-click.test.ts tests/dom/navigation-menu-test-transport.test.ts tests/dom/navigation-menu-metadata.test.ts tests/dom/hover-floating-ownership.test.ts tests/dom/navigation-menu-size-style-ownership.test.ts
+          pnpm --filter @sveltery/base exec vitest run --config vitest.dom.config.ts tests/dom/navigation-menu.test.ts tests/dom/navigation-menu-boundaries.test.ts tests/dom/use-click.test.ts tests/dom/navigation-menu-test-transport.test.ts tests/dom/navigation-menu-metadata.test.ts tests/dom/hover-floating-ownership.test.ts tests/dom/navigation-menu-size-style-ownership.test.ts tests/dom/navigation-menu-native-style-contracts.test.ts tests/dom/navigation-menu-native-capture-contracts.test.ts
       - name: Install official secured Chromium
         run: pnpm exec playwright install --with-deps chromium
       - name: Record actual framework and secured browser versions
         run: node scripts/navigation-menu-environment.mjs
-      - name: Actual Original React and native Svelte assertions
+      - name: Original assertions, native counterparts and bare SSR hydration style witnesses
         env:
           PLAYWRIGHT_JSON_OUTPUT_NAME: .checks/navigation-menu/browser-results.json
         run: |
@@ -95,6 +96,7 @@ jobs:
       - name: Frozen workspace install and library build
         run: |
           bash scripts/bootstrap.sh
+          pnpm --filter @sveltery/utils build
           pnpm --filter @sveltery/base build
       - name: Install official optional WebKit
         run: pnpm exec playwright install --with-deps webkit

@@ -4,6 +4,8 @@ import * as React from 'react';
 import { NavigationMenu } from '@base-ui/react/navigation-menu';
 import { Dialog } from '@base-ui/react/dialog';
 import { DirectionProvider } from '@base-ui/react/direction-provider';
+// Preserve the complete immutable pinned source body/expression.
+// prettier-ignore
 function TestNavigationMenu(
   props: NavigationMenu.Root.Props & {
     keepMountedPortal?: boolean;
@@ -41,6 +43,8 @@ function TestNavigationMenu(
   );
 }
 
+// Preserve the complete immutable pinned source body/expression.
+// prettier-ignore
 function TestNavigationMenuWithTopLevelLink(props: NavigationMenu.Root.Props = {}) {
   return (
     <NavigationMenu.Root {...props}>
@@ -75,6 +79,8 @@ function TestNavigationMenuWithTopLevelLink(props: NavigationMenu.Root.Props = {
   );
 }
 
+// Preserve the complete immutable pinned source body/expression.
+// prettier-ignore
 function TestNavigationMenuWithDisabledTrigger(props: NavigationMenu.Root.Props = {}) {
   return (
     <NavigationMenu.Root {...props}>
@@ -100,6 +106,8 @@ function TestNavigationMenuWithDisabledTrigger(props: NavigationMenu.Root.Props 
   );
 }
 
+// Preserve the complete immutable pinned source body/expression.
+// prettier-ignore
 function TestNestedNavigationMenu(props: NavigationMenu.Root.Props = {}) {
   return (
     <NavigationMenu.Root {...props}>
@@ -151,6 +159,8 @@ function TestNestedNavigationMenu(props: NavigationMenu.Root.Props = {}) {
   );
 }
 
+// Preserve the complete immutable pinned source body/expression.
+// prettier-ignore
 function TestNavigationMenuOrientationAttributes() {
   return (
     <NavigationMenu.Root data-testid="top-level-root" defaultValue="item-1" orientation="vertical">
@@ -189,6 +199,8 @@ function TestNavigationMenuOrientationAttributes() {
   );
 }
 
+// Preserve the complete immutable pinned source body/expression.
+// prettier-ignore
 function TestInlineNestedNavigationMenu(
   props: {
     nestedDefaultValue?: string | number | boolean | null;
@@ -269,6 +281,8 @@ function TestInlineNestedNavigationMenu(
   );
 }
 
+// Preserve the complete immutable pinned source body/expression.
+// prettier-ignore
 function TestInlineNestedNavigationMenuWithDynamicContent({
   initialContentStage = 0,
 }: {
@@ -344,6 +358,8 @@ function TestInlineNestedNavigationMenuWithDynamicContent({
   );
 }
 
+// Preserve the complete immutable pinned source body/expression.
+// prettier-ignore
 const scopedPopupAnimationStyles = `
   .test-navigation-menu-popup {
     transition-property: opacity, transform, width, height;
@@ -396,6 +412,8 @@ const scopedPopupAnimationStyles = `
   }
 `;
 
+// Preserve the complete immutable pinned source body/expression.
+// prettier-ignore
 function TestNavigationMenuWithTopLevelLinkScopedPopupAnimation() {
   return (
     <NavigationMenu.Root>
@@ -434,6 +452,8 @@ function TestNavigationMenuWithTopLevelLinkScopedPopupAnimation() {
   );
 }
 
+// Preserve the complete immutable pinned source body/expression.
+// prettier-ignore
 function TestInlineNestedNavigationMenuTabForwardBoundary() {
   return (
     <NavigationMenu.Root>
@@ -490,6 +510,8 @@ function TestInlineNestedNavigationMenuTabForwardBoundary() {
   );
 }
 
+// Preserve the complete immutable pinned source body/expression.
+// prettier-ignore
 function TestInlineNestedNavigationMenuTabFlow() {
   return (
     <NavigationMenu.Root>
@@ -559,6 +581,8 @@ function TestInlineNestedNavigationMenuTabFlow() {
   );
 }
 
+// Preserve the complete immutable pinned source body/expression.
+// prettier-ignore
 function TestNavigationMenuWithKeepMountedContent() {
   return (
     <NavigationMenu.Root defaultValue="item-1">
@@ -589,6 +613,8 @@ function TestNavigationMenuWithKeepMountedContent() {
   );
 }
 
+// Preserve the complete immutable pinned source body/expression.
+// prettier-ignore
 function TestNavigationMenuWithKeepMountedContentClosed() {
   return (
     <NavigationMenu.Root>
@@ -619,6 +645,8 @@ function TestNavigationMenuWithKeepMountedContentClosed() {
   );
 }
 
+// Preserve the complete immutable pinned source body/expression.
+// prettier-ignore
 function TestNavigationMenuWithScopedPopupExitAnimation(
   props: {
     onOpenChangeComplete?: NavigationMenu.Root.Props['onOpenChangeComplete'];
@@ -657,6 +685,8 @@ function TestNavigationMenuWithScopedPopupExitAnimation(
   );
 }
 
+// Preserve the complete immutable pinned source body/expression.
+// prettier-ignore
 function TestDeeplyNestedNavigationMenu() {
   return (
     <NavigationMenu.Root>
@@ -733,6 +763,8 @@ function TestDeeplyNestedNavigationMenu() {
   );
 }
 
+// Preserve the complete immutable pinned source body/expression.
+// prettier-ignore
 function TestNestedNavigationMenuWithCloseOnClick(props: {
   onValueChange?: NavigationMenu.Root.Props['onValueChange'];
 }) {
@@ -787,6 +819,8 @@ function TestNestedNavigationMenuWithCloseOnClick(props: {
   );
 }
 
+// Preserve the complete immutable pinned source body/expression.
+// prettier-ignore
 function TestDeeplyNestedNavigationMenuWithCloseOnClick() {
   return (
     <NavigationMenu.Root>
@@ -841,6 +875,8 @@ function TestDeeplyNestedNavigationMenuWithCloseOnClick() {
   );
 }
 
+// Preserve the complete immutable pinned source body/expression.
+// prettier-ignore
 const rapidHoverAnimationStyles = `
   .test-navigation-menu-popup {
     transition:
@@ -851,6 +887,8 @@ const rapidHoverAnimationStyles = `
   }
 `;
 
+// Preserve the complete immutable pinned source body/expression.
+// prettier-ignore
 function TestNavigationMenuRapidHoverSizing() {
   const [isProductExpanded, setIsProductExpanded] = React.useState(false);
 
@@ -893,6 +931,8 @@ function TestNavigationMenuRapidHoverSizing() {
   );
 }
 
+// Preserve the complete immutable pinned source body/expression.
+// prettier-ignore
 function TestNavigationMenuWithNestedPopup(props: { children: React.ReactNode }) {
   const { children } = props;
   return (
@@ -916,6 +956,8 @@ function TestNavigationMenuWithNestedPopup(props: { children: React.ReactNode })
   );
 }
 
+// Preserve the complete immutable pinned source body/expression.
+// prettier-ignore
 function TestNavigationMenuWithDialog() {
   return (
     <TestNavigationMenuWithNestedPopup>
@@ -939,31 +981,69 @@ function TestNavigationMenuWithDialog() {
 }
 
 type SourceCall = { value: unknown; reason: string; type: string; canceled: boolean };
-export function NavigationMenuSourceOriginal({ scenario, direction = 'ltr', orientation = 'horizontal', side = 'bottom' }: { scenario: string; direction?: 'ltr' | 'rtl'; orientation?: 'horizontal' | 'vertical'; side?: NavigationMenu.Positioner.Props['side'] }) {
+export function NavigationMenuSourceOriginal({
+  scenario,
+  direction = 'ltr',
+  orientation = 'horizontal',
+  side = 'bottom',
+}: {
+  scenario: string;
+  direction?: 'ltr' | 'rtl';
+  orientation?: 'horizontal' | 'vertical';
+  side?: NavigationMenu.Positioner.Props['side'];
+}) {
   const [value, setValue] = React.useState<unknown>('item-1');
   const calls = React.useRef<SourceCall[]>([]);
   const completions = React.useRef<boolean[]>([]);
   const actions = React.useRef<NavigationMenu.Root.Actions | null>(null);
-  const onValueChange: NonNullable<NavigationMenu.Root.Props['onValueChange']> = (next, details) => {
+  const onValueChange: NonNullable<NavigationMenu.Root.Props['onValueChange']> = (
+    next,
+    details,
+  ) => {
     if (scenario === 'cancel') details.cancel();
-    calls.current.push({ value: next, reason: details.reason, type: details.event.type, canceled: details.isCanceled });
+    calls.current.push({
+      value: next,
+      reason: details.reason,
+      type: details.event.type,
+      canceled: details.isCanceled,
+    });
     if (scenario === 'controlled' || scenario === 'manual') setValue(next);
   };
   React.useEffect(() => {
-    Object.assign(window, { navigationMenuSource: { snapshot: () => ({ calls: [...calls.current], completions: [...completions.current], actionType: typeof actions.current?.unmount }), setValue, unmount: () => actions.current?.unmount() } });
-    return () => { delete (window as unknown as { navigationMenuSource?: unknown }).navigationMenuSource; };
+    Object.assign(window, {
+      navigationMenuSource: {
+        snapshot: () => ({
+          calls: [...calls.current],
+          completions: [...completions.current],
+          actionType: typeof actions.current?.unmount,
+        }),
+        setValue,
+        unmount: () => actions.current?.unmount(),
+      },
+    });
+    return () => {
+      delete (window as unknown as { navigationMenuSource?: unknown }).navigationMenuSource;
+    };
   }, []);
   const falsy = scenario.endsWith('zero') ? 0 : scenario.endsWith('false') ? false : '';
-  const rootProps: NavigationMenu.Root.Props = { orientation, onValueChange, onOpenChangeComplete: (open) => { completions.current.push(open); },
+  const rootProps: NavigationMenu.Root.Props = {
+    orientation,
+    onValueChange,
+    onOpenChangeComplete: (open) => {
+      completions.current.push(open);
+    },
     ...(['open', 'patient'].includes(scenario) ? { defaultValue: 'item-1' } : {}),
-    ...(['controlled', 'controlled-owner', 'controlled-kept', 'manual'].includes(scenario) ? { value } : {}),
+    ...(['controlled', 'controlled-owner', 'controlled-kept', 'manual'].includes(scenario)
+      ? { value }
+      : {}),
     ...(scenario === 'manual' ? { actionsRef: actions } : {}),
     ...(scenario === 'delay' ? { delay: 100 } : {}),
     ...(scenario === 'close-delay' ? { closeDelay: 100 } : {}),
     ...(scenario === 'nested-close-delay' ? { closeDelay: 200 } : {}),
   };
   let node: React.ReactNode;
-  if (scenario === 'nested-close') node = <TestNestedNavigationMenuWithCloseOnClick onValueChange={onValueChange} />;
+  if (scenario === 'nested-close')
+    node = <TestNestedNavigationMenuWithCloseOnClick onValueChange={onValueChange} />;
   else if (scenario === 'deep') node = <TestDeeplyNestedNavigationMenu />;
   else if (scenario === 'deep-close') node = <TestDeeplyNestedNavigationMenuWithCloseOnClick />;
   else if (scenario === 'tab-boundary') node = <TestInlineNestedNavigationMenuTabForwardBoundary />;
@@ -971,17 +1051,105 @@ export function NavigationMenuSourceOriginal({ scenario, direction = 'ltr', orie
   else if (scenario === 'dialog') node = <TestNavigationMenuWithDialog />;
   else if (scenario === 'rapid-hover') node = <TestNavigationMenuRapidHoverSizing />;
   else if (scenario === 'kept-content') node = <TestNavigationMenuWithKeepMountedContent />;
-  else if (scenario === 'kept-content-closed') node = <TestNavigationMenuWithKeepMountedContentClosed />;
-  else if (scenario === 'scoped-exit') node = <TestNavigationMenuWithScopedPopupExitAnimation onOpenChangeComplete={open => { completions.current.push(open); }} />;
-  else if (scenario === 'scoped-top-link') node = <TestNavigationMenuWithTopLevelLinkScopedPopupAnimation />;
-  else if (scenario === 'keyboard' || scenario === 'side') node = <NavigationMenu.Root orientation={orientation}><NavigationMenu.List><NavigationMenu.Item {...(scenario === 'side' ? { value: 'item-1' } : {})}><NavigationMenu.Trigger data-testid="trigger-1">{scenario === 'side' ? 'Item 1' : 'Overview'}</NavigationMenu.Trigger><NavigationMenu.Content><NavigationMenu.Link href={scenario === 'side' ? '#link-1' : '#quick-start'}>{scenario === 'side' ? 'Link 1' : 'Quick Start'}</NavigationMenu.Link></NavigationMenu.Content></NavigationMenu.Item></NavigationMenu.List><NavigationMenu.Portal><NavigationMenu.Positioner {...(scenario === 'side' ? { side } : {})}><NavigationMenu.Popup data-testid="popup-root"><NavigationMenu.Viewport /></NavigationMenu.Popup></NavigationMenu.Positioner></NavigationMenu.Portal></NavigationMenu.Root>;
-  else if (scenario.startsWith('falsy-')) node = <NavigationMenu.Root onValueChange={onValueChange}><NavigationMenu.List><NavigationMenu.Item value={falsy}><NavigationMenu.Trigger data-testid="trigger-0">Zero</NavigationMenu.Trigger><NavigationMenu.Content data-testid="popup-0"><NavigationMenu.Link href="#link-0">Zero link</NavigationMenu.Link></NavigationMenu.Content></NavigationMenu.Item></NavigationMenu.List><NavigationMenu.Portal><NavigationMenu.Positioner><NavigationMenu.Popup><NavigationMenu.Viewport /></NavigationMenu.Popup></NavigationMenu.Positioner></NavigationMenu.Portal></NavigationMenu.Root>;
+  else if (scenario === 'kept-content-closed')
+    node = <TestNavigationMenuWithKeepMountedContentClosed />;
+  else if (scenario === 'scoped-exit')
+    node = (
+      <TestNavigationMenuWithScopedPopupExitAnimation
+        onOpenChangeComplete={(open) => {
+          completions.current.push(open);
+        }}
+      />
+    );
+  else if (scenario === 'scoped-top-link')
+    node = <TestNavigationMenuWithTopLevelLinkScopedPopupAnimation />;
+  else if (scenario === 'keyboard' || scenario === 'side')
+    node = (
+      <NavigationMenu.Root orientation={orientation}>
+        <NavigationMenu.List>
+          <NavigationMenu.Item {...(scenario === 'side' ? { value: 'item-1' } : {})}>
+            <NavigationMenu.Trigger data-testid="trigger-1">
+              {scenario === 'side' ? 'Item 1' : 'Overview'}
+            </NavigationMenu.Trigger>
+            <NavigationMenu.Content>
+              <NavigationMenu.Link href={scenario === 'side' ? '#link-1' : '#quick-start'}>
+                {scenario === 'side' ? 'Link 1' : 'Quick Start'}
+              </NavigationMenu.Link>
+            </NavigationMenu.Content>
+          </NavigationMenu.Item>
+        </NavigationMenu.List>
+        <NavigationMenu.Portal>
+          <NavigationMenu.Positioner {...(scenario === 'side' ? { side } : {})}>
+            <NavigationMenu.Popup data-testid="popup-root">
+              <NavigationMenu.Viewport />
+            </NavigationMenu.Popup>
+          </NavigationMenu.Positioner>
+        </NavigationMenu.Portal>
+      </NavigationMenu.Root>
+    );
+  else if (scenario.startsWith('falsy-'))
+    node = (
+      <NavigationMenu.Root onValueChange={onValueChange}>
+        <NavigationMenu.List>
+          <NavigationMenu.Item value={falsy}>
+            <NavigationMenu.Trigger data-testid="trigger-0">Zero</NavigationMenu.Trigger>
+            <NavigationMenu.Content data-testid="popup-0">
+              <NavigationMenu.Link href="#link-0">Zero link</NavigationMenu.Link>
+            </NavigationMenu.Content>
+          </NavigationMenu.Item>
+        </NavigationMenu.List>
+        <NavigationMenu.Portal>
+          <NavigationMenu.Positioner>
+            <NavigationMenu.Popup>
+              <NavigationMenu.Viewport />
+            </NavigationMenu.Popup>
+          </NavigationMenu.Positioner>
+        </NavigationMenu.Portal>
+      </NavigationMenu.Root>
+    );
   else if (scenario === 'orientation') node = <TestNavigationMenuOrientationAttributes />;
   else if (scenario === 'top-link') node = <TestNavigationMenuWithTopLevelLink {...rootProps} />;
   else if (scenario === 'disabled') node = <TestNavigationMenuWithDisabledTrigger {...rootProps} />;
-  else if (scenario === 'nested' || scenario === 'nested-close-delay') node = <TestNestedNavigationMenu {...rootProps} />;
-  else if (scenario === 'inline' || scenario === 'inline-outside' || scenario === 'inline-falsy-close' || scenario === 'inline-closed' || scenario === 'inline-keep' || scenario.startsWith('inline-falsy-')) node = <TestInlineNestedNavigationMenu {...(scenario === 'inline-closed' ? { nestedDefaultValue: null } : {})} {...(scenario === 'inline-falsy-close' ? { nestedDefaultValue: false, nestedItem1Value: false, nestedLinkCloseOnClick: true } : scenario.startsWith('inline-falsy-') ? { nestedDefaultValue: falsy, nestedItem1Value: falsy } : {})} keepMountedContent={scenario === 'inline-keep'} />;
-  else if (scenario.startsWith('dynamic')) node = <TestInlineNestedNavigationMenuWithDynamicContent initialContentStage={scenario === 'dynamic-initial' ? 1 : 0} />;
-  else node = <TestNavigationMenu {...rootProps} keepMountedPortal={scenario === 'kept-portal' || scenario === 'controlled-kept'} />;
-  return <DirectionProvider direction={direction}>{scenario.startsWith('focus') && <button data-testid="first" />}{node}{['touch-outside', 'inline-outside'].includes(scenario) && <button data-testid="outside" />}{scenario === 'focus' && <button data-testid="last" />}</DirectionProvider>;
+  else if (scenario === 'nested' || scenario === 'nested-close-delay')
+    node = <TestNestedNavigationMenu {...rootProps} />;
+  else if (
+    scenario === 'inline' ||
+    scenario === 'inline-outside' ||
+    scenario === 'inline-falsy-close' ||
+    scenario === 'inline-closed' ||
+    scenario === 'inline-keep' ||
+    scenario.startsWith('inline-falsy-')
+  )
+    node = (
+      <TestInlineNestedNavigationMenu
+        {...(scenario === 'inline-closed' ? { nestedDefaultValue: null } : {})}
+        {...(scenario === 'inline-falsy-close'
+          ? { nestedDefaultValue: false, nestedItem1Value: false, nestedLinkCloseOnClick: true }
+          : scenario.startsWith('inline-falsy-')
+            ? { nestedDefaultValue: falsy, nestedItem1Value: falsy }
+            : {})}
+        keepMountedContent={scenario === 'inline-keep'}
+      />
+    );
+  else if (scenario.startsWith('dynamic'))
+    node = (
+      <TestInlineNestedNavigationMenuWithDynamicContent
+        initialContentStage={scenario === 'dynamic-initial' ? 1 : 0}
+      />
+    );
+  else
+    node = (
+      <TestNavigationMenu
+        {...rootProps}
+        keepMountedPortal={scenario === 'kept-portal' || scenario === 'controlled-kept'}
+      />
+    );
+  return (
+    <DirectionProvider direction={direction}>
+      {scenario.startsWith('focus') && <button data-testid="first" />}
+      {node}
+      {['touch-outside', 'inline-outside'].includes(scenario) && <button data-testid="outside" />}
+      {scenario === 'focus' && <button data-testid="last" />}
+    </DirectionProvider>
+  );
 }

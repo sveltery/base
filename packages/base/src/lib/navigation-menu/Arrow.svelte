@@ -1,13 +1,14 @@
 <script lang="ts">
   // Original NavigationMenuArrow refs/styles/state and canonical renderer (MIT).
-  import RenderElement from '../internals/RenderElement.svelte';
+  import { mergeComponentProps } from '../internals/mergeComponentProps.js';
+  import { untrack } from 'svelte';
+  import { createAttachmentKey } from 'svelte/attachments';
   import { useNavigationMenuPositionerContext } from './positioner/NavigationMenuPositionerContext.js';
   import { useNavigationMenuRootContext } from './root/NavigationMenuRootContext.js';
   import { popupStateMapping } from '../utils/popupStateMapping.js';
   import { getDisabledMountTransitionStyles } from '../internals/getDisabledMountTransitionStyles.js';
   import type { NavigationMenuArrowProps } from './types.js';
   let {
-    // eslint-disable-next-line no-useless-assignment -- Native bind:ref publishes the host.
     ref = $bindable(null),
     render,
     class: classProp,
@@ -23,16 +24,22 @@
     align: positioning.align,
     uncentered: positioning.arrowUncentered,
   });
-  const componentProps = $derived({ render, class: classProp, style });
-  const refs = [
-    (node: HTMLElement | null) => {
-      ref = node;
-    },
-    positioning.arrowRef,
-  ];
+  const hostAttachmentKey = createAttachmentKey();
+  function attachHost(host: HTMLElement) {
+    return untrack(() => {
+      ref = host;
+
+      positioning.arrowRef.current = host;
+      return () =>
+        untrack(() => {
+          if (ref === host) ref = null;
+
+          if (positioning.arrowRef.current === host) positioning.arrowRef.current = null;
+        });
+    });
+  }
   const params = $derived({
     state,
-    ref: refs,
     props: [
       { style: positioning.arrowStyles, 'aria-hidden': true },
       getDisabledMountTransitionStyles(root.transitionStatus),
@@ -40,5 +47,17 @@
     ],
     stateAttributesMapping: popupStateMapping,
   });
+  const mergedProps = $derived({
+    ...mergeComponentProps(
+      state,
+      { class: classProp, style },
+      params.props,
+      params.stateAttributesMapping,
+    ),
+    [hostAttachmentKey]: attachHost,
+  });
 </script>
-<RenderElement tag="div" {componentProps} {params} {children} />
+
+{#if render}{@render render(mergedProps, state, children)}{:else}<div {...mergedProps}
+    >{@render children?.()}</div
+  >{/if}
