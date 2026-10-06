@@ -540,6 +540,54 @@
       "predecessor": "acdebb8eeb910c48230343324f6284b682bf289b",
       "disposition": "reviewed-native-dom-counterpart-and-raw-store-wiring-correction",
       "unchangedParityCredit": 0
+    },
+    {
+      "source": "tests/browser/radio.spec.ts",
+      "archive": "parity/native-snippets/acceptance-history/native-diagnostics-c2decc37/tests/browser/radio.spec.ts",
+      "sha256": "47d1b643eecffcb5dbab763f3f9d1172042b68fea7a000b7a40b87a0f399c25b",
+      "predecessor": "826eb1d863a231928c4cc040f894737449563d4b",
+      "disposition": "reviewed-native-test-counterpart; validation-pending; whole-predecessor-preserved",
+      "unchangedParityCredit": 0
+    },
+    {
+      "source": "tests/browser/radio-native-composite-lifecycle.spec.ts",
+      "archive": "parity/native-snippets/acceptance-history/native-test-counterparts-826eb1d/tests/browser/radio-native-composite-lifecycle.spec.ts",
+      "sha256": "8b1ad6a376bcdfef37c8c05232d1e20cece79b55fe9211d3210585356cae2c94",
+      "predecessor": "826eb1d863a231928c4cc040f894737449563d4b",
+      "disposition": "reviewed-native-test-counterpart; validation-pending; whole-predecessor-preserved",
+      "unchangedParityCredit": 0
+    },
+    {
+      "source": "packages/base/tests/dom/composite-nested-source.test.ts",
+      "archive": "parity/native-snippets/acceptance-history/native-test-counterparts-826eb1d/packages/base/tests/dom/composite-nested-source.test.ts",
+      "sha256": "aeb95bbe71652d24dcd89e1a5a2f2ea3a64388097826d3ab2cc8cb609c41e814",
+      "predecessor": "826eb1d863a231928c4cc040f894737449563d4b",
+      "disposition": "reviewed-native-test-counterpart; validation-pending; whole-predecessor-preserved",
+      "unchangedParityCredit": 0
+    },
+    {
+      "source": "tests/browser/collapsible.spec.ts",
+      "archive": "parity/native-snippets/acceptance-history/native-test-counterparts-826eb1d/tests/browser/collapsible.spec.ts",
+      "sha256": "3b7195a757d72f3ef629e6a25338b90f90192f7c3d286b56303475a2953015ba",
+      "predecessor": "826eb1d863a231928c4cc040f894737449563d4b",
+      "disposition": "reviewed-native-test-counterpart; validation-pending; whole-predecessor-preserved",
+      "unchangedParityCredit": 0
+    },
+    {
+      "source": "packages/base/tests/dom/collapsible.test.ts",
+      "archive": "parity/native-snippets/acceptance-history/native-test-counterparts-826eb1d/packages/base/tests/dom/collapsible.test.ts",
+      "sha256": "a0a18e287597752756b528deb6c15eeb0f8f529c5cd913287e3e9cf46073efac",
+      "predecessor": "826eb1d863a231928c4cc040f894737449563d4b",
+      "disposition": "reviewed-native-test-counterpart; validation-pending; whole-predecessor-preserved",
+      "unchangedParityCredit": 0
+    },
+    {
+      "source": "apps/fixtures/src/app.html",
+      "archive": "parity/native-snippets/acceptance-history/native-fixture-favicon-826eb1d/apps/fixtures/src/app.html",
+      "sha256": "27323cb2bcda96b2239c728c994f67491ff400b1a6bf55e872c0c2d8fbd6c653",
+      "predecessor": "826eb1d863a231928c4cc040f894737449563d4b",
+      "disposition": "reviewed-real-fixture-favicon-wiring-predecessor; SVG is new and has no predecessor",
+      "unchangedParityCredit": 0
     }
   ]
 }

@@ -1,5 +1,5 @@
 // One native measurement in the existing Radio lane; zero unchanged Original credit.
-// Pinned source/assertions: parity/radio/UPSTREAM_LICENSE; Original React nested case in radio.spec.ts stays unchanged.
+// Pinned source/assertions: parity/radio/UPSTREAM_LICENSE; existing radio.spec.ts stays unchanged.
 import { expect, test, type Page } from '@playwright/test';
 import { writeFileSync } from 'node:fs';
 
@@ -36,8 +36,6 @@ type Snapshot = {
   };
   retainedHosts: Host[];
 };
-type Observation = { phase: string; snapshot: Snapshot };
-
 type FixtureRead = {
   hydrated: boolean;
   revision: number;
@@ -64,7 +62,7 @@ async function read(page: Page) {
   return page.evaluate(() => window.readNativeCompositeObservation!());
 }
 
-async function capture(page: Page, phase: string, observations: Observation[]) {
+async function capture(page: Page, phase: string, observations: unknown[]) {
   // One native frame checkpoint; no flush adapter or expected metadata/navigation wait.
   await page.evaluate(() => new Promise<void>((resolve) => requestAnimationFrame(() => resolve())));
   const snapshot = await read(page);
@@ -103,7 +101,7 @@ async function assertMembership(page: Page, expected: string[], afterRootRemoval
 }
 
 test('svelte native Composite full lifecycle observation', async ({ page }, info) => {
-  const observations: Observation[] = [];
+  const observations: unknown[] = [];
   const consoleMessages: { type: string; text: string; location: unknown }[] = [];
   const pageErrors: { message: string; stack?: string }[] = [];
   let completedVector = false;
@@ -243,107 +241,6 @@ test('svelte native Composite full lifecycle observation', async ({ page }, info
       contentType: 'application/json',
     });
   }
-  // Verified native counterpart of the retained acde vector. The original
-  // React assertions remain unchanged in radio.spec.ts and the pinned archive.
-  // Assertions run after the full raw vector is retained, including on failure.
-  expect(completedVector).toBe(true);
-  expect(observations).toHaveLength(37);
-  const element = (host: Host) => {
-    expect(host.value).toBe('element');
-    if (host.value !== 'element') throw new Error('Expected a real observed host');
-    return host;
-  };
-  for (const { phase, snapshot } of observations) {
-    if (phase.endsWith(':focused-first') || phase.includes(':arrow-')) {
-      expect(snapshot.hydrated).toBe(true);
-      const shared = snapshot.publishedMap.find(
-        ({ host }) => host.value === 'element' && host.testId === 'shared',
-      );
-      if (!phase.startsWith('shared-removed:')) {
-        expect(shared?.metadata).toEqual({
-          disabled: true,
-          focusableWhenDisabled: false,
-          owner: 'inner',
-          revision: snapshot.revision,
-          index: 1,
-        });
-        expect(element(snapshot.refs.outer).identity).toBe(element(shared!.host).identity);
-        expect(element(snapshot.refs.inner).identity).toBe(element(shared!.host).identity);
-      } else {
-        expect(shared).toBeUndefined();
-        expect(snapshot.refs.outer).toEqual({ value: 'null' });
-        expect(snapshot.refs.inner).toEqual({ value: 'null' });
-      }
-      expect(element(snapshot.focus).testId).toBe(
-        phase.endsWith(':focused-first') || phase.endsWith(':arrow-right-2') ? 'first' : 'last',
-      );
-    }
-  }
-  const phaseSnapshot = (phase: string) => {
-    const observation = observations.find((value) => value.phase === phase);
-    expect(observation).toBeDefined();
-    return observation!.snapshot;
-  };
-  const sharedHost = (snapshot: Snapshot) => element(snapshot.refs.inner);
-  const initial = sharedHost(phaseSnapshot('mount:focused-first'));
-  for (let revision = 1; revision <= 3; revision += 1) {
-    expect(sharedHost(phaseSnapshot(`inner-update-${revision}:focused-first`)).identity).toBe(
-      initial.identity,
-    );
-  }
-  const reinserted = sharedHost(phaseSnapshot('shared-reinserted:focused-first'));
-  const replaced = sharedHost(phaseSnapshot('host-replaced:focused-first'));
-  expect(reinserted.identity).not.toBe(initial.identity);
-  expect(reinserted.tag).toBe('BUTTON');
-  expect(replaced.identity).not.toBe(reinserted.identity);
-  expect(replaced.tag).toBe('SPAN');
-  for (const [snapshot, discarded] of [
-    [phaseSnapshot('shared-reinserted:focused-first'), initial],
-    [phaseSnapshot('host-replaced:focused-first'), reinserted],
-  ] as const) {
-    expect(
-      snapshot.publishedMap.some(
-        ({ host }) => host.value === 'element' && host.identity === discarded.identity,
-      ),
-    ).toBe(false);
-    expect(
-      snapshot.retainedHosts.find(
-        (host) => host.value === 'element' && host.identity === discarded.identity,
-      ),
-    ).toMatchObject({ connected: false });
-  }
-  const disposed = phaseSnapshot('root-cleanup:stable');
-  expect(disposed.dom).toEqual([]);
-  expect(disposed.publishedMap).toHaveLength(3);
-  expect(disposed.publishedMap.every(({ host }) => !element(host).connected)).toBe(true);
-  expect(Object.values(disposed.refs)).toEqual(Array(5).fill({ value: 'null' }));
-  expect(Object.values(disposed.literal.refs)).toEqual(Array(3).fill({ value: 'null' }));
-  expect(
-    disposed.literal.events.map(({ phase, metadata }) => [
-      phase,
-      metadata.owner,
-      metadata.revision ?? null,
-    ]),
-  ).toEqual([
-    ['attach', 'outer', null],
-    ['attach', 'inner', 0],
-    ['cleanup', 'inner', 0],
-    ['attach', 'inner', 1],
-    ['cleanup', 'inner', 1],
-    ['attach', 'inner', 2],
-    ['cleanup', 'inner', 2],
-    ['attach', 'inner', 3],
-    ['cleanup', 'outer', null],
-    ['cleanup', 'inner', 3],
-    ['attach', 'outer', null],
-    ['attach', 'inner', 3],
-    ['cleanup', 'outer', null],
-    ['cleanup', 'inner', 3],
-    ['attach', 'outer', null],
-    ['attach', 'inner', 3],
-    ['cleanup', 'outer', null],
-    ['cleanup', 'inner', 3],
-  ]);
   expect(pageErrors, 'unsuppressed native browser exceptions').toEqual([]);
   expect(
     consoleMessages.filter(({ type }) => type === 'warning' || type === 'error'),

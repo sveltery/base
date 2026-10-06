@@ -19,11 +19,7 @@ async function settle() {
   await tick();
 }
 for (const framework of ['react', 'svelte']) {
-  const title =
-    framework === 'react'
-      ? `${framework} source nested items keep outer metadata through inner updates and navigate to the shared host`
-      : 'svelte native nested items refresh metadata through independent attachment lifetimes';
-  it(title, async () => {
+  it(`${framework} source nested items keep outer metadata through inner updates and navigate to the shared host`, async () => {
     const host = document.createElement('div');
     document.body.append(host);
     let map = new Map<Element, Record<string, unknown>>();
@@ -64,17 +60,7 @@ for (const framework of ['react', 'svelte']) {
       });
       expect(map.size).toBe(3);
     };
-    const expectInner = (revision: number) => {
-      expect(map.get(shared())).toMatchObject({
-        disabled: true,
-        focusableWhenDisabled: false,
-        owner: 'inner',
-        revision,
-        index: 1,
-      });
-      expect(map.size).toBe(3);
-    };
-    const navigate = async (destination: 'shared' | 'last' = 'shared') => {
+    const navigate = async () => {
       const first = host.querySelector<HTMLElement>('[data-testid="first"]')!;
       if (framework === 'react') flushNestedComposite(() => first.focus());
       else first.focus();
@@ -87,9 +73,7 @@ for (const framework of ['react', 'svelte']) {
         }),
       );
       await settle();
-      expect(document.activeElement).toBe(
-        destination === 'shared' ? shared() : host.querySelector('[data-testid="last"]'),
-      );
+      expect(document.activeElement).toBe(shared());
     };
     const original = shared();
     expectOuter();
@@ -98,15 +82,8 @@ for (const framework of ['react', 'svelte']) {
       api.updateInner();
       await settle();
       expect(shared()).toBe(original);
-      if (framework === 'react') {
-        expectOuter();
-        await navigate();
-      } else {
-        // The actual plain DOM mount initially publishes outer metadata. Only
-        // the changed inner registration reattaches on a metadata update.
-        expectInner(revision);
-        await navigate('last');
-      }
+      expectOuter();
+      await navigate();
     }
     api.setVisible(false);
     await settle();

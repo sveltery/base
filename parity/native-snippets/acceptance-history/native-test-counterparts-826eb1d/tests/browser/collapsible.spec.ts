@@ -811,6 +811,33 @@ for (const reference of [false, true]) {
     await expect(panel).toBeVisible();
     expect(await calls(page)).toHaveLength(1);
   });
+  test(`supplement: ${framework} initially controlled undefined uses the initial default and preserves its warning`, async ({
+    page,
+  }) => {
+    const warnings: string[] = [];
+    page.on('console', (message) => {
+      if (message.type() === 'error') warnings.push(message.text());
+    });
+    const { trigger, panel } = await setup(page, 'controlled-default', reference);
+    await expect(trigger).toHaveAttribute('aria-expanded', 'false');
+    await expect(panel).toHaveCount(0);
+    await page.getByRole('button', { name: 'Release controlled value' }).click();
+    await expect(trigger).toHaveAttribute('aria-expanded', 'true');
+    await expect(panel).toHaveAttribute('data-open');
+    await expect
+      .poll(() => warnings.join(' '))
+      .toContain(
+        'A component is changing the controlled open state of Collapsible to be uncontrolled.',
+      );
+    await trigger.click();
+    await expect(trigger).toHaveAttribute('aria-expanded', 'true');
+    expect(
+      (await calls(page)).map((call) => ({
+        open: call.open,
+        before: call.before,
+      })),
+    ).toEqual([{ open: false, before: 'true' }]);
+  });
   test(`supplement: ${framework} disabled custom activation remains focusable`, async ({
     page,
   }) => {
@@ -899,76 +926,6 @@ for (const reference of [false, true]) {
     expect(await calls(page)).toHaveLength(reference ? 0 : 1);
   });
 }
-
-for (const reference of [true]) {
-  const framework = reference ? 'React reference' : 'Svelte';
-  test(`supplement: ${framework} initially controlled undefined uses the initial default and preserves its warning`, async ({
-    page,
-  }) => {
-    const warnings: string[] = [];
-    page.on('console', (message) => {
-      if (message.type() === 'error') warnings.push(message.text());
-    });
-    const { trigger, panel } = await setup(page, 'controlled-default', reference);
-    await expect(trigger).toHaveAttribute('aria-expanded', 'false');
-    await expect(panel).toHaveCount(0);
-    await page.getByRole('button', { name: 'Release controlled value' }).click();
-    await expect(trigger).toHaveAttribute('aria-expanded', 'true');
-    await expect(panel).toHaveAttribute('data-open');
-    await expect
-      .poll(() => warnings.join(' '))
-      .toContain(
-        'A component is changing the controlled open state of Collapsible to be uncontrolled.',
-      );
-    await trigger.click();
-    await expect(trigger).toHaveAttribute('aria-expanded', 'true');
-    expect(
-      (await calls(page)).map((call) => ({
-        open: call.open,
-        before: call.before,
-      })),
-    ).toEqual([{ open: false, before: 'true' }]);
-  });
-}
-
-test('native supplement: Svelte controlled undefined retains initial-default fallback and request-only controlled writes', async ({
-  page,
-}) => {
-  const errors: string[] = [];
-  const warnings: string[] = [];
-  page.on('pageerror', (error) => errors.push(error.message));
-  page.on('console', (message) => {
-    if (message.type() === 'error') errors.push(message.text());
-    if (message.type() === 'warning') warnings.push(message.text());
-  });
-  const { trigger, panel } = await setup(page, 'controlled-default', false);
-  await expect(trigger).toHaveAttribute('aria-expanded', 'false');
-  await expect(panel).toHaveCount(0);
-  expect(await calls(page)).toEqual([]);
-  await page.getByRole('button', { name: 'Release controlled value' }).click();
-  await expect(trigger).toHaveAttribute('aria-expanded', 'true');
-  await expect(panel).toHaveAttribute('data-open');
-  expect(await calls(page)).toEqual([]);
-  await trigger.click();
-  await expect(trigger).toHaveAttribute('aria-expanded', 'true');
-  await expect(panel).toHaveAttribute('data-open');
-  const requests = await calls(page);
-  expect(requests).toHaveLength(1);
-  expect(requests[0]).toMatchObject({
-    open: false,
-    before: 'true',
-    reason: 'trigger-press',
-    type: 'click',
-    canceled: false,
-    defaultPrevented: false,
-    mouse: true,
-    cancelType: 'function',
-    allowType: 'function',
-  });
-  await expect(page.getByTestId('order')).toHaveText('["consumer","change"]');
-  expect(errors).toEqual([]);
-  expect(warnings).toEqual([]);
-});
 
 for (const reference of [false, true])
   test(`supplement: ${reference ? 'React reference' : 'Svelte'} SSR hydration retains generated IDs and authored motion suppression`, async ({
@@ -1357,9 +1314,7 @@ test('diagnostic: native style-string commits preserve panel reveal and first-cl
             expect.soft(closing.open).toBe(false);
             expect.soft(closing.calls).toHaveLength(2);
           }
-          // The pin can commit deferred ending after the first raw frame.
-          // Both branches still require ending at frame2 below.
-          if (!reference) expect.soft(close.frame1.ending).toBe(true);
+          expect.soft(close.frame1.ending).toBe(true);
           expect.soft(close.frame2.animations).toHaveLength(1);
           const keys = scenario.startsWith('beforematch-keys');
           expect
@@ -1386,19 +1341,7 @@ test('diagnostic: native style-string commits preserve panel reveal and first-cl
           expect.soft(close.completion.every((result) => result.status === 'fulfilled')).toBe(true);
           expect.soft(close.completed.ending).toBe(false);
           expect.soft(close.completed.hidden).toBe('until-found');
-          if (reference) {
-            // The pinned class keyframe can restart as hidden dimensions return to auto.
-            // Preserve its complete timing observation while checking the closed motion owner.
-            expect.soft(close.completed.animations.length).toBeLessThanOrEqual(1);
-            for (const animation of close.completed.animations) {
-              expect.soft(animation).toMatchObject({
-                kind: 'CSSAnimation',
-                name: 'panel-slide-up',
-              });
-            }
-          } else {
-            expect.soft(close.completed.animations).toHaveLength(0);
-          }
+          expect.soft(close.completed.animations).toHaveLength(0);
         }
       } catch (error) {
         const failure = { route, error: String(error) };

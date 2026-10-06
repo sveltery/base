@@ -378,112 +378,20 @@ it('supplement: teardown aborts a pending close completion and attachment work',
   await settle();
   expect(panel()).not.toBe(content);
 });
-// Native DOM counterpart only; zero Original assertion credit. Whole former supplement is archived externally.
-it('native supplement: opening measurements neutralize alignment and retain authored styles through restore frames', async () => {
-  const { trigger, component } = await setup('motion-layout');
+it('supplement: measured variable writes preserve temporary inline alignment until its restore frame', async () => {
+  const { trigger } = await setup('motion-layout');
   const content = panel()!;
-  const properties = ['justify-content', 'align-items', 'align-content', 'justify-items'] as const;
-  const readAlignment = () =>
-    properties.map((property) => [
-      property,
-      content.style.getPropertyValue(property),
-      content.style.getPropertyPriority(property),
-    ]);
-  const measurements: {
-    dimension: 'height' | 'width';
-    alignment: ReturnType<typeof readAlignment>;
-  }[] = [];
-  // jsdom supplies no layout. Observe the real panel's scroll reads while supplying fixed dimensions;
-  // the getters neither change styles nor calculate a replacement measurement algorithm.
-  Object.defineProperties(content, {
-    scrollHeight: {
-      configurable: true,
-      get: () => {
-        measurements.push({ dimension: 'height', alignment: readAlignment() });
-        return 100;
-      },
-    },
-    scrollWidth: {
-      configurable: true,
-      get: () => {
-        measurements.push({ dimension: 'width', alignment: readAlignment() });
-        return 80;
-      },
-    },
-    getAnimations: {
-      configurable: true,
-      value: () => [
-        { finished: new Promise<void>(() => {}), playState: 'running', pending: false },
-      ],
-    },
+  Object.defineProperty(content, 'getAnimations', {
+    configurable: true,
+    value: () => [{ finished: new Promise<void>(() => {}), playState: 'running', pending: false }],
   });
-  expect(trigger.getAttribute('aria-expanded')).toBe('false');
-  expect(content.hidden).toBe(true);
-  expect(content.style.justifyContent).toBe('center');
-
   trigger.click();
   await tick();
-  expect(measurements.map((measurement) => measurement.dimension)).toEqual(
-    expect.arrayContaining(['height', 'width']),
-  );
-  for (const measurement of measurements) {
-    expect(measurement.alignment).toEqual(
-      properties.map((property) => [property, 'initial', 'important']),
-    );
-  }
-  const events = component.snapshot().events;
-  expect(events).toHaveLength(1);
-  expect({
-    open: events[0].open,
-    before: events[0].before,
-    reason: events[0].details.reason,
-  }).toEqual({
-    open: true,
-    before: 'false',
-    reason: 'trigger-press',
-  });
-  expect(events[0].details.event).toBeInstanceOf(MouseEvent);
-  expect(events[0].details.event.target).toBe(trigger);
-  expect(events[0].details.isCanceled).toBe(false);
-
-  const sampleCommittedOpen = () => ({
-    sameHost: panel() === content,
-    connected: content.isConnected,
-    hidden: content.hidden,
-    open: content.hasAttribute('data-open'),
-    expanded: trigger.getAttribute('aria-expanded'),
-    controls: trigger.getAttribute('aria-controls'),
-    dimensions: [
-      content.style.getPropertyValue('--collapsible-panel-height'),
-      content.style.getPropertyValue('--collapsible-panel-width'),
-    ],
-    alignment: readAlignment(),
-    requests: component.snapshot().events.length,
-  });
-  const expectedCommittedOpen = {
-    sameHost: true,
-    connected: true,
-    hidden: false,
-    open: true,
-    expanded: 'true',
-    controls: content.id,
-    dimensions: ['100px', '80px'],
-    alignment: [
-      ['justify-content', 'center', ''],
-      ['align-items', '', ''],
-      ['align-content', '', ''],
-      ['justify-items', '', ''],
-    ],
-    requests: 1,
-  };
-  // Native aggregate style commits can restore authored alignment before the scheduled restore frame.
-  expect(content.hasAttribute('data-starting-style')).toBe(true);
-  expect(sampleCommittedOpen()).toEqual(expectedCommittedOpen);
-  await frame();
-  expect(content.hasAttribute('data-starting-style')).toBe(false);
-  expect(sampleCommittedOpen()).toEqual(expectedCommittedOpen);
-  await frame();
-  expect(sampleCommittedOpen()).toEqual(expectedCommittedOpen);
+  expect(content.style.justifyContent).toBe('initial');
+  expect(content.style.getPropertyPriority('justify-content')).toBe('important');
+  await settle();
+  expect(content.style.justifyContent).toBe('center');
+  expect(content.style.getPropertyPriority('justify-content')).toBe('');
 });
 it('supplement: beforematch duration suppression survives rendered styles until close', async () => {
   const { trigger } = await setup('beforematch');
