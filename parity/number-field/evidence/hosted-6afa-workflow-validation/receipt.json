@@ -1,0 +1,53 @@
+{
+  "historicalPublicHead": "6afaac67f5cc8c1ff50876b3816688d151bed2c1",
+  "run": "https://github.com/sveltery/base/actions/runs/37543468551",
+  "checkSuiteId": "101701656182",
+  "event": "push",
+  "conclusion": "failure before any jobs/tests executed; NumberField absent PR runs",
+  "createdAndUpdated": "2026-10-06T22:54:13Z",
+  "exactErrorString": "Not exposed by retrieved run/commit-check-runs API; not claimed",
+  "causalRestriction": {
+    "source": "https://docs.github.com/en/actions/reference/workflows-and-actions/contexts",
+    "jobEnvAllowedContexts": [
+      "github",
+      "needs",
+      "strategy",
+      "matrix",
+      "vars",
+      "secrets",
+      "inputs"
+    ],
+    "unsupportedOriginalContext": "runner.temp"
+  },
+  "repair": "Only replace unsupported job env runner.temp expression with literal absolute /tmp/sveltery-number-field-chromium; common official installer/red/green/source-bug browser cache remains explicit and outside uploaded checks",
+  "historicalArchivePolicy": "Earlier compressed workflow and receipt hashes remain immutable historical snapshots. This successor archive and hash record supersede the cache authoring choice, without rewriting execution history.",
+  "candidateParent": "05efc54723e48457be4db2e680af90d5d173a18c",
+  "assertionCredit": 0,
+  "browserExecutions": 0,
+  "checks": [
+    "prettier workflow check PASS",
+    "bash -n existing paired launcher PASS",
+    "git diff --check PASS"
+  ],
+  "limits": [
+    "actionlint not installed; no local GitHub expression validator execution claimed.",
+    "Official context table establishes unsupported job-level runner context; exact hosted error annotation was not retrieved.",
+    "Secured browser predecessor RED/current65GREEN and16 source proofs remain pending."
+  ],
+  "archives": [
+    {
+      "file": "successor-number-field.yml.gz",
+      "decodedBytes": 3392,
+      "decodedSha256": "6a582e9b822f586ff3fcae6bee0b33ef31d5a8a0bceecc3b216096720dd7c113",
+      "gzipSha256": "a0779567444f89e22872834d4e20126b7c8048db2b88213c46646144bb835743"
+    },
+    {
+      "file": "actual-workflow-run.json.gz",
+      "decodedBytes": 12393,
+      "decodedSha256": "c8c9e3c3ef680c0b9639e6afd5ff5c5a7ad4143847d28b57568ee94a7a4d2d29",
+      "gzipSha256": "bcabe35fef32cd866258e9a35d1e19a35fa445dfcd52d7e61a2c181fcee858a8"
+    }
+  ],
+  "actualJobsApiObservation": "github_fetch_workflow_run_jobs run37543468551 returned jobs:[]; parent observed, no raw jobs API JSON supplied",
+  "apiTextProvenance": "actual-workflow-run.json.gz recovers the fetched tool structuredContent.content JSON text saved by apply_patch with a final newline. Semantic API fields are exact; raw HTTP response byte identity is not claimed."
+}
