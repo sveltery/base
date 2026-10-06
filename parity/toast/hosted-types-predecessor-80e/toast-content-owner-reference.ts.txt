@@ -1,5 +1,5 @@
 // Supplemental actual pinned Toast.Content witness; MIT: parity/toast/UPSTREAM_LICENSE.
-import { createElement, type ComponentProps } from 'react';
+import { createElement } from 'react';
 import { createRoot } from 'react-dom/client';
 import { flushSync } from 'react-dom';
 import { Toast } from '@base-ui/react/toast';
@@ -9,9 +9,6 @@ export function mountToastContentOwnerReference(
   target: HTMLElement,
   recalculateHeight: (flush?: boolean) => void,
 ) {
-  const contentProps: ComponentProps<typeof Toast.Content> & { 'data-testid': string } = {
-    'data-testid': 'content-owner',
-  };
   const root = createRoot(target);
   flushSync(() =>
     root.render(
@@ -27,7 +24,7 @@ export function mountToastContentOwnerReference(
             recalculateHeight,
           },
         },
-        createElement(Toast.Content, contentProps, 'Content'),
+        createElement(Toast.Content, { 'data-testid': 'content-owner' }, 'Content'),
       ),
     ),
   );

@@ -1,5 +1,5 @@
 // Supplemental actual pinned Toast.Root lifetime witness; MIT: parity/toast/UPSTREAM_LICENSE.
-import { createElement, type ComponentProps } from 'react';
+import { createElement } from 'react';
 import { createRoot } from 'react-dom/client';
 import { flushSync } from 'react-dom';
 import { Toast } from '@base-ui/react/toast';
@@ -11,18 +11,13 @@ export function mountToastRootRefReference(target: HTMLElement) {
     return createElement(
       Toast.Viewport,
       null,
-      manager.toasts.map((toast) => {
-        const rootProps: ComponentProps<typeof Toast.Root> & { 'data-toast': string } = {
-          toast,
-          swipeDirection: [],
-          'data-toast': toast.id,
-        };
-        return createElement(
+      manager.toasts.map((toast) =>
+        createElement(
           Toast.Root,
-          { key: toast.id, ...rootProps },
+          { key: toast.id, toast, swipeDirection: [], 'data-toast': toast.id },
           createElement(Toast.Title, null, toast.title),
-        );
-      }),
+        ),
+      ),
     );
   }
   const root = createRoot(target);

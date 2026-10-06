@@ -6,8 +6,6 @@
     toast: { id: 'content-owner' },
     expanded: false,
     visibleIndex: 0,
-    titleId: undefined,
-    descriptionId: undefined,
     setTitleId: () => () => {},
     setDescriptionId: () => () => {},
     get recalculateHeight() {

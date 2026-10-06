@@ -1,0 +1,44 @@
+{
+  "head": "80e5a555a2a4a6365b36b913734e56ecf71ecdb1",
+  "run": "https://github.com/sveltery/base/actions/runs/37541261507",
+  "verificationJob": "https://github.com/sveltery/base/actions/runs/37541261507/job/112534564177",
+  "standardsJob": "https://github.com/sveltery/base/actions/runs/37541261507/job/112534564082",
+  "result": "Standards passed; Verification scripts/fresh tarballs passed, type check failed3errors6historicalwarnings. Subsequent runtime/DOM/fixturebuild/packageconsumer stages skipped.",
+  "preimages": [
+    {
+      "path": "packages/base/tests/dom/ToastContentOwnerFixture.svelte",
+      "archive": "ToastContentOwnerFixture.svelte.txt",
+      "sha256": "ee71360688dfaf9a79fd41627e93598d07fd0d9ba7f89e02fc2acaa3b18e49a5"
+    },
+    {
+      "path": "apps/fixtures/src/lib/toast-content-owner-reference.ts",
+      "archive": "toast-content-owner-reference.ts.txt",
+      "sha256": "bedf814e35e7a726514e6184450eac980902a918568b54eda2b1564a09353d33"
+    },
+    {
+      "path": "apps/fixtures/src/lib/toast-root-ref-reference.ts",
+      "archive": "toast-root-ref-reference.ts.txt",
+      "sha256": "36d9b0b957377efedd31643515497e65b9db62703fc7ac860a01447099b4323e"
+    }
+  ],
+  "logSha256": "0dc35622d849dd218e588c5d99bdccf4d82c0c8670bfa5bebb6d33825e87f1e4",
+  "scope": "Supplemental fixture representation typing only; no runtime/assertionchanges; zero unchanged Original credit.",
+  "localLogs": [
+    {
+      "archive": "types-80e-repair.log.txt.gz",
+      "uncompressedSha256": "93f72f4fdabe6d40f61da1c5405eddd4cc680004083fc61e13bb1a55e20c784d"
+    },
+    {
+      "archive": "types-80e-repair-tmp.log.txt.gz",
+      "uncompressedSha256": "bc7d72537b680f94ba6cb5a924f9491305c6d56c08387c65597c89131c2dc7b7"
+    },
+    {
+      "archive": "fixture-pairs-80e-repair.log.txt.gz",
+      "uncompressedSha256": "c05d7d6bf0a8c75c4b16a3cef1e9186cf6ce78d4568d48ac3370e1ac5f94c570"
+    }
+  ],
+  "repair": "Isolated no-labelRootcontext supplies explicit undefined titleId/descriptionId; realReactComponentProps intersect namedHTMLdataattributes for createElement actualcomponentprops, preserving all selectors/composition/assertions. No casts/stubs/runtime changes.",
+  "localResults": "First pnpmcheck attempt hit read-only/tmp beforetypes. Writable TMPDIR retry1024MiB passed bothfreshpackagepreparation/publint, Utils0errors0warnings, Base0errors6historicalwarnings; Fixtures exhausted1024MiB heap, remains incomplete. Focused actualContent6/Rootpair2 passed8/8 in2files3.21s, maxWorkers1/no-file-parallelism.",
+  "historicalObjects": "Parent actualaudit verified all19 literalpredecessors/all18checkpointSHAs and9707666 ancestors; no historical Git object failure occurred. HostedVerification does not invoke integration checkers; shallow-checkout risk is potential only, not a current failure.",
+  "limits": "Full Fixtures checking requires nextcandidate hostedgate; existing80e browser remains stablependingactualresult. Libraryruntime unchanged; no redundant packedruntimechecks. Finalcandidate independentreview/publication pending."
+}
