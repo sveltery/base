@@ -92,7 +92,7 @@
         "packages/base/src/lib/context-menu/types.ts"
       ],
       "localHashes": {
-        "packages/base/src/lib/context-menu/Trigger.svelte": "1bcc4a7d667b7b0c17cdad52d67f7b39c0c892df291ed90bf84b74ccd16d1df4",
+        "packages/base/src/lib/context-menu/Trigger.svelte": "f336576c2d3ff75ebe4245952d6c87a9c1f94dda7c1b29acec49c3652428a876",
         "packages/base/src/lib/context-menu/trigger/createContextMenuTrigger.svelte.ts": "c7b1cd5c8adc95071a449256413571762d3f762dcb39fc3adf71d78db83aae33",
         "packages/base/src/lib/context-menu/types.ts": "eea17502bf6bb4655dd0fcd6db7fb1c1073460e684145cdbcbcc3808e941b0e4"
       },
@@ -1066,7 +1066,7 @@
         "packages/base/src/lib/menu/types.ts"
       ],
       "localHashes": {
-        "packages/base/src/lib/menu/Arrow.svelte": "6d52ce6a978c73fd3b438b8ce0740010f85dff4ae4498277c7d62b14a1fc88f2",
+        "packages/base/src/lib/menu/Arrow.svelte": "09bf8d81d36cdc6e61f71fb3700e16acfcdddd8a46e17dc936997fe06840050f",
         "packages/base/src/lib/menu/types.ts": "f70bd7769bbf0008b619ecc7d0eb7d4a56edc6c351c5c82fa11e9989d844e426"
       },
       "correspondence": "Original component business and public types retain their part boundary; native component/snippet/attachment/context/rune ownership replaces React host rendering. Compare the complete component and any used extracted business body together.",
@@ -1082,7 +1082,7 @@
         "packages/base/src/lib/menu/types.ts"
       ],
       "localHashes": {
-        "packages/base/src/lib/menu/Backdrop.svelte": "ec312da1e068eec9796d1c095d59620f5e6e34d388aef4f577bfa9c7a9ba44e1",
+        "packages/base/src/lib/menu/Backdrop.svelte": "62f8e4e3f20a59d5bf839e0bf30debf4568f100d17049acbb8fb241227c9ac9a",
         "packages/base/src/lib/menu/types.ts": "f70bd7769bbf0008b619ecc7d0eb7d4a56edc6c351c5c82fa11e9989d844e426"
       },
       "correspondence": "Original component business and public types retain their part boundary; native component/snippet/attachment/context/rune ownership replaces React host rendering. Compare the complete component and any used extracted business body together.",
@@ -1098,7 +1098,7 @@
         "packages/base/src/lib/menu/types.ts"
       ],
       "localHashes": {
-        "packages/base/src/lib/menu/CheckboxItemIndicator.svelte": "af11c5bbdfaeca445ff15b110974791993aab6e81ac0f095bd765f6215b43809",
+        "packages/base/src/lib/menu/CheckboxItemIndicator.svelte": "c4d32eb8ae825ae3283100b18d45cd8ba4d691fd33570477b434f0945d93faab",
         "packages/base/src/lib/menu/types.ts": "f70bd7769bbf0008b619ecc7d0eb7d4a56edc6c351c5c82fa11e9989d844e426"
       },
       "correspondence": "Original component business and public types retain their part boundary; native component/snippet/attachment/context/rune ownership replaces React host rendering. Compare the complete component and any used extracted business body together.",
@@ -1114,7 +1114,7 @@
         "packages/base/src/lib/menu/types.ts"
       ],
       "localHashes": {
-        "packages/base/src/lib/menu/CheckboxItem.svelte": "02ba507eb8e75052c66c4d59602b878bd77fae4d0ca02dde9af6ea3de5954a07",
+        "packages/base/src/lib/menu/CheckboxItem.svelte": "3db96f6be4c7fe6cc2da6a5db1a2581c0175c0461a2e35a22e1aea78e58d4cfe",
         "packages/base/src/lib/menu/types.ts": "f70bd7769bbf0008b619ecc7d0eb7d4a56edc6c351c5c82fa11e9989d844e426"
       },
       "correspondence": "Original component business and public types retain their part boundary; native component/snippet/attachment/context/rune ownership replaces React host rendering. Compare the complete component and any used extracted business body together.",
@@ -1232,7 +1232,7 @@
         "packages/base/src/lib/menu/types.ts"
       ],
       "localHashes": {
-        "packages/base/src/lib/menu/Item.svelte": "cc7dd696a5e97f3be807759626071615f17779d5fb10609f9d01b018d8856f54",
+        "packages/base/src/lib/menu/Item.svelte": "b6e0464d3eacabbb8d3ad0b9188f9e29e7114e5c13dbc031e6d05213e77ecafb",
         "packages/base/src/lib/menu/types.ts": "f70bd7769bbf0008b619ecc7d0eb7d4a56edc6c351c5c82fa11e9989d844e426"
       },
       "correspondence": "Original component business and public types retain their part boundary; native component/snippet/attachment/context/rune ownership replaces React host rendering. Compare the complete component and any used extracted business body together.",
@@ -1276,7 +1276,7 @@
         "packages/base/src/lib/menu/types.ts"
       ],
       "localHashes": {
-        "packages/base/src/lib/menu/LinkItem.svelte": "1d771af5ccd9ef0079d538a24d44e76002a372c910ac3a648f79ab19a09d8cd6",
+        "packages/base/src/lib/menu/LinkItem.svelte": "eab316a4f0d17a8fef47ebf716b18b72db44e2773509d07b4c2941f01700dafe",
         "packages/base/src/lib/menu/types.ts": "f70bd7769bbf0008b619ecc7d0eb7d4a56edc6c351c5c82fa11e9989d844e426"
       },
       "correspondence": "Original component business and public types retain their part boundary; native component/snippet/attachment/context/rune ownership replaces React host rendering. Compare the complete component and any used extracted business body together.",
@@ -1292,7 +1292,7 @@
         "packages/base/src/lib/menu/types.ts"
       ],
       "localHashes": {
-        "packages/base/src/lib/menu/Popup.svelte": "74f9bc6ece8cbde744d120e226a7a640511db802670bf62fcce08ea7ab2fb8e3",
+        "packages/base/src/lib/menu/Popup.svelte": "ffe870ee1c658b8ed2d4d47e1228f75d23e51133fecc7bba738c69df45fc45c5",
         "packages/base/src/lib/menu/types.ts": "f70bd7769bbf0008b619ecc7d0eb7d4a56edc6c351c5c82fa11e9989d844e426"
       },
       "correspondence": "Original component business and public types retain their part boundary; native component/snippet/attachment/context/rune ownership replaces React host rendering. Compare the complete component and any used extracted business body together.",
@@ -1308,7 +1308,7 @@
         "packages/base/src/lib/menu/types.ts"
       ],
       "localHashes": {
-        "packages/base/src/lib/menu/Portal.svelte": "f1f86a820e10847f46769e8c67c711e904e89744f997a9c8549e765657e31b1c",
+        "packages/base/src/lib/menu/Portal.svelte": "24c79d4f56f3c9f36df9ef1f42bf2435585fd49e3455935b6f05675edb5b1f64",
         "packages/base/src/lib/menu/types.ts": "f70bd7769bbf0008b619ecc7d0eb7d4a56edc6c351c5c82fa11e9989d844e426"
       },
       "correspondence": "Original component business and public types retain their part boundary; native component/snippet/attachment/context/rune ownership replaces React host rendering. Compare the complete component and any used extracted business body together.",
@@ -1400,7 +1400,7 @@
         "packages/base/src/lib/menu/types.ts"
       ],
       "localHashes": {
-        "packages/base/src/lib/menu/RadioItemIndicator.svelte": "c5a4676c2588a2e9998f35459c70e88e5b57508bc6693e4f06fd2a0d408fc7f3",
+        "packages/base/src/lib/menu/RadioItemIndicator.svelte": "6b5639f92e10960db5ca69c5ac9e6c9b3b9a623b3f173eeb855d12ce06df1b2b",
         "packages/base/src/lib/menu/types.ts": "f70bd7769bbf0008b619ecc7d0eb7d4a56edc6c351c5c82fa11e9989d844e426"
       },
       "correspondence": "Original component business and public types retain their part boundary; native component/snippet/attachment/context/rune ownership replaces React host rendering. Compare the complete component and any used extracted business body together.",
@@ -1416,7 +1416,7 @@
         "packages/base/src/lib/menu/types.ts"
       ],
       "localHashes": {
-        "packages/base/src/lib/menu/RadioItem.svelte": "82057f97bf68f0070c0d62e12ff6e25e7c503492733252257efecc760d0abf77",
+        "packages/base/src/lib/menu/RadioItem.svelte": "37fb5db24c04539996271f0dc8af2d197a3c288a1eb783f24944f824dbe58902",
         "packages/base/src/lib/menu/types.ts": "f70bd7769bbf0008b619ecc7d0eb7d4a56edc6c351c5c82fa11e9989d844e426"
       },
       "correspondence": "Original component business and public types retain their part boundary; native component/snippet/attachment/context/rune ownership replaces React host rendering. Compare the complete component and any used extracted business body together.",
@@ -1644,7 +1644,7 @@
         "packages/base/src/lib/menubar/types.ts"
       ],
       "localHashes": {
-        "packages/base/src/lib/menubar/Menubar.svelte": "9a3073b1739a7dbd5e1107d3b7a82d1fff068d640790d0f3a0e6adeeb12f98e8",
+        "packages/base/src/lib/menubar/Menubar.svelte": "8f5a232bc3f2246ffaa0cba4b84764f064687feecc365c837476bfc4f2dbbc43",
         "packages/base/src/lib/menubar/types.ts": "91b24a36c05ac1d7e848fdb9fd8b5186d28b5bf3344962cd59e7d826a9a99169"
       },
       "correspondence": "Original Menubar/MenubarContent CompositeRoot and real FloatingTree/Node/context/event composition; native setup context, runes and component markup.",
@@ -1673,7 +1673,7 @@
         "packages/base/src/lib/menubar/Menubar.svelte"
       ],
       "localHashes": {
-        "packages/base/src/lib/menubar/Menubar.svelte": "9a3073b1739a7dbd5e1107d3b7a82d1fff068d640790d0f3a0e6adeeb12f98e8"
+        "packages/base/src/lib/menubar/Menubar.svelte": "8f5a232bc3f2246ffaa0cba4b84764f064687feecc365c837476bfc4f2dbbc43"
       },
       "correspondence": "Original has-submenu-open constant is represented directly in the native state mapping, with no independent business helper.",
       "reviewStatus": "Entire used Source/native business, idiomatic Svelte and maintainability independent exact-head review pending; no acceptance by inventory."
@@ -2724,12 +2724,12 @@
         "packages/base/src/lib/internals/useOpenChangeComplete.svelte.ts": "b6174d1cc73b6ea3b6431cf87906a1acacc40b1d5c356a31124f92251d7fd038",
         "packages/base/src/lib/internals/useTransitionStatus.svelte.ts": "7fc531ccff0a7dfd77703c0f0ee7e1148fc080960682469eafffbc627056fa9e",
         "packages/base/src/lib/menu/GroupLabel.svelte": "743dad85f4b3e8c9fcca29c8b24c78cba2978e63557e491410ed481fd678070f",
-        "packages/base/src/lib/menu/Popup.svelte": "74f9bc6ece8cbde744d120e226a7a640511db802670bf62fcce08ea7ab2fb8e3",
+        "packages/base/src/lib/menu/Popup.svelte": "ffe870ee1c658b8ed2d4d47e1228f75d23e51133fecc7bba738c69df45fc45c5",
         "packages/base/src/lib/menu/positioner/createMenuPositioner.svelte.ts": "58d6966fd6c904e8b6adca800731394803d0fee4f73d781ee0fa2a5776d6e063",
         "packages/base/src/lib/menu/root/createMenuRoot.svelte.ts": "c388e875d2a3f4c6fb748b17f1dc2e9c35ce347360d7de696dfe83295136616e",
         "packages/base/src/lib/menu/submenu-trigger/createMenuSubmenuTrigger.svelte.ts": "a27f25c9934a6c7d64004313fddb5bba8e96a901cf863ec8b9920d58ef4d7a12",
         "packages/base/src/lib/menu/trigger/createMenuTrigger.svelte.ts": "ae04e18d492aa073757adc134e825f1fa8412283d742cb6cf9895a784215108f",
-        "packages/base/src/lib/menubar/Menubar.svelte": "9a3073b1739a7dbd5e1107d3b7a82d1fff068d640790d0f3a0e6adeeb12f98e8",
+        "packages/base/src/lib/menubar/Menubar.svelte": "8f5a232bc3f2246ffaa0cba4b84764f064687feecc365c837476bfc4f2dbbc43",
         "packages/base/src/lib/utils/popups/PopupHandleAttachment.svelte": "437e6d44b586b4cc524d30d4214906695aa505239f1951a7840077780f562927",
         "packages/base/src/lib/utils/popups/popupStoreUtils.svelte.ts": "13b61b426eed8a0875580aa2a8e15a8caf5c7110e915174bf4d613f069f7b01a",
         "packages/base/src/lib/utils/useAnchoredPopupScrollLock.svelte.ts": "21a07726eed55814307acd741228214b8ebc411a0dcbddcf1d32a13ccdc45060",

@@ -31,6 +31,7 @@
     defaultValue,
     form,
     name: nameProp,
+    // eslint-disable-next-line no-useless-assignment -- Svelte output binding publishes the selected input to its caller.
     inputRef = $bindable(),
     id: idProp,
     style,

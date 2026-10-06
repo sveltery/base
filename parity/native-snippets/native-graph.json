@@ -1579,7 +1579,7 @@
     },
     {
       "source": "packages/base/src/lib/context-menu/Trigger.svelte",
-      "sha256": "1bcc4a7d667b7b0c17cdad52d67f7b39c0c892df291ed90bf84b74ccd16d1df4",
+      "sha256": "f336576c2d3ff75ebe4245952d6c87a9c1f94dda7c1b29acec49c3652428a876",
       "imports": [
         {
           "specifier": "../internals/mergeComponentProps.js",
@@ -6314,7 +6314,7 @@
     },
     {
       "source": "packages/base/src/lib/menu/Arrow.svelte",
-      "sha256": "6d52ce6a978c73fd3b438b8ce0740010f85dff4ae4498277c7d62b14a1fc88f2",
+      "sha256": "09bf8d81d36cdc6e61f71fb3700e16acfcdddd8a46e17dc936997fe06840050f",
       "imports": [
         {
           "specifier": "../internals/mergeComponentProps.js",
@@ -6355,7 +6355,7 @@
     },
     {
       "source": "packages/base/src/lib/menu/Backdrop.svelte",
-      "sha256": "ec312da1e068eec9796d1c095d59620f5e6e34d388aef4f577bfa9c7a9ba44e1",
+      "sha256": "62f8e4e3f20a59d5bf839e0bf30debf4568f100d17049acbb8fb241227c9ac9a",
       "imports": [
         {
           "specifier": "../internals/mergeComponentProps.js",
@@ -6417,7 +6417,7 @@
     },
     {
       "source": "packages/base/src/lib/menu/CheckboxItem.svelte",
-      "sha256": "02ba507eb8e75052c66c4d59602b878bd77fae4d0ca02dde9af6ea3de5954a07",
+      "sha256": "3db96f6be4c7fe6cc2da6a5db1a2581c0175c0461a2e35a22e1aea78e58d4cfe",
       "imports": [
         {
           "specifier": "../internals/mergeComponentProps.js",
@@ -6498,7 +6498,7 @@
     },
     {
       "source": "packages/base/src/lib/menu/CheckboxItemIndicator.svelte",
-      "sha256": "af11c5bbdfaeca445ff15b110974791993aab6e81ac0f095bd765f6215b43809",
+      "sha256": "c4d32eb8ae825ae3283100b18d45cd8ba4d691fd33570477b434f0945d93faab",
       "imports": [
         {
           "specifier": "../internals/mergeComponentProps.js",
@@ -6849,7 +6849,7 @@
     },
     {
       "source": "packages/base/src/lib/menu/Item.svelte",
-      "sha256": "cc7dd696a5e97f3be807759626071615f17779d5fb10609f9d01b018d8856f54",
+      "sha256": "b6e0464d3eacabbb8d3ad0b9188f9e29e7114e5c13dbc031e6d05213e77ecafb",
       "imports": [
         {
           "specifier": "../internals/mergeComponentProps.js",
@@ -6972,7 +6972,7 @@
     },
     {
       "source": "packages/base/src/lib/menu/LinkItem.svelte",
-      "sha256": "1d771af5ccd9ef0079d538a24d44e76002a372c910ac3a648f79ab19a09d8cd6",
+      "sha256": "eab316a4f0d17a8fef47ebf716b18b72db44e2773509d07b4c2941f01700dafe",
       "imports": [
         {
           "specifier": "../internals/mergeComponentProps.js",
@@ -7043,7 +7043,7 @@
     },
     {
       "source": "packages/base/src/lib/menu/Popup.svelte",
-      "sha256": "74f9bc6ece8cbde744d120e226a7a640511db802670bf62fcce08ea7ab2fb8e3",
+      "sha256": "ffe870ee1c658b8ed2d4d47e1228f75d23e51133fecc7bba738c69df45fc45c5",
       "imports": [
         {
           "specifier": "../internals/mergeComponentProps.js",
@@ -7124,7 +7124,7 @@
     },
     {
       "source": "packages/base/src/lib/menu/Portal.svelte",
-      "sha256": "f1f86a820e10847f46769e8c67c711e904e89744f997a9c8549e765657e31b1c",
+      "sha256": "24c79d4f56f3c9f36df9ef1f42bf2435585fd49e3455935b6f05675edb5b1f64",
       "imports": [
         {
           "specifier": "svelte",
@@ -7382,7 +7382,7 @@
     },
     {
       "source": "packages/base/src/lib/menu/RadioItem.svelte",
-      "sha256": "82057f97bf68f0070c0d62e12ff6e25e7c503492733252257efecc760d0abf77",
+      "sha256": "37fb5db24c04539996271f0dc8af2d197a3c288a1eb783f24944f824dbe58902",
       "imports": [
         {
           "specifier": "../internals/mergeComponentProps.js",
@@ -7463,7 +7463,7 @@
     },
     {
       "source": "packages/base/src/lib/menu/RadioItemIndicator.svelte",
-      "sha256": "c5a4676c2588a2e9998f35459c70e88e5b57508bc6693e4f06fd2a0d408fc7f3",
+      "sha256": "6b5639f92e10960db5ca69c5ac9e6c9b3b9a623b3f173eeb855d12ce06df1b2b",
       "imports": [
         {
           "specifier": "../internals/mergeComponentProps.js",
@@ -8290,7 +8290,7 @@
     },
     {
       "source": "packages/base/src/lib/menubar/Menubar.svelte",
-      "sha256": "9a3073b1739a7dbd5e1107d3b7a82d1fff068d640790d0f3a0e6adeeb12f98e8",
+      "sha256": "8f5a232bc3f2246ffaa0cba4b84764f064687feecc365c837476bfc4f2dbbc43",
       "imports": [
         {
           "specifier": "svelte/attachments",
@@ -8685,7 +8685,7 @@
     },
     {
       "source": "packages/base/src/lib/popover/Arrow.svelte",
-      "sha256": "b990466a1c300b39b87fedda9e90b5c361fa652a732148931b8a2428fd0b95f8",
+      "sha256": "b042ba5eab27db6587c6a7484e94cde9b434e57c8dcd1545f3fb0bda0be9311b",
       "imports": [
         {
           "specifier": "../internals/mergeComponentProps.js",
@@ -8726,7 +8726,7 @@
     },
     {
       "source": "packages/base/src/lib/popover/Backdrop.svelte",
-      "sha256": "8fecfadacbbc62c78e2033a1539ff821679a870d3868e896a5dd7d73efec567e",
+      "sha256": "ab54149891e40a0df66eac6eabc3ae41882ab4cd5b01a0c07467be3839f59044",
       "imports": [
         {
           "specifier": "../internals/mergeComponentProps.js",
@@ -8767,7 +8767,7 @@
     },
     {
       "source": "packages/base/src/lib/popover/Close.svelte",
-      "sha256": "f51032995539fee46994a58a2561b5fe312288282b638acdab6f4f56463f0b40",
+      "sha256": "a9acb37a8380d8284f347e2a62688c2c3a6c8da16b08d4575feaf51e4f406cba",
       "imports": [
         {
           "specifier": "../internals/mergeComponentProps.js",
@@ -8834,7 +8834,7 @@
     },
     {
       "source": "packages/base/src/lib/popover/Description.svelte",
-      "sha256": "87957dd96b04b4af3c79f94be918a02986f2f9579a6236b7c8f861afd09e02d5",
+      "sha256": "b17646921964e6c0f09d8fbeb1658d63fff32ec17a7a421b0a98f53df5cbc2f8",
       "imports": [
         {
           "specifier": "../internals/mergeComponentProps.js",
@@ -8978,7 +8978,7 @@
     },
     {
       "source": "packages/base/src/lib/popover/Popup.svelte",
-      "sha256": "48d5301aaddda3b9e96825f4efc2e72ee56e44eba7dbdbf7e3d7af4dcb270805",
+      "sha256": "7bf0ffbca306fbfa93d63f2bebb54af2b792e908441cb3f96e29819e1892283f",
       "imports": [
         {
           "specifier": "../internals/mergeComponentProps.js",
@@ -9100,7 +9100,7 @@
     },
     {
       "source": "packages/base/src/lib/popover/Positioner.svelte",
-      "sha256": "217608c765d53ee371019430d083c5d353a56d4d81ed6adfbb600483d8e711b7",
+      "sha256": "b7938faaf2ebc3346ccf0d6a413cfec499b084a7520cb83720d9adb80585a44b",
       "imports": [
         {
           "specifier": "../internals/mergeComponentProps.js",
@@ -9356,7 +9356,7 @@
     },
     {
       "source": "packages/base/src/lib/popover/Title.svelte",
-      "sha256": "c354f1f6f5a8d557abe26e1b7b9fb0a76d26b153abdd41f47800270f6884b809",
+      "sha256": "758d81e0c6c8b9fadcc8aa115ea5873fa87977f1a31440e024660fe2bd88d9e0",
       "imports": [
         {
           "specifier": "../internals/mergeComponentProps.js",
@@ -9392,7 +9392,7 @@
     },
     {
       "source": "packages/base/src/lib/popover/Trigger.svelte",
-      "sha256": "f9dc015fd47a045c87b20eb839b9f9ff39cc6657398f783df93463928ffb7c82",
+      "sha256": "a2acdd1e7bce56f5bafc9c65c39929ec74705b2964643a2e9085c9dbff46fdf7",
       "imports": [
         {
           "specifier": "../internals/mergeComponentProps.js",
@@ -9554,7 +9554,7 @@
     },
     {
       "source": "packages/base/src/lib/popover/Viewport.svelte",
-      "sha256": "c8e8e6d100a42965930ceb487ac8ecf8facb1fb9cc7be3e7efa4f3bcbf6bcf41",
+      "sha256": "147c31c07dd7fa04f11a85d9702060c8e67ce1fab87970e07657a2806f43c03d",
       "imports": [
         {
           "specifier": "../internals/mergeComponentProps.js",
@@ -9605,7 +9605,7 @@
     },
     {
       "source": "packages/base/src/lib/preview-card/Arrow.svelte",
-      "sha256": "b1720ed87f5682953017c5ff6fa5c7867b5f839af349edb28776950856a89f22",
+      "sha256": "d0dda066a7971aa98bcffc988056a309167d5e7312ac7b12b43db9a59e5ce2dc",
       "imports": [
         {
           "specifier": "../internals/mergeComponentProps.js",
@@ -9646,7 +9646,7 @@
     },
     {
       "source": "packages/base/src/lib/preview-card/Backdrop.svelte",
-      "sha256": "4bc0c65711349fe1ed8d76c84d4a8762319f088968e954fff8dd2dd138f60f20",
+      "sha256": "2989cc8248f6ec934f8ebb3d10fc3a99d8500dfee757f28c6134f0a26618ca73",
       "imports": [
         {
           "specifier": "../internals/mergeComponentProps.js",
@@ -9791,7 +9791,7 @@
     },
     {
       "source": "packages/base/src/lib/preview-card/Popup.svelte",
-      "sha256": "0f23c58e42eb80784c6577e7f1afbdf71ab6213c2b32dbd4ca11367bcab3f094",
+      "sha256": "be5357a7dd1949d23b7ebaf45632419850797c78b861a6730f213483b031c37a",
       "imports": [
         {
           "specifier": "../internals/mergeComponentProps.js",
@@ -9878,7 +9878,7 @@
     },
     {
       "source": "packages/base/src/lib/preview-card/Positioner.svelte",
-      "sha256": "f8506a5beafdd481648d99fc6ecfd3120857ff90a0c598d59e203971945980d0",
+      "sha256": "06c8be92038814e156345c1dc2ad718a90b922476819212b0341c3837e596fc9",
       "imports": [
         {
           "specifier": "../internals/mergeComponentProps.js",
@@ -10104,7 +10104,7 @@
     },
     {
       "source": "packages/base/src/lib/preview-card/Trigger.svelte",
-      "sha256": "0cc3421593802e046e7b2b56a0ae3cedb04f1595cf8de460a23bb6d693b02899",
+      "sha256": "04cea9a4545271bb5563b3e1422c17a6f36a33ad9baef0741d0b1deee4ea16a0",
       "imports": [
         {
           "specifier": "../internals/mergeComponentProps.js",
@@ -10241,7 +10241,7 @@
     },
     {
       "source": "packages/base/src/lib/preview-card/Viewport.svelte",
-      "sha256": "b8f9dc10e7cebc639419931bc0f4766749a750ca02e3426b59d0a16f59f13a74",
+      "sha256": "6ff5ae2a67d2152207c0300745194a726906f783c0fa898c5211a6f9b0b98d3e",
       "imports": [
         {
           "specifier": "../internals/mergeComponentProps.js",
@@ -10618,7 +10618,7 @@
     },
     {
       "source": "packages/base/src/lib/radio-group/RadioGroup.svelte",
-      "sha256": "df000859f9ee9ed305d845902c1797ae7d178b7464d711d15257aab27a85d1a1",
+      "sha256": "8b1b6a390fba2b142e0d50aa125737c6dd8360808a74c4ce4b2b6f3e78ff4822",
       "imports": [
         {
           "specifier": "svelte",
@@ -13472,7 +13472,7 @@
     },
     {
       "source": "packages/base/src/lib/tooltip/Arrow.svelte",
-      "sha256": "67a94ebb9a8418d328da6b3a61341b15cde94fb85d1b0cf35f70cdf99deddd1e",
+      "sha256": "84ba870d1fe0d7d288a5b1f9094dff166da5baf899c96139d3ee0c2ce2987eea",
       "imports": [
         {
           "specifier": "../internals/mergeComponentProps.js",
@@ -13622,7 +13622,7 @@
     },
     {
       "source": "packages/base/src/lib/tooltip/Popup.svelte",
-      "sha256": "c397d39d7b1f46ad53c794b234e4f9ffed15d028a071c1fdd7bad93e09004ea4",
+      "sha256": "2bc506885286da1621d81d5151f796f16245291e69bbe5cd1d5148a3bb4b60b2",
       "imports": [
         {
           "specifier": "../internals/mergeComponentProps.js",
@@ -13709,7 +13709,7 @@
     },
     {
       "source": "packages/base/src/lib/tooltip/Positioner.svelte",
-      "sha256": "5c80680c448bcf02cd0cce080506c54164db514f8b5a570ebf38f542f5e1cd9e",
+      "sha256": "6ab39b3d6badad43cdd13b97cdae40f714d88204ad5abb4a98cb0ce920304ad3",
       "imports": [
         {
           "specifier": "../internals/mergeComponentProps.js",
@@ -13972,7 +13972,7 @@
     },
     {
       "source": "packages/base/src/lib/tooltip/Trigger.svelte",
-      "sha256": "55e8956e83ecbfac306ebf75bc51d99114315192cd807741b5081420cef1bb1b",
+      "sha256": "0c52657717532ecbc2e206f5c1e78371ac4793714f82cdad710be80debe44861",
       "imports": [
         {
           "specifier": "../internals/mergeComponentProps.js",
@@ -14149,7 +14149,7 @@
     },
     {
       "source": "packages/base/src/lib/tooltip/Viewport.svelte",
-      "sha256": "3cdd4baeb37b23d3ccb8ac59921a60819ce38d4d24e015a0757317c27905fd71",
+      "sha256": "6bdb4f8c32e20d73248ac448d30d352228b620fb33da4b4ea28e53e80b71f00e",
       "imports": [
         {
           "specifier": "../internals/mergeComponentProps.js",
