@@ -742,11 +742,11 @@
         "951d211b367921310e737ef1584b1c424c730b529b126dcaef3e7878605dec68",
         "af5a3640517f57ae0580741acf9f0ba9758f3ceff4cc206b9c0c10a26b7c3109"
       ],
-      "currentFileSha256": "089f0b6e20b956d85db5cf2cd7a47151352ec8aada0d6582154ad264c59e20bf",
+      "currentFileSha256": "48750528371fbf08dd09478dd7fb8e2a2b9a19494bf1e779610e5b90668e16d0",
       "currentOwners": [
         {
           "path": "packages/base/src/lib/internals/use-button/useButton.svelte.ts",
-          "sha256": "089f0b6e20b956d85db5cf2cd7a47151352ec8aada0d6582154ad264c59e20bf",
+          "sha256": "48750528371fbf08dd09478dd7fb8e2a2b9a19494bf1e779610e5b90668e16d0",
           "classes": []
         }
       ]
@@ -955,11 +955,11 @@
         "43f512e73b349aa952636c0e5c89c17a3fb403271963b3ce0b367c8c158437d9",
         "703c7b4dd6566a1889c36d61ad021da24f8e2ce5ad34a77dd4281ffff6183929"
       ],
-      "currentFileSha256": "a27f25c9934a6c7d64004313fddb5bba8e96a901cf863ec8b9920d58ef4d7a12",
+      "currentFileSha256": "3bdb83ab95cdfbe5ba3066f17bbd04c60915ba5e887e486db27f6484c4105691",
       "currentOwners": [
         {
           "path": "packages/base/src/lib/menu/submenu-trigger/createMenuSubmenuTrigger.svelte.ts",
-          "sha256": "a27f25c9934a6c7d64004313fddb5bba8e96a901cf863ec8b9920d58ef4d7a12",
+          "sha256": "3bdb83ab95cdfbe5ba3066f17bbd04c60915ba5e887e486db27f6484c4105691",
           "classes": []
         }
       ]

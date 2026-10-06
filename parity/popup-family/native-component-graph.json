@@ -1711,7 +1711,7 @@
     },
     {
       "path": "packages/base/src/lib/internals/use-button/useButton.svelte.ts",
-      "sha256": "089f0b6e20b956d85db5cf2cd7a47151352ec8aada0d6582154ad264c59e20bf",
+      "sha256": "48750528371fbf08dd09478dd7fb8e2a2b9a19494bf1e779610e5b90668e16d0",
       "symbols": [
         {
           "name": "UseButtonParameters",
@@ -1722,7 +1722,7 @@
         {
           "name": "useButton",
           "kind": "FunctionDeclaration",
-          "sha256": "9d520f9a12989abc05897a241f7eecba6adc54596a5108bae429714b4d64238e",
+          "sha256": "c2efdbd0c65fd4cc0ac4d079d896974dcbe225f2a4b6140dec8cfe53baf72503",
           "scriptIndex": 0
         },
         {

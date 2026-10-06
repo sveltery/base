@@ -165,13 +165,7 @@ export function useButton(getParameters: () => UseButtonParameters = () => ({}))
     elementRef.current = element;
     updateDisabled();
   };
-  return {
-    getButtonProps,
-    buttonRef,
-    get element() {
-      return elementRef.current;
-    },
-  };
+  return { getButtonProps, buttonRef };
 }
 function isButtonElement(element: Element | null): element is HTMLButtonElement {
   return element?.tagName === 'BUTTON';

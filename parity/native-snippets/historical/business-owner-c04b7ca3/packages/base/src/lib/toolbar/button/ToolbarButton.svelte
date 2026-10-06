@@ -23,12 +23,11 @@
   const groupContext = useToolbarGroupContext();
   const disabled = $derived(toolbar.disabled || (groupContext?.disabled ?? false) || disabledProp);
   const itemMetadata = $derived({ disabled, focusableWhenDisabled });
-  const button = useButton(() => ({
+  const { getButtonProps, buttonRef } = useButton(() => ({
     disabled,
     focusableWhenDisabled,
     native: nativeButton,
   }));
-  const { getButtonProps, buttonRef } = button;
   const state: ToolbarButtonState = $derived({
     disabled,
     orientation: toolbar.orientation,
@@ -44,10 +43,7 @@
   const buttonAttachmentKey = createAttachmentKey();
   function attachButton(host: HTMLElement) {
     untrack(() => buttonRef(host));
-    return () =>
-      untrack(() => {
-        if (button.element === host) buttonRef(null);
-      });
+    return () => untrack(() => buttonRef(null));
   }
 </script>
 

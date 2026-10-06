@@ -1047,6 +1047,27 @@
           "sha256": "666eee678a184815301dc01a2077be86b1e87cfd1c702409002cea42b098d50b"
         }
       ]
+    },
+    {
+      "commit": "c04b7ca3c494df0cbe8c6c488dbaa0479b145f7f",
+      "scope": "Exact three complete native Source preimages before the actual useButton node getter/Toolbar captured-host cleanup guard and narrow submenu item/implicit-active registration publication boundaries. Existing disabled/getButtonProps business, tracked list acquisition, migration/closeDelay effects, cleanup order, tests and Original/prior history remain unchanged.",
+      "files": [
+        {
+          "predecessorPath": "packages/base/src/lib/internals/use-button/useButton.svelte.ts",
+          "archive": "parity/native-snippets/historical/business-owner-c04b7ca3/packages/base/src/lib/internals/use-button/useButton.svelte.ts",
+          "sha256": "089f0b6e20b956d85db5cf2cd7a47151352ec8aada0d6582154ad264c59e20bf"
+        },
+        {
+          "predecessorPath": "packages/base/src/lib/toolbar/button/ToolbarButton.svelte",
+          "archive": "parity/native-snippets/historical/business-owner-c04b7ca3/packages/base/src/lib/toolbar/button/ToolbarButton.svelte",
+          "sha256": "eea9778b6137a015fd5fd1c1158e35cce8b50e97b5acf1e29d0e3d52400ce0fd"
+        },
+        {
+          "predecessorPath": "packages/base/src/lib/menu/submenu-trigger/createMenuSubmenuTrigger.svelte.ts",
+          "archive": "parity/native-snippets/historical/business-owner-c04b7ca3/packages/base/src/lib/menu/submenu-trigger/createMenuSubmenuTrigger.svelte.ts",
+          "sha256": "a27f25c9934a6c7d64004313fddb5bba8e96a901cf863ec8b9920d58ef4d7a12"
+        }
+      ]
     }
   ]
 }
