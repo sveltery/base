@@ -484,6 +484,30 @@
       "predecessor": "c60dc54a84774fa2ad0ff8e3144ea322a7b5dde5",
       "disposition": "native-fixture-rune-name-or-current-witness-narrative-correction",
       "unchangedParityCredit": 0
+    },
+    {
+      "source": "apps/fixtures/src/lib/NativeControlledModeWitness.svelte",
+      "archive": "parity/native-snippets/acceptance-history/controlled-dependency-56a65b4d/apps/fixtures/src/lib/NativeControlledModeWitness.svelte",
+      "sha256": "be62d4ed829eb20b8d95f59170dfadfbf9380e6822ada4286142d593b42c3524",
+      "predecessor": "56a65b4d217cdfb6606f54fd3b58130bedf54b71",
+      "disposition": "diagnostic-direct-workspace-dependency-and-rune-identifier-correction",
+      "unchangedParityCredit": 0
+    },
+    {
+      "source": "apps/fixtures/package.json",
+      "archive": "parity/native-snippets/acceptance-history/controlled-dependency-56a65b4d/apps/fixtures/package.json",
+      "sha256": "1d5d29ae05991c62a6d7a5957f535f807fcdb747e0689e26c3df2ffe8247e255",
+      "predecessor": "56a65b4d217cdfb6606f54fd3b58130bedf54b71",
+      "disposition": "diagnostic-direct-workspace-dependency-and-rune-identifier-correction",
+      "unchangedParityCredit": 0
+    },
+    {
+      "source": "pnpm-lock.yaml",
+      "archive": "parity/native-snippets/acceptance-history/controlled-dependency-56a65b4d/pnpm-lock.yaml",
+      "sha256": "950ad0c4962a8d1140c620dcfae11fb9ce0f082d5583d687494c32821a035aeb",
+      "predecessor": "56a65b4d217cdfb6606f54fd3b58130bedf54b71",
+      "disposition": "diagnostic-direct-workspace-dependency-and-rune-identifier-correction",
+      "unchangedParityCredit": 0
     }
   ]
 }

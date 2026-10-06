@@ -3,13 +3,13 @@
   import { Controlled } from '@sveltery/utils/Controlled';
   let ownerOpen = $state<boolean | undefined>(false);
   const initialDefault = true;
-  const controlledState = new Controlled(() => ownerOpen, initialDefault);
-  const open = $derived(controlledState.value);
+  const state = new Controlled(() => ownerOpen, initialDefault);
+  const open = $derived(state.value);
   let requests = $state<{ open: boolean; before: boolean }[]>([]);
   function request() {
     const next = !open;
     requests = [...requests, { open: next, before: open }];
-    controlledState.set(next);
+    state.set(next);
   }
 </script>
 
