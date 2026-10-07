@@ -58,9 +58,9 @@ describe('Separator', () => {
 				role: 'presentation',
 				'aria-orientation': 'vertical',
 				'data-orientation': 'overridden',
-				id: 'overridden-separator'
+				'data-testid': 'overridden-separator'
 			});
-			const separator = page.locator('#overridden-separator');
+			const separator = page.getByTestId('overridden-separator');
 
 			await expect.element(separator).toHaveAttribute('role', 'presentation');
 			await expect.element(separator).toHaveAttribute('aria-orientation', 'vertical');

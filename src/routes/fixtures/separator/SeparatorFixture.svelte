@@ -4,12 +4,13 @@
 
 	let { scenario }: { scenario: SeparatorCase } = $props();
 
-	let orientation = $state<SeparatorState['orientation']>(
-		scenario === 'vertical' ? 'vertical' : 'horizontal'
+	let flipped = $state<SeparatorState['orientation']>('horizontal');
+	const orientation = $derived(
+		scenario === 'reactive' ? flipped : scenario === 'vertical' ? 'vertical' : 'horizontal'
 	);
 
 	function flip() {
-		orientation = orientation === 'horizontal' ? 'vertical' : 'horizontal';
+		flipped = flipped === 'horizontal' ? 'vertical' : 'horizontal';
 	}
 </script>
 
