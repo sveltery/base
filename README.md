@@ -1,35 +1,39 @@
 # Sveltery Base
 
-An experimental, unofficial Svelte 5 port of modern [Base UI](https://base-ui.com/).
+An experimental, unofficial Svelte 5 port of [Base UI](https://base-ui.com/), starting from Base UI v1.8.0 (commit [`47b40521`](https://github.com/mui/base-ui/tree/47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c)). Not affiliated with or endorsed by MUI or Base UI.
 
-The first milestone is reusable foundations and a working Dialog slice, followed by early Drawer and Toast acceptance. Compatibility is measured against pinned upstream APIs and behavior; unsupported features and deliberate Svelte differences will be documented explicitly.
+The project was restarted from a fresh `sv create` library scaffold (Prettier, ESLint, Vitest with browser component tests, Playwright). It currently ships one component, `Toggle`, which also proves out the test fixtures. The package is private and unpublished.
 
-This project is independent of MUI and Base UI and is not affiliated with or endorsed by them. Original Sveltery code is licensed under [MIT](LICENSE); upstream-derived materials retain their original notices in [THIRD_PARTY_NOTICES.md](packages/base/THIRD_PARTY_NOTICES.md).
+```svelte
+<script lang="ts">
+	import { Toggle } from '@sveltery/base';
+</script>
 
-The [docs app](docs/docs-foundation.md) runs at `/docs` beside the existing fixtures. Its navigation, anatomy and API reference are inspired by [Base UI docs](https://base-ui.com/react/overview/quick-start); its example-first flow also credits [shadcn/ui](https://ui.shadcn.com/docs). Sveltery is not affiliated with or endorsed by shadcn/ui. See the visible About & credits page for sources and licenses.
+<Toggle defaultPressed onPressedChange={(pressed) => console.log(pressed)}>Bold</Toggle>
+```
 
-Main contains a [contained Dialog draft](docs/dialog-first-slice.md) and reusable package foundations. See [cloud bootstrap](docs/cloud-bootstrap.md), [architecture](docs/architecture.md), [pinned contracts](docs/upstream-contracts.md), and [parity inventory](parity/README.md). Complete Dialog parity, Drawer and Toast remain pending. Read the exact-head `Dialog browser` job in [CI](https://github.com/sveltery/base/actions/workflows/ci.yml) for current secured Chromium execution counts and results; local browser startup remains blocked. Browser executions include paired reference and supplemental regressions and do not certify the full upstream Dialog inventory.
+## Develop
 
-Read the [upstream differences register](docs/upstream-differences.md) for landed behavioral corrections, framework adaptations and decision/evidence limits.
+Requires Node 24 and pnpm 12.6.0 (selected automatically by `scripts/toolchain.sh` through Corepack).
 
-The [catalog ledger](docs/catalog.md) accounts for every pinned root export module and distinguishes bounded implementations from unimplemented scope. [Standalone Separator](docs/separator.md) adds the native horizontal/vertical divider surface; its source assertions and acceptance gates remain separately recorded.
+```sh
+source scripts/toolchain.sh
+pnpm install
+pnpm exec playwright install chromium
+pnpm dev
+```
 
-[Standalone Toggle](parity/toggle/README.md) adds controlled/uncontrolled pressed state with cancellable callbacks and disabled behavior. Its public root/subpath API is bounded; ToggleGroup, Toolbar and complete conformance remain deferred, and final-head acceptance is recorded in PR #27.
+`pnpm dev` serves the fixture routes under `/fixtures`. Add `&reference` to a fixture URL to render React Base UI for comparison.
 
-[Standalone Input](docs/input.md) preserves a native input and native Svelte default/reset behavior, including direct SvelteKit remote form field spreads in fixtures. Input delegates to the real Field.Control, sharing Field/Form registration, optional contextual validation and label/message integration. Native input ownership stays with Svelte. The [typed remote Field namespace](docs/field-form.md#using-a-remote-form) adds accessor-derived names, bare controls and real Switch render overrides; its bounded delivery evidence is recorded separately in [PR52](https://github.com/sveltery/base/pull/52).
+## Verify
 
-[Progress](docs/progress.md) adds Root, Label, Track, Indicator and Value against the immutable v1.8.0 pin. Its [dedicated declaration and conformance evidence](parity/progress/README.md) remains separately accounted; final-head acceptance is recorded in PR #28.
+```sh
+bash scripts/verify-component.sh toggle   # one component, every layer
+bash scripts/verify.sh                    # everything, including the package build
+```
 
-[Collapsible](docs/collapsible.md) adds Root, Trigger and Panel with a bounded measurement and CSS motion lifecycle. Its [dedicated evidence](parity/collapsible/README.md) separates the portable ordinary scope from six deferred React.Activity cases and final-head acceptance in PR #29.
+See [.cursor/skills/verify-sveltery/SKILL.md](.cursor/skills/verify-sveltery/SKILL.md) for what each layer covers and how to read failures.
 
-[Meter](docs/meter.md) adds Root, Label, Track, Indicator and Value from the immutable v1.8.0 pin. Its [dedicated declaration and conformance evidence](parity/meter/README.md) remains separate; final-head acceptance is recorded in PR #32.
+## License
 
-[Avatar](docs/avatar.md) adds Root, Image and Fallback with detached-probe and rendered-image keepMounted loading. Its [separate evidence](parity/avatar/README.md) accounts for 44 ordinary sites, three conformance calls and six type assertions; secured browser and exact final-head acceptance remain separate.
-
-[DirectionProvider](docs/direction-provider.md) supplies nearest-provider text direction through a retained Svelte reader, without adding a DOM element. Its [dedicated evidence](parity/direction-provider/README.md) separates two ordinary declarations from adapted type checks and divergent timing characterization; complete control RTL integration remains deferred.
-
-[Accordion](docs/accordion.md) adds Root, Item, Header, Trigger and Panel with array values and cancellable Item-before-Root callbacks. Its [dedicated evidence](parity/accordion/README.md) separates 38 portable ordinary declarations / 42 variants from deferred React.Activity, parameterized, conformance, type and final-head acceptance gates.
-
-[CSPProvider](docs/csp-provider.md) adds a wrapperless provider and optional private CSP context foundation. Its [separate evidence](parity/csp-provider/README.md) records the implemented [ScrollArea](docs/scroll-area.md) stylesheet consumer and keeps all four complete ordinary declaration ports deferred with zero credit. Select/PrehydrationScript remain unimplemented; ScrollArea DOM/SSR/hydration/real HTTP-header CSP supplements do not supply ordinary credit.
-
-[Native rendering](docs/rendering.md) uses each part's `render(props, state, children)` snippet and actual HTML fallback. The former UseRender API and generic renderer are removed; native bindings and attachments publish actual hosts. Source, native differences and pending acceptance remain separately recorded.
+MIT. Upstream-derived code retains the Base UI MIT notice in [THIRD_PARTY_NOTICES.md](THIRD_PARTY_NOTICES.md).
