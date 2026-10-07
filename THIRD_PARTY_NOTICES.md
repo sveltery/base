@@ -125,6 +125,13 @@ Parts of this package derive from [Base UI](https://github.com/mui/base-ui) v1.8
 - `src/lib/tabs/direction.ts` from `computeActivationDirection` in `packages/react/src/tabs/root/TabsRoot.tsx`
 - `src/lib/tabs/attributes.ts` from `packages/react/src/tabs/root/stateAttributesMapping.ts`, `packages/react/src/tabs/panel/TabsPanelDataAttributes.ts`, and `packages/react/src/tabs/indicator/TabsIndicatorCssVars.ts`
 - `src/lib/tabs/Tabs.svelte.spec.ts` assertions from `packages/react/src/tabs/**/*.test.tsx`
+- `src/lib/toolbar/ToolbarRoot.svelte` from `packages/react/src/toolbar/root/ToolbarRoot.tsx`
+- `src/lib/toolbar/ToolbarButton.svelte` from `packages/react/src/toolbar/button/ToolbarButton.tsx`, the composite path of `packages/react/src/internals/use-button/useButton.ts`, and `packages/react/src/utils/useFocusableWhenDisabled.ts`
+- `src/lib/toolbar/ToolbarGroup.svelte` from `packages/react/src/toolbar/group/ToolbarGroup.tsx`
+- `src/lib/toolbar/ToolbarLink.svelte` from `packages/react/src/toolbar/link/ToolbarLink.tsx`
+- `src/lib/toolbar/context.svelte.ts` from `packages/react/src/toolbar/root/ToolbarRootContext.ts` and `packages/react/src/toolbar/group/ToolbarGroupContext.ts`
+- `src/lib/toolbar/roving-focus.svelte.ts` from the linear path of `packages/react/src/internals/composite/root/useCompositeRoot.ts` and `packages/react/src/internals/composite/item/useCompositeItem.ts` with Toolbar's CompositeRoot options (Home/End off)
+- `src/lib/toolbar/Toolbar.svelte.spec.ts` assertions from `packages/react/src/toolbar/**/*.test.tsx` that do not require Toolbar.Input or an overlay
 
 MIT License
 

@@ -16,3 +16,4 @@ export * from './radio-group/index.js';
 export * from './form/index.js';
 export * from './switch/index.js';
 export * from './tabs/index.js';
+export * from './toolbar/index.js';
