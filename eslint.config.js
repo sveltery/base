@@ -12,7 +12,7 @@ const gitignorePath = path.resolve(import.meta.dirname, '.gitignore');
 export default defineConfig(
 	includeIgnoreFile(gitignorePath),
 	{
-		// Rule fixtures are linted by src/eslint/no-react-refs.spec.ts, including the
+		// Rule fixtures are linted by eslint/no-react-refs.spec.ts, including the
 		// fixture the rule must reject. They are not product source.
 		ignores: ['eslint/fixtures/**']
 	},
