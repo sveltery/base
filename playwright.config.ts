@@ -1,22 +1,25 @@
 import { defineConfig } from '@playwright/test';
+
+const port = Number(process.env.E2E_PORT ?? 4173);
+
 export default defineConfig({
-  testDir: './tests/browser',
-  fullyParallel: false,
-  workers: 1,
-  retries: 0,
-  reporter: [['list']],
-  use: {
-    baseURL: 'http://127.0.0.1:5173',
-    browserName: 'chromium',
-    // Playwright otherwise defaults to launching Chromium without its sandbox.
-    launchOptions: { chromiumSandbox: true, executablePath: process.env.DIALOG_CHROMIUM_PATH },
-    trace: 'retain-on-failure',
-  },
-  webServer: {
-    command: 'node node_modules/vite/bin/vite.js --host 127.0.0.1 --port 5173',
-    cwd: './apps/fixtures',
-    gracefulShutdown: { signal: 'SIGTERM', timeout: 5000 },
-    url: 'http://127.0.0.1:5173',
-    reuseExistingServer: false,
-  },
+	testMatch: '**/*.e2e.{ts,js}',
+	outputDir: process.env.E2E_OUTPUT_DIR ?? 'test-results',
+	reporter: [['list']],
+	workers: 1,
+	retries: 0,
+	use: {
+		baseURL: `http://127.0.0.1:${port}`,
+		browserName: 'chromium',
+		launchOptions: { chromiumSandbox: true },
+		trace: 'retain-on-failure',
+		screenshot: 'only-on-failure'
+	},
+	webServer: {
+		// Run vite directly: `pnpm exec` detaches the server, so Playwright cannot stop it.
+		command: `pnpm run build && node node_modules/vite/bin/vite.js preview --host 127.0.0.1 --port ${port} --strictPort`,
+		url: `http://127.0.0.1:${port}`,
+		reuseExistingServer: false,
+		timeout: 180_000
+	}
 });

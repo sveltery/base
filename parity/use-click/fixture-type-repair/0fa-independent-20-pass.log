@@ -1,9 +1,0 @@
-
- RUN  v5.0.3 /workspace/use-click-private-base/packages/base
-
-
- Test Files  1 passed (1)
-      Tests  20 passed (20)
-   Start at  03:20:08
-   Duration  1.91s (transform 44%, environment 43%, import 7%, tests 6%)
-

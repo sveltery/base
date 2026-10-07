@@ -1,9 +1,0 @@
-# Serialized Progress integration
-
-The parent released bounded Progress shared integration from Toggle main `5e6492007b187bc9f7f5296b79917c1715c4b141` while Input PR #26 remains a separate draft pending its contract decision. This branch now applies only the Progress shared additions; unmerged Input is excluded. This branch changes no Input or shared helper file. Dedicated fixture/test imports allow independent Progress work from main `5e6492007b187bc9f7f5296b79917c1715c4b141`.
-
-[shared-integration.patch](shared-integration.patch) preserves the exact bounded additions integrated on this branch after the parent released ownership: root exports and named types; package ./progress export; the Progress catalog row/count; central documentation/compatibility index; package-consumer invocation; attribution and root README link. It intentionally leaves the 635-entry ordinary aggregate and existing credits unchanged. No source/inventory credit is inferred from adding a catalog row.
-
-The patch is based on this branch's unchanged shared files at the starting main. These additions are now applied to the original shared checkpoint. The Input owner can reconcile them after this Progress checkpoint is stable, preserving these exact declarations. Use `git apply --check parity/progress/shared-integration.patch` to validate the original checkpoint. Public package verification must run `bash scripts/check-progress-package.sh --public` on the complete integrated head; default internal mode is separate evidence and cannot prove public exports.
-
-Current required handoff gates: full checks, paired secured browser execution, final exact-head independent review, configured automatic review and the public root/subpath consumer on this complete head. The PR was opened as draft and marked ready to trigger automatic review; it must remain unmerged until the complete integrated head satisfies all gates and is reported explicitly before merge.

@@ -1,9 +1,0 @@
-{
-  "predecessorHead": "9ed64b87854771663d2cf8f64704cd7598828074",
-  "result": "real packed strict type consumer failed4errors:2 unused expect-error directives plus2 intended property type rejections",
-  "preimageSha256": "732e1260ca07d5d5ca002534f900665fe6838e525bd01f32420864df0f2573a3",
-  "logSha256": "375f51cdc814cf3756468c89fa5974a6fed40af3eca8e40f1cc7b040519c04fd",
-  "repair": "Move negative type comments onto their actual style/onclick property diagnostic lines. No negative contract removed or weakened; no runtime business changed.",
-  "successorExecution": "pending; recorded externally at exact pushed SHA",
-  "ordinarySelectDeclarationCredit": 0
-}

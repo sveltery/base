@@ -1,9 +1,0 @@
-
- RUN  v5.0.3 /workspace/base/packages/base
-
-
- Test Files  1 passed (1)
-      Tests  32 passed | 4 expected fail (36)
-   Start at  16:51:17
-   Duration  1.45s (transform 42%, environment 41%, tests 9%, import 8%)
-
