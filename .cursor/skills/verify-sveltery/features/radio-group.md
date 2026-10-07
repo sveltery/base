@@ -41,7 +41,7 @@ Handles used by `src/routes/fixtures/radio-group/radio-group.e2e.ts`:
 
 Proof of working order: in both frameworks, a click leaves one radio checked, arrows select and loop, RTL mirrors horizontal arrows, Home and End stay put, Shift+Arrow moves, a disabled or read-only group never checks a radio, cancel leaves `aria-checked` false, the owner and the group share one value, and required blocks submit until a radio is selected. The SSR test checks that the server HTML already contains `role="radiogroup"`, `aria-checked`, `tabindex="0"`, `tabindex="-1"`, and `type="radio"`.
 
-`bound` is written in each idiom. Svelte uses `bind:value`. React uses `value` plus `onValueChange`. RTL uses `dir="rtl"` in Svelte and `DirectionProvider` in React. The assertions are the same.
+`bound` is written in each idiom. Svelte uses `bind:value` and starts at `undefined`. React uses `value` plus `onValueChange` and starts at `null`, because a first `value` of `undefined` locks Base UI into uncontrolled mode. RTL uses `dir="rtl"` in Svelte and `DirectionProvider` in React. The assertions are the same.
 
 Component tests (`src/lib/radio-group/RadioGroup.svelte.spec.ts`) port the upstream group, value, disabled, read-only, keyboard, label, fieldset legend, and form cases that do not need Field or `inputRef`.
 

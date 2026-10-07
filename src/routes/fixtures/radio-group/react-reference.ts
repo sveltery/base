@@ -18,7 +18,9 @@ export function mountRadioGroupReference(
 	onReady: () => void
 ) {
 	function App() {
-		const [value, setValue] = useState<string | undefined>(undefined);
+		// `undefined` on the first render makes Base UI treat the group as uncontrolled
+		// for its lifetime, so a later owner update would not select a radio.
+		const [value, setValue] = useState<string | null>(null);
 		const [calls, setCalls] = useState<Call[]>([]);
 		const [submitted, setSubmitted] = useState(0);
 		useEffect(onReady, []);
@@ -33,7 +35,9 @@ export function mountRadioGroupReference(
 			const text = typeof next === 'string' ? next : '';
 			const call = { value: text, reason: details.reason, canceled: details.isCanceled };
 			setCalls((previous) => [...previous, call]);
-			if (scenario === 'bound' && !details.isCanceled && typeof next === 'string') setValue(next);
+			if (scenario === 'bound' && !details.isCanceled && typeof next === 'string') {
+				setValue(next);
+			}
 		}
 
 		const radios = itemValues
@@ -98,7 +102,7 @@ export function mountRadioGroupReference(
 					type: 'checkbox',
 					'aria-label': 'Owner B',
 					checked: value === 'b',
-					onClick: () => setValue(value === 'b' ? undefined : 'b')
+					onClick: () => setValue(value === 'b' ? null : 'b')
 				}),
 				h(
 					RadioGroup,
