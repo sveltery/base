@@ -76,6 +76,7 @@ export default defineConfig(
 		plugins: { sveltery },
 		rules: {
 			'sveltery/no-cloned-event': 'error',
+			'sveltery/no-copied-helper': 'error',
 			'sveltery/no-computed-style-direction': 'error',
 			'sveltery/no-foreign-context': 'error',
 			'sveltery/no-previous-value-effect': 'error',

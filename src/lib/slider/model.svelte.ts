@@ -17,16 +17,9 @@ import type { FieldRootModel } from '../field/model.svelte.js';
 import type { FieldRootState } from '../field/types.js';
 import type { FormContextValue } from '../form/context.js';
 import { asc } from './asc.js';
-import {
-	activeElement,
-	contains,
-	focusElement,
-	getTarget,
-	isElement,
-	matchesFocusVisible,
-	ownerDocument,
-	ownerWindow
-} from './dom.js';
+import { ownerDocument, ownerWindow } from '../internal/owner.js';
+import { activeElement, contains, getTarget } from '../internal/shadow-dom.js';
+import { focusElement, isElement, matchesFocusVisible } from './dom.js';
 import { getMidpoint } from './getMidpoint.js';
 import { areValuesEqual, getSliderValue } from './getSliderValue.js';
 import {

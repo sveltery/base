@@ -1,5 +1,6 @@
 // Turns a React-style CSS property map into a native `style` attribute string.
 // Length zeros are written as `0px`, matching the computed style React produces.
+// Custom properties keep their leading dashes. Empty values are omitted.
 
 export function toCssStyle(style: Record<string, string | number | undefined | null>): string {
 	return Object.entries(style)
@@ -14,7 +15,15 @@ export function toCssStyle(style: Record<string, string | number | undefined | n
 		.join('; ');
 }
 
-export function mergeCssStyle(base: string | undefined, override: string | null | undefined) {
+export function mergeCssStyle(base: string, override: string | null | undefined): string;
+export function mergeCssStyle(
+	base: string | undefined,
+	override: string | null | undefined
+): string | undefined;
+export function mergeCssStyle(
+	base: string | undefined,
+	override: string | null | undefined
+): string | undefined {
 	if (base && override) return `${base}; ${override}`;
 	return override || base || undefined;
 }

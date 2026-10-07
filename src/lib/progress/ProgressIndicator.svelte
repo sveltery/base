@@ -7,7 +7,7 @@
 <script lang="ts">
 	import type { HTMLAttributes } from 'svelte/elements';
 	import { getStateAttributesProps } from '../internal/state-attributes.js';
-	import { mergeCssStyle, toCssStyle } from './css-style.js';
+	import { mergeCssStyle, toCssStyle } from '../internal/css-style.js';
 	import { useProgressRootContext } from './ProgressRootContext.svelte.js';
 	import { progressStateAttributesMapping } from './stateAttributesMapping.js';
 	import type { ProgressIndicatorProps, ProgressState } from './types.js';

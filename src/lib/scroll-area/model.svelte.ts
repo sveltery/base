@@ -5,7 +5,9 @@
 // Reading direction is `useDirection()`, stored on `readDirection`.
 
 import { untrack } from 'svelte';
-import { addEventListener, contains, getOffset, getTarget } from './dom.js';
+import { contains, getTarget } from '../internal/shadow-dom.js';
+import { platform } from '../internal/platform.js';
+import { addEventListener, getOffset } from './dom.js';
 import {
 	applyOverscrollThumb,
 	getHiddenState,
@@ -16,7 +18,6 @@ import {
 import { MIN_THUMB_SIZE, SCROLL_TIMEOUT } from './constants.js';
 import { orientationAttribute } from './attributes.js';
 import { OVERFLOW_EDGE_VARS, scrollAreaThumbHeight, scrollAreaThumbWidth } from './css-vars.js';
-import { webkit } from './platform.js';
 import type {
 	Coords,
 	HiddenState,
@@ -163,7 +164,7 @@ export class ScrollAreaModel {
 			scrollAreaOverflowVarsRegistered ||
 			// When `inherits: false`, specifying `inherit` on child elements doesn't work
 			// in Safari. To let CSS features work correctly, this optimization must be skipped.
-			webkit
+			platform.engine.webkit
 		) {
 			return;
 		}

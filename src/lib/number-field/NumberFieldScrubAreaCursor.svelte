@@ -11,9 +11,9 @@
 	import { getStateAttributesProps } from '../internal/state-attributes.js';
 	import { numberFieldStateAttributes } from './attributes.js';
 	import { useNumberFieldContext, useScrubAreaContext } from './context.svelte.js';
-	import { ownerDocument } from './dom.js';
-	import { webkit } from './platform.js';
-	import { mergeCssStyle } from './style.js';
+	import { mergeCssStyle } from '../internal/css-style.js';
+	import { ownerDocument } from '../internal/owner.js';
+	import { platform } from '../internal/platform.js';
 	import type {
 		NumberFieldScrubAreaCursorProps,
 		NumberFieldScrubAreaCursorState
@@ -27,7 +27,7 @@
 	const model = useNumberFieldContext();
 	const scrub = useScrubAreaContext();
 	const shouldRender = $derived(
-		scrub.scrubbing && !webkit && !scrub.touchInput && !scrub.pointerLockDenied
+		scrub.scrubbing && !platform.engine.webkit && !scrub.touchInput && !scrub.pointerLockDenied
 	);
 	const state: NumberFieldScrubAreaCursorState = $derived(model.state);
 

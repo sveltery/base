@@ -15,7 +15,7 @@
 	import { numberFieldStateAttributes } from './attributes.js';
 	import { useNumberFieldContext } from './context.svelte.js';
 	import { createPressAndHold, isTouchLikePointerType } from './press-and-hold.svelte.js';
-	import { mergeCssStyle } from './style.js';
+	import { mergeCssStyle } from '../internal/css-style.js';
 	import type {
 		EventWithOptionalKeyState,
 		NumberFieldStepperProps,

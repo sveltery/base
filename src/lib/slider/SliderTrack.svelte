@@ -9,7 +9,7 @@
 	import { getStateAttributesProps } from '../internal/state-attributes.js';
 	import { sliderStateAttributes } from './attributes.js';
 	import { useSliderContext } from './context.svelte.js';
-	import { mergeCssStyle } from './style.js';
+	import { mergeCssStyle } from '../internal/css-style.js';
 	import type { SliderRootState, SliderTrackProps } from './types.js';
 
 	let { render, children, style, ...elementProps }: SliderTrackProps = $props();

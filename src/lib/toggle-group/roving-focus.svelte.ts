@@ -10,6 +10,7 @@ import { untrack } from 'svelte';
 import { createAttachmentKey } from 'svelte/attachments';
 import type { Attachment } from 'svelte/attachments';
 import type { HTMLButtonAttributes } from 'svelte/elements';
+import { byDocumentOrder } from '../internal/document-order.js';
 
 export type RovingOrientation = 'horizontal' | 'vertical';
 
@@ -24,11 +25,6 @@ export type RovingHostProps = HTMLButtonAttributes & Record<symbol, Attachment<H
 
 function isDisabled(element: HTMLElement) {
 	return element.matches(':disabled') || element.getAttribute('aria-disabled') === 'true';
-}
-
-function byDocumentOrder(a: HTMLElement, b: HTMLElement) {
-	if (a === b) return 0;
-	return a.compareDocumentPosition(b) & Node.DOCUMENT_POSITION_FOLLOWING ? -1 : 1;
 }
 
 function modifierHeld(event: KeyboardEvent) {

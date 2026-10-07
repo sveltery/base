@@ -14,6 +14,7 @@ import { untrack } from 'svelte';
 import { createAttachmentKey } from 'svelte/attachments';
 import type { Attachment } from 'svelte/attachments';
 import type { HTMLAttributes } from 'svelte/elements';
+import { byDocumentOrder } from '../internal/document-order.js';
 import type { ToolbarOrientation } from './types.js';
 
 const ARROWS = new Set(['ArrowUp', 'ArrowDown', 'ArrowLeft', 'ArrowRight']);
@@ -24,11 +25,6 @@ export interface ToolbarRovingHandlers {
 
 export type ToolbarRovingItemProps = HTMLAttributes<HTMLElement> &
 	Record<symbol, Attachment<HTMLElement>>;
-
-function byDocumentOrder(a: HTMLElement, b: HTMLElement) {
-	if (a === b) return 0;
-	return a.compareDocumentPosition(b) & Node.DOCUMENT_POSITION_FOLLOWING ? -1 : 1;
-}
 
 function modifierHeld(event: KeyboardEvent) {
 	return event.shiftKey || event.ctrlKey || event.altKey || event.metaKey;

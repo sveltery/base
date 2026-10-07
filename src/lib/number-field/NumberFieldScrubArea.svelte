@@ -13,9 +13,10 @@
 	import { numberFieldStateAttributes } from './attributes.js';
 	import { ScrubAreaState, setScrubAreaContext, useNumberFieldContext } from './context.svelte.js';
 	import { on } from 'svelte/events';
-	import { getTarget, ownerDocument, ownerWindow } from './dom.js';
-	import { gecko, webkit } from './platform.js';
-	import { mergeCssStyle } from './style.js';
+	import { mergeCssStyle } from '../internal/css-style.js';
+	import { ownerDocument, ownerWindow } from '../internal/owner.js';
+	import { platform } from '../internal/platform.js';
+	import { getTarget } from '../internal/shadow-dom.js';
 	import type { NumberFieldScrubAreaProps, NumberFieldScrubAreaState } from './types.js';
 	import { getViewportRect } from './viewport.js';
 
@@ -126,7 +127,7 @@
 		let cumulativeDelta = 0;
 
 		function handlePointerUp(event: PointerEvent) {
-			if (gecko) exitTimer = setTimeout(() => finishScrub(event), 20);
+			if (platform.engine.gecko) exitTimer = setTimeout(() => finishScrub(event), 20);
 			else finishScrub(event);
 		}
 
@@ -209,7 +210,7 @@
 		pointerDownTarget = getTarget(event);
 		onScrubbingChange(true, event);
 
-		if (touch || webkit) return;
+		if (touch || platform.engine.webkit) return;
 		try {
 			await ownerDocument(areaEl).body.requestPointerLock();
 			scrub.pointerLockDenied = false;

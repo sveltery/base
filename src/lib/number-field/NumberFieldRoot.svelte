@@ -17,7 +17,7 @@
 	import { numberFieldStateAttributes } from './attributes.js';
 	import { setNumberFieldContext } from './context.svelte.js';
 	import { NumberFieldModel } from './model.svelte.js';
-	import { toCssStyle } from './style.js';
+	import { toCssStyle } from '../internal/css-style.js';
 	import type { NumberFieldRootProps, NumberFieldRootState } from './types.js';
 
 	const uid = $props.id();

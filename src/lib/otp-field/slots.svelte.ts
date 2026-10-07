@@ -7,12 +7,8 @@
 // Indexes are claimed in render order for SSR, then corrected to document order.
 
 import { untrack } from 'svelte';
+import { byDocumentOrder } from '../internal/document-order.js';
 import { createAttachmentKey } from 'svelte/attachments';
-
-function byDocumentOrder(a: HTMLElement, b: HTMLElement) {
-	if (a === b) return 0;
-	return a.compareDocumentPosition(b) & Node.DOCUMENT_POSITION_FOLLOWING ? -1 : 1;
-}
 
 export class SlotList {
 	elements = $state<HTMLInputElement[]>([]);

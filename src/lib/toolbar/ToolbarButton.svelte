@@ -9,6 +9,7 @@
 -->
 <script lang="ts">
 	import type { Attachment } from 'svelte/attachments';
+	import { currentHost, dispatchClick, isLink } from '../internal/click.js';
 	import { getStateAttributesProps } from '../internal/state-attributes.js';
 	import { useToolbarGroupContext, useToolbarRootContext } from './context.svelte.js';
 	import type { ToolbarButtonHostProps, ToolbarButtonProps, ToolbarButtonState } from './types.js';
@@ -56,32 +57,6 @@
 
 	// Untrusted constructed clicks carry modifier state. detail 0 matches a keyboard click.
 	// Same algorithm as the pinned helper.
-	function dispatchClick(target: HTMLElement, source: KeyboardEvent) {
-		const view = target.ownerDocument.defaultView ?? window;
-		target.dispatchEvent(
-			new view.PointerEvent('click', {
-				bubbles: true,
-				cancelable: true,
-				composed: true,
-				detail: 0,
-				shiftKey: source.shiftKey,
-				ctrlKey: source.ctrlKey,
-				altKey: source.altKey,
-				metaKey: source.metaKey
-			})
-		);
-	}
-
-	function currentHost(event: Event): HTMLElement | null {
-		const current = event.currentTarget;
-		if (!(current instanceof HTMLElement) || event.target !== current) return null;
-		return current;
-	}
-
-	function isLink(element: HTMLElement) {
-		return !nativeButton && element instanceof HTMLAnchorElement && Boolean(element.href);
-	}
-
 	function handleFocus(event: FocusEvent & { currentTarget: EventTarget & HTMLElement }) {
 		onfocus?.(event as FocusEvent & { currentTarget: EventTarget & HTMLButtonElement });
 	}
@@ -126,7 +101,7 @@
 		if (!current) return;
 
 		const buttonElement = current instanceof HTMLButtonElement;
-		const link = isLink(current);
+		const link = isLink(current, nativeButton);
 		const isEnter = event.key === 'Enter';
 		const isSpace = event.key === ' ';
 

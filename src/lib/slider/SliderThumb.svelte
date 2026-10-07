@@ -17,9 +17,9 @@
 	import { visuallyHidden } from '../internal/visuallyHidden.js';
 	import { sliderStateAttributes } from './attributes.js';
 	import { useSliderContext } from './context.svelte.js';
-	import { ownerWindow } from './dom.js';
+	import { ownerWindow } from '../internal/owner.js';
 	import { prehydrationScript } from './prehydration.js';
-	import { mergeCssStyle, toCssStyle } from './style.js';
+	import { mergeCssStyle, toCssStyle } from '../internal/css-style.js';
 	import type { SliderRootState, SliderThumbProps } from './types.js';
 
 	function defaultAriaValueText(

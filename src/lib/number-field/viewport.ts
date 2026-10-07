@@ -1,7 +1,7 @@
 // Derived from Base UI v1.8.0 packages/react/src/number-field/utils/getViewportRect.ts
 // (commit 47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c). MIT, see THIRD_PARTY_NOTICES.md.
 
-import { ownerWindow } from './dom.js';
+import { ownerWindow } from '../internal/owner.js';
 
 /** Bounds the virtual scrub cursor wraps within, as absolute edge coordinates. */
 export function getViewportRect(teleportDistance: number | undefined, scrubAreaEl: HTMLElement) {

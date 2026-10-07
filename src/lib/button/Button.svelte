@@ -8,6 +8,7 @@
 -->
 <script lang="ts">
 	import type { HTMLButtonAttributes } from 'svelte/elements';
+	import { currentHost, dispatchClick, isLink } from '../internal/click.js';
 	import { getStateAttributesProps } from '../internal/state-attributes.js';
 	import type { ButtonHostProps, ButtonProps, ButtonState } from './types.js';
 
@@ -26,25 +27,6 @@
 	}: ButtonProps = $props();
 
 	const state: ButtonState = $derived({ disabled });
-
-	// Untrusted constructed clicks carry modifier state. detail 0 matches a keyboard click.
-	// Chromium does not run link or form activation for this event; HTMLElement.click() would,
-	// and would drop the modifiers. Same algorithm as the pinned helper.
-	function dispatchClick(target: HTMLElement, source: KeyboardEvent) {
-		const view = target.ownerDocument.defaultView ?? window;
-		target.dispatchEvent(
-			new view.PointerEvent('click', {
-				bubbles: true,
-				cancelable: true,
-				composed: true,
-				detail: 0,
-				shiftKey: source.shiftKey,
-				ctrlKey: source.ctrlKey,
-				altKey: source.altKey,
-				metaKey: source.metaKey
-			})
-		);
-	}
 
 	function handleClick(event: MouseEvent & { currentTarget: EventTarget & HTMLButtonElement }) {
 		if (disabled) {
@@ -70,16 +52,6 @@
 		onpointerdown?.(event);
 	}
 
-	function currentHost(event: Event): HTMLElement | null {
-		const current = event.currentTarget;
-		if (!(current instanceof HTMLElement) || event.target !== current) return null;
-		return current;
-	}
-
-	function isLink(element: HTMLElement) {
-		return !nativeButton && element instanceof HTMLAnchorElement && Boolean(element.href);
-	}
-
 	function handleKeyDown(
 		event: KeyboardEvent & { currentTarget: EventTarget & HTMLButtonElement }
 	) {
@@ -96,7 +68,7 @@
 		if (!current) return;
 
 		const buttonElement = current instanceof HTMLButtonElement;
-		const link = isLink(current);
+		const link = isLink(current, nativeButton);
 		const shouldClick = nativeButton ? buttonElement : !link;
 		const isEnter = event.key === 'Enter';
 		const isSpace = event.key === ' ';
