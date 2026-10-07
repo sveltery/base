@@ -28,7 +28,6 @@ export class CollapsiblePanelMotion {
 	suppressMountAnimation = $state(false);
 
 	private lastMeasured: Dimensions = EMPTY_DIMENSIONS;
-	private trackedDimensions: Dimensions = EMPTY_DIMENSIONS;
 	private skipNextOpen = false;
 	private pendingRestore: (() => void) | null = null;
 	private openingPassDone = false;
@@ -54,8 +53,8 @@ export class CollapsiblePanelMotion {
 			const open = this.root.open;
 			const mounted = this.root.mounted;
 			const transitionStatus = this.root.transitionStatus;
-			// Re-apply measurement styles after a dimension update rewrites `style`.
-			this.observeDimensions(this.height, this.width);
+			const _height = this.height;
+			const _width = this.width;
 			if (!panel) return;
 
 			// A beforematch open can leave a 0s duration. Restore it before detecting
@@ -247,11 +246,6 @@ export class CollapsiblePanelMotion {
 			if (this.panel === element) this.panel = null;
 		};
 	};
-
-	private observeDimensions(height: number | undefined, width: number | undefined) {
-		if (this.trackedDimensions.height === height && this.trackedDimensions.width === width) return;
-		this.trackedDimensions = { height, width };
-	}
 
 	private setDimensions(next: Dimensions, cache = true) {
 		if (cache) this.lastMeasured = { height: next.height, width: next.width };

@@ -106,14 +106,16 @@ export class ScrollAreaModel {
 	private readonly scrollXTimer = new Later();
 	private readonly scrollEndTimer = new Later();
 	private readonly animationTimer = new Later();
+	private edgeThreshold: NormalizedThreshold;
 
 	constructor(readThreshold: () => OverflowEdgeThreshold | undefined, rootId: string) {
 		this.readThreshold = readThreshold;
 		this.rootId = rootId;
+		this.edgeThreshold = normalizeOverflowEdgeThreshold(readThreshold());
 	}
 
 	get threshold(): NormalizedThreshold {
-		return normalizeOverflowEdgeThreshold(this.readThreshold());
+		return this.edgeThreshold;
 	}
 
 	get rootState(): ScrollAreaRootState {
@@ -134,6 +136,23 @@ export class ScrollAreaModel {
 		this.scrollXTimer.clear();
 		this.scrollEndTimer.clear();
 		this.animationTimer.clear();
+	}
+
+	refreshLayout(
+		styleValue: string | null | undefined,
+		direction: string | null | undefined,
+		threshold: OverflowEdgeThreshold | undefined
+	) {
+		const root = this.rootElement;
+		const computed = root ? getComputedStyle(root).direction : undefined;
+		const declaredRtl =
+			!root &&
+			(direction === 'rtl' ||
+				(typeof styleValue === 'string' && /direction\s*:\s*rtl/.test(styleValue)));
+		const next: TextDirection = computed === 'rtl' || declaredRtl ? 'rtl' : 'ltr';
+		if (next !== this.direction) this.direction = next;
+		this.edgeThreshold = normalizeOverflowEdgeThreshold(threshold ?? this.readThreshold());
+		this.bumpLayout();
 	}
 
 	syncDirection() {
@@ -471,6 +490,14 @@ export class ScrollAreaModel {
 
 		resizeObserver.observe(element);
 		return () => resizeObserver.disconnect();
+	}
+
+	queueThumb(hidden: HiddenState, direction: TextDirection, epoch: number) {
+		if (!this.viewportElement && hidden.x && hidden.y && hidden.corner) return;
+		queueMicrotask(() => {
+			if (this.layoutEpoch !== epoch || this.direction !== direction) return;
+			this.computeThumbPosition();
+		});
 	}
 
 	computeThumbPosition() {

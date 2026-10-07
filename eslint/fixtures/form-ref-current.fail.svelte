@@ -50,9 +50,7 @@
 		});
 	}
 
-	void defaults;
-	void controlRef;
-	void rememberForm;
-	void focusFirstInvalid;
-	void handleSubmit;
+	export function probe() {
+		return { defaults, controlRef, rememberForm, focusFirstInvalid, handleSubmit };
+	}
 </script>

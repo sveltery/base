@@ -50,7 +50,11 @@
 		};
 	}
 
-	function readRenderedStatus(node: HTMLImageElement, _source: ImageProbeSource) {
+	function readRenderedStatus(node: HTMLImageElement, source: ImageProbeSource) {
+		if (!source.src && !source.srcset) {
+			loading.setStatus('error');
+			return;
+		}
 		if (!node.complete) {
 			loading.setStatus('loading');
 			return;

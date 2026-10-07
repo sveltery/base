@@ -1,8 +1,9 @@
-import { readFileSync } from 'node:fs';
+import { readdirSync, readFileSync } from 'node:fs';
 import { createRequire } from 'node:module';
 import { fileURLToPath } from 'node:url';
 import { describe, expect, it } from 'vitest';
 import { ESLint, type Linter } from 'eslint';
+import { compile } from 'svelte/compiler';
 import ts from 'typescript-eslint';
 import plugin from './plugin.js';
 
@@ -103,12 +104,17 @@ describe('sveltery/no-void-signal-read', () => {
 		expect(lines.some((line) => line.includes('void tab.disabled'))).toBe(true);
 		expect(lines.some((line) => line.includes('void actions'))).toBe(true);
 		expect(lines.some((line) => line.includes('void actions.validate'))).toBe(true);
+		expect(lines.some((line) => line.includes('refreshRoot(style, dir)'))).toBe(true);
+		expect(lines.some((line) => line.includes('sync(disabledState)'))).toBe(true);
+		expect(lines.some((line) => line.includes('publish(actions)'))).toBe(true);
 	});
 
-	it('allows passing signals into a function and publishing a bindable from an effect', async () => {
+	it('allows passing signals into a function and publishing a bindable by assignment', async () => {
 		const { source, messages } = await messagesFor('void-signal.pass.svelte', ruleName);
 		expect(source).toContain('syncAfter(disabledState, focusableWhenDisabled)');
 		expect(source).toContain('$derived.by');
+		expect(source).toContain('actions = actionsHandle');
+		expect(source).not.toContain('$effect.pre');
 		expect(messages).toEqual([]);
 	});
 });
@@ -158,12 +164,15 @@ describe('sveltery/no-previous-value-effect', () => {
 		expect(lines.some((line) => line.includes('sawControlledValue'))).toBe(true);
 		expect(lines.some((line) => line.includes('lastKey'))).toBe(true);
 		expect(lines.some((line) => line.includes('sawValue'))).toBe(true);
+		expect(lines.some((line) => line.includes('prior'))).toBe(true);
+		expect(lines.some((line) => line.includes('previousElementSibling'))).toBe(false);
 	});
 
 	it('allows the side effect on the commit path', async () => {
 		const { source, messages } = await messagesFor('previous-value.pass.svelte', ruleName);
 		expect(source).toContain('formContext.clearErrors(name)');
 		expect(source).toContain('field.change(next)');
+		expect(source).toContain('node.previousElementSibling');
 		expect(messages).toEqual([]);
 	});
 });
@@ -189,6 +198,83 @@ describe('sveltery/no-process-env', () => {
 		expect(source).toContain("from 'esm-env'");
 		expect(source).toContain('if (!DEV)');
 		expect(messages).toEqual([]);
+	});
+});
+
+const ruleNames = Object.keys(plugin.rules);
+
+const failRuleByFile: Record<string, string> = {
+	'prop-state-sync.fail.svelte': 'sveltery/no-prop-state-sync',
+	'void-signal.fail.svelte': 'sveltery/no-void-signal-read',
+	'split-lifecycle.fail.svelte': 'sveltery/no-split-effect-lifecycle',
+	'previous-value.fail.svelte': 'sveltery/no-previous-value-effect',
+	'process-env.fail.svelte': 'sveltery/no-process-env',
+	'form-ref-current.fail.svelte': 'sveltery/no-react-refs'
+};
+
+function lintWithEveryRule(code: string, filePath: string) {
+	const rules = Object.fromEntries(ruleNames.map((name) => [`sveltery/${name}`, 'error']));
+	const eslint = new ESLint({
+		overrideConfigFile: true,
+		overrideConfig: [
+			{
+				files: ['**/*.svelte'],
+				languageOptions: {
+					parser: svelteParser,
+					parserOptions: {
+						ecmaVersion: 'latest',
+						sourceType: 'module',
+						extraFileExtensions: ['.svelte'],
+						parser: tsParser
+					}
+				},
+				plugins: { sveltery: plugin },
+				rules
+			},
+			{
+				files: ['**/*.{ts,js}'],
+				languageOptions: {
+					parser: tsParser,
+					parserOptions: { ecmaVersion: 'latest', sourceType: 'module' }
+				},
+				plugins: { sveltery: plugin },
+				rules
+			}
+		]
+	});
+	return eslint.lintText(code, { filePath });
+}
+
+describe('fixtures', () => {
+	const fixtureNames = readdirSync(new URL('eslint/fixtures/', root)).filter((name) =>
+		name.endsWith('.svelte')
+	);
+
+	it('compiles every fixture', () => {
+		for (const name of fixtureNames) {
+			const source = readFileSync(new URL(`eslint/fixtures/${name}`, root), 'utf8');
+			expect(() => compile(source, { filename: name, generate: 'client' }), name).not.toThrow();
+		}
+	});
+
+	it('runs every rule over every fixture', async () => {
+		for (const name of fixtureNames) {
+			const source = readFileSync(new URL(`eslint/fixtures/${name}`, root), 'utf8');
+			const [result] = await lintWithEveryRule(source, name);
+			const messages = (result?.messages ?? []).filter((message) =>
+				message.ruleId?.startsWith('sveltery/')
+			);
+			if (name.endsWith('.pass.svelte')) {
+				expect(messages, name).toEqual([]);
+				continue;
+			}
+			const ruleId = failRuleByFile[name];
+			expect(ruleId, name).toBeTruthy();
+			expect(
+				messages.some((message) => message.ruleId === ruleId),
+				name
+			).toBe(true);
+		}
 	});
 });
 

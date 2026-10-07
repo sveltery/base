@@ -83,9 +83,10 @@ export class RovingFocus {
 
 	/** Re-pick the tab stop after an item's disabled flag changes. */
 	sync(disabled = false) {
+		const itemDisabled = disabled;
 		untrack(() => {
 			this.ensureActive();
-			if (disabled && this.active && isDisabled(this.active)) return;
+			if (itemDisabled && this.active && isDisabled(this.active)) this.ensureActive();
 		});
 	}
 
