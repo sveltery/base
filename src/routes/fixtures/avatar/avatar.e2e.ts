@@ -7,7 +7,10 @@ const DATA_URI =
 async function open(page: Page, scenario: string, reference: boolean) {
 	const errors: string[] = [];
 	page.on('pageerror', (error) => errors.push(error.message));
-	await page.goto(`/fixtures/avatar?case=${scenario}${reference ? '&reference' : ''}`);
+	// `load` waits for images. The prevented case never answers `/hung-avatar.png`, so wait for the document instead.
+	await page.goto(`/fixtures/avatar?case=${scenario}${reference ? '&reference' : ''}`, {
+		waitUntil: 'domcontentloaded'
+	});
 	await expect(page.locator('main')).toHaveAttribute('data-hydrated', 'true');
 	return { errors };
 }
