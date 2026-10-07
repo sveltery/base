@@ -32,13 +32,13 @@ for (const reference of [false, true]) {
 			await expect(one).toHaveAttribute('aria-selected', 'true');
 			await expect(one).toHaveAttribute('tabindex', '0');
 			await expect(two).toHaveAttribute('tabindex', '-1');
-			await expect(page.getByRole('tabpanel')).toHaveText('One panel');
+			await expect(page.getByRole('tabpanel', { name: 'One' })).toHaveText('One panel');
 
 			await two.click();
 			await expect(two).toHaveAttribute('aria-selected', 'true');
 			await expect(two).toHaveAttribute('data-active', '');
 			await expect(one).toHaveAttribute('aria-selected', 'false');
-			await expect(page.getByRole('tabpanel')).toHaveText('Two panel');
+			await expect(page.getByRole('tabpanel', { name: 'Two' })).toHaveText('Two panel');
 			expect(await calls(page)).toEqual([
 				{ value: 0, reason: 'initial', canceled: false },
 				{ value: 1, reason: 'none', canceled: false }
@@ -64,7 +64,7 @@ for (const reference of [false, true]) {
 			await page.keyboard.press('ArrowRight');
 			await page.keyboard.press('Enter');
 			await expect(two).toHaveAttribute('aria-selected', 'true');
-			await expect(page.getByRole('tabpanel')).toHaveText('Two panel');
+			await expect(page.getByRole('tabpanel', { name: 'Two' })).toHaveText('Two panel');
 		});
 
 		test('activateOnFocus selects with the arrow key', async ({ page }) => {
@@ -72,7 +72,7 @@ for (const reference of [false, true]) {
 			await page.getByRole('tab', { name: 'One' }).focus();
 			await page.keyboard.press('ArrowRight');
 			await expect(page.getByRole('tab', { name: 'Two' })).toHaveAttribute('aria-selected', 'true');
-			await expect(page.getByRole('tabpanel')).toHaveText('Two panel');
+			await expect(page.getByRole('tabpanel', { name: 'Two' })).toHaveText('Two panel');
 		});
 
 		test('vertical arrows move focus down only', async ({ page }) => {

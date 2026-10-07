@@ -47,6 +47,7 @@ Proof of working order: in both frameworks, a click leaves the second tab select
 
 ## Gotchas
 
+- The closing panel stays mounted with `data-ending-style` until its animation finishes, so `getByRole('tabpanel')` can match two panels. The e2e targets the selected panel by its tab name.
 - The disabled e2e click uses `force: true` because Playwright will not click an `aria-disabled` tab.
 - Interacting before `data-hydrated="true"` races hydration.
 - An omitted `value` logs an `initial` change once the tabs register. A passed `value` does not.
