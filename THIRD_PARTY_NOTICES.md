@@ -149,7 +149,7 @@ Parts of this package derive from [Base UI](https://github.com/mui/base-ui) v1.8
 - `src/lib/number-field/dom.ts` from the `activeElement` and `getTarget` helpers NumberField calls, plus `ownerDocument`, `ownerWindow`, and `addEventListener`
 - `src/lib/number-field/platform.ts` from the `ios`, `webkit`, and `gecko` flags in `packages/utils/src/platform`
 - `src/lib/number-field/NumberField.svelte.spec.ts` assertions from `packages/react/src/number-field/**/*.test.tsx` that do not require React refs or `className` callbacks
-- `src/lib/internal/event-details.ts` also exports the number-field change reasons (`input-change`, `input-clear`, `input-blur`, `input-paste`, `keyboard`, `increment-press`, `decrement-press`, `wheel`, `scrub`)
+- `src/lib/internal/event-details.ts` also exports the number-field change reasons (`input-change`, `input-clear`, `input-blur`, `input-paste`, `keyboard`, `increment-press`, `decrement-press`, `wheel`, `scrub`) and the slider reasons (`track-press`, `drag`)
 - `src/lib/scroll-area/ScrollAreaRoot.svelte` and `src/lib/scroll-area/model.svelte.ts` from `packages/react/src/scroll-area/root/ScrollAreaRoot.tsx` and `ScrollAreaRootContext.ts`
 - `src/lib/scroll-area/ScrollAreaViewport.svelte` from `packages/react/src/scroll-area/viewport/ScrollAreaViewport.tsx`
 - `src/lib/scroll-area/ScrollAreaScrollbar.svelte` from `packages/react/src/scroll-area/scrollbar/ScrollAreaScrollbar.tsx`
@@ -162,6 +162,16 @@ Parts of this package derive from [Base UI](https://github.com/mui/base-ui) v1.8
 - `src/lib/scroll-area/dom.ts` from `packages/utils/src/shadowDom.ts` (`contains`, `getTarget`), `packages/utils/src/addEventListener.ts`, and `packages/react/src/scroll-area/utils/getOffset.ts`
 - `src/lib/scroll-area/platform.ts` from the `webkit` flag in `packages/utils/src/platform/engine.ts`
 - `src/lib/scroll-area/ScrollArea.svelte.spec.ts` assertions from `packages/react/src/scroll-area/**/*.test.tsx` that do not require React refs, `className` callbacks, or `DirectionProvider` (direction is the root element's used CSS `direction`)
+- `src/lib/slider/SliderRoot.svelte` and `src/lib/slider/model.svelte.ts` from `packages/react/src/slider/root/SliderRoot.tsx` and `packages/react/src/slider/control/SliderControl.tsx`
+- `src/lib/slider/SliderControl.svelte` from `packages/react/src/slider/control/SliderControl.tsx`
+- `src/lib/slider/SliderTrack.svelte` from `packages/react/src/slider/track/SliderTrack.tsx`
+- `src/lib/slider/SliderIndicator.svelte` and `src/lib/slider/indicator-style.ts` from `packages/react/src/slider/indicator/SliderIndicator.tsx`
+- `src/lib/slider/SliderThumb.svelte` and `src/lib/slider/prehydration.ts` from `packages/react/src/slider/thumb/SliderThumb.tsx` and `prehydrationScript.min.ts`
+- `src/lib/slider/SliderLabel.svelte` from `packages/react/src/slider/label/SliderLabel.tsx` and the non-native path of `packages/react/src/internals/labelable-provider/useLabel.ts`
+- `src/lib/slider/SliderValue.svelte` from `packages/react/src/slider/value/SliderValue.tsx`
+- `src/lib/slider/asc.ts`, `roundValueToStep.ts`, `getSliderValue.ts`, `validateMinimumDistance.ts`, `getMidpoint.ts`, `getPushedThumbValues.ts`, and `resolveThumbCollision.ts` from the matching files in `packages/react/src/slider/utils`
+- `src/lib/slider/dom.ts` from the owner, listener, and floating-ui DOM helpers Slider calls
+- `src/lib/slider/Slider.svelte.spec.ts` assertions from `packages/react/src/slider/**/*.test.tsx` that do not require React refs or `className` callbacks
 
 MIT License
 

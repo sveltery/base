@@ -133,6 +133,10 @@
 		"./scroll-area": {
 			"types": "./dist/scroll-area/index.d.ts",
 			"svelte": "./dist/scroll-area/index.js"
+		},
+		"./slider": {
+			"types": "./dist/slider/index.d.ts",
+			"svelte": "./dist/slider/index.js"
 		}
 	},
 	"peerDependencies": {

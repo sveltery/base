@@ -14,6 +14,8 @@ export const REASONS = {
 	keyboard: 'keyboard',
 	incrementPress: 'increment-press',
 	decrementPress: 'decrement-press',
+	trackPress: 'track-press',
+	drag: 'drag',
 	wheel: 'wheel',
 	scrub: 'scrub'
 } as const;
