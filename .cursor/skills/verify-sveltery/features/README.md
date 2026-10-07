@@ -17,3 +17,4 @@ One row per component in `src/lib`. A run of `scripts/verify-component.sh <name>
 | Progress    | [progress.md](progress.md)         | `/fixtures/progress?case=<case>`     | `className` and `style` state callbacks, refs                                                                   |
 | Form        | [form.md](form.md)                 | `/fixtures/form?case=<case>`         | Field, Checkbox, NumberField, Switch and Fieldset integration; `className`/`style` callbacks; `actionsRef`      |
 | Switch      | [switch.md](switch.md)             | `/fixtures/switch?case=<case>`       | Field and Form integration, `inputRef`, `className`/`style` callbacks, `nativeButton` host-tag warnings         |
+| Radio       | [radio.md](radio.md)               | `/fixtures/radio?case=<case>`        | RadioGroup, composite roving focus, Field, `inputRef`, `className`/`style` callbacks, host-tag warnings         |

@@ -90,6 +90,10 @@
 			"types": "./dist/progress/index.d.ts",
 			"svelte": "./dist/progress/index.js"
 		},
+		"./radio": {
+			"types": "./dist/radio/index.d.ts",
+			"svelte": "./dist/radio/index.js"
+		},
 		"./form": {
 			"types": "./dist/form/index.d.ts",
 			"svelte": "./dist/form/index.js"
