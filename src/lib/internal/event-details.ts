@@ -17,7 +17,13 @@ export const REASONS = {
 	trackPress: 'track-press',
 	drag: 'drag',
 	wheel: 'wheel',
-	scrub: 'scrub'
+	scrub: 'scrub',
+	triggerHover: 'trigger-hover',
+	escapeKey: 'escape-key',
+	outsidePress: 'outside-press',
+	focusOut: 'focus-out',
+	closePress: 'close-press',
+	imperativeAction: 'imperative-action'
 } as const;
 
 export type BaseUIChangeEventDetails<Reason extends string> = {
