@@ -175,6 +175,14 @@ Parts of this package derive from [Base UI](https://github.com/mui/base-ui) v1.8
 - `src/lib/direction-provider/DirectionProvider.svelte` from `packages/react/src/direction-provider/DirectionProvider.tsx`
 - `src/lib/direction-provider/context.ts` from `packages/react/src/internals/direction-context/DirectionContext.tsx`
 - `src/lib/direction-provider/DirectionProvider.svelte.spec.ts` assertions from `packages/react/src/direction-provider/DirectionProvider.test.tsx`
+- `src/lib/otp-field/OTPFieldRoot.svelte` and `src/lib/otp-field/model.svelte.ts` from `packages/react/src/otp-field/root/OTPFieldRoot.tsx` and `OTPFieldRootContext.ts`
+- `src/lib/otp-field/OTPFieldInput.svelte` from `packages/react/src/otp-field/input/OTPFieldInput.tsx`
+- `src/lib/otp-field/slots.svelte.ts` from the flat-list registration in `packages/react/src/internals/composite/list/CompositeList.tsx` and `useCompositeListItem.ts` (DOM order and render-order indexes only)
+- `src/lib/otp-field/otp.ts` from `packages/react/src/otp-field/utils/otp.ts`
+- `src/lib/otp-field/attributes.ts` from `packages/react/src/otp-field/utils/stateAttributesMapping.ts` and the OTP field data-attribute modules
+- `src/lib/otp-field/dom.ts` from `packages/utils/src/shadowDom.ts` (`contains`), `packages/utils/src/owner.ts`, `packages/react/src/floating-ui-react/utils/event.ts` (`stopEvent`), and the native-label lookup in `useAriaLabelledBy.ts`
+- `src/lib/otp-field/otp.spec.ts` assertions from `packages/react/src/otp-field/utils/otp.test.ts`
+- `src/lib/otp-field/OTPField.svelte.spec.ts` assertions from `packages/react/src/otp-field/**/*.test.tsx` that do not require React refs, `className` callbacks, or `DirectionProvider` (direction is the input's used CSS `direction`)
 
 MIT License
 

@@ -2,7 +2,7 @@
 
 An experimental, unofficial Svelte 5 port of [Base UI](https://base-ui.com/), starting from Base UI v1.8.0 (commit [`47b40521`](https://github.com/mui/base-ui/tree/47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c)). Not affiliated with or endorsed by MUI or Base UI.
 
-The project was restarted from a fresh `sv create` library scaffold (Prettier, ESLint, Vitest with browser component tests, Playwright). It currently ships `Toggle`, `Button`, `Checkbox`, `CheckboxGroup`, `Radio`, `RadioGroup`, `Avatar`, `Fieldset`, `Field`, `Input`, `Separator`, `Meter`, `Progress`, `Form`, `ToggleGroup`, `Switch`, `Collapsible`, `Accordion`, `Tabs`, `Toolbar`, `NumberField`, `ScrollArea`, `Slider`, and `DirectionProvider`. The package is private and unpublished.
+The project was restarted from a fresh `sv create` library scaffold (Prettier, ESLint, Vitest with browser component tests, Playwright). It currently ships `Toggle`, `Button`, `Checkbox`, `CheckboxGroup`, `Radio`, `RadioGroup`, `Avatar`, `Fieldset`, `Field`, `Input`, `Separator`, `Meter`, `Progress`, `Form`, `ToggleGroup`, `Switch`, `Collapsible`, `Accordion`, `Tabs`, `Toolbar`, `NumberField`, `ScrollArea`, `Slider`, `DirectionProvider`, and `OTPField`. The package is private and unpublished.
 
 ```svelte
 <script lang="ts">
