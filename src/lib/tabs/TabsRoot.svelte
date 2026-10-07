@@ -22,16 +22,14 @@
 		...elementProps
 	}: TabsRootProps = $props();
 
-	// Captured once. A later click must not turn an omitted value into a parent-owned one.
-	const parentOwned = value !== undefined;
 	const controllable = createControllableValue<typeof value>({
-		getProp: () => (parentOwned ? value : undefined),
+		getProp: () => value,
 		setProp: (next) => {
 			value = next;
 		},
-		getDefault: () => (parentOwned ? value : 0)
+		getDefault: () => (value !== undefined ? value : 0)
 	});
-	const tabs = new TabsRootModel(parentOwned, parentOwned ? (value ?? null) : 0);
+	const tabs = new TabsRootModel(controllable.controlled, controllable.value ?? null);
 	tabs.readOrientation = () => orientation;
 	tabs.readOnValueChange = () => onValueChange;
 	tabs.readExternal = () => (controllable.value == null ? null : controllable.value);

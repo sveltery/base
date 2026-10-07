@@ -43,7 +43,6 @@ export class TabsRootModel {
 	publish: (next: TabsValue | null, direction: TabsActivationDirection) => void = () => {};
 
 	readonly parentOwned: boolean;
-	private ownedValue = $state<TabsValue | null>(null);
 	private directionBaseline: TabsValue | null = 0;
 	private notifiedInitial = false;
 	private didRegister = false;
@@ -51,7 +50,6 @@ export class TabsRootModel {
 
 	constructor(parentOwned: boolean, initial: TabsValue | null) {
 		this.parentOwned = parentOwned;
-		this.ownedValue = initial;
 		this.directionBaseline = initial;
 
 		$effect.pre(() => {
@@ -144,12 +142,10 @@ export class TabsRootModel {
 	}
 
 	get value(): TabsValue | null {
-		if (!this.parentOwned) return this.ownedValue;
 		return this.readExternal();
 	}
 
 	set value(next: TabsValue | null) {
-		if (!this.parentOwned) this.ownedValue = next;
 		this.writeValue(next);
 	}
 

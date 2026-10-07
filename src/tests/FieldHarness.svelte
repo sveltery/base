@@ -318,8 +318,8 @@
 	<button type="button" onclick={() => (controlled = 'next')}>Set next</button>
 	<output data-testid="errors">{JSON.stringify(parentErrors)}</output>
 {:else if scenario === 'late'}
-	<Form bind:errors={parentErrors} onsubmit={accept}>
-		<Field.Root name="email" validationMode="onChange" data-testid="field" validate={() => 'nope'}>
+	<Form bind:errors={parentErrors} onFormSubmit={accept}>
+		<Field.Root name="email" validationMode="onChange" data-testid="field" validate={() => null}>
 			<Field.Control value={late} data-testid="control" />
 			<Field.Error data-testid="error" />
 		</Field.Root>

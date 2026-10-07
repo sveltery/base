@@ -50,8 +50,7 @@
 		},
 		getDefault: () => defaultValue,
 		onChange(next) {
-			if (next == null) return;
-			notifyControlled(String(next));
+			notifyControlled(next == null ? '' : String(next));
 		}
 	});
 	const isControlled = $derived(controllable.controlled);
@@ -62,12 +61,13 @@
 
 	let inputEl = $state<HTMLInputElement | null>(null);
 	let hadExplicitId = false;
-	let seeded = false;
 	let blurCommitId = 0;
+	let registration: { value: string | undefined } | null = null;
 
 	function notifyControlled(current: string) {
 		form.clearErrors(name);
 		field.setDirty(current !== String(field.validityData.initialValue ?? ''));
+		field.setFilled(current !== '');
 		field.change(current);
 	}
 
@@ -104,34 +104,45 @@
 
 	$effect(() => {
 		const element = inputEl;
-		const linked = isControlled;
-		const current = linked ? serialized : undefined;
 		const controlName = nameProp;
 		const id = controlId;
 		const active = !disabled;
+		const currentValue = untrack(() =>
+			controllable.value != null ? String(controllable.value) : undefined
+		);
 
-		if (element && !linked && !seeded) {
-			seeded = true;
-			if (defaultValue != null && element.value === '') element.value = String(defaultValue);
-		}
+		if (currentValue !== undefined) field.setFilled(currentValue !== '');
+		else if (element) field.setFilled(element.value !== '');
 
-		const domValueNow = element?.value;
-		const filledSource = linked ? current : domValueNow;
-		if (filledSource !== undefined) field.setFilled(filledSource !== '');
+		const record = {
+			id,
+			name: controlName ?? undefined,
+			value: currentValue,
+			element,
+			getValue: () => element?.value
+		};
+		registration = record;
 
 		if (!active) {
 			field.registerControl(controlSource, undefined);
-			return () => field.registerControl(controlSource, undefined);
+			return () => {
+				registration = null;
+				field.registerControl(controlSource, undefined);
+			};
 		}
 
-		field.registerControl(controlSource, {
-			id,
-			name: controlName ?? undefined,
-			value: linked ? current : undefined,
-			element,
-			getValue: () => element?.value
-		});
-		return () => field.registerControl(controlSource, undefined);
+		field.registerControl(controlSource, record);
+		return () => {
+			registration = null;
+			field.registerControl(controlSource, undefined);
+		};
+	});
+
+	$effect(() => {
+		const current = serialized;
+		const record = registration;
+		if (!record) return;
+		record.value = current;
 	});
 
 	$effect(() => {
@@ -150,11 +161,6 @@
 		const inputValue = event.currentTarget.value;
 		const details = createChangeEventDetails(REASONS.none, event);
 		onValueChange?.(inputValue, details);
-
-		if (!isControlled) {
-			field.setDirty(inputValue !== String(field.validityData.initialValue ?? ''));
-			field.setFilled(inputValue !== '');
-		}
 
 		if (details.isCanceled) {
 			event.currentTarget.value = domValue();

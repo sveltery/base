@@ -55,17 +55,35 @@ export function createControllableValue<T>(options: {
 			return controlled;
 		},
 		set(next) {
-			const before = untrack(() => options.getProp());
-			stored = next;
 			adopted = true;
 			options.setProp(next);
 			const after = untrack(() => options.getProp());
-			// A $state prop proxies objects, so the value we read back may not be
-			// the reference we wrote. Echo that read so the stored reference remains
-			// the one callers compare. A rejected write leaves the prop unchanged.
-			const wrote = !Object.is(before, after) || Object.is(after, next);
-			echoed = wrote ? after : next;
+			// A $state prop proxies objects. Keep the written object when the parent
+			// still holds it. A primitive, a rejected write, or a normalized value is
+			// whatever the parent has now.
+			if (parentHoldsWritten(after, next)) {
+				stored = next;
+				echoed = after;
+			} else {
+				stored = after;
+				echoed = after;
+			}
 			publish(untrack(() => value));
 		}
 	};
+}
+
+function parentHoldsWritten(after: unknown, next: unknown) {
+	if (Object.is(after, next)) return true;
+	if (after == null || next == null) return false;
+	if (typeof after !== 'object' || typeof next !== 'object') return false;
+	const mark = Symbol();
+	try {
+		Object.defineProperty(next, mark, { configurable: true, value: true });
+		return (after as Record<symbol, boolean>)[mark] === true;
+	} catch {
+		return false;
+	} finally {
+		Reflect.deleteProperty(next, mark);
+	}
 }
