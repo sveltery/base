@@ -4,7 +4,9 @@
 	the non-composite paths of packages/react/src/internals/use-button/useButton.ts,
 	and the native-label fallback of useAriaLabelledBy.ts
 	(commit 47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c). MIT, see THIRD_PARTY_NOTICES.md.
-	Field registration, validation, Form error clearing, and CheckboxGroup are not ported.
+	Field registration, validation, and Form error clearing are not ported.
+	An optional CheckboxGroup context supplies the shared value. When that group
+	sets `allValues`, `parent` toggles the set and other checkboxes register with it.
 -->
 <script lang="ts">
 	import { createAttachmentKey, type Attachment } from 'svelte/attachments';
@@ -12,12 +14,14 @@
 	import { visuallyHidden, visuallyHiddenInput } from '../internal/visuallyHidden.js';
 	import { checkboxRootAttributes } from './attributes.js';
 	import { setCheckboxContext } from './context.js';
+	import { useCheckboxGroupContext } from './group-context.js';
 	import { findAssociatedLabel } from './label.js';
 	import { getDefaultFormSubmitter } from './submitter.js';
 	import type { CheckboxHostProps, CheckboxRootProps, CheckboxRootState } from './types.js';
 
 	const uid = $props.id();
 	const rootKey = createAttachmentKey();
+	const group = useCheckboxGroupContext();
 
 	let {
 		checked = $bindable(false),
@@ -25,6 +29,7 @@
 		readOnly = false,
 		required = false,
 		indeterminate = false,
+		parent = false,
 		nativeButton = false,
 		name,
 		value,
@@ -49,20 +54,34 @@
 	const hiddenInputId = $derived(nativeButton ? undefined : controlId);
 	const rootId = $derived(nativeButton ? controlId : generatedRootId);
 
+	// `value` identifies the checkbox in a group. `name` is the fallback, matching upstream.
+	const identified = $derived(value !== undefined ? value : name);
+	const isChecked = $derived.by(() => {
+		if (parent && group?.parent) return group.parent.checked;
+		if (group && identified !== undefined && !parent) return group.value.includes(identified);
+		return checked;
+	});
+	const isIndeterminate = $derived.by(() => {
+		if (parent && group?.parent) return group.parent.indeterminate || indeterminate;
+		return indeterminate;
+	});
+	const isDisabled = $derived(Boolean(group?.disabled) || disabled);
+	const inputName = $derived(parent ? undefined : name);
+
 	const checkboxState: CheckboxRootState = $derived({
-		checked,
-		disabled,
+		checked: isChecked,
+		disabled: isDisabled,
 		readOnly,
 		required,
-		indeterminate
+		indeterminate: isIndeterminate
 	});
 
 	setCheckboxContext({
 		get checked() {
-			return checked;
+			return isChecked;
 		},
 		get disabled() {
-			return disabled;
+			return isDisabled;
 		},
 		get readOnly() {
 			return readOnly;
@@ -71,7 +90,7 @@
 			return required;
 		},
 		get indeterminate() {
-			return indeterminate;
+			return isIndeterminate;
 		}
 	});
 
@@ -86,20 +105,46 @@
 		};
 	}
 
-	const inputStyle = $derived(toCssStyle(name ? visuallyHiddenInput : visuallyHidden));
-	const showUnchecked = $derived(!checked && Boolean(name) && uncheckedValue !== undefined);
+	const inputStyle = $derived(toCssStyle(inputName ? visuallyHiddenInput : visuallyHidden));
+	const showUnchecked = $derived(
+		!isChecked && group === undefined && Boolean(inputName) && uncheckedValue !== undefined
+	);
+	const submittedValue = $derived.by(() => {
+		if (value === undefined) return {};
+		// Inside a group an unticked checkbox submits an empty value attribute.
+		if (group) return { value: (isChecked && value) || '' };
+		return { value };
+	});
 
 	// A click clears `indeterminate` before the listener runs. Put it back after `checked` updates.
 	$effect(() => {
 		const input = inputNode;
 		if (!input) return;
-		void checked;
-		input.indeterminate = indeterminate;
+		const next = isChecked;
+		if (input.checked !== next) input.checked = next;
+		input.indeterminate = isIndeterminate;
+	});
+
+	$effect(() => {
+		const model = group?.parent;
+		const key = identified;
+		if (!model || key === undefined) return;
+		model.setDisabled(key, isDisabled);
+		return () => model.clearDisabled(key);
+	});
+
+	$effect(() => {
+		const model = group?.parent;
+		const key = identified;
+		const node = rootNode;
+		const childId = node?.id;
+		if (!model || parent || key === undefined || !childId) return;
+		return model.registerChildId(key, childId);
 	});
 
 	function handleInputClick(event: MouseEvent & { currentTarget: EventTarget & HTMLInputElement }) {
 		event.stopPropagation();
-		if (event.defaultPrevented || readOnly || disabled) {
+		if (event.defaultPrevented || readOnly || isDisabled) {
 			if (!event.defaultPrevented) event.preventDefault();
 			return;
 		}
@@ -112,6 +157,26 @@
 			return;
 		}
 
+		const key = identified;
+		if (group?.parent && parent) {
+			group.parent.toggle(details);
+			if (details.isCanceled) event.preventDefault();
+			return;
+		}
+
+		if (group?.parent && key !== undefined && !parent) {
+			group.parent.toggleChild(key, nextChecked, details);
+			if (details.isCanceled) event.preventDefault();
+			return;
+		}
+
+		if (group && key !== undefined && !parent) {
+			const next = nextChecked ? [...group.value, key] : group.value.filter((item) => item !== key);
+			group.setValue(next, details);
+			if (details.isCanceled) event.preventDefault();
+			return;
+		}
+
 		checked = nextChecked;
 	}
 
@@ -120,7 +185,7 @@
 	}
 
 	function handleClick(event: MouseEvent & { currentTarget: EventTarget & HTMLElement }) {
-		if (disabled) {
+		if (isDisabled) {
 			event.preventDefault();
 			return;
 		}
@@ -134,11 +199,11 @@
 	}
 
 	function handleMouseDown(event: MouseEvent & { currentTarget: EventTarget & HTMLElement }) {
-		if (!disabled) onmousedown?.(event);
+		if (!isDisabled) onmousedown?.(event);
 	}
 
 	function handlePointerDown(event: PointerEvent & { currentTarget: EventTarget & HTMLElement }) {
-		if (disabled) {
+		if (isDisabled) {
 			event.preventDefault();
 			return;
 		}
@@ -156,7 +221,7 @@
 	}
 
 	function handleKeyDown(event: KeyboardEvent & { currentTarget: EventTarget & HTMLElement }) {
-		if (disabled) return;
+		if (isDisabled) return;
 
 		onkeydown?.(event);
 
@@ -199,7 +264,7 @@
 	}
 
 	function handleKeyUp(event: KeyboardEvent & { currentTarget: EventTarget & HTMLElement }) {
-		if (disabled) return;
+		if (isDisabled) return;
 
 		onkeyup?.(event);
 		if (event.defaultPrevented || nativeButton || event.key !== ' ') return;
@@ -234,19 +299,22 @@
 
 	const hostProps: CheckboxHostProps & Record<symbol, Attachment<HTMLElement>> = $derived.by(() => {
 		const labelledBy = ariaLabelledBy ?? fallbackLabelId;
+		const controls = parent ? group?.parent?.controls : undefined;
 		return {
 			...checkboxRootAttributes(checkboxState),
 			...(nativeButton ? { type: 'button' as const } : {}),
-			tabindex: !nativeButton && disabled ? -1 : 0,
-			...(!nativeButton && disabled ? { 'aria-disabled': true as const } : {}),
-			...(nativeButton && disabled ? { disabled: true } : {}),
+			tabindex: !nativeButton && isDisabled ? -1 : 0,
+			...(!nativeButton && isDisabled ? { 'aria-disabled': true as const } : {}),
+			...(nativeButton && isDisabled ? { disabled: true } : {}),
+			...(parent ? { 'data-parent': '' } : {}),
 			id: rootId,
 			role: 'checkbox',
-			'aria-checked': indeterminate ? 'mixed' : checked,
+			'aria-checked': isIndeterminate ? 'mixed' : isChecked,
 			...(readOnly ? { 'aria-readonly': true as const } : {}),
 			...(required ? { 'aria-required': true as const } : {}),
 			...(labelledBy ? { 'aria-labelledby': labelledBy } : {}),
 			...elementProps,
+			...(controls ? { 'aria-controls': controls } : {}),
 			onclick: handleClick,
 			onmousedown: handleMouseDown,
 			onpointerdown: handlePointerDown,
@@ -288,21 +356,21 @@
 	<span {...hostProps}>{@render children?.()}</span>
 {/if}
 {#if showUnchecked}
-	<input type="hidden" {form} {name} value={uncheckedValue} {disabled} />
+	<input type="hidden" {form} name={inputName} value={uncheckedValue} disabled={isDisabled} />
 {/if}
 <input
 	bind:this={inputNode}
 	type="checkbox"
-	{checked}
-	{disabled}
+	checked={isChecked}
+	disabled={isDisabled}
 	{form}
 	id={hiddenInputId}
-	{name}
+	name={inputName}
 	{required}
 	style={inputStyle}
 	tabindex="-1"
 	aria-hidden="true"
-	{...value !== undefined ? { value } : {}}
+	{...submittedValue}
 	onclick={handleInputClick}
 	onfocus={handleInputFocus}
 />

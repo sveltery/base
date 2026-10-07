@@ -2,24 +2,25 @@
 
 One row per component in `src/lib`. A run of `scripts/verify-component.sh <name>` covers that component's spec, unit tests and paired fixture. It does not cover anything listed under "Not ported".
 
-| Component   | Feature file                       | Fixture route                        | Not ported                                                                                                      |
-| ----------- | ---------------------------------- | ------------------------------------ | --------------------------------------------------------------------------------------------------------------- |
-| Accordion   | [accordion.md](accordion.md)       | `/fixtures/accordion?case=<case>`    | React.Activity animation resume, `className`/`style` callbacks, refs, roving focus (`orientation`, `loopFocus`) |
-| Button      | [button.md](button.md)             | `/fixtures/button?case=<case>`       | Composite and Toolbar integration, `nativeButton` host-tag warnings, class/style state callbacks                |
-| Checkbox    | [checkbox.md](checkbox.md)         | `/fixtures/checkbox?case=<case>`     | Field, CheckboxGroup, `parent`, `inputRef`, `className`/`style` callbacks, host-tag warnings                    |
-| Collapsible | [collapsible.md](collapsible.md)   | `/fixtures/collapsible?case=<case>`  | React.Activity animation resume, `className`/`style` callbacks, refs, host-tag warnings                         |
-| Fieldset    | [fieldset.md](fieldset.md)         | `/fixtures/fieldset?case=<case>`     | Checkbox, CheckboxGroup, RadioGroup and Slider disabled integration; `className`/`style` state callbacks        |
-| Field       | [field.md](field.md)               | `/fixtures/field?case=<case>`        | Checkbox, Radio, NumberField, Select integration; `className`/`style` callbacks; refs                           |
-| Input       | [input.md](input.md)               | `/fixtures/input?case=<case>`        | Use outside `Field.Root`; `className`/`style` callbacks; refs                                                   |
-| Toggle      | [toggle.md](toggle.md)             | `/fixtures/toggle?case=<case>`       | Toolbar integration, `nativeButton={false}`, class/style state callbacks                                        |
-| ToggleGroup | [toggle-group.md](toggle-group.md) | `/fixtures/toggle-group?case=<case>` | Toolbar integration, `className`/`style` state callbacks, grid composite, scroll-into-view                      |
-| Avatar      | [avatar.md](avatar.md)             | `/fixtures/avatar?case=<case>`       | Enter/exit transitions and animation completion, `class`/`style` state callbacks                                |
-| Separator   | [separator.md](separator.md)       | `/fixtures/separator?case=<case>`    | `className`/`style` state callbacks, React render-element cloning, `ref`, Menu/Select/Toolbar separators        |
-| Meter       | [meter.md](meter.md)               | `/fixtures/meter?case=<case>`        | React `ref`, class/style state callbacks, numeric production error codes                                        |
-| Progress    | [progress.md](progress.md)         | `/fixtures/progress?case=<case>`     | `className` and `style` state callbacks, refs                                                                   |
-| Form        | [form.md](form.md)                 | `/fixtures/form?case=<case>`         | Checkbox, NumberField, Switch and Fieldset integration; `className`/`style` callbacks; `actionsRef`             |
-| Switch      | [switch.md](switch.md)             | `/fixtures/switch?case=<case>`       | Field and Form integration, `inputRef`, `className`/`style` callbacks, `nativeButton` host-tag warnings         |
-| Radio       | [radio.md](radio.md)               | `/fixtures/radio?case=<case>`        | Field, `inputRef`, `className`/`style` callbacks, host-tag warnings                                             |
-| RadioGroup  | [radio-group.md](radio-group.md)   | `/fixtures/radio-group?case=<case>`  | Field, `inputRef`, `className`/`style` callbacks, scroll-into-view, text-field arrow exceptions                 |
-| Tabs        | [tabs.md](tabs.md)                 | `/fixtures/tabs?case=<case>`         | Pre-hydration indicator script, scroll-into-view, shadow-boundary offsets, `className`/`style` callbacks, refs  |
-| Toolbar     | [toolbar.md](toolbar.md)           | `/fixtures/toolbar?case=<case>`      | Input, Separator, text-field arrow exceptions, scroll-into-view, ToggleGroup nesting, overlay triggers          |
+| Component     | Feature file                           | Fixture route                          | Not ported                                                                                                      |
+| ------------- | -------------------------------------- | -------------------------------------- | --------------------------------------------------------------------------------------------------------------- |
+| Accordion     | [accordion.md](accordion.md)           | `/fixtures/accordion?case=<case>`      | React.Activity animation resume, `className`/`style` callbacks, refs, roving focus (`orientation`, `loopFocus`) |
+| Button        | [button.md](button.md)                 | `/fixtures/button?case=<case>`         | Composite and Toolbar integration, `nativeButton` host-tag warnings, class/style state callbacks                |
+| Checkbox      | [checkbox.md](checkbox.md)             | `/fixtures/checkbox?case=<case>`       | Field, `inputRef`, `className`/`style` callbacks, host-tag warnings                                             |
+| CheckboxGroup | [checkbox-group.md](checkbox-group.md) | `/fixtures/checkbox-group?case=<case>` | Field validation, filled/dirty/touched hooks, labelable descriptions, fieldset disabled                         |
+| Collapsible   | [collapsible.md](collapsible.md)       | `/fixtures/collapsible?case=<case>`    | React.Activity animation resume, `className`/`style` callbacks, refs, host-tag warnings                         |
+| Fieldset      | [fieldset.md](fieldset.md)             | `/fixtures/fieldset?case=<case>`       | Checkbox, CheckboxGroup, RadioGroup and Slider disabled integration; `className`/`style` state callbacks        |
+| Field         | [field.md](field.md)                   | `/fixtures/field?case=<case>`          | Checkbox, Radio, NumberField, Select integration; `className`/`style` callbacks; refs                           |
+| Input         | [input.md](input.md)                   | `/fixtures/input?case=<case>`          | Use outside `Field.Root`; `className`/`style` callbacks; refs                                                   |
+| Toggle        | [toggle.md](toggle.md)                 | `/fixtures/toggle?case=<case>`         | Toolbar integration, `nativeButton={false}`, class/style state callbacks                                        |
+| ToggleGroup   | [toggle-group.md](toggle-group.md)     | `/fixtures/toggle-group?case=<case>`   | Toolbar integration, `className`/`style` state callbacks, grid composite, scroll-into-view                      |
+| Avatar        | [avatar.md](avatar.md)                 | `/fixtures/avatar?case=<case>`         | Enter/exit transitions and animation completion, `class`/`style` state callbacks                                |
+| Separator     | [separator.md](separator.md)           | `/fixtures/separator?case=<case>`      | `className`/`style` state callbacks, React render-element cloning, `ref`, Menu/Select/Toolbar separators        |
+| Meter         | [meter.md](meter.md)                   | `/fixtures/meter?case=<case>`          | React `ref`, class/style state callbacks, numeric production error codes                                        |
+| Progress      | [progress.md](progress.md)             | `/fixtures/progress?case=<case>`       | `className` and `style` state callbacks, refs                                                                   |
+| Form          | [form.md](form.md)                     | `/fixtures/form?case=<case>`           | Checkbox, NumberField, Switch and Fieldset integration; `className`/`style` callbacks; `actionsRef`             |
+| Switch        | [switch.md](switch.md)                 | `/fixtures/switch?case=<case>`         | Field and Form integration, `inputRef`, `className`/`style` callbacks, `nativeButton` host-tag warnings         |
+| Radio         | [radio.md](radio.md)                   | `/fixtures/radio?case=<case>`          | Field, `inputRef`, `className`/`style` callbacks, host-tag warnings                                             |
+| RadioGroup    | [radio-group.md](radio-group.md)       | `/fixtures/radio-group?case=<case>`    | Field, `inputRef`, `className`/`style` callbacks, scroll-into-view, text-field arrow exceptions                 |
+| Tabs          | [tabs.md](tabs.md)                     | `/fixtures/tabs?case=<case>`           | Pre-hydration indicator script, scroll-into-view, shadow-boundary offsets, `className`/`style` callbacks, refs  |
+| Toolbar       | [toolbar.md](toolbar.md)               | `/fixtures/toolbar?case=<case>`        | Input, Separator, text-field arrow exceptions, scroll-into-view, ToggleGroup nesting, overlay triggers          |

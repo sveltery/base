@@ -28,7 +28,7 @@ Differences from React Base UI, all deliberate:
 - No `preventBaseUIHandler()`. `preventDefault()` on the root click is the skip signal.
 - No dev warning when `nativeButton` does not match the host tag.
 - No Field state and no Form `clearErrors`.
-- No `parent` prop and no CheckboxGroup.
+- Inside `CheckboxGroup`, the checked state follows the group. `parent` toggles that group when it sets `allValues`.
 
 Preserved upstream behavior:
 
