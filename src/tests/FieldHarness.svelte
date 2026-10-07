@@ -17,6 +17,7 @@
 	let showFirst = $state(true);
 	let controlled = $state('a');
 	let late = $state<string | undefined>(undefined);
+	let emptyParent = $state<string | undefined>('kept');
 	let typed = $state<string | number | null | undefined>();
 	let parentErrors = $state<Record<string, string>>({ email: 'stale' });
 	let dirty = $state(true);
@@ -289,7 +290,7 @@
 	</Field.Root>
 	<output data-testid="calls">{calls}</output>
 {:else if scenario === 'cancel'}
-	<Field.Root validationMode="onChange" validate={countedValidate}>
+	<Field.Root validationMode="onChange" validate={countedValidate} data-testid="field">
 		<Field.Control data-testid="control" {onValueChange} />
 	</Field.Root>
 	<output data-testid="calls">{calls}</output>
@@ -317,13 +318,30 @@
 	<button type="button" onclick={() => (controlled = 'next')}>Set next</button>
 	<output data-testid="errors">{JSON.stringify(parentErrors)}</output>
 {:else if scenario === 'late'}
-	<Form bind:errors={parentErrors}>
+	<Form bind:errors={parentErrors} onsubmit={accept}>
 		<Field.Root name="email" validationMode="onChange" data-testid="field" validate={() => 'nope'}>
 			<Field.Control value={late} data-testid="control" />
 			<Field.Error data-testid="error" />
 		</Field.Root>
+		<button type="submit">Submit</button>
 	</Form>
 	<button type="button" onclick={() => (late = 'later')}>Set later</button>
+	<output data-testid="errors">{JSON.stringify(parentErrors)}</output>
+	<output data-testid="values">{values}</output>
+{:else if scenario === 'empty'}
+	<Form bind:errors={parentErrors}>
+		<Field.Root
+			name="email"
+			validationMode="onChange"
+			data-testid="field"
+			validate={(value) => (value === '' ? 'empty' : null)}
+		>
+			<Field.Control value={emptyParent} data-testid="control" />
+			<Field.Error data-testid="error" />
+		</Field.Root>
+	</Form>
+	<button type="button" onclick={() => (emptyParent = '')}>Clear</button>
+	<button type="button" onclick={() => (emptyParent = undefined)}>Unset</button>
 	<output data-testid="errors">{JSON.stringify(parentErrors)}</output>
 {:else if scenario === 'typed'}
 	<Field.Root>

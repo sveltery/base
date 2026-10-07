@@ -36,6 +36,14 @@ describe('createControllableValue', () => {
 		expect(text('log')).toBe('["b","a","c"]');
 	});
 
+	it('uses the value a parent setter keeps', async () => {
+		render(ControllableValueHarness, { mode: 'lower' });
+		await page.getByTestId('set-mixed').click();
+		await expect.element(page.getByTestId('value')).toHaveTextContent('ab');
+		await expect.element(page.getByTestId('prop')).toHaveTextContent('ab');
+		expect(text('log')).toBe('["ab"]');
+	});
+
 	it('falls back to the default when a controlled value is cleared', async () => {
 		render(ControllableValueHarness, { mode: 'clear' });
 		await expect.element(page.getByTestId('value')).toHaveTextContent('a');

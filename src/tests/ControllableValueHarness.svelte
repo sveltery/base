@@ -2,7 +2,7 @@
 	import { untrack } from 'svelte';
 	import { createControllableValue } from '../lib/internal/controllable-value.svelte.js';
 
-	let { mode = 'bind' }: { mode?: 'bind' | 'reject' | 'flip' | 'clear' } = $props();
+	let { mode = 'bind' }: { mode?: 'bind' | 'reject' | 'flip' | 'clear' | 'lower' } = $props();
 
 	const startsEmpty = untrack(() => mode === 'bind');
 	let prop = $state<string | undefined>(startsEmpty ? undefined : 'a');
@@ -12,7 +12,7 @@
 		getProp: () => prop,
 		setProp: (next) => {
 			if (mode === 'reject') return;
-			prop = next;
+			prop = mode === 'lower' && typeof next === 'string' ? next.toLowerCase() : next;
 		},
 		getDefault: () => 'fallback',
 		onChange(next) {
@@ -25,6 +25,9 @@
 <output data-testid="prop">{prop ?? 'none'}</output>
 <output data-testid="log">{JSON.stringify(log)}</output>
 <button type="button" data-testid="set-b" onclick={() => controllable.set('b')}>Set b</button>
+<button type="button" data-testid="set-mixed" onclick={() => controllable.set('Ab')}
+	>Set mixed</button
+>
 <button
 	type="button"
 	data-testid="flip"
