@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { Field, Form, OTPField } from '#lib';
+	import { DirectionProvider, Field, Form, OTPField } from '#lib';
 	import type { OTPFieldChangeEventDetails } from '#lib/otp-field/types.js';
 
 	let {
@@ -151,13 +151,15 @@
 		</OTPField.Root>
 	</label>
 {:else if scenario === 'rtl'}
-	<div dir="rtl">
-		<OTPField.Root length={6} defaultValue="123456">
-			{#each [0, 1, 2, 3, 4, 5] as index (index)}
-				<OTPField.Input />
-			{/each}
-		</OTPField.Root>
-	</div>
+	<DirectionProvider direction="rtl">
+		<div dir="rtl">
+			<OTPField.Root length={6} defaultValue="123456">
+				{#each [0, 1, 2, 3, 4, 5] as index (index)}
+					<OTPField.Input />
+				{/each}
+			</OTPField.Root>
+		</div>
+	</DirectionProvider>
 {:else if scenario === 'blur-validate'}
 	<Form>
 		<Field.Root

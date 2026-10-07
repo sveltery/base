@@ -44,8 +44,8 @@ Component tests (`src/lib/direction-provider/DirectionProvider.svelte.spec.ts`) 
 
 - `useDirection()` must run during component init. Reading `.direction` later, from the template or `$derived`, is what sees the next prop value.
 - Calling `useDirection()` in the provider's own script sees the parent provider, not the one it just published.
-- Components ported before this provider still read CSS `direction`. This provider does not change them.
+- Slider, ScrollArea, Toolbar, Tabs, ToggleGroup, RadioGroup, and OTP Field call `useDirection()` during init and read `.direction` when they handle keys, thumbs, or scroll math. Outside a provider that reading is `ltr`.
 
 ## Not ported
 
-- Wiring `useDirection()` into Slider, ScrollArea, Toolbar, Tabs, ToggleGroup, or RadioGroup. Those components keep their CSS `direction` reading.
+- A CSS `direction` on the element does not change those components. The provider does.

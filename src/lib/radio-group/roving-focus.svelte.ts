@@ -51,6 +51,7 @@ function fallbackIndex(elements: HTMLElement[]) {
 export class RadioGroupRoving implements RadioGroupRovingFocus {
 	elements = $state<HTMLElement[]>([]);
 	highlighted = $state<HTMLElement | null>(null);
+	readDirection: () => 'ltr' | 'rtl' = () => 'ltr';
 
 	private highlightedIndex = 0;
 	private userMoved = false;
@@ -118,7 +119,7 @@ export class RadioGroupRoving implements RadioGroupRovingFocus {
 		const current = event.currentTarget;
 		if (!(current instanceof HTMLElement)) return;
 
-		const rtl = getComputedStyle(current).direction === 'rtl';
+		const rtl = this.readDirection() === 'rtl';
 		const forwardHorizontal = rtl ? 'ArrowLeft' : 'ArrowRight';
 		const backwardHorizontal = rtl ? 'ArrowRight' : 'ArrowLeft';
 		const forward = event.key === forwardHorizontal || event.key === 'ArrowDown';

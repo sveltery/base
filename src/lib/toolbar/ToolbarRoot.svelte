@@ -6,6 +6,7 @@
 -->
 <script lang="ts">
 	import type { HTMLAttributes } from 'svelte/elements';
+	import { useDirection } from '../internal/direction-context.js';
 	import { getStateAttributesProps } from '../internal/state-attributes.js';
 	import { setToolbarRootContext, ToolbarRootContext } from './context.svelte.js';
 	import type { ToolbarRootProps, ToolbarRootState } from './types.js';
@@ -20,10 +21,12 @@
 		...elementProps
 	}: ToolbarRootProps = $props();
 
+	const reading = useDirection();
 	const root = new ToolbarRootContext(
 		() => disabled,
 		() => orientation
 	);
+	root.roving.readDirection = () => reading.direction;
 	root.roving.readLoopFocus = () => loopFocus;
 	root.roving.readOrientation = () => orientation;
 	setToolbarRootContext(root);

@@ -2,8 +2,7 @@
 // and packages/react/src/scroll-area/viewport/ScrollAreaViewport.tsx
 // (commit 47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c). MIT, see THIRD_PARTY_NOTICES.md.
 // Element handles are `$state` fields. There is no React ref bag.
-// Reading direction follows the root element's used CSS `direction` (inline style, `dir`,
-// or a stylesheet). Base UI reads `DirectionProvider` instead, which is not part of this component.
+// Reading direction is `useDirection()`, stored on `readDirection`.
 
 import { untrack } from 'svelte';
 import { addEventListener, contains, getOffset, getTarget } from './dom.js';
@@ -91,6 +90,7 @@ export class ScrollAreaModel {
 
 	rootId = '';
 	readonly readThreshold: () => OverflowEdgeThreshold | undefined;
+	readDirection: () => TextDirection = () => 'ltr';
 
 	private activePointerId: number | null = null;
 	private startY = 0;
@@ -139,25 +139,17 @@ export class ScrollAreaModel {
 	}
 
 	refreshLayout(
-		styleValue: string | null | undefined,
-		direction: string | null | undefined,
+		_styleValue: string | null | undefined,
+		_dir: string | null | undefined,
 		threshold: OverflowEdgeThreshold | undefined
 	) {
-		const root = this.rootElement;
-		const computed = root ? getComputedStyle(root).direction : undefined;
-		const declaredRtl =
-			!root &&
-			(direction === 'rtl' ||
-				(typeof styleValue === 'string' && /direction\s*:\s*rtl/.test(styleValue)));
-		const next: TextDirection = computed === 'rtl' || declaredRtl ? 'rtl' : 'ltr';
-		if (next !== this.direction) this.direction = next;
+		this.syncDirection();
 		this.edgeThreshold = normalizeOverflowEdgeThreshold(threshold ?? this.readThreshold());
 		this.bumpLayout();
 	}
 
 	syncDirection() {
-		const root = this.rootElement;
-		const next: TextDirection = root && getComputedStyle(root).direction === 'rtl' ? 'rtl' : 'ltr';
+		const next = this.readDirection();
 		if (next !== this.direction) this.direction = next;
 	}
 

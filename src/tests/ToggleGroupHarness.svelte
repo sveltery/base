@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { Toggle, ToggleGroup, type ToggleGroupState } from '#lib';
+	import { DirectionProvider, Toggle, ToggleGroup, type ToggleGroupState } from '#lib';
 
 	type Scenario =
 		| 'exclusive'
@@ -66,85 +66,87 @@
 	}
 </script>
 
-<div {dir}>
-	{#if scenario === 'controlled'}
-		<button type="button" onclick={() => (value = ['one'])}>Set one</button>
-	{/if}
-	{#if scenario === 'multiple-flip'}
-		<button type="button" onclick={() => (multiple = !multiple)}>Flip multiple</button>
-	{/if}
-	{#if scenario === 'disable-active'}
-		<button type="button" onclick={() => (firstDisabled = true)}>Disable one</button>
-	{/if}
-
-	<ToggleGroup
-		aria-label="Formatting"
-		{orientation}
-		{loopFocus}
-		{multiple}
-		disabled={scenario === 'disabled-group'}
-		value={scenario === 'exclusive' ||
-		scenario === 'omit' ||
-		scenario === 'keys' ||
-		scenario === 'change' ||
-		scenario === 'cancel' ||
-		scenario === 'veto' ||
-		scenario === 'prevented' ||
-		scenario === 'render' ||
-		scenario === 'attach' ||
-		scenario === 'disabled-group' ||
-		scenario === 'disabled-item' ||
-		scenario === 'disabled-first' ||
-		scenario === 'disable-active'
-			? undefined
-			: value}
-		onValueChange={scenario === 'change' || scenario === 'cancel' || scenario === 'multiple-flip'
-			? onValueChange
-			: undefined}
-	>
-		{#if scenario === 'omit'}
-			<Toggle>One</Toggle>
-			<Toggle value="">Two</Toggle>
-		{:else if scenario === 'warn'}
-			<Toggle>One</Toggle>
-			<Toggle>Two</Toggle>
-		{:else if scenario === 'disabled-item'}
-			<Toggle value="one">One</Toggle>
-			<Toggle value="two" disabled>Two</Toggle>
-		{:else if scenario === 'disabled-first'}
-			<Toggle value="one" disabled>One</Toggle>
-			<Toggle value="two">Two</Toggle>
-			<Toggle value="three">Three</Toggle>
-		{:else if scenario === 'disable-active'}
-			<Toggle value="one" disabled={firstDisabled}>One</Toggle>
-			<Toggle value="two">Two</Toggle>
-		{:else if scenario === 'render'}
-			<Toggle value="one">
-				{#snippet render(props, toggleState)}
-					<button {...props} data-testid="custom" data-state={toggleState.pressed ? 'on' : 'off'}
-						>One</button
-					>
-				{/snippet}
-			</Toggle>
-			<Toggle value="two">Two</Toggle>
-		{:else if scenario === 'attach'}
-			<Toggle value="one" {@attach capture}>One</Toggle>
-		{:else if scenario === 'veto'}
-			<Toggle value="one" onPressedChange={(_pressed, details) => details.cancel()}>One</Toggle>
-			<Toggle value="two">Two</Toggle>
-		{:else if scenario === 'prevented'}
-			<Toggle value="one" onclick={(event) => event.preventDefault()}>One</Toggle>
-			<Toggle value="two">Two</Toggle>
-		{:else if scenario === 'keys'}
-			<Toggle value="one">One</Toggle>
-			<Toggle value="two">Two</Toggle>
-			<Toggle value="three">Three</Toggle>
-		{:else}
-			<Toggle value="one">One</Toggle>
-			<Toggle value="two">Two</Toggle>
+<DirectionProvider direction={dir}>
+	<div {dir}>
+		{#if scenario === 'controlled'}
+			<button type="button" onclick={() => (value = ['one'])}>Set one</button>
 		{/if}
-	</ToggleGroup>
-</div>
+		{#if scenario === 'multiple-flip'}
+			<button type="button" onclick={() => (multiple = !multiple)}>Flip multiple</button>
+		{/if}
+		{#if scenario === 'disable-active'}
+			<button type="button" onclick={() => (firstDisabled = true)}>Disable one</button>
+		{/if}
+
+		<ToggleGroup
+			aria-label="Formatting"
+			{orientation}
+			{loopFocus}
+			{multiple}
+			disabled={scenario === 'disabled-group'}
+			value={scenario === 'exclusive' ||
+			scenario === 'omit' ||
+			scenario === 'keys' ||
+			scenario === 'change' ||
+			scenario === 'cancel' ||
+			scenario === 'veto' ||
+			scenario === 'prevented' ||
+			scenario === 'render' ||
+			scenario === 'attach' ||
+			scenario === 'disabled-group' ||
+			scenario === 'disabled-item' ||
+			scenario === 'disabled-first' ||
+			scenario === 'disable-active'
+				? undefined
+				: value}
+			onValueChange={scenario === 'change' || scenario === 'cancel' || scenario === 'multiple-flip'
+				? onValueChange
+				: undefined}
+		>
+			{#if scenario === 'omit'}
+				<Toggle>One</Toggle>
+				<Toggle value="">Two</Toggle>
+			{:else if scenario === 'warn'}
+				<Toggle>One</Toggle>
+				<Toggle>Two</Toggle>
+			{:else if scenario === 'disabled-item'}
+				<Toggle value="one">One</Toggle>
+				<Toggle value="two" disabled>Two</Toggle>
+			{:else if scenario === 'disabled-first'}
+				<Toggle value="one" disabled>One</Toggle>
+				<Toggle value="two">Two</Toggle>
+				<Toggle value="three">Three</Toggle>
+			{:else if scenario === 'disable-active'}
+				<Toggle value="one" disabled={firstDisabled}>One</Toggle>
+				<Toggle value="two">Two</Toggle>
+			{:else if scenario === 'render'}
+				<Toggle value="one">
+					{#snippet render(props, toggleState)}
+						<button {...props} data-testid="custom" data-state={toggleState.pressed ? 'on' : 'off'}
+							>One</button
+						>
+					{/snippet}
+				</Toggle>
+				<Toggle value="two">Two</Toggle>
+			{:else if scenario === 'attach'}
+				<Toggle value="one" {@attach capture}>One</Toggle>
+			{:else if scenario === 'veto'}
+				<Toggle value="one" onPressedChange={(_pressed, details) => details.cancel()}>One</Toggle>
+				<Toggle value="two">Two</Toggle>
+			{:else if scenario === 'prevented'}
+				<Toggle value="one" onclick={(event) => event.preventDefault()}>One</Toggle>
+				<Toggle value="two">Two</Toggle>
+			{:else if scenario === 'keys'}
+				<Toggle value="one">One</Toggle>
+				<Toggle value="two">Two</Toggle>
+				<Toggle value="three">Three</Toggle>
+			{:else}
+				<Toggle value="one">One</Toggle>
+				<Toggle value="two">Two</Toggle>
+			{/if}
+		</ToggleGroup>
+	</div>
+</DirectionProvider>
 
 <output data-testid="calls">{JSON.stringify(calls)}</output>
 <output data-testid="attached">{attached}</output>

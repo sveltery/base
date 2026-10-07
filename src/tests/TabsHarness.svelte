@@ -1,6 +1,11 @@
 <script lang="ts">
 	import { untrack } from 'svelte';
-	import { Tabs, type TabsRootChangeEventDetails, type TabsTabState } from '#lib';
+	import {
+		DirectionProvider,
+		Tabs,
+		type TabsRootChangeEventDetails,
+		type TabsTabState
+	} from '#lib';
 
 	export type HarnessTab = {
 		value: unknown;
@@ -82,28 +87,30 @@
 	}
 </script>
 
-<div {dir}>
-	<button type="button" onclick={() => (held = 0)}>Set zero</button>
-	<button type="button" onclick={() => (held = 1)}>Set one</button>
-	<button type="button" onclick={() => (held = null)}>Clear value</button>
-	<button type="button" onclick={() => (disabled[0] = true)}>Disable first</button>
-	<button type="button" onclick={() => (shown[1] = false)}>Remove second</button>
-	<button type="button" onclick={() => (shown[0] = false)}>Remove first</button>
+<DirectionProvider direction={dir}>
+	<div {dir}>
+		<button type="button" onclick={() => (held = 0)}>Set zero</button>
+		<button type="button" onclick={() => (held = 1)}>Set one</button>
+		<button type="button" onclick={() => (held = null)}>Clear value</button>
+		<button type="button" onclick={() => (disabled[0] = true)}>Disable first</button>
+		<button type="button" onclick={() => (shown[1] = false)}>Remove second</button>
+		<button type="button" onclick={() => (shown[0] = false)}>Remove first</button>
 
-	{#if bind}
-		<Tabs.Root bind:value={held} {orientation} onValueChange={record ? log : undefined}>
-			{@render body()}
-		</Tabs.Root>
-	{:else if passValue}
-		<Tabs.Root value={held} {orientation} onValueChange={record ? log : undefined}>
-			{@render body()}
-		</Tabs.Root>
-	{:else}
-		<Tabs.Root {orientation} onValueChange={record ? log : undefined}>
-			{@render body()}
-		</Tabs.Root>
-	{/if}
-</div>
+		{#if bind}
+			<Tabs.Root bind:value={held} {orientation} onValueChange={record ? log : undefined}>
+				{@render body()}
+			</Tabs.Root>
+		{:else if passValue}
+			<Tabs.Root value={held} {orientation} onValueChange={record ? log : undefined}>
+				{@render body()}
+			</Tabs.Root>
+		{:else}
+			<Tabs.Root {orientation} onValueChange={record ? log : undefined}>
+				{@render body()}
+			</Tabs.Root>
+		{/if}
+	</div>
+</DirectionProvider>
 
 {#snippet body()}
 	<Tabs.List aria-label="Sections" {activateOnFocus} {loopFocus}>

@@ -1,5 +1,6 @@
 <script lang="ts">
 	import {
+		DirectionProvider,
 		Field,
 		Fieldset,
 		Form,
@@ -86,161 +87,163 @@
 	}
 </script>
 
-<div {dir}>
-	{#if scenario === 'controlled'}
-		<button type="button" onclick={() => (owner = 'a')}>Set A</button>
-		<button type="button" onclick={() => (owner = undefined)}>Clear</button>
-		<button type="button" onclick={() => (owner = 'b')}>Set B</button>
-	{/if}
-	{#if scenario === 'removal'}
-		<button type="button" onclick={() => (showLast = false)}>Hide</button>
-	{/if}
-	{#if scenario === 'legend'}
-		<button type="button" onclick={() => (explicit = false)}>Remove explicit</button>
-	{/if}
+<DirectionProvider direction={dir}>
+	<div {dir}>
+		{#if scenario === 'controlled'}
+			<button type="button" onclick={() => (owner = 'a')}>Set A</button>
+			<button type="button" onclick={() => (owner = undefined)}>Clear</button>
+			<button type="button" onclick={() => (owner = 'b')}>Set B</button>
+		{/if}
+		{#if scenario === 'removal'}
+			<button type="button" onclick={() => (showLast = false)}>Hide</button>
+		{/if}
+		{#if scenario === 'legend'}
+			<button type="button" onclick={() => (explicit = false)}>Remove explicit</button>
+		{/if}
 
-	{#if scenario === 'required'}
-		<form {onsubmit}>
-			<RadioGroup aria-label="Colors" name="color" required onValueChange={record}>
-				<Radio.Root value="a">A</Radio.Root>
-				<Radio.Root value="b">B</Radio.Root>
-			</RadioGroup>
-			<button type="submit">Submit</button>
-		</form>
-	{:else if scenario === 'external'}
-		<form id="external-form" {onsubmit}>
-			<button type="submit">Submit</button>
-		</form>
-		<RadioGroup aria-label="Colors" name="color" form="external-form" value="b">
-			<Radio.Root value="a">A</Radio.Root>
-			<Radio.Root value="b">B</Radio.Root>
-		</RadioGroup>
-	{:else if scenario === 'parent'}
-		<Form bind:errors>
-			<Field.Root
-				name="color"
-				validationMode="onChange"
-				data-testid="field"
-				validate={(next) => (next === 'a' ? 'nope' : null)}
-			>
-				<RadioGroup aria-label="Colors" name="color" value={owner}>
+		{#if scenario === 'required'}
+			<form {onsubmit}>
+				<RadioGroup aria-label="Colors" name="color" required onValueChange={record}>
 					<Radio.Root value="a">A</Radio.Root>
 					<Radio.Root value="b">B</Radio.Root>
 				</RadioGroup>
-				<Field.Error data-testid="error" />
-			</Field.Root>
-		</Form>
-		<button type="button" onclick={() => (owner = 'a')}>Set A</button>
-	{:else if scenario === 'errors'}
-		<Form bind:errors>
-			<RadioGroup aria-label="Colors" name="color">
+				<button type="submit">Submit</button>
+			</form>
+		{:else if scenario === 'external'}
+			<form id="external-form" {onsubmit}>
+				<button type="submit">Submit</button>
+			</form>
+			<RadioGroup aria-label="Colors" name="color" form="external-form" value="b">
 				<Radio.Root value="a">A</Radio.Root>
 				<Radio.Root value="b">B</Radio.Root>
 			</RadioGroup>
-		</Form>
-	{:else if scenario === 'legend'}
-		<span id="explicit-label">Explicit</span>
-		<Fieldset.Root>
-			<Fieldset.Legend data-testid="legend">Legend</Fieldset.Legend>
-			<RadioGroup {...explicit ? { 'aria-labelledby': 'explicit-label' } : {}}>
-				<Radio.Root value="a">A</Radio.Root>
-			</RadioGroup>
-		</Fieldset.Root>
-	{:else if scenario === 'labels'}
-		<RadioGroup aria-label="Colors" onValueChange={record}>
-			<label data-testid="label-a">
-				<Radio.Root value="a" />
-				Apple
-			</label>
-			<div>
-				<label for="radio-b" data-testid="label-b">Banana</label>
-				<Radio.Root value="b" id="radio-b" />
-			</div>
-		</RadioGroup>
-	{:else if scenario === 'style'}
-		<RadioGroup aria-label="Colors" value="a" disabled readOnly required>
-			<Radio.Root value="a" data-testid="item">
-				<Radio.Indicator data-testid="indicator" />
-				A
-			</Radio.Root>
-		</RadioGroup>
-	{:else if scenario === 'object'}
-		<RadioGroup aria-label="Colors" onValueChange={record}>
-			<Radio.Root value={first}>A</Radio.Root>
-			<Radio.Root value={second}>B</Radio.Root>
-		</RadioGroup>
-	{:else if scenario === 'nullish'}
-		<RadioGroup aria-label="Colors" onValueChange={record}>
-			<Radio.Root value={null}>A</Radio.Root>
-			<Radio.Root value="b">B</Radio.Root>
-		</RadioGroup>
-	{:else if scenario === 'render'}
-		<RadioGroup value="b">
-			{#snippet render(props, groupState)}
-				<div
-					{...props}
-					data-testid="custom"
-					data-readonly-state={groupState.readOnly ? 'yes' : 'no'}
+		{:else if scenario === 'parent'}
+			<Form bind:errors>
+				<Field.Root
+					name="color"
+					validationMode="onChange"
+					data-testid="field"
+					validate={(next) => (next === 'a' ? 'nope' : null)}
 				>
+					<RadioGroup aria-label="Colors" name="color" value={owner}>
+						<Radio.Root value="a">A</Radio.Root>
+						<Radio.Root value="b">B</Radio.Root>
+					</RadioGroup>
+					<Field.Error data-testid="error" />
+				</Field.Root>
+			</Form>
+			<button type="button" onclick={() => (owner = 'a')}>Set A</button>
+		{:else if scenario === 'errors'}
+			<Form bind:errors>
+				<RadioGroup aria-label="Colors" name="color">
 					<Radio.Root value="a">A</Radio.Root>
 					<Radio.Root value="b">B</Radio.Root>
+				</RadioGroup>
+			</Form>
+		{:else if scenario === 'legend'}
+			<span id="explicit-label">Explicit</span>
+			<Fieldset.Root>
+				<Fieldset.Legend data-testid="legend">Legend</Fieldset.Legend>
+				<RadioGroup {...explicit ? { 'aria-labelledby': 'explicit-label' } : {}}>
+					<Radio.Root value="a">A</Radio.Root>
+				</RadioGroup>
+			</Fieldset.Root>
+		{:else if scenario === 'labels'}
+			<RadioGroup aria-label="Colors" onValueChange={record}>
+				<label data-testid="label-a">
+					<Radio.Root value="a" />
+					Apple
+				</label>
+				<div>
+					<label for="radio-b" data-testid="label-b">Banana</label>
+					<Radio.Root value="b" id="radio-b" />
 				</div>
-			{/snippet}
-		</RadioGroup>
-	{:else if scenario === 'attach'}
-		<RadioGroup aria-label="Colors" {@attach capture}>
-			<Radio.Root value="a">A</Radio.Root>
-		</RadioGroup>
-	{:else if scenario === 'override'}
-		<RadioGroup role="group" id="group-id" data-testid="root" value="hidden">
-			<Radio.Root value="a">A</Radio.Root>
-		</RadioGroup>
-	{:else if scenario === 'name'}
-		<RadioGroup aria-label="Colors" name="radio-group">
-			<Radio.Root value="a" data-testid="radio">A</Radio.Root>
-		</RadioGroup>
-	{:else if scenario === 'removal'}
-		<RadioGroup aria-label="Colors" value="b" onValueChange={record}>
-			<Radio.Root value="a" data-testid="a">A</Radio.Root>
-			<Radio.Root value="b" data-testid="b">B</Radio.Root>
-			{#if showLast}
+			</RadioGroup>
+		{:else if scenario === 'style'}
+			<RadioGroup aria-label="Colors" value="a" disabled readOnly required>
+				<Radio.Root value="a" data-testid="item">
+					<Radio.Indicator data-testid="indicator" />
+					A
+				</Radio.Root>
+			</RadioGroup>
+		{:else if scenario === 'object'}
+			<RadioGroup aria-label="Colors" onValueChange={record}>
+				<Radio.Root value={first}>A</Radio.Root>
+				<Radio.Root value={second}>B</Radio.Root>
+			</RadioGroup>
+		{:else if scenario === 'nullish'}
+			<RadioGroup aria-label="Colors" onValueChange={record}>
+				<Radio.Root value={null}>A</Radio.Root>
+				<Radio.Root value="b">B</Radio.Root>
+			</RadioGroup>
+		{:else if scenario === 'render'}
+			<RadioGroup value="b">
+				{#snippet render(props, groupState)}
+					<div
+						{...props}
+						data-testid="custom"
+						data-readonly-state={groupState.readOnly ? 'yes' : 'no'}
+					>
+						<Radio.Root value="a">A</Radio.Root>
+						<Radio.Root value="b">B</Radio.Root>
+					</div>
+				{/snippet}
+			</RadioGroup>
+		{:else if scenario === 'attach'}
+			<RadioGroup aria-label="Colors" {@attach capture}>
+				<Radio.Root value="a">A</Radio.Root>
+			</RadioGroup>
+		{:else if scenario === 'override'}
+			<RadioGroup role="group" id="group-id" data-testid="root" value="hidden">
+				<Radio.Root value="a">A</Radio.Root>
+			</RadioGroup>
+		{:else if scenario === 'name'}
+			<RadioGroup aria-label="Colors" name="radio-group">
+				<Radio.Root value="a" data-testid="radio">A</Radio.Root>
+			</RadioGroup>
+		{:else if scenario === 'removal'}
+			<RadioGroup aria-label="Colors" value="b" onValueChange={record}>
+				<Radio.Root value="a" data-testid="a">A</Radio.Root>
+				<Radio.Root value="b" data-testid="b">B</Radio.Root>
+				{#if showLast}
+					<Radio.Root value="c" data-testid="c">C</Radio.Root>
+				{/if}
+			</RadioGroup>
+		{:else if scenario === 'disabled-item'}
+			<RadioGroup aria-label="Colors">
+				<Radio.Root value="a">A</Radio.Root>
+				<Radio.Root value="b" disabled>B</Radio.Root>
+				<Radio.Root value="c">C</Radio.Root>
+			</RadioGroup>
+		{:else if scenario === 'keys'}
+			<RadioGroup aria-label="Colors" onValueChange={record}>
+				<Radio.Root value="a" data-testid="a">A</Radio.Root>
+				<Radio.Root value="b" data-testid="b">B</Radio.Root>
 				<Radio.Root value="c" data-testid="c">C</Radio.Root>
-			{/if}
-		</RadioGroup>
-	{:else if scenario === 'disabled-item'}
-		<RadioGroup aria-label="Colors">
-			<Radio.Root value="a">A</Radio.Root>
-			<Radio.Root value="b" disabled>B</Radio.Root>
-			<Radio.Root value="c">C</Radio.Root>
-		</RadioGroup>
-	{:else if scenario === 'keys'}
-		<RadioGroup aria-label="Colors" onValueChange={record}>
-			<Radio.Root value="a" data-testid="a">A</Radio.Root>
-			<Radio.Root value="b" data-testid="b">B</Radio.Root>
-			<Radio.Root value="c" data-testid="c">C</Radio.Root>
-		</RadioGroup>
-	{:else if scenario === 'controlled'}
-		<RadioGroup aria-label="Colors" value={owner} onValueChange={record}>
-			<Radio.Root value="a">A</Radio.Root>
-			<Radio.Root value="b">B</Radio.Root>
-		</RadioGroup>
-	{:else if scenario === 'initial'}
-		<RadioGroup aria-label="Colors" value="b">
-			<Radio.Root value="a" data-testid="a">A</Radio.Root>
-			<Radio.Root value="b" data-testid="b">B</Radio.Root>
-		</RadioGroup>
-	{:else}
-		<RadioGroup
-			aria-label="Colors"
-			disabled={scenario === 'disabled'}
-			readOnly={scenario === 'readonly'}
-			onValueChange={record}
-		>
-			<Radio.Root value="a" data-testid="a">A</Radio.Root>
-			<Radio.Root value="b" data-testid="b">B</Radio.Root>
-		</RadioGroup>
-	{/if}
-</div>
+			</RadioGroup>
+		{:else if scenario === 'controlled'}
+			<RadioGroup aria-label="Colors" value={owner} onValueChange={record}>
+				<Radio.Root value="a">A</Radio.Root>
+				<Radio.Root value="b">B</Radio.Root>
+			</RadioGroup>
+		{:else if scenario === 'initial'}
+			<RadioGroup aria-label="Colors" value="b">
+				<Radio.Root value="a" data-testid="a">A</Radio.Root>
+				<Radio.Root value="b" data-testid="b">B</Radio.Root>
+			</RadioGroup>
+		{:else}
+			<RadioGroup
+				aria-label="Colors"
+				disabled={scenario === 'disabled'}
+				readOnly={scenario === 'readonly'}
+				onValueChange={record}
+			>
+				<Radio.Root value="a" data-testid="a">A</Radio.Root>
+				<Radio.Root value="b" data-testid="b">B</Radio.Root>
+			</RadioGroup>
+		{/if}
+	</div>
+</DirectionProvider>
 
 <output data-testid="calls">{JSON.stringify(calls)}</output>
 <output data-testid="submitted">{submitted}</output>

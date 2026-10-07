@@ -1,9 +1,7 @@
 // Derived from Base UI v1.8.0 packages/react/src/internals/direction-context/DirectionContext.tsx
 // (commit 47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c). MIT, see THIRD_PARTY_NOTICES.md.
-import { getContext, hasContext, setContext } from 'svelte';
-import type { DirectionReading, TextDirection } from './types.js';
-
-const DIRECTION_CONTEXT = Symbol('direction');
+import type { DirectionReading, TextDirection } from '../direction-provider/types.js';
+import { createGetterContext } from './getter-context.js';
 
 const LTR: DirectionReading = {
 	get direction(): TextDirection {
@@ -23,15 +21,16 @@ export class DirectionContextValue implements DirectionReading {
 	}
 }
 
+const directionContext = createGetterContext<DirectionReading>(LTR);
+
 export function setDirectionContext(readDirection: () => TextDirection) {
-	setContext(DIRECTION_CONTEXT, new DirectionContextValue(readDirection));
+	directionContext.provide(new DirectionContextValue(readDirection));
 }
 
 /**
  * Nearest provider direction, or `ltr` when none is mounted.
- * Call during component init. Read `.direction` in the template or in `$derived`.
+ * Call during component init. Read `.direction` in the template, in `$derived`, or in an event handler.
  */
 export function useDirection(): DirectionReading {
-	if (!hasContext(DIRECTION_CONTEXT)) return LTR;
-	return getContext<DirectionContextValue>(DIRECTION_CONTEXT);
+	return directionContext.read();
 }

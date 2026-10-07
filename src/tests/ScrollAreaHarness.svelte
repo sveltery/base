@@ -1,5 +1,11 @@
 <script lang="ts">
-	import { ScrollArea, ScrollAreaContent, ScrollAreaThumb, ScrollAreaViewport } from '#lib';
+	import {
+		DirectionProvider,
+		ScrollArea,
+		ScrollAreaContent,
+		ScrollAreaThumb,
+		ScrollAreaViewport
+	} from '#lib';
 
 	let {
 		scenario = 'both'
@@ -41,84 +47,90 @@
 	);
 </script>
 
-{#if scenario === 'orphan-viewport'}
-	<ScrollAreaViewport />
-{:else if scenario === 'orphan-content'}
-	<ScrollArea.Root>
-		<ScrollAreaContent />
-	</ScrollArea.Root>
-{:else if scenario === 'orphan-thumb'}
-	<ScrollArea.Root>
-		<ScrollAreaThumb />
-	</ScrollArea.Root>
-{:else}
-	{#if scenario === 'threshold'}
-		<button type="button" onclick={() => (threshold = 1000)}>Raise threshold</button>
-	{/if}
-	{#if scenario === 'direction'}
-		<button type="button" onclick={() => (direction = direction === 'ltr' ? 'rtl' : 'ltr')}>
-			Flip direction
-		</button>
-	{/if}
-	{#if scenario === 'delayed'}
-		<button type="button" onclick={() => (show = true)}>Show content</button>
-	{/if}
-	{#if scenario === 'shrink'}
-		<button type="button" onclick={() => (large = false)}>Shrink</button>
-	{/if}
-	{#snippet parts()}
-		<ScrollArea.Viewport data-testid="viewport" style={viewportStyle}>
-			{#if scenario === 'delayed'}
-				{#if show}
+<DirectionProvider direction={rtl ? 'rtl' : 'ltr'}>
+	{#if scenario === 'orphan-viewport'}
+		<ScrollAreaViewport />
+	{:else if scenario === 'orphan-content'}
+		<ScrollArea.Root>
+			<ScrollAreaContent />
+		</ScrollArea.Root>
+	{:else if scenario === 'orphan-thumb'}
+		<ScrollArea.Root>
+			<ScrollAreaThumb />
+		</ScrollArea.Root>
+	{:else}
+		{#if scenario === 'threshold'}
+			<button type="button" onclick={() => (threshold = 1000)}>Raise threshold</button>
+		{/if}
+		{#if scenario === 'direction'}
+			<button type="button" onclick={() => (direction = direction === 'ltr' ? 'rtl' : 'ltr')}>
+				Flip direction
+			</button>
+		{/if}
+		{#if scenario === 'delayed'}
+			<button type="button" onclick={() => (show = true)}>Show content</button>
+		{/if}
+		{#if scenario === 'shrink'}
+			<button type="button" onclick={() => (large = false)}>Shrink</button>
+		{/if}
+		{#snippet parts()}
+			<ScrollArea.Viewport data-testid="viewport" style={viewportStyle}>
+				{#if scenario === 'delayed'}
+					{#if show}
+						<ScrollArea.Content data-testid="content">
+							<div style={contentStyle}></div>
+						</ScrollArea.Content>
+					{/if}
+				{:else if scenario === 'none' || scenario === 'keep'}
+					<div style="width: 40px; height: 40px"></div>
+				{:else}
 					<ScrollArea.Content data-testid="content">
 						<div style={contentStyle}></div>
 					</ScrollArea.Content>
 				{/if}
-			{:else if scenario === 'none' || scenario === 'keep'}
-				<div style="width: 40px; height: 40px"></div>
-			{:else}
-				<ScrollArea.Content data-testid="content">
-					<div style={contentStyle}></div>
-				</ScrollArea.Content>
-			{/if}
-		</ScrollArea.Viewport>
-		<ScrollArea.Scrollbar
-			orientation="vertical"
-			data-testid="scrollbar-y"
-			keepMounted={scenario === 'keep'}
-			style={scenario === 'padded' ? 'padding-block: 8px' : undefined}
-			onpointerdown={(event) => {
-				if (scenario === 'prevent') event.preventDefault();
-			}}
-		>
-			<ScrollArea.Thumb data-testid="thumb-y" />
-		</ScrollArea.Scrollbar>
-		<ScrollArea.Scrollbar
-			orientation="horizontal"
-			data-testid="scrollbar-x"
-			keepMounted={scenario === 'keep'}
-			style={scenario === 'padded' ? 'padding-inline: 8px' : undefined}
-		>
-			<ScrollArea.Thumb data-testid="thumb-x" />
-		</ScrollArea.Scrollbar>
-		<ScrollArea.Corner data-testid="corner" />
-	{/snippet}
-	{#if scenario === 'custom'}
-		<ScrollArea.Root data-testid="root" style={rootStyle}>
-			{#snippet render(props, partState, rootChildren)}
-				<div {...props} data-rendered="true" data-overflow={partState.hasOverflowY ? 'yes' : 'no'}>
-					{@render rootChildren()}
-				</div>
-			{/snippet}
-			{@render parts()}
-		</ScrollArea.Root>
-	{:else}
-		<ScrollArea.Root
-			data-testid="root"
-			style={rootStyle}
-			overflowEdgeThreshold={scenario === 'threshold' ? threshold : undefined}
-		>
-			{@render parts()}
-		</ScrollArea.Root>
+			</ScrollArea.Viewport>
+			<ScrollArea.Scrollbar
+				orientation="vertical"
+				data-testid="scrollbar-y"
+				keepMounted={scenario === 'keep'}
+				style={scenario === 'padded' ? 'padding-block: 8px' : undefined}
+				onpointerdown={(event) => {
+					if (scenario === 'prevent') event.preventDefault();
+				}}
+			>
+				<ScrollArea.Thumb data-testid="thumb-y" />
+			</ScrollArea.Scrollbar>
+			<ScrollArea.Scrollbar
+				orientation="horizontal"
+				data-testid="scrollbar-x"
+				keepMounted={scenario === 'keep'}
+				style={scenario === 'padded' ? 'padding-inline: 8px' : undefined}
+			>
+				<ScrollArea.Thumb data-testid="thumb-x" />
+			</ScrollArea.Scrollbar>
+			<ScrollArea.Corner data-testid="corner" />
+		{/snippet}
+		{#if scenario === 'custom'}
+			<ScrollArea.Root data-testid="root" style={rootStyle}>
+				{#snippet render(props, partState, rootChildren)}
+					<div
+						{...props}
+						data-rendered="true"
+						data-overflow={partState.hasOverflowY ? 'yes' : 'no'}
+					>
+						{@render rootChildren()}
+					</div>
+				{/snippet}
+				{@render parts()}
+			</ScrollArea.Root>
+		{:else}
+			<ScrollArea.Root
+				data-testid="root"
+				style={rootStyle}
+				overflowEdgeThreshold={scenario === 'threshold' ? threshold : undefined}
+			>
+				{@render parts()}
+			</ScrollArea.Root>
+		{/if}
 	{/if}
-{/if}
+</DirectionProvider>

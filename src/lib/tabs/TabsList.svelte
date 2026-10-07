@@ -7,6 +7,7 @@
 -->
 <script lang="ts">
 	import type { HTMLAttributes } from 'svelte/elements';
+	import { useDirection } from '../internal/direction-context.js';
 	import { getStateAttributesProps } from '../internal/state-attributes.js';
 	import { tabsStateAttributesMapping } from './attributes.js';
 	import { setTabsListContext, TabsListModel, useTabsRootContext } from './context.svelte.js';
@@ -20,9 +21,11 @@
 		...elementProps
 	}: TabsListProps = $props();
 
+	const reading = useDirection();
 	const tabs = useTabsRootContext();
 	const list = new TabsListModel();
 	list.readActivateOnFocus = () => activateOnFocus;
+	list.roving.readDirection = () => reading.direction;
 	list.roving.readLoopFocus = () => loopFocus;
 	list.roving.readOrientation = () => tabs.orientation;
 	setTabsListContext(list);

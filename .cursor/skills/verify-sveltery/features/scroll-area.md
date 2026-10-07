@@ -15,12 +15,12 @@ Differences from React Base UI, all deliberate:
 - No `ref`. The host is `bind:this` on the default element, and `{@attach}` when `render` spreads `props`.
 - No `className` or style objects. Use `class` and `style` strings.
 - No `preventBaseUIHandler()`. `preventDefault()` skips the part handler.
-- Direction is the root element's used CSS `direction` (`dir`, inline style, or a stylesheet). `DirectionProvider` is not part of this component.
-- CSP `nonce` and `disableStyleElements` are not read from a provider. The scrollbar-hiding style element is always rendered, which is the upstream default.
+- Direction is `useDirection().direction`. Outside a provider it is `ltr`. The root can still set CSS `direction` for the browser's own scroll origin.
+- The scrollbar-hiding `<style>` element receives the CSP `nonce`. It is omitted when `disableStyleElements` is true. Outside a provider the element is rendered and has no nonce.
 
 ## How to get to it (user POV)
 
-A consumer imports `ScrollArea` from `@sveltery/base` or `@sveltery/base/scroll-area`. For verification, open `/fixtures/scroll-area?case=<case>`, where `<case>` is `both`, `none`, or `rtl` (`src/routes/fixtures/scroll-area/cases.ts`). Add `&reference` for React Base UI. The `rtl` case sets `direction: rtl` on the root; the React reference also wraps `DirectionProvider`.
+A consumer imports `ScrollArea` from `@sveltery/base` or `@sveltery/base/scroll-area`. For verification, open `/fixtures/scroll-area?case=<case>`, where `<case>` is `both`, `none`, or `rtl` (`src/routes/fixtures/scroll-area/cases.ts`). Add `&reference` for React Base UI. The `rtl` case sets CSS `direction: rtl` on the root and wraps `DirectionProvider`.
 
 ## Driving it with Playwright
 
@@ -47,4 +47,4 @@ Proof of working order: in both frameworks, overflowing content sets both overfl
 ## Not ported
 
 - React `ref` and `className` / `style` state callbacks.
-- `DirectionProvider` and the CSP provider (`nonce`, `disableStyleElements`).
+- Select, Slider, and Tabs do not render the upstream inline style or prehydration script tags, so they do not read the CSP provider.

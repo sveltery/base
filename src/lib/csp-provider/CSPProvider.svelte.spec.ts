@@ -1,7 +1,7 @@
 // Assertions follow Base UI v1.8.0 packages/react/src/csp-provider/CSPProvider.test.tsx
 // (commit 47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c). MIT, see THIRD_PARTY_NOTICES.md.
-// Upstream checks ScrollArea and Select style tags. Those components do not read this
-// provider yet, so these tests assert the context values those checks depend on.
+// Upstream checks ScrollArea and Select style tags. ScrollArea covers its own tag.
+// These tests assert the context values. Select has no inline style tag in this port.
 // Cases under "native Svelte" have no upstream counterpart.
 import { page } from 'vitest/browser';
 import { describe, expect, it } from 'vitest';
