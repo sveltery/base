@@ -11,6 +11,7 @@
 	import { useFormContext } from '../form/context.js';
 	import { useFieldContext } from '../field/context.svelte.js';
 	import { useLabelableContext } from '../field/labelable.svelte.js';
+	import { createControllableValue } from '../internal/controllable-value.svelte.js';
 	import { getStateAttributesProps } from '../internal/state-attributes.js';
 	import { visuallyHidden, visuallyHiddenInput } from '../internal/visuallyHidden.js';
 	import { numberFieldStateAttributes } from './attributes.js';
@@ -19,7 +20,6 @@
 	import { toCssStyle } from './style.js';
 	import type { NumberFieldRootProps, NumberFieldRootState } from './types.js';
 
-	const VALUE_UNSET = Symbol('number-field-value');
 	const uid = $props.id();
 	const idSource = Symbol('number-field-id');
 
@@ -36,7 +36,7 @@
 		name: nameProp,
 		form: formId,
 		defaultValue = null,
-		value = $bindable(VALUE_UNSET as unknown as number | null),
+		value = $bindable<number | null | undefined>(),
 		onValueChange,
 		onValueCommitted,
 		allowWheelScrub = false,
@@ -53,9 +53,23 @@
 	const form = useFormContext();
 	const labelable = useLabelableContext(true);
 
-	let uncontrolled: number | null = $state(untrack(() => defaultValue));
-	const linked = $derived(!Object.is(value, VALUE_UNSET));
-	const current = $derived<number | null>(linked ? (value ?? null) : uncontrolled);
+	const controllable = createControllableValue<number | null>({
+		getProp: () => value,
+		setProp: (next) => {
+			value = next;
+		},
+		getDefault: () => defaultValue,
+		onChange(next) {
+			form.clearErrors(name);
+			if (model.blockRevalidation && !field?.shouldValidateOnChange()) {
+				model.blockRevalidation = false;
+				return;
+			}
+			field?.setDirty(next !== field.validityData.initialValue);
+			field?.change(next);
+		}
+	});
+	const current = $derived<number | null>(controllable.value ?? null);
 	const disabled = $derived(Boolean(field?.disabled) || disabledProp);
 	const name = $derived(field?.name ?? nameProp);
 	const step = $derived(stepProp === 'any' ? 1 : stepProp);
@@ -67,16 +81,8 @@
 	let model: NumberFieldModel;
 
 	function writeValue(next: number | null) {
-		const previous = current;
-		if (linked) value = next;
-		else uncontrolled = next;
-		if (Object.is(previous, next)) return;
-		form.clearErrors(name);
-		if (model.blockRevalidation && !field?.shouldValidateOnChange()) {
-			model.blockRevalidation = false;
-			return;
-		}
-		field?.change(next);
+		if (Object.is(current, next)) return;
+		controllable.set(next);
 	}
 
 	model = new NumberFieldModel({

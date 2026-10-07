@@ -7,6 +7,7 @@
 -->
 <script lang="ts">
 	import type { HTMLAttributes } from 'svelte/elements';
+	import { createControllableValue } from '../internal/controllable-value.svelte.js';
 	import { getStateAttributesProps } from '../internal/state-attributes.js';
 	import { tabsStateAttributesMapping } from './attributes.js';
 	import { setTabsRootContext, TabsRootModel } from './context.svelte.js';
@@ -23,16 +24,22 @@
 
 	// Captured once. A later click must not turn an omitted value into a parent-owned one.
 	const parentOwned = value !== undefined;
+	const controllable = createControllableValue<typeof value>({
+		getProp: () => (parentOwned ? value : undefined),
+		setProp: (next) => {
+			value = next;
+		},
+		getDefault: () => (parentOwned ? value : 0)
+	});
 	const tabs = new TabsRootModel(parentOwned, parentOwned ? (value ?? null) : 0);
 	tabs.readOrientation = () => orientation;
 	tabs.readOnValueChange = () => onValueChange;
-	tabs.readExternal = () => (value == null ? null : value);
+	tabs.readExternal = () => (controllable.value == null ? null : controllable.value);
 	tabs.writeValue = (next) => {
-		value = next;
+		controllable.set(next);
 	};
 	tabs.publish = (next) => {
 		tabs.value = next;
-		value = next;
 	};
 	setTabsRootContext(tabs);
 

@@ -226,7 +226,6 @@ export class TabsRootModel {
 	private commit(next: TabsValue | null, direction: TabsActivationDirection) {
 		this.directionBaseline = next;
 		this.tabActivationDirection = direction;
-		this.value = next;
 		this.publish(next, direction);
 	}
 

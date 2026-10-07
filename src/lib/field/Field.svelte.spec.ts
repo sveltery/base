@@ -349,6 +349,16 @@ describe('Field', () => {
 	});
 
 	describe('controlled value', () => {
+		it('clears errors, revalidates, and marks dirty when the parent changes the value', async () => {
+			render(FieldHarness, { scenario: 'parent' });
+			await expect.element(page.getByTestId('errors')).toHaveTextContent('{"email":"stale"}');
+			await expect.element(page.getByTestId('field')).not.toHaveAttribute('data-dirty');
+			await page.getByRole('button', { name: 'Set next' }).click();
+			await expect.element(page.getByTestId('errors')).toHaveTextContent('{}');
+			await expect.element(page.getByTestId('field')).toHaveAttribute('data-dirty', '');
+			await expect.element(page.getByTestId('error')).toHaveTextContent('nope');
+		});
+
 		it('syncs and validates when the bound value changes', async () => {
 			render(FieldHarness, {
 				scenario: 'controlled',

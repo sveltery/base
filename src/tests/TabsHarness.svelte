@@ -84,6 +84,7 @@
 
 <div {dir}>
 	<button type="button" onclick={() => (held = 0)}>Set zero</button>
+	<button type="button" onclick={() => (held = 1)}>Set one</button>
 	<button type="button" onclick={() => (held = null)}>Clear value</button>
 	<button type="button" onclick={() => (disabled[0] = true)}>Disable first</button>
 	<button type="button" onclick={() => (shown[1] = false)}>Remove second</button>

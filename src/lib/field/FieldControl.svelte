@@ -8,10 +8,10 @@
 	import { createAttachmentKey } from 'svelte/attachments';
 	import type { HTMLAttributes, HTMLInputAttributes } from 'svelte/elements';
 	import { useFormContext } from '../form/context.js';
+	import { createControllableValue } from '../internal/controllable-value.svelte.js';
 	import { createChangeEventDetails, REASONS } from '../internal/event-details.js';
 	import { getStateAttributesProps } from '../internal/state-attributes.js';
 	import { fieldValidityMapping } from './attributes.js';
-	import { FIELD_VALUE_UNSET } from './constants.js';
 	import { useFieldContext } from './context.svelte.js';
 	import { useLabelableContext } from './labelable.svelte.js';
 	import type { FieldControlProps, FieldControlState } from './types.js';
@@ -23,7 +23,7 @@
 	let {
 		id: idProp,
 		name: nameProp,
-		value = $bindable(FIELD_VALUE_UNSET as unknown as string | number | null | undefined),
+		value = $bindable<string | number | null | undefined>(),
 		defaultValue,
 		disabled: disabledProp = false,
 		onValueChange,
@@ -43,8 +43,21 @@
 	const form = useFormContext();
 	const fallbackId = `base-ui-${uid}`;
 
-	const isControlled = $derived(!Object.is(value, FIELD_VALUE_UNSET));
-	const serialized = $derived(isControlled && value != null ? String(value) : undefined);
+	const controllable = createControllableValue<string | number | null>({
+		getProp: () => value,
+		setProp: (next) => {
+			value = next;
+		},
+		getDefault: () => defaultValue ?? '',
+		onChange(next) {
+			if (next == null) return;
+			notifyControlled(String(next));
+		}
+	});
+	const isControlled = $derived(controllable.controlled);
+	const serialized = $derived(
+		isControlled && controllable.value != null ? String(controllable.value) : undefined
+	);
 	const disabled = $derived(Boolean(field.disabled || disabledProp));
 	const name = $derived(field.name ?? nameProp ?? undefined);
 	const controlId = $derived(labelable.controlId || idProp || fallbackId);
@@ -53,14 +66,6 @@
 	let hadExplicitId = false;
 	let seeded = false;
 	let blurCommitId = 0;
-
-	let echoed = false;
-
-	function publishControlled(next: string) {
-		echoed = true;
-		value = next;
-		notifyControlled(next);
-	}
 
 	function notifyControlled(current: string) {
 		form.clearErrors(name);
@@ -97,17 +102,6 @@
 		return () => {
 			untrack(() => labelable.registerControlId(controlSource, undefined));
 		};
-	});
-
-	$effect(() => {
-		if (!isControlled) return;
-		const current = serialized;
-		if (echoed) {
-			echoed = false;
-			return;
-		}
-		if (current === undefined) return;
-		untrack(() => notifyControlled(current));
 	});
 
 	$effect(() => {
@@ -149,8 +143,8 @@
 	});
 
 	function domValue() {
-		if (!isControlled || value == null || Object.is(value, FIELD_VALUE_UNSET)) return '';
-		return String(value);
+		if (!isControlled || controllable.value == null) return '';
+		return String(controllable.value);
 	}
 
 	function handleInput(event: Event & { currentTarget: EventTarget & HTMLInputElement }) {
@@ -161,7 +155,7 @@
 
 		if (isControlled) {
 			if (details.isCanceled) event.currentTarget.value = domValue();
-			else publishControlled(inputValue);
+			else controllable.set(inputValue);
 			return;
 		}
 

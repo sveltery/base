@@ -25,6 +25,16 @@ function hiddenNumber(name = 'qty') {
 }
 
 describe('<NumberField />', () => {
+	it('clears errors, revalidates, and marks dirty when the parent changes the value', async () => {
+		render(NumberFieldHarness, { scenario: 'parent' });
+		await expect.element(page.getByTestId('errors')).toHaveTextContent('{"qty":"stale"}');
+		await expect.element(page.getByTestId('field')).not.toHaveAttribute('data-dirty');
+		await page.getByRole('button', { name: 'Set nine' }).click();
+		await expect.element(page.getByTestId('errors')).toHaveTextContent('{}');
+		await expect.element(page.getByTestId('field')).toHaveAttribute('data-dirty', '');
+		await expect.element(page.getByTestId('error')).toHaveTextContent('nope');
+	});
+
 	it('renders the input, steppers, and group', async () => {
 		render(NumberFieldHarness, { scenario: 'plain' });
 

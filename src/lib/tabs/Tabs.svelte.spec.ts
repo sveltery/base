@@ -404,6 +404,15 @@ describe('Tabs', () => {
 	});
 
 	describe('activation direction', () => {
+		it('sets data-activation-direction when the parent changes the value', async () => {
+			render(TabsHarness, { passValue: true, value: 0, tabs: three });
+			await page.getByRole('button', { name: 'Set one' }).click();
+			await expect
+				.element(page.getByRole('tablist', { name: 'Sections' }))
+				.toHaveAttribute('data-activation-direction', 'right');
+			await expect.element(tab('Two')).toHaveAttribute('data-activation-direction', 'right');
+		});
+
 		it('sets data-activation-direction from a click', async () => {
 			render(TabsHarness, { bind: true, value: 0, tabs: three });
 			await tab('Two').click();

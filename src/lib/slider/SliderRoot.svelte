@@ -7,7 +7,7 @@
 -->
 <script lang="ts">
 	import { DEV } from 'esm-env';
-	import { onMount, untrack } from 'svelte';
+	import { onMount } from 'svelte';
 	import { createAttachmentKey } from 'svelte/attachments';
 	import type { Attachment } from 'svelte/attachments';
 	import type { HTMLAttributes } from 'svelte/elements';
@@ -15,6 +15,7 @@
 	import { useLabelableContext } from '../field/labelable.svelte.js';
 	import { useFormContext } from '../form/context.js';
 	import { clamp } from '../internal/clamp.js';
+	import { createControllableValue } from '../internal/controllable-value.svelte.js';
 	import { getStateAttributesProps } from '../internal/state-attributes.js';
 	import { asc } from './asc.js';
 	import { sliderStateAttributes } from './attributes.js';
@@ -24,7 +25,6 @@
 	import { SliderRootModel } from './model.svelte.js';
 	import type { SliderRootProps, SliderRootState, SliderValue } from './types.js';
 
-	const VALUE_UNSET = Symbol('slider-value');
 	const uid = $props.id();
 	const fieldSource = Symbol('slider-field');
 	const elementKey = createAttachmentKey();
@@ -45,7 +45,7 @@
 		largeStep = 10,
 		thumbAlignment = 'center',
 		thumbCollisionBehavior = 'push',
-		value = $bindable(VALUE_UNSET as unknown as SliderValue),
+		value = $bindable<SliderValue | undefined>(),
 		onValueChange,
 		onValueCommitted,
 		'aria-labelledby': ariaLabelledByProp,
@@ -58,19 +58,26 @@
 	const form = useFormContext();
 	const labelable = useLabelableContext(true);
 
-	let uncontrolled: SliderValue = $state(untrack(() => defaultValue ?? min));
-	const linked = $derived(!Object.is(value, VALUE_UNSET));
-	const valueUnwrapped = $derived<SliderValue>(linked ? value : uncontrolled);
+	const controllable = createControllableValue<SliderValue>({
+		getProp: () => value,
+		setProp: (next) => {
+			value = next;
+		},
+		getDefault: () => defaultValue ?? min,
+		onChange(next) {
+			if (next === undefined) return;
+			commitFieldValue(clampedFieldValue(next));
+		}
+	});
+	const valueUnwrapped = $derived<SliderValue>(controllable.value ?? defaultValue ?? min);
 	const disabled = $derived(Boolean(field?.disabled) || disabledProp);
 	const name = $derived(field?.name ?? nameProp);
 	const rootId = $derived(idProp || `base-ui-${uid}`);
 
 	function writeValue(next: SliderValue) {
-		if (linked) value = next;
-		else uncontrolled = next;
 		// Publish before the handler returns. A later effect would revalidate and
 		// clear an onBlur error committed in the same turn.
-		commitFieldValue(clampedFieldValue(next));
+		controllable.set(next);
 	}
 
 	function clampedFieldValue(raw: SliderValue): SliderValue {
