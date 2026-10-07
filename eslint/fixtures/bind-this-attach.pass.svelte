@@ -37,11 +37,9 @@
 		[attachmentKey]: rememberForm
 	});
 
-	void setLabelId;
-	void hostProps;
-	void inputNode;
+	setLabelId(undefined);
 </script>
 
-<form bind:this={el} {@attach rememberForm}></form>
+<form bind:this={el} {@attach rememberForm} {...hostProps}></form>
 <input bind:this={inputNode} {@attach rememberForm} />
 <a href="#target">Target</a>

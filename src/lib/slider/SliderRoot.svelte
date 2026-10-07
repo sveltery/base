@@ -70,7 +70,7 @@
 		else uncontrolled = next;
 		// Publish before the handler returns. A later effect would revalidate and
 		// clear an onBlur error committed in the same turn.
-		publishFieldValue(clampedFieldValue(next));
+		commitFieldValue(clampedFieldValue(next));
 	}
 
 	function clampedFieldValue(raw: SliderValue): SliderValue {
@@ -106,9 +106,6 @@
 
 	const linkedLabel = $derived(model.linkedLabel);
 
-	let sawFieldValue = false;
-	let previousFieldValue: SliderValue | undefined;
-
 	function remember(node: HTMLElement) {
 		model.root = node;
 		return () => {
@@ -132,17 +129,7 @@
 		if (model.active !== -1) model.setActive(-1);
 	});
 
-	function publishFieldValue(next: SliderValue) {
-		if (!sawFieldValue) {
-			sawFieldValue = true;
-			previousFieldValue = next;
-			return;
-		}
-		const prev = previousFieldValue;
-		const changed =
-			Array.isArray(next) && Array.isArray(prev) ? !areArraysEqual(next, prev) : next !== prev;
-		if (!changed) return;
-		previousFieldValue = next;
+	function commitFieldValue(next: SliderValue) {
 		form.clearErrors(name);
 		field?.change(next);
 		const initial = field?.validityData.initialValue;
@@ -152,10 +139,6 @@
 				: next !== initial;
 		field?.setDirty(isDirty);
 	}
-
-	$effect(() => {
-		publishFieldValue(model.fieldValue);
-	});
 
 	$effect(() => {
 		if (!field) return;

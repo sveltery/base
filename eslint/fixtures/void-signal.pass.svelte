@@ -1,4 +1,10 @@
 <script lang="ts">
+	let {
+		actions = $bindable()
+	}: {
+		actions?: { validate: () => void };
+	} = $props();
+
 	let disabledState = false;
 	let focusableWhenDisabled = true;
 	const toolbar = {
@@ -14,15 +20,15 @@
 		return revision + (disabledState ? 1 : 0);
 	});
 
+	let active = false;
 	$effect(() => {
-		toolbar.roving.syncAfter(disabledState, focusableWhenDisabled);
+		active = toolbar.roving.syncAfter(disabledState, focusableWhenDisabled);
 	});
 
-	let actions: { validate: () => void } | undefined = $bindable();
 	const actionsHandle = { validate() {} };
-	$effect.pre(() => {
-		actions = actionsHandle;
-	});
+	actions = actionsHandle;
 
 	const shown = geometry;
 </script>
+
+<span>{shown}{active ? '1' : '0'}</span>

@@ -21,7 +21,11 @@
 		frozen = current;
 	}
 
-	void commit;
-	void visibleMessage;
-	void capture;
+	const node: { previousElementSibling: Element | null } = { previousElementSibling: null };
+	$effect(() => {
+		const sibling = node.previousElementSibling;
+		if (sibling) capture(sibling.textContent);
+	});
 </script>
+
+<button type="button" onclick={() => commit(value)}>{visibleMessage}</button>

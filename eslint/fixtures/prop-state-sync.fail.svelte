@@ -1,10 +1,17 @@
 <script lang="ts">
 	// Copied from TabsRoot, RadioGroup, CheckboxGroup, AccordionRoot, and ToolbarRoot.
 	// Each block only copies props into state inside an effect.
-	let value = $bindable(undefined);
-	let orientation = 'horizontal';
-	let loopFocus = true;
-	let disabled = false;
+	let {
+		value = $bindable(undefined),
+		orientation = 'horizontal',
+		loopFocus = true,
+		disabled = false
+	}: {
+		value?: unknown;
+		orientation?: string;
+		loopFocus?: boolean;
+		disabled?: boolean;
+	} = $props();
 
 	let writes = 0;
 	let seenWrites = 0;

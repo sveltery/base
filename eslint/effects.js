@@ -99,6 +99,193 @@ export function calleeName(node) {
 }
 
 /**
+ * @param {unknown} ast
+ */
+export function functionsByName(ast) {
+	/** @type {Map<string, unknown[]>} */
+	const map = new Map();
+	walk(ast, (node) => {
+		if (node.type === 'FunctionDeclaration') {
+			const name = nameOf(node.id);
+			if (name) addFunction(map, name, node);
+		}
+		if (
+			node.type === 'VariableDeclarator' &&
+			node.init &&
+			(node.init.type === 'ArrowFunctionExpression' || node.init.type === 'FunctionExpression')
+		) {
+			const name = nameOf(node.id);
+			if (name) addFunction(map, name, node.init);
+		}
+		if (
+			(node.type === 'MethodDefinition' ||
+				node.type === 'PropertyDefinition' ||
+				node.type === 'Property') &&
+			node.value &&
+			(node.value.type === 'FunctionExpression' || node.value.type === 'ArrowFunctionExpression')
+		) {
+			const name = nameOf(node.key);
+			if (name) addFunction(map, name, node.value);
+		}
+	});
+	return map;
+}
+
+/**
+ * @param {Map<string, unknown[]>} map
+ * @param {string} name
+ * @param {unknown} fn
+ */
+function addFunction(map, name, fn) {
+	const list = map.get(name);
+	if (list) list.push(fn);
+	else map.set(name, [fn]);
+}
+
+/**
+ * @param {unknown} node
+ * @returns {string | null}
+ */
+export function parameterName(node) {
+	const value = unwrap(node);
+	if (!value || typeof value !== 'object') return null;
+	if (value.type === 'Identifier') return nameOf(value);
+	if (value.type === 'AssignmentPattern') return parameterName(value.left);
+	if (value.type === 'RestElement') return parameterName(value.argument);
+	return null;
+}
+
+/**
+ * @param {any} node
+ */
+export function isValueReference(node) {
+	if (!node || node.type !== 'Identifier') return false;
+	const parent = node.parent;
+	if (!parent) return true;
+	if (
+		(parent.type === 'MemberExpression' || parent.type === 'OptionalMemberExpression') &&
+		parent.property === node &&
+		!parent.computed
+	) {
+		return false;
+	}
+	if (
+		(parent.type === 'Property' ||
+			parent.type === 'MethodDefinition' ||
+			parent.type === 'PropertyDefinition') &&
+		parent.key === node &&
+		!parent.computed
+	) {
+		return false;
+	}
+	if (parent.type === 'VariableDeclarator' && parent.id === node) return false;
+	if (parent.type === 'AssignmentPattern' && parent.left === node) return false;
+	if (parent.type === 'RestElement' && parent.argument === node) return false;
+	if (parent.type === 'FunctionDeclaration' && parent.id === node) return false;
+	if (parent.type === 'LabeledStatement' && parent.label === node) return false;
+	if (Array.isArray(parent.params) && parent.params.includes(node)) return false;
+	return true;
+}
+
+/**
+ * @param {any} node
+ * @param {string} type
+ */
+export function hasAncestor(node, type) {
+	let current = node?.parent;
+	while (current) {
+		if (current.type === type) return true;
+		current = current.parent;
+	}
+	return false;
+}
+
+/**
+ * @param {any} node
+ */
+export function insideUntrack(node) {
+	let current = node?.parent;
+	while (current) {
+		if (current.type === 'CallExpression' && calleeName(current.callee) === 'untrack') {
+			const callback = current.arguments?.[0];
+			if (callback && nodeIsInside(node, callback)) return true;
+		}
+		current = current.parent;
+	}
+	return false;
+}
+
+/**
+ * @param {any} node
+ * @param {any} ancestor
+ */
+function nodeIsInside(node, ancestor) {
+	let current = node;
+	while (current) {
+		if (current === ancestor) return true;
+		current = current.parent;
+	}
+	return false;
+}
+
+/**
+ * @param {any} fn
+ * @param {string} name
+ */
+export function valueReferences(fn, name) {
+	/** @type {any[]} */
+	const refs = [];
+	walk(fn.body ?? fn, (node) => {
+		if (node.type === 'Identifier' && node.name === name && isValueReference(node)) refs.push(node);
+	});
+	return refs;
+}
+
+/**
+ * @param {unknown} fn
+ * @param {Map<string, unknown[]>} fns
+ */
+export function localCallees(fn, fns) {
+	/** @type {unknown[]} */
+	const found = [];
+	walkOwn(/** @type {{ body?: unknown }} */ (fn).body ?? fn, (node) => {
+		if (node.type !== 'CallExpression') return;
+		const name = calleeName(node.callee);
+		const matches = name ? fns.get(name) : undefined;
+		if (!matches) return;
+		for (const match of matches) {
+			if (match !== fn) found.push(match);
+		}
+	});
+	return found;
+}
+
+/**
+ * @param {any} node
+ * @param {(node: any) => void} visit
+ */
+function walkOwn(node, visit) {
+	if (!node || typeof node !== 'object' || typeof node.type !== 'string') return;
+	visit(node);
+	if (
+		node.type === 'FunctionDeclaration' ||
+		node.type === 'FunctionExpression' ||
+		node.type === 'ArrowFunctionExpression'
+	) {
+		return;
+	}
+	for (const key of Object.keys(node)) {
+		if (key === 'parent') continue;
+		const child = node[key];
+		if (Array.isArray(child)) {
+			for (const item of child) walkOwn(item, visit);
+		} else {
+			walkOwn(child, visit);
+		}
+	}
+}
+
+/**
  * @param {unknown} node
  */
 export function isAddEventListenerCall(node) {

@@ -80,12 +80,11 @@
 	}
 
 	const actionsHandle: FormActions = { validate };
-	publishActions(actions);
+	publishActions();
 
-	function publishActions(current: FormActions | undefined) {
-		const incoming = current?.validate;
+	function publishActions() {
 		actions = actionsHandle;
-		return actions.validate ?? incoming;
+		return actions.validate;
 	}
 
 	function clearErrors(name: string | undefined) {
@@ -147,7 +146,7 @@
 		const current = errors;
 		if (!submitted) return;
 		submitted = false;
-		if (current === undefined || current) focusFirstInvalid();
+		if (current == null || current) focusFirstInvalid();
 	});
 
 	const hostProps: HTMLFormAttributes = $derived({

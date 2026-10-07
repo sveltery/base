@@ -59,16 +59,8 @@
 		model.registerOverflowProperties();
 	});
 
-	function scheduleThumb(
-		_hidden: typeof model.hiddenState,
-		_direction: typeof model.direction,
-		_epoch: typeof model.layoutEpoch
-	) {
-		queueMicrotask(() => model.computeThumbPosition());
-	}
-
 	$effect(() => {
-		scheduleThumb(model.hiddenState, model.direction, model.layoutEpoch);
+		model.queueThumb(model.hiddenState, model.direction, model.layoutEpoch);
 	});
 
 	$effect(() => {

@@ -57,4 +57,12 @@
 		if (Object.is(current, previousValue)) return;
 		previousValue = current;
 	});
+
+	let prior: number | null = null;
+	let currentValue: number | null = 1;
+	$effect(() => {
+		const current = currentValue;
+		if (Object.is(current, prior)) return;
+		prior = current;
+	});
 </script>

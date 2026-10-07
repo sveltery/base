@@ -39,5 +39,6 @@
 			removePointerUp = undefined;
 		};
 	});
-	void start;
 </script>
+
+<button type="button" onclick={start}>Start</button>

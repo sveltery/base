@@ -1,8 +1,12 @@
 <script lang="ts">
 	import { on } from 'svelte/events';
 
+	const registered: { source?: symbol; id?: string } = {};
 	const labelable = {
-		registerControlId(_source: symbol, _id: string | undefined) {}
+		registerControlId(source: symbol, id: string | undefined) {
+			registered.source = source;
+			registered.id = id;
+		}
 	};
 	const controlSource = Symbol();
 
@@ -41,6 +45,6 @@
 	$effect(() => {
 		return motion.observeViewportSize();
 	});
-
-	void remember;
 </script>
+
+<div {@attach remember}></div>

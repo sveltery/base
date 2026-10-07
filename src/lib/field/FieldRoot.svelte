@@ -57,12 +57,11 @@
 			field.validateField();
 		}
 	};
-	publishActions(actions);
+	publishActions();
 
-	function publishActions(current: FieldRootActions | undefined) {
-		const incoming = current?.validate;
+	function publishActions() {
 		actions = actionsHandle;
-		return actions.validate ?? incoming;
+		return actions.validate;
 	}
 
 	const state: FieldRootState = $derived(field.state);
