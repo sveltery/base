@@ -100,14 +100,16 @@ For behavior no spec covers yet, run `pnpm dev`, open `http://localhost:5173/fix
 React exists only in `src/routes/fixtures/**/react-reference.ts` (devDependencies). Do not port these, and do not treat their absence as a failure:
 
 - Hooks, StrictMode double-mounting, effect dependency arrays, layout or insertion effects
-- Synthetic events: Svelte uses native events (`onclick`). `preventBaseUIHandler()` is a Base UI contract and is kept
+- Synthetic events and `preventBaseUIHandler()`: Svelte uses native events. A consumer `onclick` skips the part's handler with `event.preventDefault()`
 - `className` and React style objects: use native `class` and `style`
 - Render props and `cloneElement`: parts take a `render` snippet that receives `(props, state)`
-- `forwardRef` and callback refs: use `bind:ref`, published by an attachment
-- `useControlled` warnings: replaced by the `Controlled` class (`src/lib/internal/controlled.svelte.ts`)
+- `ref`, `forwardRef` and callback refs: Svelte has no refs. Consumers pass `{@attach}` to the part, which reaches the host through the props spread (including inside `render`)
+- Controlled/uncontrolled pairs (`pressed`/`defaultPressed`, `useControlled`): one `$bindable` prop. `bind:pressed` shares it with the parent; a one-way value sets it until the parent changes it, and clicks can override it in between. To veto a change, use `eventDetails.cancel()`
 - React commit batching and same-turn stale reads: Svelte reads live state
 
-Keep the business mechanisms, even upstream bugs: cancellation through `eventDetails.cancel()`, disabled handling, controlled ownership, state attributes, focus, registration and cleanup.
+Keep the business mechanisms, even upstream bugs: cancellation through `eventDetails.cancel()`, disabled handling, state attributes, focus, registration and cleanup.
+
+Because the idioms differ, a paired fixture may express one case differently per framework (for example `bind:pressed` against controlled `pressed` plus `onPressedChange`). The assertions stay the same.
 
 ## Adding a component
 

@@ -11,11 +11,12 @@ export function mountToggleReference(node: HTMLElement, scenario: ToggleCase, on
 		const [owner, setOwner] = useState(false);
 		const [calls, setCalls] = useState<Call[]>([]);
 		useEffect(onReady, []);
-		const controlled = scenario === 'controlled';
+		// React has no bind:pressed; the idiomatic equivalent is controlled `pressed` plus the callback.
+		const bound = scenario === 'bound';
 		return h(
 			Fragment,
 			null,
-			controlled
+			bound
 				? h('input', {
 						type: 'checkbox',
 						'aria-label': 'Owner pressed',
@@ -27,15 +28,17 @@ export function mountToggleReference(node: HTMLElement, scenario: ToggleCase, on
 				Toggle,
 				{
 					id: 'tested-toggle',
-					pressed: controlled ? owner : undefined,
+					pressed: bound ? owner : undefined,
 					disabled: scenario === 'disabled',
 					onPressedChange: (pressed, details) => {
 						if (scenario === 'cancel') details.cancel();
 						const call = { pressed, reason: details.reason, canceled: details.isCanceled };
 						setCalls((previous) => [...previous, call]);
+						if (bound && !details.isCanceled) setOwner(pressed);
 					},
+					// Base UI ignores preventDefault here; its skip contract is preventBaseUIHandler.
 					onClick: (event) => {
-						if (scenario === 'prevent-base') event.preventBaseUIHandler();
+						if (scenario === 'prevented') event.preventBaseUIHandler();
 					}
 				},
 				'Bold'

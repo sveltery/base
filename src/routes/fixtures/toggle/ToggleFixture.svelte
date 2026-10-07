@@ -1,5 +1,4 @@
 <script lang="ts">
-	import { untrack } from 'svelte';
 	import { Toggle, type ToggleChangeEventDetails } from '#lib';
 	import type { ToggleCase } from './cases.js';
 
@@ -7,24 +6,26 @@
 
 	let owner = $state(false);
 	let calls = $state<{ pressed: boolean; reason: string; canceled: boolean }[]>([]);
-	const controlled = untrack(() => scenario === 'controlled');
 
 	function changed(pressed: boolean, details: ToggleChangeEventDetails) {
 		if (scenario === 'cancel') details.cancel();
 		calls.push({ pressed, reason: details.reason, canceled: details.isCanceled });
 	}
+
+	function clicked(event: MouseEvent) {
+		if (scenario === 'prevented') event.preventDefault();
+	}
 </script>
 
-{#if controlled}
+{#if scenario === 'bound'}
 	<input type="checkbox" aria-label="Owner pressed" bind:checked={owner} />
+	<Toggle id="tested-toggle" bind:pressed={owner} onPressedChange={changed}>Bold</Toggle>
+{:else}
+	<Toggle
+		id="tested-toggle"
+		disabled={scenario === 'disabled'}
+		onPressedChange={changed}
+		onclick={clicked}>Bold</Toggle
+	>
 {/if}
-<Toggle
-	id="tested-toggle"
-	pressed={controlled ? owner : undefined}
-	disabled={scenario === 'disabled'}
-	onPressedChange={changed}
-	onclick={(event) => {
-		if (scenario === 'prevent-base') event.preventBaseUIHandler();
-	}}>Bold</Toggle
->
 <output data-testid="calls">{JSON.stringify(calls)}</output>

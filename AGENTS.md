@@ -5,7 +5,7 @@ Sveltery Base is a Svelte 5 port of Base UI, pinned to v1.8.0 commit `47b40521ea
 ## Porting
 
 - Start from the pinned upstream component and its test file. Keep the business behavior, including upstream bugs. File a GitHub issue for a bug instead of fixing it silently.
-- Use native Svelte in place of React machinery: runes, snippets, native events, `bind:ref` with attachments, and the `Controlled` class for controlled/uncontrolled state. Do not recreate hooks, synthetic events, StrictMode behavior or render-prop cloning.
+- Write native Svelte in code and behavior: runes, snippets, native events (`event.preventDefault()` to skip a part's handler), `$bindable` props in place of controlled/default pairs, and consumer `{@attach}` instead of refs. Do not recreate hooks, refs, synthetic events, StrictMode behavior or render-prop cloning. The skill's "What stays in React" section lists these differences.
 - `src/lib` must not import React or SvelteKit (enforced by ESLint).
 - Keep the MIT attribution header on ported files and update `THIRD_PARTY_NOTICES.md`.
 - Keep components small. Add a dependency only when the component actually uses it.

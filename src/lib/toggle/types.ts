@@ -12,26 +12,16 @@ export interface ToggleState {
 export type ToggleChangeEventReason = typeof REASONS.none;
 export type ToggleChangeEventDetails = BaseUIChangeEventDetails<ToggleChangeEventReason>;
 
-export type ToggleClickEvent = MouseEvent & {
-	currentTarget: EventTarget & HTMLButtonElement;
-	/** Skip the Toggle's own click handling for this event. */
-	preventBaseUIHandler: () => void;
-};
-
-export interface ToggleProps extends Omit<HTMLButtonAttributes, 'onclick' | 'children'> {
-	/** Controlled pressed state. */
+export interface ToggleProps extends Omit<HTMLButtonAttributes, 'children'> {
+	/** Whether the toggle is pressed. Use `bind:pressed` to share it with the parent. @default false */
 	pressed?: boolean;
-	/** Initial pressed state when uncontrolled. @default false */
-	defaultPressed?: boolean;
 	/** Whether the toggle should ignore user interaction. @default false */
 	disabled?: boolean;
 	/** Called before the pressed state changes. Call `eventDetails.cancel()` to veto it. */
 	onPressedChange?: (pressed: boolean, eventDetails: ToggleChangeEventDetails) => void;
-	/** Runs before the Toggle's handler. */
-	onclick?: (event: ToggleClickEvent) => void;
+	/** Runs before the Toggle's handler. Call `event.preventDefault()` to skip it. */
+	onclick?: HTMLButtonAttributes['onclick'];
 	/** Replace the default `<button>`. Spread `props` onto the host element. */
 	render?: Snippet<[props: HTMLButtonAttributes, state: ToggleState]>;
 	children?: Snippet;
-	/** The rendered host element. */
-	ref?: HTMLElement | null;
 }

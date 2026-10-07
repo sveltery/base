@@ -21,8 +21,8 @@ for (const reference of [false, true]) {
 	const framework = reference ? 'react' : 'svelte';
 
 	test.describe(framework, () => {
-		test('uncontrolled click toggles aria-pressed and data-pressed', async ({ page }) => {
-			const { toggle, errors } = await open(page, 'uncontrolled', reference);
+		test('click toggles aria-pressed and data-pressed', async ({ page }) => {
+			const { toggle, errors } = await open(page, 'standalone', reference);
 			await expect(toggle).toHaveAttribute('aria-pressed', 'false');
 			await expect(toggle).not.toHaveAttribute('data-pressed');
 			await toggle.click();
@@ -36,7 +36,7 @@ for (const reference of [false, true]) {
 		});
 
 		test('keyboard Space and Enter activate the native button', async ({ page }) => {
-			const { toggle } = await open(page, 'uncontrolled', reference);
+			const { toggle } = await open(page, 'standalone', reference);
 			await toggle.focus();
 			await page.keyboard.press('Space');
 			await expect(toggle).toHaveAttribute('aria-pressed', 'true');
@@ -44,17 +44,16 @@ for (const reference of [false, true]) {
 			await expect(toggle).toHaveAttribute('aria-pressed', 'false');
 		});
 
-		test('controlled follows the owner, not its own clicks', async ({ page }) => {
-			const { toggle } = await open(page, 'controlled', reference);
+		test('owner-held state follows the owner and receives clicks', async ({ page }) => {
+			const { toggle } = await open(page, 'bound', reference);
 			const owner = page.getByRole('checkbox', { name: 'Owner pressed' });
 			await expect(toggle).toHaveAttribute('aria-pressed', 'false');
 			await owner.check();
 			await expect(toggle).toHaveAttribute('aria-pressed', 'true');
 			await toggle.click();
-			await expect(toggle).toHaveAttribute('aria-pressed', 'true');
-			expect(await calls(page)).toEqual([{ pressed: false, reason: 'none', canceled: false }]);
-			await owner.uncheck();
 			await expect(toggle).toHaveAttribute('aria-pressed', 'false');
+			await expect(owner).not.toBeChecked();
+			expect(await calls(page)).toEqual([{ pressed: false, reason: 'none', canceled: false }]);
 		});
 
 		test('canceling onPressedChange keeps the state', async ({ page }) => {
@@ -73,8 +72,9 @@ for (const reference of [false, true]) {
 			expect(await calls(page)).toEqual([]);
 		});
 
-		test('preventBaseUIHandler in onclick skips the toggle handler', async ({ page }) => {
-			const { toggle } = await open(page, 'prevent-base', reference);
+		// Svelte calls event.preventDefault(); React calls event.preventBaseUIHandler().
+		test('consumer onclick can skip the toggle handler', async ({ page }) => {
+			const { toggle } = await open(page, 'prevented', reference);
 			await toggle.click();
 			await expect(toggle).toHaveAttribute('aria-pressed', 'false');
 			expect(await calls(page)).toEqual([]);
@@ -83,7 +83,7 @@ for (const reference of [false, true]) {
 }
 
 test('svelte SSR renders a non-submit button before hydration', async ({ request }) => {
-	const html = await (await request.get('/fixtures/toggle?case=uncontrolled')).text();
+	const html = await (await request.get('/fixtures/toggle?case=standalone')).text();
 	expect(html).toContain('data-hydrated="false"');
 	expect(html).toMatch(
 		/<button[^>]*type="button"[^>]*aria-pressed="false"|<button[^>]*aria-pressed="false"[^>]*type="button"/

@@ -7,9 +7,11 @@ The project was restarted from a fresh `sv create` library scaffold (Prettier, E
 ```svelte
 <script lang="ts">
 	import { Toggle } from '@sveltery/base';
+
+	let pressed = $state(false);
 </script>
 
-<Toggle defaultPressed onPressedChange={(pressed) => console.log(pressed)}>Bold</Toggle>
+<Toggle bind:pressed onPressedChange={(next) => console.log(next)}>Bold</Toggle>
 ```
 
 ## Develop
