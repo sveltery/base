@@ -109,29 +109,30 @@
 		model.noteInput(input, index);
 	});
 
-	function measureInset() {
-		if (!model.inset || index < 0) return;
+	function measureInset(percentValue: number, thumbIndex: number, isLast: boolean) {
+		if (!model.inset || thumbIndex < 0) return;
 		const control = model.control;
 		const thumb = thumbEl;
-		if (!control || !thumb || !Number.isFinite(percent)) return;
+		if (!control || !thumb || !Number.isFinite(percentValue)) return;
 		const thumbRect = thumb.getBoundingClientRect();
 		const controlRect = control.getBoundingClientRect();
 		const side = model.vertical ? 'height' : 'width';
 		const controlSize = controlRect[side] - thumbRect[side];
-		const thumbOffset = thumbRect[side] / 2 + (controlSize * percent) / 100;
+		const thumbOffset = thumbRect[side] / 2 + (controlSize * percentValue) / 100;
 		const next = (thumbOffset / controlRect[side]) * 100;
 		const positionValue = Number.isFinite(next) ? next : undefined;
 		positionPercent = positionValue;
-		model.setIndicatorEdge(index, last, positionValue);
+		model.setIndicatorEdge(thumbIndex, isLast, positionValue);
 	}
 
 	$effect(() => {
 		if (!model.inset) return;
-		void percent;
-		void index;
-		void last;
-		queueMicrotask(measureInset);
-		measureInset();
+		const percentValue = percent;
+		const thumbIndex = index;
+		const isLast = last;
+		const run = () => measureInset(percentValue, thumbIndex, isLast);
+		queueMicrotask(run);
+		run();
 	});
 
 	$effect(() => {
@@ -141,7 +142,7 @@
 		if (!control || !thumb) return;
 		const Observer = ownerWindow(control).ResizeObserver;
 		if (typeof Observer !== 'function') return;
-		const observer = new Observer(() => measureInset());
+		const observer = new Observer(() => measureInset(percent, index, last));
 		observer.observe(control);
 		observer.observe(thumb);
 		return () => observer.disconnect();

@@ -137,6 +137,10 @@
 		"./slider": {
 			"types": "./dist/slider/index.d.ts",
 			"svelte": "./dist/slider/index.js"
+		},
+		"./direction-provider": {
+			"types": "./dist/direction-provider/index.d.ts",
+			"svelte": "./dist/direction-provider/index.js"
 		}
 	},
 	"peerDependencies": {
