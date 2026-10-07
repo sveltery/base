@@ -1,6 +1,6 @@
 # Field
 
-Labels, describes, and validates one control. Upstream: `packages/react/src/field` (Root, Label, Control, Description, Error, Item, Validity) at Base UI v1.8.0. Local: `src/lib/field/`. `Field.Control` is a real `<input>`, so a later Input can wrap it. Input itself is not ported.
+Labels, describes, and validates one control. Upstream: `packages/react/src/field` (Root, Label, Control, Description, Error, Item, Validity) at Base UI v1.8.0. Local: `src/lib/field/`. `Field.Control` is a real `<input>`. `Input` wraps that control.
 
 ## Sub-features
 
@@ -53,7 +53,7 @@ Component tests (`src/lib/field/Field.svelte.spec.ts`) port the upstream root, l
 
 ## Not ported
 
-- `Input`, and Checkbox, Radio, RadioGroup, NumberField, and Select as field controls. `Field.Control` is the input those can wrap later.
+- Checkbox, Radio, RadioGroup, NumberField, and Select as field controls. `Input` wraps `Field.Control`.
 - `className` and `style` state callbacks.
 - React `actionsRef` and element `ref` props.
 - React 17 id fallbacks, StrictMode double-mount, and render-count tests.

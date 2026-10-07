@@ -9,7 +9,8 @@ One row per component in `src/lib`. A run of `scripts/verify-component.sh <name>
 | Checkbox    | [checkbox.md](checkbox.md)         | `/fixtures/checkbox?case=<case>`     | Field, CheckboxGroup, `parent`, `inputRef`, `className`/`style` callbacks, host-tag warnings                    |
 | Collapsible | [collapsible.md](collapsible.md)   | `/fixtures/collapsible?case=<case>`  | React.Activity animation resume, `className`/`style` callbacks, refs, host-tag warnings                         |
 | Fieldset    | [fieldset.md](fieldset.md)         | `/fixtures/fieldset?case=<case>`     | Checkbox, CheckboxGroup, RadioGroup and Slider disabled integration; `className`/`style` state callbacks        |
-| Field       | [field.md](field.md)               | `/fixtures/field?case=<case>`        | Input, Checkbox, Radio, NumberField, Select integration; `className`/`style` callbacks; refs                    |
+| Field       | [field.md](field.md)               | `/fixtures/field?case=<case>`        | Checkbox, Radio, NumberField, Select integration; `className`/`style` callbacks; refs                           |
+| Input       | [input.md](input.md)               | `/fixtures/input?case=<case>`        | Use outside `Field.Root`; `className`/`style` callbacks; refs                                                   |
 | Toggle      | [toggle.md](toggle.md)             | `/fixtures/toggle?case=<case>`       | Toolbar integration, `nativeButton={false}`, class/style state callbacks                                        |
 | ToggleGroup | [toggle-group.md](toggle-group.md) | `/fixtures/toggle-group?case=<case>` | Toolbar integration, `className`/`style` state callbacks, grid composite, scroll-into-view                      |
 | Avatar      | [avatar.md](avatar.md)             | `/fixtures/avatar?case=<case>`       | Enter/exit transitions and animation completion, `class`/`style` state callbacks                                |

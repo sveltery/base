@@ -32,6 +32,9 @@
 			<a href="/fixtures/field">Field</a> (add <code>&amp;reference</code> for React Base UI)
 		</li>
 		<li>
+			<a href="/fixtures/input">Input</a> (add <code>&amp;reference</code> for React Base UI)
+		</li>
+		<li>
 			<a href="/fixtures/separator">Separator</a> (add <code>&amp;reference</code> for React Base UI)
 		</li>
 		<li>

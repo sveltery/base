@@ -10,11 +10,11 @@
 	import { createChangeEventDetails, REASONS } from '../internal/event-details.js';
 	import { getStateAttributesProps } from '../internal/state-attributes.js';
 	import { fieldValidityMapping } from './attributes.js';
+	import { FIELD_VALUE_UNSET } from './constants.js';
 	import { useFieldContext } from './context.svelte.js';
 	import { useLabelableContext } from './labelable.svelte.js';
 	import type { FieldControlProps, FieldControlState } from './types.js';
 
-	const VALUE_UNSET = Symbol('field-control-value');
 	const uid = $props.id();
 	const elementKey = createAttachmentKey();
 	const controlSource = Symbol();
@@ -22,7 +22,7 @@
 	let {
 		id: idProp,
 		name: nameProp,
-		value = $bindable(VALUE_UNSET as unknown as string | number | null | undefined),
+		value = $bindable(FIELD_VALUE_UNSET as unknown as string | number | null | undefined),
 		defaultValue,
 		disabled: disabledProp = false,
 		onValueChange,
@@ -42,7 +42,7 @@
 	const form = useFormContext();
 	const fallbackId = `base-ui-${uid}`;
 
-	const isControlled = $derived(!Object.is(value, VALUE_UNSET));
+	const isControlled = $derived(!Object.is(value, FIELD_VALUE_UNSET));
 	const serialized = $derived(isControlled && value != null ? String(value) : undefined);
 	const disabled = $derived(Boolean(field.disabled || disabledProp));
 	const name = $derived(field.name ?? nameProp ?? undefined);
@@ -148,7 +148,7 @@
 	});
 
 	function domValue() {
-		if (!isControlled || value == null || Object.is(value, VALUE_UNSET)) return '';
+		if (!isControlled || value == null || Object.is(value, FIELD_VALUE_UNSET)) return '';
 		return String(value);
 	}
 
