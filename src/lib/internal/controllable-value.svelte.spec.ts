@@ -44,6 +44,14 @@ describe('createControllableValue', () => {
 		expect(text('log')).toBe('["ab"]');
 	});
 
+	it('does not wake an effect that iterates a $state array', async () => {
+		render(ControllableValueHarness, { mode: 'proxy' });
+		await expect.poll(() => text('runs')).toBe('1');
+		await page.getByTestId('set-proxy').click();
+		await expect.element(page.getByTestId('prop')).not.toHaveTextContent('none');
+		expect(text('runs')).toBe('1');
+	});
+
 	it('falls back to the default when a controlled value is cleared', async () => {
 		render(ControllableValueHarness, { mode: 'clear' });
 		await expect.element(page.getByTestId('value')).toHaveTextContent('a');

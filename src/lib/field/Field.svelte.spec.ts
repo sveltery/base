@@ -384,6 +384,28 @@ describe('Field', () => {
 			await expect.element(page.getByTestId('error')).toHaveTextContent('empty');
 		});
 
+		it('validates the DOM value after a native form reset', async () => {
+			render(FieldHarness, { scenario: 'reset' });
+			const control = page.getByTestId('control');
+			await control.fill('stale');
+			(page.getByTestId('form').element() as HTMLFormElement).reset();
+			await expect.element(control).toHaveValue('');
+			await page.getByRole('button', { name: 'Submit' }).click();
+			expect(text('seen')).toBe('');
+			expect(text('values')).toBe(JSON.stringify({ email: '' }));
+		});
+
+		it('validates the DOM value after a reset button', async () => {
+			render(FieldHarness, { scenario: 'reset' });
+			const control = page.getByTestId('control');
+			await control.fill('stale');
+			await page.getByRole('button', { name: 'Reset' }).click();
+			await expect.element(control).toHaveValue('');
+			await page.getByRole('button', { name: 'Submit' }).click();
+			expect(text('seen')).toBe('');
+			expect(text('values')).toBe(JSON.stringify({ email: '' }));
+		});
+
 		it('writes the first keystroke into an empty bind', async () => {
 			render(FieldHarness, { scenario: 'typed' });
 			await expect.element(page.getByTestId('typed')).toHaveTextContent('none');

@@ -23,6 +23,7 @@
 	let dirty = $state(true);
 	let touched = $state(true);
 	let calls = $state(0);
+	let seen = $state('');
 	let actions = $state<{ validate: () => void } | undefined>();
 	let outerDisabled = $state(false);
 
@@ -343,6 +344,24 @@
 	<button type="button" onclick={() => (emptyParent = '')}>Clear</button>
 	<button type="button" onclick={() => (emptyParent = undefined)}>Unset</button>
 	<output data-testid="errors">{JSON.stringify(parentErrors)}</output>
+{:else if scenario === 'reset'}
+	<Form onFormSubmit={accept} data-testid="form">
+		<Field.Root
+			name="email"
+			validationMode="onSubmit"
+			validate={(value) => {
+				calls += 1;
+				seen = value == null ? '' : String(value);
+				return null;
+			}}
+		>
+			<Field.Control data-testid="control" />
+		</Field.Root>
+		<button type="reset">Reset</button>
+		<button type="submit">Submit</button>
+	</Form>
+	<output data-testid="seen">{seen}</output>
+	<output data-testid="values">{values}</output>
 {:else if scenario === 'typed'}
 	<Field.Root>
 		<Field.Control bind:value={typed} data-testid="control" />
