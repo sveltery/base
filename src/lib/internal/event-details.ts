@@ -1,0 +1,42 @@
+// Derived from Base UI v1.8.0 packages/react/src/internals/createBaseUIEventDetails.ts
+// (commit 47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c). MIT, see THIRD_PARTY_NOTICES.md.
+
+export const REASONS = {
+	none: 'none'
+} as const;
+
+export type BaseUIChangeEventDetails<Reason extends string> = {
+	reason: Reason;
+	event: Event;
+	cancel: () => void;
+	allowPropagation: () => void;
+	readonly isCanceled: boolean;
+	readonly isPropagationAllowed: boolean;
+	trigger: Element | undefined;
+};
+
+export function createChangeEventDetails<Reason extends string>(
+	reason: Reason,
+	event?: Event,
+	trigger?: Element
+): BaseUIChangeEventDetails<Reason> {
+	let canceled = false;
+	let allowPropagation = false;
+	return {
+		reason,
+		event: event ?? new Event('base-ui'),
+		cancel() {
+			canceled = true;
+		},
+		allowPropagation() {
+			allowPropagation = true;
+		},
+		get isCanceled() {
+			return canceled;
+		},
+		get isPropagationAllowed() {
+			return allowPropagation;
+		},
+		trigger
+	};
+}
