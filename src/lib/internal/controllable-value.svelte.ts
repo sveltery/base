@@ -75,15 +75,43 @@ export function createControllableValue<T>(options: {
 
 function parentHoldsWritten(after: unknown, next: unknown) {
 	if (Object.is(after, next)) return true;
-	if (after == null || next == null) return false;
-	if (typeof after !== 'object' || typeof next !== 'object') return false;
+	if (!isObject(after) || !isObject(next)) return false;
+	// A $state proxy rejects a non-writable descriptor before it stores anything.
+	// Plain objects accept the mark, which is how a proxied read-back is recognized.
+	if (isStateProxy(next) || !isPlainObject(next)) return false;
 	const mark = Symbol();
 	try {
-		Object.defineProperty(next, mark, { configurable: true, value: true });
+		Object.defineProperty(next, mark, { configurable: true, writable: true, value: true });
 		return (after as Record<symbol, boolean>)[mark] === true;
 	} catch {
 		return false;
 	} finally {
 		Reflect.deleteProperty(next, mark);
 	}
+}
+
+function isObject(value: unknown): value is object {
+	return value != null && typeof value === 'object';
+}
+
+function isPlainObject(value: object) {
+	if (Array.isArray(value)) return false;
+	const proto = Object.getPrototypeOf(value);
+	return proto === Object.prototype || proto === null;
+}
+
+function isStateProxy(value: object) {
+	const mark = Symbol();
+	try {
+		Object.defineProperty(value, mark, {
+			configurable: false,
+			enumerable: false,
+			writable: false,
+			value: true
+		});
+	} catch {
+		return true;
+	}
+	Reflect.deleteProperty(value, mark);
+	return false;
 }

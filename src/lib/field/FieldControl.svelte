@@ -108,7 +108,7 @@
 		const id = controlId;
 		const active = !disabled;
 		const currentValue = untrack(() =>
-			controllable.value != null ? String(controllable.value) : undefined
+			controllable.controlled && controllable.value != null ? String(controllable.value) : undefined
 		);
 
 		if (currentValue !== undefined) field.setFilled(currentValue !== '');
@@ -139,6 +139,7 @@
 	});
 
 	$effect(() => {
+		if (!controllable.controlled) return;
 		const current = serialized;
 		const record = registration;
 		if (!record) return;
