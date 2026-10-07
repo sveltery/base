@@ -55,5 +55,5 @@ Component tests (`src/lib/slider/Slider.svelte.spec.ts`) cover ARIA, keyboard, p
 ## Not ported
 
 - React `ref`, `inputRef`, and `className` / `style` state callbacks.
-- `DirectionProvider`. Direction is CSS `dir`.
+- A CSS `direction` on the slider does not change the thumb. `DirectionProvider` does.
 - A generic composite/roving-focus system. Slider does not rove focus between thumbs.
