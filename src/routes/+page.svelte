@@ -19,6 +19,9 @@
 			<a href="/fixtures/radio">Radio</a> (add <code>&amp;reference</code> for React Base UI)
 		</li>
 		<li>
+			<a href="/fixtures/radio-group">RadioGroup</a> (add <code>&amp;reference</code> for React Base UI)
+		</li>
+		<li>
 			<a href="/fixtures/collapsible">Collapsible</a> (add <code>&amp;reference</code> for React Base
 			UI)
 		</li>

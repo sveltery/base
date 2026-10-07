@@ -4,8 +4,9 @@
 	the non-composite paths of packages/react/src/internals/use-button/useButton.ts,
 	and the native-label fallback of useAriaLabelledBy.ts
 	(commit 47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c). MIT, see THIRD_PARTY_NOTICES.md.
-	Field registration, validation, Form error clearing, and RadioGroup are not ported.
-	An optional group context supplies the shared value when a group is present.
+	Field registration, validation, and Form error clearing are not ported.
+	An optional group context supplies the shared value. When that context includes
+	roving focus, this root registers as a composite item.
 -->
 <script lang="ts">
 	import { createAttachmentKey, type Attachment } from 'svelte/attachments';
@@ -21,6 +22,7 @@
 	const uid = $props.id();
 	const rootKey = createAttachmentKey();
 	const group = useRadioGroupContext();
+	const slot = group?.roving?.claim() ?? 0;
 
 	let {
 		value,
@@ -53,7 +55,6 @@
 	const required = $derived(Boolean(group?.required) || requiredProp);
 	const fieldName = $derived(group?.name);
 	const fieldForm = $derived(group?.form);
-	const touched = $derived(group?.touched ?? false);
 
 	const radioState: RadioRootState = $derived({
 		checked,
@@ -80,10 +81,15 @@
 	let rootNode = $state<HTMLElement | null>(null);
 	let inputNode = $state<HTMLInputElement | null>(null);
 	let fallbackLabelId = $state<string | undefined>(undefined);
+	// The click that checks the input. React's radio `onChange` is that click,
+	// so modifier keys on the activation are visible to `onValueChange`.
+	let activationEvent: Event | undefined;
 
 	function registerRoot(element: HTMLElement) {
 		rootNode = element;
+		const remove = group?.roving?.register(element);
 		return () => {
+			remove?.();
 			if (rootNode === element) rootNode = null;
 		};
 	}
@@ -121,15 +127,21 @@
 		// Clicks dispatched on the input from the root and from focus are an
 		// implementation detail and must not reach ancestors.
 		event.stopPropagation();
+		activationEvent = event;
+		queueMicrotask(() => {
+			if (activationEvent === event) activationEvent = undefined;
+		});
 	}
 
 	function handleInputChange(event: Event) {
+		const source = activationEvent ?? event;
+		activationEvent = undefined;
 		if (event.defaultPrevented || disabled || readOnly || value === undefined) {
 			syncInput();
 			return;
 		}
 
-		const details = createChangeEventDetails(REASONS.none, event);
+		const details = createChangeEventDetails(REASONS.none, source);
 		group?.setCheckedValue(value, details);
 		if (details.isCanceled) {
 			syncInput();
@@ -171,7 +183,10 @@
 
 	function handleFocus(event: FocusEvent & { currentTarget: EventTarget & HTMLElement }) {
 		onfocus?.(event);
-		if (event.defaultPrevented || disabled || readOnly || !touched) return;
+		if (event.currentTarget instanceof HTMLElement) group?.roving?.highlight(event.currentTarget);
+		// Read the group's touched flag live. Arrow keys set it in the capture
+		// phase of this same turn, before a derived value would refresh.
+		if (event.defaultPrevented || disabled || readOnly || !group?.touched) return;
 		inputNode?.click();
 		group?.setTouched(false);
 	}
@@ -252,7 +267,11 @@
 		return {
 			...radioRootAttributes(radioState),
 			...(nativeButton ? { type: 'button' as const } : {}),
-			tabindex: !nativeButton && disabled ? -1 : 0,
+			tabindex: group?.roving
+				? group.roving.tabIndex(slot, rootNode, checked, group.checkedValue !== undefined)
+				: !nativeButton && disabled
+					? -1
+					: 0,
 			...(!nativeButton && disabled ? { 'aria-disabled': true as const } : {}),
 			...(nativeButton && disabled ? { disabled: true } : {}),
 			id: rootId,

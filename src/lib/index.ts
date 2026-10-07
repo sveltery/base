@@ -10,6 +10,7 @@ export * from './avatar/index.js';
 export * from './meter/index.js';
 export * from './progress/index.js';
 export * from './radio/index.js';
+export * from './radio-group/index.js';
 export * from './form/index.js';
 export * from './switch/index.js';
 export * from './tabs/index.js';
