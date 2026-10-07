@@ -8,7 +8,7 @@ import { render } from 'vitest-browser-svelte';
 import ToggleGroupHarness from '../../tests/ToggleGroupHarness.svelte';
 
 function button(name: string) {
-	return page.getByRole('button', { name });
+	return page.getByRole('button', { name, exact: true });
 }
 
 function calls() {

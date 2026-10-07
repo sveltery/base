@@ -6,6 +6,7 @@
 // Items register with an attachment. The class publishes tabindex and focus
 // handlers for Toggle to spread onto its host. No element renderer.
 
+import { untrack } from 'svelte';
 import { createAttachmentKey } from 'svelte/attachments';
 import type { Attachment } from 'svelte/attachments';
 import type { HTMLButtonAttributes } from 'svelte/elements';
@@ -44,8 +45,6 @@ export class RovingFocus {
 	active = $state<HTMLElement | null>(null);
 	loopFocus = $state(true);
 	orientation = $state<RovingOrientation>('horizontal');
-	/** Bumped when item disabled state changes so every tabindex re-reads the DOM. */
-	epoch = $state(0);
 
 	private nextSlot = 0;
 	private readonly attachmentKey = createAttachmentKey();
@@ -58,20 +57,25 @@ export class RovingFocus {
 	}
 
 	register(node: HTMLElement) {
-		if (!this.elements.includes(node)) {
-			this.elements = [...this.elements, node].sort(byDocumentOrder);
-		}
-		this.ensureActive();
-		return () => {
-			this.elements = this.elements.filter((item) => item !== node);
-			if (this.active === node) this.active = null;
+		// The attachment effect must not subscribe to the list it writes.
+		untrack(() => {
+			if (!this.elements.includes(node)) {
+				this.elements = [...this.elements, node].sort(byDocumentOrder);
+			}
 			this.ensureActive();
+		});
+		return () => {
+			untrack(() => {
+				this.elements = this.elements.filter((item) => item !== node);
+				if (this.active === node) this.active = null;
+				this.ensureActive();
+			});
 		};
 	}
 
+	/** Re-pick the tab stop after an item's disabled flag changes. */
 	sync() {
-		this.epoch += 1;
-		this.ensureActive();
+		untrack(() => this.ensureActive());
 	}
 
 	private candidate() {
@@ -87,7 +91,6 @@ export class RovingFocus {
 	}
 
 	tabIndex(slot: number, node: HTMLElement | null): 0 | -1 {
-		void this.epoch;
 		if (this.elements.length === 0) return slot === 0 ? 0 : -1;
 		const stop = this.candidate();
 		if (node && stop) return node === stop ? 0 : -1;
