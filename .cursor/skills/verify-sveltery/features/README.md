@@ -10,3 +10,4 @@ One row per component in `src/lib`. A run of `scripts/verify-component.sh <name>
 | Avatar    | [avatar.md](avatar.md)       | `/fixtures/avatar?case=<case>`    | Enter/exit transitions and animation completion, `class`/`style` state callbacks                                |
 | Separator | [separator.md](separator.md) | `/fixtures/separator?case=<case>` | `className`/`style` state callbacks, React render-element cloning, `ref`, Menu/Select/Toolbar separators        |
 | Meter     | [meter.md](meter.md)         | `/fixtures/meter?case=<case>`     | React `ref`, class/style state callbacks, numeric production error codes                                        |
+| Progress  | [progress.md](progress.md)   | `/fixtures/progress?case=<case>`  | `className` and `style` state callbacks, refs                                                                   |

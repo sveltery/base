@@ -24,5 +24,8 @@
 		<li>
 			<a href="/fixtures/avatar">Avatar</a> (add <code>&amp;reference</code> for React Base UI)
 		</li>
+		<li>
+			<a href="/fixtures/progress">Progress</a> (add <code>&amp;reference</code> for React Base UI)
+		</li>
 	</ul>
 </main>
