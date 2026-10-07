@@ -2309,7 +2309,7 @@
       ],
       "local": "packages/base/src/lib/internals/composite/item/CompositeItem.svelte",
       "correspondence": "Same ref-first registration and ordered composite/authored/render props through canonical RenderElement.",
-      "localSha256": "23e78d87cbeb13db6e655c95b20f57d4dd19dfd16a91af90d73d954100be7797",
+      "localSha256": "abaa9365fe8b03a68fa3feb566f77c60d23c79031fceb7961fee34ad89327826",
       "status": "implemented-awaiting-exact-head-review"
     },
     {
@@ -2346,7 +2346,7 @@
       ],
       "local": "packages/base/src/lib/internals/composite/item/useCompositeItem.svelte.ts",
       "correspondence": "Same highlighted roving tab index/focus/hover and shared list-item registration.",
-      "localSha256": "d90708b23dde83c4381ea1085767ec30135307525c1ea9e5422e9879a522daad",
+      "localSha256": "e614d4979b857c2ea39092ce79a153399974fa81537286e697933ac4ea1fe604",
       "status": "implemented-awaiting-exact-head-review"
     },
     {
@@ -2383,7 +2383,7 @@
       ],
       "local": "packages/base/src/lib/internals/composite/list/createCompositeList.svelte.ts",
       "correspondence": "Same registration/snapshot/explicit-index reservation/document sort/labels/listeners/reorder observation algorithm. Once-only setup plus native effect/owned cleanup replace provider rendering and StrictMode replay guards.",
-      "localSha256": "eb23334825782ebd6c5c2697f1aad75f6f557c1e387fa6ea0a78c276bfead975",
+      "localSha256": "a253618ced977fdb4a961858d7550bf91e3bd686b0a8c9314deb84ee38c3a560",
       "status": "implemented-awaiting-exact-head-review"
     },
     {
@@ -2427,7 +2427,7 @@
       ],
       "local": "packages/base/src/lib/internals/composite/list/useCompositeListItem.svelte.ts",
       "correspondence": "Same guessed/explicit/automatic index and identity-sensitive callback registration; live getter/derived ref replaces useState/useCallback.",
-      "localSha256": "94d353c7d884b35bd002a9278a7701e7b1e835d536b8eb8a94f2a56d7fa72841",
+      "localSha256": "68d88dec21b0b7ed25094f43d4939998b388f296c18cd388b1f4d33e9f3966fa",
       "status": "implemented-awaiting-exact-head-review"
     },
     {
@@ -2494,7 +2494,7 @@
       ],
       "local": "packages/base/src/lib/internals/composite/root/CompositeRoot.svelte",
       "correspondence": "Same actual Root helper/List/context/render composition. Native component setup replaces React provider/useMemo wrappers.",
-      "localSha256": "29241d2982ea752a27d65c8c15cc9e3675efd2cfbc0917a4b112c5179c7d2e4e",
+      "localSha256": "7553f59b1223d8f358c44f2fd67b5b2e9f0772adb15cf7444eedf8c36ced05a6",
       "status": "implemented-awaiting-exact-head-review"
     },
     {
@@ -2615,7 +2615,7 @@
       ],
       "local": "packages/base/src/lib/internals/composite/root/useCompositeRoot.svelte.ts",
       "correspondence": "Source initial active/default/disabled index, map/replacement preservation, orientation/modifier/text-caret/RTL/loop/grid/Home-End/scroll/focus algorithm. Native state and live parameter readers replace render snapshots.",
-      "localSha256": "bdd6ced8bc2a28c77a2572b6b54eab7ad09ee111ddf2bcdbe777686f947c39b6",
+      "localSha256": "1b056433974f5a0e3b51d18893f06aa7971779e046261d1ebcf2a2557b7a6aed",
       "status": "implemented-awaiting-exact-head-review"
     },
     {

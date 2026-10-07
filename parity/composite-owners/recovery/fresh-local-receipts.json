@@ -1,0 +1,129 @@
+{
+  "scope": "Actual new recovery executor observations; no old missing receipts reconstructed. Full suite bounded attempts incomplete; missing runtime dependencies preclude behavioral red/green, strict packages and SSR/hydration.",
+  "staticTests": {
+    "pass": 9,
+    "fail": 0,
+    "log": "local/final-static-tests-corrected.log.gz"
+  },
+  "pairedBehavior": "setup failure before assertions; not red or green",
+  "securedBrowser": "not executed locally; mandatory hosted",
+  "receipts": [
+    {
+      "path": "local/bootstrap-retry.log.gz",
+      "logicalBytes": 236,
+      "logicalSha256": "439cf2745f00c9728f6b02b1dfbe1d6fa9875e44e026c39b7c5918ffe703cb14",
+      "bytes": 218,
+      "sha256": "732ab3db72c9121a63bbf8bfdc788feaa5d0c16286046102a87451dcb00be407"
+    },
+    {
+      "path": "local/bootstrap.log.gz",
+      "logicalBytes": 22632,
+      "logicalSha256": "b130e0f573435bcf1887cd2e8bf23561e6564ce025938333f041e9d8eb89a32c",
+      "bytes": 2157,
+      "sha256": "16255b68e0e53c36b9e11afbcb2e24bebe06545604efc622e853f40eefcbb637"
+    },
+    {
+      "path": "local/existing-package-links.json",
+      "bytes": 6621,
+      "sha256": "43de239563c46b0bc5cf7a9437b52d3cd055c574cb9a24e858bf405e6067a218"
+    },
+    {
+      "path": "local/final-closure.log.gz",
+      "logicalBytes": 148,
+      "logicalSha256": "be181efbedc08d69e73886037a94df1ac208ab446713516ff8f6e40ef97a5824",
+      "bytes": 118,
+      "sha256": "0d9d212337c0c8727b5cbf791008fd9c4531ef07fb513095b1a0ac3aa60205c3"
+    },
+    {
+      "path": "local/final-compile.log.gz",
+      "logicalBytes": 280,
+      "logicalSha256": "c41f800ca877212dc9ba2d213c19efd392d589c95a5a1c06dc12b4aa8c0247f4",
+      "bytes": 174,
+      "sha256": "2bc0567cb53e17f944b4344926cc718329df65df1cff6dcf5ad526af2aff5ca0"
+    },
+    {
+      "path": "local/final-family-refresh.log.gz",
+      "logicalBytes": 103,
+      "logicalSha256": "932ffe276562629a7f1b41a011173a050f39d5b3008b8aecf266e3da496eb024",
+      "bytes": 104,
+      "sha256": "c2318ddcb7667061c22f441dc6ebef32e7ae6a605fd71bdff67bb1938534f50c"
+    },
+    {
+      "path": "local/final-format-check.log.gz",
+      "logicalBytes": 66,
+      "logicalSha256": "17aa973d3f004560237d9a95171210b0671deff23d61628eecf7322ff5938f20",
+      "bytes": 82,
+      "sha256": "710c63d8d40d5688a62c3b08053dd1971c4e4ee87b2297f3f20c2540d22cd94e"
+    },
+    {
+      "path": "local/final-integration.log.gz",
+      "logicalBytes": 171,
+      "logicalSha256": "6427bc86c1dc1165623978add5069ceec560368f16e620071e2058980eabe39b",
+      "bytes": 150,
+      "sha256": "32d1e9bad9af26d9a9230e3ac4eed7c2414bf63ae81996b605252becafeaac5d"
+    },
+    {
+      "path": "local/final-static-tests-corrected.log.gz",
+      "logicalBytes": 1084,
+      "logicalSha256": "b27d2dbf241fff5df4db0a9aae23bffbaec7a1f9cc2212b52ea42dd42d5ae225",
+      "bytes": 617,
+      "sha256": "f1af4c7e34e01cc59763cbd72a9df6a9f1ff5eaa12142f56c7442d5654d1d3cc"
+    },
+    {
+      "path": "local/final-static-tests.log.gz",
+      "logicalBytes": 5141,
+      "logicalSha256": "8f51ec06f37978320899e3012df1663c631ba7aad11d123842960564ef263625",
+      "bytes": 1673,
+      "sha256": "a1b5294e95318ebc1e63d98baf3999b3f4fa5ceec97cb9c6f95a0320df822eb5"
+    },
+    {
+      "path": "local/paired-attempt.log.gz",
+      "logicalBytes": 1895,
+      "logicalSha256": "f895d24d922fc7d4a2e3b098b58700fff87814844b0aa0d7d869a98bec6bfd2e",
+      "bytes": 715,
+      "sha256": "e1f391412403de9059978a37dea305ad8a4917ded80013b7c27911dc974bb827"
+    },
+    {
+      "path": "local/pre-edit-closure.log.gz",
+      "logicalBytes": 148,
+      "logicalSha256": "1d495d9677692a0b2f0d560afb87a90f6c01d0ed1251b1a4a6e1709f25c99017",
+      "bytes": 117,
+      "sha256": "589336187d2be036f03aa82f49a9d8c594f99840915d4ca25290e18b42d89145"
+    },
+    {
+      "path": "local/pre-edit-family-projection.log.gz",
+      "logicalBytes": 103,
+      "logicalSha256": "932ffe276562629a7f1b41a011173a050f39d5b3008b8aecf266e3da496eb024",
+      "bytes": 104,
+      "sha256": "c2318ddcb7667061c22f441dc6ebef32e7ae6a605fd71bdff67bb1938534f50c"
+    },
+    {
+      "path": "local/pre-edit-native-graph.log.gz",
+      "logicalBytes": 86,
+      "logicalSha256": "26fd729b5b6ecf323551eb6d5b5c86390e7c70cf57542f209741d9d09cc90e94",
+      "bytes": 95,
+      "sha256": "d632d78cec6831e269d587771510fd2a197487741517afcc5ff8cd2188d93e68"
+    },
+    {
+      "path": "local/script-tests-fresh.log.gz",
+      "logicalBytes": 69668,
+      "logicalSha256": "530fdc68cb4a405484bad4dba01bd9ac1e2d72cfa89006d05b03e7173eb9d842",
+      "bytes": 9450,
+      "sha256": "6c60d5a84c764aa07099c7fedcd617d459ded76ccaf284ad76f38459d60e6f74"
+    },
+    {
+      "path": "local/script-tests-writable-tmp.log.gz",
+      "logicalBytes": 51600,
+      "logicalSha256": "7c24cc0220ba8e27ef49e67c315375312ea447b2fb6efaed64b18584ea5f0bb6",
+      "bytes": 8404,
+      "sha256": "ce436232af14979c5e0a4378d7e4d0c6a7b85127b2b00dd2ae8ce732fcec3da6"
+    },
+    {
+      "path": "local/source-setup-failure.log.gz",
+      "logicalBytes": 1315,
+      "logicalSha256": "625aa54003b512fe603b6de2fd50674750fd18183350325962e4e3bbb01e10bd",
+      "bytes": 489,
+      "sha256": "51b9387d113636f7e7f68857c2bc98e87613a0be832f5ab8c38177e813ff4e44"
+    }
+  ]
+}

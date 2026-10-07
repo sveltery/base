@@ -33,6 +33,8 @@ jobs:
           package-manager-cache: false
       - name: Frozen workspace install
         run: bash scripts/bootstrap.sh
+      - name: Immutable Source and actual native Composite ref witnesses
+        run: node --conditions=browser --import ./scripts/composite-recovery-loader.mjs ./scripts/check-composite-recovery.mjs
       - name: Build actual library and check isolated public package
         run: |
           pnpm --filter @sveltery/base build

@@ -1,0 +1,345 @@
+[
+  {
+    "package": "@arethetypeswrong/cli",
+    "version": "0.18.5",
+    "missing": true
+  },
+  {
+    "owner": ".",
+    "package": "@arethetypeswrong/core",
+    "version": "0.18.5",
+    "linkedExisting": true
+  },
+  {
+    "package": "@eslint/js",
+    "version": "10.0.1",
+    "missing": true
+  },
+  {
+    "owner": ".",
+    "package": "@playwright/test",
+    "version": "1.63.0",
+    "linkedExisting": true
+  },
+  {
+    "package": "eslint",
+    "version": "10.11.0",
+    "missing": true
+  },
+  {
+    "owner": ".",
+    "package": "eslint-config-prettier",
+    "version": "10.1.8",
+    "linkedExisting": true
+  },
+  {
+    "package": "eslint-plugin-svelte",
+    "version": "3.23.0",
+    "missing": true
+  },
+  {
+    "owner": ".",
+    "package": "globals",
+    "version": "17.12.0",
+    "linkedExisting": true
+  },
+  {
+    "package": "prettier",
+    "version": "3.9.9",
+    "missing": true
+  },
+  {
+    "owner": ".",
+    "package": "prettier-plugin-svelte",
+    "version": "4.1.1",
+    "linkedExisting": true
+  },
+  {
+    "package": "publint",
+    "version": "0.3.25",
+    "missing": true
+  },
+  {
+    "owner": ".",
+    "package": "svelte",
+    "version": "5.57.1",
+    "linkedExisting": true
+  },
+  {
+    "owner": ".",
+    "package": "typescript",
+    "version": "6.0.3",
+    "linkedExisting": true
+  },
+  {
+    "owner": ".",
+    "package": "typescript-eslint",
+    "version": "8.71.0",
+    "linkedExisting": true
+  },
+  {
+    "owner": "packages/base",
+    "package": "@floating-ui/dom",
+    "version": "1.8.0",
+    "linkedExisting": true
+  },
+  {
+    "owner": "packages/base",
+    "package": "@floating-ui/utils",
+    "version": "0.2.12",
+    "linkedExisting": true
+  },
+  {
+    "owner": "packages/base",
+    "package": "esm-env",
+    "version": "1.2.2",
+    "linkedExisting": true
+  },
+  {
+    "package": "@sveltery/utils",
+    "version": "workspace:*",
+    "missing": true
+  },
+  {
+    "owner": "packages/base",
+    "package": "@sveltejs/adapter-auto",
+    "version": "8.0.0",
+    "linkedExisting": true
+  },
+  {
+    "owner": "packages/base",
+    "package": "@sveltejs/kit",
+    "version": "3.0.0",
+    "linkedExisting": true
+  },
+  {
+    "package": "@sveltejs/package",
+    "version": "3.0.0",
+    "missing": true
+  },
+  {
+    "package": "@sveltejs/vite-plugin-svelte",
+    "version": "7.3.1",
+    "ambiguousPresent": 2
+  },
+  {
+    "owner": "packages/base",
+    "package": "@types/jsdom",
+    "version": "30.0.0",
+    "linkedExisting": true
+  },
+  {
+    "owner": "packages/base",
+    "package": "@types/node",
+    "version": "24.19.1",
+    "linkedExisting": true
+  },
+  {
+    "owner": "packages/base",
+    "package": "@vitest/browser-playwright",
+    "version": "5.0.3",
+    "linkedExisting": true
+  },
+  {
+    "owner": "packages/base",
+    "package": "jsdom",
+    "version": "30.1.1",
+    "linkedExisting": true
+  },
+  {
+    "owner": "packages/base",
+    "package": "svelte",
+    "version": "5.57.1",
+    "linkedExisting": true
+  },
+  {
+    "owner": "packages/base",
+    "package": "svelte-check",
+    "version": "4.7.6",
+    "linkedExisting": true
+  },
+  {
+    "owner": "packages/base",
+    "package": "typescript",
+    "version": "6.0.3",
+    "linkedExisting": true
+  },
+  {
+    "package": "vite",
+    "version": "8.3.1",
+    "ambiguousPresent": 2
+  },
+  {
+    "package": "vitest-browser-svelte",
+    "version": "3.1.0",
+    "missing": true
+  },
+  {
+    "owner": "packages/base",
+    "package": "vitest",
+    "version": "5.0.3",
+    "linkedExisting": true
+  },
+  {
+    "owner": "packages/utils",
+    "package": "@floating-ui/utils",
+    "version": "0.2.12",
+    "linkedExisting": true
+  },
+  {
+    "owner": "packages/utils",
+    "package": "esm-env",
+    "version": "1.2.2",
+    "linkedExisting": true
+  },
+  {
+    "package": "@sveltejs/package",
+    "version": "3.0.0",
+    "missing": true
+  },
+  {
+    "package": "@sveltejs/vite-plugin-svelte",
+    "version": "7.3.1",
+    "ambiguousPresent": 2
+  },
+  {
+    "owner": "packages/utils",
+    "package": "@types/jsdom",
+    "version": "30.0.0",
+    "linkedExisting": true
+  },
+  {
+    "owner": "packages/utils",
+    "package": "@types/node",
+    "version": "24.19.1",
+    "linkedExisting": true
+  },
+  {
+    "owner": "packages/utils",
+    "package": "@vitest/browser-playwright",
+    "version": "5.0.3",
+    "linkedExisting": true
+  },
+  {
+    "owner": "packages/utils",
+    "package": "jsdom",
+    "version": "30.1.1",
+    "linkedExisting": true
+  },
+  {
+    "owner": "packages/utils",
+    "package": "svelte",
+    "version": "5.57.1",
+    "linkedExisting": true
+  },
+  {
+    "owner": "packages/utils",
+    "package": "svelte-check",
+    "version": "4.7.6",
+    "linkedExisting": true
+  },
+  {
+    "owner": "packages/utils",
+    "package": "typescript",
+    "version": "6.0.3",
+    "linkedExisting": true
+  },
+  {
+    "package": "vite",
+    "version": "8.3.1",
+    "ambiguousPresent": 2
+  },
+  {
+    "package": "vitest-browser-svelte",
+    "version": "3.1.0",
+    "missing": true
+  },
+  {
+    "owner": "packages/utils",
+    "package": "vitest",
+    "version": "5.0.3",
+    "linkedExisting": true
+  },
+  {
+    "package": "@sveltery/base",
+    "version": "workspace:*",
+    "missing": true
+  },
+  {
+    "package": "@sveltery/utils",
+    "version": "workspace:*",
+    "missing": true
+  },
+  {
+    "package": "@base-ui/react",
+    "version": "1.8.0",
+    "missing": true
+  },
+  {
+    "owner": "apps/fixtures",
+    "package": "@base-ui/utils",
+    "version": "0.4.0",
+    "linkedExisting": true
+  },
+  {
+    "owner": "apps/fixtures",
+    "package": "@sveltejs/adapter-auto",
+    "version": "7.0.1",
+    "linkedExisting": true
+  },
+  {
+    "package": "@sveltejs/kit",
+    "version": "2.70.3",
+    "missing": true
+  },
+  {
+    "package": "@sveltejs/vite-plugin-svelte",
+    "version": "7.3.1",
+    "ambiguousPresent": 2
+  },
+  {
+    "package": "@types/react",
+    "version": "19.2.18",
+    "missing": true
+  },
+  {
+    "owner": "apps/fixtures",
+    "package": "@types/react-dom",
+    "version": "19.2.4",
+    "linkedExisting": true
+  },
+  {
+    "owner": "apps/fixtures",
+    "package": "react",
+    "version": "19.2.8",
+    "linkedExisting": true
+  },
+  {
+    "package": "react-dom",
+    "version": "19.2.8",
+    "missing": true
+  },
+  {
+    "owner": "apps/fixtures",
+    "package": "svelte",
+    "version": "5.57.1",
+    "linkedExisting": true
+  },
+  {
+    "owner": "apps/fixtures",
+    "package": "svelte-check",
+    "version": "4.7.6",
+    "linkedExisting": true
+  },
+  {
+    "owner": "apps/fixtures",
+    "package": "typescript",
+    "version": "6.0.3",
+    "linkedExisting": true
+  },
+  {
+    "package": "vite",
+    "version": "8.3.1",
+    "ambiguousPresent": 2
+  }
+]

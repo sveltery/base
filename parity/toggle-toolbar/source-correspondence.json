@@ -5081,7 +5081,7 @@
         "packages/base/src/lib/internals/composite/item/CompositeItem.svelte": "7447799f42b23f8003e251196e03199f8d703b77fda61d6d3422e657f95a5319"
       },
       "localHashes": {
-        "packages/base/src/lib/internals/composite/item/CompositeItem.svelte": "23e78d87cbeb13db6e655c95b20f57d4dd19dfd16a91af90d73d954100be7797"
+        "packages/base/src/lib/internals/composite/item/CompositeItem.svelte": "abaa9365fe8b03a68fa3feb566f77c60d23c79031fceb7961fee34ad89327826"
       }
     },
     {
@@ -5158,7 +5158,7 @@
         "packages/base/src/lib/internals/composite/item/useCompositeItem.svelte.ts": "d0faf967447c35339c6ad06b8cc6218cf2002613844a4bdb7b1453fd5262afc3"
       },
       "localHashes": {
-        "packages/base/src/lib/internals/composite/item/useCompositeItem.svelte.ts": "d90708b23dde83c4381ea1085767ec30135307525c1ea9e5422e9879a522daad"
+        "packages/base/src/lib/internals/composite/item/useCompositeItem.svelte.ts": "e614d4979b857c2ea39092ce79a153399974fa81537286e697933ac4ea1fe604"
       }
     },
     {
@@ -5235,7 +5235,7 @@
         "packages/base/src/lib/internals/composite/list/createCompositeList.svelte.ts": "97758d379046d9f894997ae40ef7c6f59decf48fa0d985a2c1fb5f9f068ad016"
       },
       "localHashes": {
-        "packages/base/src/lib/internals/composite/list/createCompositeList.svelte.ts": "eb23334825782ebd6c5c2697f1aad75f6f557c1e387fa6ea0a78c276bfead975"
+        "packages/base/src/lib/internals/composite/list/createCompositeList.svelte.ts": "a253618ced977fdb4a961858d7550bf91e3bd686b0a8c9314deb84ee38c3a560"
       }
     },
     {
@@ -5309,7 +5309,7 @@
         "packages/base/src/lib/internals/composite/list/useCompositeListItem.svelte.ts": "42f4066c8d830385f942f66b216e1b263728f1615dbd7b11cfd3a79db7242400"
       },
       "localHashes": {
-        "packages/base/src/lib/internals/composite/list/useCompositeListItem.svelte.ts": "94d353c7d884b35bd002a9278a7701e7b1e835d536b8eb8a94f2a56d7fa72841"
+        "packages/base/src/lib/internals/composite/list/useCompositeListItem.svelte.ts": "68d88dec21b0b7ed25094f43d4939998b388f296c18cd388b1f4d33e9f3966fa"
       }
     },
     {
@@ -5466,7 +5466,7 @@
         "packages/base/src/lib/internals/composite/root/CompositeRoot.svelte": "5075468a96b01787b1789e48ee6dfecd178a7ec76ee7726c3a064b9cf663fe12"
       },
       "localHashes": {
-        "packages/base/src/lib/internals/composite/root/CompositeRoot.svelte": "29241d2982ea752a27d65c8c15cc9e3675efd2cfbc0917a4b112c5179c7d2e4e"
+        "packages/base/src/lib/internals/composite/root/CompositeRoot.svelte": "7553f59b1223d8f358c44f2fd67b5b2e9f0772adb15cf7444eedf8c36ced05a6"
       }
     },
     {
@@ -5793,7 +5793,7 @@
         "packages/base/src/lib/internals/composite/root/useCompositeRoot.svelte.ts": "8db12d19818afe6509addc02e10a55082126da9be7a40d03f9a8f62a6e6b5d78"
       },
       "localHashes": {
-        "packages/base/src/lib/internals/composite/root/useCompositeRoot.svelte.ts": "bdd6ced8bc2a28c77a2572b6b54eab7ad09ee111ddf2bcdbe777686f947c39b6"
+        "packages/base/src/lib/internals/composite/root/useCompositeRoot.svelte.ts": "1b056433974f5a0e3b51d18893f06aa7971779e046261d1ebcf2a2557b7a6aed"
       }
     },
     {
@@ -10052,7 +10052,7 @@
         "packages/utils/src/lib/useIsoLayoutEffect.svelte.ts": "0d24dd22dad18fc54341aaedb964a25829ae62322f10bf110a4fd8bde65dd1f3"
       },
       "localHashes": {
-        "packages/base/src/lib/internals/composite/list/useCompositeListItem.svelte.ts": "94d353c7d884b35bd002a9278a7701e7b1e835d536b8eb8a94f2a56d7fa72841",
+        "packages/base/src/lib/internals/composite/list/useCompositeListItem.svelte.ts": "68d88dec21b0b7ed25094f43d4939998b388f296c18cd388b1f4d33e9f3966fa",
         "packages/base/src/lib/internals/use-button/useButton.svelte.ts": "48750528371fbf08dd09478dd7fb8e2a2b9a19494bf1e779610e5b90668e16d0"
       },
       "nativeReplacement": "Direct SSR-safe Svelte $effect at all 123 used runtime calls; actual native reads and cleanup, no dependency arrays or tuple/lifecycle cache.",
@@ -10197,7 +10197,7 @@
         "packages/utils/src/lib/useStableCallback.ts": "b790a02da99e0e9365bc05d35a434ef37dcffb2a4db8186b1327b949a994d05e"
       },
       "localHashes": {
-        "packages/base/src/lib/internals/composite/root/useCompositeRoot.svelte.ts": "bdd6ced8bc2a28c77a2572b6b54eab7ad09ee111ddf2bcdbe777686f947c39b6",
+        "packages/base/src/lib/internals/composite/root/useCompositeRoot.svelte.ts": "1b056433974f5a0e3b51d18893f06aa7971779e046261d1ebcf2a2557b7a6aed",
         "packages/base/src/lib/internals/use-button/useButton.svelte.ts": "48750528371fbf08dd09478dd7fb8e2a2b9a19494bf1e779610e5b90668e16d0",
         "packages/base/src/lib/toggle-group/ToggleGroup.svelte": "1ee580381ce6ba31528bfcccf1a8826b4dc8eafcb079c4f8a8b8594bf1f47931"
       },
@@ -10406,7 +10406,7 @@
     },
     {
       "local": "packages/base/src/lib/internals/nativeProps.ts",
-      "sha256": "f081bf825f41a64924fe298108e148ac56314d02074c588cc1f9324ff6a92cc5",
+      "sha256": "d815afcfdacace885ce9a74f568d2e0dcb167e72003372cd2f398603f2cacd5a",
       "correspondence": "Svelte native ClassValue/CSS/attachment prop representation selected by canonical renderer."
     },
     {

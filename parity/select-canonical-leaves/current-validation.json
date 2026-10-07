@@ -1,0 +1,121 @@
+{
+  "integratedMain": "aa4daff54ec82b96e34e1601648d1b3926ef08cf",
+  "sourcePin": "47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c",
+  "scope": "draft diagnostic candidate, not final gate acceptance",
+  "cleanMainDiagnosis": {
+    "result": "pass",
+    "command": "bash scripts/bootstrap.sh on untouched detached aa4daff5 with writable pinned shared cache paths",
+    "packageBuilds": "Base and Utils builds and strict publint passed",
+    "obsoleteConfig": "not reproduced on clean actual main or clean candidate; initial stale checkout held untracked predecessor files. No shared tooling change."
+  },
+  "cleanCandidateBootstrap": {
+    "result": "pass",
+    "command": "bash scripts/bootstrap.sh with shared writable pinned caches"
+  },
+  "focusedServer": {
+    "result": "pass",
+    "files": 4,
+    "executions": 42,
+    "copiedOriginalHelperExecutions": 33,
+    "helperSupplements": 7,
+    "ssrSupplements": 2
+  },
+  "focusedDOM": {
+    "result": "pass",
+    "files": 1,
+    "nativeSupplements": 4
+  },
+  "standards": {
+    "firstResult": "failed: three prerequisite test files needed formatting",
+    "formatRepair": "mandatory Prettier formatting; full complete test AST equality preserved in current-assertion-format-proof.json",
+    "successorResult": "incomplete: Prettier passed; global ESLint interrupted (exit130), no standards pass claimed",
+    "successorExecution74c": {
+      "result": "failed: Prettier passed; ESLint exhausted 768MB heap, exit134",
+      "receipt": "browser-path-predecessor/standards-74c.log.gz"
+    }
+  },
+  "fullVerification": {
+    "result": "failed at mandatory script stage: 81/86 passed, five toolchain tests failed because temporary test PATH could not launch node",
+    "baseline": "all five toolchain tests reproduce unchanged on untouched main aa4daff5 in this host",
+    "remainingStages": "incomplete; feasible stages and hosted exact-head results reported externally. No source/tooling bypass."
+  },
+  "packedStrictTypesSSRHydration": {
+    "result": "strict declaration check passed: 0 errors, 0 warnings; SSR passed; 15 server/DOM/hydration tests passed",
+    "strict": true,
+    "exactOptionalPropertyTypes": true,
+    "skipLibCheck": false,
+    "receipt": "strict-types-predecessor/private-consumer-final-local.log.gz",
+    "negativeAssertions": "retained; diagnostic comments moved to rejected properties",
+    "authorizedEmptyStyleSuccessor": {
+      "result": "Fresh actual Base/Utils installed consumer: strict0errors0warnings, SSRpass,15server/DOM/hydrationpass; secured browser0tests, missing official executable locally.",
+      "nativePropsSha256": "d815afcfdacace885ce9a74f568d2e0dcb167e72003372cd2f398603f2cacd5a",
+      "baseArchiveSha256": "8cf4bc91ba05928f8856764f0f353ab131257aa779307943365e00cc0a60a350",
+      "utilsArchiveSha256": "7e4f31b6939499af11fbad0375be4e2d164144969936547bcd95d15390450ac2",
+      "receipt": "empty-style-successor/installed-consumer-receipt.json",
+      "finalReviewAndHostedCI": "pending exact pushed successor SHA"
+    }
+  },
+  "securedBrowser": {
+    "result": "incomplete: zero browser tests executed; official Chromium executable missing locally",
+    "runnerRepair": "isolated installed tooling and absolute physical dist imports remove predecessor dependency-scan errors",
+    "officialInstall": "workspace TMPDIR retry failed with empty invalid archive",
+    "sandbox": true,
+    "workers": 1,
+    "retries": 0,
+    "hosted74c": {
+      "result": "incomplete: zero browser tests executed; browser installed successfully but looked up under a different XDG cache",
+      "receipt": "browser-path-predecessor/hosted-112501830510.log.gz",
+      "workflowRepair": "Job-level PLAYWRIGHT_BROWSERS_PATH shared by official installer and actual installed runner; sandbox true/one worker/zero retries unchanged."
+    },
+    "authorizedEmptyStyleSuccessor": {
+      "result": "incomplete: zero browser tests; official Chromium executable missing locally",
+      "receipt": "empty-style-successor/private-consumer-native-style.log.gz"
+    }
+  },
+  "independentReview": "Exact74c437a9 entire77-file change and complete16-native-module/24-Original-module closure reviewed for Source fidelity, native Svelte and maintainability. Subsequent measured empty-style deviation received explicit lead authorization for the narrow canonical nativeProps repair; successor helper hash d815afcfdacace885ce9a74f568d2e0dcb167e72003372cd2f398603f2cacd5a retains native empty public strings. Reachable selected declarations and business dependencies were covered; unrelated exported declarations are not claimed fully reviewed. Final pushed successor review of the entire affected closure remains pending.",
+  "configuredReview": "74c437a9 review6025513486 completed without major issues or quota exhaustion; final successor exact-head review pending.",
+  "hostedCI": "74c437a9 private job112501830510 passed immutable closure, build, packed strict types0errors0warnings, SSR and15server/DOM/hydration; failed before browser tests because installer and runner browser caches diverged. Standards job112502438088 failed git whitespace on raw historical logs/paragraph. Lossless receipt packaging and scoped explicit browser path proposed; successor hosted acceptance pending.",
+  "ordinarySelectDeclarationCredit": 0,
+  "logReceipts": [
+    {
+      "log": "bootstrap-current.log",
+      "sha256": "e73e937e00ccc4f2a9c7d28c5f29ded874322318814b806f47fe0773d3005a7d",
+      "bytes": 2335
+    },
+    {
+      "log": "clean-bootstrap-shared-cache.log",
+      "sha256": "0aa7df5f86ace0de34b18d61bbf496d3d2fa4e7b63403f1fc5a7c7859edf815c",
+      "bytes": 1570
+    },
+    {
+      "log": "main-bootstrap.log",
+      "sha256": "eac884f18a7566524a3dcc7eac71056d67e39e85aeef1830132bc920fa1cca54",
+      "bytes": 1928
+    },
+    {
+      "log": "standards.log",
+      "sha256": "fdd76fc4d0fa3a5dde8105298b5ab17c3b8fab156509d70ef2e5f461a274732d",
+      "bytes": 60
+    },
+    {
+      "log": "clean-standards.log",
+      "sha256": "3d8570dce69f3616fa3e4a7a3e7315bfa973fa1129b64762585d0602e733f9b5",
+      "bytes": 362
+    },
+    {
+      "log": "clean-standards-final.log",
+      "sha256": "899f899c4056a64c8cf29ca9089dfe6821ca8521061c59efd32e7296da4df97f",
+      "bytes": 99
+    },
+    {
+      "log": "select-server.log",
+      "sha256": "98dab09d2dffb628199384e331b44701daaf2419a07b1b87ca177bfee8d3e7f4",
+      "bytes": 476
+    },
+    {
+      "log": "select-dom.log",
+      "sha256": "38890aaecdd12f56d4efd6e971346bbb420e53655d87f747d37c679d40e63e51",
+      "bytes": 476
+    }
+  ]
+}

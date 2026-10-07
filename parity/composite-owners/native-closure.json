@@ -367,6 +367,26 @@
       "text": "import type { CompositeMetadata } from '../../src/lib/internals/composite/list/CompositeListContext.js';"
     },
     {
+      "file": "packages/base/tests/dom/CompositeRefRecoveryFixture.svelte",
+      "line": 3,
+      "text": "import { createCompositeList } from '../../src/lib/internals/composite/list/createCompositeList.svelte.js';"
+    },
+    {
+      "file": "packages/base/tests/dom/CompositeRefRecoveryFixture.svelte",
+      "line": 15,
+      "text": "new createCompositeList(() => ({"
+    },
+    {
+      "file": "packages/base/tests/dom/CompositeRefRecoveryItem.svelte",
+      "line": 3,
+      "text": "import { useCompositeListItem } from '../../src/lib/internals/composite/list/useCompositeListItem.svelte.js';"
+    },
+    {
+      "file": "packages/base/tests/dom/CompositeRefRecoveryItem.svelte",
+      "line": 6,
+      "text": "const item = new useCompositeListItem(() => ({ label: id, metadata }));"
+    },
+    {
       "file": "packages/base/tests/dom/NativeCallbackPublicationFixture.svelte",
       "line": 6,
       "text": "import CompositeRoot from '../../src/lib/internals/composite/root/CompositeRoot.svelte';"
@@ -402,9 +422,79 @@
       "text": "} from '../../src/lib/internals/composite/utils/navigation.js';"
     },
     {
+      "file": "scripts/check-composite-recovery.mjs",
+      "line": 84,
+      "text": "await import('../parity/composite-owners/recovery/original/packages/react/src/internals/composite/list/CompositeList.tsx');"
+    },
+    {
+      "file": "scripts/check-composite-recovery.mjs",
+      "line": 85,
+      "text": "const { useCompositeListItem } ="
+    },
+    {
+      "file": "scripts/check-composite-recovery.mjs",
+      "line": 86,
+      "text": "await import('../parity/composite-owners/recovery/original/packages/react/src/internals/composite/list/useCompositeListItem.ts');"
+    },
+    {
+      "file": "scripts/check-composite-recovery.mjs",
+      "line": 163,
+      "text": "'useCompositeListItem',"
+    },
+    {
+      "file": "scripts/check-composite-recovery.mjs",
+      "line": 174,
+      "text": "useCompositeListItem,"
+    },
+    {
       "file": "scripts/check-native-snippet-integration.mjs",
-      "line": 29,
+      "line": 30,
       "text": "'packages/base/src/lib/internals/composite/item/CompositeItem.svelte',"
+    },
+    {
+      "file": "scripts/check-native-snippet-integration.mjs",
+      "line": 641,
+      "text": "'internals/composite/item/CompositeItem.svelte',"
+    },
+    {
+      "file": "scripts/check-native-snippet-integration.mjs",
+      "line": 642,
+      "text": "'internals/composite/item/useCompositeItem.svelte.ts',"
+    },
+    {
+      "file": "scripts/check-native-snippet-integration.mjs",
+      "line": 643,
+      "text": "'internals/composite/list/createCompositeList.svelte.ts',"
+    },
+    {
+      "file": "scripts/check-native-snippet-integration.mjs",
+      "line": 644,
+      "text": "'internals/composite/list/useCompositeListItem.svelte.ts',"
+    },
+    {
+      "file": "scripts/check-native-snippet-integration.mjs",
+      "line": 645,
+      "text": "'internals/composite/root/CompositeRoot.svelte',"
+    },
+    {
+      "file": "scripts/check-native-snippet-integration.mjs",
+      "line": 646,
+      "text": "'internals/composite/root/useCompositeRoot.svelte.ts',"
+    },
+    {
+      "file": "scripts/check-native-snippet-integration.mjs",
+      "line": 656,
+      "text": "'packages/base/src/lib/internals/composite/list/createCompositeList.svelte.ts';"
+    },
+    {
+      "file": "scripts/composite-recovery-loader.mjs",
+      "line": 51,
+      "text": "path.endsWith('/internals/composite/list/createCompositeList.svelte.ts')"
+    },
+    {
+      "file": "scripts/composite-recovery-loader.mjs",
+      "line": 55,
+      "text": "'../parity/composite-owners/recovery/public2626-createCompositeList.svelte.ts.txt',"
     }
   ],
   "ownerModules": [
@@ -673,7 +763,7 @@
     },
     {
       "local": "packages/base/src/lib/internals/composite/list/createCompositeList.svelte.ts",
-      "sha256": "71f38c19bcb64f4443f76d533a583cebe826c896a1b22cac6c462c7bcbce07b5",
+      "sha256": "a253618ced977fdb4a961858d7550bf91e3bd686b0a8c9314deb84ee38c3a560",
       "imports": [
         {
           "specifier": "svelte",
@@ -1330,7 +1420,7 @@
     },
     {
       "local": "packages/base/src/lib/internals/nativeProps.ts",
-      "sha256": "f081bf825f41a64924fe298108e148ac56314d02074c588cc1f9324ff6a92cc5",
+      "sha256": "d815afcfdacace885ce9a74f568d2e0dcb167e72003372cd2f398603f2cacd5a",
       "imports": [
         {
           "specifier": "svelte/elements",
@@ -7545,7 +7635,7 @@
     },
     {
       "local": "packages/base/src/lib/internals/composite/list/createCompositeList.svelte.ts",
-      "sha256": "71f38c19bcb64f4443f76d533a583cebe826c896a1b22cac6c462c7bcbce07b5",
+      "sha256": "a253618ced977fdb4a961858d7550bf91e3bd686b0a8c9314deb84ee38c3a560",
       "imports": [
         {
           "specifier": "svelte",
@@ -8820,7 +8910,7 @@
     },
     {
       "local": "packages/base/src/lib/internals/nativeProps.ts",
-      "sha256": "f081bf825f41a64924fe298108e148ac56314d02074c588cc1f9324ff6a92cc5",
+      "sha256": "d815afcfdacace885ce9a74f568d2e0dcb167e72003372cd2f398603f2cacd5a",
       "imports": [
         {
           "specifier": "svelte/elements",

@@ -5566,7 +5566,7 @@
     },
     {
       "source": "packages/base/src/lib/internals/composite/list/createCompositeList.svelte.ts",
-      "sha256": "71f38c19bcb64f4443f76d533a583cebe826c896a1b22cac6c462c7bcbce07b5",
+      "sha256": "a253618ced977fdb4a961858d7550bf91e3bd686b0a8c9314deb84ee38c3a560",
       "imports": [
         {
           "specifier": "svelte",
@@ -6098,7 +6098,7 @@
     },
     {
       "source": "packages/base/src/lib/internals/nativeProps.ts",
-      "sha256": "f081bf825f41a64924fe298108e148ac56314d02074c588cc1f9324ff6a92cc5",
+      "sha256": "d815afcfdacace885ce9a74f568d2e0dcb167e72003372cd2f398603f2cacd5a",
       "imports": [
         {
           "specifier": "svelte/elements",

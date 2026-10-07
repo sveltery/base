@@ -603,12 +603,14 @@
       "previousCallHashes": [
         "6a002d28fbc45e7323d5f4e9464a0ec85fdafd1015cf76f7c7b1107844bde754"
       ],
-      "currentFileSha256": "94d353c7d884b35bd002a9278a7701e7b1e835d536b8eb8a94f2a56d7fa72841",
+      "currentFileSha256": "68d88dec21b0b7ed25094f43d4939998b388f296c18cd388b1f4d33e9f3966fa",
       "currentOwners": [
         {
           "path": "packages/base/src/lib/internals/composite/list/useCompositeListItem.svelte.ts",
-          "sha256": "94d353c7d884b35bd002a9278a7701e7b1e835d536b8eb8a94f2a56d7fa72841",
-          "classes": []
+          "sha256": "68d88dec21b0b7ed25094f43d4939998b388f296c18cd388b1f4d33e9f3966fa",
+          "classes": [
+            "useCompositeListItem"
+          ]
         }
       ]
     },
@@ -620,12 +622,14 @@
       "previousCallHashes": [
         "6c2957b3338b6b95251b94e0714142d6a7529297754cd6e13e38e129aba41ddf"
       ],
-      "currentFileSha256": "bdd6ced8bc2a28c77a2572b6b54eab7ad09ee111ddf2bcdbe777686f947c39b6",
+      "currentFileSha256": "1b056433974f5a0e3b51d18893f06aa7971779e046261d1ebcf2a2557b7a6aed",
       "currentOwners": [
         {
           "path": "packages/base/src/lib/internals/composite/root/useCompositeRoot.svelte.ts",
-          "sha256": "bdd6ced8bc2a28c77a2572b6b54eab7ad09ee111ddf2bcdbe777686f947c39b6",
-          "classes": []
+          "sha256": "1b056433974f5a0e3b51d18893f06aa7971779e046261d1ebcf2a2557b7a6aed",
+          "classes": [
+            "useCompositeRoot"
+          ]
         }
       ]
     },
@@ -830,11 +834,11 @@
       "previousCallHashes": [
         "721feaac010dcd6349db3909ecd3784fd6f9f3de924be98d40589dec6701ddd5"
       ],
-      "currentFileSha256": "3db96f6be4c7fe6cc2da6a5db1a2581c0175c0461a2e35a22e1aea78e58d4cfe",
+      "currentFileSha256": "4d38de3943e120400b767a7df2c657c84ea06a28b90f523cceb7fbfc814497bd",
       "currentOwners": [
         {
           "path": "packages/base/src/lib/menu/CheckboxItem.svelte",
-          "sha256": "3db96f6be4c7fe6cc2da6a5db1a2581c0175c0461a2e35a22e1aea78e58d4cfe",
+          "sha256": "4d38de3943e120400b767a7df2c657c84ea06a28b90f523cceb7fbfc814497bd",
           "classes": []
         }
       ]
@@ -955,11 +959,11 @@
         "43f512e73b349aa952636c0e5c89c17a3fb403271963b3ce0b367c8c158437d9",
         "703c7b4dd6566a1889c36d61ad021da24f8e2ce5ad34a77dd4281ffff6183929"
       ],
-      "currentFileSha256": "3bdb83ab95cdfbe5ba3066f17bbd04c60915ba5e887e486db27f6484c4105691",
+      "currentFileSha256": "d6f407d96f668b3f2fbec1d4d5ba1b32e15fd3f092389f4c4e97b43b2946849c",
       "currentOwners": [
         {
           "path": "packages/base/src/lib/menu/submenu-trigger/createMenuSubmenuTrigger.svelte.ts",
-          "sha256": "3bdb83ab95cdfbe5ba3066f17bbd04c60915ba5e887e486db27f6484c4105691",
+          "sha256": "d6f407d96f668b3f2fbec1d4d5ba1b32e15fd3f092389f4c4e97b43b2946849c",
           "classes": []
         }
       ]

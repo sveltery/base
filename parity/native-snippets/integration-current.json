@@ -68,6 +68,37 @@
     "packages/base/src/lib/internals/nativeProps.ts",
     "packages/base/src/lib/toast/types.ts"
   ],
+  "emptyStylePredecessor": "74c437a9a337a26fd808f44f6fa36f7d7542385b",
+  "emptyStyleAstPreservedBodies": 495,
+  "emptyStyleUnchangedBodies": 495,
+  "emptyStyleCorrectionBodies": 1,
+  "sourceNativeEmptyStyleCorrectionPaths": [
+    "packages/base/src/lib/internals/nativeProps.ts"
+  ],
+  "compositeRecoveryStage": {
+    "predecessor": "abe8aa9b66ab8cd8d83dfdac28ebee94a0655f79",
+    "representation": "2626b3793f6b877d9d79094cfeb6e2bc3a8535ce",
+    "retainedRepresentationBodies": 11,
+    "recoveredListBytes": 8694,
+    "recoveredListSha256": "a253618ced977fdb4a961858d7550bf91e3bd686b0a8c9314deb84ee38c3a560",
+    "unchangedBodiesFromMain": 484,
+    "paths": [
+      "packages/base/src/lib/internals/composite/item/CompositeItem.svelte",
+      "packages/base/src/lib/internals/composite/item/useCompositeItem.svelte.ts",
+      "packages/base/src/lib/internals/composite/list/createCompositeList.svelte.ts",
+      "packages/base/src/lib/internals/composite/list/useCompositeListItem.svelte.ts",
+      "packages/base/src/lib/internals/composite/root/CompositeRoot.svelte",
+      "packages/base/src/lib/internals/composite/root/useCompositeRoot.svelte.ts",
+      "packages/base/src/lib/menu/CheckboxItem.svelte",
+      "packages/base/src/lib/menu/Item.svelte",
+      "packages/base/src/lib/menu/LinkItem.svelte",
+      "packages/base/src/lib/menu/Positioner.svelte",
+      "packages/base/src/lib/menu/RadioItem.svelte",
+      "packages/base/src/lib/menu/submenu-trigger/createMenuSubmenuTrigger.svelte.ts"
+    ],
+    "credit": "Historical stage counts use immutable main bodies; actual current graph hashes, ASTs and effect counts use final bodies. No behavioral or unchanged Original assertion credit."
+  },
+  "privateLeafScope": "This proof covers the 496 public-main closure modules only. The four private Select prerequisite modules are separately recorded in the 16-module current-main leaf graph; no coverage or acceptance is inferred for them.",
   "sourceHostBusinessLifetimeCorrectionPaths": [
     "packages/base/src/lib/internals/use-button/useButton.svelte.ts",
     "packages/base/src/lib/menu/submenu-trigger/createMenuSubmenuTrigger.svelte.ts",
@@ -88,16 +119,16 @@
   "immutableOriginalPin": "47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c",
   "ordinaryDeclarationCredit": 0,
   "mode": "Source/parser/hash/import evidence only; no type program, runtime, SSR/hydration, compiled markup, artifact, installed consumer, browser, CI or merge acceptance credit.",
-  "method": "Complete current native two-package AST closure, immutable f0 full-body preimages and grouping-preserving script ASTs. Deliberate source/native owner corrections remain separate from formatter presentation changes. Getter/label publication retain exact inherited bodies; full-body Menu cleanup deltas bind e5, captured focus metadata binds42, trigger publication bindsf2, and native ownership comments bind336 with its AST unchanged. The five native node/initial-seed/focus-out disposal owner deltas bindc392 while all earlier stages/history remain distinct. The subsequent 32 obsolete binding directives and one RadioGroup output-binding annotation bind 0d with all 496 complete bodies otherwise unchanged and every script AST identical. The next native initial-focus destroyed-owner predicate and adjacent timing comment bind ec36 as one complete Source-body delta; all other 495 current bodies/ASTs stay exact. This native owner adaptation earns zero unchanged Original credit. The subsequent real Popover trigger focus-target node property binds 0ba as one complete Source-body delta with 495 other current bodies/ASTs exact; earlier stages retain their own immutable preservation counts. The next ten intrinsic button fallback defaults bind d5 as exact literal attributes before props spread; all 496 script ASTs and 486 other full bodies remain unchanged. Custom render branches and merged props remain untouched. The Original fallback default is expressed as native host markup with no shared renderer or new assertion credit. The subsequent ten native declaration/producer contract repairs bind c0 as exact complete-body transforms; the other 486 bodies and script ASTs remain exact. Seven declaration paths, a ToastClose rune-collision identifier rename and two known appearance producers retain their existing business and handler composition. Type/runtime acceptance remains pending. The next three native host-business lifetime deltas bind c04 as exact complete bodies: an ordinary getter over the actual button node, Toolbar captured-host cleanup and narrow submenu imperative item/implicit-active publication. The other 493 current bodies/ASTs are exact, and prior c0/d5 preservation counts remain historical. Disabled/prop/event algorithms, tracked list acquisition and independent migration/closeDelay effects remain. Parse success supplies no behavior equivalence. The next single Positioner imperative publication/cleanup boundary binds the full d390 preimage; the other 495 complete bodies/ASTs stay exact, while all earlier historical stage counts remain unchanged. Actual context Store and host acquisition, pinned parent subscription, synchronous callback order and live positioning/effects remain. This source proof grants no runtime-cause, pass or unchanged Original assertion credit. The subsequent two reviewed Field business repairs bind the complete acde preimages: own supplied-child presence controls Error content and a live imperative message-ID resource publishes through native raw state. Only those exact reviewed spans change; the other 494 complete bodies and script ASTs stay exact. The d390 Menu boundary and every earlier preservation count remain historical. Original inventory/correspondence hashes and all existing Field witness bodies remain unchanged, with zero new declaration or execution credit. The next one-body Collapsible Panel stage binds the complete coherent Field predecessor with 495 other bodies and grouping-preserving script ASTs exact. Accepted-beforematch motion becomes actual-host/open-cycle native state and derived zero-duration markup; close resolves live authored duration. The acde-to-Field two-body 494 stage and d390-to-acde Menu 495 stage remain historical. Detached native markup and consumer important/custom-host overrides are intentional native boundaries with zero divergent unchanged Original credit. Separate favicon and supplemental assertion edits are non-runtime metadata; Source proof grants no successor execution or acceptance credit. The subsequent four-body native public style type/import stage binds the complete 4aa predecessor, preserving all 492 other complete bodies and grouping-preserving script ASTs. The historical one-Panel 495, two-Field 494 and Menu 495 stages are frozen against their exact predecessor/successor bodies rather than rewritten for current declarations. Canonical NativeStyle derives Svelte CSS string/null/undefined, and legacy Dialog/Avatar/Toast reuse the same state-specific style slot. Internal style records, pure serialization and merge/identity function bodies remain; no runtime guard or object-business rewrite is introduced. Earlier authored public object-style API and prior receipts stay historical; this declaration correction earns zero divergent unchanged Original credit and no type/runtime/artifact/acceptance credit before actual gates.",
+  "method": "Complete current native two-package AST closure, immutable f0 full-body preimages and grouping-preserving script ASTs. Deliberate source/native owner corrections remain separate from formatter presentation changes. Getter/label publication retain exact inherited bodies; full-body Menu cleanup deltas bind e5, captured focus metadata binds42, trigger publication bindsf2, and native ownership comments bind336 with its AST unchanged. The five native node/initial-seed/focus-out disposal owner deltas bindc392 while all earlier stages/history remain distinct. The subsequent 32 obsolete binding directives and one RadioGroup output-binding annotation bind 0d with all 496 complete bodies otherwise unchanged and every script AST identical. The next native initial-focus destroyed-owner predicate and adjacent timing comment bind ec36 as one complete Source-body delta; all other 495 current bodies/ASTs stay exact. This native owner adaptation earns zero unchanged Original credit. The subsequent real Popover trigger focus-target node property binds 0ba as one complete Source-body delta with 495 other current bodies/ASTs exact; earlier stages retain their own immutable preservation counts. The next ten intrinsic button fallback defaults bind d5 as exact literal attributes before props spread; all 496 script ASTs and 486 other full bodies remain unchanged. Custom render branches and merged props remain untouched. The Original fallback default is expressed as native host markup with no shared renderer or new assertion credit. The subsequent ten native declaration/producer contract repairs bind c0 as exact complete-body transforms; the other 486 bodies and script ASTs remain exact. Seven declaration paths, a ToastClose rune-collision identifier rename and two known appearance producers retain their existing business and handler composition. Type/runtime acceptance remains pending. The next three native host-business lifetime deltas bind c04 as exact complete bodies: an ordinary getter over the actual button node, Toolbar captured-host cleanup and narrow submenu imperative item/implicit-active publication. The other 493 current bodies/ASTs are exact, and prior c0/d5 preservation counts remain historical. Disabled/prop/event algorithms, tracked list acquisition and independent migration/closeDelay effects remain. Parse success supplies no behavior equivalence. The next single Positioner imperative publication/cleanup boundary binds the full d390 preimage; the other 495 complete bodies/ASTs stay exact, while all earlier historical stage counts remain unchanged. Actual context Store and host acquisition, pinned parent subscription, synchronous callback order and live positioning/effects remain. This source proof grants no runtime-cause, pass or unchanged Original assertion credit. The subsequent two reviewed Field business repairs bind the complete acde preimages: own supplied-child presence controls Error content and a live imperative message-ID resource publishes through native raw state. Only those exact reviewed spans change; the other 494 complete bodies and script ASTs stay exact. The d390 Menu boundary and every earlier preservation count remain historical. Original inventory/correspondence hashes and all existing Field witness bodies remain unchanged, with zero new declaration or execution credit. The next one-body Collapsible Panel stage binds the complete coherent Field predecessor with 495 other bodies and grouping-preserving script ASTs exact. Accepted-beforematch motion becomes actual-host/open-cycle native state and derived zero-duration markup; close resolves live authored duration. The acde-to-Field two-body 494 stage and d390-to-acde Menu 495 stage remain historical. Detached native markup and consumer important/custom-host overrides are intentional native boundaries with zero divergent unchanged Original credit. Separate favicon and supplemental assertion edits are non-runtime metadata; Source proof grants no successor execution or acceptance credit. The subsequent four-body native public style type/import stage binds the complete 4aa predecessor, preserving all 492 other complete bodies and grouping-preserving script ASTs. The historical one-Panel 495, two-Field 494 and Menu 495 stages are frozen against their exact predecessor/successor bodies rather than rewritten for current declarations. Canonical NativeStyle derives Svelte CSS string/null/undefined, and legacy Dialog/Avatar/Toast reuse the same state-specific style slot. Internal style records, pure serialization and merge/identity function bodies remain; no runtime guard or object-business rewrite is introduced. Earlier authored public object-style API and prior receipts stay historical; this declaration correction earns zero divergent unchanged Original credit and no type/runtime/artifact/acceptance credit before actual gates. The next measured native empty-string stage binds the complete immutable 74c437a9 predecessor: only nativeProps changes its two existing guard lines, while 495 other complete bodies and grouping-preserving script ASTs remain exact. Every historical stage endpoint and count remains frozen. Public native empty strings now pass through; all non-string business remains. This grants zero divergent unchanged Original credit and no runtime/browser/CI acceptance. Four private Select leaf modules remain outside this 496-module public proof.",
   "parserVersions": {
     "TypeScript": "6.0.3",
     "Svelte": "5.57.1"
   },
-  "currentGraphSha256": "0155da90b856ac651ef8aebc1cbb4929e1515cda91651ced754c4cb7c20acf87",
-  "currentPublicHostGraphSha256": "5dfb01f21528cd00ea215a2ea027ee04187f9e3da98f9d68333a3deae9385d2c",
-  "proofToolSha256": "3e2d07e35745fed9ee4bae6481f44eaa52078d2034a04eee041f1a763f87a15e",
+  "currentGraphSha256": "cb5780f04182610d540092accb55089e71edd2f676c5dd35c514868a42de6c7e",
+  "currentPublicHostGraphSha256": "5017890a86f08c8597638767143aa49fca8195008d38900c4fdeaf7bc3f95817",
+  "proofToolSha256": "bc127a5b5eaf3d470b1b24c5c1a96d44e2aeb39f74a903d79e4ce9ada17bdcf7",
   "controlledOwners": 11,
-  "effectCalls": 187,
+  "effectCalls": 188,
   "sourceBusinessCorrectionPaths": [
     "packages/base/src/lib/collapsible/Panel.svelte",
     "packages/base/src/lib/dialog/store/DialogStore.svelte.ts",
@@ -2616,22 +2647,53 @@
     {
       "path": "packages/base/src/lib/internals/composite/item/CompositeItem.svelte",
       "rendererSha256": "504019a96565afea85c1b178fce5267fa3508b95ffbcb8690f36589b4951e9ff",
-      "currentSha256": "23e78d87cbeb13db6e655c95b20f57d4dd19dfd16a91af90d73d954100be7797",
-      "scriptStructuralAstEqual": true,
+      "currentSha256": "abaa9365fe8b03a68fa3feb566f77c60d23c79031fceb7961fee34ad89327826",
+      "scriptStructuralAstEqual": false,
+      "historicalAcceptedMainSha256": "23e78d87cbeb13db6e655c95b20f57d4dd19dfd16a91af90d73d954100be7797",
+      "historicalAcceptedMainScriptStructuralAstEqual": true,
+      "sourceCanonicalCompositeRecovery": true,
+      "sourceCanonicalCompositePredecessor": "abe8aa9b66ab8cd8d83dfdac28ebee94a0655f79",
+      "sourceCanonicalCompositeRepresentation": "2626b3793f6b877d9d79094cfeb6e2bc3a8535ce",
+      "exactAuthorizedCompleteBodyDelta": true,
+      "ordinaryDeclarationCredit": 0,
       "sourceSyntaxValid": true,
-      "disposition": "Complete structural script AST retained; full native markup/compiled-output behavior remains separately pending. Native intrinsic fallback restores the pinned non-submit default with literal type=\"button\" before props spread; script AST and custom snippet props are unchanged. Execution pending.",
+      "disposition": "Exact public reviewed four canonical persistent classes and constructor callers, with the immutable recovered List ref-lifetime body. Earlier proof stages stay frozen at accepted abe8 main; actual final body hash, parsed AST and effect/class counters are current. Source199/map-array witnesses and final runtime acceptance remain mandatory; zero Original credit.",
       "sourceHostDefaultCorrection": true,
       "sourceHostDefaultPredecessor": "d5fabc8d389c7514b0459737d894b00e3618a988",
       "sourceHostDefaultPredecessorSha256": "2f74c7d54df5fa6b0d31ed37518d070a343e8005fd82226a2e6eda0ec4dba0eb",
-      "exactAuthorizedCompleteBodyDelta": true
+      "structuralDifferences": [
+        {
+          "path": "source.FirstStatement[7].VariableDeclarationList[0].VariableDeclaration[0].CallExpression[1]",
+          "beforeKind": "CallExpression",
+          "afterKind": "NewExpression",
+          "before": "useCompositeItem(() => ({ metadata }))",
+          "after": "new useCompositeItem(() => ({ metadata }))"
+        }
+      ]
     },
     {
       "path": "packages/base/src/lib/internals/composite/item/useCompositeItem.svelte.ts",
       "rendererSha256": "c699cfa82e8ea2a8c0a8912f1b02f9af2f4aaf841284048d1083ce644bddbc57",
-      "currentSha256": "d90708b23dde83c4381ea1085767ec30135307525c1ea9e5422e9879a522daad",
-      "scriptStructuralAstEqual": true,
+      "currentSha256": "e614d4979b857c2ea39092ce79a153399974fa81537286e697933ac4ea1fe604",
+      "scriptStructuralAstEqual": false,
+      "historicalAcceptedMainSha256": "d90708b23dde83c4381ea1085767ec30135307525c1ea9e5422e9879a522daad",
+      "historicalAcceptedMainScriptStructuralAstEqual": true,
+      "sourceCanonicalCompositeRecovery": true,
+      "sourceCanonicalCompositePredecessor": "abe8aa9b66ab8cd8d83dfdac28ebee94a0655f79",
+      "sourceCanonicalCompositeRepresentation": "2626b3793f6b877d9d79094cfeb6e2bc3a8535ce",
+      "exactAuthorizedCompleteBodyDelta": true,
+      "ordinaryDeclarationCredit": 0,
       "sourceSyntaxValid": true,
-      "disposition": "Complete structural script AST retained; full native markup/compiled-output behavior remains separately pending."
+      "disposition": "Exact public reviewed four canonical persistent classes and constructor callers, with the immutable recovered List ref-lifetime body. Earlier proof stages stay frozen at accepted abe8 main; actual final body hash, parsed AST and effect/class counters are current. Source199/map-array witnesses and final runtime acceptance remain mandatory; zero Original credit.",
+      "structuralDifferences": [
+        {
+          "path": "source.FunctionDeclaration[3]",
+          "beforeKind": "FunctionDeclaration",
+          "afterKind": "ClassDeclaration",
+          "before": "export function useCompositeItem(\n  getParameters: () => { metadata?: Record<string, unknown> } = () => ({}),\n) {\n  const root = useCompositeRootContext();\n  const item = useCompositeListItem(getParameters);\n  const itemRef = { current: null as HTMLElement | null };\n  const attachmentKey = createAttachmentKey();\n  function attachItem(node: HTMLElement) {\n    itemRef.current = node;\n    const unregister = item.attach(node);\n    return () => {\n      unregister();\n      if (itemRef.current === node) itemRef.current = null;\n    };\n  }\n  return {\n    get compositeProps() {\n      const isHighlighted = root.highlightedIndex === item.index();\n      return {\n        [attachmentKey]: attachItem,\n        tabindex: isHighlighted ? 0 : -1,\n        onfocusin() {\n          root.onHighlightedIndexChange(item.index());\n        },\n        onmousemove() {\n          const element = itemRef.current;\n          if (!root.highlightItemOnHover || !element) return;\n          const disabled =\n            element.hasAttribute('disabled') || element.ariaDisabled === 'true';\n          if (!isHighlighted && !disabled) element.focus();\n        },\n      };\n    },\n    index: item.index,\n  };\n}",
+          "after": "export class useCompositeItem {\n  private root = useCompositeRootContext();\n  private item: useCompositeListItem;\n  private itemRef = { current: null as HTMLElement | null };\n  private attachmentKey = createAttachmentKey();\n\n  constructor(getParameters: () => { metadata?: Record<string, unknown> } = () => ({})) {\n    this.item = new useCompositeListItem(getParameters);\n  }\n\n  private attachItem = (node: HTMLElement) => {\n    this.itemRef.current = node;\n    const unregister = this.item.attach(node);\n    return () => {\n      unregister();\n      if (this.itemRef.current === node) this.itemRef.current = null;\n    };\n  };\n\n  get compositeProps() {\n    const isHighlighted = this.root.highlightedIndex === this.item.index();\n    return {\n      [this.attachmentKey]: this.attachItem,\n      tabindex: isHighlighted ? 0 : -1,\n      onfocusin: () => {\n        this.root.onHighlightedIndexChange(this.item.index());\n      },\n      onmousemove: () => {\n        const element = this.itemRef.current;\n        if (!this.root.highlightItemOnHover || !element) return;\n        const disabled = element.hasAttribute('disabled') || element.ariaDisabled === 'true';\n        if (!isHighlighted && !disabled) element.focus();\n      },\n    };\n  }\n\n  index = () => this.item.index();\n}"
+        }
+      ]
     },
     {
       "path": "packages/base/src/lib/internals/composite/list/CompositeListContext.ts",
@@ -2644,26 +2706,81 @@
     {
       "path": "packages/base/src/lib/internals/composite/list/createCompositeList.svelte.ts",
       "rendererSha256": "97758d379046d9f894997ae40ef7c6f59decf48fa0d985a2c1fb5f9f068ad016",
-      "currentSha256": "eb23334825782ebd6c5c2697f1aad75f6f557c1e387fa6ea0a78c276bfead975",
-      "scriptStructuralAstEqual": true,
+      "currentSha256": "a253618ced977fdb4a961858d7550bf91e3bd686b0a8c9314deb84ee38c3a560",
+      "scriptStructuralAstEqual": false,
+      "historicalAcceptedMainSha256": "eb23334825782ebd6c5c2697f1aad75f6f557c1e387fa6ea0a78c276bfead975",
+      "historicalAcceptedMainScriptStructuralAstEqual": true,
+      "sourceCanonicalCompositeRecovery": true,
+      "sourceCanonicalCompositePredecessor": "abe8aa9b66ab8cd8d83dfdac28ebee94a0655f79",
+      "sourceCanonicalCompositeRepresentation": "2626b3793f6b877d9d79094cfeb6e2bc3a8535ce",
+      "exactAuthorizedCompleteBodyDelta": true,
+      "ordinaryDeclarationCredit": 0,
       "sourceSyntaxValid": true,
-      "disposition": "Complete structural script AST retained; full native markup/compiled-output behavior remains separately pending."
+      "disposition": "Exact public reviewed four canonical persistent classes and constructor callers, with the immutable recovered List ref-lifetime body. Earlier proof stages stay frozen at accepted abe8 main; actual final body hash, parsed AST and effect/class counters are current. Source199/map-array witnesses and final runtime acceptance remain mandatory; zero Original credit.",
+      "structuralDifferences": [
+        {
+          "path": "source.FunctionDeclaration[5]",
+          "beforeKind": "FunctionDeclaration",
+          "afterKind": "ClassDeclaration",
+          "before": "export function createCompositeList(getParameters: () => Parameters) {\n  let mapTick = $state(0);\n  const listeners = new SvelteSet<(map: Map<Element, CompositeMetadata>) => void>();\n  const map = new SvelteMap<Element, CompositeListRegistration>();\n  const nextIndexRef = { current: 0 };\n  const isDirtyRef = { current: true };\n  const itemsRef: { current: readonly CompositeListItem[] | null } = {\n    current: null,\n  };\n  const mutationObserverRef: { current: MutationObserver | null } = {\n    current: null,\n  };\n  const scheduleMapUpdate = () => {\n    if (isDirtyRef.current) return;\n    isDirtyRef.current = true;\n    untrack(() => {\n      mapTick += 1;\n    });\n  };\n  const register = (node: Element, registration: CompositeListRegistration) => {\n    map.set(node, registration);\n    scheduleMapUpdate();\n  };\n\n  const unregister = (node: Element) => {\n    map.delete(node);\n    scheduleMapUpdate();\n  };\n\n  const syncRefs = (items: readonly CompositeListItem[]) => {\n    const nextMap = new SvelteMap<Element, CompositeMetadata>();\n    const { elementsRef, labelsRef } = getParameters();\n\n    elementsRef.current.length = 0;\n    if (labelsRef) {\n      labelsRef.current.length = 0;\n    }\n\n    items.forEach((item) => {\n      nextMap.set(item.element, {\n        ...(item.registration.metadata ?? {}),\n        index: item.index,\n      });\n\n      elementsRef.current[item.index] = item.element;\n\n      if (labelsRef) {\n        labelsRef.current[item.index] =\n          item.registration.label !== undefined\n            ? item.registration.label\n            : (item.registration.textRef?.current?.textContent ??\n              item.element.textContent);\n      }\n    });\n\n    nextIndexRef.current = elementsRef.current.length;\n\n    return nextMap;\n  };\n\n  function observe(sortedNodes: HTMLElement[]) {\n    mutationObserverRef.current?.disconnect();\n    mutationObserverRef.current = null;\n\n    // A single item can't reorder.\n    if (typeof MutationObserver !== 'function' || sortedNodes.length < 2) {\n      return;\n    }\n\n    const mutationObserver = new MutationObserver((entries) => {\n      // Only verify the order after a move: a node that was removed and later\n      // re-added within the same batch. Additions and removals alone can't\n      // change the relative order of the remaining items, and items that mount\n      // or unmount re-sort through `register`/`unregister`.\n      if (!hasMovedNode(entries)) {\n        return;\n      }\n\n      let previousConnectedNode: Element | null = null;\n\n      // If any connected node now appears before the previous connected node,\n      // wrappers/items moved and the index map needs to be rebuilt.\n      for (const node of sortedNodes) {\n        if (!node.isConnected) {\n          continue;\n        }\n\n        if (\n          previousConnectedNode &&\n          sortByDocumentPosition(previousConnectedNode, node) > 0\n        ) {\n          mutationObserver.disconnect();\n          scheduleMapUpdate();\n          return;\n        }\n\n        previousConnectedNode = node;\n      }\n    });\n\n    mutationObserverRef.current = mutationObserver;\n\n    // A reorder that changes item indexes must invert at least one adjacent pair\n    // from the previous sorted order. Observing each pair's common parent catches\n    // both direct item moves and ancestor wrapper moves at the boundary.\n    const roots = new SvelteSet<Element>();\n    for (let i = 1; i < sortedNodes.length; i += 1) {\n      const root = getCommonAncestor(sortedNodes[i - 1], sortedNodes[i]);\n      if (root) {\n        roots.add(root);\n      }\n    }\n\n    roots.forEach((root) =>\n      mutationObserver.observe(root, { childList: true }),\n    );\n  }\n\n  const flush = () => {\n    const [items, automaticNodes] = getCompositeListSnapshot(map);\n    const nextMap = syncRefs(items);\n\n    const previousItems = itemsRef.current;\n    const changed =\n      !previousItems ||\n      previousItems.length !== items.length ||\n      items.some((item, index) => {\n        const previousItem = previousItems[index];\n        return (\n          item.index !== previousItem.index ||\n          item.element !== previousItem.element ||\n          item.registration.index !== previousItem.registration.index ||\n          item.registration.metadata !== previousItem.registration.metadata\n        );\n      });\n\n    observe(automaticNodes);\n    itemsRef.current = items;\n    isDirtyRef.current = false;\n\n    if (!changed) {\n      return;\n    }\n\n    listeners.forEach((listener) => listener(nextMap));\n    getParameters().onMapChange?.(nextMap);\n  };\n\n  $effect(() => {\n    void mapTick;\n    untrack(() => {\n      if (isDirtyRef.current) flush();\n    });\n  });\n  onDestroy(() => {\n    mutationObserverRef.current?.disconnect();\n    getParameters().elementsRef.current = [];\n    const labelsRef = getParameters().labelsRef;\n    if (labelsRef) labelsRef.current = [];\n  });\n  const subscribeMapChange = (\n    fn: (map: Map<Element, CompositeMetadata>) => void,\n  ) => {\n    listeners.add(fn);\n    return () => {\n      listeners.delete(fn);\n    };\n  };\n  setCompositeListContext({\n    register,\n    unregister,\n    subscribeMapChange,\n    nextIndexRef,\n  });\n}",
+          "after": "export class createCompositeList {\n  private getParameters: () => Parameters;\n\n  constructor(getParameters: () => Parameters) {\n    this.getParameters = getParameters;\n    const elementsRef = $derived(this.getParameters().elementsRef);\n    const labelsRef = $derived(this.getParameters().labelsRef);\n    $effect(() => {\n      const installedElementsRef = elementsRef;\n      const installedLabelsRef = labelsRef;\n      untrack(() => {\n        if (!this.isDirtyRef.current && this.itemsRef.current) {\n          this.syncRefs(this.itemsRef.current, {\n            elementsRef: installedElementsRef,\n            labelsRef: installedLabelsRef,\n          });\n        }\n      });\n      return () => {\n        installedElementsRef.current = [];\n        if (installedLabelsRef) installedLabelsRef.current = [];\n      };\n    });\n    $effect(() => {\n      void this.mapTick;\n      untrack(() => {\n        if (this.isDirtyRef.current) this.flush();\n      });\n    });\n    onDestroy(() => {\n      this.mutationObserverRef.current?.disconnect();\n    });\n    setCompositeListContext({\n      register: this.register,\n      unregister: this.unregister,\n      subscribeMapChange: this.subscribeMapChange,\n      nextIndexRef: this.nextIndexRef,\n    });\n  }\n  private mapTick = $state(0);\n  private listeners = new SvelteSet<(map: Map<Element, CompositeMetadata>) => void>();\n  private map = new SvelteMap<Element, CompositeListRegistration>();\n  private nextIndexRef = { current: 0 };\n  private isDirtyRef = { current: true };\n  private itemsRef: { current: readonly CompositeListItem[] | null } = {\n    current: null,\n  };\n  private mutationObserverRef: { current: MutationObserver | null } = {\n    current: null,\n  };\n  private scheduleMapUpdate = () => {\n    if (this.isDirtyRef.current) return;\n    this.isDirtyRef.current = true;\n    untrack(() => {\n      this.mapTick += 1;\n    });\n  };\n  private register = (node: Element, registration: CompositeListRegistration) => {\n    this.map.set(node, registration);\n    this.scheduleMapUpdate();\n  };\n\n  private unregister = (node: Element) => {\n    this.map.delete(node);\n    this.scheduleMapUpdate();\n  };\n\n  private syncRefs = (\n    items: readonly CompositeListItem[],\n    { elementsRef, labelsRef } = this.getParameters(),\n  ) => {\n    const nextMap = new SvelteMap<Element, CompositeMetadata>();\n\n    elementsRef.current.length = 0;\n    if (labelsRef) {\n      labelsRef.current.length = 0;\n    }\n\n    items.forEach((item) => {\n      nextMap.set(item.element, {\n        ...(item.registration.metadata ?? {}),\n        index: item.index,\n      });\n\n      elementsRef.current[item.index] = item.element;\n\n      if (labelsRef) {\n        labelsRef.current[item.index] =\n          item.registration.label !== undefined\n            ? item.registration.label\n            : (item.registration.textRef?.current?.textContent ?? item.element.textContent);\n      }\n    });\n\n    this.nextIndexRef.current = elementsRef.current.length;\n\n    return nextMap;\n  };\n\n  private observe(sortedNodes: HTMLElement[]) {\n    this.mutationObserverRef.current?.disconnect();\n    this.mutationObserverRef.current = null;\n\n    // A single item can't reorder.\n    if (typeof MutationObserver !== 'function' || sortedNodes.length < 2) {\n      return;\n    }\n\n    const mutationObserver = new MutationObserver((entries) => {\n      // Only verify the order after a move: a node that was removed and later\n      // re-added within the same batch. Additions and removals alone can't\n      // change the relative order of the remaining items, and items that mount\n      // or unmount re-sort through `register`/`unregister`.\n      if (!hasMovedNode(entries)) {\n        return;\n      }\n\n      let previousConnectedNode: Element | null = null;\n\n      // If any connected node now appears before the previous connected node,\n      // wrappers/items moved and the index map needs to be rebuilt.\n      for (const node of sortedNodes) {\n        if (!node.isConnected) {\n          continue;\n        }\n\n        if (previousConnectedNode && sortByDocumentPosition(previousConnectedNode, node) > 0) {\n          mutationObserver.disconnect();\n          this.scheduleMapUpdate();\n          return;\n        }\n\n        previousConnectedNode = node;\n      }\n    });\n\n    this.mutationObserverRef.current = mutationObserver;\n\n    // A reorder that changes item indexes must invert at least one adjacent pair\n    // from the previous sorted order. Observing each pair's common parent catches\n    // both direct item moves and ancestor wrapper moves at the boundary.\n    const roots = new SvelteSet<Element>();\n    for (let i = 1; i < sortedNodes.length; i += 1) {\n      const root = getCommonAncestor(sortedNodes[i - 1], sortedNodes[i]);\n      if (root) {\n        roots.add(root);\n      }\n    }\n\n    roots.forEach((root) => mutationObserver.observe(root, { childList: true }));\n  }\n\n  private flush = () => {\n    const [items, automaticNodes] = getCompositeListSnapshot(this.map);\n    const nextMap = this.syncRefs(items);\n\n    const previousItems = this.itemsRef.current;\n    const changed =\n      !previousItems ||\n      previousItems.length !== items.length ||\n      items.some((item, index) => {\n        const previousItem = previousItems[index];\n        return (\n          item.index !== previousItem.index ||\n          item.element !== previousItem.element ||\n          item.registration.index !== previousItem.registration.index ||\n          item.registration.metadata !== previousItem.registration.metadata\n        );\n      });\n\n    this.observe(automaticNodes);\n    this.itemsRef.current = items;\n    this.isDirtyRef.current = false;\n\n    if (!changed) {\n      return;\n    }\n\n    this.listeners.forEach((listener) => listener(nextMap));\n    this.getParameters().onMapChange?.(nextMap);\n  };\n\n  private subscribeMapChange = (fn: (map: Map<Element, CompositeMetadata>) => void) => {\n    this.listeners.add(fn);\n    return () => {\n      this.listeners.delete(fn);\n    };\n  };\n}"
+        }
+      ]
     },
     {
       "path": "packages/base/src/lib/internals/composite/list/useCompositeListItem.svelte.ts",
       "rendererSha256": "6665db18996004710613ee13ed67d8750da067cb348bf5bbc5eb7e9eb91f8eab",
-      "currentSha256": "94d353c7d884b35bd002a9278a7701e7b1e835d536b8eb8a94f2a56d7fa72841",
-      "scriptStructuralAstEqual": true,
+      "currentSha256": "68d88dec21b0b7ed25094f43d4939998b388f296c18cd388b1f4d33e9f3966fa",
+      "scriptStructuralAstEqual": false,
+      "historicalAcceptedMainSha256": "94d353c7d884b35bd002a9278a7701e7b1e835d536b8eb8a94f2a56d7fa72841",
+      "historicalAcceptedMainScriptStructuralAstEqual": true,
+      "sourceCanonicalCompositeRecovery": true,
+      "sourceCanonicalCompositePredecessor": "abe8aa9b66ab8cd8d83dfdac28ebee94a0655f79",
+      "sourceCanonicalCompositeRepresentation": "2626b3793f6b877d9d79094cfeb6e2bc3a8535ce",
+      "exactAuthorizedCompleteBodyDelta": true,
+      "ordinaryDeclarationCredit": 0,
       "sourceSyntaxValid": true,
-      "disposition": "Complete structural script AST retained; full native markup/compiled-output behavior remains separately pending."
+      "disposition": "Exact public reviewed four canonical persistent classes and constructor callers, with the immutable recovered List ref-lifetime body. Earlier proof stages stay frozen at accepted abe8 main; actual final body hash, parsed AST and effect/class counters are current. Source199/map-array witnesses and final runtime acceptance remain mandatory; zero Original credit.",
+      "structuralDifferences": [
+        {
+          "path": "source.FunctionDeclaration[3]",
+          "beforeKind": "FunctionDeclaration",
+          "afterKind": "ClassDeclaration",
+          "before": "export function useCompositeListItem(\n  getParameters: () => UseCompositeListItemParameters = () => ({}),\n) {\n  const { register, unregister, subscribeMapChange, nextIndexRef } =\n    useCompositeListContext();\n  const initial = untrack(getParameters);\n  let internalIndex = $state(\n    initial.index == null && initial.guess ? nextIndexRef.current++ : -1,\n  );\n  let component: HTMLElement | null = null;\n  const index = () => getParameters().index ?? internalIndex;\n  const registration = $derived.by(() => {\n    const { metadata, index, label, textRef } = getParameters();\n    return { metadata: metadata ?? null, index: index ?? null, label, textRef };\n  });\n  function attach(node: HTMLElement) {\n    const currentRegistration = registration;\n    return untrack(() => {\n      component = node;\n      register(node, currentRegistration);\n      return () =>\n        untrack(() => {\n          unregister(node);\n          if (component === node) component = null;\n        });\n    });\n  }\n  $effect(() => {\n    if (getParameters().index != null) return;\n    return subscribeMapChange((map) => {\n      const next = component ? map.get(component)?.index : null;\n      if (next != null) internalIndex = next;\n    });\n  });\n  return {\n    attach,\n    index,\n  };\n}",
+          "after": "export class useCompositeListItem {\n  private getParameters: () => UseCompositeListItemParameters;\n  private context = useCompositeListContext();\n  private internalIndex: number;\n  private component: HTMLElement | null = null;\n  private registration = $derived.by(() => {\n    const { metadata, index, label, textRef } = this.getParameters();\n    return { metadata: metadata ?? null, index: index ?? null, label, textRef };\n  });\n\n  constructor(getParameters: () => UseCompositeListItemParameters = () => ({})) {\n    this.getParameters = getParameters;\n    const { subscribeMapChange, nextIndexRef } = this.context;\n    const initial = untrack(getParameters);\n    this.internalIndex = $state(\n      initial.index == null && initial.guess ? nextIndexRef.current++ : -1,\n    );\n    $effect(() => {\n      if (this.getParameters().index != null) return;\n      return subscribeMapChange((map) => {\n        const next = this.component ? map.get(this.component)?.index : null;\n        if (next != null) this.internalIndex = next;\n      });\n    });\n  }\n\n  index = () => this.getParameters().index ?? this.internalIndex;\n\n  attach = (node: HTMLElement) => {\n    const currentRegistration = this.registration;\n    const { register, unregister } = this.context;\n    return untrack(() => {\n      this.component = node;\n      register(node, currentRegistration);\n      return () =>\n        untrack(() => {\n          unregister(node);\n          if (this.component === node) this.component = null;\n        });\n    });\n  };\n}"
+        }
+      ]
     },
     {
       "path": "packages/base/src/lib/internals/composite/root/CompositeRoot.svelte",
       "rendererSha256": "05dfdf1b4c35e254d686e4105e1481e5819f6d4157f6ce92508c4ff4a8784308",
-      "currentSha256": "29241d2982ea752a27d65c8c15cc9e3675efd2cfbc0917a4b112c5179c7d2e4e",
-      "scriptStructuralAstEqual": true,
+      "currentSha256": "7553f59b1223d8f358c44f2fd67b5b2e9f0772adb15cf7444eedf8c36ced05a6",
+      "scriptStructuralAstEqual": false,
+      "historicalAcceptedMainSha256": "29241d2982ea752a27d65c8c15cc9e3675efd2cfbc0917a4b112c5179c7d2e4e",
+      "historicalAcceptedMainScriptStructuralAstEqual": true,
+      "sourceCanonicalCompositeRecovery": true,
+      "sourceCanonicalCompositePredecessor": "abe8aa9b66ab8cd8d83dfdac28ebee94a0655f79",
+      "sourceCanonicalCompositeRepresentation": "2626b3793f6b877d9d79094cfeb6e2bc3a8535ce",
+      "exactAuthorizedCompleteBodyDelta": true,
+      "ordinaryDeclarationCredit": 0,
       "sourceSyntaxValid": true,
-      "disposition": "Complete structural script AST retained; full native markup/compiled-output behavior remains separately pending."
+      "disposition": "Exact public reviewed four canonical persistent classes and constructor callers, with the immutable recovered List ref-lifetime body. Earlier proof stages stay frozen at accepted abe8 main; actual final body hash, parsed AST and effect/class counters are current. Source199/map-array witnesses and final runtime acceptance remain mandatory; zero Original credit.",
+      "structuralDifferences": [
+        {
+          "path": "source.FirstStatement[12].VariableDeclarationList[0].VariableDeclaration[0].CallExpression[1]",
+          "beforeKind": "CallExpression",
+          "afterKind": "NewExpression",
+          "before": "useCompositeRoot(() => ({\n    grid,\n    loopFocus,\n    onLoop,\n    orientation,\n    highlightedIndex,\n    onHighlightedIndexChange,\n    stopEventPropagation,\n    enableHomeAndEndKeys,\n    direction: getDirection(),\n    disabledIndices,\n    modifierKeys,\n  }))",
+          "after": "new useCompositeRoot(() => ({\n    grid,\n    loopFocus,\n    onLoop,\n    orientation,\n    highlightedIndex,\n    onHighlightedIndexChange,\n    stopEventPropagation,\n    enableHomeAndEndKeys,\n    direction: getDirection(),\n    disabledIndices,\n    modifierKeys,\n  }))"
+        },
+        {
+          "path": "source.ExpressionStatement[14].CallExpression[0]",
+          "beforeKind": "CallExpression",
+          "afterKind": "NewExpression",
+          "before": "createCompositeList(() => ({\n    elementsRef: composite.elementsRef,\n    onMapChange(map) {\n      onMapChange?.(map);\n      composite.onMapChange(map);\n    },\n  }))",
+          "after": "new createCompositeList(() => ({\n    elementsRef: composite.elementsRef,\n    onMapChange(map) {\n      onMapChange?.(map);\n      composite.onMapChange(map);\n    },\n  }))"
+        }
+      ]
     },
     {
       "path": "packages/base/src/lib/internals/composite/root/CompositeRootContext.ts",
@@ -2693,10 +2810,26 @@
     {
       "path": "packages/base/src/lib/internals/composite/root/useCompositeRoot.svelte.ts",
       "rendererSha256": "edb7e84e824764ec76db1b1853ac45ef4b890731670b62d00dcc6cbac19e47f7",
-      "currentSha256": "bdd6ced8bc2a28c77a2572b6b54eab7ad09ee111ddf2bcdbe777686f947c39b6",
-      "scriptStructuralAstEqual": true,
+      "currentSha256": "1b056433974f5a0e3b51d18893f06aa7971779e046261d1ebcf2a2557b7a6aed",
+      "scriptStructuralAstEqual": false,
+      "historicalAcceptedMainSha256": "bdd6ced8bc2a28c77a2572b6b54eab7ad09ee111ddf2bcdbe777686f947c39b6",
+      "historicalAcceptedMainScriptStructuralAstEqual": true,
+      "sourceCanonicalCompositeRecovery": true,
+      "sourceCanonicalCompositePredecessor": "abe8aa9b66ab8cd8d83dfdac28ebee94a0655f79",
+      "sourceCanonicalCompositeRepresentation": "2626b3793f6b877d9d79094cfeb6e2bc3a8535ce",
+      "exactAuthorizedCompleteBodyDelta": true,
+      "ordinaryDeclarationCredit": 0,
       "sourceSyntaxValid": true,
-      "disposition": "Complete structural script AST retained; full native markup/compiled-output behavior remains separately pending."
+      "disposition": "Exact public reviewed four canonical persistent classes and constructor callers, with the immutable recovered List ref-lifetime body. Earlier proof stages stay frozen at accepted abe8 main; actual final body hash, parsed AST and effect/class counters are current. Source199/map-array witnesses and final runtime acceptance remain mandatory; zero Original credit.",
+      "structuralDifferences": [
+        {
+          "path": "source.FunctionDeclaration[11]",
+          "beforeKind": "FunctionDeclaration",
+          "afterKind": "ClassDeclaration",
+          "before": "export function useCompositeRoot(\n  getParameters: () => UseCompositeRootParameters,\n) {\n  let internalHighlightedIndex = $state(0);\n  const rootRef = { current: null as HTMLElement | null };\n  const attachmentKey = createAttachmentKey();\n  function attachRoot(node: HTMLElement) {\n    rootRef.current = node;\n    return () => {\n      if (rootRef.current === node) rootRef.current = null;\n    };\n  }\n  const elementsRef = { current: [] as Array<HTMLElement | null> };\n  const hasSetDefaultIndexRef = { current: false };\n  const highlightedElementRef = { current: null as HTMLElement | null };\n  const getHighlightedIndex = () =>\n    getParameters().highlightedIndex ?? internalHighlightedIndex;\n  const onHighlightedIndexChange = (\n    index: number,\n    shouldScrollIntoView = false,\n  ) => {\n    const {\n      onHighlightedIndexChange: externalSetHighlightedIndex,\n      direction,\n      orientation = 'both',\n    } = getParameters();\n    highlightedElementRef.current = elementsRef.current[index] ?? null;\n    if (externalSetHighlightedIndex)\n      untrack(() => externalSetHighlightedIndex(index));\n    else internalHighlightedIndex = index;\n    if (shouldScrollIntoView)\n      scrollIntoViewIfNeeded(\n        rootRef.current,\n        elementsRef.current[index],\n        direction,\n        orientation,\n      );\n  };\n  const onMapChange = (map: Map<Element, CompositeMetadata>) => {\n    const {\n      disabledIndices,\n      direction,\n      orientation = 'both',\n    } = getParameters();\n    const highlightedIndex = getHighlightedIndex();\n    if (map.size === 0) {\n      return;\n    }\n\n    if (hasSetDefaultIndexRef.current) {\n      const elements = elementsRef.current;\n      // Items added or removed around the highlighted one shift its index, so the tab stop would\n      // otherwise move to a different item and navigation would resume from the wrong position.\n      const nextIndex = elements.indexOf(highlightedElementRef.current);\n\n      if (nextIndex === -1) {\n        // A replacement at the same index can keep the tab stop. Otherwise move it to an\n        // eligible item so a missing, hidden, or disabled replacement does not take the\n        // composite out of the tab order.\n        const replacement = elements[highlightedIndex];\n        if (\n          !replacement ||\n          isListIndexDisabled(elements, highlightedIndex, disabledIndices)\n        ) {\n          onHighlightedIndexChange(getFallbackIndex(elements, disabledIndices));\n        } else {\n          highlightedElementRef.current = replacement;\n        }\n      } else if (nextIndex !== highlightedIndex) {\n        onHighlightedIndexChange(nextIndex);\n      }\n      return;\n    }\n\n    hasSetDefaultIndexRef.current = true;\n\n    const sortedElements = Array.from(map.keys()) as Array<HTMLElement | null>;\n    const activeItem =\n      sortedElements.find((compositeElement) =>\n        compositeElement?.hasAttribute(ACTIVE_COMPOSITE_ITEM),\n      ) ?? null;\n    // Set the default highlighted index of an arbitrary composite item. The map value carries\n    // the item's own index, which is not its position among the keys once a list mixes explicit\n    // and automatic indexes and leaves gaps.\n    const activeIndex = activeItem ? (map.get(activeItem)?.index ?? -1) : -1;\n\n    if (activeIndex !== -1) {\n      onHighlightedIndexChange(activeIndex);\n    } else if (\n      isListIndexDisabled(sortedElements, highlightedIndex, disabledIndices)\n    ) {\n      // The default highlighted item is disabled, so it should not hold the single\n      // roving tab stop: a natively disabled element is removed from the tab order,\n      // and an aria-disabled one should not be the entry point. Move the tab stop\n      // to the first enabled item. If every item is disabled, keep the current\n      // highlighted index.\n      const firstEnabledIndex = findNonDisabledListIndex(sortedElements, {\n        disabledIndices,\n      });\n      if (!isIndexOutOfListBounds(sortedElements, firstEnabledIndex)) {\n        onHighlightedIndexChange(firstEnabledIndex);\n      }\n    }\n\n    scrollIntoViewIfNeeded(rootRef.current, activeItem, direction, orientation);\n  };\n\n  $effect(() => {\n    const { disabledIndices, highlightedIndex: externalHighlightedIndex } =\n      getParameters();\n    // `disabledIndices` can resolve a render after the initial map population\n    // (e.g. Toolbar derives it from item metadata through a state update), so the\n    // default tab stop at index 0 may now point at a disabled item, leaving the\n    // composite without a reachable tab stop. Re-validate and move it to the first\n    // enabled item. Gated on `disabledIndices` being provided so composites that\n    // rely on the DOM disabled fallback keep their existing behavior.\n    if (\n      disabledIndices == null ||\n      externalHighlightedIndex != null ||\n      !hasSetDefaultIndexRef.current\n    ) {\n      return;\n    }\n    const highlightedIndex = getHighlightedIndex();\n    const elements = elementsRef.current;\n    if (isListIndexDisabled(elements, highlightedIndex, disabledIndices)) {\n      const firstEnabledIndex = findNonDisabledListIndex(elements, {\n        disabledIndices,\n      });\n      if (!isIndexOutOfListBounds(elements, firstEnabledIndex)) {\n        onHighlightedIndexChange(firstEnabledIndex);\n      }\n    }\n  });\n\n  const wrappedOnLoop = (\n    event: KeyboardEvent,\n    prevIndex: number,\n    nextIndex: number,\n  ) => {\n    const { onLoop } = getParameters();\n    if (!onLoop) {\n      return nextIndex;\n    }\n    return onLoop(event, prevIndex, nextIndex, elementsRef);\n  };\n\n  // Stable so that `relayKeyboardEvent` does not invalidate identity-sensitive\n  // consumers (the `CompositeRootContext` value and trigger data forwarding).\n  const onKeyDown = (event: KeyboardEvent) => {\n    const {\n      direction,\n      orientation = 'both',\n      grid,\n      onLoop,\n      loopFocus = true,\n      enableHomeAndEndKeys = false,\n      stopEventPropagation,\n      disabledIndices,\n      modifierKeys = [],\n    } = getParameters();\n    const highlightedIndex = getHighlightedIndex();\n    const isHomeOrEnd = event.key === HOME || event.key === END;\n    if (\n      !COMPOSITE_KEYS.has(event.key) ||\n      (!enableHomeAndEndKeys && isHomeOrEnd)\n    ) {\n      return;\n    }\n\n    if (isModifierKeySet(event, modifierKeys)) {\n      return;\n    }\n\n    const element = rootRef.current;\n    if (!element) {\n      return;\n    }\n\n    const isRtl = direction === 'rtl';\n\n    const horizontalForwardKey = isRtl ? ARROW_LEFT : ARROW_RIGHT;\n    const horizontalBackwardKey = isRtl ? ARROW_RIGHT : ARROW_LEFT;\n    const forwardKey =\n      orientation === 'vertical' ? ARROW_DOWN : horizontalForwardKey;\n    const backwardKey =\n      orientation === 'vertical' ? ARROW_UP : horizontalBackwardKey;\n\n    const target = getTarget(event);\n    if (target != null && isNativeInput(target) && !isElementDisabled(target)) {\n      const selectionStart = target.selectionStart;\n      const selectionEnd = target.selectionEnd;\n      const textContent = target.value;\n      // return to native textbox behavior when\n      // 1 - Shift is held to make a text selection, or if there already is a text selection\n      if (\n        selectionStart == null ||\n        event.shiftKey ||\n        selectionStart !== selectionEnd\n      ) {\n        return;\n      }\n      // 2 - arrow-ing forward and not in the last position of the text\n      if (event.key !== backwardKey && selectionStart < textContent.length) {\n        return;\n      }\n      // 3 -arrow-ing backward and not in the first position of the text\n      if (event.key !== forwardKey && selectionStart > 0) {\n        return;\n      }\n    }\n\n    let nextIndex = highlightedIndex;\n    const minIndex = getMinListIndex(elementsRef, disabledIndices);\n    const maxIndex = getMaxListIndex(elementsRef, disabledIndices);\n\n    if (grid != null) {\n      nextIndex = grid({\n        disabledIndices,\n        elementsRef,\n        event,\n        highlightedIndex,\n        loopFocus,\n        maxIndex,\n        minIndex,\n        onLoop: wrappedOnLoop,\n        orientation,\n        rtl: isRtl,\n      });\n    }\n\n    const isForwardKey =\n      (orientation !== 'vertical' && event.key === horizontalForwardKey) ||\n      (orientation !== 'horizontal' && event.key === ARROW_DOWN);\n    const isBackwardKey =\n      (orientation !== 'vertical' && event.key === horizontalBackwardKey) ||\n      (orientation !== 'horizontal' && event.key === ARROW_UP);\n\n    if (enableHomeAndEndKeys) {\n      if (event.key === HOME) {\n        nextIndex = minIndex;\n      } else if (event.key === END) {\n        nextIndex = maxIndex;\n      }\n    }\n\n    if (nextIndex === highlightedIndex && (isForwardKey || isBackwardKey)) {\n      if (loopFocus && nextIndex === maxIndex && isForwardKey) {\n        nextIndex = minIndex;\n        if (onLoop) {\n          nextIndex = onLoop(event, highlightedIndex, nextIndex, elementsRef);\n        }\n      } else if (loopFocus && nextIndex === minIndex && isBackwardKey) {\n        nextIndex = maxIndex;\n        if (onLoop) {\n          nextIndex = onLoop(event, highlightedIndex, nextIndex, elementsRef);\n        }\n      } else {\n        nextIndex = findNonDisabledListIndex(elementsRef.current, {\n          startingIndex: nextIndex,\n          decrement: isBackwardKey,\n          disabledIndices,\n        });\n      }\n    }\n\n    if (\n      nextIndex !== highlightedIndex &&\n      !isIndexOutOfListBounds(elementsRef.current, nextIndex)\n    ) {\n      if (stopEventPropagation) {\n        event.stopPropagation();\n      }\n\n      if (grid != null || isHomeOrEnd || isForwardKey || isBackwardKey) {\n        event.preventDefault();\n      }\n      onHighlightedIndexChange(nextIndex, true);\n\n      // Wait for FocusManager `returnFocus` to execute.\n      queueMicrotask(() => {\n        elementsRef.current[nextIndex]?.focus();\n      });\n    }\n  };\n\n  function getProps(): HTMLProps {\n    return {\n      [attachmentKey]: attachRoot,\n      onfocusin(event: FocusEvent) {\n        const element = rootRef.current;\n        const target = getTarget(event);\n        if (!element || target == null || !isNativeInput(target)) return;\n        target.setSelectionRange(0, target.value.length);\n      },\n      onkeydown: onKeyDown,\n    };\n  }\n  return {\n    getProps,\n    getHighlightedIndex,\n    onHighlightedIndexChange,\n    elementsRef,\n    onMapChange,\n    relayKeyboardEvent: onKeyDown,\n  };\n}",
+          "after": "export class useCompositeRoot {\n  private getParameters: () => UseCompositeRootParameters;\n\n  constructor(getParameters: () => UseCompositeRootParameters) {\n    this.getParameters = getParameters;\n    $effect(() => {\n      const { disabledIndices, highlightedIndex: externalHighlightedIndex } = this.getParameters();\n      // `disabledIndices` can resolve a render after the initial map population\n      // (e.g. Toolbar derives it from item metadata through a state update), so the\n      // default tab stop at index 0 may now point at a disabled item, leaving the\n      // composite without a reachable tab stop. Re-validate and move it to the first\n      // enabled item. Gated on `disabledIndices` being provided so composites that\n      // rely on the DOM disabled fallback keep their existing behavior.\n      if (\n        disabledIndices == null ||\n        externalHighlightedIndex != null ||\n        !this.hasSetDefaultIndexRef.current\n      ) {\n        return;\n      }\n      const highlightedIndex = this.getHighlightedIndex();\n      const elements = this.elementsRef.current;\n      if (isListIndexDisabled(elements, highlightedIndex, disabledIndices)) {\n        const firstEnabledIndex = findNonDisabledListIndex(elements, {\n          disabledIndices,\n        });\n        if (!isIndexOutOfListBounds(elements, firstEnabledIndex)) {\n          this.onHighlightedIndexChange(firstEnabledIndex);\n        }\n      }\n    });\n  }\n  private internalHighlightedIndex = $state(0);\n  private rootRef = { current: null as HTMLElement | null };\n  private attachmentKey = createAttachmentKey();\n  private attachRoot = (node: HTMLElement) => {\n    this.rootRef.current = node;\n    return () => {\n      if (this.rootRef.current === node) this.rootRef.current = null;\n    };\n  };\n  elementsRef = { current: [] as Array<HTMLElement | null> };\n  private hasSetDefaultIndexRef = { current: false };\n  private highlightedElementRef = { current: null as HTMLElement | null };\n  getHighlightedIndex = () =>\n    this.getParameters().highlightedIndex ?? this.internalHighlightedIndex;\n  onHighlightedIndexChange = (index: number, shouldScrollIntoView = false) => {\n    const {\n      onHighlightedIndexChange: externalSetHighlightedIndex,\n      direction,\n      orientation = 'both',\n    } = this.getParameters();\n    this.highlightedElementRef.current = this.elementsRef.current[index] ?? null;\n    if (externalSetHighlightedIndex) untrack(() => externalSetHighlightedIndex(index));\n    else this.internalHighlightedIndex = index;\n    if (shouldScrollIntoView)\n      scrollIntoViewIfNeeded(\n        this.rootRef.current,\n        this.elementsRef.current[index],\n        direction,\n        orientation,\n      );\n  };\n  onMapChange = (map: Map<Element, CompositeMetadata>) => {\n    const { disabledIndices, direction, orientation = 'both' } = this.getParameters();\n    const highlightedIndex = this.getHighlightedIndex();\n    if (map.size === 0) {\n      return;\n    }\n\n    if (this.hasSetDefaultIndexRef.current) {\n      const elements = this.elementsRef.current;\n      // Items added or removed around the highlighted one shift its index, so the tab stop would\n      // otherwise move to a different item and navigation would resume from the wrong position.\n      const nextIndex = elements.indexOf(this.highlightedElementRef.current);\n\n      if (nextIndex === -1) {\n        // A replacement at the same index can keep the tab stop. Otherwise move it to an\n        // eligible item so a missing, hidden, or disabled replacement does not take the\n        // composite out of the tab order.\n        const replacement = elements[highlightedIndex];\n        if (!replacement || isListIndexDisabled(elements, highlightedIndex, disabledIndices)) {\n          this.onHighlightedIndexChange(getFallbackIndex(elements, disabledIndices));\n        } else {\n          this.highlightedElementRef.current = replacement;\n        }\n      } else if (nextIndex !== highlightedIndex) {\n        this.onHighlightedIndexChange(nextIndex);\n      }\n      return;\n    }\n\n    this.hasSetDefaultIndexRef.current = true;\n\n    const sortedElements = Array.from(map.keys()) as Array<HTMLElement | null>;\n    const activeItem =\n      sortedElements.find((compositeElement) =>\n        compositeElement?.hasAttribute(ACTIVE_COMPOSITE_ITEM),\n      ) ?? null;\n    // Set the default highlighted index of an arbitrary composite item. The map value carries\n    // the item's own index, which is not its position among the keys once a list mixes explicit\n    // and automatic indexes and leaves gaps.\n    const activeIndex = activeItem ? (map.get(activeItem)?.index ?? -1) : -1;\n\n    if (activeIndex !== -1) {\n      this.onHighlightedIndexChange(activeIndex);\n    } else if (isListIndexDisabled(sortedElements, highlightedIndex, disabledIndices)) {\n      // The default highlighted item is disabled, so it should not hold the single\n      // roving tab stop: a natively disabled element is removed from the tab order,\n      // and an aria-disabled one should not be the entry point. Move the tab stop\n      // to the first enabled item. If every item is disabled, keep the current\n      // highlighted index.\n      const firstEnabledIndex = findNonDisabledListIndex(sortedElements, {\n        disabledIndices,\n      });\n      if (!isIndexOutOfListBounds(sortedElements, firstEnabledIndex)) {\n        this.onHighlightedIndexChange(firstEnabledIndex);\n      }\n    }\n\n    scrollIntoViewIfNeeded(this.rootRef.current, activeItem, direction, orientation);\n  };\n\n  private wrappedOnLoop = (event: KeyboardEvent, prevIndex: number, nextIndex: number) => {\n    const { onLoop } = this.getParameters();\n    if (!onLoop) {\n      return nextIndex;\n    }\n    return onLoop(event, prevIndex, nextIndex, this.elementsRef);\n  };\n\n  // Stable so that `relayKeyboardEvent` does not invalidate identity-sensitive\n  // consumers (the `CompositeRootContext` value and trigger data forwarding).\n  private onKeyDown = (event: KeyboardEvent) => {\n    const {\n      direction,\n      orientation = 'both',\n      grid,\n      onLoop,\n      loopFocus = true,\n      enableHomeAndEndKeys = false,\n      stopEventPropagation,\n      disabledIndices,\n      modifierKeys = [],\n    } = this.getParameters();\n    const highlightedIndex = this.getHighlightedIndex();\n    const isHomeOrEnd = event.key === HOME || event.key === END;\n    if (!COMPOSITE_KEYS.has(event.key) || (!enableHomeAndEndKeys && isHomeOrEnd)) {\n      return;\n    }\n\n    if (isModifierKeySet(event, modifierKeys)) {\n      return;\n    }\n\n    const element = this.rootRef.current;\n    if (!element) {\n      return;\n    }\n\n    const isRtl = direction === 'rtl';\n\n    const horizontalForwardKey = isRtl ? ARROW_LEFT : ARROW_RIGHT;\n    const horizontalBackwardKey = isRtl ? ARROW_RIGHT : ARROW_LEFT;\n    const forwardKey = orientation === 'vertical' ? ARROW_DOWN : horizontalForwardKey;\n    const backwardKey = orientation === 'vertical' ? ARROW_UP : horizontalBackwardKey;\n\n    const target = getTarget(event);\n    if (target != null && isNativeInput(target) && !isElementDisabled(target)) {\n      const selectionStart = target.selectionStart;\n      const selectionEnd = target.selectionEnd;\n      const textContent = target.value;\n      // return to native textbox behavior when\n      // 1 - Shift is held to make a text selection, or if there already is a text selection\n      if (selectionStart == null || event.shiftKey || selectionStart !== selectionEnd) {\n        return;\n      }\n      // 2 - arrow-ing forward and not in the last position of the text\n      if (event.key !== backwardKey && selectionStart < textContent.length) {\n        return;\n      }\n      // 3 -arrow-ing backward and not in the first position of the text\n      if (event.key !== forwardKey && selectionStart > 0) {\n        return;\n      }\n    }\n\n    let nextIndex = highlightedIndex;\n    const minIndex = getMinListIndex(this.elementsRef, disabledIndices);\n    const maxIndex = getMaxListIndex(this.elementsRef, disabledIndices);\n\n    if (grid != null) {\n      nextIndex = grid({\n        disabledIndices,\n        elementsRef: this.elementsRef,\n        event,\n        highlightedIndex,\n        loopFocus,\n        maxIndex,\n        minIndex,\n        onLoop: this.wrappedOnLoop,\n        orientation,\n        rtl: isRtl,\n      });\n    }\n\n    const isForwardKey =\n      (orientation !== 'vertical' && event.key === horizontalForwardKey) ||\n      (orientation !== 'horizontal' && event.key === ARROW_DOWN);\n    const isBackwardKey =\n      (orientation !== 'vertical' && event.key === horizontalBackwardKey) ||\n      (orientation !== 'horizontal' && event.key === ARROW_UP);\n\n    if (enableHomeAndEndKeys) {\n      if (event.key === HOME) {\n        nextIndex = minIndex;\n      } else if (event.key === END) {\n        nextIndex = maxIndex;\n      }\n    }\n\n    if (nextIndex === highlightedIndex && (isForwardKey || isBackwardKey)) {\n      if (loopFocus && nextIndex === maxIndex && isForwardKey) {\n        nextIndex = minIndex;\n        if (onLoop) {\n          nextIndex = onLoop(event, highlightedIndex, nextIndex, this.elementsRef);\n        }\n      } else if (loopFocus && nextIndex === minIndex && isBackwardKey) {\n        nextIndex = maxIndex;\n        if (onLoop) {\n          nextIndex = onLoop(event, highlightedIndex, nextIndex, this.elementsRef);\n        }\n      } else {\n        nextIndex = findNonDisabledListIndex(this.elementsRef.current, {\n          startingIndex: nextIndex,\n          decrement: isBackwardKey,\n          disabledIndices,\n        });\n      }\n    }\n\n    if (\n      nextIndex !== highlightedIndex &&\n      !isIndexOutOfListBounds(this.elementsRef.current, nextIndex)\n    ) {\n      if (stopEventPropagation) {\n        event.stopPropagation();\n      }\n\n      if (grid != null || isHomeOrEnd || isForwardKey || isBackwardKey) {\n        event.preventDefault();\n      }\n      this.onHighlightedIndexChange(nextIndex, true);\n\n      // Wait for FocusManager `returnFocus` to execute.\n      queueMicrotask(() => {\n        this.elementsRef.current[nextIndex]?.focus();\n      });\n    }\n  };\n\n  getProps = (): HTMLProps => {\n    return {\n      [this.attachmentKey]: this.attachRoot,\n      onfocusin: (event: FocusEvent) => {\n        const element = this.rootRef.current;\n        const target = getTarget(event);\n        if (!element || target == null || !isNativeInput(target)) return;\n        target.setSelectionRange(0, target.value.length);\n      },\n      onkeydown: this.onKeyDown,\n    };\n  };\n  relayKeyboardEvent = this.onKeyDown;\n}"
+        }
+      ]
     },
     {
       "path": "packages/base/src/lib/internals/composite/utils/navigation.ts",
@@ -2875,15 +3008,18 @@
     {
       "path": "packages/base/src/lib/internals/nativeProps.ts",
       "rendererSha256": "598301c5f9e7fcfe39e8eaa45092b7935cd61e9d353a89766d45bc9230861a96",
-      "currentSha256": "f081bf825f41a64924fe298108e148ac56314d02074c588cc1f9324ff6a92cc5",
+      "currentSha256": "d815afcfdacace885ce9a74f568d2e0dcb167e72003372cd2f398603f2cacd5a",
       "scriptStructuralAstEqual": false,
       "sourceSyntaxValid": true,
-      "disposition": "Explicit presentation/grouping changes retained without normalization or structural equality credit; compiled-output disposition pending. Native public style type/import successor derives CSS string/null/undefined from Svelte HTMLAttributes and preserves the existing exact state callback across canonical and legacy declarations. Only four complete type/import bodies change against 4aa; pure internal CSS records, serialization, merge/identity, functions/effects, hosts and all earlier runtime business remain exact. Source proof supplies no new type, artifact, runtime or Original assertion acceptance; execution pending.",
+      "disposition": "Explicit presentation/grouping changes retained without normalization or structural equality credit; compiled-output disposition pending. Native public style type/import successor derives CSS string/null/undefined from Svelte HTMLAttributes and preserves the existing exact state callback across canonical and legacy declarations. Only four complete type/import bodies change against 4aa; pure internal CSS records, serialization, merge/identity, functions/effects, hosts and all earlier runtime business remain exact. Source proof supplies no new type, artifact, runtime or Original assertion acceptance; execution pending. User-authorized measured native default repair: the existing string return precedes the unchanged falsy guard, preserving public empty CSS strings. Non-string serialization and merge/class/attachment business remain exact. The separate 74c stage changes one complete helper body with 495 others and their ASTs unchanged. Bounded Source/Svelte/Listbox witnesses and full predecessor are retained; zero divergent unchanged Original credit. Mandatory successor gates and exact-head independent acceptance remain pending.",
       "sourceNativePublicStyleCorrection": true,
       "sourceNativePublicStylePredecessor": "4aa4bc8d8d7c17e8dbec781837d56ca56112f9e3",
       "sourceNativePublicStylePredecessorSha256": "653fb2f684da7987d8c51b2384cbf5e8839c30a620a7b790f451bbeb87479cab",
       "exactAuthorizedCompleteBodyDelta": true,
       "ordinaryDeclarationCredit": 0,
+      "sourceNativeEmptyStyleCorrection": true,
+      "sourceNativeEmptyStylePredecessor": "74c437a9a337a26fd808f44f6fa36f7d7542385b",
+      "sourceNativeEmptyStylePredecessorSha256": "f081bf825f41a64924fe298108e148ac56314d02074c588cc1f9324ff6a92cc5",
       "structuralDifferences": [
         {
           "path": "source.ImportDeclaration[0].ImportClause[0].NamedImports[0]",
@@ -2896,6 +3032,20 @@
           "afterKind": "IndexedAccessType",
           "before": "string | Record<string, unknown>",
           "after": "HTMLAttributes<HTMLElement>['style']"
+        },
+        {
+          "path": "source.FunctionDeclaration[4].Block[4].IfStatement[0].PrefixUnaryExpression[0]",
+          "beforeKind": "PrefixUnaryExpression",
+          "afterKind": "BinaryExpression",
+          "before": "!value",
+          "after": "typeof value === 'string'"
+        },
+        {
+          "path": "source.FunctionDeclaration[4].Block[4].IfStatement[1].BinaryExpression[0]",
+          "beforeKind": "BinaryExpression",
+          "afterKind": "PrefixUnaryExpression",
+          "before": "typeof value === 'string'",
+          "after": "!value"
         }
       ]
     },
@@ -3068,14 +3218,30 @@
     {
       "path": "packages/base/src/lib/menu/CheckboxItem.svelte",
       "rendererSha256": "5f2820a951b645fae95aa23b1ca1eaf32588aa6aa3c6f37e8522f068676ce5cc",
-      "currentSha256": "3db96f6be4c7fe6cc2da6a5db1a2581c0175c0461a2e35a22e1aea78e58d4cfe",
-      "scriptStructuralAstEqual": true,
+      "currentSha256": "4d38de3943e120400b767a7df2c657c84ea06a28b90f523cceb7fbfc814497bd",
+      "scriptStructuralAstEqual": false,
+      "historicalAcceptedMainSha256": "3db96f6be4c7fe6cc2da6a5db1a2581c0175c0461a2e35a22e1aea78e58d4cfe",
+      "historicalAcceptedMainScriptStructuralAstEqual": true,
+      "sourceCanonicalCompositeRecovery": true,
+      "sourceCanonicalCompositePredecessor": "abe8aa9b66ab8cd8d83dfdac28ebee94a0655f79",
+      "sourceCanonicalCompositeRepresentation": "2626b3793f6b877d9d79094cfeb6e2bc3a8535ce",
+      "exactAuthorizedCompleteBodyDelta": true,
+      "ordinaryDeclarationCredit": 0,
       "sourceSyntaxValid": true,
-      "disposition": "Complete structural script AST retained; full native markup/compiled-output behavior remains separately pending.",
+      "disposition": "Exact public reviewed four canonical persistent classes and constructor callers, with the immutable recovered List ref-lifetime body. Earlier proof stages stay frozen at accepted abe8 main; actual final body hash, parsed AST and effect/class counters are current. Source199/map-array witnesses and final runtime acceptance remain mandatory; zero Original credit.",
       "commentOnlyPredecessor": "0d88a4e3fcb0ce57dab9b058b86a85e412f9d07c",
       "commentOnlyPredecessorSha256": "02ba507eb8e75052c66c4d59602b878bd77fae4d0ca02dde9af6ea3de5954a07",
       "commentOnlyStructuralAstEqual": true,
-      "commentOnlyDisposition": "Removes exactly one proven unused no-useless-assignment directive; native host binding unchanged. Standards rerun pending."
+      "commentOnlyDisposition": "Removes exactly one proven unused no-useless-assignment directive; native host binding unchanged. Standards rerun pending.",
+      "structuralDifferences": [
+        {
+          "path": "source.FirstStatement[17].VariableDeclarationList[0].VariableDeclaration[0].CallExpression[1]",
+          "beforeKind": "CallExpression",
+          "afterKind": "NewExpression",
+          "before": "useCompositeListItem(() => ({ guess: true, label }))",
+          "after": "new useCompositeListItem(() => ({ guess: true, label }))"
+        }
+      ]
     },
     {
       "path": "packages/base/src/lib/menu/CheckboxItemIndicator.svelte",
@@ -3143,14 +3309,30 @@
     {
       "path": "packages/base/src/lib/menu/Item.svelte",
       "rendererSha256": "59b581b44f5c8f25294b870d50e87020b90d568a4357010e726cdeb37f219532",
-      "currentSha256": "b6e0464d3eacabbb8d3ad0b9188f9e29e7114e5c13dbc031e6d05213e77ecafb",
-      "scriptStructuralAstEqual": true,
+      "currentSha256": "1c21f31286a6774ce323f90535253b6d279a1ca8c6372f90d18619926a0145de",
+      "scriptStructuralAstEqual": false,
+      "historicalAcceptedMainSha256": "b6e0464d3eacabbb8d3ad0b9188f9e29e7114e5c13dbc031e6d05213e77ecafb",
+      "historicalAcceptedMainScriptStructuralAstEqual": true,
+      "sourceCanonicalCompositeRecovery": true,
+      "sourceCanonicalCompositePredecessor": "abe8aa9b66ab8cd8d83dfdac28ebee94a0655f79",
+      "sourceCanonicalCompositeRepresentation": "2626b3793f6b877d9d79094cfeb6e2bc3a8535ce",
+      "exactAuthorizedCompleteBodyDelta": true,
+      "ordinaryDeclarationCredit": 0,
       "sourceSyntaxValid": true,
-      "disposition": "Complete structural script AST retained; full native markup/compiled-output behavior remains separately pending.",
+      "disposition": "Exact public reviewed four canonical persistent classes and constructor callers, with the immutable recovered List ref-lifetime body. Earlier proof stages stay frozen at accepted abe8 main; actual final body hash, parsed AST and effect/class counters are current. Source199/map-array witnesses and final runtime acceptance remain mandatory; zero Original credit.",
       "commentOnlyPredecessor": "0d88a4e3fcb0ce57dab9b058b86a85e412f9d07c",
       "commentOnlyPredecessorSha256": "cc7dd696a5e97f3be807759626071615f17779d5fb10609f9d01b018d8856f54",
       "commentOnlyStructuralAstEqual": true,
-      "commentOnlyDisposition": "Removes exactly one proven unused no-useless-assignment directive; native host binding unchanged. Standards rerun pending."
+      "commentOnlyDisposition": "Removes exactly one proven unused no-useless-assignment directive; native host binding unchanged. Standards rerun pending.",
+      "structuralDifferences": [
+        {
+          "path": "source.FirstStatement[11].VariableDeclarationList[0].VariableDeclaration[0].CallExpression[1]",
+          "beforeKind": "CallExpression",
+          "afterKind": "NewExpression",
+          "before": "useCompositeListItem(() => ({ guess: true, label }))",
+          "after": "new useCompositeListItem(() => ({ guess: true, label }))"
+        }
+      ]
     },
     {
       "path": "packages/base/src/lib/menu/item/useMenuItem.svelte.ts",
@@ -3171,14 +3353,30 @@
     {
       "path": "packages/base/src/lib/menu/LinkItem.svelte",
       "rendererSha256": "188cf6739f2bda3d9690b9896b6bccee2aaf3a457bec7bb4cf3c75f872f3a12a",
-      "currentSha256": "eab316a4f0d17a8fef47ebf716b18b72db44e2773509d07b4c2941f01700dafe",
-      "scriptStructuralAstEqual": true,
+      "currentSha256": "07a10fb9a1e375a9b642b551c5526c67631b33ab4a911804fc8fafa808523d16",
+      "scriptStructuralAstEqual": false,
+      "historicalAcceptedMainSha256": "eab316a4f0d17a8fef47ebf716b18b72db44e2773509d07b4c2941f01700dafe",
+      "historicalAcceptedMainScriptStructuralAstEqual": true,
+      "sourceCanonicalCompositeRecovery": true,
+      "sourceCanonicalCompositePredecessor": "abe8aa9b66ab8cd8d83dfdac28ebee94a0655f79",
+      "sourceCanonicalCompositeRepresentation": "2626b3793f6b877d9d79094cfeb6e2bc3a8535ce",
+      "exactAuthorizedCompleteBodyDelta": true,
+      "ordinaryDeclarationCredit": 0,
       "sourceSyntaxValid": true,
-      "disposition": "Complete structural script AST retained; full native markup/compiled-output behavior remains separately pending.",
+      "disposition": "Exact public reviewed four canonical persistent classes and constructor callers, with the immutable recovered List ref-lifetime body. Earlier proof stages stay frozen at accepted abe8 main; actual final body hash, parsed AST and effect/class counters are current. Source199/map-array witnesses and final runtime acceptance remain mandatory; zero Original credit.",
       "commentOnlyPredecessor": "0d88a4e3fcb0ce57dab9b058b86a85e412f9d07c",
       "commentOnlyPredecessorSha256": "1d771af5ccd9ef0079d538a24d44e76002a372c910ac3a648f79ab19a09d8cd6",
       "commentOnlyStructuralAstEqual": true,
-      "commentOnlyDisposition": "Removes exactly one proven unused no-useless-assignment directive; native host binding unchanged. Standards rerun pending."
+      "commentOnlyDisposition": "Removes exactly one proven unused no-useless-assignment directive; native host binding unchanged. Standards rerun pending.",
+      "structuralDifferences": [
+        {
+          "path": "source.FirstStatement[16].VariableDeclarationList[0].VariableDeclaration[0].CallExpression[1]",
+          "beforeKind": "CallExpression",
+          "afterKind": "NewExpression",
+          "before": "useCompositeListItem(() => ({ guess: true, label }))",
+          "after": "new useCompositeListItem(() => ({ guess: true, label }))"
+        }
+      ]
     },
     {
       "path": "packages/base/src/lib/menu/Popup.svelte",
@@ -3226,10 +3424,26 @@
     {
       "path": "packages/base/src/lib/menu/Positioner.svelte",
       "rendererSha256": "c1cc5b0bcf49de1210e760cd1b99bdfc0283877dcf8c018947b929abb057a658",
-      "currentSha256": "ef00a005fba611ab6296cd9388ea5dd025ba753fcf9046b1c1d4f1e774308442",
-      "scriptStructuralAstEqual": true,
+      "currentSha256": "0fa8970ef317089d972de6f4582e999e18e974b6bb822857997db73540780da0",
+      "scriptStructuralAstEqual": false,
+      "historicalAcceptedMainSha256": "ef00a005fba611ab6296cd9388ea5dd025ba753fcf9046b1c1d4f1e774308442",
+      "historicalAcceptedMainScriptStructuralAstEqual": true,
+      "sourceCanonicalCompositeRecovery": true,
+      "sourceCanonicalCompositePredecessor": "abe8aa9b66ab8cd8d83dfdac28ebee94a0655f79",
+      "sourceCanonicalCompositeRepresentation": "2626b3793f6b877d9d79094cfeb6e2bc3a8535ce",
+      "exactAuthorizedCompleteBodyDelta": true,
+      "ordinaryDeclarationCredit": 0,
       "sourceSyntaxValid": true,
-      "disposition": "Complete structural script AST retained; full native markup/compiled-output behavior remains separately pending."
+      "disposition": "Exact public reviewed four canonical persistent classes and constructor callers, with the immutable recovered List ref-lifetime body. Earlier proof stages stay frozen at accepted abe8 main; actual final body hash, parsed AST and effect/class counters are current. Source199/map-array witnesses and final runtime acceptance remain mandatory; zero Original credit.",
+      "structuralDifferences": [
+        {
+          "path": "source.ExpressionStatement[16].CallExpression[0]",
+          "beforeKind": "CallExpression",
+          "afterKind": "NewExpression",
+          "before": "createCompositeList(() => ({\n    elementsRef: store.context.itemDomElements,\n    labelsRef: store.context.itemLabels,\n  }))",
+          "after": "new createCompositeList(() => ({\n    elementsRef: store.context.itemDomElements,\n    labelsRef: store.context.itemLabels,\n  }))"
+        }
+      ]
     },
     {
       "path": "packages/base/src/lib/menu/positioner/createMenuPositioner.svelte.ts",
@@ -3304,14 +3518,30 @@
     {
       "path": "packages/base/src/lib/menu/RadioItem.svelte",
       "rendererSha256": "a91d29760c30b4b12e2707598c5e5c4d32fa4bae2c8c8564518e127ac784ad2e",
-      "currentSha256": "37fb5db24c04539996271f0dc8af2d197a3c288a1eb783f24944f824dbe58902",
-      "scriptStructuralAstEqual": true,
+      "currentSha256": "29b782f3285be2f2e448c1941a2dbd868601626fb233ba2a29afcf690dea405f",
+      "scriptStructuralAstEqual": false,
+      "historicalAcceptedMainSha256": "37fb5db24c04539996271f0dc8af2d197a3c288a1eb783f24944f824dbe58902",
+      "historicalAcceptedMainScriptStructuralAstEqual": true,
+      "sourceCanonicalCompositeRecovery": true,
+      "sourceCanonicalCompositePredecessor": "abe8aa9b66ab8cd8d83dfdac28ebee94a0655f79",
+      "sourceCanonicalCompositeRepresentation": "2626b3793f6b877d9d79094cfeb6e2bc3a8535ce",
+      "exactAuthorizedCompleteBodyDelta": true,
+      "ordinaryDeclarationCredit": 0,
       "sourceSyntaxValid": true,
-      "disposition": "Complete structural script AST retained; full native markup/compiled-output behavior remains separately pending.",
+      "disposition": "Exact public reviewed four canonical persistent classes and constructor callers, with the immutable recovered List ref-lifetime body. Earlier proof stages stay frozen at accepted abe8 main; actual final body hash, parsed AST and effect/class counters are current. Source199/map-array witnesses and final runtime acceptance remain mandatory; zero Original credit.",
       "commentOnlyPredecessor": "0d88a4e3fcb0ce57dab9b058b86a85e412f9d07c",
       "commentOnlyPredecessorSha256": "82057f97bf68f0070c0d62e12ff6e25e7c503492733252257efecc760d0abf77",
       "commentOnlyStructuralAstEqual": true,
-      "commentOnlyDisposition": "Removes exactly one proven unused no-useless-assignment directive; native host binding unchanged. Standards rerun pending."
+      "commentOnlyDisposition": "Removes exactly one proven unused no-useless-assignment directive; native host binding unchanged. Standards rerun pending.",
+      "structuralDifferences": [
+        {
+          "path": "source.FirstStatement[17].VariableDeclarationList[0].VariableDeclaration[0].CallExpression[1]",
+          "beforeKind": "CallExpression",
+          "afterKind": "NewExpression",
+          "before": "useCompositeListItem(() => ({ guess: true, label }))",
+          "after": "new useCompositeListItem(() => ({ guess: true, label }))"
+        }
+      ]
     },
     {
       "path": "packages/base/src/lib/menu/RadioItemIndicator.svelte",
@@ -3414,17 +3644,29 @@
     {
       "path": "packages/base/src/lib/menu/submenu-trigger/createMenuSubmenuTrigger.svelte.ts",
       "rendererSha256": "5b9d184457c0a316383c977c855a5914fa81e9fb29668b7b9590fe3c050f09b9",
-      "currentSha256": "3bdb83ab95cdfbe5ba3066f17bbd04c60915ba5e887e486db27f6484c4105691",
+      "currentSha256": "d6f407d96f668b3f2fbec1d4d5ba1b32e15fd3f092389f4c4e97b43b2946849c",
       "scriptStructuralAstEqual": false,
+      "historicalAcceptedMainSha256": "3bdb83ab95cdfbe5ba3066f17bbd04c60915ba5e887e486db27f6484c4105691",
+      "historicalAcceptedMainScriptStructuralAstEqual": false,
+      "sourceCanonicalCompositeRecovery": true,
+      "sourceCanonicalCompositePredecessor": "abe8aa9b66ab8cd8d83dfdac28ebee94a0655f79",
+      "sourceCanonicalCompositeRepresentation": "2626b3793f6b877d9d79094cfeb6e2bc3a8535ce",
+      "exactAuthorizedCompleteBodyDelta": true,
+      "ordinaryDeclarationCredit": 0,
       "sourceSyntaxValid": true,
-      "disposition": "Root-authorized narrow submenu item publication and implicit-active registration boundary with actual Store/ID acquisition outside untrack; tracked list acquisition, conditional closeDelay, migration/disabled synchronization, registration/cleanup order and all callbacks remain. Native owner comments replace merged-ref wording. Execution pending.",
+      "disposition": "Exact public reviewed four canonical persistent classes and constructor callers, with the immutable recovered List ref-lifetime body. Earlier proof stages stay frozen at accepted abe8 main; actual final body hash, parsed AST and effect/class counters are current. Source199/map-array witnesses and final runtime acceptance remain mandatory; zero Original credit.",
       "sourceBusinessCorrection": true,
       "sourceHostBusinessLifetimeCorrection": true,
       "sourceHostBusinessPredecessor": "c04b7ca3c494df0cbe8c6c488dbaa0479b145f7f",
       "sourceHostBusinessPredecessorSha256": "a27f25c9934a6c7d64004313fddb5bba8e96a901cf863ec8b9920d58ef4d7a12",
-      "exactAuthorizedCompleteBodyDelta": true,
-      "ordinaryDeclarationCredit": 0,
       "structuralDifferences": [
+        {
+          "path": "source.FunctionDeclaration[20].Block[5].FirstStatement[4].VariableDeclarationList[0].VariableDeclaration[0].CallExpression[1]",
+          "beforeKind": "CallExpression",
+          "afterKind": "NewExpression",
+          "before": "useCompositeListItem(() => ({ guess: true, label }))",
+          "after": "new useCompositeListItem(() => ({ guess: true, label }))"
+        },
         {
           "path": "source.FunctionDeclaration[20].Block[5].FirstStatement[13].VariableDeclarationList[0].VariableDeclaration[0].ArrowFunction[1].Block[2]",
           "before": "{\n    baseRegisterTrigger(element);\n    if (\n      element !== null &&\n      store.select('open') &&\n      store.select('activeTriggerId') == null\n    ) {\n      store.update({\n        activeTriggerId: thisTriggerId ?? null,\n        activeTriggerElement: element,\n        closeDelay,\n      });\n    }\n  }",

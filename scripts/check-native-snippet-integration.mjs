@@ -1,3 +1,4 @@
+import { readLosslessJson, readLogicalJsonBytes } from './lossless-json.mjs';
 // Complete current source comparison; grants no runtime, declaration or compiled-markup credit.
 import assert from 'node:assert/strict';
 import { execFileSync } from 'node:child_process';
@@ -267,6 +268,18 @@ const publicStyleChanges = {
     ],
   ],
 };
+// The public-style declaration stage ends at immutable PR73 predecessor 74c.
+// Its four-body counts remain historical; the measured runtime repair is a separate stage.
+const emptyStylePredecessor = '74c437a9a337a26fd808f44f6fa36f7d7542385b';
+const emptyStyleRuntime = 'packages/base/src/lib/internals/nativeProps.ts';
+function preserveEmptyNativeStyle(path, body) {
+  if (path !== emptyStyleRuntime) return body;
+  const before =
+    "  if (!value) return undefined;\n  if (typeof value === 'string') return value;\n";
+  const after = "  if (typeof value === 'string') return value;\n  if (!value) return undefined;\n";
+  assert.equal(body.split(before).length, 2, 'One exact measured empty-string guard span');
+  return body.replace(before, after);
+}
 const publicStylePaths = new Set(Object.keys(publicStyleChanges));
 assert.equal(publicStylePaths.size, 4);
 const hostBusinessPredecessor = 'c04b7ca3c494df0cbe8c6c488dbaa0479b145f7f';
@@ -414,9 +427,7 @@ function bindingDirectiveHygiene(path, body) {
 const hash = (body) => createHash('sha256').update(body).digest('hex');
 const git = (...args) =>
   execFileSync('git', args, { cwd: root, encoding: 'utf8', maxBuffer: 20 * 1024 * 1024 });
-const graph = JSON.parse(
-  readFileSync(resolve(root, 'parity/utils-package/current-source-graph.json'), 'utf8'),
-);
+const graph = readLosslessJson(resolve(root, 'parity/utils-package/current-source-graph.json'));
 function clarifyTriggerOwnership(body) {
   return body
     .replace(
@@ -621,6 +632,33 @@ assert(!('./use-render' in exports));
 assert(!('./useMergedRefs' in graph.utilsExports));
 assert.equal(graph.native.modules.length, 496);
 assert.equal(Object.keys(graph.utilsExports).length, 25);
+// Freeze every earlier stage at accepted main before the independently reviewed
+// Composite class/recovery overlay. Current graph/body/AST checks remain actual.
+const compositeMain = 'abe8aa9b66ab8cd8d83dfdac28ebee94a0655f79';
+const compositeRepresentation = '2626b3793f6b877d9d79094cfeb6e2bc3a8535ce';
+const compositePaths = new Set(
+  [
+    'internals/composite/item/CompositeItem.svelte',
+    'internals/composite/item/useCompositeItem.svelte.ts',
+    'internals/composite/list/createCompositeList.svelte.ts',
+    'internals/composite/list/useCompositeListItem.svelte.ts',
+    'internals/composite/root/CompositeRoot.svelte',
+    'internals/composite/root/useCompositeRoot.svelte.ts',
+    'menu/CheckboxItem.svelte',
+    'menu/Item.svelte',
+    'menu/LinkItem.svelte',
+    'menu/Positioner.svelte',
+    'menu/RadioItem.svelte',
+    'menu/submenu-trigger/createMenuSubmenuTrigger.svelte.ts',
+  ].map((path) => `packages/base/src/lib/${path}`),
+);
+const recoveredList =
+  'packages/base/src/lib/internals/composite/list/createCompositeList.svelte.ts';
+function compositeHistoricalStage(path) {
+  return compositePaths.has(path)
+    ? git('show', `${compositeMain}:${path}`)
+    : readFileSync(resolve(root, path), 'utf8');
+}
 const records = [];
 let effectCalls = 0,
   controlledOwners = 0,
@@ -639,12 +677,33 @@ let effectCalls = 0,
   panelMotionCorrectionBodies = 0,
   publicStyleAstPreservedBodies = 0,
   publicStyleUnchangedBodies = 0,
-  publicStyleCorrectionBodies = 0;
+  publicStyleCorrectionBodies = 0,
+  emptyStyleAstPreservedBodies = 0,
+  emptyStyleUnchangedBodies = 0,
+  emptyStyleCorrectionBodies = 0;
 for (const module of graph.native.modules) {
   const path = module.path;
   const before = git('show', `${renderer}:${path}`);
-  const after = readFileSync(resolve(root, path), 'utf8');
-  assert.equal(hash(after), module.sha256, `Stale actual current graph: ${path}`);
+  const actualAfter = readFileSync(resolve(root, path), 'utf8');
+  assert.equal(hash(actualAfter), module.sha256, `Stale actual current graph: ${path}`);
+  if (compositePaths.has(path)) {
+    if (path === recoveredList) {
+      assert.equal(Buffer.byteLength(actualAfter), 8694);
+      assert.equal(
+        hash(actualAfter),
+        'a253618ced977fdb4a961858d7550bf91e3bd686b0a8c9314deb84ee38c3a560',
+        'Exact immutable recovered List body',
+      );
+    } else {
+      assert.equal(
+        actualAfter,
+        git('show', `${compositeRepresentation}:${path}`),
+        `Exact reviewed canonical class/caller body: ${path}`,
+      );
+    }
+  }
+  const after = compositeHistoricalStage(path);
+  const actualRight = syntax(path, actualAfter);
   assert(
     !/\b(?:UseRender|createRenderElement|isNativeRefAttachment|preserveUnchangedInlineStyles)\b|<RenderElement\b/.test(
       after,
@@ -829,20 +888,44 @@ for (const module of graph.native.modules) {
     );
     publicStyleExpected = publicStyleExpected.replace(before, after);
   }
+  const emptyStylePreimage = git('show', `${emptyStylePredecessor}:${path}`);
+  const emptyStyleBefore = syntax(path, emptyStylePreimage);
+  assert.equal(
+    emptyStylePreimage,
+    publicStyleExpected,
+    `Historical exact four-body native public style successor: ${path}`,
+  );
   assert.equal(
     after,
-    publicStyleExpected,
-    `Only the exact four-body native public style successor: ${path}`,
+    preserveEmptyNativeStyle(path, emptyStylePreimage),
+    `Only the exact one-helper empty native style successor: ${path}`,
   );
+  const emptyStyleEqual =
+    JSON.stringify(shape(emptyStyleBefore, emptyStyleBefore)) ===
+    JSON.stringify(shape(right, right));
+  const emptyStyleCorrection = path === emptyStyleRuntime;
+  if (emptyStyleCorrection) {
+    assert(!emptyStyleEqual);
+    emptyStyleCorrectionBodies++;
+  } else {
+    assert.equal(after, emptyStylePreimage, `Unchanged complete empty style stage body: ${path}`);
+    assert(emptyStyleEqual);
+    emptyStyleUnchangedBodies++;
+    emptyStyleAstPreservedBodies++;
+  }
   const publicStyleEqual =
     JSON.stringify(shape(publicStyleBefore, publicStyleBefore)) ===
-    JSON.stringify(shape(right, right));
+    JSON.stringify(shape(emptyStyleBefore, emptyStyleBefore));
   const publicStyleCorrection = publicStylePaths.has(path);
   if (publicStyleCorrection) {
     assert(!publicStyleEqual);
     publicStyleCorrectionBodies++;
   } else {
-    assert.equal(after, publicStylePreimage, `Unchanged complete public style stage body: ${path}`);
+    assert.equal(
+      emptyStylePreimage,
+      publicStylePreimage,
+      `Unchanged historical complete public style stage body: ${path}`,
+    );
     assert(publicStyleEqual);
     publicStyleUnchangedBodies++;
     publicStyleAstPreservedBodies++;
@@ -988,8 +1071,20 @@ for (const module of graph.native.modules) {
   const record = {
     path,
     rendererSha256: hash(before),
-    currentSha256: hash(after),
-    scriptStructuralAstEqual: equal,
+    currentSha256: hash(actualAfter),
+    scriptStructuralAstEqual:
+      JSON.stringify(shape(left, left)) === JSON.stringify(shape(actualRight, actualRight)),
+    ...(compositePaths.has(path)
+      ? {
+          historicalAcceptedMainSha256: hash(after),
+          historicalAcceptedMainScriptStructuralAstEqual: equal,
+          sourceCanonicalCompositeRecovery: true,
+          sourceCanonicalCompositePredecessor: compositeMain,
+          sourceCanonicalCompositeRepresentation: compositeRepresentation,
+          exactAuthorizedCompleteBodyDelta: true,
+          ordinaryDeclarationCredit: 0,
+        }
+      : {}),
     sourceSyntaxValid: true,
     disposition: popoverSlotCorrection
       ? 'Root-authorized actual PopoverStore-owned native reactive trigger focus-target node property; plain inert default and shared DOM/focus/open/cleanup business retained. Candidate execution pending.'
@@ -1091,6 +1186,15 @@ for (const module of graph.native.modules) {
     record.disposition +=
       ' Native public style type/import successor derives CSS string/null/undefined from Svelte HTMLAttributes and preserves the existing exact state callback across canonical and legacy declarations. Only four complete type/import bodies change against 4aa; pure internal CSS records, serialization, merge/identity, functions/effects, hosts and all earlier runtime business remain exact. Source proof supplies no new type, artifact, runtime or Original assertion acceptance; execution pending.';
   }
+  if (emptyStyleCorrection) {
+    record.sourceNativeEmptyStyleCorrection = true;
+    record.sourceNativeEmptyStylePredecessor = emptyStylePredecessor;
+    record.sourceNativeEmptyStylePredecessorSha256 = hash(emptyStylePreimage);
+    record.exactAuthorizedCompleteBodyDelta = true;
+    record.ordinaryDeclarationCredit = 0;
+    record.disposition +=
+      ' User-authorized measured native default repair: the existing string return precedes the unchanged falsy guard, preserving public empty CSS strings. Non-string serialization and merge/class/attachment business remain exact. The separate 74c stage changes one complete helper body with 495 others and their ASTs unchanged. Bounded Source/Svelte/Listbox witnesses and full predecessor are retained; zero divergent unchanged Original credit. Mandatory successor gates and exact-head independent acceptance remain pending.';
+  }
   if (installedLabelCorrection || installedTreeCorrection) {
     record.sourceBusinessPredecessor = cleanupPredecessor;
     record.sourceBusinessPredecessorSha256 = hash(git('show', `${cleanupPredecessor}:${path}`));
@@ -1149,19 +1253,24 @@ for (const module of graph.native.modules) {
         ? 'Documents the real Svelte output-binding macro; no value/read/API change. Standards rerun pending.'
         : 'Removes exactly one proven unused no-useless-assignment directive; native host binding unchanged. Standards rerun pending.';
   }
-  if (!equal) record.structuralDifferences = differences(left, right, left, right);
+  if (!record.scriptStructuralAstEqual)
+    record.structuralDifferences = differences(left, actualRight, left, actualRight);
+  if (compositePaths.has(path)) {
+    record.disposition =
+      'Exact public reviewed four canonical persistent classes and constructor callers, with the immutable recovered List ref-lifetime body. Earlier proof stages stay frozen at accepted abe8 main; actual final body hash, parsed AST and effect/class counters are current. Source199/map-array witnesses and final runtime acceptance remain mandatory; zero Original credit.';
+  }
   records.push(record);
   function count(node) {
     if (
       ts.isCallExpression(node) &&
-      ['$effect', '$effect.pre'].includes(node.expression.getText(right))
+      ['$effect', '$effect.pre'].includes(node.expression.getText(actualRight))
     )
       effectCalls++;
-    if (ts.isNewExpression(node) && node.expression.getText(right) === 'Controlled')
+    if (ts.isNewExpression(node) && node.expression.getText(actualRight) === 'Controlled')
       controlledOwners++;
     ts.forEachChild(node, count);
   }
-  count(right);
+  count(actualRight);
 }
 const preimages = JSON.parse(
   readFileSync(resolve(root, 'parity/native-snippets/integration-predecessors.json'), 'utf8'),
@@ -1199,7 +1308,7 @@ const triggerLifetime = JSON.parse(
 assert.equal(triggerLifetime.predecessor, registrationPredecessor);
 assert.equal(triggerLifetime.pin, graph.immutableOriginalPin);
 for (const runtime of triggerLifetime.runtime) {
-  assert.equal(hash(readFileSync(resolve(root, runtime.path))), runtime.sha256);
+  assert.equal(hash(compositeHistoricalStage(runtime.path)), runtime.sha256);
   assert.equal(
     hash(git('show', `${registrationPredecessor}:${runtime.path}`)),
     runtime.predecessorSha256,
@@ -1222,7 +1331,7 @@ const nativeLifetime = JSON.parse(
 assert.equal(nativeLifetime.predecessor, nativeOwnerPredecessor);
 assert.equal(nativeLifetime.pin, graph.immutableOriginalPin);
 for (const runtime of nativeLifetime.runtime) {
-  assert.equal(hash(readFileSync(resolve(root, runtime.path))), runtime.sha256);
+  assert.equal(hash(compositeHistoricalStage(runtime.path)), runtime.sha256);
   assert.equal(
     hash(git('show', `${nativeOwnerPredecessor}:${runtime.path}`)),
     runtime.predecessorSha256,
@@ -1276,7 +1385,7 @@ assert.equal(publicationLifetime.pin, graph.immutableOriginalPin);
 assert.equal(publicationLifetime.ordinaryDeclarationCredit, 0);
 assert.equal(publicationLifetime.runtime.path, positionerPublicationRuntime);
 assert.equal(
-  hash(readFileSync(resolve(root, publicationLifetime.runtime.path))),
+  hash(compositeHistoricalStage(publicationLifetime.runtime.path)),
   publicationLifetime.runtime.sha256,
 );
 assert.equal(
@@ -1306,7 +1415,7 @@ assert.deepEqual(
   [...fieldBusinessPaths],
 );
 for (const runtime of fieldStage.runtime) {
-  assert.equal(hash(readFileSync(resolve(root, runtime.path))), runtime.sha256);
+  assert.equal(hash(compositeHistoricalStage(runtime.path)), runtime.sha256);
   assert.equal(
     hash(git('show', `${fieldBusinessPredecessor}:${runtime.path}`)),
     runtime.predecessorSha256,
@@ -1356,6 +1465,9 @@ assert.equal(panelMotionCorrectionBodies, 1);
 assert.equal(publicStyleAstPreservedBodies, 492);
 assert.equal(publicStyleUnchangedBodies, 492);
 assert.equal(publicStyleCorrectionBodies, 4);
+assert.equal(emptyStyleAstPreservedBodies, 495);
+assert.equal(emptyStyleUnchangedBodies, 495);
+assert.equal(emptyStyleCorrectionBodies, 1);
 const panelMotionLifetime = JSON.parse(
   readFileSync(
     resolve(root, 'parity/native-snippets/collapsible-panel-motion-lifetime.json'),
@@ -1452,6 +1564,26 @@ const output = {
   sourceNativePublicStyleCorrectionPaths: records
     .filter((record) => record.sourceNativePublicStyleCorrection)
     .map((record) => record.path),
+  emptyStylePredecessor,
+  emptyStyleAstPreservedBodies,
+  emptyStyleUnchangedBodies,
+  emptyStyleCorrectionBodies,
+  sourceNativeEmptyStyleCorrectionPaths: records
+    .filter((record) => record.sourceNativeEmptyStyleCorrection)
+    .map((record) => record.path),
+  compositeRecoveryStage: {
+    predecessor: compositeMain,
+    representation: compositeRepresentation,
+    retainedRepresentationBodies: 11,
+    recoveredListBytes: 8694,
+    recoveredListSha256: 'a253618ced977fdb4a961858d7550bf91e3bd686b0a8c9314deb84ee38c3a560',
+    unchangedBodiesFromMain: 484,
+    paths: [...compositePaths],
+    credit:
+      'Historical stage counts use immutable main bodies; actual current graph hashes, ASTs and effect counts use final bodies. No behavioral or unchanged Original assertion credit.',
+  },
+  privateLeafScope:
+    'This proof covers the 496 public-main closure modules only. The four private Select prerequisite modules are separately recorded in the 16-module current-main leaf graph; no coverage or acceptance is inferred for them.',
   sourceHostBusinessLifetimeCorrectionPaths: records
     .filter((record) => record.sourceHostBusinessLifetimeCorrection)
     .map((record) => record.path),
@@ -1462,10 +1594,10 @@ const output = {
   ordinaryDeclarationCredit: 0,
   mode: 'Source/parser/hash/import evidence only; no type program, runtime, SSR/hydration, compiled markup, artifact, installed consumer, browser, CI or merge acceptance credit.',
   method:
-    'Complete current native two-package AST closure, immutable f0 full-body preimages and grouping-preserving script ASTs. Deliberate source/native owner corrections remain separate from formatter presentation changes. Getter/label publication retain exact inherited bodies; full-body Menu cleanup deltas bind e5, captured focus metadata binds42, trigger publication bindsf2, and native ownership comments bind336 with its AST unchanged. The five native node/initial-seed/focus-out disposal owner deltas bindc392 while all earlier stages/history remain distinct. The subsequent 32 obsolete binding directives and one RadioGroup output-binding annotation bind 0d with all 496 complete bodies otherwise unchanged and every script AST identical. The next native initial-focus destroyed-owner predicate and adjacent timing comment bind ec36 as one complete Source-body delta; all other 495 current bodies/ASTs stay exact. This native owner adaptation earns zero unchanged Original credit. The subsequent real Popover trigger focus-target node property binds 0ba as one complete Source-body delta with 495 other current bodies/ASTs exact; earlier stages retain their own immutable preservation counts. The next ten intrinsic button fallback defaults bind d5 as exact literal attributes before props spread; all 496 script ASTs and 486 other full bodies remain unchanged. Custom render branches and merged props remain untouched. The Original fallback default is expressed as native host markup with no shared renderer or new assertion credit. The subsequent ten native declaration/producer contract repairs bind c0 as exact complete-body transforms; the other 486 bodies and script ASTs remain exact. Seven declaration paths, a ToastClose rune-collision identifier rename and two known appearance producers retain their existing business and handler composition. Type/runtime acceptance remains pending. The next three native host-business lifetime deltas bind c04 as exact complete bodies: an ordinary getter over the actual button node, Toolbar captured-host cleanup and narrow submenu imperative item/implicit-active publication. The other 493 current bodies/ASTs are exact, and prior c0/d5 preservation counts remain historical. Disabled/prop/event algorithms, tracked list acquisition and independent migration/closeDelay effects remain. Parse success supplies no behavior equivalence. The next single Positioner imperative publication/cleanup boundary binds the full d390 preimage; the other 495 complete bodies/ASTs stay exact, while all earlier historical stage counts remain unchanged. Actual context Store and host acquisition, pinned parent subscription, synchronous callback order and live positioning/effects remain. This source proof grants no runtime-cause, pass or unchanged Original assertion credit. The subsequent two reviewed Field business repairs bind the complete acde preimages: own supplied-child presence controls Error content and a live imperative message-ID resource publishes through native raw state. Only those exact reviewed spans change; the other 494 complete bodies and script ASTs stay exact. The d390 Menu boundary and every earlier preservation count remain historical. Original inventory/correspondence hashes and all existing Field witness bodies remain unchanged, with zero new declaration or execution credit. The next one-body Collapsible Panel stage binds the complete coherent Field predecessor with 495 other bodies and grouping-preserving script ASTs exact. Accepted-beforematch motion becomes actual-host/open-cycle native state and derived zero-duration markup; close resolves live authored duration. The acde-to-Field two-body 494 stage and d390-to-acde Menu 495 stage remain historical. Detached native markup and consumer important/custom-host overrides are intentional native boundaries with zero divergent unchanged Original credit. Separate favicon and supplemental assertion edits are non-runtime metadata; Source proof grants no successor execution or acceptance credit. The subsequent four-body native public style type/import stage binds the complete 4aa predecessor, preserving all 492 other complete bodies and grouping-preserving script ASTs. The historical one-Panel 495, two-Field 494 and Menu 495 stages are frozen against their exact predecessor/successor bodies rather than rewritten for current declarations. Canonical NativeStyle derives Svelte CSS string/null/undefined, and legacy Dialog/Avatar/Toast reuse the same state-specific style slot. Internal style records, pure serialization and merge/identity function bodies remain; no runtime guard or object-business rewrite is introduced. Earlier authored public object-style API and prior receipts stay historical; this declaration correction earns zero divergent unchanged Original credit and no type/runtime/artifact/acceptance credit before actual gates.',
+    'Complete current native two-package AST closure, immutable f0 full-body preimages and grouping-preserving script ASTs. Deliberate source/native owner corrections remain separate from formatter presentation changes. Getter/label publication retain exact inherited bodies; full-body Menu cleanup deltas bind e5, captured focus metadata binds42, trigger publication bindsf2, and native ownership comments bind336 with its AST unchanged. The five native node/initial-seed/focus-out disposal owner deltas bindc392 while all earlier stages/history remain distinct. The subsequent 32 obsolete binding directives and one RadioGroup output-binding annotation bind 0d with all 496 complete bodies otherwise unchanged and every script AST identical. The next native initial-focus destroyed-owner predicate and adjacent timing comment bind ec36 as one complete Source-body delta; all other 495 current bodies/ASTs stay exact. This native owner adaptation earns zero unchanged Original credit. The subsequent real Popover trigger focus-target node property binds 0ba as one complete Source-body delta with 495 other current bodies/ASTs exact; earlier stages retain their own immutable preservation counts. The next ten intrinsic button fallback defaults bind d5 as exact literal attributes before props spread; all 496 script ASTs and 486 other full bodies remain unchanged. Custom render branches and merged props remain untouched. The Original fallback default is expressed as native host markup with no shared renderer or new assertion credit. The subsequent ten native declaration/producer contract repairs bind c0 as exact complete-body transforms; the other 486 bodies and script ASTs remain exact. Seven declaration paths, a ToastClose rune-collision identifier rename and two known appearance producers retain their existing business and handler composition. Type/runtime acceptance remains pending. The next three native host-business lifetime deltas bind c04 as exact complete bodies: an ordinary getter over the actual button node, Toolbar captured-host cleanup and narrow submenu imperative item/implicit-active publication. The other 493 current bodies/ASTs are exact, and prior c0/d5 preservation counts remain historical. Disabled/prop/event algorithms, tracked list acquisition and independent migration/closeDelay effects remain. Parse success supplies no behavior equivalence. The next single Positioner imperative publication/cleanup boundary binds the full d390 preimage; the other 495 complete bodies/ASTs stay exact, while all earlier historical stage counts remain unchanged. Actual context Store and host acquisition, pinned parent subscription, synchronous callback order and live positioning/effects remain. This source proof grants no runtime-cause, pass or unchanged Original assertion credit. The subsequent two reviewed Field business repairs bind the complete acde preimages: own supplied-child presence controls Error content and a live imperative message-ID resource publishes through native raw state. Only those exact reviewed spans change; the other 494 complete bodies and script ASTs stay exact. The d390 Menu boundary and every earlier preservation count remain historical. Original inventory/correspondence hashes and all existing Field witness bodies remain unchanged, with zero new declaration or execution credit. The next one-body Collapsible Panel stage binds the complete coherent Field predecessor with 495 other bodies and grouping-preserving script ASTs exact. Accepted-beforematch motion becomes actual-host/open-cycle native state and derived zero-duration markup; close resolves live authored duration. The acde-to-Field two-body 494 stage and d390-to-acde Menu 495 stage remain historical. Detached native markup and consumer important/custom-host overrides are intentional native boundaries with zero divergent unchanged Original credit. Separate favicon and supplemental assertion edits are non-runtime metadata; Source proof grants no successor execution or acceptance credit. The subsequent four-body native public style type/import stage binds the complete 4aa predecessor, preserving all 492 other complete bodies and grouping-preserving script ASTs. The historical one-Panel 495, two-Field 494 and Menu 495 stages are frozen against their exact predecessor/successor bodies rather than rewritten for current declarations. Canonical NativeStyle derives Svelte CSS string/null/undefined, and legacy Dialog/Avatar/Toast reuse the same state-specific style slot. Internal style records, pure serialization and merge/identity function bodies remain; no runtime guard or object-business rewrite is introduced. Earlier authored public object-style API and prior receipts stay historical; this declaration correction earns zero divergent unchanged Original credit and no type/runtime/artifact/acceptance credit before actual gates. The next measured native empty-string stage binds the complete immutable 74c437a9 predecessor: only nativeProps changes its two existing guard lines, while 495 other complete bodies and grouping-preserving script ASTs remain exact. Every historical stage endpoint and count remains frozen. Public native empty strings now pass through; all non-string business remains. This grants zero divergent unchanged Original credit and no runtime/browser/CI acceptance. Four private Select leaf modules remain outside this 496-module public proof.',
   parserVersions: { TypeScript: ts.version, Svelte: compiler.VERSION },
   currentGraphSha256: hash(
-    readFileSync(resolve(root, 'parity/utils-package/current-source-graph.json')),
+    readLogicalJsonBytes(resolve(root, 'parity/utils-package/current-source-graph.json')),
   ),
   currentPublicHostGraphSha256: hash(
     readFileSync(resolve(root, 'parity/native-snippets/native-graph.json')),

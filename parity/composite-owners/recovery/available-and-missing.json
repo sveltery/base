@@ -1,0 +1,442 @@
+{
+  "recoveredEntries": [
+    {
+      "path": "packages/base/src/lib/internals/composite/list/createCompositeList.svelte.ts",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "7edc3e95c86778d338e964a9bf4860bdb3907d46",
+      "bytes": 8694
+    },
+    {
+      "path": "parity/composite-owners/ref-replacement/native/createCompositeList-2626.svelte.ts.gz",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "f743d35edf44942fb4ff8f4c6b9f694ad6623317",
+      "bytes": 2569
+    },
+    {
+      "path": "parity/composite-owners/ref-replacement/native/createCompositeList-final-two-effects.svelte.ts.gz",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "97383800efe83df83b422835b15478ec373cea04",
+      "bytes": 2665
+    },
+    {
+      "path": "parity/composite-owners/ref-replacement/native/docs-format.log.gz",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "c4a6529a40622e6f26fe8251d0ccc00d088a53a4",
+      "bytes": 82
+    },
+    {
+      "path": "parity/composite-owners/ref-replacement/native/final-focused-lint.log.gz",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "d4b9926df0b7defceb6caf0b474c4a190c5ca8f0",
+      "bytes": 20
+    },
+    {
+      "path": "parity/composite-owners/ref-replacement/native/final-runtime-boundary.log.gz",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "e9c2a9404a7d796fdea68f0b653f0c3df436251c",
+      "bytes": 81
+    },
+    {
+      "path": "parity/composite-owners/ref-replacement/native/final-source-format.log.gz",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "c4a6529a40622e6f26fe8251d0ccc00d088a53a4",
+      "bytes": 82
+    },
+    {
+      "path": "parity/composite-owners/ref-replacement/native/focused-lint.log.gz",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "d4b9926df0b7defceb6caf0b474c4a190c5ca8f0",
+      "bytes": 20
+    },
+    {
+      "path": "parity/composite-owners/ref-replacement/native/packed-repaired-explicit-store.log.gz",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "b7eb374b2785588acb52146cfefaaa79623a1bd4",
+      "bytes": 193
+    },
+    {
+      "path": "parity/composite-owners/ref-replacement/native/packed-repaired-workspace-store.log.gz",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "b7eb374b2785588acb52146cfefaaa79623a1bd4",
+      "bytes": 193
+    },
+    {
+      "path": "parity/composite-owners/ref-replacement/native/packed-repaired.log.gz",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "b7eb374b2785588acb52146cfefaaa79623a1bd4",
+      "bytes": 193
+    },
+    {
+      "path": "parity/composite-owners/ref-replacement/source-bodies/packages/react/src/internals/composite/list/CompositeList.tsx.gz",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "c419bbd9ee9381863c8f2aedece950a6f4ddc577",
+      "bytes": 3082
+    },
+    {
+      "path": "parity/composite-owners/ref-replacement/source-bodies/packages/react/src/internals/composite/list/CompositeListContext.ts.gz",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "45b07a4ac6decde04db83047362a899b9194f232",
+      "bytes": 369
+    },
+    {
+      "path": "parity/composite-owners/ref-replacement/source-bodies/packages/react/src/internals/composite/list/useCompositeListItem.ts.gz",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "9c3b13587993dde3cf18794f021470fa15bc8391",
+      "bytes": 1219
+    },
+    {
+      "path": "parity/composite-owners/ref-replacement/source-bodies/packages/react/test/mergeRefs.ts.gz",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "1279f90d4067c11ef47a15f09b4f9a660ad14e52",
+      "bytes": 197
+    },
+    {
+      "path": "parity/composite-owners/ref-replacement/source-bodies/packages/utils/src/safeReact.ts.gz",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "7da780ca3836f62323e6b92f6beb79ca23013b52",
+      "bytes": 320
+    },
+    {
+      "path": "parity/composite-owners/ref-replacement/source-bodies/packages/utils/src/useIsoLayoutEffect.ts.gz",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "524eb5e1da37464ffac5af3c2ae75e077aaf6675",
+      "bytes": 147
+    },
+    {
+      "path": "parity/composite-owners/ref-replacement/source-bodies/packages/utils/src/useRefWithInit.ts.gz",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "bfe8dde097c41ea5ad71f3a962dd03d8ba1cf4c8",
+      "bytes": 371
+    },
+    {
+      "path": "parity/composite-owners/ref-replacement/source-bodies/packages/utils/src/useStableCallback.ts.gz",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "9e4e966d783bf81bb81fd2cb16e466b15e3e7ec1",
+      "bytes": 946
+    },
+    {
+      "path": "parity/composite-owners/ref-replacement/source/original-test-block.tsx.gz",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "5ae231e0003dfd6d6d42fd590a897aebbd4d5904",
+      "bytes": 643
+    }
+  ],
+  "missingEntries": [
+    {
+      "path": "docs/composite-owners.md",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "4515e8e488f6cfc8905cfadff391541b3fe1838a",
+      "bytes": 4408
+    },
+    {
+      "path": "docs/upstream-differences.md",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "273e25cf4854dd9273ac4b9bf40411afbf153b93",
+      "bytes": 144921
+    },
+    {
+      "path": "packages/base/tests/dom/CompositeListRefSwapFixture.svelte",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "8f4171b0fcdbcacae19aeee4ba4e94203e3cc04a",
+      "bytes": 1674
+    },
+    {
+      "path": "packages/base/tests/dom/CompositeListRefSwapItem.svelte",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "99e8f5f0da5b7af270a6601af85377a7b8ede778",
+      "bytes": 660
+    },
+    {
+      "path": "packages/base/tests/dom/CompositeListStableRefsFixture.svelte",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "ca84d9e49a42200e0a6df4813ac2f4131cc58e75",
+      "bytes": 1022
+    },
+    {
+      "path": "packages/base/tests/dom/CompositeListStableRefsItem.svelte",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "e1deb8c50e7c01c0df15b865cbe32012bfcc41cf",
+      "bytes": 406
+    },
+    {
+      "path": "packages/base/tests/dom/composite-list-ref-swap.test.ts",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "1999faadab5c162a154280d84415f552efd5b6f7",
+      "bytes": 3544
+    },
+    {
+      "path": "packages/base/tests/dom/composite-list-stable-refs.test.ts",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "868e6155a84980bf4ef567f760e65c576966ffe5",
+      "bytes": 3919
+    },
+    {
+      "path": "parity/composite-owners/README.md",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "8e7809a49c8b7fdccd15126fb7b458288eda3dca",
+      "bytes": 3419
+    },
+    {
+      "path": "parity/composite-owners/native-closure.json",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "7f359cc9cd5453ed07dd396fa936b9006dac7429",
+      "bytes": 492578
+    },
+    {
+      "path": "parity/composite-owners/ref-replacement/README.md",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "77e1cd7698fcbfccb9dc7e572b2fc0d042cb8a5c",
+      "bytes": 12885
+    },
+    {
+      "path": "parity/composite-owners/ref-replacement/manifest.json",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "7ccf3ecb079ed9793e062804cfedc26f5b796317",
+      "bytes": 26985
+    },
+    {
+      "path": "parity/composite-owners/ref-replacement/native/CompositeListRefSwapFixture.svelte.gz",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "b7577bcfa12bf20afbff471993132dd0873a0cf9",
+      "bytes": 697
+    },
+    {
+      "path": "parity/composite-owners/ref-replacement/native/CompositeListRefSwapItem.svelte.gz",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "1f7994b780e9006b37904aca98818f55a2e9d583",
+      "bytes": 360
+    },
+    {
+      "path": "parity/composite-owners/ref-replacement/native/CompositeListStableRefsFixture.svelte.gz",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "6f299ee513a2a9a1968ed104f24995ad63350016",
+      "bytes": 537
+    },
+    {
+      "path": "parity/composite-owners/ref-replacement/native/CompositeListStableRefsItem.svelte.gz",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "73ffb0bd6e48de559953a9ed39b52a893bd3c49f",
+      "bytes": 276
+    },
+    {
+      "path": "parity/composite-owners/ref-replacement/native/composite-closure-check.log.gz",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "a152522ca11389fa596b9b645fdb91aa5fdf2cb3",
+      "bytes": 117
+    },
+    {
+      "path": "parity/composite-owners/ref-replacement/native/composite-list-ref-swap.test.ts.gz",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "b45d3a1301ede793b0d4edc392c64c245e0d0b54",
+      "bytes": 1275
+    },
+    {
+      "path": "parity/composite-owners/ref-replacement/native/composite-list-stable-refs.test.ts.gz",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "abe4337a3c8e57f6dee8e8c7b7a1ead15909568f",
+      "bytes": 1365
+    },
+    {
+      "path": "parity/composite-owners/ref-replacement/native/createCompositeList-repaired.svelte.ts.gz",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "6c4625e212f5b3d33fa34a51702d4cd69660e337",
+      "bytes": 2591
+    },
+    {
+      "path": "parity/composite-owners/ref-replacement/native/final-family-projection-check.log.gz",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "67a4be835ef4e6a552c6ec1fb09a7ad9f15e7b6a",
+      "bytes": 104
+    },
+    {
+      "path": "parity/composite-owners/ref-replacement/native/final-native-graph-check.log.gz",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "fef54a97dbcf388d58a6c42047d00e0eb3e4bbd3",
+      "bytes": 95
+    },
+    {
+      "path": "parity/composite-owners/ref-replacement/native/final-prepack.log.gz",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "8049538d43681c6103cd75d23e18c4b09803d307",
+      "bytes": 153
+    },
+    {
+      "path": "parity/composite-owners/ref-replacement/native/full-dom-final.log.gz",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "799fa42a59308ad29cce042543bca03240181196",
+      "bytes": 622
+    },
+    {
+      "path": "parity/composite-owners/ref-replacement/native/full-dom-repaired.log.gz",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "b21e23415fe7b660aef03599a8878663b3d2626d",
+      "bytes": 622
+    },
+    {
+      "path": "parity/composite-owners/ref-replacement/native/native-array-red.log.gz",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "fa9074f09612ff30d5403e0279ff0aed39975f45",
+      "bytes": 950
+    },
+    {
+      "path": "parity/composite-owners/ref-replacement/native/native-final-focused.log.gz",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "e312909e0fc33b337e473f8581c5b1f26c1db707",
+      "bytes": 352
+    },
+    {
+      "path": "parity/composite-owners/ref-replacement/native/native-projection-check.log.gz",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "3459a9e4e865cf712e5f9d490559981138cff421",
+      "bytes": 536
+    },
+    {
+      "path": "parity/composite-owners/ref-replacement/native/native-red-workspace-tmp.log.gz",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "2734e55bb823608ab9fdb31b7c4a0ae9106f0e3b",
+      "bytes": 809
+    },
+    {
+      "path": "parity/composite-owners/ref-replacement/native/native-red.log.gz",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "063d84fe89c70b99636b955ed8590f7d88dc461e",
+      "bytes": 432
+    },
+    {
+      "path": "parity/composite-owners/ref-replacement/native/native-repaired-focused.log.gz",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "d266399396fc5b29256f8dd5f2ab5408659bd628",
+      "bytes": 353
+    },
+    {
+      "path": "parity/composite-owners/ref-replacement/source/source-original-corrected.log.gz",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "d48bb9df9b3e5ed7b23726f0956934391c5deb9f",
+      "bytes": 781
+    },
+    {
+      "path": "parity/composite-owners/ref-replacement/source/source-original.log.gz",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "8116df5160cab1e4eb1716b87480094838eff2f2",
+      "bytes": 300
+    },
+    {
+      "path": "parity/composite-owners/ref-replacement/source/source-run-array.cjs.gz",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "82fd73dab27e075184fd45ce33032649379be787",
+      "bytes": 2250
+    },
+    {
+      "path": "parity/composite-owners/ref-replacement/source/source-run.cjs.gz",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "b6176e76e6c50ee7bcf75392cb70de2ad6ce87bd",
+      "bytes": 2219
+    },
+    {
+      "path": "parity/composite-owners/ref-replacement/source/source-stable-array.log.gz",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "8298d69b9b844c76465c8909a11a67054a4737a7",
+      "bytes": 920
+    },
+    {
+      "path": "parity/composite-owners/ref-replacement/source/source-stable-array.tsx.gz",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "930ec54271503445ec6198c92975487607a686c4",
+      "bytes": 826
+    },
+    {
+      "path": "parity/composite-owners/ref-replacement/source/source-teardown-supplement.log.gz",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "75fb3f4f237065059d5169f7d6766ddc95f9d399",
+      "bytes": 827
+    },
+    {
+      "path": "parity/composite-owners/ref-replacement/source/teardown-observation-supplement.tsx.gz",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "785d7861d6528f2cafec94726422ec38b2367e04",
+      "bytes": 697
+    },
+    {
+      "path": "parity/composite-owners/source-correspondence.md",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "8420f6e25454beca7690da544d736be6dd72923c",
+      "bytes": 99453
+    },
+    {
+      "path": "parity/native-snippets/family-projection.json",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "8832e4dc1864e6a8c2ea995f570e05abd91cf947",
+      "bytes": 261468
+    },
+    {
+      "path": "parity/native-snippets/native-graph.json",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "6e80a231dbe0ab07a7e4d03382493f5e45515b53",
+      "bytes": 530322
+    }
+  ],
+  "recoveredUnique": 16,
+  "missingUnique": 42
+}

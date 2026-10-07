@@ -10,11 +10,11 @@
     ],
     "graph": {
       "path": "parity/native-snippets/native-graph.json",
-      "sha256": "957ba874a82940c932d20e7517d97933a6246dbe7b5d7f4c049f0a25967cee47"
+      "sha256": "5017890a86f08c8597638767143aa49fca8195008d38900c4fdeaf7bc3f95817"
     },
     "predecessor": {
       "path": "parity/toggle-toolbar/source-correspondence.json",
-      "sha256": "3d0b1c5353cb45052852582e2449ec6123a87bcdf58801f94eafa8670511898e"
+      "sha256": "2a1304485ae05e02a247fd91c139157bbb8e0c9d5ce0fa1fc9853c9063210d3f"
     },
     "originalGraph": {
       "path": "parity/toggle-toolbar/source-graph.json",
@@ -55,7 +55,7 @@
       },
       {
         "source": "packages/base/src/lib/internals/composite/list/createCompositeList.svelte.ts",
-        "sha256": "71f38c19bcb64f4443f76d533a583cebe826c896a1b22cac6c462c7bcbce07b5"
+        "sha256": "a253618ced977fdb4a961858d7550bf91e3bd686b0a8c9314deb84ee38c3a560"
       },
       {
         "source": "packages/base/src/lib/internals/composite/list/useCompositeListItem.svelte.ts",
@@ -95,7 +95,7 @@
       },
       {
         "source": "packages/base/src/lib/internals/nativeProps.ts",
-        "sha256": "f081bf825f41a64924fe298108e148ac56314d02074c588cc1f9324ff6a92cc5"
+        "sha256": "d815afcfdacace885ce9a74f568d2e0dcb167e72003372cd2f398603f2cacd5a"
       },
       {
         "source": "packages/base/src/lib/internals/reason-parts.ts",
@@ -705,7 +705,7 @@
         "local": [
           {
             "source": "packages/base/src/lib/internals/composite/list/createCompositeList.svelte.ts",
-            "sha256": "71f38c19bcb64f4443f76d533a583cebe826c896a1b22cac6c462c7bcbce07b5"
+            "sha256": "a253618ced977fdb4a961858d7550bf91e3bd686b0a8c9314deb84ee38c3a560"
           }
         ],
         "retiredLocal": [],
@@ -1953,7 +1953,7 @@
       },
       {
         "source": "packages/base/src/lib/internals/nativeProps.ts",
-        "sha256": "f081bf825f41a64924fe298108e148ac56314d02074c588cc1f9324ff6a92cc5",
+        "sha256": "d815afcfdacace885ce9a74f568d2e0dcb167e72003372cd2f398603f2cacd5a",
         "status": "native-representation-or-split-business-counterpart-no-acceptance-credit"
       },
       {
@@ -2015,11 +2015,11 @@
     ],
     "graph": {
       "path": "parity/native-snippets/native-graph.json",
-      "sha256": "957ba874a82940c932d20e7517d97933a6246dbe7b5d7f4c049f0a25967cee47"
+      "sha256": "5017890a86f08c8597638767143aa49fca8195008d38900c4fdeaf7bc3f95817"
     },
     "predecessor": {
       "path": "parity/menu-family/source-correspondence.json",
-      "sha256": "06d21d3b4c760f8f6260543bdfee2f18cef48b15957eaf0b7d038ce1ed4a60c3"
+      "sha256": "3233fc6dddecb86a96005a0cb468370129ace9271a7f0441952d3cba145467af"
     },
     "originalGraph": {
       "path": "parity/menu-family/source-graph.json",
@@ -2264,7 +2264,7 @@
       },
       {
         "source": "packages/base/src/lib/internals/composite/list/createCompositeList.svelte.ts",
-        "sha256": "71f38c19bcb64f4443f76d533a583cebe826c896a1b22cac6c462c7bcbce07b5"
+        "sha256": "a253618ced977fdb4a961858d7550bf91e3bd686b0a8c9314deb84ee38c3a560"
       },
       {
         "source": "packages/base/src/lib/internals/composite/list/useCompositeListItem.svelte.ts",
@@ -2312,7 +2312,7 @@
       },
       {
         "source": "packages/base/src/lib/internals/nativeProps.ts",
-        "sha256": "f081bf825f41a64924fe298108e148ac56314d02074c588cc1f9324ff6a92cc5"
+        "sha256": "d815afcfdacace885ce9a74f568d2e0dcb167e72003372cd2f398603f2cacd5a"
       },
       {
         "source": "packages/base/src/lib/internals/reason-parts.ts",
@@ -3515,7 +3515,7 @@
         "local": [
           {
             "source": "packages/base/src/lib/internals/composite/list/createCompositeList.svelte.ts",
-            "sha256": "71f38c19bcb64f4443f76d533a583cebe826c896a1b22cac6c462c7bcbce07b5"
+            "sha256": "a253618ced977fdb4a961858d7550bf91e3bd686b0a8c9314deb84ee38c3a560"
           }
         ],
         "retiredLocal": [],
@@ -5677,7 +5677,7 @@
       },
       {
         "source": "packages/base/src/lib/internals/nativeProps.ts",
-        "sha256": "f081bf825f41a64924fe298108e148ac56314d02074c588cc1f9324ff6a92cc5",
+        "sha256": "d815afcfdacace885ce9a74f568d2e0dcb167e72003372cd2f398603f2cacd5a",
         "status": "native-representation-or-split-business-counterpart-no-acceptance-credit"
       },
       {
