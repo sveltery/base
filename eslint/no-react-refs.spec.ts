@@ -4,7 +4,7 @@ import { fileURLToPath } from 'node:url';
 import { describe, expect, it } from 'vitest';
 import { ESLint, type Linter } from 'eslint';
 import ts from 'typescript-eslint';
-import plugin from '../../eslint/plugin.js';
+import plugin from './plugin.js';
 
 const require = createRequire(import.meta.url);
 const svelteParser = createRequire(require.resolve('eslint-plugin-svelte'))(
@@ -12,7 +12,7 @@ const svelteParser = createRequire(require.resolve('eslint-plugin-svelte'))(
 ) as Linter.Parser;
 const tsParser = ts.parser;
 
-const root = new URL('../..', import.meta.url);
+const root = new URL('..', import.meta.url);
 const failFixture = new URL('eslint/fixtures/form-ref-current.fail.svelte', root);
 const passFixture = new URL('eslint/fixtures/bind-this-attach.pass.svelte', root);
 
