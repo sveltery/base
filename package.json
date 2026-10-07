@@ -125,6 +125,10 @@
 		"./toolbar": {
 			"types": "./dist/toolbar/index.d.ts",
 			"svelte": "./dist/toolbar/index.js"
+		},
+		"./number-field": {
+			"types": "./dist/number-field/index.d.ts",
+			"svelte": "./dist/number-field/index.js"
 		}
 	},
 	"peerDependencies": {

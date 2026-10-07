@@ -6,7 +6,16 @@ export const REASONS = {
 	triggerPress: 'trigger-press',
 	disabled: 'disabled',
 	missing: 'missing',
-	initial: 'initial'
+	initial: 'initial',
+	inputChange: 'input-change',
+	inputClear: 'input-clear',
+	inputBlur: 'input-blur',
+	inputPaste: 'input-paste',
+	keyboard: 'keyboard',
+	incrementPress: 'increment-press',
+	decrementPress: 'decrement-press',
+	wheel: 'wheel',
+	scrub: 'scrub'
 } as const;
 
 export type BaseUIChangeEventDetails<Reason extends string> = {
@@ -19,11 +28,15 @@ export type BaseUIChangeEventDetails<Reason extends string> = {
 	trigger: Element | undefined;
 };
 
-export function createChangeEventDetails<Reason extends string>(
+export function createChangeEventDetails<
+	Reason extends string,
+	Extra extends object = Record<string, never>
+>(
 	reason: Reason,
 	event?: Event,
-	trigger?: Element
-): BaseUIChangeEventDetails<Reason> {
+	trigger?: Element,
+	custom?: Extra
+): BaseUIChangeEventDetails<Reason> & Extra {
 	let canceled = false;
 	let allowPropagation = false;
 	return {
@@ -41,8 +54,9 @@ export function createChangeEventDetails<Reason extends string>(
 		get isPropagationAllowed() {
 			return allowPropagation;
 		},
-		trigger
-	};
+		trigger,
+		...((custom ?? {}) as Extra)
+	} as BaseUIChangeEventDetails<Reason> & Extra;
 }
 
 /**
