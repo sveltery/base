@@ -13,3 +13,4 @@ One row per component in `src/lib`. A run of `scripts/verify-component.sh <name>
 | Meter       | [meter.md](meter.md)               | `/fixtures/meter?case=<case>`        | React `ref`, class/style state callbacks, numeric production error codes                                        |
 | Progress    | [progress.md](progress.md)         | `/fixtures/progress?case=<case>`     | `className` and `style` state callbacks, refs                                                                   |
 | Form        | [form.md](form.md)                 | `/fixtures/form?case=<case>`         | Field, Checkbox, NumberField, Switch and Fieldset integration; `className`/`style` callbacks; `actionsRef`      |
+| Switch      | [switch.md](switch.md)             | `/fixtures/switch?case=<case>`       | Field and Form integration, `inputRef`, `className`/`style` callbacks, `nativeButton` host-tag warnings         |

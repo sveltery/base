@@ -81,6 +81,10 @@
 		"./form": {
 			"types": "./dist/form/index.d.ts",
 			"svelte": "./dist/form/index.js"
+		},
+		"./switch": {
+			"types": "./dist/switch/index.d.ts",
+			"svelte": "./dist/switch/index.js"
 		}
 	},
 	"peerDependencies": {
