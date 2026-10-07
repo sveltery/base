@@ -3,6 +3,7 @@ export * from './button/index.js';
 export * from './checkbox/index.js';
 export * from './collapsible/index.js';
 export * from './fieldset/index.js';
+export * from './field/index.js';
 export * from './separator/index.js';
 export * from './toggle/index.js';
 export * from './toggle-group/index.js';

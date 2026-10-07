@@ -26,6 +26,20 @@ Parts of this package derive from [Base UI](https://github.com/mui/base-ui) v1.8
 - `src/lib/fieldset/context.svelte.ts` from `packages/react/src/fieldset/root/FieldsetRootContext.ts`
 - `src/lib/fieldset/register-label-id.svelte.ts` from `packages/react/src/utils/useRegisteredLabelId.ts`
 - `src/lib/fieldset/Fieldset.svelte.spec.ts` assertions from `packages/react/src/fieldset/root/FieldsetRoot.test.tsx`, `packages/react/src/fieldset/legend/FieldsetLegend.test.tsx`, and `packages/react/src/utils/useRegisteredLabelId.test.tsx`
+- `src/lib/field/FieldRoot.svelte` and `src/lib/field/model.svelte.ts` from `packages/react/src/field/root/FieldRoot.tsx`, `useFieldValidation.ts`, and `packages/react/src/internals/field-register-control/useFieldControlRegistration.ts`
+- `src/lib/field/FieldControl.svelte` from `packages/react/src/field/control/FieldControl.tsx`
+- `src/lib/field/FieldLabel.svelte` from `packages/react/src/field/label/FieldLabel.tsx` and `packages/react/src/internals/labelable-provider/useLabel.ts`
+- `src/lib/field/FieldDescription.svelte` from `packages/react/src/field/description/FieldDescription.tsx`
+- `src/lib/field/FieldError.svelte` from `packages/react/src/field/error/FieldError.tsx`
+- `src/lib/field/FieldItem.svelte` from `packages/react/src/field/item/FieldItem.tsx`
+- `src/lib/field/FieldValidity.svelte` from `packages/react/src/field/validity/FieldValidity.tsx`
+- `src/lib/field/labelable.svelte.ts` from `packages/react/src/internals/labelable-provider/LabelableProvider.tsx` and `useLabelableId.ts`
+- `src/lib/field/validity.ts` from `packages/react/src/field/utils/getCombinedFieldValidityData.ts` and `isEligibleInput` in `useFieldValidation.ts`
+- `src/lib/field/transition.svelte.ts` from `packages/react/src/internals/useTransitionStatus.ts` (`enableIdleState`, `deferEndingState`, and `animateInitialOpen` all false)
+- `src/lib/field/animations.ts` from `packages/react/src/internals/useAnimationsFinished.ts`
+- `src/lib/field/attributes.ts` from `packages/react/src/internals/field-constants/constants.ts` and `packages/react/src/internals/stateAttributesMapping.ts`
+- `src/lib/field/context.svelte.ts` from `packages/react/src/internals/field-root-context/FieldRootContext.ts` and `packages/react/src/field/item/FieldItemContext.ts`
+- `src/lib/field/Field.svelte.spec.ts` assertions from `packages/react/src/field/**/*.test.tsx` that do not require Checkbox, Radio, or NumberField
 - `src/lib/separator/Separator.svelte` from `packages/react/src/separator/Separator.tsx`
 - `src/lib/separator/Separator.svelte.spec.ts` assertions from `packages/react/src/separator/Separator.test.tsx`
 - `src/lib/toggle/Toggle.svelte` from `packages/react/src/toggle/Toggle.tsx`, standalone and inside ToggleGroup
