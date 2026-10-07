@@ -1,0 +1,11 @@
+import { cases, type DirectionProviderCase } from './cases.js';
+
+export function load({ url }) {
+	const requested = url.searchParams.get('case') ?? 'outside';
+	return {
+		scenario: (cases as readonly string[]).includes(requested)
+			? (requested as DirectionProviderCase)
+			: 'outside',
+		reference: url.searchParams.has('reference')
+	};
+}

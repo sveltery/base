@@ -6,6 +6,7 @@
 	There is no ref. Field registration uses the thumb input element.
 -->
 <script lang="ts">
+	import { DEV } from 'esm-env';
 	import { onMount, untrack } from 'svelte';
 	import { createAttachmentKey } from 'svelte/attachments';
 	import type { Attachment } from 'svelte/attachments';
@@ -105,7 +106,6 @@
 
 	const linkedLabel = $derived(model.linkedLabel);
 
-	let rootEl: HTMLElement | null = $state(null);
 	let sawFieldValue = false;
 	let previousFieldValue: SliderValue | undefined;
 
@@ -116,18 +116,12 @@
 		};
 	}
 
-	$effect(() => {
-		model.root = rootEl;
-	});
-
 	onMount(() => {
 		model.hydrating = false;
 	});
 
 	$effect(() => {
-		const env = (globalThis as { process?: { env?: { NODE_ENV?: string } } }).process?.env
-			?.NODE_ENV;
-		if (env === 'production' || min < max) return;
+		if (!DEV || min < max) return;
 		console.warn('Base UI: Slider `max` must be greater than `min`.');
 	});
 
@@ -167,7 +161,7 @@
 		if (!field) return;
 		if (disabled) {
 			field.registerControl(fieldSource, undefined);
-			return;
+			return () => field.registerControl(fieldSource, undefined);
 		}
 		field.registerControl(fieldSource, {
 			id: rootId,
@@ -175,10 +169,7 @@
 			value: model.fieldValue,
 			element: model.fieldInput
 		});
-	});
-
-	$effect(() => {
-		return () => field?.registerControl(fieldSource, undefined);
+		return () => field.registerControl(fieldSource, undefined);
 	});
 
 	const partState: SliderRootState = $derived(model.snapshot());
@@ -199,7 +190,7 @@
 					? { 'aria-invalid': true as const }
 					: {})
 			};
-			if (render) props[elementKey] = remember;
+			props[elementKey] = remember;
 			return props;
 		});
 </script>
@@ -211,5 +202,5 @@
 {#if render}
 	{@render render(hostProps, partState, content)}
 {:else}
-	<div {...hostProps} bind:this={rootEl}>{@render content()}</div>
+	<div {...hostProps}>{@render content()}</div>
 {/if}
