@@ -13,6 +13,13 @@ Parts of this package derive from [Base UI](https://github.com/mui/base-ui) v1.8
 - `src/lib/toggle/Toggle.svelte.spec.ts` assertions from `packages/react/src/toggle/Toggle.test.tsx`
 - `src/lib/internal/event-details.ts` from `packages/react/src/internals/createBaseUIEventDetails.ts`
 - `src/lib/internal/state-attributes.ts` from `packages/react/src/internals/getStateAttributesProps.ts`
+- `src/lib/internal/valueToPercent.ts` from `packages/react/src/utils/valueToPercent.ts`
+- `src/lib/internal/clamp.ts` from `packages/utils/src/clamp.ts`
+- `src/lib/internal/formatNumber.ts` from `packages/utils/src/formatNumber.ts`
+- `src/lib/internal/stringifyLocale.ts` from `packages/utils/src/stringifyLocale.ts` (cache key used by `formatNumber`)
+- `src/lib/internal/visuallyHidden.ts` from `packages/utils/src/visuallyHidden.ts` (nonzero lengths use explicit `px` units for native style strings)
+- `src/lib/internal/formatNumber.spec.ts` assertions from `packages/utils/src/formatNumber.test.ts`
+- `src/lib/internal/stringifyLocale.spec.ts` assertions from `packages/utils/src/stringifyLocale.test.ts`
 - `src/lib/avatar/Root.svelte` from `packages/react/src/avatar/root/AvatarRoot.tsx`
 - `src/lib/avatar/Image.svelte` from `packages/react/src/avatar/image/AvatarImage.tsx`
 - `src/lib/avatar/Fallback.svelte` from `packages/react/src/avatar/fallback/AvatarFallback.tsx`
