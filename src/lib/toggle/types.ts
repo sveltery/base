@@ -17,6 +17,11 @@ export interface ToggleProps extends Omit<HTMLButtonAttributes, 'children'> {
 	pressed?: boolean;
 	/** Whether the toggle should ignore user interaction. @default false */
 	disabled?: boolean;
+	/**
+	 * Identifies this toggle inside a ToggleGroup.
+	 * An empty string is treated as omitted and replaced with a generated id.
+	 */
+	value?: string;
 	/** Called before the pressed state changes. Call `eventDetails.cancel()` to veto it. */
 	onPressedChange?: (pressed: boolean, eventDetails: ToggleChangeEventDetails) => void;
 	/** Runs before the Toggle's handler. Call `event.preventDefault()` to skip it. */

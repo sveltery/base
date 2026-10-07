@@ -9,7 +9,8 @@ A two-state button. Upstream: `packages/react/src/toggle/Toggle.tsx` at Base UI 
 - A consumer `onclick` runs first. `event.preventDefault()` skips the Toggle's handling.
 - Disabled: a natively `disabled` button with `data-disabled`, and no callback.
 - State attributes: `aria-pressed`, plus `data-pressed=""` when pressed.
-- Native rendering: `<button type="button">`. `form` and `type` are stripped. A `render` snippet receives `(props, state)`. Consumer `{@attach}` reaches the host in both cases.
+- `value` identifies the toggle inside a ToggleGroup. Standalone, it does not affect `pressed`. An empty string is treated as omitted.
+- Native rendering: `<button type="button">`. `form` and `type` are stripped. A `render` snippet receives `(props, state)`. Consumer `{@attach}` reaches the host in both cases. Inside a ToggleGroup, the host also receives a roving `tabindex`, focus handlers, `aria-disabled`, and a registration attachment.
 
 Differences from React Base UI, all deliberate:
 
