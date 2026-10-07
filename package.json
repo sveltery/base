@@ -53,6 +53,10 @@
 		"./toggle": {
 			"types": "./dist/toggle/index.d.ts",
 			"svelte": "./dist/toggle/index.js"
+		},
+		"./avatar": {
+			"types": "./dist/avatar/index.d.ts",
+			"svelte": "./dist/avatar/index.js"
 		}
 	},
 	"peerDependencies": {
