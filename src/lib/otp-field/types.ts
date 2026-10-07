@@ -59,7 +59,7 @@ export interface OTPFieldRootProps extends Omit<HTMLAttributes<HTMLDivElement>, 
 	 * The input autocomplete attribute. Applied to the first slot and hidden validation input.
 	 * @default 'one-time-code'
 	 */
-	autoComplete?: string;
+	autoComplete?: HTMLInputAttributes['autocomplete'];
 	/**
 	 * Identifies the form that owns the hidden input and the slots.
 	 * The value must match a form element's id in the same document.

@@ -35,7 +35,7 @@ for (const reference of [false, true]) {
 			await expect(first).toHaveAttribute('id', /^base-ui-/);
 			const id = await first.getAttribute('id');
 			await expect(label).toHaveAttribute('for', id!);
-			await expect(page.getByRole('textbox', { name: 'Code' })).toBeVisible();
+			await expect(page.getByRole('textbox', { name: 'Code' })).toHaveCount(6);
 			expect(errors).toEqual([]);
 		});
 
@@ -61,7 +61,7 @@ for (const reference of [false, true]) {
 			await open(page, 'disabled', reference);
 			await expect(page.getByTestId('root')).toHaveAttribute('data-disabled', '');
 			await expect(slots(page).nth(0)).toBeDisabled();
-			await slots(page).nth(0).press('1', { force: true });
+			await slots(page).nth(0).press('1');
 			await expect(slots(page).nth(0)).toHaveValue('');
 		});
 

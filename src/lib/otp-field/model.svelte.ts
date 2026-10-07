@@ -5,6 +5,7 @@
 // Value changes notify Field on the path that stores the value, including a later
 // parent update. Props are read through getters. Element lists live on SlotList.
 
+import type { HTMLInputAttributes } from 'svelte/elements';
 import type { FieldRootModel } from '../field/model.svelte.js';
 import type { FieldRootState } from '../field/types.js';
 import type { FormContextValue } from '../form/context.js';
@@ -44,7 +45,7 @@ export interface OTPFieldModelOptions {
 	getReadOnly: () => boolean;
 	getRequired: () => boolean;
 	getAutoSubmit: () => boolean;
-	getAutoComplete: () => string;
+	getAutoComplete: () => HTMLInputAttributes['autocomplete'];
 	getMask: () => boolean;
 	getInputMode: () => OTPFieldRootProps['inputMode'];
 	getFormId: () => string | undefined;
@@ -260,13 +261,15 @@ export class OTPFieldModel {
 			this.validationType,
 			this.options.getNormalizeValue()
 		);
-		const canComplete =
-			details.reason === REASONS.inputChange || details.reason === REASONS.inputPaste;
+		const completeReason =
+			details.reason === REASONS.inputChange || details.reason === REASONS.inputPaste
+				? details.reason
+				: null;
 		const completeEventDetails =
-			canComplete &&
+			completeReason != null &&
 			normalizedValue.length === this.length &&
-			(this.value.length !== this.length || details.reason === REASONS.inputPaste)
-				? createGenericEventDetails(details.reason, details.event)
+			(this.value.length !== this.length || completeReason === REASONS.inputPaste)
+				? createGenericEventDetails(completeReason, details.event)
 				: null;
 
 		if (normalizedValue === this.value) {

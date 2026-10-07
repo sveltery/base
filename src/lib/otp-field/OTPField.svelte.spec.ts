@@ -275,11 +275,11 @@ describe('<OTPField />', () => {
 
 	it('uses the hidden input for native form validity', async () => {
 		const incomplete = render(OTPFieldHarness, { scenario: 'form-incomplete' });
-		expect(page.getByTestId('form').element<HTMLFormElement>().checkValidity()).toBe(false);
+		expect((page.getByTestId('form').element() as HTMLFormElement).checkValidity()).toBe(false);
 		incomplete.unmount();
 
 		render(OTPFieldHarness, { scenario: 'form-complete' });
-		expect(page.getByTestId('form').element<HTMLFormElement>().checkValidity()).toBe(true);
+		expect((page.getByTestId('form').element() as HTMLFormElement).checkValidity()).toBe(true);
 	});
 
 	it('redirects hidden-input focus and accepts autofill', async () => {

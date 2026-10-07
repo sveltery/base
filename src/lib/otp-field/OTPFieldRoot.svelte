@@ -90,7 +90,7 @@
 		getFormId: () => formId,
 		getName: () => name,
 		getControlId: () => controlId,
-		getAriaLabelledByProp: () => ariaLabelledByProp,
+		getAriaLabelledByProp: () => ariaLabelledByProp || undefined,
 		getLabelId: () => labelable?.labelId,
 		getOnValueChange: () => onValueChange,
 		getOnValueInvalid: () => onValueInvalid,
@@ -101,7 +101,9 @@
 	setOTPFieldContext(model);
 
 	const describedBy = $derived(
-		labelable ? labelable.describedBy(ariaDescribedByProp) : ariaDescribedByProp
+		labelable
+			? labelable.describedBy(ariaDescribedByProp || undefined)
+			: ariaDescribedByProp || undefined
 	);
 
 	function rememberRoot(node: HTMLElement) {
@@ -120,7 +122,7 @@
 	});
 
 	$effect(() => {
-		const explicit = ariaLabelledByProp;
+		const explicit = ariaLabelledByProp || undefined;
 		const labelId = labelable?.labelId;
 		model.syncFallbackLabel(explicit, labelId);
 	});
