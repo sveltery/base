@@ -1,0 +1,51 @@
+import { fileURLToPath } from 'node:url';
+import { describe, expect, it } from 'vitest';
+import { ESLint, type Linter } from 'eslint';
+import plugin from './plugin.js';
+
+const root = new URL('..', import.meta.url);
+
+function repoPath(relativePath: string) {
+	return fileURLToPath(new URL(relativePath, root));
+}
+
+function eslintFor() {
+	return new ESLint({
+		overrideConfigFile: true,
+		overrideConfig: [
+			{
+				files: ['**/*.ts'],
+				plugins: { sveltery: plugin as unknown as Linter.Plugin },
+				languageOptions: { ecmaVersion: 'latest', sourceType: 'module' },
+				rules: { 'sveltery/no-cloned-event': 'error' }
+			}
+		]
+	});
+}
+
+async function messages(code: string) {
+	const eslint = eslintFor();
+	const [result] = await eslint.lintText(code, { filePath: repoPath('src/lib/slider/example.ts') });
+	return (result?.messages ?? []).map((message) => message.message);
+}
+
+describe('sveltery/no-cloned-event', () => {
+	it('rejects a cloned event and a replaced target', async () => {
+		const cloned = await messages(
+			'const copy = new event.constructor(event.type, event);\nvoid copy;\n'
+		);
+		expect(cloned.some((message) => message.includes('original event'))).toBe(true);
+
+		const target = await messages(
+			"Object.defineProperty(event, 'target', { value: { value: 1, name: 'volume' } });\n"
+		);
+		expect(target.some((message) => message.includes('original event'))).toBe(true);
+	});
+
+	it('allows a native event constructor and a real target read', async () => {
+		const native = await messages(
+			"input.dispatchEvent(new Event('change', { bubbles: true }));\nconst node = event.target;\nvoid node;\n"
+		);
+		expect(native).toEqual([]);
+	});
+});

@@ -160,16 +160,6 @@ function getNewValue(
 	return clamp(roundedValue, min, max);
 }
 
-function cloneEventWithTarget(event: Event, value: SliderValue, name: string | undefined) {
-	const EventConstructor = event.constructor as typeof Event;
-	const clonedEvent = new EventConstructor(event.type, event);
-	Object.defineProperty(clonedEvent, 'target', {
-		writable: true,
-		value: { value, name }
-	});
-	return clonedEvent;
-}
-
 /**
  * One slider: value, thumb registration, keyboard changes, and pointer dragging.
  */
@@ -377,13 +367,6 @@ export class SliderRootModel {
 	setValue(newValue: number | number[], details: SliderChangeEventDetails) {
 		const current = this.options.getValueUnwrapped();
 		if (Number.isNaN(newValue) || areValuesEqual(newValue, current)) return false;
-
-		const nativeEvent = details.event;
-		try {
-			details.event = cloneEventWithTarget(nativeEvent, newValue, this.options.getName());
-		} catch {
-			details.event = nativeEvent;
-		}
 
 		this.options.getOnValueChange()?.(newValue, details);
 		if (details.isCanceled) return false;

@@ -407,19 +407,17 @@ describe('<Slider />', () => {
 			await expect.poll(() => node.hasAttribute('data-dragging')).toBe(false);
 		});
 
-		it('reports input-change and includes the name on the cloned event target', async () => {
+		it('reports input-change on the original input event', async () => {
 			const onValueChange = vi.fn();
 			render(SliderHarness, { defaultValue: 30, name: 'volume', onValueChange });
-			change(slider(), '35');
+			const input = slider();
+			change(input, '35');
 			expect(onValueChange).toHaveBeenCalledTimes(1);
+			expect(onValueChange.mock.lastCall?.[0]).toBe(35);
 			expect(onValueChange.mock.lastCall?.[1].reason).toBe('input-change');
 			expect(onValueChange.mock.lastCall?.[1].activeThumbIndex).toBe(0);
-			const target = onValueChange.mock.lastCall?.[1].event.target as {
-				value: number;
-				name: string;
-			};
-			expect(target.value).toBe(35);
-			expect(target.name).toBe('volume');
+			expect(onValueChange.mock.lastCall?.[1].event.target).toBe(input);
+			expect(input.name).toBe('volume');
 		});
 	});
 
