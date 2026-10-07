@@ -1,8 +1,17 @@
 // React Base UI 1.8.0 counterpart of FieldsetFixture.svelte. Comparison only; never imported by src/lib.
-import { createElement as h, Fragment, useEffect, useState } from 'react';
+import { createElement as h, Fragment, useEffect, useState, type ComponentProps } from 'react';
 import { createRoot } from 'react-dom/client';
 import { Fieldset } from '@base-ui/react/fieldset';
 import type { FieldsetCase } from './cases.js';
+
+// Base UI's public prop types omit `data-*`. The attributes still reach the DOM.
+type FixtureProps<T> = T & { 'data-testid'?: string; key?: string };
+function rootProps(props: FixtureProps<ComponentProps<typeof Fieldset.Root>>) {
+	return props;
+}
+function legendProps(props: FixtureProps<ComponentProps<typeof Fieldset.Legend>>) {
+	return props;
+}
 
 export function mountFieldsetReference(
 	node: HTMLElement,
@@ -20,8 +29,8 @@ export function mountFieldsetReference(
 		if (scenario === 'labelled') {
 			return h(
 				Fieldset.Root,
-				{ 'data-testid': 'fieldset' },
-				h(Fieldset.Legend, { 'data-testid': 'legend' }, 'Legend'),
+				rootProps({ 'data-testid': 'fieldset' }),
+				h(Fieldset.Legend, legendProps({ 'data-testid': 'legend' }), 'Legend'),
 				h('input', { 'aria-label': 'Name' })
 			);
 		}
@@ -29,15 +38,15 @@ export function mountFieldsetReference(
 		if (scenario === 'custom-id') {
 			return h(
 				Fieldset.Root,
-				{ 'data-testid': 'fieldset' },
-				h(Fieldset.Legend, { id: 'legend-id', 'data-testid': 'legend' }, 'Legend')
+				rootProps({ 'data-testid': 'fieldset' }),
+				h(Fieldset.Legend, legendProps({ id: 'legend-id', 'data-testid': 'legend' }), 'Legend')
 			);
 		}
 
 		if (scenario === 'disabled') {
 			return h(
 				Fieldset.Root,
-				{ disabled: true, 'data-testid': 'fieldset' },
+				rootProps({ disabled: true, 'data-testid': 'fieldset' }),
 				h('input', { 'aria-label': 'Name' })
 			);
 		}
@@ -48,10 +57,10 @@ export function mountFieldsetReference(
 				null,
 				h(
 					Fieldset.Root,
-					{ disabled: outerDisabled, 'data-testid': 'outer' },
+					rootProps({ disabled: outerDisabled, 'data-testid': 'outer' }),
 					h(
 						Fieldset.Root,
-						{ disabled: innerDisabled, 'data-testid': 'inner' },
+						rootProps({ disabled: innerDisabled, 'data-testid': 'inner' }),
 						h('input', { 'aria-label': 'Name' })
 					)
 				),
@@ -67,9 +76,9 @@ export function mountFieldsetReference(
 				null,
 				h(
 					Fieldset.Root,
-					{ 'data-testid': 'fieldset' },
+					rootProps({ 'data-testid': 'fieldset' }),
 					showLegend
-						? h(Fieldset.Legend, { id: legendId, 'data-testid': 'legend' }, 'Legend')
+						? h(Fieldset.Legend, legendProps({ id: legendId, 'data-testid': 'legend' }), 'Legend')
 						: null
 				),
 				h('button', { type: 'button', onClick: () => setLegendId('legend-b') }, 'Change id'),
@@ -83,12 +92,20 @@ export function mountFieldsetReference(
 				null,
 				h(
 					Fieldset.Root,
-					{ 'data-testid': 'fieldset' },
+					rootProps({ 'data-testid': 'fieldset' }),
 					labels !== 'new'
-						? h(Fieldset.Legend, { key: 'old', id: 'old-label', 'data-testid': 'old' }, 'Old')
+						? h(
+								Fieldset.Legend,
+								legendProps({ key: 'old', id: 'old-label', 'data-testid': 'old' }),
+								'Old'
+							)
 						: null,
 					labels !== 'old'
-						? h(Fieldset.Legend, { key: 'new', id: 'new-label', 'data-testid': 'new' }, 'New')
+						? h(
+								Fieldset.Legend,
+								legendProps({ key: 'new', id: 'new-label', 'data-testid': 'new' }),
+								'New'
+							)
 						: null
 				),
 				h('button', { type: 'button', onClick: () => setLabels('both') }, 'Show both'),
@@ -98,12 +115,12 @@ export function mountFieldsetReference(
 
 		return h(
 			Fieldset.Root,
-			{ 'data-testid': 'outer' },
-			h(Fieldset.Legend, { id: 'outer-legend' }, 'Outer'),
+			rootProps({ 'data-testid': 'outer' }),
+			h(Fieldset.Legend, legendProps({ id: 'outer-legend' }), 'Outer'),
 			h(
 				Fieldset.Root,
-				{ 'data-testid': 'inner' },
-				h(Fieldset.Legend, { id: 'inner-legend' }, 'Inner')
+				rootProps({ 'data-testid': 'inner' }),
+				h(Fieldset.Legend, legendProps({ id: 'inner-legend' }), 'Inner')
 			)
 		);
 	}

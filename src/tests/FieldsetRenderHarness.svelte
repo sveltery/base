@@ -6,8 +6,8 @@
 
 <Fieldset.Root {disabled} class="from-root">
 	{#snippet render(props, state)}
-		<div {...props} data-testid="custom" data-disabled-state={state.disabled ? 'yes' : 'no'}>
+		<fieldset {...props} data-testid="custom" data-disabled-state={state.disabled ? 'yes' : 'no'}>
 			<Fieldset.Legend data-testid="legend">Legend</Fieldset.Legend>
-		</div>
+		</fieldset>
 	{/snippet}
 </Fieldset.Root>

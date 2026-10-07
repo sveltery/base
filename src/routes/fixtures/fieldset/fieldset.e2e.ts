@@ -33,7 +33,8 @@ for (const reference of [false, true]) {
 		test('disabled fieldset disables its input', async ({ page }) => {
 			await open(page, 'disabled', reference);
 			const fieldset = page.getByTestId('fieldset');
-			await expect(fieldset).toBeDisabled();
+			// Playwright treats a disabled <fieldset> as enabled; the attribute and the input are the contract.
+			await expect(fieldset).toHaveAttribute('disabled', '');
 			await expect(fieldset).toHaveAttribute('data-disabled', '');
 			await expect(fieldset).not.toHaveAttribute('aria-labelledby');
 			await expect(page.getByRole('textbox', { name: 'Name' })).toBeDisabled();

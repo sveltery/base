@@ -45,6 +45,7 @@ Component tests (`src/lib/fieldset/Fieldset.svelte.spec.ts`) port the upstream r
 ## Gotchas
 
 - Interacting before `data-hydrated="true"` races hydration: the SSR fieldset exists, but `aria-labelledby` is applied by an effect.
+- Playwright's `toBeDisabled()` reports a `<fieldset disabled>` as enabled. Assert the `disabled` attribute, and `toBeDisabled()` on the input inside it.
 - An input inside a disabled ancestor fieldset is natively disabled even when the inner fieldset forgets its own `disabled` attribute. Tests assert the attribute on the inner fieldset.
 - The React reference bundles Base UI with `'use client'` directive warnings during `vite build`. They are expected noise.
 
