@@ -25,3 +25,4 @@ One row per component in `src/lib`. A run of `scripts/verify-component.sh <name>
 | Tabs          | [tabs.md](tabs.md)                     | `/fixtures/tabs?case=<case>`           | Pre-hydration indicator script, scroll-into-view, shadow-boundary offsets, `className`/`style` callbacks, refs            |
 | Toolbar       | [toolbar.md](toolbar.md)               | `/fixtures/toolbar?case=<case>`        | Input, Separator, text-field arrow exceptions, scroll-into-view, ToggleGroup nesting, overlay triggers                    |
 | NumberField   | [number-field.md](number-field.md)     | `/fixtures/number-field?case=<case>`   | `className`/`style` callbacks, refs, `inputRef`, iOS keyboard mode, WebKit pointer-lock skip, Firefox scrub release delay |
+| ScrollArea    | [scroll-area.md](scroll-area.md)       | `/fixtures/scroll-area?case=<case>`    | `className`/`style` callbacks, refs, DirectionProvider, CSP `nonce` / `disableStyleElements`                              |
