@@ -4,6 +4,7 @@
 	(commit 47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c). MIT, see THIRD_PARTY_NOTICES.md.
 -->
 <script lang="ts">
+	import { untrack } from 'svelte';
 	import { createAttachmentKey } from 'svelte/attachments';
 	import type { HTMLAttributes, HTMLInputAttributes } from 'svelte/elements';
 	import { useFormContext } from '../form/context.js';
@@ -53,11 +54,18 @@
 	let seeded = false;
 	let blurCommitId = 0;
 
+	let echoed = false;
+
 	function publishControlled(next: string) {
+		echoed = true;
 		value = next;
+		notifyControlled(next);
+	}
+
+	function notifyControlled(current: string) {
 		form.clearErrors(name);
-		field.setDirty(next !== String(field.validityData.initialValue ?? ''));
-		field.change(next);
+		field.setDirty(current !== String(field.validityData.initialValue ?? ''));
+		field.change(current);
 	}
 
 	const controlState: FieldControlState = $derived({
@@ -74,18 +82,32 @@
 
 	$effect(() => {
 		const explicit = idProp;
-		if (explicit !== undefined) {
-			hadExplicitId = true;
-			labelable.registerControlId(controlSource, explicit);
-		} else if (hadExplicitId) {
-			labelable.registerControlId(controlSource, fallbackId);
-		} else {
-			labelable.registerControlId(controlSource, undefined);
-			labelable.resetControlId();
-		}
+		const fallback = fallbackId;
+		untrack(() => {
+			if (explicit !== undefined) {
+				hadExplicitId = true;
+				labelable.registerControlId(controlSource, explicit);
+			} else if (hadExplicitId) {
+				labelable.registerControlId(controlSource, fallback);
+			} else {
+				labelable.registerControlId(controlSource, undefined);
+				labelable.resetControlId();
+			}
+		});
 		return () => {
-			labelable.registerControlId(controlSource, undefined);
+			untrack(() => labelable.registerControlId(controlSource, undefined));
 		};
+	});
+
+	$effect(() => {
+		if (!isControlled) return;
+		const current = serialized;
+		if (echoed) {
+			echoed = false;
+			return;
+		}
+		if (current === undefined) return;
+		untrack(() => notifyControlled(current));
 	});
 
 	$effect(() => {

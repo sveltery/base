@@ -6,6 +6,7 @@
 	Field registration and inputRef are not ported. The radios are the existing Radio parts.
 -->
 <script lang="ts">
+	import { untrack } from 'svelte';
 	import { createAttachmentKey, type Attachment } from 'svelte/attachments';
 	import type { HTMLAttributes } from 'svelte/elements';
 	import { getStateAttributesProps } from '../internal/state-attributes.js';
@@ -32,6 +33,8 @@
 		...elementProps
 	}: RadioGroupProps = $props();
 
+	const parentOwned = value !== undefined;
+	let ownedValue = $state.raw(untrack(() => (parentOwned ? undefined : value)));
 	let touched = $state(false);
 
 	const roving = new RadioGroupRoving();
@@ -42,7 +45,9 @@
 	function setCheckedValue(next: unknown, details: RadioRootChangeEventDetails) {
 		onValueChange?.(next, details);
 		if (details.isCanceled) return;
-		const changed = !Object.is(next, value);
+		const current = parentOwned ? value : ownedValue;
+		const changed = !Object.is(next, current);
+		if (!parentOwned) ownedValue = next;
 		value = next;
 		if (changed) formContext.clearErrors(name);
 	}
@@ -65,7 +70,7 @@
 			return form;
 		},
 		get checkedValue() {
-			return value;
+			return parentOwned ? value : ownedValue;
 		},
 		get touched() {
 			return touched;

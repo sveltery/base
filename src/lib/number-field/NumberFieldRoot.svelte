@@ -106,16 +106,22 @@
 
 	$effect(() => {
 		if (!labelable) return;
-		if (idProp !== undefined) {
-			hadExplicitId = true;
-			labelable.registerControlId(idSource, idProp);
-		} else if (hadExplicitId) {
-			labelable.registerControlId(idSource, generatedId);
-		} else {
-			labelable.registerControlId(idSource, undefined);
-			labelable.resetControlId();
-		}
-		return () => labelable.registerControlId(idSource, undefined);
+		const explicit = idProp;
+		const fallback = generatedId;
+		untrack(() => {
+			if (explicit !== undefined) {
+				hadExplicitId = true;
+				labelable.registerControlId(idSource, explicit);
+			} else if (hadExplicitId) {
+				labelable.registerControlId(idSource, fallback);
+			} else {
+				labelable.registerControlId(idSource, undefined);
+				labelable.resetControlId();
+			}
+		});
+		return () => {
+			untrack(() => labelable.registerControlId(idSource, undefined));
+		};
 	});
 
 	const rootState: NumberFieldRootState = $derived(model.state);
