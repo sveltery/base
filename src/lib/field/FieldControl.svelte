@@ -43,21 +43,19 @@
 	const form = useFormContext();
 	const fallbackId = `base-ui-${uid}`;
 
-	const controllable = createControllableValue<string | number | null>({
+	const controllable = createControllableValue<string | number | null | undefined>({
 		getProp: () => value,
 		setProp: (next) => {
 			value = next;
 		},
-		getDefault: () => defaultValue ?? '',
+		getDefault: () => defaultValue,
 		onChange(next) {
 			if (next == null) return;
 			notifyControlled(String(next));
 		}
 	});
 	const isControlled = $derived(controllable.controlled);
-	const serialized = $derived(
-		isControlled && controllable.value != null ? String(controllable.value) : undefined
-	);
+	const serialized = $derived(controllable.value != null ? String(controllable.value) : undefined);
 	const disabled = $derived(Boolean(field.disabled || disabledProp));
 	const name = $derived(field.name ?? nameProp ?? undefined);
 	const controlId = $derived(labelable.controlId || idProp || fallbackId);
@@ -107,7 +105,7 @@
 	$effect(() => {
 		const element = inputEl;
 		const linked = isControlled;
-		const current = serialized;
+		const current = linked ? serialized : undefined;
 		const controlName = nameProp;
 		const id = controlId;
 		const active = !disabled;
@@ -143,7 +141,7 @@
 	});
 
 	function domValue() {
-		if (!isControlled || controllable.value == null) return '';
+		if (controllable.value == null) return '';
 		return String(controllable.value);
 	}
 
@@ -153,19 +151,19 @@
 		const details = createChangeEventDetails(REASONS.none, event);
 		onValueChange?.(inputValue, details);
 
-		if (isControlled) {
-			if (details.isCanceled) event.currentTarget.value = domValue();
-			else controllable.set(inputValue);
+		if (!isControlled) {
+			field.setDirty(inputValue !== String(field.validityData.initialValue ?? ''));
+			field.setFilled(inputValue !== '');
+		}
+
+		if (details.isCanceled) {
+			event.currentTarget.value = domValue();
 			return;
 		}
 
-		field.setDirty(inputValue !== String(field.validityData.initialValue ?? ''));
-		field.setFilled(inputValue !== '');
+		if (!isControlled && event.defaultPrevented) return;
 
-		if (!event.defaultPrevented && !details.isCanceled) {
-			form.clearErrors(name);
-			field.change(inputValue);
-		}
+		controllable.set(inputValue);
 	}
 
 	function handleFocus(event: FocusEvent & { currentTarget: EventTarget & HTMLInputElement }) {
@@ -228,7 +226,7 @@
 		...(controlState.valid === false && !field.disabled && !disabled
 			? { 'aria-invalid': true as const }
 			: {}),
-		...(isControlled ? { value: domValue() } : {}),
+		...(controllable.value != null ? { value: domValue() } : {}),
 		oninput: handleInput,
 		onfocus: handleFocus,
 		onblur: handleBlur,

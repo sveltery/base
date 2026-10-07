@@ -72,7 +72,7 @@
 			commitFieldValue(clampedFieldValue(next));
 		}
 	});
-	const valueUnwrapped = $derived<SliderValue>(controllable.value ?? defaultValue ?? min);
+	const valueUnwrapped = $derived(controllable.value as SliderValue);
 	const disabled = $derived(Boolean(field?.disabled) || disabledProp);
 	const name = $derived(field?.name ?? nameProp);
 	const rootId = $derived(idProp || `base-ui-${uid}`);

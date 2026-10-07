@@ -149,8 +149,8 @@ export class TabsRootModel {
 	}
 
 	set value(next: TabsValue | null) {
-		if (this.parentOwned) this.writeValue(next);
-		else this.ownedValue = next;
+		if (!this.parentOwned) this.ownedValue = next;
+		this.writeValue(next);
 	}
 
 	registerTab(element: HTMLElement, value: TabsValue, disabled: boolean, id: string) {

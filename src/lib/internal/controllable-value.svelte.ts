@@ -17,35 +17,34 @@ export function createControllableValue<T>(options: {
 	onChange?: (next: T | undefined) => void;
 }): ControllableValue<T> {
 	const controlled = untrack(() => options.getProp() !== undefined);
-	let stored = $state.raw<T | undefined>(
-		untrack(() => {
-			const prop = options.getProp();
-			return prop !== undefined ? prop : options.getDefault();
-		})
-	);
+	const fallback = untrack(() => options.getDefault());
+	const initial = untrack(() => {
+		const prop = options.getProp();
+		return prop !== undefined ? prop : fallback;
+	});
+	let stored = $state.raw<T | undefined>(initial);
 	let echoed = $state.raw<T | undefined>(untrack(() => options.getProp()));
 	let adopted = false;
-	let opened = true;
-	let notifyFromWrite = false;
+	let lastNotified: T | undefined = initial;
+
+	function publish(next: T | undefined) {
+		if (Object.is(next, lastNotified)) return;
+		lastNotified = next;
+		options.onChange?.(next);
+	}
 
 	const value = $derived.by(() => {
 		const prop = options.getProp();
+		if (controlled && prop === undefined) return fallback;
 		if (Object.is(prop, echoed)) return stored;
 		if (!controlled && prop === undefined && !adopted) return stored;
+		if (prop === undefined) return fallback;
 		return prop;
 	});
 
 	$effect(() => {
 		const next = value;
-		if (opened) {
-			opened = false;
-			return;
-		}
-		if (notifyFromWrite) {
-			notifyFromWrite = false;
-			return;
-		}
-		untrack(() => options.onChange?.(next));
+		untrack(() => publish(next));
 	});
 
 	return {
@@ -56,19 +55,17 @@ export function createControllableValue<T>(options: {
 			return controlled;
 		},
 		set(next) {
-			const changed = !Object.is(
-				untrack(() => value),
-				next
-			);
-			if (changed) notifyFromWrite = true;
+			const before = untrack(() => options.getProp());
 			stored = next;
-			echoed = next;
-			const prop = untrack(() => options.getProp());
-			if (controlled || prop !== undefined) {
-				adopted = true;
-				options.setProp(next);
-			}
-			if (changed) options.onChange?.(next);
+			adopted = true;
+			options.setProp(next);
+			const after = untrack(() => options.getProp());
+			// A $state prop proxies objects, so the value we read back may not be
+			// the reference we wrote. Echo that read so the stored reference remains
+			// the one callers compare. A rejected write leaves the prop unchanged.
+			const wrote = !Object.is(before, after) || Object.is(after, next);
+			echoed = wrote ? after : next;
+			publish(untrack(() => value));
 		}
 	};
 }
