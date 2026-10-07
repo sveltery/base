@@ -65,6 +65,10 @@
 		"./avatar": {
 			"types": "./dist/avatar/index.d.ts",
 			"svelte": "./dist/avatar/index.js"
+		},
+		"./meter": {
+			"types": "./dist/meter/index.d.ts",
+			"svelte": "./dist/meter/index.js"
 		}
 	},
 	"peerDependencies": {
