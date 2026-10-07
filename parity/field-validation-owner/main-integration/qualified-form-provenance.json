@@ -1,0 +1,10 @@
+{
+  "source": "https://github.com/sveltery/base/pull/87#issuecomment-6027314922",
+  "runtimeHead": "6de373e205b907b162e0543b3898550d78e03420",
+  "sourcePin": "47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c",
+  "archive": "qualified-form-handoff.txt.gz",
+  "bytes": 21069,
+  "sha256": "3e397616f71087a4a5e3fd89b0de6e56ff39c90cd61b54e89212524e3b8dbbb9",
+  "gzipSha256": "4d0e30c87811e4115b7c0fcdb0012393133b8e98424c2c96d30ec3f48a55ca11",
+  "result": "Historical actual Source/native Form witness: two public cases pass; private queued checkpoints differ and do not establish postcommit-before-registration-effects timing. Initial incorrect-expectation red preserved. No new execution or unchanged Source credit."
+}

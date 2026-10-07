@@ -1,10 +1,11 @@
+import { readLosslessJson, readLogicalJsonBytes } from './lossless-json.mjs';
 // Refresh current projections while preserving immutable predecessor receipts.
 import { createHash } from 'node:crypto';
 import { readFileSync, writeFileSync } from 'node:fs';
 import { resolve } from 'node:path';
 
 const root = resolve(import.meta.dirname, '..');
-const read = (path) => JSON.parse(readFileSync(resolve(root, path), 'utf8'));
+const read = (path) => readLosslessJson(resolve(root, path));
 const hashFile = (path) =>
   createHash('sha256')
     .update(readFileSync(resolve(root, path)))
@@ -15,7 +16,9 @@ const graph = read('parity/utils-package/current-source-graph.json');
 const moves = new Map(graph.currentMoves.map((move) => [move.from, move]));
 const successorsPath = 'parity/utils-package/feature-successors.json';
 const successors = read(successorsPath);
-successors.currentGraphSha256 = hashFile('parity/utils-package/current-source-graph.json');
+successors.currentGraphSha256 = createHash('sha256')
+  .update(readLogicalJsonBytes(resolve(root, 'parity/utils-package/current-source-graph.json')))
+  .digest('hex');
 
 function verifiedOwner(path, sha256) {
   if (hashFile(path) !== sha256)

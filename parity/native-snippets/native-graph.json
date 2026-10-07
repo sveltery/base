@@ -693,7 +693,7 @@
     },
     {
       "source": "packages/base/src/lib/checkbox-group/CheckboxGroup.svelte",
-      "sha256": "f58a5dda946f0abc9e5fd76556ec9475102753e7c21524014a046d9fe92ff56b",
+      "sha256": "396fd416229d8c7a1a12f5b0e96e30297389f07565b13a363a790c4611a9b728",
       "imports": [
         {
           "specifier": "../internals/mergeComponentProps.js",
@@ -971,7 +971,7 @@
     },
     {
       "source": "packages/base/src/lib/checkbox/root/CheckboxRoot.svelte",
-      "sha256": "528aef092db47e99baa0c23a9a1f2d9644e8cc8f2c1a163bd2c99d20d26edaeb",
+      "sha256": "7da8d3e7a782fc08271abbd0a531c0ae34d19e2055d51f811a2e82dc6ad67143",
       "imports": [
         {
           "specifier": "../../internals/mergeComponentProps.js",
@@ -1200,7 +1200,7 @@
     },
     {
       "source": "packages/base/src/lib/checkbox/utils/useEnterSubmit.svelte.ts",
-      "sha256": "7d7abbcef1a237eb0078bb833f62b07fd45b264b3cec54b177a7023bfa296777",
+      "sha256": "47a12f9d65ba32f7c9babcfb56f6b171637114df64f58b922b444e88fd614f8d",
       "imports": [
         {
           "specifier": "../../internals/types.js",
@@ -2575,7 +2575,7 @@
     },
     {
       "source": "packages/base/src/lib/field/Control.svelte",
-      "sha256": "a28bf0c755d76058d7a2451fa527bd21f33ea7825736e02a906823f82519da90",
+      "sha256": "cc39f3bc50f55f6d8e4841cc7e66224f4abf712c35f7a7c09f094a9e4b24baef",
       "imports": [
         {
           "specifier": "../internals/mergeComponentProps.js",
@@ -3060,7 +3060,7 @@
     },
     {
       "source": "packages/base/src/lib/field/root/FieldRootInner.svelte",
-      "sha256": "e10609de0fc98fd98eb99941637b2fdec527b76203fcc5534e77ca5de52d3451",
+      "sha256": "c39ec8f17f747455ea21ea72c6d6df18b697a0707226ce324f9d3d58a2e290b4",
       "imports": [
         {
           "specifier": "../../internals/mergeComponentProps.js",
@@ -3116,7 +3116,7 @@
     },
     {
       "source": "packages/base/src/lib/field/root/useFieldValidation.svelte.ts",
-      "sha256": "2975e22550023cee24959abe4757add5d3c28ca4293c78db36e216d951d83d60",
+      "sha256": "b41d59b72a6a927635962710c48266b6a72144b5f1f0b56448281728b3e28f81",
       "imports": [
         {
           "specifier": "svelte",
@@ -5957,7 +5957,7 @@
     },
     {
       "source": "packages/base/src/lib/internals/labelable-provider/createLabelableProvider.svelte.ts",
-      "sha256": "90068f37063725b09abb11c15d4177adea2e4209e596fc1965b67c558576e0cd",
+      "sha256": "b5cf2b6efd42c5038cc6786bf325a6a450aff387474f2df008fa79d2a06694c6",
       "imports": [
         {
           "specifier": "./LabelableContext.js",
@@ -5984,7 +5984,7 @@
     },
     {
       "source": "packages/base/src/lib/internals/labelable-provider/LabelableProvider.svelte",
-      "sha256": "aa64ef64caa0d757b194b65a8743fcb39c2b815cb66b12d25fc14f9c6930a2c5",
+      "sha256": "8056aab139538495cb16be9e5183d277cade00a9624af5504179996ff3a09b33",
       "imports": [
         {
           "specifier": "svelte",
@@ -6005,7 +6005,7 @@
     },
     {
       "source": "packages/base/src/lib/internals/labelable-provider/useAriaLabelledBy.svelte.ts",
-      "sha256": "178ca2b5593560f408fea18c73276c5d554c0bea372084b7c28e0873deffc117",
+      "sha256": "64e63e8f5290b2b9ad3d8ad7d3fc936a76401425906c31cea8cdc4c19bd8b7ec",
       "imports": []
     },
     {
@@ -6036,7 +6036,7 @@
     },
     {
       "source": "packages/base/src/lib/internals/labelable-provider/useLabelableId.svelte.ts",
-      "sha256": "20b7c4d5d171c3b90ed7ac7209846d476ee06cf6e6f10c57fa5d1a794a60453f",
+      "sha256": "36215a31fd3f84d006006734eca09bb94b036ad30015949f1acf814e94fa8845",
       "imports": [
         {
           "specifier": "svelte",
@@ -6098,7 +6098,7 @@
     },
     {
       "source": "packages/base/src/lib/internals/nativeProps.ts",
-      "sha256": "f081bf825f41a64924fe298108e148ac56314d02074c588cc1f9324ff6a92cc5",
+      "sha256": "d815afcfdacace885ce9a74f568d2e0dcb167e72003372cd2f398603f2cacd5a",
       "imports": [
         {
           "specifier": "svelte/elements",
@@ -10854,7 +10854,7 @@
     },
     {
       "source": "packages/base/src/lib/radio/root/RadioRoot.svelte",
-      "sha256": "a006840d8b04d5b91a42fe23963c7ffcd635bcf02e6d677dd014ab26e97bf62e",
+      "sha256": "35d9e4365a747688156c3d2bda473436fbb678e3683d9013d146dcc103f3fcbf",
       "imports": [
         {
           "specifier": "../../internals/mergeComponentProps.js",
@@ -11230,7 +11230,7 @@
     },
     {
       "source": "packages/base/src/lib/remote-forms/RemoteNativeControl.svelte",
-      "sha256": "dbbf741c5b2a8bb172f165ececc3181d7348d6e8d4d47b7afc19d0b744938329",
+      "sha256": "b73e75ffce6c0988a97cf5eba28d0cd18b2e71ae516a542477470c28d4fafc31",
       "imports": [
         {
           "specifier": "../internals/mergeComponentProps.js",
@@ -12088,7 +12088,7 @@
     },
     {
       "source": "packages/base/src/lib/switch/root/SwitchRoot.svelte",
-      "sha256": "85430fd894da8275b8c62d65666245b5ef60cba602263348f1ce5feb7bc3f68c",
+      "sha256": "10178822deee98f13c0b689a3b997f6fbda5d32f914d9ce2bb8ef011ec95116c",
       "imports": [
         {
           "specifier": "../../internals/mergeComponentProps.js",

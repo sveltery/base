@@ -130,7 +130,9 @@ export class FieldValidationOwner implements UseFieldValidationReturnValue {
     const initialValue = params.validityData.initialValue;
     const elementRef = this.#elementRef;
     const formRef = this.#formRef;
-    const labelable = this.#labelable;
+    // These business selections belong to this invocation, including across await.
+    const invalid = params.invalid;
+    const controlId = this.#labelable.controlId;
     const timeout = this.#timeout;
     const { inputRef, registeredInputs } = this;
     const validationCommitIdRef = this.#validationCommitIdRef;
@@ -140,9 +142,9 @@ export class FieldValidationOwner implements UseFieldValidationReturnValue {
 
     function updateRegisteredFieldValidity(
       nextValidityData: FieldValidityData,
-      externalInvalid = params.invalid,
+      externalInvalid = invalid,
     ) {
-      const fieldId = params.registeredFieldIdRef.current ?? labelable.controlId;
+      const fieldId = params.registeredFieldIdRef.current ?? controlId;
       if (fieldId == null) {
         return;
       }

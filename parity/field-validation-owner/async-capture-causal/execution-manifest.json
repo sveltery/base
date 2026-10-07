@@ -1,0 +1,83 @@
+{
+  "status": "local working tree only; final candidate/publichead and mandatory acceptance pending",
+  "records": [
+    {
+      "path": "field-capture-repair-artifacts.log",
+      "archive": "execution-field-capture-repair-artifacts.log.gz",
+      "bytes": 37625,
+      "sha256": "3e35dd0a560c0f46b6e8b5de019fa6e140d3bd0aac0f5c67e5ed82dbaecaf772",
+      "gzipSha256": "d290ac8a5aa8fbd4b4b1224aa2c9fdd7d5038320be16aa09b04a1a55c87ab940"
+    },
+    {
+      "path": "field-capture-repair-native-final.log",
+      "archive": "execution-field-capture-repair-native-final.log.gz",
+      "bytes": 523,
+      "sha256": "78b602fca8e02b1c89eafdfa58e43d775527dc0475efe56b21a7375d7c542501",
+      "gzipSha256": "823ce66b304a0e5d774d08db4d42726dfa6de6b658937bac89a40d4414c71279"
+    },
+    {
+      "path": "field-capture-repair-node.log",
+      "archive": "execution-field-capture-repair-node.log.gz",
+      "bytes": 1031,
+      "sha256": "28d6201888886274054c47de13d48424c80778fb08236e9ba4841b55e424de9d",
+      "gzipSha256": "25f719f17862847a5a44fdb6363cae29c1f26d02bf97b6c75480227a0802b0cb"
+    },
+    {
+      "path": "field-capture-repair-workspace.log",
+      "archive": "execution-field-capture-repair-workspace.log.gz",
+      "bytes": 5488,
+      "sha256": "6ba26b257920d42c09c7618e5d2540b9b7259dd6c91f139c2cc02b509002eaa2",
+      "gzipSha256": "dcfafc6b9f61e02dd82e47d2ef4502b78c3bed39b74f09bd2fe089e93fc31ce9"
+    },
+    {
+      "path": "field-capture-repair-workspace-final.log",
+      "archive": "execution-field-capture-repair-workspace-final.log.gz",
+      "bytes": 3498,
+      "sha256": "e1b7387501969032167a44ce8a864ff0fa83d75224c08c4ddf50106d46d39bcb",
+      "gzipSha256": "b474418b632f5e604a176c20b830198e0160e96be41bf5673d35f6539af5146f"
+    },
+    {
+      "path": "field-capture-repair-runtime.log",
+      "archive": "execution-field-capture-repair-runtime.log.gz",
+      "bytes": 61,
+      "sha256": "7eb14a3a2cac9fe7d677ef3a7519f5045bb935af2549e71f9ddf392ebb65a36d",
+      "gzipSha256": "e4b850e7b6f96f57ff98b7644a3de5a259674185c74fe8bb3f6975340e97b5b2"
+    },
+    {
+      "path": "field-capture-repair-package.log",
+      "archive": "execution-field-capture-repair-package.log.gz",
+      "bytes": 1747,
+      "sha256": "93d863aeb30738c634ab772a9d3f5f00e8fe0622e3fb412e43ba7d51840412fd",
+      "gzipSha256": "c4fdf85ca46e775f0c7255b7d1121eaa010fdf05b947164e8fd7b1051ecde6f9"
+    },
+    {
+      "path": "field-capture-repair-script-tests.log",
+      "archive": "execution-field-capture-repair-script-tests.log.gz",
+      "bytes": 123914,
+      "sha256": "698d53e49c8231b128323494b6fa99d11511dca77a6379c5a6b6ba2322eb76fd",
+      "gzipSha256": "4fa7bfd841679b8de0c755306374fc6c9b2e0d3022c1d2f1944bc62eb962d737"
+    },
+    {
+      "path": "field-capture-repair-standards.log",
+      "archive": "execution-field-capture-repair-standards.log.gz",
+      "bytes": 407,
+      "sha256": "2a6a0bd76890242fe71ef63b9754e0e64aeb9bcde0cc0327d82a3d6fe276db80",
+      "gzipSha256": "4fb42164397bc9b94cbe110b7582162c3f006b460acafee6c1789cb9a0bf805a"
+    },
+    {
+      "path": "field-capture-repair-standards-final.log",
+      "archive": "execution-field-capture-repair-standards-final.log.gz",
+      "bytes": 99,
+      "sha256": "899f899c4056a64c8cf29ca9089dfe6821ca8521061c59efd32e7296da4df97f",
+      "gzipSha256": "5b963f13065ff6abedad3e4fe5c8e5916d21fba4a17254161b1628a5fc20b0c8"
+    },
+    {
+      "path": "field-capture-repair-standards-exact.log",
+      "archive": "execution-field-capture-repair-standards-exact.log.gz",
+      "bytes": 99,
+      "sha256": "899f899c4056a64c8cf29ca9089dfe6821ca8521061c59efd32e7296da4df97f",
+      "gzipSha256": "5b963f13065ff6abedad3e4fe5c8e5916d21fba4a17254161b1628a5fc20b0c8",
+      "exitCode": 0
+    }
+  ]
+}

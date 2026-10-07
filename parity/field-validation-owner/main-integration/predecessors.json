@@ -1,0 +1,69 @@
+{
+  "scope": "Exact conflict preimages; immutable archives remain historical. No review or execution credit.",
+  "records": [
+    {
+      "ref": "6de373e205b907b162e0543b3898550d78e03420",
+      "path": "docs/upstream-differences.md",
+      "archive": "owner__docs__upstream-differences.md.gz",
+      "bytes": 146126,
+      "sha256": "e6171fab49ab6becf4d60af4d621a7c3e2a7d4756b4b426e83e6f6fabc055618",
+      "gzipSha256": "df5ccb4aaa1a56d0ea6efb7b8e83d5528e40583920e34be1b6343b4910e7e0f7"
+    },
+    {
+      "ref": "6de373e205b907b162e0543b3898550d78e03420",
+      "path": "parity/native-snippets/family-projection.json",
+      "archive": "owner__parity__native-snippets__family-projection.json.gz",
+      "bytes": 261468,
+      "sha256": "f1fab7e67519e58bcb80e7213bf29e06be7d3b55e2f86e5c2ebd84930f7cf3f6",
+      "gzipSha256": "d72e70961d2de51ebc9021494d12c90fb8a86638407ed61e49ba6c76d1158073"
+    },
+    {
+      "ref": "6de373e205b907b162e0543b3898550d78e03420",
+      "path": "parity/utils-package/current-source-graph.json",
+      "archive": "owner__parity__utils-package__current-source-graph.json.gz",
+      "bytes": 1742740,
+      "sha256": "48b71000d6b50f5d22910ca0d06e1f787c7f654af041141b7560761029d7ebe8",
+      "gzipSha256": "8d4e9b4a26565b537571168a66b56fde1a74b588a4442997fdfc3312b2b716e5"
+    },
+    {
+      "ref": "6de373e205b907b162e0543b3898550d78e03420",
+      "path": "parity/utils-package/feature-successors.json",
+      "archive": "owner__parity__utils-package__feature-successors.json.gz",
+      "bytes": 75678,
+      "sha256": "68350d8efa519be7d5652f03d956fc962db0680b2f0d4bbcc737c39011406794",
+      "gzipSha256": "cba6cccb08d9d90b43cabca07e56127d208188122c51ee6894292be1a0126549"
+    },
+    {
+      "ref": "abe8aa9b66ab8cd8d83dfdac28ebee94a0655f79",
+      "path": "docs/upstream-differences.md",
+      "archive": "main__docs__upstream-differences.md.gz",
+      "bytes": 144950,
+      "sha256": "14e953a59f3cb720bc0b6be6eb1703ba443ead47b537d94e0cbc4af051d6ec64",
+      "gzipSha256": "a09193fe5f1a6a8a8a897d89c16c990655c4c44e5f933ebfb7138870e7c39ea0"
+    },
+    {
+      "ref": "abe8aa9b66ab8cd8d83dfdac28ebee94a0655f79",
+      "path": "parity/native-snippets/family-projection.json",
+      "archive": "main__parity__native-snippets__family-projection.json.gz",
+      "bytes": 261468,
+      "sha256": "8c456ca86ab7cd6a0a4ffe868d4016c3b4945ce86892c8cc8e38d40f51fd64ee",
+      "gzipSha256": "adb47bb78b98ed9518e4b32ca3b12a46c1abb359ae405e3f275b6f211919b58b"
+    },
+    {
+      "ref": "abe8aa9b66ab8cd8d83dfdac28ebee94a0655f79",
+      "path": "parity/utils-package/current-source-graph.json",
+      "archive": "main__parity__utils-package__current-source-graph.json.gz",
+      "bytes": 293,
+      "sha256": "94cebc10fb396a96564e99300257a36036969ae041ef69668407e3e5e8f2aa1c",
+      "gzipSha256": "5b777e150b167883b331bed714a16399bff7d1ec1f52a95ae2bb93bdcc168270"
+    },
+    {
+      "ref": "abe8aa9b66ab8cd8d83dfdac28ebee94a0655f79",
+      "path": "parity/utils-package/feature-successors.json",
+      "archive": "main__parity__utils-package__feature-successors.json.gz",
+      "bytes": 75678,
+      "sha256": "749187081a7d885234f4cd99ba800fdb4ab4b8e83103ae1c00bcdfef99ca29ec",
+      "gzipSha256": "45b31201edab514833c7b2c8dfceec08a9e046401e779bd25e22342b249bd427"
+    }
+  ]
+}

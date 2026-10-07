@@ -1,0 +1,34 @@
+{
+  "sourcePin": "47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c",
+  "result": "2 paired capture witnesses pass; 2 expanded actual cancellation witnesses pass; fallback controlId not exercised; final acceptance pending",
+  "records": [
+    {
+      "path": "../field-capture-causal-repair.log",
+      "archive": "repair-00-field-capture-causal-repair.log.txt.gz",
+      "bytes": 32486,
+      "sha256": "cf29d22b9f0f12457a7c138249e5ca4c644f0dbc74ac6f1bdd4c098a47d0e978",
+      "gzipSha256": "6cf03bfece716ebddfbcfad4bbd4ff61c063b57fe910555135ced12d47e80baf"
+    },
+    {
+      "path": "../field-capture-causal-cancellation.log",
+      "archive": "repair-01-field-capture-causal-cancellation.log.txt.gz",
+      "bytes": 32996,
+      "sha256": "1c2e594bde12674c60d553971ff5ff279b67c69e176a6d31d73c3a957221474c",
+      "gzipSha256": "492cfb7393acf33f74efe546148e2d14e262db1f5b7094ff695c2ad0bb3b3ce3"
+    },
+    {
+      "path": "packages/base/tests/dom/field-form-pending-audit.test.ts",
+      "archive": "repair-02-field-form-pending-audit.test.ts.txt.gz",
+      "bytes": 8472,
+      "sha256": "c23280782f180046a17535610f08fd899767b43be8ee9e1de49bad1cda60cbd9",
+      "gzipSha256": "235b4525599f7c8b83dd72f340e2323ace39c5994dab3ac6e81c313ba21c0bcd"
+    },
+    {
+      "path": "packages/base/src/lib/field/root/useFieldValidation.svelte.ts",
+      "archive": "repair-03-useFieldValidation.svelte.ts.txt.gz",
+      "bytes": 16367,
+      "sha256": "e30b7ab4c54c243ae7a84759f4c44fd1060058fde17365a4a8957640c6483a5c",
+      "gzipSha256": "89813c8e77f511bbd3462e3ec835bf61c70db553bf9db9067beff60abb38659b"
+    }
+  ]
+}

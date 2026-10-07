@@ -1,0 +1,21 @@
+{
+  "schema": 1,
+  "packages": {
+    "@sveltery/base": {
+      "version": "0.0.0",
+      "directory": "packages/base",
+      "tarball": "sveltery-base-0.0.0.tgz",
+      "sha256": "26954d2a9099be9bd7a9beac33d5bc0ff440b780ee9580ee51b0a80fba4d96c2",
+      "dependencies": [
+        "@sveltery/utils"
+      ]
+    },
+    "@sveltery/utils": {
+      "version": "0.0.0",
+      "directory": "packages/utils",
+      "tarball": "sveltery-utils-0.0.0.tgz",
+      "sha256": "7e4f31b6939499af11fbad0375be4e2d164144969936547bcd95d15390450ac2",
+      "dependencies": []
+    }
+  }
+}

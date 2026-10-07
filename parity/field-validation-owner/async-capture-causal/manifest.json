@@ -1,0 +1,85 @@
+{
+  "sourcePin": "47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c",
+  "nativePublicHead": "6de373e205b907b162e0543b3898550d78e03420",
+  "comment": "https://github.com/sveltery/base/pull/87#issuecomment-6028261962",
+  "result": "2 actual publication-equivalence failures; settled public outcomes agree; no business edit; acceptance pending",
+  "records": [
+    {
+      "path": "field-capture-causal-red.log",
+      "bytes": 2138,
+      "sha256": "a3d22219dfbe6d633e8d249069a937d12fa07140218f7b028062f4b593faeda8",
+      "gzipSha256": "e3f0167d8ee683770e0410ec338aa8aa921a5de593feb16d4875d8278d30a214",
+      "archive": "00-field-capture-causal-red.log.txt.gz"
+    },
+    {
+      "path": "field-capture-causal-execution.log",
+      "bytes": 2200,
+      "sha256": "b8c5d41d738cb95f2951c74952b53372a8ff06b3906febe7a4b7c1375c6397f3",
+      "gzipSha256": "e4d00402ed0272fb19194261248ea31481f1ee99b69da11d2ad08fd406c54d6c",
+      "archive": "01-field-capture-causal-execution.log.txt.gz"
+    },
+    {
+      "path": "field-capture-causal-dependencies.log",
+      "bytes": 9261,
+      "sha256": "ad0285a0b4e0c03a663f7ffbd7b5f4dfac5170083cfe76174bc761c567ed53d3",
+      "gzipSha256": "9f6036081635c549b2713cb8355e3bda948d8ca97547c646b2897d76ef4a7cc3",
+      "archive": "02-field-capture-causal-dependencies.log.txt.gz"
+    },
+    {
+      "path": "field-capture-causal-actual-red.log",
+      "bytes": 34475,
+      "sha256": "8c1c4d6888950c4ccd51ffe80c2a6d3ff9c6949dfe8ae9aff70347234508a5f4",
+      "gzipSha256": "b8e21886ef670178d056e5da3b7c46d7ea27dbb801e0feef6e69c16fdf550d69",
+      "archive": "03-field-capture-causal-actual-red.log.txt.gz"
+    },
+    {
+      "path": "base/packages/base/tests/dom/field-form-pending-audit.test.ts",
+      "bytes": 6579,
+      "sha256": "0badbf66fdae48988db82530f686ba72e4e81ff3641464800d983d8db748c3d9",
+      "gzipSha256": "0853b80bdd995cbdedaf9b1e3e8d8a410e82c228d3ea3305feaf43b007f00b74",
+      "archive": "04-field-form-pending-audit.test.ts.txt.gz"
+    },
+    {
+      "path": "base/packages/base/tests/dom/FieldFormPendingFixture.svelte",
+      "bytes": 1394,
+      "sha256": "42f0203e19fa1a8e44f9177f5ba3cbbdc828ec5c5467ac508d7d5f510cd14139",
+      "gzipSha256": "4c184a5a0c652b7287a043f4feaa98f627395320e3e738f96f6d5167390825fa",
+      "archive": "05-FieldFormPendingFixture.svelte.txt.gz"
+    },
+    {
+      "path": "base/packages/base/tests/dom/FieldFormPendingProbe.svelte",
+      "bytes": 719,
+      "sha256": "61597e1c56543711868ae3808343bb0885589b90c0b5e8022df25a86da672eef",
+      "gzipSha256": "e78cc181fd9d63230965c356a52d46f7251263732fe74bf85d7e70198185af93",
+      "archive": "06-FieldFormPendingProbe.svelte.txt.gz"
+    },
+    {
+      "path": "base/packages/base/vitest.pin.config.ts",
+      "bytes": 540,
+      "sha256": "bada6084cd89d534e1edab2d2a95fb1fb26d29f046ea55e28d99906b96aaf1d8",
+      "gzipSha256": "833042f314ef1d0e71c8deacd133c0f3b48ed4e62ae42b7a01a38a3f5c1640f8",
+      "archive": "07-vitest.pin.config.ts.txt.gz"
+    },
+    {
+      "path": "upstream/packages/react/src/field/root/useFieldValidation.ts",
+      "bytes": 15170,
+      "sha256": "f34d2c7c03621494f8a8ca8867c3a66a8b7c8089b022e851211db5429b63de89",
+      "gzipSha256": "d06a188e0931fb3c23803d3e5dface3f8cc1518caf9f34b469ec52a77f8f1d51",
+      "archive": "08-useFieldValidation.ts.txt.gz"
+    },
+    {
+      "path": "upstream/packages/utils/src/useStableCallback.ts",
+      "bytes": 2151,
+      "sha256": "908cbd177f86c961983d0124a859f733d341be49e58bc5a553255f47725419c1",
+      "gzipSha256": "cc6f89715b528f1a1575e866521a837472d3b6316c0e41050ed590a57b4b4932",
+      "archive": "09-useStableCallback.ts.txt.gz"
+    },
+    {
+      "path": "base/packages/base/src/lib/field/root/useFieldValidation.svelte.ts",
+      "bytes": 16254,
+      "sha256": "2975e22550023cee24959abe4757add5d3c28ca4293c78db36e216d951d83d60",
+      "gzipSha256": "fe027a84b74293fdea11c2df72615e760c8829e58230cbcab8b7364782896f75",
+      "archive": "10-useFieldValidation.svelte.ts.txt.gz"
+    }
+  ]
+}

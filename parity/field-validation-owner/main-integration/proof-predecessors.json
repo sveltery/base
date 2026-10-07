@@ -1,0 +1,53 @@
+{
+  "scope": "Exact historical tool/current projection preimages; zero new acceptance credit.",
+  "records": [
+    {
+      "ref": "6de373e205b907b162e0543b3898550d78e03420",
+      "path": "scripts/check-native-snippet-integration.mjs",
+      "archive": "owner__scripts__check-native-snippet-integration.mjs.gz",
+      "bytes": 82987,
+      "sha256": "3e2d07e35745fed9ee4bae6481f44eaa52078d2034a04eee041f1a763f87a15e",
+      "gzipSha256": "e72291c96f75fdd32264b738e0eb767c432af0f3b19414051f40c69b77d892a2"
+    },
+    {
+      "ref": "abe8aa9b66ab8cd8d83dfdac28ebee94a0655f79",
+      "path": "scripts/check-native-snippet-integration.mjs",
+      "archive": "main__scripts__check-native-snippet-integration.mjs.gz",
+      "bytes": 86863,
+      "sha256": "f1ed31d3a112c645b714f8127a34388e4763c452886b208d034c86a46f80e113",
+      "gzipSha256": "a9684080ead60ba77fef8e3678d8b54761a84ad6ab6c54cd49e27e82cb7ec2bc"
+    },
+    {
+      "ref": "6de373e205b907b162e0543b3898550d78e03420",
+      "path": "parity/native-snippets/integration-current.json",
+      "archive": "owner__parity__native-snippets__integration-current.json.gz",
+      "bytes": 448942,
+      "sha256": "4ce01e7958c1c4ae39bf69bb27b5243fae1d661ce630d8ba33cebc992dbc7d79",
+      "gzipSha256": "d8b8ff37f221d9464c06f4f0491de14a39c34398ed58a1f688a784161a119b0e"
+    },
+    {
+      "ref": "abe8aa9b66ab8cd8d83dfdac28ebee94a0655f79",
+      "path": "parity/native-snippets/integration-current.json",
+      "archive": "main__parity__native-snippets__integration-current.json.gz",
+      "bytes": 451353,
+      "sha256": "924bb334d889cbe6761e5bbc28a627b6e69296937d8c504ce5e6f2d8973e6137",
+      "gzipSha256": "3d224d6f9dcb2f74ac7ffeb79b482b7123c616a957864769c724766d46b8cd74"
+    },
+    {
+      "ref": "6de373e205b907b162e0543b3898550d78e03420",
+      "path": "parity/native-framework/callsite-inventory.json",
+      "archive": "owner__parity__native-framework__callsite-inventory.json.gz",
+      "bytes": 60508,
+      "sha256": "8df9776a791d72b1d233df5ad771825fa6c3439910029a5dd62fd330d7372dd9",
+      "gzipSha256": "2bb7b8c2e15e0687b895f4ea35cd7e0bc7fefa8631530a36d8a1e46fd5504112"
+    },
+    {
+      "ref": "abe8aa9b66ab8cd8d83dfdac28ebee94a0655f79",
+      "path": "parity/native-framework/callsite-inventory.json",
+      "archive": "main__parity__native-framework__callsite-inventory.json.gz",
+      "bytes": 60508,
+      "sha256": "8df9776a791d72b1d233df5ad771825fa6c3439910029a5dd62fd330d7372dd9",
+      "gzipSha256": "2bb7b8c2e15e0687b895f4ea35cd7e0bc7fefa8631530a36d8a1e46fd5504112"
+    }
+  ]
+}

@@ -1,0 +1,292 @@
+[
+  {
+    "phase": "validator-gates-known-started",
+    "initialInvalid": false,
+    "sourceCalls": [
+      "seed"
+    ],
+    "nativeCalls": [
+      "seed"
+    ]
+  },
+  {
+    "phase": "DOM-prop-commit-observed-before-gate-resolution",
+    "initialInvalid": false,
+    "flipped": true,
+    "sourceOutput": "{\"valid\":false,\"error\":\"\"}",
+    "nativeOutput": "{\"valid\":false,\"error\":\"\"}"
+  },
+  {
+    "phase": "actual-call-through-publications",
+    "initialInvalid": false,
+    "publications": [
+      {
+        "framework": "source",
+        "phase": "invoke",
+        "id": "before",
+        "valid": null,
+        "caller": [
+          "    at updateRegisteredFieldValidity (/workspace/scratch/44dfa6eb71c2/upstream/packages/react/src/field/root/useFieldValidation.ts:146:30)",
+          "    at publish (/workspace/scratch/44dfa6eb71c2/upstream/packages/react/src/field/root/useFieldValidation.ts:190:7)",
+          "    at Object.callback (/workspace/scratch/44dfa6eb71c2/upstream/packages/react/src/field/root/useFieldValidation.ts:316:11)"
+        ]
+      },
+      {
+        "framework": "source",
+        "phase": "invoke",
+        "id": "before",
+        "valid": null,
+        "caller": [
+          "    at /workspace/scratch/44dfa6eb71c2/upstream/packages/react/src/internals/field-register-control/useFieldControlRegistration.ts:113:28",
+          "    at Object.react_stack_bottom_frame (/workspace/scratch/44dfa6eb71c2/base/node_modules/.pnpm/react-dom@19.2.8_react@19.2.8/node_modules/react-dom/cjs/react-dom-client.development.js:25989:20)",
+          "    at runWithFiberInDEV (/workspace/scratch/44dfa6eb71c2/base/node_modules/.pnpm/react-dom@19.2.8_react@19.2.8/node_modules/react-dom/cjs/react-dom-client.development.js:871:30)"
+        ]
+      },
+      {
+        "framework": "native",
+        "phase": "invoke",
+        "id": "before",
+        "valid": null,
+        "caller": [
+          "    at updateRegisteredFieldValidity (/workspace/scratch/44dfa6eb71c2/base/packages/base/src/lib/field/root/useFieldValidation.svelte.ts:160:30)",
+          "    at publish (/workspace/scratch/44dfa6eb71c2/base/packages/base/src/lib/field/root/useFieldValidation.svelte.ts:204:7)",
+          "    at Object.commit (/workspace/scratch/44dfa6eb71c2/base/packages/base/src/lib/field/root/useFieldValidation.svelte.ts:330:11)"
+        ]
+      },
+      {
+        "framework": "native",
+        "phase": "invoke",
+        "id": "before",
+        "valid": null,
+        "caller": [
+          "    at FieldControlRegistrationOwner.refreshRegistration (/workspace/scratch/44dfa6eb71c2/base/packages/base/src/lib/internals/field-register-control/FieldControlRegistration.svelte.ts:63:34)",
+          "    at $effect (/workspace/scratch/44dfa6eb71c2/base/packages/base/src/lib/internals/field-register-control/FieldControlRegistration.svelte.ts:31:12)",
+          "    at update_reaction (/workspace/scratch/44dfa6eb71c2/base/node_modules/.pnpm/svelte@5.57.1_@typescript-eslint+types@8.71.0/node_modules/svelte/src/internal/client/runtime.js:258:16)"
+        ]
+      },
+      {
+        "framework": "source",
+        "phase": "flip",
+        "id": "before",
+        "valid": false,
+        "caller": [
+          "    at /workspace/scratch/44dfa6eb71c2/upstream/packages/react/src/internals/field-register-control/useFieldControlRegistration.ts:113:28",
+          "    at Object.react_stack_bottom_frame (/workspace/scratch/44dfa6eb71c2/base/node_modules/.pnpm/react-dom@19.2.8_react@19.2.8/node_modules/react-dom/cjs/react-dom-client.development.js:25989:20)",
+          "    at runWithFiberInDEV (/workspace/scratch/44dfa6eb71c2/base/node_modules/.pnpm/react-dom@19.2.8_react@19.2.8/node_modules/react-dom/cjs/react-dom-client.development.js:871:30)"
+        ]
+      },
+      {
+        "framework": "native",
+        "phase": "flip",
+        "id": "before",
+        "valid": false,
+        "caller": [
+          "    at FieldControlRegistrationOwner.refreshRegistration (/workspace/scratch/44dfa6eb71c2/base/packages/base/src/lib/internals/field-register-control/FieldControlRegistration.svelte.ts:63:34)",
+          "    at $effect (/workspace/scratch/44dfa6eb71c2/base/packages/base/src/lib/internals/field-register-control/FieldControlRegistration.svelte.ts:31:12)",
+          "    at update_reaction (/workspace/scratch/44dfa6eb71c2/base/node_modules/.pnpm/svelte@5.57.1_@typescript-eslint+types@8.71.0/node_modules/svelte/src/internal/client/runtime.js:258:16)"
+        ]
+      },
+      {
+        "framework": "source",
+        "phase": "gate-resolved",
+        "id": "before",
+        "valid": true,
+        "caller": [
+          "    at updateRegisteredFieldValidity (/workspace/scratch/44dfa6eb71c2/upstream/packages/react/src/field/root/useFieldValidation.ts:146:30)",
+          "    at publish (/workspace/scratch/44dfa6eb71c2/upstream/packages/react/src/field/root/useFieldValidation.ts:190:7)",
+          "    at Object.<anonymous> (/workspace/scratch/44dfa6eb71c2/upstream/packages/react/src/field/root/useFieldValidation.ts:346:5)"
+        ]
+      },
+      {
+        "framework": "source",
+        "phase": "gate-resolved",
+        "id": "before",
+        "valid": false,
+        "caller": [
+          "    at /workspace/scratch/44dfa6eb71c2/upstream/packages/react/src/internals/field-register-control/useFieldControlRegistration.ts:113:28",
+          "    at Object.react_stack_bottom_frame (/workspace/scratch/44dfa6eb71c2/base/node_modules/.pnpm/react-dom@19.2.8_react@19.2.8/node_modules/react-dom/cjs/react-dom-client.development.js:25989:20)",
+          "    at runWithFiberInDEV (/workspace/scratch/44dfa6eb71c2/base/node_modules/.pnpm/react-dom@19.2.8_react@19.2.8/node_modules/react-dom/cjs/react-dom-client.development.js:871:30)"
+        ]
+      },
+      {
+        "framework": "native",
+        "phase": "gate-resolved",
+        "id": "before",
+        "valid": false,
+        "caller": [
+          "    at updateRegisteredFieldValidity (/workspace/scratch/44dfa6eb71c2/base/packages/base/src/lib/field/root/useFieldValidation.svelte.ts:160:30)",
+          "    at publish (/workspace/scratch/44dfa6eb71c2/base/packages/base/src/lib/field/root/useFieldValidation.svelte.ts:204:7)",
+          "    at Object.commit (/workspace/scratch/44dfa6eb71c2/base/packages/base/src/lib/field/root/useFieldValidation.svelte.ts:360:5)"
+        ]
+      },
+      {
+        "framework": "native",
+        "phase": "gate-resolved",
+        "id": "before",
+        "valid": false,
+        "caller": [
+          "    at FieldControlRegistrationOwner.refreshRegistration (/workspace/scratch/44dfa6eb71c2/base/packages/base/src/lib/internals/field-register-control/FieldControlRegistration.svelte.ts:63:34)",
+          "    at $effect (/workspace/scratch/44dfa6eb71c2/base/packages/base/src/lib/internals/field-register-control/FieldControlRegistration.svelte.ts:31:12)",
+          "    at update_reaction (/workspace/scratch/44dfa6eb71c2/base/node_modules/.pnpm/svelte@5.57.1_@typescript-eslint+types@8.71.0/node_modules/svelte/src/internal/client/runtime.js:258:16)"
+        ]
+      }
+    ]
+  },
+  {
+    "phase": "settled-public",
+    "initialInvalid": false,
+    "sourceOutput": "{\"valid\":false,\"error\":\"\"}",
+    "nativeOutput": "{\"valid\":false,\"error\":\"\"}"
+  },
+  {
+    "phase": "public-submit",
+    "initialInvalid": false,
+    "sourceSubmits": 0,
+    "nativeSubmits": 0
+  },
+  {
+    "phase": "validator-gates-known-started",
+    "initialInvalid": true,
+    "sourceCalls": [
+      "seed"
+    ],
+    "nativeCalls": [
+      "seed"
+    ]
+  },
+  {
+    "phase": "DOM-prop-commit-observed-before-gate-resolution",
+    "initialInvalid": true,
+    "flipped": false,
+    "sourceOutput": "{\"valid\":null,\"error\":\"\"}",
+    "nativeOutput": "{\"valid\":null,\"error\":\"\"}"
+  },
+  {
+    "phase": "actual-call-through-publications",
+    "initialInvalid": true,
+    "publications": [
+      {
+        "framework": "source",
+        "phase": "invoke",
+        "id": "before",
+        "valid": false,
+        "caller": [
+          "    at updateRegisteredFieldValidity (/workspace/scratch/44dfa6eb71c2/upstream/packages/react/src/field/root/useFieldValidation.ts:146:30)",
+          "    at publish (/workspace/scratch/44dfa6eb71c2/upstream/packages/react/src/field/root/useFieldValidation.ts:190:7)",
+          "    at Object.callback (/workspace/scratch/44dfa6eb71c2/upstream/packages/react/src/field/root/useFieldValidation.ts:316:11)"
+        ]
+      },
+      {
+        "framework": "source",
+        "phase": "invoke",
+        "id": "before",
+        "valid": false,
+        "caller": [
+          "    at /workspace/scratch/44dfa6eb71c2/upstream/packages/react/src/internals/field-register-control/useFieldControlRegistration.ts:113:28",
+          "    at Object.react_stack_bottom_frame (/workspace/scratch/44dfa6eb71c2/base/node_modules/.pnpm/react-dom@19.2.8_react@19.2.8/node_modules/react-dom/cjs/react-dom-client.development.js:25989:20)",
+          "    at runWithFiberInDEV (/workspace/scratch/44dfa6eb71c2/base/node_modules/.pnpm/react-dom@19.2.8_react@19.2.8/node_modules/react-dom/cjs/react-dom-client.development.js:871:30)"
+        ]
+      },
+      {
+        "framework": "native",
+        "phase": "invoke",
+        "id": "before",
+        "valid": false,
+        "caller": [
+          "    at updateRegisteredFieldValidity (/workspace/scratch/44dfa6eb71c2/base/packages/base/src/lib/field/root/useFieldValidation.svelte.ts:160:30)",
+          "    at publish (/workspace/scratch/44dfa6eb71c2/base/packages/base/src/lib/field/root/useFieldValidation.svelte.ts:204:7)",
+          "    at Object.commit (/workspace/scratch/44dfa6eb71c2/base/packages/base/src/lib/field/root/useFieldValidation.svelte.ts:330:11)"
+        ]
+      },
+      {
+        "framework": "native",
+        "phase": "invoke",
+        "id": "before",
+        "valid": false,
+        "caller": [
+          "    at FieldControlRegistrationOwner.refreshRegistration (/workspace/scratch/44dfa6eb71c2/base/packages/base/src/lib/internals/field-register-control/FieldControlRegistration.svelte.ts:63:34)",
+          "    at $effect (/workspace/scratch/44dfa6eb71c2/base/packages/base/src/lib/internals/field-register-control/FieldControlRegistration.svelte.ts:31:12)",
+          "    at update_reaction (/workspace/scratch/44dfa6eb71c2/base/node_modules/.pnpm/svelte@5.57.1_@typescript-eslint+types@8.71.0/node_modules/svelte/src/internal/client/runtime.js:258:16)"
+        ]
+      },
+      {
+        "framework": "source",
+        "phase": "flip",
+        "id": "before",
+        "valid": null,
+        "caller": [
+          "    at /workspace/scratch/44dfa6eb71c2/upstream/packages/react/src/internals/field-register-control/useFieldControlRegistration.ts:113:28",
+          "    at Object.react_stack_bottom_frame (/workspace/scratch/44dfa6eb71c2/base/node_modules/.pnpm/react-dom@19.2.8_react@19.2.8/node_modules/react-dom/cjs/react-dom-client.development.js:25989:20)",
+          "    at runWithFiberInDEV (/workspace/scratch/44dfa6eb71c2/base/node_modules/.pnpm/react-dom@19.2.8_react@19.2.8/node_modules/react-dom/cjs/react-dom-client.development.js:871:30)"
+        ]
+      },
+      {
+        "framework": "native",
+        "phase": "flip",
+        "id": "before",
+        "valid": null,
+        "caller": [
+          "    at FieldControlRegistrationOwner.refreshRegistration (/workspace/scratch/44dfa6eb71c2/base/packages/base/src/lib/internals/field-register-control/FieldControlRegistration.svelte.ts:63:34)",
+          "    at $effect (/workspace/scratch/44dfa6eb71c2/base/packages/base/src/lib/internals/field-register-control/FieldControlRegistration.svelte.ts:31:12)",
+          "    at update_reaction (/workspace/scratch/44dfa6eb71c2/base/node_modules/.pnpm/svelte@5.57.1_@typescript-eslint+types@8.71.0/node_modules/svelte/src/internal/client/runtime.js:258:16)"
+        ]
+      },
+      {
+        "framework": "source",
+        "phase": "gate-resolved",
+        "id": "before",
+        "valid": false,
+        "caller": [
+          "    at updateRegisteredFieldValidity (/workspace/scratch/44dfa6eb71c2/upstream/packages/react/src/field/root/useFieldValidation.ts:146:30)",
+          "    at publish (/workspace/scratch/44dfa6eb71c2/upstream/packages/react/src/field/root/useFieldValidation.ts:190:7)",
+          "    at Object.<anonymous> (/workspace/scratch/44dfa6eb71c2/upstream/packages/react/src/field/root/useFieldValidation.ts:346:5)"
+        ]
+      },
+      {
+        "framework": "source",
+        "phase": "gate-resolved",
+        "id": "before",
+        "valid": true,
+        "caller": [
+          "    at /workspace/scratch/44dfa6eb71c2/upstream/packages/react/src/internals/field-register-control/useFieldControlRegistration.ts:113:28",
+          "    at Object.react_stack_bottom_frame (/workspace/scratch/44dfa6eb71c2/base/node_modules/.pnpm/react-dom@19.2.8_react@19.2.8/node_modules/react-dom/cjs/react-dom-client.development.js:25989:20)",
+          "    at runWithFiberInDEV (/workspace/scratch/44dfa6eb71c2/base/node_modules/.pnpm/react-dom@19.2.8_react@19.2.8/node_modules/react-dom/cjs/react-dom-client.development.js:871:30)"
+        ]
+      },
+      {
+        "framework": "native",
+        "phase": "gate-resolved",
+        "id": "before",
+        "valid": true,
+        "caller": [
+          "    at updateRegisteredFieldValidity (/workspace/scratch/44dfa6eb71c2/base/packages/base/src/lib/field/root/useFieldValidation.svelte.ts:160:30)",
+          "    at publish (/workspace/scratch/44dfa6eb71c2/base/packages/base/src/lib/field/root/useFieldValidation.svelte.ts:204:7)",
+          "    at Object.commit (/workspace/scratch/44dfa6eb71c2/base/packages/base/src/lib/field/root/useFieldValidation.svelte.ts:360:5)"
+        ]
+      },
+      {
+        "framework": "native",
+        "phase": "gate-resolved",
+        "id": "before",
+        "valid": true,
+        "caller": [
+          "    at FieldControlRegistrationOwner.refreshRegistration (/workspace/scratch/44dfa6eb71c2/base/packages/base/src/lib/internals/field-register-control/FieldControlRegistration.svelte.ts:63:34)",
+          "    at $effect (/workspace/scratch/44dfa6eb71c2/base/packages/base/src/lib/internals/field-register-control/FieldControlRegistration.svelte.ts:31:12)",
+          "    at update_reaction (/workspace/scratch/44dfa6eb71c2/base/node_modules/.pnpm/svelte@5.57.1_@typescript-eslint+types@8.71.0/node_modules/svelte/src/internal/client/runtime.js:258:16)"
+        ]
+      }
+    ]
+  },
+  {
+    "phase": "settled-public",
+    "initialInvalid": true,
+    "sourceOutput": "{\"valid\":true,\"error\":\"\"}",
+    "nativeOutput": "{\"valid\":true,\"error\":\"\"}"
+  },
+  {
+    "phase": "public-submit",
+    "initialInvalid": true,
+    "sourceSubmits": 1,
+    "nativeSubmits": 1
+  }
+]

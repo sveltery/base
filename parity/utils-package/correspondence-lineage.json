@@ -10,7 +10,7 @@
     {
       "record": "parity/boolean-controls/source-correspondence.json",
       "previousSha256": "13a04ceb98b395813149d4ce2dddfd4b9a5b6b2bb7e0fbf9960e0673e04303a8",
-      "currentSha256": "d86f23e91b4d37413050f5b1c261805ee26e5b9b73b14a568106fa5f63db2bd8",
+      "currentSha256": "b121ef59c4cc2a736ff84ae8700f977571fba16cd32e3c970e5c9a18fc767182",
       "historicalRecords": "Original source hashes, assertions and frozen audit/review/run receipts unchanged."
     },
     {
@@ -28,25 +28,25 @@
     {
       "record": "parity/radio/source-correspondence.json",
       "previousSha256": "507e1268f9c38d70fc1655cca3b2e42f776e2f84a30dfe37dbcba8a0655f108c",
-      "currentSha256": "8fc51880890bd799af1db201f7037373136a48dbecf20a3998ba47150abad806",
+      "currentSha256": "43d2a420fa9c51020c54ad581031a0021b33408c2e1335b007dae32958906e0a",
       "historicalRecords": "Original source hashes, assertions and frozen audit/review/run receipts unchanged."
     },
     {
       "record": "parity/toggle-toolbar/source-correspondence.json",
       "previousSha256": "6cf2f0ac3735f9d049006735eeeb1cc3d553e5c163b871bcd4211a8d433fb2d6",
-      "currentSha256": "3d0b1c5353cb45052852582e2449ec6123a87bcdf58801f94eafa8670511898e",
+      "currentSha256": "592eb40bbf46a722ba34d883eb870e2fff02c7d1f3a96afca581fb278feead97",
       "historicalRecords": "Original source hashes, assertions and frozen audit/review/run receipts unchanged."
     },
     {
       "record": "parity/scroll-area/correspondence.json",
       "previousSha256": "d3e26f65b0e2dfb007b89737decb27a75c09b1b36af1ddde3a25a114206dd47f",
-      "currentSha256": "6975dd2547147c2a46d0af4c38dbbcf9a5f96fe92cd060c4b0e593bd47d4239f",
+      "currentSha256": "6318faa916349db8459bcea17da89e7bd59cda05109505cf22b0d9493317d2e8",
       "historicalRecords": "Original source hashes, assertions and frozen audit/review/run receipts unchanged."
     },
     {
       "record": "parity/rendering/source-graph.json",
       "previousSha256": "21652065bee5567e1a95de9b3b188d2c74ab2ea2dfb7fcbb101597dab89f49a0",
-      "currentSha256": "134b9db652e34ceeba918ebce7282fdf8d9be0af105e4e54a7483959a82d1206",
+      "currentSha256": "2e8bcdd6bcf784c96670d777e1e882d9ade531c838d89e19be56440ebbc2680a",
       "historicalRecords": "Original source hashes, assertions and frozen audit/review/run receipts unchanged."
     }
   ],

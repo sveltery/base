@@ -1742,5 +1742,5 @@
     "avatar-successor/nativeTests-graph.json"
   ],
   "scope": "Old package-path receipts remain byte-identical historical evidence. This explicit successor points every affected old path to the actual current owner and fresh complete two-package graph.",
-  "currentGraphSha256": "48b71000d6b50f5d22910ca0d06e1f787c7f654af041141b7560761029d7ebe8"
+  "currentGraphSha256": "91e619581bf5d5c732937157c107a5bee316937b54f37bc7e3d0ca5d63872e24"
 }

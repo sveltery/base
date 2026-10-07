@@ -1,0 +1,398 @@
+{
+  "original": {
+    "revision": "47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c",
+    "graph": "original-graph.json",
+    "modules": [
+      {
+        "path": "packages/react/src/internals/createBaseUIEventDetails.ts",
+        "sha256": "77bdb11a11ef1dfe9bc1a82db4754766cffbb91c27c3aeaea215e4e07cec2b2d",
+        "lines": 166,
+        "reachability": "type-only",
+        "physicalEqualsRevisionBlob": true,
+        "wholeBodyRead": "select_source_plan_repair, fresh implementation precode pass; includes unselected exports and type-only bodies",
+        "selectedBusinessReview": "see source-correspondence.md; whole-read does not grant Select or assertion credit"
+      },
+      {
+        "path": "packages/react/src/internals/getStateAttributesProps.ts",
+        "sha256": "ae0c62d85ecb1d58d833c49a8753929df86a7539e94e272fdfe692d6ae89abcb",
+        "lines": 32,
+        "reachability": "runtime",
+        "physicalEqualsRevisionBlob": true,
+        "wholeBodyRead": "select_source_plan_repair, fresh implementation precode pass; includes unselected exports and type-only bodies",
+        "selectedBusinessReview": "see source-correspondence.md; whole-read does not grant Select or assertion credit"
+      },
+      {
+        "path": "packages/react/src/internals/itemEquality.ts",
+        "sha256": "beb68077d5bf5f26ea3805953ebb23d592ae8f78515e1dde90dd030a8e18777c",
+        "lines": 134,
+        "reachability": "runtime",
+        "physicalEqualsRevisionBlob": true,
+        "wholeBodyRead": "select_source_plan_repair, fresh implementation precode pass; includes unselected exports and type-only bodies",
+        "selectedBusinessReview": "see source-correspondence.md; whole-read does not grant Select or assertion credit"
+      },
+      {
+        "path": "packages/react/src/internals/reason-parts.ts",
+        "sha256": "1cddfb9a98326bc5e586c2bdb66fb3a58913038f8ee7368ec57bbaf972521e06",
+        "lines": 42,
+        "reachability": "type-only",
+        "physicalEqualsRevisionBlob": true,
+        "wholeBodyRead": "select_source_plan_repair, fresh implementation precode pass; includes unselected exports and type-only bodies",
+        "selectedBusinessReview": "see source-correspondence.md; whole-read does not grant Select or assertion credit"
+      },
+      {
+        "path": "packages/react/src/internals/reasons.ts",
+        "sha256": "694b1512f2dd9c999e97899e1fe9ea0f189fbe8476fcbc0f957cd786806c4abf",
+        "lines": 5,
+        "reachability": "type-only",
+        "physicalEqualsRevisionBlob": true,
+        "wholeBodyRead": "select_source_plan_repair, fresh implementation precode pass; includes unselected exports and type-only bodies",
+        "selectedBusinessReview": "see source-correspondence.md; whole-read does not grant Select or assertion credit"
+      },
+      {
+        "path": "packages/react/src/internals/resolveValueLabel.tsx",
+        "sha256": "bc54306db732b6a1d7570f753ea57c53a2131cab78373d65a07a98839ce73a2a",
+        "lines": 158,
+        "reachability": "runtime",
+        "physicalEqualsRevisionBlob": true,
+        "wholeBodyRead": "select_source_plan_repair, fresh implementation precode pass; includes unselected exports and type-only bodies",
+        "selectedBusinessReview": "see source-correspondence.md; whole-read does not grant Select or assertion credit"
+      },
+      {
+        "path": "packages/react/src/internals/serializeValue.ts",
+        "sha256": "200e70d64db36ca0161d8dc2370a26564d8381a21409f0949192fc5e45db5fd2",
+        "lines": 13,
+        "reachability": "runtime",
+        "physicalEqualsRevisionBlob": true,
+        "wholeBodyRead": "select_source_plan_repair, fresh implementation precode pass; includes unselected exports and type-only bodies",
+        "selectedBusinessReview": "see source-correspondence.md; whole-read does not grant Select or assertion credit"
+      },
+      {
+        "path": "packages/react/src/internals/types.ts",
+        "sha256": "ed0c29125011488378a038fe179287809ef624d9d84389d83d7207b25e3d416a",
+        "lines": 97,
+        "reachability": "type-only",
+        "physicalEqualsRevisionBlob": true,
+        "wholeBodyRead": "select_source_plan_repair, fresh implementation precode pass; includes unselected exports and type-only bodies",
+        "selectedBusinessReview": "see source-correspondence.md; whole-read does not grant Select or assertion credit"
+      },
+      {
+        "path": "packages/react/src/internals/useRenderElement.tsx",
+        "sha256": "0b55dc232a0d630a666a13873213d1bdde040e973031f2b307a64cc157644a4c",
+        "lines": 304,
+        "reachability": "runtime",
+        "physicalEqualsRevisionBlob": true,
+        "wholeBodyRead": "select_source_plan_repair, fresh implementation precode pass; includes unselected exports and type-only bodies",
+        "selectedBusinessReview": "see source-correspondence.md; whole-read does not grant Select or assertion credit"
+      },
+      {
+        "path": "packages/react/src/merge-props/index.ts",
+        "sha256": "4881819e46f8b81cc6e90add34bc5a87cf924596e007785da31eed500414222f",
+        "lines": 1,
+        "reachability": "runtime",
+        "physicalEqualsRevisionBlob": true,
+        "wholeBodyRead": "select_source_plan_repair, fresh implementation precode pass; includes unselected exports and type-only bodies",
+        "selectedBusinessReview": "see source-correspondence.md; whole-read does not grant Select or assertion credit"
+      },
+      {
+        "path": "packages/react/src/merge-props/mergeProps.ts",
+        "sha256": "cdc8fc165df88ddc4034fb2242ebf1ef32b504755404c343abf965cb3e4c90ce",
+        "lines": 294,
+        "reachability": "runtime",
+        "physicalEqualsRevisionBlob": true,
+        "wholeBodyRead": "select_source_plan_repair, fresh implementation precode pass; includes unselected exports and type-only bodies",
+        "selectedBusinessReview": "see source-correspondence.md; whole-read does not grant Select or assertion credit"
+      },
+      {
+        "path": "packages/react/src/types/index.ts",
+        "sha256": "ffc973365f8dbc5af24db40fa4553ee7fc1f154feb1803ff6a9bb5d5cd918587",
+        "lines": 26,
+        "reachability": "type-only",
+        "physicalEqualsRevisionBlob": true,
+        "wholeBodyRead": "select_source_plan_repair, fresh implementation precode pass; includes unselected exports and type-only bodies",
+        "selectedBusinessReview": "see source-correspondence.md; whole-read does not grant Select or assertion credit"
+      },
+      {
+        "path": "packages/react/src/utils/listbox-separator/ListboxSeparator.tsx",
+        "sha256": "5ef03b4144a6ff8763d38a7562c4dc06d497aebc602673f606cd563a819c3679",
+        "lines": 45,
+        "reachability": "runtime",
+        "physicalEqualsRevisionBlob": true,
+        "wholeBodyRead": "select_source_plan_repair, fresh implementation precode pass; includes unselected exports and type-only bodies",
+        "selectedBusinessReview": "see source-correspondence.md; whole-read does not grant Select or assertion credit"
+      },
+      {
+        "path": "packages/react/src/utils/resolveClassName.ts",
+        "sha256": "8a4b38bd68c8f1e7268c9587951c5e78349fd51c6f3befef597b3c3b60ac3b41",
+        "lines": 13,
+        "reachability": "runtime",
+        "physicalEqualsRevisionBlob": true,
+        "wholeBodyRead": "select_source_plan_repair, fresh implementation precode pass; includes unselected exports and type-only bodies",
+        "selectedBusinessReview": "see source-correspondence.md; whole-read does not grant Select or assertion credit"
+      },
+      {
+        "path": "packages/react/src/utils/resolveStyle.ts",
+        "sha256": "e8cb3f94b27439c43a3a26b82f21c09fe152871c202aef91f8907da3f8734cf0",
+        "lines": 13,
+        "reachability": "runtime",
+        "physicalEqualsRevisionBlob": true,
+        "wholeBodyRead": "select_source_plan_repair, fresh implementation precode pass; includes unselected exports and type-only bodies",
+        "selectedBusinessReview": "see source-correspondence.md; whole-read does not grant Select or assertion credit"
+      },
+      {
+        "path": "packages/utils/src/areArraysEqual.ts",
+        "sha256": "2edc0f6f199b353ec557a7c9e4943ed4af5449da8c488076647a3f77fd3dac75",
+        "lines": 27,
+        "reachability": "runtime",
+        "physicalEqualsRevisionBlob": true,
+        "wholeBodyRead": "select_source_plan_repair, fresh implementation precode pass; includes unselected exports and type-only bodies",
+        "selectedBusinessReview": "see source-correspondence.md; whole-read does not grant Select or assertion credit"
+      },
+      {
+        "path": "packages/utils/src/createLogOnce.ts",
+        "sha256": "6e5e5b4c34d3407fe2379b58749d4da26c49c49383b7501964132a2e725660b1",
+        "lines": 27,
+        "reachability": "runtime",
+        "physicalEqualsRevisionBlob": true,
+        "wholeBodyRead": "select_source_plan_repair, fresh implementation precode pass; includes unselected exports and type-only bodies",
+        "selectedBusinessReview": "see source-correspondence.md; whole-read does not grant Select or assertion credit"
+      },
+      {
+        "path": "packages/utils/src/empty.ts",
+        "sha256": "7d7c8625346dc2344dc551004c5c5da82878ab814818b7a8df4ad7082979ead6",
+        "lines": 8,
+        "reachability": "runtime",
+        "physicalEqualsRevisionBlob": true,
+        "wholeBodyRead": "select_source_plan_repair, fresh implementation precode pass; includes unselected exports and type-only bodies",
+        "selectedBusinessReview": "see source-correspondence.md; whole-read does not grant Select or assertion credit"
+      },
+      {
+        "path": "packages/utils/src/getReactElementRef.ts",
+        "sha256": "6ea0078fe8f8a0feee703f968779a863b30789a6fac4e4f51de13690064af364",
+        "lines": 16,
+        "reachability": "runtime",
+        "physicalEqualsRevisionBlob": true,
+        "wholeBodyRead": "select_source_plan_repair, fresh implementation precode pass; includes unselected exports and type-only bodies",
+        "selectedBusinessReview": "see source-correspondence.md; whole-read does not grant Select or assertion credit"
+      },
+      {
+        "path": "packages/utils/src/mergeObjects.ts",
+        "sha256": "0e9b1568370f5c1ea28710bae245380281ae366187bfb871b99a14fe6b5b49fa",
+        "lines": 15,
+        "reachability": "runtime",
+        "physicalEqualsRevisionBlob": true,
+        "wholeBodyRead": "select_source_plan_repair, fresh implementation precode pass; includes unselected exports and type-only bodies",
+        "selectedBusinessReview": "see source-correspondence.md; whole-read does not grant Select or assertion credit"
+      },
+      {
+        "path": "packages/utils/src/reactVersion.ts",
+        "sha256": "e52b2ae447fe83a4b5a927a013405446542ef474b76a75540b7216bc561df889",
+        "lines": 9,
+        "reachability": "runtime",
+        "physicalEqualsRevisionBlob": true,
+        "wholeBodyRead": "select_source_plan_repair, fresh implementation precode pass; includes unselected exports and type-only bodies",
+        "selectedBusinessReview": "see source-correspondence.md; whole-read does not grant Select or assertion credit"
+      },
+      {
+        "path": "packages/utils/src/useMergedRefs.ts",
+        "sha256": "5fa12ae01abedc23ba814e9c59f015cf14d306044638b56c977780de43275ba3",
+        "lines": 153,
+        "reachability": "runtime",
+        "physicalEqualsRevisionBlob": true,
+        "wholeBodyRead": "select_source_plan_repair, fresh implementation precode pass; includes unselected exports and type-only bodies",
+        "selectedBusinessReview": "see source-correspondence.md; whole-read does not grant Select or assertion credit"
+      },
+      {
+        "path": "packages/utils/src/useRefWithInit.ts",
+        "sha256": "183cb6e86ab1f8044a431d5b4115c750f7848c9835d519881b3c7a66dae98354",
+        "lines": 23,
+        "reachability": "runtime",
+        "physicalEqualsRevisionBlob": true,
+        "wholeBodyRead": "select_source_plan_repair, fresh implementation precode pass; includes unselected exports and type-only bodies",
+        "selectedBusinessReview": "see source-correspondence.md; whole-read does not grant Select or assertion credit"
+      },
+      {
+        "path": "packages/utils/src/warn.ts",
+        "sha256": "4e5565f4957742aaa2795bae3f37bfbc88dac51528550b3406ed5cef92474c00",
+        "lines": 5,
+        "reachability": "runtime",
+        "physicalEqualsRevisionBlob": true,
+        "wholeBodyRead": "select_source_plan_repair, fresh implementation precode pass; includes unselected exports and type-only bodies",
+        "selectedBusinessReview": "see source-correspondence.md; whole-read does not grant Select or assertion credit"
+      }
+    ]
+  },
+  "precodeNative": {
+    "revision": "c1600456d3b4e72910d42823b9df69280c74a262",
+    "graph": "precode-native-graph.json",
+    "modules": [
+      {
+        "path": "packages/base/src/lib/internals/getStateAttributesProps.ts",
+        "sha256": "e48367a890024a54cb200eabc5c2a0ba0a397256baacfaec8b0a05ced3b10344",
+        "lines": 34,
+        "reachability": "runtime",
+        "physicalEqualsRevisionBlob": true,
+        "wholeBodyRead": "select_source_plan_repair, fresh implementation precode pass; includes unselected exports and type-only bodies",
+        "selectedBusinessReview": "see source-correspondence.md; whole-read does not grant Select or assertion credit"
+      },
+      {
+        "path": "packages/base/src/lib/internals/nativeProps.ts",
+        "sha256": "d6b3999ffe54e8c70e0dcdac61474b3bf9f53e60f3b1207dd4f976ef5212e4eb",
+        "lines": 33,
+        "reachability": "runtime",
+        "physicalEqualsRevisionBlob": true,
+        "wholeBodyRead": "select_source_plan_repair, fresh implementation precode pass; includes unselected exports and type-only bodies",
+        "selectedBusinessReview": "see source-correspondence.md; whole-read does not grant Select or assertion credit"
+      },
+      {
+        "path": "packages/base/src/lib/internals/nativeRefAttachment.ts",
+        "sha256": "564718b20326d9f5e18bf75d30b3905ce2f93a093fbdfbb7027928e1fd20e319",
+        "lines": 40,
+        "reachability": "runtime",
+        "physicalEqualsRevisionBlob": true,
+        "wholeBodyRead": "select_source_plan_repair, fresh implementation precode pass; includes unselected exports and type-only bodies",
+        "selectedBusinessReview": "see source-correspondence.md; whole-read does not grant Select or assertion credit"
+      },
+      {
+        "path": "packages/base/src/lib/internals/RenderElement.svelte",
+        "sha256": "bbc7cb9be3a6d554f07090d250923b06b5581b29f190d48d874b62698f1cdef5",
+        "lines": 50,
+        "reachability": "runtime",
+        "physicalEqualsRevisionBlob": true,
+        "wholeBodyRead": "select_source_plan_repair, fresh implementation precode pass; includes unselected exports and type-only bodies",
+        "selectedBusinessReview": "see source-correspondence.md; whole-read does not grant Select or assertion credit"
+      },
+      {
+        "path": "packages/base/src/lib/internals/resolveClassValue.ts",
+        "sha256": "584323b17cb1733a798e9ff86e9ff783d6a26d08ecf005a8c2b3c69917c1e722",
+        "lines": 19,
+        "reachability": "runtime",
+        "physicalEqualsRevisionBlob": true,
+        "wholeBodyRead": "select_source_plan_repair, fresh implementation precode pass; includes unselected exports and type-only bodies",
+        "selectedBusinessReview": "see source-correspondence.md; whole-read does not grant Select or assertion credit"
+      },
+      {
+        "path": "packages/base/src/lib/internals/serializeValue.ts",
+        "sha256": "b4669f5fb1847f5246ef31b0351c05ae99952cc31b0ff2451b08477352e31089",
+        "lines": 15,
+        "reachability": "runtime",
+        "physicalEqualsRevisionBlob": true,
+        "wholeBodyRead": "select_source_plan_repair, fresh implementation precode pass; includes unselected exports and type-only bodies",
+        "selectedBusinessReview": "see source-correspondence.md; whole-read does not grant Select or assertion credit"
+      },
+      {
+        "path": "packages/base/src/lib/internals/types.ts",
+        "sha256": "56f62e49c3a1504981c523a1bee8764c45de90fb88f0fab5154bb7fc9d0c1bd3",
+        "lines": 19,
+        "reachability": "type-only",
+        "physicalEqualsRevisionBlob": true,
+        "wholeBodyRead": "select_source_plan_repair, fresh implementation precode pass; includes unselected exports and type-only bodies",
+        "selectedBusinessReview": "see source-correspondence.md; whole-read does not grant Select or assertion credit"
+      },
+      {
+        "path": "packages/base/src/lib/internals/useRenderElement.ts",
+        "sha256": "a8fb8a006629431ae42697dbbd9ea1177d9ce756bf953105c2e5f3eb5ed5a1e9",
+        "lines": 157,
+        "reachability": "runtime",
+        "physicalEqualsRevisionBlob": true,
+        "wholeBodyRead": "select_source_plan_repair, fresh implementation precode pass; includes unselected exports and type-only bodies",
+        "selectedBusinessReview": "see source-correspondence.md; whole-read does not grant Select or assertion credit"
+      },
+      {
+        "path": "packages/base/src/lib/merge-props/index.ts",
+        "sha256": "3ef38bba9b22f44bbcf69102d9556807f78897bedb69b410669c7b429971dd68",
+        "lines": 1,
+        "reachability": "runtime",
+        "physicalEqualsRevisionBlob": true,
+        "wholeBodyRead": "select_source_plan_repair, fresh implementation precode pass; includes unselected exports and type-only bodies",
+        "selectedBusinessReview": "see source-correspondence.md; whole-read does not grant Select or assertion credit"
+      },
+      {
+        "path": "packages/base/src/lib/merge-props/mergeProps.ts",
+        "sha256": "7a097b833ae8854c5a26e34009adfb4e0297dd50f56ad5f0c1ac8afa8187f98b",
+        "lines": 315,
+        "reachability": "runtime",
+        "physicalEqualsRevisionBlob": true,
+        "wholeBodyRead": "select_source_plan_repair, fresh implementation precode pass; includes unselected exports and type-only bodies",
+        "selectedBusinessReview": "see source-correspondence.md; whole-read does not grant Select or assertion credit"
+      },
+      {
+        "path": "packages/base/src/lib/utils/areArraysEqual.ts",
+        "sha256": "c8709b6f9efb30e3257def214aeae097b131b112b74bd1bea965e201efb15a44",
+        "lines": 28,
+        "reachability": "runtime",
+        "physicalEqualsRevisionBlob": true,
+        "wholeBodyRead": "select_source_plan_repair, fresh implementation precode pass; includes unselected exports and type-only bodies",
+        "selectedBusinessReview": "see source-correspondence.md; whole-read does not grant Select or assertion credit"
+      },
+      {
+        "path": "packages/base/src/lib/utils/empty.ts",
+        "sha256": "eb679c977169a61764f98516194102fed5b70b6157992b34029dcd39af467d7b",
+        "lines": 10,
+        "reachability": "runtime",
+        "physicalEqualsRevisionBlob": true,
+        "wholeBodyRead": "select_source_plan_repair, fresh implementation precode pass; includes unselected exports and type-only bodies",
+        "selectedBusinessReview": "see source-correspondence.md; whole-read does not grant Select or assertion credit"
+      },
+      {
+        "path": "packages/base/src/lib/utils/mergeObjects.ts",
+        "sha256": "1e6cfa2be20c639f5ce6f8b0b6cc447da3413bbbc6750a5b1ab03f5810d81746",
+        "lines": 17,
+        "reachability": "runtime",
+        "physicalEqualsRevisionBlob": true,
+        "wholeBodyRead": "select_source_plan_repair, fresh implementation precode pass; includes unselected exports and type-only bodies",
+        "selectedBusinessReview": "see source-correspondence.md; whole-read does not grant Select or assertion credit"
+      },
+      {
+        "path": "packages/base/src/lib/utils/resolveClassName.ts",
+        "sha256": "b22aead630ca531851a08a63e5165e64ff8cdc9de5765ff20997f578071cb108",
+        "lines": 17,
+        "reachability": "runtime",
+        "physicalEqualsRevisionBlob": true,
+        "wholeBodyRead": "select_source_plan_repair, fresh implementation precode pass; includes unselected exports and type-only bodies",
+        "selectedBusinessReview": "see source-correspondence.md; whole-read does not grant Select or assertion credit"
+      },
+      {
+        "path": "packages/base/src/lib/utils/resolveStyle.ts",
+        "sha256": "cdc420598c1ae4b75a32e7f47ac8cc7f4fe444d4f006e2736f528951fb932977",
+        "lines": 11,
+        "reachability": "runtime",
+        "physicalEqualsRevisionBlob": true,
+        "wholeBodyRead": "select_source_plan_repair, fresh implementation precode pass; includes unselected exports and type-only bodies",
+        "selectedBusinessReview": "see source-correspondence.md; whole-read does not grant Select or assertion credit"
+      },
+      {
+        "path": "packages/base/src/lib/utils/useMergedRefs.ts",
+        "sha256": "d9420f3db2872a32aca95c7c32db1342da4df6595df68a17707f55a27ea41fe2",
+        "lines": 160,
+        "reachability": "runtime",
+        "physicalEqualsRevisionBlob": true,
+        "wholeBodyRead": "select_source_plan_repair, fresh implementation precode pass; includes unselected exports and type-only bodies",
+        "selectedBusinessReview": "see source-correspondence.md; whole-read does not grant Select or assertion credit"
+      },
+      {
+        "path": "packages/base/src/lib/utils/useRefWithInit.ts",
+        "sha256": "998166cdfed66790af4659ac61d8b36f49f1aa4c35a66bb532f6239771271036",
+        "lines": 19,
+        "reachability": "runtime",
+        "physicalEqualsRevisionBlob": true,
+        "wholeBodyRead": "select_source_plan_repair, fresh implementation precode pass; includes unselected exports and type-only bodies",
+        "selectedBusinessReview": "see source-correspondence.md; whole-read does not grant Select or assertion credit"
+      }
+    ]
+  },
+  "assertionSources": [
+    {
+      "path": "packages/react/src/internals/itemEquality.test.ts",
+      "sha256": "8b22574b13412a582151aafd3e6646863fa14e7f49c5bd243bf4581809263613",
+      "wholeBodyRead": "fresh implementation precode pass",
+      "ordinaryDeclarationCredit": 0
+    },
+    {
+      "path": "packages/react/src/internals/resolveValueLabel.test.ts",
+      "sha256": "7756b8d17cca0004e6f78f61ab10e3b13814fdc6c93ee037240528b324242ce7",
+      "wholeBodyRead": "fresh implementation precode pass",
+      "ordinaryDeclarationCredit": 0
+    }
+  ],
+  "ordinaryDeclarationCredit": 0
+}
