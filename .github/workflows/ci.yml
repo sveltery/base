@@ -15,10 +15,23 @@ jobs:
         with:
           node-version: 24
       - name: Install
+        timeout-minutes: 8
         run: |
           source scripts/toolchain.sh
           pnpm install --frozen-lockfile
-          pnpm exec playwright install --with-deps chromium
+          # `playwright install --with-deps` runs apt-get. Hosted Ubuntu runners
+          # intermittently stall for tens of minutes retrying azure.archive.ubuntu.com
+          # (actions/runner-images#14594). Bound apt, and if that still does not
+          # finish, install the browser without system packages.
+          sudo tee /etc/apt/apt.conf.d/99-sveltery-acquire >/dev/null <<'EOF'
+          Acquire::Retries "1";
+          Acquire::http::Timeout "15";
+          Acquire::https::Timeout "15";
+          EOF
+          if ! timeout --signal=KILL 180 pnpm exec playwright install --with-deps chromium; then
+            echo "::warning::playwright install --with-deps did not finish; installing Chromium without apt packages"
+            pnpm exec playwright install chromium
+          fi
       - name: Verify
         run: bash scripts/verify.sh
       - name: Keep evidence
