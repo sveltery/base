@@ -2,7 +2,8 @@
 // (commit 47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c). MIT, see THIRD_PARTY_NOTICES.md.
 
 export const REASONS = {
-	none: 'none'
+	none: 'none',
+	triggerPress: 'trigger-press'
 } as const;
 
 export type BaseUIChangeEventDetails<Reason extends string> = {

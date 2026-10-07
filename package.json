@@ -50,6 +50,10 @@
 			"types": "./dist/button/index.d.ts",
 			"svelte": "./dist/button/index.js"
 		},
+		"./collapsible": {
+			"types": "./dist/collapsible/index.d.ts",
+			"svelte": "./dist/collapsible/index.js"
+		},
 		"./fieldset": {
 			"types": "./dist/fieldset/index.d.ts",
 			"svelte": "./dist/fieldset/index.js"

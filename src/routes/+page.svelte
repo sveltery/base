@@ -10,6 +10,10 @@
 			<a href="/fixtures/button">Button</a> (add <code>&amp;reference</code> for React Base UI)
 		</li>
 		<li>
+			<a href="/fixtures/collapsible">Collapsible</a> (add <code>&amp;reference</code> for React Base
+			UI)
+		</li>
+		<li>
 			<a href="/fixtures/fieldset">Fieldset</a> (add <code>&amp;reference</code> for React Base UI)
 		</li>
 		<li>
