@@ -1,0 +1,20 @@
+{
+  "status": "Actual local diagnostics; no full verification, ordinary Select/runtime or hosted acceptance claim. One normal hosted diagnostic successor authorized by user; every mandatory gate remains required.",
+  "runtimeTool": "cloud_environment.environment_status unavailable; no managed-instance readiness established.",
+  "networkSnapshot": "/etc/codex/network-policy.json absent; no readiness/policy assertion. Existing ordinary public clone/connector route used without proxy/CA/auth/network changes.",
+  "bootstrap": "Pinned pnpm12.6.0 failed ERR_PNPM_STORE_DIR_OPEN_OPERATION_LOCK on read-only filesystem. A fallback pnpm11.25.0 install populated frozen dependency versions but does not satisfy pinned bootstrap. No more installation attempts.",
+  "standards": "Direct maintained Prettier whole-tree and final affected register checks passed; direct ESLint whole-tree final check passed. Canonical pnpm bootstrap/launcher is blocked as separately recorded; no ordinary full verify script pass.",
+  "nativeProducer": "Real maintained generator write/check passed at512MiB:179helper15596lines675edges24type-only;199fixture17375lines830edges46type-only.",
+  "archives": "751immutable archives and original Source/test/assertion products unchanged from275; all physical SHA256 matched manifest in independent check.",
+  "directPackageBuild": "Utils and Base svelte-package builds passed after missing Utils dist was exposed by initial script tests.",
+  "scriptTests": "Initial89tests:81pass8fail. Seven missing-Utils-build failures repaired by actual package build and affected SSR file reruns;9SSR rerun tests passed including all7initial build-related failures. Offline artifact install remains blocked by pinned pnpm filesystem lock. No89/89full-stage pass claimed.",
+  "types": "Direct Utils svelte-check0errors0warnings;Base svelte-check0errors6warnings3files at1024MiB.",
+  "fixture": "Direct real SSR/client fixture vite build passed.",
+  "runtimeBoundary": "Packaged entry imports and runtime dependency boundary passed.",
+  "nodeDom": "Direct Vitest Utils3server/3DOM, Base36server/129DOM suite launches failed before assertions due missing/writable /tmp compiler cache directories (ENOENT mkdir). No Node/DOM assertion count credited; no repeated broken-filesystem runs.",
+  "packages": "Direct publint for both packages failed EROFS mkdtemp /tmp; full packed installed consumers/security/browser execution not attempted after known filesystem/launcher limitations.",
+  "hostedPlan": "Successor exact-head hosted Standards/Verification plus all applicable installed-consumer/SSR/type/secured-browser jobs must complete successfully; actual main applicable gates still incomplete at observed21success4running snapshot. Lead alone decides merge after independent public-head verification and personal final code/docs review.",
+  "configuredReview": "Verified quota exception only for configured automatic service, never passed. No repeated globally exhausted review request.",
+  "reviewLedger": "integration-reading-ledger.json",
+  "unchangedAssertionCredit": 0
+}

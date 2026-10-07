@@ -1,0 +1,117 @@
+{
+  "originalPin": "47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c",
+  "providerCommit": "aa4daff54ec82b96e34e1601648d1b3926ef08cf",
+  "scope": "Three Source-selected actual providers outside209 native graph;212 collective physical provider bodies assessed, graph counts remain175/199 union209.",
+  "rows": [
+    {
+      "source": "packages/base/src/lib/utils/getPseudoElementBounds.ts",
+      "providerCommit": "aa4daff54ec82b96e34e1601648d1b3926ef08cf",
+      "sha256": "dbba27b4e555045b53eb41539bb248092145279b27f7df5f6fe490968343ddc4",
+      "gitBlob": "94e64503067206ecec2acb9721d1901bed6086fa",
+      "lines": 70,
+      "reader": "native_plan_audit",
+      "readingScope": "Fresh complete actual provider body and exact pinned Original counterpart read after checklist update; all imports/helper closure edges point to already-reviewed209 bodies or external native svelte.",
+      "sourceReferences": [
+        {
+          "source": "packages/react/src/utils/getPseudoElementBounds.ts",
+          "pin": "47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c",
+          "sha256": "6d9309cbbd5986bd8237be793a81aec1bbe72ca41d3554b23f8a466cfe0b0db5",
+          "url": "https://github.com/mui/base-ui/blob/47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c/packages/react/src/utils/getPseudoElementBounds.ts"
+        }
+      ],
+      "actualSymbols": [
+        "isMouseWithinBounds",
+        "getPseudoElementBounds",
+        "BOUNDARY_OFFSET",
+        "ElementBounds"
+      ],
+      "businessRole": "Select.Trigger mouseup cancel-open release containment includes5px tolerance and centered before/after max dimensions; owner-realm styles and jsdom early return remain exactly Source.",
+      "primitiveReplacement": "Stateless native DOM geometry function; only canonical Utils owner/platform import relocation. No new geometry engine or state-owner class needed.",
+      "status": "Existing provider outside recorded209 module union; separately read addition, not graph membership or inherited runtime acceptance.",
+      "reviewCheck": "All inclusive inequality/order, parseFloat||0, max dimensions and centering branches retain Source; browser pseudo-element witnesses remain future Select gates.",
+      "ownerClassification": "canonical-owner-classification.json: packages/base/src/lib/utils/getPseudoElementBounds.ts"
+    },
+    {
+      "source": "packages/utils/src/lib/PreviousValue.svelte.ts",
+      "providerCommit": "aa4daff54ec82b96e34e1601648d1b3926ef08cf",
+      "sha256": "bbbb29cc921915446913f248a23c7ae09000eaf7fe69986ed5ada572acfbb856",
+      "gitBlob": "cc65ccfb01453a1ab8fa45aef7c85bc9b35af80a",
+      "lines": 23,
+      "reader": "native_plan_audit",
+      "readingScope": "Fresh complete actual provider body and exact pinned Original counterpart read after checklist update; all imports/helper closure edges point to already-reviewed209 bodies or external native svelte.",
+      "sourceReferences": [
+        {
+          "source": "packages/utils/src/usePreviousValue.ts",
+          "pin": "47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c",
+          "sha256": "e3c279c7f063f5278a887ac58be72b310327334811fd1a14ad309fc3ed6d4955",
+          "url": "https://github.com/mui/base-ui/blob/47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c/packages/utils/src/usePreviousValue.ts"
+        }
+      ],
+      "actualSymbols": [
+        "PreviousValue"
+      ],
+      "businessRole": "One real previous/current owner with null initial previous and Object.is change comparison; Select Root needs current-or-previous opening method through exit.",
+      "primitiveReplacement": "Canonical native reusable PreviousValue class uses live getter/untrack initial setup; React setState/render transport replaced, no derived scalar cache or commit engine.",
+      "status": "Existing provider outside recorded209 module union; separately read addition, not graph membership or inherited runtime acceptance.",
+      "reviewCheck": "Complete current/previous assignments and Object.is preserve signed-zero/NaN semantics; actual getter usage and effect/hydration/default observations remain future consumer gates.",
+      "ownerClassification": "canonical-owner-classification.json: packages/utils/src/lib/PreviousValue.svelte.ts"
+    },
+    {
+      "source": "packages/utils/src/lib/warn.ts",
+      "providerCommit": "aa4daff54ec82b96e34e1601648d1b3926ef08cf",
+      "sha256": "58267e2a1dd62afbc707faf9c031dee042605aa74d44dbf72dd997d2ad69db65",
+      "gitBlob": "a33aa98a7c17784001556d8a615fa01ee34369f1",
+      "lines": 6,
+      "reader": "native_plan_audit",
+      "readingScope": "Fresh complete actual provider body and exact pinned Original counterpart read after checklist update; all imports/helper closure edges point to already-reviewed209 bodies or external native svelte.",
+      "sourceReferences": [
+        {
+          "source": "packages/utils/src/warn.ts",
+          "pin": "47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c",
+          "sha256": "4e5565f4957742aaa2795bae3f37bfbc88dac51528550b3406ed5cef92474c00",
+          "url": "https://github.com/mui/base-ui/blob/47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c/packages/utils/src/warn.ts"
+        }
+      ],
+      "actualSymbols": [
+        "warn",
+        "reset"
+      ],
+      "businessRole": "Single canonical Base UI-prefixed severity warn logger/reset; shared createLogOnce cache/DEV behavior reused.",
+      "primitiveReplacement": "Stateless logger construction/module reexport; no React state/lifecycle.",
+      "status": "Existing provider outside recorded209 module union; separately read addition, not graph membership or inherited runtime acceptance.",
+      "reviewCheck": "Severity/prefix and shared reset exact; no new warning engine, unconditional production logging or duplicate cache.",
+      "ownerClassification": "canonical-owner-classification.json: packages/utils/src/lib/warn.ts"
+    }
+  ],
+  "status": "Actual-main provider appendix: fresh whole-body business/native/maintainability review by native_plan_audit, separate from retained209-module graph. No runtime/provider acceptance or assertion credit.",
+  "completeImportClosure": {
+    "additionalPhysicalBodies": 3,
+    "imports": [
+      {
+        "caller": "getPseudoElementBounds.ts",
+        "specifier": "@sveltery/utils/owner",
+        "target": "packages/utils/src/lib/owner.ts",
+        "alreadyInNative209": true
+      },
+      {
+        "caller": "getPseudoElementBounds.ts",
+        "specifier": "@sveltery/utils/platform",
+        "target": "packages/utils/src/lib/platform/index.ts",
+        "alreadyInNative209": true
+      },
+      {
+        "caller": "PreviousValue.svelte.ts",
+        "specifier": "svelte",
+        "external": true,
+        "selectedSymbol": "untrack"
+      },
+      {
+        "caller": "warn.ts",
+        "specifier": "./createLogOnce.js",
+        "target": "packages/utils/src/lib/createLogOnce.ts",
+        "alreadyInNative209": true
+      }
+    ],
+    "closureStatus": "No additional internal provider beyond the three appendix bodies; existing209 recursively covers owner/platform/createLogOnce dependencies. External Svelte package bodies are not claimed read."
+  }
+}

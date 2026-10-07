@@ -1,0 +1,75 @@
+{
+  "status": "Read-only provenance snapshot of unknown work; no copying, cleanup, staging or attribution to current author.",
+  "previousWorktree": "/workspace/select-source-preparation",
+  "previousHead": "dab35d179fe11cf58763bdec85d9b8ff46df67cc",
+  "statusPorcelain": " M parity/select/archive-manifest.json\n M parity/select/original-assertions.json\n M parity/select/prepare.mjs\n M parity/select/test-helper-graph.json\n?? parity/select/upstream/packages/react/src/select/arrow/SelectArrowDataAttributes.ts.txt\n?? parity/select/upstream/packages/react/src/select/backdrop/SelectBackdropDataAttributes.ts.txt\n?? parity/select/upstream/packages/react/src/select/icon/SelectIconDataAttributes.ts.txt\n?? parity/select/upstream/packages/react/src/select/item-indicator/SelectItemIndicatorDataAttributes.ts.txt\n?? parity/select/upstream/packages/react/src/select/item/SelectItemDataAttributes.ts.txt\n?? parity/select/upstream/packages/react/src/select/popup/SelectPopupDataAttributes.ts.txt\n?? parity/select/upstream/packages/react/src/select/positioner/SelectPositionerDataAttributes.ts.txt\n?? parity/select/upstream/packages/react/src/select/scroll-down-arrow/SelectScrollDownArrowDataAttributes.ts.txt\n?? parity/select/upstream/packages/react/src/select/scroll-up-arrow/SelectScrollUpArrowDataAttributes.ts.txt\n?? parity/select/upstream/packages/react/src/select/value/SelectValueDataAttributes.ts.txt\n",
+  "workingFiles": [
+    {
+      "path": "parity/select/archive-manifest.json",
+      "sha256": "2028197e862e66aebb72fdf750bdd54dbcc073dbc1d480d413fadc5d59e0b362"
+    },
+    {
+      "path": "parity/select/original-assertions.json",
+      "sha256": "e5a208f0d04e02045e73f4245c0cfd5228b3812e7d5f06c0aa344ad3e85840fb"
+    },
+    {
+      "path": "parity/select/prepare.mjs",
+      "sha256": "3e414fa4c08c83d45d42dfec39da4b8c14e82ed901060c9edbba6e7126982665"
+    },
+    {
+      "path": "parity/select/test-helper-graph.json",
+      "sha256": "e08a5884e3438de804098fdafb210a7d65039b0bc4d277540ec22d828129aa4f"
+    },
+    {
+      "path": "parity/select/upstream/packages/react/src/select/arrow/SelectArrowDataAttributes.ts.txt",
+      "sha256": "22804bbacbfc8af752f0d1d84f3085cf6e057ac8df895cca346395a10b1e095e"
+    },
+    {
+      "path": "parity/select/upstream/packages/react/src/select/backdrop/SelectBackdropDataAttributes.ts.txt",
+      "sha256": "0ed1896b1ab85d4b883ad1a37f2ae2bdce153152cd363c742612e5916456444e"
+    },
+    {
+      "path": "parity/select/upstream/packages/react/src/select/icon/SelectIconDataAttributes.ts.txt",
+      "sha256": "672ecc39db4a9e6f17e36c111e9249593129867488f53a7bf0185dba4c015e5f"
+    },
+    {
+      "path": "parity/select/upstream/packages/react/src/select/item-indicator/SelectItemIndicatorDataAttributes.ts.txt",
+      "sha256": "eea23a9da89cef0b7152be64f20e91377c044907678253ef8c4b3f4dcc287605"
+    },
+    {
+      "path": "parity/select/upstream/packages/react/src/select/item/SelectItemDataAttributes.ts.txt",
+      "sha256": "446316c3ca0c516071e21130cbb34ad589cabdcbb4b989606769a0b06886a227"
+    },
+    {
+      "path": "parity/select/upstream/packages/react/src/select/popup/SelectPopupDataAttributes.ts.txt",
+      "sha256": "9c695f79ae949413f35d536e7173eec06176c81fa452c41d0a28f707d051a416"
+    },
+    {
+      "path": "parity/select/upstream/packages/react/src/select/positioner/SelectPositionerDataAttributes.ts.txt",
+      "sha256": "b8534243d6326e34ee7f0a8b49551168f999e7efbee1941af5da8970a89b03ca"
+    },
+    {
+      "path": "parity/select/upstream/packages/react/src/select/scroll-down-arrow/SelectScrollDownArrowDataAttributes.ts.txt",
+      "sha256": "70634bd44b169dbddc2351b0d6ca080e6abf53847683a22fd7844a1cde2190f1"
+    },
+    {
+      "path": "parity/select/upstream/packages/react/src/select/scroll-up-arrow/SelectScrollUpArrowDataAttributes.ts.txt",
+      "sha256": "956b992301b0b43c454a60a4a434658fdc470a354ad9db88a14e828325e79e57"
+    },
+    {
+      "path": "parity/select/upstream/packages/react/src/select/value/SelectValueDataAttributes.ts.txt",
+      "sha256": "a52cda262198a8ae6000f26b88a6252f6b481a0fbcd491aaa7aa1a77e125c8b7"
+    }
+  ],
+  "acceptedBase": "95d3d2ae473dc18a2b9a48112284383a2c392315",
+  "acceptedBaseVerification": "GitHub fetch_commit(main) returned this SHA on 2026-10-05; local HEAD and origin/main agree. CLI remote probe failed because the proxy was unreachable.",
+  "newWorktree": "/workspace/select-base",
+  "branch": "source/select-source-plan",
+  "archiveMethod": "Independent generation from physical source, checked byte-for-byte against immutable Git blob hashes from git ls-tree at the pin. No previous prepare.mjs or generated JSON used as source.",
+  "immutablePreviousArchivesCompared": 0,
+  "notes": [
+    "The previous four dirty generated/extractor files and ten untracked DataAttributes files remain unknown work.",
+    "No source-plan/README acceptance or runtime credit is inherited.",
+    "TypeScript is repository-pinned 5.9.3 resolved through an explicit dependency root; no absolute module import is committed."
+  ]
+}

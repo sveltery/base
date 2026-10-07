@@ -1,0 +1,2514 @@
+{
+  "status": "Documentation-only current-main refresh; identity is not reading/acceptance or assertion credit. Independent collective complete-closure reading and final SHA disposition recorded externally.",
+  "originalPin": "47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c",
+  "priorHead": "94c23e960249cff88b335a185a57483ffa106f17",
+  "integratedMain": "aa4daff54ec82b96e34e1601648d1b3926ef08cf",
+  "predecessorReceipt": "history/native-precode-94c23.json.gz",
+  "providerPolicy": "One integrated main tree; physical Git blob and SHA256 verified. Follow @sveltery/utils actual package modules. No pending Popup override, owner commit overwrite or runtime change.",
+  "missingDependencies": {
+    "separateOwnerPR73": {
+      "head": "74c437a9a337a26fd808f44f6fa36f7d7542385b",
+      "leaves": [
+        "itemEquality",
+        "resolveValueLabel",
+        "ListboxSeparator"
+      ],
+      "status": "open draft; API mergeable true, mergeable_state unstable; this does not establish acceptance; three helper leaves and empty-string transport acceptance remain separately pending through sole owner.",
+      "previousObservedHead": "7448ef1046fc5fe5a622287eed5a80e060cb6fad"
+    },
+    "unleased": [
+      "useFloatingRootContext(syncOnly:false)",
+      "resolveAriaLabelledBy/getDefaultLabelId pure Source business",
+      "Select complete runtime/public types",
+      "authored remote Select writer/adapter/types"
+    ],
+    "priorButtonTransitionSubset": {
+      "scope": "Earlier explicitly identified subset, not the complete current pending representation inventory",
+      "providers": [
+        {
+          "path": "packages/base/src/lib/internals/useTransitionStatus.svelte.ts",
+          "actualSymbol": "useTransitionStatus",
+          "actualRepresentation": "function",
+          "requiredRepresentation": "reusable state-owner class",
+          "status": "User assigned separate canonical prerequisite owner; final class provider SHA/hash/review/acceptance not supplied, do not fabricate."
+        },
+        {
+          "path": "packages/base/src/lib/internals/use-button/useButton.svelte.ts",
+          "actualSymbol": "useButton",
+          "actualRepresentation": "function",
+          "requiredRepresentation": "reusable state-owner class",
+          "status": "Same canonical prerequisite owner; no shared helper edit in PR70."
+        }
+      ]
+    }
+  },
+  "documentationFindingsResolved": [
+    "Replace retired generic rendering/ref fanout with direct native snippets, bindable hosts, independent attachments and pure shared business.",
+    "Use current Controlled/ValueChanged/class-owned registration/Utils boundaries.",
+    "Autofill first per-candidate value OR stringified-label scan precedes rendered-label fallback.",
+    "Array value display uses multiple-label helper regardless of Root.multiple.",
+    "Preserve pinned/current module-global scroll-lock singleton.",
+    "Separate Item/Group missing-provider source supplements from ordinary declarations; Arrow conformance caller has no Popup."
+  ],
+  "accounting": {
+    "plainSelectDeclarationSites": 314,
+    "parameterizedSelectDeclarationSites": 4,
+    "literalSelectRowsProposed": 11,
+    "plainSeamDeclarationSites": 34,
+    "parameterizedSeamDeclarationSites": 1,
+    "literalSeamRowsProposed": 4,
+    "harnessGeneratorDeclarationSites": 24,
+    "allDeclarationSites": 377,
+    "conformanceCalls": 18,
+    "typeSites": 20,
+    "ordinaryCredit": 0
+  },
+  "graphs": {
+    "proposed-native-helper-graph.json.gz": {
+      "previousModules": 174,
+      "currentModules": 175,
+      "removed": [
+        {
+          "source": "packages/base/src/lib/internals/RenderElement.svelte",
+          "sha256": "bbc7cb9be3a6d554f07090d250923b06b5581b29f190d48d874b62698f1cdef5"
+        },
+        {
+          "source": "packages/base/src/lib/internals/field-register-control/useFieldControlRegistration.svelte.ts",
+          "sha256": "2fbe1f3900ce42aff6d9f65e489b9dcac76a90e34c2be6dcd75c4f5d5bc887fe"
+        },
+        {
+          "source": "packages/base/src/lib/internals/nativeRefAttachment.ts",
+          "sha256": "564718b20326d9f5e18bf75d30b3905ce2f93a093fbdfbb7027928e1fd20e319"
+        },
+        {
+          "source": "packages/base/src/lib/internals/useRenderElement.ts",
+          "sha256": "a8fb8a006629431ae42697dbbd9ea1177d9ce756bf953105c2e5f3eb5ed5a1e9"
+        },
+        {
+          "source": "packages/base/src/lib/internals/useValueChanged.svelte.ts",
+          "sha256": "340a8f5ed100094c283f167c8a8a3e196708cdf238eeadc93f148ee31c4274c9"
+        },
+        {
+          "source": "packages/base/src/lib/utils/addEventListener.ts",
+          "sha256": "77880d75a5c8c5ac2d924e69d7cc7662c616b953d4895c8e6a24de53de4502bf"
+        },
+        {
+          "source": "packages/base/src/lib/utils/areArraysEqual.ts",
+          "sha256": "c8709b6f9efb30e3257def214aeae097b131b112b74bd1bea965e201efb15a44"
+        },
+        {
+          "source": "packages/base/src/lib/utils/clamp.ts",
+          "sha256": "96e2dcc83d37bbe52ac6d4f65b205859eae0017c4208551f00a16195c176ec35"
+        },
+        {
+          "source": "packages/base/src/lib/utils/createLogOnce.ts",
+          "sha256": "a3c52188a495927ef9b49765ca1e70bc384b37b68a5c896ca86df15852a279b1"
+        },
+        {
+          "source": "packages/base/src/lib/utils/empty.ts",
+          "sha256": "eb679c977169a61764f98516194102fed5b70b6157992b34029dcd39af467d7b"
+        },
+        {
+          "source": "packages/base/src/lib/utils/error.ts",
+          "sha256": "de9eeee73db42c056c110eb94f3aef8b51ae3003e97d5140bfaf876bdde52c69"
+        },
+        {
+          "source": "packages/base/src/lib/utils/getDefaultFormSubmitter.ts",
+          "sha256": "15c7fb04d8bacba3abc5f4f2329a3c083892e9169689a2eab60104c3517688e4"
+        },
+        {
+          "source": "packages/base/src/lib/utils/mergeCleanups.ts",
+          "sha256": "28eb97759c815e7a3edcb4a5ac4464473790ae9294bda5a66ba268bca8efedcb"
+        },
+        {
+          "source": "packages/base/src/lib/utils/mergeObjects.ts",
+          "sha256": "1e6cfa2be20c639f5ce6f8b0b6cc447da3413bbbc6750a5b1ab03f5810d81746"
+        },
+        {
+          "source": "packages/base/src/lib/utils/owner.ts",
+          "sha256": "4f32738229316fe875cf72e949caa4aa7d2fcdf924a2bd5b7f01e88ca5424185"
+        },
+        {
+          "source": "packages/base/src/lib/utils/platform/engine.ts",
+          "sha256": "e4745bcc586212a32cde2f7d206cc1aa4df86b8a29301f8d15cf3cd88996a987"
+        },
+        {
+          "source": "packages/base/src/lib/utils/platform/env.ts",
+          "sha256": "dbd7cc1369986d370094b986c44b1bce3c10eba1f792f0e5c3e99c071e00eb9d"
+        },
+        {
+          "source": "packages/base/src/lib/utils/platform/index.ts",
+          "sha256": "c9c1174c0f82f01033187e382b461370123d356d8e14901a9ca7d85dbd2ea63c"
+        },
+        {
+          "source": "packages/base/src/lib/utils/platform/media-query.ts",
+          "sha256": "5e91ea2589962018778ad88498ff9acd432a5244fe37ee922d0a6014b1fb7ed9"
+        },
+        {
+          "source": "packages/base/src/lib/utils/platform/os.ts",
+          "sha256": "456f2f5814e890fb12d899c1cc2f08566529216fd8f6d40a9a8e5846b2c9c3d6"
+        },
+        {
+          "source": "packages/base/src/lib/utils/platform/parts.ts",
+          "sha256": "5382169dc9803fde93bc85e33062cbc85d7cdc0bf754d1a7f6f21eb2b4dcac29"
+        },
+        {
+          "source": "packages/base/src/lib/utils/platform/screen-reader.ts",
+          "sha256": "c43ebce8b6557becf984c0ae7f36395da615110e7f878bab1c0dfd476ceb19a7"
+        },
+        {
+          "source": "packages/base/src/lib/utils/platform/shared.ts",
+          "sha256": "28621a4723495ed9f1370c09b12480a6f488f19e59c70e78524325fc6e080db2"
+        },
+        {
+          "source": "packages/base/src/lib/utils/shadowDom.ts",
+          "sha256": "a5bfa768f801af70e62c012459ddd2b4289a3d2a27aa79c5e9e1414a50395ed1"
+        },
+        {
+          "source": "packages/base/src/lib/utils/store/Store.svelte.ts",
+          "sha256": "cb14e7e3e12bffcb353761c48bc275e41949bad5706860f0d877ea3344e0b600"
+        },
+        {
+          "source": "packages/base/src/lib/utils/store/SvelteStore.svelte.ts",
+          "sha256": "1a3fe2b85c9b4c3dc0333f43f9988bbfa01e39eb5972b84b3648294199e111a2"
+        },
+        {
+          "source": "packages/base/src/lib/utils/useAnimationFrame.ts",
+          "sha256": "4de538634e157740822dc1d3896da18ea84c6a706fe79f28fa6b9e7d380038ad"
+        },
+        {
+          "source": "packages/base/src/lib/utils/useControlled.svelte.ts",
+          "sha256": "f74b9a8aa08b323835613037c871a6b85c938555c788c0a8ff51825c1863fd35"
+        },
+        {
+          "source": "packages/base/src/lib/utils/useEnhancedClickHandler.ts",
+          "sha256": "6a045d6b74a7851d3446200f55711ffc1dcc22449a2e92680cdf328750a436d5"
+        },
+        {
+          "source": "packages/base/src/lib/utils/useId.ts",
+          "sha256": "126f5436587c25942d9b12cf2ffbf353c7b87690bf37c0795da7ee5e14244e90"
+        },
+        {
+          "source": "packages/base/src/lib/utils/useIsoLayoutEffect.svelte.ts",
+          "sha256": "0d24dd22dad18fc54341aaedb964a25829ae62322f10bf110a4fd8bde65dd1f3"
+        },
+        {
+          "source": "packages/base/src/lib/utils/useMergedRefs.ts",
+          "sha256": "d9420f3db2872a32aca95c7c32db1342da4df6595df68a17707f55a27ea41fe2"
+        },
+        {
+          "source": "packages/base/src/lib/utils/useOnMount.ts",
+          "sha256": "a7ba4007eff27b601eebcb76755886a23a4dd8548a54f67e15fa1cd648e0e695"
+        },
+        {
+          "source": "packages/base/src/lib/utils/useRefWithInit.ts",
+          "sha256": "998166cdfed66790af4659ac61d8b36f49f1aa4c35a66bb532f6239771271036"
+        },
+        {
+          "source": "packages/base/src/lib/utils/useScrollLock.svelte.ts",
+          "sha256": "414a9408f41af2df8abfe984a0a1c6a667a592bb58467a977d8618e7e8bd5489"
+        },
+        {
+          "source": "packages/base/src/lib/utils/useStableCallback.ts",
+          "sha256": "b790a02da99e0e9365bc05d35a434ef37dcffb2a4db8186b1327b949a994d05e"
+        },
+        {
+          "source": "packages/base/src/lib/utils/useTimeout.ts",
+          "sha256": "a04448de8715b8728243ee6e33572c57bc5b151674628304f6c3906966738c78"
+        },
+        {
+          "source": "packages/base/src/lib/utils/visuallyHidden.ts",
+          "sha256": "8f49185df1c0536608090368454cc3d30a3bfc1991b23a4b5e5239184ead8020"
+        }
+      ],
+      "added": [
+        {
+          "source": "packages/base/src/lib/dialog/handle.svelte.ts",
+          "sha256": "369b9344e3947c68fa16a1b7616c26404d583a79e3e375bda486c613d0ec3681"
+        },
+        {
+          "source": "packages/base/src/lib/dialog/store/DialogHandle.svelte.ts",
+          "sha256": "a5cb05869d04ff9e87dce1422599c86a4f2974b88049a73b9c7f12383b83aca3"
+        },
+        {
+          "source": "packages/base/src/lib/dialog/store/DialogStore.svelte.ts",
+          "sha256": "d9d83c8c127a97a2d79a072b8998eafff242070dbea03d686fe774151741e343"
+        },
+        {
+          "source": "packages/base/src/lib/floating-ui/components/PortalHost.svelte",
+          "sha256": "ad42ba3985afa2e949cddb04f346c603411c45720d0c924c6e151d0e7d2e2d48"
+        },
+        {
+          "source": "packages/base/src/lib/internals/ValueChanged.svelte.ts",
+          "sha256": "f169e9eec98d817327dd31fc0c39c019173cdb64fac3350b898004222107e54e"
+        },
+        {
+          "source": "packages/base/src/lib/internals/field-register-control/FieldControlRegistration.svelte.ts",
+          "sha256": "86fd30d4dc3ab9fe9892c287a214e82e3fdb34c9e0ccff4e294dbb4d2d039db3"
+        },
+        {
+          "source": "packages/base/src/lib/internals/mergeComponentProps.ts",
+          "sha256": "803da5cb2c52515e1e68e16b66b61060c31ca03d183bb09d928b601bbb70cab7"
+        },
+        {
+          "source": "packages/base/src/lib/utils/NullStore.svelte.ts",
+          "sha256": "f23ac9ae6b5303aa9adf6499e3101c06fa981a516e6d22e95f981903674ec49c"
+        },
+        {
+          "source": "packages/base/src/lib/utils/popups/index.ts",
+          "sha256": "8685650fb9e3f7bfe7528330f062c4b3f94df89bf9adc8a48b13728774474e01"
+        },
+        {
+          "source": "packages/base/src/lib/utils/popups/popupHandle.svelte.ts",
+          "sha256": "c3a56400141a1075b20c783a5da24f827911b7d622c5eb92f78a4cf1f49da778"
+        },
+        {
+          "source": "packages/utils/src/lib/Controlled.svelte.ts",
+          "sha256": "3bb64556d51b6cd471e21e2db4c54179b3eb072757f043f7a4489a4134283304"
+        },
+        {
+          "source": "packages/utils/src/lib/addEventListener.ts",
+          "sha256": "77880d75a5c8c5ac2d924e69d7cc7662c616b953d4895c8e6a24de53de4502bf"
+        },
+        {
+          "source": "packages/utils/src/lib/areArraysEqual.ts",
+          "sha256": "c8709b6f9efb30e3257def214aeae097b131b112b74bd1bea965e201efb15a44"
+        },
+        {
+          "source": "packages/utils/src/lib/clamp.ts",
+          "sha256": "96e2dcc83d37bbe52ac6d4f65b205859eae0017c4208551f00a16195c176ec35"
+        },
+        {
+          "source": "packages/utils/src/lib/createLogOnce.ts",
+          "sha256": "f9d8a63ce89aa2d0b31a8d88affb4ff7c49528f12152a9dc99223ee24dca90c9"
+        },
+        {
+          "source": "packages/utils/src/lib/empty.ts",
+          "sha256": "00dc8f5cccebba670a7c7f2a78a66f3a4c008e8fec496badfc909a2bb8664151"
+        },
+        {
+          "source": "packages/utils/src/lib/error.ts",
+          "sha256": "ebbe57877f3f8c77c83631ed4042bd288d13f98fb93afd5390128dbd0d7cec27"
+        },
+        {
+          "source": "packages/utils/src/lib/getDefaultFormSubmitter.ts",
+          "sha256": "f4ea7f1a3eaa207bdab550567cf326c924d069c5148f1c24e91ccd192a8c05b8"
+        },
+        {
+          "source": "packages/utils/src/lib/mergeCleanups.ts",
+          "sha256": "28eb97759c815e7a3edcb4a5ac4464473790ae9294bda5a66ba268bca8efedcb"
+        },
+        {
+          "source": "packages/utils/src/lib/mergeObjects.ts",
+          "sha256": "1e6cfa2be20c639f5ce6f8b0b6cc447da3413bbbc6750a5b1ab03f5810d81746"
+        },
+        {
+          "source": "packages/utils/src/lib/owner.ts",
+          "sha256": "759c607acc1a103b2d795840051555671fe65fd889dae7694606b9069803f986"
+        },
+        {
+          "source": "packages/utils/src/lib/platform/engine.ts",
+          "sha256": "e4745bcc586212a32cde2f7d206cc1aa4df86b8a29301f8d15cf3cd88996a987"
+        },
+        {
+          "source": "packages/utils/src/lib/platform/env.ts",
+          "sha256": "dbd7cc1369986d370094b986c44b1bce3c10eba1f792f0e5c3e99c071e00eb9d"
+        },
+        {
+          "source": "packages/utils/src/lib/platform/index.ts",
+          "sha256": "c9c1174c0f82f01033187e382b461370123d356d8e14901a9ca7d85dbd2ea63c"
+        },
+        {
+          "source": "packages/utils/src/lib/platform/media-query.ts",
+          "sha256": "5e91ea2589962018778ad88498ff9acd432a5244fe37ee922d0a6014b1fb7ed9"
+        },
+        {
+          "source": "packages/utils/src/lib/platform/os.ts",
+          "sha256": "456f2f5814e890fb12d899c1cc2f08566529216fd8f6d40a9a8e5846b2c9c3d6"
+        },
+        {
+          "source": "packages/utils/src/lib/platform/parts.ts",
+          "sha256": "5382169dc9803fde93bc85e33062cbc85d7cdc0bf754d1a7f6f21eb2b4dcac29"
+        },
+        {
+          "source": "packages/utils/src/lib/platform/screen-reader.ts",
+          "sha256": "c43ebce8b6557becf984c0ae7f36395da615110e7f878bab1c0dfd476ceb19a7"
+        },
+        {
+          "source": "packages/utils/src/lib/platform/shared.ts",
+          "sha256": "28621a4723495ed9f1370c09b12480a6f488f19e59c70e78524325fc6e080db2"
+        },
+        {
+          "source": "packages/utils/src/lib/shadowDom.ts",
+          "sha256": "2cb79a4a3ccbe16581be29f7958d03bce459c5cf8cad8ae4b9f08ab981d42a2a"
+        },
+        {
+          "source": "packages/utils/src/lib/store/Store.svelte.ts",
+          "sha256": "289f1c151106f981843140b9d508d300597ee1f5a90437dca446738b861cad3c"
+        },
+        {
+          "source": "packages/utils/src/lib/store/SvelteStore.svelte.ts",
+          "sha256": "472b01d7a463c05348b85c85a413b70c55b950972f12b144ce632e4ab775102c"
+        },
+        {
+          "source": "packages/utils/src/lib/store/index.ts",
+          "sha256": "996a1d7a865fe2ce8a362041ced6b58a7ef139d4d796773971376e5fec0d52d7"
+        },
+        {
+          "source": "packages/utils/src/lib/useAnimationFrame.ts",
+          "sha256": "ec054003588b92e4223c6eea228388ae6395bf1895fb3aaf32a02706249652ce"
+        },
+        {
+          "source": "packages/utils/src/lib/useEnhancedClickHandler.ts",
+          "sha256": "6a045d6b74a7851d3446200f55711ffc1dcc22449a2e92680cdf328750a436d5"
+        },
+        {
+          "source": "packages/utils/src/lib/useId.ts",
+          "sha256": "584864eb7f538f5adc40ab128461db75c960984c51265aead1ca3821e4bf879a"
+        },
+        {
+          "source": "packages/utils/src/lib/useScrollLock.svelte.ts",
+          "sha256": "bea63beb673cffb2bb25fcb5491b34f9724cb03453c1014273b501da4c5dfc35"
+        },
+        {
+          "source": "packages/utils/src/lib/useTimeout.ts",
+          "sha256": "06130c6374e14371471cc3af14638ddb3cadb514bb985fcbc4b8a7a606008b7f"
+        },
+        {
+          "source": "packages/utils/src/lib/visuallyHidden.ts",
+          "sha256": "8f49185df1c0536608090368454cc3d30a3bfc1991b23a4b5e5239184ead8020"
+        }
+      ],
+      "retained": [
+        {
+          "source": "packages/base/src/lib/checkbox-group/CheckboxGroupContext.ts",
+          "oldSha256": "7e70df699399699bef7aada56b6891899ee7dd1db3084a9cf1c94d0c2f5f2e1d",
+          "currentSha256": "7e70df699399699bef7aada56b6891899ee7dd1db3084a9cf1c94d0c2f5f2e1d",
+          "bodyUnchanged": true
+        },
+        {
+          "source": "packages/base/src/lib/checkbox-group/types.ts",
+          "oldSha256": "11f60dbbc9279270d57c957da0a587b4328c6a50b6538f11a3cbccb1808d2fa2",
+          "currentSha256": "438596822db730d0d77a2c6c08f6782690659e44f34793651cbdfd95457f24de",
+          "bodyUnchanged": false
+        },
+        {
+          "source": "packages/base/src/lib/checkbox-group/useCheckboxGroupParent.svelte.ts",
+          "oldSha256": "8adf195142cc9b97f5c11f32946562d3c3b42cbf7f67d6253d601550f96977b8",
+          "currentSha256": "45bb27533df78c0e2491f8199a05e3fc6b9878869db932bb1cdc20a66e809168",
+          "bodyUnchanged": false
+        },
+        {
+          "source": "packages/base/src/lib/checkbox/root/CheckboxRoot.svelte",
+          "oldSha256": "36fec4ac980a7ad09bb5614726f3fe7479dbc48cdec293641a90a809fa78e7d8",
+          "currentSha256": "7da8d3e7a782fc08271abbd0a531c0ae34d19e2055d51f811a2e82dc6ad67143",
+          "bodyUnchanged": false
+        },
+        {
+          "source": "packages/base/src/lib/checkbox/root/CheckboxRootContext.ts",
+          "oldSha256": "fbb7e3014465570926acda685475f426319f920a3d224017f5aa7d883a2177cd",
+          "currentSha256": "fbb7e3014465570926acda685475f426319f920a3d224017f5aa7d883a2177cd",
+          "bodyUnchanged": true
+        },
+        {
+          "source": "packages/base/src/lib/checkbox/root/CheckboxRootDataAttributes.ts",
+          "oldSha256": "fe19991f3e1ae6b1f9f702898a50f3d287a10e4892b64252ce16ed7bc367c19c",
+          "currentSha256": "fe19991f3e1ae6b1f9f702898a50f3d287a10e4892b64252ce16ed7bc367c19c",
+          "bodyUnchanged": true
+        },
+        {
+          "source": "packages/base/src/lib/checkbox/types.ts",
+          "oldSha256": "d5dd1320ca6d2b45cfb6bc671c0873aae5ad495d32243a791225bbe96c2d5f17",
+          "currentSha256": "1ff2fd24c72f6fb9ce69e409e906283f89978bad3d13a1b8b5680e2e81f33d55",
+          "bodyUnchanged": false
+        },
+        {
+          "source": "packages/base/src/lib/checkbox/utils/getCheckboxStateAttributesMapping.ts",
+          "oldSha256": "6d59ba1f1e83378e7a8ce1be81143afd51df7e299f20808ca24c3421b494dc97",
+          "currentSha256": "6d59ba1f1e83378e7a8ce1be81143afd51df7e299f20808ca24c3421b494dc97",
+          "bodyUnchanged": true
+        },
+        {
+          "source": "packages/base/src/lib/checkbox/utils/useEnterSubmit.svelte.ts",
+          "oldSha256": "dcceb14ed7d2246a76de528d74260fd5b2b5a6ded04e5eee90b4c95d703cb467",
+          "currentSha256": "47a12f9d65ba32f7c9babcfb56f6b171637114df64f58b922b444e88fd614f8d",
+          "bodyUnchanged": false
+        },
+        {
+          "source": "packages/base/src/lib/csp-provider/context.ts",
+          "oldSha256": "ef547502733a191eaa312c58a4017c1a86a5af73e58aa2d155b79842941d80b0",
+          "currentSha256": "ef547502733a191eaa312c58a4017c1a86a5af73e58aa2d155b79842941d80b0",
+          "bodyUnchanged": true
+        },
+        {
+          "source": "packages/base/src/lib/dialog/types.ts",
+          "oldSha256": "fd700772ea1016359bc934759c01d168caa2914ff136733f30f9c108d28ae931",
+          "currentSha256": "d2b80a17a890020ddb9e7ba36c2cf2106e1677b76c722617575ef81a2728c567",
+          "bodyUnchanged": false
+        },
+        {
+          "source": "packages/base/src/lib/direction-provider/context.ts",
+          "oldSha256": "e400850423b49f956342a6efac2d8dcf2275365d23220564b6cefb8b44df47f8",
+          "currentSha256": "e400850423b49f956342a6efac2d8dcf2275365d23220564b6cefb8b44df47f8",
+          "bodyUnchanged": true
+        },
+        {
+          "source": "packages/base/src/lib/direction-provider/types.ts",
+          "oldSha256": "a56af048e882453755ad2948782af4f2f832903e031d4812b8da9fc5f4b82aae",
+          "currentSha256": "a56af048e882453755ad2948782af4f2f832903e031d4812b8da9fc5f4b82aae",
+          "bodyUnchanged": true
+        },
+        {
+          "source": "packages/base/src/lib/field/Control.svelte",
+          "oldSha256": "ac623af778620dd68ea7c9234ffd9c27eb22b3406e1ee9fda4d973e823532101",
+          "currentSha256": "cc39f3bc50f55f6d8e4841cc7e66224f4abf712c35f7a7c09f094a9e4b24baef",
+          "bodyUnchanged": false
+        },
+        {
+          "source": "packages/base/src/lib/field/Description.svelte",
+          "oldSha256": "0581056a31a173472dc8f22ebfd599e74bada6250520d6d4cb82b22aba48fe0b",
+          "currentSha256": "cc25f6c0f6ef569ead6d9ce87e932e3eac14d4f534545157f51456d606914e38",
+          "bodyUnchanged": false
+        },
+        {
+          "source": "packages/base/src/lib/field/Error.svelte",
+          "oldSha256": "4b8a0755185330e12acf8dacc050ffae8f7b30f744aeebb54aa1c2095b09d6f3",
+          "currentSha256": "05739931c12316934d01ef80ccf02a4939bd5e1d3dcf97d84d571aad3617f5f9",
+          "bodyUnchanged": false
+        },
+        {
+          "source": "packages/base/src/lib/field/ErrorMessageList.svelte",
+          "oldSha256": "27bec6f8217118288cddf98c3e00c4df7efd3934c7ab3f7126cb6f23a4d601c4",
+          "currentSha256": "b8722a77324aba26360e3cb1e8971a61a0ca34bda7859af1bf44bdc392529df0",
+          "bodyUnchanged": false
+        },
+        {
+          "source": "packages/base/src/lib/field/Item.svelte",
+          "oldSha256": "737b50c83d7fb7d9b68567a062eb995c1f98664a09d85a49d2b5ba1938f07fdd",
+          "currentSha256": "b8f4def6b497b29d678bf2045b3af9d9e5d2c0fed815bd8ba3b162ec383a96fe",
+          "bodyUnchanged": false
+        },
+        {
+          "source": "packages/base/src/lib/field/Label.svelte",
+          "oldSha256": "c60260581b9295db7aede4b558b02e4fd0d92ff52f3a9e8d4da5143a2ead396c",
+          "currentSha256": "ec10508ee1ded016697fa318440cabfe8f0befe3763163b080fddbe5848d5b85",
+          "bodyUnchanged": false
+        },
+        {
+          "source": "packages/base/src/lib/field/Root.svelte",
+          "oldSha256": "1a505de7682ed523d1e2568ca19a2cf7116fc8a992b7d3de8b50eef1c1e43f54",
+          "currentSha256": "8ed4fc7b455b82d02ec3c02468a524157cc59b92b8ab8c381480351068e7a1da",
+          "bodyUnchanged": false
+        },
+        {
+          "source": "packages/base/src/lib/field/Validity.svelte",
+          "oldSha256": "cd4f22fb12d808cfe1106570579811bc11edcae63d22df48fee24a5946a724a1",
+          "currentSha256": "e752d61d80ed73a00c06945c6b516e1feff8a690c7fccd6991d9291c7fd1f17c",
+          "bodyUnchanged": false
+        },
+        {
+          "source": "packages/base/src/lib/field/index.parts.ts",
+          "oldSha256": "97ccc3903310c1264fefd80e4f80583358d43293c33065d6cec76e87bf6eb647",
+          "currentSha256": "97ccc3903310c1264fefd80e4f80583358d43293c33065d6cec76e87bf6eb647",
+          "bodyUnchanged": true
+        },
+        {
+          "source": "packages/base/src/lib/field/item/FieldItemContext.ts",
+          "oldSha256": "f1a84a8e7fd46dce276cf16590fc2c6919f3167a12ab1fbff2ad86e64ff2eaed",
+          "currentSha256": "fac181a267627f7a70d0a81413190a7c9a38dc63c43ba9fbc50ef12020369dde",
+          "bodyUnchanged": false
+        },
+        {
+          "source": "packages/base/src/lib/field/props.ts",
+          "oldSha256": "ed3d25745d68f38c06c0f21ae46e9457147a07503e34ae52fd17dee7256d1357",
+          "currentSha256": "ced41ab415850bbdb26723487d6a6a1661e4c75c338099e12c43ddbcd8594f62",
+          "bodyUnchanged": false
+        },
+        {
+          "source": "packages/base/src/lib/field/root/FieldRootInner.svelte",
+          "oldSha256": "ad785d1c6d42b8346151701855609eaf195deae3843f8d79091d131b415e83b3",
+          "currentSha256": "c39ec8f17f747455ea21ea72c6d6df18b697a0707226ce324f9d3d58a2e290b4",
+          "bodyUnchanged": false
+        },
+        {
+          "source": "packages/base/src/lib/field/root/useFieldValidation.svelte.ts",
+          "oldSha256": "93fd341dc439f2272b06a8857eba538900db8372306efcc6ba4b6b64d073fee1",
+          "currentSha256": "b41d59b72a6a927635962710c48266b6a72144b5f1f0b56448281728b3e28f81",
+          "bodyUnchanged": false
+        },
+        {
+          "source": "packages/base/src/lib/field/types.ts",
+          "oldSha256": "25fd4710edd0d877d62c4e8874314a2c36344ad346085d5e75655ebbedf051dc",
+          "currentSha256": "a79a5aadac1a83ea34aea340ac80999570fe6faa859475573e9532d729dba5b7",
+          "bodyUnchanged": false
+        },
+        {
+          "source": "packages/base/src/lib/field/utils/getCombinedFieldValidityData.ts",
+          "oldSha256": "f5c0e65cc854d8bb6446d2792142ecc64d603a469a576dd0fbc5f3de6bc61b7e",
+          "currentSha256": "f5c0e65cc854d8bb6446d2792142ecc64d603a469a576dd0fbc5f3de6bc61b7e",
+          "bodyUnchanged": true
+        },
+        {
+          "source": "packages/base/src/lib/fieldset/root/FieldsetRootContext.ts",
+          "oldSha256": "f5b4b87e5802c40a428e4df9463e84fd36cb649ee3cdfe6f0b153b9721e6ce6c",
+          "currentSha256": "1c32118a1fc683230b68f04df1e17550124710a64b7926da31c3985fdec10a4a",
+          "bodyUnchanged": false
+        },
+        {
+          "source": "packages/base/src/lib/floating-ui/components/FloatingFocusManager.svelte",
+          "oldSha256": "02e830d2f21614164344019f3bdd4420c4e0c58ddf49b12023c2202fcc236da8",
+          "currentSha256": "88b47ec0d8e7254d4ea022e5c05d272798d9e735c65e84c9ddfef38b8bd24342",
+          "bodyUnchanged": false
+        },
+        {
+          "source": "packages/base/src/lib/floating-ui/components/FloatingPortal.svelte",
+          "oldSha256": "8111a018d91b947a0468565c84a636f6abb70196309da0a95fa5a4e86b3705b1",
+          "currentSha256": "d9360eddffb4f2f685ea80e8bfee84ed519ff348c1c5db9bf56bc254fd9e132d",
+          "bodyUnchanged": false
+        },
+        {
+          "source": "packages/base/src/lib/floating-ui/components/FloatingPortalContext.ts",
+          "oldSha256": "897245ee2d655ee10875e45707bca62d75b11170e2cb5b8a575c6a2848533833",
+          "currentSha256": "022afce07c643e0ee4a9bc2177ff8feb41fa5d6a1b63774eb682dd06d34494d5",
+          "bodyUnchanged": false
+        },
+        {
+          "source": "packages/base/src/lib/floating-ui/components/FloatingRootStore.svelte.ts",
+          "oldSha256": "0f82be0f8c5c542753e3fc8bf5356066c20b71e2618b3decfa3698f5b91d5388",
+          "currentSha256": "8840439ae903d174103880ac84185b4ccb7d916761ac2e3e96b7f48a88f245d3",
+          "bodyUnchanged": false
+        },
+        {
+          "source": "packages/base/src/lib/floating-ui/components/FloatingTree.svelte.ts",
+          "oldSha256": "40e508a5e0b3facfcf178890bb28a79e753d8e713d2e51c514724d4243a32027",
+          "currentSha256": "4ba1a45eb3e58c4c1cdb7fc68d48c59da7ad7a5cbd5f9be7319c22af1ca60d8a",
+          "bodyUnchanged": false
+        },
+        {
+          "source": "packages/base/src/lib/floating-ui/components/FloatingTreeStore.ts",
+          "oldSha256": "eb351b05f9f15cd7acebfe9b093cb42eb07c27073f41bd670633c94c41effdd3",
+          "currentSha256": "eb351b05f9f15cd7acebfe9b093cb42eb07c27073f41bd670633c94c41effdd3",
+          "bodyUnchanged": true
+        },
+        {
+          "source": "packages/base/src/lib/floating-ui/components/PortalContent.svelte",
+          "oldSha256": "094ca8f25b2d4622ed70767b472ad6cecc481ae92470caa67385c72a3551f603",
+          "currentSha256": "41cf8f68f099889990ab71c57ca1c5de2e1db746e2b54639fef873d9335c6600",
+          "bodyUnchanged": false
+        },
+        {
+          "source": "packages/base/src/lib/floating-ui/components/createFloatingFocusManager.svelte.ts",
+          "oldSha256": "c0d9f77faa3fa4fb8f78d01d958fdbc60ed960b043edfeb967f0b138ba367a9f",
+          "currentSha256": "c6a2f4dc069dd6c8e663abaa706f7e65db32aee8a533bb2b2af02623ff15de1b",
+          "bodyUnchanged": false
+        },
+        {
+          "source": "packages/base/src/lib/floating-ui/hooks/gridNavigation.ts",
+          "oldSha256": "a9f1bc487078d4f9cf70e608cde8be6e55b165de0f79069d18879e71f25dd8e8",
+          "currentSha256": "a9f1bc487078d4f9cf70e608cde8be6e55b165de0f79069d18879e71f25dd8e8",
+          "bodyUnchanged": true
+        },
+        {
+          "source": "packages/base/src/lib/floating-ui/hooks/useClick.svelte.ts",
+          "oldSha256": "399f7e0b8e6a6cc0b5fe5355c88b1b10f3dd365f832ffe3a197b6f633b20aade",
+          "currentSha256": "3e8be914e6d27a0edb6efc9516de0ce9e793b4b32d127b538402c5551d6d4aeb",
+          "bodyUnchanged": false
+        },
+        {
+          "source": "packages/base/src/lib/floating-ui/hooks/useDismiss.svelte.ts",
+          "oldSha256": "bb2d0d06053246d50d15e8744efc322ed9413573e493a3d8dfba96f90e01d6ae",
+          "currentSha256": "ae4860fe2a3f4ea5686bccb2b425bf9c61a676b92072da7b6f733d69dc8afd51",
+          "bodyUnchanged": false
+        },
+        {
+          "source": "packages/base/src/lib/floating-ui/hooks/useFloating.svelte.ts",
+          "oldSha256": "dbd456a378ee02012d7cf8fb2db681f38e0a63b15d6fbb6894c8b293eb77c635",
+          "currentSha256": "fb2a3d4ef440583702349947e7fbffb47608d736f3ec7289dd82091d4cb958b8",
+          "bodyUnchanged": false
+        },
+        {
+          "source": "packages/base/src/lib/floating-ui/hooks/useFloatingPortalNode.svelte.ts",
+          "oldSha256": "6bfb1801f9ae16f8cfb97b87357e1b09e306361e1c005355acd7a34b6390a113",
+          "currentSha256": "16cef262e2368b881c58d59baa1257caddc9c0e97b4fb183f7099cc09f6dc84d",
+          "bodyUnchanged": false
+        },
+        {
+          "source": "packages/base/src/lib/floating-ui/hooks/useListNavigation.svelte.ts",
+          "oldSha256": "6bf9f8935955bfc9eaacfc92cfca1d3745d55ae1ea90fd4203ff83daafa22d6e",
+          "currentSha256": "a35b727cdf040c483d4b6375bd9ace15a755619504a8a75ab5b7bb5f3abdf4d5",
+          "bodyUnchanged": false
+        },
+        {
+          "source": "packages/base/src/lib/floating-ui/hooks/useSyncedFloatingRootContext.svelte.ts",
+          "oldSha256": "144b7492c4df9f20f8da4b4fdbe5a5983219e2370c1fd6a4afef50226559815d",
+          "currentSha256": "aa1374702cc5d76d0380c6b4080ffc10f2b22b496ecbfed24b97e70636669916",
+          "bodyUnchanged": false
+        },
+        {
+          "source": "packages/base/src/lib/floating-ui/hooks/useTypeahead.svelte.ts",
+          "oldSha256": "dce5183fd8b81403e4fccbea493099e562d2a85b02bb2d04900a0910901059ca",
+          "currentSha256": "740573664ed8d416194faebacbabd07597d97a2e50777d45ab77e45c3fe23727",
+          "bodyUnchanged": false
+        },
+        {
+          "source": "packages/base/src/lib/floating-ui/types.ts",
+          "oldSha256": "d75465f0e2fa7f46beab37d200f2f9e5a152dd4ca4a5751e5c9ca2811caed3d5",
+          "currentSha256": "5c4e86d68644ba65a89798d584d75bb7c1dacde7f892c9ea9fdfdd64523d3473",
+          "bodyUnchanged": false
+        },
+        {
+          "source": "packages/base/src/lib/floating-ui/utils/composite.ts",
+          "oldSha256": "96b8fde56711a770d9c1936cfae99d9576009539cc5c68ef139f463533893d27",
+          "currentSha256": "96b8fde56711a770d9c1936cfae99d9576009539cc5c68ef139f463533893d27",
+          "bodyUnchanged": true
+        },
+        {
+          "source": "packages/base/src/lib/floating-ui/utils/constants.ts",
+          "oldSha256": "14ac30673b196081a83c1e023ecfd546294733ceb2f756d2bad01e3a9d24880b",
+          "currentSha256": "14ac30673b196081a83c1e023ecfd546294733ceb2f756d2bad01e3a9d24880b",
+          "bodyUnchanged": true
+        },
+        {
+          "source": "packages/base/src/lib/floating-ui/utils/createAttribute.ts",
+          "oldSha256": "24fb1aacf4668a0ada9cfcb8d1f516b3ef7d5022df3f3b0a375394e260f07f4a",
+          "currentSha256": "24fb1aacf4668a0ada9cfcb8d1f516b3ef7d5022df3f3b0a375394e260f07f4a",
+          "bodyUnchanged": true
+        },
+        {
+          "source": "packages/base/src/lib/floating-ui/utils/createEventEmitter.ts",
+          "oldSha256": "31ebcaf59c98304ec9944e91a86b0a3c3ed31359e76a102ea62c4213f5dff484",
+          "currentSha256": "31ebcaf59c98304ec9944e91a86b0a3c3ed31359e76a102ea62c4213f5dff484",
+          "bodyUnchanged": true
+        },
+        {
+          "source": "packages/base/src/lib/floating-ui/utils/element.ts",
+          "oldSha256": "d46588eefde81b7d3eb8f204f5b3ba235aacbeafde35c37ac6eb782070dcfff0",
+          "currentSha256": "68a9ee68a6c3d8c0c1d9e8f68fffb3c214201c6f7fed4b0c374298b65fae3ff3",
+          "bodyUnchanged": false
+        },
+        {
+          "source": "packages/base/src/lib/floating-ui/utils/enqueueFocus.ts",
+          "oldSha256": "60067b93919c6f4210890af14627b5e064c6d0d3ee9e287f4f7752fab7474773",
+          "currentSha256": "b63028cbb1e9c547a40144090efd0c0d966fb0d188492bf0ced77fa1aac88440",
+          "bodyUnchanged": false
+        },
+        {
+          "source": "packages/base/src/lib/floating-ui/utils/event.ts",
+          "oldSha256": "b489c469d9e2b134b6cd97baa3a408010decf1399dbaa1367a015d70c770832e",
+          "currentSha256": "32391b7e254d578d4a374a8f95270e0fea8c763e8f56c52db2e9931243ad5e56",
+          "bodyUnchanged": false
+        },
+        {
+          "source": "packages/base/src/lib/floating-ui/utils/markOthers.ts",
+          "oldSha256": "0a6397de4ac741e96e98ef3756caed2200a6ff8564b55d04a8573aaf06037406",
+          "currentSha256": "1b40a2689b9546635a1609d2cc1642bee332e97ac9491b170043fcd95447cc03",
+          "bodyUnchanged": false
+        },
+        {
+          "source": "packages/base/src/lib/floating-ui/utils/nodes.ts",
+          "oldSha256": "b78d4c24b96237d20d09a60549535fad0d8e61661b38091cbf5368b53c43f544",
+          "currentSha256": "b78d4c24b96237d20d09a60549535fad0d8e61661b38091cbf5368b53c43f544",
+          "bodyUnchanged": true
+        },
+        {
+          "source": "packages/base/src/lib/floating-ui/utils/tabbable.ts",
+          "oldSha256": "7e890249d9926089244d66728f1957c9b67f980f4459c874081be0c90016cbbb",
+          "currentSha256": "83937949cf582078e63e085b1bd49ec588462f13bb4f5f178af83641f0e75c7f",
+          "bodyUnchanged": false
+        },
+        {
+          "source": "packages/base/src/lib/form/Form.svelte",
+          "oldSha256": "0d2dc47dba6701c19c5e6074dbc7f49b50a9c10102194b70d018b026e7eee443",
+          "currentSha256": "5d98491f2e22be08f2ae42488d066e8f0205c1e7a75798370ddd57a6754215c2",
+          "bodyUnchanged": false
+        },
+        {
+          "source": "packages/base/src/lib/form/types.ts",
+          "oldSha256": "51cb6c9cbbd82cfc923db96143f5184acb5712d5614298468c9cf391aa783f8b",
+          "currentSha256": "154c0cc12e464959f8c3d688ac6509af0681a514b1870aa810cac3990555d623",
+          "bodyUnchanged": false
+        },
+        {
+          "source": "packages/base/src/lib/internals/TransitionStatusDataAttributes.ts",
+          "oldSha256": "d3e4a31041bcc80ba21b330d3fedadfadaeae3f498dc09e078e70470cfb98dfe",
+          "currentSha256": "d3e4a31041bcc80ba21b330d3fedadfadaeae3f498dc09e078e70470cfb98dfe",
+          "bodyUnchanged": true
+        },
+        {
+          "source": "packages/base/src/lib/internals/anchor-positioning/adaptive-origin.ts",
+          "oldSha256": "af5859dc474117523d5fa7c93acad144667590bd3d35248b72ffd2164e6dd86e",
+          "currentSha256": "15cd34d1cddc4427617558e3f81830f40fe650a308330405468a4d6d5f2ce7e8",
+          "bodyUnchanged": false
+        },
+        {
+          "source": "packages/base/src/lib/internals/anchor-positioning/arrow.ts",
+          "oldSha256": "faae61704c235e00a268afc06f286dbde18d270b499c31da65e16b4a16fab3c6",
+          "currentSha256": "faae61704c235e00a268afc06f286dbde18d270b499c31da65e16b4a16fab3c6",
+          "bodyUnchanged": true
+        },
+        {
+          "source": "packages/base/src/lib/internals/anchor-positioning/css-vars.ts",
+          "oldSha256": "5987e5aac4cb32b02a7415edee76937ff2a17ce4d48a694fd2d7522ae0e47e78",
+          "currentSha256": "5987e5aac4cb32b02a7415edee76937ff2a17ce4d48a694fd2d7522ae0e47e78",
+          "bodyUnchanged": true
+        },
+        {
+          "source": "packages/base/src/lib/internals/anchor-positioning/hide.ts",
+          "oldSha256": "02c0e2ed225845ffbbd4b45ad7bd2c76b9af8976b7147980ca0f64b6022fad68",
+          "currentSha256": "02c0e2ed225845ffbbd4b45ad7bd2c76b9af8976b7147980ca0f64b6022fad68",
+          "bodyUnchanged": true
+        },
+        {
+          "source": "packages/base/src/lib/internals/anchor-positioning/policy.ts",
+          "oldSha256": "66337d95ad094898b0ae95c94c4e07ea14fd041c32cad6a4c2ec8113859cb42d",
+          "currentSha256": "9e7580733d7aed91fd0ba12f7e8e4113d3c34e7f3b48d9e1104606a557de34d2",
+          "bodyUnchanged": false
+        },
+        {
+          "source": "packages/base/src/lib/internals/anchor-positioning/types.ts",
+          "oldSha256": "fa56b8d2b5fac3e9c1ed9597f89631d6381e1e73d5da507b1d41ec566917b82b",
+          "currentSha256": "2c4a76f723edabaec250e51c87662aed05ecaf0969a56cc927dc65145bd10406",
+          "bodyUnchanged": false
+        },
+        {
+          "source": "packages/base/src/lib/internals/anchor-positioning/useAnchorPositioning.svelte.ts",
+          "oldSha256": "a2b7d8284ece515de3ca1c65d342fcdbae395d5484a4f8fd121d9d11f835876d",
+          "currentSha256": "21a813d5a40d36c4691d995e8cbf560b5966011a62fa01e9b1fa9b98337b3c2a",
+          "bodyUnchanged": false
+        },
+        {
+          "source": "packages/base/src/lib/internals/anchor-positioning/useFloating.svelte.ts",
+          "oldSha256": "9f504f4289d1b38e2fc78830320beec60d5ec6fe40f183b132916594c7027c8a",
+          "currentSha256": "65c7d8c1bf6780d8d172a8e26e1ebadfdb84c949283aac0c6bcc010d43bab3bf",
+          "bodyUnchanged": false
+        },
+        {
+          "source": "packages/base/src/lib/internals/composite/composite.ts",
+          "oldSha256": "938a8b4ede73c5b5655a800777fe4748a94786a05bf828129de299c04cf94673",
+          "currentSha256": "f4e02dc8034a749a29f2c63d12f34c25d17c73ffd4075bc31e8f4a55306c0a9e",
+          "bodyUnchanged": false
+        },
+        {
+          "source": "packages/base/src/lib/internals/composite/list/CompositeListContext.ts",
+          "oldSha256": "c443b96e2b57642eed663be3a670fc7342dc4358bac081b7257bcb076c54ab17",
+          "currentSha256": "17e4010bda5639d8c7d200bd965ffb9f29aa06a1e83c9f6756319a2dceb1fd38",
+          "bodyUnchanged": false
+        },
+        {
+          "source": "packages/base/src/lib/internals/composite/list/createCompositeList.svelte.ts",
+          "oldSha256": "97758d379046d9f894997ae40ef7c6f59decf48fa0d985a2c1fb5f9f068ad016",
+          "currentSha256": "eb23334825782ebd6c5c2697f1aad75f6f557c1e387fa6ea0a78c276bfead975",
+          "bodyUnchanged": false
+        },
+        {
+          "source": "packages/base/src/lib/internals/composite/list/useCompositeListItem.svelte.ts",
+          "oldSha256": "42f4066c8d830385f942f66b216e1b263728f1615dbd7b11cfd3a79db7242400",
+          "currentSha256": "94d353c7d884b35bd002a9278a7701e7b1e835d536b8eb8a94f2a56d7fa72841",
+          "bodyUnchanged": false
+        },
+        {
+          "source": "packages/base/src/lib/internals/composite/root/CompositeRootContext.ts",
+          "oldSha256": "b08d6af5d6e71ba46076718b4426c7d2e0485a059e9204759406af1f395b6f2c",
+          "currentSha256": "b08d6af5d6e71ba46076718b4426c7d2e0485a059e9204759406af1f395b6f2c",
+          "bodyUnchanged": true
+        },
+        {
+          "source": "packages/base/src/lib/internals/composite/utils/navigation.ts",
+          "oldSha256": "bb61a6e117cc345c347a3a29618d01e6e608ef1027b8e6464e072d8b70b4a0aa",
+          "currentSha256": "bcfb35db31e9b53c86be39c229e041eaaf48f82df10d4dfaac79b69ecfd5a6dd",
+          "bodyUnchanged": false
+        },
+        {
+          "source": "packages/base/src/lib/internals/constants.ts",
+          "oldSha256": "de12c9af7ce208e69f24e5bbfefb3df6840e5b4f284109597087188a338c6893",
+          "currentSha256": "de12c9af7ce208e69f24e5bbfefb3df6840e5b4f284109597087188a338c6893",
+          "bodyUnchanged": true
+        },
+        {
+          "source": "packages/base/src/lib/internals/createBaseUIEventDetails.ts",
+          "oldSha256": "1a9cb6cde2734d421a1bfb03ece9c744584b7e115a0eb3b9de974c22ab8ee684",
+          "currentSha256": "8c72d1cd966a450125d2177842154e603b52779f156660af0633101ea222c772",
+          "bodyUnchanged": false
+        },
+        {
+          "source": "packages/base/src/lib/internals/field-constants/constants.ts",
+          "oldSha256": "7a4e8acf35babe4f33b4850da64313dbd19be6b20cb3b4833430d103cd6bf757",
+          "currentSha256": "b9bd1e08d6deb13b300611745d85f94a90fe15e3170291b866ecab2b21c9e635",
+          "bodyUnchanged": false
+        },
+        {
+          "source": "packages/base/src/lib/internals/field-control-name/FieldControlNameContext.ts",
+          "oldSha256": "c2e281c241321a8fd4148eb0f536dabb56be359deccc0e8a5f23ec4d207c48a8",
+          "currentSha256": "114e7b1d6b34fb810a8dcabe6d8daca71186adcd43a8586039acc6a26bdbfd63",
+          "bodyUnchanged": false
+        },
+        {
+          "source": "packages/base/src/lib/internals/field-control-value/FieldControlValueContext.ts",
+          "oldSha256": "e97a45c620080963320c4ee0bc8a81e5422c5cdc3ebca07cd94d062ee46cb852",
+          "currentSha256": "e97a45c620080963320c4ee0bc8a81e5422c5cdc3ebca07cd94d062ee46cb852",
+          "bodyUnchanged": true
+        },
+        {
+          "source": "packages/base/src/lib/internals/field-register-control/useRegisterFieldControl.svelte.ts",
+          "oldSha256": "b4c1ea76c59f1b6848c3a54e915324b9da25bbdbdf16f61c4cfad1a3521ada03",
+          "currentSha256": "a91113b1028269d5973ae7c83a0cbbf49b4c701cb5a8e426ca977bbef61cd583",
+          "bodyUnchanged": false
+        },
+        {
+          "source": "packages/base/src/lib/internals/field-root-context/FieldRootContext.ts",
+          "oldSha256": "21aa11d932c64b362bdb2373d22bf6c108fe9a24a093b0a08a009e3d9b45f614",
+          "currentSha256": "647417d85d6b587048591fa343c97074e1cd68c54ecfb07b2993957926939629",
+          "bodyUnchanged": false
+        },
+        {
+          "source": "packages/base/src/lib/internals/form-context/FormContext.ts",
+          "oldSha256": "8a0131cd002119715cb0d1a9cb051662353e75797aa4369981a30be4df29a05a",
+          "currentSha256": "c27b507d54f1e74bdaf15c35959f9fd795777047030d73ba96c1e5d8d14d185d",
+          "bodyUnchanged": false
+        },
+        {
+          "source": "packages/base/src/lib/internals/getDisabledMountTransitionStyles.ts",
+          "oldSha256": "7fb54d405a10ceeaa1ad3d5d630dc80a7b835eeb2fb92eb13daf47c1f668bd6c",
+          "currentSha256": "92b8dd7e170b8ba6cff821c4d1dc08f08869e1b0c64f049c81e158215168a316",
+          "bodyUnchanged": false
+        },
+        {
+          "source": "packages/base/src/lib/internals/getStateAttributesProps.ts",
+          "oldSha256": "e48367a890024a54cb200eabc5c2a0ba0a397256baacfaec8b0a05ced3b10344",
+          "currentSha256": "e48367a890024a54cb200eabc5c2a0ba0a397256baacfaec8b0a05ced3b10344",
+          "bodyUnchanged": true
+        },
+        {
+          "source": "packages/base/src/lib/internals/labelable-provider/LabelableContext.ts",
+          "oldSha256": "864b5d1ddb86b7cb3d50217a7bb3b4fbf58428ec43f78c1ec7ed3efa31750799",
+          "currentSha256": "8ed40c64919595f22975c8a10047215c6611a3223e258205fd473efb91479f84",
+          "bodyUnchanged": false
+        },
+        {
+          "source": "packages/base/src/lib/internals/labelable-provider/LabelableProvider.svelte",
+          "oldSha256": "e0719f95f60e6ac6d050e92c0525f465d87c6832887515cbe62948b481915c43",
+          "currentSha256": "8056aab139538495cb16be9e5183d277cade00a9624af5504179996ff3a09b33",
+          "bodyUnchanged": false
+        },
+        {
+          "source": "packages/base/src/lib/internals/labelable-provider/createLabelableProvider.svelte.ts",
+          "oldSha256": "2a5fb80fe0cf9ca1d598337f2fddc778833d1dba5445fb5918cae6a1ab478a4b",
+          "currentSha256": "b5cf2b6efd42c5038cc6786bf325a6a450aff387474f2df008fa79d2a06694c6",
+          "bodyUnchanged": false
+        },
+        {
+          "source": "packages/base/src/lib/internals/labelable-provider/useAriaLabelledBy.svelte.ts",
+          "oldSha256": "bfb47e6426f7df82b1738fb2dcbef7133166addc4a7d54a84deab26655f2bf0e",
+          "currentSha256": "64e63e8f5290b2b9ad3d8ad7d3fc936a76401425906c31cea8cdc4c19bd8b7ec",
+          "bodyUnchanged": false
+        },
+        {
+          "source": "packages/base/src/lib/internals/labelable-provider/useLabel.svelte.ts",
+          "oldSha256": "b96abe4dcc46df31198bbd40cbc6e9278dda323f3bab6b33bc802158ab9d9b26",
+          "currentSha256": "c3a027d307a6582813779de2da9f6d495e4ba925e669c9080ceee9c6e1a4ebd3",
+          "bodyUnchanged": false
+        },
+        {
+          "source": "packages/base/src/lib/internals/labelable-provider/useLabelableId.svelte.ts",
+          "oldSha256": "821459e698c6486f837258547fe73e1db1865bd574444ea867d03b59af8e4456",
+          "currentSha256": "36215a31fd3f84d006006734eca09bb94b036ad30015949f1acf814e94fa8845",
+          "bodyUnchanged": false
+        },
+        {
+          "source": "packages/base/src/lib/internals/nativeProps.ts",
+          "oldSha256": "d6b3999ffe54e8c70e0dcdac61474b3bf9f53e60f3b1207dd4f976ef5212e4eb",
+          "currentSha256": "f081bf825f41a64924fe298108e148ac56314d02074c588cc1f9324ff6a92cc5",
+          "bodyUnchanged": false
+        },
+        {
+          "source": "packages/base/src/lib/internals/reason-parts.ts",
+          "oldSha256": "0326d21ce4be2c41b5488c86e3687249faf3c51f5e10ae49c16e8efdc183abf5",
+          "currentSha256": "0326d21ce4be2c41b5488c86e3687249faf3c51f5e10ae49c16e8efdc183abf5",
+          "bodyUnchanged": true
+        },
+        {
+          "source": "packages/base/src/lib/internals/reasons.ts",
+          "oldSha256": "f1f52caeefb14448a7e7c9833e24413b923b7bbf40aa1818ca73dc93710b42e7",
+          "currentSha256": "f1f52caeefb14448a7e7c9833e24413b923b7bbf40aa1818ca73dc93710b42e7",
+          "bodyUnchanged": true
+        },
+        {
+          "source": "packages/base/src/lib/internals/resolveClassValue.ts",
+          "oldSha256": "584323b17cb1733a798e9ff86e9ff783d6a26d08ecf005a8c2b3c69917c1e722",
+          "currentSha256": "584323b17cb1733a798e9ff86e9ff783d6a26d08ecf005a8c2b3c69917c1e722",
+          "bodyUnchanged": true
+        },
+        {
+          "source": "packages/base/src/lib/internals/serializeValue.ts",
+          "oldSha256": "b4669f5fb1847f5246ef31b0351c05ae99952cc31b0ff2451b08477352e31089",
+          "currentSha256": "b4669f5fb1847f5246ef31b0351c05ae99952cc31b0ff2451b08477352e31089",
+          "bodyUnchanged": true
+        },
+        {
+          "source": "packages/base/src/lib/internals/stateAttributesMapping.ts",
+          "oldSha256": "d04c73fe454de256e1641245b5db6a3d70824693f0da33272d0863f033b5230d",
+          "currentSha256": "d04c73fe454de256e1641245b5db6a3d70824693f0da33272d0863f033b5230d",
+          "bodyUnchanged": true
+        },
+        {
+          "source": "packages/base/src/lib/internals/types.ts",
+          "oldSha256": "56f62e49c3a1504981c523a1bee8764c45de90fb88f0fab5154bb7fc9d0c1bd3",
+          "currentSha256": "6a36f5f103ef940b8a32d63f0288d897096c846fb2361b4ef44733e9a899907e",
+          "bodyUnchanged": false
+        },
+        {
+          "source": "packages/base/src/lib/internals/use-button/useButton.svelte.ts",
+          "oldSha256": "ee71d7077c51139162152716111472919bf80b71e6e9cde62d15ff0b7ce56f59",
+          "currentSha256": "48750528371fbf08dd09478dd7fb8e2a2b9a19494bf1e779610e5b90668e16d0",
+          "bodyUnchanged": false
+        },
+        {
+          "source": "packages/base/src/lib/internals/useAnimationsFinished.ts",
+          "oldSha256": "0ae8873174969326a7ac09377ab019af5cd575bbdfde7df9118317d0ec1c1e30",
+          "currentSha256": "7abe48ef841cdfa7bf60b29045e9f0ffb7dbfb715b34351e8f6716131b2678f8",
+          "bodyUnchanged": false
+        },
+        {
+          "source": "packages/base/src/lib/internals/useBaseUiId.ts",
+          "oldSha256": "fc6d9571f2fc0f71d6f75a8f34eb981a3e09a9a038fbb9aa8b4b83c2cbb3aaa3",
+          "currentSha256": "3995d6f7b0b3b0c3bd734f8936778c7a95ec39cc1a701dc24cf49a1313414c92",
+          "bodyUnchanged": false
+        },
+        {
+          "source": "packages/base/src/lib/internals/useOpenChangeComplete.svelte.ts",
+          "oldSha256": "5e966dd1b10cbc1ed448d3583ca948a384d812f9e71afc1e128395485575931f",
+          "currentSha256": "b6174d1cc73b6ea3b6431cf87906a1acacc40b1d5c356a31124f92251d7fd038",
+          "bodyUnchanged": false
+        },
+        {
+          "source": "packages/base/src/lib/internals/useTransitionStatus.svelte.ts",
+          "oldSha256": "1236abbbe5a5e1dec17c77d51d704f3f03e48ecdd34f85a995e1dde00c60c54b",
+          "currentSha256": "7fc531ccff0a7dfd77703c0f0ee7e1148fc080960682469eafffbc627056fa9e",
+          "bodyUnchanged": false
+        },
+        {
+          "source": "packages/base/src/lib/merge-props/index.ts",
+          "oldSha256": "3ef38bba9b22f44bbcf69102d9556807f78897bedb69b410669c7b429971dd68",
+          "currentSha256": "3ef38bba9b22f44bbcf69102d9556807f78897bedb69b410669c7b429971dd68",
+          "bodyUnchanged": true
+        },
+        {
+          "source": "packages/base/src/lib/merge-props/mergeProps.ts",
+          "oldSha256": "7a097b833ae8854c5a26e34009adfb4e0297dd50f56ad5f0c1ac8afa8187f98b",
+          "currentSha256": "b2c30a6df68fe9744f250f0d0b8e21d89de133146724efd6eed7cea0fce0f8b9",
+          "bodyUnchanged": false
+        },
+        {
+          "source": "packages/base/src/lib/remote-forms/RemoteBooleanControl.svelte",
+          "oldSha256": "2ec88d564588075320eafa7929bdcf82f3930eb067632875a8052244e804c068",
+          "currentSha256": "de57abef7c767d7db61c8b33eec8857785d6e0af9747ff188e9e95342f923be2",
+          "bodyUnchanged": false
+        },
+        {
+          "source": "packages/base/src/lib/remote-forms/RemoteControl.svelte",
+          "oldSha256": "a2c3bf73969d002f99e7571df274a77d97d0603ec1d8c517901992ca58312527",
+          "currentSha256": "be1fd5aabf487da6bc0a3873dc8067432d87ba71a9b62e72db46bfc5c7d7d324",
+          "bodyUnchanged": false
+        },
+        {
+          "source": "packages/base/src/lib/remote-forms/RemoteFieldContext.ts",
+          "oldSha256": "10184201edc3e9b7b2fb34d6b6f85eec21e9c2e4087d7d305b14e2976f77f98e",
+          "currentSha256": "10184201edc3e9b7b2fb34d6b6f85eec21e9c2e4087d7d305b14e2976f77f98e",
+          "bodyUnchanged": true
+        },
+        {
+          "source": "packages/base/src/lib/remote-forms/RemoteFormContext.ts",
+          "oldSha256": "21588cc2de0950e70f6de6cd4a40a8b44bf27c7329bbb95699bad710caabb12c",
+          "currentSha256": "21588cc2de0950e70f6de6cd4a40a8b44bf27c7329bbb95699bad710caabb12c",
+          "bodyUnchanged": true
+        },
+        {
+          "source": "packages/base/src/lib/remote-forms/RemoteNativeControl.svelte",
+          "oldSha256": "8b7b061b7d5eb9767098431d4c3415b5446dbe5be74de175c03e98528547038c",
+          "currentSha256": "b73e75ffce6c0988a97cf5eba28d0cd18b2e71ae516a542477470c28d4fafc31",
+          "bodyUnchanged": false
+        },
+        {
+          "source": "packages/base/src/lib/remote-forms/RemoteRoot.svelte",
+          "oldSha256": "f71fbc4d572479119a9d30646d1011637d9c3f11a0ac8c2944b8b93747de200f",
+          "currentSha256": "fb93fdc7ada56ee62ab11d8af1578c9293f01ec64f889b51df3acf18ee4671dc",
+          "bodyUnchanged": false
+        },
+        {
+          "source": "packages/base/src/lib/remote-forms/RemoteTextControl.svelte",
+          "oldSha256": "46a8443f2c9dafaef3dee6635550a8d76a6a275e12e6311e2ab726f8dcfeaa7f",
+          "currentSha256": "41c6eb8f993a6e77bbb161b6b80e815546e647e7d40a3f8d1002eaeea9b5707b",
+          "bodyUnchanged": false
+        },
+        {
+          "source": "packages/base/src/lib/remote-forms/control.types.ts",
+          "oldSha256": "00cf77f4cb8b407b63862f741bb8249dcc32d6eaf78e99324a99f860c67c9874",
+          "currentSha256": "4d0ac64094e492054a072907145e762810c2c6e582d7cdb412b44b81352512b7",
+          "bodyUnchanged": false
+        },
+        {
+          "source": "packages/base/src/lib/remote-forms/index.parts.ts",
+          "oldSha256": "764ef610c588dec913e1e63478313ca70c4e4f3a488ca2f72da09b9a94485cb3",
+          "currentSha256": "764ef610c588dec913e1e63478313ca70c4e4f3a488ca2f72da09b9a94485cb3",
+          "bodyUnchanged": true
+        },
+        {
+          "source": "packages/base/src/lib/remote-forms/nativeControlValue.ts",
+          "oldSha256": "620730edb668abb6f6ccc07f880e7000c6456c7f710a0031490c7feb66aa7072",
+          "currentSha256": "55d6f47cdef93ff1cd8b2e910ce7508d58a0a0e6a90a1e68c71ccfb04bc80468",
+          "bodyUnchanged": false
+        },
+        {
+          "source": "packages/base/src/lib/remote-forms/runtime.ts",
+          "oldSha256": "8e0b21e16d8706f7eb835c61df55e2caed81e86be2837006364721cf89806782",
+          "currentSha256": "b141d1d73ee60659e4f6bb2db846520942971ce2d4eb6cd088b1c09693629fad",
+          "bodyUnchanged": false
+        },
+        {
+          "source": "packages/base/src/lib/remote-forms/types.ts",
+          "oldSha256": "d8acd95ea2deb62f2db7a96276100d6820c8e3fe262b4ccffa4dbc97c6956d33",
+          "currentSha256": "464d34eb6456a2d8741d1b261d0bbb1e23597d540068d1bcc329f745336f485f",
+          "bodyUnchanged": false
+        },
+        {
+          "source": "packages/base/src/lib/switch/types.ts",
+          "oldSha256": "03507c0edc0efd85c6ae7c4e6c07b2a2c34375de4dcbf454c7cee2414ac8c416",
+          "currentSha256": "3e165eebda0c4983d5d3cf7b4916e2e67dc35aadfe775cfbfec3a79946cedce0",
+          "bodyUnchanged": false
+        },
+        {
+          "source": "packages/base/src/lib/utils/CommonPopupDataAttributes.ts",
+          "oldSha256": "ed25a93130d096ba883e68999928e43dad59d09ae9dff52f0e8b68d5974abe15",
+          "currentSha256": "ed25a93130d096ba883e68999928e43dad59d09ae9dff52f0e8b68d5974abe15",
+          "bodyUnchanged": true
+        },
+        {
+          "source": "packages/base/src/lib/utils/CommonTriggerDataAttributes.ts",
+          "oldSha256": "199df87949923494ce8f3f6b3bfcc05e162744891afb12c033f5e7f9ba8f4f92",
+          "currentSha256": "199df87949923494ce8f3f6b3bfcc05e162744891afb12c033f5e7f9ba8f4f92",
+          "bodyUnchanged": true
+        },
+        {
+          "source": "packages/base/src/lib/utils/FocusGuard.svelte",
+          "oldSha256": "28a17af6cd0d817c9002e0e2bae206b33452fc6a0153ffb45f6f6f0b8f96c777",
+          "currentSha256": "ea8acf8bdda2c5faf3859db06b580c84604e7978e2496553b5fdc56dc80472b3",
+          "bodyUnchanged": false
+        },
+        {
+          "source": "packages/base/src/lib/utils/InternalBackdrop.svelte",
+          "oldSha256": "41a9ef1e56c442d73930a86015e08ff543b871475b26bd5f8da1936c3715822c",
+          "currentSha256": "0b29495ff7a71eab019e6667fd0f120f8f299e33e23c83c13cb1572ae465d88f",
+          "bodyUnchanged": false
+        },
+        {
+          "source": "packages/base/src/lib/utils/StyleDisableScrollbar.svelte",
+          "oldSha256": "cbff60c27259f4ffcdf915c2807e9f2bb5a9eb5b9dd54bacf1608901ec972c7d",
+          "currentSha256": "3b27cf497ab16aef7bb348b56b97c6deea735409c9a0fc00e7ab29d422fb8c48",
+          "bodyUnchanged": false
+        },
+        {
+          "source": "packages/base/src/lib/utils/dispatchClickWithModifiers.ts",
+          "oldSha256": "60aab2aa25eb9c0aeaa0a57fc8ccd37aab747577ea22f019aff163946cabd373",
+          "currentSha256": "fefaa5e71f09eeb27d246b5d1eafef16e2b62f6dd72414528ef7f917c125909a",
+          "bodyUnchanged": false
+        },
+        {
+          "source": "packages/base/src/lib/utils/popupStateMapping.ts",
+          "oldSha256": "07a2ecdd556f8e1371d395f7749cbfb1bff445b4f07b321d8e7d8ecf5393350d",
+          "currentSha256": "07a2ecdd556f8e1371d395f7749cbfb1bff445b4f07b321d8e7d8ecf5393350d",
+          "bodyUnchanged": true
+        },
+        {
+          "source": "packages/base/src/lib/utils/popups/popupStoreUtils.svelte.ts",
+          "oldSha256": "3f80c77e00b2b8d73068a48477096f30f174c433d804b790813894f6624f016e",
+          "currentSha256": "13b61b426eed8a0875580aa2a8e15a8caf5c7110e915174bf4d613f069f7b01a",
+          "bodyUnchanged": false
+        },
+        {
+          "source": "packages/base/src/lib/utils/popups/popupTriggerMap.svelte.ts",
+          "oldSha256": "812f1d6cb454c0f5236cda69919932ccfc569611050c19fe8198617beacf6b2c",
+          "currentSha256": "812f1d6cb454c0f5236cda69919932ccfc569611050c19fe8198617beacf6b2c",
+          "bodyUnchanged": true
+        },
+        {
+          "source": "packages/base/src/lib/utils/popups/store.ts",
+          "oldSha256": "f10a365441f28fa1e93b1d1cc871349a0555944e3fd937344b3415c3d32a87d3",
+          "currentSha256": "6b9e93bb4642ec9ddf3b7721d909e0b8baf32871b5070b9831a3c3f464ca5f69",
+          "bodyUnchanged": false
+        },
+        {
+          "source": "packages/base/src/lib/utils/resolveClassName.ts",
+          "oldSha256": "b22aead630ca531851a08a63e5165e64ff8cdc9de5765ff20997f578071cb108",
+          "currentSha256": "b22aead630ca531851a08a63e5165e64ff8cdc9de5765ff20997f578071cb108",
+          "bodyUnchanged": true
+        },
+        {
+          "source": "packages/base/src/lib/utils/resolveRef.ts",
+          "oldSha256": "ac85daa436a61800f824aa34ea08ff4cbe492c86c12be327de957a381acddaa7",
+          "currentSha256": "d8500030750c389af091f3f4f43b100f675772f3d22b6f1699a29db80d564d0a",
+          "bodyUnchanged": false
+        },
+        {
+          "source": "packages/base/src/lib/utils/resolveStyle.ts",
+          "oldSha256": "cdc420598c1ae4b75a32e7f47ac8cc7f4fe444d4f006e2736f528951fb932977",
+          "currentSha256": "cdc420598c1ae4b75a32e7f47ac8cc7f4fe444d4f006e2736f528951fb932977",
+          "bodyUnchanged": true
+        },
+        {
+          "source": "packages/base/src/lib/utils/scrollEdges.ts",
+          "oldSha256": "3530bb0ed60d37c6f6f52316ec66c84acc8c00dae71375274d0b6b484fe669b3",
+          "currentSha256": "396736be42390623473fb5382375b85cf0072dd67164c2dcacc48530a1eb1c2c",
+          "bodyUnchanged": false
+        },
+        {
+          "source": "packages/base/src/lib/utils/styles.ts",
+          "oldSha256": "4044be464022d400fca41b90f6544962d2990dc90f0f93e56d29fd1d7a25218d",
+          "currentSha256": "4044be464022d400fca41b90f6544962d2990dc90f0f93e56d29fd1d7a25218d",
+          "bodyUnchanged": true
+        },
+        {
+          "source": "packages/base/src/lib/utils/useAnchoredPopupScrollLock.svelte.ts",
+          "oldSha256": "583b97998d16e0b1aef3c44fdbef154fa848d8f8385a07dc21aa56b3c8470dce",
+          "currentSha256": "21a07726eed55814307acd741228214b8ebc411a0dcbddcf1d32a13ccdc45060",
+          "bodyUnchanged": false
+        },
+        {
+          "source": "packages/base/src/lib/utils/useFocusableWhenDisabled.ts",
+          "oldSha256": "8c52b8e41b8801cd46d4232802c5ed86588cb4e8008f814741970246b378742c",
+          "currentSha256": "f30838a56f41ea3672d26627fb42145d016e3b54b512c4c381e6aafb05431db2",
+          "bodyUnchanged": false
+        },
+        {
+          "source": "packages/base/src/lib/utils/useOpenInteractionType.svelte.ts",
+          "oldSha256": "1e226c9fd96e234f73f7c8889e233455f8e4b0951f1e75059e3e17ac812550e2",
+          "currentSha256": "92fb932de384aef85dccc45311f5920dabbd8897584a656d27a5bcd8a012a966",
+          "bodyUnchanged": false
+        },
+        {
+          "source": "packages/base/src/lib/utils/usePositioner.svelte.ts",
+          "oldSha256": "59422a6bc1fb88a6027ada39f53382730d151a8e9958e14a2202514ce95b192d",
+          "currentSha256": "835ae5ad14e38b0e931a1e878783af644a023704816022c0c2985978073145bd",
+          "bodyUnchanged": false
+        },
+        {
+          "source": "packages/base/src/lib/utils/useRegisteredLabelId.svelte.ts",
+          "oldSha256": "aeca27deeaadde0c42a027ac7f4788e2a3c62d533db235cada05dd9a70e1e1e2",
+          "currentSha256": "7d7c44fce0e1b01178ae76dfeb95d59907a5ffa402c49147be554a9c582addec",
+          "bodyUnchanged": false
+        }
+      ]
+    },
+    "proposed-native-fixture-graph.json.gz": {
+      "previousModules": 201,
+      "currentModules": 199,
+      "removed": [
+        {
+          "source": "packages/base/src/lib/internals/RenderElement.svelte",
+          "sha256": "bbc7cb9be3a6d554f07090d250923b06b5581b29f190d48d874b62698f1cdef5"
+        },
+        {
+          "source": "packages/base/src/lib/internals/field-register-control/useFieldControlRegistration.svelte.ts",
+          "sha256": "2fbe1f3900ce42aff6d9f65e489b9dcac76a90e34c2be6dcd75c4f5d5bc887fe"
+        },
+        {
+          "source": "packages/base/src/lib/internals/nativeRefAttachment.ts",
+          "sha256": "564718b20326d9f5e18bf75d30b3905ce2f93a093fbdfbb7027928e1fd20e319"
+        },
+        {
+          "source": "packages/base/src/lib/internals/useRenderElement.ts",
+          "sha256": "a8fb8a006629431ae42697dbbd9ea1177d9ce756bf953105c2e5f3eb5ed5a1e9"
+        },
+        {
+          "source": "packages/base/src/lib/internals/useValueChanged.svelte.ts",
+          "sha256": "340a8f5ed100094c283f167c8a8a3e196708cdf238eeadc93f148ee31c4274c9"
+        },
+        {
+          "source": "packages/base/src/lib/utils/addEventListener.ts",
+          "sha256": "77880d75a5c8c5ac2d924e69d7cc7662c616b953d4895c8e6a24de53de4502bf"
+        },
+        {
+          "source": "packages/base/src/lib/utils/areArraysEqual.ts",
+          "sha256": "c8709b6f9efb30e3257def214aeae097b131b112b74bd1bea965e201efb15a44"
+        },
+        {
+          "source": "packages/base/src/lib/utils/createLogOnce.ts",
+          "sha256": "a3c52188a495927ef9b49765ca1e70bc384b37b68a5c896ca86df15852a279b1"
+        },
+        {
+          "source": "packages/base/src/lib/utils/empty.ts",
+          "sha256": "eb679c977169a61764f98516194102fed5b70b6157992b34029dcd39af467d7b"
+        },
+        {
+          "source": "packages/base/src/lib/utils/error.ts",
+          "sha256": "de9eeee73db42c056c110eb94f3aef8b51ae3003e97d5140bfaf876bdde52c69"
+        },
+        {
+          "source": "packages/base/src/lib/utils/getDefaultFormSubmitter.ts",
+          "sha256": "15c7fb04d8bacba3abc5f4f2329a3c083892e9169689a2eab60104c3517688e4"
+        },
+        {
+          "source": "packages/base/src/lib/utils/isElementDisabled.ts",
+          "sha256": "c2f6141d744cb16e458208163d616cefa465b8da0445658c4d9282a05a1b616e"
+        },
+        {
+          "source": "packages/base/src/lib/utils/mergeCleanups.ts",
+          "sha256": "28eb97759c815e7a3edcb4a5ac4464473790ae9294bda5a66ba268bca8efedcb"
+        },
+        {
+          "source": "packages/base/src/lib/utils/mergeObjects.ts",
+          "sha256": "1e6cfa2be20c639f5ce6f8b0b6cc447da3413bbbc6750a5b1ab03f5810d81746"
+        },
+        {
+          "source": "packages/base/src/lib/utils/owner.ts",
+          "sha256": "4f32738229316fe875cf72e949caa4aa7d2fcdf924a2bd5b7f01e88ca5424185"
+        },
+        {
+          "source": "packages/base/src/lib/utils/platform/engine.ts",
+          "sha256": "e4745bcc586212a32cde2f7d206cc1aa4df86b8a29301f8d15cf3cd88996a987"
+        },
+        {
+          "source": "packages/base/src/lib/utils/platform/env.ts",
+          "sha256": "dbd7cc1369986d370094b986c44b1bce3c10eba1f792f0e5c3e99c071e00eb9d"
+        },
+        {
+          "source": "packages/base/src/lib/utils/platform/index.ts",
+          "sha256": "c9c1174c0f82f01033187e382b461370123d356d8e14901a9ca7d85dbd2ea63c"
+        },
+        {
+          "source": "packages/base/src/lib/utils/platform/media-query.ts",
+          "sha256": "5e91ea2589962018778ad88498ff9acd432a5244fe37ee922d0a6014b1fb7ed9"
+        },
+        {
+          "source": "packages/base/src/lib/utils/platform/os.ts",
+          "sha256": "456f2f5814e890fb12d899c1cc2f08566529216fd8f6d40a9a8e5846b2c9c3d6"
+        },
+        {
+          "source": "packages/base/src/lib/utils/platform/parts.ts",
+          "sha256": "5382169dc9803fde93bc85e33062cbc85d7cdc0bf754d1a7f6f21eb2b4dcac29"
+        },
+        {
+          "source": "packages/base/src/lib/utils/platform/screen-reader.ts",
+          "sha256": "c43ebce8b6557becf984c0ae7f36395da615110e7f878bab1c0dfd476ceb19a7"
+        },
+        {
+          "source": "packages/base/src/lib/utils/platform/shared.ts",
+          "sha256": "28621a4723495ed9f1370c09b12480a6f488f19e59c70e78524325fc6e080db2"
+        },
+        {
+          "source": "packages/base/src/lib/utils/shadowDom.ts",
+          "sha256": "a5bfa768f801af70e62c012459ddd2b4289a3d2a27aa79c5e9e1414a50395ed1"
+        },
+        {
+          "source": "packages/base/src/lib/utils/store/Store.svelte.ts",
+          "sha256": "cb14e7e3e12bffcb353761c48bc275e41949bad5706860f0d877ea3344e0b600"
+        },
+        {
+          "source": "packages/base/src/lib/utils/store/SvelteStore.svelte.ts",
+          "sha256": "1a3fe2b85c9b4c3dc0333f43f9988bbfa01e39eb5972b84b3648294199e111a2"
+        },
+        {
+          "source": "packages/base/src/lib/utils/useAnimationFrame.ts",
+          "sha256": "4de538634e157740822dc1d3896da18ea84c6a706fe79f28fa6b9e7d380038ad"
+        },
+        {
+          "source": "packages/base/src/lib/utils/useControlled.svelte.ts",
+          "sha256": "f74b9a8aa08b323835613037c871a6b85c938555c788c0a8ff51825c1863fd35"
+        },
+        {
+          "source": "packages/base/src/lib/utils/useEnhancedClickHandler.ts",
+          "sha256": "6a045d6b74a7851d3446200f55711ffc1dcc22449a2e92680cdf328750a436d5"
+        },
+        {
+          "source": "packages/base/src/lib/utils/useId.ts",
+          "sha256": "126f5436587c25942d9b12cf2ffbf353c7b87690bf37c0795da7ee5e14244e90"
+        },
+        {
+          "source": "packages/base/src/lib/utils/useIsoLayoutEffect.svelte.ts",
+          "sha256": "0d24dd22dad18fc54341aaedb964a25829ae62322f10bf110a4fd8bde65dd1f3"
+        },
+        {
+          "source": "packages/base/src/lib/utils/useMergedRefs.ts",
+          "sha256": "d9420f3db2872a32aca95c7c32db1342da4df6595df68a17707f55a27ea41fe2"
+        },
+        {
+          "source": "packages/base/src/lib/utils/useOnMount.ts",
+          "sha256": "a7ba4007eff27b601eebcb76755886a23a4dd8548a54f67e15fa1cd648e0e695"
+        },
+        {
+          "source": "packages/base/src/lib/utils/useRefWithInit.ts",
+          "sha256": "998166cdfed66790af4659ac61d8b36f49f1aa4c35a66bb532f6239771271036"
+        },
+        {
+          "source": "packages/base/src/lib/utils/useScrollLock.svelte.ts",
+          "sha256": "414a9408f41af2df8abfe984a0a1c6a667a592bb58467a977d8618e7e8bd5489"
+        },
+        {
+          "source": "packages/base/src/lib/utils/useStableCallback.ts",
+          "sha256": "b790a02da99e0e9365bc05d35a434ef37dcffb2a4db8186b1327b949a994d05e"
+        },
+        {
+          "source": "packages/base/src/lib/utils/useTimeout.ts",
+          "sha256": "a04448de8715b8728243ee6e33572c57bc5b151674628304f6c3906966738c78"
+        },
+        {
+          "source": "packages/base/src/lib/utils/visuallyHidden.ts",
+          "sha256": "8f49185df1c0536608090368454cc3d30a3bfc1991b23a4b5e5239184ead8020"
+        }
+      ],
+      "added": [
+        {
+          "source": "packages/base/src/lib/dialog/handle.svelte.ts",
+          "sha256": "369b9344e3947c68fa16a1b7616c26404d583a79e3e375bda486c613d0ec3681"
+        },
+        {
+          "source": "packages/base/src/lib/dialog/store/DialogHandle.svelte.ts",
+          "sha256": "a5cb05869d04ff9e87dce1422599c86a4f2974b88049a73b9c7f12383b83aca3"
+        },
+        {
+          "source": "packages/base/src/lib/dialog/store/DialogStore.svelte.ts",
+          "sha256": "d9d83c8c127a97a2d79a072b8998eafff242070dbea03d686fe774151741e343"
+        },
+        {
+          "source": "packages/base/src/lib/floating-ui/components/PortalHost.svelte",
+          "sha256": "ad42ba3985afa2e949cddb04f346c603411c45720d0c924c6e151d0e7d2e2d48"
+        },
+        {
+          "source": "packages/base/src/lib/internals/ValueChanged.svelte.ts",
+          "sha256": "f169e9eec98d817327dd31fc0c39c019173cdb64fac3350b898004222107e54e"
+        },
+        {
+          "source": "packages/base/src/lib/internals/field-register-control/FieldControlRegistration.svelte.ts",
+          "sha256": "86fd30d4dc3ab9fe9892c287a214e82e3fdb34c9e0ccff4e294dbb4d2d039db3"
+        },
+        {
+          "source": "packages/base/src/lib/internals/mergeComponentProps.ts",
+          "sha256": "803da5cb2c52515e1e68e16b66b61060c31ca03d183bb09d928b601bbb70cab7"
+        },
+        {
+          "source": "packages/utils/src/lib/Controlled.svelte.ts",
+          "sha256": "3bb64556d51b6cd471e21e2db4c54179b3eb072757f043f7a4489a4134283304"
+        },
+        {
+          "source": "packages/utils/src/lib/addEventListener.ts",
+          "sha256": "77880d75a5c8c5ac2d924e69d7cc7662c616b953d4895c8e6a24de53de4502bf"
+        },
+        {
+          "source": "packages/utils/src/lib/areArraysEqual.ts",
+          "sha256": "c8709b6f9efb30e3257def214aeae097b131b112b74bd1bea965e201efb15a44"
+        },
+        {
+          "source": "packages/utils/src/lib/createLogOnce.ts",
+          "sha256": "f9d8a63ce89aa2d0b31a8d88affb4ff7c49528f12152a9dc99223ee24dca90c9"
+        },
+        {
+          "source": "packages/utils/src/lib/empty.ts",
+          "sha256": "00dc8f5cccebba670a7c7f2a78a66f3a4c008e8fec496badfc909a2bb8664151"
+        },
+        {
+          "source": "packages/utils/src/lib/error.ts",
+          "sha256": "ebbe57877f3f8c77c83631ed4042bd288d13f98fb93afd5390128dbd0d7cec27"
+        },
+        {
+          "source": "packages/utils/src/lib/getDefaultFormSubmitter.ts",
+          "sha256": "f4ea7f1a3eaa207bdab550567cf326c924d069c5148f1c24e91ccd192a8c05b8"
+        },
+        {
+          "source": "packages/utils/src/lib/isElementDisabled.ts",
+          "sha256": "c2f6141d744cb16e458208163d616cefa465b8da0445658c4d9282a05a1b616e"
+        },
+        {
+          "source": "packages/utils/src/lib/mergeCleanups.ts",
+          "sha256": "28eb97759c815e7a3edcb4a5ac4464473790ae9294bda5a66ba268bca8efedcb"
+        },
+        {
+          "source": "packages/utils/src/lib/mergeObjects.ts",
+          "sha256": "1e6cfa2be20c639f5ce6f8b0b6cc447da3413bbbc6750a5b1ab03f5810d81746"
+        },
+        {
+          "source": "packages/utils/src/lib/owner.ts",
+          "sha256": "759c607acc1a103b2d795840051555671fe65fd889dae7694606b9069803f986"
+        },
+        {
+          "source": "packages/utils/src/lib/platform/engine.ts",
+          "sha256": "e4745bcc586212a32cde2f7d206cc1aa4df86b8a29301f8d15cf3cd88996a987"
+        },
+        {
+          "source": "packages/utils/src/lib/platform/env.ts",
+          "sha256": "dbd7cc1369986d370094b986c44b1bce3c10eba1f792f0e5c3e99c071e00eb9d"
+        },
+        {
+          "source": "packages/utils/src/lib/platform/index.ts",
+          "sha256": "c9c1174c0f82f01033187e382b461370123d356d8e14901a9ca7d85dbd2ea63c"
+        },
+        {
+          "source": "packages/utils/src/lib/platform/media-query.ts",
+          "sha256": "5e91ea2589962018778ad88498ff9acd432a5244fe37ee922d0a6014b1fb7ed9"
+        },
+        {
+          "source": "packages/utils/src/lib/platform/os.ts",
+          "sha256": "456f2f5814e890fb12d899c1cc2f08566529216fd8f6d40a9a8e5846b2c9c3d6"
+        },
+        {
+          "source": "packages/utils/src/lib/platform/parts.ts",
+          "sha256": "5382169dc9803fde93bc85e33062cbc85d7cdc0bf754d1a7f6f21eb2b4dcac29"
+        },
+        {
+          "source": "packages/utils/src/lib/platform/screen-reader.ts",
+          "sha256": "c43ebce8b6557becf984c0ae7f36395da615110e7f878bab1c0dfd476ceb19a7"
+        },
+        {
+          "source": "packages/utils/src/lib/platform/shared.ts",
+          "sha256": "28621a4723495ed9f1370c09b12480a6f488f19e59c70e78524325fc6e080db2"
+        },
+        {
+          "source": "packages/utils/src/lib/shadowDom.ts",
+          "sha256": "2cb79a4a3ccbe16581be29f7958d03bce459c5cf8cad8ae4b9f08ab981d42a2a"
+        },
+        {
+          "source": "packages/utils/src/lib/store/Store.svelte.ts",
+          "sha256": "289f1c151106f981843140b9d508d300597ee1f5a90437dca446738b861cad3c"
+        },
+        {
+          "source": "packages/utils/src/lib/store/SvelteStore.svelte.ts",
+          "sha256": "472b01d7a463c05348b85c85a413b70c55b950972f12b144ce632e4ab775102c"
+        },
+        {
+          "source": "packages/utils/src/lib/store/index.ts",
+          "sha256": "996a1d7a865fe2ce8a362041ced6b58a7ef139d4d796773971376e5fec0d52d7"
+        },
+        {
+          "source": "packages/utils/src/lib/useAnimationFrame.ts",
+          "sha256": "ec054003588b92e4223c6eea228388ae6395bf1895fb3aaf32a02706249652ce"
+        },
+        {
+          "source": "packages/utils/src/lib/useEnhancedClickHandler.ts",
+          "sha256": "6a045d6b74a7851d3446200f55711ffc1dcc22449a2e92680cdf328750a436d5"
+        },
+        {
+          "source": "packages/utils/src/lib/useId.ts",
+          "sha256": "584864eb7f538f5adc40ab128461db75c960984c51265aead1ca3821e4bf879a"
+        },
+        {
+          "source": "packages/utils/src/lib/useScrollLock.svelte.ts",
+          "sha256": "bea63beb673cffb2bb25fcb5491b34f9724cb03453c1014273b501da4c5dfc35"
+        },
+        {
+          "source": "packages/utils/src/lib/useTimeout.ts",
+          "sha256": "06130c6374e14371471cc3af14638ddb3cadb514bb985fcbc4b8a7a606008b7f"
+        },
+        {
+          "source": "packages/utils/src/lib/visuallyHidden.ts",
+          "sha256": "8f49185df1c0536608090368454cc3d30a3bfc1991b23a4b5e5239184ead8020"
+        }
+      ],
+      "retained": [
+        {
+          "source": "packages/base/src/lib/checkbox-group/CheckboxGroupContext.ts",
+          "oldSha256": "7e70df699399699bef7aada56b6891899ee7dd1db3084a9cf1c94d0c2f5f2e1d",
+          "currentSha256": "7e70df699399699bef7aada56b6891899ee7dd1db3084a9cf1c94d0c2f5f2e1d",
+          "bodyUnchanged": true
+        },
+        {
+          "source": "packages/base/src/lib/checkbox-group/types.ts",
+          "oldSha256": "11f60dbbc9279270d57c957da0a587b4328c6a50b6538f11a3cbccb1808d2fa2",
+          "currentSha256": "438596822db730d0d77a2c6c08f6782690659e44f34793651cbdfd95457f24de",
+          "bodyUnchanged": false
+        },
+        {
+          "source": "packages/base/src/lib/checkbox-group/useCheckboxGroupParent.svelte.ts",
+          "oldSha256": "8adf195142cc9b97f5c11f32946562d3c3b42cbf7f67d6253d601550f96977b8",
+          "currentSha256": "45bb27533df78c0e2491f8199a05e3fc6b9878869db932bb1cdc20a66e809168",
+          "bodyUnchanged": false
+        },
+        {
+          "source": "packages/base/src/lib/checkbox/root/CheckboxRoot.svelte",
+          "oldSha256": "36fec4ac980a7ad09bb5614726f3fe7479dbc48cdec293641a90a809fa78e7d8",
+          "currentSha256": "7da8d3e7a782fc08271abbd0a531c0ae34d19e2055d51f811a2e82dc6ad67143",
+          "bodyUnchanged": false
+        },
+        {
+          "source": "packages/base/src/lib/checkbox/root/CheckboxRootContext.ts",
+          "oldSha256": "fbb7e3014465570926acda685475f426319f920a3d224017f5aa7d883a2177cd",
+          "currentSha256": "fbb7e3014465570926acda685475f426319f920a3d224017f5aa7d883a2177cd",
+          "bodyUnchanged": true
+        },
+        {
+          "source": "packages/base/src/lib/checkbox/root/CheckboxRootDataAttributes.ts",
+          "oldSha256": "fe19991f3e1ae6b1f9f702898a50f3d287a10e4892b64252ce16ed7bc367c19c",
+          "currentSha256": "fe19991f3e1ae6b1f9f702898a50f3d287a10e4892b64252ce16ed7bc367c19c",
+          "bodyUnchanged": true
+        },
+        {
+          "source": "packages/base/src/lib/checkbox/types.ts",
+          "oldSha256": "d5dd1320ca6d2b45cfb6bc671c0873aae5ad495d32243a791225bbe96c2d5f17",
+          "currentSha256": "1ff2fd24c72f6fb9ce69e409e906283f89978bad3d13a1b8b5680e2e81f33d55",
+          "bodyUnchanged": false
+        },
+        {
+          "source": "packages/base/src/lib/checkbox/utils/getCheckboxStateAttributesMapping.ts",
+          "oldSha256": "6d59ba1f1e83378e7a8ce1be81143afd51df7e299f20808ca24c3421b494dc97",
+          "currentSha256": "6d59ba1f1e83378e7a8ce1be81143afd51df7e299f20808ca24c3421b494dc97",
+          "bodyUnchanged": true
+        },
+        {
+          "source": "packages/base/src/lib/checkbox/utils/useEnterSubmit.svelte.ts",
+          "oldSha256": "dcceb14ed7d2246a76de528d74260fd5b2b5a6ded04e5eee90b4c95d703cb467",
+          "currentSha256": "47a12f9d65ba32f7c9babcfb56f6b171637114df64f58b922b444e88fd614f8d",
+          "bodyUnchanged": false
+        },
+        {
+          "source": "packages/base/src/lib/dialog/types.ts",
+          "oldSha256": "fd700772ea1016359bc934759c01d168caa2914ff136733f30f9c108d28ae931",
+          "currentSha256": "d2b80a17a890020ddb9e7ba36c2cf2106e1677b76c722617575ef81a2728c567",
+          "bodyUnchanged": false
+        },
+        {
+          "source": "packages/base/src/lib/direction-provider/context.ts",
+          "oldSha256": "e400850423b49f956342a6efac2d8dcf2275365d23220564b6cefb8b44df47f8",
+          "currentSha256": "e400850423b49f956342a6efac2d8dcf2275365d23220564b6cefb8b44df47f8",
+          "bodyUnchanged": true
+        },
+        {
+          "source": "packages/base/src/lib/direction-provider/types.ts",
+          "oldSha256": "a56af048e882453755ad2948782af4f2f832903e031d4812b8da9fc5f4b82aae",
+          "currentSha256": "a56af048e882453755ad2948782af4f2f832903e031d4812b8da9fc5f4b82aae",
+          "bodyUnchanged": true
+        },
+        {
+          "source": "packages/base/src/lib/field/Control.svelte",
+          "oldSha256": "ac623af778620dd68ea7c9234ffd9c27eb22b3406e1ee9fda4d973e823532101",
+          "currentSha256": "cc39f3bc50f55f6d8e4841cc7e66224f4abf712c35f7a7c09f094a9e4b24baef",
+          "bodyUnchanged": false
+        },
+        {
+          "source": "packages/base/src/lib/field/Description.svelte",
+          "oldSha256": "0581056a31a173472dc8f22ebfd599e74bada6250520d6d4cb82b22aba48fe0b",
+          "currentSha256": "cc25f6c0f6ef569ead6d9ce87e932e3eac14d4f534545157f51456d606914e38",
+          "bodyUnchanged": false
+        },
+        {
+          "source": "packages/base/src/lib/field/Error.svelte",
+          "oldSha256": "4b8a0755185330e12acf8dacc050ffae8f7b30f744aeebb54aa1c2095b09d6f3",
+          "currentSha256": "05739931c12316934d01ef80ccf02a4939bd5e1d3dcf97d84d571aad3617f5f9",
+          "bodyUnchanged": false
+        },
+        {
+          "source": "packages/base/src/lib/field/ErrorMessageList.svelte",
+          "oldSha256": "27bec6f8217118288cddf98c3e00c4df7efd3934c7ab3f7126cb6f23a4d601c4",
+          "currentSha256": "b8722a77324aba26360e3cb1e8971a61a0ca34bda7859af1bf44bdc392529df0",
+          "bodyUnchanged": false
+        },
+        {
+          "source": "packages/base/src/lib/field/Item.svelte",
+          "oldSha256": "737b50c83d7fb7d9b68567a062eb995c1f98664a09d85a49d2b5ba1938f07fdd",
+          "currentSha256": "b8f4def6b497b29d678bf2045b3af9d9e5d2c0fed815bd8ba3b162ec383a96fe",
+          "bodyUnchanged": false
+        },
+        {
+          "source": "packages/base/src/lib/field/Label.svelte",
+          "oldSha256": "c60260581b9295db7aede4b558b02e4fd0d92ff52f3a9e8d4da5143a2ead396c",
+          "currentSha256": "ec10508ee1ded016697fa318440cabfe8f0befe3763163b080fddbe5848d5b85",
+          "bodyUnchanged": false
+        },
+        {
+          "source": "packages/base/src/lib/field/Root.svelte",
+          "oldSha256": "1a505de7682ed523d1e2568ca19a2cf7116fc8a992b7d3de8b50eef1c1e43f54",
+          "currentSha256": "8ed4fc7b455b82d02ec3c02468a524157cc59b92b8ab8c381480351068e7a1da",
+          "bodyUnchanged": false
+        },
+        {
+          "source": "packages/base/src/lib/field/Validity.svelte",
+          "oldSha256": "cd4f22fb12d808cfe1106570579811bc11edcae63d22df48fee24a5946a724a1",
+          "currentSha256": "e752d61d80ed73a00c06945c6b516e1feff8a690c7fccd6991d9291c7fd1f17c",
+          "bodyUnchanged": false
+        },
+        {
+          "source": "packages/base/src/lib/field/index.parts.ts",
+          "oldSha256": "97ccc3903310c1264fefd80e4f80583358d43293c33065d6cec76e87bf6eb647",
+          "currentSha256": "97ccc3903310c1264fefd80e4f80583358d43293c33065d6cec76e87bf6eb647",
+          "bodyUnchanged": true
+        },
+        {
+          "source": "packages/base/src/lib/field/item/FieldItemContext.ts",
+          "oldSha256": "f1a84a8e7fd46dce276cf16590fc2c6919f3167a12ab1fbff2ad86e64ff2eaed",
+          "currentSha256": "fac181a267627f7a70d0a81413190a7c9a38dc63c43ba9fbc50ef12020369dde",
+          "bodyUnchanged": false
+        },
+        {
+          "source": "packages/base/src/lib/field/props.ts",
+          "oldSha256": "ed3d25745d68f38c06c0f21ae46e9457147a07503e34ae52fd17dee7256d1357",
+          "currentSha256": "ced41ab415850bbdb26723487d6a6a1661e4c75c338099e12c43ddbcd8594f62",
+          "bodyUnchanged": false
+        },
+        {
+          "source": "packages/base/src/lib/field/root/FieldRootInner.svelte",
+          "oldSha256": "ad785d1c6d42b8346151701855609eaf195deae3843f8d79091d131b415e83b3",
+          "currentSha256": "c39ec8f17f747455ea21ea72c6d6df18b697a0707226ce324f9d3d58a2e290b4",
+          "bodyUnchanged": false
+        },
+        {
+          "source": "packages/base/src/lib/field/root/useFieldValidation.svelte.ts",
+          "oldSha256": "93fd341dc439f2272b06a8857eba538900db8372306efcc6ba4b6b64d073fee1",
+          "currentSha256": "b41d59b72a6a927635962710c48266b6a72144b5f1f0b56448281728b3e28f81",
+          "bodyUnchanged": false
+        },
+        {
+          "source": "packages/base/src/lib/field/types.ts",
+          "oldSha256": "25fd4710edd0d877d62c4e8874314a2c36344ad346085d5e75655ebbedf051dc",
+          "currentSha256": "a79a5aadac1a83ea34aea340ac80999570fe6faa859475573e9532d729dba5b7",
+          "bodyUnchanged": false
+        },
+        {
+          "source": "packages/base/src/lib/field/utils/getCombinedFieldValidityData.ts",
+          "oldSha256": "f5c0e65cc854d8bb6446d2792142ecc64d603a469a576dd0fbc5f3de6bc61b7e",
+          "currentSha256": "f5c0e65cc854d8bb6446d2792142ecc64d603a469a576dd0fbc5f3de6bc61b7e",
+          "bodyUnchanged": true
+        },
+        {
+          "source": "packages/base/src/lib/fieldset/root/FieldsetRootContext.ts",
+          "oldSha256": "f5b4b87e5802c40a428e4df9463e84fd36cb649ee3cdfe6f0b153b9721e6ce6c",
+          "currentSha256": "1c32118a1fc683230b68f04df1e17550124710a64b7926da31c3985fdec10a4a",
+          "bodyUnchanged": false
+        },
+        {
+          "source": "packages/base/src/lib/floating-ui/components/FloatingFocusManager.svelte",
+          "oldSha256": "02e830d2f21614164344019f3bdd4420c4e0c58ddf49b12023c2202fcc236da8",
+          "currentSha256": "88b47ec0d8e7254d4ea022e5c05d272798d9e735c65e84c9ddfef38b8bd24342",
+          "bodyUnchanged": false
+        },
+        {
+          "source": "packages/base/src/lib/floating-ui/components/FloatingPortal.svelte",
+          "oldSha256": "8111a018d91b947a0468565c84a636f6abb70196309da0a95fa5a4e86b3705b1",
+          "currentSha256": "d9360eddffb4f2f685ea80e8bfee84ed519ff348c1c5db9bf56bc254fd9e132d",
+          "bodyUnchanged": false
+        },
+        {
+          "source": "packages/base/src/lib/floating-ui/components/FloatingPortalContext.ts",
+          "oldSha256": "897245ee2d655ee10875e45707bca62d75b11170e2cb5b8a575c6a2848533833",
+          "currentSha256": "022afce07c643e0ee4a9bc2177ff8feb41fa5d6a1b63774eb682dd06d34494d5",
+          "bodyUnchanged": false
+        },
+        {
+          "source": "packages/base/src/lib/floating-ui/components/FloatingRootStore.svelte.ts",
+          "oldSha256": "0f82be0f8c5c542753e3fc8bf5356066c20b71e2618b3decfa3698f5b91d5388",
+          "currentSha256": "8840439ae903d174103880ac84185b4ccb7d916761ac2e3e96b7f48a88f245d3",
+          "bodyUnchanged": false
+        },
+        {
+          "source": "packages/base/src/lib/floating-ui/components/FloatingTree.svelte.ts",
+          "oldSha256": "40e508a5e0b3facfcf178890bb28a79e753d8e713d2e51c514724d4243a32027",
+          "currentSha256": "4ba1a45eb3e58c4c1cdb7fc68d48c59da7ad7a5cbd5f9be7319c22af1ca60d8a",
+          "bodyUnchanged": false
+        },
+        {
+          "source": "packages/base/src/lib/floating-ui/components/FloatingTreeStore.ts",
+          "oldSha256": "eb351b05f9f15cd7acebfe9b093cb42eb07c27073f41bd670633c94c41effdd3",
+          "currentSha256": "eb351b05f9f15cd7acebfe9b093cb42eb07c27073f41bd670633c94c41effdd3",
+          "bodyUnchanged": true
+        },
+        {
+          "source": "packages/base/src/lib/floating-ui/components/PortalContent.svelte",
+          "oldSha256": "094ca8f25b2d4622ed70767b472ad6cecc481ae92470caa67385c72a3551f603",
+          "currentSha256": "41cf8f68f099889990ab71c57ca1c5de2e1db746e2b54639fef873d9335c6600",
+          "bodyUnchanged": false
+        },
+        {
+          "source": "packages/base/src/lib/floating-ui/components/createFloatingFocusManager.svelte.ts",
+          "oldSha256": "c0d9f77faa3fa4fb8f78d01d958fdbc60ed960b043edfeb967f0b138ba367a9f",
+          "currentSha256": "c6a2f4dc069dd6c8e663abaa706f7e65db32aee8a533bb2b2af02623ff15de1b",
+          "bodyUnchanged": false
+        },
+        {
+          "source": "packages/base/src/lib/floating-ui/hooks/useClick.svelte.ts",
+          "oldSha256": "399f7e0b8e6a6cc0b5fe5355c88b1b10f3dd365f832ffe3a197b6f633b20aade",
+          "currentSha256": "3e8be914e6d27a0edb6efc9516de0ce9e793b4b32d127b538402c5551d6d4aeb",
+          "bodyUnchanged": false
+        },
+        {
+          "source": "packages/base/src/lib/floating-ui/hooks/useDismiss.svelte.ts",
+          "oldSha256": "bb2d0d06053246d50d15e8744efc322ed9413573e493a3d8dfba96f90e01d6ae",
+          "currentSha256": "ae4860fe2a3f4ea5686bccb2b425bf9c61a676b92072da7b6f733d69dc8afd51",
+          "bodyUnchanged": false
+        },
+        {
+          "source": "packages/base/src/lib/floating-ui/hooks/useFloating.svelte.ts",
+          "oldSha256": "dbd456a378ee02012d7cf8fb2db681f38e0a63b15d6fbb6894c8b293eb77c635",
+          "currentSha256": "fb2a3d4ef440583702349947e7fbffb47608d736f3ec7289dd82091d4cb958b8",
+          "bodyUnchanged": false
+        },
+        {
+          "source": "packages/base/src/lib/floating-ui/hooks/useFloatingPortalNode.svelte.ts",
+          "oldSha256": "6bfb1801f9ae16f8cfb97b87357e1b09e306361e1c005355acd7a34b6390a113",
+          "currentSha256": "16cef262e2368b881c58d59baa1257caddc9c0e97b4fb183f7099cc09f6dc84d",
+          "bodyUnchanged": false
+        },
+        {
+          "source": "packages/base/src/lib/floating-ui/hooks/useHoverFloatingInteraction.svelte.ts",
+          "oldSha256": "384272183fd4420ea931d08e092e74f5bf7c4aa2ab183f25a019f668ccf9107a",
+          "currentSha256": "0ab147a7643e45e94606193799839e6b449028367873d9acdcb4e2618af860ba",
+          "bodyUnchanged": false
+        },
+        {
+          "source": "packages/base/src/lib/floating-ui/hooks/useHoverInteractionSharedState.svelte.ts",
+          "oldSha256": "ef1574048bab3502c11609c1d085308bfb52f9294bc851efb0af50506dd1550e",
+          "currentSha256": "894478a3a44f74f94e416fc6aa6060af0625f0d67d80dbf59c10975916b842a3",
+          "bodyUnchanged": false
+        },
+        {
+          "source": "packages/base/src/lib/floating-ui/hooks/useHoverReferenceInteraction.svelte.ts",
+          "oldSha256": "3bbc6e76e17a90be07b1b82536c3f8325e0f08641d771740ba7352494ae205dd",
+          "currentSha256": "bd55a3a32c7465648d0a0640aae445b27f4faab8b08946e646e42459e176a060",
+          "bodyUnchanged": false
+        },
+        {
+          "source": "packages/base/src/lib/floating-ui/hooks/useHoverShared.ts",
+          "oldSha256": "27321c9b2a6773e8743846b8af2a51a4339462f8189f1a9cad36b9702b4517df",
+          "currentSha256": "27321c9b2a6773e8743846b8af2a51a4339462f8189f1a9cad36b9702b4517df",
+          "bodyUnchanged": true
+        },
+        {
+          "source": "packages/base/src/lib/floating-ui/hooks/useSyncedFloatingRootContext.svelte.ts",
+          "oldSha256": "144b7492c4df9f20f8da4b4fdbe5a5983219e2370c1fd6a4afef50226559815d",
+          "currentSha256": "aa1374702cc5d76d0380c6b4080ffc10f2b22b496ecbfed24b97e70636669916",
+          "bodyUnchanged": false
+        },
+        {
+          "source": "packages/base/src/lib/floating-ui/safePolygon.ts",
+          "oldSha256": "8140d3e4f809bfe3fd1f6831752c66cf0fb811eee32fe4a0a9e33375387776b6",
+          "currentSha256": "ee7e5e41dcb23934c4be65722b2c1e52663c6c518e3beafff627b8968430a9e3",
+          "bodyUnchanged": false
+        },
+        {
+          "source": "packages/base/src/lib/floating-ui/types.ts",
+          "oldSha256": "d75465f0e2fa7f46beab37d200f2f9e5a152dd4ca4a5751e5c9ca2811caed3d5",
+          "currentSha256": "5c4e86d68644ba65a89798d584d75bb7c1dacde7f892c9ea9fdfdd64523d3473",
+          "bodyUnchanged": false
+        },
+        {
+          "source": "packages/base/src/lib/floating-ui/utils/composite.ts",
+          "oldSha256": "96b8fde56711a770d9c1936cfae99d9576009539cc5c68ef139f463533893d27",
+          "currentSha256": "96b8fde56711a770d9c1936cfae99d9576009539cc5c68ef139f463533893d27",
+          "bodyUnchanged": true
+        },
+        {
+          "source": "packages/base/src/lib/floating-ui/utils/constants.ts",
+          "oldSha256": "14ac30673b196081a83c1e023ecfd546294733ceb2f756d2bad01e3a9d24880b",
+          "currentSha256": "14ac30673b196081a83c1e023ecfd546294733ceb2f756d2bad01e3a9d24880b",
+          "bodyUnchanged": true
+        },
+        {
+          "source": "packages/base/src/lib/floating-ui/utils/createAttribute.ts",
+          "oldSha256": "24fb1aacf4668a0ada9cfcb8d1f516b3ef7d5022df3f3b0a375394e260f07f4a",
+          "currentSha256": "24fb1aacf4668a0ada9cfcb8d1f516b3ef7d5022df3f3b0a375394e260f07f4a",
+          "bodyUnchanged": true
+        },
+        {
+          "source": "packages/base/src/lib/floating-ui/utils/createEventEmitter.ts",
+          "oldSha256": "31ebcaf59c98304ec9944e91a86b0a3c3ed31359e76a102ea62c4213f5dff484",
+          "currentSha256": "31ebcaf59c98304ec9944e91a86b0a3c3ed31359e76a102ea62c4213f5dff484",
+          "bodyUnchanged": true
+        },
+        {
+          "source": "packages/base/src/lib/floating-ui/utils/element.ts",
+          "oldSha256": "d46588eefde81b7d3eb8f204f5b3ba235aacbeafde35c37ac6eb782070dcfff0",
+          "currentSha256": "68a9ee68a6c3d8c0c1d9e8f68fffb3c214201c6f7fed4b0c374298b65fae3ff3",
+          "bodyUnchanged": false
+        },
+        {
+          "source": "packages/base/src/lib/floating-ui/utils/enqueueFocus.ts",
+          "oldSha256": "60067b93919c6f4210890af14627b5e064c6d0d3ee9e287f4f7752fab7474773",
+          "currentSha256": "b63028cbb1e9c547a40144090efd0c0d966fb0d188492bf0ced77fa1aac88440",
+          "bodyUnchanged": false
+        },
+        {
+          "source": "packages/base/src/lib/floating-ui/utils/event.ts",
+          "oldSha256": "b489c469d9e2b134b6cd97baa3a408010decf1399dbaa1367a015d70c770832e",
+          "currentSha256": "32391b7e254d578d4a374a8f95270e0fea8c763e8f56c52db2e9931243ad5e56",
+          "bodyUnchanged": false
+        },
+        {
+          "source": "packages/base/src/lib/floating-ui/utils/markOthers.ts",
+          "oldSha256": "0a6397de4ac741e96e98ef3756caed2200a6ff8564b55d04a8573aaf06037406",
+          "currentSha256": "1b40a2689b9546635a1609d2cc1642bee332e97ac9491b170043fcd95447cc03",
+          "bodyUnchanged": false
+        },
+        {
+          "source": "packages/base/src/lib/floating-ui/utils/nodes.ts",
+          "oldSha256": "b78d4c24b96237d20d09a60549535fad0d8e61661b38091cbf5368b53c43f544",
+          "currentSha256": "b78d4c24b96237d20d09a60549535fad0d8e61661b38091cbf5368b53c43f544",
+          "bodyUnchanged": true
+        },
+        {
+          "source": "packages/base/src/lib/floating-ui/utils/tabbable.ts",
+          "oldSha256": "7e890249d9926089244d66728f1957c9b67f980f4459c874081be0c90016cbbb",
+          "currentSha256": "83937949cf582078e63e085b1bd49ec588462f13bb4f5f178af83641f0e75c7f",
+          "bodyUnchanged": false
+        },
+        {
+          "source": "packages/base/src/lib/form/types.ts",
+          "oldSha256": "51cb6c9cbbd82cfc923db96143f5184acb5712d5614298468c9cf391aa783f8b",
+          "currentSha256": "154c0cc12e464959f8c3d688ac6509af0681a514b1870aa810cac3990555d623",
+          "bodyUnchanged": false
+        },
+        {
+          "source": "packages/base/src/lib/internals/TransitionStatusDataAttributes.ts",
+          "oldSha256": "d3e4a31041bcc80ba21b330d3fedadfadaeae3f498dc09e078e70470cfb98dfe",
+          "currentSha256": "d3e4a31041bcc80ba21b330d3fedadfadaeae3f498dc09e078e70470cfb98dfe",
+          "bodyUnchanged": true
+        },
+        {
+          "source": "packages/base/src/lib/internals/anchor-positioning/adaptive-origin.ts",
+          "oldSha256": "af5859dc474117523d5fa7c93acad144667590bd3d35248b72ffd2164e6dd86e",
+          "currentSha256": "15cd34d1cddc4427617558e3f81830f40fe650a308330405468a4d6d5f2ce7e8",
+          "bodyUnchanged": false
+        },
+        {
+          "source": "packages/base/src/lib/internals/anchor-positioning/arrow.ts",
+          "oldSha256": "faae61704c235e00a268afc06f286dbde18d270b499c31da65e16b4a16fab3c6",
+          "currentSha256": "faae61704c235e00a268afc06f286dbde18d270b499c31da65e16b4a16fab3c6",
+          "bodyUnchanged": true
+        },
+        {
+          "source": "packages/base/src/lib/internals/anchor-positioning/css-vars.ts",
+          "oldSha256": "5987e5aac4cb32b02a7415edee76937ff2a17ce4d48a694fd2d7522ae0e47e78",
+          "currentSha256": "5987e5aac4cb32b02a7415edee76937ff2a17ce4d48a694fd2d7522ae0e47e78",
+          "bodyUnchanged": true
+        },
+        {
+          "source": "packages/base/src/lib/internals/anchor-positioning/hide.ts",
+          "oldSha256": "02c0e2ed225845ffbbd4b45ad7bd2c76b9af8976b7147980ca0f64b6022fad68",
+          "currentSha256": "02c0e2ed225845ffbbd4b45ad7bd2c76b9af8976b7147980ca0f64b6022fad68",
+          "bodyUnchanged": true
+        },
+        {
+          "source": "packages/base/src/lib/internals/anchor-positioning/policy.ts",
+          "oldSha256": "66337d95ad094898b0ae95c94c4e07ea14fd041c32cad6a4c2ec8113859cb42d",
+          "currentSha256": "9e7580733d7aed91fd0ba12f7e8e4113d3c34e7f3b48d9e1104606a557de34d2",
+          "bodyUnchanged": false
+        },
+        {
+          "source": "packages/base/src/lib/internals/anchor-positioning/types.ts",
+          "oldSha256": "fa56b8d2b5fac3e9c1ed9597f89631d6381e1e73d5da507b1d41ec566917b82b",
+          "currentSha256": "2c4a76f723edabaec250e51c87662aed05ecaf0969a56cc927dc65145bd10406",
+          "bodyUnchanged": false
+        },
+        {
+          "source": "packages/base/src/lib/internals/anchor-positioning/useAnchorPositioning.svelte.ts",
+          "oldSha256": "a2b7d8284ece515de3ca1c65d342fcdbae395d5484a4f8fd121d9d11f835876d",
+          "currentSha256": "21a813d5a40d36c4691d995e8cbf560b5966011a62fa01e9b1fa9b98337b3c2a",
+          "bodyUnchanged": false
+        },
+        {
+          "source": "packages/base/src/lib/internals/anchor-positioning/useFloating.svelte.ts",
+          "oldSha256": "9f504f4289d1b38e2fc78830320beec60d5ec6fe40f183b132916594c7027c8a",
+          "currentSha256": "65c7d8c1bf6780d8d172a8e26e1ebadfdb84c949283aac0c6bcc010d43bab3bf",
+          "bodyUnchanged": false
+        },
+        {
+          "source": "packages/base/src/lib/internals/composite/composite.ts",
+          "oldSha256": "938a8b4ede73c5b5655a800777fe4748a94786a05bf828129de299c04cf94673",
+          "currentSha256": "f4e02dc8034a749a29f2c63d12f34c25d17c73ffd4075bc31e8f4a55306c0a9e",
+          "bodyUnchanged": false
+        },
+        {
+          "source": "packages/base/src/lib/internals/composite/constants.ts",
+          "oldSha256": "bf9445674ea41f593d2948d874d80077cb90932a20f820bd0ec1d84a39ebb7ab",
+          "currentSha256": "bf9445674ea41f593d2948d874d80077cb90932a20f820bd0ec1d84a39ebb7ab",
+          "bodyUnchanged": true
+        },
+        {
+          "source": "packages/base/src/lib/internals/composite/item/CompositeItem.svelte",
+          "oldSha256": "7447799f42b23f8003e251196e03199f8d703b77fda61d6d3422e657f95a5319",
+          "currentSha256": "23e78d87cbeb13db6e655c95b20f57d4dd19dfd16a91af90d73d954100be7797",
+          "bodyUnchanged": false
+        },
+        {
+          "source": "packages/base/src/lib/internals/composite/item/useCompositeItem.svelte.ts",
+          "oldSha256": "d0faf967447c35339c6ad06b8cc6218cf2002613844a4bdb7b1453fd5262afc3",
+          "currentSha256": "d90708b23dde83c4381ea1085767ec30135307525c1ea9e5422e9879a522daad",
+          "bodyUnchanged": false
+        },
+        {
+          "source": "packages/base/src/lib/internals/composite/list/CompositeListContext.ts",
+          "oldSha256": "c443b96e2b57642eed663be3a670fc7342dc4358bac081b7257bcb076c54ab17",
+          "currentSha256": "17e4010bda5639d8c7d200bd965ffb9f29aa06a1e83c9f6756319a2dceb1fd38",
+          "bodyUnchanged": false
+        },
+        {
+          "source": "packages/base/src/lib/internals/composite/list/createCompositeList.svelte.ts",
+          "oldSha256": "97758d379046d9f894997ae40ef7c6f59decf48fa0d985a2c1fb5f9f068ad016",
+          "currentSha256": "eb23334825782ebd6c5c2697f1aad75f6f557c1e387fa6ea0a78c276bfead975",
+          "bodyUnchanged": false
+        },
+        {
+          "source": "packages/base/src/lib/internals/composite/list/useCompositeListItem.svelte.ts",
+          "oldSha256": "42f4066c8d830385f942f66b216e1b263728f1615dbd7b11cfd3a79db7242400",
+          "currentSha256": "94d353c7d884b35bd002a9278a7701e7b1e835d536b8eb8a94f2a56d7fa72841",
+          "bodyUnchanged": false
+        },
+        {
+          "source": "packages/base/src/lib/internals/composite/root/CompositeRoot.svelte",
+          "oldSha256": "5075468a96b01787b1789e48ee6dfecd178a7ec76ee7726c3a064b9cf663fe12",
+          "currentSha256": "29241d2982ea752a27d65c8c15cc9e3675efd2cfbc0917a4b112c5179c7d2e4e",
+          "bodyUnchanged": false
+        },
+        {
+          "source": "packages/base/src/lib/internals/composite/root/CompositeRootContext.ts",
+          "oldSha256": "b08d6af5d6e71ba46076718b4426c7d2e0485a059e9204759406af1f395b6f2c",
+          "currentSha256": "b08d6af5d6e71ba46076718b4426c7d2e0485a059e9204759406af1f395b6f2c",
+          "bodyUnchanged": true
+        },
+        {
+          "source": "packages/base/src/lib/internals/composite/root/gridNavigation.ts",
+          "oldSha256": "11aa223e4f95a23b0287fee822bdda9f4b37cb6d33f99d02c9f7da8964949e9f",
+          "currentSha256": "d2ed3a04fffe1d9d73819d40d2494ab19f5707adbe3c7bd9849a81c30977315c",
+          "bodyUnchanged": false
+        },
+        {
+          "source": "packages/base/src/lib/internals/composite/root/useCompositeRoot.svelte.ts",
+          "oldSha256": "8db12d19818afe6509addc02e10a55082126da9be7a40d03f9a8f62a6e6b5d78",
+          "currentSha256": "bdd6ced8bc2a28c77a2572b6b54eab7ad09ee111ddf2bcdbe777686f947c39b6",
+          "bodyUnchanged": false
+        },
+        {
+          "source": "packages/base/src/lib/internals/composite/utils/navigation.ts",
+          "oldSha256": "bb61a6e117cc345c347a3a29618d01e6e608ef1027b8e6464e072d8b70b4a0aa",
+          "currentSha256": "bcfb35db31e9b53c86be39c229e041eaaf48f82df10d4dfaac79b69ecfd5a6dd",
+          "bodyUnchanged": false
+        },
+        {
+          "source": "packages/base/src/lib/internals/constants.ts",
+          "oldSha256": "de12c9af7ce208e69f24e5bbfefb3df6840e5b4f284109597087188a338c6893",
+          "currentSha256": "de12c9af7ce208e69f24e5bbfefb3df6840e5b4f284109597087188a338c6893",
+          "bodyUnchanged": true
+        },
+        {
+          "source": "packages/base/src/lib/internals/createBaseUIEventDetails.ts",
+          "oldSha256": "1a9cb6cde2734d421a1bfb03ece9c744584b7e115a0eb3b9de974c22ab8ee684",
+          "currentSha256": "8c72d1cd966a450125d2177842154e603b52779f156660af0633101ea222c772",
+          "bodyUnchanged": false
+        },
+        {
+          "source": "packages/base/src/lib/internals/field-constants/constants.ts",
+          "oldSha256": "7a4e8acf35babe4f33b4850da64313dbd19be6b20cb3b4833430d103cd6bf757",
+          "currentSha256": "b9bd1e08d6deb13b300611745d85f94a90fe15e3170291b866ecab2b21c9e635",
+          "bodyUnchanged": false
+        },
+        {
+          "source": "packages/base/src/lib/internals/field-control-name/FieldControlNameContext.ts",
+          "oldSha256": "c2e281c241321a8fd4148eb0f536dabb56be359deccc0e8a5f23ec4d207c48a8",
+          "currentSha256": "114e7b1d6b34fb810a8dcabe6d8daca71186adcd43a8586039acc6a26bdbfd63",
+          "bodyUnchanged": false
+        },
+        {
+          "source": "packages/base/src/lib/internals/field-control-value/FieldControlValueContext.ts",
+          "oldSha256": "e97a45c620080963320c4ee0bc8a81e5422c5cdc3ebca07cd94d062ee46cb852",
+          "currentSha256": "e97a45c620080963320c4ee0bc8a81e5422c5cdc3ebca07cd94d062ee46cb852",
+          "bodyUnchanged": true
+        },
+        {
+          "source": "packages/base/src/lib/internals/field-register-control/useRegisterFieldControl.svelte.ts",
+          "oldSha256": "b4c1ea76c59f1b6848c3a54e915324b9da25bbdbdf16f61c4cfad1a3521ada03",
+          "currentSha256": "a91113b1028269d5973ae7c83a0cbbf49b4c701cb5a8e426ca977bbef61cd583",
+          "bodyUnchanged": false
+        },
+        {
+          "source": "packages/base/src/lib/internals/field-root-context/FieldRootContext.ts",
+          "oldSha256": "21aa11d932c64b362bdb2373d22bf6c108fe9a24a093b0a08a009e3d9b45f614",
+          "currentSha256": "647417d85d6b587048591fa343c97074e1cd68c54ecfb07b2993957926939629",
+          "bodyUnchanged": false
+        },
+        {
+          "source": "packages/base/src/lib/internals/form-context/FormContext.ts",
+          "oldSha256": "8a0131cd002119715cb0d1a9cb051662353e75797aa4369981a30be4df29a05a",
+          "currentSha256": "c27b507d54f1e74bdaf15c35959f9fd795777047030d73ba96c1e5d8d14d185d",
+          "bodyUnchanged": false
+        },
+        {
+          "source": "packages/base/src/lib/internals/getDisabledMountTransitionStyles.ts",
+          "oldSha256": "7fb54d405a10ceeaa1ad3d5d630dc80a7b835eeb2fb92eb13daf47c1f668bd6c",
+          "currentSha256": "92b8dd7e170b8ba6cff821c4d1dc08f08869e1b0c64f049c81e158215168a316",
+          "bodyUnchanged": false
+        },
+        {
+          "source": "packages/base/src/lib/internals/getStateAttributesProps.ts",
+          "oldSha256": "e48367a890024a54cb200eabc5c2a0ba0a397256baacfaec8b0a05ced3b10344",
+          "currentSha256": "e48367a890024a54cb200eabc5c2a0ba0a397256baacfaec8b0a05ced3b10344",
+          "bodyUnchanged": true
+        },
+        {
+          "source": "packages/base/src/lib/internals/labelable-provider/LabelableContext.ts",
+          "oldSha256": "864b5d1ddb86b7cb3d50217a7bb3b4fbf58428ec43f78c1ec7ed3efa31750799",
+          "currentSha256": "8ed40c64919595f22975c8a10047215c6611a3223e258205fd473efb91479f84",
+          "bodyUnchanged": false
+        },
+        {
+          "source": "packages/base/src/lib/internals/labelable-provider/LabelableProvider.svelte",
+          "oldSha256": "e0719f95f60e6ac6d050e92c0525f465d87c6832887515cbe62948b481915c43",
+          "currentSha256": "8056aab139538495cb16be9e5183d277cade00a9624af5504179996ff3a09b33",
+          "bodyUnchanged": false
+        },
+        {
+          "source": "packages/base/src/lib/internals/labelable-provider/createLabelableProvider.svelte.ts",
+          "oldSha256": "2a5fb80fe0cf9ca1d598337f2fddc778833d1dba5445fb5918cae6a1ab478a4b",
+          "currentSha256": "b5cf2b6efd42c5038cc6786bf325a6a450aff387474f2df008fa79d2a06694c6",
+          "bodyUnchanged": false
+        },
+        {
+          "source": "packages/base/src/lib/internals/labelable-provider/useAriaLabelledBy.svelte.ts",
+          "oldSha256": "bfb47e6426f7df82b1738fb2dcbef7133166addc4a7d54a84deab26655f2bf0e",
+          "currentSha256": "64e63e8f5290b2b9ad3d8ad7d3fc936a76401425906c31cea8cdc4c19bd8b7ec",
+          "bodyUnchanged": false
+        },
+        {
+          "source": "packages/base/src/lib/internals/labelable-provider/useLabel.svelte.ts",
+          "oldSha256": "b96abe4dcc46df31198bbd40cbc6e9278dda323f3bab6b33bc802158ab9d9b26",
+          "currentSha256": "c3a027d307a6582813779de2da9f6d495e4ba925e669c9080ceee9c6e1a4ebd3",
+          "bodyUnchanged": false
+        },
+        {
+          "source": "packages/base/src/lib/internals/labelable-provider/useLabelableId.svelte.ts",
+          "oldSha256": "821459e698c6486f837258547fe73e1db1865bd574444ea867d03b59af8e4456",
+          "currentSha256": "36215a31fd3f84d006006734eca09bb94b036ad30015949f1acf814e94fa8845",
+          "bodyUnchanged": false
+        },
+        {
+          "source": "packages/base/src/lib/internals/nativeProps.ts",
+          "oldSha256": "d6b3999ffe54e8c70e0dcdac61474b3bf9f53e60f3b1207dd4f976ef5212e4eb",
+          "currentSha256": "f081bf825f41a64924fe298108e148ac56314d02074c588cc1f9324ff6a92cc5",
+          "bodyUnchanged": false
+        },
+        {
+          "source": "packages/base/src/lib/internals/reason-parts.ts",
+          "oldSha256": "0326d21ce4be2c41b5488c86e3687249faf3c51f5e10ae49c16e8efdc183abf5",
+          "currentSha256": "0326d21ce4be2c41b5488c86e3687249faf3c51f5e10ae49c16e8efdc183abf5",
+          "bodyUnchanged": true
+        },
+        {
+          "source": "packages/base/src/lib/internals/reasons.ts",
+          "oldSha256": "f1f52caeefb14448a7e7c9833e24413b923b7bbf40aa1818ca73dc93710b42e7",
+          "currentSha256": "f1f52caeefb14448a7e7c9833e24413b923b7bbf40aa1818ca73dc93710b42e7",
+          "bodyUnchanged": true
+        },
+        {
+          "source": "packages/base/src/lib/internals/resolveClassValue.ts",
+          "oldSha256": "584323b17cb1733a798e9ff86e9ff783d6a26d08ecf005a8c2b3c69917c1e722",
+          "currentSha256": "584323b17cb1733a798e9ff86e9ff783d6a26d08ecf005a8c2b3c69917c1e722",
+          "bodyUnchanged": true
+        },
+        {
+          "source": "packages/base/src/lib/internals/stateAttributesMapping.ts",
+          "oldSha256": "d04c73fe454de256e1641245b5db6a3d70824693f0da33272d0863f033b5230d",
+          "currentSha256": "d04c73fe454de256e1641245b5db6a3d70824693f0da33272d0863f033b5230d",
+          "bodyUnchanged": true
+        },
+        {
+          "source": "packages/base/src/lib/internals/types.ts",
+          "oldSha256": "56f62e49c3a1504981c523a1bee8764c45de90fb88f0fab5154bb7fc9d0c1bd3",
+          "currentSha256": "6a36f5f103ef940b8a32d63f0288d897096c846fb2361b4ef44733e9a899907e",
+          "bodyUnchanged": false
+        },
+        {
+          "source": "packages/base/src/lib/internals/use-button/useButton.svelte.ts",
+          "oldSha256": "ee71d7077c51139162152716111472919bf80b71e6e9cde62d15ff0b7ce56f59",
+          "currentSha256": "48750528371fbf08dd09478dd7fb8e2a2b9a19494bf1e779610e5b90668e16d0",
+          "bodyUnchanged": false
+        },
+        {
+          "source": "packages/base/src/lib/internals/useAnimationsFinished.ts",
+          "oldSha256": "0ae8873174969326a7ac09377ab019af5cd575bbdfde7df9118317d0ec1c1e30",
+          "currentSha256": "7abe48ef841cdfa7bf60b29045e9f0ffb7dbfb715b34351e8f6716131b2678f8",
+          "bodyUnchanged": false
+        },
+        {
+          "source": "packages/base/src/lib/internals/useBaseUiId.ts",
+          "oldSha256": "fc6d9571f2fc0f71d6f75a8f34eb981a3e09a9a038fbb9aa8b4b83c2cbb3aaa3",
+          "currentSha256": "3995d6f7b0b3b0c3bd734f8936778c7a95ec39cc1a701dc24cf49a1313414c92",
+          "bodyUnchanged": false
+        },
+        {
+          "source": "packages/base/src/lib/internals/useOpenChangeComplete.svelte.ts",
+          "oldSha256": "5e966dd1b10cbc1ed448d3583ca948a384d812f9e71afc1e128395485575931f",
+          "currentSha256": "b6174d1cc73b6ea3b6431cf87906a1acacc40b1d5c356a31124f92251d7fd038",
+          "bodyUnchanged": false
+        },
+        {
+          "source": "packages/base/src/lib/internals/useTransitionStatus.svelte.ts",
+          "oldSha256": "1236abbbe5a5e1dec17c77d51d704f3f03e48ecdd34f85a995e1dde00c60c54b",
+          "currentSha256": "7fc531ccff0a7dfd77703c0f0ee7e1148fc080960682469eafffbc627056fa9e",
+          "bodyUnchanged": false
+        },
+        {
+          "source": "packages/base/src/lib/merge-props/index.ts",
+          "oldSha256": "3ef38bba9b22f44bbcf69102d9556807f78897bedb69b410669c7b429971dd68",
+          "currentSha256": "3ef38bba9b22f44bbcf69102d9556807f78897bedb69b410669c7b429971dd68",
+          "bodyUnchanged": true
+        },
+        {
+          "source": "packages/base/src/lib/merge-props/mergeProps.ts",
+          "oldSha256": "7a097b833ae8854c5a26e34009adfb4e0297dd50f56ad5f0c1ac8afa8187f98b",
+          "currentSha256": "b2c30a6df68fe9744f250f0d0b8e21d89de133146724efd6eed7cea0fce0f8b9",
+          "bodyUnchanged": false
+        },
+        {
+          "source": "packages/base/src/lib/popover/Popup.svelte",
+          "oldSha256": "e3e7bb68b209421402cad03a0cf2227c09a3d8a18171ab7107fd21d968bfd8f6",
+          "currentSha256": "7bf0ffbca306fbfa93d63f2bebb54af2b792e908441cb3f96e29819e1892283f",
+          "bodyUnchanged": false
+        },
+        {
+          "source": "packages/base/src/lib/popover/Portal.svelte",
+          "oldSha256": "d7fa637af3621b2118cdfe3c72fd9f4f83d69c4d753ffcef250324c23821bbdb",
+          "currentSha256": "583295746ee2d2b922e40217425cdbc338bdd436d4dac7df0d98ab3e65063157",
+          "bodyUnchanged": false
+        },
+        {
+          "source": "packages/base/src/lib/popover/Positioner.svelte",
+          "oldSha256": "f7f928ff3360c9cda92744e8cea20ec5a655b562e36a78dc2029519d6b634e2f",
+          "currentSha256": "b7938faaf2ebc3346ccf0d6a413cfec499b084a7520cb83720d9adb80585a44b",
+          "bodyUnchanged": false
+        },
+        {
+          "source": "packages/base/src/lib/popover/Root.svelte",
+          "oldSha256": "9605e92f2aa58ccf5076f957983da4877d4aafbf6c6b447fcaa6b17cd4fd6130",
+          "currentSha256": "c9033272f735e37e3749427f82301a8bc1ee156d952172d4cc660e43bb9d5f39",
+          "bodyUnchanged": false
+        },
+        {
+          "source": "packages/base/src/lib/popover/Trigger.svelte",
+          "oldSha256": "f53f01856584df96dcd251007547451099b8719073dfa14e315346097c309cfd",
+          "currentSha256": "b24fee93cbf9d64690e9f381563706ca3dac652522c5585dcd5a040cba183cca",
+          "bodyUnchanged": false
+        },
+        {
+          "source": "packages/base/src/lib/popover/context.ts",
+          "oldSha256": "1ad794ae8713b062cd6437548a0b37bef3e7ae68c21cc396adc8a381ac0f337a",
+          "currentSha256": "625603bf406d3a7c7f8fdf489d141d777554e45ebb4f7190c2ea1236931665b1",
+          "bodyUnchanged": false
+        },
+        {
+          "source": "packages/base/src/lib/popover/positioner/PopoverPositionerContext.ts",
+          "oldSha256": "de7c427adf76adcb5178351f5c14cc11b5c486c06605c35c9772b3804f83b503",
+          "currentSha256": "db9cb0976ec9934229af3b5c3a511d8ec7a62b0432f87d2846d72c6b32a7aa67",
+          "bodyUnchanged": false
+        },
+        {
+          "source": "packages/base/src/lib/popover/root/PopoverInteractions.svelte",
+          "oldSha256": "df00246317da632a4c83b01aa18a1e6baae62e2397e68d3e267722000d1752ee",
+          "currentSha256": "06bb65fcec36319c38276332f53d6218245172b2547b2eaccec95ab88fab6fb7",
+          "bodyUnchanged": false
+        },
+        {
+          "source": "packages/base/src/lib/popover/store/PopoverHandle.svelte.ts",
+          "oldSha256": "8a3a1c93803ff557264199309062d242f183963f15cf2a1adb59ab877bcfe5f7",
+          "currentSha256": "7d699cfec5733990e9202182c5a7a637dae0343364dff2e765e6f15a04f835f4",
+          "bodyUnchanged": false
+        },
+        {
+          "source": "packages/base/src/lib/popover/store/PopoverStore.svelte.ts",
+          "oldSha256": "5893b45b9120dbc282213f6c61781134e29bc3822c208f15f2680d575050c7fb",
+          "currentSha256": "d4fcb2ed56b4af8b6527373d933212489bbaa8844568fbbb83d63a8ea57b572a",
+          "bodyUnchanged": false
+        },
+        {
+          "source": "packages/base/src/lib/popover/types.ts",
+          "oldSha256": "a0e46944870708c6ae9b26f8ebdf1a9d094b999edb6e7aaf327275cd670827b1",
+          "currentSha256": "8eecd8cd7c3c69e39d9b650d45173888287ccff99b4072d7e3fd3eb2b4c87f31",
+          "bodyUnchanged": false
+        },
+        {
+          "source": "packages/base/src/lib/popover/utils/constants.ts",
+          "oldSha256": "69a03145627953aab05636e24bfbe7b3e27a772314debe3038d5f634c052f90d",
+          "currentSha256": "69a03145627953aab05636e24bfbe7b3e27a772314debe3038d5f634c052f90d",
+          "bodyUnchanged": true
+        },
+        {
+          "source": "packages/base/src/lib/remote-forms/RemoteBooleanControl.svelte",
+          "oldSha256": "2ec88d564588075320eafa7929bdcf82f3930eb067632875a8052244e804c068",
+          "currentSha256": "de57abef7c767d7db61c8b33eec8857785d6e0af9747ff188e9e95342f923be2",
+          "bodyUnchanged": false
+        },
+        {
+          "source": "packages/base/src/lib/remote-forms/RemoteControl.svelte",
+          "oldSha256": "a2c3bf73969d002f99e7571df274a77d97d0603ec1d8c517901992ca58312527",
+          "currentSha256": "be1fd5aabf487da6bc0a3873dc8067432d87ba71a9b62e72db46bfc5c7d7d324",
+          "bodyUnchanged": false
+        },
+        {
+          "source": "packages/base/src/lib/remote-forms/RemoteFieldContext.ts",
+          "oldSha256": "10184201edc3e9b7b2fb34d6b6f85eec21e9c2e4087d7d305b14e2976f77f98e",
+          "currentSha256": "10184201edc3e9b7b2fb34d6b6f85eec21e9c2e4087d7d305b14e2976f77f98e",
+          "bodyUnchanged": true
+        },
+        {
+          "source": "packages/base/src/lib/remote-forms/RemoteFormContext.ts",
+          "oldSha256": "21588cc2de0950e70f6de6cd4a40a8b44bf27c7329bbb95699bad710caabb12c",
+          "currentSha256": "21588cc2de0950e70f6de6cd4a40a8b44bf27c7329bbb95699bad710caabb12c",
+          "bodyUnchanged": true
+        },
+        {
+          "source": "packages/base/src/lib/remote-forms/RemoteNativeControl.svelte",
+          "oldSha256": "8b7b061b7d5eb9767098431d4c3415b5446dbe5be74de175c03e98528547038c",
+          "currentSha256": "b73e75ffce6c0988a97cf5eba28d0cd18b2e71ae516a542477470c28d4fafc31",
+          "bodyUnchanged": false
+        },
+        {
+          "source": "packages/base/src/lib/remote-forms/RemoteRoot.svelte",
+          "oldSha256": "f71fbc4d572479119a9d30646d1011637d9c3f11a0ac8c2944b8b93747de200f",
+          "currentSha256": "fb93fdc7ada56ee62ab11d8af1578c9293f01ec64f889b51df3acf18ee4671dc",
+          "bodyUnchanged": false
+        },
+        {
+          "source": "packages/base/src/lib/remote-forms/RemoteTextControl.svelte",
+          "oldSha256": "46a8443f2c9dafaef3dee6635550a8d76a6a275e12e6311e2ab726f8dcfeaa7f",
+          "currentSha256": "41c6eb8f993a6e77bbb161b6b80e815546e647e7d40a3f8d1002eaeea9b5707b",
+          "bodyUnchanged": false
+        },
+        {
+          "source": "packages/base/src/lib/remote-forms/control.types.ts",
+          "oldSha256": "00cf77f4cb8b407b63862f741bb8249dcc32d6eaf78e99324a99f860c67c9874",
+          "currentSha256": "4d0ac64094e492054a072907145e762810c2c6e582d7cdb412b44b81352512b7",
+          "bodyUnchanged": false
+        },
+        {
+          "source": "packages/base/src/lib/remote-forms/index.parts.ts",
+          "oldSha256": "764ef610c588dec913e1e63478313ca70c4e4f3a488ca2f72da09b9a94485cb3",
+          "currentSha256": "764ef610c588dec913e1e63478313ca70c4e4f3a488ca2f72da09b9a94485cb3",
+          "bodyUnchanged": true
+        },
+        {
+          "source": "packages/base/src/lib/remote-forms/nativeControlValue.ts",
+          "oldSha256": "620730edb668abb6f6ccc07f880e7000c6456c7f710a0031490c7feb66aa7072",
+          "currentSha256": "55d6f47cdef93ff1cd8b2e910ce7508d58a0a0e6a90a1e68c71ccfb04bc80468",
+          "bodyUnchanged": false
+        },
+        {
+          "source": "packages/base/src/lib/remote-forms/runtime.ts",
+          "oldSha256": "8e0b21e16d8706f7eb835c61df55e2caed81e86be2837006364721cf89806782",
+          "currentSha256": "b141d1d73ee60659e4f6bb2db846520942971ce2d4eb6cd088b1c09693629fad",
+          "bodyUnchanged": false
+        },
+        {
+          "source": "packages/base/src/lib/remote-forms/types.ts",
+          "oldSha256": "d8acd95ea2deb62f2db7a96276100d6820c8e3fe262b4ccffa4dbc97c6956d33",
+          "currentSha256": "464d34eb6456a2d8741d1b261d0bbb1e23597d540068d1bcc329f745336f485f",
+          "bodyUnchanged": false
+        },
+        {
+          "source": "packages/base/src/lib/separator/types.ts",
+          "oldSha256": "b349b520840d7d7b3bbda5127105404312370ae300efe23bb354536c2d8c56dc",
+          "currentSha256": "5ab346df307c50fad23dfdcb26e3931c9b4ba24de0ddc21881ef54441e6496e7",
+          "bodyUnchanged": false
+        },
+        {
+          "source": "packages/base/src/lib/switch/types.ts",
+          "oldSha256": "03507c0edc0efd85c6ae7c4e6c07b2a2c34375de4dcbf454c7cee2414ac8c416",
+          "currentSha256": "3e165eebda0c4983d5d3cf7b4916e2e67dc35aadfe775cfbfec3a79946cedce0",
+          "bodyUnchanged": false
+        },
+        {
+          "source": "packages/base/src/lib/toolbar/button/ToolbarButton.svelte",
+          "oldSha256": "452ffed6ea4bf216fcf5d130d4facf9b12a2458fd5662287674774837faa7166",
+          "currentSha256": "01e2dcade028ceafada0c9d7e7f319a2143fb68d5da047d22ab50087c25c3bac",
+          "bodyUnchanged": false
+        },
+        {
+          "source": "packages/base/src/lib/toolbar/group/ToolbarGroupContext.ts",
+          "oldSha256": "bfba6dcfb67c6c5d8eb4abdd43a0a1fc0c5502f884ffe6d0ef4d37070611874f",
+          "currentSha256": "d8e72834d984abda546691454db71dc231cd1e9ef9778a4a0abc3c7a8cc7b811",
+          "bodyUnchanged": false
+        },
+        {
+          "source": "packages/base/src/lib/toolbar/root/ToolbarRoot.svelte",
+          "oldSha256": "c4f0432d7d4adefe0a4f2b2b8daf543790fa3ea84587fcd9d3326f8ea950b76a",
+          "currentSha256": "af28517c34c005c1dabe305d4d78824b6740f81c9baab41d8dd88db7d7a39b80",
+          "bodyUnchanged": false
+        },
+        {
+          "source": "packages/base/src/lib/toolbar/root/ToolbarRootContext.ts",
+          "oldSha256": "ac7081f4de2f79dcdf425ee5ca7690db2d577f9363f2ef03b75f3b5395adc6cb",
+          "currentSha256": "d2e5bd3ad75ddc60d8cef7c2cf2702802382e4b6317d7ab6b98b37eab100fd7b",
+          "bodyUnchanged": false
+        },
+        {
+          "source": "packages/base/src/lib/toolbar/types.ts",
+          "oldSha256": "c7cc1b91797831826e2605d119313666bce3f67185583beff516a80af9104e78",
+          "currentSha256": "3bc3d1e84b480879fe78008f97ee8dbb7dba2b0d29040a2fc31df71b5de598ff",
+          "bodyUnchanged": false
+        },
+        {
+          "source": "packages/base/src/lib/utils/CommonPopupDataAttributes.ts",
+          "oldSha256": "ed25a93130d096ba883e68999928e43dad59d09ae9dff52f0e8b68d5974abe15",
+          "currentSha256": "ed25a93130d096ba883e68999928e43dad59d09ae9dff52f0e8b68d5974abe15",
+          "bodyUnchanged": true
+        },
+        {
+          "source": "packages/base/src/lib/utils/CommonTriggerDataAttributes.ts",
+          "oldSha256": "199df87949923494ce8f3f6b3bfcc05e162744891afb12c033f5e7f9ba8f4f92",
+          "currentSha256": "199df87949923494ce8f3f6b3bfcc05e162744891afb12c033f5e7f9ba8f4f92",
+          "bodyUnchanged": true
+        },
+        {
+          "source": "packages/base/src/lib/utils/FocusGuard.svelte",
+          "oldSha256": "28a17af6cd0d817c9002e0e2bae206b33452fc6a0153ffb45f6f6f0b8f96c777",
+          "currentSha256": "ea8acf8bdda2c5faf3859db06b580c84604e7978e2496553b5fdc56dc80472b3",
+          "bodyUnchanged": false
+        },
+        {
+          "source": "packages/base/src/lib/utils/InternalBackdrop.svelte",
+          "oldSha256": "41a9ef1e56c442d73930a86015e08ff543b871475b26bd5f8da1936c3715822c",
+          "currentSha256": "0b29495ff7a71eab019e6667fd0f120f8f299e33e23c83c13cb1572ae465d88f",
+          "bodyUnchanged": false
+        },
+        {
+          "source": "packages/base/src/lib/utils/NullStore.svelte.ts",
+          "oldSha256": "442595fdf67989d0bdae8f422a53bfed7622832b0e5112f60e782d8d75a97e43",
+          "currentSha256": "f23ac9ae6b5303aa9adf6499e3101c06fa981a516e6d22e95f981903674ec49c",
+          "bodyUnchanged": false
+        },
+        {
+          "source": "packages/base/src/lib/utils/closePart.svelte.ts",
+          "oldSha256": "cf4f7d4a7a2d5616522a165bba1fc8a56ab08a1f746c9872f9cd8e8ad8451466",
+          "currentSha256": "6c2d6274e65c38289c2731dfe11b16eba4c692b1df4b753fb843b06cfa5d1818",
+          "bodyUnchanged": false
+        },
+        {
+          "source": "packages/base/src/lib/utils/dispatchClickWithModifiers.ts",
+          "oldSha256": "60aab2aa25eb9c0aeaa0a57fc8ccd37aab747577ea22f019aff163946cabd373",
+          "currentSha256": "fefaa5e71f09eeb27d246b5d1eafef16e2b62f6dd72414528ef7f917c125909a",
+          "bodyUnchanged": false
+        },
+        {
+          "source": "packages/base/src/lib/utils/popupStateMapping.ts",
+          "oldSha256": "07a2ecdd556f8e1371d395f7749cbfb1bff445b4f07b321d8e7d8ecf5393350d",
+          "currentSha256": "07a2ecdd556f8e1371d395f7749cbfb1bff445b4f07b321d8e7d8ecf5393350d",
+          "bodyUnchanged": true
+        },
+        {
+          "source": "packages/base/src/lib/utils/popups/PopupHandleAttachment.svelte",
+          "oldSha256": "bb34f4ea941b5579a57d1ff6432f3f5bf59c84a762c663112be7c7a9f4338985",
+          "currentSha256": "437e6d44b586b4cc524d30d4214906695aa505239f1951a7840077780f562927",
+          "bodyUnchanged": false
+        },
+        {
+          "source": "packages/base/src/lib/utils/popups/index.ts",
+          "oldSha256": "8685650fb9e3f7bfe7528330f062c4b3f94df89bf9adc8a48b13728774474e01",
+          "currentSha256": "8685650fb9e3f7bfe7528330f062c4b3f94df89bf9adc8a48b13728774474e01",
+          "bodyUnchanged": true
+        },
+        {
+          "source": "packages/base/src/lib/utils/popups/popupHandle.svelte.ts",
+          "oldSha256": "5acdc474609054a89472cdaa01531fa06e2670ac98e735f11f19e1651239ae89",
+          "currentSha256": "c3a56400141a1075b20c783a5da24f827911b7d622c5eb92f78a4cf1f49da778",
+          "bodyUnchanged": false
+        },
+        {
+          "source": "packages/base/src/lib/utils/popups/popupStoreUtils.svelte.ts",
+          "oldSha256": "3f80c77e00b2b8d73068a48477096f30f174c433d804b790813894f6624f016e",
+          "currentSha256": "13b61b426eed8a0875580aa2a8e15a8caf5c7110e915174bf4d613f069f7b01a",
+          "bodyUnchanged": false
+        },
+        {
+          "source": "packages/base/src/lib/utils/popups/popupTriggerMap.svelte.ts",
+          "oldSha256": "812f1d6cb454c0f5236cda69919932ccfc569611050c19fe8198617beacf6b2c",
+          "currentSha256": "812f1d6cb454c0f5236cda69919932ccfc569611050c19fe8198617beacf6b2c",
+          "bodyUnchanged": true
+        },
+        {
+          "source": "packages/base/src/lib/utils/popups/store.ts",
+          "oldSha256": "f10a365441f28fa1e93b1d1cc871349a0555944e3fd937344b3415c3d32a87d3",
+          "currentSha256": "6b9e93bb4642ec9ddf3b7721d909e0b8baf32871b5070b9831a3c3f464ca5f69",
+          "bodyUnchanged": false
+        },
+        {
+          "source": "packages/base/src/lib/utils/popups/usePopupHandleStore.svelte.ts",
+          "oldSha256": "3bbe4fd4132a3acdeb82b575f734b01caccc7c3033b8162fa64ad619a8bfbf58",
+          "currentSha256": "d96d4ca763135cddc2ddbc931e772954b47ceb057bf1172660ec73203c9dbd0b",
+          "bodyUnchanged": false
+        },
+        {
+          "source": "packages/base/src/lib/utils/popups/useTriggerFocusGuards.svelte.ts",
+          "oldSha256": "61c4a5e3e40b0f8ff0d48d40208687ef43a209818cbe4bb6a9058050d91a1678",
+          "currentSha256": "31fe56072f7dd8093b4292afc5da43ce09f07ed01faa185e6fae8cdc11f5aac6",
+          "bodyUnchanged": false
+        },
+        {
+          "source": "packages/base/src/lib/utils/resolveClassName.ts",
+          "oldSha256": "b22aead630ca531851a08a63e5165e64ff8cdc9de5765ff20997f578071cb108",
+          "currentSha256": "b22aead630ca531851a08a63e5165e64ff8cdc9de5765ff20997f578071cb108",
+          "bodyUnchanged": true
+        },
+        {
+          "source": "packages/base/src/lib/utils/resolveRef.ts",
+          "oldSha256": "ac85daa436a61800f824aa34ea08ff4cbe492c86c12be327de957a381acddaa7",
+          "currentSha256": "d8500030750c389af091f3f4f43b100f675772f3d22b6f1699a29db80d564d0a",
+          "bodyUnchanged": false
+        },
+        {
+          "source": "packages/base/src/lib/utils/resolveStyle.ts",
+          "oldSha256": "cdc420598c1ae4b75a32e7f47ac8cc7f4fe444d4f006e2736f528951fb932977",
+          "currentSha256": "cdc420598c1ae4b75a32e7f47ac8cc7f4fe444d4f006e2736f528951fb932977",
+          "bodyUnchanged": true
+        },
+        {
+          "source": "packages/base/src/lib/utils/useAnchoredPopupScrollLock.svelte.ts",
+          "oldSha256": "583b97998d16e0b1aef3c44fdbef154fa848d8f8385a07dc21aa56b3c8470dce",
+          "currentSha256": "21a07726eed55814307acd741228214b8ebc411a0dcbddcf1d32a13ccdc45060",
+          "bodyUnchanged": false
+        },
+        {
+          "source": "packages/base/src/lib/utils/useFocusableWhenDisabled.ts",
+          "oldSha256": "8c52b8e41b8801cd46d4232802c5ed86588cb4e8008f814741970246b378742c",
+          "currentSha256": "f30838a56f41ea3672d26627fb42145d016e3b54b512c4c381e6aafb05431db2",
+          "bodyUnchanged": false
+        },
+        {
+          "source": "packages/base/src/lib/utils/useOpenInteractionType.svelte.ts",
+          "oldSha256": "1e226c9fd96e234f73f7c8889e233455f8e4b0951f1e75059e3e17ac812550e2",
+          "currentSha256": "92fb932de384aef85dccc45311f5920dabbd8897584a656d27a5bcd8a012a966",
+          "bodyUnchanged": false
+        },
+        {
+          "source": "packages/base/src/lib/utils/usePositioner.svelte.ts",
+          "oldSha256": "59422a6bc1fb88a6027ada39f53382730d151a8e9958e14a2202514ce95b192d",
+          "currentSha256": "835ae5ad14e38b0e931a1e878783af644a023704816022c0c2985978073145bd",
+          "bodyUnchanged": false
+        },
+        {
+          "source": "packages/base/src/lib/utils/useRegisteredLabelId.svelte.ts",
+          "oldSha256": "aeca27deeaadde0c42a027ac7f4788e2a3c62d533db235cada05dd9a70e1e1e2",
+          "currentSha256": "7d7c44fce0e1b01178ae76dfeb95d59907a5ffa402c49147be554a9c582addec",
+          "bodyUnchanged": false
+        }
+      ]
+    }
+  },
+  "completePerBodyMapping": "per-body-source-mapping.json",
+  "existingProviderAppendix": "existing-provider-appendix.json",
+  "missingBusinessLeaves": 5,
+  "nativeTransportAcceptanceDependency": {
+    "path": "packages/base/src/lib/internals/nativeProps.ts",
+    "symbol": "toNativeStyle",
+    "actualProviderCommit": "aa4daff54ec82b96e34e1601648d1b3926ef08cf",
+    "actualSha256": "f081bf825f41a64924fe298108e148ac56314d02074c588cc1f9324ff6a92cc5",
+    "observation": "Actual current body returns undefined for empty string at its falsy guard. Exact PR73 review/witness at74c437 reports client bare literal/dynamic/spread retaining an empty style attribute versus Listbox omission; SSR literal/spread retain it, dynamic and Listbox omit it. Pinned React CSSProperties excludes string; undefined/empty object/empty string omit style and valid nonempty objects retain it. No approved native empty-string normalization found. PR70 has not executed those witnesses; native transport acceptance pending, not an upstream bug.",
+    "owner": "PR73 sole canonical helper owner; no copy or runtime repair in PR70",
+    "ownerObservedHead": "74c437a9a337a26fd808f44f6fa36f7d7542385b",
+    "ownerObservedStatus": "open draft; API mergeable true, mergeable_state unstable; this does not establish acceptance",
+    "status": "Pending owner repair, exact-head review/gates and accepted-main integration before future implementation acceptance. Documentation-only plan acceptance remains subject to actual-public-final-head substantive independent review, configured-model review and mandatory hosted CI; no runtime/provider acceptance.",
+    "unchangedAssertionCredit": 0,
+    "witnessLinks": [
+      "https://github.com/sveltery/base/pull/73#pullrequestreview-5434640789",
+      "https://github.com/sveltery/base/pull/73#issuecomment-6025527104"
+    ]
+  },
+  "nativeGraphStorage": "Exact raw generated identities remain recorded in the graph records; lossless gzip storage and compressed identities are in proposed-native-helper-graph-storage.json and proposed-native-fixture-graph-storage.json.",
+  "currentOwnerRepresentationInventory": {
+    "inventory": "canonical-owner-classification.json",
+    "actualProviders": 212,
+    "runtimeReachedOwnerRows": 28,
+    "typeOnlyOwnerAuditRows": 1,
+    "status": "Lead-reported canonical family owners pending; no invented task PR/provider hashes/acceptance. Five absent business leaves stay separate. Accurate documentation can complete after final-public-head substantive/configured review and mandatory CI."
+  },
+  "priorExplicitlyIdentifiedClassRepresentations": 2
+}

@@ -1,0 +1,1446 @@
+{
+  "status": "Documentation-only actual-main integration. Historical predecessor facts retained losslessly in history/public-275d. Current hashes/counts are extraction provenance only; fresh final-head review and CI external.",
+  "date": "2026-10-06",
+  "originalPin": "47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c",
+  "acceptedMain": "abe8aa9b66ab8cd8d83dfdac28ebee94a0655f79",
+  "unknownPredecessor": "Untouched; initial read-only head/status/14-file SHA snapshot is preparation-provenance.json.",
+  "originalSource": {
+    "graph": "selected-source-graph.json",
+    "sha256": "f36151d78b0988d01785d57ae2456939e1177f7e20612362728bc0903ab60226",
+    "modules": 178,
+    "lines": 19041,
+    "readStatus": "Historical preparing-author whole-body reading attestation retained after listed identity checks; not a fresh whole-closure reading or independent acceptance. Current reader reopened only the precise bodies in plan-repair-evidence.json."
+  },
+  "originalTestHelper": {
+    "graph": "selected-test-helper-graph.json",
+    "sha256": "056b862c8d43845b5dbc9355fa701bd160e607fdee6591d1e6c4c0236751aa14",
+    "modules": 279,
+    "lines": 39459,
+    "readStatus": "Historical preparing-author whole-body reading attestation retained after listed identity checks; not a fresh whole-closure reading or independent acceptance. Current reader reopened only the precise bodies in plan-repair-evidence.json."
+  },
+  "nativeHelper": {
+    "graph": "proposed-native-helper-graph.json.gz",
+    "sha256": "47b9f9dadf8a70acb7b9c4607f9073cf16ff044dabd55066d9544615ee61949a",
+    "modules": 179,
+    "lines": 15596,
+    "readStatus": "Real current extraction identity only; historical reads retained in history/public-275d, fresh successor review external.",
+    "sha256Basis": "Exact decompressed generated JSON bytes; compressed storage identity is recorded separately in nativeGraphStorage."
+  },
+  "nativeFixtures": {
+    "graph": "proposed-native-fixture-graph.json.gz",
+    "sha256": "a90098943a1b8bb43424baf1f43d5dbeece6df32cc4a659edd6d8c1e338d5413",
+    "modules": 199,
+    "lines": 17375,
+    "readStatus": "Real current extraction identity only; historical reads retained in history/public-275d, fresh successor review external.",
+    "sha256Basis": "Exact decompressed generated JSON bytes; compressed storage identity is recorded separately in nativeGraphStorage."
+  },
+  "extraSelectDataFiles": [
+    {
+      "source": "packages/react/src/select/arrow/SelectArrowDataAttributes.ts",
+      "sha256": "22804bbacbfc8af752f0d1d84f3085cf6e057ac8df895cca346395a10b1e095e",
+      "readStatus": "Whole body read; data/type provenance only."
+    },
+    {
+      "source": "packages/react/src/select/backdrop/SelectBackdropDataAttributes.ts",
+      "sha256": "0ed1896b1ab85d4b883ad1a37f2ae2bdce153152cd363c742612e5916456444e",
+      "readStatus": "Whole body read; data/type provenance only."
+    },
+    {
+      "source": "packages/react/src/select/icon/SelectIconDataAttributes.ts",
+      "sha256": "672ecc39db4a9e6f17e36c111e9249593129867488f53a7bf0185dba4c015e5f",
+      "readStatus": "Whole body read; data/type provenance only."
+    },
+    {
+      "source": "packages/react/src/select/item-indicator/SelectItemIndicatorDataAttributes.ts",
+      "sha256": "eea23a9da89cef0b7152be64f20e91377c044907678253ef8c4b3f4dcc287605",
+      "readStatus": "Whole body read; data/type provenance only."
+    },
+    {
+      "source": "packages/react/src/select/item/SelectItemDataAttributes.ts",
+      "sha256": "446316c3ca0c516071e21130cbb34ad589cabdcbb4b989606769a0b06886a227",
+      "readStatus": "Whole body read; data/type provenance only."
+    },
+    {
+      "source": "packages/react/src/select/popup/SelectPopupDataAttributes.ts",
+      "sha256": "9c695f79ae949413f35d536e7173eec06176c81fa452c41d0a28f707d051a416",
+      "readStatus": "Whole body read; data/type provenance only."
+    },
+    {
+      "source": "packages/react/src/select/positioner/SelectPositionerDataAttributes.ts",
+      "sha256": "b8534243d6326e34ee7f0a8b49551168f999e7efbee1941af5da8970a89b03ca",
+      "readStatus": "Whole body read; data/type provenance only."
+    },
+    {
+      "source": "packages/react/src/select/scroll-down-arrow/SelectScrollDownArrowDataAttributes.ts",
+      "sha256": "70634bd44b169dbddc2351b0d6ca080e6abf53847683a22fd7844a1cde2190f1",
+      "readStatus": "Whole body read; data/type provenance only."
+    },
+    {
+      "source": "packages/react/src/select/scroll-up-arrow/SelectScrollUpArrowDataAttributes.ts",
+      "sha256": "956b992301b0b43c454a60a4a434658fdc470a354ad9db88a14e828325e79e57",
+      "readStatus": "Whole body read; data/type provenance only."
+    },
+    {
+      "source": "packages/react/src/select/value/SelectValueDataAttributes.ts",
+      "sha256": "a52cda262198a8ae6000f26b88a6252f6b481a0fbcd491aaa7aa1a77e125c8b7",
+      "readStatus": "Whole body read; data/type provenance only."
+    }
+  ],
+  "originalFixtureSourceBeyondCore": [
+    {
+      "source": "packages/react/src/direction-provider/DirectionProvider.tsx",
+      "sha256": "90405d399eeac452d78fedc389f8caf49735312a17cf3e386937b6641f65a4fc",
+      "lines": 37,
+      "selectedSymbols": [
+        "DirectionProvider"
+      ],
+      "readStatus": "Whole body read, including unselected functions. Actual fixture selection is separate from unused namespace provenance."
+    },
+    {
+      "source": "packages/react/src/direction-provider/index.parts.ts",
+      "sha256": "43b29f624b04c76170bbef38065c708bf829bd2a0d86e3d9e369a0121cb63dd5",
+      "lines": 5,
+      "selectedSymbols": [
+        "Provider",
+        "useDirection"
+      ],
+      "readStatus": "Whole body read, including unselected functions. Actual fixture selection is separate from unused namespace provenance."
+    },
+    {
+      "source": "packages/react/src/direction-provider/index.ts",
+      "sha256": "3c66b7d83e4460deffff081fd6705de26945b8a1a67e11011b6239a4157d82e3",
+      "lines": 2,
+      "selectedSymbols": [
+        "DirectionProvider",
+        "useDirection"
+      ],
+      "readStatus": "Whole body read, including unselected functions. Actual fixture selection is separate from unused namespace provenance."
+    },
+    {
+      "source": "packages/react/src/field/control/FieldControl.tsx",
+      "sha256": "2785b4d150271399100964b5673d5ffa803b9acd123ba82c60f8e62f643da00f",
+      "lines": 239,
+      "selectedSymbols": [
+        "FieldControl"
+      ],
+      "readStatus": "Whole body read, including unselected functions. Actual fixture selection is separate from unused namespace provenance."
+    },
+    {
+      "source": "packages/react/src/field/description/FieldDescription.tsx",
+      "sha256": "415eb6cbbe77d429746142c0e731045a0fe11533378956a306256f70df9d2f17",
+      "lines": 65,
+      "selectedSymbols": [
+        "FieldDescription"
+      ],
+      "readStatus": "Whole body read, including unselected functions. Actual fixture selection is separate from unused namespace provenance."
+    },
+    {
+      "source": "packages/react/src/field/error/FieldError.tsx",
+      "sha256": "fd4823039d4e6ea67479782d336ee3f1c04662f6def97c2910a612083e80cc4b",
+      "lines": 158,
+      "selectedSymbols": [
+        "FieldError"
+      ],
+      "readStatus": "Whole body read, including unselected functions. Actual fixture selection is separate from unused namespace provenance."
+    },
+    {
+      "source": "packages/react/src/field/index.parts.ts",
+      "sha256": "ed070b74dc6328c7dafcc7cec7eb427acab5ef9eab49e1120f0a8c2e49aad774",
+      "lines": 9,
+      "selectedSymbols": [
+        "*"
+      ],
+      "readStatus": "Whole body read, including unselected functions. Actual fixture selection is separate from unused namespace provenance."
+    },
+    {
+      "source": "packages/react/src/field/index.ts",
+      "sha256": "efd415bc76741a4543cb10a20a9cd75a478f4b0703cc3325c57f51f730634ca1",
+      "lines": 9,
+      "selectedSymbols": [
+        "Field"
+      ],
+      "readStatus": "Whole body read, including unselected functions. Actual fixture selection is separate from unused namespace provenance."
+    },
+    {
+      "source": "packages/react/src/field/item/FieldItem.tsx",
+      "sha256": "cc182a1ce4f90cb755307bd44ae3ae74f60a99330ae12fb38f271a51f4993486",
+      "lines": 64,
+      "selectedSymbols": [
+        "FieldItem"
+      ],
+      "readStatus": "Whole body read, including unselected functions. Actual fixture selection is separate from unused namespace provenance."
+    },
+    {
+      "source": "packages/react/src/field/item/FieldItemContext.ts",
+      "sha256": "4e83a82491828c93404c8ba0b1cbb740b549d15e51f38848f94cde225eda7749",
+      "lines": 14,
+      "selectedSymbols": [
+        "useFieldItemContext",
+        "FieldItemContext"
+      ],
+      "readStatus": "Whole body read, including unselected functions. Actual fixture selection is separate from unused namespace provenance."
+    },
+    {
+      "source": "packages/react/src/field/label/FieldLabel.tsx",
+      "sha256": "74b9a2aaa0f596409bfa9b78de5b4152cf1fc8500ddcd9bda5218d81f20293c7",
+      "lines": 104,
+      "selectedSymbols": [
+        "FieldLabel"
+      ],
+      "readStatus": "Whole body read, including unselected functions. Actual fixture selection is separate from unused namespace provenance."
+    },
+    {
+      "source": "packages/react/src/field/validity/FieldValidity.tsx",
+      "sha256": "8a10780f9da25a7d019b7d2a08d562f7f0923d6b6fed78bf036c13293f4d57f6",
+      "lines": 69,
+      "selectedSymbols": [
+        "FieldValidity"
+      ],
+      "readStatus": "Whole body read, including unselected functions. Actual fixture selection is separate from unused namespace provenance."
+    },
+    {
+      "source": "packages/react/src/floating-ui-react/hooks/useHoverFloatingInteraction.ts",
+      "sha256": "9a244dbacb63b7cfd3cf4715d289a0fcf257c39a6d8f4864b1385ba0b300d0aa",
+      "lines": 273,
+      "selectedSymbols": [
+        "useHoverFloatingInteraction"
+      ],
+      "readStatus": "Whole body read, including unselected functions. Actual fixture selection is separate from unused namespace provenance."
+    },
+    {
+      "source": "packages/react/src/floating-ui-react/hooks/useHoverInteractionSharedState.ts",
+      "sha256": "b987cb5c94f6154bd0e8c4aca2a44dfbc0ff6fff96a8697dc3447d1fbfe3420e",
+      "lines": 131,
+      "selectedSymbols": [
+        "applySafePolygonPointerEventsMutation",
+        "clearSafePolygonPointerEventsMutation",
+        "useHoverInteractionSharedState",
+        "isInteractiveElement"
+      ],
+      "readStatus": "Whole body read, including unselected functions. Actual fixture selection is separate from unused namespace provenance."
+    },
+    {
+      "source": "packages/react/src/floating-ui-react/hooks/useHoverReferenceInteraction.ts",
+      "sha256": "4fac47f406b11c9c4c3c1af6c859b8771e481792c2a591107e39241d0b1088d2",
+      "lines": 511,
+      "selectedSymbols": [
+        "useHoverReferenceInteraction"
+      ],
+      "readStatus": "Whole body read, including unselected functions. Actual fixture selection is separate from unused namespace provenance."
+    },
+    {
+      "source": "packages/react/src/floating-ui-react/hooks/useHoverShared.ts",
+      "sha256": "24d8edb07cb31c4f2b82ef77bea6db76e4a6ae2bacfa097dd4b01c50de5d2478",
+      "lines": 72,
+      "selectedSymbols": [
+        "HandleClose",
+        "HandleCloseContextBase",
+        "getDelay",
+        "getRestMs",
+        "isClickLikeOpenEvent",
+        "isInsideEnabledTrigger",
+        "HandleCloseOptions",
+        "isHoverOpenEvent"
+      ],
+      "readStatus": "Whole body read, including unselected functions. Actual fixture selection is separate from unused namespace provenance."
+    },
+    {
+      "source": "packages/react/src/floating-ui-react/safePolygon.ts",
+      "sha256": "682e2a9ff611e947ebe7f2bfc367f8df0060021c0e38a140f60003cfcac853a9",
+      "lines": 451,
+      "selectedSymbols": [
+        "safePolygon",
+        "SafePolygonOptions"
+      ],
+      "readStatus": "Whole body read, including unselected functions. Actual fixture selection is separate from unused namespace provenance."
+    },
+    {
+      "source": "packages/react/src/index.ts",
+      "sha256": "bdc94b38f7d1ab96c528b46d28b87db4e20caaf65629acec6ffd9b5f16bb90ed",
+      "lines": 44,
+      "selectedSymbols": [
+        "Select"
+      ],
+      "readStatus": "Whole body read, including unselected functions. Actual fixture selection is separate from unused namespace provenance."
+    },
+    {
+      "source": "packages/react/src/internals/composite/constants.ts",
+      "sha256": "494b3845bb2c22da3ef9e8d3856ee582ee3a7b2cadbbe14bef9dcd6968bbf415",
+      "lines": 1,
+      "selectedSymbols": [
+        "ACTIVE_COMPOSITE_ITEM"
+      ],
+      "readStatus": "Whole body read, including unselected functions. Actual fixture selection is separate from unused namespace provenance."
+    },
+    {
+      "source": "packages/react/src/internals/composite/item/CompositeItem.tsx",
+      "sha256": "036f04a428d090fe235076b64069755495005e9a0ec49b3b4a43162539c36157",
+      "lines": 57,
+      "selectedSymbols": [
+        "CompositeItem"
+      ],
+      "readStatus": "Whole body read, including unselected functions. Actual fixture selection is separate from unused namespace provenance."
+    },
+    {
+      "source": "packages/react/src/internals/composite/item/useCompositeItem.ts",
+      "sha256": "40cffee55d4e92efbe36bc7e9fea9708a0e640f888f8e7eb92f3e0fe48a5fc50",
+      "lines": 49,
+      "selectedSymbols": [
+        "useCompositeItem"
+      ],
+      "readStatus": "Whole body read, including unselected functions. Actual fixture selection is separate from unused namespace provenance."
+    },
+    {
+      "source": "packages/react/src/internals/composite/root/CompositeRoot.tsx",
+      "sha256": "af03574d9028283ede87df4592b08e0d0dda801c0c9d4454fbc64eccde11b0d2",
+      "lines": 138,
+      "selectedSymbols": [
+        "CompositeRoot"
+      ],
+      "readStatus": "Whole body read, including unselected functions. Actual fixture selection is separate from unused namespace provenance."
+    },
+    {
+      "source": "packages/react/src/internals/composite/root/gridNavigation.ts",
+      "sha256": "85fa455d31592be6afff2f9692ac24502943c614eabb66b9dc4e5e6694ec2e8a",
+      "lines": 127,
+      "selectedSymbols": [
+        "CompositeGridNavigator"
+      ],
+      "readStatus": "Whole body read, including unselected functions. Actual fixture selection is separate from unused namespace provenance."
+    },
+    {
+      "source": "packages/react/src/internals/composite/root/useCompositeRoot.ts",
+      "sha256": "848c7a6c3543bba01f2299799a75d69986dbecc5289d70e15d41620bd732b023",
+      "lines": 377,
+      "selectedSymbols": [
+        "useCompositeRoot"
+      ],
+      "readStatus": "Whole body read, including unselected functions. Actual fixture selection is separate from unused namespace provenance."
+    },
+    {
+      "source": "packages/react/src/popover/arrow/PopoverArrow.tsx",
+      "sha256": "7f12cfcc38f732c0badfc7e943ff6686c51454dba4fa3c7dff04dcb4d072b560",
+      "lines": 67,
+      "selectedSymbols": [
+        "PopoverArrow"
+      ],
+      "readStatus": "Whole body read, including unselected functions. Actual fixture selection is separate from unused namespace provenance."
+    },
+    {
+      "source": "packages/react/src/popover/backdrop/PopoverBackdrop.tsx",
+      "sha256": "c6a5afe1144c2babc20d6515ed2801446b8ce93f3e1685383f722d4d8150d0ce",
+      "lines": 71,
+      "selectedSymbols": [
+        "PopoverBackdrop"
+      ],
+      "readStatus": "Whole body read, including unselected functions. Actual fixture selection is separate from unused namespace provenance."
+    },
+    {
+      "source": "packages/react/src/popover/close/PopoverClose.tsx",
+      "sha256": "d877c34973693022901fa78ed55d230ea16fa061ac0f4f6e2d806687cc07eac3",
+      "lines": 63,
+      "selectedSymbols": [
+        "PopoverClose"
+      ],
+      "readStatus": "Whole body read, including unselected functions. Actual fixture selection is separate from unused namespace provenance."
+    },
+    {
+      "source": "packages/react/src/popover/description/PopoverDescription.tsx",
+      "sha256": "00d3abc670688a79bbd0196905e91a4af3cd8a52224e93827d5f7d4ab0cb271c",
+      "lines": 44,
+      "selectedSymbols": [
+        "PopoverDescription"
+      ],
+      "readStatus": "Whole body read, including unselected functions. Actual fixture selection is separate from unused namespace provenance."
+    },
+    {
+      "source": "packages/react/src/popover/index.parts.ts",
+      "sha256": "1d939f1fc69167d8890d0a2dd89a957bc366eb416c0037433ba09ed90a81575b",
+      "lines": 15,
+      "selectedSymbols": [
+        "*"
+      ],
+      "readStatus": "Whole body read, including unselected functions. Actual fixture selection is separate from unused namespace provenance."
+    },
+    {
+      "source": "packages/react/src/popover/index.ts",
+      "sha256": "cb9cbed44b7dc8563bfea3d543c2fb3dcdcce86d6ae345b0a3eb113a013d139e",
+      "lines": 13,
+      "selectedSymbols": [
+        "Popover"
+      ],
+      "readStatus": "Whole body read, including unselected functions. Actual fixture selection is separate from unused namespace provenance."
+    },
+    {
+      "source": "packages/react/src/popover/popup/PopoverPopup.tsx",
+      "sha256": "d6ec235ef6a7980899ee85cfe45124c0525202a95a5f35362dbb488e1db183a4",
+      "lines": 186,
+      "selectedSymbols": [
+        "PopoverPopup"
+      ],
+      "readStatus": "Whole body read, including unselected functions. Actual fixture selection is separate from unused namespace provenance."
+    },
+    {
+      "source": "packages/react/src/popover/portal/PopoverPortal.tsx",
+      "sha256": "595deae893a3732b492d57b22a30386f32d65c57e7dbd225e73b431ae0d0b4c8",
+      "lines": 54,
+      "selectedSymbols": [
+        "PopoverPortal"
+      ],
+      "readStatus": "Whole body read, including unselected functions. Actual fixture selection is separate from unused namespace provenance."
+    },
+    {
+      "source": "packages/react/src/popover/portal/PopoverPortalContext.ts",
+      "sha256": "3c336710e6158e6d2ec82674456726ca1f9d94695468ee51e6030c99067176d8",
+      "lines": 12,
+      "selectedSymbols": [
+        "PopoverPortalContext",
+        "usePopoverPortalContext"
+      ],
+      "readStatus": "Whole body read, including unselected functions. Actual fixture selection is separate from unused namespace provenance."
+    },
+    {
+      "source": "packages/react/src/popover/positioner/PopoverPositioner.tsx",
+      "sha256": "90343a30f82e6237713c94593b76377a25b6aaf5ed5ffbbd295de2f109a1a170",
+      "lines": 194,
+      "selectedSymbols": [
+        "PopoverPositioner"
+      ],
+      "readStatus": "Whole body read, including unselected functions. Actual fixture selection is separate from unused namespace provenance."
+    },
+    {
+      "source": "packages/react/src/popover/positioner/PopoverPositionerContext.ts",
+      "sha256": "06981cb5b8bc203debd0c30cf46bccf1691c3e2c976b77162aecb6795c627e67",
+      "lines": 27,
+      "selectedSymbols": [
+        "PopoverPositionerContext",
+        "usePopoverPositionerContext"
+      ],
+      "readStatus": "Whole body read, including unselected functions. Actual fixture selection is separate from unused namespace provenance."
+    },
+    {
+      "source": "packages/react/src/popover/root/PopoverRoot.tsx",
+      "sha256": "aecb23995fe8bfc63dc33b0143330c5fbfa451593062278c71c6b5d8807ca1cb",
+      "lines": 260,
+      "selectedSymbols": [
+        "PopoverRoot"
+      ],
+      "readStatus": "Whole body read, including unselected functions. Actual fixture selection is separate from unused namespace provenance."
+    },
+    {
+      "source": "packages/react/src/popover/root/PopoverRootContext.ts",
+      "sha256": "52f8165b98eec545977a2902c2f301162705f74dcdacab04a76810418ee8b88e",
+      "lines": 19,
+      "selectedSymbols": [
+        "PopoverRootContext",
+        "usePopoverRootContext"
+      ],
+      "readStatus": "Whole body read, including unselected functions. Actual fixture selection is separate from unused namespace provenance."
+    },
+    {
+      "source": "packages/react/src/popover/store/PopoverHandle.ts",
+      "sha256": "9d5de8366d58973f203d82f24c6162f789c5578c3fbbfc82b4c69b7fa0fa1b22",
+      "lines": 54,
+      "selectedSymbols": [
+        "createPopoverHandle",
+        "PopoverHandle"
+      ],
+      "readStatus": "Whole body read, including unselected functions. Actual fixture selection is separate from unused namespace provenance."
+    },
+    {
+      "source": "packages/react/src/popover/store/PopoverStore.ts",
+      "sha256": "938286be46fa40df94a1adf7d8c4ae5cee7a8d4dd64c493651e22efb75aae894",
+      "lines": 229,
+      "selectedSymbols": [
+        "PopoverStore",
+        "State",
+        "createNullPopoverStore",
+        "PopoverHandleStore"
+      ],
+      "readStatus": "Whole body read, including unselected functions. Actual fixture selection is separate from unused namespace provenance."
+    },
+    {
+      "source": "packages/react/src/popover/title/PopoverTitle.tsx",
+      "sha256": "59af94fd0b56c07061ea2603d27e1d2ff5f9654e7f7546930fd7db402c723720",
+      "lines": 44,
+      "selectedSymbols": [
+        "PopoverTitle"
+      ],
+      "readStatus": "Whole body read, including unselected functions. Actual fixture selection is separate from unused namespace provenance."
+    },
+    {
+      "source": "packages/react/src/popover/trigger/PopoverTrigger.tsx",
+      "sha256": "aea068727788161f8ea640dd117188c15e477071ead045b2d7af715b993c069c",
+      "lines": 233,
+      "selectedSymbols": [
+        "PopoverTrigger"
+      ],
+      "readStatus": "Whole body read, including unselected functions. Actual fixture selection is separate from unused namespace provenance."
+    },
+    {
+      "source": "packages/react/src/popover/utils/constants.ts",
+      "sha256": "1af64be98556f0ed1e2a6b700b04dd576fb081bac7f6a1fe2e08cdc38dd86bd4",
+      "lines": 1,
+      "selectedSymbols": [
+        "OPEN_DELAY"
+      ],
+      "readStatus": "Whole body read, including unselected functions. Actual fixture selection is separate from unused namespace provenance."
+    },
+    {
+      "source": "packages/react/src/popover/viewport/PopoverViewport.tsx",
+      "sha256": "015e7517c764109ee8afca718e837fb65f22a64d8c449a3a489eef6971c1f65d",
+      "lines": 73,
+      "selectedSymbols": [
+        "PopoverViewport"
+      ],
+      "readStatus": "Whole body read, including unselected functions. Actual fixture selection is separate from unused namespace provenance."
+    },
+    {
+      "source": "packages/react/src/separator/index.ts",
+      "sha256": "4a0131380b491ed30f0766dde5d4e32cf67e9d8d2be20e2e3c6fa6ef535b9b08",
+      "lines": 3,
+      "selectedSymbols": [
+        "Separator",
+        "SeparatorState"
+      ],
+      "readStatus": "Whole body read, including unselected functions. Actual fixture selection is separate from unused namespace provenance."
+    },
+    {
+      "source": "packages/react/src/separator/Separator.tsx",
+      "sha256": "9f96ca74136dd0fcf9d9c972862561b348bbee99278b966e9bd6f71668c0c017",
+      "lines": 47,
+      "selectedSymbols": [
+        "Separator",
+        "SeparatorState"
+      ],
+      "readStatus": "Whole body read, including unselected functions. Actual fixture selection is separate from unused namespace provenance."
+    },
+    {
+      "source": "packages/react/src/toolbar/button/ToolbarButton.tsx",
+      "sha256": "cfae20179213a9bdedc69eb151b2547956b9a061cc4941f1a56130c4bee6ed37",
+      "lines": 106,
+      "selectedSymbols": [
+        "ToolbarButton"
+      ],
+      "readStatus": "Whole body read, including unselected functions. Actual fixture selection is separate from unused namespace provenance."
+    },
+    {
+      "source": "packages/react/src/toolbar/group/ToolbarGroup.tsx",
+      "sha256": "80b5022bb2b8b6883f8811241f3e8bac7e6638871c8bb79a0a2d2d8b588f1e60",
+      "lines": 67,
+      "selectedSymbols": [
+        "ToolbarGroup"
+      ],
+      "readStatus": "Whole body read, including unselected functions. Actual fixture selection is separate from unused namespace provenance."
+    },
+    {
+      "source": "packages/react/src/toolbar/group/ToolbarGroupContext.ts",
+      "sha256": "eb2fe8fbe347e32ead8274a310f678ae0fad7390f7b1c41504b30109d55140eb",
+      "lines": 12,
+      "selectedSymbols": [
+        "ToolbarGroupContext",
+        "useToolbarGroupContext"
+      ],
+      "readStatus": "Whole body read, including unselected functions. Actual fixture selection is separate from unused namespace provenance."
+    },
+    {
+      "source": "packages/react/src/toolbar/index.parts.ts",
+      "sha256": "40eaa4d90de494cd1f8617fcf1cd44b7d3f69bbce53ac28c2a3e28697fa3f313",
+      "lines": 8,
+      "selectedSymbols": [
+        "*"
+      ],
+      "readStatus": "Whole body read, including unselected functions. Actual fixture selection is separate from unused namespace provenance."
+    },
+    {
+      "source": "packages/react/src/toolbar/index.ts",
+      "sha256": "e5882a35fa595891bac1ba00e1cf3ed48a5dbec20d0970fd315415ecfd1d91d2",
+      "lines": 9,
+      "selectedSymbols": [
+        "Toolbar"
+      ],
+      "readStatus": "Whole body read, including unselected functions. Actual fixture selection is separate from unused namespace provenance."
+    },
+    {
+      "source": "packages/react/src/toolbar/input/ToolbarInput.tsx",
+      "sha256": "951da18ae58b5a5bde8ef4d242d5afc320d29f33e51b72267ea3ac2ce0ba5035",
+      "lines": 106,
+      "selectedSymbols": [
+        "ToolbarInput"
+      ],
+      "readStatus": "Whole body read, including unselected functions. Actual fixture selection is separate from unused namespace provenance."
+    },
+    {
+      "source": "packages/react/src/toolbar/link/ToolbarLink.tsx",
+      "sha256": "4daf390a1d789aac3e8b81b9585154e35fc728e676359e0151f3a82a89a4ac1a",
+      "lines": 62,
+      "selectedSymbols": [
+        "ToolbarLink"
+      ],
+      "readStatus": "Whole body read, including unselected functions. Actual fixture selection is separate from unused namespace provenance."
+    },
+    {
+      "source": "packages/react/src/toolbar/root/ToolbarRoot.tsx",
+      "sha256": "215a8370a16ea53a26af92badfb28e7fbdf51a3571db0511fc5303d8800dd346",
+      "lines": 119,
+      "selectedSymbols": [
+        "ToolbarRoot",
+        "ToolbarRootState"
+      ],
+      "readStatus": "Whole body read, including unselected functions. Actual fixture selection is separate from unused namespace provenance."
+    },
+    {
+      "source": "packages/react/src/toolbar/separator/ToolbarSeparator.tsx",
+      "sha256": "66bf1e9792f19053cf660d3cecb607187ee658c9d3f794762bfda3e5c3955086",
+      "lines": 37,
+      "selectedSymbols": [
+        "ToolbarSeparator"
+      ],
+      "readStatus": "Whole body read, including unselected functions. Actual fixture selection is separate from unused namespace provenance."
+    },
+    {
+      "source": "packages/react/src/utils/adaptiveOriginMiddleware.ts",
+      "sha256": "47962a9afe25fb86a4a001345099783fa3894d7ba3840b3b2f92c645998ea4c8",
+      "lines": 73,
+      "selectedSymbols": [
+        "adaptiveOrigin"
+      ],
+      "readStatus": "Whole body read, including unselected functions. Actual fixture selection is separate from unused namespace provenance."
+    },
+    {
+      "source": "packages/react/src/utils/closePart.tsx",
+      "sha256": "0b30f3ff3597173625dd2064339ea2ec1cbfdda60b60d82cd4e542e008f50ba5",
+      "lines": 37,
+      "selectedSymbols": [
+        "ClosePartContext",
+        "useClosePartCount",
+        "useClosePartRegistration"
+      ],
+      "readStatus": "Whole body read, including unselected functions. Actual fixture selection is separate from unused namespace provenance."
+    },
+    {
+      "source": "packages/react/src/utils/CommonPopupCssVars.ts",
+      "sha256": "f9dddda047401345f05809796e771f5a204664ff6c828c82e0eb314198a1c57a",
+      "lines": 12,
+      "selectedSymbols": [
+        "*"
+      ],
+      "readStatus": "Whole body read, including unselected functions. Actual fixture selection is separate from unused namespace provenance."
+    },
+    {
+      "source": "packages/react/src/utils/CommonViewportDataAttributes.ts",
+      "sha256": "b2b2ff787608db21ef5e579b026e6fd38c180046c2584acaa3b76c66e398d394",
+      "lines": 7,
+      "selectedSymbols": [
+        "*"
+      ],
+      "readStatus": "Whole body read, including unselected functions. Actual fixture selection is separate from unused namespace provenance."
+    },
+    {
+      "source": "packages/react/src/utils/getCssDimensions.ts",
+      "sha256": "54101c67f9a952982f155eff46c475ccffdd6d0a6e19ceb609e8a527fb5913af",
+      "lines": 24,
+      "selectedSymbols": [
+        "getCssDimensions"
+      ],
+      "readStatus": "Whole body read, including unselected functions. Actual fixture selection is separate from unused namespace provenance."
+    },
+    {
+      "source": "packages/react/src/utils/NullStore.ts",
+      "sha256": "44fcb20b9cfcfc2c45d0581886a29a1d6b405627d5fb214ae4a38ab96d4b411a",
+      "lines": 26,
+      "selectedSymbols": [
+        "NullStore"
+      ],
+      "readStatus": "Whole body read, including unselected functions. Actual fixture selection is separate from unused namespace provenance."
+    },
+    {
+      "source": "packages/react/src/utils/popups/popupHandle.ts",
+      "sha256": "be7343ab9cf8c6b7a440424e6a6acd82c8ab75fe7637059288a740814ab08629",
+      "lines": 288,
+      "selectedSymbols": [
+        "BasePopupHandle",
+        "PopupHandleStoreProvider"
+      ],
+      "readStatus": "Whole body read, including unselected functions. Actual fixture selection is separate from unused namespace provenance."
+    },
+    {
+      "source": "packages/react/src/utils/popups/usePopupHandleStore.ts",
+      "sha256": "35dc720afb42a840e0a9f4a45f01710a6a0f5be86d79318b664ac83a28eb4c42",
+      "lines": 36,
+      "selectedSymbols": [
+        "usePopupHandleStore"
+      ],
+      "readStatus": "Whole body read, including unselected functions. Actual fixture selection is separate from unused namespace provenance."
+    },
+    {
+      "source": "packages/react/src/utils/popups/useTriggerFocusGuards.ts",
+      "sha256": "f2491d82873eb8e2e4dea454981b35a4671db180acf5520bc62bcfba392a3167",
+      "lines": 95,
+      "selectedSymbols": [
+        "useTriggerFocusGuards"
+      ],
+      "readStatus": "Whole body read, including unselected functions. Actual fixture selection is separate from unused namespace provenance."
+    },
+    {
+      "source": "packages/react/src/utils/usePopupAutoResize.ts",
+      "sha256": "71ff230965711e40e79e7710953c530ae08f1dd9ae9cb0dd193c112bc81dc909",
+      "lines": 240,
+      "selectedSymbols": [
+        "usePopupAutoResize"
+      ],
+      "readStatus": "Whole body read, including unselected functions. Actual fixture selection is separate from unused namespace provenance."
+    },
+    {
+      "source": "packages/react/src/utils/usePopupViewport.tsx",
+      "sha256": "2a535cf26486cd69307fac727de53604c7dda16743dfeb49810d7d893146e296",
+      "lines": 396,
+      "selectedSymbols": [
+        "popupViewportStateMapping",
+        "usePopupViewport"
+      ],
+      "readStatus": "Whole body read, including unselected functions. Actual fixture selection is separate from unused namespace provenance."
+    }
+  ],
+  "nativeFixtureSourceBeyondHelpers": [
+    {
+      "source": "packages/base/src/lib/floating-ui/hooks/useHoverFloatingInteraction.svelte.ts",
+      "sha256": "384272183fd4420ea931d08e092e74f5bf7c4aa2ab183f25a019f668ccf9107a",
+      "commit": "8a4aaf077142f3cfb77cec357afc07d2595d576a",
+      "provider": "pending-popup",
+      "lines": 217,
+      "readStatus": "Historical preparing-author whole-body fixture-reading attestation, exact unchanged body identity checked; fixture-only scope, not inherited acceptance or a fresh reading claim."
+    },
+    {
+      "source": "packages/base/src/lib/floating-ui/hooks/useHoverInteractionSharedState.svelte.ts",
+      "sha256": "ef1574048bab3502c11609c1d085308bfb52f9294bc851efb0af50506dd1550e",
+      "commit": "8a4aaf077142f3cfb77cec357afc07d2595d576a",
+      "provider": "pending-popup",
+      "lines": 137,
+      "readStatus": "Historical preparing-author whole-body fixture-reading attestation, exact unchanged body identity checked; fixture-only scope, not inherited acceptance or a fresh reading claim."
+    },
+    {
+      "source": "packages/base/src/lib/floating-ui/hooks/useHoverReferenceInteraction.svelte.ts",
+      "sha256": "3bbc6e76e17a90be07b1b82536c3f8325e0f08641d771740ba7352494ae205dd",
+      "commit": "8a4aaf077142f3cfb77cec357afc07d2595d576a",
+      "provider": "pending-popup",
+      "lines": 398,
+      "readStatus": "Historical preparing-author whole-body fixture-reading attestation, exact unchanged body identity checked; fixture-only scope, not inherited acceptance or a fresh reading claim."
+    },
+    {
+      "source": "packages/base/src/lib/floating-ui/hooks/useHoverShared.ts",
+      "sha256": "27321c9b2a6773e8743846b8af2a51a4339462f8189f1a9cad36b9702b4517df",
+      "commit": "c1600456d3b4e72910d42823b9df69280c74a262",
+      "provider": "accepted-main",
+      "lines": 73,
+      "readStatus": "Historical preparing-author whole-body fixture-reading attestation, exact unchanged body identity checked; fixture-only scope, not inherited acceptance or a fresh reading claim."
+    },
+    {
+      "source": "packages/base/src/lib/floating-ui/safePolygon.ts",
+      "sha256": "8140d3e4f809bfe3fd1f6831752c66cf0fb811eee32fe4a0a9e33375387776b6",
+      "commit": "c1600456d3b4e72910d42823b9df69280c74a262",
+      "provider": "accepted-main",
+      "lines": 449,
+      "readStatus": "Historical preparing-author whole-body fixture-reading attestation, exact unchanged body identity checked; fixture-only scope, not inherited acceptance or a fresh reading claim."
+    },
+    {
+      "source": "packages/base/src/lib/internals/composite/constants.ts",
+      "sha256": "bf9445674ea41f593d2948d874d80077cb90932a20f820bd0ec1d84a39ebb7ab",
+      "commit": "c1600456d3b4e72910d42823b9df69280c74a262",
+      "provider": "accepted-main",
+      "lines": 3,
+      "readStatus": "Historical preparing-author whole-body fixture-reading attestation, exact unchanged body identity checked; fixture-only scope, not inherited acceptance or a fresh reading claim."
+    },
+    {
+      "source": "packages/base/src/lib/internals/composite/item/CompositeItem.svelte",
+      "sha256": "7447799f42b23f8003e251196e03199f8d703b77fda61d6d3422e657f95a5319",
+      "commit": "c1600456d3b4e72910d42823b9df69280c74a262",
+      "provider": "accepted-main",
+      "lines": 40,
+      "readStatus": "Historical preparing-author whole-body fixture-reading attestation, exact unchanged body identity checked; fixture-only scope, not inherited acceptance or a fresh reading claim."
+    },
+    {
+      "source": "packages/base/src/lib/internals/composite/item/useCompositeItem.svelte.ts",
+      "sha256": "d0faf967447c35339c6ad06b8cc6218cf2002613844a4bdb7b1453fd5262afc3",
+      "commit": "c1600456d3b4e72910d42823b9df69280c74a262",
+      "provider": "accepted-main",
+      "lines": 34,
+      "readStatus": "Historical preparing-author whole-body fixture-reading attestation, exact unchanged body identity checked; fixture-only scope, not inherited acceptance or a fresh reading claim."
+    },
+    {
+      "source": "packages/base/src/lib/internals/composite/root/CompositeRoot.svelte",
+      "sha256": "5075468a96b01787b1789e48ee6dfecd178a7ec76ee7726c3a064b9cf663fe12",
+      "commit": "c1600456d3b4e72910d42823b9df69280c74a262",
+      "provider": "accepted-main",
+      "lines": 92,
+      "readStatus": "Historical preparing-author whole-body fixture-reading attestation, exact unchanged body identity checked; fixture-only scope, not inherited acceptance or a fresh reading claim."
+    },
+    {
+      "source": "packages/base/src/lib/internals/composite/root/gridNavigation.ts",
+      "sha256": "11aa223e4f95a23b0287fee822bdda9f4b37cb6d33f99d02c9f7da8964949e9f",
+      "commit": "c1600456d3b4e72910d42823b9df69280c74a262",
+      "provider": "accepted-main",
+      "lines": 138,
+      "readStatus": "Historical preparing-author whole-body fixture-reading attestation, exact unchanged body identity checked; fixture-only scope, not inherited acceptance or a fresh reading claim."
+    },
+    {
+      "source": "packages/base/src/lib/internals/composite/root/useCompositeRoot.svelte.ts",
+      "sha256": "8db12d19818afe6509addc02e10a55082126da9be7a40d03f9a8f62a6e6b5d78",
+      "commit": "c1600456d3b4e72910d42823b9df69280c74a262",
+      "provider": "accepted-main",
+      "lines": 414,
+      "readStatus": "Historical preparing-author whole-body fixture-reading attestation, exact unchanged body identity checked; fixture-only scope, not inherited acceptance or a fresh reading claim."
+    },
+    {
+      "source": "packages/base/src/lib/popover/context.ts",
+      "sha256": "1ad794ae8713b062cd6437548a0b37bef3e7ae68c21cc396adc8a381ac0f337a",
+      "commit": "8a4aaf077142f3cfb77cec357afc07d2595d576a",
+      "provider": "pending-popup",
+      "lines": 21,
+      "readStatus": "Historical preparing-author whole-body fixture-reading attestation, exact unchanged body identity checked; fixture-only scope, not inherited acceptance or a fresh reading claim."
+    },
+    {
+      "source": "packages/base/src/lib/popover/Popup.svelte",
+      "sha256": "e3e7bb68b209421402cad03a0cf2227c09a3d8a18171ab7107fd21d968bfd8f6",
+      "commit": "8a4aaf077142f3cfb77cec357afc07d2595d576a",
+      "provider": "pending-popup",
+      "lines": 58,
+      "readStatus": "Historical preparing-author whole-body fixture-reading attestation, exact unchanged body identity checked; fixture-only scope, not inherited acceptance or a fresh reading claim."
+    },
+    {
+      "source": "packages/base/src/lib/popover/Portal.svelte",
+      "sha256": "d7fa637af3621b2118cdfe3c72fd9f4f83d69c4d753ffcef250324c23821bbdb",
+      "commit": "8a4aaf077142f3cfb77cec357afc07d2595d576a",
+      "provider": "pending-popup",
+      "lines": 17,
+      "readStatus": "Historical preparing-author whole-body fixture-reading attestation, exact unchanged body identity checked; fixture-only scope, not inherited acceptance or a fresh reading claim."
+    },
+    {
+      "source": "packages/base/src/lib/popover/Positioner.svelte",
+      "sha256": "f7f928ff3360c9cda92744e8cea20ec5a655b562e36a78dc2029519d6b634e2f",
+      "commit": "8a4aaf077142f3cfb77cec357afc07d2595d576a",
+      "provider": "pending-popup",
+      "lines": 65,
+      "readStatus": "Historical preparing-author whole-body fixture-reading attestation, exact unchanged body identity checked; fixture-only scope, not inherited acceptance or a fresh reading claim."
+    },
+    {
+      "source": "packages/base/src/lib/popover/positioner/PopoverPositionerContext.ts",
+      "sha256": "de7c427adf76adcb5178351f5c14cc11b5c486c06605c35c9772b3804f83b503",
+      "commit": "8a4aaf077142f3cfb77cec357afc07d2595d576a",
+      "provider": "pending-popup",
+      "lines": 11,
+      "readStatus": "Historical preparing-author whole-body fixture-reading attestation, exact unchanged body identity checked; fixture-only scope, not inherited acceptance or a fresh reading claim."
+    },
+    {
+      "source": "packages/base/src/lib/popover/Root.svelte",
+      "sha256": "9605e92f2aa58ccf5076f957983da4877d4aafbf6c6b447fcaa6b17cd4fd6130",
+      "commit": "8a4aaf077142f3cfb77cec357afc07d2595d576a",
+      "provider": "pending-popup",
+      "lines": 57,
+      "readStatus": "Historical preparing-author whole-body fixture-reading attestation, exact unchanged body identity checked; fixture-only scope, not inherited acceptance or a fresh reading claim."
+    },
+    {
+      "source": "packages/base/src/lib/popover/root/PopoverInteractions.svelte",
+      "sha256": "df00246317da632a4c83b01aa18a1e6baae62e2397e68d3e267722000d1752ee",
+      "commit": "8a4aaf077142f3cfb77cec357afc07d2595d576a",
+      "provider": "pending-popup",
+      "lines": 17,
+      "readStatus": "Historical preparing-author whole-body fixture-reading attestation, exact unchanged body identity checked; fixture-only scope, not inherited acceptance or a fresh reading claim."
+    },
+    {
+      "source": "packages/base/src/lib/popover/store/PopoverHandle.svelte.ts",
+      "sha256": "8a3a1c93803ff557264199309062d242f183963f15cf2a1adb59ab877bcfe5f7",
+      "commit": "8a4aaf077142f3cfb77cec357afc07d2595d576a",
+      "provider": "pending-popup",
+      "lines": 56,
+      "readStatus": "Historical preparing-author whole-body fixture-reading attestation, exact unchanged body identity checked; fixture-only scope, not inherited acceptance or a fresh reading claim."
+    },
+    {
+      "source": "packages/base/src/lib/popover/store/PopoverStore.svelte.ts",
+      "sha256": "5893b45b9120dbc282213f6c61781134e29bc3822c208f15f2680d575050c7fb",
+      "commit": "8a4aaf077142f3cfb77cec357afc07d2595d576a",
+      "provider": "pending-popup",
+      "lines": 229,
+      "readStatus": "Historical preparing-author whole-body fixture-reading attestation, exact unchanged body identity checked; fixture-only scope, not inherited acceptance or a fresh reading claim."
+    },
+    {
+      "source": "packages/base/src/lib/popover/Trigger.svelte",
+      "sha256": "f53f01856584df96dcd251007547451099b8719073dfa14e315346097c309cfd",
+      "commit": "8a4aaf077142f3cfb77cec357afc07d2595d576a",
+      "provider": "pending-popup",
+      "lines": 76,
+      "readStatus": "Historical preparing-author whole-body fixture-reading attestation, exact unchanged body identity checked; fixture-only scope, not inherited acceptance or a fresh reading claim."
+    },
+    {
+      "source": "packages/base/src/lib/popover/types.ts",
+      "sha256": "a0e46944870708c6ae9b26f8ebdf1a9d094b999edb6e7aaf327275cd670827b1",
+      "commit": "8a4aaf077142f3cfb77cec357afc07d2595d576a",
+      "provider": "pending-popup",
+      "lines": 144,
+      "readStatus": "Historical preparing-author whole-body fixture-reading attestation, exact unchanged body identity checked; fixture-only scope, not inherited acceptance or a fresh reading claim."
+    },
+    {
+      "source": "packages/base/src/lib/popover/utils/constants.ts",
+      "sha256": "69a03145627953aab05636e24bfbe7b3e27a772314debe3038d5f634c052f90d",
+      "commit": "8a4aaf077142f3cfb77cec357afc07d2595d576a",
+      "provider": "pending-popup",
+      "lines": 3,
+      "readStatus": "Historical preparing-author whole-body fixture-reading attestation, exact unchanged body identity checked; fixture-only scope, not inherited acceptance or a fresh reading claim."
+    },
+    {
+      "source": "packages/base/src/lib/separator/types.ts",
+      "sha256": "b349b520840d7d7b3bbda5127105404312370ae300efe23bb354536c2d8c56dc",
+      "commit": "c1600456d3b4e72910d42823b9df69280c74a262",
+      "provider": "accepted-main",
+      "lines": 12,
+      "readStatus": "Historical preparing-author whole-body fixture-reading attestation, exact unchanged body identity checked; fixture-only scope, not inherited acceptance or a fresh reading claim."
+    },
+    {
+      "source": "packages/base/src/lib/toolbar/button/ToolbarButton.svelte",
+      "sha256": "452ffed6ea4bf216fcf5d130d4facf9b12a2458fd5662287674774837faa7166",
+      "commit": "c1600456d3b4e72910d42823b9df69280c74a262",
+      "provider": "accepted-main",
+      "lines": 27,
+      "readStatus": "Historical preparing-author whole-body fixture-reading attestation, exact unchanged body identity checked; fixture-only scope, not inherited acceptance or a fresh reading claim."
+    },
+    {
+      "source": "packages/base/src/lib/toolbar/group/ToolbarGroupContext.ts",
+      "sha256": "bfba6dcfb67c6c5d8eb4abdd43a0a1fc0c5502f884ffe6d0ef4d37070611874f",
+      "commit": "c1600456d3b4e72910d42823b9df69280c74a262",
+      "provider": "accepted-main",
+      "lines": 6,
+      "readStatus": "Historical preparing-author whole-body fixture-reading attestation, exact unchanged body identity checked; fixture-only scope, not inherited acceptance or a fresh reading claim."
+    },
+    {
+      "source": "packages/base/src/lib/toolbar/root/ToolbarRoot.svelte",
+      "sha256": "c4f0432d7d4adefe0a4f2b2b8daf543790fa3ea84587fcd9d3326f8ea950b76a",
+      "commit": "c1600456d3b4e72910d42823b9df69280c74a262",
+      "provider": "accepted-main",
+      "lines": 31,
+      "readStatus": "Historical preparing-author whole-body fixture-reading attestation, exact unchanged body identity checked; fixture-only scope, not inherited acceptance or a fresh reading claim."
+    },
+    {
+      "source": "packages/base/src/lib/toolbar/root/ToolbarRootContext.ts",
+      "sha256": "ac7081f4de2f79dcdf425ee5ca7690db2d577f9363f2ef03b75f3b5395adc6cb",
+      "commit": "c1600456d3b4e72910d42823b9df69280c74a262",
+      "provider": "accepted-main",
+      "lines": 15,
+      "readStatus": "Historical preparing-author whole-body fixture-reading attestation, exact unchanged body identity checked; fixture-only scope, not inherited acceptance or a fresh reading claim."
+    },
+    {
+      "source": "packages/base/src/lib/toolbar/types.ts",
+      "sha256": "c7cc1b91797831826e2605d119313666bce3f67185583beff516a80af9104e78",
+      "commit": "c1600456d3b4e72910d42823b9df69280c74a262",
+      "provider": "accepted-main",
+      "lines": 38,
+      "readStatus": "Historical preparing-author whole-body fixture-reading attestation, exact unchanged body identity checked; fixture-only scope, not inherited acceptance or a fresh reading claim."
+    },
+    {
+      "source": "packages/base/src/lib/utils/closePart.svelte.ts",
+      "sha256": "cf4f7d4a7a2d5616522a165bba1fc8a56ab08a1f746c9872f9cd8e8ad8451466",
+      "commit": "8a4aaf077142f3cfb77cec357afc07d2595d576a",
+      "provider": "pending-popup",
+      "lines": 38,
+      "readStatus": "Historical preparing-author whole-body fixture-reading attestation, exact unchanged body identity checked; fixture-only scope, not inherited acceptance or a fresh reading claim."
+    },
+    {
+      "source": "packages/base/src/lib/utils/isElementDisabled.ts",
+      "sha256": "c2f6141d744cb16e458208163d616cefa465b8da0445658c4d9282a05a1b616e",
+      "commit": "c1600456d3b4e72910d42823b9df69280c74a262",
+      "provider": "accepted-main",
+      "lines": 9,
+      "readStatus": "Historical preparing-author whole-body fixture-reading attestation, exact unchanged body identity checked; fixture-only scope, not inherited acceptance or a fresh reading claim."
+    },
+    {
+      "source": "packages/base/src/lib/utils/NullStore.svelte.ts",
+      "sha256": "442595fdf67989d0bdae8f422a53bfed7622832b0e5112f60e782d8d75a97e43",
+      "commit": "8a4aaf077142f3cfb77cec357afc07d2595d576a",
+      "provider": "pending-popup",
+      "lines": 11,
+      "readStatus": "Historical preparing-author whole-body fixture-reading attestation, exact unchanged body identity checked; fixture-only scope, not inherited acceptance or a fresh reading claim."
+    },
+    {
+      "source": "packages/base/src/lib/utils/popups/index.ts",
+      "sha256": "8685650fb9e3f7bfe7528330f062c4b3f94df89bf9adc8a48b13728774474e01",
+      "commit": "8a4aaf077142f3cfb77cec357afc07d2595d576a",
+      "provider": "pending-popup",
+      "lines": 3,
+      "readStatus": "Historical preparing-author whole-body fixture-reading attestation, exact unchanged body identity checked; fixture-only scope, not inherited acceptance or a fresh reading claim."
+    },
+    {
+      "source": "packages/base/src/lib/utils/popups/popupHandle.svelte.ts",
+      "sha256": "5acdc474609054a89472cdaa01531fa06e2670ac98e735f11f19e1651239ae89",
+      "commit": "8a4aaf077142f3cfb77cec357afc07d2595d576a",
+      "provider": "pending-popup",
+      "lines": 296,
+      "readStatus": "Historical preparing-author whole-body fixture-reading attestation, exact unchanged body identity checked; fixture-only scope, not inherited acceptance or a fresh reading claim."
+    },
+    {
+      "source": "packages/base/src/lib/utils/popups/PopupHandleAttachment.svelte",
+      "sha256": "bb34f4ea941b5579a57d1ff6432f3f5bf59c84a762c663112be7c7a9f4338985",
+      "commit": "8a4aaf077142f3cfb77cec357afc07d2595d576a",
+      "provider": "pending-popup",
+      "lines": 6,
+      "readStatus": "Historical preparing-author whole-body fixture-reading attestation, exact unchanged body identity checked; fixture-only scope, not inherited acceptance or a fresh reading claim."
+    },
+    {
+      "source": "packages/base/src/lib/utils/popups/usePopupHandleStore.svelte.ts",
+      "sha256": "3bbe4fd4132a3acdeb82b575f734b01caccc7c3033b8162fa64ad619a8bfbf58",
+      "commit": "8a4aaf077142f3cfb77cec357afc07d2595d576a",
+      "provider": "pending-popup",
+      "lines": 10,
+      "readStatus": "Historical preparing-author whole-body fixture-reading attestation, exact unchanged body identity checked; fixture-only scope, not inherited acceptance or a fresh reading claim."
+    },
+    {
+      "source": "packages/base/src/lib/utils/popups/useTriggerFocusGuards.svelte.ts",
+      "sha256": "61c4a5e3e40b0f8ff0d48d40208687ef43a209818cbe4bb6a9058050d91a1678",
+      "commit": "8a4aaf077142f3cfb77cec357afc07d2595d576a",
+      "provider": "pending-popup",
+      "lines": 86,
+      "readStatus": "Historical preparing-author whole-body fixture-reading attestation, exact unchanged body identity checked; fixture-only scope, not inherited acceptance or a fresh reading claim."
+    }
+  ],
+  "manualNotes": [
+    {
+      "path": "source-plan.md",
+      "sha256": "840ac97ec03079117a07124df77a89b3f159eb55426fb2e234830f19cec1f03f"
+    },
+    {
+      "path": "source-correspondence.md",
+      "sha256": "db9682feaf5216c9e8d9e27f4972de31d098b58ca7b4b4a912e404d300eb50fc"
+    },
+    {
+      "path": "native-composition.md",
+      "sha256": "468c68081e0c3a4078e697e271c3c3e5345db0b6058f4a39ca77d581882c225d"
+    },
+    {
+      "path": "manual-test-plan.md",
+      "sha256": "94ead2cd58641f2ed2ccce6419f830b276c5a09b41bb0ed9a36ee2f23ec32471"
+    },
+    {
+      "path": "remote-select-contract.md",
+      "sha256": "fc9493520df553d005c9bd1460ddca490668422df5aa868f6ddab112e99414c9"
+    }
+  ],
+  "accounting": {
+    "plainSelectDeclarationSites": 314,
+    "parameterizedSelectDeclarationSites": 4,
+    "literalSelectRowsProposed": 11,
+    "plainSeamDeclarationSites": 34,
+    "parameterizedSeamDeclarationSites": 1,
+    "literalSeamRowsProposed": 4,
+    "harnessGeneratorDeclarationSites": 24,
+    "allDeclarationSites": 377,
+    "conformanceCalls": 18,
+    "typeSites": 20,
+    "ordinaryCredit": 0
+  },
+  "correctedObservation": "Original useListNavigation348\u2013350 item && ... references the later function-scope memo item-props bag; native later derived item bag is Source-same. Initial incomplete-read concern corrected; no blocker, issue or helper repair lease.",
+  "remainingGates": [
+    "Exact final-head independent complete precode Source/native/maintainability review and lead approval.",
+    "Future implementation: reuse landed private PR73 leaves/style; separately port unsynced root construction and pure label-ID resolver, complete reached canonical owner migrations, ordinary Select/public API/remote and actual full implementation gates.",
+    "Actual Select product implementation and separate per-body/variant/helper/type/native evidence, all currently zero-credit.",
+    "Exact implementation-head Source/native/maintainability, SSR/hydration, secured browser, full CI/verification and packed public consumers.",
+    "Future implementation: reuse landed private PR73 leaves/style; separately port unsynced root construction and pure label-ID resolver, complete reached canonical owner migrations, ordinary Select/public API/remote and actual full implementation gates."
+  ],
+  "historicalProposal": {
+    "commit": "82032b16ddadb3dfb51ce5d7528beed5835cde48",
+    "receipt": "history/native-precode-82032.json",
+    "currentReaderScope": "plan-repair-evidence.json",
+    "currentMainRefresh": "history/native-precode-94c23.json.gz"
+  },
+  "correctedCoreDependency": {
+    "source": "packages/base/src/lib/utils/useOpenInteractionType.svelte.ts",
+    "actualCaller": "Pinned SelectRoot.tsx lines47/140; merge order and current/previous exit method in full caller body.",
+    "provider": "abe8aa9b66ab8cd8d83dfdac28ebee94a0655f79",
+    "newImplementationNeeded": false,
+    "currentRepairReading": "Provider now actual main; preceding bounded body reading remains historical, no inherited fresh review claim."
+  },
+  "nativeFixtureSourceBeyondCore": [
+    {
+      "source": "packages/base/src/lib/floating-ui/hooks/useHoverFloatingInteraction.svelte.ts",
+      "sha256": "0ab147a7643e45e94606193799839e6b449028367873d9acdcb4e2618af860ba",
+      "commit": "abe8aa9b66ab8cd8d83dfdac28ebee94a0655f79",
+      "provider": "accepted-main",
+      "lines": 223,
+      "readStatus": "Current identity only; independent entire-closure review external."
+    },
+    {
+      "source": "packages/base/src/lib/floating-ui/hooks/useHoverInteractionSharedState.svelte.ts",
+      "sha256": "894478a3a44f74f94e416fc6aa6060af0625f0d67d80dbf59c10975916b842a3",
+      "commit": "abe8aa9b66ab8cd8d83dfdac28ebee94a0655f79",
+      "provider": "accepted-main",
+      "lines": 136,
+      "readStatus": "Current identity only; independent entire-closure review external."
+    },
+    {
+      "source": "packages/base/src/lib/floating-ui/hooks/useHoverReferenceInteraction.svelte.ts",
+      "sha256": "bd55a3a32c7465648d0a0640aae445b27f4faab8b08946e646e42459e176a060",
+      "commit": "abe8aa9b66ab8cd8d83dfdac28ebee94a0655f79",
+      "provider": "accepted-main",
+      "lines": 449,
+      "readStatus": "Current identity only; independent entire-closure review external."
+    },
+    {
+      "source": "packages/base/src/lib/floating-ui/hooks/useHoverShared.ts",
+      "sha256": "27321c9b2a6773e8743846b8af2a51a4339462f8189f1a9cad36b9702b4517df",
+      "commit": "abe8aa9b66ab8cd8d83dfdac28ebee94a0655f79",
+      "provider": "accepted-main",
+      "lines": 73,
+      "readStatus": "Current identity only; independent entire-closure review external."
+    },
+    {
+      "source": "packages/base/src/lib/floating-ui/safePolygon.ts",
+      "sha256": "ee7e5e41dcb23934c4be65722b2c1e52663c6c518e3beafff627b8968430a9e3",
+      "commit": "abe8aa9b66ab8cd8d83dfdac28ebee94a0655f79",
+      "provider": "accepted-main",
+      "lines": 449,
+      "readStatus": "Current identity only; independent entire-closure review external."
+    },
+    {
+      "source": "packages/base/src/lib/internals/composite/constants.ts",
+      "sha256": "bf9445674ea41f593d2948d874d80077cb90932a20f820bd0ec1d84a39ebb7ab",
+      "commit": "abe8aa9b66ab8cd8d83dfdac28ebee94a0655f79",
+      "provider": "accepted-main",
+      "lines": 3,
+      "readStatus": "Current identity only; independent entire-closure review external."
+    },
+    {
+      "source": "packages/base/src/lib/internals/composite/item/CompositeItem.svelte",
+      "sha256": "23e78d87cbeb13db6e655c95b20f57d4dd19dfd16a91af90d73d954100be7797",
+      "commit": "abe8aa9b66ab8cd8d83dfdac28ebee94a0655f79",
+      "provider": "accepted-main",
+      "lines": 61,
+      "readStatus": "Current identity only; independent entire-closure review external."
+    },
+    {
+      "source": "packages/base/src/lib/internals/composite/item/useCompositeItem.svelte.ts",
+      "sha256": "d90708b23dde83c4381ea1085767ec30135307525c1ea9e5422e9879a522daad",
+      "commit": "abe8aa9b66ab8cd8d83dfdac28ebee94a0655f79",
+      "provider": "accepted-main",
+      "lines": 39,
+      "readStatus": "Current identity only; independent entire-closure review external."
+    },
+    {
+      "source": "packages/base/src/lib/internals/composite/root/CompositeRoot.svelte",
+      "sha256": "29241d2982ea752a27d65c8c15cc9e3675efd2cfbc0917a4b112c5179c7d2e4e",
+      "commit": "abe8aa9b66ab8cd8d83dfdac28ebee94a0655f79",
+      "provider": "accepted-main",
+      "lines": 102,
+      "readStatus": "Current identity only; independent entire-closure review external."
+    },
+    {
+      "source": "packages/base/src/lib/internals/composite/root/gridNavigation.ts",
+      "sha256": "d2ed3a04fffe1d9d73819d40d2494ab19f5707adbe3c7bd9849a81c30977315c",
+      "commit": "abe8aa9b66ab8cd8d83dfdac28ebee94a0655f79",
+      "provider": "accepted-main",
+      "lines": 123,
+      "readStatus": "Current identity only; independent entire-closure review external."
+    },
+    {
+      "source": "packages/base/src/lib/internals/composite/root/useCompositeRoot.svelte.ts",
+      "sha256": "bdd6ced8bc2a28c77a2572b6b54eab7ad09ee111ddf2bcdbe777686f947c39b6",
+      "commit": "abe8aa9b66ab8cd8d83dfdac28ebee94a0655f79",
+      "provider": "accepted-main",
+      "lines": 375,
+      "readStatus": "Current identity only; independent entire-closure review external."
+    },
+    {
+      "source": "packages/base/src/lib/popover/context.ts",
+      "sha256": "625603bf406d3a7c7f8fdf489d141d777554e45ebb4f7190c2ea1236931665b1",
+      "commit": "abe8aa9b66ab8cd8d83dfdac28ebee94a0655f79",
+      "provider": "accepted-main",
+      "lines": 25,
+      "readStatus": "Current identity only; independent entire-closure review external."
+    },
+    {
+      "source": "packages/base/src/lib/popover/Popup.svelte",
+      "sha256": "7bf0ffbca306fbfa93d63f2bebb54af2b792e908441cb3f96e29819e1892283f",
+      "commit": "abe8aa9b66ab8cd8d83dfdac28ebee94a0655f79",
+      "provider": "accepted-main",
+      "lines": 138,
+      "readStatus": "Current identity only; independent entire-closure review external."
+    },
+    {
+      "source": "packages/base/src/lib/popover/Portal.svelte",
+      "sha256": "583295746ee2d2b922e40217425cdbc338bdd436d4dac7df0d98ab3e65063157",
+      "commit": "abe8aa9b66ab8cd8d83dfdac28ebee94a0655f79",
+      "provider": "accepted-main",
+      "lines": 18,
+      "readStatus": "Current identity only; independent entire-closure review external."
+    },
+    {
+      "source": "packages/base/src/lib/popover/Positioner.svelte",
+      "sha256": "b7938faaf2ebc3346ccf0d6a413cfec499b084a7520cb83720d9adb80585a44b",
+      "commit": "abe8aa9b66ab8cd8d83dfdac28ebee94a0655f79",
+      "provider": "accepted-main",
+      "lines": 160,
+      "readStatus": "Current identity only; independent entire-closure review external."
+    },
+    {
+      "source": "packages/base/src/lib/popover/positioner/PopoverPositionerContext.ts",
+      "sha256": "db9cb0976ec9934229af3b5c3a511d8ec7a62b0432f87d2846d72c6b32a7aa67",
+      "commit": "abe8aa9b66ab8cd8d83dfdac28ebee94a0655f79",
+      "provider": "accepted-main",
+      "lines": 16,
+      "readStatus": "Current identity only; independent entire-closure review external."
+    },
+    {
+      "source": "packages/base/src/lib/popover/Root.svelte",
+      "sha256": "c9033272f735e37e3749427f82301a8bc1ee156d952172d4cc660e43bb9d5f39",
+      "commit": "abe8aa9b66ab8cd8d83dfdac28ebee94a0655f79",
+      "provider": "accepted-main",
+      "lines": 84,
+      "readStatus": "Current identity only; independent entire-closure review external."
+    },
+    {
+      "source": "packages/base/src/lib/popover/root/PopoverInteractions.svelte",
+      "sha256": "06bb65fcec36319c38276332f53d6218245172b2547b2eaccec95ab88fab6fb7",
+      "commit": "abe8aa9b66ab8cd8d83dfdac28ebee94a0655f79",
+      "provider": "accepted-main",
+      "lines": 25,
+      "readStatus": "Current identity only; independent entire-closure review external."
+    },
+    {
+      "source": "packages/base/src/lib/popover/store/PopoverHandle.svelte.ts",
+      "sha256": "7d699cfec5733990e9202182c5a7a637dae0343364dff2e765e6f15a04f835f4",
+      "commit": "abe8aa9b66ab8cd8d83dfdac28ebee94a0655f79",
+      "provider": "accepted-main",
+      "lines": 60,
+      "readStatus": "Current identity only; independent entire-closure review external."
+    },
+    {
+      "source": "packages/base/src/lib/popover/store/PopoverStore.svelte.ts",
+      "sha256": "d4fcb2ed56b4af8b6527373d933212489bbaa8844568fbbb83d63a8ea57b572a",
+      "commit": "abe8aa9b66ab8cd8d83dfdac28ebee94a0655f79",
+      "provider": "accepted-main",
+      "lines": 233,
+      "readStatus": "Current identity only; independent entire-closure review external."
+    },
+    {
+      "source": "packages/base/src/lib/popover/Trigger.svelte",
+      "sha256": "b24fee93cbf9d64690e9f381563706ca3dac652522c5585dcd5a040cba183cca",
+      "commit": "abe8aa9b66ab8cd8d83dfdac28ebee94a0655f79",
+      "provider": "accepted-main",
+      "lines": 166,
+      "readStatus": "Current identity only; independent entire-closure review external."
+    },
+    {
+      "source": "packages/base/src/lib/popover/types.ts",
+      "sha256": "8eecd8cd7c3c69e39d9b650d45173888287ccff99b4072d7e3fd3eb2b4c87f31",
+      "commit": "abe8aa9b66ab8cd8d83dfdac28ebee94a0655f79",
+      "provider": "accepted-main",
+      "lines": 224,
+      "readStatus": "Current identity only; independent entire-closure review external."
+    },
+    {
+      "source": "packages/base/src/lib/popover/utils/constants.ts",
+      "sha256": "69a03145627953aab05636e24bfbe7b3e27a772314debe3038d5f634c052f90d",
+      "commit": "abe8aa9b66ab8cd8d83dfdac28ebee94a0655f79",
+      "provider": "accepted-main",
+      "lines": 3,
+      "readStatus": "Current identity only; independent entire-closure review external."
+    },
+    {
+      "source": "packages/base/src/lib/separator/types.ts",
+      "sha256": "5ab346df307c50fad23dfdcb26e3931c9b4ba24de0ddc21881ef54441e6496e7",
+      "commit": "abe8aa9b66ab8cd8d83dfdac28ebee94a0655f79",
+      "provider": "accepted-main",
+      "lines": 16,
+      "readStatus": "Current identity only; independent entire-closure review external."
+    },
+    {
+      "source": "packages/base/src/lib/toolbar/button/ToolbarButton.svelte",
+      "sha256": "01e2dcade028ceafada0c9d7e7f319a2143fb68d5da047d22ab50087c25c3bac",
+      "commit": "abe8aa9b66ab8cd8d83dfdac28ebee94a0655f79",
+      "provider": "accepted-main",
+      "lines": 64,
+      "readStatus": "Current identity only; independent entire-closure review external."
+    },
+    {
+      "source": "packages/base/src/lib/toolbar/group/ToolbarGroupContext.ts",
+      "sha256": "d8e72834d984abda546691454db71dc231cd1e9ef9778a4a0abc3c7a8cc7b811",
+      "commit": "abe8aa9b66ab8cd8d83dfdac28ebee94a0655f79",
+      "provider": "accepted-main",
+      "lines": 12,
+      "readStatus": "Current identity only; independent entire-closure review external."
+    },
+    {
+      "source": "packages/base/src/lib/toolbar/root/ToolbarRoot.svelte",
+      "sha256": "af28517c34c005c1dabe305d4d78824b6740f81c9baab41d8dd88db7d7a39b80",
+      "commit": "abe8aa9b66ab8cd8d83dfdac28ebee94a0655f79",
+      "provider": "accepted-main",
+      "lines": 57,
+      "readStatus": "Current identity only; independent entire-closure review external."
+    },
+    {
+      "source": "packages/base/src/lib/toolbar/root/ToolbarRootContext.ts",
+      "sha256": "d2e5bd3ad75ddc60d8cef7c2cf2702802382e4b6317d7ab6b98b37eab100fd7b",
+      "commit": "abe8aa9b66ab8cd8d83dfdac28ebee94a0655f79",
+      "provider": "accepted-main",
+      "lines": 22,
+      "readStatus": "Current identity only; independent entire-closure review external."
+    },
+    {
+      "source": "packages/base/src/lib/toolbar/types.ts",
+      "sha256": "3bc3d1e84b480879fe78008f97ee8dbb7dba2b0d29040a2fc31df71b5de598ff",
+      "commit": "abe8aa9b66ab8cd8d83dfdac28ebee94a0655f79",
+      "provider": "accepted-main",
+      "lines": 73,
+      "readStatus": "Current identity only; independent entire-closure review external."
+    },
+    {
+      "source": "packages/base/src/lib/utils/closePart.svelte.ts",
+      "sha256": "6c2d6274e65c38289c2731dfe11b16eba4c692b1df4b753fb843b06cfa5d1818",
+      "commit": "abe8aa9b66ab8cd8d83dfdac28ebee94a0655f79",
+      "provider": "accepted-main",
+      "lines": 25,
+      "readStatus": "Current identity only; independent entire-closure review external."
+    },
+    {
+      "source": "packages/base/src/lib/utils/popups/PopupHandleAttachment.svelte",
+      "sha256": "437e6d44b586b4cc524d30d4214906695aa505239f1951a7840077780f562927",
+      "commit": "abe8aa9b66ab8cd8d83dfdac28ebee94a0655f79",
+      "provider": "accepted-main",
+      "lines": 7,
+      "readStatus": "Current identity only; independent entire-closure review external."
+    },
+    {
+      "source": "packages/base/src/lib/utils/popups/usePopupHandleStore.svelte.ts",
+      "sha256": "d96d4ca763135cddc2ddbc931e772954b47ceb057bf1172660ec73203c9dbd0b",
+      "commit": "abe8aa9b66ab8cd8d83dfdac28ebee94a0655f79",
+      "provider": "accepted-main",
+      "lines": 19,
+      "readStatus": "Current identity only; independent entire-closure review external."
+    },
+    {
+      "source": "packages/base/src/lib/utils/popups/useTriggerFocusGuards.svelte.ts",
+      "sha256": "31fe56072f7dd8093b4292afc5da43ce09f07ed01faa185e6fae8cdc11f5aac6",
+      "commit": "abe8aa9b66ab8cd8d83dfdac28ebee94a0655f79",
+      "provider": "accepted-main",
+      "lines": 86,
+      "readStatus": "Current identity only; independent entire-closure review external."
+    },
+    {
+      "source": "packages/utils/src/lib/isElementDisabled.ts",
+      "sha256": "c2f6141d744cb16e458208163d616cefa465b8da0445658c4d9282a05a1b616e",
+      "commit": "abe8aa9b66ab8cd8d83dfdac28ebee94a0655f79",
+      "provider": "accepted-main",
+      "lines": 9,
+      "readStatus": "Current identity only; independent entire-closure review external."
+    }
+  ],
+  "completePerBodyAssessment": {
+    "sourceModules": 178,
+    "extraSelectDataFiles": 10,
+    "sourceMapping": "per-body-source-mapping.json",
+    "nativeMapping": "per-body-native-mapping.json",
+    "recordedNativeUnion": 213,
+    "actualExistingProviderAppendix": "existing-provider-appendix.json",
+    "additionalProviderBodies": 3,
+    "collectivePhysicalNativeScope": 216,
+    "absentBusinessLeaves": 2,
+    "status": "Individual mappings assess actual business/native/maintainability separately from hashes. Whole-body collective reading scope explicitly attributed; final-head disposition external. Zero runtime acceptance and ordinary credit.",
+    "hashes": {
+      "per-body-source-mapping.json": "5cf7b4351f3dd908567b2c07f8ba794693e09f7cfe0440cf68c387a07d6ca0ae",
+      "per-body-native-mapping.json": "e23863bb077904ba52f130d9b2155a09036cd834b6abfed7616efae61cb91885",
+      "existing-provider-appendix.json": "55edceb3281e48e5c82c623a8c928ea6412aef408b362ca4fe2e6d6ee9f237fb",
+      "independent-body-reading-ledger.json": "ebb277355020ef7a76257571621f0c65fe156b2c07bfa33bac1dfaf9712f54a3",
+      "canonical-owner-classification.json": "a63280e2b490c624b9c3071e839d6d426a87a3e7a90afa95aa8e4c93adb853c7"
+    },
+    "independentWholeBodyReadingLedger": "independent-body-reading-ledger.json",
+    "sourceTestClosureBodiesRead": 279,
+    "sourceTestClosureLinesRead": 39459,
+    "independentPrecodeDisposition": "Historical original disposition preserved in history/public-275d; fresh successor whole-plan/closure disposition external.",
+    "priorExplicitlyIdentifiedClassRepresentations": 2,
+    "ownerRepresentationInventory": {
+      "inventory": "canonical-owner-classification.json",
+      "actualProviders": 216,
+      "runtimeReachedOwnerRows": 28,
+      "typeOnlyOwnerAuditRows": 1,
+      "status": "28 retained runtime provider owner rows and1 type-only audit row remain pending. Three private leaves/style landed, ordinary Select unconsumed; only2business boundaries absent. Final review/CI external.",
+      "correction": "usePopupHandleStore retained committed hydration history added as explicitly assigned Popup owner; useAnimationsFinished delegates real AnimationFrame with per-invocation resources and shared Source batching, no extra facade. One in/one out leaves28 runtime rows. Prior f3 inventory exact blob/hash preserved in inventory provenance."
+    },
+    "historicalDispositionScope": "independentPrecodeDisposition above records the earlier nonexclusive Button/Transition checkpoint at its original candidate. Current owner scope is explicitly superseded by currentOwnerRepresentationInventory/currentDiagnosticDisposition; no historical reading or acceptance rewritten."
+  },
+  "historicalReceiptStorage": {
+    "manifest": "history/native-precode-94c23-storage.json",
+    "rawGitBlob": "431785b57da3374fe697fa10bac13e44c5779cfd",
+    "rawSha256": "524228b0bce9cbf851aef6e4a1018778b5a52ed3eb45c667d74203ff8f9e0b7a",
+    "rawBytes": 2725764,
+    "compressedSha256": "3fab5d2e03c1373e8960ee966a6d8c9513bbe17d999c7cbd7d6ce86fc5f0bbcc",
+    "compressedBytes": 233015,
+    "status": "Exact original historical JSON restored by decompression; no replaced reading attestations or new acceptance."
+  },
+  "nativeTransportAcceptanceDependency": {
+    "path": "packages/base/src/lib/internals/nativeProps.ts",
+    "symbol": "toNativeStyle",
+    "actualProviderCommit": "abe8aa9b66ab8cd8d83dfdac28ebee94a0655f79",
+    "actualSha256": "d815afcfdacace885ce9a74f568d2e0dcb167e72003372cd2f398603f2cacd5a",
+    "owner": "PR73 canonical owner; no runtime edit in PR70",
+    "ownerObservedHead": "da58c22d1840c7104cce45710099e4a57706e135",
+    "ownerObservedStatus": "Merged into actual main abe8; lead bounded three-leaf/native-style/storage acceptance followed28premerge successful checks. Actual main postmerge gates are not established by this local integration.",
+    "observation": "Every string, including empty string, now returns before the unchanged non-string falsy branch. PR73 predecessor and successor receipts preserve actual native spread-vs-React distinctions; PR70 has not rerun those witnesses.",
+    "status": "Landed private native transport repair; ordinary Select remains unimplemented/unconsumed. Documentation successor requires fresh independent review and all mandatory hosted gates.",
+    "unchangedAssertionCredit": 0,
+    "witnessLinks": [
+      "https://github.com/sveltery/base/pull/73#pullrequestreview-5435734244",
+      "https://github.com/sveltery/base/pull/73#issuecomment-6025527104"
+    ]
+  },
+  "currentDiagnosticDisposition": "Ordinary Select/public API/remote composition remains unimplemented. Two business boundaries remain missing: unsynced floating-root constructor and pure label resolver. Reached canonical owner representations remain pending; no new runtime or unchanged Source assertion credit.",
+  "nativeGraphStorage": {
+    "proposed-native-helper-graph.json.gz": {
+      "manifest": "proposed-native-helper-graph-storage.json",
+      "rawGitBlob": "c4210c93dd26e5e1c350bba46f764797282c3321",
+      "rawSha256": "47b9f9dadf8a70acb7b9c4607f9073cf16ff044dabd55066d9544615ee61949a",
+      "rawBytes": 1036826,
+      "compressedSha256": "d419eb23b2d738e57728f118beb78ce97143233c8670b74c1ea0ac1ec66445d5",
+      "compressedBytes": 98456
+    },
+    "proposed-native-fixture-graph.json.gz": {
+      "manifest": "proposed-native-fixture-graph-storage.json",
+      "rawGitBlob": "d697c7e22f3a48984c0ff9dd95692388421e16ea",
+      "rawSha256": "a90098943a1b8bb43424baf1f43d5dbeece6df32cc4a659edd6d8c1e338d5413",
+      "rawBytes": 1218326,
+      "compressedSha256": "2ae0a67f5989e78272d7304b62a053047e139c7da06307167c5937e40c40bf1b",
+      "compressedBytes": 114221
+    }
+  },
+  "currentOwnerRepresentationInventory": {
+    "inventory": "canonical-owner-classification.json",
+    "actualProviders": 216,
+    "runtimeReachedOwnerRows": 28,
+    "typeOnlyOwnerAuditRows": 1,
+    "status": "28 retained runtime provider owner rows and1 type-only audit row remain pending. Three private leaves/style landed, ordinary Select unconsumed; only2business boundaries absent. Final review/CI external.",
+    "correction": "usePopupHandleStore retained committed hydration history added as explicitly assigned Popup owner; useAnimationsFinished delegates real AnimationFrame with per-invocation resources and shared Source batching, no extra facade. One in/one out leaves28 runtime rows. Prior f3 inventory exact blob/hash preserved in inventory provenance."
+  },
+  "currentRemoteAuthoredRouteProposal": {
+    "flag": "Field.Control authoredSelect=true",
+    "requires": "resolved select/select multiple kind and callable render",
+    "preserves": "absent/false/undefined flag retains existing native custom-select dispatcher/payload/callbacks",
+    "reviewFinding": "https://github.com/sveltery/base/pull/70#discussion_r4200861285",
+    "status": "Documentation-only explicit API proposal; no runtime/type implementation or assertion credit"
+  },
+  "missingBusinessLeaves": 2,
+  "successorIntegration": {
+    "main": "abe8aa9b66ab8cd8d83dfdac28ebee94a0655f79",
+    "mainTree": "18b6aaacfa1373cc1bba0dbd94d1e782cc648abf",
+    "normalParents": [
+      "275d0266d11b72b8386365d2155dbf92b28b2812",
+      "abe8aa9b66ab8cd8d83dfdac28ebee94a0655f79"
+    ],
+    "newNativeBodies": [
+      "packages/base/src/lib/internals/itemEquality.ts",
+      "packages/base/src/lib/internals/resolveValueLabel.ts",
+      "packages/base/src/lib/utils/listbox-separator/ListboxSeparator.svelte",
+      "packages/base/src/lib/utils/listbox-separator/types.ts"
+    ],
+    "changedNativeBodies": [
+      "packages/base/src/lib/internals/nativeProps.ts"
+    ],
+    "unchangedPriorGraphBodies": 208,
+    "mainPostmergeGates": "Not established by this integration; lead requires all applicable main gates successful before merge."
+  },
+  "freshSuccessorWholeBodyReview": "integration-reading-ledger.json"
+}
