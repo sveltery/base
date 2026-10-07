@@ -13,6 +13,9 @@
 			<a href="/fixtures/fieldset">Fieldset</a> (add <code>&amp;reference</code> for React Base UI)
 		</li>
 		<li>
+			<a href="/fixtures/separator">Separator</a> (add <code>&amp;reference</code> for React Base UI)
+		</li>
+		<li>
 			<a href="/fixtures/toggle">Toggle</a> (add <code>&amp;reference</code> for React Base UI)
 		</li>
 		<li>
