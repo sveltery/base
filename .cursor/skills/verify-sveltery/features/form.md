@@ -18,7 +18,7 @@ A native `<form>` that collects registered fields, blocks submit when one is inv
 Differences from React Base UI, all deliberate:
 
 - No `actionsRef`. Use `bind:actions`.
-- No `ref`. Use `{@attach}`.
+- No element `ref`. Consumers pass `{@attach}`. The default host uses `bind:this`. A `render` host records the element through the spread props. Fields register on `fields`, the submit count is `submitCount`, and a field's focusable element is `control`.
 - No `className` or style callbacks. Use `class` and `style` strings.
 - The submit listener is the native `onsubmit`. `preventDefault()` does not skip `onFormSubmit`.
 - `render` receives a children snippet. Spread `props` onto the host and render that snippet inside it.
@@ -49,4 +49,4 @@ Component tests (`src/lib/form/Form.svelte.spec.ts`) cover the registry: blocked
 
 - Field, Field.Control, Field.Error, Checkbox, NumberField and Switch. Their Form tests (error text, `aria-invalid`, async validators, disabled fieldset exclusion, strict-mode registration) wait for those components.
 - `className` and `style` state callbacks.
-- React `actionsRef` and element refs.
+- React `actionsRef` and element `ref` props.

@@ -20,11 +20,6 @@
 
 	const form = useFormContext();
 	let control = $state<HTMLInputElement | HTMLTextAreaElement | null>(null);
-	const controlRef = {
-		get current() {
-			return control;
-		}
-	};
 
 	// One registry object for the life of this field. `Map.set` on the same key
 	// keeps insertion order, which is what submit uses when trees are disconnected.
@@ -32,7 +27,9 @@
 		get name() {
 			return name;
 		},
-		controlRef,
+		get control() {
+			return control;
+		},
 		get validityData() {
 			return {
 				state: {
@@ -55,7 +52,7 @@
 			};
 		},
 		validate() {
-			onValidate?.(form.submitCountRef.current);
+			onValidate?.(form.submitCount);
 		},
 		getValue() {
 			return value;
@@ -63,7 +60,7 @@
 	};
 
 	$effect(() => {
-		const fields = form.formRef.current.fields;
+		const fields = form.fields;
 		fields.set(id, entry);
 		return () => {
 			if (fields.get(id) === entry) fields.delete(id);

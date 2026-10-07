@@ -9,7 +9,7 @@
 	import { createGenericEventDetails, REASONS } from '../internal/event-details.js';
 	import { setFormContext, type FormContextValue } from './context.js';
 	import { comesBeforeInSameTree } from './document-order.js';
-	import type { FormActions, FormErrors, FormProps, FormState } from './types.js';
+	import type { FormActions, FormErrors, FormField, FormProps, FormState } from './types.js';
 
 	let {
 		validationMode = 'onSubmit',
@@ -23,20 +23,20 @@
 		...elementProps
 	}: FormProps<FormValues> = $props();
 
-	const formRef: FormContextValue['formRef'] = { current: { fields: new Map() } };
-	const elementRef: FormContextValue['elementRef'] = { current: null };
-	const submitCountRef: FormContextValue['submitCountRef'] = { current: 0 };
-	// Plain flag, like the upstream ref. The focus effect reads it when `errors` changes.
+	const fields = new Map<string, FormField>();
+	let element = $state<HTMLFormElement | null>(null);
+	let submitCount = 0;
+	// Plain flag. The focus effect reads it when `errors` changes.
 	let submitted = false;
 
-	const state: FormState = {};
+	const formState: FormState = {};
 	const emptyErrors: FormErrors = {};
 	const attachmentKey = createAttachmentKey();
 
 	function rememberForm(node: HTMLFormElement) {
-		elementRef.current = node;
+		element = node;
 		return () => {
-			if (elementRef.current === node) elementRef.current = null;
+			if (element === node) element = null;
 		};
 	}
 
@@ -46,10 +46,10 @@
 		// document position. Disconnected trees keep registration order.
 		let hasInvalid = false;
 		let firstControl: HTMLElement | null = null;
-		for (const field of formRef.current.fields.values()) {
+		for (const field of fields.values()) {
 			if (field.validityData.state.valid !== false) continue;
 			hasInvalid = true;
-			const control = field.controlRef.current;
+			const control = field.control;
 			if (control && (!firstControl || comesBeforeInSameTree(control, firstControl))) {
 				firstControl = control;
 			}
@@ -66,7 +66,7 @@
 
 	function validate(fieldName?: string) {
 		if (fieldName) {
-			for (const field of formRef.current.fields.values()) {
+			for (const field of fields.values()) {
 				if (field.name === fieldName) {
 					field.validate();
 					return;
@@ -74,7 +74,7 @@
 			}
 			return;
 		}
-		formRef.current.fields.forEach((field) => {
+		fields.forEach((field) => {
 			field.validate();
 		});
 	}
@@ -94,10 +94,10 @@
 	}
 
 	function handleSubmit(event: SubmitEvent & { currentTarget: EventTarget & HTMLFormElement }) {
-		submitCountRef.current += 1;
+		submitCount += 1;
 
 		// Async validation is not awaited, so it cannot stop this submit.
-		formRef.current.fields.forEach((field) => {
+		fields.forEach((field) => {
 			field.validate();
 		});
 
@@ -113,7 +113,7 @@
 			event.preventDefault();
 
 			const formValues: Record<string, unknown> = {};
-			formRef.current.fields.forEach((field) => {
+			fields.forEach((field) => {
 				if (field.name) formValues[field.name] = field.getValue();
 			});
 
@@ -122,9 +122,13 @@
 	}
 
 	const context: FormContextValue = {
-		elementRef,
-		formRef,
-		submitCountRef,
+		fields,
+		get element() {
+			return element;
+		},
+		get submitCount() {
+			return submitCount;
+		},
 		get validationMode() {
 			return validationMode;
 		},
@@ -148,7 +152,9 @@
 		...elementProps,
 		novalidate,
 		onsubmit: handleSubmit,
-		[attachmentKey]: rememberForm
+		// The default host uses `bind:this`. A custom `render` host is the caller's element,
+		// so the same element is recorded when they spread `props`.
+		...(render ? { [attachmentKey]: rememberForm } : {})
 	});
 </script>
 
@@ -157,7 +163,7 @@
 {/snippet}
 
 {#if render}
-	{@render render(hostProps, state, content)}
+	{@render render(hostProps, formState, content)}
 {:else}
-	<form {...hostProps}>{@render content()}</form>
+	<form {...hostProps} bind:this={element}>{@render content()}</form>
 {/if}

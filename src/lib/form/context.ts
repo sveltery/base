@@ -6,9 +6,11 @@ import type { FormErrors, FormField, FormValidationMode } from './types.js';
 const FORM_CONTEXT = Symbol('form');
 
 export interface FormContextValue {
-	elementRef: { current: HTMLFormElement | null };
-	formRef: { current: { fields: Map<string, FormField> } };
-	submitCountRef: { current: number };
+	/** Form element, or null before the host mounts and after it unmounts. */
+	readonly element: HTMLFormElement | null;
+	fields: Map<string, FormField>;
+	/** How many submits have reached field validation. Read during `validate`. */
+	readonly submitCount: number;
 	readonly validationMode: FormValidationMode;
 	readonly errors: FormErrors;
 	clearErrors: (name: string | undefined) => void;
@@ -21,9 +23,9 @@ const EMPTY_ERRORS: FormErrors = Object.freeze({});
  * One map for every missing provider, matching the React default context value.
  */
 const DEFAULT_FORM_CONTEXT: FormContextValue = {
-	elementRef: { current: null },
-	formRef: { current: { fields: new Map() } },
-	submitCountRef: { current: 0 },
+	element: null,
+	fields: new Map(),
+	submitCount: 0,
 	validationMode: 'onSubmit',
 	errors: EMPTY_ERRORS,
 	clearErrors() {}

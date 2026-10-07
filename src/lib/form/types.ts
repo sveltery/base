@@ -43,7 +43,8 @@ export interface FormField {
 	 */
 	validate: () => void;
 	validityData: FieldValidityData;
-	controlRef: { current: HTMLElement | null };
+	/** Focusable control, or null when this field has none. Read when submitting. */
+	control: HTMLElement | null;
 	getValue: () => unknown;
 }
 
@@ -85,7 +86,6 @@ export interface FormProps<
 	onFormSubmit?: (formValues: FormValues, eventDetails: FormSubmitEventDetails) => void;
 	/**
 	 * Imperative handle. Use `bind:actions` and call `actions.validate()`.
-	 * Replaces the upstream `actionsRef`.
 	 */
 	actions?: FormActions;
 	/**
