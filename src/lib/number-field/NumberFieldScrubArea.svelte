@@ -12,7 +12,8 @@
 	import { getStateAttributesProps } from '../internal/state-attributes.js';
 	import { numberFieldStateAttributes } from './attributes.js';
 	import { ScrubAreaState, setScrubAreaContext, useNumberFieldContext } from './context.svelte.js';
-	import { addEventListener, getTarget, ownerDocument, ownerWindow } from './dom.js';
+	import { on } from 'svelte/events';
+	import { getTarget, ownerDocument, ownerWindow } from './dom.js';
 	import { gecko, webkit } from './platform.js';
 	import { mergeCssStyle } from './style.js';
 	import type { NumberFieldScrubAreaProps, NumberFieldScrubAreaState } from './types.js';
@@ -150,13 +151,8 @@
 		}
 
 		const view = ownerWindow(input);
-		const stopUp = addEventListener(view, 'pointerup', handlePointerUp as EventListener, true);
-		const stopMove = addEventListener(
-			view,
-			'pointermove',
-			handlePointerMove as EventListener,
-			true
-		);
+		const stopUp = on(view, 'pointerup', handlePointerUp, { capture: true });
+		const stopMove = on(view, 'pointermove', handlePointerMove, { capture: true });
 		return () => {
 			if (exitTimer !== undefined) clearTimeout(exitTimer);
 			exitTimer = undefined;
@@ -182,8 +178,8 @@
 	$effect(() => {
 		const element = areaEl;
 		if (!element || model.options.getDisabled() || model.options.getReadOnly()) return;
-		return addEventListener(element, 'touchstart', (event) => {
-			if ((event as TouchEvent).touches.length === 1) event.preventDefault();
+		return on(element, 'touchstart', (event) => {
+			if (event.touches.length === 1) event.preventDefault();
 		});
 	});
 

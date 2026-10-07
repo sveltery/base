@@ -5,6 +5,7 @@
 	(commit 47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c). MIT, see THIRD_PARTY_NOTICES.md.
 -->
 <script lang="ts">
+	import { DEV } from 'esm-env';
 	import { createAttachmentKey } from 'svelte/attachments';
 	import type { HTMLAttributes, HTMLLabelAttributes } from 'svelte/elements';
 	import { getStateAttributesProps } from '../internal/state-attributes.js';
@@ -56,10 +57,7 @@
 
 	$effect(() => {
 		const element = labelEl;
-		if (!element) return;
-		const env = (globalThis as { process?: { env?: { NODE_ENV?: string } } }).process?.env
-			?.NODE_ENV;
-		if (env === 'production') return;
+		if (!DEV || !element) return;
 		const isLabel = element.tagName === 'LABEL';
 		if (nativeLabel && !isLabel) {
 			console.error(

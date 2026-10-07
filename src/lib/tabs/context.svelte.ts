@@ -31,20 +31,23 @@ function byDocumentOrder(a: HTMLElement, b: HTMLElement) {
 }
 
 export class TabsRootModel {
-	value = $state<TabsValue | null>(0);
-	orientation = $state<TabsOrientation>('horizontal');
 	tabActivationDirection = $state<TabsActivationDirection>('none');
 	tabs = $state<TabRecord[]>([]);
 	panelElements = $state<HTMLElement[]>([]);
 	panelIds = $state<{ value: TabsValue; id: string }[]>([]);
 
-	onValueChange:
-		((value: TabsValue | null, eventDetails: TabsRootChangeEventDetails) => void) | undefined;
+	readOrientation: () => TabsOrientation = () => 'horizontal';
+	readOnValueChange: () =>
+		((value: TabsValue | null, eventDetails: TabsRootChangeEventDetails) => void) | undefined =
+		() => undefined;
+	readExternal: () => TabsValue | null = () => null;
+	writeValue: (next: TabsValue | null) => void = () => {};
 
 	/** Writes the bindable. The root component assigns this. */
 	publish: (next: TabsValue | null, direction: TabsActivationDirection) => void = () => {};
 
 	readonly parentOwned: boolean;
+	private ownedValue = $state<TabsValue | null>(null);
 	private directionBaseline: TabsValue | null = 0;
 	private notifiedInitial = false;
 	private didRegister = false;
@@ -52,7 +55,7 @@ export class TabsRootModel {
 
 	constructor(parentOwned: boolean, initial: TabsValue | null) {
 		this.parentOwned = parentOwned;
-		this.value = initial;
+		this.ownedValue = initial;
 		this.directionBaseline = initial;
 
 		$effect.pre(() => {
@@ -77,10 +80,6 @@ export class TabsRootModel {
 			if (this.parentOwned) return;
 			const tabs = this.tabs;
 			const current = this.value;
-			for (const tab of tabs) {
-				void tab.disabled;
-				void tab.value;
-			}
 
 			if (tabs.length === 0) {
 				if (
@@ -140,22 +139,22 @@ export class TabsRootModel {
 		this.commit(next, direction);
 	}
 
-	/** Parent passed a new value. Automatic fallback does not run for a passed value. */
-	applyExternal(next: TabsValue | null) {
-		const direction = activationDirection(
-			this.directionBaseline,
-			next,
-			this.orientation,
-			positionOf(this.tabs, this.directionBaseline, this.orientation),
-			positionOf(this.tabs, next, this.orientation)
-		);
-		const incomplete =
-			this.directionBaseline != null &&
-			next != null &&
-			!this.tabs.some((tab) => tab.value === next);
-		this.tabActivationDirection = direction;
-		this.directionBaseline = incomplete ? this.directionBaseline : next;
-		this.value = next;
+	get orientation() {
+		return this.readOrientation();
+	}
+
+	get onValueChange() {
+		return this.readOnValueChange();
+	}
+
+	get value(): TabsValue | null {
+		if (!this.parentOwned) return this.ownedValue;
+		return this.readExternal();
+	}
+
+	set value(next: TabsValue | null) {
+		if (this.parentOwned) this.writeValue(next);
+		else this.ownedValue = next;
 	}
 
 	registerTab(element: HTMLElement, value: TabsValue, disabled: boolean, id: string) {
@@ -247,10 +246,14 @@ function positionOf(tabs: TabRecord[], value: TabsValue | null, orientation: Tab
 }
 
 export class TabsListModel {
-	activateOnFocus = $state(false);
+	readActivateOnFocus: () => boolean = () => false;
 	listElement = $state<HTMLElement | null>(null);
 	resizeRevision = $state(0);
 	readonly roving = new TabsRoving();
+
+	get activateOnFocus() {
+		return this.readActivateOnFocus();
+	}
 
 	private observer: ResizeObserver | null = null;
 	private observed: HTMLElement[] = [];

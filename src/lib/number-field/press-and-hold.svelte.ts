@@ -98,13 +98,13 @@ export function createPressAndHold(options: PressAndHoldOptions) {
 		}, START_DELAY);
 	}
 
-	$effect(() => {
+	function attach(_element: HTMLElement) {
 		return () => {
 			stopAutoChange();
 			removePointerUp?.();
 			removePointerUp = undefined;
 		};
-	});
+	}
 
 	$effect(() => {
 		if (!options.getDisabled()) return;
@@ -115,6 +115,7 @@ export function createPressAndHold(options: PressAndHoldOptions) {
 	});
 
 	return {
+		attach,
 		onTouchStart() {
 			touchingButton = true;
 		},

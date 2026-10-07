@@ -13,16 +13,21 @@ import type { FieldTransitionStatus } from './types.js';
 export class FieldTransition {
 	mounted = $state(false);
 	transitionStatus = $state<FieldTransitionStatus>(undefined);
+	frozen = $state<string | string[] | null>(null);
 	private readonly readOpen: () => boolean;
+	private readonly readSnapshot: (() => string | string[] | null) | undefined;
 
-	constructor(readOpen: () => boolean) {
+	constructor(readOpen: () => boolean, readSnapshot?: () => string | string[] | null) {
 		this.readOpen = readOpen;
+		this.readSnapshot = readSnapshot;
 		const open = readOpen();
 		this.mounted = open;
 		this.transitionStatus = undefined;
+		if (open && readSnapshot) this.frozen = readSnapshot();
 
 		$effect.pre(() => {
 			const nextOpen = this.readOpen();
+			if (nextOpen && this.readSnapshot) this.frozen = this.readSnapshot();
 			if (nextOpen && !this.mounted) {
 				this.mounted = true;
 				this.transitionStatus = 'starting';

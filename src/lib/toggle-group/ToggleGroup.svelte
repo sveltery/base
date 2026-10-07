@@ -25,38 +25,19 @@
 
 	// Captured once. Assigning `value` later must not look like the parent passed it.
 	const valueProvided = value !== undefined;
+	const EMPTY: readonly string[] = [];
 
 	const group = new ToggleGroupContext(valueProvided);
-	group.values = value ?? [];
-	// Distinguishes a parent push from our own commit. A one-way `value` stays
-	// at the clicked array until the parent passes a different one.
-	let writes = 0;
-	let seenWrites = 0;
-	let seenValue = value;
+	group.readValues = () => value ?? EMPTY;
+	group.readDisabled = () => disabled;
+	group.readMultiple = () => multiple;
+	group.readOnValueChange = () => onValueChange ?? (() => {});
+	group.roving.readLoopFocus = () => loopFocus;
+	group.roving.readOrientation = () => orientation;
 	group.commit = (next) => {
-		writes += 1;
 		value = next;
-		group.values = next;
 	};
 	setToggleGroupContext(group);
-
-	$effect.pre(() => {
-		group.disabled = disabled;
-		group.multiple = multiple;
-		group.onValueChange = onValueChange ?? (() => {});
-		group.roving.loopFocus = loopFocus;
-		group.roving.orientation = orientation;
-
-		const incoming = value;
-		if (writes !== seenWrites) {
-			seenWrites = writes;
-			seenValue = incoming;
-			return;
-		}
-		if (incoming === seenValue) return;
-		seenValue = incoming;
-		group.values = incoming ?? [];
-	});
 
 	const state: ToggleGroupState = $derived({ disabled, multiple, orientation });
 

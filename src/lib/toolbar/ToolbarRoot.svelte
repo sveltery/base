@@ -24,12 +24,9 @@
 		() => disabled,
 		() => orientation
 	);
+	root.roving.readLoopFocus = () => loopFocus;
+	root.roving.readOrientation = () => orientation;
 	setToolbarRootContext(root);
-
-	$effect.pre(() => {
-		root.roving.loopFocus = loopFocus;
-		root.roving.orientation = orientation;
-	});
 
 	const state: ToolbarRootState = $derived({ disabled, orientation });
 

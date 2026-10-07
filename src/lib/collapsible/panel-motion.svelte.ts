@@ -2,6 +2,7 @@
 // (commit 47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c). MIT, see THIRD_PARTY_NOTICES.md.
 // React.Activity's resume-animation suppression is not recreated.
 
+import { on } from 'svelte/events';
 import { REASONS } from '../internal/event-details.js';
 import type { CollapsibleRoot } from './context.svelte.js';
 import {
@@ -27,6 +28,7 @@ export class CollapsiblePanelMotion {
 	suppressMountAnimation = $state(false);
 
 	private lastMeasured: Dimensions = EMPTY_DIMENSIONS;
+	private trackedDimensions: Dimensions = EMPTY_DIMENSIONS;
 	private skipNextOpen = false;
 	private pendingRestore: (() => void) | null = null;
 	private openingPassDone = false;
@@ -53,8 +55,7 @@ export class CollapsiblePanelMotion {
 			const mounted = this.root.mounted;
 			const transitionStatus = this.root.transitionStatus;
 			// Re-apply measurement styles after a dimension update rewrites `style`.
-			void this.height;
-			void this.width;
+			this.observeDimensions(this.height, this.width);
 			if (!panel) return;
 
 			// A beforematch open can leave a 0s duration. Restore it before detecting
@@ -203,13 +204,11 @@ export class CollapsiblePanelMotion {
 		$effect(() => {
 			const panel = this.panel;
 			if (!panel) return;
-			const handleBeforeMatch = (event: Event) => {
+			return on(panel, 'beforematch', (event) => {
 				const accepted = this.root.requestOpen(true, event, REASONS.none);
 				if (!accepted) return;
 				this.skipNextOpen = true;
-			};
-			panel.addEventListener('beforematch', handleBeforeMatch);
-			return () => panel.removeEventListener('beforematch', handleBeforeMatch);
+			});
 		});
 	}
 
@@ -248,6 +247,11 @@ export class CollapsiblePanelMotion {
 			if (this.panel === element) this.panel = null;
 		};
 	};
+
+	private observeDimensions(height: number | undefined, width: number | undefined) {
+		if (this.trackedDimensions.height === height && this.trackedDimensions.width === width) return;
+		this.trackedDimensions = { height, width };
+	}
 
 	private setDimensions(next: Dimensions, cache = true) {
 		if (cache) this.lastMeasured = { height: next.height, width: next.width };

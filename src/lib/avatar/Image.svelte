@@ -9,7 +9,10 @@
 	import { getStateAttributesProps } from '../internal/state-attributes.js';
 	import { avatarStateAttributesMapping } from './attributes.js';
 	import { useAvatarContext } from './context.js';
-	import { createImageLoadingStatus } from './image-loading-status.svelte.js';
+	import {
+		createImageLoadingStatus,
+		type ImageProbeSource
+	} from './image-loading-status.svelte.js';
 	import type { HTMLImgAttributes } from 'svelte/elements';
 	import type { AvatarImageProps, AvatarImageState, ImageLoadingStatus } from './types.js';
 
@@ -47,7 +50,7 @@
 		};
 	}
 
-	function readRenderedStatus(node: HTMLImageElement) {
+	function readRenderedStatus(node: HTMLImageElement, _source: ImageProbeSource) {
 		if (!node.complete) {
 			loading.setStatus('loading');
 			return;
@@ -60,13 +63,9 @@
 	$effect(() => {
 		if (!keepMounted) return;
 		const node = host;
-		void src;
-		void srcset;
-		void sizes;
-		void crossorigin;
-		void referrerpolicy;
+		const source = { src, srcset, sizes, crossorigin, referrerpolicy };
 		if (!node) return;
-		readRenderedStatus(node);
+		readRenderedStatus(node, source);
 	});
 
 	function publish(status: ImageLoadingStatus) {

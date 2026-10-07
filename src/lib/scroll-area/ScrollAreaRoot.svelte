@@ -54,12 +54,17 @@
 		};
 	});
 
-	$effect(() => {
-		void style;
-		void dir;
-		void overflowEdgeThreshold;
+	function refreshRoot(
+		_style: typeof style,
+		_dir: typeof dir,
+		_threshold: typeof overflowEdgeThreshold
+	) {
 		model.syncDirection();
 		model.bumpLayout();
+	}
+
+	$effect(() => {
+		refreshRoot(style, dir, overflowEdgeThreshold);
 	});
 
 	$effect(() => {

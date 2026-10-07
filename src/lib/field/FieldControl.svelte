@@ -4,6 +4,7 @@
 	(commit 47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c). MIT, see THIRD_PARTY_NOTICES.md.
 -->
 <script lang="ts">
+	import { untrack } from 'svelte';
 	import { createAttachmentKey } from 'svelte/attachments';
 	import type { HTMLAttributes, HTMLInputAttributes } from 'svelte/elements';
 	import { useFormContext } from '../form/context.js';
@@ -51,27 +52,21 @@
 	let inputEl = $state<HTMLInputElement | null>(null);
 	let hadExplicitId = false;
 	let seeded = false;
-	let sawControlledValue = false;
-	let previousSerialized: string | undefined;
+	let blurCommitId = 0;
 
-	$effect(() => {
-		if (!isControlled) return;
-		const current = serialized;
-		if (!sawControlledValue) {
-			sawControlledValue = true;
-			previousSerialized = current;
-			return;
-		}
-		if (current === undefined || current === previousSerialized) {
-			previousSerialized = current;
-			return;
-		}
-		previousSerialized = current;
+	let echoed = false;
+
+	function publishControlled(next: string) {
+		echoed = true;
+		value = next;
+		notifyControlled(next);
+	}
+
+	function notifyControlled(current: string) {
 		form.clearErrors(name);
 		field.setDirty(current !== String(field.validityData.initialValue ?? ''));
 		field.change(current);
-	});
-	let blurCommitId = 0;
+	}
 
 	const controlState: FieldControlState = $derived({
 		...field.state,
@@ -87,23 +82,32 @@
 
 	$effect(() => {
 		const explicit = idProp;
-		if (explicit !== undefined) {
-			hadExplicitId = true;
-			labelable.registerControlId(controlSource, explicit);
-			return;
-		}
-		if (hadExplicitId) {
-			labelable.registerControlId(controlSource, fallbackId);
-			return;
-		}
-		labelable.registerControlId(controlSource, undefined);
-		labelable.resetControlId();
+		const fallback = fallbackId;
+		untrack(() => {
+			if (explicit !== undefined) {
+				hadExplicitId = true;
+				labelable.registerControlId(controlSource, explicit);
+			} else if (hadExplicitId) {
+				labelable.registerControlId(controlSource, fallback);
+			} else {
+				labelable.registerControlId(controlSource, undefined);
+				labelable.resetControlId();
+			}
+		});
+		return () => {
+			untrack(() => labelable.registerControlId(controlSource, undefined));
+		};
 	});
 
 	$effect(() => {
-		return () => {
-			labelable.registerControlId(controlSource, undefined);
-		};
+		if (!isControlled) return;
+		const current = serialized;
+		if (echoed) {
+			echoed = false;
+			return;
+		}
+		if (current === undefined) return;
+		untrack(() => notifyControlled(current));
 	});
 
 	$effect(() => {
@@ -119,13 +123,13 @@
 			if (defaultValue != null && element.value === '') element.value = String(defaultValue);
 		}
 
-		const domValue = element?.value;
-		const filledSource = linked ? current : domValue;
+		const domValueNow = element?.value;
+		const filledSource = linked ? current : domValueNow;
 		if (filledSource !== undefined) field.setFilled(filledSource !== '');
 
 		if (!active) {
 			field.registerControl(controlSource, undefined);
-			return;
+			return () => field.registerControl(controlSource, undefined);
 		}
 
 		field.registerControl(controlSource, {
@@ -135,9 +139,6 @@
 			element,
 			getValue: () => element?.value
 		});
-	});
-
-	$effect(() => {
 		return () => field.registerControl(controlSource, undefined);
 	});
 
@@ -160,7 +161,7 @@
 
 		if (isControlled) {
 			if (details.isCanceled) event.currentTarget.value = domValue();
-			else value = inputValue;
+			else publishControlled(inputValue);
 			return;
 		}
 

@@ -51,13 +51,21 @@ export function isSkipped(element: HTMLElement) {
 export class TabsRoving {
 	elements = $state<HTMLElement[]>([]);
 	highlighted = $state<HTMLElement | null>(null);
-	loopFocus = $state(true);
-	orientation = $state<TabsOrientation>('horizontal');
+	readLoopFocus: () => boolean = () => true;
+	readOrientation: () => TabsOrientation = () => 'horizontal';
 
 	private highlightedIndex = 0;
 	private settled = false;
 	private nextSlot = 0;
 	private readonly attachmentKey = createAttachmentKey();
+
+	get loopFocus() {
+		return this.readLoopFocus();
+	}
+
+	get orientation() {
+		return this.readOrientation();
+	}
 
 	/** Render-order slot used for tabindex before the attachment runs (SSR). */
 	claim() {

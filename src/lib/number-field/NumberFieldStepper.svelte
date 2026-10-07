@@ -8,6 +8,7 @@
 	and a real `disabled` attribute only when the button itself is disabled.
 -->
 <script lang="ts">
+	import { createAttachmentKey } from 'svelte/attachments';
 	import type { HTMLButtonAttributes } from 'svelte/elements';
 	import { createGenericEventDetails, REASONS } from '../internal/event-details.js';
 	import { getStateAttributesProps } from '../internal/state-attributes.js';
@@ -22,6 +23,7 @@
 	} from './types.js';
 
 	const SELECT_NONE = '-webkit-user-select: none; user-select: none';
+	const releaseKey = createAttachmentKey();
 
 	let {
 		increment,
@@ -213,7 +215,8 @@
 		ontouchstart: handleTouchStart,
 		ontouchend: handleTouchEnd,
 		onkeydown: handleKeyDown,
-		onkeyup: handleKeyUp
+		onkeyup: handleKeyUp,
+		[releaseKey]: press.attach
 	});
 </script>
 

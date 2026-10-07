@@ -22,13 +22,10 @@
 
 	const tabs = useTabsRootContext();
 	const list = new TabsListModel();
+	list.readActivateOnFocus = () => activateOnFocus;
+	list.roving.readLoopFocus = () => loopFocus;
+	list.roving.readOrientation = () => tabs.orientation;
 	setTabsListContext(list);
-
-	$effect.pre(() => {
-		list.activateOnFocus = activateOnFocus;
-		list.roving.loopFocus = loopFocus;
-		list.roving.orientation = tabs.orientation;
-	});
 
 	function attachList(element: HTMLElement) {
 		return list.attachList(element);

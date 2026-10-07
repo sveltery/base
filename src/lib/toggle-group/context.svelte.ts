@@ -8,9 +8,11 @@ const TOGGLE_GROUP_CONTEXT = Symbol('toggle-group');
 
 export class ToggleGroupContext {
 	/** Pressed toggle values. Empty when the parent omitted `value`. */
-	values = $state<readonly string[]>([]);
-	disabled = $state(false);
-	multiple = $state(false);
+	readValues: () => readonly string[] = () => [];
+	readDisabled: () => boolean = () => false;
+	readMultiple: () => boolean = () => false;
+	readOnValueChange: () => (value: string[], eventDetails: ToggleGroupChangeEventDetails) => void =
+		() => () => {};
 	/**
 	 * True when the parent passed `value` on the first render.
 	 * A later click that fills the array does not count: upstream only warns
@@ -18,11 +20,26 @@ export class ToggleGroupContext {
 	 */
 	readonly valueProvided: boolean;
 	readonly roving = new RovingFocus();
-	onValueChange: (value: string[], eventDetails: ToggleGroupChangeEventDetails) => void = () => {};
 	commit: (next: string[]) => void = () => {};
 
 	constructor(valueProvided: boolean) {
 		this.valueProvided = valueProvided;
+	}
+
+	get values() {
+		return this.readValues();
+	}
+
+	get disabled() {
+		return this.readDisabled();
+	}
+
+	get multiple() {
+		return this.readMultiple();
+	}
+
+	get onValueChange() {
+		return this.readOnValueChange();
 	}
 
 	setGroupValue(

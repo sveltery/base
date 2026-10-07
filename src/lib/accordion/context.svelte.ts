@@ -14,7 +14,7 @@ const ACCORDION_ROOT_CONTEXT = Symbol('accordion-root');
 const ACCORDION_ITEM_CONTEXT = Symbol('accordion-item');
 
 export class AccordionRootModel {
-	values = $state<unknown[]>([]);
+	readValues: () => unknown[] = () => [];
 	hosts = $state<HTMLElement[]>([]);
 	commit: (next: unknown[]) => void = () => {};
 
@@ -27,6 +27,10 @@ export class AccordionRootModel {
 		private readonly readOnValueChange: () =>
 			((value: unknown[], eventDetails: AccordionRootChangeEventDetails) => void) | undefined
 	) {}
+
+	get values() {
+		return this.readValues();
+	}
 
 	get disabled() {
 		return this.readDisabled();

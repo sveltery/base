@@ -52,8 +52,8 @@ export function isSkipped(element: HTMLElement) {
 export class ToolbarRoving {
 	elements = $state<HTMLElement[]>([]);
 	highlighted = $state<HTMLElement | null>(null);
-	loopFocus = $state(true);
-	orientation = $state<ToolbarOrientation>('horizontal');
+	readLoopFocus: () => boolean = () => true;
+	readOrientation: () => ToolbarOrientation = () => 'horizontal';
 
 	private highlightedIndex = 0;
 	private settled = false;
@@ -84,9 +84,21 @@ export class ToolbarRoving {
 		};
 	}
 
+	get loopFocus() {
+		return this.readLoopFocus();
+	}
+
+	get orientation() {
+		return this.readOrientation();
+	}
+
 	/** Re-pick the tab stop after an item's disabled flag changes. */
-	sync() {
-		untrack(() => this.reconcile());
+	sync(disabled = false, focusableWhenDisabled = true) {
+		const nativeDisabled = disabled && !focusableWhenDisabled;
+		untrack(() => {
+			this.reconcile();
+			if (nativeDisabled && this.highlighted && isSkipped(this.highlighted)) return;
+		});
 	}
 
 	/** Move the tab stop onto `node` when it can take focus. */

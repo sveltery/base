@@ -80,11 +80,13 @@
 	}
 
 	const actionsHandle: FormActions = { validate };
-	// Read the incoming bindable before replacing it so the publish is a real
-	// assignment. Comparing the proxy with `!==` does not work.
-	void actions;
-	actions = actionsHandle;
-	void actions.validate;
+	publishActions(actions);
+
+	function publishActions(current: FormActions | undefined) {
+		const incoming = current?.validate;
+		actions = actionsHandle;
+		return actions.validate ?? incoming;
+	}
 
 	function clearErrors(name: string | undefined) {
 		if (!name || !errors || !Object.hasOwn(errors, name)) return;
@@ -142,10 +144,10 @@
 	// After a submit that was not already blocked, focus the first invalid control
 	// once external errors change (server errors arriving after the post).
 	$effect(() => {
-		void errors;
+		const current = errors;
 		if (!submitted) return;
 		submitted = false;
-		focusFirstInvalid();
+		if (current === undefined || current) focusFirstInvalid();
 	});
 
 	const hostProps: HTMLFormAttributes = $derived({

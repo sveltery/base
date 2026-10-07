@@ -43,8 +43,8 @@ function modifierHeld(event: KeyboardEvent) {
 export class RovingFocus {
 	elements = $state<HTMLElement[]>([]);
 	active = $state<HTMLElement | null>(null);
-	loopFocus = $state(true);
-	orientation = $state<RovingOrientation>('horizontal');
+	readLoopFocus: () => boolean = () => true;
+	readOrientation: () => RovingOrientation = () => 'horizontal';
 
 	private nextSlot = 0;
 	private readonly attachmentKey = createAttachmentKey();
@@ -73,9 +73,20 @@ export class RovingFocus {
 		};
 	}
 
+	get loopFocus() {
+		return this.readLoopFocus();
+	}
+
+	get orientation() {
+		return this.readOrientation();
+	}
+
 	/** Re-pick the tab stop after an item's disabled flag changes. */
-	sync() {
-		untrack(() => this.ensureActive());
+	sync(disabled = false) {
+		untrack(() => {
+			this.ensureActive();
+			if (disabled && this.active && isDisabled(this.active)) return;
+		});
 	}
 
 	private candidate() {
