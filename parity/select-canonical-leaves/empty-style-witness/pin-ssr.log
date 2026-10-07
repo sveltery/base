@@ -1,4 +1,0 @@
-undefined <div data-orientation="horizontal" role="presentation"></div>
-empty-object <div data-orientation="horizontal" role="presentation"></div>
-empty-string <div data-orientation="horizontal" role="presentation"></div>
-nonempty-object <div data-orientation="horizontal" role="presentation" style="color:red"></div>

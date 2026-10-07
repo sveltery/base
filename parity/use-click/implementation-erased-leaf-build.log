@@ -1,2 +1,0 @@
-$ svelte-package -i src/lib -o dist
-src/lib -> dist

@@ -1,8 +1,0 @@
-{
-  "format": "gzip",
-  "rawSha256": "77fa564bcfafe5a336742c03a55af6f843d89520e10778eca5104925bf823323",
-  "rawBytes": 500346,
-  "compressedSha256": "09a620cacffa76da2c9f8ef249e265ad20d1d464854e47c7d8f36ab34e446c04",
-  "compressedBytes": 28663,
-  "status": "Lossless local diagnostic receipt; no passed full verification claim."
-}

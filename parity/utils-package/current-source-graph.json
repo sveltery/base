@@ -1,7 +1,0 @@
-{
-  "format": "sveltery-lossless-json-gzip-v1",
-  "gzipPath": "current-source-graph.json.gz",
-  "contentSha256": "91e619581bf5d5c732937157c107a5bee316937b54f37bc7e3d0ca5d63872e24",
-  "contentBytes": 1742239,
-  "gzipSha256": "2979e278c453e79588b9164ffa35589e02dc0a5cdacf0751377b946b0723dd13"
-}

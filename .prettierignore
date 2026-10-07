@@ -1,22 +1,15 @@
-# Generated dependencies, builds, caches and browser evidence.
-node_modules/
-dist/
-build/
-.svelte-kit/
+# Package Managers
+package-lock.json
+pnpm-lock.yaml
+yarn.lock
+bun.lock
+bun.lockb
+
+# Miscellaneous
+/static/
 .checks/
-.pnpm-store/
-playwright-report/
+.verify/
 test-results/
-
-# Frozen package-manager data and immutable upstream/source evidence.
-**/pnpm-lock.yaml
-**/package-lock.json
-parity/
-**/patches/
-**/THIRD_PARTY_NOTICES.md
-
-# Static files are served without source formatting.
-**/static/
-
-# Historical bootstrap checkpoint; preserve its original evidence bytes.
-docs/verification.md
+playwright-report/
+.svelte-kit/
+dist/
