@@ -70,5 +70,8 @@
 			<a href="/fixtures/number-field">NumberField</a> (add <code>&amp;reference</code> for React Base
 			UI)
 		</li>
+		<li>
+			<a href="/fixtures/scroll-area">ScrollArea</a> (add <code>&amp;reference</code> for React Base UI)
+		</li>
 	</ul>
 </main>

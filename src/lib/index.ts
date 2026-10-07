@@ -19,3 +19,4 @@ export * from './switch/index.js';
 export * from './tabs/index.js';
 export * from './toolbar/index.js';
 export * from './number-field/index.js';
+export * from './scroll-area/index.js';

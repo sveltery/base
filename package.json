@@ -129,6 +129,10 @@
 		"./number-field": {
 			"types": "./dist/number-field/index.d.ts",
 			"svelte": "./dist/number-field/index.js"
+		},
+		"./scroll-area": {
+			"types": "./dist/scroll-area/index.d.ts",
+			"svelte": "./dist/scroll-area/index.js"
 		}
 	},
 	"peerDependencies": {
