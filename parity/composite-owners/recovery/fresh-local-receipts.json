@@ -124,6 +124,49 @@
       "logicalSha256": "625aa54003b512fe603b6de2fd50674750fd18183350325962e4e3bbb01e10bd",
       "bytes": 489,
       "sha256": "51b9387d113636f7e7f68857c2bc98e87613a0be832f5ab8c38177e813ff4e44"
+    },
+    {
+      "path": "local/composite-656-hosted.log.gz",
+      "bytes": 7164,
+      "sha256": "10a5edb1cddffe7f12501151c79e53856878eb851e9a8b9f4bfb00bfe63ade60",
+      "logicalBytes": 28235,
+      "logicalSha256": "13f228af1c9c4c60a8bf8dbcfbd001fbdd32b2665494f43a68cda3580b3122da"
+    },
+    {
+      "path": "local/loader-directory-red.log.gz",
+      "bytes": 421,
+      "sha256": "4aebabb8783098c6fee767939c60b74209dfbe80a66a5518ca12cb05e9adde27",
+      "logicalBytes": 897,
+      "logicalSha256": "c550e08d3f5446aab0d039e4238df79cc7ed6573e0bdd1e2ef64e120c1bc6d59"
+    },
+    {
+      "path": "local/loader-directory-green.log.gz",
+      "bytes": 75,
+      "sha256": "e8c2ef0ec4e27f9a0380f62b602471c51469b4f6016b85ddbf6a95e59c51e8c8",
+      "logicalBytes": 55,
+      "logicalSha256": "6acfc192e3e7661d1454a1299e48c28d4a2222356c6dec07666e981a013f00a0"
+    },
+    {
+      "path": "local/loader-regression.log.gz",
+      "bytes": 177,
+      "sha256": "9de719d5a4d8090b59f9ada926bcf37dff12af388fc5466b6452a72b35fdc963",
+      "logicalBytes": 215,
+      "logicalSha256": "63cf322a7209fe4bcf1bbb4821c8f4e5620e8e40dc86454288d0bdc436a1056d"
+    },
+    {
+      "path": "local/loader-closure.log.gz",
+      "bytes": 118,
+      "sha256": "0d9d212337c0c8727b5cbf791008fd9c4531ef07fb513095b1a0ac3aa60205c3",
+      "logicalBytes": 148,
+      "logicalSha256": "be181efbedc08d69e73886037a94df1ac208ab446713516ff8f6e40ef97a5824"
     }
-  ]
+  ],
+  "loaderCorrection": {
+    "hostedHead": "656ca125103a832ebe15c48131467f6460d7fbf3",
+    "run": 37553156443,
+    "job": 112573156407,
+    "failure": "New test loader admitted a CommonJS dependency directory as a file; EISDIR before any behavioral assertion.",
+    "scope": "Newly authored test tooling only; exact class and all Source/native assertions unchanged.",
+    "localRegression": "Actual directory-resolution red then green; one maintained regression passes; not behavioral Source199 acceptance."
+  }
 }

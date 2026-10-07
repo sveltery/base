@@ -63,3 +63,7 @@ and actual CI are required before acceptance. Preparation review and compiler
 success cannot replace those gates. Historical incomplete parity, shared
 upstream defects and issue links remain in the feature correspondence and
 compatibility register.
+
+## Fresh hosted loader failure and correction
+
+At public `656ca125`, hosted Composite run `37553156443` stopped before any behavioral assertion: the newly authored loader accepted a dependency directory as a file (`EISDIR`). Its exact retrieved log is retained. File checks now require actual files and let ordinary CommonJS resolve directories. An actual local dependency-directory witness reproduced red and then green; the maintained regression passes. This changes only newly authored test tooling. The exact a253 class and every Original/native assertion remain unchanged. Fresh hosted paired execution and all final-head gates remain mandatory; earlier Standards/Radio passes stay attributed to 656ca125.

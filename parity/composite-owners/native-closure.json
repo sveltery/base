@@ -488,12 +488,12 @@
     },
     {
       "file": "scripts/composite-recovery-loader.mjs",
-      "line": 51,
+      "line": 52,
       "text": "path.endsWith('/internals/composite/list/createCompositeList.svelte.ts')"
     },
     {
       "file": "scripts/composite-recovery-loader.mjs",
-      "line": 55,
+      "line": 56,
       "text": "'../parity/composite-owners/recovery/public2626-createCompositeList.svelte.ts.txt',"
     }
   ],

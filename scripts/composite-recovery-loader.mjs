@@ -1,6 +1,6 @@
 // Test-only compilation of actual native code and immutable MIT pin archives.
 import { registerHooks, createRequire } from 'node:module';
-import { existsSync, readFileSync } from 'node:fs';
+import { existsSync, readFileSync, statSync } from 'node:fs';
 import { gunzipSync } from 'node:zlib';
 import { fileURLToPath } from 'node:url';
 import { createHash } from 'node:crypto';
@@ -11,7 +11,8 @@ const { compile, compileModule } = base('svelte/compiler');
 const ts = base('typescript');
 const archive = new URL('../parity/composite-owners/recovery/original/', import.meta.url);
 const original = (name) => new URL(name, archive);
-const present = (url) => existsSync(fileURLToPath(url)) || existsSync(fileURLToPath(url) + '.gz');
+const isFile = (path) => existsSync(path) && statSync(path).isFile();
+const present = (url) => isFile(fileURLToPath(url)) || isFile(fileURLToPath(url) + '.gz');
 
 registerHooks({
   resolve(specifier, context, nextResolve) {
