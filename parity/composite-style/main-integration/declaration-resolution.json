@@ -1,0 +1,25 @@
+{
+  "compiler": "6.0.3",
+  "origin": "apps/fixtures/src/compositeStyleProbe.ts",
+  "options": {
+    "moduleResolution": "Bundler",
+    "strict": true,
+    "skipLibCheck": false
+  },
+  "method": "Actual fixture dependency link removed for one resolver call and restored in finally; no code/alias/ambient declaration changes.",
+  "withoutDirectDependency": {
+    "resolved": false
+  },
+  "withDirectDependency": {
+    "resolved": true,
+    "packageId": {
+      "name": "@floating-ui/utils",
+      "subModuleName": "dist/floating-ui.utils.dom.d.mts",
+      "version": "0.2.12"
+    },
+    "extension": ".d.mts",
+    "originalPath": "apps/fixtures/node_modules/@floating-ui/utils/dist/floating-ui.utils.dom.d.mts",
+    "resolvedFileName": "node_modules/.pnpm/@floating-ui+utils@0.2.12/node_modules/@floating-ui/utils/dist/floating-ui.utils.dom.d.mts"
+  },
+  "scope": "Module resolution causal proof; not a full declaration/type program pass."
+}

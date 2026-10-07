@@ -1,0 +1,279 @@
+{
+  "pin": "47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c",
+  "license": "MIT; immutable archives/notices and historical red receipts retained",
+  "parents": [
+    "1a953aa21760a5353e797f9a8e61b9b4859035e1",
+    "abe8aa9b66ab8cd8d83dfdac28ebee94a0655f79"
+  ],
+  "mainTree": "18b6aaacfa1373cc1bba0dbd94d1e782cc648abf",
+  "ownership": "Sole PR90 writer; PR42 unchanged3c6ac71ad06eedbaaa18aba2493de4bb04454189. No merge/release/deployment/automation/Page write.",
+  "runtime": "No new runtime delta beyond reviewed1a canonical helpers; all native12/affected45 bodies identical1a, and only two existing canonical repair bodies differ from actual Main. No business reinvention/algorithm/branch/state/cancellation change.",
+  "setup": [
+    "Fixture direct devDependency @floating-ui/utils0.2.12 plus exact matching lock importer; canonical probe import unchanged, no aliases/casts/ambient declaration.",
+    "Use Main shared integrity-checked lossless JSON reader in leaf source test; preserve Main descriptor/payload/producers and regenerate native/family projections normally.",
+    "Installed consumer fixture selectors target actual visible role=radio hosts; preserve hidden input identities and every checked/focus/keyboard/callback/teardown expectation. Actual Original/native paired target proof preserved before correction."
+  ],
+  "sourceReview": {
+    "mode": "Fresh independent direct-body Source/native/maintainability review of complete manifests; exact final local/public commit binding externally required.",
+    "Original": {
+      "modules": 106,
+      "edges": 478,
+      "lines": 14667,
+      "ReactReviewer": {
+        "modules": 67,
+        "lines": 11885,
+        "digest": "546c49cf5c7e691f6bf31e3e45b2d40f97780256e1fca36f3bbdffa38cb916b4"
+      },
+      "UtilsReviewer": {
+        "modules": 39,
+        "lines": 2782,
+        "digest": "ddd4b7900de8814cabf07625f9b86a1094c4449140758eba4a12da3cc2cafe3c"
+      }
+    },
+    "native": {
+      "modules": 12,
+      "edges": 20,
+      "lines": 941,
+      "digest": "e1edd353ec3e60a6198e961a311bcac1c2a5deea7c05008788b35f925c1bcb7b"
+    },
+    "affected": {
+      "modules": 45,
+      "edges": 464,
+      "lines": 7117,
+      "digest": "b3611c0d81e6cb4127a8efa7adea5a8c30adbc03cf847e078c9c1f51c9556abd"
+    },
+    "scope": "Bounded pure-helper Source clear. All unselected Original type/barrel fanout and separate retained class/native owners remain explicitly incomplete; no whole consumer/family acceptance.",
+    "closureManifest": "closure-manifest.json"
+  },
+  "toolchain": {
+    "Node": "24.19.0",
+    "pnpm": "12.6.0",
+    "TypeScript": "6.0.3",
+    "Svelte": "5.57.1",
+    "Floating": "0.2.12",
+    "canonicalESMSha256": "b6658b1eac47e2917e6d10ebbeefb9c4ac9a166f0052bed6e08c871ed848b680"
+  },
+  "results": [
+    {
+      "command": "bash scripts/bootstrap.sh",
+      "status": "PASS",
+      "scope": "Fresh frozen install, actual two-package svelte-package and strict publint. Initial interrupted startup and provisional outdated-lock failure retained as zero-assertion setup receipts."
+    },
+    {
+      "command": "node --test --test-concurrency=1 scripts/tests/*.test.mjs",
+      "status": "FAIL",
+      "passed": 85,
+      "failed": 5,
+      "reason": "Only toolchain test harness: executor process.execPath is relative node, so temporary symlink does not locate node. No source/runtime assertion failure or waived mandatory CI."
+    },
+    {
+      "command": "NODE_OPTIONS=--max-old-space-size=1280 pnpm check",
+      "status": "INCOMPLETE",
+      "Utils": "0errors0warnings",
+      "Base": "0errors6historicalwarnings",
+      "fixture": "One heap exhaustion at1280MiB; no memory-escalation/OOM retry. Exact dependency resolution causal proof separately passes, not full fixture type acceptance."
+    },
+    {
+      "command": "bash .github/standards/check.sh",
+      "status": "PASS",
+      "scope": "Full Prettier/ESLint; later documentation-only placement/selector-proof paragraphs formatted with exact targeted Prettier, unchanged ESLint inputs."
+    },
+    {
+      "command": "pnpm test",
+      "status": "PASS",
+      "Base": 270,
+      "Utils": 9
+    },
+    {
+      "command": "pnpm test:dom",
+      "status": "PASS",
+      "Base": 1812,
+      "Utils": 8,
+      "scope": "One complete bounded run; no rerun after fixture-only consumer selector fix."
+    },
+    {
+      "command": "pnpm --filter @sveltery/fixtures build",
+      "status": "PASS",
+      "scope": "SSR and client production build."
+    },
+    {
+      "command": "node --import ./scripts/svelte-ssr-loader.mjs scripts/check-runtime.mjs",
+      "status": "PASS"
+    },
+    {
+      "command": "bash scripts/check-package.sh",
+      "status": "PASS",
+      "scope": "Actual fresh dual-package tarballs, publint/ATTW, actual installed compiler/SSR/DOM/type/license/negative consumer gates."
+    },
+    {
+      "command": "bash scripts/check-use-click-package.sh",
+      "status": "PASS",
+      "scope": "Installed public/private boundary, SSR/types and actual native public consumer."
+    },
+    {
+      "command": "bash scripts/check-composite-style-package.sh",
+      "status": "PASS_AFTER_SETUP_REPAIR",
+      "scope": "Initial strict declarations/negative and SSR passed; hidden input queried as visible radio caused actual hydration failure. Full preimage/failure/pinned Original+native proof retained. Corrected consumer passes actual dual-tarball skipLibCheck:false, negative export, no-browser SSR, both hidden/visible same-node hydration, keyboard selection/callback and teardown."
+    },
+    {
+      "command": "node --test scripts/tests/composite-style-source.test.mjs scripts/tests/lossless-json.test.mjs",
+      "status": "PASS",
+      "passed": 4
+    },
+    {
+      "command": "pnpm exec playwright install chromium",
+      "status": "FAIL",
+      "scope": "One normal official install command; invalid archives and lock-maintenance error. No workaround/download retry loop/proxy/TLS change."
+    },
+    {
+      "command": "Official chromium.launch({chromiumSandbox:true})",
+      "status": "SETUP_FAIL",
+      "scope": "Official Chromium missing after failed install; zero component assertions. Maintained runners sandbox:true/1worker/0retries unchanged."
+    }
+  ],
+  "hostedFailure": "hosted-log-provenance.json",
+  "declarationResolution": "declaration-resolution.json",
+  "consumerTargetProof": "consumer-target-proof.json",
+  "archiveManifest": [
+    {
+      "path": "bootstrap.log.gz",
+      "decodedBytes": 52976,
+      "decodedSha256": "2d74dafbc4d19fa61a55fa31de8aa21adec6012f0fb26905ad9979cd0fea05d1",
+      "gzipSha256": "64ef02228d953a3122c9150dbe7a28ca3a61d8b6ecce84a6d7b3664532a9d917"
+    },
+    {
+      "path": "toolchain.log.gz",
+      "decodedBytes": 7,
+      "decodedSha256": "166d8c2982f8cb0e3233144935d4fafeb672ee4d5bc7cbaff4b2384be95fda4b",
+      "gzipSha256": "02ad658a174343f633a0dd73f266a8aa1929ee8bfbb9b350b283bc1a7c9a2eef"
+    },
+    {
+      "path": "bootstrap-fixed.log.gz",
+      "decodedBytes": 604,
+      "decodedSha256": "e1f3f0600f08bf6ea678f02fd1f7adff8db01fe1cacd3e998a57f44ac16bde96",
+      "gzipSha256": "a14a440c63f59380e59a3f3059603c97083c27e17a9d20c745a058aa97541279"
+    },
+    {
+      "path": "bootstrap-final.log.gz",
+      "decodedBytes": 1878,
+      "decodedSha256": "7c90350c780c29d9b369383fb9579d9bf68272572a7c89a0072f706b8c6974f7",
+      "gzipSha256": "a6f7381590b69c1c7ff514075b6d0cbcc12d31a12d2ce066cf515baab5923d62"
+    },
+    {
+      "path": "scripts.log.gz",
+      "decodedBytes": 17266,
+      "decodedSha256": "145433fb1d40c9fbd02a0e0a138476584323849b37da4e6ec68d2f4d1ab2fbf1",
+      "gzipSha256": "88d3a7c9abe226febfab90d20de31fade38eb7254cbbd8b61efba75d0f8d4b39"
+    },
+    {
+      "path": "types.log.gz",
+      "decodedBytes": 5052,
+      "decodedSha256": "d3d7fa53a11c47b379e0db8f5bc2509cb4ba4e820700491eafb91b6177d94aac",
+      "gzipSha256": "34668a09a7833c2fdde4bd01e080f5c24ec8d0582e0def6bf0517f21b1bc6c73"
+    },
+    {
+      "path": "standards.log.gz",
+      "decodedBytes": 99,
+      "decodedSha256": "899f899c4056a64c8cf29ca9089dfe6821ca8521061c59efd32e7296da4df97f",
+      "gzipSha256": "5b963f13065ff6abedad3e4fe5c8e5916d21fba4a17254161b1628a5fc20b0c8"
+    },
+    {
+      "path": "server.log.gz",
+      "decodedBytes": 347,
+      "decodedSha256": "21a64c06b33ee20635d385b1b0541e7be927a2990e6b4f530ad96e8fd2d66915",
+      "gzipSha256": "22791955f5374a27eb143f9929d004434d35627d07f31df993107552174f6e9a"
+    },
+    {
+      "path": "artifacts.log.gz",
+      "decodedBytes": 37635,
+      "decodedSha256": "d1c34f41cc13a9bb61c78d6b6f368729de211d128e507095b70802168e5dabb3",
+      "gzipSha256": "93cef5ac5866efb12c2410bb6a58eace21d9e4379011b37a1b9d2d9c6b746a38"
+    },
+    {
+      "path": "server-final.log.gz",
+      "decodedBytes": 1041,
+      "decodedSha256": "05775e64b39c075c5e6c599eccf998983cd5955e0aabde5317071b6f097228cf",
+      "gzipSha256": "aab4729dcfe66ad801cffdfc5e46a7e5bbd991448f82f032390737d9e833ae4a"
+    },
+    {
+      "path": "dom-final.log.gz",
+      "decodedBytes": 2641,
+      "decodedSha256": "087fbd7ed67ba8076eebba71b40dec985004790e277c1a99665755ec6d0daff9",
+      "gzipSha256": "76f24310e2e0af303a473d5d937e112e6c8cf11d638b4bb39b1c0946cb28c6b9"
+    },
+    {
+      "path": "fixture-build.log.gz",
+      "decodedBytes": 350030,
+      "decodedSha256": "4e11b2e3929e9a21cedefbb24784c0817b35432cb3a53d0f6e67539883e9652e",
+      "gzipSha256": "98bdfa0d4c14d046235eac58871a5d5524d733689589801561c2db0d9bc5bac5"
+    },
+    {
+      "path": "runtime.log.gz",
+      "decodedBytes": 61,
+      "decodedSha256": "7eb14a3a2cac9fe7d677ef3a7519f5045bb935af2549e71f9ddf392ebb65a36d",
+      "gzipSha256": "e4b850e7b6f96f57ff98b7644a3de5a259674185c74fe8bb3f6975340e97b5b2"
+    },
+    {
+      "path": "package-consumer.log.gz",
+      "decodedBytes": 6828,
+      "decodedSha256": "9799febc11a3d83aa899ad3f6823c3b471b4d484d125b0519b9c9bc692af1b69",
+      "gzipSha256": "48eb724d13c992c306ea30789469828e04c65d1965d8e82f8dc34f5147946b6b"
+    },
+    {
+      "path": "click-consumer.log.gz",
+      "decodedBytes": 838,
+      "decodedSha256": "835fcbb87f56d0e3d0dd59798d7964dcf1508f071c3bb5df50e4d5c6e1494890",
+      "gzipSha256": "2f2e98b69783424cf32873113bb99b75cee754175ee43de6195331dcde004330"
+    },
+    {
+      "path": "style-consumer.log.gz",
+      "decodedBytes": 598,
+      "decodedSha256": "514aa5d516fdd2e2c6e246fe2df602858541a1f2f15b8d320abbb723434f2346",
+      "gzipSha256": "84ef45abb5ad4c9e42c95cf310c4e06c79471ffeaff4f1fde3cf1bc4e39db479"
+    },
+    {
+      "path": "style-consumer-final.log.gz",
+      "decodedBytes": 448,
+      "decodedSha256": "a1b7da34b0d659af83aec71075dab4dd096cd623cfce2c5933e7baba617c5677",
+      "gzipSha256": "3cf326995f06f671643f9248bb2c1306237884133890ffe54ef220185f414e22"
+    },
+    {
+      "path": "chromium-install.log.gz",
+      "decodedBytes": 4341,
+      "decodedSha256": "f3bcc803c203ddede1f0303a1d831bfb4741c4153eec066b8f2cb429690c5f45",
+      "gzipSha256": "79d216ca2bb83cc8329ccca67632f6c12e463c5051375c4d07803c50d3c12630"
+    },
+    {
+      "path": "secured-launch.log.gz",
+      "decodedBytes": 1211,
+      "decodedSha256": "096004112df9cf40f2fe1a81d981a5780c87be5ecdfd1615193838f48d1940b8",
+      "gzipSha256": "20977c51739e0d62c29f1abec95afcedf550d47bf709c92aa5e6c7c5a877f685"
+    },
+    {
+      "path": "source-final.log.gz",
+      "decodedBytes": 498,
+      "decodedSha256": "5f37a9e441b821df72221891d7bfbfc1017fcdba74b7fb8ff0b680204b8d6a35",
+      "gzipSha256": "3b828486ad615a6cd1dbab0b668165eaa65d4582e182161c1aea95a2514446bd"
+    },
+    {
+      "path": "consumer-target-proof.log.gz",
+      "decodedBytes": 108,
+      "decodedSha256": "06be151932ae28cdd5b965e479fe028841c7dec46bd3251108f340e75896587f",
+      "gzipSha256": "0ea3bf5a72780b25eedd13c61799c6eb2cd763e49b73eb12fdd6f894a73b5537"
+    }
+  ],
+  "cloudReadiness": {
+    "environmentStatusTool": "unavailable",
+    "networkPolicyFile": "/etc/codex/network-policy.json unavailable",
+    "managedReadiness": "not established",
+    "transport": "Inherited proxy/CA/TLS/auth/guards preserved; ordinary public clone and connected APIs only; no Docker/private VPN used."
+  },
+  "executionLimitations": [
+    "Fresh final-head full fixture types, hosted Standards/Verification and all applicable secured-browser CI remain required. No CI or independent review waiver.",
+    "Configured automatic review exhausted-global-quota human exception applies only as waived, never passed; no repeated unnecessary bot request.",
+    "No whole Select/Dialog/Composite/runtime/family acceptance or ordinary assertion credit.",
+    "E2BIG process transport failure retained in hosted-log provenance; root authorized supported bounded file-input route, exact connector-decoded UTF8/logical bytes verified; not approval-review rejection or HTTP raw identity."
+  ],
+  "ordinaryCredit": 0,
+  "publication": "Root explicitly authorized one normal diagnostic publication while browser/CI pending after independent-clear candidate and bounded local attempts. Normal parents/expected-head lease; no force, merge or scope expansion."
+}

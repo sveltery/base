@@ -2,10 +2,11 @@ import assert from 'node:assert/strict';
 import { createHash } from 'node:crypto';
 import { readFileSync } from 'node:fs';
 import test from 'node:test';
+import { readLosslessJson } from '../lossless-json.mjs';
 
 const root = new URL('../../', import.meta.url);
 const read = (path) => readFileSync(new URL(path, root));
-const json = (path) => JSON.parse(read(path));
+const json = (path) => readLosslessJson(new URL(path, root));
 const hash = (bytes) => createHash('sha256').update(bytes).digest('hex');
 
 test('Composite leaf complete forward, affected and Original correspondence hashes remain current', () => {

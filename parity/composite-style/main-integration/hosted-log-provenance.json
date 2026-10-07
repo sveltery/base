@@ -1,0 +1,25 @@
+{
+  "source": {
+    "run": 37547254715,
+    "job": 112554108573,
+    "head": "1a953aa21760a5353e797f9a8e61b9b4859035e1",
+    "url": "https://github.com/sveltery/base/actions/runs/37547254715/job/112554108573"
+  },
+  "toolReturnedRaw": {
+    "utf8Bytes": 117002,
+    "sha256": "9e4cc3268e0504bca575a9762770adec0fc88d812d88683ef07906d457f44f13",
+    "qualification": "Decoded UTF-8 text returned by GitHub connector; not HTTP response/archive raw identity."
+  },
+  "archive": {
+    "path": "verification-112554108573.log.gz",
+    "sha256": "c62dbf0e7f96cf389c7ecf8a7b848a03bea4800b31d3a52f26cf1810489c79f5",
+    "decodedBytes": 117002,
+    "decodedSha256": "9e4cc3268e0504bca575a9762770adec0fc88d812d88683ef07906d457f44f13"
+  },
+  "transport": "Exact decoded tool-returned UTF-8 text; independent bounded base64 file input verified against the complete earlier archive prefix, then compressed and decoded equality/hash verified. No appended byte remains. No historical log text was executed.",
+  "stoppedAction": {
+    "action": "Replace existing gzip with exact tool raw stream using one exec command",
+    "reason": "exec_command failed: CreateProcess { message: \"Rejected(\\\"Failed to create unified exec process: exec-server rejected request (-32603): Argument list too long (os error 7)\\\")\" }",
+    "disposition": "Identical oversized argv route stopped. Root clarified E2BIG is a process transport failure, not approval rejection, and explicitly authorized normal bounded file-input receipt preservation; four bounded base64 file writes completed with exact-byte verification."
+  }
+}

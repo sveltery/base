@@ -1,0 +1,123 @@
+{
+  "predecessorHead": "74c437a9a337a26fd808f44f6fa36f7d7542385b",
+  "sourcePin": "47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c",
+  "scope": "Executed unpublished successor worktree checks, not final-head acceptance. Actual public-root/two-package export graph is 496; four private leaf modules remain outside this graph and separately recorded in private 16-module graph. No runtime assertions added or rewritten by projection work.",
+  "checks": [
+    {
+      "command": "NODE_OPTIONS=--max-old-space-size=768 node parity/native-snippets/graph.mjs --write",
+      "exitCode": 0
+    },
+    {
+      "command": "NODE_OPTIONS=--max-old-space-size=768 node parity/button/graph.mjs",
+      "exitCode": 0
+    },
+    {
+      "command": "NODE_OPTIONS=--max-old-space-size=768 node scripts/record-utils-package-source.mjs /workspace/scratch/9e52af4fb58a/base-ui-pin",
+      "exitCode": 0
+    },
+    {
+      "command": "NODE_OPTIONS=--max-old-space-size=768 node scripts/record-native-framework-projections.mjs",
+      "exitCode": 0
+    },
+    {
+      "command": "NODE_OPTIONS=--max-old-space-size=768 node scripts/native-family-projection.mjs --write",
+      "exitCode": 0
+    },
+    {
+      "command": "NODE_OPTIONS=--max-old-space-size=768 node scripts/check-native-snippet-integration.mjs --write",
+      "exitCode": 0
+    },
+    {
+      "command": "NODE_OPTIONS=--max-old-space-size=768 node scripts/record-utils-package-successors.mjs",
+      "exitCode": 0
+    },
+    {
+      "command": "NODE_OPTIONS=--max-old-space-size=768 node scripts/check-native-snippet-integration.mjs",
+      "exitCode": 0
+    },
+    {
+      "command": "NODE_OPTIONS=--max-old-space-size=768 node --test --test-concurrency=1 scripts/tests/native-snippets-provenance.test.mjs scripts/tests/button-provenance.test.mjs scripts/tests/menu-family-provenance.test.mjs scripts/tests/navigation-source.test.mjs",
+      "exitCode": 0,
+      "tests": 11,
+      "passed": 11,
+      "failed": 0,
+      "log": "projection-checks.log.gz"
+    },
+    {
+      "command": "node node_modules/prettier/bin/prettier.cjs --check scripts/check-native-snippet-integration.mjs parity/native-snippets/source-correspondence.md",
+      "exitCode": 0
+    },
+    {
+      "command": "node node_modules/eslint/bin/eslint.js scripts/check-native-snippet-integration.mjs",
+      "exitCode": 0
+    },
+    {
+      "command": "git diff --check",
+      "exitCode": 0
+    }
+  ],
+  "stage": {
+    "publicStyleAstPreservedBodies": 492,
+    "publicStyleUnchangedBodies": 492,
+    "publicStyleCorrectionBodies": 4,
+    "emptyStylePredecessor": "74c437a9a337a26fd808f44f6fa36f7d7542385b",
+    "emptyStyleAstPreservedBodies": 495,
+    "emptyStyleUnchangedBodies": 495,
+    "emptyStyleCorrectionBodies": 1,
+    "privateLeafScope": "This proof covers the 496 public-main closure modules only. The four private Select prerequisite modules are separately recorded in the 16-module current-main leaf graph; no coverage or acceptance is inferred for them."
+  },
+  "projections": [
+    {
+      "path": "parity/button/source-graph.json",
+      "sha256": "98119e5c83c1f092aadaf1934e22f9c9fb68afd1ebc525d7fdab1db3f4550d1f"
+    },
+    {
+      "path": "parity/menu-family/source-correspondence.json",
+      "sha256": "fd8e799937d57803a82daa77c9d78072aa1583082c51b53b151a111f94907973"
+    },
+    {
+      "path": "parity/native-snippets/family-projection.json",
+      "sha256": "8c456ca86ab7cd6a0a4ffe868d4016c3b4945ce86892c8cc8e38d40f51fd64ee"
+    },
+    {
+      "path": "parity/native-snippets/integration-current.json",
+      "sha256": "b3223e3b5e69eaaa578bf8ad9aaf2067290566858c59f4a031ae8e6a72efde4d"
+    },
+    {
+      "path": "parity/native-snippets/native-graph.json",
+      "sha256": "f6f6e37a385684b8a07a9af114861dc1198435491b2500a7499e21a305f4e11a"
+    },
+    {
+      "path": "parity/rendering/source-graph.json",
+      "sha256": "2e8bcdd6bcf784c96670d777e1e882d9ade531c838d89e19be56440ebbc2680a"
+    },
+    {
+      "path": "parity/scroll-area/correspondence.json",
+      "sha256": "6318faa916349db8459bcea17da89e7bd59cda05109505cf22b0d9493317d2e8"
+    },
+    {
+      "path": "parity/toggle-toolbar/source-correspondence.json",
+      "sha256": "592eb40bbf46a722ba34d883eb870e2fff02c7d1f3a96afca581fb278feead97"
+    },
+    {
+      "path": "parity/utils-package/current-source-graph.json",
+      "sha256": "91e619581bf5d5c732937157c107a5bee316937b54f37bc7e3d0ca5d63872e24"
+    },
+    {
+      "path": "parity/utils-package/feature-successors.json",
+      "sha256": "749187081a7d885234f4cd99ba800fdb4ab4b8e83103ae1c00bcdfef99ca29ec"
+    },
+    {
+      "path": "parity/utils-package/correspondence-lineage.json",
+      "sha256": "104b542b2aa96ec2577bd5d98fbbde643ce790f1760201e52809f1e0cb046559"
+    }
+  ],
+  "proofToolSha256": "20b1baf4ad194807841ab495ee263d15a388df10fa087978b6795094a7288fb7",
+  "log": {
+    "archive": "projection-checks.log.gz",
+    "plaintextBytes": 1402,
+    "plaintextSha256": "16218f78d299d1fb558edc6e09a37abcc8a769029d66b3661a3591f9e1369a3a",
+    "archiveSha256": "108e93157c3babdba35bda47798f05576756e281880f54aaf82b60b2c79dae45"
+  },
+  "unchangedOriginalCredit": 0
+}

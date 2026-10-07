@@ -1,0 +1,39 @@
+{
+  "pin": "47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c",
+  "source": {
+    "archive": "parity/menu-family/upstream/packages/react/src/radio/root/RadioRoot.tsx",
+    "sha256": "7549c73833316834561db9abbffd3f50a61107d582d963551692068b8d66f50b"
+  },
+  "method": "Actual pinned1.8.0/React19.2.8 and current native public SSR parsed into real jsdom nodes; exact failing consumer before selector repair.",
+  "records": [
+    {
+      "framework": "Original",
+      "authoredId": {
+        "tagName": "INPUT",
+        "role": null,
+        "ariaChecked": null,
+        "ariaHidden": "true"
+      },
+      "visible": {
+        "tagName": "SPAN",
+        "role": "radio",
+        "ariaChecked": "true"
+      }
+    },
+    {
+      "framework": "native",
+      "authoredId": {
+        "tagName": "INPUT",
+        "role": null,
+        "ariaChecked": null,
+        "ariaHidden": "true"
+      },
+      "visible": {
+        "tagName": "SPAN",
+        "role": "radio",
+        "ariaChecked": "true"
+      }
+    }
+  ],
+  "scope": "Supplemental fixture-target proof, zero ordinary assertion credit; no runtime failure/fix claim."
+}

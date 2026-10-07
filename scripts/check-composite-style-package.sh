@@ -24,8 +24,8 @@ cat > "$style_consumer/Consumer.svelte" <<'SVELTE'
   export function snapshot() { return [...calls]; }
 </script>
 <RadioGroup name="leaf-choice" defaultValue="a" onValueChange={(value: string) => calls.push(value)}>
-  <Radio.Root value="a" id="leaf-a">A</Radio.Root>
-  <Radio.Root value="b" id="leaf-b">B</Radio.Root>
+  <Radio.Root value="a" id="leaf-a" data-testid="leaf-radio-a">A</Radio.Root>
+  <Radio.Root value="b" id="leaf-b" data-testid="leaf-radio-b">B</Radio.Root>
 </RadioGroup>
 SVELTE
 cat > "$style_consumer/types.ts" <<'TS'
@@ -84,10 +84,16 @@ const { hydrate, flushSync, unmount } = await import('svelte');
 const { default: Consumer } = await import('./Consumer.svelte');
 const target = document.querySelector('main');
 target.innerHTML = readFileSync(new URL('./server.html', import.meta.url), 'utf8');
-const first = target.querySelector('#leaf-a');
-const second = target.querySelector('#leaf-b');
+const firstInput = target.querySelector('#leaf-a');
+const secondInput = target.querySelector('#leaf-b');
+const first = target.querySelector('[role="radio"][data-testid="leaf-radio-a"]');
+const second = target.querySelector('[role="radio"][data-testid="leaf-radio-b"]');
 const app = hydrate(Consumer, { target }); flushSync();
-assert.equal(target.querySelector('#leaf-a'), first);
+assert.equal(target.querySelector('#leaf-a'), firstInput);
+assert.equal(target.querySelector('#leaf-b'), secondInput);
+assert.equal(target.querySelector('[role="radio"][data-testid="leaf-radio-a"]'), first);
+assert.equal(target.querySelector('[role="radio"][data-testid="leaf-radio-b"]'), second);
+assert.equal(first.getAttribute('role'), 'radio');
 assert.equal(first.getAttribute('aria-checked'), 'true');
 first.focus();
 first.dispatchEvent(new KeyboardEvent('keydown', { key: 'ArrowRight', bubbles: true }));

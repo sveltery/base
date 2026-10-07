@@ -23,3 +23,9 @@ Existing utility-only platform tests move once to Utils. Existing Base control/r
 Inherited audit scope stays explicit: SvelteStore intentionally exposes used native methods/calling conventions rather than all ReactStore/useStore/selector/inspector APIs; selector factories/interval/idle/global ID APIs remain unimplemented. Toast private store/ID and unrelated feature wrappers remain unaudited where existing records say so. Extraction does not confer whole-feature or whole-library acceptance.
 
 Required final-head validation, real secured hosted browser execution, independent Source/native/maintainability review, CI and PM acceptance remain pending. Exact run/head evidence will be attached to PR75 after the integrated toolkit and current graph records are complete.
+
+## Lossless current graph storage
+
+`current-source-graph.json` is a small versioned descriptor for sibling `current-source-graph.json.gz`. The deterministic gzip payload retains the complete reviewed JSON bytes, including Original inventory and actual two-package AST/symbol/import closure. The descriptor records compressed and decoded SHA-256 plus decoded byte count. `scripts/lossless-json.mjs` verifies the compressed hash, bounded decompression, decoded length/hash and valid JSON before returning logical bytes or parsed records. Ordinary historical JSON remains readable without rewriting any archive.
+
+The maintained producer writes this container; every current graph reader decodes through the same helper. Existing `currentGraphSha256` contracts continue to hash decoded logical bytes, not the descriptor. The [transport receipt](../select-canonical-leaves/empty-style-successor/graph-storage-receipt.json) binds the exact reviewed pre-container graph to its retained payload and records the physical representation change. This publication transport change provides zero Source, runtime, assertion or acceptance credit and changes no production code.

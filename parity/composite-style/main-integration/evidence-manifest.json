@@ -1,0 +1,165 @@
+{
+  "scope": "Complete integration receipt files excluding this manifest; final commit/tree/full changed-path hashes externally bound in PR.",
+  "records": [
+    {
+      "path": "parity/composite-style/main-integration/apps__fixtures__package.json.preimage.txt",
+      "bytes": 921,
+      "sha256": "8205fc26f26438705b11e745c0dd64a14f9d6214cb140f751ecc1464bcb7e61b"
+    },
+    {
+      "path": "parity/composite-style/main-integration/artifacts.json",
+      "bytes": 566,
+      "sha256": "5af7512c2c01ee304410a7e27e45b8971ccbc2243293e102cd6ab5896b4e24c0"
+    },
+    {
+      "path": "parity/composite-style/main-integration/artifacts.log.gz",
+      "bytes": 5317,
+      "sha256": "93cef5ac5866efb12c2410bb6a58eace21d9e4379011b37a1b9d2d9c6b746a38"
+    },
+    {
+      "path": "parity/composite-style/main-integration/bootstrap-final.log.gz",
+      "bytes": 855,
+      "sha256": "a6f7381590b69c1c7ff514075b6d0cbcc12d31a12d2ce066cf515baab5923d62"
+    },
+    {
+      "path": "parity/composite-style/main-integration/bootstrap-fixed.log.gz",
+      "bytes": 379,
+      "sha256": "a14a440c63f59380e59a3f3059603c97083c27e17a9d20c745a058aa97541279"
+    },
+    {
+      "path": "parity/composite-style/main-integration/bootstrap.log.gz",
+      "bytes": 4146,
+      "sha256": "64ef02228d953a3122c9150dbe7a28ca3a61d8b6ecce84a6d7b3664532a9d917"
+    },
+    {
+      "path": "parity/composite-style/main-integration/chromium-install.log.gz",
+      "bytes": 628,
+      "sha256": "79d216ca2bb83cc8329ccca67632f6c12e463c5051375c4d07803c50d3c12630"
+    },
+    {
+      "path": "parity/composite-style/main-integration/click-consumer.log.gz",
+      "bytes": 501,
+      "sha256": "2f2e98b69783424cf32873113bb99b75cee754175ee43de6195331dcde004330"
+    },
+    {
+      "path": "parity/composite-style/main-integration/closure-manifest.json",
+      "bytes": 44730,
+      "sha256": "aed45f689dc174aaf257f573c39d4a2609584bc7e82294c9c7d6251445026f8d"
+    },
+    {
+      "path": "parity/composite-style/main-integration/composite-consumer-selector.preimage.sh.txt",
+      "bytes": 6082,
+      "sha256": "25d02fd41f90343e04b79817cbe480c9ded4110cae2426685a74319164ce462d"
+    },
+    {
+      "path": "parity/composite-style/main-integration/consumer-target-proof.json",
+      "bytes": 1111,
+      "sha256": "ef2dabd987dc11337832bfa6640c11e18b4606db5f4476e3282ed52dc62ec7ee"
+    },
+    {
+      "path": "parity/composite-style/main-integration/consumer-target-proof.log.gz",
+      "bytes": 116,
+      "sha256": "0ea3bf5a72780b25eedd13c61799c6eb2cd763e49b73eb12fdd6f894a73b5537"
+    },
+    {
+      "path": "parity/composite-style/main-integration/declaration-resolution.json",
+      "bytes": 940,
+      "sha256": "277f3b4ce41d381e7c58a3ebeb7ab43c4a96a4fcb81f352093ce8ad6efb0df7e"
+    },
+    {
+      "path": "parity/composite-style/main-integration/dom-final.log.gz",
+      "bytes": 885,
+      "sha256": "76f24310e2e0af303a473d5d937e112e6c8cf11d638b4bb39b1c0946cb28c6b9"
+    },
+    {
+      "path": "parity/composite-style/main-integration/fixture-build.log.gz",
+      "bytes": 15717,
+      "sha256": "98bdfa0d4c14d046235eac58871a5d5524d733689589801561c2db0d9bc5bac5"
+    },
+    {
+      "path": "parity/composite-style/main-integration/hosted-log-provenance.json",
+      "bytes": 1593,
+      "sha256": "2ae13b2220b11061b029e113021a3478d7fbbc1de5eab6086197dc49c83abbf6"
+    },
+    {
+      "path": "parity/composite-style/main-integration/package-consumer.log.gz",
+      "bytes": 1779,
+      "sha256": "48eb724d13c992c306ea30789469828e04c65d1965d8e82f8dc34f5147946b6b"
+    },
+    {
+      "path": "parity/composite-style/main-integration/pnpm-lock.yaml.preimage.txt",
+      "bytes": 120377,
+      "sha256": "340a5755596c9f41839ef5eb92c5985092a78e4b2a1eb38e2e7804d78e88a958"
+    },
+    {
+      "path": "parity/composite-style/main-integration/receipt.json",
+      "bytes": 13038,
+      "sha256": "413e7927b49623a7437ff39a7adb0c328b1853fa6e80406754a7ad7b88d46eec"
+    },
+    {
+      "path": "parity/composite-style/main-integration/runtime.log.gz",
+      "bytes": 81,
+      "sha256": "e4b850e7b6f96f57ff98b7644a3de5a259674185c74fe8bb3f6975340e97b5b2"
+    },
+    {
+      "path": "parity/composite-style/main-integration/scripts.log.gz",
+      "bytes": 5359,
+      "sha256": "88d3a7c9abe226febfab90d20de31fade38eb7254cbbd8b61efba75d0f8d4b39"
+    },
+    {
+      "path": "parity/composite-style/main-integration/scripts__tests__composite-style-source.test.mjs.preimage.txt",
+      "bytes": 1818,
+      "sha256": "5faa8a0c51ad2b4dc671fd3480d0b85287be2c22561bd0580794c4cb13e343a3"
+    },
+    {
+      "path": "parity/composite-style/main-integration/secured-launch.log.gz",
+      "bytes": 428,
+      "sha256": "20977c51739e0d62c29f1abec95afcedf550d47bf709c92aa5e6c7c5a877f685"
+    },
+    {
+      "path": "parity/composite-style/main-integration/server-final.log.gz",
+      "bytes": 527,
+      "sha256": "aab4729dcfe66ad801cffdfc5e46a7e5bbd991448f82f032390737d9e833ae4a"
+    },
+    {
+      "path": "parity/composite-style/main-integration/server.log.gz",
+      "bytes": 250,
+      "sha256": "22791955f5374a27eb143f9929d004434d35627d07f31df993107552174f6e9a"
+    },
+    {
+      "path": "parity/composite-style/main-integration/source-final.log.gz",
+      "bytes": 337,
+      "sha256": "3b828486ad615a6cd1dbab0b668165eaa65d4582e182161c1aea95a2514446bd"
+    },
+    {
+      "path": "parity/composite-style/main-integration/standards.log.gz",
+      "bytes": 105,
+      "sha256": "5b963f13065ff6abedad3e4fe5c8e5916d21fba4a17254161b1628a5fc20b0c8"
+    },
+    {
+      "path": "parity/composite-style/main-integration/style-consumer-final.log.gz",
+      "bytes": 288,
+      "sha256": "3cf326995f06f671643f9248bb2c1306237884133890ffe54ef220185f414e22"
+    },
+    {
+      "path": "parity/composite-style/main-integration/style-consumer.log.gz",
+      "bytes": 404,
+      "sha256": "84ef45abb5ad4c9e42c95cf310c4e06c79471ffeaff4f1fde3cf1bc4e39db479"
+    },
+    {
+      "path": "parity/composite-style/main-integration/toolchain.log.gz",
+      "bytes": 27,
+      "sha256": "02ad658a174343f633a0dd73f266a8aa1929ee8bfbb9b350b283bc1a7c9a2eef"
+    },
+    {
+      "path": "parity/composite-style/main-integration/types.log.gz",
+      "bytes": 1528,
+      "sha256": "34668a09a7833c2fdde4bd01e080f5c24ec8d0582e0def6bf0517f21b1bc6c73"
+    },
+    {
+      "path": "parity/composite-style/main-integration/verification-112554108573.log.gz",
+      "bytes": 23809,
+      "sha256": "c62dbf0e7f96cf389c7ecf8a7b848a03bea4800b31d3a52f26cf1810489c79f5"
+    }
+  ]
+}

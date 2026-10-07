@@ -1,0 +1,596 @@
+{
+  "pin": "47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c",
+  "entries": [
+    "packages/base/src/lib/internals/RenderElement.svelte",
+    "packages/base/src/lib/internals/serializeValue.ts",
+    "packages/base/src/lib/utils/areArraysEqual.ts"
+  ],
+  "method": "Full TypeScript AST imports/reexports/import-types, member inventory and transitive runtime reachability. Type/barrel inventory grants no selected business or assertion credit.",
+  "ordinaryDeclarationCredit": 0,
+  "modules": [
+    {
+      "path": "packages/base/src/lib/internals/getStateAttributesProps.ts",
+      "sha256": "e48367a890024a54cb200eabc5c2a0ba0a397256baacfaec8b0a05ced3b10344",
+      "imports": [],
+      "reachability": "runtime"
+    },
+    {
+      "path": "packages/base/src/lib/internals/nativeProps.ts",
+      "sha256": "d6b3999ffe54e8c70e0dcdac61474b3bf9f53e60f3b1207dd4f976ef5212e4eb",
+      "imports": [
+        {
+          "specifier": "svelte/elements",
+          "kind": "type",
+          "members": [
+            {
+              "imported": "ClassValue",
+              "local": "ClassValue",
+              "kind": "type"
+            }
+          ],
+          "resolved": "external:svelte/elements"
+        },
+        {
+          "specifier": "./resolveClassValue.js",
+          "kind": "runtime",
+          "members": [
+            {
+              "imported": "resolveClassValue",
+              "local": "resolveClassValue",
+              "kind": "runtime"
+            }
+          ],
+          "resolved": "packages/base/src/lib/internals/resolveClassValue.ts"
+        },
+        {
+          "specifier": "../utils/mergeObjects.js",
+          "kind": "runtime",
+          "members": [
+            {
+              "imported": "mergeObjects",
+              "local": "mergeObjects",
+              "kind": "runtime"
+            }
+          ],
+          "resolved": "packages/base/src/lib/utils/mergeObjects.ts"
+        }
+      ],
+      "reachability": "runtime"
+    },
+    {
+      "path": "packages/base/src/lib/internals/nativeRefAttachment.ts",
+      "sha256": "564718b20326d9f5e18bf75d30b3905ce2f93a093fbdfbb7027928e1fd20e319",
+      "imports": [
+        {
+          "specifier": "svelte",
+          "kind": "runtime",
+          "members": [
+            {
+              "imported": "untrack",
+              "local": "untrack",
+              "kind": "runtime"
+            }
+          ],
+          "resolved": "external:svelte"
+        },
+        {
+          "specifier": "../utils/useMergedRefs.js",
+          "kind": "type",
+          "members": [
+            {
+              "imported": "MergedRefCallback",
+              "local": "MergedRefCallback",
+              "kind": "type"
+            }
+          ],
+          "resolved": "packages/base/src/lib/utils/useMergedRefs.ts"
+        }
+      ],
+      "reachability": "runtime"
+    },
+    {
+      "path": "packages/base/src/lib/internals/RenderElement.svelte",
+      "sha256": "bbc7cb9be3a6d554f07090d250923b06b5581b29f190d48d874b62698f1cdef5",
+      "imports": [
+        {
+          "specifier": "svelte",
+          "kind": "runtime",
+          "members": [
+            {
+              "imported": "untrack",
+              "local": "untrack",
+              "kind": "runtime"
+            },
+            {
+              "imported": "Snippet",
+              "local": "Snippet",
+              "kind": "type"
+            }
+          ],
+          "resolved": "external:svelte"
+        },
+        {
+          "specifier": "svelte/attachments",
+          "kind": "runtime",
+          "members": [
+            {
+              "imported": "createAttachmentKey",
+              "local": "createAttachmentKey",
+              "kind": "runtime"
+            }
+          ],
+          "resolved": "external:svelte/attachments"
+        },
+        {
+          "specifier": "esm-env",
+          "kind": "runtime",
+          "members": [
+            {
+              "imported": "BROWSER",
+              "local": "BROWSER",
+              "kind": "runtime"
+            }
+          ],
+          "resolved": "external:esm-env"
+        },
+        {
+          "specifier": "svelte/elements",
+          "kind": "type",
+          "members": [
+            {
+              "imported": "HTMLInputAttributes",
+              "local": "HTMLInputAttributes",
+              "kind": "type"
+            }
+          ],
+          "resolved": "external:svelte/elements"
+        },
+        {
+          "specifier": "./useRenderElement.js",
+          "kind": "runtime",
+          "members": [
+            {
+              "imported": "createRenderElement",
+              "local": "createRenderElement",
+              "kind": "runtime"
+            },
+            {
+              "imported": "UseRenderElementComponentProps",
+              "local": "UseRenderElementComponentProps",
+              "kind": "type"
+            },
+            {
+              "imported": "UseRenderElementParameters",
+              "local": "UseRenderElementParameters",
+              "kind": "type"
+            }
+          ],
+          "resolved": "packages/base/src/lib/internals/useRenderElement.ts"
+        },
+        {
+          "specifier": "./nativeRefAttachment.js",
+          "kind": "runtime",
+          "members": [
+            {
+              "imported": "createRefAttachment",
+              "local": "createRefAttachment",
+              "kind": "runtime"
+            }
+          ],
+          "resolved": "packages/base/src/lib/internals/nativeRefAttachment.ts"
+        },
+        {
+          "specifier": "./nativeProps.js",
+          "kind": "runtime",
+          "members": [
+            {
+              "imported": "toNativeStyle",
+              "local": "toNativeStyle",
+              "kind": "runtime"
+            }
+          ],
+          "resolved": "packages/base/src/lib/internals/nativeProps.ts"
+        }
+      ],
+      "reachability": "runtime"
+    },
+    {
+      "path": "packages/base/src/lib/internals/resolveClassValue.ts",
+      "sha256": "584323b17cb1733a798e9ff86e9ff783d6a26d08ecf005a8c2b3c69917c1e722",
+      "imports": [
+        {
+          "specifier": "svelte/elements",
+          "kind": "type",
+          "members": [
+            {
+              "imported": "ClassValue",
+              "local": "ClassValue",
+              "kind": "type"
+            }
+          ],
+          "resolved": "external:svelte/elements"
+        }
+      ],
+      "reachability": "runtime"
+    },
+    {
+      "path": "packages/base/src/lib/internals/serializeValue.ts",
+      "sha256": "b4669f5fb1847f5246ef31b0351c05ae99952cc31b0ff2451b08477352e31089",
+      "imports": [],
+      "reachability": "runtime"
+    },
+    {
+      "path": "packages/base/src/lib/internals/types.ts",
+      "sha256": "56f62e49c3a1504981c523a1bee8764c45de90fb88f0fab5154bb7fc9d0c1bd3",
+      "imports": [
+        {
+          "specifier": "svelte",
+          "kind": "type",
+          "members": [
+            {
+              "imported": "Snippet",
+              "local": "Snippet",
+              "kind": "type"
+            }
+          ],
+          "resolved": "external:svelte"
+        },
+        {
+          "specifier": "svelte/elements",
+          "kind": "type",
+          "members": [
+            {
+              "imported": "ClassValue",
+              "local": "ClassValue",
+              "kind": "type"
+            },
+            {
+              "imported": "HTMLAttributes",
+              "local": "HTMLAttributes",
+              "kind": "type"
+            }
+          ],
+          "resolved": "external:svelte/elements"
+        },
+        {
+          "specifier": "../merge-props/index.js",
+          "kind": "type",
+          "members": [
+            {
+              "imported": "PreventableEvent",
+              "local": "PreventableEvent",
+              "kind": "type"
+            }
+          ],
+          "resolved": "packages/base/src/lib/merge-props/index.ts"
+        },
+        {
+          "specifier": "./nativeProps.js",
+          "kind": "type",
+          "members": [
+            {
+              "imported": "NativeStyle",
+              "local": "NativeStyle",
+              "kind": "type"
+            }
+          ],
+          "resolved": "packages/base/src/lib/internals/nativeProps.ts"
+        }
+      ],
+      "reachability": "type-only"
+    },
+    {
+      "path": "packages/base/src/lib/internals/useRenderElement.ts",
+      "sha256": "a8fb8a006629431ae42697dbbd9ea1177d9ce756bf953105c2e5f3eb5ed5a1e9",
+      "imports": [
+        {
+          "specifier": "../utils/useMergedRefs.js",
+          "kind": "runtime",
+          "members": [
+            {
+              "imported": "createMergedRefs",
+              "local": "createMergedRefs",
+              "kind": "runtime"
+            },
+            {
+              "imported": "MergedRef",
+              "local": "MergedRef",
+              "kind": "type"
+            },
+            {
+              "imported": "MergedRefCallback",
+              "local": "MergedRefCallback",
+              "kind": "type"
+            }
+          ],
+          "resolved": "packages/base/src/lib/utils/useMergedRefs.ts"
+        },
+        {
+          "specifier": "../utils/mergeObjects.js",
+          "kind": "runtime",
+          "members": [
+            {
+              "imported": "mergeObjects",
+              "local": "mergeObjects",
+              "kind": "runtime"
+            }
+          ],
+          "resolved": "packages/base/src/lib/utils/mergeObjects.ts"
+        },
+        {
+          "specifier": "../utils/empty.js",
+          "kind": "runtime",
+          "members": [
+            {
+              "imported": "EMPTY_OBJECT",
+              "local": "EMPTY_OBJECT",
+              "kind": "runtime"
+            }
+          ],
+          "resolved": "packages/base/src/lib/utils/empty.ts"
+        },
+        {
+          "specifier": "./getStateAttributesProps.js",
+          "kind": "runtime",
+          "members": [
+            {
+              "imported": "getStateAttributesProps",
+              "local": "getStateAttributesProps",
+              "kind": "runtime"
+            },
+            {
+              "imported": "StateAttributesMapping",
+              "local": "StateAttributesMapping",
+              "kind": "type"
+            }
+          ],
+          "resolved": "packages/base/src/lib/internals/getStateAttributesProps.ts"
+        },
+        {
+          "specifier": "../utils/resolveClassName.js",
+          "kind": "runtime",
+          "members": [
+            {
+              "imported": "resolveClassName",
+              "local": "resolveClassName",
+              "kind": "runtime"
+            }
+          ],
+          "resolved": "packages/base/src/lib/utils/resolveClassName.ts"
+        },
+        {
+          "specifier": "../utils/resolveStyle.js",
+          "kind": "runtime",
+          "members": [
+            {
+              "imported": "resolveStyle",
+              "local": "resolveStyle",
+              "kind": "runtime"
+            }
+          ],
+          "resolved": "packages/base/src/lib/utils/resolveStyle.ts"
+        },
+        {
+          "specifier": "../merge-props/index.js",
+          "kind": "runtime",
+          "members": [
+            {
+              "imported": "mergeProps",
+              "local": "mergeProps",
+              "kind": "runtime"
+            },
+            {
+              "imported": "mergePropsN",
+              "local": "mergePropsN",
+              "kind": "runtime"
+            },
+            {
+              "imported": "mergeClassNames",
+              "local": "mergeClassNames",
+              "kind": "runtime"
+            }
+          ],
+          "resolved": "packages/base/src/lib/merge-props/index.ts"
+        },
+        {
+          "specifier": "./nativeProps.js",
+          "kind": "runtime",
+          "members": [
+            {
+              "imported": "mergeNativeStyles",
+              "local": "mergeNativeStyles",
+              "kind": "runtime"
+            },
+            {
+              "imported": "toNativeClass",
+              "local": "toNativeClass",
+              "kind": "runtime"
+            }
+          ],
+          "resolved": "packages/base/src/lib/internals/nativeProps.ts"
+        },
+        {
+          "specifier": "./nativeRefAttachment.js",
+          "kind": "runtime",
+          "members": [
+            {
+              "imported": "isNativeRefAttachment",
+              "local": "isNativeRefAttachment",
+              "kind": "runtime"
+            }
+          ],
+          "resolved": "packages/base/src/lib/internals/nativeRefAttachment.ts"
+        },
+        {
+          "specifier": "./types.js",
+          "kind": "type",
+          "members": [
+            {
+              "imported": "BaseUIComponentProps",
+              "local": "BaseUIComponentProps",
+              "kind": "type"
+            },
+            {
+              "imported": "ComponentRenderFn",
+              "local": "ComponentRenderFn",
+              "kind": "type"
+            },
+            {
+              "imported": "HTMLProps",
+              "local": "HTMLProps",
+              "kind": "type"
+            }
+          ],
+          "resolved": "packages/base/src/lib/internals/types.ts"
+        }
+      ],
+      "reachability": "runtime"
+    },
+    {
+      "path": "packages/base/src/lib/merge-props/index.ts",
+      "sha256": "3ef38bba9b22f44bbcf69102d9556807f78897bedb69b410669c7b429971dd68",
+      "imports": [
+        {
+          "specifier": "./mergeProps.js",
+          "kind": "runtime",
+          "members": [
+            {
+              "imported": "*",
+              "kind": "runtime"
+            }
+          ],
+          "resolved": "packages/base/src/lib/merge-props/mergeProps.ts"
+        }
+      ],
+      "reachability": "runtime"
+    },
+    {
+      "path": "packages/base/src/lib/merge-props/mergeProps.ts",
+      "sha256": "7a097b833ae8854c5a26e34009adfb4e0297dd50f56ad5f0c1ac8afa8187f98b",
+      "imports": [
+        {
+          "specifier": "../internals/nativeProps.js",
+          "kind": "runtime",
+          "members": [
+            {
+              "imported": "copyAttachmentSymbols",
+              "local": "copyAttachmentSymbols",
+              "kind": "runtime"
+            },
+            {
+              "imported": "mergeNativeStyles",
+              "local": "mergeNativeStyles",
+              "kind": "runtime"
+            },
+            {
+              "imported": "toNativeClass",
+              "local": "toNativeClass",
+              "kind": "runtime"
+            }
+          ],
+          "resolved": "packages/base/src/lib/internals/nativeProps.ts"
+        },
+        {
+          "specifier": "../utils/mergeObjects.js",
+          "kind": "runtime",
+          "members": [
+            {
+              "imported": "mergeObjects",
+              "local": "mergeObjects",
+              "kind": "runtime"
+            }
+          ],
+          "resolved": "packages/base/src/lib/utils/mergeObjects.ts"
+        }
+      ],
+      "reachability": "runtime"
+    },
+    {
+      "path": "packages/base/src/lib/utils/areArraysEqual.ts",
+      "sha256": "c8709b6f9efb30e3257def214aeae097b131b112b74bd1bea965e201efb15a44",
+      "imports": [],
+      "reachability": "runtime"
+    },
+    {
+      "path": "packages/base/src/lib/utils/empty.ts",
+      "sha256": "eb679c977169a61764f98516194102fed5b70b6157992b34029dcd39af467d7b",
+      "imports": [],
+      "reachability": "runtime"
+    },
+    {
+      "path": "packages/base/src/lib/utils/mergeObjects.ts",
+      "sha256": "1e6cfa2be20c639f5ce6f8b0b6cc447da3413bbbc6750a5b1ab03f5810d81746",
+      "imports": [],
+      "reachability": "runtime"
+    },
+    {
+      "path": "packages/base/src/lib/utils/resolveClassName.ts",
+      "sha256": "b22aead630ca531851a08a63e5165e64ff8cdc9de5765ff20997f578071cb108",
+      "imports": [
+        {
+          "specifier": "svelte/elements",
+          "kind": "type",
+          "members": [
+            {
+              "imported": "ClassValue",
+              "local": "ClassValue",
+              "kind": "type"
+            }
+          ],
+          "resolved": "external:svelte/elements"
+        }
+      ],
+      "reachability": "runtime"
+    },
+    {
+      "path": "packages/base/src/lib/utils/resolveStyle.ts",
+      "sha256": "cdc420598c1ae4b75a32e7f47ac8cc7f4fe444d4f006e2736f528951fb932977",
+      "imports": [
+        {
+          "specifier": "../internals/nativeProps.js",
+          "kind": "type",
+          "members": [
+            {
+              "imported": "NativeStyle",
+              "local": "NativeStyle",
+              "kind": "type"
+            }
+          ],
+          "resolved": "packages/base/src/lib/internals/nativeProps.ts"
+        }
+      ],
+      "reachability": "runtime"
+    },
+    {
+      "path": "packages/base/src/lib/utils/useMergedRefs.ts",
+      "sha256": "d9420f3db2872a32aca95c7c32db1342da4df6595df68a17707f55a27ea41fe2",
+      "imports": [
+        {
+          "specifier": "./useRefWithInit.js",
+          "kind": "runtime",
+          "members": [
+            {
+              "imported": "useRefWithInit",
+              "local": "useRefWithInit",
+              "kind": "runtime"
+            }
+          ],
+          "resolved": "packages/base/src/lib/utils/useRefWithInit.ts"
+        }
+      ],
+      "reachability": "runtime"
+    },
+    {
+      "path": "packages/base/src/lib/utils/useRefWithInit.ts",
+      "sha256": "998166cdfed66790af4659ac61d8b36f49f1aa4c35a66bb532f6239771271036",
+      "imports": [],
+      "reachability": "runtime"
+    }
+  ],
+  "counts": {
+    "modules": 17,
+    "edges": 33,
+    "runtime": 16,
+    "typeOnly": 1
+  }
+}
