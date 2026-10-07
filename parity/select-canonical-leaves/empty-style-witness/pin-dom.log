@@ -1,0 +1,4 @@
+{"name":"undefined","hasStyle":false,"style":null,"matchesStyle":false}
+{"name":"empty-object","hasStyle":false,"style":null,"matchesStyle":false}
+{"name":"empty-string","hasStyle":false,"style":null,"matchesStyle":false}
+{"name":"nonempty-object","hasStyle":true,"style":"color: red;","matchesStyle":true}

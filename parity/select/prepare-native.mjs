@@ -9,8 +9,8 @@ import { gzipSync, gunzipSync } from 'node:zlib';
 
 const args = process.argv.slice(2);
 const option = name => { const i = args.indexOf(name); return i < 0 ? undefined : args[i + 1]; };
-const main = resolve(option('--main') ?? '../base');
-const mainPin = 'aa4daff54ec82b96e34e1601648d1b3926ef08cf';
+const main = resolve(option('--main') ?? '.');
+const mainPin = 'abe8aa9b66ab8cd8d83dfdac28ebee94a0655f79';
 const ts = createRequire(resolve(option('--dependencies') ?? 'packages/base', 'package.json'))('typescript');
 if (ts.version !== '6.0.3') throw new Error(`Use repository-pinned TypeScript 6.0.3, got ${ts.version}`);
 const execute = promisify(execFile);
@@ -34,6 +34,8 @@ const roots = [
   'internals/anchor-positioning/useAnchorPositioning.svelte.ts', 'utils/FocusGuard.svelte', 'utils/InternalBackdrop.svelte',
   'utils/usePositioner.svelte.ts', 'utils/useOpenInteractionType.svelte.ts',
   'utils/useAnchoredPopupScrollLock.svelte.ts', 'utils/scrollEdges.ts', 'utils/styles.ts',
+  'internals/itemEquality.ts', 'internals/resolveValueLabel.ts',
+  'utils/listbox-separator/ListboxSeparator.svelte',
   'internals/serializeValue.ts', 'internals/stateAttributesMapping.ts', 'utils/popupStateMapping.ts',
   'utils/popups/popupStoreUtils.svelte.ts', 'csp-provider/context.ts',
 ].map(path => lib + path);
@@ -144,6 +146,7 @@ return [...records.values()].sort((a, b) => a.source.localeCompare(b.source));
 const result = {
   status: 'Unapproved proposed helper integration only. Member-selected recursive runtime/type/reexport/dynamic-import review scope, retaining complete selected module bodies; no runtime implementation, helper lease, SourceFull or assertion credit.',
   originalPin: '47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c', acceptedMain: mainPin,
+  providerSemantics: 'accepted-main/acceptedMain are legacy provenance labels for the actual immutable main pin; they do not establish postmerge CI, provider acceptance or Select runtime acceptance.',
   method: 'Verify every actual physical helper body against immutable provider Git blob. All existing providers come from the single integrated Main commit. Resolve @sveltery/utils subpaths to their real source modules; no former Popup override or renderer shim. Select import members through barrel reexports, retain whole bodies/all imports of selected non-barrels, and propagate inherited type-only reachability. External package declarations remain external and are not claimed manually read.',
   roots, integrationRoots, modules: collect([...roots, ...integrationRoots]),
 };

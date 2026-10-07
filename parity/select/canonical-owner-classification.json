@@ -1,7 +1,7 @@
 {
-  "providerCommit": "aa4daff54ec82b96e34e1601648d1b3926ef08cf",
+  "providerCommit": "abe8aa9b66ab8cd8d83dfdac28ebee94a0655f79",
   "sourcePin": "47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c",
-  "scope": "All212 actual physical providers:209 graph union plus3 appendix. Earlier whole-body reading continues by exact identity; newly classified retained roles freshly inspected collectively. No unused barrel features or external package bodies added.",
+  "scope": "All216 actual physical providers:213 extracted graph union plus3appendix. Import graphs conservatively retain type/barrel/provider fans; selected runtime caller roles, not every import edge, determine implementation prerequisites. No ordering cycle inferred from conservative graph.",
   "ownerTaskStatus": "Lead reports canonical cloud ownership for reached families, including usePopupHandleStore and useAnchoredPopupScrollLock in the assigned Popup owner scope. Exact accepted class provider SHA and acceptance are not supplied. useAnimationsFinished has no independently retained state beyond the existing AnimationFrame class and per-invocation closures; a new class facade is unnecessary.",
   "modules": [
     {
@@ -4540,7 +4540,7 @@
     },
     {
       "source": "packages/base/src/lib/internals/nativeProps.ts",
-      "sha256": "f081bf825f41a64924fe298108e148ac56314d02074c588cc1f9324ff6a92cc5",
+      "sha256": "d815afcfdacace885ce9a74f568d2e0dcb167e72003372cd2f398603f2cacd5a",
       "classification": {
         "category": "stateless-business-or-native-type/context-glue",
         "existingClassSymbols": [],
@@ -8502,11 +8502,102 @@
         "graphReachability": [],
         "acceptance": "Class representation classification only; no inherited runtime/provider acceptance. Missing business leaves remain separate."
       }
+    },
+    {
+      "source": "packages/base/src/lib/internals/itemEquality.ts",
+      "sha256": "2c114951f59233a5e58196227ed0ed8eee9c19ac5c425f8a6d2995b5fded53b6",
+      "classification": {
+        "category": "source-business-utility-functions-types-or-module-forwarding",
+        "existingClassSymbols": [],
+        "businessRole": "Pure item equality/dirty/index/re-election/removal business; canonical areArraysEqual reuse.",
+        "pendingOwner": null,
+        "graphReachability": [
+          {
+            "selectedSymbols": [
+              "*"
+            ],
+            "reachability": [
+              "runtime"
+            ],
+            "callerPaths": []
+          }
+        ],
+        "acceptance": "Landed private PR73 boundary; ordinary Select not implemented or consuming it. No new acceptance or assertion credit."
+      }
+    },
+    {
+      "source": "packages/base/src/lib/internals/resolveValueLabel.ts",
+      "sha256": "821adbb75e950a0fd0b8b62151bec5025372d2cc9a5d6161344af1450d249c26",
+      "classification": {
+        "category": "source-business-utility-functions-types-or-module-forwarding",
+        "existingClassSymbols": [],
+        "businessRole": "Grouped-first discriminator, null-label lookup, own-key record lookup, callbacks/fallback and ordered labels.",
+        "pendingOwner": null,
+        "graphReachability": [
+          {
+            "selectedSymbols": [
+              "*"
+            ],
+            "reachability": [
+              "runtime"
+            ],
+            "callerPaths": []
+          }
+        ],
+        "acceptance": "Landed private PR73 boundary; ordinary Select not implemented or consuming it. No new acceptance or assertion credit."
+      }
+    },
+    {
+      "source": "packages/base/src/lib/utils/listbox-separator/ListboxSeparator.svelte",
+      "sha256": "933ed80b383a85b85d9e983e860119c6cb2a45cc1ad265d21ba46fb265f869db",
+      "classification": {
+        "category": "part-owned-native-component-or-types",
+        "existingClassSymbols": [],
+        "businessRole": "Horizontal default, presentation role, orientation and part-owned host/ref/render.",
+        "pendingOwner": null,
+        "graphReachability": [
+          {
+            "selectedSymbols": [
+              "*"
+            ],
+            "reachability": [
+              "runtime"
+            ],
+            "callerPaths": []
+          }
+        ],
+        "acceptance": "Landed private PR73 boundary; ordinary Select not implemented or consuming it. No new acceptance or assertion credit."
+      }
+    },
+    {
+      "source": "packages/base/src/lib/utils/listbox-separator/types.ts",
+      "sha256": "0c4762ac70dd1414c68313c9cb0f34543b9910cc3fc983ab8f84ca2e683245a5",
+      "classification": {
+        "category": "part-owned-native-component-or-types",
+        "existingClassSymbols": [],
+        "businessRole": "Private ListboxSeparator props/state/host type boundary reached through actual type import.",
+        "pendingOwner": null,
+        "graphReachability": [
+          {
+            "selectedSymbols": [
+              "ListboxSeparatorProps",
+              "ListboxSeparatorState"
+            ],
+            "reachability": [
+              "type"
+            ],
+            "callerPaths": [
+              "packages/base/src/lib/utils/listbox-separator/ListboxSeparator.svelte"
+            ]
+          }
+        ],
+        "acceptance": "Landed private PR73 boundary; ordinary Select not implemented or consuming it. No new acceptance or assertion credit."
+      }
     }
   ],
   "pendingRetainedOwnerRows": 28,
-  "missingBusinessLeaves": 5,
-  "nativeStyleRepair": "Separate PR73 minimal string transport repair preserving actual Svelte defaults remains future implementation prerequisite.",
+  "missingBusinessLeaves": 2,
+  "nativeStyleRepair": "Landed private native transport repair; ordinary Select remains unimplemented/unconsumed. Documentation successor requires fresh independent review and all mandatory hosted gates.",
   "documentationAcceptance": "Accurate plan may be accepted after exact public-head substantive independent review, configured review and mandatory CI; future class/runtime dependencies do not require landing before documentation acceptance.",
   "typeOnlyRetainedOwnerRows": 1,
   "classificationCorrectionProvenance": {
@@ -8516,5 +8607,6 @@
     "priorInventoryUrl": "https://github.com/sveltery/base/blob/f3c8ca18484db77c1c8ce5718d47485d745ffae3/parity/select/canonical-owner-classification.json",
     "correction": "Fresh full actual/pinned popup-handle and animation-completion bodies plus actual AnimationFrame body distinguish persistent hydration history from existing-class/native delegate. One runtime owner row added and one removed; count28 remains, no new missing business leaves/runtime changes/acceptance.",
     "leadAttestation": "Lead freshly read complete pinned/current useAnimationsFinished and useAnchoredPopupScrollLock: existing AnimationFrame instance alone owns persistent completion frame state; pendingCallbacks stays module-shared, lifecycle cancellation delegates, no completion facade. Anchored-scroll retained eligibility is assigned Popup task7; PopupHandleStore committed hydration history is assigned Popup task6. These task labels are lead-reported, not accepted runtime/class providers."
-  }
+  },
+  "freshSuccessorWholeBodyReview": "integration-reading-ledger.json"
 }

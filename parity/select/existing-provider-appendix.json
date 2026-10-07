@@ -1,11 +1,11 @@
 {
   "originalPin": "47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c",
-  "providerCommit": "aa4daff54ec82b96e34e1601648d1b3926ef08cf",
-  "scope": "Three Source-selected actual providers outside209 native graph;212 collective physical provider bodies assessed, graph counts remain175/199 union209.",
+  "providerCommit": "abe8aa9b66ab8cd8d83dfdac28ebee94a0655f79",
+  "scope": "Three Source-selected providers outside213 graph union;216 collective physical scope. All3 bodies unchanged from275; historical reader attribution retained by exact identity.",
   "rows": [
     {
       "source": "packages/base/src/lib/utils/getPseudoElementBounds.ts",
-      "providerCommit": "aa4daff54ec82b96e34e1601648d1b3926ef08cf",
+      "providerCommit": "abe8aa9b66ab8cd8d83dfdac28ebee94a0655f79",
       "sha256": "dbba27b4e555045b53eb41539bb248092145279b27f7df5f6fe490968343ddc4",
       "gitBlob": "94e64503067206ecec2acb9721d1901bed6086fa",
       "lines": 70,
@@ -33,7 +33,7 @@
     },
     {
       "source": "packages/utils/src/lib/PreviousValue.svelte.ts",
-      "providerCommit": "aa4daff54ec82b96e34e1601648d1b3926ef08cf",
+      "providerCommit": "abe8aa9b66ab8cd8d83dfdac28ebee94a0655f79",
       "sha256": "bbbb29cc921915446913f248a23c7ae09000eaf7fe69986ed5ada572acfbb856",
       "gitBlob": "cc65ccfb01453a1ab8fa45aef7c85bc9b35af80a",
       "lines": 23,
@@ -58,7 +58,7 @@
     },
     {
       "source": "packages/utils/src/lib/warn.ts",
-      "providerCommit": "aa4daff54ec82b96e34e1601648d1b3926ef08cf",
+      "providerCommit": "abe8aa9b66ab8cd8d83dfdac28ebee94a0655f79",
       "sha256": "58267e2a1dd62afbc707faf9c031dee042605aa74d44dbf72dd997d2ad69db65",
       "gitBlob": "a33aa98a7c17784001556d8a615fa01ee34369f1",
       "lines": 6,

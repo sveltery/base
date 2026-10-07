@@ -1,0 +1,2848 @@
+{
+  "method": "TypeScript syntax function ranges/body hashes and actual imported-identifier use/callers; Svelte script offsets preserved. Scope/semantic review remains in individual receipts/correspondence.",
+  "ordinaryDeclarationCredit": 0,
+  "original": [
+    {
+      "path": "packages/react/src/internals/createBaseUIEventDetails.ts",
+      "sha256": "77bdb11a11ef1dfe9bc1a82db4754766cffbb91c27c3aeaea215e4e07cec2b2d",
+      "functions": [
+        {
+          "name": "createChangeEventDetails",
+          "startLine": 118,
+          "endLine": 149,
+          "bodySha256": "e0857111733de832b482f14ad4e56cab2c0c2e7d647bcef3300d51c2853268e9"
+        },
+        {
+          "name": "cancel",
+          "startLine": 133,
+          "endLine": 135,
+          "bodySha256": "4cc05b34952394db77ee77637e4194848b1ee9271b0551fa02e223e9a64bdf2c"
+        },
+        {
+          "name": "allowPropagation",
+          "startLine": 136,
+          "endLine": 138,
+          "bodySha256": "71c12dcf35b001745051a70f251f8f39935cc997aaab14b4c88932f505f614be"
+        },
+        {
+          "name": "isCanceled",
+          "startLine": 139,
+          "endLine": 141,
+          "bodySha256": "55194710e9a329b9b22db5a2d366ef16d5b7767a89d80f417000c1a066ed9dde"
+        },
+        {
+          "name": "isPropagationAllowed",
+          "startLine": 142,
+          "endLine": 144,
+          "bodySha256": "a2fabfbd32cb538af6070edd134bdf8912797f677921fa26f9b7b4ab08960ff7"
+        },
+        {
+          "name": "createGenericEventDetails",
+          "startLine": 151,
+          "endLine": 166,
+          "bodySha256": "b182f8d6dafec214c7298de5d7373f30c75cce37185df3736b9d6664fb34f542"
+        }
+      ],
+      "imports": [
+        {
+          "specifier": "@base-ui/utils/empty",
+          "line": 1,
+          "references": [
+            {
+              "local": "EMPTY_OBJECT",
+              "line": 129,
+              "caller": "createChangeEventDetails",
+              "typeOnlyUse": false
+            },
+            {
+              "local": "EMPTY_OBJECT",
+              "line": 159,
+              "caller": "createGenericEventDetails",
+              "typeOnlyUse": false
+            }
+          ]
+        },
+        {
+          "specifier": "./reasons",
+          "line": 2,
+          "references": [
+            {
+              "local": "REASONS",
+              "line": 5,
+              "caller": "<module/type>",
+              "typeOnlyUse": false
+            },
+            {
+              "local": "REASONS",
+              "line": 7,
+              "caller": "<module/type>",
+              "typeOnlyUse": false
+            },
+            {
+              "local": "REASONS",
+              "line": 8,
+              "caller": "<module/type>",
+              "typeOnlyUse": false
+            },
+            {
+              "local": "REASONS",
+              "line": 9,
+              "caller": "<module/type>",
+              "typeOnlyUse": false
+            },
+            {
+              "local": "REASONS",
+              "line": 11,
+              "caller": "<module/type>",
+              "typeOnlyUse": false
+            },
+            {
+              "local": "REASONS",
+              "line": 12,
+              "caller": "<module/type>",
+              "typeOnlyUse": false
+            },
+            {
+              "local": "REASONS",
+              "line": 13,
+              "caller": "<module/type>",
+              "typeOnlyUse": false
+            },
+            {
+              "local": "REASONS",
+              "line": 14,
+              "caller": "<module/type>",
+              "typeOnlyUse": false
+            },
+            {
+              "local": "REASONS",
+              "line": 15,
+              "caller": "<module/type>",
+              "typeOnlyUse": false
+            },
+            {
+              "local": "REASONS",
+              "line": 16,
+              "caller": "<module/type>",
+              "typeOnlyUse": false
+            },
+            {
+              "local": "REASONS",
+              "line": 17,
+              "caller": "<module/type>",
+              "typeOnlyUse": false
+            },
+            {
+              "local": "REASONS",
+              "line": 18,
+              "caller": "<module/type>",
+              "typeOnlyUse": false
+            },
+            {
+              "local": "REASONS",
+              "line": 19,
+              "caller": "<module/type>",
+              "typeOnlyUse": false
+            },
+            {
+              "local": "REASONS",
+              "line": 21,
+              "caller": "<module/type>",
+              "typeOnlyUse": false
+            },
+            {
+              "local": "REASONS",
+              "line": 22,
+              "caller": "<module/type>",
+              "typeOnlyUse": false
+            },
+            {
+              "local": "REASONS",
+              "line": 23,
+              "caller": "<module/type>",
+              "typeOnlyUse": false
+            },
+            {
+              "local": "REASONS",
+              "line": 24,
+              "caller": "<module/type>",
+              "typeOnlyUse": false
+            },
+            {
+              "local": "REASONS",
+              "line": 25,
+              "caller": "<module/type>",
+              "typeOnlyUse": false
+            },
+            {
+              "local": "REASONS",
+              "line": 27,
+              "caller": "<module/type>",
+              "typeOnlyUse": false
+            },
+            {
+              "local": "REASONS",
+              "line": 28,
+              "caller": "<module/type>",
+              "typeOnlyUse": false
+            },
+            {
+              "local": "REASONS",
+              "line": 29,
+              "caller": "<module/type>",
+              "typeOnlyUse": false
+            },
+            {
+              "local": "REASONS",
+              "line": 30,
+              "caller": "<module/type>",
+              "typeOnlyUse": false
+            },
+            {
+              "local": "REASONS",
+              "line": 31,
+              "caller": "<module/type>",
+              "typeOnlyUse": false
+            },
+            {
+              "local": "REASONS",
+              "line": 33,
+              "caller": "<module/type>",
+              "typeOnlyUse": false
+            },
+            {
+              "local": "REASONS",
+              "line": 34,
+              "caller": "<module/type>",
+              "typeOnlyUse": false
+            },
+            {
+              "local": "REASONS",
+              "line": 35,
+              "caller": "<module/type>",
+              "typeOnlyUse": false
+            },
+            {
+              "local": "REASONS",
+              "line": 36,
+              "caller": "<module/type>",
+              "typeOnlyUse": false
+            },
+            {
+              "local": "REASONS",
+              "line": 37,
+              "caller": "<module/type>",
+              "typeOnlyUse": false
+            },
+            {
+              "local": "REASONS",
+              "line": 39,
+              "caller": "<module/type>",
+              "typeOnlyUse": false
+            },
+            {
+              "local": "REASONS",
+              "line": 40,
+              "caller": "<module/type>",
+              "typeOnlyUse": false
+            },
+            {
+              "local": "REASONS",
+              "line": 41,
+              "caller": "<module/type>",
+              "typeOnlyUse": false
+            },
+            {
+              "local": "REASONS",
+              "line": 42,
+              "caller": "<module/type>",
+              "typeOnlyUse": false
+            },
+            {
+              "local": "REASONS",
+              "line": 43,
+              "caller": "<module/type>",
+              "typeOnlyUse": false
+            },
+            {
+              "local": "REASONS",
+              "line": 44,
+              "caller": "<module/type>",
+              "typeOnlyUse": false
+            },
+            {
+              "local": "REASONS",
+              "line": 46,
+              "caller": "<module/type>",
+              "typeOnlyUse": false
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "path": "packages/react/src/internals/getStateAttributesProps.ts",
+      "sha256": "ae0c62d85ecb1d58d833c49a8753929df86a7539e94e272fdfe692d6ae89abcb",
+      "functions": [
+        {
+          "name": "getStateAttributesProps",
+          "startLine": 5,
+          "endLine": 32,
+          "bodySha256": "5145278fe39725fad10e2d34f99207688f089b592a007a3291d620dbd8d99232"
+        }
+      ],
+      "imports": []
+    },
+    {
+      "path": "packages/react/src/internals/itemEquality.ts",
+      "sha256": "beb68077d5bf5f26ea3805953ebb23d592ae8f78515e1dde90dd030a8e18777c",
+      "functions": [
+        {
+          "name": "defaultItemEquality",
+          "startLine": 9,
+          "endLine": 10,
+          "bodySha256": "a735fedbe8694fb504260183509a00045f6e52e0d57089321fd02719ddbe64cb"
+        },
+        {
+          "name": "compareItemEquality",
+          "startLine": 12,
+          "endLine": 21,
+          "bodySha256": "c3a943f5a7baa65772304378c6cb6d9497daa92bcc759b83299595423315a600"
+        },
+        {
+          "name": "isSelectedValueDirty",
+          "startLine": 23,
+          "endLine": 35,
+          "bodySha256": "e57aa513a527fa4ddc7cb2c75c336ab94767ca1cb1f31559fa62b3ea1a2890ed"
+        },
+        {
+          "name": "<anonymous:29>",
+          "startLine": 29,
+          "endLine": 30,
+          "bodySha256": "256eb68b7f669e87f3bd45908cf93d13a6fd49450b78a11b637a0661a5aea569"
+        },
+        {
+          "name": "selectedValueIncludes",
+          "startLine": 37,
+          "endLine": 51,
+          "bodySha256": "b47393d01e8e4883fc4db343f47d8dc8c5d2f998d914b3cdf9705ed198220cbc"
+        },
+        {
+          "name": "<anonymous:45>",
+          "startLine": 45,
+          "endLine": 50,
+          "bodySha256": "2060a315d7b17112772850b2a4e277f4afc125a97784326458aa019495aebed6"
+        },
+        {
+          "name": "findItemIndex",
+          "startLine": 53,
+          "endLine": 67,
+          "bodySha256": "0968c018feaba3ead3164b6bc9ab3c6b64447a1585de1e37650195c0df20b1b2"
+        },
+        {
+          "name": "<anonymous:61>",
+          "startLine": 61,
+          "endLine": 66,
+          "bodySha256": "00242f2d9ae95530154b71f4a88851a4f6a31583cf84cd513121d08f6b1177ec"
+        },
+        {
+          "name": "createSelectionMatcher",
+          "startLine": 71,
+          "endLine": 84,
+          "bodySha256": "c606db5b75a4dec719c7a1383fa8f942a4c1404584db06bb033206a6660d10ee"
+        },
+        {
+          "name": "<anonymous:76>",
+          "startLine": 76,
+          "endLine": 76,
+          "bodySha256": "46d6de73528ac8e46c40f05fca6788c109ea2f4e2746012bee05b8c1414d8056"
+        },
+        {
+          "name": "<anonymous:81>",
+          "startLine": 81,
+          "endLine": 83,
+          "bodySha256": "c329b8c6fb273f4c6480fc4b165eb26149d9c1261d5d556f31e0a3b6ce86c924"
+        },
+        {
+          "name": "<anonymous:83>",
+          "startLine": 83,
+          "endLine": 83,
+          "bodySha256": "96a64f7c23e907e5c7b22e62136195741f16652244d11f3ada87a872f7527c8c"
+        },
+        {
+          "name": "findSelectionIndex",
+          "startLine": 86,
+          "endLine": 101,
+          "bodySha256": "8b099951fba3481fd40915af7c855cd6c4c29a1d63146081e79ccaa4e318e81a"
+        },
+        {
+          "name": "resolveSelectedIndex",
+          "startLine": 104,
+          "endLine": 124,
+          "bodySha256": "d94e3308c3ca8cd66b177b73f81e7159fd4c0e9489b2fd30e8d6cb8932c16954"
+        },
+        {
+          "name": "removeItem",
+          "startLine": 126,
+          "endLine": 134,
+          "bodySha256": "82baf93e70832593287add89172d212d196c05ab74a0bf1dcdbdc4ec0ce67092"
+        },
+        {
+          "name": "<anonymous:132>",
+          "startLine": 132,
+          "endLine": 132,
+          "bodySha256": "246c0a0a4843b3608eb5d0cc7b233daf3f8f40d524bae1e5b7226d9a1fe1eb5b"
+        }
+      ],
+      "imports": [
+        {
+          "specifier": "@base-ui/utils/areArraysEqual",
+          "line": 1,
+          "references": [
+            {
+              "local": "areArraysEqual",
+              "line": 29,
+              "caller": "isSelectedValueDirty",
+              "typeOnlyUse": false
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "path": "packages/react/src/internals/reason-parts.ts",
+      "sha256": "1cddfb9a98326bc5e586c2bdb66fb3a58913038f8ee7368ec57bbaf972521e06",
+      "functions": [],
+      "imports": []
+    },
+    {
+      "path": "packages/react/src/internals/reasons.ts",
+      "sha256": "694b1512f2dd9c999e97899e1fe9ea0f189fbe8476fcbc0f957cd786806c4abf",
+      "functions": [],
+      "imports": [
+        {
+          "specifier": "./reason-parts",
+          "line": 1,
+          "references": [
+            {
+              "local": "REASONS",
+              "line": 3,
+              "caller": "<module/type>",
+              "typeOnlyUse": false
+            },
+            {
+              "local": "REASONS",
+              "line": 4,
+              "caller": "<module/type>",
+              "typeOnlyUse": true
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "path": "packages/react/src/internals/resolveValueLabel.tsx",
+      "sha256": "bc54306db732b6a1d7570f753ea57c53a2131cab78373d65a07a98839ce73a2a",
+      "functions": [
+        {
+          "name": "isGroup",
+          "startLine": 18,
+          "endLine": 20,
+          "bodySha256": "8c1fdea95d12291dbe93275ec7ca178a11f325363f73544ec55037cda6160420"
+        },
+        {
+          "name": "isGroupedItems",
+          "startLine": 22,
+          "endLine": 28,
+          "bodySha256": "8e0d76c932bc8dd1811c9df479c2de1053673e73dbd0de82aea8f2f6c6a42730"
+        },
+        {
+          "name": "flattenLeafItems",
+          "startLine": 30,
+          "endLine": 36,
+          "bodySha256": "c076eab87798e54dc9d66dad9874db82ec55c3212f2b8c59405bb699706e35a2"
+        },
+        {
+          "name": "<anonymous:34>",
+          "startLine": 34,
+          "endLine": 34,
+          "bodySha256": "4099d3471874c403339de84dff07999ce0432ad55fc41ff1c2a52a8a3b656ea2"
+        },
+        {
+          "name": "hasNullItemLabel",
+          "startLine": 41,
+          "endLine": 66,
+          "bodySha256": "cd060fe7fdfe17f4592df0289a6a46d0c3add4c44c798056b40531952eb0dba7"
+        },
+        {
+          "name": "stringifyAsLabel",
+          "startLine": 68,
+          "endLine": 81,
+          "bodySha256": "384d9b340211083110fdd1f8ad22d3dd8348f7129969198ebf34528e7635262a"
+        },
+        {
+          "name": "stringifyAsValue",
+          "startLine": 83,
+          "endLine": 91,
+          "bodySha256": "525efb0c14f5eb711c0547659d03525ee88b24046a619df6e4a871b4ec22ed20"
+        },
+        {
+          "name": "resolveSelectedLabel",
+          "startLine": 93,
+          "endLine": 140,
+          "bodySha256": "c634f2d290dcd92c60d7e9603556f0d4dd2cf8f574ce5606d907eb4caf63eb66"
+        },
+        {
+          "name": "fallback",
+          "startLine": 98,
+          "endLine": 100,
+          "bodySha256": "e2febd6d24206e2127642f151f7aa7c973fbde8405b692bf5926f01a84badbfc"
+        },
+        {
+          "name": "<anonymous:123>",
+          "startLine": 123,
+          "endLine": 123,
+          "bodySha256": "2f05038a65fe7dcfd0d22b9acf9ff02467902decd3e1489aa6dba8bb25994216"
+        },
+        {
+          "name": "<anonymous:132>",
+          "startLine": 132,
+          "endLine": 132,
+          "bodySha256": "f9cf93d8e8b4692b159f2f31155fcf7a28d0b3c2c05d125fe25504ac99b97e57"
+        },
+        {
+          "name": "resolveMultipleLabels",
+          "startLine": 142,
+          "endLine": 158,
+          "bodySha256": "61072098ea055873b72504dd9e6a69674f3b80f9c802d927ef4bfda67fc194f0"
+        },
+        {
+          "name": "<anonymous:147>",
+          "startLine": 147,
+          "endLine": 157,
+          "bodySha256": "aa283d601e9e9ef9e2fd46748f1f57aec98a4aa174eecbd2cc2b8cd3073001e2"
+        }
+      ],
+      "imports": [
+        {
+          "specifier": "react",
+          "line": 2,
+          "references": [
+            {
+              "local": "React",
+              "line": 5,
+              "caller": "<module/type>",
+              "typeOnlyUse": true
+            },
+            {
+              "local": "React",
+              "line": 10,
+              "caller": "<module/type>",
+              "typeOnlyUse": true
+            },
+            {
+              "local": "React",
+              "line": 97,
+              "caller": "resolveSelectedLabel",
+              "typeOnlyUse": true
+            },
+            {
+              "local": "React",
+              "line": 146,
+              "caller": "resolveMultipleLabels",
+              "typeOnlyUse": true
+            },
+            {
+              "local": "React",
+              "line": 152,
+              "caller": "<anonymous:147>",
+              "typeOnlyUse": false
+            },
+            {
+              "local": "React",
+              "line": 154,
+              "caller": "<anonymous:147>",
+              "typeOnlyUse": false
+            }
+          ]
+        },
+        {
+          "specifier": "./serializeValue",
+          "line": 3,
+          "references": [
+            {
+              "local": "serializeValue",
+              "line": 80,
+              "caller": "stringifyAsLabel",
+              "typeOnlyUse": false
+            },
+            {
+              "local": "serializeValue",
+              "line": 88,
+              "caller": "stringifyAsValue",
+              "typeOnlyUse": false
+            },
+            {
+              "local": "serializeValue",
+              "line": 90,
+              "caller": "stringifyAsValue",
+              "typeOnlyUse": false
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "path": "packages/react/src/internals/serializeValue.ts",
+      "sha256": "200e70d64db36ca0161d8dc2370a26564d8381a21409f0949192fc5e45db5fd2",
+      "functions": [
+        {
+          "name": "serializeValue",
+          "startLine": 1,
+          "endLine": 13,
+          "bodySha256": "97f578984a9f92445fc512366b43cab6dbe436a1acf8434d47d6ed35b95bcab4"
+        }
+      ],
+      "imports": []
+    },
+    {
+      "path": "packages/react/src/internals/types.ts",
+      "sha256": "ed0c29125011488378a038fe179287809ef624d9d84389d83d7207b25e3d416a",
+      "functions": [],
+      "imports": [
+        {
+          "specifier": "react",
+          "line": 1,
+          "references": [
+            {
+              "local": "React",
+              "line": 6,
+              "caller": "<module/type>",
+              "typeOnlyUse": true
+            },
+            {
+              "local": "React",
+              "line": 18,
+              "caller": "<module/type>",
+              "typeOnlyUse": true
+            },
+            {
+              "local": "React",
+              "line": 37,
+              "caller": "<module/type>",
+              "typeOnlyUse": true
+            },
+            {
+              "local": "React",
+              "line": 41,
+              "caller": "<module/type>",
+              "typeOnlyUse": true
+            },
+            {
+              "local": "React",
+              "line": 55,
+              "caller": "<module/type>",
+              "typeOnlyUse": true
+            },
+            {
+              "local": "React",
+              "line": 60,
+              "caller": "<module/type>",
+              "typeOnlyUse": true
+            },
+            {
+              "local": "React",
+              "line": 60,
+              "caller": "<anonymous:60>",
+              "typeOnlyUse": true
+            }
+          ]
+        },
+        {
+          "specifier": "../types",
+          "line": 2,
+          "references": [
+            {
+              "local": "HTMLProps",
+              "line": 4,
+              "caller": "<module/type>",
+              "typeOnlyUse": false
+            },
+            {
+              "local": "BaseUIEvent",
+              "line": 4,
+              "caller": "<module/type>",
+              "typeOnlyUse": false
+            },
+            {
+              "local": "ComponentRenderFn",
+              "line": 4,
+              "caller": "<module/type>",
+              "typeOnlyUse": false
+            },
+            {
+              "local": "BaseUIEvent",
+              "line": 7,
+              "caller": "<module/type>",
+              "typeOnlyUse": true
+            },
+            {
+              "local": "BaseUIEvent",
+              "line": 19,
+              "caller": "<anonymous:19>",
+              "typeOnlyUse": true
+            },
+            {
+              "local": "HTMLProps",
+              "line": 39,
+              "caller": "<module/type>",
+              "typeOnlyUse": true
+            },
+            {
+              "local": "ComponentRenderFn",
+              "line": 55,
+              "caller": "<module/type>",
+              "typeOnlyUse": true
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "path": "packages/react/src/internals/useRenderElement.tsx",
+      "sha256": "0b55dc232a0d630a666a13873213d1bdde040e973031f2b307a64cc157644a4c",
+      "functions": [
+        {
+          "name": "useRenderElement",
+          "startLine": 22,
+          "endLine": 48,
+          "bodySha256": "17a472b3c7e845449acdaa173511dcada83e6faad7f282a508273963b3c6a28a"
+        },
+        {
+          "name": "useRenderElementProps",
+          "startLine": 53,
+          "endLine": 119,
+          "bodySha256": "0e5c4f143ed075d153abb9284421946cc5aa4f36be4be740a2da5d3964ddf630"
+        },
+        {
+          "name": "resolveRenderFunctionProps",
+          "startLine": 121,
+          "endLine": 129,
+          "bodySha256": "23586c8031dba51a7edcf6c431e2deb847210e156993b802c96088a9124d091a"
+        },
+        {
+          "name": "unwrapLazyRenderProp",
+          "startLine": 145,
+          "endLine": 156,
+          "bodySha256": "c41be7afb212483e54350926214cebb12514a0ce3344c987f91435d849dbfbfe"
+        },
+        {
+          "name": "evaluateRenderProp",
+          "startLine": 158,
+          "endLine": 206,
+          "bodySha256": "993aff4f3ea2da036347a07903df2db91a3bba64e94951e4b1fc9b03d03a8607"
+        },
+        {
+          "name": "warnIfRenderPropLooksLikeComponent",
+          "startLine": 208,
+          "endLine": 230,
+          "bodySha256": "6703db5bd9f59b8fe5ad233b746138da40b55e9386639308296c6037c1666317"
+        },
+        {
+          "name": "renderTag",
+          "startLine": 232,
+          "endLine": 240,
+          "bodySha256": "349b19e2aec057711de85e44389c7ca07c1ccd553b80e78640ee05ad69558eab"
+        }
+      ],
+      "imports": [
+        {
+          "specifier": "react",
+          "line": 1,
+          "references": [
+            {
+              "local": "React",
+              "line": 13,
+              "caller": "<module/type>",
+              "typeOnlyUse": true
+            },
+            {
+              "local": "React",
+              "line": 31,
+              "caller": "useRenderElement",
+              "typeOnlyUse": true
+            },
+            {
+              "local": "React",
+              "line": 41,
+              "caller": "useRenderElement",
+              "typeOnlyUse": true
+            },
+            {
+              "local": "React",
+              "line": 47,
+              "caller": "useRenderElement",
+              "typeOnlyUse": true
+            },
+            {
+              "local": "React",
+              "line": 62,
+              "caller": "useRenderElementProps",
+              "typeOnlyUse": true
+            },
+            {
+              "local": "React",
+              "line": 62,
+              "caller": "useRenderElementProps",
+              "typeOnlyUse": true
+            },
+            {
+              "local": "React",
+              "line": 85,
+              "caller": "useRenderElementProps",
+              "typeOnlyUse": true
+            },
+            {
+              "local": "React",
+              "line": 85,
+              "caller": "useRenderElementProps",
+              "typeOnlyUse": true
+            },
+            {
+              "local": "React",
+              "line": 154,
+              "caller": "unwrapLazyRenderProp",
+              "typeOnlyUse": false
+            },
+            {
+              "local": "React",
+              "line": 154,
+              "caller": "unwrapLazyRenderProp",
+              "typeOnlyUse": true
+            },
+            {
+              "local": "React",
+              "line": 155,
+              "caller": "unwrapLazyRenderProp",
+              "typeOnlyUse": false
+            },
+            {
+              "local": "React",
+              "line": 158,
+              "caller": "evaluateRenderProp",
+              "typeOnlyUse": true
+            },
+            {
+              "local": "React",
+              "line": 161,
+              "caller": "evaluateRenderProp",
+              "typeOnlyUse": true
+            },
+            {
+              "local": "React",
+              "line": 161,
+              "caller": "evaluateRenderProp",
+              "typeOnlyUse": true
+            },
+            {
+              "local": "React",
+              "line": 163,
+              "caller": "evaluateRenderProp",
+              "typeOnlyUse": true
+            },
+            {
+              "local": "React",
+              "line": 183,
+              "caller": "evaluateRenderProp",
+              "typeOnlyUse": false
+            },
+            {
+              "local": "React",
+              "line": 196,
+              "caller": "evaluateRenderProp",
+              "typeOnlyUse": false
+            },
+            {
+              "local": "React",
+              "line": 239,
+              "caller": "renderTag",
+              "typeOnlyUse": false
+            },
+            {
+              "local": "React",
+              "line": 242,
+              "caller": "<module/type>",
+              "typeOnlyUse": true
+            },
+            {
+              "local": "React",
+              "line": 243,
+              "caller": "<module/type>",
+              "typeOnlyUse": true
+            },
+            {
+              "local": "React",
+              "line": 244,
+              "caller": "<module/type>",
+              "typeOnlyUse": true
+            },
+            {
+              "local": "React",
+              "line": 265,
+              "caller": "<module/type>",
+              "typeOnlyUse": true
+            },
+            {
+              "local": "React",
+              "line": 265,
+              "caller": "<module/type>",
+              "typeOnlyUse": true
+            },
+            {
+              "local": "React",
+              "line": 296,
+              "caller": "<module/type>",
+              "typeOnlyUse": true
+            },
+            {
+              "local": "React",
+              "line": 296,
+              "caller": "<module/type>",
+              "typeOnlyUse": true
+            },
+            {
+              "local": "React",
+              "line": 301,
+              "caller": "<module/type>",
+              "typeOnlyUse": true
+            },
+            {
+              "local": "React",
+              "line": 301,
+              "caller": "<anonymous:301>",
+              "typeOnlyUse": true
+            }
+          ]
+        },
+        {
+          "specifier": "@base-ui/utils/useMergedRefs",
+          "line": 2,
+          "references": [
+            {
+              "local": "useMergedRefs",
+              "line": 98,
+              "caller": "useRenderElementProps",
+              "typeOnlyUse": false
+            },
+            {
+              "local": "useMergedRefsN",
+              "line": 100,
+              "caller": "useRenderElementProps",
+              "typeOnlyUse": false
+            },
+            {
+              "local": "useMergedRefs",
+              "line": 102,
+              "caller": "useRenderElementProps",
+              "typeOnlyUse": false
+            }
+          ]
+        },
+        {
+          "specifier": "@base-ui/utils/getReactElementRef",
+          "line": 3,
+          "references": [
+            {
+              "local": "getReactElementRef",
+              "line": 100,
+              "caller": "useRenderElementProps",
+              "typeOnlyUse": false
+            },
+            {
+              "local": "getReactElementRef",
+              "line": 102,
+              "caller": "useRenderElementProps",
+              "typeOnlyUse": false
+            }
+          ]
+        },
+        {
+          "specifier": "@base-ui/utils/mergeObjects",
+          "line": 4,
+          "references": [
+            {
+              "local": "mergeObjects",
+              "line": 86,
+              "caller": "useRenderElementProps",
+              "typeOnlyUse": false
+            },
+            {
+              "local": "mergeObjects",
+              "line": 115,
+              "caller": "useRenderElementProps",
+              "typeOnlyUse": false
+            }
+          ]
+        },
+        {
+          "specifier": "@base-ui/utils/warn",
+          "line": 5,
+          "references": [
+            {
+              "local": "warn",
+              "line": 222,
+              "caller": "warnIfRenderPropLooksLikeComponent",
+              "typeOnlyUse": false
+            }
+          ]
+        },
+        {
+          "specifier": "@base-ui/utils/empty",
+          "line": 6,
+          "references": [
+            {
+              "local": "EMPTY_OBJECT",
+              "line": 44,
+              "caller": "useRenderElement",
+              "typeOnlyUse": false
+            },
+            {
+              "local": "EMPTY_OBJECT",
+              "line": 66,
+              "caller": "useRenderElementProps",
+              "typeOnlyUse": false
+            },
+            {
+              "local": "EMPTY_OBJECT",
+              "line": 78,
+              "caller": "useRenderElementProps",
+              "typeOnlyUse": false
+            },
+            {
+              "local": "EMPTY_OBJECT",
+              "line": 87,
+              "caller": "useRenderElementProps",
+              "typeOnlyUse": false
+            },
+            {
+              "local": "EMPTY_OBJECT",
+              "line": 107,
+              "caller": "useRenderElementProps",
+              "typeOnlyUse": false
+            }
+          ]
+        },
+        {
+          "specifier": "./types",
+          "line": 7,
+          "references": [
+            {
+              "local": "BaseUIComponentProps",
+              "line": 160,
+              "caller": "evaluateRenderProp",
+              "typeOnlyUse": true
+            },
+            {
+              "local": "HTMLProps",
+              "line": 261,
+              "caller": "<anonymous:261>",
+              "typeOnlyUse": true
+            },
+            {
+              "local": "HTMLProps",
+              "line": 261,
+              "caller": "<anonymous:261>",
+              "typeOnlyUse": true
+            },
+            {
+              "local": "ComponentRenderFn",
+              "line": 296,
+              "caller": "<module/type>",
+              "typeOnlyUse": true
+            }
+          ]
+        },
+        {
+          "specifier": "./getStateAttributesProps",
+          "line": 8,
+          "references": [
+            {
+              "local": "getStateAttributesProps",
+              "line": 77,
+              "caller": "useRenderElementProps",
+              "typeOnlyUse": false
+            },
+            {
+              "local": "StateAttributesMapping",
+              "line": 284,
+              "caller": "<module/type>",
+              "typeOnlyUse": true
+            }
+          ]
+        },
+        {
+          "specifier": "../utils/resolveClassName",
+          "line": 9,
+          "references": [
+            {
+              "local": "resolveClassName",
+              "line": 73,
+              "caller": "useRenderElementProps",
+              "typeOnlyUse": false
+            }
+          ]
+        },
+        {
+          "specifier": "../utils/resolveStyle",
+          "line": 10,
+          "references": [
+            {
+              "local": "resolveStyle",
+              "line": 74,
+              "caller": "useRenderElementProps",
+              "typeOnlyUse": false
+            }
+          ]
+        },
+        {
+          "specifier": "../merge-props",
+          "line": 11,
+          "references": [
+            {
+              "local": "mergeClassNames",
+              "line": 111,
+              "caller": "useRenderElementProps",
+              "typeOnlyUse": false
+            },
+            {
+              "local": "mergePropsN",
+              "line": 125,
+              "caller": "resolveRenderFunctionProps",
+              "typeOnlyUse": false
+            },
+            {
+              "local": "mergeProps",
+              "line": 128,
+              "caller": "resolveRenderFunctionProps",
+              "typeOnlyUse": false
+            },
+            {
+              "local": "mergeProps",
+              "line": 172,
+              "caller": "evaluateRenderProp",
+              "typeOnlyUse": false
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "path": "packages/react/src/merge-props/index.ts",
+      "sha256": "4881819e46f8b81cc6e90add34bc5a87cf924596e007785da31eed500414222f",
+      "functions": [],
+      "imports": []
+    },
+    {
+      "path": "packages/react/src/merge-props/mergeProps.ts",
+      "sha256": "cdc8fc165df88ddc4034fb2242ebf1ef32b504755404c343abf965cb3e4c90ce",
+      "functions": [
+        {
+          "name": "mergeProps",
+          "startLine": 61,
+          "endLine": 83,
+          "bodySha256": "987fd0bf5d0d549bd8e3468bb7eb683c2e4a76ed9c25cd96b481a72af1082240"
+        },
+        {
+          "name": "mergePropsN",
+          "startLine": 99,
+          "endLine": 115,
+          "bodySha256": "a2675fd0a52870e285ea2693ad480453822bd45f942a917604c376fefa065f28"
+        },
+        {
+          "name": "createInitialMergedProps",
+          "startLine": 117,
+          "endLine": 124,
+          "bodySha256": "b12db62ace6c7ea2ed9248738f29f55860dc7e4ed789ac7fc76c51742bf2c8db"
+        },
+        {
+          "name": "mergeInto",
+          "startLine": 126,
+          "endLine": 131,
+          "bodySha256": "f343ed1a068388325ea29f17bb510c4658474ab226edb5bbce2fac8139c4977d"
+        },
+        {
+          "name": "copyInitialProps",
+          "startLine": 133,
+          "endLine": 148,
+          "bodySha256": "2a573eceeba2b0b8ff005fc30985ecc894197e0fe4729724fba9fb123aee5147"
+        },
+        {
+          "name": "mutablyMergeInto",
+          "startLine": 153,
+          "endLine": 188,
+          "bodySha256": "714cd44b664b5eab8bf6ed2d0d89c5c61a5684130d311c2d4b0d1b900b19ace3"
+        },
+        {
+          "name": "isEventHandler",
+          "startLine": 190,
+          "endLine": 202,
+          "bodySha256": "12c75e8cc77f99999c314484febbef64847f2338f218eaaba2c7f4f50b8cbdb8"
+        },
+        {
+          "name": "isPropsGetter",
+          "startLine": 204,
+          "endLine": 208,
+          "bodySha256": "2c32fd0ca3a31c0cfc313a2acc1106a829855c6b710ab978b242e602d910f7bf"
+        },
+        {
+          "name": "resolvePropsGetter",
+          "startLine": 210,
+          "endLine": 219,
+          "bodySha256": "0e4d984dd22678e0bfea24bf807c3c77394d1813b875556765724b0e768fecca"
+        },
+        {
+          "name": "mergeEventHandlers",
+          "startLine": 221,
+          "endLine": 250,
+          "bodySha256": "1b9f054510a30f9dcdccfb256d95096f4541b6e2d19b44a9396e0b4fa02fbe12"
+        },
+        {
+          "name": "<anonymous:229>",
+          "startLine": 229,
+          "endLine": 249,
+          "bodySha256": "e52b679667c3f9599c2e019f4c0c784896b06d34fa2923a4c5f7d2e3d0a9ec7d"
+        },
+        {
+          "name": "wrapEventHandler",
+          "startLine": 252,
+          "endLine": 266,
+          "bodySha256": "d74ab3fd7fdb3e8f641ac5bbb8641a2e156e32557e4792ba4ad3ac153983cfbe"
+        },
+        {
+          "name": "<anonymous:257>",
+          "startLine": 257,
+          "endLine": 265,
+          "bodySha256": "54ed07bbf7a3c3f96329da872a8a3b5022bf769ca7b02baf01632e34737dd14b"
+        },
+        {
+          "name": "makeEventPreventable",
+          "startLine": 268,
+          "endLine": 274,
+          "bodySha256": "7679f30f2bd86ef9d3c5de1c2426e9c0a56655b61368534e82dcfc35cbe88f76"
+        },
+        {
+          "name": "<anonymous:269>",
+          "startLine": 269,
+          "endLine": 271,
+          "bodySha256": "09abd75aac5618260a63fbe2206d7cccff6a2e3e46ac7323987834d384dc6954"
+        },
+        {
+          "name": "mergeClassNames",
+          "startLine": 276,
+          "endLine": 290,
+          "bodySha256": "f3691a9f5e694a1a64b88301c23ef88fff71f49232d85907394087a7d51bf532"
+        },
+        {
+          "name": "isSyntheticEvent",
+          "startLine": 292,
+          "endLine": 294,
+          "bodySha256": "d91c564e012986553504a4a74f1ca196e50e27c8a47cef00d5dceb4da3ffaa26"
+        }
+      ],
+      "imports": [
+        {
+          "specifier": "react",
+          "line": 1,
+          "references": [
+            {
+              "local": "React",
+              "line": 5,
+              "caller": "<module/type>",
+              "typeOnlyUse": true
+            },
+            {
+              "local": "React",
+              "line": 6,
+              "caller": "<module/type>",
+              "typeOnlyUse": true
+            },
+            {
+              "local": "React",
+              "line": 6,
+              "caller": "<module/type>",
+              "typeOnlyUse": true
+            },
+            {
+              "local": "React",
+              "line": 7,
+              "caller": "<module/type>",
+              "typeOnlyUse": true
+            },
+            {
+              "local": "React",
+              "line": 134,
+              "caller": "copyInitialProps",
+              "typeOnlyUse": true
+            },
+            {
+              "local": "React",
+              "line": 155,
+              "caller": "mutablyMergeInto",
+              "typeOnlyUse": true
+            },
+            {
+              "local": "React",
+              "line": 168,
+              "caller": "mutablyMergeInto",
+              "typeOnlyUse": true
+            },
+            {
+              "local": "React",
+              "line": 169,
+              "caller": "mutablyMergeInto",
+              "typeOnlyUse": true
+            },
+            {
+              "local": "React",
+              "line": 204,
+              "caller": "isPropsGetter",
+              "typeOnlyUse": true
+            },
+            {
+              "local": "React",
+              "line": 268,
+              "caller": "makeEventPreventable",
+              "typeOnlyUse": true
+            },
+            {
+              "local": "React",
+              "line": 292,
+              "caller": "isSyntheticEvent",
+              "typeOnlyUse": true
+            }
+          ]
+        },
+        {
+          "specifier": "@base-ui/utils/mergeObjects",
+          "line": 2,
+          "references": [
+            {
+              "local": "mergeObjects",
+              "line": 167,
+              "caller": "mutablyMergeInto",
+              "typeOnlyUse": false
+            }
+          ]
+        },
+        {
+          "specifier": "../internals/types",
+          "line": 3,
+          "references": [
+            {
+              "local": "WithBaseUIEvent",
+              "line": 6,
+              "caller": "<module/type>",
+              "typeOnlyUse": true
+            },
+            {
+              "local": "BaseUIEvent",
+              "line": 233,
+              "caller": "<anonymous:229>",
+              "typeOnlyUse": true
+            },
+            {
+              "local": "BaseUIEvent",
+              "line": 261,
+              "caller": "<anonymous:257>",
+              "typeOnlyUse": true
+            },
+            {
+              "local": "BaseUIEvent",
+              "line": 268,
+              "caller": "makeEventPreventable",
+              "typeOnlyUse": true
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "path": "packages/react/src/types/index.ts",
+      "sha256": "ffc973365f8dbc5af24db40fa4553ee7fc1f154feb1803ff6a9bb5d5cd918587",
+      "functions": [],
+      "imports": [
+        {
+          "specifier": "react",
+          "line": 1,
+          "references": [
+            {
+              "local": "React",
+              "line": 8,
+              "caller": "<module/type>",
+              "typeOnlyUse": true
+            },
+            {
+              "local": "React",
+              "line": 9,
+              "caller": "<module/type>",
+              "typeOnlyUse": true
+            },
+            {
+              "local": "React",
+              "line": 21,
+              "caller": "<anonymous:18>",
+              "typeOnlyUse": true
+            },
+            {
+              "local": "React",
+              "line": 23,
+              "caller": "<module/type>",
+              "typeOnlyUse": true
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "path": "packages/react/src/utils/listbox-separator/ListboxSeparator.tsx",
+      "sha256": "5ef03b4144a6ff8763d38a7562c4dc06d497aebc602673f606cd563a819c3679",
+      "functions": [
+        {
+          "name": "ListboxSeparator",
+          "startLine": 12,
+          "endLine": 25,
+          "bodySha256": "d14b245c0721f8d3210a38b1c60afba193da34154738f1230a1c407bb5c27f31"
+        }
+      ],
+      "imports": [
+        {
+          "specifier": "react",
+          "line": 2,
+          "references": [
+            {
+              "local": "React",
+              "line": 12,
+              "caller": "<module/type>",
+              "typeOnlyUse": false
+            },
+            {
+              "local": "React",
+              "line": 14,
+              "caller": "ListboxSeparator",
+              "typeOnlyUse": true
+            }
+          ]
+        },
+        {
+          "specifier": "../../internals/types",
+          "line": 3,
+          "references": [
+            {
+              "local": "BaseUIComponentProps",
+              "line": 27,
+              "caller": "<module/type>",
+              "typeOnlyUse": true
+            },
+            {
+              "local": "Orientation",
+              "line": 32,
+              "caller": "<module/type>",
+              "typeOnlyUse": true
+            },
+            {
+              "local": "Orientation",
+              "line": 39,
+              "caller": "<module/type>",
+              "typeOnlyUse": true
+            }
+          ]
+        },
+        {
+          "specifier": "../../internals/useRenderElement",
+          "line": 4,
+          "references": [
+            {
+              "local": "useRenderElement",
+              "line": 20,
+              "caller": "ListboxSeparator",
+              "typeOnlyUse": false
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "path": "packages/react/src/utils/resolveClassName.ts",
+      "sha256": "8a4b38bd68c8f1e7268c9587951c5e78349fd51c6f3befef597b3c3b60ac3b41",
+      "functions": [
+        {
+          "name": "resolveClassName",
+          "startLine": 8,
+          "endLine": 13,
+          "bodySha256": "4a160a1d3fc1b18905602ee418df47939ed01a85cf66d990d19c2e00fd7dba89"
+        }
+      ],
+      "imports": []
+    },
+    {
+      "path": "packages/react/src/utils/resolveStyle.ts",
+      "sha256": "e8cb3f94b27439c43a3a26b82f21c09fe152871c202aef91f8907da3f8734cf0",
+      "functions": [
+        {
+          "name": "resolveStyle",
+          "startLine": 8,
+          "endLine": 13,
+          "bodySha256": "6a969437d2a93f57646d56212d08a2331f21e8694072123a29e99262c36f940c"
+        }
+      ],
+      "imports": []
+    },
+    {
+      "path": "packages/utils/src/areArraysEqual.ts",
+      "sha256": "2edc0f6f199b353ec557a7c9e4943ed4af5449da8c488076647a3f77fd3dac75",
+      "functions": [
+        {
+          "name": "areArraysEqual",
+          "startLine": 9,
+          "endLine": 27,
+          "bodySha256": "402ad8b42cfc026d3cb1f014a0a4230716b114042e41e8c726dc80c0347662a3"
+        }
+      ],
+      "imports": []
+    },
+    {
+      "path": "packages/utils/src/createLogOnce.ts",
+      "sha256": "6e5e5b4c34d3407fe2379b58749d4da26c49c49383b7501964132a2e725660b1",
+      "functions": [
+        {
+          "name": "createLogOnce",
+          "startLine": 7,
+          "endLine": 23,
+          "bodySha256": "1623cd9a9e96c64266e97d30c94462072d6ccdc057a9fa0c5fb6a07f0b085858"
+        },
+        {
+          "name": "logOnce",
+          "startLine": 8,
+          "endLine": 22,
+          "bodySha256": "1757db5fdbddb8dc29a0169964fe81ac2c08290b9dfe5d590fe158463e17fb4f"
+        },
+        {
+          "name": "reset",
+          "startLine": 25,
+          "endLine": 27,
+          "bodySha256": "df567668e70840666d1aab7d006117be54357d18f40aa293077dad8407a6a114"
+        }
+      ],
+      "imports": []
+    },
+    {
+      "path": "packages/utils/src/empty.ts",
+      "sha256": "7d7c8625346dc2344dc551004c5c5da82878ab814818b7a8df4ad7082979ead6",
+      "functions": [
+        {
+          "name": "NOOP",
+          "startLine": 1,
+          "endLine": 1,
+          "bodySha256": "44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a"
+        }
+      ],
+      "imports": []
+    },
+    {
+      "path": "packages/utils/src/getReactElementRef.ts",
+      "sha256": "6ea0078fe8f8a0feee703f968779a863b30789a6fac4e4f51de13690064af364",
+      "functions": [
+        {
+          "name": "getReactElementRef",
+          "startLine": 7,
+          "endLine": 16,
+          "bodySha256": "dd16412c8bd3200270c51e965ebc6aa0bbe168e9e055d0a226caf2859f002c8e"
+        }
+      ],
+      "imports": [
+        {
+          "specifier": "react",
+          "line": 1,
+          "references": [
+            {
+              "local": "React",
+              "line": 7,
+              "caller": "getReactElementRef",
+              "typeOnlyUse": true
+            },
+            {
+              "local": "React",
+              "line": 8,
+              "caller": "getReactElementRef",
+              "typeOnlyUse": false
+            },
+            {
+              "local": "React",
+              "line": 12,
+              "caller": "getReactElementRef",
+              "typeOnlyUse": true
+            },
+            {
+              "local": "React",
+              "line": 12,
+              "caller": "getReactElementRef",
+              "typeOnlyUse": true
+            },
+            {
+              "local": "React",
+              "line": 13,
+              "caller": "getReactElementRef",
+              "typeOnlyUse": true
+            }
+          ]
+        },
+        {
+          "specifier": "./reactVersion",
+          "line": 2,
+          "references": [
+            {
+              "local": "isReactVersionAtLeast",
+              "line": 15,
+              "caller": "getReactElementRef",
+              "typeOnlyUse": false
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "path": "packages/utils/src/mergeObjects.ts",
+      "sha256": "0e9b1568370f5c1ea28710bae245380281ae366187bfb871b99a14fe6b5b49fa",
+      "functions": [
+        {
+          "name": "mergeObjects",
+          "startLine": 1,
+          "endLine": 15,
+          "bodySha256": "7322e7c22caa91f2aec19af49d68d77fd8ef084f97eccc050a791b266f611402"
+        }
+      ],
+      "imports": []
+    },
+    {
+      "path": "packages/utils/src/reactVersion.ts",
+      "sha256": "e52b2ae447fe83a4b5a927a013405446542ef474b76a75540b7216bc561df889",
+      "functions": [
+        {
+          "name": "isReactVersionAtLeast",
+          "startLine": 7,
+          "endLine": 9,
+          "bodySha256": "463715efb5e9b60bcb9fa3559f1dc2931d2a1098e00ed53ba64a9e0edb07d197"
+        }
+      ],
+      "imports": [
+        {
+          "specifier": "react",
+          "line": 1,
+          "references": [
+            {
+              "local": "React",
+              "line": 3,
+              "caller": "<module/type>",
+              "typeOnlyUse": false
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "path": "packages/utils/src/useMergedRefs.ts",
+      "sha256": "5fa12ae01abedc23ba814e9c59f015cf14d306044638b56c977780de43275ba3",
+      "functions": [
+        {
+          "name": "useMergedRefs",
+          "startLine": 30,
+          "endLine": 41,
+          "bodySha256": "64f2ea93f5e53b0df70c6578665874f72efdd508c19de7ac1823f5244dbe2f9e"
+        },
+        {
+          "name": "useMergedRefsN",
+          "startLine": 48,
+          "endLine": 54,
+          "bodySha256": "07d827199cb52c372504d3709348d3392f01dfb9b93dfd8cd9e19d7152ee94e1"
+        },
+        {
+          "name": "createForkRef",
+          "startLine": 56,
+          "endLine": 62,
+          "bodySha256": "763c8ed7ded53787d82ba264af730238ee5a24d36659e1b3b44247dafb1118fd"
+        },
+        {
+          "name": "didChange",
+          "startLine": 64,
+          "endLine": 78,
+          "bodySha256": "42c8396e984a3c7753d873fa971c6dd25200b5e85cdd5879fdd8395be97637b4"
+        },
+        {
+          "name": "didChangeN",
+          "startLine": 80,
+          "endLine": 85,
+          "bodySha256": "0f37cd3cd95374c67825fc1fd464d4bb58b94e656fa37d632e09d524707b7ca0"
+        },
+        {
+          "name": "<anonymous:83>",
+          "startLine": 83,
+          "endLine": 83,
+          "bodySha256": "e109359467bfb93f945e9e898189eb05b1fb8aa602ce6cc25ba6b35c54dd5f8b"
+        },
+        {
+          "name": "update",
+          "startLine": 87,
+          "endLine": 153,
+          "bodySha256": "22586fabdd39ccc427808487fc091d3b60e7f7496b488adc5ace27fc19271a9c"
+        },
+        {
+          "name": "<anonymous:90>",
+          "startLine": 90,
+          "endLine": 90,
+          "bodySha256": "d723bd4c011924107314e25d111346b3b13410e5e3be60d1e63ae330d4e7f1ad"
+        },
+        {
+          "name": "<anonymous:95>",
+          "startLine": 95,
+          "endLine": 152,
+          "bodySha256": "87aabf5e6f07709a7a0b868326036cd587a465593b484a06c663d70438dc23cf"
+        },
+        {
+          "name": "<anonymous:125>",
+          "startLine": 125,
+          "endLine": 150,
+          "bodySha256": "be5732f25208cd7a72729591cfc32bdaaed4f64efc36281d8a1723ec7ad26931"
+        }
+      ],
+      "imports": [
+        {
+          "specifier": "react",
+          "line": 1,
+          "references": [
+            {
+              "local": "React",
+              "line": 5,
+              "caller": "<module/type>",
+              "typeOnlyUse": true
+            },
+            {
+              "local": "React",
+              "line": 6,
+              "caller": "<module/type>",
+              "typeOnlyUse": true
+            },
+            {
+              "local": "React",
+              "line": 10,
+              "caller": "<module/type>",
+              "typeOnlyUse": true
+            }
+          ]
+        },
+        {
+          "specifier": "./useRefWithInit",
+          "line": 2,
+          "references": [
+            {
+              "local": "useRefWithInit",
+              "line": 36,
+              "caller": "useMergedRefs",
+              "typeOnlyUse": false
+            },
+            {
+              "local": "useRefWithInit",
+              "line": 49,
+              "caller": "useMergedRefsN",
+              "typeOnlyUse": false
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "path": "packages/utils/src/useRefWithInit.ts",
+      "sha256": "183cb6e86ab1f8044a431d5b4115c750f7848c9835d519881b3c7a66dae98354",
+      "functions": [
+        {
+          "name": "useRefWithInit",
+          "startLine": 15,
+          "endLine": 23,
+          "bodySha256": "c3e3ae1139a964ce28db17799555d96cb9730c6df0fd2b18c0896e8759a79413"
+        }
+      ],
+      "imports": [
+        {
+          "specifier": "react",
+          "line": 2,
+          "references": [
+            {
+              "local": "React",
+              "line": 13,
+              "caller": "useRefWithInit",
+              "typeOnlyUse": true
+            },
+            {
+              "local": "React",
+              "line": 14,
+              "caller": "useRefWithInit",
+              "typeOnlyUse": true
+            },
+            {
+              "local": "React",
+              "line": 16,
+              "caller": "useRefWithInit",
+              "typeOnlyUse": false
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "path": "packages/utils/src/warn.ts",
+      "sha256": "4e5565f4957742aaa2795bae3f37bfbc88dac51528550b3406ed5cef92474c00",
+      "functions": [],
+      "imports": [
+        {
+          "specifier": "./createLogOnce",
+          "line": 1,
+          "references": [
+            {
+              "local": "createLogOnce",
+              "line": 3,
+              "caller": "<module/type>",
+              "typeOnlyUse": false
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "native": [
+    {
+      "path": "packages/base/src/lib/internals/getStateAttributesProps.ts",
+      "sha256": "e48367a890024a54cb200eabc5c2a0ba0a397256baacfaec8b0a05ced3b10344",
+      "functions": [
+        {
+          "name": "getStateAttributesProps",
+          "startLine": 7,
+          "endLine": 34,
+          "bodySha256": "3bfa7fed6d6ce16fd2f81f8ae27291ce79eb6b2073de6a1e94496ab51d8290ed"
+        }
+      ],
+      "imports": []
+    },
+    {
+      "path": "packages/base/src/lib/internals/itemEquality.ts",
+      "sha256": "2c114951f59233a5e58196227ed0ed8eee9c19ac5c425f8a6d2995b5fded53b6",
+      "functions": [
+        {
+          "name": "defaultItemEquality",
+          "startLine": 12,
+          "endLine": 13,
+          "bodySha256": "a735fedbe8694fb504260183509a00045f6e52e0d57089321fd02719ddbe64cb"
+        },
+        {
+          "name": "compareItemEquality",
+          "startLine": 15,
+          "endLine": 24,
+          "bodySha256": "c3a943f5a7baa65772304378c6cb6d9497daa92bcc759b83299595423315a600"
+        },
+        {
+          "name": "isSelectedValueDirty",
+          "startLine": 26,
+          "endLine": 38,
+          "bodySha256": "e57aa513a527fa4ddc7cb2c75c336ab94767ca1cb1f31559fa62b3ea1a2890ed"
+        },
+        {
+          "name": "<anonymous:32>",
+          "startLine": 32,
+          "endLine": 33,
+          "bodySha256": "256eb68b7f669e87f3bd45908cf93d13a6fd49450b78a11b637a0661a5aea569"
+        },
+        {
+          "name": "selectedValueIncludes",
+          "startLine": 40,
+          "endLine": 54,
+          "bodySha256": "b47393d01e8e4883fc4db343f47d8dc8c5d2f998d914b3cdf9705ed198220cbc"
+        },
+        {
+          "name": "<anonymous:48>",
+          "startLine": 48,
+          "endLine": 53,
+          "bodySha256": "2060a315d7b17112772850b2a4e277f4afc125a97784326458aa019495aebed6"
+        },
+        {
+          "name": "findItemIndex",
+          "startLine": 56,
+          "endLine": 70,
+          "bodySha256": "0968c018feaba3ead3164b6bc9ab3c6b64447a1585de1e37650195c0df20b1b2"
+        },
+        {
+          "name": "<anonymous:64>",
+          "startLine": 64,
+          "endLine": 69,
+          "bodySha256": "00242f2d9ae95530154b71f4a88851a4f6a31583cf84cd513121d08f6b1177ec"
+        },
+        {
+          "name": "createSelectionMatcher",
+          "startLine": 74,
+          "endLine": 87,
+          "bodySha256": "c606db5b75a4dec719c7a1383fa8f942a4c1404584db06bb033206a6660d10ee"
+        },
+        {
+          "name": "<anonymous:79>",
+          "startLine": 79,
+          "endLine": 79,
+          "bodySha256": "46d6de73528ac8e46c40f05fca6788c109ea2f4e2746012bee05b8c1414d8056"
+        },
+        {
+          "name": "<anonymous:84>",
+          "startLine": 84,
+          "endLine": 86,
+          "bodySha256": "c329b8c6fb273f4c6480fc4b165eb26149d9c1261d5d556f31e0a3b6ce86c924"
+        },
+        {
+          "name": "<anonymous:86>",
+          "startLine": 86,
+          "endLine": 86,
+          "bodySha256": "96a64f7c23e907e5c7b22e62136195741f16652244d11f3ada87a872f7527c8c"
+        },
+        {
+          "name": "findSelectionIndex",
+          "startLine": 89,
+          "endLine": 104,
+          "bodySha256": "8b099951fba3481fd40915af7c855cd6c4c29a1d63146081e79ccaa4e318e81a"
+        },
+        {
+          "name": "resolveSelectedIndex",
+          "startLine": 107,
+          "endLine": 127,
+          "bodySha256": "d94e3308c3ca8cd66b177b73f81e7159fd4c0e9489b2fd30e8d6cb8932c16954"
+        },
+        {
+          "name": "removeItem",
+          "startLine": 129,
+          "endLine": 137,
+          "bodySha256": "82baf93e70832593287add89172d212d196c05ab74a0bf1dcdbdc4ec0ce67092"
+        },
+        {
+          "name": "<anonymous:135>",
+          "startLine": 135,
+          "endLine": 135,
+          "bodySha256": "246c0a0a4843b3608eb5d0cc7b233daf3f8f40d524bae1e5b7226d9a1fe1eb5b"
+        }
+      ],
+      "imports": [
+        {
+          "specifier": "@sveltery/utils/areArraysEqual",
+          "line": 3,
+          "references": [
+            {
+              "local": "areArraysEqual",
+              "line": 32,
+              "caller": "isSelectedValueDirty",
+              "typeOnlyUse": false
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "path": "packages/base/src/lib/internals/mergeComponentProps.ts",
+      "sha256": "803da5cb2c52515e1e68e16b66b61060c31ca03d183bb09d928b601bbb70cab7",
+      "functions": [
+        {
+          "name": "mergeComponentProps",
+          "startLine": 15,
+          "endLine": 33,
+          "bodySha256": "580f83dce4f2e9366a8a70ca55b19c5bb8991a1f2bfe1f5e318b06733b683a19"
+        }
+      ],
+      "imports": [
+        {
+          "specifier": "@sveltery/utils/mergeObjects",
+          "line": 3,
+          "references": [
+            {
+              "local": "mergeObjects",
+              "line": 27,
+              "caller": "mergeComponentProps",
+              "typeOnlyUse": false
+            }
+          ]
+        },
+        {
+          "specifier": "../merge-props/index.js",
+          "line": 4,
+          "references": [
+            {
+              "local": "mergePropsN",
+              "line": 25,
+              "caller": "mergeComponentProps",
+              "typeOnlyUse": false
+            },
+            {
+              "local": "mergeProps",
+              "line": 26,
+              "caller": "mergeComponentProps",
+              "typeOnlyUse": false
+            },
+            {
+              "local": "mergeClassNames",
+              "line": 29,
+              "caller": "mergeComponentProps",
+              "typeOnlyUse": false
+            }
+          ]
+        },
+        {
+          "specifier": "./getStateAttributesProps.js",
+          "line": 5,
+          "references": [
+            {
+              "local": "StateAttributesMapping",
+              "line": 19,
+              "caller": "mergeComponentProps",
+              "typeOnlyUse": true
+            },
+            {
+              "local": "getStateAttributesProps",
+              "line": 23,
+              "caller": "mergeComponentProps",
+              "typeOnlyUse": false
+            }
+          ]
+        },
+        {
+          "specifier": "../utils/resolveClassName.js",
+          "line": 6,
+          "references": [
+            {
+              "local": "resolveClassName",
+              "line": 21,
+              "caller": "mergeComponentProps",
+              "typeOnlyUse": false
+            }
+          ]
+        },
+        {
+          "specifier": "../utils/resolveStyle.js",
+          "line": 7,
+          "references": [
+            {
+              "local": "resolveStyle",
+              "line": 22,
+              "caller": "mergeComponentProps",
+              "typeOnlyUse": false
+            }
+          ]
+        },
+        {
+          "specifier": "./nativeProps.js",
+          "line": 8,
+          "references": [
+            {
+              "local": "toNativeClass",
+              "line": 29,
+              "caller": "mergeComponentProps",
+              "typeOnlyUse": false
+            },
+            {
+              "local": "toNativeClass",
+              "line": 29,
+              "caller": "mergeComponentProps",
+              "typeOnlyUse": false
+            },
+            {
+              "local": "mergeNativeStyles",
+              "line": 30,
+              "caller": "mergeComponentProps",
+              "typeOnlyUse": false
+            },
+            {
+              "local": "toNativeStyle",
+              "line": 31,
+              "caller": "mergeComponentProps",
+              "typeOnlyUse": false
+            }
+          ]
+        },
+        {
+          "specifier": "./types.js",
+          "line": 9,
+          "references": [
+            {
+              "local": "HTMLProps",
+              "line": 11,
+              "caller": "<module/type>",
+              "typeOnlyUse": true
+            },
+            {
+              "local": "HTMLProps",
+              "line": 11,
+              "caller": "<anonymous:11>",
+              "typeOnlyUse": true
+            },
+            {
+              "local": "HTMLProps",
+              "line": 11,
+              "caller": "<anonymous:11>",
+              "typeOnlyUse": true
+            },
+            {
+              "local": "BaseUIComponentProps",
+              "line": 17,
+              "caller": "mergeComponentProps",
+              "typeOnlyUse": true
+            },
+            {
+              "local": "HTMLProps",
+              "line": 20,
+              "caller": "mergeComponentProps",
+              "typeOnlyUse": true
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "path": "packages/base/src/lib/internals/nativeProps.ts",
+      "sha256": "d815afcfdacace885ce9a74f568d2e0dcb167e72003372cd2f398603f2cacd5a",
+      "functions": [
+        {
+          "name": "toNativeStyle",
+          "startLine": 9,
+          "endLine": 19,
+          "bodySha256": "25801345190db9fe1b880bbe763966a741e0b46771c81bcc40773dc1bb2637fb"
+        },
+        {
+          "name": "<anonymous:13>",
+          "startLine": 13,
+          "endLine": 13,
+          "bodySha256": "2baeff57a64acd6dc189360fe14b592211b0561f2876ac8262314e9d52c1517a"
+        },
+        {
+          "name": "<anonymous:15>",
+          "startLine": 15,
+          "endLine": 16,
+          "bodySha256": "2ed0029c7918203ec992d136ade6c6f6b339d8f5237ee95c249295f8fa2e2cfa"
+        },
+        {
+          "name": "<anonymous:16>",
+          "startLine": 16,
+          "endLine": 16,
+          "bodySha256": "1bf9c2a51f403a3205bc185e3fb8d938e6141cf9489d3ffbc54f4e45b0ea17e0"
+        },
+        {
+          "name": "mergeNativeStyles",
+          "startLine": 21,
+          "endLine": 31,
+          "bodySha256": "e68b11dd33d44e4391b3ea2bc423a7c4d049081e60028187efb13c9a8acf7bba"
+        },
+        {
+          "name": "<anonymous:24>",
+          "startLine": 24,
+          "endLine": 24,
+          "bodySha256": "e4d62cef7664f8ea9a981bd812861297b1325881b757a663775a8599bf452c4f"
+        },
+        {
+          "name": "toNativeClass",
+          "startLine": 33,
+          "endLine": 35,
+          "bodySha256": "0d4b723f4b54b32e751648c04347d7acffd180616ffdfacf86df57baa42bbb41"
+        },
+        {
+          "name": "copyAttachmentSymbols",
+          "startLine": 38,
+          "endLine": 43,
+          "bodySha256": "cc5cd5664c63e28d1cb6724f081cae3884405063ec1f0f96b5eeda83baf93936"
+        }
+      ],
+      "imports": [
+        {
+          "specifier": "svelte/elements",
+          "line": 3,
+          "references": [
+            {
+              "local": "HTMLAttributes",
+              "line": 7,
+              "caller": "<module/type>",
+              "typeOnlyUse": true
+            },
+            {
+              "local": "ClassValue",
+              "line": 34,
+              "caller": "toNativeClass",
+              "typeOnlyUse": true
+            }
+          ]
+        },
+        {
+          "specifier": "./resolveClassValue.js",
+          "line": 4,
+          "references": [
+            {
+              "local": "resolveClassValue",
+              "line": 34,
+              "caller": "toNativeClass",
+              "typeOnlyUse": false
+            }
+          ]
+        },
+        {
+          "specifier": "@sveltery/utils/mergeObjects",
+          "line": 5,
+          "references": [
+            {
+              "local": "mergeObjects",
+              "line": 27,
+              "caller": "mergeNativeStyles",
+              "typeOnlyUse": false
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "path": "packages/base/src/lib/internals/resolveClassValue.ts",
+      "sha256": "584323b17cb1733a798e9ff86e9ff783d6a26d08ecf005a8c2b3c69917c1e722",
+      "functions": [
+        {
+          "name": "tokens",
+          "startLine": 3,
+          "endLine": 13,
+          "bodySha256": "53113793e018d4ef67debd7bf8438a7bd2aff39e51bea3c389d286c88ac8e4d8"
+        },
+        {
+          "name": "resolveClassValue",
+          "startLine": 16,
+          "endLine": 19,
+          "bodySha256": "ec0194fd913ff539a225bed88bc6c8d5854d8dcea63ea87df4e8982715fdb82b"
+        }
+      ],
+      "imports": [
+        {
+          "specifier": "svelte/elements",
+          "line": 1,
+          "references": [
+            {
+              "local": "ClassValue",
+              "line": 16,
+              "caller": "resolveClassValue",
+              "typeOnlyUse": true
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "path": "packages/base/src/lib/internals/resolveValueLabel.ts",
+      "sha256": "821adbb75e950a0fd0b8b62151bec5025372d2cc9a5d6161344af1450d249c26",
+      "functions": [
+        {
+          "name": "isGroup",
+          "startLine": 23,
+          "endLine": 25,
+          "bodySha256": "8c1fdea95d12291dbe93275ec7ca178a11f325363f73544ec55037cda6160420"
+        },
+        {
+          "name": "isGroupedItems",
+          "startLine": 27,
+          "endLine": 33,
+          "bodySha256": "8e0d76c932bc8dd1811c9df479c2de1053673e73dbd0de82aea8f2f6c6a42730"
+        },
+        {
+          "name": "flattenLeafItems",
+          "startLine": 35,
+          "endLine": 41,
+          "bodySha256": "c076eab87798e54dc9d66dad9874db82ec55c3212f2b8c59405bb699706e35a2"
+        },
+        {
+          "name": "<anonymous:39>",
+          "startLine": 39,
+          "endLine": 39,
+          "bodySha256": "4099d3471874c403339de84dff07999ce0432ad55fc41ff1c2a52a8a3b656ea2"
+        },
+        {
+          "name": "hasNullItemLabel",
+          "startLine": 46,
+          "endLine": 71,
+          "bodySha256": "cd060fe7fdfe17f4592df0289a6a46d0c3add4c44c798056b40531952eb0dba7"
+        },
+        {
+          "name": "stringifyAsLabel",
+          "startLine": 73,
+          "endLine": 86,
+          "bodySha256": "384d9b340211083110fdd1f8ad22d3dd8348f7129969198ebf34528e7635262a"
+        },
+        {
+          "name": "stringifyAsValue",
+          "startLine": 88,
+          "endLine": 96,
+          "bodySha256": "525efb0c14f5eb711c0547659d03525ee88b24046a619df6e4a871b4ec22ed20"
+        },
+        {
+          "name": "resolveSelectedLabel",
+          "startLine": 98,
+          "endLine": 145,
+          "bodySha256": "c634f2d290dcd92c60d7e9603556f0d4dd2cf8f574ce5606d907eb4caf63eb66"
+        },
+        {
+          "name": "fallback",
+          "startLine": 103,
+          "endLine": 105,
+          "bodySha256": "e2febd6d24206e2127642f151f7aa7c973fbde8405b692bf5926f01a84badbfc"
+        },
+        {
+          "name": "<anonymous:128>",
+          "startLine": 128,
+          "endLine": 128,
+          "bodySha256": "2f05038a65fe7dcfd0d22b9acf9ff02467902decd3e1489aa6dba8bb25994216"
+        },
+        {
+          "name": "<anonymous:137>",
+          "startLine": 137,
+          "endLine": 137,
+          "bodySha256": "f9cf93d8e8b4692b159f2f31155fcf7a28d0b3c2c05d125fe25504ac99b97e57"
+        },
+        {
+          "name": "resolveMultipleLabels",
+          "startLine": 147,
+          "endLine": 160,
+          "bodySha256": "fd1738bb70e6dbbb0dd06a0c66099a6a9298e1d52dde2dfda448b91515aaaa26"
+        },
+        {
+          "name": "<anonymous:152>",
+          "startLine": 152,
+          "endLine": 159,
+          "bodySha256": "c37b0ffdcfc9cd2c14ccdb4b5bfbec00c8e31f92d12fd5c730b09afc25feed35"
+        }
+      ],
+      "imports": [
+        {
+          "specifier": "svelte",
+          "line": 4,
+          "references": [
+            {
+              "local": "Snippet",
+              "line": 7,
+              "caller": "<module/type>",
+              "typeOnlyUse": true
+            }
+          ]
+        },
+        {
+          "specifier": "./serializeValue.js",
+          "line": 8,
+          "references": [
+            {
+              "local": "serializeValue",
+              "line": 85,
+              "caller": "stringifyAsLabel",
+              "typeOnlyUse": false
+            },
+            {
+              "local": "serializeValue",
+              "line": 93,
+              "caller": "stringifyAsValue",
+              "typeOnlyUse": false
+            },
+            {
+              "local": "serializeValue",
+              "line": 95,
+              "caller": "stringifyAsValue",
+              "typeOnlyUse": false
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "path": "packages/base/src/lib/internals/serializeValue.ts",
+      "sha256": "b4669f5fb1847f5246ef31b0351c05ae99952cc31b0ff2451b08477352e31089",
+      "functions": [
+        {
+          "name": "serializeValue",
+          "startLine": 3,
+          "endLine": 15,
+          "bodySha256": "97f578984a9f92445fc512366b43cab6dbe436a1acf8434d47d6ed35b95bcab4"
+        }
+      ],
+      "imports": []
+    },
+    {
+      "path": "packages/base/src/lib/internals/types.ts",
+      "sha256": "6a36f5f103ef940b8a32d63f0288d897096c846fb2361b4ef44733e9a899907e",
+      "functions": [],
+      "imports": [
+        {
+          "specifier": "svelte",
+          "line": 2,
+          "references": [
+            {
+              "local": "Snippet",
+              "line": 10,
+              "caller": "<module/type>",
+              "typeOnlyUse": true
+            },
+            {
+              "local": "Snippet",
+              "line": 10,
+              "caller": "<module/type>",
+              "typeOnlyUse": true
+            }
+          ]
+        },
+        {
+          "specifier": "svelte/elements",
+          "line": 3,
+          "references": [
+            {
+              "local": "HTMLAttributes",
+              "line": 9,
+              "caller": "<anonymous:9>",
+              "typeOnlyUse": true
+            },
+            {
+              "local": "ClassValue",
+              "line": 19,
+              "caller": "<module/type>",
+              "typeOnlyUse": true
+            },
+            {
+              "local": "ClassValue",
+              "line": 19,
+              "caller": "<anonymous:19>",
+              "typeOnlyUse": true
+            }
+          ]
+        },
+        {
+          "specifier": "../merge-props/index.js",
+          "line": 4,
+          "references": [
+            {
+              "local": "PreventableEvent",
+              "line": 11,
+              "caller": "<module/type>",
+              "typeOnlyUse": true
+            }
+          ]
+        },
+        {
+          "specifier": "./nativeProps.js",
+          "line": 5,
+          "references": [
+            {
+              "local": "NativeStyle",
+              "line": 20,
+              "caller": "<module/type>",
+              "typeOnlyUse": true
+            },
+            {
+              "local": "NativeStyle",
+              "line": 20,
+              "caller": "<anonymous:20>",
+              "typeOnlyUse": true
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "path": "packages/base/src/lib/merge-props/index.ts",
+      "sha256": "3ef38bba9b22f44bbcf69102d9556807f78897bedb69b410669c7b429971dd68",
+      "functions": [],
+      "imports": []
+    },
+    {
+      "path": "packages/base/src/lib/merge-props/mergeProps.ts",
+      "sha256": "b2c30a6df68fe9744f250f0d0b8e21d89de133146724efd6eed7cea0fce0f8b9",
+      "functions": [
+        {
+          "name": "mergeProps",
+          "startLine": 61,
+          "endLine": 92,
+          "bodySha256": "01fc8e7c8efe19dfa01f4f2dabe435cb50b96263826568d333f20f19a18f19d5"
+        },
+        {
+          "name": "mergePropsN",
+          "startLine": 107,
+          "endLine": 123,
+          "bodySha256": "91c90823c3156ed496a0f26bae65b626243c510c4f00a8ab15e22479b1f949f9"
+        },
+        {
+          "name": "createInitialMergedProps",
+          "startLine": 125,
+          "endLine": 132,
+          "bodySha256": "b12db62ace6c7ea2ed9248738f29f55860dc7e4ed789ac7fc76c51742bf2c8db"
+        },
+        {
+          "name": "mergeInto",
+          "startLine": 134,
+          "endLine": 139,
+          "bodySha256": "8909ab633270a8d711810ef4a76a6dae184d0b9e190394cf6fcf9c0301e5457d"
+        },
+        {
+          "name": "copyInitialProps",
+          "startLine": 141,
+          "endLine": 156,
+          "bodySha256": "b9b4f273e6625567770102d1c1a9c79a288e5e2f1d33dd0e456aab4c89d13513"
+        },
+        {
+          "name": "mutablyMergeInto",
+          "startLine": 161,
+          "endLine": 217,
+          "bodySha256": "b3bb583d4423f952607112c50ef1303e827e715b8ebfd707cabb01845e9cc09e"
+        },
+        {
+          "name": "isEventHandler",
+          "startLine": 219,
+          "endLine": 231,
+          "bodySha256": "cd2671d4d7073c64e2bf8636a217786c8e294e28ff8e75072b57180235c1c234"
+        },
+        {
+          "name": "isPropsGetter",
+          "startLine": 233,
+          "endLine": 235,
+          "bodySha256": "2c32fd0ca3a31c0cfc313a2acc1106a829855c6b710ab978b242e602d910f7bf"
+        },
+        {
+          "name": "resolvePropsGetter",
+          "startLine": 237,
+          "endLine": 243,
+          "bodySha256": "d1fda26e336c0a391e2391956d40b6637ecafd0b37932da211b3e9b727bf53a8"
+        },
+        {
+          "name": "mergeEventHandlers",
+          "startLine": 245,
+          "endLine": 274,
+          "bodySha256": "bef160bd9617f076615fc6c6f5f72580865189855fbe9f8e876628c20e6d561c"
+        },
+        {
+          "name": "<anonymous:253>",
+          "startLine": 253,
+          "endLine": 273,
+          "bodySha256": "286ef305ee2ccac5dfb33878928663d499d25aaac3a1643e37ecf2a9976782ae"
+        },
+        {
+          "name": "wrapEventHandler",
+          "startLine": 276,
+          "endLine": 290,
+          "bodySha256": "b4936b8e2f530d4dc38da80f0f1d66c16872b036f0ab45b3d8b39cb385bc9a5f"
+        },
+        {
+          "name": "<anonymous:281>",
+          "startLine": 281,
+          "endLine": 289,
+          "bodySha256": "a426139646daf90364997030f3280ac14d36b16f1bf260aeb92083c494cedf37"
+        },
+        {
+          "name": "makeEventPreventable",
+          "startLine": 292,
+          "endLine": 298,
+          "bodySha256": "7679f30f2bd86ef9d3c5de1c2426e9c0a56655b61368534e82dcfc35cbe88f76"
+        },
+        {
+          "name": "<anonymous:293>",
+          "startLine": 293,
+          "endLine": 295,
+          "bodySha256": "09abd75aac5618260a63fbe2206d7cccff6a2e3e46ac7323987834d384dc6954"
+        },
+        {
+          "name": "mergeClassNames",
+          "startLine": 300,
+          "endLine": 313,
+          "bodySha256": "8489599823b46ae3aa309811799c5d322bb3b71485e3edb02662f14b76769a7f"
+        },
+        {
+          "name": "isSyntheticEvent",
+          "startLine": 315,
+          "endLine": 324,
+          "bodySha256": "0ce9450042f387371eabe0229537f42799ba84411546bb76d604af15b19b124a"
+        }
+      ],
+      "imports": [
+        {
+          "specifier": "../internals/nativeProps.js",
+          "line": 3,
+          "references": [
+            {
+              "local": "toNativeClass",
+              "line": 145,
+              "caller": "copyInitialProps",
+              "typeOnlyUse": false
+            },
+            {
+              "local": "mergeNativeStyles",
+              "line": 173,
+              "caller": "mutablyMergeInto",
+              "typeOnlyUse": false
+            },
+            {
+              "local": "toNativeClass",
+              "line": 184,
+              "caller": "mutablyMergeInto",
+              "typeOnlyUse": false
+            },
+            {
+              "local": "toNativeClass",
+              "line": 188,
+              "caller": "mutablyMergeInto",
+              "typeOnlyUse": false
+            },
+            {
+              "local": "copyAttachmentSymbols",
+              "line": 215,
+              "caller": "mutablyMergeInto",
+              "typeOnlyUse": false
+            }
+          ]
+        },
+        {
+          "specifier": "@sveltery/utils/mergeObjects",
+          "line": 8,
+          "references": [
+            {
+              "local": "mergeObjects",
+              "line": 174,
+              "caller": "mutablyMergeInto",
+              "typeOnlyUse": false
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "path": "packages/base/src/lib/utils/listbox-separator/ListboxSeparator.svelte",
+      "sha256": "933ed80b383a85b85d9e983e860119c6cb2a45cc1ad265d21ba46fb265f869db",
+      "functions": [
+        {
+          "name": "attachHost",
+          "startLine": 21,
+          "endLine": 29,
+          "bodySha256": "c241287c2e696e8b76621071be45b4df0b176f9406e7bffb178bcbf990cb3323"
+        },
+        {
+          "name": "<anonymous:22>",
+          "startLine": 22,
+          "endLine": 28,
+          "bodySha256": "039f0f83b9389f5e774548d498d6418c642d1bae9bef1d6d10ad0df6f8bc84fe"
+        },
+        {
+          "name": "<anonymous:24>",
+          "startLine": 24,
+          "endLine": 27,
+          "bodySha256": "8d367e5811b95ff33b39869675977a7ebdb8af2402f2f02ce730d89381d0c4ae"
+        },
+        {
+          "name": "<anonymous:25>",
+          "startLine": 25,
+          "endLine": 27,
+          "bodySha256": "39f26c99b2389170216814863af3a5ad3df9bea32e09e8f37759a092faa1213d"
+        }
+      ],
+      "imports": [
+        {
+          "specifier": "svelte/attachments",
+          "line": 4,
+          "references": [
+            {
+              "local": "createAttachmentKey",
+              "line": 20,
+              "caller": "<module/type>",
+              "typeOnlyUse": false
+            }
+          ]
+        },
+        {
+          "specifier": "svelte",
+          "line": 5,
+          "references": [
+            {
+              "local": "untrack",
+              "line": 22,
+              "caller": "attachHost",
+              "typeOnlyUse": false
+            },
+            {
+              "local": "untrack",
+              "line": 25,
+              "caller": "<anonymous:24>",
+              "typeOnlyUse": false
+            }
+          ]
+        },
+        {
+          "specifier": "../../internals/mergeComponentProps.js",
+          "line": 6,
+          "references": [
+            {
+              "local": "mergeComponentProps",
+              "line": 31,
+              "caller": "<module/type>",
+              "typeOnlyUse": false
+            }
+          ]
+        },
+        {
+          "specifier": "./types.js",
+          "line": 7,
+          "references": [
+            {
+              "local": "ListboxSeparatorProps",
+              "line": 17,
+              "caller": "<module/type>",
+              "typeOnlyUse": true
+            },
+            {
+              "local": "ListboxSeparatorState",
+              "line": 19,
+              "caller": "<module/type>",
+              "typeOnlyUse": true
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "path": "packages/base/src/lib/utils/listbox-separator/types.ts",
+      "sha256": "0c4762ac70dd1414c68313c9cb0f34543b9910cc3fc983ab8f84ca2e683245a5",
+      "functions": [],
+      "imports": [
+        {
+          "specifier": "svelte",
+          "line": 3,
+          "references": [
+            {
+              "local": "Snippet",
+              "line": 17,
+              "caller": "<module/type>",
+              "typeOnlyUse": true
+            }
+          ]
+        },
+        {
+          "specifier": "svelte/elements",
+          "line": 4,
+          "references": [
+            {
+              "local": "HTMLAttributes",
+              "line": 13,
+              "caller": "<module/type>",
+              "typeOnlyUse": true
+            }
+          ]
+        },
+        {
+          "specifier": "../../internals/types.js",
+          "line": 5,
+          "references": [
+            {
+              "local": "WithBaseUIEvent",
+              "line": 13,
+              "caller": "<module/type>",
+              "typeOnlyUse": true
+            },
+            {
+              "local": "BaseUIComponentProps",
+              "line": 16,
+              "caller": "<module/type>",
+              "typeOnlyUse": true
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "path": "packages/base/src/lib/utils/resolveClassName.ts",
+      "sha256": "b22aead630ca531851a08a63e5165e64ff8cdc9de5765ff20997f578071cb108",
+      "functions": [
+        {
+          "name": "resolveClassName",
+          "startLine": 12,
+          "endLine": 17,
+          "bodySha256": "4a160a1d3fc1b18905602ee418df47939ed01a85cf66d990d19c2e00fd7dba89"
+        }
+      ],
+      "imports": [
+        {
+          "specifier": "svelte/elements",
+          "line": 10,
+          "references": [
+            {
+              "local": "ClassValue",
+              "line": 13,
+              "caller": "resolveClassName",
+              "typeOnlyUse": true
+            },
+            {
+              "local": "ClassValue",
+              "line": 13,
+              "caller": "<anonymous:13>",
+              "typeOnlyUse": true
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "path": "packages/base/src/lib/utils/resolveStyle.ts",
+      "sha256": "cdc420598c1ae4b75a32e7f47ac8cc7f4fe444d4f006e2736f528951fb932977",
+      "functions": [
+        {
+          "name": "resolveStyle",
+          "startLine": 6,
+          "endLine": 11,
+          "bodySha256": "6a969437d2a93f57646d56212d08a2331f21e8694072123a29e99262c36f940c"
+        }
+      ],
+      "imports": [
+        {
+          "specifier": "../internals/nativeProps.js",
+          "line": 3,
+          "references": [
+            {
+              "local": "NativeStyle",
+              "line": 7,
+              "caller": "resolveStyle",
+              "typeOnlyUse": true
+            },
+            {
+              "local": "NativeStyle",
+              "line": 7,
+              "caller": "<anonymous:7>",
+              "typeOnlyUse": true
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "path": "packages/utils/src/lib/areArraysEqual.ts",
+      "sha256": "c8709b6f9efb30e3257def214aeae097b131b112b74bd1bea965e201efb15a44",
+      "functions": [
+        {
+          "name": "areArraysEqual",
+          "startLine": 10,
+          "endLine": 28,
+          "bodySha256": "402ad8b42cfc026d3cb1f014a0a4230716b114042e41e8c726dc80c0347662a3"
+        }
+      ],
+      "imports": []
+    },
+    {
+      "path": "packages/utils/src/lib/mergeObjects.ts",
+      "sha256": "1e6cfa2be20c639f5ce6f8b0b6cc447da3413bbbc6750a5b1ab03f5810d81746",
+      "functions": [
+        {
+          "name": "mergeObjects",
+          "startLine": 3,
+          "endLine": 17,
+          "bodySha256": "7322e7c22caa91f2aec19af49d68d77fd8ef084f97eccc050a791b266f611402"
+        }
+      ],
+      "imports": []
+    }
+  ]
+}

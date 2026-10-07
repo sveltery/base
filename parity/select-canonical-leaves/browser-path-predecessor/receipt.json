@@ -1,0 +1,20 @@
+{
+  "predecessorHead": "74c437a9a337a26fd808f44f6fa36f7d7542385b",
+  "privateJob": "https://github.com/sveltery/base/actions/runs/37531529501/job/112501830510",
+  "privateObserved": "Original whole closure and both helper test byte checks pass; real package build, installed strict declarations 0 errors/0 warnings, no-browser SSR and 15 server/DOM/hydration pass. Zero browser tests executed; executable path mismatch is incomplete acceptance.",
+  "browserInstalled": "/home/runner/.cache/ms-playwright/chromium_headless_shell-1243/chrome-headless-shell-linux64/chrome-headless-shell",
+  "browserLookedUp": "/home/runner/work/base/base/.checks/cache/ms-playwright/chromium_headless_shell-1243/chrome-headless-shell-linux64/chrome-headless-shell",
+  "cause": "Installer step did not source toolchain.sh; consumer sources it through package-artifacts.sh and gains XDG_CACHE_HOME. Playwright1.63.0 uses explicit PLAYWRIGHT_BROWSERS_PATH first, otherwise XDG cache defaults.",
+  "repair": "Only this scoped workflow sets job-level absolute PLAYWRIGHT_BROWSERS_PATH=${{ github.workspace }}/.checks/select-canonical-leaves-browsers for installer and runner. Shared tooling, runtime, assertions and sandbox true/one worker/zero retries unchanged.",
+  "localVerification": "Executable path lookup reproduction passes with the same explicit directory despite differing XDG_CACHE_HOME; no install/browser launch executed.",
+  "standardsHosted": "Job112502438088 fails git whitespace on raw diagnostic logs and historical paragraph; original bytes preserved as deterministic gzip with mtime0 and plaintext/decompressed SHA256 manifest.",
+  "standardsLocal": "74c formatting passes; ESLint heap exhaustion at768MB exits134; no standards pass claimed.",
+  "artifact": {
+    "id": 11445091301,
+    "bytes": 370373,
+    "zipSha256": "569944a4cc4a654b7ec94465120eb70a4328133680a9c18a0599b41118c054b8",
+    "status": "Metadata supplied by Root; zip content not downloaded or inspected."
+  },
+  "successorExecution": "pending exact-head hosted execution; no browser acceptance or unchanged Original credit granted",
+  "ordinarySelectDeclarationCredit": 0
+}

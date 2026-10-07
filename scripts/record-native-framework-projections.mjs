@@ -1,10 +1,11 @@
+import { readLosslessJson } from './lossless-json.mjs';
 // Current LOCAL successor projections only. Original Source and historical fields stay immutable.
 import { createHash } from 'node:crypto';
 import { readFileSync, writeFileSync } from 'node:fs';
 import { resolve } from 'node:path';
 
 const root = resolve(import.meta.dirname, '..');
-const read = (path) => JSON.parse(readFileSync(resolve(root, path), 'utf8'));
+const read = (path) => readLosslessJson(resolve(root, path));
 const write = (path, value) =>
   writeFileSync(resolve(root, path), JSON.stringify(value, null, 2) + '\n');
 const hash = (path) =>

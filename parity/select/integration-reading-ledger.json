@@ -1,0 +1,81 @@
+{
+  "status": "Fresh collective whole-body documentation-plan review; no runtime/provider/SourceFull or assertion acceptance. Exact immutable successor-head disposition and hosted CI remain external.",
+  "originalPin": "47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c",
+  "actualMain": "abe8aa9b66ab8cd8d83dfdac28ebee94a0655f79",
+  "sourceTestHelperBodies": 279,
+  "extraDataBodies": 10,
+  "nativeBodies": 216,
+  "nativeLines": 19266,
+  "sourceReading": [
+    {
+      "reader": "source_closure_review/source_react_closure",
+      "indices": [
+        [
+          0,
+          100
+        ],
+        [
+          174,
+          223
+        ]
+      ],
+      "completeBodies": 151
+    },
+    {
+      "reader": "source_closure_review",
+      "indices": [
+        [
+          101,
+          154
+        ],
+        [
+          156,
+          173
+        ]
+      ],
+      "completeBodies": 72
+    },
+    {
+      "reader": "source_closure_review/source_utils_harness",
+      "indices": [
+        [
+          224,
+          278
+        ]
+      ],
+      "completeBodies": 55,
+      "additionalRead": "SelectRoot.test.tsx lines1\u20133300"
+    },
+    {
+      "reader": "independent_plan_review",
+      "additionalRead": "SelectRoot.test.tsx lines3301\u20136628; both halves complete the279th whole body"
+    }
+  ],
+  "sourceIndexBasis": "Exact modules order of unchanged selected-test-helper-graph.json. Fresh extra ten public data bodies read by source_closure_review.",
+  "nativeReading": [
+    {
+      "reader": "native_closure_review",
+      "completeBodies": 136,
+      "lines": 14328,
+      "selection": "Current canonical-owner-classification modules whose path begins packages/base/src/lib/ and first segment is floating-ui,internals,utils,popover,toolbar or merge-props."
+    },
+    {
+      "reader": "source_closure_review/source_utils_harness",
+      "completeBodies": 80,
+      "lines": 4938,
+      "selection": "All remaining current canonical-owner-classification modules; exhaustive disjoint complement."
+    }
+  ],
+  "wholePlanAndChangedBodies": "independent_plan_review fresh complete plan and new/changed private leaf closure; full-source/native reviewers separately examined actual body roles and mapping/classification.",
+  "findingsResolved": [
+    "useEnhancedClickHandler retains modality history; pending class owner is not stateless glue.",
+    "Store is plain synchronous Source class; SvelteStore supplies separate reactive subscription.",
+    "useScrollLock uses module-global ScrollLocker and native effect, no parallel state store.",
+    "createLogOnce owns Source module-shared DEV registry, not stateless/per-instance class.",
+    "ListboxSeparator correspondence reuses landed private canonical provider; ordinary Select remains unimplemented/unconsumed."
+  ],
+  "dependencyDisposition": "No additional missing business boundary or false ordering cycle. Conservative type/barrel/non-barrel provider fans are not a function-call DAG. Only unsynced floating-root construction and pure label-ID resolver remain missing;28runtime retained owner rows and1type-only audit remain separately pending.",
+  "historicalContinuity": "Public275 graphs, mappings, classification, reading ledger and checkpoint preserved byte-for-byte in history/public-275d. Prior reader attribution and historical red evidence are not replaced by fresh review or hash verification.",
+  "runtimeAcceptance": false,
+  "unchangedAssertionCredit": 0
+}

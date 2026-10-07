@@ -2,11 +2,11 @@
   "status": "Lossless deterministic storage only; decompression restores the exact generated JSON. No changed graph semantics, new reading or acceptance credit.",
   "originalGraphPath": "proposed-native-helper-graph.json",
   "storedGraphPath": "proposed-native-helper-graph.json.gz",
-  "originalGitBlob": "045a8e1a4d8aff752b39d7629e70bb55a3ca00e8",
-  "originalSha256": "1dc3c640966df807ae2d904626ac91db449a631ea06c4939986dc11ef1823203",
-  "originalBytes": 1019093,
-  "compressedSha256": "b28d58def8348991ad81c26c19dbc3388edabe217929f44caf742f9ac397b456",
-  "compressedBytes": 95952,
+  "originalGitBlob": "c4210c93dd26e5e1c350bba46f764797282c3321",
+  "originalSha256": "47b9f9dadf8a70acb7b9c4607f9073cf16ff044dabd55066d9544615ee61949a",
+  "originalBytes": 1036826,
+  "compressedSha256": "d419eb23b2d738e57728f118beb78ce97143233c8670b74c1ea0ac1ec66445d5",
+  "compressedBytes": 98456,
   "compression": {
     "format": "gzip",
     "level": 9,
@@ -14,8 +14,8 @@
     "filename": "",
     "osByte": 255
   },
-  "modules": 175,
-  "providerCommit": "aa4daff54ec82b96e34e1601648d1b3926ef08cf",
+  "modules": 179,
+  "providerCommit": "abe8aa9b66ab8cd8d83dfdac28ebee94a0655f79",
   "decompressionCommand": "gzip -dc parity/select/proposed-native-helper-graph.json.gz > /tmp/proposed-native-helper-graph.json",
   "verificationCommand": "git hash-object /tmp/proposed-native-helper-graph.json"
 }

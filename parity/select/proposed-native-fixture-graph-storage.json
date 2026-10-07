@@ -2,11 +2,11 @@
   "status": "Lossless deterministic storage only; decompression restores the exact generated JSON. No changed graph semantics, new reading or acceptance credit.",
   "originalGraphPath": "proposed-native-fixture-graph.json",
   "storedGraphPath": "proposed-native-fixture-graph.json.gz",
-  "originalGitBlob": "324617abfd87c49b3a62fbf0183659050436d19d",
-  "originalSha256": "055c81c10c1c4cb615cdd56f12f2301bc51e744c9dd2439b439c204458811d84",
-  "originalBytes": 1218123,
-  "compressedSha256": "2acc28079670dcf5312e9d2bf98fc6b8a9c60e7bdeda25361d6864ed4712b09a",
-  "compressedBytes": 114133,
+  "originalGitBlob": "d697c7e22f3a48984c0ff9dd95692388421e16ea",
+  "originalSha256": "a90098943a1b8bb43424baf1f43d5dbeece6df32cc4a659edd6d8c1e338d5413",
+  "originalBytes": 1218326,
+  "compressedSha256": "2ae0a67f5989e78272d7304b62a053047e139c7da06307167c5937e40c40bf1b",
+  "compressedBytes": 114221,
   "compression": {
     "format": "gzip",
     "level": 9,
@@ -15,7 +15,7 @@
     "osByte": 255
   },
   "modules": 199,
-  "providerCommit": "aa4daff54ec82b96e34e1601648d1b3926ef08cf",
+  "providerCommit": "abe8aa9b66ab8cd8d83dfdac28ebee94a0655f79",
   "decompressionCommand": "gzip -dc parity/select/proposed-native-fixture-graph.json.gz > /tmp/proposed-native-fixture-graph.json",
   "verificationCommand": "git hash-object /tmp/proposed-native-fixture-graph.json"
 }

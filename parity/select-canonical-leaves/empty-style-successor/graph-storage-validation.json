@@ -1,0 +1,144 @@
+{
+  "scope": "Executed worktree transport adaptation checks. Final exact pushed-head independent review and mandatory CI remain pending. No production runtime files changed.",
+  "checks": [
+    {
+      "command": "NODE_OPTIONS=--max-old-space-size=768 node scripts/record-utils-package-source.mjs /workspace/scratch/9e52af4fb58a/base-ui-pin",
+      "exitCode": 0
+    },
+    {
+      "command": "NODE_OPTIONS=--max-old-space-size=768 node scripts/record-native-framework-projections.mjs",
+      "exitCode": 0
+    },
+    {
+      "command": "NODE_OPTIONS=--max-old-space-size=768 node scripts/record-utils-package-successors.mjs",
+      "exitCode": 0
+    },
+    {
+      "command": "NODE_OPTIONS=--max-old-space-size=768 node scripts/record-native-snippet-owners.mjs",
+      "exitCode": 0
+    },
+    {
+      "command": "NODE_OPTIONS=--max-old-space-size=768 node scripts/check-native-snippet-integration.mjs --write",
+      "exitCode": 0
+    },
+    {
+      "command": "NODE_OPTIONS=--max-old-space-size=768 node scripts/check-native-snippet-integration.mjs",
+      "exitCode": 0
+    },
+    {
+      "command": "NODE_OPTIONS=--max-old-space-size=768 node scripts/native-family-projection.mjs",
+      "exitCode": 0
+    },
+    {
+      "command": "NODE_OPTIONS=--max-old-space-size=768 node --test --test-concurrency=1 scripts/tests/lossless-json.test.mjs scripts/tests/native-snippets-provenance.test.mjs scripts/tests/button-provenance.test.mjs scripts/tests/menu-family-provenance.test.mjs scripts/tests/navigation-source.test.mjs",
+      "exitCode": 0,
+      "passed": 14,
+      "failed": 0,
+      "storageTests": 3,
+      "existingProvenanceTests": 11
+    },
+    {
+      "command": "node node_modules/prettier/bin/prettier.cjs --check scripts/lossless-json.mjs scripts/tests/lossless-json.test.mjs scripts/record-utils-package-source.mjs scripts/record-utils-package-successors.mjs scripts/record-native-framework-projections.mjs scripts/record-native-snippet-owners.mjs scripts/check-native-snippet-integration.mjs docs/upstream-differences.md parity/native-snippets/source-correspondence.md parity/utils-package/README.md",
+      "exitCode": 0
+    },
+    {
+      "command": "NODE_OPTIONS=--max-old-space-size=768 node node_modules/eslint/bin/eslint.js scripts/lossless-json.mjs scripts/tests/lossless-json.test.mjs scripts/record-utils-package-source.mjs scripts/record-utils-package-successors.mjs scripts/record-native-framework-projections.mjs scripts/record-native-snippet-owners.mjs scripts/check-native-snippet-integration.mjs",
+      "exitCode": 0
+    },
+    {
+      "command": "git diff --check",
+      "exitCode": 0
+    }
+  ],
+  "logicalGraphSha256": "91e619581bf5d5c732937157c107a5bee316937b54f37bc7e3d0ca5d63872e24",
+  "logicalGraphBytes": 1742239,
+  "physicalFiles": [
+    {
+      "path": "scripts/lossless-json.mjs",
+      "bytes": 2680,
+      "sha256": "48813453aaa2974fed7236a130c6724fa0ad97e37222591ddaa42ea28573acf8"
+    },
+    {
+      "path": "scripts/tests/lossless-json.test.mjs",
+      "bytes": 3420,
+      "sha256": "972a71693d9286bdde0a4d6985a4d004ab4912de16c45c9cb6f36b361b7dd1c0"
+    },
+    {
+      "path": "scripts/record-utils-package-source.mjs",
+      "bytes": 11773,
+      "sha256": "61677ea752f1cf2e7d7e4578db1bedb5b13b1a15918a2ae3a43a5515b96f3bfe"
+    },
+    {
+      "path": "scripts/record-native-framework-projections.mjs",
+      "bytes": 10781,
+      "sha256": "b327d3d5c3a9a915e5c85ceb2c5d9e50b461d1cf17433a30453f3ef26cd8e11c"
+    },
+    {
+      "path": "scripts/record-utils-package-successors.mjs",
+      "bytes": 2564,
+      "sha256": "d1fb83adf06cae31db7566cb214120506fa5c2c6f936c52c49c24468daf7590c"
+    },
+    {
+      "path": "scripts/record-native-snippet-owners.mjs",
+      "bytes": 2874,
+      "sha256": "908157de0edbc7f1812e705a9b609a0ff32ceebf24b3c76809fe0064f3509257"
+    },
+    {
+      "path": "scripts/check-native-snippet-integration.mjs",
+      "bytes": 86863,
+      "sha256": "f1ed31d3a112c645b714f8127a34388e4763c452886b208d034c86a46f80e113"
+    },
+    {
+      "path": "parity/menu-family/evidence.mjs",
+      "bytes": 22128,
+      "sha256": "8ceecb3d07d3a03172458bf35d7c13d30a934a087dc64df9ee094780e442a742"
+    },
+    {
+      "path": "parity/utils-package/current-source-graph.json",
+      "bytes": 293,
+      "sha256": "94cebc10fb396a96564e99300257a36036969ae041ef69668407e3e5e8f2aa1c"
+    },
+    {
+      "path": "parity/utils-package/current-source-graph.json.gz",
+      "bytes": 161030,
+      "sha256": "2979e278c453e79588b9164ffa35589e02dc0a5cdacf0751377b946b0723dd13"
+    },
+    {
+      "path": "parity/native-snippets/integration-current.json",
+      "bytes": 451353,
+      "sha256": "924bb334d889cbe6761e5bbc28a627b6e69296937d8c504ce5e6f2d8973e6137"
+    },
+    {
+      "path": "parity/utils-package/README.md",
+      "bytes": 8221,
+      "sha256": "f3dfe60fd0bf3c9e11534cd2ac0dc41d4d1bccc279f70934d3a19c4e1fc77cda"
+    },
+    {
+      "path": "parity/native-snippets/source-correspondence.md",
+      "bytes": 31297,
+      "sha256": "45f5e9b135e90cd7fa1f870e41cfd6a2e8583fa8068f6c7bb02059f3464ea134"
+    },
+    {
+      "path": "docs/upstream-differences.md",
+      "bytes": 144950,
+      "sha256": "14e953a59f3cb720bc0b6be6eb1703ba443ead47b537d94e0cbc4af051d6ec64"
+    }
+  ],
+  "logs": [
+    {
+      "archive": "graph-storage-tests.log.gz",
+      "plaintextBytes": 1671,
+      "plaintextSha256": "5657f9720312028cd339dfd33b08eefa0e70b5d2572cfa6c2cbf6135c773fd47",
+      "archiveSha256": "ec951593578c76129f4b6e07cb0889c9a9ac8df7e38ed5c1f3d69e47e46d9427"
+    },
+    {
+      "archive": "graph-storage-proof.log.gz",
+      "plaintextBytes": 171,
+      "plaintextSha256": "f0b65011b6ee23b0cd9f8ba1b167e7ed9d0ece15a6ccdf3c4969e1326bdb6ea5",
+      "archiveSha256": "f0bef7ba0e03d6c303f9f6e3d0d91db1f07ad29bbdecf20a3d3c63b3cf069791"
+    }
+  ],
+  "method": "Exact decoded reviewed 6f graph bytes compared against git show, actual maintained producer regenerated identical container from immutable Source pin, every direct current graph reader switched to verified logical content and provenance graph hashes retained. Current writer/read/proof/family checks and meaningful storage corruption controls executed.",
+  "limits": "parity/menu-family/evidence.mjs read route updated by full repo direct-reader inventory and inspected; its broad legacy correspondence regeneration was not executed. No claim that transport tests establish source/native/browser parity. Historical ordinary JSON and all existing archives unchanged.",
+  "unchangedOriginalCredit": 0
+}

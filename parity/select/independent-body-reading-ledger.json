@@ -4,7 +4,7 @@
   "testGraphSha256": "056b862c8d43845b5dbc9355fa701bd160e607fdee6591d1e6c4c0236751aa14",
   "modules": 279,
   "lines": 39459,
-  "scope": "Fresh whole archived body reading; independent collective reviewers explicitly attributed. Excludes external dependency package bodies and conservative unselected barrel fanout. No execution or unchanged assertion credit. Final-head docs disposition pending.",
+  "scope": "Historical prior-candidate whole archived body reading; original reviewer rows and reviewedCandidate unchanged. Current fresh successor279Source/test+10data+216native body reading is separately attributed in integration-reading-ledger.json. No execution/unchanged assertion credit; final immutable public-head documentation disposition external.",
   "readingLedger": [
     {
       "reader": "source_plan_audit",

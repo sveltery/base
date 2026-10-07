@@ -1,0 +1,93 @@
+{
+  "method": "Lossless deterministic gzip, mtime=0; every decompressed byte equals preserved plaintext. Historical receipts remain unchanged; historical paths map to archivePath here.",
+  "files": [
+    {
+      "historicalPath": "strict-types-predecessor/chromium-install-workspace.log",
+      "archivePath": "strict-types-predecessor/chromium-install-workspace.log.gz",
+      "plaintextSha256": "2889721bff00a71f929a17b2a064d0a492ab552984d0dc80bcf4eb57e27b55f3",
+      "plaintextBytes": 5657,
+      "gzipSha256": "a0bc182c386df4086132e1057f3ea0e18d8470ae488475451762a366e78c3906",
+      "decompress": "gzip -dc parity/select-canonical-leaves/strict-types-predecessor/chromium-install-workspace.log.gz"
+    },
+    {
+      "historicalPath": "strict-types-predecessor/hosted-112495410686.log",
+      "archivePath": "strict-types-predecessor/hosted-112495410686.log.gz",
+      "plaintextSha256": "7c70d73b8be8dfee8f9a860d41d77d9aa0c028d9d845d0dda473cd8e43a34585",
+      "plaintextBytes": 76090,
+      "gzipSha256": "132bbe478c1117b01188f14e49d143aabe106ca5ed632f96b3f1609e4d9b4d63",
+      "decompress": "gzip -dc parity/select-canonical-leaves/strict-types-predecessor/hosted-112495410686.log.gz"
+    },
+    {
+      "historicalPath": "strict-types-predecessor/hosted-112495411821.log",
+      "archivePath": "strict-types-predecessor/hosted-112495411821.log.gz",
+      "plaintextSha256": "f28aec002c08f0c7f64f688d1330722c18c220562d6518b1b68a4792120edc45",
+      "plaintextBytes": 119427,
+      "gzipSha256": "bf28a17217c49bc00cb918a0e06b6ab416238fb2747b2bbb0b03127e473fd61e",
+      "decompress": "gzip -dc parity/select-canonical-leaves/strict-types-predecessor/hosted-112495411821.log.gz"
+    },
+    {
+      "historicalPath": "strict-types-predecessor/installed-browser-predecessor.log",
+      "archivePath": "strict-types-predecessor/installed-browser-predecessor.log.gz",
+      "plaintextSha256": "49d2fc47267d883fc91a4b779c1756c9e60c726181b483d60cd05491491b92e1",
+      "plaintextBytes": 21371,
+      "gzipSha256": "613016ade17c36cd60884ca574cba42f013f6014fca8f062b0fc31c1b797f463",
+      "decompress": "gzip -dc parity/select-canonical-leaves/strict-types-predecessor/installed-browser-predecessor.log.gz"
+    },
+    {
+      "historicalPath": "strict-types-predecessor/installed-consumer-red.log",
+      "archivePath": "strict-types-predecessor/installed-consumer-red.log.gz",
+      "plaintextSha256": "375f51cdc814cf3756468c89fa5974a6fed40af3eca8e40f1cc7b040519c04fd",
+      "plaintextBytes": 3124,
+      "gzipSha256": "b08cf8f75ccb204f900993ac30a810b84206b729bec789fd81d21f6ab4e7aa3e",
+      "decompress": "gzip -dc parity/select-canonical-leaves/strict-types-predecessor/installed-consumer-red.log.gz"
+    },
+    {
+      "historicalPath": "strict-types-predecessor/private-consumer-final-local.log",
+      "archivePath": "strict-types-predecessor/private-consumer-final-local.log.gz",
+      "plaintextSha256": "af80c7559508a98a98b3a155d52a3154b58c134473addcc6e48dae92a3d277cc",
+      "plaintextBytes": 18211,
+      "gzipSha256": "d91f8832918ad8f97ef157b7a36ccaedc309bd6ee951a74a3554934cd156659f",
+      "decompress": "gzip -dc parity/select-canonical-leaves/strict-types-predecessor/private-consumer-final-local.log.gz"
+    },
+    {
+      "historicalPath": "strict-types-predecessor/upstream-differences-paragraph.md",
+      "archivePath": "strict-types-predecessor/upstream-differences-paragraph.md.gz",
+      "plaintextSha256": "fc9c89260e297f96526db6f6810f5dc4b76ad957511a373e1c2895b3b7beb620",
+      "plaintextBytes": 652,
+      "gzipSha256": "e003339c9e98dc1061dc8515b7f6f577f2a1590595bb3810dfb6c1788c659a1f",
+      "decompress": "gzip -dc parity/select-canonical-leaves/strict-types-predecessor/upstream-differences-paragraph.md.gz"
+    },
+    {
+      "historicalPath": "browser-path-predecessor/hosted-112501830510.log",
+      "archivePath": "browser-path-predecessor/hosted-112501830510.log.gz",
+      "plaintextSha256": "0429f8a306440e8646fac7e54a74089fc75693fda3f8c2e815ecb8d19c58918f",
+      "plaintextBytes": 96309,
+      "gzipSha256": "ec88349bade01793b05042c4d666a8be5eb08241643ab592168a7474fedc503a",
+      "decompress": "gzip -dc parity/select-canonical-leaves/browser-path-predecessor/hosted-112501830510.log.gz"
+    },
+    {
+      "historicalPath": "browser-path-predecessor/hosted-112502438088.log",
+      "archivePath": "browser-path-predecessor/hosted-112502438088.log.gz",
+      "plaintextSha256": "a3a5a07ccd8ad5499a4f0692db7cbeecd8d4cf5e52c13718129e2d8a5c897876",
+      "plaintextBytes": 41946,
+      "gzipSha256": "f3dceb779b2eb23cc27b7b8abafb01bf02ad1437b383ed7eed188f85ec21dbc5",
+      "decompress": "gzip -dc parity/select-canonical-leaves/browser-path-predecessor/hosted-112502438088.log.gz"
+    },
+    {
+      "historicalPath": "browser-path-predecessor/path-reproduction.log",
+      "archivePath": "browser-path-predecessor/path-reproduction.log.gz",
+      "plaintextSha256": "69a824d58c84b7b726339a0884fa683fd096caf1092437c625031845ffb049f4",
+      "plaintextBytes": 610,
+      "gzipSha256": "a8163aba542f5666332d8511f3e7c1ab414510dbe8c72a574c99a4c61023c881",
+      "decompress": "gzip -dc parity/select-canonical-leaves/browser-path-predecessor/path-reproduction.log.gz"
+    },
+    {
+      "historicalPath": "browser-path-predecessor/standards-74c.log",
+      "archivePath": "browser-path-predecessor/standards-74c.log.gz",
+      "plaintextSha256": "c4bb4ac6a5a60566bb9de4eb7ce9bfb969a4c88beeb8425a35d1668b5176a3fb",
+      "plaintextBytes": 986,
+      "gzipSha256": "a715c9c91288835f986fd8cc8e73582caff72bc2766578a35b9e67b02f16bf35",
+      "decompress": "gzip -dc parity/select-canonical-leaves/browser-path-predecessor/standards-74c.log.gz"
+    }
+  ]
+}

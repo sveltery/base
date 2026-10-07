@@ -1,0 +1,69 @@
+name: Private Select prerequisite acceptance
+
+on:
+  pull_request:
+  push:
+    branches: [main, source/select-canonical-leaves]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: select-canonical-leaves-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  private-installed-consumer:
+    name: Private leaves installed types SSR hydration secured browser
+    runs-on: ubuntu-22.04
+    timeout-minutes: 25
+    env:
+      NODE_OPTIONS: --max-old-space-size=768
+      # The installer and packed runner must share a path despite toolchain XDG defaults.
+      PLAYWRIGHT_BROWSERS_PATH: ${{ github.workspace }}/.checks/select-canonical-leaves-browsers
+    steps:
+      - uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6.1.0
+        with:
+          ref: ${{ github.event.pull_request.head.sha || github.sha }}
+          persist-credentials: false
+      - uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6.1.0
+        with:
+          repository: mui/base-ui
+          ref: 47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c
+          path: .checks/select-leaves/upstream
+          persist-credentials: false
+      - uses: pnpm/action-setup@fc06bc1257f339d1d5d8b3a19a8cae5388b55320 # v4.4.0
+        with:
+          version: 12.6.0
+          run_install: false
+      - uses: actions/setup-node@249970729cb0ef3589644e2896645e5dc5ba9c38 # v6.5.0
+        with:
+          node-version: '24'
+          package-manager-cache: false
+      - name: Frozen workspace install
+        run: bash scripts/bootstrap.sh
+      - name: Verify complete immutable source and helper assertions
+        run: |
+          set -o pipefail
+          mkdir -p .checks/select-canonical-leaves
+          node scripts/select-canonical-leaves/check-original.mjs .checks/select-leaves/upstream 2>&1 | tee .checks/select-canonical-leaves/original.log
+      - name: Build actual dependency packages
+        run: |
+          set -o pipefail
+          mkdir -p .checks/select-canonical-leaves
+          pnpm --recursive --filter-prod '@sveltery/base...' --sort --workspace-concurrency 1 build 2>&1 | tee .checks/select-canonical-leaves/build.log
+      - name: Install official secured Chromium
+        run: pnpm exec playwright install --with-deps chromium
+      - name: Real dual-tarball private installed consumers
+        run: |
+          set -o pipefail
+          bash scripts/check-select-canonical-leaves-package.sh 2>&1 | tee .checks/select-canonical-leaves/installed-consumer.log
+      - name: Preserve exact-head execution logs
+        if: always()
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2
+        with:
+          name: select-canonical-leaves-evidence
+          path: .checks/select-canonical-leaves/
+          if-no-files-found: warn
+          retention-days: 14
