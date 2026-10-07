@@ -1,0 +1,21 @@
+{
+  "status": "Historical authored-content and pre-content closure bytes preserved; current prose/API attribution and native example corrections grant zero unchanged Original assertion credit.",
+  "files": [
+    {
+      "path": "apps/fixtures/src/lib/docs/content.ts",
+      "archive": "pr71-main-integration-content-predecessor.ts.gz",
+      "bytes": 48310,
+      "sha256": "ea7047211ee090d99046023fe545caa074db99eb13fdbcd51caedb2227b6e760"
+    },
+    {
+      "path": "docs/receipts/docs/current-source-closure.json",
+      "archive": "pr71-main-integration-closure-pre-content.json.gz",
+      "bytes": 244749,
+      "sha256": "fc4d030c242e4da06da13bdc812aa16861fe6bca14112c8d8d7ece2de499e45a"
+    }
+  ],
+  "parents": [
+    "cac2839fcabb10d69ef5c40dbbd6dcebd03c25ec",
+    "abe8aa9b66ab8cd8d83dfdac28ebee94a0655f79"
+  ]
+}

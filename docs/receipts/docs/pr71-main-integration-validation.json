@@ -1,0 +1,293 @@
+{
+  "status": "Diagnostic candidate local stage evidence; final public CI/browser and Root acceptance remain pending. No new Original declaration credit.",
+  "parents": [
+    "cac2839fcabb10d69ef5c40dbbd6dcebd03c25ec",
+    "abe8aa9b66ab8cd8d83dfdac28ebee94a0655f79"
+  ],
+  "node": "24.19.0",
+  "pnpm": "12.6.0",
+  "typescript": "6.0.3",
+  "heapMiB": 2048,
+  "archive": "pr71-main-integration-execution.tar.gz",
+  "archiveSha256": "934a041018b1497d9013cdda6d98f297d5f52401340ee89d1ab39de32e599999",
+  "files": [
+    {
+      "path": ".checks/pr71-integration/bootstrap.log",
+      "bytes": 62517,
+      "sha256": "0e1540ea647f724b72d9cffa72498d94dbd40df1cc66217d1079910c4df4485b"
+    },
+    {
+      "path": ".checks/pr71-integration/chromium-install-writable-tmp.log",
+      "bytes": 4452,
+      "sha256": "b127cdc6aa53bd3e0355659832d2712057ee2abebe1f803b1c67c732ae32aa78"
+    },
+    {
+      "path": ".checks/pr71-integration/chromium-install.log",
+      "bytes": 1194,
+      "sha256": "7957afb97649e9fbfcad4652b9c97870b5719996981ae6434c7495830583b4a6"
+    },
+    {
+      "path": ".checks/pr71-integration/docs-build-content-successor.log",
+      "bytes": 8940,
+      "sha256": "5fa38ca8c5ccdb6c5342f750576d30d59d36a01e8d514f47571b6912fcd6f2e8"
+    },
+    {
+      "path": ".checks/pr71-integration/docs-build.log",
+      "bytes": 8940,
+      "sha256": "17e71171416ca862c3da3ccf69e37814d6468aa5987c2650d41ae32539881f47"
+    },
+    {
+      "path": ".checks/pr71-integration/docs-check-content-successor.log",
+      "bytes": 229,
+      "sha256": "891e7e1775e656a97eb0fec9e0589169da7fe5629e487948b98af59d8c3c953f"
+    },
+    {
+      "path": ".checks/pr71-integration/docs-check.log",
+      "bytes": 229,
+      "sha256": "891e7e1775e656a97eb0fec9e0589169da7fe5629e487948b98af59d8c3c953f"
+    },
+    {
+      "path": ".checks/pr71-integration/docs-http-browser.log",
+      "bytes": 8059,
+      "sha256": "dc98d107cf92c5f082b524c881886bca0ff32ac2bf27524f68ab892871db45b5"
+    },
+    {
+      "path": ".checks/pr71-integration/docs-http-routes-content-successor.log",
+      "bytes": 126,
+      "sha256": "99b01abe96b8cbfd388ddcb8bf4cec360420f66e05fccf7367883340c3ea64b4"
+    },
+    {
+      "path": ".checks/pr71-integration/docs-http-routes-corrected.log",
+      "bytes": 114,
+      "sha256": "31417e8432c83e319a00d7edc1e23b7a030436b5eadafa71b646a4e32c9af748"
+    },
+    {
+      "path": ".checks/pr71-integration/docs-http-routes.log",
+      "bytes": 1119,
+      "sha256": "714b1919315ef13c5cd917a5df6ebbc221158754eef1225271ee377f6cbdafb0"
+    },
+    {
+      "path": ".checks/pr71-integration/docs-installed-browser.log",
+      "bytes": 3258,
+      "sha256": "74488f7055763509e29b6e330b242f6844e50f7d588b576497b0ea27e948488a"
+    },
+    {
+      "path": ".checks/pr71-integration/docs-lifetime-after-sync.log",
+      "bytes": 410,
+      "sha256": "02e95740d93ca1d6482144a7bcd434d91049f9d2360d4c4de7c2327ebe18f236"
+    },
+    {
+      "path": ".checks/pr71-integration/docs-lifetime.log",
+      "bytes": 2299,
+      "sha256": "ae709db849c6aff9877499336c311f4bcebb86b7457ef795d69f19062491a616"
+    },
+    {
+      "path": ".checks/pr71-integration/docs-package.log",
+      "bytes": 17337,
+      "sha256": "7053d57a7fcc442ffa5dad001e383090a83665d3e10506289b1e9ce59918418f"
+    },
+    {
+      "path": ".checks/pr71-integration/docs-source.log",
+      "bytes": 129,
+      "sha256": "75de75872f34830172047e18c80083998187ee48f98e7a4a977ca90a1b285e1a"
+    },
+    {
+      "path": ".checks/pr71-integration/docs-tests-content-successor.log",
+      "bytes": 527,
+      "sha256": "7cc0cf618b14fd8e873c21aac9515ab8717c8a56695b63f57bb5256c00e009f3"
+    },
+    {
+      "path": ".checks/pr71-integration/docs-tests.log",
+      "bytes": 527,
+      "sha256": "b102666affc79a86d9b65962db6cb8eff8b78e8d644ad8520dc9b5e04bb77bf6"
+    },
+    {
+      "path": ".checks/pr71-integration/dom-tests.log",
+      "bytes": 2655,
+      "sha256": "ba93efe2b37d382b6b0e3f9089ad4aa2a8169c2f5e909146679841a7f61e9b73"
+    },
+    {
+      "path": ".checks/pr71-integration/fixtures-build-content-successor.log",
+      "bytes": 350142,
+      "sha256": "4183429a64e6a6f8630c5990c157dd199473516e5e418c20218efa40798aaedb"
+    },
+    {
+      "path": ".checks/pr71-integration/fixtures-build.log",
+      "bytes": 350142,
+      "sha256": "5e5461e6978c320da3fcb3b07976d33bf188d74c567555189c29407624c745df"
+    },
+    {
+      "path": ".checks/pr71-integration/infra-source-download.log",
+      "bytes": 49093,
+      "sha256": "8c426856ad7d31f4ae8fd1d1be32ef666289057f9c9a4092ab3f02a118a503c5"
+    },
+    {
+      "path": ".checks/pr71-integration/lossless-json.log",
+      "bytes": 386,
+      "sha256": "9fa7f6b5c4630ba5933a3bed05c3d39208afd2251e3dd0a3cf52095e64106c9f"
+    },
+    {
+      "path": ".checks/pr71-integration/native-projections.log",
+      "bytes": 171,
+      "sha256": "f0b65011b6ee23b0cd9f8ba1b167e7ed9d0ece15a6ccdf3c4969e1326bdb6ea5"
+    },
+    {
+      "path": ".checks/pr71-integration/package-consumers.log",
+      "bytes": 8322,
+      "sha256": "e7f1360710fe10b6ef402b77f3bc3ed9b679321b508722f1b47e0655f1a2cacc"
+    },
+    {
+      "path": ".checks/pr71-integration/runtime-boundary.log",
+      "bytes": 61,
+      "sha256": "7eb14a3a2cac9fe7d677ef3a7519f5045bb935af2549e71f9ddf392ebb65a36d"
+    },
+    {
+      "path": ".checks/pr71-integration/server-tests-prepared.log",
+      "bytes": 1055,
+      "sha256": "a83f182734aa0499ec24717931ac896066401e95849d68b9673417a2fc135905"
+    },
+    {
+      "path": ".checks/pr71-integration/server-tests.log",
+      "bytes": 1820,
+      "sha256": "ba86bb28cbbe84f01728cb8addb66308d7382ce202eb63127b94828cdc8c271b"
+    },
+    {
+      "path": ".checks/pr71-integration/standards-content-successor.log",
+      "bytes": 99,
+      "sha256": "899f899c4056a64c8cf29ca9089dfe6821ca8521061c59efd32e7296da4df97f"
+    },
+    {
+      "path": ".checks/pr71-integration/standards-successor.log",
+      "bytes": 99,
+      "sha256": "899f899c4056a64c8cf29ca9089dfe6821ca8521061c59efd32e7296da4df97f"
+    },
+    {
+      "path": ".checks/pr71-integration/standards.log",
+      "bytes": 254,
+      "sha256": "c07e8a00aba78b5c5685c844181436e72d8da38d8fd9c98dcb4f233f45184b00"
+    },
+    {
+      "path": ".checks/pr71-integration/toolchain-absolute-node-writable-tmp.log",
+      "bytes": 552,
+      "sha256": "b5ff5f1b5d1c2f033bfed9f2215625f0f7f92c4d77eb5de41f06bfe88756130d"
+    },
+    {
+      "path": ".checks/pr71-integration/toolchain-absolute-node.log",
+      "bytes": 5475,
+      "sha256": "eb4b5f003787be32aa5cad618cc268c87bb850a50c70b188be4da4d510f91740"
+    },
+    {
+      "path": ".checks/pr71-integration/use-click-consumer.log",
+      "bytes": 885,
+      "sha256": "7c8e521d5ddcf0d9e3cfca5da255d4fac0780b1bcabf91955d2928b385a63a6f"
+    },
+    {
+      "path": ".checks/pr71-integration/verification.log",
+      "bytes": 54763,
+      "sha256": "912c8f21820dbb88f9260b996bfe3209a35d66b1a2bc026686917e2ac59c713c"
+    },
+    {
+      "path": ".checks/pr71-integration/workspace-check.log",
+      "bytes": 4314,
+      "sha256": "a6e46e2ab74b316239ab7087c9a447dfc095d7a9d83108405eb0b24765fc7097"
+    },
+    {
+      "path": ".checks/pr71-integration/docs-browser-results.json",
+      "bytes": 17171,
+      "sha256": "35eb2ee06b90b1c0ef00785a2648adedde36b8b11c123608d238dd4e4a4df7c5"
+    },
+    {
+      "path": ".checks/docs-package/installed-artifacts.json",
+      "bytes": 16875,
+      "sha256": "6082916b24bef6ae3eb7adfccba61450ad8cfc2e4e3a4bd83d51c1d55e6ed586"
+    },
+    {
+      "path": ".checks/docs-package/browser/results.json",
+      "bytes": 7779,
+      "sha256": "772f5109f82d4190b4edf64a9f68298d1762a58067496fadbd744bf399df0d2f"
+    },
+    {
+      "path": ".checks/docs-browser/test-results/.last-run.json",
+      "bytes": 194,
+      "sha256": "7352379920a316c66e25b96207259405603d64bd4d8d6a4750bf28ce19e58969"
+    },
+    {
+      "path": ".checks/docs-browser/test-results/docs-standalone-cold-searc-0729f-ending-native-focus-and-IME/error-context.md",
+      "bytes": 1366,
+      "sha256": "0437ddc22de7166f552669819eb8cb77edbaf8613eea81d93aaf06eb8548886b"
+    },
+    {
+      "path": ".checks/docs-browser/test-results/docs-standalone-cold-searc-0729f-ending-native-focus-and-IME/trace.zip",
+      "bytes": 1984,
+      "sha256": "466739b7924e6e2be5d6a3dd3fc62a82fda27d31fff0ba1c994c3e4951ca2711"
+    },
+    {
+      "path": ".checks/docs-browser/test-results/docs-standalone-mobile-nav-0c846-ewport-and-uses-real-routes/error-context.md",
+      "bytes": 1360,
+      "sha256": "a0454a257b91a8640f2ac00ccdce072d17f006832c74cb9181ea3c386b600982"
+    },
+    {
+      "path": ".checks/docs-browser/test-results/docs-standalone-mobile-nav-0c846-ewport-and-uses-real-routes/trace.zip",
+      "bytes": 1981,
+      "sha256": "53050847ceaaf69e254dc4a808cb8188e12bcc994745854a4905726bdc0d0c02"
+    },
+    {
+      "path": ".checks/docs-browser/test-results/docs-standalone-standalone-c1a1f-ection-and-reference-hashes/error-context.md",
+      "bytes": 1368,
+      "sha256": "eb9df48944b9b4a1fe39def596fb48d3444a6bc80dba502a72d4dd6012a601f1"
+    },
+    {
+      "path": ".checks/docs-browser/test-results/docs-standalone-standalone-c1a1f-ection-and-reference-hashes/trace.zip",
+      "bytes": 1972,
+      "sha256": "4f3328f38e78aa6c264676e7e519efb8707d6a3c6e4e198dbe8a369cf92cd3ef"
+    },
+    {
+      "path": ".checks/docs-package/browser/test-results/.last-run.json",
+      "bytes": 96,
+      "sha256": "a09c971a78d401362a4a2a2544018c5d58907d20ba1a364885634baafa6d1f9a"
+    },
+    {
+      "path": ".checks/docs-package/browser/test-results/docs-installed-installed-t-c6fb1-and-nested-code-composition/error-context.md",
+      "bytes": 1415,
+      "sha256": "82b1cc18eebb9f9ae48b3dab34a2858196c38479f55cd9b6ea5664705ef0975f"
+    },
+    {
+      "path": ".checks/docs-package/browser/test-results/docs-installed-installed-t-c6fb1-and-nested-code-composition/trace.zip",
+      "bytes": 2001,
+      "sha256": "69c91f15f5d8d9458d4157015da1277aefa4ea86ab308b05ae7dd28d8e48bd8a"
+    }
+  ],
+  "passed": [
+    "Frozen bootstrap/native package builds",
+    "Source graph/typed parser/Search and native 496-body projections; lossless storage3/3",
+    "Standards after formatting/content corrections",
+    "Verification script tests84/89 initial plus unchanged5/5 with absolute Node24 and writable TMP",
+    "Workspace checks, six existing Base warnings",
+    "Utils9/Base268 server; Utils8/Base1802 DOM",
+    "Fixture builds and React/Kit-free runtime boundary",
+    "All maintained installed package/strict declaration consumers and useClick",
+    "Actual dual-tarball docs skipLibCheck:false/negative declarations/SSR/hydration/same-node/toggle/teardown",
+    "Docs4 parser/query, mounted lifetime1, check0/0 and static18-page build",
+    "Corrected-content actual preview HTTP18 routes and every section ID"
+  ],
+  "historicalFailuresRetained": [
+    "Initial Standards zero-job receipt formatting",
+    "Initial script5 host process.execPath failures and absolute-Node missing/tmp failure",
+    "Repeated native build ENOTEMPTY; completed later stages using already authenticated actual dual archives",
+    "Initial docs DOM startup before real Kit sync; unchanged regression passes after actual sync",
+    "Wrong root Vite path HTTP attempt: zero route credit; premature claim withdrawn",
+    "Initial Chromium missing/tmp; one corrected writable workspace TMP attempt returns truncated official zip and installer lock failure"
+  ],
+  "unexecuted": [
+    "Secured installed docs browser declared1 and HTTP browser declared3 fail before assertions on unavailable official executable; sandboxtrue/workers1/retries0 unchanged. No installer retry after lock failure.",
+    "Fresh final exact-public-head CI and Root final body review pending."
+  ],
+  "runtimeReadiness": {
+    "networkPolicyFile": "unavailable",
+    "cloudEnvironmentStatus": "not exposed",
+    "managedInstanceReadiness": "not established",
+    "security": "Inherited proxies/CA/TLS/auth guards preserved; no direct route, TLS, proxy, browser sandbox or CI weakening."
+  },
+  "ordinaryDeclarationCredit": 0,
+  "unchangedUpstreamAssertionCredit": 0
+}

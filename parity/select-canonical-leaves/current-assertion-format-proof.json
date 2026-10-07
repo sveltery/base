@@ -1,0 +1,25 @@
+{
+  "historicalHead": "7448ef1046fc5fe5a622287eed5a80e060cb6fad",
+  "method": "Complete recursive TypeScript AST kind/identifier/literal text/child equality ignoring positions/comments/quote choice and raw SourceFile text. No changed assertions or expectations. Earlier printer/raw-source comparisons were rejected as unsuitable; no evidence credit was assigned to them.",
+  "records": [
+    {
+      "path": "packages/base/tests/select-canonical-leaves.test.ts",
+      "beforeSha256": "aadeddbe7bce7a81f81167694f0a41ed588e98afe88d3151e88d503751aeee3c",
+      "currentSha256": "ec912227e2f1d1ac4369c4a480582a8500a44cfe601d734818b2f541b126ae90",
+      "typescriptAstUnchanged": true
+    },
+    {
+      "path": "packages/base/tests/select-item-equality-source.test.ts",
+      "beforeSha256": "66be005170e2bd94d79209b9b9833411a0317d6464a7d06d2d25feb30cdb01d3",
+      "currentSha256": "13be6ab80069f2f14ed1524b5ac415d9fb6cc1b50e1cfbce10f35cc2f669d954",
+      "typescriptAstUnchanged": true
+    },
+    {
+      "path": "packages/base/tests/select-value-label-source.test.ts",
+      "beforeSha256": "f1b11e10ee3c0bdb494f67305d1b9d9b2a6df7de0f9438ee3a735d17c354cb7e",
+      "currentSha256": "ed49e6f6e6682b094754c5f9ef38dbb59889cfce80ccd4db394e829e7516a4b0",
+      "typescriptAstUnchanged": true
+    }
+  ],
+  "ordinarySelectDeclarationCredit": 0
+}

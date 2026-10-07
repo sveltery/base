@@ -1,5 +1,17 @@
 # Upstream differences
 
+The private Select prerequisite successor normally integrates actual main `aa4daff5`. Its [current closure](../parity/select-canonical-leaves/current-main-correspondence.md) uses the canonical Utils package and direct native ListboxSeparator snippet/div/attachment branch with unchanged shared prop business. Native string styles and independent attachment lifetimes supersede the historical renderer representation; original receipts and assertion expectations remain preserved, with zero divergent renderer credit. Actual production Select integration and final exact-head consumer/browser/CI/review acceptance remain incomplete. The [74c hosted environment receipt](../parity/select-canonical-leaves/browser-path-predecessor/receipt.json) retains the successful strict declaration/SSR/15 native checks and incomplete browser launch from divergent cache paths; the scoped explicit browser path and lossless historical receipt packaging await successor hosted validation.
+
+The [three private Select prerequisites](../parity/select-canonical-leaves/README.md)
+retain pinned item equality and label business with native scalar/Snippet label
+tokens. Internal ListboxSeparator uses its own direct snippet/div branch,
+canonical shared prop/state/class/style business and independent actual-host
+attachments. The [compatibility record](../parity/select-canonical-leaves/compatibility.md)
+preserves the superseded c160/7448 renderer receipts as history and keeps the
+private prerequisite scope, native string styles, installed declaration boundary
+and remaining acceptance explicit. No public Select API, full-family closure or
+ordinary Select declaration credit is established.
+
 The private canonical [useClick prerequisite](use-click-prerequisite.md) records its callback-construction fidelity repair and existing native lifetime/type boundaries in [source correspondence](../parity/use-click/source-correspondence.md). Selected scalar options and Store/dataRef identity stay in ordinary callback closures; Source live state/event reads and cancellation stay live. Native events, derived handler construction, Svelte Store subscription and onMount cleanup replace React machinery. The existing browser-rAF adapter omits the Source process-global scheduler, explicitly recorded with zero new ordinary assertion credit. The new direct element type import erases completely; unchanged RootStore inline type imports retain an empty emitted types module without hover/tree business execution. This is bounded private preparation, with exact final review/CI/PM approval pending; existing bespoke Dialog and full affected features remain outside its acceptance.
 
 Behavior reference: [Base UI v1.8.0](upstream-contracts.md), immutable commit `47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c`. The historical landed entries below record verified differences present on Base main `4dd04e495fc9f5bb6a0bb872fe103563d49535b1`. Landed does not establish a specific acceptance decision. The cited evidence does not record specific user approval of these deviations. Divergent assertions earn no parity credit; complete Dialog, Button and whole-library parity remain unclaimed.
@@ -498,6 +510,12 @@ The subsequent [Field business repair](../parity/field-form/source-correspondenc
 
 The subsequent [Collapsible beforematch motion proposal](../parity/native-snippets/collapsible-panel-motion-lifetime.json) expresses accepted skip-motion as actual-host/open-cycle native state and derived ordinary zero-duration markup through dimension commits. Close resolves live authored duration before the existing measurement effect. Captured attachment cleanup releases only its state; detached old hosts retain last native markup, and authored important duration or consumer Svelte/custom-host style directives retain native precedence. These intentional native lifetime/override substitutions earn zero divergent unchanged Original credit and add no CSS parser, snapshot/replay custody or public object-style API. The exact one-Panel stage preserves 495 other complete bodies/ASTs; historical Field 2/494 and Menu 1/495 counts and all archives remain. Actual acde records 18 native reveal/motion errors separately from reference/favicon/ENOSPC errors; successor execution and final acceptance are pending. Favicon and supplemental test edits are separate non-runtime metadata and provide no execution credit. See [C-04](../parity/collapsible/compatibility.md#c-04-native-accepted-beforematch-motion-ownership-proposed).
 
+## Empty native style string normalization (measured predecessor, authorized repair)
+
+At exact public PR73 head `74c437a9a337a26fd808f44f6fa36f7d7542385b`, inherited main `aa4daff5` shared `nativeProps.ts:10` normalizes public `style:''` to absence. The [bounded Original/native witness](../parity/select-canonical-leaves/empty-style-witness/receipt.json) and [feature compatibility entry](../parity/select-canonical-leaves/compatibility.md#measured-empty-native-style-boundary-authorized-repair-acceptance-pending) retain actual commands, outputs and hashes. Svelte 5.57.1 literal/spread controls preserve the empty attribute in SSR and jsdom; dynamic attribute SSR omits it but its client retains it. Listbox omits it in both, changing `[style]` selection relative to the matching native spread route. Executing the complete immutable MIT Base UI 1.8.0 `47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c` Listbox/style closure with React 19.2.8 shows valid empty CSS objects and out-of-contract empty strings omit the attribute. This is a native public representation discrepancy, not a source business repair. No specific approval of empty-string normalization was found. Lead requires the narrow canonical nativeProps repair under the user native-default directive: the existing string return precedes the unchanged falsy guard, with all non-string handling and callers preserved. [Successor SSR/jsdom observations](../parity/select-canonical-leaves/empty-style-successor/receipt.json) show Listbox empty style now matches the native spread in SSR and client `[style]` presence. Complete predecessor helper and measured Source/native receipts are preserved. Proposed PR73 requires fresh exact-head affected-closure review and mandatory hosted gates; no exception or secured-browser acceptance is claimed, and these divergent supplements earn zero unchanged Original credit.
+
+The related [current graph storage adaptation](../parity/utils-package/README.md#lossless-current-graph-storage) preserves the complete reviewed decoded JSON bytes and existing logical hashes in a deterministic gzip payload with an integrity-checked descriptor. All maintained producer/readers use the same Node-only storage helper; historical raw JSON and archives remain unchanged. This is a measured publication transport repair, not a source/native behavior or assertion change. Its physical tree and proof-tool hash require fresh review and hosted checks; no acceptance credit is granted.
+
 ## DOC-01: proposed native documentation shell
 
 PR #71 adapts the pinned Original documentation layout, CSS, navigation, copy,
@@ -558,13 +576,19 @@ owner must close that representation dependency; this docs PR does not duplicate
 their bodies. Scoped docs fidelity clearance does not imply entire-closure native
 maintainability acceptance while that dependency remains outstanding.
 
-The actual import graph also reaches `internals/nativeProps.ts`. The lead's
-measured public `style:''` transport defect is owned solely by PR73: bare Svelte
-spread retains the empty style attribute, while the current helper drops it.
-This is a reached acceptance dependency, not a docs per-part workaround. The
-docs candidate leaves the helper untouched and must integrate accepted main
-normally before final entire-closure review and CI. No React empty-style
-emulation or native-default acceptance is inferred from the candidate checks.
+At the `cac2839f` predecessor, the actual import graph reached the canonical
+`internals/nativeProps.ts` empty-style transport defect owned by PR73. The normal
+integration of actual main `abe8aa9b66ab8cd8d83dfdac28ebee94a0655f79` now consumes
+PR73's delivered string-before-falsy-guard repair and its shared lossless graph
+storage producer/readers. No docs helper body or per-part workaround is added.
+The actual docs closure remains 250 modules, 725 edges and zero unresolved edges;
+before the authored-copy corrections, only that helper hash changed. The
+current projection also refreshes the corrected authored content hash. Main's
+private Select leaves are not forward
+invocations from the docs closure. This integration does not claim post-merge main
+verification, whole Select/runtime acceptance or final docs acceptance. The
+reached Button/Transition class prerequisite and fresh exact-public-head independent
+Source/native/maintainability, secured browser and CI gates remain required.
 
 The historical docs sitemap failure remains at its original raw receipt path with
 all bytes unchanged, beside an additive lossless gzip copy. The exact-path
@@ -585,3 +609,41 @@ the original failed run and all receipt bytes remain retained. See the
 [zero-job record](receipts/docs/workflow-job-env-context-predecessor.json).
 Local execution was disconnected; this successor has remote byte/delta review,
 not a claimed local YAML, browser or consumer pass. Fresh hosted checks are required.
+
+The integration Standards check found only formatting in the hosted zero-job
+JSON receipt. Its exact `cac2839f` bytes are retained in an additive gzip
+[predecessor archive](receipts/docs/workflow-job-env-context-predecessor-cac2839f.json.gz)
+with [hash provenance](receipts/docs/workflow-job-env-format-predecessor.json);
+current JSON formatting changes no parsed observation or execution credit.
+
+Fresh integration read-only review distinguishes genuine forward calls from
+conservative barrel/type/reverse fanout. Demo's Collapsible.Trigger still invokes
+`button/props.ts:getButtonProps`, while Dialog invokes canonical `useButton`;
+this inherited parallel button business needs the canonical owner's disposition.
+Dialog also invokes retained `useClick`, popup handle/registration/open-sync and
+Floating focus-resource owners. Their Source/native class and shared-reuse
+acceptance belongs to the assigned canonical Floating/Popup owners, alongside
+Button/Transition. This docs integration does not copy or repair those bodies,
+claim every canonical owner integrated, or convert type/barrel reachability into
+runtime invocation or acceptance. Fresh exact-head entire-closure review remains
+incomplete until those genuine reached dependencies receive disposition.
+
+Independent review also found stale authored compatibility/credits prose and an
+obsolete object-style ScrollArea example. Current copy names all nine Dialog
+parts plus Handle/createHandle, keeps feature acceptance separate from API
+presence, accurately credits retained upstream shell/CSS/helpers and uses native
+CSS strings. The exact previous authored content and pre-content closure are
+[retained losslessly](receipts/docs/pr71-main-integration-content-predecessor.json).
+These corrections change no library business body or Original assertion and earn
+zero unchanged upstream credit; docs checks and actual route validation are
+rerun for the resulting content.
+
+Entire-candidate independent examination also confirms Demo reaches
+`collapsible/animations.ts:afterAnimations`, retaining a private completion/frame/
+replacement-observer business algorithm alongside canonical `useAnimationsFinished`.
+Canonical reuse disposition is required, just as for Collapsible's legacy button
+helper; this docs PR does not replace either body. Historical inherited mapping
+rows describing omitted Store.observe, popup open/deferral/open-method helpers or
+merged-ref transport are not current acceptance evidence: those Source business
+helpers exist today, while actual hosts use native bindings/attachments. Current
+feature-owner correspondence and class/shared-reuse acceptance remain dependencies.

@@ -13,15 +13,7 @@
   "observedWorkflowBlob": "ce797bc5454f2fed2e9055ecf488ba527b046162",
   "observedJobEnv": "PLAYWRIGHT_BROWSERS_PATH: ${{ runner.temp }}/sveltery-docs-playwright",
   "officialContextReference": "https://docs.github.com/en/actions/reference/workflows-and-actions/contexts#context-availability",
-  "jobEnvAllowedContexts": [
-    "github",
-    "needs",
-    "strategy",
-    "matrix",
-    "vars",
-    "secrets",
-    "inputs"
-  ],
+  "jobEnvAllowedContexts": ["github", "needs", "strategy", "matrix", "vars", "secrets", "inputs"],
   "runnerAllowedAtStepEnv": true,
   "causeDisposition": "Inference supported by invalid job-level context and immediate zero-job run; actual GitHub annotation unavailable.",
   "successorJobEnv": "PLAYWRIGHT_BROWSERS_PATH: /tmp/sveltery-docs-playwright",

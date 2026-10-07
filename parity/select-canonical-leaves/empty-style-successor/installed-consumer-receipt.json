@@ -1,0 +1,54 @@
+{
+  "scope": "Unpublished authorized native empty-style helper successor; installed runtime bytes identified by fresh actual artifact digests, not final acceptance.",
+  "nativePropsSha256": "d815afcfdacace885ce9a74f568d2e0dcb167e72003372cd2f398603f2cacd5a",
+  "command": "bash scripts/check-select-canonical-leaves-package.sh",
+  "result": "Installed strict declaration check0errors0warnings, no-browserSSR pass,15server/DOM/hydration pass; overall command failed before secured browser tests because official executable missing locally.",
+  "strict": true,
+  "exactOptionalPropertyTypes": true,
+  "skipLibCheck": false,
+  "browser": {
+    "executedTests": 0,
+    "result": "incomplete",
+    "sandbox": true,
+    "workers": 1,
+    "retries": 0
+  },
+  "artifacts": {
+    "schema": 1,
+    "packages": {
+      "@sveltery/base": {
+        "version": "0.0.0",
+        "directory": "packages/base",
+        "tarball": "sveltery-base-0.0.0.tgz",
+        "sha256": "8cf4bc91ba05928f8856764f0f353ab131257aa779307943365e00cc0a60a350",
+        "dependencies": [
+          "@sveltery/utils"
+        ]
+      },
+      "@sveltery/utils": {
+        "version": "0.0.0",
+        "directory": "packages/utils",
+        "tarball": "sveltery-utils-0.0.0.tgz",
+        "sha256": "7e4f31b6939499af11fbad0375be4e2d164144969936547bcd95d15390450ac2",
+        "dependencies": []
+      }
+    }
+  },
+  "preservedLog": {
+    "archive": "private-consumer-native-style.log.gz",
+    "plaintextSha256": "d3426eee3c273a18fad8b4f66681800986a711202c70546ad38051bcb735d4d7",
+    "plaintextBytes": 17814,
+    "gzipSha256": "c0b16296b2072423af9a7cdc876c0265c90f31c8f962b4c27daf1353fcfb15fb",
+    "decompress": "gzip -dc parity/select-canonical-leaves/empty-style-successor/private-consumer-native-style.log.gz",
+    "method": "lossless deterministic gzip,mtime0"
+  },
+  "artifactManifest": {
+    "path": "installed-artifacts.json",
+    "sha256": "55cd4ba9c808123edae911c7facc7db25cb3fd10978f92bb2d26a4a42763b050",
+    "bytes": 566
+  },
+  "finalIndependentReview": "pending exact pushed successor SHA and affected closure",
+  "hostedFinalHeadCI": "pending",
+  "ordinarySelectDeclarationCredit": 0,
+  "divergentUnchangedOriginalCredit": 0
+}

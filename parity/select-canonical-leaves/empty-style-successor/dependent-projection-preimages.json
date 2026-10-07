@@ -1,0 +1,23 @@
+{
+  "predecessorHead": "74c437a9a337a26fd808f44f6fa36f7d7542385b",
+  "files": [
+    {
+      "path": "parity/utils-package/feature-successors.json",
+      "archive": "maintained-projection-preimages/parity__utils-package__feature-successors.json.gz",
+      "plaintextBytes": 75678,
+      "plaintextSha256": "0e0459ed29c2fa259500c1f463942954cdafac418e2a795d96c42b926c8e4e3d",
+      "archiveBytes": 3892,
+      "archiveSha256": "e9763398866ad83a726c83027b8d563459ed62b1a2c776568dd3a9783d9546b3"
+    },
+    {
+      "path": "parity/utils-package/correspondence-lineage.json",
+      "archive": "maintained-projection-preimages/parity__utils-package__correspondence-lineage.json.gz",
+      "plaintextBytes": 3386,
+      "plaintextSha256": "b44d9eda46e9095b9c70253b8e74bc9f971e2c790b5b850e4033d8dc0e00c575",
+      "archiveBytes": 1161,
+      "archiveSha256": "55ab8c6b3f67fdd927a9efde6adad00b884d04de1d57487a3cc9f827f8ff8bba"
+    }
+  ],
+  "scope": "Maintained dependent current graph/correspondence pointers; exact predecessor bytes preserved. No historical receipts changed.",
+  "unchangedOriginalCredit": 0
+}

@@ -261,15 +261,15 @@ export const docs: Doc[] = [
         'id': 'available',
         'title': 'Current documented surface',
         'paragraphs': [
-          'Dialog exports Root, Trigger, Portal, Backdrop, Popup, Title, Description, and Close. Only selected upstream cases have acceptance evidence. The docs describe this partial surface, rather than claiming complete 1:1 compatibility.',
-          'Drawer and Toast are pending in this docs baseline. Other Base UI components are unsupported. This site includes no placeholder APIs or installation commands for them.',
+          'Dialog exports Root, Trigger, Portal, Backdrop, Viewport, Popup, Title, Description, Close, createHandle and Handle. The current API includes detached handles and payload children. Implementation and selected checks do not establish complete upstream compatibility.',
+          'The component pages document the current experimental surface. Coverage and acceptance vary by feature; a public export or documentation page does not establish complete compatibility. Drawer and the remaining documentation interactions are outside this docs baseline.',
         ],
       },
       {
         'id': 'gaps',
         'title': 'Known boundaries',
         'paragraphs': [
-          'Dialog.Viewport, detached handles and payload children, forced unmount while open, and multiple popups per Root are unsupported. Complete per-part composition/ref conformance, cross-component overlays, deep shadow-root traversal, touch dismissal, and portal relocation acceptance remain unfinished or unverified.',
+          'Dialog includes Viewport, detached handles, payload children and imperative close/unmount actions. The live example covers a contained modal; it does not establish full composition, cross-component overlays, shadow-root, touch or portal-relocation acceptance. Consult the feature evidence for verified behavior and remaining limits.',
           'React style objects and automatic replacement-element prop inspection are unsupported. Native lowercase event props, snippets, bind:ref, and bind:actions are deliberate Svelte adaptations. The canonical repository documents contain the detailed limitations and acceptance inventory.',
         ],
         'links': [
@@ -550,7 +550,7 @@ export const docs: Doc[] = [
         'title': 'Anatomy',
         'paragraphs': [
           'Root shares state with its parts. Trigger requests opening. Portal relocates client content; Backdrop provides a visual overlay. Popup owns the dialog semantics, while Title and Description establish its accessible relationships. Close requests dismissal.',
-          'This is Sveltery’s eight-part slice. The upstream Viewport and detached-handle APIs are not implemented.',
+          'The current namespace has nine component parts, including Viewport, plus createHandle and Handle. Root supports payload children and detached trigger handles; this example uses the contained modal composition.',
         ],
         'code':
           'Dialog.Root\n├── Dialog.Trigger\n└── Dialog.Portal\n    ├── Dialog.Backdrop\n    └── Dialog.Popup\n        ├── Dialog.Title\n        ├── Dialog.Description\n        └── Dialog.Close',
@@ -569,7 +569,7 @@ export const docs: Doc[] = [
         'paragraphs': [
           'The reference below is extracted from this checkout’s public TypeScript declarations and component $props annotations. It describes the local experimental API. Root does not render a DOM element; native element props belong to the other parts.',
           'Root defaults to uncontrolled closed state, modal=true, and disablePointerDismissal=false. Portal defaults keepMounted=false; container=undefined resolves to the parent portal or document body, while explicit null waits. Backdrop defaults forceRender=false. Trigger and Close default disabled=false and nativeButton=true. Popup uses default focus behavior when initialFocus or finalFocus is omitted.',
-          'onInternalOpenChange is an acceptance observation seam, not a recommended application event. FocusTarget supports booleans, { current: element }, or an interaction callback; a callback returning undefined requests no movement and null requests the default. Shared declarations below show the local state and focus types. ChangeEventDetails inherits its event fields from the separately linked base event declaration.',
+          'FocusTarget supports booleans, { current: element }, or an interaction callback; a callback returning undefined requests no movement and null requests the default. Shared declarations below show the local state and focus types. ChangeEventDetails inherits its event fields from the separately linked base event declaration.',
         ],
         'links': [
           {
@@ -613,7 +613,7 @@ export const docs: Doc[] = [
         'title': 'Credit to the originals',
         'paragraphs': [
           'Base UI by the MUI contributors provides the upstream component model, names, anatomy, and behavior contracts. shadcn/ui by shadcn and its contributors informs the recognizable documentation flow: getting started, browse a component, try an example, then inspect its API.',
-          'Sveltery is unofficial and independent. It is not affiliated with or endorsed by MUI, Base UI, shadcn, or shadcn/ui. The identity, prose, layout implementation, and live Svelte example on this site are original Sveltery work.',
+          'Sveltery is unofficial and independent. It is not affiliated with or endorsed by MUI, Base UI, shadcn, or shadcn/ui. This site adapts Base UI’s documentation shell, CSS and helper code to Svelte, with local authored content and examples.',
         ],
         'links': [
           {
@@ -638,8 +638,8 @@ export const docs: Doc[] = [
         'id': 'licenses',
         'title': 'Licenses & source',
         'paragraphs': [
-          'Both upstream repositories use the MIT license. We inspected those notices before implementing this docs foundation. No upstream docs prose, stylesheet, or substantial example code was copied into this site. Existing upstream-derived library code retains its original notices.',
-          'If future docs changes copy substantial upstream code, include its original copyright and MIT permission notice with that material. Documentation inspiration does not make this an official upstream site.',
+          'The documentation shell and retained source material derive from MIT-licensed Base UI 1.8.0 and its published documentation infrastructure. Original copyright and permission notices accompany the adapted code, CSS and helpers. Existing upstream-derived library code retains its notices.',
+          'The served third-party notices identify retained parser and grammar licenses. Paper Mono ships with its OFL license; separately licensed Die Grotesk is excluded. This documentation remains an unofficial port.',
         ],
         'links': [
           {
@@ -824,7 +824,7 @@ export const docs: Doc[] = [
         ],
         'language': 'svelte',
         'code':
-          '<script lang="ts">\n  import { ScrollArea } from "@sveltery/base";\n</script>\n<ScrollArea.Root style={{ width: "320px", height: "240px" }}>\n  <ScrollArea.Viewport style={{ width: "100%", height: "100%" }}>\n    <ScrollArea.Content>Scrollable content</ScrollArea.Content>\n  </ScrollArea.Viewport>\n  <ScrollArea.Scrollbar style={{ width: "10px" }}>\n    <ScrollArea.Thumb />\n  </ScrollArea.Scrollbar>\n  <ScrollArea.Corner />\n</ScrollArea.Root>',
+          '<script lang="ts">\n  import { ScrollArea } from "@sveltery/base";\n</script>\n<ScrollArea.Root style="width: 320px; height: 240px">\n  <ScrollArea.Viewport style="width: 100%; height: 100%">\n    <ScrollArea.Content>Scrollable content</ScrollArea.Content>\n  </ScrollArea.Viewport>\n  <ScrollArea.Scrollbar style="width: 10px">\n    <ScrollArea.Thumb />\n  </ScrollArea.Scrollbar>\n  <ScrollArea.Corner />\n</ScrollArea.Root>',
       },
       {
         'id': 'api',

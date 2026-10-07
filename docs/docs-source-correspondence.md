@@ -338,13 +338,19 @@ Hosted docs install and launch now share explicit PLAYWRIGHT_BROWSERS_PATH under
 one worker and zero retries are retained. This harness correction grants zero
 executed browser assertions until the final-head hosted run reports them.
 
-The actual import graph also reaches `internals/nativeProps.ts`. The lead's
-measured public `style:''` transport defect is owned solely by PR73: bare Svelte
-spread retains the empty style attribute, while the current helper drops it.
-This is a reached acceptance dependency, not a docs per-part workaround. The
-docs candidate leaves the helper untouched and must integrate accepted main
-normally before final entire-closure review and CI. No React empty-style
-emulation or native-default acceptance is inferred from the candidate checks.
+At the `cac2839f` predecessor, the actual import graph reached the canonical
+`internals/nativeProps.ts` empty-style transport defect owned by PR73. The normal
+integration of actual main `abe8aa9b66ab8cd8d83dfdac28ebee94a0655f79` now consumes
+PR73's delivered string-before-falsy-guard repair and its shared lossless graph
+storage producer/readers. No docs helper body or per-part workaround is added.
+The actual docs closure remains 250 modules, 725 edges and zero unresolved edges;
+before the authored-copy corrections, only that helper hash changed. The
+current projection also refreshes the corrected authored content hash. Main's
+private Select leaves are not forward
+invocations from the docs closure. This integration does not claim post-merge main
+verification, whole Select/runtime acceptance or final docs acceptance. The
+reached Button/Transition class prerequisite and fresh exact-public-head independent
+Source/native/maintainability, secured browser and CI gates remain required.
 
 The published `71d52131` docs workflow failed before job creation: run
 [37548813180](https://github.com/sveltery/base/actions/runs/37548813180) returned
@@ -358,3 +364,41 @@ the original failed run and all receipt bytes remain retained. See the
 [zero-job record](receipts/docs/workflow-job-env-context-predecessor.json).
 Local execution was disconnected; this successor has remote byte/delta review,
 not a claimed local YAML, browser or consumer pass. Fresh hosted checks are required.
+
+The integration Standards check found only formatting in the hosted zero-job
+JSON receipt. Its exact `cac2839f` bytes are retained in an additive gzip
+[predecessor archive](receipts/docs/workflow-job-env-context-predecessor-cac2839f.json.gz)
+with [hash provenance](receipts/docs/workflow-job-env-format-predecessor.json);
+current JSON formatting changes no parsed observation or execution credit.
+
+Fresh integration read-only review distinguishes genuine forward calls from
+conservative barrel/type/reverse fanout. Demo's Collapsible.Trigger still invokes
+`button/props.ts:getButtonProps`, while Dialog invokes canonical `useButton`;
+this inherited parallel button business needs the canonical owner's disposition.
+Dialog also invokes retained `useClick`, popup handle/registration/open-sync and
+Floating focus-resource owners. Their Source/native class and shared-reuse
+acceptance belongs to the assigned canonical Floating/Popup owners, alongside
+Button/Transition. This docs integration does not copy or repair those bodies,
+claim every canonical owner integrated, or convert type/barrel reachability into
+runtime invocation or acceptance. Fresh exact-head entire-closure review remains
+incomplete until those genuine reached dependencies receive disposition.
+
+Independent review also found stale authored compatibility/credits prose and an
+obsolete object-style ScrollArea example. Current copy names all nine Dialog
+parts plus Handle/createHandle, keeps feature acceptance separate from API
+presence, accurately credits retained upstream shell/CSS/helpers and uses native
+CSS strings. The exact previous authored content and pre-content closure are
+[retained losslessly](receipts/docs/pr71-main-integration-content-predecessor.json).
+These corrections change no library business body or Original assertion and earn
+zero unchanged upstream credit; docs checks and actual route validation are
+rerun for the resulting content.
+
+Entire-candidate independent examination also confirms Demo reaches
+`collapsible/animations.ts:afterAnimations`, retaining a private completion/frame/
+replacement-observer business algorithm alongside canonical `useAnimationsFinished`.
+Canonical reuse disposition is required, just as for Collapsible's legacy button
+helper; this docs PR does not replace either body. Historical inherited mapping
+rows describing omitted Store.observe, popup open/deferral/open-method helpers or
+merged-ref transport are not current acceptance evidence: those Source business
+helpers exist today, while actual hosts use native bindings/attachments. Current
+feature-owner correspondence and class/shared-reuse acceptance remain dependencies.

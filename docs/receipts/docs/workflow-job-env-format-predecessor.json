@@ -1,0 +1,8 @@
+{
+  "sourceCommit": "cac2839fcabb10d69ef5c40dbbd6dcebd03c25ec",
+  "path": "docs/receipts/docs/workflow-job-env-context-predecessor.json",
+  "archive": "workflow-job-env-context-predecessor-cac2839f.json.gz",
+  "bytes": 1654,
+  "sha256": "e31f2324f88691ef0e8b9ad48e1b79ef4fe2a733904f0b8a364081174f0ff1b9",
+  "reason": "Preserve exact historical receipt bytes before required Prettier-only formatting; parsed observations unchanged."
+}

@@ -2095,7 +2095,7 @@
     },
     {
       "local": "apps/fixtures/src/lib/docs/content.ts",
-      "sha256": "ea7047211ee090d99046023fe545caa074db99eb13fdbcd51caedb2227b6e760",
+      "sha256": "6cb1c85898c7b29835f862281ebc6bdd814a853c141ea59df1a2d978ae9e5ddf",
       "imports": [],
       "reachability": "runtime graph (conservative full barrel fanout)"
     },
@@ -4840,7 +4840,7 @@
     },
     {
       "local": "packages/base/src/lib/internals/nativeProps.ts",
-      "sha256": "f081bf825f41a64924fe298108e148ac56314d02074c588cc1f9324ff6a92cc5",
+      "sha256": "d815afcfdacace885ce9a74f568d2e0dcb167e72003372cd2f398603f2cacd5a",
       "imports": [
         {
           "specifier": "./resolveClassValue.js",

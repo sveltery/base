@@ -1,3 +1,4 @@
+import { readLosslessJson } from './lossless-json.mjs';
 // Regenerate current class/body ownership; baseline call hashes and receipts remain historical.
 import { readFileSync, writeFileSync } from 'node:fs';
 import { resolve } from 'node:path';
@@ -5,9 +6,7 @@ import { resolve } from 'node:path';
 const root = resolve(import.meta.dirname, '..');
 const path = resolve(root, 'parity/native-framework/callsite-inventory.json');
 const data = JSON.parse(readFileSync(path, 'utf8'));
-const graph = JSON.parse(
-  readFileSync(resolve(root, 'parity/utils-package/current-source-graph.json'), 'utf8'),
-);
+const graph = readLosslessJson(resolve(root, 'parity/utils-package/current-source-graph.json'));
 const modules = new Map(graph.native.modules.map((module) => [module.path, module]));
 const formerField =
   'packages/base/src/lib/internals/field-register-control/useFieldControlRegistration.svelte.ts';
