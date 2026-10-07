@@ -4,7 +4,7 @@
 // (commit 47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c). MIT, see THIRD_PARTY_NOTICES.md.
 // Thumb order is a local list (the CompositeList registration Slider uses).
 // Arrow keys change the value. They do not rove focus between thumbs.
-// Text direction is the element's CSS direction (`dir`), the same reading Toolbar uses.
+// Text direction is `useDirection()`, read through `getDirection`.
 
 import { untrack } from 'svelte';
 import { clamp } from '../internal/clamp.js';
@@ -20,7 +20,6 @@ import { asc } from './asc.js';
 import {
 	activeElement,
 	contains,
-	directionOf,
 	focusElement,
 	getTarget,
 	isElement,
@@ -109,6 +108,7 @@ export interface SliderModelOptions {
 		((value: SliderValue, eventDetails: SliderCommitEventDetails) => void) | undefined;
 	getField: () => FieldRootModel | undefined;
 	getFormContext: () => FormContextValue;
+	getDirection: () => 'ltr' | 'rtl';
 }
 
 function getControlOffset(styles: CSSStyleDeclaration | null, vertical: boolean) {
@@ -365,8 +365,8 @@ export class SliderRootModel {
 		if (this.styles == null) this.styles = ownerWindow(element).getComputedStyle(element);
 	}
 
-	syncDirection(element: Element | null | undefined) {
-		const next = directionOf(element);
+	syncDirection() {
+		const next = this.options.getDirection();
 		if (next !== this.direction) this.direction = next;
 	}
 
@@ -459,8 +459,7 @@ export class SliderRootModel {
 		const thumbValue = this.values[index];
 		if (!Number.isFinite(thumbValue)) return;
 
-		const current = event.currentTarget instanceof Element ? event.currentTarget : this.control;
-		this.syncDirection(current);
+		this.syncDirection();
 		const rtl = this.direction === 'rtl';
 
 		let newValue: number | null = null;
@@ -675,7 +674,7 @@ export class SliderRootModel {
 		this.pressedValues = this.range ? this.values.slice() : null;
 		this.currentInteractionValue = null;
 		this.latestValues = this.values.slice();
-		this.syncDirection(this.control);
+		this.syncDirection();
 
 		const pressedThumbIndex = this.pressedThumbIndex;
 		let closestThumbIndex = pressedThumbIndex;

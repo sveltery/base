@@ -11,6 +11,7 @@
 	import type { HTMLAttributes } from 'svelte/elements';
 	import { getStateAttributesProps } from '../internal/state-attributes.js';
 	import { createControllableValue } from '../internal/controllable-value.svelte.js';
+	import { useDirection } from '../internal/direction-context.js';
 	import { useFieldContext } from '../field/context.svelte.js';
 	import { useFormContext } from '../form/context.js';
 	import { useFieldsetRootContext } from '../fieldset/context.svelte.js';
@@ -37,7 +38,9 @@
 
 	let touched = $state(false);
 
+	const reading = useDirection();
 	const roving = new RadioGroupRoving();
+	roving.readDirection = () => reading.direction;
 	const formContext = useFormContext();
 	const field = useFieldContext(true);
 	const fieldset = useFieldsetRootContext(true);

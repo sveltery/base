@@ -2,12 +2,13 @@
 	An individual OTP character input. Renders an `<input>` element.
 	Derived from Base UI v1.8.0 packages/react/src/otp-field/input/OTPFieldInput.tsx
 	(commit 47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c). MIT, see THIRD_PARTY_NOTICES.md.
-	The slot index comes from DOM order. Arrow direction follows the input's CSS direction.
+	The slot index comes from DOM order. Arrow direction follows `useDirection()`.
 -->
 <script lang="ts">
 	import { DEV } from 'esm-env';
 	import type { HTMLInputAttributes } from 'svelte/elements';
 	import { devWarn } from '../collapsible/warn.js';
+	import { useDirection } from '../internal/direction-context.js';
 	import { getStateAttributesProps } from '../internal/state-attributes.js';
 	import {
 		createChangeEventDetails,
@@ -36,6 +37,7 @@
 	}: OTPFieldInputProps = $props();
 
 	const model = useOTPFieldContext();
+	const reading = useDirection();
 	const slot = model.slots.claim();
 	let el = $state<HTMLInputElement | null>(null);
 
@@ -144,7 +146,7 @@
 		const lastIndex = Math.max(model.length - 1, firstIndex);
 		const endTargetIndex = Math.min(model.value.length, lastIndex);
 		const hasBoundaryModifier = (event.ctrlKey || event.metaKey) && !event.altKey;
-		const rtl = getComputedStyle(event.currentTarget).direction === 'rtl';
+		const rtl = reading.direction === 'rtl';
 		const previousKey = rtl ? 'ArrowRight' : 'ArrowLeft';
 		const nextKey = rtl ? 'ArrowLeft' : 'ArrowRight';
 

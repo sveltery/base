@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { useCSPContext } from '#lib';
+	import { useCSPContext } from '#lib/internal/csp-context.js';
 
 	let { id = 'csp' }: { id?: string } = $props();
 

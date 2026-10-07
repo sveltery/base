@@ -16,6 +16,7 @@
 	import { useFormContext } from '../form/context.js';
 	import { clamp } from '../internal/clamp.js';
 	import { createControllableValue } from '../internal/controllable-value.svelte.js';
+	import { useDirection } from '../internal/direction-context.js';
 	import { getStateAttributesProps } from '../internal/state-attributes.js';
 	import { asc } from './asc.js';
 	import { sliderStateAttributes } from './attributes.js';
@@ -54,6 +55,7 @@
 		...elementProps
 	}: SliderRootProps = $props();
 
+	const reading = useDirection();
 	const field = useFieldContext(true);
 	const form = useFormContext();
 	const labelable = useLabelableContext(true);
@@ -107,9 +109,14 @@
 		getOnValueChange: () => onValueChange,
 		getOnValueCommitted: () => onValueCommitted,
 		getField: () => field,
-		getFormContext: () => form
+		getFormContext: () => form,
+		getDirection: () => reading.direction
 	});
 	setSliderContext(model);
+
+	$effect(() => {
+		model.syncDirection();
+	});
 
 	const linkedLabel = $derived(model.linkedLabel);
 

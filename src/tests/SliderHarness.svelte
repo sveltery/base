@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { untrack } from 'svelte';
-	import { Field, Form, Slider } from '#lib';
+	import { DirectionProvider, Field, Form, Slider } from '#lib';
 
 	let {
 		scenario = 'plain',
@@ -239,49 +239,51 @@
 	<Field.Error data-testid="error" />
 {/snippet}
 
-{#if scenario === 'orphan'}
-	<Slider.Control />
-{:else if scenario === 'field' || scenario === 'field-label'}
-	<Field.Root
-		disabled={fieldDisabled}
-		name={fieldName}
-		{validate}
-		{validationMode}
-		data-testid="field"
-	>
-		{@render fieldBody()}
-	</Field.Root>
-{:else if scenario === 'form'}
-	<Form onFormSubmit={accept}>
-		<Field.Root name={fieldName ?? 'slider'} {validate} {validationMode}>
-			{@render slider()}
-			<Field.Error data-testid="error" />
+<DirectionProvider direction={dir ?? 'ltr'}>
+	{#if scenario === 'orphan'}
+		<Slider.Control />
+	{:else if scenario === 'field' || scenario === 'field-label'}
+		<Field.Root
+			disabled={fieldDisabled}
+			name={fieldName}
+			{validate}
+			{validationMode}
+			data-testid="field"
+		>
+			{@render fieldBody()}
 		</Field.Root>
-		<button type="submit">Submit</button>
-	</Form>
-	<output data-testid="submitted">{submitted}</output>
-{:else if scenario === 'form-errors'}
-	<Form bind:errors onFormSubmit={accept}>
-		<Field.Root name="slider">
+	{:else if scenario === 'form'}
+		<Form onFormSubmit={accept}>
+			<Field.Root name={fieldName ?? 'slider'} {validate} {validationMode}>
+				{@render slider()}
+				<Field.Error data-testid="error" />
+			</Field.Root>
+			<button type="submit">Submit</button>
+		</Form>
+		<output data-testid="submitted">{submitted}</output>
+	{:else if scenario === 'form-errors'}
+		<Form bind:errors onFormSubmit={accept}>
+			<Field.Root name="slider">
+				{@render slider()}
+			</Field.Root>
+		</Form>
+		<output data-testid="errors">{JSON.stringify(errors)}</output>
+	{:else if scenario === 'external'}
+		<form id="external-form" onsubmit={nativeSubmit}>
+			<button type="submit">Submit</button>
+		</form>
+		{@render slider()}
+		<output data-testid="submitted">{submitted}</output>
+	{:else if scenario === 'bubble'}
+		<!-- svelte-ignore a11y_no_noninteractive_element_interactions -->
+		<div data-testid="bubble" role="group" {dir} onkeydown={onBubble}>
 			{@render slider()}
-		</Field.Root>
-	</Form>
-	<output data-testid="errors">{JSON.stringify(errors)}</output>
-{:else if scenario === 'external'}
-	<form id="external-form" onsubmit={nativeSubmit}>
-		<button type="submit">Submit</button>
-	</form>
-	{@render slider()}
-	<output data-testid="submitted">{submitted}</output>
-{:else if scenario === 'bubble'}
-	<!-- svelte-ignore a11y_no_noninteractive_element_interactions -->
-	<div data-testid="bubble" role="group" {dir} onkeydown={onBubble}>
+		</div>
+	{:else if dir}
+		<div {dir}>
+			{@render slider()}
+		</div>
+	{:else}
 		{@render slider()}
-	</div>
-{:else if dir}
-	<div {dir}>
-		{@render slider()}
-	</div>
-{:else}
-	{@render slider()}
-{/if}
+	{/if}
+</DirectionProvider>

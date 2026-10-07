@@ -1,9 +1,7 @@
 // Derived from Base UI v1.8.0 packages/react/src/internals/csp-context/CSPContext.tsx
 // (commit 47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c). MIT, see THIRD_PARTY_NOTICES.md.
-import { getContext, hasContext, setContext } from 'svelte';
-import type { CSPReading } from './types.js';
-
-const CSP_CONTEXT = Symbol('csp');
+import type { CSPReading } from '../csp-provider/types.js';
+import { createGetterContext } from './getter-context.js';
 
 const DEFAULT_CSP: CSPReading = {
 	get nonce() {
@@ -33,19 +31,21 @@ export class CSPContextValue implements CSPReading {
 	}
 }
 
+const cspContext = createGetterContext<CSPReading>(DEFAULT_CSP);
+
 export function setCSPContext(
 	readNonce: () => string | undefined,
 	readDisableStyleElements: () => boolean | undefined
 ) {
-	setContext(CSP_CONTEXT, new CSPContextValue(readNonce, readDisableStyleElements));
+	cspContext.provide(new CSPContextValue(readNonce, readDisableStyleElements));
 }
 
 /**
  * Nearest provider CSP configuration.
  * Outside a provider, `disableStyleElements` is `false` and `nonce` is `undefined`.
  * Call during component init. Read the properties in the template or in `$derived`.
+ * Not part of the package entry. Components import this module.
  */
 export function useCSPContext(): CSPReading {
-	if (!hasContext(CSP_CONTEXT)) return DEFAULT_CSP;
-	return getContext<CSPContextValue>(CSP_CONTEXT);
+	return cspContext.read();
 }

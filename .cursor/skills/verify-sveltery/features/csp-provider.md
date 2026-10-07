@@ -19,11 +19,11 @@ Differences from React Base UI, all deliberate:
 - Upstream `CSPProvider.State` is an empty object. It is omitted. The provider has no host and no state attributes.
 - No `className`, `style`, `render`, or `ref`. The provider does not render a DOM node, so it has no `{@attach}` and no `bind:this`.
 - Children are a snippet.
-- Upstream exports `useCSPContext` from `@base-ui/react/internals/csp-context`. Svelte exports it beside `CSPProvider` from `@sveltery/base` and `@sveltery/base/csp-provider`.
+- `useCSPContext` is not a package export. Components and the fixture probe import it from `src/lib/internal/csp-context.ts`. Upstream keeps the same hook internal.
 
 ## How to get to it (user POV)
 
-A consumer imports `CSPProvider` and `useCSPContext` from `@sveltery/base` or `@sveltery/base/csp-provider`. A descendant calls `useCSPContext()` and reads `.nonce` and `.disableStyleElements`. For verification, open `/fixtures/csp-provider?case=<case>`, where `<case>` is `outside`, `omitted`, `nonce`, `disabled`, `reactive`, or `nested` (`src/routes/fixtures/csp-provider/cases.ts`). Add `&reference` for React Base UI.
+A consumer imports `CSPProvider` from `@sveltery/base` or `@sveltery/base/csp-provider`. Scroll Area reads the nonce and style policy. The fixture probe reads the same values through the internal hook. For verification, open `/fixtures/csp-provider?case=<case>`, where `<case>` is `outside`, `omitted`, `nonce`, `disabled`, `reactive`, or `nested` (`src/routes/fixtures/csp-provider/cases.ts`). Add `&reference` for React Base UI.
 
 ## Driving it with Playwright
 
@@ -53,4 +53,4 @@ Component tests (`src/lib/csp-provider/CSPProvider.svelte.spec.ts`) port the ups
 
 ## Not ported
 
-- Wiring `useCSPContext()` into ScrollArea (scrollbar-hiding style element), Select (inline style element), Slider (prehydration script nonce), or Tabs (indicator prehydration script). Those components keep their current markup. Upstream `CSPProvider.test.tsx` asserts the ScrollArea and Select style tags; those DOM checks wait until the consumers read this provider.
+- Select, Slider, and Tabs do not render the upstream inline style or prehydration script tags, so they do not read this provider.

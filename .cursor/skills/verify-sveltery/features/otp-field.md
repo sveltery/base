@@ -4,7 +4,7 @@ One-time-code slots that share a single string value. Upstream: `packages/react/
 
 `OTPField.Input` is its own text input. It registers the first slot with the real `Field` when one is present. It does not render `Input` or `Field.Control`. Upstream does the same. `OTPField.Separator` is the existing `Separator`.
 
-Slot indexes come from a local list: render order before mount, then document order. That is the flat registration CompositeList does for this component. Arrow keys are handled on the slot, not by a generic composite. Text direction is the input's CSS `direction`.
+Slot indexes come from a local list: render order before mount, then document order. That is the flat registration CompositeList does for this component. Arrow keys are handled on the slot, not by a generic composite. Text direction is `useDirection().direction`.
 
 ## Sub-features
 
@@ -20,7 +20,7 @@ Differences from React Base UI, all deliberate:
 - No `className` or style objects. Use `class` and `style` strings.
 - `value` is one `$bindable`. There is no separate controlled lock. A one-way `value` can change from typing until the parent passes a new value.
 - A consumer handler skips the part with `event.preventDefault()`.
-- Text direction is the input's CSS `direction`. There is no `DirectionProvider`.
+- Text direction is `useDirection().direction`. Outside a provider it is `ltr`.
 - Slot indexes come from the local list. There is no generic composite or floating-ui runtime.
 
 ## How to get to it (user POV)
@@ -58,5 +58,5 @@ Component tests (`src/lib/otp-field/OTPField.svelte.spec.ts`) cover filtering, p
 ## Not ported
 
 - React `ref`, `inputRef`, and `className` / `style` state callbacks.
-- `DirectionProvider`. Direction is the input element's used CSS `direction`.
+- A CSS `direction` on the input does not change arrow keys. `DirectionProvider` does.
 - React's controlled lock, where a parent can ignore `onValueChange` until it later sets `value`. A Svelte one-way `value` updates from typing until the parent passes a new value.

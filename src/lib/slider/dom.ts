@@ -68,11 +68,6 @@ export function addEventListener(
 	};
 }
 
-export function directionOf(element: Element | null | undefined): 'ltr' | 'rtl' {
-	if (!element || typeof getComputedStyle !== 'function') return 'ltr';
-	return getComputedStyle(element).direction === 'rtl' ? 'rtl' : 'ltr';
-}
-
 export function focusElement(
 	element: HTMLElement,
 	options: { preventScroll?: boolean; focusVisible?: boolean }

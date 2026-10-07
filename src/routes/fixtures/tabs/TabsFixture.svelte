@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { Tabs } from '#lib';
+	import { DirectionProvider, Tabs } from '#lib';
 	import type { TabsCase } from './cases.js';
 
 	let { scenario }: { scenario: TabsCase } = $props();
@@ -28,19 +28,21 @@
 	}
 </script>
 
-<div dir={scenario === 'rtl' ? 'rtl' : 'ltr'}>
-	{#if scenario === 'bound'}
-		<input type="checkbox" aria-label="Owner two" checked={value === 1} onclick={toggleOwner} />
-		<Tabs.Root bind:value {onValueChange}>
-			{@render tabs(false)}
-		</Tabs.Root>
-	{:else}
-		<Tabs.Root {orientation} {onValueChange}>
-			{@render tabs(scenario === 'fallback')}
-		</Tabs.Root>
-	{/if}
-</div>
-<output data-testid="calls">{JSON.stringify(calls)}</output>
+<DirectionProvider direction={scenario === 'rtl' ? 'rtl' : 'ltr'}>
+	<div dir={scenario === 'rtl' ? 'rtl' : 'ltr'}>
+		{#if scenario === 'bound'}
+			<input type="checkbox" aria-label="Owner two" checked={value === 1} onclick={toggleOwner} />
+			<Tabs.Root bind:value {onValueChange}>
+				{@render tabs(false)}
+			</Tabs.Root>
+		{:else}
+			<Tabs.Root {orientation} {onValueChange}>
+				{@render tabs(scenario === 'fallback')}
+			</Tabs.Root>
+		{/if}
+	</div>
+	<output data-testid="calls">{JSON.stringify(calls)}</output>
+</DirectionProvider>
 
 {#snippet tabs(disableFirst: boolean)}
 	<Tabs.List

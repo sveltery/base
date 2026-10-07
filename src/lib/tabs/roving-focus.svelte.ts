@@ -53,6 +53,7 @@ export class TabsRoving {
 	highlighted = $state<HTMLElement | null>(null);
 	readLoopFocus: () => boolean = () => true;
 	readOrientation: () => TabsOrientation = () => 'horizontal';
+	readDirection: () => 'ltr' | 'rtl' = () => 'ltr';
 
 	private highlightedIndex = 0;
 	private settled = false;
@@ -205,7 +206,7 @@ export class TabsRoving {
 		const current = event.currentTarget;
 		if (!(current instanceof HTMLElement)) return;
 
-		const rtl = getComputedStyle(current).direction === 'rtl';
+		const rtl = this.readDirection() === 'rtl';
 		const vertical = this.orientation === 'vertical';
 		const forwardKey = vertical ? 'ArrowDown' : rtl ? 'ArrowLeft' : 'ArrowRight';
 		const backwardKey = vertical ? 'ArrowUp' : rtl ? 'ArrowRight' : 'ArrowLeft';

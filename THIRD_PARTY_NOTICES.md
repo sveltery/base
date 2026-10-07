@@ -174,7 +174,7 @@ Parts of this package derive from [Base UI](https://github.com/mui/base-ui) v1.8
 - `src/lib/slider/dom.ts` from the owner, listener, and floating-ui DOM helpers Slider calls
 - `src/lib/slider/Slider.svelte.spec.ts` assertions from `packages/react/src/slider/**/*.test.tsx` that do not require React refs or `className` callbacks
 - `src/lib/direction-provider/DirectionProvider.svelte` from `packages/react/src/direction-provider/DirectionProvider.tsx`
-- `src/lib/direction-provider/context.ts` from `packages/react/src/internals/direction-context/DirectionContext.tsx`
+- `src/lib/internal/direction-context.ts` from `packages/react/src/internals/direction-context/DirectionContext.tsx`
 - `src/lib/direction-provider/DirectionProvider.svelte.spec.ts` assertions from `packages/react/src/direction-provider/DirectionProvider.test.tsx`
 - `src/lib/otp-field/OTPFieldRoot.svelte` and `src/lib/otp-field/model.svelte.ts` from `packages/react/src/otp-field/root/OTPFieldRoot.tsx` and `OTPFieldRootContext.ts`
 - `src/lib/otp-field/OTPFieldInput.svelte` from `packages/react/src/otp-field/input/OTPFieldInput.tsx`
@@ -183,9 +183,9 @@ Parts of this package derive from [Base UI](https://github.com/mui/base-ui) v1.8
 - `src/lib/otp-field/attributes.ts` from `packages/react/src/otp-field/utils/stateAttributesMapping.ts` and the OTP field data-attribute modules
 - `src/lib/otp-field/dom.ts` from `packages/utils/src/shadowDom.ts` (`contains`), `packages/utils/src/owner.ts`, `packages/react/src/floating-ui-react/utils/event.ts` (`stopEvent`), and the native-label lookup in `useAriaLabelledBy.ts`
 - `src/lib/otp-field/otp.spec.ts` assertions from `packages/react/src/otp-field/utils/otp.test.ts`
-- `src/lib/otp-field/OTPField.svelte.spec.ts` assertions from `packages/react/src/otp-field/**/*.test.tsx` that do not require React refs, `className` callbacks, or `DirectionProvider` (direction is the input's used CSS `direction`)
+- `src/lib/otp-field/OTPField.svelte.spec.ts` assertions from `packages/react/src/otp-field/**/*.test.tsx` that do not require React refs or `className` callbacks
 - `src/lib/csp-provider/CSPProvider.svelte` from `packages/react/src/csp-provider/CSPProvider.tsx`
-- `src/lib/csp-provider/context.ts` from `packages/react/src/internals/csp-context/CSPContext.tsx`
+- `src/lib/internal/csp-context.ts` from `packages/react/src/internals/csp-context/CSPContext.tsx`
 - `src/lib/csp-provider/CSPProvider.svelte.spec.ts` assertions from `packages/react/src/csp-provider/CSPProvider.test.tsx` (the context values those ScrollArea and Select style-tag checks depend on; the style tags themselves stay with those components)
 
 MIT License

@@ -75,6 +75,8 @@ export default defineConfig(
 		ignores: ['src/routes/fixtures/**/react-reference.ts'],
 		plugins: { sveltery },
 		rules: {
+			'sveltery/no-computed-style-direction': 'error',
+			'sveltery/no-foreign-context': 'error',
 			'sveltery/no-previous-value-effect': 'error',
 			'sveltery/no-process-env': 'error',
 			'sveltery/no-prop-state-sync': 'error',

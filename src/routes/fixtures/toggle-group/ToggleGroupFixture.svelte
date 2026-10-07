@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { Toggle, ToggleGroup } from '#lib';
+	import { DirectionProvider, Toggle, ToggleGroup } from '#lib';
 	import type { ToggleGroupCase } from './cases.js';
 
 	let { scenario }: { scenario: ToggleGroupCase } = $props();
@@ -26,32 +26,34 @@
 	}
 </script>
 
-<div dir={scenario === 'rtl' ? 'rtl' : 'ltr'}>
-	{#if scenario === 'bound'}
-		<input
-			type="checkbox"
-			aria-label="Owner two"
-			checked={value.includes('two')}
-			onclick={toggleOwner}
-		/>
-		<ToggleGroup aria-label="Formatting" bind:value {onValueChange}>
-			<Toggle value="one">One</Toggle>
-			<Toggle value="two">Two</Toggle>
-		</ToggleGroup>
-	{:else}
-		<ToggleGroup
-			aria-label="Formatting"
-			{orientation}
-			multiple={scenario === 'multiple'}
-			disabled={scenario === 'disabled'}
-			onValueChange={scenario === 'exclusive' || scenario === 'cancel' || scenario === 'disabled'
-				? onValueChange
-				: undefined}
-		>
-			{#each ['one', 'two', 'three'].slice(0, count) as itemValue, index (itemValue)}
-				<Toggle value={itemValue}>{['One', 'Two', 'Three'][index]}</Toggle>
-			{/each}
-		</ToggleGroup>
-	{/if}
-</div>
+<DirectionProvider direction={scenario === 'rtl' ? 'rtl' : 'ltr'}>
+	<div dir={scenario === 'rtl' ? 'rtl' : 'ltr'}>
+		{#if scenario === 'bound'}
+			<input
+				type="checkbox"
+				aria-label="Owner two"
+				checked={value.includes('two')}
+				onclick={toggleOwner}
+			/>
+			<ToggleGroup aria-label="Formatting" bind:value {onValueChange}>
+				<Toggle value="one">One</Toggle>
+				<Toggle value="two">Two</Toggle>
+			</ToggleGroup>
+		{:else}
+			<ToggleGroup
+				aria-label="Formatting"
+				{orientation}
+				multiple={scenario === 'multiple'}
+				disabled={scenario === 'disabled'}
+				onValueChange={scenario === 'exclusive' || scenario === 'cancel' || scenario === 'disabled'
+					? onValueChange
+					: undefined}
+			>
+				{#each ['one', 'two', 'three'].slice(0, count) as itemValue, index (itemValue)}
+					<Toggle value={itemValue}>{['One', 'Two', 'Three'][index]}</Toggle>
+				{/each}
+			</ToggleGroup>
+		{/if}
+	</div>
+</DirectionProvider>
 <output data-testid="calls">{JSON.stringify(calls)}</output>

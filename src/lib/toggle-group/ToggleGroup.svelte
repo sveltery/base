@@ -7,6 +7,7 @@
 -->
 <script lang="ts">
 	import type { HTMLAttributes } from 'svelte/elements';
+	import { useDirection } from '../internal/direction-context.js';
 	import { getStateAttributesProps } from '../internal/state-attributes.js';
 	import { ToggleGroupContext, setToggleGroupContext } from './context.svelte.js';
 	import type { ToggleGroupProps, ToggleGroupState } from './types.js';
@@ -27,11 +28,13 @@
 	const valueProvided = value !== undefined;
 	const EMPTY: readonly string[] = [];
 
+	const reading = useDirection();
 	const group = new ToggleGroupContext(valueProvided);
 	group.readValues = () => value ?? EMPTY;
 	group.readDisabled = () => disabled;
 	group.readMultiple = () => multiple;
 	group.readOnValueChange = () => onValueChange ?? (() => {});
+	group.roving.readDirection = () => reading.direction;
 	group.roving.readLoopFocus = () => loopFocus;
 	group.roving.readOrientation = () => orientation;
 	group.commit = (next) => {

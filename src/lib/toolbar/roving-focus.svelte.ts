@@ -54,6 +54,7 @@ export class ToolbarRoving {
 	highlighted = $state<HTMLElement | null>(null);
 	readLoopFocus: () => boolean = () => true;
 	readOrientation: () => ToolbarOrientation = () => 'horizontal';
+	readDirection: () => 'ltr' | 'rtl' = () => 'ltr';
 
 	private highlightedIndex = 0;
 	private settled = false;
@@ -150,7 +151,7 @@ export class ToolbarRoving {
 		const current = event.currentTarget;
 		if (!(current instanceof HTMLElement)) return;
 
-		const rtl = getComputedStyle(current).direction === 'rtl';
+		const rtl = this.readDirection() === 'rtl';
 		const vertical = this.orientation === 'vertical';
 		const forwardKey = vertical ? 'ArrowDown' : rtl ? 'ArrowLeft' : 'ArrowRight';
 		const backwardKey = vertical ? 'ArrowUp' : rtl ? 'ArrowRight' : 'ArrowLeft';

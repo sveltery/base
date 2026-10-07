@@ -1,3 +1,5 @@
+import noComputedStyleDirection from './no-computed-style-direction.js';
+import noForeignContext from './no-foreign-context.js';
 import noPreviousValueEffect from './no-previous-value-effect.js';
 import noProcessEnv from './no-process-env.js';
 import noPropStateSync from './no-prop-state-sync.js';
@@ -12,6 +14,8 @@ const plugin = {
 		version: '0.0.0'
 	},
 	rules: {
+		'no-computed-style-direction': noComputedStyleDirection,
+		'no-foreign-context': noForeignContext,
 		'no-previous-value-effect': noPreviousValueEffect,
 		'no-process-env': noProcessEnv,
 		'no-prop-state-sync': noPropStateSync,

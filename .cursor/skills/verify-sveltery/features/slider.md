@@ -18,7 +18,7 @@ Differences from React Base UI, all deliberate:
 - No `className` or style objects. Use `class` and a `style` string. Length zeros are written as `0px`.
 - `value` is one `$bindable`. There is no separate controlled lock.
 - A consumer handler skips the part with `event.preventDefault()`.
-- Text direction is the element's CSS `direction`. There is no `DirectionProvider`.
+- Text direction is `useDirection().direction`. Outside a provider it is `ltr`.
 - Thumb indexes come from DOM order in the slider model. There is no generic composite tag switch.
 - `setPointerCapture` is ignored when the browser rejects a synthetic pointer id, so the gesture still runs.
 
@@ -55,5 +55,5 @@ Component tests (`src/lib/slider/Slider.svelte.spec.ts`) cover ARIA, keyboard, p
 ## Not ported
 
 - React `ref`, `inputRef`, and `className` / `style` state callbacks.
-- `DirectionProvider`. Direction is CSS `dir`.
+- A CSS `direction` on the slider does not change the thumb. `DirectionProvider` does.
 - A generic composite/roving-focus system. Slider does not rove focus between thumbs.
