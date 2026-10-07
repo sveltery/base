@@ -11,3 +11,4 @@ One row per component in `src/lib`. A run of `scripts/verify-component.sh <name>
 | Separator | [separator.md](separator.md) | `/fixtures/separator?case=<case>` | `className`/`style` state callbacks, React render-element cloning, `ref`, Menu/Select/Toolbar separators        |
 | Meter     | [meter.md](meter.md)         | `/fixtures/meter?case=<case>`     | React `ref`, class/style state callbacks, numeric production error codes                                        |
 | Progress  | [progress.md](progress.md)   | `/fixtures/progress?case=<case>`  | `className` and `style` state callbacks, refs                                                                   |
+| Form      | [form.md](form.md)           | `/fixtures/form?case=<case>`      | Field, Checkbox, NumberField, Switch and Fieldset integration; `className`/`style` callbacks; `actionsRef`      |
