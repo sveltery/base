@@ -69,6 +69,10 @@
 		"./meter": {
 			"types": "./dist/meter/index.d.ts",
 			"svelte": "./dist/meter/index.js"
+		},
+		"./progress": {
+			"types": "./dist/progress/index.d.ts",
+			"svelte": "./dist/progress/index.js"
 		}
 	},
 	"peerDependencies": {
