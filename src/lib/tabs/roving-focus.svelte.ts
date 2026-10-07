@@ -12,6 +12,7 @@ import { untrack } from 'svelte';
 import { createAttachmentKey } from 'svelte/attachments';
 import type { Attachment } from 'svelte/attachments';
 import type { HTMLAttributes } from 'svelte/elements';
+import { byDocumentOrder } from '../internal/document-order.js';
 import type { TabsOrientation } from './types.js';
 
 const NAV_KEYS = new Set(['ArrowUp', 'ArrowDown', 'ArrowLeft', 'ArrowRight', 'Home', 'End']);
@@ -23,11 +24,6 @@ export interface TabsRovingHandlers {
 
 export type TabsRovingHostProps = HTMLAttributes<HTMLElement> &
 	Record<symbol, Attachment<HTMLElement>>;
-
-function byDocumentOrder(a: HTMLElement, b: HTMLElement) {
-	if (a === b) return 0;
-	return a.compareDocumentPosition(b) & Node.DOCUMENT_POSITION_FOLLOWING ? -1 : 1;
-}
 
 function modifierHeld(event: KeyboardEvent) {
 	return event.shiftKey || event.ctrlKey || event.altKey || event.metaKey;

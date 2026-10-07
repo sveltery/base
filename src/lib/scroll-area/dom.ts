@@ -1,40 +1,7 @@
-// Derived from Base UI v1.8.0 packages/utils/src/shadowDom.ts,
-// packages/utils/src/addEventListener.ts, and packages/react/src/scroll-area/utils/getOffset.ts
+// Derived from Base UI v1.8.0 packages/utils/src/addEventListener.ts and
+// packages/react/src/scroll-area/utils/getOffset.ts
 // (commit 47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c). MIT, see THIRD_PARTY_NOTICES.md.
-// `contains` and `getTarget` are the shadow-dom helpers ScrollArea calls. The floating-ui
-// re-export module is not part of this component.
-
-export function contains(parent?: Element | null, child?: Element | null) {
-	if (!parent || !child) {
-		return false;
-	}
-
-	const rootNode = child.getRootNode?.();
-
-	if (parent.contains(child)) {
-		return true;
-	}
-
-	if (rootNode && isShadowRoot(rootNode)) {
-		let next: Node | null = child;
-		while (next) {
-			if (parent === next) {
-				return true;
-			}
-			next = next.parentNode || (next as ShadowRoot).host;
-		}
-	}
-
-	return false;
-}
-
-export function getTarget(event: Event) {
-	if ('composedPath' in event) {
-		return event.composedPath()[0] ?? event.target;
-	}
-
-	return (event as Event).target;
-}
+// `contains` and `getTarget` live in `src/lib/internal/shadow-dom.ts`.
 
 export function addEventListener(
 	target: EventTarget,
@@ -68,8 +35,4 @@ export function getOffset(
 	}
 
 	return start + parseFloat(styles[`${key}End`]);
-}
-
-function isShadowRoot(node: Node): node is ShadowRoot {
-	return typeof ShadowRoot !== 'undefined' && node instanceof ShadowRoot;
 }

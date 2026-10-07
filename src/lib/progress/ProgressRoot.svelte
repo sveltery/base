@@ -9,7 +9,7 @@
 	import { visuallyHidden } from '../internal/visuallyHidden.js';
 	import { getStateAttributesProps } from '../internal/state-attributes.js';
 	import { normalizeProgressValue } from './compute.js';
-	import { toCssStyle } from './css-style.js';
+	import { toCssStyle } from '../internal/css-style.js';
 	import { ProgressRootContext, provideProgressRootContext } from './ProgressRootContext.svelte.js';
 	import { progressStateAttributesMapping } from './stateAttributesMapping.js';
 	import type { ProgressRootProps, ProgressState } from './types.js';

@@ -12,8 +12,9 @@ import {
 } from '../internal/event-details.js';
 import type { FieldRootModel } from '../field/model.svelte.js';
 import type { FieldRootState } from '../field/types.js';
-import { activeElement, ownerDocument } from './dom.js';
-import { ios } from './platform.js';
+import { ownerDocument } from '../internal/owner.js';
+import { platform } from '../internal/platform.js';
+import { activeElement } from '../internal/shadow-dom.js';
 import {
 	ANY_MINUS_DETECT_RE,
 	ANY_MINUS_RE,
@@ -132,7 +133,7 @@ export class NumberFieldModel {
 
 		$effect(() => {
 			const min = this.minWithDefault;
-			if (!ios) {
+			if (!platform.os.ios) {
 				this.inputMode = 'numeric';
 				return;
 			}

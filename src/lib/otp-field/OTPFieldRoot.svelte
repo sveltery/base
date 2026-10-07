@@ -20,7 +20,7 @@
 	import { rootStateAttributes } from './attributes.js';
 	import { setOTPFieldContext } from './context.svelte.js';
 	import { OTPFieldModel } from './model.svelte.js';
-	import { toCssStyle } from './style.js';
+	import { toCssStyle } from '../internal/css-style.js';
 	import type { OTPFieldRootProps, OTPFieldRootState } from './types.js';
 
 	const VALUE_UNSET = Symbol('otp-field-value');

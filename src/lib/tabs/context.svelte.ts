@@ -3,6 +3,7 @@
 // (commit 47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c). MIT, see THIRD_PARTY_NOTICES.md.
 
 import { getContext, setContext, untrack } from 'svelte';
+import { byDocumentOrder } from '../internal/document-order.js';
 import { REASONS } from '../internal/event-details.js';
 import { activationDirection } from './direction.js';
 import { createTabsChangeEventDetails } from './events.js';
@@ -23,11 +24,6 @@ export interface TabRecord {
 	value: TabsValue;
 	disabled: boolean;
 	id: string;
-}
-
-function byDocumentOrder(a: HTMLElement, b: HTMLElement) {
-	if (a === b) return 0;
-	return a.compareDocumentPosition(b) & Node.DOCUMENT_POSITION_FOLLOWING ? -1 : 1;
 }
 
 export class TabsRootModel {

@@ -1,42 +1,11 @@
-// Derived from Base UI v1.8.0 packages/utils/src/owner.ts,
-// packages/utils/src/addEventListener.ts, and the floating-ui DOM helpers Slider calls
-// (`isElement`, `activeElement`, `contains`, `getTarget`, `matchesFocusVisible`).
+// Derived from Base UI v1.8.0 packages/utils/src/addEventListener.ts and the
+// floating-ui DOM helpers Slider calls (`isElement`, `matchesFocusVisible`).
 // (commit 47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c). MIT, see THIRD_PARTY_NOTICES.md.
+// `activeElement`, `contains`, `getTarget`, `ownerDocument`, and `ownerWindow` live in
+// `src/lib/internal`.
 
 export function isElement(value: EventTarget | null | undefined): value is Element {
 	return value instanceof Element;
-}
-
-export function activeElement(doc: Document) {
-	let element = doc.activeElement;
-	while (element?.shadowRoot?.activeElement != null) {
-		element = element.shadowRoot.activeElement;
-	}
-	return element;
-}
-
-export function getTarget(event: Event) {
-	if (typeof event.composedPath === 'function') {
-		const path = event.composedPath();
-		if (path.length > 0) return path[0];
-	}
-	return event.target;
-}
-
-export function contains(
-	parent: Element | null | undefined,
-	child: EventTarget | Node | null | undefined
-) {
-	if (!parent || !child || !(child instanceof Node)) return false;
-	if (parent.contains(child)) return true;
-	let node: Node | null = child;
-	while (node) {
-		if (node === parent) return true;
-		const root = node.getRootNode();
-		if (root instanceof ShadowRoot) node = root.host;
-		else break;
-	}
-	return false;
 }
 
 export function matchesFocusVisible(element: Element) {
@@ -45,15 +14,6 @@ export function matchesFocusVisible(element: Element) {
 	} catch {
 		return false;
 	}
-}
-
-export function ownerDocument(node: Node | null | undefined): Document {
-	return node?.ownerDocument ?? document;
-}
-
-export function ownerWindow(node: Node | null | undefined): Window & typeof globalThis {
-	const view = ownerDocument(node).defaultView;
-	return view ?? window;
 }
 
 export function addEventListener(

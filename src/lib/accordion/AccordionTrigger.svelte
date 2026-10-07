@@ -5,6 +5,7 @@
 	(commit 47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c). MIT, see THIRD_PARTY_NOTICES.md.
 -->
 <script lang="ts">
+	import { currentHost, dispatchClick, isLink } from '../internal/click.js';
 	import { getStateAttributesProps } from '../internal/state-attributes.js';
 	import { triggerOpenStateMapping } from '../collapsible/attributes.js';
 	import { useCollapsibleRootContext } from '../collapsible/context.svelte.js';
@@ -36,32 +37,6 @@
 		item.registerTrigger(current);
 		return () => item.unregisterTrigger(current);
 	});
-
-	function dispatchClick(target: HTMLElement, source: KeyboardEvent) {
-		const view = target.ownerDocument.defaultView ?? window;
-		target.dispatchEvent(
-			new view.PointerEvent('click', {
-				bubbles: true,
-				cancelable: true,
-				composed: true,
-				detail: 0,
-				shiftKey: source.shiftKey,
-				ctrlKey: source.ctrlKey,
-				altKey: source.altKey,
-				metaKey: source.metaKey
-			})
-		);
-	}
-
-	function currentHost(event: Event): HTMLElement | null {
-		const current = event.currentTarget;
-		if (!(current instanceof HTMLElement) || event.target !== current) return null;
-		return current;
-	}
-
-	function isLink(element: HTMLElement) {
-		return !nativeButton && element instanceof HTMLAnchorElement && Boolean(element.href);
-	}
 
 	function handleClick(event: MouseEvent & { currentTarget: EventTarget & HTMLElement }) {
 		if (disabled) {
@@ -97,7 +72,7 @@
 		const current = currentHost(event);
 		if (!current) return;
 
-		const link = isLink(current);
+		const link = isLink(current, nativeButton);
 		const shouldClick = !link;
 		const isEnter = event.key === 'Enter';
 		const isSpace = event.key === ' ';

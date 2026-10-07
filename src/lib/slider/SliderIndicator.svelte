@@ -11,7 +11,7 @@
 	import { sliderStateAttributes } from './attributes.js';
 	import { useSliderContext } from './context.svelte.js';
 	import { getIndicatorStyles } from './indicator-style.js';
-	import { mergeCssStyle, toCssStyle } from './style.js';
+	import { mergeCssStyle, toCssStyle } from '../internal/css-style.js';
 	import type { SliderIndicatorProps, SliderRootState } from './types.js';
 
 	let { render, children, style, ...elementProps }: SliderIndicatorProps = $props();

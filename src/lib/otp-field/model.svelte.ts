@@ -14,7 +14,9 @@ import {
 	createGenericEventDetails,
 	REASONS
 } from '../internal/event-details.js';
-import { contains, findAssociatedLabel, ownerDocument } from './dom.js';
+import { ownerDocument } from '../internal/owner.js';
+import { contains } from '../internal/shadow-dom.js';
+import { findAssociatedLabel } from '../internal/associated-label.js';
 import { getOTPValidationConfig, normalizeOTPValue, normalizeOTPValueWithDetails } from './otp.js';
 import { SlotList } from './slots.svelte.js';
 import type {

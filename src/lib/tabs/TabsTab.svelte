@@ -7,6 +7,7 @@
 -->
 <script lang="ts">
 	import type { Attachment } from 'svelte/attachments';
+	import { currentHost, dispatchClick, isLink } from '../internal/click.js';
 	import { getStateAttributesProps } from '../internal/state-attributes.js';
 	import { tabsStateAttributesMapping } from './attributes.js';
 	import { useTabsListContext, useTabsRootContext } from './context.svelte.js';
@@ -124,32 +125,6 @@
 		doc.addEventListener('pointercancel', end);
 	}
 
-	function currentHost(event: Event): HTMLElement | null {
-		const current = event.currentTarget;
-		if (!(current instanceof HTMLElement) || event.target !== current) return null;
-		return current;
-	}
-
-	function isLink(element: HTMLElement) {
-		return !nativeButton && element instanceof HTMLAnchorElement && Boolean(element.href);
-	}
-
-	function dispatchClick(target: HTMLElement, source: KeyboardEvent) {
-		const view = target.ownerDocument.defaultView ?? window;
-		target.dispatchEvent(
-			new view.PointerEvent('click', {
-				bubbles: true,
-				cancelable: true,
-				composed: true,
-				detail: 0,
-				shiftKey: source.shiftKey,
-				ctrlKey: source.ctrlKey,
-				altKey: source.altKey,
-				metaKey: source.metaKey
-			})
-		);
-	}
-
 	function handleKeyDown(event: KeyboardEvent & { currentTarget: EventTarget & HTMLElement }) {
 		if (disabled) {
 			// Arrow keys still move the tab stop. Enter and Space must not activate.
@@ -163,7 +138,7 @@
 		const current = currentHost(event);
 		if (!current) return;
 
-		const link = isLink(current);
+		const link = isLink(current, nativeButton);
 		const shouldClick = nativeButton ? current instanceof HTMLButtonElement : !link;
 		const isEnter = event.key === 'Enter';
 		const isSpace = event.key === ' ';

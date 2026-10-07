@@ -93,15 +93,14 @@ Parts of this package derive from [Base UI](https://github.com/mui/base-ui) v1.8
 - `src/lib/switch/SwitchThumb.svelte` from `packages/react/src/switch/thumb/SwitchThumb.tsx`
 - `src/lib/switch/context.ts` from `packages/react/src/switch/root/SwitchRootContext.ts`
 - `src/lib/switch/attributes.ts` from `packages/react/src/switch/stateAttributesMapping.ts` (Field validity attributes omitted)
-- `src/lib/switch/label.ts` from `findAssociatedLabel` in `packages/react/src/internals/labelable-provider/useAriaLabelledBy.ts`
+- `src/lib/internal/associated-label.ts` from `findAssociatedLabel` in `packages/react/src/internals/labelable-provider/useAriaLabelledBy.ts`
 - `src/lib/switch/Switch.svelte.spec.ts` assertions from `packages/react/src/switch/root/SwitchRoot.test.tsx` and `packages/react/src/switch/thumb/SwitchThumb.test.tsx` that do not require Field
 - `src/lib/checkbox/CheckboxRoot.svelte` from `packages/react/src/checkbox/root/CheckboxRoot.tsx`, the non-composite paths of `packages/react/src/internals/use-button/useButton.ts`, and the native-label fallback of `packages/react/src/internals/labelable-provider/useAriaLabelledBy.ts`
 - `src/lib/checkbox/CheckboxIndicator.svelte` from `packages/react/src/checkbox/indicator/CheckboxIndicator.tsx`, `packages/react/src/internals/useTransitionStatus.ts`, and `packages/react/src/internals/useOpenChangeComplete.tsx`
-- `src/lib/checkbox/indicator-motion.ts` from `packages/react/src/internals/useAnimationsFinished.ts`
+- `src/lib/internal/animations-finished.ts` from `packages/react/src/internals/useAnimationsFinished.ts` (the checkbox, radio, and tabs indicator path)
 - `src/lib/checkbox/submitter.ts` from `packages/utils/src/getDefaultFormSubmitter.ts`
 - `src/lib/checkbox/context.ts` from `packages/react/src/checkbox/root/CheckboxRootContext.ts`
 - `src/lib/checkbox/attributes.ts` from `packages/react/src/checkbox/utils/getCheckboxStateAttributesMapping.ts` (Field validity attributes omitted)
-- `src/lib/checkbox/label.ts` from `findAssociatedLabel` in `packages/react/src/internals/labelable-provider/useAriaLabelledBy.ts`
 - `src/lib/checkbox/Checkbox.svelte.spec.ts` assertions from `packages/react/src/checkbox/root/CheckboxRoot.test.tsx` and `packages/react/src/checkbox/indicator/CheckboxIndicator.test.tsx` that do not require Field or CheckboxGroup
 - `src/lib/checkbox/group-context.ts` from the fields `Checkbox.Root` reads in `packages/react/src/checkbox-group/CheckboxGroupContext.ts`
 - `src/lib/checkbox-group/CheckboxGroup.svelte` from `packages/react/src/checkbox-group/CheckboxGroup.tsx`
@@ -110,14 +109,12 @@ Parts of this package derive from [Base UI](https://github.com/mui/base-ui) v1.8
 - `src/lib/checkbox-group/CheckboxGroup.svelte.spec.ts` assertions from `packages/react/src/checkbox-group/CheckboxGroup.test.tsx` and `packages/react/src/checkbox-group/useCheckboxGroupParent.test.tsx` that do not require Field
 - `src/lib/radio/RadioRoot.svelte` from `packages/react/src/radio/root/RadioRoot.tsx`, the non-composite paths of `packages/react/src/internals/use-button/useButton.ts`, and the native-label fallback of `packages/react/src/internals/labelable-provider/useAriaLabelledBy.ts`
 - `src/lib/radio/RadioIndicator.svelte` from `packages/react/src/radio/indicator/RadioIndicator.tsx`, `packages/react/src/internals/useTransitionStatus.ts`, and `packages/react/src/internals/useOpenChangeComplete.tsx`
-- `src/lib/radio/indicator-motion.ts` from `packages/react/src/internals/useAnimationsFinished.ts`
 - `src/lib/radio/context.ts` from `packages/react/src/radio/root/RadioRootContext.ts`
 - `src/lib/radio/group-context.ts` from the fields `Radio.Root` reads in `packages/react/src/radio-group/RadioGroupContext.ts`
 - `src/lib/radio-group/RadioGroup.svelte` from `packages/react/src/radio-group/RadioGroup.tsx`
 - `src/lib/radio-group/roving-focus.svelte.ts` from the linear path of `packages/react/src/internals/composite/root/useCompositeRoot.ts` with RadioGroup's `CompositeRoot` options (orientation `both`, Home/End off, Shift allowed)
 - `src/lib/radio-group/RadioGroup.svelte.spec.ts` assertions from `packages/react/src/radio-group/RadioGroup.test.tsx` that do not require Field or `inputRef`
 - `src/lib/radio/attributes.ts` from `packages/react/src/radio/utils/stateAttributesMapping.ts` (Field validity attributes omitted)
-- `src/lib/radio/label.ts` from `findAssociatedLabel` in `packages/react/src/internals/labelable-provider/useAriaLabelledBy.ts`
 - `src/lib/radio/serialize-value.ts` from `packages/react/src/internals/serializeValue.ts`
 - `src/lib/radio/Radio.svelte.spec.ts` assertions from `packages/react/src/radio/root/RadioRoot.test.tsx` and `packages/react/src/radio/indicator/RadioIndicator.test.tsx` that do not require Field or RadioGroup
 - `src/lib/internal/event-details.ts` also exports `REASONS.disabled`, `REASONS.missing`, and `REASONS.initial` from `packages/react/src/internals/reason-parts.ts`
@@ -147,8 +144,7 @@ Parts of this package derive from [Base UI](https://github.com/mui/base-ui) v1.8
 - `src/lib/number-field/press-and-hold.svelte.ts` from `packages/react/src/internals/usePressAndHold.ts`
 - `src/lib/number-field/parse.ts` and `validate.ts` from `packages/react/src/number-field/utils/parse.ts` and `validate.ts`
 - `src/lib/number-field/viewport.ts` from `packages/react/src/number-field/utils/getViewportRect.ts`
-- `src/lib/number-field/dom.ts` from the `activeElement` and `getTarget` helpers NumberField calls, plus `ownerDocument`, `ownerWindow`, and `addEventListener`
-- `src/lib/number-field/platform.ts` from the `ios`, `webkit`, and `gecko` flags in `packages/utils/src/platform`
+- `src/lib/number-field/dom.ts` from `packages/utils/src/addEventListener.ts`
 - `src/lib/number-field/NumberField.svelte.spec.ts` assertions from `packages/react/src/number-field/**/*.test.tsx` that do not require React refs or `className` callbacks
 - `src/lib/internal/event-details.ts` also exports the number-field change reasons (`input-change`, `input-clear`, `input-blur`, `input-paste`, `keyboard`, `increment-press`, `decrement-press`, `wheel`, `scrub`) and the slider reasons (`track-press`, `drag`)
 - `src/lib/scroll-area/ScrollAreaRoot.svelte` and `src/lib/scroll-area/model.svelte.ts` from `packages/react/src/scroll-area/root/ScrollAreaRoot.tsx` and `ScrollAreaRootContext.ts`
@@ -160,8 +156,7 @@ Parts of this package derive from [Base UI](https://github.com/mui/base-ui) v1.8
 - `src/lib/scroll-area/attributes.ts` from the scroll-area `*DataAttributes.ts` modules and `root/stateAttributes.ts`
 - `src/lib/scroll-area/css-vars.ts` from the scroll-area `*CssVars.ts` modules
 - `src/lib/scroll-area/geometry.ts` from `packages/react/src/utils/scrollEdges.ts` and the pure helpers in `ScrollAreaRoot.tsx` / `ScrollAreaViewport.tsx`
-- `src/lib/scroll-area/dom.ts` from `packages/utils/src/shadowDom.ts` (`contains`, `getTarget`), `packages/utils/src/addEventListener.ts`, and `packages/react/src/scroll-area/utils/getOffset.ts`
-- `src/lib/scroll-area/platform.ts` from the `webkit` flag in `packages/utils/src/platform/engine.ts`
+- `src/lib/scroll-area/dom.ts` from `packages/utils/src/addEventListener.ts` and `packages/react/src/scroll-area/utils/getOffset.ts`
 - `src/lib/scroll-area/ScrollArea.svelte.spec.ts` assertions from `packages/react/src/scroll-area/**/*.test.tsx` that do not require React refs, `className` callbacks, or `DirectionProvider` (direction is the root element's used CSS `direction`)
 - `src/lib/slider/SliderRoot.svelte` and `src/lib/slider/model.svelte.ts` from `packages/react/src/slider/root/SliderRoot.tsx` and `packages/react/src/slider/control/SliderControl.tsx`
 - `src/lib/slider/SliderControl.svelte` from `packages/react/src/slider/control/SliderControl.tsx`
@@ -171,7 +166,7 @@ Parts of this package derive from [Base UI](https://github.com/mui/base-ui) v1.8
 - `src/lib/slider/SliderLabel.svelte` from `packages/react/src/slider/label/SliderLabel.tsx` and the non-native path of `packages/react/src/internals/labelable-provider/useLabel.ts`
 - `src/lib/slider/SliderValue.svelte` from `packages/react/src/slider/value/SliderValue.tsx`
 - `src/lib/slider/asc.ts`, `roundValueToStep.ts`, `getSliderValue.ts`, `validateMinimumDistance.ts`, `getMidpoint.ts`, `getPushedThumbValues.ts`, and `resolveThumbCollision.ts` from the matching files in `packages/react/src/slider/utils`
-- `src/lib/slider/dom.ts` from the owner, listener, and floating-ui DOM helpers Slider calls
+- `src/lib/slider/dom.ts` from `packages/utils/src/addEventListener.ts` and the `isElement`, `matchesFocusVisible`, and `focusElement` helpers Slider calls
 - `src/lib/slider/Slider.svelte.spec.ts` assertions from `packages/react/src/slider/**/*.test.tsx` that do not require React refs or `className` callbacks
 - `src/lib/direction-provider/DirectionProvider.svelte` from `packages/react/src/direction-provider/DirectionProvider.tsx`
 - `src/lib/internal/direction-context.ts` from `packages/react/src/internals/direction-context/DirectionContext.tsx`
@@ -181,7 +176,14 @@ Parts of this package derive from [Base UI](https://github.com/mui/base-ui) v1.8
 - `src/lib/otp-field/slots.svelte.ts` from the flat-list registration in `packages/react/src/internals/composite/list/CompositeList.tsx` and `useCompositeListItem.ts` (DOM order and render-order indexes only)
 - `src/lib/otp-field/otp.ts` from `packages/react/src/otp-field/utils/otp.ts`
 - `src/lib/otp-field/attributes.ts` from `packages/react/src/otp-field/utils/stateAttributesMapping.ts` and the OTP field data-attribute modules
-- `src/lib/otp-field/dom.ts` from `packages/utils/src/shadowDom.ts` (`contains`), `packages/utils/src/owner.ts`, `packages/react/src/floating-ui-react/utils/event.ts` (`stopEvent`), and the native-label lookup in `useAriaLabelledBy.ts`
+- `src/lib/otp-field/dom.ts` from `packages/react/src/floating-ui-react/utils/event.ts` (`stopEvent`)
+- `src/lib/internal/platform.ts` from `packages/utils/src/platform` (`os`, `engine`, `screenReader`, `env`, `mediaQuery`)
+- `src/lib/internal/shadow-dom.ts` from `packages/utils/src/shadowDom.ts` (`activeElement`, `contains`, `getTarget`)
+- `src/lib/internal/owner.ts` from `packages/utils/src/owner.ts`
+- `src/lib/internal/css-style.ts` from the style-string helpers shared by Progress, NumberField, OTP Field, Slider, Checkbox, Radio, and Switch
+- `src/lib/internal/click.ts` from `packages/react/src/utils/dispatchClickWithModifiers.ts` and the host and link checks in `packages/react/src/internals/use-button/useButton.ts`
+- `src/lib/internal/document-order.ts` from the composite list DOM-order comparison
+- `src/lib/internal/timeout.ts` from `packages/utils/src/useTimeout.ts` (`Timeout`), `packages/utils/src/useAnimationFrame.ts` (`AnimationFrame`), and `packages/react/src/internals/TimeoutManager.ts`. The React hooks are not ported.
 - `src/lib/otp-field/otp.spec.ts` assertions from `packages/react/src/otp-field/utils/otp.test.ts`
 - `src/lib/otp-field/OTPField.svelte.spec.ts` assertions from `packages/react/src/otp-field/**/*.test.tsx` that do not require React refs or `className` callbacks
 - `src/lib/csp-provider/CSPProvider.svelte` from `packages/react/src/csp-provider/CSPProvider.tsx`

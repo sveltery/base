@@ -8,12 +8,14 @@
 -->
 <script lang="ts">
 	import { createAttachmentKey, type Attachment } from 'svelte/attachments';
+	import { currentHost, dispatchClick, isLink } from '../internal/click.js';
+	import { toCssStyle } from '../internal/css-style.js';
 	import { createChangeEventDetails, REASONS } from '../internal/event-details.js';
 	import { getStateAttributesProps } from '../internal/state-attributes.js';
 	import { visuallyHidden, visuallyHiddenInput } from '../internal/visuallyHidden.js';
 	import { switchStateAttributesMapping } from './attributes.js';
 	import { setSwitchContext } from './context.js';
-	import { findAssociatedLabel } from './label.js';
+	import { findAssociatedLabel } from '../internal/associated-label.js';
 	import type { SwitchHostProps, SwitchRootProps, SwitchRootState } from './types.js';
 
 	const uid = $props.id();
@@ -135,16 +137,6 @@
 		onpointerdown?.(event);
 	}
 
-	function currentHost(event: Event): HTMLElement | null {
-		const current = event.currentTarget;
-		if (!(current instanceof HTMLElement) || event.target !== current) return null;
-		return current;
-	}
-
-	function isLink(element: HTMLElement) {
-		return !nativeButton && element instanceof HTMLAnchorElement && Boolean(element.href);
-	}
-
 	function handleKeyDown(event: KeyboardEvent & { currentTarget: EventTarget & HTMLElement }) {
 		if (disabled) return;
 
@@ -155,7 +147,7 @@
 		if (!current) return;
 
 		const buttonElement = current instanceof HTMLButtonElement;
-		const link = isLink(current);
+		const link = isLink(current, nativeButton);
 		const shouldClick = nativeButton ? buttonElement : !link;
 		const isEnter = event.key === 'Enter';
 		const isSpace = event.key === ' ';
@@ -229,31 +221,6 @@
 			[rootKey]: registerRoot
 		};
 	});
-
-	function dispatchClick(target: HTMLElement, source: MouseEvent | KeyboardEvent) {
-		const view = target.ownerDocument.defaultView ?? window;
-		target.dispatchEvent(
-			new view.PointerEvent('click', {
-				bubbles: true,
-				cancelable: true,
-				composed: true,
-				detail: 0,
-				shiftKey: source.shiftKey,
-				ctrlKey: source.ctrlKey,
-				altKey: source.altKey,
-				metaKey: source.metaKey
-			})
-		);
-	}
-
-	function toCssStyle(style: Record<string, string | number>): string {
-		return Object.entries(style)
-			.map(([key, declaration]) => {
-				const property = key.replace(/[A-Z]/g, (letter) => `-${letter.toLowerCase()}`);
-				return `${property}: ${declaration}`;
-			})
-			.join('; ');
-	}
 </script>
 
 {#if render}

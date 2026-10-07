@@ -8,7 +8,7 @@
 	import { untrack } from 'svelte';
 	import { createAttachmentKey, type Attachment } from 'svelte/attachments';
 	import type { HTMLAttributes } from 'svelte/elements';
-	import { runOnceAnimationsFinish } from '../checkbox/indicator-motion.js';
+	import { runOnceAnimationsFinish } from '../internal/animations-finished.js';
 	import { getStateAttributesProps } from '../internal/state-attributes.js';
 	import { panelStateAttributesMapping } from './attributes.js';
 	import type { TransitionStatus } from '../collapsible/types.js';

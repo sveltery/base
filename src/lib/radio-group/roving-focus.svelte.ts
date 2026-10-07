@@ -8,14 +8,10 @@
 // are handled on the group, not on each radio. No element renderer.
 
 import { untrack } from 'svelte';
+import { byDocumentOrder } from '../internal/document-order.js';
 import type { RadioGroupRovingFocus } from '../radio/group-context.js';
 
 const ARROWS = new Set(['ArrowUp', 'ArrowDown', 'ArrowLeft', 'ArrowRight']);
-
-function byDocumentOrder(a: HTMLElement, b: HTMLElement) {
-	if (a === b) return 0;
-	return a.compareDocumentPosition(b) & Node.DOCUMENT_POSITION_FOLLOWING ? -1 : 1;
-}
 
 function isVisible(element: HTMLElement) {
 	if (!element.isConnected) return false;

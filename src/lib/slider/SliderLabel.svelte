@@ -12,7 +12,9 @@
 	import { getStateAttributesProps } from '../internal/state-attributes.js';
 	import { sliderStateAttributes } from './attributes.js';
 	import { useSliderContext } from './context.svelte.js';
-	import { focusElement, getTarget, isElement, ownerDocument } from './dom.js';
+	import { ownerDocument } from '../internal/owner.js';
+	import { getTarget } from '../internal/shadow-dom.js';
+	import { focusElement, isElement } from './dom.js';
 	import type { SliderLabelProps, SliderRootState } from './types.js';
 
 	let { render, children, onclick, onpointerdown, ...elementProps }: SliderLabelProps = $props();

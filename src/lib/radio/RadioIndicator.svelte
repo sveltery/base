@@ -12,7 +12,7 @@
 	import type { HTMLAttributes } from 'svelte/elements';
 	import { radioIndicatorAttributes } from './attributes.js';
 	import { useRadioContext } from './context.js';
-	import { runOnceAnimationsFinish } from './indicator-motion.js';
+	import { runOnceAnimationsFinish } from '../internal/animations-finished.js';
 	import type { RadioIndicatorPhase, RadioIndicatorProps, RadioIndicatorState } from './types.js';
 
 	let { keepMounted = false, render, children, ...elementProps }: RadioIndicatorProps = $props();

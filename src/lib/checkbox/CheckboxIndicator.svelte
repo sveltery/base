@@ -12,7 +12,7 @@
 	import type { HTMLAttributes } from 'svelte/elements';
 	import { checkboxIndicatorAttributes } from './attributes.js';
 	import { useCheckboxContext } from './context.js';
-	import { runOnceAnimationsFinish } from './indicator-motion.js';
+	import { runOnceAnimationsFinish } from '../internal/animations-finished.js';
 	import type {
 		CheckboxIndicatorPhase,
 		CheckboxIndicatorProps,
