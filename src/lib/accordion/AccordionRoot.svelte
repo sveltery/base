@@ -25,6 +25,7 @@
 		...elementProps
 	}: AccordionRootProps = $props();
 
+	const EMPTY: unknown[] = [];
 	const accordion = new AccordionRootModel(
 		() => disabled,
 		() => multiple,
@@ -33,31 +34,11 @@
 		() => keepMounted ?? false,
 		() => onValueChange
 	);
-	accordion.values = value ?? [];
-
-	// A parent push and our own commit both assign `value`. The write count
-	// tells them apart, so a click is kept until the parent passes a new array.
-	let writes = 0;
-	let seenWrites = 0;
-	let seenValue = value;
+	accordion.readValues = () => value ?? EMPTY;
 	accordion.commit = (next) => {
-		writes += 1;
 		value = next;
-		accordion.values = next;
 	};
 	setAccordionRootContext(accordion);
-
-	$effect.pre(() => {
-		const incoming = value;
-		if (writes !== seenWrites) {
-			seenWrites = writes;
-			seenValue = incoming;
-			return;
-		}
-		if (incoming === seenValue) return;
-		seenValue = incoming;
-		accordion.values = incoming ?? [];
-	});
 
 	$effect(() => {
 		if (hiddenUntilFound && keepMounted === false) {

@@ -12,7 +12,7 @@
 	import { setFieldContext } from './context.svelte.js';
 	import { Labelable, setLabelableContext, useLabelableContext } from './labelable.svelte.js';
 	import { FieldRootModel } from './model.svelte.js';
-	import type { FieldRootProps, FieldRootState } from './types.js';
+	import type { FieldRootActions, FieldRootProps, FieldRootState } from './types.js';
 
 	const uid = $props.id();
 
@@ -52,16 +52,18 @@
 	});
 	setFieldContext(field);
 
-	const actionsHandle = {
+	const actionsHandle: FieldRootActions = {
 		validate() {
 			field.validateField();
 		}
 	};
-	// Read the incoming bindable before replacing it so the publish is a real
-	// assignment. Comparing the proxy with `!==` does not work.
-	void actions;
-	actions = actionsHandle;
-	void actions.validate;
+	publishActions(actions);
+
+	function publishActions(current: FieldRootActions | undefined) {
+		const incoming = current?.validate;
+		actions = actionsHandle;
+		return actions.validate ?? incoming;
+	}
 
 	const state: FieldRootState = $derived(field.state);
 	const hostProps: HTMLAttributes<HTMLDivElement> = $derived({

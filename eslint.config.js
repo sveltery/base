@@ -12,8 +12,8 @@ const gitignorePath = path.resolve(import.meta.dirname, '.gitignore');
 export default defineConfig(
 	includeIgnoreFile(gitignorePath),
 	{
-		// Rule fixtures are linted by eslint/no-react-refs.spec.ts, including the
-		// fixture the rule must reject. They are not product source.
+		// Rule fixtures are linted by eslint/*.spec.ts, including the fixture the
+		// rule must reject. They are not product source.
 		ignores: ['eslint/fixtures/**']
 	},
 	js.configs.recommended,
@@ -75,7 +75,12 @@ export default defineConfig(
 		ignores: ['src/routes/fixtures/**/react-reference.ts'],
 		plugins: { sveltery },
 		rules: {
-			'sveltery/no-react-refs': 'error'
+			'sveltery/no-previous-value-effect': 'error',
+			'sveltery/no-process-env': 'error',
+			'sveltery/no-prop-state-sync': 'error',
+			'sveltery/no-react-refs': 'error',
+			'sveltery/no-split-effect-lifecycle': 'error',
+			'sveltery/no-void-signal-read': 'error'
 		}
 	}
 );

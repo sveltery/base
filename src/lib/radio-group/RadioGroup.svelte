@@ -6,7 +6,6 @@
 	Field registration and inputRef are not ported. The radios are the existing Radio parts.
 -->
 <script lang="ts">
-	import { untrack } from 'svelte';
 	import { createAttachmentKey, type Attachment } from 'svelte/attachments';
 	import type { HTMLAttributes } from 'svelte/elements';
 	import { getStateAttributesProps } from '../internal/state-attributes.js';
@@ -33,57 +32,40 @@
 		...elementProps
 	}: RadioGroupProps = $props();
 
-	// Copied so a child read during render sees the initial props on the server,
-	// before effects run. Later parent updates flow through the pre effect.
-	let disabledState = $state(untrack(() => Boolean(disabled)));
-	let readOnlyState = $state(untrack(() => Boolean(readOnly)));
-	let requiredState = $state(untrack(() => Boolean(required)));
-	let nameState = $state(untrack(() => name));
-	let formId = $state(untrack(() => form));
-	// Raw state keeps object identity. A proxied value would fail === in Radio.
-	let checkedValue = $state.raw(untrack(() => value));
 	let touched = $state(false);
-
-	let writes = 0;
-	let seenWrites = 0;
-	let seenValue = value;
 
 	const roving = new RadioGroupRoving();
 	const formContext = useFormContext();
 	const fieldset = useFieldsetRootContext(true);
 	const arrowKey = createAttachmentKey();
 
-	function commit(next: unknown) {
-		writes += 1;
-		value = next;
-		checkedValue = next;
-	}
-
 	function setCheckedValue(next: unknown, details: RadioRootChangeEventDetails) {
 		onValueChange?.(next, details);
 		if (details.isCanceled) return;
-		commit(next);
+		const changed = !Object.is(next, value);
+		value = next;
+		if (changed) formContext.clearErrors(name);
 	}
 
 	setRadioGroupContext({
 		roving,
 		get disabled() {
-			return disabledState;
+			return disabled;
 		},
 		get readOnly() {
-			return readOnlyState;
+			return readOnly;
 		},
 		get required() {
-			return requiredState;
+			return required;
 		},
 		get name() {
-			return nameState;
+			return name;
 		},
 		get form() {
-			return formId;
+			return form;
 		},
 		get checkedValue() {
-			return checkedValue;
+			return value;
 		},
 		get touched() {
 			return touched;
@@ -93,40 +75,6 @@
 			touched = next;
 		},
 		registerInput() {}
-	});
-
-	$effect.pre(() => {
-		disabledState = Boolean(disabled);
-		readOnlyState = Boolean(readOnly);
-		requiredState = Boolean(required);
-		nameState = name;
-		formId = form;
-
-		const incoming = value;
-		if (writes !== seenWrites) {
-			seenWrites = writes;
-			seenValue = incoming;
-			return;
-		}
-		if (Object.is(incoming, seenValue)) return;
-		seenValue = incoming;
-		checkedValue = incoming;
-	});
-
-	let sawChecked = false;
-	let previousChecked: unknown = value;
-
-	$effect(() => {
-		const current = checkedValue;
-		const fieldName = nameState;
-		if (!sawChecked) {
-			sawChecked = true;
-			previousChecked = current;
-			return;
-		}
-		if (Object.is(current, previousChecked)) return;
-		previousChecked = current;
-		formContext.clearErrors(fieldName);
 	});
 
 	function watchArrows(element: HTMLElement) {
@@ -152,9 +100,9 @@
 	}
 
 	const groupState: RadioGroupState = $derived({
-		disabled: disabledState,
-		readOnly: readOnlyState,
-		required: requiredState
+		disabled,
+		readOnly,
+		required
 	});
 
 	const hostProps: HTMLAttributes<HTMLDivElement> & Record<symbol, Attachment<HTMLElement>> =
@@ -164,9 +112,9 @@
 			return {
 				...getStateAttributesProps(groupState),
 				role: 'radiogroup',
-				...(disabledState ? { 'aria-disabled': true as const } : {}),
-				...(readOnlyState ? { 'aria-readonly': true as const } : {}),
-				...(requiredState ? { 'aria-required': true as const } : {}),
+				...(disabled ? { 'aria-disabled': true as const } : {}),
+				...(readOnly ? { 'aria-readonly': true as const } : {}),
+				...(required ? { 'aria-required': true as const } : {}),
 				...elementProps,
 				...(labelledBy ? { 'aria-labelledby': labelledBy } : {}),
 				onfocus: handleFocus,

@@ -51,27 +51,14 @@
 	let inputEl = $state<HTMLInputElement | null>(null);
 	let hadExplicitId = false;
 	let seeded = false;
-	let sawControlledValue = false;
-	let previousSerialized: string | undefined;
-
-	$effect(() => {
-		if (!isControlled) return;
-		const current = serialized;
-		if (!sawControlledValue) {
-			sawControlledValue = true;
-			previousSerialized = current;
-			return;
-		}
-		if (current === undefined || current === previousSerialized) {
-			previousSerialized = current;
-			return;
-		}
-		previousSerialized = current;
-		form.clearErrors(name);
-		field.setDirty(current !== String(field.validityData.initialValue ?? ''));
-		field.change(current);
-	});
 	let blurCommitId = 0;
+
+	function publishControlled(next: string) {
+		value = next;
+		form.clearErrors(name);
+		field.setDirty(next !== String(field.validityData.initialValue ?? ''));
+		field.change(next);
+	}
 
 	const controlState: FieldControlState = $derived({
 		...field.state,
@@ -90,17 +77,12 @@
 		if (explicit !== undefined) {
 			hadExplicitId = true;
 			labelable.registerControlId(controlSource, explicit);
-			return;
-		}
-		if (hadExplicitId) {
+		} else if (hadExplicitId) {
 			labelable.registerControlId(controlSource, fallbackId);
-			return;
+		} else {
+			labelable.registerControlId(controlSource, undefined);
+			labelable.resetControlId();
 		}
-		labelable.registerControlId(controlSource, undefined);
-		labelable.resetControlId();
-	});
-
-	$effect(() => {
 		return () => {
 			labelable.registerControlId(controlSource, undefined);
 		};
@@ -119,13 +101,13 @@
 			if (defaultValue != null && element.value === '') element.value = String(defaultValue);
 		}
 
-		const domValue = element?.value;
-		const filledSource = linked ? current : domValue;
+		const domValueNow = element?.value;
+		const filledSource = linked ? current : domValueNow;
 		if (filledSource !== undefined) field.setFilled(filledSource !== '');
 
 		if (!active) {
 			field.registerControl(controlSource, undefined);
-			return;
+			return () => field.registerControl(controlSource, undefined);
 		}
 
 		field.registerControl(controlSource, {
@@ -135,9 +117,6 @@
 			element,
 			getValue: () => element?.value
 		});
-	});
-
-	$effect(() => {
 		return () => field.registerControl(controlSource, undefined);
 	});
 
@@ -160,7 +139,7 @@
 
 		if (isControlled) {
 			if (details.isCanceled) event.currentTarget.value = domValue();
-			else value = inputValue;
+			else publishControlled(inputValue);
 			return;
 		}
 

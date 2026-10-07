@@ -64,12 +64,22 @@
 
 	let hadExplicitId = false;
 
+	let model: NumberFieldModel;
+
 	function writeValue(next: number | null) {
+		const previous = current;
 		if (linked) value = next;
 		else uncontrolled = next;
+		if (Object.is(previous, next)) return;
+		form.clearErrors(name);
+		if (model.blockRevalidation && !field?.shouldValidateOnChange()) {
+			model.blockRevalidation = false;
+			return;
+		}
+		field?.change(next);
 	}
 
-	const model = new NumberFieldModel({
+	model = new NumberFieldModel({
 		getValue: () => current,
 		writeValue,
 		getMin: () => min,
@@ -99,18 +109,13 @@
 		if (idProp !== undefined) {
 			hadExplicitId = true;
 			labelable.registerControlId(idSource, idProp);
-			return;
-		}
-		if (hadExplicitId) {
+		} else if (hadExplicitId) {
 			labelable.registerControlId(idSource, generatedId);
-			return;
+		} else {
+			labelable.registerControlId(idSource, undefined);
+			labelable.resetControlId();
 		}
-		labelable.registerControlId(idSource, undefined);
-		labelable.resetControlId();
-	});
-
-	$effect(() => {
-		return () => labelable?.registerControlId(idSource, undefined);
+		return () => labelable.registerControlId(idSource, undefined);
 	});
 
 	const rootState: NumberFieldRootState = $derived(model.state);

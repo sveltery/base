@@ -23,33 +23,18 @@
 
 	// Captured once. A later click must not turn an omitted value into a parent-owned one.
 	const parentOwned = value !== undefined;
-	const tabs = new TabsRootModel(parentOwned, parentOwned ? value : 0);
-
-	let writes = 0;
-	let seenWrites = 0;
-	let seenValue = value;
-	tabs.publish = (next) => {
-		writes += 1;
+	const tabs = new TabsRootModel(parentOwned, parentOwned ? (value ?? null) : 0);
+	tabs.readOrientation = () => orientation;
+	tabs.readOnValueChange = () => onValueChange;
+	tabs.readExternal = () => (value == null ? null : value);
+	tabs.writeValue = (next) => {
 		value = next;
+	};
+	tabs.publish = (next) => {
 		tabs.value = next;
+		value = next;
 	};
 	setTabsRootContext(tabs);
-
-	$effect.pre(() => {
-		tabs.orientation = orientation;
-		tabs.onValueChange = onValueChange;
-
-		if (!parentOwned) return;
-		const incoming = value;
-		if (writes !== seenWrites) {
-			seenWrites = writes;
-			seenValue = incoming;
-			return;
-		}
-		if (incoming === seenValue) return;
-		seenValue = incoming;
-		tabs.applyExternal(incoming);
-	});
 
 	const state: TabsRootState = $derived({
 		orientation: tabs.orientation,

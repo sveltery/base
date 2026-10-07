@@ -2,6 +2,7 @@
 // and packages/react/src/number-field/input/NumberFieldInput.tsx
 // (commit 47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c). MIT, see THIRD_PARTY_NOTICES.md.
 
+import { on } from 'svelte/events';
 import { SvelteSet } from 'svelte/reactivity';
 import { formatNumber } from '../internal/formatNumber.js';
 import {
@@ -107,18 +108,13 @@ export class NumberFieldModel {
 	 * Value the next step reads. Normally the stored number. A dirty commit can
 	 * point it at the raw parsed text for the step that follows in the same turn.
 	 */
-	baseValue: number | null = null;
+	private basePin: { source: number | null; value: number | null } | null = null;
 
 	readonly options: NumberFieldModelOptions;
 
 	constructor(options: NumberFieldModelOptions) {
 		this.options = options;
-		this.baseValue = options.getValue();
 		this.inputValue = formatNumber(options.getValue(), options.getLocale(), options.getFormat());
-
-		$effect(() => {
-			this.baseValue = this.options.getValue();
-		});
 
 		$effect(() => {
 			const value = this.options.getValue();
@@ -173,8 +169,7 @@ export class NumberFieldModel {
 				}
 			};
 
-			element.addEventListener('wheel', handleWheel, { passive: false });
-			return () => element.removeEventListener('wheel', handleWheel);
+			return on(element, 'wheel', handleWheel, { passive: false });
 		});
 
 		$effect(() => {
@@ -183,6 +178,16 @@ export class NumberFieldModel {
 			this.pendingCaret = null;
 			this.inputElement?.setSelectionRange(caret, caret);
 		});
+	}
+
+	get baseValue(): number | null {
+		const live = this.options.getValue();
+		if (this.basePin && Object.is(this.basePin.source, live)) return this.basePin.value;
+		return live;
+	}
+
+	set baseValue(next: number | null) {
+		this.basePin = { source: this.options.getValue(), value: next };
 	}
 
 	get minWithDefault() {

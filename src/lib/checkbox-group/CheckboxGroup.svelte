@@ -7,7 +7,6 @@
 	The checkboxes are the existing Checkbox parts.
 -->
 <script lang="ts">
-	import { untrack } from 'svelte';
 	import type { HTMLAttributes } from 'svelte/elements';
 	import { setCheckboxGroupContext } from '../checkbox/group-context.js';
 	import { getStateAttributesProps } from '../internal/state-attributes.js';
@@ -28,39 +27,26 @@
 		...elementProps
 	}: CheckboxGroupProps = $props();
 
-	// Copied so a child read during render sees the initial props on the server,
-	// before effects run. Later parent updates flow through the pre effect.
-	let disabledState = $state(untrack(() => Boolean(disabled)));
-	let stored = $state<string[]>(untrack(() => (Array.isArray(value) ? value : [])));
-
-	let writes = 0;
-	let seenWrites = 0;
-	let seenValue = value;
-
-	function commit(next: string[]) {
-		writes += 1;
-		value = next;
-		stored = next;
-	}
+	const EMPTY: string[] = [];
 
 	function setValue(next: string[], details: CheckboxGroupChangeEventDetails) {
 		onValueChange?.(next, details);
 		if (details.isCanceled) return;
-		commit(next);
+		value = next;
 	}
 
 	const parentModel = new CheckboxGroupParent({
-		readValue: () => stored,
+		readValue: () => (Array.isArray(value) ? value : EMPTY),
 		readAllValues: () => allValues ?? [],
 		commit: setValue
 	});
 
 	setCheckboxGroupContext({
 		get value() {
-			return stored;
+			return Array.isArray(value) ? value : EMPTY;
 		},
 		get disabled() {
-			return disabledState;
+			return Boolean(disabled);
 		},
 		get parent() {
 			return allValues === undefined ? undefined : parentModel;
@@ -68,22 +54,8 @@
 		setValue
 	});
 
-	$effect.pre(() => {
-		disabledState = Boolean(disabled);
-
-		const incoming = value;
-		if (writes !== seenWrites) {
-			seenWrites = writes;
-			seenValue = incoming;
-			return;
-		}
-		if (Object.is(incoming, seenValue)) return;
-		seenValue = incoming;
-		stored = Array.isArray(incoming) ? incoming : [];
-	});
-
 	const groupState: CheckboxGroupState = $derived({
-		disabled: disabledState
+		disabled: Boolean(disabled)
 	});
 
 	const hostProps: HTMLAttributes<HTMLDivElement> = $derived.by(() => {

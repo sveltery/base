@@ -35,26 +35,18 @@
 		return hasFormError || field.validityData.state.valid === false;
 	});
 
-	const transition = new FieldTransition(() => rendered);
-
-	let errorEl = $state<HTMLDivElement | null>(null);
-	let lastKey = $state<string | null>(null);
-	let lastMessage = $state<string | string[] | null>(null);
-
 	const message = $derived.by(() => {
 		if (!hasSpecificMatch && hasFormError) return formError;
 		if (field.validityData.errors.length > 1) return field.validityData.errors;
 		return field.validityData.error;
 	});
 
-	$effect.pre(() => {
-		if (!rendered) return;
-		const current = message;
-		const key = Array.isArray(current) ? JSON.stringify(current) : (current ?? '');
-		if (key === lastKey) return;
-		lastKey = key;
-		lastMessage = current;
-	});
+	const transition = new FieldTransition(
+		() => rendered,
+		() => message ?? null
+	);
+
+	let errorEl = $state<HTMLDivElement | null>(null);
 
 	$effect(() => {
 		if (!rendered || !id) return;
@@ -100,7 +92,7 @@
 		...(render ? { [elementKey]: remember } : {})
 	});
 
-	const visibleMessage = $derived(rendered ? message : lastMessage);
+	const visibleMessage = $derived(rendered ? message : transition.frozen);
 </script>
 
 {#snippet body(content: string | string[] | null)}

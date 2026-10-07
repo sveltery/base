@@ -56,9 +56,7 @@
 
 	$effect(() => {
 		if (!group) return;
-		void disabledState;
-		// Reads the disabled prop only. sync writes the tab stop without subscribing to it.
-		group.roving.sync();
+		group.roving.sync(disabledState);
 	});
 
 	function handleClick(event: MouseEvent & { currentTarget: EventTarget & HTMLButtonElement }) {

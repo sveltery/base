@@ -7,7 +7,6 @@
 <script lang="ts">
 	import { createAttachmentKey } from 'svelte/attachments';
 	import type { HTMLAttributes, HTMLInputAttributes } from 'svelte/elements';
-	import { useFormContext } from '../form/context.js';
 	import { useFieldContext } from '../field/context.svelte.js';
 	import { useLabelableContext } from '../field/labelable.svelte.js';
 	import { getStateAttributesProps } from '../internal/state-attributes.js';
@@ -33,7 +32,6 @@
 
 	const model = useNumberFieldContext();
 	const field = useFieldContext(true);
-	const form = useFormContext();
 	const labelable = useLabelableContext(true);
 
 	const state: NumberFieldInputState = $derived(model.state);
@@ -41,9 +39,6 @@
 	const ariaInvalid = $derived(
 		!state.disabled && (field?.invalid || field?.state.valid === false) ? true : undefined
 	);
-
-	let sawValue = false;
-	let previousValue: number | null = null;
 
 	function remember(node: HTMLElement) {
 		if (node instanceof HTMLInputElement) model.inputElement = node;
@@ -58,7 +53,7 @@
 		if (!field) return;
 		if (!active) {
 			field.registerControl(controlSource, undefined);
-			return;
+			return () => field.registerControl(controlSource, undefined);
 		}
 		field.registerControl(controlSource, {
 			id: model.options.getId(),
@@ -66,27 +61,7 @@
 			value: model.options.getValue(),
 			element
 		});
-	});
-
-	$effect(() => {
-		return () => field?.registerControl(controlSource, undefined);
-	});
-
-	$effect(() => {
-		const current = model.options.getValue();
-		if (!sawValue) {
-			sawValue = true;
-			previousValue = current;
-			return;
-		}
-		if (Object.is(current, previousValue)) return;
-		previousValue = current;
-		form.clearErrors(model.options.getName());
-		if (model.blockRevalidation && !field?.shouldValidateOnChange()) {
-			model.blockRevalidation = false;
-			return;
-		}
-		field?.change(current);
+		return () => field.registerControl(controlSource, undefined);
 	});
 
 	function handleFocus(event: FocusEvent & { currentTarget: EventTarget & HTMLInputElement }) {
