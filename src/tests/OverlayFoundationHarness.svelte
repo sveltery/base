@@ -110,7 +110,7 @@
 	data-open-state={store.open ? 'open' : 'closed'}
 >
 	<button {...triggerProps}>Open</button>
-	<button type="button" data-testid="outside">Outside</button>
+	<div data-testid="outside">Outside</div>
 	<pre data-testid="calls">{JSON.stringify(calls)}</pre>
 	<pre data-testid="statuses">{statusLog}</pre>
 	{#if store.mounted}

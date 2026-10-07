@@ -38,7 +38,7 @@ export function mountOverlayFoundationReference(
 				Dialog.Root,
 				{ modal: scenario !== 'modeless', onOpenChange: changed },
 				h(Dialog.Trigger, null, 'Open'),
-				h('button', { type: 'button', 'data-testid': 'outside' }, 'Outside'),
+				h('div', { 'data-testid': 'outside' }, 'Outside'),
 				h('pre', { 'data-testid': 'calls' }, JSON.stringify(calls)),
 				h(
 					Dialog.Portal,
