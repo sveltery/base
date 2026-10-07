@@ -22,6 +22,7 @@ export * from './number-field/index.js';
 export * from './scroll-area/index.js';
 export * from './slider/index.js';
 export * from './direction-provider/index.js';
+export * from './csp-provider/index.js';
 // Scroll area already exports this name. The explicit export keeps one public type.
 export type { TextDirection } from './direction-provider/types.js';
 export * from './otp-field/index.js';

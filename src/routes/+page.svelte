@@ -83,5 +83,9 @@
 		<li>
 			<a href="/fixtures/otp-field">OTPField</a> (add <code>&amp;reference</code> for React Base UI)
 		</li>
+		<li>
+			<a href="/fixtures/csp-provider">CSPProvider</a> (add <code>&amp;reference</code> for React Base
+			UI)
+		</li>
 	</ul>
 </main>
