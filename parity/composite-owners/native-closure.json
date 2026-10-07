@@ -488,13 +488,18 @@
     },
     {
       "file": "scripts/composite-recovery-loader.mjs",
-      "line": 52,
+      "line": 53,
       "text": "path.endsWith('/internals/composite/list/createCompositeList.svelte.ts')"
     },
     {
       "file": "scripts/composite-recovery-loader.mjs",
-      "line": 56,
+      "line": 57,
       "text": "'../parity/composite-owners/recovery/public2626-createCompositeList.svelte.ts.txt',"
+    },
+    {
+      "file": "scripts/tests/composite-loader.test.mjs",
+      "line": 13,
+      "text": "'parity/composite-owners/recovery/original/packages/react/src/internals/composite/list/CompositeList.tsx',"
     }
   ],
   "ownerModules": [

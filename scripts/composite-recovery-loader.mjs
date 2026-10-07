@@ -6,7 +6,8 @@ import { fileURLToPath } from 'node:url';
 import { createHash } from 'node:crypto';
 
 const base = createRequire(new URL('../packages/base/package.json', import.meta.url));
-const reference = createRequire(new URL('../apps/fixtures/package.json', import.meta.url));
+const referenceParent = new URL('../apps/fixtures/package.json', import.meta.url).href;
+const nativeParent = new URL('../packages/base/package.json', import.meta.url).href;
 const { compile, compileModule } = base('svelte/compiler');
 const ts = base('typescript');
 const archive = new URL('../parity/composite-owners/recovery/original/', import.meta.url);
@@ -17,10 +18,10 @@ const present = (url) => isFile(fileURLToPath(url)) || isFile(fileURLToPath(url)
 registerHooks({
   resolve(specifier, context, nextResolve) {
     if (specifier === 'react' || specifier.startsWith('react-dom/')) {
-      return nextResolve(reference.resolve(specifier), context);
+      return nextResolve(specifier, { ...context, parentURL: referenceParent });
     }
     if (specifier === 'svelte' || specifier.startsWith('svelte/')) {
-      return nextResolve(base.resolve(specifier), context);
+      return nextResolve(specifier, { ...context, parentURL: nativeParent });
     }
     if (specifier.startsWith('@base-ui/utils/')) {
       return {
@@ -28,7 +29,7 @@ registerHooks({
         shortCircuit: true,
       };
     }
-    if (specifier.startsWith('.') && context.parentURL) {
+    if ((specifier.startsWith('.') || specifier.startsWith('file:')) && context.parentURL) {
       const target = new URL(specifier, context.parentURL);
       for (const url of [
         target,

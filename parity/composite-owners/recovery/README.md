@@ -67,3 +67,9 @@ compatibility register.
 ## Fresh hosted loader failure and correction
 
 At public `656ca125`, hosted Composite run `37553156443` stopped before any behavioral assertion: the newly authored loader accepted a dependency directory as a file (`EISDIR`). Its exact retrieved log is retained. File checks now require actual files and let ordinary CommonJS resolve directories. An actual local dependency-directory witness reproduced red and then green; the maintained regression passes. This changes only newly authored test tooling. The exact a253 class and every Original/native assertion remain unchanged. Fresh hosted paired execution and all final-head gates remain mandatory; earlier Standards/Radio passes stay attributed to 656ca125.
+
+## Fresh package-resolution hook correction
+
+At public `55902a0b`, hosted Composite run `37553808050` stopped before behavioral assertions with resolve-hook recursion. Calling `require.resolve` inside that hook reentered it. The hook now delegates through Node `nextResolve` with the actual package parent URL and unchanged conditions. Local real React19.2.8/Original/witness module imports and actual CJS Svelte5.57.1 compiler loading succeed, and the native client URL resolves. Both maintained loader regressions pass. The separate ESM compiler-import attempt remains blocked by missing locate-character and is preserved raw. No behavioral pass is inferred. The exact class and every behavioral assertion remain untouched; fresh final-head hosted gates remain mandatory.
+
+The first maintained package-import regression was1/2: it exposed direct file-URL gzip archive resolution before publication. The loader now recognizes these exact file URLs using the same file checks as relative paths. Both maintained regressions actually pass2/2 after this correction; initial1/2 and final2/2 raw logs both survive. No assertion was removed or weakened.

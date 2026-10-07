@@ -159,6 +159,62 @@
       "sha256": "0d9d212337c0c8727b5cbf791008fd9c4531ef07fb513095b1a0ac3aa60205c3",
       "logicalBytes": 148,
       "logicalSha256": "be181efbedc08d69e73886037a94df1ac208ab446713516ff8f6e40ef97a5824"
+    },
+    {
+      "path": "local/composite-559-hosted.log.gz",
+      "bytes": 7125,
+      "sha256": "e165eb4d260a1cabaa7688371e822253d8d5a3e7c82b1d118f1f732325a4db77",
+      "logicalBytes": 28199,
+      "logicalSha256": "6abab5dfd754c2aa4ae6fad0b953ba976eeaab1d2db31d24e700af244280e958"
+    },
+    {
+      "path": "local/loader-package-red.log.gz",
+      "bytes": 319,
+      "sha256": "5c5ee7d424a02c81645b40646c44ef8c53fa55b886510d8bbad592a5e90c7807",
+      "logicalBytes": 917,
+      "logicalSha256": "2a3727e07300acac27301b2ac6510e1566c05545c8ea10a8771ed25caeaf401e"
+    },
+    {
+      "path": "local/loader-package-green.log.gz",
+      "bytes": 523,
+      "sha256": "b2bc650249f008407eb3422a9ce859de6021bef2a701f3973ba2b8c07861e0b0",
+      "logicalBytes": 1162,
+      "logicalSha256": "7debd255949481fd31eb022e93df264a1af6108b7ec6976e19d699ad5e9921e9"
+    },
+    {
+      "path": "local/loader-package-green-supported.log.gz",
+      "bytes": 148,
+      "sha256": "d82837b2d2775ea1612fcb76662d4ae3cacdf9f87d6921ee83581f99f0b4f133",
+      "logicalBytes": 147,
+      "logicalSha256": "7fa9f4e5da3e213732b600604670def92ce134b669a9f751adc1963e2343681a"
+    },
+    {
+      "path": "local/loader-regression-final.log.gz",
+      "bytes": 1440,
+      "sha256": "663d175e0145b35269b025a0d5c6f5a5cc1413222d6151e7c26784955d61bd5f",
+      "logicalBytes": 7618,
+      "logicalSha256": "3197f9d2aed86066bdcc4bd14c1f66754c048ed36d4bfc5be52b7c2f4c512e36"
+    },
+    {
+      "path": "local/loader-closure-final.log.gz",
+      "bytes": 118,
+      "sha256": "748d22c03e97f3bce1890110a170a46981b11c757df0e8ec11b7ca259d4e02db",
+      "logicalBytes": 148,
+      "logicalSha256": "b2282fd6cf5c71285bdba89123b7f467883c8ff5095ecf511d06f408f85ac6c2"
+    },
+    {
+      "path": "local/loader-regression-supported.log.gz",
+      "bytes": 226,
+      "sha256": "81fd6d34253581ade5ca17cfd4c0471c293ca75033d70742aaba0815454ae3c7",
+      "logicalBytes": 312,
+      "logicalSha256": "0b342270e481c63a21212a49ca455e89828524d19300519accf2ff379ffc22e0"
+    },
+    {
+      "path": "local/loader-closure-supported.log.gz",
+      "bytes": 118,
+      "sha256": "748d22c03e97f3bce1890110a170a46981b11c757df0e8ec11b7ca259d4e02db",
+      "logicalBytes": 148,
+      "logicalSha256": "b2282fd6cf5c71285bdba89123b7f467883c8ff5095ecf511d06f408f85ac6c2"
     }
   ],
   "loaderCorrection": {
@@ -168,5 +224,13 @@
     "failure": "New test loader admitted a CommonJS dependency directory as a file; EISDIR before any behavioral assertion.",
     "scope": "Newly authored test tooling only; exact class and all Source/native assertions unchanged.",
     "localRegression": "Actual directory-resolution red then green; one maintained regression passes; not behavioral Source199 acceptance."
+  },
+  "loaderPackageCorrection": {
+    "hostedHead": "55902a0b2287052124aaf5a49c5b5baa869c1477",
+    "run": 37553808050,
+    "job": 112575243189,
+    "failure": "require.resolve inside synchronous resolve hook reentered that hook; stack overflow before behavioral assertions.",
+    "correction": "Use Node nextResolve with actual package parentURL, retaining actual resolution conditions.",
+    "local": "Real React and immutable Original/witness modules load; CJS Svelte compiler loads and native client URL resolves. Initial regression1/2 failed direct file-URL gzip archive resolution; loader now handles those archive URLs exactly like relative paths. Final regressions2/2 pass. ESM compiler import attempt remains missing locate-character. No behavioral execution."
   }
 }
