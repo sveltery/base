@@ -21,6 +21,7 @@ Differences from React Base UI, all deliberate:
 - Text direction is `useDirection().direction`. Outside a provider it is `ltr`.
 - Thumb indexes come from DOM order in the slider model. There is no generic composite tag switch.
 - `setPointerCapture` is ignored when the browser rejects a synthetic pointer id, so the gesture still runs.
+- `onValueChange` keeps the original event. The next value is the first argument. The event target stays the element that fired it.
 
 ## How to get to it (user POV)
 

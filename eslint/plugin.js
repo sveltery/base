@@ -1,3 +1,4 @@
+import noClonedEvent from './no-cloned-event.js';
 import noComputedStyleDirection from './no-computed-style-direction.js';
 import noForeignContext from './no-foreign-context.js';
 import noPreviousValueEffect from './no-previous-value-effect.js';
@@ -14,6 +15,7 @@ const plugin = {
 		version: '0.0.0'
 	},
 	rules: {
+		'no-cloned-event': noClonedEvent,
 		'no-computed-style-direction': noComputedStyleDirection,
 		'no-foreign-context': noForeignContext,
 		'no-previous-value-effect': noPreviousValueEffect,
