@@ -2,7 +2,7 @@
 
 An experimental, unofficial Svelte 5 port of [Base UI](https://base-ui.com/), starting from Base UI v1.8.0 (commit [`47b40521`](https://github.com/mui/base-ui/tree/47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c)). Not affiliated with or endorsed by MUI or Base UI.
 
-The project was restarted from a fresh `sv create` library scaffold (Prettier, ESLint, Vitest with browser component tests, Playwright). It currently ships `Toggle`, `Button`, `Avatar`, `Fieldset`, and `Separator`. The package is private and unpublished.
+The project was restarted from a fresh `sv create` library scaffold (Prettier, ESLint, Vitest with browser component tests, Playwright). It currently ships `Toggle`, `Button`, `Avatar`, `Fieldset`, `Separator`, and `Meter`. The package is private and unpublished.
 
 ```svelte
 <script lang="ts">
@@ -21,6 +21,20 @@ The project was restarted from a fresh `sv create` library scaffold (Prettier, E
 <Button onclick={() => console.log('save')}>Save</Button>
 <Separator />
 <Separator orientation="vertical" />
+```
+
+```svelte
+<script lang="ts">
+	import { Meter } from '@sveltery/base';
+</script>
+
+<Meter.Root value={40}>
+	<Meter.Label>Storage</Meter.Label>
+	<Meter.Value />
+	<Meter.Track>
+		<Meter.Indicator />
+	</Meter.Track>
+</Meter.Root>
 ```
 
 ## Develop

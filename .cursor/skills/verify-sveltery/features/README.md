@@ -9,3 +9,4 @@ One row per component in `src/lib`. A run of `scripts/verify-component.sh <name>
 | Toggle    | [toggle.md](toggle.md)       | `/fixtures/toggle?case=<case>`    | ToggleGroup and Toolbar integration, `nativeButton={false}`, `value`, class/style state callbacks               |
 | Avatar    | [avatar.md](avatar.md)       | `/fixtures/avatar?case=<case>`    | Enter/exit transitions and animation completion, `class`/`style` state callbacks                                |
 | Separator | [separator.md](separator.md) | `/fixtures/separator?case=<case>` | `className`/`style` state callbacks, React render-element cloning, `ref`, Menu/Select/Toolbar separators        |
+| Meter     | [meter.md](meter.md)         | `/fixtures/meter?case=<case>`     | React `ref`, class/style state callbacks, numeric production error codes                                        |
