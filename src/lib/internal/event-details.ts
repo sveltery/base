@@ -3,7 +3,10 @@
 
 export const REASONS = {
 	none: 'none',
-	triggerPress: 'trigger-press'
+	triggerPress: 'trigger-press',
+	disabled: 'disabled',
+	missing: 'missing',
+	initial: 'initial'
 } as const;
 
 export type BaseUIChangeEventDetails<Reason extends string> = {

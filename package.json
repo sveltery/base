@@ -101,6 +101,10 @@
 		"./switch": {
 			"types": "./dist/switch/index.d.ts",
 			"svelte": "./dist/switch/index.js"
+		},
+		"./tabs": {
+			"types": "./dist/tabs/index.d.ts",
+			"svelte": "./dist/tabs/index.js"
 		}
 	},
 	"peerDependencies": {
