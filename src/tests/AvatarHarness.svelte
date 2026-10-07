@@ -121,7 +121,7 @@
 		{#if custom}
 			<Avatar.Image class="custom-host" keepMounted src={srcValue} {@attach capture}>
 				{#snippet render(props, state)}
-					<img {...props} alt="" data-status={state.imageLoadingStatus} />
+					<img {...props} alt="" data-status={state.imageLoadingStatus} data-testid="image" />
 				{/snippet}
 			</Avatar.Image>
 		{:else}

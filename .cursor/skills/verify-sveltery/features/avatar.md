@@ -19,7 +19,7 @@ Differences from React Base UI, all deliberate:
 - No `preventBaseUIHandler()`. A consumer `onload` / `onerror` runs first. `event.preventDefault()` skips the status update when the event is cancelable. Browser `load` and `error` events are not cancelable; the paired fixture dispatches a cancelable `error` for that case.
 - React prop names `srcSet`, `crossOrigin`, `referrerPolicy`, `onLoad` and `onError` are the native `srcset`, `crossorigin`, `referrerpolicy`, `onload` and `onerror`.
 
-Preserved upstream behavior: unmounting one `Avatar.Image` sets the root status to `idle` even if another image in the same root is still loaded, so the fallback renders again. See the GitHub issue filed with this port.
+Preserved upstream behavior: unmounting one `Avatar.Image` sets the root status to `idle` even if another image in the same root is still loaded, so the fallback renders again. Tracked in https://github.com/sveltery/base/issues/98.
 
 ## How to get to it (user POV)
 

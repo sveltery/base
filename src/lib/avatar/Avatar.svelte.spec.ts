@@ -388,10 +388,9 @@ describe('Avatar', () => {
 
 		it('render snippet receives props, state and consumer attachments', async () => {
 			render(AvatarHarness, { mode: 'attach', src: DATA_URI, custom: true });
-			const host = page.getByRole('img');
 
 			await expect.element(page.getByTestId('host')).toHaveTextContent('custom-host');
-			await expect.element(host).toHaveAttribute('data-status', 'loaded');
+			await expect.element(page.getByTestId('image')).toHaveAttribute('data-status', 'loaded');
 		});
 
 		it('requires a root', () => {
