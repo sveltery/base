@@ -5,7 +5,7 @@ A single radio button. Upstream: `packages/react/src/radio/root/RadioRoot.tsx` a
 ## Sub-features
 
 - `value` identifies the radio. Without a group, the radio is selected only when `value` is `''`. Any other value, including `null`, stays unchecked. Clicks, Space, and Enter do not select it. That is the upstream standalone behavior.
-- When a parent sets the radio group context, selection is `checkedValue === value` using object identity. A click, a label activation, or a focus while the group is touched calls `setCheckedValue(value, eventDetails)` with `reason: 'none'`. `eventDetails.cancel()` keeps the previous value and restores the hidden input. RadioGroup, the component that owns that context, is not ported.
+- When a parent sets the radio group context, selection is `checkedValue === value` using object identity. A click, a label activation, or a focus while the group is touched calls `setCheckedValue(value, eventDetails)` with `reason: 'none'`. `eventDetails.cancel()` keeps the previous value and restores the hidden input. The activation event passed to the group is the click that checked the input, so modifier keys are visible. RadioGroup owns that context.
 - A consumer `onclick` runs first. `event.preventDefault()` skips the radio's handling. `stopPropagation()` still selects a grouped radio, and ancestors hear that one click.
 - The root is a `<span role="radio">` with `tabindex="0"`. A hidden radio is the form control. `value` is serialized onto that input (`null` becomes `""`, objects become JSON) and is not copied onto the root. Enter never activates the radio and does not submit the form.
 - `disabled`: `aria-disabled`, `data-disabled`, and `tabindex="-1"`. There is no `disabled` attribute on the span. Clicks do not select. The hidden radio is disabled.
@@ -24,7 +24,7 @@ Differences from React Base UI, all deliberate:
 - No `preventBaseUIHandler()`. `preventDefault()` on the root click is the skip signal.
 - No dev warning when `nativeButton` does not match the host tag.
 - No Field state and no Form `clearErrors`.
-- No `RadioGroup`. Arrow keys, roving tabindex, and the composite item wrapper are not ported. The root still reads an optional group context so a later group can supply `checkedValue`, `name`, `form`, and the disabled, read-only, required, and touched flags.
+- Arrow keys and the roving tabindex live on RadioGroup. A standalone radio does not move focus with arrows. When the group context includes roving focus, this root registers its host and takes the group's tabindex. A harness can set the context without roving, and then every radio keeps `tabindex="0"`.
 
 Preserved upstream behavior:
 
@@ -55,7 +55,7 @@ Handles used by `src/routes/fixtures/radio/radio.e2e.ts`:
 
 Proof of working order: in both frameworks, only `value=""` is `aria-checked="true"` with `data-checked` and the indicator. Clicks and Space leave every other value unchecked. Enter does not select and does not submit. `disabled` and `readonly` stay off. `required` sets `data-required` without `aria-required`, and a nameless radio still submits. The SSR test checks that the server HTML already contains `role="radio"`, `aria-checked`, `data-checked` or `data-unchecked`, and `type="radio"`.
 
-Component tests (`src/lib/radio/Radio.svelte.spec.ts`) port the upstream tests that do not need Field. Tests that need a shared value use a harness context instead of `RadioGroup`. Arrow-key selection is not ported.
+Component tests (`src/lib/radio/Radio.svelte.spec.ts`) port the upstream tests that do not need Field. Tests that need a shared value use a harness context instead of `RadioGroup`. Arrow-key selection is covered by RadioGroup.
 
 ## Gotchas
 
@@ -63,5 +63,5 @@ Component tests (`src/lib/radio/Radio.svelte.spec.ts`) port the upstream tests t
 - Interacting before `data-hydrated="true"` races hydration.
 - The React reference bundles Base UI with `'use client'` directive warnings during `vite build`. They are expected noise.
 - `aria-labelledby` from a native label is applied after mount, so it is absent from the SSR HTML.
-- Standalone fixtures cannot show mutual exclusion. That waits for RadioGroup.
+- Standalone fixtures cannot show mutual exclusion. That is the RadioGroup fixture.
 - Object values use `===`. A group must store the selected value with `$state.raw`. Proxied `$state` gives the object a different identity than the radio's `value`.

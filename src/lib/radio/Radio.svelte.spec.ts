@@ -2,8 +2,8 @@
 // packages/react/src/radio/root/RadioRoot.test.tsx and
 // packages/react/src/radio/indicator/RadioIndicator.test.tsx
 // (commit 47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c). MIT, see THIRD_PARTY_NOTICES.md.
-// Field and RadioGroup are not ported. Group cases below set the context Radio.Root
-// already reads. Arrow-key roving focus belongs to RadioGroup and is not covered.
+// Field is not ported. Group cases below set the context Radio.Root already reads,
+// without RadioGroup's roving tabindex. Arrow keys are covered by RadioGroup.
 // Cases under "native Svelte" have no upstream counterpart.
 import { page, userEvent } from 'vitest/browser';
 import { describe, expect, it } from 'vitest';

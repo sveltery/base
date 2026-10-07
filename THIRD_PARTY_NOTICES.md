@@ -90,7 +90,10 @@ Parts of this package derive from [Base UI](https://github.com/mui/base-ui) v1.8
 - `src/lib/radio/RadioIndicator.svelte` from `packages/react/src/radio/indicator/RadioIndicator.tsx`, `packages/react/src/internals/useTransitionStatus.ts`, and `packages/react/src/internals/useOpenChangeComplete.tsx`
 - `src/lib/radio/indicator-motion.ts` from `packages/react/src/internals/useAnimationsFinished.ts`
 - `src/lib/radio/context.ts` from `packages/react/src/radio/root/RadioRootContext.ts`
-- `src/lib/radio/group-context.ts` from the fields `Radio.Root` reads in `packages/react/src/radio-group/RadioGroupContext.ts` (RadioGroup itself is not ported)
+- `src/lib/radio/group-context.ts` from the fields `Radio.Root` reads in `packages/react/src/radio-group/RadioGroupContext.ts`
+- `src/lib/radio-group/RadioGroup.svelte` from `packages/react/src/radio-group/RadioGroup.tsx`
+- `src/lib/radio-group/roving-focus.svelte.ts` from the linear path of `packages/react/src/internals/composite/root/useCompositeRoot.ts` with RadioGroup's `CompositeRoot` options (orientation `both`, Home/End off, Shift allowed)
+- `src/lib/radio-group/RadioGroup.svelte.spec.ts` assertions from `packages/react/src/radio-group/RadioGroup.test.tsx` that do not require Field or `inputRef`
 - `src/lib/radio/attributes.ts` from `packages/react/src/radio/utils/stateAttributesMapping.ts` (Field validity attributes omitted)
 - `src/lib/radio/label.ts` from `findAssociatedLabel` in `packages/react/src/internals/labelable-provider/useAriaLabelledBy.ts`
 - `src/lib/radio/serialize-value.ts` from `packages/react/src/internals/serializeValue.ts`
