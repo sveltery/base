@@ -28,7 +28,11 @@
 	let direction = $state<'ltr' | 'rtl'>('ltr');
 
 	const rtl = $derived(scenario === 'rtl' || (scenario === 'direction' && direction === 'rtl'));
-	const rootStyle = $derived(`width: 200px; height: 200px${rtl ? '; direction: rtl' : ''}`);
+	// pointer-events: none keeps parallel browser tests from hit-testing this
+	// tree. Dispatched events still run the part handlers.
+	const rootStyle = $derived(
+		`width: 200px; height: 200px; pointer-events: none${rtl ? '; direction: rtl' : ''}`
+	);
 	const contentStyle = $derived(
 		large ? 'width: 1000px; height: 1000px' : 'width: 100px; height: 100px'
 	);
