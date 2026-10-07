@@ -26,3 +26,4 @@ One row per component in `src/lib`. A run of `scripts/verify-component.sh <name>
 | Toolbar       | [toolbar.md](toolbar.md)               | `/fixtures/toolbar?case=<case>`        | Input, Separator, text-field arrow exceptions, scroll-into-view, ToggleGroup nesting, overlay triggers                    |
 | NumberField   | [number-field.md](number-field.md)     | `/fixtures/number-field?case=<case>`   | `className`/`style` callbacks, refs, `inputRef`, iOS keyboard mode, WebKit pointer-lock skip, Firefox scrub release delay |
 | ScrollArea    | [scroll-area.md](scroll-area.md)       | `/fixtures/scroll-area?case=<case>`    | `className`/`style` callbacks, refs, DirectionProvider, CSP `nonce` / `disableStyleElements`                              |
+| Slider        | [slider.md](slider.md)                 | `/fixtures/slider?case=<case>`         | `className`/`style` callbacks, refs, `inputRef`, `DirectionProvider`                                                      |
