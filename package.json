@@ -141,6 +141,10 @@
 		"./direction-provider": {
 			"types": "./dist/direction-provider/index.d.ts",
 			"svelte": "./dist/direction-provider/index.js"
+		},
+		"./otp-field": {
+			"types": "./dist/otp-field/index.d.ts",
+			"svelte": "./dist/otp-field/index.js"
 		}
 	},
 	"peerDependencies": {
