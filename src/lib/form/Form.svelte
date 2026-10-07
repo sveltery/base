@@ -29,7 +29,7 @@
 	// Plain flag. The focus effect reads it when `errors` changes.
 	let submitted = false;
 
-	const state: FormState = {};
+	const formState: FormState = {};
 	const emptyErrors: FormErrors = {};
 	const attachmentKey = createAttachmentKey();
 
@@ -163,7 +163,7 @@
 {/snippet}
 
 {#if render}
-	{@render render(hostProps, state, content)}
+	{@render render(hostProps, formState, content)}
 {:else}
 	<form {...hostProps} bind:this={element}>{@render content()}</form>
 {/if}
