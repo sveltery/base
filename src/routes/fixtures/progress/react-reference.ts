@@ -4,6 +4,11 @@ import { createRoot } from 'react-dom/client';
 import { Progress } from '@base-ui/react/progress';
 import { scenarioModel, type ProgressCase } from './cases.js';
 
+// Base UI's published prop types omit `data-*` attributes the DOM still accepts.
+function partProps(props: object) {
+	return props as never;
+}
+
 export function mountProgressReference(
 	node: HTMLElement,
 	scenario: ProgressCase,
@@ -72,10 +77,10 @@ export function mountProgressReference(
 		const label = showLabel
 			? h(
 					Progress.Label,
-					{
+					partProps({
 						'data-testid': 'label',
 						id: scenario === 'label' ? labelId : undefined
-					},
+					}),
 					'Upload progress'
 				)
 			: null;
@@ -84,11 +89,13 @@ export function mountProgressReference(
 			scenario === 'value-child'
 				? h(
 						Progress.Value,
-						{ 'data-testid': 'value' },
-						(formatted: string | null, raw: number | null) =>
-							`${formatted}|${raw === null ? 'null' : String(raw)}`
+						partProps({
+							'data-testid': 'value',
+							children: (formatted: string | null, raw: number | null) =>
+								`${formatted}|${raw === null ? 'null' : String(raw)}`
+						})
 					)
-				: h(Progress.Value, { 'data-testid': 'value' });
+				: h(Progress.Value, partProps({ 'data-testid': 'value' }));
 
 		return h(
 			Fragment,
@@ -109,8 +116,8 @@ export function mountProgressReference(
 				valuePart,
 				h(
 					Progress.Track,
-					{ 'data-testid': 'track' },
-					h(Progress.Indicator, { 'data-testid': 'indicator' })
+					partProps({ 'data-testid': 'track' }),
+					h(Progress.Indicator, partProps({ 'data-testid': 'indicator' }))
 				)
 			)
 		);

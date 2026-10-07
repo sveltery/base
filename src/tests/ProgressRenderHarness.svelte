@@ -17,7 +17,7 @@
 		<Progress.Track>
 			<Progress.Indicator data-testid="indicator">
 				{#snippet render(props, state)}
-					<span {...props} data-indicator-status={state.status}></span>
+					<div {...props} data-indicator-status={state.status}></div>
 				{/snippet}
 			</Progress.Indicator>
 		</Progress.Track>

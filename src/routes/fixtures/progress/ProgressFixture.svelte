@@ -1,10 +1,12 @@
 <script lang="ts">
+	import { untrack } from 'svelte';
 	import { Progress } from '#lib';
 	import { scenarioModel, type ProgressCase } from './cases.js';
 
 	let { scenario }: { scenario: ProgressCase } = $props();
 
-	const model = scenarioModel(scenario);
+	// The fixture page does not change `case` after load.
+	const model = scenarioModel(untrack(() => scenario));
 	let value = $state<number | null>(model.value);
 	let min = $state(model.min);
 	let max = $state(model.max);
