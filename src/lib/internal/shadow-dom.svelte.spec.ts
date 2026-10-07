@@ -34,8 +34,8 @@ describe('shadow-dom', () => {
 			expect(getTarget(event)).toBe(button);
 		});
 		button.dispatchEvent(new MouseEvent('click', { bubbles: true }));
-		expect(seen).not.toBeNull();
-		expect(getTarget(seen as Event)).toBe(button);
+		if (!seen) throw new Error('click was not dispatched');
+		expect(getTarget(seen)).toBe(button);
 		button.remove();
 	});
 });

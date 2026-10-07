@@ -29,7 +29,7 @@ export function contains(
 }
 
 export function getTarget(event: Event): EventTarget | null {
-	if ('composedPath' in event) {
+	if (typeof event.composedPath === 'function') {
 		return event.composedPath()[0] ?? event.target;
 	}
 	return event.target;
