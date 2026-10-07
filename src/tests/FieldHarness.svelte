@@ -16,6 +16,7 @@
 	let controlId = $state('control-id');
 	let showFirst = $state(true);
 	let controlled = $state('a');
+	let parentErrors = $state<Record<string, string>>({ email: 'stale' });
 	let dirty = $state(true);
 	let touched = $state(true);
 	let calls = $state(0);
@@ -304,6 +305,15 @@
 		<Field.Error data-testid="error" />
 	</Field.Root>
 	<output data-testid="calls">{calls}</output>
+{:else if scenario === 'parent'}
+	<Form bind:errors={parentErrors}>
+		<Field.Root name="email" validationMode="onChange" data-testid="field" validate={() => 'nope'}>
+			<Field.Control value={controlled} data-testid="control" />
+			<Field.Error data-testid="error" />
+		</Field.Root>
+	</Form>
+	<button type="button" onclick={() => (controlled = 'next')}>Set next</button>
+	<output data-testid="errors">{JSON.stringify(parentErrors)}</output>
 {:else if scenario === 'controlled'}
 	<Field.Root validationMode="onChange" validate={countedValidate} data-testid="field">
 		<Field.Control bind:value={controlled} data-testid="control" {onValueChange} />

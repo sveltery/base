@@ -1,5 +1,12 @@
 <script lang="ts">
-	import { Fieldset, Form, Radio, RadioGroup, type RadioGroupChangeEventDetails } from '#lib';
+	import {
+		Field,
+		Fieldset,
+		Form,
+		Radio,
+		RadioGroup,
+		type RadioGroupChangeEventDetails
+	} from '#lib';
 
 	type Scenario =
 		| 'plain'
@@ -18,6 +25,7 @@
 		| 'external'
 		| 'errors'
 		| 'controlled'
+		| 'parent'
 		| 'object'
 		| 'nullish'
 		| 'render'
@@ -107,6 +115,22 @@
 			<Radio.Root value="a">A</Radio.Root>
 			<Radio.Root value="b">B</Radio.Root>
 		</RadioGroup>
+	{:else if scenario === 'parent'}
+		<Form bind:errors>
+			<Field.Root
+				name="color"
+				validationMode="onChange"
+				data-testid="field"
+				validate={(next) => (next === 'a' ? 'nope' : null)}
+			>
+				<RadioGroup aria-label="Colors" name="color" value={owner}>
+					<Radio.Root value="a">A</Radio.Root>
+					<Radio.Root value="b">B</Radio.Root>
+				</RadioGroup>
+				<Field.Error data-testid="error" />
+			</Field.Root>
+		</Form>
+		<button type="button" onclick={() => (owner = 'a')}>Set A</button>
 	{:else if scenario === 'errors'}
 		<Form bind:errors>
 			<RadioGroup aria-label="Colors" name="color">

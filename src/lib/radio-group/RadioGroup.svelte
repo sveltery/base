@@ -10,6 +10,8 @@
 	import { createAttachmentKey, type Attachment } from 'svelte/attachments';
 	import type { HTMLAttributes } from 'svelte/elements';
 	import { getStateAttributesProps } from '../internal/state-attributes.js';
+	import { createControllableValue } from '../internal/controllable-value.svelte.js';
+	import { useFieldContext } from '../field/context.svelte.js';
 	import { useFormContext } from '../form/context.js';
 	import { useFieldsetRootContext } from '../fieldset/context.svelte.js';
 	import { setRadioGroupContext } from '../radio/group-context.js';
@@ -33,33 +35,34 @@
 		...elementProps
 	}: RadioGroupProps = $props();
 
-	let ownedValue = $state.raw(untrack(() => value));
 	let touched = $state(false);
-
-	function sameCommitted(live: unknown, owned: unknown) {
-		if (Object.is(live, owned)) return true;
-		if (live == null || owned == null) return false;
-		if (typeof live !== 'object' || typeof owned !== 'object') return false;
-		try {
-			return JSON.stringify(live) === JSON.stringify(owned);
-		} catch {
-			return false;
-		}
-	}
 
 	const roving = new RadioGroupRoving();
 	const formContext = useFormContext();
+	const field = useFieldContext(true);
 	const fieldset = useFieldsetRootContext(true);
 	const arrowKey = createAttachmentKey();
+
+	const controllable = createControllableValue<unknown>({
+		getProp: () => value,
+		setProp: (next) => {
+			value = next;
+		},
+		getDefault: () => untrack(() => value) as unknown,
+		onChange(next) {
+			formContext.clearErrors(name);
+			if (!field) return;
+			field.setDirty(next !== field.validityData.initialValue);
+			field.setFilled(next != null);
+			field.change(next);
+		}
+	});
 
 	function setCheckedValue(next: unknown, details: RadioRootChangeEventDetails) {
 		onValueChange?.(next, details);
 		if (details.isCanceled) return;
-		const current = sameCommitted(value, ownedValue) ? ownedValue : value;
-		const changed = !Object.is(next, current);
-		ownedValue = next;
-		value = next;
-		if (changed) formContext.clearErrors(name);
+		if (Object.is(next, controllable.value)) return;
+		controllable.set(next);
 	}
 
 	setRadioGroupContext({
@@ -80,7 +83,7 @@
 			return form;
 		},
 		get checkedValue() {
-			return sameCommitted(value, ownedValue) ? ownedValue : value;
+			return controllable.value;
 		},
 		get touched() {
 			return touched;

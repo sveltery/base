@@ -295,6 +295,16 @@ describe('RadioGroup', () => {
 			await expect.element(page.getByTestId('external')).toHaveTextContent('a');
 		});
 
+		it('clears errors, revalidates, and marks dirty when the parent changes the value', async () => {
+			render(RadioGroupComponentHarness, { scenario: 'parent' });
+			await expect.element(page.getByTestId('errors')).toHaveTextContent('{"color":"Pick one"}');
+			await expect.element(page.getByTestId('field')).not.toHaveAttribute('data-dirty');
+			await page.getByRole('button', { name: 'Set A' }).click();
+			await expect.element(page.getByTestId('errors')).toHaveTextContent('{}');
+			await expect.element(page.getByTestId('field')).toHaveAttribute('data-dirty', '');
+			await expect.element(page.getByTestId('error')).toHaveTextContent('nope');
+		});
+
 		it('clears a form error for the group name when the value changes', async () => {
 			render(RadioGroupComponentHarness, { scenario: 'errors' });
 			await expect.element(page.getByTestId('errors')).toHaveTextContent('{"color":"Pick one"}');

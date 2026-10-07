@@ -54,6 +54,7 @@ Parts of this package derive from [Base UI](https://github.com/mui/base-ui) v1.8
 - `src/lib/internal/state-attributes.ts` from `packages/react/src/internals/getStateAttributesProps.ts`
 - `src/lib/internal/valueToPercent.ts` from `packages/react/src/utils/valueToPercent.ts`
 - `src/lib/internal/clamp.ts` from `packages/utils/src/clamp.ts`
+- `src/lib/internal/controllable-value.svelte.ts` from `packages/utils/src/useControlled.ts` and `packages/react/src/internals/useValueChanged.ts`
 - `src/lib/internal/formatNumber.ts` from `packages/utils/src/formatNumber.ts`
 - `src/lib/internal/stringifyLocale.ts` from `packages/utils/src/stringifyLocale.ts` (cache key used by `formatNumber`)
 - `src/lib/internal/visuallyHidden.ts` from `packages/utils/src/visuallyHidden.ts` (nonzero lengths use explicit `px` units for native style strings)

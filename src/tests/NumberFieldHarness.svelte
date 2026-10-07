@@ -12,6 +12,7 @@
 	} = $props();
 
 	let bound = $state<number | null>(4);
+	let parentErrors = $state<Record<string, string>>({ qty: 'stale' });
 	let submitted = $state(0);
 	let values = $state('');
 
@@ -171,6 +172,17 @@
 			}}
 		/>
 	</NumberField.Root>
+{:else if scenario === 'parent'}
+	<Form bind:errors={parentErrors}>
+		<Field.Root name="qty" validationMode="onChange" data-testid="field" validate={() => 'nope'}>
+			<NumberField.Root value={bound}>
+				<NumberField.Input data-testid="control" />
+			</NumberField.Root>
+			<Field.Error data-testid="error" />
+		</Field.Root>
+	</Form>
+	<button type="button" onclick={() => (bound = 9)}>Set nine</button>
+	<output data-testid="errors">{JSON.stringify(parentErrors)}</output>
 {:else if scenario === 'orphan'}
 	<NumberField.Increment />
 {:else if scenario === 'orphan-cursor'}
