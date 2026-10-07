@@ -51,4 +51,4 @@ Component tests (`src/lib/fieldset/Fieldset.svelte.spec.ts`) port the upstream r
 
 ## Not ported
 
-Field, Checkbox, CheckboxGroup, RadioGroup and Slider reading fieldset `disabled` (the upstream tests that render those roots). The `render` snippet still receives `disabled` in `props` and `state` for a consumer to apply.
+Checkbox, CheckboxGroup, RadioGroup and Slider reading fieldset `disabled` (the upstream tests that render those roots). Field reads it. The `render` snippet still receives `disabled` in `props` and `state` for a consumer to apply.
