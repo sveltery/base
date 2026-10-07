@@ -1,6 +1,13 @@
+import { fileURLToPath } from 'node:url';
 import { describe, expect, it } from 'vitest';
 import { ESLint, type Linter } from 'eslint';
 import plugin from './plugin.js';
+
+const root = new URL('..', import.meta.url);
+
+function repoPath(relativePath: string) {
+	return fileURLToPath(new URL(relativePath, root));
+}
 
 function eslintFor(files: string[]) {
 	return new ESLint({
@@ -32,13 +39,13 @@ describe('context rules', () => {
 	it('rejects a computed direction read and a foreign context import', async () => {
 		const direction = await messages(
 			'const rtl = getComputedStyle(element).direction === "rtl";\n',
-			'/workspace/src/lib/slider/dom.ts'
+			repoPath('src/lib/slider/dom.ts')
 		);
 		expect(direction.some((message) => message.includes('useDirection()'))).toBe(true);
 
 		const foreign = await messages(
 			"import { useScrollAreaContext } from '../scroll-area/context.svelte.js';\n",
-			'/workspace/src/lib/slider/example.ts'
+			repoPath('src/lib/slider/example.ts')
 		);
 		expect(foreign.some((message) => message.includes('context module'))).toBe(true);
 	});
@@ -46,19 +53,19 @@ describe('context rules', () => {
 	it('allows the internal helper, a spec, and a shared field context', async () => {
 		const helper = await messages(
 			'export const rtl = getComputedStyle(element).direction;\n',
-			'/workspace/src/lib/internal/text-direction.ts'
+			repoPath('src/lib/internal/text-direction.ts')
 		);
 		expect(helper).toEqual([]);
 
 		const spec = await messages(
 			'expect(getComputedStyle(node).direction).toBe("rtl");\n',
-			'/workspace/src/lib/slider/Slider.svelte.spec.ts'
+			repoPath('src/lib/slider/Slider.svelte.spec.ts')
 		);
 		expect(spec).toEqual([]);
 
 		const field = await messages(
 			"import { useFieldContext } from '../field/context.svelte.js';\n",
-			'/workspace/src/lib/slider/example.ts'
+			repoPath('src/lib/slider/example.ts')
 		);
 		expect(field).toEqual([]);
 	});
