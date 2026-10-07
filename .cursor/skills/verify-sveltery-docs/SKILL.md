@@ -1,9 +1,11 @@
 ---
 name: verify-sveltery-docs
-description: Verify the Sveltery Base docs site, the web UI at /docs in the fixtures app. Use when a change touches docs pages, docs chrome, or the live Dialog example and you need to launch the preview and drive it in a browser.
+description: Secondary check for the Sveltery Base docs site at /docs. Use only after component verification, when a change touches docs pages, docs chrome, or the live Dialog example on the docs page.
 ---
 
 # Verify the Sveltery Base docs site
+
+Secondary. Component working order comes first: use [verify-sveltery-components](../verify-sveltery-components/SKILL.md). Use this skill when the change is the docs pages themselves.
 
 The reader-facing surface is the experimental docs preview inside `@sveltery/fixtures`. Browse `http://127.0.0.1:5173/docs`. Pages are prose plus one interactive example, the live Dialog. There is no auth, database, or saved user data.
 
