@@ -5,11 +5,17 @@ import svelte from 'eslint-plugin-svelte';
 import { defineConfig, includeIgnoreFile } from 'eslint/config';
 import globals from 'globals';
 import ts from 'typescript-eslint';
+import sveltery from './eslint/plugin.js';
 
 const gitignorePath = path.resolve(import.meta.dirname, '.gitignore');
 
 export default defineConfig(
 	includeIgnoreFile(gitignorePath),
+	{
+		// Rule fixtures are linted by src/eslint/no-react-refs.spec.ts, including the
+		// fixture the rule must reject. They are not product source.
+		ignores: ['eslint/fixtures/**']
+	},
 	js.configs.recommended,
 	ts.configs.recommended,
 	svelte.configs.recommended,
@@ -60,6 +66,16 @@ export default defineConfig(
 				'error',
 				{ argsIgnorePattern: '^_', varsIgnorePattern: '^_' }
 			]
+		}
+	},
+	{
+		// Svelte has no React refs. React reference fixtures are the comparison
+		// implementation and may keep React's own ref APIs.
+		files: ['src/**'],
+		ignores: ['src/routes/fixtures/**/react-reference.ts'],
+		plugins: { sveltery },
+		rules: {
+			'sveltery/no-react-refs': 'error'
 		}
 	}
 );
