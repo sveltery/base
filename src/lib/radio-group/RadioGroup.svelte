@@ -33,9 +33,19 @@
 		...elementProps
 	}: RadioGroupProps = $props();
 
-	const parentOwned = value !== undefined;
-	let ownedValue = $state.raw(untrack(() => (parentOwned ? undefined : value)));
+	let ownedValue = $state.raw(untrack(() => value));
 	let touched = $state(false);
+
+	function sameCommitted(live: unknown, owned: unknown) {
+		if (Object.is(live, owned)) return true;
+		if (live == null || owned == null) return false;
+		if (typeof live !== 'object' || typeof owned !== 'object') return false;
+		try {
+			return JSON.stringify(live) === JSON.stringify(owned);
+		} catch {
+			return false;
+		}
+	}
 
 	const roving = new RadioGroupRoving();
 	const formContext = useFormContext();
@@ -45,9 +55,9 @@
 	function setCheckedValue(next: unknown, details: RadioRootChangeEventDetails) {
 		onValueChange?.(next, details);
 		if (details.isCanceled) return;
-		const current = parentOwned ? value : ownedValue;
+		const current = sameCommitted(value, ownedValue) ? ownedValue : value;
 		const changed = !Object.is(next, current);
-		if (!parentOwned) ownedValue = next;
+		ownedValue = next;
 		value = next;
 		if (changed) formContext.clearErrors(name);
 	}
@@ -70,7 +80,7 @@
 			return form;
 		},
 		get checkedValue() {
-			return parentOwned ? value : ownedValue;
+			return sameCommitted(value, ownedValue) ? ownedValue : value;
 		},
 		get touched() {
 			return touched;
