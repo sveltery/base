@@ -6,3 +6,4 @@ One row per component in `src/lib`. A run of `scripts/verify-component.sh <name>
 | --------- | ---------------------- | ------------------------------ | ------------------------------------------------------------------------------------------------- |
 | Button    | [button.md](button.md) | `/fixtures/button?case=<case>` | Composite and Toolbar integration, `nativeButton` host-tag warnings, class/style state callbacks  |
 | Toggle    | [toggle.md](toggle.md) | `/fixtures/toggle?case=<case>` | ToggleGroup and Toolbar integration, `nativeButton={false}`, `value`, class/style state callbacks |
+| Avatar    | [avatar.md](avatar.md) | `/fixtures/avatar?case=<case>` | Enter/exit transitions and animation completion, `class`/`style` state callbacks                  |
