@@ -22,3 +22,4 @@ One row per component in `src/lib`. A run of `scripts/verify-component.sh <name>
 | Radio       | [radio.md](radio.md)               | `/fixtures/radio?case=<case>`        | Field, `inputRef`, `className`/`style` callbacks, host-tag warnings                                             |
 | RadioGroup  | [radio-group.md](radio-group.md)   | `/fixtures/radio-group?case=<case>`  | Field, `inputRef`, `className`/`style` callbacks, scroll-into-view, text-field arrow exceptions                 |
 | Tabs        | [tabs.md](tabs.md)                 | `/fixtures/tabs?case=<case>`         | Pre-hydration indicator script, scroll-into-view, shadow-boundary offsets, `className`/`style` callbacks, refs  |
+| Toolbar     | [toolbar.md](toolbar.md)           | `/fixtures/toolbar?case=<case>`      | Input, Separator, text-field arrow exceptions, scroll-into-view, ToggleGroup nesting, overlay triggers          |
