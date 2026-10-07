@@ -4,9 +4,10 @@ One row per component in `src/lib`. A run of `scripts/verify-component.sh <name>
 
 | Component   | Feature file                       | Fixture route                        | Not ported                                                                                                      |
 | ----------- | ---------------------------------- | ------------------------------------ | --------------------------------------------------------------------------------------------------------------- |
+| Accordion   | [accordion.md](accordion.md)       | `/fixtures/accordion?case=<case>`    | React.Activity animation resume, `className`/`style` callbacks, refs, roving focus (`orientation`, `loopFocus`) |
 | Button      | [button.md](button.md)             | `/fixtures/button?case=<case>`       | Composite and Toolbar integration, `nativeButton` host-tag warnings, class/style state callbacks                |
 | Checkbox    | [checkbox.md](checkbox.md)         | `/fixtures/checkbox?case=<case>`     | Field, CheckboxGroup, `parent`, `inputRef`, `className`/`style` callbacks, host-tag warnings                    |
-| Collapsible | [collapsible.md](collapsible.md)   | `/fixtures/collapsible?case=<case>`  | Accordion integration, React.Activity animation resume, `className`/`style` callbacks, refs, host-tag warnings  |
+| Collapsible | [collapsible.md](collapsible.md)   | `/fixtures/collapsible?case=<case>`  | React.Activity animation resume, `className`/`style` callbacks, refs, host-tag warnings                         |
 | Fieldset    | [fieldset.md](fieldset.md)         | `/fixtures/fieldset?case=<case>`     | Field, Checkbox, CheckboxGroup, RadioGroup and Slider disabled integration; `className`/`style` state callbacks |
 | Toggle      | [toggle.md](toggle.md)             | `/fixtures/toggle?case=<case>`       | Toolbar integration, `nativeButton={false}`, class/style state callbacks                                        |
 | ToggleGroup | [toggle-group.md](toggle-group.md) | `/fixtures/toggle-group?case=<case>` | Toolbar integration, `className`/`style` state callbacks, grid composite, scroll-into-view                      |
