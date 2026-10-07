@@ -25,5 +25,22 @@
 		return () => labelable.registerControlId(controlSource, undefined);
 	});
 
+	const css = {
+		registerOverflowProperties() {}
+	};
+	const motion = {
+		observeViewportSize() {
+			return () => {};
+		}
+	};
+
+	$effect(() => {
+		css.registerOverflowProperties();
+	});
+
+	$effect(() => {
+		return motion.observeViewportSize();
+	});
+
 	void remember;
 </script>

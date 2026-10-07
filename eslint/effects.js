@@ -124,11 +124,7 @@ export function isCleanupOnly(fn) {
 	const only = /** @type {{ type?: string, argument?: unknown }} */ (body.body[0]);
 	if (only.type !== 'ReturnStatement' || !only.argument) return false;
 	const arg = unwrap(only.argument);
-	return (
-		arg?.type === 'ArrowFunctionExpression' ||
-		arg?.type === 'FunctionExpression' ||
-		arg?.type === 'CallExpression'
-	);
+	return arg?.type === 'ArrowFunctionExpression' || arg?.type === 'FunctionExpression';
 }
 
 /**

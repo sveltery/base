@@ -137,6 +137,7 @@ describe('sveltery/no-split-effect-lifecycle', () => {
 		const { source, messages } = await messagesFor('split-lifecycle.pass.svelte', ruleName);
 		expect(source).toContain("from 'svelte/events'");
 		expect(source).toContain('return () => labelable.registerControlId');
+		expect(source).toContain('return motion.observeViewportSize()');
 		expect(messages).toEqual([]);
 	});
 });
