@@ -1,3 +1,4 @@
+// @ts-nocheck — visitors walk ESLint, TypeScript, and Svelte nodes. Behavior is covered by src/eslint/no-react-refs.spec.ts.
 /**
  * Reject React element and lifecycle refs in Svelte source.
  *
