@@ -183,6 +183,9 @@ Parts of this package derive from [Base UI](https://github.com/mui/base-ui) v1.8
 - `src/lib/otp-field/dom.ts` from `packages/utils/src/shadowDom.ts` (`contains`), `packages/utils/src/owner.ts`, `packages/react/src/floating-ui-react/utils/event.ts` (`stopEvent`), and the native-label lookup in `useAriaLabelledBy.ts`
 - `src/lib/otp-field/otp.spec.ts` assertions from `packages/react/src/otp-field/utils/otp.test.ts`
 - `src/lib/otp-field/OTPField.svelte.spec.ts` assertions from `packages/react/src/otp-field/**/*.test.tsx` that do not require React refs, `className` callbacks, or `DirectionProvider` (direction is the input's used CSS `direction`)
+- `src/lib/csp-provider/CSPProvider.svelte` from `packages/react/src/csp-provider/CSPProvider.tsx`
+- `src/lib/csp-provider/context.ts` from `packages/react/src/internals/csp-context/CSPContext.tsx`
+- `src/lib/csp-provider/CSPProvider.svelte.spec.ts` assertions from `packages/react/src/csp-provider/CSPProvider.test.tsx` (the context values those ScrollArea and Select style-tag checks depend on; the style tags themselves stay with those components)
 
 MIT License
 
