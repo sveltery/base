@@ -359,6 +359,23 @@ describe('Field', () => {
 			await expect.element(page.getByTestId('error')).toHaveTextContent('nope');
 		});
 
+		it('shows a value that arrives after an undefined start', async () => {
+			render(FieldHarness, { scenario: 'late' });
+			await expect.element(page.getByTestId('control')).toHaveValue('');
+			await expect.element(page.getByTestId('errors')).toHaveTextContent('{"email":"stale"}');
+			await page.getByRole('button', { name: 'Set later' }).click();
+			await expect.element(page.getByTestId('control')).toHaveValue('later');
+			await expect.element(page.getByTestId('errors')).toHaveTextContent('{}');
+		});
+
+		it('writes the first keystroke into an empty bind', async () => {
+			render(FieldHarness, { scenario: 'typed' });
+			await expect.element(page.getByTestId('typed')).toHaveTextContent('none');
+			await page.getByTestId('control').fill('hi');
+			await expect.element(page.getByTestId('control')).toHaveValue('hi');
+			await expect.element(page.getByTestId('typed')).toHaveTextContent('hi');
+		});
+
 		it('syncs and validates when the bound value changes', async () => {
 			render(FieldHarness, {
 				scenario: 'controlled',

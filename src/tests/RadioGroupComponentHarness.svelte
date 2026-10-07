@@ -26,6 +26,7 @@
 		| 'external'
 		| 'errors'
 		| 'controlled'
+		| 'pick'
 		| 'parent'
 		| 'object'
 		| 'nullish'
@@ -47,6 +48,7 @@
 	let showLast = $state(true);
 	let explicit = $state(true);
 	let owner = $state<string | undefined>('b');
+	let picked = $state<string | undefined>();
 	let errors = $state<Record<string, string>>({ color: 'Pick one' });
 	let calls = $state<{ value: string; reason: string; canceled: boolean; shiftKey: boolean }[]>([]);
 	let submitted = $state(0);
@@ -221,6 +223,13 @@
 				<Radio.Root value="b" data-testid="b">B</Radio.Root>
 				<Radio.Root value="c" data-testid="c">C</Radio.Root>
 			</RadioGroup>
+		{:else if scenario === 'pick'}
+			<input type="checkbox" aria-label="Owner B" checked={picked === 'b'} />
+			<RadioGroup aria-label="Colors" bind:value={picked}>
+				<Radio.Root value="a">A</Radio.Root>
+				<Radio.Root value="b">B</Radio.Root>
+			</RadioGroup>
+			<output data-testid="picked">{picked ?? 'none'}</output>
 		{:else if scenario === 'controlled'}
 			<RadioGroup aria-label="Colors" value={owner} onValueChange={record}>
 				<Radio.Root value="a">A</Radio.Root>

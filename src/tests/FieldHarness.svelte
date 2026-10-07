@@ -16,6 +16,8 @@
 	let controlId = $state('control-id');
 	let showFirst = $state(true);
 	let controlled = $state('a');
+	let late = $state<string | undefined>(undefined);
+	let typed = $state<string | number | null | undefined>();
 	let parentErrors = $state<Record<string, string>>({ email: 'stale' });
 	let dirty = $state(true);
 	let touched = $state(true);
@@ -314,6 +316,20 @@
 	</Form>
 	<button type="button" onclick={() => (controlled = 'next')}>Set next</button>
 	<output data-testid="errors">{JSON.stringify(parentErrors)}</output>
+{:else if scenario === 'late'}
+	<Form bind:errors={parentErrors}>
+		<Field.Root name="email" validationMode="onChange" data-testid="field" validate={() => 'nope'}>
+			<Field.Control value={late} data-testid="control" />
+			<Field.Error data-testid="error" />
+		</Field.Root>
+	</Form>
+	<button type="button" onclick={() => (late = 'later')}>Set later</button>
+	<output data-testid="errors">{JSON.stringify(parentErrors)}</output>
+{:else if scenario === 'typed'}
+	<Field.Root>
+		<Field.Control bind:value={typed} data-testid="control" />
+	</Field.Root>
+	<output data-testid="typed">{typed ?? 'none'}</output>
 {:else if scenario === 'controlled'}
 	<Field.Root validationMode="onChange" validate={countedValidate} data-testid="field">
 		<Field.Control bind:value={controlled} data-testid="control" {onValueChange} />

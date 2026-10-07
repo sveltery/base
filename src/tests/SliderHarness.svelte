@@ -82,6 +82,8 @@
 		knob?: boolean;
 	} = $props();
 
+	let fresh = $state<number | undefined>();
+	let cleared = $state<number | undefined>(40);
 	let bound = $state<number | readonly number[]>(
 		untrack(() => (Array.isArray(defaultValue) ? [...defaultValue] : defaultValue))
 	);
@@ -163,6 +165,39 @@
 				</Slider.Track>
 			</Slider.Control>
 		</Slider.Root>
+	{:else if scenario === 'fresh'}
+		<Slider.Root
+			bind:value={fresh}
+			defaultValue={30}
+			{min}
+			{max}
+			{step}
+			{locale}
+			data-testid="root"
+		>
+			<Slider.Control data-testid="control">
+				<Slider.Track>
+					<Slider.Thumb />
+				</Slider.Track>
+			</Slider.Control>
+		</Slider.Root>
+		<output data-testid="bound">{fresh ?? 'none'}</output>
+	{:else if scenario === 'clear'}
+		<Slider.Root
+			value={cleared}
+			defaultValue={10}
+			min={0}
+			max={100}
+			locale="en-US"
+			data-testid="root"
+		>
+			<Slider.Control data-testid="control">
+				<Slider.Track>
+					<Slider.Thumb />
+				</Slider.Track>
+			</Slider.Control>
+		</Slider.Root>
+		<button type="button" data-testid="clear" onclick={() => (cleared = undefined)}>Clear</button>
 	{:else if scenario === 'bound'}
 		<Slider.Root
 			bind:value={bound}
