@@ -3,6 +3,12 @@
 
 import type { FieldValidityData } from '../form/types.js';
 
+/**
+ * `Field.Control` treats this as an omitted `value`, so the input stays uncontrolled.
+ * `Input` binds the same sentinel through. A per-instance symbol would look controlled.
+ */
+export const FIELD_VALUE_UNSET = Symbol('field-control-value');
+
 export const DEFAULT_VALIDITY_STATE: FieldValidityData['state'] = {
 	badInput: false,
 	customError: false,

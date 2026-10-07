@@ -40,6 +40,8 @@ Parts of this package derive from [Base UI](https://github.com/mui/base-ui) v1.8
 - `src/lib/field/attributes.ts` from `packages/react/src/internals/field-constants/constants.ts` and `packages/react/src/internals/stateAttributesMapping.ts`
 - `src/lib/field/context.svelte.ts` from `packages/react/src/internals/field-root-context/FieldRootContext.ts` and `packages/react/src/field/item/FieldItemContext.ts`
 - `src/lib/field/Field.svelte.spec.ts` assertions from `packages/react/src/field/**/*.test.tsx` that do not require Checkbox, Radio, or NumberField
+- `src/lib/input/Input.svelte` from `packages/react/src/input/Input.tsx` (delegates to `Field.Control`)
+- `src/lib/input/Input.svelte.spec.ts` assertions from `packages/react/src/input/Input.test.tsx` and the textarea host in `packages/react/src/input/Input.spec.tsx`
 - `src/lib/separator/Separator.svelte` from `packages/react/src/separator/Separator.tsx`
 - `src/lib/separator/Separator.svelte.spec.ts` assertions from `packages/react/src/separator/Separator.test.tsx`
 - `src/lib/toggle/Toggle.svelte` from `packages/react/src/toggle/Toggle.tsx`, standalone and inside ToggleGroup

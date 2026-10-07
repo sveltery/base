@@ -1,0 +1,106 @@
+<script lang="ts">
+	import { Field, Form, Input } from '#lib';
+
+	let {
+		scenario = 'plain',
+		onValueChange
+	}: {
+		scenario?: string;
+		onValueChange?: (value: string, details: { cancel: () => void; reason: string }) => void;
+	} = $props();
+
+	let bound = $state('a');
+	let host = $state<HTMLElement | null>(null);
+	let submitted = $state(0);
+	let values = $state('');
+
+	function capture(node: HTMLElement) {
+		host = node;
+		return () => {
+			host = null;
+		};
+	}
+
+	function accept(formValues: Record<string, unknown>, details: { event: Event }) {
+		details.event.preventDefault();
+		submitted += 1;
+		values = JSON.stringify(formValues);
+	}
+</script>
+
+{#if scenario === 'plain'}
+	<Field.Root>
+		<Input />
+	</Field.Root>
+{:else if scenario === 'props'}
+	<Field.Root>
+		<Input
+			lang="fr"
+			data-foobar="token"
+			style="color: green"
+			class="name-input"
+			data-testid="control"
+		/>
+	</Field.Root>
+{:else if scenario === 'render'}
+	<Field.Root disabled>
+		<Input data-testid="control" class="from-props">
+			{#snippet render(props, state)}
+				<input {...props} data-custom="true" data-state-disabled={String(state.disabled)} />
+			{/snippet}
+		</Input>
+	</Field.Root>
+{:else if scenario === 'textarea'}
+	<Field.Root>
+		<Input>
+			{#snippet render(props)}
+				<textarea {...props} data-testid="control"></textarea>
+			{/snippet}
+		</Input>
+	</Field.Root>
+{:else if scenario === 'attach'}
+	<Field.Root>
+		<Input class="default-host" {@attach capture} />
+	</Field.Root>
+	<output data-testid="host">{host ? `${host.tagName}:${host.className}` : 'none'}</output>
+{:else if scenario === 'labelled'}
+	<Field.Root data-testid="field">
+		<Field.Label data-testid="label">Email</Field.Label>
+		<Input data-testid="control" />
+	</Field.Root>
+{:else if scenario === 'disabled'}
+	<Field.Root disabled data-testid="field">
+		<Input data-testid="control" />
+	</Field.Root>
+{:else if scenario === 'invalid'}
+	<Field.Root invalid data-testid="field">
+		<Input data-testid="control" />
+	</Field.Root>
+{:else if scenario === 'filled'}
+	<Field.Root data-testid="field">
+		<Input defaultValue="hello" data-testid="control" />
+	</Field.Root>
+{:else if scenario === 'empty'}
+	<Field.Root data-testid="field">
+		<Input value="" data-testid="control" />
+	</Field.Root>
+{:else if scenario === 'dirty'}
+	<Field.Root data-testid="field">
+		<Input defaultValue="a" data-testid="control" />
+	</Field.Root>
+{:else if scenario === 'bound'}
+	<Field.Root data-testid="field">
+		<Input bind:value={bound} data-testid="control" {onValueChange} />
+	</Field.Root>
+	<output data-testid="value">{bound}</output>
+	<button type="button" onclick={() => (bound = 'program')}>Set</button>
+{:else}
+	<Form onFormSubmit={accept}>
+		<Field.Root name="username">
+			<Input defaultValue="ada" data-testid="control" />
+		</Field.Root>
+		<button type="submit">Submit</button>
+	</Form>
+	<output data-testid="submitted">{submitted}</output>
+	<output data-testid="values">{values}</output>
+{/if}
