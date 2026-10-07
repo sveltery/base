@@ -95,6 +95,17 @@ Parts of this package derive from [Base UI](https://github.com/mui/base-ui) v1.8
 - `src/lib/radio/label.ts` from `findAssociatedLabel` in `packages/react/src/internals/labelable-provider/useAriaLabelledBy.ts`
 - `src/lib/radio/serialize-value.ts` from `packages/react/src/internals/serializeValue.ts`
 - `src/lib/radio/Radio.svelte.spec.ts` assertions from `packages/react/src/radio/root/RadioRoot.test.tsx` and `packages/react/src/radio/indicator/RadioIndicator.test.tsx` that do not require Field or RadioGroup
+- `src/lib/internal/event-details.ts` also exports `REASONS.disabled`, `REASONS.missing`, and `REASONS.initial` from `packages/react/src/internals/reason-parts.ts`
+- `src/lib/tabs/TabsRoot.svelte` from `packages/react/src/tabs/root/TabsRoot.tsx`
+- `src/lib/tabs/TabsList.svelte` from `packages/react/src/tabs/list/TabsList.tsx`
+- `src/lib/tabs/TabsTab.svelte` from `packages/react/src/tabs/tab/TabsTab.tsx` and the non-composite path of `packages/react/src/internals/use-button/useButton.ts`
+- `src/lib/tabs/TabsPanel.svelte` from `packages/react/src/tabs/panel/TabsPanel.tsx`, `useTransitionStatus` (default arguments), and `useOpenChangeComplete`
+- `src/lib/tabs/TabsIndicator.svelte` and `src/lib/tabs/indicator.ts` from `packages/react/src/tabs/indicator/TabsIndicator.tsx`, `packages/react/src/utils/getCssDimensions.ts`, and `packages/react/src/utils/getElementTransform.ts`
+- `src/lib/tabs/context.svelte.ts` from `packages/react/src/tabs/root/TabsRootContext.ts` and `packages/react/src/tabs/list/TabsListContext.ts`
+- `src/lib/tabs/roving-focus.svelte.ts` from the linear path of `packages/react/src/internals/composite/root/useCompositeRoot.ts` with `Tabs.List`'s empty `disabledIndices`
+- `src/lib/tabs/direction.ts` from `computeActivationDirection` in `packages/react/src/tabs/root/TabsRoot.tsx`
+- `src/lib/tabs/attributes.ts` from `packages/react/src/tabs/root/stateAttributesMapping.ts`, `packages/react/src/tabs/panel/TabsPanelDataAttributes.ts`, and `packages/react/src/tabs/indicator/TabsIndicatorCssVars.ts`
+- `src/lib/tabs/Tabs.svelte.spec.ts` assertions from `packages/react/src/tabs/**/*.test.tsx`
 
 MIT License
 
