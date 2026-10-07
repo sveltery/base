@@ -31,7 +31,8 @@
 			<a href="/fixtures/form">Form</a> (add <code>&amp;reference</code> for React Base UI)
 		</li>
 		<li>
-			<a href="/fixtures/toggle-group">ToggleGroup</a> (add <code>&amp;reference</code> for React Base UI)
+			<a href="/fixtures/toggle-group">ToggleGroup</a> (add <code>&amp;reference</code> for React Base
+			UI)
 		</li>
 	</ul>
 </main>
