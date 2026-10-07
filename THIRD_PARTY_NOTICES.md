@@ -137,6 +137,19 @@ Parts of this package derive from [Base UI](https://github.com/mui/base-ui) v1.8
 - `src/lib/toolbar/context.svelte.ts` from `packages/react/src/toolbar/root/ToolbarRootContext.ts` and `packages/react/src/toolbar/group/ToolbarGroupContext.ts`
 - `src/lib/toolbar/roving-focus.svelte.ts` from the linear path of `packages/react/src/internals/composite/root/useCompositeRoot.ts` and `packages/react/src/internals/composite/item/useCompositeItem.ts` with Toolbar's CompositeRoot options (Home/End off)
 - `src/lib/toolbar/Toolbar.svelte.spec.ts` assertions from `packages/react/src/toolbar/**/*.test.tsx` that do not require Toolbar.Input or an overlay
+- `src/lib/number-field/NumberFieldRoot.svelte` and `src/lib/number-field/model.svelte.ts` from `packages/react/src/number-field/root/NumberFieldRoot.tsx`
+- `src/lib/number-field/NumberFieldGroup.svelte` from `packages/react/src/number-field/group/NumberFieldGroup.tsx`
+- `src/lib/number-field/NumberFieldInput.svelte` from `packages/react/src/number-field/input/NumberFieldInput.tsx`
+- `src/lib/number-field/NumberFieldStepper.svelte`, `NumberFieldIncrement.svelte`, and `NumberFieldDecrement.svelte` from `packages/react/src/number-field/root/useNumberFieldStepperButton.ts`, `packages/react/src/number-field/increment/NumberFieldIncrement.tsx`, `packages/react/src/number-field/decrement/NumberFieldDecrement.tsx`, and the non-composite path of `packages/react/src/internals/use-button/useButton.ts` with `packages/react/src/utils/useFocusableWhenDisabled.ts`
+- `src/lib/number-field/NumberFieldScrubArea.svelte` from `packages/react/src/number-field/scrub-area/NumberFieldScrubArea.tsx`
+- `src/lib/number-field/NumberFieldScrubAreaCursor.svelte` from `packages/react/src/number-field/scrub-area-cursor/NumberFieldScrubAreaCursor.tsx`
+- `src/lib/number-field/press-and-hold.svelte.ts` from `packages/react/src/internals/usePressAndHold.ts`
+- `src/lib/number-field/parse.ts` and `validate.ts` from `packages/react/src/number-field/utils/parse.ts` and `validate.ts`
+- `src/lib/number-field/viewport.ts` from `packages/react/src/number-field/utils/getViewportRect.ts`
+- `src/lib/number-field/dom.ts` from the `activeElement` and `getTarget` helpers NumberField calls, plus `ownerDocument`, `ownerWindow`, and `addEventListener`
+- `src/lib/number-field/platform.ts` from the `ios`, `webkit`, and `gecko` flags in `packages/utils/src/platform`
+- `src/lib/number-field/NumberField.svelte.spec.ts` assertions from `packages/react/src/number-field/**/*.test.tsx` that do not require React refs or `className` callbacks
+- `src/lib/internal/event-details.ts` also exports the number-field change reasons (`input-change`, `input-clear`, `input-blur`, `input-paste`, `keyboard`, `increment-press`, `decrement-press`, `wheel`, `scrub`)
 
 MIT License
 
