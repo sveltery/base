@@ -40,3 +40,23 @@ export function createChangeEventDetails<Reason extends string>(
 		trigger
 	};
 }
+
+/**
+ * Details for events that report a reason and the native event, without cancel.
+ * Form submit uses this. The full upstream reason-to-event map is not ported;
+ * the event is the native event the caller passes.
+ */
+export type BaseUIGenericEventDetails<Reason extends string> = {
+	reason: Reason;
+	event: Event;
+};
+
+export function createGenericEventDetails<Reason extends string>(
+	reason: Reason,
+	event?: Event
+): BaseUIGenericEventDetails<Reason> {
+	return {
+		reason,
+		event: event ?? new Event('base-ui')
+	};
+}

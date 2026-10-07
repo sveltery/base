@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { createChangeEventDetails, REASONS } from './event-details.js';
+import { createChangeEventDetails, createGenericEventDetails, REASONS } from './event-details.js';
 
 describe('createChangeEventDetails', () => {
 	it('starts uncanceled and records cancel()', () => {
@@ -23,5 +23,21 @@ describe('createChangeEventDetails', () => {
 
 	it('creates a placeholder event when none is given', () => {
 		expect(createChangeEventDetails(REASONS.none).event.type).toBe('base-ui');
+	});
+});
+
+describe('createGenericEventDetails', () => {
+	it('keeps the reason and the native event', () => {
+		const event = new Event('submit', { cancelable: true });
+		event.preventDefault();
+		const details = createGenericEventDetails(REASONS.none, event);
+
+		expect(details.reason).toBe('none');
+		expect(details.event).toBe(event);
+		expect(details.event.defaultPrevented).toBe(true);
+	});
+
+	it('creates a placeholder event when none is given', () => {
+		expect(createGenericEventDetails(REASONS.none).event.type).toBe('base-ui');
 	});
 });
