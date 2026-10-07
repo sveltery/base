@@ -16,6 +16,10 @@
 			<a href="/fixtures/checkbox">Checkbox</a> (add <code>&amp;reference</code> for React Base UI)
 		</li>
 		<li>
+			<a href="/fixtures/checkbox-group">CheckboxGroup</a> (add <code>&amp;reference</code> for React
+			Base UI)
+		</li>
+		<li>
 			<a href="/fixtures/radio">Radio</a> (add <code>&amp;reference</code> for React Base UI)
 		</li>
 		<li>

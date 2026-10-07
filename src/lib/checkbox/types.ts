@@ -61,6 +61,12 @@ export interface CheckboxRootProps extends Omit<HTMLAttributes<HTMLElement>, 'ch
 	 */
 	indeterminate?: boolean;
 	/**
+	 * Whether this checkbox controls every value in a parent `CheckboxGroup`.
+	 * It sets `data-parent` and is left out of form submission.
+	 * @default false
+	 */
+	parent?: boolean;
+	/**
 	 * Whether the host is a native `<button>`.
 	 * Set `true` and render a `<button>`. The `id` is then applied to that button
 	 * instead of the hidden input.

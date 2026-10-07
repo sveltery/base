@@ -1,6 +1,7 @@
 export * from './accordion/index.js';
 export * from './button/index.js';
 export * from './checkbox/index.js';
+export * from './checkbox-group/index.js';
 export * from './collapsible/index.js';
 export * from './fieldset/index.js';
 export * from './field/index.js';
