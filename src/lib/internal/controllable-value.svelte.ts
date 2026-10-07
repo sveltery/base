@@ -17,13 +17,21 @@ export function createControllableValue<T>(options: {
 	onChange?: (next: T | undefined) => void;
 }): ControllableValue<T> {
 	const controlled = untrack(() => options.getProp() !== undefined);
-	let uncontrolled = $state.raw(untrack(() => options.getDefault()));
+	let stored = $state.raw<T | undefined>(
+		untrack(() => {
+			const prop = options.getProp();
+			return prop !== undefined ? prop : options.getDefault();
+		})
+	);
+	let echoed = $state.raw<T | undefined>(untrack(() => options.getProp()));
+	let adopted = false;
 	let opened = true;
 	let notifyFromWrite = false;
 
 	const value = $derived.by(() => {
 		const prop = options.getProp();
-		if (!controlled) return uncontrolled;
+		if (Object.is(prop, echoed)) return stored;
+		if (!controlled && prop === undefined && !adopted) return stored;
 		return prop;
 	});
 
@@ -48,10 +56,19 @@ export function createControllableValue<T>(options: {
 			return controlled;
 		},
 		set(next) {
-			notifyFromWrite = true;
-			if (controlled) options.setProp(next);
-			else uncontrolled = next as T;
-			options.onChange?.(next);
+			const changed = !Object.is(
+				untrack(() => value),
+				next
+			);
+			if (changed) notifyFromWrite = true;
+			stored = next;
+			echoed = next;
+			const prop = untrack(() => options.getProp());
+			if (controlled || prop !== undefined) {
+				adopted = true;
+				options.setProp(next);
+			}
+			if (changed) options.onChange?.(next);
 		}
 	};
 }
