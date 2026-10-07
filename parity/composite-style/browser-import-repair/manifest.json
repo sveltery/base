@@ -1,0 +1,67 @@
+[
+  {
+    "path": "build.log.gz",
+    "bytes": 15691,
+    "sha256": "eee74af5e9eef36052cc046b0ff98f204ad1d2bb70fad3f07d58d947de98f953"
+  },
+  {
+    "path": "declarations.log.gz",
+    "bytes": 155,
+    "sha256": "6f2cb199d643564fba27e2016c4e7ca3c8e8f583eec67c2591cc1d81a8002649"
+  },
+  {
+    "path": "evidence-format.log.gz",
+    "bytes": 20,
+    "sha256": "f61f27bd17de546264aa58f40f3aafaac7021e0ef69c17f6b1b4cd7664a037ec"
+  },
+  {
+    "path": "format.log.gz",
+    "bytes": 120,
+    "sha256": "941c9cc7cb731edd882c9ad570897e7982890c26143746288ebeabbfa0455eed"
+  },
+  {
+    "path": "job112577322267.log.gz",
+    "bytes": 98374,
+    "sha256": "46c1d54e524bdf85818f8985e608b75b27183a6946806575dcc42ff3f9c3850b"
+  },
+  {
+    "path": "lint.log.gz",
+    "bytes": 20,
+    "sha256": "f61f27bd17de546264aa58f40f3aafaac7021e0ef69c17f6b1b4cd7664a037ec"
+  },
+  {
+    "path": "module-diagnosis-cwd.log.gz",
+    "bytes": 564,
+    "sha256": "765e19ace6389d5c243adf756e48ec95a00558e57e14ef8b1a06a79ea6bfb67c"
+  },
+  {
+    "path": "module-diagnosis-startup.log.gz",
+    "bytes": 464,
+    "sha256": "3e9740dbb13ff78cff13653a88011942c7f70423d2e5f0d8f0734b5321a0e3c6"
+  },
+  {
+    "path": "module-diagnosis.log.gz",
+    "bytes": 605,
+    "sha256": "fef39b0e116ec3aa5295444f28cd78b13bf8872b8c359d774a56e5df5ff7172b"
+  },
+  {
+    "path": "module-diagnosis.mjs",
+    "bytes": 1895,
+    "sha256": "701b0c687edf084ebd34c64648acce0c847071a39434c03964a0de3ba98df381"
+  },
+  {
+    "path": "probe.preimage.ts.txt",
+    "bytes": 920,
+    "sha256": "40e7ce1266f87a9e20ac021b358710dcefce92a34614cc87dca90fda014e192f"
+  },
+  {
+    "path": "receipt.json",
+    "bytes": 2246,
+    "sha256": "726addb714bf402dc4de8d0b8855ea0f6ff3e09f33acc3d5a5f1c9f9701ee251"
+  },
+  {
+    "path": "source.log.gz",
+    "bytes": 336,
+    "sha256": "7773ea4599573d2197fbdb018d6a3c9d78d7c5abc68b66565195a2ecc53abc17"
+  }
+]

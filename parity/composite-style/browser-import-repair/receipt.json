@@ -1,0 +1,33 @@
+{
+  "publicPredecessor": "defde4d8ec259c54aaba786b2a6cfc0abdc44256",
+  "pin": "47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c",
+  "license": "MIT; inherited archives/notices retained",
+  "failedJob": 112577322267,
+  "failedRun": 37554451724,
+  "failedStep": 14,
+  "executed": "2732 passed;4 Composite dynamic-import failures before helper assertions, no timeout/native business finding",
+  "repair": "Only fixture Original artifact .js CommonJS paths -> same installed pinned .mjs ESM siblings; all4 actual exports verified; no wrapper/alias/extraction/replica. Native/helper/browser assertion bodies unchanged.",
+  "decodedToolText": {
+    "bytes": 741340,
+    "sha256": "3923f3cf7b0695197c630adcdf0e7960f968a64ffbfe7460d583015e91b5bdc3",
+    "qualification": "Exact connector-decoded UTF8 text,19 line-bounded file chunks readback equal to tool text;not HTTP raw/archive identity"
+  },
+  "moduleDiagnosis": "Actual CJS ESM linker reproduces missing named exports for both modules. Installed ESM imports4/4; actual Vite probe transforms to both .mjs paths PASS. Two driver startup/cwd failures preserved separately as zero-assertion setup.",
+  "declarations": "Both actual Bundler TS6.0.3 .mjs imports resolve .d.mts with strict/skipLibCheck:false options;not full fixture type acceptance",
+  "sourceGate": "focused source/lossless4/4 PASS; complete inherited106/12/45 hashes unchanged",
+  "browser": {
+    "officialExecutable": "/root/.cache/ms-playwright/chromium-1243/chrome-linux64/chrome",
+    "available": false,
+    "assertions": 0,
+    "installAttempts": 0,
+    "reruns": 0,
+    "requiredConfig": "official Chromium sandbox:true/1worker/0retries unchanged"
+  },
+  "acceptance": "Private candidate only. Full final-head independent Source/native/callers and hosted focused browser/all applicable CI required. No whole-family/ordinary credit/merge/publication approval.",
+  "fixtureBuild": "PASS actual SSR/client production build",
+  "diagnosticInvocation": {
+    "command": "node --experimental-vm-modules .checks/dialog-failure/module-diagnosis.mjs",
+    "cwd": "repository root",
+    "driverLocation": "Executed from .checks/dialog-failure; archived formatted driver retains those relative imports. Restore there before reproduction."
+  }
+}

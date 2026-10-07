@@ -1,5 +1,9 @@
 # Composite style lookup prerequisite
 
+## Browser Original artifact loading
+
+Actual Dialog job112577322267/run37554451724 at defde4d8 completed its full source-core selection: 2732 cases passed, while four Composite supplements failed during fixture dynamic import before helper assertions. The relative Original `.js` files are CommonJS artifacts and expose no browser ESM named exports; this was not a timeout or a native business finding. The fixture now imports the same installed pinned Original `.mjs` siblings, which directly export isElementVisible/isListIndexDisabled and isNativeInput/scrollIntoViewIfNeeded. Complete Original source and installed module bodies retain canonical Floating reuse and the distinct global scrolling lookup. No production body, browser assertion, expected value, alias, wrapper or replica changes. Historical decoded job text and fixture preimage remain in `parity/composite-style/browser-import-repair/`; focused browser acceptance and full successor CI remain required. Zero ordinary upstream assertion credit.
+
 Two shared lookups now match their distinct immutable Base UI 1.8.0 sources. Navigation visibility imports canonical Floating `getComputedStyle`, which reuses its owner-window fallback. Composite scrolling calls browser-global `getComputedStyle` as pinned Original does. Before repair, both local lookups asserted a nonnull owner defaultView and threw for connected elements in documents created with `createHTMLDocument`.
 
 The [complete Source/native correspondence](../parity/composite-style/source-correspondence.md) records the 106-module Original import closure, 12-module native forward closure, 45-module conservative affected closure, exact hashes, caller distinctions and preserved predecessor red/green proof. The runtime delta is exactly these two reviewed lookup repairs; navigation/scrolling business bodies, branches and composition remain unchanged.
