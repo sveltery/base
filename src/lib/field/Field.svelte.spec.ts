@@ -172,6 +172,9 @@ describe('Field', () => {
 			});
 			await page.getByTestId('control').fill('a');
 			expect(text('calls')).toBe('0');
+			await expect.element(page.getByTestId('control')).toHaveValue('');
+			await expect.element(page.getByTestId('field')).not.toHaveAttribute('data-dirty');
+			await expect.element(page.getByTestId('field')).not.toHaveAttribute('data-filled');
 		});
 
 		it('does not clear form errors when the input event is prevented', async () => {
@@ -357,6 +360,58 @@ describe('Field', () => {
 			await expect.element(page.getByTestId('errors')).toHaveTextContent('{}');
 			await expect.element(page.getByTestId('field')).toHaveAttribute('data-dirty', '');
 			await expect.element(page.getByTestId('error')).toHaveTextContent('nope');
+		});
+
+		it('shows a value that arrives after an undefined start', async () => {
+			render(FieldHarness, { scenario: 'late' });
+			await expect.element(page.getByTestId('control')).toHaveValue('');
+			await expect.element(page.getByTestId('errors')).toHaveTextContent('{"email":"stale"}');
+			await page.getByRole('button', { name: 'Set later' }).click();
+			await expect.element(page.getByTestId('control')).toHaveValue('later');
+			await expect.element(page.getByTestId('errors')).toHaveTextContent('{}');
+			await expect.element(page.getByTestId('field')).toHaveAttribute('data-filled', '');
+			await page.getByRole('button', { name: 'Submit' }).click();
+			expect(text('values')).toContain('later');
+		});
+
+		it('clears form errors and validates when the parent clears the value', async () => {
+			render(FieldHarness, { scenario: 'empty' });
+			await expect.element(page.getByTestId('control')).toHaveValue('kept');
+			await expect.element(page.getByTestId('errors')).toHaveTextContent('{"email":"stale"}');
+			await page.getByRole('button', { name: 'Unset' }).click();
+			await expect.element(page.getByTestId('control')).toHaveValue('');
+			await expect.element(page.getByTestId('errors')).toHaveTextContent('{}');
+			await expect.element(page.getByTestId('error')).toHaveTextContent('empty');
+		});
+
+		it('validates the DOM value after a native form reset', async () => {
+			render(FieldHarness, { scenario: 'reset' });
+			const control = page.getByTestId('control');
+			await control.fill('stale');
+			(page.getByTestId('form').element() as HTMLFormElement).reset();
+			await expect.element(control).toHaveValue('');
+			await page.getByRole('button', { name: 'Submit' }).click();
+			expect(text('seen')).toBe('');
+			expect(text('values')).toBe(JSON.stringify({ email: '' }));
+		});
+
+		it('validates the DOM value after a reset button', async () => {
+			render(FieldHarness, { scenario: 'reset' });
+			const control = page.getByTestId('control');
+			await control.fill('stale');
+			await page.getByRole('button', { name: 'Reset' }).click();
+			await expect.element(control).toHaveValue('');
+			await page.getByRole('button', { name: 'Submit' }).click();
+			expect(text('seen')).toBe('');
+			expect(text('values')).toBe(JSON.stringify({ email: '' }));
+		});
+
+		it('writes the first keystroke into an empty bind', async () => {
+			render(FieldHarness, { scenario: 'typed' });
+			await expect.element(page.getByTestId('typed')).toHaveTextContent('none');
+			await page.getByTestId('control').fill('hi');
+			await expect.element(page.getByTestId('control')).toHaveValue('hi');
+			await expect.element(page.getByTestId('typed')).toHaveTextContent('hi');
 		});
 
 		it('syncs and validates when the bound value changes', async () => {

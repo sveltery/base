@@ -314,6 +314,15 @@ describe('RadioGroup', () => {
 	});
 
 	describe('native Svelte', () => {
+		it('writes the first pick into an empty bind', async () => {
+			render(RadioGroupComponentHarness, { scenario: 'pick' });
+			await expect.element(page.getByTestId('picked')).toHaveTextContent('none');
+			await radio('B').click();
+			await expect.element(radio('B')).toHaveAttribute('aria-checked', 'true');
+			await expect.element(page.getByTestId('picked')).toHaveTextContent('b');
+			await expect.element(page.getByRole('checkbox', { name: 'Owner B' })).toBeChecked();
+		});
+
 		it('one-way value follows the parent, then the click, then the parent again', async () => {
 			render(RadioGroupComponentHarness, { scenario: 'controlled' });
 			await expect.element(radio('B')).toHaveAttribute('aria-checked', 'true');

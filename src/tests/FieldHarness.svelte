@@ -16,10 +16,14 @@
 	let controlId = $state('control-id');
 	let showFirst = $state(true);
 	let controlled = $state('a');
+	let late = $state<string | undefined>(undefined);
+	let emptyParent = $state<string | undefined>('kept');
+	let typed = $state<string | number | null | undefined>();
 	let parentErrors = $state<Record<string, string>>({ email: 'stale' });
 	let dirty = $state(true);
 	let touched = $state(true);
 	let calls = $state(0);
+	let seen = $state('');
 	let actions = $state<{ validate: () => void } | undefined>();
 	let outerDisabled = $state(false);
 
@@ -287,7 +291,7 @@
 	</Field.Root>
 	<output data-testid="calls">{calls}</output>
 {:else if scenario === 'cancel'}
-	<Field.Root validationMode="onChange" validate={countedValidate}>
+	<Field.Root validationMode="onChange" validate={countedValidate} data-testid="field">
 		<Field.Control data-testid="control" {onValueChange} />
 	</Field.Root>
 	<output data-testid="calls">{calls}</output>
@@ -314,6 +318,55 @@
 	</Form>
 	<button type="button" onclick={() => (controlled = 'next')}>Set next</button>
 	<output data-testid="errors">{JSON.stringify(parentErrors)}</output>
+{:else if scenario === 'late'}
+	<Form bind:errors={parentErrors} onFormSubmit={accept}>
+		<Field.Root name="email" validationMode="onChange" data-testid="field" validate={() => null}>
+			<Field.Control value={late} data-testid="control" />
+			<Field.Error data-testid="error" />
+		</Field.Root>
+		<button type="submit">Submit</button>
+	</Form>
+	<button type="button" onclick={() => (late = 'later')}>Set later</button>
+	<output data-testid="errors">{JSON.stringify(parentErrors)}</output>
+	<output data-testid="values">{values}</output>
+{:else if scenario === 'empty'}
+	<Form bind:errors={parentErrors}>
+		<Field.Root
+			name="email"
+			validationMode="onChange"
+			data-testid="field"
+			validate={(value) => (value === '' ? 'empty' : null)}
+		>
+			<Field.Control value={emptyParent} data-testid="control" />
+			<Field.Error data-testid="error" />
+		</Field.Root>
+	</Form>
+	<button type="button" onclick={() => (emptyParent = '')}>Clear</button>
+	<button type="button" onclick={() => (emptyParent = undefined)}>Unset</button>
+	<output data-testid="errors">{JSON.stringify(parentErrors)}</output>
+{:else if scenario === 'reset'}
+	<Form onFormSubmit={accept} data-testid="form">
+		<Field.Root
+			name="email"
+			validationMode="onSubmit"
+			validate={(value) => {
+				calls += 1;
+				seen = value == null ? '' : String(value);
+				return null;
+			}}
+		>
+			<Field.Control data-testid="control" />
+		</Field.Root>
+		<button type="reset">Reset</button>
+		<button type="submit">Submit</button>
+	</Form>
+	<output data-testid="seen">{seen}</output>
+	<output data-testid="values">{values}</output>
+{:else if scenario === 'typed'}
+	<Field.Root>
+		<Field.Control bind:value={typed} data-testid="control" />
+	</Field.Root>
+	<output data-testid="typed">{typed ?? 'none'}</output>
 {:else if scenario === 'controlled'}
 	<Field.Root validationMode="onChange" validate={countedValidate} data-testid="field">
 		<Field.Control bind:value={controlled} data-testid="control" {onValueChange} />

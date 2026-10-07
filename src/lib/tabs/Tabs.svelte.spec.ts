@@ -82,6 +82,23 @@ describe('Tabs', () => {
 	});
 
 	describe('selection', () => {
+		it('writes the first selection into an empty bind', async () => {
+			render(TabsHarness, { bind: true });
+			await tab('Two').click();
+			await expect.element(tab('Two')).toHaveAttribute('aria-selected', 'true');
+			expect(page.getByTestId('held').element().textContent).toBe('1');
+		});
+
+		it('follows a parent change after the first click', async () => {
+			render(TabsHarness, { bind: true });
+			await tab('Two').click();
+			await expect.element(tab('Two')).toHaveAttribute('aria-selected', 'true');
+			await page.getByRole('button', { name: 'Set zero' }).click();
+			await expect.element(tab('One')).toHaveAttribute('aria-selected', 'true');
+			await expect.element(tab('Two')).toHaveAttribute('aria-selected', 'false');
+			expect(page.getByTestId('held').element().textContent).toBe('0');
+		});
+
 		it('selects the clicked tab', async () => {
 			render(TabsHarness, { bind: true, value: 0 });
 			await tab('Two').click();

@@ -12,6 +12,7 @@
 	} = $props();
 
 	let bound = $state<number | null>(4);
+	let loose = $state<number | null | undefined>();
 	let parentErrors = $state<Record<string, string>>({ qty: 'stale' });
 	let submitted = $state(0);
 	let values = $state('');
@@ -36,6 +37,12 @@
 		<NumberField.Input data-testid="control" />
 		<NumberField.Increment />
 	</NumberField.Root>
+{:else if scenario === 'loose'}
+	<NumberField.Root locale="en-US" bind:value={loose}>
+		<NumberField.Input data-testid="control" />
+		<NumberField.Increment />
+	</NumberField.Root>
+	<output data-testid="value">{loose ?? 'none'}</output>
 {:else if scenario === 'bound'}
 	<NumberField.Root locale="en-US" bind:value={bound}>
 		<NumberField.Input data-testid="control" />

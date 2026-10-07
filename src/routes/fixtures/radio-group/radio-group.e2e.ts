@@ -126,6 +126,15 @@ for (const reference of [false, true]) {
 			expect(await calls(page)).toEqual([{ value: 'a', reason: 'none', canceled: true }]);
 		});
 
+		test('the first pick writes into an empty bind', async ({ page }) => {
+			await open(page, 'bound', reference);
+			await expect(page.getByTestId('value')).toHaveText('none');
+			await radio(page, 'B').click();
+			await expect(radio(page, 'B')).toHaveAttribute('aria-checked', 'true');
+			await expect(page.getByTestId('value')).toHaveText('b');
+			await expect(page.getByRole('checkbox', { name: 'Owner B' })).toBeChecked();
+		});
+
 		test('the owner and the group share one value', async ({ page }) => {
 			await open(page, 'bound', reference);
 			const owner = page.getByRole('checkbox', { name: 'Owner B' });

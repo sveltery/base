@@ -6,7 +6,6 @@
 	Field registration and inputRef are not ported. The radios are the existing Radio parts.
 -->
 <script lang="ts">
-	import { untrack } from 'svelte';
 	import { createAttachmentKey, type Attachment } from 'svelte/attachments';
 	import type { HTMLAttributes } from 'svelte/elements';
 	import { getStateAttributesProps } from '../internal/state-attributes.js';
@@ -51,7 +50,7 @@
 		setProp: (next) => {
 			value = next;
 		},
-		getDefault: () => untrack(() => value) as unknown,
+		getDefault: () => undefined as unknown,
 		onChange(next) {
 			formContext.clearErrors(name);
 			if (!field) return;

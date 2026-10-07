@@ -70,6 +70,14 @@ describe('<NumberField />', () => {
 		await expect.element(control()).toHaveValue('0');
 	});
 
+	it('writes the first step into an empty bind', async () => {
+		render(NumberFieldHarness, { scenario: 'loose' });
+		await expect.element(page.getByTestId('value')).toHaveTextContent('none');
+		await userEvent.click(increase().element());
+		await expect.element(control()).toHaveValue('0');
+		await expect.element(page.getByTestId('value')).toHaveTextContent('0');
+	});
+
 	it('keeps a bound value in sync', async () => {
 		render(NumberFieldHarness, { scenario: 'bound' });
 		await expect.element(page.getByTestId('value')).toHaveTextContent('4');
