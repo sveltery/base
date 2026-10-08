@@ -8,7 +8,7 @@
 -->
 <script lang="ts">
 	import type { HTMLButtonAttributes } from 'svelte/elements';
-	import { currentHost, dispatchClick, isLink } from '../internal/click.js';
+	import { currentHost, dispatchClick, forwardKeyUp, isLink } from '../internal/click.js';
 	import { getStateAttributesProps } from '../internal/state-attributes.js';
 	import type { ButtonHostProps, ButtonProps, ButtonState } from './types.js';
 
@@ -83,19 +83,6 @@
 		if (isEnter) dispatchClick(current, event);
 	}
 
-	function handleKeyUp(event: KeyboardEvent & { currentTarget: EventTarget & HTMLButtonElement }) {
-		if (disabled) return;
-
-		onkeyup?.(event);
-		// Upstream keeps no keydown/keyup memory: a prevented Space keydown still clicks on keyup
-		// unless this keyup itself is prevented.
-		if (event.defaultPrevented || nativeButton || event.key !== ' ') return;
-
-		const current = currentHost(event);
-		if (!current) return;
-		dispatchClick(current, event);
-	}
-
 	const hostProps: HTMLButtonAttributes = $derived({
 		...(nativeButton ? { type: 'button' as const } : { role: 'button' as const }),
 		tabindex: !nativeButton && disabled && !focusableWhenDisabled ? -1 : 0,
@@ -109,7 +96,7 @@
 		onmousedown: handleMouseDown,
 		onpointerdown: handlePointerDown,
 		onkeydown: handleKeyDown,
-		onkeyup: handleKeyUp
+		onkeyup: (event) => forwardKeyUp(event, disabled, onkeyup, nativeButton)
 	});
 </script>
 

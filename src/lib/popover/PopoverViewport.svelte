@@ -189,11 +189,14 @@
 	});
 
 	const hostProps = $derived(
-		mergeProps(elementProps, {
-			...(activationDirection ? { 'data-activation-direction': activationDirection } : {}),
-			...(previousNode != null ? { 'data-transitioning': '' } : {}),
-			...(store.instantType ? { 'data-instant': store.instantType } : {})
-		})
+		mergeProps(
+			{
+				...(activationDirection ? { 'data-activation-direction': activationDirection } : {}),
+				...(previousNode != null ? { 'data-transitioning': '' } : {}),
+				...(store.instantType ? { 'data-instant': store.instantType } : {})
+			},
+			elementProps
+		)
 	);
 
 	function snapshot(source: HTMLElement) {

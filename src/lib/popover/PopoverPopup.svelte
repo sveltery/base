@@ -99,22 +99,26 @@
 	}
 
 	const hostProps = $derived(
-		mergeProps(elementProps, store.dismissFloating, {
-			id: store.floatingId,
-			role: 'dialog' as const,
-			...FOCUSABLE_POPUP_PROPS,
-			...(store.titleElementId ? { 'aria-labelledby': store.titleElementId } : {}),
-			...(store.descriptionElementId ? { 'aria-describedby': store.descriptionElementId } : {}),
-			onkeydown(event: KeyboardEvent) {
-				if (inToolbar(event) && COMPOSITE_KEYS.has(event.key)) event.stopPropagation();
+		mergeProps(
+			{
+				id: store.floatingId,
+				role: 'dialog' as const,
+				...FOCUSABLE_POPUP_PROPS,
+				...(store.titleElementId ? { 'aria-labelledby': store.titleElementId } : {}),
+				...(store.descriptionElementId ? { 'aria-describedby': store.descriptionElementId } : {}),
+				onkeydown(event: KeyboardEvent) {
+					if (inToolbar(event) && COMPOSITE_KEYS.has(event.key)) event.stopPropagation();
+				},
+				style: toCssStyle({
+					...store.popupVars,
+					...(store.transitionStatus === 'starting' ? { transition: 'none' } : {})
+				}),
+				...getStateAttributesProps(popupState, popupTransitionStateMapping),
+				[bindKey]: bindPopup
 			},
-			style: toCssStyle({
-				...store.popupVars,
-				...(store.transitionStatus === 'starting' ? { transition: 'none' } : {})
-			}),
-			...getStateAttributesProps(popupState, popupTransitionStateMapping),
-			[bindKey]: bindPopup
-		})
+			store.dismissFloating,
+			elementProps
+		)
 	);
 </script>
 

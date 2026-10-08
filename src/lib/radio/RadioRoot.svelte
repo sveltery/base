@@ -10,7 +10,7 @@
 -->
 <script lang="ts">
 	import { createAttachmentKey, type Attachment } from 'svelte/attachments';
-	import { clickOnSpaceKeyUp, currentHost, dispatchClick } from '../internal/click.js';
+	import { currentHost, dispatchClick, forwardKeyUp } from '../internal/click.js';
 	import { toCssStyle } from '../internal/css-style.js';
 	import { createChangeEventDetails, REASONS } from '../internal/event-details.js';
 	import { visuallyHidden, visuallyHiddenInput } from '../internal/visuallyHidden.js';
@@ -201,12 +201,6 @@
 		event.preventDefault();
 	}
 
-	function handleKeyUp(event: KeyboardEvent & { currentTarget: EventTarget & HTMLElement }) {
-		if (disabled) return;
-		onkeyup?.(event);
-		clickOnSpaceKeyUp(event, nativeButton);
-	}
-
 	$effect(() => {
 		// Assigns an id on the native label when it has none. That write has to stay in an effect.
 		const id = nativeFallbackLabelId(nativeButton, ariaLabelledBy, inputNode, hiddenInputId);
@@ -239,7 +233,7 @@
 			onmousedown: handleMouseDown,
 			onpointerdown: handlePointerDown,
 			onkeydown: handleKeyDown,
-			onkeyup: handleKeyUp,
+			onkeyup: (event) => forwardKeyUp(event, disabled, onkeyup, nativeButton),
 			onfocus: handleFocus,
 			[rootKey]: registerRoot
 		};

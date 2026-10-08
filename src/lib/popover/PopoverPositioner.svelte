@@ -84,17 +84,20 @@
 	});
 
 	const hostProps = $derived(
-		mergeProps(elementProps, {
-			role: 'presentation' as const,
-			hidden: store.mounted ? undefined : true,
-			style: toCssStyle({
-				...positioning.positionerStyles,
-				...store.positionerVars,
-				...(store.open ? {} : { pointerEvents: 'none' })
-			}),
-			...getStateAttributesProps(state, popupStateMapping),
-			[attachKey]: positioning.positionerProps.attach
-		})
+		mergeProps(
+			{
+				role: 'presentation' as const,
+				hidden: store.mounted ? undefined : true,
+				style: toCssStyle({
+					...positioning.positionerStyles,
+					...store.positionerVars,
+					...(store.open ? {} : { pointerEvents: 'none' })
+				}),
+				...getStateAttributesProps(state, popupStateMapping),
+				[attachKey]: positioning.positionerProps.attach
+			},
+			elementProps
+		)
 	);
 </script>
 

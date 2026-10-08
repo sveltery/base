@@ -30,15 +30,15 @@
 
 	const hostProps = $derived(
 		mergeProps(
-			elementProps,
+			{ [bindKey]: register },
+			disabled ? { 'data-disabled': '' } : {},
+			useButton(disabled, nativeButton),
 			{
 				onclick(event: MouseEvent) {
 					store.setOpen(false, createChangeEventDetails(REASONS.closePress, event));
 				}
 			},
-			useButton(disabled, nativeButton),
-			disabled ? { 'data-disabled': '' } : {},
-			{ [bindKey]: register }
+			elementProps
 		)
 	);
 	const state: PopoverCloseState = {};

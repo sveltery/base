@@ -18,7 +18,7 @@
 	}
 
 	function clicked(event: MouseEvent) {
-		if (scenario === 'prevented') event.preventDefault();
+		if (scenario === 'prevented') event.preventBaseUIHandler?.();
 	}
 </script>
 

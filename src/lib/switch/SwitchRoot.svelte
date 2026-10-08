@@ -8,7 +8,7 @@
 -->
 <script lang="ts">
 	import { createAttachmentKey, type Attachment } from 'svelte/attachments';
-	import { currentHost, dispatchClick, isLink } from '../internal/click.js';
+	import { currentHost, dispatchClick, forwardKeyUp, isLink } from '../internal/click.js';
 	import { toCssStyle } from '../internal/css-style.js';
 	import { createControllableValue } from '../internal/controllable-value.svelte.js';
 	import { createChangeEventDetails, REASONS } from '../internal/event-details.js';
@@ -174,18 +174,6 @@
 		if (isEnter) dispatchClick(current, event);
 	}
 
-	function handleKeyUp(event: KeyboardEvent & { currentTarget: EventTarget & HTMLElement }) {
-		if (disabled) return;
-
-		onkeyup?.(event);
-		// A prevented Space keydown still clicks on keyup unless this keyup is prevented.
-		if (event.defaultPrevented || nativeButton || event.key !== ' ') return;
-
-		const current = currentHost(event);
-		if (!current) return;
-		dispatchClick(current, event);
-	}
-
 	// Client-only: a sibling or wrapping <label> is not known during SSR.
 	$effect(() => {
 		// Assigns an id on the native label when it has none. That write has to stay in an effect.
@@ -212,7 +200,7 @@
 			onmousedown: handleMouseDown,
 			onpointerdown: handlePointerDown,
 			onkeydown: handleKeyDown,
-			onkeyup: handleKeyUp,
+			onkeyup: (event) => forwardKeyUp(event, disabled, onkeyup, nativeButton),
 			[rootKey]: registerRoot
 		};
 	});

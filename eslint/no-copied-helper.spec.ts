@@ -36,6 +36,18 @@ describe('sveltery/no-copied-helper', () => {
 			'function toCssStyle(style) { return String(style); }\n',
 			'src/lib/slider/example.ts'
 		);
+		const chain = await messages(
+			'export function chain(component, consumer) { return consumer ?? component; }\n',
+			'src/lib/scroll-area/style.ts'
+		);
+		expect(chain.some((message) => message.includes('src/lib/internal/mergeProps.ts'))).toBe(true);
+		const mergeClass = await messages(
+			'export function mergeClass(componentClass, consumerClass) { return consumerClass; }\n',
+			'src/lib/scroll-area/style.ts'
+		);
+		expect(mergeClass.some((message) => message.includes('src/lib/internal/mergeProps.ts'))).toBe(
+			true
+		);
 		expect(helper.some((message) => message.includes('src/lib/internal/css-style.ts'))).toBe(true);
 
 		const timer = await messages('class Timeout {}\n', 'src/lib/slider/example.ts');
@@ -68,6 +80,12 @@ describe('sveltery/no-copied-helper', () => {
 			'src/lib/internal/shadow-dom.ts'
 		);
 		expect(owner).toEqual([]);
+
+		const mergeOwner = await messages(
+			'export function chain(component, consumer) { return consumer ?? component; }\nexport function mergeClass(componentClass, consumerClass) { return consumerClass; }\n',
+			'src/lib/internal/mergeProps.ts'
+		);
+		expect(mergeOwner).toEqual([]);
 
 		const method = await messages(
 			'function visit(node, child) { return node.contains(child); }\n',

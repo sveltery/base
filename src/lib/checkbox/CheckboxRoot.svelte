@@ -10,7 +10,7 @@
 -->
 <script lang="ts">
 	import { createAttachmentKey, type Attachment } from 'svelte/attachments';
-	import { currentHost, dispatchClick, isLink } from '../internal/click.js';
+	import { currentHost, dispatchClick, forwardKeyUp, isLink } from '../internal/click.js';
 	import { toCssStyle } from '../internal/css-style.js';
 	import { createControllableValue } from '../internal/controllable-value.svelte.js';
 	import { createChangeEventDetails, REASONS } from '../internal/event-details.js';
@@ -271,17 +271,6 @@
 		event.preventDefault();
 	}
 
-	function handleKeyUp(event: KeyboardEvent & { currentTarget: EventTarget & HTMLElement }) {
-		if (isDisabled) return;
-
-		onkeyup?.(event);
-		if (event.defaultPrevented || nativeButton || event.key !== ' ') return;
-
-		const current = currentHost(event);
-		if (!current) return;
-		dispatchClick(current, event);
-	}
-
 	$effect(() => {
 		if (nativeButton || ariaLabelledBy) {
 			fallbackLabelId = undefined;
@@ -327,7 +316,7 @@
 			onmousedown: handleMouseDown,
 			onpointerdown: handlePointerDown,
 			onkeydown: handleKeyDown,
-			onkeyup: handleKeyUp,
+			onkeyup: (event) => forwardKeyUp(event, isDisabled, onkeyup, nativeButton),
 			[rootKey]: registerRoot
 		};
 	});

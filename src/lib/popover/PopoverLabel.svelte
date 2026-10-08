@@ -37,7 +37,7 @@
 
 	const register: Attachment<HTMLElement> = () => registerLabelElementId(store, part, id);
 
-	const hostProps = $derived(mergeProps(elementProps, { id, [bindKey]: register }));
+	const hostProps = $derived(mergeProps({ id, [bindKey]: register }, elementProps));
 	const state: Record<string, never> = {};
 </script>
 

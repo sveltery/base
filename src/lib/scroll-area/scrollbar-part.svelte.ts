@@ -8,7 +8,7 @@ import { mergeCssStyle } from '../internal/css-style.js';
 import { getStateAttributesProps } from '../internal/state-attributes.js';
 import { scrollAreaStateAttributesMapping } from './attributes.js';
 import type { ScrollAreaModel } from './model.svelte.js';
-import { chain } from './style.js';
+import { chain } from '../internal/mergeProps.js';
 import { scrollbarTrackStyle } from './track-style.js';
 
 interface ScrollbarInputs {

@@ -10,7 +10,7 @@
 	import { getStateAttributesProps } from '../internal/state-attributes.js';
 	import { useScrollAreaRootContext, useScrollAreaScrollbarContext } from './context.svelte.js';
 	import { scrollAreaThumbHeight, scrollAreaThumbWidth } from './css-vars.js';
-	import { chain } from './style.js';
+	import { chain } from '../internal/mergeProps.js';
 	import type { ScrollAreaThumbProps } from './types.js';
 
 	const attachmentKey = createAttachmentKey();

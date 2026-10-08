@@ -11,7 +11,7 @@ Internal utilities through phase 1b. There is no public component. `verify.sh` c
 | Scroll lock       | Modal lock, and the lock remains until every owner releases it                                                  |
 | Open / transition | `data-open`, `data-closed`, `data-starting-style`, cancel                                                       |
 | Popup store       | `preventUnmountOnClose` sticks after a canceled close                                                           |
-| mergeProps        | Handler order, `defaultPrevented`, class, style, attachments                                                    |
+| mergeProps        | Rightmost bag wins, its handler runs first, `preventBaseUIHandler`, class array, style, attachments             |
 | Positioning       | Popup sits under the trigger, stays there while closing, and rounds to device pixels                            |
 | Hover             | Opens on hover, switches the trigger before `onOpenChange`, keeps a pending close, and can block pointer events |
 | Anchored scroll   | Pointer open locks; hover does not; a touch pointer locks only when wide                                        |

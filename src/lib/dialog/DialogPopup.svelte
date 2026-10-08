@@ -76,17 +76,21 @@
 	}
 
 	const hostProps = $derived(
-		mergeProps(elementProps, FOCUSABLE_POPUP_PROPS, {
-			id: store.floatingId,
-			role: store.role,
-			...(store.titleElementId ? { 'aria-labelledby': store.titleElementId } : {}),
-			...(store.descriptionElementId ? { 'aria-describedby': store.descriptionElementId } : {}),
-			hidden: !store.mounted,
-			style: `${nestedDialogsVar}: ${store.nestedOpenDialogCount}`,
-			onkeydown: onKeyDown,
-			...getStateAttributesProps(state, dialogStateAttributesMapping),
-			...(render ? { [attachmentKey]: ownPopup } : {})
-		}) as DialogDivProps
+		mergeProps(
+			{
+				id: store.floatingId,
+				role: store.role,
+				...(store.titleElementId ? { 'aria-labelledby': store.titleElementId } : {}),
+				...(store.descriptionElementId ? { 'aria-describedby': store.descriptionElementId } : {}),
+				hidden: !store.mounted,
+				style: `${nestedDialogsVar}: ${store.nestedOpenDialogCount}`,
+				onkeydown: onKeyDown,
+				...getStateAttributesProps(state, dialogStateAttributesMapping),
+				...(render ? { [attachmentKey]: ownPopup } : {})
+			},
+			FOCUSABLE_POPUP_PROPS,
+			elementProps
+		) as DialogDivProps
 	);
 
 	useOpenChangeComplete(() => ({

@@ -109,11 +109,6 @@
 
 	const hostProps = $derived.by(() => {
 		const merged = mergeProps(
-			elementProps,
-			useButton(disabled, nativeButton),
-			armed?.click,
-			armed?.hover,
-			live?.dismissReference,
 			{
 				id: triggerId,
 				'aria-haspopup': 'dialog' as const,
@@ -127,7 +122,12 @@
 				),
 				[bindKey]: bindTrigger,
 				[hoverKey]: attachReference
-			}
+			},
+			live?.dismissReference,
+			armed?.hover,
+			armed?.click,
+			useButton(disabled, nativeButton),
+			elementProps
 		);
 		return merged;
 	});

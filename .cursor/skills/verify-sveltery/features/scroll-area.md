@@ -7,14 +7,14 @@ A custom scrollbar around a scrollable viewport. Upstream: `packages/react/src/s
 - `ScrollArea.Root` renders a `<div role="presentation">` and injects the `base-ui-disable-scrollbar` style element. `ScrollArea.Viewport` is the scrollable `<div>`. It is `tabindex="0"` when either axis overflows and `tabindex="-1"` when the content fits. `ScrollArea.Content` wraps children with `min-width: fit-content`.
 - `ScrollArea.Scrollbar` is `aria-hidden` and `data-orientation`. It unmounts when that axis does not overflow unless `keepMounted` is set. `ScrollArea.Thumb` is the draggable indicator. `ScrollArea.Corner` renders only when both axes overflow.
 - Overflow sets `data-has-overflow-x`, `data-has-overflow-y`, and the `data-overflow-*-start` / `end` edges. `overflowEdgeThreshold` delays those edge attributes. The viewport publishes `--scroll-area-overflow-*` lengths. Thumb length is `--scroll-area-thumb-height` or `--scroll-area-thumb-width`, floored at 16px, and shrinks on overscroll.
-- A user scroll (pointer, wheel, key, or touch modality) sets `data-scrolling` for 500ms. A programmatic `scrollTop` / `scrollLeft` does not, until the user has interacted. Dragging a thumb or pressing the track scrolls the viewport and sets `scroll-snap-type: none` until release. Wheel events on the scrollbar scroll that axis and chain to the page at the edges. `preventDefault()` on a consumer pointer handler skips the part handler.
+- A user scroll (pointer, wheel, key, or touch modality) sets `data-scrolling` for 500ms. A programmatic `scrollTop` / `scrollLeft` does not, until the user has interacted. Dragging a thumb or pressing the track scrolls the viewport and sets `scroll-snap-type: none` until release. Wheel events on the scrollbar scroll that axis and chain to the page at the edges. `preventBaseUIHandler()` on a consumer pointer handler skips the part handler. `preventDefault()` does not.
 - Parts throw if they are outside Root, Viewport, or Scrollbar. A `render` snippet receives `(props, state, children)`.
 
 Differences from React Base UI, all deliberate:
 
 - No `ref`. The host is `bind:this` on the default element, and `{@attach}` when `render` spreads `props`.
-- No `className` or style objects. Use `class` and `style` strings.
-- No `preventBaseUIHandler()`. `preventDefault()` skips the part handler.
+- No `className` or React style objects. `class` may be a Svelte class array. `style` is a CSS string. The consumer class comes first.
+- `preventBaseUIHandler()` skips the part handler. `preventDefault()` does not.
 - Direction is `useDirection().direction`. Outside a provider it is `ltr`. The root can still set CSS `direction` for the browser's own scroll origin.
 - The scrollbar-hiding `<style>` element receives the CSP `nonce`. It is omitted when `disableStyleElements` is true. Outside a provider the element is rendered and has no nonce.
 

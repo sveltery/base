@@ -2,14 +2,14 @@
 // Derived from packages/react/src/internals/use-button/useButton.ts
 // (commit 47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c). MIT, see THIRD_PARTY_NOTICES.md.
 
-import { currentHost, dispatchClick, isLink } from './click.js';
+import { clickOnSpaceKeyUp, currentHost, dispatchClick, isLink } from './click.js';
 import { mergeProps } from './mergeProps.js';
 
 export function useButton(disabled: boolean, nativeButton: boolean) {
 	return mergeProps(
-		guardDisabled(disabled),
+		buttonProps(disabled, nativeButton),
 		nonNativeKeys(disabled, nativeButton),
-		buttonProps(disabled, nativeButton)
+		guardDisabled(disabled)
 	);
 }
 
@@ -29,16 +29,16 @@ function buttonProps(disabled: boolean, nativeButton: boolean) {
 function guardDisabled(disabled: boolean) {
 	return {
 		onclick(event: MouseEvent) {
-			if (disabled) event.preventDefault();
+			if (disabled) event.preventBaseUIHandler?.();
 		},
 		onpointerdown(event: PointerEvent) {
-			if (disabled) event.preventDefault();
+			if (disabled) event.preventBaseUIHandler?.();
 		},
 		onmousedown(event: MouseEvent) {
-			if (disabled) event.preventDefault();
+			if (disabled) event.preventBaseUIHandler?.();
 		},
 		onkeydown(event: KeyboardEvent) {
-			if (disabled && event.key !== 'Tab') event.preventDefault();
+			if (disabled && event.key !== 'Tab') event.preventBaseUIHandler?.();
 		}
 	};
 }
@@ -61,10 +61,10 @@ function nonNativeKeys(disabled: boolean, nativeButton: boolean) {
 			if (isEnter) dispatchClick(current, event);
 		},
 		onkeyup(event: KeyboardEvent) {
-			if (disabled || nativeButton || event.defaultPrevented || event.key !== ' ') return;
+			if (disabled) return;
 			const current = currentHost(event);
-			if (!current || isLink(current, nativeButton)) return;
-			dispatchClick(current, event);
+			if (current && isLink(current, nativeButton)) return;
+			clickOnSpaceKeyUp(event, nativeButton);
 		}
 	};
 }

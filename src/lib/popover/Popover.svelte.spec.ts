@@ -180,6 +180,13 @@ describe('Popover', () => {
 		expect(page.getByTestId('calls').element().textContent).toContain('"canceled":true');
 	});
 
+	it('does not open when the trigger calls preventBaseUIHandler', async () => {
+		render(PopoverFixture, { scenario: 'prevented' });
+		await page.getByRole('button', { name: 'Open' }).click();
+		await expect.poll(() => page.getByRole('dialog').elements().length).toBe(0);
+		expect(page.getByTestId('calls').element().textContent).toBe('[]');
+	});
+
 	it('does not open a disabled trigger', async () => {
 		render(PopoverFixture, { scenario: 'disabled' });
 		const trigger = page.getByRole('button', { name: 'Open' });

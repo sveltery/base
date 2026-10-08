@@ -39,7 +39,7 @@ Differences from React Base UI, all deliberate:
 - No locked controlled mode. Hold the state with `eventDetails.cancel()`. `defaultOpen` and `defaultTriggerId` are the uncontrolled start.
 - No `ref` and no `actionsRef`. Use `{@attach}` and `bind:this` for `close()` and `unmount()`.
 - `initialFocus` / `finalFocus` accept an element or a function, not a ref object.
-- `class` and `style` are strings.
+- `class` on a merged host may be a Svelte class array. `style` is a CSS string. The rightmost bag wins.
 - Alert Dialog and Drawer are not ported. `role` stays `dialog`.
 - Outside press is one dialog listener. Mouse and touch use separate modes. A backdrop is `intentional` for both. Without one, touch is `sloppy` and mouse is `sloppy` only for `trap-focus`. `useDismiss` already tracks `pressStartedInside`. The dialog listener remains because that hook treats the portal host as inside, so a backdrop or viewport press would not dismiss.
 - `COMPOSITE_KEYS` is shared with Slider (`src/lib/internal/composite-keys.ts`). Arrow keys stay inside the dialog.

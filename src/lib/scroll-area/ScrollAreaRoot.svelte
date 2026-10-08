@@ -17,7 +17,7 @@
 	import { setScrollAreaContext } from './context.svelte.js';
 	import { scrollAreaCornerHeight, scrollAreaCornerWidth } from './css-vars.js';
 	import { ScrollAreaModel } from './model.svelte.js';
-	import { chain } from './style.js';
+	import { chain } from '../internal/mergeProps.js';
 	import type { ScrollAreaRootProps } from './types.js';
 
 	const uid = $props.id();
