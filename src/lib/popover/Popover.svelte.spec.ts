@@ -242,6 +242,17 @@ describe('Popover', () => {
 		expect(page.getByTestId('calls').element().textContent).toContain('"reason":"focus-out"');
 	});
 
+	it('moves focus into the popup when tabbing from the open trigger', async () => {
+		render(PopoverFixture, { scenario: 'tab' });
+		const open = page.getByRole('button', { name: 'Open' });
+		await open.click();
+		await expect.poll(() => document.activeElement?.textContent).toBe('Inside');
+		(open.element() as HTMLElement).focus();
+		await userEvent.keyboard('{Tab}');
+		await expect.poll(() => document.activeElement?.textContent).toBe('Inside');
+		await expect.element(page.getByRole('dialog')).toBeVisible();
+	});
+
 	it('focuses the previous control inside when the trailing guard is reached from outside', async () => {
 		render(PopoverFixture, { scenario: 'tab' });
 		await page.getByRole('button', { name: 'Open' }).click();

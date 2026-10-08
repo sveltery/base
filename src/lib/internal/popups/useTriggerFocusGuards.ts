@@ -9,6 +9,7 @@ import { contains } from '../shadow-dom.js';
 import {
 	getTabbableAfterElement,
 	getTabbableBeforeElement,
+	getTabbableCandidates,
 	isOutsideEvent
 } from '../floating-ui-react/utils/tabbable.js';
 import type { FloatingRootStore } from '../floating-ui-react/components/FloatingRootStore.svelte.js';
@@ -32,6 +33,14 @@ export function useTriggerFocusGuards(
 	function handleFocusTargetFocus(event: FocusEvent) {
 		const positioner = store.positionerElement;
 		if (positioner && isOutsideEvent(event, positioner)) {
+			// Tab from the open trigger lands here from outside the positioner.
+			// Upstream focuses the leading guard, whose next tabbable is the first control.
+			const floating = store.floatingElement;
+			const inside = floating ? getTabbableCandidates(floating)[0] : null;
+			if (inside) {
+				inside.focus();
+				return;
+			}
 			beforeContentFocusGuard?.focus();
 			return;
 		}
