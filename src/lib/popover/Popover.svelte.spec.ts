@@ -2,7 +2,7 @@
 // (commit 47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c). MIT, see THIRD_PARTY_NOTICES.md.
 // Menu, Combobox, shadow-root outside press, and actionsRef are not ported.
 import { tick } from 'svelte';
-import { page } from 'vitest/browser';
+import { page, userEvent } from 'vitest/browser';
 import { describe, expect, it } from 'vitest';
 import { render } from 'vitest-browser-svelte';
 import PopoverDetachHarness from '../../tests/PopoverDetachHarness.svelte';
@@ -178,6 +178,18 @@ describe('Popover', () => {
 		render(PopoverFixture, { scenario: 'standalone' });
 		await page.getByRole('button', { name: 'Open' }).click();
 		await expect.poll(() => document.activeElement?.textContent).toBe('Inside');
+	});
+
+	it('moves focus to the control after the trigger and closes when tabbing out', async () => {
+		render(PopoverFixture, { scenario: 'tab' });
+		await page.getByRole('button', { name: 'Open' }).click();
+		await expect.poll(() => document.activeElement?.textContent).toBe('Inside');
+		await userEvent.keyboard('{Tab}');
+		await expect
+			.poll(() => document.activeElement)
+			.toBe(page.getByRole('button', { name: 'After' }).element());
+		await expect.poll(() => page.getByRole('dialog').elements().length).toBe(0);
+		expect(page.getByTestId('calls').element().textContent).toContain('"reason":"focus-out"');
 	});
 
 	it('throws outside the root', () => {

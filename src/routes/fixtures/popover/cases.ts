@@ -8,7 +8,8 @@ export const cases = [
 	'modal',
 	'close',
 	'open',
-	'detached'
+	'detached',
+	'tab'
 ] as const;
 
 export type PopoverCase = (typeof cases)[number];

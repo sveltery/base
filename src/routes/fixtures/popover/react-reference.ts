@@ -86,7 +86,8 @@ export function mountPopoverReference(
 			h('pre', { 'data-testid': 'calls' }, JSON.stringify(calls)),
 			scenario === 'detached'
 				? h(Fragment, null, trigger, h(Popover.Root, { handle, onOpenChange: onOpen }, popup))
-				: h(Popover.Root, rootProps, trigger, popup)
+				: h(Popover.Root, rootProps, trigger, popup),
+			scenario === 'tab' ? h('button', { type: 'button' }, 'After') : null
 		);
 	}
 

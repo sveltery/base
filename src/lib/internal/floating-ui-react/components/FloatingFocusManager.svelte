@@ -17,7 +17,7 @@
 	import { CLICK_TRIGGER_IDENTIFIER } from '../utils/constants.js';
 	import { enqueueFocus } from '../utils/enqueueFocus.js';
 	import { markOthers } from '../utils/markOthers.js';
-	import { getTabbableCandidates } from '../utils/tabbable.js';
+	import { getTabbableCandidates, isOutsideEvent } from '../utils/tabbable.js';
 	import { useFloatingTree } from './FloatingTree.svelte.js';
 	import { getNodeChildren } from './FloatingTreeStore.js';
 
@@ -83,6 +83,14 @@
 		const items = tabbables(floating);
 		const target = edge === 'first' ? items[0] : items[items.length - 1];
 		(target ?? floating).focus();
+	}
+
+	// Tab leaving a non-modal popup lands here, then on the trigger's trailing guard.
+	function leaveToTriggerGuard(event: FocusEvent) {
+		const positioner = store.positionerElement;
+		if (positioner && isOutsideEvent(event, positioner)) return;
+		const next = store.triggerFocusTarget;
+		if (next instanceof HTMLElement) next.focus();
 	}
 
 	/** How this open session closed. Not state: the trap effect must not depend on it. */
@@ -307,6 +315,9 @@
 	/>
 {/if}
 {@render children?.()}
+{#if !modal && !disabled && store.isOpen() && store.triggerFocusTarget}
+	<FocusGuard onfocus={leaveToTriggerGuard} />
+{/if}
 {#if modal && store.isOpen()}
 	<FocusGuard
 		data-type="inside"

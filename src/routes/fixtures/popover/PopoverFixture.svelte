@@ -61,3 +61,6 @@
 		{@render popup()}
 	</Popover.Root>
 {/if}
+{#if scenario === 'tab'}
+	<button type="button">After</button>
+{/if}
