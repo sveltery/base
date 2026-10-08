@@ -210,10 +210,19 @@ describe('<Slider />', () => {
 		});
 
 		it('clears form errors, marks dirty, and revalidates on a parent write', async () => {
+			let seen: { value: unknown; form: unknown; input: string | null } | null = null;
 			render(SliderHarness, {
 				scenario: 'parent',
 				defaultValue: 30,
-				validate: () => 'nope'
+				validate: (value, formValues) => {
+					const input = document.querySelector('input[type="range"]');
+					seen = {
+						value,
+						form: formValues.slider,
+						input: input instanceof HTMLInputElement ? input.value : null
+					};
+					return 'nope';
+				}
 			});
 			await expect.element(page.getByTestId('errors')).toHaveTextContent('{"slider":"stale"}');
 			expect(root().hasAttribute('data-dirty')).toBe(false);
@@ -221,6 +230,7 @@ describe('<Slider />', () => {
 			await expect.element(page.getByTestId('errors')).toHaveTextContent('{}');
 			await expect.poll(() => root().hasAttribute('data-dirty')).toBe(true);
 			await expect.element(page.getByTestId('error')).toHaveTextContent('nope');
+			expect(seen).toEqual({ value: 70, form: 70, input: '70' });
 		});
 
 		it('keeps a bound value in sync and follows an external write', async () => {
@@ -650,6 +660,31 @@ describe('<Slider />', () => {
 			});
 			change(slider(), '1');
 			await expect.element(page.getByRole('slider')).toHaveAttribute('aria-invalid', 'true');
+		});
+
+		it('validates the stepped value after the thumb and registration update', async () => {
+			let seen: { value: unknown; form: unknown; input: string | null } | null = null;
+			render(SliderHarness, {
+				scenario: 'field',
+				fieldName: 'volume',
+				validationMode: 'onChange',
+				defaultValue: 30,
+				validate: (value, formValues) => {
+					const input = document.querySelector('input[type="range"]');
+					seen = {
+						value,
+						form: formValues.volume,
+						input: input instanceof HTMLInputElement ? input.value : null
+					};
+					return Number(value) === 31 ? null : 'stale';
+				}
+			});
+			const input = slider();
+			input.focus();
+			key(input, 'ArrowRight');
+			await expect.poll(() => input.getAttribute('aria-valuenow')).toBe('31');
+			expect(seen).toEqual({ value: 31, form: 31, input: '31' });
+			expect(input.hasAttribute('aria-invalid')).toBe(false);
 		});
 	});
 

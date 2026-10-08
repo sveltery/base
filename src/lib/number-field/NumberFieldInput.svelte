@@ -5,6 +5,7 @@
 	This is not Field.Control. Upstream renders its own text input and registers it with Field.
 -->
 <script lang="ts">
+	import { untrack } from 'svelte';
 	import { createAttachmentKey } from 'svelte/attachments';
 	import type { HTMLAttributes, HTMLInputAttributes } from 'svelte/elements';
 	import { useFieldContext } from '../field/context.svelte.js';
@@ -15,7 +16,6 @@
 	import type { NumberFieldInputProps, NumberFieldInputState } from './types.js';
 
 	const elementKey = createAttachmentKey();
-	const controlSource = Symbol('number-field-input');
 
 	let {
 		render,
@@ -48,20 +48,13 @@
 	}
 
 	$effect(() => {
-		const active = !model.options.getDisabled();
-		const element = model.inputElement;
 		if (!field) return;
-		if (!active) {
-			field.registerControl(controlSource, undefined);
-			return () => field.registerControl(controlSource, undefined);
-		}
-		field.registerControl(controlSource, {
-			id: model.options.getId(),
-			name: model.options.getNameProp(),
-			value: model.options.getValue(),
-			element
-		});
-		return () => field.registerControl(controlSource, undefined);
+		const disabled = model.options.getDisabled();
+		const element = model.inputElement;
+		const id = model.options.getId();
+		const name = model.options.getNameProp();
+		untrack(() => model.registerField({ disabled, element, id, name }));
+		return () => field.registerControl(model.fieldSource, undefined);
 	});
 
 	function handleFocus(event: FocusEvent & { currentTarget: EventTarget & HTMLInputElement }) {

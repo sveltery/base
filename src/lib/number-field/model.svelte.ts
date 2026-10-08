@@ -103,8 +103,12 @@ export class NumberFieldModel {
 	/** Latest value `setValue` stored, including a no-op validation. */
 	lastChangedValue: number | null = null;
 	hasPendingCommit = false;
-	/** Skips the next blur-driven revalidation when the value did not actually change. */
-	blockRevalidation = false;
+	/**
+	 * Reason for the value currently being committed. The change notice reads it
+	 * once so a blur can commit without a second validation pass.
+	 */
+	changeReason: NumberFieldChangeEventDetails['reason'] | null = null;
+	readonly fieldSource = Symbol('number-field-field');
 	/**
 	 * Value the next step reads. Normally the stored number. A dirty commit can
 	 * point it at the raw parsed text for the step that follows in the same turn.
@@ -117,7 +121,9 @@ export class NumberFieldModel {
 		this.options = options;
 		this.inputValue = formatNumber(options.getValue(), options.getLocale(), options.getFormat());
 
-		$effect(() => {
+		// Before the DOM commit, so the change notice (a later `$effect`) validates
+		// the text the parent write is about to show.
+		$effect.pre(() => {
 			const value = this.options.getValue();
 			const locale = this.options.getLocale();
 			const format = this.options.getFormat();
@@ -259,6 +265,31 @@ export class NumberFieldModel {
 		return keys;
 	}
 
+	/** Point field validation at the current number and input before the change notice. */
+	registerField(snapshot?: {
+		disabled: boolean;
+		element: HTMLInputElement | null;
+		id: string | undefined;
+		name: string | undefined;
+	}) {
+		const field = this.options.getField();
+		if (!field) return;
+		const disabled = snapshot?.disabled ?? this.options.getDisabled();
+		const element = snapshot ? snapshot.element : this.inputElement;
+		const id = snapshot ? snapshot.id : this.options.getId();
+		const name = snapshot ? snapshot.name : this.options.getNameProp();
+		if (disabled) {
+			field.registerControl(this.fieldSource, undefined);
+			return;
+		}
+		field.registerControl(this.fieldSource, {
+			id,
+			name,
+			value: this.options.getValue(),
+			element
+		});
+	}
+
 	setValue(unvalidatedValue: number | null, details: NumberFieldChangeEventDetails): boolean {
 		const keyState = details.event as EventWithOptionalKeyState;
 		const direction = details.direction;
@@ -283,8 +314,7 @@ export class NumberFieldModel {
 		if (shouldFireChange) {
 			this.options.getOnValueChange()?.(validatedValue, details);
 			if (details.isCanceled) return false;
-			this.options.writeValue(validatedValue);
-			this.hasPendingCommit = true;
+			this.changeReason = details.reason;
 		}
 
 		this.lastChangedValue = validatedValue;
@@ -294,6 +324,12 @@ export class NumberFieldModel {
 				this.options.getLocale(),
 				this.options.getFormat()
 			);
+		}
+		if (shouldFireChange) {
+			const before = this.options.getValue();
+			this.options.writeValue(validatedValue);
+			if (Object.is(before, this.options.getValue())) this.changeReason = null;
+			this.hasPendingCommit = true;
 		}
 		return shouldFireChange;
 	}
@@ -406,14 +442,9 @@ export class NumberFieldModel {
 		let committedValue = committed;
 		if (shouldUpdate) {
 			const changeDetails = createChangeEventDetails(REASONS.inputBlur, event);
-			this.blockRevalidation = true;
 			this.setValue(committed, changeDetails);
-			if (changeDetails.isCanceled) {
-				this.blockRevalidation = false;
-				return;
-			}
+			if (changeDetails.isCanceled) return;
 			committedValue = this.lastChangedValue;
-			if (committedValue === previous) this.blockRevalidation = false;
 		}
 		if (field?.validationMode === 'onBlur') field.commit(committedValue);
 		if (shouldCommit) {

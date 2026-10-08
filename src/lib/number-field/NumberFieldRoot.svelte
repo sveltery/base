@@ -60,10 +60,18 @@
 		},
 		getDefault: () => defaultValue,
 		onChange(next) {
+			const reason = model.changeReason;
+			model.changeReason = null;
+			model.registerField();
 			form.clearErrors(name);
 			field?.setDirty(next !== field.validityData.initialValue);
-			if (model.blockRevalidation && !field?.shouldValidateOnChange()) {
-				model.blockRevalidation = false;
+			// Blur already committed when this mode does not validate on change.
+			// A second pass would clear that result.
+			if (
+				(reason === 'input-blur' || reason === 'input-clear') &&
+				field &&
+				!field.shouldValidateOnChange()
+			) {
 				return;
 			}
 			field?.change(next);
@@ -150,14 +158,14 @@
 	}
 </script>
 
-{#snippet content()}
+{#snippet numberFieldContent()}
 	{@render children?.()}
 {/snippet}
 
 {#if render}
-	{@render render(hostProps, rootState, content)}
+	{@render render(hostProps, rootState, numberFieldContent)}
 {:else}
-	<div {...hostProps}>{@render content()}</div>
+	<div {...hostProps}>{@render numberFieldContent()}</div>
 {/if}
 <input
 	type="number"

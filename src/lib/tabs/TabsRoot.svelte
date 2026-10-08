@@ -24,14 +24,18 @@
 		...elementProps
 	}: TabsRootProps = $props();
 
+	let tabs: TabsRootModel;
 	const controllable = createControllableValue<typeof value>({
 		getProp: () => value,
 		setProp: (next) => {
 			value = next;
 		},
-		getDefault: () => defaultValue
+		getDefault: () => defaultValue,
+		onChange(next) {
+			tabs.deliverNotice(next ?? null);
+		}
 	});
-	const tabs = new TabsRootModel(controllable);
+	tabs = new TabsRootModel(controllable);
 	tabs.readOrientation = () => orientation;
 	tabs.readOnValueChange = () => onValueChange;
 	setTabsRootContext(tabs);
@@ -47,12 +51,12 @@
 	});
 </script>
 
-{#snippet content()}
+{#snippet tabsContent()}
 	{@render children?.()}
 {/snippet}
 
 {#if render}
-	{@render render(hostProps, state, content)}
+	{@render render(hostProps, state, tabsContent)}
 {:else}
-	<div {...hostProps}>{@render content()}</div>
+	<div {...hostProps}>{@render tabsContent()}</div>
 {/if}
