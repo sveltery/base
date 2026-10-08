@@ -1,28 +1,35 @@
 <script lang="ts">
-	import { useAnchoredPopupScrollLock } from '#lib/internal/popups/index.js';
+	import { createControllableValue } from '#lib/internal/controllable-value.svelte.js';
+	import { useClick } from '#lib/internal/floating-ui/index.js';
+	import { PopupStore, useAnchoredPopupScrollLock } from '#lib/internal/popups/index.js';
 
-	let {
-		enabled = false,
-		touchOpen = false,
-		wide = false
-	}: { enabled?: boolean; touchOpen?: boolean; wide?: boolean } = $props();
+	let { enabled = false, wide = false }: { enabled?: boolean; wide?: boolean } = $props();
 
+	let open = $state<boolean | undefined>(false);
 	let positioner = $state<HTMLElement | null>(null);
-	let openedByTouch = $state(false);
+	const store = new PopupStore<string>({
+		open: createControllableValue<boolean>({
+			getProp: () => open,
+			setProp: (value) => (open = value),
+			getDefault: () => false
+		}),
+		floatingId: 'touch-scroll-lock',
+		floatingElement: 'positioner',
+		onOpenChange: () => () => {},
+		onOpenChangeComplete: () => () => {}
+	});
 
-	function onPointerDown(event: PointerEvent) {
-		openedByTouch = event.pointerType === 'touch';
-	}
+	const click = useClick(store);
 
 	useAnchoredPopupScrollLock(() => ({
-		enabled,
-		touchOpen: touchOpen || openedByTouch,
+		enabled: enabled && store.open,
+		touchOpen: store.openPointerType === 'touch',
 		positionerElement: positioner,
 		referenceElement: positioner
 	}));
 </script>
 
-<button type="button" onpointerdown={onPointerDown}>Touch</button>
+<button type="button" {...click.reference}>Open</button>
 <div
 	bind:this={positioner}
 	data-testid="positioner"
