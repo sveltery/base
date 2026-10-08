@@ -16,7 +16,6 @@ const OWNERS = {
 	getTarget: 'src/lib/internal/shadow-dom.ts',
 	contains: 'src/lib/internal/shadow-dom.ts',
 	byDocumentOrder: 'src/lib/internal/document-order.ts',
-	isSkipped: 'src/lib/internal/composite-skip.ts',
 	dispatchClick: 'src/lib/internal/click.ts',
 	currentHost: 'src/lib/internal/click.ts',
 	isLink: 'src/lib/internal/click.ts',

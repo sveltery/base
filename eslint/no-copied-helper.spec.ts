@@ -48,14 +48,6 @@ describe('sveltery/no-copied-helper', () => {
 			animations.some((message) => message.includes('src/lib/internal/animations-finished.ts'))
 		).toBe(true);
 
-		const skipped = await messages(
-			'function isSkipped(element) { return element.hidden; }\n',
-			'src/lib/radio-group/example.ts'
-		);
-		expect(skipped.some((message) => message.includes('src/lib/internal/composite-skip.ts'))).toBe(
-			true
-		);
-
 		const engine = await messages(
 			"const webkit = CSS.supports('-webkit-backdrop-filter:none');\nvoid webkit;\n",
 			'src/lib/scroll-area/example.ts'
