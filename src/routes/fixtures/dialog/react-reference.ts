@@ -77,7 +77,7 @@ export function mountDialogReference(node: HTMLElement, scenario: DialogCase, on
 				h(
 					Dialog.Root,
 					{ open: parentOpen, onOpenChange: setParentOpen },
-					h(Dialog.Trigger, { 'data-testid': 'open-parent' }, 'Open'),
+					h(Dialog.Trigger, { 'data-testid': 'open-parent' } as never, 'Open'),
 					h(
 						Dialog.Portal,
 						{ keepMounted: true },
