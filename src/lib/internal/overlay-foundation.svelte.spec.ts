@@ -93,16 +93,14 @@ describe('overlay foundation', () => {
 		await page.getByRole('button', { name: 'Open' }).click();
 		const popup = page.getByRole('dialog', { name: 'Notice' });
 		await expect.element(popup).toBeVisible();
-		popup
-			.element()
-			.dispatchEvent(
-				new PointerEvent('pointerdown', {
-					bubbles: true,
-					cancelable: true,
-					button: 0,
-					pointerType: 'mouse'
-				})
-			);
+		popup.element().dispatchEvent(
+			new PointerEvent('pointerdown', {
+				bubbles: true,
+				cancelable: true,
+				button: 0,
+				pointerType: 'mouse'
+			})
+		);
 		page
 			.getByTestId('outside')
 			.element()
