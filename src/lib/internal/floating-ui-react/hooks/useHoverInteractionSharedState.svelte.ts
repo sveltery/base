@@ -1,9 +1,11 @@
 // Derived from Base UI v1.8.0 packages/react/src/floating-ui-react/hooks/useHoverInteractionSharedState.ts
 // (commit 47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c). MIT, see THIRD_PARTY_NOTICES.md.
+// Hover timers live on the popup store. The scope map only coordinates pointer-events
+// when two popups share one element, matching upstream.
 
 import { Timeout } from '../../timeout.js';
 import type { FloatingRootStore } from '../components/FloatingRootStore.svelte.js';
-import type { SafePolygonOptions } from '../safePolygon.js';
+import type { HandleClose, SafePolygonOptions } from '../safePolygon.js';
 
 export class HoverInteraction {
 	pointerType: string | undefined;
@@ -17,7 +19,8 @@ export class HoverInteraction {
 	restTimeoutPending = false;
 	readonly openChangeTimeout = new Timeout();
 	readonly restTimeout = new Timeout();
-	handleCloseOptions: SafePolygonOptions | undefined;
+	handleClose = $state<HandleClose | null>(null);
+	handleCloseOptions = $state<SafePolygonOptions | undefined>(undefined);
 
 	dispose() {
 		this.openChangeTimeout.clear();
@@ -25,26 +28,22 @@ export class HoverInteraction {
 	}
 }
 
-const states = new WeakMap<FloatingRootStore, HoverInteraction>();
-const owners = new WeakMap<HTMLElement | SVGSVGElement, HoverInteraction>();
+/** Which popup currently owns `pointer-events` on a shared scope element. */
+const pointerEventsOwnerByScope = new WeakMap<HTMLElement | SVGSVGElement, HoverInteraction>();
 
 export function hoverInteraction(store: FloatingRootStore) {
-	let instance = states.get(store);
-	if (!instance) {
-		instance = new HoverInteraction();
-		states.set(store, instance);
-	}
-	return instance;
+	store.hoverInteraction ??= new HoverInteraction();
+	return store.hoverInteraction;
 }
 
 export function clearSafePolygonPointerEventsMutation(instance: HoverInteraction) {
 	if (!instance.performedPointerEventsMutation) return;
 	const scopeElement = instance.pointerEventsScopeElement;
-	if (scopeElement && owners.get(scopeElement) === instance) {
+	if (scopeElement && pointerEventsOwnerByScope.get(scopeElement) === instance) {
 		instance.pointerEventsScopeElement?.style.removeProperty('pointer-events');
 		instance.pointerEventsReferenceElement?.style.removeProperty('pointer-events');
 		instance.pointerEventsFloatingElement?.style.removeProperty('pointer-events');
-		owners.delete(scopeElement);
+		pointerEventsOwnerByScope.delete(scopeElement);
 	}
 	instance.performedPointerEventsMutation = false;
 	instance.pointerEventsScopeElement = null;
@@ -60,14 +59,14 @@ export function applySafePolygonPointerEventsMutation(
 		floatingElement: HTMLElement;
 	}
 ) {
-	const existing = owners.get(options.scopeElement);
+	const existing = pointerEventsOwnerByScope.get(options.scopeElement);
 	if (existing && existing !== instance) clearSafePolygonPointerEventsMutation(existing);
 	clearSafePolygonPointerEventsMutation(instance);
 	instance.performedPointerEventsMutation = true;
 	instance.pointerEventsScopeElement = options.scopeElement;
 	instance.pointerEventsReferenceElement = options.referenceElement;
 	instance.pointerEventsFloatingElement = options.floatingElement;
-	owners.set(options.scopeElement, instance);
+	pointerEventsOwnerByScope.set(options.scopeElement, instance);
 	options.scopeElement.style.pointerEvents = 'none';
 	options.referenceElement.style.pointerEvents = 'auto';
 	options.floatingElement.style.pointerEvents = 'auto';

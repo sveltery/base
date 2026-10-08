@@ -15,14 +15,17 @@ import {
 	type Middleware,
 	type MiddlewareState,
 	type Padding,
-	type Placement,
-	type VirtualElement
+	type Placement
 } from '@floating-ui/dom';
 import { getAlignment, getSide, getSideAxis, type Side as PhysicalSide } from '@floating-ui/utils';
 import * as CommonPositionerCssVars from './CommonPositionerCssVars.js';
 import { useDirection } from './direction-context.js';
 import { arrow } from './floating-ui-react/middleware/arrow.js';
-import type { FloatingRootStore } from './floating-ui-react/components/FloatingRootStore.svelte.js';
+import type {
+	Anchor,
+	FloatingRootStore,
+	ReferenceElement
+} from './floating-ui-react/components/FloatingRootStore.svelte.js';
 import { useBaseUIFloating } from './floating-ui-react/hooks/useFloating.svelte.js';
 import { hide } from './hideMiddleware.js';
 import { ownerDocument, ownerWindow } from './owner.js';
@@ -51,7 +54,7 @@ export interface CollisionAvoidance {
 }
 
 export interface UseAnchorPositioningParameters {
-	anchor?: Element | VirtualElement | null | (() => Element | VirtualElement | null);
+	anchor?: Anchor;
 	positionMethod?: 'absolute' | 'fixed';
 	side?: Side;
 	sideOffset?: number | OffsetFunction;
@@ -115,9 +118,7 @@ function offsetData(state: MiddlewareState, sideParam: Side, isRtl: boolean) {
 	} as const;
 }
 
-function resolveAnchor(
-	anchor: UseAnchorPositioningParameters['anchor']
-): Element | VirtualElement | null {
+function resolveAnchor(anchor: Anchor | undefined): ReferenceElement | null {
 	if (typeof anchor === 'function') return anchor();
 	return anchor ?? null;
 }
@@ -160,7 +161,7 @@ export function useAnchorPositioning(
 	params: () => UseAnchorPositioningParameters
 ): UseAnchorPositioningReturn {
 	const direction = useDirection();
-	let mountSide = $state<PhysicalSide | null>(null);
+	let latchedSide = $state<PhysicalSide | null>(null);
 	let arrowElement = $state<HTMLElement | null>(null);
 	let measured = $state.raw<Record<string, string>>({});
 
@@ -168,12 +169,11 @@ export function useAnchorPositioning(
 		return params();
 	}
 
-	$effect.pre(() => {
-		if (!read().mounted && mountSide !== null) mountSide = null;
-	});
+	const mountSide = $derived(read().mounted ? latchedSide : null);
 
-	$effect.pre(() => {
-		store.explicitAnchor = read().mounted ? resolveAnchor(read().anchor) : null;
+	$effect(() => {
+		if (read().mounted) return;
+		latchedSide = null;
 	});
 
 	function layout() {
@@ -393,28 +393,37 @@ export function useAnchorPositioning(
 			placement: current.placement,
 			strategy: current.current.positionMethod ?? 'absolute',
 			middleware,
+			open: current.current.mounted,
 			enabled: current.current.mounted,
 			autoUpdate: anchorAutoUpdateOptions(current.current.disableAnchorTracking)
 		};
 	});
 
+	const isPositioned = $derived(position.data.isPositioned && read().mounted);
+
 	$effect(() => {
 		const current = read();
-		if (!current.lazyFlip || !current.mounted || !position.data.isPositioned) return;
+		if (!current.lazyFlip || !isPositioned) return;
 		const rendered = getSide(position.data.placement);
 		const preferred = physicalSide(
 			current.side ?? 'bottom',
 			direction.direction === 'rtl',
 			mountSide
 		);
-		if (rendered !== preferred) mountSide = rendered;
+		if (rendered !== preferred) latchedSide = rendered;
 	});
+
+	function availableSize() {
+		return {
+			[AVAILABLE_WIDTH_VAR]: measured[AVAILABLE_WIDTH_VAR] ?? '100vw',
+			[AVAILABLE_HEIGHT_VAR]: measured[AVAILABLE_HEIGHT_VAR] ?? '100vh'
+		};
+	}
 
 	function positionerStyles() {
 		const current = read();
-		const positioned = position.data.isPositioned && current.mounted;
-		if (!positioned) {
-			return { position: 'fixed', top: '0', left: '0', opacity: '0' };
+		if (!isPositioned) {
+			return { position: 'fixed', top: '0', left: '0', opacity: '0', ...availableSize() };
 		}
 		const method = current.positionMethod ?? 'absolute';
 		const adaptive = current.adaptiveOrigin
@@ -427,7 +436,8 @@ export function useAnchorPositioning(
 			position: method,
 			[sideX]: `${position.data.x}px`,
 			[sideY]: `${position.data.y}px`,
-			...measured
+			...measured,
+			...availableSize()
 		};
 	}
 
@@ -482,7 +492,7 @@ export function useAnchorPositioning(
 			return Boolean(position.data.middlewareData.hide?.referenceHidden);
 		},
 		get isPositioned() {
-			return position.data.isPositioned && read().mounted;
+			return isPositioned;
 		},
 		get positionerProps() {
 			return { attach: bindPositioner };

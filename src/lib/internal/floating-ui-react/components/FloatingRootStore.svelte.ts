@@ -4,9 +4,13 @@
 
 import type { VirtualElement } from '@floating-ui/dom';
 import type { BaseUIChangeEventDetails } from '../../event-details.js';
+import type { HoverInteraction } from '../hooks/useHoverInteractionSharedState.svelte.js';
 import { createEventEmitter, type FloatingEvents } from '../utils/createEventEmitter.js';
 
 export type ReferenceElement = Element | VirtualElement;
+
+/** Element, virtual element, or a getter. This is the only anchor type. */
+export type Anchor = ReferenceElement | null | (() => ReferenceElement | null);
 
 export interface OpenChangePayload {
 	open: boolean;
@@ -18,8 +22,13 @@ export interface OpenChangePayload {
 
 export class FloatingRootStore {
 	domReferenceElement = $state<Element | null>(null);
-	/** Explicit anchor from positioning. Clearing the trigger does not clear this. */
+	/**
+	 * Explicit anchor. Positioning reads its anchor argument directly.
+	 * It does not copy that value onto the store.
+	 */
 	explicitAnchor = $state<ReferenceElement | null>(null);
+	/** Hover timers and safe-polygon options for this popup. Not a module map. */
+	hoverInteraction: HoverInteraction | null = null;
 	/** Client point. Only `useClientPoint` writes this, and that lands later. */
 	positionReference = $state<ReferenceElement | null>(null);
 	floatingElement = $state<HTMLElement | null>(null);

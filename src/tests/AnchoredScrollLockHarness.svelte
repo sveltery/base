@@ -8,15 +8,21 @@
 	}: { enabled?: boolean; touchOpen?: boolean; wide?: boolean } = $props();
 
 	let positioner = $state<HTMLElement | null>(null);
+	let openedByTouch = $state(false);
+
+	function onPointerDown(event: PointerEvent) {
+		openedByTouch = event.pointerType === 'touch';
+	}
 
 	useAnchoredPopupScrollLock(() => ({
 		enabled,
-		touchOpen,
+		touchOpen: touchOpen || openedByTouch,
 		positionerElement: positioner,
 		referenceElement: positioner
 	}));
 </script>
 
+<button type="button" onpointerdown={onPointerDown}>Touch</button>
 <div
 	bind:this={positioner}
 	data-testid="positioner"

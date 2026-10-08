@@ -3,7 +3,7 @@
 
 import { isHTMLElement } from '@floating-ui/utils/dom';
 import { ownerDocument } from '../../owner.js';
-import { activeElement } from '../../shadow-dom.js';
+import { activeElement, contains } from '../../shadow-dom.js';
 import { isElementVisible } from './composite.js';
 
 const CANDIDATE_SELECTOR =
@@ -54,9 +54,8 @@ export function getTabbableBeforeElement(referenceElement: Element | null): HTML
 
 export function isOutsideEvent(event: FocusEvent, container?: Element | null) {
 	const containerElement = container || (event.currentTarget as Element | null);
-	const relatedTarget = event.relatedTarget;
-	if (!containerElement || !(relatedTarget instanceof Node)) return true;
-	return !containerElement.contains(relatedTarget);
+	if (!containerElement) return true;
+	return !contains(containerElement, event.relatedTarget);
 }
 
 export function activeElementIn(container: Element | null) {

@@ -19,11 +19,37 @@
 	import type { PopupChangeEventDetails } from '#lib/internal/popups/index.js';
 	import { getStateAttributesProps } from '#lib/internal/state-attributes.js';
 
-	let { scenario = 'placed' }: { scenario?: 'placed' | 'hover' } = $props();
+	let {
+		scenario = 'placed'
+	}: {
+		scenario?:
+			| 'placed'
+			| 'hover'
+			| 'block'
+			| 'switch'
+			| 'refuse'
+			| 'delay'
+			| 'closing'
+			| 'pixels'
+			| 'unmount';
+	} = $props();
 
 	let open = $state<boolean | undefined>(undefined);
 	let reason = $state('');
-	const hover = $derived(scenario === 'hover');
+	let closeDelay = $state(600);
+	let showTrigger = $state(true);
+	const hover = $derived(
+		scenario === 'hover' ||
+			scenario === 'block' ||
+			scenario === 'switch' ||
+			scenario === 'delay' ||
+			scenario === 'unmount'
+	);
+	const many = $derived(scenario === 'switch' || scenario === 'refuse');
+
+	const fractionalAnchor = {
+		getBoundingClientRect: () => new DOMRect(10.2, 20.2, 40, 16)
+	};
 
 	const openValue = createControllableValue<boolean>({
 		getProp: () => open,
@@ -46,24 +72,50 @@
 	});
 
 	const click = useClick(store, () => ({ enabled: !hover }));
+	const polygon = $derived(safePolygon({ blockPointerEvents: scenario === 'block' }));
 	const hoverReference = useHoverReferenceInteraction(store, () => ({
-		enabled: hover,
+		enabled: hover && !many,
 		mouseOnly: true,
 		move: false,
-		handleClose: safePolygon(),
+		handleClose: scenario === 'delay' ? null : polygon,
 		restMs: 0,
+		delay: { close: scenario === 'delay' ? closeDelay : 0 },
+		placement: () => positioning.physicalSide,
+		shouldOpen: () => scenario !== 'refuse'
+	}));
+	const hoverA = useHoverReferenceInteraction(store, () => ({
+		enabled: many,
+		mouseOnly: true,
+		move: false,
+		handleClose: polygon,
 		delay: { close: 0 },
+		isActiveTrigger: store.activeTriggerId !== 'trigger-b',
+		shouldOpen: () => scenario !== 'refuse',
 		placement: () => positioning.physicalSide
 	}));
-	useHoverFloatingInteraction(store, () => ({ enabled: hover, closeDelay: 0 }));
+	const hoverB = useHoverReferenceInteraction(store, () => ({
+		enabled: many,
+		mouseOnly: true,
+		move: false,
+		handleClose: polygon,
+		delay: { close: 0 },
+		isActiveTrigger: store.activeTriggerId === 'trigger-b',
+		shouldOpen: () => scenario !== 'refuse',
+		placement: () => positioning.physicalSide
+	}));
+	useHoverFloatingInteraction(store, () => ({
+		enabled: hover || many,
+		closeDelay: scenario === 'delay' ? closeDelay : 0
+	}));
 
 	const positioning = useAnchorPositioning(store, () => ({
 		mounted: store.mounted,
+		anchor: scenario === 'pixels' ? fractionalAnchor : undefined,
 		disableAnchorTracking: false,
 		positionMethod: 'fixed',
 		side: 'bottom',
 		align: 'start',
-		sideOffset: 0,
+		sideOffset: scenario === 'unmount' ? 30 : 0,
 		collisionAvoidance: { side: 'flip', align: 'shift', fallbackAxisSide: 'end' },
 		collisionPadding: 0
 	}));
@@ -89,14 +141,56 @@
 			hoverReference.reference
 		) as HTMLButtonAttributes
 	);
+	const triggerAProps = $derived(
+		mergeProps(
+			{ id: 'trigger-a', type: 'button' },
+			click.reference,
+			hoverA.reference
+		) as HTMLButtonAttributes
+	);
+	const triggerBProps = $derived(
+		mergeProps({ id: 'trigger-b', type: 'button' }, hoverB.reference) as HTMLButtonAttributes
+	);
 </script>
 
-<div data-testid="anchor">
-	<button {...triggerProps} {@attach registerTrigger(store, () => 'open-trigger')}>Open</button>
+<div data-testid="anchor" data-active={store.activeTriggerId}>
+	{#if many}
+		<button
+			{...triggerAProps}
+			style="position: fixed; left: 20px; top: 40px"
+			{@attach registerTrigger(store, () => 'trigger-a')}
+			{@attach hoverA.attachReference}>A</button
+		>
+		<button
+			{...triggerBProps}
+			style="position: fixed; left: 240px; top: 40px"
+			{@attach registerTrigger(store, () => 'trigger-b')}
+			{@attach hoverB.attachReference}>B</button
+		>
+	{:else if showTrigger}
+		<button
+			{...triggerProps}
+			style={scenario === 'delay' ? 'position: fixed; left: 300px; top: 220px' : undefined}
+			{@attach registerTrigger(store, () => 'open-trigger')}
+			{@attach hoverReference.attachReference}>Open</button
+		>
+	{/if}
 	<div data-testid="outside" style={hover ? 'position: fixed; top: 0; right: 0' : undefined}>
 		Outside
 	</div>
+	{#if scenario === 'delay'}
+		<button
+			type="button"
+			data-testid="longer"
+			style="position: fixed; left: 8px; top: 8px"
+			onclick={() => (closeDelay = 5000)}>Longer</button
+		>
+	{/if}
+	{#if scenario === 'unmount'}
+		<button type="button" data-testid="remove" onclick={() => (showTrigger = false)}>Remove</button>
+	{/if}
 	<pre data-testid="calls">{JSON.stringify([{ open: store.open, reason, canceled: false }])}</pre>
+	<pre data-testid="active">{store.activeTriggerId}</pre>
 	{#if store.mounted}
 		<div
 			data-testid="positioner"
@@ -108,6 +202,7 @@
 			<div
 				role="dialog"
 				aria-labelledby="anchored-title"
+				class:hold={scenario === 'closing'}
 				data-testid="popup"
 				{@attach bindPopup}
 				{...getStateAttributesProps(
@@ -124,3 +219,18 @@
 		</div>
 	{/if}
 </div>
+
+<style>
+	.hold {
+		animation: sveltery-hold 3s linear both;
+	}
+
+	@keyframes sveltery-hold {
+		from {
+			opacity: 1;
+		}
+		to {
+			opacity: 0.5;
+		}
+	}
+</style>
