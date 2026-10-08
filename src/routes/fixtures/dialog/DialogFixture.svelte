@@ -95,8 +95,10 @@
 	}
 </script>
 
-<button type="button" data-testid="outside" bind:this={outsideButton}>Outside</button>
-<input data-testid="outside-input" />
+{#if scenario !== 'tab-portal-first'}
+	<button type="button" data-testid="outside" bind:this={outsideButton}>Outside</button>
+	<input data-testid="outside-input" />
+{/if}
 {#if preventUnmount}
 	<button type="button" onclick={() => root?.unmount()}>Unmount</button>
 {/if}
@@ -236,6 +238,18 @@
 		<div data-testid="inline-container" bind:this={inlineContainer}></div>
 	{/if}
 	<button type="button" data-testid="after">After</button>
+{:else if scenario === 'tab-portal-first'}
+	<Dialog.Root modal={false} onOpenChange={changed}>
+		<Dialog.Portal>
+			<Dialog.Popup>
+				<Dialog.Title>Title</Dialog.Title>
+				<button type="button">Inside1</button>
+				<button type="button">Inside2</button>
+			</Dialog.Popup>
+		</Dialog.Portal>
+		<Dialog.Trigger>Open</Dialog.Trigger>
+	</Dialog.Root>
+	<button type="button" data-testid="footer">Footer</button>
 {:else if scenario === 'kept-child'}
 	<Dialog.Root bind:open={parentOpen}>
 		<Dialog.Trigger data-testid="open-parent">Open</Dialog.Trigger>

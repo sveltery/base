@@ -267,6 +267,30 @@ export function mountDialogReference(node: HTMLElement, scenario: DialogCase, on
 			);
 		}
 
+		if (scenario === 'tab-portal-first') {
+			return h(
+				Fragment,
+				null,
+				h(
+					Dialog.Root,
+					{ modal: false, onOpenChange: changed },
+					h(
+						Dialog.Portal,
+						null,
+						h(
+							Dialog.Popup,
+							null,
+							h(Dialog.Title, null, 'Title'),
+							h('button', { type: 'button' }, 'Inside1'),
+							h('button', { type: 'button' }, 'Inside2')
+						)
+					),
+					h(Dialog.Trigger, null, 'Open')
+				),
+				h('button', { type: 'button', 'data-testid': 'footer' }, 'Footer')
+			);
+		}
+
 		if (scenario === 'child-initial') {
 			return h(
 				Fragment,

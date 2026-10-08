@@ -192,6 +192,25 @@ for (const reference of [false, true]) {
 			await expect(page.getByRole('dialog')).toHaveCount(0);
 		});
 
+		test('shift-tab reaches the trigger when the portal comes before it', async ({ page }) => {
+			await openDialog(page, 'tab-portal-first', reference);
+			const opener = openButton(page);
+			await opener.click();
+			await expect(page.getByRole('button', { name: 'Inside1' })).toBeFocused();
+			await page.keyboard.press('Shift+Tab');
+			await expect(opener).toBeFocused();
+			await expect(page.getByRole('dialog')).toBeVisible();
+			await page.keyboard.press('Shift+Tab');
+			await expect(page.getByRole('button', { name: 'Inside2' })).toBeFocused();
+			await expect(page.getByRole('dialog')).toBeVisible();
+			await page.keyboard.press('Shift+Tab');
+			await expect(page.getByRole('button', { name: 'Inside1' })).toBeFocused();
+			await expect(page.getByRole('dialog')).toBeVisible();
+			await page.keyboard.press('Shift+Tab');
+			await expect(opener).toBeFocused();
+			await expect(page.getByRole('dialog')).toBeVisible();
+		});
+
 		for (const scenario of [
 			{ name: 'tab-ext', inside: 'Inside' },
 			{ name: 'tab-between-ext', inside: 'Inside1' }

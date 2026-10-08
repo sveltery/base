@@ -17,6 +17,7 @@ export const cases = [
 	'tab-ext',
 	'tab-between',
 	'tab-between-ext',
+	'tab-portal-first',
 	'child-initial',
 	'siblings',
 	'kept-child'

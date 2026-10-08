@@ -159,6 +159,9 @@
 				return;
 			}
 		}
+		// Nothing outside the portal is before this guard. Upstream focuses the reference.
+		const reference = focusState?.domReference;
+		if (reference instanceof HTMLElement) reference.focus();
 	}
 
 	// Upstream FloatingPortal.tsx 277–291. Focus from outside enters through the trailing
