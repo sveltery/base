@@ -10,6 +10,7 @@ import DialogHandleHarness from '../../tests/DialogHandleHarness.svelte';
 import DialogHarness from '../../tests/DialogHarness.svelte';
 import DialogNestedHandleHarness from '../../tests/DialogNestedHandleHarness.svelte';
 import DialogMissingPortalHarness from '../../tests/DialogMissingPortalHarness.svelte';
+import PortalHostHarness from '../../tests/PortalHostHarness.svelte';
 import { Dialog } from './index.js';
 import { REASONS } from '../internal/event-details.js';
 
@@ -465,5 +466,21 @@ describe('Dialog', () => {
 		expect(() => render(DialogMissingPortalHarness)).toThrow(
 			'Base UI: <Dialog.Portal> is missing.'
 		);
+	});
+
+	it('forwards host attributes and attachments onto the portal element', async () => {
+		render(PortalHostHarness, { part: 'dialog' });
+
+		await expect.poll(() => document.querySelector('[data-slot="dialog-portal"]')).not.toBeNull();
+		const portal = document.querySelector('[data-slot="dialog-portal"]');
+		if (!(portal instanceof HTMLDivElement)) throw new Error('portal is not a div');
+
+		expect(portal.classList.contains('portal-host')).toBe(true);
+		expect(portal.getAttribute('data-probe')).toBe('probe');
+		expect(portal.dataset.attached).toBe('yes');
+		expect(portal.parentElement).toBe(document.body);
+		expect(portal.querySelector('[role="dialog"]')).not.toBeNull();
+		// The marker stays empty. A consumer value does not replace it.
+		expect(portal.getAttribute('data-base-ui-portal')).toBe('');
 	});
 });

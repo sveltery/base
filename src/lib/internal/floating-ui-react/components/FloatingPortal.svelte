@@ -2,9 +2,11 @@
 	// Derived from Base UI v1.8.0 packages/react/src/floating-ui-react/components/FloatingPortal.tsx
 	// (commit 47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c). MIT, see THIRD_PARTY_NOTICES.md.
 	// A nested portal mounts inside the parent portal host, as a sibling of that host's popup.
+	// Consumer host attributes are spread onto the div. `data-base-ui-portal` is set after
+	// that spread, so a consumer value cannot replace the marker.
 
 	import { getContext, hasContext, setContext, type Snippet } from 'svelte';
-	import { createAttribute } from '../utils/createAttribute.js';
+	import type { HTMLAttributes } from 'svelte/elements';
 	import type { FloatingRootStore } from './FloatingRootStore.svelte.js';
 
 	interface PortalContext {
@@ -16,16 +18,16 @@
 	let {
 		store,
 		children,
-		container = undefined
+		container = undefined,
+		...rest
 	}: {
 		store: FloatingRootStore;
 		children?: Snippet;
-		container?: HTMLElement | null;
-	} = $props();
+		container?: HTMLElement | ShadowRoot | null;
+	} & Omit<HTMLAttributes<HTMLDivElement>, 'children'> = $props();
 
 	let portalNode = $state<HTMLDivElement | null>(null);
 	const parent = hasContext(PORTAL) ? getContext<PortalContext>(PORTAL) : null;
-	const portalAttribute = createAttribute('portal');
 
 	setContext<PortalContext>(PORTAL, {
 		get node() {
@@ -36,7 +38,6 @@
 	function mount(node: HTMLDivElement) {
 		const target = container ?? parent?.node ?? document.body;
 		target.append(node);
-		node.setAttribute(portalAttribute, '');
 		portalNode = node;
 		store.portalElement = node;
 		return () => {
@@ -47,6 +48,6 @@
 	}
 </script>
 
-<div {@attach mount}>
+<div bind:this={portalNode} {...rest} data-base-ui-portal="" {@attach mount}>
 	{@render children?.()}
 </div>

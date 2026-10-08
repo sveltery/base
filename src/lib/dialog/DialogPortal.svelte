@@ -11,7 +11,12 @@
 	import { setDialogPortalContext, useDialogRootContext } from './context.svelte.js';
 	import type { DialogPortalProps } from './types.js';
 
-	let { keepMounted = false, container = undefined, children }: DialogPortalProps = $props();
+	let {
+		keepMounted = false,
+		container = undefined,
+		children,
+		...rest
+	}: DialogPortalProps = $props();
 
 	const store = useDialogRootContext();
 	const shown = $derived(store.mounted || keepMounted);
@@ -31,7 +36,7 @@
 </script>
 
 {#if shown}
-	<FloatingPortal {store} {container}>
+	<FloatingPortal {store} {container} {...rest}>
 		{#if store.mounted && store.modal === true}
 			<InternalBackdrop inert={!store.open ? true : undefined} {@attach ownInternalBackdrop} />
 		{/if}
