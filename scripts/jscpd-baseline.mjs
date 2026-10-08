@@ -17,11 +17,18 @@ export function addedFingerprints(base, next) {
 	return Object.keys(next?.fingerprints ?? {}).filter((key) => !known.has(key));
 }
 
-function baseRevision() {
-	const fromEnv = process.env.JSCPD_BASE_SHA;
-	if (fromEnv && /^0+$/.test(fromEnv)) return null;
-	if (fromEnv) return fromEnv;
-	return 'origin/main';
+/**
+ * The comparison revision. An unset, empty, or all-zero `JSCPD_BASE_SHA`
+ * is missing. Callers that want `origin/main` pass that revision explicitly.
+ *
+ * @param {NodeJS.ProcessEnv} [env]
+ * @returns {string | null}
+ */
+export function baseRevision(env = process.env) {
+	if (!Object.prototype.hasOwnProperty.call(env, 'JSCPD_BASE_SHA')) return null;
+	const fromEnv = env.JSCPD_BASE_SHA ?? '';
+	if (fromEnv.trim() === '' || /^0+$/.test(fromEnv)) return null;
+	return fromEnv;
 }
 
 /**

@@ -8,6 +8,12 @@ source scripts/toolchain.sh
 # shellcheck source=scripts/verify-lib.sh
 source scripts/verify-lib.sh
 
+# An empty or all-zero base fails the clone gate. Set the local default only
+# when the variable is unset, so an explicit empty value still fails.
+if [ -z "${JSCPD_BASE_SHA+x}" ]; then
+	export JSCPD_BASE_SHA="${JSCPD_BASE_SHA_DEFAULT:-origin/main}"
+fi
+
 port="${E2E_PORT:-4173}"
 verify_require_browser
 verify_require_port "$port"

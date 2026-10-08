@@ -391,7 +391,8 @@ const rule = {
 				reportUntrackOnlyParameters(node);
 			},
 			IfStatement(node) {
-				if (!insideEffect(node)) return;
+				// A helper called from an effect is not nested in that effect, so
+				// limiting this to `insideEffect` lets the forced read through.
 				if (isAlwaysTrue(node.test)) {
 					context.report({ node: node.test, messageId: 'alwaysTrue' });
 				} else if (inequalityCount(node.test) >= 4 && isOnlyReturn(node.consequent)) {

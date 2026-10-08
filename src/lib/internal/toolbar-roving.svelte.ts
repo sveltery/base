@@ -16,7 +16,7 @@ import type { HTMLAttributes } from 'svelte/elements';
 import { CompositeItems } from './composite-items.svelte.js';
 import { ARROWS } from './composite-keys.js';
 import { isSkipped } from './composite-skip.js';
-import { modifierHeld, stepLinear } from './roving-keys.js';
+import { axisKeys, modifierHeld, stepLinear } from './roving-keys.js';
 import { registeredTabIndex, renderOrderTabIndex } from './roving-slot.js';
 
 export type ToolbarOrientation = 'horizontal' | 'vertical';
@@ -139,10 +139,10 @@ export class ToolbarRoving extends CompositeItems {
 	 */
 	keydown(event: KeyboardEvent) {
 		if (modifierHeld(event) || !ARROWS.has(event.key)) return;
-		const vertical = this.orientation === 'vertical';
-		const rtl = this.readDirection() === 'rtl';
-		const forwardKey = vertical ? 'ArrowDown' : rtl ? 'ArrowLeft' : 'ArrowRight';
-		const backwardKey = vertical ? 'ArrowUp' : rtl ? 'ArrowRight' : 'ArrowLeft';
+		const { forwardKey, backwardKey } = axisKeys(
+			this.orientation === 'vertical',
+			this.readDirection() === 'rtl'
+		);
 		const items = this.elements.filter((item) => !isSkipped(item));
 		if (items.length === 0) return;
 
