@@ -5,7 +5,7 @@
 
 	let { enabled = false, wide = false }: { enabled?: boolean; wide?: boolean } = $props();
 
-	let open = $state(false);
+	let open = $state<boolean | undefined>(false);
 	let positioner = $state<HTMLElement | null>(null);
 
 	const openValue = createControllableValue<boolean>({

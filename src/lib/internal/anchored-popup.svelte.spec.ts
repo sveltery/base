@@ -217,7 +217,9 @@ describe('safe polygon', () => {
 		await trigger.hover();
 		await expect.element(page.getByRole('dialog', { name: 'Notice' })).toBeVisible();
 		await armClose();
-		page.getByTestId('remove').element().click();
+		const remove = page.getByTestId('remove').element();
+		if (!(remove instanceof HTMLButtonElement)) throw new Error('missing remove button');
+		remove.click();
 		await new Promise((resolve) => setTimeout(resolve, 80));
 		expect(dialogs()).toBe(1);
 	});
