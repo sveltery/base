@@ -120,8 +120,9 @@
 
 	function arrowsTouched(event: KeyboardEvent) {
 		if (!event.key.startsWith('Arrow')) return;
-		const modified = event.shiftKey || event.altKey || event.ctrlKey || event.metaKey;
-		touched = !modified;
+		// Shift still selects. Ctrl, Alt, and Meta do not move, so they must not
+		// leave the group armed for the next focus.
+		touched = !(event.altKey || event.ctrlKey || event.metaKey);
 	}
 
 	function handleKeyDown(event: KeyboardEvent & { currentTarget: EventTarget & HTMLDivElement }) {

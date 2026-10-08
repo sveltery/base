@@ -11,3 +11,5 @@
 		return original(element, value, disabled, id);
 	};
 </script>
+
+<span hidden>{count}</span>

@@ -204,11 +204,13 @@ describe('RadioGroup', () => {
 			expect(document.activeElement).toBe(b.element());
 		});
 
-		it('still moves when Shift is held', async () => {
+		it('still moves and selects when Shift is held', async () => {
 			render(RadioGroupComponentHarness, { scenario: 'keys' });
 			radio('A').element().focus();
 			await userEvent.keyboard('{Shift>}{ArrowRight}{/Shift}');
 			expect(document.activeElement).toBe(radio('B').element());
+			await expect.element(radio('B')).toHaveAttribute('aria-checked', 'true');
+			await expect.element(radio('A')).toHaveAttribute('aria-checked', 'false');
 		});
 
 		it('does not move on Home or End', async () => {
