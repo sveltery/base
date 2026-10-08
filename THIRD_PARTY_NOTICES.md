@@ -220,6 +220,7 @@ Parts of this package derive from [Base UI](https://github.com/mui/base-ui) v1.8
 - `src/lib/popover/PopoverDescription.svelte` from `packages/react/src/popover/description/PopoverDescription.tsx`
 - `src/lib/popover/PopoverClose.svelte` from `packages/react/src/popover/close/PopoverClose.tsx`
 - `src/lib/popover/PopoverViewport.svelte` from `packages/react/src/popover/viewport/PopoverViewport.tsx` and `packages/react/src/utils/usePopupViewport.tsx`
+- `src/lib/internal/popups/usePopupContentKey.svelte.ts` from `usePopupContentKey` in `packages/react/src/utils/usePopupViewport.tsx`
 - `src/lib/popover/store.svelte.ts` from `packages/react/src/popover/store/PopoverStore.ts` (open changes go through the shared `PopupStore`; popover adds deferred unmount, hover stick, and instant type)
 - `src/lib/popover/handle.svelte.ts` from `packages/react/src/popover/store/PopoverHandle.ts` (extends the shared `PopupHandle`; Dialog's payload writers are not included)
 - `src/lib/popover/PopoverLabel.svelte` from `packages/react/src/popover/title/PopoverTitle.tsx` and `packages/react/src/popover/description/PopoverDescription.tsx`
@@ -240,7 +241,7 @@ Parts of this package derive from [Base UI](https://github.com/mui/base-ui) v1.8
 - `src/lib/dialog/DialogClose.svelte` and `src/lib/dialog/DialogAction.svelte` from `packages/react/src/dialog/close/DialogClose.tsx` and `packages/react/src/dialog/trigger/DialogTrigger.tsx`
 - `src/lib/dialog/DialogViewport.svelte` from `packages/react/src/dialog/viewport/DialogViewport.tsx`
 - `src/lib/dialog/store.svelte.ts` from `packages/react/src/dialog/store/DialogStore.ts` (extends the landed `PopupStore`)
-- `src/lib/internal/popups/popupHandle.svelte.ts` from `packages/react/src/utils/popups/popupHandle.ts` and `src/lib/dialog/handle.svelte.ts` from `packages/react/src/dialog/store/DialogHandle.ts` (payload map and `openWithPayload` stay on `Dialog.Handle`)
+- `src/lib/internal/popups/popupHandle.svelte.ts` from `packages/react/src/utils/popups/popupHandle.ts` and `src/lib/dialog/handle.svelte.ts` from `packages/react/src/dialog/store/DialogHandle.ts` (`openWithPayload` stays on `Dialog.Handle`; payload is stored on the registered trigger)
 - `src/lib/dialog/context.svelte.ts` from `packages/react/src/dialog/root/DialogRootContext.ts` and `packages/react/src/dialog/portal/DialogPortalContext.ts`
 - `src/lib/dialog/attributes.ts` from `packages/react/src/dialog/utils/stateAttributesMapping.ts` and the dialog `*DataAttributes.ts` files
 - `src/lib/dialog/outside-press.ts` from the outside-press predicate in `packages/react/src/dialog/root/useDialogRoot.ts`

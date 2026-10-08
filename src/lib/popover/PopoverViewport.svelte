@@ -6,17 +6,20 @@
 	Previous content is a cloned node, not an HTML string. The copy is taken
 	before the new trigger's content renders. Ids are stripped so aria links
 	keep pointing at the live title and description. Copied controls lose
-	`name` and `form`, so the copy does not uncheck the live radio and does
-	not submit with the form. They stay enabled, so the cross-fade does not
-	pick up `:disabled` styles. `inert` on the shell does not do that.
+	`name` and get `form=""`, so the copy does not uncheck the live radio,
+	does not submit, and does not block the ancestor form. They stay enabled,
+	so the cross-fade does not pick up `:disabled` styles. `inert` on the
+	shell does not do that. The current pane is keyed so `data-starting-style`
+	lands on a new element and the opacity transition can run.
 -->
 <script lang="ts">
-	import { untrack } from 'svelte';
+	import { flushSync, untrack } from 'svelte';
 	import { mergeProps } from '../internal/mergeProps.js';
 	import { useDirection } from '../internal/direction-context.js';
 	import { AnimationFrame } from '../internal/timeout.js';
 	import { runOnceAnimationsFinish } from '../internal/animations-finished.js';
 	import { adaptiveOriginMiddleware } from '../internal/adaptiveOriginMiddleware.js';
+	import { usePopupContentKey } from '../internal/popups/usePopupContentKey.svelte.js';
 	import { usePopoverPositioner, usePopoverRoot } from './context.svelte.js';
 	import type { PopoverViewportProps, PopoverViewportState } from './types.js';
 
@@ -32,7 +35,12 @@
 	let previousNode = $state<HTMLElement | null>(null);
 	let activationDirection = $state<string | undefined>(undefined);
 	let showStarting = $state(false);
+	let carriedSource: HTMLElement | null = null;
 	let committedSize: { width: number; height: number } | null = null;
+	const popupContent = usePopupContentKey(
+		() => store.resolvedActiveTriggerId(),
+		() => store.payload
+	);
 
 	$effect(() => {
 		store.adaptiveOrigin = adaptiveOriginMiddleware;
@@ -51,11 +59,14 @@
 			const active = store.domReferenceElement;
 			const previous = store.switchedFrom;
 			if (!source || !active || !previous) return;
+			carriedSource = source;
 			previousNode = snapshot(source);
 			activationDirection = directionBetween(previous, active);
 			showStarting = true;
 			frame.request(() => {
+				if (controller.signal.aborted) return;
 				showStarting = false;
+				flushSync();
 				const node = currentEl;
 				if (!node || controller.signal.aborted) return;
 				runOnceAnimationsFinish(
@@ -82,6 +93,13 @@
 		const node = previousNode;
 		if (!node) return;
 		host.replaceChildren(node);
+	}
+
+	function restoreLive(node: HTMLElement) {
+		const saved = carriedSource;
+		if (!(saved instanceof HTMLElement) || saved === node) return;
+		carryLiveControlState(saved, node);
+		carriedSource = null;
 	}
 
 	$effect(() => {
@@ -205,6 +223,23 @@
 		return wrapper;
 	}
 
+	function carryLiveControlState(from: Element, to: Element) {
+		const sources = controls(from);
+		const targets = controls(to);
+		sources.forEach((node, index) => {
+			const dest = targets[index];
+			if (!dest) return;
+			if (node instanceof HTMLInputElement && dest instanceof HTMLInputElement) {
+				if (node.type === 'checkbox' || node.type === 'radio') dest.checked = node.checked;
+				else if (dest.value === '' || dest.value === node.value) dest.value = node.value;
+			} else if (node instanceof HTMLTextAreaElement && dest instanceof HTMLTextAreaElement) {
+				if (dest.value === '' || dest.value === node.value) dest.value = node.value;
+			} else if (node instanceof HTMLSelectElement && dest instanceof HTMLSelectElement) {
+				if (dest.value === '' || dest.value === node.value) dest.value = node.value;
+			}
+		});
+	}
+
 	function copyControlState(from: Element, to: Element) {
 		const sources = controls(from);
 		const targets = controls(to);
@@ -233,7 +268,7 @@
 		if (node.matches('input, textarea, select, button')) found.unshift(node);
 		for (const control of found) {
 			control.removeAttribute('name');
-			control.removeAttribute('form');
+			control.setAttribute('form', '');
 		}
 	}
 
@@ -274,7 +309,14 @@
 			{@attach mountPrevious}
 		></div>
 	{/if}
-	<div bind:this={currentEl} data-current data-starting-style={showStarting ? '' : undefined}>
-		{@render children?.()}
-	</div>
+	{#key popupContent.current}
+		<div
+			bind:this={currentEl}
+			data-current
+			data-starting-style={showStarting ? '' : undefined}
+			{@attach restoreLive}
+		>
+			{@render children?.()}
+		</div>
+	{/key}
 {/snippet}

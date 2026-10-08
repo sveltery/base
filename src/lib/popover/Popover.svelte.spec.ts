@@ -350,6 +350,74 @@ describe('Popover', () => {
 			}
 		}
 	});
+
+	it('keeps the previous pane for the opacity cross-fade', async () => {
+		const style = document.createElement('style');
+		style.textContent =
+			'[data-current]{transition:opacity 2500ms}[data-current][data-starting-style]{opacity:0}';
+		document.head.append(style);
+		try {
+			render(PopoverReviewHarness, { mode: 'viewport' });
+			await page.getByRole('button', { name: 'One' }).click();
+			await expect
+				.poll(() => document.querySelector('[data-current] [data-testid=pane-text]')?.textContent)
+				.toBe('content-AAA');
+			await page.getByRole('button', { name: 'Two' }).click();
+			await expect.poll(() => document.querySelector('[data-previous]')).toBeTruthy();
+			await new Promise((resolve) => setTimeout(resolve, 2000));
+			expect(document.querySelector('[data-previous]')).toBeTruthy();
+			expect(document.querySelector('[data-current] [data-testid=pane-text]')?.textContent).toBe(
+				'content-BBB'
+			);
+		} finally {
+			style.remove();
+		}
+	});
+
+	it('lets the form submit while an empty required copy is cross-fading', async () => {
+		const view = render(PopoverDetachHarness, {
+			mode: 'form',
+			portalIntoForm: true,
+			requiredCopy: true
+		});
+		try {
+			await page.getByRole('button', { name: 'One' }).click();
+			await expect.element(page.getByTestId('live-input')).toHaveValue('AAA');
+			const form = page.getByTestId('hosted-form').element();
+			if (!(form instanceof HTMLFormElement)) throw new Error('missing form');
+			let submitted = false;
+			let invalid = false;
+			const onSubmit = (event: Event) => {
+				event.preventDefault();
+				submitted = true;
+			};
+			const onInvalid = () => {
+				invalid = true;
+			};
+			form.addEventListener('submit', onSubmit);
+			form.addEventListener('invalid', onInvalid, true);
+			let sawPrevious = false;
+			const observer = new MutationObserver(() => {
+				if (sawPrevious) return;
+				const previous = document.querySelector('[data-previous]');
+				if (!(previous instanceof HTMLElement) || !previous.isConnected) return;
+				const copied = previous.querySelector('input[required]');
+				if (!(copied instanceof HTMLInputElement) || !copied.isConnected) return;
+				sawPrevious = true;
+				form.requestSubmit();
+			});
+			observer.observe(document.body, { childList: true, subtree: true, attributes: true });
+			await page.getByRole('button', { name: 'Two' }).click();
+			await expect.poll(() => submitted).toBe(true);
+			expect(invalid).toBe(false);
+			expect(sawPrevious).toBe(true);
+			observer.disconnect();
+			form.removeEventListener('submit', onSubmit);
+			form.removeEventListener('invalid', onInvalid, true);
+		} finally {
+			view.unmount();
+		}
+	});
 });
 
 async function fieldsDuringCrossFade(formId: string) {

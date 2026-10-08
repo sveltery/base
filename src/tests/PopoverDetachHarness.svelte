@@ -5,11 +5,13 @@
 		mode = 'lifecycle',
 		rootMounted = true,
 		portalIntoForm = false,
+		requiredCopy = false,
 		delay = 300
 	}: {
 		mode?: 'lifecycle' | 'form';
 		rootMounted?: boolean;
 		portalIntoForm?: boolean;
+		requiredCopy?: boolean;
 		delay?: number;
 	} = $props();
 
@@ -48,6 +50,9 @@
 								data-testid="live-input"
 								value={payload === 'AAA' ? 'AAA' : 'BBB'}
 							/>
+							{#if requiredCopy && payload === 'AAA'}
+								<input required data-testid="required-copy" />
+							{/if}
 						</Popover.Viewport>
 					</Popover.Popup>
 				</Popover.Positioner>

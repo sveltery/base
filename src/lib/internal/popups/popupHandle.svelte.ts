@@ -21,7 +21,10 @@ export interface PopupHandleStore {
 
 export class PopupHandle<Payload = unknown, Store extends PopupHandleStore = PopupHandleStore> {
 	/** Anchored popups throw when `open(id)` cannot find that trigger. Dialog still opens. */
-	constructor(private readonly requireTrigger = false) {}
+	constructor(
+		private readonly requireTrigger = false,
+		private readonly handleName = 'Popup.Handle'
+	) {}
 
 	attached = $state.raw<Store | null>(null);
 	readonly fallbackTriggers = new PopupTriggerMap();
@@ -72,7 +75,7 @@ export class PopupHandle<Payload = unknown, Store extends PopupHandleStore = Pop
 		if (!store) {
 			if (DEV) {
 				console.warn(
-					'Base UI: PopupHandle.open() was called while no root using this handle is mounted. ' +
+					`Base UI: ${this.handleName}.open() was called while no root using this handle is mounted. ` +
 						'The call was ignored; mount a root with this handle before opening it imperatively.'
 				);
 			}
@@ -84,7 +87,7 @@ export class PopupHandle<Payload = unknown, Store extends PopupHandleStore = Pop
 		if (triggerId && !trigger) {
 			if (this.requireTrigger) {
 				throw new Error(
-					`Base UI: PopupHandle.open() was called with the trigger id "${triggerId}", ` +
+					`Base UI: ${this.handleName}.open() was called with the trigger id "${triggerId}", ` +
 						'but no matching trigger is registered with this handle. ' +
 						'An anchored popup cannot open without a trigger to anchor to. ' +
 						'Pass the id of a mounted trigger that has this handle set on its "handle" prop.'
@@ -92,7 +95,7 @@ export class PopupHandle<Payload = unknown, Store extends PopupHandleStore = Pop
 			}
 			if (DEV) {
 				console.warn(
-					`Base UI: PopupHandle.open: No trigger found with id "${triggerId}". ` +
+					`Base UI: ${this.handleName}.open: No trigger found with id "${triggerId}". ` +
 						'The popup will open, but the trigger will not be associated with it.'
 				);
 			}
@@ -114,7 +117,7 @@ export class PopupHandle<Payload = unknown, Store extends PopupHandleStore = Pop
 		if (!store) {
 			if (DEV) {
 				console.warn(
-					'Base UI: PopupHandle.close() was called while no root using this handle is mounted. ' +
+					`Base UI: ${this.handleName}.close() was called while no root using this handle is mounted. ` +
 						'The call was ignored.'
 				);
 			}
