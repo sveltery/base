@@ -16,13 +16,34 @@
 		useScrollLock
 	} from '#lib/internal/popups/index.js';
 	import type { PopupChangeEventDetails } from '#lib/internal/popups/index.js';
+	import type { OpenInteractionType } from '#lib/internal/openInteraction.js';
 	import { getStateAttributesProps } from '#lib/internal/state-attributes.js';
 
 	let {
-		scenario = 'modal' as 'modal' | 'modeless' | 'cancel' | 'stuck' | 'drag' | 'return',
+		scenario = 'modal' as
+			| 'modal'
+			| 'modeless'
+			| 'cancel'
+			| 'stuck'
+			| 'drag'
+			| 'return'
+			| 'null-return'
+			| 'close-type'
+			| 'initial'
+			| 'initial-skip',
 		defaultOpen = false
 	}: {
-		scenario?: 'modal' | 'modeless' | 'cancel' | 'stuck' | 'drag' | 'return';
+		scenario?:
+			| 'modal'
+			| 'modeless'
+			| 'cancel'
+			| 'stuck'
+			| 'drag'
+			| 'return'
+			| 'null-return'
+			| 'close-type'
+			| 'initial'
+			| 'initial-skip';
 		defaultOpen?: boolean;
 	} = $props();
 
@@ -31,8 +52,31 @@
 	let calls = $state<{ open: boolean; reason: string; canceled: boolean }[]>([]);
 	let statusLog = $state('[]');
 	const seenStatuses: string[] = [];
-	const modal = $derived(scenario !== 'modeless' && scenario !== 'drag' && scenario !== 'return');
+	const modal = $derived(
+		scenario !== 'modeless' &&
+			scenario !== 'drag' &&
+			scenario !== 'return' &&
+			scenario !== 'null-return'
+	);
+
+	function focusReturn(kind: OpenInteractionType | null) {
+		closeKind = kind ?? '';
+		return true;
+	}
 	let explicit = $state<HTMLButtonElement | null>(null);
+	let chosen = $state<HTMLButtonElement | null>(null);
+	let closeKind = $state('');
+	let initialCalls = $state(0);
+	let initialKind = $state('');
+	let nudge = $state(0);
+
+	function initialTarget(kind: OpenInteractionType) {
+		void nudge;
+		initialCalls += 1;
+		initialKind = kind;
+		if (scenario === 'initial-skip') return false;
+		return chosen;
+	}
 
 	const openValue = createControllableValue<boolean>({
 		getProp: () => open,
@@ -66,7 +110,8 @@
 	const click = useClick(store, () => ({ enabled: true }));
 	const dismiss = useDismiss(store, () => ({
 		escapeKey: true,
-		outsidePress: scenario === 'return' ? false : modal ? false : true,
+		outsidePress:
+			scenario === 'return' || scenario === 'null-return' ? false : modal ? false : true,
 		outsidePressEvent:
 			scenario === 'drag' ? ({ mouse: 'intentional', touch: 'sloppy' } as const) : 'sloppy'
 	}));
@@ -114,12 +159,27 @@
 	<button {...triggerProps}>Open</button>
 	<button type="button" data-testid="explicit" bind:this={explicit}>Explicit</button>
 	<button type="button" data-testid="other">Other</button>
+	<button type="button" data-testid="nudge" onclick={() => (nudge += 1)}>Nudge</button>
 	<div data-testid="outside">Outside</div>
 	<pre data-testid="calls">{JSON.stringify(calls)}</pre>
+	<pre data-testid="close-kind">{closeKind}</pre>
+	<pre data-testid="initial-calls">{initialCalls}</pre>
+	<pre data-testid="initial-kind">{initialKind}</pre>
 	<pre data-testid="statuses">{statusLog}</pre>
 	{#if store.mounted}
 		<FloatingPortal {store}>
-			<FloatingFocusManager {store} {modal} returnFocus={scenario === 'return' ? explicit : true}>
+			<FloatingFocusManager
+				{store}
+				{modal}
+				initialFocus={scenario === 'initial' || scenario === 'initial-skip' ? initialTarget : true}
+				returnFocus={scenario === 'return'
+					? explicit
+					: scenario === 'null-return'
+						? null
+						: scenario === 'close-type'
+							? focusReturn
+							: true}
+			>
 				<div
 					role="dialog"
 					aria-labelledby="popup-title"
@@ -130,6 +190,7 @@
 				>
 					<h2 id="popup-title">Notice</h2>
 					<button type="button">Inside</button>
+					<button type="button" data-testid="chosen" bind:this={chosen}>Chosen</button>
 				</div>
 			</FloatingFocusManager>
 		</FloatingPortal>

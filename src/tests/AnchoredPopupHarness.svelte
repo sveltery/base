@@ -32,7 +32,8 @@
 			| 'closing'
 			| 'pixels'
 			| 'unmount'
-			| 'retain';
+			| 'retain'
+			| 'reopen';
 	} = $props();
 
 	let open = $state<boolean | undefined>(undefined);
@@ -40,6 +41,8 @@
 	let seenTrigger = $state('');
 	let closeDelay = $state(600);
 	let showTrigger = $state(true);
+	let openFrames = $state('');
+	const seenFrames: string[] = [];
 	const hover = $derived(
 		scenario === 'hover' ||
 			scenario === 'block' ||
@@ -121,6 +124,14 @@
 		collisionPadding: 0
 	}));
 
+	$effect.pre(() => {
+		if (scenario !== 'reopen') return;
+		const mark = !store.mounted ? 'closed' : positioning.isPositioned ? 'placed' : 'pending';
+		if (seenFrames.at(-1) === mark) return;
+		seenFrames.push(mark);
+		openFrames = seenFrames.join(' ');
+	});
+
 	function bindPopup(node: HTMLElement) {
 		store.popupElement = node;
 		return () => {
@@ -179,7 +190,9 @@
 				? 'position: fixed; left: 300px; top: 220px'
 				: scenario === 'unmount'
 					? 'position: fixed; left: 100px; top: 100px; width: 80px; height: 20px; padding: 0'
-					: undefined}
+					: scenario === 'reopen'
+						? 'position: fixed; left: 24px; top: 20px'
+						: undefined}
 			{@attach registerTrigger(store, () => 'open-trigger')}
 			{@attach hoverReference.attachReference}>Open</button
 		>
@@ -201,6 +214,7 @@
 	<pre data-testid="calls">{JSON.stringify([{ open: store.open, reason, canceled: false }])}</pre>
 	<pre data-testid="active">{store.activeTriggerId}</pre>
 	<pre data-testid="seen">{seenTrigger}</pre>
+	<pre data-testid="frames">{openFrames}</pre>
 	{#if store.mounted}
 		<div
 			data-testid="positioner"

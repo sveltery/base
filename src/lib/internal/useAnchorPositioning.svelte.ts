@@ -166,19 +166,10 @@ export function useAnchorPositioning(
 	let latchedFor = $state.raw<ReferenceElement | null>(null);
 	let arrowElement = $state<HTMLElement | null>(null);
 	let measured = $state.raw<Record<string, string>>({});
-	let readPositionedFor = (): ReferenceElement | null => null;
 
 	function read() {
 		return params();
 	}
-
-	const mountSide = $derived.by(() => {
-		const current = read();
-		if (!current.mounted) return null;
-		const reference = resolveAnchor(current.anchor) ?? store.referenceElement;
-		if (!reference || latchedFor !== reference || readPositionedFor() !== reference) return null;
-		return latchedSide;
-	});
 
 	function layout() {
 		const current = read();
@@ -403,7 +394,13 @@ export function useAnchorPositioning(
 		};
 	});
 
-	readPositionedFor = () => position.positionedFor;
+	const mountSide = $derived.by(() => {
+		const current = read();
+		if (!current.mounted) return null;
+		const reference = resolveAnchor(current.anchor) ?? store.referenceElement;
+		if (!reference || latchedFor !== reference || position.positionedFor !== reference) return null;
+		return latchedSide;
+	});
 
 	const isPositioned = $derived(position.data.isPositioned && read().mounted);
 

@@ -104,6 +104,23 @@ describe('anchored popup', () => {
 		await expect.poll(overflowLocked).toBe(true);
 	});
 
+	it('does not reuse the previous coordinates when the same trigger opens again', async () => {
+		render(AnchoredPopupHarness, { scenario: 'reopen' });
+		const trigger = page.getByRole('button', { name: 'Open' });
+		await trigger.click();
+		await expect.element(page.getByTestId('positioner')).toHaveAttribute('data-positioned', '');
+		await trigger.click();
+		await expect.poll(() => page.getByTestId('positioner').elements().length).toBe(0);
+		trigger.element().style.top = '320px';
+		await trigger.click();
+		await expect
+			.poll(() => (page.getByTestId('frames').element().textContent ?? '').trim())
+			.toContain('placed');
+		const frames = (page.getByTestId('frames').element().textContent ?? '').trim().split(/\s+/);
+		const closedAt = frames.lastIndexOf('closed');
+		expect(frames[closedAt + 1]).toBe('pending');
+	});
+
 	it('reuses the popup and positioner when a click switches triggers', async () => {
 		render(AnchoredPopupHarness, { scenario: 'retain' });
 		await page.getByRole('button', { name: 'A' }).click();

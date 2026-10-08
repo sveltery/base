@@ -88,6 +88,40 @@ describe('overlay foundation', () => {
 		});
 	});
 
+	it('closes on a later outside press after an inside press is cancelled', async () => {
+		render(OverlayFoundationHarness, { scenario: 'modeless' });
+		await page.getByRole('button', { name: 'Open' }).click();
+		const popup = page.getByRole('dialog', { name: 'Notice' });
+		await expect.element(popup).toBeVisible();
+		popup.element().dispatchEvent(
+			new PointerEvent('pointerdown', {
+				bubbles: true,
+				cancelable: true,
+				button: 0,
+				pointerType: 'touch'
+			})
+		);
+		popup.element().ownerDocument.dispatchEvent(
+			new PointerEvent('pointercancel', {
+				bubbles: true,
+				cancelable: true,
+				pointerType: 'touch'
+			})
+		);
+		page
+			.getByTestId('outside')
+			.element()
+			.dispatchEvent(
+				new PointerEvent('pointerdown', {
+					bubbles: true,
+					cancelable: true,
+					button: 0,
+					pointerType: 'touch'
+				})
+			);
+		await expect.poll(() => page.getByRole('dialog', { name: 'Notice' }).elements().length).toBe(0);
+	});
+
 	it('does not close when a press starts inside and releases outside', async () => {
 		render(OverlayFoundationHarness, { scenario: 'drag' });
 		await page.getByRole('button', { name: 'Open' }).click();
@@ -123,6 +157,51 @@ describe('overlay foundation', () => {
 			.element()
 			.dispatchEvent(new MouseEvent('click', { bubbles: true, cancelable: true, detail: 1 }));
 		await expect.poll(() => page.getByRole('dialog', { name: 'Notice' }).elements().length).toBe(0);
+	});
+
+	it('settles a function initialFocus once for the open interaction', async () => {
+		render(OverlayFoundationHarness, { scenario: 'initial' });
+		expect(page.getByTestId('initial-calls').element().textContent).toBe('0');
+		await page.getByRole('button', { name: 'Open' }).click();
+		await expect.element(page.getByTestId('chosen')).toHaveFocus();
+		expect(page.getByTestId('initial-calls').element().textContent).toBe('1');
+		expect(page.getByTestId('initial-kind').element().textContent).toBe('mouse');
+		await page.getByTestId('nudge').click();
+		expect(page.getByTestId('initial-calls').element().textContent).toBe('1');
+	});
+
+	it('skips initial focus when the function returns false', async () => {
+		render(OverlayFoundationHarness, { scenario: 'initial-skip' });
+		const trigger = page.getByRole('button', { name: 'Open' });
+		await trigger.click();
+		await expect.element(page.getByRole('dialog', { name: 'Notice' })).toBeVisible();
+		expect(document.activeElement).toBe(document.getElementById('open-trigger'));
+		expect(page.getByTestId('initial-calls').element().textContent).toBe('1');
+	});
+
+	it('reports Escape as the close interaction after a pointer open', async () => {
+		render(OverlayFoundationHarness, { scenario: 'close-type' });
+		const trigger = page.getByRole('button', { name: 'Open' });
+		await trigger.click();
+		await expect.element(page.getByRole('button', { name: 'Inside' })).toHaveFocus();
+		await page
+			.getByRole('dialog', { name: 'Notice' })
+			.element()
+			.ownerDocument.dispatchEvent(
+				new KeyboardEvent('keydown', { key: 'Escape', bubbles: true, cancelable: true })
+			);
+		await expect.poll(() => page.getByTestId('close-kind').element().textContent).toBe('keyboard');
+		await expect.element(trigger).toHaveFocus();
+	});
+
+	it('returns focus to the trigger when returnFocus is null', async () => {
+		render(OverlayFoundationHarness, { scenario: 'null-return' });
+		const trigger = page.getByRole('button', { name: 'Open' });
+		await trigger.click();
+		await expect.element(page.getByRole('button', { name: 'Inside' })).toHaveFocus();
+		await page.getByTestId('other').click();
+		await expect.poll(() => page.getByRole('dialog', { name: 'Notice' }).elements().length).toBe(0);
+		await expect.element(trigger).toHaveFocus();
 	});
 
 	it('moves focus to an explicit return target after focus has left', async () => {

@@ -103,7 +103,12 @@ export function usePosition(options: () => UsePositionOptions): UsePositionRetur
 		const current = options();
 		const node = floating;
 		const reference = current.reference;
-		if (!node || !reference || !current.enabled || current.open === false) {
+		if (!current.enabled || current.open === false) {
+			version += 1;
+			positionedFor = null;
+			return;
+		}
+		if (!node || !reference) {
 			version += 1;
 			return;
 		}

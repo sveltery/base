@@ -90,6 +90,16 @@
 <button type="button" data-testid="announce" onclick={() => controllable.announce('now')}>
 	Announce
 </button>
+<button
+	type="button"
+	data-testid="announce-then-set"
+	onclick={() => {
+		controllable.announce('now');
+		controllable.set(controllable.value, 'same');
+	}}
+>
+	Announce then set
+</button>
 <button type="button" data-testid="set-b" onclick={() => controllable.set('b')}>Set b</button>
 <button type="button" data-testid="set-b-details" onclick={() => controllable.set('b', 'go')}>
 	Set b details

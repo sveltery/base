@@ -4,14 +4,15 @@
 	// The trap is focus guards plus aria-hidden on outside nodes. It does not set the inert attribute.
 
 	import { on } from 'svelte/events';
+	import { untrack } from 'svelte';
 	import type { Snippet } from 'svelte';
 	import { createChangeEventDetails, REASONS } from '../../event-details.js';
 	import FocusGuard from '../../FocusGuard.svelte';
-	import { ownerDocument } from '../../owner.js';
+	import { ownerDocument, ownerWindow } from '../../owner.js';
 	import { activeElement, contains, getTarget } from '../../shadow-dom.js';
 	import { Timeout } from '../../timeout.js';
 	import type { OpenInteractionType } from '../../openInteraction.js';
-	import type { FloatingRootStore } from './FloatingRootStore.svelte.js';
+	import type { FloatingRootStore, OpenChangePayload } from './FloatingRootStore.svelte.js';
 	import { CLICK_TRIGGER_IDENTIFIER } from '../utils/constants.js';
 	import { enqueueFocus } from '../utils/enqueueFocus.js';
 	import { markOthers } from '../utils/markOthers.js';
@@ -29,7 +30,11 @@
 		store: FloatingRootStore;
 		children?: Snippet;
 		disabled?: boolean;
-		initialFocus?: boolean | HTMLElement | null;
+		initialFocus?:
+			| boolean
+			| HTMLElement
+			| null
+			| ((openType: OpenInteractionType) => boolean | HTMLElement | null | void);
 		returnFocus?:
 			| boolean
 			| HTMLElement
@@ -72,26 +77,40 @@
 		(target ?? floating).focus();
 	}
 
-	function closeType(): OpenInteractionType | null {
-		if (!('openMethod' in store)) return null;
-		const method = (store as { openMethod?: OpenInteractionType | null }).openMethod;
-		return method ?? null;
+	/** How this open session closed. Not state: the trap effect must not depend on it. */
+	let closeType: OpenInteractionType = '';
+	let lastInteraction: OpenInteractionType = '';
+	/** One initial-focus result per open. A later result must not rebuild the trap. */
+	let initialSettled = false;
+	let settledInitial: HTMLElement | false = false;
+
+	function eventInteraction(event: Event, previous: OpenInteractionType): OpenInteractionType {
+		const target = getTarget(event);
+		const view = ownerWindow(target instanceof Node ? target : null);
+		if (event instanceof view.KeyboardEvent) return 'keyboard';
+		if (event instanceof view.FocusEvent) return previous || 'keyboard';
+		if ('pointerType' in event) {
+			const type = (event as PointerEvent).pointerType;
+			if (type === 'mouse' || type === 'pen' || type === 'touch') return type;
+			return 'keyboard';
+		}
+		if ('touches' in event) return 'touch';
+		if (event instanceof view.MouseEvent) {
+			return previous || (event.detail === 0 ? 'keyboard' : 'mouse');
+		}
+		return '';
 	}
 
-	function restoreReturnFocus(openedBy: OpenInteractionType | null) {
-		// isOpen() is still true inside the effect cleanup that runs because it became false.
+	function restoreReturnFocus(endedBy: OpenInteractionType) {
 		const spec = returnFocus;
 		queueMicrotask(() => {
-			if (spec === false || spec == null || store.isOpen()) return;
-			const explicit = typeof spec === 'function' || spec instanceof HTMLElement;
-			const resolved = typeof spec === 'function' ? spec(openedBy) : spec;
+			if (spec === false || store.isOpen()) return;
+			const fromFunction = typeof spec === 'function';
+			const resolved = fromFunction ? spec(endedBy) : spec;
 			if (resolved === false || resolved === undefined) return;
-			const target =
-				resolved instanceof HTMLElement
-					? resolved
-					: resolved === true || resolved === null
-						? returnTarget
-						: null;
+			// `null` falls back to the trigger. Only a boolean `true` requires focus to still be inside.
+			const explicit = fromFunction || spec instanceof HTMLElement || spec == null;
+			const target = resolved instanceof HTMLElement ? resolved : returnTarget;
 			if (!target?.isConnected) return;
 			if (!explicit) {
 				const doc = ownerDocument(target);
@@ -109,9 +128,41 @@
 		});
 	}
 
+	function openedBy(): OpenInteractionType {
+		if (!('openMethod' in store)) return '';
+		const method = (store as { openMethod?: OpenInteractionType | null }).openMethod;
+		return method ?? '';
+	}
+
+	function resolveInitial(floating: HTMLElement): HTMLElement | false {
+		const spec = initialFocus;
+		if (spec === false) return false;
+		const resolved = typeof spec === 'function' ? spec(openedBy()) : spec;
+		if (resolved === false || resolved === undefined) return false;
+		if (resolved instanceof HTMLElement) return resolved;
+		return tabbables(floating)[0] ?? floating;
+	}
+
+	function takeInitial(floating: HTMLElement): HTMLElement | false {
+		if (initialSettled) return settledInitial;
+		initialSettled = true;
+		settledInitial = untrack(() => resolveInitial(floating));
+		return settledInitial;
+	}
+
+	function noteClose(data?: unknown) {
+		const payload = data as OpenChangePayload | undefined;
+		if (!payload || payload.open || !payload.nativeEvent) return;
+		closeType = eventInteraction(payload.nativeEvent, lastInteraction);
+	}
+
 	$effect(() => {
-		const openedBy = closeType();
-		if (disabled || !store.isOpen()) return;
+		if (disabled || !store.isOpen()) {
+			initialSettled = false;
+			return;
+		}
+		closeType = '';
+		lastInteraction = '';
 		const floating = store.floatingElement;
 		if (!floating) return;
 
@@ -124,16 +175,16 @@
 		const mark = markOthers(inside);
 		let cancelFocus = () => {};
 
-		if (initialFocus !== false) {
-			const explicit = initialFocus instanceof HTMLElement ? initialFocus : null;
-			const target = explicit ?? tabbables(floating)[0] ?? floating;
-			cancelFocus = enqueueFocus(target, {
-				preventScroll: target === floating,
+		const initialTarget = takeInitial(floating);
+		if (initialTarget !== false) {
+			cancelFocus = enqueueFocus(initialTarget, {
+				preventScroll: initialTarget === floating,
 				shouldFocus: () => store.isOpen() && !contains(floating, activeElement(doc))
 			});
 		}
 
 		const stopKeys = on(doc, 'keydown', (event) => {
+			lastInteraction = 'keyboard';
 			if (!modal || event.key !== 'Tab') return;
 			const items = tabbables(floating);
 			const active = activeElement(doc);
@@ -157,6 +208,9 @@
 			doc,
 			'pointerdown',
 			(event) => {
+				const type = event.pointerType;
+				lastInteraction =
+					type === 'mouse' || type === 'pen' || type === 'touch' ? type : 'keyboard';
 				const target = getTarget(event);
 				if (target instanceof Element && target.closest(`[${CLICK_TRIGGER_IDENTIFIER}]`)) {
 					suppressFocusOut = true;
@@ -178,6 +232,8 @@
 			store.setOpen(false, createChangeEventDetails(REASONS.focusOut, event));
 		});
 
+		store.events.on('openchange', noteClose);
+
 		return () => {
 			cancelFocus();
 			hideOutside();
@@ -186,7 +242,9 @@
 			stopPointer();
 			stopFocus();
 			pointerDownTimeout.clear();
-			restoreReturnFocus(openedBy);
+			store.events.off('openchange', noteClose);
+			const endedBy = closeType;
+			restoreReturnFocus(endedBy);
 		};
 	});
 </script>
