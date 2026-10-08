@@ -61,6 +61,7 @@
 		adaptiveOrigin: store.adaptiveOrigin
 	}));
 	setPopoverPositioner(positioning);
+	store.readPlacement = () => positioning.physicalSide;
 
 	const modalLock = $derived(
 		store.open && store.modal === true && store.openChangeReason !== REASONS.triggerHover

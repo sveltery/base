@@ -56,6 +56,10 @@ export class PopoverStore extends PopupStore<PopoverChangeReason> {
 	readFinalFocus: (interaction: InteractionType | '') => FocusTarget | HTMLElement | boolean = () =>
 		true;
 	readCloseCount: () => number = () => 0;
+	/** True after a close button has registered. Updated outside the registration effect. */
+	focusTrap = $state(false);
+	/** Live rendered side for the shared hover safe polygon. */
+	readPlacement: () => string | null = () => 'bottom';
 	/** Viewport snapshots the previous trigger's DOM when the active trigger changes. */
 	onTriggerSwitch: ((previous: Element, next: Element) => void) | null = null;
 	private readonly stickTimeout = Timeout.create();
@@ -126,7 +130,7 @@ export class PopoverStore extends PopupStore<PopoverChangeReason> {
 	}
 
 	get focusManagerModal() {
-		return this.modal !== false && this.readCloseCount() > 0;
+		return this.modal !== false && this.focusTrap;
 	}
 
 	openedBy(triggerId: string | undefined) {

@@ -33,15 +33,20 @@
 	const positioning = usePopoverPositioner();
 	const bindKey = createAttachmentKey();
 
-	let closeCount = $state(0);
+	let closeCount = 0;
+	function syncFocusTrap() {
+		store.focusTrap = closeCount > 0;
+	}
 	setCloseParts({
 		get count() {
 			return closeCount;
 		},
 		register() {
 			closeCount += 1;
+			queueMicrotask(syncFocusTrap);
 			return () => {
-				closeCount = Math.max(0, closeCount - 1);
+				closeCount -= 1;
+				queueMicrotask(syncFocusTrap);
 			};
 		}
 	});

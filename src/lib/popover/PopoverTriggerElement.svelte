@@ -41,6 +41,10 @@
 	const uid = $props.id();
 	const triggerId = $derived(id ?? `base-ui-${uid}`);
 	const bindKey = createAttachmentKey();
+	// Attachments do not run during SSR. Claim an open popover so aria-expanded is true.
+	if (store.open && store.resolvedActiveTriggerId() == null) {
+		store.activeTriggerId = triggerId;
+	}
 	let triggerEl = $state<HTMLElement | null>(null);
 
 	function owned() {
@@ -70,6 +74,7 @@
 		handleClose: safePolygon(),
 		restMs: delay,
 		delay: { close: closeDelay },
+		placement: () => store.readPlacement(),
 		isActiveTrigger: store.resolvedActiveTriggerId() === triggerId
 	}));
 	const guards = useTriggerFocusGuards(store, () => triggerEl);

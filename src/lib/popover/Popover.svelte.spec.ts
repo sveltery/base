@@ -50,6 +50,14 @@ describe('Popover', () => {
 		await expect.poll(() => page.getByRole('dialog').elements().length).toBe(0);
 	});
 
+	it('opens a modal popover', async () => {
+		render(PopoverFixture, { scenario: 'modal' });
+		await page.getByRole('button', { name: 'Open' }).click();
+		await expect.element(page.getByRole('dialog')).toBeVisible();
+		await page.getByRole('button', { name: 'Close' }).click();
+		await expect.poll(() => page.getByRole('dialog').elements().length).toBe(0);
+	});
+
 	it('opens on hover', async () => {
 		render(PopoverFixture, { scenario: 'hover' });
 		await page.getByRole('button', { name: 'Open' }).hover();
