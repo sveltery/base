@@ -82,6 +82,21 @@ describe('anchored popup', () => {
 		await expect.poll(overflowLocked).toBe(true);
 	});
 
+	it('does not keep a touch open after the popup closes', async () => {
+		render(AnchoredScrollLockHarness, { enabled: true, wide: false });
+		const button = page.getByRole('button', { name: 'Open' }).element();
+		button.dispatchEvent(
+			new PointerEvent('pointerdown', { bubbles: true, cancelable: true, pointerType: 'touch' })
+		);
+		button.dispatchEvent(new MouseEvent('click', { bubbles: true, cancelable: true }));
+		await expect.poll(overflowLocked).toBe(false);
+		button.dispatchEvent(new MouseEvent('click', { bubbles: true, cancelable: true }));
+		await expect.poll(overflowLocked).toBe(false);
+		button.dispatchEvent(new KeyboardEvent('keydown', { bubbles: true, key: 'Enter' }));
+		button.dispatchEvent(new MouseEvent('click', { bubbles: true, cancelable: true }));
+		await expect.poll(overflowLocked).toBe(true);
+	});
+
 	it('blocks pointer events outside the safe polygon when asked', async () => {
 		const view = render(AnchoredPopupHarness, { scenario: 'block' });
 		await page.getByRole('button', { name: 'Open' }).hover();
@@ -97,9 +112,15 @@ describe('anchored popup', () => {
 		const second = page.getByRole('button', { name: 'B' });
 		await first.hover();
 		await expect.element(page.getByRole('dialog', { name: 'Notice' })).toBeVisible();
-		await expect.poll(() => page.getByTestId('active').element().textContent).toBe('trigger-a');
-		await expect.poll(() => page.getByTestId('seen').element().textContent).toBe('trigger-a');
-		await second.hover();
+		await expect.element(page.getByTestId('positioner')).toHaveAttribute('data-positioned', '');
+		const firstLeft = page.getByTestId('positioner').element().getBoundingClientRect().left;
+		second.element().dispatchEvent(new MouseEvent('mouseenter', { bubbles: true }));
+		await Promise.resolve();
+		const duringSwitch = page.getByTestId('positioner').element();
+		const stale =
+			duringSwitch.hasAttribute('data-positioned') &&
+			Math.abs(duringSwitch.getBoundingClientRect().left - firstLeft) < 2;
+		expect(stale).toBe(false);
 		await expect.poll(() => page.getByTestId('seen').element().textContent).toBe('trigger-b');
 		await expect.poll(() => page.getByTestId('active').element().textContent).toBe('trigger-b');
 		await expect
@@ -209,7 +230,6 @@ describe('safe polygon', () => {
 			})
 			.toBe(true);
 		await armClose();
-		await new Promise((resolve) => setTimeout(resolve, 15));
 		expect(dialogs()).toBe(1);
 		await expect.poll(dialogs, { timeout: 200 }).toBe(0);
 
@@ -220,7 +240,15 @@ describe('safe polygon', () => {
 		const remove = page.getByTestId('remove').element();
 		if (!(remove instanceof HTMLButtonElement)) throw new Error('missing remove button');
 		remove.click();
-		await new Promise((resolve) => setTimeout(resolve, 80));
-		expect(dialogs()).toBe(1);
+		const started = performance.now();
+		await expect
+			.poll(
+				() => {
+					if (dialogs() !== 1) return 'closed';
+					return performance.now() - started >= 90 ? 'held' : 'waiting';
+				},
+				{ timeout: 250 }
+			)
+			.toBe('held');
 	});
 });

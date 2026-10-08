@@ -11,6 +11,11 @@ export {
 	triggerOpenStateMapping
 } from '../popupStateMapping.js';
 export { useScrollLock } from '../useScrollLock.svelte.js';
+export {
+	useOpenInteractionType,
+	type OpenInteractionType,
+	type OpenPointerKind
+} from './useOpenInteractionType.js';
 export { useAnchoredPopupScrollLock } from '../useAnchoredPopupScrollLock.svelte.js';
 export {
 	useAnchorPositioning,

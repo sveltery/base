@@ -23,7 +23,7 @@
 
 	useAnchoredPopupScrollLock(() => ({
 		enabled: enabled && store.open,
-		touchOpen: store.openPointerType === 'touch',
+		touchOpen: store.openMethod === 'touch',
 		positionerElement: positioner,
 		referenceElement: positioner
 	}));

@@ -4,6 +4,8 @@
 import { createChangeEventDetails, REASONS } from '../../event-details.js';
 import { getTarget } from '../../shadow-dom.js';
 import { AnimationFrame, Timeout } from '../../timeout.js';
+import { PopupStore } from '../../popups/store.svelte.js';
+import { useOpenInteractionType } from '../../popups/useOpenInteractionType.js';
 import type { FloatingRootStore } from '../components/FloatingRootStore.svelte.js';
 import { isTypeableElement } from '../utils/element.js';
 import { isMouseLikePointerType, isVirtualPointerEvent } from '../utils/event.js';
@@ -22,6 +24,7 @@ export function useClick(store: FloatingRootStore, props: () => UseClickProps = 
 	const frame = AnimationFrame.create();
 	const touchOpenTimeout = Timeout.create();
 	let pointerType: 'mouse' | 'pen' | 'touch' | 'virtual' | undefined;
+	let fromKeyboard = false;
 
 	function options() {
 		const value = props();
@@ -44,11 +47,27 @@ export function useClick(store: FloatingRootStore, props: () => UseClickProps = 
 	) {
 		const { reason, touchOpenDelay } = options();
 		const details = createChangeEventDetails(reason, nativeEvent, target);
+		const openedByKeyboard = fromKeyboard;
+		fromKeyboard = false;
+		const popup = store instanceof PopupStore ? store : null;
+		const previousMethod = popup?.openMethod ?? null;
+		const record = () => {
+			if (nextOpen && popup) popup.openMethod = useOpenInteractionType(kind, openedByKeyboard);
+		};
+		const restore = () => {
+			if (popup && details.isCanceled) popup.openMethod = previousMethod;
+		};
 		if (nextOpen && kind === 'touch' && touchOpenDelay > 0) {
-			touchOpenTimeout.start(touchOpenDelay, () => store.setOpen(true, details));
+			touchOpenTimeout.start(touchOpenDelay, () => {
+				record();
+				store.setOpen(true, details);
+				restore();
+			});
 			return;
 		}
+		record();
 		store.setOpen(nextOpen, details);
+		restore();
 	}
 
 	function getNextOpen(
@@ -72,12 +91,12 @@ export function useClick(store: FloatingRootStore, props: () => UseClickProps = 
 		reference: {
 			onpointerdown(event: PointerEvent) {
 				if (!options().enabled) return;
+				fromKeyboard = false;
 				remember(event);
 				pointerType =
 					isMouseLikePointerType(event.pointerType, true) && isVirtualPointerEvent(event)
 						? 'virtual'
 						: (event.pointerType as typeof pointerType);
-				store.openPointerType = pointerType;
 			},
 			onmousedown(event: MouseEvent) {
 				const { enabled, event: eventOption, ignoreMouse } = options();
@@ -122,6 +141,7 @@ export function useClick(store: FloatingRootStore, props: () => UseClickProps = 
 			},
 			onkeydown() {
 				if (!options().enabled) return;
+				fromKeyboard = true;
 				pointerType = undefined;
 			}
 		}

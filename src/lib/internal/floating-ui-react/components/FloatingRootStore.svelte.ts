@@ -23,12 +23,8 @@ export interface OpenChangePayload {
 export class FloatingRootStore {
 	/** The active trigger. This is the only copy of that element. */
 	domReferenceElement = $state<Element | null>(null);
-	/** Pointer type from the trigger press. `useClick` writes this. */
-	openPointerType = $state<string | undefined>(undefined);
 	/** Hover timers and safe-polygon options for this popup. Not a module map. */
 	hoverInteraction: HoverInteraction | null = null;
-	/** Client point. Only `useClientPoint` writes this, and that lands later. */
-	positionReference = $state<ReferenceElement | null>(null);
 	floatingElement = $state<HTMLElement | null>(null);
 	popupElement = $state<HTMLElement | null>(null);
 	positionerElement = $state<HTMLElement | null>(null);
@@ -58,7 +54,7 @@ export class FloatingRootStore {
 	setOpen(_nextOpen: boolean, _eventDetails: BaseUIChangeEventDetails<string>) {}
 
 	get referenceElement(): ReferenceElement | null {
-		return this.positionReference ?? this.domReferenceElement;
+		return this.domReferenceElement;
 	}
 
 	syncOpenEvent(newOpen: boolean, event: Event | undefined) {

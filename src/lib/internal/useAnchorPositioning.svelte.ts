@@ -399,7 +399,10 @@ export function useAnchorPositioning(
 
 	$effect(() => {
 		const current = read();
-		if (!current.mounted) {
+		void position.positionEpoch;
+		const anchor = current.mounted ? resolveAnchor(current.anchor) : null;
+		const reference = anchor ?? store.referenceElement;
+		if (!current.mounted || position.positionedFor !== reference) {
 			latchedSide = null;
 			return;
 		}

@@ -42,6 +42,10 @@ export interface PositionData {
 
 export interface UsePositionReturn {
 	readonly data: PositionData;
+	/** Element the stored coordinates were measured for. Null while unpositioned. */
+	readonly positionedFor: ReferenceElement | null;
+	/** Bumps when coordinates are stored or cleared. Effects read this, not the element. */
+	readonly positionEpoch: number;
 	readonly floatingStyles: Record<string, string | number>;
 	readonly floatingProps: { attach: Attachment<HTMLElement> };
 	update(): void;
@@ -66,13 +70,37 @@ export function usePosition(options: () => UsePositionOptions): UsePositionRetur
 		isPositioned: false
 	});
 	let floating = $state<HTMLElement | null>(null);
+	/**
+	 * Reference the coordinates belong to. Kept off `$state` so an element is not proxied
+	 * into a different identity. `positionEpoch` is what effects subscribe to.
+	 */
+	let positionedFor: ReferenceElement | null = null;
+	let positionEpoch = $state(0);
 	let version = 0;
+	let cleared = true;
+
+	function clearPosition(placement: Placement, strategy: Strategy) {
+		version += 1;
+		const hadReference = positionedFor != null;
+		positionedFor = null;
+		if (cleared && !hadReference) return;
+		cleared = true;
+		positionEpoch += 1;
+		data = {
+			x: 0,
+			y: 0,
+			placement,
+			strategy,
+			middlewareData: {},
+			isPositioned: false
+		};
+	}
 
 	function update() {
 		const current = options();
 		const reference = current.reference;
 		const node = floating;
-		if (!reference || !node || !current.enabled) return;
+		if (!reference || !node || !current.enabled || current.open === false) return;
 		const id = ++version;
 		const middleware = activeMiddleware(current.middleware);
 		void computePosition(reference, node, {
@@ -81,14 +109,18 @@ export function usePosition(options: () => UsePositionOptions): UsePositionRetur
 			middleware
 		}).then((result) => {
 			if (id !== version || floating !== node) return;
-			const open = options().open;
+			const live = options();
+			if (live.open === false || live.reference !== reference) return;
+			cleared = false;
+			positionedFor = reference;
+			positionEpoch += 1;
 			data = {
 				x: result.x,
 				y: result.y,
 				placement: result.placement,
 				strategy: result.strategy,
 				middlewareData: result.middlewareData,
-				isPositioned: open !== false
+				isPositioned: true
 			};
 		});
 	}
@@ -96,12 +128,15 @@ export function usePosition(options: () => UsePositionOptions): UsePositionRetur
 	$effect(() => {
 		const current = options();
 		const node = floating;
-		if (!node || !current.reference || !current.enabled || current.open === false) {
-			if (current.open === false) version += 1;
-			return;
-		}
-		return autoUpdate(current.reference, node, update, current.autoUpdate);
+		const reference = current.reference;
+		const closed = current.open === false || !current.enabled;
+		const moved = positionedFor != null && positionedFor !== reference;
+		if (closed || moved) clearPosition(current.placement, current.strategy);
+		if (closed || !node || !reference) return;
+		return autoUpdate(reference, node, update, current.autoUpdate);
 	});
+
+	const snapshot = $derived(data);
 
 	function attach(node: HTMLElement) {
 		floating = node;
@@ -112,7 +147,13 @@ export function usePosition(options: () => UsePositionOptions): UsePositionRetur
 
 	return {
 		get data() {
-			return { ...data, isPositioned: options().open !== false && data.isPositioned };
+			return snapshot;
+		},
+		get positionedFor() {
+			return positionedFor;
+		},
+		get positionEpoch() {
+			return positionEpoch;
 		},
 		get floatingStyles() {
 			return {
