@@ -16,6 +16,17 @@
 	let parentErrors = $state<Record<string, string>>({ qty: 'stale' });
 	let submitted = $state(0);
 	let values = $state('');
+	let seen = $state('pending');
+
+	function recordValidation(value: unknown, formValues: Record<string, unknown>) {
+		const input = document.querySelector('[data-testid="control"]');
+		seen = JSON.stringify({
+			value,
+			form: formValues.qty,
+			input: input instanceof HTMLInputElement ? input.value : null
+		});
+		return 'nope';
+	}
 
 	function accept(formValues: Record<string, unknown>, details: { event: Event }) {
 		details.event.preventDefault();
@@ -181,7 +192,12 @@
 	</NumberField.Root>
 {:else if scenario === 'parent'}
 	<Form bind:errors={parentErrors}>
-		<Field.Root name="qty" validationMode="onChange" data-testid="field" validate={() => 'nope'}>
+		<Field.Root
+			name="qty"
+			validationMode="onChange"
+			data-testid="field"
+			validate={recordValidation}
+		>
 			<NumberField.Root value={bound}>
 				<NumberField.Input data-testid="control" />
 			</NumberField.Root>
@@ -190,6 +206,25 @@
 	</Form>
 	<button type="button" onclick={() => (bound = 9)}>Set nine</button>
 	<output data-testid="errors">{JSON.stringify(parentErrors)}</output>
+	<output data-testid="seen">{seen}</output>
+{:else if scenario === 'step'}
+	<Form>
+		<Field.Root
+			name="qty"
+			validationMode="onChange"
+			data-testid="field"
+			validate={recordValidation}
+		>
+			<NumberField.Root locale="en-US" defaultValue={4}>
+				<NumberField.Group>
+					<NumberField.Input data-testid="control" />
+					<NumberField.Increment />
+				</NumberField.Group>
+			</NumberField.Root>
+			<Field.Error data-testid="error" />
+		</Field.Root>
+	</Form>
+	<output data-testid="seen">{seen}</output>
 {:else if scenario === 'orphan'}
 	<NumberField.Increment />
 {:else if scenario === 'orphan-cursor'}

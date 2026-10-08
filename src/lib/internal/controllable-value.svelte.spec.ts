@@ -33,7 +33,9 @@ describe('createControllableValue', () => {
 		await expect.element(page.getByTestId('value')).toHaveTextContent('a');
 		await page.getByTestId('parent-c').click();
 		await expect.element(page.getByTestId('value')).toHaveTextContent('c');
-		expect(text('log')).toBe('["b","a","c"]');
+		// The notice runs after the turn settles, so the round trip back to the
+		// current value does not emit. The following parent write still does.
+		expect(text('log')).toBe('["c"]');
 	});
 
 	it('uses the value a parent setter keeps', async () => {

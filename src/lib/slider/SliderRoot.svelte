@@ -7,7 +7,7 @@
 -->
 <script lang="ts">
 	import { DEV } from 'esm-env';
-	import { onMount } from 'svelte';
+	import { onMount, untrack } from 'svelte';
 	import { createAttachmentKey } from 'svelte/attachments';
 	import type { Attachment } from 'svelte/attachments';
 	import type { HTMLAttributes } from 'svelte/elements';
@@ -69,7 +69,18 @@
 		getDefault: () => defaultValue ?? min,
 		onChange(next) {
 			if (next === undefined) return;
-			commitFieldValue(clampedFieldValue(next));
+			const clamped = clampedFieldValue(next);
+			// Registration is read by validation. Write it before the notice so
+			// `validate` sees this value, not the one from the previous commit.
+			if (field && !disabled) {
+				field.registerControl(fieldSource, {
+					id: rootId,
+					name: nameProp,
+					value: clamped,
+					element: model.fieldInput
+				});
+			}
+			commitFieldValue(clamped);
 		}
 	});
 	const valueUnwrapped = $derived(controllable.value as SliderValue);
@@ -78,8 +89,6 @@
 	const rootId = $derived(idProp || `base-ui-${uid}`);
 
 	function writeValue(next: SliderValue) {
-		// Publish before the handler returns. A later effect would revalidate and
-		// clear an onBlur error committed in the same turn.
 		controllable.set(next);
 	}
 
@@ -153,15 +162,23 @@
 
 	$effect(() => {
 		if (!field) return;
-		if (disabled) {
+		const inactive = disabled;
+		const input = model.fieldInput;
+		const id = rootId;
+		const controlName = nameProp;
+		if (inactive) {
 			field.registerControl(fieldSource, undefined);
 			return () => field.registerControl(fieldSource, undefined);
 		}
-		field.registerControl(fieldSource, {
-			id: rootId,
-			name: nameProp,
-			value: model.fieldValue,
-			element: model.fieldInput
+		// The value is registered in the change notice, before validation. This
+		// effect keeps the element, id, and name current without reordering that notice.
+		untrack(() => {
+			field.registerControl(fieldSource, {
+				id,
+				name: controlName,
+				value: model.fieldValue,
+				element: input
+			});
 		});
 		return () => field.registerControl(fieldSource, undefined);
 	});
@@ -189,12 +206,12 @@
 		});
 </script>
 
-{#snippet content()}
+{#snippet sliderContent()}
 	{@render children?.()}
 {/snippet}
 
 {#if render}
-	{@render render(hostProps, partState, content)}
+	{@render render(hostProps, partState, sliderContent)}
 {:else}
-	<div {...hostProps}>{@render content()}</div>
+	<div {...hostProps}>{@render sliderContent()}</div>
 {/if}

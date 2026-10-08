@@ -33,6 +33,18 @@ describe('<NumberField />', () => {
 		await expect.element(page.getByTestId('errors')).toHaveTextContent('{}');
 		await expect.element(page.getByTestId('field')).toHaveAttribute('data-dirty', '');
 		await expect.element(page.getByTestId('error')).toHaveTextContent('nope');
+		expect(page.getByTestId('seen').element().textContent).toBe(
+			JSON.stringify({ value: 9, form: 9, input: '9' })
+		);
+	});
+
+	it('validates the stepped value after the input and registration update', async () => {
+		render(NumberFieldHarness, { scenario: 'step' });
+		await userEvent.click(increase().element());
+		await expect.element(control()).toHaveValue('5');
+		expect(page.getByTestId('seen').element().textContent).toBe(
+			JSON.stringify({ value: 5, form: 5, input: '5' })
+		);
 	});
 
 	it('renders the input, steppers, and group', async () => {

@@ -8,6 +8,13 @@ export interface ControllableValue<T> {
 	readonly value: T | undefined;
 	readonly controlled: boolean;
 	set(next: T | undefined): void;
+	/**
+	 * Run the change notice for the current value, including a same-value commit.
+	 * Notices from `set` wait until the input has updated. A later migration can
+	 * announce Accordion, Checkbox, CheckboxGroup, Collapsible, Switch, Toggle,
+	 * and ToggleGroup through this same notice.
+	 */
+	notify(): void;
 }
 
 export function createControllableValue<T>(options: {
@@ -26,9 +33,12 @@ export function createControllableValue<T>(options: {
 	let echoed = $state.raw<T | undefined>(untrack(() => options.getProp()));
 	let adopted = false;
 	let lastNotified: T | undefined = initial;
+	let forceNotice = false;
 
 	function publish(next: T | undefined) {
-		if (Object.is(next, lastNotified)) return;
+		const forced = forceNotice;
+		forceNotice = false;
+		if (!forced && Object.is(next, lastNotified)) return;
 		lastNotified = next;
 		options.onChange?.(next);
 	}
@@ -42,7 +52,8 @@ export function createControllableValue<T>(options: {
 		return prop;
 	});
 
-	// After the DOM commit. `$effect.pre` still reads the previous input value.
+	// After the DOM commit, for parent writes and for `set`. `$effect.pre` still
+	// reads the previous input value, and publishing inside `set` does too.
 	$effect(() => {
 		const next = value;
 		untrack(() => publish(next));
@@ -69,6 +80,9 @@ export function createControllableValue<T>(options: {
 				stored = after;
 				echoed = after;
 			}
+		},
+		notify() {
+			forceNotice = true;
 			publish(untrack(() => value));
 		}
 	};
