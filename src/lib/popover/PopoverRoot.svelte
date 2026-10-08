@@ -3,7 +3,7 @@
 	Derived from Base UI v1.8.0 packages/react/src/popover/root/PopoverRoot.tsx
 	(commit 47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c). MIT, see THIRD_PARTY_NOTICES.md.
 -->
-<script lang="ts" generics="Payload = unknown">
+<script lang="ts">
 	import { createChangeEventDetails, REASONS } from '../internal/event-details.js';
 	import { createControllableValue } from '../internal/controllable-value.svelte.js';
 	import {
@@ -24,7 +24,7 @@
 		handle,
 		actions,
 		children
-	}: PopoverRootProps<Payload> = $props();
+	}: PopoverRootProps = $props();
 
 	const uid = $props.id();
 	const nested = useFloatingParentNodeId() != null;
@@ -67,4 +67,4 @@
 	});
 </script>
 
-{@render children?.({ payload: store.payload as Payload | undefined })}
+{@render children?.({ payload: store.payload })}

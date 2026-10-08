@@ -33,6 +33,7 @@ An anchored dialog opened from a trigger. Upstream: `packages/react/src/popover`
 Differences from React Base UI, all deliberate:
 
 - No `defaultOpen`, and no locked controlled mode. Hold the state with `eventDetails.cancel()`.
+- `Popover.Root` and `Popover.Trigger` are not generic components. Payload on the root children snippet is `unknown`. The `PopoverHandle<Payload>` type still carries it.
 - No `ref` and no `actionsRef`. Use `{@attach}` and `actions` or `Popover.createHandle()`.
 - `class` and `style` are strings.
 - Generated ids use `$props.id()` with a `base-ui-` prefix.

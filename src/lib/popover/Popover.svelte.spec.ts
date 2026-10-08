@@ -18,7 +18,7 @@ describe('Popover', () => {
 		await expect.element(trigger).toHaveAttribute('aria-controls', popup.element().id);
 		expect(popup.element().id).toMatch(/^base-ui-/);
 		await expect.element(page.getByRole('heading', { name: 'Title' })).toBeVisible();
-		await expect.element(popup).toHaveAttribute('aria-labelledby', /.+/);
+		expect(popup.element().getAttribute('aria-labelledby')).toMatch(/^base-ui-/);
 		await trigger.click();
 		await expect.poll(() => page.getByRole('dialog').elements().length).toBe(0);
 	});
