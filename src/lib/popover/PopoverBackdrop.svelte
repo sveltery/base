@@ -37,12 +37,7 @@
 	);
 </script>
 
-{#if render}
-	{@render render(hostProps, state, content)}
-{:else}
-	<div {...hostProps}>{@render content()}</div>
-{/if}
-
-{#snippet content()}
-	{@render children?.()}
-{/snippet}
+{#snippet backdropBody()}{@render children?.()}{/snippet}
+{#if render}{@render render(hostProps, state, backdropBody)}{:else}<div {...hostProps}>
+		{@render backdropBody()}
+	</div>{/if}

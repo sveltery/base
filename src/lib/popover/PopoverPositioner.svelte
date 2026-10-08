@@ -104,12 +104,7 @@
 {#if modalLock && store.mounted}
 	<InternalBackdrop cutout={store.activeTriggerElement} />
 {/if}
-{#if render}
-	{@render render(hostProps, state, content)}
-{:else}
-	<div {...hostProps}>{@render content()}</div>
-{/if}
-
-{#snippet content()}
-	{@render children?.()}
-{/snippet}
+{#snippet positionerBody()}{@render children?.()}{/snippet}
+{#if render}{@render render(hostProps, state, positionerBody)}{:else}<div {...hostProps}>
+		{@render positionerBody()}
+	</div>{/if}

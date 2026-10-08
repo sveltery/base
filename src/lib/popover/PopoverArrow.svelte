@@ -45,12 +45,7 @@
 	);
 </script>
 
-{#if render}
-	{@render render(hostProps, state, content)}
-{:else}
-	<div {...hostProps}>{@render content()}</div>
-{/if}
-
-{#snippet content()}
-	{@render children?.()}
-{/snippet}
+{#snippet arrowBody()}{@render children?.()}{/snippet}
+{#if render}{@render render(hostProps, state, arrowBody)}{:else}<div {...hostProps}>
+		{@render arrowBody()}
+	</div>{/if}
