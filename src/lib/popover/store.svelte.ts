@@ -71,6 +71,9 @@ export class PopoverStore extends PopupStore<PopoverChangeReason> {
 	private triggerChangeAbort: AbortController | null = null;
 	/** Trigger that opened the popup. Click remembers the next node before setOpen. */
 	private openedFrom: Element | null = null;
+	/** Bumps when an open popup changes trigger. The viewport snapshots on this. */
+	triggerSwitch = $state(0);
+	switchedFrom = $state<Element | null>(null);
 
 	constructor(options: PopoverStoreOptions) {
 		super({
@@ -247,6 +250,8 @@ export class PopoverStore extends PopupStore<PopoverChangeReason> {
 
 		const nextElement = this.activeTriggerElement;
 		if (wasOpen && nextOpen && previousElement && nextElement && previousElement !== nextElement) {
+			this.switchedFrom = previousElement;
+			this.triggerSwitch += 1;
 			this.armTriggerChange();
 			return;
 		}

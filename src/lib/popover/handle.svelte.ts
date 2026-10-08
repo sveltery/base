@@ -12,7 +12,7 @@ import type { PopoverStore } from './store.svelte.js';
 export class PopoverHandle<Payload = unknown> {
 	attached = $state.raw<PopoverStore | null>(null);
 	readonly fallbackTriggers = new PopupTriggerMap();
-	readonly payloads = new Map<string, Payload>();
+	private readonly payloads: Record<string, Payload> = {};
 	private readonly stack: PopoverStore[] = [];
 	private overlapFrame: AnimationFrame | undefined;
 
@@ -47,12 +47,12 @@ export class PopoverHandle<Payload = unknown> {
 	}
 
 	setPayload(id: string, payload: Payload | undefined) {
-		if (payload === undefined) this.payloads.delete(id);
-		else this.payloads.set(id, payload);
+		if (payload === undefined) delete this.payloads[id];
+		else this.payloads[id] = payload;
 	}
 
 	forgetPayload(id: string) {
-		this.payloads.delete(id);
+		delete this.payloads[id];
 	}
 
 	open(triggerId: string) {

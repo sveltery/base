@@ -138,7 +138,7 @@
 			{delay}
 			{closeDelay}
 			triggerEl={readNode}
-			bind:armed
+			onArmed={(next) => (armed = next)}
 		/>
 	{/key}
 {/if}

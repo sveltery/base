@@ -7,6 +7,7 @@
 	aria links keep pointing at the live title and description.
 -->
 <script lang="ts">
+	import { untrack } from 'svelte';
 	import { mergeProps } from '../internal/mergeProps.js';
 	import { useDirection } from '../internal/direction-context.js';
 	import { AnimationFrame } from '../internal/timeout.js';
@@ -27,7 +28,6 @@
 	let previousNode = $state<HTMLElement | null>(null);
 	let activationDirection = $state<string | undefined>(undefined);
 	let showStarting = $state(false);
-	let seenTrigger: Element | null = null;
 	let committedSize: { width: number; height: number } | null = null;
 
 	$effect(() => {
@@ -38,11 +38,13 @@
 	});
 
 	$effect(() => {
-		const open = store.open;
-		const active = open ? store.domReferenceElement : null;
-		const source = currentEl;
-		if (source && active && seenTrigger && active !== seenTrigger) {
-			const previous = seenTrigger;
+		const generation = store.triggerSwitch;
+		if (generation === 0) return;
+		untrack(() => {
+			const source = currentEl;
+			const active = store.domReferenceElement;
+			const previous = store.switchedFrom;
+			if (!source || !active || !previous) return;
 			previousNode = snapshot(source);
 			activationDirection = directionBetween(previous, active);
 			showStarting = true;
@@ -61,8 +63,7 @@
 					false
 				);
 			});
-		}
-		seenTrigger = active;
+		});
 		return () => frame.cancel();
 	});
 
@@ -73,13 +74,26 @@
 		const positioner = store.positionerElement;
 		const side = positioning.side;
 		const textDirection = direction.direction;
-		void content;
 		if (!mounted || !popup || !positioner) {
 			committedSize = null;
 			store.positionerVars = {};
 			store.popupVars = {};
 			return;
 		}
+		const controller = beginResize(content, popup, side, textDirection);
+		return () => {
+			controller.abort();
+			resizeFrame.cancel();
+		};
+	});
+
+	function beginResize(
+		content: unknown,
+		popup: HTMLElement,
+		side: string | null,
+		textDirection: string
+	) {
+		const mark = content;
 		const anchor = anchoring(side, textDirection);
 		const previous = committedSize;
 		store.popupVars = { ...anchor, '--popup-width': 'auto', '--popup-height': 'auto' };
@@ -89,7 +103,8 @@
 		};
 		const controller = new AbortController();
 		resizeFrame.request(() => {
-			if (controller.signal.aborted || !popup.isConnected) return;
+			if (controller.signal.aborted || !popup.isConnected || !Object.is(mark, store.payload))
+				return;
 			const next = cssSize(popup);
 			committedSize = next;
 			store.positionerVars = sizeVars('positioner', next);
@@ -112,11 +127,8 @@
 				);
 			});
 		});
-		return () => {
-			controller.abort();
-			resizeFrame.cancel();
-		};
-	});
+		return controller;
+	}
 
 	function anchoring(side: string | null, textDirection: string) {
 		const anchorTop = side === 'top';

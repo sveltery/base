@@ -21,7 +21,7 @@
 		delay,
 		closeDelay,
 		triggerEl,
-		armed = $bindable(null)
+		onArmed
 	}: {
 		store: PopoverStore;
 		disabled: boolean;
@@ -29,7 +29,7 @@
 		delay: number;
 		closeDelay: number;
 		triggerEl: () => HTMLElement | null;
-		armed: TriggerArmed | null;
+		onArmed: (next: TriggerArmed) => void;
 	} = $props();
 
 	const click = useClick(store, () => ({
@@ -50,10 +50,10 @@
 	}));
 	const guards = useTriggerFocusGuards(store, triggerEl);
 
-	armed = {
+	onArmed({
 		click: click.reference,
 		hover: hover.reference,
 		attach: hover.attachReference,
 		guards
-	};
+	});
 </script>

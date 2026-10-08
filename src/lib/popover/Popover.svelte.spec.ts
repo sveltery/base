@@ -169,7 +169,9 @@ describe('Popover', () => {
 		expect(document.querySelectorAll('#live-title').length).toBe(1);
 		expect(previous.getAttribute('aria-hidden')).toBe('true');
 		expect(previous.inert).toBe(true);
-		expect(current.compareDocumentPosition(previous) & Node.DOCUMENT_POSITION_FOLLOWING).toBeTruthy();
+		expect(
+			current.compareDocumentPosition(previous) & Node.DOCUMENT_POSITION_FOLLOWING
+		).toBeTruthy();
 		expect(previous.querySelector('input')?.value).toBe('kept');
 	});
 });

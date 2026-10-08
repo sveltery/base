@@ -52,14 +52,10 @@
 	{@render children?.()}
 {/snippet}
 
-{#if tag === 'h2'}
-	{#if render}
-		{@render render(hostProps, content)}
-	{:else}
-		<h2 {...hostProps as HTMLAttributes<HTMLHeadingElement>}>{@render content()}</h2>
-	{/if}
-{:else if render}
-	{@render render(hostProps as HTMLAttributes<Element>, content)}
+{#if render}
+	{@render render(hostProps, content)}
+{:else if tag === 'h2'}
+	<h2 {...hostProps as unknown as HTMLAttributes<HTMLHeadingElement>}>{@render content()}</h2>
 {:else}
-	<p {...hostProps as HTMLAttributes<HTMLParagraphElement>}>{@render content()}</p>
+	<p {...hostProps as unknown as HTMLAttributes<HTMLParagraphElement>}>{@render content()}</p>
 {/if}
