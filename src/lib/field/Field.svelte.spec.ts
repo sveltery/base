@@ -63,6 +63,18 @@ describe('Field', () => {
 			expect(page.getByTestId('label').element().getAttribute('for')).toBe(id);
 		});
 
+		it('clears aria-labelledby when the label unmounts', async () => {
+			render(FieldHarness, { scenario: 'label-unmount' });
+			const control = page.getByTestId('control');
+			const label = page.getByTestId('label');
+			await expect.poll(() => label.element().id.length > 0).toBe(true);
+			const labelId = label.element().id;
+			expect(control.element().getAttribute('aria-labelledby')).toBe(labelId);
+			await page.getByRole('button', { name: 'Remove label' }).click();
+			await expect.element(label).not.toBeInTheDocument();
+			expect(control.element().hasAttribute('aria-labelledby')).toBe(false);
+		});
+
 		it('focuses the control from a non-native label', async () => {
 			render(FieldHarness, { scenario: 'native-label-false' });
 			await page.getByTestId('label').click();

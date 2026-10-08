@@ -6,9 +6,9 @@
 -->
 <script lang="ts">
 	import { DEV } from 'esm-env';
-	import { untrack } from 'svelte';
 	import { createAttachmentKey } from 'svelte/attachments';
 	import type { HTMLAttributes, HTMLLabelAttributes } from 'svelte/elements';
+	import { registerLabelId } from '../internal/register-label-id.svelte.js';
 	import { getStateAttributesProps } from '../internal/state-attributes.js';
 	import { fieldValidityMapping } from './attributes.js';
 	import { useFieldContext, useFieldItemContext } from './context.svelte.js';
@@ -33,11 +33,17 @@
 	const item = useFieldItemContext();
 	const labelable = useLabelableContext();
 	const id = $derived(idProp ?? `base-ui-${uid}`);
-	// Effects do not run on the server. One untracked write publishes the id
-	// during this render. Controls rendered after this label can read it.
-	untrack(() => {
-		labelable.setLabelId(id);
-	});
+	// Effects do not run on the server. The init write publishes the id during
+	// this render. Controls rendered after this label can read it. The effect
+	// still registers cleanup, so unmount drops aria-labelledby.
+	registerLabelId(
+		() => id,
+		(next) => labelable.setLabelId(next),
+		{
+			publishNow: true,
+			readCurrent: () => labelable.labelId
+		}
+	);
 
 	const labelState: FieldLabelState = $derived({
 		...field.state,
@@ -52,15 +58,6 @@
 			if (labelEl === node) labelEl = null;
 		};
 	}
-
-	$effect(() => {
-		const nextId = id;
-		// The render above already published this id. Assign only when it changes.
-		if (untrack(() => labelable.labelId) !== nextId) labelable.setLabelId(nextId);
-		return () => {
-			labelable.setLabelId((current) => (current === nextId ? undefined : current));
-		};
-	});
 
 	$effect(() => {
 		const element = labelEl;
