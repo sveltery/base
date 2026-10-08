@@ -7,7 +7,6 @@
 	import type { HTMLAttributes } from 'svelte/elements';
 	import { devWarn } from '../collapsible/warn.js';
 	import { createControllableValue } from '../internal/controllable-value.svelte.js';
-	import { createChangeEventDetails, REASONS } from '../internal/event-details.js';
 	import PartHost from '../internal/PartHost.svelte';
 	import { getStateAttributesProps } from '../internal/state-attributes.js';
 	import { rootStateAttributesMapping } from './attributes.js';
@@ -39,11 +38,7 @@
 		setProp: (next) => {
 			value = next;
 		},
-		getDefault: () => defaultValue ?? EMPTY,
-		onChange(next, details) {
-			if (details || next === undefined) return;
-			onValueChange?.(next, createChangeEventDetails(REASONS.none));
-		}
+		getDefault: () => defaultValue ?? EMPTY
 	});
 	const accordion = new AccordionRootModel(
 		() => controllable.value ?? EMPTY,

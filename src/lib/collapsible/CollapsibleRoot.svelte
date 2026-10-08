@@ -7,7 +7,6 @@
 <script lang="ts">
 	import type { HTMLAttributes } from 'svelte/elements';
 	import { createControllableValue } from '../internal/controllable-value.svelte.js';
-	import { createChangeEventDetails, REASONS } from '../internal/event-details.js';
 	import PartHost from '../internal/PartHost.svelte';
 	import { getStateAttributesProps } from '../internal/state-attributes.js';
 	import { collapsibleStateAttributesMapping } from './attributes.js';
@@ -35,11 +34,7 @@
 		setProp: (next) => {
 			open = next;
 		},
-		getDefault: () => defaultOpen,
-		onChange(next, details) {
-			if (details || next === undefined) return;
-			onOpenChange?.(next, createChangeEventDetails(REASONS.none));
-		}
+		getDefault: () => defaultOpen
 	});
 
 	const collapsible = new CollapsibleRoot(

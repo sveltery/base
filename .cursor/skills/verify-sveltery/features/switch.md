@@ -4,7 +4,7 @@ A two-state control that submits like a checkbox. Upstream: `packages/react/src/
 
 ## Sub-features
 
-- Checked state: one `$bindable` `checked` prop. Omit it to start from `defaultChecked` (false). A click, Enter, or Space flips it. `bind:checked` shares it with the parent. A one-way `checked={x}` sets it, and clicks override it until `x` changes. A parent write calls `onCheckedChange` once after the DOM updates.
+- Checked state: one `$bindable` `checked` prop. Omit it to start from `defaultChecked` (false). A click, Enter, or Space flips it. `bind:checked` shares it with the parent. A one-way `checked={x}` sets it, and clicks override it until `x` changes. A parent write does not call `onCheckedChange`.
 - `onCheckedChange(checked, eventDetails)` runs before the change, with `reason: 'none'`. The event is the hidden input's click, so modifier keys are preserved and `detail` is `0`. `eventDetails.cancel()` vetoes the change and the checkbox stays unchanged.
 - A consumer `onclick` runs first. `event.preventDefault()` skips the switch's handling. `stopPropagation()` still toggles, and ancestors hear that one click.
 - The root is a `<span role="switch">` with `tabindex="0"`. A hidden checkbox is the form control. Clicking the root, a wrapping label, or a label pointing at the input toggles that checkbox once.

@@ -10,7 +10,6 @@
 	import type { HTMLAttributes } from 'svelte/elements';
 	import { setCheckboxGroupContext } from '../checkbox/group-context.js';
 	import { createControllableValue } from '../internal/controllable-value.svelte.js';
-	import { createChangeEventDetails, REASONS } from '../internal/event-details.js';
 	import GroupFrame from '../internal/GroupFrame.svelte';
 	import { getStateAttributesProps } from '../internal/state-attributes.js';
 	import { CheckboxGroupParent } from './parent.svelte.js';
@@ -38,11 +37,7 @@
 	const controllable = createControllableValue<string[], CheckboxGroupChangeEventDetails>({
 		getProp: () => value,
 		setProp: publishValue,
-		getDefault: () => defaultValue ?? EMPTY,
-		onChange(next, details) {
-			if (details || next === undefined) return;
-			onValueChange?.(next, createChangeEventDetails(REASONS.none));
-		}
+		getDefault: () => defaultValue ?? EMPTY
 	});
 
 	function currentValue() {

@@ -4,7 +4,7 @@ A two-state button. Upstream: `packages/react/src/toggle/Toggle.tsx` at Base UI 
 
 ## Sub-features
 
-- Pressed state: one `$bindable` `pressed` prop. Omit it to start from `defaultPressed` (false). Each click flips it. `bind:pressed` shares it with the parent. A one-way `pressed={x}` sets it, and clicks override it until `x` changes. A parent write calls `onPressedChange` once after the DOM updates.
+- Pressed state: one `$bindable` `pressed` prop. Omit it to start from `defaultPressed` (false). Each click flips it. `bind:pressed` shares it with the parent. A one-way `pressed={x}` sets it, and clicks override it until `x` changes. A parent write does not call `onPressedChange`.
 - `onPressedChange(pressed, eventDetails)` runs before the change, with `reason: 'none'`. `eventDetails.cancel()` vetoes the change.
 - A consumer `onclick` runs first. `event.preventDefault()` skips the Toggle's handling.
 - Disabled: a natively `disabled` button with `data-disabled`, and no callback.

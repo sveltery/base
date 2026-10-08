@@ -209,6 +209,15 @@
 	</Field.Root>
 	<button type="button" onclick={() => (dirty = false)}>Clean</button>
 	<button type="button" onclick={() => actions?.validate()}>Validate</button>
+{:else if scenario === 'controlled-dirty-submit'}
+	<Form onFormSubmit={accept}>
+		<Field.Root name="q" dirty={false} data-testid="field">
+			<Field.Control required data-testid="control" />
+		</Field.Root>
+		<button type="submit">Submit</button>
+	</Form>
+	<output data-testid="submitted">{submitted}</output>
+	<output data-testid="values">{values}</output>
 {:else if scenario === 'touched'}
 	<Field.Root {touched} data-testid="field">
 		<Field.Control data-testid="control" />

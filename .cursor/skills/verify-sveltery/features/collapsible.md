@@ -4,7 +4,7 @@ A disclosure that shows and hides a panel. Upstream: `packages/react/src/collaps
 
 ## Sub-features
 
-- `Collapsible.Root` renders a `<div>`. `open` is one `$bindable` prop. Omit it to start from `defaultOpen` (false). `bind:open` shares it with the parent. A one-way `open={x}` sets it, and trigger clicks override it until `x` changes. A parent write calls `onOpenChange` once after the DOM updates.
+- `Collapsible.Root` renders a `<div>`. `open` is one `$bindable` prop. Omit it to start from `defaultOpen` (false). `bind:open` shares it with the parent. A one-way `open={x}` sets it, and trigger clicks override it until `x` changes. A parent write does not call `onOpenChange`.
 - `onOpenChange(open, eventDetails)` runs before the change. A trigger press uses `reason: 'trigger-press'`. `beforematch` uses `reason: 'none'`. `eventDetails.cancel()` vetoes the change.
 - A consumer `onclick` on the trigger runs first. `event.preventDefault()` skips the open change. A disabled trigger does not call `onclick` or `onOpenChange`.
 - Disabled: the root and trigger get `data-disabled`. The trigger stays in the tab order with `aria-disabled` and no `disabled` attribute. Enter, Space, and click do not toggle it.

@@ -67,15 +67,35 @@ export function controllableRootCases(part: Part) {
 		await expect.element(page.getByTestId('owner')).toHaveTextContent(target.wrote);
 	});
 
-	it('a parent write notifies once after the DOM updates', async () => {
-		const onChange = vi.fn(() => {
-			expect(control(part).element()).toHaveAttribute(target.attribute, target.on);
-		});
+	it('a parent write updates the control and does not notify', async () => {
+		const onChange = vi.fn();
 		render(ControllableRootsHarness, { part, mode: 'parent', onChange });
 		await expect.element(control(part)).toHaveAttribute(target.attribute, 'false');
 		(page.getByRole('button', { name: 'Set value' }).element() as HTMLElement).click();
 		await expect.element(control(part)).toHaveAttribute(target.attribute, target.on);
-		expect(onChange).toHaveBeenCalledTimes(1);
+		expect(onChange).not.toHaveBeenCalled();
+	});
+
+	it('a parent set, unset, and click logs only the click', async () => {
+		render(ControllableRootsHarness, { part, mode: 'journal' });
+		const clickLog =
+			part === 'collapsible'
+				? 'true:trigger-press'
+				: part === 'accordion'
+					? 'a:trigger-press'
+					: part === 'toggle-group' || part === 'checkbox-group'
+						? 'a:none'
+						: 'true:none';
+		await expect.element(control(part)).toHaveAttribute(target.attribute, 'false');
+		(page.getByRole('button', { name: 'Set value', exact: true }).element() as HTMLElement).click();
+		await expect.element(control(part)).toHaveAttribute(target.attribute, target.on);
+		(
+			page.getByRole('button', { name: 'Unset value', exact: true }).element() as HTMLElement
+		).click();
+		await expect.element(control(part)).toHaveAttribute(target.attribute, 'false');
+		(control(part).element() as HTMLElement).click();
+		await expect.element(control(part)).toHaveAttribute(target.attribute, target.on);
+		expect(page.getByTestId('log').element().textContent).toBe(clickLog);
 	});
 
 	it('a default-only render shows the default and does not notify', async () => {
@@ -83,5 +103,42 @@ export function controllableRootCases(part: Part) {
 		render(ControllableRootsHarness, { part, mode: 'default', onChange });
 		await expect.element(control(part)).toHaveAttribute(target.attribute, target.on);
 		expect(onChange).not.toHaveBeenCalled();
+	});
+}
+
+/** Parent writes that store a fresh array must not call back or loop. */
+export function controllableCopyCases() {
+	it('a copied ToggleGroup write-back does not exceed the effect depth', async () => {
+		render(ControllableRootsHarness, { part: 'toggle-group', mode: 'copy' });
+		(page.getByRole('button', { name: 'Set value' }).element() as HTMLElement).click();
+		await expect
+			.element(page.getByRole('button', { name: 'B', exact: true }))
+			.toHaveAttribute('aria-pressed', 'true');
+		expect(page.getByTestId('copies').element().textContent).toBe('0');
+	});
+
+	it('an Accordion parent write that stores a copy calls onValueChange zero times', async () => {
+		render(ControllableRootsHarness, { part: 'accordion', mode: 'copy' });
+		(page.getByRole('button', { name: 'Set value' }).element() as HTMLElement).click();
+		await expect
+			.element(page.getByRole('button', { name: 'Section', exact: true }))
+			.toHaveAttribute('aria-expanded', 'true');
+		expect(page.getByTestId('copies').element().textContent).toBe('0');
+	});
+
+	it('a CheckboxGroup parent write that stores a copy calls onValueChange zero times', async () => {
+		render(ControllableRootsHarness, { part: 'checkbox-group', mode: 'copy' });
+		(page.getByRole('button', { name: 'Set value' }).element() as HTMLElement).click();
+		await expect
+			.element(page.getByRole('checkbox', { name: 'A', exact: true }))
+			.toHaveAttribute('aria-checked', 'true');
+		expect(page.getByTestId('copies').element().textContent).toBe('0');
+	});
+
+	it('a confirm pattern prompts once', async () => {
+		render(ControllableRootsHarness, { part: 'switch', mode: 'confirm' });
+		(page.getByRole('switch').element() as HTMLElement).click();
+		await expect.element(page.getByRole('switch')).toHaveAttribute('aria-checked', 'true');
+		expect(page.getByTestId('prompts').element().textContent).toBe('1');
 	});
 }

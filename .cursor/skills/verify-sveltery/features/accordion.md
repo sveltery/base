@@ -4,7 +4,7 @@ A list of disclosures that share one open value. Upstream: `packages/react/src/a
 
 ## Sub-features
 
-- `Accordion.Root` renders a `<div>`. `value` is one `$bindable` array of open item values. Omit it to start from `defaultValue` (empty). `bind:value` shares it with the parent. A one-way `value` sets it, and trigger clicks override it until the parent passes a new array. A parent write calls `onValueChange` once after the DOM updates.
+- `Accordion.Root` renders a `<div>`. `value` is one `$bindable` array of open item values. Omit it to start from `defaultValue` (empty). `bind:value` shares it with the parent. A one-way `value` sets it, and trigger clicks override it until the parent passes a new array. A parent write does not call `onValueChange`.
 - `multiple` false opens one item and closes the others. The next list is `[item]` or `[]` based on whether that item is `value[0]`, including when the open request says it should stay open. `multiple` true pushes on open and filters that item out on close.
 - `onValueChange(value, eventDetails)` runs before the commit. `reason` is `trigger-press` from a trigger and `none` from `beforematch`. `eventDetails.cancel()` vetoes the change. An item `onOpenChange` runs first and shares those details, so canceling there skips the root callback.
 - A consumer `onclick` on the trigger runs first. `event.preventDefault()` skips the toggle. A disabled trigger does not call `onclick`, `onOpenChange`, or `onValueChange`.

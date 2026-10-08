@@ -11,7 +11,6 @@
 	import { CompositeRoot } from '../internal/composite-root.svelte.js';
 	import { createControllableValue } from '../internal/controllable-value.svelte.js';
 	import { useDirection } from '../internal/direction-context.js';
-	import { createChangeEventDetails, REASONS } from '../internal/event-details.js';
 	import { getStateAttributesProps } from '../internal/state-attributes.js';
 	import { ToggleGroupContext, setToggleGroupContext } from './context.svelte.js';
 	import type {
@@ -41,11 +40,7 @@
 		setProp: (next) => {
 			value = next;
 		},
-		getDefault: () => defaultValue ?? EMPTY,
-		onChange(next, details) {
-			if (details || next === undefined) return;
-			onValueChange?.([...next], createChangeEventDetails(REASONS.none));
-		}
+		getDefault: () => defaultValue ?? EMPTY
 	});
 
 	const reading = useDirection();

@@ -50,7 +50,7 @@
 	// (or on the root when nativeButton is set). An explicit id replaces the control id.
 	const generatedRootId = $derived(`base-ui-${uid}`);
 	const generatedControlId = $derived(`base-ui-${uid}` + '-control');
-	const controlId = $derived(id === undefined ? generatedControlId : id);
+	const controlId = $derived(id ?? generatedControlId);
 	const hiddenInputId = $derived(nativeButton ? undefined : controlId);
 	const rootId = $derived(nativeButton ? controlId : generatedRootId);
 
@@ -59,11 +59,7 @@
 		setProp: (next) => {
 			checked = next;
 		},
-		getDefault: () => defaultChecked,
-		onChange(next, details) {
-			if (details || next === undefined) return;
-			onCheckedChange?.(next, createChangeEventDetails(REASONS.none));
-		}
+		getDefault: () => defaultChecked
 	});
 	const checkedState = $derived(controllable.value === true);
 	const switchState: SwitchRootState = $derived({
@@ -131,7 +127,6 @@
 	}
 
 	function handleClick(event: MouseEvent & { currentTarget: EventTarget & HTMLElement }) {
-		// The hidden input is clicked from here so a label does not toggle twice.
 		if (disabled) return event.preventDefault();
 
 		onclick?.(event);

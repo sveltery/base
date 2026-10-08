@@ -4,7 +4,7 @@ A two-state control that can also be mixed. Upstream: `packages/react/src/checkb
 
 ## Sub-features
 
-- Checked state: one `$bindable` `checked` prop. Omit it to start from `defaultChecked` (false). A click or Space flips it. Enter does not. `bind:checked` shares it with the parent. A one-way `checked={x}` sets it, and clicks override it until `x` changes. A parent write calls `onCheckedChange` once after the DOM updates. Inside a group, the group value wins.
+- Checked state: one `$bindable` `checked` prop. Omit it to start from `defaultChecked` (false). A click or Space flips it. Enter does not. `bind:checked` shares it with the parent. A one-way `checked={x}` sets it, and clicks override it until `x` changes. A parent write does not call `onCheckedChange`. Inside a group, the group value wins.
 - `indeterminate` keeps `aria-checked="mixed"` and `data-indeterminate`. Checked and unchecked style hooks are omitted. A click still updates `checked`. The hidden input's `indeterminate` property is set again after that click, because the click clears it.
 - `onCheckedChange(checked, eventDetails)` runs before the change, with `reason: 'none'`. `eventDetails.cancel()` vetoes the change.
 - A consumer `onclick` runs first. `event.preventDefault()` skips the checkbox's handling.

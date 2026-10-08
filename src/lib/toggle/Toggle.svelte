@@ -42,11 +42,7 @@
 		setProp: (next) => {
 			pressed = next;
 		},
-		getDefault: () => defaultPressed,
-		onChange(next, details) {
-			if (details || next === undefined || group) return;
-			onPressedChange?.(next, createChangeEventDetails(REASONS.none));
-		}
+		getDefault: () => defaultPressed
 	});
 	const pressedState = $derived(
 		group ? group.values.includes(resolvedValue) : controllable.value === true
