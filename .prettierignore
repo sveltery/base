@@ -10,6 +10,7 @@ bun.lockb
 .checks/
 .verify/
 .jscpd-report/
+scripts/*.d.mts
 test-results/
 playwright-report/
 .svelte-kit/

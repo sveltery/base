@@ -31,3 +31,4 @@ __screenshots__
 .checks
 .verify
 .jscpd-report
+scripts/*.d.mts
