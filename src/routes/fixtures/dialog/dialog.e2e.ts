@@ -92,6 +92,34 @@ for (const reference of [false, true]) {
 			await expect(page.getByRole('dialog')).toContainText('Title');
 		});
 
+		test('a nested dialog that is already open stays open', async ({ page }) => {
+			const { errors } = await openDialog(page, 'nested-open', reference);
+			await expect(page.getByRole('dialog', { includeHidden: true })).toHaveCount(2);
+			await expect(page.getByRole('button', { name: 'Nested inside' })).toBeFocused();
+			expect(await readOpenCalls(page)).toEqual([]);
+			expect(errors).toEqual([]);
+		});
+
+		test('opening the outer dialog keeps an already-open nested dialog', async ({ page }) => {
+			const { errors } = await openDialog(page, 'nested-onto', reference);
+			await expect(page.getByRole('dialog')).toHaveCount(0);
+			await openButton(page).click();
+			await expect(page.getByRole('dialog', { includeHidden: true })).toHaveCount(2);
+			await expect(page.getByRole('button', { name: 'Nested inside' })).toBeFocused();
+			expect(await readOpenCalls(page)).toEqual([
+				{ open: true, reason: 'trigger-press', canceled: false }
+			]);
+			expect(errors).toEqual([]);
+		});
+
+		test('a nested popover that is already open stays open', async ({ page }) => {
+			const { errors } = await openDialog(page, 'nested-popover', reference);
+			await expect(page.getByRole('dialog', { includeHidden: true })).toHaveCount(2);
+			await expect(page.getByRole('button', { name: 'Nested inside' })).toBeFocused();
+			expect(await readOpenCalls(page)).toEqual([]);
+			expect(errors).toEqual([]);
+		});
+
 		test('initial focus moves inside and returns to the trigger', async ({ page }) => {
 			await openDialog(page, 'focus', reference);
 			const opener = openButton(page);

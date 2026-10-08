@@ -158,6 +158,11 @@
 		return settledInitial;
 	}
 
+	function hasOpenChild() {
+		if (!tree || !store.nodeId) return false;
+		return getNodeChildren(tree.nodes, store.nodeId).length > 0;
+	}
+
 	function noteClose(data?: unknown) {
 		const payload = data as OpenChangePayload | undefined;
 		if (!payload || payload.open || !payload.nativeEvent) return;
@@ -200,7 +205,11 @@
 		if (initialTarget !== false) {
 			cancelFocus = enqueueFocus(initialTarget, {
 				preventScroll: initialTarget === floating,
-				shouldFocus: () => store.isOpen() && !contains(floating, activeElement(doc))
+				// Do not cancel the previous frame. A child opened in the same update
+				// queues first, and cancelling would drop that child. Skip this frame
+				// while any open child is registered, even if it has not taken focus.
+				shouldFocus: () =>
+					store.isOpen() && !contains(floating, activeElement(doc)) && !hasOpenChild()
 			});
 		}
 
