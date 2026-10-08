@@ -13,7 +13,7 @@
 	lands on a new element and the opacity transition can run.
 -->
 <script lang="ts">
-	import { flushSync, untrack } from 'svelte';
+	import { untrack } from 'svelte';
 	import { mergeProps } from '../internal/mergeProps.js';
 	import { useDirection } from '../internal/direction-context.js';
 	import { AnimationFrame } from '../internal/timeout.js';
@@ -36,10 +36,7 @@
 	let activationDirection = $state<string | undefined>(undefined);
 	let showStarting = $state(false);
 	let committedSize: { width: number; height: number } | null = null;
-	const popupContent = usePopupContentKey(
-		() => store.resolvedActiveTriggerId(),
-		() => store.payload
-	);
+	const popupContent = usePopupContentKey(() => store.resolvedActiveTriggerId());
 
 	$effect(() => {
 		store.adaptiveOrigin = adaptiveOriginMiddleware;
@@ -64,7 +61,6 @@
 			frame.request(() => {
 				if (controller.signal.aborted) return;
 				showStarting = false;
-				flushSync();
 				const node = currentEl;
 				if (!node || controller.signal.aborted) return;
 				runOnceAnimationsFinish(

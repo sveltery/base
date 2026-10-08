@@ -124,6 +124,7 @@
 	initialFocus={focusIn}
 	returnFocus={typeof finalFocus === 'function' ? focusReturn : finalFocus}
 	modal={store.focusManagerModal}
+	restoreFocus="popup"
 >
 	{#if render}
 		{@render render(hostProps, popupState, content)}

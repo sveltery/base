@@ -3,10 +3,12 @@
 
 	let {
 		mode,
-		handle
+		handle,
+		payloadA = 'content-AAA'
 	}: {
 		mode: 'focus' | 'mounted' | 'viewport' | 'trigger' | 'default-open' | 'handle';
 		handle?: PopoverHandle;
+		payloadA?: string;
 	} = $props();
 
 	let focusCalls = $state(0);
@@ -30,7 +32,7 @@
 {/if}
 
 {#if mode === 'viewport'}
-	<Popover.Trigger handle={reviewHandle} id="trigger-a" payload="content-AAA">One</Popover.Trigger>
+	<Popover.Trigger handle={reviewHandle} id="trigger-a" payload={payloadA}>One</Popover.Trigger>
 	<Popover.Trigger handle={reviewHandle} id="trigger-b" payload="content-BBB">Two</Popover.Trigger>
 {:else if mode === 'handle'}
 	<Popover.Trigger handle={reviewHandle} id="module-trigger">Open</Popover.Trigger>

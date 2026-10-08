@@ -292,6 +292,51 @@ describe('Popover', () => {
 		);
 	});
 
+	it('keeps the current pane and its focus when the open trigger payload changes', async () => {
+		const view = render(PopoverReviewHarness, { mode: 'viewport', payloadA: 'content-AAA' });
+		await page.getByRole('button', { name: 'One' }).click();
+		const pane = document.querySelector('[data-current]');
+		const input = document.querySelector('[data-current] [data-testid=live-input]');
+		if (!(pane instanceof HTMLElement) || !(input instanceof HTMLInputElement)) {
+			throw new Error('missing pane');
+		}
+		input.focus();
+		expect(document.activeElement).toBe(input);
+		await view.rerender({ mode: 'viewport', payloadA: 'content-AAA-next' });
+		await expect
+			.poll(() => document.querySelector('[data-current] [data-testid=pane-text]')?.textContent)
+			.toBe('content-AAA-next');
+		expect(document.querySelector('[data-current]')).toBe(pane);
+		expect(document.activeElement).toBe(input);
+	});
+
+	it('leaves focus on the clicked trigger when the viewport switches', async () => {
+		render(PopoverReviewHarness, { mode: 'viewport' });
+		await page.getByRole('button', { name: 'One' }).click();
+		await expect
+			.poll(() => document.activeElement)
+			.toBe(document.querySelector('[data-current] [data-testid=live-input]'));
+		const two = page.getByRole('button', { name: 'Two' }).element();
+		await page.getByRole('button', { name: 'Two' }).click();
+		await new Promise<void>((resolve) => {
+			requestAnimationFrame(() => requestAnimationFrame(() => resolve()));
+		});
+		expect(document.activeElement).toBe(two);
+	});
+
+	it('moves focus to the popup when a trigger switch removes the focused control', async () => {
+		const handle = Popover.createHandle();
+		render(PopoverReviewHarness, { mode: 'viewport', handle });
+		await page.getByRole('button', { name: 'One' }).click();
+		const input = document.querySelector('[data-current] [data-testid=live-input]');
+		if (!(input instanceof HTMLInputElement)) throw new Error('missing input');
+		input.focus();
+		expect(document.activeElement).toBe(input);
+		handle.open('trigger-b');
+		const popup = page.getByRole('dialog').element();
+		await expect.poll(() => document.activeElement).toBe(popup);
+	});
+
 	it('registers each trigger once across an open and a switch', async () => {
 		let notes = 0;
 		const original = PopoverStore.prototype.noteTrigger;

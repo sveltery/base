@@ -85,7 +85,6 @@
 				}
 			};
 			const detach = registerTrigger(owner, () => id)(node);
-			if (payload !== undefined) handle?.setPayload(id, payload);
 			if (current?.open) {
 				const active = current.domReferenceElement;
 				if ((active == null && current.triggers.size === 1) || active?.id === id) {
@@ -93,7 +92,6 @@
 				}
 			}
 			return () => {
-				handle?.forgetPayload(id);
 				if (typeof detach === 'function') detach();
 			};
 		});
