@@ -31,6 +31,34 @@ export function getNextTabbable(container: Element, current: Element | null, dir
 	return items[next];
 }
 
+function tabbablesInDocument(referenceElement: Element | null) {
+	if (!referenceElement) return [];
+	return getTabbableCandidates(ownerDocument(referenceElement).body);
+}
+
+export function getTabbableAfterElement(referenceElement: Element | null): HTMLElement | null {
+	const list = tabbablesInDocument(referenceElement);
+	if (!referenceElement || list.length === 0) return null;
+	const index = list.indexOf(referenceElement as HTMLElement);
+	if (index === -1) return null;
+	return list[(index + 1) % list.length] ?? null;
+}
+
+export function getTabbableBeforeElement(referenceElement: Element | null): HTMLElement | null {
+	const list = tabbablesInDocument(referenceElement);
+	if (!referenceElement || list.length === 0) return null;
+	const index = list.indexOf(referenceElement as HTMLElement);
+	if (index === -1) return null;
+	return list[(index - 1 + list.length) % list.length] ?? null;
+}
+
+export function isOutsideEvent(event: FocusEvent, container?: Element | null) {
+	const containerElement = container || (event.currentTarget as Element | null);
+	const relatedTarget = event.relatedTarget;
+	if (!containerElement || !(relatedTarget instanceof Node)) return true;
+	return !containerElement.contains(relatedTarget);
+}
+
 export function activeElementIn(container: Element | null) {
 	if (!container) return null;
 	const active = activeElement(ownerDocument(container));

@@ -89,6 +89,45 @@ for (const reference of [false, true]) {
 	});
 }
 
+for (const reference of [false, true]) {
+	const framework = reference ? 'react' : 'svelte';
+
+	test.describe(`${framework} anchored`, () => {
+		test('a pointer open places the popup under the trigger and locks scroll', async ({ page }) => {
+			const { trigger, popup, errors } = await open(page, 'placed', reference);
+			await trigger.click();
+			await expect(popup).toBeVisible();
+			const positioner = page.getByTestId('positioner');
+			await expect
+				.poll(async () => {
+					const triggerBox = await trigger.boundingBox();
+					const popupBox = await popup.boundingBox();
+					if (!triggerBox || !popupBox) return false;
+					return (
+						popupBox.y >= triggerBox.y + triggerBox.height - 1 && popupBox.x >= triggerBox.x - 1
+					);
+				})
+				.toBe(true);
+			await expect(positioner).toHaveAttribute('data-side', 'bottom');
+			await expect.poll(() => scrollLocked(page)).toBe(true);
+			expect(errors).toEqual([]);
+		});
+
+		test('hover opens the popup, keeps it open across the safe area, and does not lock scroll', async ({
+			page
+		}) => {
+			const { trigger, popup, outside } = await open(page, 'hover', reference);
+			await trigger.hover();
+			await expect(popup).toBeVisible();
+			await expect.poll(() => scrollLocked(page)).toBe(false);
+			await popup.hover();
+			await expect(popup).toBeVisible();
+			await outside.hover();
+			await expect(popup).toHaveCount(0);
+		});
+	});
+}
+
 test('a canceled preventUnmountOnClose keeps the next close mounted', async ({ page }) => {
 	const { trigger, popup } = await open(page, 'stuck', false);
 	await trigger.click();

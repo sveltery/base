@@ -2,8 +2,11 @@
 // (commit 47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c). MIT, see THIRD_PARTY_NOTICES.md.
 // One store owns elements. There is no dataRef or nodesRef bag.
 
+import type { VirtualElement } from '@floating-ui/dom';
 import type { BaseUIChangeEventDetails } from '../../event-details.js';
 import { createEventEmitter, type FloatingEvents } from '../utils/createEventEmitter.js';
+
+export type ReferenceElement = Element | VirtualElement;
 
 export interface OpenChangePayload {
 	open: boolean;
@@ -15,7 +18,10 @@ export interface OpenChangePayload {
 
 export class FloatingRootStore {
 	domReferenceElement = $state<Element | null>(null);
-	positionReference = $state<Element | null>(null);
+	/** Explicit anchor from positioning. Clearing the trigger does not clear this. */
+	explicitAnchor = $state<ReferenceElement | null>(null);
+	/** Client point. Only `useClientPoint` writes this, and that lands later. */
+	positionReference = $state<ReferenceElement | null>(null);
 	floatingElement = $state<HTMLElement | null>(null);
 	popupElement = $state<HTMLElement | null>(null);
 	positionerElement = $state<HTMLElement | null>(null);
@@ -44,8 +50,8 @@ export class FloatingRootStore {
 
 	setOpen(_nextOpen: boolean, _eventDetails: BaseUIChangeEventDetails<string>) {}
 
-	get referenceElement() {
-		return this.positionReference ?? this.domReferenceElement;
+	get referenceElement(): ReferenceElement | null {
+		return this.explicitAnchor ?? this.positionReference ?? this.domReferenceElement;
 	}
 
 	syncOpenEvent(newOpen: boolean, event: Event | undefined) {

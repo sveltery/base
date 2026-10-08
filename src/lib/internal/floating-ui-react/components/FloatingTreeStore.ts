@@ -33,6 +33,14 @@ export class FloatingTreeStore {
 	}
 }
 
-export function getNodeChildren(nodes: readonly FloatingNodeRecord[], parentId: string | null) {
-	return nodes.filter((node) => node.parentId === parentId);
+export function getNodeChildren(
+	nodes: readonly FloatingNodeRecord[],
+	id: string | null | undefined,
+	onlyOpenChildren = true
+): FloatingNodeRecord[] {
+	const directChildren = nodes.filter((node) => node.parentId === id);
+	return directChildren.flatMap((child) => [
+		...(!onlyOpenChildren || child.context?.isOpen() ? [child] : []),
+		...getNodeChildren(nodes, child.id, onlyOpenChildren)
+	]);
 }

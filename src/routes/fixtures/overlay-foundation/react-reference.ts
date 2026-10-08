@@ -3,6 +3,7 @@
 import { createElement as h, useEffect, useState } from 'react';
 import { createRoot } from 'react-dom/client';
 import { Dialog } from '@base-ui/react/dialog';
+import { Popover } from '@base-ui/react/popover';
 import type { OverlayFoundationCase } from './cases.js';
 
 type Call = { open: boolean; reason: string; canceled: boolean };
@@ -29,6 +30,42 @@ export function mountOverlayFoundationReference(
 				...previous,
 				{ open, reason: details.reason, canceled: details.isCanceled }
 			]);
+		}
+
+		if (scenario === 'placed' || scenario === 'hover') {
+			const hover = scenario === 'hover';
+			return h(
+				'div',
+				{ 'data-testid': 'anchor' },
+				h(
+					Popover.Root,
+					{ modal: scenario === 'placed' },
+					h(Popover.Trigger, hover ? { openOnHover: true, delay: 0, closeDelay: 0 } : {}, 'Open'),
+					h(
+						'div',
+						{
+							'data-testid': 'outside',
+							style: hover ? { position: 'fixed', top: 0, right: 0 } : undefined
+						},
+						'Outside'
+					),
+					h(
+						Popover.Portal,
+						null,
+						h(
+							Popover.Positioner,
+							partProps({
+								'data-testid': 'positioner',
+								side: 'bottom',
+								align: 'start',
+								sideOffset: 0,
+								collisionPadding: 0
+							}),
+							h(Popover.Popup, null, h(Popover.Title, null, 'Notice'))
+						)
+					)
+				)
+			);
 		}
 
 		return h(
