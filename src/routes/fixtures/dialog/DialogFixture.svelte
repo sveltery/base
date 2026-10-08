@@ -99,6 +99,27 @@
 	<button type="button" onclick={() => root?.unmount()}>Unmount</button>
 {/if}
 
+{#snippet outsidePair(startOpen: boolean)}
+	<Dialog.Root modal={false} defaultOpen={startOpen} onOpenChange={changed}>
+		<Dialog.Trigger>Open</Dialog.Trigger>
+		<Dialog.Portal>
+			<Dialog.Popup data-testid="parent-popup">
+				<Dialog.Title>Title</Dialog.Title>
+				<button type="button" data-testid="parent-inside">Inside</button>
+				<Dialog.Root modal={false} defaultOpen={startOpen}>
+					<Dialog.Trigger>Nested</Dialog.Trigger>
+					<Dialog.Portal>
+						<Dialog.Popup data-testid="nested-popup" finalFocus={() => outsideButton}>
+							<Dialog.Title>Nested title</Dialog.Title>
+							<button type="button" data-testid="nested-inside">Nested inside</button>
+						</Dialog.Popup>
+					</Dialog.Portal>
+				</Dialog.Root>
+			</Dialog.Popup>
+		</Dialog.Portal>
+	</Dialog.Root>
+{/snippet}
+
 {#snippet nestedChild(body: boolean, nonModal: boolean, skipFocus: boolean, blockPointer: boolean)}
 	<Dialog.Root
 		modal={nonModal ? false : undefined}
@@ -175,43 +196,9 @@
 		</Dialog.Portal>
 	</Dialog.Root>
 {:else if scenario === 'together-outside'}
-	<Dialog.Root modal={false} defaultOpen onOpenChange={changed}>
-		<Dialog.Trigger>Open</Dialog.Trigger>
-		<Dialog.Portal>
-			<Dialog.Popup data-testid="parent-popup">
-				<Dialog.Title>Title</Dialog.Title>
-				<button type="button" data-testid="parent-inside">Inside</button>
-				<Dialog.Root modal={false} defaultOpen>
-					<Dialog.Trigger>Nested</Dialog.Trigger>
-					<Dialog.Portal>
-						<Dialog.Popup data-testid="nested-popup" finalFocus={() => outsideButton}>
-							<Dialog.Title>Nested title</Dialog.Title>
-							<button type="button" data-testid="nested-inside">Nested inside</button>
-						</Dialog.Popup>
-					</Dialog.Portal>
-				</Dialog.Root>
-			</Dialog.Popup>
-		</Dialog.Portal>
-	</Dialog.Root>
+	{@render outsidePair(true)}
 {:else if scenario === 'final-outside'}
-	<Dialog.Root modal={false} onOpenChange={changed}>
-		<Dialog.Trigger>Open</Dialog.Trigger>
-		<Dialog.Portal>
-			<Dialog.Popup data-testid="parent-popup">
-				<Dialog.Title>Title</Dialog.Title>
-				<button type="button" data-testid="parent-inside">Inside</button>
-				<Dialog.Root modal={false}>
-					<Dialog.Trigger>Nested</Dialog.Trigger>
-					<Dialog.Portal>
-						<Dialog.Popup data-testid="nested-popup" finalFocus={() => outsideButton}>
-							<Dialog.Title>Nested title</Dialog.Title>
-							<button type="button" data-testid="nested-inside">Nested inside</button>
-						</Dialog.Popup>
-					</Dialog.Portal>
-				</Dialog.Root>
-			</Dialog.Popup>
-		</Dialog.Portal>
-	</Dialog.Root>
+	{@render outsidePair(false)}
 {:else if scenario === 'tab'}
 	<button type="button" data-testid="before">Before</button>
 	<Dialog.Root modal={false} onOpenChange={changed}>

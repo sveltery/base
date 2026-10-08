@@ -193,26 +193,26 @@ for (const reference of [false, true]) {
 			await expect(page.getByRole('dialog')).toHaveCount(0);
 		});
 
-		test('escape on dialogs opened together keeps final focus outside', async ({ page }) => {
-			await openDialog(page, 'together-outside', reference);
-			await expect(page.getByTestId('parent-popup')).toBeVisible();
-			await expect(page.getByTestId('nested-popup')).toBeVisible();
+		async function expectEscapeLandsOutside(page: Page) {
 			await expect(page.getByTestId('nested-inside')).toBeFocused();
 			await page.keyboard.press('Escape');
 			await expect(page.getByTestId('outside')).toBeFocused();
 			await expect(page.getByTestId('parent-popup')).toBeVisible();
 			await expect(page.getByTestId('nested-popup')).toHaveCount(0);
+		}
+
+		test('escape on dialogs opened together keeps final focus outside', async ({ page }) => {
+			await openDialog(page, 'together-outside', reference);
+			await expect(page.getByTestId('parent-popup')).toBeVisible();
+			await expect(page.getByTestId('nested-popup')).toBeVisible();
+			await expectEscapeLandsOutside(page);
 		});
 
 		test('escape on an inner dialog keeps final focus outside', async ({ page }) => {
 			await openDialog(page, 'final-outside', reference);
 			await openButton(page).click();
 			await page.getByRole('button', { name: 'Nested' }).click();
-			await expect(page.getByTestId('nested-inside')).toBeFocused();
-			await page.keyboard.press('Escape');
-			await expect(page.getByTestId('outside')).toBeFocused();
-			await expect(page.getByTestId('parent-popup')).toBeVisible();
-			await expect(page.getByTestId('nested-popup')).toHaveCount(0);
+			await expectEscapeLandsOutside(page);
 		});
 
 		test('focusing one sibling non-modal dialog leaves the other open', async ({ page }) => {
