@@ -9,7 +9,7 @@ A button that triggers an action. Upstream: `packages/react/src/button/Button.ts
 - `focusableWhenDisabled`: no `disabled` attribute. `aria-disabled` and `data-disabled` are set, `tabindex` stays `0`, and `Tab` can leave. Hover, focus, and blur still run. Activation does not.
 - `nativeButton={false}`: the `render` snippet hosts a non-button. It gets `role="button"` and `tabindex="0"` (or `-1` when disabled and not focusable). Enter clicks on keydown. Space clicks on keyup and does not scroll. The click carries modifier keys and `detail: 0`. A link keeps the browser's Enter behavior; Space still prevents scrolling and dispatches a click.
 - A consumer `onkeydown` / `onkeyup` that calls `preventDefault()` skips that key's synthetic click. `onclick` runs for clicks the button does not ignore.
-- State for a `render` snippet is `{ disabled }`. Consumer `{@attach}` reaches the host through the spread props.
+- State for a `render` snippet is `{ disabled }`. The third argument is `children`, undefined when the consumer passed none. `{#snippet anchor(props)}<a {...props} href="#"></a>{/snippet}` does not show the label, because children are not on `props`. Render `{@render children?.()}` inside the host. Consumer `{@attach}` reaches the host through the spread props.
 
 Differences from React Base UI, all deliberate:
 

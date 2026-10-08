@@ -10,6 +10,7 @@
 	import type { HTMLAttributes } from 'svelte/elements';
 	import { registerLabelElementId } from '../internal/popups/labelId.js';
 	import { useDialogRootContext } from './context.svelte.js';
+	import type { RenderChildren } from '../internal/render-children.js';
 
 	type HostProps = HTMLAttributes<Element> & Record<symbol, Attachment<Element>>;
 
@@ -24,7 +25,7 @@
 		part: 'title' | 'description';
 		tag: 'h2' | 'p';
 		id?: string | null;
-		render?: Snippet<[HostProps, Record<string, never>, Snippet]>;
+		render?: Snippet<[HostProps, Record<string, never>, RenderChildren]>;
 		children?: Snippet;
 		elementProps: HTMLAttributes<Element>;
 	} = $props();
@@ -46,22 +47,18 @@
 	} as HostProps);
 </script>
 
-{#snippet content()}
-	{@render children?.()}
-{/snippet}
-
 {#if tag === 'h2'}
 	{#if render}
-		{@render render(hostProps, state, content)}
+		{@render render(hostProps, state, children)}
 	{:else}
 		<h2 {...hostProps as HTMLAttributes<HTMLHeadingElement>} {@attach register}>
-			{@render content()}
+			{@render children?.()}
 		</h2>
 	{/if}
 {:else if render}
-	{@render render(hostProps, state, content)}
+	{@render render(hostProps, state, children)}
 {:else}
 	<p {...hostProps as HTMLAttributes<HTMLParagraphElement>} {@attach register}>
-		{@render content()}
+		{@render children?.()}
 	</p>
 {/if}

@@ -40,14 +40,10 @@
 	}));
 </script>
 
-{#snippet content()}
-	{@render children?.()}
-{/snippet}
-
 {#if part.shouldRender}
 	{#if render}
-		{@render render(part.hostProps, part.partState, content)}
+		{@render render(part.hostProps, part.partState, children)}
 	{:else}
-		<div {...part.hostProps} bind:this={part.element}>{@render content()}</div>
+		<div {...part.hostProps} bind:this={part.element}>{@render children?.()}</div>
 	{/if}
 {/if}

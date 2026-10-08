@@ -112,15 +112,23 @@
 	{/if}
 {/snippet}
 
+{#snippet messageText()}
+	{@render body(visibleMessage)}
+{/snippet}
+
 {#if transition.mounted}
 	{#if render}
-		{@render render(hostProps as HTMLAttributes<HTMLElement>, errorState)}
+		{@render render(
+			hostProps as HTMLAttributes<HTMLElement>,
+			errorState,
+			children ?? (visibleMessage != null ? messageText : undefined)
+		)}
 	{:else}
 		<div {...hostProps} bind:this={errorEl}>
 			{#if children}
 				{@render children()}
 			{:else}
-				{@render body(visibleMessage)}
+				{@render messageText()}
 			{/if}
 		</div>
 	{/if}

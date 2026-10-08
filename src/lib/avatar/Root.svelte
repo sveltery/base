@@ -4,6 +4,7 @@
 	(commit 47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c). MIT, see THIRD_PARTY_NOTICES.md.
 -->
 <script lang="ts">
+	import PartHost from '../internal/PartHost.svelte';
 	import { getStateAttributesProps } from '../internal/state-attributes.js';
 	import { avatarStateAttributesMapping } from './attributes.js';
 	import { setAvatarContext } from './context.js';
@@ -29,8 +30,4 @@
 	});
 </script>
 
-{#if render}
-	{@render render(hostProps, partState)}
-{:else}
-	<span {...hostProps}>{@render children?.()}</span>
-{/if}
+<PartHost tag="span" {render} {children} elementProps={hostProps} {partState} />

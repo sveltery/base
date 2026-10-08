@@ -123,7 +123,7 @@
 </script>
 
 {#if render}
-	{@render render(hostProps as HTMLAttributes<HTMLElement>, labelState)}
+	{@render render(hostProps as HTMLAttributes<HTMLElement>, labelState, children)}
 {:else}
 	<label {...hostProps} bind:this={labelEl}>{@render children?.()}</label>
 {/if}

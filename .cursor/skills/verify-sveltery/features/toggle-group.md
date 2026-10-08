@@ -12,7 +12,7 @@ Shared pressed state for a series of toggles, with a roving tab stop. Upstream: 
 - A grouped toggle's `onPressedChange` runs first and shares the event details, so canceling there also skips the group update. `event.preventDefault()` on `onclick` skips both.
 - Roving tabindex uses the shared composite root. One item has `tabindex="0"`, the others `-1`. A disabled first toggle is not the server tab stop. Arrow keys follow DOM order after a keyed reorder. They follow `orientation`. Horizontal arrows swap in RTL (`DirectionProvider`). Home and End move to the first and last focusable item. `loopFocus` defaults to true. Disabled items are skipped, and a tab stop that becomes disabled moves to the next focusable item.
 - The root exposes `tabindex`, focus handlers, and a registration attachment, spread into Toggle's host props. A `render` snippet receives those props.
-- Native rendering: a `render` snippet on the group receives `(props, state)`. Consumer `{@attach}` reaches the host.
+- Native rendering: a `render` snippet on the group receives `(props, state, children)`. `children` is undefined when the consumer passed none. Consumer `{@attach}` reaches the host.
 
 Differences from React Base UI, all deliberate:
 

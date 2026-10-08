@@ -1,5 +1,6 @@
 import type { Snippet } from 'svelte';
 import type { HTMLAttributes, HTMLButtonAttributes } from 'svelte/elements';
+import type { RenderChildren } from '../internal/render-children.js';
 
 /** State passed to Button class/style consumers and render snippets. */
 export interface ButtonState {
@@ -33,6 +34,6 @@ export interface ButtonProps extends Omit<HTMLButtonAttributes, 'children' | 'di
 	/** Runs for a click the button does not ignore. */
 	onclick?: HTMLButtonAttributes['onclick'];
 	/** Replace the default `<button>`. Spread `props` onto the host element. */
-	render?: Snippet<[props: ButtonHostProps, state: ButtonState]>;
+	render?: Snippet<[props: ButtonHostProps, state: ButtonState, children: RenderChildren]>;
 	children?: Snippet;
 }

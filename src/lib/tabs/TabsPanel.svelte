@@ -117,14 +117,10 @@
 		});
 </script>
 
-{#snippet content()}
-	{@render children?.()}
-{/snippet}
-
 {#if shouldRender}
 	{#if render}
-		{@render render(hostProps, panelState, content)}
+		{@render render(hostProps, panelState, children)}
 	{:else}
-		<div {...hostProps}>{@render content()}</div>
+		<div {...hostProps}>{@render children?.()}</div>
 	{/if}
 {/if}

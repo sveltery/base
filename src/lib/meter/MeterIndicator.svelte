@@ -25,12 +25,8 @@
 	});
 </script>
 
-{#snippet content()}
-	{@render children?.()}
-{/snippet}
-
 {#if render}
-	{@render render(hostProps, partState, content)}
+	{@render render(hostProps, partState, children)}
 {:else}
-	<div {...hostProps}>{@render content()}</div>
+	<div {...hostProps}>{@render children?.()}</div>
 {/if}

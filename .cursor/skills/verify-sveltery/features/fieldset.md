@@ -11,14 +11,14 @@ Groups a shared legend with related controls. Upstream: `packages/react/src/fiel
 - Registration runs in an effect, the same point as upstream `useIsoLayoutEffect`. Server HTML includes the legend id and omits `aria-labelledby`. After hydration the attribute appears.
 - Removing a legend clears `aria-labelledby`. Changing its id updates the attribute. If two legends are mounted, the later one wins, and unmounting the earlier one does not clear the later id.
 - A legend outside `Fieldset.Root` throws `Base UI: FieldsetRootContext is missing. Fieldset parts must be placed within <Fieldset.Root>.`
-- A `render` snippet receives `(props, state)`. Consumer `{@attach}` reaches the host in both the default element and the snippet.
+- A `render` snippet receives `(props, state, children)`. `children` is undefined when the consumer passed none. Consumer `{@attach}` reaches the host in both the default element and the snippet.
 
 Differences from React Base UI, all deliberate:
 
 - No `ref`. Use `{@attach}`.
 - No `className` or style callbacks. Use native `class` and `style`.
 - Generated ids come from `$props.id()` (`base-ui-s1` on the server) rather than React's `useId` (`base-ui-:r1:`). Both are prefixed with `base-ui-` and both end up in `aria-labelledby`.
-- `render` is a snippet, not a React element or render function. It does not receive `children`; put the contents in the snippet.
+- `render` is a snippet, not a React element or render function. Put the part's contents in the snippet with `{@render children?.()}`.
 
 ## How to get to it (user POV)
 

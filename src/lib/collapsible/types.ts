@@ -1,6 +1,7 @@
 import type { Snippet } from 'svelte';
 import type { HTMLAttributes, HTMLButtonAttributes } from 'svelte/elements';
 import type { BaseUIChangeEventDetails, REASONS } from '../internal/event-details.js';
+import type { RenderChildren } from '../internal/render-children.js';
 
 /** Open/close motion phase. `undefined` is the settled closed phase. */
 export type TransitionStatus = 'starting' | 'ending' | 'idle' | undefined;
@@ -26,7 +27,7 @@ export type CollapsibleRootChangeEventDetails =
 	BaseUIChangeEventDetails<CollapsibleRootChangeEventReason>;
 
 type PartRender<Element extends EventTarget, State> = Snippet<
-	[props: HTMLAttributes<Element>, state: State, children: Snippet]
+	[props: HTMLAttributes<Element>, state: State, children: RenderChildren]
 >;
 
 export interface CollapsibleRootProps extends Omit<HTMLAttributes<HTMLDivElement>, 'children'> {
@@ -80,7 +81,7 @@ export interface CollapsibleTriggerProps extends Omit<
 	onkeyup?: HTMLAttributes<HTMLElement>['onkeyup'];
 	/** Replace the default `<button>`. Spread `props` onto the host and render `children`. */
 	render?: Snippet<
-		[props: CollapsibleTriggerHostProps, state: CollapsibleTriggerState, children: Snippet]
+		[props: CollapsibleTriggerHostProps, state: CollapsibleTriggerState, children: RenderChildren]
 	>;
 	children?: Snippet;
 }

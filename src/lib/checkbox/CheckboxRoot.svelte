@@ -334,7 +334,7 @@
 </script>
 
 {#if render}
-	{@render render(hostProps, checkboxState)}
+	{@render render(hostProps, checkboxState, children)}
 {:else}
 	<span {...hostProps}>{@render children?.()}</span>
 {/if}

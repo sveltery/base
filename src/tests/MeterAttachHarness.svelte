@@ -16,7 +16,7 @@
 	<Meter.Root value={25} class="from-props" {@attach capture}>
 		{#snippet render(props, state, children)}
 			<div {...props} data-state-keys={Object.keys(state).length} data-custom="true">
-				{@render children()}
+				{@render children?.()}
 			</div>
 		{/snippet}
 		<Meter.Label>Level</Meter.Label>

@@ -101,7 +101,6 @@
 {#if modalLock && store.mounted}
 	<InternalBackdrop cutout={store.domReferenceElement} />
 {/if}
-{#snippet positionerBody()}{@render children?.()}{/snippet}
-{#if render}{@render render(hostProps, state, positionerBody)}{:else}<div {...hostProps}>
-		{@render positionerBody()}
+{#if render}{@render render(hostProps, state, children)}{:else}<div {...hostProps}>
+		{@render children?.()}
 	</div>{/if}

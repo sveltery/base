@@ -61,13 +61,9 @@
 </script>
 
 {#if tabs.value != null}
-	{#snippet content()}
-		{@render children?.()}
-	{/snippet}
-
 	{#if render}
-		{@render render(hostProps, state, content)}
+		{@render render(hostProps, state, children)}
 	{:else}
-		<span {...hostProps}>{@render content()}</span>
+		<span {...hostProps}>{@render children?.()}</span>
 	{/if}
 {/if}

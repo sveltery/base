@@ -7,7 +7,7 @@ A native input that uses `Field.Control`. Upstream: `packages/react/src/input/In
 - The host is an `<input>`. Omit `value` to leave it uncontrolled, starting from `defaultValue`. `bind:value` shares the value with the parent. `onValueChange` runs first; `eventDetails.cancel()` vetoes the change and restores the controlled DOM value.
 - Inside `Field.Root`, the input gets that field's id, name, disabled flag, and `data-disabled`, `data-invalid`, `data-dirty`, `data-filled`, `data-touched`, and `data-focused` when those states are set. `Field.Label` points `for` at the input id.
 - `Field.Root` `name` wins for form submission. `getValue()` reads the input. An empty `required` input blocks submit and shows `Field.Error`.
-- A `render` snippet receives `(props, state)`. Consumer `{@attach}` reaches the host through the spread props. `Field.Control` records its host with an attachment on both the default input and a `render` element.
+- A `render` snippet receives `(props, state, children)`. `children` is undefined when the consumer passed none. Consumer `{@attach}` reaches the host through the spread props. `Field.Control` records its host with an attachment on both the default input and a `render` element.
 
 Differences from React Base UI, all deliberate:
 

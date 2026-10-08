@@ -146,7 +146,7 @@
 </script>
 
 {#if render}
-	{@render render(hostProps, buttonState)}
+	{@render render(hostProps, buttonState, children)}
 {:else}
 	<button {...hostProps}>{@render children?.()}</button>
 {/if}

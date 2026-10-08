@@ -1,6 +1,7 @@
 import type { Snippet } from 'svelte';
 import type { HTMLAttributes } from 'svelte/elements';
 import type { BaseUIChangeEventDetails, REASONS } from '../internal/event-details.js';
+import type { RenderChildren } from '../internal/render-children.js';
 
 export interface CheckboxGroupState {
 	/** Whether the group should ignore user interaction. */
@@ -34,6 +35,8 @@ export interface CheckboxGroupProps extends Omit<HTMLAttributes<HTMLDivElement>,
 	/** Called before the value changes. Call `eventDetails.cancel()` to veto it. */
 	onValueChange?: (value: string[], eventDetails: CheckboxGroupChangeEventDetails) => void;
 	/** Replace the default `<div>`. Spread `props` onto the host element. */
-	render?: Snippet<[props: HTMLAttributes<HTMLDivElement>, state: CheckboxGroupState]>;
+	render?: Snippet<
+		[props: HTMLAttributes<HTMLDivElement>, state: CheckboxGroupState, children: RenderChildren]
+	>;
 	children?: Snippet;
 }

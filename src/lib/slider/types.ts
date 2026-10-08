@@ -9,6 +9,7 @@ import type {
 	REASONS
 } from '../internal/event-details.js';
 import type { FieldRootState } from '../field/types.js';
+import type { RenderChildren } from '../internal/render-children.js';
 
 export type SliderOrientation = 'horizontal' | 'vertical';
 export type SliderThumbAlignment = 'center' | 'edge' | 'edge-client-only';
@@ -61,7 +62,7 @@ export interface SliderRootState extends FieldRootState {
 }
 
 type RenderSnippet<Element extends HTMLElement> = Snippet<
-	[props: HTMLAttributes<Element>, state: SliderRootState, children: Snippet]
+	[props: HTMLAttributes<Element>, state: SliderRootState, children: RenderChildren]
 >;
 
 export interface SliderRootProps extends Omit<HTMLAttributes<HTMLDivElement>, 'children'> {

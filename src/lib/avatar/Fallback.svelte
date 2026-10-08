@@ -41,7 +41,7 @@
 
 {#if visible}
 	{#if render}
-		{@render render(hostProps, partState)}
+		{@render render(hostProps, partState, children)}
 	{:else}
 		<span {...hostProps}>{@render children?.()}</span>
 	{/if}

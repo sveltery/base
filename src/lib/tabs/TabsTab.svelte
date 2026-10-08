@@ -195,10 +195,8 @@
 	});
 </script>
 
-{#snippet empty()}{/snippet}
-
 {#if render}
-	{@render render(hostProps, tabState, children ?? empty)}
+	{@render render(hostProps, tabState, children)}
 {:else}
 	<button {...hostProps}>{@render children?.()}</button>
 {/if}

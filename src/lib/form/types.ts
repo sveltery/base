@@ -1,6 +1,7 @@
 import type { Snippet } from 'svelte';
 import type { HTMLFormAttributes } from 'svelte/elements';
 import type { BaseUIGenericEventDetails, REASONS } from '../internal/event-details.js';
+import type { RenderChildren } from '../internal/render-children.js';
 
 export type FormValidationMode = 'onSubmit' | 'onBlur' | 'onChange';
 
@@ -95,6 +96,6 @@ export interface FormProps<
 	 */
 	novalidate?: boolean;
 	/** Replace the default `<form>`. Spread `props` onto the host and render `children`. */
-	render?: Snippet<[props: HTMLFormAttributes, state: FormState, children: Snippet]>;
+	render?: Snippet<[props: HTMLFormAttributes, state: FormState, children: RenderChildren]>;
 	children?: Snippet;
 }

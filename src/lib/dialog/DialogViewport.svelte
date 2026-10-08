@@ -43,12 +43,8 @@
 	);
 </script>
 
-{#snippet fallback()}
-	{@render children?.()}
-{/snippet}
-
 {#if shown && render}
-	{@render render(hostProps, state, fallback)}
+	{@render render(hostProps, state, children)}
 {:else if shown}
-	<div {...hostProps} {@attach ownViewport}>{@render fallback()}</div>
+	<div {...hostProps} {@attach ownViewport}>{@render children?.()}</div>
 {/if}

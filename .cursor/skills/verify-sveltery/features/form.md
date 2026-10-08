@@ -21,7 +21,7 @@ Differences from React Base UI, all deliberate:
 - No element `ref`. Consumers pass `{@attach}`. The default host uses `bind:this`. A `render` host records the element through the spread props. Fields register on `fields`, the submit count is `submitCount`, and a field's focusable element is `control`.
 - No `className` or style callbacks. Use `class` and `style` strings.
 - The submit listener is the native `onsubmit`. `preventDefault()` does not skip `onFormSubmit`.
-- `render` receives a children snippet. Spread `props` onto the host and render that snippet inside it.
+- `render` receives a children snippet, or undefined when the form has no children. Spread `props` onto the host and render that snippet inside it.
 
 ## How to get to it (user POV)
 

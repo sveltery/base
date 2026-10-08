@@ -1,6 +1,7 @@
 import type { Snippet } from 'svelte';
 import type { HTMLAttributes } from 'svelte/elements';
 import type { BaseUIChangeEventDetails, REASONS } from '../internal/event-details.js';
+import type { RenderChildren } from '../internal/render-children.js';
 
 /** Indicator motion phase. `undefined` is the settled phase. */
 export type RadioIndicatorPhase = 'starting' | 'ending' | undefined;
@@ -63,7 +64,7 @@ export interface RadioRootProps extends Omit<HTMLAttributes<HTMLElement>, 'child
 	/** Runs before the radio's click handler. Call `event.preventDefault()` to skip it. */
 	onclick?: HTMLAttributes<HTMLElement>['onclick'];
 	/** Replace the default `<span>`. Spread `props` onto the host element. */
-	render?: Snippet<[props: RadioHostProps, state: RadioRootState]>;
+	render?: Snippet<[props: RadioHostProps, state: RadioRootState, children: RenderChildren]>;
 	children?: Snippet;
 }
 
@@ -74,6 +75,8 @@ export interface RadioIndicatorProps extends Omit<HTMLAttributes<HTMLSpanElement
 	 */
 	keepMounted?: boolean;
 	/** Replace the default `<span>`. Spread `props` onto the host element. */
-	render?: Snippet<[props: HTMLAttributes<HTMLSpanElement>, state: RadioIndicatorState]>;
+	render?: Snippet<
+		[props: HTMLAttributes<HTMLSpanElement>, state: RadioIndicatorState, children: RenderChildren]
+	>;
 	children?: Snippet;
 }

@@ -219,7 +219,7 @@
 </script>
 
 {#if render}
-	{@render render(hostProps, switchState)}
+	{@render render(hostProps, switchState, children)}
 {:else}
 	<span {...hostProps}>{@render children?.()}</span>
 {/if}

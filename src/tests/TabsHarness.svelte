@@ -128,7 +128,7 @@
 					<Tabs.Tab value={tab.value} disabled={disabled[index]}>
 						{#snippet render(props, tabState: TabsTabState, children)}
 							<button {...props} data-testid="custom" data-active-state={tabState.active}
-								>{@render children()}</button
+								>{@render children?.()}</button
 							>
 						{/snippet}
 						{tab.label}
@@ -138,7 +138,7 @@
 				{:else if tab.native === false}
 					<Tabs.Tab value={tab.value} nativeButton={false} disabled={disabled[index]}>
 						{#snippet render(props, _state, children)}
-							<a {...props} href="#{tab.label}">{@render children()}</a>
+							<a {...props} href="#{tab.label}">{@render children?.()}</a>
 						{/snippet}
 						{tab.label}
 					</Tabs.Tab>

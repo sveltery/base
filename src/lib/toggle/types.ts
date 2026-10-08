@@ -1,6 +1,7 @@
 import type { Snippet } from 'svelte';
 import type { HTMLButtonAttributes } from 'svelte/elements';
 import type { BaseUIChangeEventDetails, REASONS } from '../internal/event-details.js';
+import type { RenderChildren } from '../internal/render-children.js';
 
 export interface ToggleState {
 	/** Whether the toggle is currently pressed. */
@@ -37,6 +38,6 @@ export interface ToggleProps extends Omit<HTMLButtonAttributes, 'children'> {
 	/** Runs before the Toggle's handler. Call `event.preventDefault()` to skip it. */
 	onclick?: HTMLButtonAttributes['onclick'];
 	/** Replace the default `<button>`. Spread `props` onto the host element. */
-	render?: Snippet<[props: HTMLButtonAttributes, state: ToggleState]>;
+	render?: Snippet<[props: HTMLButtonAttributes, state: ToggleState, children: RenderChildren]>;
 	children?: Snippet;
 }

@@ -9,7 +9,7 @@ A profile image with a fallback. Upstream: `packages/react/src/avatar` (Root, Im
 - Probe order: handlers, referrer policy, cross origin, sizes, srcset, then src. A cached probe resolves in that same turn. `idle` is not passed to `onLoadingStatusChange`. Removing the image sets the root back to `idle`.
 - `Avatar.Fallback` renders a `<span>` while the image is not `loaded`. `delay` (milliseconds, default `0`) waits before the first show. After it has been shown, raising `delay` does not hide it.
 - `keepMounted` adds `data-loading`, `data-error` and `aria-hidden` until the image has loaded. An explicit `aria-hidden` from the caller wins.
-- Native rendering: `render` receives `(props, state)`. Consumer `{@attach}` reaches the host through the props spread. `src` is applied after `loading`, `sizes` and `srcset`.
+- Native rendering: `render` receives `(props, state, children)`. `children` is undefined when the consumer passed none. Consumer `{@attach}` reaches the host through the props spread. `src` is applied after `loading`, `sizes` and `srcset`.
 
 Differences from React Base UI, all deliberate:
 

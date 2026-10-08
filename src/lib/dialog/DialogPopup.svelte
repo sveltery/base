@@ -99,10 +99,6 @@
 	}));
 </script>
 
-{#snippet content()}
-	{@render children?.()}
-{/snippet}
-
 <FloatingFocusManager
 	{store}
 	disabled={!store.mounted}
@@ -113,8 +109,8 @@
 	restoreFocus="popup"
 >
 	{#if render}
-		{@render render(hostProps, state, content)}
+		{@render render(hostProps, state, children)}
 	{:else}
-		<div {...hostProps} {@attach ownPopup}>{@render content()}</div>
+		<div {...hostProps} {@attach ownPopup}>{@render children?.()}</div>
 	{/if}
 </FloatingFocusManager>

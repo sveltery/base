@@ -41,14 +41,10 @@
 	);
 </script>
 
-{#snippet content()}
-	{@render children?.()}
-{/snippet}
-
 {#if enabled}
 	{#if render}
-		{@render render(hostProps, state, content)}
+		{@render render(hostProps, state, children)}
 	{:else}
-		<div {...hostProps} {@attach ownBackdrop}>{@render content()}</div>
+		<div {...hostProps} {@attach ownBackdrop}>{@render children?.()}</div>
 	{/if}
 {/if}

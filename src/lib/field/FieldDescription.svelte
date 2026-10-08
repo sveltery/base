@@ -43,7 +43,7 @@
 </script>
 
 {#if render}
-	{@render render(hostProps as HTMLAttributes<HTMLElement>, state)}
+	{@render render(hostProps as HTMLAttributes<HTMLElement>, state, children)}
 {:else}
 	<p {...hostProps}>{@render children?.()}</p>
 {/if}

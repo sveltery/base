@@ -16,7 +16,7 @@
 {#if scenario === 'render'}
 	<Form id="tested-form" onsubmit={countSubmit}>
 		{#snippet render(props, _state, children)}
-			<form {...props} data-custom="true">{@render children()}</form>
+			<form {...props} data-custom="true">{@render children?.()}</form>
 		{/snippet}
 		<span>Inside</span>
 		<button type="submit">Submit</button>

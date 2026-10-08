@@ -6,6 +6,7 @@ import type {
 	REASONS
 } from '../internal/event-details.js';
 import type { FieldRootState } from '../field/types.js';
+import type { RenderChildren } from '../internal/render-children.js';
 
 export type Direction = -1 | 1;
 
@@ -53,7 +54,7 @@ export interface NumberFieldRootState extends FieldRootState {
 }
 
 type PartRender<Element extends EventTarget, State> = Snippet<
-	[props: HTMLAttributes<Element>, state: State, children: Snippet]
+	[props: HTMLAttributes<Element>, state: State, children: RenderChildren]
 >;
 
 export interface NumberFieldRootProps extends Omit<HTMLAttributes<HTMLDivElement>, 'children'> {
@@ -148,7 +149,9 @@ export interface NumberFieldInputProps extends Omit<
 	 */
 	'aria-roledescription'?: HTMLInputAttributes['aria-roledescription'];
 	/** Replace the default `<input>`. Spread `props` onto the host element. */
-	render?: Snippet<[props: HTMLAttributes<HTMLElement>, state: NumberFieldInputState]>;
+	render?: Snippet<
+		[props: HTMLAttributes<HTMLElement>, state: NumberFieldInputState, children: RenderChildren]
+	>;
 	children?: Snippet;
 }
 

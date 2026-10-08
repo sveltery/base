@@ -1,5 +1,6 @@
 import type { Snippet } from 'svelte';
 import type { HTMLAttributes } from 'svelte/elements';
+import type { RenderChildren } from '../internal/render-children.js';
 
 /**
  * The progress bar's completion status.
@@ -44,31 +45,41 @@ export interface ProgressRootProps extends DivAttrs {
 	 */
 	getAriaValueText?: (formattedValue: string, value: number | null) => string;
 	/** Replace the default `<div>`. Spread `props` onto the host element. */
-	render?: Snippet<[props: HTMLAttributes<HTMLDivElement>, state: ProgressState]>;
+	render?: Snippet<
+		[props: HTMLAttributes<HTMLDivElement>, state: ProgressState, children: RenderChildren]
+	>;
 	children?: Snippet;
 }
 
 export interface ProgressTrackProps extends DivAttrs {
 	/** Replace the default `<div>`. Spread `props` onto the host element. */
-	render?: Snippet<[props: HTMLAttributes<HTMLDivElement>, state: ProgressState]>;
+	render?: Snippet<
+		[props: HTMLAttributes<HTMLDivElement>, state: ProgressState, children: RenderChildren]
+	>;
 	children?: Snippet;
 }
 
 export interface ProgressIndicatorProps extends DivAttrs {
 	/** Replace the default `<div>`. Spread `props` onto the host element. */
-	render?: Snippet<[props: HTMLAttributes<HTMLDivElement>, state: ProgressState]>;
+	render?: Snippet<
+		[props: HTMLAttributes<HTMLDivElement>, state: ProgressState, children: RenderChildren]
+	>;
 	children?: Snippet;
 }
 
 export interface ProgressLabelProps extends SpanAttrs {
 	/** Replace the default `<span>`. Spread `props` onto the host element. */
-	render?: Snippet<[props: HTMLAttributes<HTMLSpanElement>, state: ProgressState]>;
+	render?: Snippet<
+		[props: HTMLAttributes<HTMLSpanElement>, state: ProgressState, children: RenderChildren]
+	>;
 	children?: Snippet;
 }
 
 export interface ProgressValueProps extends SpanAttrs {
 	/** Replace the default `<span>`. Spread `props` onto the host element. */
-	render?: Snippet<[props: HTMLAttributes<HTMLSpanElement>, state: ProgressState]>;
+	render?: Snippet<
+		[props: HTMLAttributes<HTMLSpanElement>, state: ProgressState, children: RenderChildren]
+	>;
 	/**
 	 * Custom value text. Receives the formatted value (`'indeterminate'` while
 	 * indeterminate) and the raw value.

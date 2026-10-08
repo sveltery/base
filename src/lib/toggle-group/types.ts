@@ -1,6 +1,7 @@
 import type { Snippet } from 'svelte';
 import type { HTMLAttributes } from 'svelte/elements';
 import type { BaseUIChangeEventDetails, REASONS } from '../internal/event-details.js';
+import type { RenderChildren } from '../internal/render-children.js';
 
 export type ToggleGroupOrientation = 'horizontal' | 'vertical';
 
@@ -49,6 +50,8 @@ export interface ToggleGroupProps extends Omit<HTMLAttributes<HTMLDivElement>, '
 	/** Called before the pressed values change. Call `eventDetails.cancel()` to veto it. */
 	onValueChange?: (value: string[], eventDetails: ToggleGroupChangeEventDetails) => void;
 	/** Replace the default `<div>`. Spread `props` onto the host element. */
-	render?: Snippet<[props: HTMLAttributes<HTMLDivElement>, state: ToggleGroupState]>;
+	render?: Snippet<
+		[props: HTMLAttributes<HTMLDivElement>, state: ToggleGroupState, children: RenderChildren]
+	>;
 	children?: Snippet;
 }

@@ -167,7 +167,7 @@
 	<NumberField.Root locale="en-US" defaultValue={1} data-testid="root">
 		{#snippet render(props, fieldState, snippetChildren)}
 			<div {...props} data-rendered="true" data-value={String(fieldState.value)}>
-				{@render snippetChildren()}
+				{@render snippetChildren?.()}
 			</div>
 		{/snippet}
 		<NumberField.Input data-testid="control" />

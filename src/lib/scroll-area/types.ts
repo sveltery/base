@@ -1,5 +1,6 @@
 import type { Snippet } from 'svelte';
 import type { HTMLAttributes } from 'svelte/elements';
+import type { RenderChildren } from '../internal/render-children.js';
 
 export type ScrollAxis = 'vertical' | 'horizontal';
 export type TextDirection = 'ltr' | 'rtl';
@@ -83,7 +84,7 @@ export type ScrollAreaContentState = ScrollAreaRootState;
 export type ScrollAreaCornerState = Record<string, never>;
 
 type PartRender<State> = Snippet<
-	[props: HTMLAttributes<HTMLDivElement>, state: State, children: Snippet]
+	[props: HTMLAttributes<HTMLDivElement>, state: State, children: RenderChildren]
 >;
 
 export interface ScrollAreaRootProps extends Omit<HTMLAttributes<HTMLDivElement>, 'children'> {

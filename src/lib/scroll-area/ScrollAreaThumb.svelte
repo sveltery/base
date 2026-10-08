@@ -85,12 +85,8 @@
 	});
 </script>
 
-{#snippet content()}
-	{@render children?.()}
-{/snippet}
-
 {#if render}
-	{@render render(hostProps, partState, content)}
+	{@render render(hostProps, partState, children)}
 {:else}
-	<div {...hostProps} bind:this={el}>{@render content()}</div>
+	<div {...hostProps} bind:this={el}>{@render children?.()}</div>
 {/if}
