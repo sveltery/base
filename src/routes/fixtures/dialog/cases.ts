@@ -10,6 +10,8 @@ export const cases = [
 	'focus',
 	'nested-body',
 	'final-focus',
+	'final-outside',
+	'tab',
 	'child-initial',
 	'siblings',
 	'kept-child'

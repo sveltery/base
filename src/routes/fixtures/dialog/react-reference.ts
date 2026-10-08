@@ -24,7 +24,12 @@ export function mountDialogReference(node: HTMLElement, scenario: DialogCase, on
 				changed(open, details);
 			};
 
-		const outside = h('button', { type: 'button', 'data-testid': 'outside' }, 'Outside');
+		const outsideRef = useRef<HTMLButtonElement>(null);
+		const outside = h(
+			'button',
+			{ type: 'button', 'data-testid': 'outside', ref: outsideRef },
+			'Outside'
+		);
 		const callsNode = h('output', { 'data-testid': 'calls' }, JSON.stringify(calls));
 		const finalRef = useRef<HTMLButtonElement>(null);
 		const nestedInside = h(
@@ -128,6 +133,51 @@ export function mountDialogReference(node: HTMLElement, scenario: DialogCase, on
 						h(Dialog.Close, null, 'Nested close')
 					)
 				]),
+				callsNode
+			);
+		}
+
+		if (scenario === 'final-outside') {
+			return h(
+				Fragment,
+				null,
+				outside,
+				openParent({ modal: false, onOpenChange: changed }, [
+					h(Dialog.Title, null, 'Title'),
+					h('button', { type: 'button', 'data-testid': 'parent-inside' }, 'Inside'),
+					nestedChild(
+						{ modal: false },
+						null,
+						{ finalFocus: outsideRef },
+						h('button', { type: 'button', 'data-testid': 'nested-inside' }, 'Nested inside')
+					)
+				]),
+				callsNode
+			);
+		}
+
+		if (scenario === 'tab') {
+			return h(
+				Fragment,
+				null,
+				outside,
+				h('button', { type: 'button', 'data-testid': 'before' }, 'Before'),
+				h(
+					Dialog.Root,
+					{ modal: false, onOpenChange: changed },
+					h(Dialog.Trigger, null, 'Open'),
+					h(
+						Dialog.Portal,
+						null,
+						h(
+							Dialog.Popup,
+							null,
+							h(Dialog.Title, null, 'Title'),
+							h('button', { type: 'button' }, 'Inside')
+						)
+					)
+				),
+				h('button', { type: 'button', 'data-testid': 'after' }, 'After'),
 				callsNode
 			);
 		}

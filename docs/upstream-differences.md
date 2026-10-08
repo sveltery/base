@@ -85,13 +85,13 @@ Rationale: the previous pane is a visual cross-fade, not a second form control.
 
 Test: `src/lib/popover/Popover.svelte.spec.ts` (`keeps copied viewport controls out of form submission`, `does not mark copied controls disabled during the cross-fade`, `lets the form submit while an empty required copy is cross-fading`).
 
-### Shift+Tab from the first control, and Tab from the open trigger
+### Shift+Tab from the first control
 
 Pin: `47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c`, `packages/react/src/floating-ui-react/components/FloatingFocusManager.tsx` and `packages/react/src/popover/popup/PopoverPopup.tsx`. A non-modal popup inside a portal renders a leading guard and a trailing guard. `previousFocusableElement` is the trigger. `nextFocusableElement` is the trigger's trailing guard. The leading guard is `beforeContentFocusGuardRef`.
 
 Upstream: Shift+Tab from the popup's first control focuses the trigger and leaves the popup open. Tab from that open trigger focuses the first control again. The trigger's trailing guard, when focused from outside the positioner, moves focus to the leading guard, which then enters the popup.
 
-Local: Tab from the open trigger focuses the first control inside the popup and leaves it open. Shift+Tab from the popup's first control is not the upstream path. With the default `document.body` container it lands on the last control before the portal; with an inline container, on the control after the trigger. React lands on the trigger and stays open in that case. Tab forward from inside the popup still closes onto the control after the trigger. Shift+Tab from the open trigger still closes onto the control before the trigger. React fires the focus-out callback twice on Shift+Tab from the trigger; the port fires it once.
+Local: Tab from the open trigger focuses the first control inside the popup and leaves it open. A popup with no tabbable control closes onto the next control instead. A hover open leaves that Tab on the trigger's trailing guard. Shift+Tab from the popup's first control is not the upstream path. With the default `document.body` container it lands on the last control before the portal and closes with `focus-out`. With an inline container, on the control after the trigger. React lands on the trigger and stays open in that case. Tab forward from inside the popup still closes onto the control after the trigger. Shift+Tab from the open trigger still closes onto the control before the trigger. A focus-out close does not return focus to the trigger. React fires the focus-out callback twice on Shift+Tab from the trigger; the port fires it once.
 
 ## Dialog
 

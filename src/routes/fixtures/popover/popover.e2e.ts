@@ -133,6 +133,41 @@ for (const reference of [false, true]) {
 			});
 		}
 
+		test('shift-tab from the first control does not return to the trigger', async ({ page }) => {
+			const { trigger, popup } = await open(page, 'tab', reference);
+			await trigger.click();
+			await expect(popup.getByRole('button', { name: 'Inside' })).toBeFocused();
+			await page.keyboard.press('Shift+Tab');
+			if (reference) {
+				// React focuses the trigger and leaves the popup open.
+				await expect(trigger).toBeFocused();
+				await expect(popup).toBeVisible();
+			} else {
+				await expect(page.getByTestId('after')).toBeFocused();
+				await expect(popup).toHaveCount(0);
+			}
+		});
+
+		test('tab from a popup with no tabbable control closes onto After', async ({ page }) => {
+			const { trigger, popup } = await open(page, 'tab-empty', reference);
+			await trigger.click();
+			await expect(popup).toBeVisible();
+			await trigger.focus();
+			await page.keyboard.press('Tab');
+			await expect(page.getByTestId('after')).toBeFocused();
+			await expect(popup).toHaveCount(0);
+		});
+
+		test('tab from a hover-opened trigger stays on the guard', async ({ page }) => {
+			const { trigger, popup } = await open(page, 'hover', reference);
+			await trigger.hover();
+			await expect(popup).toBeVisible();
+			await trigger.focus();
+			await page.keyboard.press('Tab');
+			await expect(page.locator(':focus')).toHaveAttribute('data-base-ui-focus-guard', '');
+			await expect(popup).toBeVisible();
+		});
+
 		test('a trailing guard reached from outside focuses inside and stays open', async ({
 			page
 		}) => {

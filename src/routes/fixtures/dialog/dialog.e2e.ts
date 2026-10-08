@@ -150,6 +150,47 @@ for (const reference of [false, true]) {
 			await expect(page.getByTestId('nested-popup')).toHaveCount(0);
 		});
 
+		test('shift-tab from the open trigger lands on Before', async ({ page }) => {
+			await openDialog(page, 'tab', reference);
+			const opener = openButton(page);
+			await opener.click();
+			await expect(page.getByRole('button', { name: 'Inside' })).toBeFocused();
+			await opener.focus();
+			await page.keyboard.press('Shift+Tab');
+			await expect(page.getByTestId('before')).toBeFocused();
+			await expect(page.getByRole('dialog')).toHaveCount(0);
+		});
+
+		test('tab from the open trigger moves into the dialog', async ({ page }) => {
+			await openDialog(page, 'tab', reference);
+			const opener = openButton(page);
+			await opener.click();
+			await opener.focus();
+			await page.keyboard.press('Tab');
+			await expect(page.getByRole('button', { name: 'Inside' })).toBeFocused();
+			await expect(page.getByRole('dialog')).toBeVisible();
+		});
+
+		test('tab from the last control closes onto After', async ({ page }) => {
+			await openDialog(page, 'tab', reference);
+			await openButton(page).click();
+			await expect(page.getByRole('button', { name: 'Inside' })).toBeFocused();
+			await page.keyboard.press('Tab');
+			await expect(page.getByTestId('after')).toBeFocused();
+			await expect(page.getByRole('dialog')).toHaveCount(0);
+		});
+
+		test('escape on an inner dialog keeps final focus outside', async ({ page }) => {
+			await openDialog(page, 'final-outside', reference);
+			await openButton(page).click();
+			await page.getByRole('button', { name: 'Nested' }).click();
+			await expect(page.getByTestId('nested-inside')).toBeFocused();
+			await page.keyboard.press('Escape');
+			await expect(page.getByTestId('outside')).toBeFocused();
+			await expect(page.getByTestId('parent-popup')).toBeVisible();
+			await expect(page.getByTestId('nested-popup')).toHaveCount(0);
+		});
+
 		test('focusing one sibling non-modal dialog leaves the other open', async ({ page }) => {
 			await openDialog(page, 'siblings', reference);
 			await expect(page.getByTestId('popup-a')).toBeVisible();

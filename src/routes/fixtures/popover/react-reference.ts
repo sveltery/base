@@ -49,7 +49,7 @@ export function mountPopoverReference(
 					null,
 					h(Popover.Title, null, 'Title'),
 					'Content',
-					h('button', { type: 'button' }, 'Inside'),
+					scenario === 'tab-empty' ? null : h('button', { type: 'button' }, 'Inside'),
 					scenario === 'close' || scenario === 'modal' ? h(Popover.Close, null, 'Close') : null
 				)
 			)
@@ -84,13 +84,15 @@ export function mountPopoverReference(
 			null,
 			h('button', { type: 'button' }, 'Outside'),
 			h('pre', { 'data-testid': 'calls' }, JSON.stringify(calls)),
-			scenario === 'tab'
+			scenario === 'tab' || scenario === 'tab-empty'
 				? h('button', { type: 'button', 'data-testid': 'before' }, 'Before')
 				: null,
 			scenario === 'detached'
 				? h(Fragment, null, trigger, h(Popover.Root, { handle, onOpenChange: onOpen }, popup))
 				: h(Popover.Root, rootProps, trigger, popup),
-			scenario === 'tab' ? h('button', { type: 'button', 'data-testid': 'after' }, 'After') : null
+			scenario === 'tab' || scenario === 'tab-empty'
+				? h('button', { type: 'button', 'data-testid': 'after' }, 'After')
+				: null
 		);
 	}
 

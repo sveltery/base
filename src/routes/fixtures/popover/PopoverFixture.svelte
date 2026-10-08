@@ -29,7 +29,9 @@
 			<Popover.Popup>
 				<Popover.Title>Title</Popover.Title>
 				Content
-				<button type="button">Inside</button>
+				{#if scenario !== 'tab-empty'}
+					<button type="button">Inside</button>
+				{/if}
 				{#if scenario === 'close' || scenario === 'modal'}
 					<Popover.Close>Close</Popover.Close>
 				{/if}
@@ -49,7 +51,7 @@
 		{@render popup()}
 	</Popover.Root>
 {:else}
-	{#if scenario === 'tab'}
+	{#if scenario === 'tab' || scenario === 'tab-empty'}
 		<button type="button" data-testid="before">Before</button>
 	{/if}
 	<Popover.Root modal={scenario === 'modal'} onOpenChange={changed}>
@@ -64,6 +66,6 @@
 		{@render popup()}
 	</Popover.Root>
 {/if}
-{#if scenario === 'tab'}
-	<button type="button">After</button>
+{#if scenario === 'tab' || scenario === 'tab-empty'}
+	<button type="button" data-testid="after">After</button>
 {/if}

@@ -42,11 +42,11 @@ Differences from React Base UI, all deliberate:
 - Arrow keys inside a toolbar stay in the popup when the trigger or popup has `role="toolbar"`. The key set is the shared `COMPOSITE_KEYS`. Popover does not import Toolbar context.
 - A cloned radio in the previous viewport pane does not keep its `name`. Upstream's clone unchecks the live radio. The next pane is a new element and starts from that trigger's own state. Copied controls also get `form=""`, so they are not submitted and do not block the ancestor form, and they are not disabled. See `docs/upstream-differences.md`.
 
-Known gaps: Shift+Tab from the popup's first control is not the upstream path. With the default `document.body` container it lands on the last control before the portal; with an inline container, on the control after the trigger. React lands on the trigger and stays open. See `docs/upstream-differences.md`.
+Known gaps: Shift+Tab from the popup's first control is not the upstream path. With the default `document.body` container it lands on the last control before the portal and closes with `focus-out`. With an inline container, on the control after the trigger. React lands on the trigger and stays open. See `docs/upstream-differences.md`.
 
 ## How to get to it (user POV)
 
-A consumer imports `Popover` from `@sveltery/base` or `@sveltery/base/popover` and renders `Popover.Root`, `Popover.Trigger`, `Popover.Portal`, `Popover.Positioner`, and `Popover.Popup`. For verification, open `/fixtures/popover?case=<case>`, where `<case>` is one of `standalone`, `bound`, `cancel`, `disabled`, `prevented`, `hover`, `modal`, `close`, `open`, `detached`, or `tab` (`src/routes/fixtures/popover/cases.ts`). Add `&reference` to get React Base UI.
+A consumer imports `Popover` from `@sveltery/base` or `@sveltery/base/popover` and renders `Popover.Root`, `Popover.Trigger`, `Popover.Portal`, `Popover.Positioner`, and `Popover.Popup`. For verification, open `/fixtures/popover?case=<case>`, where `<case>` is one of `standalone`, `bound`, `cancel`, `disabled`, `prevented`, `hover`, `modal`, `close`, `open`, `detached`, `tab`, or `tab-empty` (`src/routes/fixtures/popover/cases.ts`). Add `&reference` to get React Base UI.
 
 ## Driving it with Playwright
 

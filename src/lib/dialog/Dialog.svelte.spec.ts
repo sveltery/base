@@ -2,7 +2,7 @@
 // (commit 47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c). MIT, see THIRD_PARTY_NOTICES.md.
 // describeConformance, className/style callbacks, Alert Dialog, Drawer, Menu, and Select are not ported.
 import { tick } from 'svelte';
-import { page } from 'vitest/browser';
+import { page, userEvent } from 'vitest/browser';
 import { describe, expect, it, vi } from 'vitest';
 import { render } from 'vitest-browser-svelte';
 import DialogActionsHarness from '../../tests/DialogActionsHarness.svelte';
@@ -661,6 +661,51 @@ describe('Dialog', () => {
 		expect(document.activeElement).toBe(page.getByTestId('parent-inside').element());
 		expect(connected('parent-popup')).toBe(true);
 		expect(connected('nested-popup')).toBe(true);
+	});
+
+	it('shift-tabs from the open trigger onto the control before it', async () => {
+		render(DialogHarness, { scenario: 'tab' });
+		const open = page.getByRole('button', { name: 'Open' });
+		await open.click();
+		await expect.poll(() => document.activeElement?.textContent).toBe('Inside');
+		(open.element() as HTMLElement).focus();
+		await userEvent.keyboard('{Shift>}{Tab}{/Shift}');
+		await expect.poll(() => document.activeElement).toBe(page.getByTestId('before').element());
+		await expect.poll(() => page.getByRole('dialog').elements().length).toBe(0);
+	});
+
+	it('tabs from the open trigger into the dialog', async () => {
+		render(DialogHarness, { scenario: 'tab' });
+		const open = page.getByRole('button', { name: 'Open' });
+		await open.click();
+		await expect.poll(() => document.activeElement?.textContent).toBe('Inside');
+		(open.element() as HTMLElement).focus();
+		await userEvent.keyboard('{Tab}');
+		await expect.poll(() => document.activeElement?.textContent).toBe('Inside');
+		await expect.element(page.getByRole('dialog')).toBeVisible();
+	});
+
+	it('tabs out of the last control onto the control after the trigger', async () => {
+		render(DialogHarness, { scenario: 'tab' });
+		await page.getByRole('button', { name: 'Open' }).click();
+		await expect.poll(() => document.activeElement?.textContent).toBe('Inside');
+		await userEvent.keyboard('{Tab}');
+		await expect.poll(() => document.activeElement).toBe(page.getByTestId('after').element());
+		await expect.poll(() => page.getByRole('dialog').elements().length).toBe(0);
+	});
+
+	it('keeps final focus on the outside control when the inner dialog closes', async () => {
+		render(DialogHarness, { scenario: 'final-outside' });
+		click(button('Open'));
+		await expect.poll(() => document.querySelector('[data-testid="parent-popup"]')).toBeTruthy();
+		click(button('Nested'));
+		await expect
+			.poll(() => document.activeElement?.getAttribute('data-testid'))
+			.toBe('nested-inside');
+		await userEvent.keyboard('{Escape}');
+		await expect.poll(() => document.activeElement?.getAttribute('data-testid')).toBe('outside');
+		expect(document.querySelector('[data-testid="parent-popup"]')).toBeTruthy();
+		expect(document.querySelector('[data-testid="nested-popup"]')).toBeNull();
 	});
 
 	it('ignores a stray store prop on the portal', async () => {

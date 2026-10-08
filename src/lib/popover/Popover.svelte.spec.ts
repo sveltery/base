@@ -253,6 +253,39 @@ describe('Popover', () => {
 		await expect.element(page.getByRole('dialog')).toBeVisible();
 	});
 
+	it('does not return to the trigger when shift-tabbing from the first control', async () => {
+		render(PopoverFixture, { scenario: 'tab' });
+		await page.getByRole('button', { name: 'Open' }).click();
+		await expect.poll(() => document.activeElement?.textContent).toBe('Inside');
+		await userEvent.keyboard('{Shift>}{Tab}{/Shift}');
+		await expect.poll(() => document.activeElement).toBe(page.getByTestId('after').element());
+		await expect.poll(() => page.getByRole('dialog').elements().length).toBe(0);
+	});
+
+	it('closes onto the next control when tabbing from a popup with no tabbable control', async () => {
+		render(PopoverFixture, { scenario: 'tab-empty' });
+		const open = page.getByRole('button', { name: 'Open' });
+		await open.click();
+		await expect.element(page.getByRole('dialog')).toBeVisible();
+		(open.element() as HTMLElement).focus();
+		await userEvent.keyboard('{Tab}');
+		await expect.poll(() => document.activeElement).toBe(page.getByTestId('after').element());
+		await expect.poll(() => page.getByRole('dialog').elements().length).toBe(0);
+	});
+
+	it('leaves a hover-opened popover on the trigger guard when tabbing', async () => {
+		render(PopoverFixture, { scenario: 'hover' });
+		const open = page.getByRole('button', { name: 'Open' });
+		await open.hover();
+		await expect.element(page.getByRole('dialog')).toBeVisible();
+		(open.element() as HTMLElement).focus();
+		await userEvent.keyboard('{Tab}');
+		await expect
+			.poll(() => document.activeElement?.hasAttribute('data-base-ui-focus-guard'))
+			.toBe(true);
+		await expect.element(page.getByRole('dialog')).toBeVisible();
+	});
+
 	it('focuses the previous control inside when the trailing guard is reached from outside', async () => {
 		render(PopoverFixture, { scenario: 'tab' });
 		await page.getByRole('button', { name: 'Open' }).click();

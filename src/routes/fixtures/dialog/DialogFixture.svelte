@@ -40,6 +40,7 @@
 	let outerPopup = $state<HTMLElement | undefined>(undefined);
 	let innerPopup = $state<HTMLElement | undefined>(undefined);
 	let finalTarget = $state<HTMLElement | null>(null);
+	let outsideButton = $state<HTMLButtonElement | null>(null);
 	let parentOpen = $state(false);
 
 	let calls = $state<{ open: boolean; reason: string; canceled: boolean }[]>([]);
@@ -92,7 +93,7 @@
 	}
 </script>
 
-<button type="button" data-testid="outside">Outside</button>
+<button type="button" data-testid="outside" bind:this={outsideButton}>Outside</button>
 {#if preventUnmount}
 	<button type="button" onclick={() => root?.unmount()}>Unmount</button>
 {/if}
@@ -172,6 +173,37 @@
 			</Dialog.Popup>
 		</Dialog.Portal>
 	</Dialog.Root>
+{:else if scenario === 'final-outside'}
+	<Dialog.Root modal={false} onOpenChange={changed}>
+		<Dialog.Trigger>Open</Dialog.Trigger>
+		<Dialog.Portal>
+			<Dialog.Popup data-testid="parent-popup">
+				<Dialog.Title>Title</Dialog.Title>
+				<button type="button" data-testid="parent-inside">Inside</button>
+				<Dialog.Root modal={false}>
+					<Dialog.Trigger>Nested</Dialog.Trigger>
+					<Dialog.Portal>
+						<Dialog.Popup data-testid="nested-popup" finalFocus={() => outsideButton}>
+							<Dialog.Title>Nested title</Dialog.Title>
+							<button type="button" data-testid="nested-inside">Nested inside</button>
+						</Dialog.Popup>
+					</Dialog.Portal>
+				</Dialog.Root>
+			</Dialog.Popup>
+		</Dialog.Portal>
+	</Dialog.Root>
+{:else if scenario === 'tab'}
+	<button type="button" data-testid="before">Before</button>
+	<Dialog.Root modal={false} onOpenChange={changed}>
+		<Dialog.Trigger>Open</Dialog.Trigger>
+		<Dialog.Portal>
+			<Dialog.Popup>
+				<Dialog.Title>Title</Dialog.Title>
+				<button type="button">Inside</button>
+			</Dialog.Popup>
+		</Dialog.Portal>
+	</Dialog.Root>
+	<button type="button" data-testid="after">After</button>
 {:else if scenario === 'kept-child'}
 	<Dialog.Root bind:open={parentOpen}>
 		<Dialog.Trigger data-testid="open-parent">Open</Dialog.Trigger>
