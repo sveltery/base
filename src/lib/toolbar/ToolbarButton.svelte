@@ -40,13 +40,9 @@
 		focusable: focusableWhenDisabled
 	});
 
-	const item = registerToolbarItem(toolbar.roving);
-
-	$effect(() => {
-		const host = { node: item.node, disabled: disabledState, focusable: focusableWhenDisabled };
-		if (!host.node) return;
-		toolbar.roving.sync();
-	});
+	const item = registerToolbarItem(toolbar.roving, () => ({
+		disabled: disabledState && !focusableWhenDisabled
+	}));
 
 	// Untrusted constructed clicks carry modifier state. detail 0 matches a keyboard click.
 	// Same algorithm as the pinned helper.

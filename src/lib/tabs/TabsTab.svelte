@@ -53,11 +53,8 @@
 
 	function register(element: HTMLElement) {
 		node = element;
-		const removeRoving = list.roving.register(element);
-		const unregister = untrack(() => {
-			list.tag(element, value, disabled);
-			return tabs.registerTab(element, value, disabled, tabId);
-		});
+		const removeRoving = list.roving.register(element, () => ({ value, disabled }));
+		const unregister = untrack(() => tabs.registerTab(element, value, disabled, tabId));
 		const unobserve = list.observeTab(element);
 		return () => {
 			removeRoving();
@@ -71,7 +68,6 @@
 		const element = node;
 		if (!element) return;
 		tabs.updateTab(element, value, disabled, tabId);
-		list.tag(element, value, disabled);
 	});
 
 	// An enabled selection takes the tab stop when focus is outside the list.

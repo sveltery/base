@@ -411,6 +411,41 @@ describe('Tabs', () => {
 			await expect.element(tab('Two')).toHaveAttribute('tabindex', '0');
 		});
 
+		it('keeps the tab stop on a disabled tab after an arrow, so Tab leaves the list', async () => {
+			render(TabsHarness, {
+				passValue: true,
+				value: 2,
+				tabs: [
+					{ value: 0, label: 'One', panel: 'Panel one' },
+					{ value: 1, label: 'Two', panel: 'Panel two', disabled: true },
+					{ value: 2, label: 'Three', panel: 'Panel three' }
+				]
+			});
+			await tab('Three').click();
+			await userEvent.keyboard('{ArrowLeft}');
+			await expect.element(tab('Two')).toHaveFocus();
+			expect(
+				['One', 'Two', 'Three'].map((name) => tab(name).element().getAttribute('tabindex'))
+			).toEqual(['-1', '0', '-1']);
+			await userEvent.keyboard('{Tab}');
+			await expect.element(page.getByTestId('panel-2')).toHaveFocus();
+		});
+
+		it('gives the first tab the stop when every tab is disabled and nothing is selected', async () => {
+			render(TabsHarness, {
+				passValue: true,
+				value: null,
+				tabs: [
+					{ value: 0, label: 'One', panel: 'Panel one', disabled: true },
+					{ value: 1, label: 'Two', panel: 'Panel two', disabled: true },
+					{ value: 2, label: 'Three', panel: 'Panel three', disabled: true }
+				]
+			});
+			await expect.element(tab('One')).toHaveAttribute('tabindex', '0');
+			await expect.element(tab('Two')).toHaveAttribute('tabindex', '-1');
+			await expect.element(tab('Three')).toHaveAttribute('tabindex', '-1');
+		});
+
 		it('gives the tab stop to the successor when the highlighted tab is removed', async () => {
 			render(TabsHarness, { passValue: true, value: 0, tabs: three });
 			await tab('One').click();
