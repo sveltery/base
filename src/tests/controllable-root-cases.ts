@@ -52,7 +52,7 @@ const targets: Record<
 function control(part: Part) {
 	const target = targets[part];
 	return target.name
-		? page.getByRole(target.role, { name: target.name })
+		? page.getByRole(target.role, { name: target.name, exact: true })
 		: page.getByRole(target.role);
 }
 
