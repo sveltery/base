@@ -13,6 +13,7 @@ export const cases = [
 	'final-outside',
 	'together-outside',
 	'tab',
+	'tab-inline',
 	'child-initial',
 	'siblings',
 	'kept-child'

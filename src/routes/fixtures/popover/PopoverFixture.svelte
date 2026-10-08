@@ -6,6 +6,7 @@
 
 	let owner = $state(scenario === 'open');
 	let calls = $state<{ open: boolean; reason: string; canceled: boolean }[]>([]);
+	let inlineContainer = $state<HTMLDivElement | null>(null);
 	const handle = Popover.createHandle();
 	const bound = $derived(scenario === 'bound' || scenario === 'open');
 
@@ -25,7 +26,7 @@
 <pre data-testid="calls">{JSON.stringify(calls)}</pre>
 
 {#snippet popup()}
-	<Popover.Portal>
+	<Popover.Portal container={scenario === 'tab-inline' ? inlineContainer : undefined}>
 		<Popover.Positioner>
 			<Popover.Popup>
 				<Popover.Title>Title</Popover.Title>
@@ -52,7 +53,7 @@
 		{@render popup()}
 	</Popover.Root>
 {:else}
-	{#if scenario === 'tab' || scenario === 'tab-empty'}
+	{#if scenario === 'tab' || scenario === 'tab-empty' || scenario === 'tab-inline'}
 		<button type="button" data-testid="before">Before</button>
 	{/if}
 	<Popover.Root modal={scenario === 'modal'} onOpenChange={changed}>
@@ -67,6 +68,9 @@
 		{@render popup()}
 	</Popover.Root>
 {/if}
-{#if scenario === 'tab' || scenario === 'tab-empty'}
+{#if scenario === 'tab-inline'}
+	<div data-testid="inline-container" bind:this={inlineContainer}></div>
+{/if}
+{#if scenario === 'tab' || scenario === 'tab-empty' || scenario === 'tab-inline'}
 	<button type="button" data-testid="after">After</button>
 {/if}

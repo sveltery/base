@@ -1,5 +1,5 @@
 // React Base UI 1.8.0 counterpart of PopoverFixture.svelte. Comparison only; never imported by src/lib.
-import { createElement as h, Fragment, useEffect, useState } from 'react';
+import { createElement as h, Fragment, useEffect, useLayoutEffect, useRef, useState } from 'react';
 import { createRoot } from 'react-dom/client';
 import { Popover } from '@base-ui/react/popover';
 import type { PopoverCase } from './cases.js';
@@ -19,6 +19,12 @@ export function mountPopoverReference(
 		const [owner, setOwner] = useState(scenario === 'open');
 		const [calls, setCalls] = useState<Call[]>([]);
 		const [handle] = useState(() => Popover.createHandle());
+		const inlineRef = useRef<HTMLDivElement>(null);
+		const [inlineContainer, setInlineContainer] = useState<HTMLDivElement | null>(null);
+		useLayoutEffect(() => {
+			if (scenario !== 'tab-inline') return;
+			setInlineContainer(inlineRef.current);
+		}, [scenario]);
 		useEffect(onReady, []);
 		const bound = scenario === 'bound' || scenario === 'open';
 
@@ -40,7 +46,7 @@ export function mountPopoverReference(
 
 		const popup = h(
 			Popover.Portal,
-			null,
+			scenario === 'tab-inline' ? { container: inlineContainer } : null,
 			h(
 				Popover.Positioner,
 				null,
@@ -85,13 +91,16 @@ export function mountPopoverReference(
 			h('button', { type: 'button' }, 'Outside'),
 			h('input', { 'data-testid': 'outside-input' }),
 			h('pre', { 'data-testid': 'calls' }, JSON.stringify(calls)),
-			scenario === 'tab' || scenario === 'tab-empty'
+			scenario === 'tab' || scenario === 'tab-empty' || scenario === 'tab-inline'
 				? h('button', { type: 'button', 'data-testid': 'before' }, 'Before')
 				: null,
 			scenario === 'detached'
 				? h(Fragment, null, trigger, h(Popover.Root, { handle, onOpenChange: onOpen }, popup))
 				: h(Popover.Root, rootProps, trigger, popup),
-			scenario === 'tab' || scenario === 'tab-empty'
+			scenario === 'tab-inline'
+				? h('div', { 'data-testid': 'inline-container', ref: inlineRef })
+				: null,
+			scenario === 'tab' || scenario === 'tab-empty' || scenario === 'tab-inline'
 				? h('button', { type: 'button', 'data-testid': 'after' }, 'After')
 				: null
 		);

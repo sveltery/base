@@ -17,7 +17,12 @@
 	import { CLICK_TRIGGER_IDENTIFIER, FOCUSABLE_ATTRIBUTE } from '../utils/constants.js';
 	import { enqueueFocus } from '../utils/enqueueFocus.js';
 	import { markOthers } from '../utils/markOthers.js';
-	import { getPreviousTabbable, getTabbableCandidates, isOutsideEvent } from '../utils/tabbable.js';
+	import {
+		getNextTabbableInDocument,
+		getPreviousTabbable,
+		getTabbableCandidates,
+		isOutsideEvent
+	} from '../utils/tabbable.js';
 	import { hasFloatingPortal, useFloatingPortal } from './FloatingPortal.svelte';
 	import { useFloatingTree } from './FloatingTree.svelte.js';
 	import { getNodeAncestors, getNodeChildren } from './FloatingTreeStore.js';
@@ -30,7 +35,8 @@
 		returnFocus = true,
 		modal = true,
 		closeOnFocusOut = true,
-		restoreFocus = false
+		restoreFocus = false,
+		previousFocusableElement = null
 	}: {
 		store: FloatingRootStore;
 		children?: Snippet;
@@ -49,6 +55,11 @@
 		closeOnFocusOut?: boolean;
 		/** `'popup'` focuses the popup when a focused control inside it is removed. */
 		restoreFocus?: boolean | 'popup';
+		/**
+		 * Where Shift+Tab from the first control lands.
+		 * Popover passes the trigger. Dialog leaves this unset and uses the portal's outside guard.
+		 */
+		previousFocusableElement?: HTMLElement | null;
 	} = $props();
 
 	const tree = useFloatingTree();
@@ -86,6 +97,36 @@
 		const items = tabbables(floating);
 		const target = edge === 'first' ? items[0] : items[items.length - 1];
 		(target ?? floating).focus();
+	}
+
+	function bindInsideGuard(key: 'beforeInside' | 'afterInside') {
+		return (node: HTMLElement) => {
+			if (portal) portal.guards[key] = node;
+			return () => {
+				if (portal?.guards[key] === node) portal.guards[key] = null;
+			};
+		};
+	}
+
+	const attachBeforeInside = bindInsideGuard('beforeInside');
+	const attachAfterInside = bindInsideGuard('afterInside');
+
+	// Upstream leading guard (`FloatingFocusManager.tsx` 967–974).
+	// Shift+Tab from the first control focuses `previousFocusableElement` (the trigger).
+	// Focus that arrives from outside the portal moves to the next control inside.
+	function enterThroughBeforeGuard(event: FocusEvent) {
+		const portalNode = store.portalElement;
+		if (!portalNode) return;
+		if (isOutsideEvent(event, portalNode)) {
+			const reference = store.domReferenceElement;
+			if (reference instanceof Element) getNextTabbableInDocument(reference)?.focus();
+			return;
+		}
+		const previous =
+			previousFocusableElement instanceof HTMLElement
+				? previousFocusableElement
+				: portal?.guards.beforeOutside;
+		previous?.focus();
 	}
 
 	// Upstream after-guard (`FloatingFocusManager.tsx` 984–1000). Tab from inside moves to
@@ -418,18 +459,12 @@
 		}}
 	/>
 {/if}
+{#if portaled && !modal && !disabled && store.isOpen()}
+	<FocusGuard data-type="inside" onfocus={enterThroughBeforeGuard} attach={attachBeforeInside} />
+{/if}
 {@render children?.()}
 {#if portaled && !modal && !disabled && store.isOpen()}
-	<FocusGuard
-		data-type="inside"
-		onfocus={leaveThroughAfterGuard}
-		attach={(node) => {
-			if (portal) portal.guards.afterInside = node;
-			return () => {
-				if (portal?.guards.afterInside === node) portal.guards.afterInside = null;
-			};
-		}}
-	/>
+	<FocusGuard data-type="inside" onfocus={leaveThroughAfterGuard} attach={attachAfterInside} />
 {/if}
 {#if modal && store.isOpen()}
 	<FocusGuard

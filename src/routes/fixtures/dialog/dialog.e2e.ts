@@ -174,15 +174,30 @@ for (const reference of [false, true]) {
 			await expect(page.getByRole('dialog')).toHaveCount(0);
 		});
 
-		test('tab from the open trigger moves into the dialog', async ({ page }) => {
-			await openDialog(page, 'tab', reference);
-			const opener = openButton(page);
-			await opener.click();
-			await opener.focus();
-			await page.keyboard.press('Tab');
-			await expect(page.getByRole('button', { name: 'Inside' })).toBeFocused();
-			await expect(page.getByRole('dialog')).toBeVisible();
-		});
+		for (const scenario of ['tab', 'tab-inline'] as const) {
+			test(`shift-tab from the first control focuses the trigger (${scenario})`, async ({
+				page
+			}) => {
+				await openDialog(page, scenario, reference);
+				const opener = openButton(page);
+				await opener.click();
+				await expect(page.getByRole('button', { name: 'Inside' })).toBeFocused();
+				await page.keyboard.press('Shift+Tab');
+				await expect(opener).toBeFocused();
+				await expect(page.getByRole('dialog')).toBeVisible();
+			});
+
+			test(`tab from the open trigger enters the dialog (${scenario})`, async ({ page }) => {
+				await openDialog(page, scenario, reference);
+				const opener = openButton(page);
+				await opener.click();
+				await expect(page.getByRole('button', { name: 'Inside' })).toBeFocused();
+				await opener.focus();
+				await page.keyboard.press('Tab');
+				await expect(page.getByRole('button', { name: 'Inside' })).toBeFocused();
+				await expect(page.getByRole('dialog')).toBeVisible();
+			});
+		}
 
 		test('tab from the last control closes onto After', async ({ page }) => {
 			await openDialog(page, 'tab', reference);

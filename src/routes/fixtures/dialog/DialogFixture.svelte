@@ -42,6 +42,7 @@
 	let finalTarget = $state<HTMLElement | null>(null);
 	let outsideButton = $state<HTMLButtonElement | null>(null);
 	let parentOpen = $state(false);
+	let inlineContainer = $state<HTMLDivElement | null>(null);
 
 	let calls = $state<{ open: boolean; reason: string; canceled: boolean }[]>([]);
 
@@ -199,17 +200,20 @@
 	{@render outsidePair(true)}
 {:else if scenario === 'final-outside'}
 	{@render outsidePair(false)}
-{:else if scenario === 'tab'}
+{:else if scenario === 'tab' || scenario === 'tab-inline'}
 	<button type="button" data-testid="before">Before</button>
 	<Dialog.Root modal={false} onOpenChange={changed}>
 		<Dialog.Trigger>Open</Dialog.Trigger>
-		<Dialog.Portal>
+		<Dialog.Portal container={scenario === 'tab-inline' ? inlineContainer : undefined}>
 			<Dialog.Popup>
 				<Dialog.Title>Title</Dialog.Title>
 				<button type="button">Inside</button>
 			</Dialog.Popup>
 		</Dialog.Portal>
 	</Dialog.Root>
+	{#if scenario === 'tab-inline'}
+		<div data-testid="inline-container" bind:this={inlineContainer}></div>
+	{/if}
 	<button type="button" data-testid="after">After</button>
 {:else if scenario === 'kept-child'}
 	<Dialog.Root bind:open={parentOpen}>

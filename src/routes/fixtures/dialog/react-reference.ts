@@ -1,5 +1,5 @@
 // React Base UI 1.8.0 counterpart of DialogFixture.svelte. Comparison only; never imported by src/lib.
-import { createElement as h, Fragment, useEffect, useRef, useState } from 'react';
+import { createElement as h, Fragment, useEffect, useLayoutEffect, useRef, useState } from 'react';
 import { createRoot } from 'react-dom/client';
 import { Dialog } from '@base-ui/react/dialog';
 import { Popover } from '@base-ui/react/popover';
@@ -12,6 +12,12 @@ export function mountDialogReference(node: HTMLElement, scenario: DialogCase, on
 		const [outerOpen, setOuterOpen] = useState(scenario !== 'nested-onto');
 		const [innerOpen, setInnerOpen] = useState(true);
 		const [parentOpen, setParentOpen] = useState(false);
+		const [inlineContainer, setInlineContainer] = useState<HTMLDivElement | null>(null);
+		useLayoutEffect(() => {
+			if (scenario !== 'tab-inline') return;
+			const node = document.querySelector<HTMLDivElement>('[data-testid="inline-container"]');
+			setInlineContainer(node);
+		}, [scenario]);
 		useEffect(onReady, []);
 		const changed = (
 			open: boolean,
@@ -200,7 +206,7 @@ export function mountDialogReference(node: HTMLElement, scenario: DialogCase, on
 			);
 		}
 
-		if (scenario === 'tab') {
+		if (scenario === 'tab' || scenario === 'tab-inline') {
 			return h(
 				Fragment,
 				null,
@@ -212,7 +218,7 @@ export function mountDialogReference(node: HTMLElement, scenario: DialogCase, on
 					h(Dialog.Trigger, null, 'Open'),
 					h(
 						Dialog.Portal,
-						null,
+						scenario === 'tab-inline' ? { container: inlineContainer } : null,
 						h(
 							Dialog.Popup,
 							null,
@@ -221,6 +227,7 @@ export function mountDialogReference(node: HTMLElement, scenario: DialogCase, on
 						)
 					)
 				),
+				scenario === 'tab-inline' ? h('div', { 'data-testid': 'inline-container' }) : null,
 				h('button', { type: 'button', 'data-testid': 'after' }, 'After'),
 				callsNode
 			);

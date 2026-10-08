@@ -125,6 +125,9 @@
 	returnFocus={typeof finalFocus === 'function' ? focusReturn : finalFocus}
 	modal={store.focusManagerModal}
 	restoreFocus="popup"
+	previousFocusableElement={store.activeTriggerElement instanceof HTMLElement
+		? store.activeTriggerElement
+		: null}
 >
 	{#if render}
 		{@render render(hostProps, popupState, children)}

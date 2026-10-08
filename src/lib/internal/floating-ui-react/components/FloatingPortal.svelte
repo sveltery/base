@@ -137,7 +137,6 @@
 				guards.beforeInside.focus();
 				return;
 			}
-			// Dialog has no leading inside guard. Tab from the trigger still enters the popup.
 			const floating = store.floatingElement;
 			const first = floating ? getTabbableCandidates(floating)[0] : null;
 			first?.focus();
