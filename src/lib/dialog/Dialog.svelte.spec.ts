@@ -11,7 +11,9 @@ import DialogHarness from '../../tests/DialogHarness.svelte';
 import DialogNestedHandleHarness from '../../tests/DialogNestedHandleHarness.svelte';
 import DialogMissingPortalHarness from '../../tests/DialogMissingPortalHarness.svelte';
 import DialogOpenCompleteStateHarness from '../../tests/DialogOpenCompleteStateHarness.svelte';
+import PortalContainerHarness from '../../tests/PortalContainerHarness.svelte';
 import PortalHostHarness from '../../tests/PortalHostHarness.svelte';
+import PortalRenderHarness from '../../tests/PortalRenderHarness.svelte';
 import { Dialog } from './index.js';
 import { REASONS } from '../internal/event-details.js';
 
@@ -500,6 +502,38 @@ describe('Dialog', () => {
 		expect(portal.querySelector('[role="dialog"]')).not.toBeNull();
 		// The marker stays empty. A consumer value does not replace it.
 		expect(portal.getAttribute('data-base-ui-portal')).toBe('');
+	});
+
+	it('applies a render snippet to the portal element', async () => {
+		render(PortalRenderHarness, { part: 'dialog' });
+
+		await expect.poll(() => document.querySelector('[data-replacement]')).not.toBeNull();
+		const portal = document.querySelector('[data-replacement]');
+		if (!(portal instanceof HTMLDivElement)) throw new Error('portal is not a div');
+
+		expect(portal.getAttribute('data-slot')).toBe('dialog-portal');
+		expect(portal.classList.contains('portal-host')).toBe(true);
+		expect(portal.getAttribute('data-base-ui-portal')).toBe('');
+		expect(portal.dataset.attached).toBe('yes');
+		expect(portal.dataset.attachedInBody).toBe('yes');
+		expect(portal.parentElement).toBe(document.body);
+		expect(portal.querySelector('[role="dialog"]')).not.toBeNull();
+	});
+
+	it('does not mount while container is null', async () => {
+		const view = render(PortalContainerHarness, { part: 'dialog' });
+		await tick();
+		await frame();
+
+		expect(document.querySelector('[data-slot="dialog-portal"]')).toBeNull();
+		expect(document.body.querySelector('[role="dialog"]')).toBeNull();
+
+		await view.rerender({ part: 'dialog', provide: true });
+		const holder = document.querySelector('[data-testid="portal-holder"]');
+		await expect
+			.poll(() => document.querySelector('[data-slot="dialog-portal"]')?.parentElement)
+			.toBe(holder);
+		expect(document.querySelector('[data-slot="dialog-portal"] [role="dialog"]')).not.toBeNull();
 	});
 
 	it('ignores a stray store prop on the portal', async () => {

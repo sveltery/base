@@ -14,7 +14,9 @@ export interface PortalProps extends Omit<HTMLAttributes<HTMLDivElement>, 'child
 	keepMounted?: boolean;
 	/**
 	 * Element the portal is appended to.
-	 * Defaults to `document.body`. A shadow root is accepted. There is no ref object.
+	 * `undefined` uses the parent portal or `document.body`.
+	 * `null` waits and does not mount until an element or shadow root is set.
+	 * There is no ref object.
 	 */
 	container?: HTMLElement | ShadowRoot | null;
 	children?: Snippet;

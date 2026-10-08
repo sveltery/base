@@ -1,12 +1,15 @@
 // Assertions follow Base UI v1.8.0 packages/react/src/popover/**/*.test.tsx
 // (commit 47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c). MIT, see THIRD_PARTY_NOTICES.md.
 // Menu, Combobox, shadow-root outside press, and actionsRef are not ported.
+import { tick } from 'svelte';
 import { page } from 'vitest/browser';
 import { describe, expect, it } from 'vitest';
 import { render } from 'vitest-browser-svelte';
 import PopoverDetachHarness from '../../tests/PopoverDetachHarness.svelte';
+import PortalContainerHarness from '../../tests/PortalContainerHarness.svelte';
 import PortalHostHarness from '../../tests/PortalHostHarness.svelte';
 import PopoverOpenCompleteStateHarness from '../../tests/PopoverOpenCompleteStateHarness.svelte';
+import PortalRenderHarness from '../../tests/PortalRenderHarness.svelte';
 import PopoverReviewHarness from '../../tests/PopoverReviewHarness.svelte';
 import PopoverFixture from '../../routes/fixtures/popover/PopoverFixture.svelte';
 import { Popover, PopoverHandle } from './index.js';
@@ -41,6 +44,40 @@ describe('Popover', () => {
 		expect(portal.querySelector('[role="dialog"]')).not.toBeNull();
 		// The marker stays empty. A consumer value does not replace it.
 		expect(portal.getAttribute('data-base-ui-portal')).toBe('');
+	});
+
+	it('applies a render snippet to the portal element', async () => {
+		render(PortalRenderHarness, { part: 'popover' });
+
+		await expect.poll(() => document.querySelector('[data-replacement]')).not.toBeNull();
+		const portal = document.querySelector('[data-replacement]');
+		if (!(portal instanceof HTMLDivElement)) throw new Error('portal is not a div');
+
+		expect(portal.getAttribute('data-slot')).toBe('popover-portal');
+		expect(portal.classList.contains('portal-host')).toBe(true);
+		expect(portal.getAttribute('data-base-ui-portal')).toBe('');
+		expect(portal.dataset.attached).toBe('yes');
+		expect(portal.dataset.attachedInBody).toBe('yes');
+		expect(portal.parentElement).toBe(document.body);
+		expect(portal.querySelector('[role="dialog"]')).not.toBeNull();
+	});
+
+	it('does not mount while container is null', async () => {
+		const view = render(PortalContainerHarness, { part: 'popover' });
+		await tick();
+		await new Promise<void>((resolve) => {
+			requestAnimationFrame(() => resolve());
+		});
+
+		expect(document.querySelector('[data-slot="popover-portal"]')).toBeNull();
+		expect(document.body.querySelector('[role="dialog"]')).toBeNull();
+
+		await view.rerender({ part: 'popover', provide: true });
+		const holder = document.querySelector('[data-testid="portal-holder"]');
+		await expect
+			.poll(() => document.querySelector('[data-slot="popover-portal"]')?.parentElement)
+			.toBe(holder);
+		expect(document.querySelector('[data-slot="popover-portal"] [role="dialog"]')).not.toBeNull();
 	});
 
 	it('ignores a stray store prop on the portal', async () => {

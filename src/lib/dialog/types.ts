@@ -140,7 +140,12 @@ export interface DialogTriggerProps<Payload = unknown> extends DialogControlProp
 	render?: Snippet<[props: DialogTriggerHostProps, state: DialogTriggerState, children: Snippet]>;
 }
 
-export type DialogPortalProps = PortalProps;
+export interface DialogPortalProps extends PortalProps {
+	/**
+	 * Replace the portal element. The snippet receives host props, an empty state, and the children snippet.
+	 */
+	render?: PartRender<HTMLDivElement, DialogPortalState>;
+}
 
 export interface DialogPopupProps extends Omit<HTMLAttributes<HTMLDivElement>, 'children'> {
 	/**

@@ -111,7 +111,12 @@ export interface PopoverTriggerProps<Payload = unknown> extends Omit<
 	children?: Snippet;
 }
 
-export type PopoverPortalProps = PortalProps;
+export interface PopoverPortalProps extends PortalProps {
+	/**
+	 * Replace the portal element. The snippet receives host props, an empty state, and the children snippet.
+	 */
+	render?: PartRender<HTMLDivElement, Record<string, never>>;
+}
 
 export interface PopoverPositionerState {
 	open: boolean;

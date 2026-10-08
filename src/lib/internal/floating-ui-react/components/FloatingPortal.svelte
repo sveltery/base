@@ -12,8 +12,12 @@
 	// in `useFloatingPortalNode`), so a consumer ref sees the container. The move is that portal,
 	// not the ref. `MOUNT` is spread before `rest` so a consumer `{@attach}` sees the same parent.
 	// `data-base-ui-portal` is set after that spread, so a consumer value cannot replace the marker.
+	// Upstream `useRenderElement` applies `render` and `className` to this div. The snippet receives
+	// the same host props, including the move attachment. `class` is the native class name.
+	// Explicit `container={null}` waits. `undefined` still uses the parent portal or `document.body`.
 
 	import { getContext, hasContext, setContext, type Snippet } from 'svelte';
+	import type { Attachment } from 'svelte/attachments';
 	import type { HTMLAttributes } from 'svelte/elements';
 	import type { FloatingRootStore } from './FloatingRootStore.svelte.js';
 
@@ -21,17 +25,24 @@
 		readonly node: HTMLElement | null;
 	}
 
+	type PortalState = Record<string, never>;
+	type PortalHostProps = HTMLAttributes<HTMLDivElement> &
+		Record<symbol, Attachment<HTMLDivElement>>;
+
 	const PORTAL = Symbol.for('sveltery-floating-portal');
+	const portalState: PortalState = {};
 
 	let {
 		store,
 		children,
 		container = undefined,
+		render,
 		...rest
 	}: {
 		store: FloatingRootStore;
 		children?: Snippet;
 		container?: HTMLElement | ShadowRoot | null;
+		render?: Snippet<[props: PortalHostProps, state: PortalState, children: Snippet]>;
 	} & Omit<HTMLAttributes<HTMLDivElement>, 'children'> = $props();
 
 	let portalNode = $state<HTMLDivElement | null>(null);
@@ -44,6 +55,7 @@
 	});
 
 	function mount(node: HTMLDivElement) {
+		// Null is excluded by the template. `undefined` keeps the parent portal, then the body.
 		const target = container ?? parent?.node ?? document.body;
 		target.append(node);
 		portalNode = node;
@@ -54,8 +66,26 @@
 			node.remove();
 		};
 	}
+
+	function hostProps(): PortalHostProps {
+		return {
+			[MOUNT]: mount,
+			...rest,
+			'data-base-ui-portal': ''
+		} as PortalHostProps;
+	}
 </script>
 
-<div {...{ [MOUNT]: mount }} {...rest} data-base-ui-portal="">
+{#snippet content()}
 	{@render children?.()}
-</div>
+{/snippet}
+
+{#if container !== null}
+	{#if render}
+		{@render render(hostProps(), portalState, content)}
+	{:else}
+		<div {...{ [MOUNT]: mount }} {...rest} data-base-ui-portal="">
+			{@render content()}
+		</div>
+	{/if}
+{/if}
