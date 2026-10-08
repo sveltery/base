@@ -25,17 +25,18 @@
 
 	const reading = useDirection();
 	const tabs = useTabsRootContext();
-	const roving = new CompositeRoot({
+	const roving: CompositeRoot = new CompositeRoot({
 		orientation: () => tabs.orientation,
 		loopFocus: () => loopFocus,
 		direction: () => reading.direction,
 		isItemDisabled: (element) => isSkipped(element),
-		isItemSelected: (element) => {
+		isItemSelected: (element): boolean => {
 			const meta = roving.meta(element);
 			const current = tabs.value;
 			if (meta.disabled || current == null || !('value' in meta)) return false;
 			return meta.value === current;
 		},
+		disabledHoldsStop: true,
 		keys: 'composite',
 		homeEnd: true,
 		stopPropagation: false,

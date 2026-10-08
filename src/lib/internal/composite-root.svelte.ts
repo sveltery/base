@@ -34,6 +34,11 @@ export interface CompositeRootOptions {
 	replacement?: 'first' | 'index';
 	/** `item` listens on each host. `root` listens on the composite root. */
 	keydown?: 'item' | 'root';
+	/**
+	 * Metadata `disabled` can hold the tab stop. Tabs keeps those items focusable.
+	 * Radio and toggle still refuse a disabled stop.
+	 */
+	disabledHoldsStop?: boolean;
 }
 
 export interface CompositeHandlers {
@@ -349,8 +354,12 @@ export class CompositeRoot extends CompositeItems {
 		return this.options.isItemDisabled?.(element) ?? false;
 	}
 
-	/** Tab stop. Metadata `disabled` cannot hold tabindex, even when arrows may focus it. */
+	/**
+	 * Tab stop. Metadata `disabled` blocks it, except on a list that keeps
+	 * disabled items focusable. Keyboard skip stays on `isItemDisabled`.
+	 */
 	private stopBlocked(element: HTMLElement) {
+		if (this.options.disabledHoldsStop) return this.itemDisabled(element);
 		return Boolean(this.readers.get(element)?.().disabled) || this.itemDisabled(element);
 	}
 

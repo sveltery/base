@@ -60,12 +60,12 @@
 		}
 	});
 
-	const roving = new CompositeRoot({
+	const roving: CompositeRoot = new CompositeRoot({
 		orientation: () => 'both',
 		direction: () => reading.direction,
 		isItemDisabled: (element) =>
 			isSkipped(element) || element.getAttribute('aria-disabled') === 'true',
-		isItemSelected: (element) => {
+		isItemSelected: (element): boolean => {
 			const current = controllable.value;
 			const meta = roving.meta(element);
 			return current !== undefined && meta.value === current && meta.disabled !== true;
