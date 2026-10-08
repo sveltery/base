@@ -7,10 +7,13 @@
 -->
 <script lang="ts">
 	import type { HTMLAttributes } from 'svelte/elements';
+	import { CompositeRoot } from '../internal/composite-root.svelte.js';
+	import { isSkipped } from '../internal/composite-skip.js';
 	import { useDirection } from '../internal/direction-context.js';
 	import { getStateAttributesProps } from '../internal/state-attributes.js';
 	import { tabsStateAttributesMapping } from './attributes.js';
 	import { setTabsListContext, TabsListModel, useTabsRootContext } from './context.svelte.js';
+	import type { TabsValue } from './types.js';
 	import type { TabsListProps, TabsListState } from './types.js';
 
 	let {
@@ -23,11 +26,28 @@
 
 	const reading = useDirection();
 	const tabs = useTabsRootContext();
-	const list = new TabsListModel();
+	const tabIdentity = new WeakMap<HTMLElement, { value: TabsValue; disabled: boolean }>();
+	const roving = new CompositeRoot({
+		orientation: () => tabs.orientation,
+		loopFocus: () => loopFocus,
+		direction: () => reading.direction,
+		isItemDisabled: (element) => isSkipped(element),
+		isItemSelected: (element) => {
+			const record = tabIdentity.get(element);
+			const current = tabs.value;
+			if (!record || record.disabled || current == null) return false;
+			return record.value === current;
+		},
+		keys: 'composite',
+		homeEnd: true,
+		stopPropagation: false,
+		replacement: 'index',
+		keydown: 'item'
+	});
+	const list = new TabsListModel(roving, (element, value, disabled) => {
+		tabIdentity.set(element, { value, disabled });
+	});
 	list.readActivateOnFocus = () => activateOnFocus;
-	list.roving.readDirection = () => reading.direction;
-	list.roving.readLoopFocus = () => loopFocus;
-	list.roving.readOrientation = () => tabs.orientation;
 	setTabsListContext(list);
 
 	function attachList(element: HTMLElement) {
@@ -48,16 +68,14 @@
 		...(tabs.orientation === 'vertical' ? { 'aria-orientation': 'vertical' as const } : {}),
 		...getStateAttributesProps(state, tabsStateAttributesMapping),
 		...elementProps,
-		[list.roving.keyForAttachment()]: attachList
+		[list.roving.attachmentKey]: attachList
 	});
 </script>
 
-{#snippet content()}
-	{@render children?.()}
-{/snippet}
+{#snippet empty()}{/snippet}
 
 {#if render}
-	{@render render(hostProps, state, content)}
+	{@render render(hostProps, state, children ?? empty)}
 {:else}
-	<div {...hostProps}>{@render content()}</div>
+	<div {...hostProps}>{@render children?.()}</div>
 {/if}

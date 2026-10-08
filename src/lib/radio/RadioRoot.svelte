@@ -9,15 +9,16 @@
 	roving focus, this root registers as a composite item.
 -->
 <script lang="ts">
+	import { untrack } from 'svelte';
 	import { createAttachmentKey, type Attachment } from 'svelte/attachments';
-	import { currentHost, dispatchClick, isLink } from '../internal/click.js';
+	import { clickOnSpaceKeyUp, currentHost, dispatchClick } from '../internal/click.js';
 	import { toCssStyle } from '../internal/css-style.js';
 	import { createChangeEventDetails, REASONS } from '../internal/event-details.js';
 	import { visuallyHidden, visuallyHiddenInput } from '../internal/visuallyHidden.js';
 	import { radioRootAttributes } from './attributes.js';
 	import { setRadioContext } from './context.js';
 	import { useRadioGroupContext } from './group-context.js';
-	import { findAssociatedLabel } from '../internal/associated-label.js';
+	import { nativeFallbackLabelId } from '../internal/associated-label.js';
 	import { serializeValue } from './serialize-value.js';
 	import type { RadioHostProps, RadioRootProps, RadioRootState } from './types.js';
 
@@ -89,6 +90,7 @@
 
 	function registerRoot(element: HTMLElement) {
 		rootNode = element;
+		untrack(() => group?.bindRadioValue?.(element, value));
 		const remove = group?.roving?.register(element);
 		return () => {
 			remove?.();
@@ -118,11 +120,10 @@
 	});
 
 	$effect(() => {
-		const register = group?.registerInput;
-		const input = inputNode;
-		if (!register || !input) return;
-		if (disabled && checked) return register(null);
-		return register(input);
+		const element = rootNode;
+		const next = value;
+		if (!element) return;
+		group?.bindRadioValue?.(element, next);
 	});
 
 	function handleInputClick(event: MouseEvent) {
@@ -130,9 +131,6 @@
 		// implementation detail and must not reach ancestors.
 		event.stopPropagation();
 		activationEvent = event;
-		queueMicrotask(() => {
-			if (activationEvent === event) activationEvent = undefined;
-		});
 	}
 
 	function handleInputChange(event: Event) {
@@ -197,61 +195,31 @@
 		if (disabled) return;
 
 		onkeydown?.(event);
-		// Radio only activates with Space. Preventing Enter stops it becoming a click.
-		if (event.key === 'Enter') event.preventDefault();
-
 		const current = currentHost(event);
 		if (!current) return;
 
-		const buttonElement = current instanceof HTMLButtonElement;
-		const link = isLink(current, nativeButton);
-		const shouldClick = nativeButton ? buttonElement : !link;
-		const isSpace = event.key === ' ';
-		const isEnter = event.key === 'Enter';
-
-		if (!shouldClick || nativeButton || (!isSpace && !isEnter)) {
-			if (link && isSpace) event.preventDefault();
+		// Radio only activates with Space. Enter never becomes a click.
+		if (event.key === 'Enter') {
+			event.preventDefault();
 			return;
 		}
 
-		if (event.defaultPrevented) return;
+		if (event.key !== ' ' || nativeButton || event.defaultPrevented) return;
+		if (current instanceof HTMLButtonElement) return;
 
 		event.preventDefault();
-		if (isEnter) dispatchClick(current, event);
 	}
 
 	function handleKeyUp(event: KeyboardEvent & { currentTarget: EventTarget & HTMLElement }) {
 		if (disabled) return;
-
 		onkeyup?.(event);
-		if (event.defaultPrevented || nativeButton || event.key !== ' ') return;
-
-		const current = currentHost(event);
-		if (!current) return;
-		dispatchClick(current, event);
+		clickOnSpaceKeyUp(event, nativeButton);
 	}
 
 	$effect(() => {
-		if (nativeButton || ariaLabelledBy) {
-			fallbackLabelId = undefined;
-			return;
-		}
-
-		const input = inputNode;
-		const sourceId = hiddenInputId;
-		if (!input) {
-			fallbackLabelId = undefined;
-			return;
-		}
-
-		const label = findAssociatedLabel(input);
-		if (!label) {
-			fallbackLabelId = undefined;
-			return;
-		}
-
-		if (!label.id && sourceId) label.id = `${sourceId}-label`;
-		fallbackLabelId = label.id || undefined;
+		// Assigns an id on the native label when it has none. That write has to stay in an effect.
+		const id = nativeFallbackLabelId(nativeButton, ariaLabelledBy, inputNode, hiddenInputId);
+		fallbackLabelId = id;
 	});
 
 	const hostProps: RadioHostProps & Record<symbol, Attachment<HTMLElement>> = $derived.by(() => {
@@ -260,7 +228,11 @@
 			...radioRootAttributes(radioState),
 			...(nativeButton ? { type: 'button' as const } : {}),
 			tabindex: group?.roving
-				? group.roving.tabIndex(rootNode, checked, group.checkedValue !== undefined, renderIndex)
+				? group.roving.tabIndex(rootNode, renderIndex, {
+						disabled,
+						selected: checked,
+						hasSelection: group.checkedValue !== undefined
+					})
 				: !nativeButton && disabled
 					? -1
 					: 0,

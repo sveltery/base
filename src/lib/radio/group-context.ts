@@ -19,9 +19,8 @@ export interface RadioGroupRovingFocus {
 	highlight(element: HTMLElement): void;
 	tabIndex(
 		node: HTMLElement | null,
-		selected: boolean,
-		hasSelection: boolean,
-		renderIndex: number
+		renderIndex: number,
+		meta: { disabled?: boolean; selected?: boolean; hasSelection?: boolean }
 	): 0 | -1;
 }
 
@@ -41,7 +40,8 @@ export interface RadioGroupContextValue {
 	readonly roving?: RadioGroupRovingFocus;
 	setCheckedValue: (value: unknown, eventDetails: RadioRootChangeEventDetails) => void;
 	setTouched: (touched: boolean) => void;
-	registerInput: (element: HTMLInputElement | null) => void | (() => void);
+	/** Remember which value this radio host represents so the tab stop can follow it. */
+	bindRadioValue?: (element: HTMLElement, value: unknown) => void;
 }
 
 export function setRadioGroupContext(context: RadioGroupContextValue) {

@@ -83,8 +83,7 @@
 		},
 		setTouched(next: boolean) {
 			touched = next;
-		},
-		registerInput() {}
+		}
 	});
 
 	function clicked(event: MouseEvent) {

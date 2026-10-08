@@ -3,9 +3,13 @@
 // packages/react/src/internals/composite/item/useCompositeItem.ts
 // (commit 47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c). MIT, see THIRD_PARTY_NOTICES.md.
 
-import type { ToolbarRoving, ToolbarRovingHandlers } from '../internal/toolbar-roving.svelte.js';
+import type {
+	CompositeHandlers,
+	CompositeMeta,
+	CompositeRoot
+} from '../internal/composite-root.svelte.js';
 
-export function registerToolbarItem(roving: ToolbarRoving) {
+export function registerToolbarItem(roving: CompositeRoot) {
 	let node = $state<HTMLElement | null>(null);
 	const renderIndex = roving.claim();
 
@@ -18,9 +22,8 @@ export function registerToolbarItem(roving: ToolbarRoving) {
 		};
 	}
 
-	function hosted(handlers: ToolbarRovingHandlers) {
-		const props = roving.item(node, register, handlers, renderIndex);
-		return { props, attachmentKey: roving.keyForAttachment() };
+	function hosted(handlers: CompositeHandlers, meta: CompositeMeta = {}) {
+		return roving.item(node, register, handlers, renderIndex, meta);
 	}
 
 	return {

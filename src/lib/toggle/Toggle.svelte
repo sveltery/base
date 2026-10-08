@@ -6,6 +6,7 @@
 <script lang="ts">
 	import type { Attachment } from 'svelte/attachments';
 	import type { HTMLButtonAttributes } from 'svelte/elements';
+	import type { CompositeHandlers } from '../internal/composite-root.svelte.js';
 	import { createChangeEventDetails, REASONS } from '../internal/event-details.js';
 	import { getStateAttributesProps } from '../internal/state-attributes.js';
 	import { useToggleGroupContext } from '../toggle-group/context.svelte.js';
@@ -40,8 +41,8 @@
 	let node = $state<HTMLButtonElement | null>(null);
 	const renderIndex = group ? group.roving.claim() : 0;
 
-	function register(element: HTMLButtonElement) {
-		node = element;
+	function register(element: HTMLElement) {
+		node = element as HTMLButtonElement;
 		const remove = group?.roving.register(element);
 		return () => {
 			remove?.();
@@ -55,8 +56,9 @@
 	});
 
 	$effect(() => {
-		if (!group) return;
-		group.roving.sync(node, disabledState);
+		const host = { node, disabled: disabledState };
+		if (!group || !host.node) return;
+		group.roving.sync();
 	});
 
 	function handleClick(event: MouseEvent & { currentTarget: EventTarget & HTMLButtonElement }) {
@@ -79,8 +81,16 @@
 
 	const hostProps: HTMLButtonAttributes & Record<symbol, Attachment<HTMLButtonElement>> =
 		$derived.by(() => {
-			const roving = group?.roving.host(node, register, { onfocus, onkeydown }, renderIndex);
-			const attachmentKey = group?.roving.keyForAttachment();
+			const roving = group?.roving.item(
+				node,
+				register,
+				{
+					onfocus: onfocus as CompositeHandlers['onfocus'],
+					onkeydown: onkeydown as CompositeHandlers['onkeydown']
+				},
+				renderIndex,
+				{ disabled: disabledState }
+			);
 			return {
 				type: 'button',
 				...(roving
@@ -91,11 +101,11 @@
 				'aria-pressed': pressedState,
 				disabled: disabledState,
 				onclick: handleClick,
-				...(roving && attachmentKey
+				...(roving && group
 					? {
 							onfocus: roving.onfocus,
 							onkeydown: roving.onkeydown,
-							[attachmentKey]: roving[attachmentKey]
+							[group.roving.attachmentKey]: roving[group.roving.attachmentKey]
 						}
 					: {})
 			};

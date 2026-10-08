@@ -47,7 +47,7 @@ Parts of this package derive from [Base UI](https://github.com/mui/base-ui) v1.8
 - `src/lib/toggle/Toggle.svelte.spec.ts` assertions from `packages/react/src/toggle/Toggle.test.tsx`
 - `src/lib/toggle-group/ToggleGroup.svelte` from `packages/react/src/toggle-group/ToggleGroup.tsx`
 - `src/lib/toggle-group/context.svelte.ts` from `packages/react/src/toggle-group/ToggleGroupContext.ts`
-- `src/lib/internal/toggle-roving.svelte.ts` from the linear path of `packages/react/src/internals/composite/root/useCompositeRoot.ts` and `packages/react/src/internals/composite/item/useCompositeItem.ts`
+- `src/lib/internal/composite-root.svelte.ts` from the linear path of `packages/react/src/internals/composite/root/useCompositeRoot.ts` and `packages/react/src/internals/composite/item/useCompositeItem.ts`, including Toolbar's Home/End off, RadioGroup's orientation `both` with Shift allowed, and `Tabs.List`'s empty `disabledIndices`
 - `src/lib/toggle-group/ToggleGroup.svelte.spec.ts` assertions from `packages/react/src/toggle-group/ToggleGroup.test.tsx`
 - `src/lib/internal/event-details.ts` from `packages/react/src/internals/createBaseUIEventDetails.ts`
 - `src/lib/internal/state-attributes.ts` from `packages/react/src/internals/getStateAttributesProps.ts`
@@ -112,7 +112,6 @@ Parts of this package derive from [Base UI](https://github.com/mui/base-ui) v1.8
 - `src/lib/radio/context.ts` from `packages/react/src/radio/root/RadioRootContext.ts`
 - `src/lib/radio/group-context.ts` from the fields `Radio.Root` reads in `packages/react/src/radio-group/RadioGroupContext.ts`
 - `src/lib/radio-group/RadioGroup.svelte` from `packages/react/src/radio-group/RadioGroup.tsx`
-- `src/lib/internal/radio-roving.svelte.ts` from the linear path of `packages/react/src/internals/composite/root/useCompositeRoot.ts` with RadioGroup's `CompositeRoot` options (orientation `both`, Home/End off, Shift allowed)
 - `src/lib/radio-group/RadioGroup.svelte.spec.ts` assertions from `packages/react/src/radio-group/RadioGroup.test.tsx` that do not require Field or `inputRef`
 - `src/lib/radio/attributes.ts` from `packages/react/src/radio/utils/stateAttributesMapping.ts` (Field validity attributes omitted)
 - `src/lib/radio/serialize-value.ts` from `packages/react/src/internals/serializeValue.ts`
@@ -124,7 +123,6 @@ Parts of this package derive from [Base UI](https://github.com/mui/base-ui) v1.8
 - `src/lib/tabs/TabsPanel.svelte` from `packages/react/src/tabs/panel/TabsPanel.tsx`, `useTransitionStatus` (default arguments), and `useOpenChangeComplete`
 - `src/lib/tabs/TabsIndicator.svelte` and `src/lib/tabs/indicator.ts` from `packages/react/src/tabs/indicator/TabsIndicator.tsx`, `packages/react/src/utils/getCssDimensions.ts`, and `packages/react/src/utils/getElementTransform.ts`
 - `src/lib/tabs/context.svelte.ts` from `packages/react/src/tabs/root/TabsRootContext.ts` and `packages/react/src/tabs/list/TabsListContext.ts`
-- `src/lib/tabs/roving-focus.svelte.ts` from the linear path of `packages/react/src/internals/composite/root/useCompositeRoot.ts` with `Tabs.List`'s empty `disabledIndices`
 - `src/lib/tabs/direction.ts` from `computeActivationDirection` in `packages/react/src/tabs/root/TabsRoot.tsx`
 - `src/lib/tabs/attributes.ts` from `packages/react/src/tabs/root/stateAttributesMapping.ts`, `packages/react/src/tabs/panel/TabsPanelDataAttributes.ts`, and `packages/react/src/tabs/indicator/TabsIndicatorCssVars.ts`
 - `src/lib/tabs/Tabs.svelte.spec.ts` assertions from `packages/react/src/tabs/**/*.test.tsx`
@@ -133,7 +131,6 @@ Parts of this package derive from [Base UI](https://github.com/mui/base-ui) v1.8
 - `src/lib/toolbar/ToolbarGroup.svelte` from `packages/react/src/toolbar/group/ToolbarGroup.tsx`
 - `src/lib/toolbar/ToolbarLink.svelte` from `packages/react/src/toolbar/link/ToolbarLink.tsx`
 - `src/lib/toolbar/context.svelte.ts` from `packages/react/src/toolbar/root/ToolbarRootContext.ts` and `packages/react/src/toolbar/group/ToolbarGroupContext.ts`
-- `src/lib/internal/toolbar-roving.svelte.ts` from the linear path of `packages/react/src/internals/composite/root/useCompositeRoot.ts` and `packages/react/src/internals/composite/item/useCompositeItem.ts` with Toolbar's CompositeRoot options (Home/End off)
 - `src/lib/toolbar/Toolbar.svelte.spec.ts` assertions from `packages/react/src/toolbar/**/*.test.tsx` that do not require Toolbar.Input or an overlay
 - `src/lib/number-field/NumberFieldRoot.svelte` and `src/lib/number-field/model.svelte.ts` from `packages/react/src/number-field/root/NumberFieldRoot.tsx`
 - `src/lib/number-field/NumberFieldGroup.svelte` from `packages/react/src/number-field/group/NumberFieldGroup.tsx`
@@ -182,7 +179,7 @@ Parts of this package derive from [Base UI](https://github.com/mui/base-ui) v1.8
 - `src/lib/internal/css-style.ts` from the style-string helpers shared by Progress, NumberField, OTP Field, Slider, Checkbox, Radio, and Switch
 - `src/lib/internal/click.ts` from `packages/react/src/utils/dispatchClickWithModifiers.ts` and the host and link checks in `packages/react/src/internals/use-button/useButton.ts`
 - `src/lib/internal/document-order.ts` from the composite list DOM-order comparison
-- `src/lib/internal/roving-slot.ts` and `src/lib/internal/composite-items.svelte.ts` from the render-order index in `packages/react/src/internals/composite/list/useCompositeListItem.ts` and `CompositeList.tsx` (`createSlotClaim`, `RenderOrder`, `CompositeItems`, `includeSorted`, `registeredTabIndex`)
+- `src/lib/internal/roving-slot.ts` and `src/lib/internal/composite-items.svelte.ts` from the render-order index in `packages/react/src/internals/composite/list/useCompositeListItem.ts` and `CompositeList.tsx` (`RenderOrder`, `CompositeItems`, `includeSorted`, `registeredTabIndex`)
 - `src/lib/internal/GroupFrame.svelte` from the host markup of `packages/react/src/checkbox-group/CheckboxGroup.tsx` and `packages/react/src/radio-group/RadioGroup.tsx`
 - `src/lib/toolbar/item-registration.svelte.ts` from the item ref in `packages/react/src/internals/composite/item/useCompositeItem.ts`
 - `src/lib/scroll-area/track-style.ts` and `src/lib/scroll-area/scrollbar-part.svelte.ts` from the scrollbar geometry in `packages/react/src/scroll-area/scrollbar/ScrollAreaScrollbar.tsx`
@@ -225,7 +222,7 @@ Parts of this package derive from [Base UI](https://github.com/mui/base-ui) v1.8
 - `src/lib/popover/handle.svelte.ts` from `packages/react/src/popover/store/PopoverHandle.ts` (extends the shared `PopupHandle`; Dialog's payload writers are not included)
 - `src/lib/popover/PopoverLabel.svelte` from `packages/react/src/popover/title/PopoverTitle.tsx` and `packages/react/src/popover/description/PopoverDescription.tsx`
 - `src/lib/popover/context.svelte.ts` from the popover root, portal, and positioner context modules
-- `src/lib/internal/composite-keys.ts` from Base UI `COMPOSITE_KEYS` and the arrow subset (`ARROWS`), shared by dialog, popover, slider, tabs, toggle group, toolbar, and radio group
+- `src/lib/internal/composite-keys.ts` from Base UI `COMPOSITE_KEYS` and the arrow subset (`ARROW_KEYS`), shared by dialog, popover, slider, tabs, toggle group, toolbar, and radio group
 - `src/lib/internal/useButton.ts` from the non-composite path of `packages/react/src/internals/use-button/useButton.ts`
 - `src/lib/internal/adaptiveOriginMiddleware.ts` from `packages/react/src/utils/adaptiveOriginMiddleware.ts`
 - `createDefaultInitialFocus` and `resolveFocus` in `src/lib/internal/popups/popupStoreUtils.ts` from `packages/react/src/utils/popups/popupStoreUtils.ts`

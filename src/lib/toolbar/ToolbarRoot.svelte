@@ -6,6 +6,9 @@
 -->
 <script lang="ts">
 	import type { HTMLAttributes } from 'svelte/elements';
+	import GroupFrame from '../internal/GroupFrame.svelte';
+	import { CompositeRoot } from '../internal/composite-root.svelte.js';
+	import { isSkipped } from '../internal/composite-skip.js';
 	import { useDirection } from '../internal/direction-context.js';
 	import { getStateAttributesProps } from '../internal/state-attributes.js';
 	import { setToolbarRootContext, ToolbarRootContext } from './context.svelte.js';
@@ -22,13 +25,22 @@
 	}: ToolbarRootProps = $props();
 
 	const reading = useDirection();
+	const roving = new CompositeRoot({
+		orientation: () => orientation,
+		loopFocus: () => loopFocus,
+		direction: () => reading.direction,
+		isItemDisabled: (element) => isSkipped(element),
+		keys: 'arrows',
+		homeEnd: false,
+		stopPropagation: true,
+		replacement: 'index',
+		keydown: 'root'
+	});
 	const root = new ToolbarRootContext(
 		() => disabled,
-		() => orientation
+		() => orientation,
+		roving
 	);
-	root.roving.readDirection = () => reading.direction;
-	root.roving.readLoopFocus = () => loopFocus;
-	root.roving.readOrientation = () => orientation;
 	setToolbarRootContext(root);
 
 	const state: ToolbarRootState = $derived({ disabled, orientation });
@@ -52,8 +64,4 @@
 	});
 </script>
 
-{#if render}
-	{@render render(hostProps, state)}
-{:else}
-	<div {...hostProps}>{@render children?.()}</div>
-{/if}
+<GroupFrame {hostProps} {state} {render} {children} />

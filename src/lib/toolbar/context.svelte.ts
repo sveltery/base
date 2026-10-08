@@ -2,8 +2,8 @@
 // and packages/react/src/toolbar/group/ToolbarGroupContext.ts
 // (commit 47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c). MIT, see THIRD_PARTY_NOTICES.md.
 import { getContext, hasContext, setContext } from 'svelte';
+import type { CompositeRoot } from '../internal/composite-root.svelte.js';
 import type { ToolbarOrientation } from './types.js';
-import { ToolbarRoving } from '../internal/toolbar-roving.svelte.js';
 
 const TOOLBAR_ROOT_CONTEXT = Symbol('toolbar-root');
 const TOOLBAR_GROUP_CONTEXT = Symbol('toolbar-group');
@@ -13,13 +13,18 @@ const TOOLBAR_GROUP_CONTEXT = Symbol('toolbar-group');
  * is visible without copying them into another `$state`.
  */
 export class ToolbarRootContext {
-	readonly roving = new ToolbarRoving();
+	readonly roving: CompositeRoot;
 	readonly readDisabled: () => boolean;
 	readonly readOrientation: () => ToolbarOrientation;
 
-	constructor(readDisabled: () => boolean, readOrientation: () => ToolbarOrientation) {
+	constructor(
+		readDisabled: () => boolean,
+		readOrientation: () => ToolbarOrientation,
+		roving: CompositeRoot
+	) {
 		this.readDisabled = readDisabled;
 		this.readOrientation = readOrientation;
+		this.roving = roving;
 	}
 
 	get disabled() {

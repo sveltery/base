@@ -6,9 +6,11 @@
 	Field registration and inputRef are not ported. The radios are the existing Radio parts.
 -->
 <script lang="ts">
-	import { createAttachmentKey, type Attachment } from 'svelte/attachments';
+	import type { Attachment } from 'svelte/attachments';
 	import type { HTMLAttributes } from 'svelte/elements';
 	import GroupFrame from '../internal/GroupFrame.svelte';
+	import { CompositeRoot } from '../internal/composite-root.svelte.js';
+	import { isSkipped } from '../internal/composite-skip.js';
 	import { getStateAttributesProps } from '../internal/state-attributes.js';
 	import { createControllableValue } from '../internal/controllable-value.svelte.js';
 	import { useDirection } from '../internal/direction-context.js';
@@ -17,7 +19,6 @@
 	import { useFieldsetRootContext } from '../fieldset/context.svelte.js';
 	import { setRadioGroupContext } from '../radio/group-context.js';
 	import type { RadioRootChangeEventDetails } from '../radio/types.js';
-	import { RadioGroupRoving } from '../internal/radio-roving.svelte.js';
 	import type { RadioGroupProps, RadioGroupState } from './types.js';
 
 	let {
@@ -40,12 +41,10 @@
 	let touched = $state(false);
 
 	const reading = useDirection();
-	const roving = new RadioGroupRoving();
-	roving.readDirection = () => reading.direction;
+	const radioValues = new WeakMap<HTMLElement, unknown>();
 	const formContext = useFormContext();
 	const field = useFieldContext(true);
 	const fieldset = useFieldsetRootContext(true);
-	const arrowKey = createAttachmentKey();
 
 	const controllable = createControllableValue<unknown>({
 		getProp: () => value,
@@ -60,6 +59,23 @@
 			field.setFilled(next != null);
 			field.change(next);
 		}
+	});
+
+	const roving = new CompositeRoot({
+		orientation: () => 'both',
+		direction: () => reading.direction,
+		isItemDisabled: (element) =>
+			isSkipped(element) || element.getAttribute('aria-disabled') === 'true',
+		isItemSelected: (element) => {
+			const current = controllable.value;
+			return current !== undefined && radioValues.get(element) === current;
+		},
+		keys: 'arrows',
+		modifiers: 'shift-ok',
+		homeEnd: false,
+		stopPropagation: true,
+		replacement: 'index',
+		keydown: 'root'
 	});
 
 	function setCheckedValue(next: unknown, details: RadioRootChangeEventDetails) {
@@ -96,23 +112,16 @@
 		setTouched(next) {
 			touched = next;
 		},
-		registerInput() {}
+		bindRadioValue(element, radioValue) {
+			radioValues.set(element, radioValue);
+			roving.sync();
+		}
 	});
 
-	function watchArrows(element: HTMLElement) {
-		function onKeyDown(event: KeyboardEvent) {
-			if (event.key.startsWith('Arrow')) touched = true;
-		}
-		element.addEventListener('keydown', onKeyDown, true);
-		return () => element.removeEventListener('keydown', onKeyDown, true);
-	}
-
-	function handleFocus(event: FocusEvent & { currentTarget: EventTarget & HTMLDivElement }) {
-		onfocus?.(event);
-	}
-
-	function handleBlur(event: FocusEvent & { currentTarget: EventTarget & HTMLDivElement }) {
-		onblur?.(event);
+	function arrowsTouched(event: KeyboardEvent) {
+		if (!event.key.startsWith('Arrow')) return;
+		const modified = event.shiftKey || event.altKey || event.ctrlKey || event.metaKey;
+		touched = !modified;
 	}
 
 	function handleKeyDown(event: KeyboardEvent & { currentTarget: EventTarget & HTMLDivElement }) {
@@ -139,10 +148,13 @@
 				...(required ? { 'aria-required': true as const } : {}),
 				...elementProps,
 				...(labelledBy ? { 'aria-labelledby': labelledBy } : {}),
-				onfocus: handleFocus,
-				onblur: handleBlur,
+				onfocus,
+				onblur: (event) => {
+					onblur?.(event);
+					touched = false;
+				},
 				onkeydown: handleKeyDown,
-				[arrowKey]: watchArrows
+				onkeydowncapture: arrowsTouched
 			};
 		});
 </script>

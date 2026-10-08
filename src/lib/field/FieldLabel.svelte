@@ -32,6 +32,11 @@
 	const item = useFieldItemContext();
 	const labelable = useLabelableContext();
 	const id = $derived(idProp ?? `base-ui-${uid}`);
+	// Effects do not run while the label is rendered on the server, so publish
+	// the id now. OTP inputs read it for aria-labelledby in that same render.
+	// The effect below tracks later id changes.
+	// svelte-ignore state_referenced_locally
+	labelable.setLabelId(idProp ?? `base-ui-${uid}`);
 
 	const labelState: FieldLabelState = $derived({
 		...field.state,

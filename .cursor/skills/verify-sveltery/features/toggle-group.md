@@ -10,8 +10,8 @@ Shared pressed state for a series of toggles, with a roving tab stop. Upstream: 
 - `disabled` disables every toggle: native `disabled`, `aria-disabled="true"`, and `data-disabled`. An individual toggle can be disabled on its own. Enabled items inside a group expose `aria-disabled="false"`.
 - Each `Toggle` `value` is its id in the group. An omitted or empty value gets a generated `base-ui-` id. If the group `value` was passed and a toggle omits `value`, a dev warning is logged once.
 - A grouped toggle's `onPressedChange` runs first and shares the event details, so canceling there also skips the group update. `event.preventDefault()` on `onclick` skips both.
-- Roving tabindex: one item has `tabindex="0"`, the others `-1`. Arrow keys follow `orientation`. Horizontal arrows swap in RTL (`DirectionProvider`). Home and End move to the first and last focusable item. `loopFocus` defaults to true. Disabled items are skipped, and a tab stop that becomes disabled moves to the next focusable item.
-- The roving behavior is a small class. It exposes `tabindex`, focus handlers, and a registration attachment, spread into Toggle's host props. A `render` snippet receives those props.
+- Roving tabindex uses the shared composite root. One item has `tabindex="0"`, the others `-1`. A disabled first toggle is not the server tab stop. Arrow keys follow DOM order after a keyed reorder. They follow `orientation`. Horizontal arrows swap in RTL (`DirectionProvider`). Home and End move to the first and last focusable item. `loopFocus` defaults to true. Disabled items are skipped, and a tab stop that becomes disabled moves to the next focusable item.
+- The root exposes `tabindex`, focus handlers, and a registration attachment, spread into Toggle's host props. A `render` snippet receives those props.
 - Native rendering: a `render` snippet on the group receives `(props, state)`. Consumer `{@attach}` reaches the host.
 
 Differences from React Base UI, all deliberate:

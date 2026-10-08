@@ -29,11 +29,15 @@ describe('<Toolbar.Root />', () => {
 	});
 
 	describe('keyboard navigation', () => {
+		const right = 'ArrowRight';
+		const left = 'ArrowLeft';
+		const down = 'ArrowDown';
+		const up = 'ArrowUp';
 		it.each([
-			['ltr', 'horizontal', 'ArrowRight', 'ArrowLeft'],
-			['ltr', 'vertical', 'ArrowDown', 'ArrowUp'],
-			['rtl', 'horizontal', 'ArrowLeft', 'ArrowRight'],
-			['rtl', 'vertical', 'ArrowDown', 'ArrowUp']
+			['ltr', 'horizontal', right, left],
+			['ltr', 'vertical', down, up],
+			['rtl', 'horizontal', left, right],
+			['rtl', 'vertical', down, up]
 		] as const)('%s %s', async (dir, orientation, nextKey, prevKey) => {
 			render(ToolbarHarness, { scenario: 'keyboard', dir, orientation });
 			const one = button('One');

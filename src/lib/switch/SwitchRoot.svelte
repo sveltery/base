@@ -15,7 +15,7 @@
 	import { visuallyHidden, visuallyHiddenInput } from '../internal/visuallyHidden.js';
 	import { switchStateAttributesMapping } from './attributes.js';
 	import { setSwitchContext } from './context.js';
-	import { findAssociatedLabel } from '../internal/associated-label.js';
+	import { nativeFallbackLabelId } from '../internal/associated-label.js';
 	import type { SwitchHostProps, SwitchRootProps, SwitchRootState } from './types.js';
 
 	const uid = $props.id();
@@ -176,26 +176,9 @@
 
 	// Client-only: a sibling or wrapping <label> is not known during SSR.
 	$effect(() => {
-		if (nativeButton || ariaLabelledBy) {
-			fallbackLabelId = undefined;
-			return;
-		}
-
-		const input = inputNode;
-		const sourceId = hiddenInputId;
-		if (!input) {
-			fallbackLabelId = undefined;
-			return;
-		}
-
-		const label = findAssociatedLabel(input);
-		if (!label) {
-			fallbackLabelId = undefined;
-			return;
-		}
-
-		if (!label.id && sourceId) label.id = `${sourceId}-label`;
-		fallbackLabelId = label.id || undefined;
+		// Assigns an id on the native label when it has none. That write has to stay in an effect.
+		const id = nativeFallbackLabelId(nativeButton, ariaLabelledBy, inputNode, hiddenInputId);
+		fallbackLabelId = id;
 	});
 
 	const hostProps: SwitchHostProps & Record<symbol, Attachment<HTMLElement>> = $derived.by(() => {

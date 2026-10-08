@@ -1,23 +1,9 @@
 // Derived from Base UI v1.8.0 packages/react/src/internals/composite/list/useCompositeListItem.ts
 // (commit 47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c). MIT, see THIRD_PARTY_NOTICES.md.
-// Tabs still claims a render-order slot with `createSlotClaim`. Toolbar, Toggle
-// Group, Radio Group, and OTP Field use `RenderOrder`, which starts at 0 when
-// the list mounts and returns to the registered length after each flush.
+// `RenderOrder` starts at 0 when the list mounts and returns to the registered
+// length after each flush, including after the last item leaves.
 
 import { byDocumentOrder } from './document-order.js';
-
-/**
- * Render-order slot that never returns to 0. Tabs still uses this. Other
- * composites use `RenderOrder`.
- */
-export function createSlotClaim() {
-	let nextSlot = 0;
-	return () => {
-		const slot = nextSlot;
-		nextSlot += 1;
-		return slot;
-	};
-}
 
 /**
  * Guess each item's index from render order, including SSR, before the node

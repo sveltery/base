@@ -12,4 +12,4 @@ export const END = 'End';
 export const COMPOSITE_KEYS = new Set([ARROW_DOWN, ARROW_UP, ARROW_RIGHT, ARROW_LEFT, HOME, END]);
 
 /** Arrow keys only. Toolbar and RadioGroup do not treat Home or End as composite keys. */
-export const ARROWS = new Set([ARROW_DOWN, ARROW_UP, ARROW_RIGHT, ARROW_LEFT]);
+export const ARROW_KEYS = new Set([ARROW_DOWN, ARROW_UP, ARROW_RIGHT, ARROW_LEFT]);
