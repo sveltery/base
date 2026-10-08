@@ -35,10 +35,8 @@
 	const id = $derived(idProp ?? `base-ui-${uid}`);
 	// Effects do not run on the server. One untracked write publishes the id
 	// during this render. Controls rendered after this label can read it.
-	let published = '';
 	untrack(() => {
-		published = id;
-		labelable.setLabelId(published);
+		labelable.setLabelId(id);
 	});
 
 	const labelState: FieldLabelState = $derived({
@@ -57,9 +55,8 @@
 
 	$effect(() => {
 		const nextId = id;
-		if (nextId === published) return;
-		published = nextId;
-		labelable.setLabelId(nextId);
+		// The render above already published this id. Assign only when it changes.
+		if (untrack(() => labelable.labelId) !== nextId) labelable.setLabelId(nextId);
 		return () => {
 			labelable.setLabelId((current) => (current === nextId ? undefined : current));
 		};
