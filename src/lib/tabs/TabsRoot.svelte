@@ -52,4 +52,4 @@
 	});
 </script>
 
-<PartHost {render} {children} elementProps={hostProps} partState={state} />
+<PartHost tag="div" {render} {children} elementProps={hostProps} partState={state} />

@@ -102,14 +102,11 @@ export class TabsRootModel {
 			}
 
 			if (!this.notifiedInitial && selected) {
-				// The value is already selected, so `set` does not notify. Write it back
-				// when the bindable still holds `undefined`, and tell the consumer here.
-				this.values.set(current);
-				this.onValueChange?.(
-					current,
-					createTabsChangeEventDetails(REASONS.initial, undefined, 'none')
-				);
 				this.notifiedInitial = true;
+				// The selection is already current, so `set` only writes the bindable.
+				// `announce` tells the consumer after the DOM update, as a later change does.
+				this.values.set(current);
+				this.values.announce(createTabsChangeEventDetails(REASONS.initial, undefined, 'none'));
 			}
 		});
 	}

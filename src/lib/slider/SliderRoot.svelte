@@ -167,8 +167,6 @@
 			field.registerControl(fieldSource, {
 				id,
 				name: controlName,
-				// No snapshot. Submit and `actions.validate()` must read `getValue`.
-				value: undefined,
 				element: input,
 				getValue: readValue
 			});
@@ -199,4 +197,4 @@
 		});
 </script>
 
-<PartHost {render} {children} elementProps={hostProps} {partState} />
+<PartHost tag="div" {render} {children} elementProps={hostProps} {partState} />
