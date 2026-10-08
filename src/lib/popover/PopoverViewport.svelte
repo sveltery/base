@@ -25,6 +25,7 @@
 	const resizeFrame = AnimationFrame.create();
 
 	let currentEl = $state<HTMLDivElement | null>(null);
+	let previousSlot = $state<HTMLDivElement | null>(null);
 	let previousNode = $state<HTMLElement | null>(null);
 	let activationDirection = $state<string | undefined>(undefined);
 	let showStarting = $state(false);
@@ -40,15 +41,26 @@
 	$effect(() => {
 		const generation = store.triggerSwitch;
 		if (generation === 0) return;
+		const controller = new AbortController();
+		let host: HTMLDivElement | null = null;
 		untrack(() => {
 			const source = currentEl;
 			const active = store.domReferenceElement;
 			const previous = store.switchedFrom;
-			if (!source || !active || !previous) return;
-			previousNode = snapshot(source);
+			const slot = previousSlot;
+			if (!source || !active || !previous || !slot) return;
+			// Insert the clone in the same turn the previous pane appears. A later
+			// attachment leaves an empty shell that observers can read first.
+			host = source.ownerDocument.createElement('div');
+			host.setAttribute('data-previous', '');
+			host.inert = true;
+			host.setAttribute('aria-hidden', 'true');
+			host.style.position = 'absolute';
+			host.appendChild(snapshot(source));
+			slot.replaceChildren(host);
+			previousNode = host;
 			activationDirection = directionBetween(previous, active);
 			showStarting = true;
-			const controller = new AbortController();
 			frame.request(() => {
 				showStarting = false;
 				const node = currentEl;
@@ -56,16 +68,35 @@
 				runOnceAnimationsFinish(
 					node,
 					() => {
-						previousNode = null;
-						activationDirection = undefined;
+						if (controller.signal.aborted) return;
+						dropPrevious(host);
 					},
 					controller.signal,
 					false
 				);
 			});
 		});
-		return () => frame.cancel();
+		return () => {
+			controller.abort();
+			frame.cancel();
+			dropPrevious(host);
+		};
 	});
+
+	$effect(() => {
+		const host = previousNode;
+		if (!host) return;
+		if (showStarting) host.removeAttribute('data-ending-style');
+		else host.setAttribute('data-ending-style', '');
+	});
+
+	function dropPrevious(host: HTMLElement | null) {
+		host?.remove();
+		if (host && previousNode === host) {
+			previousNode = null;
+			activationDirection = undefined;
+		}
+	}
 
 	$effect(() => {
 		const content = store.payload;
@@ -238,21 +269,5 @@
 	<div bind:this={currentEl} data-current data-starting-style={showStarting ? '' : undefined}>
 		{@render children?.()}
 	</div>
-	{#if previousNode}
-		<div
-			data-previous
-			data-ending-style={showStarting ? undefined : ''}
-			inert
-			aria-hidden="true"
-			style="position: absolute"
-			{@attach (host) => {
-				const node = previousNode;
-				if (!node) return;
-				host.replaceChildren(node);
-				return () => {
-					if (node.parentNode === host) host.removeChild(node);
-				};
-			}}
-		></div>
-	{/if}
+	<div bind:this={previousSlot} style="display: contents"></div>
 {/snippet}

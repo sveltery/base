@@ -161,13 +161,14 @@ export interface PopoverPopupState {
 export interface PopoverPopupProps extends Omit<HTMLAttributes<HTMLDivElement>, 'children'> {
 	/**
 	 * Element to focus when the popover opens.
-	 * A function receives the interaction type. `true` and `null` use the default.
+	 * A function receives the open method. `true` and `null` use the default.
 	 * Touch focuses the popup itself so the virtual keyboard stays closed.
 	 */
 	initialFocus?: FocusTarget;
 	/**
 	 * Element to focus when the popover closes.
-	 * `true` and `null` return focus to the trigger.
+	 * A function receives the close interaction.
+	 * `null` falls back to the trigger. `true` returns focus there when it is still inside.
 	 */
 	finalFocus?: FocusTarget;
 	render?: PartRender<HTMLDivElement, PopoverPopupState>;

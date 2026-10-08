@@ -4,7 +4,6 @@
 	(commit 47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c). MIT, see THIRD_PARTY_NOTICES.md.
 -->
 <script lang="ts">
-	import { untrack } from 'svelte';
 	import { createAttachmentKey } from 'svelte/attachments';
 	import { REASONS } from '../internal/event-details.js';
 	import { toCssStyle } from '../internal/css-style.js';
@@ -13,7 +12,7 @@
 		useHoverFloatingInteraction
 	} from '../internal/floating-ui/index.js';
 	import { mergeProps } from '../internal/mergeProps.js';
-	import { FOCUSABLE_POPUP_PROPS, resolveFocus } from '../internal/popups/index.js';
+	import { createDefaultInitialFocus, FOCUSABLE_POPUP_PROPS } from '../internal/popups/index.js';
 	import { popupTransitionStateMapping } from '../internal/popupStateMapping.js';
 	import { getStateAttributesProps } from '../internal/state-attributes.js';
 	import { useOpenChangeComplete } from '../internal/useOpenChangeComplete.svelte.js';
@@ -72,26 +71,11 @@
 		};
 	}
 
-	let openChoice: boolean | HTMLElement | undefined;
-	let publishedChoice = $state<boolean | HTMLElement>(false);
-
-	$effect(() => {
-		const open = store.open;
-		const popup = store.popupElement;
-		const mounted = store.mounted;
-		const reason = store.openChangeReason;
-		if (!open) {
-			openChoice = undefined;
-			publishedChoice = false;
-			return;
-		}
-		if (!mounted || !popup || reason === REASONS.triggerHover) return;
-		openChoice ??= untrack(() => resolveFocus(initialFocus, store.openMethod ?? '', popup));
-		publishedChoice = openChoice ?? false;
-	});
-
-	function focusReturn(interaction: string | null) {
-		return resolveFocus(finalFocus, interaction ?? '', store.popupElement);
+	// Close interaction comes from the shared manager. `null` falls back to the trigger there.
+	function focusReturn(closeType: string | null): boolean | HTMLElement | null | void {
+		const spec = finalFocus;
+		if (typeof spec !== 'function') return spec;
+		return spec(closeType ?? '');
 	}
 
 	const popupState: PopoverPopupState = $derived({
@@ -134,8 +118,10 @@
 <FloatingFocusManager
 	{store}
 	disabled={!store.mounted || store.openChangeReason === REASONS.triggerHover}
-	initialFocus={publishedChoice}
-	returnFocus={finalFocus === undefined ? true : focusReturn}
+	initialFocus={initialFocus === undefined
+		? createDefaultInitialFocus(() => store.popupElement)
+		: initialFocus}
+	returnFocus={typeof finalFocus === 'function' ? focusReturn : finalFocus}
 	modal={store.focusManagerModal}
 >
 	{#if render}
