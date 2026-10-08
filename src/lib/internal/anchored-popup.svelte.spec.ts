@@ -1,7 +1,6 @@
-import { page } from 'vitest/browser';
+import { page, userEvent } from 'vitest/browser';
 import { describe, expect, it } from 'vitest';
 import { render } from 'vitest-browser-svelte';
-import { safePolygon } from './floating-ui-react/safePolygon.js';
 import AnchoredPopupHarness from '../../tests/AnchoredPopupHarness.svelte';
 import AnchoredScrollLockHarness from '../../tests/AnchoredScrollLockHarness.svelte';
 import TriggerFocusGuardHarness from '../../tests/TriggerFocusGuardHarness.svelte';
@@ -50,15 +49,14 @@ describe('anchored popup', () => {
 		await open.click();
 		await expect.poll(() => page.getByTestId('open').element().textContent).toBe('true');
 
-		const before = page.getByRole('button', { name: 'Before' }).element();
-		const target = page.getByTestId('focus-target').element();
-		const beforeContent = page.getByTestId('before-content').element();
-		before.focus();
-		target.focus();
-		await expect.poll(() => document.activeElement).toBe(beforeContent);
+		await page.getByRole('button', { name: 'After' }).click();
+		await userEvent.keyboard('{Shift>}{Tab}{/Shift}');
+		await expect
+			.poll(() => document.activeElement)
+			.toBe(page.getByTestId('before-content').element());
 		await expect.poll(() => page.getByTestId('open').element().textContent).toBe('true');
 
-		target.focus();
+		await userEvent.keyboard('{Tab}');
 		await expect
 			.poll(() => document.activeElement)
 			.toBe(page.getByRole('button', { name: 'After' }).element());
@@ -66,20 +64,21 @@ describe('anchored popup', () => {
 	});
 
 	it('locks a touch-opened popup only when it is nearly as wide as the viewport', async () => {
-		function touch(name: string) {
-			page
-				.getByRole('button', { name })
-				.element()
-				.dispatchEvent(new PointerEvent('pointerdown', { bubbles: true, pointerType: 'touch' }));
+		function touchOpen() {
+			const button = page.getByRole('button', { name: 'Open' }).element();
+			button.dispatchEvent(
+				new PointerEvent('pointerdown', { bubbles: true, cancelable: true, pointerType: 'touch' })
+			);
+			button.dispatchEvent(new MouseEvent('click', { bubbles: true, cancelable: true }));
 		}
 
 		const narrow = render(AnchoredScrollLockHarness, { enabled: true, wide: false });
-		touch('Touch');
+		touchOpen();
 		await expect.poll(overflowLocked).toBe(false);
 		narrow.unmount();
 
 		render(AnchoredScrollLockHarness, { enabled: true, wide: true });
-		touch('Touch');
+		touchOpen();
 		await expect.poll(overflowLocked).toBe(true);
 	});
 
@@ -99,7 +98,9 @@ describe('anchored popup', () => {
 		await first.hover();
 		await expect.element(page.getByRole('dialog', { name: 'Notice' })).toBeVisible();
 		await expect.poll(() => page.getByTestId('active').element().textContent).toBe('trigger-a');
+		await expect.poll(() => page.getByTestId('seen').element().textContent).toBe('trigger-a');
 		await second.hover();
+		await expect.poll(() => page.getByTestId('seen').element().textContent).toBe('trigger-b');
 		await expect.poll(() => page.getByTestId('active').element().textContent).toBe('trigger-b');
 		await expect
 			.poll(() => {
@@ -169,57 +170,55 @@ describe('anchored popup', () => {
 });
 
 describe('safe polygon', () => {
-	function rect(x: number, y: number, width: number, height: number) {
-		return {
-			x,
-			y,
-			width,
-			height,
-			top: y,
-			right: x + width,
-			bottom: y + height,
-			left: x,
-			toJSON() {
-				return {};
-			}
-		} as DOMRect;
+	function dialogs() {
+		return page.getByRole('dialog', { name: 'Notice' }).elements().length;
 	}
 
-	it('cancels the 40ms close when clear runs before the timer', async () => {
-		const reference = document.createElement('div');
-		const floating = document.createElement('div');
-		// Floating is wider, so the safe polygon includes a point beside the trough.
-		// That point arms the 40ms close. A point inside the trough does not.
-		reference.getBoundingClientRect = () => rect(100, 100, 80, 20);
-		floating.getBoundingClientRect = () => rect(60, 160, 160, 40);
-		let closed = 0;
-		const handle = safePolygon();
-		const onMove = handle({
-			x: 140,
-			y: 119,
-			placement: 'bottom',
-			elements: { domReference: reference, floating },
-			onClose() {
-				closed += 1;
-			}
-		});
-		onMove(new MouseEvent('mousemove', { clientX: 92, clientY: 144 }));
-		handle.clear?.();
-		await new Promise((resolve) => setTimeout(resolve, 70));
-		expect(closed).toBe(0);
+	async function armClose() {
+		const trigger = page.getByRole('button', { name: 'Open' }).element();
+		const floating = page.getByTestId('positioner').element();
+		const triggerRect = trigger.getBoundingClientRect();
+		const floatingRect = floating.getBoundingClientRect();
+		trigger.dispatchEvent(
+			new MouseEvent('mouseleave', {
+				bubbles: true,
+				clientX: triggerRect.left + triggerRect.width / 2,
+				clientY: triggerRect.bottom - 1,
+				relatedTarget: document.body
+			})
+		);
+		document.dispatchEvent(
+			new MouseEvent('mousemove', {
+				bubbles: true,
+				clientX: triggerRect.right + 16,
+				clientY: (triggerRect.bottom + floatingRect.top) / 2
+			})
+		);
+	}
 
-		const again = safePolygon();
-		const moveAgain = again({
-			x: 140,
-			y: 119,
-			placement: 'bottom',
-			elements: { domReference: reference, floating },
-			onClose() {
-				closed += 1;
-			}
-		});
-		moveAgain(new MouseEvent('mousemove', { clientX: 92, clientY: 144 }));
-		await new Promise((resolve) => setTimeout(resolve, 70));
-		expect(closed).toBe(1);
+	it('cancels the pending close when the trigger unmounts', async () => {
+		render(AnchoredPopupHarness, { scenario: 'unmount' });
+		const trigger = page.getByRole('button', { name: 'Open' });
+		await trigger.hover();
+		await expect.element(page.getByRole('dialog', { name: 'Notice' })).toBeVisible();
+		await expect
+			.poll(() => {
+				const anchor = trigger.element().getBoundingClientRect();
+				const popup = page.getByTestId('positioner').element().getBoundingClientRect();
+				return popup.top - anchor.bottom > 20 && popup.width > anchor.width + 40;
+			})
+			.toBe(true);
+		await armClose();
+		await new Promise((resolve) => setTimeout(resolve, 15));
+		expect(dialogs()).toBe(1);
+		await expect.poll(dialogs, { timeout: 200 }).toBe(0);
+
+		await page.getByTestId('outside').hover();
+		await trigger.hover();
+		await expect.element(page.getByRole('dialog', { name: 'Notice' })).toBeVisible();
+		await armClose();
+		page.getByTestId('remove').element().click();
+		await new Promise((resolve) => setTimeout(resolve, 80));
+		expect(dialogs()).toBe(1);
 	});
 });

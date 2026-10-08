@@ -35,8 +35,6 @@ export class PopupStore<Reason extends string> extends FloatingRootStore {
 	readonly triggers = new PopupTriggerMap();
 	triggerCount = $state(0);
 	preventUnmountingOnClose = $state(false);
-	activeTriggerId = $state<string | null>(null);
-	activeTriggerElement = $state<Element | null>(null);
 	private readonly openValue: ControllableValue<boolean>;
 	private readonly readOnOpenChange: PopupStoreOptions<Reason>['onOpenChange'];
 	private readonly readOnOpenChangeComplete: PopupStoreOptions<Reason>['onOpenChangeComplete'];
@@ -76,6 +74,15 @@ export class PopupStore<Reason extends string> extends FloatingRootStore {
 		return this.transition.transitionStatus;
 	}
 
+	/** Id of `domReferenceElement`. Not a second copy of the trigger. */
+	get activeTriggerId() {
+		return this.domReferenceElement?.id ?? null;
+	}
+
+	get activeTriggerElement() {
+		return this.domReferenceElement;
+	}
+
 	override isOpen() {
 		return this.open;
 	}
@@ -102,32 +109,44 @@ export class PopupStore<Reason extends string> extends FloatingRootStore {
 		}
 
 		this.beforeOpenChange(nextOpen, details);
-		this.readOnOpenChange()?.(nextOpen, details);
-		if (details.isCanceled) return;
-
-		this.dispatchOpenChange(nextOpen, details);
+		const previousReference = this.domReferenceElement;
 		const current: PopupOpenState = {
 			open: this.open,
 			preventUnmountingOnClose: this.preventUnmountingOnClose,
 			activeTriggerId: this.activeTriggerId,
 			activeTriggerElement: this.activeTriggerElement
 		};
-		const next = createPopupOpenState(
+		const nextTrigger = createPopupOpenState(
 			current,
+			nextOpen,
+			details.trigger
+		).activeTriggerElement;
+		this.domReferenceElement = nextTrigger;
+		this.readOnOpenChange()?.(nextOpen, details);
+		if (details.isCanceled) {
+			this.domReferenceElement = previousReference;
+			return;
+		}
+
+		this.dispatchOpenChange(nextOpen, details);
+		const next = createPopupOpenState(
+			{
+				open: this.open,
+				preventUnmountingOnClose: this.preventUnmountingOnClose,
+				activeTriggerId: this.activeTriggerId,
+				activeTriggerElement: this.activeTriggerElement
+			},
 			nextOpen,
 			details.trigger,
 			timing === 'deferred' ? readPrevent() : false
 		);
 		this.preventUnmountingOnClose = next.preventUnmountingOnClose;
-		this.activeTriggerId = next.activeTriggerId;
-		this.activeTriggerElement = next.activeTriggerElement;
 		this.openValue.set(nextOpen);
 	}
 
 	private finishClose() {
 		this.transition.setMounted(false);
-		this.activeTriggerId = null;
-		this.activeTriggerElement = null;
+		this.domReferenceElement = null;
 		this.preventUnmountingOnClose = false;
 		this.readOnOpenChangeComplete()?.(false);
 	}

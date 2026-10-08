@@ -36,6 +36,7 @@
 
 	let open = $state<boolean | undefined>(undefined);
 	let reason = $state('');
+	let seenTrigger = $state('');
 	let closeDelay = $state(600);
 	let showTrigger = $state(true);
 	const hover = $derived(
@@ -61,6 +62,7 @@
 
 	function handleOpen(next: boolean, details: PopupChangeEventDetails<string>) {
 		reason = details.reason;
+		seenTrigger = store.activeTriggerId ?? '';
 	}
 
 	const store = new PopupStore<string>({
@@ -89,7 +91,6 @@
 		move: false,
 		handleClose: polygon,
 		delay: { close: 0 },
-		isActiveTrigger: store.activeTriggerId !== 'trigger-b',
 		shouldOpen: () => scenario !== 'refuse',
 		placement: () => positioning.physicalSide
 	}));
@@ -99,7 +100,6 @@
 		move: false,
 		handleClose: polygon,
 		delay: { close: 0 },
-		isActiveTrigger: store.activeTriggerId === 'trigger-b',
 		shouldOpen: () => scenario !== 'refuse',
 		placement: () => positioning.physicalSide
 	}));
@@ -170,7 +170,11 @@
 	{:else if showTrigger}
 		<button
 			{...triggerProps}
-			style={scenario === 'delay' ? 'position: fixed; left: 300px; top: 220px' : undefined}
+			style={scenario === 'delay'
+				? 'position: fixed; left: 300px; top: 220px'
+				: scenario === 'unmount'
+					? 'position: fixed; left: 100px; top: 100px; width: 80px; height: 20px; padding: 0'
+					: undefined}
 			{@attach registerTrigger(store, () => 'open-trigger')}
 			{@attach hoverReference.attachReference}>Open</button
 		>
@@ -191,6 +195,7 @@
 	{/if}
 	<pre data-testid="calls">{JSON.stringify([{ open: store.open, reason, canceled: false }])}</pre>
 	<pre data-testid="active">{store.activeTriggerId}</pre>
+	<pre data-testid="seen">{seenTrigger}</pre>
 	{#if store.mounted}
 		<div
 			data-testid="positioner"
@@ -203,6 +208,7 @@
 				role="dialog"
 				aria-labelledby="anchored-title"
 				class:hold={scenario === 'closing'}
+				class:wide={scenario === 'unmount'}
 				data-testid="popup"
 				{@attach bindPopup}
 				{...getStateAttributesProps(
@@ -223,6 +229,11 @@
 <style>
 	.hold {
 		animation: sveltery-hold 3s linear both;
+	}
+
+	.wide {
+		box-sizing: border-box;
+		width: 240px;
 	}
 
 	@keyframes sveltery-hold {

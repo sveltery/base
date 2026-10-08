@@ -77,6 +77,7 @@ export function useClick(store: FloatingRootStore, props: () => UseClickProps = 
 					isMouseLikePointerType(event.pointerType, true) && isVirtualPointerEvent(event)
 						? 'virtual'
 						: (event.pointerType as typeof pointerType);
+				store.openPointerType = pointerType;
 			},
 			onmousedown(event: MouseEvent) {
 				const { enabled, event: eventOption, ignoreMouse } = options();

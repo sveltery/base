@@ -29,7 +29,6 @@ export interface UseHoverReferenceProps {
 		| (() => number | Partial<{ open: number; close: number }>);
 	move?: boolean;
 	mouseOnly?: boolean;
-	isActiveTrigger?: boolean;
 	shouldOpen?: () => boolean;
 	guardStaleOpen?: boolean;
 	placement?: () => string | null;
@@ -48,6 +47,7 @@ export function useHoverReferenceInteraction(
 	let hoverCloseActive = false;
 	let sawMove = false;
 	let stopMove: (() => void) | undefined;
+	let attached = $state<Element | null>(null);
 
 	function options() {
 		const value = props();
@@ -58,7 +58,6 @@ export function useHoverReferenceInteraction(
 			delay: value.delay ?? 0,
 			move: value.move ?? true,
 			mouseOnly: value.mouseOnly ?? false,
-			isActiveTrigger: value.isActiveTrigger ?? true,
 			shouldOpen: value.shouldOpen,
 			guardStaleOpen: value.guardStaleOpen ?? false,
 			placement: value.placement
@@ -81,7 +80,7 @@ export function useHoverReferenceInteraction(
 
 	$effect.pre(() => {
 		const current = options();
-		if (!current.enabled || !current.isActiveTrigger) return;
+		if (!current.enabled || attached == null || attached !== store.domReferenceElement) return;
 		instance.handleClose = current.handleClose;
 		instance.handleCloseOptions = current.handleClose?.__options;
 	});
@@ -133,9 +132,7 @@ export function useHoverReferenceInteraction(
 		if (!allowOpen()) return false;
 		const details = createChangeEventDetails(REASONS.triggerHover, event, trigger);
 		store.setOpen(true, details);
-		if (details.isCanceled) return false;
-		if (trigger) store.domReferenceElement = trigger;
-		return true;
+		return !details.isCanceled;
 	}
 
 	function onMouseEnter(event: MouseEvent) {
@@ -150,11 +147,10 @@ export function useHoverReferenceInteraction(
 		const isOpen = store.isOpen();
 		const reference = store.domReferenceElement;
 		const overInactive =
-			!current.isActiveTrigger ||
-			(trigger != null &&
-				reference != null &&
-				trigger !== reference &&
-				!contains(reference, trigger));
+			trigger != null &&
+			reference != null &&
+			trigger !== reference &&
+			!contains(reference, trigger);
 		const closing =
 			!isOpen &&
 			store instanceof PopupStore &&
@@ -266,8 +262,10 @@ export function useHoverReferenceInteraction(
 	}
 
 	function attachReference(node: Element) {
+		attached = node;
 		return () => {
 			if (store.domReferenceElement === node) instance.handleClose?.clear?.();
+			if (attached === node) attached = null;
 		};
 	}
 

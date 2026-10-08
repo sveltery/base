@@ -27,6 +27,7 @@ import type {
 	ReferenceElement
 } from './floating-ui-react/components/FloatingRootStore.svelte.js';
 import { useBaseUIFloating } from './floating-ui-react/hooks/useFloating.svelte.js';
+import { roundByDPR } from './floating-ui-react/usePosition.svelte.js';
 import { hide } from './hideMiddleware.js';
 import { ownerDocument, ownerWindow } from './owner.js';
 
@@ -170,11 +171,6 @@ export function useAnchorPositioning(
 	}
 
 	const mountSide = $derived(read().mounted ? latchedSide : null);
-
-	$effect(() => {
-		if (read().mounted) return;
-		latchedSide = null;
-	});
 
 	function layout() {
 		const current = read();
@@ -403,6 +399,10 @@ export function useAnchorPositioning(
 
 	$effect(() => {
 		const current = read();
+		if (!current.mounted) {
+			latchedSide = null;
+			return;
+		}
 		if (!current.lazyFlip || !isPositioned) return;
 		const rendered = getSide(position.data.placement);
 		const preferred = physicalSide(
@@ -432,10 +432,11 @@ export function useAnchorPositioning(
 			: undefined;
 		const sideX = adaptive?.sideX ?? 'left';
 		const sideY = adaptive?.sideY ?? 'top';
+		const node = store.positionerElement;
 		return {
 			position: method,
-			[sideX]: `${position.data.x}px`,
-			[sideY]: `${position.data.y}px`,
+			[sideX]: `${roundByDPR(node, position.data.x)}px`,
+			[sideY]: `${roundByDPR(node, position.data.y)}px`,
 			...measured,
 			...availableSize()
 		};

@@ -19,8 +19,9 @@ export class HoverInteraction {
 	restTimeoutPending = false;
 	readonly openChangeTimeout = new Timeout();
 	readonly restTimeout = new Timeout();
-	handleClose = $state<HandleClose | null>(null);
-	handleCloseOptions = $state<SafePolygonOptions | undefined>(undefined);
+	/** Read by event handlers. Not state: nothing renders them. */
+	handleClose: HandleClose | null = null;
+	handleCloseOptions: SafePolygonOptions | undefined = undefined;
 
 	dispose() {
 		this.openChangeTimeout.clear();

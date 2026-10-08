@@ -1,7 +1,8 @@
 // Derived from @floating-ui/react-dom 2.1.9 `useFloating` (dom 1.8.0).
 // MIT, see THIRD_PARTY_NOTICES.md.
 // This is the only module that imports `computePosition` and `autoUpdate`.
-// Positions are rounded to device pixels. Middleware is read when positioning runs.
+// Stored coordinates stay raw. Styles round them to device pixels.
+// Middleware is read when positioning runs.
 
 import {
 	autoUpdate,
@@ -50,8 +51,8 @@ function activeMiddleware(list: ReadonlyArray<Middleware | null | undefined | fa
 	return list.filter((item): item is Middleware => !!item);
 }
 
-function roundByDPR(element: Element, value: number) {
-	const dpr = ownerWindow(element).devicePixelRatio || 1;
+export function roundByDPR(element: Element | null, value: number) {
+	const dpr = (element ? ownerWindow(element).devicePixelRatio : 1) || 1;
 	return Math.round(value * dpr) / dpr;
 }
 
@@ -82,8 +83,8 @@ export function usePosition(options: () => UsePositionOptions): UsePositionRetur
 			if (id !== version || floating !== node) return;
 			const open = options().open;
 			data = {
-				x: roundByDPR(node, result.x),
-				y: roundByDPR(node, result.y),
+				x: result.x,
+				y: result.y,
 				placement: result.placement,
 				strategy: result.strategy,
 				middlewareData: result.middlewareData,
@@ -93,16 +94,12 @@ export function usePosition(options: () => UsePositionOptions): UsePositionRetur
 	}
 
 	$effect(() => {
-		if (options().open) return;
-		if (!data.isPositioned) return;
-		version += 1;
-		data = { ...data, isPositioned: false };
-	});
-
-	$effect(() => {
 		const current = options();
 		const node = floating;
-		if (!node || !current.reference || !current.enabled || current.open === false) return;
+		if (!node || !current.reference || !current.enabled || current.open === false) {
+			if (current.open === false) version += 1;
+			return;
+		}
 		return autoUpdate(current.reference, node, update, current.autoUpdate);
 	});
 
@@ -115,13 +112,13 @@ export function usePosition(options: () => UsePositionOptions): UsePositionRetur
 
 	return {
 		get data() {
-			return data;
+			return { ...data, isPositioned: options().open !== false && data.isPositioned };
 		},
 		get floatingStyles() {
 			return {
 				position: data.strategy,
-				top: `${data.y}px`,
-				left: `${data.x}px`
+				top: `${roundByDPR(floating, data.y)}px`,
+				left: `${roundByDPR(floating, data.x)}px`
 			};
 		},
 		get floatingProps() {
