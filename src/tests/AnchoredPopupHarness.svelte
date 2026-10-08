@@ -147,25 +147,22 @@
 	}));
 
 	const triggerProps = $derived(
-		mergeProps(
-			{ id: 'open-trigger', type: 'button' },
-			click.reference,
-			hoverReference.reference
-		) as HTMLButtonAttributes
+		mergeProps(hoverReference.reference, click.reference, {
+			id: 'open-trigger',
+			type: 'button'
+		}) as HTMLButtonAttributes
 	);
 	const triggerAProps = $derived(
-		mergeProps(
-			{ id: 'trigger-a', type: 'button' },
-			click.reference,
-			hoverA.reference
-		) as HTMLButtonAttributes
+		mergeProps(hoverA.reference, click.reference, {
+			id: 'trigger-a',
+			type: 'button'
+		}) as HTMLButtonAttributes
 	);
 	const triggerBProps = $derived(
-		mergeProps(
-			{ id: 'trigger-b', type: 'button' },
-			scenario === 'retain' ? click.reference : {},
-			hoverB.reference
-		) as HTMLButtonAttributes
+		mergeProps(hoverB.reference, scenario === 'retain' ? click.reference : {}, {
+			id: 'trigger-b',
+			type: 'button'
+		}) as HTMLButtonAttributes
 	);
 </script>
 

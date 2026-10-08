@@ -166,7 +166,7 @@ describe('<ScrollArea />', () => {
 		expect(host(viewport()).scrollTop).toBe(before);
 	});
 
-	it('skips the track handler when the consumer calls preventDefault', async () => {
+	it('skips the track handler when the consumer calls preventBaseUIHandler', async () => {
 		render(ScrollAreaHarness, { scenario: 'prevent' });
 		await expect.element(scrollbarY()).toBeInTheDocument();
 		const track = host(scrollbarY());

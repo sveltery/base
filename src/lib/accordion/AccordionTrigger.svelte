@@ -5,7 +5,7 @@
 	(commit 47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c). MIT, see THIRD_PARTY_NOTICES.md.
 -->
 <script lang="ts">
-	import { currentHost, dispatchClick, isLink } from '../internal/click.js';
+	import { currentHost, dispatchClick, forwardKeyUp, isLink } from '../internal/click.js';
 	import PartHost from '../internal/PartHost.svelte';
 	import { getStateAttributesProps } from '../internal/state-attributes.js';
 	import { triggerOpenStateMapping } from '../collapsible/attributes.js';
@@ -87,15 +87,6 @@
 		if (isEnter) dispatchClick(current, event);
 	}
 
-	function handleKeyUp(event: KeyboardEvent & { currentTarget: EventTarget & HTMLElement }) {
-		if (disabled) return;
-		onkeyup?.(event);
-		if (event.defaultPrevented || nativeButton || event.key !== ' ') return;
-		const current = currentHost(event);
-		if (!current) return;
-		dispatchClick(current, event);
-	}
-
 	const hostProps: AccordionTriggerHostProps = $derived.by(() => {
 		const props = {
 			...(nativeButton ? { type: 'button' as const } : { role: 'button' as const }),
@@ -110,7 +101,8 @@
 			onmousedown: handleMouseDown,
 			onpointerdown: handlePointerDown,
 			onkeydown: handleKeyDown,
-			onkeyup: handleKeyUp
+			onkeyup: (event: KeyboardEvent & { currentTarget: EventTarget & HTMLElement }) =>
+				forwardKeyUp(event, disabled, onkeyup, nativeButton)
 		};
 		return props as AccordionTriggerHostProps;
 	});

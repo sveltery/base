@@ -28,15 +28,18 @@
 	});
 
 	const hostProps = $derived(
-		mergeProps(elementProps, {
-			'aria-hidden': true as const,
-			style: toCssStyle(positioning.arrowStyles),
-			...getStateAttributesProps({ open: state.open, anchorHidden: false }, popupStateMapping),
-			'data-side': state.side,
-			'data-align': state.align,
-			...(state.uncentered ? { [uncenteredAttribute]: '' } : {}),
-			[bindKey]: positioning.arrowProps.attach
-		})
+		mergeProps(
+			{
+				'aria-hidden': true as const,
+				style: toCssStyle(positioning.arrowStyles),
+				...getStateAttributesProps({ open: state.open, anchorHidden: false }, popupStateMapping),
+				'data-side': state.side,
+				'data-align': state.align,
+				...(state.uncentered ? { [uncenteredAttribute]: '' } : {}),
+				[bindKey]: positioning.arrowProps.attach
+			},
+			elementProps
+		)
 	);
 </script>
 

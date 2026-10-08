@@ -24,11 +24,28 @@ export function dispatchClick(
 	);
 }
 
-/** Space on keyup clicks a non-native host. The caller already ran `onkeyup`. */
+/**
+ * Space on keyup clicks a non-native host. The caller already ran `onkeyup`.
+ * A prevented keydown does not cancel this keyup. `preventDefault()` on this keyup does.
+ */
 export function clickOnSpaceKeyUp(event: KeyboardEvent, nativeButton: boolean) {
 	if (event.defaultPrevented || nativeButton || event.key !== ' ') return;
 	const current = currentHost(event);
 	if (current) dispatchClick(current, event);
+}
+
+/**
+ * Disabled hosts ignore keyup. Otherwise the consumer runs, then Space clicks a non-native host.
+ */
+export function forwardKeyUp<T extends HTMLElement>(
+	event: KeyboardEvent & { currentTarget: EventTarget & T },
+	disabled: boolean,
+	onkeyup: ((event: KeyboardEvent & { currentTarget: EventTarget & T }) => void) | undefined | null,
+	nativeButton: boolean
+) {
+	if (disabled) return;
+	onkeyup?.(event);
+	clickOnSpaceKeyUp(event, nativeButton);
 }
 
 export function currentHost(event: Event): HTMLElement | null {

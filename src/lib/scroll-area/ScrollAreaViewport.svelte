@@ -17,7 +17,7 @@
 		scrollAreaOverflowYEnd,
 		scrollAreaOverflowYStart
 	} from './css-vars.js';
-	import { chain, mergeClass } from './style.js';
+	import { chain, mergeClass } from '../internal/mergeProps.js';
 	import type { ScrollAreaViewportProps } from './types.js';
 
 	const attachmentKey = createAttachmentKey();

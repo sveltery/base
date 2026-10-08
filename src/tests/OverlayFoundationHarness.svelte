@@ -135,10 +135,10 @@
 
 	const triggerProps = $derived(
 		mergeProps(
-			{ id: 'open-trigger', type: 'button', [CLICK_TRIGGER_IDENTIFIER]: '' },
-			getStateAttributesProps({ open: store.open }, triggerOpenStateMapping),
+			dismiss.reference,
 			click.reference,
-			dismiss.reference
+			getStateAttributesProps({ open: store.open }, triggerOpenStateMapping),
+			{ id: 'open-trigger', type: 'button', [CLICK_TRIGGER_IDENTIFIER]: '' }
 		) as HTMLButtonAttributes
 	);
 	const popupProps = $derived(

@@ -14,6 +14,7 @@ import PopoverOpenCompleteStateHarness from '../../tests/PopoverOpenCompleteStat
 import PortalRenderHarness from '../../tests/PortalRenderHarness.svelte';
 import PopoverReviewHarness from '../../tests/PopoverReviewHarness.svelte';
 import PopoverFixture from '../../routes/fixtures/popover/PopoverFixture.svelte';
+import PopoverDisabledHostHarness from '../../tests/PopoverDisabledHostHarness.svelte';
 import { Popover, PopoverHandle } from './index.js';
 import { PopoverStore } from './store.svelte.js';
 
@@ -178,6 +179,58 @@ describe('Popover', () => {
 		await page.getByRole('button', { name: 'Open' }).click();
 		await expect.poll(() => page.getByRole('dialog').elements().length).toBe(0);
 		expect(page.getByTestId('calls').element().textContent).toContain('"canceled":true');
+	});
+
+	it('does not open when the trigger calls preventBaseUIHandler', async () => {
+		render(PopoverFixture, { scenario: 'prevented' });
+		await page.getByRole('button', { name: 'Open' }).click();
+		await expect.poll(() => page.getByRole('dialog').elements().length).toBe(0);
+		expect(page.getByTestId('calls').element().textContent).toBe('[]');
+	});
+
+	it('does not navigate from a disabled link trigger', async () => {
+		location.hash = '';
+		render(PopoverDisabledHostHarness, { host: 'link' });
+		// aria-disabled blocks Playwright's actionability check. A forced click is still a real click.
+		await page.getByRole('button', { name: 'Open' }).click({ force: true });
+		expect(location.hash).not.toBe('#navigated174');
+		await expect.poll(() => page.getByRole('dialog').elements().length).toBe(0);
+	});
+
+	it('prevents click and pointerdown on a disabled span trigger', async () => {
+		render(PopoverDisabledHostHarness, { host: 'span' });
+		const trigger = page.getByRole('button', { name: 'Open' }).element();
+		const click = new MouseEvent('click', { bubbles: true, cancelable: true });
+		const pointerdown = new PointerEvent('pointerdown', { bubbles: true, cancelable: true });
+		trigger.dispatchEvent(click);
+		trigger.dispatchEvent(pointerdown);
+		expect(click.defaultPrevented).toBe(true);
+		expect(pointerdown.defaultPrevented).toBe(true);
+		await expect.poll(() => page.getByRole('dialog').elements().length).toBe(0);
+	});
+
+	it('skips the toggle when an iframe event calls preventBaseUIHandler', async () => {
+		const iframe = document.createElement('iframe');
+		document.body.appendChild(iframe);
+		const frameDocument = iframe.contentDocument;
+		const frameWindow = frameDocument?.defaultView;
+		if (!frameWindow || !frameDocument) throw new Error('iframe window missing');
+		const container = frameDocument.createElement('div');
+		frameDocument.body.appendChild(container);
+		try {
+			render(PopoverDisabledHostHarness, { props: { host: 'iframe' }, target: container });
+			const trigger = frameDocument.querySelector('[aria-haspopup="dialog"]');
+			if (!trigger) throw new Error('iframe trigger missing');
+			const event = new frameWindow.MouseEvent('click', { bubbles: true, cancelable: true });
+			trigger.dispatchEvent(event);
+			await expect
+				.poll(() => frameDocument.querySelector('[data-testid="opens"]')?.textContent)
+				.toBe('0');
+			await expect.poll(() => document.querySelectorAll('[role="dialog"]').length).toBe(0);
+			expect(event.baseUIHandlerPrevented).toBe(true);
+		} finally {
+			iframe.remove();
+		}
 	});
 
 	it('does not open a disabled trigger', async () => {

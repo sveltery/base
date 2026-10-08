@@ -10,6 +10,8 @@ import { nameOf, unwrap } from './effects.js';
 const OWNERS = {
 	toCssStyle: 'src/lib/internal/css-style.ts',
 	mergeCssStyle: 'src/lib/internal/css-style.ts',
+	chain: 'src/lib/internal/mergeProps.ts',
+	mergeClass: 'src/lib/internal/mergeProps.ts',
 	ownerDocument: 'src/lib/internal/owner.ts',
 	ownerWindow: 'src/lib/internal/owner.ts',
 	activeElement: 'src/lib/internal/shadow-dom.ts',

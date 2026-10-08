@@ -21,14 +21,17 @@
 	});
 
 	const hostProps = $derived(
-		mergeProps(elementProps, {
-			role: 'presentation' as const,
-			hidden: store.mounted ? undefined : true,
-			style: `user-select: none; -webkit-user-select: none${
-				store.openChangeReason === REASONS.triggerHover ? '; pointer-events: none' : ''
-			}`,
-			...getStateAttributesProps(state, popupTransitionStateMapping)
-		})
+		mergeProps(
+			{
+				role: 'presentation' as const,
+				hidden: store.mounted ? undefined : true,
+				style: `user-select: none; -webkit-user-select: none${
+					store.openChangeReason === REASONS.triggerHover ? '; pointer-events: none' : ''
+				}`,
+				...getStateAttributesProps(state, popupTransitionStateMapping)
+			},
+			elementProps
+		)
 	);
 </script>
 

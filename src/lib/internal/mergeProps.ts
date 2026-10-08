@@ -1,105 +1,217 @@
 // Derived from Base UI v1.8.0 packages/react/src/merge-props/mergeProps.ts
 // (commit 47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c). MIT, see THIRD_PARTY_NOTICES.md.
-// The first bag is the consumer. Its handler runs first. A later handler is skipped
-// when that event's defaultPrevented flag is set, matching CollapsibleTrigger and OTP Field.
-// Conflicting plain props keep the earliest value. Style resolves so the earliest bag wins.
-// Class names concatenate from left to right. Attachment symbols are all kept.
+// The rightmost bag wins plain props, and its handler runs first.
+// `event.preventBaseUIHandler()` skips the remaining handlers. `preventDefault()` does not.
+// The event check is the event's shape, so an iframe event still gets the skip signal.
+// `class` is a Svelte class value, merged as an array with the rightmost bag first.
+// `style` is a CSS string. The rightmost declaration wins for the same property.
+// A function bag receives the props merged so far and replaces them. That function
+// chains handlers itself: this helper does not wrap the handlers it returns.
+// Attachment symbols are all kept. There is no ref.
 
 import type { Attachment } from 'svelte/attachments';
+import type { ClassValue } from 'svelte/elements';
 import { mergeCssStyle, toCssStyle } from './css-style.js';
 
 type Props = Record<PropertyKey, unknown>;
-type Handler = (event: Event) => void;
+type Handler = (...args: unknown[]) => unknown;
 
-function isEventHandler(key: PropertyKey, value: unknown): value is Handler {
+export type PropsGetter = (previous: Props) => object | null | undefined;
+
+declare global {
+	interface Event {
+		preventBaseUIHandler?: () => void;
+		baseUIHandlerPrevented?: boolean;
+	}
+}
+
+export function makeEventPreventable<T extends object>(event: T): T {
+	const target = event as Event;
+	if (typeof target.preventBaseUIHandler === 'function') return event;
+	target.preventBaseUIHandler = () => {
+		target.baseUIHandlerPrevented = true;
+	};
+	return event;
+}
+
+function isEventHandler(key: PropertyKey, value: unknown): boolean {
 	if (typeof key !== 'string' || key.length < 3 || !key.startsWith('on')) return false;
 	const head = key.charCodeAt(2);
 	const letter = (head >= 65 && head <= 90) || (head >= 97 && head <= 122);
 	return letter && (typeof value === 'function' || typeof value === 'undefined');
 }
 
+function isClassValue(value: unknown): value is ClassValue {
+	if (typeof value === 'string') return value.length > 0;
+	if (Array.isArray(value)) return value.length > 0;
+	return value != null && typeof value === 'object';
+}
+
 function styleString(value: unknown): string | undefined {
-	if (typeof value === 'string') return value;
-	if (value && typeof value === 'object') {
-		return toCssStyle(value as Record<string, string | number | undefined | null>);
+	if (typeof value === 'string') return value || undefined;
+	if (value && typeof value === 'object' && !Array.isArray(value)) {
+		const printed = toCssStyle(value as Record<string, string | number | undefined | null>);
+		return printed || undefined;
 	}
 	return undefined;
 }
 
+function mergeClassValue(current: unknown, next: unknown): ClassValue | undefined {
+	if (!isClassValue(next)) return isClassValue(current) ? current : undefined;
+	if (!isClassValue(current)) return [next];
+	const existing = Array.isArray(current) ? current : [current];
+	return [next, ...existing];
+}
+
+/**
+ * `instanceof Event` is false for an event created in another window.
+ * An iframe event still has a string `type` and `preventDefault`.
+ */
+function isDomEvent(value: unknown): value is Event {
+	if (value == null || typeof value !== 'object') return false;
+	const event = value as Event;
+	return typeof event.type === 'string' && typeof event.preventDefault === 'function';
+}
+
+function wrapEventHandler(handler: Handler): Handler {
+	return (...args) => {
+		const event = args[0];
+		if (isDomEvent(event)) makeEventPreventable(event);
+		return handler(...args);
+	};
+}
+
+function isHandler(value: unknown): value is Handler {
+	return typeof value === 'function';
+}
+
+function mergeEventHandlers(our: unknown, their: unknown): unknown {
+	if (!isHandler(their)) return our;
+	if (!isHandler(our)) return wrapEventHandler(their);
+	return (...args: unknown[]) => {
+		const event = args[0];
+		if (isDomEvent(event)) {
+			makeEventPreventable(event);
+			const result = their(...args);
+			if (!event.baseUIHandlerPrevented) our(...args);
+			return result;
+		}
+		const result = their(...args);
+		our(...args);
+		return result;
+	};
+}
+
+function composeAttachments(list: Attachment[]): Attachment {
+	if (list.length === 1) return list[0];
+	return (node: Element) => {
+		const cleanups = list.map((attach) => attach(node));
+		return () => {
+			for (const cleanup of cleanups) {
+				if (typeof cleanup === 'function') cleanup();
+			}
+		};
+	};
+}
+
+type Input = object | null | undefined | PropsGetter;
+
+export function mergeProps<T extends object>(a: T | null | undefined | PropsGetter): T;
+export function mergeProps<T extends object>(a: Input, b: T | null | undefined | PropsGetter): T;
 export function mergeProps<T extends object>(
-	consumer: T | null | undefined,
-	...rest: Array<object | null | undefined>
-): T {
-	const bags = [consumer, ...rest];
+	a: Input,
+	b: Input,
+	c: T | null | undefined | PropsGetter
+): T;
+export function mergeProps<T extends object>(
+	a: Input,
+	b: Input,
+	c: Input,
+	d: T | null | undefined | PropsGetter
+): T;
+export function mergeProps<T extends object>(
+	a: Input,
+	b: Input,
+	c: Input,
+	d: Input,
+	e: T | null | undefined | PropsGetter
+): T;
+export function mergeProps<T extends object>(
+	a: Input,
+	b: Input,
+	c: Input,
+	d: Input,
+	e: Input,
+	f: T | null | undefined | PropsGetter
+): T;
+export function mergeProps(...bags: Input[]): Props {
 	const merged: Props = {};
-	const handlers = new Map<string, Handler[]>();
-	const classes: string[] = [];
-	const styles: string[] = [];
 	const attachments = new Map<symbol, Attachment[]>();
 
 	for (const bag of bags) {
-		if (!bag) continue;
+		if (bag == null) continue;
+		if (typeof bag === 'function') {
+			const next = bag({ ...merged }) ?? {};
+			for (const key of Reflect.ownKeys(merged)) delete merged[key];
+			Object.assign(merged, next);
+			attachments.clear();
+			continue;
+		}
+
 		const record = bag as Props;
 		for (const key of Reflect.ownKeys(record)) {
 			const value = record[key];
-			if (typeof key === 'string' && isEventHandler(key, value)) {
-				if (!value) continue;
-				const list = handlers.get(key) ?? [];
-				list.push(value);
-				handlers.set(key, list);
-				continue;
-			}
-			if (key === 'class' && typeof value === 'string' && value) {
-				classes.push(value);
+			if (key === 'class') {
+				const next = mergeClassValue(merged.class, value);
+				if (next === undefined) delete merged.class;
+				else merged.class = next;
 				continue;
 			}
 			if (key === 'style') {
 				const printed = styleString(value);
-				if (printed) styles.push(printed);
+				if (!printed) continue;
+				const current = typeof merged.style === 'string' ? merged.style : undefined;
+				merged.style = mergeCssStyle(current, printed);
 				continue;
 			}
 			if (typeof key === 'symbol' && typeof value === 'function') {
 				const list = attachments.get(key) ?? [];
 				list.push(value as Attachment);
 				attachments.set(key, list);
+				merged[key] = composeAttachments(list);
 				continue;
 			}
-			if (!(key in merged)) merged[key] = value;
-		}
-	}
-
-	for (const [key, list] of handlers) {
-		merged[key] = (event: Event) => {
-			for (const handler of list) {
-				handler(event);
-				if (event.defaultPrevented) return;
+			if (typeof key === 'string' && isEventHandler(key, value)) {
+				merged[key] = mergeEventHandlers(merged[key], value);
+				continue;
 			}
-		};
-	}
-
-	if (classes.length > 0) merged.class = classes.join(' ');
-
-	if (styles.length > 0) {
-		let style = styles[styles.length - 1];
-		for (let index = styles.length - 2; index >= 0; index -= 1) {
-			style = mergeCssStyle(style, styles[index]) ?? style;
+			merged[key] = value;
 		}
-		merged.style = style;
 	}
 
-	for (const [key, list] of attachments) {
-		merged[key] =
-			list.length === 1
-				? list[0]
-				: (node: Element) => {
-						const cleanups = list.map((attach) => attach(node));
-						return () => {
-							for (const cleanup of cleanups) {
-								if (typeof cleanup === 'function') cleanup();
-							}
-						};
-					};
-	}
+	return merged;
+}
 
-	return merged as T;
+/** The consumer class comes first, then the component class. */
+export function mergeClass(
+	componentClass: unknown,
+	consumerClass: unknown
+): ClassValue | undefined {
+	const merged = mergeProps(
+		isClassValue(componentClass) ? { class: componentClass } : null,
+		isClassValue(consumerClass) ? { class: consumerClass } : null
+	);
+	return isClassValue(merged.class) ? merged.class : undefined;
+}
+
+type ChainHandler<E extends Event> = (event: E) => void;
+
+/** The consumer handler runs first. `preventBaseUIHandler()` skips the component handler. */
+export function chain<E extends Event>(
+	component: ChainHandler<E>,
+	consumer: ChainHandler<E> | null | undefined
+): ChainHandler<E> {
+	if (!consumer) return component;
+	const merged = mergeProps({ onEvent: component as Handler }, { onEvent: consumer as Handler });
+	return merged.onEvent as ChainHandler<E>;
 }

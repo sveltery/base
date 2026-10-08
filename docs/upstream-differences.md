@@ -2,6 +2,14 @@
 
 Intentional differences from Base UI v1.8.0 (`47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c`). Each component section is owned by the pull request that ports that component.
 
+## Merge props
+
+Pin: `47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c`, `packages/react/src/merge-props/mergeProps.ts`. The rightmost bag wins plain props. Its event handler runs first. `event.preventBaseUIHandler()` skips the handlers to its left. `preventDefault()` does not. `className` is concatenated with the rightmost class first. `style` is a React style object, and the rightmost property wins. A function argument receives the props merged so far and replaces them. Handlers that function returns are not wrapped. `ref` is not merged.
+
+Local: `src/lib/internal/mergeProps.ts`. The same order. The prop is `class`, a Svelte class value (string, object, or array), merged as an array with the rightmost bag first. `style` is a CSS string; the rightmost declaration wins for the same property. Handler names accept Svelte's `onclick` and React's `onClick`. `preventBaseUIHandler()` is installed when the argument has an event shape (`type` and `preventDefault`), including an event created in an iframe. `instanceof Event` is not the check, because that is false across windows. A value without that shape still runs every handler. Attachment symbols are all kept, in bag order. There is no ref. `chain` and `mergeClass` are the same helper. Call sites pass the consumer bag last.
+
+Test: `src/lib/internal/mergeProps.spec.ts`. `src/lib/popover/Popover.svelte.spec.ts` (`skips the toggle when an iframe event calls preventBaseUIHandler`).
+
 ## Portal
 
 ### The portal marker stays on the host
