@@ -198,6 +198,25 @@
 	<button type="button" onclick={() => (bound = 9)}>Set nine</button>
 	<output data-testid="errors">{JSON.stringify(parentErrors)}</output>
 	<output data-testid="seen">{seen}</output>
+{:else if scenario === 'submit-changed'}
+	<Form onFormSubmit={accept}>
+		<Field.Root
+			name="qty"
+			validate={(value, formValues) => {
+				seen = JSON.stringify({ value, form: formValues.qty });
+				return value == null ? 'required' : null;
+			}}
+		>
+			<NumberField.Root locale="en-US">
+				<NumberField.Input data-testid="control" />
+				<NumberField.Increment />
+			</NumberField.Root>
+			<Field.Error data-testid="error" />
+		</Field.Root>
+		<button type="submit">Submit</button>
+	</Form>
+	<output data-testid="submitted">{submitted}</output>
+	<output data-testid="seen">{seen}</output>
 {:else if scenario === 'step'}
 	<Form>
 		<Field.Root

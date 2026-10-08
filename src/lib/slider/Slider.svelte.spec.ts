@@ -651,6 +651,40 @@ describe('<Slider />', () => {
 			await expect.poll(() => input.getAttribute('aria-invalid')).toBe('true');
 		});
 
+		it('clears an on-blur error while the value changes to a valid one', async () => {
+			render(SliderHarness, {
+				scenario: 'field',
+				validationMode: 'onBlur',
+				defaultValue: 0,
+				validate: (value) => ((value as number) > 1 ? 'error' : null)
+			});
+			const input = slider();
+			change(input, '2');
+			await expect.poll(() => input.hasAttribute('aria-invalid')).toBe(false);
+			input.dispatchEvent(new FocusEvent('blur', { bubbles: true }));
+			await expect.poll(() => input.getAttribute('aria-invalid')).toBe('true');
+			change(input, '0');
+			await expect.poll(() => input.hasAttribute('aria-invalid')).toBe(false);
+		});
+
+		it('submits the value after a change, not the registered snapshot', async () => {
+			let seen: unknown;
+			render(SliderHarness, {
+				scenario: 'form',
+				defaultValue: 10,
+				validate: (value) => {
+					seen = value;
+					return (value as number) < 20 ? 'low' : null;
+				}
+			});
+			const input = slider();
+			change(input, '40');
+			await expect.poll(() => input.getAttribute('aria-valuenow')).toBe('40');
+			click(page.getByRole('button', { name: 'Submit' }).element());
+			await expect.element(page.getByTestId('submitted')).toHaveTextContent('"slider":40');
+			expect(seen).toBe(40);
+		});
+
 		it('validates on change', async () => {
 			render(SliderHarness, {
 				scenario: 'field',
