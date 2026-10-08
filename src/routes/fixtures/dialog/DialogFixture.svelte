@@ -1,6 +1,7 @@
 <script lang="ts">
 	import {
 		Dialog,
+		Popover,
 		type DialogActions,
 		type DialogChangeEventDetails,
 		type DialogFocusTarget
@@ -37,12 +38,20 @@
 	const modalValue = $derived(modal ?? (scenario === 'outside' ? false : true));
 	const disabledValue = $derived(disabled ?? scenario === 'disabled');
 	const nestedValue = $derived(nested ?? scenario === 'nested');
-	const backdrop = $derived(withBackdrop ?? (scenario !== 'outside' && scenario !== 'nested'));
+	const alreadyOpen = $derived(scenario === 'nested-open' || scenario === 'nested-popover');
+	const backdrop = $derived(
+		withBackdrop ?? (scenario !== 'outside' && scenario !== 'nested' && !alreadyOpen)
+	);
+	let innerOpen = $state(true);
 
 	function changed(next: boolean, details: DialogChangeEventDetails) {
 		if (scenario === 'cancel') details.cancel();
 		if (preventUnmount && !next) details.preventUnmountOnClose();
 		onOpenChange?.(next, details);
+		calls.push({ open: next, reason: details.reason, canceled: details.isCanceled });
+	}
+
+	function record(next: boolean, details: { reason: string; isCanceled: boolean }) {
 		calls.push({ open: next, reason: details.reason, canceled: details.isCanceled });
 	}
 </script>
@@ -55,7 +64,7 @@
 	bind:this={root}
 	bind:open
 	bind:triggerId
-	{defaultOpen}
+	defaultOpen={alreadyOpen || defaultOpen}
 	{defaultTriggerId}
 	modal={modalValue}
 	onOpenChange={changed}
@@ -99,6 +108,28 @@
 					</Dialog.Popup>
 				</Dialog.Portal>
 			</Dialog.Root>
+		{:else if scenario === 'nested-open'}
+			<Dialog.Root bind:open={innerOpen} onOpenChange={record}>
+				<Dialog.Trigger>Nested</Dialog.Trigger>
+				<Dialog.Portal>
+					<Dialog.Popup data-testid="nested-popup">
+						<Dialog.Title>Nested title</Dialog.Title>
+						<button type="button">Nested inside</button>
+					</Dialog.Popup>
+				</Dialog.Portal>
+			</Dialog.Root>
+		{:else if scenario === 'nested-popover'}
+			<Popover.Root bind:open={innerOpen} onOpenChange={record}>
+				<Popover.Trigger>Nested</Popover.Trigger>
+				<Popover.Portal>
+					<Popover.Positioner>
+						<Popover.Popup data-testid="nested-popup">
+							<Popover.Title>Nested title</Popover.Title>
+							<button type="button">Nested inside</button>
+						</Popover.Popup>
+					</Popover.Positioner>
+				</Popover.Portal>
+			</Popover.Root>
 		{/if}
 	</Dialog.Popup>
 {/snippet}
