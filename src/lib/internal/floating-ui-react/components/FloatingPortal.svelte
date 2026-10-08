@@ -15,8 +15,11 @@
 	// Upstream `useRenderElement` applies `render` and `className` to this div. The snippet receives
 	// the same host props, including the move attachment. `class` is the native class name.
 	// Explicit `container={null}` waits. `undefined` still uses the parent portal or `document.body`.
+	// `containerElement` and `portalNode` start null. `useIsoLayoutEffect` is a no-op when
+	// `document` is missing, so neither `createPortal` runs on the server. `client` stays false
+	// for that render and the first client render, then flips after mount so hydration matches.
 
-	import { getContext, hasContext, setContext, type Snippet } from 'svelte';
+	import { getContext, hasContext, onMount, setContext, type Snippet } from 'svelte';
 	import type { Attachment } from 'svelte/attachments';
 	import type { HTMLAttributes } from 'svelte/elements';
 	import type { FloatingRootStore } from './FloatingRootStore.svelte.js';
@@ -46,7 +49,12 @@
 	} & Omit<HTMLAttributes<HTMLDivElement>, 'children'> = $props();
 
 	let portalNode = $state<HTMLDivElement | null>(null);
+	let client = $state(false);
 	const parent = hasContext(PORTAL) ? getContext<PortalContext>(PORTAL) : null;
+
+	onMount(() => {
+		client = true;
+	});
 
 	setContext<PortalContext>(PORTAL, {
 		get node() {
@@ -80,7 +88,7 @@
 	{@render children?.()}
 {/snippet}
 
-{#if container !== null}
+{#if client && container !== null}
 	{#if render}
 		{@render render(hostProps(), portalState, content)}
 	{:else}
