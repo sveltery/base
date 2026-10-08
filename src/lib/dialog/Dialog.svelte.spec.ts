@@ -299,6 +299,15 @@ describe('Dialog', () => {
 		expect(handle.isOpen).toBe(true);
 	});
 
+	it('uses the latest handle payload when opened by trigger id', async () => {
+		const handle = Dialog.createHandle<string>();
+		const view = render(DialogHandleHarness, { handle, payload: 'p1', id: 't1' });
+		await view.rerender({ handle, payload: 'p2', id: 't1' });
+		handle.open('t1');
+		await tick();
+		await expect.element(page.getByTestId('payload')).toHaveTextContent('p2');
+	});
+
 	it('marks a detached trigger that rendered before an already-open root', async () => {
 		const handle = Dialog.createHandle<string>();
 		render(DialogHandleHarness, { handle, defaultOpen: true, defaultTriggerId: 'detached' });

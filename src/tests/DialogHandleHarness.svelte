@@ -4,17 +4,19 @@
 	let {
 		handle,
 		payload = 'from-trigger',
+		id = 'detached',
 		defaultOpen = false,
 		defaultTriggerId = null
 	}: {
 		handle: DialogHandle<string>;
 		payload?: string;
+		id?: string;
 		defaultOpen?: boolean;
 		defaultTriggerId?: string | null;
 	} = $props();
 </script>
 
-<Dialog.Trigger {handle} id="detached" {payload}>Detached</Dialog.Trigger>
+<Dialog.Trigger {handle} {id} {payload}>Detached</Dialog.Trigger>
 <Dialog.Root {handle} {defaultOpen} {defaultTriggerId}>
 	{#snippet children({ payload: value })}
 		<Dialog.Trigger>Inside</Dialog.Trigger>

@@ -55,6 +55,17 @@
 	});
 	const state: DialogTriggerState = $derived({ disabled: disabled === true, open: openedByThis });
 
+	$effect(() => {
+		const id = triggerId;
+		const value = payload;
+		const payloads = handle?.payloads;
+		if (!payloads || value === undefined) return;
+		payloads.set(id, value);
+		return () => {
+			payloads.delete(id);
+		};
+	});
+
 	function clickHandlers(current: DialogStore<unknown> | null | undefined) {
 		// A handled trigger inside another dialog belongs to its own store.
 		return current?.click ?? dialogRoot?.click;
@@ -76,7 +87,6 @@
 					if (current) current.triggerCount = next;
 				}
 			};
-			if (payload !== undefined) handle?.payloads.set(id, payload);
 			const detach = registerTrigger(owner, () => id)(node);
 			if (current?.open) {
 				const active = current.domReferenceElement;
@@ -86,7 +96,6 @@
 			}
 			return () => {
 				if (typeof detach === 'function') detach();
-				handle?.payloads.delete(id);
 			};
 		});
 	}

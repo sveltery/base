@@ -172,7 +172,10 @@
 
 		const doc = ownerDocument(floating);
 		captureReturnTarget(doc, floating);
-		const nested = tree && store.nodeId ? getNodeChildren(tree.nodes, store.nodeId) : [];
+		// Do not subscribe to the tree. A nested dialog mounting reads child open state here.
+		const nested = untrack(() =>
+			tree && store.nodeId ? getNodeChildren(tree.nodes, store.nodeId) : []
+		);
 		const inside = [floating, store.portalElement].filter(
 			(element): element is HTMLElement => !!element
 		);
