@@ -96,7 +96,7 @@ for (const reference of [false, true]) {
 			const { trigger, popup } = await open(page, 'modal', reference);
 			await trigger.click();
 			await expect(popup).toBeVisible();
-			await expect(page.locator('[role="presentation"][data-base-ui-inert]')).not.toHaveCount(0);
+			await expect(page.locator('[role="presentation"]:not([data-side])')).not.toHaveCount(0);
 			await page.getByRole('button', { name: 'Close' }).click();
 			await expect(popup).toHaveCount(0);
 		});

@@ -54,6 +54,9 @@ describe('Popover', () => {
 		render(PopoverFixture, { scenario: 'modal' });
 		await page.getByRole('button', { name: 'Open' }).click();
 		await expect.element(page.getByRole('dialog')).toBeVisible();
+		await expect
+			.poll(() => document.querySelectorAll('[role="presentation"]:not([data-side])').length)
+			.toBeGreaterThan(0);
 		await page.getByRole('button', { name: 'Close' }).click();
 		await expect.poll(() => page.getByRole('dialog').elements().length).toBe(0);
 	});
