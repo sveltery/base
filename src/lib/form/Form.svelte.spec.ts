@@ -165,6 +165,19 @@ describe('Form', () => {
 	});
 
 	describe('prop: errors', () => {
+		it('focuses a server error by field name when the control id differs', async () => {
+			render(FormRegistryHarness, { scenario: 'errors-name' });
+			const input = page.getByTestId('control-id');
+
+			await page.getByRole('button', { name: 'Submit' }).click();
+			expect(output('values')).toBe(JSON.stringify({ username: 'kept' }));
+			expect(document.activeElement).not.toBe(input.element());
+
+			await page.getByRole('button', { name: 'Apply named error' }).click();
+			await expect.element(input).toHaveFocus();
+			expect(output('errors')).toBe(JSON.stringify({ username: 'nope' }));
+		});
+
 		it('focuses the first invalid field after errors change following a submit', async () => {
 			render(FormRegistryHarness, { scenario: 'errors-focus' });
 			const input = page.getByTestId('a');

@@ -1,25 +1,15 @@
 // Each case runs against the Svelte ToggleGroup and the React Base UI 1.8.0 reference.
 import { expect, test, type Page } from '@playwright/test';
+import { forEachFramework } from '../framework-loop.js';
+import { openFixture } from '../open-fixture.js';
+import { focusArrowLoop } from '../arrow-loop.js';
+import { readValueCalls } from '../read-output.js';
 
-async function open(page: Page, scenario: string, reference: boolean) {
-	const errors: string[] = [];
-	page.on('pageerror', (error) => errors.push(error.message));
-	await page.goto(`/fixtures/toggle-group?case=${scenario}${reference ? '&reference' : ''}`);
-	await expect(page.locator('main')).toHaveAttribute('data-hydrated', 'true');
-	return { errors };
+function open(page: Page, scenario: string, reference: boolean) {
+	return openFixture(page, 'toggle-group', scenario, reference);
 }
 
-async function calls(page: Page) {
-	return JSON.parse(await page.getByTestId('calls').innerText()) as {
-		value: string[];
-		reason: string;
-		canceled: boolean;
-	}[];
-}
-
-for (const reference of [false, true]) {
-	const framework = reference ? 'react' : 'svelte';
-
+forEachFramework((reference, framework) => {
 	test.describe(framework, () => {
 		test('click selects one toggle and releases the other', async ({ page }) => {
 			const { errors } = await open(page, 'exclusive', reference);
@@ -37,7 +27,9 @@ for (const reference of [false, true]) {
 			await expect(one).toHaveAttribute('aria-pressed', 'true');
 			await expect(one).toHaveAttribute('data-pressed', '');
 			await expect(two).toHaveAttribute('aria-pressed', 'false');
-			expect(await calls(page)).toEqual([{ value: ['one'], reason: 'none', canceled: false }]);
+			expect(await readValueCalls<string[]>(page)).toEqual([
+				{ value: ['one'], reason: 'none', canceled: false }
+			]);
 
 			await two.click();
 			await expect(one).toHaveAttribute('aria-pressed', 'false');
@@ -92,13 +84,7 @@ for (const reference of [false, true]) {
 			const three = page.getByRole('button', { name: 'Three' });
 
 			await expect(one).toHaveAttribute('tabindex', '0');
-			await one.focus();
-			await page.keyboard.press('ArrowRight');
-			await expect(two).toBeFocused();
-			await page.keyboard.press('ArrowRight');
-			await expect(three).toBeFocused();
-			await page.keyboard.press('ArrowRight');
-			await expect(one).toBeFocused();
+			await focusArrowLoop(page, one, two, three);
 			await page.keyboard.press('End');
 			await expect(three).toBeFocused();
 			await expect(three).toHaveAttribute('tabindex', '0');
@@ -118,7 +104,7 @@ for (const reference of [false, true]) {
 			await expect(two).toHaveAttribute('aria-disabled', 'true');
 			await one.click({ force: true });
 			await expect(one).toHaveAttribute('aria-pressed', 'false');
-			expect(await calls(page)).toEqual([]);
+			expect(await readValueCalls<string[]>(page)).toEqual([]);
 		});
 
 		test('canceling onValueChange keeps every toggle released', async ({ page }) => {
@@ -126,7 +112,9 @@ for (const reference of [false, true]) {
 			const one = page.getByRole('button', { name: 'One' });
 			await one.click();
 			await expect(one).toHaveAttribute('aria-pressed', 'false');
-			expect(await calls(page)).toEqual([{ value: ['one'], reason: 'none', canceled: true }]);
+			expect(await readValueCalls<string[]>(page)).toEqual([
+				{ value: ['one'], reason: 'none', canceled: true }
+			]);
 		});
 
 		test('owner value selects a toggle and a click updates the owner', async ({ page }) => {
@@ -144,10 +132,12 @@ for (const reference of [false, true]) {
 			await expect(one).toHaveAttribute('aria-pressed', 'true');
 			await expect(two).toHaveAttribute('aria-pressed', 'false');
 			await expect(owner).not.toBeChecked();
-			expect(await calls(page)).toEqual([{ value: ['one'], reason: 'none', canceled: false }]);
+			expect(await readValueCalls<string[]>(page)).toEqual([
+				{ value: ['one'], reason: 'none', canceled: false }
+			]);
 		});
 	});
-}
+});
 
 test('svelte SSR renders the group tab stop before hydration', async ({ request }) => {
 	const html = await (await request.get('/fixtures/toggle-group?case=exclusive')).text();

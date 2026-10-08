@@ -1,27 +1,21 @@
 // React Base UI 1.8.0 counterpart of FieldFixture.svelte. Comparison only; never imported by src/lib.
-import { createElement as h, Fragment, useEffect, useState, type ComponentProps } from 'react';
-import { createRoot } from 'react-dom/client';
+import { createElement as h, useEffect, useState } from 'react';
 import { Field } from '@base-ui/react/field';
-import { Form } from '@base-ui/react/form';
 import type { FieldCase } from './cases.js';
+import {
+	countSubmit,
+	mountApp,
+	passProps,
+	storeValues,
+	submittedForm,
+	valuesForm
+} from '../react-fixture.js';
 
-// Base UI's public prop types omit `data-*`. The attributes still reach the DOM.
-type FixtureProps<T> = T & { 'data-testid'?: string };
-function rootProps(props: FixtureProps<ComponentProps<typeof Field.Root>>) {
-	return props;
-}
-function labelProps(props: FixtureProps<ComponentProps<typeof Field.Label>>) {
-	return props;
-}
-function controlProps(props: FixtureProps<ComponentProps<typeof Field.Control>>) {
-	return props;
-}
-function descriptionProps(props: FixtureProps<ComponentProps<typeof Field.Description>>) {
-	return props;
-}
-function errorProps(props: FixtureProps<ComponentProps<typeof Field.Error>>) {
-	return props;
-}
+const rootProps = passProps;
+const labelProps = passProps;
+const controlProps = passProps;
+const descriptionProps = passProps;
+const errorProps = passProps;
 
 export function mountFieldReference(node: HTMLElement, scenario: FieldCase, onReady: () => void) {
 	function App() {
@@ -45,26 +39,15 @@ export function mountFieldReference(node: HTMLElement, scenario: FieldCase, onRe
 				h(Field.Description, descriptionProps({ 'data-testid': 'description' }), 'Help')
 			);
 		} else if (scenario === 'required') {
-			body = h(
-				Fragment,
-				null,
+			body = submittedForm(
+				countSubmit(setSubmitted),
 				h(
-					Form,
-					{
-						onSubmit: (event: { preventDefault: () => void }) => {
-							event.preventDefault();
-							setSubmitted((previous) => previous + 1);
-						}
-					},
-					h(
-						Field.Root,
-						null,
-						h(Field.Control, controlProps({ required: true, 'data-testid': 'control' })),
-						h(Field.Error, errorProps({ 'data-testid': 'error' }), 'Required')
-					),
-					h('button', { type: 'submit' }, 'Submit')
+					Field.Root,
+					null,
+					h(Field.Control, controlProps({ required: true, 'data-testid': 'control' })),
+					h(Field.Error, errorProps({ 'data-testid': 'error' }), 'Required')
 				),
-				h('output', { 'data-testid': 'submitted' }, String(submitted))
+				submitted
 			);
 		} else if (scenario === 'disabled') {
 			body = h(
@@ -80,31 +63,19 @@ export function mountFieldReference(node: HTMLElement, scenario: FieldCase, onRe
 				h(Field.Control, controlProps({ 'data-testid': 'control' }))
 			);
 		} else {
-			body = h(
-				Fragment,
-				null,
+			body = valuesForm(
+				storeValues(setValues),
 				h(
-					Form,
-					{
-						onFormSubmit: (formValues: Record<string, unknown>) => {
-							setValues(JSON.stringify(formValues));
-						}
-					},
-					h(
-						Field.Root,
-						{ name: 'username' },
-						h(Field.Control, controlProps({ defaultValue: 'ada', 'data-testid': 'control' }))
-					),
-					h('button', { type: 'submit' }, 'Submit')
+					Field.Root,
+					{ name: 'username' },
+					h(Field.Control, controlProps({ defaultValue: 'ada', 'data-testid': 'control' }))
 				),
-				h('output', { 'data-testid': 'values' }, values)
+				values
 			);
 		}
 
 		return body;
 	}
 
-	const root = createRoot(node);
-	root.render(h(App));
-	return () => root.unmount();
+	return mountApp(node, App);
 }

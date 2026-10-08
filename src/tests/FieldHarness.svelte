@@ -1,5 +1,7 @@
 <script lang="ts">
 	import { Field, Form, Fieldset, type FieldValidate } from '#lib';
+	import { takeForm } from '../routes/fixtures/form-log.js';
+	import FieldHelpCases from '../routes/fixtures/field/FieldHelpCases.svelte';
 
 	let {
 		scenario = 'label',
@@ -29,9 +31,7 @@
 	let outerDisabled = $state(false);
 
 	function accept(formValues: Record<string, unknown>, details: { event: Event }) {
-		details.event.preventDefault();
-		submitted += 1;
-		values = JSON.stringify(formValues);
+		({ submitted, values } = takeForm(formValues, details, submitted));
 	}
 
 	function countedValidate(value: unknown, formValues: Record<string, unknown>) {
@@ -95,20 +95,8 @@
 		<Field.Label nativeLabel={false} data-testid="label">Email</Field.Label>
 		<Field.Control />
 	</Field.Root>
-{:else if scenario === 'description'}
-	<Field.Root>
-		<Field.Control data-testid="control" aria-describedby="author" />
-		<Field.Description data-testid="description">Help</Field.Description>
-	</Field.Root>
-{:else if scenario === 'required'}
-	<Form onFormSubmit={accept}>
-		<Field.Root>
-			<Field.Control required data-testid="control" />
-			<Field.Error data-testid="error">Required</Field.Error>
-		</Field.Root>
-		<button type="submit">Submit</button>
-	</Form>
-	<output data-testid="submitted">{submitted}</output>
+{:else if scenario === 'description' || scenario === 'required'}
+	<FieldHelpCases {scenario} {accept} {submitted} />
 {:else if scenario === 'match'}
 	<Form onFormSubmit={accept}>
 		<Field.Root validate={(value) => (value === 'ab' ? 'custom error' : null)}>

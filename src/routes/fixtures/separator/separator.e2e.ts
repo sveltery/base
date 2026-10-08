@@ -1,12 +1,10 @@
 // Each case runs against the Svelte Separator and the React Base UI 1.8.0 reference.
 import { expect, test, type Page } from '@playwright/test';
+import { openFixture } from '../open-fixture.js';
 
 async function open(page: Page, scenario: string, reference: boolean) {
-	const errors: string[] = [];
-	page.on('pageerror', (error) => errors.push(error.message));
-	await page.goto(`/fixtures/separator?case=${scenario}${reference ? '&reference' : ''}`);
-	await expect(page.locator('main')).toHaveAttribute('data-hydrated', 'true');
-	return { separator: page.getByRole('separator'), errors };
+	const opened = await openFixture(page, 'separator', scenario, reference);
+	return { separator: page.getByRole('separator'), errors: opened.errors };
 }
 
 for (const reference of [false, true]) {

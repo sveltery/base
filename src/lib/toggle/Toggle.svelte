@@ -56,7 +56,7 @@
 
 	$effect(() => {
 		if (!group) return;
-		group.roving.sync(disabledState);
+		group.roving.sync(node, disabledState);
 	});
 
 	function handleClick(event: MouseEvent & { currentTarget: EventTarget & HTMLButtonElement }) {

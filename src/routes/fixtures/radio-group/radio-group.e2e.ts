@@ -1,12 +1,9 @@
 // Each case runs against the Svelte RadioGroup and the React Base UI 1.8.0 reference.
 import { expect, test, type Page } from '@playwright/test';
+import { openFixture } from '../open-fixture.js';
 
-async function open(page: Page, scenario: string, reference: boolean) {
-	const errors: string[] = [];
-	page.on('pageerror', (error) => errors.push(error.message));
-	await page.goto(`/fixtures/radio-group?case=${scenario}${reference ? '&reference' : ''}`);
-	await expect(page.locator('main')).toHaveAttribute('data-hydrated', 'true');
-	return { errors };
+function open(page: Page, scenario: string, reference: boolean) {
+	return openFixture(page, 'radio-group', scenario, reference);
 }
 
 function radio(page: Page, name: string) {

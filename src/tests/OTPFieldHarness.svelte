@@ -1,4 +1,6 @@
 <script lang="ts">
+	import OtpRequired from '../routes/fixtures/otp-field/OtpRequired.svelte';
+	import OtpInputs from '../routes/fixtures/OtpInputs.svelte';
 	import { DirectionProvider, Field, Form, OTPField } from '#lib';
 	import type { OTPFieldChangeEventDetails } from '#lib/otp-field/types.js';
 
@@ -29,9 +31,7 @@
 
 {#if scenario === 'plain'}
 	<OTPField.Root length={6} {onValueChange} {onValueInvalid} {onValueComplete} {normalizeValue}>
-		{#each [0, 1, 2, 3, 4, 5] as index (index)}
-			<OTPField.Input />
-		{/each}
+		<OtpInputs />
 	</OTPField.Root>
 {:else if scenario === 'default'}
 	<OTPField.Root
@@ -42,9 +42,7 @@
 		{onValueInvalid}
 		{onValueComplete}
 	>
-		{#each [0, 1, 2, 3, 4, 5] as index (index)}
-			<OTPField.Input />
-		{/each}
+		<OtpInputs />
 	</OTPField.Root>
 {:else if scenario === 'overlong'}
 	<OTPField.Root
@@ -55,9 +53,7 @@
 		{onValueInvalid}
 		{onValueComplete}
 	>
-		{#each [0, 1, 2, 3, 4, 5] as index (index)}
-			<OTPField.Input />
-		{/each}
+		<OtpInputs />
 	</OTPField.Root>
 {:else if scenario === 'grouped'}
 	<OTPField.Root length={6} defaultValue="123456" data-testid="root">
@@ -75,35 +71,25 @@
 	</OTPField.Root>
 {:else if scenario === 'alpha'}
 	<OTPField.Root length={6} validationType="alpha" defaultValue="1a2b3Cd4">
-		{#each [0, 1, 2, 3, 4, 5] as index (index)}
-			<OTPField.Input />
-		{/each}
+		<OtpInputs />
 	</OTPField.Root>
 {:else if scenario === 'alphanumeric'}
 	<OTPField.Root length={6} validationType="alphanumeric" name="otp">
-		{#each [0, 1, 2, 3, 4, 5] as index (index)}
-			<OTPField.Input />
-		{/each}
+		<OtpInputs />
 	</OTPField.Root>
 {:else if scenario === 'none'}
 	<OTPField.Root length={6} validationType="none" name="otp" inputMode="numeric" {normalizeValue}>
-		{#each [0, 1, 2, 3, 4, 5] as index (index)}
-			<OTPField.Input />
-		{/each}
+		<OtpInputs />
 	</OTPField.Root>
 {:else if scenario === 'bound'}
 	<OTPField.Root length={6} bind:value={bound} {onValueChange}>
-		{#each [0, 1, 2, 3, 4, 5] as index (index)}
-			<OTPField.Input />
-		{/each}
+		<OtpInputs />
 	</OTPField.Root>
 	<output data-testid="value">{bound}</output>
 	<button type="button" onclick={() => (bound = '654321')}>Apply value</button>
 {:else if scenario === 'disabled'}
 	<OTPField.Root length={6} disabled data-testid="root" {onValueChange}>
-		{#each [0, 1, 2, 3, 4, 5] as index (index)}
-			<OTPField.Input />
-		{/each}
+		<OtpInputs />
 	</OTPField.Root>
 {:else if scenario === 'readonly'}
 	<OTPField.Root
@@ -115,9 +101,7 @@
 		{onValueInvalid}
 		{onValueComplete}
 	>
-		{#each [0, 1, 2, 3, 4, 5] as index (index)}
-			<OTPField.Input />
-		{/each}
+		<OtpInputs />
 	</OTPField.Root>
 {:else if scenario === 'mask'}
 	<OTPField.Root length={6} mask>
@@ -129,9 +113,7 @@
 		<Field.Label data-testid="label">Verification code</Field.Label>
 		<Field.Description data-testid="description">Enter the code.</Field.Description>
 		<OTPField.Root length={6} aria-describedby="external-description">
-			{#each [0, 1, 2, 3, 4, 5] as index (index)}
-				<OTPField.Input />
-			{/each}
+			<OtpInputs />
 		</OTPField.Root>
 	</Field.Root>
 {:else if scenario === 'explicit-label'}
@@ -145,9 +127,7 @@
 	<label>
 		Verification code
 		<OTPField.Root length={6}>
-			{#each [0, 1, 2, 3, 4, 5] as index (index)}
-				<OTPField.Input />
-			{/each}
+			<OtpInputs />
 		</OTPField.Root>
 	</label>
 {:else if scenario === 'rtl'}
@@ -182,18 +162,14 @@
 {:else if scenario === 'form-incomplete'}
 	<form data-testid="form">
 		<OTPField.Root length={6} defaultValue="123" name="otp" required>
-			{#each [0, 1, 2, 3, 4, 5] as index (index)}
-				<OTPField.Input />
-			{/each}
+			<OtpInputs />
 		</OTPField.Root>
 		<button type="submit">Submit</button>
 	</form>
 {:else if scenario === 'form-complete'}
 	<form data-testid="form">
 		<OTPField.Root length={6} defaultValue="123456" name="otp" required>
-			{#each [0, 1, 2, 3, 4, 5] as index (index)}
-				<OTPField.Input />
-			{/each}
+			<OtpInputs />
 		</OTPField.Root>
 		<button type="submit">Submit</button>
 	</form>
@@ -205,9 +181,7 @@
 		}}
 	>
 		<OTPField.Root length={6} name="otp" required autoSubmit {onValueComplete}>
-			{#each [0, 1, 2, 3, 4, 5] as index (index)}
-				<OTPField.Input />
-			{/each}
+			<OtpInputs />
 		</OTPField.Root>
 	</form>
 	<output data-testid="submitted">{submitted}</output>
@@ -222,9 +196,7 @@
 		<button type="submit">Submit</button>
 	</form>
 	<OTPField.Root form="verification-form" name="otp" length={6} autoSubmit>
-		{#each [0, 1, 2, 3, 4, 5] as index (index)}
-			<OTPField.Input />
-		{/each}
+		<OtpInputs />
 	</OTPField.Root>
 	<output data-testid="submitted">{submitted}</output>
 {:else if scenario === 'not-a-form'}
@@ -236,17 +208,13 @@
 		}}
 	>
 		<OTPField.Root form="verification-form" name="otp" length={6} autoSubmit>
-			{#each [0, 1, 2, 3, 4, 5] as index (index)}
-				<OTPField.Input />
-			{/each}
+			<OtpInputs />
 		</OTPField.Root>
 	</form>
 	<output data-testid="submitted">{submitted}</output>
 {:else if scenario === 'named'}
 	<OTPField.Root length={6} id="verification-code">
-		{#each [0, 1, 2, 3, 4, 5] as index (index)}
-			<OTPField.Input />
-		{/each}
+		<OtpInputs />
 	</OTPField.Root>
 {:else if scenario === 'mismatch'}
 	<OTPField.Root length={6}>
@@ -257,18 +225,7 @@
 		<OTPField.Input />
 	</OTPField.Root>
 {:else if scenario === 'required-field'}
-	<Form onFormSubmit={accept}>
-		<Field.Root name="otp">
-			<OTPField.Root length={6} required>
-				{#each [0, 1, 2, 3, 4, 5] as index (index)}
-					<OTPField.Input />
-				{/each}
-			</OTPField.Root>
-			<Field.Error match="valueMissing" data-testid="error">Required</Field.Error>
-		</Field.Root>
-		<button type="submit">Submit</button>
-	</Form>
-	<output data-testid="submitted">{submitted}</output>
+	<OtpRequired {accept} {submitted} />
 {:else if scenario === 'cancel'}
 	<OTPField.Root
 		length={6}
@@ -278,9 +235,7 @@
 			onValueChange?.(_value, details);
 		}}
 	>
-		{#each [0, 1, 2, 3, 4, 5] as index (index)}
-			<OTPField.Input />
-		{/each}
+		<OtpInputs />
 	</OTPField.Root>
 {:else if scenario === 'orphan'}
 	<OTPField.Input />

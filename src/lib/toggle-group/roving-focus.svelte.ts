@@ -10,7 +10,7 @@ import { untrack } from 'svelte';
 import { createAttachmentKey } from 'svelte/attachments';
 import type { Attachment } from 'svelte/attachments';
 import type { HTMLButtonAttributes } from 'svelte/elements';
-import { byDocumentOrder } from '../internal/document-order.js';
+import { createSlotClaim, includeSorted } from '../internal/roving-slot.js';
 
 export type RovingOrientation = 'horizontal' | 'vertical';
 
@@ -43,22 +43,13 @@ export class RovingFocus {
 	readOrientation: () => RovingOrientation = () => 'horizontal';
 	readDirection: () => 'ltr' | 'rtl' = () => 'ltr';
 
-	private nextSlot = 0;
+	readonly claim = createSlotClaim();
 	private readonly attachmentKey = createAttachmentKey();
-
-	/** Render-order slot used for tabindex before the attachment runs (SSR). */
-	claim() {
-		const slot = this.nextSlot;
-		this.nextSlot += 1;
-		return slot;
-	}
 
 	register(node: HTMLElement) {
 		// The attachment effect must not subscribe to the list it writes.
 		untrack(() => {
-			if (!this.elements.includes(node)) {
-				this.elements = [...this.elements, node].sort(byDocumentOrder);
-			}
+			this.elements = includeSorted(this.elements, node);
 			this.ensureActive();
 		});
 		return () => {
@@ -78,16 +69,18 @@ export class RovingFocus {
 		return this.readOrientation();
 	}
 
-	/** Re-pick the tab stop after an item's disabled flag changes. */
-	sync(disabled = false) {
+	/** Re-pick the tab stop when `node`'s disabled flag changes. */
+	sync(node: HTMLElement | null, disabled: boolean) {
+		if (!node || !this.elements.includes(node)) return;
 		if (disabled) {
-			untrack(() => {
-				this.ensureActive();
-				if (this.active && isDisabled(this.active)) this.ensureActive();
-			});
+			if (this.active === node) this.ensureActive();
 			return;
 		}
-		untrack(() => this.ensureActive());
+		this.keepEnabled();
+	}
+
+	private keepEnabled() {
+		if (!this.active || isDisabled(this.active)) this.ensureActive();
 	}
 
 	private candidate() {

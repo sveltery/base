@@ -11,7 +11,8 @@
 		label = 'Upload progress',
 		showLabel = true,
 		labelId = undefined,
-		customValue = false
+		customValue = false,
+		id = undefined
 	}: {
 		value: number | null;
 		min?: number;
@@ -23,10 +24,11 @@
 		showLabel?: boolean;
 		labelId?: string;
 		customValue?: boolean;
+		id?: string;
 	} = $props();
 </script>
 
-<Progress.Root {value} {min} {max} {format} {locale} {getAriaValueText}>
+<Progress.Root {id} {value} {min} {max} {format} {locale} {getAriaValueText}>
 	{#if showLabel}
 		<Progress.Label data-testid="label" id={labelId}>{label}</Progress.Label>
 	{/if}

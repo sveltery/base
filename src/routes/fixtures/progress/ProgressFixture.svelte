@@ -1,7 +1,7 @@
 <script lang="ts">
 	import { untrack } from 'svelte';
-	import { Progress } from '#lib';
 	import { scenarioModel, type ProgressCase } from './cases.js';
+	import ProgressView from '../../../tests/ProgressView.svelte';
 
 	let { scenario }: { scenario: ProgressCase } = $props();
 
@@ -45,7 +45,7 @@
 	<button type="button" onclick={() => (showLabel = false)}>Remove label</button>
 {/if}
 
-<Progress.Root
+<ProgressView
 	id="tested-progress"
 	{value}
 	{min}
@@ -53,24 +53,7 @@
 	{format}
 	locale={model.locale}
 	getAriaValueText={scenario === 'aria-text' ? ariaText : undefined}
->
-	{#if showLabel}
-		{#if scenario === 'label'}
-			<Progress.Label data-testid="label" id={labelId}>Upload progress</Progress.Label>
-		{:else}
-			<Progress.Label data-testid="label">Upload progress</Progress.Label>
-		{/if}
-	{/if}
-	{#if scenario === 'value-child'}
-		<Progress.Value data-testid="value">
-			{#snippet children(formatted, raw)}
-				{formatted}|{raw === null ? 'null' : String(raw)}
-			{/snippet}
-		</Progress.Value>
-	{:else}
-		<Progress.Value data-testid="value" />
-	{/if}
-	<Progress.Track data-testid="track">
-		<Progress.Indicator data-testid="indicator" />
-	</Progress.Track>
-</Progress.Root>
+	{showLabel}
+	labelId={scenario === 'label' ? labelId : undefined}
+	customValue={scenario === 'value-child'}
+/>

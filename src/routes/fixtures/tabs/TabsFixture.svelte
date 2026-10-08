@@ -1,47 +1,31 @@
 <script lang="ts">
 	import { DirectionProvider, Tabs } from '#lib';
+	import { TabsFixtureModel } from '../choice-fixtures.svelte.js';
 	import type { TabsCase } from './cases.js';
 
 	let { scenario }: { scenario: TabsCase } = $props();
-
-	let value = $state<number | null>(scenario === 'bound' ? 0 : null);
-	let calls = $state<{ value: unknown; reason: string; canceled: boolean }[]>([]);
-
-	const count =
-		scenario === 'keyboard' || scenario === 'vertical' || scenario === 'rtl' || scenario === 'loop'
-			? 3
-			: 2;
-	const labels = ['One', 'Two', 'Three'];
-	const orientation = scenario === 'vertical' ? 'vertical' : 'horizontal';
-
-	function onValueChange(
-		next: unknown,
-		details: { reason: string; cancel: () => void; isCanceled: boolean }
-	) {
-		if (scenario === 'cancel' && details.reason === 'none') details.cancel();
-		calls = [...calls, { value: next, reason: details.reason, canceled: details.isCanceled }];
-		if (scenario === 'bound' && !details.isCanceled) value = next as number;
-	}
-
-	function toggleOwner() {
-		value = value === 1 ? 0 : 1;
-	}
+	const model = new TabsFixtureModel(() => scenario);
 </script>
 
 <DirectionProvider direction={scenario === 'rtl' ? 'rtl' : 'ltr'}>
 	<div dir={scenario === 'rtl' ? 'rtl' : 'ltr'}>
 		{#if scenario === 'bound'}
-			<input type="checkbox" aria-label="Owner two" checked={value === 1} onclick={toggleOwner} />
-			<Tabs.Root bind:value {onValueChange}>
+			<input
+				type="checkbox"
+				aria-label="Owner two"
+				checked={model.value === 1}
+				onclick={model.toggleOwner}
+			/>
+			<Tabs.Root bind:value={model.value} onValueChange={model.onValueChange}>
 				{@render tabs(false)}
 			</Tabs.Root>
 		{:else}
-			<Tabs.Root {orientation} {onValueChange}>
+			<Tabs.Root orientation={model.orientation} onValueChange={model.onValueChange}>
 				{@render tabs(scenario === 'fallback')}
 			</Tabs.Root>
 		{/if}
 	</div>
-	<output data-testid="calls">{JSON.stringify(calls)}</output>
+	<output data-testid="calls">{JSON.stringify(model.calls)}</output>
 </DirectionProvider>
 
 {#snippet tabs(disableFirst: boolean)}
@@ -50,17 +34,17 @@
 		activateOnFocus={scenario === 'follow'}
 		loopFocus={scenario !== 'loop'}
 	>
-		{#each { length: count } as _, index (index)}
+		{#each { length: model.count } as _, index (index)}
 			<Tabs.Tab
 				value={index}
 				disabled={(disableFirst && index === 0) || (scenario === 'disabled' && index === 1)}
 			>
-				{labels[index]}
+				{model.labels[index]}
 			</Tabs.Tab>
 		{/each}
 		<Tabs.Indicator data-testid="indicator" />
 	</Tabs.List>
-	{#each { length: count } as _, index (index)}
-		<Tabs.Panel value={index}>{labels[index]} panel</Tabs.Panel>
+	{#each { length: model.count } as _, index (index)}
+		<Tabs.Panel value={index}>{model.labels[index]} panel</Tabs.Panel>
 	{/each}
 {/snippet}

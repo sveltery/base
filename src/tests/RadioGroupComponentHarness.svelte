@@ -8,6 +8,7 @@
 		RadioGroup,
 		type RadioGroupChangeEventDetails
 	} from '#lib';
+	import InitialColorGroup from '../routes/fixtures/radio-group/InitialColorGroup.svelte';
 
 	type Scenario =
 		| 'plain'
@@ -242,10 +243,7 @@
 				<Radio.Root value="b" data-testid="b">B</Radio.Root>
 			</RadioGroup>
 		{:else if scenario === 'initial'}
-			<RadioGroup aria-label="Colors" value="b">
-				<Radio.Root value="a" data-testid="a">A</Radio.Root>
-				<Radio.Root value="b" data-testid="b">B</Radio.Root>
-			</RadioGroup>
+			<InitialColorGroup />
 		{:else}
 			<RadioGroup
 				aria-label="Colors"

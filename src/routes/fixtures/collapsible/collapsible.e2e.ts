@@ -1,15 +1,13 @@
 // Each case runs against the Svelte Collapsible and the React Base UI 1.8.0 reference.
 import { expect, test, type Page } from '@playwright/test';
+import { openFixture } from '../open-fixture.js';
 
 async function open(page: Page, scenario: string, reference: boolean) {
-	const errors: string[] = [];
-	page.on('pageerror', (error) => errors.push(error.message));
-	await page.goto(`/fixtures/collapsible?case=${scenario}${reference ? '&reference' : ''}`);
-	await expect(page.locator('main')).toHaveAttribute('data-hydrated', 'true');
+	const opened = await openFixture(page, 'collapsible', scenario, reference);
 	return {
 		trigger: page.getByRole('button', { name: 'Details' }),
 		panel: page.getByTestId('panel'),
-		errors
+		errors: opened.errors
 	};
 }
 

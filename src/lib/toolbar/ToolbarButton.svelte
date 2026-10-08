@@ -52,7 +52,7 @@
 	}
 
 	$effect(() => {
-		toolbar.roving.sync(disabledState, focusableWhenDisabled);
+		toolbar.roving.sync(node, disabledState, focusableWhenDisabled);
 	});
 
 	// Untrusted constructed clicks carry modifier state. detail 0 matches a keyboard click.

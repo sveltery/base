@@ -33,20 +33,23 @@
 	/>
 {/if}
 
+{#snippet item(itemValue: string, label: string, panel: string, withClick = false)}
+	<Accordion.Item value={itemValue}>
+		<Accordion.Header>
+			{#if withClick}
+				<Accordion.Trigger onclick={clicked}>{label}</Accordion.Trigger>
+			{:else}
+				<Accordion.Trigger>{label}</Accordion.Trigger>
+			{/if}
+		</Accordion.Header>
+		<Accordion.Panel data-testid="panel-{itemValue}">{panel}</Accordion.Panel>
+	</Accordion.Item>
+{/snippet}
+
 {#if scenario === 'bound'}
 	<Accordion.Root bind:value data-testid="root" onValueChange={changed}>
-		<Accordion.Item value="one">
-			<Accordion.Header>
-				<Accordion.Trigger onclick={clicked}>One</Accordion.Trigger>
-			</Accordion.Header>
-			<Accordion.Panel data-testid="panel-one">Panel one</Accordion.Panel>
-		</Accordion.Item>
-		<Accordion.Item value="two">
-			<Accordion.Header>
-				<Accordion.Trigger>Two</Accordion.Trigger>
-			</Accordion.Header>
-			<Accordion.Panel data-testid="panel-two">Panel two</Accordion.Panel>
-		</Accordion.Item>
+		{@render item('one', 'One', 'Panel one', true)}
+		{@render item('two', 'Two', 'Panel two')}
 	</Accordion.Root>
 {:else}
 	<Accordion.Root
@@ -58,18 +61,8 @@
 		data-testid="root"
 		onValueChange={changed}
 	>
-		<Accordion.Item value="one">
-			<Accordion.Header>
-				<Accordion.Trigger onclick={clicked}>One</Accordion.Trigger>
-			</Accordion.Header>
-			<Accordion.Panel data-testid="panel-one">Panel one</Accordion.Panel>
-		</Accordion.Item>
-		<Accordion.Item value="two">
-			<Accordion.Header>
-				<Accordion.Trigger>Two</Accordion.Trigger>
-			</Accordion.Header>
-			<Accordion.Panel data-testid="panel-two">Panel two</Accordion.Panel>
-		</Accordion.Item>
+		{@render item('one', 'One', 'Panel one', true)}
+		{@render item('two', 'Two', 'Panel two')}
 	</Accordion.Root>
 {/if}
 

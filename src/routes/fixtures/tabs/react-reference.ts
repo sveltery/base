@@ -1,11 +1,11 @@
 // React Base UI 1.8.0 counterpart of TabsFixture.svelte. Comparison only; never imported by src/lib.
 import { createElement as h, Fragment, useEffect, useState } from 'react';
+import { DirectionProvider } from '@base-ui/react/direction-provider';
+import { mountApp } from '../react-fixture.js';
 
 function partProps(props: object) {
 	return props as never;
 }
-import { createRoot } from 'react-dom/client';
-import { DirectionProvider } from '@base-ui/react/direction-provider';
 import { Tabs } from '@base-ui/react/tabs';
 import type { TabsCase } from './cases.js';
 
@@ -94,7 +94,5 @@ export function mountTabsReference(node: HTMLElement, scenario: TabsCase, onRead
 		);
 	}
 
-	const root = createRoot(node);
-	root.render(h(App));
-	return () => root.unmount();
+	return mountApp(node, App);
 }

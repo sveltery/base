@@ -15,7 +15,7 @@ import { createAttachmentKey } from 'svelte/attachments';
 import type { Attachment } from 'svelte/attachments';
 import type { HTMLAttributes } from 'svelte/elements';
 import { isSkipped } from '../internal/composite-skip.js';
-import { byDocumentOrder } from '../internal/document-order.js';
+import { createSlotClaim, includeSorted } from '../internal/roving-slot.js';
 import type { ToolbarOrientation } from './types.js';
 
 const ARROWS = new Set(['ArrowUp', 'ArrowDown', 'ArrowLeft', 'ArrowRight']);
@@ -45,21 +45,12 @@ export class ToolbarRoving {
 
 	private highlightedIndex = 0;
 	private settled = false;
-	private nextSlot = 0;
+	readonly claim = createSlotClaim();
 	private readonly attachmentKey = createAttachmentKey();
-
-	/** Render-order slot used for tabindex before the attachment runs (SSR). */
-	claim() {
-		const slot = this.nextSlot;
-		this.nextSlot += 1;
-		return slot;
-	}
 
 	register(node: HTMLElement) {
 		untrack(() => {
-			if (!this.elements.includes(node)) {
-				this.elements = [...this.elements, node].sort(byDocumentOrder);
-			}
+			this.elements = includeSorted(this.elements, node);
 			this.reconcile();
 		});
 		return () => {
@@ -80,16 +71,32 @@ export class ToolbarRoving {
 		return this.readOrientation();
 	}
 
-	/** Re-pick the tab stop after an item's disabled flag changes. */
-	sync(disabled = false, focusableWhenDisabled = true) {
-		if (disabled && !focusableWhenDisabled) {
-			untrack(() => {
-				this.reconcile();
-				if (this.highlighted && isSkipped(this.highlighted)) return;
-			});
+	/** Re-pick the tab stop when `node`'s disabled flag changes. */
+	sync(node: HTMLElement | null, disabled: boolean, focusableWhenDisabled = true) {
+		if (!node || !this.elements.includes(node)) return;
+		const nativeDisabled = disabled && !focusableWhenDisabled;
+		if (nativeDisabled && this.highlighted === node) {
+			this.reconcile();
 			return;
 		}
-		untrack(() => this.reconcile());
+		if (!nativeDisabled) {
+			this.keepHighlighted();
+			return;
+		}
+		this.rememberHighlight();
+	}
+
+	private keepHighlighted() {
+		if (this.highlighted == null || isSkipped(this.highlighted)) this.reconcile();
+		else this.rememberHighlight();
+	}
+
+	private rememberHighlight() {
+		const highlighted = this.highlighted;
+		if (highlighted && this.elements.includes(highlighted) && !isSkipped(highlighted)) {
+			this.highlightedIndex = this.elements.indexOf(highlighted);
+			this.settled = true;
+		}
 	}
 
 	/** Move the tab stop onto `node` when it can take focus. */

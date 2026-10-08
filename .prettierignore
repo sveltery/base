@@ -9,6 +9,7 @@ bun.lockb
 /static/
 .checks/
 .verify/
+.jscpd-report/
 test-results/
 playwright-report/
 .svelte-kit/

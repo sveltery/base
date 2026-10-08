@@ -1,5 +1,7 @@
 <script lang="ts">
 	import { Field, Form, NumberField } from '#lib';
+	import NumberRequired from '../routes/fixtures/number-field/NumberRequired.svelte';
+	import { takeForm } from '../routes/fixtures/form-log.js';
 
 	let {
 		scenario = 'plain',
@@ -29,9 +31,7 @@
 	}
 
 	function accept(formValues: Record<string, unknown>, details: { event: Event }) {
-		details.event.preventDefault();
-		submitted += 1;
-		values = JSON.stringify(formValues);
+		({ submitted, values } = takeForm(formValues, details, submitted));
 	}
 </script>
 
@@ -128,16 +128,7 @@
 		</NumberField.Root>
 	</Field.Root>
 {:else if scenario === 'form-required'}
-	<Form onFormSubmit={accept}>
-		<Field.Root name="qty">
-			<NumberField.Root required>
-				<NumberField.Input data-testid="control" />
-			</NumberField.Root>
-			<Field.Error match="valueMissing" data-testid="error">Required</Field.Error>
-		</Field.Root>
-		<button type="submit">Submit</button>
-	</Form>
-	<output data-testid="submitted">{submitted}</output>
+	<NumberRequired {accept} {submitted} />
 {:else if scenario === 'form-values'}
 	<form
 		onsubmit={(event) => {

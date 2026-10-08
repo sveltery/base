@@ -1,12 +1,10 @@
 // Each case runs against the Svelte Toolbar and the React Base UI 1.8.0 reference.
 import { expect, test, type Page } from '@playwright/test';
+import { openFixture } from '../open-fixture.js';
+import { focusArrowLoop } from '../arrow-loop.js';
 
-async function open(page: Page, scenario: string, reference: boolean) {
-	const errors: string[] = [];
-	page.on('pageerror', (error) => errors.push(error.message));
-	await page.goto(`/fixtures/toolbar?case=${scenario}${reference ? '&reference' : ''}`);
-	await expect(page.locator('main')).toHaveAttribute('data-hydrated', 'true');
-	return { errors };
+function open(page: Page, scenario: string, reference: boolean) {
+	return openFixture(page, 'toolbar', scenario, reference);
 }
 
 function toolbar(page: Page) {
@@ -116,13 +114,7 @@ for (const reference of [false, true]) {
 			const three = page.getByRole('button', { name: 'Three' });
 			await expect(one).toHaveAttribute('data-focusable', '');
 			await expect(one).not.toHaveAttribute('disabled');
-			await one.focus();
-			await page.keyboard.press('ArrowRight');
-			await expect(two).toBeFocused();
-			await page.keyboard.press('ArrowRight');
-			await expect(three).toBeFocused();
-			await page.keyboard.press('ArrowRight');
-			await expect(one).toBeFocused();
+			await focusArrowLoop(page, one, two, three);
 		});
 
 		test('a non-focusable disabled button is skipped', async ({ page }) => {

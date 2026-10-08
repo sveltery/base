@@ -79,10 +79,11 @@ export class CollapsiblePanelMotion {
 
 			if (open && transitionStatus === 'starting') {
 				if (this.openingPassDone) {
-					if (this.needsLayoutReset && (height !== undefined || width !== undefined)) {
-						return resetLayoutStyles(panel);
-					}
-					return;
+					if (!this.needsLayoutReset) return;
+					// Unmeasured panels stay at the unset size. A real measurement
+					// is what schedules this second pass.
+					if (height === undefined && width === undefined) return;
+					return resetLayoutStyles(panel);
 				}
 				this.openingPassDone = true;
 				const skip = this.skipNextOpen;

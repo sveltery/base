@@ -13,7 +13,7 @@ import { createAttachmentKey } from 'svelte/attachments';
 import type { Attachment } from 'svelte/attachments';
 import type { HTMLAttributes } from 'svelte/elements';
 import { isSkipped } from '../internal/composite-skip.js';
-import { byDocumentOrder } from '../internal/document-order.js';
+import { createSlotClaim, includeSorted } from '../internal/roving-slot.js';
 import type { TabsOrientation } from './types.js';
 
 const NAV_KEYS = new Set(['ArrowUp', 'ArrowDown', 'ArrowLeft', 'ArrowRight', 'Home', 'End']);
@@ -44,7 +44,7 @@ export class TabsRoving {
 
 	private highlightedIndex = 0;
 	private settled = false;
-	private nextSlot = 0;
+	readonly claim = createSlotClaim();
 	private readonly attachmentKey = createAttachmentKey();
 
 	get loopFocus() {
@@ -55,26 +55,16 @@ export class TabsRoving {
 		return this.readOrientation();
 	}
 
-	/** Render-order slot used for tabindex before the attachment runs (SSR). */
-	claim() {
-		const slot = this.nextSlot;
-		this.nextSlot += 1;
-		return slot;
+	private syncElements(node: HTMLElement, present: boolean) {
+		this.elements = present
+			? includeSorted(this.elements, node)
+			: this.elements.filter((item) => item !== node);
+		this.reconcile();
 	}
 
 	register(node: HTMLElement) {
-		untrack(() => {
-			if (!this.elements.includes(node)) {
-				this.elements = [...this.elements, node].sort(byDocumentOrder);
-			}
-			this.reconcile();
-		});
-		return () => {
-			untrack(() => {
-				this.elements = this.elements.filter((item) => item !== node);
-				this.reconcile();
-			});
-		};
+		untrack(() => this.syncElements(node, true));
+		return () => untrack(() => this.syncElements(node, false));
 	}
 
 	/**

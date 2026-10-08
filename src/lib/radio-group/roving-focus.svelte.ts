@@ -8,31 +8,22 @@
 // are handled on the group, not on each radio. No element renderer.
 
 import { untrack } from 'svelte';
-import { byDocumentOrder } from '../internal/document-order.js';
+import { isSkipped } from '../internal/composite-skip.js';
+import { createSlotClaim, includeSorted } from '../internal/roving-slot.js';
 import type { RadioGroupRovingFocus } from '../radio/group-context.js';
 
 const ARROWS = new Set(['ArrowUp', 'ArrowDown', 'ArrowLeft', 'ArrowRight']);
 
-function isVisible(element: HTMLElement) {
-	if (!element.isConnected) return false;
-	const styles = getComputedStyle(element);
-	if (styles.visibility === 'hidden' || styles.visibility === 'collapse') return false;
-	if (typeof element.checkVisibility === 'function') return element.checkVisibility();
-	return styles.display !== 'none' && styles.display !== 'contents';
-}
-
 /** Hidden, natively disabled, and `aria-disabled` radios are skipped. */
-export function isSkipped(element: HTMLElement) {
-	if (!isVisible(element)) return true;
-	if (element.matches(':disabled')) return true;
-	return element.getAttribute('aria-disabled') === 'true';
+function isItemSkipped(element: HTMLElement) {
+	return isSkipped(element) || element.getAttribute('aria-disabled') === 'true';
 }
 
 function fallbackIndex(elements: HTMLElement[]) {
 	let fallback = -1;
 	for (let index = 0; index < elements.length; index += 1) {
 		const element = elements[index];
-		if (!element || isSkipped(element)) continue;
+		if (!element || isItemSkipped(element)) continue;
 		if (element.hasAttribute('data-composite-item-active')) return index;
 		if (fallback === -1) fallback = index;
 	}
@@ -51,20 +42,11 @@ export class RadioGroupRoving implements RadioGroupRovingFocus {
 
 	private highlightedIndex = 0;
 	private userMoved = false;
-	private nextSlot = 0;
-
-	/** Render-order slot used for tabindex before the attachment runs (SSR). */
-	claim() {
-		const slot = this.nextSlot;
-		this.nextSlot += 1;
-		return slot;
-	}
+	readonly claim = createSlotClaim();
 
 	register(node: HTMLElement) {
 		untrack(() => {
-			if (!this.elements.includes(node)) {
-				this.elements = [...this.elements, node].sort(byDocumentOrder);
-			}
+			this.elements = includeSorted(this.elements, node);
 			if (this.userMoved) this.follow();
 			else this.applyDefault();
 		});
@@ -122,7 +104,7 @@ export class RadioGroupRoving implements RadioGroupRovingFocus {
 		const backward = event.key === backwardHorizontal || event.key === 'ArrowUp';
 		if (!forward && !backward) return;
 
-		const items = this.elements.filter((item) => !isSkipped(item));
+		const items = this.elements.filter((item) => !isItemSkipped(item));
 		if (items.length === 0) return;
 
 		const stop = this.highlighted && items.includes(this.highlighted) ? this.highlighted : items[0];
@@ -147,7 +129,7 @@ export class RadioGroupRoving implements RadioGroupRovingFocus {
 
 	private currentStop() {
 		if (this.highlighted && this.elements.includes(this.highlighted)) return this.highlighted;
-		return this.elements.find((item) => !isSkipped(item)) ?? this.elements[0] ?? null;
+		return this.elements.find((item) => !isItemSkipped(item)) ?? this.elements[0] ?? null;
 	}
 
 	private applyDefault() {
@@ -167,8 +149,8 @@ export class RadioGroupRoving implements RadioGroupRovingFocus {
 		}
 
 		const initial = elements[0];
-		if (!initial || isSkipped(initial)) {
-			const first = elements.findIndex((element) => !isSkipped(element));
+		if (!initial || isItemSkipped(initial)) {
+			const first = elements.findIndex((element) => !isItemSkipped(element));
 			const index = first === -1 ? 0 : first;
 			this.highlighted = elements[index] ?? null;
 			this.highlightedIndex = index;
@@ -198,7 +180,7 @@ export class RadioGroupRoving implements RadioGroupRovingFocus {
 		}
 
 		const replacement = elements[this.highlightedIndex];
-		if (replacement && !isSkipped(replacement)) {
+		if (replacement && !isItemSkipped(replacement)) {
 			this.highlighted = replacement;
 			return;
 		}

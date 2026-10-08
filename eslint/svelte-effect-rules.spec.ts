@@ -63,6 +63,15 @@ function reportedLines(source: string, messages: Linter.LintMessage[]) {
 	return messages.map((message) => lines[(message.line ?? 1) - 1] ?? '');
 }
 
+function covers(source: string, messages: Linter.LintMessage[], snippet: string) {
+	const lineNo = source.split('\n').findIndex((line) => line.includes(snippet)) + 1;
+	return messages.some((message) => {
+		const start = message.line ?? 0;
+		const end = message.endLine ?? start;
+		return lineNo >= start && lineNo <= end;
+	});
+}
+
 describe('sveltery/no-prop-state-sync', () => {
 	const ruleName = 'no-prop-state-sync';
 
@@ -110,6 +119,27 @@ describe('sveltery/no-void-signal-read', () => {
 		expect(lines.some((line) => line.includes('const _height = height'))).toBe(true);
 		expect(lines.some((line) => line.includes('const itemDisabled = disabled'))).toBe(true);
 		expect(lines.some((line) => line.includes('const nativeDisabled ='))).toBe(true);
+	});
+
+	it('rejects always-true conditions, identical branches, and comparison counters', async () => {
+		const { source, messages } = await messagesFor('forced-read.fail.svelte', ruleName);
+
+		expect(messages.length).toBeGreaterThanOrEqual(4);
+		expect(messages.some((message) => message.message.includes('always-true'))).toBe(true);
+		expect(messages.some((message) => message.message.includes('identical branches'))).toBe(true);
+		expect(messages.some((message) => message.message.includes('comparison counter'))).toBe(true);
+		expect(covers(source, messages, 'height !== undefined || width !== undefined')).toBe(true);
+		expect(covers(source, messages, 'untrack(() => ensureActive())')).toBe(true);
+		expect(covers(source, messages, 'untrack(() => reconcile())')).toBe(true);
+		expect(covers(source, messages, 'readStyle() !== style')).toBe(true);
+	});
+
+	it('allows a measured size, a disabled item, and one direction check', async () => {
+		const { source, messages } = await messagesFor('forced-read.pass.svelte', ruleName);
+		expect(source).toContain('height === undefined && width === undefined');
+		expect(source).toContain('keepEnabled(item)');
+		expect(source).toContain('direction !== seen');
+		expect(messages).toEqual([]);
 	});
 
 	it('allows passing signals into a function and publishing a bindable by assignment', async () => {
@@ -212,7 +242,8 @@ const failRuleByFile: Record<string, string> = {
 	'split-lifecycle.fail.svelte': 'sveltery/no-split-effect-lifecycle',
 	'previous-value.fail.svelte': 'sveltery/no-previous-value-effect',
 	'process-env.fail.svelte': 'sveltery/no-process-env',
-	'form-ref-current.fail.svelte': 'sveltery/no-react-refs'
+	'form-ref-current.fail.svelte': 'sveltery/no-react-refs',
+	'forced-read.fail.svelte': 'sveltery/no-void-signal-read'
 };
 
 function lintWithEveryRule(code: string, filePath: string) {

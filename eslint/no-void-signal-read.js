@@ -28,7 +28,13 @@ const rule = {
 		schema: [],
 		messages: {
 			voidSignal:
-				'Do not force a signal read with `void`. Pass the value into the function that uses it, or read it in a `$derived`.'
+				'Do not force a signal read with `void`. Pass the value into the function that uses it, or read it in a `$derived`.',
+			alwaysTrue:
+				'Do not force a signal read with an always-true condition. Pass the value into the function that uses it, or read it in a `$derived`.',
+			identicalBranches:
+				'Do not force a signal read with identical branches. Pass the value into the function that uses it, or read it in a `$derived`.',
+			comparisonCounter:
+				'Do not force a signal read with a comparison counter. Pass the value into the function that uses it, or read it in a `$derived`.'
 		}
 	},
 	create(context) {
@@ -383,9 +389,244 @@ const rule = {
 			},
 			ArrowFunctionExpression(node) {
 				reportUntrackOnlyParameters(node);
+			},
+			IfStatement(node) {
+				if (isAlwaysTrue(node.test)) {
+					context.report({ node: node.test, messageId: 'alwaysTrue' });
+				} else if (inequalityCount(node.test) >= 4 && isOnlyReturn(node.consequent)) {
+					context.report({ node: node.test, messageId: 'comparisonCounter' });
+				}
+				if (identicalBranches(node)) {
+					context.report({ node, messageId: 'identicalBranches' });
+					if (node.alternate) {
+						context.report({ node: node.alternate, messageId: 'identicalBranches' });
+					} else {
+						for (const statement of statementsAfter(node)) {
+							context.report({ node: statement, messageId: 'identicalBranches' });
+						}
+					}
+				}
 			}
 		};
 	}
 };
+
+/**
+ * @param {any} node
+ */
+function isTrueLiteral(node) {
+	const value = unwrap(node);
+	return Boolean(value && value.type === 'Literal' && value.value === true);
+}
+
+/**
+ * `height !== undefined || width !== undefined` is true once either measurement
+ * has been written. It exists to subscribe, not to choose a path.
+ *
+ * @param {any} node
+ */
+function undefinedOrCount(node) {
+	const value = unwrap(node);
+	if (!value) return 0;
+	if (value.type === 'LogicalExpression' && value.operator === '||') {
+		return undefinedOrCount(value.left) + undefinedOrCount(value.right);
+	}
+	if (value.type !== 'BinaryExpression') return 0;
+	if (value.operator !== '!==' && value.operator !== '!=') return 0;
+	const right = unwrap(value.right);
+	if (!right || right.type !== 'Identifier') return 0;
+	return right.name === 'undefined' || right.name === 'null' ? 1 : 0;
+}
+
+/**
+ * @param {any} node
+ */
+function isAlwaysTrue(node) {
+	const value = unwrap(node);
+	if (!value) return false;
+	if (isTrueLiteral(value)) return true;
+	if (value.type === 'LogicalExpression' && value.operator === '||') {
+		if (isTrueLiteral(value.left) || isTrueLiteral(value.right)) return true;
+		if (undefinedOrCount(value) >= 2) return true;
+		const left = unwrap(value.left);
+		const right = unwrap(value.right);
+		if (
+			left &&
+			right &&
+			left.type === 'UnaryExpression' &&
+			left.operator === '!' &&
+			sameCode(left.argument, right)
+		) {
+			return true;
+		}
+		if (
+			right &&
+			left &&
+			right.type === 'UnaryExpression' &&
+			right.operator === '!' &&
+			sameCode(right.argument, left)
+		) {
+			return true;
+		}
+	}
+	if (value.type === 'LogicalExpression' && value.operator === '&&') {
+		return isAlwaysTrue(value.left) || isAlwaysTrue(value.right);
+	}
+	return false;
+}
+
+/**
+ * @param {any} node
+ */
+function inequalityCount(node) {
+	const value = unwrap(node);
+	if (!value) return 0;
+	if (value.type === 'LogicalExpression' && value.operator === '||') {
+		return inequalityCount(value.left) + inequalityCount(value.right);
+	}
+	if (value.type === 'BinaryExpression' && (value.operator === '!==' || value.operator === '!=')) {
+		return 1;
+	}
+	return 0;
+}
+
+/**
+ * @param {any} node
+ */
+function isOnlyReturn(node) {
+	if (!node) return false;
+	if (node.type === 'ReturnStatement') return true;
+	if (node.type !== 'BlockStatement') return false;
+	return node.body.length === 1 && node.body[0]?.type === 'ReturnStatement';
+}
+
+/**
+ * Both arms are `untrack` callbacks that call the same helpers, so the
+ * condition only subscribes. A returned `untrack` makes one following
+ * `untrack` the other arm.
+ *
+ * @param {any} node
+ */
+function identicalBranches(node) {
+	const left = untrackCalls(node.consequent);
+	if (!left || left.length === 0) return false;
+	const right = node.alternate ? untrackCalls(node.alternate) : untrackAfter(node);
+	if (!right || right.length === 0) return false;
+	return unique(left) === unique(right);
+}
+
+/**
+ * @param {any} node
+ * @returns {string[] | null}
+ */
+function untrackCalls(node) {
+	if (!node) return null;
+	const statements =
+		node.type === 'BlockStatement'
+			? node.body.filter((statement) => statement.type !== 'ReturnStatement')
+			: [node];
+	if (statements.length !== 1) return null;
+	const statement = statements[0];
+	const expr =
+		statement.type === 'ExpressionStatement' ? unwrap(statement.expression) : unwrap(statement);
+	if (!expr || expr.type !== 'CallExpression' || calleeName(expr.callee) !== 'untrack') return null;
+	const callback = unwrap(expr.arguments?.[0]);
+	if (
+		!callback ||
+		(callback.type !== 'ArrowFunctionExpression' && callback.type !== 'FunctionExpression')
+	) {
+		return null;
+	}
+	/** @type {string[]} */
+	const names = [];
+	walkCalls(callback.body, names, true);
+	return names;
+}
+
+/**
+ * @param {any} node
+ * @returns {string[] | null}
+ */
+function untrackAfter(node) {
+	const rest = statementsAfter(node);
+	if (rest.length !== 1) return null;
+	return untrackCalls(rest[0]);
+}
+
+/**
+ * @param {any} node
+ */
+function statementsAfter(node) {
+	const parent = node.parent;
+	if (!parent || parent.type !== 'BlockStatement') return [];
+	const body = parent.body ?? [];
+	const index = body.indexOf(node);
+	if (index < 0) return [];
+	return body.slice(index + 1);
+}
+
+/**
+ * @param {any} node
+ * @param {string[]} names
+ * @param {boolean} enterFunctions
+ */
+function walkCalls(node, names, enterFunctions) {
+	if (!node || typeof node !== 'object' || typeof node.type !== 'string') return;
+	if (
+		!enterFunctions &&
+		(node.type === 'FunctionExpression' ||
+			node.type === 'ArrowFunctionExpression' ||
+			node.type === 'FunctionDeclaration')
+	) {
+		return;
+	}
+	if (node.type === 'IfStatement') {
+		walkCalls(node.consequent, names, enterFunctions);
+		walkCalls(node.alternate, names, enterFunctions);
+		return;
+	}
+	if (node.type === 'CallExpression') {
+		const name = calleeName(node.callee);
+		if (name === 'untrack') {
+			const callback = unwrap(node.arguments?.[0]);
+			if (
+				callback &&
+				(callback.type === 'ArrowFunctionExpression' || callback.type === 'FunctionExpression')
+			) {
+				walkCalls(callback.body, names, true);
+			}
+			return;
+		}
+		if (name) names.push(name);
+	}
+	for (const key of Object.keys(node)) {
+		if (key === 'parent') continue;
+		const child = node[key];
+		if (Array.isArray(child)) {
+			for (const item of child) walkCalls(item, names, enterFunctions);
+		} else {
+			walkCalls(child, names, enterFunctions);
+		}
+	}
+}
+
+/**
+ * @param {string[]} names
+ */
+function unique(names) {
+	return [...new Set(names)].sort().join(',');
+}
+
+/**
+ * @param {any} left
+ * @param {any} right
+ */
+function sameCode(left, right) {
+	const a = unwrap(left);
+	const b = unwrap(right);
+	if (!a || !b || a.type !== b.type) return false;
+	if (a.type === 'Identifier') return a.name === b.name;
+	return false;
+}
 
 export default rule;

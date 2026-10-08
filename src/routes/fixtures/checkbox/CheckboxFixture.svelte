@@ -1,49 +1,26 @@
 <script lang="ts">
 	import { Checkbox } from '#lib';
+	import { CheckedFixture } from '../checked-state.svelte.js';
 	import type { CheckboxCase } from './cases.js';
 
 	let { scenario }: { scenario: CheckboxCase } = $props();
-
-	let owner = $state(false);
-	let checked = $state(false);
-	let calls = $state<{ checked: boolean; reason: string; canceled: boolean }[]>([]);
-	let values = $state<(string | null)[]>([]);
-
-	function changed(
-		next: boolean,
-		details: { reason: string; isCanceled: boolean; cancel: () => void }
-	) {
-		if (scenario === 'cancel') details.cancel();
-		calls.push({ checked: next, reason: details.reason, canceled: details.isCanceled });
-	}
-
-	function prevent(event: MouseEvent) {
-		if (scenario === 'prevented') event.preventDefault();
-	}
-
-	function submitted(event: SubmitEvent) {
-		event.preventDefault();
-		const form = event.currentTarget;
-		if (!(form instanceof HTMLFormElement)) return;
-		const value = new FormData(form).get('notifications');
-		values.push(typeof value === 'string' ? value : null);
-	}
+	const box = new CheckedFixture(() => scenario);
 </script>
 
 {#if scenario === 'bound'}
-	<input type="checkbox" aria-label="Owner checked" bind:checked={owner} />
-	<Checkbox.Root id="tested-checkbox" bind:checked={owner} onCheckedChange={changed}>
+	<input type="checkbox" aria-label="Owner checked" bind:checked={box.owner} />
+	<Checkbox.Root id="tested-checkbox" bind:checked={box.owner} onCheckedChange={box.changed}>
 		<Checkbox.Indicator />
 		Notifications
 	</Checkbox.Root>
 {:else if scenario === 'form' || scenario === 'enter'}
-	<form onsubmit={submitted}>
+	<form onsubmit={box.submitted}>
 		<Checkbox.Root
 			id="tested-checkbox"
 			name="notifications"
 			value="yes"
 			uncheckedValue="no"
-			onCheckedChange={changed}
+			onCheckedChange={box.changed}
 		>
 			<Checkbox.Indicator />
 			Notifications
@@ -53,7 +30,7 @@
 {:else if scenario === 'label'}
 	<label data-testid="label">
 		<span>Toggle</span>
-		<Checkbox.Root id="tested-checkbox" onCheckedChange={changed}>
+		<Checkbox.Root id="tested-checkbox" onCheckedChange={box.changed}>
 			<Checkbox.Indicator />
 			Notifications
 		</Checkbox.Root>
@@ -62,7 +39,7 @@
 	<Checkbox.Root
 		id="tested-checkbox"
 		nativeButton
-		onCheckedChange={changed}
+		onCheckedChange={box.changed}
 		aria-label="Notifications"
 	>
 		{#snippet render(props)}
@@ -70,22 +47,22 @@
 		{/snippet}
 	</Checkbox.Root>
 {:else if scenario === 'indeterminate'}
-	<Checkbox.Root id="tested-checkbox" indeterminate onCheckedChange={changed}>
+	<Checkbox.Root id="tested-checkbox" indeterminate onCheckedChange={box.changed}>
 		<Checkbox.Indicator data-testid="indicator" />
 		Notifications
 	</Checkbox.Root>
 {:else}
 	<Checkbox.Root
 		id="tested-checkbox"
-		bind:checked
+		bind:checked={box.checked}
 		disabled={scenario === 'disabled'}
 		readOnly={scenario === 'readonly'}
-		onCheckedChange={changed}
-		onclick={prevent}
+		onCheckedChange={box.changed}
+		onclick={box.prevent}
 	>
 		<Checkbox.Indicator />
 		Notifications
 	</Checkbox.Root>
 {/if}
-<output data-testid="calls">{JSON.stringify(calls)}</output>
-<output data-testid="values">{JSON.stringify(values)}</output>
+<output data-testid="calls">{JSON.stringify(box.calls)}</output>
+<output data-testid="values">{JSON.stringify(box.values)}</output>

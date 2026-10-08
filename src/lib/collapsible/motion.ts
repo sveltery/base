@@ -1,6 +1,7 @@
 // Derived from Base UI v1.8.0 packages/react/src/collapsible/panel/useCollapsiblePanel.ts
 // (commit 47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c). MIT, see THIRD_PARTY_NOTICES.md.
 
+import { mergeCssStyle } from '../internal/css-style.js';
 import { devWarn } from './warn.js';
 
 export type AnimationType = 'css-transition' | 'css-animation' | 'none';
@@ -101,10 +102,9 @@ export function resetLayoutStyles(element: HTMLElement): () => void {
 	};
 }
 
+/** Joins style fragments with the shared `mergeCssStyle` helper. */
 export function joinStyles(...parts: Array<string | undefined>): string | undefined {
-	const present = parts.filter((part) => part != null && part !== '');
-	if (present.length === 0) return undefined;
-	return present.join(';');
+	return parts.reduce<string | undefined>((base, part) => mergeCssStyle(base, part), undefined);
 }
 
 export function dimensionStyle(height: number | undefined, width: number | undefined): string {
