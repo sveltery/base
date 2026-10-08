@@ -17,9 +17,11 @@ export function addedFingerprints(base, next) {
 function ancestorBaseline() {
 	for (const rev of ['origin/main', 'HEAD']) {
 		try {
-			return execFileSync('git', ['show', `${rev}:.jscpd-baseline.json`], { encoding: 'utf8' });
+			const text = execFileSync('git', ['show', `${rev}:.jscpd-baseline.json`], { encoding: 'utf8' });
+			console.log(`jscpd baseline compared with ${rev}`);
+			return text;
 		} catch {
-			// Try the next rev.
+			console.log(`jscpd baseline base ${rev} is not available`);
 		}
 	}
 	return null;
