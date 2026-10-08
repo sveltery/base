@@ -23,7 +23,7 @@
 </script>
 
 {#if shouldRender}
-	<FloatingPortal {store} {container} {...rest}>
+	<FloatingPortal {...rest} {store} {container}>
 		{@render children?.()}
 	</FloatingPortal>
 {/if}
