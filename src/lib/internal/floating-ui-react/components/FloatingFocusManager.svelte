@@ -3,6 +3,7 @@
 	// (commit 47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c). MIT, see THIRD_PARTY_NOTICES.md.
 	// The trap is focus guards plus aria-hidden on outside nodes. It does not set the inert attribute.
 
+	import { untrack } from 'svelte';
 	import { on } from 'svelte/events';
 	import { untrack } from 'svelte';
 	import type { Snippet } from 'svelte';
@@ -178,9 +179,11 @@
 		for (const node of nested) {
 			const context = node.context;
 			if (!context) continue;
-			// Read the child elements so a nested popup that mounts later is kept visible.
-			if (context.floatingElement) inside.push(context.floatingElement);
-			if (context.portalElement) inside.push(context.portalElement);
+			// Snapshot child elements without subscribing. Mounting a nested popup must not rebuild this trap.
+			const elements = untrack(() => [context.floatingElement, context.portalElement]);
+			for (const element of elements) {
+				if (element) inside.push(element);
+			}
 		}
 		const hideOutside = modal ? markOthers(inside, { ariaHidden: true, mark: false }) : () => {};
 		const mark = markOthers(inside);

@@ -109,7 +109,7 @@
 <FloatingFocusManager
 	{store}
 	disabled={!store.mounted}
-	initialFocus={resolveInitial}
+	initialFocus={store.open ? resolveInitial() : true}
 	returnFocus={resolveFinal}
 	modal={store.modal !== false}
 	closeOnFocusOut={!store.disablePointerDismissal}

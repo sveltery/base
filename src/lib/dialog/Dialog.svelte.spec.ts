@@ -8,6 +8,7 @@ import { render } from 'vitest-browser-svelte';
 import DialogActionsHarness from '../../tests/DialogActionsHarness.svelte';
 import DialogHandleHarness from '../../tests/DialogHandleHarness.svelte';
 import DialogHarness from '../../tests/DialogHarness.svelte';
+import DialogNestedHandleHarness from '../../tests/DialogNestedHandleHarness.svelte';
 import DialogMissingPortalHarness from '../../tests/DialogMissingPortalHarness.svelte';
 import { Dialog } from './index.js';
 import { REASONS } from '../internal/event-details.js';
@@ -286,6 +287,23 @@ describe('Dialog', () => {
 		expect(handle.isOpen).toBe(true);
 		handle.close();
 		await dialogs(0);
+	});
+
+	it('opens a handled trigger rendered inside another dialog', async () => {
+		const handle = Dialog.createHandle<string>();
+		render(DialogNestedHandleHarness, { handle });
+		await expect.element(page.getByRole('dialog', { name: 'Parent' })).toBeVisible();
+		click(button('Open child'));
+		await tick();
+		await expect.element(page.getByTestId('child-popup')).toBeVisible();
+		expect(handle.isOpen).toBe(true);
+	});
+
+	it('marks a detached trigger that rendered before an already-open root', async () => {
+		const handle = Dialog.createHandle<string>();
+		render(DialogHandleHarness, { handle, defaultOpen: true, defaultTriggerId: 'detached' });
+		await expect.element(button('Detached')).toHaveAttribute('aria-expanded', 'true');
+		await expect.element(page.getByRole('dialog', { name: 'Handled' })).toBeVisible();
 	});
 
 	it('throws when a trigger is rendered outside a root and without a handle', () => {

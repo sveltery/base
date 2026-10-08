@@ -1,12 +1,21 @@
 <script lang="ts">
 	import { Dialog, type DialogHandle } from '#lib';
 
-	let { handle, payload = 'from-trigger' }: { handle: DialogHandle<string>; payload?: string } =
-		$props();
+	let {
+		handle,
+		payload = 'from-trigger',
+		defaultOpen = false,
+		defaultTriggerId = null
+	}: {
+		handle: DialogHandle<string>;
+		payload?: string;
+		defaultOpen?: boolean;
+		defaultTriggerId?: string | null;
+	} = $props();
 </script>
 
 <Dialog.Trigger {handle} id="detached" {payload}>Detached</Dialog.Trigger>
-<Dialog.Root {handle}>
+<Dialog.Root {handle} {defaultOpen} {defaultTriggerId}>
 	{#snippet children({ payload: value })}
 		<Dialog.Trigger>Inside</Dialog.Trigger>
 		<Dialog.Portal>

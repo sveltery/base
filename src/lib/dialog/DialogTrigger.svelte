@@ -56,13 +56,15 @@
 	const state: DialogTriggerState = $derived({ disabled: disabled === true, open: openedByThis });
 
 	function clickHandlers(current: DialogStore<unknown> | null | undefined) {
-		return dialogRoot?.click ?? current?.click;
+		// A handled trigger inside another dialog belongs to its own store.
+		return current?.click ?? dialogRoot?.click;
 	}
 
 	function register(node: HTMLElement) {
 		const id = triggerId;
+		// Track the owning store so a detached trigger leaves fallbackTriggers when its root attaches.
+		const current = store;
 		return untrack(() => {
-			const current = store;
 			const triggers = current?.triggers ?? handle?.fallbackTriggers;
 			if (!triggers) return;
 			const owner = {
