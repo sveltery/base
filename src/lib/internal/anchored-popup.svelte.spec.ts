@@ -63,13 +63,19 @@ describe('anchored popup', () => {
 		await expect.poll(() => page.getByTestId('open').element().textContent).toBe('false');
 	});
 
+	function clickTrigger(pointerType: string | null, detail: number) {
+		const button = page.getByRole('button', { name: 'Open' }).element();
+		if (pointerType) {
+			button.dispatchEvent(
+				new PointerEvent('pointerdown', { bubbles: true, cancelable: true, pointerType })
+			);
+		}
+		button.dispatchEvent(new MouseEvent('click', { bubbles: true, cancelable: true, detail }));
+	}
+
 	it('locks a touch-opened popup only when it is nearly as wide as the viewport', async () => {
 		function touchOpen() {
-			const button = page.getByRole('button', { name: 'Open' }).element();
-			button.dispatchEvent(
-				new PointerEvent('pointerdown', { bubbles: true, cancelable: true, pointerType: 'touch' })
-			);
-			button.dispatchEvent(new MouseEvent('click', { bubbles: true, cancelable: true }));
+			clickTrigger('touch', 1);
 		}
 
 		const narrow = render(AnchoredScrollLockHarness, { enabled: true, wide: false });
@@ -84,16 +90,17 @@ describe('anchored popup', () => {
 
 	it('does not keep a touch open after the popup closes', async () => {
 		render(AnchoredScrollLockHarness, { enabled: true, wide: false });
-		const button = page.getByRole('button', { name: 'Open' }).element();
-		button.dispatchEvent(
-			new PointerEvent('pointerdown', { bubbles: true, cancelable: true, pointerType: 'touch' })
-		);
-		button.dispatchEvent(new MouseEvent('click', { bubbles: true, cancelable: true }));
+		clickTrigger('touch', 1);
 		await expect.poll(overflowLocked).toBe(false);
-		button.dispatchEvent(new MouseEvent('click', { bubbles: true, cancelable: true }));
+		clickTrigger(null, 1);
 		await expect.poll(overflowLocked).toBe(false);
-		button.dispatchEvent(new KeyboardEvent('keydown', { bubbles: true, key: 'Enter' }));
-		button.dispatchEvent(new MouseEvent('click', { bubbles: true, cancelable: true }));
+		clickTrigger(null, 0);
+		await expect.poll(overflowLocked).toBe(true);
+	});
+
+	it('treats a virtual click as keyboard', async () => {
+		render(AnchoredScrollLockHarness, { enabled: true, wide: false });
+		clickTrigger(null, 0);
 		await expect.poll(overflowLocked).toBe(true);
 	});
 

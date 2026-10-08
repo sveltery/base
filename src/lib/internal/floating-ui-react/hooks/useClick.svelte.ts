@@ -4,9 +4,9 @@
 import { createChangeEventDetails, REASONS } from '../../event-details.js';
 import { getTarget } from '../../shadow-dom.js';
 import { AnimationFrame, Timeout } from '../../timeout.js';
-import { PopupStore } from '../../popups/store.svelte.js';
+import type { OpenInteractionType } from '../../popups/useOpenInteractionType.js';
 import { useOpenInteractionType } from '../../popups/useOpenInteractionType.js';
-import type { FloatingRootStore } from '../components/FloatingRootStore.svelte.js';
+import type { PopupStore } from '../../popups/store.svelte.js';
 import { isTypeableElement } from '../utils/element.js';
 import { isMouseLikePointerType, isVirtualPointerEvent } from '../utils/event.js';
 
@@ -20,11 +20,13 @@ export interface UseClickProps {
 	reason?: typeof REASONS.triggerPress;
 }
 
-export function useClick(store: FloatingRootStore, props: () => UseClickProps = () => ({})) {
+export function useClick<Reason extends string>(
+	store: PopupStore<Reason>,
+	props: () => UseClickProps = () => ({})
+) {
 	const frame = AnimationFrame.create();
 	const touchOpenTimeout = Timeout.create();
 	let pointerType: 'mouse' | 'pen' | 'touch' | 'virtual' | undefined;
-	let fromKeyboard = false;
 
 	function options() {
 		const value = props();
@@ -43,31 +45,22 @@ export function useClick(store: FloatingRootStore, props: () => UseClickProps = 
 		nextOpen: boolean,
 		nativeEvent: MouseEvent,
 		target: HTMLElement,
-		kind: typeof pointerType
+		method: OpenInteractionType
 	) {
 		const { reason, touchOpenDelay } = options();
 		const details = createChangeEventDetails(reason, nativeEvent, target);
-		const openedByKeyboard = fromKeyboard;
-		fromKeyboard = false;
-		const popup = store instanceof PopupStore ? store : null;
-		const previousMethod = popup?.openMethod ?? null;
-		const record = () => {
-			if (nextOpen && popup) popup.openMethod = useOpenInteractionType(kind, openedByKeyboard);
+		const commit = () => {
+			const opening = nextOpen && !store.isOpen();
+			const previous = store.openMethod;
+			if (opening) store.openMethod = method;
+			store.setOpen(nextOpen, details);
+			if (opening && details.isCanceled) store.openMethod = previous;
 		};
-		const restore = () => {
-			if (popup && details.isCanceled) popup.openMethod = previousMethod;
-		};
-		if (nextOpen && kind === 'touch' && touchOpenDelay > 0) {
-			touchOpenTimeout.start(touchOpenDelay, () => {
-				record();
-				store.setOpen(true, details);
-				restore();
-			});
+		if (nextOpen && method === 'touch' && touchOpenDelay > 0) {
+			touchOpenTimeout.start(touchOpenDelay, commit);
 			return;
 		}
-		record();
-		store.setOpen(nextOpen, details);
-		restore();
+		commit();
 	}
 
 	function getNextOpen(
@@ -91,7 +84,6 @@ export function useClick(store: FloatingRootStore, props: () => UseClickProps = 
 		reference: {
 			onpointerdown(event: PointerEvent) {
 				if (!options().enabled) return;
-				fromKeyboard = false;
 				remember(event);
 				pointerType =
 					isMouseLikePointerType(event.pointerType, true) && isVirtualPointerEvent(event)
@@ -108,23 +100,27 @@ export function useClick(store: FloatingRootStore, props: () => UseClickProps = 
 					event.currentTarget,
 					(openEventType) => openEventType === 'click' || openEventType === 'mousedown'
 				);
+				const method = useOpenInteractionType(event, pointerType);
+				if (eventOption === 'mousedown-only') pointerType = undefined;
 				const target = getTarget(event);
 				if (isTypeableElement(target) && target instanceof HTMLElement) {
-					setOpenWithTouchDelay(nextOpen, event, target, pointerType);
+					setOpenWithTouchDelay(nextOpen, event, target, method);
 					return;
 				}
 				const currentTarget = event.currentTarget;
 				if (!(currentTarget instanceof HTMLElement)) return;
-				frame.request(() => setOpenWithTouchDelay(nextOpen, event, currentTarget, pointerType));
+				frame.request(() => setOpenWithTouchDelay(nextOpen, event, currentTarget, method));
 			},
 			onclick(event: MouseEvent) {
 				const { enabled, event: eventOption, ignoreMouse } = options();
-				if (!enabled || eventOption === 'mousedown-only') return;
-				if (eventOption === 'mousedown' && pointerType) {
-					pointerType = undefined;
-					return;
-				}
-				if (isMouseLikePointerType(pointerType, true) && ignoreMouse) return;
+				if (!enabled) return;
+				const remembered = pointerType;
+				const method = useOpenInteractionType(event, remembered);
+				const hadPointer = remembered !== undefined;
+				pointerType = undefined;
+				if (eventOption === 'mousedown-only') return;
+				if (eventOption === 'mousedown' && hadPointer) return;
+				if (isMouseLikePointerType(remembered, true) && ignoreMouse) return;
 				remember(event);
 				const currentTarget = event.currentTarget;
 				if (!(currentTarget instanceof HTMLElement)) return;
@@ -137,11 +133,10 @@ export function useClick(store: FloatingRootStore, props: () => UseClickProps = 
 						openEventType === 'keydown' ||
 						openEventType === 'keyup'
 				);
-				setOpenWithTouchDelay(nextOpen, event, currentTarget, pointerType);
+				setOpenWithTouchDelay(nextOpen, event, currentTarget, method);
 			},
 			onkeydown() {
 				if (!options().enabled) return;
-				fromKeyboard = true;
 				pointerType = undefined;
 			}
 		}

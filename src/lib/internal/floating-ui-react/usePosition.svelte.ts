@@ -68,26 +68,9 @@ export function usePosition(options: () => UsePositionOptions): UsePositionRetur
 		isPositioned: false
 	});
 	let floating = $state<HTMLElement | null>(null);
-	/** Raw so the element keeps its identity. Effects read this when the trigger changes. */
+	/** Raw so the element keeps its identity when effects compare it. */
 	let positionedFor = $state.raw<ReferenceElement | null>(null);
 	let version = 0;
-	let cleared = true;
-
-	function clearPosition(placement: Placement, strategy: Strategy) {
-		version += 1;
-		const hadReference = positionedFor != null;
-		positionedFor = null;
-		if (cleared && !hadReference) return;
-		cleared = true;
-		data = {
-			x: 0,
-			y: 0,
-			placement,
-			strategy,
-			middlewareData: {},
-			isPositioned: false
-		};
-	}
 
 	function update() {
 		const current = options();
@@ -104,7 +87,6 @@ export function usePosition(options: () => UsePositionOptions): UsePositionRetur
 			if (id !== version || floating !== node) return;
 			const live = options();
 			if (live.open === false || live.reference !== reference) return;
-			cleared = false;
 			positionedFor = reference;
 			data = {
 				x: result.x,
@@ -121,14 +103,39 @@ export function usePosition(options: () => UsePositionOptions): UsePositionRetur
 		const current = options();
 		const node = floating;
 		const reference = current.reference;
-		const closed = current.open === false || !current.enabled;
-		const moved = positionedFor != null && positionedFor !== reference;
-		if (closed || moved) clearPosition(current.placement, current.strategy);
-		if (closed || !node || !reference) return;
-		return autoUpdate(reference, node, update, current.autoUpdate);
+		if (!node || !reference || !current.enabled || current.open === false) {
+			version += 1;
+			return;
+		}
+		const stop = autoUpdate(reference, node, update, current.autoUpdate);
+		return () => {
+			version += 1;
+			stop();
+		};
 	});
 
-	const snapshot = $derived(data);
+	const snapshot = $derived.by(() => {
+		const current = options();
+		const currentFor =
+			current.open !== false &&
+			current.enabled &&
+			positionedFor != null &&
+			positionedFor === current.reference;
+		if (currentFor && data.isPositioned) return data;
+		return {
+			x: 0,
+			y: 0,
+			placement: current.placement,
+			strategy: current.strategy,
+			middlewareData: {},
+			isPositioned: false
+		};
+	});
+	const floatingStyles = $derived({
+		position: snapshot.strategy,
+		top: `${roundByDPR(floating, snapshot.y)}px`,
+		left: `${roundByDPR(floating, snapshot.x)}px`
+	});
 
 	function attach(node: HTMLElement) {
 		floating = node;
@@ -145,11 +152,7 @@ export function usePosition(options: () => UsePositionOptions): UsePositionRetur
 			return positionedFor;
 		},
 		get floatingStyles() {
-			return {
-				position: data.strategy,
-				top: `${roundByDPR(floating, data.y)}px`,
-				left: `${roundByDPR(floating, data.x)}px`
-			};
+			return floatingStyles;
 		},
 		get floatingProps() {
 			return { attach };
