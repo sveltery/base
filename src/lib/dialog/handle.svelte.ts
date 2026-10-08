@@ -6,13 +6,14 @@
 // Upstream Popover reads the active trigger's payload and does not accept openWithPayload.
 
 import { DEV } from 'esm-env';
+import { SvelteMap } from 'svelte/reactivity';
 import { createChangeEventDetails, REASONS } from '../internal/event-details.js';
 import { PopupHandle } from '../internal/popups/index.js';
 import type { DialogStore } from './store.svelte.js';
 
 export class DialogHandle<Payload = unknown> extends PopupHandle<Payload, DialogStore<Payload>> {
 	/** Payload for a trigger that is already registered. Unknown ids are never stored. */
-	private readonly triggerPayloads = new Map<string, Payload>();
+	private readonly triggerPayloads = new SvelteMap<string, Payload>();
 
 	constructor() {
 		super(false, 'Dialog.Handle');
