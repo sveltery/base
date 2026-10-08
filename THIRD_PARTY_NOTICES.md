@@ -28,6 +28,7 @@ Parts of this package derive from [Base UI](https://github.com/mui/base-ui) v1.8
 - `src/lib/fieldset/Fieldset.svelte.spec.ts` assertions from `packages/react/src/fieldset/root/FieldsetRoot.test.tsx`, `packages/react/src/fieldset/legend/FieldsetLegend.test.tsx`, and `packages/react/src/utils/useRegisteredLabelId.test.tsx`
 - `src/lib/field/FieldRoot.svelte` and `src/lib/field/model.svelte.ts` from `packages/react/src/field/root/FieldRoot.tsx`, `useFieldValidation.ts`, and `packages/react/src/internals/field-register-control/useFieldControlRegistration.ts`
 - `src/lib/field/FieldControl.svelte` from `packages/react/src/field/control/FieldControl.tsx`
+- `src/lib/internal/field-register-control.svelte.ts` from `packages/react/src/internals/field-register-control/useRegisterFieldControl.ts`
 - `src/lib/field/FieldLabel.svelte` from `packages/react/src/field/label/FieldLabel.tsx` and `packages/react/src/internals/labelable-provider/useLabel.ts`
 - `src/lib/field/FieldDescription.svelte` from `packages/react/src/field/description/FieldDescription.tsx`
 - `src/lib/field/FieldError.svelte` from `packages/react/src/field/error/FieldError.tsx`

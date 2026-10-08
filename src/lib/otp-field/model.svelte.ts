@@ -6,8 +6,7 @@
 // parent update. Props are read through getters. Element lists live on SlotList.
 
 import type { HTMLInputAttributes } from 'svelte/elements';
-import type { FieldRootModel } from '../field/model.svelte.js';
-import type { FieldRootState } from '../field/types.js';
+import { DEFAULT_FIELD_STATE, type FieldRootModel } from '../field/model.svelte.js';
 import type { FormContextValue } from '../form/context.js';
 import {
 	createChangeEventDetails,
@@ -27,15 +26,6 @@ import type {
 	OTPFieldRootState,
 	OTPFieldValidationType
 } from './types.js';
-
-const EMPTY_FIELD_STATE: FieldRootState = {
-	disabled: false,
-	touched: false,
-	dirty: false,
-	valid: null,
-	filled: false,
-	focused: false
-};
 
 export interface OTPFieldModelOptions {
 	getRawValue: () => string;
@@ -196,7 +186,7 @@ export class OTPFieldModel {
 
 	get state(): OTPFieldRootState {
 		return {
-			...(this.field?.state ?? EMPTY_FIELD_STATE),
+			...(this.field?.state ?? DEFAULT_FIELD_STATE),
 			complete: this.value.length === this.length,
 			disabled: this.disabled,
 			filled: this.filled,

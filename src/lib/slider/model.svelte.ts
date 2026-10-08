@@ -13,8 +13,7 @@ import {
 	createGenericEventDetails,
 	REASONS
 } from '../internal/event-details.js';
-import type { FieldRootModel } from '../field/model.svelte.js';
-import type { FieldRootState } from '../field/types.js';
+import { DEFAULT_FIELD_STATE, type FieldRootModel } from '../field/model.svelte.js';
 import type { FormContextValue } from '../form/context.js';
 import { asc } from './asc.js';
 import { ownerDocument, ownerWindow } from '../internal/owner.js';
@@ -49,15 +48,6 @@ import type {
 import { validateMinimumDistance } from './validateMinimumDistance.js';
 
 const INTENTIONAL_DRAG_COUNT_THRESHOLD = 2;
-
-const EMPTY_FIELD: FieldRootState = {
-	disabled: false,
-	touched: false,
-	dirty: false,
-	valid: null,
-	filled: false,
-	focused: false
-};
 
 interface Coords {
 	x: number;
@@ -278,7 +268,7 @@ export class SliderRootModel {
 	snapshot(): SliderRootState {
 		const field = this.options.getField();
 		return {
-			...(field?.state ?? EMPTY_FIELD),
+			...(field?.state ?? DEFAULT_FIELD_STATE),
 			activeThumbIndex: this.active,
 			disabled: this.disabled,
 			dragging: this.dragging,

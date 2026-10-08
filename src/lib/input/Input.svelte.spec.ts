@@ -2,13 +2,11 @@
 // (commit 47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c). MIT, see THIRD_PARTY_NOTICES.md.
 // Upstream `describeConformance(<Input />)` checks prop forwarding, render, class/style,
 // and that `ref` is an HTMLInputElement. Svelte has no ref: the host is the element.
-// Input.test.tsx renders Input outside Field. The landed Field.Control throws without
-// Field.Root, so these cases wrap it. That requirement is the native Svelte result.
+// Input.test.tsx renders Input outside Field. A standalone Input does the same.
 import { page } from 'vitest/browser';
 import { describe, expect, it } from 'vitest';
 import { render } from 'vitest-browser-svelte';
 import InputHarness from '../../tests/InputHarness.svelte';
-import { Input } from './index.js';
 
 function control() {
 	return page.getByTestId('control');
@@ -154,8 +152,13 @@ describe('<Input />', () => {
 			expect(page.getByTestId('submitted').element().textContent).toBe('1');
 		});
 
-		it('throws when rendered outside Field.Root', () => {
-			expect(() => render(Input)).toThrow(/FieldRootContext is missing/);
+		it('mounts outside Field.Root, and typing updates bind:value', async () => {
+			render(InputHarness, { scenario: 'standalone' });
+			const input = control();
+			await expect.element(input).toHaveValue('a');
+			await input.fill('typed');
+			await expect.element(input).toHaveValue('typed');
+			await expect.element(page.getByTestId('value')).toHaveTextContent('typed');
 		});
 	});
 });

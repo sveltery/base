@@ -107,6 +107,7 @@ export default defineConfig(
 		plugins: { sveltery },
 		rules: {
 			'sveltery/no-cloned-event': 'error',
+			'sveltery/no-direct-field-registration': 'error',
 			'sveltery/no-copied-helper': 'error',
 			'sveltery/no-derived-inline-attachment': 'error',
 			'sveltery/no-inline-composite-keys': 'error',

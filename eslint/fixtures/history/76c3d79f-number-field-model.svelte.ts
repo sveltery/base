@@ -104,6 +104,7 @@ export class NumberFieldModel {
 	/** Latest value `setValue` stored, including a no-op validation. */
 	lastChangedValue: number | null = null;
 	hasPendingCommit = false;
+	readonly fieldSource = Symbol('number-field-field');
 	/** Typed text. Ignored while `allowInputSync` is set. */
 	private draft = $state<string | null>(null);
 	/**
@@ -268,6 +269,28 @@ export class NumberFieldModel {
 		if (this.minWithDefault < 0 || this.options.getAllowOutOfRange())
 			addAll(MINUS_SIGNS_WITH_ASCII);
 		return keys;
+	}
+
+	/** Register the visible input once. Validation reads the current number. */
+	registerField(snapshot: {
+		disabled: boolean;
+		element: HTMLInputElement | null;
+		id: string | undefined;
+		name: string | undefined;
+	}) {
+		const field = this.options.getField();
+		if (!field) return;
+		if (snapshot.disabled) {
+			field.registerControl(this.fieldSource, undefined);
+			return;
+		}
+		const readValue = () => this.options.getValue();
+		field.registerControl(this.fieldSource, {
+			id: snapshot.id,
+			name: snapshot.name,
+			element: snapshot.element,
+			getValue: readValue
+		});
 	}
 
 	setValue(unvalidatedValue: number | null, details: NumberFieldChangeEventDetails): boolean {

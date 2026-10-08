@@ -12,7 +12,7 @@ Slot indexes come from a local list: render order before mount, then document or
 - `OTPField.Input` renders one slot. The first slot carries `autocomplete` (default `one-time-code`), `maxlength` equal to `length`, and the field id. Later slots use `{id}-2`, `{id}-3`, and `autocomplete="off"`. Only the active slot has `tabindex="0"`.
 - Typing, paste, and the hidden input filter through `validationType` (`numeric`, `alpha`, `alphanumeric`, or `none`) and an optional `normalizeValue`, then clamp to `length`. Paste and multi-character entry replace from the focused slot. Backspace and Delete remove a character. Arrow keys, Home, and End move focus. Horizontal arrows swap in RTL. Ctrl or Meta plus a horizontal arrow jumps to the first slot or the end of the filled value. Ctrl or Meta plus Backspace clears the value.
 - `mask` uses `type="password"` on each slot. A slot's own `type` overrides that. `autoSubmit` calls `requestSubmit` on the owning form, or on the form whose id is the `form` prop, after completion.
-- Inside `Field.Root`, the first slot is the registered control, so `Field.Label` points at it. Each visible slot's server HTML includes `aria-labelledby` for that label. The hidden input keeps `name`, `minlength`, `maxlength`, `pattern`, and `required` for native submit and `checkValidity()`.
+- Inside `Field.Root`, the first slot is the registered control, so `Field.Label` points at it. Registration happens once; typing does not register again, and `getValue()` still returns the latest code. Each visible slot's server HTML includes `aria-labelledby` for that label. The hidden input keeps `name`, `minlength`, `maxlength`, `pattern`, and `required` for native submit and `checkValidity()`.
 
 Differences from React Base UI, all deliberate:
 
