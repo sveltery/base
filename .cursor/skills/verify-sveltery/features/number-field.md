@@ -51,7 +51,7 @@ Component tests (`src/lib/number-field/NumberField.svelte.spec.ts`) cover typing
 - `NumberField` parts throw `NumberFieldRootContext is missing` outside `NumberField.Root`. `ScrubAreaCursor` throws `NumberFieldScrubAreaContext is missing` outside `ScrubArea`.
 - The visible input is text. The submitted number lives on the hidden `input[type=number]`.
 - Step mismatch on the hidden input needs an explicit `min`. That is the upstream behavior.
-- iOS `inputmode` and the WebKit pointer-lock skip follow the runtime. Chromium on Linux uses `numeric` and requests pointer lock.
+- iOS `inputmode` and the WebKit pointer-lock skip follow the runtime. Chromium on Linux uses `numeric` and requests pointer lock. Gecko waits 20ms after pointerup before the scrub ends.
 
 ## Not ported
 

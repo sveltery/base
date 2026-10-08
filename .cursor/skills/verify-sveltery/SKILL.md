@@ -46,6 +46,8 @@ If Chromium is missing, the scripts stop and print that install command.
 
 All steps run even after one fails, so the summary shows every layer.
 
+`verify-component.sh` runs prettier and eslint on that component and its fixture. It does not run the clone gate. The full run's lint step is `pnpm lint`: prettier and eslint on the repo, then `scripts/jscpd-baseline.mjs`.
+
 ## Read the result
 
 The last lines are the verdict:
