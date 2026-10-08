@@ -25,6 +25,7 @@
 	const ctx = useCheckboxContext();
 	const rendered = $derived(ctx.checked || ctx.indeterminate);
 	const indicatorKey = createAttachmentKey();
+	const settleFrame = useAnimationFrame();
 
 	let mounted = $state(untrack(() => ctx.checked || ctx.indeterminate));
 	let transitionStatus: CheckboxIndicatorPhase = $state(undefined);
@@ -50,8 +51,6 @@
 			transitionStatus = undefined;
 		}
 	});
-
-	const settleFrame = useAnimationFrame();
 
 	$effect(() => {
 		if (!rendered) return;

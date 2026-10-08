@@ -210,18 +210,19 @@
 		const closed = closeReason !== '' || !store.isOpen();
 		if (closed) {
 			apply();
+			const target = returned;
 			// Sloppy outside press closes on pointerdown and this call focuses the
 			// trigger. The compatibility mousedown then moves focus to the body.
 			// The next frame puts that same element back. A container swap is not a close.
-			if (returned) {
+			if (target) {
 				if (returnFrameId) AnimationFrame.cancel(returnFrameId);
 				returnFrameId = AnimationFrame.request(() => {
 					returnFrameId = 0;
-					if (store.isOpen() || !returned.isConnected) return;
-					const doc = ownerDocument(returned);
+					if (store.isOpen() || !target.isConnected) return;
+					const doc = ownerDocument(target);
 					const active = activeElement(doc);
 					if (active !== doc.body && active != null) return;
-					returned.focus({ preventScroll: true });
+					target.focus({ preventScroll: true });
 				});
 			}
 			return;

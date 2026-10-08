@@ -1,10 +1,7 @@
 <!--
 	Indicates whether the radio button is selected.
 	Renders a `<span>` while selected or kept mounted.
-	Derived from Base UI v1.8.0 packages/react/src/radio/indicator/RadioIndicator.tsx,
-	packages/react/src/internals/useTransitionStatus.ts (default arguments),
-	and packages/react/src/internals/useOpenChangeComplete.tsx
-	(commit 47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c). MIT, see THIRD_PARTY_NOTICES.md.
+	Derived from Base UI v1.8.0 packages/react/src/radio/indicator/RadioIndicator.tsx (commit 47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c). MIT, see THIRD_PARTY_NOTICES.md.
 -->
 <script lang="ts">
 	import { untrack } from 'svelte';
@@ -21,6 +18,7 @@
 	const ctx = useRadioContext();
 	const rendered = $derived(ctx.checked);
 	const indicatorKey = createAttachmentKey();
+	const settleFrame = useAnimationFrame();
 
 	let mounted = $state(untrack(() => ctx.checked));
 	let transitionStatus: RadioIndicatorPhase = $state(undefined);
@@ -46,8 +44,6 @@
 			transitionStatus = undefined;
 		}
 	});
-
-	const settleFrame = useAnimationFrame();
 
 	$effect(() => {
 		if (!rendered) return;

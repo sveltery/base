@@ -149,7 +149,7 @@ export function useDismiss(store: FloatingRootStore, props: () => UseDismissProp
 		if (!store.isOpen() || !current.enabled || current.outsidePress === false) return;
 		if (mode === 'intentional' && event.type !== 'click') return;
 		if (mode === 'sloppy' && event.type === 'click') return;
-		if (event.type === 'pointerdown' && event.button !== 0) return;
+		if (event.type === 'pointerdown' && 'button' in event && event.button !== 0) return;
 		if (insideDismissTree(event)) return;
 		if (pressStartedInside) return;
 		if (mode === 'intentional' && !sawPressWhileOpen && event.detail !== 0) return;

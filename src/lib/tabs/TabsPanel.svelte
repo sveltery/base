@@ -18,6 +18,7 @@
 
 	const uid = $props.id();
 	const panelKey = createAttachmentKey();
+	const settleFrame = useAnimationFrame();
 
 	let {
 		value,
@@ -58,8 +59,6 @@
 			transitionStatus = undefined;
 		}
 	});
-
-	const settleFrame = useAnimationFrame();
 
 	$effect(() => {
 		if (!open) return;
