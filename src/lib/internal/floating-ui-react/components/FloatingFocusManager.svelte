@@ -136,8 +136,10 @@
 
 	function restoreReturnFocus(endedBy: OpenInteractionType) {
 		const spec = returnFocus;
-		// Upstream sets `preventReturnFocusRef` before every focus-out close
-		// (`FloatingFocusManager.tsx` 551–552). The key's destination is already chosen.
+		// Upstream sets `preventReturnFocusRef` before every focus-out close and reads it
+		// before resolving the target (`FloatingFocusManager.tsx` 550–552, 872, 888).
+		// Pointer and keyboard both take this path. The return function is not called;
+		// React calls it and ignores the result.
 		const skipReturn = closeReason === REASONS.focusOut;
 		queueMicrotask(() => {
 			if (spec === false || skipReturn) return;

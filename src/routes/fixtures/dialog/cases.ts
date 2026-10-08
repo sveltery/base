@@ -11,6 +11,7 @@ export const cases = [
 	'nested-body',
 	'final-focus',
 	'final-outside',
+	'together-outside',
 	'tab',
 	'child-initial',
 	'siblings',

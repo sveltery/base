@@ -83,6 +83,7 @@ export function mountPopoverReference(
 			Fragment,
 			null,
 			h('button', { type: 'button' }, 'Outside'),
+			h('input', { 'data-testid': 'outside-input' }),
 			h('pre', { 'data-testid': 'calls' }, JSON.stringify(calls)),
 			scenario === 'tab' || scenario === 'tab-empty'
 				? h('button', { type: 'button', 'data-testid': 'before' }, 'Before')

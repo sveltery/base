@@ -194,22 +194,34 @@ describe('overlay foundation', () => {
 		await expect.element(trigger).toHaveFocus();
 	});
 
-	it('returns focus to the trigger when returnFocus is null', async () => {
+	it('leaves focus on the clicked control when returnFocus is null', async () => {
 		render(OverlayFoundationHarness, { scenario: 'null-return' });
 		const trigger = page.getByRole('button', { name: 'Open' });
 		await trigger.click();
 		await expect.element(page.getByRole('button', { name: 'Inside' })).toHaveFocus();
 		await page.getByTestId('other').click();
 		await expect.poll(() => page.getByRole('dialog', { name: 'Notice' }).elements().length).toBe(0);
-		await expect.element(trigger).toHaveFocus();
+		await expect.element(page.getByTestId('other')).toHaveFocus();
 	});
 
-	it('moves focus to an explicit return target after focus has left', async () => {
+	it('leaves focus on the clicked control when returnFocus is an element', async () => {
 		render(OverlayFoundationHarness, { scenario: 'return' });
 		await page.getByRole('button', { name: 'Open' }).click();
 		await expect.element(page.getByRole('button', { name: 'Inside' })).toHaveFocus();
 		await page.getByTestId('other').click();
-		await expect.element(page.getByTestId('explicit')).toHaveFocus();
+		await expect.poll(() => page.getByRole('dialog', { name: 'Notice' }).elements().length).toBe(0);
+		await expect.element(page.getByTestId('other')).toHaveFocus();
+	});
+
+	it('does not call returnFocus when a pointer focus-out closes', async () => {
+		render(OverlayFoundationHarness, { scenario: 'fn-return' });
+		await page.getByRole('button', { name: 'Open' }).click();
+		await expect.element(page.getByRole('button', { name: 'Inside' })).toHaveFocus();
+		await page.getByTestId('other').click();
+		await expect.poll(() => page.getByRole('dialog', { name: 'Notice' }).elements().length).toBe(0);
+		await expect.element(page.getByTestId('other')).toHaveFocus();
+		// React calls the function and ignores its result. This port does not call it.
+		expect(page.getByTestId('return-calls').element().textContent).toBe('0');
 	});
 
 	it('does not open when the change is canceled', async () => {

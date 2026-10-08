@@ -694,6 +694,56 @@ describe('Dialog', () => {
 		await expect.poll(() => page.getByRole('dialog').elements().length).toBe(0);
 	});
 
+	it('leaves focus on an outside button when finalFocus is null', async () => {
+		render(DialogHarness, { scenario: 'outside', finalFocus: null });
+		await page.getByRole('button', { name: 'Open' }).click();
+		await expect.element(page.getByRole('button', { name: 'Inside' })).toHaveFocus();
+		await page.getByTestId('outside').click();
+		await expect.poll(() => page.getByRole('dialog').elements().length).toBe(0);
+		await expect.element(page.getByTestId('outside')).toHaveFocus();
+	});
+
+	it('leaves focus on an outside button when finalFocus is an element', async () => {
+		const target = document.createElement('button');
+		target.dataset.testid = 'explicit-final';
+		document.body.append(target);
+		render(DialogHarness, { scenario: 'outside', finalFocus: target });
+		await page.getByRole('button', { name: 'Open' }).click();
+		await expect.element(page.getByRole('button', { name: 'Inside' })).toHaveFocus();
+		await page.getByTestId('outside').click();
+		await expect.poll(() => page.getByRole('dialog').elements().length).toBe(0);
+		await expect.element(page.getByTestId('outside')).toHaveFocus();
+		target.remove();
+	});
+
+	it('does not call finalFocus when a pointer focus-out closes', async () => {
+		const target = document.createElement('button');
+		document.body.append(target);
+		// React calls this function and ignores the result. A focus-out close skips it.
+		const finalFocus = vi.fn(() => target);
+		render(DialogHarness, { scenario: 'outside', finalFocus });
+		await page.getByRole('button', { name: 'Open' }).click();
+		await expect.element(page.getByRole('button', { name: 'Inside' })).toHaveFocus();
+		await page.getByTestId('outside').click();
+		await expect.poll(() => page.getByRole('dialog').elements().length).toBe(0);
+		await expect.element(page.getByTestId('outside')).toHaveFocus();
+		expect(finalFocus).not.toHaveBeenCalled();
+		target.remove();
+	});
+
+	it('keeps final focus outside when the parent and nested dialog open together', async () => {
+		render(DialogHarness, { scenario: 'together-outside' });
+		await expect.poll(() => document.querySelector('[data-testid="parent-popup"]')).toBeTruthy();
+		await expect.poll(() => document.querySelector('[data-testid="nested-popup"]')).toBeTruthy();
+		await expect
+			.poll(() => document.activeElement?.getAttribute('data-testid'))
+			.toBe('nested-inside');
+		await userEvent.keyboard('{Escape}');
+		await expect.poll(() => document.activeElement?.getAttribute('data-testid')).toBe('outside');
+		expect(document.querySelector('[data-testid="parent-popup"]')).toBeTruthy();
+		expect(document.querySelector('[data-testid="nested-popup"]')).toBeNull();
+	});
+
 	it('keeps final focus on the outside control when the inner dialog closes', async () => {
 		render(DialogHarness, { scenario: 'final-outside' });
 		click(button('Open'));

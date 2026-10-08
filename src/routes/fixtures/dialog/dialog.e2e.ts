@@ -51,15 +51,28 @@ for (const reference of [false, true]) {
 		test('a non-modal dialog closes from an outside click', async ({ page }) => {
 			await openDialog(page, 'outside', reference);
 			await openButton(page).click();
-			await page.getByTestId('outside').click();
+			const outside = page.getByTestId('outside');
+			await outside.click();
 			await expect(page.getByRole('dialog')).toHaveCount(0);
+			await expect(outside).toBeFocused();
 			// The outside control is a button. Focusing it leaves the popup before the click,
-			// so both this port and Base UI close with focus-out.
+			// so both this port and Base UI close with focus-out and leave focus there.
 			expect((await readOpenCalls(page)).at(-1)).toEqual({
 				open: false,
 				reason: 'focus-out',
 				canceled: false
 			});
+		});
+
+		test('typing into an outside input keeps the text', async ({ page }) => {
+			await openDialog(page, 'outside', reference);
+			await openButton(page).click();
+			const input = page.getByTestId('outside-input');
+			await input.click();
+			await page.keyboard.type('kept');
+			await expect(page.getByRole('dialog')).toHaveCount(0);
+			await expect(input).toBeFocused();
+			await expect(input).toHaveValue('kept');
 		});
 
 		test('canceling onOpenChange keeps the dialog closed', async ({ page }) => {
@@ -178,6 +191,17 @@ for (const reference of [false, true]) {
 			await page.keyboard.press('Tab');
 			await expect(page.getByTestId('after')).toBeFocused();
 			await expect(page.getByRole('dialog')).toHaveCount(0);
+		});
+
+		test('escape on dialogs opened together keeps final focus outside', async ({ page }) => {
+			await openDialog(page, 'together-outside', reference);
+			await expect(page.getByTestId('parent-popup')).toBeVisible();
+			await expect(page.getByTestId('nested-popup')).toBeVisible();
+			await expect(page.getByTestId('nested-inside')).toBeFocused();
+			await page.keyboard.press('Escape');
+			await expect(page.getByTestId('outside')).toBeFocused();
+			await expect(page.getByTestId('parent-popup')).toBeVisible();
+			await expect(page.getByTestId('nested-popup')).toHaveCount(0);
 		});
 
 		test('escape on an inner dialog keeps final focus outside', async ({ page }) => {

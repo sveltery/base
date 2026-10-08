@@ -94,6 +94,7 @@
 </script>
 
 <button type="button" data-testid="outside" bind:this={outsideButton}>Outside</button>
+<input data-testid="outside-input" />
 {#if preventUnmount}
 	<button type="button" onclick={() => root?.unmount()}>Unmount</button>
 {/if}
@@ -170,6 +171,25 @@
 			<Dialog.Popup data-testid="popup-b" initialFocus={false}>
 				<Dialog.Title>B</Dialog.Title>
 				<button type="button" data-testid="inside-b">Inside B</button>
+			</Dialog.Popup>
+		</Dialog.Portal>
+	</Dialog.Root>
+{:else if scenario === 'together-outside'}
+	<Dialog.Root modal={false} defaultOpen onOpenChange={changed}>
+		<Dialog.Trigger>Open</Dialog.Trigger>
+		<Dialog.Portal>
+			<Dialog.Popup data-testid="parent-popup">
+				<Dialog.Title>Title</Dialog.Title>
+				<button type="button" data-testid="parent-inside">Inside</button>
+				<Dialog.Root modal={false} defaultOpen>
+					<Dialog.Trigger>Nested</Dialog.Trigger>
+					<Dialog.Portal>
+						<Dialog.Popup data-testid="nested-popup" finalFocus={() => outsideButton}>
+							<Dialog.Title>Nested title</Dialog.Title>
+							<button type="button" data-testid="nested-inside">Nested inside</button>
+						</Dialog.Popup>
+					</Dialog.Portal>
+				</Dialog.Root>
 			</Dialog.Popup>
 		</Dialog.Portal>
 	</Dialog.Root>

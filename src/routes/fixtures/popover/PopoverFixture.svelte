@@ -21,6 +21,7 @@
 </script>
 
 <button type="button">Outside</button>
+<input data-testid="outside-input" />
 <pre data-testid="calls">{JSON.stringify(calls)}</pre>
 
 {#snippet popup()}

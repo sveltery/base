@@ -60,6 +60,27 @@ for (const reference of [false, true]) {
 			await expect(popup).toHaveCount(0);
 		});
 
+		test('an outside click leaves focus on the clicked button', async ({ page }) => {
+			const { trigger, popup, outside } = await open(page, 'standalone', reference);
+			await trigger.click();
+			await expect(popup).toBeVisible();
+			await outside.click();
+			await expect(popup).toHaveCount(0);
+			await expect(outside).toBeFocused();
+		});
+
+		test('typing into an outside input keeps the text', async ({ page }) => {
+			const { trigger, popup } = await open(page, 'standalone', reference);
+			await trigger.click();
+			await expect(popup).toBeVisible();
+			const input = page.getByTestId('outside-input');
+			await input.click();
+			await page.keyboard.type('kept');
+			await expect(popup).toHaveCount(0);
+			await expect(input).toBeFocused();
+			await expect(input).toHaveValue('kept');
+		});
+
 		test('canceling onOpenChange keeps the popover closed', async ({ page }) => {
 			const { trigger, popup } = await open(page, 'cancel', reference);
 			await trigger.click();

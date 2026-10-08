@@ -28,6 +28,7 @@
 			| 'drag'
 			| 'return'
 			| 'null-return'
+			| 'fn-return'
 			| 'close-type'
 			| 'initial'
 			| 'initial-skip',
@@ -41,6 +42,7 @@
 			| 'drag'
 			| 'return'
 			| 'null-return'
+			| 'fn-return'
 			| 'close-type'
 			| 'initial'
 			| 'initial-skip';
@@ -56,7 +58,8 @@
 		scenario !== 'modeless' &&
 			scenario !== 'drag' &&
 			scenario !== 'return' &&
-			scenario !== 'null-return'
+			scenario !== 'null-return' &&
+			scenario !== 'fn-return'
 	);
 
 	function focusReturn(kind: OpenInteractionType | null) {
@@ -64,6 +67,12 @@
 		return true;
 	}
 	let explicit = $state<HTMLButtonElement | null>(null);
+	let returnCalls = $state(0);
+
+	function countReturn(_kind: OpenInteractionType | null) {
+		returnCalls += 1;
+		return explicit;
+	}
 	let chosen = $state<HTMLButtonElement | null>(null);
 	let closeKind = $state('');
 	let initialCalls = $state(0);
@@ -111,7 +120,11 @@
 	const dismiss = useDismiss(store, () => ({
 		escapeKey: true,
 		outsidePress:
-			scenario === 'return' || scenario === 'null-return' ? false : modal ? false : true,
+			scenario === 'return' || scenario === 'null-return' || scenario === 'fn-return'
+				? false
+				: modal
+					? false
+					: true,
 		outsidePressEvent:
 			scenario === 'drag' ? ({ mouse: 'intentional', touch: 'sloppy' } as const) : 'sloppy'
 	}));
@@ -165,6 +178,7 @@
 	<pre data-testid="close-kind">{closeKind}</pre>
 	<pre data-testid="initial-calls">{initialCalls}</pre>
 	<pre data-testid="initial-kind">{initialKind}</pre>
+	<pre data-testid="return-calls">{returnCalls}</pre>
 	<pre data-testid="statuses">{statusLog}</pre>
 	{#if store.mounted}
 		<FloatingPortal {store}>
@@ -176,9 +190,11 @@
 					? explicit
 					: scenario === 'null-return'
 						? null
-						: scenario === 'close-type'
-							? focusReturn
-							: true}
+						: scenario === 'fn-return'
+							? countReturn
+							: scenario === 'close-type'
+								? focusReturn
+								: true}
 			>
 				<div
 					role="dialog"

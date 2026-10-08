@@ -30,6 +30,7 @@ export function mountDialogReference(node: HTMLElement, scenario: DialogCase, on
 			{ type: 'button', 'data-testid': 'outside', ref: outsideRef },
 			'Outside'
 		);
+		const outsideInput = h('input', { 'data-testid': 'outside-input' });
 		const callsNode = h('output', { 'data-testid': 'calls' }, JSON.stringify(calls));
 		const finalRef = useRef<HTMLButtonElement>(null);
 		const nestedInside = h(
@@ -133,6 +134,49 @@ export function mountDialogReference(node: HTMLElement, scenario: DialogCase, on
 						h(Dialog.Close, null, 'Nested close')
 					)
 				]),
+				callsNode
+			);
+		}
+
+		if (scenario === 'together-outside') {
+			return h(
+				Fragment,
+				null,
+				outside,
+				outsideInput,
+				h(
+					Dialog.Root,
+					{ modal: false, defaultOpen: true, onOpenChange: changed },
+					h(Dialog.Trigger, null, 'Open'),
+					h(
+						Dialog.Portal,
+						null,
+						h(
+							Dialog.Popup,
+							{ 'data-testid': 'parent-popup' } as never,
+							h(Dialog.Title, null, 'Title'),
+							h('button', { type: 'button', 'data-testid': 'parent-inside' }, 'Inside'),
+							h(
+								Dialog.Root,
+								{ modal: false, defaultOpen: true },
+								h(Dialog.Trigger, null, 'Nested'),
+								h(
+									Dialog.Portal,
+									null,
+									h(
+										Dialog.Popup,
+										{
+											'data-testid': 'nested-popup',
+											finalFocus: outsideRef
+										} as never,
+										h(Dialog.Title, null, 'Nested title'),
+										h('button', { type: 'button', 'data-testid': 'nested-inside' }, 'Nested inside')
+									)
+								)
+							)
+						)
+					)
+				),
 				callsNode
 			);
 		}
@@ -322,6 +366,7 @@ export function mountDialogReference(node: HTMLElement, scenario: DialogCase, on
 			Fragment,
 			null,
 			outside,
+			outsideInput,
 			h(
 				Dialog.Root,
 				{ modal: scenario === 'outside' ? false : true, onOpenChange: changed },
