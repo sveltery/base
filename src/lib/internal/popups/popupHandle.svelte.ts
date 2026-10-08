@@ -3,9 +3,10 @@
 // (commit 47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c). MIT, see THIRD_PARTY_NOTICES.md.
 // One handle for Dialog and Popover. No ref object.
 // `attached` is `$state.raw`: reassignment is tracked, and the store is not proxied.
+// Dialog-only payload writers live on `DialogHandle`. Popover's payload is read from
+// the active trigger and is not assigned here.
 
 import { DEV } from 'esm-env';
-import { SvelteMap } from 'svelte/reactivity';
 import { createChangeEventDetails, REASONS } from '../event-details.js';
 import type { BaseUIChangeEventDetails } from '../event-details.js';
 import { AnimationFrame } from '../timeout.js';
@@ -24,7 +25,6 @@ export class PopupHandle<Payload = unknown, Store extends PopupHandleStore = Pop
 
 	attached = $state.raw<Store | null>(null);
 	readonly fallbackTriggers = new PopupTriggerMap();
-	readonly payloads = new SvelteMap<string, Payload>();
 	private readonly stack: Store[] = [];
 	private overlapFrame: AnimationFrame | undefined;
 
@@ -95,19 +95,7 @@ export class PopupHandle<Payload = unknown, Store extends PopupHandleStore = Pop
 			}
 		}
 
-		if (triggerId && this.payloads.has(triggerId)) {
-			assignPayload(store, this.payloads.get(triggerId));
-		}
 		store.setOpen(true, createChangeEventDetails(REASONS.imperativeAction, undefined, trigger));
-	}
-
-	setPayload(id: string, payload: Payload | undefined) {
-		if (payload === undefined) this.payloads.delete(id);
-		else this.payloads.set(id, payload);
-	}
-
-	forgetPayload(id: string) {
-		this.payloads.delete(id);
 	}
 
 	get payload(): Payload | undefined {
@@ -116,21 +104,6 @@ export class PopupHandle<Payload = unknown, Store extends PopupHandleStore = Pop
 
 	unmount() {
 		this.attached?.forceUnmount?.();
-	}
-
-	openWithPayload(payload: Payload) {
-		const store = this.attached;
-		if (!store) {
-			if (DEV) {
-				console.warn(
-					'Base UI: PopupHandle.openWithPayload() was called while no root using this handle is mounted. ' +
-						'The call and its payload were ignored; mount a root with this handle before opening it imperatively.'
-				);
-			}
-			return;
-		}
-		assignPayload(store, payload);
-		store.setOpen(true, createChangeEventDetails(REASONS.imperativeAction));
 	}
 
 	close() {
@@ -150,18 +123,4 @@ export class PopupHandle<Payload = unknown, Store extends PopupHandleStore = Pop
 	get isOpen() {
 		return this.attached?.open ?? false;
 	}
-}
-
-function assignPayload<Payload>(store: object, value: Payload | undefined) {
-	const target = store as { payload?: Payload };
-	let current: object | null = store;
-	while (current) {
-		const desc = Object.getOwnPropertyDescriptor(current, 'payload');
-		if (desc) {
-			if (desc.set || desc.writable) target.payload = value;
-			return;
-		}
-		current = Object.getPrototypeOf(current);
-	}
-	target.payload = value;
 }

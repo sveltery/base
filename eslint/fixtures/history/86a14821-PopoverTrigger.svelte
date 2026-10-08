@@ -45,7 +45,6 @@
 	const uid = $props.id();
 	const triggerId = $derived(id ?? `base-ui-${uid}`);
 	const bindKey = createAttachmentKey();
-	const hoverKey = createAttachmentKey();
 	let triggerEl = $state<HTMLElement | null>(null);
 	let armed = $state<TriggerArmed | null>(null);
 
@@ -84,61 +83,25 @@
 		};
 	});
 
-	function bindTrigger(node: HTMLElement) {
-		triggerEl = node;
-		return () => {
-			if (triggerEl === node) triggerEl = null;
-		};
-	}
+	$effect(() => {
+		const node = triggerEl;
+		const attachHover = armed?.attach;
+		if (!node || !attachHover) return;
+		const clearHover = untrack(() => attachHover(node));
+		return () => clearHover();
+	});
 
-	// These three do not bubble, so Svelte registers them on the element. Swapping
-	// the handler leaves the first listener in place, and destroying the element
-	// does not remove it. Own them here so root and trigger teardown remove them.
-	const localHoverEvents = ['onmouseenter', 'onmouseleave', 'onpointerenter'] as const;
-
-	function hoverListener(
-		node: HTMLElement,
-		key: (typeof localHoverEvents)[number]
-	): EventListener | null {
-		const consumer = elementProps[key];
-		const ours = armed?.hover?.[key];
-		if (typeof consumer !== 'function' && typeof ours !== 'function') return null;
-		return (event: Event) => {
-			if (typeof consumer === 'function') {
-				(consumer as EventListener).call(node, event);
-				if (event.defaultPrevented) return;
-			}
-			if (typeof ours === 'function') (ours as EventListener).call(node, event);
-		};
-	}
-
-	function attachHover(node: HTMLElement) {
-		const removals: Array<() => void> = [];
-		for (const key of localHoverEvents) {
-			const listener = hoverListener(node, key);
-			if (!listener) continue;
-			const type = key.slice(2);
-			node.addEventListener(type, listener);
-			removals.push(() => node.removeEventListener(type, listener));
-		}
-		const attach = armed?.attach;
-		const detach = attach ? untrack(() => attach(node)) : undefined;
-		return () => {
-			for (const remove of removals) remove();
-			detach?.();
-		};
-	}
-
-	function acceptArmed(next: TriggerArmed | null) {
-		armed = next;
-	}
+	$effect(() => {
+		handle?.setPayload(triggerId, payload as never);
+		return () => handle?.forgetPayload(triggerId);
+	});
 
 	const opened = $derived(live?.openedBy(triggerId) ?? false);
 	const partState: PopoverTriggerState = $derived({ disabled, open: opened });
 	const showGuards = $derived(Boolean(live?.mountedBy(triggerId) && !live.focusManagerModal));
 
-	const hostProps = $derived.by(() => {
-		const merged = mergeProps(
+	const hostProps = $derived(
+		mergeProps(
 			elementProps,
 			useButton(disabled, nativeButton),
 			armed?.click,
@@ -155,14 +118,15 @@
 					{ open: opened },
 					triggerOpenAttributes(opened, live?.openChangeReason ?? null)
 				),
-				[bindKey]: bindTrigger,
-				[hoverKey]: attachHover
+				[bindKey]: (node: HTMLElement) => {
+					triggerEl = node;
+					return () => {
+						if (triggerEl === node) triggerEl = null;
+					};
+				}
 			}
-		);
-		const record = merged as Record<string, unknown>;
-		for (const key of localHoverEvents) delete record[key];
-		return merged;
-	});
+		)
+	);
 </script>
 
 {#if live}
@@ -174,7 +138,7 @@
 			{delay}
 			{closeDelay}
 			triggerEl={readNode}
-			onArmed={acceptArmed}
+			onArmed={(next) => (armed = next)}
 		/>
 	{/key}
 {/if}

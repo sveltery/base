@@ -1,5 +1,7 @@
 import noClonedEvent from './no-cloned-event.js';
 import noCopiedHelper from './no-copied-helper.js';
+import noDerivedInlineAttachment from './no-derived-inline-attachment.js';
+import noInlineCompositeKeys from './no-inline-composite-keys.js';
 import noComputedStyleDirection from './no-computed-style-direction.js';
 import noForeignContext from './no-foreign-context.js';
 import noPreviousValueEffect from './no-previous-value-effect.js';
@@ -18,6 +20,8 @@ const plugin = {
 	rules: {
 		'no-cloned-event': noClonedEvent,
 		'no-copied-helper': noCopiedHelper,
+		'no-derived-inline-attachment': noDerivedInlineAttachment,
+		'no-inline-composite-keys': noInlineCompositeKeys,
 		'no-computed-style-direction': noComputedStyleDirection,
 		'no-foreign-context': noForeignContext,
 		'no-previous-value-effect': noPreviousValueEffect,

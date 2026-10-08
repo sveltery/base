@@ -3,12 +3,17 @@
 // (commit 47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c). MIT, see THIRD_PARTY_NOTICES.md.
 // No ref object. An anchored popover refuses to open when its trigger id is missing.
 // No `$effect`. Module-scope `Popover.createHandle()` does not create an effect.
+// Dialog's payload map, setPayload, and openWithPayload are not on this class.
 
 import { PopupHandle } from '../internal/popups/popupHandle.svelte.js';
 import type { PopoverStore } from './store.svelte.js';
 
-export type PopoverHandle<Payload = unknown> = PopupHandle<Payload, PopoverStore>;
+export class PopoverHandle<Payload = unknown> extends PopupHandle<Payload, PopoverStore> {
+	constructor() {
+		super(true);
+	}
+}
 
 export function createPopoverHandle<Payload = unknown>(): PopoverHandle<Payload> {
-	return new PopupHandle<Payload, PopoverStore>(true);
+	return new PopoverHandle<Payload>();
 }

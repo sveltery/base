@@ -15,8 +15,9 @@ An anchored dialog opened from a trigger. Upstream: `packages/react/src/popover`
 - `Popover.Popup` is `role="dialog"`. Focus moves inside on click open. The shared focus manager returns focus through `returnFocus` after the popup closes. `finalFocus` is forwarded: its function receives the close interaction, and `null` falls back to the trigger. Hover open does not move focus. `initialFocus` accepts a boolean, an element, or a function of the open method (`PopupStore.openMethod`). The function runs once per open, when focus moves. Touch focuses the popup itself.
 - `Popover.Close` closes with `close-press` and is what turns `modal` into a focus trap.
 - `Popover.Title` and `Popover.Description` share one label part. They set `aria-labelledby` and `aria-describedby` from the prop id when the element mounts.
-- `Popover.Arrow` tracks the anchor. `Popover.Viewport` copies the current pane in `$effect.pre` when the trigger switches, before the new trigger's content renders. That copy is `inert` and `aria-hidden`, with ids and radio `name`s removed, and it is rendered only while the cross-fade runs, before the live pane. Width and height CSS variables travel on the style attribute. They are measured again when the payload changes and return to `auto` after the size animation.
-- `Popover.createHandle()` returns the shared `PopupHandle`. Its attached store is `$state.raw`. Calling it at module scope creates no effects. A trigger outside the root stays mounted and reads that store when the root attaches. `handle.open(id)` throws when that trigger is not registered. `handle.close()` and `handle.unmount()` are the imperative API.
+- `Popover.Arrow` tracks the anchor. `Popover.Viewport` copies the current pane in `$effect.pre` when the trigger switches, before the new trigger's content renders. That copy is `inert` and `aria-hidden`, with ids removed. Copied controls are disabled and lose `name` and `form`, so the live radio stays checked and the copy is left out of `FormData`. It is rendered only while the cross-fade runs, before the live pane. Width and height CSS variables travel on the style attribute. They are measured again when the payload changes and return to `auto` after the size animation.
+- A detached trigger drops click and hover handlers when its root unmounts, and removes `mouseenter`, `mouseleave`, and `pointerenter` listeners when that root or the trigger itself is destroyed. A later click does not read the unmounted store.
+- `Popover.Handle` is the class. `Popover.createHandle()` returns one. Its attached store is `$state.raw`. Calling it at module scope creates no effects. A trigger outside the root stays mounted and reads that store when the root attaches. `handle.open(id)` throws when that trigger is not registered. `handle.close()` and `handle.unmount()` are the imperative API. Payload is the active trigger's payload. `openWithPayload`, `setPayload`, and the payload map belong to `Dialog.Handle`.
 
 ## Source correspondence
 
@@ -38,7 +39,7 @@ Differences from React Base UI, all deliberate:
 - `class` and `style` are strings.
 - Generated ids use `$props.id()` with a `base-ui-` prefix.
 - Arrow keys inside a toolbar stay in the popup when the trigger or popup has `role="toolbar"`. The key set is the shared `COMPOSITE_KEYS`. Popover does not import Toolbar context.
-- A cloned radio in the previous viewport pane does not keep its `name`. Upstream's clone unchecks the live radio. See `docs/upstream-differences.md`.
+- A cloned radio in the previous viewport pane does not keep its `name`. Upstream's clone unchecks the live radio. Copied controls are also disabled and lose `form`, so they are not submitted. See `docs/upstream-differences.md`.
 
 ## How to get to it (user POV)
 

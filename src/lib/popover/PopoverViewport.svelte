@@ -5,8 +5,9 @@
 	(commit 47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c). MIT, see THIRD_PARTY_NOTICES.md.
 	Previous content is a cloned node, not an HTML string. The copy is taken
 	before the new trigger's content renders. Ids are stripped so aria links
-	keep pointing at the live title and description. Radio names are removed
-	so the copy does not uncheck the live control.
+	keep pointing at the live title and description. Copied controls are
+	disabled and lose `name` and `form`, so the copy does not uncheck the live
+	radio and does not submit with the form. `inert` does not do that.
 -->
 <script lang="ts">
 	import { untrack } from 'svelte';
@@ -195,7 +196,7 @@
 			const copy = child.cloneNode(true);
 			if (child instanceof Element && copy instanceof Element) {
 				copyControlState(child, copy);
-				releaseRadios(copy);
+				silenceCopiedControls(copy);
 			}
 			wrapper.appendChild(copy);
 		}
@@ -226,10 +227,21 @@
 		return found;
 	}
 
-	function releaseRadios(node: Element) {
-		const radios = [...node.querySelectorAll('input[type="radio"]')];
-		if (node instanceof HTMLInputElement && node.type === 'radio') radios.unshift(node);
-		for (const radio of radios) radio.removeAttribute('name');
+	function silenceCopiedControls(node: Element) {
+		const found = [...node.querySelectorAll('input, textarea, select, button')];
+		if (node.matches('input, textarea, select, button')) found.unshift(node);
+		for (const control of found) {
+			if (
+				control instanceof HTMLInputElement ||
+				control instanceof HTMLTextAreaElement ||
+				control instanceof HTMLSelectElement ||
+				control instanceof HTMLButtonElement
+			) {
+				control.disabled = true;
+			}
+			control.removeAttribute('name');
+			control.removeAttribute('form');
+		}
 	}
 
 	function stripIds(node: Element) {

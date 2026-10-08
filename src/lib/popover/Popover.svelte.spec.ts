@@ -4,14 +4,25 @@
 import { page } from 'vitest/browser';
 import { describe, expect, it } from 'vitest';
 import { render } from 'vitest-browser-svelte';
+import PopoverDetachHarness from '../../tests/PopoverDetachHarness.svelte';
 import PopoverReviewHarness from '../../tests/PopoverReviewHarness.svelte';
 import PopoverFixture from '../../routes/fixtures/popover/PopoverFixture.svelte';
-import { Popover } from './index.js';
+import { Popover, PopoverHandle } from './index.js';
 import { PopoverStore } from './store.svelte.js';
 
 const moduleHandle = Popover.createHandle();
 
 describe('Popover', () => {
+	it('exports PopoverHandle as a class without Dialog payload writers', () => {
+		const handle = new PopoverHandle();
+		expect(handle).toBeInstanceOf(Popover.Handle);
+		expect(new Popover.Handle()).toBeInstanceOf(PopoverHandle);
+		expect('openWithPayload' in handle).toBe(false);
+		expect('setPayload' in handle).toBe(false);
+		expect('payloads' in handle).toBe(false);
+		expect(handle.payload).toBeUndefined();
+	});
+
 	it('opens and closes from the trigger', async () => {
 		render(PopoverFixture, { scenario: 'standalone' });
 		const trigger = page.getByRole('button', { name: 'Open' });
@@ -155,30 +166,39 @@ describe('Popover', () => {
 		const input = page.getByTestId('live-input').element();
 		if (!(input instanceof HTMLInputElement)) throw new Error('missing input');
 		input.value = 'kept';
-		const seen: HTMLElement[] = [];
+		const seen: Array<{
+			hidden: string | null;
+			inert: boolean;
+			follows: boolean;
+			titles: number;
+			value: string;
+		}> = [];
 		const observer = new MutationObserver(() => {
 			const previous = document.querySelector('[data-previous]');
-			if (previous instanceof HTMLElement && !seen.includes(previous)) seen.push(previous);
+			const current = document.querySelector('[data-current]');
+			if (!(previous instanceof HTMLElement) || !previous.isConnected || !current) return;
+			const copied = previous.querySelector('input');
+			if (!(copied instanceof HTMLInputElement) || copied.value !== 'kept') return;
+			seen.push({
+				hidden: previous.getAttribute('aria-hidden'),
+				inert: previous.inert,
+				follows: Boolean(
+					previous.compareDocumentPosition(current) & Node.DOCUMENT_POSITION_FOLLOWING
+				),
+				titles: document.querySelectorAll('#live-title').length,
+				value: copied.value
+			});
 		});
 		observer.observe(document.body, { subtree: true, childList: true, attributes: true });
 		await page.getByRole('button', { name: 'Two' }).click();
-		await expect.poll(() => seen[0] ?? document.querySelector('[data-previous]')).toBeTruthy();
+		await expect.poll(() => seen[0]).toBeTruthy();
 		observer.disconnect();
-		const previous = document.querySelector('[data-previous]') ?? seen[0];
-		const current = document.querySelector('[data-current]');
-		if (!(previous instanceof HTMLElement) || !current) throw new Error('missing viewport panes');
-		expect(document.querySelectorAll('#live-title').length).toBe(1);
-		expect(previous.getAttribute('aria-hidden')).toBe('true');
-		expect(previous.inert).toBe(true);
-		expect(
-			previous.compareDocumentPosition(current) & Node.DOCUMENT_POSITION_FOLLOWING
-		).toBeTruthy();
-		await expect
-			.poll(() => {
-				const input = document.querySelector('[data-previous] input');
-				return input instanceof HTMLInputElement ? input.value : undefined;
-			})
-			.toBe('kept');
+		const captured = seen[0];
+		expect(captured.titles).toBe(1);
+		expect(captured.hidden).toBe('true');
+		expect(captured.inert).toBe(true);
+		expect(captured.follows).toBe(true);
+		expect(captured.value).toBe('kept');
 	});
 
 	it('copies the trigger being left when the viewport switches', async () => {
@@ -258,4 +278,119 @@ describe('Popover', () => {
 			PopoverStore.prototype.noteTrigger = original;
 		}
 	});
+
+	it('opens again after the root unmounts and remounts', async () => {
+		const view = render(PopoverDetachHarness, { mode: 'lifecycle', rootMounted: true });
+		const trigger = page.getByRole('button', { name: 'Open' });
+		await trigger.click();
+		await expect.element(page.getByRole('dialog')).toBeVisible();
+		await trigger.click();
+		await expect.poll(() => page.getByRole('dialog').elements().length).toBe(0);
+		await view.rerender({ mode: 'lifecycle', rootMounted: false });
+		await trigger.click();
+		await expect.poll(() => page.getByRole('dialog').elements().length).toBe(0);
+		await view.rerender({ mode: 'lifecycle', rootMounted: true });
+		await trigger.click();
+		await expect.element(page.getByRole('dialog')).toBeVisible();
+	});
+
+	it('removes the first root hover listeners after the trigger unmounts', async () => {
+		const tracked = trackHoverListeners();
+		try {
+			const view = render(PopoverDetachHarness, { mode: 'lifecycle', rootMounted: true });
+			const trigger = page.getByRole('button', { name: 'Open' }).element();
+			await expect
+				.poll(() => hoverTypes(tracked, trigger).sort())
+				.toEqual(['mouseenter', 'mouseleave', 'pointerenter']);
+			const root1 = [...(tracked.get(trigger) ?? [])];
+			await view.rerender({ mode: 'lifecycle', rootMounted: false });
+			await view.rerender({ mode: 'lifecycle', rootMounted: true });
+			view.unmount();
+			await expect
+				.poll(() => (tracked.get(trigger) ?? []).filter((entry) => !entry.removed).length)
+				.toBe(0);
+			expect(root1.every((entry) => entry.removed)).toBe(true);
+		} finally {
+			restoreHoverListeners();
+		}
+	});
+
+	it('keeps copied viewport controls out of form submission', async () => {
+		for (const portalIntoForm of [false, true]) {
+			const view = render(PopoverDetachHarness, { mode: 'form', portalIntoForm });
+			try {
+				await page.getByRole('button', { name: 'One' }).click();
+				await expect.element(page.getByTestId('live-input')).toHaveValue('AAA');
+				if (portalIntoForm) {
+					const form = page.getByTestId('hosted-form').element();
+					await expect.poll(() => form.contains(page.getByRole('dialog').element())).toBe(true);
+				}
+				const fields = await fieldsDuringCrossFade(portalIntoForm ? 'hosted-form' : 'outer-form');
+				expect(fields).toEqual(['BBB']);
+			} finally {
+				view.unmount();
+			}
+		}
+	});
 });
+
+type HoverEntry = { type: string; listener: EventListener; removed: boolean };
+
+const hoverTypesWanted = new Set(['mouseenter', 'mouseleave', 'pointerenter']);
+const originalAdd = HTMLElement.prototype.addEventListener;
+const originalRemove = HTMLElement.prototype.removeEventListener;
+
+function trackHoverListeners() {
+	const tracked = new WeakMap<EventTarget, HoverEntry[]>();
+	HTMLElement.prototype.addEventListener = function (
+		type: string,
+		listener: EventListenerOrEventListenerObject | null,
+		options?: boolean | AddEventListenerOptions
+	) {
+		if (hoverTypesWanted.has(type) && typeof listener === 'function') {
+			const list = tracked.get(this) ?? [];
+			list.push({ type, listener, removed: false });
+			tracked.set(this, list);
+		}
+		return originalAdd.call(this, type, listener as EventListenerOrEventListenerObject, options);
+	};
+	HTMLElement.prototype.removeEventListener = function (
+		type: string,
+		listener: EventListenerOrEventListenerObject | null,
+		options?: boolean | EventListenerOptions
+	) {
+		if (typeof listener === 'function') {
+			const entry = tracked
+				.get(this)
+				?.find((item) => item.type === type && item.listener === listener && !item.removed);
+			if (entry) entry.removed = true;
+		}
+		return originalRemove.call(this, type, listener as EventListenerOrEventListenerObject, options);
+	};
+	return tracked;
+}
+
+function restoreHoverListeners() {
+	HTMLElement.prototype.addEventListener = originalAdd;
+	HTMLElement.prototype.removeEventListener = originalRemove;
+}
+
+function hoverTypes(tracked: WeakMap<EventTarget, HoverEntry[]>, node: EventTarget) {
+	return (tracked.get(node) ?? []).filter((entry) => !entry.removed).map((entry) => entry.type);
+}
+
+async function fieldsDuringCrossFade(formId: string) {
+	let fields: string[] | null = null;
+	const observer = new MutationObserver(() => {
+		const copied = document.querySelector('[data-previous] input');
+		if (!(copied instanceof HTMLInputElement) || !copied.isConnected) return;
+		const form = document.getElementById(formId);
+		if (!(form instanceof HTMLFormElement)) return;
+		fields = [...new FormData(form).getAll('field')].map(String);
+	});
+	observer.observe(document.body, { childList: true, subtree: true });
+	await page.getByRole('button', { name: 'Two' }).click();
+	await expect.poll(() => fields).not.toBeNull();
+	observer.disconnect();
+	return fields ?? [];
+}

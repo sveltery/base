@@ -108,6 +108,8 @@ export default defineConfig(
 		rules: {
 			'sveltery/no-cloned-event': 'error',
 			'sveltery/no-copied-helper': 'error',
+			'sveltery/no-derived-inline-attachment': 'error',
+			'sveltery/no-inline-composite-keys': 'error',
 			'sveltery/no-computed-style-direction': 'error',
 			'sveltery/no-foreign-context': 'error',
 			'sveltery/no-previous-value-effect': 'error',
