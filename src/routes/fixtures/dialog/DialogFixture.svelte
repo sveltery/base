@@ -30,7 +30,8 @@
 		defaultTriggerId = null as string | null,
 		twoTriggers = false,
 		preventUnmount = false,
-		innerOpen = $bindable(true)
+		innerOpen = $bindable(true),
+		container = undefined as HTMLElement | ShadowRoot | null | undefined
 	} = $props();
 
 	let root = $state<DialogActions | undefined>(undefined);
@@ -87,7 +88,7 @@
 	{:else}
 		<Dialog.Trigger disabled={disabledValue}>Open</Dialog.Trigger>
 	{/if}
-	<Dialog.Portal {keepMounted}>
+	<Dialog.Portal {keepMounted} {container}>
 		{#if backdrop}
 			<Dialog.Backdrop />
 		{/if}

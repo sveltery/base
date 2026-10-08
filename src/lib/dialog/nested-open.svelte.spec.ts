@@ -68,6 +68,26 @@ describe('Dialog nested popup already open', () => {
 		);
 	});
 
+	it('keeps a nested dialog open on first render inside a shadow root', async () => {
+		const host = document.createElement('div');
+		document.body.append(host);
+		const shadow = host.attachShadow({ mode: 'open' });
+		try {
+			render(DialogFixture, { scenario: 'nested-open', container: shadow });
+			await frames();
+
+			const nestedButton = [...shadow.querySelectorAll('button')].find(
+				(button) => button.textContent === 'Nested inside'
+			);
+			expect(shadow.querySelector('[data-base-ui-portal]')?.parentNode).toBe(shadow);
+			expect(shadow.querySelectorAll('[role="dialog"]')).toHaveLength(2);
+			expect(closed()).toEqual([]);
+			expect(shadow.activeElement).toBe(nestedButton);
+		} finally {
+			host.remove();
+		}
+	});
+
 	it('keeps a nested dialog open when it is opened after the parent', async () => {
 		render(DialogFixture, { scenario: 'nested-open', innerOpen: false });
 		await frames();

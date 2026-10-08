@@ -158,17 +158,9 @@
 		return settledInitial;
 	}
 
-	function activeInOpenChild(active: EventTarget | null) {
-		if (!(active instanceof Node) || !tree || !store.nodeId) return false;
-		return getNodeChildren(tree.nodes, store.nodeId).some((node) => {
-			const context = node.context;
-			if (!context) return false;
-			return (
-				contains(context.floatingElement, active) ||
-				contains(context.portalElement, active) ||
-				contains(context.popupElement, active)
-			);
-		});
+	function hasOpenChild() {
+		if (!tree || !store.nodeId) return false;
+		return getNodeChildren(tree.nodes, store.nodeId).length > 0;
 	}
 
 	function noteClose(data?: unknown) {
@@ -214,12 +206,10 @@
 			cancelFocus = enqueueFocus(initialTarget, {
 				preventScroll: initialTarget === floating,
 				// Upstream `enqueueFocus` cancels the previous frame, so the nested
-				// popup's later call wins. This effect runs after that child, so the
-				// parent frame still runs and must leave focus inside the child.
-				shouldFocus: () => {
-					const active = activeElement(doc);
-					return store.isOpen() && !contains(floating, active) && !activeInOpenChild(active);
-				}
+				// popup's later call wins. This frame still runs. Skip it while an
+				// open child is registered, including before that child has moved focus.
+				shouldFocus: () =>
+					store.isOpen() && !contains(floating, activeElement(doc)) && !hasOpenChild()
 			});
 		}
 
