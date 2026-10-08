@@ -1,6 +1,7 @@
 import type { Snippet } from 'svelte';
 import type { HTMLAttributes, HTMLButtonAttributes } from 'svelte/elements';
 import type { BaseUIChangeEventDetails, REASONS } from '../internal/event-details.js';
+import type { PortalProps } from '../internal/portal-props.js';
 import type { Align, Side, UseAnchorPositioningParameters } from '../internal/popups/index.js';
 import type { PopupTransitionStatus } from '../internal/useTransitionStatus.svelte.js';
 import type { PopoverHandle } from './handle.svelte.js';
@@ -110,13 +111,7 @@ export interface PopoverTriggerProps<Payload = unknown> extends Omit<
 	children?: Snippet;
 }
 
-export interface PopoverPortalProps {
-	/** Keep the portal mounted while the popup is hidden. @default false */
-	keepMounted?: boolean;
-	/** Parent element for the portal. Defaults to `document.body`. */
-	container?: HTMLElement | ShadowRoot | null;
-	children?: Snippet;
-}
+export type PopoverPortalProps = PortalProps;
 
 export interface PopoverPositionerState {
 	open: boolean;

@@ -210,6 +210,7 @@ Parts of this package derive from [Base UI](https://github.com/mui/base-ui) v1.8
 - `src/lib/popover/PopoverRoot.svelte` from `packages/react/src/popover/root/PopoverRoot.tsx`
 - `src/lib/popover/PopoverTrigger.svelte` from `packages/react/src/popover/trigger/PopoverTrigger.tsx`
 - `src/lib/popover/PopoverPortal.svelte` from `packages/react/src/popover/portal/PopoverPortal.tsx`
+- `src/lib/internal/portal-props.ts` from the host props of `packages/react/src/dialog/portal/DialogPortal.tsx` and `packages/react/src/popover/portal/PopoverPortal.tsx` (one shared type)
 - `src/lib/popover/PopoverPositioner.svelte` from `packages/react/src/popover/positioner/PopoverPositioner.tsx`
 - `src/lib/popover/PopoverPopup.svelte` from `packages/react/src/popover/popup/PopoverPopup.tsx`
 - `src/lib/popover/PopoverArrow.svelte` from `packages/react/src/popover/arrow/PopoverArrow.tsx`

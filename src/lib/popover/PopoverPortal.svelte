@@ -9,7 +9,12 @@
 	import { setPopoverPortal, usePopoverRoot } from './context.svelte.js';
 	import type { PopoverPortalProps } from './types.js';
 
-	let { keepMounted = false, container = undefined, children }: PopoverPortalProps = $props();
+	let {
+		keepMounted = false,
+		container = undefined,
+		children,
+		...rest
+	}: PopoverPortalProps = $props();
 
 	const store = usePopoverRoot();
 	const shouldRender = $derived(store.mounted || keepMounted);
@@ -18,7 +23,7 @@
 </script>
 
 {#if shouldRender}
-	<FloatingPortal {store} container={container as HTMLElement | null | undefined}>
+	<FloatingPortal {store} {container} {...rest}>
 		{@render children?.()}
 	</FloatingPortal>
 {/if}

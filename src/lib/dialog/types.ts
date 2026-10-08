@@ -2,6 +2,7 @@ import type { Attachment } from 'svelte/attachments';
 import type { Snippet } from 'svelte';
 import type { HTMLAttributes, HTMLButtonAttributes } from 'svelte/elements';
 import type { BaseUIChangeEventDetails, REASONS } from '../internal/event-details.js';
+import type { PortalProps } from '../internal/portal-props.js';
 import type { PopupTransitionStatus } from '../internal/useTransitionStatus.svelte.js';
 import type { DialogHandle } from './handle.svelte.js';
 
@@ -139,16 +140,7 @@ export interface DialogTriggerProps<Payload = unknown> extends DialogControlProp
 	render?: Snippet<[props: DialogTriggerHostProps, state: DialogTriggerState, children: Snippet]>;
 }
 
-export interface DialogPortalProps {
-	/**
-	 * Keep the portal mounted while the dialog is closed.
-	 * @default false
-	 */
-	keepMounted?: boolean;
-	/** Element the portal is appended to. Defaults to `document.body`. */
-	container?: HTMLElement | null;
-	children?: Snippet;
-}
+export type DialogPortalProps = PortalProps;
 
 export interface DialogPopupProps extends Omit<HTMLAttributes<HTMLDivElement>, 'children'> {
 	/**

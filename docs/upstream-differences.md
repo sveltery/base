@@ -2,6 +2,18 @@
 
 Intentional differences from Base UI v1.8.0 (`47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c`). Each component section is owned by the pull request that ports that component.
 
+## Portal
+
+### The portal marker stays on the host
+
+Pin: `47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c`, `packages/react/src/floating-ui-react/components/FloatingPortal.tsx`. `useRenderElement` merges `[{ id, 'data-base-ui-portal': '' }, elementProps]`. Later props overwrite, so a consumer `data-base-ui-portal` replaces the marker. `className` and `style` are merged after that list.
+
+Local: `Dialog.Portal` and `Popover.Portal` spread consumer host attributes onto the portal `div`, then set `data-base-ui-portal=""`. A consumer value does not replace the marker. `class`, other attributes, and a consumer `{@attach}` still reach that div. The element is held with `bind:this`. There is no ref object.
+
+Rationale: outside press and the internal backdrop treat that attribute as the portal host.
+
+Test: `src/lib/dialog/Dialog.svelte.spec.ts` and `src/lib/popover/Popover.svelte.spec.ts` (`forwards host attributes and attachments onto the portal element`).
+
 ## Popover
 
 ### Cloned radio keeps its name

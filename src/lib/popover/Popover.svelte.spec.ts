@@ -5,6 +5,7 @@ import { page } from 'vitest/browser';
 import { describe, expect, it } from 'vitest';
 import { render } from 'vitest-browser-svelte';
 import PopoverDetachHarness from '../../tests/PopoverDetachHarness.svelte';
+import PortalHostHarness from '../../tests/PortalHostHarness.svelte';
 import PopoverReviewHarness from '../../tests/PopoverReviewHarness.svelte';
 import PopoverFixture from '../../routes/fixtures/popover/PopoverFixture.svelte';
 import { Popover, PopoverHandle } from './index.js';
@@ -21,6 +22,22 @@ describe('Popover', () => {
 		expect('setPayload' in handle).toBe(false);
 		expect('payloads' in handle).toBe(false);
 		expect(handle.payload).toBeUndefined();
+	});
+
+	it('forwards host attributes and attachments onto the portal element', async () => {
+		render(PortalHostHarness, { part: 'popover' });
+
+		await expect.poll(() => document.querySelector('[data-slot="popover-portal"]')).not.toBeNull();
+		const portal = document.querySelector('[data-slot="popover-portal"]');
+		if (!(portal instanceof HTMLDivElement)) throw new Error('portal is not a div');
+
+		expect(portal.classList.contains('portal-host')).toBe(true);
+		expect(portal.getAttribute('data-probe')).toBe('probe');
+		expect(portal.dataset.attached).toBe('yes');
+		expect(portal.parentElement).toBe(document.body);
+		expect(portal.querySelector('[role="dialog"]')).not.toBeNull();
+		// The marker stays empty. A consumer value does not replace it.
+		expect(portal.getAttribute('data-base-ui-portal')).toBe('');
 	});
 
 	it('opens and closes from the trigger', async () => {
