@@ -198,7 +198,7 @@
 			</Slider.Control>
 		</Slider.Root>
 		<button type="button" data-testid="clear" onclick={() => (cleared = undefined)}>Clear</button>
-	{:else if scenario === 'bound'}
+	{:else if scenario === 'bound' || scenario === 'parent'}
 		<Slider.Root
 			bind:value={bound}
 			{min}
@@ -296,6 +296,14 @@
 			<button type="submit">Submit</button>
 		</Form>
 		<output data-testid="submitted">{submitted}</output>
+	{:else if scenario === 'parent'}
+		<Form bind:errors>
+			<Field.Root name="slider" validationMode="onChange" data-testid="field" {validate}>
+				{@render slider()}
+				<Field.Error data-testid="error" />
+			</Field.Root>
+		</Form>
+		<output data-testid="errors">{JSON.stringify(errors)}</output>
 	{:else if scenario === 'form-errors'}
 		<Form bind:errors onFormSubmit={accept}>
 			<Field.Root name="slider">

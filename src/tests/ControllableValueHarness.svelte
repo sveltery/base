@@ -19,6 +19,26 @@
 	}
 	const box = new Box();
 	let symbols = $state('0,0,0');
+	let copySymbols = $state('');
+	let proxyProbe = $state({ n: 1 });
+	let proxyThrows = $state('pending');
+
+	$effect(() => {
+		untrack(() => {
+			const mark = Symbol();
+			try {
+				Object.defineProperty(proxyProbe, mark, {
+					configurable: true,
+					writable: false,
+					value: true
+				});
+				Reflect.deleteProperty(proxyProbe, mark);
+				proxyThrows = 'accepted';
+			} catch {
+				proxyThrows = 'threw';
+			}
+		});
+	});
 
 	$effect(() => {
 		if (mode !== 'proxy') return;
@@ -61,6 +81,8 @@
 <output data-testid="runs">{runs}</output>
 <output data-testid="iterated">{iterated}</output>
 <output data-testid="symbols">{symbols}</output>
+<output data-testid="copy-symbols">{copySymbols}</output>
+<output data-testid="proxy-throws">{proxyThrows}</output>
 <output data-testid="same">{controllable.value === plain ? 'yes' : 'no'}</output>
 <button type="button" data-testid="set-b" onclick={() => controllable.set('b')}>Set b</button>
 <button type="button" data-testid="set-mixed" onclick={() => controllable.set('Ab')}
@@ -85,11 +107,16 @@
 	type="button"
 	data-testid="set-plain"
 	onclick={() => {
-		controllable.set(plain);
-		controllable.set(list as unknown as { id: number });
-		controllable.set(box);
-		controllable.set(plain);
+		const copies: number[] = [];
+		for (const item of [plain, list as unknown as { id: number }, box, plain]) {
+			controllable.set(item);
+			const held = prop;
+			copies.push(
+				held != null && typeof held === 'object' ? Object.getOwnPropertySymbols(held).length : 0
+			);
+		}
 		symbols = [plain, list, box].map((item) => Object.getOwnPropertySymbols(item).length).join(',');
+		copySymbols = copies.join(',');
 	}}
 >
 	Set plain

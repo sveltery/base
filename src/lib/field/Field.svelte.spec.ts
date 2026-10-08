@@ -374,6 +374,16 @@ describe('Field', () => {
 			expect(text('values')).toContain('later');
 		});
 
+		it('sees an empty value when a parent clears a required control', async () => {
+			render(FieldHarness, { scenario: 'required-clear' });
+			await expect.element(page.getByTestId('control')).toHaveValue('kept');
+			expect(text('seen')).toBe('pending');
+			await page.getByRole('button', { name: 'Clear required' }).click();
+			await expect.element(page.getByTestId('control')).toHaveValue('');
+			expect(text('seen')).toBe('');
+			await expect.element(page.getByTestId('error')).toHaveTextContent('empty');
+		});
+
 		it('clears form errors and validates when the parent clears the value', async () => {
 			render(FieldHarness, { scenario: 'empty' });
 			await expect.element(page.getByTestId('control')).toHaveValue('kept');

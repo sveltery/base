@@ -209,11 +209,18 @@ describe('<Slider />', () => {
 			await expect.element(page.getByRole('slider')).toHaveAttribute('aria-valuenow', '10');
 		});
 
-		it('follows a parent write', async () => {
-			render(SliderHarness, { scenario: 'bound', defaultValue: 30 });
+		it('clears form errors, marks dirty, and revalidates on a parent write', async () => {
+			render(SliderHarness, {
+				scenario: 'parent',
+				defaultValue: 30,
+				validate: () => 'nope'
+			});
+			await expect.element(page.getByTestId('errors')).toHaveTextContent('{"slider":"stale"}');
+			expect(root().hasAttribute('data-dirty')).toBe(false);
 			click(page.getByTestId('set').element());
-			await expect.element(page.getByRole('slider')).toHaveAttribute('aria-valuenow', '70');
-			expect(page.getByTestId('bound').element().textContent).toBe('70');
+			await expect.element(page.getByTestId('errors')).toHaveTextContent('{}');
+			await expect.poll(() => root().hasAttribute('data-dirty')).toBe(true);
+			await expect.element(page.getByTestId('error')).toHaveTextContent('nope');
 		});
 
 		it('keeps a bound value in sync and follows an external write', async () => {
