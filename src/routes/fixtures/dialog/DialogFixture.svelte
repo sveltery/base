@@ -3,7 +3,7 @@
 		Dialog,
 		type DialogActions,
 		type DialogChangeEventDetails,
-		type FocusTarget
+		type DialogFocusTarget
 	} from '#lib';
 	import type { DialogCase } from './cases.js';
 
@@ -18,8 +18,8 @@
 		nested = undefined as boolean | undefined,
 		withBackdrop = undefined as boolean | undefined,
 		withViewport = false,
-		initialFocus = undefined as FocusTarget | undefined,
-		finalFocus = undefined as FocusTarget | undefined,
+		initialFocus = undefined as DialogFocusTarget | undefined,
+		finalFocus = undefined as DialogFocusTarget | undefined,
 		onOpenChange = undefined as
 			((open: boolean, details: DialogChangeEventDetails) => void) | undefined,
 		title = 'Title',

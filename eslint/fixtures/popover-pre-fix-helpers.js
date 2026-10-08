@@ -103,6 +103,13 @@ export const COMPOSITE_KEYS = new Set([
 	'End'
 ]);
 
+export function registerLabelElementId(store, part, next) {
+	if (part === 'title') store.titleElementId = next;
+	return () => {
+		store.titleElementId = undefined;
+	};
+}
+
 export class PopoverHandle {
 	constructor() {
 		this.current = null;

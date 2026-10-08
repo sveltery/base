@@ -8,6 +8,7 @@
 	import { createAttachmentKey, type Attachment } from 'svelte/attachments';
 	import type { Snippet } from 'svelte';
 	import type { HTMLAttributes } from 'svelte/elements';
+	import { registerLabelElementId } from '../internal/popups/labelId.js';
 	import { useDialogRootContext } from './context.svelte.js';
 
 	type HostProps = HTMLAttributes<Element> & Record<symbol, Attachment<Element>>;
@@ -34,17 +35,9 @@
 	const attachmentKey = createAttachmentKey();
 	const state: Record<string, never> = {};
 
-	const register = $derived((node: HTMLElement) => {
-		const next = node.id || id;
-		if (part === 'title') store.titleElementId = next;
-		else store.descriptionElementId = next;
-		return () => {
-			if (part === 'title' && store.titleElementId === next) store.titleElementId = undefined;
-			if (part === 'description' && store.descriptionElementId === next) {
-				store.descriptionElementId = undefined;
-			}
-		};
-	});
+	const register = $derived((node: HTMLElement) =>
+		registerLabelElementId(store, part, node.id || id)
+	);
 
 	const hostProps = $derived({
 		id,

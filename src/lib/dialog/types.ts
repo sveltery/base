@@ -5,7 +5,7 @@ import type { BaseUIChangeEventDetails, REASONS } from '../internal/event-detail
 import type { PopupTransitionStatus } from '../internal/useTransitionStatus.svelte.js';
 import type { DialogHandle } from './handle.svelte.js';
 
-export type InteractionType = 'mouse' | 'touch' | 'pen' | 'keyboard' | '';
+export type DialogInteractionType = 'mouse' | 'touch' | 'pen' | 'keyboard' | '';
 
 export type DialogChangeEventReason =
 	| typeof REASONS.triggerPress
@@ -26,11 +26,11 @@ export interface DialogActions {
 	close: () => void;
 }
 
-export type FocusTarget =
+export type DialogFocusTarget =
 	| boolean
 	| HTMLElement
 	| null
-	| ((interaction: InteractionType) => boolean | HTMLElement | null | void);
+	| ((interaction: DialogInteractionType) => boolean | HTMLElement | null | void);
 
 export type DialogRootState = Record<string, never>;
 
@@ -156,12 +156,12 @@ export interface DialogPopupProps extends Omit<HTMLAttributes<HTMLDivElement>, '
 	 * Touch opens focus the popup itself unless this says otherwise.
 	 * Pass an element or a function. There is no ref object.
 	 */
-	initialFocus?: FocusTarget;
+	initialFocus?: DialogFocusTarget;
 	/**
 	 * Element to focus when the dialog closes.
 	 * Pass an element or a function. There is no ref object.
 	 */
-	finalFocus?: FocusTarget;
+	finalFocus?: DialogFocusTarget;
 	render?: PartRender<HTMLDivElement, DialogPopupState>;
 	children?: Snippet;
 }

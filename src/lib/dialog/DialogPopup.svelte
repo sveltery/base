@@ -76,7 +76,7 @@
 	}
 
 	const hostProps = $derived(
-		mergeProps<DialogDivProps>(elementProps, FOCUSABLE_POPUP_PROPS, {
+		mergeProps(elementProps, FOCUSABLE_POPUP_PROPS, {
 			id: store.floatingId,
 			role: store.role,
 			...(store.titleElementId ? { 'aria-labelledby': store.titleElementId } : {}),
@@ -86,7 +86,7 @@
 			onkeydown: onKeyDown,
 			...getStateAttributesProps(state, dialogStateAttributesMapping),
 			...(render ? { [attachmentKey]: ownPopup } : {})
-		})
+		}) as DialogDivProps
 	);
 
 	useOpenChangeComplete(() => ({

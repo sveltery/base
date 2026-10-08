@@ -31,13 +31,13 @@
 	}
 
 	const hostProps = $derived(
-		mergeProps<DialogDivProps>(elementProps, {
+		mergeProps(elementProps, {
 			role: 'presentation',
 			hidden: !store.mounted,
 			style: 'user-select: none; -webkit-user-select: none',
 			...getStateAttributesProps(state, dialogTransitionAttributesMapping),
 			...(render ? { [attachmentKey]: ownBackdrop } : {})
-		})
+		}) as DialogDivProps
 	);
 </script>
 

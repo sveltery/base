@@ -33,13 +33,13 @@
 	}
 
 	const hostProps = $derived(
-		mergeProps<DialogDivProps>(elementProps, {
+		mergeProps(elementProps, {
 			role: 'presentation',
 			hidden: !store.mounted,
 			style: store.open ? undefined : 'pointer-events: none',
 			...getStateAttributesProps(state, dialogStateAttributesMapping),
 			...(render ? { [attachmentKey]: ownViewport } : {})
-		})
+		}) as DialogDivProps
 	);
 </script>
 

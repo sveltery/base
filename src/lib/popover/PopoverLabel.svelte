@@ -10,6 +10,7 @@
 	import type { Snippet } from 'svelte';
 	import type { HTMLAttributes } from 'svelte/elements';
 	import { mergeProps } from '../internal/mergeProps.js';
+	import { registerLabelElementId } from '../internal/popups/labelId.js';
 	import { usePopoverRoot } from './context.svelte.js';
 
 	let {
@@ -33,17 +34,7 @@
 	const id = $derived(idProp ?? `base-ui-${uid}`);
 	const bindKey = createAttachmentKey();
 
-	const register: Attachment<HTMLElement> = () => {
-		const next = id;
-		if (part === 'title') store.titleElementId = next;
-		else store.descriptionElementId = next;
-		return () => {
-			if (part === 'title' && store.titleElementId === next) store.titleElementId = undefined;
-			if (part === 'description' && store.descriptionElementId === next) {
-				store.descriptionElementId = undefined;
-			}
-		};
-	};
+	const register: Attachment<HTMLElement> = () => registerLabelElementId(store, part, id);
 
 	const hostProps = $derived(mergeProps(elementProps, { id, [bindKey]: register }));
 </script>

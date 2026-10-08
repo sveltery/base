@@ -11,18 +11,14 @@ import type { BaseUIChangeEventDetails } from '../event-details.js';
 import { AnimationFrame } from '../timeout.js';
 import { PopupTriggerMap } from './popupTriggerMap.js';
 
-export interface PopupHandleStore<Payload> {
+export interface PopupHandleStore {
 	open: boolean;
 	triggers: PopupTriggerMap;
-	readonly payload?: Payload;
 	setOpen(nextOpen: boolean, eventDetails: BaseUIChangeEventDetails<string>): void;
 	forceUnmount?(): void;
 }
 
-export class PopupHandle<
-	Payload = unknown,
-	Store extends PopupHandleStore<Payload> = PopupHandleStore<Payload>
-> {
+export class PopupHandle<Payload = unknown, Store extends PopupHandleStore = PopupHandleStore> {
 	/** Anchored popups throw when `open(id)` cannot find that trigger. Dialog still opens. */
 	constructor(private readonly requireTrigger = false) {}
 
@@ -115,7 +111,7 @@ export class PopupHandle<
 	}
 
 	get payload(): Payload | undefined {
-		return this.attached?.payload;
+		return (this.attached as { payload?: Payload } | null)?.payload;
 	}
 
 	unmount() {
@@ -133,7 +129,7 @@ export class PopupHandle<
 			}
 			return;
 		}
-		store.payload = payload;
+		assignPayload(store, payload);
 		store.setOpen(true, createChangeEventDetails(REASONS.imperativeAction));
 	}
 
@@ -156,15 +152,16 @@ export class PopupHandle<
 	}
 }
 
-function assignPayload<Payload>(store: { payload?: Payload }, value: Payload | undefined) {
+function assignPayload<Payload>(store: object, value: Payload | undefined) {
+	const target = store as { payload?: Payload };
 	let current: object | null = store;
 	while (current) {
 		const desc = Object.getOwnPropertyDescriptor(current, 'payload');
 		if (desc) {
-			if (desc.set || desc.writable) store.payload = value;
+			if (desc.set || desc.writable) target.payload = value;
 			return;
 		}
 		current = Object.getPrototypeOf(current);
 	}
-	store.payload = value;
+	target.payload = value;
 }
