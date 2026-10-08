@@ -32,7 +32,8 @@
 		| 'nullish'
 		| 'render'
 		| 'attach'
-		| 'override';
+		| 'override'
+		| 'default';
 
 	let {
 		scenario = 'plain',
@@ -234,6 +235,11 @@
 			<RadioGroup aria-label="Colors" value={owner} onValueChange={record}>
 				<Radio.Root value="a">A</Radio.Root>
 				<Radio.Root value="b">B</Radio.Root>
+			</RadioGroup>
+		{:else if scenario === 'default'}
+			<RadioGroup aria-label="Colors" defaultValue="b">
+				<Radio.Root value="a" data-testid="a">A</Radio.Root>
+				<Radio.Root value="b" data-testid="b">B</Radio.Root>
 			</RadioGroup>
 		{:else if scenario === 'initial'}
 			<RadioGroup aria-label="Colors" value="b">

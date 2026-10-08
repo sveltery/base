@@ -41,6 +41,12 @@ describe('RadioGroup', () => {
 			await expect.element(root).not.toHaveAttribute('value');
 		});
 
+		it('selects defaultValue when value is omitted', async () => {
+			render(RadioGroupComponentHarness, { scenario: 'default' });
+			await expect.element(radio('B')).toHaveAttribute('aria-checked', 'true');
+			await expect.element(radio('A')).toHaveAttribute('aria-checked', 'false');
+		});
+
 		it('selects the radio whose value was passed and gives it the tab stop', async () => {
 			render(RadioGroupComponentHarness, { scenario: 'initial' });
 			await expect.element(radio('A')).toHaveAttribute('aria-checked', 'false');

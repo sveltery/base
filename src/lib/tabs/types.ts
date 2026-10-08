@@ -78,6 +78,11 @@ export interface TabsRootProps extends Omit<HTMLAttributes<HTMLDivElement>, 'chi
 	 */
 	value?: TabsValue | null;
 	/**
+	 * Value used when `value` is omitted, and when a controlled `value` is cleared.
+	 * @default 0
+	 */
+	defaultValue?: TabsValue | null;
+	/**
 	 * Layout direction. Arrow keys follow it.
 	 * @default 'horizontal'
 	 */

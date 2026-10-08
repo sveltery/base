@@ -3,6 +3,7 @@
 // (commit 47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c). MIT, see THIRD_PARTY_NOTICES.md.
 
 import { getContext, setContext, untrack } from 'svelte';
+import type { ControllableValue } from '../internal/controllable-value.svelte.js';
 import { byDocumentOrder } from '../internal/document-order.js';
 import { REASONS } from '../internal/event-details.js';
 import { activationDirection } from './direction.js';
@@ -36,21 +37,14 @@ export class TabsRootModel {
 	readOnValueChange: () =>
 		((value: TabsValue | null, eventDetails: TabsRootChangeEventDetails) => void) | undefined =
 		() => undefined;
-	readExternal: () => TabsValue | null = () => null;
-	writeValue: (next: TabsValue | null) => void = () => {};
 
-	/** Writes the bindable. The root component assigns this. */
-	publish: (next: TabsValue | null, direction: TabsActivationDirection) => void = () => {};
-
-	readonly parentOwned: boolean;
 	private directionBaseline: TabsValue | null = 0;
 	private notifiedInitial = false;
 	private didRegister = false;
 	private lastTabElement: HTMLElement | null = null;
 
-	constructor(parentOwned: boolean, initial: TabsValue | null) {
-		this.parentOwned = parentOwned;
-		this.directionBaseline = initial;
+	constructor(private readonly values: ControllableValue<TabsValue | null>) {
+		this.directionBaseline = values.value ?? null;
 
 		$effect.pre(() => {
 			const tabs = this.tabs;
@@ -71,7 +65,7 @@ export class TabsRootModel {
 		});
 
 		$effect(() => {
-			if (this.parentOwned) return;
+			if (this.values.controlled) return;
 			const tabs = this.tabs;
 			const current = this.value;
 
@@ -109,7 +103,7 @@ export class TabsRootModel {
 
 			if (!this.notifiedInitial && selected) {
 				this.notifiedInitial = true;
-				this.publish(current, 'none');
+				this.value = current;
 				this.onValueChange?.(
 					current,
 					createTabsChangeEventDetails(REASONS.initial, undefined, 'none')
@@ -142,11 +136,12 @@ export class TabsRootModel {
 	}
 
 	get value(): TabsValue | null {
-		return this.readExternal();
+		const current = this.values.value;
+		return current == null ? null : current;
 	}
 
 	set value(next: TabsValue | null) {
-		this.writeValue(next);
+		this.values.set(next);
 	}
 
 	registerTab(element: HTMLElement, value: TabsValue, disabled: boolean, id: string) {
@@ -218,7 +213,7 @@ export class TabsRootModel {
 	private commit(next: TabsValue | null, direction: TabsActivationDirection) {
 		this.directionBaseline = next;
 		this.tabActivationDirection = direction;
-		this.publish(next, direction);
+		this.value = next;
 	}
 
 	private commitAutomatic(next: TabsValue | null, reason: TabsRootChangeEventReason) {

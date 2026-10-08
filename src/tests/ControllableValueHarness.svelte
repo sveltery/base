@@ -2,8 +2,9 @@
 	import { untrack } from 'svelte';
 	import { createControllableValue } from '../lib/internal/controllable-value.svelte.js';
 
-	let { mode = 'bind' }: { mode?: 'bind' | 'reject' | 'flip' | 'clear' | 'lower' | 'proxy' } =
-		$props();
+	let {
+		mode = 'bind'
+	}: { mode?: 'bind' | 'reject' | 'flip' | 'clear' | 'lower' | 'proxy' | 'plain' } = $props();
 
 	const startsEmpty = untrack(() => mode === 'bind' || mode === 'proxy');
 	let prop = $state<string | { id: number } | undefined>(startsEmpty ? undefined : 'a');
@@ -11,6 +12,13 @@
 	let runs = $state(0);
 	let iterated = $state('');
 	let log = $state<string[]>([]);
+	const plain = { id: 7 };
+	const list = [1, 2];
+	class Box {
+		id = 3;
+	}
+	const box = new Box();
+	let symbols = $state('0,0,0');
 
 	$effect(() => {
 		if (mode !== 'proxy') return;
@@ -34,6 +42,10 @@
 				prop = { id: next.id };
 				return;
 			}
+			if (mode === 'plain') {
+				prop = next;
+				return;
+			}
 			prop = mode === 'lower' && typeof next === 'string' ? next.toLowerCase() : next;
 		},
 		getDefault: () => 'fallback',
@@ -48,6 +60,8 @@
 <output data-testid="log">{JSON.stringify(log)}</output>
 <output data-testid="runs">{runs}</output>
 <output data-testid="iterated">{iterated}</output>
+<output data-testid="symbols">{symbols}</output>
+<output data-testid="same">{controllable.value === plain ? 'yes' : 'no'}</output>
 <button type="button" data-testid="set-b" onclick={() => controllable.set('b')}>Set b</button>
 <button type="button" data-testid="set-mixed" onclick={() => controllable.set('Ab')}
 	>Set mixed</button
@@ -67,3 +81,16 @@
 </button>
 <button type="button" data-testid="parent-c" onclick={() => (prop = 'c')}>Parent c</button>
 <button type="button" data-testid="clear" onclick={() => (prop = undefined)}>Clear</button>
+<button
+	type="button"
+	data-testid="set-plain"
+	onclick={() => {
+		controllable.set(plain);
+		controllable.set(list as unknown as { id: number });
+		controllable.set(box);
+		controllable.set(plain);
+		symbols = [plain, list, box].map((item) => Object.getOwnPropertySymbols(item).length).join(',');
+	}}
+>
+	Set plain
+</button>

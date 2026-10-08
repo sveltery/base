@@ -9,14 +9,14 @@ A tablist and its panels. Upstream: `packages/react/src/tabs/` at Base UI v1.8.0
 - `Tabs.Tab` renders `<button type="button" role="tab">`. `aria-selected` follows the root value. `aria-controls` points at the mounted panel with the same value. A disabled tab stays focusable (`aria-disabled`, no native `disabled`).
 - `Tabs.Panel` renders `<div role="tabpanel">`. It is mounted while open, then unmounts after the exit animation unless `keepMounted` is set. Hidden panels use the `hidden` attribute, `inert`, and `tabindex="-1"`. `data-index` is document order. `data-starting-style` and `data-ending-style` mark the motion phases.
 - `Tabs.Indicator` renders `<span role="presentation">` and sets `--active-tab-left`, `--active-tab-right`, `--active-tab-top`, `--active-tab-bottom`, `--active-tab-width`, and `--active-tab-height` from the active tab. It stays `hidden` until that tab has a size. It is omitted when the value is `null`.
-- `value` is one `$bindable`. Omit it and the root starts at `0`, then moves to the first enabled tab when that selection is disabled or missing. Those moves call `onValueChange` with `initial`, `disabled`, or `missing`. `cancel()` does not stop them. Pass `value` or `bind:value` to hold the selection: the root does not move it when a tab is disabled or removed. A click or key can still change it until the parent passes a new value. `null` selects nothing.
+- `value` is one `$bindable`. Omit it and the root starts at `defaultValue` (`0`), then moves to the first enabled tab when that selection is disabled or missing. Those moves call `onValueChange` with `initial`, `disabled`, or `missing`. `cancel()` does not stop them. Pass `value` or `bind:value` to hold the selection: the root does not move it when a tab is disabled or removed. A click or key can still change it until the parent passes a new value. Clearing a controlled value (`undefined`) returns to `defaultValue`. `null` selects nothing.
 - `activateOnFocus` selects the tab arrow keys move to. Otherwise Enter or Space selects the focused tab. A secondary pointer press does not select.
 - Roving tabindex follows the ToggleGroup class shape, with Tabs' own skip rules: `aria-disabled` tabs stay in the arrow order, and a natively disabled or hidden host is skipped. Arrow keys follow `orientation` and swap in RTL. Home and End jump. `loopFocus` defaults to true. A disabled selection does not take the tab stop away from the previous enabled tab when focus is outside the list.
 - A `render` snippet receives `(props, state, children)`. Consumer `{@attach}` reaches the host.
 
 Differences from React Base UI, all deliberate:
 
-- No `defaultValue`, and no locked controlled mode. Hold a passed value with `eventDetails.cancel()`, or pass the value again.
+- No locked controlled mode. Hold a passed value with `eventDetails.cancel()`, or pass the value again. `defaultValue` is the uncontrolled start and the fallback when a controlled value is cleared.
 - No pre-hydration indicator script.
 - No scroll-into-view. Indicator offsets walk `parentElement`, not shadow roots.
 - No `className` or `style` state callbacks. No React `ref`. Use `{@attach}`.

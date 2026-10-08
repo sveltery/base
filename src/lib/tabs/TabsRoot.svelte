@@ -2,8 +2,9 @@
 	Groups the tabs and the corresponding panels. Renders a `<div>` element.
 	Derived from Base UI v1.8.0 packages/react/src/tabs/root/TabsRoot.tsx
 	(commit 47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c). MIT, see THIRD_PARTY_NOTICES.md.
-	There is no defaultValue and no locked controlled mode. Omit `value` and the
-	root owns selection, including automatic fallbacks. Pass `value` to hold it.
+	`defaultValue` is the uncontrolled start and the fallback when a controlled
+	value is cleared. Omit `value` and the root owns selection, including
+	automatic fallbacks. Pass `value` to hold it.
 -->
 <script lang="ts">
 	import type { HTMLAttributes } from 'svelte/elements';
@@ -15,6 +16,7 @@
 
 	let {
 		value = $bindable(undefined),
+		defaultValue = 0,
 		orientation = 'horizontal',
 		onValueChange,
 		render,
@@ -27,18 +29,11 @@
 		setProp: (next) => {
 			value = next;
 		},
-		getDefault: () => (value !== undefined ? value : 0)
+		getDefault: () => defaultValue
 	});
-	const tabs = new TabsRootModel(controllable.controlled, controllable.value ?? null);
+	const tabs = new TabsRootModel(controllable);
 	tabs.readOrientation = () => orientation;
 	tabs.readOnValueChange = () => onValueChange;
-	tabs.readExternal = () => (controllable.value == null ? null : controllable.value);
-	tabs.writeValue = (next) => {
-		controllable.set(next);
-	};
-	tabs.publish = (next) => {
-		tabs.value = next;
-	};
 	setTabsRootContext(tabs);
 
 	const state: TabsRootState = $derived({

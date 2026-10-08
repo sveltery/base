@@ -16,6 +16,8 @@
 	import { useLabelableContext } from './labelable.svelte.js';
 	import type { FieldControlProps, FieldControlState } from './types.js';
 
+	type ValueElement = HTMLElement & { value: string; form?: HTMLFormElement | null };
+
 	const uid = $props.id();
 	const elementKey = createAttachmentKey();
 	const controlSource = Symbol();
@@ -59,7 +61,7 @@
 	const name = $derived(field.name ?? nameProp ?? undefined);
 	const controlId = $derived(labelable.controlId || idProp || fallbackId);
 
-	let inputEl = $state<HTMLInputElement | null>(null);
+	let inputEl = $state<ValueElement | null>(null);
 	let hadExplicitId = false;
 	let blurCommitId = 0;
 	let registration: { value: string | undefined } | null = null;
@@ -76,8 +78,21 @@
 		disabled
 	});
 
+	function isValueElement(node: HTMLElement): node is ValueElement {
+		return 'value' in node;
+	}
+
+	function serializedValue(value: string | number | null | undefined) {
+		return value == null ? '' : String(value);
+	}
+
+	function readElement(element: ValueElement | null) {
+		if (!element) return undefined;
+		return element.value == null ? '' : String(element.value);
+	}
+
 	function remember(node: HTMLElement) {
-		if (node instanceof HTMLInputElement) inputEl = node;
+		if (isValueElement(node)) inputEl = node;
 		return () => {
 			if (inputEl === node) inputEl = null;
 		};
@@ -119,7 +134,7 @@
 			name: controlName ?? undefined,
 			value: currentValue,
 			element,
-			getValue: () => element?.value
+			getValue: () => readElement(element) ?? serializedValue(controllable.value)
 		};
 		registration = record;
 
@@ -153,8 +168,7 @@
 	});
 
 	function domValue() {
-		if (controllable.value == null) return '';
-		return String(controllable.value);
+		return serializedValue(controllable.value);
 	}
 
 	function handleInput(event: Event & { currentTarget: EventTarget & HTMLInputElement }) {

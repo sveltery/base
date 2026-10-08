@@ -5,7 +5,7 @@ Shared selection for a series of radios, with a roving tab stop. Upstream: `pack
 ## Sub-features
 
 - Renders a `<div role="radiogroup">`. `aria-disabled`, `aria-readonly`, and `aria-required` are set only when those props are true. `data-disabled`, `data-readonly`, and `data-required` follow the same flags. There is no `data-orientation`.
-- `value` is one `$bindable` of any type (default `undefined`, nothing selected). `bind:value` shares it with the parent. A one-way `value` sets it, and clicks override it until the parent changes it. `onValueChange(value, eventDetails)` runs before the commit. `eventDetails.cancel()` vetoes it. Object values use `===` and must be stored with `$state.raw`. `null` is a real value.
+- `value` is one `$bindable` of any type. Omit it to start from `defaultValue` (`undefined`, nothing selected). `bind:value` shares it with the parent. A one-way `value` sets it, and clicks override it until the parent changes it. `onValueChange(value, eventDetails)` runs before the commit. `eventDetails.cancel()` vetoes it. Object values use `===` and must be stored with `$state.raw`. `null` is a real value.
 - `disabled` disables every radio. `readOnly` blocks selection and still lets arrow keys move focus. `required` marks the group and the hidden inputs. `name` and `form` are copied onto each hidden input.
 - A click, a label activation, or Space on keyup selects that radio and releases the others. Enter does not select and does not submit. The callback's event is the click that checked the input, so Shift is visible.
 - Roving tabindex: the selected radio is the tab stop. With nothing selected, the first enabled radio is. Arrow keys move on both axes and select the newly focused radio. Horizontal arrows swap in RTL (`DirectionProvider`). The list loops. Shift+Arrow still moves. Home and End do not. Ctrl, Alt, and Meta do not. Disabled radios are skipped. Removing the highlighted radio moves the tab stop to the checked radio when that change was vetoed, otherwise to the next enabled radio.
@@ -14,7 +14,7 @@ Shared selection for a series of radios, with a roving tab stop. Upstream: `pack
 
 Differences from React Base UI, all deliberate:
 
-- No `defaultValue`, and no locked controlled mode. Hold the value with `eventDetails.cancel()`.
+- No locked controlled mode. Hold the value with `eventDetails.cancel()`. `defaultValue` is the uncontrolled start.
 - No `inputRef`. No Field registration, validity, or `data-touched` / `data-dirty` / `data-filled`.
 - No `className` or `style` state callbacks. No React `ref`. Use `{@attach}`.
 - No scroll-into-view. Arrow keys inside a nested text field are not given back to the field.
