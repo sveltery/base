@@ -68,7 +68,6 @@
 	let inputEl = $state<ValueElement | null>(null);
 	let hadExplicitId = false;
 	let blurCommitId = 0;
-	let registration: { value: string | undefined } | null = null;
 
 	function notifyControlled(current: string) {
 		form.clearErrors(name);
@@ -134,33 +133,17 @@
 		const record = {
 			id,
 			name: controlName ?? undefined,
-			value: currentValue,
 			element,
 			getValue: () => readElement(element) ?? textValue(controllable.value)
 		};
-		registration = record;
 
 		if (!active) {
 			field.registerControl(controlSource, undefined);
-			return () => {
-				registration = null;
-				field.registerControl(controlSource, undefined);
-			};
+			return () => field.registerControl(controlSource, undefined);
 		}
 
 		field.registerControl(controlSource, record);
-		return () => {
-			registration = null;
-			field.registerControl(controlSource, undefined);
-		};
-	});
-
-	$effect(() => {
-		if (!controllable.controlled) return;
-		const current = registeredValue;
-		const record = registration;
-		if (!record) return;
-		record.value = current;
+		return () => field.registerControl(controlSource, undefined);
 	});
 
 	$effect(() => {

@@ -11,14 +11,18 @@ import type { Labelable } from './labelable.svelte.js';
 import type { FieldRootState, FieldValidate } from './types.js';
 import { getCombinedFieldValidityData, isConstraintElement, isEligibleInput } from './validity.js';
 
-export interface FieldControlRegistration {
+interface FieldControlIdentity {
 	id: string | undefined;
 	name: string | undefined;
-	/** Serialized controlled value, or `undefined` when the input owns its value. */
-	value: unknown;
 	element: HTMLElement | null;
-	getValue?: () => unknown;
 }
+
+/**
+ * Either a live getter or a snapshot. A getter wins whenever it is present,
+ * so the two are not combined.
+ */
+export type FieldControlRegistration = FieldControlIdentity &
+	({ getValue: () => unknown; value?: undefined } | { value: unknown; getValue?: undefined });
 
 interface RegisteredInput {
 	element: HTMLElement | null;
@@ -441,6 +445,7 @@ export class FieldRootModel {
 	}
 
 	private registrationValue(registration: FieldControlRegistration) {
+		if (registration.getValue) return registration.getValue();
 		return registration.value === undefined ? this.readControlValue() : registration.value;
 	}
 

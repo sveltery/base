@@ -27,6 +27,17 @@ describe('createControllableValue', () => {
 		expect(text('log')).toBe('["c"]');
 	});
 
+	it('announces the current value without treating a same-value write as a change', async () => {
+		render(ControllableValueHarness, { mode: 'flip' });
+		await page.getByTestId('announce').click();
+		await expect.element(page.getByTestId('value')).toHaveTextContent('a');
+		expect(text('log')).toBe('["a"]');
+		expect(text('reasons')).toBe('["now"]');
+		await page.getByTestId('set-same-details').click();
+		expect(text('log')).toBe('["a"]');
+		expect(text('reasons')).toBe('["now"]');
+	});
+
 	it('keeps details with the value they were written for', async () => {
 		render(ControllableValueHarness, { mode: 'flip' });
 		await page.getByTestId('set-b-details').click();

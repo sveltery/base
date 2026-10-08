@@ -159,7 +159,7 @@
 	}
 </script>
 
-<PartHost {render} {children} elementProps={hostProps} partState={rootState} />
+<PartHost tag="div" {render} {children} elementProps={hostProps} partState={rootState} />
 <input
 	type="number"
 	form={formId}

@@ -271,8 +271,8 @@ export class NumberFieldModel {
 		return keys;
 	}
 
-	/** Point field validation at the current number and input before the change notice. */
-	registerField(snapshot?: {
+	/** Register the visible input once. Validation reads the current number. */
+	registerField(snapshot: {
 		disabled: boolean;
 		element: HTMLInputElement | null;
 		id: string | undefined;
@@ -280,21 +280,15 @@ export class NumberFieldModel {
 	}) {
 		const field = this.options.getField();
 		if (!field) return;
-		const disabled = snapshot?.disabled ?? this.options.getDisabled();
-		const element = snapshot ? snapshot.element : this.inputElement;
-		const id = snapshot ? snapshot.id : this.options.getId();
-		const name = snapshot ? snapshot.name : this.options.getNameProp();
-		if (disabled) {
+		if (snapshot.disabled) {
 			field.registerControl(this.fieldSource, undefined);
 			return;
 		}
 		const readValue = () => this.options.getValue();
 		field.registerControl(this.fieldSource, {
-			id,
-			name,
-			// No snapshot. Submit and `actions.validate()` must read `getValue`.
-			value: undefined,
-			element,
+			id: snapshot.id,
+			name: snapshot.name,
+			element: snapshot.element,
 			getValue: readValue
 		});
 	}

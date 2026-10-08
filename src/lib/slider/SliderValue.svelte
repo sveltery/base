@@ -6,6 +6,7 @@
 -->
 <script lang="ts">
 	import type { HTMLAttributes } from 'svelte/elements';
+	import PartHost from '../internal/PartHost.svelte';
 	import { formatNumber } from '../internal/formatNumber.js';
 	import { getStateAttributesProps } from '../internal/state-attributes.js';
 	import { sliderStateAttributes } from './attributes.js';
@@ -15,7 +16,7 @@
 	let {
 		'aria-live': ariaLive = 'off',
 		render,
-		children,
+		children: valueText,
 		...elementProps
 	}: SliderValueProps = $props();
 
@@ -35,16 +36,10 @@
 	});
 </script>
 
-{#snippet text()}
-	{#if children}
-		{@render children(formattedValues, values)}
+<PartHost tag="output" {render} elementProps={hostProps} partState={state}>
+	{#if valueText}
+		{@render valueText(formattedValues, values)}
 	{:else}
 		{defaultDisplay}
 	{/if}
-{/snippet}
-
-{#if render}
-	{@render render(hostProps, state, text)}
-{:else}
-	<output {...hostProps}>{@render text()}</output>
-{/if}
+</PartHost>

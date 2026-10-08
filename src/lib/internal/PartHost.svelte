@@ -1,23 +1,24 @@
 <!--
 	Host element for a part. Counterpart of upstream `useRenderElement`.
-	`tag` is the host when `render` is omitted. Div parts can leave it off;
-	other elements pass their tag as they adopt this host.
+	`tag` selects the host and the attribute type. A `render` snippet replaces it.
 -->
-<script lang="ts" generics="State, Element extends HTMLElement = HTMLDivElement">
+<script lang="ts" generics="Tag extends keyof HTMLElementTagNameMap, State">
 	import type { Snippet } from 'svelte';
-	import type { HTMLAttributes } from 'svelte/elements';
+	import type { SvelteHTMLElements } from 'svelte/elements';
+
+	type HostProps = SvelteHTMLElements[Tag];
 
 	let {
-		tag = 'div',
+		tag,
 		elementProps,
 		partState,
 		render,
 		children
 	}: {
-		tag?: keyof HTMLElementTagNameMap;
-		elementProps: HTMLAttributes<Element> & Record<symbol, unknown>;
+		tag: Tag;
+		elementProps: HostProps;
 		partState: State;
-		render?: Snippet<[props: HTMLAttributes<Element>, state: State, children: Snippet]>;
+		render?: Snippet<[props: HostProps, state: State, children: Snippet]>;
 		children?: Snippet;
 	} = $props();
 </script>
@@ -28,11 +29,6 @@
 
 {#if render}
 	{@render render(elementProps, partState, body)}
-{:else if tag === 'div'}
-	<div {...elementProps as HTMLAttributes<HTMLDivElement>}>{@render body()}</div>
 {:else}
-	<!-- The tag union is too wide to spread onto `svelte:element` directly. -->
-	<svelte:element this={tag as 'span'} {...elementProps as HTMLAttributes<HTMLSpanElement>}>
-		{@render body()}
-	</svelte:element>
+	<svelte:element this={tag} {...elementProps}>{@render body()}</svelte:element>
 {/if}

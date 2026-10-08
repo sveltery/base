@@ -13,6 +13,10 @@ export interface ControllableValue<T, Details = unknown> {
 	 * unchanged does not notify, including a round trip back to the current value.
 	 */
 	set(next: T | undefined, details?: Details): void;
+	/**
+	 * Notify for the current value after the DOM update, even when it did not change.
+	 */
+	announce(details?: Details): void;
 }
 
 export function createControllableValue<T, Details = unknown>(options: {
@@ -31,17 +35,23 @@ export function createControllableValue<T, Details = unknown>(options: {
 	let echoed = $state.raw<T | undefined>(untrack(() => options.getProp()));
 	let adopted = false;
 	let lastNotified: T | undefined = initial;
-	// The value this write produced, and the details that belong to it.
-	// A later write replaces both, so one notice cannot take another's details.
-	let pending: { value: T | undefined; details?: Details } | null = null;
+	// The value a write or `announce` produced, and the details that belong to it.
+	// A later call replaces both, so one notice cannot take another's details.
+	let pending = $state.raw<{
+		value: T | undefined;
+		details?: Details;
+		announce?: boolean;
+	} | null>(null);
 
-	function publish(next: T | undefined) {
-		const queued = pending;
-		pending = null;
-		if (Object.is(next, lastNotified)) return;
-		const details = queued != null && Object.is(queued.value, next) ? queued.details : undefined;
+	function publish(
+		next: T | undefined,
+		queued: { value: T | undefined; details?: Details; announce?: boolean } | null
+	) {
+		if (queued !== null && pending === queued) pending = null;
+		const matches = queued != null && Object.is(queued.value, next);
+		if (Object.is(next, lastNotified) && !(matches && queued?.announce)) return;
 		lastNotified = next;
-		options.onChange?.(next, details);
+		options.onChange?.(next, matches ? queued?.details : undefined);
 	}
 
 	const value = $derived.by(() => {
@@ -57,7 +67,8 @@ export function createControllableValue<T, Details = unknown>(options: {
 	// the previous input value, and publishing inside `set` does too.
 	$effect(() => {
 		const next = value;
-		untrack(() => publish(next));
+		const queued = pending;
+		untrack(() => publish(next, queued));
 	});
 
 	return {
@@ -89,6 +100,9 @@ export function createControllableValue<T, Details = unknown>(options: {
 				return;
 			}
 			pending = { value: settled, details };
+		},
+		announce(details) {
+			pending = { value: untrack(() => value), details, announce: true };
 		}
 	};
 }

@@ -87,6 +87,9 @@
 <output data-testid="copy-symbols">{copySymbols}</output>
 <output data-testid="proxy-throws">{proxyThrows}</output>
 <output data-testid="same">{controllable.value === plain ? 'yes' : 'no'}</output>
+<button type="button" data-testid="announce" onclick={() => controllable.announce('now')}>
+	Announce
+</button>
 <button type="button" data-testid="set-b" onclick={() => controllable.set('b')}>Set b</button>
 <button type="button" data-testid="set-b-details" onclick={() => controllable.set('b', 'go')}>
 	Set b details
