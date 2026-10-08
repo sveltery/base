@@ -44,8 +44,6 @@ export interface UsePositionReturn {
 	readonly data: PositionData;
 	/** Element the stored coordinates were measured for. Null while unpositioned. */
 	readonly positionedFor: ReferenceElement | null;
-	/** Bumps when coordinates are stored or cleared. Effects read this, not the element. */
-	readonly positionEpoch: number;
 	readonly floatingStyles: Record<string, string | number>;
 	readonly floatingProps: { attach: Attachment<HTMLElement> };
 	update(): void;
@@ -70,12 +68,8 @@ export function usePosition(options: () => UsePositionOptions): UsePositionRetur
 		isPositioned: false
 	});
 	let floating = $state<HTMLElement | null>(null);
-	/**
-	 * Reference the coordinates belong to. Kept off `$state` so an element is not proxied
-	 * into a different identity. `positionEpoch` is what effects subscribe to.
-	 */
-	let positionedFor: ReferenceElement | null = null;
-	let positionEpoch = $state(0);
+	/** Raw so the element keeps its identity. Effects read this when the trigger changes. */
+	let positionedFor = $state.raw<ReferenceElement | null>(null);
 	let version = 0;
 	let cleared = true;
 
@@ -85,7 +79,6 @@ export function usePosition(options: () => UsePositionOptions): UsePositionRetur
 		positionedFor = null;
 		if (cleared && !hadReference) return;
 		cleared = true;
-		positionEpoch += 1;
 		data = {
 			x: 0,
 			y: 0,
@@ -113,7 +106,6 @@ export function usePosition(options: () => UsePositionOptions): UsePositionRetur
 			if (live.open === false || live.reference !== reference) return;
 			cleared = false;
 			positionedFor = reference;
-			positionEpoch += 1;
 			data = {
 				x: result.x,
 				y: result.y,
@@ -151,9 +143,6 @@ export function usePosition(options: () => UsePositionOptions): UsePositionRetur
 		},
 		get positionedFor() {
 			return positionedFor;
-		},
-		get positionEpoch() {
-			return positionEpoch;
 		},
 		get floatingStyles() {
 			return {
