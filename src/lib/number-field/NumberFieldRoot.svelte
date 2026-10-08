@@ -81,10 +81,7 @@
 	let model: NumberFieldModel;
 
 	function writeValue(next: number | null) {
-		if (Object.is(current, next)) {
-			field?.setDirty(next !== field.validityData.initialValue);
-			return;
-		}
+		if (Object.is(current, next)) return;
 		controllable.set(next);
 	}
 

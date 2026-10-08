@@ -57,6 +57,12 @@ describe('createControllableValue', () => {
 		await page.getByTestId('set-plain').click();
 		await expect.element(page.getByTestId('same')).toHaveTextContent('yes');
 		expect(text('symbols')).toBe('0,0,0');
+		expect(text('copy-symbols')).toBe('0,0,0,0');
+	});
+
+	it('throws when a non-writable property is defined on $state', async () => {
+		render(ControllableValueHarness, { mode: 'bind' });
+		await expect.element(page.getByTestId('proxy-throws')).toHaveTextContent('threw');
 	});
 
 	it('falls back to the default when a controlled value is cleared', async () => {

@@ -42,7 +42,8 @@ export function createControllableValue<T>(options: {
 		return prop;
 	});
 
-	$effect.pre(() => {
+	// After the DOM commit. `$effect.pre` still reads the previous input value.
+	$effect(() => {
 		const next = value;
 		untrack(() => publish(next));
 	});
@@ -78,6 +79,8 @@ function parentHoldsWritten(after: unknown, next: unknown) {
 	if (!isObject(after) || !isObject(next) || !isPlainObject(next)) return false;
 	const mark = Symbol();
 	try {
+		// A $state proxy rejects a non-writable descriptor before it stores anything.
+		// Plain objects accept the mark, which is how a proxied read-back is recognized.
 		Object.defineProperty(next, mark, { configurable: true, writable: false, value: true });
 	} catch {
 		return false;

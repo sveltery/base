@@ -24,6 +24,7 @@
 	let touched = $state(true);
 	let calls = $state(0);
 	let seen = $state('');
+	let requiredSeen = $state('pending');
 	let actions = $state<{ validate: () => void } | undefined>();
 	let outerDisabled = $state(false);
 
@@ -349,6 +350,24 @@
 	<button type="button" onclick={() => (late = 'later')}>Set later</button>
 	<output data-testid="errors">{JSON.stringify(parentErrors)}</output>
 	<output data-testid="values">{values}</output>
+{:else if scenario === 'required-clear'}
+	<Form bind:errors={parentErrors}>
+		<Field.Root
+			name="email"
+			validationMode="onChange"
+			data-testid="field"
+			validate={(value, formValues) => {
+				requiredSeen = formValues.email == null ? '' : String(formValues.email);
+				return value === '' ? 'empty' : null;
+			}}
+		>
+			<Field.Control value={emptyParent} required data-testid="control" />
+			<Field.Error data-testid="error" />
+		</Field.Root>
+	</Form>
+	<button type="button" onclick={() => (emptyParent = '')}>Clear required</button>
+	<output data-testid="seen">{requiredSeen}</output>
+	<output data-testid="errors">{JSON.stringify(parentErrors)}</output>
 {:else if scenario === 'empty'}
 	<Form bind:errors={parentErrors}>
 		<Field.Root
