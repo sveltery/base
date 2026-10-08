@@ -1,0 +1,8 @@
+// Derived from Base UI v1.8.0 packages/react/src/utils/CommonPopupDataAttributes.ts
+// (commit 47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c). MIT, see THIRD_PARTY_NOTICES.md.
+
+export const open = 'data-open';
+export const closed = 'data-closed';
+export const startingStyle = 'data-starting-style';
+export const endingStyle = 'data-ending-style';
+export const anchorHidden = 'data-anchor-hidden';

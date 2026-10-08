@@ -189,6 +189,15 @@ Parts of this package derive from [Base UI](https://github.com/mui/base-ui) v1.8
 - `src/lib/csp-provider/CSPProvider.svelte` from `packages/react/src/csp-provider/CSPProvider.tsx`
 - `src/lib/internal/csp-context.ts` from `packages/react/src/internals/csp-context/CSPContext.tsx`
 - `src/lib/csp-provider/CSPProvider.svelte.spec.ts` assertions from `packages/react/src/csp-provider/CSPProvider.test.tsx` (the context values those ScrollArea and Select style-tag checks depend on; the style tags themselves stay with those components)
+- `src/lib/internal/mergeProps.ts` from `packages/react/src/merge-props/mergeProps.ts` (consumer handler first; a later handler is skipped when `defaultPrevented` is set)
+- `src/lib/internal/floating-ui-react/**` from `packages/react/src/floating-ui-react/**` (phase 1a: portal, focus manager, dismiss, click, tree, and the DOM helpers those call)
+- `src/lib/internal/popups/**` from `packages/react/src/utils/popups/**` and `packages/react/src/dialog/store/DialogStore.ts` (`setOpen`'s immediate `preventUnmountOnClose`)
+- `src/lib/internal/useScrollLock.svelte.ts` from `packages/utils/src/useScrollLock.ts`
+- `src/lib/internal/useTransitionStatus.svelte.ts` from `packages/react/src/internals/useTransitionStatus.ts` (popup arguments: idle and deferred ending off)
+- `src/lib/internal/useOpenChangeComplete.svelte.ts` from `packages/react/src/internals/useOpenChangeComplete.tsx`
+- `src/lib/internal/popupStateMapping.ts`, `CommonPopupDataAttributes.ts`, and `CommonTriggerDataAttributes.ts` from the matching files in `packages/react/src/utils`
+- `src/lib/internal/FocusGuard.svelte` and `InternalBackdrop.svelte` from `packages/react/src/utils/FocusGuard.tsx` and `InternalBackdrop.tsx`
+- `src/lib/internal/event-details.ts` also exports the popup reasons `trigger-hover`, `escape-key`, `outside-press`, `focus-out`, `close-press`, and `imperative-action`
 
 MIT License
 

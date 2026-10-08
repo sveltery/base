@@ -54,6 +54,37 @@ export default defineConfig(
 						{
 							group: ['$app/*', '@sveltejs/kit', '@sveltejs/kit/*'],
 							message: 'The library must not depend on SvelteKit.'
+						},
+						{
+							group: [
+								'**/floating-ui-react',
+								'**/floating-ui-react/**',
+								'**/internal/useAnchorPositioning*',
+								'**/internal/usePosition*'
+							],
+							message:
+								'Import overlay internals through src/lib/internal/floating-ui or src/lib/internal/popups.'
+						}
+					]
+				}
+			]
+		}
+	},
+	{
+		// The fork and the popup store may import each other. Component files may not.
+		files: ['src/lib/internal/**'],
+		rules: {
+			'no-restricted-imports': [
+				'error',
+				{
+					patterns: [
+						{
+							group: ['react', 'react-dom', 'react/*', 'react-dom/*', '@base-ui/*'],
+							message: 'React belongs in src/routes reference fixtures only.'
+						},
+						{
+							group: ['$app/*', '@sveltejs/kit', '@sveltejs/kit/*'],
+							message: 'The library must not depend on SvelteKit.'
 						}
 					]
 				}
