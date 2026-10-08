@@ -9,16 +9,33 @@ const UNITLESS_ZERO = new Set([
 	'border-image-outset',
 	'border-image-slice',
 	'border-image-width',
+	'box-flex',
+	'box-flex-group',
+	'box-ordinal-group',
 	'column-count',
 	'columns',
 	'flex',
 	'flex-grow',
+	'flex-positive',
 	'flex-shrink',
+	'flex-negative',
+	'flex-order',
+	'grid-area',
+	'grid-row',
+	'grid-row-end',
+	'grid-row-span',
+	'grid-row-start',
+	'grid-column',
+	'grid-column-end',
+	'grid-column-span',
+	'grid-column-start',
 	'font-weight',
+	'line-clamp',
 	'line-height',
 	'opacity',
 	'order',
 	'orphans',
+	'scale',
 	'tab-size',
 	'widows',
 	'z-index',
@@ -40,7 +57,8 @@ export function toCssStyle(style: Record<string, string | number | undefined | n
 			const property = key.startsWith('--')
 				? key
 				: key.replace(/[A-Z]/g, (letter) => `-${letter.toLowerCase()}`);
-			const printed = value === 0 && !UNITLESS_ZERO.has(property) ? '0px' : value;
+			const printed =
+				value === 0 && !property.startsWith('--') && !UNITLESS_ZERO.has(property) ? '0px' : value;
 			return `${property}: ${printed}`;
 		})
 		.join('; ');

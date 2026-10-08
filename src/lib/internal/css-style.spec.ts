@@ -11,6 +11,9 @@ describe('css-style', () => {
 				visibility: ''
 			})
 		).toBe('inset-inline-start: 0px; --position: 10%');
+		expect(toCssStyle({ '--offset': 0, flexGrow: 0, gridRow: 0, padding: 0 })).toBe(
+			'--offset: 0; flex-grow: 0; grid-row: 0; padding: 0px'
+		);
 	});
 
 	it('keeps unitless zeros unitless and still prints a length zero as 0px', () => {

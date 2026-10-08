@@ -9,19 +9,13 @@ const RADIO_GROUP = Symbol('radio-group');
 
 /**
  * Roving tabindex owned by RadioGroup.
- * Arrow keys are handled on the group. Each radio claims a slot, registers its
- * host, and reads `tabIndex` while rendering.
+ * Arrow keys are handled on the group. Each radio registers its host and reads
+ * `tabIndex` from registration order while rendering.
  */
 export interface RadioGroupRovingFocus {
-	claim(): number;
 	register(element: HTMLElement): () => void;
 	highlight(element: HTMLElement): void;
-	tabIndex(
-		slot: number,
-		node: HTMLElement | null,
-		selected: boolean,
-		hasSelection: boolean
-	): 0 | -1;
+	tabIndex(node: HTMLElement | null, selected: boolean, hasSelection: boolean): 0 | -1;
 }
 
 export interface RadioGroupContextValue {

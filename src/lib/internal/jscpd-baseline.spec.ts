@@ -1,9 +1,6 @@
 import { readFileSync } from 'node:fs';
 import { describe, expect, it } from 'vitest';
-import { addedFingerprints } from '../../../scripts/jscpd-baseline.mjs';
-
-/** Duplicate-check ceiling. Hoisting may lower it. Growing it fails CI. */
-const CEILING = 85;
+import { addedFingerprints, CEILING } from '../../../scripts/jscpd-baseline.mjs';
 
 describe('jscpd baseline', () => {
 	it('stays at or under the duplicate-check ceiling', () => {

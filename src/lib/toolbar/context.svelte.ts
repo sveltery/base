@@ -3,7 +3,7 @@
 // (commit 47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c). MIT, see THIRD_PARTY_NOTICES.md.
 import { getContext, hasContext, setContext } from 'svelte';
 import type { ToolbarOrientation } from './types.js';
-import { ToolbarRoving } from './roving-focus.svelte.js';
+import { ToolbarRoving } from '../internal/toolbar-roving.svelte.js';
 
 const TOOLBAR_ROOT_CONTEXT = Symbol('toolbar-root');
 const TOOLBAR_GROUP_CONTEXT = Symbol('toolbar-group');

@@ -1,5 +1,11 @@
 <script lang="ts">
-	import { Form, type FormActions, type FormErrors, type FormSubmitEventDetails } from '#lib';
+	import {
+		Field,
+		Form,
+		type FormActions,
+		type FormErrors,
+		type FormSubmitEventDetails
+	} from '#lib';
 	import FormErrorControls from './FormErrorControls.svelte';
 	import FormField from './FormField.svelte';
 
@@ -97,7 +103,9 @@
 	{:else if scenario === 'errors-focus'}
 		<FormField id="a" name="a" {valid} value="kept" />
 	{:else if scenario === 'errors-name'}
-		<FormField id="control-id" name="username" {valid} value="kept" />
+		<Field.Root name="username">
+			<Field.Control id="control-id" data-testid="control-id" value="kept" />
+		</Field.Root>
 	{:else if scenario === 'clear'}
 		<FormField id="a" name="a" />
 		<FormErrorControls />

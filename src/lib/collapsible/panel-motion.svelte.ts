@@ -30,8 +30,6 @@ export class CollapsiblePanelMotion {
 	private lastMeasured: Dimensions = EMPTY_DIMENSIONS;
 	private skipNextOpen = false;
 	private pendingRestore: (() => void) | null = null;
-	private openingPassDone = false;
-	private needsLayoutReset = false;
 	private readonly root: CollapsibleRoot;
 
 	constructor(root: CollapsibleRoot) {
@@ -53,8 +51,6 @@ export class CollapsiblePanelMotion {
 			const open = this.root.open;
 			const mounted = this.root.mounted;
 			const transitionStatus = this.root.transitionStatus;
-			const height = this.height;
-			const width = this.width;
 			if (!panel) return;
 
 			// A beforematch open can leave a 0s duration. Restore it before detecting
@@ -64,8 +60,6 @@ export class CollapsiblePanelMotion {
 			const shouldPrevent = open && this.suppressMountAnimation;
 			const animationType = getAnimationType(panel, shouldPrevent);
 			this.animationType = animationType;
-
-			if (transitionStatus !== 'starting') this.openingPassDone = false;
 
 			if (
 				open &&
@@ -78,26 +72,16 @@ export class CollapsiblePanelMotion {
 			}
 
 			if (open && transitionStatus === 'starting') {
-				if (this.openingPassDone) {
-					if (!this.needsLayoutReset) return;
-					// Unmeasured panels stay at the unset size. A real measurement
-					// is what schedules this second pass.
-					if (height === undefined && width === undefined) return;
-					return resetLayoutStyles(panel);
-				}
-				this.openingPassDone = true;
 				const skip = this.skipNextOpen;
 				this.skipNextOpen = false;
 
 				if (animationType === 'none') {
-					this.needsLayoutReset = false;
 					this.setDimensions(getDimensions(panel));
 					this.forcePanelIdle = true;
 					return;
 				}
 
 				if (animationType === 'css-transition') {
-					this.needsLayoutReset = true;
 					const restoreLayout = resetLayoutStyles(panel);
 					this.setDimensions(getDimensions(panel));
 					if (!skip) return restoreLayout;
@@ -107,7 +91,6 @@ export class CollapsiblePanelMotion {
 					return restoreLayout;
 				}
 
-				this.needsLayoutReset = false;
 				this.setDimensions(getDimensions(panel));
 				const restoreName = setTemporaryStyle(panel, 'animation-name', 'none');
 				if (!skip) {
@@ -123,7 +106,6 @@ export class CollapsiblePanelMotion {
 
 			if (!open && mounted && (transitionStatus === 'idle' || transitionStatus === 'starting')) {
 				this.suppressMountAnimation = false;
-				this.needsLayoutReset = false;
 				if (animationType === 'none') {
 					this.setDimensions(EMPTY_DIMENSIONS, false);
 					this.root.setMounted(false);

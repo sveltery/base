@@ -10,11 +10,10 @@ import { untrack } from 'svelte';
 import { createAttachmentKey } from 'svelte/attachments';
 import type { Attachment } from 'svelte/attachments';
 import type { HTMLButtonAttributes } from 'svelte/elements';
-import { createSlotClaim, includeSorted } from '../internal/roving-slot.js';
+import { NAV_KEYS, axisKeys, modifierHeld, stepLinear } from './roving-keys.js';
+import { includeSorted, registeredTabIndex } from './roving-slot.js';
 
 export type RovingOrientation = 'horizontal' | 'vertical';
-
-const NAV_KEYS = new Set(['ArrowUp', 'ArrowDown', 'ArrowLeft', 'ArrowRight', 'Home', 'End']);
 
 export interface RovingHostHandlers {
 	onfocus?: HTMLButtonAttributes['onfocus'];
@@ -25,10 +24,6 @@ export type RovingHostProps = HTMLButtonAttributes & Record<symbol, Attachment<H
 
 function isDisabled(element: HTMLElement) {
 	return element.matches(':disabled') || element.getAttribute('aria-disabled') === 'true';
-}
-
-function modifierHeld(event: KeyboardEvent) {
-	return event.shiftKey || event.ctrlKey || event.altKey || event.metaKey;
 }
 
 /**
@@ -43,7 +38,6 @@ export class RovingFocus {
 	readOrientation: () => RovingOrientation = () => 'horizontal';
 	readDirection: () => 'ltr' | 'rtl' = () => 'ltr';
 
-	readonly claim = createSlotClaim();
 	private readonly attachmentKey = createAttachmentKey();
 
 	register(node: HTMLElement) {
@@ -95,11 +89,8 @@ export class RovingFocus {
 		if (next !== this.active) this.active = next;
 	}
 
-	tabIndex(slot: number, node: HTMLElement | null): 0 | -1 {
-		if (this.elements.length === 0) return slot === 0 ? 0 : -1;
-		const stop = this.candidate();
-		if (node && stop) return node === stop ? 0 : -1;
-		return slot === 0 ? 0 : -1;
+	tabIndex(node: HTMLElement | null): 0 | -1 {
+		return registeredTabIndex(this.elements, node, this.candidate());
 	}
 
 	activate(node: HTMLElement) {
@@ -113,12 +104,11 @@ export class RovingFocus {
 	 * `preventDefault()` on keydown skips navigation.
 	 */
 	host(
-		slot: number,
 		node: HTMLElement | null,
 		register: Attachment<HTMLButtonElement>,
 		handlers: RovingHostHandlers
 	): RovingHostProps {
-		const tabindex = this.tabIndex(slot, node);
+		const tabindex = this.tabIndex(node);
 		return {
 			tabindex,
 			onfocus: (event) => {
@@ -143,10 +133,10 @@ export class RovingFocus {
 		const current = event.currentTarget;
 		if (!(current instanceof HTMLElement)) return;
 
-		const rtl = this.readDirection() === 'rtl';
-		const vertical = this.orientation === 'vertical';
-		const forwardKey = vertical ? 'ArrowDown' : rtl ? 'ArrowLeft' : 'ArrowRight';
-		const backwardKey = vertical ? 'ArrowUp' : rtl ? 'ArrowRight' : 'ArrowLeft';
+		const { forwardKey, backwardKey } = axisKeys(
+			this.orientation === 'vertical',
+			this.readDirection() === 'rtl'
+		);
 
 		const items = this.elements.filter((item) => !isDisabled(item));
 		if (items.length === 0) return;
@@ -154,16 +144,16 @@ export class RovingFocus {
 		let position = stop ? items.indexOf(stop) : 0;
 		if (position < 0) position = 0;
 
-		let next: number;
-		if (event.key === 'Home') next = 0;
-		else if (event.key === 'End') next = items.length - 1;
-		else if (event.key === forwardKey) {
-			next = position === items.length - 1 ? (this.loopFocus ? 0 : position) : position + 1;
-		} else if (event.key === backwardKey) {
-			next = position === 0 ? (this.loopFocus ? items.length - 1 : position) : position - 1;
-		} else {
-			return;
-		}
+		const next = stepLinear(
+			position,
+			items.length,
+			event.key,
+			forwardKey,
+			backwardKey,
+			this.loopFocus,
+			true
+		);
+		if (next == null) return;
 
 		const target = items[next];
 		if (!target || target === stop) return;
