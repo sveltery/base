@@ -13,6 +13,8 @@ import DialogMissingPortalHarness from '../../tests/DialogMissingPortalHarness.s
 import DialogOpenCompleteStateHarness from '../../tests/DialogOpenCompleteStateHarness.svelte';
 import PortalContainerHarness from '../../tests/PortalContainerHarness.svelte';
 import PortalHostHarness from '../../tests/PortalHostHarness.svelte';
+import PortalLateAttachHarness from '../../tests/PortalLateAttachHarness.svelte';
+import PortalReleaseHarness from '../../tests/PortalReleaseHarness.svelte';
 import PortalRenderHarness from '../../tests/PortalRenderHarness.svelte';
 import { Dialog } from './index.js';
 import { REASONS } from '../internal/event-details.js';
@@ -534,6 +536,32 @@ describe('Dialog', () => {
 			.poll(() => document.querySelector('[data-slot="dialog-portal"]')?.parentElement)
 			.toBe(holder);
 		expect(document.querySelector('[data-slot="dialog-portal"] [role="dialog"]')).not.toBeNull();
+	});
+
+	it('returns focus to the trigger when an open container returns to null', async () => {
+		render(PortalReleaseHarness, { part: 'dialog' });
+		const trigger = button('Open');
+		await expect.element(page.getByRole('button', { name: 'Inside' })).toHaveFocus();
+		await expect.element(trigger).toHaveAttribute('aria-controls', dialogLocator().element().id);
+
+		click(page.getByTestId('release'));
+		await expect.element(trigger).toHaveFocus();
+		expect(document.querySelector('[role="dialog"]')).toBeNull();
+		expect(trigger.element().getAttribute('aria-controls')).toBeNull();
+		expect(trigger.element().getAttribute('aria-expanded')).toBe('true');
+	});
+
+	it('sets aria-controls when a detached container is attached', async () => {
+		render(PortalLateAttachHarness, { part: 'dialog' });
+		const anchor = page.getByTestId('late-anchor');
+		await expect.element(anchor).toBeInTheDocument();
+		const holder = (anchor.element() as HTMLDivElement & { lateHolder: HTMLDivElement }).lateHolder;
+		await expect.poll(() => holder.querySelector('[role="dialog"]')).toBeInstanceOf(HTMLElement);
+		expect(holder.isConnected).toBe(false);
+
+		const popup = holder.querySelector('[role="dialog"]') as HTMLElement;
+		document.body.append(holder);
+		await expect.element(button('Open')).toHaveAttribute('aria-controls', popup.id);
 	});
 
 	it('ignores a stray store prop on the portal', async () => {

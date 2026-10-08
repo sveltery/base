@@ -180,14 +180,16 @@ export class PopoverStore extends PopupStore<PopoverChangeReason> {
 	}
 
 	popupIdFor(triggerId: string | undefined) {
-		if (this.openedBy(triggerId)) return this.floatingId;
+		const popup = this.popupElement;
+		if (popup == null || popup.id === '') return undefined;
+		if (this.openedBy(triggerId)) return popup.id;
 		if (
 			triggerId !== undefined &&
 			this.open &&
 			this.resolvedActiveTriggerId() == null &&
 			this.triggerCount === 1
 		) {
-			return this.floatingId;
+			return popup.id;
 		}
 		return undefined;
 	}

@@ -1,3 +1,4 @@
+import type { Attachment } from 'svelte/attachments';
 import type { Snippet } from 'svelte';
 import type { HTMLAttributes, HTMLButtonAttributes } from 'svelte/elements';
 import type { BaseUIChangeEventDetails, REASONS } from '../internal/event-details.js';
@@ -114,11 +115,20 @@ export interface PopoverTriggerProps<Payload = unknown> extends Omit<
 	children?: Snippet;
 }
 
+export type PopoverPortalState = Record<string, never>;
+
 export interface PopoverPortalProps extends PortalProps {
 	/**
 	 * Replace the portal element. The snippet receives host props, an empty state, and the children snippet.
+	 * Host props include the move attachment.
 	 */
-	render?: PartRender<HTMLDivElement, Record<string, never>>;
+	render?: Snippet<
+		[
+			props: HTMLAttributes<HTMLDivElement> & Record<symbol, Attachment<HTMLDivElement>>,
+			state: PopoverPortalState,
+			children: RenderChildren
+		]
+	>;
 }
 
 export interface PopoverPositionerState {

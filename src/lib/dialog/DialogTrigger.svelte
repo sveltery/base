@@ -48,8 +48,10 @@
 	const openedByThis = $derived(!!store && store.open && store.activeTriggerId === triggerId);
 	const controls = $derived.by(() => {
 		if (!store || !store.open) return undefined;
-		if (store.activeTriggerId === triggerId) return store.floatingId;
-		if (store.activeTriggerId == null && store.triggerCount === 1) return store.floatingId;
+		const popup = store.popupElement;
+		if (popup == null || popup.id === '') return undefined;
+		if (store.activeTriggerId === triggerId) return popup.id;
+		if (store.activeTriggerId == null && store.triggerCount === 1) return popup.id;
 		return undefined;
 	});
 	const state: DialogTriggerState = $derived({ disabled: disabled === true, open: openedByThis });

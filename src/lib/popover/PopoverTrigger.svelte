@@ -102,6 +102,8 @@
 	}
 
 	const opened = $derived(live?.openedBy(triggerId) ?? false);
+	// The id can be claimed before the trigger mounts. Upstream leaves this false until then.
+	const expanded = $derived(triggerEl != null && opened);
 	const partState: PopoverTriggerState = $derived({ disabled, open: opened });
 	const showGuards = $derived(Boolean(live?.mountedBy(triggerId) && !live.focusManagerModal));
 
@@ -115,7 +117,7 @@
 			{
 				id: triggerId,
 				'aria-haspopup': 'dialog' as const,
-				'aria-expanded': opened,
+				'aria-expanded': expanded,
 				...(live?.popupIdFor(triggerId) ? { 'aria-controls': live.popupIdFor(triggerId) } : {}),
 				[CLICK_TRIGGER_IDENTIFIER]: '',
 				...(disabled ? { 'data-disabled': '' } : {}),

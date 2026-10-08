@@ -8,6 +8,8 @@ import { render } from 'vitest-browser-svelte';
 import PopoverDetachHarness from '../../tests/PopoverDetachHarness.svelte';
 import PortalContainerHarness from '../../tests/PortalContainerHarness.svelte';
 import PortalHostHarness from '../../tests/PortalHostHarness.svelte';
+import PortalLateAttachHarness from '../../tests/PortalLateAttachHarness.svelte';
+import PortalReleaseHarness from '../../tests/PortalReleaseHarness.svelte';
 import PopoverOpenCompleteStateHarness from '../../tests/PopoverOpenCompleteStateHarness.svelte';
 import PortalRenderHarness from '../../tests/PortalRenderHarness.svelte';
 import PopoverReviewHarness from '../../tests/PopoverReviewHarness.svelte';
@@ -78,6 +80,39 @@ describe('Popover', () => {
 			.poll(() => document.querySelector('[data-slot="popover-portal"]')?.parentElement)
 			.toBe(holder);
 		expect(document.querySelector('[data-slot="popover-portal"] [role="dialog"]')).not.toBeNull();
+	});
+
+	it('returns focus to the trigger when an open container returns to null', async () => {
+		render(PortalReleaseHarness, { part: 'popover' });
+		const trigger = page.getByRole('button', { name: 'Open' });
+		const popup = page.getByRole('dialog');
+		await expect.element(page.getByRole('button', { name: 'Inside' })).toHaveFocus();
+		await expect.element(trigger).toHaveAttribute('aria-expanded', 'true');
+		await expect.element(trigger).toHaveAttribute('aria-controls', popup.element().id);
+
+		const holder = page.getByTestId('portal-holder').element() as HTMLDivElement & {
+			clearContainer: () => void;
+		};
+		holder.clearContainer();
+		await expect.element(trigger).toHaveFocus();
+		expect(document.querySelector('[role="dialog"]')).toBeNull();
+		expect(trigger.element().getAttribute('aria-controls')).toBeNull();
+		expect(trigger.element().getAttribute('aria-expanded')).toBe('true');
+	});
+
+	it('sets aria-controls when a detached container is attached', async () => {
+		render(PortalLateAttachHarness, { part: 'popover' });
+		const anchor = page.getByTestId('late-anchor');
+		await expect.element(anchor).toBeInTheDocument();
+		const holder = (anchor.element() as HTMLDivElement & { lateHolder: HTMLDivElement }).lateHolder;
+		await expect.poll(() => holder.querySelector('[role="dialog"]')).toBeInstanceOf(HTMLElement);
+		expect(holder.isConnected).toBe(false);
+
+		const popup = holder.querySelector('[role="dialog"]') as HTMLElement;
+		document.body.append(holder);
+		await expect
+			.element(page.getByRole('button', { name: 'Open' }))
+			.toHaveAttribute('aria-controls', popup.id);
 	});
 
 	it('ignores a stray store prop on the portal', async () => {
