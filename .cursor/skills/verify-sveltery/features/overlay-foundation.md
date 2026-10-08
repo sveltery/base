@@ -18,4 +18,4 @@ Internal utilities through phase 1b. There is no public component. `verify.sh` c
 
 `disableAnchorTracking` leaves `ancestorResize` on. That matches Base UI v1.8.0.
 
-Not in this phase: Dialog. Popover is a separate component.
+Popover and Dialog are separate components.

@@ -19,6 +19,8 @@ const uncontrolledElementsSets: Record<ControlAttribute, WeakSet<Element>> = {
 	inert: new WeakSet<Element>(),
 	'aria-hidden': new WeakSet<Element>()
 };
+/** Elements that already wore the marker, such as the dialog's internal backdrop. */
+let preexistingMarkers = new WeakSet<Element>();
 let markerCounterMap = new WeakMap<Element, number>();
 let lockCount = 0;
 
@@ -120,6 +122,7 @@ function applyAttributeToOthers(
 			const markerValue = (markerCounterMap.get(node) || 0) + 1;
 			markerCounterMap.set(node, markerValue);
 			markedElements.push(node);
+			if (markerValue === 1 && node.hasAttribute(markerName)) preexistingMarkers.add(node);
 			if (markerValue === 1) node.setAttribute(markerName, '');
 		}
 	}
@@ -141,7 +144,10 @@ function applyAttributeToOthers(
 			for (const element of markedElements) {
 				const markerValue = (markerCounterMap.get(element) || 0) - 1;
 				markerCounterMap.set(element, markerValue);
-				if (!markerValue) element.removeAttribute(markerName);
+				if (!markerValue) {
+					if (!preexistingMarkers.has(element)) element.removeAttribute(markerName);
+					preexistingMarkers.delete(element);
+				}
 			}
 		}
 		lockCount -= 1;
@@ -151,6 +157,7 @@ function applyAttributeToOthers(
 			uncontrolledElementsSets.inert = new WeakSet();
 			uncontrolledElementsSets['aria-hidden'] = new WeakSet();
 			markerCounterMap = new WeakMap();
+			preexistingMarkers = new WeakSet();
 		}
 	};
 }

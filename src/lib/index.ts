@@ -27,3 +27,4 @@ export * from './csp-provider/index.js';
 export type { TextDirection } from './direction-provider/types.js';
 export * from './otp-field/index.js';
 export * from './popover/index.js';
+export * from './dialog/index.js';

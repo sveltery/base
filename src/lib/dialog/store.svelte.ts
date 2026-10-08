@@ -1,0 +1,91 @@
+// Derived from Base UI v1.8.0 packages/react/src/dialog/store/DialogStore.ts
+// (commit 47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c). MIT, see THIRD_PARTY_NOTICES.md.
+// Extends the landed PopupStore. Elements are held here, not in ref bags.
+// A canceled close can leave preventUnmountingOnClose true. That matches Dialog.
+// Focus return is FloatingFocusManager after close. This store does not focus.
+// How the dialog opened is the inherited `PopupStore.openMethod`. `useClick` writes it.
+
+import type { ControllableValue } from '../internal/controllable-value.svelte.js';
+import type { BaseUIChangeEventDetails } from '../internal/event-details.js';
+import { PopupStore, type PopupChangeEventDetails } from '../internal/popups/store.svelte.js';
+import type { DialogChangeEventReason } from './types.js';
+
+export interface DialogClickReference {
+	onpointerdown?: (event: PointerEvent) => void;
+	onmousedown?: (event: MouseEvent) => void;
+	onclick?: (event: MouseEvent) => void;
+	onkeydown?: (event: KeyboardEvent) => void;
+}
+
+export class DialogStore<Payload = unknown> extends PopupStore<DialogChangeEventReason> {
+	readonly readModal: () => boolean | 'trap-focus';
+	readonly readDisablePointerDismissal: () => boolean;
+	readonly publishTriggerId:
+		| ((id: string | null, details?: BaseUIChangeEventDetails<DialogChangeEventReason>) => void)
+		| undefined;
+	/** `useClick` reference props. Set once from the root. Detached triggers read this. */
+	click: DialogClickReference | undefined = undefined;
+	payload = $state<Payload | undefined>(undefined);
+	nestedOpenDialogCount = $state(0);
+	titleElementId = $state<string | undefined>(undefined);
+	descriptionElementId = $state<string | undefined>(undefined);
+	viewportElement = $state<HTMLElement | null>(null);
+	backdropElement = $state<HTMLElement | null>(null);
+	internalBackdropElement = $state<HTMLElement | null>(null);
+
+	constructor(options: {
+		open: ControllableValue<boolean>;
+		floatingId: string;
+		nested: boolean;
+		onOpenChange: () =>
+			| ((open: boolean, details: PopupChangeEventDetails<DialogChangeEventReason>) => void)
+			| undefined;
+		onOpenChangeComplete: () => ((open: boolean) => void) | undefined;
+		readModal: () => boolean | 'trap-focus';
+		readDisablePointerDismissal: () => boolean;
+		publishTriggerId?: (
+			id: string | null,
+			details?: BaseUIChangeEventDetails<DialogChangeEventReason>
+		) => void;
+	}) {
+		super({
+			open: options.open,
+			floatingId: options.floatingId,
+			floatingElement: 'popup',
+			nested: options.nested,
+			onOpenChange: options.onOpenChange,
+			onOpenChangeComplete: options.onOpenChangeComplete
+		});
+		this.readModal = options.readModal;
+		this.readDisablePointerDismissal = options.readDisablePointerDismissal;
+		this.publishTriggerId = options.publishTriggerId;
+	}
+
+	get modal() {
+		return this.readModal();
+	}
+
+	get disablePointerDismissal() {
+		return this.readDisablePointerDismissal();
+	}
+
+	get role(): 'dialog' {
+		return 'dialog';
+	}
+
+	get nestedDialogOpen() {
+		return this.nestedOpenDialogCount > 0;
+	}
+
+	onNestedDialogOpen(dialogCount: number) {
+		this.nestedOpenDialogCount = dialogCount;
+	}
+
+	override setOpen(
+		nextOpen: boolean,
+		eventDetails: BaseUIChangeEventDetails<DialogChangeEventReason>
+	) {
+		super.setOpen(nextOpen, eventDetails);
+		this.publishTriggerId?.(this.activeTriggerId, eventDetails);
+	}
+}

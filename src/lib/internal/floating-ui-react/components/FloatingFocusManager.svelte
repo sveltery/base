@@ -3,8 +3,8 @@
 	// (commit 47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c). MIT, see THIRD_PARTY_NOTICES.md.
 	// The trap is focus guards plus aria-hidden on outside nodes. It does not set the inert attribute.
 
-	import { on } from 'svelte/events';
 	import { untrack } from 'svelte';
+	import { on } from 'svelte/events';
 	import type { Snippet } from 'svelte';
 	import { createChangeEventDetails, REASONS } from '../../event-details.js';
 	import FocusGuard from '../../FocusGuard.svelte';
@@ -17,6 +17,8 @@
 	import { enqueueFocus } from '../utils/enqueueFocus.js';
 	import { markOthers } from '../utils/markOthers.js';
 	import { getTabbableCandidates } from '../utils/tabbable.js';
+	import { useFloatingTree } from './FloatingTree.svelte.js';
+	import { getNodeChildren } from './FloatingTreeStore.js';
 
 	let {
 		store,
@@ -44,6 +46,7 @@
 		closeOnFocusOut?: boolean;
 	} = $props();
 
+	const tree = useFloatingTree();
 	const pointerDownTimeout = Timeout.create();
 	let suppressFocusOut = false;
 	/** Trigger (or the element focused before open). Not refreshed after focus moves inside. */
@@ -168,9 +171,22 @@
 
 		const doc = ownerDocument(floating);
 		captureReturnTarget(doc, floating);
+		// Do not subscribe to the tree. A nested dialog mounting reads child open state here.
+		const nested = untrack(() =>
+			tree && store.nodeId ? getNodeChildren(tree.nodes, store.nodeId) : []
+		);
 		const inside = [floating, store.portalElement].filter(
 			(element): element is HTMLElement => !!element
 		);
+		for (const node of nested) {
+			const context = node.context;
+			if (!context) continue;
+			// Snapshot child elements without subscribing. Mounting a nested popup must not rebuild this trap.
+			const elements = untrack(() => [context.floatingElement, context.portalElement]);
+			for (const element of elements) {
+				if (element) inside.push(element);
+			}
+		}
 		const hideOutside = modal ? markOthers(inside, { ariaHidden: true, mark: false }) : () => {};
 		const mark = markOthers(inside);
 		let cancelFocus = () => {};

@@ -79,7 +79,7 @@
 	$effect(() => {
 		const current = handle;
 		if (!current) return;
-		return current.attachStore(store);
+		return current.attach(store);
 	});
 
 	export function close() {

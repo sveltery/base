@@ -43,3 +43,4 @@ export {
 	type PopupChangeEventDetails,
 	type PopupStoreOptions
 } from './store.svelte.js';
+export { PopupHandle, type PopupHandleStore } from './popupHandle.svelte.js';
