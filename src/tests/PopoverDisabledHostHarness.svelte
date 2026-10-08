@@ -1,5 +1,10 @@
 <script lang="ts">
-	import { Popover } from '#lib';
+	import type { HTMLAttributes } from 'svelte/elements';
+	import { Popover, type PopoverTriggerHostProps } from '#lib';
+
+	function hostProps(props: PopoverTriggerHostProps): HTMLAttributes<HTMLElement> {
+		return props as HTMLAttributes<HTMLElement>;
+	}
 
 	let { host }: { host: 'link' | 'span' | 'iframe' } = $props();
 
@@ -21,9 +26,9 @@
 	>
 		{#snippet render(props)}
 			{#if host === 'link'}
-				<a {...props} href="#navigated174">Open</a>
+				<a {...hostProps(props)} href="#navigated174">Open</a>
 			{:else}
-				<span {...props}>Open</span>
+				<span {...hostProps(props)}>Open</span>
 			{/if}
 		{/snippet}
 	</Popover.Trigger>

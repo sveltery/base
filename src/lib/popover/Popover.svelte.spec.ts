@@ -212,8 +212,8 @@ describe('Popover', () => {
 	it('skips the toggle when an iframe event calls preventBaseUIHandler', async () => {
 		const iframe = document.createElement('iframe');
 		document.body.appendChild(iframe);
-		const frameWindow = iframe.contentWindow;
 		const frameDocument = iframe.contentDocument;
+		const frameWindow = frameDocument?.defaultView;
 		if (!frameWindow || !frameDocument) throw new Error('iframe window missing');
 		const container = frameDocument.createElement('div');
 		frameDocument.body.appendChild(container);
