@@ -9,10 +9,9 @@
 	let focusableWhenDisabled = true;
 	let active: HTMLElement | null = null;
 	let highlighted: HTMLElement | null = null;
-	let panel: HTMLElement | null = null;
 
-	function resetLayoutStyles(node: HTMLElement | null) {
-		return node;
+	function resetLayoutStyles(panel: HTMLElement) {
+		return panel;
 	}
 	function isDisabled(element: HTMLElement) {
 		return element.hidden;
@@ -42,14 +41,15 @@
 		return 0;
 	}
 
-	$effect(() => {
+	function layout(panel: HTMLElement | null) {
+		if (!panel) return;
 		if (needsLayoutReset && (height !== undefined || width !== undefined)) {
 			return resetLayoutStyles(panel);
 		}
-	});
+	}
 
-	$effect(() => {
-		if (disabled) {
+	function sync(itemDisabled = false) {
+		if (itemDisabled) {
 			untrack(() => {
 				ensureActive();
 				if (active && isDisabled(active)) ensureActive();
@@ -57,10 +57,10 @@
 			return;
 		}
 		untrack(() => ensureActive());
-	});
+	}
 
-	$effect(() => {
-		if (disabled && !focusableWhenDisabled) {
+	function syncToolbar(itemDisabled = false, focusable = true) {
+		if (itemDisabled && !focusable) {
 			untrack(() => {
 				reconcile();
 				if (highlighted && isSkipped(highlighted)) return;
@@ -68,21 +68,28 @@
 			return;
 		}
 		untrack(() => reconcile());
-	});
+	}
 
-	$effect(() => {
+	function queueThumb() {
 		const seenDirection = direction();
 		const style = readStyle();
 		const dir = readDir();
 		const threshold = readThreshold();
-		if (
-			direction() !== seenDirection ||
-			readStyle() !== style ||
-			readDir() !== dir ||
-			readThreshold() !== threshold
-		) {
-			return;
-		}
-		computeThumbPosition();
-	});
+		queueMicrotask(() => {
+			if (
+				direction() !== seenDirection ||
+				readStyle() !== style ||
+				readDir() !== dir ||
+				readThreshold() !== threshold
+			) {
+				return;
+			}
+			computeThumbPosition();
+		});
+	}
+
+	layout(active);
+	sync(disabled);
+	syncToolbar(disabled, focusableWhenDisabled);
+	queueThumb();
 </script>

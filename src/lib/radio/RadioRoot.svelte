@@ -24,7 +24,7 @@
 	const uid = $props.id();
 	const rootKey = createAttachmentKey();
 	const group = useRadioGroupContext();
-	const slot = group?.roving?.claim() ?? 0;
+	const renderIndex = group?.roving ? group.roving.claim() : 0;
 
 	let {
 		value,
@@ -260,7 +260,7 @@
 			...radioRootAttributes(radioState),
 			...(nativeButton ? { type: 'button' as const } : {}),
 			tabindex: group?.roving
-				? group.roving.tabIndex(slot, rootNode, checked, group.checkedValue !== undefined)
+				? group.roving.tabIndex(rootNode, checked, group.checkedValue !== undefined, renderIndex)
 				: !nativeButton && disabled
 					? -1
 					: 0,

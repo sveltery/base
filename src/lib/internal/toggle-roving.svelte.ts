@@ -7,17 +7,12 @@
 // handlers for Toggle to spread onto its host. No element renderer.
 
 import { untrack } from 'svelte';
-import { createAttachmentKey } from 'svelte/attachments';
 import type { Attachment } from 'svelte/attachments';
 import type { HTMLButtonAttributes } from 'svelte/elements';
-import {
-	ARROW_DOWN,
-	ARROW_LEFT,
-	ARROW_RIGHT,
-	ARROW_UP,
-	COMPOSITE_KEYS
-} from '../internal/composite-keys.js';
-import { createSlotClaim, includeSorted } from '../internal/roving-slot.js';
+import { CompositeItems } from './composite-items.svelte.js';
+import { COMPOSITE_KEYS } from './composite-keys.js';
+import { axisKeys, modifierHeld, stepLinear } from './roving-keys.js';
+import { registeredTabIndex, renderOrderTabIndex } from './roving-slot.js';
 
 export type RovingOrientation = 'horizontal' | 'vertical';
 
@@ -32,35 +27,27 @@ function isDisabled(element: HTMLElement) {
 	return element.matches(':disabled') || element.getAttribute('aria-disabled') === 'true';
 }
 
-function modifierHeld(event: KeyboardEvent) {
-	return event.shiftKey || event.ctrlKey || event.altKey || event.metaKey;
-}
-
 /**
  * One composite list. The highlighted item is the only tab stop.
  * Arrow keys follow `orientation` (horizontal arrows swap in RTL).
  * Home and End jump to the first and last focusable item.
  */
-export class RovingFocus {
-	elements = $state<HTMLElement[]>([]);
+export class RovingFocus extends CompositeItems {
 	active = $state<HTMLElement | null>(null);
 	readLoopFocus: () => boolean = () => true;
 	readOrientation: () => RovingOrientation = () => 'horizontal';
 	readDirection: () => 'ltr' | 'rtl' = () => 'ltr';
 
-	readonly claim = createSlotClaim();
-	private readonly attachmentKey = createAttachmentKey();
-
 	register(node: HTMLElement) {
 		// The attachment effect must not subscribe to the list it writes.
 		untrack(() => {
-			this.elements = includeSorted(this.elements, node);
+			this.admit(node);
 			this.ensureActive();
 		});
 		return () => {
 			untrack(() => {
-				this.elements = this.elements.filter((item) => item !== node);
 				if (this.active === node) this.active = null;
+				this.dismiss(node);
 				this.ensureActive();
 			});
 		};
@@ -76,12 +63,15 @@ export class RovingFocus {
 
 	/** Re-pick the tab stop when `node`'s disabled flag changes. */
 	sync(node: HTMLElement | null, disabled: boolean) {
-		if (!node || !this.elements.includes(node)) return;
-		if (disabled) {
-			if (this.active === node) this.ensureActive();
-			return;
-		}
-		this.keepEnabled();
+		const host = { node, disabled };
+		untrack(() => {
+			if (!host.node || !this.elements.includes(host.node)) return;
+			if (host.disabled) {
+				if (this.active === host.node) this.ensureActive();
+				return;
+			}
+			this.keepEnabled();
+		});
 	}
 
 	private keepEnabled() {
@@ -100,11 +90,11 @@ export class RovingFocus {
 		if (next !== this.active) this.active = next;
 	}
 
-	tabIndex(slot: number, node: HTMLElement | null): 0 | -1 {
-		if (this.elements.length === 0) return slot === 0 ? 0 : -1;
-		const stop = this.candidate();
-		if (node && stop) return node === stop ? 0 : -1;
-		return slot === 0 ? 0 : -1;
+	tabIndex(node: HTMLElement | null, renderIndex: number): 0 | -1 {
+		if (node && this.elements.includes(node)) {
+			return registeredTabIndex(this.elements, node, this.candidate());
+		}
+		return renderOrderTabIndex(this.elements, renderIndex);
 	}
 
 	activate(node: HTMLElement) {
@@ -118,12 +108,12 @@ export class RovingFocus {
 	 * `preventDefault()` on keydown skips navigation.
 	 */
 	host(
-		slot: number,
 		node: HTMLElement | null,
 		register: Attachment<HTMLButtonElement>,
-		handlers: RovingHostHandlers
+		handlers: RovingHostHandlers,
+		renderIndex: number
 	): RovingHostProps {
-		const tabindex = this.tabIndex(slot, node);
+		const tabindex = this.tabIndex(node, renderIndex);
 		return {
 			tabindex,
 			onfocus: (event) => {
@@ -139,17 +129,15 @@ export class RovingFocus {
 		};
 	}
 
-	keyForAttachment() {
-		return this.attachmentKey;
-	}
-
 	private keydown(event: KeyboardEvent) {
-		if (modifierHeld(event) || !COMPOSITE_KEYS.has(event.key)) return;
-		if (!(event.currentTarget instanceof HTMLElement)) return;
-		const vertical = this.orientation === 'vertical';
-		const rtl = this.readDirection() === 'rtl';
-		const forwardKey = vertical ? ARROW_DOWN : rtl ? ARROW_LEFT : ARROW_RIGHT;
-		const backwardKey = vertical ? ARROW_UP : rtl ? ARROW_RIGHT : ARROW_LEFT;
+		if (!COMPOSITE_KEYS.has(event.key) || modifierHeld(event)) return;
+		const current = event.currentTarget;
+		if (!(current instanceof HTMLElement)) return;
+
+		const { forwardKey, backwardKey } = axisKeys(
+			this.orientation === 'vertical',
+			this.readDirection() === 'rtl'
+		);
 
 		const items = this.elements.filter((item) => !isDisabled(item));
 		if (items.length === 0) return;
@@ -157,16 +145,16 @@ export class RovingFocus {
 		let position = stop ? items.indexOf(stop) : 0;
 		if (position < 0) position = 0;
 
-		let next: number;
-		if (event.key === 'Home') next = 0;
-		else if (event.key === 'End') next = items.length - 1;
-		else if (event.key === forwardKey) {
-			next = position === items.length - 1 ? (this.loopFocus ? 0 : position) : position + 1;
-		} else if (event.key === backwardKey) {
-			next = position === 0 ? (this.loopFocus ? items.length - 1 : position) : position - 1;
-		} else {
-			return;
-		}
+		const next = stepLinear(
+			position,
+			items.length,
+			event.key,
+			forwardKey,
+			backwardKey,
+			this.loopFocus,
+			true
+		);
+		if (next == null) return;
 
 		const target = items[next];
 		if (!target || target === stop) return;

@@ -9,18 +9,19 @@ const RADIO_GROUP = Symbol('radio-group');
 
 /**
  * Roving tabindex owned by RadioGroup.
- * Arrow keys are handled on the group. Each radio claims a slot, registers its
- * host, and reads `tabIndex` while rendering.
+ * Arrow keys are handled on the group. Each radio claims a render-order index
+ * for SSR, then registers its host. A selected radio is the tab stop. With
+ * nothing selected, the first rendered radio is the stop until registration.
  */
 export interface RadioGroupRovingFocus {
 	claim(): number;
 	register(element: HTMLElement): () => void;
 	highlight(element: HTMLElement): void;
 	tabIndex(
-		slot: number,
 		node: HTMLElement | null,
 		selected: boolean,
-		hasSelection: boolean
+		hasSelection: boolean,
+		renderIndex: number
 	): 0 | -1;
 }
 

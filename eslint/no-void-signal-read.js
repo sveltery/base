@@ -391,6 +391,8 @@ const rule = {
 				reportUntrackOnlyParameters(node);
 			},
 			IfStatement(node) {
+				// A helper called from an effect is not nested in that effect, so
+				// limiting this to `insideEffect` lets the forced read through.
 				if (isAlwaysTrue(node.test)) {
 					context.report({ node: node.test, messageId: 'alwaysTrue' });
 				} else if (inequalityCount(node.test) >= 4 && isOnlyReturn(node.consequent)) {
@@ -470,6 +472,8 @@ function isAlwaysTrue(node) {
 		}
 	}
 	if (value.type === 'LogicalExpression' && value.operator === '&&') {
+		// One always-true arm still forces the read (`flag && (a !== undefined || b !== undefined)`).
+		// An early return of two `=== undefined` checks is a real guard and stays legal.
 		return isAlwaysTrue(value.left) || isAlwaysTrue(value.right);
 	}
 	return false;

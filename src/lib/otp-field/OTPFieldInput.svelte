@@ -38,10 +38,14 @@
 
 	const model = useOTPFieldContext();
 	const reading = useDirection();
-	const slot = model.slots.claim();
 	let el = $state<HTMLInputElement | null>(null);
+	const renderIndex = model.slots.claim();
 
-	const index = $derived(model.slots.indexOf(el, slot));
+	const index = $derived.by(() => {
+		if (!el) return renderIndex;
+		const registered = model.slots.elements.indexOf(el);
+		return registered >= 0 ? registered : renderIndex;
+	});
 	const slotValue = $derived(model.value[index] ?? '');
 	const inputState: OTPFieldInputState = $derived({
 		...model.state,

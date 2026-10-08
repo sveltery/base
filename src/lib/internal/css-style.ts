@@ -14,11 +14,20 @@ const UNITLESS_ZERO = new Set([
 	'flex',
 	'flex-grow',
 	'flex-shrink',
+	'grid-area',
+	'grid-row',
+	'grid-row-end',
+	'grid-row-start',
+	'grid-column',
+	'grid-column-end',
+	'grid-column-start',
 	'font-weight',
+	'line-clamp',
 	'line-height',
 	'opacity',
 	'order',
 	'orphans',
+	'scale',
 	'tab-size',
 	'widows',
 	'z-index',
@@ -40,7 +49,8 @@ export function toCssStyle(style: Record<string, string | number | undefined | n
 			const property = key.startsWith('--')
 				? key
 				: key.replace(/[A-Z]/g, (letter) => `-${letter.toLowerCase()}`);
-			const printed = value === 0 && !UNITLESS_ZERO.has(property) ? '0px' : value;
+			const printed =
+				value === 0 && !property.startsWith('--') && !UNITLESS_ZERO.has(property) ? '0px' : value;
 			return `${property}: ${printed}`;
 		})
 		.join('; ');

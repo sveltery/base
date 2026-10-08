@@ -14,7 +14,6 @@
 
 	const uid = $props.id();
 	const group = useToggleGroupContext();
-	const slot = group ? group.roving.claim() : 0;
 
 	let {
 		pressed = $bindable(false),
@@ -39,6 +38,7 @@
 	const toggleState: ToggleState = $derived({ pressed: pressedState, disabled: disabledState });
 
 	let node = $state<HTMLButtonElement | null>(null);
+	const renderIndex = group ? group.roving.claim() : 0;
 
 	function register(element: HTMLButtonElement) {
 		node = element;
@@ -79,7 +79,7 @@
 
 	const hostProps: HTMLButtonAttributes & Record<symbol, Attachment<HTMLButtonElement>> =
 		$derived.by(() => {
-			const roving = group?.roving.host(slot, node, register, { onfocus, onkeydown });
+			const roving = group?.roving.host(node, register, { onfocus, onkeydown }, renderIndex);
 			const attachmentKey = group?.roving.keyForAttachment();
 			return {
 				type: 'button',

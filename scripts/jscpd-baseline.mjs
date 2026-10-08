@@ -2,6 +2,9 @@ import { execFileSync } from 'node:child_process';
 import fs from 'node:fs';
 import { pathToFileURL } from 'node:url';
 
+/** Live clone ceiling. Hoisting may stay under it. Growing past it fails CI. */
+export const CEILING = 69;
+
 /**
  * Fingerprints present in `next` and absent from `base`.
  * Baseline edits may drop entries. Adding one hides a new clone.
@@ -14,24 +17,46 @@ export function addedFingerprints(base, next) {
 	return Object.keys(next?.fingerprints ?? {}).filter((key) => !known.has(key));
 }
 
-function ancestorBaseline() {
-	for (const rev of ['origin/main', 'HEAD']) {
-		try {
-			return execFileSync('git', ['show', `${rev}:.jscpd-baseline.json`], { encoding: 'utf8' });
-		} catch {
-			// Try the next rev.
-		}
-	}
-	return null;
+/**
+ * The comparison revision. An unset, empty, or all-zero `JSCPD_BASE_SHA`
+ * is missing. Callers that want `origin/main` pass that revision explicitly.
+ *
+ * @param {{ JSCPD_BASE_SHA?: string }} [env]
+ * @returns {string | null}
+ */
+export function baseRevision(env = process.env) {
+	if (!Object.prototype.hasOwnProperty.call(env, 'JSCPD_BASE_SHA')) return null;
+	const fromEnv = env.JSCPD_BASE_SHA ?? '';
+	if (fromEnv.trim() === '' || /^0+$/.test(fromEnv)) return null;
+	return fromEnv;
+}
+
+/**
+ * @param {string} rev
+ */
+function readBaseline(rev) {
+	return execFileSync('git', ['show', `${rev}:.jscpd-baseline.json`], { encoding: 'utf8' });
 }
 
 const isCli = process.argv[1] != null && import.meta.url === pathToFileURL(process.argv[1]).href;
 
 if (isCli) {
 	const current = JSON.parse(fs.readFileSync('.jscpd-baseline.json', 'utf8'));
-	const ancestor = ancestorBaseline();
-	if (ancestor == null) {
-		console.error('jscpd baseline has no ancestor to compare');
+	const count = Object.keys(current.fingerprints ?? {}).length;
+	if (count > CEILING) {
+		console.error(`jscpd baseline has ${count} fingerprints; ceiling is ${CEILING}`);
+		process.exit(1);
+	}
+	const rev = baseRevision();
+	if (rev == null) {
+		console.error('jscpd baseline base revision is missing');
+		process.exit(1);
+	}
+	let ancestor;
+	try {
+		ancestor = readBaseline(rev);
+	} catch {
+		console.error(`jscpd baseline base ${rev} is not available; fetch that commit before lint`);
 		process.exit(1);
 	}
 	const added = addedFingerprints(JSON.parse(ancestor), current);
@@ -42,4 +67,5 @@ if (isCli) {
 		for (const key of added) console.error(key);
 		process.exit(1);
 	}
+	console.log(`jscpd baseline compared with ${rev}: ${count} fingerprints, ceiling ${CEILING}`);
 }

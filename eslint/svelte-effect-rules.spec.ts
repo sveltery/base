@@ -134,6 +134,11 @@ describe('sveltery/no-void-signal-read', () => {
 		expect(covers(source, messages, 'readStyle() !== style')).toBe(true);
 	});
 
+	it('rejects the same forced reads when they live in a helper', async () => {
+		const { messages } = await messagesFor('history/210a2daf-forced-read.fail.svelte', ruleName);
+		expect(messages.length).toBeGreaterThanOrEqual(6);
+	});
+
 	it('allows a measured size, a disabled item, and one direction check', async () => {
 		const { source, messages } = await messagesFor('forced-read.pass.svelte', ruleName);
 		expect(source).toContain('height === undefined && width === undefined');

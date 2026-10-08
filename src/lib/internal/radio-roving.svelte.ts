@@ -8,11 +8,10 @@
 // are handled on the group, not on each radio. No element renderer.
 
 import { untrack } from 'svelte';
-import { isSkipped } from '../internal/composite-skip.js';
-import { createSlotClaim, includeSorted } from '../internal/roving-slot.js';
-import type { RadioGroupRovingFocus } from '../radio/group-context.js';
-
-const ARROWS = new Set(['ArrowUp', 'ArrowDown', 'ArrowLeft', 'ArrowRight']);
+import { CompositeItems } from './composite-items.svelte.js';
+import { ARROWS } from './composite-keys.js';
+import { isSkipped } from './composite-skip.js';
+import { registeredTabIndex, renderOrderTabIndex } from './roving-slot.js';
 
 /** Hidden, natively disabled, and `aria-disabled` radios are skipped. */
 function isItemSkipped(element: HTMLElement) {
@@ -35,26 +34,23 @@ function fallbackIndex(elements: HTMLElement[]) {
  * Vertical arrows and horizontal arrows both move, and horizontal arrows swap in RTL.
  * Shift+Arrow still moves. Home and End do not.
  */
-export class RadioGroupRoving implements RadioGroupRovingFocus {
-	elements = $state<HTMLElement[]>([]);
+export class RadioGroupRoving extends CompositeItems {
 	highlighted = $state<HTMLElement | null>(null);
 	readDirection: () => 'ltr' | 'rtl' = () => 'ltr';
 
 	private highlightedIndex = 0;
 	private userMoved = false;
-	readonly claim = createSlotClaim();
 
 	register(node: HTMLElement) {
 		untrack(() => {
-			this.elements = includeSorted(this.elements, node);
+			this.admit(node);
 			if (this.userMoved) this.follow();
 			else this.applyDefault();
 		});
 		return () => {
 			untrack(() => {
-				const index = this.elements.indexOf(node);
 				const wasHighlighted = this.highlighted === node;
-				this.elements = this.elements.filter((item) => item !== node);
+				const index = this.dismiss(node);
 				if (wasHighlighted) {
 					this.highlighted = null;
 					if (index !== -1) this.highlightedIndex = index;
@@ -75,17 +71,16 @@ export class RadioGroupRoving implements RadioGroupRovingFocus {
 	}
 
 	tabIndex(
-		slot: number,
 		node: HTMLElement | null,
 		selected: boolean,
-		hasSelection: boolean
+		hasSelection: boolean,
+		renderIndex: number
 	): 0 | -1 {
-		if (!node || !this.elements.includes(node)) {
-			if (hasSelection) return selected ? 0 : -1;
-			return slot === 0 ? 0 : -1;
+		if (node && this.elements.includes(node)) {
+			return registeredTabIndex(this.elements, node, this.currentStop());
 		}
-		const stop = this.currentStop();
-		return node === stop ? 0 : -1;
+		if (hasSelection) return selected ? 0 : -1;
+		return renderOrderTabIndex(this.elements, renderIndex);
 	}
 
 	/**

@@ -25,6 +25,11 @@
 		return resetLayoutStyles(panel);
 	}
 
+	$effect(() => {
+		if (height === undefined && width === undefined) return;
+		if (active) resetLayoutStyles(active);
+	});
+
 	function sync(item: HTMLElement | null, itemDisabled: boolean) {
 		if (!item) return;
 		if (itemDisabled) {

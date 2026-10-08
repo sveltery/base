@@ -11,14 +11,15 @@
 // arrow order. A natively disabled or hidden host is skipped. No element renderer.
 
 import { untrack } from 'svelte';
-import { createAttachmentKey } from 'svelte/attachments';
 import type { Attachment } from 'svelte/attachments';
 import type { HTMLAttributes } from 'svelte/elements';
-import { isSkipped } from '../internal/composite-skip.js';
-import { createSlotClaim, includeSorted } from '../internal/roving-slot.js';
-import type { ToolbarOrientation } from './types.js';
+import { CompositeItems } from './composite-items.svelte.js';
+import { ARROWS } from './composite-keys.js';
+import { isSkipped } from './composite-skip.js';
+import { axisKeys, modifierHeld, stepLinear } from './roving-keys.js';
+import { registeredTabIndex, renderOrderTabIndex } from './roving-slot.js';
 
-const ARROWS = new Set(['ArrowUp', 'ArrowDown', 'ArrowLeft', 'ArrowRight']);
+export type ToolbarOrientation = 'horizontal' | 'vertical';
 
 export interface ToolbarRovingHandlers {
 	onfocus?: HTMLAttributes<HTMLElement>['onfocus'];
@@ -27,17 +28,12 @@ export interface ToolbarRovingHandlers {
 export type ToolbarRovingItemProps = HTMLAttributes<HTMLElement> &
 	Record<symbol, Attachment<HTMLElement>>;
 
-function modifierHeld(event: KeyboardEvent) {
-	return event.shiftKey || event.ctrlKey || event.altKey || event.metaKey;
-}
-
 /**
  * One toolbar composite. The highlighted item is the only tab stop.
  * Arrow keys follow `orientation` (horizontal arrows swap in RTL).
  * Home and End are left to the browser. `loopFocus` defaults to true.
  */
-export class ToolbarRoving {
-	elements = $state<HTMLElement[]>([]);
+export class ToolbarRoving extends CompositeItems {
 	highlighted = $state<HTMLElement | null>(null);
 	readLoopFocus: () => boolean = () => true;
 	readOrientation: () => ToolbarOrientation = () => 'horizontal';
@@ -45,18 +41,17 @@ export class ToolbarRoving {
 
 	private highlightedIndex = 0;
 	private settled = false;
-	readonly claim = createSlotClaim();
-	private readonly attachmentKey = createAttachmentKey();
 
 	register(node: HTMLElement) {
 		untrack(() => {
-			this.elements = includeSorted(this.elements, node);
+			this.admit(node);
 			this.reconcile();
 		});
 		return () => {
 			untrack(() => {
-				this.elements = this.elements.filter((item) => item !== node);
-				if (this.highlighted === node) this.highlighted = null;
+				const removed = this.highlighted === node;
+				this.dismiss(node);
+				if (removed) this.highlighted = null;
 				if (this.elements.length === 0) this.settled = false;
 				this.reconcile();
 			});
@@ -73,17 +68,20 @@ export class ToolbarRoving {
 
 	/** Re-pick the tab stop when `node`'s disabled flag changes. */
 	sync(node: HTMLElement | null, disabled: boolean, focusableWhenDisabled = true) {
-		if (!node || !this.elements.includes(node)) return;
-		const nativeDisabled = disabled && !focusableWhenDisabled;
-		if (nativeDisabled && this.highlighted === node) {
-			this.reconcile();
-			return;
-		}
-		if (!nativeDisabled) {
-			this.keepHighlighted();
-			return;
-		}
-		this.rememberHighlight();
+		const host = { node, disabled, focusableWhenDisabled };
+		untrack(() => {
+			if (!host.node || !this.elements.includes(host.node)) return;
+			const nativeDisabled = host.disabled && !host.focusableWhenDisabled;
+			if (nativeDisabled && this.highlighted === host.node) {
+				this.reconcile();
+				return;
+			}
+			if (!nativeDisabled) {
+				this.keepHighlighted();
+				return;
+			}
+			this.rememberHighlight();
+		});
 	}
 
 	private keepHighlighted() {
@@ -106,11 +104,11 @@ export class ToolbarRoving {
 		this.highlightedIndex = this.elements.indexOf(node);
 	}
 
-	tabIndex(slot: number, node: HTMLElement | null): 0 | -1 {
-		if (this.elements.length === 0) return slot === 0 ? 0 : -1;
-		const stop = this.currentStop();
-		if (node && stop) return node === stop ? 0 : -1;
-		return slot === 0 ? 0 : -1;
+	tabIndex(node: HTMLElement | null, renderIndex: number): 0 | -1 {
+		if (node && this.elements.includes(node)) {
+			return registeredTabIndex(this.elements, node, this.currentStop());
+		}
+		return renderOrderTabIndex(this.elements, renderIndex);
 	}
 
 	/**
@@ -118,23 +116,19 @@ export class ToolbarRoving {
 	 * registration attachment. A consumer `onfocus` runs first.
 	 */
 	item(
-		slot: number,
 		node: HTMLElement | null,
 		register: Attachment<HTMLElement>,
-		handlers: ToolbarRovingHandlers
+		handlers: ToolbarRovingHandlers,
+		renderIndex: number
 	): ToolbarRovingItemProps {
 		return {
-			tabindex: this.tabIndex(slot, node),
+			tabindex: this.tabIndex(node, renderIndex),
 			onfocus: (event) => {
 				handlers.onfocus?.(event);
 				if (event.currentTarget instanceof HTMLElement) this.highlight(event.currentTarget);
 			},
 			[this.attachmentKey]: register
 		};
-	}
-
-	keyForAttachment() {
-		return this.attachmentKey;
 	}
 
 	/**
@@ -144,16 +138,11 @@ export class ToolbarRoving {
 	 * before calling here.
 	 */
 	keydown(event: KeyboardEvent) {
-		if (!ARROWS.has(event.key) || modifierHeld(event)) return;
-		const current = event.currentTarget;
-		if (!(current instanceof HTMLElement)) return;
-
-		const rtl = this.readDirection() === 'rtl';
-		const vertical = this.orientation === 'vertical';
-		const forwardKey = vertical ? 'ArrowDown' : rtl ? 'ArrowLeft' : 'ArrowRight';
-		const backwardKey = vertical ? 'ArrowUp' : rtl ? 'ArrowRight' : 'ArrowLeft';
-		if (event.key !== forwardKey && event.key !== backwardKey) return;
-
+		if (modifierHeld(event) || !ARROWS.has(event.key)) return;
+		const { forwardKey, backwardKey } = axisKeys(
+			this.orientation === 'vertical',
+			this.readDirection() === 'rtl'
+		);
 		const items = this.elements.filter((item) => !isSkipped(item));
 		if (items.length === 0) return;
 
@@ -161,18 +150,16 @@ export class ToolbarRoving {
 		let position = stop ? items.indexOf(stop) : 0;
 		if (position < 0) position = 0;
 
-		const forward = event.key === forwardKey;
-		const next = forward
-			? position === items.length - 1
-				? this.loopFocus
-					? 0
-					: position
-				: position + 1
-			: position === 0
-				? this.loopFocus
-					? items.length - 1
-					: position
-				: position - 1;
+		const next = stepLinear(
+			position,
+			items.length,
+			event.key,
+			forwardKey,
+			backwardKey,
+			this.loopFocus,
+			false
+		);
+		if (next == null) return;
 
 		const target = items[next];
 		if (!target || target === stop) return;

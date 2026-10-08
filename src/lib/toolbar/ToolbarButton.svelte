@@ -12,11 +12,11 @@
 	import { currentHost, dispatchClick, isLink } from '../internal/click.js';
 	import { getStateAttributesProps } from '../internal/state-attributes.js';
 	import { useToolbarGroupContext, useToolbarRootContext } from './context.svelte.js';
+	import { registerToolbarItem } from './item-registration.svelte.js';
 	import type { ToolbarButtonHostProps, ToolbarButtonProps, ToolbarButtonState } from './types.js';
 
 	const toolbar = useToolbarRootContext();
 	const group = useToolbarGroupContext();
-	const slot = toolbar.roving.claim();
 
 	let {
 		disabled = false,
@@ -40,19 +40,10 @@
 		focusable: focusableWhenDisabled
 	});
 
-	let node: HTMLElement | null = $state(null);
-
-	function register(element: HTMLElement) {
-		node = element;
-		const remove = toolbar.roving.register(element);
-		return () => {
-			remove();
-			if (node === element) node = null;
-		};
-	}
+	const item = registerToolbarItem(toolbar.roving);
 
 	$effect(() => {
-		toolbar.roving.sync(node, disabledState, focusableWhenDisabled);
+		toolbar.roving.sync(item.node, disabledState, focusableWhenDisabled);
 	});
 
 	// Untrusted constructed clicks carry modifier state. detail 0 matches a keyboard click.
@@ -137,8 +128,7 @@
 
 	const hostProps: ToolbarButtonHostProps & Record<symbol, Attachment<HTMLElement>> = $derived.by(
 		() => {
-			const roving = toolbar.roving.item(slot, node, register, { onfocus: handleFocus });
-			const attachmentKey = toolbar.roving.keyForAttachment();
+			const hosted = item.hosted({ onfocus: handleFocus });
 			return {
 				...(nativeButton ? { type: 'button' as const } : { role: 'button' as const }),
 				...((nativeButton && focusableWhenDisabled) || (!nativeButton && disabledState)
@@ -147,14 +137,14 @@
 				...(nativeButton && !focusableWhenDisabled && disabledState ? { disabled: true } : {}),
 				...elementProps,
 				...getStateAttributesProps(buttonState),
-				tabindex: roving.tabindex,
+				tabindex: hosted.props.tabindex,
 				onclick: handleClick,
 				onmousedown: handleMouseDown,
 				onpointerdown: handlePointerDown,
 				onkeydown: handleKeyDown,
 				onkeyup: handleKeyUp,
-				onfocus: roving.onfocus,
-				[attachmentKey]: roving[attachmentKey]
+				onfocus: hosted.props.onfocus,
+				[hosted.attachmentKey]: hosted.props[hosted.attachmentKey]
 			} as ToolbarButtonHostProps & Record<symbol, Attachment<HTMLElement>>;
 		}
 	);
