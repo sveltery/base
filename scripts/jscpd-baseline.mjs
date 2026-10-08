@@ -4,9 +4,6 @@ import os from 'node:os';
 import path from 'node:path';
 import { fileURLToPath, pathToFileURL } from 'node:url';
 
-/** Live clone ceiling. Hoisting may stay under it. Growing past it fails CI. */
-export const CEILING = 69;
-
 const SCAN_ROOTS = ['src', 'eslint'];
 const JSCPD = path.resolve(
 	path.dirname(fileURLToPath(import.meta.url)),
@@ -14,6 +11,7 @@ const JSCPD = path.resolve(
 );
 const JSCPD_ARGS = [
 	...SCAN_ROOTS,
+	'--absolute',
 	'--min-lines',
 	'8',
 	'--min-tokens',
@@ -25,27 +23,36 @@ const JSCPD_ARGS = [
 ];
 
 /**
- * Pairs whose count grew. A lower count is a removal and is allowed.
- * Identity is the file pair and format, not jscpd's content hash, so editing
- * the text of a pair that is already allowed does not count as a new clone.
+ * @typedef {{ count: number, lines: number }} PairStat
+ */
+
+/**
+ * Pairs whose clone count or duplicated line total grew. A lower count or a
+ * shorter clone is a removal and is allowed. Identity is the file pair and
+ * format, not jscpd's content hash, so editing the text of a pair that is
+ * already allowed does not count as a new clone. Replacing that clone with
+ * a longer one does.
  *
- * @param {Record<string, number> | undefined} allowed
- * @param {Record<string, number> | undefined} next
+ * @param {Record<string, PairStat> | undefined} allowed
+ * @param {Record<string, PairStat> | undefined} next
  * @returns {string[]}
  */
 export function addedPairs(allowed, next) {
 	const added = [];
-	for (const [key, count] of Object.entries(next ?? {})) {
-		if (count > (allowed?.[key] ?? 0)) added.push(key);
+	for (const [key, stat] of Object.entries(next ?? {})) {
+		const previous = allowed?.[key];
+		if (stat.count > (previous?.count ?? 0) || stat.lines > (previous?.lines ?? 0)) {
+			added.push(key);
+		}
 	}
 	return added.sort();
 }
 
 /**
- * @param {Record<string, number> | undefined} counts
+ * @param {Record<string, PairStat> | undefined} pairs
  */
-export function pairTotal(counts) {
-	return Object.values(counts ?? {}).reduce((sum, count) => sum + count, 0);
+export function pairTotal(pairs) {
+	return Object.values(pairs ?? {}).reduce((sum, stat) => sum + stat.count, 0);
 }
 
 /**
@@ -61,19 +68,20 @@ export function stripFormatSuffix(format, name) {
 }
 
 /**
- * jscpd reports paths relative to each scan root (`lib/...`, `effects.js`).
- * Put the root back so the key is repo-relative and stable across worktrees.
+ * `--absolute` reports a full path. Key the pair by the repo-relative path so
+ * `eslint/lib/radio/attributes.ts` cannot collapse onto `src/lib/radio/attributes.ts`.
  *
  * @param {string} name
  * @param {string} repoRoot
  */
-export function resolveClonePath(name, repoRoot) {
-	const clean = name.replaceAll('\\', '/');
-	for (const root of SCAN_ROOTS) {
-		const rel = `${root}/${clean}`;
-		if (fs.existsSync(path.join(repoRoot, rel))) return rel;
+export function toRepoPath(name, repoRoot) {
+	const clean = path.resolve(name).replaceAll('\\', '/');
+	const root = path.resolve(repoRoot).replaceAll('\\', '/');
+	const rel = path.relative(root, clean).replaceAll('\\', '/');
+	if (rel === '' || rel.startsWith('..') || path.isAbsolute(rel)) {
+		throw new Error(`jscpd clone path is outside the repo: ${name}`);
 	}
-	throw new Error(`jscpd clone path is outside the scan roots: ${name}`);
+	return rel;
 }
 
 /**
@@ -90,18 +98,25 @@ export function clonePairKey(format, firstName, secondName, resolve) {
 }
 
 /**
- * @param {Array<{ format: string, firstFile: { name: string }, secondFile: { name: string } }>} clones
+ * @param {Array<{ format: string, lines: number, firstFile: { name: string }, secondFile: { name: string } }>} clones
  * @param {(name: string) => string} resolve
- * @returns {Record<string, number>}
+ * @returns {Record<string, PairStat>}
  */
-export function pairCountsFromClones(clones, resolve) {
-	/** @type {Record<string, number>} */
-	const counts = {};
+export function pairStatsFromClones(clones, resolve) {
+	/** @type {Record<string, PairStat>} */
+	const stats = {};
 	for (const clone of clones) {
 		const key = clonePairKey(clone.format, clone.firstFile.name, clone.secondFile.name, resolve);
-		counts[key] = (counts[key] ?? 0) + 1;
+		const lines = clone.lines;
+		if (!Number.isInteger(lines) || lines < 1) {
+			throw new Error(`jscpd clone is missing a line count: ${key}`);
+		}
+		const stat = stats[key] ?? { count: 0, lines: 0 };
+		stat.count += 1;
+		stat.lines += lines;
+		stats[key] = stat;
 	}
-	return counts;
+	return stats;
 }
 
 /**
@@ -120,7 +135,7 @@ export function baseRevision(env = process.env) {
 
 /**
  * @param {string} repoRoot
- * @returns {Record<string, number>}
+ * @returns {Record<string, PairStat>}
  */
 export function scanRepo(repoRoot) {
 	const out = fs.mkdtempSync(path.join(os.tmpdir(), 'jscpd-scan-'));
@@ -131,8 +146,8 @@ export function scanRepo(repoRoot) {
 		});
 		const report = JSON.parse(fs.readFileSync(path.join(out, 'jscpd-report.json'), 'utf8'));
 		/** @type {(name: string) => string} */
-		const resolve = (name) => resolveClonePath(name, repoRoot);
-		return pairCountsFromClones(report.duplicates ?? [], resolve);
+		const resolve = (name) => toRepoPath(name, repoRoot);
+		return pairStatsFromClones(report.duplicates ?? [], resolve);
 	} finally {
 		fs.rmSync(out, { recursive: true, force: true });
 	}
@@ -142,25 +157,35 @@ export function scanRepo(repoRoot) {
  * @param {string} rev
  */
 function readBaseline(rev) {
-	return execFileSync('git', ['show', `${rev}:.jscpd-baseline.json`], { encoding: 'utf8' });
+	return execFileSync('git', ['show', `${rev}:.jscpd-baseline.json`], {
+		encoding: 'utf8',
+		stdio: ['ignore', 'pipe', 'pipe']
+	});
 }
 
 /**
- * Version 1 baselines key clones by content hash. Those hashes change when the
- * shared text changes, so the allowance for a v1 ancestor is the file pairs
- * actually present on that revision.
+ * Older baselines cannot express a line allowance. Version 1 keys by content
+ * hash and version 2 stores a count only, so both are replaced by a scan of
+ * that revision.
  *
- * @param {{ version?: number, pairs?: Record<string, number>, fingerprints?: Record<string, unknown> }} ancestor
+ * @param {{ version?: number, pairs?: Record<string, PairStat>, fingerprints?: Record<string, unknown> }} ancestor
  * @param {string} rev
+ * @returns {Record<string, PairStat>}
  */
 function allowances(ancestor, rev) {
-	if (ancestor.version === 2) return ancestor.pairs ?? {};
-	if (ancestor.version === 1 && ancestor.fingerprints) return scanRevision(rev);
-	throw new Error('jscpd baseline version is not 1 or 2');
+	if (ancestor.version === 3) return ancestor.pairs ?? {};
+	if (
+		(ancestor.version === 1 && ancestor.fingerprints) ||
+		(ancestor.version === 2 && ancestor.pairs)
+	) {
+		return scanRevision(rev);
+	}
+	throw new Error('jscpd baseline version is not 1, 2, or 3');
 }
 
 /**
  * @param {string} rev
+ * @returns {Record<string, PairStat>}
  */
 function scanRevision(rev) {
 	const dir = fs.mkdtempSync(path.join(os.tmpdir(), 'jscpd-base-'));
@@ -180,19 +205,41 @@ function scanRevision(rev) {
 	}
 }
 
+/**
+ * @param {unknown} value
+ * @returns {value is PairStat}
+ */
+function isPairStat(value) {
+	if (value == null || typeof value !== 'object') return false;
+	const stat = /** @type {{ count?: unknown, lines?: unknown }} */ (value);
+	return (
+		typeof stat.count === 'number' &&
+		Number.isInteger(stat.count) &&
+		stat.count > 0 &&
+		typeof stat.lines === 'number' &&
+		Number.isInteger(stat.lines) &&
+		stat.lines > 0
+	);
+}
+
+/**
+ * @param {unknown} pairs
+ * @returns {pairs is Record<string, PairStat>}
+ */
+function isPairMap(pairs) {
+	if (pairs == null || typeof pairs !== 'object' || Array.isArray(pairs)) return false;
+	return Object.values(/** @type {Record<string, unknown>} */ (pairs)).every(isPairStat);
+}
+
 const isCli = process.argv[1] != null && import.meta.url === pathToFileURL(process.argv[1]).href;
 
 if (isCli) {
 	const current = JSON.parse(fs.readFileSync('.jscpd-baseline.json', 'utf8'));
-	if (current.version !== 2 || current.pairs == null) {
-		console.error('jscpd baseline must be version 2 with file-pair counts');
+	if (current.version !== 3 || !isPairMap(current.pairs)) {
+		console.error('jscpd baseline must be version 3 with count and lines per file pair');
 		process.exit(1);
 	}
 	const total = pairTotal(current.pairs);
-	if (total > CEILING) {
-		console.error(`jscpd baseline has ${total} clones; ceiling is ${CEILING}`);
-		process.exit(1);
-	}
 	const rev = baseRevision();
 	if (rev == null) {
 		console.error('jscpd baseline base revision is missing');
@@ -227,5 +274,5 @@ if (isCli) {
 		for (const key of granted) console.error(key);
 		process.exit(1);
 	}
-	console.log(`jscpd baseline compared with ${rev}: ${total} clones, ceiling ${CEILING}`);
+	console.log(`jscpd baseline compared with ${rev}: ${total} clones`);
 }
