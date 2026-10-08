@@ -53,9 +53,11 @@ for (const reference of [false, true]) {
 			await openButton(page).click();
 			await page.getByTestId('outside').click();
 			await expect(page.getByRole('dialog')).toHaveCount(0);
+			// The outside control is a button. Focusing it leaves the popup before the click,
+			// so both this port and Base UI close with focus-out.
 			expect((await readOpenCalls(page)).at(-1)).toEqual({
 				open: false,
-				reason: 'outside-press',
+				reason: 'focus-out',
 				canceled: false
 			});
 		});

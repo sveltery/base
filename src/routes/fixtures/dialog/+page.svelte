@@ -13,3 +13,12 @@
 		return mountDialogReference;
 	}}
 />
+
+<!-- The internal backdrop is position:fixed. A static popup paints under it, so clicks hit the backdrop. -->
+<style>
+	:global([data-testid='popup']),
+	:global([data-testid='nested-popup']) {
+		position: relative;
+		z-index: 1;
+	}
+</style>
