@@ -35,7 +35,6 @@
 	let previousNode = $state<HTMLElement | null>(null);
 	let activationDirection = $state<string | undefined>(undefined);
 	let showStarting = $state(false);
-	let carriedSource: HTMLElement | null = null;
 	let committedSize: { width: number; height: number } | null = null;
 	const popupContent = usePopupContentKey(
 		() => store.resolvedActiveTriggerId(),
@@ -59,7 +58,6 @@
 			const active = store.domReferenceElement;
 			const previous = store.switchedFrom;
 			if (!source || !active || !previous) return;
-			carriedSource = source;
 			previousNode = snapshot(source);
 			activationDirection = directionBetween(previous, active);
 			showStarting = true;
@@ -93,13 +91,6 @@
 		const node = previousNode;
 		if (!node) return;
 		host.replaceChildren(node);
-	}
-
-	function restoreLive(node: HTMLElement) {
-		const saved = carriedSource;
-		if (!(saved instanceof HTMLElement) || saved === node) return;
-		carryLiveControlState(saved, node);
-		carriedSource = null;
 	}
 
 	$effect(() => {
@@ -223,23 +214,6 @@
 		return wrapper;
 	}
 
-	function carryLiveControlState(from: Element, to: Element) {
-		const sources = controls(from);
-		const targets = controls(to);
-		sources.forEach((node, index) => {
-			const dest = targets[index];
-			if (!dest) return;
-			if (node instanceof HTMLInputElement && dest instanceof HTMLInputElement) {
-				if (node.type === 'checkbox' || node.type === 'radio') dest.checked = node.checked;
-				else if (dest.value === '' || dest.value === node.value) dest.value = node.value;
-			} else if (node instanceof HTMLTextAreaElement && dest instanceof HTMLTextAreaElement) {
-				if (dest.value === '' || dest.value === node.value) dest.value = node.value;
-			} else if (node instanceof HTMLSelectElement && dest instanceof HTMLSelectElement) {
-				if (dest.value === '' || dest.value === node.value) dest.value = node.value;
-			}
-		});
-	}
-
 	function copyControlState(from: Element, to: Element) {
 		const sources = controls(from);
 		const targets = controls(to);
@@ -310,12 +284,7 @@
 		></div>
 	{/if}
 	{#key popupContent.current}
-		<div
-			bind:this={currentEl}
-			data-current
-			data-starting-style={showStarting ? '' : undefined}
-			{@attach restoreLive}
-		>
+		<div bind:this={currentEl} data-current data-starting-style={showStarting ? '' : undefined}>
 			{@render children?.()}
 		</div>
 	{/key}

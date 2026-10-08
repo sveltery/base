@@ -12,6 +12,10 @@
 	let focusCalls = $state(0);
 	let finalEl = $state<HTMLButtonElement | null>(null);
 	let ownerId = $state<string | null | undefined>(undefined);
+	let textA = $state('');
+	let textB = $state('');
+	let choiceA = $state('');
+	let choiceB = $state('');
 	const reviewHandle = handle ?? Popover.createHandle();
 	const detached = mode === 'handle' || mode === 'viewport';
 </script>
@@ -81,7 +85,27 @@
 			<p data-testid="pane-text">{payload}</p>
 			<h2 id="live-title">Live</h2>
 			<input data-testid="live-input" />
-			<input type="radio" name="pane-choice" data-testid="live-radio" />
+			{#if payload === 'content-AAA'}
+				<input data-testid="pane-note" bind:value={textA} />
+				<input
+					type="radio"
+					name="pane-choice"
+					value="chosen"
+					data-testid="live-radio"
+					bind:group={choiceA}
+				/>
+				<p data-testid="pane-state">{textA}|{choiceA === 'chosen'}</p>
+			{:else}
+				<input data-testid="pane-note" bind:value={textB} />
+				<input
+					type="radio"
+					name="pane-choice"
+					value="chosen"
+					data-testid="live-radio"
+					bind:group={choiceB}
+				/>
+				<p data-testid="pane-state">{textB}|{choiceB === 'chosen'}</p>
+			{/if}
 		</Popover.Viewport>
 	</Popover.Popup>
 {/snippet}

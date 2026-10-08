@@ -228,12 +228,20 @@ describe('Popover', () => {
 		);
 	});
 
-	it('keeps the live radio checked when the viewport switches triggers', async () => {
+	it('starts the next viewport pane from that trigger’s own state', async () => {
 		render(PopoverReviewHarness, { mode: 'viewport' });
 		await page.getByRole('button', { name: 'One' }).click();
-		const live = page.getByTestId('live-radio').element();
-		if (!(live instanceof HTMLInputElement)) throw new Error('missing radio');
-		live.checked = true;
+		const note = page.getByTestId('pane-note').element();
+		const radio = page.getByTestId('live-radio').element();
+		if (!(note instanceof HTMLInputElement) || !(radio instanceof HTMLInputElement)) {
+			throw new Error('missing pane controls');
+		}
+		note.value = 'from-a';
+		note.dispatchEvent(new Event('input', { bubbles: true }));
+		radio.click();
+		await expect
+			.poll(() => document.querySelector('[data-current] [data-testid=pane-state]')?.textContent)
+			.toBe('from-a|true');
 		const seen: HTMLElement[] = [];
 		const observer = new MutationObserver(() => {
 			const previous = document.querySelector('[data-previous]');
@@ -249,13 +257,39 @@ describe('Popover', () => {
 			.toBeTruthy();
 		observer.disconnect();
 		const previous = document.querySelector('[data-previous]') ?? seen[0];
-		const current = document.querySelector('[data-current] [data-testid=live-radio]');
+		const currentNote = document.querySelector('[data-current] [data-testid=pane-note]');
+		const currentRadio = document.querySelector('[data-current] [data-testid=live-radio]');
 		const copied = previous?.querySelector('input[type="radio"]');
-		if (!(current instanceof HTMLInputElement) || !(copied instanceof HTMLInputElement)) {
+		if (
+			!(currentNote instanceof HTMLInputElement) ||
+			!(currentRadio instanceof HTMLInputElement) ||
+			!(copied instanceof HTMLInputElement)
+		) {
 			throw new Error('missing radios');
 		}
-		expect(current.checked).toBe(true);
+		expect(currentNote.value).toBe('');
+		expect(currentRadio.checked).toBe(false);
+		expect(document.querySelector('[data-current] [data-testid=pane-state]')?.textContent).toBe(
+			'|false'
+		);
 		expect(copied.hasAttribute('name')).toBe(false);
+		await page.getByRole('button', { name: 'One' }).click();
+		await expect
+			.poll(() => document.querySelector('[data-current] [data-testid=pane-text]')?.textContent)
+			.toBe('content-AAA');
+		const restoredNote = document.querySelector('[data-current] [data-testid=pane-note]');
+		const restoredRadio = document.querySelector('[data-current] [data-testid=live-radio]');
+		if (
+			!(restoredNote instanceof HTMLInputElement) ||
+			!(restoredRadio instanceof HTMLInputElement)
+		) {
+			throw new Error('missing restored controls');
+		}
+		expect(restoredNote.value).toBe('from-a');
+		expect(restoredRadio.checked).toBe(true);
+		expect(document.querySelector('[data-current] [data-testid=pane-state]')?.textContent).toBe(
+			'from-a|true'
+		);
 	});
 
 	it('registers each trigger once across an open and a switch', async () => {
