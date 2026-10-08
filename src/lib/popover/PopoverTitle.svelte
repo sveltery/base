@@ -4,32 +4,10 @@
 	(commit 47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c). MIT, see THIRD_PARTY_NOTICES.md.
 -->
 <script lang="ts">
-	import { mergeProps } from '../internal/mergeProps.js';
-	import { usePopoverRoot } from './context.svelte.js';
+	import PopoverLabel from './PopoverLabel.svelte';
 	import type { PopoverTitleProps } from './types.js';
 
 	let { render, children, id, ...elementProps }: PopoverTitleProps = $props();
-
-	const store = usePopoverRoot();
-	const uid = $props.id();
-	const titleId = $derived(id ?? `base-ui-${uid}`);
-
-	$effect(() => {
-		store.titleElementId = titleId;
-		return () => {
-			if (store.titleElementId === titleId) store.titleElementId = undefined;
-		};
-	});
-
-	const hostProps = $derived(mergeProps(elementProps, { id: titleId }));
 </script>
 
-{#if render}
-	{@render render(hostProps, content)}
-{:else}
-	<h2 {...hostProps}>{@render content()}</h2>
-{/if}
-
-{#snippet content()}
-	{@render children?.()}
-{/snippet}
+<PopoverLabel part="title" tag="h2" {id} {render} {children} {elementProps} />

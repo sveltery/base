@@ -2,9 +2,9 @@
 	Groups all parts of the popover. Does not render its own HTML element.
 	Derived from Base UI v1.8.0 packages/react/src/popover/root/PopoverRoot.tsx
 	(commit 47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c). MIT, see THIRD_PARTY_NOTICES.md.
+	`close` and `unmount` are exports. Bind the root with `bind:this`.
 -->
 <script lang="ts">
-	import { onDestroy } from 'svelte';
 	import type { HTMLAttributes } from 'svelte/elements';
 	import { createControllableValue } from '../internal/controllable-value.svelte.js';
 	import {
@@ -13,7 +13,7 @@
 		useFloatingParentNodeId
 	} from '../internal/floating-ui/index.js';
 	import { setPopoverRoot } from './context.svelte.js';
-	import { PopoverStore, type PopoverHooks } from './store.svelte.js';
+	import { PopoverStore } from './store.svelte.js';
 	import type { PopoverRootProps } from './types.js';
 
 	let {
@@ -22,9 +22,9 @@
 		onOpenChange,
 		onOpenChangeComplete,
 		modal = false,
-		triggerId = $bindable(null),
+		triggerId = $bindable(undefined),
+		defaultTriggerId = null,
 		handle,
-		actions,
 		children
 	}: PopoverRootProps = $props();
 
@@ -45,16 +45,11 @@
 		setProp: (next) => {
 			triggerId = next ?? null;
 		},
-		getDefault: () => null
+		getDefault: () => defaultTriggerId
 	});
 
-	const hooks: PopoverHooks = {
-		dismissReference: {},
-		dismissFloating: {},
-		closeCount: () => 0,
-		placement: () => 'bottom',
-		triggerSwitch: null
-	};
+	let dismissReference: HTMLAttributes<HTMLElement> = {};
+	let dismissFloating: HTMLAttributes<HTMLElement> = {};
 
 	const store = new PopoverStore({
 		open: openValue,
@@ -67,24 +62,29 @@
 		},
 		onOpenChange: () => onOpenChange as PopoverRootProps['onOpenChange'],
 		onOpenChangeComplete: () => onOpenChangeComplete,
-		hooks
+		readDismissReference: () => dismissReference,
+		readDismissFloating: () => dismissFloating
 	});
 	setPopoverRoot(store);
 
 	const dismiss = useDismiss(store, () => ({
 		outsidePressEvent: () => (store.modal === 'trap-focus' ? 'sloppy' : 'intentional')
 	}));
-	hooks.dismissReference = dismiss.reference as HTMLAttributes<HTMLElement>;
-	hooks.dismissFloating = dismiss.floating as HTMLAttributes<HTMLElement>;
+	dismissReference = dismiss.reference as HTMLAttributes<HTMLElement>;
+	dismissFloating = dismiss.floating as HTMLAttributes<HTMLElement>;
 
-	if (handle) {
-		const detach = handle.attachStore(store);
-		onDestroy(detach);
+	$effect(() => {
+		const current = handle;
+		if (!current) return;
+		return current.attachStore(store);
+	});
+
+	export function close() {
+		store.closeImperative();
 	}
 
-	if (actions) {
-		actions.unmount = () => store.forceUnmount();
-		actions.close = () => store.closeImperative();
+	export function unmount() {
+		store.forceUnmount();
 	}
 </script>
 

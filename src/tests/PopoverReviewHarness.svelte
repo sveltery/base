@@ -1,5 +1,4 @@
 <script lang="ts">
-	import type { Snippet } from 'svelte';
 	import { Popover, type PopoverHandle } from '#lib';
 
 	let {
@@ -12,55 +11,49 @@
 
 	let focusCalls = $state(0);
 	let finalEl = $state<HTMLButtonElement | null>(null);
-	let ownerId = $state<string | null>(null);
+	let ownerId = $state<string | null | undefined>(undefined);
 	const reviewHandle = handle ?? Popover.createHandle();
+	const detached = mode === 'handle' || mode === 'viewport';
 </script>
-
-{#snippet frame(extra: Snippet)}
-	<Popover.Portal keepMounted={mode === 'mounted'}>
-		<Popover.Positioner data-testid={mode === 'mounted' ? 'positioner' : undefined}>
-			{@render extra()}
-		</Popover.Positioner>
-	</Popover.Portal>
-{/snippet}
 
 {#if mode === 'focus'}
 	<button type="button" data-testid="final" bind:this={finalEl}>Final</button>
 	<span data-testid="focus-calls">{focusCalls}</span>
-	<Popover.Root>
-		<Popover.Trigger>Open</Popover.Trigger>
-		{@render frame(focusPopup)}
-	</Popover.Root>
-{:else if mode === 'mounted'}
-	<Popover.Root>
-		<Popover.Trigger>Open</Popover.Trigger>
-		{@render frame(plainPopup)}
-	</Popover.Root>
-{:else if mode === 'default-open'}
-	<Popover.Root defaultOpen>
-		<Popover.Trigger>Open</Popover.Trigger>
-		{@render frame(readyPopup)}
-	</Popover.Root>
 {:else if mode === 'trigger'}
 	<pre data-testid="trigger-id">{ownerId ?? ''}</pre>
-	<Popover.Root bind:triggerId={ownerId}>
-		<Popover.Trigger id="owned">Open</Popover.Trigger>
-		{@render frame(ownedPopup)}
-	</Popover.Root>
 {:else if mode === 'handle'}
 	<pre data-testid="handle-open">{reviewHandle.isOpen ? 'yes' : 'no'}</pre>
-	<Popover.Trigger handle={reviewHandle} id="module-trigger">Open</Popover.Trigger>
-	<Popover.Root handle={reviewHandle}>
-		{@render frame(plainPopup)}
-	</Popover.Root>
-{:else}
+{/if}
+
+{#if mode === 'viewport'}
 	<Popover.Trigger handle={reviewHandle} id="trigger-a">One</Popover.Trigger>
 	<Popover.Trigger handle={reviewHandle} id="trigger-b">Two</Popover.Trigger>
-	<button type="button" onclick={() => reviewHandle.open('trigger-b')}>Switch</button>
-	<Popover.Root handle={reviewHandle}>
-		{@render frame(viewportPopup)}
-	</Popover.Root>
+{:else if mode === 'handle'}
+	<Popover.Trigger handle={reviewHandle} id="module-trigger">Open</Popover.Trigger>
 {/if}
+
+<Popover.Root
+	handle={detached ? reviewHandle : undefined}
+	defaultOpen={mode === 'default-open'}
+	bind:triggerId={ownerId}
+>
+	{#if !detached}
+		<Popover.Trigger id={mode === 'trigger' ? 'owned' : undefined}>Open</Popover.Trigger>
+	{/if}
+	<Popover.Portal keepMounted={mode === 'mounted'}>
+		<Popover.Positioner data-testid={mode === 'mounted' ? 'positioner' : undefined}>
+			{#if mode === 'focus'}
+				{@render focusPopup()}
+			{:else if mode === 'viewport'}
+				{@render viewportPopup()}
+			{:else if mode === 'default-open'}
+				<Popover.Popup>Ready</Popover.Popup>
+			{:else}
+				{@render plainPopup()}
+			{/if}
+		</Popover.Positioner>
+	</Popover.Portal>
+</Popover.Root>
 
 {#snippet focusPopup()}
 	<Popover.Popup
@@ -78,14 +71,6 @@
 	<Popover.Popup>
 		<button type="button">Inside</button>
 	</Popover.Popup>
-{/snippet}
-
-{#snippet readyPopup()}
-	<Popover.Popup>Ready</Popover.Popup>
-{/snippet}
-
-{#snippet ownedPopup()}
-	<Popover.Popup>Owned</Popover.Popup>
 {/snippet}
 
 {#snippet viewportPopup()}

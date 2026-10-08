@@ -3,13 +3,12 @@ import type { HTMLAttributes, HTMLButtonAttributes } from 'svelte/elements';
 import type { BaseUIChangeEventDetails, REASONS } from '../internal/event-details.js';
 import type { Align, Side, UseAnchorPositioningParameters } from '../internal/popups/index.js';
 import type { PopupTransitionStatus } from '../internal/useTransitionStatus.svelte.js';
-import type { InteractionType } from '../internal/openInteraction.js';
-import type { PopoverHandle } from './handle.js';
+import type { PopoverHandle } from './handle.svelte.js';
 
 export type { Align, Side };
 
 export type PopoverModal = boolean | 'trap-focus';
-export type { InteractionType };
+export type InteractionType = 'mouse' | 'touch' | 'pen' | 'keyboard';
 export type PopoverInstant = 'dismiss' | 'click' | 'focus' | 'trigger-change';
 
 export type PopoverChangeReason =
@@ -70,13 +69,12 @@ export interface PopoverRootProps<Payload = unknown> {
 	 * Id of the trigger that owns the popover. A string wins over the trigger that opened it.
 	 */
 	triggerId?: string | null;
+	/**
+	 * Initial trigger id when `triggerId` is left unset.
+	 */
+	defaultTriggerId?: string | null;
 	/** Associates detached triggers and imperative `open`, `close`, and `unmount`. */
 	handle?: PopoverHandle<Payload>;
-	/**
-	 * Imperative `unmount` and `close`. The root writes both methods onto this object.
-	 * There is no `actionsRef`.
-	 */
-	actions?: PopoverActions;
 	children?: Snippet<[{ payload: Payload | undefined }]>;
 }
 

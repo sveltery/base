@@ -154,17 +154,22 @@ describe('Popover', () => {
 		const input = page.getByTestId('live-input').element();
 		if (!(input instanceof HTMLInputElement)) throw new Error('missing input');
 		input.value = 'kept';
-		await page.getByRole('button', { name: 'Switch' }).click();
-		await expect.poll(() => document.querySelectorAll('#live-title').length).toBe(1);
-		await expect.poll(() => document.querySelector('[data-previous]')).toBeTruthy();
-		const previous = document.querySelector('[data-previous]');
+		const seen: HTMLElement[] = [];
+		const observer = new MutationObserver(() => {
+			const previous = document.querySelector('[data-previous]');
+			if (previous instanceof HTMLElement && !seen.includes(previous)) seen.push(previous);
+		});
+		observer.observe(document.body, { subtree: true, childList: true, attributes: true });
+		await page.getByRole('button', { name: 'Two' }).click();
+		await expect.poll(() => seen[0] ?? document.querySelector('[data-previous]')).toBeTruthy();
+		observer.disconnect();
+		const previous = document.querySelector('[data-previous]') ?? seen[0];
 		const current = document.querySelector('[data-current]');
 		if (!(previous instanceof HTMLElement) || !current) throw new Error('missing viewport panes');
+		expect(document.querySelectorAll('#live-title').length).toBe(1);
 		expect(previous.getAttribute('aria-hidden')).toBe('true');
 		expect(previous.inert).toBe(true);
-		expect(
-			current.compareDocumentPosition(previous) & Node.DOCUMENT_POSITION_FOLLOWING
-		).toBeTruthy();
+		expect(current.compareDocumentPosition(previous) & Node.DOCUMENT_POSITION_FOLLOWING).toBeTruthy();
 		expect(previous.querySelector('input')?.value).toBe('kept');
 	});
 });

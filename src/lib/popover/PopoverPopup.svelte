@@ -4,6 +4,7 @@
 	(commit 47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c). MIT, see THIRD_PARTY_NOTICES.md.
 -->
 <script lang="ts">
+	import { untrack } from 'svelte';
 	import { createAttachmentKey } from 'svelte/attachments';
 	import { REASONS } from '../internal/event-details.js';
 	import { toCssStyle } from '../internal/css-style.js';
@@ -12,7 +13,6 @@
 		useHoverFloatingInteraction
 	} from '../internal/floating-ui/index.js';
 	import { mergeProps } from '../internal/mergeProps.js';
-	import { COMPOSITE_KEYS } from '../internal/compositeKeys.js';
 	import { FOCUSABLE_POPUP_PROPS, resolveFocus } from '../internal/popups/index.js';
 	import { popupTransitionStateMapping } from '../internal/popupStateMapping.js';
 	import { getStateAttributesProps } from '../internal/state-attributes.js';
@@ -32,24 +32,22 @@
 	const positioning = usePopoverPositioner();
 	const bindKey = createAttachmentKey();
 
+	// Plain count. A $state increment inside the close attachment both reads and
+	// writes that state, so the attachment effect never settles.
 	let closeCount = 0;
-	function syncFocusTrap() {
-		store.focusTrap = closeCount > 0;
-	}
 	setCloseParts({
 		get count() {
 			return closeCount;
 		},
 		register() {
 			closeCount += 1;
-			queueMicrotask(syncFocusTrap);
+			store.focusTrap = closeCount > 0;
 			return () => {
 				closeCount -= 1;
-				queueMicrotask(syncFocusTrap);
+				store.focusTrap = closeCount > 0;
 			};
 		}
 	});
-	store.hooks.closeCount = () => closeCount;
 
 	useHoverFloatingInteraction(store, () => ({
 		enabled: store.openOnHover && !store.triggerDisabled,
@@ -72,13 +70,25 @@
 		};
 	}
 
-	function focusInitial() {
-		return resolveFocus(
-			initialFocus,
-			store.openMethod ?? store.lastInteraction,
-			store.popupElement
+	let openChoice: boolean | HTMLElement | undefined;
+	let publishedChoice = $state<boolean | HTMLElement>(false);
+
+	$effect(() => {
+		const open = store.open;
+		const popup = store.popupElement;
+		const mounted = store.mounted;
+		const reason = store.openChangeReason;
+		if (!open) {
+			openChoice = undefined;
+			publishedChoice = false;
+			return;
+		}
+		if (!mounted || !popup || reason === REASONS.triggerHover) return;
+		openChoice ??= untrack(() =>
+			resolveFocus(initialFocus, store.openPointerType === 'touch' ? 'touch' : '', popup)
 		);
-	}
+		publishedChoice = openChoice ?? false;
+	});
 
 	function focusFinal() {
 		return resolveFocus(finalFocus, store.closeInteraction, store.popupElement);
@@ -91,6 +101,15 @@
 		transitionStatus: store.transitionStatus,
 		instant: store.instantType
 	});
+
+	const toolbarKeys = new Set([
+		'ArrowDown',
+		'ArrowUp',
+		'ArrowRight',
+		'ArrowLeft',
+		'Home',
+		'End'
+	]);
 
 	function inToolbar(event: KeyboardEvent) {
 		const current = event.currentTarget;
@@ -107,7 +126,7 @@
 			...(store.titleElementId ? { 'aria-labelledby': store.titleElementId } : {}),
 			...(store.descriptionElementId ? { 'aria-describedby': store.descriptionElementId } : {}),
 			onkeydown(event: KeyboardEvent) {
-				if (inToolbar(event) && COMPOSITE_KEYS.has(event.key)) event.stopPropagation();
+				if (inToolbar(event) && toolbarKeys.has(event.key)) event.stopPropagation();
 			},
 			style: toCssStyle({
 				...store.popupVars,
@@ -122,7 +141,7 @@
 <FloatingFocusManager
 	{store}
 	disabled={!store.mounted || store.openChangeReason === REASONS.triggerHover}
-	initialFocus={focusInitial}
+	initialFocus={publishedChoice}
 	finalFocus={focusFinal}
 	modal={store.focusManagerModal}
 >

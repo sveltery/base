@@ -21,23 +21,32 @@
 	const positioning = usePopoverPositioner();
 	const direction = useDirection();
 	const frame = AnimationFrame.create();
+	const resizeFrame = AnimationFrame.create();
 
 	let currentEl = $state<HTMLDivElement | null>(null);
 	let previousNode = $state<HTMLElement | null>(null);
 	let activationDirection = $state<string | undefined>(undefined);
 	let showStarting = $state(false);
-	let transitionAbort: AbortController | null = null;
+	let seenTrigger: Element | null = null;
+	let committedSize: { width: number; height: number } | null = null;
 
 	$effect(() => {
 		store.adaptiveOrigin = adaptiveOriginMiddleware;
-		store.hooks.triggerSwitch = (previous, next) => {
-			if (!currentEl) return;
-			previousNode = snapshot(currentEl);
-			activationDirection = directionBetween(previous, next);
+		return () => {
+			if (store.adaptiveOrigin === adaptiveOriginMiddleware) store.adaptiveOrigin = undefined;
+		};
+	});
+
+	$effect(() => {
+		const open = store.open;
+		const active = open ? store.domReferenceElement : null;
+		const source = currentEl;
+		if (source && active && seenTrigger && active !== seenTrigger) {
+			const previous = seenTrigger;
+			previousNode = snapshot(source);
+			activationDirection = directionBetween(previous, active);
 			showStarting = true;
-			transitionAbort?.abort();
 			const controller = new AbortController();
-			transitionAbort = controller;
 			frame.request(() => {
 				showStarting = false;
 				const node = currentEl;
@@ -52,45 +61,92 @@
 					false
 				);
 			});
-		};
-		return () => {
-			if (store.adaptiveOrigin === adaptiveOriginMiddleware) store.adaptiveOrigin = undefined;
-			store.hooks.triggerSwitch = null;
-			frame.cancel();
-			transitionAbort?.abort();
-		};
+		}
+		seenTrigger = active;
+		return () => frame.cancel();
 	});
 
 	$effect(() => {
+		const content = store.payload;
+		const mounted = store.mounted;
 		const popup = store.popupElement;
 		const positioner = store.positionerElement;
 		const side = positioning.side;
-		if (!store.mounted || !popup || !positioner) {
+		const textDirection = direction.direction;
+		void content;
+		if (!mounted || !popup || !positioner) {
+			committedSize = null;
 			store.positionerVars = {};
 			store.popupVars = {};
 			return;
 		}
-		const width = popup.offsetWidth;
-		const height = popup.offsetHeight;
+		const anchor = anchoring(side, textDirection);
+		const previous = committedSize;
+		store.popupVars = { ...anchor, '--popup-width': 'auto', '--popup-height': 'auto' };
 		store.positionerVars = {
-			'--positioner-width': `${width}px`,
-			'--positioner-height': `${height}px`
+			'--positioner-width': 'max-content',
+			'--positioner-height': 'max-content'
 		};
-		const textDirection = direction.direction;
+		const controller = new AbortController();
+		resizeFrame.request(() => {
+			if (controller.signal.aborted || !popup.isConnected) return;
+			const next = cssSize(popup);
+			committedSize = next;
+			store.positionerVars = sizeVars('positioner', next);
+			if (!previous) {
+				store.popupVars = { ...anchor, ...sizeVars('popup', next) };
+				return;
+			}
+			store.popupVars = { ...anchor, ...sizeVars('popup', previous) };
+			resizeFrame.request(() => {
+				if (controller.signal.aborted) return;
+				store.popupVars = { ...anchor, ...sizeVars('popup', next) };
+				runOnceAnimationsFinish(
+					popup,
+					() => {
+						if (controller.signal.aborted) return;
+						store.popupVars = { ...anchor, '--popup-width': 'auto', '--popup-height': 'auto' };
+					},
+					controller.signal,
+					false
+				);
+			});
+		});
+		return () => {
+			controller.abort();
+			resizeFrame.cancel();
+		};
+	});
+
+	function anchoring(side: string | null, textDirection: string) {
 		const anchorTop = side === 'top';
 		const anchorLeft =
 			side === 'left' || side === (textDirection === 'rtl' ? 'inline-end' : 'inline-start');
-		const popupVars: Record<string, string> = {
-			'--popup-width': `${width}px`,
-			'--popup-height': `${height}px`
-		};
-		if (anchorTop || anchorLeft) {
-			popupVars.position = 'absolute';
-			popupVars[anchorTop ? 'bottom' : 'top'] = '0';
-			popupVars[anchorLeft ? 'right' : 'left'] = '0';
+		if (!anchorTop && !anchorLeft) return {};
+		const vars: Record<string, string> = { position: 'absolute' };
+		vars[anchorTop ? 'bottom' : 'top'] = '0';
+		vars[anchorLeft ? 'right' : 'left'] = '0';
+		return vars;
+	}
+
+	function cssSize(element: HTMLElement) {
+		const css = getComputedStyle(element);
+		let width = parseFloat(css.width) || 0;
+		let height = parseFloat(css.height) || 0;
+		if (Math.round(width) !== element.offsetWidth || Math.round(height) !== element.offsetHeight) {
+			width = element.offsetWidth;
+			height = element.offsetHeight;
 		}
-		store.popupVars = popupVars;
-	});
+		return { width, height };
+	}
+
+	function sizeVars(kind: 'popup' | 'positioner', size: { width: number; height: number }) {
+		const prefix = kind === 'popup' ? '--popup' : '--positioner';
+		return {
+			[`${prefix}-width`]: `${size.width}px`,
+			[`${prefix}-height`]: `${size.height}px`
+		};
+	}
 
 	const partState: PopoverViewportState = $derived({
 		activationDirection,

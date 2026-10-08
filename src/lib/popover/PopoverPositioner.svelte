@@ -60,7 +60,7 @@
 		adaptiveOrigin: store.adaptiveOrigin
 	}));
 	setPopoverPositioner(positioning);
-	store.hooks.placement = () => positioning.physicalSide;
+	store.placementReader = () => positioning.physicalSide;
 
 	const modalLock = $derived(
 		store.open && store.modal === true && store.openChangeReason !== REASONS.triggerHover
@@ -68,7 +68,7 @@
 
 	useAnchoredPopupScrollLock(() => ({
 		enabled: modalLock,
-		touchOpen: store.openMethod === 'touch',
+		touchOpen: store.openPointerType === 'touch',
 		positionerElement: store.positionerElement,
 		referenceElement: store.domReferenceElement
 	}));

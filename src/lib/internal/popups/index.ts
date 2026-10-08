@@ -38,7 +38,6 @@ export {
 	resolveFocus,
 	type PopupFocusTarget
 } from './popupStoreUtils.js';
-export { BasePopupHandle, type PopupHandleStore } from './popupHandle.js';
 export {
 	PopupStore,
 	type PopupChangeEventDetails,

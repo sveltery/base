@@ -28,15 +28,11 @@ const OWNERS = {
 	buttonProps: 'src/lib/internal/useButton.ts',
 	guardDisabled: 'src/lib/internal/useButton.ts',
 	nonNativeKeys: 'src/lib/internal/useButton.ts',
-	openInteractionProps: 'src/lib/internal/openInteraction.ts',
-	openMethodProps: 'src/lib/internal/openInteraction.ts',
 	adaptiveOriginMiddleware: 'src/lib/internal/adaptiveOriginMiddleware.ts',
 	adaptiveOrigin: 'src/lib/internal/adaptiveOriginMiddleware.ts',
 	createDefaultInitialFocus: 'src/lib/internal/popups/popupStoreUtils.ts',
 	resolveFocus: 'src/lib/internal/popups/popupStoreUtils.ts',
-	BasePopupHandle: 'src/lib/internal/popups/popupHandle.ts',
-	COMPOSITE_KEYS: 'src/lib/internal/compositeKeys.ts',
-	PopoverHandle: 'src/lib/popover/handle.ts'
+	PopoverHandle: 'src/lib/popover/handle.svelte.ts'
 };
 
 /**
