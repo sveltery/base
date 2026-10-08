@@ -42,7 +42,7 @@
 
 	const reading = useDirection();
 	const formContext = useFormContext();
-	const field = useFieldContext(true);
+	const field = useFieldContext();
 	const fieldset = useFieldsetRootContext(true);
 
 	const controllable = createControllableValue<unknown>({
@@ -53,7 +53,6 @@
 		getDefault: () => defaultValue,
 		onChange(next) {
 			formContext.clearErrors(name);
-			if (!field) return;
 			field.setDirty(next !== field.validityData.initialValue);
 			field.setFilled(next != null);
 			field.change(next);

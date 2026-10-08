@@ -60,7 +60,7 @@
 	}: SliderThumbProps = $props();
 
 	const model = useSliderContext();
-	const field = useFieldContext(true);
+	const field = useFieldContext();
 	const labelable = useLabelableContext(true);
 
 	let thumbEl: HTMLDivElement | null = $state(null);
@@ -260,7 +260,7 @@
 		onfocus: handleFocus,
 		onblur: handleBlur,
 		onkeydown: handleKeyDown,
-		...(partState.valid === false && !field?.disabled && !disabled
+		...(partState.valid === false && !field.disabled && !disabled
 			? { 'aria-invalid': true as const }
 			: {})
 	});

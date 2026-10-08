@@ -1,6 +1,6 @@
 # Input
 
-A native input that uses `Field.Control`. Upstream: `packages/react/src/input/Input.tsx` at Base UI v1.8.0. Local: `src/lib/input/`. `Input` forwards its props to `Field.Control`. Outside `Field.Root`, that control keeps a private field model.
+A native input that uses `Field.Control`. Upstream: `packages/react/src/input/Input.tsx` at Base UI v1.8.0. Local: `src/lib/input/`. `Input` forwards its props to `Field.Control`. Outside `Field.Root`, the control uses the shared inert field.
 
 ## Sub-features
 
@@ -14,7 +14,7 @@ Differences from React Base UI, all deliberate:
 - No `ref`. The host element is the `<input>`, or whatever element the `render` snippet returns. Use `{@attach}` on `Input`, or `bind:this` on your own element.
 - No `className` or style objects. Use `class` and `style` strings.
 - `value` is one `$bindable`, matching `Field.Control`. Pass it, or `bind:value`, for a controlled input.
-- A standalone `Input` builds a private field model, so it mounts, accepts typing, and supports `bind:value` without `Field.Root`. Inside `Field.Root` it uses that field.
+- A standalone `Input` uses the shared inert field. It mounts, accepts typing, and supports `bind:value` without `Field.Root`. It does not validate, does not set `data-focused`, `data-dirty`, `data-filled`, or `data-touched`, and does not join form values. Inside `Field.Root` it uses that field.
 
 ## How to get to it (user POV)
 
@@ -43,12 +43,11 @@ Component tests (`src/lib/input/Input.svelte.spec.ts`) port the upstream conform
 
 ## Gotchas
 
-- Rendering `Input` outside `Field.Root` throws `FieldRootContext is missing`.
+- A standalone `Input` inside `Form` does not register, so submit reports `{}` even when the input is `required` or has a `name` and `defaultValue`.
 - Playwright's `fill()` replaces the whole value. A canceled `onValueChange` puts the controlled value back.
 - `toHaveAttribute` compares the attribute string. A regex is not a pattern match in the Vitest browser project. The Playwright e2e tests do accept a regex.
 
 ## Not ported
 
-- The upstream default field context that lets `Input` render outside `Field.Root`.
 - `className` and `style` state callbacks.
 - React `ref` forwarding.

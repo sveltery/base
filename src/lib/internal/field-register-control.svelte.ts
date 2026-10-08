@@ -75,8 +75,7 @@ class FieldRegistration {
  * Keep the field's control registration in step with `read`.
  * Call this while the component is initializing. `getValue` is not read here.
  */
-export function watchFieldControl(field: FieldRootModel | undefined, read: FieldControlRead) {
-	if (!field) return;
+export function watchFieldControl(field: FieldRootModel, read: FieldControlRead) {
 	new FieldRegistration(field, read).watch(read.element);
 }
 
@@ -84,10 +83,9 @@ export function watchFieldControl(field: FieldRootModel | undefined, read: Field
  * The attachment publishes the host element. Registration stays on one source.
  */
 export function attachFieldControl(
-	field: FieldRootModel | undefined,
+	field: FieldRootModel,
 	read: Omit<FieldControlRead, 'element'>
 ): Attachment<HTMLElement> {
-	if (!field) return () => {};
 	const registration = new FieldRegistration(field, read);
 	registration.watch(() => registration.element);
 	return (node) => {

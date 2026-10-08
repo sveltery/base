@@ -6,6 +6,7 @@
 import { page } from 'vitest/browser';
 import { describe, expect, it } from 'vitest';
 import { render } from 'vitest-browser-svelte';
+import { unprovidedFormFieldCount } from '../form/context.js';
 import InputHarness from '../../tests/InputHarness.svelte';
 
 function control() {
@@ -159,6 +160,42 @@ describe('<Input />', () => {
 			await input.fill('typed');
 			await expect.element(input).toHaveValue('typed');
 			await expect.element(page.getByTestId('value')).toHaveTextContent('typed');
+		});
+
+		it('submits nothing for a required named input outside Field.Root', async () => {
+			render(InputHarness, { scenario: 'form-required' });
+			const input = control();
+			await page.getByRole('button', { name: 'Submit' }).click();
+			await expect.element(page.getByTestId('values')).toHaveTextContent('{}');
+			expect(input.element().hasAttribute('data-invalid')).toBe(false);
+			expect(input.element().getAttribute('aria-invalid')).toBeNull();
+		});
+
+		it('leaves a named default value out of the form submission', async () => {
+			render(InputHarness, { scenario: 'form-named' });
+			await page.getByRole('button', { name: 'Submit' }).click();
+			await expect.element(page.getByTestId('values')).toHaveTextContent('{}');
+		});
+
+		it('does not register standalone inputs on the shared form map', async () => {
+			const before = unprovidedFormFieldCount();
+			render(InputHarness, { scenario: 'pair' });
+			await expect.element(page.getByTestId('one')).toBeVisible();
+			await expect.element(page.getByTestId('two')).toBeVisible();
+			expect(unprovidedFormFieldCount()).toBe(before);
+		});
+
+		it('does not mark focus, dirty, filled, or touched outside Field.Root', async () => {
+			render(InputHarness, { scenario: 'inert-state' });
+			const input = control();
+			await input.click();
+			expect(input.element().hasAttribute('data-focused')).toBe(false);
+			await input.fill('ab');
+			expect(input.element().hasAttribute('data-dirty')).toBe(false);
+			expect(input.element().hasAttribute('data-filled')).toBe(false);
+			input.element().dispatchEvent(new FocusEvent('blur', { bubbles: true }));
+			expect(input.element().hasAttribute('data-touched')).toBe(false);
+			expect(input.element().hasAttribute('data-focused')).toBe(false);
 		});
 	});
 });

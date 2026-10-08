@@ -54,7 +54,7 @@
 		...elementProps
 	}: NumberFieldRootProps = $props();
 
-	const field = useFieldContext(true);
+	const field = useFieldContext();
 	const form = useFormContext();
 	const labelable = useLabelableContext(true);
 
@@ -66,23 +66,22 @@
 		getDefault: () => defaultValue,
 		onChange(next, details) {
 			form.clearErrors(name);
-			field?.setDirty(next !== field.validityData.initialValue);
+			field.setDirty(next !== field.validityData.initialValue);
 			const reason = details?.reason;
 			// Blur already committed when this mode does not validate on change.
 			// A second pass would clear that result.
 			if (
 				(reason === 'input-blur' || reason === 'input-clear') &&
-				field &&
 				!field.shouldValidateOnChange()
 			) {
 				return;
 			}
-			field?.change(next);
+			field.change(next);
 		}
 	});
 	const current = $derived<number | null>(controllable.value ?? null);
-	const disabled = $derived(Boolean(field?.disabled) || disabledProp);
-	const name = $derived(field?.name ?? nameProp);
+	const disabled = $derived(Boolean(field.disabled) || disabledProp);
+	const name = $derived(field.name ?? nameProp);
 	const step = $derived(stepProp === 'any' ? 1 : stepProp);
 	const generatedId = $derived(`base-ui-${uid}`);
 	const controlId = $derived(labelable?.controlId || idProp || generatedId);
@@ -151,7 +150,7 @@
 		const next = model.handleHiddenChange(event);
 		if (next === false) return;
 		form.clearErrors(name);
-		field?.change(next);
+		field.change(next);
 	}
 
 	function hiddenFocused() {

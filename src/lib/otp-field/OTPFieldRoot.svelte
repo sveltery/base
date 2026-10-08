@@ -55,7 +55,7 @@
 		...elementProps
 	}: OTPFieldRootProps = $props();
 
-	const field = useFieldContext(true);
+	const field = useFieldContext();
 	const form = useFormContext();
 	const labelable = useLabelableContext(true);
 
@@ -64,8 +64,8 @@
 	const raw = $derived(linked ? (value ?? '') : uncontrolled);
 	const generatedId = $derived(`base-ui-${uid}`);
 	const controlId = $derived(labelable?.controlId || idProp || generatedId);
-	const disabled = $derived(Boolean(field?.disabled) || disabledProp);
-	const name = $derived(field?.name ?? nameProp);
+	const disabled = $derived(Boolean(field.disabled) || disabledProp);
+	const name = $derived(field.name ?? nameProp);
 
 	let hadExplicitId = false;
 

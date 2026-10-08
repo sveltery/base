@@ -29,6 +29,7 @@
 	let requiredSeen = $state('pending');
 	let actions = $state<{ validate: () => void } | undefined>();
 	let outerDisabled = $state(false);
+	let showLabel = $state(true);
 
 	function accept(formValues: Record<string, unknown>, details: { event: Event }) {
 		({ submitted, values } = takeForm(formValues, details, submitted));
@@ -63,6 +64,14 @@
 		<Field.Label data-testid="label">Email</Field.Label>
 		<Field.Control data-testid="control" />
 	</Field.Root>
+{:else if scenario === 'label-unmount'}
+	<Field.Root>
+		{#if showLabel}
+			<Field.Label data-testid="label">Email</Field.Label>
+		{/if}
+		<Field.Control data-testid="control" />
+	</Field.Root>
+	<button type="button" onclick={() => (showLabel = false)}>Remove label</button>
 {:else if scenario === 'explicit-id'}
 	<Field.Root>
 		<Field.Label data-testid="label">Email</Field.Label>
