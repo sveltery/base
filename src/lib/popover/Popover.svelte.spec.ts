@@ -7,6 +7,7 @@ import { render } from 'vitest-browser-svelte';
 import PopoverReviewHarness from '../../tests/PopoverReviewHarness.svelte';
 import PopoverFixture from '../../routes/fixtures/popover/PopoverFixture.svelte';
 import { Popover } from './index.js';
+import { PopoverStore } from './store.svelte.js';
 
 const moduleHandle = Popover.createHandle();
 
@@ -170,8 +171,86 @@ describe('Popover', () => {
 		expect(previous.getAttribute('aria-hidden')).toBe('true');
 		expect(previous.inert).toBe(true);
 		expect(
-			current.compareDocumentPosition(previous) & Node.DOCUMENT_POSITION_FOLLOWING
+			previous.compareDocumentPosition(current) & Node.DOCUMENT_POSITION_FOLLOWING
 		).toBeTruthy();
-		expect(previous.querySelector('input')?.value).toBe('kept');
+		await expect.poll(() => document.querySelector('[data-previous] input')?.value).toBe('kept');
+	});
+
+	it('copies the trigger being left when the viewport switches', async () => {
+		render(PopoverReviewHarness, { mode: 'viewport' });
+		await page.getByRole('button', { name: 'One' }).click();
+		await expect
+			.poll(() => document.querySelector('[data-current] [data-testid=pane-text]')?.textContent)
+			.toBe('content-AAA');
+		const seen: HTMLElement[] = [];
+		const observer = new MutationObserver(() => {
+			const previous = document.querySelector('[data-previous]');
+			if (previous instanceof HTMLElement && !seen.includes(previous)) seen.push(previous);
+		});
+		observer.observe(document.body, { subtree: true, childList: true, attributes: true });
+		await page.getByRole('button', { name: 'Two' }).click();
+		await expect
+			.poll(() => {
+				const previous = document.querySelector('[data-previous]') ?? seen[0];
+				return previous?.textContent ?? '';
+			})
+			.toContain('content-AAA');
+		observer.disconnect();
+		const previous = document.querySelector('[data-previous]') ?? seen[0];
+		expect(previous?.textContent ?? '').not.toContain('content-BBB');
+		expect(document.querySelector('[data-current] [data-testid=pane-text]')?.textContent).toBe(
+			'content-BBB'
+		);
+	});
+
+	it('keeps the live radio checked when the viewport switches triggers', async () => {
+		render(PopoverReviewHarness, { mode: 'viewport' });
+		await page.getByRole('button', { name: 'One' }).click();
+		const live = page.getByTestId('live-radio').element();
+		if (!(live instanceof HTMLInputElement)) throw new Error('missing radio');
+		live.checked = true;
+		const seen: HTMLElement[] = [];
+		const observer = new MutationObserver(() => {
+			const previous = document.querySelector('[data-previous]');
+			if (previous instanceof HTMLElement && !seen.includes(previous)) seen.push(previous);
+		});
+		observer.observe(document.body, { subtree: true, childList: true, attributes: true });
+		await page.getByRole('button', { name: 'Two' }).click();
+		await expect
+			.poll(() => {
+				const previous = document.querySelector('[data-previous]') ?? seen[0];
+				return previous?.querySelector('input[type="radio"]') ?? null;
+			})
+			.toBeTruthy();
+		observer.disconnect();
+		const previous = document.querySelector('[data-previous]') ?? seen[0];
+		const current = document.querySelector('[data-current] [data-testid=live-radio]');
+		const copied = previous?.querySelector('input[type="radio"]');
+		if (!(current instanceof HTMLInputElement) || !(copied instanceof HTMLInputElement)) {
+			throw new Error('missing radios');
+		}
+		expect(current.checked).toBe(true);
+		expect(copied.hasAttribute('name')).toBe(false);
+	});
+
+	it('registers each trigger once across an open and a switch', async () => {
+		let notes = 0;
+		const original = PopoverStore.prototype.noteTrigger;
+		PopoverStore.prototype.noteTrigger = function (this: PopoverStore, ...args) {
+			notes += 1;
+			return original.apply(this, args);
+		};
+		try {
+			render(PopoverReviewHarness, { mode: 'viewport' });
+			await page.getByRole('button', { name: 'One' }).click();
+			await expect.element(page.getByRole('dialog')).toBeVisible();
+			await page.getByRole('button', { name: 'Two' }).click();
+			await expect
+				.poll(() => document.querySelector('[data-current] [data-testid=pane-text]')?.textContent)
+				.toBe('content-BBB');
+			expect(notes).toBe(2);
+		} finally {
+			PopoverStore.prototype.noteTrigger = original;
+		}
 	});
 });

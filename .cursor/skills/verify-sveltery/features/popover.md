@@ -15,7 +15,7 @@ An anchored dialog opened from a trigger. Upstream: `packages/react/src/popover`
 - `Popover.Popup` is `role="dialog"`. Focus moves inside on click open. The shared focus manager returns focus through `returnFocus` after the popup closes. `finalFocus` is forwarded: its function receives the close interaction, and `null` falls back to the trigger. Hover open does not move focus. `initialFocus` accepts a boolean, an element, or a function of the open method (`PopupStore.openMethod`). The function runs once per open, when focus moves. Touch focuses the popup itself.
 - `Popover.Close` closes with `close-press` and is what turns `modal` into a focus trap.
 - `Popover.Title` and `Popover.Description` share one label part. They set `aria-labelledby` and `aria-describedby` from the prop id when the element mounts.
-- `Popover.Arrow` tracks the anchor. `Popover.Viewport` keeps the live snippet first. The previous view is a cloned node with ids removed, `inert`, and `aria-hidden`, placed after the current view. Width and height CSS variables travel on the style attribute. They are measured again when the payload changes and return to `auto` after the size animation.
+- `Popover.Arrow` tracks the anchor. `Popover.Viewport` copies the current pane in `$effect.pre` when the trigger switches, before the new trigger's content renders. That copy is `inert` and `aria-hidden`, with ids and radio `name`s removed, and it is rendered only while the cross-fade runs, before the live pane. Width and height CSS variables travel on the style attribute. They are measured again when the payload changes and return to `auto` after the size animation.
 - `Popover.createHandle()` is a plain class. Its attached store is `$state.raw`. Calling it at module scope creates no effects. A trigger outside the root stays mounted and reads that store when the root attaches. `handle.open(id)`, `handle.close()`, and `handle.unmount()` are the imperative API.
 
 ## Source correspondence
@@ -24,7 +24,7 @@ An anchored dialog opened from a trigger. Upstream: `packages/react/src/popover`
 | --------------------------------- | ------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------ |
 | `open` / `defaultOpen`            | `$bindable` `open` and `defaultOpen`                                            | Open state uses the shared controllable-value helper. `defaultOpen` applies when `open` is unset |
 | `PopoverStore.setOpen`            | `PopoverStore` over the shared `PopupStore`                                     | Deferred `preventUnmountOnClose`, hover stick, and `data-instant`                                |
-| `useClick` / `useDismiss` / hover | Shared floating-ui hooks                                                        | Outside press uses one mode. `trap-focus` is sloppy. Other modals are intentional                |
+| `useClick` / `useDismiss` / hover | Shared floating-ui hooks                                                        | Mouse is `intentional` except `trap-focus` (`sloppy`). Touch is `sloppy`                         |
 | `FloatingFocusManager`            | Shared focus manager                                                            | The popup is the floating element so the trap wraps the dialog                                   |
 | `useAnchorPositioning`            | Shared positioning                                                              | `disableAnchorTracking` still leaves `ancestorResize` on                                         |
 | `actionsRef`                      | `bind:this` on `Popover.Root` (`close`, `unmount`) and `Popover.createHandle()` | No `{ current }` ref bag                                                                         |
@@ -37,8 +37,8 @@ Differences from React Base UI, all deliberate:
 - No `ref` and no `actionsRef`. Use `{@attach}`, `bind:this`, or `Popover.createHandle()`.
 - `class` and `style` are strings.
 - Generated ids use `$props.id()` with a `base-ui-` prefix.
-- The landed dismiss hook takes one outside-press mode for mouse and touch.
-- Arrow keys inside a toolbar stay in the popup when the trigger or popup has `role="toolbar"`. Popover does not import Toolbar context.
+- Arrow keys inside a toolbar stay in the popup when the trigger or popup has `role="toolbar"`. The key set is the shared `COMPOSITE_KEYS`. Popover does not import Toolbar context.
+- A cloned radio in the previous viewport pane does not keep its `name`. Upstream's clone unchecks the live radio. See `docs/upstream-differences.md`.
 
 ## How to get to it (user POV)
 

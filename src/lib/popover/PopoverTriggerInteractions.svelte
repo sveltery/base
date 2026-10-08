@@ -50,10 +50,12 @@
 	}));
 	const guards = useTriggerFocusGuards(store, triggerEl);
 
-	onArmed({
-		click: click.reference,
-		hover: hover.reference,
-		attach: hover.attachReference,
-		guards
+	$effect(() => {
+		onArmed({
+			click: click.reference,
+			hover: hover.reference,
+			attach: hover.attachReference,
+			guards
+		});
 	});
 </script>

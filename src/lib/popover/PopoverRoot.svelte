@@ -68,7 +68,10 @@
 	setPopoverRoot(store);
 
 	const dismiss = useDismiss(store, () => ({
-		outsidePressEvent: () => (store.modal === 'trap-focus' ? 'sloppy' : 'intentional')
+		outsidePressEvent: () => ({
+			mouse: store.modal === 'trap-focus' ? 'sloppy' : 'intentional',
+			touch: 'sloppy'
+		})
 	}));
 	dismissReference = dismiss.reference as HTMLAttributes<HTMLElement>;
 	dismissFloating = dismiss.floating as HTMLAttributes<HTMLElement>;
