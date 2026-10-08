@@ -14,6 +14,7 @@ import PopoverOpenCompleteStateHarness from '../../tests/PopoverOpenCompleteStat
 import PortalRenderHarness from '../../tests/PortalRenderHarness.svelte';
 import PopoverReviewHarness from '../../tests/PopoverReviewHarness.svelte';
 import PopoverFixture from '../../routes/fixtures/popover/PopoverFixture.svelte';
+import PopoverDisabledHostHarness from '../../tests/PopoverDisabledHostHarness.svelte';
 import { Popover, PopoverHandle } from './index.js';
 import { PopoverStore } from './store.svelte.js';
 
@@ -185,6 +186,27 @@ describe('Popover', () => {
 		await page.getByRole('button', { name: 'Open' }).click();
 		await expect.poll(() => page.getByRole('dialog').elements().length).toBe(0);
 		expect(page.getByTestId('calls').element().textContent).toBe('[]');
+	});
+
+	it('does not navigate from a disabled link trigger', async () => {
+		location.hash = '';
+		render(PopoverDisabledHostHarness, { host: 'link' });
+		// aria-disabled blocks Playwright's actionability check. A forced click is still a real click.
+		await page.getByRole('button', { name: 'Open' }).click({ force: true });
+		expect(location.hash).not.toBe('#navigated174');
+		await expect.poll(() => page.getByRole('dialog').elements().length).toBe(0);
+	});
+
+	it('prevents click and pointerdown on a disabled span trigger', async () => {
+		render(PopoverDisabledHostHarness, { host: 'span' });
+		const trigger = page.getByRole('button', { name: 'Open' }).element();
+		const click = new MouseEvent('click', { bubbles: true, cancelable: true });
+		const pointerdown = new PointerEvent('pointerdown', { bubbles: true, cancelable: true });
+		trigger.dispatchEvent(click);
+		trigger.dispatchEvent(pointerdown);
+		expect(click.defaultPrevented).toBe(true);
+		expect(pointerdown.defaultPrevented).toBe(true);
+		await expect.poll(() => page.getByRole('dialog').elements().length).toBe(0);
 	});
 
 	it('does not open a disabled trigger', async () => {

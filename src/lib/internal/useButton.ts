@@ -29,10 +29,14 @@ function buttonProps(disabled: boolean, nativeButton: boolean) {
 function guardDisabled(disabled: boolean) {
 	return {
 		onclick(event: MouseEvent) {
-			if (disabled) event.preventBaseUIHandler?.();
+			if (!disabled) return;
+			event.preventDefault();
+			event.preventBaseUIHandler?.();
 		},
 		onpointerdown(event: PointerEvent) {
-			if (disabled) event.preventBaseUIHandler?.();
+			if (!disabled) return;
+			event.preventDefault();
+			event.preventBaseUIHandler?.();
 		},
 		onmousedown(event: MouseEvent) {
 			if (disabled) event.preventBaseUIHandler?.();
