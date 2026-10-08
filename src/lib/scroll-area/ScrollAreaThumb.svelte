@@ -6,10 +6,11 @@
 <script lang="ts">
 	import { createAttachmentKey } from 'svelte/attachments';
 	import type { HTMLAttributes } from 'svelte/elements';
+	import { mergeCssStyle, toCssStyle } from '../internal/css-style.js';
 	import { getStateAttributesProps } from '../internal/state-attributes.js';
 	import { useScrollAreaRootContext, useScrollAreaScrollbarContext } from './context.svelte.js';
 	import { scrollAreaThumbHeight, scrollAreaThumbWidth } from './css-vars.js';
-	import { chain, cssText, joinStyles } from './style.js';
+	import { chain } from './style.js';
 	import type { ScrollAreaThumbProps } from './types.js';
 
 	const attachmentKey = createAttachmentKey();
@@ -58,15 +59,17 @@
 	const hostProps: HTMLAttributes<HTMLDivElement> = $derived({
 		...getStateAttributesProps(partState),
 		...elementProps,
-		style: joinStyles(
-			cssText({
-				visibility: model.hasMeasuredScrollbar ? undefined : 'hidden',
-				...(vertical
-					? { height: `var(${scrollAreaThumbHeight})` }
-					: { width: `var(${scrollAreaThumbWidth})` })
-			}),
-			style,
-			cssText({
+		style: mergeCssStyle(
+			mergeCssStyle(
+				toCssStyle({
+					visibility: model.hasMeasuredScrollbar ? undefined : 'hidden',
+					...(vertical
+						? { height: `var(${scrollAreaThumbHeight})` }
+						: { width: `var(${scrollAreaThumbWidth})` })
+				}),
+				style
+			),
+			toCssStyle({
 				transform: vertical
 					? `translate3d(0,${model.thumbYOffset}px,0)`
 					: `translate3d(${model.thumbXOffset}px,0,0)`,

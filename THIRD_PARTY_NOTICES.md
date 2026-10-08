@@ -36,7 +36,6 @@ Parts of this package derive from [Base UI](https://github.com/mui/base-ui) v1.8
 - `src/lib/field/labelable.svelte.ts` from `packages/react/src/internals/labelable-provider/LabelableProvider.tsx` and `useLabelableId.ts`
 - `src/lib/field/validity.ts` from `packages/react/src/field/utils/getCombinedFieldValidityData.ts` and `isEligibleInput` in `useFieldValidation.ts`
 - `src/lib/field/transition.svelte.ts` from `packages/react/src/internals/useTransitionStatus.ts` (`enableIdleState`, `deferEndingState`, and `animateInitialOpen` all false)
-- `src/lib/field/animations.ts` from `packages/react/src/internals/useAnimationsFinished.ts`
 - `src/lib/field/attributes.ts` from `packages/react/src/internals/field-constants/constants.ts` and `packages/react/src/internals/stateAttributesMapping.ts`
 - `src/lib/field/context.svelte.ts` from `packages/react/src/internals/field-root-context/FieldRootContext.ts` and `packages/react/src/field/item/FieldItemContext.ts`
 - `src/lib/field/Field.svelte.spec.ts` assertions from `packages/react/src/field/**/*.test.tsx` that do not require Checkbox, Radio, or NumberField
@@ -97,7 +96,8 @@ Parts of this package derive from [Base UI](https://github.com/mui/base-ui) v1.8
 - `src/lib/switch/Switch.svelte.spec.ts` assertions from `packages/react/src/switch/root/SwitchRoot.test.tsx` and `packages/react/src/switch/thumb/SwitchThumb.test.tsx` that do not require Field
 - `src/lib/checkbox/CheckboxRoot.svelte` from `packages/react/src/checkbox/root/CheckboxRoot.tsx`, the non-composite paths of `packages/react/src/internals/use-button/useButton.ts`, and the native-label fallback of `packages/react/src/internals/labelable-provider/useAriaLabelledBy.ts`
 - `src/lib/checkbox/CheckboxIndicator.svelte` from `packages/react/src/checkbox/indicator/CheckboxIndicator.tsx`, `packages/react/src/internals/useTransitionStatus.ts`, and `packages/react/src/internals/useOpenChangeComplete.tsx`
-- `src/lib/internal/animations-finished.ts` from `packages/react/src/internals/useAnimationsFinished.ts` (the checkbox, radio, and tabs indicator path)
+- `src/lib/internal/animations-finished.ts` from `packages/react/src/internals/useAnimationsFinished.ts` (checkbox, radio, tabs, field error, and collapsible)
+- `src/lib/internal/composite-skip.ts` from the skip rule in `packages/react/src/internals/composite/root/useCompositeRoot.ts` (Tabs and Toolbar; RadioGroup keeps its own `aria-disabled` skip)
 - `src/lib/checkbox/submitter.ts` from `packages/utils/src/getDefaultFormSubmitter.ts`
 - `src/lib/checkbox/context.ts` from `packages/react/src/checkbox/root/CheckboxRootContext.ts`
 - `src/lib/checkbox/attributes.ts` from `packages/react/src/checkbox/utils/getCheckboxStateAttributesMapping.ts` (Field validity attributes omitted)
@@ -144,7 +144,6 @@ Parts of this package derive from [Base UI](https://github.com/mui/base-ui) v1.8
 - `src/lib/number-field/press-and-hold.svelte.ts` from `packages/react/src/internals/usePressAndHold.ts`
 - `src/lib/number-field/parse.ts` and `validate.ts` from `packages/react/src/number-field/utils/parse.ts` and `validate.ts`
 - `src/lib/number-field/viewport.ts` from `packages/react/src/number-field/utils/getViewportRect.ts`
-- `src/lib/number-field/dom.ts` from `packages/utils/src/addEventListener.ts`
 - `src/lib/number-field/NumberField.svelte.spec.ts` assertions from `packages/react/src/number-field/**/*.test.tsx` that do not require React refs or `className` callbacks
 - `src/lib/internal/event-details.ts` also exports the number-field change reasons (`input-change`, `input-clear`, `input-blur`, `input-paste`, `keyboard`, `increment-press`, `decrement-press`, `wheel`, `scrub`) and the slider reasons (`track-press`, `drag`)
 - `src/lib/scroll-area/ScrollAreaRoot.svelte` and `src/lib/scroll-area/model.svelte.ts` from `packages/react/src/scroll-area/root/ScrollAreaRoot.tsx` and `ScrollAreaRootContext.ts`
@@ -156,7 +155,7 @@ Parts of this package derive from [Base UI](https://github.com/mui/base-ui) v1.8
 - `src/lib/scroll-area/attributes.ts` from the scroll-area `*DataAttributes.ts` modules and `root/stateAttributes.ts`
 - `src/lib/scroll-area/css-vars.ts` from the scroll-area `*CssVars.ts` modules
 - `src/lib/scroll-area/geometry.ts` from `packages/react/src/utils/scrollEdges.ts` and the pure helpers in `ScrollAreaRoot.tsx` / `ScrollAreaViewport.tsx`
-- `src/lib/scroll-area/dom.ts` from `packages/utils/src/addEventListener.ts` and `packages/react/src/scroll-area/utils/getOffset.ts`
+- `src/lib/scroll-area/dom.ts` from `packages/react/src/scroll-area/utils/getOffset.ts`
 - `src/lib/scroll-area/ScrollArea.svelte.spec.ts` assertions from `packages/react/src/scroll-area/**/*.test.tsx` that do not require React refs, `className` callbacks, or `DirectionProvider` (direction is the root element's used CSS `direction`)
 - `src/lib/slider/SliderRoot.svelte` and `src/lib/slider/model.svelte.ts` from `packages/react/src/slider/root/SliderRoot.tsx` and `packages/react/src/slider/control/SliderControl.tsx`
 - `src/lib/slider/SliderControl.svelte` from `packages/react/src/slider/control/SliderControl.tsx`
@@ -166,7 +165,7 @@ Parts of this package derive from [Base UI](https://github.com/mui/base-ui) v1.8
 - `src/lib/slider/SliderLabel.svelte` from `packages/react/src/slider/label/SliderLabel.tsx` and the non-native path of `packages/react/src/internals/labelable-provider/useLabel.ts`
 - `src/lib/slider/SliderValue.svelte` from `packages/react/src/slider/value/SliderValue.tsx`
 - `src/lib/slider/asc.ts`, `roundValueToStep.ts`, `getSliderValue.ts`, `validateMinimumDistance.ts`, `getMidpoint.ts`, `getPushedThumbValues.ts`, and `resolveThumbCollision.ts` from the matching files in `packages/react/src/slider/utils`
-- `src/lib/slider/dom.ts` from `packages/utils/src/addEventListener.ts` and the `isElement`, `matchesFocusVisible`, and `focusElement` helpers Slider calls
+- `src/lib/slider/dom.ts` from the `isElement`, `matchesFocusVisible`, and `focusElement` helpers Slider calls
 - `src/lib/slider/Slider.svelte.spec.ts` assertions from `packages/react/src/slider/**/*.test.tsx` that do not require React refs or `className` callbacks
 - `src/lib/direction-provider/DirectionProvider.svelte` from `packages/react/src/direction-provider/DirectionProvider.tsx`
 - `src/lib/internal/direction-context.ts` from `packages/react/src/internals/direction-context/DirectionContext.tsx`

@@ -2,7 +2,7 @@
 // (commit 47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c). MIT, see THIRD_PARTY_NOTICES.md.
 
 import { ownerWindow } from '../internal/owner.js';
-import { addEventListener } from './dom.js';
+import { on } from 'svelte/events';
 
 const TICK_DELAY = 60;
 const START_DELAY = 400;
@@ -74,9 +74,9 @@ export function createPressAndHold(options: PressAndHoldOptions) {
 			event.preventDefault();
 		}
 
-		removeContextMenu = addEventListener(view, 'contextmenu', handleContextMenu);
+		removeContextMenu = on(view, 'contextmenu', handleContextMenu);
 		removePointerUp?.();
-		removePointerUp = addEventListener(
+		removePointerUp = on(
 			view,
 			'pointerup',
 			(event) => {

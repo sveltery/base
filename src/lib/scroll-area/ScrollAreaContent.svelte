@@ -7,10 +7,10 @@
 	import { untrack } from 'svelte';
 	import { createAttachmentKey } from 'svelte/attachments';
 	import type { HTMLAttributes } from 'svelte/elements';
+	import { mergeCssStyle, toCssStyle } from '../internal/css-style.js';
 	import { getStateAttributesProps } from '../internal/state-attributes.js';
 	import { scrollAreaStateAttributesMapping } from './attributes.js';
 	import { useScrollAreaRootContext, useScrollAreaViewportContext } from './context.svelte.js';
-	import { cssText, joinStyles } from './style.js';
 	import type { ScrollAreaContentProps } from './types.js';
 
 	const attachmentKey = createAttachmentKey();
@@ -43,7 +43,7 @@
 		...getStateAttributesProps(partState, scrollAreaStateAttributesMapping),
 		role: 'presentation',
 		...elementProps,
-		style: joinStyles(cssText({ minWidth: 'fit-content' }), style),
+		style: mergeCssStyle(toCssStyle({ minWidth: 'fit-content' }), style),
 		...(render ? { [attachmentKey]: remember } : {})
 	});
 </script>

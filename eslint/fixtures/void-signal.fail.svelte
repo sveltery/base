@@ -42,10 +42,34 @@
 		sync(disabledState);
 	});
 
+	let height = 0;
+	let width = 0;
+	$effect(() => {
+		const _height = height;
+		const _width = width;
+		return 0;
+	});
+
 	function publish(current: { validate?: () => void } | undefined) {
 		const incoming = current?.validate;
 		actions = actionsHandle;
 		return incoming;
 	}
 	publish(actions);
+
+	function syncCopied(disabled = false) {
+		const itemDisabled = disabled;
+		untrack(() => {
+			if (itemDisabled) return 1;
+		});
+	}
+	syncCopied(disabledState);
+
+	function syncToolbar(disabled = false, focusableWhenDisabled = true) {
+		const nativeDisabled = disabled && !focusableWhenDisabled;
+		untrack(() => {
+			if (nativeDisabled) return 1;
+		});
+	}
+	syncToolbar(disabledState, focusableWhenDisabled);
 </script>

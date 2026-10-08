@@ -1,6 +1,7 @@
 /**
  * Reject cloned events and fake targets.
- * `new event.constructor(...)` and `Object.defineProperty(event, 'target', ...)`.
+ * `new event.constructor(...)`, `new Alias(...)` when Alias was read from
+ * `.constructor`, and `Object.defineProperty(event, 'target', ...)`.
  *
  * @type {import('eslint').Rule.RuleModule}
  */
@@ -10,13 +11,25 @@ import { nameOf, unwrap } from './effects.js';
  * @param {unknown} node
  * @returns {boolean}
  */
-function isConstructorClone(node) {
+function isConstructorMember(node) {
+	const value = unwrap(node);
+	return Boolean(
+		value && value.type === 'MemberExpression' && nameOf(value.property) === 'constructor'
+	);
+}
+
+/**
+ * @param {unknown} node
+ * @param {Set<string>} aliases
+ * @returns {boolean}
+ */
+function isConstructorClone(node, aliases) {
 	const value = unwrap(node);
 	if (!value || value.type !== 'NewExpression') return false;
 	const callee = unwrap(value.callee);
-	return Boolean(
-		callee && callee.type === 'MemberExpression' && nameOf(callee.property) === 'constructor'
-	);
+	if (!callee) return false;
+	if (callee.type === 'MemberExpression' && nameOf(callee.property) === 'constructor') return true;
+	return callee.type === 'Identifier' && aliases.has(callee.name);
 }
 
 /**
@@ -47,9 +60,29 @@ const rule = {
 		}
 	},
 	create(context) {
+		/** @type {Set<string>} */
+		const aliases = new Set();
+
+		/**
+		 * @param {unknown} id
+		 * @param {unknown} init
+		 */
+		function remember(id, init) {
+			if (!id || typeof id !== 'object' || !('type' in id) || id.type !== 'Identifier') return;
+			if (!isConstructorMember(init)) return;
+			if (typeof id.name === 'string') aliases.add(id.name);
+		}
+
 		return {
+			VariableDeclarator(node) {
+				remember(node.id, node.init);
+			},
+			AssignmentExpression(node) {
+				if (node.operator !== '=') return;
+				remember(node.left, node.right);
+			},
 			NewExpression(node) {
-				if (isConstructorClone(node)) context.report({ node, messageId: 'clonedEvent' });
+				if (isConstructorClone(node, aliases)) context.report({ node, messageId: 'clonedEvent' });
 			},
 			CallExpression(node) {
 				if (redefinesTarget(node)) context.report({ node, messageId: 'clonedEvent' });

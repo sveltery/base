@@ -107,6 +107,9 @@ describe('sveltery/no-void-signal-read', () => {
 		expect(lines.some((line) => line.includes('refreshRoot(style, dir)'))).toBe(true);
 		expect(lines.some((line) => line.includes('sync(disabledState)'))).toBe(true);
 		expect(lines.some((line) => line.includes('publish(actions)'))).toBe(true);
+		expect(lines.some((line) => line.includes('const _height = height'))).toBe(true);
+		expect(lines.some((line) => line.includes('const itemDisabled = disabled'))).toBe(true);
+		expect(lines.some((line) => line.includes('const nativeDisabled ='))).toBe(true);
 	});
 
 	it('allows passing signals into a function and publishing a bindable by assignment', async () => {

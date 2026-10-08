@@ -9,6 +9,7 @@
 	import { createAttachmentKey } from 'svelte/attachments';
 	import type { HTMLAttributes } from 'svelte/elements';
 	import { useCSPContext } from '../internal/csp-context.js';
+	import { mergeCssStyle, toCssStyle } from '../internal/css-style.js';
 	import { useDirection } from '../internal/direction-context.js';
 	import { getStateAttributesProps } from '../internal/state-attributes.js';
 	import { scrollAreaStateAttributesMapping } from './attributes.js';
@@ -16,7 +17,7 @@
 	import { setScrollAreaContext } from './context.svelte.js';
 	import { scrollAreaCornerHeight, scrollAreaCornerWidth } from './css-vars.js';
 	import { ScrollAreaModel } from './model.svelte.js';
-	import { chain, cssText, joinStyles } from './style.js';
+	import { chain } from './style.js';
 	import type { ScrollAreaRootProps } from './types.js';
 
 	const uid = $props.id();
@@ -39,6 +40,8 @@
 	const csp = useCSPContext();
 	const model = new ScrollAreaModel(() => overflowEdgeThreshold, `base-ui-${uid}`);
 	model.readDirection = () => reading.direction;
+	model.readStyle = () => style;
+	model.readDir = () => dir;
 	setScrollAreaContext(model);
 
 	let el = $state<HTMLDivElement | null>(null);
@@ -60,7 +63,7 @@
 	});
 
 	$effect(() => {
-		model.refreshLayout(style, dir, overflowEdgeThreshold);
+		model.refreshLayout(overflowEdgeThreshold);
 	});
 
 	$effect(() => {
@@ -74,8 +77,8 @@
 		role: 'presentation',
 		...elementProps,
 		dir,
-		style: joinStyles(
-			cssText({
+		style: mergeCssStyle(
+			toCssStyle({
 				position: 'relative',
 				[scrollAreaCornerHeight]: `${model.cornerSize.height}px`,
 				[scrollAreaCornerWidth]: `${model.cornerSize.width}px`

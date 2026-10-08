@@ -6,6 +6,7 @@
 <script lang="ts">
 	import { createAttachmentKey } from 'svelte/attachments';
 	import type { HTMLAttributes } from 'svelte/elements';
+	import { mergeCssStyle, toCssStyle } from '../internal/css-style.js';
 	import { getStateAttributesProps } from '../internal/state-attributes.js';
 	import { scrollAreaStateAttributesMapping } from './attributes.js';
 	import { DISABLE_SCROLLBAR_CLASS } from './constants.js';
@@ -16,7 +17,7 @@
 		scrollAreaOverflowYEnd,
 		scrollAreaOverflowYStart
 	} from './css-vars.js';
-	import { chain, cssText, joinStyles, mergeClass } from './style.js';
+	import { chain, mergeClass } from './style.js';
 	import type { ScrollAreaViewportProps } from './types.js';
 
 	const attachmentKey = createAttachmentKey();
@@ -60,7 +61,7 @@
 	});
 
 	$effect(() => {
-		model.queueThumb(model.hiddenState, model.direction, model.layoutEpoch);
+		model.queueThumb(model.hiddenState);
 	});
 
 	$effect(() => {
@@ -80,10 +81,9 @@
 		tabindex: model.hiddenState.x && model.hiddenState.y ? -1 : 0,
 		...elementProps,
 		class: mergeClass(DISABLE_SCROLLBAR_CLASS, className),
-		style: joinStyles(
-			cssText({ overflow: 'scroll' }),
-			style,
-			cssText({
+		style: mergeCssStyle(
+			mergeCssStyle(toCssStyle({ overflow: 'scroll' }), style),
+			toCssStyle({
 				[scrollAreaOverflowXStart]: `${model.overflowXStartPx}px`,
 				[scrollAreaOverflowXEnd]: `${model.overflowXEndPx}px`,
 				[scrollAreaOverflowYStart]: `${model.overflowYStartPx}px`,

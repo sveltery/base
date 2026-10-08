@@ -162,7 +162,9 @@ export class SliderRootModel {
 	dragging = $state(false);
 	indicatorPosition = $state<(number | undefined)[]>([undefined, undefined]);
 	labelId = $state<string | undefined>(undefined);
-	direction = $state<'ltr' | 'rtl'>('ltr');
+	get direction(): 'ltr' | 'rtl' {
+		return this.options.getDirection();
+	}
 	hydrating = $state(true);
 	control = $state<HTMLElement | null>(null);
 	root = $state<HTMLElement | null>(null);
@@ -348,11 +350,6 @@ export class SliderRootModel {
 		if (this.styles == null) this.styles = ownerWindow(element).getComputedStyle(element);
 	}
 
-	syncDirection() {
-		const next = this.options.getDirection();
-		if (next !== this.direction) this.direction = next;
-	}
-
 	/**
 	 * Applies a value through `onValueChange`. Returns false when the value is
 	 * NaN, unchanged, or the change was canceled.
@@ -435,7 +432,6 @@ export class SliderRootModel {
 		const thumbValue = this.values[index];
 		if (!Number.isFinite(thumbValue)) return;
 
-		this.syncDirection();
 		const rtl = this.direction === 'rtl';
 
 		let newValue: number | null = null;
@@ -650,8 +646,6 @@ export class SliderRootModel {
 		this.pressedValues = this.range ? this.values.slice() : null;
 		this.currentInteractionValue = null;
 		this.latestValues = this.values.slice();
-		this.syncDirection();
-
 		const pressedThumbIndex = this.pressedThumbIndex;
 		let closestThumbIndex = pressedThumbIndex;
 		const values = this.values;

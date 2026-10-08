@@ -1,6 +1,5 @@
 /**
- * `getComputedStyle(...).direction` belongs in `src/lib/internal/text-direction.ts`.
- * Components read `useDirection().direction`.
+ * Components read `useDirection().direction`. Computed style direction is not a source.
  *
  * @type {import('eslint').Rule.RuleModule}
  */
@@ -10,8 +9,7 @@ const rule = {
 	meta: {
 		type: 'problem',
 		docs: {
-			description:
-				'Disallow getComputedStyle(...).direction outside the internal text-direction helper.'
+			description: 'Disallow getComputedStyle(...).direction. Read useDirection().direction.'
 		},
 		schema: [],
 		messages: {
@@ -21,7 +19,6 @@ const rule = {
 	},
 	create(context) {
 		const filename = context.filename.replaceAll('\\', '/');
-		if (filename.includes('/src/lib/internal/text-direction.')) return {};
 		if (filename.includes('.spec.')) return {};
 
 		return {

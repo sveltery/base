@@ -1,19 +1,6 @@
-// Derived from Base UI v1.8.0 packages/utils/src/addEventListener.ts and
-// packages/react/src/scroll-area/utils/getOffset.ts
+// Derived from Base UI v1.8.0 packages/react/src/scroll-area/utils/getOffset.ts
 // (commit 47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c). MIT, see THIRD_PARTY_NOTICES.md.
 // `contains` and `getTarget` live in `src/lib/internal/shadow-dom.ts`.
-
-export function addEventListener(
-	target: EventTarget,
-	type: string,
-	listener: EventListener,
-	options?: boolean | AddEventListenerOptions
-) {
-	target.addEventListener(type, listener, options);
-	return () => {
-		target.removeEventListener(type, listener, options);
-	};
-}
 
 export function getOffset(
 	element: Element | null,

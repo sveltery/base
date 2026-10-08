@@ -50,12 +50,12 @@ describe('context rules', () => {
 		expect(foreign.some((message) => message.includes('context module'))).toBe(true);
 	});
 
-	it('allows the internal helper, a spec, and a shared field context', async () => {
+	it('rejects a computed direction read on library code and allows a spec', async () => {
 		const helper = await messages(
 			'export const rtl = getComputedStyle(element).direction;\n',
-			repoPath('src/lib/internal/text-direction.ts')
+			repoPath('src/lib/slider/model.svelte.ts')
 		);
-		expect(helper).toEqual([]);
+		expect(helper.some((message) => message.includes('useDirection()'))).toBe(true);
 
 		const spec = await messages(
 			'expect(getComputedStyle(node).direction).toBe("rtl");\n',

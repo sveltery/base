@@ -7,9 +7,9 @@
 <script lang="ts">
 	import { createAttachmentKey } from 'svelte/attachments';
 	import type { HTMLAttributes } from 'svelte/elements';
+	import { runOnceAnimationsFinish } from '../internal/animations-finished.js';
 	import { getStateAttributesProps } from '../internal/state-attributes.js';
 	import { fieldValidityMapping, transitionStatusMapping } from './attributes.js';
-	import { runOnceAnimationsFinish } from './animations.js';
 	import { useFieldContext } from './context.svelte.js';
 	import { useLabelableContext } from './labelable.svelte.js';
 	import { FieldTransition } from './transition.svelte.js';
@@ -68,6 +68,7 @@
 				if (!open) transition.setMounted(false);
 			},
 			controller.signal,
+			false,
 			open
 		);
 		return () => controller.abort();
