@@ -209,6 +209,30 @@ describe('Popover', () => {
 		await expect.poll(() => page.getByRole('dialog').elements().length).toBe(0);
 	});
 
+	it('skips the toggle when an iframe event calls preventBaseUIHandler', async () => {
+		const iframe = document.createElement('iframe');
+		document.body.appendChild(iframe);
+		const frameWindow = iframe.contentWindow;
+		const frameDocument = iframe.contentDocument;
+		if (!frameWindow || !frameDocument) throw new Error('iframe window missing');
+		const container = frameDocument.createElement('div');
+		frameDocument.body.appendChild(container);
+		try {
+			render(PopoverDisabledHostHarness, { props: { host: 'iframe' }, target: container });
+			const trigger = frameDocument.querySelector('[aria-haspopup="dialog"]');
+			if (!trigger) throw new Error('iframe trigger missing');
+			const event = new frameWindow.MouseEvent('click', { bubbles: true, cancelable: true });
+			trigger.dispatchEvent(event);
+			await expect
+				.poll(() => frameDocument.querySelector('[data-testid="opens"]')?.textContent)
+				.toBe('0');
+			await expect.poll(() => document.querySelectorAll('[role="dialog"]').length).toBe(0);
+			expect(event.baseUIHandlerPrevented).toBe(true);
+		} finally {
+			iframe.remove();
+		}
+	});
+
 	it('does not open a disabled trigger', async () => {
 		render(PopoverFixture, { scenario: 'disabled' });
 		const trigger = page.getByRole('button', { name: 'Open' });

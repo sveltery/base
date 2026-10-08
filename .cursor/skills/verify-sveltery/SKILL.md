@@ -102,7 +102,7 @@ For behavior no spec covers yet, run `pnpm dev`, open `http://localhost:5173/fix
 React exists only in `src/routes/fixtures/**/react-reference.ts` (devDependencies). Do not port these, and do not treat their absence as a failure:
 
 - Hooks, StrictMode double-mounting, effect dependency arrays, layout or insertion effects
-- Synthetic events: Svelte uses native events. `mergeProps` installs `preventBaseUIHandler()` on the DOM event. A consumer handler calls it to skip the handlers merged to its left. `preventDefault()` does not skip those handlers. Parts that call the consumer handler themselves still treat `preventDefault()` as the skip signal
+- Synthetic events: Svelte uses native events. `mergeProps` installs `preventBaseUIHandler()` when the argument has an event shape (`type` and `preventDefault`), including an event from an iframe. A consumer handler calls it to skip the handlers merged to its left. `preventDefault()` does not skip those handlers. Parts that call the consumer handler themselves still treat `preventDefault()` as the skip signal. A disabled non-native button also calls `preventDefault()` on click and pointerdown so the host's native action does not run
 - `className` and React style objects: use native `class` and `style`
 - Render props and `cloneElement`: parts take a `render` snippet that receives `(props, state, children)`. `children` is undefined when the consumer passed none and the part adds none. Render it with `{@render children?.()}`
 - `ref`, `forwardRef` and callback refs: Svelte has no refs. Consumers pass `{@attach}` to the part, which reaches the host through the props spread (including inside `render`)

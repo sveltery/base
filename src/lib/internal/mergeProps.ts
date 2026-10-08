@@ -2,6 +2,7 @@
 // (commit 47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c). MIT, see THIRD_PARTY_NOTICES.md.
 // The rightmost bag wins plain props, and its handler runs first.
 // `event.preventBaseUIHandler()` skips the remaining handlers. `preventDefault()` does not.
+// The event check is the event's shape, so an iframe event still gets the skip signal.
 // `class` is a Svelte class value, merged as an array with the rightmost bag first.
 // `style` is a CSS string. The rightmost declaration wins for the same property.
 // A function bag receives the props merged so far and replaces them. That function
@@ -62,10 +63,20 @@ function mergeClassValue(current: unknown, next: unknown): ClassValue | undefine
 	return [next, ...existing];
 }
 
+/**
+ * `instanceof Event` is false for an event created in another window.
+ * An iframe event still has a string `type` and `preventDefault`.
+ */
+function isDomEvent(value: unknown): value is Event {
+	if (value == null || typeof value !== 'object') return false;
+	const event = value as Event;
+	return typeof event.type === 'string' && typeof event.preventDefault === 'function';
+}
+
 function wrapEventHandler(handler: Handler): Handler {
 	return (...args) => {
 		const event = args[0];
-		if (event instanceof Event) makeEventPreventable(event);
+		if (isDomEvent(event)) makeEventPreventable(event);
 		return handler(...args);
 	};
 }
@@ -79,7 +90,7 @@ function mergeEventHandlers(our: unknown, their: unknown): unknown {
 	if (!isHandler(our)) return wrapEventHandler(their);
 	return (...args: unknown[]) => {
 		const event = args[0];
-		if (event instanceof Event) {
+		if (isDomEvent(event)) {
 			makeEventPreventable(event);
 			const result = their(...args);
 			if (!event.baseUIHandlerPrevented) our(...args);
