@@ -9,26 +9,22 @@ export type RovingOrientation = 'horizontal' | 'vertical';
 const TOGGLE_GROUP_CONTEXT = Symbol('toggle-group');
 
 export class ToggleGroupContext {
+	/** Pressed toggle values. Empty when the parent omitted `value`. */
+	readValues: () => readonly string[] = () => [];
+	readDisabled: () => boolean = () => false;
+	readMultiple: () => boolean = () => false;
+	readOnValueChange: () => (value: string[], eventDetails: ToggleGroupChangeEventDetails) => void =
+		() => () => {};
 	/**
-	 * True when the parent passed `value` or `defaultValue` on the first render.
+	 * True when the parent passed `value` on the first render.
 	 * A later click that fills the array does not count: upstream only warns
 	 * when `value` or `defaultValue` was set.
 	 */
 	readonly valueProvided: boolean;
 	readonly roving: CompositeRoot;
-	commit: (next: string[], details?: ToggleGroupChangeEventDetails) => void = () => {};
+	commit: (next: string[]) => void = () => {};
 
-	constructor(
-		valueProvided: boolean,
-		roving: CompositeRoot,
-		private readonly readValues: () => readonly string[],
-		private readonly readDisabled: () => boolean,
-		private readonly readMultiple: () => boolean,
-		private readonly readOnValueChange: () => (
-			value: string[],
-			eventDetails: ToggleGroupChangeEventDetails
-		) => void
-	) {
+	constructor(valueProvided: boolean, roving: CompositeRoot) {
 		this.valueProvided = valueProvided;
 		this.roving = roving;
 	}
@@ -65,7 +61,7 @@ export class ToggleGroupContext {
 
 		this.onValueChange(next, eventDetails);
 		if (eventDetails.isCanceled) return;
-		this.commit(next, eventDetails);
+		this.commit(next);
 	}
 }
 

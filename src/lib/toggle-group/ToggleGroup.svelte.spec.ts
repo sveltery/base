@@ -5,6 +5,7 @@
 import { page, userEvent } from 'vitest/browser';
 import { describe, expect, it, vi } from 'vitest';
 import { render } from 'vitest-browser-svelte';
+import { controllableRootCases } from '../../tests/controllable-root-cases.js';
 import ToggleGroupHarness from '../../tests/ToggleGroupHarness.svelte';
 
 function button(name: string) {
@@ -414,4 +415,8 @@ describe('ToggleGroup', () => {
 			await expect.element(page.getByTestId('attached')).toHaveTextContent('One');
 		});
 	});
+});
+
+describe('controllable value', () => {
+	controllableRootCases('toggle-group');
 });

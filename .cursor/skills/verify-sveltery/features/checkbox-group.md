@@ -5,7 +5,7 @@ Shared checked values for a series of checkboxes, including a parent checkbox. U
 ## Sub-features
 
 - Renders a `<div role="group">`. `data-disabled` is set when `disabled` is true. There is no `aria-disabled` on the group.
-- `value` is one `$bindable` string array. Omit it to start empty. `undefined` is an empty selection. `bind:value` shares the array with the parent. A one-way `value` sets it, and clicks override it until the parent changes it. `onValueChange(value, eventDetails)` runs before the commit, with `reason: 'none'`. `eventDetails.cancel()` vetoes it.
+- `value` is one `$bindable` string array. Omit it to start from `defaultValue` (empty). `undefined` is an empty selection. `bind:value` shares the array with the parent. A one-way `value` sets it, and clicks override it until the parent changes it. `onValueChange(value, eventDetails)` runs before the commit, with `reason: 'none'`. `eventDetails.cancel()` vetoes it. A parent write calls `onValueChange` once after the DOM updates.
 - A checkbox is ticked when the array contains its `value`, or its `name` when `value` is omitted. An empty string is a real value. A checkbox with neither is not part of the array. Ticking appends. Unticking removes that value. The checkbox's own `checked` prop is not the source of truth inside the group.
 - `disabled` disables every checkbox, including one that passes `disabled={false}`. Clicks do not call back.
 - `allValues` turns on the parent checkbox. `Checkbox.Root parent` sets `data-parent` and `aria-controls` to the rendered child ids, in `allValues` order. Several checkboxes can share a value and each id is listed. A custom `id` on a non-button host stays on the hidden input, so `aria-controls` names the exposed element. Unmounting a child drops its id. A value of `constructor` does not read `Object.prototype`.
@@ -15,7 +15,7 @@ Shared checked values for a series of checkboxes, including a parent checkbox. U
 
 Differences from React Base UI, all deliberate:
 
-- No `defaultValue`, and no locked controlled mode. Hold the value with `eventDetails.cancel()`.
+- `defaultValue` is the uncontrolled start and the fallback when a controlled `value` is cleared. No locked controlled mode. Hold the value with `eventDetails.cancel()`.
 - No Field registration, validity, `data-filled`, `data-dirty`, `data-touched`, or `data-focused`. No labelable `aria-labelledby` or `aria-describedby` from `Field`.
 - No `className` or `style` state callbacks. No React `ref`. Use `{@attach}`.
 - A fieldset does not disable the group.

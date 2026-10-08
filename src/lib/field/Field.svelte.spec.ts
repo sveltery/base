@@ -279,6 +279,16 @@ describe('Field', () => {
 			await expect.element(page.getByTestId('field')).toHaveAttribute('data-dirty', '');
 		});
 
+		it('follows a controlled dirty flag for valueMissing', async () => {
+			render(FieldHarness, { scenario: 'controlled-dirty-flag' });
+			const field = page.getByTestId('field');
+			await page.getByRole('button', { name: 'Validate' }).click();
+			await expect.element(field).toHaveAttribute('data-invalid', '');
+			await page.getByRole('button', { name: 'Clean' }).click();
+			await page.getByRole('button', { name: 'Validate' }).click();
+			await expect.element(field).not.toHaveAttribute('data-invalid');
+		});
+
 		it('marks the field touched on blur and not when touched is controlled', async () => {
 			render(FieldHarness, { scenario: 'touched' });
 			await page.getByTestId('control').fill('b');

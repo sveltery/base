@@ -92,7 +92,7 @@ export class FieldRootModel {
 	focused = $state(false);
 	inputElement = $state<HTMLElement | null>(null);
 
-	private markedDirty = false;
+	private markedDirtyLocal = false;
 	private registeredFieldName = $state<string | undefined>(undefined);
 	private registeredId: string | undefined;
 	private registryId: string | undefined;
@@ -110,11 +110,6 @@ export class FieldRootModel {
 
 	constructor(options: FieldRootModelOptions) {
 		this.options = options;
-
-		$effect(() => {
-			const dirty = this.options.getDirtyProp();
-			if (dirty !== undefined) this.markedDirty = dirty;
-		});
 
 		$effect(() => {
 			return () => {
@@ -157,6 +152,11 @@ export class FieldRootModel {
 		return this.options.getDirtyProp() ?? this.dirtyState;
 	}
 
+	private get markedDirty() {
+		const dirty = this.options.getDirtyProp();
+		return dirty !== undefined ? dirty : this.markedDirtyLocal;
+	}
+
 	get touched() {
 		return this.options.getTouchedProp() ?? this.touchedState;
 	}
@@ -183,7 +183,7 @@ export class FieldRootModel {
 
 	setDirty(value: boolean) {
 		if (this.options.getDirtyProp() !== undefined) return;
-		if (value) this.markedDirty = true;
+		if (value) this.markedDirtyLocal = true;
 		this.dirtyState = value;
 	}
 
@@ -203,7 +203,7 @@ export class FieldRootModel {
 	}
 
 	validateField() {
-		this.markedDirty = true;
+		this.markedDirtyLocal = true;
 		const registration = this.registration;
 		if (!registration) {
 			this.commit(this.validityData.value);

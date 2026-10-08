@@ -65,4 +65,33 @@
 		if (Object.is(current, prior)) return;
 		prior = current;
 	});
+
+	class DirectionModel {
+		directionBaseline: number | null = null;
+		saved: string[] = [];
+		value: number | null = 1;
+		values: string[] = [];
+
+		constructor() {
+			$effect.pre(() => {
+				const baseline = this.directionBaseline;
+				const current = this.value;
+				if (baseline === current) return;
+				this.directionBaseline = current;
+			});
+
+			$effect(() => {
+				const prev = this.saved;
+				const next = this.values;
+				if (areArraysEqual(prev, next)) return;
+				this.saved = next;
+			});
+		}
+	}
+
+	function areArraysEqual(left: string[], right: string[]) {
+		return left.join() === right.join();
+	}
+
+	void new DirectionModel();
 </script>

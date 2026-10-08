@@ -6,6 +6,7 @@
 -->
 <script lang="ts">
 	import type { HTMLAttributes } from 'svelte/elements';
+	import PartHost from '../internal/PartHost.svelte';
 	import { getStateAttributesProps } from '../internal/state-attributes.js';
 	import { numberFieldStateAttributes } from './attributes.js';
 	import { useNumberFieldContext } from './context.svelte.js';
@@ -22,12 +23,4 @@
 	});
 </script>
 
-{#snippet content()}
-	{@render children?.()}
-{/snippet}
-
-{#if render}
-	{@render render(hostProps, state, content)}
-{:else}
-	<div {...hostProps}>{@render content()}</div>
-{/if}
+<PartHost tag="div" {render} {children} elementProps={hostProps} partState={state} />

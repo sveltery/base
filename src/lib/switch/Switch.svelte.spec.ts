@@ -14,6 +14,7 @@ import SwitchClickHarness from '../../tests/SwitchClickHarness.svelte';
 import SwitchFormHarness from '../../tests/SwitchFormHarness.svelte';
 import SwitchLabelHarness from '../../tests/SwitchLabelHarness.svelte';
 import SwitchStyleHarness from '../../tests/SwitchStyleHarness.svelte';
+import { controllableRootCases } from '../../tests/controllable-root-cases.js';
 import { Switch } from './index.js';
 
 function switchEl() {
@@ -483,4 +484,8 @@ describe('Switch', () => {
 			await expect.element(host).toHaveAttribute('data-state', 'on');
 		});
 	});
+});
+
+describe('controllable value', () => {
+	controllableRootCases('switch');
 });

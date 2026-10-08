@@ -13,8 +13,18 @@ export type ToggleChangeEventReason = typeof REASONS.none;
 export type ToggleChangeEventDetails = BaseUIChangeEventDetails<ToggleChangeEventReason>;
 
 export interface ToggleProps extends Omit<HTMLButtonAttributes, 'children'> {
-	/** Whether the toggle is pressed. Use `bind:pressed` to share it with the parent. @default false */
+	/**
+	 * Whether the toggle is pressed.
+	 * Use `bind:pressed` to share it with the parent.
+	 * Omit it to start from `defaultPressed`. Inside a group, the group value wins.
+	 * @default false
+	 */
 	pressed?: boolean;
+	/**
+	 * Pressed state used when `pressed` is omitted, and when a controlled `pressed` is cleared.
+	 * @default false
+	 */
+	defaultPressed?: boolean;
 	/** Whether the toggle should ignore user interaction. @default false */
 	disabled?: boolean;
 	/**

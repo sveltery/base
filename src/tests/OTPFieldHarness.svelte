@@ -81,6 +81,10 @@
 	<OTPField.Root length={6} validationType="none" name="otp" inputMode="numeric" {normalizeValue}>
 		<OtpInputs />
 	</OTPField.Root>
+{:else if scenario === 'controlled-empty'}
+	<OTPField.Root length={6} value="" defaultValue="123456">
+		<OtpInputs />
+	</OTPField.Root>
 {:else if scenario === 'bound'}
 	<OTPField.Root length={6} bind:value={bound} {onValueChange}>
 		<OtpInputs />

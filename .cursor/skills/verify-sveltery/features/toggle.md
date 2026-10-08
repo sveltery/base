@@ -4,7 +4,7 @@ A two-state button. Upstream: `packages/react/src/toggle/Toggle.tsx` at Base UI 
 
 ## Sub-features
 
-- Pressed state: one `$bindable` `pressed` prop (default false). Each click flips it. `bind:pressed` shares it with the parent. A one-way `pressed={x}` sets it, and clicks override it until `x` changes.
+- Pressed state: one `$bindable` `pressed` prop. Omit it to start from `defaultPressed` (false). Each click flips it. `bind:pressed` shares it with the parent. A one-way `pressed={x}` sets it, and clicks override it until `x` changes. A parent write calls `onPressedChange` once after the DOM updates.
 - `onPressedChange(pressed, eventDetails)` runs before the change, with `reason: 'none'`. `eventDetails.cancel()` vetoes the change.
 - A consumer `onclick` runs first. `event.preventDefault()` skips the Toggle's handling.
 - Disabled: a natively `disabled` button with `data-disabled`, and no callback.
@@ -14,7 +14,7 @@ A two-state button. Upstream: `packages/react/src/toggle/Toggle.tsx` at Base UI 
 
 Differences from React Base UI, all deliberate:
 
-- No `defaultPressed`, and no locked controlled mode. In React, `pressed` without an `onPressedChange` that updates it never moves. Here, use `eventDetails.cancel()` to hold the state.
+- `defaultPressed` is the uncontrolled start and the fallback when a controlled `pressed` is cleared. Inside a group, the group value still wins. No locked controlled mode. In React, `pressed` without an `onPressedChange` that updates it never moves. Here, use `eventDetails.cancel()` to hold the state.
 - No `preventBaseUIHandler()`. Base UI ignores `preventDefault()` on click; here it is the skip signal.
 - No `ref`. Use `{@attach}`.
 

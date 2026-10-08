@@ -12,6 +12,7 @@
 	import { createAttachmentKey, type Attachment } from 'svelte/attachments';
 	import { currentHost, dispatchClick, isLink } from '../internal/click.js';
 	import { toCssStyle } from '../internal/css-style.js';
+	import { createControllableValue } from '../internal/controllable-value.svelte.js';
 	import { createChangeEventDetails, REASONS } from '../internal/event-details.js';
 	import { visuallyHidden, visuallyHiddenInput } from '../internal/visuallyHidden.js';
 	import { checkboxRootAttributes } from './attributes.js';
@@ -19,14 +20,20 @@
 	import { useCheckboxGroupContext } from './group-context.js';
 	import { findAssociatedLabel } from '../internal/associated-label.js';
 	import { getDefaultFormSubmitter } from './submitter.js';
-	import type { CheckboxHostProps, CheckboxRootProps, CheckboxRootState } from './types.js';
+	import type {
+		CheckboxHostProps,
+		CheckboxRootChangeEventDetails,
+		CheckboxRootProps,
+		CheckboxRootState
+	} from './types.js';
 
 	const uid = $props.id();
 	const rootKey = createAttachmentKey();
 	const group = useCheckboxGroupContext();
 
 	let {
-		checked = $bindable(false),
+		checked = $bindable(undefined),
+		defaultChecked = false,
 		disabled = false,
 		readOnly = false,
 		required = false,
@@ -52,16 +59,29 @@
 
 	const generatedRootId = $derived(`base-ui-${uid}`);
 	const generatedControlId = $derived(`base-ui-${uid}-control`);
-	const controlId = $derived(id ?? generatedControlId);
+	const controlId = $derived(id === undefined ? generatedControlId : id);
 	const hiddenInputId = $derived(nativeButton ? undefined : controlId);
 	const rootId = $derived(nativeButton ? controlId : generatedRootId);
+
+	const controllable = createControllableValue<boolean, CheckboxRootChangeEventDetails>({
+		getProp: () => checked,
+		setProp: (next) => {
+			checked = next;
+		},
+		getDefault: () => defaultChecked,
+		onChange(next, details) {
+			if (details || next === undefined || group) return;
+			onCheckedChange?.(next, createChangeEventDetails(REASONS.none));
+		}
+	});
+	const checkedState = $derived(controllable.value === true);
 
 	// `value` identifies the checkbox in a group. `name` is the fallback, matching upstream.
 	const identified = $derived(value !== undefined ? value : name);
 	const isChecked = $derived.by(() => {
 		if (parent && group?.parent) return group.parent.checked;
 		if (group && identified !== undefined && !parent) return group.value.includes(identified);
-		return checked;
+		return checkedState;
 	});
 	const isIndeterminate = $derived.by(() => {
 		if (parent && group?.parent) return group.parent.indeterminate || indeterminate;
@@ -96,8 +116,8 @@
 		}
 	});
 
-	let rootNode = $state<HTMLElement | null>(null);
 	let inputNode = $state<HTMLInputElement | null>(null);
+	let rootNode = $state<HTMLElement | null>(null);
 	let fallbackLabelId = $state<string | undefined>(undefined);
 
 	function registerRoot(element: HTMLElement) {
@@ -179,7 +199,7 @@
 			return;
 		}
 
-		checked = nextChecked;
+		controllable.set(nextChecked, details);
 	}
 
 	function handleInputFocus() {

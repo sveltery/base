@@ -43,8 +43,7 @@
 		replacement: 'index',
 		keydown: 'item'
 	});
-	const list = new TabsListModel(roving);
-	list.readActivateOnFocus = () => activateOnFocus;
+	const list = new TabsListModel(roving, () => activateOnFocus);
 	setTabsListContext(list);
 
 	function attachList(element: HTMLElement) {

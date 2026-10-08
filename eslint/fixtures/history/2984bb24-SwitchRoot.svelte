@@ -10,7 +10,6 @@
 	import { createAttachmentKey, type Attachment } from 'svelte/attachments';
 	import { currentHost, dispatchClick, isLink } from '../internal/click.js';
 	import { toCssStyle } from '../internal/css-style.js';
-	import { createControllableValue } from '../internal/controllable-value.svelte.js';
 	import { createChangeEventDetails, REASONS } from '../internal/event-details.js';
 	import { getStateAttributesProps } from '../internal/state-attributes.js';
 	import { visuallyHidden, visuallyHiddenInput } from '../internal/visuallyHidden.js';
@@ -23,8 +22,7 @@
 	const rootKey = createAttachmentKey();
 
 	let {
-		checked = $bindable(undefined),
-		defaultChecked = false,
+		checked = $bindable(false),
 		disabled = false,
 		readOnly = false,
 		required = false,
@@ -49,42 +47,25 @@
 	// Two ids: the root's generated id, and the control id on the hidden input
 	// (or on the root when nativeButton is set). An explicit id replaces the control id.
 	const generatedRootId = $derived(`base-ui-${uid}`);
-	const generatedControlId = $derived(`base-ui-${uid}` + '-control');
-	const controlId = $derived(id === undefined ? generatedControlId : id);
+	const generatedControlId = $derived(`base-ui-${uid}-control`);
+	const controlId = $derived(id ?? generatedControlId);
 	const hiddenInputId = $derived(nativeButton ? undefined : controlId);
 	const rootId = $derived(nativeButton ? controlId : generatedRootId);
 
-	const controllable = createControllableValue<boolean>({
-		getProp: () => checked,
-		setProp: (next) => {
-			checked = next;
-		},
-		getDefault: () => defaultChecked,
-		onChange(next, details) {
-			if (details || next === undefined) return;
-			onCheckedChange?.(next, createChangeEventDetails(REASONS.none));
-		}
-	});
-	const checkedState = $derived(controllable.value === true);
-	const switchState: SwitchRootState = $derived({
-		checked: checkedState,
-		disabled,
-		readOnly,
-		required
-	});
+	const switchState: SwitchRootState = $derived({ checked, disabled, readOnly, required });
 
 	setSwitchContext({
 		get checked() {
-			return checkedState;
+			return checked;
 		},
 		get disabled() {
-			return Boolean(disabled);
+			return disabled;
 		},
 		get readOnly() {
-			return Boolean(readOnly);
+			return readOnly;
 		},
 		get required() {
-			return Boolean(required);
+			return required;
 		}
 	});
 
@@ -102,7 +83,7 @@
 	// A named checkbox uses absolute positioning so it stays associated with its
 	// layout parent. An unnamed one uses the fixed visually-hidden style.
 	const inputStyle = $derived(toCssStyle(name ? visuallyHiddenInput : visuallyHidden));
-	const showUnchecked = $derived(!checkedState && Boolean(name) && uncheckedValue !== undefined);
+	const showUnchecked = $derived(!checked && Boolean(name) && uncheckedValue !== undefined);
 
 	// Chromium toggles a checkbox before dispatching click, then reverts the toggle
 	// if the click is canceled. That is the same signal as the pinned React workaround
@@ -122,24 +103,26 @@
 			return;
 		}
 
-		controllable.set(nextChecked, details);
+		checked = nextChecked;
 	}
 
 	function handleInputFocus() {
-		const node = rootNode;
-		node?.focus();
+		rootNode?.focus();
 	}
 
 	function handleClick(event: MouseEvent & { currentTarget: EventTarget & HTMLElement }) {
-		// The hidden input is clicked from here so a label does not toggle twice.
-		if (disabled) return event.preventDefault();
+		if (disabled) {
+			event.preventDefault();
+			return;
+		}
 
 		onclick?.(event);
 		if (event.defaultPrevented || readOnly) return;
 
 		// Keep a wrapping <label> from activating the hidden input a second time.
 		event.preventDefault();
-		if (inputNode) dispatchClick(inputNode, event);
+		if (!inputNode) return;
+		dispatchClick(inputNode, event);
 	}
 
 	function handleMouseDown(event: MouseEvent & { currentTarget: EventTarget & HTMLElement }) {
@@ -147,11 +130,11 @@
 	}
 
 	function handlePointerDown(event: PointerEvent & { currentTarget: EventTarget & HTMLElement }) {
-		if (!disabled) {
-			onpointerdown?.(event);
+		if (disabled) {
+			event.preventDefault();
 			return;
 		}
-		event.preventDefault();
+		onpointerdown?.(event);
 	}
 
 	function handleKeyDown(event: KeyboardEvent & { currentTarget: EventTarget & HTMLElement }) {
@@ -208,7 +191,7 @@
 			...(nativeButton && disabled ? { disabled: true } : {}),
 			id: rootId,
 			role: 'switch',
-			'aria-checked': checkedState,
+			'aria-checked': checked,
 			...(readOnly ? { 'aria-readonly': true as const } : {}),
 			...(required ? { 'aria-required': true as const } : {}),
 			...(labelledBy ? { 'aria-labelledby': labelledBy } : {}),
@@ -234,7 +217,7 @@
 <input
 	bind:this={inputNode}
 	type="checkbox"
-	checked={checkedState}
+	{checked}
 	{disabled}
 	{form}
 	id={hiddenInputId}

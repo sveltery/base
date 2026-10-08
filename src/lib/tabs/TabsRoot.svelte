@@ -25,6 +25,7 @@
 		...elementProps
 	}: TabsRootProps = $props();
 
+	let tabs: TabsRootModel;
 	const controllable = createControllableValue<typeof value, TabsRootChangeEventDetails>({
 		getProp: () => value,
 		setProp: (next) => {
@@ -32,13 +33,18 @@
 		},
 		getDefault: () => defaultValue,
 		onChange(next, details) {
-			if (!details) return;
-			onValueChange?.(next ?? null, details);
+			if (details) {
+				onValueChange?.(next ?? null, details);
+				return;
+			}
+			tabs.refineDirection(next ?? null);
 		}
 	});
-	const tabs = new TabsRootModel(controllable);
-	tabs.readOrientation = () => orientation;
-	tabs.readOnValueChange = () => onValueChange;
+	tabs = new TabsRootModel(
+		controllable,
+		() => orientation,
+		() => onValueChange
+	);
 	setTabsRootContext(tabs);
 
 	const state: TabsRootState = $derived({

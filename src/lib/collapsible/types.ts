@@ -33,9 +33,14 @@ export interface CollapsibleRootProps extends Omit<HTMLAttributes<HTMLDivElement
 	/**
 	 * Whether the panel is open.
 	 * Use `bind:open` to share it with the parent.
-	 * @default false
+	 * Omit it to start from `defaultOpen`.
 	 */
 	open?: boolean;
+	/**
+	 * The open state when `open` is omitted, and when a controlled `open` is cleared.
+	 * @default false
+	 */
+	defaultOpen?: boolean;
 	/** Whether the collapsible should ignore user interaction. @default false */
 	disabled?: boolean;
 	/** Called before the open state changes. Call `eventDetails.cancel()` to veto it. */

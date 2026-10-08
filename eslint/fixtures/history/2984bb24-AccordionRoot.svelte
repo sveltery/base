@@ -6,21 +6,13 @@
 <script lang="ts">
 	import type { HTMLAttributes } from 'svelte/elements';
 	import { devWarn } from '../collapsible/warn.js';
-	import { createControllableValue } from '../internal/controllable-value.svelte.js';
-	import { createChangeEventDetails, REASONS } from '../internal/event-details.js';
-	import PartHost from '../internal/PartHost.svelte';
 	import { getStateAttributesProps } from '../internal/state-attributes.js';
 	import { rootStateAttributesMapping } from './attributes.js';
 	import { AccordionRootModel, setAccordionRootContext } from './context.svelte.js';
-	import type {
-		AccordionRootChangeEventDetails,
-		AccordionRootProps,
-		AccordionRootState
-	} from './types.js';
+	import type { AccordionRootProps, AccordionRootState } from './types.js';
 
 	let {
 		value = $bindable(undefined),
-		defaultValue,
 		disabled = false,
 		hiddenUntilFound = false,
 		keepMounted,
@@ -34,19 +26,7 @@
 	}: AccordionRootProps = $props();
 
 	const EMPTY: unknown[] = [];
-	const controllable = createControllableValue<unknown[], AccordionRootChangeEventDetails>({
-		getProp: () => value,
-		setProp: (next) => {
-			value = next;
-		},
-		getDefault: () => defaultValue ?? EMPTY,
-		onChange(next, details) {
-			if (details || next === undefined) return;
-			onValueChange?.(next, createChangeEventDetails(REASONS.none));
-		}
-	});
 	const accordion = new AccordionRootModel(
-		() => controllable.value ?? EMPTY,
 		() => disabled,
 		() => multiple,
 		() => orientation,
@@ -54,8 +34,9 @@
 		() => keepMounted ?? false,
 		() => onValueChange
 	);
-	accordion.commit = (next, details) => {
-		controllable.set(next, details);
+	accordion.readValues = () => value ?? EMPTY;
+	accordion.commit = (next) => {
+		value = next;
 	};
 	setAccordionRootContext(accordion);
 
@@ -79,4 +60,12 @@
 	});
 </script>
 
-<PartHost tag="div" {render} {children} elementProps={hostProps} partState={state} />
+{#snippet content()}
+	{@render children?.()}
+{/snippet}
+
+{#if render}
+	{@render render(hostProps, state, content)}
+{:else}
+	<div {...hostProps}>{@render content()}</div>
+{/if}

@@ -54,7 +54,7 @@ export class PopoverStore extends PopupStore<PopoverChangeReason> {
 	/** True after a close button has registered. */
 	focusTrap = $state(false);
 	/** Physical side from the positioner. Safe-polygon reads this while open. */
-	placement = $state<string | null>('bottom');
+	placementReader: () => string | null = () => 'bottom';
 	/** Viewport CSS variables. They travel with the style attribute. */
 	positionerVars = $state<Record<string, string>>({});
 	popupVars = $state<Record<string, string>>({});
@@ -121,11 +121,7 @@ export class PopoverStore extends PopupStore<PopoverChangeReason> {
 	}
 
 	readPlacement() {
-		return this.placement;
-	}
-
-	setPlacement(side: string | null) {
-		this.placement = side;
+		return this.placementReader();
 	}
 
 	/** Id the trigger was registered under. Falls back to the DOM id. */

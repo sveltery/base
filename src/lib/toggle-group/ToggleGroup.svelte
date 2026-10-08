@@ -6,15 +6,23 @@
 	Toolbar integration is not ported: the group always owns roving focus.
 -->
 <script lang="ts">
+	import { untrack } from 'svelte';
 	import type { HTMLAttributes } from 'svelte/elements';
 	import { CompositeRoot } from '../internal/composite-root.svelte.js';
+	import { createControllableValue } from '../internal/controllable-value.svelte.js';
 	import { useDirection } from '../internal/direction-context.js';
+	import { createChangeEventDetails, REASONS } from '../internal/event-details.js';
 	import { getStateAttributesProps } from '../internal/state-attributes.js';
 	import { ToggleGroupContext, setToggleGroupContext } from './context.svelte.js';
-	import type { ToggleGroupProps, ToggleGroupState } from './types.js';
+	import type {
+		ToggleGroupChangeEventDetails,
+		ToggleGroupProps,
+		ToggleGroupState
+	} from './types.js';
 
 	let {
 		value = $bindable(undefined),
+		defaultValue,
 		disabled = false,
 		loopFocus = true,
 		onValueChange,
@@ -26,8 +34,19 @@
 	}: ToggleGroupProps = $props();
 
 	// Captured once. Assigning `value` later must not look like the parent passed it.
-	const valueProvided = value !== undefined;
+	const valueProvided = untrack(() => value !== undefined || defaultValue !== undefined);
 	const EMPTY: readonly string[] = [];
+	const controllable = createControllableValue<readonly string[], ToggleGroupChangeEventDetails>({
+		getProp: () => value,
+		setProp: (next) => {
+			value = next;
+		},
+		getDefault: () => defaultValue ?? EMPTY,
+		onChange(next, details) {
+			if (details || next === undefined) return;
+			onValueChange?.([...next], createChangeEventDetails(REASONS.none));
+		}
+	});
 
 	const reading = useDirection();
 	const roving = new CompositeRoot({
@@ -42,13 +61,16 @@
 		replacement: 'first',
 		keydown: 'item'
 	});
-	const group = new ToggleGroupContext(valueProvided, roving);
-	group.readValues = () => value ?? EMPTY;
-	group.readDisabled = () => disabled;
-	group.readMultiple = () => multiple;
-	group.readOnValueChange = () => onValueChange ?? (() => {});
-	group.commit = (next) => {
-		value = next;
+	const group = new ToggleGroupContext(
+		valueProvided,
+		roving,
+		() => controllable.value ?? EMPTY,
+		() => disabled,
+		() => multiple,
+		() => onValueChange ?? (() => {})
+	);
+	group.commit = (next, details) => {
+		controllable.set(next, details);
 	};
 	setToggleGroupContext(group);
 

@@ -8,6 +8,7 @@
 import { page, userEvent } from 'vitest/browser';
 import { describe, expect, it } from 'vitest';
 import { render } from 'vitest-browser-svelte';
+import { controllableRootCases } from '../../tests/controllable-root-cases.js';
 import CheckboxGroupHarness from '../../tests/CheckboxGroupHarness.svelte';
 
 function box(name: string) {
@@ -419,4 +420,8 @@ describe('CheckboxGroup', () => {
 			await expect.element(page.getByTestId('attached')).toHaveTextContent('group');
 		});
 	});
+});
+
+describe('controllable value', () => {
+	controllableRootCases('checkbox-group');
 });
