@@ -6,6 +6,8 @@
 
 	let owner = $state(scenario === 'open');
 	let calls = $state<{ open: boolean; reason: string; canceled: boolean }[]>([]);
+	let inlineContainer = $state<HTMLDivElement | null>(null);
+	let externalOpen = $state(false);
 	const handle = Popover.createHandle();
 	const bound = $derived(scenario === 'bound' || scenario === 'open');
 
@@ -25,12 +27,19 @@
 <pre data-testid="calls">{JSON.stringify(calls)}</pre>
 
 {#snippet popup()}
-	<Popover.Portal>
+	<Popover.Portal
+		container={scenario === 'tab-inline' || scenario === 'tab-between-ext'
+			? inlineContainer
+			: undefined}
+	>
 		<Popover.Positioner>
 			<Popover.Popup>
 				<Popover.Title>Title</Popover.Title>
 				Content
-				{#if scenario !== 'tab-empty'}
+				{#if scenario === 'tab-between-ext'}
+					<button type="button">Inside1</button>
+					<button type="button">Inside2</button>
+				{:else if scenario !== 'tab-empty'}
 					<button type="button">Inside</button>
 				{/if}
 				{#if scenario === 'close' || scenario === 'modal'}
@@ -51,8 +60,19 @@
 		<Popover.Trigger onclick={clicked}>Open</Popover.Trigger>
 		{@render popup()}
 	</Popover.Root>
+{:else if scenario === 'tab-ext' || scenario === 'tab-between-ext'}
+	<button type="button" data-testid="before">Before</button>
+	<button type="button" data-testid="ext" onclick={() => (externalOpen = true)}>Ext</button>
+	<Popover.Root bind:open={externalOpen} onOpenChange={changed}>
+		<Popover.Trigger>Open</Popover.Trigger>
+		{#if scenario === 'tab-between-ext'}
+			<div data-testid="inline-container" bind:this={inlineContainer}></div>
+		{/if}
+		{@render popup()}
+	</Popover.Root>
+	<button type="button" data-testid="after">After</button>
 {:else}
-	{#if scenario === 'tab' || scenario === 'tab-empty'}
+	{#if scenario === 'tab' || scenario === 'tab-empty' || scenario === 'tab-inline'}
 		<button type="button" data-testid="before">Before</button>
 	{/if}
 	<Popover.Root modal={scenario === 'modal'} onOpenChange={changed}>
@@ -67,6 +87,9 @@
 		{@render popup()}
 	</Popover.Root>
 {/if}
-{#if scenario === 'tab' || scenario === 'tab-empty'}
+{#if scenario === 'tab-inline'}
+	<div data-testid="inline-container" bind:this={inlineContainer}></div>
+{/if}
+{#if scenario === 'tab' || scenario === 'tab-empty' || scenario === 'tab-inline'}
 	<button type="button" data-testid="after">After</button>
 {/if}

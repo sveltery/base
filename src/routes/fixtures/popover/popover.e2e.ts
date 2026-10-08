@@ -154,20 +154,58 @@ for (const reference of [false, true]) {
 			});
 		}
 
-		test('shift-tab from the first control does not return to the trigger', async ({ page }) => {
-			const { trigger, popup } = await open(page, 'tab', reference);
-			await trigger.click();
-			await expect(popup.getByRole('button', { name: 'Inside' })).toBeFocused();
-			await page.keyboard.press('Shift+Tab');
-			if (reference) {
-				// React focuses the trigger and leaves the popup open.
+		for (const scenario of [
+			{ name: 'tab-ext', inside: 'Inside' },
+			{ name: 'tab-between-ext', inside: 'Inside1' }
+		] as const) {
+			test(`shift-tab from an externally opened popover (${scenario.name})`, async ({ page }) => {
+				const { trigger, popup } = await open(page, scenario.name, reference);
+				await page.getByTestId('ext').click();
+				await expect(popup.getByRole('button', { name: scenario.inside })).toBeFocused();
+				if (scenario.name === 'tab-between-ext') {
+					await expect(
+						popup.locator('xpath=ancestor::*[@data-testid="inline-container"]')
+					).toHaveCount(1);
+				}
+				await page.keyboard.press('Shift+Tab');
 				await expect(trigger).toBeFocused();
 				await expect(popup).toBeVisible();
-			} else {
-				await expect(page.getByTestId('after')).toBeFocused();
-				await expect(popup).toHaveCount(0);
-			}
-		});
+				await page.keyboard.press('Shift+Tab');
+				await expect(page.getByTestId('ext')).toBeFocused();
+				// React closes. Main leaves the popup open: the trigger is not the reference,
+				// so this Shift+Tab is not a focus-out close.
+				if (reference) await expect(popup).toHaveCount(0);
+				else await expect(popup).toBeVisible();
+			});
+		}
+
+		for (const scenario of ['tab', 'tab-inline'] as const) {
+			test(`shift-tab from the first control focuses the trigger (${scenario})`, async ({
+				page
+			}) => {
+				const { trigger, popup } = await open(page, scenario, reference);
+				await trigger.click();
+				await expect(popup.getByRole('button', { name: 'Inside' })).toBeFocused();
+				if (scenario === 'tab-inline') {
+					await expect(
+						popup.locator('xpath=ancestor::*[@data-testid="inline-container"]')
+					).toHaveCount(1);
+				}
+				await page.keyboard.press('Shift+Tab');
+				await expect(trigger).toBeFocused();
+				await expect(popup).toBeVisible();
+			});
+
+			test(`tab from the open trigger enters the popup (${scenario})`, async ({ page }) => {
+				const { trigger, popup } = await open(page, scenario, reference);
+				await trigger.click();
+				await expect(popup.getByRole('button', { name: 'Inside' })).toBeFocused();
+				await trigger.focus();
+				await page.keyboard.press('Tab');
+				await expect(popup.getByRole('button', { name: 'Inside' })).toBeFocused();
+				await expect(popup).toBeVisible();
+			});
+		}
 
 		test('tab from a popup with no tabbable control closes onto After', async ({ page }) => {
 			const { trigger, popup } = await open(page, 'tab-empty', reference);
@@ -197,8 +235,10 @@ for (const reference of [false, true]) {
 			await expect(popup.getByRole('button', { name: 'Inside' })).toBeFocused();
 			await page.evaluate(() => {
 				const popupNode = document.querySelector('[role="dialog"]');
-				const guard = [...document.querySelectorAll('[data-base-ui-focus-guard]')].find((node) =>
-					popupNode?.parentElement?.contains(node)
+				const guard = [...document.querySelectorAll('[data-base-ui-focus-guard]')].find(
+					(node) =>
+						popupNode?.parentElement?.contains(node) &&
+						Boolean(popupNode.compareDocumentPosition(node) & Node.DOCUMENT_POSITION_FOLLOWING)
 				);
 				if (document.activeElement instanceof HTMLElement) document.activeElement.blur();
 				if (guard instanceof HTMLElement) guard.focus();

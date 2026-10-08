@@ -1,5 +1,5 @@
 // React Base UI 1.8.0 counterpart of PopoverFixture.svelte. Comparison only; never imported by src/lib.
-import { createElement as h, Fragment, useEffect, useState } from 'react';
+import { createElement as h, Fragment, useEffect, useLayoutEffect, useRef, useState } from 'react';
 import { createRoot } from 'react-dom/client';
 import { Popover } from '@base-ui/react/popover';
 import type { PopoverCase } from './cases.js';
@@ -19,6 +19,14 @@ export function mountPopoverReference(
 		const [owner, setOwner] = useState(scenario === 'open');
 		const [calls, setCalls] = useState<Call[]>([]);
 		const [handle] = useState(() => Popover.createHandle());
+		const inlineRef = useRef<HTMLDivElement>(null);
+		const [inlineContainer, setInlineContainer] = useState<HTMLDivElement | null>(null);
+		const [externalOpen, setExternalOpen] = useState(false);
+		const external = scenario === 'tab-ext' || scenario === 'tab-between-ext';
+		useLayoutEffect(() => {
+			if (scenario !== 'tab-inline' && scenario !== 'tab-between-ext') return;
+			setInlineContainer(inlineRef.current);
+		}, [scenario]);
 		useEffect(onReady, []);
 		const bound = scenario === 'bound' || scenario === 'open';
 
@@ -34,13 +42,15 @@ export function mountPopoverReference(
 					canceled: details.isCanceled
 				})
 			);
+			if (external && !details.isCanceled) setExternalOpen(nextOpen);
 			if (!bound || details.isCanceled) return;
 			setOwner(nextOpen);
 		}
 
-		const popup = h(
+		const between = scenario === 'tab-between-ext';
+		const portal = h(
 			Popover.Portal,
-			null,
+			scenario === 'tab-inline' || between ? { container: inlineContainer } : null,
 			h(
 				Popover.Positioner,
 				null,
@@ -49,17 +59,29 @@ export function mountPopoverReference(
 					null,
 					h(Popover.Title, null, 'Title'),
 					'Content',
-					scenario === 'tab-empty' ? null : h('button', { type: 'button' }, 'Inside'),
+					between
+						? h(
+								Fragment,
+								null,
+								h('button', { type: 'button' }, 'Inside1'),
+								h('button', { type: 'button' }, 'Inside2')
+							)
+						: scenario === 'tab-empty'
+							? null
+							: h('button', { type: 'button' }, 'Inside'),
 					scenario === 'close' || scenario === 'modal' ? h(Popover.Close, null, 'Close') : null
 				)
 			)
 		);
+		const popup = between
+			? h(Fragment, null, h('div', { 'data-testid': 'inline-container', ref: inlineRef }), portal)
+			: portal;
 
 		const rootProps =
 			scenario === 'open'
 				? { defaultOpen: true, onOpenChange: onOpen }
 				: {
-						open: bound ? owner : undefined,
+						open: external ? externalOpen : bound ? owner : undefined,
 						modal: scenario === 'modal' ? true : undefined,
 						onOpenChange: onOpen
 					};
@@ -85,13 +107,23 @@ export function mountPopoverReference(
 			h('button', { type: 'button' }, 'Outside'),
 			h('input', { 'data-testid': 'outside-input' }),
 			h('pre', { 'data-testid': 'calls' }, JSON.stringify(calls)),
-			scenario === 'tab' || scenario === 'tab-empty'
+			scenario === 'tab' || scenario === 'tab-empty' || scenario === 'tab-inline' || external
 				? h('button', { type: 'button', 'data-testid': 'before' }, 'Before')
+				: null,
+			external
+				? h(
+						'button',
+						{ type: 'button', 'data-testid': 'ext', onClick: () => setExternalOpen(true) },
+						'Ext'
+					)
 				: null,
 			scenario === 'detached'
 				? h(Fragment, null, trigger, h(Popover.Root, { handle, onOpenChange: onOpen }, popup))
 				: h(Popover.Root, rootProps, trigger, popup),
-			scenario === 'tab' || scenario === 'tab-empty'
+			scenario === 'tab-inline'
+				? h('div', { 'data-testid': 'inline-container', ref: inlineRef })
+				: null,
+			scenario === 'tab' || scenario === 'tab-empty' || scenario === 'tab-inline' || external
 				? h('button', { type: 'button', 'data-testid': 'after' }, 'After')
 				: null
 		);

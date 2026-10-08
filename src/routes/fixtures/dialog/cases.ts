@@ -13,6 +13,11 @@ export const cases = [
 	'final-outside',
 	'together-outside',
 	'tab',
+	'tab-inline',
+	'tab-ext',
+	'tab-between',
+	'tab-between-ext',
+	'tab-portal-first',
 	'child-initial',
 	'siblings',
 	'kept-child'

@@ -200,6 +200,28 @@ describe('Popover', () => {
 		await expect.poll(() => page.getByRole('dialog').elements().length).toBe(0);
 	});
 
+	it('keeps Shift+Tab inside a modal popover by skipping the non-modal leading guard', async () => {
+		render(PopoverFixture, { scenario: 'modal' });
+		await page.getByRole('button', { name: 'Open' }).click();
+		await expect.poll(() => document.activeElement?.textContent).toBe('Inside');
+		const popup = page.getByRole('dialog').element();
+		const preceding = [...document.querySelectorAll('[data-base-ui-focus-guard]')].filter(
+			(node) =>
+				popup.parentElement?.contains(node) &&
+				Boolean(node.compareDocumentPosition(popup) & Node.DOCUMENT_POSITION_FOLLOWING)
+		);
+		// The modal before-guard is the only guard ahead of the popup. A non-modal leading
+		// guard beside it focuses the trigger and leaves the trap.
+		expect(preceding).toHaveLength(1);
+		(preceding[preceding.length - 1] as HTMLElement).focus();
+		await expect.poll(() => document.activeElement?.textContent).toBe('Close');
+		await expect.element(page.getByRole('dialog')).toBeVisible();
+		(page.getByRole('button', { name: 'Inside' }).element() as HTMLElement).focus();
+		await userEvent.keyboard('{Shift>}{Tab}{/Shift}');
+		await expect.poll(() => document.activeElement?.textContent).toBe('Close');
+		await expect.element(page.getByRole('dialog')).toBeVisible();
+	});
+
 	it('opens on hover', async () => {
 		render(PopoverFixture, { scenario: 'hover' });
 		await page.getByRole('button', { name: 'Open' }).hover();
@@ -253,13 +275,71 @@ describe('Popover', () => {
 		await expect.element(page.getByRole('dialog')).toBeVisible();
 	});
 
-	it('does not return to the trigger when shift-tabbing from the first control', async () => {
+	it('shift-tabs from the first control onto the trigger and keeps the popup open', async () => {
 		render(PopoverFixture, { scenario: 'tab' });
-		await page.getByRole('button', { name: 'Open' }).click();
+		const open = page.getByRole('button', { name: 'Open' });
+		await open.click();
 		await expect.poll(() => document.activeElement?.textContent).toBe('Inside');
 		await userEvent.keyboard('{Shift>}{Tab}{/Shift}');
-		await expect.poll(() => document.activeElement).toBe(page.getByTestId('after').element());
-		await expect.poll(() => page.getByRole('dialog').elements().length).toBe(0);
+		await expect.poll(() => document.activeElement).toBe(open.element());
+		await expect.poll(() => page.getByRole('dialog').elements().length).toBe(1);
+	});
+
+	it('shift-tabs from the first control onto the trigger when the portal container is inline', async () => {
+		render(PopoverFixture, { scenario: 'tab-inline' });
+		const open = page.getByRole('button', { name: 'Open' });
+		await open.click();
+		await expect.poll(() => document.activeElement?.textContent).toBe('Inside');
+		expect(
+			page.getByRole('dialog').element().closest('[data-testid="inline-container"]')
+		).toBeTruthy();
+		await userEvent.keyboard('{Shift>}{Tab}{/Shift}');
+		await expect.poll(() => document.activeElement).toBe(open.element());
+		await expect.poll(() => page.getByRole('dialog').elements().length).toBe(1);
+	});
+
+	it('shift-tabs an externally opened popover onto the trigger and then the previous control', async () => {
+		render(PopoverFixture, { scenario: 'tab-ext' });
+		await page.getByTestId('ext').click();
+		await expect.poll(() => document.activeElement?.textContent).toBe('Inside');
+		await userEvent.keyboard('{Shift>}{Tab}{/Shift}');
+		await expect
+			.poll(() => document.activeElement)
+			.toBe(page.getByRole('button', { name: 'Open' }).element());
+		await expect.poll(() => page.getByRole('dialog').elements().length).toBe(1);
+		await userEvent.keyboard('{Shift>}{Tab}{/Shift}');
+		await expect.poll(() => document.activeElement).toBe(page.getByTestId('ext').element());
+		// React closes. Main leaves the popup open: this trigger is not the reference.
+		await expect.poll(() => page.getByRole('dialog').elements().length).toBe(1);
+	});
+
+	it('shift-tabs an externally opened popover when the container sits between the trigger and the portal', async () => {
+		render(PopoverFixture, { scenario: 'tab-between-ext' });
+		await page.getByTestId('ext').click();
+		await expect.poll(() => document.activeElement?.textContent).toBe('Inside1');
+		expect(
+			page.getByRole('dialog').element().closest('[data-testid="inline-container"]')
+		).toBeTruthy();
+		await userEvent.keyboard('{Shift>}{Tab}{/Shift}');
+		await expect
+			.poll(() => document.activeElement)
+			.toBe(page.getByRole('button', { name: 'Open' }).element());
+		await expect.poll(() => page.getByRole('dialog').elements().length).toBe(1);
+		await userEvent.keyboard('{Shift>}{Tab}{/Shift}');
+		await expect.poll(() => document.activeElement).toBe(page.getByTestId('ext').element());
+		// React closes. Main leaves the popup open: this trigger is not the reference.
+		await expect.poll(() => page.getByRole('dialog').elements().length).toBe(1);
+	});
+
+	it('moves focus into an inline popup when tabbing from the open trigger', async () => {
+		render(PopoverFixture, { scenario: 'tab-inline' });
+		const open = page.getByRole('button', { name: 'Open' });
+		await open.click();
+		await expect.poll(() => document.activeElement?.textContent).toBe('Inside');
+		(open.element() as HTMLElement).focus();
+		await userEvent.keyboard('{Tab}');
+		await expect.poll(() => document.activeElement?.textContent).toBe('Inside');
+		await expect.element(page.getByRole('dialog')).toBeVisible();
 	});
 
 	it('closes onto the next control when tabbing from a popup with no tabbable control', async () => {
@@ -291,8 +371,10 @@ describe('Popover', () => {
 		await page.getByRole('button', { name: 'Open' }).click();
 		await expect.poll(() => document.activeElement?.textContent).toBe('Inside');
 		const popup = page.getByRole('dialog').element();
-		const guard = [...document.querySelectorAll('[data-base-ui-focus-guard]')].find((node) =>
-			popup.parentElement?.contains(node)
+		const guard = [...document.querySelectorAll('[data-base-ui-focus-guard]')].find(
+			(node) =>
+				popup.parentElement?.contains(node) &&
+				Boolean(popup.compareDocumentPosition(node) & Node.DOCUMENT_POSITION_FOLLOWING)
 		);
 		const active = document.activeElement;
 		if (active instanceof HTMLElement) active.blur();

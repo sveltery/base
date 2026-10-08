@@ -42,6 +42,8 @@
 	let finalTarget = $state<HTMLElement | null>(null);
 	let outsideButton = $state<HTMLButtonElement | null>(null);
 	let parentOpen = $state(false);
+	let inlineContainer = $state<HTMLDivElement | null>(null);
+	let externalOpen = $state(false);
 
 	let calls = $state<{ open: boolean; reason: string; canceled: boolean }[]>([]);
 
@@ -93,8 +95,10 @@
 	}
 </script>
 
-<button type="button" data-testid="outside" bind:this={outsideButton}>Outside</button>
-<input data-testid="outside-input" />
+{#if scenario !== 'tab-portal-first'}
+	<button type="button" data-testid="outside" bind:this={outsideButton}>Outside</button>
+	<input data-testid="outside-input" />
+{/if}
 {#if preventUnmount}
 	<button type="button" onclick={() => root?.unmount()}>Unmount</button>
 {/if}
@@ -199,18 +203,53 @@
 	{@render outsidePair(true)}
 {:else if scenario === 'final-outside'}
 	{@render outsidePair(false)}
-{:else if scenario === 'tab'}
-	<button type="button" data-testid="before">Before</button>
-	<Dialog.Root modal={false} onOpenChange={changed}>
+{:else if scenario === 'tab' || scenario === 'tab-inline' || scenario === 'tab-ext' || scenario === 'tab-between' || scenario === 'tab-between-ext'}
+	{@const between = scenario === 'tab-between' || scenario === 'tab-between-ext'}
+	{@const external = scenario === 'tab-ext' || scenario === 'tab-between-ext'}
+	{#snippet keyboardChildren()}
 		<Dialog.Trigger>Open</Dialog.Trigger>
+		{#if between}
+			<div data-testid="inline-container" bind:this={inlineContainer}></div>
+		{/if}
+		<Dialog.Portal container={between || scenario === 'tab-inline' ? inlineContainer : undefined}>
+			<Dialog.Popup>
+				<Dialog.Title>Title</Dialog.Title>
+				{#if between}
+					<button type="button">Inside1</button>
+					<button type="button">Inside2</button>
+				{:else}
+					<button type="button">Inside</button>
+				{/if}
+			</Dialog.Popup>
+		</Dialog.Portal>
+	{/snippet}
+	<button type="button" data-testid="before">Before</button>
+	{#if external}
+		<button type="button" data-testid="ext" onclick={() => (externalOpen = true)}>Ext</button>
+		<Dialog.Root bind:open={externalOpen} modal={false} onOpenChange={changed}>
+			{@render keyboardChildren()}
+		</Dialog.Root>
+	{:else}
+		<Dialog.Root modal={false} onOpenChange={changed}>
+			{@render keyboardChildren()}
+		</Dialog.Root>
+	{/if}
+	{#if scenario === 'tab-inline'}
+		<div data-testid="inline-container" bind:this={inlineContainer}></div>
+	{/if}
+	<button type="button" data-testid="after">After</button>
+{:else if scenario === 'tab-portal-first'}
+	<Dialog.Root modal={false} onOpenChange={changed}>
 		<Dialog.Portal>
 			<Dialog.Popup>
 				<Dialog.Title>Title</Dialog.Title>
-				<button type="button">Inside</button>
+				<button type="button">Inside1</button>
+				<button type="button">Inside2</button>
 			</Dialog.Popup>
 		</Dialog.Portal>
+		<Dialog.Trigger>Open</Dialog.Trigger>
 	</Dialog.Root>
-	<button type="button" data-testid="after">After</button>
+	<button type="button" data-testid="footer">Footer</button>
 {:else if scenario === 'kept-child'}
 	<Dialog.Root bind:open={parentOpen}>
 		<Dialog.Trigger data-testid="open-parent">Open</Dialog.Trigger>
