@@ -52,11 +52,15 @@
 		},
 		getDefault: () => defaultValue,
 		onChange(next) {
-			notifyControlled(next == null ? '' : String(next));
+			notifyControlled(textValue(next));
 		}
 	});
 	const isControlled = $derived(controllable.controlled);
-	const serialized = $derived(controllable.value != null ? String(controllable.value) : undefined);
+	const registeredValue = $derived(
+		controllable.controlled && controllable.value != null
+			? textValue(controllable.value)
+			: undefined
+	);
 	const disabled = $derived(Boolean(field.disabled || disabledProp));
 	const name = $derived(field.name ?? nameProp ?? undefined);
 	const controlId = $derived(labelable.controlId || idProp || fallbackId);
@@ -82,13 +86,13 @@
 		return 'value' in node;
 	}
 
-	function serializedValue(value: string | number | null | undefined) {
+	function textValue(value: string | number | null | undefined) {
 		return value == null ? '' : String(value);
 	}
 
 	function readElement(element: ValueElement | null) {
 		if (!element) return undefined;
-		return element.value == null ? '' : String(element.value);
+		return textValue(element.value);
 	}
 
 	function remember(node: HTMLElement) {
@@ -122,9 +126,7 @@
 		const controlName = nameProp;
 		const id = controlId;
 		const active = !disabled;
-		const currentValue = untrack(() =>
-			controllable.controlled && controllable.value != null ? String(controllable.value) : undefined
-		);
+		const currentValue = untrack(() => registeredValue);
 
 		if (currentValue !== undefined) field.setFilled(currentValue !== '');
 		else if (element) field.setFilled(element.value !== '');
@@ -134,7 +136,7 @@
 			name: controlName ?? undefined,
 			value: currentValue,
 			element,
-			getValue: () => readElement(element) ?? serializedValue(controllable.value)
+			getValue: () => readElement(element) ?? textValue(controllable.value)
 		};
 		registration = record;
 
@@ -155,7 +157,7 @@
 
 	$effect(() => {
 		if (!controllable.controlled) return;
-		const current = serialized;
+		const current = registeredValue;
 		const record = registration;
 		if (!record) return;
 		record.value = current;
@@ -168,7 +170,7 @@
 	});
 
 	function domValue() {
-		return serializedValue(controllable.value);
+		return textValue(controllable.value);
 	}
 
 	function handleInput(event: Event & { currentTarget: EventTarget & HTMLInputElement }) {
