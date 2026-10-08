@@ -7,18 +7,13 @@
 
 	let open = $state<boolean | undefined>(false);
 	let positioner = $state<HTMLElement | null>(null);
-
-	const openValue = createControllableValue<boolean>({
-		getProp: () => open,
-		setProp: (next) => {
-			open = next;
-		},
-		getDefault: () => false
-	});
-
 	const store = new PopupStore<string>({
-		open: openValue,
-		floatingId: 'scroll-lock-popup',
+		open: createControllableValue<boolean>({
+			getProp: () => open,
+			setProp: (value) => (open = value),
+			getDefault: () => false
+		}),
+		floatingId: 'touch-scroll-lock',
 		floatingElement: 'positioner',
 		onOpenChange: () => () => {},
 		onOpenChangeComplete: () => () => {}
