@@ -1,5 +1,7 @@
 <script lang="ts">
-	import { Field, Form, Input } from '#lib';
+	import { Field, Input } from '#lib';
+	import FormSubmit from '../FormSubmit.svelte';
+	import { takeForm } from '../form-log.js';
 	import type { InputCase } from './cases.js';
 
 	let { scenario }: { scenario: InputCase } = $props();
@@ -9,9 +11,7 @@
 	let values = $state('');
 
 	function accept(formValues: Record<string, unknown>, details: { event: Event }) {
-		details.event.preventDefault();
-		submitted += 1;
-		values = JSON.stringify(formValues);
+		({ submitted, values } = takeForm(formValues, details, submitted));
 	}
 </script>
 
@@ -39,20 +39,16 @@
 		<Input data-testid="control" />
 	</Field.Root>
 {:else if scenario === 'required'}
-	<Form onFormSubmit={accept}>
+	<FormSubmit {accept} {submitted}>
 		<Field.Root>
 			<Input required data-testid="control" />
 			<Field.Error data-testid="error">Required</Field.Error>
 		</Field.Root>
-		<button type="submit">Submit</button>
-	</Form>
-	<output data-testid="submitted">{submitted}</output>
+	</FormSubmit>
 {:else}
-	<Form onFormSubmit={accept}>
+	<FormSubmit {accept} {values}>
 		<Field.Root name="username">
 			<Input defaultValue="ada" data-testid="control" />
 		</Field.Root>
-		<button type="submit">Submit</button>
-	</Form>
-	<output data-testid="values">{values}</output>
+	</FormSubmit>
 {/if}

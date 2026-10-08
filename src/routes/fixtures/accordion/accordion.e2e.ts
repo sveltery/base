@@ -1,25 +1,14 @@
 // Each case runs against the Svelte Accordion and the React Base UI 1.8.0 reference.
 import { expect, test, type Page } from '@playwright/test';
+import { forEachFramework } from '../framework-loop.js';
+import { openFixture } from '../open-fixture.js';
+import { readValueCalls } from '../read-output.js';
 
-async function open(page: Page, scenario: string, reference: boolean) {
-	const errors: string[] = [];
-	page.on('pageerror', (error) => errors.push(error.message));
-	await page.goto(`/fixtures/accordion?case=${scenario}${reference ? '&reference' : ''}`);
-	await expect(page.locator('main')).toHaveAttribute('data-hydrated', 'true');
-	return { errors };
+function open(page: Page, scenario: string, reference: boolean) {
+	return openFixture(page, 'accordion', scenario, reference);
 }
 
-async function calls(page: Page) {
-	return JSON.parse(await page.getByTestId('calls').innerText()) as {
-		value: string[];
-		reason: string;
-		canceled: boolean;
-	}[];
-}
-
-for (const reference of [false, true]) {
-	const framework = reference ? 'react' : 'svelte';
-
+forEachFramework((reference, framework) => {
 	test.describe(framework, () => {
 		test('exclusive clicks leave one panel open', async ({ page }) => {
 			const { errors } = await open(page, 'exclusive', reference);
@@ -38,7 +27,7 @@ for (const reference of [false, true]) {
 			await expect(page.getByTestId('panel-one')).toHaveAttribute('data-open', '');
 			await expect(page.getByTestId('panel-one')).toHaveAttribute('role', 'region');
 			await expect(page.getByTestId('panel-two')).toHaveCount(0);
-			expect(await calls(page)).toEqual([
+			expect(await readValueCalls<string[]>(page)).toEqual([
 				{ value: ['one'], reason: 'trigger-press', canceled: false }
 			]);
 
@@ -80,7 +69,7 @@ for (const reference of [false, true]) {
 			await one.click({ force: true });
 			await expect(one).toHaveAttribute('aria-expanded', 'false');
 			await expect(page.getByTestId('panel-one')).toHaveCount(0);
-			expect(await calls(page)).toEqual([]);
+			expect(await readValueCalls<string[]>(page)).toEqual([]);
 		});
 
 		test('cancel leaves the panel closed', async ({ page }) => {
@@ -90,7 +79,7 @@ for (const reference of [false, true]) {
 			await one.click();
 			await expect(one).toHaveAttribute('aria-expanded', 'false');
 			await expect(page.getByTestId('panel-one')).toHaveCount(0);
-			expect(await calls(page)).toEqual([
+			expect(await readValueCalls<string[]>(page)).toEqual([
 				{ value: ['one'], reason: 'trigger-press', canceled: true }
 			]);
 		});
@@ -103,7 +92,7 @@ for (const reference of [false, true]) {
 			await one.click();
 			await expect(one).toHaveAttribute('aria-expanded', 'true');
 			await expect(owner).toBeChecked();
-			expect(await calls(page)).toEqual([
+			expect(await readValueCalls<string[]>(page)).toEqual([
 				{ value: ['one'], reason: 'trigger-press', canceled: false }
 			]);
 
@@ -118,7 +107,7 @@ for (const reference of [false, true]) {
 
 			await one.click();
 			await expect(one).toHaveAttribute('aria-expanded', 'false');
-			expect(await calls(page)).toEqual([]);
+			expect(await readValueCalls<string[]>(page)).toEqual([]);
 		});
 
 		test('keepMounted leaves a closed panel in the document', async ({ page }) => {
@@ -156,7 +145,9 @@ for (const reference of [false, true]) {
 			});
 			await expect(one).toHaveAttribute('aria-expanded', 'true');
 			await expect(panel).toHaveAttribute('data-open', '');
-			expect(await calls(page)).toEqual([{ value: ['one'], reason: 'none', canceled: false }]);
+			expect(await readValueCalls<string[]>(page)).toEqual([
+				{ value: ['one'], reason: 'none', canceled: false }
+			]);
 		});
 
 		test('Enter opens the focused trigger', async ({ page }) => {
@@ -169,7 +160,7 @@ for (const reference of [false, true]) {
 			await expect(page.getByTestId('panel-one')).toHaveAttribute('data-open', '');
 		});
 	});
-}
+});
 
 test('svelte SSR renders a closed trigger before hydration', async ({ request }) => {
 	const html = await (await request.get('/fixtures/accordion?case=exclusive')).text();

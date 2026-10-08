@@ -1,5 +1,6 @@
 <script lang="ts">
 	import { Checkbox } from '#lib';
+	import { readNamedForm } from '../routes/fixtures/form-log.js';
 
 	let {
 		scenario = 'plain'
@@ -12,12 +13,7 @@
 	let submitted = $state(0);
 
 	function onsubmit(event: SubmitEvent) {
-		event.preventDefault();
-		submitted += 1;
-		const form = event.currentTarget;
-		if (!(form instanceof HTMLFormElement)) return;
-		const value = new FormData(form).get('test-checkbox');
-		values = [...values, typeof value === 'string' ? value : null];
+		({ submitted, values } = readNamedForm(event, 'test-checkbox', submitted, values));
 	}
 </script>
 

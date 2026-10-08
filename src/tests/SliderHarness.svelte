@@ -112,6 +112,15 @@
 	{/if}
 {/snippet}
 
+{#snippet trackedControl()}
+	<Slider.Control data-testid="control">
+		<Slider.Track data-testid="track">
+			<Slider.Indicator data-testid="indicator" />
+			{@render thumbs()}
+		</Slider.Track>
+	</Slider.Control>
+{/snippet}
+
 {#snippet thumbs()}
 	{#if !omitThumb}
 		{#each Array.from({ length: thumbCount }, (_, index) => index) as index (index)}
@@ -158,12 +167,7 @@
 				</div>
 			{/snippet}
 			{@render valuePart()}
-			<Slider.Control data-testid="control">
-				<Slider.Track data-testid="track">
-					<Slider.Indicator data-testid="indicator" />
-					{@render thumbs()}
-				</Slider.Track>
-			</Slider.Control>
+			{@render trackedControl()}
 		</Slider.Root>
 	{:else if scenario === 'fresh'}
 		<Slider.Root
@@ -212,12 +216,7 @@
 			{onValueCommitted}
 		>
 			{@render valuePart()}
-			<Slider.Control data-testid="control">
-				<Slider.Track data-testid="track">
-					<Slider.Indicator data-testid="indicator" />
-					{@render thumbs()}
-				</Slider.Track>
-			</Slider.Control>
+			{@render trackedControl()}
 		</Slider.Root>
 		<output data-testid="bound">{JSON.stringify(bound)}</output>
 		<button

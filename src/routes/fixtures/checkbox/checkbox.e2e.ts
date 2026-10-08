@@ -1,29 +1,16 @@
 // Each case runs against the Svelte Checkbox and the React Base UI 1.8.0 reference.
 import { expect, test, type Page } from '@playwright/test';
+import { forEachFramework } from '../framework-loop.js';
+import { openFixture } from '../open-fixture.js';
+import { expectOwnerCleared } from '../owner-checked.js';
+import { readChecked, readValues } from '../read-output.js';
 
 async function open(page: Page, scenario: string, reference: boolean) {
-	const errors: string[] = [];
-	page.on('pageerror', (error) => errors.push(error.message));
-	await page.goto(`/fixtures/checkbox?case=${scenario}${reference ? '&reference' : ''}`);
-	await expect(page.locator('main')).toHaveAttribute('data-hydrated', 'true');
-	return { checkbox: page.getByRole('checkbox', { name: 'Notifications' }), errors };
+	const opened = await openFixture(page, 'checkbox', scenario, reference);
+	return { checkbox: page.getByRole('checkbox', { name: 'Notifications' }), errors: opened.errors };
 }
 
-async function calls(page: Page) {
-	return JSON.parse(await page.getByTestId('calls').innerText()) as {
-		checked: boolean;
-		reason: string;
-		canceled: boolean;
-	}[];
-}
-
-async function values(page: Page) {
-	return JSON.parse(await page.getByTestId('values').innerText()) as (string | null)[];
-}
-
-for (const reference of [false, true]) {
-	const framework = reference ? 'react' : 'svelte';
-
+forEachFramework((reference, framework) => {
 	test.describe(framework, () => {
 		test('click toggles aria-checked and data-checked', async ({ page }) => {
 			const { checkbox, errors } = await open(page, 'standalone', reference);
@@ -32,10 +19,10 @@ for (const reference of [false, true]) {
 			await checkbox.click();
 			await expect(checkbox).toHaveAttribute('aria-checked', 'true');
 			await expect(checkbox).toHaveAttribute('data-checked', '');
-			expect(await calls(page)).toEqual([{ checked: true, reason: 'none', canceled: false }]);
+			expect(await readChecked(page)).toEqual([{ checked: true, reason: 'none', canceled: false }]);
 			await checkbox.click();
 			await expect(checkbox).toHaveAttribute('aria-checked', 'false');
-			expect(await calls(page)).toHaveLength(2);
+			expect(await readChecked(page)).toHaveLength(2);
 			expect(errors).toEqual([]);
 		});
 
@@ -55,16 +42,14 @@ for (const reference of [false, true]) {
 			await owner.check();
 			await expect(checkbox).toHaveAttribute('aria-checked', 'true');
 			await checkbox.click();
-			await expect(checkbox).toHaveAttribute('aria-checked', 'false');
-			await expect(owner).not.toBeChecked();
-			expect(await calls(page)).toEqual([{ checked: false, reason: 'none', canceled: false }]);
+			await expectOwnerCleared(page, checkbox);
 		});
 
 		test('canceling onCheckedChange keeps the state', async ({ page }) => {
 			const { checkbox } = await open(page, 'cancel', reference);
 			await checkbox.click();
 			await expect(checkbox).toHaveAttribute('aria-checked', 'false');
-			expect(await calls(page)).toEqual([{ checked: true, reason: 'none', canceled: true }]);
+			expect(await readChecked(page)).toEqual([{ checked: true, reason: 'none', canceled: true }]);
 		});
 
 		test('disabled uses aria-disabled and never calls back', async ({ page }) => {
@@ -74,7 +59,7 @@ for (const reference of [false, true]) {
 			await expect(checkbox).not.toHaveAttribute('disabled');
 			await checkbox.click({ force: true });
 			await expect(checkbox).toHaveAttribute('aria-checked', 'false');
-			expect(await calls(page)).toEqual([]);
+			expect(await readChecked(page)).toEqual([]);
 		});
 
 		test('readOnly does not toggle', async ({ page }) => {
@@ -83,26 +68,26 @@ for (const reference of [false, true]) {
 			await expect(checkbox).toHaveAttribute('data-readonly', '');
 			await checkbox.click();
 			await expect(checkbox).toHaveAttribute('aria-checked', 'false');
-			expect(await calls(page)).toEqual([]);
+			expect(await readChecked(page)).toEqual([]);
 		});
 
 		test('a wrapping label toggles the checkbox once', async ({ page }) => {
 			const { checkbox } = await open(page, 'label', reference);
 			await page.getByText('Toggle').click();
 			await expect(checkbox).toHaveAttribute('aria-checked', 'true');
-			expect(await calls(page)).toEqual([{ checked: true, reason: 'none', canceled: false }]);
+			expect(await readChecked(page)).toEqual([{ checked: true, reason: 'none', canceled: false }]);
 		});
 
 		test('form submission cycles uncheckedValue and value', async ({ page }) => {
 			const { checkbox } = await open(page, 'form', reference);
 			await page.getByRole('button', { name: 'Submit' }).click();
-			await expect.poll(async () => values(page)).toEqual(['no']);
+			await expect.poll(async () => readValues(page)).toEqual(['no']);
 			await checkbox.click();
 			await page.getByRole('button', { name: 'Submit' }).click();
-			await expect.poll(async () => values(page)).toEqual(['no', 'yes']);
+			await expect.poll(async () => readValues(page)).toEqual(['no', 'yes']);
 			await checkbox.click();
 			await page.getByRole('button', { name: 'Submit' }).click();
-			await expect.poll(async () => values(page)).toEqual(['no', 'yes', 'no']);
+			await expect.poll(async () => readValues(page)).toEqual(['no', 'yes', 'no']);
 		});
 
 		test('Enter submits the form and leaves the checkbox unticked', async ({ page }) => {
@@ -110,8 +95,8 @@ for (const reference of [false, true]) {
 			await checkbox.focus();
 			await page.keyboard.press('Enter');
 			await expect(checkbox).toHaveAttribute('aria-checked', 'false');
-			await expect.poll(async () => values(page)).toEqual(['no']);
-			expect(await calls(page)).toEqual([]);
+			await expect.poll(async () => readValues(page)).toEqual(['no']);
+			expect(await readChecked(page)).toEqual([]);
 		});
 
 		test('native button keeps the id and Space ticks it', async ({ page }) => {
@@ -140,10 +125,10 @@ for (const reference of [false, true]) {
 			const { checkbox } = await open(page, 'prevented', reference);
 			await checkbox.click();
 			await expect(checkbox).toHaveAttribute('aria-checked', 'false');
-			expect(await calls(page)).toEqual([]);
+			expect(await readChecked(page)).toEqual([]);
 		});
 	});
-}
+});
 
 test('svelte SSR renders an unticked checkbox before hydration', async ({ request }) => {
 	const html = await (await request.get('/fixtures/checkbox?case=standalone')).text();

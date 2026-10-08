@@ -1,6 +1,9 @@
 <script lang="ts">
-	import { Field, Form } from '#lib';
+	import { Field } from '#lib';
+	import FormSubmit from '../FormSubmit.svelte';
+	import { takeForm } from '../form-log.js';
 	import type { FieldCase } from './cases.js';
+	import FieldHelpCases from './FieldHelpCases.svelte';
 
 	let { scenario }: { scenario: FieldCase } = $props();
 
@@ -8,9 +11,7 @@
 	let values = $state('');
 
 	function accept(formValues: Record<string, unknown>, details: { event: Event }) {
-		details.event.preventDefault();
-		submitted += 1;
-		values = JSON.stringify(formValues);
+		({ submitted, values } = takeForm(formValues, details, submitted));
 	}
 </script>
 
@@ -19,20 +20,8 @@
 		<Field.Label data-testid="label">Email</Field.Label>
 		<Field.Control data-testid="control" />
 	</Field.Root>
-{:else if scenario === 'described'}
-	<Field.Root>
-		<Field.Control data-testid="control" aria-describedby="author" />
-		<Field.Description data-testid="description">Help</Field.Description>
-	</Field.Root>
-{:else if scenario === 'required'}
-	<Form onFormSubmit={accept}>
-		<Field.Root>
-			<Field.Control required data-testid="control" />
-			<Field.Error data-testid="error">Required</Field.Error>
-		</Field.Root>
-		<button type="submit">Submit</button>
-	</Form>
-	<output data-testid="submitted">{submitted}</output>
+{:else if scenario === 'described' || scenario === 'required'}
+	<FieldHelpCases {scenario} {accept} {submitted} />
 {:else if scenario === 'disabled'}
 	<Field.Root disabled data-testid="field">
 		<Field.Label>Email</Field.Label>
@@ -43,11 +32,9 @@
 		<Field.Control data-testid="control" />
 	</Field.Root>
 {:else}
-	<Form onFormSubmit={accept}>
+	<FormSubmit {accept} {values}>
 		<Field.Root name="username">
 			<Field.Control defaultValue="ada" data-testid="control" />
 		</Field.Root>
-		<button type="submit">Submit</button>
-	</Form>
-	<output data-testid="values">{values}</output>
+	</FormSubmit>
 {/if}

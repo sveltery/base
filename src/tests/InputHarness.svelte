@@ -1,5 +1,7 @@
 <script lang="ts">
-	import { Field, Form, Input } from '#lib';
+	import { Field, Input } from '#lib';
+	import FormSubmit from '../routes/fixtures/FormSubmit.svelte';
+	import { takeForm } from '../routes/fixtures/form-log.js';
 
 	let {
 		scenario = 'plain',
@@ -22,9 +24,7 @@
 	}
 
 	function accept(formValues: Record<string, unknown>, details: { event: Event }) {
-		details.event.preventDefault();
-		submitted += 1;
-		values = JSON.stringify(formValues);
+		({ submitted, values } = takeForm(formValues, details, submitted));
 	}
 </script>
 
@@ -95,12 +95,9 @@
 	<output data-testid="value">{bound}</output>
 	<button type="button" onclick={() => (bound = 'program')}>Set</button>
 {:else}
-	<Form onFormSubmit={accept}>
+	<FormSubmit {accept} {submitted} {values}>
 		<Field.Root name="username">
 			<Input defaultValue="ada" data-testid="control" />
 		</Field.Root>
-		<button type="submit">Submit</button>
-	</Form>
-	<output data-testid="submitted">{submitted}</output>
-	<output data-testid="values">{values}</output>
+	</FormSubmit>
 {/if}

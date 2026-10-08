@@ -40,8 +40,6 @@
 	const csp = useCSPContext();
 	const model = new ScrollAreaModel(() => overflowEdgeThreshold, `base-ui-${uid}`);
 	model.readDirection = () => reading.direction;
-	model.readStyle = () => style;
-	model.readDir = () => dir;
 	setScrollAreaContext(model);
 
 	let el = $state<HTMLDivElement | null>(null);

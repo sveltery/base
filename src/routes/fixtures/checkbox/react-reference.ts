@@ -1,15 +1,11 @@
 // React Base UI 1.8.0 counterpart of CheckboxFixture.svelte. Comparison only; never imported by src/lib.
-import { createElement as h, Fragment, useEffect, useState, type ReactNode } from 'react';
-import { createRoot, type Root } from 'react-dom/client';
+import { createElement as h, type ReactNode } from 'react';
 import { Checkbox } from '@base-ui/react/checkbox';
+import { useCheckedFixture } from '../checked-reference.js';
+import { mountApp, passProps } from '../react-fixture.js';
 import type { CheckboxCase } from './cases.js';
 
-// Base UI's published prop types omit `data-*` attributes the DOM still accepts.
-function partProps(props: object) {
-	return props as never;
-}
-
-type Call = { checked: boolean; reason: string; canceled: boolean };
+const partProps = passProps;
 
 export function mountCheckboxReference(
 	node: HTMLElement,
@@ -17,43 +13,11 @@ export function mountCheckboxReference(
 	onReady: () => void
 ) {
 	function App() {
-		const [owner, setOwner] = useState(false);
-		const [calls, setCalls] = useState<Call[]>([]);
-		const [values, setValues] = useState<(string | null)[]>([]);
-		useEffect(onReady, []);
-
-		const bound = scenario === 'bound';
-
-		function changed(
-			next: boolean,
-			details: { reason: string; isCanceled: boolean; cancel: () => void }
-		) {
-			if (scenario === 'cancel') details.cancel();
-			const call = { checked: next, reason: details.reason, canceled: details.isCanceled };
-			setCalls((previous) => [...previous, call]);
-			if (bound && !details.isCanceled) setOwner(next);
-		}
-
-		function prevent(event: { preventBaseUIHandler?: () => void }) {
-			if (scenario === 'prevented') event.preventBaseUIHandler?.();
-		}
-
-		function submitted(event: { preventDefault: () => void; currentTarget: EventTarget | null }) {
-			event.preventDefault();
-			const form = event.currentTarget;
-			if (!(form instanceof HTMLFormElement)) return;
-			const value = new FormData(form).get('notifications');
-			setValues((previous) => [...previous, typeof value === 'string' ? value : null]);
-		}
-
-		const shared = {
-			onCheckedChange: changed,
-			onClick: prevent
-		};
+		const box = useCheckedFixture(scenario, onReady);
 
 		let control: ReactNode = h(
 			Checkbox.Root,
-			{ id: 'tested-checkbox', ...shared },
+			{ id: 'tested-checkbox', ...box.shared },
 			h(Checkbox.Indicator),
 			'Notifications'
 		);
@@ -61,7 +25,7 @@ export function mountCheckboxReference(
 		if (scenario === 'form' || scenario === 'enter') {
 			control = h(
 				'form',
-				{ onSubmit: submitted },
+				{ onSubmit: box.submitted },
 				h(
 					Checkbox.Root,
 					{
@@ -69,7 +33,7 @@ export function mountCheckboxReference(
 						name: 'notifications',
 						value: 'yes',
 						uncheckedValue: 'no',
-						onCheckedChange: changed
+						onCheckedChange: box.changed
 					},
 					h(Checkbox.Indicator),
 					'Notifications'
@@ -83,7 +47,7 @@ export function mountCheckboxReference(
 				h('span', null, 'Toggle'),
 				h(
 					Checkbox.Root,
-					{ id: 'tested-checkbox', onCheckedChange: changed },
+					{ id: 'tested-checkbox', onCheckedChange: box.changed },
 					h(Checkbox.Indicator),
 					'Notifications'
 				)
@@ -95,7 +59,7 @@ export function mountCheckboxReference(
 					id: 'tested-checkbox',
 					nativeButton: true,
 					render: h('button'),
-					onCheckedChange: changed,
+					onCheckedChange: box.changed,
 					'aria-label': 'Notifications'
 				},
 				'Notifications'
@@ -103,14 +67,14 @@ export function mountCheckboxReference(
 		} else if (scenario === 'indeterminate') {
 			control = h(
 				Checkbox.Root,
-				{ id: 'tested-checkbox', indeterminate: true, onCheckedChange: changed },
+				{ id: 'tested-checkbox', indeterminate: true, onCheckedChange: box.changed },
 				h(Checkbox.Indicator, partProps({ 'data-testid': 'indicator' })),
 				'Notifications'
 			);
-		} else if (bound) {
+		} else if (box.bound) {
 			control = h(
 				Checkbox.Root,
-				{ id: 'tested-checkbox', checked: owner, ...shared },
+				{ id: 'tested-checkbox', checked: box.owner, ...box.shared },
 				h(Checkbox.Indicator),
 				'Notifications'
 			);
@@ -121,31 +85,15 @@ export function mountCheckboxReference(
 					id: 'tested-checkbox',
 					disabled: scenario === 'disabled',
 					readOnly: scenario === 'readonly',
-					...shared
+					...box.shared
 				},
 				h(Checkbox.Indicator),
 				'Notifications'
 			);
 		}
 
-		return h(
-			Fragment,
-			null,
-			bound
-				? h('input', {
-						type: 'checkbox',
-						'aria-label': 'Owner checked',
-						checked: owner,
-						onChange: () => setOwner(!owner)
-					})
-				: null,
-			control,
-			h('output', { 'data-testid': 'calls' }, JSON.stringify(calls)),
-			h('output', { 'data-testid': 'values' }, JSON.stringify(values))
-		);
+		return box.finish(control);
 	}
 
-	const root: Root = createRoot(node);
-	root.render(h(App));
-	return () => root.unmount();
+	return mountApp(node, App);
 }

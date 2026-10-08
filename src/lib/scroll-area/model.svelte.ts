@@ -53,8 +53,6 @@ export class ScrollAreaModel {
 	thumbSize = $state<Size>({ ...DEFAULT_SIZE });
 	overflowEdges = $state<OverflowEdges>({ ...DEFAULT_OVERFLOW_EDGES });
 	hiddenState = $state<HiddenState>({ ...DEFAULT_HIDDEN_STATE });
-	readStyle: () => string | null | undefined = () => undefined;
-	readDir: () => string | null | undefined = () => undefined;
 	snapSuspended = $state(false);
 	overflowXStartPx = $state(0);
 	overflowXEndPx = $state(0);
@@ -129,6 +127,8 @@ export class ScrollAreaModel {
 
 	refreshLayout(threshold: OverflowEdgeThreshold | undefined) {
 		this.edgeThreshold = normalizeOverflowEdgeThreshold(threshold ?? this.readThreshold());
+		// Measure after this effect, so the layout read is not a dependency.
+		queueMicrotask(() => this.computeThumbPosition());
 	}
 
 	registerOverflowProperties() {
@@ -456,19 +456,9 @@ export class ScrollAreaModel {
 
 	queueThumb(hidden: HiddenState) {
 		const direction = this.direction;
-		const style = this.readStyle();
-		const dir = this.readDir();
-		const threshold = this.readThreshold();
 		if (!this.viewportElement && hidden.x && hidden.y && hidden.corner) return;
 		queueMicrotask(() => {
-			if (
-				this.direction !== direction ||
-				this.readStyle() !== style ||
-				this.readDir() !== dir ||
-				this.readThreshold() !== threshold
-			) {
-				return;
-			}
+			if (this.direction !== direction) return;
 			this.computeThumbPosition();
 		});
 	}

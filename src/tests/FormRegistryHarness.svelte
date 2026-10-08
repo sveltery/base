@@ -96,6 +96,8 @@
 		<FormField id="counted" name="counted" onValidate={(count) => note(String(count))} />
 	{:else if scenario === 'errors-focus'}
 		<FormField id="a" name="a" {valid} value="kept" />
+	{:else if scenario === 'errors-name'}
+		<FormField id="control-id" name="username" {valid} value="kept" />
 	{:else if scenario === 'clear'}
 		<FormField id="a" name="a" />
 		<FormErrorControls />
@@ -120,6 +122,10 @@
 			errors = { a: 'nope' };
 		}}>Apply errors</button
 	>
+{/if}
+
+{#if scenario === 'errors-name'}
+	<button type="button" onclick={() => (errors = { username: 'nope' })}>Apply named error</button>
 {/if}
 
 {#if scenario === 'clear'}

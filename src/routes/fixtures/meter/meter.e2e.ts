@@ -1,17 +1,15 @@
 // Each case runs against the Svelte Meter and the React Base UI 1.8.0 reference.
 import { expect, test, type Locator, type Page } from '@playwright/test';
+import { openFixture } from '../open-fixture.js';
 import { ariaValueText } from './cases.js';
 
 async function open(page: Page, scenario: string, reference: boolean) {
-	const errors: string[] = [];
-	page.on('pageerror', (error) => errors.push(error.message));
-	await page.goto(`/fixtures/meter?case=${scenario}${reference ? '&reference' : ''}`);
-	await expect(page.locator('main')).toHaveAttribute('data-hydrated', 'true');
+	const opened = await openFixture(page, 'meter', scenario, reference);
 	return {
 		meter: page.getByRole('meter'),
 		value: page.locator('#meter-value'),
 		indicator: page.locator('#meter-indicator'),
-		errors
+		errors: opened.errors
 	};
 }
 

@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { DirectionProvider, type TextDirection } from '#lib';
-	import DirectionProbe from './DirectionProbe.svelte';
+	import DirectionReadout from '../routes/fixtures/direction-provider/DirectionReadout.svelte';
 
 	let {
 		scenario = 'outside'
@@ -12,27 +12,27 @@
 </script>
 
 {#if scenario === 'outside'}
-	<DirectionProbe />
+	<DirectionReadout />
 {:else if scenario === 'omitted'}
 	<DirectionProvider>
-		<DirectionProbe />
+		<DirectionReadout />
 	</DirectionProvider>
 {:else if scenario === 'rtl'}
 	<DirectionProvider direction="rtl">
-		<DirectionProbe />
+		<DirectionReadout />
 	</DirectionProvider>
 {:else if scenario === 'reactive'}
 	<button type="button" onclick={() => (direction = direction === 'rtl' ? 'ltr' : 'rtl')}>
 		Flip direction
 	</button>
 	<DirectionProvider {direction}>
-		<DirectionProbe />
+		<DirectionReadout />
 	</DirectionProvider>
 {:else}
 	<DirectionProvider direction="rtl">
-		<DirectionProbe testId="outer" />
+		<DirectionReadout testId="outer" />
 		<DirectionProvider direction="ltr">
-			<DirectionProbe testId="inner" />
+			<DirectionReadout testId="inner" />
 		</DirectionProvider>
 	</DirectionProvider>
 {/if}

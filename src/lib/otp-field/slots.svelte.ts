@@ -7,20 +7,13 @@
 // Indexes are claimed in render order for SSR, then corrected to document order.
 
 import { untrack } from 'svelte';
-import { byDocumentOrder } from '../internal/document-order.js';
+import { createSlotClaim, includeSorted } from '../internal/roving-slot.js';
 import { createAttachmentKey } from 'svelte/attachments';
 
 export class SlotList {
 	elements = $state<HTMLInputElement[]>([]);
-	private nextSlot = 0;
+	readonly claim = createSlotClaim();
 	readonly attachmentKey = createAttachmentKey();
-
-	/** Render-order slot used before the input is in the document (SSR). */
-	claim() {
-		const slot = this.nextSlot;
-		this.nextSlot += 1;
-		return slot;
-	}
 
 	get first(): HTMLInputElement | null {
 		return this.elements[0] ?? null;
@@ -34,9 +27,7 @@ export class SlotList {
 
 	register(node: HTMLInputElement) {
 		untrack(() => {
-			if (!this.elements.includes(node)) {
-				this.elements = [...this.elements, node].sort(byDocumentOrder);
-			}
+			this.elements = includeSorted(this.elements, node);
 		});
 		return () => {
 			untrack(() => {

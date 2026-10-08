@@ -1,12 +1,10 @@
 // Each case runs against the Svelte Toggle and the React Base UI 1.8.0 reference.
 import { expect, test, type Page } from '@playwright/test';
+import { openFixture } from '../open-fixture.js';
 
 async function open(page: Page, scenario: string, reference: boolean) {
-	const errors: string[] = [];
-	page.on('pageerror', (error) => errors.push(error.message));
-	await page.goto(`/fixtures/toggle?case=${scenario}${reference ? '&reference' : ''}`);
-	await expect(page.locator('main')).toHaveAttribute('data-hydrated', 'true');
-	return { toggle: page.getByRole('button', { name: 'Bold' }), errors };
+	const opened = await openFixture(page, 'toggle', scenario, reference);
+	return { toggle: page.getByRole('button', { name: 'Bold' }), errors: opened.errors };
 }
 
 async function calls(page: Page) {

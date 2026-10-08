@@ -1,5 +1,6 @@
 <script lang="ts">
 	import { Fieldset } from '#lib';
+	import FieldsetCases from '../routes/fixtures/fieldset/FieldsetCases.svelte';
 
 	let {
 		scenario
@@ -10,9 +11,6 @@
 
 	let outerDisabled = $state(false);
 	let innerDisabled = $state(true);
-	let legendId = $state('legend-a');
-	let showLegend = $state(true);
-	let labels = $state<'old' | 'both' | 'new'>('old');
 </script>
 
 {#if scenario === 'disabled'}
@@ -37,30 +35,6 @@
 	<Fieldset.Root data-testid="fieldset">
 		<Fieldset.Legend id="legend-id" data-testid="legend">Legend</Fieldset.Legend>
 	</Fieldset.Root>
-{:else if scenario === 'dynamic'}
-	<Fieldset.Root data-testid="fieldset">
-		{#if showLegend}
-			<Fieldset.Legend id={legendId} data-testid="legend">Legend</Fieldset.Legend>
-		{/if}
-	</Fieldset.Root>
-	<button type="button" onclick={() => (legendId = 'legend-b')}>Change id</button>
-	<button type="button" onclick={() => (showLegend = false)}>Remove legend</button>
-{:else if scenario === 'labels'}
-	<Fieldset.Root data-testid="fieldset">
-		{#if labels !== 'new'}
-			<Fieldset.Legend id="old-label" data-testid="old">Old</Fieldset.Legend>
-		{/if}
-		{#if labels !== 'old'}
-			<Fieldset.Legend id="new-label" data-testid="new">New</Fieldset.Legend>
-		{/if}
-	</Fieldset.Root>
-	<button type="button" onclick={() => (labels = 'both')}>Show both</button>
-	<button type="button" onclick={() => (labels = 'new')}>Show new</button>
 {:else}
-	<Fieldset.Root data-testid="outer">
-		<Fieldset.Legend id="outer-legend">Outer</Fieldset.Legend>
-		<Fieldset.Root data-testid="inner">
-			<Fieldset.Legend id="inner-legend">Inner</Fieldset.Legend>
-		</Fieldset.Root>
-	</Fieldset.Root>
+	<FieldsetCases {scenario} />
 {/if}

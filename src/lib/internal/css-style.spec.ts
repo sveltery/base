@@ -13,6 +13,12 @@ describe('css-style', () => {
 		).toBe('inset-inline-start: 0px; --position: 10%');
 	});
 
+	it('keeps unitless zeros unitless and still prints a length zero as 0px', () => {
+		expect(toCssStyle({ zIndex: 0, opacity: 0, margin: 0 })).toBe(
+			'z-index: 0; opacity: 0; margin: 0px'
+		);
+	});
+
 	it('joins a base style with an override and keeps the base when the override is empty', () => {
 		expect(mergeCssStyle('color: red', 'width: 1px')).toBe('color: red; width: 1px');
 		expect(mergeCssStyle('color: red', undefined)).toBe('color: red');

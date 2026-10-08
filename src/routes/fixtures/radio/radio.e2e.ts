@@ -2,13 +2,10 @@
 // These cases are the standalone radio. RadioGroup is not ported, so a radio is
 // selected only when its value is the empty string, matching Base UI without a group.
 import { expect, test, type Page } from '@playwright/test';
+import { openFixture } from '../open-fixture.js';
 
-async function open(page: Page, scenario: string, reference: boolean) {
-	const errors: string[] = [];
-	page.on('pageerror', (error) => errors.push(error.message));
-	await page.goto(`/fixtures/radio?case=${scenario}${reference ? '&reference' : ''}`);
-	await expect(page.locator('main')).toHaveAttribute('data-hydrated', 'true');
-	return { errors };
+function open(page: Page, scenario: string, reference: boolean) {
+	return openFixture(page, 'radio', scenario, reference);
 }
 
 function radio(page: Page, name: string) {

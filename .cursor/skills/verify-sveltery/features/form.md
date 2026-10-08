@@ -10,7 +10,7 @@ A native `<form>` that collects registered fields, blocks submit when one is inv
 - An invalid field with no control still blocks submit.
 - `valid: null` (a validator that has not finished) does not block. Validation is not awaited.
 - `onsubmit` runs only when nothing blocked the submit. `onFormSubmit` then receives named field values and a details object whose event is already `defaultPrevented`, with reason `none`.
-- `bind:errors` holds external errors. After a submit that was not blocked, the next errors object focuses the first control that is invalid or named in that object. `clearErrors` drops one key.
+- `bind:errors` holds external errors keyed by field name. After a submit that was not blocked, the next errors object focuses the first control that is invalid or whose name is a key, even when that control's id is different. `clearErrors` drops one key.
 - `bind:actions` exposes `validate()` for every field, or the first field with a given name.
 - Fields outside `<Form>` share one fallback registry, matching the upstream default context.
 - A `render` snippet receives `(props, state, children)`. Consumer `{@attach}` reaches the host through the spread props.

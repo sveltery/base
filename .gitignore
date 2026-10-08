@@ -30,3 +30,5 @@ __screenshots__
 # Repo-local tool caches (scripts/toolchain.sh) and verification evidence
 .checks
 .verify
+.jscpd-report
+scripts/*.d.mts

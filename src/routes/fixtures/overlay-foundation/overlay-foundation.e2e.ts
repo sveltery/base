@@ -1,16 +1,14 @@
 import { expect, test, type Page } from '@playwright/test';
+import { openFixture } from '../open-fixture.js';
 
 async function open(page: Page, scenario: string, reference: boolean) {
-	const errors: string[] = [];
-	page.on('pageerror', (error) => errors.push(error.message));
-	await page.goto(`/fixtures/overlay-foundation?case=${scenario}${reference ? '&reference' : ''}`);
-	await expect(page.locator('main')).toHaveAttribute('data-hydrated', 'true');
+	const opened = await openFixture(page, 'overlay-foundation', scenario, reference);
 	return {
 		trigger: page.getByRole('button', { name: 'Open' }),
 		popup: page.getByRole('dialog', { name: 'Notice' }),
 		inside: page.getByRole('button', { name: 'Inside' }),
 		outside: page.getByTestId('outside'),
-		errors
+		errors: opened.errors
 	};
 }
 

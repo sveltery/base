@@ -6,25 +6,25 @@
 import { page } from 'vitest/browser';
 import { describe, expect, it } from 'vitest';
 import { render } from 'vitest-browser-svelte';
-import CSPProviderHarness from '../../tests/CSPProviderHarness.svelte';
+import CSPProviderFixture from '../../routes/fixtures/csp-provider/CSPProviderFixture.svelte';
 
 describe('<CSPProvider />', () => {
 	it('defaults disableStyleElements to false outside a provider', async () => {
-		render(CSPProviderHarness, { scenario: 'outside' });
+		render(CSPProviderFixture, { scenario: 'outside' });
 
 		await expect.element(page.getByTestId('csp-nonce')).toHaveTextContent('undefined');
 		await expect.element(page.getByTestId('csp-styles')).toHaveTextContent('false');
 	});
 
 	it('provides disableStyleElements so a descendant can skip inline style tags', async () => {
-		render(CSPProviderHarness, { scenario: 'disabled' });
+		render(CSPProviderFixture, { scenario: 'disabled' });
 
 		await expect.element(page.getByTestId('csp-styles')).toHaveTextContent('true');
 		await expect.element(page.getByTestId('csp-nonce')).toHaveTextContent('undefined');
 	});
 
 	it('provides nonce for inline style and script tags', async () => {
-		render(CSPProviderHarness, { scenario: 'reactive' });
+		render(CSPProviderFixture, { scenario: 'reactive' });
 		const nonce = page.getByTestId('csp-nonce');
 		const styles = page.getByTestId('csp-styles');
 
@@ -39,14 +39,14 @@ describe('<CSPProvider />', () => {
 
 	describe('native Svelte', () => {
 		it('leaves an omitted disableStyleElements prop undefined', async () => {
-			render(CSPProviderHarness, { scenario: 'omitted' });
+			render(CSPProviderFixture, { scenario: 'omitted' });
 
 			await expect.element(page.getByTestId('csp-nonce')).toHaveTextContent('undefined');
 			await expect.element(page.getByTestId('csp-styles')).toHaveTextContent('undefined');
 		});
 
 		it('lets a nested provider replace the outer configuration', async () => {
-			render(CSPProviderHarness, { scenario: 'nested' });
+			render(CSPProviderFixture, { scenario: 'nested' });
 
 			await expect.element(page.getByTestId('outer-nonce')).toHaveTextContent('outer-nonce');
 			await expect.element(page.getByTestId('outer-styles')).toHaveTextContent('false');
@@ -55,7 +55,7 @@ describe('<CSPProvider />', () => {
 		});
 
 		it('renders no host element around its children', async () => {
-			const { container } = render(CSPProviderHarness, { scenario: 'nonce' });
+			const { container } = render(CSPProviderFixture, { scenario: 'nonce' });
 			const probe = page.getByTestId('csp-nonce');
 
 			await expect.element(probe).toHaveTextContent('test-nonce');

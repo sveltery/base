@@ -1,25 +1,21 @@
 // React Base UI 1.8.0 counterpart of InputFixture.svelte. Comparison only; never imported by src/lib.
-import { createElement as h, Fragment, useEffect, useState, type ComponentProps } from 'react';
-import { createRoot } from 'react-dom/client';
+import { createElement as h, Fragment, useEffect, useState } from 'react';
 import { Field } from '@base-ui/react/field';
-import { Form } from '@base-ui/react/form';
 import { Input } from '@base-ui/react/input';
 import type { InputCase } from './cases.js';
+import {
+	countSubmit,
+	mountApp,
+	passProps,
+	storeValues,
+	submittedForm,
+	valuesForm
+} from '../react-fixture.js';
 
-// Base UI's public prop types omit `data-*`. The attributes still reach the DOM.
-type FixtureProps<T> = T & { 'data-testid'?: string };
-function rootProps(props: FixtureProps<ComponentProps<typeof Field.Root>>) {
-	return props;
-}
-function labelProps(props: FixtureProps<ComponentProps<typeof Field.Label>>) {
-	return props;
-}
-function inputProps(props: FixtureProps<ComponentProps<typeof Input>>) {
-	return props;
-}
-function errorProps(props: FixtureProps<ComponentProps<typeof Field.Error>>) {
-	return props;
-}
+const rootProps = passProps;
+const labelProps = passProps;
+const inputProps = passProps;
+const errorProps = passProps;
 
 export function mountInputReference(node: HTMLElement, scenario: InputCase, onReady: () => void) {
 	function App() {
@@ -53,7 +49,7 @@ export function mountInputReference(node: HTMLElement, scenario: InputCase, onRe
 						Input,
 						inputProps({
 							value,
-							onValueChange: (next) => setValue(next),
+							onValueChange: (next: string) => setValue(next),
 							'data-testid': 'control'
 						})
 					)
@@ -74,53 +70,30 @@ export function mountInputReference(node: HTMLElement, scenario: InputCase, onRe
 				h(Input, inputProps({ 'data-testid': 'control' }))
 			);
 		} else if (scenario === 'required') {
-			body = h(
-				Fragment,
-				null,
+			body = submittedForm(
+				countSubmit(setSubmitted),
 				h(
-					Form,
-					{
-						onSubmit: (event: { preventDefault: () => void }) => {
-							event.preventDefault();
-							setSubmitted((previous) => previous + 1);
-						}
-					},
-					h(
-						Field.Root,
-						null,
-						h(Input, inputProps({ required: true, 'data-testid': 'control' })),
-						h(Field.Error, errorProps({ 'data-testid': 'error' }), 'Required')
-					),
-					h('button', { type: 'submit' }, 'Submit')
+					Field.Root,
+					null,
+					h(Input, inputProps({ required: true, 'data-testid': 'control' })),
+					h(Field.Error, errorProps({ 'data-testid': 'error' }), 'Required')
 				),
-				h('output', { 'data-testid': 'submitted' }, String(submitted))
+				submitted
 			);
 		} else {
-			body = h(
-				Fragment,
-				null,
+			body = valuesForm(
+				storeValues(setValues),
 				h(
-					Form,
-					{
-						onFormSubmit: (formValues: Record<string, unknown>) => {
-							setValues(JSON.stringify(formValues));
-						}
-					},
-					h(
-						Field.Root,
-						{ name: 'username' },
-						h(Input, inputProps({ defaultValue: 'ada', 'data-testid': 'control' }))
-					),
-					h('button', { type: 'submit' }, 'Submit')
+					Field.Root,
+					{ name: 'username' },
+					h(Input, inputProps({ defaultValue: 'ada', 'data-testid': 'control' }))
 				),
-				h('output', { 'data-testid': 'values' }, values)
+				values
 			);
 		}
 
 		return body;
 	}
 
-	const root = createRoot(node);
-	root.render(h(App));
-	return () => root.unmount();
+	return mountApp(node, App);
 }

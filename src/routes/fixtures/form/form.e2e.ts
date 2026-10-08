@@ -1,16 +1,14 @@
 // Each case runs against the Svelte Form and the React Base UI 1.8.0 reference.
 import { expect, test, type Page } from '@playwright/test';
+import { openFixture } from '../open-fixture.js';
 
 async function open(page: Page, scenario: string, reference: boolean) {
-	const errors: string[] = [];
-	page.on('pageerror', (error) => errors.push(error.message));
-	await page.goto(`/fixtures/form?case=${scenario}${reference ? '&reference' : ''}`);
-	await expect(page.locator('main')).toHaveAttribute('data-hydrated', 'true');
+	const opened = await openFixture(page, 'form', scenario, reference);
 	return {
 		form: page.locator('#tested-form'),
 		submitted: page.getByTestId('submitted'),
 		values: page.getByTestId('values'),
-		errors
+		errors: opened.errors
 	};
 }
 

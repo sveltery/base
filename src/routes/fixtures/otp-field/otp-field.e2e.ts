@@ -1,12 +1,10 @@
 // Each case runs against the Svelte OTP Field and the React Base UI 1.8.0 reference.
 import { expect, test, type Page } from '@playwright/test';
+import { openFixture } from '../open-fixture.js';
+import { expectRequiredBlocked } from '../field-asserts.js';
 
-async function open(page: Page, scenario: string, reference: boolean) {
-	const errors: string[] = [];
-	page.on('pageerror', (error) => errors.push(error.message));
-	await page.goto(`/fixtures/otp-field?case=${scenario}${reference ? '&reference' : ''}`);
-	await expect(page.locator('main')).toHaveAttribute('data-hydrated', 'true');
-	return { errors };
+function open(page: Page, scenario: string, reference: boolean) {
+	return openFixture(page, 'otp-field', scenario, reference);
 }
 
 function slots(page: Page) {
@@ -67,10 +65,7 @@ for (const reference of [false, true]) {
 
 		test('blocks submit and shows the required error', async ({ page }) => {
 			await open(page, 'required', reference);
-			await expect(page.getByTestId('error')).toHaveCount(0);
-			await page.getByRole('button', { name: 'Submit' }).click();
-			await expect(page.getByText('Required')).toBeVisible();
-			await expect(page.getByTestId('submitted')).toHaveText('0');
+			await expectRequiredBlocked(page, false);
 		});
 	});
 }

@@ -46,8 +46,10 @@
 		// document position. Disconnected trees keep registration order.
 		let hasInvalid = false;
 		let firstControl: HTMLElement | null = null;
-		for (const [name, field] of fields.entries()) {
-			if (field.validityData.state.valid !== false && formErrors[name] == null) continue;
+		for (const field of fields.values()) {
+			const fieldName = field.name;
+			const namedError = fieldName != null && formErrors[fieldName] != null;
+			if (field.validityData.state.valid !== false && !namedError) continue;
 			hasInvalid = true;
 			const control = field.control;
 			if (control && (!firstControl || comesBeforeInSameTree(control, firstControl))) {

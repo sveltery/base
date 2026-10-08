@@ -1,18 +1,13 @@
 // Each case runs against the Svelte Avatar and the React Base UI 1.8.0 reference.
 import { expect, test, type Page } from '@playwright/test';
+import { openFixture } from '../open-fixture.js';
 
 const DATA_URI =
 	'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mNk+M9QDwADhgGAWjR9awAAAABJRU5ErkJggg==';
 
 async function open(page: Page, scenario: string, reference: boolean) {
-	const errors: string[] = [];
-	page.on('pageerror', (error) => errors.push(error.message));
 	// `load` waits for images. The prevented case never answers `/hung-avatar.png`, so wait for the document instead.
-	await page.goto(`/fixtures/avatar?case=${scenario}${reference ? '&reference' : ''}`, {
-		waitUntil: 'domcontentloaded'
-	});
-	await expect(page.locator('main')).toHaveAttribute('data-hydrated', 'true');
-	return { errors };
+	return openFixture(page, 'avatar', scenario, reference, 'domcontentloaded');
 }
 
 async function calls(page: Page) {

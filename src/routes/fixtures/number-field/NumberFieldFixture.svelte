@@ -1,5 +1,6 @@
 <script lang="ts">
-	import { Field, Form, NumberField } from '#lib';
+	import { Field, NumberField } from '#lib';
+	import NumberRequired from './NumberRequired.svelte';
 	import type { NumberFieldCase } from './cases.js';
 
 	let { scenario }: { scenario: NumberFieldCase } = $props();
@@ -50,14 +51,5 @@
 		<NumberField.Increment />
 	</NumberField.Root>
 {:else}
-	<Form onFormSubmit={accept}>
-		<Field.Root name="qty">
-			<NumberField.Root required>
-				<NumberField.Input data-testid="control" />
-			</NumberField.Root>
-			<Field.Error match="valueMissing" data-testid="error">Required</Field.Error>
-		</Field.Root>
-		<button type="submit">Submit</button>
-	</Form>
-	<output data-testid="submitted">{submitted}</output>
+	<NumberRequired {accept} {submitted} />
 {/if}

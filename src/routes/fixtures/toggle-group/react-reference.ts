@@ -1,6 +1,6 @@
 // React Base UI 1.8.0 counterpart of ToggleGroupFixture.svelte. Comparison only; never imported by src/lib.
 import { createElement as h, Fragment, useEffect, useState } from 'react';
-import { createRoot } from 'react-dom/client';
+import { mountApp } from '../react-fixture.js';
 import { DirectionProvider } from '@base-ui/react/direction-provider';
 import { Toggle } from '@base-ui/react/toggle';
 import { ToggleGroup } from '@base-ui/react/toggle-group';
@@ -76,7 +76,5 @@ export function mountToggleGroupReference(
 		);
 	}
 
-	const root = createRoot(node);
-	root.render(h(App));
-	return () => root.unmount();
+	return mountApp(node, App);
 }
