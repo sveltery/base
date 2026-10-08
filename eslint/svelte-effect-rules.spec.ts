@@ -238,7 +238,10 @@ const ruleNames = Object.keys(plugin.rules);
 
 const failRuleByFile: Record<string, string> = {
 	'derived-inline-attachment.fail.svelte': 'sveltery/no-derived-inline-attachment',
+	'derived-const-arrow.fail.svelte': 'sveltery/no-derived-inline-attachment',
 	'inline-composite-keys.fail.svelte': 'sveltery/no-inline-composite-keys',
+	'inline-composite-keys-split.fail.svelte': 'sveltery/no-inline-composite-keys',
+	'inline-composite-keys-template.fail.svelte': 'sveltery/no-inline-composite-keys',
 	'prop-state-sync.fail.svelte': 'sveltery/no-prop-state-sync',
 	'void-signal.fail.svelte': 'sveltery/no-void-signal-read',
 	'split-lifecycle.fail.svelte': 'sveltery/no-split-effect-lifecycle',

@@ -28,17 +28,31 @@ const rule = {
 			CallExpression(node) {
 				if (!isDerived(node)) return;
 				for (const argument of node.arguments ?? []) {
+					const localArrows = new Set();
 					walk(argument, (child) => {
+						if (child.type === 'VariableDeclarator') {
+							const id = nameOf(child.id);
+							const init = unwrap(child.init);
+							if (
+								id &&
+								init &&
+								(init.type === 'ArrowFunctionExpression' || init.type === 'FunctionExpression')
+							) {
+								localArrows.add(id);
+							}
+							return;
+						}
 						if (child.type !== 'Property' || child.kind === 'get' || child.kind === 'set') return;
 						if (!isAttachmentOrBinding(child, attachmentNames, factories)) return;
 						const value = unwrap(child.value);
-						if (
-							!value ||
-							(value.type !== 'ArrowFunctionExpression' && value.type !== 'FunctionExpression')
-						) {
+						if (!value) return;
+						if (value.type === 'ArrowFunctionExpression' || value.type === 'FunctionExpression') {
+							context.report({ node: value, messageId: 'inline' });
 							return;
 						}
-						context.report({ node: value, messageId: 'inline' });
+						if (value.type === 'Identifier' && localArrows.has(value.name)) {
+							context.report({ node: value, messageId: 'inline' });
+						}
 					});
 				}
 			}

@@ -58,6 +58,15 @@ export class PopupHandle<Payload = unknown, Store extends PopupHandleStore = Pop
 		return this.attached?.triggers ?? this.fallbackTriggers;
 	}
 
+	/** The mounted trigger registered under `triggerId`, if this handle has one. */
+	triggerElement(triggerId: string): Element | undefined {
+		let trigger: Element | undefined;
+		for (let index = this.stack.length - 1; index >= 0 && !trigger; index -= 1) {
+			trigger = this.stack[index].triggers.getById(triggerId);
+		}
+		return trigger ?? this.fallbackTriggers.getById(triggerId);
+	}
+
 	open(triggerId: string | null) {
 		const store = this.attached;
 		if (!store) {
@@ -70,13 +79,7 @@ export class PopupHandle<Payload = unknown, Store extends PopupHandleStore = Pop
 			return;
 		}
 
-		let trigger: Element | undefined;
-		if (triggerId) {
-			for (let index = this.stack.length - 1; index >= 0 && !trigger; index -= 1) {
-				trigger = this.stack[index].triggers.getById(triggerId);
-			}
-			trigger ??= this.fallbackTriggers.getById(triggerId);
-		}
+		const trigger = triggerId ? this.triggerElement(triggerId) : undefined;
 
 		if (triggerId && !trigger) {
 			if (this.requireTrigger) {

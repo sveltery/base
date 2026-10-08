@@ -22,11 +22,11 @@ Pin: `47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c`, `packages/react/src/utils/usePo
 
 Upstream: `inert` does not remove controls from form submission. A copied input with `form="outer-form"` is submitted together with the live input (`["AAA","BBB"]`). A pane portaled into a form does the same, because the copy is still a successful control inside that form.
 
-Local: every copied `input`, `textarea`, `select`, and `button` is disabled, and its `name` and `form` attributes are removed, before the previous pane is inserted. The copy is not a successful control. The shell stays `inert` and `aria-hidden` so it is not interactive and is hidden from assistive tech. Those attributes do not by themselves keep the control out of `FormData`.
+Local: every copied `input`, `textarea`, `select`, and `button` loses its `name` and `form` attributes before the previous pane is inserted. The copy is not a successful control, and it does not match `:disabled`. The shell stays `inert` and `aria-hidden` so it is not interactive and is hidden from assistive tech. `inert` does not by itself keep the control out of `FormData`. Disabling the copy would, and it would also apply `:disabled` styles during the cross-fade.
 
 Rationale: the previous pane is a visual cross-fade, not a second form control.
 
-Test: `src/lib/popover/Popover.svelte.spec.ts` (`keeps copied viewport controls out of form submission`).
+Test: `src/lib/popover/Popover.svelte.spec.ts` (`keeps copied viewport controls out of form submission`, `does not mark copied controls disabled during the cross-fade`).
 
 ## Dialog
 

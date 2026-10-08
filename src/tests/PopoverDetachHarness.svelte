@@ -4,11 +4,13 @@
 	let {
 		mode = 'lifecycle',
 		rootMounted = true,
-		portalIntoForm = false
+		portalIntoForm = false,
+		delay = 300
 	}: {
 		mode?: 'lifecycle' | 'form';
 		rootMounted?: boolean;
 		portalIntoForm?: boolean;
+		delay?: number;
 	} = $props();
 
 	const handle = Popover.createHandle();
@@ -16,7 +18,8 @@
 </script>
 
 {#if mode === 'lifecycle'}
-	<Popover.Trigger {handle} openOnHover>Open</Popover.Trigger>
+	<button type="button">Away</button>
+	<Popover.Trigger {handle} openOnHover {delay}>Open</Popover.Trigger>
 	{#if rootMounted}
 		<Popover.Root {handle}>
 			<Popover.Portal>

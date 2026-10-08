@@ -15,11 +15,16 @@
 		};
 	}
 
-	const hostProps = $derived({
+	const stableBind = (node: HTMLElement) => {
+		triggerEl = node;
+	};
+
+	const hostProps = $derived.by(() => ({
 		id: 'trigger',
 		onclick: () => {},
-		[bindKey]: bindTrigger
-	});
+		[bindKey]: bindTrigger,
+		[createAttachmentKey()]: stableBind
+	}));
 </script>
 
 <button {...hostProps}>Open</button>

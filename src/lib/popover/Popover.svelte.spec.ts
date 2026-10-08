@@ -294,24 +294,42 @@ describe('Popover', () => {
 		await expect.element(page.getByRole('dialog')).toBeVisible();
 	});
 
-	it('removes the first root hover listeners after the trigger unmounts', async () => {
-		const tracked = trackHoverListeners();
+	it('does not open from hover after the root unmounts', async () => {
+		const view = render(PopoverDetachHarness, { mode: 'lifecycle', rootMounted: true, delay: 0 });
+		const trigger = page.getByRole('button', { name: 'Open' });
+		const away = page.getByRole('button', { name: 'Away' });
+		await trigger.hover();
+		await expect.element(page.getByRole('dialog')).toBeVisible();
+		await away.hover();
+		await expect.poll(() => page.getByRole('dialog').elements().length).toBe(0);
+		await view.rerender({ mode: 'lifecycle', rootMounted: false, delay: 0 });
+		await trigger.hover();
+		await expect.poll(() => page.getByRole('dialog').elements().length).toBe(0);
+		await away.hover();
+		await view.rerender({ mode: 'lifecycle', rootMounted: true, delay: 0 });
+		await trigger.hover();
+		await expect.element(page.getByRole('dialog')).toBeVisible();
+		view.unmount();
+	});
+
+	it('does not mark copied controls disabled during the cross-fade', async () => {
+		const view = render(PopoverDetachHarness, { mode: 'form' });
 		try {
-			const view = render(PopoverDetachHarness, { mode: 'lifecycle', rootMounted: true });
-			const trigger = page.getByRole('button', { name: 'Open' }).element();
-			await expect
-				.poll(() => hoverTypes(tracked, trigger).sort())
-				.toEqual(['mouseenter', 'mouseleave', 'pointerenter']);
-			const root1 = [...(tracked.get(trigger) ?? [])];
-			await view.rerender({ mode: 'lifecycle', rootMounted: false });
-			await view.rerender({ mode: 'lifecycle', rootMounted: true });
-			view.unmount();
-			await expect
-				.poll(() => (tracked.get(trigger) ?? []).filter((entry) => !entry.removed).length)
-				.toBe(0);
-			expect(root1.every((entry) => entry.removed)).toBe(true);
+			await page.getByRole('button', { name: 'One' }).click();
+			await expect.element(page.getByTestId('live-input')).toHaveValue('AAA');
+			let disabled: boolean | null = null;
+			const observer = new MutationObserver(() => {
+				const copied = document.querySelector('[data-previous] input');
+				if (!(copied instanceof HTMLInputElement) || !copied.isConnected) return;
+				disabled = copied.matches(':disabled');
+			});
+			observer.observe(document.body, { childList: true, subtree: true });
+			await page.getByRole('button', { name: 'Two' }).click();
+			await expect.poll(() => disabled).not.toBeNull();
+			observer.disconnect();
+			expect(disabled).toBe(false);
 		} finally {
-			restoreHoverListeners();
+			view.unmount();
 		}
 	});
 
@@ -333,51 +351,6 @@ describe('Popover', () => {
 		}
 	});
 });
-
-type HoverEntry = { type: string; listener: EventListener; removed: boolean };
-
-const hoverTypesWanted = new Set(['mouseenter', 'mouseleave', 'pointerenter']);
-const originalAdd = HTMLElement.prototype.addEventListener;
-const originalRemove = HTMLElement.prototype.removeEventListener;
-
-function trackHoverListeners() {
-	const tracked = new WeakMap<EventTarget, HoverEntry[]>();
-	HTMLElement.prototype.addEventListener = function (
-		type: string,
-		listener: EventListenerOrEventListenerObject | null,
-		options?: boolean | AddEventListenerOptions
-	) {
-		if (hoverTypesWanted.has(type) && typeof listener === 'function') {
-			const list = tracked.get(this) ?? [];
-			list.push({ type, listener, removed: false });
-			tracked.set(this, list);
-		}
-		return originalAdd.call(this, type, listener as EventListenerOrEventListenerObject, options);
-	};
-	HTMLElement.prototype.removeEventListener = function (
-		type: string,
-		listener: EventListenerOrEventListenerObject | null,
-		options?: boolean | EventListenerOptions
-	) {
-		if (typeof listener === 'function') {
-			const entry = tracked
-				.get(this)
-				?.find((item) => item.type === type && item.listener === listener && !item.removed);
-			if (entry) entry.removed = true;
-		}
-		return originalRemove.call(this, type, listener as EventListenerOrEventListenerObject, options);
-	};
-	return tracked;
-}
-
-function restoreHoverListeners() {
-	HTMLElement.prototype.addEventListener = originalAdd;
-	HTMLElement.prototype.removeEventListener = originalRemove;
-}
-
-function hoverTypes(tracked: WeakMap<EventTarget, HoverEntry[]>, node: EventTarget) {
-	return (tracked.get(node) ?? []).filter((entry) => !entry.removed).map((entry) => entry.type);
-}
 
 async function fieldsDuringCrossFade(formId: string) {
 	let fields: string[] | null = null;

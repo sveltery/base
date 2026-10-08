@@ -33,11 +33,12 @@
 	} = $props();
 
 	const click = useClick(store, () => ({
-		enabled: !disabled,
-		stickIfOpen: store.stickIfOpen
+		enabled: !disabled && store != null,
+		stickIfOpen: store?.stickIfOpen
 	}));
 	const hover = useHoverReferenceInteraction(store, () => ({
 		enabled:
+			store != null &&
 			!disabled &&
 			openOnHover &&
 			(store.openMethod !== 'touch' || store.openChangeReason !== REASONS.triggerPress),
@@ -46,7 +47,7 @@
 		handleClose: safePolygon(),
 		restMs: delay,
 		delay: { close: closeDelay },
-		placement: () => store.readPlacement()
+		placement: () => store?.readPlacement() ?? null
 	}));
 	const guards = useTriggerFocusGuards(store, triggerEl);
 

@@ -24,7 +24,9 @@ export class DialogHandle<Payload = unknown> extends PopupHandle<Payload, Dialog
 
 	override open(triggerId: string | null) {
 		const store = this.attached;
-		if (store && triggerId && this.payloads.has(triggerId)) {
+		// Assign only after the trigger is registered. `super.open` throws when an
+		// anchored popup cannot find that id, and the payload must stay unchanged.
+		if (store && triggerId && this.payloads.has(triggerId) && this.triggerElement(triggerId)) {
 			store.payload = this.payloads.get(triggerId);
 		}
 		super.open(triggerId);

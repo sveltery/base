@@ -15,3 +15,4 @@ test-results/
 playwright-report/
 .svelte-kit/
 dist/
+eslint/fixtures/history/
