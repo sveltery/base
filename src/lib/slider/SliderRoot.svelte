@@ -147,9 +147,8 @@
 				? !areArraysEqual(next, initial)
 				: next !== initial;
 		field?.setDirty(isDirty);
-		// Blur already committed when this mode does not validate on change.
-		// A second pass would clear that result.
-		if (field && !field.shouldValidateOnChange()) return;
+		// `change` validates on change, and otherwise revalidates a field that is
+		// already invalid. An on-blur error can clear while the thumb is still moving.
 		field?.change(next);
 	}
 
@@ -168,7 +167,8 @@
 			field.registerControl(fieldSource, {
 				id,
 				name: controlName,
-				value: readValue(),
+				// No snapshot. Submit and `actions.validate()` must read `getValue`.
+				value: undefined,
 				element: input,
 				getValue: readValue
 			});

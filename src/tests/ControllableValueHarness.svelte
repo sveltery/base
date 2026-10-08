@@ -12,6 +12,7 @@
 	let runs = $state(0);
 	let iterated = $state('');
 	let log = $state<string[]>([]);
+	let reasons = $state<string[]>([]);
 	const plain = { id: 7 };
 	const list = [1, 2];
 	class Box {
@@ -69,8 +70,9 @@
 			prop = mode === 'lower' && typeof next === 'string' ? next.toLowerCase() : next;
 		},
 		getDefault: () => 'fallback',
-		onChange(next) {
+		onChange(next, details) {
 			log = [...log, String(next)];
+			reasons = [...reasons, details == null ? '' : String(details)];
 		}
 	});
 </script>
@@ -78,6 +80,7 @@
 <output data-testid="value">{controllable.value ?? 'none'}</output>
 <output data-testid="prop">{prop ?? 'none'}</output>
 <output data-testid="log">{JSON.stringify(log)}</output>
+<output data-testid="reasons">{JSON.stringify(reasons)}</output>
 <output data-testid="runs">{runs}</output>
 <output data-testid="iterated">{iterated}</output>
 <output data-testid="symbols">{symbols}</output>
@@ -85,6 +88,36 @@
 <output data-testid="proxy-throws">{proxyThrows}</output>
 <output data-testid="same">{controllable.value === plain ? 'yes' : 'no'}</output>
 <button type="button" data-testid="set-b" onclick={() => controllable.set('b')}>Set b</button>
+<button type="button" data-testid="set-b-details" onclick={() => controllable.set('b', 'go')}>
+	Set b details
+</button>
+<button
+	type="button"
+	data-testid="set-same-details"
+	onclick={() => controllable.set(controllable.value, 'same')}
+>
+	Set same
+</button>
+<button
+	type="button"
+	data-testid="round-trip-details"
+	onclick={() => {
+		controllable.set('b', 'one');
+		controllable.set('a', 'two');
+	}}
+>
+	Round trip
+</button>
+<button
+	type="button"
+	data-testid="set-then-parent"
+	onclick={() => {
+		controllable.set('b', 'from-set');
+		prop = 'c';
+	}}
+>
+	Set then parent
+</button>
 <button type="button" data-testid="set-mixed" onclick={() => controllable.set('Ab')}
 	>Set mixed</button
 >

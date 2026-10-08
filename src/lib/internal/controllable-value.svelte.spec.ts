@@ -27,6 +27,34 @@ describe('createControllableValue', () => {
 		expect(text('log')).toBe('["c"]');
 	});
 
+	it('keeps details with the value they were written for', async () => {
+		render(ControllableValueHarness, { mode: 'flip' });
+		await page.getByTestId('set-b-details').click();
+		await expect.element(page.getByTestId('value')).toHaveTextContent('b');
+		expect(text('log')).toBe('["b"]');
+		expect(text('reasons')).toBe('["go"]');
+
+		await page.getByTestId('set-same-details').click();
+		expect(text('log')).toBe('["b"]');
+		expect(text('reasons')).toBe('["go"]');
+	});
+
+	it('does not notify a round trip back to the current value', async () => {
+		render(ControllableValueHarness, { mode: 'flip' });
+		await page.getByTestId('round-trip-details').click();
+		await expect.element(page.getByTestId('value')).toHaveTextContent('a');
+		expect(text('log')).toBe('[]');
+		expect(text('reasons')).toBe('[]');
+	});
+
+	it('does not attach a write’s details to a later parent value', async () => {
+		render(ControllableValueHarness, { mode: 'flip' });
+		await page.getByTestId('set-then-parent').click();
+		await expect.element(page.getByTestId('value')).toHaveTextContent('c');
+		expect(text('log')).toBe('["c"]');
+		expect(text('reasons')).toBe('[""]');
+	});
+
 	it('still reports the next parent value after a round trip in one tick', async () => {
 		render(ControllableValueHarness, { mode: 'flip' });
 		await page.getByTestId('flip').click();

@@ -7,14 +7,12 @@ import { untrack } from 'svelte';
 export interface ControllableValue<T, Details = unknown> {
 	readonly value: T | undefined;
 	readonly controlled: boolean;
-	set(next: T | undefined, details?: Details): void;
 	/**
-	 * Run the change notice for the current value, including a same-value commit.
-	 * The notice waits until the input has updated, as a notice from `set` does.
-	 * A later migration can announce Accordion, Checkbox, CheckboxGroup, Collapsible,
-	 * Switch, Toggle, and ToggleGroup through this same notice.
+	 * Store `next`. When that write is still the value after the DOM update, the
+	 * change notice receives `details` with it. A write that leaves the value
+	 * unchanged does not notify, including a round trip back to the current value.
 	 */
-	notify(details?: Details): void;
+	set(next: T | undefined, details?: Details): void;
 }
 
 export function createControllableValue<T, Details = unknown>(options: {
@@ -33,22 +31,15 @@ export function createControllableValue<T, Details = unknown>(options: {
 	let echoed = $state.raw<T | undefined>(untrack(() => options.getProp()));
 	let adopted = false;
 	let lastNotified: T | undefined = initial;
-	let forceNotice = false;
-	let pendingDetails: Details | undefined;
-	let detailsPending = false;
-	// Bumps so a same-value notice still runs in the effect, after the DOM commit.
-	let noticeVersion = $state(0);
-	let seenVersion = -1;
+	// The value this write produced, and the details that belong to it.
+	// A later write replaces both, so one notice cannot take another's details.
+	let pending: { value: T | undefined; details?: Details } | null = null;
 
-	function publish(next: T | undefined, version: number) {
-		if (version < seenVersion) return;
-		seenVersion = version;
-		const forced = forceNotice;
-		forceNotice = false;
-		const details = detailsPending ? pendingDetails : undefined;
-		detailsPending = false;
-		pendingDetails = undefined;
-		if (!forced && Object.is(next, lastNotified)) return;
+	function publish(next: T | undefined) {
+		const queued = pending;
+		pending = null;
+		if (Object.is(next, lastNotified)) return;
+		const details = queued != null && Object.is(queued.value, next) ? queued.details : undefined;
 		lastNotified = next;
 		options.onChange?.(next, details);
 	}
@@ -62,12 +53,11 @@ export function createControllableValue<T, Details = unknown>(options: {
 		return prop;
 	});
 
-	// After the DOM commit, for parent writes, `set`, and `notify`. `$effect.pre`
-	// still reads the previous input value, and publishing inside `set` does too.
+	// After the DOM commit, for parent writes and `set`. `$effect.pre` still reads
+	// the previous input value, and publishing inside `set` does too.
 	$effect(() => {
-		const version = noticeVersion;
 		const next = value;
-		untrack(() => publish(next, version));
+		untrack(() => publish(next));
 	});
 
 	return {
@@ -91,26 +81,14 @@ export function createControllableValue<T, Details = unknown>(options: {
 				stored = after;
 				echoed = after;
 			}
-			pendingDetails = details;
-			detailsPending = details !== undefined;
-			// The derived value did not change, so the effect would not run. Schedule
-			// it when this write still carries event details.
-			if (
-				detailsPending &&
-				Object.is(
-					untrack(() => value),
-					lastNotified
-				)
-			) {
-				forceNotice = true;
-				noticeVersion += 1;
+			const settled = untrack(() => value);
+			// Upstream `useValueChanged` skips a value that did not change, including
+			// a round trip that is back where it started before the notice runs.
+			if (Object.is(settled, lastNotified)) {
+				pending = null;
+				return;
 			}
-		},
-		notify(details) {
-			pendingDetails = details;
-			detailsPending = details !== undefined;
-			forceNotice = true;
-			noticeVersion += 1;
+			pending = { value: settled, details };
 		}
 	};
 }

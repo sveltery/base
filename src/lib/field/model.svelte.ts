@@ -461,7 +461,15 @@ export class FieldRootModel {
 
 	private captureInitial(registration: FieldControlRegistration) {
 		if (this.initialCaptured) return;
-		if (registration.value === undefined && !registration.element) return;
+		// `getValue` is the live value, so a missing snapshot and element can still
+		// record the start. A snapshot of `undefined` with neither means "not ready".
+		if (
+			registration.value === undefined &&
+			registration.getValue === undefined &&
+			!registration.element
+		) {
+			return;
+		}
 		this.initialCaptured = true;
 		const initialValue = this.registrationValue(registration);
 		const previous = untrack(() => this.validityData);

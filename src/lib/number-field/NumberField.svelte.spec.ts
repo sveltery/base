@@ -38,6 +38,17 @@ describe('<NumberField />', () => {
 		);
 	});
 
+	it('submits the value after a change, not the registered snapshot', async () => {
+		render(NumberFieldHarness, { scenario: 'submit-changed' });
+		await userEvent.click(increase().element());
+		await expect.element(control()).toHaveValue('0');
+		await userEvent.click(page.getByRole('button', { name: 'Submit' }).element());
+		await expect.element(page.getByTestId('submitted')).toHaveTextContent('1');
+		expect(page.getByTestId('seen').element().textContent).toBe(
+			JSON.stringify({ value: 0, form: 0 })
+		);
+	});
+
 	it('validates the stepped value after the input and registration update', async () => {
 		render(NumberFieldHarness, { scenario: 'step' });
 		await userEvent.click(increase().element());

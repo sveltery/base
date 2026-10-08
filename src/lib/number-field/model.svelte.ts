@@ -97,16 +97,16 @@ export class NumberFieldModel {
 	inputElement = $state<HTMLInputElement | null>(null);
 	pendingCaret = $state<number | null>(null);
 
-	/** Mirrors upstream `allowInputSyncRef`. Plain so flipping it does not schedule a render. */
-	allowInputSync = true;
+	/**
+	 * Mirrors upstream `allowInputSyncRef`. False while `draft` is what the input shows.
+	 */
+	allowInputSync = $state(true);
 	/** Latest value `setValue` stored, including a no-op validation. */
 	lastChangedValue: number | null = null;
 	hasPendingCommit = false;
 	readonly fieldSource = Symbol('number-field-field');
-	/** Typed text. Null while the formatted value is showing. */
+	/** Typed text. Ignored while `allowInputSync` is set. */
 	private draft = $state<string | null>(null);
-	/** True while `draft` is what the input shows. */
-	private editing = $state(false);
 	/**
 	 * Value the next step reads. Normally the stored number. A dirty commit can
 	 * point it at the raw parsed text for the step that follows in the same turn.
@@ -172,10 +172,10 @@ export class NumberFieldModel {
 		});
 	}
 
-	/** Shown text. Editing keeps the draft; otherwise this is the formatted value. */
+	/** Shown text. A draft is kept only while input sync is off. */
 	get inputValue() {
 		const draft = this.draft;
-		if (this.editing && draft != null) return draft;
+		if (!this.allowInputSync && draft != null) return draft;
 		return formatNumber(
 			this.options.getValue(),
 			this.options.getLocale(),
@@ -185,13 +185,12 @@ export class NumberFieldModel {
 
 	set inputValue(next: string) {
 		this.draft = next;
-		this.editing = true;
+		this.allowInputSync = false;
 	}
 
 	/** Let the input show the formatted value again. */
 	followInputValue() {
 		this.allowInputSync = true;
-		this.editing = false;
 	}
 
 	get baseValue(): number | null {
@@ -293,7 +292,8 @@ export class NumberFieldModel {
 		field.registerControl(this.fieldSource, {
 			id,
 			name,
-			value: readValue(),
+			// No snapshot. Submit and `actions.validate()` must read `getValue`.
+			value: undefined,
 			element,
 			getValue: readValue
 		});
@@ -326,7 +326,6 @@ export class NumberFieldModel {
 		}
 
 		this.lastChangedValue = validatedValue;
-		if (this.allowInputSync) this.editing = false;
 		if (shouldFireChange) {
 			this.options.writeValue(validatedValue, details);
 			this.hasPendingCommit = true;
