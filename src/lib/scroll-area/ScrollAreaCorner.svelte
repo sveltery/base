@@ -6,8 +6,8 @@
 <script lang="ts">
 	import { createAttachmentKey } from 'svelte/attachments';
 	import type { HTMLAttributes } from 'svelte/elements';
+	import { mergeCssStyle, toCssStyle } from '../internal/css-style.js';
 	import { useScrollAreaRootContext } from './context.svelte.js';
-	import { cssText, joinStyles } from './style.js';
 	import type { ScrollAreaCornerProps, ScrollAreaCornerState } from './types.js';
 
 	const attachmentKey = createAttachmentKey();
@@ -40,8 +40,8 @@
 	const hostProps: HTMLAttributes<HTMLDivElement> = $derived({
 		'aria-hidden': true,
 		...elementProps,
-		style: joinStyles(
-			cssText({
+		style: mergeCssStyle(
+			toCssStyle({
 				position: 'absolute',
 				bottom: '0',
 				insetInlineEnd: '0',

@@ -115,10 +115,6 @@
 	});
 	setSliderContext(model);
 
-	$effect(() => {
-		model.syncDirection();
-	});
-
 	const linkedLabel = $derived(model.linkedLabel);
 
 	function remember(node: HTMLElement) {

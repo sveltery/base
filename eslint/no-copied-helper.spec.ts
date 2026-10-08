@@ -40,6 +40,14 @@ describe('sveltery/no-copied-helper', () => {
 		const timer = await messages('class Timeout {}\n', 'src/lib/slider/example.ts');
 		expect(timer.some((message) => message.includes('src/lib/internal/timeout.ts'))).toBe(true);
 
+		const animations = await messages(
+			'function runOnceAnimationsFinish() { return 0; }\n',
+			'src/lib/field/example.ts'
+		);
+		expect(
+			animations.some((message) => message.includes('src/lib/internal/animations-finished.ts'))
+		).toBe(true);
+
 		const engine = await messages(
 			"const webkit = CSS.supports('-webkit-backdrop-filter:none');\nvoid webkit;\n",
 			'src/lib/scroll-area/example.ts'

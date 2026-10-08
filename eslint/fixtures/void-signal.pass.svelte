@@ -1,4 +1,6 @@
 <script lang="ts">
+	import { untrack } from 'svelte';
+
 	let {
 		actions = $bindable()
 	}: {
@@ -27,6 +29,15 @@
 
 	const actionsHandle = { validate() {} };
 	actions = actionsHandle;
+
+	let value = 0;
+	function publish(next: number) {
+		return next;
+	}
+	$effect(() => {
+		const next = value;
+		untrack(() => publish(next));
+	});
 
 	const shown = geometry;
 </script>

@@ -1,6 +1,7 @@
 import { fileURLToPath } from 'node:url';
 import { describe, expect, it } from 'vitest';
 import { ESLint, type Linter } from 'eslint';
+import ts from 'typescript-eslint';
 import plugin from './plugin.js';
 
 const root = new URL('..', import.meta.url);
@@ -16,7 +17,11 @@ function eslintFor() {
 			{
 				files: ['**/*.ts'],
 				plugins: { sveltery: plugin as unknown as Linter.Plugin },
-				languageOptions: { ecmaVersion: 'latest', sourceType: 'module' },
+				languageOptions: {
+					parser: ts.parser,
+					ecmaVersion: 'latest',
+					sourceType: 'module'
+				},
 				rules: { 'sveltery/no-cloned-event': 'error' }
 			}
 		]
@@ -40,6 +45,21 @@ describe('sveltery/no-cloned-event', () => {
 			"Object.defineProperty(event, 'target', { value: { value: 1, name: 'volume' } });\n"
 		);
 		expect(target.some((message) => message.includes('original event'))).toBe(true);
+	});
+
+	it('rejects the constructor alias the slider used to clone events', async () => {
+		const removed =
+			await messages(`function cloneEventWithTarget(event: Event, value: number, name: string | undefined) {
+	const EventConstructor = event.constructor as typeof Event;
+	const clonedEvent = new EventConstructor(event.type, event);
+	Object.defineProperty(clonedEvent, 'target', {
+		writable: true,
+		value: { value, name }
+	});
+	return clonedEvent;
+}
+`);
+		expect(removed.some((message) => message.includes('original event'))).toBe(true);
 	});
 
 	it('allows a native event constructor and a real target read', async () => {

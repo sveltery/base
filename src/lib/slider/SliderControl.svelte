@@ -11,7 +11,7 @@
 	import { getStateAttributesProps } from '../internal/state-attributes.js';
 	import { sliderStateAttributes } from './attributes.js';
 	import { useSliderContext } from './context.svelte.js';
-	import { addEventListener } from './dom.js';
+	import { on } from 'svelte/events';
 	import type { SliderControlProps, SliderRootState } from './types.js';
 
 	const elementKey = createAttachmentKey();
@@ -24,12 +24,9 @@
 	function remember(node: HTMLElement) {
 		model.control = node;
 		model.captureStyles(node);
-		const stopTouch = addEventListener(
-			node,
-			'touchstart',
-			(event) => model.onTouchStart(event as TouchEvent),
-			{ passive: true }
-		);
+		const stopTouch = on(node, 'touchstart', (event) => model.onTouchStart(event as TouchEvent), {
+			passive: true
+		});
 		return () => {
 			stopTouch();
 			model.stopListening();

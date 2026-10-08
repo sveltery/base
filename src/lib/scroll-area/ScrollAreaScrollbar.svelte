@@ -6,6 +6,7 @@
 <script lang="ts">
 	import { createAttachmentKey } from 'svelte/attachments';
 	import type { HTMLAttributes } from 'svelte/elements';
+	import { mergeCssStyle, toCssStyle } from '../internal/css-style.js';
 	import { getStateAttributesProps } from '../internal/state-attributes.js';
 	import { scrollAreaStateAttributesMapping } from './attributes.js';
 	import { setScrollAreaScrollbarContext, useScrollAreaRootContext } from './context.svelte.js';
@@ -15,7 +16,7 @@
 		scrollAreaThumbHeight,
 		scrollAreaThumbWidth
 	} from './css-vars.js';
-	import { chain, cssText, joinStyles } from './style.js';
+	import { chain } from './style.js';
 	import type { ScrollAreaScrollbarProps } from './types.js';
 
 	const attachmentKey = createAttachmentKey();
@@ -86,8 +87,8 @@
 		...(model.rootId ? { 'data-id': `${model.rootId}-scrollbar` } : {}),
 		'aria-hidden': true,
 		...elementProps,
-		style: joinStyles(
-			cssText({
+		style: mergeCssStyle(
+			toCssStyle({
 				position: 'absolute',
 				touchAction: 'none',
 				WebkitUserSelect: 'none',

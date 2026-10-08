@@ -21,6 +21,7 @@ const OWNERS = {
 	isLink: 'src/lib/internal/click.ts',
 	findAssociatedLabel: 'src/lib/internal/associated-label.ts',
 	Timeout: 'src/lib/internal/timeout.ts',
+	runOnceAnimationsFinish: 'src/lib/internal/animations-finished.ts',
 	AnimationFrame: 'src/lib/internal/timeout.ts',
 	TimeoutManager: 'src/lib/internal/timeout.ts'
 };

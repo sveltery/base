@@ -1,26 +1,5 @@
-// Turns component style maps into a native `style` attribute string.
-// Custom properties stay as written. Empty values are omitted so an overscroll
-// override can be removed and the resting variable applies again.
-
-export function cssText(declarations: Record<string, string | number | undefined>): string {
-	const parts: string[] = [];
-	for (const [key, value] of Object.entries(declarations)) {
-		if (value === undefined || value === '') continue;
-		const property = key.startsWith('--')
-			? key
-			: key.replace(/[A-Z]/g, (letter) => `-${letter.toLowerCase()}`);
-		parts.push(`${property}: ${value}`);
-	}
-	return parts.join('; ');
-}
-
-export function joinStyles(...parts: Array<string | undefined | null>): string | undefined {
-	const text = parts
-		.map((part) => part?.trim().replace(/;$/, ''))
-		.filter((part): part is string => Boolean(part))
-		.join('; ');
-	return text || undefined;
-}
+// Class names and chained pointer handlers for scroll area parts.
+// Style strings use `toCssStyle` and `mergeCssStyle` from `src/lib/internal/css-style.ts`.
 
 export function mergeClass(
 	componentClass: string | undefined,

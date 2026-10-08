@@ -4,10 +4,11 @@
 // Element handles are `$state` fields. There is no React ref bag.
 // Reading direction is `useDirection()`, stored on `readDirection`.
 
-import { untrack } from 'svelte';
+import { on } from 'svelte/events';
 import { contains, getTarget } from '../internal/shadow-dom.js';
 import { platform } from '../internal/platform.js';
-import { addEventListener, getOffset } from './dom.js';
+import { Timeout } from '../internal/timeout.js';
+import { getOffset } from './dom.js';
 import {
 	applyOverscrollThumb,
 	getHiddenState,
@@ -42,22 +43,6 @@ const DEFAULT_HIDDEN_STATE: HiddenState = { x: true, y: true, corner: true };
 
 let scrollAreaOverflowVarsRegistered = false;
 
-class Later {
-	private timer: ReturnType<typeof setTimeout> | undefined;
-
-	start(delay: number, fn: () => void) {
-		this.clear();
-		this.timer = setTimeout(fn, delay);
-	}
-
-	clear() {
-		if (this.timer !== undefined) {
-			clearTimeout(this.timer);
-			this.timer = undefined;
-		}
-	}
-}
-
 export class ScrollAreaModel {
 	hovering = $state(false);
 	scrollingX = $state(false);
@@ -68,9 +53,8 @@ export class ScrollAreaModel {
 	thumbSize = $state<Size>({ ...DEFAULT_SIZE });
 	overflowEdges = $state<OverflowEdges>({ ...DEFAULT_OVERFLOW_EDGES });
 	hiddenState = $state<HiddenState>({ ...DEFAULT_HIDDEN_STATE });
-	direction = $state<TextDirection>('ltr');
-	/** Bumped when root style, dir, or the overflow threshold changes. */
-	layoutEpoch = $state(0);
+	readStyle: () => string | null | undefined = () => undefined;
+	readDir: () => string | null | undefined = () => undefined;
 	snapSuspended = $state(false);
 	overflowXStartPx = $state(0);
 	overflowXEndPx = $state(0);
@@ -103,10 +87,10 @@ export class ScrollAreaModel {
 	private savedSnapType: string | null = null;
 	private programmaticScroll = true;
 	private lastMeasured: [number, number, number, number] = [NaN, NaN, NaN, NaN];
-	private readonly scrollYTimer = new Later();
-	private readonly scrollXTimer = new Later();
-	private readonly scrollEndTimer = new Later();
-	private readonly animationTimer = new Later();
+	private readonly scrollYTimer = new Timeout();
+	private readonly scrollXTimer = new Timeout();
+	private readonly scrollEndTimer = new Timeout();
+	private readonly animationTimer = new Timeout();
 	private edgeThreshold: NormalizedThreshold;
 
 	constructor(readThreshold: () => OverflowEdgeThreshold | undefined, rootId: string) {
@@ -139,24 +123,12 @@ export class ScrollAreaModel {
 		this.animationTimer.clear();
 	}
 
-	refreshLayout(
-		_styleValue: string | null | undefined,
-		_dir: string | null | undefined,
-		threshold: OverflowEdgeThreshold | undefined
-	) {
-		this.syncDirection();
+	get direction(): TextDirection {
+		return this.readDirection();
+	}
+
+	refreshLayout(threshold: OverflowEdgeThreshold | undefined) {
 		this.edgeThreshold = normalizeOverflowEdgeThreshold(threshold ?? this.readThreshold());
-		this.bumpLayout();
-	}
-
-	syncDirection() {
-		const next = this.readDirection();
-		if (next !== this.direction) this.direction = next;
-	}
-
-	/** Notifies the viewport to measure again. The read is untracked so the caller's effect does not loop. */
-	bumpLayout() {
-		this.layoutEpoch = untrack(() => this.layoutEpoch) + 1;
 	}
 
 	registerOverflowProperties() {
@@ -401,12 +373,9 @@ export class ScrollAreaModel {
 	}
 
 	listenWheel(element: HTMLElement, vertical: boolean) {
-		return addEventListener(
-			element,
-			'wheel',
-			(event) => this.scrollbarWheel(event as WheelEvent, vertical),
-			{ passive: false }
-		);
+		return on(element, 'wheel', (event) => this.scrollbarWheel(event as WheelEvent, vertical), {
+			passive: false
+		});
 	}
 
 	markUserInteraction() {
@@ -485,16 +454,26 @@ export class ScrollAreaModel {
 		return () => resizeObserver.disconnect();
 	}
 
-	queueThumb(hidden: HiddenState, direction: TextDirection, epoch: number) {
+	queueThumb(hidden: HiddenState) {
+		const direction = this.direction;
+		const style = this.readStyle();
+		const dir = this.readDir();
+		const threshold = this.readThreshold();
 		if (!this.viewportElement && hidden.x && hidden.y && hidden.corner) return;
 		queueMicrotask(() => {
-			if (this.layoutEpoch !== epoch || this.direction !== direction) return;
+			if (
+				this.direction !== direction ||
+				this.readStyle() !== style ||
+				this.readDir() !== dir ||
+				this.readThreshold() !== threshold
+			) {
+				return;
+			}
 			this.computeThumbPosition();
 		});
 	}
 
 	computeThumbPosition() {
-		this.syncDirection();
 		const viewport = this.viewportElement;
 		const scrollbarY = this.scrollbarYElement;
 		const scrollbarX = this.scrollbarXElement;

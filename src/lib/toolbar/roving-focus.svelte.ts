@@ -14,6 +14,7 @@ import { untrack } from 'svelte';
 import { createAttachmentKey } from 'svelte/attachments';
 import type { Attachment } from 'svelte/attachments';
 import type { HTMLAttributes } from 'svelte/elements';
+import { isSkipped } from '../internal/composite-skip.js';
 import { byDocumentOrder } from '../internal/document-order.js';
 import type { ToolbarOrientation } from './types.js';
 
@@ -28,16 +29,6 @@ export type ToolbarRovingItemProps = HTMLAttributes<HTMLElement> &
 
 function modifierHeld(event: KeyboardEvent) {
 	return event.shiftKey || event.ctrlKey || event.altKey || event.metaKey;
-}
-
-/** Natively disabled and hidden hosts cannot take the tab stop. `aria-disabled` can. */
-export function isSkipped(element: HTMLElement) {
-	if (!element.isConnected) return true;
-	if (element.matches(':disabled')) return true;
-	const styles = getComputedStyle(element);
-	if (styles.visibility === 'hidden' || styles.visibility === 'collapse') return true;
-	if (typeof element.checkVisibility === 'function') return !element.checkVisibility();
-	return styles.display === 'none' || styles.display === 'contents';
 }
 
 /**
@@ -91,11 +82,14 @@ export class ToolbarRoving {
 
 	/** Re-pick the tab stop after an item's disabled flag changes. */
 	sync(disabled = false, focusableWhenDisabled = true) {
-		const nativeDisabled = disabled && !focusableWhenDisabled;
-		untrack(() => {
-			this.reconcile();
-			if (nativeDisabled && this.highlighted && isSkipped(this.highlighted)) return;
-		});
+		if (disabled && !focusableWhenDisabled) {
+			untrack(() => {
+				this.reconcile();
+				if (this.highlighted && isSkipped(this.highlighted)) return;
+			});
+			return;
+		}
+		untrack(() => this.reconcile());
 	}
 
 	/** Move the tab stop onto `node` when it can take focus. */

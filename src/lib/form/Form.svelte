@@ -40,14 +40,14 @@
 		};
 	}
 
-	function focusFirstInvalid() {
+	function focusFirstInvalid(formErrors: FormErrors = emptyErrors) {
 		// A field can be invalid without a focusable control. Submission stays blocked.
 		// Registration order can diverge from DOM order, so pick the first control by
 		// document position. Disconnected trees keep registration order.
 		let hasInvalid = false;
 		let firstControl: HTMLElement | null = null;
-		for (const field of fields.values()) {
-			if (field.validityData.state.valid !== false) continue;
+		for (const [name, field] of fields.entries()) {
+			if (field.validityData.state.valid !== false && formErrors[name] == null) continue;
 			hasInvalid = true;
 			const control = field.control;
 			if (control && (!firstControl || comesBeforeInSameTree(control, firstControl))) {
@@ -143,10 +143,10 @@
 	// After a submit that was not already blocked, focus the first invalid control
 	// once external errors change (server errors arriving after the post).
 	$effect(() => {
-		const current = errors;
+		const current = errors ?? emptyErrors;
 		if (!submitted) return;
 		submitted = false;
-		if (current == null || current) focusFirstInvalid();
+		focusFirstInvalid(current);
 	});
 
 	const hostProps: HTMLFormAttributes = $derived({

@@ -3,6 +3,7 @@
 // React.Activity's resume-animation suppression is not recreated.
 
 import { on } from 'svelte/events';
+import { runOnceAnimationsFinish } from '../internal/animations-finished.js';
 import { REASONS } from '../internal/event-details.js';
 import type { CollapsibleRoot } from './context.svelte.js';
 import {
@@ -10,7 +11,6 @@ import {
 	getAnimationType,
 	getDimensions,
 	resetLayoutStyles,
-	runOnceAnimationsFinish,
 	setTemporaryStyle,
 	type AnimationType,
 	type Dimensions
@@ -53,8 +53,8 @@ export class CollapsiblePanelMotion {
 			const open = this.root.open;
 			const mounted = this.root.mounted;
 			const transitionStatus = this.root.transitionStatus;
-			const _height = this.height;
-			const _width = this.width;
+			const height = this.height;
+			const width = this.width;
 			if (!panel) return;
 
 			// A beforematch open can leave a 0s duration. Restore it before detecting
@@ -79,7 +79,9 @@ export class CollapsiblePanelMotion {
 
 			if (open && transitionStatus === 'starting') {
 				if (this.openingPassDone) {
-					if (this.needsLayoutReset) return resetLayoutStyles(panel);
+					if (this.needsLayoutReset && (height !== undefined || width !== undefined)) {
+						return resetLayoutStyles(panel);
+					}
 					return;
 				}
 				this.openingPassDone = true;
@@ -168,6 +170,7 @@ export class CollapsiblePanelMotion {
 					this.setDimensions(EMPTY_DIMENSIONS, false);
 				},
 				abort.signal,
+				false,
 				true
 			);
 			return () => abort.abort();

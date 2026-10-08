@@ -51,6 +51,21 @@ const rule = {
 		/**
 		 * @param {any} node
 		 */
+		function enclosingFunction(node) {
+			let current = node?.parent;
+			while (current) {
+				if (
+					current.type === 'FunctionDeclaration' ||
+					current.type === 'FunctionExpression' ||
+					current.type === 'ArrowFunctionExpression'
+				) {
+					return current;
+				}
+				current = current.parent;
+			}
+			return null;
+		}
+
 		function insideFunction(node) {
 			let current = node?.parent;
 			while (current) {
@@ -246,6 +261,81 @@ const rule = {
 			}
 		}
 
+		/**
+		 * @param {any} node
+		 */
+		function effectFunction(node) {
+			let current = node;
+			while (current) {
+				if (current.type === 'CallExpression') {
+					const callback = effectCallback(current);
+					if (callback) return callback;
+				}
+				current = current.parent;
+			}
+			return null;
+		}
+
+		/**
+		 * @param {any} fn
+		 * @param {string} name
+		 * @param {any} declaratorId
+		 */
+		function copiedIntoUntrack(fn, name, declaratorId) {
+			const refs = valueReferences(fn, name).filter((ref) => ref !== declaratorId);
+			return refs.length > 0 && refs.every((ref) => insideUntrack(ref) && !isMeaningfulUse(ref));
+		}
+
+		/**
+		 * A local that only renames parameters, then reads them inside `untrack`,
+		 * exists to subscribe at the call. `const next = value` in an effect is a
+		 * real capture: `value` is not a parameter.
+		 *
+		 * @param {any} init
+		 * @param {any} fn
+		 */
+		function snapshotsParameters(init, fn) {
+			/** @type {Set<string>} */
+			const params = new Set();
+			for (const param of fn.params ?? []) {
+				const name = parameterName(param);
+				if (name) params.add(name);
+			}
+			if (params.size === 0) return false;
+			/** @type {any[]} */
+			const ids = [];
+			collectIdentifiers(init, ids);
+			return ids.length > 0 && ids.every((id) => params.has(id.name));
+		}
+
+		/**
+		 * @param {any} node
+		 * @param {any[]} ids
+		 */
+		function collectIdentifiers(node, ids) {
+			if (!node || typeof node !== 'object' || typeof node.type !== 'string') return;
+			if (
+				node.type === 'FunctionExpression' ||
+				node.type === 'ArrowFunctionExpression' ||
+				node.type === 'FunctionDeclaration'
+			) {
+				return;
+			}
+			if (node.type === 'Identifier') {
+				ids.push(node);
+				return;
+			}
+			for (const key of Object.keys(node)) {
+				if (key === 'parent') continue;
+				const child = node[key];
+				if (Array.isArray(child)) {
+					for (const item of child) collectIdentifiers(item, ids);
+				} else {
+					collectIdentifiers(child, ids);
+				}
+			}
+		}
+
 		return {
 			UnaryExpression(node) {
 				if (!isForcedRead(node)) return;
@@ -268,6 +358,22 @@ const rule = {
 				const matches = name ? fns.get(name) : undefined;
 				if (!matches) return;
 				for (const fn of matches) reportUnreadArguments(node, fn);
+			},
+			VariableDeclarator(node) {
+				if (node.id?.type !== 'Identifier' || !node.init) return;
+				const name = node.id.name;
+				const fn = effectFunction(node) ?? enclosingFunction(node);
+				if (!fn) return;
+				const refs = valueReferences(fn, name).filter((ref) => ref !== node.id);
+				const init = unwrap(node.init);
+				const signalInit = init && (init.type === 'Identifier' || init.type === 'MemberExpression');
+				if (effectFunction(node) && refs.length === 0 && signalInit) {
+					context.report({ node, messageId: 'voidSignal' });
+					return;
+				}
+				if (snapshotsParameters(init, fn) && copiedIntoUntrack(fn, name, node.id)) {
+					context.report({ node, messageId: 'voidSignal' });
+				}
 			},
 			FunctionDeclaration(node) {
 				reportUntrackOnlyParameters(node);
