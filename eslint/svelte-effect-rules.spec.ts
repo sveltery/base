@@ -135,10 +135,7 @@ describe('sveltery/no-void-signal-read', () => {
 	});
 
 	it('rejects the same forced reads when they live in a helper', async () => {
-		const { messages } = await messagesFor(
-			'history/210a2daf-forced-read.fail.svelte',
-			ruleName
-		);
+		const { messages } = await messagesFor('history/210a2daf-forced-read.fail.svelte', ruleName);
 		expect(messages.length).toBeGreaterThanOrEqual(6);
 	});
 

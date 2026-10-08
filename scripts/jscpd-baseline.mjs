@@ -21,7 +21,7 @@ export function addedFingerprints(base, next) {
  * The comparison revision. An unset, empty, or all-zero `JSCPD_BASE_SHA`
  * is missing. Callers that want `origin/main` pass that revision explicitly.
  *
- * @param {NodeJS.ProcessEnv} [env]
+ * @param {{ JSCPD_BASE_SHA?: string }} [env]
  * @returns {string | null}
  */
 export function baseRevision(env = process.env) {
