@@ -91,13 +91,45 @@
 		};
 	}
 
-	function attachHover(node: HTMLElement) {
-		const attach = armed?.attach;
-		if (!attach) return;
-		return untrack(() => attach(node));
+	// These three do not bubble, so Svelte registers them on the element. Swapping
+	// the handler leaves the first listener in place, and destroying the element
+	// does not remove it. Own them here so root and trigger teardown remove them.
+	const localHoverEvents = ['onmouseenter', 'onmouseleave', 'onpointerenter'] as const;
+
+	function hoverListener(
+		node: HTMLElement,
+		key: (typeof localHoverEvents)[number]
+	): EventListener | null {
+		const consumer = elementProps[key];
+		const ours = armed?.hover?.[key];
+		if (typeof consumer !== 'function' && typeof ours !== 'function') return null;
+		return (event: Event) => {
+			if (typeof consumer === 'function') {
+				(consumer as EventListener).call(node, event);
+				if (event.defaultPrevented) return;
+			}
+			if (typeof ours === 'function') (ours as EventListener).call(node, event);
+		};
 	}
 
-	function acceptArmed(next: TriggerArmed) {
+	function attachHover(node: HTMLElement) {
+		const removals: Array<() => void> = [];
+		for (const key of localHoverEvents) {
+			const listener = hoverListener(node, key);
+			if (!listener) continue;
+			const type = key.slice(2);
+			node.addEventListener(type, listener);
+			removals.push(() => node.removeEventListener(type, listener));
+		}
+		const attach = armed?.attach;
+		const detach = attach ? untrack(() => attach(node)) : undefined;
+		return () => {
+			for (const remove of removals) remove();
+			detach?.();
+		};
+	}
+
+	function acceptArmed(next: TriggerArmed | null) {
 		armed = next;
 	}
 
@@ -105,8 +137,8 @@
 	const partState: PopoverTriggerState = $derived({ disabled, open: opened });
 	const showGuards = $derived(Boolean(live?.mountedBy(triggerId) && !live.focusManagerModal));
 
-	const hostProps = $derived(
-		mergeProps(
+	const hostProps = $derived.by(() => {
+		const merged = mergeProps(
 			elementProps,
 			useButton(disabled, nativeButton),
 			armed?.click,
@@ -126,8 +158,11 @@
 				[bindKey]: bindTrigger,
 				[hoverKey]: attachHover
 			}
-		)
-	);
+		);
+		const record = merged as Record<string, unknown>;
+		for (const key of localHoverEvents) delete record[key];
+		return merged;
+	});
 </script>
 
 {#if live}

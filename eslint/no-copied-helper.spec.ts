@@ -82,7 +82,9 @@ describe('sveltery/no-copied-helper', () => {
 		expect(failures.some((message) => message.includes('useButton.ts'))).toBe(true);
 		expect(failures.some((message) => message.includes('adaptiveOriginMiddleware.ts'))).toBe(true);
 		expect(failures.some((message) => message.includes('popupStoreUtils.ts'))).toBe(true);
-		expect(failures.some((message) => message.includes('popupHandle.svelte.ts'))).toBe(true);
+		expect(failures.some((message) => message.includes('src/lib/popover/handle.svelte.ts'))).toBe(
+			true
+		);
 		expect(failures.some((message) => message.includes('labelId.ts'))).toBe(true);
 
 		const cleaned = await messages(

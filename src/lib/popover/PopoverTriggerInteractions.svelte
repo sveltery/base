@@ -29,7 +29,7 @@
 		delay: number;
 		closeDelay: number;
 		triggerEl: () => HTMLElement | null;
-		onArmed: (next: TriggerArmed) => void;
+		onArmed: (next: TriggerArmed | null) => void;
 	} = $props();
 
 	const click = useClick(store, () => ({
@@ -57,5 +57,6 @@
 			attach: hover.attachReference,
 			guards
 		});
+		return () => onArmed(null);
 	});
 </script>

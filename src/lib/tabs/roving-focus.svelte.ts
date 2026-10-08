@@ -13,10 +13,15 @@ import { createAttachmentKey } from 'svelte/attachments';
 import type { Attachment } from 'svelte/attachments';
 import type { HTMLAttributes } from 'svelte/elements';
 import { isSkipped } from '../internal/composite-skip.js';
+import {
+	ARROW_DOWN,
+	ARROW_LEFT,
+	ARROW_RIGHT,
+	ARROW_UP,
+	COMPOSITE_KEYS
+} from '../internal/composite-keys.js';
 import { createSlotClaim, includeSorted } from '../internal/roving-slot.js';
 import type { TabsOrientation } from './types.js';
-
-const NAV_KEYS = new Set(['ArrowUp', 'ArrowDown', 'ArrowLeft', 'ArrowRight', 'Home', 'End']);
 
 export interface TabsRovingHandlers {
 	onfocus?: HTMLAttributes<HTMLElement>['onfocus'];
@@ -179,14 +184,12 @@ export class TabsRoving {
 	}
 
 	private keydown(event: KeyboardEvent) {
-		if (!NAV_KEYS.has(event.key) || modifierHeld(event)) return;
-		const current = event.currentTarget;
-		if (!(current instanceof HTMLElement)) return;
-
-		const rtl = this.readDirection() === 'rtl';
+		if (!(event.currentTarget instanceof HTMLElement) || modifierHeld(event)) return;
+		if (!COMPOSITE_KEYS.has(event.key)) return;
 		const vertical = this.orientation === 'vertical';
-		const forwardKey = vertical ? 'ArrowDown' : rtl ? 'ArrowLeft' : 'ArrowRight';
-		const backwardKey = vertical ? 'ArrowUp' : rtl ? 'ArrowRight' : 'ArrowLeft';
+		const rtl = this.readDirection() === 'rtl';
+		const forwardKey = vertical ? ARROW_DOWN : rtl ? ARROW_LEFT : ARROW_RIGHT;
+		const backwardKey = vertical ? ARROW_UP : rtl ? ARROW_RIGHT : ARROW_LEFT;
 
 		const items = this.elements.filter((item) => !isSkipped(item));
 		if (items.length === 0) return;

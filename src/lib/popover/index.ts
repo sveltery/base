@@ -9,7 +9,7 @@ import PopoverRoot from './PopoverRoot.svelte';
 import PopoverTitle from './PopoverTitle.svelte';
 import PopoverTrigger from './PopoverTrigger.svelte';
 import PopoverViewport from './PopoverViewport.svelte';
-import { createPopoverHandle } from './handle.svelte.js';
+import { PopoverHandle, createPopoverHandle } from './handle.svelte.js';
 
 export const Popover = {
 	Root: PopoverRoot,
@@ -23,9 +23,9 @@ export const Popover = {
 	Description: PopoverDescription,
 	Close: PopoverClose,
 	Viewport: PopoverViewport,
+	Handle: PopoverHandle,
 	createHandle: createPopoverHandle
 };
 
-export { createPopoverHandle as createHandle } from './handle.svelte.js';
-export type { PopoverHandle } from './handle.svelte.js';
+export { PopoverHandle, createPopoverHandle as createHandle } from './handle.svelte.js';
 export type * from './types.js';

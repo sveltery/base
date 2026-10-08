@@ -35,7 +35,7 @@ const OWNERS = {
 	resolveFocus: 'src/lib/internal/popups/popupStoreUtils.ts',
 	COMPOSITE_KEYS: 'src/lib/internal/composite-keys.ts',
 	PopupHandle: 'src/lib/internal/popups/popupHandle.svelte.ts',
-	PopoverHandle: 'src/lib/internal/popups/popupHandle.svelte.ts',
+	PopoverHandle: 'src/lib/popover/handle.svelte.ts',
 	registerLabelElementId: 'src/lib/internal/popups/labelId.ts'
 };
 

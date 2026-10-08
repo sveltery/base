@@ -10,11 +10,16 @@ import { untrack } from 'svelte';
 import { createAttachmentKey } from 'svelte/attachments';
 import type { Attachment } from 'svelte/attachments';
 import type { HTMLButtonAttributes } from 'svelte/elements';
+import {
+	ARROW_DOWN,
+	ARROW_LEFT,
+	ARROW_RIGHT,
+	ARROW_UP,
+	COMPOSITE_KEYS
+} from '../internal/composite-keys.js';
 import { createSlotClaim, includeSorted } from '../internal/roving-slot.js';
 
 export type RovingOrientation = 'horizontal' | 'vertical';
-
-const NAV_KEYS = new Set(['ArrowUp', 'ArrowDown', 'ArrowLeft', 'ArrowRight', 'Home', 'End']);
 
 export interface RovingHostHandlers {
 	onfocus?: HTMLButtonAttributes['onfocus'];
@@ -139,14 +144,12 @@ export class RovingFocus {
 	}
 
 	private keydown(event: KeyboardEvent) {
-		if (!NAV_KEYS.has(event.key) || modifierHeld(event)) return;
-		const current = event.currentTarget;
-		if (!(current instanceof HTMLElement)) return;
-
-		const rtl = this.readDirection() === 'rtl';
+		if (modifierHeld(event) || !COMPOSITE_KEYS.has(event.key)) return;
+		if (!(event.currentTarget instanceof HTMLElement)) return;
 		const vertical = this.orientation === 'vertical';
-		const forwardKey = vertical ? 'ArrowDown' : rtl ? 'ArrowLeft' : 'ArrowRight';
-		const backwardKey = vertical ? 'ArrowUp' : rtl ? 'ArrowRight' : 'ArrowLeft';
+		const rtl = this.readDirection() === 'rtl';
+		const forwardKey = vertical ? ARROW_DOWN : rtl ? ARROW_LEFT : ARROW_RIGHT;
+		const backwardKey = vertical ? ARROW_UP : rtl ? ARROW_RIGHT : ARROW_LEFT;
 
 		const items = this.elements.filter((item) => !isDisabled(item));
 		if (items.length === 0) return;

@@ -39,7 +39,7 @@ Differences from React Base UI, all deliberate:
 - `initialFocus` / `finalFocus` accept an element or a function, not a ref object.
 - `class` and `style` are strings.
 - Alert Dialog and Drawer are not ported. `role` stays `dialog`.
-- Outside press is one dialog listener. Mouse and touch use separate modes. A backdrop is `intentional` for both. Without one, touch is `sloppy` and mouse is `sloppy` only for `trap-focus`. The shared dismiss hook still treats the portal host as inside, so it does not decide these presses. The lasting fix is for that hook to test the floating element and track `pressStartedInside`, then delete this listener.
+- Outside press is one dialog listener. Mouse and touch use separate modes. A backdrop is `intentional` for both. Without one, touch is `sloppy` and mouse is `sloppy` only for `trap-focus`. `useDismiss` already tracks `pressStartedInside`. The dialog listener remains because that hook treats the portal host as inside, so a backdrop or viewport press would not dismiss.
 - `COMPOSITE_KEYS` is shared with Slider (`src/lib/internal/composite-keys.ts`). Arrow keys stay inside the dialog.
 - How the dialog opened is `PopupStore.openMethod`, written by `useClick`. Final focus uses the shared `returnFocus` callback, which receives how the popup closed. A `null` result focuses the trigger.
 - Generated ids use `$props.id()` with a `base-ui-` prefix.

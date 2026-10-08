@@ -290,6 +290,14 @@ describe('Dialog', () => {
 		expect(page.getByTestId('popup').elements()).toHaveLength(0);
 	});
 
+	it('opens with the payload passed to openWithPayload', async () => {
+		const handle = Dialog.createHandle<string>();
+		render(DialogHandleHarness, { handle, payload: 'from-trigger' });
+		handle.openWithPayload('from-handle');
+		await tick();
+		await expect.element(page.getByTestId('payload')).toHaveTextContent('from-handle');
+	});
+
 	it('opens a detached trigger through a handle and passes its payload', async () => {
 		const handle = Dialog.createHandle<string>();
 		render(DialogHandleHarness, { handle });
