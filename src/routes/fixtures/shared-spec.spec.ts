@@ -19,7 +19,9 @@ describe('fixture specs', () => {
 				continue;
 			}
 			const text = readFileSync(join(fixtures, dir, specs[0]), 'utf8');
-			if (!text.includes("reference ? 'react' : 'svelte'")) {
+			const shares =
+				text.includes("reference ? 'react' : 'svelte'") || text.includes('forEachFramework(');
+			if (!shares) {
 				missing.push(`${dir}/${specs[0]} does not share one spec across both frameworks`);
 			}
 		}

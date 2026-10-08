@@ -49,7 +49,7 @@ export function mountInputReference(node: HTMLElement, scenario: InputCase, onRe
 						Input,
 						inputProps({
 							value,
-							onValueChange: (next) => setValue(next),
+							onValueChange: (next: string) => setValue(next),
 							'data-testid': 'control'
 						})
 					)

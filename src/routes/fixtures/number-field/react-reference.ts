@@ -55,7 +55,7 @@ export function mountNumberFieldReference(
 					rootProps({
 						locale: 'en-US',
 						value,
-						onValueChange: (next) => setValue(next)
+						onValueChange: (next: number | null) => setValue(next)
 					}),
 					h(NumberField.Input, inputProps({ 'data-testid': 'control' })),
 					h(NumberField.Increment)

@@ -4,8 +4,12 @@ import { Form } from '@base-ui/react/form';
 
 export type FixtureProps<T> = T & { 'data-testid'?: string };
 
-export function passProps<T extends object>(props: T): T {
-	return props;
+/**
+ * Base UI's published prop types omit `data-*` attributes the DOM still accepts.
+ * Returning `never` is the escape the per-fixture helpers used before they were shared.
+ */
+export function passProps(props: object) {
+	return props as never;
 }
 
 export function mountApp(node: HTMLElement, App: () => ReactNode) {

@@ -14,7 +14,7 @@ export function createSlotClaim() {
 	};
 }
 
-export function includeSorted<T extends Node>(elements: T[], node: T): T[] {
+export function includeSorted<T extends HTMLElement>(elements: T[], node: T): T[] {
 	if (elements.includes(node)) return elements;
 	return [...elements, node].sort(byDocumentOrder);
 }
