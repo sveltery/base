@@ -189,6 +189,18 @@
 		return null;
 	}
 
+	function scheduleBodyReturn(element: HTMLElement) {
+		if (returnFrameId) AnimationFrame.cancel(returnFrameId);
+		returnFrameId = AnimationFrame.request(() => {
+			returnFrameId = 0;
+			if (store.isOpen() || !element.isConnected) return;
+			const doc = ownerDocument(element);
+			const active = activeElement(doc);
+			if (active !== doc.body && active != null) return;
+			element.focus({ preventScroll: true });
+		});
+	}
+
 	function restoreReturnFocus(endedBy: OpenInteractionType) {
 		const spec = returnFocus;
 		// Upstream sets `preventReturnFocusRef` before every focus-out close and reads it
@@ -210,21 +222,10 @@
 		const closed = closeReason !== '' || !store.isOpen();
 		if (closed) {
 			apply();
-			const target = returned;
 			// Sloppy outside press closes on pointerdown and this call focuses the
 			// trigger. The compatibility mousedown then moves focus to the body.
 			// The next frame puts that same element back. A container swap is not a close.
-			if (target) {
-				if (returnFrameId) AnimationFrame.cancel(returnFrameId);
-				returnFrameId = AnimationFrame.request(() => {
-					returnFrameId = 0;
-					if (store.isOpen() || !target.isConnected) return;
-					const doc = ownerDocument(target);
-					const active = activeElement(doc);
-					if (active !== doc.body && active != null) return;
-					target.focus({ preventScroll: true });
-				});
-			}
+			if (returned) scheduleBodyReturn(returned);
 			return;
 		}
 		queueMicrotask(() => {
@@ -243,19 +244,22 @@
 		});
 	}
 
-	function moveReturnFocus(endedBy: OpenInteractionType, spec: typeof returnFocus) {
+	function moveReturnFocus(
+		endedBy: OpenInteractionType,
+		spec: typeof returnFocus
+	): HTMLElement | null {
 		// `returnFocus={null}` does not move focus. Upstream skips the restore when the
 		// prop is null (`FloatingFocusManager.tsx` 868–872). A function that returns
 		// `null` is a different value and falls back to the trigger below.
-		if (spec === false || spec == null) return;
+		if (spec === false || spec == null) return null;
 		const fromFunction = typeof spec === 'function';
 		const resolved = fromFunction ? spec(endedBy) : spec;
-		if (resolved === false || resolved === undefined) return;
+		if (resolved === false || resolved === undefined) return null;
 		// A function result of `null` falls back to the trigger, matching an empty ref.
 		// Only a boolean `true` requires focus to still be inside.
 		const explicit = fromFunction || spec instanceof HTMLElement;
 		const target = resolved instanceof HTMLElement ? resolved : returnTarget;
-		if (!target?.isConnected) return;
+		if (!target?.isConnected) return null;
 		if (!explicit) {
 			const doc = ownerDocument(target);
 			const active = activeElement(doc);
@@ -264,7 +268,7 @@
 			// open is mounted beside the popup, and pulling focus back would
 			// take it off that child. Upstream checks the floating element only.
 			const inside = contains(floating, active) || active === doc.body || active == null;
-			if (!inside) return;
+			if (!inside) return null;
 		}
 		target.focus({ preventScroll: true });
 		returnTarget = null;
