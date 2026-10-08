@@ -139,4 +139,17 @@ export class PopupStore<Reason extends string> extends FloatingRootStore {
 		this.preventUnmountingOnClose = false;
 		this.readOnOpenChangeComplete()?.(false);
 	}
+
+	/** Dialog calls this when the open animation finishes. Close completion stays in `finishClose`. */
+	notifyOpenChangeComplete(open: boolean) {
+		this.readOnOpenChangeComplete()?.(open);
+	}
+
+	/**
+	 * Drops a popup that `preventUnmountOnClose` kept mounted.
+	 * Same cleanup as a finished close animation.
+	 */
+	forceUnmount() {
+		this.finishClose();
+	}
 }

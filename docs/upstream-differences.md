@@ -15,3 +15,18 @@ Local: `PopoverViewport` removes `name` from radio inputs in the copy before the
 Rationale: the previous pane is a visual cross-fade, not a second form control. Unchecking the radio the user just set is not the behavior the cross-fade should have.
 
 Test: `src/lib/popover/Popover.svelte.spec.ts` (`keeps the live radio checked when the viewport switches triggers`).
+
+## Dialog
+
+Source: `packages/react/src/dialog` and the dialog-only helpers it calls (`DialogHandle`, outside-press predicate, open-interaction type). Portal, focus, dismiss, scroll lock, `mergeProps`, and the popup store are the landed overlay foundation.
+
+| Upstream                                                 | Local                                                                                                  |
+| -------------------------------------------------------- | ------------------------------------------------------------------------------------------------------ |
+| `open` / `defaultOpen`, `triggerId` / `defaultTriggerId` | `$bindable` `open` and `triggerId`                                                                     |
+| `actionsRef`                                             | `bind:actions`                                                                                         |
+| `initialFocus` / `finalFocus` ref objects                | element or function                                                                                    |
+| `children` render function `{ payload }`                 | snippet argument `{ payload }`                                                                         |
+| React `useButton`                                        | existing `Button`                                                                                      |
+| Backdrop outside press inside `useDismiss`               | backdrop and viewport click handlers, because the shared dismiss hook treats the portal host as inside |
+
+Not ported: Alert Dialog, Drawer, and ref objects. A dialog without a backdrop uses one outside-press mode (`intentional`, or `sloppy` for `trap-focus`) for both mouse and touch.
