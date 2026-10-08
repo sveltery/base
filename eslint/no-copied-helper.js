@@ -30,6 +30,7 @@ const OWNERS = {
 	nonNativeKeys: 'src/lib/internal/useButton.ts',
 	adaptiveOriginMiddleware: 'src/lib/internal/adaptiveOriginMiddleware.ts',
 	adaptiveOrigin: 'src/lib/internal/adaptiveOriginMiddleware.ts',
+	useOpenInteractionType: 'src/lib/internal/openInteraction.ts',
 	createDefaultInitialFocus: 'src/lib/internal/popups/popupStoreUtils.ts',
 	resolveFocus: 'src/lib/internal/popups/popupStoreUtils.ts',
 	PopoverHandle: 'src/lib/popover/handle.svelte.ts'

@@ -65,8 +65,10 @@
 
 	function bindPopup(node: HTMLElement) {
 		store.popupElement = node;
+		store.floatingElement = node;
 		return () => {
 			if (store.popupElement === node) store.popupElement = null;
+			if (store.floatingElement === node) store.floatingElement = null;
 		};
 	}
 
@@ -84,14 +86,12 @@
 			return;
 		}
 		if (!mounted || !popup || reason === REASONS.triggerHover) return;
-		openChoice ??= untrack(() =>
-			resolveFocus(initialFocus, store.openPointerType === 'touch' ? 'touch' : '', popup)
-		);
+		openChoice ??= untrack(() => resolveFocus(initialFocus, store.openMethod ?? '', popup));
 		publishedChoice = openChoice ?? false;
 	});
 
-	function focusFinal() {
-		return resolveFocus(finalFocus, store.closeInteraction, store.popupElement);
+	function focusReturn(interaction: string | null) {
+		return resolveFocus(finalFocus, interaction ?? '', store.popupElement);
 	}
 
 	const popupState: PopoverPopupState = $derived({
@@ -102,14 +102,7 @@
 		instant: store.instantType
 	});
 
-	const toolbarKeys = new Set([
-		'ArrowDown',
-		'ArrowUp',
-		'ArrowRight',
-		'ArrowLeft',
-		'Home',
-		'End'
-	]);
+	const toolbarKeys = new Set(['ArrowDown', 'ArrowUp', 'ArrowRight', 'ArrowLeft', 'Home', 'End']);
 
 	function inToolbar(event: KeyboardEvent) {
 		const current = event.currentTarget;
@@ -142,7 +135,7 @@
 	{store}
 	disabled={!store.mounted || store.openChangeReason === REASONS.triggerHover}
 	initialFocus={publishedChoice}
-	finalFocus={focusFinal}
+	returnFocus={finalFocus === undefined ? true : focusReturn}
 	modal={store.focusManagerModal}
 >
 	{#if render}

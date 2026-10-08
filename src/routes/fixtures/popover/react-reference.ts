@@ -22,14 +22,20 @@ export function mountPopoverReference(
 		useEffect(onReady, []);
 		const bound = scenario === 'bound' || scenario === 'open';
 
-		function changed(
-			open: boolean,
+		function onOpen(
+			nextOpen: boolean,
 			details: { reason: string; isCanceled: boolean; cancel: () => void }
 		) {
 			if (scenario === 'cancel') details.cancel();
-			const call = { open, reason: details.reason, canceled: details.isCanceled };
-			setCalls((previous) => [...previous, call]);
-			if (bound && !details.isCanceled) setOwner(open);
+			setCalls((list) =>
+				list.concat({
+					open: nextOpen,
+					reason: details.reason,
+					canceled: details.isCanceled
+				})
+			);
+			if (!bound || details.isCanceled) return;
+			setOwner(nextOpen);
 		}
 
 		const popup = h(
@@ -51,11 +57,11 @@ export function mountPopoverReference(
 
 		const rootProps =
 			scenario === 'open'
-				? { defaultOpen: true, onOpenChange: changed }
+				? { defaultOpen: true, onOpenChange: onOpen }
 				: {
 						open: bound ? owner : undefined,
 						modal: scenario === 'modal' ? true : undefined,
-						onOpenChange: changed
+						onOpenChange: onOpen
 					};
 
 		const trigger = h(
@@ -79,7 +85,7 @@ export function mountPopoverReference(
 			h('button', { type: 'button' }, 'Outside'),
 			h('pre', { 'data-testid': 'calls' }, JSON.stringify(calls)),
 			scenario === 'detached'
-				? h(Fragment, null, trigger, h(Popover.Root, { handle, onOpenChange: changed }, popup))
+				? h(Fragment, null, trigger, h(Popover.Root, { handle, onOpenChange: onOpen }, popup))
 				: h(Popover.Root, rootProps, trigger, popup)
 		);
 	}

@@ -14,12 +14,9 @@ async function open(page: Page, scenario: string, reference: boolean) {
 	};
 }
 
-async function calls(page: Page) {
-	return JSON.parse(await page.getByTestId('calls').innerText()) as {
-		open: boolean;
-		reason: string;
-		canceled: boolean;
-	}[];
+async function recorded(page: Page) {
+	const text = await page.getByTestId('calls').innerText();
+	return JSON.parse(text) as Array<{ open: boolean; reason: string; canceled: boolean }>;
 }
 
 for (const reference of [false, true]) {
@@ -38,7 +35,9 @@ for (const reference of [false, true]) {
 			await expect(trigger).toHaveAttribute('data-pressed', '');
 			await expect(popup).toHaveAttribute('data-open', '');
 			await expect(popup).toHaveText(/Content/);
-			expect(await calls(page)).toEqual([{ open: true, reason: 'trigger-press', canceled: false }]);
+			expect(await recorded(page)).toEqual([
+				{ open: true, reason: 'trigger-press', canceled: false }
+			]);
 
 			await trigger.click();
 			await expect(popup).toHaveCount(0);
@@ -51,7 +50,7 @@ for (const reference of [false, true]) {
 			await expect(popup).toBeVisible();
 			await page.keyboard.press('Escape');
 			await expect(popup).toHaveCount(0);
-			expect(await calls(page)).toEqual([
+			expect(await recorded(page)).toEqual([
 				{ open: true, reason: 'trigger-press', canceled: false },
 				{ open: false, reason: 'escape-key', canceled: false }
 			]);
@@ -65,7 +64,9 @@ for (const reference of [false, true]) {
 			const { trigger, popup } = await open(page, 'cancel', reference);
 			await trigger.click();
 			await expect(popup).toHaveCount(0);
-			expect(await calls(page)).toEqual([{ open: true, reason: 'trigger-press', canceled: true }]);
+			expect(await recorded(page)).toEqual([
+				{ open: true, reason: 'trigger-press', canceled: true }
+			]);
 		});
 
 		test('a disabled trigger does not open', async ({ page }) => {
@@ -73,14 +74,14 @@ for (const reference of [false, true]) {
 			await expect(trigger).toBeDisabled();
 			await trigger.click({ force: true });
 			await expect(popup).toHaveCount(0);
-			expect(await calls(page)).toEqual([]);
+			expect(await recorded(page)).toEqual([]);
 		});
 
 		test('consumer click can skip the trigger handler', async ({ page }) => {
 			const { trigger, popup } = await open(page, 'prevented', reference);
 			await trigger.click();
 			await expect(popup).toHaveCount(0);
-			expect(await calls(page)).toEqual([]);
+			expect(await recorded(page)).toEqual([]);
 		});
 
 		test('hover opens the popover and an outside hover closes it', async ({ page }) => {

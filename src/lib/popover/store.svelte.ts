@@ -51,8 +51,6 @@ export class PopoverStore extends PopupStore<PopoverChangeReason> {
 	descriptionElementId = $state<string | undefined>(undefined);
 	/** Set while a viewport is mounted so positioning can anchor size transitions. */
 	adaptiveOrigin = $state.raw<Middleware | undefined>(undefined);
-	/** Interaction used when focus returns after close. */
-	closeInteraction = '';
 	/** True after a close button has registered. */
 	focusTrap = $state(false);
 	/** Physical side from the positioner. Safe-polygon reads this while open. */
@@ -234,7 +232,6 @@ export class PopoverStore extends PopupStore<PopoverChangeReason> {
 		const registered = this.triggers.idOf(this.domReferenceElement);
 		this.writeTriggerId(registered ?? (this.domReferenceElement?.id || null), details);
 		if (!nextOpen) {
-			this.closeInteraction = closeInteraction(details);
 			this.openedFrom = null;
 			this.claimedTriggerId = null;
 		} else {
@@ -293,10 +290,4 @@ export class PopoverStore extends PopupStore<PopoverChangeReason> {
 			false
 		);
 	}
-}
-
-function closeInteraction(details: PopoverChangeEventDetails): string {
-	if (details.reason === REASONS.escapeKey || details.reason === REASONS.focusOut) return 'keyboard';
-	if ((details.event as MouseEvent).detail === 0 && details.event.type === 'click') return 'keyboard';
-	return '';
 }

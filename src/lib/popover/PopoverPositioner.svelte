@@ -68,7 +68,7 @@
 
 	useAnchoredPopupScrollLock(() => ({
 		enabled: modalLock,
-		touchOpen: store.openPointerType === 'touch',
+		touchOpen: store.openMethod === 'touch',
 		positionerElement: store.positionerElement,
 		referenceElement: store.domReferenceElement
 	}));

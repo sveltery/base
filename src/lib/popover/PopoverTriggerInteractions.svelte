@@ -5,7 +5,11 @@
 -->
 <script lang="ts">
 	import { REASONS } from '../internal/event-details.js';
-	import { safePolygon, useClick, useHoverReferenceInteraction } from '../internal/floating-ui/index.js';
+	import {
+		safePolygon,
+		useClick,
+		useHoverReferenceInteraction
+	} from '../internal/floating-ui/index.js';
 	import { useTriggerFocusGuards } from '../internal/popups/index.js';
 	import type { PopoverStore } from './store.svelte.js';
 	import type { TriggerArmed } from './trigger-armed.js';
@@ -36,7 +40,7 @@
 		enabled:
 			!disabled &&
 			openOnHover &&
-			(store.openPointerType !== 'touch' || store.openChangeReason !== REASONS.triggerPress),
+			(store.openMethod !== 'touch' || store.openChangeReason !== REASONS.triggerPress),
 		mouseOnly: true,
 		move: false,
 		handleClose: safePolygon(),
