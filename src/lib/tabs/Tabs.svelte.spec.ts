@@ -485,6 +485,16 @@ describe('Tabs', () => {
 	});
 
 	describe('native Svelte', () => {
+		it('starts from defaultValue and returns to it when a controlled value is cleared', async () => {
+			render(TabsHarness, { defaultValue: 1, tabs: three });
+			await expect.element(tab('Two')).toHaveAttribute('aria-selected', 'true');
+
+			render(TabsHarness, { passValue: true, value: 1, defaultValue: 0, tabs: three });
+			await expect.element(tab('Two').nth(1)).toHaveAttribute('aria-selected', 'true');
+			await page.getByRole('button', { name: 'Unset value' }).nth(1).click();
+			await expect.element(tab('One').nth(1)).toHaveAttribute('aria-selected', 'true');
+		});
+
 		it('renders through a snippet and a consumer attachment', async () => {
 			render(TabsHarness, { passValue: true, value: 0, custom: true });
 			const custom = page.getByTestId('custom');

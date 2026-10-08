@@ -209,6 +209,13 @@ describe('<Slider />', () => {
 			await expect.element(page.getByRole('slider')).toHaveAttribute('aria-valuenow', '10');
 		});
 
+		it('follows a parent write', async () => {
+			render(SliderHarness, { scenario: 'bound', defaultValue: 30 });
+			click(page.getByTestId('set').element());
+			await expect.element(page.getByRole('slider')).toHaveAttribute('aria-valuenow', '70');
+			expect(page.getByTestId('bound').element().textContent).toBe('70');
+		});
+
 		it('keeps a bound value in sync and follows an external write', async () => {
 			render(SliderHarness, { scenario: 'bound', defaultValue: 30 });
 			expect(page.getByTestId('bound').element().textContent).toBe('30');

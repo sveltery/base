@@ -26,6 +26,11 @@ export interface RadioGroupProps<Value = unknown> extends Omit<
 	 * Object values are compared with `===`. Store them with `$state.raw`.
 	 */
 	value?: Value;
+	/**
+	 * Value used when `value` is omitted.
+	 * @default undefined
+	 */
+	defaultValue?: Value;
 	/** Whether the group should ignore user interaction. @default false */
 	disabled?: boolean;
 	/**

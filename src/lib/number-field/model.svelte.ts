@@ -284,8 +284,6 @@ export class NumberFieldModel {
 			this.options.getOnValueChange()?.(validatedValue, details);
 			if (details.isCanceled) return false;
 			this.options.writeValue(validatedValue);
-			const field = this.options.getField();
-			field?.setDirty(validatedValue !== field.validityData.initialValue);
 			this.hasPendingCommit = true;
 		}
 

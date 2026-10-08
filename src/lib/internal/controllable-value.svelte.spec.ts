@@ -52,6 +52,13 @@ describe('createControllableValue', () => {
 		expect(text('runs')).toBe('1');
 	});
 
+	it('leaves no symbol keys on a plain object, an array, or a class instance', async () => {
+		render(ControllableValueHarness, { mode: 'plain' });
+		await page.getByTestId('set-plain').click();
+		await expect.element(page.getByTestId('same')).toHaveTextContent('yes');
+		expect(text('symbols')).toBe('0,0,0');
+	});
+
 	it('falls back to the default when a controlled value is cleared', async () => {
 		render(ControllableValueHarness, { mode: 'clear' });
 		await expect.element(page.getByTestId('value')).toHaveTextContent('a');

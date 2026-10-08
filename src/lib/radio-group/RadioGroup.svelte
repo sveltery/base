@@ -21,6 +21,7 @@
 
 	let {
 		value = $bindable(),
+		defaultValue,
 		disabled = false,
 		readOnly = false,
 		required = false,
@@ -50,7 +51,7 @@
 		setProp: (next) => {
 			value = next;
 		},
-		getDefault: () => undefined as unknown,
+		getDefault: () => defaultValue,
 		onChange(next) {
 			formContext.clearErrors(name);
 			if (!field) return;

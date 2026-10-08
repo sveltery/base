@@ -266,6 +266,26 @@
 		</Field.Root>
 		<button type="submit">Submit</button>
 	</Form>
+{:else if scenario === 'textarea'}
+	<Form onFormSubmit={accept}>
+		<Field.Root
+			name="note"
+			validationMode="onSubmit"
+			validate={(value) => {
+				seen = value == null ? '' : String(value);
+				return null;
+			}}
+		>
+			<Field.Control>
+				{#snippet render(props)}
+					<textarea {...props} data-testid="control"></textarea>
+				{/snippet}
+			</Field.Control>
+		</Field.Root>
+		<button type="submit">Submit</button>
+	</Form>
+	<output data-testid="seen">{seen}</output>
+	<output data-testid="values">{values}</output>
 {:else if scenario === 'render'}
 	<Field.Root data-testid="field" class="from-props">
 		{#snippet render(props, fieldState)}

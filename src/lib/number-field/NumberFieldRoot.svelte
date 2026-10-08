@@ -61,11 +61,11 @@
 		getDefault: () => defaultValue,
 		onChange(next) {
 			form.clearErrors(name);
+			field?.setDirty(next !== field.validityData.initialValue);
 			if (model.blockRevalidation && !field?.shouldValidateOnChange()) {
 				model.blockRevalidation = false;
 				return;
 			}
-			field?.setDirty(next !== field.validityData.initialValue);
 			field?.change(next);
 		}
 	});
@@ -81,7 +81,10 @@
 	let model: NumberFieldModel;
 
 	function writeValue(next: number | null) {
-		if (Object.is(current, next)) return;
+		if (Object.is(current, next)) {
+			field?.setDirty(next !== field.validityData.initialValue);
+			return;
+		}
 		controllable.set(next);
 	}
 

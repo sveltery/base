@@ -406,6 +406,15 @@ describe('Field', () => {
 			expect(text('values')).toBe(JSON.stringify({ email: '' }));
 		});
 
+		it('reads a rendered textarea for validation and submission', async () => {
+			render(FieldHarness, { scenario: 'textarea' });
+			const control = page.getByTestId('control');
+			await control.fill('note');
+			await page.getByRole('button', { name: 'Submit' }).click();
+			expect(text('seen')).toBe('note');
+			expect(text('values')).toBe(JSON.stringify({ note: 'note' }));
+		});
+
 		it('writes the first keystroke into an empty bind', async () => {
 			render(FieldHarness, { scenario: 'typed' });
 			await expect.element(page.getByTestId('typed')).toHaveTextContent('none');
