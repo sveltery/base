@@ -64,7 +64,6 @@ export class PopoverStore extends PopupStore<PopoverChangeReason> {
 	private readonly writeTriggerIdValue: (id: string | null, details?: unknown) => void;
 	private readonly readDismissReference: PopoverStoreOptions['readDismissReference'];
 	private readonly readDismissFloating: PopoverStoreOptions['readDismissFloating'];
-	private readonly readOpenComplete: PopoverStoreOptions['onOpenChangeComplete'];
 	/** Id written for this open. Survives a controlled trigger id that snaps back. */
 	private claimedTriggerId: string | null = null;
 	private readonly readers = new SvelteMap<string, () => TriggerOwned>();
@@ -89,7 +88,6 @@ export class PopoverStore extends PopupStore<PopoverChangeReason> {
 		this.writeTriggerIdValue = options.writeTriggerId;
 		this.readDismissReference = options.readDismissReference;
 		this.readDismissFloating = options.readDismissFloating;
-		this.readOpenComplete = options.onOpenChangeComplete;
 
 		$effect(() => {
 			if (this.open) return;
@@ -268,7 +266,7 @@ export class PopoverStore extends PopupStore<PopoverChangeReason> {
 	}
 
 	notifyOpened() {
-		this.readOpenComplete()?.(true);
+		this.notifyOpenChangeComplete(true);
 	}
 
 	/** Drop a prevented unmount. The shared close completion then removes the popup. */
