@@ -192,6 +192,21 @@ describe('Popover', () => {
 		expect(page.getByTestId('calls').element().textContent).toContain('"reason":"focus-out"');
 	});
 
+	it('closes onto the control before the trigger when shift-tabbing from it', async () => {
+		render(PopoverFixture, { scenario: 'tab' });
+		const open = page.getByRole('button', { name: 'Open' });
+		await open.click();
+		await expect.poll(() => document.activeElement?.textContent).toBe('Inside');
+		(open.element() as HTMLElement).focus();
+		await expect.poll(() => page.getByRole('dialog').elements().length).toBe(1);
+		await userEvent.keyboard('{Shift>}{Tab}{/Shift}');
+		await expect
+			.poll(() => document.activeElement)
+			.toBe(page.getByRole('button', { name: 'Outside' }).element());
+		await expect.poll(() => page.getByRole('dialog').elements().length).toBe(0);
+		expect(page.getByTestId('calls').element().textContent).toContain('"reason":"focus-out"');
+	});
+
 	it('throws outside the root', () => {
 		expect(() => render(Popover.Popup)).toThrow(
 			'Base UI: PopoverRootContext is missing. Popover parts must be placed within <Popover.Root>.'

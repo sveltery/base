@@ -18,6 +18,7 @@
 	import { enqueueFocus } from '../utils/enqueueFocus.js';
 	import { markOthers } from '../utils/markOthers.js';
 	import { getTabbableCandidates, isOutsideEvent } from '../utils/tabbable.js';
+	import { hasFloatingPortal } from './FloatingPortal.svelte';
 	import { useFloatingTree } from './FloatingTree.svelte.js';
 	import { getNodeChildren } from './FloatingTreeStore.js';
 
@@ -51,6 +52,7 @@
 	} = $props();
 
 	const tree = useFloatingTree();
+	const portaled = hasFloatingPortal();
 	const pointerDownTimeout = Timeout.create();
 	const restoreFrame = AnimationFrame.create();
 	let suppressFocusOut = false;
@@ -315,7 +317,7 @@
 	/>
 {/if}
 {@render children?.()}
-{#if !modal && !disabled && store.isOpen() && store.triggerFocusTarget}
+{#if portaled && !modal && !disabled && store.isOpen() && store.triggerFocusTarget}
 	<FocusGuard onfocus={leaveToTriggerGuard} />
 {/if}
 {#if modal && store.isOpen()}

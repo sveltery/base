@@ -14,9 +14,6 @@
 		...rest
 	}: HTMLAttributes<HTMLSpanElement> & { attach?: Attachment<HTMLSpanElement> } = $props();
 
-	// Held on the span. A spread `attach` function is not an attachment.
-	let element = $state<HTMLSpanElement | null>(null);
-
 	function apply(node: HTMLSpanElement) {
 		return attach?.(node);
 	}
@@ -27,7 +24,6 @@
 <!-- The guard is focusable on purpose so Tab can enter the popup. -->
 <!-- svelte-ignore a11y_no_noninteractive_tabindex -->
 <span
-	bind:this={element}
 	{...rest}
 	tabindex="0"
 	{role}

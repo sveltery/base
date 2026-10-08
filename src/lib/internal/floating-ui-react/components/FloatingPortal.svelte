@@ -1,7 +1,13 @@
 <script lang="ts" module>
+	import { hasContext } from 'svelte';
 	import { createAttachmentKey } from 'svelte/attachments';
 
 	const MOUNT = createAttachmentKey();
+	const PORTAL = Symbol.for('sveltery-floating-portal');
+
+	export function hasFloatingPortal() {
+		return hasContext(PORTAL);
+	}
 </script>
 
 <script lang="ts">
@@ -19,7 +25,7 @@
 	// `document` is missing, so neither `createPortal` runs on the server. `client` stays false
 	// for that render and the first client render, then flips after mount so hydration matches.
 
-	import { getContext, hasContext, onMount, setContext, type Snippet } from 'svelte';
+	import { getContext, onMount, setContext, type Snippet } from 'svelte';
 	import type { Attachment } from 'svelte/attachments';
 	import type { HTMLAttributes } from 'svelte/elements';
 	import type { FloatingRootStore } from './FloatingRootStore.svelte.js';
@@ -32,7 +38,6 @@
 	type PortalHostProps = HTMLAttributes<HTMLDivElement> &
 		Record<symbol, Attachment<HTMLDivElement>>;
 
-	const PORTAL = Symbol.for('sveltery-floating-portal');
 	const portalState: PortalState = {};
 
 	let {
@@ -50,7 +55,7 @@
 
 	let portalNode = $state<HTMLDivElement | null>(null);
 	let client = $state(false);
-	const parent = hasContext(PORTAL) ? getContext<PortalContext>(PORTAL) : null;
+	const parent = hasFloatingPortal() ? getContext<PortalContext>(PORTAL) : null;
 
 	onMount(() => {
 		client = true;

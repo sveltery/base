@@ -69,6 +69,14 @@ Rationale: the previous pane is a visual cross-fade, not a second form control.
 
 Test: `src/lib/popover/Popover.svelte.spec.ts` (`keeps copied viewport controls out of form submission`, `does not mark copied controls disabled during the cross-fade`, `lets the form submit while an empty required copy is cross-fading`).
 
+### Shift+Tab from the first control, and Tab from the open trigger
+
+Pin: `47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c`, `packages/react/src/floating-ui-react/components/FloatingFocusManager.tsx` and `packages/react/src/popover/popup/PopoverPopup.tsx`. A non-modal popup inside a portal renders a leading guard and a trailing guard. `previousFocusableElement` is the trigger. `nextFocusableElement` is the trigger's trailing guard. The leading guard is `beforeContentFocusGuardRef`.
+
+Upstream: Shift+Tab from the popup's first control focuses the trigger and leaves the popup open. Tab from that open trigger focuses the first control again. The trigger's trailing guard, when focused from outside the positioner, moves focus to the leading guard, which then enters the popup.
+
+Local: those two paths are not ported. With an inline container, Shift+Tab from the popup's first control lands on the control after the trigger and closes with `focus-out`. Tab from the open trigger focuses the trigger's trailing guard. That guard sits outside the popup, so the popup closes with `focus-out` and focus ends on `body`. Tab forward from inside the popup still closes onto the control after the trigger. Shift+Tab from the open trigger still closes onto the control before the trigger. React fires the focus-out callback twice on Shift+Tab from the trigger; the port fires it once. The leading guard and `previousFocusableElement` are not part of this port.
+
 ## Dialog
 
 Source: `packages/react/src/dialog`. Upstream shares `PopupHandle` and `COMPOSITE_KEYS`; they live in `src/lib/internal/popups/popupHandle.svelte.ts` and `src/lib/internal/composite-keys.ts`. Portal, focus, dismiss, scroll lock, `mergeProps`, and the popup store are the landed overlay foundation. How the dialog opened is `PopupStore.openMethod`. Final focus uses the shared `returnFocus` callback: it receives how the popup closed, and `null` focuses the trigger. `openWithPayload` stays on `Dialog.Handle`. Popover does not have it.
