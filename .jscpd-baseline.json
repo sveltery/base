@@ -1,52 +1,193 @@
 {
-	"version": 1,
-	"fingerprints": {
-		"01ec0a790efabe8b": 1,
-		"02e4600081dbebb3": 1,
-		"02e83a883eafc6e5": 1,
-		"09f6251c5f097e83": 1,
-		"0d27a060e8c7a827": 1,
-		"0d4220cf799e167c": 1,
-		"0e8054b86932ff9c": 1,
-		"181214a5a3eefab2": 1,
-		"198cf456071c2d4f": 1,
-		"1a1b25ff74218b83": 1,
-		"1e005ded2c7b3039": 1,
-		"1f95947e1e34b354": 1,
-		"2f052022a0693a84": 1,
-		"2f23d0ff0e17d504": 1,
-		"33a3b5f0c6e69966": 1,
-		"38c427395bbda0d8": 1,
-		"3a7e2c20795f3b1a": 1,
-		"3d72d6ece017027a": 1,
-		"4191390d2fcfd4cc": 1,
-		"4659a25fa289762a": 1,
-		"4d10389b65683d8b": 1,
-		"528985e9acd05b89": 1,
-		"57830cacf103edc1": 1,
-		"5dfcd4027c663c02": 1,
-		"60d369fa8f498ccd": 1,
-		"67b11e78cf6b2581": 1,
-		"6873c15afa5f2be8": 1,
-		"6ca4cca0d599adec": 1,
-		"74ca2ab3731a90a9": 1,
-		"7690e9cbe38f5740": 1,
-		"8130df93ffee7f88": 1,
-		"88403839fe4266c6": 1,
-		"8d6a742e0cbd0ad1": 1,
-		"96a6e737e3322c80": 1,
-		"9fc3e64a430dcb20": 1,
-		"ac2257a8c3cca7e3": 1,
-		"ad28269c9ee5fcc5": 1,
-		"b139498595f2f5d4": 1,
-		"b6e724d9ec8ad96b": 1,
-		"b80c3f6f48e7c913": 1,
-		"bdf7e3c390bebe2d": 1,
-		"c0f09af7f1adc9c2": 1,
-		"ca23fd27cebe12ff": 1,
-		"da1c5e11c5f985f0": 1,
-		"e4d9b7421031aa82": 1,
-		"f318bf029b572b6d": 1,
-		"f96fc45027a06f60": 1
+	"version": 3,
+	"pairs": {
+		"html:src/lib/accordion/AccordionHeader.svelte|src/lib/accordion/AccordionTrigger.svelte": {
+			"count": 1,
+			"lines": 28
+		},
+		"html:src/lib/accordion/AccordionHeader.svelte|src/lib/meter/MeterIndicator.svelte": {
+			"count": 1,
+			"lines": 27
+		},
+		"html:src/lib/accordion/AccordionHeader.svelte|src/lib/scroll-area/ScrollAreaContent.svelte": {
+			"count": 1,
+			"lines": 27
+		},
+		"html:src/lib/accordion/AccordionHeader.svelte|src/lib/scroll-area/ScrollAreaThumb.svelte": {
+			"count": 1,
+			"lines": 27
+		},
+		"html:src/lib/accordion/AccordionHeader.svelte|src/lib/scroll-area/ScrollAreaViewport.svelte": {
+			"count": 1,
+			"lines": 27
+		},
+		"html:src/lib/accordion/AccordionHeader.svelte|src/lib/slider/SliderControl.svelte": {
+			"count": 1,
+			"lines": 27
+		},
+		"html:src/lib/accordion/AccordionTrigger.svelte|src/lib/collapsible/CollapsibleTrigger.svelte": {
+			"count": 1,
+			"lines": 124
+		},
+		"html:src/lib/accordion/AccordionTrigger.svelte|src/lib/meter/MeterLabel.svelte": {
+			"count": 1,
+			"lines": 120
+		},
+		"html:src/lib/accordion/AccordionTrigger.svelte|src/lib/number-field/NumberFieldStepper.svelte": {
+			"count": 1,
+			"lines": 122
+		},
+		"html:src/lib/checkbox/CheckboxIndicator.svelte|src/lib/radio/RadioIndicator.svelte": {
+			"count": 1,
+			"lines": 101
+		},
+		"html:src/lib/field/FieldItem.svelte|src/lib/field/FieldRoot.svelte": {
+			"count": 1,
+			"lines": 48
+		},
+		"html:src/lib/fieldset/FieldsetLegend.svelte|src/lib/progress/ProgressIndicator.svelte": {
+			"count": 1,
+			"lines": 36
+		},
+		"html:src/lib/fieldset/FieldsetLegend.svelte|src/lib/progress/ProgressRoot.svelte": {
+			"count": 1,
+			"lines": 35
+		},
+		"html:src/lib/fieldset/FieldsetLegend.svelte|src/lib/progress/ProgressTrack.svelte": {
+			"count": 1,
+			"lines": 36
+		},
+		"html:src/lib/fieldset/FieldsetLegend.svelte|src/lib/separator/Separator.svelte": {
+			"count": 1,
+			"lines": 36
+		},
+		"html:src/lib/fieldset/FieldsetLegend.svelte|src/lib/toolbar/ToolbarGroup.svelte": {
+			"count": 1,
+			"lines": 36
+		},
+		"html:src/lib/meter/MeterIndicator.svelte|src/lib/meter/MeterLabel.svelte": {
+			"count": 1,
+			"lines": 31
+		},
+		"html:src/lib/meter/MeterIndicator.svelte|src/lib/scroll-area/ScrollAreaContent.svelte": {
+			"count": 1,
+			"lines": 32
+		},
+		"html:src/lib/meter/MeterIndicator.svelte|src/lib/scroll-area/ScrollAreaThumb.svelte": {
+			"count": 1,
+			"lines": 32
+		},
+		"html:src/lib/meter/MeterIndicator.svelte|src/lib/scroll-area/ScrollAreaViewport.svelte": {
+			"count": 1,
+			"lines": 32
+		},
+		"html:src/lib/meter/MeterIndicator.svelte|src/lib/slider/SliderControl.svelte": {
+			"count": 1,
+			"lines": 32
+		},
+		"html:src/lib/progress/ProgressLabel.svelte|src/lib/switch/SwitchThumb.svelte": {
+			"count": 1,
+			"lines": 39
+		},
+		"html:src/lib/scroll-area/ScrollAreaContent.svelte|src/lib/scroll-area/ScrollAreaThumb.svelte": {
+			"count": 1,
+			"lines": 54
+		},
+		"html:src/lib/scroll-area/ScrollAreaContent.svelte|src/lib/scroll-area/ScrollAreaViewport.svelte": {
+			"count": 1,
+			"lines": 54
+		},
+		"html:src/lib/scroll-area/ScrollAreaContent.svelte|src/lib/slider/SliderControl.svelte": {
+			"count": 1,
+			"lines": 53
+		},
+		"javascript:eslint/effects.js|eslint/no-previous-value-effect.js": {
+			"count": 1,
+			"lines": 27
+		},
+		"javascript:eslint/effects.js|eslint/no-react-refs.js": {
+			"count": 1,
+			"lines": 15
+		},
+		"typescript:src/lib/accordion/AccordionTrigger.svelte|src/lib/collapsible/CollapsibleTrigger.svelte": {
+			"count": 1,
+			"lines": 60
+		},
+		"typescript:src/lib/accordion/AccordionTrigger.svelte|src/lib/radio/RadioRoot.svelte": {
+			"count": 1,
+			"lines": 16
+		},
+		"typescript:src/lib/accordion/AccordionTrigger.svelte|src/lib/switch/SwitchRoot.svelte": {
+			"count": 1,
+			"lines": 17
+		},
+		"typescript:src/lib/accordion/AccordionTrigger.svelte|src/lib/tabs/TabsTab.svelte": {
+			"count": 1,
+			"lines": 10
+		},
+		"typescript:src/lib/accordion/types.ts|src/lib/collapsible/types.ts": {
+			"count": 1,
+			"lines": 24
+		},
+		"typescript:src/lib/button/Button.svelte|src/lib/switch/SwitchRoot.svelte": {
+			"count": 1,
+			"lines": 23
+		},
+		"typescript:src/lib/button/Button.svelte|src/lib/tabs/TabsTab.svelte": {
+			"count": 1,
+			"lines": 15
+		},
+		"typescript:src/lib/button/Button.svelte|src/lib/toolbar/ToolbarButton.svelte": {
+			"count": 1,
+			"lines": 15
+		},
+		"typescript:src/lib/checkbox/attributes.ts|src/lib/radio/attributes.ts": {
+			"count": 1,
+			"lines": 10
+		},
+		"typescript:src/lib/checkbox/CheckboxIndicator.svelte|src/lib/radio/RadioIndicator.svelte": {
+			"count": 1,
+			"lines": 51
+		},
+		"typescript:src/lib/checkbox/CheckboxIndicator.svelte|src/lib/tabs/TabsPanel.svelte": {
+			"count": 1,
+			"lines": 14
+		},
+		"typescript:src/lib/checkbox/CheckboxRoot.svelte|src/lib/radio/RadioRoot.svelte": {
+			"count": 1,
+			"lines": 15
+		},
+		"typescript:src/lib/checkbox/CheckboxRoot.svelte|src/lib/switch/SwitchRoot.svelte": {
+			"count": 1,
+			"lines": 12
+		},
+		"typescript:src/lib/field/model.svelte.ts|src/lib/field/model.svelte.ts": {
+			"count": 1,
+			"lines": 9
+		},
+		"typescript:src/lib/number-field/NumberFieldRoot.svelte|src/lib/otp-field/OTPFieldRoot.svelte": {
+			"count": 1,
+			"lines": 21
+		},
+		"typescript:src/lib/scroll-area/ScrollAreaCorner.svelte|src/lib/scroll-area/ScrollAreaRoot.svelte": {
+			"count": 1,
+			"lines": 13
+		},
+		"typescript:src/lib/scroll-area/ScrollAreaCorner.svelte|src/lib/scroll-area/ScrollAreaThumb.svelte": {
+			"count": 1,
+			"lines": 13
+		},
+		"typescript:src/lib/scroll-area/ScrollAreaRoot.svelte|src/lib/scroll-area/ScrollAreaThumb.svelte": {
+			"count": 1,
+			"lines": 12
+		},
+		"typescript:src/lib/scroll-area/ScrollAreaRoot.svelte|src/lib/scroll-area/ScrollAreaViewport.svelte": {
+			"count": 1,
+			"lines": 15
+		},
+		"typescript:src/lib/switch/SwitchRoot.svelte|src/lib/tabs/TabsTab.svelte": {
+			"count": 1,
+			"lines": 20
+		}
 	}
 }
