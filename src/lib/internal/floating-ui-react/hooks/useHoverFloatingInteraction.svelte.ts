@@ -15,7 +15,7 @@ import {
 	applySafePolygonPointerEventsMutation,
 	clearSafePolygonPointerEventsMutation,
 	hoverInteraction
-} from './useHoverInteractionSharedState.js';
+} from './useHoverInteractionSharedState.svelte.js';
 import { getDelay, isClickLikeOpenEvent, isHoverOpenEvent } from './useHoverShared.js';
 
 export function useHoverFloatingInteraction(

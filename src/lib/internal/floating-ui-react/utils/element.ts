@@ -23,17 +23,12 @@ export function isTargetInsideEnabledTrigger(
 const TYPEABLE_SELECTOR =
 	'input:not([type="hidden"]):not([disabled]),[contenteditable]:not([contenteditable="false"]),textarea:not([disabled])';
 
+const INTERACTIVE_SELECTOR = `button,a[href],[role="button"],select,[tabindex]:not([tabindex="-1"]),${TYPEABLE_SELECTOR}`;
+
 export function isInteractiveElement(element: Element | null) {
-	return (
-		element?.closest(
-			`button,a[href],[role="button"],select,[tabindex]:not([tabindex="-1"]),${TYPEABLE_SELECTOR}`
-		) != null
-	);
+	return element?.closest(INTERACTIVE_SELECTOR) != null;
 }
 
 export function isTypeableElement(element: unknown): boolean {
-	return (
-		isHTMLElement(element) &&
-		(element.localName === 'input' || element.localName === 'textarea' || element.isContentEditable)
-	);
+	return isHTMLElement(element) && element.matches(TYPEABLE_SELECTOR);
 }

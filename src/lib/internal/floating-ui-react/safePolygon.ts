@@ -30,6 +30,8 @@ export interface HandleCloseContext {
 export interface HandleClose {
 	(context: HandleCloseContext): (event: MouseEvent) => void;
 	__options?: SafePolygonOptions;
+	/** Cancels the pending 40ms close. The trigger calls this on unmount. */
+	clear?: () => void;
 }
 
 function hasIntersectingEdge(
@@ -353,5 +355,6 @@ export function safePolygon(options: SafePolygonOptions = {}): HandleClose {
 		};
 	};
 	fn.__options = { ...options, blockPointerEvents };
+	fn.clear = () => timeout.clear();
 	return fn;
 }

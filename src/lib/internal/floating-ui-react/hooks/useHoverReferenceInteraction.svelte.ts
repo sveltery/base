@@ -16,7 +16,7 @@ import {
 	applySafePolygonPointerEventsMutation,
 	clearSafePolygonPointerEventsMutation,
 	hoverInteraction
-} from './useHoverInteractionSharedState.js';
+} from './useHoverInteractionSharedState.svelte.js';
 import { getDelay, getRestMs, isClickLikeOpenEvent } from './useHoverShared.js';
 
 export interface UseHoverReferenceProps {
@@ -79,6 +79,13 @@ export function useHoverReferenceInteraction(
 		instance.handler = undefined;
 	}
 
+	$effect.pre(() => {
+		const current = options();
+		if (!current.enabled || !current.isActiveTrigger) return;
+		instance.handleClose = current.handleClose;
+		instance.handleCloseOptions = current.handleClose?.__options;
+	});
+
 	$effect(() => {
 		if (!options().enabled) return;
 		function onOpenChange(payload?: unknown) {
@@ -97,7 +104,13 @@ export function useHoverReferenceInteraction(
 		store.events.on('openchange', onOpenChange);
 		return () => {
 			store.events.off('openchange', onOpenChange);
+		};
+	});
+
+	$effect(() => {
+		return () => {
 			cleanupMouseMove();
+			instance.handleClose?.clear?.();
 			instance.dispose();
 		};
 	});
@@ -116,36 +129,48 @@ export function useHoverReferenceInteraction(
 		}
 	}
 
+	function commitOpen(event: MouseEvent, trigger: HTMLElement | undefined) {
+		if (!allowOpen()) return false;
+		const details = createChangeEventDetails(REASONS.triggerHover, event, trigger);
+		store.setOpen(true, details);
+		if (details.isCanceled) return false;
+		if (trigger) store.domReferenceElement = trigger;
+		return true;
+	}
+
 	function onMouseEnter(event: MouseEvent) {
 		const current = options();
 		if (!current.enabled) return;
-		if (event.currentTarget instanceof Element) store.domReferenceElement = event.currentTarget;
+		const trigger = event.currentTarget instanceof HTMLElement ? event.currentTarget : undefined;
 		instance.openChangeTimeout.clear();
 		instance.blockMouseMove = false;
 		if (current.mouseOnly && !isMouseLikePointerType(instance.pointerType)) return;
 		const restMsValue = getRestMs(current.restMs);
 		const openDelay = getDelay(current.delay, 'open', instance.pointerType);
-		const triggerNode =
-			event.currentTarget instanceof HTMLElement ? event.currentTarget : undefined;
 		const isOpen = store.isOpen();
+		const reference = store.domReferenceElement;
+		const overInactive =
+			!current.isActiveTrigger ||
+			(trigger != null &&
+				reference != null &&
+				trigger !== reference &&
+				!contains(reference, trigger));
 		const closing =
 			!isOpen &&
 			store instanceof PopupStore &&
 			store.transitionStatus === 'ending' &&
 			hoverCloseActive;
-		if (closing && allowOpen()) {
-			store.setOpen(true, createChangeEventDetails(REASONS.triggerHover, event, triggerNode));
+		if ((isOpen && overInactive) || closing) {
+			commitOpen(event, trigger);
 			return;
 		}
 		if (restMsValue > 0 && !openDelay) return;
 		if (openDelay) {
 			instance.openChangeTimeout.start(openDelay, () => {
-				if (!store.isOpen() && allowOpen()) {
-					store.setOpen(true, createChangeEventDetails(REASONS.triggerHover, event, triggerNode));
-				}
+				if (!store.isOpen()) commitOpen(event, trigger);
 			});
-		} else if (!isOpen && allowOpen()) {
-			store.setOpen(true, createChangeEventDetails(REASONS.triggerHover, event, triggerNode));
+		} else if (!isOpen) {
+			commitOpen(event, trigger);
 		}
 	}
 
@@ -227,12 +252,7 @@ export function useHoverReferenceInteraction(
 		const open = () => {
 			instance.restTimeoutPending = false;
 			if (clickLike()) return;
-			if (!instance.blockMouseMove && !store.isOpen() && allowOpen()) {
-				store.setOpen(
-					true,
-					createChangeEventDetails(REASONS.triggerHover, event, trigger ?? undefined)
-				);
-			}
+			if (!instance.blockMouseMove && !store.isOpen()) commitOpen(event, trigger ?? undefined);
 		};
 		if (instance.pointerType === 'touch') open();
 		else {
@@ -245,7 +265,15 @@ export function useHoverReferenceInteraction(
 		instance.pointerType = event.pointerType;
 	}
 
+	function attachReference(node: Element) {
+		return () => {
+			if (store.domReferenceElement === node) instance.handleClose?.clear?.();
+		};
+	}
+
 	return {
+		/** Clears the safe-polygon close timer when this trigger unmounts. */
+		attachReference,
 		reference: {
 			onpointerdown: onPointer,
 			onpointerenter: onPointer,

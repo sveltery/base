@@ -16,21 +16,23 @@ export function useAnchoredPopupScrollLock(
 		referenceElement: Element | null;
 	}
 ) {
-	let touchOpenShouldLockScroll = $state(false);
+	let popupWidth = $state(0);
+	let viewportWidth = $state(0);
 
-	$effect.pre(() => {
+	$effect(() => {
 		const { enabled, touchOpen, positionerElement } = params();
 		if (!enabled || !touchOpen || positionerElement == null) {
-			touchOpenShouldLockScroll = false;
+			popupWidth = 0;
+			viewportWidth = 0;
 			return;
 		}
-		const viewportWidth = ownerDocument(positionerElement).documentElement.clientWidth;
-		const popupWidth = positionerElement.offsetWidth;
-		touchOpenShouldLockScroll =
-			viewportWidth > 0 &&
-			popupWidth > 0 &&
-			popupWidth >= viewportWidth - VIEWPORT_WIDTH_TOLERANCE_PX;
+		viewportWidth = ownerDocument(positionerElement).documentElement.clientWidth;
+		popupWidth = positionerElement.offsetWidth;
 	});
+
+	const touchOpenShouldLockScroll = $derived(
+		viewportWidth > 0 && popupWidth > 0 && popupWidth >= viewportWidth - VIEWPORT_WIDTH_TOLERANCE_PX
+	);
 
 	useScrollLock(() => {
 		const { enabled, touchOpen, referenceElement } = params();
