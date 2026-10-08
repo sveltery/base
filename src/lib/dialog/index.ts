@@ -7,7 +7,8 @@ import DialogRoot from './DialogRoot.svelte';
 import DialogTitle from './DialogTitle.svelte';
 import DialogTrigger from './DialogTrigger.svelte';
 import DialogViewport from './DialogViewport.svelte';
-import { createDialogHandle, DialogHandle } from './handle.svelte.js';
+import { PopupHandle } from '../internal/popups/index.js';
+import { createDialogHandle } from './handle.svelte.js';
 
 export const Dialog = {
 	Root: DialogRoot,
@@ -19,9 +20,10 @@ export const Dialog = {
 	Description: DialogDescription,
 	Close: DialogClose,
 	Viewport: DialogViewport,
-	Handle: DialogHandle,
+	Handle: PopupHandle,
 	createHandle: createDialogHandle
 };
 
-export { createDialogHandle, DialogHandle };
+export { createDialogHandle };
+export type { DialogHandle } from './handle.svelte.js';
 export type * from './types.js';

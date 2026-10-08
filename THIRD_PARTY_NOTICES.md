@@ -235,13 +235,14 @@ Parts of this package derive from [Base UI](https://github.com/mui/base-ui) v1.8
 - `src/lib/dialog/DialogClose.svelte` and `src/lib/dialog/DialogAction.svelte` from `packages/react/src/dialog/close/DialogClose.tsx` and `packages/react/src/dialog/trigger/DialogTrigger.tsx`
 - `src/lib/dialog/DialogViewport.svelte` from `packages/react/src/dialog/viewport/DialogViewport.tsx`
 - `src/lib/dialog/store.svelte.ts` from `packages/react/src/dialog/store/DialogStore.ts` (extends the landed `PopupStore`)
-- `src/lib/dialog/handle.svelte.ts` from `packages/react/src/dialog/store/DialogHandle.ts` and `packages/react/src/utils/popups/popupHandle.ts`
+- `src/lib/internal/popups/popupHandle.svelte.ts` from `packages/react/src/dialog/store/DialogHandle.ts` and `packages/react/src/utils/popups/popupHandle.ts` (`src/lib/dialog/handle.svelte.ts` re-exports it)
+- `src/lib/internal/composite-keys.ts` from Base UI `COMPOSITE_KEYS` (shared by dialog and slider)
 - `src/lib/dialog/context.svelte.ts` from `packages/react/src/dialog/root/DialogRootContext.ts` and `packages/react/src/dialog/portal/DialogPortalContext.ts`
 - `src/lib/dialog/attributes.ts` from `packages/react/src/dialog/utils/stateAttributesMapping.ts` and the dialog `*DataAttributes.ts` files
 - `src/lib/dialog/outside-press.ts` from the outside-press predicate in `packages/react/src/dialog/root/useDialogRoot.ts`
 - `src/lib/dialog/open-method.ts` from `packages/utils/src/useEnhancedClickHandler.ts` and `packages/react/src/utils/useOpenInteractionType.ts`
 - `src/lib/dialog/Dialog.svelte.spec.ts` assertions from `packages/react/src/dialog/**/*.test.tsx` that do not require Alert Dialog, Drawer, Menu, or Select
-- `src/lib/internal/popups/store.svelte.ts` `forceUnmount` and `notifyOpenChangeComplete` expose the close-completion path Dialog's `actions.unmount` and open animation use
+- `src/lib/internal/popups/store.svelte.ts` `forceUnmount` and `notifyOpenChangeComplete` expose the close-completion path Dialog's `unmount()` and open animation use
 
 MIT License
 

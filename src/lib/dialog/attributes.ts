@@ -29,13 +29,3 @@ export const dialogTransitionAttributesMapping: StateAttributesMapping<{
 	open: popupStateMapping.open,
 	transitionStatus: popupTransitionStateMapping.transitionStatus
 };
-
-/** Arrow and Home/End keys stay inside the dialog instead of reaching a parent composite. */
-export const COMPOSITE_KEYS = new Set([
-	'ArrowUp',
-	'ArrowDown',
-	'ArrowLeft',
-	'ArrowRight',
-	'Home',
-	'End'
-]);

@@ -5,8 +5,12 @@
 	(commit 47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c). MIT, see THIRD_PARTY_NOTICES.md.
 	Open and triggerId use the shared controllable-value helper.
 -->
-<script lang="ts" generics="Payload = unknown">
-	import { createChangeEventDetails, REASONS } from '../internal/event-details.js';
+<script lang="ts">
+	import {
+		createChangeEventDetails,
+		REASONS,
+		type BaseUIChangeEventDetails
+	} from '../internal/event-details.js';
 	import { createControllableValue } from '../internal/controllable-value.svelte.js';
 	import {
 		setFloatingTree,
@@ -17,8 +21,8 @@
 	import { useScrollLock } from '../internal/popups/index.js';
 	import { setDialogRootContext, useDialogRootContext } from './context.svelte.js';
 	import { installDialogOutsidePress } from './outside-press.js';
-	import { DialogStore, type DialogClickReference } from './store.svelte.js';
-	import type { DialogActions, DialogRootProps } from './types.js';
+	import { DialogStore } from './store.svelte.js';
+	import type { DialogChangeEventReason, DialogRootProps } from './types.js';
 
 	let {
 		open = $bindable(undefined),
@@ -27,12 +31,11 @@
 		onOpenChange,
 		onOpenChangeComplete,
 		disablePointerDismissal = false,
-		actions = $bindable(),
 		handle,
 		triggerId = $bindable(undefined),
 		defaultTriggerId = null,
 		children
-	}: DialogRootProps<Payload> = $props();
+	}: DialogRootProps = $props();
 
 	const parent = useDialogRootContext(true);
 	setFloatingTree();
@@ -46,7 +49,10 @@
 		},
 		getDefault: () => defaultOpen
 	});
-	const triggerValue = createControllableValue<string | null>({
+	const triggerValue = createControllableValue<
+		string | null,
+		BaseUIChangeEventDetails<DialogChangeEventReason>
+	>({
 		getProp: () => triggerId,
 		setProp: (next) => {
 			triggerId = next ?? null;
@@ -54,8 +60,7 @@
 		getDefault: () => defaultTriggerId
 	});
 
-	const clickReference: { current: DialogClickReference | undefined } = { current: undefined };
-	const store = new DialogStore<Payload>({
+	const store = new DialogStore({
 		open: openValue,
 		floatingId,
 		nested: parent != null,
@@ -63,16 +68,14 @@
 		onOpenChangeComplete: () => onOpenChangeComplete,
 		readModal: () => modal,
 		readDisablePointerDismissal: () => disablePointerDismissal,
-		publishTriggerId: (id) => {
-			triggerValue.set(id);
-		},
-		readClickReference: () => clickReference.current
+		publishTriggerId: (id, details) => {
+			triggerValue.set(id, details);
+		}
 	});
 	useFloatingNodeId(store);
-	setDialogRootContext(store as DialogStore<unknown>);
-	clickReference.current = useClick(store).reference;
-
-	if (triggerValue.value != null) triggerValue.set(triggerValue.value);
+	const click = useClick(store).reference;
+	store.click = click;
+	setDialogRootContext({ store: store as DialogStore<unknown>, click });
 
 	useDismiss(store, () => ({
 		escapeKey: store.nestedOpenDialogCount === 0,
@@ -104,24 +107,19 @@
 		if (!notify) return;
 		const openNow = store.open;
 		const dialogs = openNow ? store.nestedOpenDialogCount + 1 : 0;
-		const drawers = openNow ? store.nestedOpenDrawerCount : 0;
-		notify(dialogs, drawers);
+		notify(dialogs);
 		return () => {
-			if (openNow) notify(0, 0);
+			if (openNow) notify(0);
 		};
 	});
 
-	const dialogActions: DialogActions = {
-		unmount: () => store.forceUnmount(),
-		close: () => store.setOpen(false, createChangeEventDetails(REASONS.imperativeAction))
-	};
+	export function close() {
+		store.setOpen(false, createChangeEventDetails(REASONS.imperativeAction));
+	}
 
-	$effect.pre(() => {
-		actions = dialogActions;
-		return () => {
-			if (actions === dialogActions) actions = undefined;
-		};
-	});
+	export function unmount() {
+		store.forceUnmount();
+	}
 </script>
 
 {@render children?.({ payload: store.payload })}

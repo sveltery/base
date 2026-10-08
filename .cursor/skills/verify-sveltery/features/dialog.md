@@ -5,8 +5,8 @@ A modal or non-modal dialog. Upstream: `packages/react/src/dialog` at Base UI v1
 ## Sub-features
 
 - `Dialog.Root` renders no element. `open` and `triggerId` use the shared controllable-value helper. Omit `open` and pass `defaultOpen` to let the dialog own it. Pass `open` to hold it. `defaultTriggerId` selects the trigger for `defaultOpen`. `bind:triggerId` follows the trigger that opened the dialog.
-- `onOpenChange(open, eventDetails)` runs before the change. Reasons: `trigger-press`, `outside-press`, `escape-key`, `close-press`, `focus-out`, `imperative-action`, `none`. `eventDetails.cancel()` vetoes it. `eventDetails.preventUnmountOnClose()` keeps the popup mounted after a close; `actions.unmount()` removes it.
-- `bind:actions` exposes `close()` and `unmount()`. `Dialog.createHandle()` returns a handle for detached triggers, `open(triggerId)`, `openWithPayload(payload)`, `close()`, and `isOpen`.
+- `onOpenChange(open, eventDetails)` runs before the change. Reasons: `trigger-press`, `outside-press`, `escape-key`, `close-press`, `focus-out`, `imperative-action`, `none`. `eventDetails.cancel()` vetoes it. `eventDetails.preventUnmountOnClose()` keeps the popup mounted after a close; `bind:this` and `root.unmount()` remove it.
+- `Dialog.Root` exports `close()` and `unmount()` through `bind:this`. `Dialog.createHandle()` returns a handle for detached triggers, `open(triggerId)`, `openWithPayload(payload)`, `close()`, and `isOpen`. The handle class is the shared `PopupHandle`.
 - `modal` defaults to `true`: focus is trapped, page scroll locks, and an internal backdrop covers the page. `false` does none of those. `'trap-focus'` traps focus without the scroll lock or the internal backdrop.
 - `disablePointerDismissal` ignores outside presses. Non-modal dialogs also stay open when focus leaves.
 - Trigger: `<button type="button">`, `aria-haspopup="dialog"`, `aria-expanded`, `aria-controls` while that trigger owns the open dialog, `data-popup-open`, `data-base-ui-click-trigger`. Disabled native triggers use the `disabled` attribute and `data-disabled`. `nativeButton={false}` uses `role="button"` and `aria-disabled`. A consumer `onclick` runs first; `preventDefault()` skips the open.
@@ -22,8 +22,8 @@ A modal or non-modal dialog. Upstream: `packages/react/src/dialog` at Base UI v1
 | Upstream                                | Local                                                                             | Review                                                                                             |
 | --------------------------------------- | --------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------- |
 | `DialogRoot` `open` / `defaultOpen`     | `DialogRoot` `$bindable` `open`                                                   | Same trigger, cancel, dismissal, and modal behavior. No locked controlled mode                     |
-| `actionsRef`                            | `bind:actions`                                                                    | `close` and `unmount` only. No ref object                                                          |
-| `DialogHandle` / `createDialogHandle`   | `handle.svelte.ts`                                                                | Detached triggers, payload, and imperative open/close. Element access is `bind:this` / `{@attach}` |
+| `actionsRef`                            | `bind:this` on `Dialog.Root`                                                      | `close` and `unmount` only. No ref object                                                          |
+| `DialogHandle` / `createDialogHandle`   | shared `PopupHandle` (`internal/popups/popupHandle.svelte.ts`)                    | Detached triggers, payload, and imperative open/close. Element access is `bind:this` / `{@attach}` |
 | `useDialogRoot` dismiss and scroll lock | `useDismiss` for Escape and `useScrollLock`; outside press is one dialog listener | The shared dismiss hook treats the portal host as inside, so it does not decide backdrop presses   |
 | `DialogTrigger` + `useButton`           | `DialogTrigger` + `Button`                                                        | Same disabled and non-native button behavior                                                       |
 | `DialogPopup` + `FloatingFocusManager`  | `DialogPopup` + shared `FloatingFocusManager`                                     | Touch focuses the popup. Custom final focus is applied by the dialog                               |
@@ -35,11 +35,13 @@ A modal or non-modal dialog. Upstream: `packages/react/src/dialog` at Base UI v1
 Differences from React Base UI, all deliberate:
 
 - No locked controlled mode. Hold the state with `eventDetails.cancel()`. `defaultOpen` and `defaultTriggerId` are the uncontrolled start.
-- No `ref` and no `actionsRef`. Use `{@attach}` and `bind:actions`.
+- No `ref` and no `actionsRef`. Use `{@attach}` and `bind:this` for `close()` and `unmount()`.
 - `initialFocus` / `finalFocus` accept an element or a function, not a ref object.
 - `class` and `style` are strings.
 - Alert Dialog and Drawer are not ported. `role` stays `dialog`.
-- Outside press is one dialog listener. Mouse and touch use separate modes. A backdrop is `intentional` for both. Without one, touch is `sloppy` and mouse is `sloppy` only for `trap-focus`. The shared dismiss hook still treats the portal host as inside, so it does not decide these presses.
+- Outside press is one dialog listener. Mouse and touch use separate modes. A backdrop is `intentional` for both. Without one, touch is `sloppy` and mouse is `sloppy` only for `trap-focus`. The shared dismiss hook still treats the portal host as inside, so it does not decide these presses. The lasting fix is for that hook to test the floating element and track `pressStartedInside`, then delete this listener.
+- `COMPOSITE_KEYS` is shared with Slider (`src/lib/internal/composite-keys.ts`). Arrow keys stay inside the dialog.
+- Open-method tracking stays in `dialog/open-method.ts` until popup reopen lands `PopupStore.openMethod`. Dialog reads that field after the rebase and deletes this copy.
 - Generated ids use `$props.id()` with a `base-ui-` prefix.
 - The dev and production missing-context errors are the descriptive strings.
 

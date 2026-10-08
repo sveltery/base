@@ -4,14 +4,15 @@
 	(commit 47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c). MIT, see THIRD_PARTY_NOTICES.md.
 	Button behavior comes from Button. The trigger does not reimplement it.
 -->
-<script lang="ts" generics="Payload = unknown">
+<script lang="ts">
+	import { untrack } from 'svelte';
 	import { createAttachmentKey } from 'svelte/attachments';
 	import { CLICK_TRIGGER_IDENTIFIER } from '../internal/floating-ui/index.js';
 	import { getStateAttributesProps } from '../internal/state-attributes.js';
 	import { triggerOpenStateMapping } from '../internal/popupStateMapping.js';
 	import { registerTrigger } from '../internal/popups/index.js';
 	import DialogAction from './DialogAction.svelte';
-	import { useDialogRootContext } from './context.svelte.js';
+	import { useDialogRoot } from './context.svelte.js';
 	import { noteOpenClick, noteOpenPointer } from './open-method.js';
 	import type { DialogStore } from './store.svelte.js';
 	import type { DialogTriggerProps, DialogTriggerState } from './types.js';
@@ -30,9 +31,9 @@
 		render,
 		children,
 		...elementProps
-	}: DialogTriggerProps<Payload> = $props();
+	}: DialogTriggerProps = $props();
 
-	const dialogRoot = useDialogRootContext(true);
+	const dialogRoot = useDialogRoot(true);
 	const readHandle = () => handle;
 	if (!dialogRoot && !readHandle()) {
 		throw new Error(
@@ -43,10 +44,7 @@
 	const uid = $props.id();
 	const triggerId = $derived(idProp ?? `base-ui-${uid}`);
 	const attachmentKey = createAttachmentKey();
-	const store = $derived(
-		(handle?.store as DialogStore<Payload> | null) ??
-			(dialogRoot as DialogStore<Payload> | undefined)
-	);
+	const store = $derived((handle?.store as DialogStore<unknown> | null) ?? dialogRoot?.store);
 
 	const openedByThis = $derived(!!store && store.open && store.activeTriggerId === triggerId);
 	const controls = $derived.by(() => {
@@ -57,49 +55,48 @@
 	});
 	const state: DialogTriggerState = $derived({ disabled: disabled === true, open: openedByThis });
 
-	function activeStore() {
-		return (
-			(handle?.store as DialogStore<Payload> | null) ??
-			(dialogRoot as DialogStore<Payload> | undefined)
-		);
+	function clickHandlers(current: DialogStore<unknown> | null | undefined) {
+		return dialogRoot?.click ?? current?.click;
 	}
 
 	function register(node: HTMLElement) {
-		const current = activeStore();
 		const id = triggerId;
-		const triggers = current?.triggers ?? handle?.fallbackTriggers;
-		if (!triggers) return;
-		const owner = {
-			triggers,
-			get triggerCount() {
-				return current?.triggerCount ?? 0;
-			},
-			set triggerCount(next: number) {
-				if (current) current.triggerCount = next;
+		return untrack(() => {
+			const current = store;
+			const triggers = current?.triggers ?? handle?.fallbackTriggers;
+			if (!triggers) return;
+			const owner = {
+				triggers,
+				get triggerCount() {
+					return current?.triggerCount ?? 0;
+				},
+				set triggerCount(next: number) {
+					if (current) current.triggerCount = next;
+				}
+			};
+			if (payload !== undefined) handle?.payloads.set(id, payload);
+			const detach = registerTrigger(owner, () => id)(node);
+			if (current?.open) {
+				const active = current.domReferenceElement;
+				if ((active == null && current.triggers.size === 1) || active?.id === id) {
+					current.domReferenceElement = node;
+				}
 			}
-		};
-		if (payload !== undefined) handle?.payloads.set(id, payload);
-		const detach = registerTrigger(owner, () => id)(node);
-		if (current?.open) {
-			const active = current.domReferenceElement;
-			if ((active == null && current.triggers.size === 1) || active?.id === id) {
-				current.domReferenceElement = node;
-			}
-		}
-		return () => {
-			if (typeof detach === 'function') detach();
-			handle?.payloads.delete(id);
-		};
+			return () => {
+				if (typeof detach === 'function') detach();
+				handle?.payloads.delete(id);
+			};
+		});
 	}
 
 	function handleClick(event: MouseEvent & { currentTarget: EventTarget & HTMLButtonElement }) {
 		onclick?.(event);
 		if (event.defaultPrevented) return;
-		const current = activeStore();
+		const current = store;
 		if (!current) return;
 		if (!current.open && payload !== undefined) current.payload = payload;
 		noteOpenClick(current, event);
-		current.readClickReference()?.onclick?.(event);
+		clickHandlers(current)?.onclick?.(event);
 	}
 
 	function handlePointerDown(
@@ -107,16 +104,16 @@
 	) {
 		onpointerdown?.(event);
 		if (event.defaultPrevented) return;
-		const current = activeStore();
+		const current = store;
 		if (!current) return;
 		noteOpenPointer(current, event);
-		current.readClickReference()?.onpointerdown?.(event);
+		clickHandlers(current)?.onpointerdown?.(event);
 	}
 
 	function handleMouseDown(event: MouseEvent & { currentTarget: EventTarget & HTMLButtonElement }) {
 		onmousedown?.(event);
 		if (event.defaultPrevented) return;
-		activeStore()?.readClickReference()?.onmousedown?.(event);
+		clickHandlers(store)?.onmousedown?.(event);
 	}
 
 	function handleKeyDown(
@@ -124,11 +121,7 @@
 	) {
 		onkeydown?.(event);
 		if (event.defaultPrevented) return;
-		activeStore()?.readClickReference()?.onkeydown?.(event);
-	}
-
-	function handleKeyUp(event: KeyboardEvent & { currentTarget: EventTarget & HTMLButtonElement }) {
-		onkeyup?.(event);
+		clickHandlers(store)?.onkeydown?.(event);
 	}
 
 	const described = $derived({
@@ -150,7 +143,7 @@
 	onpointerdown={handlePointerDown}
 	onmousedown={handleMouseDown}
 	onkeydown={handleKeyDown}
-	onkeyup={handleKeyUp}
+	{onkeyup}
 	{render}
 	{state}
 	{children}

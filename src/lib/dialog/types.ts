@@ -20,6 +20,7 @@ export type DialogChangeEventDetails = BaseUIChangeEventDetails<DialogChangeEven
 	preventUnmountOnClose: () => void;
 };
 
+/** Methods on the `Dialog.Root` instance. Reach them with `bind:this`. */
 export interface DialogActions {
 	unmount: () => void;
 	close: () => void;
@@ -106,8 +107,6 @@ export interface DialogRootProps<Payload = unknown> {
 	 * @default false
 	 */
 	disablePointerDismissal?: boolean;
-	/** Imperative `close` and `unmount`. Assign with `bind:actions`. */
-	actions?: DialogActions;
 	/** Connects detached triggers. Create one with `Dialog.createHandle()`. */
 	handle?: DialogHandle<Payload>;
 	/**

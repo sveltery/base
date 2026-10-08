@@ -11,7 +11,8 @@
 	import { mergeProps } from '../internal/mergeProps.js';
 	import { getStateAttributesProps } from '../internal/state-attributes.js';
 	import { useOpenChangeComplete } from '../internal/useOpenChangeComplete.svelte.js';
-	import { COMPOSITE_KEYS, dialogStateAttributesMapping, nestedDialogsVar } from './attributes.js';
+	import { COMPOSITE_KEYS } from '../internal/composite-keys.js';
+	import { dialogStateAttributesMapping, nestedDialogsVar } from './attributes.js';
 	import { useDialogPortalContext, useDialogRootContext } from './context.svelte.js';
 	import type { DialogDivProps, DialogPopupProps, DialogPopupState } from './types.js';
 

@@ -17,17 +17,19 @@ export interface DialogClickReference {
 	onkeydown?: (event: KeyboardEvent) => void;
 }
 
-export class DialogStore<Payload> extends PopupStore<DialogChangeEventReason> {
+export class DialogStore<Payload = unknown> extends PopupStore<DialogChangeEventReason> {
 	readonly readModal: () => boolean | 'trap-focus';
 	readonly readDisablePointerDismissal: () => boolean;
-	readonly publishTriggerId: ((id: string | null) => void) | undefined;
-	readonly readClickReference: () => DialogClickReference | undefined;
+	readonly publishTriggerId:
+		| ((id: string | null, details?: BaseUIChangeEventDetails<DialogChangeEventReason>) => void)
+		| undefined;
+	/** `useClick` reference props. Set once from the root. Detached triggers read this. */
+	click: DialogClickReference | undefined = undefined;
 	payload = $state<Payload | undefined>(undefined);
 	openMethod = $state<InteractionType | null>(null);
 	closeMethod: InteractionType = '';
 	pointerType = $state<InteractionType | null>(null);
 	nestedOpenDialogCount = $state(0);
-	nestedOpenDrawerCount = $state(0);
 	titleElementId = $state<string | undefined>(undefined);
 	descriptionElementId = $state<string | undefined>(undefined);
 	viewportElement = $state<HTMLElement | null>(null);
@@ -44,8 +46,10 @@ export class DialogStore<Payload> extends PopupStore<DialogChangeEventReason> {
 		onOpenChangeComplete: () => ((open: boolean) => void) | undefined;
 		readModal: () => boolean | 'trap-focus';
 		readDisablePointerDismissal: () => boolean;
-		publishTriggerId?: (id: string | null) => void;
-		readClickReference: () => DialogClickReference | undefined;
+		publishTriggerId?: (
+			id: string | null,
+			details?: BaseUIChangeEventDetails<DialogChangeEventReason>
+		) => void;
 	}) {
 		super({
 			open: options.open,
@@ -58,7 +62,6 @@ export class DialogStore<Payload> extends PopupStore<DialogChangeEventReason> {
 		this.readModal = options.readModal;
 		this.readDisablePointerDismissal = options.readDisablePointerDismissal;
 		this.publishTriggerId = options.publishTriggerId;
-		this.readClickReference = options.readClickReference;
 	}
 
 	get modal() {
@@ -77,9 +80,8 @@ export class DialogStore<Payload> extends PopupStore<DialogChangeEventReason> {
 		return this.nestedOpenDialogCount > 0;
 	}
 
-	onNestedDialogOpen(dialogCount: number, drawerCount: number) {
+	onNestedDialogOpen(dialogCount: number) {
 		this.nestedOpenDialogCount = dialogCount;
-		this.nestedOpenDrawerCount = drawerCount;
 	}
 
 	override setOpen(
@@ -90,7 +92,7 @@ export class DialogStore<Payload> extends PopupStore<DialogChangeEventReason> {
 			this.closeMethod = closeInteraction(eventDetails.event, this.pointerType);
 		}
 		super.setOpen(nextOpen, eventDetails);
-		this.publishTriggerId?.(this.activeTriggerId);
+		this.publishTriggerId?.(this.activeTriggerId, eventDetails);
 		if (!this.open) this.openMethod = null;
 	}
 }

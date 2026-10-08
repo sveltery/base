@@ -135,6 +135,33 @@ describe('Dialog', () => {
 		);
 	});
 
+	it('stays open when the trigger is pressed after a non-modal close', async () => {
+		render(DialogHarness, { modal: false, withBackdrop: false, keepMounted: true });
+		await openDialog();
+		const close = button('Close').element() as HTMLElement;
+		close.dispatchEvent(new PointerEvent('pointerdown', { bubbles: true, button: 0 }));
+		close.click();
+		await expect.poll(() => button('Open').element().getAttribute('aria-expanded')).toBe('false');
+
+		const trigger = button('Open').element() as HTMLElement;
+		trigger.dispatchEvent(new PointerEvent('pointerdown', { bubbles: true, button: 0 }));
+		trigger.click();
+		await tick();
+		await expect.element(button('Open')).toHaveAttribute('aria-expanded', 'true');
+		await expect.element(page.getByTestId('popup')).not.toHaveAttribute('hidden');
+	});
+
+	it('does not close when a press starts inside the popup and ends on the viewport', async () => {
+		render(DialogHarness, { withViewport: true });
+		await openDialog();
+		const inside = button('Inside').element() as HTMLElement;
+		const viewport = page.getByTestId('viewport').element() as HTMLElement;
+		inside.dispatchEvent(new PointerEvent('pointerdown', { bubbles: true, button: 0 }));
+		viewport.dispatchEvent(new MouseEvent('click', { bubbles: true, button: 0 }));
+		await tick();
+		expect(dialogLocator().elements()).toHaveLength(1);
+	});
+
 	it('closes a non-modal dialog when the outside control is clicked', async () => {
 		render(DialogHarness, { modal: false, withBackdrop: false });
 		await openDialog();
@@ -238,7 +265,7 @@ describe('Dialog', () => {
 		await expect.element(page.getByTestId('popup')).not.toHaveAttribute('hidden');
 	});
 
-	it('unmounts after preventUnmountOnClose when actions.unmount is called', async () => {
+	it('unmounts after preventUnmountOnClose when the root unmount method is called', async () => {
 		render(DialogActionsHarness);
 		await openDialog();
 		click(button('Open'));
@@ -345,8 +372,8 @@ describe('Dialog', () => {
 			defaultOpen: true,
 			defaultTriggerId: 'one'
 		});
-		await expect.element(page.getByTestId('trigger-id')).toHaveTextContent('one');
 		await expect.element(button('One')).toHaveAttribute('aria-expanded', 'true');
+		await expect.element(page.getByTestId('trigger-id')).toHaveTextContent('');
 		initial.unmount();
 
 		render(DialogHarness, { twoTriggers: true });

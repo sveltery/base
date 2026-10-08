@@ -27,9 +27,10 @@
 		triggerId = $bindable(undefined as string | null | undefined),
 		defaultTriggerId = null as string | null,
 		twoTriggers = false,
-		preventUnmount = false,
-		actions = $bindable(undefined as DialogActions | undefined)
+		preventUnmount = false
 	} = $props();
+
+	let root = $state<DialogActions | undefined>(undefined);
 
 	let calls = $state<{ open: boolean; reason: string; canceled: boolean }[]>([]);
 
@@ -48,12 +49,12 @@
 
 <button type="button" data-testid="outside">Outside</button>
 {#if preventUnmount}
-	<button type="button" onclick={() => actions?.unmount()}>Unmount</button>
+	<button type="button" onclick={() => root?.unmount()}>Unmount</button>
 {/if}
 <Dialog.Root
+	bind:this={root}
 	bind:open
 	bind:triggerId
-	bind:actions
 	{defaultOpen}
 	{defaultTriggerId}
 	modal={modalValue}

@@ -18,15 +18,15 @@ Test: `src/lib/popover/Popover.svelte.spec.ts` (`keeps the live radio checked wh
 
 ## Dialog
 
-Source: `packages/react/src/dialog` and the dialog-only helpers it calls (`DialogHandle`, outside-press predicate, open-interaction type). Portal, focus, dismiss, scroll lock, `mergeProps`, and the popup store are the landed overlay foundation.
+Source: `packages/react/src/dialog`. Upstream shares `PopupHandle` and `COMPOSITE_KEYS`; they live in `src/lib/internal/popups/popupHandle.svelte.ts` and `src/lib/internal/composite-keys.ts`. Portal, focus, dismiss, scroll lock, `mergeProps`, and the popup store are the landed overlay foundation. Open-interaction tracking still lives in `dialog/open-method.ts` until the popup-reopen helper is on main. Dialog will then read `PopupStore.openMethod` and delete that file.
 
 | Upstream                                                             | Local                                                                                                  |
 | -------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------ |
 | `open` / `defaultOpen`, `triggerId` / `defaultTriggerId`             | `createControllableValue` with `$bindable` `open` / `triggerId` and `defaultOpen` / `defaultTriggerId` |
-| `actionsRef`                                                         | `bind:actions`                                                                                         |
+| `actionsRef`                                                         | `bind:this` on `Dialog.Root` (`close` and `unmount`)                                                   |
 | `initialFocus` / `finalFocus` ref objects                            | element or function, called when focus moves                                                           |
 | `children` render function `{ payload }`                             | snippet argument `{ payload }`                                                                         |
 | React `useButton`                                                    | existing `Button`                                                                                      |
 | `useDismiss` outside press, including separate mouse and touch modes | one dialog listener, because the shared dismiss hook treats the portal host as inside                  |
 
-Not ported: Alert Dialog, Drawer, and ref objects. Mouse and touch use separate outside-press modes. A backdrop is `intentional` for both. Without one, touch is `sloppy` and mouse is `sloppy` only for `trap-focus`.
+Not ported: Alert Dialog, Drawer, and ref objects. Mouse and touch use separate outside-press modes. A backdrop is `intentional` for both. Without one, touch is `sloppy` and mouse is `sloppy` only for `trap-focus`. The lasting outside-press fix is for `useDismiss` to test the floating element and track `pressStartedInside`, then delete the dialog listener. `defaultTriggerId` selects the trigger for `aria-expanded` and is not written back into `triggerId`.

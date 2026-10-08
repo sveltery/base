@@ -78,7 +78,12 @@ export function installDialogOutsidePress(store: DialogStore<unknown>) {
 	function onPointerDown(event: PointerEvent) {
 		pointer = pointerKind(event, pointer);
 		if (event.button !== 0) return;
-		if (store.open) sawPressWhileOpen = true;
+		// Every primary press, including one after close. A press that starts
+		// inside the popup does not count, so dragging onto the viewport does not close.
+		// Lasting fix: useDismiss contains against the floating element and tracks
+		// pressStartedInside. Then this listener can go. The shared hook still treats
+		// the portal host as inside, which would keep backdrop and viewport presses.
+		sawPressWhileOpen = store.open && !contains(store.popupElement, getTarget(event));
 		if (dialogPressMode(store, pointer) !== 'sloppy' || pointer === 'touch') return;
 		close(event);
 	}
