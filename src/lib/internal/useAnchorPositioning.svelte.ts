@@ -163,14 +163,22 @@ export function useAnchorPositioning(
 ): UseAnchorPositioningReturn {
 	const direction = useDirection();
 	let latchedSide = $state<PhysicalSide | null>(null);
+	let latchedFor = $state.raw<ReferenceElement | null>(null);
 	let arrowElement = $state<HTMLElement | null>(null);
 	let measured = $state.raw<Record<string, string>>({});
+	let readPositionedFor = (): ReferenceElement | null => null;
 
 	function read() {
 		return params();
 	}
 
-	const mountSide = $derived(read().mounted ? latchedSide : null);
+	const mountSide = $derived.by(() => {
+		const current = read();
+		if (!current.mounted) return null;
+		const reference = resolveAnchor(current.anchor) ?? store.referenceElement;
+		if (!reference || latchedFor !== reference || readPositionedFor() !== reference) return null;
+		return latchedSide;
+	});
 
 	function layout() {
 		const current = read();
@@ -395,22 +403,25 @@ export function useAnchorPositioning(
 		};
 	});
 
+	readPositionedFor = () => position.positionedFor;
+
 	const isPositioned = $derived(position.data.isPositioned && read().mounted);
 
 	$effect(() => {
 		const current = read();
-		if (!current.mounted) {
-			latchedSide = null;
-			return;
-		}
-		if (!current.lazyFlip || !isPositioned) return;
+		if (!current.mounted || !current.lazyFlip || !isPositioned) return;
+		const reference = resolveAnchor(current.anchor) ?? store.referenceElement;
+		if (position.positionedFor !== reference) return;
 		const rendered = getSide(position.data.placement);
 		const preferred = physicalSide(
 			current.side ?? 'bottom',
 			direction.direction === 'rtl',
 			mountSide
 		);
-		if (rendered !== preferred) latchedSide = rendered;
+		if (rendered !== preferred) {
+			latchedSide = rendered;
+			latchedFor = reference;
+		}
 	});
 
 	function availableSize() {

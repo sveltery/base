@@ -63,13 +63,19 @@ describe('anchored popup', () => {
 		await expect.poll(() => page.getByTestId('open').element().textContent).toBe('false');
 	});
 
+	function clickTrigger(pointerType: string | null, detail: number) {
+		const button = page.getByRole('button', { name: 'Open' }).element();
+		if (pointerType) {
+			button.dispatchEvent(
+				new PointerEvent('pointerdown', { bubbles: true, cancelable: true, pointerType })
+			);
+		}
+		button.dispatchEvent(new MouseEvent('click', { bubbles: true, cancelable: true, detail }));
+	}
+
 	it('locks a touch-opened popup only when it is nearly as wide as the viewport', async () => {
 		function touchOpen() {
-			const button = page.getByRole('button', { name: 'Open' }).element();
-			button.dispatchEvent(
-				new PointerEvent('pointerdown', { bubbles: true, cancelable: true, pointerType: 'touch' })
-			);
-			button.dispatchEvent(new MouseEvent('click', { bubbles: true, cancelable: true }));
+			clickTrigger('touch', 1);
 		}
 
 		const narrow = render(AnchoredScrollLockHarness, { enabled: true, wide: false });
@@ -80,6 +86,35 @@ describe('anchored popup', () => {
 		render(AnchoredScrollLockHarness, { enabled: true, wide: true });
 		touchOpen();
 		await expect.poll(overflowLocked).toBe(true);
+	});
+
+	it('does not keep a touch open after the popup closes', async () => {
+		render(AnchoredScrollLockHarness, { enabled: true, wide: false });
+		clickTrigger('touch', 1);
+		await expect.poll(overflowLocked).toBe(false);
+		clickTrigger(null, 1);
+		await expect.poll(overflowLocked).toBe(false);
+		clickTrigger(null, 0);
+		await expect.poll(overflowLocked).toBe(true);
+	});
+
+	it('treats a virtual click as keyboard', async () => {
+		render(AnchoredScrollLockHarness, { enabled: true, wide: false });
+		clickTrigger(null, 0);
+		await expect.poll(overflowLocked).toBe(true);
+	});
+
+	it('reuses the popup and positioner when a click switches triggers', async () => {
+		render(AnchoredPopupHarness, { scenario: 'retain' });
+		await page.getByRole('button', { name: 'A' }).click();
+		const popup = page.getByTestId('popup').element();
+		const positioner = page.getByTestId('positioner').element();
+		await expect.element(page.getByRole('dialog', { name: 'Notice' })).toBeVisible();
+		await page.getByRole('button', { name: 'B' }).click();
+		await expect.poll(() => page.getByTestId('active').element().textContent).toBe('trigger-b');
+		expect(page.getByTestId('popup').element()).toBe(popup);
+		expect(page.getByTestId('positioner').element()).toBe(positioner);
+		expect(page.getByRole('dialog', { name: 'Notice' }).elements()).toHaveLength(1);
 	});
 
 	it('blocks pointer events outside the safe polygon when asked', async () => {
@@ -97,9 +132,15 @@ describe('anchored popup', () => {
 		const second = page.getByRole('button', { name: 'B' });
 		await first.hover();
 		await expect.element(page.getByRole('dialog', { name: 'Notice' })).toBeVisible();
-		await expect.poll(() => page.getByTestId('active').element().textContent).toBe('trigger-a');
-		await expect.poll(() => page.getByTestId('seen').element().textContent).toBe('trigger-a');
-		await second.hover();
+		await expect.element(page.getByTestId('positioner')).toHaveAttribute('data-positioned', '');
+		const firstLeft = page.getByTestId('positioner').element().getBoundingClientRect().left;
+		second.element().dispatchEvent(new MouseEvent('mouseenter', { bubbles: true }));
+		await Promise.resolve();
+		const duringSwitch = page.getByTestId('positioner').element();
+		const stale =
+			duringSwitch.hasAttribute('data-positioned') &&
+			Math.abs(duringSwitch.getBoundingClientRect().left - firstLeft) < 2;
+		expect(stale).toBe(false);
 		await expect.poll(() => page.getByTestId('seen').element().textContent).toBe('trigger-b');
 		await expect.poll(() => page.getByTestId('active').element().textContent).toBe('trigger-b');
 		await expect
@@ -209,7 +250,6 @@ describe('safe polygon', () => {
 			})
 			.toBe(true);
 		await armClose();
-		await new Promise((resolve) => setTimeout(resolve, 15));
 		expect(dialogs()).toBe(1);
 		await expect.poll(dialogs, { timeout: 200 }).toBe(0);
 
@@ -220,7 +260,15 @@ describe('safe polygon', () => {
 		const remove = page.getByTestId('remove').element();
 		if (!(remove instanceof HTMLButtonElement)) throw new Error('missing remove button');
 		remove.click();
-		await new Promise((resolve) => setTimeout(resolve, 80));
-		expect(dialogs()).toBe(1);
+		const started = performance.now();
+		await expect
+			.poll(
+				() => {
+					if (dialogs() !== 1) return 'closed';
+					return performance.now() - started >= 90 ? 'held' : 'waiting';
+				},
+				{ timeout: 250 }
+			)
+			.toBe('held');
 	});
 });

@@ -9,12 +9,9 @@ import type { BaseUIChangeEventDetails } from '../event-details.js';
 import { FloatingRootStore } from '../floating-ui-react/components/FloatingRootStore.svelte.js';
 import { useOpenChangeComplete } from '../useOpenChangeComplete.svelte.js';
 import { PopupTransition, type PopupTransitionStatus } from '../useTransitionStatus.svelte.js';
-import {
-	attachPreventUnmountOnClose,
-	createPopupOpenState,
-	type PopupOpenState
-} from './popupStoreUtils.js';
+import { attachPreventUnmountOnClose, createPopupOpenState } from './popupStoreUtils.js';
 import { PopupTriggerMap } from './popupTriggerMap.js';
+import type { OpenInteractionType } from '../openInteraction.js';
 
 export type PopupChangeEventDetails<Reason extends string> = BaseUIChangeEventDetails<Reason> & {
 	preventUnmountOnClose: () => void;
@@ -35,6 +32,8 @@ export class PopupStore<Reason extends string> extends FloatingRootStore {
 	readonly triggers = new PopupTriggerMap();
 	triggerCount = $state(0);
 	preventUnmountingOnClose = $state(false);
+	/** How `useClick` opened this popup. Cleared in `setOpen(false)`. */
+	openMethod = $state<OpenInteractionType | null>(null);
 	private readonly openValue: ControllableValue<boolean>;
 	private readonly readOnOpenChange: PopupStoreOptions<Reason>['onOpenChange'];
 	private readonly readOnOpenChangeComplete: PopupStoreOptions<Reason>['onOpenChangeComplete'];
@@ -110,25 +109,6 @@ export class PopupStore<Reason extends string> extends FloatingRootStore {
 
 		this.beforeOpenChange(nextOpen, details);
 		const previousReference = this.domReferenceElement;
-		const current: PopupOpenState = {
-			open: this.open,
-			preventUnmountingOnClose: this.preventUnmountingOnClose,
-			activeTriggerId: this.activeTriggerId,
-			activeTriggerElement: this.activeTriggerElement
-		};
-		const nextTrigger = createPopupOpenState(
-			current,
-			nextOpen,
-			details.trigger
-		).activeTriggerElement;
-		this.domReferenceElement = nextTrigger;
-		this.readOnOpenChange()?.(nextOpen, details);
-		if (details.isCanceled) {
-			this.domReferenceElement = previousReference;
-			return;
-		}
-
-		this.dispatchOpenChange(nextOpen, details);
 		const next = createPopupOpenState(
 			{
 				open: this.open,
@@ -137,10 +117,19 @@ export class PopupStore<Reason extends string> extends FloatingRootStore {
 				activeTriggerElement: this.activeTriggerElement
 			},
 			nextOpen,
-			details.trigger,
-			timing === 'deferred' ? readPrevent() : false
+			details.trigger
 		);
-		this.preventUnmountingOnClose = next.preventUnmountingOnClose;
+		this.domReferenceElement = next.activeTriggerElement;
+		this.readOnOpenChange()?.(nextOpen, details);
+		if (details.isCanceled) {
+			this.domReferenceElement = previousReference;
+			return;
+		}
+
+		if (!nextOpen) this.openMethod = null;
+		this.dispatchOpenChange(nextOpen, details);
+		if (nextOpen) this.preventUnmountingOnClose = false;
+		else if (timing === 'deferred' && readPrevent()) this.preventUnmountingOnClose = true;
 		this.openValue.set(nextOpen);
 	}
 

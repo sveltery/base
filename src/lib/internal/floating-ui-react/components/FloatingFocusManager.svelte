@@ -10,6 +10,7 @@
 	import { ownerDocument } from '../../owner.js';
 	import { activeElement, contains, getTarget } from '../../shadow-dom.js';
 	import { Timeout } from '../../timeout.js';
+	import type { OpenInteractionType } from '../../openInteraction.js';
 	import type { FloatingRootStore } from './FloatingRootStore.svelte.js';
 	import { CLICK_TRIGGER_IDENTIFIER } from '../utils/constants.js';
 	import { enqueueFocus } from '../utils/enqueueFocus.js';
@@ -29,7 +30,11 @@
 		children?: Snippet;
 		disabled?: boolean;
 		initialFocus?: boolean | HTMLElement | null;
-		returnFocus?: boolean;
+		returnFocus?:
+			| boolean
+			| HTMLElement
+			| null
+			| ((closeType: OpenInteractionType | null) => boolean | HTMLElement | null | void);
 		modal?: boolean;
 		closeOnFocusOut?: boolean;
 	} = $props();
@@ -67,25 +72,45 @@
 		(target ?? floating).focus();
 	}
 
-	function restoreReturnFocus(target: HTMLElement | null) {
+	function closeType(): OpenInteractionType | null {
+		if (!('openMethod' in store)) return null;
+		const method = (store as { openMethod?: OpenInteractionType | null }).openMethod;
+		return method ?? null;
+	}
+
+	function restoreReturnFocus(openedBy: OpenInteractionType | null) {
 		// isOpen() is still true inside the effect cleanup that runs because it became false.
+		const spec = returnFocus;
 		queueMicrotask(() => {
-			if (!returnFocus || !target?.isConnected || store.isOpen()) return;
-			const doc = ownerDocument(target);
-			const active = activeElement(doc);
-			const floating = store.floatingElement;
-			const inside =
-				contains(floating, active) ||
-				contains(store.portalElement, active) ||
-				active === doc.body ||
-				active == null;
-			if (!inside) return;
+			if (spec === false || spec == null || store.isOpen()) return;
+			const explicit = typeof spec === 'function' || spec instanceof HTMLElement;
+			const resolved = typeof spec === 'function' ? spec(openedBy) : spec;
+			if (resolved === false || resolved === undefined) return;
+			const target =
+				resolved instanceof HTMLElement
+					? resolved
+					: resolved === true || resolved === null
+						? returnTarget
+						: null;
+			if (!target?.isConnected) return;
+			if (!explicit) {
+				const doc = ownerDocument(target);
+				const active = activeElement(doc);
+				const floating = store.floatingElement;
+				const inside =
+					contains(floating, active) ||
+					contains(store.portalElement, active) ||
+					active === doc.body ||
+					active == null;
+				if (!inside) return;
+			}
 			target.focus({ preventScroll: true });
 			returnTarget = null;
 		});
 	}
 
 	$effect(() => {
+		const openedBy = closeType();
 		if (disabled || !store.isOpen()) return;
 		const floating = store.floatingElement;
 		if (!floating) return;
@@ -161,7 +186,7 @@
 			stopPointer();
 			stopFocus();
 			pointerDownTimeout.clear();
-			restoreReturnFocus(returnTarget);
+			restoreReturnFocus(openedBy);
 		};
 	});
 </script>

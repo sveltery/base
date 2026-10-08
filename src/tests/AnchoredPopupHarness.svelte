@@ -31,7 +31,8 @@
 			| 'delay'
 			| 'closing'
 			| 'pixels'
-			| 'unmount';
+			| 'unmount'
+			| 'retain';
 	} = $props();
 
 	let open = $state<boolean | undefined>(undefined);
@@ -46,7 +47,7 @@
 			scenario === 'delay' ||
 			scenario === 'unmount'
 	);
-	const many = $derived(scenario === 'switch' || scenario === 'refuse');
+	const many = $derived(scenario === 'switch' || scenario === 'refuse' || scenario === 'retain');
 
 	const fractionalAnchor = {
 		getBoundingClientRect: () => new DOMRect(10.2, 20.2, 40, 16)
@@ -86,7 +87,7 @@
 		shouldOpen: () => scenario !== 'refuse'
 	}));
 	const hoverA = useHoverReferenceInteraction(store, () => ({
-		enabled: many,
+		enabled: many && scenario !== 'retain',
 		mouseOnly: true,
 		move: false,
 		handleClose: polygon,
@@ -95,7 +96,7 @@
 		placement: () => positioning.physicalSide
 	}));
 	const hoverB = useHoverReferenceInteraction(store, () => ({
-		enabled: many,
+		enabled: many && scenario !== 'retain',
 		mouseOnly: true,
 		move: false,
 		handleClose: polygon,
@@ -104,7 +105,7 @@
 		placement: () => positioning.physicalSide
 	}));
 	useHoverFloatingInteraction(store, () => ({
-		enabled: hover || many,
+		enabled: (hover || many) && scenario !== 'retain',
 		closeDelay: scenario === 'delay' ? closeDelay : 0
 	}));
 
@@ -149,7 +150,11 @@
 		) as HTMLButtonAttributes
 	);
 	const triggerBProps = $derived(
-		mergeProps({ id: 'trigger-b', type: 'button' }, hoverB.reference) as HTMLButtonAttributes
+		mergeProps(
+			{ id: 'trigger-b', type: 'button' },
+			scenario === 'retain' ? click.reference : {},
+			hoverB.reference
+		) as HTMLButtonAttributes
 	);
 </script>
 
