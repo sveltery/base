@@ -29,6 +29,16 @@ interface RegisteredInput {
 	value: string | undefined;
 }
 
+/** State of a field that has no provider. Slider and OTP share this one object. */
+export const DEFAULT_FIELD_STATE: FieldRootState = {
+	disabled: false,
+	touched: false,
+	dirty: false,
+	valid: null,
+	filled: false,
+	focused: false
+};
+
 const EMPTY_VALIDITY = (): FieldValidityData => ({
 	state: { ...DEFAULT_VALIDITY_STATE },
 	error: '',
@@ -199,7 +209,7 @@ export class FieldRootModel {
 			this.commit(this.validityData.value);
 			return;
 		}
-		this.commit(this.registrationValue(registration));
+		this.commit(this.readRegisteredValue());
 	}
 
 	registerControl(source: symbol, registration: FieldControlRegistration | undefined) {
@@ -444,19 +454,8 @@ export class FieldRootModel {
 		}
 	}
 
-	private registrationValue(registration: FieldControlRegistration) {
-		if (registration.getValue) return registration.getValue();
-		return registration.value === undefined ? this.readControlValue() : registration.value;
-	}
-
-	private readControlValue() {
-		const element = this.inputElement;
-		if (isConstraintElement(element)) return element.value;
-		return undefined;
-	}
-
-	private getFormValue() {
-		const registration = this.registration;
+	/** The live control value. A getter wins over a snapshot. */
+	private readRegisteredValue(registration = this.registration): unknown {
 		if (!registration) return undefined;
 		if (registration.getValue) return registration.getValue();
 		return registration.value;
@@ -474,7 +473,7 @@ export class FieldRootModel {
 			return;
 		}
 		this.initialCaptured = true;
-		const initialValue = this.registrationValue(registration);
+		const initialValue = this.readRegisteredValue(registration);
 		const previous = untrack(() => this.validityData);
 		if (previous.initialValue !== initialValue) {
 			this.validityData = { ...previous, initialValue };
@@ -495,7 +494,7 @@ export class FieldRootModel {
 		const readName = () => this.name;
 		const readValidity = () => this.combinedForForm();
 		const readControl = () => this.inputElement;
-		const readValue = () => this.getFormValue();
+		const readValue = () => this.readRegisteredValue();
 		const validate = () => this.validateField();
 		this.options.form.fields.set(id, {
 			get name() {

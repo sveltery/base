@@ -11,11 +11,9 @@
 	import { createControllableValue } from '../internal/controllable-value.svelte.js';
 	import { createChangeEventDetails, REASONS } from '../internal/event-details.js';
 	import { getStateAttributesProps } from '../internal/state-attributes.js';
-	import { attachFieldControl } from '../internal/field-register-control.svelte.js';
 	import { fieldValidityMapping } from './attributes.js';
 	import { useFieldContext } from './context.svelte.js';
-	import { Labelable, useLabelableContext } from './labelable.svelte.js';
-	import { FieldRootModel } from './model.svelte.js';
+	import { useLabelableContext } from './labelable.svelte.js';
 	import type { FieldControlProps, FieldControlState } from './types.js';
 
 	type ValueElement = HTMLElement & { value: string; form?: HTMLFormElement | null };
@@ -42,27 +40,10 @@
 		...elementProps
 	}: FieldControlProps = $props();
 
+	const field = useFieldContext();
+	const labelable = useLabelableContext();
 	const form = useFormContext();
 	const fallbackId = `base-ui-${uid}`;
-	const fieldFromContext = useFieldContext(true);
-	const labelableFromContext = useLabelableContext(true);
-	// Standalone Input has no Field.Root. It gets a private model and labelable.
-	const labelable = labelableFromContext ?? new Labelable(undefined, () => fallbackId);
-	const field =
-		fieldFromContext ??
-		new FieldRootModel({
-			form,
-			labelable,
-			getDisabledProp: () => false,
-			getFieldsetDisabled: () => false,
-			getName: () => undefined,
-			getInvalidProp: () => undefined,
-			getDirtyProp: () => undefined,
-			getTouchedProp: () => undefined,
-			getValidationModeProp: () => undefined,
-			getValidationDebounceTime: () => 0,
-			getValidate: () => undefined
-		});
 
 	const controllable = createControllableValue<string | number | null | undefined>({
 		getProp: () => value,
@@ -86,6 +67,7 @@
 
 	let inputEl = $state<ValueElement | null>(null);
 	let hadExplicitId = false;
+	let blurCommitId = 0;
 
 	function notifyControlled(current: string) {
 		form.clearErrors(name);
@@ -140,28 +122,29 @@
 
 	$effect(() => {
 		const element = inputEl;
+		const controlName = nameProp;
+		const id = controlId;
+		const active = !disabled;
 		const currentValue = untrack(() => registeredValue);
+
 		if (currentValue !== undefined) field.setFilled(currentValue !== '');
 		else if (element) field.setFilled(element.value !== '');
-	});
 
-	const registration = attachFieldControl(field, {
-		enabled: () => !disabled,
-		id: () => controlId,
-		name: () => nameProp ?? undefined,
-		getValue: () => readElement(inputEl) ?? textValue(controllable.value)
-	});
-
-	function publish(node: HTMLElement) {
-		const stopRegistration = registration(node);
-		const stopRemember = render ? remember(node) : undefined;
-		if (!render && isValueElement(node)) inputEl = node;
-		return () => {
-			stopRegistration?.();
-			stopRemember?.();
-			if (inputEl === node) inputEl = null;
+		const record = {
+			id,
+			name: controlName ?? undefined,
+			element,
+			getValue: () => readElement(element) ?? textValue(controllable.value)
 		};
-	}
+
+		if (!active) {
+			field.registerControl(controlSource, undefined);
+			return () => field.registerControl(controlSource, undefined);
+		}
+
+		field.registerControl(controlSource, record);
+		return () => field.registerControl(controlSource, undefined);
+	});
 
 	$effect(() => {
 		if (!autofocus || !inputEl) return;
@@ -200,7 +183,22 @@
 		field.setFocused(false);
 
 		if (field.validationMode !== 'onBlur') return;
-		field.commit(event.currentTarget.value);
+		const inputValue = event.currentTarget.value;
+		field.commit(inputValue);
+
+		if (!isControlled) return;
+		const token = ++blurCommitId;
+		queueMicrotask(() => {
+			if (token !== blurCommitId) return;
+			const nextValue = inputEl?.value;
+			if (
+				nextValue !== undefined &&
+				nextValue !== inputValue &&
+				nextValue !== String(field.validityData.initialValue ?? '')
+			) {
+				field.commit(nextValue);
+			}
+		});
 	}
 
 	function handleKeyDown(event: KeyboardEvent & { currentTarget: EventTarget & HTMLInputElement }) {
@@ -208,11 +206,17 @@
 		if (event.currentTarget.tagName !== 'INPUT' || event.key !== 'Enter') return;
 
 		field.setTouched(true);
+		const inputValue = event.currentTarget.value;
 		const ownerForm = event.currentTarget.form;
-		// The form's submit handler validates. A timeout would commit a later value
-		// after flushSync had already written the next one.
-		if (ownerForm && ownerForm === form.element && !event.defaultPrevented) return;
-		field.commit(event.currentTarget.value);
+		if (ownerForm && ownerForm === form.element && !event.defaultPrevented) {
+			const input = event.currentTarget;
+			const submitCount = form.submitCount;
+			setTimeout(() => {
+				if (form.submitCount === submitCount) field.commit(input.value);
+			}, 0);
+			return;
+		}
+		field.commit(inputValue);
 	}
 
 	const describedBy = $derived(labelable.describedBy(ariaDescribedBy ?? undefined));
@@ -233,12 +237,12 @@
 		onfocus: handleFocus,
 		onblur: handleBlur,
 		onkeydown: handleKeyDown,
-		[elementKey]: publish
+		...(render ? { [elementKey]: remember } : {})
 	});
 </script>
 
 {#if render}
 	{@render render(hostProps as HTMLAttributes<HTMLElement>, controlState)}
 {:else}
-	<input {...hostProps} />
+	<input {...hostProps} bind:this={inputEl} />
 {/if}

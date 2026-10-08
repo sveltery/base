@@ -242,6 +242,7 @@ describe('sveltery/no-process-env', () => {
 const ruleNames = Object.keys(plugin.rules);
 
 const failRuleByFile: Record<string, string> = {
+	'direct-field-registration-alias.fail.svelte': 'sveltery/no-direct-field-registration',
 	'derived-inline-attachment.fail.svelte': 'sveltery/no-derived-inline-attachment',
 	'derived-const-arrow.fail.svelte': 'sveltery/no-derived-inline-attachment',
 	'inline-composite-keys.fail.svelte': 'sveltery/no-inline-composite-keys',

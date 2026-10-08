@@ -88,6 +88,9 @@
 	<Field.Root data-testid="field">
 		<Input defaultValue="a" data-testid="control" />
 	</Field.Root>
+{:else if scenario === 'standalone'}
+	<Input bind:value={bound} data-testid="control" />
+	<output data-testid="value">{bound}</output>
 {:else if scenario === 'bound'}
 	<Field.Root data-testid="field">
 		<Input bind:value={bound} data-testid="control" {onValueChange} />

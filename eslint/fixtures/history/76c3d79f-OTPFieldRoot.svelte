@@ -15,7 +15,6 @@
 	import { useFieldContext } from '../field/context.svelte.js';
 	import { useLabelableContext } from '../field/labelable.svelte.js';
 	import { useFormContext } from '../form/context.js';
-	import { watchFieldControl } from '../internal/field-register-control.svelte.js';
 	import { getStateAttributesProps } from '../internal/state-attributes.js';
 	import { visuallyHidden, visuallyHiddenInput } from '../internal/visuallyHidden.js';
 	import { rootStateAttributes } from './attributes.js';
@@ -27,6 +26,7 @@
 	const VALUE_UNSET = Symbol('otp-field-value');
 	const uid = $props.id();
 	const idSource = Symbol('otp-field-id');
+	const controlSource = Symbol('otp-field-control');
 	const rootKey = createAttachmentKey();
 
 	let {
@@ -164,12 +164,24 @@
 		};
 	});
 
-	watchFieldControl(field, {
-		enabled: () => !disabled,
-		id: () => controlId,
-		name: () => nameProp,
-		element: () => model.slots.first ?? null,
-		getValue: () => model.value
+	$effect(() => {
+		if (!field) return;
+		const enabled = !disabled;
+		const element = model.slots.first;
+		const id = controlId;
+		const current = model.value;
+		const registeredName = nameProp;
+		if (!enabled) {
+			field.registerControl(controlSource, undefined);
+			return () => field.registerControl(controlSource, undefined);
+		}
+		field.registerControl(controlSource, {
+			id,
+			name: registeredName,
+			value: current,
+			element
+		});
+		return () => field.registerControl(controlSource, undefined);
 	});
 
 	const rootState: OTPFieldRootState = $derived(model.state);

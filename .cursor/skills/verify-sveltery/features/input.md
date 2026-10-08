@@ -1,20 +1,20 @@
 # Input
 
-A native input that uses `Field.Control`. Upstream: `packages/react/src/input/Input.tsx` at Base UI v1.8.0. Local: `src/lib/input/`. `Input` forwards its props to the `Field.Control` already on main. It does not keep its own field state.
+A native input that uses `Field.Control`. Upstream: `packages/react/src/input/Input.tsx` at Base UI v1.8.0. Local: `src/lib/input/`. `Input` forwards its props to `Field.Control`. Outside `Field.Root`, that control keeps a private field model.
 
 ## Sub-features
 
 - The host is an `<input>`. Omit `value` to leave it uncontrolled, starting from `defaultValue`. `bind:value` shares the value with the parent. `onValueChange` runs first; `eventDetails.cancel()` vetoes the change and restores the controlled DOM value.
 - Inside `Field.Root`, the input gets that field's id, name, disabled flag, and `data-disabled`, `data-invalid`, `data-dirty`, `data-filled`, `data-touched`, and `data-focused` when those states are set. `Field.Label` points `for` at the input id.
 - `Field.Root` `name` wins for form submission. `getValue()` reads the input. An empty `required` input blocks submit and shows `Field.Error`.
-- A `render` snippet receives `(props, state)`. Consumer `{@attach}` reaches the host through the spread props. Element access inside `Field.Control` uses `bind:this`.
+- A `render` snippet receives `(props, state)`. Consumer `{@attach}` reaches the host through the spread props. `Field.Control` records its host with an attachment on both the default input and a `render` element.
 
 Differences from React Base UI, all deliberate:
 
 - No `ref`. The host element is the `<input>`, or whatever element the `render` snippet returns. Use `{@attach}` on `Input`, or `bind:this` on your own element.
 - No `className` or style objects. Use `class` and `style` strings.
 - `value` is one `$bindable`, matching `Field.Control`. Pass it, or `bind:value`, for a controlled input.
-- `Input` must sit inside `Field.Root`. Upstream `Input` renders alone because `Field.Control` reads a default field context. The landed `Field.Control` throws when that context is missing, and `Input` does not replace it with a stub.
+- A standalone `Input` builds a private field model, so it mounts, accepts typing, and supports `bind:value` without `Field.Root`. Inside `Field.Root` it uses that field.
 
 ## How to get to it (user POV)
 

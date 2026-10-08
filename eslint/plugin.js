@@ -1,4 +1,5 @@
 import noClonedEvent from './no-cloned-event.js';
+import noDirectFieldRegistration from './no-direct-field-registration.js';
 import noCopiedHelper from './no-copied-helper.js';
 import noDerivedInlineAttachment from './no-derived-inline-attachment.js';
 import noInlineCompositeKeys from './no-inline-composite-keys.js';
@@ -19,6 +20,7 @@ const plugin = {
 	},
 	rules: {
 		'no-cloned-event': noClonedEvent,
+		'no-direct-field-registration': noDirectFieldRegistration,
 		'no-copied-helper': noCopiedHelper,
 		'no-derived-inline-attachment': noDerivedInlineAttachment,
 		'no-inline-composite-keys': noInlineCompositeKeys,

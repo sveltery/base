@@ -7,7 +7,7 @@
 -->
 <script lang="ts">
 	import { DEV } from 'esm-env';
-	import { onMount } from 'svelte';
+	import { onMount, untrack } from 'svelte';
 	import { createAttachmentKey } from 'svelte/attachments';
 	import type { Attachment } from 'svelte/attachments';
 	import type { HTMLAttributes } from 'svelte/elements';
@@ -15,7 +15,6 @@
 	import { useLabelableContext } from '../field/labelable.svelte.js';
 	import { useFormContext } from '../form/context.js';
 	import { clamp } from '../internal/clamp.js';
-	import { watchFieldControl } from '../internal/field-register-control.svelte.js';
 	import { createControllableValue } from '../internal/controllable-value.svelte.js';
 	import PartHost from '../internal/PartHost.svelte';
 	import { useDirection } from '../internal/direction-context.js';
@@ -30,6 +29,7 @@
 	import type { SliderRootProps, SliderRootState, SliderValue } from './types.js';
 
 	const uid = $props.id();
+	const fieldSource = Symbol('slider-field');
 	const elementKey = createAttachmentKey();
 
 	let {
@@ -152,12 +152,26 @@
 		field?.change(next);
 	}
 
-	watchFieldControl(field, {
-		enabled: () => !disabled,
-		id: () => rootId,
-		name: () => nameProp,
-		element: () => model.fieldInput,
-		getValue: () => model.fieldValue
+	$effect(() => {
+		if (!field) return;
+		const inactive = disabled;
+		const input = model.fieldInput;
+		const id = rootId;
+		const controlName = nameProp;
+		if (inactive) {
+			field.registerControl(fieldSource, undefined);
+			return () => field.registerControl(fieldSource, undefined);
+		}
+		const readValue = () => model.fieldValue;
+		untrack(() => {
+			field.registerControl(fieldSource, {
+				id,
+				name: controlName,
+				element: input,
+				getValue: readValue
+			});
+		});
+		return () => field.registerControl(fieldSource, undefined);
 	});
 
 	const partState: SliderRootState = $derived(model.snapshot());
