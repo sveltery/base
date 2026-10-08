@@ -127,9 +127,11 @@ test('svelte SSR renders a closed trigger before hydration', async ({ request })
 	expect(html).not.toContain('>Content<');
 });
 
-test('svelte SSR renders an open popover before hydration', async ({ request }) => {
+test('svelte SSR omits an open popover before hydration', async ({ request }) => {
 	const html = await (await request.get('/fixtures/popover?case=open')).text();
+	expect(html).toContain('data-hydrated="false"');
 	expect(html).toContain('aria-expanded="true"');
-	expect(html).toContain('role="dialog"');
-	expect(html).toContain('Content');
+	expect(html).not.toContain('role="dialog"');
+	expect(html).not.toContain('data-base-ui-portal');
+	expect(html).not.toContain('>Content<');
 });
