@@ -105,7 +105,7 @@
 
 	/** How this open session closed. Not state: the trap effect must not depend on it. */
 	let closeType: OpenInteractionType = '';
-	/** Close reason from the open-change payload. A keyboard `focus-out` skips return focus. */
+	/** `focus-out` skips return focus so a Tab that has not landed yet is not cancelled. */
 	let closeReason = '';
 	let lastInteraction: OpenInteractionType = '';
 	/** One initial-focus result per open. A later result must not rebuild the trap. */
@@ -136,12 +136,9 @@
 
 	function restoreReturnFocus(endedBy: OpenInteractionType) {
 		const spec = returnFocus;
-		// Upstream sets `preventReturnFocusRef` before a focus-out close, and that close
-		// only runs while the pointer is up (`FloatingFocusManager.tsx` 540–552). A Tab
-		// whose microtask still sees `document.body` would otherwise return to the trigger
-		// and cancel the key. A pointer focus-out still returns: this port closes on it,
-		// and `null` or an element return target must run after that click.
-		const skipReturn = closeReason === REASONS.focusOut && endedBy === 'keyboard';
+		// Upstream sets `preventReturnFocusRef` before every focus-out close
+		// (`FloatingFocusManager.tsx` 551–552). The key's destination is already chosen.
+		const skipReturn = closeReason === REASONS.focusOut;
 		queueMicrotask(() => {
 			if (spec === false || skipReturn) return;
 			// A container cleared back to null removes the popup while it is still open.
