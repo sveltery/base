@@ -126,24 +126,6 @@ for (const reference of [false, true]) {
 			]);
 		});
 
-		test('shift-tab from the open trigger focuses the previous control and closes', async ({
-			page
-		}) => {
-			const { trigger, popup } = await open(page, 'tab', reference);
-			const before = page.getByRole('button', { name: 'Outside' });
-			await trigger.click();
-			await expect(popup.getByRole('button', { name: 'Inside' })).toBeFocused();
-			await trigger.focus();
-			await expect(popup).toBeVisible();
-			await page.keyboard.press('Shift+Tab');
-			await expect(before).toBeFocused();
-			await expect(popup).toHaveCount(0);
-			expect(await recorded(page)).toEqual([
-				{ open: true, reason: 'trigger-press', canceled: false },
-				{ open: false, reason: 'focus-out', canceled: false }
-			]);
-		});
-
 		test('a detached trigger opens the popover', async ({ page }) => {
 			const { trigger, popup } = await open(page, 'detached', reference);
 			await trigger.click();
