@@ -217,7 +217,7 @@ Parts of this package derive from [Base UI](https://github.com/mui/base-ui) v1.8
 - `src/lib/popover/PopoverClose.svelte` from `packages/react/src/popover/close/PopoverClose.tsx`
 - `src/lib/popover/PopoverViewport.svelte` from `packages/react/src/popover/viewport/PopoverViewport.tsx` and `packages/react/src/utils/usePopupViewport.tsx`
 - `src/lib/popover/store.svelte.ts` from `packages/react/src/popover/store/PopoverStore.ts` (open changes go through the shared `PopupStore`; popover adds deferred unmount, hover stick, and instant type)
-- `src/lib/popover/handle.svelte.ts` from `packages/react/src/popover/store/PopoverHandle.ts`
+- `src/lib/popover/handle.svelte.ts` from `packages/react/src/popover/store/PopoverHandle.ts` (the class is the shared `PopupHandle`)
 - `src/lib/popover/PopoverLabel.svelte` from `packages/react/src/popover/title/PopoverTitle.tsx` and `packages/react/src/popover/description/PopoverDescription.tsx`
 - `src/lib/popover/context.svelte.ts` from the popover root, portal, and positioner context modules
 - `src/lib/internal/composite-keys.ts` from Base UI `COMPOSITE_KEYS` (shared by popover and slider)

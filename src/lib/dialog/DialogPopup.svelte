@@ -107,7 +107,7 @@
 	{store}
 	disabled={!store.mounted}
 	initialFocus={resolveInitial}
-	returnFocus={resolveFinal}
+	returnFocus={finalFocus === undefined ? true : resolveFinal}
 	modal={store.modal !== false}
 	closeOnFocusOut={!store.disablePointerDismissal}
 >

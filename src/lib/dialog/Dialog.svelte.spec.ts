@@ -172,6 +172,18 @@ describe('Dialog', () => {
 		await dialogs(0);
 	});
 
+	it('leaves focus on an outside button when a non-modal dialog closes', async () => {
+		render(DialogHarness, { modal: false, withBackdrop: false });
+		await openDialog();
+		const outside = page.getByTestId('outside').element() as HTMLButtonElement;
+		outside.focus();
+		outside.dispatchEvent(new PointerEvent('pointerdown', { bubbles: true, button: 0 }));
+		outside.click();
+		await dialogs(0);
+		await frame();
+		expect(document.activeElement).toBe(outside);
+	});
+
 	it('does not close when onOpenChange cancels', async () => {
 		render(DialogHarness, {
 			onOpenChange: (_open, details) => details.cancel()

@@ -16,7 +16,7 @@ An anchored dialog opened from a trigger. Upstream: `packages/react/src/popover`
 - `Popover.Close` closes with `close-press` and is what turns `modal` into a focus trap.
 - `Popover.Title` and `Popover.Description` share one label part. They set `aria-labelledby` and `aria-describedby` from the prop id when the element mounts.
 - `Popover.Arrow` tracks the anchor. `Popover.Viewport` copies the current pane in `$effect.pre` when the trigger switches, before the new trigger's content renders. That copy is `inert` and `aria-hidden`, with ids and radio `name`s removed, and it is rendered only while the cross-fade runs, before the live pane. Width and height CSS variables travel on the style attribute. They are measured again when the payload changes and return to `auto` after the size animation.
-- `Popover.createHandle()` is a plain class. Its attached store is `$state.raw`. Calling it at module scope creates no effects. A trigger outside the root stays mounted and reads that store when the root attaches. `handle.open(id)`, `handle.close()`, and `handle.unmount()` are the imperative API.
+- `Popover.createHandle()` returns the shared `PopupHandle`. Its attached store is `$state.raw`. Calling it at module scope creates no effects. A trigger outside the root stays mounted and reads that store when the root attaches. `handle.open(id)` throws when that trigger is not registered. `handle.close()` and `handle.unmount()` are the imperative API.
 
 ## Source correspondence
 

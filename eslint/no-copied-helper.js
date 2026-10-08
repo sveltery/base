@@ -31,10 +31,11 @@ const OWNERS = {
 	adaptiveOriginMiddleware: 'src/lib/internal/adaptiveOriginMiddleware.ts',
 	adaptiveOrigin: 'src/lib/internal/adaptiveOriginMiddleware.ts',
 	useOpenInteractionType: 'src/lib/internal/openInteraction.ts',
-	COMPOSITE_KEYS: 'src/lib/internal/composite-keys.ts',
 	createDefaultInitialFocus: 'src/lib/internal/popups/popupStoreUtils.ts',
 	resolveFocus: 'src/lib/internal/popups/popupStoreUtils.ts',
-	PopoverHandle: 'src/lib/popover/handle.svelte.ts'
+	COMPOSITE_KEYS: 'src/lib/internal/composite-keys.ts',
+	PopupHandle: 'src/lib/internal/popups/popupHandle.svelte.ts',
+	PopoverHandle: 'src/lib/internal/popups/popupHandle.svelte.ts'
 };
 
 /**

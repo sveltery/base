@@ -26,5 +26,6 @@ export const Popover = {
 	createHandle: createPopoverHandle
 };
 
-export { createPopoverHandle as createHandle, PopoverHandle } from './handle.svelte.js';
+export { createPopoverHandle as createHandle } from './handle.svelte.js';
+export type { PopoverHandle } from './handle.svelte.js';
 export type * from './types.js';

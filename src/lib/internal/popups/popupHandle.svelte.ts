@@ -1,8 +1,8 @@
 // Derived from Base UI v1.8.0 packages/react/src/utils/popups/popupHandle.ts
 // and packages/react/src/dialog/store/DialogHandle.ts
 // (commit 47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c). MIT, see THIRD_PARTY_NOTICES.md.
-// Shared by dialog now. Popover should use this handle instead of copying it.
-// No ref object. Detached triggers read `store`, which is `$state` on this class.
+// One handle for Dialog and Popover. No ref object.
+// `attached` is `$state.raw`: reassignment is tracked, and the store is not proxied.
 
 import { DEV } from 'esm-env';
 import { SvelteMap } from 'svelte/reactivity';
@@ -14,15 +14,19 @@ import { PopupTriggerMap } from './popupTriggerMap.js';
 export interface PopupHandleStore<Payload> {
 	open: boolean;
 	triggers: PopupTriggerMap;
-	payload: Payload | undefined;
+	readonly payload?: Payload;
 	setOpen(nextOpen: boolean, eventDetails: BaseUIChangeEventDetails<string>): void;
+	forceUnmount?(): void;
 }
 
 export class PopupHandle<
 	Payload = unknown,
 	Store extends PopupHandleStore<Payload> = PopupHandleStore<Payload>
 > {
-	attached = $state<Store | null>(null);
+	/** Anchored popups throw when `open(id)` cannot find that trigger. Dialog still opens. */
+	constructor(private readonly requireTrigger = false) {}
+
+	attached = $state.raw<Store | null>(null);
 	readonly fallbackTriggers = new PopupTriggerMap();
 	readonly payloads = new SvelteMap<string, Payload>();
 	private readonly stack: Store[] = [];
@@ -78,17 +82,44 @@ export class PopupHandle<
 			trigger ??= this.fallbackTriggers.getById(triggerId);
 		}
 
-		if (triggerId && !trigger && DEV) {
-			console.warn(
-				`Base UI: PopupHandle.open: No trigger found with id "${triggerId}". ` +
-					'The popup will open, but the trigger will not be associated with it.'
-			);
+		if (triggerId && !trigger) {
+			if (this.requireTrigger) {
+				throw new Error(
+					`Base UI: PopupHandle.open() was called with the trigger id "${triggerId}", ` +
+						'but no matching trigger is registered with this handle. ' +
+						'An anchored popup cannot open without a trigger to anchor to. ' +
+						'Pass the id of a mounted trigger that has this handle set on its "handle" prop.'
+				);
+			}
+			if (DEV) {
+				console.warn(
+					`Base UI: PopupHandle.open: No trigger found with id "${triggerId}". ` +
+						'The popup will open, but the trigger will not be associated with it.'
+				);
+			}
 		}
 
 		if (triggerId && this.payloads.has(triggerId)) {
-			store.payload = this.payloads.get(triggerId);
+			assignPayload(store, this.payloads.get(triggerId));
 		}
 		store.setOpen(true, createChangeEventDetails(REASONS.imperativeAction, undefined, trigger));
+	}
+
+	setPayload(id: string, payload: Payload | undefined) {
+		if (payload === undefined) this.payloads.delete(id);
+		else this.payloads.set(id, payload);
+	}
+
+	forgetPayload(id: string) {
+		this.payloads.delete(id);
+	}
+
+	get payload(): Payload | undefined {
+		return this.attached?.payload;
+	}
+
+	unmount() {
+		this.attached?.forceUnmount?.();
 	}
 
 	openWithPayload(payload: Payload) {
@@ -123,4 +154,17 @@ export class PopupHandle<
 	get isOpen() {
 		return this.attached?.open ?? false;
 	}
+}
+
+function assignPayload<Payload>(store: { payload?: Payload }, value: Payload | undefined) {
+	let current: object | null = store;
+	while (current) {
+		const desc = Object.getOwnPropertyDescriptor(current, 'payload');
+		if (desc) {
+			if (desc.set || desc.writable) store.payload = value;
+			return;
+		}
+		current = Object.getPrototypeOf(current);
+	}
+	store.payload = value;
 }
