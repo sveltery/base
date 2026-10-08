@@ -139,12 +139,14 @@
 			guards.beforeInside?.focus();
 			return;
 		}
-		focusPreviousOutsidePortal(focusState?.domReference ?? null);
+		focusPreviousOutsidePortal();
 	}
 
-	function focusPreviousOutsidePortal(reference: Element | null) {
-		if (!portalNode || !(reference instanceof Element)) return;
-		const doc = ownerDocument(reference);
+	// `getPreviousTabbable(null)` still searches from the active element. A null trigger
+	// reference must not skip that search: an externally opened popup has no dom reference.
+	function focusPreviousOutsidePortal() {
+		if (!portalNode) return;
+		const doc = ownerDocument(portalNode);
 		const list = getTabbableCandidates(doc.body);
 		const active = activeElement(doc);
 		let index = active instanceof HTMLElement ? list.indexOf(active) : -1;
@@ -157,7 +159,6 @@
 				return;
 			}
 		}
-		if (reference instanceof HTMLElement) reference.focus();
 	}
 
 	// Upstream FloatingPortal.tsx 277–291. Focus from outside enters through the trailing

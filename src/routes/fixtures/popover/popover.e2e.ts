@@ -154,6 +154,31 @@ for (const reference of [false, true]) {
 			});
 		}
 
+		for (const scenario of [
+			{ name: 'tab-ext', inside: 'Inside' },
+			{ name: 'tab-between-ext', inside: 'Inside1' }
+		] as const) {
+			test(`shift-tab from an externally opened popover (${scenario.name})`, async ({ page }) => {
+				const { trigger, popup } = await open(page, scenario.name, reference);
+				await page.getByTestId('ext').click();
+				await expect(popup.getByRole('button', { name: scenario.inside })).toBeFocused();
+				if (scenario.name === 'tab-between-ext') {
+					await expect(
+						popup.locator('xpath=ancestor::*[@data-testid="inline-container"]')
+					).toHaveCount(1);
+				}
+				await page.keyboard.press('Shift+Tab');
+				await expect(trigger).toBeFocused();
+				await expect(popup).toBeVisible();
+				await page.keyboard.press('Shift+Tab');
+				await expect(page.getByTestId('ext')).toBeFocused();
+				// React closes. Main leaves the popup open: the trigger is not the reference,
+				// so this Shift+Tab is not a focus-out close.
+				if (reference) await expect(popup).toHaveCount(0);
+				else await expect(popup).toBeVisible();
+			});
+		}
+
 		for (const scenario of ['tab', 'tab-inline'] as const) {
 			test(`shift-tab from the first control focuses the trigger (${scenario})`, async ({
 				page

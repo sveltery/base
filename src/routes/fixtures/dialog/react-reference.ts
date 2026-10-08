@@ -13,8 +13,10 @@ export function mountDialogReference(node: HTMLElement, scenario: DialogCase, on
 		const [innerOpen, setInnerOpen] = useState(true);
 		const [parentOpen, setParentOpen] = useState(false);
 		const [inlineContainer, setInlineContainer] = useState<HTMLDivElement | null>(null);
+		const [externalOpen, setExternalOpen] = useState(false);
 		useLayoutEffect(() => {
-			if (scenario !== 'tab-inline' && scenario !== 'tab-between') return;
+			if (scenario !== 'tab-inline' && scenario !== 'tab-between' && scenario !== 'tab-between-ext')
+				return;
 			const node = document.querySelector<HTMLDivElement>('[data-testid="inline-container"]');
 			setInlineContainer(node);
 		}, [scenario]);
@@ -23,6 +25,13 @@ export function mountDialogReference(node: HTMLElement, scenario: DialogCase, on
 			open: boolean,
 			details: { reason: string; isCanceled: boolean; cancel: () => void }
 		) => setCalls((previous) => previous.concat(noteOpen(scenario, open, details)));
+		const holdExternal = (
+			next: boolean,
+			details: { reason: string; isCanceled: boolean; cancel: () => void }
+		) => {
+			setExternalOpen(next);
+			changed(next, details);
+		};
 		const track =
 			(setOpen: (next: boolean) => void) =>
 			(open: boolean, details: { reason: string; isCanceled: boolean; cancel: () => void }) => {
@@ -206,56 +215,53 @@ export function mountDialogReference(node: HTMLElement, scenario: DialogCase, on
 			);
 		}
 
-		if (scenario === 'tab' || scenario === 'tab-inline') {
+		if (
+			scenario === 'tab' ||
+			scenario === 'tab-inline' ||
+			scenario === 'tab-ext' ||
+			scenario === 'tab-between' ||
+			scenario === 'tab-between-ext'
+		) {
+			const between = scenario === 'tab-between' || scenario === 'tab-between-ext';
+			const external = scenario === 'tab-ext' || scenario === 'tab-between-ext';
 			return h(
 				Fragment,
 				null,
 				outside,
 				h('button', { type: 'button', 'data-testid': 'before' }, 'Before'),
+				external
+					? h(
+							'button',
+							{ type: 'button', 'data-testid': 'ext', onClick: () => setExternalOpen(true) },
+							'Ext'
+						)
+					: null,
 				h(
 					Dialog.Root,
-					{ modal: false, onOpenChange: changed },
+					external
+						? { modal: false, open: externalOpen, onOpenChange: holdExternal }
+						: { modal: false, onOpenChange: changed },
 					h(Dialog.Trigger, null, 'Open'),
+					between ? h('div', { 'data-testid': 'inline-container' }) : null,
 					h(
 						Dialog.Portal,
-						scenario === 'tab-inline' ? { container: inlineContainer } : null,
+						between || scenario === 'tab-inline' ? { container: inlineContainer } : null,
 						h(
 							Dialog.Popup,
 							null,
 							h(Dialog.Title, null, 'Title'),
-							h('button', { type: 'button' }, 'Inside')
+							between
+								? h(
+										Fragment,
+										null,
+										h('button', { type: 'button' }, 'Inside1'),
+										h('button', { type: 'button' }, 'Inside2')
+									)
+								: h('button', { type: 'button' }, 'Inside')
 						)
 					)
 				),
 				scenario === 'tab-inline' ? h('div', { 'data-testid': 'inline-container' }) : null,
-				h('button', { type: 'button', 'data-testid': 'after' }, 'After'),
-				callsNode
-			);
-		}
-
-		if (scenario === 'tab-between') {
-			return h(
-				Fragment,
-				null,
-				outside,
-				h('button', { type: 'button', 'data-testid': 'before' }, 'Before'),
-				h(
-					Dialog.Root,
-					{ modal: false, onOpenChange: changed },
-					h(Dialog.Trigger, null, 'Open'),
-					h('div', { 'data-testid': 'inline-container' }),
-					h(
-						Dialog.Portal,
-						{ container: inlineContainer },
-						h(
-							Dialog.Popup,
-							null,
-							h(Dialog.Title, null, 'Title'),
-							h('button', { type: 'button' }, 'Inside1'),
-							h('button', { type: 'button' }, 'Inside2')
-						)
-					)
-				),
 				h('button', { type: 'button', 'data-testid': 'after' }, 'After'),
 				callsNode
 			);

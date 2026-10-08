@@ -192,6 +192,29 @@ for (const reference of [false, true]) {
 			await expect(page.getByRole('dialog')).toHaveCount(0);
 		});
 
+		for (const scenario of [
+			{ name: 'tab-ext', inside: 'Inside' },
+			{ name: 'tab-between-ext', inside: 'Inside1' }
+		] as const) {
+			test(`shift-tab from an externally opened dialog (${scenario.name})`, async ({ page }) => {
+				await openDialog(page, scenario.name, reference);
+				const opener = openButton(page);
+				await page.getByTestId('ext').click();
+				await expect(page.getByRole('button', { name: scenario.inside })).toBeFocused();
+				if (scenario.name === 'tab-between-ext') {
+					await expect(
+						page.getByRole('dialog').locator('xpath=ancestor::*[@data-testid="inline-container"]')
+					).toHaveCount(1);
+				}
+				await page.keyboard.press('Shift+Tab');
+				await expect(opener).toBeFocused();
+				await expect(page.getByRole('dialog')).toBeVisible();
+				await page.keyboard.press('Shift+Tab');
+				await expect(page.getByTestId('ext')).toBeFocused();
+				await expect(page.getByRole('dialog')).toBeVisible();
+			});
+		}
+
 		for (const scenario of ['tab', 'tab-inline'] as const) {
 			test(`shift-tab from the first control focuses the trigger (${scenario})`, async ({
 				page

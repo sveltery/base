@@ -43,6 +43,7 @@
 	let outsideButton = $state<HTMLButtonElement | null>(null);
 	let parentOpen = $state(false);
 	let inlineContainer = $state<HTMLDivElement | null>(null);
+	let externalOpen = $state(false);
 
 	let calls = $state<{ open: boolean; reason: string; canceled: boolean }[]>([]);
 
@@ -200,34 +201,40 @@
 	{@render outsidePair(true)}
 {:else if scenario === 'final-outside'}
 	{@render outsidePair(false)}
-{:else if scenario === 'tab' || scenario === 'tab-inline'}
-	<button type="button" data-testid="before">Before</button>
-	<Dialog.Root modal={false} onOpenChange={changed}>
+{:else if scenario === 'tab' || scenario === 'tab-inline' || scenario === 'tab-ext' || scenario === 'tab-between' || scenario === 'tab-between-ext'}
+	{@const between = scenario === 'tab-between' || scenario === 'tab-between-ext'}
+	{@const external = scenario === 'tab-ext' || scenario === 'tab-between-ext'}
+	{#snippet keyboardChildren()}
 		<Dialog.Trigger>Open</Dialog.Trigger>
-		<Dialog.Portal container={scenario === 'tab-inline' ? inlineContainer : undefined}>
+		{#if between}
+			<div data-testid="inline-container" bind:this={inlineContainer}></div>
+		{/if}
+		<Dialog.Portal container={between || scenario === 'tab-inline' ? inlineContainer : undefined}>
 			<Dialog.Popup>
 				<Dialog.Title>Title</Dialog.Title>
-				<button type="button">Inside</button>
+				{#if between}
+					<button type="button">Inside1</button>
+					<button type="button">Inside2</button>
+				{:else}
+					<button type="button">Inside</button>
+				{/if}
 			</Dialog.Popup>
 		</Dialog.Portal>
-	</Dialog.Root>
+	{/snippet}
+	<button type="button" data-testid="before">Before</button>
+	{#if external}
+		<button type="button" data-testid="ext" onclick={() => (externalOpen = true)}>Ext</button>
+		<Dialog.Root bind:open={externalOpen} modal={false} onOpenChange={changed}>
+			{@render keyboardChildren()}
+		</Dialog.Root>
+	{:else}
+		<Dialog.Root modal={false} onOpenChange={changed}>
+			{@render keyboardChildren()}
+		</Dialog.Root>
+	{/if}
 	{#if scenario === 'tab-inline'}
 		<div data-testid="inline-container" bind:this={inlineContainer}></div>
 	{/if}
-	<button type="button" data-testid="after">After</button>
-{:else if scenario === 'tab-between'}
-	<button type="button" data-testid="before">Before</button>
-	<Dialog.Root modal={false} onOpenChange={changed}>
-		<Dialog.Trigger>Open</Dialog.Trigger>
-		<div data-testid="inline-container" bind:this={inlineContainer}></div>
-		<Dialog.Portal container={inlineContainer}>
-			<Dialog.Popup>
-				<Dialog.Title>Title</Dialog.Title>
-				<button type="button">Inside1</button>
-				<button type="button">Inside2</button>
-			</Dialog.Popup>
-		</Dialog.Portal>
-	</Dialog.Root>
 	<button type="button" data-testid="after">After</button>
 {:else if scenario === 'kept-child'}
 	<Dialog.Root bind:open={parentOpen}>
