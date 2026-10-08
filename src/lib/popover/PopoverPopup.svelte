@@ -13,8 +13,6 @@
 	} from '../internal/floating-ui/index.js';
 	import { mergeProps } from '../internal/mergeProps.js';
 	import { COMPOSITE_KEYS } from '../internal/composite-keys.js';
-	import FocusGuard from '../internal/FocusGuard.svelte';
-	import { isOutsideEvent } from '../internal/floating-ui-react/utils/tabbable.js';
 	import { FOCUSABLE_POPUP_PROPS, resolveFocus } from '../internal/popups/index.js';
 	import { popupTransitionStateMapping } from '../internal/popupStateMapping.js';
 	import { getStateAttributesProps } from '../internal/state-attributes.js';
@@ -85,22 +83,6 @@
 		return spec(closeType ?? '');
 	}
 
-	// Upstream FloatingFocusManager focuses `triggerFocusTarget` when Tab leaves a
-	// non-modal popup. That guard closes and moves to the next control after the trigger.
-	const tabLeavesPopup = $derived(
-		store.open &&
-			store.mounted &&
-			!store.focusManagerModal &&
-			store.openChangeReason !== REASONS.triggerHover
-	);
-
-	function leaveToNextControl(event: FocusEvent) {
-		const positioner = store.positionerElement;
-		if (positioner && isOutsideEvent(event, positioner)) return;
-		const next = store.triggerFocusTarget;
-		if (next instanceof HTMLElement) next.focus();
-	}
-
 	const popupState: PopoverPopupState = $derived({
 		open: store.open,
 		side: positioning.side,
@@ -148,9 +130,6 @@
 		{@render render(hostProps, popupState, content)}
 	{:else}
 		<div {...hostProps}>{@render content()}</div>
-	{/if}
-	{#if tabLeavesPopup}
-		<FocusGuard onfocus={leaveToNextControl} />
 	{/if}
 </FloatingFocusManager>
 
