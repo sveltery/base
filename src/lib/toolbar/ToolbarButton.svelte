@@ -8,6 +8,7 @@
 	button does not also click on keyup.
 -->
 <script lang="ts">
+	import { untrack } from 'svelte';
 	import type { Attachment } from 'svelte/attachments';
 	import { currentHost, dispatchClick, isLink } from '../internal/click.js';
 	import { getStateAttributesProps } from '../internal/state-attributes.js';
@@ -16,7 +17,6 @@
 
 	const toolbar = useToolbarRootContext();
 	const group = useToolbarGroupContext();
-	const slot = toolbar.roving.claim();
 
 	let {
 		disabled = false,
@@ -52,7 +52,10 @@
 	}
 
 	$effect(() => {
-		toolbar.roving.sync(node, disabledState, focusableWhenDisabled);
+		const current = node;
+		const disabled = disabledState;
+		const focusable = focusableWhenDisabled;
+		untrack(() => toolbar.roving.sync(current, disabled, focusable));
 	});
 
 	// Untrusted constructed clicks carry modifier state. detail 0 matches a keyboard click.
@@ -137,7 +140,7 @@
 
 	const hostProps: ToolbarButtonHostProps & Record<symbol, Attachment<HTMLElement>> = $derived.by(
 		() => {
-			const roving = toolbar.roving.item(slot, node, register, { onfocus: handleFocus });
+			const roving = toolbar.roving.item(node, register, { onfocus: handleFocus });
 			const attachmentKey = toolbar.roving.keyForAttachment();
 			return {
 				...(nativeButton ? { type: 'button' as const } : { role: 'button' as const }),

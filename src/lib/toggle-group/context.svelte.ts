@@ -2,7 +2,7 @@
 // (commit 47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c). MIT, see THIRD_PARTY_NOTICES.md.
 import { getContext, hasContext, setContext } from 'svelte';
 import type { ToggleGroupChangeEventDetails } from './types.js';
-import { RovingFocus, type RovingOrientation } from './roving-focus.svelte.js';
+import { RovingFocus, type RovingOrientation } from '../internal/toggle-roving.svelte.js';
 
 const TOGGLE_GROUP_CONTEXT = Symbol('toggle-group');
 

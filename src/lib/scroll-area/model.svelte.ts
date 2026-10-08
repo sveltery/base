@@ -4,6 +4,7 @@
 // Element handles are `$state` fields. There is no React ref bag.
 // Reading direction is `useDirection()`, stored on `readDirection`.
 
+import { untrack } from 'svelte';
 import { on } from 'svelte/events';
 import { contains, getTarget } from '../internal/shadow-dom.js';
 import { platform } from '../internal/platform.js';
@@ -127,8 +128,7 @@ export class ScrollAreaModel {
 
 	refreshLayout(threshold: OverflowEdgeThreshold | undefined) {
 		this.edgeThreshold = normalizeOverflowEdgeThreshold(threshold ?? this.readThreshold());
-		// Measure after this effect, so the layout read is not a dependency.
-		queueMicrotask(() => this.computeThumbPosition());
+		untrack(() => this.computeThumbPosition());
 	}
 
 	registerOverflowProperties() {

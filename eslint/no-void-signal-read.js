@@ -391,6 +391,7 @@ const rule = {
 				reportUntrackOnlyParameters(node);
 			},
 			IfStatement(node) {
+				if (!insideEffect(node)) return;
 				if (isAlwaysTrue(node.test)) {
 					context.report({ node: node.test, messageId: 'alwaysTrue' });
 				} else if (inequalityCount(node.test) >= 4 && isOnlyReturn(node.consequent)) {
@@ -470,9 +471,29 @@ function isAlwaysTrue(node) {
 		}
 	}
 	if (value.type === 'LogicalExpression' && value.operator === '&&') {
+		if (undefinedAndCount(value) >= 2) return true;
 		return isAlwaysTrue(value.left) || isAlwaysTrue(value.right);
 	}
 	return false;
+}
+
+/**
+ * `height === undefined && width === undefined` is the De Morgan flip of
+ * `height !== undefined || width !== undefined`. It still only subscribes.
+ *
+ * @param {any} node
+ */
+function undefinedAndCount(node) {
+	const value = unwrap(node);
+	if (!value) return 0;
+	if (value.type === 'LogicalExpression' && value.operator === '&&') {
+		return undefinedAndCount(value.left) + undefinedAndCount(value.right);
+	}
+	if (value.type !== 'BinaryExpression') return 0;
+	if (value.operator !== '===' && value.operator !== '==') return 0;
+	const right = unwrap(value.right);
+	if (!right || right.type !== 'Identifier') return 0;
+	return right.name === 'undefined' || right.name === 'null' ? 1 : 0;
 }
 
 /**

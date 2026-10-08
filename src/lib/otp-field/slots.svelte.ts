@@ -4,25 +4,30 @@
 //
 // OTP Field does not use composite keyboard navigation. It only needs each input's
 // DOM index, the same registration Toolbar and RadioGroup use for roving focus.
-// Indexes are claimed in render order for SSR, then corrected to document order.
+// An input that has not registered yet takes the index it will have in document order.
 
 import { untrack } from 'svelte';
-import { createSlotClaim, includeSorted } from '../internal/roving-slot.js';
+import { includeSorted } from '../internal/roving-slot.js';
 import { createAttachmentKey } from 'svelte/attachments';
 
 export class SlotList {
 	elements = $state<HTMLInputElement[]>([]);
-	readonly claim = createSlotClaim();
 	readonly attachmentKey = createAttachmentKey();
 
 	get first(): HTMLInputElement | null {
 		return this.elements[0] ?? null;
 	}
 
-	indexOf(node: HTMLInputElement | null, fallback: number) {
-		if (!node) return fallback;
+	indexOf(node: HTMLInputElement | null): number {
+		if (!node) return this.elements.length;
 		const index = this.elements.indexOf(node);
-		return index < 0 ? fallback : index;
+		if (index >= 0) return index;
+		if (!node.isConnected) return this.elements.length;
+		let preceding = 0;
+		for (const item of this.elements) {
+			if (node.compareDocumentPosition(item) & Node.DOCUMENT_POSITION_PRECEDING) preceding += 1;
+		}
+		return preceding;
 	}
 
 	register(node: HTMLInputElement) {

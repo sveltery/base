@@ -1,8 +1,4 @@
-<!--
-	A vertical or horizontal scrollbar. Renders a `<div>` element.
-	Derived from Base UI v1.8.0 packages/react/src/scroll-area/scrollbar/ScrollAreaScrollbar.tsx
-	(commit 47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c). MIT, see THIRD_PARTY_NOTICES.md.
--->
+<!-- Vertical or horizontal scrollbar. Renders a div. Base UI v1.8.0 ScrollAreaScrollbar.tsx commit 47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c. MIT, see THIRD_PARTY_NOTICES.md. -->
 <script lang="ts">
 	import { createAttachmentKey } from 'svelte/attachments';
 	import type { HTMLAttributes } from 'svelte/elements';

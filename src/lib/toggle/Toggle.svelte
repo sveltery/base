@@ -4,6 +4,7 @@
 	(commit 47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c). MIT, see THIRD_PARTY_NOTICES.md.
 -->
 <script lang="ts">
+	import { untrack } from 'svelte';
 	import type { Attachment } from 'svelte/attachments';
 	import type { HTMLButtonAttributes } from 'svelte/elements';
 	import { createChangeEventDetails, REASONS } from '../internal/event-details.js';
@@ -14,7 +15,6 @@
 
 	const uid = $props.id();
 	const group = useToggleGroupContext();
-	const slot = group ? group.roving.claim() : 0;
 
 	let {
 		pressed = $bindable(false),
@@ -56,7 +56,9 @@
 
 	$effect(() => {
 		if (!group) return;
-		group.roving.sync(node, disabledState);
+		const current = node;
+		const disabled = disabledState;
+		untrack(() => group.roving.sync(current, disabled));
 	});
 
 	function handleClick(event: MouseEvent & { currentTarget: EventTarget & HTMLButtonElement }) {
@@ -79,7 +81,7 @@
 
 	const hostProps: HTMLButtonAttributes & Record<symbol, Attachment<HTMLButtonElement>> =
 		$derived.by(() => {
-			const roving = group?.roving.host(slot, node, register, { onfocus, onkeydown });
+			const roving = group?.roving.host(node, register, { onfocus, onkeydown });
 			const attachmentKey = group?.roving.keyForAttachment();
 			return {
 				type: 'button',

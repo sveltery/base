@@ -10,7 +10,6 @@
 	import type { ToolbarLinkHostProps, ToolbarLinkProps, ToolbarLinkState } from './types.js';
 
 	const toolbar = useToolbarRootContext();
-	const slot = toolbar.roving.claim();
 
 	let { onfocus, render, children, ...elementProps }: ToolbarLinkProps = $props();
 
@@ -33,7 +32,7 @@
 
 	const hostProps: ToolbarLinkHostProps & Record<symbol, Attachment<HTMLElement>> = $derived.by(
 		() => {
-			const roving = toolbar.roving.item(slot, node, register, { onfocus: handleFocus });
+			const roving = toolbar.roving.item(node, register, { onfocus: handleFocus });
 			const attachmentKey = toolbar.roving.keyForAttachment();
 			return {
 				...getStateAttributesProps(linkState),

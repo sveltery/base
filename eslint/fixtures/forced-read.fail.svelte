@@ -9,9 +9,10 @@
 	let focusableWhenDisabled = true;
 	let active: HTMLElement | null = null;
 	let highlighted: HTMLElement | null = null;
+	let panel: HTMLElement | null = null;
 
-	function resetLayoutStyles(panel: HTMLElement) {
-		return panel;
+	function resetLayoutStyles(node: HTMLElement | null) {
+		return node;
 	}
 	function isDisabled(element: HTMLElement) {
 		return element.hidden;
@@ -41,15 +42,18 @@
 		return 0;
 	}
 
-	function layout(panel: HTMLElement | null) {
-		if (!panel) return;
+	$effect(() => {
 		if (needsLayoutReset && (height !== undefined || width !== undefined)) {
 			return resetLayoutStyles(panel);
 		}
-	}
+	});
 
-	function sync(itemDisabled = false) {
-		if (itemDisabled) {
+	$effect(() => {
+		if (height === undefined && width === undefined) return;
+	});
+
+	$effect(() => {
+		if (disabled) {
 			untrack(() => {
 				ensureActive();
 				if (active && isDisabled(active)) ensureActive();
@@ -57,10 +61,10 @@
 			return;
 		}
 		untrack(() => ensureActive());
-	}
+	});
 
-	function syncToolbar(itemDisabled = false, focusable = true) {
-		if (itemDisabled && !focusable) {
+	$effect(() => {
+		if (disabled && !focusableWhenDisabled) {
 			untrack(() => {
 				reconcile();
 				if (highlighted && isSkipped(highlighted)) return;
@@ -68,28 +72,21 @@
 			return;
 		}
 		untrack(() => reconcile());
-	}
+	});
 
-	function queueThumb() {
+	$effect(() => {
 		const seenDirection = direction();
 		const style = readStyle();
 		const dir = readDir();
 		const threshold = readThreshold();
-		queueMicrotask(() => {
-			if (
-				direction() !== seenDirection ||
-				readStyle() !== style ||
-				readDir() !== dir ||
-				readThreshold() !== threshold
-			) {
-				return;
-			}
-			computeThumbPosition();
-		});
-	}
-
-	layout(active);
-	sync(disabled);
-	syncToolbar(disabled, focusableWhenDisabled);
-	queueThumb();
+		if (
+			direction() !== seenDirection ||
+			readStyle() !== style ||
+			readDir() !== dir ||
+			readThreshold() !== threshold
+		) {
+			return;
+		}
+		computeThumbPosition();
+	});
 </script>

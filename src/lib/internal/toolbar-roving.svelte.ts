@@ -14,11 +14,10 @@ import { untrack } from 'svelte';
 import { createAttachmentKey } from 'svelte/attachments';
 import type { Attachment } from 'svelte/attachments';
 import type { HTMLAttributes } from 'svelte/elements';
-import { isSkipped } from '../internal/composite-skip.js';
-import { createSlotClaim, includeSorted } from '../internal/roving-slot.js';
-import type { ToolbarOrientation } from './types.js';
-
-const ARROWS = new Set(['ArrowUp', 'ArrowDown', 'ArrowLeft', 'ArrowRight']);
+import { isSkipped } from './composite-skip.js';
+import { ARROWS, modifierHeld, stepLinear } from './roving-keys.js';
+import { includeSorted, registeredTabIndex } from './roving-slot.js';
+import type { ToolbarOrientation } from '../toolbar/types.js';
 
 export interface ToolbarRovingHandlers {
 	onfocus?: HTMLAttributes<HTMLElement>['onfocus'];
@@ -26,10 +25,6 @@ export interface ToolbarRovingHandlers {
 
 export type ToolbarRovingItemProps = HTMLAttributes<HTMLElement> &
 	Record<symbol, Attachment<HTMLElement>>;
-
-function modifierHeld(event: KeyboardEvent) {
-	return event.shiftKey || event.ctrlKey || event.altKey || event.metaKey;
-}
 
 /**
  * One toolbar composite. The highlighted item is the only tab stop.
@@ -45,7 +40,6 @@ export class ToolbarRoving {
 
 	private highlightedIndex = 0;
 	private settled = false;
-	readonly claim = createSlotClaim();
 	private readonly attachmentKey = createAttachmentKey();
 
 	register(node: HTMLElement) {
@@ -106,11 +100,8 @@ export class ToolbarRoving {
 		this.highlightedIndex = this.elements.indexOf(node);
 	}
 
-	tabIndex(slot: number, node: HTMLElement | null): 0 | -1 {
-		if (this.elements.length === 0) return slot === 0 ? 0 : -1;
-		const stop = this.currentStop();
-		if (node && stop) return node === stop ? 0 : -1;
-		return slot === 0 ? 0 : -1;
+	tabIndex(node: HTMLElement | null): 0 | -1 {
+		return registeredTabIndex(this.elements, node, this.currentStop());
 	}
 
 	/**
@@ -118,13 +109,12 @@ export class ToolbarRoving {
 	 * registration attachment. A consumer `onfocus` runs first.
 	 */
 	item(
-		slot: number,
 		node: HTMLElement | null,
 		register: Attachment<HTMLElement>,
 		handlers: ToolbarRovingHandlers
 	): ToolbarRovingItemProps {
 		return {
-			tabindex: this.tabIndex(slot, node),
+			tabindex: this.tabIndex(node),
 			onfocus: (event) => {
 				handlers.onfocus?.(event);
 				if (event.currentTarget instanceof HTMLElement) this.highlight(event.currentTarget);
@@ -144,16 +134,11 @@ export class ToolbarRoving {
 	 * before calling here.
 	 */
 	keydown(event: KeyboardEvent) {
-		if (!ARROWS.has(event.key) || modifierHeld(event)) return;
-		const current = event.currentTarget;
-		if (!(current instanceof HTMLElement)) return;
-
-		const rtl = this.readDirection() === 'rtl';
+		if (modifierHeld(event) || !ARROWS.has(event.key)) return;
 		const vertical = this.orientation === 'vertical';
+		const rtl = this.readDirection() === 'rtl';
 		const forwardKey = vertical ? 'ArrowDown' : rtl ? 'ArrowLeft' : 'ArrowRight';
 		const backwardKey = vertical ? 'ArrowUp' : rtl ? 'ArrowRight' : 'ArrowLeft';
-		if (event.key !== forwardKey && event.key !== backwardKey) return;
-
 		const items = this.elements.filter((item) => !isSkipped(item));
 		if (items.length === 0) return;
 
@@ -161,18 +146,16 @@ export class ToolbarRoving {
 		let position = stop ? items.indexOf(stop) : 0;
 		if (position < 0) position = 0;
 
-		const forward = event.key === forwardKey;
-		const next = forward
-			? position === items.length - 1
-				? this.loopFocus
-					? 0
-					: position
-				: position + 1
-			: position === 0
-				? this.loopFocus
-					? items.length - 1
-					: position
-				: position - 1;
+		const next = stepLinear(
+			position,
+			items.length,
+			event.key,
+			forwardKey,
+			backwardKey,
+			this.loopFocus,
+			false
+		);
+		if (next == null) return;
 
 		const target = items[next];
 		if (!target || target === stop) return;
