@@ -5,9 +5,10 @@
 	(commit 47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c). MIT, see THIRD_PARTY_NOTICES.md.
 	Previous content is a cloned node, not an HTML string. The copy is taken
 	before the new trigger's content renders. Ids are stripped so aria links
-	keep pointing at the live title and description. Copied controls are
-	disabled and lose `name` and `form`, so the copy does not uncheck the live
-	radio and does not submit with the form. `inert` does not do that.
+	keep pointing at the live title and description. Copied controls lose
+	`name` and `form`, so the copy does not uncheck the live radio and does
+	not submit with the form. They stay enabled, so the cross-fade does not
+	pick up `:disabled` styles. `inert` on the shell does not do that.
 -->
 <script lang="ts">
 	import { untrack } from 'svelte';
@@ -231,14 +232,6 @@
 		const found = [...node.querySelectorAll('input, textarea, select, button')];
 		if (node.matches('input, textarea, select, button')) found.unshift(node);
 		for (const control of found) {
-			if (
-				control instanceof HTMLInputElement ||
-				control instanceof HTMLTextAreaElement ||
-				control instanceof HTMLSelectElement ||
-				control instanceof HTMLButtonElement
-			) {
-				control.disabled = true;
-			}
 			control.removeAttribute('name');
 			control.removeAttribute('form');
 		}

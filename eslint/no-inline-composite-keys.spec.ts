@@ -49,12 +49,14 @@ describe('sveltery/no-inline-composite-keys', () => {
 		const tabs = historicalSource(
 			main,
 			'src/lib/tabs/roving-focus.svelte.ts',
-			new URL('fixtures/history/1504e68f-tabs-roving-focus.svelte.ts', import.meta.url)
+			new URL('fixtures/history/1504e68f-tabs-roving-focus.svelte.ts', import.meta.url),
+			'116e873029460363175786782e0c5050dc480c8a'
 		);
 		const toggles = historicalSource(
 			main,
 			'src/lib/toggle-group/roving-focus.svelte.ts',
-			new URL('fixtures/history/1504e68f-toggle-group-roving-focus.svelte.ts', import.meta.url)
+			new URL('fixtures/history/1504e68f-toggle-group-roving-focus.svelte.ts', import.meta.url),
+			'12a349b97bb08ff2c570f2d2944a94ea4b77515f'
 		);
 		const [tabsResult] = await lint(tabs, 'src/lib/tabs/roving-focus.svelte.ts');
 		const [toggleResult] = await lint(toggles, 'src/lib/toggle-group/roving-focus.svelte.ts');

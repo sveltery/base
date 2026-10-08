@@ -43,7 +43,8 @@ describe('sveltery/no-derived-inline-attachment', () => {
 		const source = historicalSource(
 			'86a148212f43e067ab3d9c0b78a353cfc369e8c6',
 			'src/lib/popover/PopoverTrigger.svelte',
-			new URL('fixtures/history/86a14821-PopoverTrigger.svelte', import.meta.url)
+			new URL('fixtures/history/86a14821-PopoverTrigger.svelte', import.meta.url),
+			'fa5955d21f8647b712b89d1667dd6814706fe75a'
 		);
 		const [result] = await lint(source, 'src/lib/popover/PopoverTrigger.svelte');
 		const messages = (result?.messages ?? []).filter((message) => message.ruleId === ruleId);

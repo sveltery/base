@@ -4,7 +4,7 @@
  *
  * @type {import('eslint').Rule.RuleModule}
  */
-import { unwrap } from './effects.js';
+import { nameOf, unwrap } from './effects.js';
 
 const COMPOSITE = ['ArrowDown', 'ArrowUp', 'ArrowRight', 'ArrowLeft', 'Home', 'End'];
 
@@ -28,6 +28,10 @@ const rule = {
 			ArrayExpression(node) {
 				if (!includesCompositeKeys(node)) return;
 				context.report({ node, messageId: 'inline' });
+			},
+			CallExpression(node) {
+				if (!isCompositeSplit(node)) return;
+				context.report({ node, messageId: 'inline' });
 			}
 		};
 	}
@@ -42,11 +46,41 @@ function includesCompositeKeys(node) {
 	/** @type {Set<string>} */
 	const values = new Set();
 	for (const element of array.elements ?? []) {
-		const item = unwrap(element);
-		if (!item || item.type !== 'Literal' || typeof item.value !== 'string') continue;
-		values.add(item.value);
+		const value = stringValue(element);
+		if (value != null) values.add(value);
 	}
 	return COMPOSITE.every((key) => values.has(key));
+}
+
+/**
+ * `'ArrowDown ArrowUp ...'.split(' ')` and the same text in a template.
+ * @param {unknown} node
+ */
+function isCompositeSplit(node) {
+	const call = unwrap(node);
+	if (!call || call.type !== 'CallExpression' || call.arguments?.length !== 1) return false;
+	const callee = unwrap(call.callee);
+	if (!callee || callee.type !== 'MemberExpression' || callee.computed) return false;
+	if (nameOf(callee.property) !== 'split') return false;
+	if (stringValue(call.arguments[0]) !== ' ') return false;
+	const text = stringValue(callee.object);
+	if (text == null) return false;
+	const values = new Set(text.split(' '));
+	return COMPOSITE.every((key) => values.has(key));
+}
+
+/**
+ * A string literal, or a template with no substitutions.
+ * @param {unknown} node
+ */
+function stringValue(node) {
+	const item = unwrap(node);
+	if (!item) return undefined;
+	if (item.type === 'Literal' && typeof item.value === 'string') return item.value;
+	if (item.type === 'TemplateLiteral' && item.expressions?.length === 0) {
+		return item.quasis?.[0]?.value?.cooked ?? '';
+	}
+	return undefined;
 }
 
 export default rule;

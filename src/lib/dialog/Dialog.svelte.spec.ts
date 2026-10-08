@@ -290,6 +290,21 @@ describe('Dialog', () => {
 		expect(page.getByTestId('popup').elements()).toHaveLength(0);
 	});
 
+	it('keeps the current payload when opened with an unknown trigger id', async () => {
+		const handle = Dialog.createHandle<string>();
+		render(DialogHandleHarness, { handle, payload: 'from-trigger', id: 'detached' });
+		click(button('Detached'));
+		await tick();
+		await expect.element(page.getByTestId('payload')).toHaveTextContent('from-trigger');
+		handle.close();
+		await dialogs(0);
+		handle.setPayload('missing', 'from-missing');
+		expect(() => handle.open('missing')).not.toThrow();
+		await tick();
+		await expect.element(page.getByTestId('payload')).toHaveTextContent('from-trigger');
+		expect(page.getByTestId('payload').element().textContent).not.toContain('from-missing');
+	});
+
 	it('opens with the payload passed to openWithPayload', async () => {
 		const handle = Dialog.createHandle<string>();
 		render(DialogHandleHarness, { handle, payload: 'from-trigger' });
