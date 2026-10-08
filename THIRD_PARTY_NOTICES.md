@@ -186,7 +186,7 @@ Parts of this package derive from [Base UI](https://github.com/mui/base-ui) v1.8
 - `src/lib/internal/GroupFrame.svelte` from the host markup of `packages/react/src/checkbox-group/CheckboxGroup.tsx` and `packages/react/src/radio-group/RadioGroup.tsx`
 - `src/lib/toolbar/item-registration.svelte.ts` from the item ref in `packages/react/src/internals/composite/item/useCompositeItem.ts`
 - `src/lib/scroll-area/track-style.ts` and `src/lib/scroll-area/scrollbar-part.svelte.ts` from the scrollbar geometry in `packages/react/src/scroll-area/scrollbar/ScrollAreaScrollbar.tsx`
-- `src/lib/internal/roving-keys.ts` from the arrow-key sets in `packages/react/src/internals/composite/root/useCompositeRoot.ts` (`ARROWS`, `NAV_KEYS`, `modifierHeld`, `axisKeys`, `stepLinear`)
+- `src/lib/internal/roving-keys.ts` from the arrow-key helpers in `packages/react/src/internals/composite/root/useCompositeRoot.ts` (`modifierHeld`, `axisKeys`, `stepLinear`)
 - `src/lib/internal/timeout.ts` from `packages/utils/src/useTimeout.ts` (`Timeout`), `packages/utils/src/useAnimationFrame.ts` (`AnimationFrame`), and `packages/react/src/internals/TimeoutManager.ts`. The React hooks are not ported.
 - `src/lib/otp-field/otp.spec.ts` assertions from `packages/react/src/otp-field/utils/otp.test.ts`
 - `src/lib/otp-field/OTPField.svelte.spec.ts` assertions from `packages/react/src/otp-field/**/*.test.tsx` that do not require React refs or `className` callbacks
@@ -224,7 +224,7 @@ Parts of this package derive from [Base UI](https://github.com/mui/base-ui) v1.8
 - `src/lib/popover/handle.svelte.ts` from `packages/react/src/popover/store/PopoverHandle.ts` (extends the shared `PopupHandle`; Dialog's payload writers are not included)
 - `src/lib/popover/PopoverLabel.svelte` from `packages/react/src/popover/title/PopoverTitle.tsx` and `packages/react/src/popover/description/PopoverDescription.tsx`
 - `src/lib/popover/context.svelte.ts` from the popover root, portal, and positioner context modules
-- `src/lib/internal/composite-keys.ts` from Base UI `COMPOSITE_KEYS` (shared by dialog, popover, slider, tabs, and toggle group)
+- `src/lib/internal/composite-keys.ts` from Base UI `COMPOSITE_KEYS` and the arrow subset (`ARROWS`), shared by dialog, popover, slider, tabs, toggle group, toolbar, and radio group
 - `src/lib/internal/useButton.ts` from the non-composite path of `packages/react/src/internals/use-button/useButton.ts`
 - `src/lib/internal/adaptiveOriginMiddleware.ts` from `packages/react/src/utils/adaptiveOriginMiddleware.ts`
 - `createDefaultInitialFocus` and `resolveFocus` in `src/lib/internal/popups/popupStoreUtils.ts` from `packages/react/src/utils/popups/popupStoreUtils.ts`

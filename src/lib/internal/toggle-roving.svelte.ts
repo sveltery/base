@@ -9,8 +9,8 @@
 import { untrack } from 'svelte';
 import type { Attachment } from 'svelte/attachments';
 import type { HTMLButtonAttributes } from 'svelte/elements';
-import { COMPOSITE_KEYS } from './composite-keys.js';
 import { CompositeItems } from './composite-items.svelte.js';
+import { COMPOSITE_KEYS } from './composite-keys.js';
 import { axisKeys, modifierHeld, stepLinear } from './roving-keys.js';
 import { registeredTabIndex, renderOrderTabIndex } from './roving-slot.js';
 

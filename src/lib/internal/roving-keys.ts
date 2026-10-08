@@ -1,10 +1,7 @@
-// Shared arrow-key sets for composite roving focus.
+// Shared key helpers for composite roving focus.
 // Derived from Base UI v1.8.0 packages/react/src/internals/composite/root/useCompositeRoot.ts
 // (commit 47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c). MIT, see THIRD_PARTY_NOTICES.md.
-
-export const ARROWS = new Set(['ArrowUp', 'ArrowDown', 'ArrowLeft', 'ArrowRight']);
-
-export const NAV_KEYS = new Set(['ArrowUp', 'ArrowDown', 'ArrowLeft', 'ArrowRight', 'Home', 'End']);
+// The key sets live in `composite-keys.ts` (`COMPOSITE_KEYS`, `ARROWS`).
 
 export function modifierHeld(event: KeyboardEvent) {
 	return event.shiftKey || event.ctrlKey || event.altKey || event.metaKey;

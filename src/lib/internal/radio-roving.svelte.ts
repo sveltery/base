@@ -9,8 +9,8 @@
 
 import { untrack } from 'svelte';
 import { CompositeItems } from './composite-items.svelte.js';
+import { ARROWS } from './composite-keys.js';
 import { isSkipped } from './composite-skip.js';
-import { ARROWS } from './roving-keys.js';
 import { registeredTabIndex, renderOrderTabIndex } from './roving-slot.js';
 
 /** Hidden, natively disabled, and `aria-disabled` radios are skipped. */

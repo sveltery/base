@@ -14,8 +14,9 @@ import { untrack } from 'svelte';
 import type { Attachment } from 'svelte/attachments';
 import type { HTMLAttributes } from 'svelte/elements';
 import { CompositeItems } from './composite-items.svelte.js';
+import { ARROWS } from './composite-keys.js';
 import { isSkipped } from './composite-skip.js';
-import { ARROWS, modifierHeld, stepLinear } from './roving-keys.js';
+import { modifierHeld, stepLinear } from './roving-keys.js';
 import { registeredTabIndex, renderOrderTabIndex } from './roving-slot.js';
 
 export type ToolbarOrientation = 'horizontal' | 'vertical';
