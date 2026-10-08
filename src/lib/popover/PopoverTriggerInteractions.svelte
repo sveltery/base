@@ -4,6 +4,7 @@
 	so hover state is written on the store and not on a detached stand-in.
 -->
 <script lang="ts">
+	import { untrack } from 'svelte';
 	import { REASONS } from '../internal/event-details.js';
 	import {
 		safePolygon,
@@ -32,24 +33,24 @@
 		onArmed: (next: TriggerArmed | null) => void;
 	} = $props();
 
-	const click = useClick(store, () => ({
-		enabled: !disabled && store != null,
-		stickIfOpen: store?.stickIfOpen
+	const owner = untrack(() => store);
+	const click = useClick(owner, () => ({
+		enabled: !disabled,
+		stickIfOpen: owner.stickIfOpen
 	}));
-	const hover = useHoverReferenceInteraction(store, () => ({
+	const hover = useHoverReferenceInteraction(owner, () => ({
 		enabled:
-			store != null &&
 			!disabled &&
 			openOnHover &&
-			(store.openMethod !== 'touch' || store.openChangeReason !== REASONS.triggerPress),
+			(owner.openMethod !== 'touch' || owner.openChangeReason !== REASONS.triggerPress),
 		mouseOnly: true,
 		move: false,
 		handleClose: safePolygon(),
 		restMs: delay,
 		delay: { close: closeDelay },
-		placement: () => store?.readPlacement() ?? null
+		placement: () => owner.readPlacement()
 	}));
-	const guards = useTriggerFocusGuards(store, triggerEl);
+	const guards = useTriggerFocusGuards(owner, triggerEl);
 
 	$effect(() => {
 		onArmed({

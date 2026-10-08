@@ -228,12 +228,20 @@ describe('Popover', () => {
 		);
 	});
 
-	it('keeps the live radio checked when the viewport switches triggers', async () => {
+	it('starts the next viewport pane from that trigger’s own state', async () => {
 		render(PopoverReviewHarness, { mode: 'viewport' });
 		await page.getByRole('button', { name: 'One' }).click();
-		const live = page.getByTestId('live-radio').element();
-		if (!(live instanceof HTMLInputElement)) throw new Error('missing radio');
-		live.checked = true;
+		const note = page.getByTestId('pane-note').element();
+		const radio = page.getByTestId('live-radio').element();
+		if (!(note instanceof HTMLInputElement) || !(radio instanceof HTMLInputElement)) {
+			throw new Error('missing pane controls');
+		}
+		note.value = 'from-a';
+		note.dispatchEvent(new Event('input', { bubbles: true }));
+		radio.click();
+		await expect
+			.poll(() => document.querySelector('[data-current] [data-testid=pane-state]')?.textContent)
+			.toBe('from-a|true');
 		const seen: HTMLElement[] = [];
 		const observer = new MutationObserver(() => {
 			const previous = document.querySelector('[data-previous]');
@@ -249,13 +257,84 @@ describe('Popover', () => {
 			.toBeTruthy();
 		observer.disconnect();
 		const previous = document.querySelector('[data-previous]') ?? seen[0];
-		const current = document.querySelector('[data-current] [data-testid=live-radio]');
+		const currentNote = document.querySelector('[data-current] [data-testid=pane-note]');
+		const currentRadio = document.querySelector('[data-current] [data-testid=live-radio]');
 		const copied = previous?.querySelector('input[type="radio"]');
-		if (!(current instanceof HTMLInputElement) || !(copied instanceof HTMLInputElement)) {
+		if (
+			!(currentNote instanceof HTMLInputElement) ||
+			!(currentRadio instanceof HTMLInputElement) ||
+			!(copied instanceof HTMLInputElement)
+		) {
 			throw new Error('missing radios');
 		}
-		expect(current.checked).toBe(true);
+		expect(currentNote.value).toBe('');
+		expect(currentRadio.checked).toBe(false);
+		expect(document.querySelector('[data-current] [data-testid=pane-state]')?.textContent).toBe(
+			'|false'
+		);
 		expect(copied.hasAttribute('name')).toBe(false);
+		await page.getByRole('button', { name: 'One' }).click();
+		await expect
+			.poll(() => document.querySelector('[data-current] [data-testid=pane-text]')?.textContent)
+			.toBe('content-AAA');
+		const restoredNote = document.querySelector('[data-current] [data-testid=pane-note]');
+		const restoredRadio = document.querySelector('[data-current] [data-testid=live-radio]');
+		if (
+			!(restoredNote instanceof HTMLInputElement) ||
+			!(restoredRadio instanceof HTMLInputElement)
+		) {
+			throw new Error('missing restored controls');
+		}
+		expect(restoredNote.value).toBe('from-a');
+		expect(restoredRadio.checked).toBe(true);
+		expect(document.querySelector('[data-current] [data-testid=pane-state]')?.textContent).toBe(
+			'from-a|true'
+		);
+	});
+
+	it('keeps the current pane and its focus when the open trigger payload changes', async () => {
+		const view = render(PopoverReviewHarness, { mode: 'viewport', payloadA: 'content-AAA' });
+		await page.getByRole('button', { name: 'One' }).click();
+		const pane = document.querySelector('[data-current]');
+		const input = document.querySelector('[data-current] [data-testid=live-input]');
+		if (!(pane instanceof HTMLElement) || !(input instanceof HTMLInputElement)) {
+			throw new Error('missing pane');
+		}
+		input.focus();
+		expect(document.activeElement).toBe(input);
+		await view.rerender({ mode: 'viewport', payloadA: 'content-AAA-next' });
+		await expect
+			.poll(() => document.querySelector('[data-current] [data-testid=pane-text]')?.textContent)
+			.toBe('content-AAA-next');
+		expect(document.querySelector('[data-current]')).toBe(pane);
+		expect(document.activeElement).toBe(input);
+	});
+
+	it('leaves focus on the clicked trigger when the viewport switches', async () => {
+		render(PopoverReviewHarness, { mode: 'viewport' });
+		await page.getByRole('button', { name: 'One' }).click();
+		await expect
+			.poll(() => document.activeElement)
+			.toBe(document.querySelector('[data-current] [data-testid=live-input]'));
+		const two = page.getByRole('button', { name: 'Two' }).element();
+		await page.getByRole('button', { name: 'Two' }).click();
+		await new Promise<void>((resolve) => {
+			requestAnimationFrame(() => requestAnimationFrame(() => resolve()));
+		});
+		expect(document.activeElement).toBe(two);
+	});
+
+	it('moves focus to the popup when a trigger switch removes the focused control', async () => {
+		const handle = Popover.createHandle();
+		render(PopoverReviewHarness, { mode: 'viewport', handle });
+		await page.getByRole('button', { name: 'One' }).click();
+		const input = document.querySelector('[data-current] [data-testid=live-input]');
+		if (!(input instanceof HTMLInputElement)) throw new Error('missing input');
+		input.focus();
+		expect(document.activeElement).toBe(input);
+		handle.open('trigger-b');
+		const popup = page.getByRole('dialog').element();
+		await expect.poll(() => document.activeElement).toBe(popup);
 	});
 
 	it('registers each trigger once across an open and a switch', async () => {
@@ -348,6 +427,74 @@ describe('Popover', () => {
 			} finally {
 				view.unmount();
 			}
+		}
+	});
+
+	it('keeps the previous pane for the opacity cross-fade', async () => {
+		const style = document.createElement('style');
+		style.textContent =
+			'[data-current]{transition:opacity 2500ms}[data-current][data-starting-style]{opacity:0}';
+		document.head.append(style);
+		try {
+			render(PopoverReviewHarness, { mode: 'viewport' });
+			await page.getByRole('button', { name: 'One' }).click();
+			await expect
+				.poll(() => document.querySelector('[data-current] [data-testid=pane-text]')?.textContent)
+				.toBe('content-AAA');
+			await page.getByRole('button', { name: 'Two' }).click();
+			await expect.poll(() => document.querySelector('[data-previous]')).toBeTruthy();
+			await new Promise((resolve) => setTimeout(resolve, 2000));
+			expect(document.querySelector('[data-previous]')).toBeTruthy();
+			expect(document.querySelector('[data-current] [data-testid=pane-text]')?.textContent).toBe(
+				'content-BBB'
+			);
+		} finally {
+			style.remove();
+		}
+	});
+
+	it('lets the form submit while an empty required copy is cross-fading', async () => {
+		const view = render(PopoverDetachHarness, {
+			mode: 'form',
+			portalIntoForm: true,
+			requiredCopy: true
+		});
+		try {
+			await page.getByRole('button', { name: 'One' }).click();
+			await expect.element(page.getByTestId('live-input')).toHaveValue('AAA');
+			const form = page.getByTestId('hosted-form').element();
+			if (!(form instanceof HTMLFormElement)) throw new Error('missing form');
+			let submitted = false;
+			let invalid = false;
+			const onSubmit = (event: Event) => {
+				event.preventDefault();
+				submitted = true;
+			};
+			const onInvalid = () => {
+				invalid = true;
+			};
+			form.addEventListener('submit', onSubmit);
+			form.addEventListener('invalid', onInvalid, true);
+			let sawPrevious = false;
+			const observer = new MutationObserver(() => {
+				if (sawPrevious) return;
+				const previous = document.querySelector('[data-previous]');
+				if (!(previous instanceof HTMLElement) || !previous.isConnected) return;
+				const copied = previous.querySelector('input[required]');
+				if (!(copied instanceof HTMLInputElement) || !copied.isConnected) return;
+				sawPrevious = true;
+				form.requestSubmit();
+			});
+			observer.observe(document.body, { childList: true, subtree: true, attributes: true });
+			await page.getByRole('button', { name: 'Two' }).click();
+			await expect.poll(() => submitted).toBe(true);
+			expect(invalid).toBe(false);
+			expect(sawPrevious).toBe(true);
+			observer.disconnect();
+			form.removeEventListener('submit', onSubmit);
+			form.removeEventListener('invalid', onInvalid, true);
+		} finally {
+			view.unmount();
 		}
 	});
 });

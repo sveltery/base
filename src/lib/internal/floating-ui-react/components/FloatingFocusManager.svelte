@@ -10,9 +10,10 @@
 	import FocusGuard from '../../FocusGuard.svelte';
 	import { ownerDocument, ownerWindow } from '../../owner.js';
 	import { activeElement, contains, getTarget } from '../../shadow-dom.js';
-	import { Timeout } from '../../timeout.js';
+	import { AnimationFrame, Timeout } from '../../timeout.js';
 	import type { OpenInteractionType } from '../../openInteraction.js';
 	import type { FloatingRootStore, OpenChangePayload } from './FloatingRootStore.svelte.js';
+	import { isElementVisible } from '../utils/composite.js';
 	import { CLICK_TRIGGER_IDENTIFIER } from '../utils/constants.js';
 	import { enqueueFocus } from '../utils/enqueueFocus.js';
 	import { markOthers } from '../utils/markOthers.js';
@@ -27,7 +28,8 @@
 		initialFocus = true,
 		returnFocus = true,
 		modal = true,
-		closeOnFocusOut = true
+		closeOnFocusOut = true,
+		restoreFocus = false
 	}: {
 		store: FloatingRootStore;
 		children?: Snippet;
@@ -44,10 +46,13 @@
 			| ((closeType: OpenInteractionType | null) => boolean | HTMLElement | null | void);
 		modal?: boolean;
 		closeOnFocusOut?: boolean;
+		/** `'popup'` focuses the popup when a focused control inside it is removed. */
+		restoreFocus?: boolean | 'popup';
 	} = $props();
 
 	const tree = useFloatingTree();
 	const pointerDownTimeout = Timeout.create();
+	const restoreFrame = AnimationFrame.create();
 	let suppressFocusOut = false;
 	/** Trigger (or the element focused before open). Not refreshed after focus moves inside. */
 	let returnTarget: HTMLElement | null = null;
@@ -250,6 +255,22 @@
 
 		store.events.on('openchange', noteClose);
 
+		const stopRestore = on(floating, 'focusout', (event) => {
+			if (!restoreFocus) return;
+			const lost = getTarget(event);
+			if (!(lost instanceof Element)) return;
+			queueMicrotask(() => {
+				const popup = store.floatingElement;
+				if (!store.isOpen() || !(popup instanceof HTMLElement) || !popup.isConnected) return;
+				if (isElementVisible(lost) || activeElement(doc) !== doc.body) return;
+				popup.focus({ preventScroll: true });
+				if (restoreFocus !== 'popup') return;
+				restoreFrame.request(() => {
+					if (store.isOpen() && popup.isConnected) popup.focus({ preventScroll: true });
+				});
+			});
+		});
+
 		return () => {
 			cancelFocus();
 			hideOutside();
@@ -257,7 +278,9 @@
 			stopKeys();
 			stopPointer();
 			stopFocus();
+			stopRestore();
 			pointerDownTimeout.clear();
+			restoreFrame.cancel();
 			store.events.off('openchange', noteClose);
 			const endedBy = closeType;
 			restoreReturnFocus(endedBy);

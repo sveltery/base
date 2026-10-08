@@ -1,8 +1,9 @@
 // Dialog's public handle. Shared open, close, and attach live on PopupHandle.
 // Derived from Base UI v1.8.0 packages/react/src/dialog/store/DialogHandle.ts
 // (commit 47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c). MIT, see THIRD_PARTY_NOTICES.md.
-// Payload storage is Dialog-only. Upstream Popover reads the active trigger's payload
-// and does not accept openWithPayload.
+// Payload lives on the registered trigger, the way upstream forwards it through
+// trigger registration. `setPayload` ignores an id that has no trigger.
+// Upstream Popover reads the active trigger's payload and does not accept openWithPayload.
 
 import { DEV } from 'esm-env';
 import { SvelteMap } from 'svelte/reactivity';
@@ -11,23 +12,34 @@ import { PopupHandle } from '../internal/popups/index.js';
 import type { DialogStore } from './store.svelte.js';
 
 export class DialogHandle<Payload = unknown> extends PopupHandle<Payload, DialogStore<Payload>> {
-	readonly payloads = new SvelteMap<string, Payload>();
+	/** Payload for a trigger that is already registered. Unknown ids are never stored. */
+	private readonly triggerPayloads = new SvelteMap<string, Payload>();
+
+	constructor() {
+		super(false, 'Dialog.Handle');
+	}
 
 	setPayload(id: string, payload: Payload | undefined) {
-		if (payload === undefined) this.payloads.delete(id);
-		else this.payloads.set(id, payload);
+		if (!this.triggerElement(id)) return false;
+		if (payload === undefined) this.triggerPayloads.delete(id);
+		else this.triggerPayloads.set(id, payload);
+		return true;
 	}
 
 	forgetPayload(id: string) {
-		this.payloads.delete(id);
+		this.triggerPayloads.delete(id);
 	}
 
 	override open(triggerId: string | null) {
 		const store = this.attached;
-		// Assign only after the trigger is registered. `super.open` throws when an
-		// anchored popup cannot find that id, and the payload must stay unchanged.
-		if (store && triggerId && this.payloads.has(triggerId) && this.triggerElement(triggerId)) {
-			store.payload = this.payloads.get(triggerId);
+		// Dialog warns on an unknown id. It does not throw, and the displayed payload stays.
+		if (
+			store &&
+			triggerId &&
+			this.triggerElement(triggerId) &&
+			this.triggerPayloads.has(triggerId)
+		) {
+			store.payload = this.triggerPayloads.get(triggerId);
 		}
 		super.open(triggerId);
 	}

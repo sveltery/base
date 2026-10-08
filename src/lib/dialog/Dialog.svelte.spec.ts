@@ -290,19 +290,34 @@ describe('Dialog', () => {
 		expect(page.getByTestId('popup').elements()).toHaveLength(0);
 	});
 
+	it('does not store a payload for a trigger that is not registered', () => {
+		const handle = Dialog.createHandle<string>();
+		expect(handle.setPayload('x', 'orphan')).toBe(false);
+		expect('payloads' in handle).toBe(false);
+	});
+
 	it('keeps the current payload when opened with an unknown trigger id', async () => {
 		const handle = Dialog.createHandle<string>();
-		render(DialogHandleHarness, { handle, payload: 'from-trigger', id: 'detached' });
-		click(button('Detached'));
-		await tick();
-		await expect.element(page.getByTestId('payload')).toHaveTextContent('from-trigger');
-		handle.close();
-		await dialogs(0);
-		handle.setPayload('missing', 'from-missing');
-		expect(() => handle.open('missing')).not.toThrow();
-		await tick();
-		await expect.element(page.getByTestId('payload')).toHaveTextContent('from-trigger');
-		expect(page.getByTestId('payload').element().textContent).not.toContain('from-missing');
+		const warn = vi.spyOn(console, 'warn').mockImplementation(() => {});
+		try {
+			render(DialogHandleHarness, { handle, payload: 'from-trigger', id: 'detached' });
+			click(button('Detached'));
+			await tick();
+			await expect.element(page.getByTestId('payload')).toHaveTextContent('from-trigger');
+			handle.close();
+			await dialogs(0);
+			expect(handle.setPayload('missing', 'from-missing')).toBe(false);
+			expect(() => handle.open('missing')).not.toThrow();
+			await tick();
+			await expect.element(page.getByTestId('payload')).toHaveTextContent('from-trigger');
+			expect(page.getByTestId('payload').element().textContent).not.toContain('from-missing');
+			expect(warn.mock.calls.some((call) => String(call[0]).includes('Dialog.Handle.open'))).toBe(
+				true
+			);
+			expect(warn.mock.calls.some((call) => String(call[0]).includes('PopupHandle'))).toBe(false);
+		} finally {
+			warn.mockRestore();
+		}
 	});
 
 	it('opens with the payload passed to openWithPayload', async () => {

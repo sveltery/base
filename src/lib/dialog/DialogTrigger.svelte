@@ -57,12 +57,10 @@
 	$effect(() => {
 		const id = triggerId;
 		const value = payload;
-		const payloads = handle?.payloads;
-		if (!payloads || value === undefined) return;
-		payloads.set(id, value);
-		return () => {
-			payloads.delete(id);
-		};
+		const current = handle;
+		if (!current || value === undefined) return;
+		if (!current.setPayload(id, value)) return;
+		return () => current.forgetPayload(id);
 	});
 
 	function clickHandlers(current: DialogStore<unknown> | null | undefined) {

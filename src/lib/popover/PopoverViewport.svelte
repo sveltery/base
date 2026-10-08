@@ -6,9 +6,11 @@
 	Previous content is a cloned node, not an HTML string. The copy is taken
 	before the new trigger's content renders. Ids are stripped so aria links
 	keep pointing at the live title and description. Copied controls lose
-	`name` and `form`, so the copy does not uncheck the live radio and does
-	not submit with the form. They stay enabled, so the cross-fade does not
-	pick up `:disabled` styles. `inert` on the shell does not do that.
+	`name` and get `form=""`, so the copy does not uncheck the live radio,
+	does not submit, and does not block the ancestor form. They stay enabled,
+	so the cross-fade does not pick up `:disabled` styles. `inert` on the
+	shell does not do that. The current pane is keyed so `data-starting-style`
+	lands on a new element and the opacity transition can run.
 -->
 <script lang="ts">
 	import { untrack } from 'svelte';
@@ -17,6 +19,7 @@
 	import { AnimationFrame } from '../internal/timeout.js';
 	import { runOnceAnimationsFinish } from '../internal/animations-finished.js';
 	import { adaptiveOriginMiddleware } from '../internal/adaptiveOriginMiddleware.js';
+	import { usePopupContentKey } from '../internal/popups/usePopupContentKey.svelte.js';
 	import { usePopoverPositioner, usePopoverRoot } from './context.svelte.js';
 	import type { PopoverViewportProps, PopoverViewportState } from './types.js';
 
@@ -33,6 +36,7 @@
 	let activationDirection = $state<string | undefined>(undefined);
 	let showStarting = $state(false);
 	let committedSize: { width: number; height: number } | null = null;
+	const popupContent = usePopupContentKey(() => store.resolvedActiveTriggerId());
 
 	$effect(() => {
 		store.adaptiveOrigin = adaptiveOriginMiddleware;
@@ -55,6 +59,7 @@
 			activationDirection = directionBetween(previous, active);
 			showStarting = true;
 			frame.request(() => {
+				if (controller.signal.aborted) return;
 				showStarting = false;
 				const node = currentEl;
 				if (!node || controller.signal.aborted) return;
@@ -233,7 +238,7 @@
 		if (node.matches('input, textarea, select, button')) found.unshift(node);
 		for (const control of found) {
 			control.removeAttribute('name');
-			control.removeAttribute('form');
+			control.setAttribute('form', '');
 		}
 	}
 
@@ -274,7 +279,9 @@
 			{@attach mountPrevious}
 		></div>
 	{/if}
-	<div bind:this={currentEl} data-current data-starting-style={showStarting ? '' : undefined}>
-		{@render children?.()}
-	</div>
+	{#key popupContent.current}
+		<div bind:this={currentEl} data-current data-starting-style={showStarting ? '' : undefined}>
+			{@render children?.()}
+		</div>
+	{/key}
 {/snippet}

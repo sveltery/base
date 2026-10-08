@@ -110,6 +110,7 @@
 	returnFocus={finalFocus === undefined ? true : resolveFinal}
 	modal={store.modal !== false}
 	closeOnFocusOut={!store.disablePointerDismissal}
+	restoreFocus="popup"
 >
 	{#if render}
 		{@render render(hostProps, state, content)}
