@@ -11,7 +11,6 @@ import {
 	REASONS
 } from '../internal/event-details.js';
 import type { FieldRootModel } from '../field/model.svelte.js';
-import type { FieldRootState } from '../field/types.js';
 import { ownerDocument } from '../internal/owner.js';
 import { platform } from '../internal/platform.js';
 import { activeElement } from '../internal/shadow-dom.js';
@@ -56,15 +55,6 @@ const NAVIGATE_KEYS = new Set([
 	'Escape'
 ]);
 
-const EMPTY_FIELD_STATE: FieldRootState = {
-	disabled: false,
-	touched: false,
-	dirty: false,
-	valid: null,
-	filled: false,
-	focused: false
-};
-
 export interface NumberFieldModelOptions {
 	getValue: () => number | null;
 	writeValue: (value: number | null, details?: NumberFieldChangeEventDetails) => void;
@@ -85,7 +75,7 @@ export interface NumberFieldModelOptions {
 		((value: number | null, details: NumberFieldChangeEventDetails) => void) | undefined;
 	getOnValueCommitted: () =>
 		((value: number | null, details: NumberFieldCommitEventDetails) => void) | undefined;
-	getField: () => FieldRootModel | undefined;
+	getField: () => FieldRootModel;
 	getId: () => string | undefined;
 	getName: () => string | undefined;
 	getNameProp: () => string | undefined;
@@ -118,7 +108,7 @@ export class NumberFieldModel {
 		this.options = options;
 
 		$effect(() => {
-			this.options.getField()?.setFilled(this.options.getValue() !== null);
+			this.options.getField().setFilled(this.options.getValue() !== null);
 		});
 
 		$effect(() => {
@@ -215,7 +205,7 @@ export class NumberFieldModel {
 	}
 
 	get state(): NumberFieldRootState {
-		const fieldState = this.options.getField()?.state ?? EMPTY_FIELD_STATE;
+		const fieldState = this.options.getField().state;
 		return {
 			...fieldState,
 			disabled: this.options.getDisabled(),
@@ -371,14 +361,14 @@ export class NumberFieldModel {
 
 	handleFocus() {
 		if (this.options.getDisabled()) return;
-		this.options.getField()?.setFocused(true);
+		this.options.getField().setFocused(true);
 	}
 
 	handleBlur(event: FocusEvent) {
 		if (this.options.getDisabled()) return;
 		const field = this.options.getField();
-		field?.setTouched(true);
-		field?.setFocused(false);
+		field.setTouched(true);
+		field.setFocused(false);
 		if (this.options.getReadOnly()) return;
 
 		const hadManualInput = !this.allowInputSync;
@@ -391,7 +381,7 @@ export class NumberFieldModel {
 			const clearDetails = createChangeEventDetails(REASONS.inputClear, event);
 			this.setValue(null, clearDetails);
 			if (clearDetails.isCanceled) return;
-			if (field?.validationMode === 'onBlur') field.commit(null);
+			if (field.validationMode === 'onBlur') field.commit(null);
 			if (hadManualInput || hadPending || previous !== null) {
 				this.commit(null, createGenericEventDetails(REASONS.inputClear, event));
 			}
@@ -418,7 +408,7 @@ export class NumberFieldModel {
 			if (changeDetails.isCanceled) return;
 			committedValue = this.lastChangedValue;
 		}
-		if (field?.validationMode === 'onBlur') field.commit(committedValue);
+		if (field.validationMode === 'onBlur') field.commit(committedValue);
 		if (shouldCommit) {
 			this.commit(committedValue, createGenericEventDetails(REASONS.inputBlur, event));
 		}

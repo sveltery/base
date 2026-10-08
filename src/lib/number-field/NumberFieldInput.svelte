@@ -31,13 +31,13 @@
 	}: NumberFieldInputProps = $props();
 
 	const model = useNumberFieldContext();
-	const field = useFieldContext(true);
+	const field = useFieldContext();
 	const labelable = useLabelableContext(true);
 
 	const state: NumberFieldInputState = $derived(model.state);
 	const describedBy = $derived(labelable?.describedBy(ariaDescribedBy ?? undefined));
 	const ariaInvalid = $derived(
-		!state.disabled && (field?.invalid || field?.state.valid === false) ? true : undefined
+		!state.disabled && (field.invalid || field.state.valid === false) ? true : undefined
 	);
 
 	function remember(node: HTMLElement) {

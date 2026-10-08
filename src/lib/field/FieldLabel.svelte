@@ -6,6 +6,7 @@
 -->
 <script lang="ts">
 	import { DEV } from 'esm-env';
+	import { untrack } from 'svelte';
 	import { createAttachmentKey } from 'svelte/attachments';
 	import type { HTMLAttributes, HTMLLabelAttributes } from 'svelte/elements';
 	import { getStateAttributesProps } from '../internal/state-attributes.js';
@@ -32,11 +33,13 @@
 	const item = useFieldItemContext();
 	const labelable = useLabelableContext();
 	const id = $derived(idProp ?? `base-ui-${uid}`);
-	// Effects do not run while the label is rendered on the server, so publish
-	// the id now. OTP inputs read it for aria-labelledby in that same render.
-	// The effect below tracks later id changes.
-	// svelte-ignore state_referenced_locally
-	labelable.setLabelId(idProp ?? `base-ui-${uid}`);
+	// Effects do not run on the server. One untracked write publishes the id
+	// during this render. Controls rendered after this label can read it.
+	let published = '';
+	untrack(() => {
+		published = id;
+		labelable.setLabelId(published);
+	});
 
 	const labelState: FieldLabelState = $derived({
 		...field.state,
@@ -54,6 +57,8 @@
 
 	$effect(() => {
 		const nextId = id;
+		if (nextId === published) return;
+		published = nextId;
 		labelable.setLabelId(nextId);
 		return () => {
 			labelable.setLabelId((current) => (current === nextId ? undefined : current));

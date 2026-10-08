@@ -58,7 +58,7 @@
 	}: SliderRootProps = $props();
 
 	const reading = useDirection();
-	const field = useFieldContext(true);
+	const field = useFieldContext();
 	const form = useFormContext();
 	const labelable = useLabelableContext(true);
 
@@ -74,8 +74,8 @@
 		}
 	});
 	const valueUnwrapped = $derived(controllable.value as SliderValue);
-	const disabled = $derived(Boolean(field?.disabled) || disabledProp);
-	const name = $derived(field?.name ?? nameProp);
+	const disabled = $derived(Boolean(field.disabled) || disabledProp);
+	const name = $derived(field.name ?? nameProp);
 	const rootId = $derived(idProp || `base-ui-${uid}`);
 
 	function writeValue(next: SliderValue) {
@@ -141,15 +141,15 @@
 
 	function commitFieldValue(next: SliderValue) {
 		form.clearErrors(name);
-		const initial = field?.validityData.initialValue;
+		const initial = field.validityData.initialValue;
 		const isDirty =
 			Array.isArray(next) && Array.isArray(initial)
 				? !areArraysEqual(next, initial)
 				: next !== initial;
-		field?.setDirty(isDirty);
+		field.setDirty(isDirty);
 		// `change` validates on change, and otherwise revalidates a field that is
 		// already invalid. An on-blur error can clear while the thumb is still moving.
-		field?.change(next);
+		field.change(next);
 	}
 
 	watchFieldControl(field, {
@@ -174,7 +174,7 @@
 				role: 'group',
 				...(linkedLabel ? { 'aria-labelledby': linkedLabel } : {}),
 				...(describedBy ? { 'aria-describedby': describedBy } : {}),
-				...(partState.valid === false && !field?.disabled && !disabled
+				...(partState.valid === false && !field.disabled && !disabled
 					? { 'aria-invalid': true as const }
 					: {})
 			};

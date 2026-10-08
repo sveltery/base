@@ -334,7 +334,7 @@ describe('Field', () => {
 		});
 
 		it('throws when a part is rendered outside Field.Root', () => {
-			expect(() => render(Field.Label)).toThrow(/FieldRootContext is missing/);
+			expect(() => render(Field.Label)).toThrow(/LabelableContext is missing/);
 		});
 
 		it('warns when nativeLabel does not match the host', async () => {

@@ -1,6 +1,5 @@
 <script lang="ts">
 	import { flushSync } from 'svelte';
-	import type { Attachment } from 'svelte/attachments';
 	import { Field, Form, OTPField } from '#lib';
 	import type { FieldRootActions } from '../lib/field/types.js';
 	import FieldRegisterProbe from './FieldRegisterProbe.svelte';
@@ -9,7 +8,13 @@
 		scenario
 	}: {
 		scenario:
-			'otp-digits' | 'otp-submit' | 'disabled' | 'blur-flush' | 'enter-flush' | 'enter-stopped';
+			| 'otp-digits'
+			| 'otp-submit'
+			| 'disabled'
+			| 'blur-flush'
+			| 'blur-trim'
+			| 'enter-flush'
+			| 'enter-idle';
 	} = $props();
 
 	let count = $state(0);
@@ -20,16 +25,6 @@
 	let calls = $state<string[]>([]);
 	let submitted = $state('');
 	let actions = $state<FieldRootActions>();
-
-	const blockSubmit: Attachment<HTMLElement> = (node) => {
-		if (scenario !== 'enter-stopped') return;
-		const stop = (event: Event) => {
-			event.preventDefault();
-			event.stopPropagation();
-		};
-		node.addEventListener('submit', stop, true);
-		return () => node.removeEventListener('submit', stop, true);
-	};
 
 	function record(next: unknown) {
 		calls = [...calls, String(next)];
@@ -92,28 +87,53 @@
 		/>
 	</Field.Root>
 	<p data-testid="calls">{JSON.stringify(calls)}</p>
-{:else if scenario === 'enter-flush' || scenario === 'enter-stopped'}
-	<div {@attach blockSubmit}>
-		<Form
-			onFormSubmit={(values) => {
-				submitted = JSON.stringify(values);
+{:else if scenario === 'blur-trim'}
+	<Field.Root
+		validationMode="onBlur"
+		validate={(value) => {
+			calls = [...calls, String(value)];
+			return String(value).length < 3 ? 'short' : null;
+		}}
+	>
+		<Field.Control
+			bind:value={text}
+			data-testid="control"
+			onblur={() => {
+				text = text.trim();
 			}}
-		>
-			<Field.Root name="email" validate={record}>
-				<Field.Control
-					bind:value={fresh}
-					data-testid="control"
-					onkeydown={(event) => {
-						if (event.key !== 'Enter') return;
-						flushSync(() => {
-							fresh = 'fresh';
-						});
-					}}
-				/>
-			</Field.Root>
-			<button type="submit">Submit</button>
-		</Form>
-	</div>
+		/>
+	</Field.Root>
+	<p data-testid="calls">{JSON.stringify(calls)}</p>
+{:else if scenario === 'enter-flush'}
+	<Form
+		onFormSubmit={(values) => {
+			submitted = JSON.stringify(values);
+		}}
+	>
+		<Field.Root name="email" validate={record}>
+			<Field.Control
+				bind:value={fresh}
+				data-testid="control"
+				onkeydown={(event) => {
+					if (event.key !== 'Enter') return;
+					flushSync(() => {
+						fresh = 'fresh';
+					});
+				}}
+			/>
+		</Field.Root>
+		<button type="submit">Submit</button>
+	</Form>
 	<p data-testid="calls">{JSON.stringify(calls)}</p>
 	<p data-testid="values">{submitted}</p>
+{:else if scenario === 'enter-idle'}
+	<Form>
+		<Field.Root name="a" validate={record}>
+			<Field.Control defaultValue="x" data-testid="control" />
+		</Field.Root>
+		<Field.Root name="b">
+			<Field.Control />
+		</Field.Root>
+	</Form>
+	<p data-testid="calls">{JSON.stringify(calls)}</p>
 {/if}

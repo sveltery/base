@@ -58,12 +58,20 @@ describe('field registration', () => {
 		expect(text('calls')).toBe(JSON.stringify(['fresh']));
 	});
 
-	it('does not validate Enter on a timer when the form never submits', async () => {
-		render(FieldRegistrationHarness, { scenario: 'enter-stopped' });
+	it('validates the trimmed value written in onblur without flushSync', async () => {
+		render(FieldRegistrationHarness, { scenario: 'blur-trim' });
 		const control = page.getByTestId('control');
-		await control.click();
-		await userEvent.keyboard('{Enter}');
-		await new Promise((resolve) => setTimeout(resolve, 20));
-		expect(text('calls')).toBe(JSON.stringify([]));
+		control.element().dispatchEvent(new FocusEvent('blur', { bubbles: true }));
+		await expect.poll(() => text('calls')).toBe(JSON.stringify(['hi']));
+		await expect.element(control).toHaveAttribute('data-invalid', '');
+	});
+
+	it('validates Enter when the form never submits', async () => {
+		render(FieldRegistrationHarness, { scenario: 'enter-idle' });
+		const control = page.getByTestId('control').element() as HTMLInputElement;
+		control.focus();
+		control.setSelectionRange(control.value.length, control.value.length);
+		await userEvent.keyboard('y{Enter}');
+		await expect.poll(() => text('calls')).toBe(JSON.stringify(['xy']));
 	});
 });

@@ -4,7 +4,7 @@
 	(commit 47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c). MIT, see THIRD_PARTY_NOTICES.md.
 -->
 <script lang="ts">
-	import { untrack } from 'svelte';
+	import { flushSync, untrack } from 'svelte';
 	import { createAttachmentKey } from 'svelte/attachments';
 	import type { HTMLAttributes, HTMLInputAttributes } from 'svelte/elements';
 	import { useFormContext } from '../form/context.js';
@@ -15,7 +15,6 @@
 	import { fieldValidityMapping } from './attributes.js';
 	import { useFieldContext } from './context.svelte.js';
 	import { Labelable, useLabelableContext } from './labelable.svelte.js';
-	import { FieldRootModel } from './model.svelte.js';
 	import type { FieldControlProps, FieldControlState } from './types.js';
 
 	type ValueElement = HTMLElement & { value: string; form?: HTMLFormElement | null };
@@ -44,25 +43,11 @@
 
 	const form = useFormContext();
 	const fallbackId = `base-ui-${uid}`;
-	const fieldFromContext = useFieldContext(true);
+	// Outside Field.Root this is the shared inert field. Registration and
+	// validation no-op. A private labelable still supplies ids.
+	const field = useFieldContext();
 	const labelableFromContext = useLabelableContext(true);
-	// Standalone Input has no Field.Root. It gets a private model and labelable.
 	const labelable = labelableFromContext ?? new Labelable(undefined, () => fallbackId);
-	const field =
-		fieldFromContext ??
-		new FieldRootModel({
-			form,
-			labelable,
-			getDisabledProp: () => false,
-			getFieldsetDisabled: () => false,
-			getName: () => undefined,
-			getInvalidProp: () => undefined,
-			getDirtyProp: () => undefined,
-			getTouchedProp: () => undefined,
-			getValidationModeProp: () => undefined,
-			getValidationDebounceTime: () => 0,
-			getValidate: () => undefined
-		});
 
 	const controllable = createControllableValue<string | number | null | undefined>({
 		getProp: () => value,
@@ -200,7 +185,9 @@
 		field.setFocused(false);
 
 		if (field.validationMode !== 'onBlur') return;
-		field.commit(event.currentTarget.value);
+		// `onblur` may have written `bind:value` without flushing. Commit that value.
+		flushSync();
+		field.commit(inputEl?.value ?? event.currentTarget.value);
 	}
 
 	function handleKeyDown(event: KeyboardEvent & { currentTarget: EventTarget & HTMLInputElement }) {
@@ -209,9 +196,17 @@
 
 		field.setTouched(true);
 		const ownerForm = event.currentTarget.form;
-		// The form's submit handler validates. A timeout would commit a later value
-		// after flushSync had already written the next one.
-		if (ownerForm && ownerForm === form.element && !event.defaultPrevented) return;
+		if (ownerForm && ownerForm === form.element && !event.defaultPrevented) {
+			const input = event.currentTarget;
+			const submitCount = form.submitCount;
+			// Submit increments the count and validates. If Enter never submits,
+			// this still commits the value the input has when the timer fires.
+			setTimeout(() => {
+				if (form.submitCount !== submitCount) return;
+				field.commit(input.value);
+			}, 0);
+			return;
+		}
 		field.commit(event.currentTarget.value);
 	}
 

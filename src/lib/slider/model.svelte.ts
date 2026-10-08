@@ -13,7 +13,7 @@ import {
 	createGenericEventDetails,
 	REASONS
 } from '../internal/event-details.js';
-import { DEFAULT_FIELD_STATE, type FieldRootModel } from '../field/model.svelte.js';
+import type { FieldRootModel } from '../field/model.svelte.js';
 import type { FormContextValue } from '../form/context.js';
 import { asc } from './asc.js';
 import { ownerDocument, ownerWindow } from '../internal/owner.js';
@@ -89,7 +89,7 @@ export interface SliderModelOptions {
 		((value: SliderValue, eventDetails: SliderChangeEventDetails) => void) | undefined;
 	getOnValueCommitted: () =>
 		((value: SliderValue, eventDetails: SliderCommitEventDetails) => void) | undefined;
-	getField: () => FieldRootModel | undefined;
+	getField: () => FieldRootModel;
 	getFormContext: () => FormContextValue;
 	getDirection: () => 'ltr' | 'rtl';
 }
@@ -268,7 +268,7 @@ export class SliderRootModel {
 	snapshot(): SliderRootState {
 		const field = this.options.getField();
 		return {
-			...(field?.state ?? DEFAULT_FIELD_STATE),
+			...field.state,
 			activeThumbIndex: this.active,
 			disabled: this.disabled,
 			dragging: this.dragging,
@@ -368,7 +368,7 @@ export class SliderRootModel {
 			newValue,
 			createChangeEventDetails(reason, event, undefined, { activeThumbIndex: index })
 		);
-		this.options.getField()?.setTouched(true);
+		this.options.getField().setTouched(true);
 		if (applied) {
 			this.options.getOnValueCommitted()?.(newValue, createGenericEventDetails(reason, event));
 		}
@@ -382,7 +382,7 @@ export class SliderRootModel {
 		const restoring = this.restoringFocusVisible;
 		this.restoringFocusVisible = false;
 		this.setActive(index);
-		this.options.getField()?.setFocused(true);
+		this.options.getField().setFocused(true);
 		const input = event.currentTarget;
 		if (input instanceof HTMLInputElement) {
 			this.fieldInput = input;
@@ -403,9 +403,9 @@ export class SliderRootModel {
 		if (this.thumbs.some((thumb) => contains(thumb.element, event.relatedTarget))) return false;
 
 		const field = this.options.getField();
-		field?.setTouched(true);
-		field?.setFocused(false);
-		if (field?.validationMode === 'onBlur') {
+		field.setTouched(true);
+		field.setFocused(false);
+		if (field.validationMode === 'onBlur') {
 			const thumbValue = this.values[index];
 			field.commit(getSliderValue(thumbValue, index, this.min, this.max, this.range, this.values));
 		}

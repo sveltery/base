@@ -6,7 +6,7 @@
 // parent update. Props are read through getters. Element lists live on SlotList.
 
 import type { HTMLInputAttributes } from 'svelte/elements';
-import { DEFAULT_FIELD_STATE, type FieldRootModel } from '../field/model.svelte.js';
+import type { FieldRootModel } from '../field/model.svelte.js';
 import type { FormContextValue } from '../form/context.js';
 import {
 	createChangeEventDetails,
@@ -48,7 +48,7 @@ export interface OTPFieldModelOptions {
 	getOnValueChange: () => OTPFieldRootProps['onValueChange'];
 	getOnValueInvalid: () => OTPFieldRootProps['onValueInvalid'];
 	getOnValueComplete: () => OTPFieldRootProps['onValueComplete'];
-	getField: () => FieldRootModel | undefined;
+	getField: () => FieldRootModel;
 	getForm: () => FormContextValue;
 }
 
@@ -181,12 +181,12 @@ export class OTPFieldModel {
 	}
 
 	get invalid() {
-		return this.field?.invalid;
+		return this.field.invalid;
 	}
 
 	get state(): OTPFieldRootState {
 		return {
-			...(this.field?.state ?? DEFAULT_FIELD_STATE),
+			...this.field.state,
 			complete: this.value.length === this.length,
 			disabled: this.disabled,
 			filled: this.filled,
@@ -205,7 +205,7 @@ export class OTPFieldModel {
 	}
 
 	publishFilled(filled: boolean) {
-		this.field?.setFilled(filled);
+		this.field.setFilled(filled);
 	}
 
 	/**
@@ -321,18 +321,18 @@ export class OTPFieldModel {
 
 		this.focusedIndex = index;
 		this.focused = true;
-		this.field?.setFocused(true);
+		this.field.setFocused(true);
 		event.currentTarget.select();
 	}
 
 	handleInputBlur(event: FocusEvent) {
 		if (contains(this.root, event.relatedTarget)) return;
 
-		this.field?.setTouched(true);
+		this.field.setTouched(true);
 		this.focused = false;
-		this.field?.setFocused(false);
+		this.field.setFocused(false);
 
-		if (this.field?.validationMode === 'onBlur') {
+		if (this.field.validationMode === 'onBlur') {
 			this.field.commit(this.value);
 		}
 	}
@@ -341,8 +341,8 @@ export class OTPFieldModel {
 		const name = this.name;
 		this.options.getForm().clearErrors(name);
 		const field = this.field;
-		field?.setDirty(next !== field.validityData.initialValue);
-		field?.change(next);
+		field.setDirty(next !== field.validityData.initialValue);
+		field.change(next);
 
 		const pendingFocus = this.pendingFocus;
 		if (pendingFocus != null) {

@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { Field, Input } from '#lib';
+	import { Field, Form, Input } from '#lib';
 	import FormSubmit from '../routes/fixtures/FormSubmit.svelte';
 	import { takeForm } from '../routes/fixtures/form-log.js';
 
@@ -91,6 +91,31 @@
 {:else if scenario === 'standalone'}
 	<Input bind:value={bound} data-testid="control" />
 	<output data-testid="value">{bound}</output>
+{:else if scenario === 'form-required'}
+	<Form
+		onFormSubmit={(formValues) => {
+			values = JSON.stringify(formValues);
+		}}
+	>
+		<Input required name="q" data-testid="control" />
+		<button type="submit">Submit</button>
+	</Form>
+	<output data-testid="values">{values}</output>
+{:else if scenario === 'form-named'}
+	<Form
+		onFormSubmit={(formValues) => {
+			values = JSON.stringify(formValues);
+		}}
+	>
+		<Input name="q" defaultValue="z" data-testid="control" />
+		<button type="submit">Submit</button>
+	</Form>
+	<output data-testid="values">{values}</output>
+{:else if scenario === 'pair'}
+	<Input data-testid="one" />
+	<Input data-testid="two" />
+{:else if scenario === 'inert-state'}
+	<Input data-testid="control" />
 {:else if scenario === 'bound'}
 	<Field.Root data-testid="field">
 		<Input bind:value={bound} data-testid="control" {onValueChange} />
