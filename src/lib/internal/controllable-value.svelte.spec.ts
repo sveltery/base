@@ -27,6 +27,14 @@ describe('createControllableValue', () => {
 		expect(text('log')).toBe('["c"]');
 	});
 
+	it('keeps an announce when a same-value set follows it in one tick', async () => {
+		render(ControllableValueHarness, { mode: 'flip' });
+		await page.getByTestId('announce-then-set').click();
+		await expect.element(page.getByTestId('value')).toHaveTextContent('a');
+		expect(text('log')).toBe('["a"]');
+		expect(text('reasons')).toBe('["now"]');
+	});
+
 	it('announces the current value without treating a same-value write as a change', async () => {
 		render(ControllableValueHarness, { mode: 'flip' });
 		await page.getByTestId('announce').click();

@@ -65,6 +65,8 @@ export function useDismiss(store: FloatingRootStore, props: () => UseDismissProp
 	let composing = false;
 	let sawPressWhileOpen = false;
 	let pressStartedInside = false;
+	/** The click after an inside press still belongs to that press. A cancel has no click. */
+	let ignoreInsideReleaseClick = false;
 
 	function options() {
 		const value = props();
@@ -151,6 +153,7 @@ export function useDismiss(store: FloatingRootStore, props: () => UseDismissProp
 			if (!store.isOpen()) {
 				sawPressWhileOpen = false;
 				pressStartedInside = false;
+				ignoreInsideReleaseClick = false;
 			}
 			return;
 		}
@@ -169,13 +172,36 @@ export function useDismiss(store: FloatingRootStore, props: () => UseDismissProp
 			on(doc, 'keydown', closeOnEscape),
 			on(doc, 'pointerdown', (event) => {
 				if (event.button !== 0) return;
+				ignoreInsideReleaseClick = false;
 				if (insideDismissTree(event)) pressStartedInside = true;
 				else sawPressWhileOpen = true;
 				closeOnOutside(event);
 			}),
+			on(
+				doc,
+				'pointerup',
+				() => {
+					if (!pressStartedInside) return;
+					pressStartedInside = false;
+					ignoreInsideReleaseClick = true;
+				},
+				{ capture: true }
+			),
+			on(
+				doc,
+				'pointercancel',
+				() => {
+					// A cancelled gesture, such as a scroll, produces no click.
+					sawPressWhileOpen = false;
+					pressStartedInside = false;
+					ignoreInsideReleaseClick = false;
+				},
+				{ capture: true }
+			),
 			on(doc, 'click', (event) => {
-				const startedInside = pressStartedInside;
+				const startedInside = pressStartedInside || ignoreInsideReleaseClick;
 				pressStartedInside = false;
+				ignoreInsideReleaseClick = false;
 				if (startedInside) return;
 				closeOnOutside(event);
 			})

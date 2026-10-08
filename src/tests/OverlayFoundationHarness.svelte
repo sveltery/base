@@ -16,13 +16,16 @@
 		useScrollLock
 	} from '#lib/internal/popups/index.js';
 	import type { PopupChangeEventDetails } from '#lib/internal/popups/index.js';
+	import type { OpenInteractionType } from '#lib/internal/openInteraction.js';
 	import { getStateAttributesProps } from '#lib/internal/state-attributes.js';
 
 	let {
-		scenario = 'modal' as 'modal' | 'modeless' | 'cancel' | 'stuck' | 'drag' | 'return',
+		scenario = 'modal' as
+			'modal' | 'modeless' | 'cancel' | 'stuck' | 'drag' | 'return' | 'null-return' | 'close-type',
 		defaultOpen = false
 	}: {
-		scenario?: 'modal' | 'modeless' | 'cancel' | 'stuck' | 'drag' | 'return';
+		scenario?:
+			'modal' | 'modeless' | 'cancel' | 'stuck' | 'drag' | 'return' | 'null-return' | 'close-type';
 		defaultOpen?: boolean;
 	} = $props();
 
@@ -31,8 +34,19 @@
 	let calls = $state<{ open: boolean; reason: string; canceled: boolean }[]>([]);
 	let statusLog = $state('[]');
 	const seenStatuses: string[] = [];
-	const modal = $derived(scenario !== 'modeless' && scenario !== 'drag' && scenario !== 'return');
+	const modal = $derived(
+		scenario !== 'modeless' &&
+			scenario !== 'drag' &&
+			scenario !== 'return' &&
+			scenario !== 'null-return'
+	);
+
+	function focusReturn(kind: OpenInteractionType | null) {
+		closeKind = kind ?? '';
+		return true;
+	}
 	let explicit = $state<HTMLButtonElement | null>(null);
+	let closeKind = $state('');
 
 	const openValue = createControllableValue<boolean>({
 		getProp: () => open,
@@ -66,7 +80,8 @@
 	const click = useClick(store, () => ({ enabled: true }));
 	const dismiss = useDismiss(store, () => ({
 		escapeKey: true,
-		outsidePress: scenario === 'return' ? false : modal ? false : true,
+		outsidePress:
+			scenario === 'return' || scenario === 'null-return' ? false : modal ? false : true,
 		outsidePressEvent:
 			scenario === 'drag' ? ({ mouse: 'intentional', touch: 'sloppy' } as const) : 'sloppy'
 	}));
@@ -116,10 +131,21 @@
 	<button type="button" data-testid="other">Other</button>
 	<div data-testid="outside">Outside</div>
 	<pre data-testid="calls">{JSON.stringify(calls)}</pre>
+	<pre data-testid="close-kind">{closeKind}</pre>
 	<pre data-testid="statuses">{statusLog}</pre>
 	{#if store.mounted}
 		<FloatingPortal {store}>
-			<FloatingFocusManager {store} {modal} returnFocus={scenario === 'return' ? explicit : true}>
+			<FloatingFocusManager
+				{store}
+				{modal}
+				returnFocus={scenario === 'return'
+					? explicit
+					: scenario === 'null-return'
+						? null
+						: scenario === 'close-type'
+							? focusReturn
+							: true}
+			>
 				<div
 					role="dialog"
 					aria-labelledby="popup-title"

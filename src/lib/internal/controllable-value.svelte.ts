@@ -95,8 +95,9 @@ export function createControllableValue<T, Details = unknown>(options: {
 			const settled = untrack(() => value);
 			// Upstream `useValueChanged` skips a value that did not change, including
 			// a round trip that is back where it started before the notice runs.
+			// A same-value `set` must not drop an `announce` already queued for it.
 			if (Object.is(settled, lastNotified)) {
-				pending = null;
+				if (!(pending?.announce && Object.is(pending.value, settled))) pending = null;
 				return;
 			}
 			pending = { value: settled, details };

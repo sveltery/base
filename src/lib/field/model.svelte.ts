@@ -450,8 +450,6 @@ export class FieldRootModel {
 	}
 
 	private readControlValue() {
-		const registration = this.registration;
-		if (registration?.getValue) return registration.getValue();
 		const element = this.inputElement;
 		if (isConstraintElement(element)) return element.value;
 		return undefined;
