@@ -4,6 +4,7 @@
 	// The trap is focus guards plus aria-hidden on outside nodes. It does not set the inert attribute.
 
 	import { on } from 'svelte/events';
+	import { untrack } from 'svelte';
 	import type { Snippet } from 'svelte';
 	import { createChangeEventDetails, REASONS } from '../../event-details.js';
 	import FocusGuard from '../../FocusGuard.svelte';
@@ -29,7 +30,11 @@
 		store: FloatingRootStore;
 		children?: Snippet;
 		disabled?: boolean;
-		initialFocus?: boolean | HTMLElement | null;
+		initialFocus?:
+			| boolean
+			| HTMLElement
+			| null
+			| ((openType: OpenInteractionType) => boolean | HTMLElement | null | void);
 		returnFocus?:
 			| boolean
 			| HTMLElement
@@ -75,6 +80,9 @@
 	/** How this open session closed. Not state: the trap effect must not depend on it. */
 	let closeType: OpenInteractionType = '';
 	let lastInteraction: OpenInteractionType = '';
+	/** One initial-focus result per open. A later result must not rebuild the trap. */
+	let initialSettled = false;
+	let settledInitial: HTMLElement | false = false;
 
 	function eventInteraction(event: Event, previous: OpenInteractionType): OpenInteractionType {
 		const target = getTarget(event);
@@ -120,6 +128,28 @@
 		});
 	}
 
+	function openedBy(): OpenInteractionType {
+		if (!('openMethod' in store)) return '';
+		const method = (store as { openMethod?: OpenInteractionType | null }).openMethod;
+		return method ?? '';
+	}
+
+	function resolveInitial(floating: HTMLElement): HTMLElement | false {
+		const spec = initialFocus;
+		if (spec === false) return false;
+		const resolved = typeof spec === 'function' ? spec(openedBy()) : spec;
+		if (resolved === false || resolved === undefined) return false;
+		if (resolved instanceof HTMLElement) return resolved;
+		return tabbables(floating)[0] ?? floating;
+	}
+
+	function takeInitial(floating: HTMLElement): HTMLElement | false {
+		if (initialSettled) return settledInitial;
+		initialSettled = true;
+		settledInitial = untrack(() => resolveInitial(floating));
+		return settledInitial;
+	}
+
 	function noteClose(data?: unknown) {
 		const payload = data as OpenChangePayload | undefined;
 		if (!payload || payload.open || !payload.nativeEvent) return;
@@ -127,7 +157,10 @@
 	}
 
 	$effect(() => {
-		if (disabled || !store.isOpen()) return;
+		if (disabled || !store.isOpen()) {
+			initialSettled = false;
+			return;
+		}
 		closeType = '';
 		lastInteraction = '';
 		const floating = store.floatingElement;
@@ -142,11 +175,10 @@
 		const mark = markOthers(inside);
 		let cancelFocus = () => {};
 
-		if (initialFocus !== false) {
-			const explicit = initialFocus instanceof HTMLElement ? initialFocus : null;
-			const target = explicit ?? tabbables(floating)[0] ?? floating;
-			cancelFocus = enqueueFocus(target, {
-				preventScroll: target === floating,
+		const initialTarget = takeInitial(floating);
+		if (initialTarget !== false) {
+			cancelFocus = enqueueFocus(initialTarget, {
+				preventScroll: initialTarget === floating,
 				shouldFocus: () => store.isOpen() && !contains(floating, activeElement(doc))
 			});
 		}

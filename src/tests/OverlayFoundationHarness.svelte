@@ -21,11 +21,29 @@
 
 	let {
 		scenario = 'modal' as
-			'modal' | 'modeless' | 'cancel' | 'stuck' | 'drag' | 'return' | 'null-return' | 'close-type',
+			| 'modal'
+			| 'modeless'
+			| 'cancel'
+			| 'stuck'
+			| 'drag'
+			| 'return'
+			| 'null-return'
+			| 'close-type'
+			| 'initial'
+			| 'initial-skip',
 		defaultOpen = false
 	}: {
 		scenario?:
-			'modal' | 'modeless' | 'cancel' | 'stuck' | 'drag' | 'return' | 'null-return' | 'close-type';
+			| 'modal'
+			| 'modeless'
+			| 'cancel'
+			| 'stuck'
+			| 'drag'
+			| 'return'
+			| 'null-return'
+			| 'close-type'
+			| 'initial'
+			| 'initial-skip';
 		defaultOpen?: boolean;
 	} = $props();
 
@@ -46,7 +64,19 @@
 		return true;
 	}
 	let explicit = $state<HTMLButtonElement | null>(null);
+	let chosen = $state<HTMLButtonElement | null>(null);
 	let closeKind = $state('');
+	let initialCalls = $state(0);
+	let initialKind = $state('');
+	let nudge = $state(0);
+
+	function initialTarget(kind: OpenInteractionType) {
+		void nudge;
+		initialCalls += 1;
+		initialKind = kind;
+		if (scenario === 'initial-skip') return false;
+		return chosen;
+	}
 
 	const openValue = createControllableValue<boolean>({
 		getProp: () => open,
@@ -129,15 +159,19 @@
 	<button {...triggerProps}>Open</button>
 	<button type="button" data-testid="explicit" bind:this={explicit}>Explicit</button>
 	<button type="button" data-testid="other">Other</button>
+	<button type="button" data-testid="nudge" onclick={() => (nudge += 1)}>Nudge</button>
 	<div data-testid="outside">Outside</div>
 	<pre data-testid="calls">{JSON.stringify(calls)}</pre>
 	<pre data-testid="close-kind">{closeKind}</pre>
+	<pre data-testid="initial-calls">{initialCalls}</pre>
+	<pre data-testid="initial-kind">{initialKind}</pre>
 	<pre data-testid="statuses">{statusLog}</pre>
 	{#if store.mounted}
 		<FloatingPortal {store}>
 			<FloatingFocusManager
 				{store}
 				{modal}
+				initialFocus={scenario === 'initial' || scenario === 'initial-skip' ? initialTarget : true}
 				returnFocus={scenario === 'return'
 					? explicit
 					: scenario === 'null-return'
@@ -156,6 +190,7 @@
 				>
 					<h2 id="popup-title">Notice</h2>
 					<button type="button">Inside</button>
+					<button type="button" data-testid="chosen" bind:this={chosen}>Chosen</button>
 				</div>
 			</FloatingFocusManager>
 		</FloatingPortal>

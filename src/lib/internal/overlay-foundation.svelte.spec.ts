@@ -159,6 +159,26 @@ describe('overlay foundation', () => {
 		await expect.poll(() => page.getByRole('dialog', { name: 'Notice' }).elements().length).toBe(0);
 	});
 
+	it('settles a function initialFocus once for the open interaction', async () => {
+		render(OverlayFoundationHarness, { scenario: 'initial' });
+		expect(page.getByTestId('initial-calls').element().textContent).toBe('0');
+		await page.getByRole('button', { name: 'Open' }).click();
+		await expect.element(page.getByTestId('chosen')).toHaveFocus();
+		expect(page.getByTestId('initial-calls').element().textContent).toBe('1');
+		expect(page.getByTestId('initial-kind').element().textContent).toBe('mouse');
+		await page.getByTestId('nudge').click();
+		expect(page.getByTestId('initial-calls').element().textContent).toBe('1');
+	});
+
+	it('skips initial focus when the function returns false', async () => {
+		render(OverlayFoundationHarness, { scenario: 'initial-skip' });
+		const trigger = page.getByRole('button', { name: 'Open' });
+		await trigger.click();
+		await expect.element(page.getByRole('dialog', { name: 'Notice' })).toBeVisible();
+		expect(document.activeElement).toBe(document.getElementById('open-trigger'));
+		expect(page.getByTestId('initial-calls').element().textContent).toBe('1');
+	});
+
 	it('reports Escape as the close interaction after a pointer open', async () => {
 		render(OverlayFoundationHarness, { scenario: 'close-type' });
 		const trigger = page.getByRole('button', { name: 'Open' });
