@@ -36,7 +36,7 @@
 </script>
 
 {#if shown}
-	<FloatingPortal {store} {container} {...rest}>
+	<FloatingPortal {...rest} {store} {container}>
 		{#if store.mounted && store.modal === true}
 			<InternalBackdrop inert={!store.open ? true : undefined} {@attach ownInternalBackdrop} />
 		{/if}

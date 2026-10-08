@@ -494,9 +494,24 @@ describe('Dialog', () => {
 		expect(portal.classList.contains('portal-host')).toBe(true);
 		expect(portal.getAttribute('data-probe')).toBe('probe');
 		expect(portal.dataset.attached).toBe('yes');
+		// The consumer attachment runs after the move, so it sees the container.
+		expect(portal.dataset.attachedInBody).toBe('yes');
 		expect(portal.parentElement).toBe(document.body);
 		expect(portal.querySelector('[role="dialog"]')).not.toBeNull();
 		// The marker stays empty. A consumer value does not replace it.
 		expect(portal.getAttribute('data-base-ui-portal')).toBe('');
+	});
+
+	it('ignores a stray store prop on the portal', async () => {
+		const stray = { portalElement: null as HTMLElement | null };
+		render(PortalHostHarness, { part: 'dialog', stray });
+
+		await expect.poll(() => document.querySelector('[data-slot="dialog-portal"]')).not.toBeNull();
+		const portal = document.querySelector('[data-slot="dialog-portal"]');
+		if (!(portal instanceof HTMLDivElement)) throw new Error('portal is not a div');
+
+		expect(stray.portalElement).toBeNull();
+		expect(portal.parentElement).toBe(document.body);
+		expect(portal.querySelector('[role="dialog"]')).not.toBeNull();
 	});
 });
