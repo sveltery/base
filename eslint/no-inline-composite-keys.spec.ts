@@ -1,8 +1,8 @@
-import { execFileSync } from 'node:child_process';
 import { createRequire } from 'node:module';
 import { describe, expect, it } from 'vitest';
 import { ESLint, type Linter } from 'eslint';
 import ts from 'typescript-eslint';
+import { historicalSource } from './historical-source.js';
 import plugin from './plugin.js';
 
 const require = createRequire(import.meta.url);
@@ -46,13 +46,15 @@ function hits(source: string, messages: Linter.LintMessage[], line: number) {
 
 describe('sveltery/no-inline-composite-keys', () => {
 	it('rejects the inline composite sets on current main', async () => {
-		const tabs = execFileSync('git', ['show', `${main}:src/lib/tabs/roving-focus.svelte.ts`], {
-			encoding: 'utf8'
-		});
-		const toggles = execFileSync(
-			'git',
-			['show', `${main}:src/lib/toggle-group/roving-focus.svelte.ts`],
-			{ encoding: 'utf8' }
+		const tabs = historicalSource(
+			main,
+			'src/lib/tabs/roving-focus.svelte.ts',
+			new URL('fixtures/history/1504e68f-tabs-roving-focus.svelte.ts', import.meta.url)
+		);
+		const toggles = historicalSource(
+			main,
+			'src/lib/toggle-group/roving-focus.svelte.ts',
+			new URL('fixtures/history/1504e68f-toggle-group-roving-focus.svelte.ts', import.meta.url)
 		);
 		const [tabsResult] = await lint(tabs, 'src/lib/tabs/roving-focus.svelte.ts');
 		const [toggleResult] = await lint(toggles, 'src/lib/toggle-group/roving-focus.svelte.ts');

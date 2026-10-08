@@ -1,9 +1,9 @@
-import { execFileSync } from 'node:child_process';
 import { readFileSync } from 'node:fs';
 import { createRequire } from 'node:module';
 import { describe, expect, it } from 'vitest';
 import { ESLint, type Linter } from 'eslint';
 import ts from 'typescript-eslint';
+import { historicalSource } from './historical-source.js';
 import plugin from './plugin.js';
 
 const require = createRequire(import.meta.url);
@@ -40,10 +40,10 @@ function lint(code: string, filePath: string) {
 
 describe('sveltery/no-derived-inline-attachment', () => {
 	it('rejects the inline attachment at PopoverTrigger.svelte:121-126 on 86a14821', async () => {
-		const source = execFileSync(
-			'git',
-			['show', '86a148212f43e067ab3d9c0b78a353cfc369e8c6:src/lib/popover/PopoverTrigger.svelte'],
-			{ encoding: 'utf8' }
+		const source = historicalSource(
+			'86a148212f43e067ab3d9c0b78a353cfc369e8c6',
+			'src/lib/popover/PopoverTrigger.svelte',
+			new URL('fixtures/history/86a14821-PopoverTrigger.svelte', import.meta.url)
 		);
 		const [result] = await lint(source, 'src/lib/popover/PopoverTrigger.svelte');
 		const messages = (result?.messages ?? []).filter((message) => message.ruleId === ruleId);
