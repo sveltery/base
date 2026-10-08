@@ -63,7 +63,7 @@ Each framework writes some cases in its own idiom:
 
 ## Gotchas
 
-- Disabled triggers are focusable. Playwright can click them without `force`. The assertion is that nothing opened and no callback ran.
+- Disabled triggers are focusable. Playwright will not click an `aria-disabled` trigger unless `force: true`. The disabled e2e click uses `force`. The assertion is that nothing opened and no callback ran.
 - `data-starting-style` lasts one frame. A test that awaits a click can miss it; observe the attribute with a mutation observer or read it in the same flush.
 - Interacting before `data-hydrated="true"` races hydration.
 - The React reference bundles Base UI with `'use client'` directive warnings during `vite build`. They are expected noise.

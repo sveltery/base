@@ -35,7 +35,7 @@ Handles used by `src/routes/fixtures/toggle/toggle.e2e.ts`:
 - Owner of the `bound` case: `getByRole('checkbox', { name: 'Owner pressed' })`
 - Callback log: `getByTestId('calls')`, a JSON list of `{ pressed, reason, canceled }`
 
-Proof of working order: in both frameworks, `aria-pressed` and `data-pressed` change only through real clicks and key presses, and the `calls` log shows exactly the expected callbacks. Examples: one call with `canceled: true` and an unchanged state for `cancel`; no calls for `disabled` and `prevented`. The SSR test checks that the server HTML already contains `type="button"` and `aria-pressed="false"` before hydration.
+Proof of working order: in both frameworks, `aria-pressed` and `data-pressed` change through clicks, key presses, and the bound owner checkbox, and the `calls` log shows exactly the expected callbacks. Examples: one call with `canceled: true` and an unchanged state for `cancel`; no calls for `disabled` and `prevented`. The SSR test checks that the server HTML already contains `type="button"` and `aria-pressed="false"` before hydration.
 
 Each framework writes some cases in its own idiom, and both are held to the same assertions:
 

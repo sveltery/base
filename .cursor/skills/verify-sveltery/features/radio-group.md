@@ -15,7 +15,7 @@ Shared selection for a series of radios, with a roving tab stop. Upstream: `pack
 Differences from React Base UI, all deliberate:
 
 - No locked controlled mode. Hold the value with `eventDetails.cancel()`. `defaultValue` is the uncontrolled start.
-- No `inputRef`. No Field registration, validity, or `data-touched` / `data-dirty` / `data-filled`.
+- No `inputRef`. The hidden radio is not registered as the Field control, and the group does not set `data-touched`. A value change still marks the surrounding field dirty and filled and runs its validation.
 - No `className` or `style` state callbacks. No React `ref`. Use `{@attach}`.
 - No scroll-into-view. Arrow keys inside a nested text field are not given back to the field.
 
@@ -41,9 +41,9 @@ Handles used by `src/routes/fixtures/radio-group/radio-group.e2e.ts`:
 
 Proof of working order: in both frameworks, a click leaves one radio checked, arrows select and loop, RTL mirrors horizontal arrows, Home and End stay put, Shift+Arrow moves, a disabled or read-only group never checks a radio, cancel leaves `aria-checked` false, the owner and the group share one value, and required blocks submit until a radio is selected. The SSR test checks that the server HTML already contains `role="radiogroup"`, `aria-checked`, `tabindex="0"`, `tabindex="-1"`, and `type="radio"`.
 
-`bound` is written in each idiom. Svelte uses `bind:value` and starts at `undefined`. React uses `value` plus `onValueChange` and starts at `null`, because a first `value` of `undefined` locks Base UI into uncontrolled mode. RTL uses `dir="rtl"` in Svelte and `DirectionProvider` in React. The assertions are the same.
+`bound` is written in each idiom. Svelte uses `bind:value` and starts at `undefined`. React uses `value` plus `onValueChange` and starts at `null`, because a first `value` of `undefined` locks Base UI into uncontrolled mode. `rtl` sets `dir="rtl"` and wraps the group in `DirectionProvider` in both Svelte and React. The assertions are the same.
 
-Component tests (`src/lib/radio-group/RadioGroup.svelte.spec.ts`) port the upstream group, value, disabled, read-only, keyboard, label, fieldset legend, and form cases that do not need Field or `inputRef`.
+Component tests (`src/lib/radio-group/RadioGroup.svelte.spec.ts`) port the upstream group, value, disabled, read-only, keyboard, label, fieldset legend, and form cases. The Form block also covers Field dirty state, validation, and error clearing. There is no `inputRef`.
 
 ## Gotchas
 
@@ -54,4 +54,4 @@ Component tests (`src/lib/radio-group/RadioGroup.svelte.spec.ts`) port the upstr
 
 ## Not ported
 
-Field validation and the `data-touched` / `data-dirty` / `data-filled` hooks Field paints on the group. `inputRef`. `className` / `style` state callbacks. Scroll-into-view while arrowing. Giving arrow keys back to a nested text field.
+`data-touched` on the surrounding Field. The hidden radio is not the registered Field control. `inputRef`. `className` / `style` state callbacks. Scroll-into-view while arrowing. Giving arrow keys back to a nested text field.

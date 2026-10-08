@@ -43,7 +43,7 @@ Handles used by `src/routes/fixtures/toolbar/toolbar.e2e.ts`:
 
 Proof of working order: in both frameworks, horizontal arrows walk button, link, then grouped buttons and loop, vertical arrows use Down, RTL swaps Left and Right, Home and Shift+Arrow stay put, a disabled toolbar disables buttons but not links, disabled buttons remain arrow targets, a `focusableWhenDisabled={false}` button is skipped, and Space, Enter, and click each increment the count once. The SSR test checks that the server HTML already contains `role="toolbar"`, `aria-orientation="horizontal"`, `data-orientation="horizontal"`, `tabindex="0"`, and `tabindex="-1"`.
 
-`rtl` uses `dir="rtl"` in Svelte and `DirectionProvider` in React. The assertions are the same.
+`rtl` sets `dir="rtl"` and wraps the toolbar in `DirectionProvider` in both Svelte and React. The assertions are the same.
 
 Component tests (`src/lib/toolbar/Toolbar.svelte.spec.ts`) port the upstream root, button, group, and link cases that do not need Input or another overlay. Native-only checks cover one activation per key, the render snippet, the registration attachment, and which `preventDefault()` skips arrows.
 

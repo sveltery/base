@@ -34,7 +34,7 @@ Handles used by `src/routes/fixtures/direction-provider/direction-provider.e2e.t
 - Reading: `getByTestId('direction')`. Nested case: `getByTestId('outer')` and `getByTestId('inner')`.
 - Owner of the `reactive` case: `getByRole('button', { name: 'Flip direction' })`
 
-Proof of working order: in both frameworks, a page with no provider shows `ltr`, an omitted prop shows `ltr`, `direction="rtl"` shows `rtl`, the button swaps `rtl` and `ltr`, and a nested provider shows `rtl` outside and `ltr` inside. The SSR test checks that the server HTML already contains those readings before hydration.
+Proof of working order: in both frameworks, a page with no provider shows `ltr`, an omitted prop shows `ltr`, `direction="rtl"` shows `rtl`, the button swaps `rtl` and `ltr`, and a nested provider shows `rtl` outside and `ltr` inside. The SSR test checks the outside, rtl, and nested readings before hydration. It does not request `omitted` or `reactive`.
 
 Svelte reads `.direction`. React's `useDirection()` is the string. Both are held to the same text.
 

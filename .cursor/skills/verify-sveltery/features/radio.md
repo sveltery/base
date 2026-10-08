@@ -6,7 +6,7 @@ A single radio button. Upstream: `packages/react/src/radio/root/RadioRoot.tsx` a
 
 - `value` identifies the radio. Without a group, the radio is selected only when `value` is `''`. Any other value, including `null`, stays unchecked. Clicks, Space, and Enter do not select it. That is the upstream standalone behavior.
 - When a parent sets the radio group context, selection is `checkedValue === value` using object identity. A click, a label activation, or a focus while the group is touched calls `setCheckedValue(value, eventDetails)` with `reason: 'none'`. `eventDetails.cancel()` keeps the previous value and restores the hidden input. The activation event passed to the group is the click that checked the input, so modifier keys are visible. RadioGroup owns that context.
-- A consumer `onclick` runs first. `event.preventDefault()` skips the radio's handling. `stopPropagation()` still selects a grouped radio, and ancestors hear that one click.
+- A consumer `onclick` runs first. `event.preventDefault()` skips the radio's handling. `stopPropagation()` still selects a grouped radio. Ancestors do not receive that click.
 - The root is a `<span role="radio">` with `tabindex="0"`. A hidden radio is the form control. `value` is serialized onto that input (`null` becomes `""`, objects become JSON) and is not copied onto the root. Enter never activates the radio and does not submit the form.
 - `disabled`: `aria-disabled`, `data-disabled`, and `tabindex="-1"`. There is no `disabled` attribute on the span. Clicks do not select. The hidden radio is disabled.
 - `readOnly`: `data-readonly` on the root. There is no `aria-readonly`. The hidden radio is `readonly`. Clicks do not select.

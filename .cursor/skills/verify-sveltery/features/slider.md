@@ -49,7 +49,7 @@ Component tests (`src/lib/slider/Slider.svelte.spec.ts`) cover ARIA, keyboard, p
 ## Gotchas
 
 - `Slider` parts throw `SliderRootContext is missing` outside `Slider.Root`.
-- Displayed values are clamped and, for a range, sorted. The stored value changes only through `onValueChange`.
+- Displayed values are clamped and, for a range, sorted. User changes write the stored value only after `onValueChange`. A parent `bind:value` updates the stored value without that callback.
 - `thumbAlignment="edge"` includes the upstream prehydration script on the last thumb. `edge-client-only` measures on the client and omits the script.
 - A range `Slider.Label` click does not guess which thumb to focus.
 
