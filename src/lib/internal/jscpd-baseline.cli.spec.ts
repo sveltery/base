@@ -1,5 +1,5 @@
 import { execFileSync } from 'node:child_process';
-import { mkdirSync, mkdtempSync, readFileSync, rmSync, writeFileSync } from 'node:fs';
+import { mkdirSync, mkdtempSync, readFileSync, rmSync, symlinkSync, writeFileSync } from 'node:fs';
 import { tmpdir } from 'node:os';
 import path from 'node:path';
 import { describe, expect, it } from 'vitest';
@@ -55,11 +55,13 @@ function makeRepo(left: string, right: string) {
 	return { dir, sha };
 }
 
-function runGate(cwd: string, sha: string | null) {
-	const launch =
-		sha == null
-			? ['-u', 'JSCPD_BASE_SHA', process.execPath, script]
-			: [`JSCPD_BASE_SHA=${sha}`, process.execPath, script];
+function runGate(cwd: string, sha: string | null, tempDir?: string) {
+	const launch = [
+		...(tempDir == null ? [] : [`TMPDIR=${tempDir}`]),
+		...(sha == null ? ['-u', 'JSCPD_BASE_SHA'] : [`JSCPD_BASE_SHA=${sha}`]),
+		process.execPath,
+		script
+	];
 	try {
 		const stdout = execFileSync('env', launch, {
 			cwd,
@@ -148,6 +150,7 @@ describe('jscpd baseline CLI', () => {
 			const result = runGate(dir, sha);
 			expect(result.code).toBe(0);
 			expect(result.stdout).toContain('jscpd baseline compared with');
+			expect(result.stdout).toContain('1 clones');
 		} finally {
 			rmSync(dir, { recursive: true, force: true });
 		}
@@ -212,6 +215,107 @@ describe('jscpd baseline CLI', () => {
 			expect(result.stderr).toContain(
 				'typescript:eslint/lib/checkbox/attributes.ts|eslint/lib/radio/attributes.ts'
 			);
+		} finally {
+			rmSync(dir, { recursive: true, force: true });
+		}
+	}, 60_000);
+
+	it('rejects a stale pair and spare lines', () => {
+		const original = source('shared', statements('value', 16));
+		const { dir, sha } = makeRepo(original, original);
+		try {
+			writeSources(dir, 'export const left = 1;\n', 'export const right = 2;\n');
+			const stale = runGate(dir, sha);
+			expect(stale.code).toBe(1);
+			expect(stale.stderr).toContain('regenerate the baseline');
+			expect(stale.stderr).toContain('typescript:src/left.ts|src/right.ts');
+
+			const shorter = source('shared', statements('value', 10));
+			writeSources(dir, shorter, shorter);
+			const spare = runGate(dir, sha);
+			expect(spare.code).toBe(1);
+			expect(spare.stderr).toContain('regenerate the baseline');
+			expect(spare.stderr).toContain('typescript:src/left.ts|src/right.ts');
+		} finally {
+			rmSync(dir, { recursive: true, force: true });
+		}
+	}, 60_000);
+
+	it('scans a version 1 ancestor instead of trusting its hashes', () => {
+		const dir = mkdtempSync(path.join(tmpdir(), 'jscpd-gate-'));
+		try {
+			git(dir, ['init', '-b', 'main']);
+			const original = source('shared', statements('value', 10));
+			writeSources(dir, original, original);
+			writeFileSync(path.join(dir, 'eslint/keep.js'), 'export const keep = 1;\n');
+			writeFileSync(
+				path.join(dir, '.jscpd-baseline.json'),
+				`${JSON.stringify({ version: 1, fingerprints: { deadbeef: 1 } }, null, '\t')}\n`
+			);
+			git(dir, ['add', '.']);
+			git(dir, ['commit', '-m', 'base']);
+			const sha = execFileSync('git', ['rev-parse', 'HEAD'], { cwd: dir, encoding: 'utf8' }).trim();
+			writeFileSync(path.join(dir, '.jscpd-baseline.json'), baselineText(scanRepo(dir)));
+
+			const matched = runGate(dir, sha);
+			expect(matched.code).toBe(0);
+			expect(matched.stdout).toContain('1 clones');
+
+			const grown = source('shared', statements('value', 40));
+			writeSources(dir, grown, grown);
+			writeFileSync(path.join(dir, '.jscpd-baseline.json'), baselineText(scanRepo(dir)));
+			const granted = runGate(dir, sha);
+			expect(granted.code).toBe(1);
+			expect(granted.stderr).toContain('remove-only');
+		} finally {
+			rmSync(dir, { recursive: true, force: true });
+		}
+	}, 60_000);
+
+	it('scans a version 2 ancestor when TMPDIR is a symlink', () => {
+		const dir = mkdtempSync(path.join(tmpdir(), 'jscpd-gate-'));
+		const realTemp = mkdtempSync(path.join(tmpdir(), 'jscpd-real-'));
+		const linkParent = mkdtempSync(path.join(tmpdir(), 'jscpd-link-'));
+		const linkTemp = path.join(linkParent, 'tmp');
+		symlinkSync(realTemp, linkTemp);
+		try {
+			git(dir, ['init', '-b', 'main']);
+			const original = source('shared', statements('value', 10));
+			writeSources(dir, original, original);
+			writeFileSync(path.join(dir, 'eslint/keep.js'), 'export const keep = 1;\n');
+			writeFileSync(
+				path.join(dir, '.jscpd-baseline.json'),
+				`${JSON.stringify({ version: 2, pairs: { 'typescript:src/left.ts|src/right.ts': 99 } }, null, '\t')}\n`
+			);
+			git(dir, ['add', '.']);
+			git(dir, ['commit', '-m', 'base']);
+			const sha = execFileSync('git', ['rev-parse', 'HEAD'], { cwd: dir, encoding: 'utf8' }).trim();
+			writeFileSync(path.join(dir, '.jscpd-baseline.json'), baselineText(scanRepo(dir)));
+
+			const result = runGate(dir, sha, linkTemp);
+			expect(result.code).toBe(0);
+			expect(result.stderr).not.toContain('outside the repo');
+			expect(result.stdout).toContain('1 clones');
+		} finally {
+			rmSync(dir, { recursive: true, force: true });
+			rmSync(realTemp, { recursive: true, force: true });
+			rmSync(linkParent, { recursive: true, force: true });
+		}
+	}, 60_000);
+
+	it('regenerates the baseline from the live scan', () => {
+		const original = source('shared', statements('value', 10));
+		const { dir, sha } = makeRepo(original, original);
+		try {
+			writeFileSync(path.join(dir, '.jscpd-baseline.json'), baselineText({}));
+			execFileSync(process.execPath, [script, '--write'], {
+				cwd: dir,
+				stdio: ['ignore', 'pipe', 'pipe']
+			});
+			expect(JSON.parse(readFileSync(path.join(dir, '.jscpd-baseline.json'), 'utf8'))).toEqual(
+				JSON.parse(baselineText(scanRepo(dir)))
+			);
+			expect(runGate(dir, sha).code).toBe(0);
 		} finally {
 			rmSync(dir, { recursive: true, force: true });
 		}

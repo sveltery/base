@@ -27,8 +27,8 @@ const JSCPD_ARGS = [
  */
 
 /**
- * Pairs whose clone count or duplicated line total grew. A lower count or a
- * shorter clone is a removal and is allowed. Identity is the file pair and
+ * Pairs in `next` whose clone count or duplicated line total is above
+ * `allowed`. A missing pair counts as zero. Identity is the file pair and
  * format, not jscpd's content hash, so editing the text of a pair that is
  * already allowed does not count as a new clone. Replacing that clone with
  * a longer one does.
@@ -138,15 +138,16 @@ export function baseRevision(env = process.env) {
  * @returns {Record<string, PairStat>}
  */
 export function scanRepo(repoRoot) {
+	const root = fs.realpathSync(repoRoot);
 	const out = fs.mkdtempSync(path.join(os.tmpdir(), 'jscpd-scan-'));
 	try {
 		execFileSync(JSCPD, [...JSCPD_ARGS, '--output', out], {
-			cwd: repoRoot,
+			cwd: root,
 			stdio: ['ignore', 'pipe', 'pipe']
 		});
 		const report = JSON.parse(fs.readFileSync(path.join(out, 'jscpd-report.json'), 'utf8'));
 		/** @type {(name: string) => string} */
-		const resolve = (name) => toRepoPath(name, repoRoot);
+		const resolve = (name) => toRepoPath(name, root);
 		return pairStatsFromClones(report.duplicates ?? [], resolve);
 	} finally {
 		fs.rmSync(out, { recursive: true, force: true });
@@ -188,7 +189,9 @@ function allowances(ancestor, rev) {
  * @returns {Record<string, PairStat>}
  */
 function scanRevision(rev) {
-	const dir = fs.mkdtempSync(path.join(os.tmpdir(), 'jscpd-base-'));
+	// jscpd --absolute prints the real path. A symlinked TMPDIR (macOS /tmp)
+	// would otherwise make that path look outside the worktree.
+	const dir = fs.realpathSync(fs.mkdtempSync(path.join(os.tmpdir(), 'jscpd-base-')));
 	try {
 		execFileSync('git', ['worktree', 'add', '--detach', '--quiet', dir, rev], {
 			stdio: ['ignore', 'pipe', 'pipe']
@@ -231,15 +234,30 @@ function isPairMap(pairs) {
 	return Object.values(/** @type {Record<string, unknown>} */ (pairs)).every(isPairStat);
 }
 
+/**
+ * @param {Record<string, PairStat>} pairs
+ */
+function baselineDocument(pairs) {
+	const sorted = Object.fromEntries(
+		Object.entries(pairs).sort(([left], [right]) => left.localeCompare(right))
+	);
+	return `${JSON.stringify({ version: 3, pairs: sorted }, null, '\t')}\n`;
+}
+
 const isCli = process.argv[1] != null && import.meta.url === pathToFileURL(process.argv[1]).href;
 
 if (isCli) {
+	if (process.argv.includes('--write')) {
+		const found = scanRepo(process.cwd());
+		fs.writeFileSync('.jscpd-baseline.json', baselineDocument(found));
+		console.log(`jscpd baseline wrote ${pairTotal(found)} clones`);
+		process.exit(0);
+	}
 	const current = JSON.parse(fs.readFileSync('.jscpd-baseline.json', 'utf8'));
 	if (current.version !== 3 || !isPairMap(current.pairs)) {
 		console.error('jscpd baseline must be version 3 with count and lines per file pair');
 		process.exit(1);
 	}
-	const total = pairTotal(current.pairs);
 	const rev = baseRevision();
 	if (rev == null) {
 		console.error('jscpd baseline base revision is missing');
@@ -259,6 +277,14 @@ if (isCli) {
 		for (const key of fresh) console.error(key);
 		process.exit(1);
 	}
+	const stale = addedPairs(found, current.pairs);
+	if (stale.length > 0) {
+		console.error(
+			`jscpd baseline is larger than the live scan (${stale.length} pair(s)); regenerate the baseline`
+		);
+		for (const key of stale) console.error(key);
+		process.exit(1);
+	}
 	let allowed;
 	try {
 		allowed = allowances(JSON.parse(ancestorText), rev);
@@ -274,5 +300,5 @@ if (isCli) {
 		for (const key of granted) console.error(key);
 		process.exit(1);
 	}
-	console.log(`jscpd baseline compared with ${rev}: ${total} clones`);
+	console.log(`jscpd baseline compared with ${rev}: ${pairTotal(found)} clones`);
 }
