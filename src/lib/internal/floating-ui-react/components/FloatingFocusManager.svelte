@@ -205,9 +205,9 @@
 		if (initialTarget !== false) {
 			cancelFocus = enqueueFocus(initialTarget, {
 				preventScroll: initialTarget === floating,
-				// Upstream `enqueueFocus` cancels the previous frame, so the nested
-				// popup's later call wins. This frame still runs. Skip it while an
-				// open child is registered, including before that child has moved focus.
+				// Do not cancel the previous frame. A child opened in the same update
+				// queues first, and cancelling would drop that child. Skip this frame
+				// while any open child is registered, even if it has not taken focus.
 				shouldFocus: () =>
 					store.isOpen() && !contains(floating, activeElement(doc)) && !hasOpenChild()
 			});

@@ -9,7 +9,7 @@ import type { DialogCase } from './cases.js';
 export function mountDialogReference(node: HTMLElement, scenario: DialogCase, onReady: () => void) {
 	function App() {
 		const [calls, setCalls] = useState<OpenCall[]>([]);
-		const [outerOpen, setOuterOpen] = useState(true);
+		const [outerOpen, setOuterOpen] = useState(scenario !== 'nested-onto');
 		const [innerOpen, setInnerOpen] = useState(true);
 		useEffect(onReady, []);
 		const changed = (
@@ -26,7 +26,7 @@ export function mountDialogReference(node: HTMLElement, scenario: DialogCase, on
 		const outside = h('button', { type: 'button', 'data-testid': 'outside' }, 'Outside');
 		const callsNode = h('output', { 'data-testid': 'calls' }, JSON.stringify(calls));
 
-		if (scenario === 'nested-open' || scenario === 'nested-popover') {
+		if (scenario === 'nested-open' || scenario === 'nested-onto' || scenario === 'nested-popover') {
 			const nested =
 				scenario === 'nested-popover'
 					? h(

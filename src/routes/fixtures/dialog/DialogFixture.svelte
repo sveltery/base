@@ -31,6 +31,7 @@
 		twoTriggers = false,
 		preventUnmount = false,
 		innerOpen = $bindable(true),
+		openInnerFromEffect = false,
 		container = undefined as HTMLElement | ShadowRoot | null | undefined
 	} = $props();
 
@@ -46,8 +47,17 @@
 	const nestedValue = $derived(nested ?? scenario === 'nested');
 	const alreadyOpen = $derived(scenario === 'nested-open' || scenario === 'nested-popover');
 	const backdrop = $derived(
-		withBackdrop ?? (scenario !== 'outside' && scenario !== 'nested' && !alreadyOpen)
+		withBackdrop ??
+			(scenario !== 'outside' &&
+				scenario !== 'nested' &&
+				scenario !== 'nested-onto' &&
+				!alreadyOpen)
 	);
+
+	// Opens the child after the parent popup's focus frame is queued.
+	$effect(() => {
+		if (openInnerFromEffect) innerOpen = true;
+	});
 	function captureOuter(node: HTMLElement) {
 		outerPopup = node;
 	}
@@ -122,7 +132,7 @@
 					</Dialog.Popup>
 				</Dialog.Portal>
 			</Dialog.Root>
-		{:else if scenario === 'nested-open'}
+		{:else if scenario === 'nested-open' || scenario === 'nested-onto'}
 			<Dialog.Root bind:this={innerRoot} bind:open={innerOpen} onOpenChange={record}>
 				<Dialog.Trigger>Nested</Dialog.Trigger>
 				<Dialog.Portal>

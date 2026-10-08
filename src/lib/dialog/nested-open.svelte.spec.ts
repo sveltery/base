@@ -68,6 +68,21 @@ describe('Dialog nested popup already open', () => {
 		);
 	});
 
+	it('keeps a nested dialog open when an effect opens it during the parent mount', async () => {
+		render(DialogFixture, {
+			scenario: 'nested-open',
+			innerOpen: false,
+			openInnerFromEffect: true
+		});
+		await frames();
+
+		expect(page.getByRole('dialog', { includeHidden: true }).elements()).toHaveLength(2);
+		expect(closed()).toEqual([]);
+		expect(document.activeElement).toBe(
+			page.getByRole('button', { name: 'Nested inside' }).element()
+		);
+	});
+
 	it('keeps a nested dialog open on first render inside a shadow root', async () => {
 		const host = document.createElement('div');
 		document.body.append(host);
