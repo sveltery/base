@@ -10,6 +10,7 @@ import DialogHandleHarness from '../../tests/DialogHandleHarness.svelte';
 import DialogHarness from '../../tests/DialogHarness.svelte';
 import DialogNestedHandleHarness from '../../tests/DialogNestedHandleHarness.svelte';
 import DialogMissingPortalHarness from '../../tests/DialogMissingPortalHarness.svelte';
+import DialogOpenCompleteStateHarness from '../../tests/DialogOpenCompleteStateHarness.svelte';
 import PortalHostHarness from '../../tests/PortalHostHarness.svelte';
 import { Dialog } from './index.js';
 import { REASONS } from '../internal/event-details.js';
@@ -460,6 +461,21 @@ describe('Dialog', () => {
 		await expect.element(page.getByTestId('trigger-id')).toHaveTextContent('two');
 		await expect.element(button('Two')).toHaveAttribute('aria-expanded', 'true');
 		await expect.element(button('One')).toHaveAttribute('aria-expanded', 'false');
+	});
+
+	it('lets onOpenChangeComplete write $state when the dialog opens', async () => {
+		// Completion runs inside the effect when animations are skipped. A tracked
+		// callback that writes `$state` then exceeds the update depth.
+		const view = globalThis as { BASE_UI_ANIMATIONS_DISABLED?: boolean };
+		const previous = view.BASE_UI_ANIMATIONS_DISABLED;
+		view.BASE_UI_ANIMATIONS_DISABLED = true;
+		try {
+			render(DialogOpenCompleteStateHarness);
+			click(button('Open'));
+			await expect.poll(() => page.getByTestId('completions').element().textContent).toBe('true');
+		} finally {
+			view.BASE_UI_ANIMATIONS_DISABLED = previous;
+		}
 	});
 
 	it('throws when a popup is rendered without a portal', () => {

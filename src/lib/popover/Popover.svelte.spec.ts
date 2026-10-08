@@ -6,6 +6,7 @@ import { describe, expect, it } from 'vitest';
 import { render } from 'vitest-browser-svelte';
 import PopoverDetachHarness from '../../tests/PopoverDetachHarness.svelte';
 import PortalHostHarness from '../../tests/PortalHostHarness.svelte';
+import PopoverOpenCompleteStateHarness from '../../tests/PopoverOpenCompleteStateHarness.svelte';
 import PopoverReviewHarness from '../../tests/PopoverReviewHarness.svelte';
 import PopoverFixture from '../../routes/fixtures/popover/PopoverFixture.svelte';
 import { Popover, PopoverHandle } from './index.js';
@@ -68,6 +69,21 @@ describe('Popover', () => {
 		await expect.element(page.getByRole('dialog')).toBeVisible();
 		await page.getByRole('button', { name: 'Outside' }).click();
 		await expect.poll(() => page.getByRole('dialog').elements().length).toBe(0);
+	});
+
+	it('lets onOpenChangeComplete write $state when the popover opens', async () => {
+		// Completion runs inside the effect when animations are skipped. A tracked
+		// callback that writes `$state` then exceeds the update depth.
+		const view = globalThis as { BASE_UI_ANIMATIONS_DISABLED?: boolean };
+		const previous = view.BASE_UI_ANIMATIONS_DISABLED;
+		view.BASE_UI_ANIMATIONS_DISABLED = true;
+		try {
+			render(PopoverOpenCompleteStateHarness);
+			await page.getByRole('button', { name: 'Open' }).click();
+			await expect.poll(() => page.getByTestId('completions').element().textContent).toBe('true');
+		} finally {
+			view.BASE_UI_ANIMATIONS_DISABLED = previous;
+		}
 	});
 
 	it('lets onOpenChange cancel the open', async () => {

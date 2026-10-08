@@ -4,6 +4,7 @@
 // Immediate preventUnmountOnClose writes the flag before cancellation is checked.
 // A canceled close can leave preventUnmountingOnClose true. That matches Dialog.
 
+import { untrack } from 'svelte';
 import type { ControllableValue } from '../controllable-value.svelte.js';
 import type { BaseUIChangeEventDetails } from '../event-details.js';
 import { FloatingRootStore } from '../floating-ui-react/components/FloatingRootStore.svelte.js';
@@ -137,12 +138,20 @@ export class PopupStore<Reason extends string> extends FloatingRootStore {
 		this.transition.setMounted(false);
 		this.domReferenceElement = null;
 		this.preventUnmountingOnClose = false;
-		this.readOnOpenChangeComplete()?.(false);
+		this.emitOpenChangeComplete(false);
 	}
 
 	/** Dialog calls this when the open animation finishes. Close completion stays in `finishClose`. */
 	notifyOpenChangeComplete(open: boolean) {
-		this.readOnOpenChangeComplete()?.(open);
+		this.emitOpenChangeComplete(open);
+	}
+
+	/**
+	 * `useOpenChangeComplete` calls this from an effect. The consumer callback
+	 * can write `$state`. Tracking that write makes the effect run again.
+	 */
+	private emitOpenChangeComplete(open: boolean) {
+		untrack(() => this.readOnOpenChangeComplete()?.(open));
 	}
 
 	/**
