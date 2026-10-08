@@ -30,6 +30,7 @@ export class CollapsiblePanelMotion {
 	private lastMeasured: Dimensions = EMPTY_DIMENSIONS;
 	private skipNextOpen = false;
 	private pendingRestore: (() => void) | null = null;
+	private layoutRestore: (() => void) | null = null;
 	private readonly root: CollapsibleRoot;
 
 	constructor(root: CollapsibleRoot) {
@@ -82,13 +83,30 @@ export class CollapsiblePanelMotion {
 				}
 
 				if (animationType === 'css-transition') {
-					const restoreLayout = resetLayoutStyles(panel);
-					this.setDimensions(getDimensions(panel));
-					if (!skip) return restoreLayout;
-					const restoreDuration = setTemporaryStyle(panel, 'transition-duration', '0s');
-					this.setPendingRestore(restoreDuration);
-					this.forcePanelIdle = true;
-					return restoreLayout;
+					// Measure with alignment cleared, then put it back. The style
+					// attribute is rewritten from the measured size, so apply the
+					// temporary reset again after that write. Do not read height
+					// or width here; that subscription existed only to re-enter.
+					const restoreForMeasure = resetLayoutStyles(panel);
+					const measured = getDimensions(panel);
+					restoreForMeasure();
+					this.setDimensions(measured);
+					const panelEl = panel;
+					let cancelled = false;
+					queueMicrotask(() => {
+						if (cancelled || this.panel !== panelEl) return;
+						this.layoutRestore = resetLayoutStyles(panelEl);
+					});
+					if (skip) {
+						const restoreDuration = setTemporaryStyle(panel, 'transition-duration', '0s');
+						this.setPendingRestore(restoreDuration);
+						this.forcePanelIdle = true;
+					}
+					return () => {
+						cancelled = true;
+						this.layoutRestore?.();
+						this.layoutRestore = null;
+					};
 				}
 
 				this.setDimensions(getDimensions(panel));
