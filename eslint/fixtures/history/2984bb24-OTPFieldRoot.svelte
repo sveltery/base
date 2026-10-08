@@ -15,7 +15,6 @@
 	import { useFieldContext } from '../field/context.svelte.js';
 	import { useLabelableContext } from '../field/labelable.svelte.js';
 	import { useFormContext } from '../form/context.js';
-	import { createControllableValue } from '../internal/controllable-value.svelte.js';
 	import { watchFieldControl } from '../internal/field-register-control.svelte.js';
 	import { getStateAttributesProps } from '../internal/state-attributes.js';
 	import { visuallyHidden, visuallyHiddenInput } from '../internal/visuallyHidden.js';
@@ -25,6 +24,7 @@
 	import { toCssStyle } from '../internal/css-style.js';
 	import type { OTPFieldRootProps, OTPFieldRootState } from './types.js';
 
+	const VALUE_UNSET = Symbol('otp-field-value');
 	const uid = $props.id();
 	const idSource = Symbol('otp-field-id');
 	const rootKey = createAttachmentKey();
@@ -44,7 +44,7 @@
 		readOnly = false,
 		name: nameProp,
 		defaultValue = '',
-		value = $bindable<string | undefined>(),
+		value = $bindable(VALUE_UNSET as unknown as string),
 		onValueChange,
 		onValueInvalid,
 		onValueComplete,
@@ -55,27 +55,23 @@
 		...elementProps
 	}: OTPFieldRootProps = $props();
 
-	const field = useFieldContext();
+	const field = useFieldContext(true);
 	const form = useFormContext();
 	const labelable = useLabelableContext(true);
 
-	const controllable = createControllableValue<string>({
-		getProp: () => value,
-		setProp: (next) => {
-			value = next ?? '';
-		},
-		getDefault: () => defaultValue
-	});
-	const raw = $derived(controllable.value ?? '');
+	let uncontrolled = $state(untrack(() => defaultValue));
+	const linked = $derived(!Object.is(value, VALUE_UNSET));
+	const raw = $derived(linked ? (value ?? '') : uncontrolled);
 	const generatedId = $derived(`base-ui-${uid}`);
 	const controlId = $derived(labelable?.controlId || idProp || generatedId);
-	const disabled = $derived(Boolean(field.disabled) || disabledProp);
-	const name = $derived(field.name ?? nameProp);
+	const disabled = $derived(Boolean(field?.disabled) || disabledProp);
+	const name = $derived(field?.name ?? nameProp);
 
 	let hadExplicitId = false;
 
 	function writeValue(next: string) {
-		controllable.set(next);
+		if (linked) value = next;
+		else uncontrolled = next;
 	}
 
 	const model = new OTPFieldModel({

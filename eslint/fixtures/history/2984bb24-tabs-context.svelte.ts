@@ -33,18 +33,36 @@ export class TabsRootModel {
 	panelElements = $state<HTMLElement[]>([]);
 	panelIds = $state<{ value: TabsValue; id: string }[]>([]);
 
-	private directionBaseline: TabsValue | null;
+	readOrientation: () => TabsOrientation = () => 'horizontal';
+	readOnValueChange: () =>
+		((value: TabsValue | null, eventDetails: TabsRootChangeEventDetails) => void) | undefined =
+		() => undefined;
+
+	private directionBaseline: TabsValue | null = 0;
 	private notifiedInitial = false;
 	private didRegister = false;
 	private lastTabElement: HTMLElement | null = null;
 
-	constructor(
-		private readonly values: ControllableValue<TabsValue | null>,
-		private readonly readOrientation: () => TabsOrientation,
-		private readonly readOnValueChange: () =>
-			((value: TabsValue | null, eventDetails: TabsRootChangeEventDetails) => void) | undefined
-	) {
+	constructor(private readonly values: ControllableValue<TabsValue | null>) {
 		this.directionBaseline = values.value ?? null;
+
+		$effect.pre(() => {
+			const tabs = this.tabs;
+			const current = this.value;
+			const baseline = this.directionBaseline;
+			if (baseline === current) return;
+			const next = activationDirection(
+				baseline,
+				current,
+				this.orientation,
+				positionOf(tabs, baseline, this.orientation),
+				positionOf(tabs, current, this.orientation)
+			);
+			const incomplete =
+				baseline != null && current != null && !tabs.some((tab) => tab.value === current);
+			this.tabActivationDirection = next;
+			if (!incomplete) this.directionBaseline = current;
+		});
 
 		$effect(() => {
 			if (this.values.controlled) return;
@@ -93,27 +111,6 @@ export class TabsRootModel {
 		});
 	}
 
-	/**
-	 * Parent writes have no click details. Direction comes from the positions
-	 * that exist after the DOM update. A tab that is not mounted yet keeps the
-	 * previous baseline so registration can finish the same change.
-	 */
-	refineDirection(next: TabsValue | null = this.value) {
-		const previous = this.directionBaseline;
-		if (Object.is(previous, next)) return;
-		const direction = activationDirection(
-			previous,
-			next,
-			this.orientation,
-			positionOf(this.tabs, previous, this.orientation),
-			positionOf(this.tabs, next, this.orientation)
-		);
-		const incomplete =
-			previous != null && next != null && !this.tabs.some((tab) => tab.value === next);
-		this.tabActivationDirection = direction;
-		if (!incomplete) this.directionBaseline = next;
-	}
-
 	activate(next: TabsValue | null, event: Event) {
 		if (next === this.value) return;
 		const direction = activationDirection(
@@ -150,7 +147,6 @@ export class TabsRootModel {
 		const record: TabRecord = { element, value, disabled, id };
 		untrack(() => {
 			this.tabs = [...this.tabs, record].sort((a, b) => byDocumentOrder(a.element, b.element));
-			this.refineDirection();
 		});
 		return () => {
 			untrack(() => {
@@ -238,15 +234,24 @@ function positionOf(tabs: TabRecord[], value: TabsValue | null, orientation: Tab
 }
 
 export class TabsListModel {
+	readActivateOnFocus: () => boolean = () => false;
 	listElement = $state<HTMLElement | null>(null);
 	resizeRevision = $state(0);
 	readonly roving: CompositeRoot;
+	private readonly tagTab: (element: HTMLElement, value: TabsValue, disabled: boolean) => void;
 
 	constructor(
 		roving: CompositeRoot,
-		private readonly readActivateOnFocus: () => boolean
+		tagTab: (element: HTMLElement, value: TabsValue, disabled: boolean) => void
 	) {
 		this.roving = roving;
+		this.tagTab = tagTab;
+	}
+
+	/** Point the tab stop at this tab's value. `updateTab` still owns metadata updates. */
+	tag(element: HTMLElement, value: TabsValue, disabled: boolean) {
+		this.tagTab(element, value, disabled);
+		this.roving.sync();
 	}
 
 	get activateOnFocus() {

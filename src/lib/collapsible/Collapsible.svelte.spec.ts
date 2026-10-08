@@ -9,6 +9,7 @@ import { render } from 'vitest-browser-svelte';
 import CollapsibleAttachHarness from '../../tests/CollapsibleAttachHarness.svelte';
 import CollapsibleBindHarness from '../../tests/CollapsibleBindHarness.svelte';
 import CollapsibleHarness from '../../tests/CollapsibleHarness.svelte';
+import { controllableRootCases } from '../../tests/controllable-root-cases.js';
 import { Collapsible } from './index.js';
 import { REASONS } from '../internal/event-details.js';
 
@@ -623,4 +624,8 @@ describe('Collapsible', () => {
 			await expect.element(trigger).toHaveAttribute('aria-expanded', 'false');
 		});
 	});
+});
+
+describe('controllable value', () => {
+	controllableRootCases('collapsible');
 });

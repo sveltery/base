@@ -9,6 +9,7 @@
 <script lang="ts">
 	import type { HTMLAttributes } from 'svelte/elements';
 	import { setCheckboxGroupContext } from '../checkbox/group-context.js';
+	import { createControllableValue } from '../internal/controllable-value.svelte.js';
 	import GroupFrame from '../internal/GroupFrame.svelte';
 	import { getStateAttributesProps } from '../internal/state-attributes.js';
 	import { CheckboxGroupParent } from './parent.svelte.js';
@@ -19,7 +20,8 @@
 	} from './types.js';
 
 	let {
-		value = $bindable(),
+		value = $bindable(undefined),
+		defaultValue,
 		allValues,
 		disabled = false,
 		onValueChange,
@@ -29,22 +31,35 @@
 	}: CheckboxGroupProps = $props();
 
 	const EMPTY: string[] = [];
+	function publishValue(next: string[] | undefined) {
+		value = next;
+	}
+	const controllable = createControllableValue<string[], CheckboxGroupChangeEventDetails>({
+		getProp: () => value,
+		setProp: publishValue,
+		getDefault: () => defaultValue ?? EMPTY
+	});
+
+	function currentValue() {
+		const next = controllable.value;
+		return Array.isArray(next) ? next : EMPTY;
+	}
 
 	function setValue(next: string[], details: CheckboxGroupChangeEventDetails) {
 		onValueChange?.(next, details);
 		if (details.isCanceled) return;
-		value = next;
+		controllable.set(next, details);
 	}
 
 	const parentModel = new CheckboxGroupParent({
-		readValue: () => (Array.isArray(value) ? value : EMPTY),
+		readValue: () => currentValue(),
 		readAllValues: () => allValues ?? [],
 		commit: setValue
 	});
 
 	setCheckboxGroupContext({
 		get value() {
-			return Array.isArray(value) ? value : EMPTY;
+			return currentValue();
 		},
 		get disabled() {
 			return Boolean(disabled);

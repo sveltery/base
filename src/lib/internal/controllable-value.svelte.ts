@@ -42,12 +42,17 @@ export function createControllableValue<T, Details = unknown>(options: {
 		details?: Details;
 		announce?: boolean;
 	} | null>(null);
+	// Plain reference. Marking a notice handled must not write the state this effect reads.
+	let handled: {
+		value: T | undefined;
+		details?: Details;
+		announce?: boolean;
+	} | null = null;
 
 	function publish(
 		next: T | undefined,
 		queued: { value: T | undefined; details?: Details; announce?: boolean } | null
 	) {
-		if (queued !== null && pending === queued) pending = null;
 		const matches = queued != null && Object.is(queued.value, next);
 		if (Object.is(next, lastNotified) && !(matches && queued?.announce)) return;
 		lastNotified = next;
@@ -68,7 +73,11 @@ export function createControllableValue<T, Details = unknown>(options: {
 	$effect(() => {
 		const next = value;
 		const queued = pending;
-		untrack(() => publish(next, queued));
+		const fresh = queued !== handled ? queued : null;
+		untrack(() => {
+			if (queued !== handled) handled = queued;
+			publish(next, fresh);
+		});
 	});
 
 	return {
@@ -95,11 +104,8 @@ export function createControllableValue<T, Details = unknown>(options: {
 			const settled = untrack(() => value);
 			// Upstream `useValueChanged` skips a value that did not change, including
 			// a round trip that is back where it started before the notice runs.
-			// A same-value `set` must not drop an `announce` already queued for it.
-			if (Object.is(settled, lastNotified)) {
-				if (!(pending?.announce && Object.is(pending.value, settled))) pending = null;
-				return;
-			}
+			// Leaving `pending` alone keeps an unpublished `announce` for this value.
+			if (Object.is(settled, lastNotified)) return;
 			pending = { value: settled, details };
 		},
 		announce(details) {

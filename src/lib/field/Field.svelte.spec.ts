@@ -279,6 +279,25 @@ describe('Field', () => {
 			await expect.element(page.getByTestId('field')).toHaveAttribute('data-dirty', '');
 		});
 
+		it('stays invalid when validate runs again after a parent clears dirty', async () => {
+			render(FieldHarness, { scenario: 'controlled-dirty-flag' });
+			const field = page.getByTestId('field');
+			await page.getByRole('button', { name: 'Validate' }).click();
+			await expect.element(field).toHaveAttribute('data-invalid', '');
+			await page.getByRole('button', { name: 'Clean' }).click();
+			await page.getByRole('button', { name: 'Validate' }).click();
+			await expect.element(field).toHaveAttribute('data-invalid', '');
+		});
+
+		it('blocks an empty required control while dirty is false', async () => {
+			render(FieldHarness, { scenario: 'controlled-dirty-submit' });
+			await page.getByRole('button', { name: 'Submit' }).click();
+			expect(text('submitted')).toBe('0');
+			expect(text('values')).toBe('');
+			await expect.element(page.getByTestId('field')).toHaveAttribute('data-invalid', '');
+			await expect.element(page.getByTestId('control')).toHaveFocus();
+		});
+
 		it('marks the field touched on blur and not when touched is controlled', async () => {
 			render(FieldHarness, { scenario: 'touched' });
 			await page.getByTestId('control').fill('b');

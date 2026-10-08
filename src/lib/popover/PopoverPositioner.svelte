@@ -60,7 +60,9 @@
 		adaptiveOrigin: store.adaptiveOrigin
 	}));
 	setPopoverPositioner(positioning);
-	store.placementReader = () => positioning.physicalSide;
+	$effect(() => {
+		store.setPlacement(positioning.physicalSide);
+	});
 
 	const modalLock = $derived(
 		store.open && store.modal === true && store.openChangeReason !== REASONS.triggerHover

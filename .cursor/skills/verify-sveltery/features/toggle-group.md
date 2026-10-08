@@ -6,7 +6,7 @@ Shared pressed state for a series of toggles, with a roving tab stop. Upstream: 
 
 - Renders a `<div role="group">`. `data-orientation` is `horizontal` by default. `vertical` changes it. `aria-orientation` is not set.
 - `multiple` sets `data-multiple` only when true. When false, pressing one toggle releases the others. When true, each toggle changes on its own.
-- `value` is one `$bindable` array of pressed toggle values (default empty when omitted). `bind:value` shares it with the parent. A one-way `value` sets it, and clicks override it until the parent changes it. `onValueChange(value, eventDetails)` runs before the commit. `eventDetails.cancel()` vetoes it.
+- `value` is one `$bindable` array of pressed toggle values. Omit it to start from `defaultValue` (empty). `bind:value` shares it with the parent. A one-way `value` sets it, and clicks override it until the parent changes it. `onValueChange(value, eventDetails)` runs before the commit. `eventDetails.cancel()` vetoes it. A parent write does not call `onValueChange`. Passing `value` or `defaultValue` on the first render is what the missing-value warning looks at.
 - `disabled` disables every toggle: native `disabled`, `aria-disabled="true"`, and `data-disabled`. An individual toggle can be disabled on its own. Enabled items inside a group expose `aria-disabled="false"`.
 - Each `Toggle` `value` is its id in the group. An omitted or empty value gets a generated `base-ui-` id. If the group `value` was passed and a toggle omits `value`, a dev warning is logged once.
 - A grouped toggle's `onPressedChange` runs first and shares the event details, so canceling there also skips the group update. `event.preventDefault()` on `onclick` skips both.
@@ -16,7 +16,7 @@ Shared pressed state for a series of toggles, with a roving tab stop. Upstream: 
 
 Differences from React Base UI, all deliberate:
 
-- No `defaultValue`, and no locked controlled mode. Hold the value with `eventDetails.cancel()`.
+- `defaultValue` is the uncontrolled start and the fallback when a controlled `value` is cleared. No locked controlled mode. Hold the value with `eventDetails.cancel()`.
 - No Toolbar context. The group always owns roving focus.
 - No grid navigation and no scroll-into-view math.
 - No `className` or `style` state callbacks. No React `ref`. Use `{@attach}`.

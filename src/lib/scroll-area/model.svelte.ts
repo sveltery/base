@@ -2,7 +2,7 @@
 // and packages/react/src/scroll-area/viewport/ScrollAreaViewport.tsx
 // (commit 47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c). MIT, see THIRD_PARTY_NOTICES.md.
 // Element handles are `$state` fields. There is no React ref bag.
-// Reading direction is `useDirection()`, stored on `readDirection`.
+// Reading direction is `useDirection()`, passed into the constructor.
 
 import { untrack } from 'svelte';
 import { on } from 'svelte/events';
@@ -74,7 +74,7 @@ export class ScrollAreaModel {
 
 	rootId = '';
 	readonly readThreshold: () => OverflowEdgeThreshold | undefined;
-	readDirection: () => TextDirection = () => 'ltr';
+	readonly readDirection: () => TextDirection;
 
 	private activePointerId: number | null = null;
 	private startY = 0;
@@ -90,16 +90,19 @@ export class ScrollAreaModel {
 	private readonly scrollXTimer = new Timeout();
 	private readonly scrollEndTimer = new Timeout();
 	private readonly animationTimer = new Timeout();
-	private edgeThreshold: NormalizedThreshold;
 
-	constructor(readThreshold: () => OverflowEdgeThreshold | undefined, rootId: string) {
+	constructor(
+		readThreshold: () => OverflowEdgeThreshold | undefined,
+		readDirection: () => TextDirection,
+		rootId: string
+	) {
 		this.readThreshold = readThreshold;
+		this.readDirection = readDirection;
 		this.rootId = rootId;
-		this.edgeThreshold = normalizeOverflowEdgeThreshold(readThreshold());
 	}
 
 	get threshold(): NormalizedThreshold {
-		return this.edgeThreshold;
+		return normalizeOverflowEdgeThreshold(this.readThreshold());
 	}
 
 	get rootState(): ScrollAreaRootState {
@@ -126,9 +129,11 @@ export class ScrollAreaModel {
 		return this.readDirection();
 	}
 
-	refreshLayout(threshold: OverflowEdgeThreshold | undefined) {
-		this.edgeThreshold = normalizeOverflowEdgeThreshold(threshold ?? this.readThreshold());
+	refreshLayout() {
+		// Read before `untrack` so the root effect subscribes to the threshold prop.
+		const threshold = this.threshold;
 		untrack(() => this.computeThumbPosition());
+		return threshold;
 	}
 
 	registerOverflowProperties() {

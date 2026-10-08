@@ -120,9 +120,13 @@ const rule = {
 			walkOwn(body, (node) => {
 				if (node.type !== 'VariableDeclarator' || node.id?.type !== 'Identifier') return;
 				const init = unwrap(node.init);
-				if (!init || init.type !== 'Identifier') return;
-				const target = init.name;
-				if (assigned.has(target)) aliases.set(node.id.name, target);
+				if (!init) return;
+				if (init.type === 'Identifier') {
+					if (assigned.has(init.name)) aliases.set(node.id.name, init.name);
+					return;
+				}
+				const stored = storedKey(pathOf(init));
+				if (stored) aliases.set(node.id.name, stored);
 			});
 
 			/**
@@ -165,6 +169,45 @@ const rule = {
 				}
 			}
 
+			/**
+			 * A helper call in a condition (`areArraysEqual(prev, next)`) is the same diff.
+			 * @param {any} test
+			 */
+			function noteHelperCondition(test) {
+				const value = unwrap(test);
+				if (!value) return;
+				if (
+					value.type === 'UnaryExpression' &&
+					(value.operator === '!' || value.operator === '!!')
+				) {
+					noteHelperCondition(value.argument);
+					return;
+				}
+				if (value.type === 'LogicalExpression') {
+					noteHelperCondition(value.left);
+					noteHelperCondition(value.right);
+					return;
+				}
+				if (value.type !== 'CallExpression' || (value.arguments?.length ?? 0) < 2) return;
+				/** @type {string[]} */
+				const keys = [];
+				let other = false;
+				for (const arg of value.arguments) {
+					const key = storedKey(resolve(arg));
+					if (key) keys.push(key);
+					else if (!isLiteralish(arg)) other = true;
+				}
+				if (!other || !keys.some((key) => key.startsWith('this.'))) return;
+				for (const key of keys) {
+					if (!key.startsWith('this.')) continue;
+					const target = assigned.get(key);
+					if (target && !reported.has(target)) {
+						reported.add(target);
+						context.report({ node: target, messageId: 'previousValue' });
+					}
+				}
+			}
+
 			walkOwn(body, (node) => {
 				if (node.type === 'BinaryExpression' && COMPARE.has(node.operator)) {
 					noteComparison(node.left, node.right);
@@ -180,6 +223,8 @@ const rule = {
 						noteComparison(node.arguments[0], node.arguments[1]);
 					}
 				}
+				if (node.type === 'IfStatement') noteHelperCondition(node.test);
+				if (node.type === 'ConditionalExpression') noteHelperCondition(node.test);
 				if (node.type !== 'IfStatement' || !returnsImmediately(node.consequent)) return;
 				const flag = negatedIdentifier(node.test);
 				if (!flag || !armed.has(flag.name) || reported.has(flag)) return;

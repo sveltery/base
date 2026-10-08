@@ -23,10 +23,14 @@ export interface ToggleGroupProps extends Omit<HTMLAttributes<HTMLDivElement>, '
 	/**
 	 * Values of the pressed toggles.
 	 * Use `bind:value` to share the array with the parent.
-	 * Omit it to start empty; a one-way `value` sets it until the parent changes it.
-	 * @default []
+	 * Omit it to start from `defaultValue`. A one-way `value` sets it until the parent changes it.
 	 */
 	value?: readonly string[];
+	/**
+	 * Pressed values when `value` is omitted, and when a controlled `value` is cleared.
+	 * @default []
+	 */
+	defaultValue?: readonly string[];
 	/** Whether the group should ignore user interaction. @default false */
 	disabled?: boolean;
 	/** @default 'horizontal' */

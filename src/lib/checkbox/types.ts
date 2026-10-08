@@ -40,9 +40,15 @@ export interface CheckboxRootProps extends Omit<HTMLAttributes<HTMLElement>, 'ch
 	/**
 	 * Whether the checkbox is currently ticked.
 	 * Use `bind:checked` to share it with the parent.
+	 * Omit it to start from `defaultChecked`. Inside a group, the group value wins.
 	 * @default false
 	 */
 	checked?: boolean;
+	/**
+	 * Ticked state used when `checked` is omitted, and when a controlled `checked` is cleared.
+	 * @default false
+	 */
+	defaultChecked?: boolean;
 	/** Whether the component should ignore user interaction. @default false */
 	disabled?: boolean;
 	/**

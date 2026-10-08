@@ -14,6 +14,12 @@
 
 	const EMPTY: unknown[] = [];
 
+	function createControllableValue<T>(options: { getProp: () => T | undefined }) {
+		return options.getProp();
+	}
+
+	const current = createControllableValue({ getProp: () => value });
+
 	const model = {
 		get value() {
 			return value;
@@ -33,5 +39,5 @@
 		return EMPTY;
 	}
 
-	commit(undefined);
+	commit(current);
 </script>

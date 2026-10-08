@@ -6,15 +6,22 @@
 -->
 <script lang="ts">
 	import type { HTMLAttributes } from 'svelte/elements';
+	import { createControllableValue } from '../internal/controllable-value.svelte.js';
+	import PartHost from '../internal/PartHost.svelte';
 	import { getStateAttributesProps } from '../internal/state-attributes.js';
 	import { collapsibleStateAttributesMapping } from './attributes.js';
 	import { CollapsibleRoot, setCollapsibleRootContext } from './context.svelte.js';
-	import type { CollapsibleRootProps, CollapsibleRootState } from './types.js';
+	import type {
+		CollapsibleRootChangeEventDetails,
+		CollapsibleRootProps,
+		CollapsibleRootState
+	} from './types.js';
 
 	const uid = $props.id();
 
 	let {
-		open = $bindable(false),
+		open = $bindable(undefined),
+		defaultOpen = false,
 		disabled = false,
 		onOpenChange,
 		render,
@@ -22,10 +29,18 @@
 		...elementProps
 	}: CollapsibleRootProps = $props();
 
-	const collapsible = new CollapsibleRoot(
-		() => open,
-		(next) => {
+	const controllable = createControllableValue<boolean, CollapsibleRootChangeEventDetails>({
+		getProp: () => open,
+		setProp: (next) => {
 			open = next;
+		},
+		getDefault: () => defaultOpen
+	});
+
+	const collapsible = new CollapsibleRoot(
+		() => controllable.value === true,
+		(next, details) => {
+			controllable.set(next, details);
 		},
 		() => disabled,
 		(next, details) => onOpenChange?.(next, details),
@@ -41,12 +56,4 @@
 	});
 </script>
 
-{#snippet content()}
-	{@render children?.()}
-{/snippet}
-
-{#if render}
-	{@render render(hostProps, state, content)}
-{:else}
-	<div {...hostProps}>{@render content()}</div>
-{/if}
+<PartHost tag="div" {render} {children} elementProps={hostProps} partState={state} />

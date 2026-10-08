@@ -248,6 +248,11 @@ describe('<OTPField />', () => {
 		expect(inputs()[1]).toHaveAttribute('aria-label', 'Digit');
 	});
 
+	it('keeps an empty string controlled when defaultValue is set', async () => {
+		render(OTPFieldHarness, { scenario: 'controlled-empty' });
+		await expect.poll(() => values()).toBe('');
+	});
+
 	it('shares a bound value and applies a later parent value', async () => {
 		render(OTPFieldHarness, { scenario: 'bound' });
 		await setInput(inputs()[0], '12');

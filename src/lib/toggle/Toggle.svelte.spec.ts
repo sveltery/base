@@ -6,6 +6,7 @@ import { describe, expect, it, vi } from 'vitest';
 import { render } from 'vitest-browser-svelte';
 import Toggle from './Toggle.svelte';
 import ToggleBindHarness from '../../tests/ToggleBindHarness.svelte';
+import { controllableRootCases } from '../../tests/controllable-root-cases.js';
 import ToggleAttachHarness from '../../tests/ToggleAttachHarness.svelte';
 
 describe('Toggle', () => {
@@ -133,4 +134,8 @@ describe('Toggle', () => {
 			await expect.element(host).toHaveAttribute('data-state', 'on');
 		});
 	});
+});
+
+describe('controllable value', () => {
+	controllableRootCases('toggle');
 });

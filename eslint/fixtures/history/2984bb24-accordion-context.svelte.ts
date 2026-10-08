@@ -14,11 +14,11 @@ const ACCORDION_ROOT_CONTEXT = Symbol('accordion-root');
 const ACCORDION_ITEM_CONTEXT = Symbol('accordion-item');
 
 export class AccordionRootModel {
+	readValues: () => unknown[] = () => [];
 	hosts = $state<HTMLElement[]>([]);
-	commit: (next: unknown[], details: AccordionRootChangeEventDetails) => void = () => {};
+	commit: (next: unknown[]) => void = () => {};
 
 	constructor(
-		private readonly readValues: () => unknown[],
 		private readonly readDisabled: () => boolean,
 		private readonly readMultiple: () => boolean,
 		private readonly readOrientation: () => AccordionOrientation,
@@ -60,7 +60,7 @@ export class AccordionRootModel {
 		const next = nextAccordionValue(this.values, itemValue, nextOpen, this.multiple);
 		this.readOnValueChange()?.(next, eventDetails);
 		if (eventDetails.isCanceled) return;
-		this.commit(next, eventDetails);
+		this.commit(next);
 	}
 
 	watchHost(element: HTMLElement) {

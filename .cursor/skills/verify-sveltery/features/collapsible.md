@@ -4,7 +4,7 @@ A disclosure that shows and hides a panel. Upstream: `packages/react/src/collaps
 
 ## Sub-features
 
-- `Collapsible.Root` renders a `<div>`. `open` is one `$bindable` prop (default false). `bind:open` shares it with the parent. A one-way `open={x}` sets it, and trigger clicks override it until `x` changes.
+- `Collapsible.Root` renders a `<div>`. `open` is one `$bindable` prop. Omit it to start from `defaultOpen` (false). `bind:open` shares it with the parent. A one-way `open={x}` sets it, and trigger clicks override it until `x` changes. A parent write does not call `onOpenChange`.
 - `onOpenChange(open, eventDetails)` runs before the change. A trigger press uses `reason: 'trigger-press'`. `beforematch` uses `reason: 'none'`. `eventDetails.cancel()` vetoes the change.
 - A consumer `onclick` on the trigger runs first. `event.preventDefault()` skips the open change. A disabled trigger does not call `onclick` or `onOpenChange`.
 - Disabled: the root and trigger get `data-disabled`. The trigger stays in the tab order with `aria-disabled` and no `disabled` attribute. Enter, Space, and click do not toggle it.
@@ -17,18 +17,18 @@ A disclosure that shows and hides a panel. Upstream: `packages/react/src/collaps
 
 ## Source correspondence
 
-| Upstream                                      | Local                                                | Review                                                                                      |
-| --------------------------------------------- | ---------------------------------------------------- | ------------------------------------------------------------------------------------------- |
-| `useCollapsibleRoot` / `open` + `defaultOpen` | `CollapsibleRoot` `$bindable` `open`                 | Same trigger, cancel, and disabled behavior. No locked controlled mode                      |
-| `useTransitionStatus(open, true, true)`       | `context.svelte.ts` pre-effect plus animation frames | Starting style is committed before the idle frame. Ending waits one frame                   |
-| `useCollapsiblePanel`                         | `panel-motion.svelte.ts`                             | Same measurement, animation-type detection, dimension CSS variables, and completion unmount |
-| `CollapsibleTrigger` + `useButton`            | `CollapsibleTrigger.svelte`                          | Focusable-when-disabled and non-composite keyboard activation. No host-tag warning          |
-| `hidden="until-found"` DOM fix                | Attribute string, reapplied after render             | Page search needs the string value, not a boolean `hidden`                                  |
-| `useRenderElement`                            | `{#if render}` snippet `(props, state, children)`    | No `UseRender`, refs, or style/class callbacks                                              |
+| Upstream                                      | Local                                                  | Review                                                                                      |
+| --------------------------------------------- | ------------------------------------------------------ | ------------------------------------------------------------------------------------------- |
+| `useCollapsibleRoot` / `open` + `defaultOpen` | `CollapsibleRoot` `$bindable` `open` and `defaultOpen` | Same trigger, cancel, and disabled behavior. `defaultOpen` applies when `open` is unset     |
+| `useTransitionStatus(open, true, true)`       | `context.svelte.ts` pre-effect plus animation frames   | Starting style is committed before the idle frame. Ending waits one frame                   |
+| `useCollapsiblePanel`                         | `panel-motion.svelte.ts`                               | Same measurement, animation-type detection, dimension CSS variables, and completion unmount |
+| `CollapsibleTrigger` + `useButton`            | `CollapsibleTrigger.svelte`                            | Focusable-when-disabled and non-composite keyboard activation. No host-tag warning          |
+| `hidden="until-found"` DOM fix                | Attribute string, reapplied after render               | Page search needs the string value, not a boolean `hidden`                                  |
+| `useRenderElement`                            | `{#if render}` snippet `(props, state, children)`      | No `UseRender`, refs, or style/class callbacks                                              |
 
 Differences from React Base UI, all deliberate:
 
-- No `defaultOpen`, and no locked controlled mode. Hold the state with `eventDetails.cancel()`.
+- `defaultOpen` is the uncontrolled start and the fallback when a controlled `open` is cleared. No locked controlled mode. Hold the state with `eventDetails.cancel()`.
 - No `ref`. Use `{@attach}`.
 - `class` and `style` are strings. Panel CSS variables are written first; a consumer `style` follows; `animation-name: none` is last so it wins.
 - No React.Activity resume suppression. Svelte does not preserve component state across a hidden activity boundary.

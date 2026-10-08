@@ -203,6 +203,8 @@ describe('sveltery/no-previous-value-effect', () => {
 		expect(lines.some((line) => line.includes('lastKey'))).toBe(true);
 		expect(lines.some((line) => line.includes('sawValue'))).toBe(true);
 		expect(lines.some((line) => line.includes('prior'))).toBe(true);
+		expect(lines.some((line) => line.includes('this.directionBaseline = current'))).toBe(true);
+		expect(lines.some((line) => line.includes('this.saved = next'))).toBe(true);
 		expect(lines.some((line) => line.includes('previousElementSibling'))).toBe(false);
 	});
 
@@ -211,6 +213,7 @@ describe('sveltery/no-previous-value-effect', () => {
 		expect(source).toContain('formContext.clearErrors(name)');
 		expect(source).toContain('field.change(next)');
 		expect(source).toContain('node.previousElementSibling');
+		expect(source).toContain('comesBeforeInSameTree(control, firstControl)');
 		expect(messages).toEqual([]);
 	});
 });
@@ -260,6 +263,8 @@ const failRuleByFile: Record<string, string> = {
 	'void-signal.fail.svelte': 'sveltery/no-void-signal-read',
 	'split-lifecycle.fail.svelte': 'sveltery/no-split-effect-lifecycle',
 	'previous-value.fail.svelte': 'sveltery/no-previous-value-effect',
+	'late-bound-getter.fail.svelte': 'sveltery/no-late-bound-getter',
+	'uncontrolled-bindable.fail.svelte': 'sveltery/no-uncontrolled-bindable',
 	'process-env.fail.svelte': 'sveltery/no-process-env',
 	'form-ref-current.fail.svelte': 'sveltery/no-react-refs',
 	'forced-read.fail.svelte': 'sveltery/no-void-signal-read'

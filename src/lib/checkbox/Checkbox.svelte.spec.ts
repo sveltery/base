@@ -15,6 +15,7 @@ import CheckboxFormHarness from '../../tests/CheckboxFormHarness.svelte';
 import CheckboxIndicatorHarness from '../../tests/CheckboxIndicatorHarness.svelte';
 import CheckboxLabelHarness from '../../tests/CheckboxLabelHarness.svelte';
 import CheckboxStyleHarness from '../../tests/CheckboxStyleHarness.svelte';
+import { controllableRootCases } from '../../tests/controllable-root-cases.js';
 import { Checkbox } from './index.js';
 
 const ENDING_CSS = `
@@ -658,4 +659,8 @@ describe('Checkbox', () => {
 			await expect.element(host).toHaveAttribute('data-state', 'on');
 		});
 	});
+});
+
+describe('controllable value', () => {
+	controllableRootCases('checkbox');
 });

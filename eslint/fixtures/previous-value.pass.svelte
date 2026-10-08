@@ -26,6 +26,15 @@
 		const sibling = node.previousElementSibling;
 		if (sibling) capture(sibling.textContent);
 	});
+
+	let firstControl: HTMLElement | null = null;
+	function comesBeforeInSameTree(control: HTMLElement, first: HTMLElement | null) {
+		return first != null && control !== first;
+	}
+	$effect(() => {
+		const control = document.body;
+		if (comesBeforeInSameTree(control, firstControl)) firstControl = control;
+	});
 </script>
 
 <button type="button" onclick={() => commit(value)}>{visibleMessage}</button>

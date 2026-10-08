@@ -23,7 +23,7 @@ export class CollapsibleRoot {
 	registeredPanelId = $state<string | null | undefined>(undefined);
 
 	readonly readOpen: () => boolean;
-	readonly writeOpen: (open: boolean) => void;
+	readonly writeOpen: (open: boolean, details: CollapsibleRootChangeEventDetails) => void;
 	readonly readDisabled: () => boolean;
 	readonly onOpenChange:
 		((open: boolean, eventDetails: CollapsibleRootChangeEventDetails) => void) | undefined;
@@ -31,7 +31,7 @@ export class CollapsibleRoot {
 
 	constructor(
 		readOpen: () => boolean,
-		writeOpen: (open: boolean) => void,
+		writeOpen: (open: boolean, details: CollapsibleRootChangeEventDetails) => void,
 		readDisabled: () => boolean,
 		onOpenChange:
 			((open: boolean, eventDetails: CollapsibleRootChangeEventDetails) => void) | undefined,
@@ -133,7 +133,7 @@ export class CollapsibleRoot {
 		const details = createChangeEventDetails(reason, event);
 		this.onOpenChange?.(next, details);
 		if (details.isCanceled) return false;
-		this.writeOpen(next);
+		this.writeOpen(next, details);
 		return true;
 	}
 

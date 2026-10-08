@@ -82,6 +82,16 @@ export function useDismiss(store: FloatingRootStore, props: () => UseDismissProp
 		};
 	}
 
+	for (const key of ['escapeKeyBubbles', 'outsidePressBubbles'] as const) {
+		Object.defineProperty(store.data, key, {
+			configurable: true,
+			enumerable: true,
+			get() {
+				return options()[key];
+			}
+		});
+	}
+
 	function pressMode(event: Event) {
 		return resolvePressMode(options().outsidePressEvent, event);
 	}
@@ -147,8 +157,6 @@ export function useDismiss(store: FloatingRootStore, props: () => UseDismissProp
 
 	$effect(() => {
 		const current = options();
-		store.data.escapeKeyBubbles = current.escapeKeyBubbles;
-		store.data.outsidePressBubbles = current.outsidePressBubbles;
 		if (!current.enabled || !store.isOpen()) {
 			if (!store.isOpen()) {
 				sawPressWhileOpen = false;

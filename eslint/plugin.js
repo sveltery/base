@@ -3,6 +3,8 @@ import noDirectFieldRegistration from './no-direct-field-registration.js';
 import noCopiedHelper from './no-copied-helper.js';
 import noDerivedInlineAttachment from './no-derived-inline-attachment.js';
 import noInlineCompositeKeys from './no-inline-composite-keys.js';
+import noLateBoundGetter from './no-late-bound-getter.js';
+import noUncontrolledBindable from './no-uncontrolled-bindable.js';
 import noComputedStyleDirection from './no-computed-style-direction.js';
 import noForeignContext from './no-foreign-context.js';
 import noPreviousValueEffect from './no-previous-value-effect.js';
@@ -24,6 +26,8 @@ const plugin = {
 		'no-copied-helper': noCopiedHelper,
 		'no-derived-inline-attachment': noDerivedInlineAttachment,
 		'no-inline-composite-keys': noInlineCompositeKeys,
+		'no-late-bound-getter': noLateBoundGetter,
+		'no-uncontrolled-bindable': noUncontrolledBindable,
 		'no-computed-style-direction': noComputedStyleDirection,
 		'no-foreign-context': noForeignContext,
 		'no-previous-value-effect': noPreviousValueEffect,

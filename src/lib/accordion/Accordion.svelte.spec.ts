@@ -8,6 +8,7 @@ import { describe, expect, it, vi } from 'vitest';
 import { render } from 'vitest-browser-svelte';
 import AccordionHarness from '../../tests/AccordionHarness.svelte';
 import type { AccordionItemChangeEventDetails, AccordionRootChangeEventDetails } from './types.js';
+import { controllableRootCases } from '../../tests/controllable-root-cases.js';
 import { Accordion } from './index.js';
 import { REASONS } from '../internal/event-details.js';
 
@@ -773,4 +774,8 @@ describe('Accordion', () => {
 			expect(panel2.element().hasAttribute('hidden')).toBe(false);
 		});
 	});
+});
+
+describe('controllable value', () => {
+	controllableRootCases('accordion');
 });
