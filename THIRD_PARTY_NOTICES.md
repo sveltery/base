@@ -14,7 +14,7 @@ Parts of this package derive from [Base UI](https://github.com/mui/base-ui) v1.8
 - `src/lib/accordion/Accordion.svelte.spec.ts` assertions from `packages/react/src/accordion/**/*.test.tsx`
 - `src/lib/collapsible/CollapsibleRoot.svelte` from `packages/react/src/collapsible/root/CollapsibleRoot.tsx` and `useCollapsibleRoot.ts`
 - `src/lib/collapsible/CollapsibleTrigger.svelte` from `packages/react/src/collapsible/trigger/CollapsibleTrigger.tsx` and the non-composite path of `packages/react/src/internals/use-button/useButton.ts`
-- `src/lib/collapsible/CollapsiblePanel.svelte` and `src/lib/collapsible/panel-shell.svelte.ts` from `packages/react/src/collapsible/panel/CollapsiblePanel.tsx`
+- `src/lib/collapsible/CollapsiblePanel.svelte` and `src/lib/collapsible/PanelHost.svelte` from `packages/react/src/collapsible/panel/CollapsiblePanel.tsx`
 - `src/lib/collapsible/context.svelte.ts` from `packages/react/src/collapsible/root/CollapsibleRootContext.ts` and `packages/react/src/internals/useTransitionStatus.ts`
 - `src/lib/collapsible/panel-motion.svelte.ts` and `src/lib/collapsible/motion.ts` from `packages/react/src/collapsible/panel/useCollapsiblePanel.ts`, `useOpenChangeComplete`, and `useAnimationsFinished`
 - `src/lib/collapsible/attributes.ts` from `packages/react/src/collapsible/root/stateAttributesMapping.ts`, `packages/react/src/utils/collapsibleOpenStateMapping.ts`, and `packages/react/src/internals/stateAttributesMapping.ts`
@@ -182,7 +182,10 @@ Parts of this package derive from [Base UI](https://github.com/mui/base-ui) v1.8
 - `src/lib/internal/css-style.ts` from the style-string helpers shared by Progress, NumberField, OTP Field, Slider, Checkbox, Radio, and Switch
 - `src/lib/internal/click.ts` from `packages/react/src/utils/dispatchClickWithModifiers.ts` and the host and link checks in `packages/react/src/internals/use-button/useButton.ts`
 - `src/lib/internal/document-order.ts` from the composite list DOM-order comparison
-- `src/lib/internal/roving-slot.ts` from the render-order index in `packages/react/src/internals/composite/list/useCompositeListItem.ts` (`createSlotClaim`, `includeSorted`, `registeredTabIndex`)
+- `src/lib/internal/roving-slot.ts` and `src/lib/internal/composite-items.svelte.ts` from the render-order index in `packages/react/src/internals/composite/list/useCompositeListItem.ts` and `CompositeList.tsx` (`createSlotClaim`, `RenderOrder`, `CompositeItems`, `includeSorted`, `registeredTabIndex`)
+- `src/lib/internal/GroupFrame.svelte` from the host markup of `packages/react/src/checkbox-group/CheckboxGroup.tsx` and `packages/react/src/radio-group/RadioGroup.tsx`
+- `src/lib/toolbar/item-registration.svelte.ts` from the item ref in `packages/react/src/internals/composite/item/useCompositeItem.ts`
+- `src/lib/scroll-area/track-style.ts` and `src/lib/scroll-area/scrollbar-part.svelte.ts` from the scrollbar geometry in `packages/react/src/scroll-area/scrollbar/ScrollAreaScrollbar.tsx`
 - `src/lib/internal/roving-keys.ts` from the arrow-key sets in `packages/react/src/internals/composite/root/useCompositeRoot.ts` (`ARROWS`, `NAV_KEYS`, `modifierHeld`, `axisKeys`, `stepLinear`)
 - `src/lib/internal/timeout.ts` from `packages/utils/src/useTimeout.ts` (`Timeout`), `packages/utils/src/useAnimationFrame.ts` (`AnimationFrame`), and `packages/react/src/internals/TimeoutManager.ts`. The React hooks are not ported.
 - `src/lib/otp-field/otp.spec.ts` assertions from `packages/react/src/otp-field/utils/otp.test.ts`

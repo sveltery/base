@@ -6,7 +6,7 @@
 
 import type { StateAttributesMapping } from '../internal/state-attributes.js';
 import { collapsibleOpenStateMapping, transitionStatusMapping } from '../collapsible/attributes.js';
-import type { AccordionItemState, AccordionRootState } from './types.js';
+import type { AccordionItemState, AccordionPanelState, AccordionRootState } from './types.js';
 
 export const index = 'data-index';
 
@@ -20,6 +20,9 @@ export const accordionStateAttributesMapping: StateAttributesMapping<AccordionIt
 	...transitionStatusMapping,
 	value: () => null
 };
+
+export const accordionPanelAttributesMapping: StateAttributesMapping<AccordionPanelState> =
+	accordionStateAttributesMapping;
 
 export function accordionDimensionStyle(
 	height: number | undefined,

@@ -8,6 +8,7 @@
 <script lang="ts">
 	import { createAttachmentKey, type Attachment } from 'svelte/attachments';
 	import type { HTMLAttributes } from 'svelte/elements';
+	import GroupFrame from '../internal/GroupFrame.svelte';
 	import { getStateAttributesProps } from '../internal/state-attributes.js';
 	import { createControllableValue } from '../internal/controllable-value.svelte.js';
 	import { useDirection } from '../internal/direction-context.js';
@@ -16,7 +17,7 @@
 	import { useFieldsetRootContext } from '../fieldset/context.svelte.js';
 	import { setRadioGroupContext } from '../radio/group-context.js';
 	import type { RadioRootChangeEventDetails } from '../radio/types.js';
-	import { RadioGroupRoving } from './roving-focus.svelte.js';
+	import { RadioGroupRoving } from '../internal/radio-roving.svelte.js';
 	import type { RadioGroupProps, RadioGroupState } from './types.js';
 
 	let {
@@ -146,8 +147,4 @@
 		});
 </script>
 
-{#if render}
-	{@render render(hostProps, groupState)}
-{:else}
-	<div {...hostProps}>{@render children?.()}</div>
-{/if}
+<GroupFrame {hostProps} state={groupState} {render} {children} />

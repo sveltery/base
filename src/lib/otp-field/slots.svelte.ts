@@ -4,39 +4,35 @@
 //
 // OTP Field does not use composite keyboard navigation. It only needs each input's
 // DOM index, the same registration Toolbar and RadioGroup use for roving focus.
-// An input that has not registered yet takes the index it will have in document order.
+// An input that has not registered yet keeps the render-order index claimed at mount.
 
 import { untrack } from 'svelte';
-import { includeSorted } from '../internal/roving-slot.js';
 import { createAttachmentKey } from 'svelte/attachments';
+import { includeSorted, RenderOrder } from '../internal/roving-slot.js';
 
 export class SlotList {
 	elements = $state<HTMLInputElement[]>([]);
 	readonly attachmentKey = createAttachmentKey();
+	private readonly order = new RenderOrder();
+
+	/** Render-order index for SSR, before the input is registered. */
+	claim() {
+		return this.order.claim();
+	}
 
 	get first(): HTMLInputElement | null {
 		return this.elements[0] ?? null;
 	}
 
-	indexOf(node: HTMLInputElement | null): number {
-		if (!node) return this.elements.length;
-		const index = this.elements.indexOf(node);
-		if (index >= 0) return index;
-		if (!node.isConnected) return this.elements.length;
-		let preceding = 0;
-		for (const item of this.elements) {
-			if (node.compareDocumentPosition(item) & Node.DOCUMENT_POSITION_PRECEDING) preceding += 1;
-		}
-		return preceding;
-	}
-
 	register(node: HTMLInputElement) {
 		untrack(() => {
 			this.elements = includeSorted(this.elements, node);
+			this.order.reset(this.elements.length);
 		});
 		return () => {
 			untrack(() => {
 				this.elements = this.elements.filter((item) => item !== node);
+				this.order.reset(this.elements.length);
 			});
 		};
 	}

@@ -8,10 +8,10 @@
 // are handled on the group, not on each radio. No element renderer.
 
 import { untrack } from 'svelte';
+import { CompositeItems } from './composite-items.svelte.js';
 import { isSkipped } from './composite-skip.js';
 import { ARROWS } from './roving-keys.js';
-import { includeSorted, registeredTabIndex } from './roving-slot.js';
-import type { RadioGroupRovingFocus } from '../radio/group-context.js';
+import { registeredTabIndex, renderOrderTabIndex } from './roving-slot.js';
 
 /** Hidden, natively disabled, and `aria-disabled` radios are skipped. */
 function isItemSkipped(element: HTMLElement) {
@@ -34,8 +34,7 @@ function fallbackIndex(elements: HTMLElement[]) {
  * Vertical arrows and horizontal arrows both move, and horizontal arrows swap in RTL.
  * Shift+Arrow still moves. Home and End do not.
  */
-export class RadioGroupRoving implements RadioGroupRovingFocus {
-	elements = $state<HTMLElement[]>([]);
+export class RadioGroupRoving extends CompositeItems {
 	highlighted = $state<HTMLElement | null>(null);
 	readDirection: () => 'ltr' | 'rtl' = () => 'ltr';
 
@@ -44,15 +43,14 @@ export class RadioGroupRoving implements RadioGroupRovingFocus {
 
 	register(node: HTMLElement) {
 		untrack(() => {
-			this.elements = includeSorted(this.elements, node);
+			this.admit(node);
 			if (this.userMoved) this.follow();
 			else this.applyDefault();
 		});
 		return () => {
 			untrack(() => {
-				const index = this.elements.indexOf(node);
 				const wasHighlighted = this.highlighted === node;
-				this.elements = this.elements.filter((item) => item !== node);
+				const index = this.dismiss(node);
 				if (wasHighlighted) {
 					this.highlighted = null;
 					if (index !== -1) this.highlightedIndex = index;
@@ -72,9 +70,17 @@ export class RadioGroupRoving implements RadioGroupRovingFocus {
 		this.highlightedIndex = this.elements.indexOf(node);
 	}
 
-	tabIndex(node: HTMLElement | null, selected: boolean, hasSelection: boolean): 0 | -1 {
-		if ((!node || !this.elements.includes(node)) && hasSelection) return selected ? 0 : -1;
-		return registeredTabIndex(this.elements, node, this.currentStop());
+	tabIndex(
+		node: HTMLElement | null,
+		selected: boolean,
+		hasSelection: boolean,
+		renderIndex: number
+	): 0 | -1 {
+		if (node && this.elements.includes(node)) {
+			return registeredTabIndex(this.elements, node, this.currentStop());
+		}
+		if (hasSelection) return selected ? 0 : -1;
+		return renderOrderTabIndex(this.elements, renderIndex);
 	}
 
 	/**

@@ -171,6 +171,15 @@ for (const reference of [false, true]) {
 	});
 }
 
+test('svelte SSR renders a tab stop when nothing is selected', async ({ request }) => {
+	const html = await (await request.get('/fixtures/radio-group?case=select')).text();
+	expect(html).toContain('data-hydrated="false"');
+	expect(html).toContain('role="radiogroup"');
+	expect(html).toContain('tabindex="0"');
+	expect(html).toContain('tabindex="-1"');
+	expect(html).not.toContain('aria-checked="true"');
+});
+
 test('svelte SSR renders the selected radio tab stop before hydration', async ({ request }) => {
 	const html = await (await request.get('/fixtures/radio-group?case=initial')).text();
 	expect(html).toContain('data-hydrated="false"');

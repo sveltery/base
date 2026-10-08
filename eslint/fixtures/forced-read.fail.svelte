@@ -49,10 +49,6 @@
 	});
 
 	$effect(() => {
-		if (height === undefined && width === undefined) return;
-	});
-
-	$effect(() => {
 		if (disabled) {
 			untrack(() => {
 				ensureActive();

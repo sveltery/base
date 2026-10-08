@@ -7,22 +7,14 @@
 	import type { Attachment } from 'svelte/attachments';
 	import { getStateAttributesProps } from '../internal/state-attributes.js';
 	import { useToolbarRootContext } from './context.svelte.js';
+	import { registerToolbarItem } from './item-registration.svelte.js';
 	import type { ToolbarLinkHostProps, ToolbarLinkProps, ToolbarLinkState } from './types.js';
 
 	const toolbar = useToolbarRootContext();
 
 	let { onfocus, render, children, ...elementProps }: ToolbarLinkProps = $props();
 
-	let node: HTMLElement | null = $state(null);
-
-	function register(element: HTMLElement) {
-		node = element;
-		const remove = toolbar.roving.register(element);
-		return () => {
-			remove();
-			if (node === element) node = null;
-		};
-	}
+	const item = registerToolbarItem(toolbar.roving);
 
 	const linkState: ToolbarLinkState = $derived({ orientation: toolbar.orientation });
 
@@ -32,14 +24,13 @@
 
 	const hostProps: ToolbarLinkHostProps & Record<symbol, Attachment<HTMLElement>> = $derived.by(
 		() => {
-			const roving = toolbar.roving.item(node, register, { onfocus: handleFocus });
-			const attachmentKey = toolbar.roving.keyForAttachment();
+			const hosted = item.hosted({ onfocus: handleFocus });
 			return {
 				...getStateAttributesProps(linkState),
 				...elementProps,
-				tabindex: roving.tabindex,
-				onfocus: roving.onfocus,
-				[attachmentKey]: roving[attachmentKey]
+				tabindex: hosted.props.tabindex,
+				onfocus: hosted.props.onfocus,
+				[hosted.attachmentKey]: hosted.props[hosted.attachmentKey]
 			} as ToolbarLinkHostProps & Record<symbol, Attachment<HTMLElement>>;
 		}
 	);

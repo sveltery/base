@@ -70,6 +70,18 @@ for (const reference of [false, true]) {
 	});
 }
 
+test('svelte SSR gives each OTP input its own character', async ({ request }) => {
+	const html = await (await request.get('/fixtures/otp-field?case=grouped')).text();
+	expect(html).toContain('data-hydrated="false"');
+	for (const digit of ['1', '2', '3', '4', '5', '6']) {
+		expect(html).toContain(`value="${digit}"`);
+	}
+	const ids = [...html.matchAll(/<input\b[^>]*\svalue="[1-6]"[^>]*>/g)]
+		.map((match) => match[0].match(/\sid="([^"]+)"/)?.[1])
+		.filter((id): id is string => id != null);
+	expect(new Set(ids).size).toBe(6);
+});
+
 test('svelte SSR associates the label before hydration', async ({ request }) => {
 	const html = await (await request.get('/fixtures/otp-field?case=labelled')).text();
 	expect(html).toContain('data-hydrated="false"');

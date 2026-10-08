@@ -3,7 +3,7 @@ import fs from 'node:fs';
 import { pathToFileURL } from 'node:url';
 
 /** Live clone ceiling. Hoisting may stay under it. Growing past it fails CI. */
-export const CEILING = 85;
+export const CEILING = 69;
 
 /**
  * Fingerprints present in `next` and absent from `base`.

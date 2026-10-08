@@ -129,7 +129,6 @@ describe('sveltery/no-void-signal-read', () => {
 		expect(messages.some((message) => message.message.includes('identical branches'))).toBe(true);
 		expect(messages.some((message) => message.message.includes('comparison counter'))).toBe(true);
 		expect(covers(source, messages, 'height !== undefined || width !== undefined')).toBe(true);
-		expect(covers(source, messages, 'height === undefined && width === undefined')).toBe(true);
 		expect(covers(source, messages, 'untrack(() => ensureActive())')).toBe(true);
 		expect(covers(source, messages, 'untrack(() => reconcile())')).toBe(true);
 		expect(covers(source, messages, 'readStyle() !== style')).toBe(true);

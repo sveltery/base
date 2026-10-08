@@ -1,11 +1,15 @@
 // Derived from Base UI v1.8.0 packages/react/src/internals/composite/list/useCompositeListItem.ts
 // (commit 47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c). MIT, see THIRD_PARTY_NOTICES.md.
-// Tabs still claims a render-order slot. Toolbar, Toggle Group, Radio Group, and
-// OTP Field take their fallback stop from registration order instead.
+// Tabs still claims a render-order slot with `createSlotClaim`. Toolbar, Toggle
+// Group, Radio Group, and OTP Field use `RenderOrder`, which starts at 0 when
+// the list mounts and returns to the registered length after each flush.
 
 import { byDocumentOrder } from './document-order.js';
 
-/** Render-order slot. The counter does not reset; prefer `registeredTabIndex`. */
+/**
+ * Render-order slot that never returns to 0. Tabs still uses this. Other
+ * composites use `RenderOrder`.
+ */
 export function createSlotClaim() {
 	let nextSlot = 0;
 	return () => {
@@ -13,6 +17,34 @@ export function createSlotClaim() {
 		nextSlot += 1;
 		return slot;
 	};
+}
+
+/**
+ * Guess each item's index from render order, including SSR, before the node
+ * is registered. Upstream `nextIndexRef` starts at 0 for the list mount and
+ * is set to the registered length after each flush.
+ */
+export class RenderOrder {
+	private next = 0;
+
+	claim(): number {
+		const index = this.next;
+		this.next += 1;
+		return index;
+	}
+
+	reset(length: number) {
+		this.next = length;
+	}
+}
+
+/**
+ * Tab stop before any item has registered. The first rendered item is the
+ * stop. Once the list has nodes, registration order decides instead.
+ */
+export function renderOrderTabIndex(elements: readonly HTMLElement[], renderIndex: number): 0 | -1 {
+	if (elements.length > 0) return -1;
+	return renderIndex === 0 ? 0 : -1;
 }
 
 /**

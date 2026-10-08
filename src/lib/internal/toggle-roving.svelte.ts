@@ -7,12 +7,12 @@
 // handlers for Toggle to spread onto its host. No element renderer.
 
 import { untrack } from 'svelte';
-import { createAttachmentKey } from 'svelte/attachments';
 import type { Attachment } from 'svelte/attachments';
 import type { HTMLButtonAttributes } from 'svelte/elements';
 import { COMPOSITE_KEYS } from './composite-keys.js';
+import { CompositeItems } from './composite-items.svelte.js';
 import { axisKeys, modifierHeld, stepLinear } from './roving-keys.js';
-import { includeSorted, registeredTabIndex } from './roving-slot.js';
+import { registeredTabIndex, renderOrderTabIndex } from './roving-slot.js';
 
 export type RovingOrientation = 'horizontal' | 'vertical';
 
@@ -32,25 +32,22 @@ function isDisabled(element: HTMLElement) {
  * Arrow keys follow `orientation` (horizontal arrows swap in RTL).
  * Home and End jump to the first and last focusable item.
  */
-export class RovingFocus {
-	elements = $state<HTMLElement[]>([]);
+export class RovingFocus extends CompositeItems {
 	active = $state<HTMLElement | null>(null);
 	readLoopFocus: () => boolean = () => true;
 	readOrientation: () => RovingOrientation = () => 'horizontal';
 	readDirection: () => 'ltr' | 'rtl' = () => 'ltr';
 
-	private readonly attachmentKey = createAttachmentKey();
-
 	register(node: HTMLElement) {
 		// The attachment effect must not subscribe to the list it writes.
 		untrack(() => {
-			this.elements = includeSorted(this.elements, node);
+			this.admit(node);
 			this.ensureActive();
 		});
 		return () => {
 			untrack(() => {
-				this.elements = this.elements.filter((item) => item !== node);
 				if (this.active === node) this.active = null;
+				this.dismiss(node);
 				this.ensureActive();
 			});
 		};
@@ -66,12 +63,15 @@ export class RovingFocus {
 
 	/** Re-pick the tab stop when `node`'s disabled flag changes. */
 	sync(node: HTMLElement | null, disabled: boolean) {
-		if (!node || !this.elements.includes(node)) return;
-		if (disabled) {
-			if (this.active === node) this.ensureActive();
-			return;
-		}
-		this.keepEnabled();
+		const host = { node, disabled };
+		untrack(() => {
+			if (!host.node || !this.elements.includes(host.node)) return;
+			if (host.disabled) {
+				if (this.active === host.node) this.ensureActive();
+				return;
+			}
+			this.keepEnabled();
+		});
 	}
 
 	private keepEnabled() {
@@ -90,8 +90,11 @@ export class RovingFocus {
 		if (next !== this.active) this.active = next;
 	}
 
-	tabIndex(node: HTMLElement | null): 0 | -1 {
-		return registeredTabIndex(this.elements, node, this.candidate());
+	tabIndex(node: HTMLElement | null, renderIndex: number): 0 | -1 {
+		if (node && this.elements.includes(node)) {
+			return registeredTabIndex(this.elements, node, this.candidate());
+		}
+		return renderOrderTabIndex(this.elements, renderIndex);
 	}
 
 	activate(node: HTMLElement) {
@@ -107,9 +110,10 @@ export class RovingFocus {
 	host(
 		node: HTMLElement | null,
 		register: Attachment<HTMLButtonElement>,
-		handlers: RovingHostHandlers
+		handlers: RovingHostHandlers,
+		renderIndex: number
 	): RovingHostProps {
-		const tabindex = this.tabIndex(node);
+		const tabindex = this.tabIndex(node, renderIndex);
 		return {
 			tabindex,
 			onfocus: (event) => {
@@ -123,10 +127,6 @@ export class RovingFocus {
 			},
 			[this.attachmentKey]: register
 		};
-	}
-
-	keyForAttachment() {
-		return this.attachmentKey;
 	}
 
 	private keydown(event: KeyboardEvent) {

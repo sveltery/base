@@ -7,8 +7,8 @@
 	import { collapsibleStateAttributesMapping } from './attributes.js';
 	import { useCollapsibleRootContext } from './context.svelte.js';
 	import { dimensionStyle } from './motion.js';
-	import { PanelShell } from './panel-shell.svelte.js';
-	import type { CollapsiblePanelProps, CollapsiblePanelState } from './types.js';
+	import PanelHost from './PanelHost.svelte';
+	import type { CollapsiblePanelProps, CollapsiblePanelState, TransitionStatus } from './types.js';
 
 	let {
 		hiddenUntilFound = false,
@@ -21,35 +21,31 @@
 	}: CollapsiblePanelProps = $props();
 
 	const root = useCollapsibleRootContext();
-	const shell = new PanelShell<CollapsiblePanelState>({
-		root,
-		hiddenUntilFound: () => hiddenUntilFound,
-		keepMounted: () => keepMountedProp ?? false,
-		registeredId: () => (id ? id : undefined),
-		style: () => style,
-		elementProps: () => elementProps,
-		warnWhen: () => hiddenUntilFound && keepMountedProp === false,
-		warnMessage:
-			'The `keepMounted={false}` prop on `Collapsible.Panel` is ignored when `hiddenUntilFound` is enabled, since the panel must remain mounted while closed.',
-		dimension: (motion) => dimensionStyle(motion.renderedHeight, motion.renderedWidth),
-		state: (motion) => ({
+	const keepMounted = $derived(keepMountedProp ?? false);
+
+	const warnMessage =
+		'The `keepMounted={false}` prop on `Collapsible.Panel` is ignored when `hiddenUntilFound` is enabled, since the panel must remain mounted while closed.';
+
+	function buildState(status: TransitionStatus): CollapsiblePanelState {
+		return {
 			open: root.open,
 			disabled: root.disabled,
-			transitionStatus: motion.panelStatus
-		}),
-		attributes: collapsibleStateAttributesMapping,
-		extraProps: () => ({})
-	});
+			transitionStatus: status
+		};
+	}
 </script>
 
-{#snippet content()}
-	{@render children?.()}
-{/snippet}
-
-{#if shell.shouldRender}
-	{#if render}
-		{@render render(shell.hostProps, shell.state, content)}
-	{:else}
-		<div {...shell.hostProps}>{@render content()}</div>
-	{/if}
-{/if}
+<PanelHost
+	{hiddenUntilFound}
+	{keepMounted}
+	{id}
+	{style}
+	warnWhen={hiddenUntilFound && keepMountedProp === false}
+	{warnMessage}
+	{dimensionStyle}
+	attributes={collapsibleStateAttributesMapping}
+	{buildState}
+	{elementProps}
+	{render}
+	{children}
+/>
