@@ -9,7 +9,6 @@
 	roving focus, this root registers as a composite item.
 -->
 <script lang="ts">
-	import { untrack } from 'svelte';
 	import { createAttachmentKey, type Attachment } from 'svelte/attachments';
 	import { clickOnSpaceKeyUp, currentHost, dispatchClick } from '../internal/click.js';
 	import { toCssStyle } from '../internal/css-style.js';
@@ -90,8 +89,7 @@
 
 	function registerRoot(element: HTMLElement) {
 		rootNode = element;
-		untrack(() => group?.bindRadioValue?.(element, value));
-		const remove = group?.roving?.register(element);
+		const remove = group?.roving?.register(element, () => ({ value, disabled }));
 		return () => {
 			remove?.();
 			if (rootNode === element) rootNode = null;
@@ -117,13 +115,6 @@
 		const next = checked;
 		if (!input) return;
 		input.checked = next;
-	});
-
-	$effect(() => {
-		const element = rootNode;
-		const next = value;
-		if (!element) return;
-		group?.bindRadioValue?.(element, next);
 	});
 
 	function handleInputClick(event: MouseEvent) {

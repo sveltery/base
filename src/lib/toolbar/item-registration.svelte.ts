@@ -9,13 +9,16 @@ import type {
 	CompositeRoot
 } from '../internal/composite-root.svelte.js';
 
-export function registerToolbarItem(roving: CompositeRoot) {
+export function registerToolbarItem(
+	roving: CompositeRoot,
+	read: () => { disabled?: boolean } = () => ({})
+) {
 	let node = $state<HTMLElement | null>(null);
 	const renderIndex = roving.claim();
 
 	function register(element: HTMLElement) {
 		node = element;
-		const remove = roving.register(element);
+		const remove = roving.register(element, read);
 		return () => {
 			remove();
 			if (node === element) node = null;

@@ -8,12 +8,13 @@
 // The class publishes tabindex. No element renderer.
 
 import { untrack } from 'svelte';
+import { SvelteMap } from 'svelte/reactivity';
 import type { Attachment } from 'svelte/attachments';
 import type { HTMLAttributes } from 'svelte/elements';
 import { CompositeItems } from './composite-items.svelte.js';
 import { ARROW_KEYS, COMPOSITE_KEYS } from './composite-keys.js';
 import { byDocumentOrder } from './document-order.js';
-import { axisKeys, modifierHeld, stepLinear } from './roving-keys.js';
+import { axisKeys, modifierHeld } from './roving-keys.js';
 
 export type CompositeOrientation = 'horizontal' | 'vertical' | 'both';
 
@@ -46,12 +47,23 @@ export interface CompositeMeta {
 	hasSelection?: boolean;
 }
 
+/** Live item metadata. The root effect reads this getter, so it tracks `value` and `disabled`. */
+export interface CompositeRegistration {
+	value?: unknown;
+	disabled?: boolean;
+}
+
 export type CompositeItemProps = HTMLAttributes<HTMLElement> &
 	Record<symbol, Attachment<HTMLElement>>;
 
 interface RenderClaim {
 	index: number;
 	disabled: boolean;
+}
+
+interface MeasuredItem {
+	disabled: boolean;
+	selected: boolean;
 }
 
 /**
@@ -61,22 +73,20 @@ interface RenderClaim {
 export class CompositeRoot extends CompositeItems {
 	/** Cached tab stop. Host props read this instead of measuring the item. */
 	private stop = $state<HTMLElement | null>(null);
-	private revision = $state(0);
 	private stopIndex = 0;
 	private userMoved = false;
 	/** Item `isItemSelected` last returned. A different item clears a manual highlight. */
 	private selectedNode: HTMLElement | null = null;
-	private appliedGeneration = 0;
 	private claims: RenderClaim[] = [];
+	private readonly readers = new SvelteMap<HTMLElement, () => CompositeRegistration>();
+	private measured: MeasuredItem[] = [];
 
 	constructor(private readonly options: CompositeRootOptions = {}) {
 		super();
 		$effect(() => {
-			const elements = this.elements;
-			const generation = this.revision;
-			const selected = elements.map((element) => this.itemSelected(element));
+			const measured = this.measure();
 			untrack(() => {
-				this.observe(generation, selected);
+				this.observe(measured);
 			});
 		});
 	}
@@ -88,18 +98,17 @@ export class CompositeRoot extends CompositeItems {
 		return index;
 	}
 
-	register(node: HTMLElement) {
+	register(node: HTMLElement, read: () => CompositeRegistration = () => ({})) {
+		this.readers.set(node, read);
 		untrack(() => {
 			this.admit(node);
-			this.observe(
-				this.revision,
-				this.elements.map((element) => this.itemSelected(element))
-			);
+			this.observe(this.measure());
 		});
 		return () => {
 			untrack(() => {
 				const index = this.elements.indexOf(node);
 				const removedStop = this.stop === node;
+				this.readers.delete(node);
 				this.dismiss(node);
 				if (removedStop) {
 					this.stop = null;
@@ -110,26 +119,19 @@ export class CompositeRoot extends CompositeItems {
 					this.userMoved = false;
 					this.selectedNode = null;
 				}
-				this.observe(
-					this.revision,
-					this.elements.map((element) => this.itemSelected(element))
-				);
+				this.observe(this.measure());
 			});
 		};
 	}
 
-	/** Re-read disabled and selected items. Layout is measured here, not in host props. */
-	sync() {
-		// The caller is often an effect. Reading `revision` there would subscribe
-		// that effect to the counter it just bumped.
-		untrack(() => {
-			this.revision += 1;
-		});
+	/** The registration getter for `node`, or an empty record. */
+	meta(node: HTMLElement): CompositeRegistration {
+		return this.readers.get(node)?.() ?? {};
 	}
 
 	/** Move the tab stop onto `node`. A later selection change can move it again. */
 	highlight(node: HTMLElement) {
-		if (!this.elements.includes(node) || this.itemDisabled(node)) return;
+		if (!this.elements.includes(node) || this.stopBlocked(node)) return;
 		this.userMoved = true;
 		if (this.stop === node) return;
 		this.stop = node;
@@ -192,17 +194,22 @@ export class CompositeRoot extends CompositeItems {
 		if (!(event.currentTarget instanceof HTMLElement)) return;
 
 		this.refreshOrder();
-		const items = this.elements.filter((item) => !this.itemDisabled(item));
-		if (items.length === 0) return;
+		const items = this.elements;
+		if (!items.some((item) => !this.itemDisabled(item))) return;
 
-		const current = this.stop && items.includes(this.stop) ? this.stop : items[0];
-		let position = current ? items.indexOf(current) : 0;
-		if (position < 0) position = 0;
+		// A disabled item can still hold focus. Step from that item's own index,
+		// not from the first enabled item, or the next arrow skips one.
+		const focused = event.target instanceof HTMLElement ? event.target : null;
+		const origin =
+			focused && items.includes(focused)
+				? focused
+				: this.stop && items.includes(this.stop)
+					? this.stop
+					: items[0];
+		if (!origin) return;
 
-		const next = this.nextIndex(event.key, position, items.length);
-		if (next == null) return;
-		const target = items[next];
-		if (!target || target === current) return;
+		const target = this.nextEnabled(event.key, items.indexOf(origin), items);
+		if (!target || target === origin) return;
 
 		event.preventDefault();
 		if (this.options.stopPropagation ?? true) event.stopPropagation();
@@ -210,11 +217,19 @@ export class CompositeRoot extends CompositeItems {
 		target.focus();
 	}
 
-	private observe(generation: number, selected: boolean[]) {
+	private measure(): MeasuredItem[] {
+		return this.elements.map((element) => ({
+			disabled: Boolean(this.readers.get(element)?.().disabled),
+			selected: this.itemSelected(element)
+		}));
+	}
+
+	private observe(measured: MeasuredItem[]) {
+		this.measured = measured;
 		const elements = this.elements;
 		let selectedNode: HTMLElement | null = null;
 		for (let index = 0; index < elements.length; index += 1) {
-			if (!selected[index]) continue;
+			if (!measured[index]?.selected) continue;
 			selectedNode = elements[index] ?? null;
 			break;
 		}
@@ -224,7 +239,6 @@ export class CompositeRoot extends CompositeItems {
 		const stopPresent = this.stop != null && elements.includes(this.stop);
 		if (selectedNode !== this.selectedNode && stopPresent) this.userMoved = false;
 		this.selectedNode = selectedNode;
-		this.appliedGeneration = generation;
 		this.recompute();
 	}
 
@@ -238,7 +252,7 @@ export class CompositeRoot extends CompositeItems {
 
 		if (!this.userMoved) {
 			const selected = elements.find(
-				(element) => this.itemSelected(element) && !this.itemDisabled(element)
+				(element) => this.itemSelected(element) && !this.stopBlocked(element)
 			);
 			if (selected) {
 				this.stop = selected;
@@ -247,21 +261,21 @@ export class CompositeRoot extends CompositeItems {
 			}
 		}
 
-		if (this.stop && elements.includes(this.stop) && !this.itemDisabled(this.stop)) {
+		if (this.stop && elements.includes(this.stop) && !this.stopBlocked(this.stop)) {
 			this.stopIndex = elements.indexOf(this.stop);
 			return;
 		}
 
 		if ((this.options.replacement ?? 'index') === 'index') {
 			const at = elements[this.stopIndex];
-			if (at && !this.itemDisabled(at)) {
+			if (at && !this.stopBlocked(at)) {
 				this.stop = at;
 				this.stopIndex = elements.indexOf(at);
 				return;
 			}
 			// The vacated slot is gone. Radio and Tabs then use the selected item.
 			const selected = elements.find(
-				(element) => this.itemSelected(element) && !this.itemDisabled(element)
+				(element) => this.itemSelected(element) && !this.stopBlocked(element)
 			);
 			if (selected) {
 				this.stop = selected;
@@ -270,7 +284,7 @@ export class CompositeRoot extends CompositeItems {
 			}
 		}
 
-		const fallback = elements.find((element) => !this.itemDisabled(element)) ?? null;
+		const fallback = elements.find((element) => !this.stopBlocked(element)) ?? null;
 		this.stop = fallback;
 		this.stopIndex = fallback ? elements.indexOf(fallback) : 0;
 	}
@@ -280,32 +294,47 @@ export class CompositeRoot extends CompositeItems {
 		if (sorted.some((node, index) => node !== this.elements[index])) this.elements = sorted;
 	}
 
-	private nextIndex(key: string, position: number, length: number): number | null {
+	private nextEnabled(key: string, originIndex: number, items: HTMLElement[]): HTMLElement | null {
 		const orientation = this.options.orientation?.() ?? 'horizontal';
-		if (orientation === 'both') {
-			const rtl = this.options.direction?.() === 'rtl';
-			const forwardHorizontal = rtl ? 'ArrowLeft' : 'ArrowRight';
-			const backwardHorizontal = rtl ? 'ArrowRight' : 'ArrowLeft';
-			const forward = key === forwardHorizontal || key === 'ArrowDown';
-			const backward = key === backwardHorizontal || key === 'ArrowUp';
-			if (!forward && !backward) return null;
-			if (forward) return position === length - 1 ? 0 : position + 1;
-			return position === 0 ? length - 1 : position - 1;
+		const loop = orientation === 'both' ? true : (this.options.loopFocus?.() ?? true);
+		const homeEnd = orientation === 'both' ? false : (this.options.homeEnd ?? false);
+		const rtl = this.options.direction?.() === 'rtl';
+
+		if (homeEnd && (key === 'Home' || key === 'End')) {
+			const enabled = items.filter((item) => !this.itemDisabled(item));
+			return key === 'End' ? (enabled[enabled.length - 1] ?? null) : (enabled[0] ?? null);
 		}
 
-		const { forwardKey, backwardKey } = axisKeys(
-			orientation === 'vertical',
-			this.options.direction?.() === 'rtl'
-		);
-		return stepLinear(
-			position,
-			length,
-			key,
-			forwardKey,
-			backwardKey,
-			this.options.loopFocus?.() ?? true,
-			this.options.homeEnd ?? false
-		);
+		const forward =
+			orientation === 'both'
+				? key === (rtl ? 'ArrowLeft' : 'ArrowRight') || key === 'ArrowDown'
+				: key === axisKeys(orientation === 'vertical', rtl).forwardKey;
+		const backward =
+			orientation === 'both'
+				? key === (rtl ? 'ArrowRight' : 'ArrowLeft') || key === 'ArrowUp'
+				: key === axisKeys(orientation === 'vertical', rtl).backwardKey;
+		if (!forward && !backward) return null;
+
+		const length = items.length;
+		let index = originIndex;
+		for (let step = 0; step < length; step += 1) {
+			if (forward) {
+				if (index >= length - 1) {
+					if (!loop) return null;
+					index = 0;
+				} else {
+					index += 1;
+				}
+			} else if (index <= 0) {
+				if (!loop) return null;
+				index = length - 1;
+			} else {
+				index -= 1;
+			}
+			const candidate = items[index];
+			if (candidate && !this.itemDisabled(candidate)) return candidate;
+		}
+		return null;
 	}
 
 	private modifiersBlock(event: KeyboardEvent) {
@@ -315,8 +344,14 @@ export class CompositeRoot extends CompositeItems {
 		return modifierHeld(event);
 	}
 
+	/** Keyboard skip. An `aria-disabled` tab stays reachable; a radio does not. */
 	private itemDisabled(element: HTMLElement) {
 		return this.options.isItemDisabled?.(element) ?? false;
+	}
+
+	/** Tab stop. Metadata `disabled` cannot hold tabindex, even when arrows may focus it. */
+	private stopBlocked(element: HTMLElement) {
+		return Boolean(this.readers.get(element)?.().disabled) || this.itemDisabled(element);
 	}
 
 	private itemSelected(element: HTMLElement) {

@@ -22,6 +22,7 @@
 		| 'keys'
 		| 'removal'
 		| 'disabled-item'
+		| 'late-disable'
 		| 'labels'
 		| 'legend'
 		| 'external'
@@ -48,6 +49,7 @@
 	const second = { id: 2 };
 
 	let showLast = $state(true);
+	let disableFirst = $state(false);
 	let explicit = $state(true);
 	let owner = $state<string | undefined>('b');
 	let picked = $state<string | undefined>();
@@ -213,6 +215,13 @@
 					<Radio.Root value="c" data-testid="c">C</Radio.Root>
 				{/if}
 			</RadioGroup>
+		{:else if scenario === 'late-disable'}
+			<RadioGroup aria-label="Colors">
+				<Radio.Root value="a" disabled={disableFirst}>A</Radio.Root>
+				<Radio.Root value="b">B</Radio.Root>
+				<Radio.Root value="c">C</Radio.Root>
+			</RadioGroup>
+			<button type="button" onclick={() => (disableFirst = true)}>Disable A</button>
 		{:else if scenario === 'disabled-item'}
 			<RadioGroup aria-label="Colors">
 				<Radio.Root value="a">A</Radio.Root>

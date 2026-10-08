@@ -43,7 +43,10 @@
 
 	function register(element: HTMLElement) {
 		node = element as HTMLButtonElement;
-		const remove = group?.roving.register(element);
+		const remove = group?.roving.register(element, () => ({
+			value: resolvedValue,
+			disabled: disabledState
+		}));
 		return () => {
 			remove?.();
 			if (node === element) node = null;
@@ -53,12 +56,6 @@
 	$effect(() => {
 		if (!group?.valueProvided || valueProp !== undefined) return;
 		warnMissingToggleValue();
-	});
-
-	$effect(() => {
-		const host = { node, disabled: disabledState };
-		if (!group || !host.node) return;
-		group.roving.sync();
 	});
 
 	function handleClick(event: MouseEvent & { currentTarget: EventTarget & HTMLButtonElement }) {

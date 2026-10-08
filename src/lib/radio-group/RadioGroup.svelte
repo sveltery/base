@@ -41,7 +41,6 @@
 	let touched = $state(false);
 
 	const reading = useDirection();
-	const radioValues = new WeakMap<HTMLElement, unknown>();
 	const formContext = useFormContext();
 	const field = useFieldContext(true);
 	const fieldset = useFieldsetRootContext(true);
@@ -68,7 +67,8 @@
 			isSkipped(element) || element.getAttribute('aria-disabled') === 'true',
 		isItemSelected: (element) => {
 			const current = controllable.value;
-			return current !== undefined && radioValues.get(element) === current;
+			const meta = roving.meta(element);
+			return current !== undefined && meta.value === current && meta.disabled !== true;
 		},
 		keys: 'arrows',
 		modifiers: 'shift-ok',
@@ -111,10 +111,6 @@
 		setCheckedValue,
 		setTouched(next) {
 			touched = next;
-		},
-		bindRadioValue(element, radioValue) {
-			radioValues.set(element, radioValue);
-			roving.sync();
 		}
 	});
 

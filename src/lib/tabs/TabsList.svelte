@@ -13,7 +13,6 @@
 	import { getStateAttributesProps } from '../internal/state-attributes.js';
 	import { tabsStateAttributesMapping } from './attributes.js';
 	import { setTabsListContext, TabsListModel, useTabsRootContext } from './context.svelte.js';
-	import type { TabsValue } from './types.js';
 	import type { TabsListProps, TabsListState } from './types.js';
 
 	let {
@@ -26,17 +25,16 @@
 
 	const reading = useDirection();
 	const tabs = useTabsRootContext();
-	const tabIdentity = new WeakMap<HTMLElement, { value: TabsValue; disabled: boolean }>();
 	const roving = new CompositeRoot({
 		orientation: () => tabs.orientation,
 		loopFocus: () => loopFocus,
 		direction: () => reading.direction,
 		isItemDisabled: (element) => isSkipped(element),
 		isItemSelected: (element) => {
-			const record = tabIdentity.get(element);
+			const meta = roving.meta(element);
 			const current = tabs.value;
-			if (!record || record.disabled || current == null) return false;
-			return record.value === current;
+			if (meta.disabled || current == null || !('value' in meta)) return false;
+			return meta.value === current;
 		},
 		keys: 'composite',
 		homeEnd: true,
@@ -44,9 +42,7 @@
 		replacement: 'index',
 		keydown: 'item'
 	});
-	const list = new TabsListModel(roving, (element, value, disabled) => {
-		tabIdentity.set(element, { value, disabled });
-	});
+	const list = new TabsListModel(roving);
 	list.readActivateOnFocus = () => activateOnFocus;
 	setTabsListContext(list);
 

@@ -233,6 +233,19 @@ describe('RadioGroup', () => {
 			expect(document.activeElement).toBe(radio('B').element());
 		});
 
+		it('steps to the next radio when the focused stop was disabled after mount', async () => {
+			render(RadioGroupComponentHarness, { scenario: 'late-disable' });
+			const a = radio('A');
+			const b = radio('B');
+			await expect.element(a).toHaveAttribute('tabindex', '0');
+			await page.getByRole('button', { name: 'Disable A' }).click();
+			await expect.element(a).toHaveAttribute('tabindex', '-1');
+			await expect.element(b).toHaveAttribute('tabindex', '0');
+			a.element().focus();
+			await userEvent.keyboard('{ArrowRight}');
+			expect(document.activeElement).toBe(b.element());
+		});
+
 		it('skips a disabled radio', async () => {
 			render(RadioGroupComponentHarness, { scenario: 'disabled-item' });
 			await expect.element(radio('A')).toHaveAttribute('tabindex', '0');

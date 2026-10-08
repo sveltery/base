@@ -15,7 +15,7 @@ const RADIO_GROUP = Symbol('radio-group');
  */
 export interface RadioGroupRovingFocus {
 	claim(): number;
-	register(element: HTMLElement): () => void;
+	register(element: HTMLElement, read?: () => { value?: unknown; disabled?: boolean }): () => void;
 	highlight(element: HTMLElement): void;
 	tabIndex(
 		node: HTMLElement | null,
@@ -40,8 +40,6 @@ export interface RadioGroupContextValue {
 	readonly roving?: RadioGroupRovingFocus;
 	setCheckedValue: (value: unknown, eventDetails: RadioRootChangeEventDetails) => void;
 	setTouched: (touched: boolean) => void;
-	/** Remember which value this radio host represents so the tab stop can follow it. */
-	bindRadioValue?: (element: HTMLElement, value: unknown) => void;
 }
 
 export function setRadioGroupContext(context: RadioGroupContextValue) {
