@@ -11,6 +11,17 @@ export {
 	triggerOpenStateMapping
 } from '../popupStateMapping.js';
 export { useScrollLock } from '../useScrollLock.svelte.js';
+export { useAnchoredPopupScrollLock } from '../useAnchoredPopupScrollLock.svelte.js';
+export {
+	useAnchorPositioning,
+	anchorAutoUpdateOptions,
+	type Align,
+	type Side,
+	type UseAnchorPositioningParameters,
+	type UseAnchorPositioningReturn
+} from '../useAnchorPositioning.svelte.js';
+export { useTriggerFocusGuards } from './useTriggerFocusGuards.js';
+export * as CommonPositionerCssVars from '../CommonPositionerCssVars.js';
 export type { PopupTransitionStatus } from '../useTransitionStatus.svelte.js';
 export { PopupTriggerMap } from './popupTriggerMap.js';
 export {

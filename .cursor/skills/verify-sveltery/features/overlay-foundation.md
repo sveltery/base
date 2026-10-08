@@ -1,6 +1,6 @@
 # Overlay foundation (internal)
 
-Phase 1a utilities. There is no public component. `verify.sh` covers the spec, unit tests, and fixture. `verify-component.sh` does not, because these modules live under `src/lib/internal`.
+Internal utilities through phase 1b. There is no public component. `verify.sh` covers the spec, unit tests, and fixture. `verify-component.sh` does not, because these modules live under `src/lib/internal`.
 
 | Primitive         | What the fixture and specs cover                               |
 | ----------------- | -------------------------------------------------------------- |
@@ -12,5 +12,10 @@ Phase 1a utilities. There is no public component. `verify.sh` covers the spec, u
 | Open / transition | `data-open`, `data-closed`, `data-starting-style`, cancel      |
 | Popup store       | `preventUnmountOnClose` sticks after a canceled close          |
 | mergeProps        | Handler order, `defaultPrevented`, class, style, attachments   |
+| Positioning       | Popup sits under the trigger on the bottom side                |
+| Hover             | Opens on hover, stays open over the popup, closes outside      |
+| Anchored scroll   | Pointer open locks; hover does not; touch locks only when wide |
 
-Not in this phase: positioning, hover, anchored scroll lock, Dialog, and Popover.
+`disableAnchorTracking` leaves `ancestorResize` on. That matches Base UI v1.8.0.
+
+Not in this phase: Dialog and Popover.

@@ -20,6 +20,17 @@ export function isTargetInsideEnabledTrigger(
 	return false;
 }
 
+const TYPEABLE_SELECTOR =
+	'input:not([type="hidden"]):not([disabled]),[contenteditable]:not([contenteditable="false"]),textarea:not([disabled])';
+
+export function isInteractiveElement(element: Element | null) {
+	return (
+		element?.closest(
+			`button,a[href],[role="button"],select,[tabindex]:not([tabindex="-1"]),${TYPEABLE_SELECTOR}`
+		) != null
+	);
+}
+
 export function isTypeableElement(element: unknown): boolean {
 	return (
 		isHTMLElement(element) &&
