@@ -130,6 +130,7 @@ export function scanRepo(repoRoot) {
 			stdio: ['ignore', 'pipe', 'pipe']
 		});
 		const report = JSON.parse(fs.readFileSync(path.join(out, 'jscpd-report.json'), 'utf8'));
+		/** @type {(name: string) => string} */
 		const resolve = (name) => resolveClonePath(name, repoRoot);
 		return pairCountsFromClones(report.duplicates ?? [], resolve);
 	} finally {
