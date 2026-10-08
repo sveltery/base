@@ -15,7 +15,7 @@ export {
 	useOpenInteractionType,
 	type OpenInteractionType,
 	type OpenPointerKind
-} from './useOpenInteractionType.js';
+} from '../openInteraction.js';
 export { useAnchoredPopupScrollLock } from '../useAnchoredPopupScrollLock.svelte.js';
 export {
 	useAnchorPositioning,

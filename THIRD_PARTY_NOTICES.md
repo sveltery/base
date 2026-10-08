@@ -201,7 +201,7 @@ Parts of this package derive from [Base UI](https://github.com/mui/base-ui) v1.8
 - `src/lib/internal/useScrollLock.svelte.ts` from `packages/utils/src/useScrollLock.ts`
 - `src/lib/internal/useTransitionStatus.svelte.ts` from `packages/react/src/internals/useTransitionStatus.ts` (popup arguments: idle and deferred ending off)
 - `src/lib/internal/useOpenChangeComplete.svelte.ts` from `packages/react/src/internals/useOpenChangeComplete.tsx`
-- `src/lib/internal/popups/useOpenInteractionType.ts` from `packages/react/src/utils/useOpenInteractionType.ts`
+- `src/lib/internal/openInteraction.ts` from `packages/react/src/utils/useOpenInteractionType.ts` and `packages/utils/src/useEnhancedClickHandler.ts`
 - `src/lib/internal/popupStateMapping.ts`, `CommonPopupDataAttributes.ts`, and `CommonTriggerDataAttributes.ts` from the matching files in `packages/react/src/utils`
 - `src/lib/internal/FocusGuard.svelte` and `InternalBackdrop.svelte` from `packages/react/src/utils/FocusGuard.tsx` and `InternalBackdrop.tsx`
 - `src/lib/internal/event-details.ts` also exports the popup reasons `trigger-hover`, `escape-key`, `outside-press`, `focus-out`, `close-press`, and `imperative-action`

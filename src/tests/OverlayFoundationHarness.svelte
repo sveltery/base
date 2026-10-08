@@ -19,10 +19,10 @@
 	import { getStateAttributesProps } from '#lib/internal/state-attributes.js';
 
 	let {
-		scenario = 'modal' as 'modal' | 'modeless' | 'cancel' | 'stuck',
+		scenario = 'modal' as 'modal' | 'modeless' | 'cancel' | 'stuck' | 'drag' | 'return',
 		defaultOpen = false
 	}: {
-		scenario?: 'modal' | 'modeless' | 'cancel' | 'stuck';
+		scenario?: 'modal' | 'modeless' | 'cancel' | 'stuck' | 'drag' | 'return';
 		defaultOpen?: boolean;
 	} = $props();
 
@@ -31,7 +31,8 @@
 	let calls = $state<{ open: boolean; reason: string; canceled: boolean }[]>([]);
 	let statusLog = $state('[]');
 	const seenStatuses: string[] = [];
-	const modal = $derived(scenario !== 'modeless');
+	const modal = $derived(scenario !== 'modeless' && scenario !== 'drag' && scenario !== 'return');
+	let explicit = $state<HTMLButtonElement | null>(null);
 
 	const openValue = createControllableValue<boolean>({
 		getProp: () => open,
@@ -65,8 +66,9 @@
 	const click = useClick(store, () => ({ enabled: true }));
 	const dismiss = useDismiss(store, () => ({
 		escapeKey: true,
-		outsidePress: modal ? false : true,
-		outsidePressEvent: 'sloppy'
+		outsidePress: scenario === 'return' ? false : modal ? false : true,
+		outsidePressEvent:
+			scenario === 'drag' ? ({ mouse: 'intentional', touch: 'sloppy' } as const) : 'sloppy'
 	}));
 	useScrollLock(() => ({
 		enabled: modal && store.open,
@@ -110,12 +112,14 @@
 	data-open-state={store.open ? 'open' : 'closed'}
 >
 	<button {...triggerProps}>Open</button>
+	<button type="button" data-testid="explicit" bind:this={explicit}>Explicit</button>
+	<button type="button" data-testid="other">Other</button>
 	<div data-testid="outside">Outside</div>
 	<pre data-testid="calls">{JSON.stringify(calls)}</pre>
 	<pre data-testid="statuses">{statusLog}</pre>
 	{#if store.mounted}
 		<FloatingPortal {store}>
-			<FloatingFocusManager {store} {modal}>
+			<FloatingFocusManager {store} {modal} returnFocus={scenario === 'return' ? explicit : true}>
 				<div
 					role="dialog"
 					aria-labelledby="popup-title"

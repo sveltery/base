@@ -88,6 +88,53 @@ describe('overlay foundation', () => {
 		});
 	});
 
+	it('does not close when a press starts inside and releases outside', async () => {
+		render(OverlayFoundationHarness, { scenario: 'drag' });
+		await page.getByRole('button', { name: 'Open' }).click();
+		const popup = page.getByRole('dialog', { name: 'Notice' });
+		await expect.element(popup).toBeVisible();
+		popup
+			.element()
+			.dispatchEvent(
+				new PointerEvent('pointerdown', {
+					bubbles: true,
+					cancelable: true,
+					button: 0,
+					pointerType: 'mouse'
+				})
+			);
+		page
+			.getByTestId('outside')
+			.element()
+			.dispatchEvent(new MouseEvent('click', { bubbles: true, cancelable: true, detail: 1 }));
+		await expect.element(popup).toBeVisible();
+
+		page
+			.getByTestId('outside')
+			.element()
+			.dispatchEvent(
+				new PointerEvent('pointerdown', {
+					bubbles: true,
+					cancelable: true,
+					button: 0,
+					pointerType: 'mouse'
+				})
+			);
+		page
+			.getByTestId('outside')
+			.element()
+			.dispatchEvent(new MouseEvent('click', { bubbles: true, cancelable: true, detail: 1 }));
+		await expect.poll(() => page.getByRole('dialog', { name: 'Notice' }).elements().length).toBe(0);
+	});
+
+	it('moves focus to an explicit return target after focus has left', async () => {
+		render(OverlayFoundationHarness, { scenario: 'return' });
+		await page.getByRole('button', { name: 'Open' }).click();
+		await expect.element(page.getByRole('button', { name: 'Inside' })).toHaveFocus();
+		await page.getByTestId('other').click();
+		await expect.element(page.getByTestId('explicit')).toHaveFocus();
+	});
+
 	it('does not open when the change is canceled', async () => {
 		render(OverlayFoundationHarness, { scenario: 'cancel' });
 		await page.getByRole('button', { name: 'Open' }).click();

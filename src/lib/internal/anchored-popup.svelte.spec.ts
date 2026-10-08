@@ -104,6 +104,19 @@ describe('anchored popup', () => {
 		await expect.poll(overflowLocked).toBe(true);
 	});
 
+	it('reuses the popup and positioner when a click switches triggers', async () => {
+		render(AnchoredPopupHarness, { scenario: 'retain' });
+		await page.getByRole('button', { name: 'A' }).click();
+		const popup = page.getByTestId('popup').element();
+		const positioner = page.getByTestId('positioner').element();
+		await expect.element(page.getByRole('dialog', { name: 'Notice' })).toBeVisible();
+		await page.getByRole('button', { name: 'B' }).click();
+		await expect.poll(() => page.getByTestId('active').element().textContent).toBe('trigger-b');
+		expect(page.getByTestId('popup').element()).toBe(popup);
+		expect(page.getByTestId('positioner').element()).toBe(positioner);
+		expect(page.getByRole('dialog', { name: 'Notice' }).elements()).toHaveLength(1);
+	});
+
 	it('blocks pointer events outside the safe polygon when asked', async () => {
 		const view = render(AnchoredPopupHarness, { scenario: 'block' });
 		await page.getByRole('button', { name: 'Open' }).hover();

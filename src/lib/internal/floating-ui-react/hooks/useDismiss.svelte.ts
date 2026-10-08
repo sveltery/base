@@ -14,11 +14,18 @@ import { useFloatingTree } from '../components/FloatingTree.svelte.js';
 import type { FloatingRootStore } from '../components/FloatingRootStore.svelte.js';
 import { PopupStore } from '../../popups/store.svelte.js';
 
+export type PressMode = 'sloppy' | 'intentional';
+
+export type OutsidePressEvent =
+	| PressMode
+	| { mouse?: PressMode; touch?: PressMode }
+	| (() => PressMode | { mouse?: PressMode; touch?: PressMode });
+
 export interface UseDismissProps {
 	enabled?: boolean;
 	escapeKey?: boolean;
 	outsidePress?: boolean | ((event: MouseEvent | PointerEvent) => boolean);
-	outsidePressEvent?: 'sloppy' | 'intentional' | (() => 'sloppy' | 'intentional');
+	outsidePressEvent?: OutsidePressEvent;
 	bubbles?: boolean | { escapeKey?: boolean; outsidePress?: boolean };
 }
 
@@ -36,11 +43,28 @@ function pressIsInside(store: FloatingRootStore, event: Event) {
 	return false;
 }
 
+function pointerIsTouch(event: Event) {
+	return (
+		(event instanceof PointerEvent && event.pointerType === 'touch') ||
+		event.type.startsWith('touch')
+	);
+}
+
+function resolvePressMode(
+	configured: PressMode | { mouse?: PressMode; touch?: PressMode },
+	event: Event
+): PressMode {
+	if (configured === 'sloppy' || configured === 'intentional') return configured;
+	const touch = pointerIsTouch(event);
+	return configured[touch ? 'touch' : 'mouse'] ?? (touch ? 'sloppy' : 'intentional');
+}
+
 export function useDismiss(store: FloatingRootStore, props: () => UseDismissProps = () => ({})) {
 	const tree = useFloatingTree();
 	const compositionTimeout = Timeout.create();
 	let composing = false;
 	let sawPressWhileOpen = false;
+	let pressStartedInside = false;
 
 	function options() {
 		const value = props();
@@ -54,6 +78,10 @@ export function useDismiss(store: FloatingRootStore, props: () => UseDismissProp
 			escapeKeyBubbles: bubbleFlag(value.bubbles, 'escapeKey'),
 			outsidePressBubbles: bubbleFlag(value.bubbles, 'outsidePress')
 		};
+	}
+
+	function pressMode(event: Event) {
+		return resolvePressMode(options().outsidePressEvent, event);
 	}
 
 	function childBlocks(key: 'escapeKeyBubbles' | 'outsidePressBubbles') {
@@ -102,12 +130,14 @@ export function useDismiss(store: FloatingRootStore, props: () => UseDismissProp
 
 	function closeOnOutside(event: MouseEvent | PointerEvent) {
 		const current = options();
+		const mode = pressMode(event);
 		if (!store.isOpen() || !current.enabled || current.outsidePress === false) return;
-		if (current.outsidePressEvent === 'intentional' && event.type !== 'click') return;
-		if (current.outsidePressEvent === 'sloppy' && event.type === 'click') return;
+		if (mode === 'intentional' && event.type !== 'click') return;
+		if (mode === 'sloppy' && event.type === 'click') return;
 		if (event.type === 'pointerdown' && event.button !== 0) return;
 		if (insideDismissTree(event)) return;
-		if (current.outsidePressEvent === 'intentional' && !sawPressWhileOpen) return;
+		if (pressStartedInside) return;
+		if (mode === 'intentional' && !sawPressWhileOpen && event.detail !== 0) return;
 		if (typeof current.outsidePress === 'function' && !current.outsidePress(event)) return;
 		if (!current.outsidePressBubbles && childBlocks('outsidePressBubbles')) return;
 		store.setOpen(false, createChangeEventDetails(REASONS.outsidePress, event));
@@ -118,7 +148,10 @@ export function useDismiss(store: FloatingRootStore, props: () => UseDismissProp
 		store.data.escapeKeyBubbles = current.escapeKeyBubbles;
 		store.data.outsidePressBubbles = current.outsidePressBubbles;
 		if (!current.enabled || !store.isOpen()) {
-			if (!store.isOpen()) sawPressWhileOpen = false;
+			if (!store.isOpen()) {
+				sawPressWhileOpen = false;
+				pressStartedInside = false;
+			}
 			return;
 		}
 
@@ -135,10 +168,17 @@ export function useDismiss(store: FloatingRootStore, props: () => UseDismissProp
 			}),
 			on(doc, 'keydown', closeOnEscape),
 			on(doc, 'pointerdown', (event) => {
-				if (event.button === 0) sawPressWhileOpen = true;
+				if (event.button !== 0) return;
+				if (insideDismissTree(event)) pressStartedInside = true;
+				else sawPressWhileOpen = true;
 				closeOnOutside(event);
 			}),
-			on(doc, 'click', (event) => closeOnOutside(event))
+			on(doc, 'click', (event) => {
+				const startedInside = pressStartedInside;
+				pressStartedInside = false;
+				if (startedInside) return;
+				closeOnOutside(event);
+			})
 		];
 		return () => {
 			for (const cleanup of cleanups) cleanup();

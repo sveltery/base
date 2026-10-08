@@ -11,7 +11,7 @@ import { useOpenChangeComplete } from '../useOpenChangeComplete.svelte.js';
 import { PopupTransition, type PopupTransitionStatus } from '../useTransitionStatus.svelte.js';
 import { attachPreventUnmountOnClose, createPopupOpenState } from './popupStoreUtils.js';
 import { PopupTriggerMap } from './popupTriggerMap.js';
-import type { OpenInteractionType } from './useOpenInteractionType.js';
+import type { OpenInteractionType } from '../openInteraction.js';
 
 export type PopupChangeEventDetails<Reason extends string> = BaseUIChangeEventDetails<Reason> & {
 	preventUnmountOnClose: () => void;

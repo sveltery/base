@@ -4,8 +4,8 @@
 import { createChangeEventDetails, REASONS } from '../../event-details.js';
 import { getTarget } from '../../shadow-dom.js';
 import { AnimationFrame, Timeout } from '../../timeout.js';
-import type { OpenInteractionType } from '../../popups/useOpenInteractionType.js';
-import { useOpenInteractionType } from '../../popups/useOpenInteractionType.js';
+import type { OpenInteractionType } from '../../openInteraction.js';
+import { useOpenInteractionType } from '../../openInteraction.js';
 import type { PopupStore } from '../../popups/store.svelte.js';
 import { isTypeableElement } from '../utils/element.js';
 import { isMouseLikePointerType, isVirtualPointerEvent } from '../utils/event.js';
@@ -48,7 +48,7 @@ export function useClick<Reason extends string>(
 		method: OpenInteractionType
 	) {
 		const { reason, touchOpenDelay } = options();
-		const details = createChangeEventDetails(reason, nativeEvent, target);
+		const details = createChangeEventDetails(reason as Reason, nativeEvent, target);
 		const commit = () => {
 			const opening = nextOpen && !store.isOpen();
 			const previous = store.openMethod;
@@ -76,15 +76,10 @@ export function useClick<Reason extends string>(
 		return false;
 	}
 
-	function remember(event: Event) {
-		if (event.currentTarget instanceof Element) store.domReferenceElement = event.currentTarget;
-	}
-
 	return {
 		reference: {
 			onpointerdown(event: PointerEvent) {
 				if (!options().enabled) return;
-				remember(event);
 				pointerType =
 					isMouseLikePointerType(event.pointerType, true) && isVirtualPointerEvent(event)
 						? 'virtual'
@@ -94,7 +89,6 @@ export function useClick<Reason extends string>(
 				const { enabled, event: eventOption, ignoreMouse } = options();
 				if (!enabled || event.button !== 0 || eventOption === 'click') return;
 				if (isMouseLikePointerType(pointerType, true) && ignoreMouse) return;
-				remember(event);
 				const nextOpen = getNextOpen(
 					store.isOpen(),
 					event.currentTarget,
@@ -121,7 +115,6 @@ export function useClick<Reason extends string>(
 				if (eventOption === 'mousedown-only') return;
 				if (eventOption === 'mousedown' && hadPointer) return;
 				if (isMouseLikePointerType(remembered, true) && ignoreMouse) return;
-				remember(event);
 				const currentTarget = event.currentTarget;
 				if (!(currentTarget instanceof HTMLElement)) return;
 				const nextOpen = getNextOpen(
