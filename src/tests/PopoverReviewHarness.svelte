@@ -26,8 +26,8 @@
 {/if}
 
 {#if mode === 'viewport'}
-	<Popover.Trigger handle={reviewHandle} id="trigger-a">One</Popover.Trigger>
-	<Popover.Trigger handle={reviewHandle} id="trigger-b">Two</Popover.Trigger>
+	<Popover.Trigger handle={reviewHandle} id="trigger-a" payload="content-AAA">One</Popover.Trigger>
+	<Popover.Trigger handle={reviewHandle} id="trigger-b" payload="content-BBB">Two</Popover.Trigger>
 {:else if mode === 'handle'}
 	<Popover.Trigger handle={reviewHandle} id="module-trigger">Open</Popover.Trigger>
 {/if}
@@ -37,22 +37,24 @@
 	defaultOpen={mode === 'default-open'}
 	bind:triggerId={ownerId}
 >
-	{#if !detached}
-		<Popover.Trigger id={mode === 'trigger' ? 'owned' : undefined}>Open</Popover.Trigger>
-	{/if}
-	<Popover.Portal keepMounted={mode === 'mounted'}>
-		<Popover.Positioner data-testid={mode === 'mounted' ? 'positioner' : undefined}>
-			{#if mode === 'focus'}
-				{@render focusPopup()}
-			{:else if mode === 'viewport'}
-				{@render viewportPopup()}
-			{:else if mode === 'default-open'}
-				<Popover.Popup>Ready</Popover.Popup>
-			{:else}
-				{@render plainPopup()}
-			{/if}
-		</Popover.Positioner>
-	</Popover.Portal>
+	{#snippet children({ payload })}
+		{#if !detached}
+			<Popover.Trigger id={mode === 'trigger' ? 'owned' : undefined}>Open</Popover.Trigger>
+		{/if}
+		<Popover.Portal keepMounted={mode === 'mounted'}>
+			<Popover.Positioner data-testid={mode === 'mounted' ? 'positioner' : undefined}>
+				{#if mode === 'focus'}
+					{@render focusPopup()}
+				{:else if mode === 'viewport'}
+					{@render viewportPopup(payload)}
+				{:else if mode === 'default-open'}
+					<Popover.Popup>Ready</Popover.Popup>
+				{:else}
+					{@render plainPopup()}
+				{/if}
+			</Popover.Positioner>
+		</Popover.Portal>
+	{/snippet}
 </Popover.Root>
 
 {#snippet focusPopup()}
@@ -73,11 +75,13 @@
 	</Popover.Popup>
 {/snippet}
 
-{#snippet viewportPopup()}
+{#snippet viewportPopup(payload: unknown)}
 	<Popover.Popup>
 		<Popover.Viewport>
+			<p data-testid="pane-text">{payload}</p>
 			<h2 id="live-title">Live</h2>
 			<input data-testid="live-input" />
+			<input type="radio" name="pane-choice" data-testid="live-radio" />
 		</Popover.Viewport>
 	</Popover.Popup>
 {/snippet}

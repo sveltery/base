@@ -45,6 +45,7 @@
 	const uid = $props.id();
 	const triggerId = $derived(id ?? `base-ui-${uid}`);
 	const bindKey = createAttachmentKey();
+	const hoverKey = createAttachmentKey();
 	let triggerEl = $state<HTMLElement | null>(null);
 	let armed = $state<TriggerArmed | null>(null);
 
@@ -83,18 +84,22 @@
 		};
 	});
 
-	$effect(() => {
-		const node = triggerEl;
-		const attachHover = armed?.attach;
-		if (!node || !attachHover) return;
-		const clearHover = untrack(() => attachHover(node));
-		return () => clearHover();
-	});
+	function bindTrigger(node: HTMLElement) {
+		triggerEl = node;
+		return () => {
+			if (triggerEl === node) triggerEl = null;
+		};
+	}
 
-	$effect(() => {
-		handle?.setPayload(triggerId, payload as never);
-		return () => handle?.forgetPayload(triggerId);
-	});
+	function attachHover(node: HTMLElement) {
+		const attach = armed?.attach;
+		if (!attach) return;
+		return untrack(() => attach(node));
+	}
+
+	function acceptArmed(next: TriggerArmed) {
+		armed = next;
+	}
 
 	const opened = $derived(live?.openedBy(triggerId) ?? false);
 	const partState: PopoverTriggerState = $derived({ disabled, open: opened });
@@ -118,12 +123,8 @@
 					{ open: opened },
 					triggerOpenAttributes(opened, live?.openChangeReason ?? null)
 				),
-				[bindKey]: (node: HTMLElement) => {
-					triggerEl = node;
-					return () => {
-						if (triggerEl === node) triggerEl = null;
-					};
-				}
+				[bindKey]: bindTrigger,
+				[hoverKey]: attachHover
 			}
 		)
 	);
@@ -138,7 +139,7 @@
 			{delay}
 			{closeDelay}
 			triggerEl={readNode}
-			onArmed={(next) => (armed = next)}
+			onArmed={acceptArmed}
 		/>
 	{/key}
 {/if}

@@ -220,6 +220,7 @@ Parts of this package derive from [Base UI](https://github.com/mui/base-ui) v1.8
 - `src/lib/popover/handle.svelte.ts` from `packages/react/src/popover/store/PopoverHandle.ts`
 - `src/lib/popover/PopoverLabel.svelte` from `packages/react/src/popover/title/PopoverTitle.tsx` and `packages/react/src/popover/description/PopoverDescription.tsx`
 - `src/lib/popover/context.svelte.ts` from the popover root, portal, and positioner context modules
+- `src/lib/internal/composite-keys.ts` from Base UI `COMPOSITE_KEYS` (shared by popover and slider)
 - `src/lib/internal/useButton.ts` from the non-composite path of `packages/react/src/internals/use-button/useButton.ts`
 - `src/lib/internal/adaptiveOriginMiddleware.ts` from `packages/react/src/utils/adaptiveOriginMiddleware.ts`
 - `createDefaultInitialFocus` and `resolveFocus` in `src/lib/internal/popups/popupStoreUtils.ts` from `packages/react/src/utils/popups/popupStoreUtils.ts`

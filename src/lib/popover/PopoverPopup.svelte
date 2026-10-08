@@ -12,7 +12,8 @@
 		useHoverFloatingInteraction
 	} from '../internal/floating-ui/index.js';
 	import { mergeProps } from '../internal/mergeProps.js';
-	import { createDefaultInitialFocus, FOCUSABLE_POPUP_PROPS } from '../internal/popups/index.js';
+	import { COMPOSITE_KEYS } from '../internal/composite-keys.js';
+	import { FOCUSABLE_POPUP_PROPS, resolveFocus } from '../internal/popups/index.js';
 	import { popupTransitionStateMapping } from '../internal/popupStateMapping.js';
 	import { getStateAttributesProps } from '../internal/state-attributes.js';
 	import { useOpenChangeComplete } from '../internal/useOpenChangeComplete.svelte.js';
@@ -71,6 +72,10 @@
 		};
 	}
 
+	function focusIn(openType: string) {
+		return resolveFocus(initialFocus, openType, store.popupElement);
+	}
+
 	// Close interaction comes from the shared manager. `null` falls back to the trigger there.
 	function focusReturn(closeType: string | null): boolean | HTMLElement | null | void {
 		const spec = finalFocus;
@@ -85,8 +90,6 @@
 		transitionStatus: store.transitionStatus,
 		instant: store.instantType
 	});
-
-	const toolbarKeys = new Set(['ArrowDown', 'ArrowUp', 'ArrowRight', 'ArrowLeft', 'Home', 'End']);
 
 	function inToolbar(event: KeyboardEvent) {
 		const current = event.currentTarget;
@@ -103,7 +106,7 @@
 			...(store.titleElementId ? { 'aria-labelledby': store.titleElementId } : {}),
 			...(store.descriptionElementId ? { 'aria-describedby': store.descriptionElementId } : {}),
 			onkeydown(event: KeyboardEvent) {
-				if (inToolbar(event) && toolbarKeys.has(event.key)) event.stopPropagation();
+				if (inToolbar(event) && COMPOSITE_KEYS.has(event.key)) event.stopPropagation();
 			},
 			style: toCssStyle({
 				...store.popupVars,
@@ -118,9 +121,7 @@
 <FloatingFocusManager
 	{store}
 	disabled={!store.mounted || store.openChangeReason === REASONS.triggerHover}
-	initialFocus={initialFocus === undefined
-		? createDefaultInitialFocus(() => store.popupElement)
-		: initialFocus}
+	initialFocus={focusIn}
 	returnFocus={typeof finalFocus === 'function' ? focusReturn : finalFocus}
 	modal={store.focusManagerModal}
 >

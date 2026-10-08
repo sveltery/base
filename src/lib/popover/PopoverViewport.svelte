@@ -3,8 +3,10 @@
 	Derived from Base UI v1.8.0 packages/react/src/popover/viewport/PopoverViewport.tsx
 	and packages/react/src/utils/usePopupViewport.tsx
 	(commit 47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c). MIT, see THIRD_PARTY_NOTICES.md.
-	Previous content is a cloned node, not an HTML string. Ids are stripped so
-	aria links keep pointing at the live title and description.
+	Previous content is a cloned node, not an HTML string. The copy is taken
+	before the new trigger's content renders. Ids are stripped so aria links
+	keep pointing at the live title and description. Radio names are removed
+	so the copy does not uncheck the live control.
 -->
 <script lang="ts">
 	import { untrack } from 'svelte';
@@ -25,7 +27,6 @@
 	const resizeFrame = AnimationFrame.create();
 
 	let currentEl = $state<HTMLDivElement | null>(null);
-	let previousSlot = $state<HTMLDivElement | null>(null);
 	let previousNode = $state<HTMLElement | null>(null);
 	let activationDirection = $state<string | undefined>(undefined);
 	let showStarting = $state(false);
@@ -38,38 +39,29 @@
 		};
 	});
 
-	$effect(() => {
+	// Before the DOM updates, so the copy is the trigger we are leaving.
+	$effect.pre(() => {
 		const generation = store.triggerSwitch;
 		if (generation === 0) return;
 		const controller = new AbortController();
-		let host: HTMLDivElement | null = null;
 		untrack(() => {
 			const source = currentEl;
 			const active = store.domReferenceElement;
 			const previous = store.switchedFrom;
-			const slot = previousSlot;
-			if (!source || !active || !previous || !slot) return;
-			// Insert the clone in the same turn the previous pane appears. A later
-			// attachment leaves an empty shell that observers can read first.
-			host = source.ownerDocument.createElement('div');
-			host.setAttribute('data-previous', '');
-			host.inert = true;
-			host.setAttribute('aria-hidden', 'true');
-			host.style.position = 'absolute';
-			host.appendChild(snapshot(source));
-			slot.replaceChildren(host);
-			previousNode = host;
+			if (!source || !active || !previous) return;
+			previousNode = snapshot(source);
 			activationDirection = directionBetween(previous, active);
 			showStarting = true;
 			frame.request(() => {
 				showStarting = false;
 				const node = currentEl;
-				if (!node) return;
+				if (!node || controller.signal.aborted) return;
 				runOnceAnimationsFinish(
 					node,
 					() => {
 						if (controller.signal.aborted) return;
-						dropPrevious(host);
+						previousNode = null;
+						activationDirection = undefined;
 					},
 					controller.signal,
 					false
@@ -79,23 +71,15 @@
 		return () => {
 			controller.abort();
 			frame.cancel();
-			dropPrevious(host);
+			previousNode = null;
+			activationDirection = undefined;
 		};
 	});
 
-	$effect(() => {
-		const host = previousNode;
-		if (!host) return;
-		if (showStarting) host.removeAttribute('data-ending-style');
-		else host.setAttribute('data-ending-style', '');
-	});
-
-	function dropPrevious(host: HTMLElement | null) {
-		host?.remove();
-		if (host && previousNode === host) {
-			previousNode = null;
-			activationDirection = undefined;
-		}
+	function mountPrevious(host: HTMLElement) {
+		const node = previousNode;
+		if (!node) return;
+		host.replaceChildren(node);
 	}
 
 	$effect(() => {
@@ -209,7 +193,10 @@
 		const wrapper = source.ownerDocument.createElement('div');
 		for (const child of source.childNodes) {
 			const copy = child.cloneNode(true);
-			if (child instanceof Element && copy instanceof Element) copyControlState(child, copy);
+			if (child instanceof Element && copy instanceof Element) {
+				copyControlState(child, copy);
+				releaseRadios(copy);
+			}
 			wrapper.appendChild(copy);
 		}
 		stripIds(wrapper);
@@ -239,6 +226,12 @@
 		return found;
 	}
 
+	function releaseRadios(node: Element) {
+		const radios = [...node.querySelectorAll('input[type="radio"]')];
+		if (node instanceof HTMLInputElement && node.type === 'radio') radios.unshift(node);
+		for (const radio of radios) radio.removeAttribute('name');
+	}
+
 	function stripIds(node: Element) {
 		if (node.id) node.removeAttribute('id');
 		for (const child of node.querySelectorAll('[id]')) child.removeAttribute('id');
@@ -266,8 +259,17 @@
 {/if}
 
 {#snippet content()}
+	{#if previousNode}
+		<div
+			data-previous
+			data-ending-style={showStarting ? undefined : ''}
+			inert
+			aria-hidden="true"
+			style="position: absolute"
+			{@attach mountPrevious}
+		></div>
+	{/if}
 	<div bind:this={currentEl} data-current data-starting-style={showStarting ? '' : undefined}>
 		{@render children?.()}
 	</div>
-	<div bind:this={previousSlot} style="display: contents"></div>
 {/snippet}
