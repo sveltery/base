@@ -58,10 +58,11 @@
 	import type { HTMLAttributes } from 'svelte/elements';
 	import FocusGuard from '../../FocusGuard.svelte';
 	import { toCssStyle } from '../../css-style.js';
+	import { ownerDocument } from '../../owner.js';
+	import { activeElement, contains } from '../../shadow-dom.js';
 	import { visuallyHidden } from '../../visuallyHidden.js';
 	import {
 		getNextTabbableInDocument,
-		getPreviousTabbable,
 		getTabbableCandidates,
 		isOutsideEvent
 	} from '../utils/tabbable.js';
@@ -129,21 +130,34 @@
 	}
 
 	// Upstream FloatingPortal.tsx 258–266. Focus from outside the portal enters through the
-	// leading inside guard. Focus from inside moves to the previous control.
+	// leading inside guard. Focus from inside moves to the previous control outside the portal.
+	// `getPreviousTabbable` would take the popup's own trailing guard when the portal host sits
+	// before this outside guard, and Shift+Tab would loop inside the dialog.
 	function focusBeforeOutside(event: FocusEvent) {
 		if (!portalNode) return;
 		if (isOutsideEvent(event, portalNode)) {
-			if (guards.beforeInside) {
-				guards.beforeInside.focus();
-				return;
-			}
-			const floating = store.floatingElement;
-			const first = floating ? getTabbableCandidates(floating)[0] : null;
-			first?.focus();
+			guards.beforeInside?.focus();
 			return;
 		}
-		const reference = focusState?.domReference ?? null;
-		if (reference instanceof Element) getPreviousTabbable(reference)?.focus();
+		focusPreviousOutsidePortal(focusState?.domReference ?? null);
+	}
+
+	function focusPreviousOutsidePortal(reference: Element | null) {
+		if (!portalNode || !(reference instanceof Element)) return;
+		const doc = ownerDocument(reference);
+		const list = getTabbableCandidates(doc.body);
+		const active = activeElement(doc);
+		let index = active instanceof HTMLElement ? list.indexOf(active) : -1;
+		while (index > 0) {
+			index -= 1;
+			const candidate = list[index];
+			if (!candidate) break;
+			if (!contains(portalNode, candidate)) {
+				candidate.focus();
+				return;
+			}
+		}
+		if (reference instanceof HTMLElement) reference.focus();
 	}
 
 	// Upstream FloatingPortal.tsx 277–291. Focus from outside enters through the trailing

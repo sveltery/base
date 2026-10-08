@@ -14,6 +14,7 @@ export const cases = [
 	'together-outside',
 	'tab',
 	'tab-inline',
+	'tab-between',
 	'child-initial',
 	'siblings',
 	'kept-child'

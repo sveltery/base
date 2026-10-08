@@ -200,6 +200,28 @@ describe('Popover', () => {
 		await expect.poll(() => page.getByRole('dialog').elements().length).toBe(0);
 	});
 
+	it('keeps Shift+Tab inside a modal popover by skipping the non-modal leading guard', async () => {
+		render(PopoverFixture, { scenario: 'modal' });
+		await page.getByRole('button', { name: 'Open' }).click();
+		await expect.poll(() => document.activeElement?.textContent).toBe('Inside');
+		const popup = page.getByRole('dialog').element();
+		const preceding = [...document.querySelectorAll('[data-base-ui-focus-guard]')].filter(
+			(node) =>
+				popup.parentElement?.contains(node) &&
+				Boolean(node.compareDocumentPosition(popup) & Node.DOCUMENT_POSITION_FOLLOWING)
+		);
+		// The modal before-guard is the only guard ahead of the popup. A non-modal leading
+		// guard beside it focuses the trigger and leaves the trap.
+		expect(preceding).toHaveLength(1);
+		(preceding[preceding.length - 1] as HTMLElement).focus();
+		await expect.poll(() => document.activeElement?.textContent).toBe('Close');
+		await expect.element(page.getByRole('dialog')).toBeVisible();
+		(page.getByRole('button', { name: 'Inside' }).element() as HTMLElement).focus();
+		await userEvent.keyboard('{Shift>}{Tab}{/Shift}');
+		await expect.poll(() => document.activeElement?.textContent).toBe('Close');
+		await expect.element(page.getByRole('dialog')).toBeVisible();
+	});
+
 	it('opens on hover', async () => {
 		render(PopoverFixture, { scenario: 'hover' });
 		await page.getByRole('button', { name: 'Open' }).hover();

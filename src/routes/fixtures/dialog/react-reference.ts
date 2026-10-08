@@ -14,7 +14,7 @@ export function mountDialogReference(node: HTMLElement, scenario: DialogCase, on
 		const [parentOpen, setParentOpen] = useState(false);
 		const [inlineContainer, setInlineContainer] = useState<HTMLDivElement | null>(null);
 		useLayoutEffect(() => {
-			if (scenario !== 'tab-inline') return;
+			if (scenario !== 'tab-inline' && scenario !== 'tab-between') return;
 			const node = document.querySelector<HTMLDivElement>('[data-testid="inline-container"]');
 			setInlineContainer(node);
 		}, [scenario]);
@@ -228,6 +228,34 @@ export function mountDialogReference(node: HTMLElement, scenario: DialogCase, on
 					)
 				),
 				scenario === 'tab-inline' ? h('div', { 'data-testid': 'inline-container' }) : null,
+				h('button', { type: 'button', 'data-testid': 'after' }, 'After'),
+				callsNode
+			);
+		}
+
+		if (scenario === 'tab-between') {
+			return h(
+				Fragment,
+				null,
+				outside,
+				h('button', { type: 'button', 'data-testid': 'before' }, 'Before'),
+				h(
+					Dialog.Root,
+					{ modal: false, onOpenChange: changed },
+					h(Dialog.Trigger, null, 'Open'),
+					h('div', { 'data-testid': 'inline-container' }),
+					h(
+						Dialog.Portal,
+						{ container: inlineContainer },
+						h(
+							Dialog.Popup,
+							null,
+							h(Dialog.Title, null, 'Title'),
+							h('button', { type: 'button' }, 'Inside1'),
+							h('button', { type: 'button' }, 'Inside2')
+						)
+					)
+				),
 				h('button', { type: 'button', 'data-testid': 'after' }, 'After'),
 				callsNode
 			);

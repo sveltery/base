@@ -708,6 +708,22 @@ describe('Dialog', () => {
 		await expect.poll(() => page.getByRole('dialog').elements().length).toBe(1);
 	});
 
+	it('shift-tabs onto the trigger when the portal container sits between the trigger and the portal', async () => {
+		render(DialogHarness, { scenario: 'tab-between' });
+		const open = page.getByRole('button', { name: 'Open' });
+		await open.click();
+		await expect.poll(() => document.activeElement?.textContent).toBe('Inside1');
+		expect(
+			page.getByRole('dialog').element().closest('[data-testid="inline-container"]')
+		).toBeTruthy();
+		await userEvent.keyboard('{Shift>}{Tab}{/Shift}');
+		await expect.poll(() => document.activeElement).toBe(open.element());
+		await expect.poll(() => page.getByRole('dialog').elements().length).toBe(1);
+		await userEvent.keyboard('{Shift>}{Tab}{/Shift}');
+		await expect.poll(() => document.activeElement).toBe(page.getByTestId('before').element());
+		await expect.poll(() => page.getByRole('dialog').elements().length).toBe(0);
+	});
+
 	it('tabs from the open trigger into an inline dialog', async () => {
 		render(DialogHarness, { scenario: 'tab-inline' });
 		const open = page.getByRole('button', { name: 'Open' });

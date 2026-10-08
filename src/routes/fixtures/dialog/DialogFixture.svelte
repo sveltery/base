@@ -215,6 +215,20 @@
 		<div data-testid="inline-container" bind:this={inlineContainer}></div>
 	{/if}
 	<button type="button" data-testid="after">After</button>
+{:else if scenario === 'tab-between'}
+	<button type="button" data-testid="before">Before</button>
+	<Dialog.Root modal={false} onOpenChange={changed}>
+		<Dialog.Trigger>Open</Dialog.Trigger>
+		<div data-testid="inline-container" bind:this={inlineContainer}></div>
+		<Dialog.Portal container={inlineContainer}>
+			<Dialog.Popup>
+				<Dialog.Title>Title</Dialog.Title>
+				<button type="button">Inside1</button>
+				<button type="button">Inside2</button>
+			</Dialog.Popup>
+		</Dialog.Portal>
+	</Dialog.Root>
+	<button type="button" data-testid="after">After</button>
 {:else if scenario === 'kept-child'}
 	<Dialog.Root bind:open={parentOpen}>
 		<Dialog.Trigger data-testid="open-parent">Open</Dialog.Trigger>
