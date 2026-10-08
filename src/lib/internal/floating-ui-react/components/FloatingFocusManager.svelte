@@ -122,7 +122,11 @@
 	function restoreReturnFocus(endedBy: OpenInteractionType) {
 		const spec = returnFocus;
 		queueMicrotask(() => {
-			if (spec === false || store.isOpen()) return;
+			if (spec === false) return;
+			// A container cleared back to null removes the popup while it is still open.
+			// Focus would land on the body. Upstream returns it on that cleanup.
+			// A later dependency change while the popup is still connected does not.
+			if (store.isOpen() && store.floatingElement?.isConnected) return;
 			const fromFunction = typeof spec === 'function';
 			const resolved = fromFunction ? spec(endedBy) : spec;
 			if (resolved === false || resolved === undefined) return;
