@@ -143,11 +143,8 @@ for (const reference of [false, true]) {
 			await openDialog(page, 'final-focus', reference);
 			await openButton(page).click();
 			await page.getByRole('button', { name: 'Nested' }).click();
-			await expect(page.getByTestId('nested-popup')).toBeVisible();
+			await expect(page.getByRole('button', { name: 'Nested close' })).toBeFocused();
 			await page.keyboard.press('Escape');
-			await page.evaluate(
-				() => new Promise((resolve) => requestAnimationFrame(() => resolve(undefined)))
-			);
 			await expect(page.getByTestId('parent-popup')).toBeVisible();
 			await expect(page.getByTestId('final-target')).toBeFocused();
 			await expect(page.getByTestId('nested-popup')).toHaveCount(0);
