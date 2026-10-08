@@ -3,11 +3,11 @@
 
 import type { Middleware } from '@floating-ui/dom';
 import { getSide } from '@floating-ui/utils';
-import { ownerDocument, ownerWindow } from '../internal/owner.js';
+import { ownerDocument, ownerWindow } from './owner.js';
 
 const DEFAULT_SIDES = { sideX: 'left', sideY: 'top' } as const;
 
-export const adaptiveOrigin: Middleware = {
+export const adaptiveOriginMiddleware: Middleware = {
 	name: 'adaptiveOrigin',
 	async fn(state) {
 		const {

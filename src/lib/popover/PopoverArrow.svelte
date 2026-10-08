@@ -11,7 +11,6 @@
 	import { getStateAttributesProps } from '../internal/state-attributes.js';
 	import { uncenteredAttribute } from './attributes.js';
 	import { usePopoverPositioner, usePopoverRoot } from './context.svelte.js';
-	import { asHost, loose } from './loose-props.js';
 	import type { PopoverArrowProps, PopoverArrowState } from './types.js';
 
 	let { render, children, ...elementProps }: PopoverArrowProps = $props();
@@ -28,20 +27,15 @@
 	});
 
 	const hostProps = $derived(
-		asHost<HTMLDivElement>(
-			mergeProps(
-				loose(elementProps),
-				loose({
-					'aria-hidden': true,
-					style: toCssStyle(positioning.arrowStyles),
-					...getStateAttributesProps({ open: state.open, anchorHidden: false }, popupStateMapping),
-					'data-side': state.side,
-					'data-align': state.align,
-					...(state.uncentered ? { [uncenteredAttribute]: '' } : {}),
-					[bindKey]: positioning.arrowProps.attach
-				})
-			)
-		)
+		mergeProps(elementProps, {
+			'aria-hidden': true as const,
+			style: toCssStyle(positioning.arrowStyles),
+			...getStateAttributesProps({ open: state.open, anchorHidden: false }, popupStateMapping),
+			'data-side': state.side,
+			'data-align': state.align,
+			...(state.uncentered ? { [uncenteredAttribute]: '' } : {}),
+			[bindKey]: positioning.arrowProps.attach
+		})
 	);
 </script>
 

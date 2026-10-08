@@ -32,9 +32,13 @@ export { PopupTriggerMap } from './popupTriggerMap.js';
 export {
 	FOCUSABLE_POPUP_PROPS,
 	attachPreventUnmountOnClose,
+	createDefaultInitialFocus,
 	createPopupOpenState,
-	registerTrigger
+	registerTrigger,
+	resolveFocus,
+	type PopupFocusTarget
 } from './popupStoreUtils.js';
+export { BasePopupHandle, type PopupHandleStore } from './popupHandle.js';
 export {
 	PopupStore,
 	type PopupChangeEventDetails,

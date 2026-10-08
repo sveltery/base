@@ -206,7 +206,7 @@ Parts of this package derive from [Base UI](https://github.com/mui/base-ui) v1.8
 - `src/lib/internal/FocusGuard.svelte` and `InternalBackdrop.svelte` from `packages/react/src/utils/FocusGuard.tsx` and `InternalBackdrop.tsx`
 - `src/lib/internal/event-details.ts` also exports the popup reasons `trigger-hover`, `escape-key`, `outside-press`, `focus-out`, `close-press`, and `imperative-action`
 - `src/lib/popover/PopoverRoot.svelte` from `packages/react/src/popover/root/PopoverRoot.tsx`
-- `src/lib/popover/PopoverTrigger.svelte` and `PopoverTriggerElement.svelte` from `packages/react/src/popover/trigger/PopoverTrigger.tsx` and the non-composite path of `packages/react/src/internals/use-button/useButton.ts`
+- `src/lib/popover/PopoverTrigger.svelte` from `packages/react/src/popover/trigger/PopoverTrigger.tsx`
 - `src/lib/popover/PopoverPortal.svelte` from `packages/react/src/popover/portal/PopoverPortal.tsx`
 - `src/lib/popover/PopoverPositioner.svelte` from `packages/react/src/popover/positioner/PopoverPositioner.tsx`
 - `src/lib/popover/PopoverPopup.svelte` from `packages/react/src/popover/popup/PopoverPopup.tsx`
@@ -217,11 +217,14 @@ Parts of this package derive from [Base UI](https://github.com/mui/base-ui) v1.8
 - `src/lib/popover/PopoverClose.svelte` from `packages/react/src/popover/close/PopoverClose.tsx`
 - `src/lib/popover/PopoverViewport.svelte` from `packages/react/src/popover/viewport/PopoverViewport.tsx` and `packages/react/src/utils/usePopupViewport.tsx`
 - `src/lib/popover/store.svelte.ts` from `packages/react/src/popover/store/PopoverStore.ts` (open changes go through the shared `PopupStore`; popover adds deferred unmount, hover stick, and instant type)
-- `src/lib/popover/handle.svelte.ts` from `packages/react/src/popover/store/PopoverHandle.ts` and `packages/react/src/utils/popups/popupHandle.ts`
+- `src/lib/popover/handle.ts` from `packages/react/src/popover/store/PopoverHandle.ts`
 - `src/lib/popover/context.svelte.ts` from the popover root, portal, and positioner context modules
-- `src/lib/popover/adaptive-origin.ts` from `packages/react/src/utils/adaptiveOriginMiddleware.ts`
-- `src/lib/popover/open-method.ts` from `packages/react/src/utils/useOpenInteractionType.ts`
-- `src/lib/popover/focus-target.ts` from `createDefaultInitialFocus` in `packages/react/src/utils/popups/popupStoreUtils.ts`
+- `src/lib/internal/popups/popupHandle.ts` from `packages/react/src/utils/popups/popupHandle.ts`
+- `src/lib/internal/useButton.ts` from the non-composite path of `packages/react/src/internals/use-button/useButton.ts`
+- `src/lib/internal/openInteraction.ts` from `packages/react/src/utils/useOpenInteractionType.ts`
+- `src/lib/internal/adaptiveOriginMiddleware.ts` from `packages/react/src/utils/adaptiveOriginMiddleware.ts`
+- `src/lib/internal/compositeKeys.ts` from `COMPOSITE_KEYS` in `packages/react/src/popover/utils/constants.ts`
+- `createDefaultInitialFocus` and `resolveFocus` in `src/lib/internal/popups/popupStoreUtils.ts` from `packages/react/src/utils/popups/popupStoreUtils.ts`
 - `src/lib/popover/Popover.svelte.spec.ts` assertions from `packages/react/src/popover/**/*.test.tsx` that do not require Menu, Combobox, or React refs
 
 MIT License

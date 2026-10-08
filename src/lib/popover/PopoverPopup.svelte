@@ -6,19 +6,18 @@
 <script lang="ts">
 	import { createAttachmentKey } from 'svelte/attachments';
 	import { REASONS } from '../internal/event-details.js';
+	import { toCssStyle } from '../internal/css-style.js';
 	import {
 		FloatingFocusManager,
 		useHoverFloatingInteraction
 	} from '../internal/floating-ui/index.js';
 	import { mergeProps } from '../internal/mergeProps.js';
-	import { FOCUSABLE_POPUP_PROPS } from '../internal/popups/index.js';
+	import { COMPOSITE_KEYS } from '../internal/compositeKeys.js';
+	import { FOCUSABLE_POPUP_PROPS, resolveFocus } from '../internal/popups/index.js';
 	import { popupTransitionStateMapping } from '../internal/popupStateMapping.js';
 	import { getStateAttributesProps } from '../internal/state-attributes.js';
 	import { useOpenChangeComplete } from '../internal/useOpenChangeComplete.svelte.js';
-	import { COMPOSITE_KEYS } from './constants.js';
 	import { setCloseParts, usePopoverPositioner, usePopoverRoot } from './context.svelte.js';
-	import { resolveFocus } from './focus-target.js';
-	import { asHost, loose } from './loose-props.js';
 	import type { PopoverPopupProps, PopoverPopupState } from './types.js';
 
 	let {
@@ -50,8 +49,7 @@
 			};
 		}
 	});
-	store.readCloseCount = () => closeCount;
-	store.readFinalFocus = (interaction) => resolveFocus(finalFocus, interaction, store.popupElement);
+	store.hooks.closeCount = () => closeCount;
 
 	useHoverFloatingInteraction(store, () => ({
 		enabled: store.openOnHover && !store.triggerDisabled,
@@ -69,11 +67,21 @@
 
 	function bindPopup(node: HTMLElement) {
 		store.popupElement = node;
-		store.floatingElement = node;
 		return () => {
 			if (store.popupElement === node) store.popupElement = null;
-			if (store.floatingElement === node) store.floatingElement = null;
 		};
+	}
+
+	function focusInitial() {
+		return resolveFocus(
+			initialFocus,
+			store.openMethod ?? store.lastInteraction,
+			store.popupElement
+		);
+	}
+
+	function focusFinal() {
+		return resolveFocus(finalFocus, store.closeInteraction, store.popupElement);
 	}
 
 	const popupState: PopoverPopupState = $derived({
@@ -87,42 +95,35 @@
 	function inToolbar(event: KeyboardEvent) {
 		const current = event.currentTarget;
 		if (current instanceof Element && current.closest('[role="toolbar"]')) return true;
-		const trigger = store.activeTriggerElement;
+		const trigger = store.domReferenceElement;
 		return trigger instanceof Element && Boolean(trigger.closest('[role="toolbar"]'));
 	}
 
-	const resolvedInitial = $derived(
-		resolveFocus(initialFocus, store.openMethod ?? store.lastInteraction, store.popupElement)
-	);
-
 	const hostProps = $derived(
-		asHost<HTMLDivElement>(
-			mergeProps(
-				loose(elementProps),
-				loose(store.dismissFloating),
-				loose({
-					id: store.floatingId,
-					role: 'dialog',
-					...FOCUSABLE_POPUP_PROPS,
-					...(store.titleElementId ? { 'aria-labelledby': store.titleElementId } : {}),
-					...(store.descriptionElementId ? { 'aria-describedby': store.descriptionElementId } : {}),
-					onkeydown(event: KeyboardEvent) {
-						if (inToolbar(event) && COMPOSITE_KEYS.has(event.key)) event.stopPropagation();
-					},
-					style: store.transitionStatus === 'starting' ? 'transition: none' : undefined,
-					...getStateAttributesProps(popupState, popupTransitionStateMapping),
-					[bindKey]: bindPopup
-				})
-			)
-		)
+		mergeProps(elementProps, store.dismissFloating, {
+			id: store.floatingId,
+			role: 'dialog' as const,
+			...FOCUSABLE_POPUP_PROPS,
+			...(store.titleElementId ? { 'aria-labelledby': store.titleElementId } : {}),
+			...(store.descriptionElementId ? { 'aria-describedby': store.descriptionElementId } : {}),
+			onkeydown(event: KeyboardEvent) {
+				if (inToolbar(event) && COMPOSITE_KEYS.has(event.key)) event.stopPropagation();
+			},
+			style: toCssStyle({
+				...store.popupVars,
+				...(store.transitionStatus === 'starting' ? { transition: 'none' } : {})
+			}),
+			...getStateAttributesProps(popupState, popupTransitionStateMapping),
+			[bindKey]: bindPopup
+		})
 	);
 </script>
 
 <FloatingFocusManager
 	{store}
 	disabled={!store.mounted || store.openChangeReason === REASONS.triggerHover}
-	initialFocus={resolvedInitial}
-	returnFocus={!store.suppressReturnFocus}
+	initialFocus={focusInitial}
+	finalFocus={focusFinal}
 	modal={store.focusManagerModal}
 >
 	{#if render}

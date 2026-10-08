@@ -4,6 +4,7 @@
 // Hover stick, instant type, and trigger-owned fields live here.
 // The popup is the floating element so the landed focus manager traps the dialog,
 // not the positioner. Positioning still attaches to the positioner.
+// Focus returns through the focus manager after close, not inside setOpen.
 
 import type { Middleware } from '@floating-ui/dom';
 import { SvelteMap } from 'svelte/reactivity';
@@ -11,12 +12,11 @@ import type { HTMLAttributes } from 'svelte/elements';
 import { createChangeEventDetails, REASONS } from '../internal/event-details.js';
 import type { ControllableValue } from '../internal/controllable-value.svelte.js';
 import { runOnceAnimationsFinish } from '../internal/animations-finished.js';
+import type { InteractionType } from '../internal/openInteraction.js';
 import { PopupStore } from '../internal/popups/store.svelte.js';
 import { Timeout } from '../internal/timeout.js';
 import { PATIENT_CLICK_THRESHOLD } from './constants.js';
 import type {
-	FocusTarget,
-	InteractionType,
 	PopoverChangeEventDetails,
 	PopoverChangeReason,
 	PopoverInstant,
@@ -30,44 +30,55 @@ export interface TriggerOwned {
 	closeDelay: number;
 }
 
+export interface PopoverHooks {
+	dismissReference: HTMLAttributes<HTMLElement>;
+	dismissFloating: HTMLAttributes<HTMLElement>;
+	closeCount: () => number;
+	placement: () => string | null;
+	triggerSwitch: ((previous: Element, next: Element) => void) | null;
+}
+
 export interface PopoverStoreOptions {
 	open: ControllableValue<boolean>;
 	floatingId: string;
 	nested: boolean;
 	readModal: () => PopoverModal;
 	readTriggerId: () => string | null | undefined;
+	writeTriggerId: (id: string | null, details?: unknown) => void;
 	onOpenChange: () => ((open: boolean, details: PopoverChangeEventDetails) => void) | undefined;
 	onOpenChangeComplete: () => ((open: boolean) => void) | undefined;
+	hooks: PopoverHooks;
 }
 
 export class PopoverStore extends PopupStore<PopoverChangeReason> {
 	stickIfOpen = $state(true);
 	instantType = $state<PopoverInstant | undefined>(undefined);
 	openMethod = $state<InteractionType | null>(null);
+	/** Pointer type that opened the popover. Survives trigger prop rebuilds. */
+	pointerType = $state('');
 	openChangeReason = $state<PopoverChangeReason | null>(null);
 	titleElementId = $state<string | undefined>(undefined);
 	descriptionElementId = $state<string | undefined>(undefined);
 	/** Set while a viewport is mounted so positioning can anchor size transitions. */
 	adaptiveOrigin = $state<Middleware | undefined>(undefined);
 	lastInteraction = $state<InteractionType | ''>('');
-	suppressReturnFocus = $state(false);
-	dismissReference: HTMLAttributes<HTMLElement> = {};
-	dismissFloating: HTMLAttributes<HTMLElement> = {};
-	readFinalFocus: (interaction: InteractionType | '') => FocusTarget | HTMLElement | boolean = () =>
-		true;
-	readCloseCount: () => number = () => 0;
+	/** Interaction used when focus returns after close. */
+	closeInteraction: InteractionType | '' = '';
 	/** True after a close button has registered. Updated outside the registration effect. */
 	focusTrap = $state(false);
-	/** Live rendered side for the shared hover safe polygon. */
-	readPlacement: () => string | null = () => 'bottom';
-	/** Viewport snapshots the previous trigger's DOM when the active trigger changes. */
-	onTriggerSwitch: ((previous: Element, next: Element) => void) | null = null;
+	/** Viewport CSS variables. They travel with the style attribute. */
+	positionerVars = $state<Record<string, string>>({});
+	popupVars = $state<Record<string, string>>({});
+	readonly hooks: PopoverHooks;
 	private readonly stickTimeout = Timeout.create();
 	private readonly readModal: () => PopoverModal;
 	private readonly readTriggerId: () => string | null | undefined;
+	private readonly writeTriggerIdValue: (id: string | null, details?: unknown) => void;
 	private readonly readOpenComplete: PopoverStoreOptions['onOpenChangeComplete'];
 	private readonly readers = new SvelteMap<string, () => TriggerOwned>();
 	private triggerChangeAbort: AbortController | null = null;
+	/** Trigger that opened the popup. Click remembers the next node before setOpen. */
+	private openedFrom: Element | null = null;
 
 	constructor(options: PopoverStoreOptions) {
 		super({
@@ -78,8 +89,10 @@ export class PopoverStore extends PopupStore<PopoverChangeReason> {
 			onOpenChange: options.onOpenChange,
 			onOpenChangeComplete: options.onOpenChangeComplete
 		});
+		this.hooks = options.hooks;
 		this.readModal = options.readModal;
 		this.readTriggerId = options.readTriggerId;
+		this.writeTriggerIdValue = options.writeTriggerId;
 		this.readOpenComplete = options.onOpenChangeComplete;
 
 		$effect(() => {
@@ -103,8 +116,30 @@ export class PopoverStore extends PopupStore<PopoverChangeReason> {
 		return this.readModal();
 	}
 
+	get dismissReference() {
+		return this.hooks.dismissReference;
+	}
+
+	get dismissFloating() {
+		return this.hooks.dismissFloating;
+	}
+
+	readPlacement() {
+		return this.hooks.placement();
+	}
+
+	/** Id the trigger was registered under. Falls back to the DOM id. */
 	resolvedActiveTriggerId() {
-		return this.readTriggerId() ?? this.activeTriggerId;
+		const registered = this.triggers.idOf(this.domReferenceElement);
+		if (registered) return registered;
+		const written = this.readTriggerId();
+		if (written) return written;
+		return this.domReferenceElement?.id || null;
+	}
+
+	writeTriggerId(id: string | null, details?: unknown) {
+		if ((this.readTriggerId() ?? null) === id) return;
+		this.writeTriggerIdValue(id, details);
 	}
 
 	owned(): TriggerOwned | undefined {
@@ -134,7 +169,10 @@ export class PopoverStore extends PopupStore<PopoverChangeReason> {
 	}
 
 	openedBy(triggerId: string | undefined) {
-		return triggerId !== undefined && this.open && this.resolvedActiveTriggerId() === triggerId;
+		if (triggerId === undefined || !this.open) return false;
+		const active = this.domReferenceElement;
+		if (active && this.triggers.getById(triggerId) === active) return true;
+		return this.resolvedActiveTriggerId() === triggerId;
 	}
 
 	mountedBy(triggerId: string | undefined) {
@@ -158,11 +196,14 @@ export class PopoverStore extends PopupStore<PopoverChangeReason> {
 		this.triggers.add(id, element);
 		this.readers.set(id, read);
 		this.triggerCount = this.triggers.size;
-		const active = this.resolvedActiveTriggerId();
-		if (active === id || (this.open && active == null && this.triggerCount === 1)) {
-			this.activeTriggerId = id;
-			this.activeTriggerElement = element;
-			if (this.domReferenceElement == null) this.domReferenceElement = element;
+		const active = this.domReferenceElement;
+		if (
+			active === element ||
+			this.readTriggerId() === id ||
+			(this.open && active == null && this.triggerCount === 1)
+		) {
+			this.domReferenceElement = element;
+			this.writeTriggerId(id);
 		}
 	}
 
@@ -183,15 +224,21 @@ export class PopoverStore extends PopupStore<PopoverChangeReason> {
 		const isKeyboardClick =
 			reason === REASONS.triggerPress && (details.event as MouseEvent).detail === 0;
 		const isDismissClose = !nextOpen && (reason === REASONS.escapeKey || reason == null);
-		const previousElement = this.activeTriggerElement;
+		const wasOpen = this.open;
+		const previousElement = this.openedFrom;
 
 		super.setOpen(nextOpen, details);
 		if (details.isCanceled) return;
 
 		this.openChangeReason = reason;
+		const registered = this.triggers.idOf(this.domReferenceElement);
+		this.writeTriggerId(registered ?? (this.domReferenceElement?.id || null), details);
 		if (!nextOpen) {
 			this.openMethod = null;
-			this.suppressReturnFocus = this.focusOnClose(details);
+			this.closeInteraction = closeInteraction(details, this.lastInteraction);
+			this.openedFrom = null;
+		} else {
+			this.openedFrom = this.activeTriggerElement;
 		}
 
 		if (isHover) {
@@ -202,8 +249,8 @@ export class PopoverStore extends PopupStore<PopoverChangeReason> {
 		}
 
 		const nextElement = this.activeTriggerElement;
-		if (nextOpen && previousElement && nextElement && previousElement !== nextElement) {
-			this.onTriggerSwitch?.(previousElement, nextElement);
+		if (wasOpen && nextOpen && previousElement && nextElement && previousElement !== nextElement) {
+			this.hooks.triggerSwitch?.(previousElement, nextElement);
 			this.armTriggerChange();
 			return;
 		}
@@ -226,16 +273,6 @@ export class PopoverStore extends PopupStore<PopoverChangeReason> {
 
 	closeImperative() {
 		this.setOpen(false, createChangeEventDetails(REASONS.imperativeAction));
-	}
-
-	private focusOnClose(details: PopoverChangeEventDetails) {
-		const interaction = closeInteraction(details, this.lastInteraction);
-		const target = this.readFinalFocus(interaction);
-		if (target instanceof HTMLElement) {
-			target.focus();
-			return true;
-		}
-		return target === false;
 	}
 
 	private armTriggerChange() {

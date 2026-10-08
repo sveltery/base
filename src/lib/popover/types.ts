@@ -3,12 +3,13 @@ import type { HTMLAttributes, HTMLButtonAttributes } from 'svelte/elements';
 import type { BaseUIChangeEventDetails, REASONS } from '../internal/event-details.js';
 import type { Align, Side, UseAnchorPositioningParameters } from '../internal/popups/index.js';
 import type { PopupTransitionStatus } from '../internal/useTransitionStatus.svelte.js';
-import type { PopoverHandle } from './handle.svelte.js';
+import type { InteractionType } from '../internal/openInteraction.js';
+import type { PopoverHandle } from './handle.js';
 
 export type { Align, Side };
 
 export type PopoverModal = boolean | 'trap-focus';
-export type InteractionType = 'mouse' | 'touch' | 'pen' | 'keyboard';
+export type { InteractionType };
 export type PopoverInstant = 'dismiss' | 'click' | 'focus' | 'trigger-change';
 
 export type PopoverChangeReason =
@@ -27,10 +28,7 @@ export type PopoverChangeEventDetails = BaseUIChangeEventDetails<PopoverChangeRe
 };
 
 export type FocusTarget =
-	| boolean
-	| HTMLElement
-	| null
-	| ((interaction: InteractionType | '') => void | boolean | HTMLElement | null);
+	boolean | HTMLElement | null | ((interaction: string) => void | boolean | HTMLElement | null);
 
 export interface PopoverActions {
 	unmount: () => void;
@@ -54,6 +52,11 @@ export interface PopoverRootProps<Payload = unknown> {
 	 * @default false
 	 */
 	open?: boolean;
+	/**
+	 * Initial open state when `open` is left unset.
+	 * @default false
+	 */
+	defaultOpen?: boolean;
 	/** Called before the open state changes. Call `eventDetails.cancel()` to veto it. */
 	onOpenChange?: (open: boolean, details: PopoverChangeEventDetails) => void;
 	/** Called after the open or close transition finishes. */
@@ -83,7 +86,7 @@ export interface PopoverTriggerState {
 	open: boolean;
 }
 
-export type PopoverTriggerHostProps = HTMLAttributes<HTMLElement>;
+export type PopoverTriggerHostProps = HTMLButtonAttributes;
 
 export interface PopoverTriggerProps<Payload = unknown> extends Omit<
 	HTMLButtonAttributes,
@@ -211,7 +214,7 @@ export interface PopoverDescriptionProps extends Omit<
 export interface PopoverCloseProps extends Omit<HTMLButtonAttributes, 'children' | 'disabled'> {
 	disabled?: boolean;
 	nativeButton?: boolean;
-	render?: Snippet<[props: HTMLAttributes<HTMLElement>, children: Snippet]>;
+	render?: Snippet<[props: HTMLButtonAttributes, children: Snippet]>;
 	children?: Snippet;
 }
 

@@ -9,7 +9,6 @@
 	import { popupTransitionStateMapping } from '../internal/popupStateMapping.js';
 	import { getStateAttributesProps } from '../internal/state-attributes.js';
 	import { usePopoverRoot } from './context.svelte.js';
-	import { asHost, loose } from './loose-props.js';
 	import type { PopoverBackdropProps, PopoverBackdropState } from './types.js';
 
 	let { render, children, ...elementProps }: PopoverBackdropProps = $props();
@@ -21,19 +20,14 @@
 	});
 
 	const hostProps = $derived(
-		asHost<HTMLDivElement>(
-			mergeProps(
-				loose(elementProps),
-				loose({
-					role: 'presentation',
-					hidden: store.mounted ? undefined : true,
-					style: `user-select: none; -webkit-user-select: none${
-						store.openChangeReason === REASONS.triggerHover ? '; pointer-events: none' : ''
-					}`,
-					...getStateAttributesProps(state, popupTransitionStateMapping)
-				})
-			)
-		)
+		mergeProps(elementProps, {
+			role: 'presentation' as const,
+			hidden: store.mounted ? undefined : true,
+			style: `user-select: none; -webkit-user-select: none${
+				store.openChangeReason === REASONS.triggerHover ? '; pointer-events: none' : ''
+			}`,
+			...getStateAttributesProps(state, popupTransitionStateMapping)
+		})
 	);
 </script>
 

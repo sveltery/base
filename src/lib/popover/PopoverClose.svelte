@@ -7,9 +7,8 @@
 	import { createAttachmentKey } from 'svelte/attachments';
 	import { createChangeEventDetails, REASONS } from '../internal/event-details.js';
 	import { mergeProps } from '../internal/mergeProps.js';
-	import { buttonProps, guardDisabled, nonNativeKeys } from './button.js';
+	import { useButton } from '../internal/useButton.js';
 	import { useCloseParts, usePopoverRoot } from './context.svelte.js';
-	import { asHost, loose } from './loose-props.js';
 	import type { PopoverCloseProps } from './types.js';
 
 	let {
@@ -24,29 +23,21 @@
 	const parts = useCloseParts();
 	const bindKey = createAttachmentKey();
 
-	function register(node: HTMLElement) {
-		const stop = parts?.register();
-		return () => {
-			stop?.();
-			void node;
-		};
+	function register() {
+		return parts?.register();
 	}
 
 	const hostProps = $derived(
-		asHost<HTMLElement>(
-			mergeProps(
-				loose(elementProps),
-				loose(guardDisabled(disabled)),
-				loose({
-					onclick(event: MouseEvent) {
-						store.setOpen(false, createChangeEventDetails(REASONS.closePress, event));
-					}
-				}),
-				loose(nonNativeKeys(disabled, nativeButton)),
-				buttonProps(disabled, nativeButton),
-				loose(disabled ? { 'data-disabled': '' } : {}),
-				loose({ [bindKey]: register })
-			)
+		mergeProps(
+			elementProps,
+			{
+				onclick(event: MouseEvent) {
+					store.setOpen(false, createChangeEventDetails(REASONS.closePress, event));
+				}
+			},
+			useButton(disabled, nativeButton),
+			disabled ? { 'data-disabled': '' } : {},
+			{ [bindKey]: register }
 		)
 	);
 </script>

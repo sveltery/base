@@ -8,12 +8,3 @@ export const PATIENT_CLICK_THRESHOLD = 500;
 export const POPUP_COLLISION_AVOIDANCE = {
 	fallbackAxisSide: 'end'
 } as const;
-
-export const COMPOSITE_KEYS = new Set([
-	'ArrowDown',
-	'ArrowUp',
-	'ArrowRight',
-	'ArrowLeft',
-	'Home',
-	'End'
-]);

@@ -4,10 +4,8 @@
 	(commit 47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c). MIT, see THIRD_PARTY_NOTICES.md.
 -->
 <script lang="ts">
-	import { createAttachmentKey } from 'svelte/attachments';
 	import { mergeProps } from '../internal/mergeProps.js';
 	import { usePopoverRoot } from './context.svelte.js';
-	import { asHost, loose } from './loose-props.js';
 	import type { PopoverDescriptionProps } from './types.js';
 
 	let { render, children, id, ...elementProps }: PopoverDescriptionProps = $props();
@@ -15,22 +13,15 @@
 	const store = usePopoverRoot();
 	const uid = $props.id();
 	const descriptionId = $derived(id ?? `base-ui-${uid}`);
-	const bindKey = createAttachmentKey();
 
-	function publish(node: HTMLElement) {
-		store.descriptionElementId = node.id || descriptionId;
+	$effect(() => {
+		store.descriptionElementId = descriptionId;
 		return () => {
-			if (store.descriptionElementId === (node.id || descriptionId)) {
-				store.descriptionElementId = undefined;
-			}
+			if (store.descriptionElementId === descriptionId) store.descriptionElementId = undefined;
 		};
-	}
+	});
 
-	const hostProps = $derived(
-		asHost<HTMLParagraphElement>(
-			mergeProps(loose(elementProps), loose({ id: descriptionId }), loose({ [bindKey]: publish }))
-		)
-	);
+	const hostProps = $derived(mergeProps(elementProps, { id: descriptionId }));
 </script>
 
 {#if render}

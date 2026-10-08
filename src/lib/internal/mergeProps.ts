@@ -26,7 +26,11 @@ function styleString(value: unknown): string | undefined {
 	return undefined;
 }
 
-export function mergeProps<T extends Props = Props>(...bags: Array<Props | undefined | null>): T {
+export function mergeProps<T extends object>(
+	consumer: T | null | undefined,
+	...rest: Array<object | null | undefined>
+): T {
+	const bags = [consumer, ...rest];
 	const merged: Props = {};
 	const handlers = new Map<string, Handler[]>();
 	const classes: string[] = [];
@@ -35,8 +39,9 @@ export function mergeProps<T extends Props = Props>(...bags: Array<Props | undef
 
 	for (const bag of bags) {
 		if (!bag) continue;
-		for (const key of Reflect.ownKeys(bag)) {
-			const value = bag[key];
+		const record = bag as Props;
+		for (const key of Reflect.ownKeys(record)) {
+			const value = record[key];
 			if (typeof key === 'string' && isEventHandler(key, value)) {
 				if (!value) continue;
 				const list = handlers.get(key) ?? [];

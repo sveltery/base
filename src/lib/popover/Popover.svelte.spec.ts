@@ -4,8 +4,11 @@
 import { page } from 'vitest/browser';
 import { describe, expect, it } from 'vitest';
 import { render } from 'vitest-browser-svelte';
+import PopoverReviewHarness from '../../tests/PopoverReviewHarness.svelte';
 import PopoverFixture from '../../routes/fixtures/popover/PopoverFixture.svelte';
 import { Popover } from './index.js';
+
+const moduleHandle = Popover.createHandle();
 
 describe('Popover', () => {
 	it('opens and closes from the trigger', async () => {
@@ -31,6 +34,10 @@ describe('Popover', () => {
 			.getByRole('dialog')
 			.element()
 			.ownerDocument.dispatchEvent(new KeyboardEvent('keydown', { key: 'Escape', bubbles: true }));
+		await expect.poll(() => page.getByRole('dialog').elements().length).toBe(0);
+		await trigger.click();
+		await expect.element(page.getByRole('dialog')).toBeVisible();
+		await page.getByRole('button', { name: 'Outside' }).click();
 		await expect.poll(() => page.getByRole('dialog').elements().length).toBe(0);
 	});
 
@@ -86,5 +93,78 @@ describe('Popover', () => {
 		expect(() => render(Popover.Trigger)).toThrow(
 			'Base UI: <Popover.Trigger> must be either used within a <Popover.Root> component or provided with a handle.'
 		);
+	});
+
+	it('calls initialFocus when focusing and returns focus after close', async () => {
+		render(PopoverReviewHarness, { mode: 'focus' });
+		expect(page.getByTestId('focus-calls').element().textContent).toBe('0');
+		await page.getByRole('button', { name: 'Open' }).click();
+		await expect.element(page.getByTestId('focus-calls')).toHaveTextContent('1');
+		await expect.poll(() => document.activeElement?.textContent).toBe('Inside');
+		await page.getByRole('button', { name: 'Open' }).click();
+		await expect.poll(() => document.activeElement?.textContent).toBe('Final');
+	});
+
+	it('keeps a closed popup mounted', async () => {
+		render(PopoverReviewHarness, { mode: 'mounted' });
+		await page.getByRole('button', { name: 'Open' }).click();
+		await page.getByRole('button', { name: 'Open' }).click();
+		await expect.poll(() => document.querySelectorAll('[role="dialog"]').length).toBe(1);
+		await expect.element(page.getByTestId('positioner')).toHaveAttribute('hidden', '');
+	});
+
+	it('opens from defaultOpen without a click', async () => {
+		render(PopoverReviewHarness, { mode: 'default-open' });
+		await expect.element(page.getByRole('dialog')).toBeVisible();
+		await expect
+			.element(page.getByRole('button', { name: 'Open' }))
+			.toHaveAttribute('aria-expanded', 'true');
+	});
+
+	it('writes the trigger id through the value helper', async () => {
+		render(PopoverReviewHarness, { mode: 'trigger' });
+		await page.getByRole('button', { name: 'Open' }).click();
+		await expect.element(page.getByTestId('trigger-id')).toHaveTextContent('owned');
+	});
+
+	it('finds the trigger when its DOM id differs from the registered id', async () => {
+		render(PopoverReviewHarness, { mode: 'trigger' });
+		const button = page.getByRole('button', { name: 'Open' }).element();
+		button.id = 'dom-only';
+		await page.getByRole('button', { name: 'Open' }).click();
+		await expect.element(page.getByRole('dialog')).toBeVisible();
+		await expect
+			.element(page.getByRole('button', { name: 'Open' }))
+			.toHaveAttribute('aria-expanded', 'true');
+		await expect.element(page.getByTestId('trigger-id')).toHaveTextContent('owned');
+	});
+
+	it('opens a module-scope handle without creating an effect', async () => {
+		render(PopoverReviewHarness, { mode: 'handle', handle: moduleHandle });
+		expect(moduleHandle.isOpen).toBe(false);
+		await page.getByRole('button', { name: 'Open' }).click();
+		await expect.element(page.getByRole('dialog')).toBeVisible();
+		await expect.element(page.getByTestId('handle-open')).toHaveTextContent('yes');
+	});
+
+	it('keeps one live title when the viewport switches triggers', async () => {
+		render(PopoverReviewHarness, { mode: 'viewport' });
+		await page.getByRole('button', { name: 'One' }).click();
+		await expect.poll(() => document.querySelectorAll('#live-title').length).toBe(1);
+		const input = page.getByTestId('live-input').element();
+		if (!(input instanceof HTMLInputElement)) throw new Error('missing input');
+		input.value = 'kept';
+		await page.getByRole('button', { name: 'Switch' }).click();
+		await expect.poll(() => document.querySelectorAll('#live-title').length).toBe(1);
+		await expect.poll(() => document.querySelector('[data-previous]')).toBeTruthy();
+		const previous = document.querySelector('[data-previous]');
+		const current = document.querySelector('[data-current]');
+		if (!(previous instanceof HTMLElement) || !current) throw new Error('missing viewport panes');
+		expect(previous.getAttribute('aria-hidden')).toBe('true');
+		expect(previous.inert).toBe(true);
+		expect(
+			current.compareDocumentPosition(previous) & Node.DOCUMENT_POSITION_FOLLOWING
+		).toBeTruthy();
+		expect(previous.querySelector('input')?.value).toBe('kept');
 	});
 });

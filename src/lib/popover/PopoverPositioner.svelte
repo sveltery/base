@@ -18,7 +18,6 @@
 	import { getStateAttributesProps } from '../internal/state-attributes.js';
 	import { POPUP_COLLISION_AVOIDANCE } from './constants.js';
 	import { setPopoverPositioner, usePopoverPortal, usePopoverRoot } from './context.svelte.js';
-	import { asHost, loose } from './loose-props.js';
 	import type { PopoverPositionerProps, PopoverPositionerState } from './types.js';
 
 	let {
@@ -61,7 +60,7 @@
 		adaptiveOrigin: store.adaptiveOrigin
 	}));
 	setPopoverPositioner(positioning);
-	store.readPlacement = () => positioning.physicalSide;
+	store.hooks.placement = () => positioning.physicalSide;
 
 	const modalLock = $derived(
 		store.open && store.modal === true && store.openChangeReason !== REASONS.triggerHover
@@ -71,7 +70,7 @@
 		enabled: modalLock,
 		touchOpen: store.openMethod === 'touch',
 		positionerElement: store.positionerElement,
-		referenceElement: store.activeTriggerElement ?? store.domReferenceElement
+		referenceElement: store.domReferenceElement
 	}));
 
 	const state: PopoverPositionerState = $derived({
@@ -83,26 +82,22 @@
 	});
 
 	const hostProps = $derived(
-		asHost<HTMLDivElement>(
-			mergeProps(
-				loose(elementProps),
-				loose({
-					role: 'presentation',
-					hidden: store.mounted ? undefined : true,
-					style: toCssStyle({
-						...positioning.positionerStyles,
-						...(store.open ? {} : { pointerEvents: 'none' })
-					}),
-					...getStateAttributesProps(state, popupStateMapping),
-					[attachKey]: positioning.positionerProps.attach
-				})
-			)
-		)
+		mergeProps(elementProps, {
+			role: 'presentation' as const,
+			hidden: store.mounted ? undefined : true,
+			style: toCssStyle({
+				...positioning.positionerStyles,
+				...store.positionerVars,
+				...(store.open ? {} : { pointerEvents: 'none' })
+			}),
+			...getStateAttributesProps(state, popupStateMapping),
+			[attachKey]: positioning.positionerProps.attach
+		})
 	);
 </script>
 
 {#if modalLock && store.mounted}
-	<InternalBackdrop cutout={store.activeTriggerElement} />
+	<InternalBackdrop cutout={store.domReferenceElement} />
 {/if}
 {#snippet positionerBody()}{@render children?.()}{/snippet}
 {#if render}{@render render(hostProps, state, positionerBody)}{:else}<div {...hostProps}>

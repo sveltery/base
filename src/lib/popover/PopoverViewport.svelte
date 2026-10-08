@@ -3,16 +3,16 @@
 	Derived from Base UI v1.8.0 packages/react/src/popover/viewport/PopoverViewport.tsx
 	and packages/react/src/utils/usePopupViewport.tsx
 	(commit 47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c). MIT, see THIRD_PARTY_NOTICES.md.
-	Previous content is a DOM clone. Svelte does not keep the old snippet instance.
+	Previous content is a cloned node, not an HTML string. Ids are stripped so
+	aria links keep pointing at the live title and description.
 -->
 <script lang="ts">
 	import { mergeProps } from '../internal/mergeProps.js';
 	import { useDirection } from '../internal/direction-context.js';
 	import { AnimationFrame } from '../internal/timeout.js';
 	import { runOnceAnimationsFinish } from '../internal/animations-finished.js';
-	import { adaptiveOrigin } from './adaptive-origin.js';
+	import { adaptiveOriginMiddleware } from '../internal/adaptiveOriginMiddleware.js';
 	import { usePopoverPositioner, usePopoverRoot } from './context.svelte.js';
-	import { asHost, loose } from './loose-props.js';
 	import type { PopoverViewportProps, PopoverViewportState } from './types.js';
 
 	let { render, children, ...elementProps }: PopoverViewportProps = $props();
@@ -23,17 +23,16 @@
 	const frame = AnimationFrame.create();
 
 	let currentEl = $state<HTMLDivElement | null>(null);
-	let previousEl = $state<HTMLDivElement | null>(null);
-	let previousHtml = $state<string | null>(null);
+	let previousNode = $state<HTMLElement | null>(null);
 	let activationDirection = $state<string | undefined>(undefined);
 	let showStarting = $state(false);
 	let transitionAbort: AbortController | null = null;
 
 	$effect(() => {
-		store.adaptiveOrigin = adaptiveOrigin;
-		store.onTriggerSwitch = (previous, next) => {
+		store.adaptiveOrigin = adaptiveOriginMiddleware;
+		store.hooks.triggerSwitch = (previous, next) => {
 			if (!currentEl) return;
-			previousHtml = currentEl.innerHTML;
+			previousNode = snapshot(currentEl);
 			activationDirection = directionBetween(previous, next);
 			showStarting = true;
 			transitionAbort?.abort();
@@ -46,7 +45,7 @@
 				runOnceAnimationsFinish(
 					node,
 					() => {
-						previousHtml = null;
+						previousNode = null;
 						activationDirection = undefined;
 					},
 					controller.signal,
@@ -55,62 +54,96 @@
 			});
 		};
 		return () => {
-			if (store.adaptiveOrigin === adaptiveOrigin) store.adaptiveOrigin = undefined;
-			store.onTriggerSwitch = null;
+			if (store.adaptiveOrigin === adaptiveOriginMiddleware) store.adaptiveOrigin = undefined;
+			store.hooks.triggerSwitch = null;
+			frame.cancel();
 			transitionAbort?.abort();
 		};
-	});
-
-	$effect(() => {
-		const node = previousEl;
-		const html = previousHtml;
-		if (!node || html == null) return;
-		node.innerHTML = html;
 	});
 
 	$effect(() => {
 		const popup = store.popupElement;
 		const positioner = store.positionerElement;
 		const side = positioning.side;
-		if (!store.mounted || !popup || !positioner) return;
+		if (!store.mounted || !popup || !positioner) {
+			store.positionerVars = {};
+			store.popupVars = {};
+			return;
+		}
 		const width = popup.offsetWidth;
 		const height = popup.offsetHeight;
-		positioner.style.setProperty('--positioner-width', `${width}px`);
-		positioner.style.setProperty('--positioner-height', `${height}px`);
-		popup.style.setProperty('--popup-width', `${width}px`);
-		popup.style.setProperty('--popup-height', `${height}px`);
+		store.positionerVars = {
+			'--positioner-width': `${width}px`,
+			'--positioner-height': `${height}px`
+		};
 		const textDirection = direction.direction;
 		const anchorTop = side === 'top';
 		const anchorLeft =
 			side === 'left' || side === (textDirection === 'rtl' ? 'inline-end' : 'inline-start');
-		if (!anchorTop && !anchorLeft) return;
-		const restore = popup.style.position;
-		popup.style.position = 'absolute';
-		popup.style.setProperty(anchorTop ? 'bottom' : 'top', '0');
-		popup.style.setProperty(anchorLeft ? 'right' : 'left', '0');
-		return () => {
-			popup.style.position = restore;
+		const popupVars: Record<string, string> = {
+			'--popup-width': `${width}px`,
+			'--popup-height': `${height}px`
 		};
+		if (anchorTop || anchorLeft) {
+			popupVars.position = 'absolute';
+			popupVars[anchorTop ? 'bottom' : 'top'] = '0';
+			popupVars[anchorLeft ? 'right' : 'left'] = '0';
+		}
+		store.popupVars = popupVars;
 	});
 
 	const partState: PopoverViewportState = $derived({
 		activationDirection,
-		transitioning: previousHtml != null,
+		transitioning: previousNode != null,
 		instant: store.instantType
 	});
 
 	const hostProps = $derived(
-		asHost<HTMLDivElement>(
-			mergeProps(
-				loose(elementProps),
-				loose({
-					...(activationDirection ? { 'data-activation-direction': activationDirection } : {}),
-					...(previousHtml != null ? { 'data-transitioning': '' } : {}),
-					...(store.instantType ? { 'data-instant': store.instantType } : {})
-				})
-			)
-		)
+		mergeProps(elementProps, {
+			...(activationDirection ? { 'data-activation-direction': activationDirection } : {}),
+			...(previousNode != null ? { 'data-transitioning': '' } : {}),
+			...(store.instantType ? { 'data-instant': store.instantType } : {})
+		})
 	);
+
+	function snapshot(source: HTMLElement) {
+		const wrapper = source.ownerDocument.createElement('div');
+		for (const child of source.childNodes) {
+			const copy = child.cloneNode(true);
+			if (child instanceof Element && copy instanceof Element) copyControlState(child, copy);
+			wrapper.appendChild(copy);
+		}
+		stripIds(wrapper);
+		return wrapper;
+	}
+
+	function copyControlState(from: Element, to: Element) {
+		const sources = controls(from);
+		const targets = controls(to);
+		sources.forEach((node, index) => {
+			const dest = targets[index];
+			if (!dest) return;
+			if (node instanceof HTMLInputElement && dest instanceof HTMLInputElement) {
+				dest.value = node.value;
+				dest.checked = node.checked;
+			} else if (node instanceof HTMLTextAreaElement && dest instanceof HTMLTextAreaElement) {
+				dest.value = node.value;
+			} else if (node instanceof HTMLSelectElement && dest instanceof HTMLSelectElement) {
+				dest.value = node.value;
+			}
+		});
+	}
+
+	function controls(node: Element) {
+		const found = [...node.querySelectorAll('input, textarea, select')];
+		if (node.matches('input, textarea, select')) found.unshift(node);
+		return found;
+	}
+
+	function stripIds(node: Element) {
+		if (node.id) node.removeAttribute('id');
+		for (const child of node.querySelectorAll('[id]')) child.removeAttribute('id');
+	}
 
 	function directionBetween(from: Element, to: Element) {
 		const fromRect = from.getBoundingClientRect();
@@ -134,16 +167,24 @@
 {/if}
 
 {#snippet content()}
-	{#if previousHtml != null}
-		<div
-			bind:this={previousEl}
-			data-previous
-			data-ending-style={showStarting ? undefined : ''}
-			inert
-			style="position: absolute"
-		></div>
-	{/if}
 	<div bind:this={currentEl} data-current data-starting-style={showStarting ? '' : undefined}>
 		{@render children?.()}
 	</div>
+	{#if previousNode}
+		<div
+			data-previous
+			data-ending-style={showStarting ? undefined : ''}
+			inert
+			aria-hidden="true"
+			style="position: absolute"
+			{@attach (host) => {
+				const node = previousNode;
+				if (!node) return;
+				host.replaceChildren(node);
+				return () => {
+					if (node.parentNode === host) host.removeChild(node);
+				};
+			}}
+		></div>
+	{/if}
 {/snippet}
