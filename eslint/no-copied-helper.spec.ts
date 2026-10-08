@@ -1,3 +1,4 @@
+import { readFileSync } from 'node:fs';
 import { fileURLToPath } from 'node:url';
 import { describe, expect, it } from 'vitest';
 import { ESLint, type Linter } from 'eslint';
@@ -73,5 +74,29 @@ describe('sveltery/no-copied-helper', () => {
 			'src/lib/tabs/example.ts'
 		);
 		expect(method).toEqual([]);
+	});
+
+	it('rejects the pre-fix popover helpers and allows the shared imports', async () => {
+		const copied = readFileSync(repoPath('eslint/fixtures/popover-pre-fix-helpers.js'), 'utf8');
+		const failures = await messages(copied, 'src/lib/popover/pre-fix-helpers.ts');
+		expect(failures.some((message) => message.includes('useButton.ts'))).toBe(true);
+		expect(failures.some((message) => message.includes('adaptiveOriginMiddleware.ts'))).toBe(true);
+		expect(failures.some((message) => message.includes('popupStoreUtils.ts'))).toBe(true);
+		expect(failures.some((message) => message.includes('handle.svelte.ts'))).toBe(true);
+
+		const cleaned = await messages(
+			[
+				"import { useButton } from '../internal/useButton.js';",
+				"import { adaptiveOriginMiddleware } from '../internal/adaptiveOriginMiddleware.js';",
+				"import { resolveFocus } from '../internal/popups/popupStoreUtils.js';",
+				"import { PopoverHandle } from './handle.svelte.js';",
+				'void useButton;',
+				'void adaptiveOriginMiddleware;',
+				'void resolveFocus;',
+				'void PopoverHandle;'
+			].join('\n'),
+			'src/lib/popover/cleaned-helpers.ts'
+		);
+		expect(cleaned).toEqual([]);
 	});
 });

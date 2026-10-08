@@ -50,6 +50,37 @@ export function attachPreventUnmountOnClose(eventDetails: { preventUnmountOnClos
 	return () => preventUnmountOnClose;
 }
 
+/** Call signature stays bivariant so a narrower interaction type still assigns. */
+interface PopupFocusFunction {
+	(interaction: string): void | boolean | HTMLElement | null;
+}
+
+export type PopupFocusTarget = boolean | HTMLElement | null | PopupFocusFunction;
+
+/** Touch focuses the popup. Every other interaction uses the default tab sequence. */
+export function createDefaultInitialFocus(popup: () => HTMLElement | null) {
+	return (interaction: string) => (interaction === 'touch' ? (popup() ?? false) : true);
+}
+
+/** Resolve a focus target when focus moves, not while deriving props. */
+export function resolveFocus(
+	spec: PopupFocusTarget | undefined,
+	interaction: string | null,
+	popup: HTMLElement | null
+): boolean | HTMLElement {
+	const kind = interaction || '';
+	const chosen = spec === undefined ? createDefaultInitialFocus(() => popup)(kind) : spec;
+	if (typeof chosen === 'function') {
+		const result = chosen(kind);
+		if (result instanceof HTMLElement) return result;
+		if (result === false || result === undefined) return false;
+		return true;
+	}
+	if (chosen instanceof HTMLElement) return chosen;
+	if (chosen === false) return false;
+	return true;
+}
+
 export function registerTrigger(
 	store: { triggers: PopupTriggerMap; triggerCount: number },
 	id: () => string | undefined

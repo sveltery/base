@@ -146,6 +146,10 @@
 			"types": "./dist/otp-field/index.d.ts",
 			"svelte": "./dist/otp-field/index.js"
 		},
+		"./popover": {
+			"types": "./dist/popover/index.d.ts",
+			"svelte": "./dist/popover/index.js"
+		},
 		"./csp-provider": {
 			"types": "./dist/csp-provider/index.d.ts",
 			"svelte": "./dist/csp-provider/index.js"

@@ -62,6 +62,15 @@ export class PopupTriggerMap {
 		return this.idMap.get(id);
 	}
 
+	/** Registration id for an element. The DOM id can differ. */
+	idOf(element: Element | null | undefined) {
+		if (!element) return undefined;
+		for (const [id, registered] of this.idMap) {
+			if (registered === element) return id;
+		}
+		return undefined;
+	}
+
 	elements(): IterableIterator<Element> {
 		return this.idMap.values();
 	}

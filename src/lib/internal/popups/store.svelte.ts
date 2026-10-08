@@ -130,7 +130,7 @@ export class PopupStore<Reason extends string> extends FloatingRootStore {
 		this.dispatchOpenChange(nextOpen, details);
 		if (nextOpen) this.preventUnmountingOnClose = false;
 		else if (timing === 'deferred' && readPrevent()) this.preventUnmountingOnClose = true;
-		this.openValue.set(nextOpen);
+		this.openValue.set(nextOpen, details);
 	}
 
 	private finishClose() {
