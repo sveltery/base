@@ -230,9 +230,9 @@ Parts of this package derive from [Base UI](https://github.com/mui/base-ui) v1.8
 - `src/lib/dialog/DialogPortal.svelte` from `packages/react/src/dialog/portal/DialogPortal.tsx`
 - `src/lib/dialog/DialogPopup.svelte` from `packages/react/src/dialog/popup/DialogPopup.tsx`
 - `src/lib/dialog/DialogBackdrop.svelte` from `packages/react/src/dialog/backdrop/DialogBackdrop.tsx`
-- `src/lib/dialog/DialogTitle.svelte` from `packages/react/src/dialog/title/DialogTitle.tsx`
-- `src/lib/dialog/DialogDescription.svelte` from `packages/react/src/dialog/description/DialogDescription.tsx`
-- `src/lib/dialog/DialogClose.svelte` from `packages/react/src/dialog/close/DialogClose.tsx`
+- `src/lib/dialog/DialogTitle.svelte` and `src/lib/dialog/DialogLabel.svelte` from `packages/react/src/dialog/title/DialogTitle.tsx`
+- `src/lib/dialog/DialogDescription.svelte` from `packages/react/src/dialog/description/DialogDescription.tsx` (`DialogLabel` also covers this part)
+- `src/lib/dialog/DialogClose.svelte` and `src/lib/dialog/DialogAction.svelte` from `packages/react/src/dialog/close/DialogClose.tsx` and `packages/react/src/dialog/trigger/DialogTrigger.tsx`
 - `src/lib/dialog/DialogViewport.svelte` from `packages/react/src/dialog/viewport/DialogViewport.tsx`
 - `src/lib/dialog/store.svelte.ts` from `packages/react/src/dialog/store/DialogStore.ts` (extends the landed `PopupStore`)
 - `src/lib/dialog/handle.svelte.ts` from `packages/react/src/dialog/store/DialogHandle.ts` and `packages/react/src/utils/popups/popupHandle.ts`

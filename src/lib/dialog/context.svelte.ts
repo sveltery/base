@@ -24,13 +24,17 @@ export function useDialogRootContext(optional = false) {
 	return getContext<DialogStore<unknown>>(ROOT);
 }
 
-export function setDialogPortalContext(keepMounted: boolean) {
-	setContext(PORTAL, { keepMounted });
+export interface DialogPortalContext {
+	readonly keepMounted: boolean;
+}
+
+export function setDialogPortalContext(value: DialogPortalContext) {
+	setContext(PORTAL, value);
 }
 
 export function useDialogPortalContext() {
 	if (!hasContext(PORTAL)) {
 		throw new Error('Base UI: <Dialog.Portal> is missing.');
 	}
-	return getContext<{ keepMounted: boolean }>(PORTAL);
+	return getContext<DialogPortalContext>(PORTAL);
 }

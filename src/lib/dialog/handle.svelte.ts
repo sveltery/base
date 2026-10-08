@@ -4,6 +4,7 @@
 // No ref object. Detached triggers read `store`, which is `$state` on this class.
 
 import { DEV } from 'esm-env';
+import { SvelteMap } from 'svelte/reactivity';
 import { createChangeEventDetails, REASONS } from '../internal/event-details.js';
 import { AnimationFrame } from '../internal/timeout.js';
 import { PopupTriggerMap } from '../internal/popups/popupTriggerMap.js';
@@ -12,7 +13,7 @@ import type { DialogStore } from './store.svelte.js';
 export class DialogHandle<Payload = unknown> {
 	attached = $state<DialogStore<Payload> | null>(null);
 	readonly fallbackTriggers = new PopupTriggerMap();
-	readonly payloads = new Map<string, Payload>();
+	readonly payloads = new SvelteMap<string, Payload>();
 	private readonly stack: DialogStore<Payload>[] = [];
 	private overlapFrame: AnimationFrame | undefined;
 

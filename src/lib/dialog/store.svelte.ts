@@ -2,6 +2,7 @@
 // (commit 47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c). MIT, see THIRD_PARTY_NOTICES.md.
 // Extends the landed PopupStore. Elements are held here, not in ref bags.
 // A canceled close can leave preventUnmountingOnClose true. That matches Dialog.
+// Focus return is FloatingFocusManager after close. This store does not focus.
 
 import type { ControllableValue } from '../internal/controllable-value.svelte.js';
 import type { BaseUIChangeEventDetails } from '../internal/event-details.js';
@@ -9,17 +10,21 @@ import { PopupStore, type PopupChangeEventDetails } from '../internal/popups/sto
 import { closeInteraction } from './open-method.js';
 import type { DialogChangeEventReason, InteractionType } from './types.js';
 
+export interface DialogClickReference {
+	onpointerdown?: (event: PointerEvent) => void;
+	onmousedown?: (event: MouseEvent) => void;
+	onclick?: (event: MouseEvent) => void;
+	onkeydown?: (event: KeyboardEvent) => void;
+}
+
 export class DialogStore<Payload> extends PopupStore<DialogChangeEventReason> {
-	readModal: () => boolean | 'trap-focus' = () => true;
-	readDisablePointerDismissal: () => boolean = () => false;
-	readRole: () => 'dialog' | 'alertdialog' = () => 'dialog';
-	/** Popup sets this so a custom final focus does not also return to the trigger. */
-	readSuppressReturnFocus: () => boolean = () => false;
-	resolveFinalFocus: (interaction: InteractionType) => HTMLElement | false | undefined = () =>
-		undefined;
-	publishTriggerId: ((id: string | null) => void) | undefined;
+	readonly readModal: () => boolean | 'trap-focus';
+	readonly readDisablePointerDismissal: () => boolean;
+	readonly publishTriggerId: ((id: string | null) => void) | undefined;
+	readonly readClickReference: () => DialogClickReference | undefined;
 	payload = $state<Payload | undefined>(undefined);
 	openMethod = $state<InteractionType | null>(null);
+	closeMethod: InteractionType = '';
 	pointerType = $state<InteractionType | null>(null);
 	nestedOpenDialogCount = $state(0);
 	nestedOpenDrawerCount = $state(0);
@@ -28,16 +33,6 @@ export class DialogStore<Payload> extends PopupStore<DialogChangeEventReason> {
 	viewportElement = $state<HTMLElement | null>(null);
 	backdropElement = $state<HTMLElement | null>(null);
 	internalBackdropElement = $state<HTMLElement | null>(null);
-	outsidePressEnabled = true;
-	dismissOnKeyDown: ((event: KeyboardEvent) => void) | undefined;
-	clickReference:
-		| {
-				onpointerdown?: (event: PointerEvent) => void;
-				onmousedown?: (event: MouseEvent) => void;
-				onclick?: (event: MouseEvent) => void;
-				onkeydown?: (event: KeyboardEvent) => void;
-		  }
-		| undefined;
 
 	constructor(options: {
 		open: ControllableValue<boolean>;
@@ -47,6 +42,10 @@ export class DialogStore<Payload> extends PopupStore<DialogChangeEventReason> {
 			| ((open: boolean, details: PopupChangeEventDetails<DialogChangeEventReason>) => void)
 			| undefined;
 		onOpenChangeComplete: () => ((open: boolean) => void) | undefined;
+		readModal: () => boolean | 'trap-focus';
+		readDisablePointerDismissal: () => boolean;
+		publishTriggerId?: (id: string | null) => void;
+		readClickReference: () => DialogClickReference | undefined;
 	}) {
 		super({
 			open: options.open,
@@ -56,6 +55,10 @@ export class DialogStore<Payload> extends PopupStore<DialogChangeEventReason> {
 			onOpenChange: options.onOpenChange,
 			onOpenChangeComplete: options.onOpenChangeComplete
 		});
+		this.readModal = options.readModal;
+		this.readDisablePointerDismissal = options.readDisablePointerDismissal;
+		this.publishTriggerId = options.publishTriggerId;
+		this.readClickReference = options.readClickReference;
 	}
 
 	get modal() {
@@ -66,8 +69,8 @@ export class DialogStore<Payload> extends PopupStore<DialogChangeEventReason> {
 		return this.readDisablePointerDismissal();
 	}
 
-	get role() {
-		return this.readRole();
+	get role(): 'dialog' {
+		return 'dialog';
 	}
 
 	get nestedDialogOpen() {
@@ -83,17 +86,11 @@ export class DialogStore<Payload> extends PopupStore<DialogChangeEventReason> {
 		nextOpen: boolean,
 		eventDetails: BaseUIChangeEventDetails<DialogChangeEventReason>
 	) {
-		const method = closeInteraction(eventDetails.event, this.pointerType);
-		const wasOpen = this.open;
+		if (this.open && !nextOpen) {
+			this.closeMethod = closeInteraction(eventDetails.event, this.pointerType);
+		}
 		super.setOpen(nextOpen, eventDetails);
 		this.publishTriggerId?.(this.activeTriggerId);
-		if (!wasOpen || this.open) return;
-		const target = this.resolveFinalFocus(method);
-		this.openMethod = null;
-		if (target instanceof HTMLElement) {
-			queueMicrotask(() => {
-				if (target.isConnected) target.focus();
-			});
-		}
+		if (!this.open) this.openMethod = null;
 	}
 }

@@ -1,3 +1,4 @@
+import type { Attachment } from 'svelte/attachments';
 import type { Snippet } from 'svelte';
 import type { HTMLAttributes, HTMLButtonAttributes } from 'svelte/elements';
 import type { BaseUIChangeEventDetails, REASONS } from '../internal/event-details.js';
@@ -30,7 +31,7 @@ export type FocusTarget =
 	| null
 	| ((interaction: InteractionType) => boolean | HTMLElement | null | void);
 
-export interface DialogRootState {}
+export type DialogRootState = Record<string, never>;
 
 export interface DialogTriggerState {
 	/** Whether the trigger is currently disabled. */
@@ -60,12 +61,19 @@ export interface DialogCloseState {
 }
 
 export type DialogViewportState = DialogPopupState;
-export interface DialogTitleState {}
-export interface DialogDescriptionState {}
-export interface DialogPortalState {}
+export type DialogTitleState = Record<string, never>;
+export type DialogDescriptionState = Record<string, never>;
+export type DialogPortalState = Record<string, never>;
+
+export type DialogDivProps = HTMLAttributes<HTMLDivElement> &
+	Record<symbol, Attachment<HTMLDivElement>>;
 
 type PartRender<Element extends EventTarget, State> = Snippet<
-	[props: HTMLAttributes<Element>, state: State, children: Snippet]
+	[
+		props: HTMLAttributes<Element> & Record<symbol, Attachment<Element>>,
+		state: State,
+		children: Snippet
+	]
 >;
 
 export interface DialogRootProps<Payload = unknown> {
@@ -75,6 +83,12 @@ export interface DialogRootProps<Payload = unknown> {
 	 * @default false
 	 */
 	open?: boolean;
+	/**
+	 * Whether the dialog is initially open.
+	 * Omit `open` to let the dialog own it. Pass `open` to hold it.
+	 * @default false
+	 */
+	defaultOpen?: boolean;
 	/**
 	 * `true` traps focus, locks page scroll, and blocks outside pointer interaction.
 	 * `false` leaves the rest of the page usable.
@@ -101,38 +115,32 @@ export interface DialogRootProps<Payload = unknown> {
 	 * Use `bind:triggerId` to share it with the parent.
 	 */
 	triggerId?: string | null;
+	/**
+	 * Trigger id used with `defaultOpen` before a trigger opens the dialog.
+	 * @default null
+	 */
+	defaultTriggerId?: string | null;
 	children?: Snippet<[{ payload: Payload | undefined }]>;
 }
 
 export type DialogTriggerHostProps = HTMLAttributes<HTMLElement>;
 
-export interface DialogTriggerProps<Payload = unknown> extends Omit<
-	HTMLButtonAttributes,
-	'children' | 'disabled' | 'onclick' | 'onmousedown' | 'onpointerdown' | 'onkeydown' | 'onkeyup'
-> {
-	disabled?: boolean;
-	/**
-	 * Whether the host is a native `<button>`.
-	 * Set `false` when `render` supplies a non-button element.
-	 * @default true
-	 */
+type DialogControlProps = Omit<HTMLButtonAttributes, 'children'> & {
+	/** `false` renders through `render` instead of a native button. @default true */
 	nativeButton?: boolean;
-	/** Runs before the trigger opens the dialog. Call `event.preventDefault()` to skip it. */
-	onclick?: HTMLAttributes<HTMLElement>['onclick'];
-	onmousedown?: HTMLAttributes<HTMLElement>['onmousedown'];
-	onpointerdown?: HTMLAttributes<HTMLElement>['onpointerdown'];
-	onkeydown?: HTMLAttributes<HTMLElement>['onkeydown'];
-	onkeyup?: HTMLAttributes<HTMLElement>['onkeyup'];
+	children?: Snippet;
+};
+
+export interface DialogTriggerProps<Payload = unknown> extends DialogControlProps {
 	/** Passed to the dialog when this trigger opens it. */
 	payload?: Payload;
 	/** Associates this trigger with a dialog that is not its parent. */
 	handle?: DialogHandle<Payload>;
 	id?: string;
 	render?: Snippet<[props: DialogTriggerHostProps, state: DialogTriggerState, children: Snippet]>;
-	children?: Snippet;
 }
 
-export interface DialogPortalProps extends Omit<HTMLAttributes<HTMLDivElement>, 'children'> {
+export interface DialogPortalProps {
 	/**
 	 * Keep the portal mounted while the dialog is closed.
 	 * @default false
@@ -169,19 +177,8 @@ export interface DialogBackdropProps extends Omit<HTMLAttributes<HTMLDivElement>
 	children?: Snippet;
 }
 
-export interface DialogCloseProps extends Omit<
-	HTMLButtonAttributes,
-	'children' | 'disabled' | 'onclick' | 'onmousedown' | 'onpointerdown' | 'onkeydown' | 'onkeyup'
-> {
-	disabled?: boolean;
-	nativeButton?: boolean;
-	onclick?: HTMLAttributes<HTMLElement>['onclick'];
-	onmousedown?: HTMLAttributes<HTMLElement>['onmousedown'];
-	onpointerdown?: HTMLAttributes<HTMLElement>['onpointerdown'];
-	onkeydown?: HTMLAttributes<HTMLElement>['onkeydown'];
-	onkeyup?: HTMLAttributes<HTMLElement>['onkeyup'];
+export interface DialogCloseProps extends DialogControlProps {
 	render?: Snippet<[props: DialogTriggerHostProps, state: DialogCloseState, children: Snippet]>;
-	children?: Snippet;
 }
 
 export interface DialogTitleProps extends Omit<HTMLAttributes<HTMLHeadingElement>, 'children'> {

@@ -5,13 +5,11 @@
 -->
 <script lang="ts">
 	import { createAttachmentKey } from 'svelte/attachments';
-	import { createChangeEventDetails, REASONS } from '../internal/event-details.js';
 	import { mergeProps } from '../internal/mergeProps.js';
 	import { getStateAttributesProps } from '../internal/state-attributes.js';
 	import { dialogTransitionAttributesMapping } from './attributes.js';
 	import { useDialogPortalContext, useDialogRootContext } from './context.svelte.js';
-	import { dialogOutsidePressEvent, dialogOwnedOutsidePress } from './outside-press.js';
-	import type { DialogBackdropProps, DialogBackdropState } from './types.js';
+	import type { DialogBackdropProps, DialogBackdropState, DialogDivProps } from './types.js';
 
 	let { forceRender = false, render, children, ...elementProps }: DialogBackdropProps = $props();
 
@@ -32,21 +30,11 @@
 		};
 	}
 
-	function press(event: Event, mode: 'click' | 'pointerdown') {
-		const expected = dialogOutsidePressEvent(store);
-		if (mode === 'click' && expected !== 'intentional') return;
-		if (mode === 'pointerdown' && expected !== 'sloppy') return;
-		if (!dialogOwnedOutsidePress(store, event)) return;
-		store.setOpen(false, createChangeEventDetails(REASONS.outsidePress, event));
-	}
-
 	const hostProps = $derived(
-		mergeProps(elementProps, {
+		mergeProps<DialogDivProps>(elementProps, {
 			role: 'presentation',
 			hidden: !store.mounted,
 			style: 'user-select: none; -webkit-user-select: none',
-			onclick: (event: MouseEvent) => press(event, 'click'),
-			onpointerdown: (event: PointerEvent) => press(event, 'pointerdown'),
 			...getStateAttributesProps(state, dialogTransitionAttributesMapping),
 			...(render ? { [attachmentKey]: ownBackdrop } : {})
 		})

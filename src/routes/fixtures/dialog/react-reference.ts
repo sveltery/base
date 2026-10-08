@@ -2,25 +2,17 @@
 import { createElement as h, Fragment, useEffect, useState } from 'react';
 import { createRoot } from 'react-dom/client';
 import { Dialog } from '@base-ui/react/dialog';
+import { noteOpen, type OpenCall } from '../open-change.js';
 import type { DialogCase } from './cases.js';
-
-type Call = { open: boolean; reason: string; canceled: boolean };
 
 export function mountDialogReference(node: HTMLElement, scenario: DialogCase, onReady: () => void) {
 	function App() {
-		const [calls, setCalls] = useState<Call[]>([]);
+		const [calls, setCalls] = useState<OpenCall[]>([]);
 		useEffect(onReady, []);
-
-		function changed(
+		const changed = (
 			open: boolean,
 			details: { reason: string; isCanceled: boolean; cancel: () => void }
-		) {
-			if (scenario === 'cancel') details.cancel();
-			setCalls((previous) => [
-				...previous,
-				{ open, reason: details.reason, canceled: details.isCanceled }
-			]);
-		}
+		) => setCalls((previous) => previous.concat(noteOpen(scenario, open, details)));
 
 		const outside = h('button', { type: 'button', 'data-testid': 'outside' }, 'Outside');
 		const callsNode = h('output', { 'data-testid': 'calls' }, JSON.stringify(calls));

@@ -12,6 +12,14 @@ import DialogMissingPortalHarness from '../../tests/DialogMissingPortalHarness.s
 import { Dialog } from './index.js';
 import { REASONS } from '../internal/event-details.js';
 
+function button(name: string) {
+	return page.getByRole('button', { name, includeHidden: true });
+}
+
+function click(locator: { element(): Element }) {
+	(locator.element() as HTMLElement).click();
+}
+
 async function frame() {
 	await new Promise<void>((resolve) => {
 		requestAnimationFrame(() => resolve());
@@ -19,9 +27,23 @@ async function frame() {
 	await tick();
 }
 
+/** Modal dialogs aria-hide the dialogs under them, so role queries include those nodes. */
+function dialogLocator() {
+	return page.getByRole('dialog', { includeHidden: true });
+}
+
+/** Close unmounts after the popup's animations finish, which is after the click's tick. */
+async function dialogs(count: number) {
+	await expect.poll(() => dialogLocator().elements().length).toBe(count);
+}
+
+function internalBackdrop() {
+	return document.querySelector('[data-base-ui-portal] [role="presentation"][data-base-ui-inert]');
+}
+
 async function openDialog() {
-	const trigger = page.getByRole('button', { name: 'Open' });
-	trigger.element().click();
+	const trigger = button('Open');
+	click(trigger);
 	await tick();
 	return trigger;
 }
@@ -48,35 +70,57 @@ describe('Dialog', () => {
 		const onOpenChange = vi.fn();
 		render(DialogHarness, { onOpenChange });
 		await openDialog();
-		page.getByRole('button', { name: 'Close' }).element().click();
-		await tick();
-
-		expect(page.getByRole('dialog').elements()).toHaveLength(0);
+		click(button('Close'));
+		await dialogs(0);
 		expect(onOpenChange).toHaveBeenCalledWith(
 			false,
 			expect.objectContaining({ reason: REASONS.closePress, isCanceled: false })
 		);
 	});
 
-	it('closes on Escape with escape-key', async () => {
+	it('closes on Escape from the focused element with escape-key', async () => {
 		const onOpenChange = vi.fn();
 		render(DialogHarness, { onOpenChange });
 		await openDialog();
-		document.dispatchEvent(new KeyboardEvent('keydown', { key: 'Escape', bubbles: true }));
-		await tick();
-
-		expect(page.getByRole('dialog').elements()).toHaveLength(0);
+		await frame();
+		const focused = document.activeElement;
+		expect(focused).toBe(button('Inside').element());
+		focused?.dispatchEvent(new KeyboardEvent('keydown', { key: 'Escape', bubbles: true }));
+		await dialogs(0);
 		expect(onOpenChange).toHaveBeenLastCalledWith(
 			false,
 			expect.objectContaining({ reason: REASONS.escapeKey })
 		);
 	});
 
+	it('traps Tab inside the dialog', async () => {
+		render(DialogHarness);
+		await openDialog();
+		await frame();
+		const inside = button('Inside').element() as HTMLElement;
+		const close = button('Close').element() as HTMLElement;
+		expect(document.activeElement).toBe(inside);
+		close.focus();
+		close.dispatchEvent(
+			new KeyboardEvent('keydown', { key: 'Tab', bubbles: true, cancelable: true })
+		);
+		expect(document.activeElement).toBe(inside);
+		inside.dispatchEvent(
+			new KeyboardEvent('keydown', {
+				key: 'Tab',
+				bubbles: true,
+				cancelable: true,
+				shiftKey: true
+			})
+		);
+		expect(document.activeElement).toBe(close);
+	});
+
 	it('closes a modal dialog on backdrop click and not on pointerdown', async () => {
 		const onOpenChange = vi.fn();
 		render(DialogHarness, { onOpenChange });
 		await openDialog();
-		const backdrop = document.querySelector('[data-base-ui-inert]') as HTMLElement;
+		const backdrop = internalBackdrop() as HTMLElement;
 		expect(backdrop).toBeTruthy();
 
 		backdrop.dispatchEvent(new PointerEvent('pointerdown', { bubbles: true, button: 0 }));
@@ -84,8 +128,7 @@ describe('Dialog', () => {
 		expect(page.getByRole('dialog').elements()).toHaveLength(1);
 
 		backdrop.dispatchEvent(new MouseEvent('click', { bubbles: true, button: 0 }));
-		await tick();
-		expect(page.getByRole('dialog').elements()).toHaveLength(0);
+		await dialogs(0);
 		expect(onOpenChange).toHaveBeenCalledWith(
 			false,
 			expect.objectContaining({ reason: REASONS.outsidePress })
@@ -95,9 +138,10 @@ describe('Dialog', () => {
 	it('closes a non-modal dialog when the outside control is clicked', async () => {
 		render(DialogHarness, { modal: false, withBackdrop: false });
 		await openDialog();
-		page.getByTestId('outside').element().click();
-		await tick();
-		expect(page.getByRole('dialog').elements()).toHaveLength(0);
+		const outside = page.getByTestId('outside').element() as HTMLElement;
+		outside.dispatchEvent(new PointerEvent('pointerdown', { bubbles: true, button: 0 }));
+		outside.click();
+		await dialogs(0);
 	});
 
 	it('does not close when onOpenChange cancels', async () => {
@@ -111,10 +155,10 @@ describe('Dialog', () => {
 
 	it('does not open from a disabled trigger', async () => {
 		render(DialogHarness, { disabled: true });
-		const trigger = page.getByRole('button', { name: 'Open' });
+		const trigger = button('Open');
 		await expect.element(trigger).toHaveAttribute('disabled', '');
 		await expect.element(trigger).toHaveAttribute('data-disabled', '');
-		trigger.element().click();
+		click(trigger);
 		await tick();
 		expect(page.getByRole('dialog').elements()).toHaveLength(0);
 	});
@@ -122,7 +166,7 @@ describe('Dialog', () => {
 	it('does not close when the close click is prevented', async () => {
 		render(DialogHarness);
 		await openDialog();
-		const close = page.getByRole('button', { name: 'Close' });
+		const close = button('Close');
 		close.element().addEventListener(
 			'click',
 			(event) => {
@@ -130,7 +174,7 @@ describe('Dialog', () => {
 			},
 			{ capture: true }
 		);
-		close.element().click();
+		click(close);
 		await tick();
 		expect(page.getByRole('dialog').elements()).toHaveLength(1);
 	});
@@ -139,9 +183,9 @@ describe('Dialog', () => {
 		render(DialogHarness);
 		const trigger = await openDialog();
 		await frame();
-		expect(document.activeElement).toBe(page.getByRole('button', { name: 'Inside' }).element());
+		expect(document.activeElement).toBe(button('Inside').element());
 
-		page.getByRole('button', { name: 'Close' }).element().click();
+		click(button('Close'));
 		await frame();
 		expect(document.activeElement).toBe(trigger.element());
 	});
@@ -152,39 +196,38 @@ describe('Dialog', () => {
 		await openDialog();
 		await frame();
 		expect(document.activeElement).toBe(before);
-		page.getByRole('button', { name: 'Close' }).element().click();
-		await frame();
-		expect(page.getByRole('dialog').elements()).toHaveLength(0);
+		click(button('Close'));
+		await dialogs(0);
 	});
 
 	it('keeps Escape on the nested dialog', async () => {
 		render(DialogHarness, { nested: true });
 		await openDialog();
-		page.getByRole('button', { name: 'Nested' }).element().click();
-		await tick();
-		expect(page.getByRole('dialog').elements()).toHaveLength(2);
+		click(button('Nested'));
+		await dialogs(2);
 
-		document.dispatchEvent(new KeyboardEvent('keydown', { key: 'Escape', bubbles: true }));
-		await tick();
-		expect(page.getByRole('dialog').elements()).toHaveLength(1);
-		await expect.element(page.getByRole('dialog')).toHaveText(/Title/);
+		(document.activeElement ?? document.body).dispatchEvent(
+			new KeyboardEvent('keydown', { key: 'Escape', bubbles: true })
+		);
+		await dialogs(1);
+		await expect.element(page.getByRole('dialog')).toHaveTextContent(/Title/);
 	});
 
 	it('marks a nested dialog and counts it on the parent', async () => {
 		render(DialogHarness, { nested: true });
 		await openDialog();
-		page.getByRole('button', { name: 'Nested' }).element().click();
+		click(button('Nested'));
 		await tick();
-		const dialogs = page.getByRole('dialog').elements();
-		expect(dialogs[1]).toHaveAttribute('data-nested', '');
-		expect(dialogs[0].style.getPropertyValue('--nested-dialogs')).toBe('1');
-		expect(dialogs[0]).toHaveAttribute('data-nested-dialog-open', '');
+		const openDialogs = dialogLocator().elements();
+		expect(openDialogs[1]).toHaveAttribute('data-nested', '');
+		expect(openDialogs[0].style.getPropertyValue('--nested-dialogs')).toBe('1');
+		expect(openDialogs[0]).toHaveAttribute('data-nested-dialog-open', '');
 	});
 
 	it('omits the internal backdrop when modal is false', async () => {
 		render(DialogHarness, { modal: false });
 		await openDialog();
-		expect(document.querySelector('[data-base-ui-inert]')).toBeNull();
+		expect(internalBackdrop()).toBeNull();
 	});
 
 	it('keeps the popup mounted when keepMounted is set', async () => {
@@ -198,11 +241,11 @@ describe('Dialog', () => {
 	it('unmounts after preventUnmountOnClose when actions.unmount is called', async () => {
 		render(DialogActionsHarness);
 		await openDialog();
-		page.getByRole('button', { name: 'Open' }).element().click();
-		await tick();
+		click(button('Open'));
+		await frame();
 		expect(page.getByTestId('popup').elements()).toHaveLength(1);
 
-		page.getByRole('button', { name: 'Unmount' }).element().click();
+		click(button('Unmount'));
 		await tick();
 		expect(page.getByTestId('popup').elements()).toHaveLength(0);
 	});
@@ -210,13 +253,12 @@ describe('Dialog', () => {
 	it('opens a detached trigger through a handle and passes its payload', async () => {
 		const handle = Dialog.createHandle<string>();
 		render(DialogHandleHarness, { handle });
-		page.getByRole('button', { name: 'Detached' }).element().click();
+		click(button('Detached'));
 		await tick();
 		await expect.element(page.getByTestId('payload')).toHaveTextContent('from-trigger');
 		expect(handle.isOpen).toBe(true);
 		handle.close();
-		await tick();
-		expect(page.getByRole('dialog').elements()).toHaveLength(0);
+		await dialogs(0);
 	});
 
 	it('throws when a trigger is rendered outside a root and without a handle', () => {
@@ -227,6 +269,92 @@ describe('Dialog', () => {
 
 	it('throws when a popup is rendered outside a root', () => {
 		expect(() => render(Dialog.Popup)).toThrow(/DialogRootContext is missing/);
+	});
+
+	it('unmounts the viewport after close unless keepMounted is set', async () => {
+		const closed = render(DialogHarness, { withViewport: true });
+		expect(page.getByTestId('viewport').elements()).toHaveLength(0);
+		await openDialog();
+		expect(page.getByTestId('viewport').elements()).toHaveLength(1);
+		click(button('Close'));
+		await dialogs(0);
+		expect(page.getByTestId('viewport').elements()).toHaveLength(0);
+		closed.unmount();
+
+		render(DialogHarness, { withViewport: true, keepMounted: true });
+		expect(page.getByTestId('viewport').elements()).toHaveLength(1);
+		await openDialog();
+		click(button('Close'));
+		await expect
+			.poll(() => page.getByTestId('popup').elements()[0]?.hasAttribute('hidden'))
+			.toBe(true);
+		expect(page.getByTestId('viewport').elements()).toHaveLength(1);
+	});
+
+	it('makes the internal backdrop inert while a prevented close stays mounted', async () => {
+		render(DialogHarness, { preventUnmount: true });
+		await openDialog();
+		const backdrop = internalBackdrop() as HTMLElement;
+		expect(backdrop.hasAttribute('inert')).toBe(false);
+		click(button('Open'));
+		await tick();
+		expect(page.getByTestId('popup').elements()).toHaveLength(1);
+		expect((internalBackdrop() as HTMLElement).hasAttribute('inert')).toBe(true);
+	});
+
+	it('focuses a finalFocus element and calls a finalFocus function on close', async () => {
+		const element = document.createElement('button');
+		element.textContent = 'After';
+		document.body.append(element);
+		const first = render(DialogHarness, { finalFocus: element });
+		await openDialog();
+		await frame();
+		click(button('Close'));
+		await frame();
+		expect(document.activeElement).toBe(element);
+		first.unmount();
+
+		const target = document.createElement('button');
+		document.body.append(target);
+		const finalFocus = vi.fn(() => target);
+		render(DialogHarness, { finalFocus });
+		await openDialog();
+		await frame();
+		expect(finalFocus).not.toHaveBeenCalled();
+		click(button('Close'));
+		await frame();
+		expect(finalFocus).toHaveBeenCalled();
+		expect(document.activeElement).toBe(target);
+		element.remove();
+		target.remove();
+	});
+
+	it('calls initialFocus when the dialog focuses, not before it opens', async () => {
+		const initialFocus = vi.fn(() => true as const);
+		render(DialogHarness, { initialFocus });
+		await tick();
+		expect(initialFocus).not.toHaveBeenCalled();
+		await openDialog();
+		await frame();
+		expect(initialFocus).toHaveBeenCalled();
+	});
+
+	it('shares triggerId for the trigger that opened the dialog', async () => {
+		const initial = render(DialogHarness, {
+			twoTriggers: true,
+			defaultOpen: true,
+			defaultTriggerId: 'one'
+		});
+		await expect.element(page.getByTestId('trigger-id')).toHaveTextContent('one');
+		await expect.element(button('One')).toHaveAttribute('aria-expanded', 'true');
+		initial.unmount();
+
+		render(DialogHarness, { twoTriggers: true });
+		click(button('Two'));
+		await tick();
+		await expect.element(page.getByTestId('trigger-id')).toHaveTextContent('two');
+		await expect.element(button('Two')).toHaveAttribute('aria-expanded', 'true');
+		await expect.element(button('One')).toHaveAttribute('aria-expanded', 'false');
 	});
 
 	it('throws when a popup is rendered without a portal', () => {

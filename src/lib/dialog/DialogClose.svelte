@@ -4,10 +4,9 @@
 	(commit 47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c). MIT, see THIRD_PARTY_NOTICES.md.
 -->
 <script lang="ts">
-	import type { HTMLAttributes } from 'svelte/elements';
-	import Button from '../button/Button.svelte';
 	import { createChangeEventDetails, REASONS } from '../internal/event-details.js';
 	import { getStateAttributesProps } from '../internal/state-attributes.js';
+	import DialogAction from './DialogAction.svelte';
 	import { useDialogRootContext } from './context.svelte.js';
 	import type { DialogCloseProps, DialogCloseState } from './types.js';
 
@@ -25,9 +24,9 @@
 	}: DialogCloseProps = $props();
 
 	const store = useDialogRootContext();
-	const state: DialogCloseState = $derived({ disabled });
+	const state: DialogCloseState = $derived({ disabled: disabled === true });
 
-	function handleClick(event: MouseEvent & { currentTarget: EventTarget & HTMLElement }) {
+	function handleClick(event: MouseEvent & { currentTarget: EventTarget & HTMLButtonElement }) {
 		onclick?.(event);
 		if (event.defaultPrevented || !store.open) return;
 		store.setOpen(false, createChangeEventDetails(REASONS.closePress, event));
@@ -39,19 +38,7 @@
 	});
 </script>
 
-{#snippet content()}
-	{@render children?.()}
-{/snippet}
-
-{#snippet host(props: HTMLAttributes<HTMLElement>, _buttonState: { disabled: boolean })}
-	{#if render}
-		{@render render(props, state, content)}
-	{:else}
-		<button {...props}>{@render content()}</button>
-	{/if}
-{/snippet}
-
-<Button
+<DialogAction
 	{disabled}
 	{nativeButton}
 	onclick={handleClick}
@@ -59,6 +46,8 @@
 	{onpointerdown}
 	{onkeydown}
 	{onkeyup}
-	render={host}
-	{...described}
+	{render}
+	{state}
+	{children}
+	{described}
 />

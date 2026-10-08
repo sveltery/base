@@ -6,19 +6,14 @@
 -->
 <script lang="ts">
 	import { createAttachmentKey } from 'svelte/attachments';
-	import { FOCUSABLE_POPUP_PROPS } from '../internal/popups/index.js';
+	import { createDefaultInitialFocus, FOCUSABLE_POPUP_PROPS } from '../internal/popups/index.js';
 	import { FloatingFocusManager } from '../internal/floating-ui/index.js';
 	import { mergeProps } from '../internal/mergeProps.js';
 	import { getStateAttributesProps } from '../internal/state-attributes.js';
 	import { useOpenChangeComplete } from '../internal/useOpenChangeComplete.svelte.js';
 	import { COMPOSITE_KEYS, dialogStateAttributesMapping, nestedDialogsVar } from './attributes.js';
 	import { useDialogPortalContext, useDialogRootContext } from './context.svelte.js';
-	import type {
-		DialogPopupProps,
-		DialogPopupState,
-		FocusTarget,
-		InteractionType
-	} from './types.js';
+	import type { DialogDivProps, DialogPopupProps, DialogPopupState } from './types.js';
 
 	let {
 		initialFocus = undefined,
@@ -48,33 +43,42 @@
 		};
 	}
 
-	function resolveFinal(interaction: InteractionType) {
-		if (finalFocus === undefined || finalFocus === true) return undefined;
-		if (finalFocus === false) return false;
-		if (finalFocus instanceof HTMLElement) return finalFocus;
-		const result = finalFocus(interaction);
-		if (result instanceof HTMLElement) return result;
-		if (result === false || result === undefined) return false;
-		return store.activeTriggerElement instanceof HTMLElement
-			? store.activeTriggerElement
-			: undefined;
+	const defaultInitialFocus = createDefaultInitialFocus(() => store.popupElement);
+
+	function resolveInitial(): boolean | HTMLElement | null {
+		const interaction = store.openMethod ?? '';
+		const value = initialFocus;
+		if (value === false) return false;
+		if (value instanceof HTMLElement) return value;
+		if (typeof value === 'function') {
+			const result = value(interaction);
+			if (result === false || result === undefined) return false;
+			if (result instanceof HTMLElement) return result;
+			return true;
+		}
+		const fallback = defaultInitialFocus(interaction);
+		return fallback instanceof HTMLElement ? fallback : true;
 	}
 
-	store.resolveFinalFocus = resolveFinal;
-	store.readSuppressReturnFocus = () => finalFocus !== undefined && finalFocus !== true;
-
-	const resolvedInitial = $derived.by(() => {
-		if (!store.open) return true as boolean | HTMLElement;
-		return resolveInitial(initialFocus, store.openMethod ?? '', store.popupElement);
-	});
+	function resolveFinal(): boolean | HTMLElement | null {
+		const interaction = store.closeMethod;
+		if (finalFocus === false) return false;
+		if (finalFocus instanceof HTMLElement) return finalFocus;
+		if (typeof finalFocus === 'function') {
+			const result = finalFocus(interaction);
+			if (result === false || result === undefined) return false;
+			if (result instanceof HTMLElement) return result;
+			return true;
+		}
+		return true;
+	}
 
 	function onKeyDown(event: KeyboardEvent) {
-		store.dismissOnKeyDown?.(event);
 		if (COMPOSITE_KEYS.has(event.key)) event.stopPropagation();
 	}
 
 	const hostProps = $derived(
-		mergeProps(elementProps, FOCUSABLE_POPUP_PROPS, {
+		mergeProps<DialogDivProps>(elementProps, FOCUSABLE_POPUP_PROPS, {
 			id: store.floatingId,
 			role: store.role,
 			...(store.titleElementId ? { 'aria-labelledby': store.titleElementId } : {}),
@@ -95,22 +99,6 @@
 			if (store.open) store.notifyOpenChangeComplete(true);
 		}
 	}));
-
-	function resolveInitial(
-		value: FocusTarget | undefined,
-		interaction: InteractionType,
-		popup: HTMLElement | null
-	): boolean | HTMLElement {
-		if (value === false) return false;
-		if (value instanceof HTMLElement) return value;
-		if (typeof value === 'function') {
-			const result = value(interaction);
-			if (result === false || result === undefined) return false;
-			if (result instanceof HTMLElement) return result;
-		}
-		if (interaction === 'touch' && popup) return popup;
-		return true;
-	}
 </script>
 
 {#snippet content()}
@@ -120,8 +108,8 @@
 <FloatingFocusManager
 	{store}
 	disabled={!store.mounted}
-	initialFocus={resolvedInitial}
-	returnFocus={!store.readSuppressReturnFocus()}
+	initialFocus={resolveInitial}
+	returnFocus={resolveFinal}
 	modal={store.modal !== false}
 	closeOnFocusOut={!store.disablePointerDismissal}
 >

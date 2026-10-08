@@ -20,13 +20,13 @@ Test: `src/lib/popover/Popover.svelte.spec.ts` (`keeps the live radio checked wh
 
 Source: `packages/react/src/dialog` and the dialog-only helpers it calls (`DialogHandle`, outside-press predicate, open-interaction type). Portal, focus, dismiss, scroll lock, `mergeProps`, and the popup store are the landed overlay foundation.
 
-| Upstream                                                 | Local                                                                                                  |
-| -------------------------------------------------------- | ------------------------------------------------------------------------------------------------------ |
-| `open` / `defaultOpen`, `triggerId` / `defaultTriggerId` | `$bindable` `open` and `triggerId`                                                                     |
-| `actionsRef`                                             | `bind:actions`                                                                                         |
-| `initialFocus` / `finalFocus` ref objects                | element or function                                                                                    |
-| `children` render function `{ payload }`                 | snippet argument `{ payload }`                                                                         |
-| React `useButton`                                        | existing `Button`                                                                                      |
-| Backdrop outside press inside `useDismiss`               | backdrop and viewport click handlers, because the shared dismiss hook treats the portal host as inside |
+| Upstream                                                             | Local                                                                                                  |
+| -------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------ |
+| `open` / `defaultOpen`, `triggerId` / `defaultTriggerId`             | `createControllableValue` with `$bindable` `open` / `triggerId` and `defaultOpen` / `defaultTriggerId` |
+| `actionsRef`                                                         | `bind:actions`                                                                                         |
+| `initialFocus` / `finalFocus` ref objects                            | element or function, called when focus moves                                                           |
+| `children` render function `{ payload }`                             | snippet argument `{ payload }`                                                                         |
+| React `useButton`                                                    | existing `Button`                                                                                      |
+| `useDismiss` outside press, including separate mouse and touch modes | one dialog listener, because the shared dismiss hook treats the portal host as inside                  |
 
-Not ported: Alert Dialog, Drawer, and ref objects. A dialog without a backdrop uses one outside-press mode (`intentional`, or `sloppy` for `trap-focus`) for both mouse and touch.
+Not ported: Alert Dialog, Drawer, and ref objects. Mouse and touch use separate outside-press modes. A backdrop is `intentional` for both. Without one, touch is `sloppy` and mouse is `sloppy` only for `trap-focus`.

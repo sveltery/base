@@ -1,23 +1,29 @@
 // Derived from the outside-press predicate in Base UI v1.8.0
 // packages/react/src/dialog/root/useDialogRoot.ts
 // (commit 47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c). MIT, see THIRD_PARTY_NOTICES.md.
-// The ported dismiss hook takes one press mode. A backdrop forces `intentional`.
-// `trap-focus` without a backdrop uses `sloppy`. Other dialogs without a backdrop
-// use `intentional` for both mouse and touch.
+// One listener decides outside press. Mouse and touch use separate modes.
+// A backdrop is intentional for both. Without one, touch is sloppy and mouse
+// is sloppy only for trap-focus.
 
+import { on } from 'svelte/events';
+import { createChangeEventDetails, REASONS } from '../internal/event-details.js';
+import { ownerDocument } from '../internal/owner.js';
 import { contains, getTarget } from '../internal/shadow-dom.js';
 import type { DialogStore } from './store.svelte.js';
 
 export type DialogPressMode = 'sloppy' | 'intentional';
+type PointerKind = 'mouse' | 'touch';
 
-export function dialogOutsidePressEvent(store: DialogStore<unknown>): DialogPressMode {
+export function dialogPressMode(
+	store: DialogStore<unknown>,
+	pointer: PointerKind
+): DialogPressMode {
 	if (store.internalBackdropElement || store.backdropElement) return 'intentional';
-	if (store.modal === 'trap-focus') return 'sloppy';
-	return 'intentional';
+	if (pointer === 'touch') return 'sloppy';
+	return store.modal === 'trap-focus' ? 'sloppy' : 'intentional';
 }
 
 export function dialogOutsidePress(store: DialogStore<unknown>, event: Event) {
-	if (!store.outsidePressEnabled) return false;
 	if ('button' in event && (event as MouseEvent).button !== 0) return false;
 
 	if ('touches' in event) {
@@ -33,6 +39,7 @@ export function dialogOutsidePress(store: DialogStore<unknown>, event: Event) {
 
 	const target = getTarget(event);
 	if (!(target instanceof Element)) return false;
+	if (contains(store.popupElement, target)) return false;
 
 	if (store.modal) {
 		const internalBackdrop = store.internalBackdropElement;
@@ -44,15 +51,57 @@ export function dialogOutsidePress(store: DialogStore<unknown>, event: Event) {
 				(contains(target, store.popupElement) && !target.hasAttribute('data-base-ui-portal'))
 			);
 		}
-		return true;
 	}
 
 	return true;
 }
 
-/** Clicks inside the popup are not outside presses, even when they bubble to the viewport. */
-export function dialogOwnedOutsidePress(store: DialogStore<unknown>, event: Event) {
-	const target = getTarget(event);
-	if (contains(store.popupElement, target)) return false;
-	return dialogOutsidePress(store, event);
+function pointerKind(event: Event, current: PointerKind): PointerKind {
+	if (event instanceof PointerEvent) {
+		return event.pointerType === 'touch' ? 'touch' : 'mouse';
+	}
+	if (event.type.startsWith('touch')) return 'touch';
+	return current;
+}
+
+/** Document listener. Backdrop, viewport, and the internal backdrop do not decide. */
+export function installDialogOutsidePress(store: DialogStore<unknown>) {
+	let sawPressWhileOpen = false;
+	let pointer: PointerKind = 'mouse';
+	const doc = ownerDocument(store.popupElement);
+
+	function close(event: Event) {
+		if (!store.open || !dialogOutsidePress(store, event)) return;
+		store.setOpen(false, createChangeEventDetails(REASONS.outsidePress, event));
+	}
+
+	function onPointerDown(event: PointerEvent) {
+		pointer = pointerKind(event, pointer);
+		if (event.button !== 0) return;
+		if (store.open) sawPressWhileOpen = true;
+		if (dialogPressMode(store, pointer) !== 'sloppy' || pointer === 'touch') return;
+		close(event);
+	}
+
+	function onClick(event: MouseEvent) {
+		pointer = pointerKind(event, pointer);
+		if (dialogPressMode(store, pointer) !== 'intentional' || !sawPressWhileOpen) return;
+		close(event);
+	}
+
+	function onTouchEnd(event: TouchEvent) {
+		pointer = 'touch';
+		if (dialogPressMode(store, 'touch') !== 'sloppy') return;
+		close(event);
+	}
+
+	const stopPointer = on(doc, 'pointerdown', onPointerDown);
+	const stopClick = on(doc, 'click', onClick);
+	const stopTouch = on(doc, 'touchend', onTouchEnd);
+	return () => {
+		stopPointer();
+		stopClick();
+		stopTouch();
+		sawPressWhileOpen = false;
+	};
 }

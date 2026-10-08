@@ -5,20 +5,18 @@
 -->
 <script lang="ts">
 	import { createAttachmentKey } from 'svelte/attachments';
-	import { createChangeEventDetails, REASONS } from '../internal/event-details.js';
 	import { mergeProps } from '../internal/mergeProps.js';
 	import { getStateAttributesProps } from '../internal/state-attributes.js';
 	import { dialogStateAttributesMapping } from './attributes.js';
 	import { useDialogPortalContext, useDialogRootContext } from './context.svelte.js';
-	import { dialogOutsidePressEvent, dialogOwnedOutsidePress } from './outside-press.js';
-	import type { DialogViewportProps, DialogViewportState } from './types.js';
+	import type { DialogDivProps, DialogViewportProps, DialogViewportState } from './types.js';
 
 	let { render, children, ...elementProps }: DialogViewportProps = $props();
 
 	const store = useDialogRootContext();
 	const portal = useDialogPortalContext();
 	const attachmentKey = createAttachmentKey();
-	const shouldRender = $derived(portal.keepMounted || store.mounted);
+	const shown = $derived(portal.keepMounted || store.mounted);
 
 	const state: DialogViewportState = $derived({
 		open: store.open,
@@ -34,35 +32,23 @@
 		};
 	}
 
-	function press(event: Event, mode: 'click' | 'pointerdown') {
-		const expected = dialogOutsidePressEvent(store);
-		if (mode === 'click' && expected !== 'intentional') return;
-		if (mode === 'pointerdown' && expected !== 'sloppy') return;
-		if (!dialogOwnedOutsidePress(store, event)) return;
-		store.setOpen(false, createChangeEventDetails(REASONS.outsidePress, event));
-	}
-
 	const hostProps = $derived(
-		mergeProps(elementProps, {
+		mergeProps<DialogDivProps>(elementProps, {
 			role: 'presentation',
 			hidden: !store.mounted,
 			style: store.open ? undefined : 'pointer-events: none',
-			onclick: (event: MouseEvent) => press(event, 'click'),
-			onpointerdown: (event: PointerEvent) => press(event, 'pointerdown'),
 			...getStateAttributesProps(state, dialogStateAttributesMapping),
 			...(render ? { [attachmentKey]: ownViewport } : {})
 		})
 	);
 </script>
 
-{#snippet content()}
+{#snippet fallback()}
 	{@render children?.()}
 {/snippet}
 
-{#if shouldRender}
-	{#if render}
-		{@render render(hostProps, state, content)}
-	{:else}
-		<div {...hostProps} {@attach ownViewport}>{@render content()}</div>
-	{/if}
+{#if shown && render}
+	{@render render(hostProps, state, fallback)}
+{:else if shown}
+	<div {...hostProps} {@attach ownViewport}>{@render fallback()}</div>
 {/if}

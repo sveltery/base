@@ -1,51 +1,103 @@
 <script lang="ts">
-	import { Dialog, type DialogChangeEventDetails } from '#lib';
+	import {
+		Dialog,
+		type DialogActions,
+		type DialogChangeEventDetails,
+		type FocusTarget
+	} from '#lib';
 	import type { DialogCase } from './cases.js';
 
-	let { scenario }: { scenario: DialogCase } = $props();
+	let {
+		scenario = 'standalone' as DialogCase,
+		open = $bindable(undefined as boolean | undefined),
+		defaultOpen = false,
+		modal = undefined as boolean | 'trap-focus' | undefined,
+		disabled = undefined as boolean | undefined,
+		keepMounted = false,
+		disablePointerDismissal = false,
+		nested = undefined as boolean | undefined,
+		withBackdrop = undefined as boolean | undefined,
+		withViewport = false,
+		initialFocus = undefined as FocusTarget | undefined,
+		finalFocus = undefined as FocusTarget | undefined,
+		onOpenChange = undefined as
+			((open: boolean, details: DialogChangeEventDetails) => void) | undefined,
+		title = 'Title',
+		description = 'Description',
+		triggerId = $bindable(undefined as string | null | undefined),
+		defaultTriggerId = null as string | null,
+		twoTriggers = false,
+		preventUnmount = false,
+		actions = $bindable(undefined as DialogActions | undefined)
+	} = $props();
 
 	let calls = $state<{ open: boolean; reason: string; canceled: boolean }[]>([]);
 
-	function changed(open: boolean, details: DialogChangeEventDetails) {
+	const modalValue = $derived(modal ?? (scenario === 'outside' ? false : true));
+	const disabledValue = $derived(disabled ?? scenario === 'disabled');
+	const nestedValue = $derived(nested ?? scenario === 'nested');
+	const backdrop = $derived(withBackdrop ?? (scenario !== 'outside' && scenario !== 'nested'));
+
+	function changed(next: boolean, details: DialogChangeEventDetails) {
 		if (scenario === 'cancel') details.cancel();
-		calls.push({ open, reason: details.reason, canceled: details.isCanceled });
+		if (preventUnmount && !next) details.preventUnmountOnClose();
+		onOpenChange?.(next, details);
+		calls.push({ open: next, reason: details.reason, canceled: details.isCanceled });
 	}
 </script>
 
 <button type="button" data-testid="outside">Outside</button>
-{#if scenario === 'nested'}
-	<Dialog.Root onOpenChange={changed}>
-		<Dialog.Trigger>Open</Dialog.Trigger>
-		<Dialog.Portal>
-			<Dialog.Popup data-testid="popup">
-				<Dialog.Title>Title</Dialog.Title>
-				<Dialog.Close>Close</Dialog.Close>
-				<Dialog.Root>
-					<Dialog.Trigger>Nested</Dialog.Trigger>
-					<Dialog.Portal>
-						<Dialog.Popup data-testid="nested-popup">
-							<Dialog.Title>Nested title</Dialog.Title>
-							<Dialog.Close>Nested close</Dialog.Close>
-						</Dialog.Popup>
-					</Dialog.Portal>
-				</Dialog.Root>
-			</Dialog.Popup>
-		</Dialog.Portal>
-	</Dialog.Root>
-{:else}
-	<Dialog.Root modal={scenario === 'outside' ? false : true} onOpenChange={changed}>
-		<Dialog.Trigger disabled={scenario === 'disabled'}>Open</Dialog.Trigger>
-		<Dialog.Portal>
-			{#if scenario !== 'outside'}
-				<Dialog.Backdrop />
-			{/if}
-			<Dialog.Popup data-testid="popup">
-				<Dialog.Title>Title</Dialog.Title>
-				<Dialog.Description>Description</Dialog.Description>
-				<button type="button">Inside</button>
-				<Dialog.Close>Close</Dialog.Close>
-			</Dialog.Popup>
-		</Dialog.Portal>
-	</Dialog.Root>
+{#if preventUnmount}
+	<button type="button" onclick={() => actions?.unmount()}>Unmount</button>
 {/if}
+<Dialog.Root
+	bind:open
+	bind:triggerId
+	bind:actions
+	{defaultOpen}
+	{defaultTriggerId}
+	modal={modalValue}
+	onOpenChange={changed}
+	{disablePointerDismissal}
+>
+	{#if twoTriggers}
+		<Dialog.Trigger id="one">One</Dialog.Trigger>
+		<Dialog.Trigger id="two">Two</Dialog.Trigger>
+	{:else}
+		<Dialog.Trigger disabled={disabledValue}>Open</Dialog.Trigger>
+	{/if}
+	<Dialog.Portal {keepMounted}>
+		{#if backdrop}
+			<Dialog.Backdrop />
+		{/if}
+		{#if withViewport}
+			<Dialog.Viewport data-testid="viewport">
+				{@render popup()}
+			</Dialog.Viewport>
+		{:else}
+			{@render popup()}
+		{/if}
+	</Dialog.Portal>
+</Dialog.Root>
 <output data-testid="calls">{JSON.stringify(calls)}</output>
+<output data-testid="trigger-id">{triggerId ?? ''}</output>
+
+{#snippet popup()}
+	<Dialog.Popup data-testid="popup" {initialFocus} {finalFocus}>
+		<Dialog.Title>{title}</Dialog.Title>
+		<Dialog.Description>{description}</Dialog.Description>
+		<button type="button">Inside</button>
+		<Dialog.Close>Close</Dialog.Close>
+		{#if nestedValue}
+			<Dialog.Root>
+				<Dialog.Trigger>Nested</Dialog.Trigger>
+				<Dialog.Portal>
+					<Dialog.Popup data-testid="nested-popup">
+						<Dialog.Title>Nested title</Dialog.Title>
+						<Dialog.Close>Nested close</Dialog.Close>
+					</Dialog.Popup>
+				</Dialog.Portal>
+			</Dialog.Root>
+		{/if}
+	</Dialog.Popup>
+{/snippet}

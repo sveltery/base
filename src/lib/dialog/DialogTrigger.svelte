@@ -6,11 +6,11 @@
 -->
 <script lang="ts" generics="Payload = unknown">
 	import { createAttachmentKey } from 'svelte/attachments';
-	import type { HTMLAttributes } from 'svelte/elements';
-	import Button from '../button/Button.svelte';
 	import { CLICK_TRIGGER_IDENTIFIER } from '../internal/floating-ui/index.js';
 	import { getStateAttributesProps } from '../internal/state-attributes.js';
 	import { triggerOpenStateMapping } from '../internal/popupStateMapping.js';
+	import { registerTrigger } from '../internal/popups/index.js';
+	import DialogAction from './DialogAction.svelte';
 	import { useDialogRootContext } from './context.svelte.js';
 	import { noteOpenClick, noteOpenPointer } from './open-method.js';
 	import type { DialogStore } from './store.svelte.js';
@@ -33,7 +33,8 @@
 	}: DialogTriggerProps<Payload> = $props();
 
 	const dialogRoot = useDialogRootContext(true);
-	if (!dialogRoot && !handle) {
+	const readHandle = () => handle;
+	if (!dialogRoot && !readHandle()) {
 		throw new Error(
 			'Base UI: <Dialog.Trigger> must be used within <Dialog.Root> or provided with a handle.'
 		);
@@ -54,7 +55,7 @@
 		if (store.activeTriggerId == null && store.triggerCount === 1) return store.floatingId;
 		return undefined;
 	});
-	const state: DialogTriggerState = $derived({ disabled, open: openedByThis });
+	const state: DialogTriggerState = $derived({ disabled: disabled === true, open: openedByThis });
 
 	function activeStore() {
 		return (
@@ -63,67 +64,70 @@
 		);
 	}
 
-	const register = $derived.by(() => {
-		const current = store;
+	function register(node: HTMLElement) {
+		const current = activeStore();
 		const id = triggerId;
-		const remembered = payload;
-		return (node: HTMLElement) => {
-			const map = current?.triggers ?? handle?.fallbackTriggers;
-			if (!map) return;
-			map.add(id, node);
-			if (current) current.triggerCount = current.triggers.size;
-			if (remembered !== undefined) handle?.payloads.set(id, remembered);
-			if (
-				current &&
-				current.open &&
-				current.activeTriggerId == null &&
-				current.triggers.size === 1
-			) {
-				current.activeTriggerId = id;
-				current.activeTriggerElement = node;
+		const triggers = current?.triggers ?? handle?.fallbackTriggers;
+		if (!triggers) return;
+		const owner = {
+			triggers,
+			get triggerCount() {
+				return current?.triggerCount ?? 0;
+			},
+			set triggerCount(next: number) {
+				if (current) current.triggerCount = next;
 			}
-			if (current && current.activeTriggerId === id) current.activeTriggerElement = node;
-			return () => {
-				if (map.getById(id) === node) map.delete(id);
-				if (current) current.triggerCount = current.triggers.size;
-			};
 		};
-	});
+		if (payload !== undefined) handle?.payloads.set(id, payload);
+		const detach = registerTrigger(owner, () => id)(node);
+		if (current?.open) {
+			const active = current.domReferenceElement;
+			if ((active == null && current.triggers.size === 1) || active?.id === id) {
+				current.domReferenceElement = node;
+			}
+		}
+		return () => {
+			if (typeof detach === 'function') detach();
+			handle?.payloads.delete(id);
+		};
+	}
 
-	function handleClick(event: MouseEvent & { currentTarget: EventTarget & HTMLElement }) {
+	function handleClick(event: MouseEvent & { currentTarget: EventTarget & HTMLButtonElement }) {
 		onclick?.(event);
 		if (event.defaultPrevented) return;
 		const current = activeStore();
 		if (!current) return;
 		if (!current.open && payload !== undefined) current.payload = payload;
 		noteOpenClick(current, event);
-		current.clickReference?.onclick?.(event);
+		current.readClickReference()?.onclick?.(event);
 	}
 
-	function handlePointerDown(event: PointerEvent & { currentTarget: EventTarget & HTMLElement }) {
+	function handlePointerDown(
+		event: PointerEvent & { currentTarget: EventTarget & HTMLButtonElement }
+	) {
 		onpointerdown?.(event);
 		if (event.defaultPrevented) return;
 		const current = activeStore();
 		if (!current) return;
 		noteOpenPointer(current, event);
-		current.clickReference?.onpointerdown?.(event);
+		current.readClickReference()?.onpointerdown?.(event);
 	}
 
-	function handleMouseDown(event: MouseEvent & { currentTarget: EventTarget & HTMLElement }) {
+	function handleMouseDown(event: MouseEvent & { currentTarget: EventTarget & HTMLButtonElement }) {
 		onmousedown?.(event);
 		if (event.defaultPrevented) return;
-		activeStore()?.clickReference?.onmousedown?.(event);
+		activeStore()?.readClickReference()?.onmousedown?.(event);
 	}
 
-	function handleKeyDown(event: KeyboardEvent & { currentTarget: EventTarget & HTMLElement }) {
+	function handleKeyDown(
+		event: KeyboardEvent & { currentTarget: EventTarget & HTMLButtonElement }
+	) {
 		onkeydown?.(event);
 		if (event.defaultPrevented) return;
-		const current = activeStore();
-		current?.clickReference?.onkeydown?.(event);
-		current?.dismissOnKeyDown?.(event);
+		activeStore()?.readClickReference()?.onkeydown?.(event);
 	}
 
-	function handleKeyUp(event: KeyboardEvent & { currentTarget: EventTarget & HTMLElement }) {
+	function handleKeyUp(event: KeyboardEvent & { currentTarget: EventTarget & HTMLButtonElement }) {
 		onkeyup?.(event);
 	}
 
@@ -139,19 +143,7 @@
 	});
 </script>
 
-{#snippet content()}
-	{@render children?.()}
-{/snippet}
-
-{#snippet host(props: HTMLAttributes<HTMLElement>, _buttonState: { disabled: boolean })}
-	{#if render}
-		{@render render(props, state, content)}
-	{:else}
-		<button {...props} {@attach register}>{@render content()}</button>
-	{/if}
-{/snippet}
-
-<Button
+<DialogAction
 	{disabled}
 	{nativeButton}
 	onclick={handleClick}
@@ -159,6 +151,9 @@
 	onmousedown={handleMouseDown}
 	onkeydown={handleKeyDown}
 	onkeyup={handleKeyUp}
-	render={host}
-	{...described}
+	{render}
+	{state}
+	{children}
+	{described}
+	attach={register}
 />

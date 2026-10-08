@@ -17,6 +17,8 @@
 	import { enqueueFocus } from '../utils/enqueueFocus.js';
 	import { markOthers } from '../utils/markOthers.js';
 	import { getTabbableCandidates } from '../utils/tabbable.js';
+	import { useFloatingTree } from './FloatingTree.svelte.js';
+	import { getNodeChildren } from './FloatingTreeStore.js';
 
 	let {
 		store,
@@ -44,6 +46,7 @@
 		closeOnFocusOut?: boolean;
 	} = $props();
 
+	const tree = useFloatingTree();
 	const pointerDownTimeout = Timeout.create();
 	let suppressFocusOut = false;
 	/** Trigger (or the element focused before open). Not refreshed after focus moves inside. */
@@ -168,9 +171,17 @@
 
 		const doc = ownerDocument(floating);
 		captureReturnTarget(doc, floating);
+		const nested = tree && store.nodeId ? getNodeChildren(tree.nodes, store.nodeId) : [];
 		const inside = [floating, store.portalElement].filter(
 			(element): element is HTMLElement => !!element
 		);
+		for (const node of nested) {
+			const context = node.context;
+			if (!context) continue;
+			// Read the child elements so a nested popup that mounts later is kept visible.
+			if (context.floatingElement) inside.push(context.floatingElement);
+			if (context.portalElement) inside.push(context.portalElement);
+		}
 		const hideOutside = modal ? markOthers(inside, { ariaHidden: true, mark: false }) : () => {};
 		const mark = markOthers(inside);
 		let cancelFocus = () => {};
