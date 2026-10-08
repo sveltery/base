@@ -9,10 +9,11 @@
 <script lang="ts">
 	import type { HTMLAttributes } from 'svelte/elements';
 	import { createControllableValue } from '../internal/controllable-value.svelte.js';
+	import PartHost from '../internal/PartHost.svelte';
 	import { getStateAttributesProps } from '../internal/state-attributes.js';
 	import { tabsStateAttributesMapping } from './attributes.js';
 	import { setTabsRootContext, TabsRootModel } from './context.svelte.js';
-	import type { TabsRootProps, TabsRootState } from './types.js';
+	import type { TabsRootChangeEventDetails, TabsRootProps, TabsRootState } from './types.js';
 
 	let {
 		value = $bindable(undefined),
@@ -24,18 +25,18 @@
 		...elementProps
 	}: TabsRootProps = $props();
 
-	let tabs: TabsRootModel;
-	const controllable = createControllableValue<typeof value>({
+	const controllable = createControllableValue<typeof value, TabsRootChangeEventDetails>({
 		getProp: () => value,
 		setProp: (next) => {
 			value = next;
 		},
 		getDefault: () => defaultValue,
-		onChange(next) {
-			tabs.deliverNotice(next ?? null);
+		onChange(next, details) {
+			if (!details) return;
+			onValueChange?.(next ?? null, details);
 		}
 	});
-	tabs = new TabsRootModel(controllable);
+	const tabs = new TabsRootModel(controllable);
 	tabs.readOrientation = () => orientation;
 	tabs.readOnValueChange = () => onValueChange;
 	setTabsRootContext(tabs);
@@ -51,12 +52,4 @@
 	});
 </script>
 
-{#snippet tabsContent()}
-	{@render children?.()}
-{/snippet}
-
-{#if render}
-	{@render render(hostProps, state, tabsContent)}
-{:else}
-	<div {...hostProps}>{@render tabsContent()}</div>
-{/if}
+<PartHost {render} {children} elementProps={hostProps} partState={state} />

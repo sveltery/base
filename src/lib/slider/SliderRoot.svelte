@@ -16,6 +16,7 @@
 	import { useFormContext } from '../form/context.js';
 	import { clamp } from '../internal/clamp.js';
 	import { createControllableValue } from '../internal/controllable-value.svelte.js';
+	import PartHost from '../internal/PartHost.svelte';
 	import { useDirection } from '../internal/direction-context.js';
 	import { getStateAttributesProps } from '../internal/state-attributes.js';
 	import { asc } from './asc.js';
@@ -69,18 +70,7 @@
 		getDefault: () => defaultValue ?? min,
 		onChange(next) {
 			if (next === undefined) return;
-			const clamped = clampedFieldValue(next);
-			// Registration is read by validation. Write it before the notice so
-			// `validate` sees this value, not the one from the previous commit.
-			if (field && !disabled) {
-				field.registerControl(fieldSource, {
-					id: rootId,
-					name: nameProp,
-					value: clamped,
-					element: model.fieldInput
-				});
-			}
-			commitFieldValue(clamped);
+			commitFieldValue(clampedFieldValue(next));
 		}
 	});
 	const valueUnwrapped = $derived(controllable.value as SliderValue);
@@ -151,13 +141,16 @@
 
 	function commitFieldValue(next: SliderValue) {
 		form.clearErrors(name);
-		field?.change(next);
 		const initial = field?.validityData.initialValue;
 		const isDirty =
 			Array.isArray(next) && Array.isArray(initial)
 				? !areArraysEqual(next, initial)
 				: next !== initial;
 		field?.setDirty(isDirty);
+		// Blur already committed when this mode does not validate on change.
+		// A second pass would clear that result.
+		if (field && !field.shouldValidateOnChange()) return;
+		field?.change(next);
 	}
 
 	$effect(() => {
@@ -170,14 +163,14 @@
 			field.registerControl(fieldSource, undefined);
 			return () => field.registerControl(fieldSource, undefined);
 		}
-		// The value is registered in the change notice, before validation. This
-		// effect keeps the element, id, and name current without reordering that notice.
+		const readValue = () => model.fieldValue;
 		untrack(() => {
 			field.registerControl(fieldSource, {
 				id,
 				name: controlName,
-				value: model.fieldValue,
-				element: input
+				value: readValue(),
+				element: input,
+				getValue: readValue
 			});
 		});
 		return () => field.registerControl(fieldSource, undefined);
@@ -206,12 +199,4 @@
 		});
 </script>
 
-{#snippet sliderContent()}
-	{@render children?.()}
-{/snippet}
-
-{#if render}
-	{@render render(hostProps, partState, sliderContent)}
-{:else}
-	<div {...hostProps}>{@render sliderContent()}</div>
-{/if}
+<PartHost {render} {children} elementProps={hostProps} {partState} />

@@ -67,7 +67,7 @@ const EMPTY_FIELD_STATE: FieldRootState = {
 
 export interface NumberFieldModelOptions {
 	getValue: () => number | null;
-	writeValue: (value: number | null) => void;
+	writeValue: (value: number | null, details?: NumberFieldChangeEventDetails) => void;
 	getMin: () => number | undefined;
 	getMax: () => number | undefined;
 	getSmallStep: () => number;
@@ -92,7 +92,6 @@ export interface NumberFieldModelOptions {
 }
 
 export class NumberFieldModel {
-	inputValue = $state('');
 	scrubbing = $state(false);
 	inputMode = $state<'numeric' | 'decimal' | 'text'>('numeric');
 	inputElement = $state<HTMLInputElement | null>(null);
@@ -103,12 +102,11 @@ export class NumberFieldModel {
 	/** Latest value `setValue` stored, including a no-op validation. */
 	lastChangedValue: number | null = null;
 	hasPendingCommit = false;
-	/**
-	 * Reason for the value currently being committed. The change notice reads it
-	 * once so a blur can commit without a second validation pass.
-	 */
-	changeReason: NumberFieldChangeEventDetails['reason'] | null = null;
 	readonly fieldSource = Symbol('number-field-field');
+	/** Typed text. Null while the formatted value is showing. */
+	private draft = $state<string | null>(null);
+	/** True while `draft` is what the input shows. */
+	private editing = $state(false);
 	/**
 	 * Value the next step reads. Normally the stored number. A dirty commit can
 	 * point it at the raw parsed text for the step that follows in the same turn.
@@ -119,19 +117,6 @@ export class NumberFieldModel {
 
 	constructor(options: NumberFieldModelOptions) {
 		this.options = options;
-		this.inputValue = formatNumber(options.getValue(), options.getLocale(), options.getFormat());
-
-		// Before the DOM commit, so the change notice (a later `$effect`) validates
-		// the text the parent write is about to show.
-		$effect.pre(() => {
-			const value = this.options.getValue();
-			const locale = this.options.getLocale();
-			const format = this.options.getFormat();
-			const shown = this.inputValue;
-			if (!this.allowInputSync) return;
-			const next = formatNumber(value, locale, format);
-			if (next !== shown) this.inputValue = next;
-		});
 
 		$effect(() => {
 			this.options.getField()?.setFilled(this.options.getValue() !== null);
@@ -164,7 +149,7 @@ export class NumberFieldModel {
 				const delta = event.shiftKey && horizontal ? event.deltaX : event.deltaY;
 				if (delta === 0 || (!event.shiftKey && horizontal)) return;
 				event.preventDefault();
-				this.allowInputSync = true;
+				this.followInputValue();
 				const amount = this.getStepAmount(event);
 				const changed = this.incrementValue(amount, {
 					direction: delta > 0 ? -1 : 1,
@@ -185,6 +170,28 @@ export class NumberFieldModel {
 			this.pendingCaret = null;
 			this.inputElement?.setSelectionRange(caret, caret);
 		});
+	}
+
+	/** Shown text. Editing keeps the draft; otherwise this is the formatted value. */
+	get inputValue() {
+		const draft = this.draft;
+		if (this.editing && draft != null) return draft;
+		return formatNumber(
+			this.options.getValue(),
+			this.options.getLocale(),
+			this.options.getFormat()
+		);
+	}
+
+	set inputValue(next: string) {
+		this.draft = next;
+		this.editing = true;
+	}
+
+	/** Let the input show the formatted value again. */
+	followInputValue() {
+		this.allowInputSync = true;
+		this.editing = false;
 	}
 
 	get baseValue(): number | null {
@@ -282,11 +289,13 @@ export class NumberFieldModel {
 			field.registerControl(this.fieldSource, undefined);
 			return;
 		}
+		const readValue = () => this.options.getValue();
 		field.registerControl(this.fieldSource, {
 			id,
 			name,
-			value: this.options.getValue(),
-			element
+			value: readValue(),
+			element,
+			getValue: readValue
 		});
 	}
 
@@ -314,21 +323,12 @@ export class NumberFieldModel {
 		if (shouldFireChange) {
 			this.options.getOnValueChange()?.(validatedValue, details);
 			if (details.isCanceled) return false;
-			this.changeReason = details.reason;
 		}
 
 		this.lastChangedValue = validatedValue;
-		if (this.allowInputSync) {
-			this.inputValue = formatNumber(
-				validatedValue,
-				this.options.getLocale(),
-				this.options.getFormat()
-			);
-		}
+		if (this.allowInputSync) this.editing = false;
 		if (shouldFireChange) {
-			const before = this.options.getValue();
-			this.options.writeValue(validatedValue);
-			if (Object.is(before, this.options.getValue())) this.changeReason = null;
+			this.options.writeValue(validatedValue, details);
 			this.hasPendingCommit = true;
 		}
 		return shouldFireChange;
@@ -361,12 +361,13 @@ export class NumberFieldModel {
 	 */
 	commitTypedValue(event: Event, reason: NumberFieldChangeEventReason) {
 		const dirty = !this.allowInputSync;
-		this.allowInputSync = true;
+		const typed = this.inputValue;
+		this.followInputValue();
 		if (!dirty) {
 			this.lastChangedValue = this.baseValue;
 			return;
 		}
-		const parsed = parseNumber(this.inputValue, this.options.getLocale(), this.options.getFormat());
+		const parsed = parseNumber(typed, this.options.getLocale(), this.options.getFormat());
 		if (parsed === null) return;
 		const details = createChangeEventDetails(reason, event);
 		this.setValue(parsed, details);
@@ -413,9 +414,10 @@ export class NumberFieldModel {
 		const hadManualInput = !this.allowInputSync;
 		const hadPending = this.hasPendingCommit;
 		const previous = this.options.getValue();
-		this.allowInputSync = true;
+		const shown = this.inputValue;
+		this.followInputValue();
 
-		if (this.inputValue.trim() === '') {
+		if (shown.trim() === '') {
 			const clearDetails = createChangeEventDetails(REASONS.inputClear, event);
 			this.setValue(null, clearDetails);
 			if (clearDetails.isCanceled) return;
@@ -428,7 +430,7 @@ export class NumberFieldModel {
 
 		const format = this.options.getFormat();
 		const locale = this.options.getLocale();
-		const parsed = parseNumber(this.inputValue, locale, format);
+		const parsed = parseNumber(shown, locale, format);
 		if (parsed === null) return;
 
 		const rounding = hasNumberFormatRoundingOptions(format);
@@ -450,8 +452,6 @@ export class NumberFieldModel {
 		if (shouldCommit) {
 			this.commit(committedValue, createGenericEventDetails(REASONS.inputBlur, event));
 		}
-		const canonical = formatNumber(committedValue, locale, format);
-		if (this.inputValue !== canonical) this.inputValue = canonical;
 	}
 
 	handleKeyDown(event: KeyboardEvent & { currentTarget: HTMLInputElement }) {
@@ -526,7 +526,7 @@ export class NumberFieldModel {
 		event.stopPropagation();
 		const commitDetails = createGenericEventDetails(REASONS.keyboard, event);
 		let changed = false;
-		if (stepKey || boundary !== null) this.allowInputSync = true;
+		if (stepKey || boundary !== null) this.followInputValue();
 		if (stepKey) {
 			if (!hadManualInput) this.lastChangedValue = this.baseValue;
 			changed = this.incrementValue(amount, {

@@ -84,6 +84,8 @@ describe('Tabs', () => {
 	describe('selection', () => {
 		it('writes the first selection into an empty bind', async () => {
 			render(TabsHarness, { bind: true });
+			await expect.poll(() => page.getByTestId('held').element().textContent).toBe('0');
+			await expect.element(tab('One')).toHaveAttribute('aria-selected', 'true');
 			await tab('Two').click();
 			await expect.element(tab('Two')).toHaveAttribute('aria-selected', 'true');
 			expect(page.getByTestId('held').element().textContent).toBe('1');
