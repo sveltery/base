@@ -6,7 +6,7 @@ import { createChangeEventDetails, REASONS } from '../../event-details.js';
 import { ownerDocument } from '../../owner.js';
 import { contains, getTarget } from '../../shadow-dom.js';
 import { PopupStore } from '../../popups/store.svelte.js';
-import { Timeout } from '../../timeout.js';
+import { useTimeout } from '../../timeout.svelte.js';
 import type { FloatingRootStore } from '../components/FloatingRootStore.svelte.js';
 import { useFloatingParentNodeId, useFloatingTree } from '../components/FloatingTree.svelte.js';
 import { getNodeChildren } from '../components/FloatingTreeStore.js';
@@ -25,7 +25,7 @@ export function useHoverFloatingInteraction(
 	const tree = useFloatingTree();
 	const parentId = useFloatingParentNodeId();
 	const instance = hoverInteraction(store);
-	const childClosedTimeout = new Timeout();
+	const childClosedTimeout = useTimeout();
 
 	function options() {
 		const value = props();

@@ -5,7 +5,7 @@ import { isOverflowElement } from '@floating-ui/utils/dom';
 import { on } from 'svelte/events';
 import { ownerDocument, ownerWindow } from './owner.js';
 import { platform } from './platform.js';
-import { AnimationFrame, Timeout } from './timeout.js';
+import { useAnimationFrame, useTimeout } from './timeout.svelte.js';
 
 let originalHtmlStyles: Partial<CSSStyleDeclaration> = {};
 let originalBodyStyles: Partial<CSSStyleDeclaration> = {};
@@ -70,7 +70,7 @@ function preventScrollInsetScrollbars(referenceElement: Element | null) {
 	let scrollTop = 0;
 	let scrollLeft = 0;
 	let updateGutterOnly = false;
-	const resizeFrame = AnimationFrame.create();
+	const resizeFrame = useAnimationFrame();
 
 	if (platform.engine.webkit && (win.visualViewport?.scale ?? 1) !== 1) return () => {};
 
@@ -164,8 +164,8 @@ function preventScrollInsetScrollbars(referenceElement: Element | null) {
 class ScrollLocker {
 	lockCount = 0;
 	restore: (() => void) | null = null;
-	timeoutLock = Timeout.create();
-	timeoutUnlock = Timeout.create();
+	timeoutLock = useTimeout();
+	timeoutUnlock = useTimeout();
 
 	acquire(referenceElement: Element | null) {
 		this.lockCount += 1;

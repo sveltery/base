@@ -104,23 +104,13 @@ describe('Dialog', () => {
 		render(DialogHarness);
 		await openDialog();
 		await frame();
-		const inside = button('Inside').element() as HTMLElement;
-		const close = button('Close').element() as HTMLElement;
-		expect(document.activeElement).toBe(inside);
-		close.focus();
-		close.dispatchEvent(
-			new KeyboardEvent('keydown', { key: 'Tab', bubbles: true, cancelable: true })
-		);
-		expect(document.activeElement).toBe(inside);
-		inside.dispatchEvent(
-			new KeyboardEvent('keydown', {
-				key: 'Tab',
-				bubbles: true,
-				cancelable: true,
-				shiftKey: true
-			})
-		);
-		expect(document.activeElement).toBe(close);
+		const inside = button('Inside');
+		const close = button('Close');
+		await expect.element(inside).toHaveFocus();
+		await userEvent.keyboard('{Shift>}{Tab}{/Shift}');
+		await expect.element(close).toHaveFocus();
+		await userEvent.keyboard('{Tab}');
+		await expect.element(inside).toHaveFocus();
 	});
 
 	it('closes a modal dialog on backdrop click and not on pointerdown', async () => {
@@ -135,6 +125,28 @@ describe('Dialog', () => {
 		expect(page.getByRole('dialog').elements()).toHaveLength(1);
 
 		backdrop.dispatchEvent(new MouseEvent('click', { bubbles: true, button: 0 }));
+		await dialogs(0);
+		expect(onOpenChange).toHaveBeenCalledWith(
+			false,
+			expect.objectContaining({ reason: REASONS.outsidePress })
+		);
+	});
+
+	it('dismisses a backdrop click and a viewport click through useDismiss', async () => {
+		const onOpenChange = vi.fn();
+		const view = render(DialogHarness, { onOpenChange, withViewport: true });
+		await openDialog();
+		(internalBackdrop() as HTMLElement).click();
+		await dialogs(0);
+		expect(onOpenChange).toHaveBeenCalledWith(
+			false,
+			expect.objectContaining({ reason: REASONS.outsidePress })
+		);
+
+		onOpenChange.mockClear();
+		await view.rerender({ onOpenChange, withViewport: true });
+		await openDialog();
+		(page.getByTestId('viewport').element() as HTMLElement).click();
 		await dialogs(0);
 		expect(onOpenChange).toHaveBeenCalledWith(
 			false,

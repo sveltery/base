@@ -31,8 +31,13 @@
 			| 'fn-return'
 			| 'close-type'
 			| 'initial'
-			| 'initial-skip',
-		defaultOpen = false
+			| 'initial-skip'
+			| 'trap'
+			| 'tabbable',
+		defaultOpen = false,
+		focusOut = true,
+		touchOpenDelay = 0,
+		onOpened
 	}: {
 		scenario?:
 			| 'modal'
@@ -45,8 +50,13 @@
 			| 'fn-return'
 			| 'close-type'
 			| 'initial'
-			| 'initial-skip';
+			| 'initial-skip'
+			| 'trap'
+			| 'tabbable';
 		defaultOpen?: boolean;
+		focusOut?: boolean;
+		touchOpenDelay?: number;
+		onOpened?: () => void;
 	} = $props();
 
 	let open = $state<boolean | undefined>(undefined);
@@ -104,6 +114,7 @@
 				details.cancel();
 			}
 		}
+		if (next) onOpened?.();
 		calls.push({ open: next, reason: details.reason, canceled: details.isCanceled });
 	}
 
@@ -116,7 +127,7 @@
 		animateInitialOpen: false
 	});
 
-	const click = useClick(store, () => ({ enabled: true }));
+	const click = useClick(store, () => ({ enabled: true, touchOpenDelay }));
 	const dismiss = useDismiss(store, () => ({
 		escapeKey: true,
 		outsidePress:
@@ -185,6 +196,7 @@
 			<FloatingFocusManager
 				{store}
 				{modal}
+				closeOnFocusOut={focusOut}
 				initialFocus={scenario === 'initial' || scenario === 'initial-skip' ? initialTarget : true}
 				returnFocus={scenario === 'return'
 					? explicit
@@ -205,8 +217,21 @@
 					{@attach bindPopup}
 				>
 					<h2 id="popup-title">Notice</h2>
-					<button type="button">Inside</button>
-					<button type="button" data-testid="chosen" bind:this={chosen}>Chosen</button>
+					{#if scenario === 'trap'}
+						<button type="button" data-testid="one">One</button>
+						<button type="button" data-testid="two">Two</button>
+						<button type="button" data-testid="three">Three</button>
+					{:else if scenario === 'tabbable'}
+						<fieldset disabled>
+							<button type="button">Nope</button>
+						</fieldset>
+						<button type="button" data-testid="real">Real</button>
+						<input type="radio" name="overlay-group" value="a" aria-label="A" />
+						<input type="radio" name="overlay-group" value="b" aria-label="B" checked />
+					{:else}
+						<button type="button">Inside</button>
+						<button type="button" data-testid="chosen" bind:this={chosen}>Chosen</button>
+					{/if}
 				</div>
 			</FloatingFocusManager>
 		</FloatingPortal>

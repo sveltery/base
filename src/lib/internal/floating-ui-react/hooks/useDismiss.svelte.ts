@@ -1,14 +1,14 @@
 // Derived from Base UI v1.8.0 packages/react/src/floating-ui-react/hooks/useDismiss.ts
 // (commit 47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c). MIT, see THIRD_PARTY_NOTICES.md.
-// A press is inside when the target is in this portal host, a descendant portal, or a
-// floating-tree child. There is no insideReactTree flag.
+// A press is inside when the target is in the floating element, the trigger, or a
+// floating-tree child's floating element. The portal host is not inside.
 
 import { on } from 'svelte/events';
 import { createChangeEventDetails, REASONS } from '../../event-details.js';
 import { ownerDocument } from '../../owner.js';
 import { platform } from '../../platform.js';
 import { contains, getTarget } from '../../shadow-dom.js';
-import { Timeout } from '../../timeout.js';
+import { useTimeout } from '../../timeout.svelte.js';
 import { getNodeChildren } from '../components/FloatingTreeStore.js';
 import { useFloatingTree } from '../components/FloatingTree.svelte.js';
 import type { FloatingRootStore } from '../components/FloatingRootStore.svelte.js';
@@ -39,7 +39,6 @@ function pressIsInside(store: FloatingRootStore, event: Event) {
 	if (!(target instanceof Node)) return false;
 	if (contains(store.floatingElement, target) || contains(store.popupElement, target)) return true;
 	if (contains(store.domReferenceElement, target)) return true;
-	if (contains(store.portalElement, target)) return true;
 	return false;
 }
 
@@ -61,7 +60,7 @@ function resolvePressMode(
 
 export function useDismiss(store: FloatingRootStore, props: () => UseDismissProps = () => ({})) {
 	const tree = useFloatingTree();
-	const compositionTimeout = Timeout.create();
+	const compositionTimeout = useTimeout();
 	let composing = false;
 	let sawPressWhileOpen = false;
 	let pressStartedInside = false;
@@ -121,11 +120,7 @@ export function useDismiss(store: FloatingRootStore, props: () => UseDismissProp
 		return getNodeChildren(tree.nodes, store.nodeId).some((node) => {
 			const context = node.context;
 			if (!context) return false;
-			return (
-				contains(context.floatingElement, target) ||
-				contains(context.portalElement, target) ||
-				contains(context.popupElement, target)
-			);
+			return contains(context.floatingElement, target) || contains(context.popupElement, target);
 		});
 	}
 
