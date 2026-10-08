@@ -14,7 +14,7 @@
 		<Dialog.Portal data-slot="dialog-portal" class="portal-host" {@attach mark}>
 			{#snippet render(props, _state, children)}
 				<div {...props} data-replacement="">
-					{@render children()}
+					{@render children?.()}
 				</div>
 			{/snippet}
 			<Dialog.Popup>Body</Dialog.Popup>
@@ -25,7 +25,7 @@
 		<Popover.Portal data-slot="popover-portal" class="portal-host" {@attach mark}>
 			{#snippet render(props, _state, children)}
 				<div {...props} data-replacement="">
-					{@render children()}
+					{@render children?.()}
 				</div>
 			{/snippet}
 			<Popover.Positioner>
