@@ -173,7 +173,12 @@ describe('Popover', () => {
 		expect(
 			previous.compareDocumentPosition(current) & Node.DOCUMENT_POSITION_FOLLOWING
 		).toBeTruthy();
-		await expect.poll(() => document.querySelector('[data-previous] input')?.value).toBe('kept');
+		await expect
+			.poll(() => {
+				const input = document.querySelector('[data-previous] input');
+				return input instanceof HTMLInputElement ? input.value : undefined;
+			})
+			.toBe('kept');
 	});
 
 	it('copies the trigger being left when the viewport switches', async () => {
