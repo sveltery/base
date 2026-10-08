@@ -103,7 +103,7 @@ Local: Tab from the open trigger focuses the first control inside the popup and 
 
 ## Dialog
 
-Source: `packages/react/src/dialog`. Upstream shares `PopupHandle` and `COMPOSITE_KEYS`; they live in `src/lib/internal/popups/popupHandle.svelte.ts` and `src/lib/internal/composite-keys.ts`. Portal, focus, dismiss, scroll lock, `mergeProps`, and the popup store are the landed overlay foundation. How the dialog opened is `PopupStore.openMethod`. Final focus uses the shared `returnFocus` callback: it receives how the popup closed, and `null` focuses the trigger. `openWithPayload` stays on `Dialog.Handle`. Popover does not have it.
+Source: `packages/react/src/dialog`. Upstream shares `PopupHandle` and `COMPOSITE_KEYS`; they live in `src/lib/internal/popups/popupHandle.svelte.ts` and `src/lib/internal/composite-keys.ts`. Portal, focus, dismiss, scroll lock, `mergeProps`, and the popup store are the landed overlay foundation. How the dialog opened is `PopupStore.openMethod`. Final focus uses the shared `returnFocus` callback: it receives how the popup closed. `finalFocus={null}` does not return focus. A function that returns `null` focuses the trigger. `openWithPayload` stays on `Dialog.Handle`. Popover does not have it.
 
 ### Payload is stored only for a registered trigger
 
@@ -124,7 +124,7 @@ Test: `src/lib/dialog/Dialog.svelte.spec.ts` (`does not store a payload for a tr
 | React `useButton`                                                    | existing `Button`                                                                                      |
 | `useDismiss` outside press, including separate mouse and touch modes | the same modes on `useDismiss`. A press is inside the floating element, not the portal host            |
 
-Not ported: Alert Dialog, Drawer, and ref objects. Mouse and touch use separate outside-press modes on `useDismiss`. A backdrop is `intentional` for both. Without one, touch is `sloppy` and mouse is `sloppy` only for `trap-focus`. A press is inside when the target is in the floating element or an open floating-tree child. The portal host is not inside. `defaultTriggerId` selects the trigger for `aria-expanded` and is not written back into `triggerId`.
+Not ported: Alert Dialog, Drawer, and ref objects. Mouse and touch use separate outside-press modes on `useDismiss`. A backdrop is `intentional` for both. Without one, touch is `sloppy` and mouse is `sloppy` only for `trap-focus`. Touch does not close on pointerdown. A sloppy touch closes on touchend after a short move, or while the finger scrolls away. An intentional touch waits for the click. One lifted touch is required. A press is inside when the target is in the floating element or an open floating-tree child. The portal host is not inside. `defaultTriggerId` selects the trigger for `aria-expanded` and is not written back into `triggerId`.
 
 ### Timers clear when the owner is destroyed
 

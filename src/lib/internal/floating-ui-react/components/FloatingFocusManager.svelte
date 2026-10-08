@@ -10,6 +10,7 @@
 	import FocusGuard from '../../FocusGuard.svelte';
 	import { ownerDocument, ownerWindow } from '../../owner.js';
 	import { activeElement, contains, getTarget } from '../../shadow-dom.js';
+	import { AnimationFrame } from '../../timeout.js';
 	import { useAnimationFrame, useTimeout } from '../../timeout.svelte.js';
 	import type { OpenInteractionType } from '../../openInteraction.js';
 	import type { FloatingRootStore, OpenChangePayload } from './FloatingRootStore.svelte.js';
@@ -148,6 +149,8 @@
 	let closeType: OpenInteractionType = '';
 	/** `focus-out` skips return focus so a Tab that has not landed yet is not cancelled. */
 	let closeReason = '';
+	/** Next-frame return focus after an outside press. Not a component timer. */
+	let returnFrameId = 0;
 	let lastInteraction: OpenInteractionType = '';
 	/** One initial-focus result per open. A later result must not rebuild the trap. */
 	let initialSettled = false;
@@ -175,6 +178,17 @@
 		return '';
 	}
 
+	function openAncestorPopup() {
+		if (!tree || !store.nodeId) return null;
+		for (const node of getNodeAncestors(tree.nodes, store.nodeId)) {
+			const floating = node.context?.floatingElement;
+			if (floating instanceof HTMLElement && floating.isConnected && node.context?.isOpen()) {
+				return floating;
+			}
+		}
+		return null;
+	}
+
 	function restoreReturnFocus(endedBy: OpenInteractionType) {
 		const spec = returnFocus;
 		// Upstream sets `preventReturnFocusRef` before every focus-out close and reads it
@@ -182,31 +196,63 @@
 		// Pointer and keyboard both take this path. The return function is not called;
 		// React calls it and ignores the result.
 		const skipReturn = closeReason === REASONS.focusOut;
-		// Focus now when the close is already committed. A `flushSync` here commits a
-		// viewport switch before its pre-effect can copy the previous pane, and it
-		// also drops the close-completion effect so the popup never unmounts.
-		// When this cleanup runs before that write is visible, the microtask sees it.
-		const apply = (force: boolean) => {
+		let returned: HTMLElement | null = null;
+		const apply = () => {
 			if (spec === false || skipReturn) return;
-			if (!force && store.isOpen() && store.floatingElement?.isConnected) return;
-			moveReturnFocus(endedBy, spec);
+			returned = moveReturnFocus(endedBy, spec) ?? null;
 		};
+		// Focus now only when a close is already committed. A disconnected popup is not
+		// a close: the portal may be moving to another container. A `flushSync` here
+		// commits a viewport switch before its pre-effect can copy the previous pane,
+		// and it drops the close-completion effect so the popup never unmounts.
 		// `closeReason` is set in `noteClose` before `open` flips when a flush runs
-		// mid-`setOpen`. Focusing here keeps return focus inside the caller's `flushSync`
-		// without flushing again (that flush drops close-completion and the popup stays).
-		const closing = closeReason !== '' || !store.isOpen() || !store.floatingElement?.isConnected;
-		if (closing) apply(true);
-		else queueMicrotask(() => apply(false));
-		return;
+		// mid-`setOpen`, so this still lands inside the caller's `flushSync`.
+		const closed = closeReason !== '' || !store.isOpen();
+		if (closed) {
+			apply();
+			// Sloppy outside press closes on pointerdown and this call focuses the
+			// trigger. The compatibility mousedown then moves focus to the body.
+			// The next frame puts that same element back. A container swap is not a close.
+			if (returned) {
+				if (returnFrameId) AnimationFrame.cancel(returnFrameId);
+				returnFrameId = AnimationFrame.request(() => {
+					returnFrameId = 0;
+					if (store.isOpen() || !returned.isConnected) return;
+					const doc = ownerDocument(returned);
+					const active = activeElement(doc);
+					if (active !== doc.body && active != null) return;
+					returned.focus({ preventScroll: true });
+				});
+			}
+			return;
+		}
+		queueMicrotask(() => {
+			if (spec === false || closeReason === REASONS.focusOut) return;
+			if (!store.isOpen()) {
+				apply();
+				return;
+			}
+			if (store.floatingElement?.isConnected) return;
+			const ancestor = openAncestorPopup();
+			if (ancestor) {
+				ancestor.focus({ preventScroll: true });
+				return;
+			}
+			apply();
+		});
 	}
 
 	function moveReturnFocus(endedBy: OpenInteractionType, spec: typeof returnFocus) {
+		// `returnFocus={null}` does not move focus. Upstream skips the restore when the
+		// prop is null (`FloatingFocusManager.tsx` 868–872). A function that returns
+		// `null` is a different value and falls back to the trigger below.
 		if (spec === false || spec == null) return;
 		const fromFunction = typeof spec === 'function';
 		const resolved = fromFunction ? spec(endedBy) : spec;
 		if (resolved === false || resolved === undefined) return;
-		// `null` falls back to the trigger. Only a boolean `true` requires focus to still be inside.
-		const explicit = fromFunction || spec instanceof HTMLElement || spec == null;
+		// A function result of `null` falls back to the trigger, matching an empty ref.
+		// Only a boolean `true` requires focus to still be inside.
+		const explicit = fromFunction || spec instanceof HTMLElement;
 		const target = resolved instanceof HTMLElement ? resolved : returnTarget;
 		if (!target?.isConnected) return;
 		if (!explicit) {
@@ -221,6 +267,7 @@
 		}
 		target.focus({ preventScroll: true });
 		returnTarget = null;
+		return target;
 	}
 
 	function openedBy(): OpenInteractionType {
@@ -343,16 +390,22 @@
 	});
 
 	$effect(() => {
+		// Re-run when the portal container changes so a move is not treated as a close.
+		const portalHome = portal?.home;
 		if (disabled || !store.isOpen()) {
 			initialSettled = false;
 			return;
 		}
 		const floating = store.floatingElement;
-		if (!floating) return;
+		if (!floating || portalHome === null) return;
 		const doc = ownerDocument(floating);
 		captureReturnTarget(doc, floating);
 		closeType = '';
 		closeReason = '';
+		if (returnFrameId) {
+			AnimationFrame.cancel(returnFrameId);
+			returnFrameId = 0;
+		}
 		lastInteraction = '';
 		const initialTarget = takeInitial(floating);
 		// A child opened in the same update queues its focus first. Skipping this

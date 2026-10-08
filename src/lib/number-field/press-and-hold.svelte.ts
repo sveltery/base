@@ -2,6 +2,7 @@
 // (commit 47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c). MIT, see THIRD_PARTY_NOTICES.md.
 
 import { ownerWindow } from '../internal/owner.js';
+import { useTimeout } from '../internal/timeout.svelte.js';
 import { on } from 'svelte/events';
 
 const TICK_DELAY = 60;
@@ -34,15 +35,14 @@ export function createPressAndHold(options: PressAndHoldOptions) {
 	let touchingButton = false;
 	let ignoreClick = false;
 	let pointerType = '';
-	let startTimer: ReturnType<typeof setTimeout> | undefined;
+	const startTimer = useTimeout();
 	let tickTimer: ReturnType<typeof setInterval> | undefined;
-	let touchTimer: ReturnType<typeof setTimeout> | undefined;
+	const touchTimer = useTimeout();
 	let removeContextMenu: (() => void) | undefined;
 	let removePointerUp: (() => void) | undefined;
 
 	function clearStart() {
-		if (startTimer !== undefined) clearTimeout(startTimer);
-		startTimer = undefined;
+		startTimer.clear();
 	}
 
 	function clearTick() {
@@ -51,8 +51,7 @@ export function createPressAndHold(options: PressAndHoldOptions) {
 	}
 
 	function clearTouch() {
-		if (touchTimer !== undefined) clearTimeout(touchTimer);
-		touchTimer = undefined;
+		touchTimer.clear();
 	}
 
 	function stopAutoChange() {
@@ -92,11 +91,11 @@ export function createPressAndHold(options: PressAndHoldOptions) {
 			return;
 		}
 
-		startTimer = setTimeout(() => {
+		startTimer.start(START_DELAY, () => {
 			tickTimer = setInterval(() => {
 				if (!options.tick(triggerNativeEvent)) stopAutoChange();
 			}, TICK_DELAY);
-		}, START_DELAY);
+		});
 	}
 
 	function attach(_element: HTMLElement) {
@@ -137,7 +136,7 @@ export function createPressAndHold(options: PressAndHoldOptions) {
 				return;
 			}
 			clearTouch();
-			touchTimer = setTimeout(() => {
+			touchTimer.start(TOUCH_TIMEOUT, () => {
 				const moves = movesAfterTouch;
 				movesAfterTouch = 0;
 				if (isPressed && moves < MAX_POINTER_MOVES_AFTER_TOUCH) {
@@ -147,7 +146,7 @@ export function createPressAndHold(options: PressAndHoldOptions) {
 					ignoreClick = false;
 					stopAutoChange();
 				}
-			}, TOUCH_TIMEOUT);
+			});
 		},
 		onPointerUp(event: PointerEvent) {
 			if (isTouchLikePointerType(event.pointerType)) isPressed = false;

@@ -17,7 +17,7 @@ function isAllowed(filename) {
 	const path = filename.replaceAll('\\', '/');
 	if (path.endsWith('/src/lib/internal/timeout.ts')) return true;
 	if (path.endsWith('/src/lib/internal/timeout.svelte.ts')) return true;
-	if (/\.(?:spec|test)\.[cm]?[jt]sx?$/.test(path)) return true;
+	if (/\.(?:spec|test|e2e)\.[cm]?[jt]sx?$/.test(path)) return true;
 	return false;
 }
 
@@ -60,8 +60,35 @@ function definitionOf(sourceCode, identifier) {
  * @param {unknown} node
  * @param {Set<import('estree').Node>} seen
  */
+/**
+ * @param {import('eslint').SourceCode} sourceCode
+ * @param {unknown} node
+ */
+function namespaceImport(sourceCode, node) {
+	const value = unwrap(node);
+	if (!value || value.type !== 'Identifier') return false;
+	const definition = definitionOf(sourceCode, value);
+	return (
+		definition?.type === 'ImportBinding' && definition.node.type === 'ImportNamespaceSpecifier'
+	);
+}
+
+/**
+ * @param {import('eslint').SourceCode} sourceCode
+ * @param {unknown} node
+ * @param {Set<import('estree').Node>} seen
+ */
 function resolvesToClass(sourceCode, node, seen) {
 	const value = unwrap(node);
+	if (
+		value &&
+		value.type === 'MemberExpression' &&
+		value.computed === false &&
+		value.property.type === 'Identifier' &&
+		CLASSES.has(value.property.name)
+	) {
+		return namespaceImport(sourceCode, value.object);
+	}
 	if (!value || value.type !== 'Identifier') return false;
 	if (seen.has(value)) return false;
 	seen.add(value);
@@ -78,6 +105,34 @@ function resolvesToClass(sourceCode, node, seen) {
 		return definition.node.init ? resolvesToClass(sourceCode, definition.node.init, seen) : false;
 	}
 	return false;
+}
+
+const RAW_TIMERS = new Set(['setTimeout', 'requestAnimationFrame']);
+
+/**
+ * A global `setTimeout` / `requestAnimationFrame`, including `globalThis.setTimeout`.
+ * A local binding with that name is left alone.
+ * @param {import('eslint').SourceCode} sourceCode
+ * @param {import('estree').CallExpression} node
+ */
+function rawTimerCall(sourceCode, node) {
+	const callee = unwrap(node.callee);
+	if (!callee) return false;
+	if (callee.type === 'Identifier' && RAW_TIMERS.has(callee.name)) {
+		const variable = sourceCode.getScope(callee).set.get(callee.name);
+		return !variable || variable.defs.length === 0;
+	}
+	if (
+		callee.type !== 'MemberExpression' ||
+		callee.computed ||
+		callee.property.type !== 'Identifier' ||
+		!RAW_TIMERS.has(callee.property.name)
+	) {
+		return false;
+	}
+	const owner = unwrap(callee.object);
+	if (!owner || owner.type !== 'Identifier') return false;
+	return owner.name === 'globalThis' || owner.name === 'window' || owner.name === 'global';
 }
 
 /**
@@ -136,8 +191,12 @@ const rule = {
 				context.report({ node: node.callee, messageId: 'unscoped' });
 			},
 			CallExpression(node) {
-				if (!resolvesToCreate(sourceCode, node.callee, new Set())) return;
-				context.report({ node: node.callee, messageId: 'unscoped' });
+				if (
+					rawTimerCall(sourceCode, node) ||
+					resolvesToCreate(sourceCode, node.callee, new Set())
+				) {
+					context.report({ node: node.callee, messageId: 'unscoped' });
+				}
 			}
 		};
 	}

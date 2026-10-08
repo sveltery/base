@@ -24,7 +24,7 @@ export type OutsidePressEvent =
 export interface UseDismissProps {
 	enabled?: boolean;
 	escapeKey?: boolean;
-	outsidePress?: boolean | ((event: MouseEvent | PointerEvent) => boolean);
+	outsidePress?: boolean | ((event: MouseEvent | PointerEvent | TouchEvent) => boolean);
 	outsidePressEvent?: OutsidePressEvent;
 	bubbles?: boolean | { escapeKey?: boolean; outsidePress?: boolean };
 }
@@ -61,11 +61,19 @@ function resolvePressMode(
 export function useDismiss(store: FloatingRootStore, props: () => UseDismissProps = () => ({})) {
 	const tree = useFloatingTree();
 	const compositionTimeout = useTimeout();
+	const cancelDismissOnEndTimeout = useTimeout();
 	let composing = false;
 	let sawPressWhileOpen = false;
 	let pressStartedInside = false;
 	/** The click after an inside press still belongs to that press. A cancel has no click. */
 	let ignoreInsideReleaseClick = false;
+	/** Sloppy touch: a small move dismisses on touchend; scrolling away dismisses during the move. */
+	let touchState: {
+		startX: number;
+		startY: number;
+		dismissOnTouchEnd: boolean;
+		dismissOnMouseDown: boolean;
+	} | null = null;
 
 	function options() {
 		const value = props();
@@ -135,7 +143,7 @@ export function useDismiss(store: FloatingRootStore, props: () => UseDismissProp
 		if (!current.escapeKeyBubbles && !details.isPropagationAllowed) event.stopPropagation();
 	}
 
-	function closeOnOutside(event: MouseEvent | PointerEvent) {
+	function closeOnOutside(event: MouseEvent | PointerEvent | TouchEvent) {
 		const current = options();
 		const mode = pressMode(event);
 		if (!store.isOpen() || !current.enabled || current.outsidePress === false) return;
@@ -157,6 +165,7 @@ export function useDismiss(store: FloatingRootStore, props: () => UseDismissProp
 				sawPressWhileOpen = false;
 				pressStartedInside = false;
 				ignoreInsideReleaseClick = false;
+				touchState = null;
 			}
 			return;
 		}
@@ -178,8 +187,68 @@ export function useDismiss(store: FloatingRootStore, props: () => UseDismissProp
 				ignoreInsideReleaseClick = false;
 				if (insideDismissTree(event)) pressStartedInside = true;
 				else sawPressWhileOpen = true;
+				// Upstream `handlePointerDown` (useDismiss.ts 515–524): touch waits for
+				// touchend or for the finger to scroll away. Mouse sloppy still closes here.
+				if (event.pointerType === 'touch') return;
 				closeOnOutside(event);
 			}),
+			on(
+				doc,
+				'touchstart',
+				(event) => {
+					cancelDismissOnEndTimeout.clear();
+					if (pressMode(event) !== 'sloppy' || !store.isOpen() || !options().enabled) return;
+					if (insideDismissTree(event)) return;
+					const touch = event.touches[0];
+					if (!touch) return;
+					touchState = {
+						startX: touch.clientX,
+						startY: touch.clientY,
+						dismissOnTouchEnd: false,
+						dismissOnMouseDown: true
+					};
+					cancelDismissOnEndTimeout.start(1000, () => {
+						if (!touchState) return;
+						touchState.dismissOnTouchEnd = false;
+						touchState.dismissOnMouseDown = false;
+					});
+				},
+				{ capture: true, passive: true }
+			),
+			on(
+				doc,
+				'touchmove',
+				(event) => {
+					if (pressMode(event) !== 'sloppy' || !touchState || insideDismissTree(event)) return;
+					const touch = event.touches[0];
+					if (!touch) return;
+					const deltaX = touch.clientX - touchState.startX;
+					const deltaY = touch.clientY - touchState.startY;
+					const distance = Math.hypot(deltaX, deltaY);
+					if (distance > 5) touchState.dismissOnTouchEnd = true;
+					if (distance > 10) {
+						closeOnOutside(event);
+						cancelDismissOnEndTimeout.clear();
+						touchState = null;
+					}
+				},
+				{ capture: true, passive: true }
+			),
+			on(
+				doc,
+				'touchend',
+				(event) => {
+					if (pressMode(event) !== 'sloppy' || !touchState || insideDismissTree(event)) {
+						cancelDismissOnEndTimeout.clear();
+						touchState = null;
+						return;
+					}
+					if (touchState.dismissOnTouchEnd) closeOnOutside(event);
+					cancelDismissOnEndTimeout.clear();
+					touchState = null;
+				},
+				{ capture: true, passive: true }
+			),
 			on(
 				doc,
 				'pointerup',
@@ -212,6 +281,8 @@ export function useDismiss(store: FloatingRootStore, props: () => UseDismissProp
 		return () => {
 			for (const cleanup of cleanups) cleanup();
 			compositionTimeout.clear();
+			cancelDismissOnEndTimeout.clear();
+			touchState = null;
 		};
 	});
 

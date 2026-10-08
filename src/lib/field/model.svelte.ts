@@ -3,6 +3,7 @@
 // (commit 47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c). MIT, see THIRD_PARTY_NOTICES.md.
 
 import { untrack } from 'svelte';
+import { useTimeout } from '../internal/timeout.svelte.js';
 import { SvelteMap } from 'svelte/reactivity';
 import type { FormContextValue } from '../form/context.js';
 import type { FieldValidityData, FormValidationMode } from '../form/types.js';
@@ -105,7 +106,7 @@ export class FieldRootModel {
 	/** When set, the form registry uses this instead of the live external invalid flag. */
 	private reportedInvalid: boolean | undefined = undefined;
 	private readonly registeredInputs = new SvelteMap<HTMLInputElement, RegisteredInput>();
-	private timeoutId: ReturnType<typeof setTimeout> | undefined;
+	private readonly debounceTimer = useTimeout();
 	private readonly options: FieldRootModelOptions;
 
 	constructor(options: FieldRootModelOptions) {
@@ -259,9 +260,9 @@ export class FieldRootModel {
 		const validateOnChange = this.shouldValidateOnChange();
 		const debounce = this.options.getValidationDebounceTime();
 		if (validateOnChange && value !== '' && debounce) {
-			this.timeoutId = setTimeout(() => {
+			this.debounceTimer.start(debounce, () => {
 				this.commit(value);
-			}, debounce);
+			});
 			return;
 		}
 		this.commit(value, !validateOnChange);
@@ -518,7 +519,6 @@ export class FieldRootModel {
 	}
 
 	private clearTimer() {
-		if (this.timeoutId !== undefined) clearTimeout(this.timeoutId);
-		this.timeoutId = undefined;
+		this.debounceTimer.clear();
 	}
 }

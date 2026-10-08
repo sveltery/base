@@ -23,6 +23,8 @@
 
 	export interface FloatingPortalContext {
 		readonly node: HTMLElement | null;
+		/** Element the portal host is attached to. The focus manager reads this on open. */
+		readonly home: HTMLElement | ShadowRoot | null;
 		readonly guards: FloatingPortalGuards;
 		readonly focus: FloatingPortalFocus | null;
 		setFocus: (next: FloatingPortalFocus | null) => void;
@@ -90,6 +92,7 @@
 	let portalNode = $state<HTMLDivElement | null>(null);
 	let client = $state(false);
 	let focusState = $state<FloatingPortalFocus | null>(null);
+	let home = $state<HTMLElement | ShadowRoot | null>(null);
 	const parent = useFloatingPortal();
 	const guards: FloatingPortalGuards = {
 		beforeOutside: null,
@@ -106,6 +109,9 @@
 		get node() {
 			return portalNode;
 		},
+		get home() {
+			return home;
+		},
 		guards,
 		get focus() {
 			return focusState;
@@ -115,6 +121,15 @@
 		}
 	};
 	setContext<FloatingPortalContext>(PORTAL, portalContext);
+
+	// The open focus effect reads `home`, so a container swap re-runs it without looking like a close.
+	$effect(() => {
+		if (!client || container === null) {
+			home = null;
+			return;
+		}
+		home = container ?? parent?.node ?? document.body;
+	});
 
 	const showOutsideGuards = $derived(
 		focusState != null && !focusState.modal && focusState.open && portalNode != null
@@ -177,13 +192,22 @@
 		if (focusState.closeOnFocusOut) focusState.close(event);
 	}
 
+	let carriedFocus: HTMLElement | null = null;
+
 	function mount(node: HTMLDivElement) {
 		// Null is excluded by the template. `undefined` keeps the parent portal, then the body.
+		// The attachment re-runs when `container` changes: the cleanup removes the host, then
+		// this appends it. Focus inside the host is put back on the same control.
 		const target = container ?? parent?.node ?? document.body;
 		target.append(node);
 		portalNode = node;
 		store.portalElement = node;
+		const restore = carriedFocus;
+		carriedFocus = null;
+		if (restore?.isConnected) restore.focus({ preventScroll: true });
 		return () => {
+			const active = document.activeElement;
+			if (active instanceof HTMLElement && node.contains(active)) carriedFocus = active;
 			if (store.portalElement === node) store.portalElement = null;
 			if (portalNode === node) portalNode = null;
 			node.remove();

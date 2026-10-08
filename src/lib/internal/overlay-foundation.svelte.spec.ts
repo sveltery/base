@@ -110,7 +110,7 @@ describe('overlay foundation', () => {
 					bubbles: true,
 					cancelable: true,
 					button: 0,
-					pointerType: 'touch'
+					pointerType: 'mouse'
 				})
 			);
 		await expect.poll(() => page.getByRole('dialog', { name: 'Notice' }).elements().length).toBe(0);

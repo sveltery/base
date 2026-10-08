@@ -81,6 +81,18 @@ describe('sveltery/no-unscoped-timer', () => {
 		expect(messages).toHaveLength(5);
 	});
 
+	it('rejects a namespace import and raw platform timers', async () => {
+		const code = `
+			import * as timers from './timeout.js';
+			const clock = new timers.Timeout();
+			timers.AnimationFrame.create();
+			setTimeout(() => {}, 0);
+			globalThis.requestAnimationFrame(() => {});
+		`;
+		const messages = await messagesFor(code, 'src/lib/avatar/fallback-timer.ts');
+		expect(messages).toHaveLength(4);
+	});
+
 	it('allows the class module, the scoped factory, and specs', async () => {
 		const code = `
 			export class Timeout { static create() { return new Timeout(); } }
