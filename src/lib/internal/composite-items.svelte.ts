@@ -11,14 +11,10 @@ import { includeSorted, RenderOrder } from './roving-slot.js';
 export class CompositeItems<T extends HTMLElement = HTMLElement> {
 	elements = $state<T[]>([]);
 	protected readonly order = new RenderOrder();
-	protected readonly attachmentKey = createAttachmentKey();
+	readonly attachmentKey = createAttachmentKey();
 
 	claim() {
 		return this.order.claim();
-	}
-
-	keyForAttachment() {
-		return this.attachmentKey;
 	}
 
 	protected admit(node: T) {

@@ -228,11 +228,15 @@ describe('ToggleGroup', () => {
 	});
 
 	describe('keyboard interactions', () => {
+		const right = 'ArrowRight';
+		const left = 'ArrowLeft';
+		const down = 'ArrowDown';
+		const up = 'ArrowUp';
 		it.each([
-			['ltr', 'horizontal', 'ArrowRight', 'ArrowLeft', 'ArrowDown', 'ArrowUp'],
-			['ltr', 'vertical', 'ArrowDown', 'ArrowUp', 'ArrowRight', 'ArrowLeft'],
-			['rtl', 'horizontal', 'ArrowLeft', 'ArrowRight', 'ArrowDown', 'ArrowUp'],
-			['rtl', 'vertical', 'ArrowDown', 'ArrowUp', 'ArrowLeft', 'ArrowRight']
+			['ltr', 'horizontal', right, left, down, up],
+			['ltr', 'vertical', down, up, right, left],
+			['rtl', 'horizontal', left, right, down, up],
+			['rtl', 'vertical', down, up, left, right]
 		] as const)(
 			'%s orientation %s',
 			async (dir, orientation, nextKey, prevKey, ignoredNext, ignoredPrev) => {

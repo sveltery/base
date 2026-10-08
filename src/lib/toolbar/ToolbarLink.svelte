@@ -28,9 +28,7 @@
 			return {
 				...getStateAttributesProps(linkState),
 				...elementProps,
-				tabindex: hosted.props.tabindex,
-				onfocus: hosted.props.onfocus,
-				[hosted.attachmentKey]: hosted.props[hosted.attachmentKey]
+				...hosted
 			} as ToolbarLinkHostProps & Record<symbol, Attachment<HTMLElement>>;
 		}
 	);

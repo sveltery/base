@@ -8,7 +8,7 @@ import { byDocumentOrder } from '../internal/document-order.js';
 import { REASONS } from '../internal/event-details.js';
 import { activationDirection } from './direction.js';
 import { createTabsChangeEventDetails } from './events.js';
-import { TabsRoving } from './roving-focus.svelte.js';
+import type { CompositeRoot } from '../internal/composite-root.svelte.js';
 import type {
 	TabsActivationDirection,
 	TabsOrientation,
@@ -237,7 +237,22 @@ export class TabsListModel {
 	readActivateOnFocus: () => boolean = () => false;
 	listElement = $state<HTMLElement | null>(null);
 	resizeRevision = $state(0);
-	readonly roving = new TabsRoving();
+	readonly roving: CompositeRoot;
+	private readonly tagTab: (element: HTMLElement, value: TabsValue, disabled: boolean) => void;
+
+	constructor(
+		roving: CompositeRoot,
+		tagTab: (element: HTMLElement, value: TabsValue, disabled: boolean) => void
+	) {
+		this.roving = roving;
+		this.tagTab = tagTab;
+	}
+
+	/** Point the tab stop at this tab's value. `updateTab` still owns metadata updates. */
+	tag(element: HTMLElement, value: TabsValue, disabled: boolean) {
+		this.tagTab(element, value, disabled);
+		this.roving.sync();
+	}
 
 	get activateOnFocus() {
 		return this.readActivateOnFocus();

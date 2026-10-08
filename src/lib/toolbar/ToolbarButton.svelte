@@ -43,7 +43,9 @@
 	const item = registerToolbarItem(toolbar.roving);
 
 	$effect(() => {
-		toolbar.roving.sync(item.node, disabledState, focusableWhenDisabled);
+		const host = { node: item.node, disabled: disabledState, focusable: focusableWhenDisabled };
+		if (!host.node) return;
+		toolbar.roving.sync();
 	});
 
 	// Untrusted constructed clicks carry modifier state. detail 0 matches a keyboard click.
@@ -104,14 +106,10 @@
 			return;
 		}
 
-		const shouldClick = nativeButton ? buttonElement : !link;
-		if (!shouldClick || nativeButton || !isEnter) {
-			if (link && isSpace) event.preventDefault();
-			return;
+		if (!nativeButton && !link && isEnter) {
+			event.preventDefault();
+			dispatchClick(current, event);
 		}
-
-		event.preventDefault();
-		dispatchClick(current, event);
 	}
 
 	function handleKeyUp(event: KeyboardEvent & { currentTarget: EventTarget & HTMLButtonElement }) {
@@ -128,7 +126,10 @@
 
 	const hostProps: ToolbarButtonHostProps & Record<symbol, Attachment<HTMLElement>> = $derived.by(
 		() => {
-			const hosted = item.hosted({ onfocus: handleFocus });
+			const hosted = item.hosted(
+				{ onfocus: handleFocus },
+				{ disabled: disabledState && !focusableWhenDisabled }
+			);
 			return {
 				...(nativeButton ? { type: 'button' as const } : { role: 'button' as const }),
 				...((nativeButton && focusableWhenDisabled) || (!nativeButton && disabledState)
@@ -137,14 +138,12 @@
 				...(nativeButton && !focusableWhenDisabled && disabledState ? { disabled: true } : {}),
 				...elementProps,
 				...getStateAttributesProps(buttonState),
-				tabindex: hosted.props.tabindex,
 				onclick: handleClick,
 				onmousedown: handleMouseDown,
 				onpointerdown: handlePointerDown,
 				onkeydown: handleKeyDown,
 				onkeyup: handleKeyUp,
-				onfocus: hosted.props.onfocus,
-				[hosted.attachmentKey]: hosted.props[hosted.attachmentKey]
+				...hosted
 			} as ToolbarButtonHostProps & Record<symbol, Attachment<HTMLElement>>;
 		}
 	);

@@ -70,4 +70,30 @@ describe('sveltery/no-inline-composite-keys', () => {
 		expect(hits(toggles, toggleMessages, 17)).toBe(true);
 		expect(tabsMessages[0]?.message).toContain('COMPOSITE_KEYS');
 	});
+
+	it('rejects the four-key arrow sets from main before they were shared', async () => {
+		const toolbar = historicalSource(
+			main,
+			'src/lib/toolbar/roving-focus.svelte.ts',
+			new URL('fixtures/history/1504e68f-toolbar-roving-focus.svelte.ts', import.meta.url),
+			'ad14d28d99694c87f196211e40667b26349947b3'
+		);
+		const radio = historicalSource(
+			main,
+			'src/lib/radio-group/roving-focus.svelte.ts',
+			new URL('fixtures/history/1504e68f-radio-group-roving-focus.svelte.ts', import.meta.url),
+			'19441f9ca51578a38ea381618e16446fda59a184'
+		);
+		const [toolbarResult] = await lint(toolbar, 'src/lib/toolbar/roving-focus.svelte.ts');
+		const [radioResult] = await lint(radio, 'src/lib/radio-group/roving-focus.svelte.ts');
+		const toolbarMessages = (toolbarResult?.messages ?? []).filter(
+			(message) => message.ruleId === ruleId
+		);
+		const radioMessages = (radioResult?.messages ?? []).filter(
+			(message) => message.ruleId === ruleId
+		);
+		expect(hits(toolbar, toolbarMessages, 21)).toBe(true);
+		expect(hits(radio, radioMessages, 15)).toBe(true);
+		expect(toolbarMessages[0]?.message).toContain('ARROW_KEYS');
+	});
 });

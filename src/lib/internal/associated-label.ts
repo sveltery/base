@@ -23,3 +23,17 @@ export function findAssociatedLabel(source: LabelSource | null): HTMLLabelElemen
 	const labels = source.labels;
 	return labels?.[0];
 }
+
+/** Id of the native label for a non-native host, assigning one when the label has none. */
+export function nativeFallbackLabelId(
+	nativeButton: boolean,
+	explicit: string | null | undefined,
+	input: LabelSource | null,
+	sourceId: string | undefined
+): string | undefined {
+	if (nativeButton || explicit || !input) return undefined;
+	const label = findAssociatedLabel(input);
+	if (!label) return undefined;
+	if (!label.id && sourceId) label.id = `${sourceId}-label`;
+	return label.id || undefined;
+}

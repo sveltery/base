@@ -24,6 +24,13 @@ export function dispatchClick(
 	);
 }
 
+/** Space on keyup clicks a non-native host. The caller already ran `onkeyup`. */
+export function clickOnSpaceKeyUp(event: KeyboardEvent, nativeButton: boolean) {
+	if (event.defaultPrevented || nativeButton || event.key !== ' ') return;
+	const current = currentHost(event);
+	if (current) dispatchClick(current, event);
+}
+
 export function currentHost(event: Event): HTMLElement | null {
 	const current = event.currentTarget;
 	if (!(current instanceof HTMLElement) || event.target !== current) return null;

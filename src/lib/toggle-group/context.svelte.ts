@@ -1,8 +1,10 @@
 // Derived from Base UI v1.8.0 packages/react/src/toggle-group/ToggleGroupContext.ts
 // (commit 47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c). MIT, see THIRD_PARTY_NOTICES.md.
 import { getContext, hasContext, setContext } from 'svelte';
+import type { CompositeRoot } from '../internal/composite-root.svelte.js';
 import type { ToggleGroupChangeEventDetails } from './types.js';
-import { RovingFocus, type RovingOrientation } from '../internal/toggle-roving.svelte.js';
+
+export type RovingOrientation = 'horizontal' | 'vertical';
 
 const TOGGLE_GROUP_CONTEXT = Symbol('toggle-group');
 
@@ -19,11 +21,12 @@ export class ToggleGroupContext {
 	 * when `value` or `defaultValue` was set.
 	 */
 	readonly valueProvided: boolean;
-	readonly roving = new RovingFocus();
+	readonly roving: CompositeRoot;
 	commit: (next: string[]) => void = () => {};
 
-	constructor(valueProvided: boolean) {
+	constructor(valueProvided: boolean, roving: CompositeRoot) {
 		this.valueProvided = valueProvided;
+		this.roving = roving;
 	}
 
 	get values() {
@@ -70,5 +73,3 @@ export function useToggleGroupContext(): ToggleGroupContext | undefined {
 	if (!hasContext(TOGGLE_GROUP_CONTEXT)) return undefined;
 	return getContext<ToggleGroupContext>(TOGGLE_GROUP_CONTEXT);
 }
-
-export type { RovingOrientation };

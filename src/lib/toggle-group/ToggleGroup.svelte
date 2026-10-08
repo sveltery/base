@@ -7,6 +7,7 @@
 -->
 <script lang="ts">
 	import type { HTMLAttributes } from 'svelte/elements';
+	import { CompositeRoot } from '../internal/composite-root.svelte.js';
 	import { useDirection } from '../internal/direction-context.js';
 	import { getStateAttributesProps } from '../internal/state-attributes.js';
 	import { ToggleGroupContext, setToggleGroupContext } from './context.svelte.js';
@@ -29,14 +30,23 @@
 	const EMPTY: readonly string[] = [];
 
 	const reading = useDirection();
-	const group = new ToggleGroupContext(valueProvided);
+	const roving = new CompositeRoot({
+		orientation: () => orientation,
+		loopFocus: () => loopFocus,
+		direction: () => reading.direction,
+		isItemDisabled: (element) =>
+			element.matches(':disabled') || element.getAttribute('aria-disabled') === 'true',
+		keys: 'composite',
+		homeEnd: true,
+		stopPropagation: true,
+		replacement: 'first',
+		keydown: 'item'
+	});
+	const group = new ToggleGroupContext(valueProvided, roving);
 	group.readValues = () => value ?? EMPTY;
 	group.readDisabled = () => disabled;
 	group.readMultiple = () => multiple;
 	group.readOnValueChange = () => onValueChange ?? (() => {});
-	group.roving.readDirection = () => reading.direction;
-	group.roving.readLoopFocus = () => loopFocus;
-	group.roving.readOrientation = () => orientation;
 	group.commit = (next) => {
 		value = next;
 	};

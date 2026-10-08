@@ -6,6 +6,7 @@
 	(commit 47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c). MIT, see THIRD_PARTY_NOTICES.md.
 -->
 <script lang="ts">
+	import { untrack } from 'svelte';
 	import type { Attachment } from 'svelte/attachments';
 	import { currentHost, dispatchClick, isLink } from '../internal/click.js';
 	import { getStateAttributesProps } from '../internal/state-attributes.js';
@@ -53,7 +54,10 @@
 	function register(element: HTMLElement) {
 		node = element;
 		const removeRoving = list.roving.register(element);
-		const unregister = tabs.registerTab(element, value, disabled, tabId);
+		const unregister = untrack(() => {
+			list.tag(element, value, disabled);
+			return tabs.registerTab(element, value, disabled, tabId);
+		});
 		const unobserve = list.observeTab(element);
 		return () => {
 			removeRoving();
@@ -67,6 +71,7 @@
 		const element = node;
 		if (!element) return;
 		tabs.updateTab(element, value, disabled, tabId);
+		list.tag(element, value, disabled);
 	});
 
 	// An enabled selection takes the tab stop when focus is outside the list.
@@ -162,11 +167,16 @@
 	}
 
 	const hostProps: TabsTabHostProps & Record<symbol, Attachment<HTMLElement>> = $derived.by(() => {
-		const roving = list.roving.host(slot, node, register, {
-			onfocus: handleFocus,
-			onkeydown: handleKeyDown
-		});
-		const attachmentKey = list.roving.keyForAttachment();
+		const roving = list.roving.item(
+			node,
+			register,
+			{
+				onfocus: handleFocus,
+				onkeydown: handleKeyDown
+			},
+			slot,
+			{ selected: active, hasSelection: tabs.value != null }
+		);
 		const panelId = tabs.panelIdFor(value);
 		const props = {
 			...(nativeButton ? { type: 'button' as const } : {}),
@@ -183,18 +193,16 @@
 			onkeyup: handleKeyUp,
 			onfocus: roving.onfocus,
 			onkeydown: roving.onkeydown,
-			[attachmentKey]: roving[attachmentKey]
+			[list.roving.attachmentKey]: roving[list.roving.attachmentKey]
 		};
 		return props as TabsTabHostProps & Record<symbol, Attachment<HTMLElement>>;
 	});
 </script>
 
-{#snippet content()}
-	{@render children?.()}
-{/snippet}
+{#snippet empty()}{/snippet}
 
 {#if render}
-	{@render render(hostProps, tabState, content)}
+	{@render render(hostProps, tabState, children ?? empty)}
 {:else}
-	<button {...hostProps}>{@render content()}</button>
+	<button {...hostProps}>{@render children?.()}</button>
 {/if}

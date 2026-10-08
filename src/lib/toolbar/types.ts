@@ -1,9 +1,7 @@
 import type { Snippet } from 'svelte';
 import type { HTMLAnchorAttributes, HTMLAttributes, HTMLButtonAttributes } from 'svelte/elements';
 
-import type { ToolbarOrientation } from '../internal/toolbar-roving.svelte.js';
-
-export type { ToolbarOrientation };
+export type ToolbarOrientation = 'horizontal' | 'vertical';
 
 export interface ToolbarRootState {
 	/** Whether the toolbar should ignore user interaction. */
