@@ -13,7 +13,6 @@
 	import { registerTrigger } from '../internal/popups/index.js';
 	import DialogAction from './DialogAction.svelte';
 	import { useDialogRoot } from './context.svelte.js';
-	import { noteOpenClick, noteOpenPointer } from './open-method.js';
 	import type { DialogStore } from './store.svelte.js';
 	import type { DialogTriggerProps, DialogTriggerState } from './types.js';
 
@@ -106,7 +105,6 @@
 		const current = store;
 		if (!current) return;
 		if (!current.open && payload !== undefined) current.payload = payload;
-		noteOpenClick(current, event);
 		clickHandlers(current)?.onclick?.(event);
 	}
 
@@ -115,10 +113,7 @@
 	) {
 		onpointerdown?.(event);
 		if (event.defaultPrevented) return;
-		const current = store;
-		if (!current) return;
-		noteOpenPointer(current, event);
-		clickHandlers(current)?.onpointerdown?.(event);
+		clickHandlers(store)?.onpointerdown?.(event);
 	}
 
 	function handleMouseDown(event: MouseEvent & { currentTarget: EventTarget & HTMLButtonElement }) {

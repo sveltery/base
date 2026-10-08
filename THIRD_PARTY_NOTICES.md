@@ -240,7 +240,6 @@ Parts of this package derive from [Base UI](https://github.com/mui/base-ui) v1.8
 - `src/lib/dialog/context.svelte.ts` from `packages/react/src/dialog/root/DialogRootContext.ts` and `packages/react/src/dialog/portal/DialogPortalContext.ts`
 - `src/lib/dialog/attributes.ts` from `packages/react/src/dialog/utils/stateAttributesMapping.ts` and the dialog `*DataAttributes.ts` files
 - `src/lib/dialog/outside-press.ts` from the outside-press predicate in `packages/react/src/dialog/root/useDialogRoot.ts`
-- `src/lib/dialog/open-method.ts` from `packages/utils/src/useEnhancedClickHandler.ts` and `packages/react/src/utils/useOpenInteractionType.ts`
 - `src/lib/dialog/Dialog.svelte.spec.ts` assertions from `packages/react/src/dialog/**/*.test.tsx` that do not require Alert Dialog, Drawer, Menu, or Select
 - `src/lib/internal/popups/store.svelte.ts` `forceUnmount` and `notifyOpenChangeComplete` expose the close-completion path Dialog's `unmount()` and open animation use
 

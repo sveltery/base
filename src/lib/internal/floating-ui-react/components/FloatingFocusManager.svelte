@@ -5,7 +5,6 @@
 
 	import { untrack } from 'svelte';
 	import { on } from 'svelte/events';
-	import { untrack } from 'svelte';
 	import type { Snippet } from 'svelte';
 	import { createChangeEventDetails, REASONS } from '../../event-details.js';
 	import FocusGuard from '../../FocusGuard.svelte';

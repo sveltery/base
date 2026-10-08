@@ -3,12 +3,12 @@
 // Extends the landed PopupStore. Elements are held here, not in ref bags.
 // A canceled close can leave preventUnmountingOnClose true. That matches Dialog.
 // Focus return is FloatingFocusManager after close. This store does not focus.
+// How the dialog opened is the inherited `PopupStore.openMethod`. `useClick` writes it.
 
 import type { ControllableValue } from '../internal/controllable-value.svelte.js';
 import type { BaseUIChangeEventDetails } from '../internal/event-details.js';
 import { PopupStore, type PopupChangeEventDetails } from '../internal/popups/store.svelte.js';
-import { closeInteraction } from './open-method.js';
-import type { DialogChangeEventReason, InteractionType } from './types.js';
+import type { DialogChangeEventReason } from './types.js';
 
 export interface DialogClickReference {
 	onpointerdown?: (event: PointerEvent) => void;
@@ -26,9 +26,6 @@ export class DialogStore<Payload = unknown> extends PopupStore<DialogChangeEvent
 	/** `useClick` reference props. Set once from the root. Detached triggers read this. */
 	click: DialogClickReference | undefined = undefined;
 	payload = $state<Payload | undefined>(undefined);
-	openMethod = $state<InteractionType | null>(null);
-	closeMethod: InteractionType = '';
-	pointerType = $state<InteractionType | null>(null);
 	nestedOpenDialogCount = $state(0);
 	titleElementId = $state<string | undefined>(undefined);
 	descriptionElementId = $state<string | undefined>(undefined);
@@ -88,11 +85,7 @@ export class DialogStore<Payload = unknown> extends PopupStore<DialogChangeEvent
 		nextOpen: boolean,
 		eventDetails: BaseUIChangeEventDetails<DialogChangeEventReason>
 	) {
-		if (this.open && !nextOpen) {
-			this.closeMethod = closeInteraction(eventDetails.event, this.pointerType);
-		}
 		super.setOpen(nextOpen, eventDetails);
 		this.publishTriggerId?.(this.activeTriggerId, eventDetails);
-		if (!this.open) this.openMethod = null;
 	}
 }

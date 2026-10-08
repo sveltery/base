@@ -12,6 +12,7 @@
 	import { getStateAttributesProps } from '../internal/state-attributes.js';
 	import { useOpenChangeComplete } from '../internal/useOpenChangeComplete.svelte.js';
 	import { COMPOSITE_KEYS } from '../internal/composite-keys.js';
+	import type { OpenInteractionType } from '../internal/openInteraction.js';
 	import { dialogStateAttributesMapping, nestedDialogsVar } from './attributes.js';
 	import { useDialogPortalContext, useDialogRootContext } from './context.svelte.js';
 	import type { DialogDivProps, DialogPopupProps, DialogPopupState } from './types.js';
@@ -46,32 +47,28 @@
 
 	const defaultInitialFocus = createDefaultInitialFocus(() => store.popupElement);
 
-	function resolveInitial(): boolean | HTMLElement | null {
-		const interaction = store.openMethod ?? '';
+	function resolveInitial(openType: OpenInteractionType): boolean | HTMLElement | null | void {
 		const value = initialFocus;
 		if (value === false) return false;
 		if (value instanceof HTMLElement) return value;
-		if (typeof value === 'function') {
-			const result = value(interaction);
-			if (result === false || result === undefined) return false;
-			if (result instanceof HTMLElement) return result;
-			return true;
-		}
-		const fallback = defaultInitialFocus(interaction);
-		return fallback instanceof HTMLElement ? fallback : true;
+		if (typeof value === 'function') return value(openType);
+		return defaultInitialFocus(openType);
 	}
 
-	function resolveFinal(): boolean | HTMLElement | null {
-		const interaction = store.closeMethod;
-		if (finalFocus === false) return false;
-		if (finalFocus instanceof HTMLElement) return finalFocus;
-		if (typeof finalFocus === 'function') {
-			const result = finalFocus(interaction);
+	function resolveFinal(
+		closeType: OpenInteractionType | null
+	): boolean | HTMLElement | null | void {
+		const value = finalFocus;
+		if (value === false) return false;
+		if (value instanceof HTMLElement) return value;
+		if (typeof value === 'function') {
+			const result = value(closeType ?? '');
 			if (result === false || result === undefined) return false;
 			if (result instanceof HTMLElement) return result;
-			return true;
+			// `null` (and `true`) fall back to the trigger.
+			return null;
 		}
-		return true;
+		return null;
 	}
 
 	function onKeyDown(event: KeyboardEvent) {
@@ -109,7 +106,7 @@
 <FloatingFocusManager
 	{store}
 	disabled={!store.mounted}
-	initialFocus={store.open ? resolveInitial() : true}
+	initialFocus={resolveInitial}
 	returnFocus={resolveFinal}
 	modal={store.modal !== false}
 	closeOnFocusOut={!store.disablePointerDismissal}

@@ -18,7 +18,7 @@ Test: `src/lib/popover/Popover.svelte.spec.ts` (`keeps the live radio checked wh
 
 ## Dialog
 
-Source: `packages/react/src/dialog`. Upstream shares `PopupHandle` and `COMPOSITE_KEYS`; they live in `src/lib/internal/popups/popupHandle.svelte.ts` and `src/lib/internal/composite-keys.ts`. Portal, focus, dismiss, scroll lock, `mergeProps`, and the popup store are the landed overlay foundation. Open-interaction tracking still lives in `dialog/open-method.ts` until the popup-reopen helper is on main. Dialog will then read `PopupStore.openMethod` and delete that file.
+Source: `packages/react/src/dialog`. Upstream shares `PopupHandle` and `COMPOSITE_KEYS`; they live in `src/lib/internal/popups/popupHandle.svelte.ts` and `src/lib/internal/composite-keys.ts`. Portal, focus, dismiss, scroll lock, `mergeProps`, and the popup store are the landed overlay foundation. How the dialog opened is `PopupStore.openMethod`. Final focus uses the shared `returnFocus` callback: it receives how the popup closed, and `null` focuses the trigger.
 
 | Upstream                                                             | Local                                                                                                  |
 | -------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------ |

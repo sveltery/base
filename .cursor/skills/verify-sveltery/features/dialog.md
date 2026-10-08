@@ -26,7 +26,7 @@ A modal or non-modal dialog. Upstream: `packages/react/src/dialog` at Base UI v1
 | `DialogHandle` / `createDialogHandle`   | shared `PopupHandle` (`internal/popups/popupHandle.svelte.ts`)                    | Detached triggers, payload, and imperative open/close. Element access is `bind:this` / `{@attach}` |
 | `useDialogRoot` dismiss and scroll lock | `useDismiss` for Escape and `useScrollLock`; outside press is one dialog listener | The shared dismiss hook treats the portal host as inside, so it does not decide backdrop presses   |
 | `DialogTrigger` + `useButton`           | `DialogTrigger` + `Button`                                                        | Same disabled and non-native button behavior                                                       |
-| `DialogPopup` + `FloatingFocusManager`  | `DialogPopup` + shared `FloatingFocusManager`                                     | Touch focuses the popup. Custom final focus is applied by the dialog                               |
+| `DialogPopup` + `FloatingFocusManager`  | `DialogPopup` + shared `FloatingFocusManager`                                     | Touch focuses the popup. `returnFocus` receives the close interaction; `null` focuses the trigger  |
 | `useOpenChangeComplete`                 | shared `useOpenChangeComplete`                                                    | Open completion calls `onOpenChangeComplete(true)`. Close completion stays on the popup store      |
 | `DialogPortal` + `InternalBackdrop`     | shared `FloatingPortal` and `InternalBackdrop`                                    | `container` is an element, not a ref                                                               |
 | `useRenderElement`                      | `{#if render}` snippet `(props, state, children)`                                 | No refs or style/class callbacks                                                                   |
@@ -41,7 +41,7 @@ Differences from React Base UI, all deliberate:
 - Alert Dialog and Drawer are not ported. `role` stays `dialog`.
 - Outside press is one dialog listener. Mouse and touch use separate modes. A backdrop is `intentional` for both. Without one, touch is `sloppy` and mouse is `sloppy` only for `trap-focus`. The shared dismiss hook still treats the portal host as inside, so it does not decide these presses. The lasting fix is for that hook to test the floating element and track `pressStartedInside`, then delete this listener.
 - `COMPOSITE_KEYS` is shared with Slider (`src/lib/internal/composite-keys.ts`). Arrow keys stay inside the dialog.
-- Open-method tracking stays in `dialog/open-method.ts` until popup reopen lands `PopupStore.openMethod`. Dialog reads that field after the rebase and deletes this copy.
+- How the dialog opened is `PopupStore.openMethod`, written by `useClick`. Final focus uses the shared `returnFocus` callback, which receives how the popup closed. A `null` result focuses the trigger.
 - Generated ids use `$props.id()` with a `base-ui-` prefix.
 - The dev and production missing-context errors are the descriptive strings.
 
