@@ -121,7 +121,7 @@
 </script>
 
 {#if render}
-	{@render render(hostProps, toggleState)}
+	{@render render(hostProps, toggleState, children)}
 {:else}
 	<button {...hostProps}>{@render children?.()}</button>
 {/if}

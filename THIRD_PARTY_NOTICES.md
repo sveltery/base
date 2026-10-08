@@ -20,6 +20,7 @@ Parts of this package derive from [Base UI](https://github.com/mui/base-ui) v1.8
 - `src/lib/collapsible/attributes.ts` from `packages/react/src/collapsible/root/stateAttributesMapping.ts`, `packages/react/src/utils/collapsibleOpenStateMapping.ts`, and `packages/react/src/internals/stateAttributesMapping.ts`
 - `src/lib/collapsible/Collapsible.svelte.spec.ts` assertions from `packages/react/src/collapsible/**/*.test.tsx`
 - `src/lib/internal/event-details.ts` also exports `REASONS.triggerPress` from `packages/react/src/internals/reason-parts.ts`
+- `src/lib/internal/render-children.ts` from the `props.children` contract of `packages/react/src/internals/useRenderElement.tsx`
 - `src/lib/button/Button.svelte.spec.ts` assertions from `packages/react/src/button/Button.test.tsx`
 - `src/lib/fieldset/FieldsetRoot.svelte` from `packages/react/src/fieldset/root/FieldsetRoot.tsx`
 - `src/lib/fieldset/FieldsetLegend.svelte` from `packages/react/src/fieldset/legend/FieldsetLegend.tsx`

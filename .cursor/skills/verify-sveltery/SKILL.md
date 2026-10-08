@@ -102,7 +102,7 @@ React exists only in `src/routes/fixtures/**/react-reference.ts` (devDependencie
 - Hooks, StrictMode double-mounting, effect dependency arrays, layout or insertion effects
 - Synthetic events and `preventBaseUIHandler()`: Svelte uses native events. A consumer `onclick` skips the part's handler with `event.preventDefault()`
 - `className` and React style objects: use native `class` and `style`
-- Render props and `cloneElement`: parts take a `render` snippet that receives `(props, state)`
+- Render props and `cloneElement`: parts take a `render` snippet that receives `(props, state, children)`. `children` is undefined when the consumer passed none and the part adds none. Render it with `{@render children?.()}`
 - `ref`, `forwardRef` and callback refs: Svelte has no refs. Consumers pass `{@attach}` to the part, which reaches the host through the props spread (including inside `render`)
 - Controlled/uncontrolled pairs (`pressed`/`defaultPressed`, `useControlled`): one `$bindable` prop. `bind:pressed` shares it with the parent; a one-way value sets it until the parent changes it, and clicks can override it in between. To veto a change, use `eventDetails.cancel()`
 - React commit batching and same-turn stale reads: Svelte reads live state

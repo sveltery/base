@@ -10,7 +10,7 @@ Shared selection for a series of radios, with a roving tab stop. Upstream: `pack
 - A click, a label activation, or Space on keyup selects that radio and releases the others. Enter does not select and does not submit. The callback's event is the click that checked the input, so Shift is visible.
 - Roving tabindex uses the shared composite root. The selected radio is the tab stop. With nothing selected, the first enabled radio is. A parent that changes `value` moves the stop onto that radio. A disabled first radio is not the server tab stop. Arrow keys move on both axes and select the newly focused radio. Horizontal arrows swap in RTL (`DirectionProvider`). The list loops. Shift+Arrow still moves. Home and End do not. Ctrl, Alt, and Meta do not. Disabled radios are skipped. Disabling the current stop after mount moves the tab stop to the next enabled radio, and an arrow from the disabled radio starts at that radio. Removing the highlighted radio moves the tab stop to the checked radio when that change was vetoed, otherwise to the next enabled radio.
 - A fieldset legend supplies `aria-labelledby` unless the group sets its own. Inside `Form`, a value change clears `errors[name]`.
-- Native rendering: a `render` snippet receives `(props, state)`. Consumer `{@attach}` reaches the host.
+- Native rendering: a `render` snippet receives `(props, state, children)`. `children` is undefined when the consumer passed none. Consumer `{@attach}` reaches the host.
 
 Differences from React Base UI, all deliberate:
 

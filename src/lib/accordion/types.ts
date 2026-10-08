@@ -2,6 +2,7 @@ import type { Snippet } from 'svelte';
 import type { HTMLAttributes, HTMLButtonAttributes } from 'svelte/elements';
 import type { BaseUIChangeEventDetails, REASONS } from '../internal/event-details.js';
 import type { TransitionStatus } from '../collapsible/types.js';
+import type { RenderChildren } from '../internal/render-children.js';
 
 export type AccordionOrientation = 'horizontal' | 'vertical';
 
@@ -44,7 +45,7 @@ export type AccordionItemChangeEventReason = AccordionRootChangeEventReason;
 export type AccordionItemChangeEventDetails = AccordionRootChangeEventDetails;
 
 type PartRender<Element extends EventTarget, State> = Snippet<
-	[props: HTMLAttributes<Element>, state: State, children: Snippet]
+	[props: HTMLAttributes<Element>, state: State, children: RenderChildren]
 >;
 
 export interface AccordionRootProps extends Omit<HTMLAttributes<HTMLDivElement>, 'children'> {
@@ -146,7 +147,7 @@ export interface AccordionTriggerProps extends Omit<
 	onkeyup?: HTMLAttributes<HTMLElement>['onkeyup'];
 	/** Replace the default `<button>`. Spread `props` onto the host and render `children`. */
 	render?: Snippet<
-		[props: AccordionTriggerHostProps, state: AccordionTriggerState, children: Snippet]
+		[props: AccordionTriggerHostProps, state: AccordionTriggerState, children: RenderChildren]
 	>;
 	children?: Snippet;
 }

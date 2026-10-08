@@ -38,7 +38,7 @@
 </script>
 
 {#if render}
-	{@render render(hostProps, state)}
+	{@render render(hostProps, state, children)}
 {:else}
 	<fieldset {...hostProps}>{@render children?.()}</fieldset>
 {/if}

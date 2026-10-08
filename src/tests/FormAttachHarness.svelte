@@ -16,7 +16,7 @@
 	<Form class="from-props" {@attach capture}>
 		{#snippet render(props, state, children)}
 			<form {...props} data-state-keys={Object.keys(state).length} data-custom="true">
-				{@render children()}
+				{@render children?.()}
 			</form>
 		{/snippet}
 		<span>Inside</span>

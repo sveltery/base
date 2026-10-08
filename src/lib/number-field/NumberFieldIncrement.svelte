@@ -11,6 +11,4 @@
 	let { children, ...rest }: NumberFieldStepperProps = $props();
 </script>
 
-<NumberFieldStepper {...rest} increment>
-	{@render children?.()}
-</NumberFieldStepper>
+<NumberFieldStepper {...rest} increment {children} />

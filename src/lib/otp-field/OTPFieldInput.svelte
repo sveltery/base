@@ -23,7 +23,7 @@
 
 	let {
 		render,
-		children: _children,
+		children,
 		type,
 		'aria-label': ariaLabelProp,
 		'aria-labelledby': ariaLabelledByProp,
@@ -295,7 +295,7 @@
 </script>
 
 {#if render}
-	{@render render(hostProps, inputState)}
+	{@render render(hostProps, inputState, children)}
 {:else}
 	<input {...hostProps} bind:this={el} />
 {/if}

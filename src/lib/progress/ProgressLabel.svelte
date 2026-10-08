@@ -38,7 +38,7 @@
 </script>
 
 {#if render}
-	{@render render(hostProps, state)}
+	{@render render(hostProps, state, children)}
 {:else}
 	<span {...hostProps}>{@render children?.()}</span>
 {/if}

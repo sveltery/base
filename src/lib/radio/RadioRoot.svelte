@@ -247,7 +247,7 @@
 </script>
 
 {#if render}
-	{@render render(hostProps, radioState)}
+	{@render render(hostProps, radioState, children)}
 {:else}
 	<span {...hostProps}>{@render children?.()}</span>
 {/if}

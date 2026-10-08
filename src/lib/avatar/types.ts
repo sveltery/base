@@ -2,6 +2,7 @@
 // (commit 47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c). MIT, see THIRD_PARTY_NOTICES.md.
 import type { Snippet } from 'svelte';
 import type { HTMLAttributes, HTMLImgAttributes } from 'svelte/elements';
+import type { RenderChildren } from '../internal/render-children.js';
 
 export type ImageLoadingStatus = 'idle' | 'loading' | 'loaded' | 'error';
 
@@ -12,7 +13,9 @@ export interface AvatarRootState {
 
 export interface AvatarRootProps extends Omit<HTMLAttributes<HTMLSpanElement>, 'children'> {
 	/** Replace the default `<span>`. Spread `props` onto the host element. */
-	render?: Snippet<[props: HTMLAttributes<HTMLSpanElement>, state: AvatarRootState]>;
+	render?: Snippet<
+		[props: HTMLAttributes<HTMLSpanElement>, state: AvatarRootState, children: RenderChildren]
+	>;
 	children?: Snippet;
 }
 
@@ -31,7 +34,7 @@ export interface AvatarImageProps extends Omit<HTMLImgAttributes, 'children'> {
 	 */
 	keepMounted?: boolean;
 	/** Replace the default `<img>`. Spread `props` onto the host element. */
-	render?: Snippet<[props: HTMLImgAttributes, state: AvatarImageState]>;
+	render?: Snippet<[props: HTMLImgAttributes, state: AvatarImageState, children: RenderChildren]>;
 	children?: Snippet;
 }
 
@@ -45,6 +48,8 @@ export interface AvatarFallbackProps extends Omit<HTMLAttributes<HTMLSpanElement
 	 */
 	delay?: number;
 	/** Replace the default `<span>`. Spread `props` onto the host element. */
-	render?: Snippet<[props: HTMLAttributes<HTMLSpanElement>, state: AvatarFallbackState]>;
+	render?: Snippet<
+		[props: HTMLAttributes<HTMLSpanElement>, state: AvatarFallbackState, children: RenderChildren]
+	>;
 	children?: Snippet;
 }

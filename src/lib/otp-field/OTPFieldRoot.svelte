@@ -198,14 +198,10 @@
 	}
 </script>
 
-{#snippet content()}
-	{@render children?.()}
-{/snippet}
-
 {#if render}
-	{@render render(hostProps, rootState, content)}
+	{@render render(hostProps, rootState, children)}
 {:else}
-	<div {...hostProps} bind:this={model.root}>{@render content()}</div>
+	<div {...hostProps} bind:this={model.root}>{@render children?.()}</div>
 {/if}
 {#if showHidden}
 	<input

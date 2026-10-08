@@ -11,7 +11,7 @@ A toolbar of buttons, groups, and links with one roving tab stop. Upstream: `pac
 - `Toolbar.Link` renders `<a>` and joins the arrow order. It exposes `data-orientation` and no disabled state.
 - Roving tabindex: one item has `tabindex="0"`, the others `-1`. Arrow keys follow `orientation`. Horizontal arrows swap in RTL (`DirectionProvider`). The other axis does nothing. Home, End, and Shift/Ctrl/Alt/Meta arrows do nothing. `loopFocus` defaults to true. A natively disabled or hidden host is skipped, and a tab stop that becomes disabled moves to the next focusable item. Arrow keys are handled on the root. `preventDefault()` there skips navigation. `preventDefault()` on an item does not.
 - The roving behavior is the shared composite root. It exposes `tabindex`, a focus handler, and a registration attachment. A `render` snippet receives those props. A disabled button with `focusableWhenDisabled={false}` is not the server tab stop.
-- Native rendering: a `render` snippet receives `(props, state)`. Consumer `{@attach}` reaches the host.
+- Native rendering: a `render` snippet receives `(props, state, children)`. `children` is undefined when the consumer passed none. Consumer `{@attach}` reaches the host.
 
 Differences from React Base UI, all deliberate:
 

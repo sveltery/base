@@ -92,7 +92,7 @@
 
 {#if shouldRender}
 	{#if render}
-		{@render render(hostProps, indicatorState)}
+		{@render render(hostProps, indicatorState, children)}
 	{:else}
 		<span {...hostProps}>{@render children?.()}</span>
 	{/if}

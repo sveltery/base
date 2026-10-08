@@ -19,7 +19,7 @@
 
 	let {
 		render,
-		children: _children,
+		children,
 		onfocus,
 		onblur,
 		oninput,
@@ -113,7 +113,7 @@
 </script>
 
 {#if render}
-	{@render render(hostProps as HTMLAttributes<HTMLElement>, state)}
+	{@render render(hostProps as HTMLAttributes<HTMLElement>, state, children)}
 {:else}
 	<input {...hostProps} bind:this={model.inputElement} />
 {/if}

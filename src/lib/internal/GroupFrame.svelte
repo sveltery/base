@@ -6,6 +6,7 @@
 <script lang="ts" generics="State extends object">
 	import type { HTMLAttributes } from 'svelte/elements';
 	import type { Snippet } from 'svelte';
+	import type { RenderChildren } from './render-children.js';
 
 	let {
 		hostProps,
@@ -15,13 +16,15 @@
 	}: {
 		hostProps: HTMLAttributes<HTMLDivElement> & Record<symbol, unknown>;
 		state: State;
-		render?: Snippet<[HTMLAttributes<HTMLDivElement> & Record<symbol, unknown>, State]>;
+		render?: Snippet<
+			[HTMLAttributes<HTMLDivElement> & Record<symbol, unknown>, State, children: RenderChildren]
+		>;
 		children?: Snippet;
 	} = $props();
 </script>
 
 {#if render}
-	{@render render(hostProps, state)}
+	{@render render(hostProps, state, children)}
 {:else}
 	<div {...hostProps}>{@render children?.()}</div>
 {/if}

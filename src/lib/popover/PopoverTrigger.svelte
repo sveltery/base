@@ -148,14 +148,10 @@
 	<FocusGuard {...armed.guards.preFocusGuardProps} />
 {/if}
 {#if render}
-	{@render render(hostProps, partState, childrenSnippet)}
+	{@render render(hostProps, partState, children)}
 {:else}
-	<button {...hostProps}>{@render childrenSnippet()}</button>
+	<button {...hostProps}>{@render children?.()}</button>
 {/if}
 {#if showGuards && armed}
 	<FocusGuard {...armed.guards.focusTargetProps} />
 {/if}
-
-{#snippet childrenSnippet()}
-	{@render children?.()}
-{/snippet}

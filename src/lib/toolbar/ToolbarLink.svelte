@@ -35,7 +35,7 @@
 </script>
 
 {#if render}
-	{@render render(hostProps, linkState)}
+	{@render render(hostProps, linkState, children)}
 {:else}
 	<a {...hostProps}>{@render children?.()}</a>
 {/if}

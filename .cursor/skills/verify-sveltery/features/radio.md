@@ -13,7 +13,7 @@ A single radio button. Upstream: `packages/react/src/radio/root/RadioRoot.tsx` a
 - `required`: `data-required` on the root. There is no `aria-required`. The hidden radio is `required`. A named group blocks submit until one radio is selected. A radio with no name does not, because the browser only validates a radio button group.
 - `nativeButton`: render a `<button type="button">`. The `id` moves onto that button. Space uses the button's own activation. Enter still does not select.
 - `Radio.Indicator` renders while selected. It sets `data-starting-style` for one frame when it mounts, then `data-ending-style` until the exit animation ends. `keepMounted` leaves it in the DOM when hidden. Several indicators that finish together leave in the same update.
-- State attributes: `data-checked` or `data-unchecked`, plus `data-disabled`, `data-readonly`, and `data-required` when those props are set. A selected radio also sets `data-composite-item-active`. The indicator repeats the checked and field-style hooks it has. A `render` snippet receives `(props, state)`.
+- State attributes: `data-checked` or `data-unchecked`, plus `data-disabled`, `data-readonly`, and `data-required` when those props are set. A selected radio also sets `data-composite-item-active`. The indicator repeats the checked and field-style hooks it has. A `render` snippet receives `(props, state, children)`. `children` is undefined when the consumer passed none.
 - A sibling or wrapping `<label>` supplies `aria-labelledby` after mount. Server HTML omits that attribute.
 - Consumer `{@attach}` reaches the host through the spread props. Element access inside the component uses `bind:this`.
 

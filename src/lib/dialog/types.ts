@@ -5,6 +5,7 @@ import type { BaseUIChangeEventDetails, REASONS } from '../internal/event-detail
 import type { PortalProps } from '../internal/portal-props.js';
 import type { PopupTransitionStatus } from '../internal/useTransitionStatus.svelte.js';
 import type { DialogHandle } from './handle.svelte.js';
+import type { RenderChildren } from '../internal/render-children.js';
 
 export type DialogInteractionType = 'mouse' | 'touch' | 'pen' | 'keyboard' | '';
 
@@ -74,7 +75,7 @@ type PartRender<Element extends EventTarget, State> = Snippet<
 	[
 		props: HTMLAttributes<Element> & Record<symbol, Attachment<Element>>,
 		state: State,
-		children: Snippet
+		children: RenderChildren
 	]
 >;
 
@@ -137,7 +138,9 @@ export interface DialogTriggerProps<Payload = unknown> extends DialogControlProp
 	/** Associates this trigger with a dialog that is not its parent. */
 	handle?: DialogHandle<Payload>;
 	id?: string;
-	render?: Snippet<[props: DialogTriggerHostProps, state: DialogTriggerState, children: Snippet]>;
+	render?: Snippet<
+		[props: DialogTriggerHostProps, state: DialogTriggerState, children: RenderChildren]
+	>;
 }
 
 export interface DialogPortalProps extends PortalProps {
@@ -174,7 +177,9 @@ export interface DialogBackdropProps extends Omit<HTMLAttributes<HTMLDivElement>
 }
 
 export interface DialogCloseProps extends DialogControlProps {
-	render?: Snippet<[props: DialogTriggerHostProps, state: DialogCloseState, children: Snippet]>;
+	render?: Snippet<
+		[props: DialogTriggerHostProps, state: DialogCloseState, children: RenderChildren]
+	>;
 }
 
 export interface DialogTitleProps extends Omit<HTMLAttributes<HTMLHeadingElement>, 'children'> {

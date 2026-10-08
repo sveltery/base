@@ -31,13 +31,24 @@
 	});
 </script>
 
+{#snippet valueText()}
+	{#if children}
+		{@render children(formattedValueArg, rawValue)}
+	{:else}
+		{formattedValueDisplay}
+	{/if}
+{/snippet}
+
 {#if render}
-	{@render render(hostProps, state)}
+	{@render render(
+		hostProps,
+		state,
+		children || formattedValueDisplay != null ? valueText : undefined
+	)}
 {:else}
-	<span {...hostProps}
-		>{#if children}{@render children(
-				formattedValueArg,
-				rawValue
-			)}{:else if formattedValueDisplay != null}{formattedValueDisplay}{/if}</span
-	>
+	<span {...hostProps}>
+		{#if children || formattedValueDisplay != null}
+			{@render valueText()}
+		{/if}
+	</span>
 {/if}

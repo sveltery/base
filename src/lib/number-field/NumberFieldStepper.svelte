@@ -220,12 +220,8 @@
 	});
 </script>
 
-{#snippet content()}
-	{@render children?.()}
-{/snippet}
-
 {#if render}
-	{@render render(hostProps, state, content)}
+	{@render render(hostProps, state, children)}
 {:else}
-	<button {...hostProps}>{@render content()}</button>
+	<button {...hostProps}>{@render children?.()}</button>
 {/if}

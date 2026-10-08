@@ -1,41 +1,9 @@
 {
 	"version": 3,
 	"pairs": {
-		"html:src/lib/accordion/AccordionHeader.svelte|src/lib/accordion/AccordionTrigger.svelte": {
-			"count": 1,
-			"lines": 28
-		},
-		"html:src/lib/accordion/AccordionHeader.svelte|src/lib/meter/MeterIndicator.svelte": {
-			"count": 1,
-			"lines": 27
-		},
-		"html:src/lib/accordion/AccordionHeader.svelte|src/lib/scroll-area/ScrollAreaContent.svelte": {
-			"count": 1,
-			"lines": 27
-		},
-		"html:src/lib/accordion/AccordionHeader.svelte|src/lib/scroll-area/ScrollAreaThumb.svelte": {
-			"count": 1,
-			"lines": 27
-		},
-		"html:src/lib/accordion/AccordionHeader.svelte|src/lib/scroll-area/ScrollAreaViewport.svelte": {
-			"count": 1,
-			"lines": 27
-		},
-		"html:src/lib/accordion/AccordionHeader.svelte|src/lib/slider/SliderControl.svelte": {
-			"count": 1,
-			"lines": 27
-		},
 		"html:src/lib/accordion/AccordionTrigger.svelte|src/lib/collapsible/CollapsibleTrigger.svelte": {
 			"count": 1,
-			"lines": 124
-		},
-		"html:src/lib/accordion/AccordionTrigger.svelte|src/lib/meter/MeterLabel.svelte": {
-			"count": 1,
-			"lines": 120
-		},
-		"html:src/lib/accordion/AccordionTrigger.svelte|src/lib/number-field/NumberFieldStepper.svelte": {
-			"count": 1,
-			"lines": 122
+			"lines": 117
 		},
 		"html:src/lib/checkbox/CheckboxIndicator.svelte|src/lib/radio/RadioIndicator.svelte": {
 			"count": 1,
@@ -45,61 +13,21 @@
 			"count": 1,
 			"lines": 48
 		},
-		"html:src/lib/fieldset/FieldsetLegend.svelte|src/lib/progress/ProgressIndicator.svelte": {
-			"count": 1,
-			"lines": 36
-		},
-		"html:src/lib/fieldset/FieldsetLegend.svelte|src/lib/progress/ProgressRoot.svelte": {
-			"count": 1,
-			"lines": 35
-		},
-		"html:src/lib/fieldset/FieldsetLegend.svelte|src/lib/progress/ProgressTrack.svelte": {
-			"count": 1,
-			"lines": 36
-		},
-		"html:src/lib/fieldset/FieldsetLegend.svelte|src/lib/separator/Separator.svelte": {
-			"count": 1,
-			"lines": 36
-		},
-		"html:src/lib/fieldset/FieldsetLegend.svelte|src/lib/toolbar/ToolbarGroup.svelte": {
-			"count": 1,
-			"lines": 36
-		},
-		"html:src/lib/meter/MeterIndicator.svelte|src/lib/meter/MeterLabel.svelte": {
-			"count": 1,
-			"lines": 31
-		},
-		"html:src/lib/meter/MeterIndicator.svelte|src/lib/scroll-area/ScrollAreaContent.svelte": {
-			"count": 1,
-			"lines": 32
-		},
-		"html:src/lib/meter/MeterIndicator.svelte|src/lib/scroll-area/ScrollAreaThumb.svelte": {
-			"count": 1,
-			"lines": 32
-		},
-		"html:src/lib/meter/MeterIndicator.svelte|src/lib/scroll-area/ScrollAreaViewport.svelte": {
-			"count": 1,
-			"lines": 32
-		},
-		"html:src/lib/meter/MeterIndicator.svelte|src/lib/slider/SliderControl.svelte": {
-			"count": 1,
-			"lines": 32
-		},
 		"html:src/lib/progress/ProgressLabel.svelte|src/lib/switch/SwitchThumb.svelte": {
 			"count": 1,
 			"lines": 39
 		},
 		"html:src/lib/scroll-area/ScrollAreaContent.svelte|src/lib/scroll-area/ScrollAreaThumb.svelte": {
 			"count": 1,
-			"lines": 54
+			"lines": 53
 		},
 		"html:src/lib/scroll-area/ScrollAreaContent.svelte|src/lib/scroll-area/ScrollAreaViewport.svelte": {
 			"count": 1,
-			"lines": 54
+			"lines": 53
 		},
 		"html:src/lib/scroll-area/ScrollAreaContent.svelte|src/lib/slider/SliderControl.svelte": {
 			"count": 1,
-			"lines": 53
+			"lines": 52
 		},
 		"javascript:eslint/effects.js|eslint/no-previous-value-effect.js": {
 			"count": 1,

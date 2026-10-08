@@ -118,7 +118,7 @@
 						data-rendered="true"
 						data-overflow={partState.hasOverflowY ? 'yes' : 'no'}
 					>
-						{@render rootChildren()}
+						{@render rootChildren?.()}
 					</div>
 				{/snippet}
 				{@render parts()}

@@ -1,6 +1,7 @@
 import type { Snippet } from 'svelte';
 import type { HTMLAttributes } from 'svelte/elements';
 import type { BaseUIChangeEventDetails, REASONS } from '../internal/event-details.js';
+import type { RenderChildren } from '../internal/render-children.js';
 
 export interface RadioGroupState {
 	/** Whether the group should ignore user interaction. */
@@ -53,6 +54,8 @@ export interface RadioGroupProps<Value = unknown> extends Omit<
 	/** Called before the value changes. Call `eventDetails.cancel()` to veto it. */
 	onValueChange?: (value: Value, eventDetails: RadioGroupChangeEventDetails) => void;
 	/** Replace the default `<div>`. Spread `props` onto the host element. */
-	render?: Snippet<[props: HTMLAttributes<HTMLDivElement>, state: RadioGroupState]>;
+	render?: Snippet<
+		[props: HTMLAttributes<HTMLDivElement>, state: RadioGroupState, children: RenderChildren]
+	>;
 	children?: Snippet;
 }

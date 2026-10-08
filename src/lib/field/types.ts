@@ -2,6 +2,7 @@ import type { Snippet } from 'svelte';
 import type { HTMLAttributes, HTMLInputAttributes, HTMLLabelAttributes } from 'svelte/elements';
 import type { BaseUIChangeEventDetails, REASONS } from '../internal/event-details.js';
 import type { FieldValidityData, FormValidationMode } from '../form/types.js';
+import type { RenderChildren } from '../internal/render-children.js';
 
 export type { FieldValidityData };
 
@@ -67,7 +68,9 @@ export interface FieldRootProps extends Omit<HTMLAttributes<HTMLDivElement>, 'ch
 	/** Imperative handle. Use `bind:actions` and call `actions.validate()`. */
 	actions?: FieldRootActions;
 	/** Replace the default `<div>`. Spread `props` onto the host element. */
-	render?: Snippet<[props: HTMLAttributes<HTMLElement>, state: FieldRootState]>;
+	render?: Snippet<
+		[props: HTMLAttributes<HTMLElement>, state: FieldRootState, children: RenderChildren]
+	>;
 	children?: Snippet;
 }
 
@@ -91,7 +94,9 @@ export interface FieldControlProps extends Omit<
 	/** Called when the user edits the control. `eventDetails.cancel()` vetoes the change. */
 	onValueChange?: (value: string, eventDetails: FieldControlChangeEventDetails) => void;
 	/** Replace the default `<input>`. Spread `props` onto the host element. */
-	render?: Snippet<[props: HTMLAttributes<HTMLElement>, state: FieldControlState]>;
+	render?: Snippet<
+		[props: HTMLAttributes<HTMLElement>, state: FieldControlState, children: RenderChildren]
+	>;
 	children?: Snippet;
 }
 
@@ -105,7 +110,9 @@ export interface FieldLabelProps extends Omit<HTMLLabelAttributes, 'children' | 
 	 */
 	nativeLabel?: boolean;
 	/** Replace the default `<label>`. Spread `props` onto the host element. */
-	render?: Snippet<[props: HTMLAttributes<HTMLElement>, state: FieldLabelState]>;
+	render?: Snippet<
+		[props: HTMLAttributes<HTMLElement>, state: FieldLabelState, children: RenderChildren]
+	>;
 	children?: Snippet;
 }
 
@@ -116,7 +123,9 @@ export interface FieldDescriptionProps extends Omit<
 	'children'
 > {
 	/** Replace the default `<p>`. Spread `props` onto the host element. */
-	render?: Snippet<[props: HTMLAttributes<HTMLElement>, state: FieldDescriptionState]>;
+	render?: Snippet<
+		[props: HTMLAttributes<HTMLElement>, state: FieldDescriptionState, children: RenderChildren]
+	>;
 	children?: Snippet;
 }
 
@@ -133,7 +142,9 @@ export interface FieldErrorProps extends Omit<HTMLAttributes<HTMLDivElement>, 'c
 	 */
 	match?: boolean | keyof ValidityState;
 	/** Replace the default `<div>`. Spread `props` onto the host element. */
-	render?: Snippet<[props: HTMLAttributes<HTMLElement>, state: FieldErrorState]>;
+	render?: Snippet<
+		[props: HTMLAttributes<HTMLElement>, state: FieldErrorState, children: RenderChildren]
+	>;
 	children?: Snippet;
 }
 
@@ -147,7 +158,9 @@ export interface FieldItemProps extends Omit<HTMLAttributes<HTMLDivElement>, 'ch
 	 */
 	disabled?: boolean;
 	/** Replace the default `<div>`. Spread `props` onto the host element. */
-	render?: Snippet<[props: HTMLAttributes<HTMLElement>, state: FieldItemState]>;
+	render?: Snippet<
+		[props: HTMLAttributes<HTMLElement>, state: FieldItemState, children: RenderChildren]
+	>;
 	children?: Snippet;
 }
 

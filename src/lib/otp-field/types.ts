@@ -7,6 +7,7 @@ import type {
 	REASONS
 } from '../internal/event-details.js';
 import type { OTPValidationType } from './otp.js';
+import type { RenderChildren } from '../internal/render-children.js';
 
 export type OTPFieldValidationType = OTPValidationType;
 
@@ -49,7 +50,7 @@ export interface OTPFieldInputState extends Omit<OTPFieldRootState, 'filled' | '
 }
 
 type RootRender = Snippet<
-	[props: HTMLAttributes<HTMLDivElement>, state: OTPFieldRootState, children: Snippet]
+	[props: HTMLAttributes<HTMLDivElement>, state: OTPFieldRootState, children: RenderChildren]
 >;
 
 export interface OTPFieldRootProps extends Omit<HTMLAttributes<HTMLDivElement>, 'children'> {
@@ -125,6 +126,8 @@ export interface OTPFieldRootProps extends Omit<HTMLAttributes<HTMLDivElement>, 
 
 export interface OTPFieldInputProps extends Omit<HTMLInputAttributes, 'children' | 'value'> {
 	/** Replace the default `<input>`. Spread `props` onto the host. */
-	render?: Snippet<[props: HTMLInputAttributes, state: OTPFieldInputState]>;
+	render?: Snippet<
+		[props: HTMLInputAttributes, state: OTPFieldInputState, children: RenderChildren]
+	>;
 	children?: Snippet;
 }

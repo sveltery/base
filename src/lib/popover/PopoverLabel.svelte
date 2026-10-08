@@ -9,6 +9,7 @@
 	import { createAttachmentKey, type Attachment } from 'svelte/attachments';
 	import type { Snippet } from 'svelte';
 	import type { HTMLAttributes } from 'svelte/elements';
+	import type { RenderChildren } from '../internal/render-children.js';
 	import { mergeProps } from '../internal/mergeProps.js';
 	import { registerLabelElementId } from '../internal/popups/labelId.js';
 	import { usePopoverRoot } from './context.svelte.js';
@@ -24,7 +25,7 @@
 		part: 'title' | 'description';
 		tag: 'h2' | 'p';
 		id?: string | null;
-		render?: Snippet<[HTMLAttributes<Element>, Snippet]>;
+		render?: Snippet<[HTMLAttributes<Element>, Record<string, never>, RenderChildren]>;
 		children?: Snippet;
 		elementProps: HTMLAttributes<Element>;
 	} = $props();
@@ -37,16 +38,13 @@
 	const register: Attachment<HTMLElement> = () => registerLabelElementId(store, part, id);
 
 	const hostProps = $derived(mergeProps(elementProps, { id, [bindKey]: register }));
+	const state: Record<string, never> = {};
 </script>
 
-{#snippet content()}
-	{@render children?.()}
-{/snippet}
-
 {#if render}
-	{@render render(hostProps, content)}
+	{@render render(hostProps, state, children)}
 {:else if tag === 'h2'}
-	<h2 {...hostProps as unknown as HTMLAttributes<HTMLHeadingElement>}>{@render content()}</h2>
+	<h2 {...hostProps as unknown as HTMLAttributes<HTMLHeadingElement>}>{@render children?.()}</h2>
 {:else}
-	<p {...hostProps as unknown as HTMLAttributes<HTMLParagraphElement>}>{@render content()}</p>
+	<p {...hostProps as unknown as HTMLAttributes<HTMLParagraphElement>}>{@render children?.()}</p>
 {/if}

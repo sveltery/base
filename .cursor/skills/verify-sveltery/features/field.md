@@ -13,7 +13,7 @@ Labels, describes, and validates one control. Upstream: `packages/react/src/fiel
 - `Field.Error` shows when `match` is true, when a string `match` equals that validity flag, or (when `match` is omitted or false) when there is a form error or `valid === false`. An error array longer than one item renders a list. Closing keeps the element mounted with `data-ending-style` until animations finish.
 - `Field.Validity` calls its children snippet with `validity`, `error`, `errors`, `value`, `initialValue`, and `transitionStatus`.
 - `Field.Item` has its own labelable scope and `disabled` flag for the item, label, and description. It does not disable `Field.Control`.
-- `bind:actions` exposes `validate()`. A `render` snippet receives `(props, state)`. Consumer `{@attach}` reaches the host.
+- `bind:actions` exposes `validate()`. A `render` snippet receives `(props, state, children)`. `children` is undefined when the consumer passed none. `Field.Error` passes the consumer's children when they exist, otherwise the message. Consumer `{@attach}` reaches the host.
 
 Differences from React Base UI, all deliberate:
 

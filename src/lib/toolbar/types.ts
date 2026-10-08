@@ -1,5 +1,6 @@
 import type { Snippet } from 'svelte';
 import type { HTMLAnchorAttributes, HTMLAttributes, HTMLButtonAttributes } from 'svelte/elements';
+import type { RenderChildren } from '../internal/render-children.js';
 
 export type ToolbarOrientation = 'horizontal' | 'vertical';
 
@@ -21,7 +22,9 @@ export interface ToolbarRootProps extends Omit<HTMLAttributes<HTMLDivElement>, '
 	 */
 	loopFocus?: boolean;
 	/** Replace the default `<div>`. Spread `props` onto the host element. */
-	render?: Snippet<[props: HTMLAttributes<HTMLDivElement>, state: ToolbarRootState]>;
+	render?: Snippet<
+		[props: HTMLAttributes<HTMLDivElement>, state: ToolbarRootState, children: RenderChildren]
+	>;
 	children?: Snippet;
 }
 
@@ -56,7 +59,9 @@ export interface ToolbarButtonProps extends Omit<HTMLButtonAttributes, 'children
 	/** Runs for a click the button does not ignore. */
 	onclick?: HTMLButtonAttributes['onclick'];
 	/** Replace the default `<button>`. Spread `props` onto the host element. */
-	render?: Snippet<[props: ToolbarButtonHostProps, state: ToolbarButtonState]>;
+	render?: Snippet<
+		[props: ToolbarButtonHostProps, state: ToolbarButtonState, children: RenderChildren]
+	>;
 	children?: Snippet;
 }
 
@@ -66,7 +71,9 @@ export interface ToolbarGroupProps extends Omit<HTMLAttributes<HTMLDivElement>, 
 	/** Whether every button in the group ignores user interaction. Links stay active. @default false */
 	disabled?: boolean;
 	/** Replace the default `<div>`. Spread `props` onto the host element. */
-	render?: Snippet<[props: HTMLAttributes<HTMLDivElement>, state: ToolbarGroupState]>;
+	render?: Snippet<
+		[props: HTMLAttributes<HTMLDivElement>, state: ToolbarGroupState, children: RenderChildren]
+	>;
 	children?: Snippet;
 }
 
@@ -79,6 +86,8 @@ export type ToolbarLinkHostProps = HTMLAnchorAttributes;
 
 export interface ToolbarLinkProps extends Omit<HTMLAnchorAttributes, 'children'> {
 	/** Replace the default `<a>`. Spread `props` onto the host element. */
-	render?: Snippet<[props: ToolbarLinkHostProps, state: ToolbarLinkState]>;
+	render?: Snippet<
+		[props: ToolbarLinkHostProps, state: ToolbarLinkState, children: RenderChildren]
+	>;
 	children?: Snippet;
 }

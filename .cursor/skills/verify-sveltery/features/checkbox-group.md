@@ -11,7 +11,7 @@ Shared checked values for a series of checkboxes, including a parent checkbox. U
 - `allValues` turns on the parent checkbox. `Checkbox.Root parent` sets `data-parent` and `aria-controls` to the rendered child ids, in `allValues` order. Several checkboxes can share a value and each id is listed. A custom `id` on a non-button host stays on the hidden input, so `aria-controls` names the exposed element. Unmounting a child drops its id. A value of `constructor` does not read `Object.prototype`.
 - The parent is checked when the value length equals `allValues.length`, and mixed when the value is a non-empty shorter list. A click selects every enabled value, or clears back to the disabled values that are already checked. From a partial selection it cycles all, none, then that partial snapshot. The snapshot updates only after a child change that was not canceled. A canceled parent click retries the same step. A parent or child `onCheckedChange` that cancels runs before the group hears the change.
 - A checked hidden input submits its `name` and `value`. The parent submits nothing. `uncheckedValue` is not submitted inside a group.
-- Native rendering: a `render` snippet receives `(props, state)`. Consumer `{@attach}` reaches the host.
+- Native rendering: a `render` snippet receives `(props, state, children)`. `children` is undefined when the consumer passed none. Consumer `{@attach}` reaches the host.
 
 Differences from React Base UI, all deliberate:
 

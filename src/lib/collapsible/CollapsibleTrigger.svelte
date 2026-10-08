@@ -6,6 +6,7 @@
 -->
 <script lang="ts">
 	import { currentHost, dispatchClick, isLink } from '../internal/click.js';
+	import PartHost from '../internal/PartHost.svelte';
 	import { getStateAttributesProps } from '../internal/state-attributes.js';
 	import { triggerStateAttributesMapping } from './attributes.js';
 	import { useCollapsibleRootContext } from './context.svelte.js';
@@ -105,12 +106,4 @@
 	});
 </script>
 
-{#snippet content()}
-	{@render children?.()}
-{/snippet}
-
-{#if render}
-	{@render render(hostProps, state, content)}
-{:else}
-	<button {...hostProps}>{@render content()}</button>
-{/if}
+<PartHost tag="button" {render} {children} elementProps={hostProps} partState={state} />

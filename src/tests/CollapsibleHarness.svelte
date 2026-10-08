@@ -80,7 +80,7 @@
 	{#if triggerAs === 'span'}
 		<Collapsible.Trigger nativeButton={false} disabled={triggerDisabled} {onclick} id={triggerId}>
 			{#snippet render(props, _state, triggerChildren)}
-				<span {...props}>{@render triggerChildren()}</span>
+				<span {...props}>{@render triggerChildren?.()}</span>
 			{/snippet}
 			{triggerLabel}
 		</Collapsible.Trigger>
@@ -106,7 +106,7 @@
 					{:else if removeWhenClosed && !state.open}
 						<!-- Author render drops the panel as soon as it closes. -->
 					{:else}
-						<div {...props}>{@render panelChildren()}</div>
+						<div {...props}>{@render panelChildren?.()}</div>
 					{/if}
 				{/snippet}
 				{content}

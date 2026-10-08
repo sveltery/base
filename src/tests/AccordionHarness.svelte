@@ -127,7 +127,7 @@
 						: item.triggerId}
 				>
 					{#snippet render(props, _state, triggerChildren)}
-						<span {...props}>{@render triggerChildren()}</span>
+						<span {...props}>{@render triggerChildren?.()}</span>
 					{/snippet}
 					{item.label ?? `Trigger ${index + 1}`}
 				</Accordion.Trigger>
@@ -169,7 +169,7 @@
 			>
 				{#snippet render(props, state, itemChildren)}
 					{record(state)}
-					<div {...props}>{@render itemChildren()}</div>
+					<div {...props}>{@render itemChildren?.()}</div>
 				{/snippet}
 				{@render itemBody(item, index)}
 			</Accordion.Item>

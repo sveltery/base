@@ -5,6 +5,7 @@ import type { PortalProps } from '../internal/portal-props.js';
 import type { Align, Side, UseAnchorPositioningParameters } from '../internal/popups/index.js';
 import type { PopupTransitionStatus } from '../internal/useTransitionStatus.svelte.js';
 import type { PopoverHandle } from './handle.svelte.js';
+import type { RenderChildren } from '../internal/render-children.js';
 
 export type { Align, Side };
 
@@ -42,7 +43,7 @@ export interface PopoverRootState {
 }
 
 type PartRender<Element extends EventTarget, State> = Snippet<
-	[props: HTMLAttributes<Element>, state: State, children: Snippet]
+	[props: HTMLAttributes<Element>, state: State, children: RenderChildren]
 >;
 
 export interface PopoverRootProps<Payload = unknown> {
@@ -107,7 +108,9 @@ export interface PopoverTriggerProps<Payload = unknown> extends Omit<
 	delay?: number;
 	/** Hover close delay in milliseconds. @default 0 */
 	closeDelay?: number;
-	render?: Snippet<[props: PopoverTriggerHostProps, state: PopoverTriggerState, children: Snippet]>;
+	render?: Snippet<
+		[props: PopoverTriggerHostProps, state: PopoverTriggerState, children: RenderChildren]
+	>;
 	children?: Snippet;
 }
 
@@ -197,8 +200,12 @@ export interface PopoverBackdropProps extends Omit<HTMLAttributes<HTMLDivElement
 	children?: Snippet;
 }
 
+export type PopoverTitleState = Record<string, never>;
+
 export interface PopoverTitleProps extends Omit<HTMLAttributes<HTMLHeadingElement>, 'children'> {
-	render?: Snippet<[props: HTMLAttributes<HTMLHeadingElement>, children: Snippet]>;
+	render?: Snippet<
+		[props: HTMLAttributes<HTMLHeadingElement>, state: PopoverTitleState, children: RenderChildren]
+	>;
 	children?: Snippet;
 }
 
@@ -206,14 +213,26 @@ export interface PopoverDescriptionProps extends Omit<
 	HTMLAttributes<HTMLParagraphElement>,
 	'children'
 > {
-	render?: Snippet<[props: HTMLAttributes<HTMLParagraphElement>, children: Snippet]>;
+	render?: Snippet<
+		[
+			props: HTMLAttributes<HTMLParagraphElement>,
+			state: PopoverDescriptionState,
+			children: RenderChildren
+		]
+	>;
 	children?: Snippet;
 }
+
+export type PopoverDescriptionState = Record<string, never>;
+
+export type PopoverCloseState = Record<string, never>;
 
 export interface PopoverCloseProps extends Omit<HTMLButtonAttributes, 'children' | 'disabled'> {
 	disabled?: boolean;
 	nativeButton?: boolean;
-	render?: Snippet<[props: HTMLButtonAttributes, children: Snippet]>;
+	render?: Snippet<
+		[props: HTMLButtonAttributes, state: PopoverCloseState, children: RenderChildren]
+	>;
 	children?: Snippet;
 }
 

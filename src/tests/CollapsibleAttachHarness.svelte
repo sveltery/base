@@ -16,13 +16,13 @@
 	<Collapsible.Root class="from-props" {@attach capture}>
 		{#snippet render(props, state, children)}
 			<div {...props} data-open-state={state.open} data-custom="true">
-				{@render children()}
+				{@render children?.()}
 			</div>
 		{/snippet}
 		<Collapsible.Trigger>
 			{#snippet render(props, state, children)}
 				<button {...props} data-panel-open={state.open}>
-					{@render children()}
+					{@render children?.()}
 				</button>
 			{/snippet}
 			Trigger
@@ -30,7 +30,7 @@
 		<Collapsible.Panel>
 			{#snippet render(props, state, children)}
 				<div {...props} data-panel-phase={state.transitionStatus ?? 'closed'}>
-					{@render children()}
+					{@render children?.()}
 				</div>
 			{/snippet}
 			Panel

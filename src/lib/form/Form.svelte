@@ -161,12 +161,8 @@
 	});
 </script>
 
-{#snippet content()}
-	{@render children?.()}
-{/snippet}
-
 {#if render}
-	{@render render(hostProps, formState, content)}
+	{@render render(hostProps, formState, children)}
 {:else}
-	<form {...hostProps} bind:this={element}>{@render content()}</form>
+	<form {...hostProps} bind:this={element}>{@render children?.()}</form>
 {/if}

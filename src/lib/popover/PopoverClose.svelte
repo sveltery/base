@@ -5,11 +5,12 @@
 -->
 <script lang="ts">
 	import { createAttachmentKey } from 'svelte/attachments';
+	import PartHost from '../internal/PartHost.svelte';
 	import { createChangeEventDetails, REASONS } from '../internal/event-details.js';
 	import { mergeProps } from '../internal/mergeProps.js';
 	import { useButton } from '../internal/useButton.js';
 	import { useCloseParts, usePopoverRoot } from './context.svelte.js';
-	import type { PopoverCloseProps } from './types.js';
+	import type { PopoverCloseProps, PopoverCloseState } from './types.js';
 
 	let {
 		disabled = false,
@@ -40,14 +41,7 @@
 			{ [bindKey]: register }
 		)
 	);
+	const state: PopoverCloseState = {};
 </script>
 
-{#if render}
-	{@render render(hostProps, content)}
-{:else}
-	<button {...hostProps}>{@render content()}</button>
-{/if}
-
-{#snippet content()}
-	{@render children?.()}
-{/snippet}
+<PartHost tag="button" {render} {children} elementProps={hostProps} partState={state} />

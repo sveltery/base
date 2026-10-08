@@ -10,7 +10,7 @@ A progress bar with root, track, indicator, value, and label parts. Upstream: `p
 - `Progress.Label` registers its id on the root as `aria-labelledby` and clears it on destroy. An explicit `id` is used as-is. A generated id is `base-ui-` plus the component id. Removing one label does not clear a newer label's id.
 - `Progress.Track` and `Progress.Indicator` share the root status attributes. The indicator's inline style is `inset-inline-start: 0; height: inherit; width: <percent>%` while determinate, and has no fill style while indeterminate. A consumer `style` string is appended so it wins on conflict.
 - The default root appends a visually hidden `<span role="presentation">x</span>` so NVDA reads the label (upstream issue 4184).
-- A `render` snippet receives `(props, state)` and replaces the host. Consumer `{@attach}` reaches the host through the props spread.
+- A `render` snippet receives `(props, state, children)` and replaces the host. `children` is undefined when the consumer passed none and the part adds none. `Progress.Root` still passes a snippet that includes a visually hidden `x`. `Progress.Value` passes the formatted value when it is finite, and undefined when the bar is indeterminate and the consumer passed no children. Consumer `{@attach}` reaches the host through the props spread.
 
 Differences from React Base UI, all deliberate:
 

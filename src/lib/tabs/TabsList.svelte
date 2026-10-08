@@ -7,6 +7,7 @@
 -->
 <script lang="ts">
 	import type { HTMLAttributes } from 'svelte/elements';
+	import PartHost from '../internal/PartHost.svelte';
 	import { CompositeRoot } from '../internal/composite-root.svelte.js';
 	import { isSkipped } from '../internal/composite-skip.js';
 	import { useDirection } from '../internal/direction-context.js';
@@ -68,10 +69,4 @@
 	});
 </script>
 
-{#snippet empty()}{/snippet}
-
-{#if render}
-	{@render render(hostProps, state, children ?? empty)}
-{:else}
-	<div {...hostProps}>{@render children?.()}</div>
-{/if}
+<PartHost tag="div" {render} {children} elementProps={hostProps} partState={state} />

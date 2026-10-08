@@ -32,7 +32,7 @@
 		onValueChange,
 		autofocus = false,
 		render,
-		children: _children,
+		children,
 		oninput,
 		onfocus,
 		onblur,
@@ -233,7 +233,7 @@
 </script>
 
 {#if render}
-	{@render render(hostProps as HTMLAttributes<HTMLElement>, controlState)}
+	{@render render(hostProps as HTMLAttributes<HTMLElement>, controlState, children)}
 {:else}
 	<input {...hostProps} />
 {/if}

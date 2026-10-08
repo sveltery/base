@@ -8,6 +8,7 @@
 <script lang="ts">
 	import { untrack } from 'svelte';
 	import type { HTMLAttributes } from 'svelte/elements';
+	import PartHost from '../internal/PartHost.svelte';
 	import { CompositeRoot } from '../internal/composite-root.svelte.js';
 	import { createControllableValue } from '../internal/controllable-value.svelte.js';
 	import { useDirection } from '../internal/direction-context.js';
@@ -78,8 +79,4 @@
 	});
 </script>
 
-{#if render}
-	{@render render(hostProps, state)}
-{:else}
-	<div {...hostProps}>{@render children?.()}</div>
-{/if}
+<PartHost tag="div" {render} {children} elementProps={hostProps} partState={state} />

@@ -2,11 +2,13 @@
 	Host element for a part. Counterpart of upstream `useRenderElement`.
 	`tag` selects the host and the attribute type. A `render` snippet replaces it.
 -->
-<script lang="ts" generics="Tag extends keyof HTMLElementTagNameMap, State">
+<script
+	lang="ts"
+	generics="Tag extends keyof SvelteHTMLElements, State, Props extends SvelteHTMLElements[Tag]"
+>
 	import type { Snippet } from 'svelte';
 	import type { SvelteHTMLElements } from 'svelte/elements';
-
-	type HostProps = SvelteHTMLElements[Tag];
+	import type { RenderChildren } from './render-children.js';
 
 	let {
 		tag,
@@ -16,19 +18,15 @@
 		children
 	}: {
 		tag: Tag;
-		elementProps: HostProps;
+		elementProps: Props;
 		partState: State;
-		render?: Snippet<[props: HostProps, state: State, children: Snippet]>;
+		render?: Snippet<[props: Props, state: State, children: RenderChildren]>;
 		children?: Snippet;
 	} = $props();
 </script>
 
-{#snippet body()}
-	{@render children?.()}
-{/snippet}
-
 {#if render}
-	{@render render(elementProps, partState, body)}
+	{@render render(elementProps, partState, children)}
 {:else}
-	<svelte:element this={tag} {...elementProps}>{@render body()}</svelte:element>
+	<svelte:element this={tag} {...elementProps}>{@render children?.()}</svelte:element>
 {/if}

@@ -11,6 +11,7 @@
 	import type { HTMLAttributes, HTMLButtonAttributes } from 'svelte/elements';
 	import Button from '../button/Button.svelte';
 	import type { DialogTriggerHostProps } from './types.js';
+	import type { RenderChildren } from '../internal/render-children.js';
 
 	let {
 		disabled = false,
@@ -33,7 +34,7 @@
 		onpointerdown?: HTMLButtonAttributes['onpointerdown'];
 		onkeydown?: HTMLButtonAttributes['onkeydown'];
 		onkeyup?: HTMLButtonAttributes['onkeyup'];
-		render?: Snippet<[DialogTriggerHostProps, State, Snippet]>;
+		render?: Snippet<[DialogTriggerHostProps, State, RenderChildren]>;
 		state: State;
 		children?: Snippet;
 		described: Record<string, unknown>;
@@ -41,17 +42,13 @@
 	} = $props();
 </script>
 
-{#snippet content()}
-	{@render children?.()}
-{/snippet}
-
 {#snippet host(props: HTMLAttributes<HTMLElement>, _buttonState: { disabled: boolean })}
 	{#if render}
-		{@render render(props, state, content)}
+		{@render render(props, state, children)}
 	{:else if attach}
-		<button {...props} {@attach attach}>{@render content()}</button>
+		<button {...props} {@attach attach}>{@render children?.()}</button>
 	{:else}
-		<button {...props}>{@render content()}</button>
+		<button {...props}>{@render children?.()}</button>
 	{/if}
 {/snippet}
 

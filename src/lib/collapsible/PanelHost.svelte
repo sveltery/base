@@ -17,6 +17,7 @@
 	import { CollapsiblePanelMotion } from './panel-motion.svelte.js';
 	import type { TransitionStatus } from './types.js';
 	import { devWarn } from './warn.js';
+	import type { RenderChildren } from '../internal/render-children.js';
 
 	type HostProps = HTMLAttributes<HTMLDivElement> & { hidden?: boolean | 'until-found' };
 
@@ -46,7 +47,7 @@
 		buildState: (status: TransitionStatus) => State;
 		extra?: HTMLAttributes<HTMLDivElement>;
 		elementProps: HTMLAttributes<HTMLDivElement>;
-		render?: Snippet<[HostProps, State, Snippet]>;
+		render?: Snippet<[HostProps, State, RenderChildren]>;
 		children?: Snippet;
 	} = $props();
 
@@ -104,14 +105,10 @@
 	});
 </script>
 
-{#snippet content()}
-	{@render children?.()}
-{/snippet}
-
 {#if shouldRender}
 	{#if render}
-		{@render render(hostProps, state, content)}
+		{@render render(hostProps, state, children)}
 	{:else}
-		<div {...hostProps}>{@render content()}</div>
+		<div {...hostProps}>{@render children?.()}</div>
 	{/if}
 {/if}

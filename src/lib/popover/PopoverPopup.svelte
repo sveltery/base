@@ -127,12 +127,8 @@
 	restoreFocus="popup"
 >
 	{#if render}
-		{@render render(hostProps, popupState, content)}
+		{@render render(hostProps, popupState, children)}
 	{:else}
-		<div {...hostProps}>{@render content()}</div>
+		<div {...hostProps}>{@render children?.()}</div>
 	{/if}
 </FloatingFocusManager>
-
-{#snippet content()}
-	{@render children?.()}
-{/snippet}

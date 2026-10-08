@@ -230,12 +230,8 @@
 	});
 </script>
 
-{#snippet content()}
-	{@render children?.()}
-{/snippet}
-
 {#if render}
-	{@render render(hostProps, scrubState, content)}
+	{@render render(hostProps, scrubState, children)}
 {:else}
-	<span {...hostProps} bind:this={areaEl}>{@render content()}</span>
+	<span {...hostProps} bind:this={areaEl}>{@render children?.()}</span>
 {/if}

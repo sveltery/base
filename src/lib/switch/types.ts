@@ -1,6 +1,7 @@
 import type { Snippet } from 'svelte';
 import type { HTMLAttributes } from 'svelte/elements';
 import type { BaseUIChangeEventDetails, REASONS } from '../internal/event-details.js';
+import type { RenderChildren } from '../internal/render-children.js';
 
 export interface SwitchRootState {
 	/** Whether the switch is currently active. */
@@ -83,12 +84,14 @@ export interface SwitchRootProps extends Omit<HTMLAttributes<HTMLElement>, 'chil
 	/** Runs before the switch's click handler. Call `event.preventDefault()` to skip it. */
 	onclick?: HTMLAttributes<HTMLElement>['onclick'];
 	/** Replace the default `<span>`. Spread `props` onto the host element. */
-	render?: Snippet<[props: SwitchHostProps, state: SwitchRootState]>;
+	render?: Snippet<[props: SwitchHostProps, state: SwitchRootState, children: RenderChildren]>;
 	children?: Snippet;
 }
 
 export interface SwitchThumbProps extends Omit<HTMLAttributes<HTMLSpanElement>, 'children'> {
 	/** Replace the default `<span>`. Spread `props` onto the host element. */
-	render?: Snippet<[props: HTMLAttributes<HTMLSpanElement>, state: SwitchThumbState]>;
+	render?: Snippet<
+		[props: HTMLAttributes<HTMLSpanElement>, state: SwitchThumbState, children: RenderChildren]
+	>;
 	children?: Snippet;
 }

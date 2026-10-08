@@ -16,7 +16,7 @@ A two-state control that can also be mixed. Upstream: `packages/react/src/checkb
 - `name`, `value`, `form`, and `uncheckedValue` live on the hidden inputs. Ticked submits `value` or `"on"`. Unticked submits `uncheckedValue` when that prop and `name` are set.
 - `nativeButton`: render a `<button type="button">`. The `id` moves onto that button. Space uses the button's own activation. Enter still does not toggle.
 - `Checkbox.Indicator` renders while ticked or mixed. It sets `data-starting-style` for one frame when it mounts, then `data-ending-style` until the exit animation ends. `keepMounted` leaves it in the DOM when hidden. Several indicators that finish together leave in the same update.
-- State attributes: `data-checked` or `data-unchecked`, or `data-indeterminate` when mixed, plus `data-disabled`, `data-readonly`, and `data-required` when those props are set. The indicator repeats them. A `render` snippet receives `(props, state)`.
+- State attributes: `data-checked` or `data-unchecked`, or `data-indeterminate` when mixed, plus `data-disabled`, `data-readonly`, and `data-required` when those props are set. The indicator repeats them. A `render` snippet receives `(props, state, children)`. `children` is undefined when the consumer passed none.
 - A sibling or wrapping `<label>` supplies `aria-labelledby` after mount. Server HTML omits that attribute.
 - Consumer `{@attach}` reaches the host through the spread props. Element access inside the component uses `bind:this`.
 

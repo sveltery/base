@@ -9,12 +9,12 @@ A divider exposed to assistive technology. Upstream: `packages/react/src/separat
 - `data-orientation` comes from `getStateAttributesProps({ orientation })`.
 - Consumer element props override `role`, `aria-orientation` and `data-orientation`. That is the upstream `useRenderElement` order (state attributes, then the part props, then the consumer).
 - Children render inside the default div.
-- Native rendering: a `render` snippet receives `(props, state)`. Consumer `{@attach}` reaches the host in both the default div and the snippet.
+- Native rendering: a `render` snippet receives `(props, state, children)`. `children` is undefined when the consumer passed none. Consumer `{@attach}` reaches the host in both the default div and the snippet.
 
 Differences from React Base UI, all deliberate:
 
 - No `className` or `style` state callbacks. Use native `class` and `style` strings.
-- No React `render` element and no `cloneElement`. The snippet owns its content; it does not receive `children`.
+- No React `render` element and no `cloneElement`. The snippet receives `children` as its third argument and renders it with `{@render children?.()}`.
 - No `ref`. Use `{@attach}`.
 
 ## How to get to it (user POV)

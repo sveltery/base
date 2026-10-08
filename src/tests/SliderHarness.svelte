@@ -163,7 +163,7 @@
 		>
 			{#snippet render(props, state, children)}
 				<div {...props} data-testid="root" data-custom="" data-active={state.activeThumbIndex}>
-					{@render children()}
+					{@render children?.()}
 				</div>
 			{/snippet}
 			{@render valuePart()}

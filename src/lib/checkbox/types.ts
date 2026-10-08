@@ -1,6 +1,7 @@
 import type { Snippet } from 'svelte';
 import type { HTMLAttributes } from 'svelte/elements';
 import type { BaseUIChangeEventDetails, REASONS } from '../internal/event-details.js';
+import type { RenderChildren } from '../internal/render-children.js';
 
 /** Indicator motion phase. `undefined` is the settled phase. */
 export type CheckboxIndicatorPhase = 'starting' | 'ending' | undefined;
@@ -106,7 +107,7 @@ export interface CheckboxRootProps extends Omit<HTMLAttributes<HTMLElement>, 'ch
 	/** Runs before the checkbox's click handler. Call `event.preventDefault()` to skip it. */
 	onclick?: HTMLAttributes<HTMLElement>['onclick'];
 	/** Replace the default `<span>`. Spread `props` onto the host element. */
-	render?: Snippet<[props: CheckboxHostProps, state: CheckboxRootState]>;
+	render?: Snippet<[props: CheckboxHostProps, state: CheckboxRootState, children: RenderChildren]>;
 	children?: Snippet;
 }
 
@@ -117,6 +118,12 @@ export interface CheckboxIndicatorProps extends Omit<HTMLAttributes<HTMLSpanElem
 	 */
 	keepMounted?: boolean;
 	/** Replace the default `<span>`. Spread `props` onto the host element. */
-	render?: Snippet<[props: HTMLAttributes<HTMLSpanElement>, state: CheckboxIndicatorState]>;
+	render?: Snippet<
+		[
+			props: HTMLAttributes<HTMLSpanElement>,
+			state: CheckboxIndicatorState,
+			children: RenderChildren
+		]
+	>;
 	children?: Snippet;
 }

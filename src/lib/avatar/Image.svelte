@@ -20,7 +20,7 @@
 
 	let {
 		render,
-		children: _children,
+		children,
 		keepMounted = false,
 		onLoadingStatusChange,
 		onload,
@@ -130,7 +130,7 @@
 
 {#if shown}
 	{#if render}
-		{@render render(hostProps, partState)}
+		{@render render(hostProps, partState, children)}
 	{:else}
 		<img {...hostProps} />
 	{/if}

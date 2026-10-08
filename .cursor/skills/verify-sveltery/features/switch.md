@@ -13,7 +13,7 @@ A two-state control that submits like a checkbox. Upstream: `packages/react/src/
 - `required`: `aria-required` and `data-required`. The hidden checkbox is `required`, so a native form blocks submit until the switch is on.
 - `name`, `value`, `form`, and `uncheckedValue` live on the hidden inputs, not the root. Checked submits `value` or `"on"`. Unchecked submits `uncheckedValue` when that prop and `name` are set, and submits nothing otherwise.
 - `nativeButton`: render a `<button type="button">`. The `id` moves from the hidden input onto that button. Enter and Space use the button's own activation.
-- State attributes: `data-checked` or `data-unchecked`, plus `data-disabled`, `data-readonly`, and `data-required` when those props are set. `Switch.Thumb` repeats them. A `render` snippet receives `(props, state)`.
+- State attributes: `data-checked` or `data-unchecked`, plus `data-disabled`, `data-readonly`, and `data-required` when those props are set. `Switch.Thumb` repeats them. A `render` snippet receives `(props, state, children)`. `children` is undefined when the consumer passed none.
 - A sibling or wrapping `<label>` supplies `aria-labelledby` after mount. The label receives an id when it does not have one. Server HTML omits that attribute.
 - Consumer `{@attach}` reaches the host through the spread props.
 

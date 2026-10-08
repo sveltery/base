@@ -76,12 +76,14 @@
 	});
 </script>
 
+{#snippet content()}
+	{@render children?.()}
+	<!-- force NVDA to read the label https://github.com/mui/base-ui/issues/4184 -->
+	<span role="presentation" style={hiddenStyle}>x</span>
+{/snippet}
+
 {#if render}
-	{@render render(hostProps, state)}
+	{@render render(hostProps, state, content)}
 {:else}
-	<div {...hostProps}>
-		{@render children?.()}
-		<!-- force NVDA to read the label https://github.com/mui/base-ui/issues/4184 -->
-		<span role="presentation" style={hiddenStyle}>x</span>
-	</div>
+	<div {...hostProps}>{@render content()}</div>
 {/if}
