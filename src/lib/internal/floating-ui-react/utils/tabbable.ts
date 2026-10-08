@@ -44,6 +44,17 @@ export function getTabbableAfterElement(referenceElement: Element | null): HTMLE
 	return list[(index + 1) % list.length] ?? null;
 }
 
+/** Previous tabbable from the element that currently has focus. Matches upstream `getPreviousTabbable`. */
+export function getPreviousTabbable(referenceElement: Element | null): HTMLElement | null {
+	if (!referenceElement) return null;
+	const list = getTabbableCandidates(ownerDocument(referenceElement).body);
+	if (list.length === 0) return referenceElement as HTMLElement;
+	const active = activeElement(ownerDocument(referenceElement));
+	const index = active instanceof HTMLElement ? list.indexOf(active) : -1;
+	if (index <= 0) return referenceElement as HTMLElement;
+	return list[index - 1] ?? (referenceElement as HTMLElement);
+}
+
 export function getTabbableBeforeElement(referenceElement: Element | null): HTMLElement | null {
 	const list = tabbablesInDocument(referenceElement);
 	if (!referenceElement || list.length === 0) return null;

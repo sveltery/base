@@ -120,6 +120,51 @@ for (const reference of [false, true]) {
 			expect(errors).toEqual([]);
 		});
 
+		for (const [name, title] of [
+			['nested-body', 'a nested popup portaled to the body keeps the parent open'],
+			['child-initial', 'a child with initialFocus false keeps the parent open']
+		] as const) {
+			test(title, async ({ page }) => {
+				await openDialog(page, name, reference);
+				await openButton(page).click();
+				await expect(page.getByTestId('parent-popup')).toBeVisible();
+				await page.getByRole('button', { name: 'Nested' }).click();
+				await expect(page.getByTestId('nested-popup')).toBeVisible();
+				await page.getByTestId('nested-inside').focus();
+				await page.evaluate(
+					() => new Promise((resolve) => requestAnimationFrame(() => resolve(undefined)))
+				);
+				await expect(page.getByTestId('parent-popup')).toBeVisible();
+				await expect(page.getByTestId('nested-popup')).toBeVisible();
+			});
+		}
+
+		test('inner finalFocus outside keeps the outer popup open', async ({ page }) => {
+			await openDialog(page, 'final-focus', reference);
+			await openButton(page).click();
+			await page.getByRole('button', { name: 'Nested' }).click();
+			await expect(page.getByTestId('nested-popup')).toBeVisible();
+			await page.keyboard.press('Escape');
+			await page.evaluate(
+				() => new Promise((resolve) => requestAnimationFrame(() => resolve(undefined)))
+			);
+			await expect(page.getByTestId('parent-popup')).toBeVisible();
+			await expect(page.getByTestId('final-target')).toBeFocused();
+			await expect(page.getByTestId('nested-popup')).toHaveCount(0);
+		});
+
+		test('focusing one sibling non-modal dialog leaves the other open', async ({ page }) => {
+			await openDialog(page, 'siblings', reference);
+			await expect(page.getByTestId('popup-a')).toBeVisible();
+			await expect(page.getByTestId('popup-b')).toBeVisible();
+			await page.getByTestId('inside-b').focus();
+			await page.evaluate(
+				() => new Promise((resolve) => requestAnimationFrame(() => resolve(undefined)))
+			);
+			await expect(page.getByTestId('popup-a')).toBeVisible();
+			await expect(page.getByTestId('popup-b')).toBeVisible();
+		});
+
 		test('initial focus moves inside and returns to the trigger', async ({ page }) => {
 			await openDialog(page, 'focus', reference);
 			const opener = openButton(page);

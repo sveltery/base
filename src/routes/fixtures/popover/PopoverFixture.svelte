@@ -49,6 +49,9 @@
 		{@render popup()}
 	</Popover.Root>
 {:else}
+	{#if scenario === 'tab'}
+		<button type="button" data-testid="before">Before</button>
+	{/if}
 	<Popover.Root modal={scenario === 'modal'} onOpenChange={changed}>
 		<Popover.Trigger
 			onclick={clicked}

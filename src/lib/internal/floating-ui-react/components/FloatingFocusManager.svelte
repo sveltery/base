@@ -14,13 +14,13 @@
 	import type { OpenInteractionType } from '../../openInteraction.js';
 	import type { FloatingRootStore, OpenChangePayload } from './FloatingRootStore.svelte.js';
 	import { isElementVisible } from '../utils/composite.js';
-	import { CLICK_TRIGGER_IDENTIFIER } from '../utils/constants.js';
+	import { CLICK_TRIGGER_IDENTIFIER, FOCUSABLE_ATTRIBUTE } from '../utils/constants.js';
 	import { enqueueFocus } from '../utils/enqueueFocus.js';
 	import { markOthers } from '../utils/markOthers.js';
-	import { getTabbableCandidates, isOutsideEvent } from '../utils/tabbable.js';
+	import { getPreviousTabbable, getTabbableCandidates, isOutsideEvent } from '../utils/tabbable.js';
 	import { hasFloatingPortal } from './FloatingPortal.svelte';
 	import { useFloatingTree } from './FloatingTree.svelte.js';
-	import { getNodeChildren } from './FloatingTreeStore.js';
+	import { getNodeAncestors, getNodeChildren } from './FloatingTreeStore.js';
 
 	let {
 		store,
@@ -88,9 +88,16 @@
 	}
 
 	// Tab leaving a non-modal popup lands here, then on the trigger's trailing guard.
+	// Focus that arrives from outside the positioner is the upstream after-guard path
+	// (`FloatingFocusManager.tsx` 984–1000): move to the previous tabbable, which is
+	// the control inside the popup, instead of staying on this guard.
 	function leaveToTriggerGuard(event: FocusEvent) {
 		const positioner = store.positionerElement;
-		if (positioner && isOutsideEvent(event, positioner)) return;
+		if (positioner && isOutsideEvent(event, positioner)) {
+			const reference = store.domReferenceElement;
+			if (reference instanceof Element) getPreviousTabbable(reference)?.focus();
+			return;
+		}
 		const next = store.triggerFocusTarget;
 		if (next instanceof HTMLElement) next.focus();
 	}
@@ -101,6 +108,11 @@
 	/** One initial-focus result per open. A later result must not rebuild the trap. */
 	let initialSettled = false;
 	let settledInitial: HTMLElement | false = false;
+	/**
+	 * The first open skips its focus frame when a child is opening with it.
+	 * A later open, such as reopening a kept parent, still focuses inside.
+	 */
+	let hasOpenedBefore = false;
 
 	function eventInteraction(event: Event, previous: OpenInteractionType): OpenInteractionType {
 		const target = getTarget(event);
@@ -138,11 +150,10 @@
 				const doc = ownerDocument(target);
 				const active = activeElement(doc);
 				const floating = store.floatingElement;
-				const inside =
-					contains(floating, active) ||
-					contains(store.portalElement, active) ||
-					active === doc.body ||
-					active == null;
+				// The portal host is not "inside" for return focus. A child that stayed
+				// open is mounted beside the popup, and pulling focus back would
+				// take it off that child. Upstream checks the floating element only.
+				const inside = contains(floating, active) || active === doc.body || active == null;
 				if (!inside) return;
 			}
 			target.focus({ preventScroll: true });
@@ -175,6 +186,54 @@
 	function hasOpenChild() {
 		if (!tree || !store.nodeId) return false;
 		return getNodeChildren(tree.nodes, store.nodeId).length > 0;
+	}
+
+	function floatingFocusElement(element: HTMLElement | null | undefined): HTMLElement | null {
+		if (!element) return null;
+		if (element.hasAttribute(FOCUSABLE_ATTRIBUTE)) return element;
+		return element.querySelector(`[${FOCUSABLE_ATTRIBUTE}]`) ?? element;
+	}
+
+	function triggersContain(target: Node) {
+		const candidate = store as FloatingRootStore & {
+			triggers?: { hasMatchingElement(predicate: (element: Element) => boolean): boolean };
+		};
+		return candidate.triggers?.hasMatchingElement((element) => contains(element, target)) ?? false;
+	}
+
+	/**
+	 * Focus is still inside this popup, its trigger, its portal, or a parent or child popup.
+	 * Upstream closes only when focus leaves those nodes (`FloatingFocusManager.tsx` 431–484).
+	 */
+	function focusStaysInTree(related: EventTarget | null) {
+		if (!(related instanceof Node)) return false;
+		// Shift+Tab from the open trigger lands on its leading focus guard.
+		// That guard is outside the popup, and closing here would return focus to the trigger.
+		if (related instanceof Element && related.hasAttribute('data-base-ui-focus-guard')) return true;
+		const popup = store.floatingElement;
+		if (contains(popup, related) || contains(store.portalElement, related)) return true;
+		if (contains(store.domReferenceElement, related)) return true;
+		if (related instanceof Element && popup && contains(related, popup)) return true;
+		if (triggersContain(related)) return true;
+		if (!tree || !store.nodeId) return false;
+		const nodeId = store.nodeId;
+		return untrack(() => {
+			const nodes = tree.nodes;
+			const child = getNodeChildren(nodes, nodeId).some(
+				(node) =>
+					contains(node.context?.floatingElement, related) ||
+					contains(node.context?.domReferenceElement, related)
+			);
+			if (child) return true;
+			return getNodeAncestors(nodes, nodeId).some((node) => {
+				const ancestorFloating = node.context?.floatingElement ?? null;
+				return (
+					related === ancestorFloating ||
+					related === floatingFocusElement(ancestorFloating) ||
+					related === node.context?.domReferenceElement
+				);
+			});
+		});
 	}
 
 	function noteClose(data?: unknown) {
@@ -216,14 +275,15 @@
 		let cancelFocus = () => {};
 
 		const initialTarget = takeInitial(floating);
+		// A child opened in the same update queues its focus first. Skipping this
+		// first frame keeps that child focused. Reopening does not skip.
+		const skipForOpenChild = !hasOpenedBefore && hasOpenChild();
+		hasOpenedBefore = true;
 		if (initialTarget !== false) {
 			cancelFocus = enqueueFocus(initialTarget, {
 				preventScroll: initialTarget === floating,
-				// Do not cancel the previous frame. A child opened in the same update
-				// queues first, and cancelling would drop that child. Skip this frame
-				// while any open child is registered, even if it has not taken focus.
 				shouldFocus: () =>
-					store.isOpen() && !contains(floating, activeElement(doc)) && !hasOpenChild()
+					store.isOpen() && !contains(floating, activeElement(doc)) && !skipForOpenChild
 			});
 		}
 
@@ -266,15 +326,24 @@
 			{ capture: true }
 		);
 
-		const stopFocus = on(doc, 'focusin', (event) => {
+		// Close when focus leaves this popup or its trigger (upstream lines 568–578).
+		function handleFocusOutside(event: FocusEvent) {
 			if (!closeOnFocusOut || suppressFocusOut || !store.isOpen()) return;
-			const target = getTarget(event);
-			if (!(target instanceof Node)) return;
-			if (contains(floating, target) || contains(store.portalElement, target)) return;
-			if (contains(store.domReferenceElement, target)) return;
-			if (target instanceof Element && target.closest(`[${CLICK_TRIGGER_IDENTIFIER}]`)) return;
-			store.setOpen(false, createChangeEventDetails(REASONS.focusOut, event));
-		});
+			const relatedTarget = event.relatedTarget;
+			queueMicrotask(() => {
+				if (!closeOnFocusOut || suppressFocusOut || !store.isOpen()) return;
+				// Modal focus is trapped. Only a non-modal popup closes when focus leaves it.
+				if (modal) return;
+				if (!(relatedTarget instanceof Element)) return;
+				if (focusStaysInTree(relatedTarget)) return;
+				store.setOpen(false, createChangeEventDetails(REASONS.focusOut, event));
+			});
+		}
+
+		const reference = store.domReferenceElement;
+		const stopReferenceFocus =
+			reference instanceof HTMLElement ? on(reference, 'focusout', handleFocusOutside) : () => {};
+		const stopFloatingFocus = on(floating, 'focusout', handleFocusOutside);
 
 		store.events.on('openchange', noteClose);
 
@@ -300,7 +369,8 @@
 			mark();
 			stopKeys();
 			stopPointer();
-			stopFocus();
+			stopReferenceFocus();
+			stopFloatingFocus();
 			stopRestore();
 			pointerDownTimeout.clear();
 			restoreFrame.cancel();

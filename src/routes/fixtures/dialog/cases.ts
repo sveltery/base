@@ -7,6 +7,11 @@ export const cases = [
 	'nested-open',
 	'nested-onto',
 	'nested-popover',
-	'focus'
+	'focus',
+	'nested-body',
+	'final-focus',
+	'child-initial',
+	'siblings',
+	'kept-child'
 ] as const;
 export type DialogCase = (typeof cases)[number];
