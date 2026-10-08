@@ -29,6 +29,11 @@ export class FloatingRootStore {
 	popupElement = $state<HTMLElement | null>(null);
 	positionerElement = $state<HTMLElement | null>(null);
 	portalElement = $state<HTMLElement | null>(null);
+	/**
+	 * Focus guard rendered after the active trigger.
+	 * Tab leaving a non-modal popup lands here, then on the next control.
+	 */
+	triggerFocusTarget = $state<HTMLElement | null>(null);
 	nodeId: string | null = null;
 	readonly events: FloatingEvents = createEventEmitter();
 	readonly data: {

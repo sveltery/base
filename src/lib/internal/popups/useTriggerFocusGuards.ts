@@ -62,8 +62,10 @@ export function useTriggerFocusGuards(
 	};
 	const bindFocusTarget: Attachment<HTMLElement> = (node) => {
 		triggerFocusTarget = node;
+		store.triggerFocusTarget = node;
 		return () => {
 			if (triggerFocusTarget === node) triggerFocusTarget = null;
+			if (store.triggerFocusTarget === node) store.triggerFocusTarget = null;
 		};
 	};
 

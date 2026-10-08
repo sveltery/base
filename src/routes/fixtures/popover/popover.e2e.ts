@@ -110,6 +110,22 @@ for (const reference of [false, true]) {
 			await expect(popup).toHaveCount(0);
 		});
 
+		test('tabbing out of a non-modal popover focuses the next control and closes', async ({
+			page
+		}) => {
+			const { trigger, popup } = await open(page, 'tab', reference);
+			const after = page.getByRole('button', { name: 'After' });
+			await trigger.click();
+			await expect(popup.getByRole('button', { name: 'Inside' })).toBeFocused();
+			await page.keyboard.press('Tab');
+			await expect(after).toBeFocused();
+			await expect(popup).toHaveCount(0);
+			expect(await recorded(page)).toEqual([
+				{ open: true, reason: 'trigger-press', canceled: false },
+				{ open: false, reason: 'focus-out', canceled: false }
+			]);
+		});
+
 		test('a detached trigger opens the popover', async ({ page }) => {
 			const { trigger, popup } = await open(page, 'detached', reference);
 			await trigger.click();
