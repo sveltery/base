@@ -51,15 +51,28 @@ for (const reference of [false, true]) {
 		test('a non-modal dialog closes from an outside click', async ({ page }) => {
 			await openDialog(page, 'outside', reference);
 			await openButton(page).click();
-			await page.getByTestId('outside').click();
+			const outside = page.getByTestId('outside');
+			await outside.click();
 			await expect(page.getByRole('dialog')).toHaveCount(0);
+			await expect(outside).toBeFocused();
 			// The outside control is a button. Focusing it leaves the popup before the click,
-			// so both this port and Base UI close with focus-out.
+			// so both this port and Base UI close with focus-out and leave focus there.
 			expect((await readOpenCalls(page)).at(-1)).toEqual({
 				open: false,
 				reason: 'focus-out',
 				canceled: false
 			});
+		});
+
+		test('typing into an outside input keeps the text', async ({ page }) => {
+			await openDialog(page, 'outside', reference);
+			await openButton(page).click();
+			const input = page.getByTestId('outside-input');
+			await input.click();
+			await page.keyboard.type('kept');
+			await expect(page.getByRole('dialog')).toHaveCount(0);
+			await expect(input).toBeFocused();
+			await expect(input).toHaveValue('kept');
 		});
 
 		test('canceling onOpenChange keeps the dialog closed', async ({ page }) => {
@@ -118,6 +131,100 @@ for (const reference of [false, true]) {
 			await expect(page.getByRole('button', { name: 'Nested inside' })).toBeFocused();
 			expect(await readOpenCalls(page)).toEqual([]);
 			expect(errors).toEqual([]);
+		});
+
+		for (const [name, title] of [
+			['nested-body', 'a nested popup portaled to the body keeps the parent open'],
+			['child-initial', 'a child with initialFocus false keeps the parent open']
+		] as const) {
+			test(title, async ({ page }) => {
+				await openDialog(page, name, reference);
+				await openButton(page).click();
+				await expect(page.getByTestId('parent-popup')).toBeVisible();
+				await page.getByRole('button', { name: 'Nested' }).click();
+				await expect(page.getByTestId('nested-popup')).toBeVisible();
+				await page.getByTestId('nested-inside').focus();
+				await page.evaluate(
+					() => new Promise((resolve) => requestAnimationFrame(() => resolve(undefined)))
+				);
+				await expect(page.getByTestId('parent-popup')).toBeVisible();
+				await expect(page.getByTestId('nested-popup')).toBeVisible();
+			});
+		}
+
+		test('inner finalFocus outside keeps the outer popup open', async ({ page }) => {
+			await openDialog(page, 'final-focus', reference);
+			await openButton(page).click();
+			await page.getByRole('button', { name: 'Nested' }).click();
+			await expect(page.getByRole('button', { name: 'Nested close' })).toBeFocused();
+			await page.keyboard.press('Escape');
+			await expect(page.getByTestId('parent-popup')).toBeVisible();
+			await expect(page.getByTestId('final-target')).toBeFocused();
+			await expect(page.getByTestId('nested-popup')).toHaveCount(0);
+		});
+
+		test('shift-tab from the open trigger lands on Before', async ({ page }) => {
+			await openDialog(page, 'tab', reference);
+			const opener = openButton(page);
+			await opener.click();
+			await expect(page.getByRole('button', { name: 'Inside' })).toBeFocused();
+			await opener.focus();
+			await page.keyboard.press('Shift+Tab');
+			await expect(page.getByTestId('before')).toBeFocused();
+			await expect(page.getByRole('dialog')).toHaveCount(0);
+		});
+
+		test('tab from the open trigger moves into the dialog', async ({ page }) => {
+			await openDialog(page, 'tab', reference);
+			const opener = openButton(page);
+			await opener.click();
+			await opener.focus();
+			await page.keyboard.press('Tab');
+			await expect(page.getByRole('button', { name: 'Inside' })).toBeFocused();
+			await expect(page.getByRole('dialog')).toBeVisible();
+		});
+
+		test('tab from the last control closes onto After', async ({ page }) => {
+			await openDialog(page, 'tab', reference);
+			await openButton(page).click();
+			await expect(page.getByRole('button', { name: 'Inside' })).toBeFocused();
+			await page.keyboard.press('Tab');
+			await expect(page.getByTestId('after')).toBeFocused();
+			await expect(page.getByRole('dialog')).toHaveCount(0);
+		});
+
+		async function expectEscapeLandsOutside(page: Page) {
+			await expect(page.getByTestId('nested-inside')).toBeFocused();
+			await page.keyboard.press('Escape');
+			await expect(page.getByTestId('outside')).toBeFocused();
+			await expect(page.getByTestId('parent-popup')).toBeVisible();
+			await expect(page.getByTestId('nested-popup')).toHaveCount(0);
+		}
+
+		test('escape on dialogs opened together keeps final focus outside', async ({ page }) => {
+			await openDialog(page, 'together-outside', reference);
+			await expect(page.getByTestId('parent-popup')).toBeVisible();
+			await expect(page.getByTestId('nested-popup')).toBeVisible();
+			await expectEscapeLandsOutside(page);
+		});
+
+		test('escape on an inner dialog keeps final focus outside', async ({ page }) => {
+			await openDialog(page, 'final-outside', reference);
+			await openButton(page).click();
+			await page.getByRole('button', { name: 'Nested' }).click();
+			await expectEscapeLandsOutside(page);
+		});
+
+		test('focusing one sibling non-modal dialog leaves the other open', async ({ page }) => {
+			await openDialog(page, 'siblings', reference);
+			await expect(page.getByTestId('popup-a')).toBeVisible();
+			await expect(page.getByTestId('popup-b')).toBeVisible();
+			await page.getByTestId('inside-b').focus();
+			await page.evaluate(
+				() => new Promise((resolve) => requestAnimationFrame(() => resolve(undefined)))
+			);
+			await expect(page.getByTestId('popup-a')).toBeVisible();
+			await expect(page.getByTestId('popup-b')).toBeVisible();
 		});
 
 		test('initial focus moves inside and returns to the trigger', async ({ page }) => {

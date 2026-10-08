@@ -60,6 +60,27 @@ for (const reference of [false, true]) {
 			await expect(popup).toHaveCount(0);
 		});
 
+		test('an outside click leaves focus on the clicked button', async ({ page }) => {
+			const { trigger, popup, outside } = await open(page, 'standalone', reference);
+			await trigger.click();
+			await expect(popup).toBeVisible();
+			await outside.click();
+			await expect(popup).toHaveCount(0);
+			await expect(outside).toBeFocused();
+		});
+
+		test('typing into an outside input keeps the text', async ({ page }) => {
+			const { trigger, popup } = await open(page, 'standalone', reference);
+			await trigger.click();
+			await expect(popup).toBeVisible();
+			const input = page.getByTestId('outside-input');
+			await input.click();
+			await page.keyboard.type('kept');
+			await expect(popup).toHaveCount(0);
+			await expect(input).toBeFocused();
+			await expect(input).toHaveValue('kept');
+		});
+
 		test('canceling onOpenChange keeps the popover closed', async ({ page }) => {
 			const { trigger, popup } = await open(page, 'cancel', reference);
 			await trigger.click();
@@ -110,20 +131,80 @@ for (const reference of [false, true]) {
 			await expect(popup).toHaveCount(0);
 		});
 
-		test('tabbing out of a non-modal popover focuses the next control and closes', async ({
-			page
-		}) => {
+		for (const step of [
+			{ key: 'Tab' as const, name: 'After', shift: false },
+			{ key: 'Shift+Tab' as const, name: 'Before', shift: true }
+		]) {
+			test(`leaving a non-modal popover with ${step.key} focuses ${step.name}`, async ({
+				page
+			}) => {
+				const { trigger, popup } = await open(page, 'tab', reference);
+				await trigger.click();
+				await expect(popup.getByRole('button', { name: 'Inside' })).toBeFocused();
+				if (step.shift) await trigger.focus();
+				await page.keyboard.press(step.key);
+				await expect(page.getByRole('button', { name: step.name })).toBeFocused();
+				await expect(popup).toHaveCount(0);
+				if (!step.shift) {
+					expect(await recorded(page)).toEqual([
+						{ open: true, reason: 'trigger-press', canceled: false },
+						{ open: false, reason: 'focus-out', canceled: false }
+					]);
+				}
+			});
+		}
+
+		test('shift-tab from the first control does not return to the trigger', async ({ page }) => {
 			const { trigger, popup } = await open(page, 'tab', reference);
-			const after = page.getByRole('button', { name: 'After' });
 			await trigger.click();
 			await expect(popup.getByRole('button', { name: 'Inside' })).toBeFocused();
+			await page.keyboard.press('Shift+Tab');
+			if (reference) {
+				// React focuses the trigger and leaves the popup open.
+				await expect(trigger).toBeFocused();
+				await expect(popup).toBeVisible();
+			} else {
+				await expect(page.getByTestId('after')).toBeFocused();
+				await expect(popup).toHaveCount(0);
+			}
+		});
+
+		test('tab from a popup with no tabbable control closes onto After', async ({ page }) => {
+			const { trigger, popup } = await open(page, 'tab-empty', reference);
+			await trigger.click();
+			await expect(popup).toBeVisible();
+			await trigger.focus();
 			await page.keyboard.press('Tab');
-			await expect(after).toBeFocused();
+			await expect(page.getByTestId('after')).toBeFocused();
 			await expect(popup).toHaveCount(0);
-			expect(await recorded(page)).toEqual([
-				{ open: true, reason: 'trigger-press', canceled: false },
-				{ open: false, reason: 'focus-out', canceled: false }
-			]);
+		});
+
+		test('tab from a hover-opened trigger stays on the guard', async ({ page }) => {
+			const { trigger, popup } = await open(page, 'hover', reference);
+			await trigger.hover();
+			await expect(popup).toBeVisible();
+			await trigger.focus();
+			await page.keyboard.press('Tab');
+			await expect(page.locator(':focus')).toHaveAttribute('data-base-ui-focus-guard', '');
+			await expect(popup).toBeVisible();
+		});
+
+		test('a trailing guard reached from outside focuses inside and stays open', async ({
+			page
+		}) => {
+			const { popup } = await open(page, 'tab', reference);
+			await page.getByRole('button', { name: 'Open' }).click();
+			await expect(popup.getByRole('button', { name: 'Inside' })).toBeFocused();
+			await page.evaluate(() => {
+				const popupNode = document.querySelector('[role="dialog"]');
+				const guard = [...document.querySelectorAll('[data-base-ui-focus-guard]')].find((node) =>
+					popupNode?.parentElement?.contains(node)
+				);
+				if (document.activeElement instanceof HTMLElement) document.activeElement.blur();
+				if (guard instanceof HTMLElement) guard.focus();
+			});
+			await expect(popup.getByRole('button', { name: 'Inside' })).toBeFocused();
+			await expect(popup).toBeVisible();
 		});
 
 		test('a detached trigger opens the popover', async ({ page }) => {

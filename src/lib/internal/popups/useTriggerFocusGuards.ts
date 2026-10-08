@@ -9,6 +9,7 @@ import { contains } from '../shadow-dom.js';
 import {
 	getTabbableAfterElement,
 	getTabbableBeforeElement,
+	getTabbableCandidates,
 	isOutsideEvent
 } from '../floating-ui-react/utils/tabbable.js';
 import type { FloatingRootStore } from '../floating-ui-react/components/FloatingRootStore.svelte.js';
@@ -29,11 +30,32 @@ export function useTriggerFocusGuards(
 		getTabbableBeforeElement(preFocusGuard)?.focus();
 	}
 
+	function openedByHover() {
+		if (!('openChangeReason' in store)) return false;
+		return (
+			(store as { openChangeReason?: string | null }).openChangeReason === REASONS.triggerHover
+		);
+	}
+
 	function handleFocusTargetFocus(event: FocusEvent) {
 		const positioner = store.positionerElement;
 		if (positioner && isOutsideEvent(event, positioner)) {
-			beforeContentFocusGuard?.focus();
-			return;
+			// A hover open leaves focus on this guard. Tab must not enter the popup.
+			if (openedByHover()) return;
+			// Tab from the open trigger lands here from outside the positioner.
+			// Upstream focuses the leading guard, whose next tabbable is the first control.
+			const floating = store.floatingElement;
+			const inside = floating ? getTabbableCandidates(floating)[0] : null;
+			if (inside) {
+				inside.focus();
+				return;
+			}
+			// The harness binds this guard. A popup with no tabbable control has neither,
+			// so Tab closes onto the control after the trigger.
+			if (beforeContentFocusGuard) {
+				beforeContentFocusGuard.focus();
+				return;
+			}
 		}
 		const current = event.currentTarget instanceof HTMLElement ? event.currentTarget : undefined;
 		flushSync(() => {

@@ -2,7 +2,7 @@
 // (commit 47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c). MIT, see THIRD_PARTY_NOTICES.md.
 // describeConformance, className/style callbacks, Alert Dialog, Drawer, Menu, and Select are not ported.
 import { tick } from 'svelte';
-import { page } from 'vitest/browser';
+import { page, userEvent } from 'vitest/browser';
 import { describe, expect, it, vi } from 'vitest';
 import { render } from 'vitest-browser-svelte';
 import DialogActionsHarness from '../../tests/DialogActionsHarness.svelte';
@@ -562,6 +562,200 @@ describe('Dialog', () => {
 		const popup = holder.querySelector('[role="dialog"]') as HTMLElement;
 		document.body.append(holder);
 		await expect.element(button('Open')).toHaveAttribute('aria-controls', popup.id);
+	});
+
+	async function settled() {
+		await frame();
+		await frame();
+	}
+
+	function connected(testId: string) {
+		const node = document.querySelector(`[data-testid="${testId}"]`);
+		return node instanceof HTMLElement && node.isConnected && !node.hidden;
+	}
+
+	// Upstream FloatingFocusManager (47b40521) closes on focusout of its own popup or trigger
+	// and keeps parent and child popups open. Document focusin closes these.
+	it('keeps a parent open when its nested popup is portaled to the body', async () => {
+		render(DialogHarness, { scenario: 'nested-body' });
+		await openDialog();
+		await settled();
+		click(button('Nested'));
+		await settled();
+		const nested = page.getByTestId('nested-inside').element() as HTMLElement;
+		nested.focus();
+		await settled();
+		expect(connected('parent-popup')).toBe(true);
+		expect(connected('nested-popup')).toBe(true);
+	});
+
+	it('keeps the outer popup open when the inner finalFocus moves outside', async () => {
+		render(DialogHarness, { scenario: 'final-focus' });
+		await openDialog();
+		await settled();
+		click(button('Nested'));
+		await settled();
+		click(button('Nested close'));
+		await settled();
+		expect(connected('parent-popup')).toBe(true);
+		expect(document.activeElement).toBe(page.getByTestId('final-target').element());
+		expect(connected('nested-popup')).toBe(false);
+	});
+
+	it('keeps the parent open when a child with initialFocus false receives focus', async () => {
+		render(DialogHarness, { scenario: 'child-initial' });
+		await openDialog();
+		await settled();
+		click(button('Nested'));
+		await settled();
+		expect(connected('parent-popup')).toBe(true);
+		expect(connected('nested-popup')).toBe(true);
+		(page.getByTestId('nested-inside').element() as HTMLElement).focus();
+		await settled();
+		expect(connected('parent-popup')).toBe(true);
+		expect(connected('nested-popup')).toBe(true);
+	});
+
+	it('keeps both sibling non-modal dialogs open when one is focused', async () => {
+		render(DialogHarness, { scenario: 'siblings' });
+		await settled();
+		expect(connected('popup-a')).toBe(true);
+		expect(connected('popup-b')).toBe(true);
+		(page.getByTestId('inside-b').element() as HTMLElement).focus();
+		await settled();
+		expect(connected('popup-a')).toBe(true);
+		expect(connected('popup-b')).toBe(true);
+	});
+
+	function press(testId: string) {
+		document
+			.querySelector(`[data-testid="${testId}"]`)
+			?.dispatchEvent(new MouseEvent('click', { bubbles: true }));
+	}
+
+	it('leaves focus in a child that stayed open when its keepMounted parent closes', async () => {
+		render(DialogHarness, { scenario: 'kept-child' });
+		click(page.getByTestId('open-parent'));
+		await settled();
+		click(button('Nested'));
+		await settled();
+		(page.getByTestId('nested-inside').element() as HTMLElement).focus();
+		press('force-close');
+		await settled();
+		expect(document.activeElement).toBe(page.getByTestId('nested-inside').element());
+		expect(connected('parent-popup')).toBe(false);
+		expect(connected('nested-popup')).toBe(true);
+	});
+
+	it('focuses inside a keepMounted parent reopened onto a child that stayed open', async () => {
+		render(DialogHarness, { scenario: 'kept-child' });
+		click(page.getByTestId('open-parent'));
+		await settled();
+		click(button('Nested'));
+		await settled();
+		(page.getByTestId('nested-inside').element() as HTMLElement).focus();
+		press('force-close');
+		await settled();
+		(page.getByTestId('open-parent').element() as HTMLElement).click();
+		await settled();
+		expect(document.activeElement).toBe(page.getByTestId('parent-inside').element());
+		expect(connected('parent-popup')).toBe(true);
+		expect(connected('nested-popup')).toBe(true);
+	});
+
+	it('shift-tabs from the open trigger onto the control before it', async () => {
+		render(DialogHarness, { scenario: 'tab' });
+		const open = page.getByRole('button', { name: 'Open' });
+		await open.click();
+		await expect.poll(() => document.activeElement?.textContent).toBe('Inside');
+		(open.element() as HTMLElement).focus();
+		await userEvent.keyboard('{Shift>}{Tab}{/Shift}');
+		await expect.poll(() => document.activeElement).toBe(page.getByTestId('before').element());
+		await expect.poll(() => page.getByRole('dialog').elements().length).toBe(0);
+	});
+
+	it('tabs from the open trigger into the dialog', async () => {
+		render(DialogHarness, { scenario: 'tab' });
+		const open = page.getByRole('button', { name: 'Open' });
+		await open.click();
+		await expect.poll(() => document.activeElement?.textContent).toBe('Inside');
+		(open.element() as HTMLElement).focus();
+		await userEvent.keyboard('{Tab}');
+		await expect.poll(() => document.activeElement?.textContent).toBe('Inside');
+		await expect.element(page.getByRole('dialog')).toBeVisible();
+	});
+
+	it('tabs out of the last control onto the control after the trigger', async () => {
+		render(DialogHarness, { scenario: 'tab' });
+		await page.getByRole('button', { name: 'Open' }).click();
+		await expect.poll(() => document.activeElement?.textContent).toBe('Inside');
+		await userEvent.keyboard('{Tab}');
+		await expect.poll(() => document.activeElement).toBe(page.getByTestId('after').element());
+		await expect.poll(() => page.getByRole('dialog').elements().length).toBe(0);
+	});
+
+	it('leaves focus on an outside button when finalFocus is null', async () => {
+		render(DialogHarness, { scenario: 'outside', finalFocus: null });
+		await page.getByRole('button', { name: 'Open' }).click();
+		await expect.element(page.getByRole('button', { name: 'Inside' })).toHaveFocus();
+		await page.getByTestId('outside').click();
+		await expect.poll(() => page.getByRole('dialog').elements().length).toBe(0);
+		await expect.element(page.getByTestId('outside')).toHaveFocus();
+	});
+
+	it('leaves focus on an outside button when finalFocus is an element', async () => {
+		const target = document.createElement('button');
+		target.dataset.testid = 'explicit-final';
+		document.body.append(target);
+		render(DialogHarness, { scenario: 'outside', finalFocus: target });
+		await page.getByRole('button', { name: 'Open' }).click();
+		await expect.element(page.getByRole('button', { name: 'Inside' })).toHaveFocus();
+		await page.getByTestId('outside').click();
+		await expect.poll(() => page.getByRole('dialog').elements().length).toBe(0);
+		await expect.element(page.getByTestId('outside')).toHaveFocus();
+		target.remove();
+	});
+
+	it('does not call finalFocus when a pointer focus-out closes', async () => {
+		const target = document.createElement('button');
+		document.body.append(target);
+		// React calls this function and ignores the result. A focus-out close skips it.
+		const finalFocus = vi.fn(() => target);
+		render(DialogHarness, { scenario: 'outside', finalFocus });
+		await page.getByRole('button', { name: 'Open' }).click();
+		await expect.element(page.getByRole('button', { name: 'Inside' })).toHaveFocus();
+		await page.getByTestId('outside').click();
+		await expect.poll(() => page.getByRole('dialog').elements().length).toBe(0);
+		await expect.element(page.getByTestId('outside')).toHaveFocus();
+		expect(finalFocus).not.toHaveBeenCalled();
+		target.remove();
+	});
+
+	it('keeps final focus outside when the parent and nested dialog open together', async () => {
+		render(DialogHarness, { scenario: 'together-outside' });
+		await expect.poll(() => document.querySelector('[data-testid="parent-popup"]')).toBeTruthy();
+		await expect.poll(() => document.querySelector('[data-testid="nested-popup"]')).toBeTruthy();
+		await expect
+			.poll(() => document.activeElement?.getAttribute('data-testid'))
+			.toBe('nested-inside');
+		await userEvent.keyboard('{Escape}');
+		await expect.poll(() => document.activeElement?.getAttribute('data-testid')).toBe('outside');
+		expect(document.querySelector('[data-testid="parent-popup"]')).toBeTruthy();
+		expect(document.querySelector('[data-testid="nested-popup"]')).toBeNull();
+	});
+
+	it('keeps final focus on the outside control when the inner dialog closes', async () => {
+		render(DialogHarness, { scenario: 'final-outside' });
+		click(button('Open'));
+		await expect.poll(() => document.querySelector('[data-testid="parent-popup"]')).toBeTruthy();
+		click(button('Nested'));
+		await expect
+			.poll(() => document.activeElement?.getAttribute('data-testid'))
+			.toBe('nested-inside');
+		await userEvent.keyboard('{Escape}');
+		await expect.poll(() => document.activeElement?.getAttribute('data-testid')).toBe('outside');
+		expect(document.querySelector('[data-testid="parent-popup"]')).toBeTruthy();
+		expect(document.querySelector('[data-testid="nested-popup"]')).toBeNull();
 	});
 
 	it('ignores a stray store prop on the portal', async () => {

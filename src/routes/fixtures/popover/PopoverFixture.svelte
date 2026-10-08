@@ -21,6 +21,7 @@
 </script>
 
 <button type="button">Outside</button>
+<input data-testid="outside-input" />
 <pre data-testid="calls">{JSON.stringify(calls)}</pre>
 
 {#snippet popup()}
@@ -29,7 +30,9 @@
 			<Popover.Popup>
 				<Popover.Title>Title</Popover.Title>
 				Content
-				<button type="button">Inside</button>
+				{#if scenario !== 'tab-empty'}
+					<button type="button">Inside</button>
+				{/if}
 				{#if scenario === 'close' || scenario === 'modal'}
 					<Popover.Close>Close</Popover.Close>
 				{/if}
@@ -49,6 +52,9 @@
 		{@render popup()}
 	</Popover.Root>
 {:else}
+	{#if scenario === 'tab' || scenario === 'tab-empty'}
+		<button type="button" data-testid="before">Before</button>
+	{/if}
 	<Popover.Root modal={scenario === 'modal'} onOpenChange={changed}>
 		<Popover.Trigger
 			onclick={clicked}
@@ -61,6 +67,6 @@
 		{@render popup()}
 	</Popover.Root>
 {/if}
-{#if scenario === 'tab'}
-	<button type="button">After</button>
+{#if scenario === 'tab' || scenario === 'tab-empty'}
+	<button type="button" data-testid="after">After</button>
 {/if}

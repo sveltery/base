@@ -44,3 +44,20 @@ export function getNodeChildren(
 		...getNodeChildren(nodes, child.id, onlyOpenChildren)
 	]);
 }
+
+/** Ancestors from parent toward the root. Matches upstream `getNodeAncestors`. */
+export function getNodeAncestors(
+	nodes: readonly FloatingNodeRecord[],
+	id: string | null | undefined
+): FloatingNodeRecord[] {
+	const allAncestors: FloatingNodeRecord[] = [];
+	let currentParentId = nodes.find((node) => node.id === id)?.parentId;
+
+	while (currentParentId) {
+		const currentNode = nodes.find((node) => node.id === currentParentId);
+		currentParentId = currentNode?.parentId;
+		if (currentNode) allAncestors.push(currentNode);
+	}
+
+	return allAncestors;
+}
