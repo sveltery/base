@@ -12,13 +12,18 @@
 	import { useFieldContext } from '../field/context.svelte.js';
 	import { useLabelableContext } from '../field/labelable.svelte.js';
 	import { createControllableValue } from '../internal/controllable-value.svelte.js';
+	import PartHost from '../internal/PartHost.svelte';
 	import { getStateAttributesProps } from '../internal/state-attributes.js';
 	import { visuallyHidden, visuallyHiddenInput } from '../internal/visuallyHidden.js';
 	import { numberFieldStateAttributes } from './attributes.js';
 	import { setNumberFieldContext } from './context.svelte.js';
 	import { NumberFieldModel } from './model.svelte.js';
 	import { toCssStyle } from '../internal/css-style.js';
-	import type { NumberFieldRootProps, NumberFieldRootState } from './types.js';
+	import type {
+		NumberFieldChangeEventDetails,
+		NumberFieldRootProps,
+		NumberFieldRootState
+	} from './types.js';
 
 	const uid = $props.id();
 	const idSource = Symbol('number-field-id');
@@ -53,18 +58,16 @@
 	const form = useFormContext();
 	const labelable = useLabelableContext(true);
 
-	const controllable = createControllableValue<number | null>({
+	const controllable = createControllableValue<number | null, NumberFieldChangeEventDetails>({
 		getProp: () => value,
 		setProp: (next) => {
 			value = next;
 		},
 		getDefault: () => defaultValue,
-		onChange(next) {
-			const reason = model.changeReason;
-			model.changeReason = null;
-			model.registerField();
+		onChange(next, details) {
 			form.clearErrors(name);
 			field?.setDirty(next !== field.validityData.initialValue);
+			const reason = details?.reason;
 			// Blur already committed when this mode does not validate on change.
 			// A second pass would clear that result.
 			if (
@@ -86,14 +89,12 @@
 
 	let hadExplicitId = false;
 
-	let model: NumberFieldModel;
-
-	function writeValue(next: number | null) {
+	function writeValue(next: number | null, details?: NumberFieldChangeEventDetails) {
 		if (Object.is(current, next)) return;
-		controllable.set(next);
+		controllable.set(next, details);
 	}
 
-	model = new NumberFieldModel({
+	const model = new NumberFieldModel({
 		getValue: () => current,
 		writeValue,
 		getMin: () => min,
@@ -158,15 +159,7 @@
 	}
 </script>
 
-{#snippet numberFieldContent()}
-	{@render children?.()}
-{/snippet}
-
-{#if render}
-	{@render render(hostProps, rootState, numberFieldContent)}
-{:else}
-	<div {...hostProps}>{@render numberFieldContent()}</div>
-{/if}
+<PartHost {render} {children} elementProps={hostProps} partState={rootState} />
 <input
 	type="number"
 	form={formId}

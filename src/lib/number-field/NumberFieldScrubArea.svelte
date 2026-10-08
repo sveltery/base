@@ -143,7 +143,7 @@
 			const delta = axis === 'vertical' ? -movementY : movementX;
 			const raw = delta * model.getStepAmount(event);
 			if (raw === 0) return;
-			model.allowInputSync = true;
+			model.followInputValue();
 			model.incrementValue(Math.abs(raw), {
 				direction: raw >= 0 ? 1 : -1,
 				event,

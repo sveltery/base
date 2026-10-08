@@ -42,7 +42,6 @@ export class TabsRootModel {
 	private notifiedInitial = false;
 	private didRegister = false;
 	private lastTabElement: HTMLElement | null = null;
-	private queuedNotice: TabsRootChangeEventDetails | undefined;
 
 	constructor(private readonly values: ControllableValue<TabsValue | null>) {
 		this.directionBaseline = values.value ?? null;
@@ -104,8 +103,8 @@ export class TabsRootModel {
 
 			if (!this.notifiedInitial && selected) {
 				this.notifiedInitial = true;
-				this.queuedNotice = createTabsChangeEventDetails(REASONS.initial, undefined, 'none');
-				this.values.notify();
+				// Write the selection back when the bindable still holds `undefined`.
+				this.values.set(current, createTabsChangeEventDetails(REASONS.initial, undefined, 'none'));
 			}
 		});
 	}
@@ -131,14 +130,6 @@ export class TabsRootModel {
 
 	get onValueChange() {
 		return this.readOnValueChange();
-	}
-
-	/** Deliver a notice queued for the helper's post-update change callback. */
-	deliverNotice(next: TabsValue | null | undefined) {
-		const notice = this.queuedNotice;
-		this.queuedNotice = undefined;
-		if (!notice) return;
-		this.onValueChange?.(next ?? null, notice);
 	}
 
 	get value(): TabsValue | null {
@@ -216,16 +207,19 @@ export class TabsRootModel {
 		return this.panelElements.indexOf(element);
 	}
 
-	private commit(next: TabsValue | null, direction: TabsActivationDirection) {
+	private commit(
+		next: TabsValue | null,
+		direction: TabsActivationDirection,
+		details?: TabsRootChangeEventDetails
+	) {
 		this.directionBaseline = next;
 		this.tabActivationDirection = direction;
-		this.value = next;
+		this.values.set(next, details);
 	}
 
 	private commitAutomatic(next: TabsValue | null, reason: TabsRootChangeEventReason) {
 		this.notifiedInitial = true;
-		this.queuedNotice = createTabsChangeEventDetails(reason, undefined, 'none');
-		this.commit(next, 'none');
+		this.commit(next, 'none', createTabsChangeEventDetails(reason, undefined, 'none'));
 	}
 }
 
