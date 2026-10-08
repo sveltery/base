@@ -32,7 +32,8 @@
 		| 'nullish'
 		| 'render'
 		| 'attach'
-		| 'override';
+		| 'override'
+		| 'default';
 
 	let {
 		scenario = 'plain',

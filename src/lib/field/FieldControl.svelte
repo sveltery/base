@@ -171,7 +171,7 @@
 		return serializedValue(controllable.value);
 	}
 
-	function handleInput(event: Event & { currentTarget: EventTarget & ValueElement }) {
+	function handleInput(event: Event & { currentTarget: EventTarget & HTMLInputElement }) {
 		oninput?.(event);
 		const inputValue = event.currentTarget.value;
 		const details = createChangeEventDetails(REASONS.none, event);
@@ -187,12 +187,12 @@
 		controllable.set(inputValue);
 	}
 
-	function handleFocus(event: FocusEvent & { currentTarget: EventTarget & ValueElement }) {
+	function handleFocus(event: FocusEvent & { currentTarget: EventTarget & HTMLInputElement }) {
 		onfocus?.(event);
 		field.setFocused(true);
 	}
 
-	function handleBlur(event: FocusEvent & { currentTarget: EventTarget & ValueElement }) {
+	function handleBlur(event: FocusEvent & { currentTarget: EventTarget & HTMLInputElement }) {
 		onblur?.(event);
 		field.setTouched(true);
 		field.setFocused(false);
@@ -216,7 +216,7 @@
 		});
 	}
 
-	function handleKeyDown(event: KeyboardEvent & { currentTarget: EventTarget & ValueElement }) {
+	function handleKeyDown(event: KeyboardEvent & { currentTarget: EventTarget & HTMLInputElement }) {
 		onkeydown?.(event);
 		if (event.currentTarget.tagName !== 'INPUT' || event.key !== 'Enter') return;
 
