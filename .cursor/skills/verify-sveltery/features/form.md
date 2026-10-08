@@ -47,6 +47,6 @@ Component tests (`src/lib/form/Form.svelte.spec.ts`) cover the registry: blocked
 
 ## Not ported
 
-- Checkbox, NumberField and Switch. Their Form tests (error text, `aria-invalid`, async validators, disabled fieldset exclusion, strict-mode registration) wait for those components. Field registers itself; its tests live with Field.
+- Checkbox and Switch. Their Form tests (error text, `aria-invalid`, async validators, disabled fieldset exclusion, strict-mode registration) are not in this spec. NumberField's empty required submit is covered with NumberField. Field registers itself; its tests live with Field.
 - `className` and `style` state callbacks.
 - React `actionsRef` and element `ref` props.
