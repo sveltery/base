@@ -277,7 +277,9 @@
 		const initialTarget = takeInitial(floating);
 		// A child opened in the same update queues its focus first. Skipping this
 		// first frame keeps that child focused. Reopening does not skip.
-		const skipForOpenChild = !hasOpenedBefore && hasOpenChild();
+		// Child open state is not a dependency. Reading it here would rebuild the trap
+		// when a nested popup opens and pull focus back to this popup's first control.
+		const skipForOpenChild = !hasOpenedBefore && untrack(() => hasOpenChild());
 		hasOpenedBefore = true;
 		if (initialTarget !== false) {
 			cancelFocus = enqueueFocus(initialTarget, {
