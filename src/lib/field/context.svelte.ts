@@ -3,8 +3,12 @@
 
 import { getContext, hasContext, setContext } from 'svelte';
 import type { FieldValidityData } from '../form/types.js';
-import { DEFAULT_VALIDITY_STATE } from './constants.js';
-import { DEFAULT_FIELD_STATE, type FieldContext, type FieldRootModel } from './model.svelte.js';
+import {
+	DEFAULT_FIELD_STATE,
+	EMPTY_VALIDITY,
+	type FieldContext,
+	type FieldRootModel
+} from './model.svelte.js';
 
 const FIELD_CONTEXT = Symbol('field-root');
 const FIELD_ITEM_CONTEXT = Symbol('field-item');
@@ -18,13 +22,7 @@ export function setFieldContext(field: FieldRootModel) {
 }
 
 function frozenValidity(): FieldValidityData {
-	const validity: FieldValidityData = {
-		state: { ...DEFAULT_VALIDITY_STATE },
-		error: '',
-		errors: [],
-		value: null,
-		initialValue: null
-	};
+	const validity = EMPTY_VALIDITY();
 	Object.freeze(validity.state);
 	Object.freeze(validity.errors);
 	Object.freeze(validity);

@@ -729,7 +729,6 @@ describe('<Slider />', () => {
 		expect(node).toHaveAttribute('role', 'group');
 		expect(slider()).toHaveAttribute('aria-valuenow', '12');
 	});
-
 	it('calls onValueChange and onValueCommitted outside effect tracking', async () => {
 		render(SliderHarness, { scenario: 'tracking', defaultValue: 30 });
 		change(slider(), '40');

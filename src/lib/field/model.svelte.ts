@@ -68,7 +68,7 @@ export const DEFAULT_FIELD_STATE: FieldRootState = {
 	focused: false
 };
 
-const EMPTY_VALIDITY = (): FieldValidityData => ({
+export const EMPTY_VALIDITY = (): FieldValidityData => ({
 	state: { ...DEFAULT_VALIDITY_STATE },
 	error: '',
 	errors: [],
@@ -171,8 +171,7 @@ export class FieldRootModel implements FieldContext {
 	}
 
 	get invalid() {
-		const hasFormError = this.hasFormError;
-		return this.options.getInvalidProp() === true || hasFormError;
+		return this.options.getInvalidProp() === true || this.hasFormError;
 	}
 
 	get formError(): string | string[] | null {
@@ -496,7 +495,7 @@ export class FieldRootModel implements FieldContext {
 			return;
 		}
 		this.initialCaptured = true;
-		const initialValue = untrack(() => this.readRegisteredValue(registration));
+		const initialValue = this.readRegisteredValue(registration);
 		const previous = untrack(() => this.validityData);
 		if (previous.initialValue !== initialValue) {
 			this.validityData = { ...previous, initialValue };
