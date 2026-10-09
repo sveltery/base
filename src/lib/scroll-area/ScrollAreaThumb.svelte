@@ -60,28 +60,23 @@
 		...getStateAttributesProps(partState),
 		...elementProps,
 		style: mergeCssStyle(
-			mergeCssStyle(
-				toCssStyle({
-					visibility: model.hasMeasuredScrollbar ? undefined : 'hidden',
-					...(vertical
-						? { height: `var(${scrollAreaThumbHeight})` }
-						: { width: `var(${scrollAreaThumbWidth})` })
-				}),
-				style
-			),
 			toCssStyle({
-				transform: vertical
-					? `translate3d(0,${model.thumbYOffset}px,0)`
-					: `translate3d(${model.thumbXOffset}px,0,0)`,
-				[scrollAreaThumbHeight]: vertical ? model.thumbYSizeOverride : undefined,
-				[scrollAreaThumbWidth]: vertical ? undefined : model.thumbXSizeOverride
-			})
+				visibility: model.hasMeasuredScrollbar ? undefined : 'hidden',
+				...(vertical
+					? { height: `var(${scrollAreaThumbHeight})` }
+					: { width: `var(${scrollAreaThumbWidth})` })
+			}),
+			style
 		),
 		onpointerdown: chain((event) => model.pointerDown(event), onpointerdown),
 		onpointermove: chain((event) => model.pointerMove(event), onpointermove),
 		onpointerup: chain((event) => model.pointerUp(event), onpointerup),
 		onpointercancel: chain((event) => model.pointerUp(event), onpointercancel),
 		...(render ? { [attachmentKey]: remember } : {})
+	});
+
+	$effect(() => {
+		model.holdThumb(vertical, hostProps.style);
 	});
 </script>
 

@@ -55,14 +55,6 @@ export class ScrollAreaModel {
 	overflowEdges = $state<OverflowEdges>({ ...DEFAULT_OVERFLOW_EDGES });
 	hiddenState = $state<HiddenState>({ ...DEFAULT_HIDDEN_STATE });
 	snapSuspended = $state(false);
-	overflowXStartPx = $state(0);
-	overflowXEndPx = $state(0);
-	overflowYStartPx = $state(0);
-	overflowYEndPx = $state(0);
-	thumbYOffset = $state(0);
-	thumbXOffset = $state(0);
-	thumbYSizeOverride = $state('');
-	thumbXSizeOverride = $state('');
 
 	rootElement = $state<HTMLDivElement | null>(null);
 	viewportElement = $state<HTMLDivElement | null>(null);
@@ -84,6 +76,7 @@ export class ScrollAreaModel {
 	private currentOrientation: ScrollAxis = 'vertical';
 	private scrollPosition: Coords = { ...DEFAULT_COORDS };
 	private savedSnapType: string | null = null;
+	private readonly hostStyles = new WeakMap<HTMLElement, string | null | undefined>();
 	private programmaticScroll = true;
 	private lastMeasured: [number, number, number, number] = [NaN, NaN, NaN, NaN];
 	private readonly scrollYTimer = useTimeout();
@@ -130,10 +123,8 @@ export class ScrollAreaModel {
 	}
 
 	refreshLayout() {
-		// Read before `untrack` so the root effect subscribes to the threshold prop.
 		const threshold = this.threshold;
-		untrack(() => this.computeThumbPosition());
-		return threshold;
+		untrack(() => this.computeThumbPosition(threshold));
 	}
 
 	registerOverflowProperties() {
@@ -459,16 +450,36 @@ export class ScrollAreaModel {
 		return () => resizeObserver.disconnect();
 	}
 
-	queueThumb(hidden: HiddenState) {
+	// Svelte 5.57 writes the style attribute before it runs effects. This effect
+	// reads that string. The sync recompute puts the overflow lengths back on
+	// that flush; the microtask covers a style write that lands after it.
+	queueThumb(hidden: HiddenState, style: string | null | undefined) {
 		const direction = this.direction;
-		if (!this.viewportElement && hidden.x && hidden.y && hidden.corner) return;
+		const viewport = this.viewportElement;
+		const styleChanged = this.styleChanged(viewport, style);
+		if (!viewport && hidden.x && hidden.y && hidden.corner) return;
+		if (styleChanged) this.computeThumbPosition();
 		queueMicrotask(() => {
 			if (this.direction !== direction) return;
 			this.computeThumbPosition();
 		});
 	}
 
-	computeThumbPosition() {
+	// Same ordering as queueThumb: the effect runs after the style attribute write.
+	holdThumb(vertical: boolean, style: string | null | undefined) {
+		const thumb = vertical ? this.thumbYElement : this.thumbXElement;
+		if (!this.styleChanged(thumb, style)) return;
+		this.computeThumbPosition();
+	}
+
+	private styleChanged(node: HTMLElement | null, style: string | null | undefined) {
+		if (!node) return false;
+		if (this.hostStyles.has(node) && this.hostStyles.get(node) === style) return false;
+		this.hostStyles.set(node, style);
+		return true;
+	}
+
+	computeThumbPosition(threshold = this.threshold) {
 		const viewport = this.viewportElement;
 		const scrollbarY = this.scrollbarYElement;
 		const scrollbarX = this.scrollbarXElement;
@@ -564,8 +575,6 @@ export class ScrollAreaModel {
 				clampedNextHeight,
 				maxThumbOffsetY
 			);
-			this.thumbYOffset = applied.offset;
-			this.thumbYSizeOverride = applied.sizeOverride;
 			thumbY.style.transform = `translate3d(0,${applied.offset}px,0)`;
 			thumbY.style.setProperty(
 				scrollAreaThumbHeight,
@@ -585,8 +594,6 @@ export class ScrollAreaModel {
 				maxThumbOffsetX
 			);
 			const signed = direction === 'rtl' ? -applied.offset : applied.offset;
-			this.thumbXOffset = signed;
-			this.thumbXSizeOverride = applied.sizeOverride;
 			thumbX.style.transform = `translate3d(${signed}px,0,0)`;
 			thumbX.style.setProperty(
 				scrollAreaThumbWidth,
@@ -603,10 +610,6 @@ export class ScrollAreaModel {
 		OVERFLOW_EDGE_VARS.forEach((cssVar, index) => {
 			viewport.style.setProperty(cssVar, `${overflowMetricsPx[index]}px`);
 		});
-		this.overflowXStartPx = overflowMetricsPx[0];
-		this.overflowXEndPx = overflowMetricsPx[1];
-		this.overflowYStartPx = overflowMetricsPx[2];
-		this.overflowYEndPx = overflowMetricsPx[3];
 
 		if (corner) {
 			this.assignSize(
@@ -621,7 +624,6 @@ export class ScrollAreaModel {
 		const hidden = pickState(this.hiddenState, nextHiddenState);
 		if (hidden !== this.hiddenState) this.hiddenState = hidden;
 
-		const threshold = this.threshold;
 		const nextOverflowEdges: OverflowEdges = {
 			xStart: !scrollbarXHidden && scrollLeftFromStart > threshold.xStart,
 			xEnd: !scrollbarXHidden && scrollLeftFromEnd > threshold.xEnd,

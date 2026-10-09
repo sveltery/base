@@ -11,12 +11,6 @@
 	import { scrollAreaStateAttributesMapping } from './attributes.js';
 	import { DISABLE_SCROLLBAR_CLASS } from './constants.js';
 	import { setScrollAreaViewportContext, useScrollAreaRootContext } from './context.svelte.js';
-	import {
-		scrollAreaOverflowXEnd,
-		scrollAreaOverflowXStart,
-		scrollAreaOverflowYEnd,
-		scrollAreaOverflowYStart
-	} from './css-vars.js';
 	import { chain, mergeClass } from '../internal/mergeProps.js';
 	import type { ScrollAreaViewportProps } from './types.js';
 
@@ -61,10 +55,6 @@
 	});
 
 	$effect(() => {
-		model.queueThumb(model.hiddenState);
-	});
-
-	$effect(() => {
 		model.observeViewportHover();
 	});
 
@@ -83,13 +73,7 @@
 		class: mergeClass(DISABLE_SCROLLBAR_CLASS, className),
 		style: mergeCssStyle(
 			mergeCssStyle(toCssStyle({ overflow: 'scroll' }), style),
-			toCssStyle({
-				[scrollAreaOverflowXStart]: `${model.overflowXStartPx}px`,
-				[scrollAreaOverflowXEnd]: `${model.overflowXEndPx}px`,
-				[scrollAreaOverflowYStart]: `${model.overflowYStartPx}px`,
-				[scrollAreaOverflowYEnd]: `${model.overflowYEndPx}px`,
-				scrollSnapType: model.snapSuspended ? 'none' : undefined
-			})
+			toCssStyle({ scrollSnapType: model.snapSuspended ? 'none' : undefined })
 		),
 		onscroll: chain(() => model.viewportScroll(), onscroll),
 		onwheel: chain(() => model.markUserInteraction(), onwheel),
@@ -97,6 +81,10 @@
 		onpointerenter: chain(() => model.markUserInteraction(), onpointerenter),
 		onkeydown: chain(() => model.markUserInteraction(), onkeydown),
 		...(render ? { [attachmentKey]: remember } : {})
+	});
+
+	$effect(() => {
+		model.queueThumb(model.hiddenState, hostProps.style);
 	});
 </script>
 
