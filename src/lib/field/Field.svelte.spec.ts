@@ -491,4 +491,19 @@ describe('Field', () => {
 		await page.getByRole('button', { name: 'Hide' }).click();
 		await expect.poll(() => text('seen')).toBe('0');
 	});
+
+	it('submits under the control name after that name changes', async () => {
+		render(FieldLowHarness, { scenario: 'rename' });
+		await expect.element(page.getByTestId('control')).toHaveValue('x');
+		await page.getByRole('button', { name: 'Rename' }).click();
+		await page.getByRole('button', { name: 'Submit' }).click();
+		await expect.poll(() => text('values')).toBe(JSON.stringify({ b: 'x' }));
+	});
+
+	it('submits the value the control held when it mounted', async () => {
+		render(FieldLowHarness, { scenario: 'initial' });
+		await expect.element(page.getByTestId('control')).toHaveValue('x');
+		await page.getByRole('button', { name: 'Submit' }).click();
+		await expect.poll(() => text('values')).toBe(JSON.stringify({ letter: 'x' }));
+	});
 });

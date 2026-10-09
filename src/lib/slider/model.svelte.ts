@@ -7,7 +7,6 @@
 // Text direction is `useDirection()`, read through `getDirection`.
 
 import { untrack } from 'svelte';
-import { callPublic } from '../internal/callPublic.js';
 import { useAnimationFrame } from '../internal/timeout.svelte.js';
 import { clamp } from '../internal/clamp.js';
 import {
@@ -350,11 +349,7 @@ export class SliderRootModel {
 		const current = this.options.getValueUnwrapped();
 		if (Number.isNaN(newValue) || areValuesEqual(newValue, current)) return false;
 
-		callPublic(
-			(value, eventDetails) => this.options.getOnValueChange()?.(value, eventDetails),
-			newValue,
-			details
-		);
+		this.options.getOnValueChange()?.(newValue, details);
 		if (details.isCanceled) return false;
 
 		this.lastChangeReason = details.reason;
@@ -376,11 +371,7 @@ export class SliderRootModel {
 		);
 		this.options.getField().setTouched(true);
 		if (applied) {
-			callPublic(
-				(value, eventDetails) => this.options.getOnValueCommitted()?.(value, eventDetails),
-				newValue,
-				createGenericEventDetails(reason, event)
-			);
+			this.options.getOnValueCommitted()?.(newValue, createGenericEventDetails(reason, event));
 		}
 	}
 
@@ -782,8 +773,7 @@ export class SliderRootModel {
 		}
 
 		if (this.currentInteractionValue != null) {
-			callPublic(
-				(value, eventDetails) => this.options.getOnValueCommitted()?.(value, eventDetails),
+			this.options.getOnValueCommitted()?.(
 				this.currentInteractionValue,
 				createGenericEventDetails(this.lastChangeReason, nativeEvent)
 			);
