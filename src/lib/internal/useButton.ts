@@ -14,16 +14,20 @@ function readHandler<T>(props: object, key: HandlerKey) {
 	return typeof value === 'function' ? (value as (event: T) => void) : undefined;
 }
 
-function omitHandlers(props: object) {
+function omitHandlers<T extends object>(props: T): Omit<T, HandlerKey> {
 	const rest: Record<PropertyKey, unknown> = {};
 	for (const key of Reflect.ownKeys(props)) {
 		if (typeof key === 'string' && (HANDLER_KEYS as readonly string[]).includes(key)) continue;
 		rest[key] = (props as Record<PropertyKey, unknown>)[key];
 	}
-	return rest;
+	return rest as Omit<T, HandlerKey>;
 }
 
-export function useButton(disabled: boolean, nativeButton: boolean, elementProps: object = {}) {
+export function useButton<T extends object>(
+	disabled: boolean,
+	nativeButton: boolean,
+	elementProps: T = {} as T
+) {
 	const onclick = readHandler<MouseEvent>(elementProps, 'onclick');
 	const onmousedown = readHandler<MouseEvent>(elementProps, 'onmousedown');
 	const onpointerdown = readHandler<PointerEvent>(elementProps, 'onpointerdown');
