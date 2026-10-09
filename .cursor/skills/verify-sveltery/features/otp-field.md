@@ -2,7 +2,7 @@
 
 One-time-code slots that share a single string value. Upstream: `packages/react/src/otp-field` at Base UI v1.8.0 (`47b40521`). Local: `src/lib/otp-field/`.
 
-`OTPField.Input` is its own text input. It registers the first slot with the real `Field` when one is present. It does not render `Input` or `Field.Control`. Upstream does the same. `OTPField.Separator` is the existing `Separator`.
+`OTPField.Input` is its own text input. `OTPField.Root` registers the first slot with the real `Field` when one is present. `OTPField.Input` does not render `Input` or `Field.Control`. Upstream does the same. `OTPField.Separator` is the existing `Separator`.
 
 Slot indexes come from a local list: render order before mount, then document order. That is the flat registration CompositeList does for this component. Arrow keys are handled on the slot, not by a generic composite. Text direction is `useDirection().direction`.
 
@@ -50,7 +50,7 @@ Component tests (`src/lib/otp-field/OTPField.svelte.spec.ts`) cover filtering, p
 
 ## Gotchas
 
-- `OTPField.Input` throws `OTPFieldRootContext is missing` outside `OTPField.Root`.
+- `OTPField.Input` throws `Base UI: OTPFieldRootContext is missing. OTPField parts must be placed within <OTPField.Root>.` outside `OTPField.Root`.
 - Server HTML includes `aria-labelledby` only when `Field.Label` is rendered before the inputs. Label-first is required.
 - The visible slots are the text the user edits. The submitted string lives on the hidden input.
 - `length` has to match the number of `OTPField.Input` parts. A mismatch warns in development.

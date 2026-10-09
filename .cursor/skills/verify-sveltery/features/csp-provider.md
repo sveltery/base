@@ -53,4 +53,4 @@ Component tests (`src/lib/csp-provider/CSPProvider.svelte.spec.ts`) port the ups
 
 ## Not ported
 
-- Select, Slider, and Tabs do not render the upstream inline style or prehydration script tags, so they do not read this provider.
+- Select and Tabs render no inline style or prehydration script. Slider does render the upstream thumb prehydration script (`src/lib/slider/SliderThumb.svelte` lines 288-291), but passes no CSP nonce and does not read the provider.

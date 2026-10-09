@@ -11,7 +11,7 @@ A numeric input with steppers, wheel scrubbing, and a pointer-lock scrub area. U
 - Steppers tick on pointer down, then repeat after 400ms every 60ms. A mouse click whose `detail` is not 0 does not step again. Read-only steppers set `aria-disabled` and do not set `aria-readonly`. A disabled stepper, or one sitting on `min`/`max`, sets the `disabled` attribute.
 - Keyboard: ArrowUp/ArrowDown step, Home/End jump to `min`/`max` when that bound exists, and other characters follow the locale's allowed symbols. Paste parses the inserted text. Blur commits the parsed number, or `null` when the field was cleared.
 - `allowWheelScrub` changes the focused input from a vertical wheel (Shift can use a horizontal gesture). `ScrubArea` drags to step. `ScrubAreaCursor` is portaled to `document.body` while scrubbing, except on WebKit, touch, or a denied pointer lock.
-- Inside `Field.Root`, the visible input is the registered control, so `Field.Label`, `Field.Error`, and `Form` see it. The hidden number input keeps `name`, `min`, `max`, `step`, and `required` for native submit and `checkValidity()`. `step="any"` keeps that attribute and steps by 1. A change event on that hidden input updates the value and validates. An input event and a change event for one new value validate once. Repeating the current value does not validate.
+- Inside `Field.Root`, the visible input is the registered control, so `Field.Label`, `Field.Error`, and `Form` see it. The hidden number input keeps `name`, `min`, `max`, `step`, and `required` for native submit and `checkValidity()`. `step="any"` keeps that attribute and steps by 1.
 
 Differences from React Base UI, all deliberate:
 
