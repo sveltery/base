@@ -1,5 +1,6 @@
 <script lang="ts">
-	import type { FieldRootModel } from '../lib/field/model.svelte.js';
+	import { DEFAULT_VALIDITY_STATE } from '../lib/field/constants.js';
+	import { DEFAULT_FIELD_STATE, type FieldContext } from '../lib/field/model.svelte.js';
 	import { SliderRootModel, type SliderModelOptions } from '../lib/slider/model.svelte.js';
 
 	const changeLog: string[] = [];
@@ -19,6 +20,39 @@
 			commits = commitLog.length;
 		});
 	}
+
+	const field: FieldContext = {
+		validityData: {
+			state: { ...DEFAULT_VALIDITY_STATE },
+			error: '',
+			errors: [],
+			value: null,
+			initialValue: null
+		},
+		disabled: false,
+		name: undefined,
+		validationMode: 'onSubmit',
+		invalid: false,
+		formError: null,
+		hasFormError: false,
+		dirty: false,
+		touched: false,
+		valid: null,
+		filled: false,
+		focused: false,
+		state: DEFAULT_FIELD_STATE,
+		inputElement: null,
+		setTouched() {},
+		setDirty() {},
+		setFilled() {},
+		setFocused() {},
+		shouldValidateOnChange: () => false,
+		validateField() {},
+		registerControl() {},
+		registerInput: () => () => {},
+		change() {},
+		commit() {}
+	};
 
 	const options: SliderModelOptions = {
 		getValueUnwrapped: () => 10,
@@ -41,7 +75,7 @@
 		getFieldLabelId: () => undefined,
 		getOnValueChange: () => onValueChange,
 		getOnValueCommitted: () => onValueCommitted,
-		getField: () => ({ setTouched() {} }) as FieldRootModel,
+		getField: () => field,
 		getFormContext: () => ({}) as ReturnType<SliderModelOptions['getFormContext']>,
 		getDirection: () => 'ltr'
 	};

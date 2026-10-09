@@ -6,7 +6,7 @@
 
 import { untrack } from 'svelte';
 import type { Attachment } from 'svelte/attachments';
-import type { FieldRootModel } from '../field/model.svelte.js';
+import type { FieldContext } from '../field/model.svelte.js';
 
 export interface FieldControlRead {
 	enabled: () => boolean;
@@ -35,7 +35,7 @@ class FieldRegistration {
 	private appliedName: string | undefined;
 
 	constructor(
-		private readonly field: FieldRootModel,
+		private readonly field: FieldContext,
 		private readonly read: Omit<FieldControlRead, 'element'>
 	) {}
 
@@ -116,7 +116,7 @@ class FieldRegistration {
  * Keep the field's control registration in step with `read`.
  * Call this while the component is initializing. `getValue` is not read here.
  */
-export function watchFieldControl(field: FieldRootModel, read: FieldControlRead) {
+export function watchFieldControl(field: FieldContext, read: FieldControlRead) {
 	new FieldRegistration(field, read).watch(read.element);
 }
 
@@ -124,7 +124,7 @@ export function watchFieldControl(field: FieldRootModel, read: FieldControlRead)
  * The attachment publishes the host element. Registration stays on one source.
  */
 export function attachFieldControl(
-	field: FieldRootModel,
+	field: FieldContext,
 	read: Omit<FieldControlRead, 'element'>
 ): Attachment<HTMLElement> {
 	const registration = new FieldRegistration(field, read);

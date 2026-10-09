@@ -17,13 +17,21 @@ export function setFieldContext(field: FieldRootModel) {
 	setContext(FIELD_CONTEXT, field);
 }
 
-const INERT_VALIDITY: FieldValidityData = Object.freeze({
-	state: Object.freeze({ ...DEFAULT_VALIDITY_STATE }),
-	error: '',
-	errors: Object.freeze<string[]>([]),
-	value: null,
-	initialValue: null
-});
+function frozenValidity(): FieldValidityData {
+	const validity: FieldValidityData = {
+		state: { ...DEFAULT_VALIDITY_STATE },
+		error: '',
+		errors: [],
+		value: null,
+		initialValue: null
+	};
+	Object.freeze(validity.state);
+	Object.freeze(validity.errors);
+	Object.freeze(validity);
+	return validity;
+}
+
+const INERT_VALIDITY = frozenValidity();
 
 function inert() {}
 
