@@ -4,7 +4,6 @@
 import { page } from 'vitest/browser';
 import { describe, expect, it, vi } from 'vitest';
 import { render } from 'vitest-browser-svelte';
-import SliderCallbackHarness from '../../tests/SliderCallbackHarness.svelte';
 import SliderHarness from '../../tests/SliderHarness.svelte';
 
 function click(node: Element) {
@@ -731,14 +730,24 @@ describe('<Slider />', () => {
 		expect(slider()).toHaveAttribute('aria-valuenow', '12');
 	});
 
-	it('does not rerun public value callbacks when their identity changes', async () => {
-		render(SliderCallbackHarness);
-		await expect.poll(() => page.getByTestId('changes').element().textContent).not.toBe('0');
-		const changes = page.getByTestId('changes').element().textContent;
-		const commits = page.getByTestId('commits').element().textContent;
-		await page.getByRole('button', { name: 'Swap' }).click();
-		await new Promise((resolve) => setTimeout(resolve, 30));
-		expect(page.getByTestId('changes').element().textContent).toBe(changes);
-		expect(page.getByTestId('commits').element().textContent).toBe(commits);
+	it('calls onValueChange and onValueCommitted outside effect tracking', async () => {
+		render(SliderHarness, { scenario: 'tracking', defaultValue: 30 });
+		change(slider(), '40');
+		await expect
+			.poll(() => page.getByTestId('change-tracking').element().textContent)
+			.toBe('false');
+		await expect
+			.poll(() => page.getByTestId('commit-tracking').element().textContent)
+			.toBe('false');
+
+		mockControlRect();
+		pointer(control(), 'pointerdown', 55);
+		pointer(control(), 'pointerup', 55);
+		await expect
+			.poll(() => page.getByTestId('change-tracking').element().textContent)
+			.toBe('false');
+		await expect
+			.poll(() => page.getByTestId('commit-tracking').element().textContent)
+			.toBe('false');
 	});
 });

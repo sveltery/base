@@ -20,7 +20,9 @@
 	const generatedId = `base-ui-${uid}`;
 	const id = $derived(idProp ?? generatedId);
 
-	registerLabelId(() => id, fieldset.setLegendId);
+	registerLabelId(() => id, fieldset.setLegendId, {
+		readCurrent: () => fieldset.legendId
+	});
 
 	const state: FieldsetLegendState = $derived({
 		disabled: fieldset.disabled

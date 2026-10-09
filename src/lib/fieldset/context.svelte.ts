@@ -4,15 +4,11 @@ import { getContext, hasContext, setContext } from 'svelte';
 
 const FIELDSET_ROOT_CONTEXT = Symbol('fieldset-root');
 
-export type LegendIdUpdate =
-	string | undefined | ((current: string | undefined) => string | undefined);
-
 /**
  * One fieldset's shared state.
  * `disabled` is the ancestor flag OR this root's own prop, read live so nested
  * roots stay disabled through SSR and later updates.
- * `setLegendId` accepts functional updates so an older legend's cleanup cannot
- * clear a newer registration.
+ * `setLegendId` assigns the next id. Cleanup clears it only when it is still current.
  */
 export class FieldsetRootContextValue {
 	legendId = $state<string | undefined>(undefined);
@@ -28,8 +24,8 @@ export class FieldsetRootContextValue {
 		return Boolean(this.parent?.disabled) || this.readDisabledProp();
 	}
 
-	setLegendId = (next: LegendIdUpdate) => {
-		this.legendId = typeof next === 'function' ? next(this.legendId) : next;
+	setLegendId = (next: string | undefined) => {
+		this.legendId = next;
 	};
 }
 

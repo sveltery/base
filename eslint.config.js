@@ -126,12 +126,5 @@ export default defineConfig(
 			'sveltery/no-state-updater': 'error',
 			'sveltery/no-void-signal-read': 'error'
 		}
-	},
-	{
-		// React fixtures keep React's functional setState. The Svelte library does not.
-		files: ['src/routes/fixtures/react-fixture.ts', 'src/routes/fixtures/checked-reference.ts'],
-		rules: {
-			'sveltery/no-state-updater': 'off'
-		}
 	}
 );

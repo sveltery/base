@@ -176,7 +176,7 @@ const rule = {
 					}
 					if (node.type === 'CallExpression') {
 						const name = calleeName(node.callee);
-						if (!name || !/^set[A-Z]/.test(name)) return;
+						if (!name || !/^set(LabelId|LegendId|MessageIds)$/.test(name)) return;
 						for (const arg of node.arguments ?? []) {
 							const value = unwrap(arg);
 							if (

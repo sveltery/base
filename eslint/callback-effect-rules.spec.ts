@@ -104,47 +104,24 @@ describe('rules fail on 90994ba8', () => {
 	});
 });
 
-describe('owned hits are gone and blocked hits remain', () => {
-	it('leaves slider callbacks and the label-id helpers', async () => {
-		const slider = readFileSync('src/lib/slider/model.svelte.ts', 'utf8');
-		const [sliderResult] = await lint(slider, 'src/lib/slider/model.svelte.ts');
-		const callbacks = lines(
-			slider,
-			sliderResult?.messages ?? [],
-			'sveltery/no-public-callback-untracked'
-		);
-		expect(callbacks).toHaveLength(3);
-
-		const helper = readFileSync('src/lib/internal/register-label-id.svelte.ts', 'utf8');
-		const [helperResult] = await lint(helper, 'src/lib/internal/register-label-id.svelte.ts');
-		const updater = lines(helper, helperResult?.messages ?? [], 'sveltery/no-state-updater');
-		expect(updater.some((line) => line.includes('LabelIdUpdate'))).toBe(true);
-		expect(updater.some((line) => line.includes('(current)'))).toBe(true);
-
-		const fieldset = readFileSync('src/lib/fieldset/register-label-id.svelte.ts', 'utf8');
-		const [fieldsetResult] = await lint(fieldset, 'src/lib/fieldset/register-label-id.svelte.ts');
-		expect(
-			lines(fieldset, fieldsetResult?.messages ?? [], 'sveltery/no-state-updater').some((line) =>
-				line.includes('(current)')
-			)
-		).toBe(true);
-
-		const context = readFileSync('src/lib/fieldset/context.svelte.ts', 'utf8');
-		const [contextResult] = await lint(context, 'src/lib/fieldset/context.svelte.ts');
-		expect(
-			lines(context, contextResult?.messages ?? [], 'sveltery/no-state-updater').length
-		).toBeGreaterThan(0);
-
-		const labelable = readFileSync('src/lib/field/labelable.svelte.ts', 'utf8');
-		const [labelableResult] = await lint(labelable, 'src/lib/field/labelable.svelte.ts');
-		expect(lines(labelable, labelableResult?.messages ?? [], 'sveltery/no-state-updater')).toEqual(
-			[]
-		);
-
-		const accordion = readFileSync('src/lib/accordion/context.svelte.ts', 'utf8');
-		const [accordionResult] = await lint(accordion, 'src/lib/accordion/context.svelte.ts');
-		expect(
-			lines(accordion, accordionResult?.messages ?? [], 'sveltery/no-public-callback-untracked')
-		).toEqual([]);
+describe('hits that exist on this branch are clean', () => {
+	it('leaves no updater or tracked-callback hits in the owned files', async () => {
+		for (const file of [
+			'src/lib/slider/model.svelte.ts',
+			'src/lib/internal/register-label-id.svelte.ts',
+			'src/lib/fieldset/register-label-id.svelte.ts',
+			'src/lib/fieldset/context.svelte.ts',
+			'src/lib/field/labelable.svelte.ts',
+			'src/lib/accordion/context.svelte.ts',
+			'src/lib/number-field/model.svelte.ts',
+			'src/lib/otp-field/model.svelte.ts'
+		]) {
+			const source = readFileSync(file, 'utf8');
+			const [result] = await lint(source, file);
+			const messages = (result?.messages ?? []).filter((message) =>
+				message.ruleId?.startsWith('sveltery/')
+			);
+			expect(messages, file).toEqual([]);
+		}
 	});
 });
