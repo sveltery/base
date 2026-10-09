@@ -15,7 +15,7 @@
 		},
 		"html:src/lib/progress/ProgressLabel.svelte|src/lib/switch/SwitchThumb.svelte": {
 			"count": 1,
-			"lines": 39
+			"lines": 38
 		},
 		"html:src/lib/scroll-area/ScrollAreaContent.svelte|src/lib/scroll-area/ScrollAreaThumb.svelte": {
 			"count": 1,

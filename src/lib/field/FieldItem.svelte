@@ -5,12 +5,10 @@
 	(commit 47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c). MIT, see THIRD_PARTY_NOTICES.md.
 -->
 <script lang="ts">
-	import { hasContext } from 'svelte';
 	import type { HTMLAttributes } from 'svelte/elements';
 	import { getStateAttributesProps } from '../internal/state-attributes.js';
-	import { fieldValidityMapping } from './attributes.js';
-	import { setFieldItemContext, useFieldContext } from './context.svelte.js';
-	import { FIELD_ROOT_PRESENT } from './root-present.js';
+	import { fieldValidityMapping, requireFieldRoot } from './attributes.js';
+	import { setFieldItemContext } from './context.svelte.js';
 	import { Labelable, setLabelableContext, useLabelableContext } from './labelable.svelte.js';
 	import type { FieldItemProps, FieldItemState } from './types.js';
 
@@ -23,12 +21,7 @@
 		...elementProps
 	}: FieldItemProps = $props();
 
-	if (!hasContext(FIELD_ROOT_PRESENT)) {
-		throw new Error(
-			'Base UI: FieldRootContext is missing. Field parts must be placed within <Field.Root>.'
-		);
-	}
-	const field = useFieldContext();
+	const field = requireFieldRoot();
 	const parentLabelable = useLabelableContext(true);
 	const labelable = new Labelable(parentLabelable, () => `base-ui-${uid}`);
 	setLabelableContext(labelable);
