@@ -23,9 +23,11 @@ const STARTING_STYLE = 'data-starting-style';
 /**
  * Runs `fn` once animations on `element` finish. A canceled animation waits for
  * its replacement. `batch` groups completions that become ready in the same turn.
- * `waitForStartingStyleRemoved` waits for an opening element's `data-starting-style`
- * to leave before watching animations. Callers that batch pass `batch` and leave
- * the fifth argument false. Callers that wait pass `batch` false and the wait flag.
+ * `waitForStartingStyleRemoved` waits for `data-starting-style` to leave before
+ * watching animations. The two flags are independent. `useOpenChangeComplete`
+ * passes `batch` through and sets the wait flag when `open` is true. Checkbox
+ * and Radio batch the exit and leave the wait flag false. Field error and the
+ * collapsible open path wait and pass `batch` false.
  */
 export function runOnceAnimationsFinish(
 	element: HTMLElement,

@@ -1,6 +1,6 @@
 # Overlay foundation (internal)
 
-Internal utilities through phase 1b. There is no public component. `verify.sh` covers the spec, unit tests, and fixture. `verify-component.sh` does not, because these modules live under `src/lib/internal`.
+Internal utilities through phase 1b. There is no public component. `verify.sh` covers the spec, unit tests, and fixture. `verify-component.sh` skips `overlay-foundation` because `src/lib/overlay-foundation` is missing (`scripts/verify-component.sh` requires `src/lib/<name>` to be a directory).
 
 | Primitive         | What the fixture and specs cover                                                                                |
 | ----------------- | --------------------------------------------------------------------------------------------------------------- |

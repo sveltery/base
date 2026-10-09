@@ -110,7 +110,8 @@ describe('<NumberField />', () => {
 	});
 
 	it('repeats a held increment and stops when the field unmounts', async () => {
-		const view = render(NumberFieldHarness, { scenario: 'plain' });
+		const onValueChange = vi.fn();
+		const view = render(NumberFieldHarness, { scenario: 'plain', onValueChange });
 		const button = increase().element() as HTMLElement;
 		button.dispatchEvent(
 			new PointerEvent('pointerdown', {
@@ -122,9 +123,12 @@ describe('<NumberField />', () => {
 			})
 		);
 		await expect.element(control()).toHaveValue('6');
+		const callsAtUnmount = onValueChange.mock.calls.length;
+		expect(callsAtUnmount).toBeGreaterThan(0);
 		view.unmount();
 		await new Promise((resolve) => setTimeout(resolve, 180));
 		expect(document.querySelector('[data-testid="control"]')).toBeNull();
+		expect(onValueChange.mock.calls.length).toBe(callsAtUnmount);
 	});
 
 	it('steps up and down from a click', async () => {

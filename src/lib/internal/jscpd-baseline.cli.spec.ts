@@ -757,4 +757,35 @@ describe('jscpd baseline CLI', () => {
 			rmSync(dir, { recursive: true, force: true });
 		}
 	}, 60_000);
+
+	it('rethrows jscpd stderr as the error message', () => {
+		const configPath = path.resolve('scripts/jscpd-empty.json');
+		const original = readFileSync(configPath, 'utf8');
+		const dir = mkdtempSync(path.join(tmpdir(), 'jscpd-stderr-'));
+		git(dir, ['init', '-b', 'main']);
+		mkdirSync(path.join(dir, 'src'));
+		writeFileSync(path.join(dir, 'src/a.ts'), 'export const value = 1;\n');
+		git(dir, ['add', '.']);
+		writeFileSync(configPath, '{ not json\n');
+		const clean = [
+			`Using config from ${configPath}`,
+			`config file ${configPath} line 1: key must be a string at line 1 column 3`
+		].join('\n');
+		try {
+			let thrown: unknown;
+			try {
+				scanRepo(dir);
+			} catch (error) {
+				thrown = error;
+			}
+			expect(thrown).toBeInstanceOf(Error);
+			const error = thrown as Error;
+			expect(error.message).toBe(clean);
+			expect(error.message).not.toContain('Command failed:');
+			expect(error.stack ?? '').not.toContain('node:child_process');
+		} finally {
+			writeFileSync(configPath, original);
+			rmSync(dir, { recursive: true, force: true });
+		}
+	});
 });

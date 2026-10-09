@@ -17,7 +17,6 @@ import RadioIndicatorHarness from '../../tests/RadioIndicatorHarness.svelte';
 import RadioLabelHarness from '../../tests/RadioLabelHarness.svelte';
 import RadioStyleHarness from '../../tests/RadioStyleHarness.svelte';
 import { Radio } from './index.js';
-import { AnimationFrame } from '../internal/timeout.js';
 
 const ENDING_CSS = `
 	@keyframes radio-test-anim { to { opacity: 0; } }
@@ -481,35 +480,45 @@ describe('Radio', () => {
 				indicatorClass: 'animation-test-indicator'
 			});
 			const button = page.getByRole('button', { name: 'Toggle' }).element() as HTMLButtonElement;
-			const request = AnimationFrame.prototype.request;
-			let clearedEnding = false;
-			AnimationFrame.prototype.request = function (fn: () => void) {
-				const scheduledDuringEnding = document
-					.querySelector('[data-testid="indicator"]')
-					?.hasAttribute('data-ending-style');
-				return request.call(this, () => {
-					const endingNow = document
-						.querySelector('[data-testid="indicator"]')
-						?.hasAttribute('data-ending-style');
-					fn();
-					if (!scheduledDuringEnding && endingNow) clearedEnding = true;
+			const requestFrame = globalThis.requestAnimationFrame.bind(globalThis);
+			const cancelFrame = globalThis.cancelAnimationFrame.bind(globalThis);
+			const openedFrames = new Set<number>();
+			const cancelled = new Set<number>();
+			let recordOpen = true;
+			let ranOpenFrame = false;
+			globalThis.requestAnimationFrame = (callback) => {
+				const id = requestFrame((time) => {
+					if (openedFrames.has(id) && !cancelled.has(id)) ranOpenFrame = true;
+					callback(time);
 				});
+				if (recordOpen) openedFrames.add(id);
+				return id;
+			};
+			globalThis.cancelAnimationFrame = (id) => {
+				cancelled.add(id);
+				cancelFrame(id);
 			};
 			try {
 				button.click();
 				flushSync();
+				expect(openedFrames.size).toBeGreaterThan(0);
+				const pending = new Set(openedFrames);
+				recordOpen = false;
 				button.click();
 				flushSync();
-				const indicator = document.querySelector('[data-testid="indicator"]');
-				expect(indicator?.hasAttribute('data-ending-style')).toBe(true);
-				await new Promise((resolve) => requestAnimationFrame(() => resolve(undefined)));
-				await new Promise((resolve) => requestAnimationFrame(() => resolve(undefined)));
-				expect(clearedEnding).toBe(false);
+				expect(
+					document.querySelector('[data-testid="indicator"]')?.hasAttribute('data-ending-style')
+				).toBe(true);
+				await new Promise((resolve) => requestFrame(() => resolve(undefined)));
+				await new Promise((resolve) => requestFrame(() => resolve(undefined)));
+				expect([...pending].every((id) => cancelled.has(id))).toBe(true);
+				expect(ranOpenFrame).toBe(false);
 				expect(
 					document.querySelector('[data-testid="indicator"]')?.hasAttribute('data-ending-style')
 				).toBe(true);
 			} finally {
-				AnimationFrame.prototype.request = request;
+				globalThis.requestAnimationFrame = requestFrame;
+				globalThis.cancelAnimationFrame = cancelFrame;
 			}
 			await expect.poll(() => indicatorCount()).toBe(0);
 		});

@@ -41,38 +41,70 @@ describe('useOpenChangeComplete', () => {
 		element.remove();
 	});
 
-	it('waits for the batched microtask when batch is true', async () => {
-		const element = document.createElement('div');
-		let notify: (() => void) | undefined;
-		const finished = {
-			then(onFulfilled?: (() => void) | null) {
-				if (onFulfilled) notify = onFulfilled;
-				return Promise.resolve();
-			}
-		};
-		let saw = false;
-		element.getAnimations = () => {
-			saw = true;
-			return [{ finished, pending: false, playState: 'finished' }] as unknown as ReturnType<
-				HTMLElement['getAnimations']
-			>;
-		};
-		let done = 0;
-		render(OpenChangeHarness, {
-			open: false,
-			batch: true,
-			element,
-			onComplete: () => {
-				done += 1;
-			}
-		});
+	it('runs batched completions in one turn', async () => {
+		function arm(label: string, log: string[]) {
+			const element = document.createElement('div');
+			let notify: (() => void) | undefined;
+			const finished = {
+				then(onFulfilled?: (() => void) | null) {
+					if (onFulfilled) notify = onFulfilled;
+					return Promise.resolve();
+				}
+			};
+			let saw = false;
+			element.getAnimations = () => {
+				saw = true;
+				return [{ finished, pending: false, playState: 'finished' }] as unknown as ReturnType<
+					HTMLElement['getAnimations']
+				>;
+			};
+			render(OpenChangeHarness, {
+				open: false,
+				batch: true,
+				element,
+				onComplete: () => {
+					log.push(label);
+				}
+			});
+			return {
+				element,
+				get saw() {
+					return saw;
+				},
+				get notify() {
+					return notify;
+				}
+			};
+		}
 
-		await expect.poll(() => saw && notify != null).toBe(true);
-		notify?.();
-		await Promise.resolve();
-		expect(done).toBe(0);
-		await Promise.resolve();
-		expect(done).toBe(1);
-		element.remove();
+		const log: string[] = [];
+		const first = arm('first', log);
+		const second = arm('second', log);
+		await expect
+			.poll(() => first.saw && second.saw && first.notify != null && second.notify != null)
+			.toBe(true);
+		const queue = globalThis.queueMicrotask.bind(globalThis);
+		const beforeEachTask: number[] = [];
+		globalThis.queueMicrotask = (callback) => {
+			queue(() => {
+				beforeEachTask.push(log.length);
+				callback();
+			});
+		};
+		try {
+			first.notify?.();
+			second.notify?.();
+			await Promise.resolve();
+			await Promise.resolve();
+			await Promise.resolve();
+			await Promise.resolve();
+		} finally {
+			globalThis.queueMicrotask = queue;
+		}
+		expect(log).toEqual(['first', 'second']);
+		expect(beforeEachTask).toContain(0);
+		expect(beforeEachTask).not.toContain(1);
+		first.element.remove();
+		second.element.remove();
 	});
 });
