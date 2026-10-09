@@ -5,7 +5,7 @@ A labeled gauge for a value in a range. Upstream: `packages/react/src/meter` at 
 ## Sub-features
 
 - `Meter.Root` renders `<div role="meter">` with `aria-valuenow`, `aria-valuemin`, `aria-valuemax` and `aria-valuetext`. `value` is required and owned by the parent. `min` defaults to 0 and `max` to 100.
-- The displayed number is the clamped value. `NaN` falls back to `min` before clamping. A non-finite percentage falls back to 0, then the percentage is clamped to 0–100. `min === max` yields a 0% fill and `aria-valuenow` equal to that bound.
+- `aria-valuenow` is the clamped value; `NaN` falls back to `min` before clamping. The percentage is `valueToPercent(value, min, max)`: a `NaN` result becomes 0, and any other result, including ±Infinity, is clamped to 0–100. With `min === max`, `aria-valuenow` is that bound, and the fill is 0% when the value equals the bound, is below it, or is `NaN`, and 100% when it is above.
 - Without `format`, the text is `percentage / 100` formatted with `{ style: 'percent' }`. With `format`, `formatNumber` formats the clamped value. `locale` is passed through to `Intl.NumberFormat`.
 - `getAriaValueText(formattedValue, value)` replaces only `aria-valuetext`. The second argument is the raw `value`, including values outside the range. An author `aria-valuetext` attribute overrides that text.
 - `Meter.Indicator` sets inline `inset-inline-start: 0`, `height: inherit` and `width: <percentage>%`. A consumer `style` string is appended so its declarations win.
