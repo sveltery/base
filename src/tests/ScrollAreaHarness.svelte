@@ -34,6 +34,7 @@
 	let threshold = $state(0);
 	let direction = $state<'ltr' | 'rtl'>('ltr');
 	let thumbPaint = $state(false);
+	let thumbXPaint = $state(false);
 	let viewportPaint = $state(false);
 
 	const rtl = $derived(scenario === 'rtl' || (scenario === 'direction' && direction === 'rtl'));
@@ -49,6 +50,7 @@
 		`width: 100%; height: 100%${scenario === 'snap' ? '; scroll-snap-type: y mandatory' : ''}${viewportPaint ? '; outline: 1px solid transparent' : ''}`
 	);
 	const thumbStyle = $derived(thumbPaint ? 'opacity: 0.99' : undefined);
+	const thumbXStyle = $derived(thumbXPaint ? 'opacity: 0.98' : undefined);
 </script>
 
 <DirectionProvider direction={rtl ? 'rtl' : 'ltr'}>
@@ -78,7 +80,8 @@
 			<button type="button" onclick={() => (large = false)}>Shrink</button>
 		{/if}
 		{#if scenario === 'paint'}
-			<button type="button" onclick={() => (thumbPaint = true)}>Paint thumb</button>
+			<button type="button" onclick={() => (thumbPaint = true)}>Paint thumb y</button>
+			<button type="button" onclick={() => (thumbXPaint = true)}>Paint thumb x</button>
 			<button type="button" onclick={() => (viewportPaint = true)}>Paint viewport</button>
 		{/if}
 		{#snippet parts()}
@@ -117,7 +120,10 @@
 				keepMounted={scenario === 'keep'}
 				style={scenario === 'padded' ? 'padding-inline: 8px' : undefined}
 			>
-				<ScrollArea.Thumb data-testid="thumb-x" />
+				<ScrollArea.Thumb
+					data-testid="thumb-x"
+					style={scenario === 'paint' ? thumbXStyle : undefined}
+				/>
 			</ScrollArea.Scrollbar>
 			<ScrollArea.Corner data-testid="corner" />
 		{/snippet}

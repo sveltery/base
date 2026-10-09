@@ -26,6 +26,10 @@ function thumbY() {
 	return page.getByTestId('thumb-y');
 }
 
+function thumbX() {
+	return page.getByTestId('thumb-x');
+}
+
 function host(locator: ReturnType<typeof root>) {
 	return locator.element() as HTMLElement;
 }
@@ -288,7 +292,7 @@ describe('<ScrollArea />', () => {
 
 	it('keeps the thumb transform and overflow vars after a thumb-only style change', async () => {
 		const { thumbEl, viewportEl, transform, vars } = await scrolledPaint();
-		await page.getByRole('button', { name: 'Paint thumb' }).click();
+		await page.getByRole('button', { name: 'Paint thumb y' }).click();
 		await expect.poll(() => thumbEl.style.opacity).toBe('0.99');
 		expect(thumbEl.style.transform).toBe(transform);
 		expect(overflowVars(viewportEl)).toEqual(vars);
@@ -301,6 +305,28 @@ describe('<ScrollArea />', () => {
 		expect(thumbEl.style.transform).toBe(transform);
 		expect(overflowVars(viewportEl)).toEqual(vars);
 		expect(vars.every((value) => value !== '')).toBe(true);
+	});
+
+	it('restores overflow vars on the same flush as a viewport style change', async () => {
+		const { viewportEl } = await scrolledPaint();
+		host(page.getByRole('button', { name: 'Paint viewport' })).click();
+		flushSync();
+		expect(overflowVars(viewportEl)).not.toContain('');
+	});
+
+	it('keeps the horizontal thumb transform after a thumb-x style change', async () => {
+		render(ScrollAreaHarness, { scenario: 'paint' });
+		await expect.element(thumbX()).toBeInTheDocument();
+		const viewportEl = host(viewport());
+		const thumbEl = host(thumbX());
+		viewportEl.scrollLeft = 80;
+		await expect.poll(() => thumbEl.style.transform).not.toBe('translate3d(0px, 0px, 0px)');
+		await expect.poll(() => thumbEl.style.transform).not.toBe('');
+		const transform = thumbEl.style.transform;
+		await page.getByRole('button', { name: 'Paint thumb x' }).click();
+		flushSync();
+		expect(thumbEl.style.opacity).toBe('0.98');
+		expect(thumbEl.style.transform).toBe(transform);
 	});
 
 	it('respects overflowEdgeThreshold', async () => {
