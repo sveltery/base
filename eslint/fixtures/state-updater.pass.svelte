@@ -10,6 +10,14 @@
 	function deleteMessageId(id: string) {
 		messageIds.delete(id);
 	}
+	function moveReturnFocus(endedBy: string, spec: unknown) {
+		const fromFunction = typeof spec === 'function';
+		const resolved = fromFunction ? (spec as (reason: string) => unknown)(endedBy) : spec;
+		let stored = 0;
+		stored = 1;
+		return resolved;
+	}
+	moveReturnFocus('open', false);
 	setLabelId('id');
 	addMessageId('err');
 	deleteMessageId('err');

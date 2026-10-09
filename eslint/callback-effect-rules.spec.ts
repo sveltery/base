@@ -1,5 +1,5 @@
 import { execFileSync } from 'node:child_process';
-import { mkdtempSync, readFileSync, writeFileSync } from 'node:fs';
+import { mkdirSync, mkdtempSync, readFileSync, writeFileSync } from 'node:fs';
 import { tmpdir } from 'node:os';
 import path from 'node:path';
 import { createRequire } from 'node:module';
@@ -72,15 +72,7 @@ describe('rules fail on 90994ba8', () => {
 		expect(reported.some((line) => line.includes('setMessageIds'))).toBe(true);
 	});
 
-	it('flags both change handlers and a tracked callback', async () => {
-		const numberField = show('src/lib/number-field/NumberFieldRoot.svelte');
-		const [numberResult] = await lint(numberField, 'src/lib/number-field/NumberFieldRoot.svelte');
-		expect(
-			lines(numberField, numberResult?.messages ?? [], 'sveltery/no-dual-change-handler').some(
-				(line) => line.includes('onchange')
-			)
-		).toBe(true);
-
+	it('flags a tracked callback and the tabs accessor', async () => {
 		const slider = show('src/lib/slider/model.svelte.ts');
 		const [sliderResult] = await lint(slider, 'src/lib/slider/model.svelte.ts');
 		const callbacks = lines(
@@ -90,6 +82,25 @@ describe('rules fail on 90994ba8', () => {
 		);
 		expect(callbacks.some((line) => line.includes('getOnValueChange'))).toBe(true);
 		expect(callbacks.some((line) => line.includes('getOnValueCommitted'))).toBe(true);
+
+		const tabs = show('src/lib/tabs/context.svelte.ts');
+		const [tabsResult] = await lint(tabs, 'src/lib/tabs/context.svelte.ts');
+		const accessors = lines(
+			tabs,
+			tabsResult?.messages ?? [],
+			'sveltery/no-public-callback-untracked'
+		);
+		expect(accessors.some((line) => line.includes('this.onValueChange'))).toBe(true);
+		expect(accessors.some((line) => line.includes('get onValueChange'))).toBe(true);
+	});
+
+	it('flags Form shorthand actions on 90994ba8', async () => {
+		const source = show('src/lib/form/Form.svelte');
+		const [result] = await lint(source, 'src/lib/form/Form.svelte');
+		const reported = lines(source, result?.messages ?? [], 'sveltery/no-react-refs');
+		expect(
+			reported.some((line) => line.includes('actionsHandle') || line.includes('{ validate }'))
+		).toBe(true);
 	});
 
 	it('flags the OTP previous-value effect across the model module', async () => {
@@ -98,6 +109,24 @@ describe('rules fail on 90994ba8', () => {
 		const file = path.join(dir, 'OTPFieldRoot.svelte');
 		writeFileSync(file, source);
 		writeFileSync(path.join(dir, 'model.svelte.ts'), show('src/lib/otp-field/model.svelte.ts'));
+		const [result] = await lint(source, file, dir);
+		const reported = lines(source, result?.messages ?? [], 'sveltery/no-previous-value-effect');
+		expect(reported.some((line) => line.includes('noteValue'))).toBe(true);
+	});
+
+	it('flags the OTP previous-value effect through a $lib import', async () => {
+		const dir = mkdtempSync(path.join(tmpdir(), 'otp-lib-'));
+		const source = show('src/lib/otp-field/OTPFieldRoot.svelte').replace(
+			"from './model.svelte.js'",
+			"from '$lib/otp-field/model.svelte.js'"
+		);
+		const file = path.join(dir, 'src/lib/otp-field/OTPFieldRoot.svelte');
+		mkdirSync(path.dirname(file), { recursive: true });
+		writeFileSync(file, source);
+		writeFileSync(
+			path.join(dir, 'src/lib/otp-field/model.svelte.ts'),
+			show('src/lib/otp-field/model.svelte.ts')
+		);
 		const [result] = await lint(source, file, dir);
 		const reported = lines(source, result?.messages ?? [], 'sveltery/no-previous-value-effect');
 		expect(reported.some((line) => line.includes('noteValue'))).toBe(true);

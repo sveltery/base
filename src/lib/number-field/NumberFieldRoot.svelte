@@ -150,6 +150,8 @@
 		const next = model.handleHiddenChange(event);
 		if (next === false) return;
 		form.clearErrors(name);
+		// A hidden change always validates, including when the value is already current.
+		controllable.announce();
 	}
 
 	function hiddenFocused() {
@@ -173,5 +175,6 @@
 	tabindex="-1"
 	style={hiddenStyle}
 	oninput={hiddenChanged}
+	onchange={hiddenChanged}
 	onfocus={hiddenFocused}
 />

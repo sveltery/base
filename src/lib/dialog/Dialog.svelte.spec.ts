@@ -6,6 +6,7 @@ import { page, userEvent } from 'vitest/browser';
 import { describe, expect, it, vi } from 'vitest';
 import { render } from 'vitest-browser-svelte';
 import DialogActionsHarness from '../../tests/DialogActionsHarness.svelte';
+import DialogTrackingHarness from '../../tests/DialogTrackingHarness.svelte';
 import DialogHandleHarness from '../../tests/DialogHandleHarness.svelte';
 import DialogHarness from '../../tests/DialogHarness.svelte';
 import DialogNestedHandleHarness from '../../tests/DialogNestedHandleHarness.svelte';
@@ -71,6 +72,14 @@ describe('Dialog', () => {
 		expect(page.getByRole('heading', { name: 'Title' }).element().id).toBe(
 			dialog.element().getAttribute('aria-labelledby')
 		);
+	});
+
+	it('calls onOpenChange outside effect tracking when the dialog closes', async () => {
+		render(DialogTrackingHarness);
+		click(button('Open'));
+		await tick();
+		click(button('Close'));
+		await expect.poll(() => page.getByTestId('close-tracking').element().textContent).toBe('false');
 	});
 
 	it('closes from the close button with close-press', async () => {

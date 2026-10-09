@@ -2,6 +2,6 @@
 	const options = {
 		getOnValueChange: (): ((value: string) => void) | undefined => undefined
 	};
-	const { getOnValueChange: readChange } = options;
-	readChange()?.('next');
+	const { getOnValueChange: publish } = options;
+	publish()?.('next');
 </script>

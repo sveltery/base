@@ -1,6 +1,7 @@
 // Derived from Base UI v1.8.0 packages/react/src/toggle-group/ToggleGroupContext.ts
 // (commit 47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c). MIT, see THIRD_PARTY_NOTICES.md.
 import { getContext, hasContext, setContext } from 'svelte';
+import { callPublic } from '../internal/callPublic.js';
 import type { CompositeRoot } from '../internal/composite-root.svelte.js';
 import type { ToggleGroupChangeEventDetails } from './types.js';
 
@@ -45,10 +46,6 @@ export class ToggleGroupContext {
 		return this.readMultiple();
 	}
 
-	get onValueChange() {
-		return this.readOnValueChange();
-	}
-
 	setGroupValue(
 		itemValue: string,
 		nextPressed: boolean,
@@ -63,7 +60,7 @@ export class ToggleGroupContext {
 			next = nextPressed ? [itemValue] : [];
 		}
 
-		this.onValueChange(next, eventDetails);
+		callPublic(this.readOnValueChange(), next, eventDetails);
 		if (eventDetails.isCanceled) return;
 		this.commit(next, eventDetails);
 	}

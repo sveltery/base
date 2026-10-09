@@ -5,27 +5,20 @@
 
 /**
  * Publishes a label id and clears it on destroy when it is still current.
- * `publishNow` writes during this render, for server HTML. The effect then
- * writes again when the id changes, and always registers the cleanup.
+ * `readCurrent` belongs in the cleanup. The effect body does not read it, so an
+ * older label does not subscribe to a newer id and overwrite it.
  * A fieldset file can re-export this function. `setLabelId` takes the next id.
  */
 export function registerLabelId(
 	getId: () => string | undefined,
 	setLabelId: (next: string | undefined) => void,
-	options?: {
-		publishNow?: boolean;
-		readCurrent?: () => string | undefined;
-	}
+	readCurrent: () => string | undefined
 ) {
-	const readCurrent = options?.readCurrent;
-
-	if (options?.publishNow) setLabelId(getId());
-
 	$effect(() => {
 		const id = getId();
 		setLabelId(id);
 		return () => {
-			if (readCurrent && readCurrent() !== id) return;
+			if (readCurrent() !== id) return;
 			setLabelId(undefined);
 		};
 	});

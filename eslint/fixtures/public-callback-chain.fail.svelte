@@ -2,5 +2,7 @@
 	const options = {
 		getOnValueChange: (): ((value: string) => void) | undefined => undefined
 	};
-	Reflect.apply(options.getOnValueChange(), options, ['next']);
+	const first = options.getOnValueChange();
+	const second = first;
+	second?.('next');
 </script>

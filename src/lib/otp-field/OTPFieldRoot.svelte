@@ -59,8 +59,6 @@
 	const form = useFormContext();
 	const labelable = useLabelableContext(true);
 
-	let notifyValue = (_next: string) => {};
-
 	const controllable = createControllableValue<string>({
 		getProp: () => value,
 		setProp: (next) => {
@@ -69,7 +67,7 @@
 		getDefault: () => defaultValue,
 		onChange(next) {
 			if (next === undefined) return;
-			notifyValue(next);
+			model.afterValueChange(next);
 		}
 	});
 	const raw = $derived(controllable.value ?? '');
@@ -109,7 +107,6 @@
 		getForm: () => form
 	});
 	setOTPFieldContext(model);
-	notifyValue = (next) => model.afterValueChange(next);
 
 	const describedBy = $derived(
 		labelable

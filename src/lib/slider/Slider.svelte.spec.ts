@@ -30,7 +30,7 @@ function slider() {
 
 function change(input: HTMLInputElement, value: string) {
 	input.value = value;
-	input.dispatchEvent(new Event('input', { bubbles: true }));
+	input.dispatchEvent(new Event('change', { bubbles: true }));
 }
 
 function key(input: HTMLInputElement, keyName: string, init: KeyboardEventInit = {}) {
@@ -729,6 +729,15 @@ describe('<Slider />', () => {
 		expect(node).toHaveAttribute('role', 'group');
 		expect(slider()).toHaveAttribute('aria-valuenow', '12');
 	});
+	it('updates from a change event without an input event', async () => {
+		render(SliderHarness, { defaultValue: 30 });
+		const input = slider();
+		expect(input).toHaveAttribute('aria-valuenow', '30');
+		input.value = '40';
+		input.dispatchEvent(new Event('change', { bubbles: true }));
+		await expect.poll(() => input.getAttribute('aria-valuenow')).toBe('40');
+	});
+
 	it('calls onValueChange and onValueCommitted outside effect tracking', async () => {
 		render(SliderHarness, { scenario: 'tracking', defaultValue: 30 });
 		change(slider(), '40');

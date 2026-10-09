@@ -306,7 +306,7 @@ describe('Field', () => {
 			await expect.element(page.getByTestId('field')).toHaveAttribute('data-touched', '');
 		});
 
-		it('validates from actions and without a mounted control', async () => {
+		it('validates from the root and without a mounted control', async () => {
 			render(FieldHarness, { scenario: 'actions' });
 			await page.getByRole('button', { name: 'Validate' }).click();
 			await expect.element(page.getByText('bad')).toBeVisible();

@@ -101,49 +101,89 @@ const rule = {
 		}
 
 		/**
-		 * @param {any} fn
-		 * @param {string} ident
+		 * @param {any} node
+		 * @returns {string | null}
 		 */
-		function callsWithArgument(fn, ident) {
-			let found = false;
+		function checkedParam(node) {
+			const value = unwrap(node);
+			if (!value || value.type !== 'BinaryExpression') return null;
+			if (value.operator === 'instanceof') {
+				const left = nameOf(unwrap(value.left));
+				const right = nameOf(unwrap(value.right));
+				return right === 'Function' ? left : null;
+			}
+			if (!['===', '==', '!==', '!='].includes(value.operator)) return null;
+			const sides = [unwrap(value.left), unwrap(value.right)];
+			const typeofSide = sides.find(
+				(side) => side?.type === 'UnaryExpression' && side.operator === 'typeof'
+			);
+			const literal = sides.find((side) => side?.type === 'Literal' && side.value === 'function');
+			if (!literal || !typeofSide) return null;
+			return nameOf(unwrap(typeofSide.argument));
+		}
+
+		/**
+		 * A function that calls a parameter with the value it assigns is an updater.
+		 * The name of the function does not matter. A focus helper that calls
+		 * `spec(endedBy())` is not one: the argument is not the assigned value.
+		 * @param {any} fn
+		 */
+		function reportUpdaterShape(fn) {
+			if ((fn.params?.length ?? 0) === 0) return;
+			const params = parameterNames(fn);
+			/** @type {Set<string>} */
+			const targets = new Set();
+			/** @type {Map<string, string>} */
+			const locals = new Map();
+			walkOwn(fn.body, (node) => {
+				if (node.type === 'AssignmentExpression') targets.add(textOf(node.left));
+				if (node.type === 'VariableDeclarator' && node.id?.type === 'Identifier' && node.init) {
+					locals.set(node.id.name, textOf(node.init));
+				}
+			});
+			/** @type {Set<string>} */
+			const checked = new Set();
+			walkOwn(fn.body, (node) => {
+				const name = checkedParam(node);
+				if (name && params.has(name)) checked.add(name);
+			});
+			if (checked.size === 0 || targets.size === 0) return;
 			walkOwn(fn.body, (node) => {
 				if (node.type !== 'CallExpression') return;
-				if (nameOf(unwrap(node.callee)) !== ident) return;
-				if ((node.arguments?.length ?? 0) > 0) found = true;
+				const callee = nameOf(unwrap(node.callee));
+				if (!callee || !checked.has(callee)) return;
+				const arg = node.arguments?.[0];
+				if (!arg) return;
+				const argNode = unwrap(arg);
+				const argText = textOf(argNode);
+				if (targets.has(argText)) {
+					report(node);
+					return;
+				}
+				const local = argNode?.type === 'Identifier' ? locals.get(argNode.name) : undefined;
+				if (local && [...targets].some((target) => target !== '' && local.includes(target))) {
+					report(node);
+				}
 			});
-			return found;
 		}
 
 		/**
-		 * @param {any} fn
+		 * @param {any} node
+		 * @param {Map<string, any>} inits
 		 */
-		function assigns(fn) {
-			let found = false;
-			walkOwn(fn.body, (node) => {
-				if (node.type === 'AssignmentExpression') found = true;
-			});
-			return found;
-		}
-
-		/**
-		 * The typeof check belongs on the label setters. Other functions call a
-		 * callback after the same check, and that call is not a state update.
-		 * @param {any} fn
-		 */
-		function setterName(fn) {
-			if (fn.type === 'FunctionDeclaration') return nameOf(fn.id);
-			const parent = fn.parent;
-			if (!parent) return null;
-			if (parent.type === 'VariableDeclarator') return nameOf(parent.id);
-			if (
-				parent.type === 'Property' ||
-				parent.type === 'PropertyDefinition' ||
-				parent.type === 'MethodDefinition'
-			) {
-				return nameOf(parent.key);
+		function updaterFunction(node, inits) {
+			const value = unwrap(node);
+			if (!value) return false;
+			if (value.type === 'Identifier') {
+				if (!inits.has(value.name)) return false;
+				return updaterFunction(inits.get(value.name), inits);
 			}
-			if (parent.type === 'AssignmentExpression') return nameOf(parent.left);
-			return null;
+			return (
+				(value.type === 'ArrowFunctionExpression' ||
+					value.type === 'FunctionExpression' ||
+					value.type === 'FunctionDeclaration') &&
+				(value.params?.length ?? 0) >= 1
+			);
 		}
 
 		return {
@@ -177,39 +217,28 @@ const rule = {
 							const annotation = value?.typeAnnotation?.typeAnnotation;
 							if (isUpdaterType(annotation)) report(value);
 						}
-						const names = parameterNames(node);
-						const owner = setterName(node);
-						if (!owner || !/^set(LabelId|LegendId|MessageIds)$/.test(owner)) return;
-						if (!assigns(node)) return;
-						walkOwn(node.body, (inner) => {
-							if (inner.type !== 'BinaryExpression') return;
-							if (inner.operator !== '===' && inner.operator !== '==') return;
-							const sides = [inner.left, inner.right];
-							const ident = sides.find(
-								(side) => side?.type === 'UnaryExpression' && side.operator === 'typeof'
-							);
-							const literal = sides.find(
-								(side) => side?.type === 'Literal' && side.value === 'function'
-							);
-							const checked = nameOf(ident?.argument);
-							if (!literal || !checked || !names.has(checked)) return;
-							if (!callsWithArgument(node, checked)) return;
-							report(inner);
-						});
+						reportUpdaterShape(node);
 					}
-					if (node.type === 'CallExpression') {
-						const name = calleeName(node.callee);
-						if (!name || !/^set(LabelId|LegendId|MessageIds)$/.test(name)) return;
-						for (const arg of node.arguments ?? []) {
-							const value = unwrap(arg);
-							if (
-								(value?.type === 'ArrowFunctionExpression' ||
-									value?.type === 'FunctionExpression') &&
-								(value.params?.length ?? 0) >= 1
-							) {
-								report(value);
-							}
-						}
+				});
+
+				/** @type {Map<string, any>} */
+				const inits = new Map();
+				walk(context.sourceCode.ast, (node) => {
+					if (node.type === 'FunctionDeclaration' && node.id?.name) {
+						inits.set(node.id.name, node);
+					}
+					if (node.type !== 'VariableDeclarator' || node.id?.type !== 'Identifier' || !node.init) {
+						return;
+					}
+					inits.set(node.id.name, node.init);
+				});
+				const ignored = new Set(['setTimeout', 'setInterval', 'setImmediate']);
+				walk(context.sourceCode.ast, (node) => {
+					if (node.type !== 'CallExpression') return;
+					const name = calleeName(node.callee);
+					if (!name || ignored.has(name) || !/^set[A-Z]/.test(name)) return;
+					for (const arg of node.arguments ?? []) {
+						if (updaterFunction(arg, inits)) report(unwrap(arg) ?? arg);
 					}
 				});
 			}

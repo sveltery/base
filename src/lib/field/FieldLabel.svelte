@@ -6,12 +6,12 @@
 -->
 <script lang="ts">
 	import { DEV } from 'esm-env';
-	import { untrack } from 'svelte';
 	import { createAttachmentKey } from 'svelte/attachments';
 	import type { HTMLAttributes, HTMLLabelAttributes } from 'svelte/elements';
 	import { getStateAttributesProps } from '../internal/state-attributes.js';
 	import { fieldValidityMapping } from './attributes.js';
 	import { useFieldContext, useFieldItemContext } from './context.svelte.js';
+	import { registerLabelId } from '../internal/register-label-id.svelte.js';
 	import { useLabelableContext } from './labelable.svelte.js';
 	import type { FieldLabelProps, FieldLabelState } from './types.js';
 
@@ -33,20 +33,11 @@
 	const item = useFieldItemContext();
 	const labelable = useLabelableContext();
 	const id = $derived(idProp ?? `base-ui-${uid}`);
-	// Effects do not run on the server. The init write publishes the id during
-	// this render. Controls rendered after this label can read it. The effect
-	// still registers cleanup, so unmount drops aria-labelledby.
-	untrack(() => {
-		labelable.setLabelId(id);
-	});
-
-	$effect(() => {
-		const next = id;
-		if (untrack(() => labelable.labelId) !== next) labelable.setLabelId(next);
-		return () => {
-			if (labelable.labelId === next) labelable.setLabelId(undefined);
-		};
-	});
+	registerLabelId(
+		() => id,
+		(next) => labelable.setLabelId(next),
+		() => labelable.labelId
+	);
 
 	const labelState: FieldLabelState = $derived({
 		...field.state,

@@ -187,18 +187,50 @@ const rule = {
 		/**
 		 * @param {any} node
 		 */
-		function hasMethod(node) {
+		/**
+		 * @param {any} node
+		 * @param {Set<string>} functions
+		 * @param {Map<string, any>} factories
+		 */
+		function hasMethod(node, functions, factories) {
 			const value = unwrap(node);
-			if (!value || value.type !== 'ObjectExpression') return false;
+			if (!value) return false;
+			if (value.type === 'Identifier' && factories.has(value.name)) return true;
+			if (value.type === 'CallExpression') {
+				const called = nameOf(unwrap(value.callee));
+				if (called && factories.has(called)) return true;
+				const callee = unwrap(value.callee);
+				if (
+					callee?.type === 'MemberExpression' &&
+					!callee.computed &&
+					nameOf(callee.property) === 'bind'
+				) {
+					return true;
+				}
+			}
+			if (value.type !== 'ObjectExpression') return false;
 			return (
 				value.properties?.some((prop) => {
 					if (prop.type !== 'Property' && prop.type !== 'MethodDefinition') return false;
+					if (prop.method === true || prop.shorthand === true) {
+						const key = nameOf(prop.key);
+						if (prop.method === true) return true;
+						return key != null && functions.has(key);
+					}
 					const method = unwrap(prop.value);
-					return (
-						method?.type === 'FunctionExpression' ||
-						method?.type === 'ArrowFunctionExpression' ||
-						prop.method === true
-					);
+					if (method?.type === 'FunctionExpression' || method?.type === 'ArrowFunctionExpression') {
+						return true;
+					}
+					if (method?.type === 'Identifier' && functions.has(method.name)) return true;
+					if (method?.type === 'CallExpression') {
+						const callee = unwrap(method.callee);
+						return (
+							callee?.type === 'MemberExpression' &&
+							!callee.computed &&
+							nameOf(callee.property) === 'bind'
+						);
+					}
+					return false;
 				}) ?? false
 			);
 		}
@@ -206,9 +238,34 @@ const rule = {
 		function imperativeHandles() {
 			/** @type {Set<string>} */
 			const bindables = new Set();
+			/** @type {Set<string>} */
+			const functions = new Set();
+			/** @type {Map<string, any>} */
+			const factories = new Map();
 			/** @type {Map<string, any>} */
 			const methodBags = new Map();
 			const ast = context.sourceCode.ast;
+			walk(ast, (node) => {
+				if (node.type === 'FunctionDeclaration' && node.id?.name) functions.add(node.id.name);
+				if (
+					node.type === 'VariableDeclarator' &&
+					node.id?.type === 'Identifier' &&
+					(node.init?.type === 'FunctionExpression' ||
+						node.init?.type === 'ArrowFunctionExpression')
+				) {
+					functions.add(node.id.name);
+				}
+			});
+			walk(ast, (node) => {
+				if (node.type !== 'FunctionDeclaration' || !node.id?.name) return;
+				let returnsBag = false;
+				walk(node.body, (inner) => {
+					if (inner.type === 'ReturnStatement' && hasMethod(inner.argument, functions, factories)) {
+						returnsBag = true;
+					}
+				});
+				if (returnsBag) factories.set(node.id.name, node.id);
+			});
 			walk(ast, (node) => {
 				if (node.type === 'Property') {
 					const value = node.value?.type === 'AssignmentPattern' ? node.value.right : node.value;
@@ -224,14 +281,14 @@ const rule = {
 				if (
 					node.type === 'VariableDeclarator' &&
 					node.id?.type === 'Identifier' &&
-					hasMethod(node.init)
+					hasMethod(node.init, functions, factories)
 				) {
 					methodBags.set(node.id.name, node.id);
 				}
 				if (
 					node.type === 'AssignmentExpression' &&
 					node.left?.type === 'Identifier' &&
-					hasMethod(node.right)
+					hasMethod(node.right, functions, factories)
 				) {
 					methodBags.set(node.left.name, node.left);
 				}
@@ -241,7 +298,8 @@ const rule = {
 				if (!bindables.has(node.left.name)) return;
 				const right = unwrap(node.right);
 				const publishes =
-					hasMethod(right) || (right?.type === 'Identifier' && methodBags.has(right.name));
+					hasMethod(right, functions, factories) ||
+					(right?.type === 'Identifier' && methodBags.has(right.name));
 				if (!publishes) return;
 				reportHandle(node.left);
 				if (right?.type === 'Identifier') {
