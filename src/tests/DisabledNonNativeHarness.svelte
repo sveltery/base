@@ -24,6 +24,28 @@
 	function host(props: object): HTMLAttributes<HTMLElement> {
 		return props as HTMLAttributes<HTMLElement>;
 	}
+
+	function changed(open: boolean, details: { reason: string }) {
+		calls.push({ open, reason: details.reason });
+	}
+
+	const notes = {
+		onclick: () => {
+			clicks += 1;
+		},
+		onpointerdown: () => {
+			pointerdowns += 1;
+		},
+		onmousedown: () => {
+			mousedowns += 1;
+		},
+		onkeydown: () => {
+			keydowns += 1;
+		},
+		onkeyup: () => {
+			keyups += 1;
+		}
+	};
 </script>
 
 <pre data-testid="calls">{JSON.stringify(calls)}</pre>
@@ -33,57 +55,27 @@
 <pre data-testid="keydowns">{keydowns}</pre>
 <pre data-testid="keyups">{keyups}</pre>
 
+{#snippet openHost(props: object)}
+	<span {...host(props)}>Open</span>
+{/snippet}
+
+{#snippet closeHost(props: object)}
+	<span {...host(props)}>Close</span>
+{/snippet}
+
 {#if part === 'popover'}
-	<Popover.Root
-		{defaultOpen}
-		onOpenChange={(open, details) => {
-			calls.push({ open, reason: details.reason });
-		}}
-	>
-		<Popover.Trigger
-			disabled={disabledTrigger}
-			nativeButton={false}
-			onclick={() => {
-				clicks += 1;
-			}}
-			onpointerdown={() => {
-				pointerdowns += 1;
-			}}
-			onmousedown={() => {
-				mousedowns += 1;
-			}}
-			onkeydown={() => {
-				keydowns += 1;
-			}}
-			onkeyup={() => {
-				keyups += 1;
-			}}
-		>
+	<Popover.Root {defaultOpen} onOpenChange={changed}>
+		<Popover.Trigger disabled={disabledTrigger} nativeButton={false} {...notes}>
 			{#snippet render(props)}
-				<span {...host(props)}>Open</span>
+				{@render openHost(props)}
 			{/snippet}
 		</Popover.Trigger>
 		<Popover.Portal>
 			<Popover.Positioner>
 				<Popover.Popup>
-					<Popover.Close
-						disabled={disabledClose}
-						nativeButton={false}
-						onpointerdown={() => {
-							pointerdowns += 1;
-						}}
-						onmousedown={() => {
-							mousedowns += 1;
-						}}
-						onkeydown={() => {
-							keydowns += 1;
-						}}
-						onkeyup={() => {
-							keyups += 1;
-						}}
-					>
+					<Popover.Close disabled={disabledClose} nativeButton={false} {...notes}>
 						{#snippet render(props)}
-							<span {...host(props)}>Close</span>
+							{@render closeHost(props)}
 						{/snippet}
 					</Popover.Close>
 				</Popover.Popup>
@@ -91,55 +83,17 @@
 		</Popover.Portal>
 	</Popover.Root>
 {:else}
-	<Dialog.Root
-		{defaultOpen}
-		onOpenChange={(open, details) => {
-			calls.push({ open, reason: details.reason });
-		}}
-	>
-		<Dialog.Trigger
-			disabled={disabledTrigger}
-			nativeButton={false}
-			onclick={() => {
-				clicks += 1;
-			}}
-			onpointerdown={() => {
-				pointerdowns += 1;
-			}}
-			onmousedown={() => {
-				mousedowns += 1;
-			}}
-			onkeydown={() => {
-				keydowns += 1;
-			}}
-			onkeyup={() => {
-				keyups += 1;
-			}}
-		>
+	<Dialog.Root {defaultOpen} onOpenChange={changed}>
+		<Dialog.Trigger disabled={disabledTrigger} nativeButton={false} {...notes}>
 			{#snippet render(props)}
-				<span {...host(props)}>Open</span>
+				{@render openHost(props)}
 			{/snippet}
 		</Dialog.Trigger>
 		<Dialog.Portal>
 			<Dialog.Popup>
-				<Dialog.Close
-					disabled={disabledClose}
-					nativeButton={false}
-					onpointerdown={() => {
-						pointerdowns += 1;
-					}}
-					onmousedown={() => {
-						mousedowns += 1;
-					}}
-					onkeydown={() => {
-						keydowns += 1;
-					}}
-					onkeyup={() => {
-						keyups += 1;
-					}}
-				>
+				<Dialog.Close disabled={disabledClose} nativeButton={false} {...notes}>
 					{#snippet render(props)}
-						<span {...host(props)}>Close</span>
+						{@render closeHost(props)}
 					{/snippet}
 				</Dialog.Close>
 			</Dialog.Popup>
