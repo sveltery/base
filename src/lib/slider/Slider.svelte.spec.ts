@@ -30,7 +30,13 @@ function slider() {
 
 function change(input: HTMLInputElement, value: string) {
 	input.value = value;
+	input.dispatchEvent(new Event('input', { bubbles: true }));
 	input.dispatchEvent(new Event('change', { bubbles: true }));
+}
+
+function inputOnly(input: HTMLInputElement, value: string) {
+	input.value = value;
+	input.dispatchEvent(new Event('input', { bubbles: true }));
 }
 
 function key(input: HTMLInputElement, keyName: string, init: KeyboardEventInit = {}) {
@@ -446,6 +452,16 @@ describe('<Slider />', () => {
 			await expect.poll(() => node.hasAttribute('data-dragging')).toBe(true);
 			touch(document.body, 'touchend', 0);
 			await expect.poll(() => node.hasAttribute('data-dragging')).toBe(false);
+		});
+
+		it('updates from an input event without a change event', async () => {
+			const onValueChange = vi.fn();
+			render(SliderHarness, { defaultValue: 30, onValueChange });
+			const input = slider();
+			inputOnly(input, '35');
+			expect(onValueChange).toHaveBeenCalledTimes(1);
+			expect(onValueChange.mock.lastCall?.[0]).toBe(35);
+			await valueNow(input, '35');
 		});
 
 		it('reports input-change on the original input event', async () => {
