@@ -133,3 +133,11 @@ Pin: `47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c`, `packages/utils/src/useTimeout.
 Local: `useTimeout()` and `useAnimationFrame()` in `src/lib/internal/timeout.svelte.ts`. Each call creates one `Timeout` or `AnimationFrame` and registers `$effect(() => () => clear())` during component init. There is no ref. A timer created outside init, such as the shared scroll-lock locker, is not tied to a component; its owner still clears it. `new Timeout()`, `Timeout.create()`, `new AnimationFrame()`, and `AnimationFrame.create()` stay in `timeout.ts`.
 
 Test: `src/lib/internal/overlay-foundation.svelte.spec.ts` (`does not open when the trigger unmounts during touchOpenDelay`).
+
+## Internal backdrop
+
+Pin: `47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c`, `packages/react/src/utils/InternalBackdrop.tsx`. Upstream reads `cutout.getBoundingClientRect()` while rendering, so any render after the cutout moves refreshes the clip.
+
+Local: `src/lib/internal/InternalBackdrop.svelte` writes that rect into `$state` from a `ResizeObserver` on the cutout and a capture-phase `scroll` listener on the owner window. The scroll listener reads the rect synchronously. A position-only move, with no resize and no scroll, is still not tracked.
+
+Test: `src/lib/internal/InternalBackdrop.svelte.spec.ts` (`updates the cutout when the element resizes`, `updates the cutout when an ancestor scrolls after the first observer callback`, `disconnects the cutout observer and scroll listener when the backdrop unmounts`).
