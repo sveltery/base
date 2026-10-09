@@ -533,6 +533,44 @@ describe('Tabs', () => {
 				.poll(() => indicator.element().style.getPropertyValue('--active-tab-width'))
 				.not.toBe(before);
 		});
+
+		it('moves the indicator when a tab before the active one resizes (list width fixed)', async () => {
+			render(TabsHarness, { passValue: true, value: 1, showIndicator: true });
+			const indicator = page.getByTestId('indicator');
+			const list = page.getByRole('tablist').element() as HTMLElement;
+			list.style.width = '600px';
+			list.style.display = 'flex';
+			const read = () => indicator.element().style.getPropertyValue('--active-tab-left');
+			await expect.poll(read).not.toBe('');
+			await new Promise((r) => setTimeout(r, 100));
+			const before = read();
+			const first = page.getByRole('tab', { name: 'One' }).element() as HTMLElement;
+			const active = page.getByRole('tab', { name: 'Two' }).element() as HTMLElement;
+			const leftBefore = active.getBoundingClientRect().left;
+			first.style.width = '200px';
+			await new Promise((r) => setTimeout(r, 50));
+			expect(active.getBoundingClientRect().left).not.toBeCloseTo(leftBefore, 0);
+			await expect.poll(read, { timeout: 1000 }).not.toBe(before);
+		});
+
+		it('moves the indicator to a newly selected tab', async () => {
+			render(TabsHarness, { showIndicator: true });
+			const indicator = page.getByTestId('indicator');
+			const read = () => indicator.element().style.getPropertyValue('--active-tab-left');
+			await expect.poll(read).not.toBe('');
+			const selectedLeft = () => {
+				const tab = page.getByRole('tab', { selected: true }).element() as HTMLElement;
+				const list = page.getByRole('tablist').element() as HTMLElement;
+				return tab.getBoundingClientRect().left - list.getBoundingClientRect().left;
+			};
+			await expect.poll(() => Math.abs(parseFloat(read()) - selectedLeft()) < 1).toBe(true);
+			const before = read();
+			await userEvent.click(page.getByRole('tab', { name: 'Two' }));
+			await expect
+				.element(page.getByRole('tab', { name: 'Two' }))
+				.toHaveAttribute('aria-selected', 'true');
+			await expect.poll(read, { timeout: 1000 }).not.toBe(before);
+		});
 	});
 
 	describe('native Svelte', () => {

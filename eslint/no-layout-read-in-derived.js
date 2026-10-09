@@ -14,6 +14,12 @@
  * - reads nested in callbacks or untrack
  * - window.innerWidth
  * - getClientRects()
+ * - `$derived.by(compute.bind(null))`
+ * - an alias `let fn = compute`
+ * - a wrapper `$derived.by(pick(compute))`
+ * - `rect = $derived.by(this.measure)` on a class arrow field
+ *
+ * A nested function with the same name is a false positive.
  *
  * @type {import('eslint').Rule.RuleModule}
  */
