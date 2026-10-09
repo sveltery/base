@@ -10,7 +10,7 @@ import {
 	createGenericEventDetails,
 	REASONS
 } from '../internal/event-details.js';
-import type { FieldRootModel } from '../field/model.svelte.js';
+import type { FieldContext } from '../field/model.svelte.js';
 import { ownerDocument } from '../internal/owner.js';
 import { platform } from '../internal/platform.js';
 import { activeElement } from '../internal/shadow-dom.js';
@@ -75,7 +75,7 @@ export interface NumberFieldModelOptions {
 		((value: number | null, details: NumberFieldChangeEventDetails) => void) | undefined;
 	getOnValueCommitted: () =>
 		((value: number | null, details: NumberFieldCommitEventDetails) => void) | undefined;
-	getField: () => FieldRootModel;
+	getField: () => FieldContext;
 	getId: () => string | undefined;
 	getName: () => string | undefined;
 	getNameProp: () => string | undefined;

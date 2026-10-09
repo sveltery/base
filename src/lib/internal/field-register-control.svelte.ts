@@ -6,7 +6,7 @@
 
 import { untrack } from 'svelte';
 import type { Attachment } from 'svelte/attachments';
-import type { FieldRootModel } from '../field/model.svelte.js';
+import type { FieldContext } from '../field/model.svelte.js';
 
 export interface FieldControlRead {
 	enabled: () => boolean;
@@ -26,11 +26,16 @@ interface PublishedControl {
 class FieldRegistration {
 	private registered = false;
 	private readonly source = Symbol();
-	/** Host node from the attachment. The effect re-reads this when it changes. */
+	/** Host node for `watchFieldControl`. The effect re-reads this when it changes. */
 	element = $state<HTMLElement | null>(null);
+	/** Host node for `attachFieldControl`. The attachment owns register and release. */
+	private host: HTMLElement | null = null;
+	private appliedEnabled = false;
+	private appliedId: string | undefined;
+	private appliedName: string | undefined;
 
 	constructor(
-		private readonly field: FieldRootModel,
+		private readonly field: FieldContext,
 		private readonly read: Omit<FieldControlRead, 'element'>
 	) {}
 
@@ -48,6 +53,42 @@ class FieldRegistration {
 		$effect(() => {
 			return () => this.release();
 		});
+	}
+
+	/** Re-apply id, name, and enabled. The attachment registers the element. */
+	watchIdentity() {
+		$effect(() => {
+			const enabled = this.read.enabled();
+			const id = this.read.id();
+			const name = this.read.name();
+			untrack(() => {
+				const changed =
+					enabled !== this.appliedEnabled || id !== this.appliedId || name !== this.appliedName;
+				this.appliedEnabled = enabled;
+				this.appliedId = id;
+				this.appliedName = name;
+				if (!this.host || !changed) return;
+				this.apply({ enabled, id, name, element: this.host });
+			});
+		});
+	}
+
+	connect(node: HTMLElement) {
+		this.host = node;
+		untrack(() => {
+			const enabled = this.read.enabled();
+			const id = this.read.id();
+			const name = this.read.name();
+			this.appliedEnabled = enabled;
+			this.appliedId = id;
+			this.appliedName = name;
+			this.apply({ enabled, id, name, element: node });
+		});
+		return () => {
+			if (this.host !== node) return;
+			this.host = null;
+			untrack(() => this.release());
+		};
 	}
 
 	private apply(next: PublishedControl) {
@@ -75,7 +116,7 @@ class FieldRegistration {
  * Keep the field's control registration in step with `read`.
  * Call this while the component is initializing. `getValue` is not read here.
  */
-export function watchFieldControl(field: FieldRootModel, read: FieldControlRead) {
+export function watchFieldControl(field: FieldContext, read: FieldControlRead) {
 	new FieldRegistration(field, read).watch(read.element);
 }
 
@@ -83,15 +124,10 @@ export function watchFieldControl(field: FieldRootModel, read: FieldControlRead)
  * The attachment publishes the host element. Registration stays on one source.
  */
 export function attachFieldControl(
-	field: FieldRootModel,
+	field: FieldContext,
 	read: Omit<FieldControlRead, 'element'>
 ): Attachment<HTMLElement> {
 	const registration = new FieldRegistration(field, read);
-	registration.watch(() => registration.element);
-	return (node) => {
-		registration.element = node;
-		return () => {
-			if (registration.element === node) registration.element = null;
-		};
-	};
+	registration.watchIdentity();
+	return (node) => registration.connect(node);
 }

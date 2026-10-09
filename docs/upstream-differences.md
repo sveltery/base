@@ -103,7 +103,7 @@ Local: Tab from the open trigger focuses the first control inside the popup and 
 
 ## Dialog
 
-Source: `packages/react/src/dialog`. Upstream shares `PopupHandle` and `COMPOSITE_KEYS`; they live in `src/lib/internal/popups/popupHandle.svelte.ts` and `src/lib/internal/composite-keys.ts`. Portal, focus, dismiss, scroll lock, `mergeProps`, and the popup store are the landed overlay foundation. How the dialog opened is `PopupStore.openMethod`. Final focus uses the shared `returnFocus` callback: it receives how the popup closed, and `null` focuses the trigger. `openWithPayload` stays on `Dialog.Handle`. Popover does not have it.
+Source: `packages/react/src/dialog`. Upstream shares `PopupHandle` and `COMPOSITE_KEYS`; they live in `src/lib/internal/popups/popupHandle.svelte.ts` and `src/lib/internal/composite-keys.ts`. Portal, focus, dismiss, scroll lock, `mergeProps`, and the popup store are the landed overlay foundation. How the dialog opened is `PopupStore.openMethod`. Final focus uses the shared `returnFocus` callback: it receives how the popup closed. `finalFocus={null}` does not return focus. A function that returns `null` focuses the trigger. `openWithPayload` stays on `Dialog.Handle`. Popover does not have it.
 
 ### Payload is stored only for a registered trigger
 
@@ -122,6 +122,14 @@ Test: `src/lib/dialog/Dialog.svelte.spec.ts` (`does not store a payload for a tr
 | `initialFocus` / `finalFocus` ref objects                            | element or function, called when focus moves                                                           |
 | `children` render function `{ payload }`                             | snippet argument `{ payload }`                                                                         |
 | React `useButton`                                                    | existing `Button`                                                                                      |
-| `useDismiss` outside press, including separate mouse and touch modes | one dialog listener, because the shared dismiss hook treats the portal host as inside                  |
+| `useDismiss` outside press, including separate mouse and touch modes | the same modes on `useDismiss`. A press is inside the floating element, not the portal host            |
 
-Not ported: Alert Dialog, Drawer, and ref objects. Mouse and touch use separate outside-press modes. A backdrop is `intentional` for both. Without one, touch is `sloppy` and mouse is `sloppy` only for `trap-focus`. `useDismiss` already tracks `pressStartedInside`. The dialog listener remains because that hook treats the portal host as inside, so a backdrop or viewport press would not dismiss. `defaultTriggerId` selects the trigger for `aria-expanded` and is not written back into `triggerId`.
+Not ported: Alert Dialog, Drawer, and ref objects. Mouse and touch use separate outside-press modes on `useDismiss`. A backdrop is `intentional` for both. Without one, touch is `sloppy` and mouse is `sloppy` only for `trap-focus`. A tap closes on the browser's mousedown. A short move closes on touchend. A scroll-away closes during the move. An intentional touch waits for the click. One lifted touch is required. A press is inside when the target is in the floating element or an open floating-tree child. The portal host is not inside. `defaultTriggerId` selects the trigger for `aria-expanded` and is not written back into `triggerId`.
+
+### Timers clear when the owner is destroyed
+
+Pin: `47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c`, `packages/utils/src/useTimeout.ts` and `packages/utils/src/useAnimationFrame.ts`. `useTimeout` / `useAnimationFrame` dispose on unmount.
+
+Local: `useTimeout()` and `useAnimationFrame()` in `src/lib/internal/timeout.svelte.ts`. Each call creates one `Timeout` or `AnimationFrame` and registers `$effect(() => () => clear())` during component init. There is no ref. A timer created outside init, such as the shared scroll-lock locker, is not tied to a component; its owner still clears it. `new Timeout()`, `Timeout.create()`, `new AnimationFrame()`, and `AnimationFrame.create()` stay in `timeout.ts`.
+
+Test: `src/lib/internal/overlay-foundation.svelte.spec.ts` (`does not open when the trigger unmounts during touchOpenDelay`).

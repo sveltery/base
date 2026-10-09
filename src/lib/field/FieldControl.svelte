@@ -5,6 +5,7 @@
 -->
 <script lang="ts">
 	import { flushSync, untrack } from 'svelte';
+	import { useTimeout } from '../internal/timeout.svelte.js';
 	import { createAttachmentKey } from 'svelte/attachments';
 	import type { HTMLAttributes, HTMLInputAttributes } from 'svelte/elements';
 	import { useFormContext } from '../form/context.js';
@@ -46,6 +47,7 @@
 	// Outside Field.Root this is the shared inert field. Registration and
 	// validation no-op. A private labelable still supplies ids.
 	const field = useFieldContext();
+	const commitTimer = useTimeout();
 	const labelableFromContext = useLabelableContext(true);
 	const labelable = labelableFromContext ?? new Labelable(undefined, () => fallbackId);
 
@@ -138,13 +140,11 @@
 	});
 
 	function publish(node: HTMLElement) {
+		const stopRemember = remember(node);
 		const stopRegistration = registration(node);
-		const stopRemember = render ? remember(node) : undefined;
-		if (!render && isValueElement(node)) inputEl = node;
 		return () => {
 			stopRegistration?.();
-			stopRemember?.();
-			if (inputEl === node) inputEl = null;
+			stopRemember();
 		};
 	}
 
@@ -201,10 +201,10 @@
 			const submitCount = form.submitCount;
 			// Submit increments the count and validates. If Enter never submits,
 			// this still commits the value the input has when the timer fires.
-			setTimeout(() => {
+			commitTimer.start(0, () => {
 				if (form.submitCount !== submitCount) return;
 				field.commit(input.value);
-			}, 0);
+			});
 			return;
 		}
 		field.commit(event.currentTarget.value);

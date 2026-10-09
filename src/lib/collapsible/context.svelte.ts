@@ -6,6 +6,7 @@
 // ending phase waits one frame so the panel can measure before closed styles apply.
 
 import { getContext, setContext, untrack } from 'svelte';
+import { useAnimationFrame } from '../internal/timeout.svelte.js';
 import { createChangeEventDetails, REASONS } from '../internal/event-details.js';
 import type {
 	CollapsibleRootChangeEventDetails,
@@ -23,6 +24,8 @@ export class CollapsibleRoot {
 	registeredPanelId = $state<string | null | undefined>(undefined);
 
 	readonly readOpen: () => boolean;
+	private readonly endingFrame = useAnimationFrame();
+	private readonly idleFrame = useAnimationFrame();
 	readonly writeOpen: (open: boolean, details: CollapsibleRootChangeEventDetails) => void;
 	readonly readDisabled: () => boolean;
 	readonly onOpenChange:
@@ -68,10 +71,10 @@ export class CollapsibleRoot {
 			const mounted = this.mounted;
 			const status = this.transitionStatus;
 			if (open || !mounted || status === 'ending') return;
-			const frame = requestAnimationFrame(() => {
+			this.endingFrame.request(() => {
 				this.transitionStatus = 'ending';
 			});
-			return () => cancelAnimationFrame(frame);
+			return () => this.endingFrame.cancel();
 		});
 
 		// Starting settles to idle on the next frame so CSS can see both styles.
@@ -81,10 +84,10 @@ export class CollapsibleRoot {
 			if (this.mounted && this.transitionStatus !== 'idle') {
 				this.transitionStatus = 'starting';
 			}
-			const frame = requestAnimationFrame(() => {
+			this.idleFrame.request(() => {
 				this.transitionStatus = 'idle';
 			});
-			return () => cancelAnimationFrame(frame);
+			return () => this.idleFrame.cancel();
 		});
 	}
 

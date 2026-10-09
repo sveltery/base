@@ -148,10 +148,7 @@ describe('Popover', () => {
 		render(PopoverFixture, { scenario: 'standalone' });
 		const trigger = page.getByRole('button', { name: 'Open' });
 		await trigger.click();
-		await page
-			.getByRole('dialog')
-			.element()
-			.ownerDocument.dispatchEvent(new KeyboardEvent('keydown', { key: 'Escape', bubbles: true }));
+		await userEvent.keyboard('{Escape}');
 		await expect.poll(() => page.getByRole('dialog').elements().length).toBe(0);
 		await trigger.click();
 		await expect.element(page.getByRole('dialog')).toBeVisible();

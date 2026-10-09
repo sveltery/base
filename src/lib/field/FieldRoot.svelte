@@ -4,12 +4,14 @@
 	(commit 47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c). MIT, see THIRD_PARTY_NOTICES.md.
 -->
 <script lang="ts">
+	import { setContext } from 'svelte';
 	import type { HTMLAttributes } from 'svelte/elements';
 	import { useFormContext } from '../form/context.js';
 	import { useFieldsetRootContext } from '../fieldset/context.svelte.js';
 	import { getStateAttributesProps } from '../internal/state-attributes.js';
 	import { fieldValidityMapping } from './attributes.js';
 	import { setFieldContext } from './context.svelte.js';
+	import { FIELD_ROOT_PRESENT } from './root-present.js';
 	import { Labelable, setLabelableContext, useLabelableContext } from './labelable.svelte.js';
 	import { FieldRootModel } from './model.svelte.js';
 	import type { FieldRootActions, FieldRootProps, FieldRootState } from './types.js';
@@ -50,6 +52,7 @@
 		getValidationDebounceTime: () => validationDebounceTime,
 		getValidate: () => validate
 	});
+	setContext(FIELD_ROOT_PRESENT, true);
 	setFieldContext(field);
 
 	const actionsHandle: FieldRootActions = {

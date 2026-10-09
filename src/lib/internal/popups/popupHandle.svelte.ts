@@ -9,7 +9,8 @@
 import { DEV } from 'esm-env';
 import { createChangeEventDetails, REASONS } from '../event-details.js';
 import type { BaseUIChangeEventDetails } from '../event-details.js';
-import { AnimationFrame } from '../timeout.js';
+import { useAnimationFrame } from '../timeout.svelte.js';
+import type { AnimationFrame } from '../timeout.js';
 import { PopupTriggerMap } from './popupTriggerMap.js';
 
 export interface PopupHandleStore {
@@ -39,7 +40,7 @@ export class PopupHandle<Payload = unknown, Store extends PopupHandleStore = Pop
 		this.stack.push(store);
 		this.attached = store;
 		if (DEV && this.stack.length > 1) {
-			this.overlapFrame ??= AnimationFrame.create();
+			this.overlapFrame ??= useAnimationFrame();
 			this.overlapFrame.request(() => {
 				if (this.stack.length > 1) {
 					console.warn(

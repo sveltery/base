@@ -7,13 +7,15 @@
 // Text direction is `useDirection()`, read through `getDirection`.
 
 import { untrack } from 'svelte';
+import { callPublic } from '../internal/callPublic.js';
+import { useAnimationFrame } from '../internal/timeout.svelte.js';
 import { clamp } from '../internal/clamp.js';
 import {
 	createChangeEventDetails,
 	createGenericEventDetails,
 	REASONS
 } from '../internal/event-details.js';
-import type { FieldRootModel } from '../field/model.svelte.js';
+import type { FieldContext } from '../field/model.svelte.js';
 import type { FormContextValue } from '../form/context.js';
 import { asc } from './asc.js';
 import { ownerDocument, ownerWindow } from '../internal/owner.js';
@@ -89,7 +91,7 @@ export interface SliderModelOptions {
 		((value: SliderValue, eventDetails: SliderChangeEventDetails) => void) | undefined;
 	getOnValueCommitted: () =>
 		((value: SliderValue, eventDetails: SliderCommitEventDetails) => void) | undefined;
-	getField: () => FieldRootModel;
+	getField: () => FieldContext;
 	getFormContext: () => FormContextValue;
 	getDirection: () => 'ltr' | 'rtl';
 }
@@ -173,7 +175,7 @@ export class SliderRootModel {
 	private currentInteractionValue: number | number[] | null = null;
 	private latestValues: readonly number[] = [];
 	private styles: CSSStyleDeclaration | null = null;
-	private focusFrame: number | undefined;
+	private readonly focusFrame = useAnimationFrame();
 	private listeningDoc: Document | null = null;
 	private pinnedFieldInput = false;
 	private readonly options: SliderModelOptions;
@@ -348,7 +350,11 @@ export class SliderRootModel {
 		const current = this.options.getValueUnwrapped();
 		if (Number.isNaN(newValue) || areValuesEqual(newValue, current)) return false;
 
-		this.options.getOnValueChange()?.(newValue, details);
+		callPublic(
+			(value, eventDetails) => this.options.getOnValueChange()?.(value, eventDetails),
+			newValue,
+			details
+		);
 		if (details.isCanceled) return false;
 
 		this.lastChangeReason = details.reason;
@@ -370,7 +376,11 @@ export class SliderRootModel {
 		);
 		this.options.getField().setTouched(true);
 		if (applied) {
-			this.options.getOnValueCommitted()?.(newValue, createGenericEventDetails(reason, event));
+			callPublic(
+				(value, eventDetails) => this.options.getOnValueCommitted()?.(value, eventDetails),
+				newValue,
+				createGenericEventDetails(reason, event)
+			);
 		}
 	}
 
@@ -574,8 +584,7 @@ export class SliderRootModel {
 	}
 
 	cancelFocusFrame() {
-		if (this.focusFrame !== undefined) cancelAnimationFrame(this.focusFrame);
-		this.focusFrame = undefined;
+		this.focusFrame.cancel();
 	}
 
 	private onMove = (event: Event) => {
@@ -626,8 +635,7 @@ export class SliderRootModel {
 	}
 
 	private requestFocus(thumbIndex: number) {
-		this.cancelFocusFrame();
-		this.focusFrame = requestAnimationFrame(() => {
+		this.focusFrame.request(() => {
 			this.focusThumb(thumbIndex);
 		});
 	}
@@ -774,7 +782,8 @@ export class SliderRootModel {
 		}
 
 		if (this.currentInteractionValue != null) {
-			this.options.getOnValueCommitted()?.(
+			callPublic(
+				(value, eventDetails) => this.options.getOnValueCommitted()?.(value, eventDetails),
 				this.currentInteractionValue,
 				createGenericEventDetails(this.lastChangeReason, nativeEvent)
 			);

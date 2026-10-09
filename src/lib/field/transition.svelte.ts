@@ -3,6 +3,7 @@
 // which is how Field.Error and Field.Validity call it
 // (commit 47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c). MIT, see THIRD_PARTY_NOTICES.md.
 
+import { useAnimationFrame } from '../internal/timeout.svelte.js';
 import type { FieldTransitionStatus } from './types.js';
 
 /**
@@ -15,6 +16,7 @@ export class FieldTransition {
 	transitionStatus = $state<FieldTransitionStatus>(undefined);
 	frozen = $state<string | string[] | null>(null);
 	private readonly readOpen: () => boolean;
+	private readonly settleFrame = useAnimationFrame();
 	private readonly readSnapshot: (() => string | string[] | null) | undefined;
 
 	constructor(readOpen: () => boolean, readSnapshot?: () => string | string[] | null) {
@@ -42,10 +44,10 @@ export class FieldTransition {
 
 		$effect(() => {
 			if (!this.readOpen()) return;
-			const frame = requestAnimationFrame(() => {
+			this.settleFrame.request(() => {
 				this.transitionStatus = undefined;
 			});
-			return () => cancelAnimationFrame(frame);
+			return () => this.settleFrame.cancel();
 		});
 	}
 

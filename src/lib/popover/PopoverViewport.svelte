@@ -16,7 +16,7 @@
 	import { untrack } from 'svelte';
 	import { mergeProps } from '../internal/mergeProps.js';
 	import { useDirection } from '../internal/direction-context.js';
-	import { AnimationFrame } from '../internal/timeout.js';
+	import { useAnimationFrame } from '../internal/timeout.svelte.js';
 	import { runOnceAnimationsFinish } from '../internal/animations-finished.js';
 	import { adaptiveOriginMiddleware } from '../internal/adaptiveOriginMiddleware.js';
 	import { usePopupContentKey } from '../internal/popups/usePopupContentKey.svelte.js';
@@ -28,8 +28,8 @@
 	const store = usePopoverRoot();
 	const positioning = usePopoverPositioner();
 	const direction = useDirection();
-	const frame = AnimationFrame.create();
-	const resizeFrame = AnimationFrame.create();
+	const frame = useAnimationFrame();
+	const resizeFrame = useAnimationFrame();
 
 	let currentEl = $state<HTMLDivElement | null>(null);
 	let previousNode = $state<HTMLElement | null>(null);

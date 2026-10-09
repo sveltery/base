@@ -7,6 +7,7 @@
 -->
 <script lang="ts">
 	import type { HTMLAttributes } from 'svelte/elements';
+	import { registerLabelId } from '../internal/register-label-id.svelte.js';
 	import { getStateAttributesProps } from '../internal/state-attributes.js';
 	import { useProgressRootContext } from './ProgressRootContext.svelte.js';
 	import { progressStateAttributesMapping } from './stateAttributesMapping.js';
@@ -19,14 +20,8 @@
 	const id = $derived(idProp ?? `base-ui-${generatedId}`);
 	const state: ProgressState = $derived({ status: context.computed.status });
 
-	// Register before paint, and clear on destroy only when this id is still the current one
-	// so an older label cannot wipe a newer label's association.
-	$effect.pre(() => {
-		const current = id;
-		context.setLabelId(current);
-		return () => {
-			context.setLabelId((existing) => (existing === current ? undefined : existing));
-		};
+	registerLabelId(() => id, (next) => context.setLabelId(next), {
+		readCurrent: () => context.labelId
 	});
 
 	const hostProps: HTMLAttributes<HTMLSpanElement> = $derived({
