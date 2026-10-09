@@ -140,16 +140,15 @@ describe('<Slider />', () => {
 			expect(page.getByTestId('value').element().textContent).toBe('$30.00');
 		});
 
-		it('does not let an older label cleanup clear a newer label', async () => {
+		it('keeps the field label when an older slider label unmounts', async () => {
 			render(SliderHarness, { scenario: 'labels', defaultValue: 30 });
 			const slider = page.getByRole('slider');
 
-			await expect.element(slider).toHaveAttribute('aria-labelledby', 'old-label');
-			await page.getByRole('button', { name: 'Show both' }).click();
-			await expect.element(slider).toHaveAttribute('aria-labelledby', 'new-label');
-			await page.getByRole('button', { name: 'Show new' }).click();
-			await expect.element(slider).toHaveAttribute('aria-labelledby', 'new-label');
-			await expect.element(page.getByTestId('old')).not.toBeInTheDocument();
+			await page.getByRole('button', { name: 'Show field label' }).click();
+			await expect.element(slider).toHaveAttribute('aria-labelledby', 'field-label');
+			await page.getByRole('button', { name: 'Remove slider label' }).click();
+			await expect.element(page.getByTestId('slider-label')).not.toBeInTheDocument();
+			await expect.element(slider).toHaveAttribute('aria-labelledby', 'field-label');
 		});
 
 		it('links Slider.Label after the label id is registered', async () => {

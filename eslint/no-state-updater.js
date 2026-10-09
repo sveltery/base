@@ -252,9 +252,25 @@ const rule = {
 				});
 				const ignored = new Set(['setTimeout', 'setInterval', 'setImmediate']);
 				/**
-				 * A same-file setter whose parameter is a function stores a callback.
-				 * `setRenderer((current) => current)` is that shape. An unresolved
-				 * `setX`, or a setter whose parameter is a value, still counts.
+				 * A same-file setter whose parameter is a function, and which does not
+				 * call that parameter, stores a callback. `setRenderer((current) => current)`
+				 * is that shape. Calling the parameter is an updater even when the
+				 * parameter type is written inline. An unresolved `setX`, or a setter
+				 * whose parameter is a value, still counts.
+				 * @param {any} fn
+				 * @param {string} paramName
+				 */
+				function callsParameter(fn, paramName) {
+					let called = false;
+					walkOwn(fn.body, (node) => {
+						if (called || node.type !== 'CallExpression') return;
+						const callee = unwrap(node.callee);
+						if (callee?.type === 'Identifier' && callee.name === paramName) called = true;
+					});
+					return called;
+				}
+
+				/**
 				 * @param {any} fn
 				 */
 				function parameterExpectsCallback(fn) {
@@ -268,8 +284,10 @@ const rule = {
 						return false;
 					}
 					const param = unwrap(value.params?.[0]);
+					const paramName = nameOf(param);
 					const annotation = unwrapType(param?.typeAnnotation?.typeAnnotation);
-					return annotation?.type === 'TSFunctionType';
+					if (annotation?.type !== 'TSFunctionType' || !paramName) return false;
+					return !callsParameter(value, paramName);
 				}
 				walk(context.sourceCode.ast, (node) => {
 					if (node.type !== 'CallExpression') return;

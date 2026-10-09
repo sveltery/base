@@ -19,19 +19,12 @@
 	import { focusElement, isElement } from './dom.js';
 	import type { SliderLabelProps, SliderRootState } from './types.js';
 
-	let {
-		id: idProp,
-		render,
-		children,
-		onclick,
-		onpointerdown,
-		...elementProps
-	}: SliderLabelProps = $props();
+	let { render, children, onclick, onpointerdown, ...elementProps }: SliderLabelProps = $props();
 
 	const model = useSliderContext();
 	const labelable = useLabelableContext(true);
 	const state: SliderRootState = $derived(model.snapshot());
-	const id = $derived(idProp ?? (model.rootDomId ? `${model.rootDomId}-label` : undefined));
+	const id = $derived(model.rootDomId ? `${model.rootDomId}-label` : undefined);
 
 	registerLabelId(
 		() => id,

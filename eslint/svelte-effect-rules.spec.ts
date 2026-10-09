@@ -380,6 +380,7 @@ const failRuleByFile: Record<string, string> = {
 	'state-updater-instanceof.fail.svelte': 'sveltery/no-state-updater',
 	'state-updater-call.fail.svelte': 'sveltery/no-state-updater',
 	'state-updater-local.fail.svelte': 'sveltery/no-state-updater',
+	'state-updater-inline.fail.svelte': 'sveltery/no-state-updater',
 	'imperative-handle.fail.svelte': 'sveltery/no-react-refs',
 	'imperative-handle-alias.fail.svelte': 'sveltery/no-react-refs',
 	'imperative-handle-pre.fail.svelte': 'sveltery/no-react-refs',
