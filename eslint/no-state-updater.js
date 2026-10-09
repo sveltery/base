@@ -4,7 +4,7 @@
  *
  * @type {import('eslint').Rule.RuleModule}
  */
-import { calleeName, nameOf, unwrap, walk } from './effects.js';
+import { calleeName, nameOf, unwrap, walk, walkOwn } from './effects.js';
 
 const rule = {
 	meta: {
@@ -98,31 +98,6 @@ const rule = {
 				if (name) names.add(name);
 			}
 			return names;
-		}
-
-		/**
-		 * @param {any} node
-		 * @param {(node: any) => void} visit
-		 */
-		function walkOwn(node, visit) {
-			if (!node || typeof node !== 'object' || typeof node.type !== 'string') return;
-			visit(node);
-			if (
-				node.type === 'FunctionDeclaration' ||
-				node.type === 'FunctionExpression' ||
-				node.type === 'ArrowFunctionExpression'
-			) {
-				return;
-			}
-			for (const key of Object.keys(node)) {
-				if (key === 'parent') continue;
-				const child = node[key];
-				if (Array.isArray(child)) {
-					for (const item of child) walkOwn(item, visit);
-				} else {
-					walkOwn(child, visit);
-				}
-			}
 		}
 
 		/**

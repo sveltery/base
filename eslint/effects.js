@@ -264,7 +264,7 @@ export function localCallees(fn, fns) {
  * @param {any} node
  * @param {(node: any) => void} visit
  */
-function walkOwn(node, visit) {
+export function walkOwn(node, visit) {
 	if (!node || typeof node !== 'object' || typeof node.type !== 'string') return;
 	visit(node);
 	if (

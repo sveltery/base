@@ -11,7 +11,7 @@
 		},
 		"html:src/lib/field/FieldItem.svelte|src/lib/field/FieldRoot.svelte": {
 			"count": 1,
-			"lines": 48
+			"lines": 47
 		},
 		"html:src/lib/progress/ProgressLabel.svelte|src/lib/switch/SwitchThumb.svelte": {
 			"count": 1,
@@ -28,10 +28,6 @@
 		"html:src/lib/scroll-area/ScrollAreaContent.svelte|src/lib/slider/SliderControl.svelte": {
 			"count": 1,
 			"lines": 52
-		},
-		"javascript:eslint/effects.js|eslint/no-previous-value-effect.js": {
-			"count": 1,
-			"lines": 27
 		},
 		"javascript:eslint/effects.js|eslint/no-react-refs.js": {
 			"count": 1,
