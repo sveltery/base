@@ -420,7 +420,7 @@ export function scanRepo(repoRoot, options = {}) {
 				error != null && typeof error === 'object' && 'stderr' in error
 					? String(/** @type {{ stderr?: unknown }} */ (error).stderr ?? '')
 					: '';
-			throw new Error(stderr.trim() || 'jscpd scan failed');
+			throw new Error(stderr.trim() || 'jscpd scan failed', { cause: error });
 		}
 		const report = JSON.parse(fs.readFileSync(path.join(out, 'jscpd-report.json'), 'utf8'));
 		/** @type {(name: string) => string} */
