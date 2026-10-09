@@ -5,7 +5,7 @@ Internal utilities through phase 1b. There is no public component. `verify.sh` c
 | Primitive         | What the fixture and specs cover                                                                                |
 | ----------------- | --------------------------------------------------------------------------------------------------------------- |
 | Portal            | Popup is mounted outside the anchor, on `document.body`                                                         |
-| Focus manager     | Initial focus, Tab stays inside, focus returns to the trigger                                                   |
+| Focus manager     | Initial focus, Tab wraps through the guards, focus returns to the trigger after the close write                 |
 | Dismiss           | Escape, outside press, nested Escape stays on the child                                                         |
 | Click             | Trigger toggles open and closed                                                                                 |
 | Scroll lock       | Modal lock, and the lock remains until every owner releases it                                                  |

@@ -1,5 +1,6 @@
 // Phase 1a overlay primitives. Dialog and Popover are not mounted here.
-import { page } from 'vitest/browser';
+import { flushSync } from 'svelte';
+import { page, userEvent } from 'vitest/browser';
 import { describe, expect, it } from 'vitest';
 import { render } from 'vitest-browser-svelte';
 import NestedDismissHarness from '../../tests/NestedDismissHarness.svelte';
@@ -51,12 +52,7 @@ describe('overlay foundation', () => {
 		const trigger = page.getByRole('button', { name: 'Open' });
 		await trigger.click();
 		await expect.element(page.getByRole('button', { name: 'Inside' })).toHaveFocus();
-		await page
-			.getByRole('dialog', { name: 'Notice' })
-			.element()
-			.ownerDocument.dispatchEvent(
-				new KeyboardEvent('keydown', { key: 'Escape', bubbles: true, cancelable: true })
-			);
+		await userEvent.keyboard('{Escape}');
 		await expect.poll(() => page.getByRole('dialog', { name: 'Notice' }).elements().length).toBe(0);
 		await expect.element(trigger).toHaveFocus();
 		expect((await calls()).at(-1)).toEqual({ open: false, reason: 'escape-key', canceled: false });
@@ -67,11 +63,9 @@ describe('overlay foundation', () => {
 		await page.getByRole('button', { name: 'Open' }).click();
 		const inside = page.getByRole('button', { name: 'Inside' });
 		await expect.element(inside).toHaveFocus();
-		await inside
-			.element()
-			.ownerDocument.dispatchEvent(
-				new KeyboardEvent('keydown', { key: 'Tab', bubbles: true, cancelable: true })
-			);
+		await userEvent.keyboard('{Tab}');
+		await expect.element(page.getByRole('button', { name: 'Chosen' })).toHaveFocus();
+		await userEvent.keyboard('{Tab}');
 		await expect.element(inside).toHaveFocus();
 	});
 
@@ -116,7 +110,7 @@ describe('overlay foundation', () => {
 					bubbles: true,
 					cancelable: true,
 					button: 0,
-					pointerType: 'touch'
+					pointerType: 'mouse'
 				})
 			);
 		await expect.poll(() => page.getByRole('dialog', { name: 'Notice' }).elements().length).toBe(0);
@@ -184,12 +178,7 @@ describe('overlay foundation', () => {
 		const trigger = page.getByRole('button', { name: 'Open' });
 		await trigger.click();
 		await expect.element(page.getByRole('button', { name: 'Inside' })).toHaveFocus();
-		await page
-			.getByRole('dialog', { name: 'Notice' })
-			.element()
-			.ownerDocument.dispatchEvent(
-				new KeyboardEvent('keydown', { key: 'Escape', bubbles: true, cancelable: true })
-			);
+		await userEvent.keyboard('{Escape}');
 		await expect.poll(() => page.getByTestId('close-kind').element().textContent).toBe('keyboard');
 		await expect.element(trigger).toHaveFocus();
 	});
@@ -238,19 +227,11 @@ describe('overlay foundation', () => {
 		const popup = page.getByRole('dialog', { name: 'Notice' });
 		await expect.element(popup).toBeVisible();
 
-		popup
-			.element()
-			.ownerDocument.dispatchEvent(
-				new KeyboardEvent('keydown', { key: 'Escape', bubbles: true, cancelable: true })
-			);
+		await userEvent.keyboard('{Escape}');
 		await expect.element(popup).toBeVisible();
 		await expect.element(page.getByTestId('anchor')).toHaveAttribute('data-prevent-unmount', '');
 
-		popup
-			.element()
-			.ownerDocument.dispatchEvent(
-				new KeyboardEvent('keydown', { key: 'Escape', bubbles: true, cancelable: true })
-			);
+		await userEvent.keyboard('{Escape}');
 		await expect.element(page.getByTestId('popup')).toHaveAttribute('data-closed', '');
 		expect(page.getByTestId('popup').elements()).toHaveLength(1);
 		await expect.element(page.getByTestId('anchor')).toHaveAttribute('data-prevent-unmount', '');
@@ -263,11 +244,8 @@ describe('overlay foundation', () => {
 		await expect.element(parent).toHaveAttribute('data-open', '');
 		await expect.element(child).toHaveAttribute('data-open', '');
 
-		child
-			.element()
-			.ownerDocument.dispatchEvent(
-				new KeyboardEvent('keydown', { key: 'Escape', bubbles: true, cancelable: true })
-			);
+		(child.element() as HTMLElement).focus();
+		await userEvent.keyboard('{Escape}');
 		await expect.element(child).not.toHaveAttribute('data-open');
 		await expect.element(parent).toHaveAttribute('data-open', '');
 	});
@@ -284,5 +262,91 @@ describe('overlay foundation', () => {
 		await expect.poll(overflowLocked).toBe(true);
 		await second.click();
 		await expect.poll(overflowLocked).toBe(false);
+	});
+
+	it('does not open when the trigger unmounts during touchOpenDelay', async () => {
+		const opened: boolean[] = [];
+		const view = render(OverlayFoundationHarness, {
+			scenario: 'modal',
+			touchOpenDelay: 40,
+			onOpened: () => opened.push(true)
+		});
+		const trigger = page.getByRole('button', { name: 'Open' }).element() as HTMLElement;
+		trigger.dispatchEvent(
+			new PointerEvent('pointerdown', {
+				bubbles: true,
+				cancelable: true,
+				pointerType: 'touch',
+				button: 0,
+				isPrimary: true
+			})
+		);
+		trigger.dispatchEvent(new MouseEvent('click', { bubbles: true, cancelable: true, detail: 1 }));
+		view.unmount();
+		await new Promise<void>((resolve) => {
+			setTimeout(resolve, 60);
+		});
+		expect(opened).toEqual([]);
+	});
+
+	it('wraps Tab through the guards and does not mark again when closeOnFocusOut changes', async () => {
+		const view = render(OverlayFoundationHarness, { scenario: 'trap', focusOut: true });
+		await page.getByRole('button', { name: 'Open' }).click();
+		const one = page.getByTestId('one');
+		const three = page.getByTestId('three');
+		await expect.element(one).toHaveFocus();
+		const watched = page.getByTestId('outside').element();
+		let hiddenChanges = 0;
+		const observer = new MutationObserver(() => {
+			hiddenChanges += 1;
+		});
+		observer.observe(watched, { attributes: true, attributeFilter: ['aria-hidden'] });
+		hiddenChanges = 0;
+		await userEvent.keyboard('{Tab}');
+		await expect.element(page.getByTestId('two')).toHaveFocus();
+		await userEvent.keyboard('{Tab}');
+		await expect.element(three).toHaveFocus();
+		await userEvent.keyboard('{Tab}');
+		await expect.element(one).toHaveFocus();
+		await userEvent.keyboard('{Shift>}{Tab}{/Shift}');
+		await expect.element(three).toHaveFocus();
+		await view.rerender({ scenario: 'trap', focusOut: false });
+		await expect.poll(() => page.getByTestId('three').element()).toHaveFocus();
+		expect(hiddenChanges).toBe(0);
+		observer.disconnect();
+	});
+
+	it('wraps from the checked radio and skips a disabled fieldset', async () => {
+		render(OverlayFoundationHarness, { scenario: 'tabbable' });
+		await page.getByRole('button', { name: 'Open' }).click();
+		const real = page.getByTestId('real');
+		const checked = page.getByRole('radio', { name: 'B' });
+		await expect.element(real).toHaveFocus();
+		(checked.element() as HTMLElement).focus();
+		await userEvent.keyboard('{Tab}');
+		await expect.element(real).toHaveFocus();
+		await userEvent.keyboard('{Shift>}{Tab}{/Shift}');
+		await expect.element(checked).toHaveFocus();
+	});
+
+	it('returns focus when flushSync commits the close', async () => {
+		render(OverlayFoundationHarness, { scenario: 'modal' });
+		const trigger = page.getByRole('button', { name: 'Open', includeHidden: true });
+		await trigger.click();
+		await expect.element(page.getByRole('button', { name: 'Inside' })).toHaveFocus();
+		flushSync(() => {
+			(trigger.element() as HTMLElement).click();
+		});
+		expect(document.activeElement).toBe(trigger.element());
+	});
+
+	it('closes from Escape handled on the trigger', async () => {
+		render(OverlayFoundationHarness, { scenario: 'modal' });
+		const trigger = page.getByRole('button', { name: 'Open', includeHidden: true });
+		await trigger.click();
+		await expect.element(page.getByRole('button', { name: 'Inside' })).toHaveFocus();
+		(trigger.element() as HTMLElement).focus();
+		await userEvent.keyboard('{Escape}');
+		await expect.poll(() => page.getByRole('dialog', { name: 'Notice' }).elements().length).toBe(0);
 	});
 });

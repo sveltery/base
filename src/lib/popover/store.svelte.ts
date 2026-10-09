@@ -14,7 +14,7 @@ import { createChangeEventDetails, REASONS } from '../internal/event-details.js'
 import type { ControllableValue } from '../internal/controllable-value.svelte.js';
 import { runOnceAnimationsFinish } from '../internal/animations-finished.js';
 import { PopupStore } from '../internal/popups/store.svelte.js';
-import { Timeout } from '../internal/timeout.js';
+import { useTimeout } from '../internal/timeout.svelte.js';
 import { PATIENT_CLICK_THRESHOLD } from './constants.js';
 import type {
 	PopoverChangeEventDetails,
@@ -58,7 +58,7 @@ export class PopoverStore extends PopupStore<PopoverChangeReason> {
 	/** Viewport CSS variables. They travel with the style attribute. */
 	positionerVars = $state<Record<string, string>>({});
 	popupVars = $state<Record<string, string>>({});
-	private readonly stickTimeout = Timeout.create();
+	private readonly stickTimeout = useTimeout();
 	private readonly readModal: () => PopoverModal;
 	private readonly readTriggerId: () => string | null | undefined;
 	private readonly writeTriggerIdValue: (id: string | null, details?: unknown) => void;

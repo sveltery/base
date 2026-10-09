@@ -1,14 +1,14 @@
 // Derived from Base UI v1.8.0 packages/react/src/floating-ui-react/hooks/useDismiss.ts
 // (commit 47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c). MIT, see THIRD_PARTY_NOTICES.md.
-// A press is inside when the target is in this portal host, a descendant portal, or a
-// floating-tree child. There is no insideReactTree flag.
+// A press is inside when the target is in the floating element, the trigger, or a
+// floating-tree child's floating element. The portal host is not inside.
 
 import { on } from 'svelte/events';
 import { createChangeEventDetails, REASONS } from '../../event-details.js';
 import { ownerDocument } from '../../owner.js';
 import { platform } from '../../platform.js';
 import { contains, getTarget } from '../../shadow-dom.js';
-import { Timeout } from '../../timeout.js';
+import { useTimeout } from '../../timeout.svelte.js';
 import { getNodeChildren } from '../components/FloatingTreeStore.js';
 import { useFloatingTree } from '../components/FloatingTree.svelte.js';
 import type { FloatingRootStore } from '../components/FloatingRootStore.svelte.js';
@@ -24,7 +24,7 @@ export type OutsidePressEvent =
 export interface UseDismissProps {
 	enabled?: boolean;
 	escapeKey?: boolean;
-	outsidePress?: boolean | ((event: MouseEvent | PointerEvent) => boolean);
+	outsidePress?: boolean | ((event: MouseEvent | PointerEvent | TouchEvent) => boolean);
 	outsidePressEvent?: OutsidePressEvent;
 	bubbles?: boolean | { escapeKey?: boolean; outsidePress?: boolean };
 }
@@ -39,34 +39,47 @@ function pressIsInside(store: FloatingRootStore, event: Event) {
 	if (!(target instanceof Node)) return false;
 	if (contains(store.floatingElement, target) || contains(store.popupElement, target)) return true;
 	if (contains(store.domReferenceElement, target)) return true;
-	if (contains(store.portalElement, target)) return true;
 	return false;
 }
 
-function pointerIsTouch(event: Event) {
-	return (
-		(event instanceof PointerEvent && event.pointerType === 'touch') ||
-		event.type.startsWith('touch')
-	);
+function pointerIsTouch(event: Event, lastPointerType: string) {
+	if (event instanceof PointerEvent && event.pointerType === 'touch') return true;
+	if (event instanceof PointerEvent && event.pointerType) return false;
+	if (event.type.startsWith('touch')) return true;
+	// Upstream `getOutsidePressEvent` classifies the compatibility mousedown and the
+	// click from the last pointerdown (`useDismiss.ts` `currentPointerTypeRef`).
+	// Pen and an empty type stay mouse. A tap's click stays touch, so sloppy ignores it.
+	return lastPointerType === 'touch';
 }
 
 function resolvePressMode(
 	configured: PressMode | { mouse?: PressMode; touch?: PressMode },
-	event: Event
+	event: Event,
+	lastPointerType: string
 ): PressMode {
 	if (configured === 'sloppy' || configured === 'intentional') return configured;
-	const touch = pointerIsTouch(event);
+	const touch = pointerIsTouch(event, lastPointerType);
 	return configured[touch ? 'touch' : 'mouse'] ?? (touch ? 'sloppy' : 'intentional');
 }
 
 export function useDismiss(store: FloatingRootStore, props: () => UseDismissProps = () => ({})) {
 	const tree = useFloatingTree();
-	const compositionTimeout = Timeout.create();
+	const compositionTimeout = useTimeout();
+	const cancelDismissOnEndTimeout = useTimeout();
 	let composing = false;
 	let sawPressWhileOpen = false;
 	let pressStartedInside = false;
 	/** The click after an inside press still belongs to that press. A cancel has no click. */
 	let ignoreInsideReleaseClick = false;
+	/** Pointer type from the last pointerdown. A later mousedown is still that gesture. */
+	let lastPointerType = '';
+	/** Sloppy touch: a tap dismisses on the browser's mousedown, a short move on touchend, a scroll during the move. */
+	let touchState: {
+		startX: number;
+		startY: number;
+		dismissOnTouchEnd: boolean;
+		dismissOnMouseDown: boolean;
+	} | null = null;
 
 	function options() {
 		const value = props();
@@ -93,7 +106,7 @@ export function useDismiss(store: FloatingRootStore, props: () => UseDismissProp
 	}
 
 	function pressMode(event: Event) {
-		return resolvePressMode(options().outsidePressEvent, event);
+		return resolvePressMode(options().outsidePressEvent, event, lastPointerType);
 	}
 
 	function childBlocks(key: 'escapeKeyBubbles' | 'outsidePressBubbles') {
@@ -121,11 +134,7 @@ export function useDismiss(store: FloatingRootStore, props: () => UseDismissProp
 		return getNodeChildren(tree.nodes, store.nodeId).some((node) => {
 			const context = node.context;
 			if (!context) return false;
-			return (
-				contains(context.floatingElement, target) ||
-				contains(context.portalElement, target) ||
-				contains(context.popupElement, target)
-			);
+			return contains(context.floatingElement, target) || contains(context.popupElement, target);
 		});
 	}
 
@@ -140,13 +149,13 @@ export function useDismiss(store: FloatingRootStore, props: () => UseDismissProp
 		if (!current.escapeKeyBubbles && !details.isPropagationAllowed) event.stopPropagation();
 	}
 
-	function closeOnOutside(event: MouseEvent | PointerEvent) {
+	function closeOnOutside(event: MouseEvent | PointerEvent | TouchEvent) {
 		const current = options();
 		const mode = pressMode(event);
 		if (!store.isOpen() || !current.enabled || current.outsidePress === false) return;
 		if (mode === 'intentional' && event.type !== 'click') return;
 		if (mode === 'sloppy' && event.type === 'click') return;
-		if (event.type === 'pointerdown' && event.button !== 0) return;
+		if (event.type === 'pointerdown' && 'button' in event && event.button !== 0) return;
 		if (insideDismissTree(event)) return;
 		if (pressStartedInside) return;
 		if (mode === 'intentional' && !sawPressWhileOpen && event.detail !== 0) return;
@@ -162,6 +171,7 @@ export function useDismiss(store: FloatingRootStore, props: () => UseDismissProp
 				sawPressWhileOpen = false;
 				pressStartedInside = false;
 				ignoreInsideReleaseClick = false;
+				touchState = null;
 			}
 			return;
 		}
@@ -179,12 +189,87 @@ export function useDismiss(store: FloatingRootStore, props: () => UseDismissProp
 			}),
 			on(doc, 'keydown', closeOnEscape),
 			on(doc, 'pointerdown', (event) => {
+				lastPointerType = event.pointerType;
 				if (event.button !== 0) return;
 				ignoreInsideReleaseClick = false;
 				if (insideDismissTree(event)) pressStartedInside = true;
 				else sawPressWhileOpen = true;
+				// Upstream `handlePointerDown` (useDismiss.ts 515–524): touch waits for
+				// touchend, for the finger to scroll away, or for the compatibility mousedown.
+				if (event.pointerType === 'touch') return;
 				closeOnOutside(event);
 			}),
+			on(
+				doc,
+				'mousedown',
+				(event) => {
+					// Upstream `closeOnPressOutsideCapture` (useDismiss.ts 592–597, listener at 724).
+					// A plain tap closes here. A finger still down after 1000ms does not.
+					if (lastPointerType !== 'touch') return;
+					if (touchState && !touchState.dismissOnMouseDown) return;
+					closeOnOutside(event);
+				},
+				{ capture: true }
+			),
+			on(
+				doc,
+				'touchstart',
+				(event) => {
+					// Upstream records the pointer on touchstart capture (`useDismiss.ts` 574–576).
+					lastPointerType = 'touch';
+					cancelDismissOnEndTimeout.clear();
+					if (pressMode(event) !== 'sloppy' || !store.isOpen() || !options().enabled) return;
+					if (insideDismissTree(event)) return;
+					const touch = event.touches[0];
+					if (!touch) return;
+					touchState = {
+						startX: touch.clientX,
+						startY: touch.clientY,
+						dismissOnTouchEnd: false,
+						dismissOnMouseDown: true
+					};
+					cancelDismissOnEndTimeout.start(1000, () => {
+						if (!touchState) return;
+						touchState.dismissOnTouchEnd = false;
+						touchState.dismissOnMouseDown = false;
+					});
+				},
+				{ capture: true, passive: true }
+			),
+			on(
+				doc,
+				'touchmove',
+				(event) => {
+					if (pressMode(event) !== 'sloppy' || !touchState || insideDismissTree(event)) return;
+					const touch = event.touches[0];
+					if (!touch) return;
+					const deltaX = touch.clientX - touchState.startX;
+					const deltaY = touch.clientY - touchState.startY;
+					const distance = Math.hypot(deltaX, deltaY);
+					if (distance > 5) touchState.dismissOnTouchEnd = true;
+					if (distance > 10) {
+						closeOnOutside(event);
+						cancelDismissOnEndTimeout.clear();
+						touchState = null;
+					}
+				},
+				{ capture: true, passive: true }
+			),
+			on(
+				doc,
+				'touchend',
+				(event) => {
+					if (pressMode(event) !== 'sloppy' || !touchState || insideDismissTree(event)) {
+						cancelDismissOnEndTimeout.clear();
+						touchState = null;
+						return;
+					}
+					if (touchState.dismissOnTouchEnd) closeOnOutside(event);
+					cancelDismissOnEndTimeout.clear();
+					touchState = null;
+				},
+				{ capture: true, passive: true }
+			),
 			on(
 				doc,
 				'pointerup',
@@ -217,6 +302,8 @@ export function useDismiss(store: FloatingRootStore, props: () => UseDismissProp
 		return () => {
 			for (const cleanup of cleanups) cleanup();
 			compositionTimeout.clear();
+			cancelDismissOnEndTimeout.clear();
+			touchState = null;
 		};
 	});
 

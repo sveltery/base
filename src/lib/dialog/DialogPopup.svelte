@@ -107,7 +107,7 @@
 	{store}
 	disabled={!store.mounted}
 	initialFocus={resolveInitial}
-	returnFocus={finalFocus === undefined ? true : resolveFinal}
+	returnFocus={finalFocus === undefined ? true : finalFocus === null ? null : resolveFinal}
 	modal={store.modal !== false}
 	closeOnFocusOut={!store.disablePointerDismissal}
 	restoreFocus="popup"
