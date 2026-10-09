@@ -9,6 +9,7 @@
 	roving focus, this root registers as a composite item.
 -->
 <script lang="ts">
+	import { untrack } from 'svelte';
 	import { createAttachmentKey, type Attachment } from 'svelte/attachments';
 	import { currentHost, dispatchClick, forwardKeyUp } from '../internal/click.js';
 	import { toCssStyle } from '../internal/css-style.js';
@@ -24,7 +25,6 @@
 	const uid = $props.id();
 	const rootKey = createAttachmentKey();
 	const group = useRadioGroupContext();
-	const renderIndex = group?.roving ? group.roving.claim() : 0;
 
 	let {
 		value,
@@ -52,6 +52,9 @@
 	const rootId = $derived(nativeButton ? controlId : generatedRootId);
 
 	const checked = $derived(group !== undefined ? group.checkedValue === value : value === '');
+	const renderIndex = group?.roving
+		? group.roving.claim(untrack(() => Boolean(group.disabled) || disabledProp))
+		: 0;
 	const disabled = $derived(Boolean(group?.disabled) || disabledProp);
 	const readOnly = $derived(Boolean(group?.readOnly) || readOnlyProp);
 	const required = $derived(Boolean(group?.required) || requiredProp);
@@ -89,7 +92,7 @@
 
 	function registerRoot(element: HTMLElement) {
 		rootNode = element;
-		const remove = group?.roving?.register(element, () => ({ value, disabled }));
+		const remove = group?.roving?.register(element, () => ({ value, disabled }), renderIndex);
 		return () => {
 			remove?.();
 			if (rootNode === element) rootNode = null;
@@ -99,22 +102,16 @@
 	const inputStyle = $derived(toCssStyle(fieldName ? visuallyHiddenInput : visuallyHidden));
 	const serialized = $derived(value !== undefined ? serializeValue(value) : undefined);
 
-	function selectedNow() {
-		return group !== undefined ? group.checkedValue === value : value === '';
-	}
-
 	function syncInput() {
 		const input = inputNode;
-		if (!input) return;
-		const next = selectedNow();
-		if (input.checked !== next) input.checked = next;
+		const published = group?.domRevision ?? 0;
+		if (!input || input.checked === checked) return published;
+		input.checked = checked;
+		return published;
 	}
 
 	$effect(() => {
-		const input = inputNode;
-		const next = checked;
-		if (!input) return;
-		input.checked = next;
+		syncInput();
 	});
 
 	function handleInputClick(event: MouseEvent) {

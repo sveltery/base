@@ -67,7 +67,17 @@
 		get parent() {
 			return allValues === undefined ? undefined : parentModel;
 		},
-		setValue
+		setValue,
+		toggle(key, next, details) {
+			if (allValues !== undefined) {
+				parentModel.toggle(key, next, details);
+				return;
+			}
+			if (key === undefined) return;
+			const current = currentValue();
+			const nextValue = next ? [...current, key] : current.filter((item) => item !== key);
+			setValue(nextValue, details);
+		}
 	});
 
 	const groupState: CheckboxGroupState = $derived({

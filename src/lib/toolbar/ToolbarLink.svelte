@@ -18,13 +18,9 @@
 
 	const linkState: ToolbarLinkState = $derived({ orientation: toolbar.orientation });
 
-	function handleFocus(event: FocusEvent & { currentTarget: EventTarget & HTMLElement }) {
-		onfocus?.(event as FocusEvent & { currentTarget: EventTarget & HTMLAnchorElement });
-	}
-
 	const hostProps: ToolbarLinkHostProps & Record<symbol, Attachment<HTMLElement>> = $derived.by(
 		() => {
-			const hosted = item.hosted({ onfocus: handleFocus });
+			const hosted = item.hosted({ onfocus });
 			return {
 				...getStateAttributesProps(linkState),
 				...elementProps,

@@ -3,7 +3,18 @@
 // (commit 47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c). MIT, see THIRD_PARTY_NOTICES.md.
 
 import type { StateAttributesMapping } from '../internal/state-attributes.js';
+import { useFieldContext } from './context.svelte.js';
 import type { FieldRootState } from './types.js';
+
+const MISSING_FIELD_ROOT =
+	'Base UI: FieldRootContext is missing. Field parts must be placed within <Field.Root>.';
+
+/** Validity and Item reject the inert field. Other parts keep it. */
+export function requireFieldRoot() {
+	const field = useFieldContext();
+	if (Object.isFrozen(field.validityData)) throw new Error(MISSING_FIELD_ROOT);
+	return field;
+}
 
 /** Present when the field is disabled. */
 export const disabled = 'data-disabled';

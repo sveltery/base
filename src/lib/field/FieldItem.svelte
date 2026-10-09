@@ -7,8 +7,8 @@
 <script lang="ts">
 	import type { HTMLAttributes } from 'svelte/elements';
 	import { getStateAttributesProps } from '../internal/state-attributes.js';
-	import { fieldValidityMapping } from './attributes.js';
-	import { setFieldItemContext, useFieldContext } from './context.svelte.js';
+	import { fieldValidityMapping, requireFieldRoot } from './attributes.js';
+	import { setFieldItemContext } from './context.svelte.js';
 	import { Labelable, setLabelableContext, useLabelableContext } from './labelable.svelte.js';
 	import type { FieldItemProps, FieldItemState } from './types.js';
 
@@ -21,7 +21,7 @@
 		...elementProps
 	}: FieldItemProps = $props();
 
-	const field = useFieldContext();
+	const field = requireFieldRoot();
 	const parentLabelable = useLabelableContext(true);
 	const labelable = new Labelable(parentLabelable, () => `base-ui-${uid}`);
 	setLabelableContext(labelable);

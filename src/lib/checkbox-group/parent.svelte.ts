@@ -1,6 +1,7 @@
 // Derived from Base UI v1.8.0 packages/react/src/checkbox-group/useCheckboxGroupParent.ts
 // (commit 47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c). MIT, see THIRD_PARTY_NOTICES.md.
 import { untrack } from 'svelte';
+import { plainMap } from '../internal/plain-map.js';
 import { SvelteMap } from 'svelte/reactivity';
 import type { CheckboxGroupChangeDetails } from '../checkbox/group-context.js';
 import {
@@ -19,6 +20,7 @@ export class CheckboxGroupParent {
 	snapshot = $state<string[]>([]);
 	private readonly registry = new SvelteMap<string, readonly string[]>();
 	private readonly disabledStates = new SvelteMap<string, boolean>();
+	private readonly disabledReads: Array<() => { key: string | undefined; disabled: boolean }> = [];
 	private readonly readValue: () => readonly string[];
 	private readonly readAllValues: () => readonly string[];
 	private readonly commit: (value: string[], details: CheckboxGroupChangeDetails) => void;
@@ -47,25 +49,54 @@ export class CheckboxGroupParent {
 		return joinedControls(this.readAllValues(), this.registry);
 	}
 
-	toggle(details: CheckboxGroupChangeDetails) {
-		const result = nextParentSelection({
-			value: this.readValue(),
-			allValues: this.readAllValues(),
-			snapshot: this.snapshot,
-			status: this.status,
-			isDisabled: (item) => Boolean(this.disabledStates.get(item))
-		});
-		this.commit(result.value, details);
-		if (!details.isCanceled && result.status !== undefined) this.status = result.status;
-	}
+	toggle(key: string | undefined, next: boolean, details: CheckboxGroupChangeDetails) {
+		this.syncDisabled();
+		if (key === undefined) {
+			const result = nextParentSelection({
+				value: this.readValue(),
+				allValues: this.readAllValues(),
+				snapshot: this.snapshot,
+				status: this.status,
+				isDisabled: (item) => Boolean(this.disabledStates.get(item))
+			});
+			this.commit(result.value, details);
+			if (!details.isCanceled && result.status !== undefined) this.status = result.status;
+			return;
+		}
 
-	toggleChild(childValue: string, nextChecked: boolean, details: CheckboxGroupChangeDetails) {
-		const next = nextChildValue(this.readValue(), childValue, nextChecked);
-		this.commit(next, details);
+		const nextValue = nextChildValue(this.readValue(), key, next);
+		this.commit(nextValue, details);
 		if (!details.isCanceled) {
-			this.snapshot = next;
+			this.snapshot = nextValue;
 			this.status = 'mixed';
 		}
+	}
+
+	registerDisabled(read: () => { key: string | undefined; disabled: boolean }) {
+		this.disabledReads.push(read);
+		this.syncDisabled();
+		return () => {
+			const index = this.disabledReads.indexOf(read);
+			if (index !== -1) this.disabledReads.splice(index, 1);
+			this.syncDisabled();
+		};
+	}
+
+	private syncDisabled() {
+		const next = plainMap(
+			this.disabledReads.flatMap((read) => {
+				const current = untrack(read);
+				return current.key !== undefined ? ([[current.key, current.disabled]] as const) : [];
+			})
+		);
+		untrack(() => {
+			for (const key of [...this.disabledStates.keys()]) {
+				if (!next.has(key)) this.disabledStates.delete(key);
+			}
+			for (const [key, disabled] of next) {
+				if (this.disabledStates.get(key) !== disabled) this.disabledStates.set(key, disabled);
+			}
+		});
 	}
 
 	registerChildId(childValue: string, childId: string) {
@@ -86,18 +117,5 @@ export class CheckboxGroupParent {
 				else this.registry.set(childValue, nextIds);
 			});
 		};
-	}
-
-	setDisabled(childValue: string, disabled: boolean) {
-		// Written from an effect. Skip tracking so the write does not retrigger it.
-		untrack(() => {
-			this.disabledStates.set(childValue, disabled);
-		});
-	}
-
-	clearDisabled(childValue: string) {
-		untrack(() => {
-			this.disabledStates.delete(childValue);
-		});
 	}
 }

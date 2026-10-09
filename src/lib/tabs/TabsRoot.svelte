@@ -32,12 +32,12 @@
 			value = next;
 		},
 		getDefault: () => defaultValue,
-		onChange(next, details) {
+		onChange(next, details, previous) {
 			if (details) {
 				onValueChange?.(next ?? null, details);
 				return;
 			}
-			tabs.refineDirection(next ?? null);
+			tabs.refineDirection(next ?? null, previous ?? null);
 		}
 	});
 	tabs = new TabsRootModel(

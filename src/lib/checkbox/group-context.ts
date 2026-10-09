@@ -16,11 +16,9 @@ export interface CheckboxGroupParentApi {
 	readonly indeterminate: boolean;
 	/** Space-separated ids of the rendered child checkboxes, or undefined when none are registered. */
 	readonly controls: string | undefined;
-	toggle(details: CheckboxGroupChangeDetails): void;
-	toggleChild(value: string, nextChecked: boolean, details: CheckboxGroupChangeDetails): void;
+	toggle(key: string | undefined, next: boolean, details: CheckboxGroupChangeDetails): void;
 	registerChildId(value: string, id: string): () => void;
-	setDisabled(value: string, disabled: boolean): void;
-	clearDisabled(value: string): void;
+	registerDisabled(read: () => { key: string | undefined; disabled: boolean }): () => void;
 }
 
 export interface CheckboxGroupContextValue {
@@ -28,6 +26,7 @@ export interface CheckboxGroupContextValue {
 	readonly disabled: boolean;
 	readonly parent: CheckboxGroupParentApi | undefined;
 	setValue(value: string[], details: CheckboxGroupChangeDetails): void;
+	toggle(key: string | undefined, next: boolean, details: CheckboxGroupChangeDetails): void;
 }
 
 const CHECKBOX_GROUP = Symbol('checkbox-group');

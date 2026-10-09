@@ -18,7 +18,7 @@
 	import { checkboxRootAttributes } from './attributes.js';
 	import { setCheckboxContext } from './context.js';
 	import { useCheckboxGroupContext } from './group-context.js';
-	import { findAssociatedLabel } from '../internal/associated-label.js';
+	import { nativeFallbackLabelId } from '../internal/associated-label.js';
 	import { getDefaultFormSubmitter } from './submitter.js';
 	import type {
 		CheckboxHostProps,
@@ -134,22 +134,29 @@
 		return { value };
 	});
 
-	// A click clears `indeterminate` before the listener runs. Put it back after `checked` updates.
+	function syncInput() {
+		const input = inputNode;
+		if (!input || input.checked === isChecked) return;
+		input.checked = isChecked;
+	}
+
+	// A click clears `indeterminate` before the listener runs. The `checked` attribute
+	// is the resync path, and assigning it clears `indeterminate` again. Read `checked`
+	// so this effect runs after that assignment and puts the flag back.
 	$effect(() => {
 		const input = inputNode;
-		if (!input) return;
-		const next = isChecked;
-		if (input.checked !== next) input.checked = next;
+		const checked = isChecked;
+		if (!input || input.checked !== checked) return;
 		input.indeterminate = isIndeterminate;
 	});
 
-	$effect(() => {
+	const disabledKey = createAttachmentKey();
+
+	function registerDisabled(_element: HTMLElement) {
 		const model = group?.parent;
-		const key = identified;
-		if (!model || key === undefined) return;
-		model.setDisabled(key, isDisabled);
-		return () => model.clearDisabled(key);
-	});
+		if (!model || parent) return;
+		return model.registerDisabled(() => ({ key: identified, disabled: isDisabled }));
+	}
 
 	$effect(() => {
 		const model = group?.parent;
@@ -172,30 +179,22 @@
 		onCheckedChange?.(nextChecked, details);
 		if (details.isCanceled) {
 			event.preventDefault();
+			syncInput();
 			return;
 		}
 
 		const key = identified;
-		if (group?.parent && parent) {
-			group.parent.toggle(details);
-			if (details.isCanceled) event.preventDefault();
-			return;
-		}
-
-		if (group?.parent && key !== undefined && !parent) {
-			group.parent.toggleChild(key, nextChecked, details);
-			if (details.isCanceled) event.preventDefault();
-			return;
-		}
-
-		if (group && key !== undefined && !parent) {
-			const next = nextChecked ? [...group.value, key] : group.value.filter((item) => item !== key);
-			group.setValue(next, details);
-			if (details.isCanceled) event.preventDefault();
+		if (group && (group.parent || (key !== undefined && !parent))) {
+			group.toggle(parent ? undefined : key, nextChecked, details);
+			if (details.isCanceled) {
+				event.preventDefault();
+				syncInput();
+			}
 			return;
 		}
 
 		controllable.set(nextChecked, details);
+		syncInput();
 	}
 
 	function handleInputFocus() {
@@ -271,27 +270,10 @@
 		event.preventDefault();
 	}
 
+	// After the hidden input's id is on the element. A derived would read the previous id.
 	$effect(() => {
-		if (nativeButton || ariaLabelledBy) {
-			fallbackLabelId = undefined;
-			return;
-		}
-
-		const input = inputNode;
-		const sourceId = hiddenInputId;
-		if (!input) {
-			fallbackLabelId = undefined;
-			return;
-		}
-
-		const label = findAssociatedLabel(input);
-		if (!label) {
-			fallbackLabelId = undefined;
-			return;
-		}
-
-		if (!label.id && sourceId) label.id = `${sourceId}-label`;
-		fallbackLabelId = label.id || undefined;
+		const next = nativeFallbackLabelId(nativeButton, ariaLabelledBy, inputNode, hiddenInputId);
+		fallbackLabelId = next;
 	});
 
 	const hostProps: CheckboxHostProps & Record<symbol, Attachment<HTMLElement>> = $derived.by(() => {
@@ -317,7 +299,8 @@
 			onpointerdown: handlePointerDown,
 			onkeydown: handleKeyDown,
 			onkeyup: (event) => forwardKeyUp(event, isDisabled, onkeyup, nativeButton),
-			[rootKey]: registerRoot
+			[rootKey]: registerRoot,
+			[disabledKey]: registerDisabled
 		};
 	});
 </script>

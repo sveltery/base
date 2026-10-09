@@ -44,12 +44,6 @@
 		disabled: disabledState && !focusableWhenDisabled
 	}));
 
-	// Untrusted constructed clicks carry modifier state. detail 0 matches a keyboard click.
-	// Same algorithm as the pinned helper.
-	function handleFocus(event: FocusEvent & { currentTarget: EventTarget & HTMLElement }) {
-		onfocus?.(event as FocusEvent & { currentTarget: EventTarget & HTMLButtonElement });
-	}
-
 	function handleClick(event: MouseEvent & { currentTarget: EventTarget & HTMLButtonElement }) {
 		if (disabledState) {
 			event.preventDefault();
@@ -123,7 +117,7 @@
 	const hostProps: ToolbarButtonHostProps & Record<symbol, Attachment<HTMLElement>> = $derived.by(
 		() => {
 			const hosted = item.hosted(
-				{ onfocus: handleFocus },
+				{ onfocus },
 				{ disabled: disabledState && !focusableWhenDisabled }
 			);
 			return {

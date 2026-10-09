@@ -141,12 +141,19 @@ describe('Field', () => {
 		});
 
 		it('debounces onChange validation', async () => {
-			render(FieldHarness, { scenario: 'debounce' });
-			const control = page.getByTestId('control');
-			await userEvent.click(control);
-			await userEvent.keyboard('ab');
-			expect(text('calls')).toBe('0');
-			await expect.poll(() => text('calls')).toBe('1');
+			vi.useFakeTimers();
+			try {
+				render(FieldHarness, { scenario: 'debounce' });
+				const control = page.getByTestId('control').element() as HTMLInputElement;
+				control.focus();
+				control.value = 'ab';
+				control.dispatchEvent(new InputEvent('input', { bubbles: true }));
+				expect(text('calls')).toBe('0');
+				await vi.advanceTimersByTimeAsync(60);
+				expect(text('calls')).toBe('1');
+			} finally {
+				vi.useRealTimers();
+			}
 			await expect.element(page.getByText('bad')).toBeVisible();
 		});
 
@@ -367,6 +374,18 @@ describe('Field', () => {
 
 		it('throws when a part is rendered outside Field.Root', () => {
 			expect(() => render(Field.Label)).toThrow(/LabelableContext is missing/);
+		});
+
+		it('throws when Field.Validity is rendered outside Field.Root', () => {
+			expect(() => render(Field.Validity)).toThrow(
+				'Base UI: FieldRootContext is missing. Field parts must be placed within <Field.Root>.'
+			);
+		});
+
+		it('throws when Field.Item is rendered outside Field.Root', () => {
+			expect(() => render(Field.Item)).toThrow(
+				'Base UI: FieldRootContext is missing. Field parts must be placed within <Field.Root>.'
+			);
 		});
 
 		it('warns when nativeLabel does not match the host', async () => {

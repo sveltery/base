@@ -8,12 +8,12 @@
 // The class publishes tabindex. No element renderer.
 
 import { untrack } from 'svelte';
-import { SvelteMap } from 'svelte/reactivity';
 import type { Attachment } from 'svelte/attachments';
 import type { HTMLAttributes } from 'svelte/elements';
 import { CompositeItems } from './composite-items.svelte.js';
 import { ARROW_KEYS, COMPOSITE_KEYS } from './composite-keys.js';
 import { byDocumentOrder } from './document-order.js';
+import { plainMap } from './plain-map.js';
 import { axisKeys, modifierHeld } from './roving-keys.js';
 
 export type CompositeOrientation = 'horizontal' | 'vertical' | 'both';
@@ -23,12 +23,14 @@ export interface CompositeRootOptions {
 	loopFocus?: () => boolean;
 	direction?: () => 'ltr' | 'rtl';
 	isItemDisabled?: (element: HTMLElement) => boolean;
-	isItemSelected?: (element: HTMLElement) => boolean;
-	/** `arrows` is the four arrow keys. `composite` also includes Home and End. */
+	isItemSelected?: (element: HTMLElement, registration: CompositeRegistration) => boolean;
+	/**
+	 * `arrows` is the four arrow keys. `composite` also includes Home and End.
+	 * A `both` orientation never treats Home or End as a move.
+	 */
 	keys?: 'arrows' | 'composite';
 	/** `shift-ok` still blocks Ctrl, Alt, and Meta. */
 	modifiers?: 'all' | 'shift-ok';
-	homeEnd?: boolean;
 	stopPropagation?: boolean;
 	/** `first` jumps to the first enabled item. `index` keeps the vacated slot. */
 	replacement?: 'first' | 'index';
@@ -41,9 +43,9 @@ export interface CompositeRootOptions {
 	disabledHoldsStop?: boolean;
 }
 
-export interface CompositeHandlers {
-	onfocus?: HTMLAttributes<HTMLElement>['onfocus'];
-	onkeydown?: HTMLAttributes<HTMLElement>['onkeydown'];
+export interface CompositeHandlers<T extends HTMLElement = HTMLElement> {
+	onfocus?: HTMLAttributes<T>['onfocus'];
+	onkeydown?: HTMLAttributes<T>['onkeydown'];
 }
 
 export interface CompositeMeta {
@@ -66,11 +68,6 @@ interface RenderClaim {
 	disabled: boolean;
 }
 
-interface MeasuredItem {
-	disabled: boolean;
-	selected: boolean;
-}
-
 /**
  * One composite list. The highlighted item is the only tab stop.
  * `RenderOrder` supplies the server index and returns to 0 after the list empties.
@@ -83,8 +80,8 @@ export class CompositeRoot extends CompositeItems {
 	/** Item `isItemSelected` last returned. A different item clears a manual highlight. */
 	private selectedNode: HTMLElement | null = null;
 	private claims: RenderClaim[] = [];
-	private readonly readers = new SvelteMap<HTMLElement, () => CompositeRegistration>();
-	private measured: MeasuredItem[] = [];
+	private readonly claimByNode = plainMap<HTMLElement, RenderClaim>();
+	private readonly readers = plainMap<HTMLElement, () => CompositeRegistration>();
 
 	constructor(private readonly options: CompositeRootOptions = {}) {
 		super();
@@ -97,14 +94,16 @@ export class CompositeRoot extends CompositeItems {
 	}
 
 	/** Render-order slot for SSR, before the node is registered. */
-	claim() {
+	claim(disabled = false) {
 		const index = super.claim();
-		this.claims.push({ index, disabled: false });
+		this.claims.push({ index, disabled: Boolean(disabled) });
 		return index;
 	}
 
-	register(node: HTMLElement, read: () => CompositeRegistration = () => ({})) {
+	register(node: HTMLElement, read: () => CompositeRegistration = () => ({}), renderIndex = -1) {
 		this.readers.set(node, read);
+		const claim = this.unownedClaim(renderIndex);
+		if (claim) this.claimByNode.set(node, claim);
 		untrack(() => {
 			this.admit(node);
 			this.observe(this.measure());
@@ -113,7 +112,13 @@ export class CompositeRoot extends CompositeItems {
 			untrack(() => {
 				const index = this.elements.indexOf(node);
 				const removedStop = this.stop === node;
+				const owned = this.claimByNode.get(node);
 				this.readers.delete(node);
+				this.claimByNode.delete(node);
+				if (owned) {
+					const at = this.claims.indexOf(owned);
+					if (at !== -1) this.claims.splice(at, 1);
+				}
 				this.dismiss(node);
 				if (removedStop) {
 					this.stop = null;
@@ -121,12 +126,28 @@ export class CompositeRoot extends CompositeItems {
 				}
 				if (this.elements.length === 0) {
 					this.claims = [];
+					this.claimByNode.clear();
 					this.userMoved = false;
 					this.selectedNode = null;
 				}
 				this.observe(this.measure());
 			});
 		};
+	}
+
+	/** The claim this item created, not an older item that reused the same index. */
+	private unownedClaim(renderIndex: number) {
+		if (renderIndex < 0) return undefined;
+		let found: RenderClaim | undefined;
+		for (const claim of this.claims) {
+			if (claim.index !== renderIndex) continue;
+			let taken = false;
+			for (const owned of this.claimByNode.values()) {
+				if (owned === claim) taken = true;
+			}
+			if (!taken) found = claim;
+		}
+		return found;
 	}
 
 	/** The registration getter for `node`, or an empty record. */
@@ -149,8 +170,6 @@ export class CompositeRoot extends CompositeItems {
 	 * wins. Otherwise the first enabled item in render order is the stop.
 	 */
 	tabIndex(node: HTMLElement | null, renderIndex: number, meta: CompositeMeta = {}): 0 | -1 {
-		const claim = this.claims.find((item) => item.index === renderIndex);
-		if (claim) claim.disabled = Boolean(meta.disabled);
 		if (node && this.elements.includes(node)) return node === this.stop ? 0 : -1;
 		if (meta.disabled) return -1;
 		if (meta.hasSelection) return meta.selected ? 0 : -1;
@@ -163,24 +182,25 @@ export class CompositeRoot extends CompositeItems {
 	 * and, when keys are handled on the item, keydown. A consumer handler runs first.
 	 * `preventDefault()` on that keydown skips navigation.
 	 */
-	item(
+	item<T extends HTMLElement = HTMLElement>(
 		node: HTMLElement | null,
 		register: Attachment<HTMLElement>,
-		handlers: CompositeHandlers,
+		handlers: CompositeHandlers<T>,
 		renderIndex: number,
 		meta: CompositeMeta = {}
 	): CompositeItemProps {
 		const props: CompositeItemProps = {
 			tabindex: this.tabIndex(node, renderIndex, meta),
 			onfocus: (event) => {
-				handlers.onfocus?.(event);
+				// The host is `T`. The props object types the event as `HTMLElement`.
+				handlers.onfocus?.(event as FocusEvent & { currentTarget: EventTarget & T });
 				if (event.currentTarget instanceof HTMLElement) this.highlight(event.currentTarget);
 			},
 			[this.attachmentKey]: register
 		};
 		if ((this.options.keydown ?? 'item') === 'item') {
 			props.onkeydown = (event) => {
-				handlers.onkeydown?.(event);
+				handlers.onkeydown?.(event as KeyboardEvent & { currentTarget: EventTarget & T });
 				if (event.defaultPrevented) return;
 				this.keydown(event);
 			};
@@ -222,20 +242,28 @@ export class CompositeRoot extends CompositeItems {
 		target.focus();
 	}
 
-	private measure(): MeasuredItem[] {
-		return this.elements.map((element) => ({
-			disabled: Boolean(this.readers.get(element)?.().disabled),
-			selected: this.itemSelected(element)
-		}));
+	/** One registration read per item. Later stop math uses this snapshot. */
+	private measure() {
+		const records = plainMap(
+			this.elements.map((element) => {
+				const registration = this.readers.get(element)?.() ?? {};
+				const claim = this.claimByNode.get(element);
+				if (claim) claim.disabled = Boolean(registration.disabled);
+				// Selection reads live outside the registration getter. Touch it here so
+				// this effect subscribes once, and `observe` can stay untracked.
+				this.options.isItemSelected?.(element, registration);
+				return [element, registration] as const;
+			})
+		);
+		return records;
 	}
 
-	private observe(measured: MeasuredItem[]) {
-		this.measured = measured;
+	private observe(records: Map<HTMLElement, CompositeRegistration>) {
 		const elements = this.elements;
 		let selectedNode: HTMLElement | null = null;
-		for (let index = 0; index < elements.length; index += 1) {
-			if (!measured[index]?.selected) continue;
-			selectedNode = elements[index] ?? null;
+		for (const element of elements) {
+			if (!this.itemSelected(element, records)) continue;
+			selectedNode = element;
 			break;
 		}
 		// A value change moves the stop back onto the selection. Removing the
@@ -244,11 +272,12 @@ export class CompositeRoot extends CompositeItems {
 		const stopPresent = this.stop != null && elements.includes(this.stop);
 		if (selectedNode !== this.selectedNode && stopPresent) this.userMoved = false;
 		this.selectedNode = selectedNode;
-		this.recompute();
+		this.recompute(records);
 	}
 
-	private recompute() {
+	private recompute(records: Map<HTMLElement, CompositeRegistration>) {
 		const elements = this.elements;
+		const blocked = (element: HTMLElement) => this.stopBlocked(element, records);
 		if (elements.length === 0) {
 			this.stop = null;
 			this.stopIndex = 0;
@@ -257,7 +286,7 @@ export class CompositeRoot extends CompositeItems {
 
 		if (!this.userMoved) {
 			const selected = elements.find(
-				(element) => this.itemSelected(element) && !this.stopBlocked(element)
+				(element) => this.itemSelected(element, records) && !blocked(element)
 			);
 			if (selected) {
 				this.stop = selected;
@@ -266,21 +295,21 @@ export class CompositeRoot extends CompositeItems {
 			}
 		}
 
-		if (this.stop && elements.includes(this.stop) && !this.stopBlocked(this.stop)) {
+		if (this.stop && elements.includes(this.stop) && !blocked(this.stop)) {
 			this.stopIndex = elements.indexOf(this.stop);
 			return;
 		}
 
 		if ((this.options.replacement ?? 'index') === 'index') {
 			const at = elements[this.stopIndex];
-			if (at && !this.stopBlocked(at)) {
+			if (at && !blocked(at)) {
 				this.stop = at;
 				this.stopIndex = elements.indexOf(at);
 				return;
 			}
 			// The vacated slot is gone. Radio and Tabs then use the selected item.
 			const selected = elements.find(
-				(element) => this.itemSelected(element) && !this.stopBlocked(element)
+				(element) => this.itemSelected(element, records) && !blocked(element)
 			);
 			if (selected) {
 				this.stop = selected;
@@ -289,7 +318,7 @@ export class CompositeRoot extends CompositeItems {
 			}
 		}
 
-		const fallback = elements.find((element) => !this.stopBlocked(element)) ?? null;
+		const fallback = elements.find((element) => !blocked(element)) ?? null;
 		this.stop = fallback;
 		this.stopIndex = fallback ? elements.indexOf(fallback) : 0;
 	}
@@ -302,7 +331,8 @@ export class CompositeRoot extends CompositeItems {
 	private nextEnabled(key: string, originIndex: number, items: HTMLElement[]): HTMLElement | null {
 		const orientation = this.options.orientation?.() ?? 'horizontal';
 		const loop = orientation === 'both' ? true : (this.options.loopFocus?.() ?? true);
-		const homeEnd = orientation === 'both' ? false : (this.options.homeEnd ?? false);
+		const homeEnd =
+			orientation === 'both' ? false : (this.options.keys ?? 'composite') !== 'arrows';
 		const rtl = this.options.direction?.() === 'rtl';
 
 		if (homeEnd && (key === 'Home' || key === 'End')) {
@@ -310,14 +340,15 @@ export class CompositeRoot extends CompositeItems {
 			return key === 'End' ? (enabled[enabled.length - 1] ?? null) : (enabled[0] ?? null);
 		}
 
+		const axes = axisKeys(orientation === 'vertical', rtl);
 		const forward =
 			orientation === 'both'
 				? key === (rtl ? 'ArrowLeft' : 'ArrowRight') || key === 'ArrowDown'
-				: key === axisKeys(orientation === 'vertical', rtl).forwardKey;
+				: key === axes.forwardKey;
 		const backward =
 			orientation === 'both'
 				? key === (rtl ? 'ArrowRight' : 'ArrowLeft') || key === 'ArrowUp'
-				: key === axisKeys(orientation === 'vertical', rtl).backwardKey;
+				: key === axes.backwardKey;
 		if (!forward && !backward) return null;
 
 		const length = items.length;
@@ -358,12 +389,13 @@ export class CompositeRoot extends CompositeItems {
 	 * Tab stop. Metadata `disabled` blocks it, except on a list that keeps
 	 * disabled items focusable. Keyboard skip stays on `isItemDisabled`.
 	 */
-	private stopBlocked(element: HTMLElement) {
+	private stopBlocked(element: HTMLElement, records?: Map<HTMLElement, CompositeRegistration>) {
 		if (this.options.disabledHoldsStop) return this.itemDisabled(element);
-		return Boolean(this.readers.get(element)?.().disabled) || this.itemDisabled(element);
+		const registration = records?.get(element) ?? this.readers.get(element)?.() ?? {};
+		return Boolean(registration.disabled) || this.itemDisabled(element);
 	}
 
-	private itemSelected(element: HTMLElement) {
-		return this.options.isItemSelected?.(element) ?? false;
+	private itemSelected(element: HTMLElement, records: Map<HTMLElement, CompositeRegistration>) {
+		return this.options.isItemSelected?.(element, records.get(element) ?? {}) ?? false;
 	}
 }

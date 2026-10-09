@@ -31,7 +31,6 @@
 		direction: () => reading.direction,
 		isItemDisabled: (element) => isSkipped(element),
 		keys: 'arrows',
-		homeEnd: false,
 		stopPropagation: true,
 		replacement: 'index',
 		keydown: 'root'

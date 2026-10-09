@@ -39,8 +39,3 @@ export function useFormContext(): FormContextValue {
 	if (!hasContext(FORM_CONTEXT)) return DEFAULT_FORM_CONTEXT;
 	return getContext<FormContextValue>(FORM_CONTEXT);
 }
-
-/** Size of the shared map used when no `<Form>` provides a context. */
-export function unprovidedFormFieldCount() {
-	return DEFAULT_FORM_CONTEXT.fields.size;
-}

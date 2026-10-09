@@ -101,6 +101,16 @@ describe('RadioGroup', () => {
 			await expect.element(radio('A')).toHaveAttribute('aria-checked', 'true');
 		});
 
+		it('restores the checked input when another radio is canceled', async () => {
+			render(RadioGroupComponentHarness, { scenario: 'cancel-selected' });
+			expect(hiddenInput('B').checked).toBe(true);
+			await radio('A').click();
+			await expect.element(radio('B')).toHaveAttribute('aria-checked', 'true');
+			await expect.element(radio('A')).toHaveAttribute('aria-checked', 'false');
+			expect(hiddenInput('B').checked).toBe(true);
+			expect(hiddenInput('A').checked).toBe(false);
+		});
+
 		it('keeps the previous value when the change is canceled', async () => {
 			render(RadioGroupComponentHarness, { scenario: 'cancel' });
 			await radio('A').click();

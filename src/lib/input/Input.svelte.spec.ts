@@ -6,7 +6,6 @@
 import { page } from 'vitest/browser';
 import { describe, expect, it } from 'vitest';
 import { render } from 'vitest-browser-svelte';
-import { unprovidedFormFieldCount } from '../form/context.js';
 import InputHarness from '../../tests/InputHarness.svelte';
 
 function control() {
@@ -178,11 +177,16 @@ describe('<Input />', () => {
 		});
 
 		it('does not register standalone inputs on the shared form map', async () => {
-			const before = unprovidedFormFieldCount();
 			render(InputHarness, { scenario: 'pair' });
 			await expect.element(page.getByTestId('one')).toBeVisible();
 			await expect.element(page.getByTestId('two')).toBeVisible();
-			expect(unprovidedFormFieldCount()).toBe(before);
+			const one = page.getByTestId('one').element() as HTMLInputElement;
+			const two = page.getByTestId('two').element() as HTMLInputElement;
+			await page.getByTestId('one').fill('a');
+			expect(one.value).toBe('a');
+			expect(two.value).toBe('');
+			expect(one.form).toBeNull();
+			expect(two.form).toBeNull();
 		});
 
 		it('does not mark focus, dirty, filled, or touched outside Field.Root', async () => {

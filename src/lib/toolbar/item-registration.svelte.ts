@@ -14,19 +14,22 @@ export function registerToolbarItem(
 	read: () => { disabled?: boolean } = () => ({})
 ) {
 	let node = $state<HTMLElement | null>(null);
-	const renderIndex = roving.claim();
+	const renderIndex = roving.claim(Boolean(read().disabled));
 
 	function register(element: HTMLElement) {
 		node = element;
-		const remove = roving.register(element, read);
+		const remove = roving.register(element, read, renderIndex);
 		return () => {
 			remove();
 			if (node === element) node = null;
 		};
 	}
 
-	function hosted(handlers: CompositeHandlers, meta: CompositeMeta = {}) {
-		return roving.item(node, register, handlers, renderIndex, meta);
+	function hosted<T extends HTMLElement = HTMLElement>(
+		handlers: CompositeHandlers<T>,
+		meta: CompositeMeta = {}
+	) {
+		return roving.item<T>(node, register, handlers, renderIndex, meta);
 	}
 
 	return {

@@ -31,15 +31,13 @@
 		loopFocus: () => loopFocus,
 		direction: () => reading.direction,
 		isItemDisabled: (element) => isSkipped(element),
-		isItemSelected: (element): boolean => {
-			const meta = roving.meta(element);
+		isItemSelected: (_element, registration): boolean => {
 			const current = tabs.value;
-			if (meta.disabled || current == null || !('value' in meta)) return false;
-			return meta.value === current;
+			if (registration.disabled || current == null || !('value' in registration)) return false;
+			return registration.value === current;
 		},
 		disabledHoldsStop: true,
 		keys: 'composite',
-		homeEnd: true,
 		stopPropagation: false,
 		replacement: 'index',
 		keydown: 'item'

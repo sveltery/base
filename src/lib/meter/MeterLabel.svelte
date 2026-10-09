@@ -8,6 +8,7 @@
 <script lang="ts">
 	import type { HTMLAttributes } from 'svelte/elements';
 	import PartHost from '../internal/PartHost.svelte';
+	import { registerLabelId } from '../internal/register-label-id.svelte.js';
 	import { useMeterRootContext } from './context.js';
 	import type { MeterLabelProps, MeterLabelState } from './types.js';
 
@@ -20,17 +21,13 @@
 	const resolvedId = $derived(id ?? `base-ui-${uid}`);
 	const partState: MeterLabelState = {};
 
-	// useRegisteredLabelId publishes this id and, on cleanup, clears it only when it is still
-	// the registered one. An older label must not wipe a newer label's id.
-	$effect(() => {
-		const current = resolvedId;
-		meter.labelId = current;
-		return () => {
-			if (meter.labelId === current) {
-				meter.labelId = undefined;
-			}
-		};
-	});
+	registerLabelId(
+		() => resolvedId,
+		(next) => {
+			meter.labelId = next;
+		},
+		{ readCurrent: () => meter.labelId }
+	);
 
 	const hostProps: HTMLAttributes<HTMLSpanElement> = $derived({
 		id: resolvedId,

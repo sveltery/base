@@ -15,7 +15,7 @@
 		},
 		"html:src/lib/progress/ProgressLabel.svelte|src/lib/switch/SwitchThumb.svelte": {
 			"count": 1,
-			"lines": 39
+			"lines": 38
 		},
 		"html:src/lib/scroll-area/ScrollAreaContent.svelte|src/lib/scroll-area/ScrollAreaThumb.svelte": {
 			"count": 1,
@@ -79,7 +79,7 @@
 		},
 		"typescript:src/lib/checkbox/CheckboxRoot.svelte|src/lib/switch/SwitchRoot.svelte": {
 			"count": 1,
-			"lines": 12
+			"lines": 10
 		},
 		"typescript:src/lib/number-field/NumberFieldRoot.svelte|src/lib/otp-field/OTPFieldRoot.svelte": {
 			"count": 1,
