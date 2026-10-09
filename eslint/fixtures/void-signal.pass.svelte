@@ -40,6 +40,21 @@
 	});
 
 	const shown = geometry;
+
+	class Layout {
+		get threshold() {
+			return 0;
+		}
+		computeThumbPosition(_threshold: number) {}
+		refreshLayout() {
+			const threshold = this.threshold;
+			untrack(() => this.computeThumbPosition(threshold));
+		}
+	}
+	const layout = new Layout();
+	$effect(() => {
+		layout.refreshLayout();
+	});
 </script>
 
 <span>{shown}{active ? '1' : '0'}</span>

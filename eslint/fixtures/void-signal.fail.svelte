@@ -72,4 +72,20 @@
 		});
 	}
 	syncToolbar(disabledState, focusableWhenDisabled);
+
+	class Layout {
+		get threshold() {
+			return 0;
+		}
+		computeThumbPosition() {}
+		refreshLayout() {
+			const threshold = this.threshold;
+			untrack(() => this.computeThumbPosition());
+			return threshold;
+		}
+	}
+	const layout = new Layout();
+	$effect(() => {
+		layout.refreshLayout();
+	});
 </script>

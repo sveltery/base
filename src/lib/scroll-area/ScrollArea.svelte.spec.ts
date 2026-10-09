@@ -2,6 +2,7 @@
 // (commit 47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c). MIT, see THIRD_PARTY_NOTICES.md.
 // describeConformance, refs, and className callbacks are not ported.
 // Direction comes from DirectionProvider. The scrollbar style tag reads the CSP provider.
+import { flushSync } from 'svelte';
 import { page } from 'vitest/browser';
 import { describe, expect, it } from 'vitest';
 import { render } from 'vitest-browser-svelte';
@@ -225,6 +226,38 @@ describe('<ScrollArea />', () => {
 		await page.getByRole('button', { name: 'Flip direction' }).click();
 		await expect.element(root()).toHaveAttribute('style', expect.stringContaining('rtl'));
 		unmount();
+	});
+
+	it('keeps the thumb transform and viewport overflow vars after a style change', async () => {
+		render(ScrollAreaHarness, { scenario: 'paint' });
+		await expect.element(thumbY()).toBeInTheDocument();
+		const viewportEl = host(viewport());
+		const thumbEl = host(thumbY());
+		const seen: string[] = [];
+		const observer = new MutationObserver((records) => {
+			for (const record of records) seen.push(String(record.oldValue));
+		});
+		observer.observe(thumbEl, {
+			attributes: true,
+			attributeFilter: ['style'],
+			attributeOldValue: true
+		});
+		viewportEl.scrollTop = 80;
+		await expect.poll(() => thumbEl.style.transform).toContain('16px');
+		await expect
+			.poll(() => viewportEl.style.getPropertyValue('--scroll-area-overflow-y-start'))
+			.not.toBe('0px');
+		flushSync();
+		expect(seen).toHaveLength(1);
+		const transform = thumbEl.style.transform;
+		const overflowStart = viewportEl.style.getPropertyValue('--scroll-area-overflow-y-start');
+		const overflowEnd = viewportEl.style.getPropertyValue('--scroll-area-overflow-y-end');
+		await page.getByRole('button', { name: 'Paint' }).click();
+		await expect.poll(() => thumbEl.style.opacity).toBe('0.99');
+		expect(thumbEl.style.transform).toBe(transform);
+		expect(viewportEl.style.getPropertyValue('--scroll-area-overflow-y-start')).toBe(overflowStart);
+		expect(viewportEl.style.getPropertyValue('--scroll-area-overflow-y-end')).toBe(overflowEnd);
+		observer.disconnect();
 	});
 
 	it('respects overflowEdgeThreshold', async () => {

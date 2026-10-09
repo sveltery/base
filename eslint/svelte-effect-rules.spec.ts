@@ -119,6 +119,7 @@ describe('sveltery/no-void-signal-read', () => {
 		expect(lines.some((line) => line.includes('const _height = height'))).toBe(true);
 		expect(lines.some((line) => line.includes('const itemDisabled = disabled'))).toBe(true);
 		expect(lines.some((line) => line.includes('const nativeDisabled ='))).toBe(true);
+		expect(lines.some((line) => line.includes('const threshold = this.threshold'))).toBe(true);
 	});
 
 	it('rejects always-true conditions, identical branches, and comparison counters', async () => {
@@ -150,6 +151,7 @@ describe('sveltery/no-void-signal-read', () => {
 	it('allows passing signals into a function and publishing a bindable by assignment', async () => {
 		const { source, messages } = await messagesFor('void-signal.pass.svelte', ruleName);
 		expect(source).toContain('syncAfter(disabledState, focusableWhenDisabled)');
+		expect(source).toContain('this.computeThumbPosition(threshold)');
 		expect(source).toContain('$derived.by');
 		expect(source).toContain('actions = actionsHandle');
 		expect(source).not.toContain('$effect.pre');

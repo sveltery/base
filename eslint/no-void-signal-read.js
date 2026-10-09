@@ -241,6 +241,55 @@ const rule = {
 		 * @param {any} call
 		 * @param {any} fn
 		 */
+		/**
+		 * @param {any} node
+		 * @param {any[]} locals
+		 */
+		function collectLocals(node, locals) {
+			if (!node || typeof node !== 'object' || typeof node.type !== 'string') return;
+			if (
+				node.type === 'FunctionExpression' ||
+				node.type === 'ArrowFunctionExpression' ||
+				node.type === 'FunctionDeclaration'
+			) {
+				return;
+			}
+			if (node.type === 'VariableDeclarator') locals.push(node);
+			for (const key of Object.keys(node)) {
+				if (key === 'parent') continue;
+				const child = node[key];
+				if (Array.isArray(child)) {
+					for (const item of child) collectLocals(item, locals);
+				} else {
+					collectLocals(child, locals);
+				}
+			}
+		}
+
+		/**
+		 * @param {any} call
+		 * @param {any} fn
+		 */
+		function reportIgnoredReturnReads(call, fn) {
+			if (call.parent?.type !== 'ExpressionStatement') return;
+			/** @type {any[]} */
+			const locals = [];
+			collectLocals(fn.body, locals);
+			for (const local of locals) {
+				if (local.id?.type !== 'Identifier' || !local.init) continue;
+				const init = unwrap(local.init);
+				if (!init || (init.type !== 'Identifier' && init.type !== 'MemberExpression')) continue;
+				const name = local.id.name;
+				const refs = valueReferences(fn, name).filter((ref) => ref !== local.id);
+				const unread = refs.length === 0;
+				const onlyReturned =
+					refs.length > 0 && refs.every((ref) => hasAncestor(ref, 'ReturnStatement'));
+				if (!unread && !onlyReturned) continue;
+				if (!hasSideEffectWithout(fn, name)) continue;
+				context.report({ node: local.init, messageId: 'voidSignal' });
+			}
+		}
+
 		function reportUnreadArguments(call, fn) {
 			const params = fn.params ?? [];
 			const returnIgnored = call.parent?.type === 'ExpressionStatement';
@@ -363,7 +412,10 @@ const rule = {
 				const name = calleeName(node.callee);
 				const matches = name ? fns.get(name) : undefined;
 				if (!matches) return;
-				for (const fn of matches) reportUnreadArguments(node, fn);
+				for (const fn of matches) {
+					reportUnreadArguments(node, fn);
+					reportIgnoredReturnReads(node, fn);
+				}
 			},
 			VariableDeclarator(node) {
 				if (node.id?.type !== 'Identifier' || !node.init) return;
