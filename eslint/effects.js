@@ -2,9 +2,13 @@
  * Shared walkers for the Svelte effect rules.
  * `$effect` and `$effect.pre` only. `$effect.root` is a different API.
  */
+import { execFileSync } from 'node:child_process';
 import { existsSync, readFileSync } from 'node:fs';
 import path from 'node:path';
 import ts from 'typescript-eslint';
+
+/** @type {Map<string, string[]>} */
+const trackedByCwd = new Map();
 
 /**
  * @param {unknown} node
@@ -446,12 +450,54 @@ export function importBindings(ast) {
 }
 
 /**
+ * Tracked files under `cwd`. One `git ls-files` per directory.
+ *
+ * @param {string} cwd
+ */
+function trackedFiles(cwd) {
+	const cached = trackedByCwd.get(cwd);
+	if (cached) return cached;
+	/** @type {string[]} */
+	let files;
+	try {
+		const listed = execFileSync(
+			'git',
+			['ls-files', '-z', '--cached', '--others', '--exclude-standard'],
+			{
+				cwd,
+				encoding: 'utf8',
+				stdio: ['ignore', 'pipe', 'pipe']
+			}
+		);
+		files = listed.split('\0').filter((file) => file !== '');
+	} catch {
+		files = [];
+	}
+	trackedByCwd.set(cwd, files);
+	return files;
+}
+
+/**
+ * The one tracked file whose path is `relative` or ends with `/${relative}`.
+ * Zero or several matches do not bind, so a shared basename is not a hit.
+ *
+ * @param {string} cwd
+ * @param {string} relative
+ */
+function uniqueTrackedSuffix(cwd, relative) {
+	const normalized = relative.split(path.sep).join('/');
+	if (normalized === '' || normalized.startsWith('../') || path.isAbsolute(normalized)) return null;
+	const suffix = `/${normalized}`;
+	const matches = trackedFiles(cwd).filter((file) => file === normalized || file.endsWith(suffix));
+	if (matches.length !== 1) return null;
+	return path.resolve(cwd, matches[0]);
+}
+
+/**
  * Directory used to resolve relative imports in the file being linted.
- * Product files exist at the path ESLint reports. Fixture specs pass a path
- * relative to `eslint/fixtures` (a bare name, or `nested/file.svelte`). ESLint
- * absolutizes that against the cwd, so the reported path does not exist.
- * Join that relative path onto `eslint/fixtures`. A missing path must not bind
- * to a fixture that only shares the basename.
+ * Product files exist at the path ESLint reports. A reported path that is not
+ * on disk resolves to the unique tracked file ending in that relative path.
+ * A missing path must not bind to a file that only shares the basename.
  *
  * @param {import('eslint').Rule.RuleContext} context
  */
@@ -459,13 +505,12 @@ export function fileOf(context) {
 	const name = context.filename || '';
 	if (name && existsSync(name)) return name;
 
-	const fixturesRoot = path.join(process.cwd(), 'eslint/fixtures');
 	const relative = name && path.isAbsolute(name) ? path.relative(process.cwd(), name) : name;
 	if (relative && !path.isAbsolute(relative) && !relative.startsWith('..')) {
-		const fixture = path.join(fixturesRoot, relative);
-		if (existsSync(fixture)) return fixture;
+		const found = uniqueTrackedSuffix(process.cwd(), relative);
+		if (found) return found;
 	}
-	return name ? path.resolve(name) : path.join(fixturesRoot, 'input.svelte');
+	return name ? path.resolve(name) : path.resolve('input.svelte');
 }
 
 /**

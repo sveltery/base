@@ -34,7 +34,7 @@ export function useTimeout() {
 
 export function useAnimationFrame() {
 	const frame = new AnimationFrame();
-	registerScope(frame.cancel);
+	registerScope(() => frame.cancel());
 	return frame;
 }
 

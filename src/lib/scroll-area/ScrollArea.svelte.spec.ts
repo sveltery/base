@@ -308,10 +308,10 @@ describe('<ScrollArea />', () => {
 	});
 
 	it('restores overflow vars on the same flush as a viewport style change', async () => {
-		const { viewportEl } = await scrolledPaint();
+		const { viewportEl, vars } = await scrolledPaint();
 		host(page.getByRole('button', { name: 'Paint viewport' })).click();
 		flushSync();
-		expect(overflowVars(viewportEl)).not.toContain('');
+		expect(overflowVars(viewportEl)).toEqual(vars);
 	});
 
 	it('keeps the horizontal thumb transform after a thumb-x style change', async () => {

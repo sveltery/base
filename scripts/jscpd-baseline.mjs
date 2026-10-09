@@ -432,8 +432,10 @@ export function scanRepo(repoRoot, options = {}) {
 }
 
 /**
- * A committed `.jscpd.json` that the empty `--config` overrides. `--write`
- * refuses when that file would report fewer clones than the empty config.
+ * Advisory. It runs only from `--write` and compares clone totals. A committed
+ * ignore config does not trigger it: every scan passes CLI `--ignore`, and that
+ * flag wins over `.jscpd.json`, so the two totals stay equal. The gate still
+ * fails that case, because the scan keeps those clones and reports them.
  *
  * @param {string} repoRoot
  * @param {Record<string, PairStat>} visible

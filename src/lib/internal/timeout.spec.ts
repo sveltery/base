@@ -60,11 +60,15 @@ describe('AnimationFrame', () => {
 		vi.unstubAllGlobals();
 	});
 
-	it('runs a requested callback on the next frame and cancels the previous one', async () => {
+	it('runs the latest callback and cancels the browser frame it replaced', async () => {
 		const queued: FrameRequestCallback[] = [];
+		const cancelled: number[] = [];
 		vi.stubGlobal('requestAnimationFrame', (callback: FrameRequestCallback) => {
 			queued.push(callback);
 			return queued.length;
+		});
+		vi.stubGlobal('cancelAnimationFrame', (id: number) => {
+			cancelled.push(id);
 		});
 		resetAnimationFrameScheduler();
 
@@ -72,9 +76,35 @@ describe('AnimationFrame', () => {
 		const calls: string[] = [];
 		frame.request(() => calls.push('first'));
 		frame.request(() => calls.push('second'));
-		expect(queued).toHaveLength(1);
-		queued[0](0);
+		expect(cancelled).toEqual([1]);
+		expect(queued).toHaveLength(2);
+		queued[1]?.(0);
 		await Promise.resolve();
 		expect(calls).toEqual(['second']);
+	});
+
+	it('cancels the browser frame when the last callback is dropped', async () => {
+		const queued: FrameRequestCallback[] = [];
+		const cancelled: number[] = [];
+		vi.stubGlobal('requestAnimationFrame', (callback: FrameRequestCallback) => {
+			queued.push(callback);
+			return queued.length;
+		});
+		vi.stubGlobal('cancelAnimationFrame', (id: number) => {
+			cancelled.push(id);
+		});
+		resetAnimationFrameScheduler();
+
+		const frame = AnimationFrame.create();
+		let ran = false;
+		frame.request(() => {
+			ran = true;
+		});
+		frame.cancel();
+		expect(cancelled).toEqual([1]);
+		for (let index = 0; index < queued.length; index += 1) {
+			if (!cancelled.includes(index + 1)) queued[index]?.(0);
+		}
+		expect(ran).toBe(false);
 	});
 });

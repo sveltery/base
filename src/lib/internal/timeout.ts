@@ -85,20 +85,22 @@ export class AnimationFrame {
 
 	currentId: number | null = EMPTY_FRAME;
 
+	// One browser frame per instance. `cancel` passes that id to
+	// `cancelAnimationFrame`, so a later callback cannot keep this frame alive.
 	request(fn: () => void) {
 		this.cancel();
-		this.currentId = scheduler.request(() => {
+		this.currentId = globalThis.requestAnimationFrame(() => {
 			this.currentId = EMPTY_FRAME;
 			fn();
 		});
 	}
 
-	cancel = () => {
+	cancel() {
 		if (this.currentId !== EMPTY_FRAME) {
-			scheduler.cancel(this.currentId);
+			globalThis.cancelAnimationFrame(this.currentId);
 			this.currentId = EMPTY_FRAME;
 		}
-	};
+	}
 }
 
 type TimeoutId = ReturnType<typeof setTimeout>;

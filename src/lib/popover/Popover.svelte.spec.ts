@@ -922,6 +922,10 @@ describe('Popover', () => {
 	});
 
 	it('lets Escape leave a disabled trigger and close once', async () => {
+		// One keydown is dispatched on the trigger. userEvent.keyboard('{Escape}')
+		// also emits keyup. This listener counts keydown only. The disabled
+		// trigger preventDefault's that key and returns before the consumer
+		// onkeydown; the key still bubbles, and the popup closes once.
 		render(DisabledNonNativeHarness, {
 			part: 'popover',
 			defaultOpen: true,

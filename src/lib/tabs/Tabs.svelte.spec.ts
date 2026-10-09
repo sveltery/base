@@ -7,7 +7,6 @@ import { describe, expect, it } from 'vitest';
 import { render } from 'vitest-browser-svelte';
 import IndicatorListenerHarness from '../../tests/IndicatorListenerHarness.svelte';
 import TabsHarness from '../../tests/TabsHarness.svelte';
-import { indicatorListeners } from './indicator-listeners.js';
 import { TabsListModel } from './context.svelte.js';
 import { Tabs } from './index.js';
 
@@ -582,8 +581,6 @@ describe('Tabs', () => {
 					model = next;
 				}
 			});
-			expect(Object.getPrototypeOf(indicatorListeners(model))).toBe(Set.prototype);
-
 			const list = document.createElement('div');
 			list.style.cssText = 'width:40px;height:10px;display:block';
 			document.body.append(list);

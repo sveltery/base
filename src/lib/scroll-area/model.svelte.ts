@@ -450,9 +450,10 @@ export class ScrollAreaModel {
 		return () => resizeObserver.disconnect();
 	}
 
-	// Svelte 5.57 writes the style attribute before it runs effects. This effect
-	// reads that string. The sync recompute puts the overflow lengths back on
-	// that flush; the microtask covers a style write that lands after it.
+	// Svelte 5.57 writes the style attribute before this effect runs. The effect
+	// reads that string. When the string changed, computeThumbPosition on this
+	// flush puts the overflow lengths back. The microtask calls it again after
+	// this function returns.
 	queueThumb(hidden: HiddenState, style: string | null | undefined) {
 		const direction = this.direction;
 		const viewport = this.viewportElement;
