@@ -7,7 +7,7 @@
 
 import type { HTMLInputAttributes } from 'svelte/elements';
 import { callPublic } from '../internal/callPublic.js';
-import type { FieldRootModel } from '../field/model.svelte.js';
+import type { FieldContext } from '../field/model.svelte.js';
 import type { FormContextValue } from '../form/context.js';
 import {
 	createChangeEventDetails,
@@ -49,7 +49,7 @@ export interface OTPFieldModelOptions {
 	getOnValueChange: () => OTPFieldRootProps['onValueChange'];
 	getOnValueInvalid: () => OTPFieldRootProps['onValueInvalid'];
 	getOnValueComplete: () => OTPFieldRootProps['onValueComplete'];
-	getField: () => FieldRootModel;
+	getField: () => FieldContext;
 	getForm: () => FormContextValue;
 }
 

@@ -16,6 +16,7 @@
 	import { mergeCssStyle } from '../internal/css-style.js';
 	import { ownerDocument, ownerWindow } from '../internal/owner.js';
 	import { platform } from '../internal/platform.js';
+	import { useTimeout } from '../internal/timeout.svelte.js';
 	import { getTarget } from '../internal/shadow-dom.js';
 	import type { NumberFieldScrubAreaProps, NumberFieldScrubAreaState } from './types.js';
 	import { getViewportRect } from './viewport.js';
@@ -42,7 +43,7 @@
 	let didMove = false;
 	let pointerDownTarget: EventTarget | null = null;
 	const cursorPoint = { x: 0, y: 0 };
-	let exitTimer: ReturnType<typeof setTimeout> | undefined;
+	const exitTimer = useTimeout();
 
 	const scrubState: NumberFieldScrubAreaState = $derived(model.state);
 
@@ -127,7 +128,7 @@
 		let cumulativeDelta = 0;
 
 		function handlePointerUp(event: PointerEvent) {
-			if (platform.engine.gecko) exitTimer = setTimeout(() => finishScrub(event), 20);
+			if (platform.engine.gecko) exitTimer.start(20, () => finishScrub(event));
 			else finishScrub(event);
 		}
 
@@ -155,8 +156,7 @@
 		const stopUp = on(view, 'pointerup', handlePointerUp, { capture: true });
 		const stopMove = on(view, 'pointermove', handlePointerMove, { capture: true });
 		return () => {
-			if (exitTimer !== undefined) clearTimeout(exitTimer);
-			exitTimer = undefined;
+			exitTimer.clear();
 			stopUp();
 			stopMove();
 		};

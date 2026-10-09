@@ -8,6 +8,7 @@
 		Toggle,
 		ToggleGroup
 	} from '#lib';
+	import { useTimeout } from '#lib/internal/timeout.svelte.js';
 
 	type Part =
 		| 'switch'
@@ -27,6 +28,8 @@
 		mode: 'bind' | 'parent' | 'default' | 'journal' | 'copy' | 'confirm';
 		onChange?: (value: unknown) => void;
 	} = $props();
+
+	const confirmTimer = useTimeout();
 
 	let checked = $state<boolean | undefined>(
 		(mode === 'journal' && (part === 'switch' || part === 'checkbox')) || mode === 'confirm'
@@ -77,9 +80,9 @@
 	function confirmChecked(next: boolean, details: { cancel: () => void }) {
 		details.cancel();
 		prompts += 1;
-		setTimeout(() => {
+		confirmTimer.start(0, () => {
 			checked = next;
-		}, 0);
+		});
 	}
 
 	const owner = $derived.by(() => {

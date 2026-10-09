@@ -3,7 +3,8 @@
 // Hover timers live on the popup store. The scope map only coordinates pointer-events
 // when two popups share one element, matching upstream.
 
-import { Timeout } from '../../timeout.js';
+import { useTimeout } from '../../timeout.svelte.js';
+import type { Timeout } from '../../timeout.js';
 import type { FloatingRootStore } from '../components/FloatingRootStore.svelte.js';
 import type { HandleClose, SafePolygonOptions } from '../safePolygon.js';
 
@@ -17,8 +18,13 @@ export class HoverInteraction {
 	pointerEventsReferenceElement: HTMLElement | SVGSVGElement | null = null;
 	pointerEventsFloatingElement: HTMLElement | null = null;
 	restTimeoutPending = false;
-	readonly openChangeTimeout = new Timeout();
-	readonly restTimeout = new Timeout();
+	readonly openChangeTimeout: Timeout;
+	readonly restTimeout: Timeout;
+
+	constructor() {
+		this.openChangeTimeout = useTimeout();
+		this.restTimeout = useTimeout();
+	}
 	/** Read by event handlers. Not state: nothing renders them. */
 	handleClose: HandleClose | null = null;
 	handleCloseOptions: SafePolygonOptions | undefined = undefined;

@@ -26,7 +26,7 @@
 
 	const hasSpecificMatch = $derived(typeof match === 'string');
 	const formError = $derived(field.formError);
-	const hasFormError = $derived(!!(Array.isArray(formError) ? formError.length : formError));
+	const hasFormError = $derived(field.hasFormError);
 
 	const rendered = $derived.by(() => {
 		if (match === true) return true;

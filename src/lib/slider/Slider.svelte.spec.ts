@@ -4,6 +4,7 @@
 import { page } from 'vitest/browser';
 import { describe, expect, it, vi } from 'vitest';
 import { render } from 'vitest-browser-svelte';
+import SliderCallbackHarness from '../../tests/SliderCallbackHarness.svelte';
 import SliderHarness from '../../tests/SliderHarness.svelte';
 
 function click(node: Element) {
@@ -728,5 +729,16 @@ describe('<Slider />', () => {
 		expect(node).toHaveAttribute('data-custom', '');
 		expect(node).toHaveAttribute('role', 'group');
 		expect(slider()).toHaveAttribute('aria-valuenow', '12');
+	});
+
+	it('does not rerun public value callbacks when their identity changes', async () => {
+		render(SliderCallbackHarness);
+		await expect.poll(() => page.getByTestId('changes').element().textContent).not.toBe('0');
+		const changes = page.getByTestId('changes').element().textContent;
+		const commits = page.getByTestId('commits').element().textContent;
+		await page.getByRole('button', { name: 'Swap' }).click();
+		await new Promise((resolve) => setTimeout(resolve, 30));
+		expect(page.getByTestId('changes').element().textContent).toBe(changes);
+		expect(page.getByTestId('commits').element().textContent).toBe(commits);
 	});
 });

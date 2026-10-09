@@ -2,6 +2,8 @@
 // (commit 47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c). MIT, see THIRD_PARTY_NOTICES.md.
 // Completions that become ready in the same turn unmount together.
 
+import { useAnimationFrame } from './timeout.svelte.js';
+
 let pending: Array<() => void> | null = null;
 
 function runTogether(fn: () => void) {
@@ -70,10 +72,11 @@ export function runOnceAnimationsFinish(
 
 	if (waitForStartingStyleRemoved) {
 		if (!element.hasAttribute(STARTING_STYLE)) {
-			const frame = requestAnimationFrame(() => {
+			const frame = useAnimationFrame();
+			frame.request(() => {
 				if (!signal?.aborted) exec();
 			});
-			signal?.addEventListener('abort', () => cancelAnimationFrame(frame), { once: true });
+			signal?.addEventListener('abort', () => frame.cancel(), { once: true });
 			return;
 		}
 
@@ -88,8 +91,9 @@ export function runOnceAnimationsFinish(
 		return;
 	}
 
-	const frame = requestAnimationFrame(() => {
+	const frame = useAnimationFrame();
+	frame.request(() => {
 		if (!signal?.aborted) exec();
 	});
-	signal?.addEventListener('abort', () => cancelAnimationFrame(frame), { once: true });
+	signal?.addEventListener('abort', () => frame.cancel(), { once: true });
 }

@@ -10,7 +10,8 @@
 	import FocusGuard from '../../FocusGuard.svelte';
 	import { ownerDocument, ownerWindow } from '../../owner.js';
 	import { activeElement, contains, getTarget } from '../../shadow-dom.js';
-	import { AnimationFrame, Timeout } from '../../timeout.js';
+	import { AnimationFrame } from '../../timeout.js';
+	import { useAnimationFrame, useTimeout } from '../../timeout.svelte.js';
 	import type { OpenInteractionType } from '../../openInteraction.js';
 	import type { FloatingRootStore, OpenChangePayload } from './FloatingRootStore.svelte.js';
 	import { isElementVisible } from '../utils/composite.js';
@@ -65,8 +66,8 @@
 	const tree = useFloatingTree();
 	const portaled = hasFloatingPortal();
 	const portal = useFloatingPortal();
-	const pointerDownTimeout = Timeout.create();
-	const restoreFrame = AnimationFrame.create();
+	const pointerDownTimeout = useTimeout();
+	const restoreFrame = useAnimationFrame();
 	let suppressFocusOut = false;
 	/** Trigger (or the element focused before open). Not refreshed after focus moves inside. */
 	let returnTarget: HTMLElement | null = null;
@@ -148,6 +149,8 @@
 	let closeType: OpenInteractionType = '';
 	/** `focus-out` skips return focus so a Tab that has not landed yet is not cancelled. */
 	let closeReason = '';
+	/** Next-frame return focus after an outside press. Not a component timer. */
+	let returnFrameId = 0;
 	let lastInteraction: OpenInteractionType = '';
 	/** One initial-focus result per open. A later result must not rebuild the trap. */
 	let initialSettled = false;
@@ -175,6 +178,29 @@
 		return '';
 	}
 
+	function openAncestorPopup() {
+		if (!tree || !store.nodeId) return null;
+		for (const node of getNodeAncestors(tree.nodes, store.nodeId)) {
+			const floating = node.context?.floatingElement;
+			if (floating instanceof HTMLElement && floating.isConnected && node.context?.isOpen()) {
+				return floating;
+			}
+		}
+		return null;
+	}
+
+	function scheduleBodyReturn(element: HTMLElement) {
+		if (returnFrameId) AnimationFrame.cancel(returnFrameId);
+		returnFrameId = AnimationFrame.request(() => {
+			returnFrameId = 0;
+			if (store.isOpen() || !element.isConnected) return;
+			const doc = ownerDocument(element);
+			const active = activeElement(doc);
+			if (active !== doc.body && active != null) return;
+			element.focus({ preventScroll: true });
+		});
+	}
+
 	function restoreReturnFocus(endedBy: OpenInteractionType) {
 		const spec = returnFocus;
 		// Upstream sets `preventReturnFocusRef` before every focus-out close and reads it
@@ -182,32 +208,71 @@
 		// Pointer and keyboard both take this path. The return function is not called;
 		// React calls it and ignores the result.
 		const skipReturn = closeReason === REASONS.focusOut;
-		queueMicrotask(() => {
+		let returned: HTMLElement | null = null;
+		const apply = () => {
 			if (spec === false || skipReturn) return;
-			// A container cleared back to null removes the popup while it is still open.
-			// Focus would land on the body. Upstream returns it on that cleanup.
-			// A later dependency change while the popup is still connected does not.
-			if (store.isOpen() && store.floatingElement?.isConnected) return;
-			const fromFunction = typeof spec === 'function';
-			const resolved = fromFunction ? spec(endedBy) : spec;
-			if (resolved === false || resolved === undefined) return;
-			// `null` falls back to the trigger. Only a boolean `true` requires focus to still be inside.
-			const explicit = fromFunction || spec instanceof HTMLElement || spec == null;
-			const target = resolved instanceof HTMLElement ? resolved : returnTarget;
-			if (!target?.isConnected) return;
-			if (!explicit) {
-				const doc = ownerDocument(target);
-				const active = activeElement(doc);
-				const floating = store.floatingElement;
-				// The portal host is not "inside" for return focus. A child that stayed
-				// open is mounted beside the popup, and pulling focus back would
-				// take it off that child. Upstream checks the floating element only.
-				const inside = contains(floating, active) || active === doc.body || active == null;
-				if (!inside) return;
+			returned = moveReturnFocus(endedBy, spec) ?? null;
+		};
+		// Focus now only when a close is already committed. A disconnected popup is not
+		// a close: the portal may be moving to another container. A `flushSync` here
+		// commits a viewport switch before its pre-effect can copy the previous pane,
+		// and it drops the close-completion effect so the popup never unmounts.
+		// `closeReason` is set in `noteClose` before `open` flips when a flush runs
+		// mid-`setOpen`, so this still lands inside the caller's `flushSync`.
+		const closed = closeReason !== '' || !store.isOpen();
+		if (closed) {
+			apply();
+			// Sloppy outside press closes on pointerdown and this call focuses the
+			// trigger. The compatibility mousedown then moves focus to the body.
+			// The next frame puts that same element back. A container swap is not a close.
+			if (returned) scheduleBodyReturn(returned);
+			return;
+		}
+		queueMicrotask(() => {
+			if (spec === false || closeReason === REASONS.focusOut) return;
+			if (!store.isOpen()) {
+				apply();
+				return;
 			}
-			target.focus({ preventScroll: true });
-			returnTarget = null;
+			if (store.floatingElement?.isConnected) return;
+			const ancestor = openAncestorPopup();
+			if (ancestor) {
+				ancestor.focus({ preventScroll: true });
+				return;
+			}
+			apply();
 		});
+	}
+
+	function moveReturnFocus(
+		endedBy: OpenInteractionType,
+		spec: typeof returnFocus
+	): HTMLElement | null {
+		// `returnFocus={null}` does not move focus. Upstream skips the restore when the
+		// prop is null (`FloatingFocusManager.tsx` 868–872). A function that returns
+		// `null` is a different value and falls back to the trigger below.
+		if (spec === false || spec == null) return null;
+		const fromFunction = typeof spec === 'function';
+		const resolved = fromFunction ? spec(endedBy) : spec;
+		if (resolved === false || resolved === undefined) return null;
+		// A function result of `null` falls back to the trigger, matching an empty ref.
+		// Only a boolean `true` requires focus to still be inside.
+		const explicit = fromFunction || spec instanceof HTMLElement;
+		const target = resolved instanceof HTMLElement ? resolved : returnTarget;
+		if (!target?.isConnected) return null;
+		if (!explicit) {
+			const doc = ownerDocument(target);
+			const active = activeElement(doc);
+			const floating = store.floatingElement;
+			// The portal host is not "inside" for return focus. A child that stayed
+			// open is mounted beside the popup, and pulling focus back would
+			// take it off that child. Upstream checks the floating element only.
+			const inside = contains(floating, active) || active === doc.body || active == null;
+			if (!inside) return null;
+		}
+		target.focus({ preventScroll: true });
+		returnTarget = null;
+		return target;
 	}
 
 	function openedBy(): OpenInteractionType {
@@ -222,7 +287,10 @@
 		const resolved = typeof spec === 'function' ? spec(openedBy()) : spec;
 		if (resolved === false || resolved === undefined) return false;
 		if (resolved instanceof HTMLElement) return resolved;
-		return tabbables(floating)[0] ?? floating;
+		const first = tabbables(floating).find(
+			(node): node is HTMLElement => node instanceof HTMLElement
+		);
+		return first ?? floating;
 	}
 
 	function takeInitial(floating: HTMLElement): HTMLElement | false {
@@ -292,32 +360,7 @@
 		closeReason = payload.reason;
 	}
 
-	$effect(() => {
-		if (disabled || !store.isOpen()) {
-			initialSettled = false;
-			portal?.setFocus(null);
-			return () => portal?.setFocus(null);
-		}
-		if (!modal) {
-			portal?.setFocus({
-				modal: false,
-				open: true,
-				closeOnFocusOut,
-				domReference: store.domReferenceElement,
-				close(event) {
-					store.setOpen(false, createChangeEventDetails(REASONS.focusOut, event));
-				}
-			});
-		} else {
-			portal?.setFocus(null);
-		}
-		closeType = '';
-		lastInteraction = '';
-		const floating = store.floatingElement;
-		if (!floating) return;
-
-		const doc = ownerDocument(floating);
-		captureReturnTarget(doc, floating);
+	function markedInside(floating: HTMLElement) {
 		// Do not subscribe to the tree. A nested dialog mounting reads child open state here.
 		const nested = untrack(() =>
 			tree && store.nodeId ? getNodeChildren(tree.nodes, store.nodeId) : []
@@ -334,10 +377,41 @@
 				if (element) inside.push(element);
 			}
 		}
+		return inside;
+	}
+
+	// Marking does not read `closeOnFocusOut`. Changing it must not hide outside nodes again.
+	$effect(() => {
+		if (disabled || !store.isOpen()) return;
+		const floating = store.floatingElement;
+		if (!floating) return;
+		const inside = markedInside(floating);
 		const hideOutside = modal ? markOthers(inside, { ariaHidden: true, mark: false }) : () => {};
 		const mark = markOthers(inside);
-		let cancelFocus = () => {};
+		return () => {
+			hideOutside();
+			mark();
+		};
+	});
 
+	$effect(() => {
+		// Re-run when the portal container changes so a move is not treated as a close.
+		const portalHome = portal?.home;
+		if (disabled || !store.isOpen()) {
+			initialSettled = false;
+			return;
+		}
+		const floating = store.floatingElement;
+		if (!floating || portalHome === null) return;
+		const doc = ownerDocument(floating);
+		captureReturnTarget(doc, floating);
+		closeType = '';
+		closeReason = '';
+		if (returnFrameId) {
+			AnimationFrame.cancel(returnFrameId);
+			returnFrameId = 0;
+		}
+		lastInteraction = '';
 		const initialTarget = takeInitial(floating);
 		// A child opened in the same update queues its focus first. Skipping this
 		// first frame keeps that child focused. Reopening does not skip.
@@ -345,33 +419,45 @@
 		// when a nested popup opens and pull focus back to this popup's first control.
 		const skipForOpenChild = !hasOpenedBefore && untrack(() => hasOpenChild());
 		hasOpenedBefore = true;
-		if (initialTarget !== false) {
-			cancelFocus = enqueueFocus(initialTarget, {
-				preventScroll: initialTarget === floating,
-				shouldFocus: () =>
-					store.isOpen() && !contains(floating, activeElement(doc)) && !skipForOpenChild
-			});
-		}
+		if (initialTarget === false) return;
+		const cancelFocus = enqueueFocus(initialTarget, {
+			preventScroll: initialTarget === floating,
+			shouldFocus: () =>
+				store.isOpen() && !contains(floating, activeElement(doc)) && !skipForOpenChild
+		});
+		return () => cancelFocus();
+	});
 
+	$effect(() => {
+		if (disabled || !store.isOpen()) {
+			portal?.setFocus(null);
+			return () => portal?.setFocus(null);
+		}
+		if (!modal) {
+			portal?.setFocus({
+				modal: false,
+				open: true,
+				closeOnFocusOut,
+				domReference: store.domReferenceElement,
+				close(event) {
+					store.setOpen(false, createChangeEventDetails(REASONS.focusOut, event));
+				}
+			});
+		} else {
+			portal?.setFocus(null);
+		}
+		const floating = store.floatingElement;
+		if (!floating) return;
+		const doc = ownerDocument(floating);
+
+		// Tab wraps through the focus guards. This only blocks Tab when nothing inside is tabbable.
 		const stopKeys = on(doc, 'keydown', (event) => {
 			lastInteraction = 'keyboard';
 			if (!modal || event.key !== 'Tab') return;
 			const items = tabbables(floating);
 			const active = activeElement(doc);
 			if (!contains(floating, active)) return;
-			if (items.length === 0) {
-				event.preventDefault();
-				return;
-			}
-			const first = items[0];
-			const last = items[items.length - 1];
-			if (event.shiftKey && active === first) {
-				event.preventDefault();
-				last.focus();
-			} else if (!event.shiftKey && active === last) {
-				event.preventDefault();
-				first.focus();
-			}
+			if (items.length === 0) event.preventDefault();
 		});
 
 		const stopPointer = on(
@@ -433,9 +519,6 @@
 
 		return () => {
 			portal?.setFocus(null);
-			cancelFocus();
-			hideOutside();
-			mark();
 			stopKeys();
 			stopPointer();
 			stopReferenceFocus();

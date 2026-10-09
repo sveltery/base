@@ -3,7 +3,7 @@
 // `buffer` and `requireIntent` are not restored. v1.8.0 already removed them.
 
 import { isElement } from '@floating-ui/utils/dom';
-import { Timeout } from '../timeout.js';
+import { useTimeout } from '../timeout.svelte.js';
 import type { FloatingTreeStore } from './components/FloatingTreeStore.js';
 import { getNodeChildren } from './components/FloatingTreeStore.js';
 import { contains, getTarget } from '../shadow-dom.js';
@@ -92,7 +92,7 @@ function isInsideAxisAlignedRect(
 
 export function safePolygon(options: SafePolygonOptions = {}): HandleClose {
 	const { blockPointerEvents = false } = options;
-	const timeout = new Timeout();
+	const timeout = useTimeout();
 	const fn: HandleClose = ({ x, y, placement, elements, onClose, nodeId, tree }) => {
 		const side = placement?.split('-')[0];
 		let hasLanded = false;

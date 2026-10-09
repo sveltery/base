@@ -8,7 +8,7 @@ import { untrack } from 'svelte';
 import { on } from 'svelte/events';
 import { contains, getTarget } from '../internal/shadow-dom.js';
 import { platform } from '../internal/platform.js';
-import { Timeout } from '../internal/timeout.js';
+import { useTimeout } from '../internal/timeout.svelte.js';
 import { getOffset } from './dom.js';
 import {
 	applyOverscrollThumb,
@@ -86,10 +86,10 @@ export class ScrollAreaModel {
 	private savedSnapType: string | null = null;
 	private programmaticScroll = true;
 	private lastMeasured: [number, number, number, number] = [NaN, NaN, NaN, NaN];
-	private readonly scrollYTimer = new Timeout();
-	private readonly scrollXTimer = new Timeout();
-	private readonly scrollEndTimer = new Timeout();
-	private readonly animationTimer = new Timeout();
+	private readonly scrollYTimer = useTimeout();
+	private readonly scrollXTimer = useTimeout();
+	private readonly scrollEndTimer = useTimeout();
+	private readonly animationTimer = useTimeout();
 
 	constructor(
 		readThreshold: () => OverflowEdgeThreshold | undefined,
