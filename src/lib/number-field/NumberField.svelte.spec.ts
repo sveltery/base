@@ -82,6 +82,24 @@ describe('<NumberField />', () => {
 		expect(control().element().getAttribute('aria-roledescription')).toBe('Number field');
 	});
 
+	it('repeats a held increment and stops when the field unmounts', async () => {
+		const view = render(NumberFieldHarness, { scenario: 'plain' });
+		const button = increase().element() as HTMLElement;
+		button.dispatchEvent(
+			new PointerEvent('pointerdown', {
+				bubbles: true,
+				button: 0,
+				pointerType: 'mouse',
+				clientX: 4,
+				clientY: 4
+			})
+		);
+		await expect.element(control()).toHaveValue('6');
+		view.unmount();
+		await new Promise((resolve) => setTimeout(resolve, 180));
+		expect(document.querySelector('[data-testid="control"]')).toBeNull();
+	});
+
 	it('steps up and down from a click', async () => {
 		const onValueChange = vi.fn();
 		const onValueCommitted = vi.fn();

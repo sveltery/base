@@ -5,11 +5,66 @@
 import { clickOnSpaceKeyUp, currentHost, dispatchClick, isLink } from './click.js';
 import { mergeProps } from './mergeProps.js';
 
-export function useButton(disabled: boolean, nativeButton: boolean) {
+const HANDLER_KEYS = ['onclick', 'onmousedown', 'onpointerdown', 'onkeydown', 'onkeyup'] as const;
+
+type HandlerKey = (typeof HANDLER_KEYS)[number];
+
+function readHandler<T>(props: object, key: HandlerKey) {
+	const value = (props as Record<string, unknown>)[key];
+	return typeof value === 'function' ? (value as (event: T) => void) : undefined;
+}
+
+function omitHandlers<T extends object>(props: T): Omit<T, HandlerKey> {
+	const rest: Record<PropertyKey, unknown> = {};
+	for (const key of Reflect.ownKeys(props)) {
+		if (typeof key === 'string' && (HANDLER_KEYS as readonly string[]).includes(key)) continue;
+		rest[key] = (props as Record<PropertyKey, unknown>)[key];
+	}
+	return rest as Omit<T, HandlerKey>;
+}
+
+export function useButton<T extends object>(
+	disabled: boolean,
+	nativeButton: boolean,
+	elementProps: T = {} as T
+) {
+	const onclick = readHandler<MouseEvent>(elementProps, 'onclick');
+	const onmousedown = readHandler<MouseEvent>(elementProps, 'onmousedown');
+	const onpointerdown = readHandler<PointerEvent>(elementProps, 'onpointerdown');
+	const onkeydown = readHandler<KeyboardEvent>(elementProps, 'onkeydown');
+	const onkeyup = readHandler<KeyboardEvent>(elementProps, 'onkeyup');
+
 	return mergeProps(
 		buttonProps(disabled, nativeButton),
 		nonNativeKeys(disabled, nativeButton),
-		guardDisabled(disabled)
+		{
+			onclick(event: MouseEvent) {
+				if (disabled) {
+					event.preventDefault();
+					return;
+				}
+				onclick?.(event);
+			},
+			onmousedown(event: MouseEvent) {
+				if (!disabled) onmousedown?.(event);
+			},
+			onpointerdown(event: PointerEvent) {
+				if (disabled) {
+					event.preventDefault();
+					return;
+				}
+				onpointerdown?.(event);
+			},
+			onkeydown(event: KeyboardEvent) {
+				if (disabled) return;
+				onkeydown?.(event);
+			},
+			onkeyup(event: KeyboardEvent) {
+				if (disabled) return;
+				onkeyup?.(event);
+			}
+		},
+		omitHandlers(elementProps)
 	);
 }
 
@@ -23,27 +78,6 @@ function buttonProps(disabled: boolean, nativeButton: boolean) {
 	return {
 		role: 'button' as const,
 		...(disabled ? { 'aria-disabled': true as const, tabindex: -1 } : { tabindex: 0 })
-	};
-}
-
-function guardDisabled(disabled: boolean) {
-	return {
-		onclick(event: MouseEvent) {
-			if (!disabled) return;
-			event.preventDefault();
-			event.preventBaseUIHandler?.();
-		},
-		onpointerdown(event: PointerEvent) {
-			if (!disabled) return;
-			event.preventDefault();
-			event.preventBaseUIHandler?.();
-		},
-		onmousedown(event: MouseEvent) {
-			if (disabled) event.preventBaseUIHandler?.();
-		},
-		onkeydown(event: KeyboardEvent) {
-			if (disabled && event.key !== 'Tab') event.preventBaseUIHandler?.();
-		}
 	};
 }
 

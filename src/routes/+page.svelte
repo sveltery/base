@@ -87,5 +87,18 @@
 			<a href="/fixtures/csp-provider">CSPProvider</a> (add <code>&amp;reference</code> for React Base
 			UI)
 		</li>
+		<li>
+			<a href="/fixtures/toolbar">Toolbar</a> (add <code>&amp;reference</code> for React Base UI)
+		</li>
+		<li>
+			<a href="/fixtures/overlay-foundation">Overlay foundation</a> (add <code>&amp;reference</code>
+			for React Base UI)
+		</li>
+		<li>
+			<a href="/fixtures/popover">Popover</a> (add <code>&amp;reference</code> for React Base UI)
+		</li>
+		<li>
+			<a href="/fixtures/dialog">Dialog</a> (add <code>&amp;reference</code> for React Base UI)
+		</li>
 	</ul>
 </main>
