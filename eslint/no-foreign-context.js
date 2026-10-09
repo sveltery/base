@@ -10,7 +10,6 @@ const ALLOWED = new Set([
 	'checkbox-group>checkbox',
 	'field>fieldset',
 	'field>form',
-	'input>form',
 	'number-field>field',
 	'number-field>form',
 	'otp-field>field',
@@ -73,6 +72,10 @@ const rule = {
 				const imported = contextOwner(node.source.value);
 				if (!imported || imported === 'self' || imported === owner) return;
 				if (ALLOWED.has(`${owner}>${imported}`)) return;
+				// Input.svelte does not read form context. The spec counts unprovided fields.
+				if (owner === 'input' && imported === 'form' && context.filename.includes('.spec.')) {
+					return;
+				}
 				context.report({ node, messageId: 'foreignContext' });
 			}
 		};

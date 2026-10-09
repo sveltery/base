@@ -13,6 +13,10 @@
 			"count": 1,
 			"lines": 48
 		},
+		"html:src/lib/meter/MeterRoot.svelte|src/lib/progress/ProgressRoot.svelte": {
+			"count": 1,
+			"lines": 90
+		},
 		"html:src/lib/progress/ProgressLabel.svelte|src/lib/switch/SwitchThumb.svelte": {
 			"count": 1,
 			"lines": 39

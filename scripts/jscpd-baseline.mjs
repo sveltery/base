@@ -1,3 +1,14 @@
+/**
+ * Known dodges. These still pass. They are listed here and not rejected.
+ *
+ * - An in-place edit that keeps the identifier sequence (`+ 1` to `+ 1 + 0`).
+ *   Accepted as a documented residual.
+ * - A subsequence swap (`price * qty + tax` to `-tax ?? 7`). The live
+ *   identifiers are a subsequence of the ancestor, so the overlap ratio is 1.
+ * - A copy across formats, such as the same text in a `.ts` file and a `.js`
+ *   file. Pair identity includes the format.
+ * - One unique statement every fewer than 8 lines. That stays under `--min-lines`.
+ */
 import { execFileSync } from 'node:child_process';
 import fs from 'node:fs';
 import os from 'node:os';
@@ -5,11 +16,11 @@ import path from 'node:path';
 import { fileURLToPath, pathToFileURL } from 'node:url';
 
 const SCAN_ROOTS = ['src', 'eslint'];
-const JSCPD = path.resolve(
-	path.dirname(fileURLToPath(import.meta.url)),
-	'../node_modules/.bin/jscpd'
-);
-const HTML_COMMENT_PATTERN = '<!--[^>]*-->';
+const SCRIPT_DIR = path.dirname(fileURLToPath(import.meta.url));
+const JSCPD = path.resolve(SCRIPT_DIR, '../node_modules/.bin/jscpd');
+const EMPTY_CONFIG = path.join(SCRIPT_DIR, 'jscpd-empty.json');
+const HTML_COMMENT_PATTERN = '<!--.*?-->';
+const OVERLAP_CUTOFF = 0.8;
 
 /**
  * @param {string} verifySource
@@ -59,9 +70,6 @@ function flagValue(argv, flag) {
 }
 
 /**
- * @param {{ minLines: string, minTokens: string }} pin
- */
-/**
  * @param {string} repoRoot
  */
 function presentRoots(repoRoot) {
@@ -69,27 +77,31 @@ function presentRoots(repoRoot) {
 }
 
 /**
+ * `--config` points at an empty file this script owns, so a committed
+ * `.jscpd.json` cannot set `skipLocal`. `--no-gitignore` keeps a force-added
+ * file that `.gitignore` lists in the scan.
+ *
  * @param {{ minLines: string, minTokens: string }} pin
  * @param {string} repoRoot
- * @param {boolean} ignoreHtml
  */
-function scanArgs(pin, repoRoot, ignoreHtml) {
-	const args = [
+function scanArgs(pin, repoRoot) {
+	return [
 		...presentRoots(repoRoot),
 		'--absolute',
 		'--min-lines',
 		pin.minLines,
 		'--min-tokens',
-		pin.minTokens
-	];
-	if (ignoreHtml) args.push('--ignore-pattern', HTML_COMMENT_PATTERN);
-	args.push(
+		pin.minTokens,
+		'--ignore-pattern',
+		HTML_COMMENT_PATTERN,
+		'--config',
+		EMPTY_CONFIG,
+		'--no-gitignore',
 		'--reporters',
 		'json,silent',
 		'--ignore',
 		'**/*.spec.ts,**/*.svelte.spec.ts,eslint/fixtures/history/**'
-	);
-	return args;
+	];
 }
 
 /**
@@ -99,10 +111,7 @@ function scanArgs(pin, repoRoot, ignoreHtml) {
 /**
  * Pairs in `next` whose clone count or duplicated line total is above
  * `allowed`. A missing pair counts as zero. Identity is the file pair and
- * format. A same-pair edit that keeps the cloned identifier sequence, and
- * stays within the recorded line allowance, is still allowed. Swapping in a
- * different identifier sequence is not. This note records that remaining
- * allowance. It does not add another check.
+ * format. The remove-only gate does not use the line total. See `grantedPairs`.
  *
  * @param {Record<string, PairStat> | undefined} allowed
  * @param {Record<string, PairStat> | undefined} next
@@ -137,35 +146,61 @@ export function fragmentId(fragment) {
 }
 
 /**
- * @param {string} live
- * @param {string} allowed
+ * Longest common subsequence of two identifier lists.
+ *
+ * @param {string[]} left
+ * @param {string[]} right
  */
-export function isWordSubsequence(live, allowed) {
-	if (live === allowed) return true;
-	if (live === '') return allowed === '';
-	const needles = live.split(' ');
-	const haystack = allowed.split(' ');
-	let index = 0;
-	for (const word of haystack) {
-		if (word === needles[index]) index += 1;
-		if (index === needles.length) return true;
+function lcsLength(left, right) {
+	const width = right.length + 1;
+	/** @type {number[]} */
+	let previous = Array(width).fill(0);
+	/** @type {number[]} */
+	let current = Array(width).fill(0);
+	for (const word of left) {
+		for (let column = 1; column < width; column += 1) {
+			current[column] =
+				word === right[column - 1]
+					? previous[column - 1] + 1
+					: Math.max(previous[column], current[column - 1]);
+		}
+		const swap = previous;
+		previous = current;
+		current = swap;
+		current.fill(0);
 	}
-	return false;
+	return previous[right.length];
 }
 
 /**
- * Every live fragment must be the allowed identifier sequence or a
- * subsequence of one (a pure shrink). A different sequence is a swap.
+ * `LCS(live, ancestor) / |live|`. A missing live fragment overlaps fully.
  *
- * @param {string[] | undefined} allowed
+ * @param {string} live
+ * @param {string} ancestor
+ */
+export function overlapRatio(live, ancestor) {
+	const left = live.split(' ').filter((word) => word !== '');
+	const right = ancestor.split(' ').filter((word) => word !== '');
+	if (left.length === 0) return 1;
+	return lcsLength(left, right) / left.length;
+}
+
+/**
+ * Worst live fragment against its best ancestor fragment.
+ *
+ * @param {string[] | undefined} ancestor
  * @param {string[] | undefined} live
  */
-export function coversFragments(allowed, live) {
-	if (!live || live.length === 0) return true;
-	if (!allowed || allowed.length === 0) return false;
-	return live.every((fragment) =>
-		allowed.some((candidate) => isWordSubsequence(fragment, candidate))
-	);
+export function fragmentOverlap(ancestor, live) {
+	if (!live || live.length === 0) return 1;
+	if (!ancestor || ancestor.length === 0) return 0;
+	let worst = 1;
+	for (const fragment of live) {
+		let best = 0;
+		for (const candidate of ancestor) best = Math.max(best, overlapRatio(fragment, candidate));
+		worst = Math.min(worst, best);
+	}
+	return worst;
 }
 
 /**
@@ -344,10 +379,10 @@ export function baseRevision(env = process.env) {
  * @param {string} repoRoot
  * @returns {Record<string, PairStat>}
  */
-export function scanRepo(repoRoot, ignoreHtml = true) {
+export function scanRepo(repoRoot) {
 	const root = fs.realpathSync(repoRoot);
-	const pin = readPinnedThresholds(path.dirname(fileURLToPath(import.meta.url)));
-	const args = scanArgs(pin, root, ignoreHtml);
+	const pin = readPinnedThresholds(SCRIPT_DIR);
+	const args = scanArgs(pin, root);
 	if (args[0]?.startsWith('--')) return {};
 	const out = fs.mkdtempSync(path.join(os.tmpdir(), 'jscpd-scan-'));
 	try {
@@ -370,7 +405,7 @@ export function scanRepo(repoRoot, ignoreHtml = true) {
  * version 3 file was written before HTML comments were ignored.
  *
  * @param {string} rev
- * @returns {{ current: Record<string, PairStat>, previous: Record<string, PairStat> }}
+ * @returns {Record<string, PairStat>}
  */
 function scanRevision(rev) {
 	// jscpd --absolute prints the real path. A symlinked TMPDIR (macOS /tmp)
@@ -380,10 +415,7 @@ function scanRevision(rev) {
 		execFileSync('git', ['worktree', 'add', '--detach', '--quiet', dir, rev], {
 			stdio: ['ignore', 'pipe', 'pipe']
 		});
-		return {
-			current: scanRepo(dir, true),
-			previous: scanRepo(dir, false)
-		};
+		return scanRepo(dir);
 	} finally {
 		try {
 			execFileSync('git', ['worktree', 'remove', '--force', dir], {
@@ -494,46 +526,48 @@ function walkFiles(dir, visit) {
 }
 
 /**
- * @param {Record<string, PairStat>} found
- * @param {Record<string, PairStat>} baseline
- * @param {Record<string, PairStat>} ancestor
- */
-/**
- * Growth and shrink of one identifier sequence are the same clone.
- * A sequence that is neither direction of the other is a swap.
+ * Baseline keys whose clone count is above the ancestor. Line totals are not
+ * compared, so a shrink of an existing pair is not a grant.
  *
- * @param {string[] | undefined} allowed
- * @param {string[] | undefined} live
+ * @param {Record<string, PairStat> | undefined} ancestor
+ * @param {Record<string, PairStat> | undefined} baseline
  */
-function sameIdentifierFamily(allowed, live) {
-	return coversFragments(allowed, live) || coversFragments(live, allowed);
+function grantedPairs(ancestor, baseline) {
+	const granted = [];
+	for (const [key, stat] of Object.entries(baseline ?? {})) {
+		const previous = ancestor?.[key];
+		if (!previous || stat.count > previous.count) granted.push(key);
+	}
+	return granted.sort();
 }
 
 /**
  * @param {Record<string, PairStat>} found
  * @param {Record<string, PairStat>} baseline
  * @param {Record<string, PairStat>} ancestor
- * @param {Record<string, PairStat>} ancestorPrevious
  */
-function freshPairs(found, baseline, ancestor, ancestorPrevious) {
+function freshPairs(found, baseline, ancestor) {
+	/** @type {string[]} */
 	const fresh = [];
+	/** @type {string[]} */
+	const overlapped = [];
 	for (const [key, stat] of Object.entries(found)) {
 		const base = baseline[key];
 		const anc = ancestor[key];
-		const previous = ancestorPrevious[key];
-		// The HTML-comment pattern reveals clones the previous detector
-		// never recorded. They stay inside the ancestor scan's allowance.
-		if (!base && anc && !previous) {
-			const overAncestor = stat.count > anc.count || stat.lines > anc.lines;
-			const swapped = !sameIdentifierFamily(anc.fragments, stat.fragments);
-			if (overAncestor || swapped) fresh.push(key);
+		// A pair the baseline added and the ancestor does not have is a grant,
+		// reported by grantedPairs. It is not a new live clone.
+		if (base && !anc) continue;
+		const ceilingCount = Math.min(base?.count ?? 0, anc?.count ?? 0);
+		const ceilingLines = Math.min(base?.lines ?? 0, anc?.lines ?? 0);
+		if (stat.count > ceilingCount || stat.lines > ceilingLines) {
+			fresh.push(key);
 			continue;
 		}
-		const overCeiling = stat.count > (base?.count ?? 0) || stat.lines > (base?.lines ?? 0);
-		const swapped = Boolean(base) && !sameIdentifierFamily(anc?.fragments, stat.fragments);
-		if (overCeiling || swapped) fresh.push(key);
+		if (anc && fragmentOverlap(anc.fragments, stat.fragments) < OVERLAP_CUTOFF) {
+			overlapped.push(key);
+		}
 	}
-	return fresh.sort();
+	return { fresh: fresh.sort(), overlapped: overlapped.sort() };
 }
 
 const isCli = process.argv[1] != null && import.meta.url === pathToFileURL(process.argv[1]).href;
@@ -575,11 +609,8 @@ if (isCli) {
 	}
 	const found = scanRepo(process.cwd());
 	let ancestor;
-	let ancestorPrevious;
 	try {
-		const scanned = scanRevision(rev);
-		ancestor = scanned.current;
-		ancestorPrevious = scanned.previous;
+		ancestor = scanRevision(rev);
 	} catch (error) {
 		console.error(error instanceof Error ? error.message : error);
 		process.exit(1);
@@ -589,7 +620,14 @@ if (isCli) {
 	const baselineMapped = applyPairRenames(current.pairs, (filePath) =>
 		pathToAncestor(filePath, maps, 'baseline')
 	);
-	const fresh = freshPairs(foundMapped, baselineMapped, ancestor, ancestorPrevious);
+	const { fresh, overlapped } = freshPairs(foundMapped, baselineMapped, ancestor);
+	if (overlapped.length > 0) {
+		console.error(
+			`jscpd found ${overlapped.length} new clone pair(s) below the ${OVERLAP_CUTOFF} identifier overlap with ${rev}. \`node scripts/jscpd-baseline.mjs --write\` will not clear this.`
+		);
+		for (const key of overlapped) console.error(key);
+		process.exit(1);
+	}
 	if (fresh.length > 0) {
 		console.error(`jscpd found ${fresh.length} new clone pair(s)`);
 		for (const key of fresh) console.error(key);
@@ -603,7 +641,7 @@ if (isCli) {
 		for (const key of stale) console.error(key);
 		process.exit(1);
 	}
-	const granted = addedPairs(ancestor, baselineMapped);
+	const granted = grantedPairs(ancestor, baselineMapped);
 	if (granted.length > 0) {
 		console.error(
 			`jscpd baseline added ${granted.length} clone pair(s); baseline changes are remove-only`

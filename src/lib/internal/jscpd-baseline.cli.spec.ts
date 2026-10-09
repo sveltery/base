@@ -23,6 +23,23 @@ function statements(prefix: string, count: number) {
 	return Array.from({ length: count }, (_, index) => `const ${prefix}${index} = ${index} + 1;`);
 }
 
+function statementsFrom(prefix: string, start: number, count: number) {
+	return Array.from(
+		{ length: count },
+		(_, index) => `const ${prefix}${start + index} = ${start + index} + 1;`
+	);
+}
+
+function walkOwnSource(beforePrefix: string, keptName: string) {
+	const before = statements(beforePrefix, 14)
+		.map((line) => `\t${line}`)
+		.join('\n');
+	const kept = statements('kept', 12)
+		.map((line) => `\t${line.replace('const kept0', `const ${keptName}`)}`)
+		.join('\n');
+	return `export function beforeHook() {\n${before}\n}\nexport function walkOwn() {\n${kept}\n}\n`;
+}
+
 function source(functionName: string, body: string[]) {
 	return `export function ${functionName}() {\n${body.map((line) => `\t${line}`).join('\n')}\n\treturn 0;\n}\n`;
 }
@@ -134,7 +151,7 @@ describe('jscpd baseline CLI', () => {
 		}
 	}, 60_000);
 
-	it('allows a remove-only baseline and rejects a baseline that grants more lines', () => {
+	it('allows a remove-only baseline and rejects a baseline that grants a new pair', () => {
 		const original = source('shared', statements('value', 12));
 		const { dir, sha } = makeRepo(original, original);
 		try {
@@ -147,7 +164,16 @@ describe('jscpd baseline CLI', () => {
 			writeFileSync(path.join(dir, '.jscpd-baseline.json'), baselineText(scanRepo(dir)));
 			const granted = runGate(dir, sha);
 			expect(granted.code).toBe(1);
-			expect(granted.stderr).toContain('remove-only');
+			expect(granted.stderr).toContain('new clone pair');
+
+			writeSources(dir, original, original);
+			const extra = source('otherfn', statements('extra', 12));
+			writeFileSync(path.join(dir, 'src/extra-a.ts'), extra);
+			writeFileSync(path.join(dir, 'src/extra-b.ts'), extra);
+			writeFileSync(path.join(dir, '.jscpd-baseline.json'), baselineText(scanRepo(dir)));
+			const added = runGate(dir, sha);
+			expect(added.code).toBe(1);
+			expect(added.stderr).toContain('remove-only');
 		} finally {
 			rmSync(dir, { recursive: true, force: true });
 		}
@@ -277,7 +303,7 @@ describe('jscpd baseline CLI', () => {
 			writeFileSync(path.join(dir, '.jscpd-baseline.json'), baselineText(scanRepo(dir)));
 			const granted = runGate(dir, sha);
 			expect(granted.code).toBe(1);
-			expect(granted.stderr).toContain('remove-only');
+			expect(granted.stderr).toContain('new clone pair');
 		} finally {
 			rmSync(dir, { recursive: true, force: true });
 		}
@@ -323,6 +349,7 @@ describe('jscpd baseline CLI', () => {
 			const live = runGate(dir, sha);
 			expect(live.code).toBe(1);
 			expect(live.stderr).toContain('new clone pair');
+			expect(live.stderr).toContain('will not clear this');
 
 			execFileSync(process.execPath, [script, '--write'], {
 				cwd: dir,
@@ -331,6 +358,7 @@ describe('jscpd baseline CLI', () => {
 			const rewritten = runGate(dir, sha);
 			expect(rewritten.code).toBe(1);
 			expect(rewritten.stderr).toContain('new clone pair');
+			expect(rewritten.stderr).toContain('will not clear this');
 		} finally {
 			rmSync(dir, { recursive: true, force: true });
 		}
@@ -355,6 +383,7 @@ describe('jscpd baseline CLI', () => {
 			const laundered = runGate(dir, sha);
 			expect(laundered.code).toBe(1);
 			expect(laundered.stderr).toContain('new clone pair');
+			expect(laundered.stderr).toContain('will not clear this');
 		} finally {
 			rmSync(dir, { recursive: true, force: true });
 		}
@@ -402,13 +431,14 @@ describe('jscpd baseline CLI', () => {
 			git(dir, ['init', '-b', 'main']);
 			mkdirSync(path.join(dir, 'src'), { recursive: true });
 			mkdirSync(path.join(dir, 'eslint'), { recursive: true });
-			const comment = ['<!--', ...statements('note', 12), '-->'].join('\n');
-			writeFileSync(path.join(dir, 'src/a.html'), `${comment}\n<div>left</div>\n`);
-			writeFileSync(path.join(dir, 'src/b.html'), `${comment}\n<div>right</div>\n`);
+			const rows = Array.from({ length: 7 }, (_, index) => `<span>row ${index}</span>`).join('\n');
+			const comment = `<!-- header > kept -->\n${rows}\n`;
+			writeFileSync(path.join(dir, 'src/a.html'), `${comment}<footer>left</footer>\n`);
+			writeFileSync(path.join(dir, 'src/b.html'), `${comment}<footer>right</footer>\n`);
 			writeFileSync(
 				path.join(dir, '.jscpd-baseline.json'),
 				baselineText({
-					'markup:src/a.html|src/b.html': { count: 1, lines: 15 }
+					'markup:src/a.html|src/b.html': { count: 1, lines: 9 }
 				})
 			);
 			git(dir, ['add', '.']);
@@ -434,6 +464,90 @@ describe('jscpd baseline CLI', () => {
 			expect(result.code).toBe(1);
 			expect(result.stderr).toContain('jscpd:ignore is banned');
 			expect(result.stderr).toContain('src/left.ts');
+		} finally {
+			rmSync(dir, { recursive: true, force: true });
+		}
+	}, 60_000);
+
+	it('allows a shifted clone and a shrink that starts at walkOwn', () => {
+		const original = source('shared', statementsFrom('value', 0, 20));
+		const { dir, sha } = makeRepo(original, original);
+		try {
+			const shifted = source('shared', statementsFrom('value', 4, 20));
+			writeSources(dir, shifted, shifted);
+			const shift = runGate(dir, sha);
+			expect(shift.code).toBe(0);
+			expect(shift.stdout).toContain('1 clones');
+		} finally {
+			rmSync(dir, { recursive: true, force: true });
+		}
+
+		const ancestor = walkOwnSource('value', 'kept0');
+		const moved = makeRepo(ancestor, ancestor);
+		try {
+			writeSources(
+				moved.dir,
+				walkOwnSource('leftOnly', 'moved0'),
+				walkOwnSource('rightOnly', 'moved0')
+			);
+			const deduped = runGate(moved.dir, moved.sha);
+			expect(deduped.code).toBe(0);
+			expect(deduped.stdout).toContain('1 clones');
+		} finally {
+			rmSync(moved.dir, { recursive: true, force: true });
+		}
+	}, 60_000);
+
+	it('allows the next commit after a shrink that did not rewrite the baseline', () => {
+		const original = source('shared', statements('value', 12));
+		const { dir, sha } = makeRepo(original, original);
+		try {
+			const shorter = source('shared', statements('value', 8));
+			writeSources(dir, shorter, shorter);
+			git(dir, ['add', '.']);
+			git(dir, ['commit', '-m', 'shrink']);
+			const sha2 = execFileSync('git', ['rev-parse', 'HEAD'], {
+				cwd: dir,
+				encoding: 'utf8'
+			}).trim();
+			expect(sha2).not.toBe(sha);
+			const next = runGate(dir, sha2);
+			expect(next.code).toBe(0);
+			expect(next.stdout).toContain('1 clones');
+		} finally {
+			rmSync(dir, { recursive: true, force: true });
+		}
+	}, 60_000);
+
+	it('ignores a committed skipLocal config', () => {
+		const original = source('shared', statements('value', 10));
+		const { dir, sha } = makeRepo(original, original);
+		try {
+			writeFileSync(path.join(dir, '.jscpd.json'), '{"skipLocal":true}\n');
+			const written = execFileSync(process.execPath, [script, '--write'], {
+				cwd: dir,
+				encoding: 'utf8'
+			});
+			expect(written).toContain('1 clones');
+			const result = runGate(dir, sha);
+			expect(result.code).toBe(0);
+			expect(result.stdout).toContain('1 clones');
+		} finally {
+			rmSync(dir, { recursive: true, force: true });
+		}
+	}, 60_000);
+
+	it('scans a force-added file that gitignore lists', () => {
+		const original = source('shared', statements('value', 10));
+		const { dir, sha } = makeRepo(original, original);
+		try {
+			writeFileSync(path.join(dir, '.gitignore'), 'src/hidden.ts\n');
+			writeFileSync(path.join(dir, 'src/hidden.ts'), original);
+			git(dir, ['add', '-f', '.gitignore', 'src/hidden.ts']);
+			git(dir, ['commit', '-m', 'track hidden']);
+			const result = runGate(dir, sha);
+			expect(result.code).toBe(1);
+			expect(result.stderr).toContain('src/hidden.ts');
 		} finally {
 			rmSync(dir, { recursive: true, force: true });
 		}

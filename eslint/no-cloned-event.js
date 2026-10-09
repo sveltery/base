@@ -2,6 +2,9 @@
  * Reject cloned events and fake targets.
  * `new event.constructor(...)`, `new Alias(...)` when Alias was read from
  * `.constructor`, and `Object.defineProperty(event, 'target', ...)`.
+ * Aliases are matched by bare name.
+ *
+ * Still open: `Reflect['construct']` and `const R = Reflect`.
  *
  * @type {import('eslint').Rule.RuleModule}
  */

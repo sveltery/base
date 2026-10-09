@@ -15,13 +15,6 @@ function isHelper(filename) {
 }
 
 /**
- * @param {string} filename
- */
-function isTestProbe(filename) {
-	return filename.replaceAll('\\', '/').includes('/src/tests/');
-}
-
-/**
  * @param {import('estree').Node | null | undefined} node
  */
 function isRegisterMember(node) {
@@ -124,7 +117,7 @@ const rule = {
 		}
 	},
 	create(context) {
-		if (isHelper(context.filename) || isTestProbe(context.filename)) return {};
+		if (isHelper(context.filename)) return {};
 		const sourceCode = context.sourceCode;
 		/** @type {Set<string>} */
 		const names = new Set();

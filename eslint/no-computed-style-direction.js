@@ -1,5 +1,9 @@
 /**
  * Components read `useDirection().direction`. Computed style direction is not a source.
+ * Aliases are matched by bare name.
+ *
+ * Still open: `const { direction } = getComputedStyle(el)`, `['direction']`,
+ * and ``getPropertyValue(`direction`)``.
  *
  * @type {import('eslint').Rule.RuleModule}
  */
