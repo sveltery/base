@@ -2,6 +2,9 @@
  * A consumer callback must run outside effect tracking.
  * `callPublic` is that call. Invoking the getter result subscribes the caller
  * to whatever the callback reads.
+ * Known gaps: an on* prop passed through a same-file helper, `props.onX` or a
+ * destructured alias read inside `$effect`, an unbound getter alias, and getter
+ * names that do not start with get or read.
  *
  * @type {import('eslint').Rule.RuleModule}
  */
@@ -66,9 +69,6 @@ const rule = {
 			context.report({ node, messageId: 'tracked' });
 		}
 
-		/**
-		 * @param {any} node
-		 */
 		/**
 		 * @param {any} node
 		 */

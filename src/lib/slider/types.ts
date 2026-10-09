@@ -139,6 +139,8 @@ export interface SliderIndicatorProps extends Omit<HTMLAttributes<HTMLDivElement
 }
 
 export interface SliderLabelProps extends Omit<HTMLAttributes<HTMLDivElement>, 'children' | 'id'> {
+	/** Author id. A generated id is `${rootId}-label` when this is omitted. */
+	id?: string;
 	render?: RenderSnippet<HTMLDivElement>;
 	children?: Snippet;
 }

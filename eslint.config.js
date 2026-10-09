@@ -103,11 +103,7 @@ export default defineConfig(
 		// Svelte has no React refs. React reference fixtures are the comparison
 		// implementation and may keep React's own ref APIs.
 		files: ['src/**'],
-		ignores: [
-			'src/routes/fixtures/**/react-reference.ts',
-			'src/routes/fixtures/checked-reference.ts',
-			'src/routes/fixtures/react-fixture.ts'
-		],
+		ignores: ['src/routes/fixtures/**/react-reference.ts'],
 		plugins: { sveltery },
 		rules: {
 			'sveltery/no-cloned-event': 'error',
@@ -128,6 +124,15 @@ export default defineConfig(
 			'sveltery/no-split-effect-lifecycle': 'error',
 			'sveltery/no-state-updater': 'error',
 			'sveltery/no-void-signal-read': 'error'
+		}
+	},
+	{
+		// React useState in the shared reference helpers. `setCalls`, `setValues`,
+		// and `setSubmitted` take React's functional updater. Other project rules
+		// still apply to these files.
+		files: ['src/routes/fixtures/checked-reference.ts', 'src/routes/fixtures/react-fixture.ts'],
+		rules: {
+			'sveltery/no-state-updater': 'off'
 		}
 	}
 );

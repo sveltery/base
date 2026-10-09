@@ -186,9 +186,6 @@ const rule = {
 
 		/**
 		 * @param {any} node
-		 */
-		/**
-		 * @param {any} node
 		 * @param {Set<string>} functions
 		 * @param {Map<string, any>} factories
 		 */

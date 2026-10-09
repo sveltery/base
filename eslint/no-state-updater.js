@@ -1,6 +1,7 @@
 /**
  * Reject React's functional setState shape. Assign the next value.
  * Message ids are a SvelteSet, added and deleted by id.
+ * Known gaps: a setter that exists only as a type, and a `.bind` alias of a setter.
  *
  * @type {import('eslint').Rule.RuleModule}
  */
@@ -250,10 +251,31 @@ const rule = {
 					inits.set(node.id.name, node.init);
 				});
 				const ignored = new Set(['setTimeout', 'setInterval', 'setImmediate']);
+				/**
+				 * A same-file setter whose parameter is a function stores a callback.
+				 * `setRenderer((current) => current)` is that shape. An unresolved
+				 * `setX`, or a setter whose parameter is a value, still counts.
+				 * @param {any} fn
+				 */
+				function parameterExpectsCallback(fn) {
+					let value = unwrap(fn);
+					if (value?.type === 'Identifier') value = unwrap(inits.get(value.name));
+					if (
+						value?.type !== 'ArrowFunctionExpression' &&
+						value?.type !== 'FunctionExpression' &&
+						value?.type !== 'FunctionDeclaration'
+					) {
+						return false;
+					}
+					const param = unwrap(value.params?.[0]);
+					const annotation = unwrapType(param?.typeAnnotation?.typeAnnotation);
+					return annotation?.type === 'TSFunctionType';
+				}
 				walk(context.sourceCode.ast, (node) => {
 					if (node.type !== 'CallExpression') return;
 					const name = calleeName(node.callee);
 					if (!name || ignored.has(name) || !/^set[A-Z]/.test(name)) return;
+					if (parameterExpectsCallback(inits.get(name))) return;
 					for (const arg of node.arguments ?? []) {
 						if (updaterFunction(arg, inits)) report(unwrap(arg) ?? arg);
 					}

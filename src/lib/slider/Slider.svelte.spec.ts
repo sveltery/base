@@ -140,6 +140,18 @@ describe('<Slider />', () => {
 			expect(page.getByTestId('value').element().textContent).toBe('$30.00');
 		});
 
+		it('does not let an older label cleanup clear a newer label', async () => {
+			render(SliderHarness, { scenario: 'labels', defaultValue: 30 });
+			const slider = page.getByRole('slider');
+
+			await expect.element(slider).toHaveAttribute('aria-labelledby', 'old-label');
+			await page.getByRole('button', { name: 'Show both' }).click();
+			await expect.element(slider).toHaveAttribute('aria-labelledby', 'new-label');
+			await page.getByRole('button', { name: 'Show new' }).click();
+			await expect.element(slider).toHaveAttribute('aria-labelledby', 'new-label');
+			await expect.element(page.getByTestId('old')).not.toBeInTheDocument();
+		});
+
 		it('links Slider.Label after the label id is registered', async () => {
 			render(SliderHarness, { scenario: 'label', defaultValue: 30 });
 			const label = page.getByTestId('label').element();

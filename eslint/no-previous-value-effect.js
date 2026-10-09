@@ -2,6 +2,7 @@
  * Reject an effect that compares a value against the copy it stored on its
  * previous run. The variable name is irrelevant. Run the side effect on the
  * path that commits the value.
+ * Known gap: a context hook that returns `as T` or declares its return type.
  *
  * @type {import('eslint').Rule.RuleModule}
  */
@@ -317,14 +318,6 @@ const rule = {
 			return candidates.find((candidate) => existsSync(candidate)) ?? null;
 		}
 
-		/**
-		 * @param {any} fn
-		 * @returns {string | null}
-		 */
-		/**
-		 * @param {any} node
-		 * @returns {string | null}
-		 */
 		/**
 		 * A module function that remembers a parameter and compares the next call
 		 * with it. A DOM walk that assigns a cursor and compares it with a parent

@@ -44,6 +44,8 @@ Proof of working order: in both frameworks, ArrowRight moves 30 to 31 and ArrowL
 
 `bound` is `bind:value` in Svelte and controlled `value` plus `onValueChange` in React.
 
+`Slider.Label` uses an author `id` when one is passed, and otherwise `${rootId}-label`. If two labels are mounted, the later one wins, and unmounting the earlier one does not clear the later id.
+
 Component tests (`src/lib/slider/Slider.svelte.spec.ts`) cover ARIA, keyboard, pointer and touch, collision utilities, Field state, Form submit, cancellation, and the missing-context error.
 
 ## Gotchas

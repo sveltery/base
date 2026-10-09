@@ -67,12 +67,12 @@ describe('<NumberField />', () => {
 		await expect.poll(() => page.getByTestId('calls').element().textContent).toBe('1');
 	});
 
-	it('validates when autofill repeats the current value', async () => {
+	it('does not validate when autofill repeats the current value', async () => {
 		render(NumberFieldHarness, { scenario: 'autofill' });
 		const hidden = hiddenNumber();
 		expect(hidden.value).toBe('4');
 		hidden.dispatchEvent(new Event('change', { bubbles: true }));
-		await expect.poll(() => page.getByTestId('calls').element().textContent).toBe('1');
+		await expect.poll(() => page.getByTestId('calls').element().textContent).toBe('0');
 		expect(hidden.value).toBe('4');
 	});
 

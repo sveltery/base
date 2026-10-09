@@ -30,6 +30,7 @@
 	let field = $state<FieldRootActions | undefined>();
 	let outerDisabled = $state(false);
 	let showLabel = $state(true);
+	let labels = $state<'old' | 'both' | 'new'>('old');
 
 	function accept(formValues: Record<string, unknown>, details: { event: Event }) {
 		({ submitted, values } = takeForm(formValues, details, submitted));
@@ -72,6 +73,18 @@
 		<Field.Control data-testid="control" />
 	</Field.Root>
 	<button type="button" onclick={() => (showLabel = false)}>Remove label</button>
+{:else if scenario === 'labels'}
+	<Field.Root>
+		{#if labels !== 'new'}
+			<Field.Label id="old-label" data-testid="old">Old</Field.Label>
+		{/if}
+		{#if labels !== 'old'}
+			<Field.Label id="new-label" data-testid="new">New</Field.Label>
+		{/if}
+		<Field.Control data-testid="control" />
+	</Field.Root>
+	<button type="button" onclick={() => (labels = 'both')}>Show both</button>
+	<button type="button" onclick={() => (labels = 'new')}>Show new</button>
 {:else if scenario === 'explicit-id'}
 	<Field.Root>
 		<Field.Label data-testid="label">Email</Field.Label>

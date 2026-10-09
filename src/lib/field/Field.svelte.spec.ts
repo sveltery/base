@@ -64,6 +64,18 @@ describe('Field', () => {
 			expect(page.getByTestId('label').element().getAttribute('for')).toBe(id);
 		});
 
+		it('does not let an older label cleanup clear a newer label', async () => {
+			render(FieldHarness, { scenario: 'labels' });
+			const control = page.getByTestId('control');
+
+			await expect.element(control).toHaveAttribute('aria-labelledby', 'old-label');
+			await page.getByRole('button', { name: 'Show both' }).click();
+			await expect.element(control).toHaveAttribute('aria-labelledby', 'new-label');
+			await page.getByRole('button', { name: 'Show new' }).click();
+			await expect.element(control).toHaveAttribute('aria-labelledby', 'new-label');
+			await expect.element(page.getByTestId('old')).not.toBeInTheDocument();
+		});
+
 		it('clears aria-labelledby when the label unmounts', async () => {
 			render(FieldHarness, { scenario: 'label-unmount' });
 			const control = page.getByTestId('control');
@@ -500,7 +512,7 @@ describe('Field', () => {
 		await expect.poll(() => text('values')).toBe(JSON.stringify({ b: 'x' }));
 	});
 
-	it('submits the value the control held when it mounted', async () => {
+	it('submits the mounted default value under the field name', async () => {
 		render(FieldLowHarness, { scenario: 'initial' });
 		await expect.element(page.getByTestId('control')).toHaveValue('x');
 		await page.getByRole('button', { name: 'Submit' }).click();

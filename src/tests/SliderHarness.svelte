@@ -91,6 +91,7 @@
 	);
 	let errors = $state<Record<string, string>>({ slider: 'stale' });
 	let submitted = $state('');
+	let labels = $state<'old' | 'both' | 'new'>('old');
 
 	function accept(values: Record<string, unknown>, details: { reason: string }) {
 		submitted = JSON.stringify({ values, reason: details.reason });
@@ -298,6 +299,22 @@
 		</Slider.Root>
 		<output data-testid="change-tracking">{String(changeTracked)}</output>
 		<output data-testid="commit-tracking">{String(commitTracked)}</output>
+	{:else if scenario === 'labels'}
+		<Slider.Root {defaultValue} data-testid="root">
+			{#if labels !== 'new'}
+				<Slider.Label id="old-label" data-testid="old">Old</Slider.Label>
+			{/if}
+			{#if labels !== 'old'}
+				<Slider.Label id="new-label" data-testid="new">New</Slider.Label>
+			{/if}
+			<Slider.Control data-testid="control">
+				<Slider.Track>
+					<Slider.Thumb />
+				</Slider.Track>
+			</Slider.Control>
+		</Slider.Root>
+		<button type="button" onclick={() => (labels = 'both')}>Show both</button>
+		<button type="button" onclick={() => (labels = 'new')}>Show new</button>
 	{:else if scenario === 'orphan'}
 		<Slider.Control />
 	{:else if scenario === 'field' || scenario === 'field-label'}
