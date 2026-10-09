@@ -20,9 +20,13 @@
 	const id = $derived(idProp ?? `base-ui-${generatedId}`);
 	const state: ProgressState = $derived({ status: context.computed.status });
 
-	registerLabelId(() => id, (next) => context.setLabelId(next), {
-		readCurrent: () => context.labelId
-	});
+	registerLabelId(
+		() => id,
+		(next) => context.setLabelId(next),
+		{
+			readCurrent: () => context.labelId
+		}
+	);
 
 	const hostProps: HTMLAttributes<HTMLSpanElement> = $derived({
 		...elementProps,
