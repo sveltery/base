@@ -3,6 +3,7 @@
 // React.Activity's resume-animation suppression is not recreated.
 
 import { on } from 'svelte/events';
+import { useAnimationFrame } from '../internal/timeout.svelte.js';
 import { runOnceAnimationsFinish } from '../internal/animations-finished.js';
 import { REASONS } from '../internal/event-details.js';
 import type { CollapsibleRoot } from './context.svelte.js';
@@ -18,6 +19,7 @@ import {
 import type { TransitionStatus } from './types.js';
 
 export class CollapsiblePanelMotion {
+	private readonly endingFrame = useAnimationFrame();
 	height = $state<number | undefined>(undefined);
 	width = $state<number | undefined>(undefined);
 	panel = $state<HTMLElement | null>(null);
@@ -186,7 +188,7 @@ export class CollapsiblePanelMotion {
 			if (!panel || open || !mounted || status !== 'ending') return;
 
 			const abort = new AbortController();
-			const frame = requestAnimationFrame(() => {
+			this.endingFrame.request(() => {
 				runOnceAnimationsFinish(
 					panel,
 					() => {
@@ -199,7 +201,7 @@ export class CollapsiblePanelMotion {
 				);
 			});
 			return () => {
-				cancelAnimationFrame(frame);
+				this.endingFrame.cancel();
 				abort.abort();
 			};
 		});

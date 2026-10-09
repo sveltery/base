@@ -187,7 +187,8 @@ Parts of this package derive from [Base UI](https://github.com/mui/base-ui) v1.8
 - `src/lib/toolbar/item-registration.svelte.ts` from the item ref in `packages/react/src/internals/composite/item/useCompositeItem.ts`
 - `src/lib/scroll-area/track-style.ts` and `src/lib/scroll-area/scrollbar-part.svelte.ts` from the scrollbar geometry in `packages/react/src/scroll-area/scrollbar/ScrollAreaScrollbar.tsx`
 - `src/lib/internal/roving-keys.ts` from the arrow-key helpers in `packages/react/src/internals/composite/root/useCompositeRoot.ts` (`modifierHeld`, `axisKeys`, `stepLinear`)
-- `src/lib/internal/timeout.ts` from `packages/utils/src/useTimeout.ts` (`Timeout`), `packages/utils/src/useAnimationFrame.ts` (`AnimationFrame`), and `packages/react/src/internals/TimeoutManager.ts`. The React hooks are not ported.
+- `src/lib/internal/timeout.ts` from `packages/utils/src/useTimeout.ts` (`Timeout`), `packages/utils/src/useAnimationFrame.ts` (`AnimationFrame`), and `packages/react/src/internals/TimeoutManager.ts`
+- `src/lib/internal/timeout.svelte.ts` from `packages/utils/src/useTimeout.ts` (`useTimeout`) and `packages/utils/src/useAnimationFrame.ts` (`useAnimationFrame`). Cleanup is `$effect`, not `useOnMount`
 - `src/lib/otp-field/otp.spec.ts` assertions from `packages/react/src/otp-field/utils/otp.test.ts`
 - `src/lib/otp-field/OTPField.svelte.spec.ts` assertions from `packages/react/src/otp-field/**/*.test.tsx` that do not require React refs or `className` callbacks
 - `src/lib/csp-provider/CSPProvider.svelte` from `packages/react/src/csp-provider/CSPProvider.tsx`
@@ -245,7 +246,6 @@ Parts of this package derive from [Base UI](https://github.com/mui/base-ui) v1.8
 - `src/lib/internal/popups/popupHandle.svelte.ts` from `packages/react/src/utils/popups/popupHandle.ts` and `src/lib/dialog/handle.svelte.ts` from `packages/react/src/dialog/store/DialogHandle.ts` (`openWithPayload` stays on `Dialog.Handle`; payload is stored on the registered trigger)
 - `src/lib/dialog/context.svelte.ts` from `packages/react/src/dialog/root/DialogRootContext.ts` and `packages/react/src/dialog/portal/DialogPortalContext.ts`
 - `src/lib/dialog/attributes.ts` from `packages/react/src/dialog/utils/stateAttributesMapping.ts` and the dialog `*DataAttributes.ts` files
-- `src/lib/dialog/outside-press.ts` from the outside-press predicate in `packages/react/src/dialog/root/useDialogRoot.ts`
 - `src/lib/dialog/Dialog.svelte.spec.ts` assertions from `packages/react/src/dialog/**/*.test.tsx` that do not require Alert Dialog, Drawer, Menu, or Select
 - `src/lib/internal/popups/store.svelte.ts` `forceUnmount` and `notifyOpenChangeComplete` expose the close-completion path Dialog's `unmount()` and open animation use
 

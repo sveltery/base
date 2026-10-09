@@ -1,22 +1,39 @@
 <script lang="ts">
 	import { Dialog, Popover } from '#lib';
 
-	let { part }: { part: 'dialog' | 'popover' } = $props();
+	let { part, mode = 'release' }: { part: 'dialog' | 'popover'; mode?: 'release' | 'swap' } =
+		$props();
 	let holder = $state<HTMLDivElement | null>(null);
+	let other = $state<HTMLDivElement | null>(null);
+	let useOther = $state(false);
 	let released = $state(false);
-	const container = $derived<HTMLElement | null>(released || !holder ? null : holder);
+	const container = $derived<HTMLElement | null>(
+		mode === 'swap' ? (useOther ? other : holder) : released || !holder ? null : holder
+	);
+	const ready = $derived(mode === 'swap' ? holder != null && other != null : holder != null);
 
 	function exposeClear(node: HTMLDivElement) {
 		(node as HTMLDivElement & { clearContainer: () => void }).clearContainer = () => {
 			released = true;
 		};
 	}
+
+	function exposeSwap(node: HTMLDivElement) {
+		(node as HTMLDivElement & { swap: () => void }).swap = () => {
+			useOther = true;
+		};
+	}
 </script>
 
-<div bind:this={holder} data-testid="portal-holder" {@attach exposeClear}></div>
-<button type="button" data-testid="release" onclick={() => (released = true)}>Release</button>
+{#if mode === 'swap'}
+	<div bind:this={holder} data-testid="box-a" {@attach exposeSwap}></div>
+	<div bind:this={other} data-testid="box-b"></div>
+{:else}
+	<div bind:this={holder} data-testid="portal-holder" {@attach exposeClear}></div>
+	<button type="button" data-testid="release" onclick={() => (released = true)}>Release</button>
+{/if}
 
-{#if holder}
+{#if ready}
 	{#if part === 'dialog'}
 		<Dialog.Root defaultOpen>
 			<Dialog.Trigger>Open</Dialog.Trigger>

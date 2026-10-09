@@ -1,6 +1,7 @@
 // Derived from Base UI v1.8.0 packages/react/src/collapsible/panel/useCollapsiblePanel.ts
 // (commit 47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c). MIT, see THIRD_PARTY_NOTICES.md.
 
+import { useAnimationFrame } from '../internal/timeout.svelte.js';
 import { devWarn } from './warn.js';
 
 export type AnimationType = 'css-transition' | 'css-animation' | 'none';
@@ -94,9 +95,10 @@ export function resetLayoutStyles(element: HTMLElement): () => void {
 		}
 	}
 
-	const frame = requestAnimationFrame(restore);
+	const frame = useAnimationFrame();
+	frame.request(restore);
 	return () => {
-		cancelAnimationFrame(frame);
+		frame.cancel();
 		restore();
 	};
 }

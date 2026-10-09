@@ -5,6 +5,7 @@
 -->
 <script lang="ts">
 	import { untrack } from 'svelte';
+	import { useTimeout } from '../internal/timeout.svelte.js';
 	import { getStateAttributesProps } from '../internal/state-attributes.js';
 	import { avatarStateAttributesMapping } from './attributes.js';
 	import { useAvatarContext } from './context.js';
@@ -13,6 +14,7 @@
 	let { render, delay = 0, children, ...elementProps }: AvatarFallbackProps = $props();
 
 	const root = useAvatarContext();
+	const delayTimer = useTimeout();
 	// `delay === 0` is visible on the first render, including SSR, before the effect runs.
 	let delayPassed = $state(untrack(() => delay === 0));
 	const partState: AvatarFallbackState = $derived({
@@ -24,10 +26,10 @@
 
 	$effect(() => {
 		if (delay > 0) {
-			const timeout = setTimeout(() => {
+			delayTimer.start(delay, () => {
 				delayPassed = true;
-			}, delay);
-			return () => clearTimeout(timeout);
+			});
+			return () => delayTimer.clear();
 		}
 		// A fallback that has already been shown stays shown if `delay` later becomes positive.
 		delayPassed = true;
