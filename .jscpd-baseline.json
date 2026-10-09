@@ -79,7 +79,7 @@
 		},
 		"typescript:src/lib/checkbox/CheckboxRoot.svelte|src/lib/switch/SwitchRoot.svelte": {
 			"count": 1,
-			"lines": 12
+			"lines": 10
 		},
 		"typescript:src/lib/field/model.svelte.ts|src/lib/field/model.svelte.ts": {
 			"count": 1,
