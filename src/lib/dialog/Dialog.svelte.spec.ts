@@ -898,34 +898,76 @@ describe('Dialog', () => {
 		);
 	}
 
+	function pointerDownTouch(target: HTMLElement) {
+		target.dispatchEvent(
+			new PointerEvent('pointerdown', { bubbles: true, button: 0, pointerType: 'touch' })
+		);
+	}
+
+	function mouseDown(target: HTMLElement) {
+		target.dispatchEvent(new MouseEvent('mousedown', { bubbles: true, button: 0 }));
+	}
+
+	/** Close removes `data-open` immediately. The node can stay mounted for the exit transition. */
+	function expectStillOpen() {
+		const dialog = dialogLocator().element() as HTMLElement;
+		expect(dialog.hasAttribute('data-open')).toBe(true);
+	}
+
 	async function expectTouchTapCloses(modal: false | 'trap-focus') {
 		render(DialogHarness, { modal, withBackdrop: false });
 		await openDialog();
 		const outside = page.getByTestId('outside').element() as HTMLElement;
-		outside.dispatchEvent(
-			new PointerEvent('pointerdown', { bubbles: true, button: 0, pointerType: 'touch' })
-		);
+		pointerDownTouch(outside);
+		const point = touchPoint(outside, 50, 50);
+		fireTouch(outside, 'touchstart', [point]);
+		fireTouch(outside, 'touchend', [], [point]);
 		await tick();
-		expect(dialogLocator().elements()).toHaveLength(1);
-		const start = touchPoint(outside, 50, 50);
-		const end = touchPoint(outside, 50, 56);
-		fireTouch(outside, 'touchstart', [start]);
-		fireTouch(outside, 'touchmove', [end]);
-		await tick();
-		expect(dialogLocator().elements()).toHaveLength(1);
-		fireTouch(outside, 'touchend', [], [end]);
+		expectStillOpen();
+		mouseDown(outside);
 		await dialogs(0);
+		outside.dispatchEvent(new MouseEvent('click', { bubbles: true, button: 0 }));
+		expect(dialogLocator().elements()).toHaveLength(0);
 	}
 
-	it('closes a non-modal dialog on an outside touch tap at touchend', async () => {
+	it('closes a non-modal dialog on an outside touch tap at mousedown', async () => {
 		await expectTouchTapCloses(false);
 	});
 
-	it('closes a trap-focus dialog on an outside touch tap at touchend', async () => {
+	it('closes a trap-focus dialog on an outside touch tap at mousedown', async () => {
 		await expectTouchTapCloses('trap-focus');
 	});
 
-	it('does not close on touchend when the finger moved less than the sloppy threshold', async () => {
+	it('closes a short touch move on the compatibility mousedown', async () => {
+		render(DialogHarness, { modal: false, withBackdrop: false });
+		await openDialog();
+		const outside = page.getByTestId('outside').element() as HTMLElement;
+		pointerDownTouch(outside);
+		const start = touchPoint(outside, 50, 50);
+		const end = touchPoint(outside, 50, 54);
+		fireTouch(outside, 'touchstart', [start]);
+		fireTouch(outside, 'touchmove', [end]);
+		fireTouch(outside, 'touchend', [], [end]);
+		mouseDown(outside);
+		await dialogs(0);
+	});
+
+	it('closes a long press on the compatibility mousedown', async () => {
+		render(DialogHarness, { modal: false, withBackdrop: false });
+		await openDialog();
+		const outside = page.getByTestId('outside').element() as HTMLElement;
+		pointerDownTouch(outside);
+		const point = touchPoint(outside, 50, 50);
+		fireTouch(outside, 'touchstart', [point]);
+		await new Promise((resolve) => setTimeout(resolve, 1200));
+		fireTouch(outside, 'touchend', [], [point]);
+		await tick();
+		expectStillOpen();
+		mouseDown(outside);
+		await dialogs(0);
+	});
+
+	it('does not close on touchend when the move is under 5px', async () => {
 		render(DialogHarness, { modal: false, withBackdrop: false });
 		await openDialog();
 		const outside = page.getByTestId('outside').element() as HTMLElement;
@@ -935,21 +977,83 @@ describe('Dialog', () => {
 		fireTouch(outside, 'touchmove', [end]);
 		fireTouch(outside, 'touchend', [], [end]);
 		await tick();
-		expect(dialogLocator().elements()).toHaveLength(1);
+		expectStillOpen();
 	});
 
-	it('does not close a touch that ends after the dismiss window', async () => {
+	it('closes on touchend when the move passes 5px', async () => {
 		render(DialogHarness, { modal: false, withBackdrop: false });
 		await openDialog();
 		const outside = page.getByTestId('outside').element() as HTMLElement;
 		const start = touchPoint(outside, 50, 50);
-		const end = touchPoint(outside, 50, 56);
+		const end = touchPoint(outside, 50, 57);
 		fireTouch(outside, 'touchstart', [start]);
-		await new Promise((resolve) => setTimeout(resolve, 1100));
 		fireTouch(outside, 'touchmove', [end]);
 		fireTouch(outside, 'touchend', [], [end]);
+		await dialogs(0);
+	});
+
+	it('does not close on mousedown while the finger is still down after the dismiss window', async () => {
+		render(DialogHarness, { modal: false, withBackdrop: false });
+		await openDialog();
+		const outside = page.getByTestId('outside').element() as HTMLElement;
+		pointerDownTouch(outside);
+		fireTouch(outside, 'touchstart', [touchPoint(outside, 50, 50)]);
+		await new Promise((resolve) => setTimeout(resolve, 1100));
+		mouseDown(outside);
 		await tick();
-		expect(dialogLocator().elements()).toHaveLength(1);
+		expectStillOpen();
+	});
+
+	it('does not close when a touch starts inside and scrolls away', async () => {
+		render(DialogHarness, { modal: false, withBackdrop: false });
+		await openDialog();
+		const popup = dialogLocator().element() as HTMLElement;
+		const outside = page.getByTestId('outside').element() as HTMLElement;
+		const start = touchPoint(popup, 10, 10);
+		const end = touchPoint(outside, 10, 40);
+		fireTouch(popup, 'touchstart', [start]);
+		fireTouch(outside, 'touchmove', [end]);
+		await tick();
+		expectStillOpen();
+	});
+
+	it('does not close on a non-primary click', async () => {
+		render(DialogHarness, { modal: false, withBackdrop: false });
+		await openDialog();
+		const outside = page.getByTestId('outside').element() as HTMLElement;
+		outside.dispatchEvent(new MouseEvent('click', { bubbles: true, button: 2, detail: 0 }));
+		await tick();
+		expectStillOpen();
+	});
+
+	it('waits for the click when a backdrop makes touch intentional', async () => {
+		render(DialogHarness, { modal: false, withBackdrop: true });
+		await openDialog();
+		const backdrop = document.querySelector('[data-base-ui-portal] [role="presentation"]');
+		if (!(backdrop instanceof HTMLElement)) throw new Error('missing backdrop');
+		pointerDownTouch(backdrop);
+		const point = touchPoint(backdrop, 40, 40);
+		fireTouch(backdrop, 'touchstart', [point]);
+		fireTouch(backdrop, 'touchend', [], [point]);
+		mouseDown(backdrop);
+		await tick();
+		expectStillOpen();
+		backdrop.dispatchEvent(new MouseEvent('click', { bubbles: true, button: 0, detail: 0 }));
+		await dialogs(0);
+	});
+
+	it('does not close when two touches lift after a short move', async () => {
+		render(DialogHarness, { modal: false, withBackdrop: false });
+		await openDialog();
+		const outside = page.getByTestId('outside').element() as HTMLElement;
+		const first = touchPoint(outside, 50, 50);
+		const moved = touchPoint(outside, 50, 56);
+		const movedSecond = touchPoint(outside, 80, 56, 2);
+		fireTouch(outside, 'touchstart', [first]);
+		fireTouch(outside, 'touchmove', [moved]);
+		fireTouch(outside, 'touchend', [], [moved, movedSecond]);
+		await tick();
+		expectStillOpen();
 	});
 
 	it('closes a trap-focus dialog on mouse pointerdown and not a secondary button', async () => {
@@ -987,7 +1091,7 @@ describe('Dialog', () => {
 		outside.dispatchEvent(new PointerEvent('pointerdown', { bubbles: true, button: 0 }));
 		outside.click();
 		await tick();
-		expect(dialogLocator().elements()).toHaveLength(1);
+		expectStillOpen();
 	});
 
 	it('closes only the inner dialog when a nested dialog is pressed outside', async () => {

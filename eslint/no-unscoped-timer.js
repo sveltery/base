@@ -1,6 +1,6 @@
 /**
- * Timers are created with `useTimeout` / `useAnimationFrame`.
- * `new Timeout()`, `Timeout.create()`, `new AnimationFrame()`, and
+ * Timers are created with `useTimeout` / `useInterval` / `useAnimationFrame`.
+ * `new Timeout()`, `Timeout.create()`, `new Interval()`, `new AnimationFrame()`, and
  * `AnimationFrame.create()` belong in `src/lib/internal/timeout.ts`
  * (the classes) and `src/lib/internal/timeout.svelte.ts` (the scoped factories).
  * An import alias or a `const` alias of the class or of `.create` is the same call.
@@ -8,7 +8,7 @@
  * @type {import('eslint').Rule.RuleModule}
  */
 
-const CLASSES = new Set(['Timeout', 'AnimationFrame']);
+const CLASSES = new Set(['Timeout', 'AnimationFrame', 'Interval']);
 
 /**
  * @param {string} filename
@@ -55,15 +55,6 @@ function definitionOf(sourceCode, identifier) {
 	return variable?.defs[0] ?? null;
 }
 
-/**
- * @param {import('eslint').SourceCode} sourceCode
- * @param {unknown} node
- * @param {Set<import('estree').Node>} seen
- */
-/**
- * @param {import('eslint').SourceCode} sourceCode
- * @param {unknown} node
- */
 function namespaceImport(sourceCode, node) {
 	const value = unwrap(node);
 	if (!value || value.type !== 'Identifier') return false;
@@ -107,10 +98,10 @@ function resolvesToClass(sourceCode, node, seen) {
 	return false;
 }
 
-const RAW_TIMERS = new Set(['setTimeout', 'requestAnimationFrame']);
+const RAW_TIMERS = new Set(['setTimeout', 'setInterval', 'requestAnimationFrame']);
 
 /**
- * A global `setTimeout` / `requestAnimationFrame`, including `globalThis.setTimeout`.
+ * A global `setTimeout`, `setInterval`, or `requestAnimationFrame`, including `globalThis.setTimeout`.
  * A local binding with that name is left alone.
  * @param {import('eslint').SourceCode} sourceCode
  * @param {import('estree').CallExpression} node
@@ -168,6 +159,36 @@ function resolvesToCreate(sourceCode, node, seen) {
 	return resolvesToClass(sourceCode, declarator.init, seen);
 }
 
+/**
+ * `AnimationFrame.request` while a popup is unmounting.
+ * `useAnimationFrame()` cancels in its `$effect` cleanup, so the frame that puts
+ * focus back on the trigger after a backdrop click would never run. This file is
+ * the allowlist entry for that call. `new AnimationFrame()` here is still rejected.
+ * @param {string} filename
+ * @param {import('eslint').SourceCode} sourceCode
+ * @param {import('estree').CallExpression} node
+ */
+function isUnmountReturnFrame(filename, sourceCode, node) {
+	const path = filename.replaceAll('\\', '/');
+	if (
+		!path.endsWith('/src/lib/internal/floating-ui-react/components/FloatingFocusManager.svelte')
+	) {
+		return false;
+	}
+	return isAnimationFrameRequest(sourceCode, node);
+}
+
+/**
+ * @param {import('eslint').SourceCode} sourceCode
+ * @param {import('estree').CallExpression} node
+ */
+function isAnimationFrameRequest(sourceCode, node) {
+	const callee = unwrap(node.callee);
+	if (!callee || callee.type !== 'MemberExpression' || callee.computed) return false;
+	if (callee.property.type !== 'Identifier' || callee.property.name !== 'request') return false;
+	return resolvesToClass(sourceCode, callee.object, new Set());
+}
+
 /** @type {import('eslint').Rule.RuleModule} */
 const rule = {
 	meta: {
@@ -179,7 +200,7 @@ const rule = {
 		schema: [],
 		messages: {
 			unscoped:
-				'Create this timer with `useTimeout()` or `useAnimationFrame()` from `src/lib/internal/timeout.svelte.ts` so it is cleared when the component is destroyed.'
+				'Create this timer with `useTimeout()`, `useInterval()`, or `useAnimationFrame()` from `src/lib/internal/timeout.svelte.ts` so it is cleared when the component is destroyed.'
 		}
 	},
 	create(context) {
@@ -191,9 +212,11 @@ const rule = {
 				context.report({ node: node.callee, messageId: 'unscoped' });
 			},
 			CallExpression(node) {
+				if (isUnmountReturnFrame(context.filename, sourceCode, node)) return;
 				if (
 					rawTimerCall(sourceCode, node) ||
-					resolvesToCreate(sourceCode, node.callee, new Set())
+					resolvesToCreate(sourceCode, node.callee, new Set()) ||
+					isAnimationFrameRequest(sourceCode, node)
 				) {
 					context.report({ node: node.callee, messageId: 'unscoped' });
 				}

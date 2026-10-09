@@ -156,3 +156,26 @@ export class TimeoutManager {
 		this.ids.clear();
 	}
 }
+
+type IntervalId = ReturnType<typeof setInterval>;
+
+/** Repeating timer. `useInterval` in `timeout.svelte.ts` clears it when the owner is destroyed. */
+export class Interval {
+	static create() {
+		return new Interval();
+	}
+
+	currentId: IntervalId | null = null;
+
+	start(delay: number, fn: () => void) {
+		this.clear();
+		this.currentId = setInterval(fn, delay);
+	}
+
+	clear = () => {
+		if (this.currentId !== null) {
+			clearInterval(this.currentId);
+			this.currentId = null;
+		}
+	};
+}
