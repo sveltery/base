@@ -82,7 +82,7 @@ describe('<NumberField />', () => {
 				clientY: 4
 			})
 		);
-		await expect.poll(() => control().element().value, { timeout: 1500 }).toBe('6');
+		await expect.element(control()).toHaveValue('6');
 		view.unmount();
 		await new Promise((resolve) => setTimeout(resolve, 180));
 		expect(document.querySelector('[data-testid="control"]')).toBeNull();
