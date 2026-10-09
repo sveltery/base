@@ -2,7 +2,7 @@ import type { Snippet } from 'svelte';
 import type { HTMLAttributes, HTMLButtonAttributes } from 'svelte/elements';
 import type { BaseUIChangeEventDetails, REASONS } from '../internal/event-details.js';
 import type { TransitionStatus } from '../collapsible/types.js';
-import type { RenderChildren } from '../internal/render-children.js';
+import type { PartRender, RenderChildren } from '../internal/render-children.js';
 
 export type AccordionOrientation = 'horizontal' | 'vertical';
 
@@ -43,10 +43,6 @@ export type AccordionRootChangeEventDetails =
 
 export type AccordionItemChangeEventReason = AccordionRootChangeEventReason;
 export type AccordionItemChangeEventDetails = AccordionRootChangeEventDetails;
-
-type PartRender<Element extends EventTarget, State> = Snippet<
-	[props: HTMLAttributes<Element>, state: State, children: RenderChildren]
->;
 
 export interface AccordionRootProps extends Omit<HTMLAttributes<HTMLDivElement>, 'children'> {
 	/**

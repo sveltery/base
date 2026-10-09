@@ -2,6 +2,7 @@ import { readFileSync } from 'node:fs';
 import { fileURLToPath } from 'node:url';
 import { describe, expect, it } from 'vitest';
 import { ESLint, type Linter } from 'eslint';
+import ts from 'typescript-eslint';
 import plugin from './plugin.js';
 
 const root = new URL('..', import.meta.url);
@@ -17,7 +18,11 @@ function eslintFor() {
 			{
 				files: ['**/*.{ts,svelte}'],
 				plugins: { sveltery: plugin as unknown as Linter.Plugin },
-				languageOptions: { ecmaVersion: 'latest', sourceType: 'module' },
+				languageOptions: {
+					parser: ts.parser,
+					ecmaVersion: 'latest',
+					sourceType: 'module'
+				},
 				rules: { 'sveltery/no-copied-helper': 'error' }
 			}
 		]
@@ -119,5 +124,44 @@ describe('sveltery/no-copied-helper', () => {
 			'src/lib/popover/cleaned-helpers.ts'
 		);
 		expect(cleaned).toEqual([]);
+	});
+
+	it('rejects a renamed copy by normalized body', async () => {
+		const copied = readFileSync(repoPath('eslint/fixtures/copied-helper-renamed.fail.ts'), 'utf8');
+		const failures = await messages(copied, 'src/lib/scroll-area/renamed.ts');
+		expect(failures.some((message) => message.includes('floating-ui-react/utils/event.ts'))).toBe(
+			true
+		);
+		expect(failures.some((message) => message.includes('popover/handle.svelte.ts'))).toBe(true);
+	});
+
+	it('rejects export { x as y } for a registered helper', async () => {
+		const copied = readFileSync(
+			repoPath('eslint/fixtures/copied-helper-export-alias.fail.ts'),
+			'utf8'
+		);
+		const failures = await messages(copied, 'src/lib/otp-field/alias.ts');
+		expect(failures.some((message) => message.includes('floating-ui-react/utils/event.ts'))).toBe(
+			true
+		);
+		expect(failures.some((message) => message.includes('`stopEvent`'))).toBe(true);
+	});
+
+	it('rejects a type alias with the same right-hand side under a new name', async () => {
+		const copied = readFileSync(
+			repoPath('eslint/fixtures/copied-helper-type-alias.fail.ts'),
+			'utf8'
+		);
+		const failures = await messages(copied, 'src/lib/scroll-area/alias-types.ts');
+		expect(failures.some((message) => message.includes('direction-provider/types.ts'))).toBe(true);
+		expect(failures.some((message) => message.includes('internal/render-children.ts'))).toBe(true);
+	});
+
+	it('allows a same-name re-export from the owner', async () => {
+		const reexport = await messages(
+			"export { registerLabelId } from '../internal/register-label-id.svelte.js';\n",
+			'src/lib/fieldset/register-label-id.svelte.ts'
+		);
+		expect(reexport).toEqual([]);
 	});
 });

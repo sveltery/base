@@ -1,6 +1,6 @@
 import type { Snippet } from 'svelte';
 import type { HTMLAttributes } from 'svelte/elements';
-import type { RenderChildren } from '../internal/render-children.js';
+import type { PartRender } from '../internal/render-children.js';
 
 /** Upstream meter part state is an empty object: these parts do not project state attributes. */
 export type MeterRootState = Record<string, never>;
@@ -12,10 +12,6 @@ export type MeterIndicatorState = MeterRootState;
 export type MeterValueState = MeterRootState;
 
 export type MeterLabelState = MeterRootState;
-
-type PartRender<Element extends EventTarget, State> = Snippet<
-	[props: HTMLAttributes<Element>, state: State, children: RenderChildren]
->;
 
 export interface MeterRootProps extends Omit<HTMLAttributes<HTMLDivElement>, 'children'> {
 	/**

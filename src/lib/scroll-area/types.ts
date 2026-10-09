@@ -1,9 +1,10 @@
 import type { Snippet } from 'svelte';
 import type { HTMLAttributes } from 'svelte/elements';
-import type { RenderChildren } from '../internal/render-children.js';
+import type { PartRender } from '../internal/render-children.js';
+
+export type { TextDirection } from '../direction-provider/types.js';
 
 export type ScrollAxis = 'vertical' | 'horizontal';
-export type TextDirection = 'ltr' | 'rtl';
 
 export interface Size {
 	width: number;
@@ -83,10 +84,6 @@ export type ScrollAreaViewportState = ScrollAreaRootState;
 export type ScrollAreaContentState = ScrollAreaRootState;
 export type ScrollAreaCornerState = Record<string, never>;
 
-type PartRender<State> = Snippet<
-	[props: HTMLAttributes<HTMLDivElement>, state: State, children: RenderChildren]
->;
-
 export interface ScrollAreaRootProps extends Omit<HTMLAttributes<HTMLDivElement>, 'children'> {
 	/**
 	 * The threshold in pixels that must be passed before the overflow edge attributes are applied.
@@ -95,13 +92,13 @@ export interface ScrollAreaRootProps extends Omit<HTMLAttributes<HTMLDivElement>
 	 */
 	overflowEdgeThreshold?: OverflowEdgeThreshold;
 	/** Replace the default `<div>`. Spread `props` onto the host element. */
-	render?: PartRender<ScrollAreaRootState>;
+	render?: PartRender<HTMLDivElement, ScrollAreaRootState>;
 	children?: Snippet;
 }
 
 export interface ScrollAreaViewportProps extends Omit<HTMLAttributes<HTMLDivElement>, 'children'> {
 	/** Replace the default `<div>`. Spread `props` onto the host element. */
-	render?: PartRender<ScrollAreaViewportState>;
+	render?: PartRender<HTMLDivElement, ScrollAreaViewportState>;
 	children?: Snippet;
 }
 
@@ -114,24 +111,24 @@ export interface ScrollAreaScrollbarProps extends Omit<HTMLAttributes<HTMLDivEle
 	 */
 	keepMounted?: boolean;
 	/** Replace the default `<div>`. Spread `props` onto the host element. */
-	render?: PartRender<ScrollAreaScrollbarState>;
+	render?: PartRender<HTMLDivElement, ScrollAreaScrollbarState>;
 	children?: Snippet;
 }
 
 export interface ScrollAreaThumbProps extends Omit<HTMLAttributes<HTMLDivElement>, 'children'> {
 	/** Replace the default `<div>`. Spread `props` onto the host element. */
-	render?: PartRender<ScrollAreaThumbState>;
+	render?: PartRender<HTMLDivElement, ScrollAreaThumbState>;
 	children?: Snippet;
 }
 
 export interface ScrollAreaContentProps extends Omit<HTMLAttributes<HTMLDivElement>, 'children'> {
 	/** Replace the default `<div>`. Spread `props` onto the host element. */
-	render?: PartRender<ScrollAreaContentState>;
+	render?: PartRender<HTMLDivElement, ScrollAreaContentState>;
 	children?: Snippet;
 }
 
 export interface ScrollAreaCornerProps extends Omit<HTMLAttributes<HTMLDivElement>, 'children'> {
 	/** Replace the default `<div>`. Spread `props` onto the host element. */
-	render?: PartRender<ScrollAreaCornerState>;
+	render?: PartRender<HTMLDivElement, ScrollAreaCornerState>;
 	children?: Snippet;
 }

@@ -14,3 +14,4 @@ export { useHoverFloatingInteraction } from '../floating-ui-react/hooks/useHover
 export { useHoverReferenceInteraction } from '../floating-ui-react/hooks/useHoverReferenceInteraction.svelte.js';
 export { safePolygon } from '../floating-ui-react/safePolygon.js';
 export { CLICK_TRIGGER_IDENTIFIER } from '../floating-ui-react/utils/constants.js';
+export { stopEvent } from '../floating-ui-react/utils/event.js';
