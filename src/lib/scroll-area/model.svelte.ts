@@ -76,7 +76,7 @@ export class ScrollAreaModel {
 	private currentOrientation: ScrollAxis = 'vertical';
 	private scrollPosition: Coords = { ...DEFAULT_COORDS };
 	private savedSnapType: string | null = null;
-	private readonly hostStyles = new WeakMap<HTMLElement, string | undefined>();
+	private readonly hostStyles = new WeakMap<HTMLElement, string | null | undefined>();
 	private programmaticScroll = true;
 	private lastMeasured: [number, number, number, number] = [NaN, NaN, NaN, NaN];
 	private readonly scrollYTimer = useTimeout();
@@ -450,7 +450,7 @@ export class ScrollAreaModel {
 		return () => resizeObserver.disconnect();
 	}
 
-	queueThumb(hidden: HiddenState, style: string | undefined) {
+	queueThumb(hidden: HiddenState, style: string | null | undefined) {
 		const direction = this.direction;
 		const viewport = this.viewportElement;
 		const styleChanged = this.styleChanged(viewport, style);
@@ -462,13 +462,13 @@ export class ScrollAreaModel {
 		});
 	}
 
-	holdThumb(vertical: boolean, style: string | undefined) {
+	holdThumb(vertical: boolean, style: string | null | undefined) {
 		const thumb = vertical ? this.thumbYElement : this.thumbXElement;
 		if (!this.styleChanged(thumb, style)) return;
 		this.computeThumbPosition();
 	}
 
-	private styleChanged(node: HTMLElement | null, style: string | undefined) {
+	private styleChanged(node: HTMLElement | null, style: string | null | undefined) {
 		if (!node) return false;
 		if (this.hostStyles.has(node) && this.hostStyles.get(node) === style) return false;
 		this.hostStyles.set(node, style);
