@@ -71,9 +71,27 @@ function makeRepo(left: string, right: string) {
 	const dir = mkdtempSync(path.join(tmpdir(), 'jscpd-gate-'));
 	git(dir, ['init', '-b', 'main']);
 	writeSources(dir, left, right);
+	git(dir, ['add', '.']);
 	const pairs = scanRepo(dir);
 	const sha = commitRepo(dir, pairs);
 	return { dir, sha };
+}
+
+function renamePadded(text: string, count: number) {
+	let live = text;
+	for (let index = count - 1; index >= 0; index -= 1) {
+		const from = `name${String(index).padStart(2, '0')}`;
+		live = live.replaceAll(from, `swap${String(index).padStart(2, '0')}`);
+	}
+	return live;
+}
+
+function renameWords(text: string, from: string, to: string, count: number) {
+	let live = text;
+	for (let index = count - 1; index >= 0; index -= 1) {
+		live = live.replace(new RegExp(`\\b${from}${index}\\b`, 'g'), `${to}${index}`);
+	}
+	return live;
 }
 
 function runGate(
@@ -170,6 +188,7 @@ describe('jscpd baseline CLI', () => {
 			const extra = source('otherfn', statements('extra', 12));
 			writeFileSync(path.join(dir, 'src/extra-a.ts'), extra);
 			writeFileSync(path.join(dir, 'src/extra-b.ts'), extra);
+			git(dir, ['add', 'src/extra-a.ts', 'src/extra-b.ts']);
 			writeFileSync(path.join(dir, '.jscpd-baseline.json'), baselineText(scanRepo(dir)));
 			const added = runGate(dir, sha);
 			expect(added.code).toBe(1);
@@ -401,6 +420,7 @@ describe('jscpd baseline CLI', () => {
 			const swapped = source('replacement', statements('other', 10));
 			writeFileSync(path.join(dir, 'src/left.ts'), swapped);
 			writeFileSync(path.join(dir, 'src/right.ts'), swapped);
+			git(dir, ['add', 'src/left.ts', 'src/right.ts']);
 			const reused = runGate(dir, sha);
 			expect(reused.code).toBe(1);
 			expect(reused.stderr).toContain('new clone pair');
@@ -514,6 +534,13 @@ describe('jscpd baseline CLI', () => {
 			const next = runGate(dir, sha2);
 			expect(next.code).toBe(0);
 			expect(next.stdout).toContain('1 clones');
+
+			const regrown = source('shared', statements('value', 9));
+			writeSources(dir, regrown, regrown);
+			const grown = runGate(dir, sha2);
+			expect(grown.code).toBe(1);
+			expect(grown.stderr).toContain('new clone pair');
+			expect(grown.stderr).toContain('typescript:src/left.ts|src/right.ts');
 		} finally {
 			rmSync(dir, { recursive: true, force: true });
 		}
@@ -548,6 +575,136 @@ describe('jscpd baseline CLI', () => {
 			const result = runGate(dir, sha);
 			expect(result.code).toBe(1);
 			expect(result.stderr).toContain('src/hidden.ts');
+		} finally {
+			rmSync(dir, { recursive: true, force: true });
+		}
+	}, 60_000);
+
+	it('rejects a multiline HTML comment that hides a clone every 7 lines', () => {
+		const dir = mkdtempSync(path.join(tmpdir(), 'jscpd-gate-'));
+		try {
+			git(dir, ['init', '-b', 'main']);
+			mkdirSync(path.join(dir, 'src'), { recursive: true });
+			mkdirSync(path.join(dir, 'eslint'), { recursive: true });
+			const page = (side: string) => {
+				const lines: string[] = [];
+				for (let block = 0; block < 4; block += 1) {
+					lines.push(
+						`<span class="row">shared token ${block}-0</span> <!-- ${side}only${block}aaa`
+					);
+					lines.push(`${side}only${block}bbb`);
+					lines.push(`${side}only${block}ccc --> <span class="row">shared token ${block}-1</span>`);
+					for (let row = 2; row < 7; row += 1) {
+						lines.push(`<span class="row">shared token ${block}-${row}</span>`);
+					}
+				}
+				return `${lines.join('\n')}\n`;
+			};
+			writeFileSync(path.join(dir, 'src/a.html'), page('left'));
+			writeFileSync(path.join(dir, 'src/b.html'), page('right'));
+			writeFileSync(path.join(dir, '.jscpd-baseline.json'), baselineText({}));
+			git(dir, ['add', '.']);
+			git(dir, ['commit', '-m', 'base']);
+			const sha = execFileSync('git', ['rev-parse', 'HEAD'], { cwd: dir, encoding: 'utf8' }).trim();
+			const hidden = runGate(dir, sha);
+			expect(hidden.code).toBe(1);
+			expect(hidden.stderr).toContain('new clone pair');
+			expect(hidden.stderr).toContain('markup:src/a.html|src/b.html');
+		} finally {
+			rmSync(dir, { recursive: true, force: true });
+		}
+	}, 60_000);
+
+	it('rejects a clone that a root and a src .ignore file would hide', () => {
+		const dir = mkdtempSync(path.join(tmpdir(), 'jscpd-gate-'));
+		try {
+			git(dir, ['init', '-b', 'main']);
+			mkdirSync(path.join(dir, 'src'), { recursive: true });
+			mkdirSync(path.join(dir, 'eslint'), { recursive: true });
+			writeFileSync(path.join(dir, 'src/keep.ts'), 'export const keep = 1;\n');
+			writeFileSync(path.join(dir, '.jscpd-baseline.json'), baselineText({}));
+			git(dir, ['add', '.']);
+			git(dir, ['commit', '-m', 'base']);
+			const sha = execFileSync('git', ['rev-parse', 'HEAD'], { cwd: dir, encoding: 'utf8' }).trim();
+			const clone = source('shared', statements('value', 12));
+			writeFileSync(path.join(dir, 'src/left.ts'), clone);
+			writeFileSync(path.join(dir, 'src/right.ts'), clone);
+			writeFileSync(path.join(dir, '.ignore'), 'src/right.ts\n');
+			writeFileSync(path.join(dir, 'src/.ignore'), 'left.ts\n');
+			git(dir, ['add', '.']);
+			const hidden = runGate(dir, sha);
+			expect(hidden.code).toBe(1);
+			expect(hidden.stderr).toContain('new clone pair');
+			expect(hidden.stderr).toContain('typescript:src/left.ts|src/right.ts');
+		} finally {
+			rmSync(dir, { recursive: true, force: true });
+		}
+	}, 60_000);
+
+	it('rejects about a 0.75 overlap and allows about 0.85', () => {
+		const lines = Array.from(
+			{ length: 20 },
+			(_, index) => `const name${String(index).padStart(2, '0')} = ${index} + 1;`
+		);
+		const original = source('shared', lines);
+		const { dir, sha } = makeRepo(original, original);
+		try {
+			const weak = renamePadded(original, 11);
+			writeSources(dir, weak, weak);
+			const low = runGate(dir, sha);
+			expect(low.code).toBe(1);
+			expect(low.stderr).toContain('0.8');
+			expect(low.stderr).toContain('will not clear this');
+
+			const close = renamePadded(original, 6);
+			writeSources(dir, close, close);
+			const high = runGate(dir, sha);
+			expect(high.code).toBe(0);
+			expect(high.stdout).toContain('1 clones');
+		} finally {
+			rmSync(dir, { recursive: true, force: true });
+		}
+	}, 60_000);
+
+	it('rejects a pair when only one of two clones is swapped', () => {
+		const block = (name: string) => source(name, statements(name, 12));
+		const separated = (side: string, second: string) =>
+			`${block('alpha')}\n${statements(`${side}Gap`, 12).join('\n')}\n${block(second)}`;
+		const { dir, sha } = makeRepo(separated('left', 'beta'), separated('right', 'beta'));
+		try {
+			const swapped = renameWords(separated('left', 'beta'), 'beta', 'gamma', 7);
+			const swappedRight = renameWords(separated('right', 'beta'), 'beta', 'gamma', 7);
+			writeSources(dir, swapped, swappedRight);
+			const result = runGate(dir, sha);
+			expect(result.code).toBe(1);
+			expect(result.stderr).toContain('0.8');
+			expect(result.stderr).toContain('will not clear this');
+			expect(result.stderr).toContain('typescript:src/left.ts|src/right.ts');
+		} finally {
+			rmSync(dir, { recursive: true, force: true });
+		}
+	}, 60_000);
+
+	it('rejects a clone padded past the 1 MB default file limit', () => {
+		const dir = mkdtempSync(path.join(tmpdir(), 'jscpd-gate-'));
+		try {
+			git(dir, ['init', '-b', 'main']);
+			mkdirSync(path.join(dir, 'src'), { recursive: true });
+			mkdirSync(path.join(dir, 'eslint'), { recursive: true });
+			writeFileSync(path.join(dir, 'src/keep.ts'), 'export const keep = 1;\n');
+			writeFileSync(path.join(dir, '.jscpd-baseline.json'), baselineText({}));
+			git(dir, ['add', '.']);
+			git(dir, ['commit', '-m', 'base']);
+			const sha = execFileSync('git', ['rev-parse', 'HEAD'], { cwd: dir, encoding: 'utf8' }).trim();
+			const clone = source('shared', statements('value', 12));
+			const pad = 'x'.repeat(1_200_000);
+			writeFileSync(path.join(dir, 'src/left.ts'), `${clone}\nconst leftPad = "${pad}";\n`);
+			writeFileSync(path.join(dir, 'src/right.ts'), `${clone}\nconst rightPad = "${pad}";\n`);
+			git(dir, ['add', 'src/left.ts', 'src/right.ts']);
+			const result = runGate(dir, sha);
+			expect(result.code).toBe(1);
+			expect(result.stderr).toContain('new clone pair');
+			expect(result.stderr).toContain('typescript:src/left.ts|src/right.ts');
 		} finally {
 			rmSync(dir, { recursive: true, force: true });
 		}

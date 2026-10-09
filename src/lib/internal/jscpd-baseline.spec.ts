@@ -1,7 +1,6 @@
 import { readFileSync } from 'node:fs';
 import { describe, expect, it } from 'vitest';
 import {
-	addedPairs,
 	baseRevision,
 	clonePairKey,
 	pairTotal,
@@ -28,29 +27,6 @@ describe('jscpd baseline', () => {
 		expect(baseRevision({ JSCPD_BASE_SHA: '   ' })).toBeNull();
 		expect(baseRevision({ JSCPD_BASE_SHA: '0000000' })).toBeNull();
 		expect(baseRevision({ JSCPD_BASE_SHA: 'origin/main' })).toBe('origin/main');
-	});
-
-	it('rejects a higher count, a higher line total, or a different pair', () => {
-		const allowed = {
-			'html:src/a.svelte|src/b.svelte': { count: 1, lines: 10 },
-			'typescript:src/a.ts|src/b.ts': { count: 2, lines: 20 }
-		};
-		expect(
-			addedPairs(allowed, { 'html:src/a.svelte|src/b.svelte': { count: 1, lines: 10 } })
-		).toEqual([]);
-		expect(addedPairs(allowed, {})).toEqual([]);
-		expect(
-			addedPairs(allowed, { 'typescript:src/a.ts|src/b.ts': { count: 1, lines: 10 } })
-		).toEqual([]);
-		expect(
-			addedPairs(allowed, { 'html:src/a.svelte|src/b.svelte': { count: 1, lines: 64 } })
-		).toEqual(['html:src/a.svelte|src/b.svelte']);
-		expect(
-			addedPairs(allowed, { 'html:src/a.svelte|src/b.svelte': { count: 2, lines: 10 } })
-		).toEqual(['html:src/a.svelte|src/b.svelte']);
-		expect(
-			addedPairs(allowed, { 'html:src/a.svelte|src/c.svelte': { count: 1, lines: 10 } })
-		).toEqual(['html:src/a.svelte|src/c.svelte']);
 	});
 
 	it('keys a clone by format and file pair, independent of side order', () => {

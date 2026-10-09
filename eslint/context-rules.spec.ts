@@ -108,4 +108,12 @@ describe('context rules', () => {
 			).toBe(true);
 		}
 	});
+
+	it('rejects input importing form context outside a spec', async () => {
+		const source = "import { unprovidedFormFieldCount } from '../form/context.js';\n";
+		const component = await messages(source, repoPath('src/lib/input/example.ts'));
+		expect(component.some((message) => message.includes('context module'))).toBe(true);
+		const spec = await messages(source, repoPath('src/lib/input/Input.svelte.spec.ts'));
+		expect(spec).toEqual([]);
+	});
 });

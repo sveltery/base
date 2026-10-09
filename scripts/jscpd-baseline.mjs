@@ -8,6 +8,10 @@
  * - A copy across formats, such as the same text in a `.ts` file and a `.js`
  *   file. Pair identity includes the format.
  * - One unique statement every fewer than 8 lines. That stays under `--min-lines`.
+ *
+ * Any match >=80% is required. Every live fragment has to overlap an ancestor
+ * fragment at or above 80%. One swapped clone beside an untouched clone fails
+ * the pair.
  */
 import { execFileSync } from 'node:child_process';
 import fs from 'node:fs';
@@ -19,8 +23,9 @@ const SCAN_ROOTS = ['src', 'eslint'];
 const SCRIPT_DIR = path.dirname(fileURLToPath(import.meta.url));
 const JSCPD = path.resolve(SCRIPT_DIR, '../node_modules/.bin/jscpd');
 const EMPTY_CONFIG = path.join(SCRIPT_DIR, 'jscpd-empty.json');
-const HTML_COMMENT_PATTERN = '<!--.*?-->';
+const HTML_COMMENT_PATTERN = '<!--[\\s\\S]*?-->';
 const OVERLAP_CUTOFF = 0.8;
+const MAX_FILE_SIZE = '100mb';
 
 /**
  * @param {string} verifySource
@@ -77,21 +82,47 @@ function presentRoots(repoRoot) {
 }
 
 /**
+ * Paths jscpd will be given. `git ls-files` is the index, so a committed
+ * `.ignore` or a gitignore rule cannot drop a tracked file from the scan.
+ * Specs and the history fixtures stay out of the list.
+ *
+ * @param {string} repoRoot
+ */
+function trackedSourceFiles(repoRoot) {
+	const roots = presentRoots(repoRoot);
+	if (roots.length === 0) return [];
+	const listed = execFileSync('git', ['ls-files', '-z', '--', ...roots], {
+		cwd: repoRoot,
+		encoding: 'utf8',
+		stdio: ['ignore', 'pipe', 'pipe']
+	});
+	return listed.split('\0').filter((file) => {
+		if (file === '') return false;
+		if (file.endsWith('.spec.ts') || file.endsWith('.svelte.spec.ts')) return false;
+		if (file.startsWith('eslint/fixtures/history/')) return false;
+		return true;
+	});
+}
+
+/**
  * `--config` points at an empty file this script owns, so a committed
- * `.jscpd.json` cannot set `skipLocal`. `--no-gitignore` keeps a force-added
- * file that `.gitignore` lists in the scan.
+ * `.jscpd.json` cannot set `skipLocal`. The file list is explicit, so
+ * `.ignore` and gitignore rules cannot filter it. `--max-size` is far above
+ * the detector default, so padding a file past 1 MB cannot hide a clone.
  *
  * @param {{ minLines: string, minTokens: string }} pin
  * @param {string} repoRoot
  */
 function scanArgs(pin, repoRoot) {
 	return [
-		...presentRoots(repoRoot),
+		...trackedSourceFiles(repoRoot),
 		'--absolute',
 		'--min-lines',
 		pin.minLines,
 		'--min-tokens',
 		pin.minTokens,
+		'--max-size',
+		MAX_FILE_SIZE,
 		'--ignore-pattern',
 		HTML_COMMENT_PATTERN,
 		'--config',
@@ -107,26 +138,6 @@ function scanArgs(pin, repoRoot) {
 /**
  * @typedef {{ count: number, lines: number, fragments?: string[] }} PairStat
  */
-
-/**
- * Pairs in `next` whose clone count or duplicated line total is above
- * `allowed`. A missing pair counts as zero. Identity is the file pair and
- * format. The remove-only gate does not use the line total. See `grantedPairs`.
- *
- * @param {Record<string, PairStat> | undefined} allowed
- * @param {Record<string, PairStat> | undefined} next
- * @returns {string[]}
- */
-export function addedPairs(allowed, next) {
-	const added = [];
-	for (const [key, stat] of Object.entries(next ?? {})) {
-		const previous = allowed?.[key];
-		if (stat.count > (previous?.count ?? 0) || stat.lines > (previous?.lines ?? 0)) {
-			added.push(key);
-		}
-	}
-	return added.sort();
-}
 
 /**
  * @param {Record<string, PairStat> | undefined} pairs
@@ -400,9 +411,8 @@ export function scanRepo(repoRoot) {
 }
 
 /**
- * Allowance comes from a scan of the base revision with the current detector.
- * A version 1 hash list or a version 2 count cannot express fragments, and a
- * version 3 file was written before HTML comments were ignored.
+ * Scan `rev` with this detector. The allowance is that scan, not a baseline
+ * file stored at `rev`.
  *
  * @param {string} rev
  * @returns {Record<string, PairStat>}

@@ -122,6 +122,15 @@ describe('sveltery/no-direct-field-registration', () => {
 		expect(reported.some((line) => line.includes('.bind('))).toBe(true);
 	});
 
+	it('rejects registerControl under src/tests', async () => {
+		const source = readFileSync(
+			new URL('fixtures/direct-field-registration-gaps.fail.svelte', import.meta.url),
+			'utf8'
+		);
+		const messages = await messagesFor(source, '/workspace/src/tests/probe.svelte');
+		expect(messages.length).toBeGreaterThan(0);
+	});
+
 	it('allows a different method and the shared helper', async () => {
 		const pass = readFileSync(
 			new URL('fixtures/direct-field-registration.pass.svelte', import.meta.url),
