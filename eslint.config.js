@@ -111,6 +111,7 @@ export default defineConfig(
 			'sveltery/no-copied-helper': 'error',
 			'sveltery/no-derived-inline-attachment': 'error',
 			'sveltery/no-inline-composite-keys': 'error',
+			'sveltery/no-layout-read-in-derived': 'error',
 			'sveltery/no-late-bound-getter': 'error',
 			'sveltery/no-uncontrolled-bindable': 'error',
 			'sveltery/no-computed-style-direction': 'error',

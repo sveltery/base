@@ -10,12 +10,18 @@
 import {
 	calleeName,
 	effectCallback,
+	fileOf,
 	functionsByName,
 	hasAncestor,
+	importBindings,
 	insideUntrack,
+	isDerivedCall,
+	loadNamedFunction,
+	nameOf,
 	parameterName,
 	unwrap,
-	valueReferences
+	valueReferences,
+	walk
 } from './effects.js';
 
 const rule = {
@@ -38,7 +44,10 @@ const rule = {
 		}
 	},
 	create(context) {
-		const fns = functionsByName(context.sourceCode.ast);
+		const source = context.sourceCode ?? context.getSourceCode();
+		const fns = functionsByName(source.ast);
+		const imports = importBindings(source.ast);
+		const filename = fileOf(context);
 		/** @type {Set<any>} */
 		const reportedParams = new Set();
 
@@ -49,6 +58,18 @@ const rule = {
 			let current = node?.parent;
 			while (current) {
 				if (current.type === 'CallExpression' && effectCallback(current)) return true;
+				current = current.parent;
+			}
+			return false;
+		}
+
+		/**
+		 * @param {any} node
+		 */
+		function insideDerived(node) {
+			let current = node?.parent;
+			while (current) {
+				if (current.type === 'CallExpression' && isDerivedCall(current)) return true;
 				current = current.parent;
 			}
 			return false;
@@ -345,12 +366,12 @@ const rule = {
 		return {
 			UnaryExpression(node) {
 				if (!isForcedRead(node)) return;
-				if (insideEffect(node) || !insideFunction(node)) {
+				if (insideEffect(node) || insideDerived(node) || !insideFunction(node)) {
 					context.report({ node, messageId: 'voidSignal' });
 				}
 			},
 			ExpressionStatement(node) {
-				if (!insideEffect(node)) return;
+				if (!insideEffect(node) && !insideDerived(node)) return;
 				const expr = unwrap(node.expression);
 				if (!expr || expr.type === 'UnaryExpression') return;
 				if (expr.type === 'Identifier' || expr.type === 'MemberExpression') {
@@ -358,8 +379,14 @@ const rule = {
 				}
 			},
 			CallExpression(node) {
-				if (!insideEffect(node) && insideFunction(node)) return;
-				if (!insideEffect(node) && node.parent?.type !== 'ExpressionStatement') return;
+				reportUnreadObjectProps(node, fns, imports, filename, context);
+				if (!insideEffect(node) && !insideDerived(node) && insideFunction(node)) return;
+				if (
+					!insideEffect(node) &&
+					!insideDerived(node) &&
+					node.parent?.type !== 'ExpressionStatement'
+				)
+					return;
 				const name = calleeName(node.callee);
 				const matches = name ? fns.get(name) : undefined;
 				if (!matches) return;
@@ -373,7 +400,7 @@ const rule = {
 				const refs = valueReferences(fn, name).filter((ref) => ref !== node.id);
 				const init = unwrap(node.init);
 				const signalInit = init && (init.type === 'Identifier' || init.type === 'MemberExpression');
-				if (effectFunction(node) && refs.length === 0 && signalInit) {
+				if ((effectFunction(node) || insideDerived(node)) && refs.length === 0 && signalInit) {
 					context.report({ node, messageId: 'voidSignal' });
 					return;
 				}
@@ -393,7 +420,9 @@ const rule = {
 			IfStatement(node) {
 				// A helper called from an effect is not nested in that effect, so
 				// limiting this to `insideEffect` lets the forced read through.
-				if (isAlwaysTrue(node.test)) {
+				// An `||` whose operands are used in the branch is a real condition.
+				// Outside an effect that is not a forced subscription.
+				if (isAlwaysTrue(node.test) && !realOrOutsideEffect(node)) {
 					context.report({ node: node.test, messageId: 'alwaysTrue' });
 				} else if (inequalityCount(node.test) >= 4 && isOnlyReturn(node.consequent)) {
 					context.report({ node: node.test, messageId: 'comparisonCounter' });
@@ -407,6 +436,14 @@ const rule = {
 							context.report({ node: statement, messageId: 'identicalBranches' });
 						}
 					}
+				}
+			},
+			ConditionalExpression(node) {
+				if (ternaryNullishOr(node) || identicalExpressions(node.consequent, node.alternate)) {
+					context.report({
+						node,
+						messageId: ternaryNullishOr(node) ? 'alwaysTrue' : 'identicalBranches'
+					});
 				}
 			}
 		};
@@ -435,9 +472,7 @@ function undefinedOrCount(node) {
 	}
 	if (value.type !== 'BinaryExpression') return 0;
 	if (value.operator !== '!==' && value.operator !== '!=') return 0;
-	const right = unwrap(value.right);
-	if (!right || right.type !== 'Identifier') return 0;
-	return right.name === 'undefined' || right.name === 'null' ? 1 : 0;
+	return isNullish(value.right) || isNullish(value.left) ? 1 : 0;
 }
 
 /**
@@ -473,8 +508,14 @@ function isAlwaysTrue(node) {
 	}
 	if (value.type === 'LogicalExpression' && value.operator === '&&') {
 		// One always-true arm still forces the read (`flag && (a !== undefined || b !== undefined)`).
+		// `flag && !(a == null && b == null)` is the same subscription.
 		// An early return of two `=== undefined` checks is a real guard and stays legal.
-		return isAlwaysTrue(value.left) || isAlwaysTrue(value.right);
+		return (
+			isNegatedNullishAnd(value.left) ||
+			isNegatedNullishAnd(value.right) ||
+			isAlwaysTrue(value.left) ||
+			isAlwaysTrue(value.right)
+		);
 	}
 	return false;
 }
@@ -630,6 +671,343 @@ function sameCode(left, right) {
 	const b = unwrap(right);
 	if (!a || !b || a.type !== b.type) return false;
 	if (a.type === 'Identifier') return a.name === b.name;
+	return false;
+}
+
+/**
+ * @param {any} node
+ */
+function isNullish(node) {
+	const value = unwrap(node);
+	if (!value) return false;
+	if (value.type === 'Literal') return value.value === null;
+	if (value.type === 'Identifier') return value.name === 'undefined' || value.name === 'null';
+	return false;
+}
+
+/**
+ * @param {any} node
+ */
+function isNegatedNullishAnd(node) {
+	const value = unwrap(node);
+	return Boolean(
+		value &&
+		value.type === 'UnaryExpression' &&
+		value.operator === '!' &&
+		nullishAndCount(value.argument) >= 2
+	);
+}
+
+/**
+ * @param {any} node
+ */
+function nullishAndCount(node) {
+	const value = unwrap(node);
+	if (!value) return 0;
+	if (value.type === 'LogicalExpression' && value.operator === '&&') {
+		return nullishAndCount(value.left) + nullishAndCount(value.right);
+	}
+	if (value.type !== 'BinaryExpression') return 0;
+	if (
+		value.operator !== '===' &&
+		value.operator !== '==' &&
+		value.operator !== '!==' &&
+		value.operator !== '!='
+	) {
+		return 0;
+	}
+	return isNullish(value.left) || isNullish(value.right) ? 1 : 0;
+}
+
+/**
+ * Outside an effect, `a != null || b != null` that then uses `a` and `b` is a
+ * condition. The same shape with unused operands only subscribes.
+ *
+ * @param {any} node
+ */
+function realOrOutsideEffect(node) {
+	if (insideEffectNode(node)) return false;
+	const names = comparedNames(node.test);
+	if (names.size < 2) return false;
+	const regions = [node.consequent, node.alternate, ...statementsAfter(node)].filter(Boolean);
+	for (const name of names) {
+		let used = false;
+		for (const region of regions) {
+			if (mentions(region, name)) used = true;
+		}
+		if (!used) return false;
+	}
+	return true;
+}
+
+/**
+ * @param {any} node
+ */
+function insideEffectNode(node) {
+	let current = node?.parent;
+	while (current) {
+		if (current.type === 'CallExpression' && effectCallback(current)) return true;
+		current = current.parent;
+	}
+	return false;
+}
+
+/**
+ * @param {any} node
+ * @param {Set<string>} [names]
+ */
+function comparedNames(node, names = new Set()) {
+	const value = unwrap(node);
+	if (!value) return names;
+	if (value.type === 'LogicalExpression') {
+		comparedNames(value.left, names);
+		comparedNames(value.right, names);
+		return names;
+	}
+	if (value.type === 'UnaryExpression' && value.operator === '!') {
+		comparedNames(value.argument, names);
+		return names;
+	}
+	if (
+		value.type === 'BinaryExpression' &&
+		(isNullish(value.left) || isNullish(value.right)) &&
+		isNullish(value.left) !== isNullish(value.right)
+	) {
+		const id = unwrap(isNullish(value.left) ? value.right : value.left);
+		if (id?.type === 'Identifier') names.add(id.name);
+	}
+	return names;
+}
+
+/**
+ * @param {any} node
+ * @param {string} name
+ */
+function mentions(node, name) {
+	let found = false;
+	walk(node, (child) => {
+		if (child.type !== 'Identifier' || child.name !== name) return;
+		const parent = child.parent;
+		if (
+			(parent?.type === 'MemberExpression' || parent?.type === 'OptionalMemberExpression') &&
+			parent.property === child &&
+			!parent.computed
+		) {
+			return;
+		}
+		found = true;
+	});
+	return found;
+}
+
+/**
+ * `a != null ? true : b != null` is `a != null || b != null`.
+ *
+ * @param {any} node
+ */
+function ternaryNullishOr(node) {
+	const test = unwrap(node.test);
+	const cons = unwrap(node.consequent);
+	const alt = unwrap(node.alternate);
+	if (!isNullishInequality(test)) return false;
+	if (isTrueLiteral(cons) && isNullishInequality(alt)) return true;
+	if (isNullishInequality(cons) && isTrueLiteral(alt)) return true;
+	return false;
+}
+
+/**
+ * @param {any} node
+ */
+function isNullishInequality(node) {
+	const value = unwrap(node);
+	if (!value || value.type !== 'BinaryExpression') return false;
+	if (value.operator !== '!=' && value.operator !== '!==') return false;
+	return isNullish(value.left) || isNullish(value.right);
+}
+
+/**
+ * @param {any} left
+ * @param {any} right
+ */
+function identicalExpressions(left, right) {
+	const a = untrackCalls(left);
+	const b = untrackCalls(right);
+	if (!a || !b || a.length === 0 || b.length === 0) return false;
+	return unique(a) === unique(b);
+}
+
+/**
+ * @param {any} call
+ * @param {Map<string, any[]>} fns
+ * @param {Map<string, { source: string, imported: string }>} imports
+ * @param {string} filename
+ * @param {import('eslint').Rule.RuleContext} context
+ */
+function reportUnreadObjectProps(call, fns, imports, filename, context) {
+	const callee = unwrap(call.callee);
+	if (!callee || callee.type !== 'Identifier') return;
+	const name = callee.name;
+	const bodies = resolveCallees(name, fns, imports, filename);
+	if (bodies.length === 0) return;
+	const keySets = bodies.map((fn) => keysRead(fn));
+	if (keySets.some((keys) => keys == null)) return;
+	for (const argument of call.arguments ?? []) {
+		const object = objectFromArgument(argument);
+		if (!object) continue;
+		for (const prop of object.properties ?? []) {
+			if (prop.type !== 'Property' || prop.computed || prop.kind === 'get' || prop.kind === 'set')
+				continue;
+			const key =
+				nameOf(prop.key) ?? (prop.key?.type === 'Literal' ? String(prop.key.value) : null);
+			if (!key || !signalValue(prop.value)) continue;
+			if (keySets.every((keys) => keys && !keys.has(key))) {
+				context.report({ node: prop.value, messageId: 'voidSignal' });
+			}
+		}
+	}
+}
+
+/**
+ * @param {string} name
+ * @param {Map<string, any[]>} fns
+ * @param {Map<string, { source: string, imported: string }>} imports
+ * @param {string} filename
+ */
+function resolveCallees(name, fns, imports, filename) {
+	const imported = imports.get(name);
+	if (imported) {
+		const fn = loadNamedFunction(filename, imported.source, imported.imported);
+		return fn ? [fn] : [];
+	}
+	return fns.get(name) ?? [];
+}
+
+/**
+ * Keys read from the object a single callback parameter returns.
+ * `null` means the object escapes and every key counts as read.
+ *
+ * @param {any} fn
+ * @returns {Set<string> | null}
+ */
+function keysRead(fn) {
+	if (!fn || (fn.params?.length ?? 0) !== 1) return null;
+	const param = parameterName(fn.params[0]);
+	if (!param) return null;
+	/** @type {Set<string>} */
+	const keys = new Set();
+	/** @type {Set<string>} */
+	const aliases = new Set();
+	const refs = valueReferences(fn, param);
+	if (refs.length === 0) return keys;
+	for (const ref of refs) {
+		const parent = ref.parent;
+		if (parent?.type !== 'CallExpression' || parent.callee !== ref || parent.arguments?.length) {
+			return null;
+		}
+		const declarator = parent.parent;
+		if (declarator?.type !== 'VariableDeclarator' || declarator.init !== parent) return null;
+		if (declarator.id?.type === 'Identifier') {
+			aliases.add(declarator.id.name);
+			continue;
+		}
+		if (declarator.id?.type === 'ObjectPattern') {
+			if (!addPatternKeys(declarator.id, keys)) return null;
+			continue;
+		}
+		return null;
+	}
+	const pending = [...aliases];
+	for (const alias of pending) {
+		if (!followAlias(fn, alias, keys, pending)) return null;
+	}
+	return keys;
+}
+
+/**
+ * @param {any} fn
+ * @param {string} alias
+ * @param {Set<string>} keys
+ * @param {string[]} pending
+ */
+function followAlias(fn, alias, keys, pending) {
+	for (const ref of valueReferences(fn, alias)) {
+		const parent = ref.parent;
+		if (!parent) return false;
+		if (
+			(parent.type === 'MemberExpression' || parent.type === 'OptionalMemberExpression') &&
+			parent.object === ref &&
+			!parent.computed
+		) {
+			const key = nameOf(parent.property);
+			if (!key) return false;
+			keys.add(key);
+			continue;
+		}
+		if (parent.type === 'VariableDeclarator' && parent.init === ref) {
+			if (parent.id?.type === 'Identifier') {
+				if (!pending.includes(parent.id.name)) pending.push(parent.id.name);
+				continue;
+			}
+			if (parent.id?.type === 'ObjectPattern') {
+				if (!addPatternKeys(parent.id, keys)) return false;
+				continue;
+			}
+			return false;
+		}
+		return false;
+	}
+	return true;
+}
+
+/**
+ * @param {any} pattern
+ * @param {Set<string>} keys
+ */
+function addPatternKeys(pattern, keys) {
+	for (const prop of pattern.properties ?? []) {
+		if (prop.type === 'RestElement') return false;
+		if (prop.type !== 'Property' || prop.computed) return false;
+		const key = nameOf(prop.key) ?? (prop.key?.type === 'Literal' ? String(prop.key.value) : null);
+		if (!key) return false;
+		keys.add(key);
+	}
+	return true;
+}
+
+/**
+ * @param {any} argument
+ */
+function objectFromArgument(argument) {
+	const value = unwrap(argument);
+	if (!value) return null;
+	if (value.type === 'ObjectExpression') return value;
+	if (value.type !== 'ArrowFunctionExpression' && value.type !== 'FunctionExpression') return null;
+	const body = unwrap(value.body);
+	if (body?.type === 'ObjectExpression') return body;
+	if (body?.type !== 'BlockStatement' || body.body?.length !== 1) return null;
+	const only = body.body[0];
+	if (only.type !== 'ReturnStatement') return null;
+	const returned = unwrap(only.argument);
+	return returned?.type === 'ObjectExpression' ? returned : null;
+}
+
+/**
+ * @param {any} node
+ */
+function signalValue(node) {
+	const value = unwrap(node);
+	if (!value) return false;
+	if (value.type === 'Identifier') return value.name !== 'undefined';
+	if (value.type === 'MemberExpression' || value.type === 'OptionalMemberExpression') return true;
+	if (value.type === 'LogicalExpression' || value.type === 'ConditionalExpression') {
+		return (
+			signalValue(value.left ?? value.test) ||
+			signalValue(value.right ?? value.consequent) ||
+			signalValue(value.alternate)
+		);
+	}
+	if (value.type === 'UnaryExpression' && value.operator !== 'void')
+		return signalValue(value.argument);
 	return false;
 }
 

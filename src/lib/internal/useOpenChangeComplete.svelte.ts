@@ -12,10 +12,11 @@ export function useOpenChangeComplete(
 	}
 ) {
 	$effect(() => {
-		const { enabled = true, element, onComplete } = parameters();
+		const { enabled = true, open, element, onComplete } = parameters();
 		if (!enabled || !element) return;
 		const controller = new AbortController();
-		runOnceAnimationsFinish(element, onComplete, controller.signal, false);
+		// Upstream passes `open` into useAnimationsFinished as waitForStartingStyleRemoved.
+		runOnceAnimationsFinish(element, onComplete, controller.signal, false, open === true);
 		return () => controller.abort();
 	});
 }

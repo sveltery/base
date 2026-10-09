@@ -519,6 +519,20 @@ describe('Tabs', () => {
 			await expect.element(indicator).toHaveAttribute('role', 'presentation');
 			await expect.element(indicator).not.toHaveAttribute('hidden');
 		});
+
+		it('updates the indicator when the active tab resizes', async () => {
+			render(TabsHarness, { passValue: true, value: 0, showIndicator: true });
+			const indicator = page.getByTestId('indicator');
+			await expect
+				.poll(() => indicator.element().style.getPropertyValue('--active-tab-width'))
+				.not.toBe('');
+			const before = indicator.element().style.getPropertyValue('--active-tab-width');
+			const tab = page.getByRole('tab', { name: 'One' }).element() as HTMLElement;
+			tab.style.width = '240px';
+			await expect
+				.poll(() => indicator.element().style.getPropertyValue('--active-tab-width'))
+				.not.toBe(before);
+		});
 	});
 
 	describe('native Svelte', () => {

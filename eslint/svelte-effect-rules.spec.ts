@@ -147,12 +147,82 @@ describe('sveltery/no-void-signal-read', () => {
 		expect(messages).toEqual([]);
 	});
 
+	it('rejects derived void reads, unread object props, underscore aliases, and a copied untrack local', async () => {
+		const derived = await messagesFor('void-signal-derived.fail.svelte', ruleName);
+		const objectProps = await messagesFor('void-signal-object.fail.svelte', ruleName);
+		const underscore = await messagesFor('void-signal-underscore.fail.svelte', ruleName);
+		const copied = await messagesFor('void-signal-untrack-copy.fail.svelte', ruleName);
+
+		expect(covers(derived.source, derived.messages, 'void revision')).toBe(true);
+		expect(covers(derived.source, derived.messages, 'const _width = width')).toBe(true);
+		expect(covers(objectProps.source, objectProps.messages, 'enabled, open')).toBe(true);
+		expect(covers(underscore.source, underscore.messages, 'touch(value)')).toBe(true);
+		expect(covers(underscore.source, underscore.messages, 'const _local = value')).toBe(true);
+		expect(covers(copied.source, copied.messages, 'const copied = value')).toBe(true);
+	});
+
+	it('rejects nullish ors, negated guards, and ternary forced reads', async () => {
+		const nullish = await messagesFor('forced-read-nullish.fail.svelte', ruleName);
+		const negation = await messagesFor('forced-read-negation.fail.svelte', ruleName);
+		const ternary = await messagesFor('forced-read-ternary.fail.svelte', ruleName);
+
+		expect(covers(nullish.source, nullish.messages, 'height != null || width != null')).toBe(true);
+		expect(
+			covers(negation.source, negation.messages, 'flag && !(height == null && width == null)')
+		).toBe(true);
+		expect(covers(ternary.source, ternary.messages, 'untrack(() => ensureActive())')).toBe(true);
+		expect(covers(ternary.source, ternary.messages, 'height != null ? true : width != null')).toBe(
+			true
+		);
+	});
+
+	it('allows an or whose operands are used outside an effect', async () => {
+		const { source, messages } = await messagesFor('forced-read-or-outside.pass.svelte', ruleName);
+		expect(source).toContain('height != null || width != null');
+		expect(source).toContain('(height ?? 0) + (width ?? 0)');
+		expect(messages).toEqual([]);
+	});
+
 	it('allows passing signals into a function and publishing a bindable by assignment', async () => {
 		const { source, messages } = await messagesFor('void-signal.pass.svelte', ruleName);
 		expect(source).toContain('syncAfter(disabledState, focusableWhenDisabled)');
 		expect(source).toContain('$derived.by');
 		expect(source).toContain('actions = actionsHandle');
 		expect(source).not.toContain('$effect.pre');
+		expect(messages).toEqual([]);
+	});
+});
+
+describe('sveltery/no-layout-read-in-derived', () => {
+	const ruleName = 'no-layout-read-in-derived';
+
+	it('rejects layout reads in $derived, including one followed call', async () => {
+		const direct = await messagesFor('layout-read.fail.svelte', ruleName);
+		const imported = await messagesFor('layout-read-import.fail.svelte', ruleName);
+		const owner = await messagesFor('layout-read-owner.fail.svelte', ruleName);
+		const destructured = await messagesFor('layout-read-destructure.fail.svelte', ruleName);
+
+		expect(covers(direct.source, direct.messages, 'return box(el)')).toBe(true);
+		expect(covers(direct.source, direct.messages, 'el.getBoundingClientRect()')).toBe(true);
+		expect(covers(imported.source, imported.messages, 'measure(el)')).toBe(true);
+		expect(covers(owner.source, owner.messages, 'ownerWindow(el).getComputedStyle(el)')).toBe(true);
+		expect(covers(destructured.source, destructured.messages, 'const { offsetWidth } = el')).toBe(
+			true
+		);
+		for (const messages of [
+			direct.messages,
+			imported.messages,
+			owner.messages,
+			destructured.messages
+		]) {
+			expect(messages.length).toBeGreaterThan(0);
+			for (const message of messages) expect(message.message).toContain('ResizeObserver');
+		}
+	});
+
+	it('allows a layout read in an effect', async () => {
+		const { source, messages } = await messagesFor('layout-read.pass.svelte', ruleName);
+		expect(source).toContain('getBoundingClientRect()');
 		expect(messages).toEqual([]);
 	});
 });
@@ -267,7 +337,18 @@ const failRuleByFile: Record<string, string> = {
 	'uncontrolled-bindable.fail.svelte': 'sveltery/no-uncontrolled-bindable',
 	'process-env.fail.svelte': 'sveltery/no-process-env',
 	'form-ref-current.fail.svelte': 'sveltery/no-react-refs',
-	'forced-read.fail.svelte': 'sveltery/no-void-signal-read'
+	'forced-read.fail.svelte': 'sveltery/no-void-signal-read',
+	'forced-read-negation.fail.svelte': 'sveltery/no-void-signal-read',
+	'forced-read-nullish.fail.svelte': 'sveltery/no-void-signal-read',
+	'forced-read-ternary.fail.svelte': 'sveltery/no-void-signal-read',
+	'layout-read.fail.svelte': 'sveltery/no-layout-read-in-derived',
+	'layout-read-destructure.fail.svelte': 'sveltery/no-layout-read-in-derived',
+	'layout-read-import.fail.svelte': 'sveltery/no-layout-read-in-derived',
+	'layout-read-owner.fail.svelte': 'sveltery/no-layout-read-in-derived',
+	'void-signal-derived.fail.svelte': 'sveltery/no-void-signal-read',
+	'void-signal-object.fail.svelte': 'sveltery/no-void-signal-read',
+	'void-signal-underscore.fail.svelte': 'sveltery/no-void-signal-read',
+	'void-signal-untrack-copy.fail.svelte': 'sveltery/no-void-signal-read'
 };
 
 function lintWithEveryRule(code: string, filePath: string) {

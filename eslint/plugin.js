@@ -3,6 +3,7 @@ import noDirectFieldRegistration from './no-direct-field-registration.js';
 import noCopiedHelper from './no-copied-helper.js';
 import noDerivedInlineAttachment from './no-derived-inline-attachment.js';
 import noInlineCompositeKeys from './no-inline-composite-keys.js';
+import noLayoutReadInDerived from './no-layout-read-in-derived.js';
 import noLateBoundGetter from './no-late-bound-getter.js';
 import noUncontrolledBindable from './no-uncontrolled-bindable.js';
 import noComputedStyleDirection from './no-computed-style-direction.js';
@@ -26,6 +27,7 @@ const plugin = {
 		'no-copied-helper': noCopiedHelper,
 		'no-derived-inline-attachment': noDerivedInlineAttachment,
 		'no-inline-composite-keys': noInlineCompositeKeys,
+		'no-layout-read-in-derived': noLayoutReadInDerived,
 		'no-late-bound-getter': noLateBoundGetter,
 		'no-uncontrolled-bindable': noUncontrolledBindable,
 		'no-computed-style-direction': noComputedStyleDirection,
