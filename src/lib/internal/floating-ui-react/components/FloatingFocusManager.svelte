@@ -10,7 +10,6 @@
 	import FocusGuard from '../../FocusGuard.svelte';
 	import { ownerDocument, ownerWindow } from '../../owner.js';
 	import { activeElement, contains, getTarget } from '../../shadow-dom.js';
-	import { AnimationFrame } from '../../timeout.js';
 	import { useAnimationFrame, useTimeout } from '../../timeout.svelte.js';
 	import type { OpenInteractionType } from '../../openInteraction.js';
 	import type { FloatingRootStore, OpenChangePayload } from './FloatingRootStore.svelte.js';
@@ -68,6 +67,7 @@
 	const portal = useFloatingPortal();
 	const pointerDownTimeout = useTimeout();
 	const restoreFrame = useAnimationFrame();
+	const bodyReturnFrame = useAnimationFrame();
 	let suppressFocusOut = false;
 	/** Trigger (or the element focused before open). Not refreshed after focus moves inside. */
 	let returnTarget: HTMLElement | null = null;
@@ -149,8 +149,6 @@
 	let closeType: OpenInteractionType = '';
 	/** `focus-out` skips return focus so a Tab that has not landed yet is not cancelled. */
 	let closeReason = '';
-	/** Next-frame return focus after an outside press. Not a component timer. */
-	let returnFrameId = 0;
 	let lastInteraction: OpenInteractionType = '';
 	/** One initial-focus result per open. A later result must not rebuild the trap. */
 	let initialSettled = false;
@@ -190,9 +188,8 @@
 	}
 
 	function scheduleBodyReturn(element: HTMLElement) {
-		if (returnFrameId) AnimationFrame.cancel(returnFrameId);
-		returnFrameId = AnimationFrame.request(() => {
-			returnFrameId = 0;
+		bodyReturnFrame.cancel();
+		bodyReturnFrame.request(() => {
 			if (store.isOpen() || !element.isConnected) return;
 			const doc = ownerDocument(element);
 			const active = activeElement(doc);
@@ -407,10 +404,7 @@
 		captureReturnTarget(doc, floating);
 		closeType = '';
 		closeReason = '';
-		if (returnFrameId) {
-			AnimationFrame.cancel(returnFrameId);
-			returnFrameId = 0;
-		}
+		bodyReturnFrame.cancel();
 		lastInteraction = '';
 		const initialTarget = takeInitial(floating);
 		// A child opened in the same update queues its focus first. Skipping this

@@ -85,6 +85,18 @@ describe('<NumberField />', () => {
 		);
 	});
 
+	it('applies a hidden input event without a change event', async () => {
+		const onValueChange = vi.fn();
+		render(NumberFieldHarness, { scenario: 'plain', onValueChange });
+		const hidden = document.querySelector('input[type="number"]');
+		if (!(hidden instanceof HTMLInputElement)) throw new Error('expected a hidden number input');
+		hidden.value = '9';
+		hidden.dispatchEvent(new Event('input', { bubbles: true }));
+		expect(onValueChange).toHaveBeenCalledTimes(1);
+		expect(onValueChange.mock.lastCall?.[0]).toBe(9);
+		await expect.element(control()).toHaveValue('9');
+	});
+
 	it('renders the input, steppers, and group', async () => {
 		render(NumberFieldHarness, { scenario: 'plain' });
 
@@ -95,6 +107,24 @@ describe('<NumberField />', () => {
 		await expect.element(page.getByTestId('group')).toHaveAttribute('role', 'group');
 		expect(increase().element().getAttribute('aria-controls')).toBe(control().element().id);
 		expect(control().element().getAttribute('aria-roledescription')).toBe('Number field');
+	});
+
+	it('repeats a held increment and stops when the field unmounts', async () => {
+		const view = render(NumberFieldHarness, { scenario: 'plain' });
+		const button = increase().element() as HTMLElement;
+		button.dispatchEvent(
+			new PointerEvent('pointerdown', {
+				bubbles: true,
+				button: 0,
+				pointerType: 'mouse',
+				clientX: 4,
+				clientY: 4
+			})
+		);
+		await expect.element(control()).toHaveValue('6');
+		view.unmount();
+		await new Promise((resolve) => setTimeout(resolve, 180));
+		expect(document.querySelector('[data-testid="control"]')).toBeNull();
 	});
 
 	it('steps up and down from a click', async () => {
