@@ -6,6 +6,7 @@ import { page, userEvent } from 'vitest/browser';
 import { describe, expect, it, vi } from 'vitest';
 import { render } from 'vitest-browser-svelte';
 import DialogActionsHarness from '../../tests/DialogActionsHarness.svelte';
+import DisabledNonNativeHarness from '../../tests/DisabledNonNativeHarness.svelte';
 import DialogHandleHarness from '../../tests/DialogHandleHarness.svelte';
 import DialogHarness from '../../tests/DialogHarness.svelte';
 import DialogNestedHandleHarness from '../../tests/DialogNestedHandleHarness.svelte';
@@ -869,5 +870,40 @@ describe('Dialog', () => {
 		expect(stray.portalElement).toBeNull();
 		expect(portal.parentElement).toBe(document.body);
 		expect(portal.querySelector('[role="dialog"]')).not.toBeNull();
+	});
+
+	it('keeps a disabled non-native close from closing', async () => {
+		render(DisabledNonNativeHarness, {
+			part: 'dialog',
+			defaultOpen: true,
+			disabledClose: true
+		});
+		await expect.element(page.getByRole('dialog', { includeHidden: true })).toBeVisible();
+		const before = page.getByTestId('calls').element().textContent;
+		(page.getByRole('button', { name: 'Close' }).element() as HTMLElement).click();
+		await tick();
+		expect(page.getByTestId('calls').element().textContent).toBe(before);
+		await expect
+			.poll(() => page.getByRole('dialog', { includeHidden: true }).elements().length)
+			.toBe(1);
+	});
+
+	it('does not call onclick on a disabled non-native trigger', async () => {
+		render(DisabledNonNativeHarness, { part: 'dialog', disabledTrigger: true });
+		await page.getByRole('button', { name: 'Open' }).click({ force: true });
+		await tick();
+		expect(page.getByTestId('clicks').element().textContent).toBe('0');
+		expect(page.getByRole('dialog', { includeHidden: true }).elements()).toHaveLength(0);
+	});
+
+	it('does not prevent mousedown or keydown on a disabled non-native trigger', () => {
+		render(DisabledNonNativeHarness, { part: 'dialog', disabledTrigger: true });
+		const trigger = page.getByRole('button', { name: 'Open' }).element();
+		const down = new MouseEvent('mousedown', { bubbles: true, cancelable: true });
+		const key = new KeyboardEvent('keydown', { key: 'Enter', bubbles: true, cancelable: true });
+		trigger.dispatchEvent(down);
+		trigger.dispatchEvent(key);
+		expect(down.defaultPrevented).toBe(false);
+		expect(key.defaultPrevented).toBe(false);
 	});
 });

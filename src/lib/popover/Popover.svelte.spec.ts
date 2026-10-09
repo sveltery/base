@@ -14,6 +14,7 @@ import PopoverOpenCompleteStateHarness from '../../tests/PopoverOpenCompleteStat
 import PortalRenderHarness from '../../tests/PortalRenderHarness.svelte';
 import PopoverReviewHarness from '../../tests/PopoverReviewHarness.svelte';
 import PopoverFixture from '../../routes/fixtures/popover/PopoverFixture.svelte';
+import DisabledNonNativeHarness from '../../tests/DisabledNonNativeHarness.svelte';
 import PopoverDisabledHostHarness from '../../tests/PopoverDisabledHostHarness.svelte';
 import { Popover, PopoverHandle } from './index.js';
 import { PopoverStore } from './store.svelte.js';
@@ -837,6 +838,39 @@ describe('Popover', () => {
 		} finally {
 			view.unmount();
 		}
+	});
+
+	it('keeps a disabled non-native close from closing', async () => {
+		render(DisabledNonNativeHarness, {
+			part: 'popover',
+			defaultOpen: true,
+			disabledClose: true
+		});
+		await expect.element(page.getByRole('dialog')).toBeVisible();
+		const before = page.getByTestId('calls').element().textContent;
+		(page.getByRole('button', { name: 'Close' }).element() as HTMLElement).click();
+		await tick();
+		expect(page.getByTestId('calls').element().textContent).toBe(before);
+		await expect.poll(() => page.getByRole('dialog').elements().length).toBe(1);
+	});
+
+	it('does not call onclick on a disabled non-native trigger', async () => {
+		render(DisabledNonNativeHarness, { part: 'popover', disabledTrigger: true });
+		await page.getByRole('button', { name: 'Open' }).click({ force: true });
+		await tick();
+		expect(page.getByTestId('clicks').element().textContent).toBe('0');
+		expect(page.getByRole('dialog').elements()).toHaveLength(0);
+	});
+
+	it('does not prevent mousedown or keydown on a disabled non-native trigger', () => {
+		render(DisabledNonNativeHarness, { part: 'popover', disabledTrigger: true });
+		const trigger = page.getByRole('button', { name: 'Open' }).element();
+		const down = new MouseEvent('mousedown', { bubbles: true, cancelable: true });
+		const key = new KeyboardEvent('keydown', { key: 'Enter', bubbles: true, cancelable: true });
+		trigger.dispatchEvent(down);
+		trigger.dispatchEvent(key);
+		expect(down.defaultPrevented).toBe(false);
+		expect(key.defaultPrevented).toBe(false);
 	});
 });
 
