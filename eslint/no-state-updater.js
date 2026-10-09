@@ -126,44 +126,61 @@ const rule = {
 		 * A function that calls a parameter with the value it assigns is an updater.
 		 * The name of the function does not matter. A focus helper that calls
 		 * `spec(endedBy())` is not one: the argument is not the assigned value.
+		 * Report the call, the function check, the assignment, and the local that
+		 * carried the assigned value into the call. Those can share one line.
 		 * @param {any} fn
 		 */
 		function reportUpdaterShape(fn) {
 			if ((fn.params?.length ?? 0) === 0) return;
 			const params = parameterNames(fn);
-			/** @type {Set<string>} */
-			const targets = new Set();
-			/** @type {Map<string, string>} */
+			/** @type {{ text: string, node: any }[]} */
+			const targets = [];
+			/** @type {Map<string, { text: string, node: any }>} */
 			const locals = new Map();
 			walkOwn(fn.body, (node) => {
-				if (node.type === 'AssignmentExpression') targets.add(textOf(node.left));
+				if (node.type === 'AssignmentExpression') {
+					targets.push({ text: textOf(node.left), node });
+				}
 				if (node.type === 'VariableDeclarator' && node.id?.type === 'Identifier' && node.init) {
-					locals.set(node.id.name, textOf(node.init));
+					locals.set(node.id.name, { text: textOf(node.init), node });
 				}
 			});
-			/** @type {Set<string>} */
-			const checked = new Set();
+			/** @type {Map<string, any>} */
+			const checks = new Map();
 			walkOwn(fn.body, (node) => {
 				const name = checkedParam(node);
-				if (name && params.has(name)) checked.add(name);
+				if (name && params.has(name) && !checks.has(name)) checks.set(name, node);
 			});
-			if (checked.size === 0 || targets.size === 0) return;
+			if (checks.size === 0 || targets.length === 0) return;
+			/** @type {Set<any>} */
+			const reported = new Set();
+			/**
+			 * @param {any} node
+			 */
+			function reportOnce(node) {
+				if (!node || reported.has(node)) return;
+				reported.add(node);
+				report(node);
+			}
 			walkOwn(fn.body, (node) => {
 				if (node.type !== 'CallExpression') return;
 				const callee = nameOf(unwrap(node.callee));
-				if (!callee || !checked.has(callee)) return;
+				if (!callee || !checks.has(callee)) return;
 				const arg = node.arguments?.[0];
 				if (!arg) return;
 				const argNode = unwrap(arg);
 				const argText = textOf(argNode);
-				if (targets.has(argText)) {
-					report(node);
-					return;
-				}
 				const local = argNode?.type === 'Identifier' ? locals.get(argNode.name) : undefined;
-				if (local && [...targets].some((target) => target !== '' && local.includes(target))) {
-					report(node);
-				}
+				const matched = targets.filter(
+					(target) =>
+						target.text !== '' &&
+						(target.text === argText || (local != null && local.text.includes(target.text)))
+				);
+				if (matched.length === 0) return;
+				reportOnce(node);
+				reportOnce(checks.get(callee));
+				for (const target of matched) reportOnce(target.node);
+				if (local) reportOnce(local.node);
 			});
 		}
 
