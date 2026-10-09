@@ -4,9 +4,9 @@
 	(commit 47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c). MIT, see THIRD_PARTY_NOTICES.md.
 -->
 <script lang="ts">
+	import { untrack } from 'svelte';
 	import type { Attachment } from 'svelte/attachments';
 	import type { HTMLButtonAttributes } from 'svelte/elements';
-	import type { CompositeHandlers } from '../internal/composite-root.svelte.js';
 	import { createControllableValue } from '../internal/controllable-value.svelte.js';
 	import { createChangeEventDetails, REASONS } from '../internal/event-details.js';
 	import { getStateAttributesProps } from '../internal/state-attributes.js';
@@ -50,14 +50,20 @@
 	const toggleState: ToggleState = $derived({ pressed: pressedState, disabled: disabledState });
 
 	let node = $state<HTMLButtonElement | null>(null);
-	const renderIndex = group ? group.roving.claim() : 0;
+	const renderIndex = group
+		? group.roving.claim(untrack(() => disabled || Boolean(group.disabled)))
+		: 0;
 
 	function register(element: HTMLElement) {
 		node = element as HTMLButtonElement;
-		const remove = group?.roving.register(element, () => ({
-			value: resolvedValue,
-			disabled: disabledState
-		}));
+		const remove = group?.roving.register(
+			element,
+			() => ({
+				value: resolvedValue,
+				disabled: disabledState
+			}),
+			renderIndex
+		);
 		return () => {
 			remove?.();
 			if (node === element) node = null;
@@ -89,33 +95,20 @@
 
 	const hostProps: HTMLButtonAttributes & Record<symbol, Attachment<HTMLButtonElement>> =
 		$derived.by(() => {
-			const roving = group?.roving.item(
-				node,
-				register,
-				{
-					onfocus: onfocus as CompositeHandlers['onfocus'],
-					onkeydown: onkeydown as CompositeHandlers['onkeydown']
-				},
-				renderIndex,
-				{ disabled: disabledState }
-			);
+			const roving = group?.roving.item(node, register, { onfocus, onkeydown }, renderIndex, {
+				disabled: disabledState
+			});
 			return {
 				type: 'button',
 				...(roving
-					? { tabindex: roving.tabindex, 'aria-disabled': disabledState ? 'true' : 'false' }
+					? { 'aria-disabled': disabledState ? ('true' as const) : ('false' as const) }
 					: {}),
 				...elementProps,
 				...getStateAttributesProps(toggleState),
 				'aria-pressed': pressedState,
 				disabled: disabledState,
 				onclick: handleClick,
-				...(roving && group
-					? {
-							onfocus: roving.onfocus,
-							onkeydown: roving.onkeydown,
-							[group.roving.attachmentKey]: roving[group.roving.attachmentKey]
-						}
-					: {})
+				...roving
 			};
 		});
 </script>

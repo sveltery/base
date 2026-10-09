@@ -15,7 +15,7 @@ import {
 } from '../internal/event-details.js';
 import { ownerDocument } from '../internal/owner.js';
 import { contains } from '../internal/shadow-dom.js';
-import { findAssociatedLabel } from '../internal/associated-label.js';
+import { nativeFallbackLabelId } from '../internal/associated-label.js';
 import { getOTPValidationConfig, normalizeOTPValue, normalizeOTPValueWithDetails } from './otp.js';
 import { SlotList } from './slots.svelte.js';
 import type {
@@ -220,18 +220,12 @@ export class OTPFieldModel {
 	}
 
 	syncFallbackLabel(explicit: string | undefined, labelId: string | undefined) {
-		const input = this.slots.first;
-		if (explicit || labelId || !input) {
-			this.fallbackLabelId = undefined;
-			return;
-		}
-		const label = findAssociatedLabel(input);
-		if (!label) {
-			this.fallbackLabelId = undefined;
-			return;
-		}
-		if (!label.id) label.id = `${this.controlId}-label`;
-		this.fallbackLabelId = label.id || undefined;
+		this.fallbackLabelId = nativeFallbackLabelId(
+			false,
+			explicit || labelId,
+			this.slots.first,
+			this.controlId
+		);
 	}
 
 	focusInput(index: number) {

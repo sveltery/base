@@ -6,6 +6,8 @@ import { untrack } from 'svelte';
 
 export interface ControllableValue<T, Details = unknown> {
 	readonly value: T | undefined;
+	/** The value from before the latest notice. Stays at the initial value until then. */
+	readonly previous: T | undefined;
 	readonly controlled: boolean;
 	/**
 	 * Store `next`. When that write is still the value after the DOM update, the
@@ -23,7 +25,7 @@ export function createControllableValue<T, Details = unknown>(options: {
 	getProp: () => T | undefined;
 	setProp: (next: T | undefined) => void;
 	getDefault: () => T;
-	onChange?: (next: T | undefined, details?: Details) => void;
+	onChange?: (next: T | undefined, details?: Details, previous?: T) => void;
 }): ControllableValue<T, Details> {
 	const controlled = untrack(() => options.getProp() !== undefined);
 	const fallback = untrack(() => options.getDefault());
@@ -35,6 +37,7 @@ export function createControllableValue<T, Details = unknown>(options: {
 	let echoed = $state.raw<T | undefined>(untrack(() => options.getProp()));
 	let adopted = false;
 	let lastNotified: T | undefined = initial;
+	let previousValue: T | undefined = initial;
 	// The value a write or `announce` produced, and the details that belong to it.
 	// A later call replaces both, so one notice cannot take another's details.
 	let pending = $state.raw<{
@@ -55,8 +58,10 @@ export function createControllableValue<T, Details = unknown>(options: {
 	) {
 		const matches = queued != null && Object.is(queued.value, next);
 		if (Object.is(next, lastNotified) && !(matches && queued?.announce)) return;
+		const previous = lastNotified;
 		lastNotified = next;
-		options.onChange?.(next, matches ? queued?.details : undefined);
+		previousValue = previous;
+		options.onChange?.(next, matches ? queued?.details : undefined, previous);
 	}
 
 	const value = $derived.by(() => {
@@ -83,6 +88,9 @@ export function createControllableValue<T, Details = unknown>(options: {
 	return {
 		get value() {
 			return value;
+		},
+		get previous() {
+			return previousValue;
 		},
 		get controlled() {
 			return controlled;

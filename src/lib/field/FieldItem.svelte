@@ -21,7 +21,7 @@
 		...elementProps
 	}: FieldItemProps = $props();
 
-	const field = useFieldContext();
+	const field = useFieldContext(false);
 	const parentLabelable = useLabelableContext(true);
 	const labelable = new Labelable(parentLabelable, () => `base-ui-${uid}`);
 	setLabelableContext(labelable);

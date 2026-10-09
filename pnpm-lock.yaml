@@ -173,7 +173,7 @@ importers:
         specifier: ^0.2.12
         version: 0.2.12
       esm-env:
-        specifier: 1.2.2
+        specifier: ^1.2.2
         version: 1.2.2
     devDependencies:
       '@base-ui/react':

@@ -59,8 +59,15 @@ const INERT_FIELD = {
 	commit: inert
 } as unknown as FieldRootModel;
 
-export function useFieldContext(): FieldRootModel {
-	if (!hasContext(FIELD_CONTEXT)) return INERT_FIELD;
+export function useFieldContext(optional = true): FieldRootModel {
+	if (!hasContext(FIELD_CONTEXT)) {
+		if (!optional) {
+			throw new Error(
+				'Base UI: FieldRootContext is missing. Field parts must be placed within <Field.Root>.'
+			);
+		}
+		return INERT_FIELD;
+	}
 	return getContext<FieldRootModel>(FIELD_CONTEXT);
 }
 

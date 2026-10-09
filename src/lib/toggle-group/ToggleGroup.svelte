@@ -52,7 +52,6 @@
 		isItemDisabled: (element) =>
 			element.matches(':disabled') || element.getAttribute('aria-disabled') === 'true',
 		keys: 'composite',
-		homeEnd: true,
 		stopPropagation: true,
 		replacement: 'first',
 		keydown: 'item'

@@ -14,8 +14,12 @@ const RADIO_GROUP = Symbol('radio-group');
  * nothing selected, the first rendered radio is the stop until registration.
  */
 export interface RadioGroupRovingFocus {
-	claim(): number;
-	register(element: HTMLElement, read?: () => { value?: unknown; disabled?: boolean }): () => void;
+	claim(disabled?: boolean): number;
+	register(
+		element: HTMLElement,
+		read?: () => { value?: unknown; disabled?: boolean },
+		renderIndex?: number
+	): () => void;
 	highlight(element: HTMLElement): void;
 	tabIndex(
 		node: HTMLElement | null,
@@ -36,6 +40,11 @@ export interface RadioGroupContextValue {
 	 */
 	readonly checkedValue: unknown;
 	readonly touched: boolean;
+	/**
+	 * Bumped when a radio change is accepted or canceled, so every hidden input
+	 * resyncs from `checkedValue` through one path.
+	 */
+	readonly domRevision?: number;
 	/** Present when the real RadioGroup owns keyboard navigation. */
 	readonly roving?: RadioGroupRovingFocus;
 	setCheckedValue: (value: unknown, eventDetails: RadioRootChangeEventDetails) => void;

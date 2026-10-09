@@ -11,7 +11,7 @@
 
 	let { children }: FieldValidityProps = $props();
 
-	const field = useFieldContext();
+	const field = useFieldContext(false);
 	const combined = $derived(getCombinedFieldValidityData(field.validityData, field.invalid));
 	const invalid = $derived(combined.state.valid === false);
 	const transition = new FieldTransition(() => invalid);

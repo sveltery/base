@@ -35,7 +35,7 @@
 
 	const tabs = useTabsRootContext();
 	const list = useTabsListContext();
-	const slot = list.roving.claim();
+	const slot = list.roving.claim(untrack(() => disabled));
 	const generatedId = $derived(`base-ui-${uid}`);
 	const tabId = $derived(id ?? generatedId);
 
@@ -53,7 +53,7 @@
 
 	function register(element: HTMLElement) {
 		node = element;
-		const removeRoving = list.roving.register(element, () => ({ value, disabled }));
+		const removeRoving = list.roving.register(element, () => ({ value, disabled }), slot);
 		const unregister = untrack(() => tabs.registerTab(element, value, disabled, tabId));
 		const unobserve = list.observeTab(element);
 		return () => {
@@ -174,14 +174,11 @@
 			...(panelId ? { 'aria-controls': panelId } : {}),
 			...elementProps,
 			...getStateAttributesProps(tabState, tabsStateAttributesMapping),
-			tabindex: roving.tabindex,
 			onclick: handleClick,
 			onpointerdown: handlePointerDown,
 			onkeyup: (event: KeyboardEvent & { currentTarget: EventTarget & HTMLElement }) =>
 				forwardKeyUp(event, disabled, onkeyup, nativeButton),
-			onfocus: roving.onfocus,
-			onkeydown: roving.onkeydown,
-			[list.roving.attachmentKey]: roving[list.roving.attachmentKey]
+			...roving
 		};
 		return props as TabsTabHostProps & Record<symbol, Attachment<HTMLElement>>;
 	});

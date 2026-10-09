@@ -39,6 +39,7 @@
 	}: RadioGroupProps = $props();
 
 	let touched = $state(false);
+	let domRevision = $state(0);
 
 	const reading = useDirection();
 	const formContext = useFormContext();
@@ -64,14 +65,14 @@
 		direction: () => reading.direction,
 		isItemDisabled: (element) =>
 			isSkipped(element) || element.getAttribute('aria-disabled') === 'true',
-		isItemSelected: (element): boolean => {
+		isItemSelected: (_element, registration): boolean => {
 			const current = controllable.value;
-			const meta = roving.meta(element);
-			return current !== undefined && meta.value === current && meta.disabled !== true;
+			return (
+				current !== undefined && registration.value === current && registration.disabled !== true
+			);
 		},
 		keys: 'arrows',
 		modifiers: 'shift-ok',
-		homeEnd: false,
 		stopPropagation: true,
 		replacement: 'index',
 		keydown: 'root'
@@ -79,6 +80,7 @@
 
 	function setCheckedValue(next: unknown, details: RadioRootChangeEventDetails) {
 		onValueChange?.(next, details);
+		domRevision += 1;
 		if (details.isCanceled) return;
 		if (Object.is(next, controllable.value)) return;
 		controllable.set(next);
@@ -106,6 +108,9 @@
 		},
 		get touched() {
 			return touched;
+		},
+		get domRevision() {
+			return domRevision;
 		},
 		setCheckedValue,
 		setTouched(next) {

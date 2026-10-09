@@ -33,7 +33,7 @@ export class TabsRootModel {
 	panelElements = $state<HTMLElement[]>([]);
 	panelIds = $state<{ value: TabsValue; id: string }[]>([]);
 
-	private directionBaseline: TabsValue | null;
+	private directionStale = false;
 	private notifiedInitial = false;
 	private didRegister = false;
 	private lastTabElement: HTMLElement | null = null;
@@ -44,8 +44,6 @@ export class TabsRootModel {
 		private readonly readOnValueChange: () =>
 			((value: TabsValue | null, eventDetails: TabsRootChangeEventDetails) => void) | undefined
 	) {
-		this.directionBaseline = values.value ?? null;
-
 		$effect(() => {
 			if (this.values.controlled) return;
 			const tabs = this.tabs;
@@ -98,9 +96,11 @@ export class TabsRootModel {
 	 * that exist after the DOM update. A tab that is not mounted yet keeps the
 	 * previous baseline so registration can finish the same change.
 	 */
-	refineDirection(next: TabsValue | null = this.value) {
-		const previous = this.directionBaseline;
-		if (Object.is(previous, next)) return;
+	refineDirection(next: TabsValue | null, previous: TabsValue | null) {
+		if (Object.is(previous, next)) {
+			this.directionStale = false;
+			return;
+		}
 		const direction = activationDirection(
 			previous,
 			next,
@@ -111,7 +111,7 @@ export class TabsRootModel {
 		const incomplete =
 			previous != null && next != null && !this.tabs.some((tab) => tab.value === next);
 		this.tabActivationDirection = direction;
-		if (!incomplete) this.directionBaseline = next;
+		this.directionStale = incomplete;
 	}
 
 	activate(next: TabsValue | null, event: Event) {
@@ -150,7 +150,7 @@ export class TabsRootModel {
 		const record: TabRecord = { element, value, disabled, id };
 		untrack(() => {
 			this.tabs = [...this.tabs, record].sort((a, b) => byDocumentOrder(a.element, b.element));
-			this.refineDirection();
+			if (this.directionStale) this.refineDirection(this.value, this.values.previous ?? null);
 		});
 		return () => {
 			untrack(() => {
@@ -218,7 +218,7 @@ export class TabsRootModel {
 		direction: TabsActivationDirection,
 		details?: TabsRootChangeEventDetails
 	) {
-		this.directionBaseline = next;
+		this.directionStale = false;
 		this.tabActivationDirection = direction;
 		this.values.set(next, details);
 	}
