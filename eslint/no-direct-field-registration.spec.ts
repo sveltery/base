@@ -1,5 +1,6 @@
 import { createRequire } from 'node:module';
 import { readFileSync } from 'node:fs';
+import { fileURLToPath } from 'node:url';
 import { describe, expect, it } from 'vitest';
 import { ESLint, type Linter } from 'eslint';
 import ts from 'typescript-eslint';
@@ -127,7 +128,10 @@ describe('sveltery/no-direct-field-registration', () => {
 			new URL('fixtures/direct-field-registration-gaps.fail.svelte', import.meta.url),
 			'utf8'
 		);
-		const messages = await messagesFor(source, '/workspace/src/tests/probe.svelte');
+		const messages = await messagesFor(
+			source,
+			fileURLToPath(new URL('../src/tests/probe.svelte', import.meta.url))
+		);
 		expect(messages.length).toBeGreaterThan(0);
 	});
 
