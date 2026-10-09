@@ -14,7 +14,7 @@ A list of disclosures that share one open value. Upstream: `packages/react/src/a
 - Header renders an `<h3>`. Panel renders a `<div role="region">` with `aria-labelledby` set to the trigger id. Generated ids use `$props.id()` with a `base-ui-` prefix. An author `id` replaces the generated one. Unmounting the trigger clears `aria-labelledby`. Unmounting the panel clears `aria-controls`.
 - Item `value` identifies the row. An omitted value gets a generated id. `data-index` follows DOM order after the item host mounts, and is `-1` before that.
 - Panel motion matches Collapsible: `data-open` / `data-closed`, `data-starting-style`, `data-ending-style`, `--accordion-panel-height`, and `--accordion-panel-width`. An initially open panel sets `animation-name: none` until the first close. `keepMounted` and `hiddenUntilFound` on the root apply to every panel unless the panel sets its own. An explicit `keepMounted={false}` with hidden-until-found warns once and is ignored. `beforematch` opens the item.
-- Parts throw if they render outside `Accordion.Root` or `Accordion.Item`.
+- Item throws `AccordionRootContext is missing` outside Root, and Header throws `AccordionItemContext is missing` outside Item. Panel checks the root context, then the item context. Trigger checks `CollapsibleRootContext` first, so outside an item it throws `CollapsibleRootContext is missing`.
 
 ## Source correspondence
 

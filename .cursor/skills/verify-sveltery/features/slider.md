@@ -40,7 +40,7 @@ Handles used by `src/routes/fixtures/slider/slider.e2e.ts`:
 - Label: `getByTestId('label')`. Range text: `getByTestId('value')`.
 - Disabled root: `getByTestId('root')`.
 
-Proof of working order: in both frameworks, ArrowRight moves 30 to 31 and ArrowLeft moves it back, the label id is `aria-labelledby` on the input after hydration, the range output reads `40 – 65`, a bound increment updates the output, a disabled input does not accept input, and ArrowUp moves a vertical slider from 30 to 31. The SSR test checks that the label and root ids exist and that `aria-labelledby` is absent before hydration.
+Proof of working order: in both frameworks, ArrowRight moves 30 to 31 and ArrowLeft moves it back, the label id is `aria-labelledby` on the input after hydration, the range output reads `40 – 65`, a bound increment updates the output, a disabled slider is disabled and stays at 30, and ArrowUp moves a vertical slider from 30 to 31. The SSR test checks that the label and root ids exist and that `aria-labelledby` is absent before hydration.
 
 `bound` is `bind:value` in Svelte and controlled `value` plus `onValueChange` in React.
 
