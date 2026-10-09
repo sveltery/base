@@ -3,7 +3,7 @@
 	"pairs": {
 		"html:src/lib/checkbox/CheckboxIndicator.svelte|src/lib/radio/RadioIndicator.svelte": {
 			"count": 1,
-			"lines": 96
+			"lines": 98
 		},
 		"html:src/lib/field/FieldItem.svelte|src/lib/field/FieldRoot.svelte": {
 			"count": 1,
