@@ -42,19 +42,23 @@ function pressIsInside(store: FloatingRootStore, event: Event) {
 	return false;
 }
 
-function pointerIsTouch(event: Event) {
-	return (
-		(event instanceof PointerEvent && event.pointerType === 'touch') ||
-		event.type.startsWith('touch')
-	);
+function pointerIsTouch(event: Event, lastPointerType: string) {
+	if (event instanceof PointerEvent && event.pointerType === 'touch') return true;
+	if (event instanceof PointerEvent && event.pointerType) return false;
+	if (event.type.startsWith('touch')) return true;
+	// Upstream `getOutsidePressEvent` classifies the compatibility mousedown and the
+	// click from the last pointerdown (`useDismiss.ts` `currentPointerTypeRef`).
+	// Pen and an empty type stay mouse. A tap's click stays touch, so sloppy ignores it.
+	return lastPointerType === 'touch';
 }
 
 function resolvePressMode(
 	configured: PressMode | { mouse?: PressMode; touch?: PressMode },
-	event: Event
+	event: Event,
+	lastPointerType: string
 ): PressMode {
 	if (configured === 'sloppy' || configured === 'intentional') return configured;
-	const touch = pointerIsTouch(event);
+	const touch = pointerIsTouch(event, lastPointerType);
 	return configured[touch ? 'touch' : 'mouse'] ?? (touch ? 'sloppy' : 'intentional');
 }
 
@@ -67,7 +71,9 @@ export function useDismiss(store: FloatingRootStore, props: () => UseDismissProp
 	let pressStartedInside = false;
 	/** The click after an inside press still belongs to that press. A cancel has no click. */
 	let ignoreInsideReleaseClick = false;
-	/** Sloppy touch: a small move dismisses on touchend; scrolling away dismisses during the move. */
+	/** Pointer type from the last pointerdown. A later mousedown is still that gesture. */
+	let lastPointerType = '';
+	/** Sloppy touch: a tap dismisses on the browser's mousedown, a short move on touchend, a scroll during the move. */
 	let touchState: {
 		startX: number;
 		startY: number;
@@ -100,7 +106,7 @@ export function useDismiss(store: FloatingRootStore, props: () => UseDismissProp
 	}
 
 	function pressMode(event: Event) {
-		return resolvePressMode(options().outsidePressEvent, event);
+		return resolvePressMode(options().outsidePressEvent, event, lastPointerType);
 	}
 
 	function childBlocks(key: 'escapeKeyBubbles' | 'outsidePressBubbles') {
@@ -183,19 +189,34 @@ export function useDismiss(store: FloatingRootStore, props: () => UseDismissProp
 			}),
 			on(doc, 'keydown', closeOnEscape),
 			on(doc, 'pointerdown', (event) => {
+				lastPointerType = event.pointerType;
 				if (event.button !== 0) return;
 				ignoreInsideReleaseClick = false;
 				if (insideDismissTree(event)) pressStartedInside = true;
 				else sawPressWhileOpen = true;
 				// Upstream `handlePointerDown` (useDismiss.ts 515–524): touch waits for
-				// touchend or for the finger to scroll away. Mouse sloppy still closes here.
+				// touchend, for the finger to scroll away, or for the compatibility mousedown.
 				if (event.pointerType === 'touch') return;
 				closeOnOutside(event);
 			}),
 			on(
 				doc,
+				'mousedown',
+				(event) => {
+					// Upstream `closeOnPressOutsideCapture` (useDismiss.ts 592–597, listener at 724).
+					// A plain tap closes here. A finger still down after 1000ms does not.
+					if (lastPointerType !== 'touch') return;
+					if (touchState && !touchState.dismissOnMouseDown) return;
+					closeOnOutside(event);
+				},
+				{ capture: true }
+			),
+			on(
+				doc,
 				'touchstart',
 				(event) => {
+					// Upstream records the pointer on touchstart capture (`useDismiss.ts` 574–576).
+					lastPointerType = 'touch';
 					cancelDismissOnEndTimeout.clear();
 					if (pressMode(event) !== 'sloppy' || !store.isOpen() || !options().enabled) return;
 					if (insideDismissTree(event)) return;
