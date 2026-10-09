@@ -214,7 +214,9 @@ function chase(filePath, map) {
 	let current = filePath;
 	while (map.has(current) && !seen.has(current)) {
 		seen.add(current);
-		current = map.get(current);
+		const next = map.get(current);
+		if (next == null) break;
+		current = next;
 	}
 	return current;
 }
@@ -302,7 +304,7 @@ export function clonePairKey(format, firstName, secondName, resolve) {
 }
 
 /**
- * @param {Array<{ format: string, lines: number, firstFile: { name: string }, secondFile: { name: string } }>} clones
+ * @param {Array<{ format: string, lines: number, fragment?: string, firstFile: { name: string }, secondFile: { name: string } }>} clones
  * @param {(name: string) => string} resolve
  * @returns {Record<string, PairStat>}
  */
@@ -368,7 +370,7 @@ export function scanRepo(repoRoot, ignoreHtml = true) {
  * version 3 file was written before HTML comments were ignored.
  *
  * @param {string} rev
- * @returns {Record<string, PairStat>}
+ * @returns {{ current: Record<string, PairStat>, previous: Record<string, PairStat> }}
  */
 function scanRevision(rev) {
 	// jscpd --absolute prints the real path. A symlinked TMPDIR (macOS /tmp)
