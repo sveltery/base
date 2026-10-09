@@ -26,8 +26,13 @@ interface PublishedControl {
 class FieldRegistration {
 	private registered = false;
 	private readonly source = Symbol();
-	/** Host node from the attachment. The effect re-reads this when it changes. */
+	/** Host node for `watchFieldControl`. The effect re-reads this when it changes. */
 	element = $state<HTMLElement | null>(null);
+	/** Host node for `attachFieldControl`. The attachment owns register and release. */
+	private host: HTMLElement | null = null;
+	private appliedEnabled = false;
+	private appliedId: string | undefined;
+	private appliedName: string | undefined;
 
 	constructor(
 		private readonly field: FieldRootModel,
@@ -48,6 +53,42 @@ class FieldRegistration {
 		$effect(() => {
 			return () => this.release();
 		});
+	}
+
+	/** Re-apply id, name, and enabled. The attachment registers the element. */
+	watchIdentity() {
+		$effect(() => {
+			const enabled = this.read.enabled();
+			const id = this.read.id();
+			const name = this.read.name();
+			untrack(() => {
+				const changed =
+					enabled !== this.appliedEnabled || id !== this.appliedId || name !== this.appliedName;
+				this.appliedEnabled = enabled;
+				this.appliedId = id;
+				this.appliedName = name;
+				if (!this.host || !changed) return;
+				this.apply({ enabled, id, name, element: this.host });
+			});
+		});
+	}
+
+	connect(node: HTMLElement) {
+		this.host = node;
+		untrack(() => {
+			const enabled = this.read.enabled();
+			const id = this.read.id();
+			const name = this.read.name();
+			this.appliedEnabled = enabled;
+			this.appliedId = id;
+			this.appliedName = name;
+			this.apply({ enabled, id, name, element: node });
+		});
+		return () => {
+			if (this.host !== node) return;
+			this.host = null;
+			untrack(() => this.release());
+		};
 	}
 
 	private apply(next: PublishedControl) {
@@ -87,11 +128,6 @@ export function attachFieldControl(
 	read: Omit<FieldControlRead, 'element'>
 ): Attachment<HTMLElement> {
 	const registration = new FieldRegistration(field, read);
-	registration.watch(() => registration.element);
-	return (node) => {
-		registration.element = node;
-		return () => {
-			if (registration.element === node) registration.element = null;
-		};
-	};
+	registration.watchIdentity();
+	return (node) => registration.connect(node);
 }

@@ -6,6 +6,7 @@ import { page, userEvent } from 'vitest/browser';
 import { describe, expect, it, vi } from 'vitest';
 import { render } from 'vitest-browser-svelte';
 import FieldHarness from '../../tests/FieldHarness.svelte';
+import FieldLowHarness from '../../tests/FieldLowHarness.svelte';
 import { Field } from './index.js';
 
 function text(name: string) {
@@ -474,5 +475,20 @@ describe('Field', () => {
 			expect(Number(text('calls'))).toBeGreaterThan(0);
 			await expect.element(page.getByTestId('field')).not.toHaveAttribute('data-invalid');
 		});
+	});
+
+	it('keeps the fallback validity frozen for every control outside Field.Root', async () => {
+		render(FieldLowHarness, { scenario: 'inert' });
+		await page.getByRole('button', { name: 'Poke' }).click();
+		await page.getByRole('button', { name: 'Read' }).click();
+		expect(text('inert')).toBe('frozen');
+		expect(text('seen')).toBe('null');
+	});
+
+	it('releases a control from the attachment before the following cleanup', async () => {
+		render(FieldLowHarness, { scenario: 'release' });
+		await expect.element(page.getByTestId('control')).toHaveValue('ada');
+		await page.getByRole('button', { name: 'Hide' }).click();
+		await expect.poll(() => text('seen')).toBe('0');
 	});
 });

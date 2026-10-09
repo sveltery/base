@@ -140,13 +140,11 @@
 	});
 
 	function publish(node: HTMLElement) {
+		const stopRemember = remember(node);
 		const stopRegistration = registration(node);
-		const stopRemember = render ? remember(node) : undefined;
-		if (!render && isValueElement(node)) inputEl = node;
 		return () => {
 			stopRegistration?.();
-			stopRemember?.();
-			if (inputEl === node) inputEl = null;
+			stopRemember();
 		};
 	}
 
