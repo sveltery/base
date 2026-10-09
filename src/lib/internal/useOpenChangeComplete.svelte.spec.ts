@@ -43,10 +43,13 @@ describe('useOpenChangeComplete', () => {
 
 	it('waits for the batched microtask when batch is true', async () => {
 		const element = document.createElement('div');
-		let release!: () => void;
-		const finished = new Promise<void>((resolve) => {
-			release = resolve;
-		});
+		let notify: (() => void) | undefined;
+		const finished = {
+			then(onFulfilled?: (() => void) | null) {
+				if (onFulfilled) notify = onFulfilled;
+				return Promise.resolve();
+			}
+		};
 		let saw = false;
 		element.getAnimations = () => {
 			saw = true;
@@ -64,23 +67,11 @@ describe('useOpenChangeComplete', () => {
 			}
 		});
 
-		await expect.poll(() => saw).toBe(true);
-		const queued: Array<() => void> = [];
-		const original = queueMicrotask;
-		queueMicrotask = (fn) => {
-			queued.push(fn);
-		};
-		try {
-			release();
-			await Promise.resolve();
-			await Promise.resolve();
-			await Promise.resolve();
-			expect(done).toBe(0);
-			expect(queued.length).toBeGreaterThan(0);
-		} finally {
-			queueMicrotask = original;
-		}
-		for (const fn of queued) fn();
+		await expect.poll(() => saw && notify != null).toBe(true);
+		notify?.();
+		await Promise.resolve();
+		expect(done).toBe(0);
+		await Promise.resolve();
 		expect(done).toBe(1);
 		element.remove();
 	});
