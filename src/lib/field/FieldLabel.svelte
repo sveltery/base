@@ -6,6 +6,7 @@
 -->
 <script lang="ts">
 	import { DEV } from 'esm-env';
+	import { untrack } from 'svelte';
 	import { createAttachmentKey } from 'svelte/attachments';
 	import type { HTMLAttributes, HTMLLabelAttributes } from 'svelte/elements';
 	import { getStateAttributesProps } from '../internal/state-attributes.js';
@@ -33,6 +34,10 @@
 	const item = useFieldItemContext();
 	const labelable = useLabelableContext();
 	const id = $derived(idProp ?? `base-ui-${uid}`);
+	// Effects do not run on the server. This write publishes the id in server HTML.
+	untrack(() => {
+		labelable.setLabelId(id);
+	});
 	registerLabelId(
 		() => id,
 		(next) => labelable.setLabelId(next),

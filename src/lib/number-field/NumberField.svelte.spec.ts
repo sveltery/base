@@ -63,7 +63,7 @@ describe('<NumberField />', () => {
 		const hidden = hiddenNumber();
 		hidden.value = '9';
 		hidden.dispatchEvent(new Event('change', { bubbles: true }));
-		await expect.poll(() => control().element().value).toBe('9');
+		await expect.element(control()).toHaveValue('9');
 		await expect.poll(() => page.getByTestId('calls').element().textContent).toBe('1');
 	});
 

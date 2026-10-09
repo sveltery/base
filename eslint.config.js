@@ -103,7 +103,11 @@ export default defineConfig(
 		// Svelte has no React refs. React reference fixtures are the comparison
 		// implementation and may keep React's own ref APIs.
 		files: ['src/**'],
-		ignores: ['src/routes/fixtures/**/react-reference.ts'],
+		ignores: [
+			'src/routes/fixtures/**/react-reference.ts',
+			'src/routes/fixtures/checked-reference.ts',
+			'src/routes/fixtures/react-fixture.ts'
+		],
 		plugins: { sveltery },
 		rules: {
 			'sveltery/no-cloned-event': 'error',
