@@ -15,11 +15,21 @@ describe('useButton', () => {
 	it('blocks a disabled click and leaves mousedown and keydown uncancelled', () => {
 		const onclick = vi.fn();
 		const onmousedown = vi.fn();
+		const onpointerdown = vi.fn();
 		const onkeydown = vi.fn();
-		const props = useButton(true, false, { onclick, onmousedown, onkeydown }) as {
+		const onkeyup = vi.fn();
+		const props = useButton(true, false, {
+			onclick,
+			onmousedown,
+			onpointerdown,
+			onkeydown,
+			onkeyup
+		}) as {
 			onclick: (event: ReturnType<typeof fakeEvent>) => void;
 			onmousedown: (event: ReturnType<typeof fakeEvent>) => void;
+			onpointerdown: (event: ReturnType<typeof fakeEvent>) => void;
 			onkeydown: (event: ReturnType<typeof fakeEvent>) => void;
+			onkeyup: (event: ReturnType<typeof fakeEvent>) => void;
 		};
 
 		const click = fakeEvent('click');
@@ -36,6 +46,15 @@ describe('useButton', () => {
 		props.onkeydown(key);
 		expect(key.defaultPrevented).toBe(false);
 		expect(onkeydown).not.toHaveBeenCalled();
+
+		const pointer = fakeEvent('pointerdown');
+		props.onpointerdown(pointer);
+		expect(pointer.defaultPrevented).toBe(true);
+		expect(onpointerdown).not.toHaveBeenCalled();
+
+		const up = fakeEvent('keyup');
+		props.onkeyup(up);
+		expect(onkeyup).not.toHaveBeenCalled();
 	});
 
 	it('runs the consumer click when the button is enabled', () => {

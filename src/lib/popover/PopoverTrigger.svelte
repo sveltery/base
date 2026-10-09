@@ -123,10 +123,11 @@
 				[bindKey]: bindTrigger,
 				[hoverKey]: attachReference
 			},
-			live?.dismissReference,
-			armed?.hover,
-			armed?.click,
-			useButton(disabled, nativeButton, elementProps)
+			useButton(
+				disabled,
+				nativeButton,
+				mergeProps(live?.dismissReference, armed?.hover, armed?.click, elementProps)
+			)
 		);
 		return merged;
 	});
