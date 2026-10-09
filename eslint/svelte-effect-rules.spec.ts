@@ -201,6 +201,7 @@ describe('sveltery/no-layout-read-in-derived', () => {
 		const imported = await messagesFor('layout-read-import.fail.svelte', ruleName);
 		const owner = await messagesFor('layout-read-owner.fail.svelte', ruleName);
 		const destructured = await messagesFor('layout-read-destructure.fail.svelte', ruleName);
+		const byName = await messagesFor('layout-read-by-name.fail.svelte', ruleName);
 
 		expect(covers(direct.source, direct.messages, 'return box(el)')).toBe(true);
 		expect(covers(direct.source, direct.messages, 'el.getBoundingClientRect()')).toBe(true);
@@ -209,11 +210,13 @@ describe('sveltery/no-layout-read-in-derived', () => {
 		expect(covers(destructured.source, destructured.messages, 'const { offsetWidth } = el')).toBe(
 			true
 		);
+		expect(covers(byName.source, byName.messages, '$derived.by(compute)')).toBe(true);
 		for (const messages of [
 			direct.messages,
 			imported.messages,
 			owner.messages,
-			destructured.messages
+			destructured.messages,
+			byName.messages
 		]) {
 			expect(messages.length).toBeGreaterThan(0);
 			for (const message of messages) expect(message.message).toContain('ResizeObserver');
@@ -345,6 +348,7 @@ const failRuleByFile: Record<string, string> = {
 	'layout-read-destructure.fail.svelte': 'sveltery/no-layout-read-in-derived',
 	'layout-read-import.fail.svelte': 'sveltery/no-layout-read-in-derived',
 	'layout-read-owner.fail.svelte': 'sveltery/no-layout-read-in-derived',
+	'layout-read-by-name.fail.svelte': 'sveltery/no-layout-read-in-derived',
 	'void-signal-derived.fail.svelte': 'sveltery/no-void-signal-read',
 	'void-signal-object.fail.svelte': 'sveltery/no-void-signal-read',
 	'void-signal-underscore.fail.svelte': 'sveltery/no-void-signal-read',

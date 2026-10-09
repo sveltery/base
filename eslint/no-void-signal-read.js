@@ -5,6 +5,12 @@
  *
  * Pass the value into the function that uses it, or read it in a `$derived`.
  *
+ * Unread object props are still missed for:
+ * - member and namespace callees
+ * - barrel re-exports and `$lib` imports
+ * - options passed through a variable
+ * - `params().x` and `p['x']`
+ *
  * @type {import('eslint').Rule.RuleModule}
  */
 import {

@@ -3,7 +3,17 @@
  * do not subscribe to size or scroll. Measure in a ResizeObserver or scroll
  * attachment and write `$state`.
  *
- * Follows one call into a function in the same file or a named import.
+ * Follows one call into a function in the same file or a named import, and a
+ * same-file function passed as `$derived.by(compute)`.
+ *
+ * Still missed:
+ * - el['getBoundingClientRect']()
+ * - a helper two calls deep
+ * - barrel re-exports
+ * - namespace imports
+ * - reads nested in callbacks or untrack
+ * - window.innerWidth
+ * - getClientRects()
  *
  * @type {import('eslint').Rule.RuleModule}
  */
@@ -68,6 +78,11 @@ const rule = {
 				if (!isDerivedCall(node)) return;
 				const region = node.arguments?.[0];
 				if (!region) return;
+				const argument = unwrap(region);
+				if (argument?.type === 'Identifier') {
+					const body = calleeBody(argument.name);
+					if (body && layoutReads(body).length > 0) report(argument);
+				}
 				for (const read of layoutReads(region)) report(read);
 				for (const call of directCalls(region)) {
 					const name = calleeName(call.callee);
