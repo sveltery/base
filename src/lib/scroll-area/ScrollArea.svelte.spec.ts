@@ -228,36 +228,79 @@ describe('<ScrollArea />', () => {
 		unmount();
 	});
 
-	it('keeps the thumb transform and viewport overflow vars after a style change', async () => {
+	const overflowVarNames = [
+		'--scroll-area-overflow-x-start',
+		'--scroll-area-overflow-x-end',
+		'--scroll-area-overflow-y-start',
+		'--scroll-area-overflow-y-end'
+	] as const;
+
+	function overflowVars(element: HTMLElement) {
+		return overflowVarNames.map((name) => element.style.getPropertyValue(name));
+	}
+
+	async function scrolledPaint() {
 		render(ScrollAreaHarness, { scenario: 'paint' });
 		await expect.element(thumbY()).toBeInTheDocument();
 		const viewportEl = host(viewport());
 		const thumbEl = host(thumbY());
-		const seen: string[] = [];
-		const observer = new MutationObserver((records) => {
-			for (const record of records) seen.push(String(record.oldValue));
-		});
-		observer.observe(thumbEl, {
-			attributes: true,
-			attributeFilter: ['style'],
-			attributeOldValue: true
-		});
 		viewportEl.scrollTop = 80;
 		await expect.poll(() => thumbEl.style.transform).toContain('16px');
 		await expect
 			.poll(() => viewportEl.style.getPropertyValue('--scroll-area-overflow-y-start'))
 			.not.toBe('0px');
 		flushSync();
-		expect(seen).toHaveLength(1);
-		const transform = thumbEl.style.transform;
-		const overflowStart = viewportEl.style.getPropertyValue('--scroll-area-overflow-y-start');
-		const overflowEnd = viewportEl.style.getPropertyValue('--scroll-area-overflow-y-end');
-		await page.getByRole('button', { name: 'Paint' }).click();
+		return {
+			viewportEl,
+			thumbEl,
+			transform: thumbEl.style.transform,
+			vars: overflowVars(viewportEl)
+		};
+	}
+
+	it('writes the thumb once and the viewport twice while scrolling', async () => {
+		render(ScrollAreaHarness, { scenario: 'paint' });
+		await expect.element(thumbY()).toBeInTheDocument();
+		const viewportEl = host(viewport());
+		const thumbEl = host(thumbY());
+		const thumbWrites: string[] = [];
+		const viewportWrites: string[] = [];
+		const thumbObserver = new MutationObserver((records) => {
+			for (const record of records) thumbWrites.push(String(record.oldValue));
+		});
+		const viewportObserver = new MutationObserver((records) => {
+			for (const record of records) viewportWrites.push(String(record.oldValue));
+		});
+		const options = { attributes: true, attributeFilter: ['style'], attributeOldValue: true };
+		thumbObserver.observe(thumbEl, options);
+		viewportObserver.observe(viewportEl, options);
+		viewportEl.scrollTop = 80;
+		await expect.poll(() => thumbEl.style.transform).toContain('16px');
+		await expect
+			.poll(() => viewportEl.style.getPropertyValue('--scroll-area-overflow-y-start'))
+			.not.toBe('0px');
+		flushSync();
+		expect(thumbWrites).toHaveLength(1);
+		expect(viewportWrites).toHaveLength(2);
+		thumbObserver.disconnect();
+		viewportObserver.disconnect();
+	});
+
+	it('keeps the thumb transform and overflow vars after a thumb-only style change', async () => {
+		const { thumbEl, viewportEl, transform, vars } = await scrolledPaint();
+		await page.getByRole('button', { name: 'Paint thumb' }).click();
 		await expect.poll(() => thumbEl.style.opacity).toBe('0.99');
 		expect(thumbEl.style.transform).toBe(transform);
-		expect(viewportEl.style.getPropertyValue('--scroll-area-overflow-y-start')).toBe(overflowStart);
-		expect(viewportEl.style.getPropertyValue('--scroll-area-overflow-y-end')).toBe(overflowEnd);
-		observer.disconnect();
+		expect(overflowVars(viewportEl)).toEqual(vars);
+	});
+
+	it('keeps the thumb transform and overflow vars after a viewport-only style change', async () => {
+		const { thumbEl, viewportEl, transform, vars } = await scrolledPaint();
+		await page.getByRole('button', { name: 'Paint viewport' }).click();
+		await expect.poll(() => viewportEl.style.outline).toContain('transparent');
+		expect(thumbEl.style.transform).toBe(transform);
+		expect(overflowVars(viewportEl)).toEqual(vars);
+		expect(vars.every((value) => value !== '')).toBe(true);
 	});
 
 	it('respects overflowEdgeThreshold', async () => {

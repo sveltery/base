@@ -33,7 +33,8 @@
 	let large = $state(true);
 	let threshold = $state(0);
 	let direction = $state<'ltr' | 'rtl'>('ltr');
-	let paint = $state(false);
+	let thumbPaint = $state(false);
+	let viewportPaint = $state(false);
 
 	const rtl = $derived(scenario === 'rtl' || (scenario === 'direction' && direction === 'rtl'));
 	// pointer-events: none keeps parallel browser tests from hit-testing this
@@ -45,9 +46,9 @@
 		large ? 'width: 1000px; height: 1000px' : 'width: 100px; height: 100px'
 	);
 	const viewportStyle = $derived(
-		`width: 100%; height: 100%${scenario === 'snap' ? '; scroll-snap-type: y mandatory' : ''}${paint ? '; outline: 1px solid transparent' : ''}`
+		`width: 100%; height: 100%${scenario === 'snap' ? '; scroll-snap-type: y mandatory' : ''}${viewportPaint ? '; outline: 1px solid transparent' : ''}`
 	);
-	const thumbStyle = $derived(paint ? 'opacity: 0.99' : undefined);
+	const thumbStyle = $derived(thumbPaint ? 'opacity: 0.99' : undefined);
 </script>
 
 <DirectionProvider direction={rtl ? 'rtl' : 'ltr'}>
@@ -77,7 +78,8 @@
 			<button type="button" onclick={() => (large = false)}>Shrink</button>
 		{/if}
 		{#if scenario === 'paint'}
-			<button type="button" onclick={() => (paint = true)}>Paint</button>
+			<button type="button" onclick={() => (thumbPaint = true)}>Paint thumb</button>
+			<button type="button" onclick={() => (viewportPaint = true)}>Paint viewport</button>
 		{/if}
 		{#snippet parts()}
 			<ScrollArea.Viewport data-testid="viewport" style={viewportStyle}>
