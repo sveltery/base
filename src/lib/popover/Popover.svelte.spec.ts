@@ -887,6 +887,7 @@ describe('Popover', () => {
 		trigger.dispatchEvent(up);
 		await tick();
 		expect(pointer.defaultPrevented).toBe(true);
+		expect(up.defaultPrevented).toBe(false);
 		expect({
 			pointerdowns: page.getByTestId('pointerdowns').element().textContent,
 			keyups: page.getByTestId('keyups').element().textContent
@@ -913,6 +914,7 @@ describe('Popover', () => {
 		expect(pointer.defaultPrevented).toBe(true);
 		expect(down.defaultPrevented).toBe(false);
 		expect(key.defaultPrevented).toBe(false);
+		expect(up.defaultPrevented).toBe(false);
 		expect({
 			pointerdowns: page.getByTestId('pointerdowns').element().textContent,
 			mousedowns: page.getByTestId('mousedowns').element().textContent,
@@ -920,6 +922,37 @@ describe('Popover', () => {
 			keyups: page.getByTestId('keyups').element().textContent
 		}).toEqual({ pointerdowns: '0', mousedowns: '0', keydowns: '0', keyups: '0' });
 		expect(page.getByRole('dialog').elements()).toHaveLength(1);
+	});
+
+	it('lets Escape leave a disabled trigger and close once', async () => {
+		render(DisabledNonNativeHarness, {
+			part: 'popover',
+			defaultOpen: true,
+			disabledTrigger: true
+		});
+		await expect.element(page.getByRole('dialog')).toBeVisible();
+		const seen: KeyboardEvent[] = [];
+		function onKeyDown(event: KeyboardEvent) {
+			if (event.key === 'Escape') seen.push(event);
+		}
+		document.body.addEventListener('keydown', onKeyDown);
+		try {
+			const trigger = page.getByRole('button', { name: 'Open' }).element() as HTMLElement;
+			trigger.focus();
+			await tick();
+			expect(document.activeElement).toBe(trigger);
+			trigger.dispatchEvent(
+				new KeyboardEvent('keydown', { key: 'Escape', bubbles: true, cancelable: true })
+			);
+			await tick();
+			expect({ bodyEscapes: seen.length }).toEqual({ bodyEscapes: 1 });
+			const calls = JSON.parse(page.getByTestId('calls').element().textContent ?? '[]') as {
+				reason: string;
+			}[];
+			expect(calls.filter((call) => call.reason === 'escape-key')).toHaveLength(1);
+		} finally {
+			document.body.removeEventListener('keydown', onKeyDown);
+		}
 	});
 });
 

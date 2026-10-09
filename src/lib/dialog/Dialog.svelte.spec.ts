@@ -921,6 +921,7 @@ describe('Dialog', () => {
 		trigger.dispatchEvent(up);
 		await tick();
 		expect(pointer.defaultPrevented).toBe(true);
+		expect(up.defaultPrevented).toBe(false);
 		expect({
 			pointerdowns: page.getByTestId('pointerdowns').element().textContent,
 			keyups: page.getByTestId('keyups').element().textContent
@@ -947,6 +948,7 @@ describe('Dialog', () => {
 		expect(pointer.defaultPrevented).toBe(true);
 		expect(down.defaultPrevented).toBe(false);
 		expect(key.defaultPrevented).toBe(false);
+		expect(up.defaultPrevented).toBe(false);
 		expect({
 			pointerdowns: page.getByTestId('pointerdowns').element().textContent,
 			mousedowns: page.getByTestId('mousedowns').element().textContent,
