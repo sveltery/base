@@ -32,13 +32,18 @@
 		mergeProps(
 			{ [bindKey]: register },
 			disabled ? { 'data-disabled': '' } : {},
-			useButton(disabled, nativeButton),
-			{
-				onclick(event: MouseEvent) {
-					store.setOpen(false, createChangeEventDetails(REASONS.closePress, event));
-				}
-			},
-			elementProps
+			useButton(
+				disabled,
+				nativeButton,
+				mergeProps(
+					{
+						onclick(event: MouseEvent) {
+							store.setOpen(false, createChangeEventDetails(REASONS.closePress, event));
+						}
+					},
+					elementProps
+				)
+			)
 		)
 	);
 	const state: PopoverCloseState = {};

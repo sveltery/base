@@ -14,6 +14,7 @@ import PopoverOpenCompleteStateHarness from '../../tests/PopoverOpenCompleteStat
 import PortalRenderHarness from '../../tests/PortalRenderHarness.svelte';
 import PopoverReviewHarness from '../../tests/PopoverReviewHarness.svelte';
 import PopoverFixture from '../../routes/fixtures/popover/PopoverFixture.svelte';
+import DisabledNonNativeHarness from '../../tests/DisabledNonNativeHarness.svelte';
 import PopoverDisabledHostHarness from '../../tests/PopoverDisabledHostHarness.svelte';
 import { Popover, PopoverHandle } from './index.js';
 import { PopoverStore } from './store.svelte.js';
@@ -833,6 +834,121 @@ describe('Popover', () => {
 			form.removeEventListener('invalid', onInvalid, true);
 		} finally {
 			view.unmount();
+		}
+	});
+
+	it('keeps a disabled non-native close from closing', async () => {
+		render(DisabledNonNativeHarness, {
+			part: 'popover',
+			defaultOpen: true,
+			disabledClose: true
+		});
+		await expect.element(page.getByRole('dialog')).toBeVisible();
+		const before = page.getByTestId('calls').element().textContent;
+		(page.getByRole('button', { name: 'Close' }).element() as HTMLElement).click();
+		await tick();
+		expect(page.getByTestId('calls').element().textContent).toBe(before);
+		await expect.poll(() => page.getByRole('dialog').elements().length).toBe(1);
+	});
+
+	it('does not call onclick on a disabled non-native trigger', async () => {
+		render(DisabledNonNativeHarness, { part: 'popover', disabledTrigger: true });
+		await page.getByRole('button', { name: 'Open' }).click({ force: true });
+		await tick();
+		expect(page.getByTestId('clicks').element().textContent).toBe('0');
+		expect(page.getByRole('dialog').elements()).toHaveLength(0);
+	});
+
+	it('does not prevent mousedown or keydown on a disabled non-native trigger', async () => {
+		render(DisabledNonNativeHarness, { part: 'popover', disabledTrigger: true });
+		const trigger = page.getByRole('button', { name: 'Open' }).element();
+		const down = new MouseEvent('mousedown', { bubbles: true, cancelable: true });
+		const key = new KeyboardEvent('keydown', { key: 'Enter', bubbles: true, cancelable: true });
+		trigger.dispatchEvent(down);
+		trigger.dispatchEvent(key);
+		await tick();
+		expect(down.defaultPrevented).toBe(false);
+		expect(key.defaultPrevented).toBe(false);
+		expect({
+			mousedowns: page.getByTestId('mousedowns').element().textContent,
+			keydowns: page.getByTestId('keydowns').element().textContent
+		}).toEqual({ mousedowns: '0', keydowns: '0' });
+	});
+
+	it('does not call pointerdown or keyup on a disabled non-native trigger', async () => {
+		render(DisabledNonNativeHarness, { part: 'popover', disabledTrigger: true });
+		const trigger = page.getByRole('button', { name: 'Open' }).element();
+		const pointer = new PointerEvent('pointerdown', { bubbles: true, cancelable: true });
+		const up = new KeyboardEvent('keyup', { key: ' ', bubbles: true, cancelable: true });
+		trigger.dispatchEvent(pointer);
+		trigger.dispatchEvent(up);
+		await tick();
+		expect(pointer.defaultPrevented).toBe(true);
+		expect(up.defaultPrevented).toBe(false);
+		expect({
+			pointerdowns: page.getByTestId('pointerdowns').element().textContent,
+			keyups: page.getByTestId('keyups').element().textContent
+		}).toEqual({ pointerdowns: '0', keyups: '0' });
+	});
+
+	it('does not call pointerdown, keyup, mousedown, or keydown on a disabled non-native close', async () => {
+		render(DisabledNonNativeHarness, {
+			part: 'popover',
+			defaultOpen: true,
+			disabledClose: true
+		});
+		await expect.element(page.getByRole('dialog')).toBeVisible();
+		const close = page.getByRole('button', { name: 'Close' }).element();
+		const pointer = new PointerEvent('pointerdown', { bubbles: true, cancelable: true });
+		const down = new MouseEvent('mousedown', { bubbles: true, cancelable: true });
+		const key = new KeyboardEvent('keydown', { key: 'Enter', bubbles: true, cancelable: true });
+		const up = new KeyboardEvent('keyup', { key: ' ', bubbles: true, cancelable: true });
+		close.dispatchEvent(pointer);
+		close.dispatchEvent(down);
+		close.dispatchEvent(key);
+		close.dispatchEvent(up);
+		await tick();
+		expect(pointer.defaultPrevented).toBe(true);
+		expect(down.defaultPrevented).toBe(false);
+		expect(key.defaultPrevented).toBe(false);
+		expect(up.defaultPrevented).toBe(false);
+		expect({
+			pointerdowns: page.getByTestId('pointerdowns').element().textContent,
+			mousedowns: page.getByTestId('mousedowns').element().textContent,
+			keydowns: page.getByTestId('keydowns').element().textContent,
+			keyups: page.getByTestId('keyups').element().textContent
+		}).toEqual({ pointerdowns: '0', mousedowns: '0', keydowns: '0', keyups: '0' });
+		expect(page.getByRole('dialog').elements()).toHaveLength(1);
+	});
+
+	it('lets Escape leave a disabled trigger and close once', async () => {
+		render(DisabledNonNativeHarness, {
+			part: 'popover',
+			defaultOpen: true,
+			disabledTrigger: true
+		});
+		await expect.element(page.getByRole('dialog')).toBeVisible();
+		const seen: KeyboardEvent[] = [];
+		function onKeyDown(event: KeyboardEvent) {
+			if (event.key === 'Escape') seen.push(event);
+		}
+		document.body.addEventListener('keydown', onKeyDown);
+		try {
+			const trigger = page.getByRole('button', { name: 'Open' }).element() as HTMLElement;
+			trigger.focus();
+			await tick();
+			expect(document.activeElement).toBe(trigger);
+			trigger.dispatchEvent(
+				new KeyboardEvent('keydown', { key: 'Escape', bubbles: true, cancelable: true })
+			);
+			await tick();
+			expect({ bodyEscapes: seen.length }).toEqual({ bodyEscapes: 1 });
+			const calls = JSON.parse(page.getByTestId('calls').element().textContent ?? '[]') as {
+				reason: string;
+			}[];
+			expect(calls.filter((call) => call.reason === 'escape-key')).toHaveLength(1);
+		} finally {
+			document.body.removeEventListener('keydown', onKeyDown);
 		}
 	});
 });
