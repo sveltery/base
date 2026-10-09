@@ -10,7 +10,7 @@
 	import { radioIndicatorAttributes } from './attributes.js';
 	import { useRadioContext } from './context.js';
 	import { runOnceAnimationsFinish } from '../internal/animations-finished.js';
-	import { useAnimationFrame } from '../internal/timeout.svelte.js';
+	import { clearStatusOnAnimationFrame } from '../internal/indicator-frame.svelte.js';
 	import type { RadioIndicatorPhase, RadioIndicatorProps, RadioIndicatorState } from './types.js';
 
 	let { keepMounted = false, render, children, ...elementProps }: RadioIndicatorProps = $props();
@@ -18,7 +18,6 @@
 	const ctx = useRadioContext();
 	const rendered = $derived(ctx.checked);
 	const indicatorKey = createAttachmentKey();
-	const settleFrame = useAnimationFrame();
 
 	let mounted = $state(untrack(() => ctx.checked));
 	let transitionStatus: RadioIndicatorPhase = $state(undefined);
@@ -45,13 +44,12 @@
 		}
 	});
 
-	$effect(() => {
-		if (!rendered) return;
-		settleFrame.request(() => {
+	clearStatusOnAnimationFrame(
+		() => rendered,
+		() => {
 			transitionStatus = undefined;
-		});
-		return () => settleFrame.cancel();
-	});
+		}
+	);
 
 	$effect(() => {
 		const element = indicatorNode;

@@ -143,6 +143,20 @@ describe('sveltery/no-uncontrolled-bindable', () => {
 		expect(messages.some((message) => message.message.includes('checked'))).toBe(true);
 	});
 
+	it('rejects a bind:name comment that is not a forward', async () => {
+		const source = readFileSync(
+			new URL('fixtures/uncontrolled-bindable-comment.fail.svelte', import.meta.url),
+			'utf8'
+		);
+		const messages = await messagesFor(
+			source,
+			'uncontrolled-bindable-comment.fail.svelte',
+			'no-uncontrolled-bindable'
+		);
+		expect(source).toContain('// bind:value');
+		expect(messages.some((message) => message.message.includes('value'))).toBe(true);
+	});
+
 	it('allows the helper and a bind: forward', async () => {
 		const source = readFileSync(
 			new URL('fixtures/uncontrolled-bindable.pass.svelte', import.meta.url),

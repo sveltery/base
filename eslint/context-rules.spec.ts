@@ -69,4 +69,53 @@ describe('context rules', () => {
 		);
 		expect(field).toEqual([]);
 	});
+
+	it('rejects a stored computed style and getPropertyValue', async () => {
+		const stored = await messages(
+			'const style = getComputedStyle(element);\nconst dir = style.direction;\n',
+			repoPath('src/lib/slider/example.ts')
+		);
+		expect(stored.some((message) => message.includes('useDirection()'))).toBe(true);
+
+		const property = await messages(
+			"const dir = getComputedStyle(element).getPropertyValue('direction');\n",
+			repoPath('src/lib/slider/example.ts')
+		);
+		expect(property.some((message) => message.includes('useDirection()'))).toBe(true);
+
+		const storedProperty = await messages(
+			"const style = getComputedStyle(element);\nconst dir = style.getPropertyValue('direction');\n",
+			repoPath('src/lib/slider/example.ts')
+		);
+		expect(storedProperty.some((message) => message.includes('useDirection()'))).toBe(true);
+	});
+
+	it('rejects the seven context folders from a component that does not read them', async () => {
+		const sources = [
+			"import { useFieldContext } from '../field/context.svelte.js';\n",
+			"import { useFormContext } from '../form/context.js';\n",
+			"import { useFieldsetRootContext } from '../fieldset/context.svelte.js';\n",
+			"import { useCollapsibleRootContext } from '../collapsible/context.svelte.js';\n",
+			"import { useToggleGroupContext } from '../toggle-group/context.svelte.js';\n",
+			"import { useRadioContext } from '../radio/context.js';\n",
+			"import { useCheckboxContext } from '../checkbox/context.js';\n"
+		];
+		for (const source of sources) {
+			const result = await messages(source, repoPath('src/lib/dialog/example.ts'));
+			expect(
+				result.some((message) => message.includes('context module')),
+				source
+			).toBe(true);
+		}
+	});
+
+	it('rejects input importing form context outside a spec', async () => {
+		const source = "import { unprovidedFormFieldCount } from '../form/context.js';\n";
+		const component = await messages(source, repoPath('src/lib/input/example.ts'));
+		expect(component.some((message) => message.includes('context module'))).toBe(true);
+		const spec = await messages(source, repoPath('src/lib/input/Input.svelte.spec.ts'));
+		expect(spec).toEqual([]);
+		const notes = await messages(source, repoPath('src/lib/input/form.spec.notes.ts'));
+		expect(notes.some((message) => message.includes('context module'))).toBe(true);
+	});
 });

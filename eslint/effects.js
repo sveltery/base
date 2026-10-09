@@ -2,6 +2,9 @@
  * Shared walkers for the Svelte effect rules.
  * `$effect` and `$effect.pre` only. `$effect.root` is a different API.
  */
+import { existsSync, readFileSync } from 'node:fs';
+import path from 'node:path';
+import ts from 'typescript-eslint';
 
 /**
  * @param {unknown} node
@@ -408,8 +411,92 @@ export function propNames(context) {
 }
 
 /**
- * @param {unknown} expr
+ * @param {any} node
  */
+export function isDerivedCall(node) {
+	const callee = unwrap(node.callee);
+	if (!callee) return false;
+	if (callee.type === 'Identifier' && callee.name === '$derived') return true;
+	return (
+		callee.type === 'MemberExpression' &&
+		!callee.computed &&
+		nameOf(callee.object) === '$derived' &&
+		nameOf(callee.property) === 'by'
+	);
+}
+
+/**
+ * @param {any} ast
+ */
+export function importBindings(ast) {
+	/** @type {Map<string, { source: string, imported: string }>} */
+	const map = new Map();
+	walk(ast, (node) => {
+		if (node.type !== 'ImportDeclaration') return;
+		const source = node.source?.value;
+		if (typeof source !== 'string' || !source.startsWith('.')) return;
+		for (const spec of node.specifiers ?? []) {
+			if (spec.type !== 'ImportSpecifier') continue;
+			const imported = nameOf(spec.imported);
+			const local = nameOf(spec.local) ?? imported;
+			if (imported && local) map.set(local, { source, imported });
+		}
+	});
+	return map;
+}
+
+/**
+ * Directory used to resolve relative imports in the file being linted.
+ * Product files exist at the path ESLint reports. Fixture specs pass a path
+ * relative to `eslint/fixtures` (a bare name, or `nested/file.svelte`). ESLint
+ * absolutizes that against the cwd, so the reported path does not exist.
+ * Join that relative path onto `eslint/fixtures`. A missing path must not bind
+ * to a fixture that only shares the basename.
+ *
+ * @param {import('eslint').Rule.RuleContext} context
+ */
+export function fileOf(context) {
+	const name = context.filename || '';
+	if (name && existsSync(name)) return name;
+
+	const fixturesRoot = path.join(process.cwd(), 'eslint/fixtures');
+	const relative = name && path.isAbsolute(name) ? path.relative(process.cwd(), name) : name;
+	if (relative && !path.isAbsolute(relative) && !relative.startsWith('..')) {
+		const fixture = path.join(fixturesRoot, relative);
+		if (existsSync(fixture)) return fixture;
+	}
+	return name ? path.resolve(name) : path.join(fixturesRoot, 'input.svelte');
+}
+
+/**
+ * The function a relative named import points at, or null when it cannot be resolved.
+ *
+ * @param {string} fromFile
+ * @param {string} source
+ * @param {string} imported
+ */
+export function loadNamedFunction(fromFile, source, imported) {
+	const file = resolveModule(fromFile, source);
+	if (!file) return null;
+	const key = `${file}#${imported}`;
+	if (exportCache.has(key)) return exportCache.get(key);
+	try {
+		const parsed = ts.parser.parseForESLint(readFileSync(file, 'utf8'), {
+			ecmaVersion: 'latest',
+			sourceType: 'module',
+			range: true,
+			loc: true
+		});
+		linkParents(parsed.ast);
+		const fn = findNamedFunction(parsed.ast, imported);
+		exportCache.set(key, fn);
+		return fn;
+	} catch {
+		exportCache.set(key, null);
+		return null;
+	}
+}
+
 export function isPropLikeRead(expr) {
 	const node = unwrap(expr);
 	if (!node) return false;
@@ -456,4 +543,89 @@ export function isPropStateMirror(fn, props) {
 		copiesState = true;
 	}
 	return copiesState;
+}
+
+/** @type {Map<string, any>} */
+const exportCache = new Map();
+
+/**
+ * @param {string} fromFile
+ * @param {string} source
+ */
+function resolveModule(fromFile, source) {
+	const base = path.resolve(path.dirname(fromFile), source);
+	const stem = base.replace(/\.(js|ts|svelte)$/, '');
+	const candidates = [base, `${stem}.ts`, `${stem}.svelte.ts`, `${stem}.js`, `${stem}.svelte`];
+	return candidates.find((candidate) => existsSync(candidate)) ?? null;
+}
+
+/**
+ * @param {any} ast
+ * @param {string} name
+ */
+function findNamedFunction(ast, name) {
+	for (const node of ast.body ?? []) {
+		if (node.type !== 'ExportNamedDeclaration') continue;
+		const declaration = node.declaration;
+		if (declaration?.type === 'FunctionDeclaration' && nameOf(declaration.id) === name)
+			return declaration;
+		if (declaration?.type === 'VariableDeclaration') {
+			for (const decl of declaration.declarations ?? []) {
+				if (nameOf(decl.id) !== name) continue;
+				const init = unwrap(decl.init);
+				if (
+					init &&
+					(init.type === 'ArrowFunctionExpression' || init.type === 'FunctionExpression')
+				) {
+					return init;
+				}
+			}
+		}
+		for (const spec of node.specifiers ?? []) {
+			if (nameOf(spec.exported) !== name) continue;
+			return localFunction(ast, nameOf(spec.local));
+		}
+	}
+	return null;
+}
+
+/**
+ * @param {any} ast
+ * @param {string | null} name
+ */
+function localFunction(ast, name) {
+	if (!name) return null;
+	let fn = null;
+	walk(ast, (node) => {
+		if (fn) return;
+		if (node.type === 'FunctionDeclaration' && nameOf(node.id) === name) fn = node;
+		if (
+			node.type === 'VariableDeclarator' &&
+			nameOf(node.id) === name &&
+			node.init &&
+			(node.init.type === 'ArrowFunctionExpression' || node.init.type === 'FunctionExpression')
+		) {
+			fn = node.init;
+		}
+	});
+	return fn;
+}
+
+/**
+ * @param {any} ast
+ */
+function linkParents(ast) {
+	walk(ast, (node) => {
+		for (const key of Object.keys(node)) {
+			if (key === 'parent') continue;
+			const child = node[key];
+			if (Array.isArray(child)) {
+				for (const item of child) {
+					if (item && typeof item === 'object' && typeof item.type === 'string') item.parent = node;
+				}
+			} else if (child && typeof child === 'object' && typeof child.type === 'string') {
+				child.parent = node;
+			}
+		}
+	});
 }

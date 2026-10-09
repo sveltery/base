@@ -13,7 +13,7 @@
 	import { checkboxIndicatorAttributes } from './attributes.js';
 	import { useCheckboxContext } from './context.js';
 	import { runOnceAnimationsFinish } from '../internal/animations-finished.js';
-	import { useAnimationFrame } from '../internal/timeout.svelte.js';
+	import { clearStatusOnAnimationFrame } from '../internal/indicator-frame.svelte.js';
 	import type {
 		CheckboxIndicatorPhase,
 		CheckboxIndicatorProps,
@@ -25,7 +25,6 @@
 	const ctx = useCheckboxContext();
 	const rendered = $derived(ctx.checked || ctx.indeterminate);
 	const indicatorKey = createAttachmentKey();
-	const settleFrame = useAnimationFrame();
 
 	let mounted = $state(untrack(() => ctx.checked || ctx.indeterminate));
 	let transitionStatus: CheckboxIndicatorPhase = $state(undefined);
@@ -52,13 +51,12 @@
 		}
 	});
 
-	$effect(() => {
-		if (!rendered) return;
-		settleFrame.request(() => {
+	clearStatusOnAnimationFrame(
+		() => rendered,
+		() => {
 			transitionStatus = undefined;
-		});
-		return () => settleFrame.cancel();
-	});
+		}
+	);
 
 	$effect(() => {
 		const element = indicatorNode;

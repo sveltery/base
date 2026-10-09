@@ -1,4 +1,5 @@
 <script lang="ts">
+	/* eslint-disable sveltery/no-direct-field-registration -- the probe wraps registerControl so the harness can count registrations */
 	import { useFieldContext } from '../lib/field/context.svelte.js';
 	import type { FieldControlRegistration } from '../lib/field/model.svelte.js';
 

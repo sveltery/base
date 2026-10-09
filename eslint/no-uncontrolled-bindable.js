@@ -77,6 +77,28 @@ function referencesProp(sourceCode, node, name, seen) {
 	return found;
 }
 
+/**
+ * Real `bind:name` directives. A comment or a longer name is not a forward.
+ * @param {unknown} ast
+ */
+function bindingNames(ast) {
+	/** @type {Set<string>} */
+	const names = new Set();
+	walk(ast, (node) => {
+		if (node.type !== 'SvelteDirective' || node.kind !== 'Binding') return;
+		const key = node.key;
+		const nameNode = key?.name;
+		const name =
+			nameNode?.type === 'Identifier' || nameNode?.type === 'SvelteName'
+				? nameNode.name
+				: typeof nameNode === 'string'
+					? nameNode
+					: null;
+		if (typeof name === 'string') names.add(name);
+	});
+	return names;
+}
+
 /** @type {import('eslint').Rule.RuleModule} */
 const rule = {
 	meta: {
@@ -112,13 +134,12 @@ const rule = {
 				bindables.push({ name, node: init });
 			},
 			'Program:exit'() {
-				const source = sourceCode.getText();
+				const forwarded = bindingNames(sourceCode.ast);
 				for (const bindable of bindables) {
-					const forwarded = source.includes(`bind:${bindable.name}`);
 					const routed = calls.some((call) =>
 						referencesProp(sourceCode, call, bindable.name, new Set())
 					);
-					if (forwarded || routed) continue;
+					if (forwarded.has(bindable.name) || routed) continue;
 					context.report({
 						node: bindable.node,
 						messageId: 'uncontrolled',

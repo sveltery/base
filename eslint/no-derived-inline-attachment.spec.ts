@@ -58,6 +58,28 @@ describe('sveltery/no-derived-inline-attachment', () => {
 		expect(messages.some((message) => message.message.includes('stable function'))).toBe(true);
 	});
 
+	it('rejects helper, conditional, bind, declaration, assignment, and a derived key', async () => {
+		const source = readFileSync(
+			new URL('fixtures/derived-inline-attachment.fail.svelte', import.meta.url),
+			'utf8'
+		);
+		const [result] = await lint(source, 'src/lib/popover/derived-inline-attachment.fail.svelte');
+		const messages = (result?.messages ?? []).filter((message) => message.ruleId === ruleId);
+		const lines = source.split('\n');
+		const reported = messages.map((message) =>
+			lines.slice((message.line ?? 1) - 1, message.endLine ?? message.line).join('\n')
+		);
+		expect(reported.some((line) => line.includes('host(bindKey)'))).toBe(true);
+		expect(reported.some((line) => line.includes('flag') && line.includes('?'))).toBe(true);
+		expect(reported.some((line) => line.includes('.bind('))).toBe(true);
+		expect(reported.some((line) => line.includes('[bindKey]: attach'))).toBe(true);
+		expect(reported.some((line) => line.includes('[bindKey]: f'))).toBe(true);
+		expect(reported.some((line) => line.includes('createAttachmentKey()'))).toBe(true);
+		expect(messages.some((message) => message.message.includes('every read'))).toBe(false);
+		expect(messages.some((message) => message.message.includes('dependency changes'))).toBe(true);
+		expect(reported.some((line) => line.includes('bind:this'))).toBe(false);
+	});
+
 	it('accepts the stable bindTrigger on the current trigger', async () => {
 		const source = readFileSync(new URL('src/lib/popover/PopoverTrigger.svelte', root), 'utf8');
 		const [result] = await lint(source, 'src/lib/popover/PopoverTrigger.svelte');

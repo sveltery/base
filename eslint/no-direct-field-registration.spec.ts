@@ -1,5 +1,6 @@
 import { createRequire } from 'node:module';
 import { readFileSync } from 'node:fs';
+import { fileURLToPath } from 'node:url';
 import { describe, expect, it } from 'vitest';
 import { ESLint, type Linter } from 'eslint';
 import ts from 'typescript-eslint';
@@ -103,6 +104,34 @@ describe('sveltery/no-direct-field-registration', () => {
 			'utf8'
 		);
 		const messages = await messagesFor(source, 'src/lib/field/alias.svelte');
+		expect(messages.length).toBeGreaterThan(0);
+	});
+
+	it('rejects destructuring, bind, call, apply, and a let alias', async () => {
+		const source = readFileSync(
+			new URL('fixtures/direct-field-registration-gaps.fail.svelte', import.meta.url),
+			'utf8'
+		);
+		const messages = await messagesFor(source, 'src/lib/field/gaps.svelte');
+		const lines = source.split('\n');
+		const reported = messages.map((message) => lines[(message.line ?? 1) - 1] ?? '');
+		expect(reported.some((line) => line.includes('registerControl(Symbol()'))).toBe(true);
+		expect(reported.some((line) => line.includes('named(Symbol()'))).toBe(true);
+		expect(reported.some((line) => line.includes('later(Symbol()'))).toBe(true);
+		expect(reported.some((line) => line.includes('.call('))).toBe(true);
+		expect(reported.some((line) => line.includes('.apply('))).toBe(true);
+		expect(reported.some((line) => line.includes('.bind('))).toBe(true);
+	});
+
+	it('rejects registerControl under src/tests', async () => {
+		const source = readFileSync(
+			new URL('fixtures/direct-field-registration-gaps.fail.svelte', import.meta.url),
+			'utf8'
+		);
+		const messages = await messagesFor(
+			source,
+			fileURLToPath(new URL('../src/tests/probe.svelte', import.meta.url))
+		);
 		expect(messages.length).toBeGreaterThan(0);
 	});
 
