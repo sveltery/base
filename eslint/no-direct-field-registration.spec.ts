@@ -106,6 +106,22 @@ describe('sveltery/no-direct-field-registration', () => {
 		expect(messages.length).toBeGreaterThan(0);
 	});
 
+	it('rejects destructuring, bind, call, apply, and a let alias', async () => {
+		const source = readFileSync(
+			new URL('fixtures/direct-field-registration-gaps.fail.svelte', import.meta.url),
+			'utf8'
+		);
+		const messages = await messagesFor(source, 'src/lib/field/gaps.svelte');
+		const lines = source.split('\n');
+		const reported = messages.map((message) => lines[(message.line ?? 1) - 1] ?? '');
+		expect(reported.some((line) => line.includes('registerControl(Symbol()'))).toBe(true);
+		expect(reported.some((line) => line.includes('named(Symbol()'))).toBe(true);
+		expect(reported.some((line) => line.includes('later(Symbol()'))).toBe(true);
+		expect(reported.some((line) => line.includes('.call('))).toBe(true);
+		expect(reported.some((line) => line.includes('.apply('))).toBe(true);
+		expect(reported.some((line) => line.includes('.bind('))).toBe(true);
+	});
+
 	it('allows a different method and the shared helper', async () => {
 		const pass = readFileSync(
 			new URL('fixtures/direct-field-registration.pass.svelte', import.meta.url),

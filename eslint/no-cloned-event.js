@@ -34,7 +34,22 @@ function isConstructorClone(node, aliases) {
 
 /**
  * @param {unknown} node
- * @returns {boolean}
+ * @param {Set<string>} aliases
+ */
+function reflectConstructsClone(node, aliases) {
+	const value = unwrap(node);
+	if (!value || value.type !== 'CallExpression') return false;
+	const callee = unwrap(value.callee);
+	if (!callee || callee.type !== 'MemberExpression' || callee.computed) return false;
+	if (nameOf(callee.object) !== 'Reflect' || nameOf(callee.property) !== 'construct') return false;
+	const first = unwrap(value.arguments?.[0]);
+	if (!first) return false;
+	if (isConstructorMember(first)) return true;
+	return first.type === 'Identifier' && aliases.has(first.name);
+}
+
+/**
+ * @param {unknown} node
  */
 function redefinesTarget(node) {
 	const value = unwrap(node);
@@ -68,7 +83,24 @@ const rule = {
 		 * @param {unknown} init
 		 */
 		function remember(id, init) {
-			if (!id || typeof id !== 'object' || !('type' in id) || id.type !== 'Identifier') return;
+			if (!id || typeof id !== 'object' || !('type' in id)) return;
+			if (id.type === 'ObjectPattern') {
+				for (const prop of id.properties ?? []) {
+					if (!prop || prop.type !== 'Property') continue;
+					const key = unwrap(prop.key);
+					const keyName =
+						key?.type === 'Identifier'
+							? key.name
+							: key?.type === 'Literal' && typeof key.value === 'string'
+								? key.value
+								: null;
+					if (keyName !== 'constructor') continue;
+					const binding = prop.value?.type === 'AssignmentPattern' ? prop.value.left : prop.value;
+					if (binding?.type === 'Identifier') aliases.add(binding.name);
+				}
+				return;
+			}
+			if (id.type !== 'Identifier') return;
 			if (!isConstructorMember(init)) return;
 			if (typeof id.name === 'string') aliases.add(id.name);
 		}
@@ -85,7 +117,9 @@ const rule = {
 				if (isConstructorClone(node, aliases)) context.report({ node, messageId: 'clonedEvent' });
 			},
 			CallExpression(node) {
-				if (redefinesTarget(node)) context.report({ node, messageId: 'clonedEvent' });
+				if (redefinesTarget(node) || reflectConstructsClone(node, aliases)) {
+					context.report({ node, messageId: 'clonedEvent' });
+				}
 			}
 		};
 	}

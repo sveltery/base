@@ -62,6 +62,18 @@ describe('sveltery/no-cloned-event', () => {
 		expect(removed.some((message) => message.includes('original event'))).toBe(true);
 	});
 
+	it('rejects a destructured constructor and Reflect.construct', async () => {
+		const destructured = await messages(
+			'const { constructor: C } = event;\nconst copy = new C(event.type, event);\nvoid copy;\n'
+		);
+		expect(destructured.some((message) => message.includes('original event'))).toBe(true);
+
+		const reflected = await messages(
+			'const copy = Reflect.construct(event.constructor, [event.type, event]);\nvoid copy;\n'
+		);
+		expect(reflected.some((message) => message.includes('original event'))).toBe(true);
+	});
+
 	it('allows a native event constructor and a real target read', async () => {
 		const native = await messages(
 			"input.dispatchEvent(new Event('change', { bubbles: true }));\nconst node = event.target;\nvoid node;\n"

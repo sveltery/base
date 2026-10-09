@@ -22,11 +22,42 @@
 		}
 	});
 
-	const rebound = $derived.by(() => ({
-		'bind:this': (node: HTMLElement) => {
-			triggerEl = node;
+	function host(k: symbol) {
+		return {
+			[k]: (node: HTMLElement) => {
+				void node;
+			}
+		};
+	}
+
+	let flag = false;
+	const stable = (node: HTMLElement) => {
+		void node;
+	};
+
+	const fromHelper = $derived(host(bindKey));
+	const conditional = $derived({
+		[bindKey]: flag
+			? (node: HTMLElement) => {
+					void node;
+				}
+			: stable
+	});
+	const bound = $derived({ [bindKey]: stable.bind(null) });
+	const declared = $derived.by(() => {
+		function attach(node: HTMLElement) {
+			void node;
 		}
-	}));
+		return { [bindKey]: attach };
+	});
+	const assigned = $derived.by(() => {
+		let f: (node: HTMLElement) => void;
+		f = (node) => {
+			void node;
+		};
+		return { [bindKey]: f };
+	});
+	const freshKey = $derived({ [createAttachmentKey()]: stable });
 </script>
 
 <button {...hostProps}>Open</button>

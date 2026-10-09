@@ -5,6 +5,7 @@ import { describe, expect, it } from 'vitest';
 import { ESLint, type Linter } from 'eslint';
 import { compile } from 'svelte/compiler';
 import ts from 'typescript-eslint';
+import { historicalSource } from './historical-source.js';
 import plugin from './plugin.js';
 
 const require = createRequire(import.meta.url);
@@ -135,7 +136,18 @@ describe('sveltery/no-void-signal-read', () => {
 	});
 
 	it('rejects the same forced reads when they live in a helper', async () => {
-		const { messages } = await messagesFor('history/210a2daf-forced-read.fail.svelte', ruleName);
+		const source = historicalSource(
+			'210a2daf4fe39739183d5429e303fc62ee4791a8',
+			'eslint/fixtures/forced-read.fail.svelte',
+			new URL('fixtures/history/210a2daf-forced-read.fail.svelte', import.meta.url),
+			'91f37bba7bb9181aae304b40d3cb25fee901bb5c'
+		);
+		const [result] = await lintWithRule(
+			source,
+			'history/210a2daf-forced-read.fail.svelte',
+			ruleName
+		);
+		const messages = ruleMessages(result, `sveltery/${ruleName}`);
 		expect(messages.length).toBeGreaterThanOrEqual(6);
 	});
 
@@ -246,6 +258,7 @@ const ruleNames = Object.keys(plugin.rules);
 
 const failRuleByFile: Record<string, string> = {
 	'direct-field-registration-alias.fail.svelte': 'sveltery/no-direct-field-registration',
+	'direct-field-registration-gaps.fail.svelte': 'sveltery/no-direct-field-registration',
 	'derived-inline-attachment.fail.svelte': 'sveltery/no-derived-inline-attachment',
 	'derived-const-arrow.fail.svelte': 'sveltery/no-derived-inline-attachment',
 	'inline-composite-keys.fail.svelte': 'sveltery/no-inline-composite-keys',
@@ -265,6 +278,7 @@ const failRuleByFile: Record<string, string> = {
 	'previous-value.fail.svelte': 'sveltery/no-previous-value-effect',
 	'late-bound-getter.fail.svelte': 'sveltery/no-late-bound-getter',
 	'uncontrolled-bindable.fail.svelte': 'sveltery/no-uncontrolled-bindable',
+	'uncontrolled-bindable-comment.fail.svelte': 'sveltery/no-uncontrolled-bindable',
 	'process-env.fail.svelte': 'sveltery/no-process-env',
 	'form-ref-current.fail.svelte': 'sveltery/no-react-refs',
 	'forced-read.fail.svelte': 'sveltery/no-void-signal-read'

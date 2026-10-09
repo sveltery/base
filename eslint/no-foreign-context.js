@@ -1,18 +1,27 @@
 /**
  * A component reads its own context module. Another component does not import it.
- * Field, form, fieldset, collapsible, toggle group, radio, and checkbox publish
- * context that their controls are meant to read.
+ * The folders that used to be exempt as a group are allowed only for the control
+ * that actually reads them.
  *
  * @type {import('eslint').Rule.RuleModule}
  */
-const SHARED = new Set([
-	'field',
-	'form',
-	'fieldset',
-	'collapsible',
-	'toggle-group',
-	'radio',
-	'checkbox'
+const ALLOWED = new Set([
+	'accordion>collapsible',
+	'checkbox-group>checkbox',
+	'field>fieldset',
+	'field>form',
+	'input>form',
+	'number-field>field',
+	'number-field>form',
+	'otp-field>field',
+	'otp-field>form',
+	'radio-group>field',
+	'radio-group>fieldset',
+	'radio-group>form',
+	'radio-group>radio',
+	'slider>field',
+	'slider>form',
+	'toggle>toggle-group'
 ]);
 
 const CONTEXT_FILE = /^(context|group-context|labelable)(\.|$)/;
@@ -63,7 +72,7 @@ const rule = {
 				if (typeof node.source.value !== 'string') return;
 				const imported = contextOwner(node.source.value);
 				if (!imported || imported === 'self' || imported === owner) return;
-				if (SHARED.has(imported)) return;
+				if (ALLOWED.has(`${owner}>${imported}`)) return;
 				context.report({ node, messageId: 'foreignContext' });
 			}
 		};
