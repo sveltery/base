@@ -25,8 +25,7 @@ Parts of this package derive from [Base UI](https://github.com/mui/base-ui) v1.8
 - `src/lib/fieldset/FieldsetRoot.svelte` from `packages/react/src/fieldset/root/FieldsetRoot.tsx`
 - `src/lib/fieldset/FieldsetLegend.svelte` from `packages/react/src/fieldset/legend/FieldsetLegend.tsx`
 - `src/lib/fieldset/context.svelte.ts` from `packages/react/src/fieldset/root/FieldsetRootContext.ts`
-- `src/lib/fieldset/register-label-id.svelte.ts` from `packages/react/src/utils/useRegisteredLabelId.ts`
-- `src/lib/internal/register-label-id.svelte.ts` from `packages/react/src/utils/useRegisteredLabelId.ts`
+- `src/lib/internal/register-label-id.svelte.ts` from `packages/react/src/utils/useRegisteredLabelId.ts` (`fieldset/register-label-id.svelte.ts` re-exports it)
 - `src/lib/fieldset/Fieldset.svelte.spec.ts` assertions from `packages/react/src/fieldset/root/FieldsetRoot.test.tsx`, `packages/react/src/fieldset/legend/FieldsetLegend.test.tsx`, and `packages/react/src/utils/useRegisteredLabelId.test.tsx`
 - `src/lib/field/FieldRoot.svelte` and `src/lib/field/model.svelte.ts` from `packages/react/src/field/root/FieldRoot.tsx`, `useFieldValidation.ts`, and `packages/react/src/internals/field-register-control/useFieldControlRegistration.ts`
 - `src/lib/field/FieldControl.svelte` from `packages/react/src/field/control/FieldControl.tsx`
@@ -175,7 +174,6 @@ Parts of this package derive from [Base UI](https://github.com/mui/base-ui) v1.8
 - `src/lib/otp-field/slots.svelte.ts` from the flat-list registration in `packages/react/src/internals/composite/list/CompositeList.tsx` and `useCompositeListItem.ts` (DOM order and render-order indexes only)
 - `src/lib/otp-field/otp.ts` from `packages/react/src/otp-field/utils/otp.ts`
 - `src/lib/otp-field/attributes.ts` from `packages/react/src/otp-field/utils/stateAttributesMapping.ts` and the OTP field data-attribute modules
-- `src/lib/otp-field/dom.ts` from `packages/react/src/floating-ui-react/utils/event.ts` (`stopEvent`)
 - `src/lib/internal/platform.ts` from `packages/utils/src/platform` (`os`, `engine`, `screenReader`, `env`, `mediaQuery`)
 - `src/lib/internal/shadow-dom.ts` from `packages/utils/src/shadowDom.ts` (`activeElement`, `contains`, `getTarget`)
 - `src/lib/internal/owner.ts` from `packages/utils/src/owner.ts`

@@ -6,7 +6,7 @@ import type { PortalProps } from '../internal/portal-props.js';
 import type { Align, Side, UseAnchorPositioningParameters } from '../internal/popups/index.js';
 import type { PopupTransitionStatus } from '../internal/useTransitionStatus.svelte.js';
 import type { PopoverHandle } from './handle.svelte.js';
-import type { RenderChildren } from '../internal/render-children.js';
+import type { PartRender, RenderChildren } from '../internal/render-children.js';
 
 export type { Align, Side };
 
@@ -42,10 +42,6 @@ export interface PopoverRootState {
 	modal: PopoverModal;
 	payload: unknown;
 }
-
-type PartRender<Element extends EventTarget, State> = Snippet<
-	[props: HTMLAttributes<Element>, state: State, children: RenderChildren]
->;
 
 export interface PopoverRootProps<Payload = unknown> {
 	/**

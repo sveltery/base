@@ -5,7 +5,7 @@ import type { BaseUIChangeEventDetails, REASONS } from '../internal/event-detail
 import type { PortalProps } from '../internal/portal-props.js';
 import type { PopupTransitionStatus } from '../internal/useTransitionStatus.svelte.js';
 import type { DialogHandle } from './handle.svelte.js';
-import type { RenderChildren } from '../internal/render-children.js';
+import type { PartRender, RenderChildren } from '../internal/render-children.js';
 
 export type DialogInteractionType = 'mouse' | 'touch' | 'pen' | 'keyboard' | '';
 
@@ -70,14 +70,6 @@ export type DialogPortalState = Record<string, never>;
 
 export type DialogDivProps = HTMLAttributes<HTMLDivElement> &
 	Record<symbol, Attachment<HTMLDivElement>>;
-
-type PartRender<Element extends EventTarget, State> = Snippet<
-	[
-		props: HTMLAttributes<Element> & Record<symbol, Attachment<Element>>,
-		state: State,
-		children: RenderChildren
-	]
->;
 
 export interface DialogRootProps<Payload = unknown> {
 	/**
@@ -147,7 +139,13 @@ export interface DialogPortalProps extends PortalProps {
 	/**
 	 * Replace the portal element. The snippet receives host props, an empty state, and the children snippet.
 	 */
-	render?: PartRender<HTMLDivElement, DialogPortalState>;
+	render?: Snippet<
+		[
+			props: HTMLAttributes<HTMLDivElement> & Record<symbol, Attachment<HTMLDivElement>>,
+			state: DialogPortalState,
+			children: RenderChildren
+		]
+	>;
 }
 
 export interface DialogPopupProps extends Omit<HTMLAttributes<HTMLDivElement>, 'children'> {

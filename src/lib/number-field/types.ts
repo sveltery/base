@@ -6,7 +6,7 @@ import type {
 	REASONS
 } from '../internal/event-details.js';
 import type { FieldRootState } from '../field/types.js';
-import type { RenderChildren } from '../internal/render-children.js';
+import type { PartRender, RenderChildren } from '../internal/render-children.js';
 
 export type Direction = -1 | 1;
 
@@ -52,10 +52,6 @@ export interface NumberFieldRootState extends FieldRootState {
 	/** Whether the user is currently scrubbing the field. */
 	scrubbing: boolean;
 }
-
-type PartRender<Element extends EventTarget, State> = Snippet<
-	[props: HTMLAttributes<Element>, state: State, children: RenderChildren]
->;
 
 export interface NumberFieldRootProps extends Omit<HTMLAttributes<HTMLDivElement>, 'children'> {
 	/** The id of the input element. */
