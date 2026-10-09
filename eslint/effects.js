@@ -446,17 +446,26 @@ export function importBindings(ast) {
 }
 
 /**
- * Fixture lint runs pass a bare filename. Product files exist at the path ESLint reports.
+ * Directory used to resolve relative imports in the file being linted.
+ * Product files exist at the path ESLint reports. Fixture specs pass a path
+ * relative to `eslint/fixtures` (a bare name, or `nested/file.svelte`). ESLint
+ * absolutizes that against the cwd, so the reported path does not exist.
+ * Join that relative path onto `eslint/fixtures`. A missing path must not bind
+ * to a fixture that only shares the basename.
  *
  * @param {import('eslint').Rule.RuleContext} context
  */
 export function fileOf(context) {
 	const name = context.filename || '';
-	if (name && path.isAbsolute(name) && existsSync(name)) return name;
-	const base = path.basename(name || 'input.svelte');
-	const fixture = path.join(process.cwd(), 'eslint/fixtures', base);
-	if (existsSync(fixture)) return fixture;
-	return name ? path.resolve(name) : fixture;
+	if (name && existsSync(name)) return name;
+
+	const fixturesRoot = path.join(process.cwd(), 'eslint/fixtures');
+	const relative = name && path.isAbsolute(name) ? path.relative(process.cwd(), name) : name;
+	if (relative && !path.isAbsolute(relative) && !relative.startsWith('..')) {
+		const fixture = path.join(fixturesRoot, relative);
+		if (existsSync(fixture)) return fixture;
+	}
+	return name ? path.resolve(name) : path.join(fixturesRoot, 'input.svelte');
 }
 
 /**

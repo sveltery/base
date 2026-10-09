@@ -5,7 +5,10 @@
 import { page, userEvent } from 'vitest/browser';
 import { describe, expect, it } from 'vitest';
 import { render } from 'vitest-browser-svelte';
+import IndicatorListenerHarness from '../../tests/IndicatorListenerHarness.svelte';
 import TabsHarness from '../../tests/TabsHarness.svelte';
+import { indicatorListeners } from './indicator-listeners.js';
+import { TabsListModel } from './context.svelte.js';
 import { Tabs } from './index.js';
 
 const ENDING_CSS = `
@@ -570,6 +573,40 @@ describe('Tabs', () => {
 				.element(page.getByRole('tab', { name: 'Two' }))
 				.toHaveAttribute('aria-selected', 'true');
 			await expect.poll(read, { timeout: 1000 }).not.toBe(before);
+		});
+
+		it('drops an unsubscribed indicator listener and keeps notifying the rest', async () => {
+			let model!: TabsListModel;
+			render(IndicatorListenerHarness, {
+				onModel: (next) => {
+					model = next;
+				}
+			});
+			expect(Object.getPrototypeOf(indicatorListeners(model))).toBe(Set.prototype);
+
+			const list = document.createElement('div');
+			list.style.cssText = 'width:40px;height:10px;display:block';
+			document.body.append(list);
+			model.attachList(list);
+
+			let stayed = 0;
+			let dropped = 0;
+			model.registerIndicatorUpdateListener(() => {
+				stayed += 1;
+			});
+			const stop = model.registerIndicatorUpdateListener(() => {
+				dropped += 1;
+			});
+			list.style.width = '90px';
+			await expect.poll(() => stayed).toBeGreaterThan(0);
+			await expect.poll(() => dropped).toBeGreaterThan(0);
+			const stayedAt = stayed;
+			const droppedAt = dropped;
+			stop();
+			list.style.width = '160px';
+			await expect.poll(() => stayed).toBeGreaterThan(stayedAt);
+			expect(dropped).toBe(droppedAt);
+			list.remove();
 		});
 	});
 

@@ -3,7 +3,7 @@
 // (commit 47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c). MIT, see THIRD_PARTY_NOTICES.md.
 
 import { getContext, setContext, untrack } from 'svelte';
-import { SvelteSet } from 'svelte/reactivity';
+import { indicatorListeners } from './indicator-listeners.js';
 import type { ControllableValue } from '../internal/controllable-value.svelte.js';
 import { byDocumentOrder } from '../internal/document-order.js';
 import { REASONS } from '../internal/event-details.js';
@@ -255,16 +255,16 @@ export class TabsListModel {
 
 	private observer: ResizeObserver | null = null;
 	private observed: HTMLElement[] = [];
-	private readonly indicatorListeners = new SvelteSet<() => void>();
 
 	/**
 	 * Upstream `registerIndicatorUpdateListener`. The list observer watches the
 	 * list and every tab; each callback remeasures the indicator.
 	 */
 	registerIndicatorUpdateListener(listener: () => void) {
-		this.indicatorListeners.add(listener);
+		const set = indicatorListeners(this);
+		set.add(listener);
 		return () => {
-			this.indicatorListeners.delete(listener);
+			set.delete(listener);
 		};
 	}
 
@@ -290,7 +290,7 @@ export class TabsListModel {
 	private ensureObserver() {
 		if (this.observer || typeof ResizeObserver === 'undefined') return;
 		this.observer = new ResizeObserver(() => {
-			for (const listener of this.indicatorListeners) listener();
+			for (const listener of indicatorListeners(this)) listener();
 		});
 		for (const element of this.observed) this.observer.observe(element);
 		if (this.listElement) this.observer.observe(this.listElement);

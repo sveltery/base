@@ -4,10 +4,12 @@
 	let {
 		open = false,
 		element = null,
+		batch = undefined,
 		onComplete
 	}: {
 		open?: boolean;
 		element?: HTMLElement | null;
+		batch?: boolean;
 		onComplete: () => void;
 	} = $props();
 
@@ -15,6 +17,7 @@
 		enabled: true,
 		open,
 		element,
-		onComplete
+		onComplete,
+		...(batch === undefined ? {} : { batch })
 	}));
 </script>

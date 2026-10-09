@@ -228,6 +228,22 @@ describe('sveltery/no-layout-read-in-derived', () => {
 		expect(source).toContain('getBoundingClientRect()');
 		expect(messages).toEqual([]);
 	});
+
+	it('resolves a nested fixture path instead of the basename at the fixtures root', async () => {
+		const { messages } = await messagesFor('nested/layout-read-nested.fail.svelte', ruleName);
+		expect(messages.length).toBeGreaterThan(0);
+		expect(messages[0]?.message).toContain('ResizeObserver');
+	});
+
+	it('does not bind a missing path to a fixture that only shares the basename', async () => {
+		const source = readFileSync(
+			new URL('eslint/fixtures/layout-read-import.fail.svelte', root),
+			'utf8'
+		);
+		const filePath = new URL('tmp-not-fixture/layout-read-import.fail.svelte', root).pathname;
+		const [result] = await lintWithRule(source, filePath, ruleName);
+		expect(ruleMessages(result, `sveltery/${ruleName}`)).toEqual([]);
+	});
 });
 
 describe('sveltery/no-split-effect-lifecycle', () => {

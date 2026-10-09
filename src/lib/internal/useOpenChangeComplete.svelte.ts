@@ -9,14 +9,17 @@ export function useOpenChangeComplete(
 		open?: boolean;
 		element: HTMLElement | null;
 		onComplete: () => void;
+		/** Group completions that become ready in the same turn. Default false. */
+		batch?: boolean;
 	}
 ) {
 	$effect(() => {
-		const { enabled = true, open, element, onComplete } = parameters();
+		const { enabled = true, open, element, onComplete, batch = false } = parameters();
 		if (!enabled || !element) return;
 		const controller = new AbortController();
-		// Upstream passes `open` into useAnimationsFinished as waitForStartingStyleRemoved.
-		runOnceAnimationsFinish(element, onComplete, controller.signal, false, open === true);
+		// Upstream passes `open` into useAnimationsFinished as waitForStartingStyleRemoved
+		// and `batch` through as the batch flag.
+		runOnceAnimationsFinish(element, onComplete, controller.signal, batch, open === true);
 		return () => controller.abort();
 	});
 }
