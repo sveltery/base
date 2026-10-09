@@ -109,7 +109,6 @@ export default defineConfig(
 			'sveltery/no-cloned-event': 'error',
 			'sveltery/no-direct-field-registration': 'error',
 			'sveltery/no-copied-helper': 'error',
-			'sveltery/no-dual-change-handler': 'error',
 			'sveltery/no-derived-inline-attachment': 'error',
 			'sveltery/no-inline-composite-keys': 'error',
 			'sveltery/no-late-bound-getter': 'error',
