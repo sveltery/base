@@ -9,7 +9,7 @@
 	import { getStateAttributesProps } from '../internal/state-attributes.js';
 	import { indicatorStateAttributesMapping } from './attributes.js';
 	import { useTabsListContext, useTabsRootContext } from './context.svelte.js';
-	import { indicatorStyle, measureIndicator } from './indicator.js';
+	import { indicatorStyle, measureIndicator, type IndicatorGeometry } from './indicator.js';
 	import type { TabsIndicatorProps, TabsIndicatorState } from './types.js';
 
 	let {
@@ -23,19 +23,28 @@
 	const tabs = useTabsRootContext();
 	const list = useTabsListContext();
 
-	const geometry = $derived.by(() => {
-		void list.resizeRevision;
+	let geometry = $state<IndicatorGeometry | null>(null);
+
+	// The list observer already watches the list and every tab. Upstream rerenders
+	// from registerIndicatorUpdateListener; this writes the measured geometry.
+	$effect(() => {
 		const selected = tabs.value;
 		const listElement = list.listElement;
-		if (selected == null || !listElement) return null;
-		const activeTab = tabs.tabElement(selected);
-		if (!activeTab) return null;
-		return measureIndicator(activeTab, listElement);
+		const activeTab = selected == null || !listElement ? null : tabs.tabElement(selected);
+		const measure = () => {
+			if (!activeTab || !listElement) {
+				geometry = null;
+				return;
+			}
+			geometry = measureIndicator(activeTab, listElement);
+		};
+		measure();
+		return list.registerIndicatorUpdateListener(measure);
 	});
 
 	const display = $derived(geometry != null && geometry.width > 0 && geometry.height > 0);
 
-	const state: TabsIndicatorState = $derived({
+	const indicatorState: TabsIndicatorState = $derived({
 		orientation: tabs.orientation,
 		tabActivationDirection: tabs.tabActivationDirection,
 		activeTabPosition: geometry
@@ -50,7 +59,7 @@
 			? { style: joinStyle(indicatorStyle(geometry), style ?? undefined) }
 			: { style: style ?? undefined }),
 		...(!display ? { hidden: true } : {}),
-		...getStateAttributesProps(state, indicatorStateAttributesMapping),
+		...getStateAttributesProps(indicatorState, indicatorStateAttributesMapping),
 		...elementProps
 	});
 
@@ -62,7 +71,7 @@
 
 {#if tabs.value != null}
 	{#if render}
-		{@render render(hostProps, state, children)}
+		{@render render(hostProps, indicatorState, children)}
 	{:else}
 		<span {...hostProps}>{@render children?.()}</span>
 	{/if}

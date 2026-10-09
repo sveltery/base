@@ -5,7 +5,10 @@
 import { page, userEvent } from 'vitest/browser';
 import { describe, expect, it } from 'vitest';
 import { render } from 'vitest-browser-svelte';
+import IndicatorListenerHarness from '../../tests/IndicatorListenerHarness.svelte';
 import TabsHarness from '../../tests/TabsHarness.svelte';
+import { indicatorListeners } from './indicator-listeners.js';
+import { TabsListModel } from './context.svelte.js';
 import { Tabs } from './index.js';
 
 const ENDING_CSS = `
@@ -518,6 +521,92 @@ describe('Tabs', () => {
 				.not.toBe('');
 			await expect.element(indicator).toHaveAttribute('role', 'presentation');
 			await expect.element(indicator).not.toHaveAttribute('hidden');
+		});
+
+		it('updates the indicator when the active tab resizes', async () => {
+			render(TabsHarness, { passValue: true, value: 0, showIndicator: true });
+			const indicator = page.getByTestId('indicator');
+			await expect
+				.poll(() => indicator.element().style.getPropertyValue('--active-tab-width'))
+				.not.toBe('');
+			const before = indicator.element().style.getPropertyValue('--active-tab-width');
+			const tab = page.getByRole('tab', { name: 'One' }).element() as HTMLElement;
+			tab.style.width = '240px';
+			await expect
+				.poll(() => indicator.element().style.getPropertyValue('--active-tab-width'))
+				.not.toBe(before);
+		});
+
+		it('moves the indicator when a tab before the active one resizes (list width fixed)', async () => {
+			render(TabsHarness, { passValue: true, value: 1, showIndicator: true });
+			const indicator = page.getByTestId('indicator');
+			const list = page.getByRole('tablist').element() as HTMLElement;
+			list.style.width = '600px';
+			list.style.display = 'flex';
+			const read = () => indicator.element().style.getPropertyValue('--active-tab-left');
+			await expect.poll(read).not.toBe('');
+			await new Promise((r) => setTimeout(r, 100));
+			const before = read();
+			const first = page.getByRole('tab', { name: 'One' }).element() as HTMLElement;
+			const active = page.getByRole('tab', { name: 'Two' }).element() as HTMLElement;
+			const leftBefore = active.getBoundingClientRect().left;
+			first.style.width = '200px';
+			await new Promise((r) => setTimeout(r, 50));
+			expect(active.getBoundingClientRect().left).not.toBeCloseTo(leftBefore, 0);
+			await expect.poll(read, { timeout: 1000 }).not.toBe(before);
+		});
+
+		it('moves the indicator to a newly selected tab', async () => {
+			render(TabsHarness, { showIndicator: true });
+			const indicator = page.getByTestId('indicator');
+			const read = () => indicator.element().style.getPropertyValue('--active-tab-left');
+			await expect.poll(read).not.toBe('');
+			const selectedLeft = () => {
+				const tab = page.getByRole('tab', { selected: true }).element() as HTMLElement;
+				const list = page.getByRole('tablist').element() as HTMLElement;
+				return tab.getBoundingClientRect().left - list.getBoundingClientRect().left;
+			};
+			await expect.poll(() => Math.abs(parseFloat(read()) - selectedLeft()) < 1).toBe(true);
+			const before = read();
+			await userEvent.click(page.getByRole('tab', { name: 'Two' }));
+			await expect
+				.element(page.getByRole('tab', { name: 'Two' }))
+				.toHaveAttribute('aria-selected', 'true');
+			await expect.poll(read, { timeout: 1000 }).not.toBe(before);
+		});
+
+		it('drops an unsubscribed indicator listener and keeps notifying the rest', async () => {
+			let model!: TabsListModel;
+			render(IndicatorListenerHarness, {
+				onModel: (next) => {
+					model = next;
+				}
+			});
+			expect(Object.getPrototypeOf(indicatorListeners(model))).toBe(Set.prototype);
+
+			const list = document.createElement('div');
+			list.style.cssText = 'width:40px;height:10px;display:block';
+			document.body.append(list);
+			model.attachList(list);
+
+			let stayed = 0;
+			let dropped = 0;
+			model.registerIndicatorUpdateListener(() => {
+				stayed += 1;
+			});
+			const stop = model.registerIndicatorUpdateListener(() => {
+				dropped += 1;
+			});
+			list.style.width = '90px';
+			await expect.poll(() => stayed).toBeGreaterThan(0);
+			await expect.poll(() => dropped).toBeGreaterThan(0);
+			const stayedAt = stayed;
+			const droppedAt = dropped;
+			stop();
+			list.style.width = '160px';
+			await expect.poll(() => stayed).toBeGreaterThan(stayedAt);
+			expect(dropped).toBe(droppedAt);
+			list.remove();
 		});
 	});
 
