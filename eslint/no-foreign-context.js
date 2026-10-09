@@ -40,6 +40,14 @@ function contextOwner(source) {
 
 /**
  * @param {string} filename
+ */
+function isSpecFile(filename) {
+	const base = filename.replaceAll('\\', '/').split('/').at(-1) ?? '';
+	return /\.spec\.[^./]+$/.test(base);
+}
+
+/**
+ * @param {string} filename
  * @returns {string | null}
  */
 function importerOwner(filename) {
@@ -73,7 +81,7 @@ const rule = {
 				if (!imported || imported === 'self' || imported === owner) return;
 				if (ALLOWED.has(`${owner}>${imported}`)) return;
 				// Input.svelte does not read form context. The spec counts unprovided fields.
-				if (owner === 'input' && imported === 'form' && context.filename.includes('.spec.')) {
+				if (owner === 'input' && imported === 'form' && isSpecFile(context.filename)) {
 					return;
 				}
 				context.report({ node, messageId: 'foreignContext' });

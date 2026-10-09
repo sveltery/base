@@ -115,5 +115,7 @@ describe('context rules', () => {
 		expect(component.some((message) => message.includes('context module'))).toBe(true);
 		const spec = await messages(source, repoPath('src/lib/input/Input.svelte.spec.ts'));
 		expect(spec).toEqual([]);
+		const notes = await messages(source, repoPath('src/lib/input/form.spec.notes.ts'));
+		expect(notes.some((message) => message.includes('context module'))).toBe(true);
 	});
 });

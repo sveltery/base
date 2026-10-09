@@ -546,19 +546,49 @@ describe('jscpd baseline CLI', () => {
 		}
 	}, 60_000);
 
-	it('ignores a committed skipLocal config', () => {
+	it('rejects a committed markdown format config', () => {
 		const original = source('shared', statements('value', 10));
 		const { dir, sha } = makeRepo(original, original);
 		try {
-			writeFileSync(path.join(dir, '.jscpd.json'), '{"skipLocal":true}\n');
-			const written = execFileSync(process.execPath, [script, '--write'], {
-				cwd: dir,
-				encoding: 'utf8'
-			});
-			expect(written).toContain('1 clones');
+			writeFileSync(path.join(dir, '.jscpd.json'), '{"format":["markdown"]}\n');
+			git(dir, ['add', '.jscpd.json']);
+			git(dir, ['commit', '-m', 'format']);
+			const written = runGate(dir, sha, undefined, {}, ['--write']);
+			expect(written.code).toBe(1);
+			expect(written.stderr).toContain('.jscpd.json hides clones');
+		} finally {
+			rmSync(dir, { recursive: true, force: true });
+		}
+	}, 60_000);
+
+	it('reports a sparse checkout without a stack trace', () => {
+		const original = source('shared', statements('value', 10));
+		const { dir, sha } = makeRepo(original, original);
+		try {
+			rmSync(path.join(dir, 'src/left.ts'));
 			const result = runGate(dir, sha);
-			expect(result.code).toBe(0);
-			expect(result.stdout).toContain('1 clones');
+			expect(result.code).toBe(1);
+			expect(result.stderr).toContain('not in the checkout');
+			expect(result.stderr).toContain('src/left.ts');
+			expect(result.stderr).not.toContain('spawnSync');
+			expect(result.stderr).not.toContain('at scanRepo');
+		} finally {
+			rmSync(dir, { recursive: true, force: true });
+		}
+	}, 60_000);
+
+	it('scans an untracked file that gitignore does not list', () => {
+		const original = source('shared', statements('value', 10));
+		const { dir, sha } = makeRepo('export const left = 1;\n', 'export const right = 2;\n');
+		try {
+			writeFileSync(path.join(dir, 'src/extra-a.ts'), original);
+			writeFileSync(path.join(dir, 'src/extra-b.ts'), original);
+			writeFileSync(path.join(dir, 'src/secret.ts'), original);
+			writeFileSync(path.join(dir, '.gitignore'), 'src/secret.ts\n');
+			const result = runGate(dir, sha);
+			expect(result.code).toBe(1);
+			expect(result.stderr).toContain('src/extra-a.ts');
+			expect(result.stderr).not.toContain('src/secret.ts');
 		} finally {
 			rmSync(dir, { recursive: true, force: true });
 		}

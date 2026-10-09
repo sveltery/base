@@ -8,6 +8,8 @@
  * - A copy across formats, such as the same text in a `.ts` file and a `.js`
  *   file. Pair identity includes the format.
  * - One unique statement every fewer than 8 lines. That stays under `--min-lines`.
+ * - Specs (`*.spec.ts`, `*.svelte.spec.ts`) and `eslint/fixtures/history/**`.
+ *   They are omitted from the `git ls-files` list and from the `--ignore` globs.
  *
  * Any match >=80% is required. Every live fragment has to overlap an ancestor
  * fragment at or above 80%. One swapped clone beside an untouched clone fails
@@ -91,11 +93,15 @@ function presentRoots(repoRoot) {
 function trackedSourceFiles(repoRoot) {
 	const roots = presentRoots(repoRoot);
 	if (roots.length === 0) return [];
-	const listed = execFileSync('git', ['ls-files', '-z', '--', ...roots], {
-		cwd: repoRoot,
-		encoding: 'utf8',
-		stdio: ['ignore', 'pipe', 'pipe']
-	});
+	const listed = execFileSync(
+		'git',
+		['ls-files', '-z', '--cached', '--others', '--exclude-standard', '--', ...roots],
+		{
+			cwd: repoRoot,
+			encoding: 'utf8',
+			stdio: ['ignore', 'pipe', 'pipe']
+		}
+	);
 	return listed.split('\0').filter((file) => {
 		if (file === '') return false;
 		if (file.endsWith('.spec.ts') || file.endsWith('.svelte.spec.ts')) return false;
@@ -106,16 +112,24 @@ function trackedSourceFiles(repoRoot) {
 
 /**
  * `--config` points at an empty file this script owns, so a committed
- * `.jscpd.json` cannot set `skipLocal`. The file list is explicit, so
- * `.ignore` and gitignore rules cannot filter it. `--max-size` is far above
- * the detector default, so padding a file past 1 MB cannot hide a clone.
+ * `.jscpd.json` cannot restrict `format` or set `skipLocal`. The file list is
+ * explicit, so `.ignore` and gitignore rules cannot filter it. `--max-size`
+ * is far above the detector default, so padding a file past 1 MB cannot hide
+ * a clone.
  *
  * @param {{ minLines: string, minTokens: string }} pin
  * @param {string} repoRoot
+ * @param {{ forceConfig?: boolean }} [options]
  */
-function scanArgs(pin, repoRoot) {
+function scanArgs(pin, repoRoot, options = {}) {
+	const files = trackedSourceFiles(repoRoot);
+	const missing = files.filter((file) => !fs.existsSync(path.join(repoRoot, file)));
+	if (missing.length > 0) {
+		const shown = missing.slice(0, 20).join('\n');
+		throw new Error(`jscpd: ${missing.length} tracked file(s) are not in the checkout\n${shown}`);
+	}
 	return [
-		...trackedSourceFiles(repoRoot),
+		...files,
 		'--absolute',
 		'--min-lines',
 		pin.minLines,
@@ -125,9 +139,7 @@ function scanArgs(pin, repoRoot) {
 		MAX_FILE_SIZE,
 		'--ignore-pattern',
 		HTML_COMMENT_PATTERN,
-		'--config',
-		EMPTY_CONFIG,
-		'--no-gitignore',
+		...(options.forceConfig === false ? [] : ['--config', EMPTY_CONFIG]),
 		'--reporters',
 		'json,silent',
 		'--ignore',
@@ -388,19 +400,28 @@ export function baseRevision(env = process.env) {
 
 /**
  * @param {string} repoRoot
+ * @param {{ forceConfig?: boolean }} [options]
  * @returns {Record<string, PairStat>}
  */
-export function scanRepo(repoRoot) {
+export function scanRepo(repoRoot, options = {}) {
 	const root = fs.realpathSync(repoRoot);
 	const pin = readPinnedThresholds(SCRIPT_DIR);
-	const args = scanArgs(pin, root);
+	const args = scanArgs(pin, root, options);
 	if (args[0]?.startsWith('--')) return {};
 	const out = fs.mkdtempSync(path.join(os.tmpdir(), 'jscpd-scan-'));
 	try {
-		execFileSync(JSCPD, [...args, '--output', out], {
-			cwd: root,
-			stdio: ['ignore', 'pipe', 'pipe']
-		});
+		try {
+			execFileSync(JSCPD, [...args, '--output', out], {
+				cwd: root,
+				stdio: ['ignore', 'pipe', 'pipe']
+			});
+		} catch (error) {
+			const stderr =
+				error != null && typeof error === 'object' && 'stderr' in error
+					? String(/** @type {{ stderr?: unknown }} */ (error).stderr ?? '')
+					: '';
+			throw new Error(stderr.trim() || 'jscpd scan failed');
+		}
 		const report = JSON.parse(fs.readFileSync(path.join(out, 'jscpd-report.json'), 'utf8'));
 		/** @type {(name: string) => string} */
 		const resolve = (name) => toRepoPath(name, root);
@@ -408,6 +429,19 @@ export function scanRepo(repoRoot) {
 	} finally {
 		fs.rmSync(out, { recursive: true, force: true });
 	}
+}
+
+/**
+ * A committed `.jscpd.json` that the empty `--config` overrides. `--write`
+ * refuses when that file would report fewer clones than the empty config.
+ *
+ * @param {string} repoRoot
+ * @param {Record<string, PairStat>} visible
+ */
+function configHidesClones(repoRoot, visible) {
+	if (!fs.existsSync(path.join(repoRoot, '.jscpd.json'))) return false;
+	const hidden = scanRepo(repoRoot, { forceConfig: false });
+	return pairTotal(hidden) < pairTotal(visible);
 }
 
 /**
@@ -583,6 +617,15 @@ function freshPairs(found, baseline, ancestor) {
 const isCli = process.argv[1] != null && import.meta.url === pathToFileURL(process.argv[1]).href;
 
 if (isCli) {
+	try {
+		runCli();
+	} catch (error) {
+		console.error(error instanceof Error ? error.message : error);
+		process.exit(1);
+	}
+}
+
+function runCli() {
 	const pin = readPinnedThresholds(path.dirname(fileURLToPath(import.meta.url)));
 	const mismatch = thresholdMismatch(process.argv, process.env, pin);
 	if (mismatch) {
@@ -591,6 +634,10 @@ if (isCli) {
 	}
 	if (process.argv.includes('--write')) {
 		const found = scanRepo(process.cwd());
+		if (configHidesClones(process.cwd(), found)) {
+			console.error('jscpd: .jscpd.json hides clones from the scan');
+			process.exit(1);
+		}
 		fs.writeFileSync('.jscpd-baseline.json', baselineDocument(found));
 		console.log(`jscpd baseline wrote ${pairTotal(found)} clones`);
 		process.exit(0);

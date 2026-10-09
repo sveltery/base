@@ -99,6 +99,7 @@ Parts of this package derive from [Base UI](https://github.com/mui/base-ui) v1.8
 - `src/lib/switch/Switch.svelte.spec.ts` assertions from `packages/react/src/switch/root/SwitchRoot.test.tsx` and `packages/react/src/switch/thumb/SwitchThumb.test.tsx` that do not require Field
 - `src/lib/checkbox/CheckboxRoot.svelte` from `packages/react/src/checkbox/root/CheckboxRoot.tsx`, the non-composite paths of `packages/react/src/internals/use-button/useButton.ts`, and the native-label fallback of `packages/react/src/internals/labelable-provider/useAriaLabelledBy.ts`
 - `src/lib/checkbox/CheckboxIndicator.svelte` from `packages/react/src/checkbox/indicator/CheckboxIndicator.tsx`, `packages/react/src/internals/useTransitionStatus.ts`, and `packages/react/src/internals/useOpenChangeComplete.tsx`
+- `src/lib/internal/indicator-frame.svelte.ts` from those indicator files and `packages/utils/src/useAnimationFrame.ts` (the shared mount-frame clear)
 - `src/lib/internal/animations-finished.ts` from `packages/react/src/internals/useAnimationsFinished.ts` (checkbox, radio, tabs, field error, and collapsible)
 - `src/lib/internal/composite-skip.ts` from the skip rule in `packages/react/src/internals/composite/root/useCompositeRoot.ts` (Tabs and Toolbar; RadioGroup keeps its own `aria-disabled` skip)
 - `src/lib/checkbox/submitter.ts` from `packages/utils/src/getDefaultFormSubmitter.ts`
