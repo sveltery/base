@@ -32,7 +32,7 @@
 			if (next === undefined) {
 				const current = model.labelId;
 				model.labelId = undefined;
-				if (labelable?.labelId === current) labelable.setLabelId(undefined);
+				if (labelable && labelable.labelId === current) labelable.setLabelId(undefined);
 				return;
 			}
 			model.labelId = next;
