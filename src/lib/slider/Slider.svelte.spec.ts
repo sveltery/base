@@ -30,7 +30,7 @@ function slider() {
 
 function change(input: HTMLInputElement, value: string) {
 	input.value = value;
-	input.dispatchEvent(new Event('change', { bubbles: true }));
+	input.dispatchEvent(new Event('input', { bubbles: true }));
 }
 
 function key(input: HTMLInputElement, keyName: string, init: KeyboardEventInit = {}) {

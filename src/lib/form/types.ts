@@ -49,6 +49,7 @@ export interface FormField {
 	getValue: () => unknown;
 }
 
+/** Methods on the `Form` instance. Reach them with `bind:this`. */
 export interface FormActions {
 	/**
 	 * Validates every registered field. Pass a field name to validate the first
@@ -85,10 +86,6 @@ export interface FormProps<
 	 * The native submit is cancelled before this runs.
 	 */
 	onFormSubmit?: (formValues: FormValues, eventDetails: FormSubmitEventDetails) => void;
-	/**
-	 * Imperative handle. Use `bind:actions` and call `actions.validate()`.
-	 */
-	actions?: FormActions;
 	/**
 	 * When true (the default), the browser's built-in constraint validation is off.
 	 * Registered fields still validate through the form.

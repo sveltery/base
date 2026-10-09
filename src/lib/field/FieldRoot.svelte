@@ -2,6 +2,7 @@
 	Groups all parts of the field. Renders a `<div>` element.
 	Derived from Base UI v1.8.0 packages/react/src/field/root/FieldRoot.tsx
 	(commit 47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c). MIT, see THIRD_PARTY_NOTICES.md.
+	`validate` is an export. Bind the root with `bind:this`.
 -->
 <script lang="ts">
 	import type { HTMLAttributes } from 'svelte/elements';
@@ -12,20 +13,19 @@
 	import { setFieldContext } from './context.svelte.js';
 	import { Labelable, setLabelableContext, useLabelableContext } from './labelable.svelte.js';
 	import { FieldRootModel } from './model.svelte.js';
-	import type { FieldRootActions, FieldRootProps, FieldRootState } from './types.js';
+	import type { FieldRootProps, FieldRootState } from './types.js';
 
 	const uid = $props.id();
 
 	let {
 		disabled = false,
 		name,
-		validate,
+		validate: validateProp,
 		validationMode,
 		validationDebounceTime = 0,
 		invalid,
 		dirty,
 		touched,
-		actions = $bindable(),
 		render,
 		children,
 		...elementProps
@@ -48,20 +48,12 @@
 		getTouchedProp: () => touched,
 		getValidationModeProp: () => validationMode,
 		getValidationDebounceTime: () => validationDebounceTime,
-		getValidate: () => validate
+		getValidate: () => validateProp
 	});
 	setFieldContext(field);
 
-	const actionsHandle: FieldRootActions = {
-		validate() {
-			field.validateField();
-		}
-	};
-	publishActions();
-
-	function publishActions() {
-		actions = actionsHandle;
-		return actions.validate;
+	export function validate() {
+		field.validateField();
 	}
 
 	const state: FieldRootState = $derived(field.state);

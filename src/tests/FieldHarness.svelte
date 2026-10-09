@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { Field, Form, Fieldset, type FieldValidate } from '#lib';
+	import { Field, Form, Fieldset, type FieldRootActions, type FieldValidate } from '#lib';
 	import { takeForm } from '../routes/fixtures/form-log.js';
 	import FieldHelpCases from '../routes/fixtures/field/FieldHelpCases.svelte';
 
@@ -27,7 +27,7 @@
 	let calls = $state(0);
 	let seen = $state('');
 	let requiredSeen = $state('pending');
-	let actions = $state<{ validate: () => void } | undefined>();
+	let field = $state<FieldRootActions | undefined>();
 	let outerDisabled = $state(false);
 	let showLabel = $state(true);
 
@@ -204,11 +204,11 @@
 		<Field.Control data-testid="control" />
 	</Field.Root>
 {:else if scenario === 'controlled-dirty-flag'}
-	<Field.Root {dirty} bind:actions data-testid="field">
+	<Field.Root {dirty} bind:this={field} data-testid="field">
 		<Field.Control required data-testid="control" />
 	</Field.Root>
 	<button type="button" onclick={() => (dirty = false)}>Clean</button>
-	<button type="button" onclick={() => actions?.validate()}>Validate</button>
+	<button type="button" onclick={() => field?.validate()}>Validate</button>
 {:else if scenario === 'controlled-dirty-submit'}
 	<Form onFormSubmit={accept}>
 		<Field.Root name="q" dirty={false} data-testid="field">
@@ -223,16 +223,16 @@
 		<Field.Control data-testid="control" />
 	</Field.Root>
 {:else if scenario === 'actions'}
-	<Field.Root bind:actions validate={() => 'bad'} data-testid="field">
+	<Field.Root bind:this={field} validate={() => 'bad'} data-testid="field">
 		<Field.Control data-testid="control" />
 		<Field.Error data-testid="error" />
 	</Field.Root>
-	<button type="button" onclick={() => actions?.validate()}>Validate</button>
+	<button type="button" onclick={() => field?.validate()}>Validate</button>
 {:else if scenario === 'logical'}
-	<Field.Root bind:actions {validate} data-testid="field">
+	<Field.Root bind:this={field} {validate} data-testid="field">
 		<Field.Error data-testid="error" />
 	</Field.Root>
-	<button type="button" onclick={() => actions?.validate()}>Validate</button>
+	<button type="button" onclick={() => field?.validate()}>Validate</button>
 {:else if scenario === 'names'}
 	<Form onFormSubmit={accept}>
 		<Field.Root name="username">

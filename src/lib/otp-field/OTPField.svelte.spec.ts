@@ -96,6 +96,12 @@ describe('<OTPField />', () => {
 		await expect.poll(() => values()).toBe('AB12CD');
 	});
 
+	it('calls onValueComplete outside effect tracking', async () => {
+		render(OTPFieldHarness, { scenario: 'tracking' });
+		await setInput(inputs()[0], '123456');
+		await expect.poll(() => page.getByTestId('tracking').element().textContent).toBe('false');
+	});
+
 	it('moves focus to the next slot after typing and completes the code', async () => {
 		const onValueChange = vi.fn();
 		const onValueComplete = vi.fn();

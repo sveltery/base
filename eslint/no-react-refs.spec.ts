@@ -98,7 +98,6 @@ describe('sveltery/no-react-refs', () => {
 		expect(source).toContain('{@attach rememberForm}');
 		expect(source).toContain('createAttachmentKey');
 		expect(source).toContain('event.currentTarget');
-		expect(source).toContain('(current: string | undefined)');
 		expect(result?.messages ?? []).toEqual([]);
 	});
 

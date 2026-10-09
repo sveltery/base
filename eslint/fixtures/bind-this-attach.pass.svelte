@@ -26,18 +26,10 @@
 		void current;
 	}
 
-	const setLabelId = (
-		next: string | undefined | ((current: string | undefined) => string | undefined)
-	) => {
-		if (typeof next === 'function') next(undefined);
-	};
-
 	const hostProps = $derived({
 		onsubmit: onClick,
 		[attachmentKey]: rememberForm
 	});
-
-	setLabelId(undefined);
 </script>
 
 <form bind:this={el} {@attach rememberForm} {...hostProps}></form>

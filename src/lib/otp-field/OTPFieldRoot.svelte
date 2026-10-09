@@ -59,12 +59,18 @@
 	const form = useFormContext();
 	const labelable = useLabelableContext(true);
 
+	let notifyValue = (_next: string) => {};
+
 	const controllable = createControllableValue<string>({
 		getProp: () => value,
 		setProp: (next) => {
 			value = next ?? '';
 		},
-		getDefault: () => defaultValue
+		getDefault: () => defaultValue,
+		onChange(next) {
+			if (next === undefined) return;
+			notifyValue(next);
+		}
 	});
 	const raw = $derived(controllable.value ?? '');
 	const generatedId = $derived(`base-ui-${uid}`);
@@ -103,6 +109,7 @@
 		getForm: () => form
 	});
 	setOTPFieldContext(model);
+	notifyValue = (next) => model.afterValueChange(next);
 
 	const describedBy = $derived(
 		labelable
@@ -116,10 +123,6 @@
 			if (model.root === node) model.root = null;
 		};
 	}
-
-	$effect(() => {
-		model.noteValue(model.value);
-	});
 
 	$effect(() => {
 		model.publishFilled(model.filled);

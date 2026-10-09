@@ -49,6 +49,15 @@ describe('<NumberField />', () => {
 		);
 	});
 
+	it('runs field validation once when autofill fires a change event', async () => {
+		render(NumberFieldHarness, { scenario: 'autofill' });
+		const hidden = hiddenNumber();
+		hidden.value = '9';
+		hidden.dispatchEvent(new Event('input', { bubbles: true }));
+		hidden.dispatchEvent(new Event('change', { bubbles: true }));
+		await expect.poll(() => page.getByTestId('calls').element().textContent).toBe('1');
+	});
+
 	it('validates the stepped value after the input and registration update', async () => {
 		render(NumberFieldHarness, { scenario: 'step' });
 		await userEvent.click(increase().element());

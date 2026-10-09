@@ -24,7 +24,7 @@
 	let fresh = $state('old');
 	let calls = $state<string[]>([]);
 	let submitted = $state('');
-	let actions = $state<FieldRootActions>();
+	let field = $state<FieldRootActions | undefined>();
 
 	function record(next: unknown) {
 		calls = [...calls, String(next)];
@@ -33,7 +33,7 @@
 </script>
 
 {#if scenario === 'otp-digits'}
-	<Field.Root name="code" validate={record} bind:actions>
+	<Field.Root name="code" validate={record} bind:this={field}>
 		<FieldRegisterProbe bind:count />
 		<OTPField.Root bind:value={code} length={6}>
 			{#each [0, 1, 2, 3, 4, 5] as index (index)}
@@ -43,7 +43,7 @@
 	</Field.Root>
 	<p data-testid="count">{count}</p>
 	<p data-testid="calls">{JSON.stringify(calls)}</p>
-	<button type="button" onclick={() => actions?.validate()}>Read</button>
+	<button type="button" onclick={() => field?.validate()}>Read</button>
 {:else if scenario === 'otp-submit'}
 	<Form
 		onFormSubmit={(values) => {

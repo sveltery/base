@@ -1,11 +1,13 @@
 /**
  * Reject React element and lifecycle refs in Svelte source.
- *
+ * Imperative handles are `export function`, like `Dialog.Root`'s `close()`.
  * Element access is `let el = $state()` plus `bind:this={el}`.
  * Element side effects are `{@attach}` or `createAttachmentKey`.
  *
  * @type {import('eslint').Rule.RuleModule}
  */
+import { walk } from './effects.js';
+
 const rule = {
 	meta: {
 		type: 'problem',
@@ -16,7 +18,9 @@ const rule = {
 		schema: [],
 		messages: {
 			reactRef:
-				'Svelte has no React refs. Hold an element with `let el = $state()` and `bind:this={el}`. Run element side effects with `{@attach}` or `createAttachmentKey`.'
+				'Svelte has no React refs. Hold an element with `let el = $state()` and `bind:this={el}`. Run element side effects with `{@attach}` or `createAttachmentKey`.',
+			imperativeHandle:
+				'Svelte has no React refs. Export the method (`export function validate()`) and reach it with `bind:this`.'
 		}
 	},
 	create(context) {
@@ -158,6 +162,93 @@ const rule = {
 		 */
 		function report(node) {
 			context.report({ node, messageId: 'reactRef' });
+		}
+
+		/**
+		 * @param {import('estree').Node} node
+		 */
+		function reportHandle(node) {
+			context.report({ node, messageId: 'imperativeHandle' });
+		}
+
+		/**
+		 * @param {any} node
+		 */
+		function isBindableCall(node) {
+			const value = unwrap(node);
+			return Boolean(
+				value &&
+				value.type === 'CallExpression' &&
+				value.callee?.type === 'Identifier' &&
+				value.callee.name === '$bindable'
+			);
+		}
+
+		/**
+		 * @param {any} node
+		 */
+		function hasMethod(node) {
+			const value = unwrap(node);
+			if (!value || value.type !== 'ObjectExpression') return false;
+			return (
+				value.properties?.some((prop) => {
+					if (prop.type !== 'Property' && prop.type !== 'MethodDefinition') return false;
+					const method = unwrap(prop.value);
+					return (
+						method?.type === 'FunctionExpression' ||
+						method?.type === 'ArrowFunctionExpression' ||
+						prop.method === true
+					);
+				}) ?? false
+			);
+		}
+
+		function imperativeHandles() {
+			/** @type {Set<string>} */
+			const bindables = new Set();
+			/** @type {Map<string, any>} */
+			const methodBags = new Map();
+			const ast = context.sourceCode.ast;
+			walk(ast, (node) => {
+				if (node.type === 'Property') {
+					const value = node.value?.type === 'AssignmentPattern' ? node.value.right : node.value;
+					if (isBindableCall(value)) {
+						const name = nameOf(node.key);
+						if (name) bindables.add(name);
+					}
+				}
+				if (node.type === 'AssignmentPattern' && isBindableCall(node.right)) {
+					const name = nameOf(node.left);
+					if (name) bindables.add(name);
+				}
+				if (
+					node.type === 'VariableDeclarator' &&
+					node.id?.type === 'Identifier' &&
+					hasMethod(node.init)
+				) {
+					methodBags.set(node.id.name, node.id);
+				}
+				if (
+					node.type === 'AssignmentExpression' &&
+					node.left?.type === 'Identifier' &&
+					hasMethod(node.right)
+				) {
+					methodBags.set(node.left.name, node.left);
+				}
+			});
+			walk(ast, (node) => {
+				if (node.type !== 'AssignmentExpression' || node.left?.type !== 'Identifier') return;
+				if (!bindables.has(node.left.name)) return;
+				const right = unwrap(node.right);
+				const publishes =
+					hasMethod(right) || (right?.type === 'Identifier' && methodBags.has(right.name));
+				if (!publishes) return;
+				reportHandle(node.left);
+				if (right?.type === 'Identifier') {
+					const bag = methodBags.get(right.name);
+					if (bag) reportHandle(bag);
+				}
+			});
 		}
 
 		/**
@@ -313,6 +404,9 @@ const rule = {
 			},
 			JSXAttribute(node) {
 				if (node.name.type === 'JSXIdentifier' && node.name.name === 'ref') report(node);
+			},
+			Program() {
+				imperativeHandles();
 			}
 		};
 	}

@@ -25,7 +25,7 @@
 		const current = id;
 		context.setLabelId(current);
 		return () => {
-			context.setLabelId((existing) => (existing === current ? undefined : existing));
+			if (context.labelId === current) context.setLabelId(undefined);
 		};
 	});
 

@@ -151,7 +151,7 @@ describe('sveltery/no-void-signal-read', () => {
 		const { source, messages } = await messagesFor('void-signal.pass.svelte', ruleName);
 		expect(source).toContain('syncAfter(disabledState, focusableWhenDisabled)');
 		expect(source).toContain('$derived.by');
-		expect(source).toContain('actions = actionsHandle');
+		expect(source).toContain('count = 1');
 		expect(source).not.toContain('$effect.pre');
 		expect(messages).toEqual([]);
 	});
@@ -267,7 +267,25 @@ const failRuleByFile: Record<string, string> = {
 	'uncontrolled-bindable.fail.svelte': 'sveltery/no-uncontrolled-bindable',
 	'process-env.fail.svelte': 'sveltery/no-process-env',
 	'form-ref-current.fail.svelte': 'sveltery/no-react-refs',
-	'forced-read.fail.svelte': 'sveltery/no-void-signal-read'
+	'forced-read.fail.svelte': 'sveltery/no-void-signal-read',
+	'state-updater.fail.svelte': 'sveltery/no-state-updater',
+	'state-updater-alias.fail.svelte': 'sveltery/no-state-updater',
+	'state-updater-typeof.fail.svelte': 'sveltery/no-state-updater',
+	'imperative-handle.fail.svelte': 'sveltery/no-react-refs',
+	'imperative-handle-alias.fail.svelte': 'sveltery/no-react-refs',
+	'imperative-handle-pre.fail.svelte': 'sveltery/no-react-refs',
+	'dual-change-handler.fail.svelte': 'sveltery/no-dual-change-handler',
+	'dual-change-handler-wrap.fail.svelte': 'sveltery/no-dual-change-handler',
+	'dual-change-handler-alias.fail.svelte': 'sveltery/no-dual-change-handler',
+	'dual-change-handler-spread.fail.svelte': 'sveltery/no-dual-change-handler',
+	'public-callback.fail.svelte': 'sveltery/no-public-callback-untracked',
+	'public-callback-alias.fail.svelte': 'sveltery/no-public-callback-untracked',
+	'public-callback-destructure.fail.svelte': 'sveltery/no-public-callback-untracked',
+	'public-callback-apply.fail.svelte': 'sveltery/no-public-callback-untracked',
+	'public-callback-name.fail.svelte': 'sveltery/no-public-callback-untracked',
+	'previous-value-same.fail.svelte': 'sveltery/no-previous-value-effect',
+	'previous-value-names.fail.svelte': 'sveltery/no-previous-value-effect',
+	'previous-value-cross.fail.svelte': 'sveltery/no-previous-value-effect'
 };
 
 function lintWithEveryRule(code: string, filePath: string) {
@@ -318,7 +336,8 @@ describe('fixtures', () => {
 	it('runs every rule over every fixture', async () => {
 		for (const name of fixtureNames) {
 			const source = readFileSync(new URL(`eslint/fixtures/${name}`, root), 'utf8');
-			const [result] = await lintWithEveryRule(source, name);
+			const filePath = source.includes("from './") ? `eslint/fixtures/${name}` : name;
+			const [result] = await lintWithEveryRule(source, filePath);
 			const messages = (result?.messages ?? []).filter((message) =>
 				message.ruleId?.startsWith('sveltery/')
 			);

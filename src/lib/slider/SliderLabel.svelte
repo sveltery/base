@@ -32,7 +32,7 @@
 		labelable?.setLabelId(next);
 		return () => {
 			if (model.labelId === next) model.labelId = undefined;
-			labelable?.setLabelId((current) => (current === next ? undefined : current));
+			if (labelable?.labelId === next) labelable.setLabelId(undefined);
 		};
 	});
 

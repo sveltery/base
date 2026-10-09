@@ -150,7 +150,6 @@
 		const next = model.handleHiddenChange(event);
 		if (next === false) return;
 		form.clearErrors(name);
-		field.change(next);
 	}
 
 	function hiddenFocused() {
@@ -173,7 +172,6 @@
 	aria-hidden="true"
 	tabindex="-1"
 	style={hiddenStyle}
-	onchange={hiddenChanged}
 	oninput={hiddenChanged}
 	onfocus={hiddenFocused}
 />

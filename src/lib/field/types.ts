@@ -30,6 +30,7 @@ export interface FieldRootState {
 	focused: boolean;
 }
 
+/** Methods on the `Field.Root` instance. Reach them with `bind:this`. */
 export interface FieldRootActions {
 	/** Validates the field when called. */
 	validate: () => void;
@@ -65,8 +66,6 @@ export interface FieldRootProps extends Omit<HTMLAttributes<HTMLDivElement>, 'ch
 	dirty?: boolean;
 	/** Whether the field has been touched. */
 	touched?: boolean;
-	/** Imperative handle. Use `bind:actions` and call `actions.validate()`. */
-	actions?: FieldRootActions;
 	/** Replace the default `<div>`. Spread `props` onto the host element. */
 	render?: Snippet<
 		[props: HTMLAttributes<HTMLElement>, state: FieldRootState, children: RenderChildren]

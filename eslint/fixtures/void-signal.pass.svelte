@@ -2,9 +2,9 @@
 	import { untrack } from 'svelte';
 
 	let {
-		actions = $bindable()
+		count = $bindable(0)
 	}: {
-		actions?: { validate: () => void };
+		count?: number;
 	} = $props();
 
 	let disabledState = false;
@@ -27,8 +27,7 @@
 		active = toolbar.roving.syncAfter(disabledState, focusableWhenDisabled);
 	});
 
-	const actionsHandle = { validate() {} };
-	actions = actionsHandle;
+	count = 1;
 
 	let value = 0;
 	function publish(next: number) {

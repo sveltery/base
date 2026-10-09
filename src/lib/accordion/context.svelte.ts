@@ -3,6 +3,7 @@
 // (commit 47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c). MIT, see THIRD_PARTY_NOTICES.md.
 
 import { getContext, setContext, untrack } from 'svelte';
+import { callPublic } from '../internal/callPublic.js';
 import type {
 	AccordionItemState,
 	AccordionOrientation,
@@ -58,7 +59,7 @@ export class AccordionRootModel {
 		eventDetails: AccordionRootChangeEventDetails
 	) {
 		const next = nextAccordionValue(this.values, itemValue, nextOpen, this.multiple);
-		this.readOnValueChange()?.(next, eventDetails);
+		callPublic(this.readOnValueChange(), next, eventDetails);
 		if (eventDetails.isCanceled) return;
 		this.commit(next, eventDetails);
 	}

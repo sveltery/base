@@ -5,7 +5,10 @@
  *
  * @type {import('eslint').Rule.RuleModule}
  */
-import { effectCallback, functionsByName, localCallees, nameOf, unwrap } from './effects.js';
+import { existsSync, readFileSync } from 'node:fs';
+import path from 'node:path';
+import ts from 'typescript-eslint';
+import { effectCallback, functionsByName, localCallees, nameOf, unwrap, walk } from './effects.js';
 
 const COMPARE = new Set(['===', '==', '!==', '!=']);
 
@@ -95,7 +98,7 @@ const rule = {
 		 * @param {any} fn
 		 * @param {Set<any>} reported
 		 */
-		function reportStoredComparisons(fn, reported) {
+		function reportStoredComparisons(fn, reported, at) {
 			/** @type {Map<string, any>} */
 			const assigned = new Map();
 			/** @type {Set<string>} */
@@ -162,9 +165,9 @@ const rule = {
 					const key = storedKey(resolve(expr));
 					if (!key) continue;
 					const target = assigned.get(key);
-					if (target && !reported.has(target)) {
-						reported.add(target);
-						context.report({ node: target, messageId: 'previousValue' });
+					if (target && !reported.has(at ?? target)) {
+						reported.add(at ?? target);
+						context.report({ node: at ?? target, messageId: 'previousValue' });
 					}
 				}
 			}
@@ -201,10 +204,49 @@ const rule = {
 				for (const key of keys) {
 					if (!key.startsWith('this.')) continue;
 					const target = assigned.get(key);
-					if (target && !reported.has(target)) {
-						reported.add(target);
-						context.report({ node: target, messageId: 'previousValue' });
+					if (target && !reported.has(at ?? target)) {
+						reported.add(at ?? target);
+						context.report({ node: at ?? target, messageId: 'previousValue' });
 					}
+				}
+			}
+
+			/** @type {Map<string, any[]>} */
+			const diffFlags = new Map();
+			walkOwn(body, (node) => {
+				if (node.type !== 'VariableDeclarator' || node.id?.type !== 'Identifier' || !node.init)
+					return;
+				const init = unwrap(node.init);
+				if (!init) return;
+				/** @type {any[]} */
+				const targets = [];
+				const noteStored = (expr) => {
+					const key = storedKey(resolve(expr));
+					const target = key ? assigned.get(key) : undefined;
+					if (target) targets.push(target);
+				};
+				if (init.type === 'BinaryExpression' && COMPARE.has(init.operator)) {
+					noteStored(init.left);
+					noteStored(init.right);
+				}
+				if (init.type === 'CallExpression') {
+					for (const arg of init.arguments ?? []) noteStored(arg);
+				}
+				if (targets.length > 0) diffFlags.set(node.id.name, targets);
+			});
+
+			/**
+			 * @param {any} test
+			 */
+			function reportFlag(test) {
+				const value = unwrap(test);
+				const name = value?.type === 'Identifier' ? value.name : null;
+				if (!name) return;
+				for (const target of diffFlags.get(name) ?? []) {
+					const where = at ?? target;
+					if (reported.has(where)) continue;
+					reported.add(where);
+					context.report({ node: where, messageId: 'previousValue' });
 				}
 			}
 
@@ -223,13 +265,18 @@ const rule = {
 						noteComparison(node.arguments[0], node.arguments[1]);
 					}
 				}
-				if (node.type === 'IfStatement') noteHelperCondition(node.test);
+				if (node.type === 'IfStatement') {
+					noteHelperCondition(node.test);
+					reportFlag(node.test);
+				}
+				if (node.type === 'SwitchStatement') reportFlag(node.discriminant);
 				if (node.type === 'ConditionalExpression') noteHelperCondition(node.test);
 				if (node.type !== 'IfStatement' || !returnsImmediately(node.consequent)) return;
 				const flag = negatedIdentifier(node.test);
-				if (!flag || !armed.has(flag.name) || reported.has(flag)) return;
-				reported.add(flag);
-				context.report({ node: flag, messageId: 'previousValue' });
+				const where = at ?? flag;
+				if (!flag || !armed.has(flag.name) || reported.has(where)) return;
+				reported.add(where);
+				context.report({ node: where, messageId: 'previousValue' });
 			});
 		}
 
@@ -263,6 +310,97 @@ const rule = {
 			return null;
 		}
 
+		/**
+		 * @param {string} specifier
+		 * @param {string} fromFile
+		 */
+		function resolveModule(specifier, fromFile) {
+			if (!specifier.startsWith('.')) return null;
+			const base = path.resolve(path.dirname(fromFile), specifier);
+			const candidates = [
+				base,
+				`${base}.ts`,
+				`${base}.svelte.ts`,
+				base.replace(/\.js$/, '.ts'),
+				base.replace(/\.svelte\.js$/, '.svelte.ts')
+			];
+			return candidates.find((candidate) => existsSync(candidate)) ?? null;
+		}
+
+		/** @type {Map<string, any>} */
+		const foreignAst = new Map();
+
+		/**
+		 * @param {string} file
+		 */
+		function foreignFunctions(file) {
+			const cached = foreignAst.get(file);
+			if (cached) return cached;
+			let ast;
+			try {
+				ast = ts.parser.parseForESLint(readFileSync(file, 'utf8'), {
+					ecmaVersion: 'latest',
+					sourceType: 'module',
+					filePath: file
+				}).ast;
+			} catch {
+				ast = undefined;
+			}
+			const map = ast ? functionsByName(ast) : new Map();
+			foreignAst.set(file, map);
+			return map;
+		}
+
+		/**
+		 * The method the effect actually calls, including one defined in an import.
+		 * A same-named function in this file is not that method.
+		 * @param {any} fn
+		 */
+		function importedMethods(fn) {
+			const filename = context.filename;
+			if (!filename || filename === '<input>') return [];
+			const fromFile = path.isAbsolute(filename) ? filename : path.resolve(filename);
+			/** @type {Map<string, { file: string, imported: string }>} */
+			const imports = new Map();
+			walk(context.sourceCode.ast, (node) => {
+				if (node.type !== 'ImportDeclaration' || typeof node.source?.value !== 'string') return;
+				const file = resolveModule(node.source.value, fromFile);
+				if (!file) return;
+				for (const spec of node.specifiers ?? []) {
+					if (spec.type !== 'ImportSpecifier' && spec.type !== 'ImportDefaultSpecifier') continue;
+					const local = nameOf(spec.local);
+					const imported =
+						spec.type === 'ImportSpecifier' ? (nameOf(spec.imported) ?? local) : 'default';
+					if (local && imported) imports.set(local, { file, imported });
+				}
+			});
+			/** @type {Map<string, string>} */
+			const instances = new Map();
+			walk(context.sourceCode.ast, (node) => {
+				if (node.type !== 'VariableDeclarator' || node.id?.type !== 'Identifier') return;
+				const init = unwrap(node.init);
+				if (!init || init.type !== 'NewExpression') return;
+				const ctor = nameOf(init.callee);
+				if (ctor) instances.set(node.id.name, ctor);
+			});
+			/** @type {{ fn: any, call: any }[]} */
+			const found = [];
+			walk(fn.body ?? fn, (node) => {
+				if (node.type !== 'CallExpression' || node.callee?.type !== 'MemberExpression') return;
+				const objectName = nameOf(node.callee.object);
+				const method = nameOf(node.callee.property);
+				if (!objectName || !method) return;
+				const ctor = instances.get(objectName);
+				const imported = ctor ? imports.get(ctor) : undefined;
+				if (!imported || imported.imported === 'default') return;
+				const methods = foreignFunctions(imported.file).get(method) ?? [];
+				for (const methodFn of methods) {
+					if (methodFn !== fn) found.push({ fn: methodFn, call: node });
+				}
+			});
+			return found;
+		}
+
 		return {
 			CallExpression(node) {
 				const fn = effectCallback(node);
@@ -271,6 +409,9 @@ const rule = {
 				reportStoredComparisons(fn, reported);
 				for (const callee of localCallees(fn, fns)) {
 					reportStoredComparisons(callee, reported);
+				}
+				for (const callee of importedMethods(fn)) {
+					reportStoredComparisons(callee.fn, reported, callee.call);
 				}
 			}
 		};

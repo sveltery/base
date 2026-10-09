@@ -256,7 +256,6 @@
 		type: 'range',
 		value: Number.isFinite(thumbValue) ? thumbValue : '',
 		oninput: handleInput,
-		onchange: handleInput,
 		onfocus: handleFocus,
 		onblur: handleBlur,
 		onkeydown: handleKeyDown,

@@ -6,6 +6,7 @@
 // parent update. Props are read through getters. Element lists live on SlotList.
 
 import type { HTMLInputAttributes } from 'svelte/elements';
+import { callPublic } from '../internal/callPublic.js';
 import type { FieldRootModel } from '../field/model.svelte.js';
 import type { FormContextValue } from '../form/context.js';
 import {
@@ -60,7 +61,6 @@ export class OTPFieldModel {
 	focusedIndex = $state(0);
 	fallbackLabelId = $state<string | undefined>(undefined);
 
-	private tracked: string | undefined = undefined;
 	private pendingFocus: { index: number; value: string } | null = null;
 	private pendingComplete: { value: string; eventDetails: OTPFieldCompleteEventDetails } | null =
 		null;
@@ -208,17 +208,6 @@ export class OTPFieldModel {
 		this.field.setFilled(filled);
 	}
 
-	/**
-	 * Runs the value-changed work from `useValueChanged` once the stored value
-	 * actually differs. The first observation records the initial value.
-	 */
-	noteValue(next: string) {
-		const tracked = this.tracked;
-		this.tracked = next;
-		if (tracked === undefined || tracked === next) return;
-		this.afterValueChange(next);
-	}
-
 	syncFallbackLabel(explicit: string | undefined, labelId: string | undefined) {
 		const input = this.slots.first;
 		if (explicit || labelId || !input) {
@@ -271,7 +260,7 @@ export class OTPFieldModel {
 			return null;
 		}
 
-		this.options.getOnValueChange()?.(normalizedValue, details);
+		callPublic(this.options.getOnValueChange(), normalizedValue, details);
 		if (details.isCanceled) return null;
 
 		if (completeEventDetails != null) {
@@ -285,7 +274,7 @@ export class OTPFieldModel {
 	}
 
 	reportValueInvalid(invalidValue: string, details: OTPFieldInvalidEventDetails) {
-		this.options.getOnValueInvalid()?.(invalidValue, details);
+		callPublic(this.options.getOnValueInvalid(), invalidValue, details);
 	}
 
 	handleHiddenInput(event: Event & { currentTarget: EventTarget & HTMLInputElement }) {
@@ -337,7 +326,7 @@ export class OTPFieldModel {
 		}
 	}
 
-	private afterValueChange(next: string) {
+	afterValueChange(next: string) {
 		const name = this.name;
 		this.options.getForm().clearErrors(name);
 		const field = this.field;
@@ -360,7 +349,7 @@ export class OTPFieldModel {
 	}
 
 	private completeValue(completedValue: string, eventDetails: OTPFieldCompleteEventDetails) {
-		this.options.getOnValueComplete()?.(completedValue, eventDetails);
+		callPublic(this.options.getOnValueComplete(), completedValue, eventDetails);
 		if (!this.autoSubmit) return;
 		if (this.hiddenInput) this.hiddenInput.value = completedValue;
 		this.requestSubmit();
