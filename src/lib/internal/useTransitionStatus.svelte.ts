@@ -3,7 +3,7 @@
 // (commit 47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c). MIT, see THIRD_PARTY_NOTICES.md.
 // Collapsible, Field, Tabs, Checkbox, and Radio keep their own copies.
 
-import { AnimationFrame } from './timeout.js';
+import { useAnimationFrame } from './timeout.svelte.js';
 
 export type PopupTransitionStatus = 'starting' | 'ending' | undefined;
 
@@ -11,7 +11,7 @@ export class PopupTransition {
 	mounted = $state(false);
 	transitionStatus = $state<PopupTransitionStatus>(undefined);
 	private readonly readOpen: () => boolean;
-	private readonly frame = AnimationFrame.create();
+	private readonly frame = useAnimationFrame();
 
 	constructor(readOpen: () => boolean, animateInitialOpen = false) {
 		this.readOpen = readOpen;

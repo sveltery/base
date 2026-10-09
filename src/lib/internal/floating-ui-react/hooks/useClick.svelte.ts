@@ -3,7 +3,7 @@
 
 import { createChangeEventDetails, REASONS } from '../../event-details.js';
 import { getTarget } from '../../shadow-dom.js';
-import { AnimationFrame, Timeout } from '../../timeout.js';
+import { useAnimationFrame, useTimeout } from '../../timeout.svelte.js';
 import type { OpenInteractionType } from '../../openInteraction.js';
 import { useOpenInteractionType } from '../../openInteraction.js';
 import type { PopupStore } from '../../popups/store.svelte.js';
@@ -24,8 +24,8 @@ export function useClick<Reason extends string>(
 	store: PopupStore<Reason>,
 	props: () => UseClickProps = () => ({})
 ) {
-	const frame = AnimationFrame.create();
-	const touchOpenTimeout = Timeout.create();
+	const frame = useAnimationFrame();
+	const touchOpenTimeout = useTimeout();
 	let pointerType: 'mouse' | 'pen' | 'touch' | 'virtual' | undefined;
 
 	function options() {

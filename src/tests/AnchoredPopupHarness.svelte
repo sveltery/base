@@ -78,7 +78,9 @@
 	});
 
 	const click = useClick(store, () => ({ enabled: !hover }));
-	const polygon = $derived(safePolygon({ blockPointerEvents: scenario === 'block' }));
+	const blockPolygon = safePolygon({ blockPointerEvents: true });
+	const plainPolygon = safePolygon();
+	const polygon = $derived(scenario === 'block' ? blockPolygon : plainPolygon);
 	const hoverReference = useHoverReferenceInteraction(store, () => ({
 		enabled: hover && !many,
 		mouseOnly: true,

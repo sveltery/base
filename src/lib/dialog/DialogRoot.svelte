@@ -19,8 +19,8 @@
 		useFloatingNodeId
 	} from '../internal/floating-ui/index.js';
 	import { useScrollLock } from '../internal/popups/index.js';
+	import { contains, getTarget } from '../internal/shadow-dom.js';
 	import { setDialogRootContext, useDialogRootContext } from './context.svelte.js';
-	import { installDialogOutsidePress } from './outside-press.js';
 	import { DialogStore } from './store.svelte.js';
 	import type { DialogChangeEventReason, DialogRootProps } from './types.js';
 
@@ -79,15 +79,44 @@
 
 	useDismiss(store, () => ({
 		escapeKey: store.nestedOpenDialogCount === 0,
-		outsidePress: false
+		outsidePress(event) {
+			if ('button' in event && event.button !== 0) return false;
+			if ('touches' in event) {
+				const touch = event as unknown as TouchEvent;
+				if (touch.type === 'touchend') {
+					if (touch.changedTouches.length !== 1 || touch.touches.length !== 0) return false;
+				} else if (touch.touches.length !== 1) return false;
+			}
+			if (store.nestedOpenDialogCount !== 0 || store.disablePointerDismissal) return false;
+			const target = getTarget(event);
+			if (!(target instanceof Element)) return false;
+			if (contains(store.popupElement, target)) return false;
+			if (store.modal) {
+				const internalBackdrop = store.internalBackdropElement;
+				const backdrop = store.backdropElement;
+				if (internalBackdrop || backdrop) {
+					return (
+						target === internalBackdrop ||
+						target === backdrop ||
+						(contains(target, store.popupElement) && !target.hasAttribute('data-base-ui-portal'))
+					);
+				}
+			}
+			return true;
+		},
+		outsidePressEvent() {
+			if (store.internalBackdropElement || store.backdropElement) return 'intentional';
+			return {
+				mouse: store.modal === 'trap-focus' ? 'sloppy' : 'intentional',
+				touch: 'sloppy' as const
+			};
+		}
 	}));
 
 	useScrollLock(() => ({
 		enabled: store.open && store.modal === true,
 		referenceElement: store.popupElement
 	}));
-
-	$effect(() => installDialogOutsidePress(store));
 
 	$effect(() => {
 		const id = triggerValue.value;

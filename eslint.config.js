@@ -114,6 +114,7 @@ export default defineConfig(
 			'sveltery/no-layout-read-in-derived': 'error',
 			'sveltery/no-late-bound-getter': 'error',
 			'sveltery/no-uncontrolled-bindable': 'error',
+			'sveltery/no-unscoped-timer': 'error',
 			'sveltery/no-computed-style-direction': 'error',
 			'sveltery/no-foreign-context': 'error',
 			'sveltery/no-previous-value-effect': 'error',

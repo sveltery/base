@@ -9,6 +9,7 @@
 	import { createAttachmentKey, type Attachment } from 'svelte/attachments';
 	import type { HTMLAttributes } from 'svelte/elements';
 	import { runOnceAnimationsFinish } from '../internal/animations-finished.js';
+	import { useAnimationFrame } from '../internal/timeout.svelte.js';
 	import { getStateAttributesProps } from '../internal/state-attributes.js';
 	import { panelStateAttributesMapping } from './attributes.js';
 	import type { TransitionStatus } from '../collapsible/types.js';
@@ -17,6 +18,7 @@
 
 	const uid = $props.id();
 	const panelKey = createAttachmentKey();
+	const settleFrame = useAnimationFrame();
 
 	let {
 		value,
@@ -60,10 +62,10 @@
 
 	$effect(() => {
 		if (!open) return;
-		const frame = requestAnimationFrame(() => {
+		settleFrame.request(() => {
 			transitionStatus = undefined;
 		});
-		return () => cancelAnimationFrame(frame);
+		return () => settleFrame.cancel();
 	});
 
 	$effect(() => {

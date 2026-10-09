@@ -6,6 +6,7 @@ import noInlineCompositeKeys from './no-inline-composite-keys.js';
 import noLayoutReadInDerived from './no-layout-read-in-derived.js';
 import noLateBoundGetter from './no-late-bound-getter.js';
 import noUncontrolledBindable from './no-uncontrolled-bindable.js';
+import noUnscopedTimer from './no-unscoped-timer.js';
 import noComputedStyleDirection from './no-computed-style-direction.js';
 import noForeignContext from './no-foreign-context.js';
 import noPreviousValueEffect from './no-previous-value-effect.js';
@@ -30,6 +31,7 @@ const plugin = {
 		'no-layout-read-in-derived': noLayoutReadInDerived,
 		'no-late-bound-getter': noLateBoundGetter,
 		'no-uncontrolled-bindable': noUncontrolledBindable,
+		'no-unscoped-timer': noUnscopedTimer,
 		'no-computed-style-direction': noComputedStyleDirection,
 		'no-foreign-context': noForeignContext,
 		'no-previous-value-effect': noPreviousValueEffect,

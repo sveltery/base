@@ -81,10 +81,6 @@
 			"count": 1,
 			"lines": 12
 		},
-		"typescript:src/lib/field/model.svelte.ts|src/lib/field/model.svelte.ts": {
-			"count": 1,
-			"lines": 9
-		},
 		"typescript:src/lib/number-field/NumberFieldRoot.svelte|src/lib/otp-field/OTPFieldRoot.svelte": {
 			"count": 1,
 			"lines": 21
