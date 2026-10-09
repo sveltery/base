@@ -10,7 +10,7 @@ A two-state control that can also be mixed. Upstream: `packages/react/src/checkb
 - A consumer `onclick` runs first. `event.preventDefault()` skips the checkbox's handling.
 - The root is a `<span role="checkbox">` with `tabindex="0"`. A hidden checkbox is the form control. Clicking the root, a wrapping label, or a label pointing at the input toggles that checkbox once.
 - Enter does not toggle. It clicks the form's default submit button unless `preventDefault()` runs on that keydown.
-- `disabled`: `aria-disabled`, `data-disabled`, and `tabindex="-1"`. There is no `disabled` attribute on the span. Clicks do not call back. The hidden checkbox is disabled.
+- `disabled`: `aria-disabled`, `data-disabled`, and `tabindex="-1"`. There is no `disabled` attribute on the span. Clicks do not call back. The hidden checkbox is disabled. With `nativeButton`, the button gets the native `disabled` attribute instead of `aria-disabled`, and `tabindex` stays `0`.
 - `readOnly`: `aria-readonly` and `data-readonly`. Clicks, including a label click, do not change the state.
 - `required`: `aria-required` and `data-required`. The hidden checkbox is `required`.
 - `name`, `value`, `form`, and `uncheckedValue` live on the hidden inputs. Ticked submits `value` or `"on"`. Unticked submits `uncheckedValue` when that prop and `name` are set.
