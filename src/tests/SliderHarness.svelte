@@ -82,6 +82,8 @@
 		knob?: boolean;
 	} = $props();
 
+	let changeTracked = $state<boolean | undefined>();
+	let commitTracked = $state<boolean | undefined>();
 	let fresh = $state<number | undefined>();
 	let cleared = $state<number | undefined>(40);
 	let bound = $state<number | readonly number[]>(
@@ -89,6 +91,8 @@
 	);
 	let errors = $state<Record<string, string>>({ slider: 'stale' });
 	let submitted = $state('');
+	let showSliderLabel = $state(true);
+	let showFieldLabel = $state(false);
 
 	function accept(values: Record<string, unknown>, details: { reason: string }) {
 		submitted = JSON.stringify({ values, reason: details.reason });
@@ -274,7 +278,47 @@
 {/snippet}
 
 <DirectionProvider direction={dir ?? 'ltr'}>
-	{#if scenario === 'orphan'}
+	{#if scenario === 'tracking'}
+		<Slider.Root
+			{defaultValue}
+			{min}
+			{max}
+			{step}
+			data-testid="root"
+			onValueChange={() => {
+				changeTracked = $effect.tracking();
+			}}
+			onValueCommitted={() => {
+				commitTracked = $effect.tracking();
+			}}
+		>
+			<Slider.Control data-testid="control">
+				<Slider.Track>
+					<Slider.Thumb />
+				</Slider.Track>
+			</Slider.Control>
+		</Slider.Root>
+		<output data-testid="change-tracking">{String(changeTracked)}</output>
+		<output data-testid="commit-tracking">{String(commitTracked)}</output>
+	{:else if scenario === 'labels'}
+		<Field.Root>
+			<Slider.Root {defaultValue} data-testid="root">
+				{#if showSliderLabel}
+					<Slider.Label data-testid="slider-label">Volume</Slider.Label>
+				{/if}
+				<Slider.Control data-testid="control">
+					<Slider.Track>
+						<Slider.Thumb />
+					</Slider.Track>
+				</Slider.Control>
+			</Slider.Root>
+			{#if showFieldLabel}
+				<Field.Label id="field-label" data-testid="field-label">Volume</Field.Label>
+			{/if}
+		</Field.Root>
+		<button type="button" onclick={() => (showFieldLabel = true)}>Show field label</button>
+		<button type="button" onclick={() => (showSliderLabel = false)}>Remove slider label</button>
+	{:else if scenario === 'orphan'}
 		<Slider.Control />
 	{:else if scenario === 'field' || scenario === 'field-label'}
 		<Field.Root

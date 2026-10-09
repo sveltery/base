@@ -43,8 +43,8 @@ export class ProgressRootContext {
 		return { status: this.computed.status };
 	}
 
-	setLabelId(next: string | undefined | ((current: string | undefined) => string | undefined)) {
-		this.labelId = typeof next === 'function' ? next(this.labelId) : next;
+	setLabelId(next: string | undefined) {
+		this.labelId = next;
 	}
 }
 

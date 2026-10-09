@@ -64,7 +64,11 @@
 		setProp: (next) => {
 			value = next ?? '';
 		},
-		getDefault: () => defaultValue
+		getDefault: () => defaultValue,
+		onChange(next) {
+			if (next === undefined) return;
+			model.afterValueChange(next);
+		}
 	});
 	const raw = $derived(controllable.value ?? '');
 	const generatedId = $derived(`base-ui-${uid}`);
@@ -116,10 +120,6 @@
 			if (model.root === node) model.root = null;
 		};
 	}
-
-	$effect(() => {
-		model.noteValue(model.value);
-	});
 
 	$effect(() => {
 		model.publishFilled(model.filled);

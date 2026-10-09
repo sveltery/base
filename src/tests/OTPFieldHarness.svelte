@@ -21,6 +21,7 @@
 	let bound = $state('');
 	let submitted = $state(0);
 	let counts = $state(0);
+	let tracked = $state<boolean | undefined>(undefined);
 
 	function accept(formValues: Record<string, unknown>, details: { event: Event }) {
 		details.event.preventDefault();
@@ -29,7 +30,17 @@
 	}
 </script>
 
-{#if scenario === 'plain'}
+{#if scenario === 'tracking'}
+	<OTPField.Root
+		length={6}
+		onValueComplete={() => {
+			tracked = $effect.tracking();
+		}}
+	>
+		<OtpInputs />
+	</OTPField.Root>
+	<output data-testid="tracking">{String(tracked)}</output>
+{:else if scenario === 'plain'}
 	<OTPField.Root length={6} {onValueChange} {onValueInvalid} {onValueComplete} {normalizeValue}>
 		<OtpInputs />
 	</OTPField.Root>

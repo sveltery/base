@@ -4,7 +4,7 @@
 // Immediate preventUnmountOnClose writes the flag before cancellation is checked.
 // A canceled close can leave preventUnmountingOnClose true. That matches Dialog.
 
-import { untrack } from 'svelte';
+import { callPublic } from '../callPublic.js';
 import type { ControllableValue } from '../controllable-value.svelte.js';
 import type { BaseUIChangeEventDetails } from '../event-details.js';
 import { FloatingRootStore } from '../floating-ui-react/components/FloatingRootStore.svelte.js';
@@ -121,7 +121,7 @@ export class PopupStore<Reason extends string> extends FloatingRootStore {
 			details.trigger
 		);
 		this.domReferenceElement = next.activeTriggerElement;
-		this.readOnOpenChange()?.(nextOpen, details);
+		callPublic(this.readOnOpenChange(), nextOpen, details);
 		if (details.isCanceled) {
 			this.domReferenceElement = previousReference;
 			return;
@@ -151,7 +151,7 @@ export class PopupStore<Reason extends string> extends FloatingRootStore {
 	 * can write `$state`. Tracking that write makes the effect run again.
 	 */
 	private emitOpenChangeComplete(open: boolean) {
-		untrack(() => this.readOnOpenChangeComplete()?.(open));
+		callPublic(this.readOnOpenChangeComplete(), open);
 	}
 
 	/**

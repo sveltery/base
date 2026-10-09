@@ -51,9 +51,9 @@
 	$effect(() => {
 		if (!rendered || !id) return;
 		const messageId = id;
-		labelable.setMessageIds((current) => current.concat(messageId));
+		labelable.addMessageId(messageId);
 		return () => {
-			labelable.setMessageIds((current) => current.filter((itemId) => itemId !== messageId));
+			labelable.deleteMessageId(messageId);
 		};
 	});
 

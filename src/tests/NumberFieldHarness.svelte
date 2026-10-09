@@ -19,6 +19,7 @@
 	let submitted = $state(0);
 	let values = $state('');
 	let seen = $state('pending');
+	let calls = $state(0);
 
 	function recordValidation(value: unknown, formValues: Record<string, unknown>) {
 		const input = document.querySelector('[data-testid="control"]');
@@ -235,6 +236,22 @@
 		</Field.Root>
 	</Form>
 	<output data-testid="seen">{seen}</output>
+{:else if scenario === 'autofill'}
+	<Form>
+		<Field.Root
+			name="qty"
+			validationMode="onChange"
+			validate={() => {
+				calls += 1;
+				return null;
+			}}
+		>
+			<NumberField.Root locale="en-US" defaultValue={4}>
+				<NumberField.Input data-testid="control" />
+			</NumberField.Root>
+		</Field.Root>
+	</Form>
+	<output data-testid="calls">{calls}</output>
 {:else if scenario === 'orphan'}
 	<NumberField.Increment />
 {:else if scenario === 'orphan-cursor'}

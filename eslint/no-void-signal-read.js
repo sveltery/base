@@ -210,6 +210,7 @@ const rule = {
 				if (current.type === 'AssignmentExpression' && contains(current.right, ref)) return true;
 				if (current.type === 'ReturnStatement') return true;
 				if (current.type === 'ArrayExpression' || current.type === 'Property') return true;
+				if (current.type === 'CallExpression' && contains(current.callee, ref)) return true;
 				if (
 					current.type === 'CallExpression' &&
 					calleeName(current.callee) !== 'untrack' &&

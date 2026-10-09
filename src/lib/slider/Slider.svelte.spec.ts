@@ -140,6 +140,17 @@ describe('<Slider />', () => {
 			expect(page.getByTestId('value').element().textContent).toBe('$30.00');
 		});
 
+		it('keeps the field label when an older slider label unmounts', async () => {
+			render(SliderHarness, { scenario: 'labels', defaultValue: 30 });
+			const slider = page.getByRole('slider');
+
+			await page.getByRole('button', { name: 'Show field label' }).click();
+			await expect.element(slider).toHaveAttribute('aria-labelledby', 'field-label');
+			await page.getByRole('button', { name: 'Remove slider label' }).click();
+			await expect.element(page.getByTestId('slider-label')).not.toBeInTheDocument();
+			await expect.element(slider).toHaveAttribute('aria-labelledby', 'field-label');
+		});
+
 		it('links Slider.Label after the label id is registered', async () => {
 			render(SliderHarness, { scenario: 'label', defaultValue: 30 });
 			const label = page.getByTestId('label').element();
@@ -744,5 +755,34 @@ describe('<Slider />', () => {
 		expect(node).toHaveAttribute('data-custom', '');
 		expect(node).toHaveAttribute('role', 'group');
 		expect(slider()).toHaveAttribute('aria-valuenow', '12');
+	});
+	it('updates from a change event without an input event', async () => {
+		render(SliderHarness, { defaultValue: 30 });
+		const input = slider();
+		expect(input).toHaveAttribute('aria-valuenow', '30');
+		input.value = '40';
+		input.dispatchEvent(new Event('change', { bubbles: true }));
+		await expect.poll(() => input.getAttribute('aria-valuenow')).toBe('40');
+	});
+
+	it('calls onValueChange and onValueCommitted outside effect tracking', async () => {
+		render(SliderHarness, { scenario: 'tracking', defaultValue: 30 });
+		change(slider(), '40');
+		await expect
+			.poll(() => page.getByTestId('change-tracking').element().textContent)
+			.toBe('false');
+		await expect
+			.poll(() => page.getByTestId('commit-tracking').element().textContent)
+			.toBe('false');
+
+		mockControlRect();
+		pointer(control(), 'pointerdown', 55);
+		pointer(control(), 'pointerup', 55);
+		await expect
+			.poll(() => page.getByTestId('change-tracking').element().textContent)
+			.toBe('false');
+		await expect
+			.poll(() => page.getByTestId('commit-tracking').element().textContent)
+			.toBe('false');
 	});
 });

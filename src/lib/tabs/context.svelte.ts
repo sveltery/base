@@ -3,6 +3,7 @@
 // (commit 47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c). MIT, see THIRD_PARTY_NOTICES.md.
 
 import { getContext, setContext, untrack } from 'svelte';
+import { callPublic } from '../internal/callPublic.js';
 import { indicatorListeners } from './indicator-listeners.js';
 import type { ControllableValue } from '../internal/controllable-value.svelte.js';
 import { byDocumentOrder } from '../internal/document-order.js';
@@ -125,17 +126,13 @@ export class TabsRootModel {
 			positionOf(this.tabs, next, this.orientation)
 		);
 		const details = createTabsChangeEventDetails(REASONS.none, event, direction);
-		this.onValueChange?.(next, details);
+		callPublic(this.readOnValueChange(), next, details);
 		if (details.isCanceled) return;
 		this.commit(next, direction);
 	}
 
 	get orientation() {
 		return this.readOrientation();
-	}
-
-	get onValueChange() {
-		return this.readOnValueChange();
 	}
 
 	get value(): TabsValue | null {

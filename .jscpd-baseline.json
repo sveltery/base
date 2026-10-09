@@ -17,10 +17,6 @@
 			"count": 1,
 			"lines": 50
 		},
-		"javascript:eslint/effects.js|eslint/no-previous-value-effect.js": {
-			"count": 1,
-			"lines": 20
-		},
 		"javascript:eslint/effects.js|eslint/no-react-refs.js": {
 			"count": 1,
 			"lines": 15

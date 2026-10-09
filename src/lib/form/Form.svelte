@@ -2,6 +2,7 @@
 	A native form element with consolidated error handling. Renders a `<form>` element.
 	Derived from Base UI v1.8.0 packages/react/src/form/Form.tsx
 	(commit 47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c). MIT, see THIRD_PARTY_NOTICES.md.
+	`validate` is an export. Bind the form with `bind:this`.
 -->
 <script lang="ts" generics="FormValues extends Record<string, unknown> = Record<string, unknown>">
 	import { createAttachmentKey } from 'svelte/attachments';
@@ -9,14 +10,13 @@
 	import { createGenericEventDetails, REASONS } from '../internal/event-details.js';
 	import { setFormContext, type FormContextValue } from './context.js';
 	import { comesBeforeInSameTree } from './document-order.js';
-	import type { FormActions, FormErrors, FormField, FormProps, FormState } from './types.js';
+	import type { FormErrors, FormField, FormProps, FormState } from './types.js';
 
 	let {
 		validationMode = 'onSubmit',
 		errors = $bindable(),
 		onsubmit,
 		onFormSubmit,
-		actions = $bindable(),
 		novalidate = true,
 		render,
 		children,
@@ -66,7 +66,7 @@
 		return hasInvalid;
 	}
 
-	function validate(fieldName?: string) {
+	export function validate(fieldName?: string) {
 		if (fieldName) {
 			for (const field of fields.values()) {
 				if (field.name === fieldName) {
@@ -79,14 +79,6 @@
 		fields.forEach((field) => {
 			field.validate();
 		});
-	}
-
-	const actionsHandle: FormActions = { validate };
-	publishActions();
-
-	function publishActions() {
-		actions = actionsHandle;
-		return actions.validate;
 	}
 
 	function clearErrors(name: string | undefined) {

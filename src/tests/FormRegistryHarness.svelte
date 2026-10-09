@@ -11,7 +11,7 @@
 
 	let { scenario }: { scenario: string } = $props();
 
-	let actions = $state<FormActions | undefined>(undefined);
+	let form = $state<FormActions | undefined>(undefined);
 	let errors = $state<FormErrors | undefined>(undefined);
 	let names = $state(['a', 'b']);
 	let valid = $state<boolean | null>(true);
@@ -54,7 +54,7 @@
 {/if}
 
 <Form
-	bind:actions
+	bind:this={form}
 	bind:errors
 	novalidate={scenario !== 'browser'}
 	onsubmit={scenario === 'native' || scenario === 'unregistered' || scenario === 'browser'
@@ -116,10 +116,10 @@
 </Form>
 
 {#if scenario === 'actions' || scenario === 'same-name'}
-	<button type="button" onclick={() => actions?.validate()}>Validate all</button>
-	<button type="button" onclick={() => actions?.validate('quantity')}>Validate quantity</button>
-	<button type="button" onclick={() => actions?.validate('email')}>Validate email</button>
-	<button type="button" onclick={() => actions?.validate('missing')}>Validate missing</button>
+	<button type="button" onclick={() => form?.validate()}>Validate all</button>
+	<button type="button" onclick={() => form?.validate('quantity')}>Validate quantity</button>
+	<button type="button" onclick={() => form?.validate('email')}>Validate email</button>
+	<button type="button" onclick={() => form?.validate('missing')}>Validate missing</button>
 {/if}
 
 {#if scenario === 'errors-focus'}

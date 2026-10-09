@@ -119,10 +119,21 @@ export default defineConfig(
 			'sveltery/no-foreign-context': 'error',
 			'sveltery/no-previous-value-effect': 'error',
 			'sveltery/no-process-env': 'error',
+			'sveltery/no-public-callback-untracked': 'error',
 			'sveltery/no-prop-state-sync': 'error',
 			'sveltery/no-react-refs': 'error',
 			'sveltery/no-split-effect-lifecycle': 'error',
+			'sveltery/no-state-updater': 'error',
 			'sveltery/no-void-signal-read': 'error'
+		}
+	},
+	{
+		// React useState in the shared reference helpers. `setCalls`, `setValues`,
+		// and `setSubmitted` take React's functional updater. Other project rules
+		// still apply to these files.
+		files: ['src/routes/fixtures/checked-reference.ts', 'src/routes/fixtures/react-fixture.ts'],
+		rules: {
+			'sveltery/no-state-updater': 'off'
 		}
 	}
 );

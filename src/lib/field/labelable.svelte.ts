@@ -1,8 +1,8 @@
 // Derived from Base UI v1.8.0 packages/react/src/internals/labelable-provider/LabelableProvider.tsx
 // (commit 47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c). MIT, see THIRD_PARTY_NOTICES.md.
 
-import { getContext, hasContext, setContext, untrack } from 'svelte';
-import { SvelteMap } from 'svelte/reactivity';
+import { getContext, hasContext, setContext } from 'svelte';
+import { SvelteMap, SvelteSet } from 'svelte/reactivity';
 
 const LABELABLE_CONTEXT = Symbol('labelable');
 
@@ -15,7 +15,7 @@ const LABELABLE_CONTEXT = Symbol('labelable');
 export class Labelable {
 	controlId = $state<string | null | undefined>(undefined);
 	labelId = $state<string | undefined>(undefined);
-	messageIds = $state<string[]>([]);
+	messageIds = new SvelteSet<string>();
 	readonly parent: Labelable | undefined;
 	private readonly registrations = new SvelteMap<symbol, string | null>();
 	private readonly readDefaultId: () => string;
@@ -45,14 +45,16 @@ export class Labelable {
 		if (this.registrations.size === 0) this.controlId = this.readDefaultId();
 	}
 
-	setLabelId(next: string | undefined | ((current: string | undefined) => string | undefined)) {
-		const current = untrack(() => this.labelId);
-		this.labelId = typeof next === 'function' ? next(current) : next;
+	setLabelId(next: string | undefined) {
+		this.labelId = next;
 	}
 
-	setMessageIds(next: string[] | ((current: string[]) => string[])) {
-		const current = untrack(() => this.messageIds);
-		this.messageIds = typeof next === 'function' ? next(current) : next;
+	addMessageId(id: string) {
+		this.messageIds.add(id);
+	}
+
+	deleteMessageId(id: string) {
+		this.messageIds.delete(id);
 	}
 
 	/** Parent descriptions, then this scope's, merged with an author `aria-describedby`. */
