@@ -61,7 +61,7 @@
 
 	const display = $derived(geometry != null && geometry.width > 0 && geometry.height > 0);
 
-	const state: TabsIndicatorState = $derived({
+	const indicatorState: TabsIndicatorState = $derived({
 		orientation: tabs.orientation,
 		tabActivationDirection: tabs.tabActivationDirection,
 		activeTabPosition: geometry
@@ -77,7 +77,7 @@
 				? { style: joinStyle(indicatorStyle(geometry), style ?? undefined) }
 				: { style: style ?? undefined }),
 			...(!display ? { hidden: true } : {}),
-			...getStateAttributesProps(state, indicatorStateAttributesMapping),
+			...getStateAttributesProps(indicatorState, indicatorStateAttributesMapping),
 			...elementProps,
 			...(render ? { [attachmentKey]: geometryAttachment } : {})
 		});
@@ -90,7 +90,7 @@
 
 {#if tabs.value != null}
 	{#if render}
-		{@render render(hostProps, state, children)}
+		{@render render(hostProps, indicatorState, children)}
 	{:else}
 		<span {...hostProps} {@attach geometryAttachment}>{@render children?.()}</span>
 	{/if}
