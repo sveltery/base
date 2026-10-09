@@ -938,6 +938,32 @@ describe('Dialog', () => {
 		await expectTouchTapCloses('trap-focus');
 	});
 
+	it('stays open through a mouse press outside after a touch tap inside', async () => {
+		render(DialogHarness, { modal: false, withBackdrop: false });
+		await openDialog();
+		const inside = button('Inside').element() as HTMLElement;
+		const outside = page.getByTestId('outside').element() as HTMLElement;
+		pointerDownTouch(inside);
+		const point = touchPoint(inside, 8, 8);
+		fireTouch(inside, 'touchstart', [point]);
+		fireTouch(inside, 'touchend', [], [point]);
+		inside.dispatchEvent(
+			new PointerEvent('pointerup', { bubbles: true, button: 0, pointerType: 'touch' })
+		);
+		mouseDown(inside);
+		inside.dispatchEvent(new MouseEvent('click', { bubbles: true, button: 0 }));
+		await tick();
+		expectStillOpen();
+		outside.dispatchEvent(
+			new PointerEvent('pointerdown', { bubbles: true, button: 0, pointerType: 'mouse' })
+		);
+		mouseDown(outside);
+		await tick();
+		expectStillOpen();
+		outside.dispatchEvent(new MouseEvent('click', { bubbles: true, button: 0 }));
+		await dialogs(0);
+	});
+
 	it('closes a short touch move on the compatibility mousedown', async () => {
 		render(DialogHarness, { modal: false, withBackdrop: false });
 		await openDialog();

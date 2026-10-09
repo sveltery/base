@@ -160,25 +160,6 @@ function resolvesToCreate(sourceCode, node, seen) {
 }
 
 /**
- * `AnimationFrame.request` while a popup is unmounting.
- * `useAnimationFrame()` cancels in its `$effect` cleanup, so the frame that puts
- * focus back on the trigger after a backdrop click would never run. This file is
- * the allowlist entry for that call. `new AnimationFrame()` here is still rejected.
- * @param {string} filename
- * @param {import('eslint').SourceCode} sourceCode
- * @param {import('estree').CallExpression} node
- */
-function isUnmountReturnFrame(filename, sourceCode, node) {
-	const path = filename.replaceAll('\\', '/');
-	if (
-		!path.endsWith('/src/lib/internal/floating-ui-react/components/FloatingFocusManager.svelte')
-	) {
-		return false;
-	}
-	return isAnimationFrameRequest(sourceCode, node);
-}
-
-/**
  * @param {import('eslint').SourceCode} sourceCode
  * @param {import('estree').CallExpression} node
  */
@@ -212,7 +193,6 @@ const rule = {
 				context.report({ node: node.callee, messageId: 'unscoped' });
 			},
 			CallExpression(node) {
-				if (isUnmountReturnFrame(context.filename, sourceCode, node)) return;
 				if (
 					rawTimerCall(sourceCode, node) ||
 					resolvesToCreate(sourceCode, node.callee, new Set()) ||
