@@ -58,6 +58,18 @@ describe('<NumberField />', () => {
 		);
 	});
 
+	it('applies a hidden input event without a change event', async () => {
+		const onValueChange = vi.fn();
+		render(NumberFieldHarness, { scenario: 'plain', onValueChange });
+		const hidden = document.querySelector('input[type="number"]');
+		if (!(hidden instanceof HTMLInputElement)) throw new Error('expected a hidden number input');
+		hidden.value = '9';
+		hidden.dispatchEvent(new Event('input', { bubbles: true }));
+		expect(onValueChange).toHaveBeenCalledTimes(1);
+		expect(onValueChange.mock.lastCall?.[0]).toBe(9);
+		await expect.element(control()).toHaveValue('9');
+	});
+
 	it('renders the input, steppers, and group', async () => {
 		render(NumberFieldHarness, { scenario: 'plain' });
 

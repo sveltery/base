@@ -6,7 +6,7 @@
 // parent update. Props are read through getters. Element lists live on SlotList.
 
 import type { HTMLInputAttributes } from 'svelte/elements';
-import type { FieldRootModel } from '../field/model.svelte.js';
+import type { FieldContext } from '../field/model.svelte.js';
 import type { FormContextValue } from '../form/context.js';
 import {
 	createChangeEventDetails,
@@ -48,7 +48,7 @@ export interface OTPFieldModelOptions {
 	getOnValueChange: () => OTPFieldRootProps['onValueChange'];
 	getOnValueInvalid: () => OTPFieldRootProps['onValueInvalid'];
 	getOnValueComplete: () => OTPFieldRootProps['onValueComplete'];
-	getField: () => FieldRootModel;
+	getField: () => FieldContext;
 	getForm: () => FormContextValue;
 }
 

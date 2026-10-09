@@ -14,7 +14,7 @@ import {
 	createGenericEventDetails,
 	REASONS
 } from '../internal/event-details.js';
-import type { FieldRootModel } from '../field/model.svelte.js';
+import type { FieldContext } from '../field/model.svelte.js';
 import type { FormContextValue } from '../form/context.js';
 import { asc } from './asc.js';
 import { ownerDocument, ownerWindow } from '../internal/owner.js';
@@ -90,7 +90,7 @@ export interface SliderModelOptions {
 		((value: SliderValue, eventDetails: SliderChangeEventDetails) => void) | undefined;
 	getOnValueCommitted: () =>
 		((value: SliderValue, eventDetails: SliderCommitEventDetails) => void) | undefined;
-	getField: () => FieldRootModel;
+	getField: () => FieldContext;
 	getFormContext: () => FormContextValue;
 	getDirection: () => 'ltr' | 'rtl';
 }

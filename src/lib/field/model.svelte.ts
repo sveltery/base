@@ -9,7 +9,7 @@ import type { FormContextValue } from '../form/context.js';
 import type { FieldValidityData, FormValidationMode } from '../form/types.js';
 import { DEFAULT_VALIDITY_STATE, VALIDITY_KEYS } from './constants.js';
 import type { Labelable } from './labelable.svelte.js';
-import type { FieldRootState, FieldValidate } from './types.js';
+import type { FieldRootState, FieldValidate, FieldValidateResult } from './types.js';
 import { getCombinedFieldValidityData, isConstraintElement, isEligibleInput } from './validity.js';
 
 interface FieldControlIdentity {
@@ -30,6 +30,34 @@ interface RegisteredInput {
 	value: string | undefined;
 }
 
+/** What field parts read. The inert fallback is this shape, not a model instance. */
+export interface FieldContext {
+	readonly validityData: FieldValidityData;
+	readonly disabled: boolean;
+	readonly name: string | undefined;
+	readonly validationMode: FormValidationMode;
+	readonly invalid: boolean;
+	readonly formError: string | string[] | null;
+	readonly hasFormError: boolean;
+	readonly dirty: boolean;
+	readonly touched: boolean;
+	readonly valid: boolean | null;
+	readonly filled: boolean;
+	readonly focused: boolean;
+	readonly state: FieldRootState;
+	readonly inputElement: HTMLElement | null;
+	setTouched: (value: boolean) => void;
+	setDirty: (value: boolean) => void;
+	setFilled: (value: boolean) => void;
+	setFocused: (value: boolean) => void;
+	shouldValidateOnChange: () => boolean;
+	validateField: () => void;
+	registerControl: (source: symbol, registration: FieldControlRegistration | undefined) => void;
+	registerInput: (element: HTMLInputElement, registration: RegisteredInput) => () => void;
+	change: (value: unknown, cancelPending?: boolean) => void;
+	commit: (value: unknown, revalidate?: boolean) => void;
+}
+
 /** State of a field that has no provider. Slider and OTP share this one object. */
 export const DEFAULT_FIELD_STATE: FieldRootState = {
 	disabled: false,
@@ -40,13 +68,17 @@ export const DEFAULT_FIELD_STATE: FieldRootState = {
 	focused: false
 };
 
-const EMPTY_VALIDITY = (): FieldValidityData => ({
+export const EMPTY_VALIDITY = (): FieldValidityData => ({
 	state: { ...DEFAULT_VALIDITY_STATE },
 	error: '',
 	errors: [],
 	value: null,
 	initialValue: null
 });
+
+function formErrorPresent(formError: string | string[] | null) {
+	return !!(Array.isArray(formError) ? formError.length : formError);
+}
 
 function isPromise(value: unknown): value is Promise<unknown> {
 	return (
@@ -85,7 +117,7 @@ export interface FieldRootModelOptions {
  * Element access stays on the control (`bind:this`). This object holds the element
  * the control publishes.
  */
-export class FieldRootModel {
+export class FieldRootModel implements FieldContext {
 	validityData = $state<FieldValidityData>(EMPTY_VALIDITY());
 	private dirtyState = $state(false);
 	private touchedState = $state(false);
@@ -139,12 +171,7 @@ export class FieldRootModel {
 	}
 
 	get invalid() {
-		const invalidProp = this.options.getInvalidProp();
-		const name = this.name;
-		const errors = this.options.form.errors;
-		const formError = name && Object.hasOwn(errors, name) ? errors[name] : null;
-		const hasFormError = !!(Array.isArray(formError) ? formError.length : formError);
-		return invalidProp === true || hasFormError;
+		return this.options.getInvalidProp() === true || this.hasFormError;
 	}
 
 	get formError(): string | string[] | null {
@@ -152,6 +179,10 @@ export class FieldRootModel {
 		const errors = this.options.form.errors;
 		if (!name || !Object.hasOwn(errors, name)) return null;
 		return errors[name] ?? null;
+	}
+
+	get hasFormError() {
+		return formErrorPresent(this.formError);
 	}
 
 	get dirty() {
@@ -273,22 +304,6 @@ export class FieldRootModel {
 		const commitId = this.validationCommitId;
 		let element = this.representative();
 
-		const publish = (
-			validityState: FieldValidityData['state'],
-			errorMessages: string[],
-			externalInvalid?: boolean
-		) => {
-			const errors = validityState.valid === false ? errorMessages : [];
-			this.validityData = {
-				value,
-				state: validityState,
-				error: errors[0] ?? '',
-				errors,
-				initialValue: this.validityData.initialValue
-			};
-			this.reportedInvalid = externalInvalid;
-		};
-
 		if (revalidate) {
 			if (this.valid !== false || !element) return;
 
@@ -297,7 +312,7 @@ export class FieldRootModel {
 				const current = this.representative();
 				const foreign =
 					isConstraintElement(current) && current.validity.customError ? nativeErrors(current) : [];
-				publish(makeState(foreign.length > 0), foreign, false);
+				this.publishValidity(value, makeState(foreign.length > 0), foreign, false);
 				return;
 			}
 
@@ -326,7 +341,7 @@ export class FieldRootModel {
 		};
 
 		let nextState = refresh();
-		let validationErrors = nativeErrors(element);
+		const validationErrors = nativeErrors(element);
 		const validatingOnChange = this.shouldValidateOnChange();
 
 		if (validationErrors.length === 0 || validatingOnChange) {
@@ -340,16 +355,16 @@ export class FieldRootModel {
 
 			if (isPromise(resultOrPromise)) {
 				if (nextState.valid === false) {
-					publish(nextState, validationErrors);
+					this.publishValidity(value, nextState, validationErrors);
 				} else if (this.validationMode === 'onSubmit' || !this.validityData.state.customError) {
 					nextState = { ...nextState, valid: null };
-					publish(nextState, validationErrors);
+					this.publishValidity(value, nextState, validationErrors);
 				}
 
 				void resultOrPromise.then(
 					(result) => {
 						if (commitId !== this.validationCommitId) return;
-						this.finishAsync(commitId, value, result, refresh);
+						this.finishAsync(commitId, value, result);
 					},
 					() => {
 						// A rejected validator keeps the published state.
@@ -358,31 +373,36 @@ export class FieldRootModel {
 				return;
 			}
 
-			validationErrors = resultOrPromise
-				? ([] as string[]).concat(resultOrPromise).filter(Boolean)
-				: [];
-			if (validationErrors.length > 0) {
-				nextState = { ...nextState, valid: false, customError: true };
-				if (isConstraintElement(element) && element.willValidate) {
-					this.installCustomValidity(element, validationErrors.join('\n'));
-				}
-			} else {
-				validationErrors = nativeErrors(element);
-			}
+			this.conclude(value, element, nextState, resultOrPromise);
+			return;
 		}
 
-		publish(nextState, validationErrors);
+		this.publishValidity(value, nextState, validationErrors);
 	}
 
-	private finishAsync(
-		commitId: number,
+	private publishValidity(
 		value: unknown,
-		result: Awaited<ReturnType<FieldValidate>>,
-		refresh: () => FieldValidityData['state']
+		validityState: FieldValidityData['state'],
+		errorMessages: string[],
+		externalInvalid?: boolean
 	) {
-		if (commitId !== this.validationCommitId) return;
-		let element = this.representative();
-		let nextState = refresh();
+		const errors = validityState.valid === false ? errorMessages : [];
+		this.validityData = {
+			value,
+			state: validityState,
+			error: errors[0] ?? '',
+			errors,
+			initialValue: this.validityData.initialValue
+		};
+		this.reportedInvalid = externalInvalid;
+	}
+
+	private conclude(
+		value: unknown,
+		element: HTMLElement | null,
+		nextState: FieldValidityData['state'],
+		result: FieldValidateResult
+	) {
 		let validationErrors = result ? ([] as string[]).concat(result).filter(Boolean) : [];
 		if (validationErrors.length > 0) {
 			nextState = { ...nextState, valid: false, customError: true };
@@ -390,18 +410,19 @@ export class FieldRootModel {
 				this.installCustomValidity(element, validationErrors.join('\n'));
 			}
 		} else {
-			element = this.representative();
 			validationErrors = nativeErrors(element);
 		}
-		const errors = nextState.valid === false ? validationErrors : [];
-		this.validityData = {
-			value,
-			state: nextState,
-			error: errors[0] ?? '',
-			errors,
-			initialValue: this.validityData.initialValue
-		};
-		this.reportedInvalid = undefined;
+		this.publishValidity(value, nextState, validationErrors);
+	}
+
+	private finishAsync(commitId: number, value: unknown, result: FieldValidateResult) {
+		if (commitId !== this.validationCommitId) return;
+		const element = this.representative();
+		const nextState =
+			isConstraintElement(element) && element.willValidate
+				? this.readNativeState(element)
+				: makeState(false);
+		this.conclude(value, element, nextState, result);
 	}
 
 	private readNativeState(element: HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement) {
