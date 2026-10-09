@@ -2,7 +2,7 @@
 // (commit 47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c). MIT, see THIRD_PARTY_NOTICES.md.
 
 import { ownerWindow } from '../internal/owner.js';
-import { useTimeout } from '../internal/timeout.svelte.js';
+import { useInterval, useTimeout } from '../internal/timeout.svelte.js';
 import { on } from 'svelte/events';
 
 const TICK_DELAY = 60;
@@ -36,7 +36,7 @@ export function createPressAndHold(options: PressAndHoldOptions) {
 	let ignoreClick = false;
 	let pointerType = '';
 	const startTimer = useTimeout();
-	let tickTimer: ReturnType<typeof setInterval> | undefined;
+	const tickInterval = useInterval();
 	const touchTimer = useTimeout();
 	let removeContextMenu: (() => void) | undefined;
 	let removePointerUp: (() => void) | undefined;
@@ -46,8 +46,7 @@ export function createPressAndHold(options: PressAndHoldOptions) {
 	}
 
 	function clearTick() {
-		if (tickTimer !== undefined) clearInterval(tickTimer);
-		tickTimer = undefined;
+		tickInterval.clear();
 	}
 
 	function clearTouch() {
@@ -92,9 +91,9 @@ export function createPressAndHold(options: PressAndHoldOptions) {
 		}
 
 		startTimer.start(START_DELAY, () => {
-			tickTimer = setInterval(() => {
+			tickInterval.start(TICK_DELAY, () => {
 				if (!options.tick(triggerNativeEvent)) stopAutoChange();
-			}, TICK_DELAY);
+			});
 		});
 	}
 

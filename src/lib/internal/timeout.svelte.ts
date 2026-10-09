@@ -4,7 +4,7 @@
 // Upstream disposes the timer with `useOnMount`. This registers the same cleanup
 // with `$effect` when the factory runs during component init. There is no ref.
 
-import { AnimationFrame, Timeout } from './timeout.js';
+import { AnimationFrame, Interval, Timeout } from './timeout.js';
 
 function createdOutsideInit(error: unknown) {
 	if (!(error instanceof Error)) return false;
@@ -36,4 +36,10 @@ export function useAnimationFrame() {
 	const frame = new AnimationFrame();
 	registerScope(frame.cancel);
 	return frame;
+}
+
+export function useInterval() {
+	const interval = new Interval();
+	registerScope(interval.clear);
+	return interval;
 }

@@ -22,6 +22,21 @@ function fireTouch(
 	);
 }
 
+/** Browser tap through the compatibility mousedown. The click is sent by the caller. */
+function tapToMouseDown(element: HTMLElement) {
+	element.dispatchEvent(
+		new PointerEvent('pointerdown', { bubbles: true, button: 0, pointerType: 'touch' })
+	);
+	const point = touchPoint(element, 12, 12);
+	fireTouch(element, 'touchstart', [point]);
+	fireTouch(element, 'touchend', [], [point]);
+	element.dispatchEvent(new MouseEvent('mousedown', { bubbles: true, button: 0 }));
+}
+
+function clickAt(element: HTMLElement) {
+	element.dispatchEvent(new MouseEvent('click', { bubbles: true, button: 0 }));
+}
+
 /** Upstream's outside tap: pointerdown, a 6px move, then touchend. */
 function tapOutside(element: HTMLElement) {
 	element.dispatchEvent(
@@ -63,6 +78,34 @@ describe('overlay audit', () => {
 			document.querySelector('[role="dialog"]')?.closest('[data-base-ui-portal]')?.parentElement
 		).toBe(boxB);
 		expect(document.activeElement).toBe(inside.element());
+	});
+
+	it('focuses the outer popup when a nested container outside it is cleared', async () => {
+		render(OverlayAuditHarness, { case: 'ancestor-outside' });
+		const inner = page.getByTestId('inner-inside');
+		await expect.element(inner).toHaveFocus();
+		const trigger = page.getByTestId('inner-trigger').element();
+		const outer = page.getByTestId('outer-popup').element();
+		const holder = page.getByTestId('inner-holder').element() as HTMLDivElement & {
+			clearContainer: () => void;
+		};
+		holder.clearContainer();
+		await tick();
+		expect(document.querySelectorAll('[role="dialog"]')).toHaveLength(1);
+		expect(document.activeElement).toBe(outer);
+		expect(document.activeElement).not.toBe(trigger);
+	});
+
+	it('focuses inside again when the portal home changes while focus is on the trigger', async () => {
+		render(OverlayAuditHarness, { case: 'swap', part: 'popover' });
+		const inside = page.getByRole('button', { name: 'Inside' });
+		await expect.element(inside).toHaveFocus();
+		const trigger = page.getByRole('button', { name: 'Open' });
+		(trigger.element() as HTMLElement).focus();
+		await expect.poll(() => document.activeElement).toBe(trigger.element());
+		const holder = page.getByTestId('box-a').element() as HTMLDivElement & { swap: () => void };
+		holder.swap();
+		await expect.poll(() => document.activeElement).toBe(inside.element());
 	});
 
 	it('sends focus to the outer popup when a nested container is cleared', async () => {
@@ -140,6 +183,39 @@ describe('overlay audit', () => {
 		fireTouch(backdrop, 'touchend', [], [moved]);
 		await expect.poll(() => document.querySelector('[role="dialog"]')).toBeNull();
 	});
+
+	it('closes only the inner non-modal dialog on an outside text tap', async () => {
+		render(OverlayAuditHarness, { case: 'nested-nonmodal' });
+		await page.getByRole('button', { name: 'Outer' }).click();
+		await page.getByRole('button', { name: 'Inner', includeHidden: true }).click();
+		await expect.poll(() => dialogs().length).toBe(2);
+		const outside = page.getByTestId('outside-text').element() as HTMLElement;
+		tapToMouseDown(outside);
+		await expect.poll(() => dialogs().length).toBe(1);
+		clickAt(outside);
+		expect(page.getByTestId('inner-popup').elements()).toHaveLength(0);
+		expect(page.getByTestId('outer-popup').elements()).toHaveLength(1);
+	});
+
+	it.each([
+		['dialog', false],
+		['dialog', 'trap-focus'],
+		['popover', false],
+		['popover', 'trap-focus']
+	] as const)(
+		'closes a %s (%s) on an outside text tap and returns focus to the trigger',
+		async (part, modal) => {
+			render(OverlayAuditHarness, { case: 'text-tap', part, modal });
+			const trigger = page.getByRole('button', { name: 'Open' });
+			await trigger.click();
+			await expect.element(page.getByRole('button', { name: 'Inside' })).toHaveFocus();
+			const outside = page.getByTestId('outside-text').element() as HTMLElement;
+			tapToMouseDown(outside);
+			await expect.poll(() => document.querySelector('[role="dialog"]')).toBeNull();
+			clickAt(outside);
+			await expect.poll(() => document.activeElement).toBe(trigger.element());
+		}
+	);
 
 	it('closes only the inner modal popover on an outside touch tap', async () => {
 		render(OverlayAuditHarness, { case: 'nested-popovers' });

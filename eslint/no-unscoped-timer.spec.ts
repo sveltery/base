@@ -93,6 +93,31 @@ describe('sveltery/no-unscoped-timer', () => {
 		expect(messages).toHaveLength(4);
 	});
 
+	it('rejects setInterval and AnimationFrame.request', async () => {
+		const code = `
+			import { AnimationFrame } from './timeout.js';
+			setInterval(() => {}, 0);
+			AnimationFrame.request(() => {});
+		`;
+		const messages = await messagesFor(code, 'src/lib/number-field/press-and-hold.svelte.ts');
+		expect(messages).toHaveLength(2);
+	});
+
+	it('allows AnimationFrame.request only while a popup returns focus', async () => {
+		const code = `<script>
+			import { AnimationFrame } from './timeout.js';
+			AnimationFrame.request(() => {});
+		</script>`;
+		const manager = 'src/lib/internal/floating-ui-react/components/FloatingFocusManager.svelte';
+		expect(await messagesFor(code, 'src/lib/dialog/DialogRoot.svelte')).toHaveLength(1);
+		expect(await messagesFor(code, manager)).toHaveLength(0);
+		const constructed = `<script>
+			import { AnimationFrame } from './timeout.js';
+			const frame = new AnimationFrame();
+		</script>`;
+		expect(await messagesFor(constructed, manager)).toHaveLength(1);
+	});
+
 	it('allows the class module, the scoped factory, and specs', async () => {
 		const code = `
 			export class Timeout { static create() { return new Timeout(); } }
