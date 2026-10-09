@@ -14,6 +14,12 @@ if [ -z "${JSCPD_BASE_SHA+x}" ]; then
 	export JSCPD_BASE_SHA="${JSCPD_BASE_SHA_DEFAULT:-origin/main}"
 fi
 
+# Pinned jscpd detector settings. scripts/jscpd-baseline.mjs reads these flags
+# from this file and rejects any other value.
+# --min-lines 8 --min-tokens 60
+export JSCPD_MIN_LINES=8
+export JSCPD_MIN_TOKENS=60
+
 port="${E2E_PORT:-4173}"
 verify_require_browser
 verify_require_port "$port"

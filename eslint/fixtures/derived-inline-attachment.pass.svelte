@@ -23,7 +23,9 @@
 		id: 'trigger',
 		onclick: () => {},
 		[bindKey]: bindTrigger,
-		[createAttachmentKey()]: stableBind
+		'bind:this': (node: HTMLElement) => {
+			triggerEl = node;
+		}
 	}));
 </script>
 

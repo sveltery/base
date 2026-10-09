@@ -1,3 +1,4 @@
+import { readFileSync } from 'node:fs';
 import { createRequire } from 'node:module';
 import { describe, expect, it } from 'vitest';
 import { ESLint, type Linter } from 'eslint';
@@ -69,6 +70,25 @@ describe('sveltery/no-inline-composite-keys', () => {
 		expect(hits(tabs, tabsMessages, 19)).toBe(true);
 		expect(hits(toggles, toggleMessages, 17)).toBe(true);
 		expect(tabsMessages[0]?.message).toContain('COMPOSITE_KEYS');
+	});
+
+	it('rejects the inline shapes that copy four or more composite keys', async () => {
+		const fixtures = [
+			'inline-composite-keys-object.fail.svelte',
+			'inline-composite-keys-equals.fail.svelte',
+			'inline-composite-keys-switch.fail.svelte',
+			'inline-composite-keys-regex.fail.svelte',
+			'inline-composite-keys-spread.fail.svelte',
+			'inline-composite-keys-concat.fail.svelte',
+			'inline-composite-keys-split-comma.fail.svelte',
+			'inline-composite-keys-arrows.fail.svelte'
+		];
+		for (const name of fixtures) {
+			const source = readFileSync(new URL(`fixtures/${name}`, import.meta.url), 'utf8');
+			const [result] = await lint(source, name);
+			const messages = (result?.messages ?? []).filter((message) => message.ruleId === ruleId);
+			expect(messages.length, name).toBeGreaterThan(0);
+		}
 	});
 
 	it('rejects the four-key arrow sets from main before they were shared', async () => {

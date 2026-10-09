@@ -16,7 +16,7 @@ const rule = {
 		schema: [],
 		messages: {
 			inline:
-				'Do not use an inline function as an attachment or element binding inside `$derived`. The object is rebuilt on every read, so the element rebinds. Pass a stable function instead.'
+				'Do not build an attachment key or an inline attachment function inside `$derived`. The object is rebuilt when a dependency changes, so the element rebinds. Pass a stable function and a key created outside the derived.'
 		}
 	},
 	create(context) {
@@ -24,35 +24,42 @@ const rule = {
 		const factories = attachmentFactories(source.ast);
 		const attachmentNames = attachmentKeyNames(source.ast, factories);
 
+		const helpers = helpersReturningAttachment(source.ast);
+
 		return {
 			CallExpression(node) {
 				if (!isDerived(node)) return;
 				for (const argument of node.arguments ?? []) {
-					const localArrows = new Set();
+					const localFns = new Set();
 					walk(argument, (child) => {
+						if (child.type === 'FunctionDeclaration') {
+							const id = nameOf(child.id);
+							if (id) localFns.add(id);
+							return;
+						}
 						if (child.type === 'VariableDeclarator') {
 							const id = nameOf(child.id);
 							const init = unwrap(child.init);
-							if (
-								id &&
-								init &&
-								(init.type === 'ArrowFunctionExpression' || init.type === 'FunctionExpression')
-							) {
-								localArrows.add(id);
-							}
+							if (id && isFunction(init)) localFns.add(id);
 							return;
+						}
+						if (child.type === 'AssignmentExpression' && child.operator === '=') {
+							const id = nameOf(child.left);
+							if (id && isFunction(unwrap(child.right))) localFns.add(id);
+						}
+					});
+					walk(argument, (child) => {
+						if (child.type === 'CallExpression') {
+							const called = calleeName(child.callee);
+							if (called && (factories.has(called) || helpers.has(called))) {
+								context.report({ node: child, messageId: 'inline' });
+							}
 						}
 						if (child.type !== 'Property' || child.kind === 'get' || child.kind === 'set') return;
 						if (!isAttachmentOrBinding(child, attachmentNames, factories)) return;
 						const value = unwrap(child.value);
-						if (!value) return;
-						if (value.type === 'ArrowFunctionExpression' || value.type === 'FunctionExpression') {
-							context.report({ node: value, messageId: 'inline' });
-							return;
-						}
-						if (value.type === 'Identifier' && localArrows.has(value.name)) {
-							context.report({ node: value, messageId: 'inline' });
-						}
+						if (!value || !isUnstableAttachment(value, localFns, helpers)) return;
+						context.report({ node: value, messageId: 'inline' });
 					});
 				}
 			}
@@ -116,13 +123,16 @@ function isDerived(node) {
  * @param {Set<string>} attachmentNames
  * @param {Set<string>} factories
  */
+/**
+ * `bind:this` cannot be spread as an attachment key, so it is not an attachment.
+ * @param {{ computed?: boolean, key?: unknown }} property
+ * @param {Set<string>} attachmentNames
+ * @param {Set<string>} factories
+ */
 function isAttachmentOrBinding(property, attachmentNames, factories) {
+	if (!property.computed) return false;
 	const key = unwrap(property.key);
 	if (!key || typeof key !== 'object') return false;
-	if (!property.computed) {
-		const name = key.type === 'Literal' && typeof key.value === 'string' ? key.value : nameOf(key);
-		return name === 'bind:this';
-	}
 	if (key.type === 'Identifier') {
 		const name = nameOf(key);
 		return name != null && attachmentNames.has(name);
@@ -130,6 +140,100 @@ function isAttachmentOrBinding(property, attachmentNames, factories) {
 	if (key.type === 'CallExpression') {
 		const factory = calleeName(key.callee);
 		return factory != null && factories.has(factory);
+	}
+	return false;
+}
+
+/**
+ * @param {unknown} node
+ */
+function isFunction(node) {
+	const value = unwrap(node);
+	return Boolean(
+		value && (value.type === 'ArrowFunctionExpression' || value.type === 'FunctionExpression')
+	);
+}
+
+/**
+ * @param {unknown} value
+ * @param {Set<string>} localFns
+ * @param {Set<string>} helpers
+ */
+function isUnstableAttachment(value, localFns, helpers) {
+	const node = unwrap(value);
+	if (!node) return false;
+	if (isFunction(node)) return true;
+	if (node.type === 'Identifier' && localFns.has(node.name)) return true;
+	if (node.type === 'ConditionalExpression') {
+		return (
+			isUnstableAttachment(node.consequent, localFns, helpers) ||
+			isUnstableAttachment(node.alternate, localFns, helpers)
+		);
+	}
+	if (node.type === 'CallExpression') {
+		const callee = unwrap(node.callee);
+		if (
+			callee?.type === 'MemberExpression' &&
+			!callee.computed &&
+			nameOf(callee.property) === 'bind'
+		) {
+			return true;
+		}
+		const called = calleeName(node.callee);
+		return called != null && helpers.has(called);
+	}
+	return false;
+}
+
+/**
+ * Functions that return `{ [k]: <function> }`.
+ * @param {unknown} ast
+ */
+function helpersReturningAttachment(ast) {
+	/** @type {Set<string>} */
+	const names = new Set();
+	walk(ast, (node) => {
+		let name = null;
+		let body = null;
+		if (node.type === 'FunctionDeclaration') {
+			name = nameOf(node.id);
+			body = node.body;
+		}
+		if (
+			node.type === 'VariableDeclarator' &&
+			(isFunction(node.init) || unwrap(node.init)?.type === 'ArrowFunctionExpression')
+		) {
+			name = nameOf(node.id);
+			body = unwrap(node.init)?.body;
+		}
+		if (!name || !body) return;
+		if (returnsComputedFunction(body)) names.add(name);
+	});
+	return names;
+}
+
+/**
+ * @param {unknown} body
+ */
+function returnsComputedFunction(body) {
+	let found = false;
+	const root = unwrap(body);
+	if (root?.type === 'ObjectExpression') found = objectHasComputedFunction(root);
+	walk(body, (node) => {
+		if (node.type !== 'ReturnStatement') return;
+		const argument = unwrap(node.argument);
+		if (argument?.type === 'ObjectExpression' && objectHasComputedFunction(argument)) found = true;
+	});
+	return found;
+}
+
+/**
+ * @param {{ properties?: unknown[] }} object
+ */
+function objectHasComputedFunction(object) {
+	for (const prop of object.properties ?? []) {
+		if (!prop || prop.type !== 'Property' || !prop.computed) continue;
+		if (isFunction(prop.value)) return true;
 	}
 	return false;
 }

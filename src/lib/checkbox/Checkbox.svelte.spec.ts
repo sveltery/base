@@ -5,6 +5,7 @@
 // Field, CheckboxGroup, and Form error clearing are not ported.
 // Form cases below use the hidden input with a native <form>.
 // Cases under "native Svelte" have no upstream counterpart.
+import { flushSync } from 'svelte';
 import { page, userEvent } from 'vitest/browser';
 import { describe, expect, it, vi } from 'vitest';
 import { render } from 'vitest-browser-svelte';
@@ -17,6 +18,7 @@ import CheckboxLabelHarness from '../../tests/CheckboxLabelHarness.svelte';
 import CheckboxStyleHarness from '../../tests/CheckboxStyleHarness.svelte';
 import { controllableRootCases } from '../../tests/controllable-root-cases.js';
 import { Checkbox } from './index.js';
+import { AnimationFrame } from '../internal/timeout.js';
 
 const ENDING_CSS = `
 	@keyframes checkbox-test-anim { to { opacity: 0; } }
@@ -530,6 +532,67 @@ describe('Checkbox', () => {
 
 			await page.getByRole('button', { name: 'Toggle' }).click();
 
+			await expect.poll(() => indicatorCount()).toBe(0);
+		});
+
+		it('removes data-starting-style after the mount frame', async () => {
+			render(CheckboxIndicatorHarness);
+			let sawStarting = false;
+			const observer = new MutationObserver(() => {
+				const indicator = document.querySelector('[data-testid="indicator"]');
+				if (indicator?.hasAttribute('data-starting-style')) sawStarting = true;
+			});
+			observer.observe(document.body, { attributes: true, childList: true, subtree: true });
+
+			await page.getByRole('button', { name: 'Toggle' }).click();
+			await expect
+				.poll(() => {
+					const indicator = document.querySelector('[data-testid="indicator"]');
+					return indicator != null && !indicator.hasAttribute('data-starting-style');
+				})
+				.toBe(true);
+			observer.disconnect();
+
+			expect(sawStarting).toBe(true);
+			expect(indicatorCount()).toBe(1);
+		});
+
+		it('keeps data-ending-style until the exit animation ends', async () => {
+			render(CheckboxIndicatorHarness, {
+				css: ENDING_CSS,
+				indicatorClass: 'animation-test-indicator'
+			});
+			const button = page.getByRole('button', { name: 'Toggle' }).element() as HTMLButtonElement;
+			const request = AnimationFrame.prototype.request;
+			let clearedEnding = false;
+			AnimationFrame.prototype.request = function (fn: () => void) {
+				const scheduledDuringEnding = document
+					.querySelector('[data-testid="indicator"]')
+					?.hasAttribute('data-ending-style');
+				return request.call(this, () => {
+					const endingNow = document
+						.querySelector('[data-testid="indicator"]')
+						?.hasAttribute('data-ending-style');
+					fn();
+					if (!scheduledDuringEnding && endingNow) clearedEnding = true;
+				});
+			};
+			try {
+				button.click();
+				flushSync();
+				button.click();
+				flushSync();
+				const indicator = document.querySelector('[data-testid="indicator"]');
+				expect(indicator?.hasAttribute('data-ending-style')).toBe(true);
+				await new Promise((resolve) => requestAnimationFrame(() => resolve(undefined)));
+				await new Promise((resolve) => requestAnimationFrame(() => resolve(undefined)));
+				expect(clearedEnding).toBe(false);
+				expect(
+					document.querySelector('[data-testid="indicator"]')?.hasAttribute('data-ending-style')
+				).toBe(true);
+			} finally {
+				AnimationFrame.prototype.request = request;
+			}
 			await expect.poll(() => indicatorCount()).toBe(0);
 		});
 
