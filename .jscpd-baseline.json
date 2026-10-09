@@ -55,11 +55,7 @@
 		},
 		"typescript:src/lib/checkbox/CheckboxIndicator.svelte|src/lib/radio/RadioIndicator.svelte": {
 			"count": 1,
-			"lines": 51
-		},
-		"typescript:src/lib/checkbox/CheckboxIndicator.svelte|src/lib/tabs/TabsPanel.svelte": {
-			"count": 1,
-			"lines": 14
+			"lines": 50
 		},
 		"typescript:src/lib/checkbox/CheckboxRoot.svelte|src/lib/radio/RadioRoot.svelte": {
 			"count": 1,
