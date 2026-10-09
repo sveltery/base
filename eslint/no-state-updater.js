@@ -125,6 +125,27 @@ const rule = {
 			return found;
 		}
 
+		/**
+		 * The typeof check belongs on the label setters. Other functions call a
+		 * callback after the same check, and that call is not a state update.
+		 * @param {any} fn
+		 */
+		function setterName(fn) {
+			if (fn.type === 'FunctionDeclaration') return nameOf(fn.id);
+			const parent = fn.parent;
+			if (!parent) return null;
+			if (parent.type === 'VariableDeclarator') return nameOf(parent.id);
+			if (
+				parent.type === 'Property' ||
+				parent.type === 'PropertyDefinition' ||
+				parent.type === 'MethodDefinition'
+			) {
+				return nameOf(parent.key);
+			}
+			if (parent.type === 'AssignmentExpression') return nameOf(parent.left);
+			return null;
+		}
+
 		return {
 			Program() {
 				walk(context.sourceCode.ast, (node) => {
@@ -157,6 +178,8 @@ const rule = {
 							if (isUpdaterType(annotation)) report(value);
 						}
 						const names = parameterNames(node);
+						const owner = setterName(node);
+						if (!owner || !/^set(LabelId|LegendId|MessageIds)$/.test(owner)) return;
 						if (!assigns(node)) return;
 						walkOwn(node.body, (inner) => {
 							if (inner.type !== 'BinaryExpression') return;
