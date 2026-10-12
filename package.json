@@ -107,6 +107,16 @@
 			"svelte": "./dist/form/index.js",
 			"default": "./dist/form/index.js"
 		},
+		"./form/kit": {
+			"types": "./dist/form/kit/index.d.ts",
+			"svelte": "./dist/form/kit/index.js",
+			"default": "./dist/form/kit/index.js"
+		},
+		"./form/tanstack": {
+			"types": "./dist/form/tanstack/index.d.ts",
+			"svelte": "./dist/form/tanstack/index.js",
+			"default": "./dist/form/tanstack/index.js"
+		},
 		"./input": {
 			"types": "./dist/input/index.d.ts",
 			"svelte": "./dist/input/index.js",
