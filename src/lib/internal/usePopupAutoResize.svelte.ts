@@ -6,6 +6,7 @@
 import { getAbortSignal } from 'svelte';
 import { ScopedAnimationFrame } from '@sveltery/utils';
 import { runOnceAnimationsFinish } from './animations-finished.js';
+import { getCssDimensions } from './getCssDimensions.js';
 
 export interface PopupAutoResizeStore {
 	readonly mounted: boolean;
@@ -62,7 +63,7 @@ export class PopupAutoResize {
 		};
 		this.frame.request(() => {
 			if (signal.aborted || !popup.isConnected || !Object.is(mark, store.payload)) return;
-			const next = cssSize(popup);
+			const next = getCssDimensions(popup);
 			this.committedSize = next;
 			store.positionerVars = sizeVars('positioner', next);
 			if (!previous) {
@@ -96,17 +97,6 @@ function anchoring(side: string | null, textDirection: string) {
 	vars[anchorTop ? 'bottom' : 'top'] = '0';
 	vars[anchorLeft ? 'right' : 'left'] = '0';
 	return vars;
-}
-
-function cssSize(element: HTMLElement) {
-	const css = getComputedStyle(element);
-	let width = parseFloat(css.width) || 0;
-	let height = parseFloat(css.height) || 0;
-	if (Math.round(width) !== element.offsetWidth || Math.round(height) !== element.offsetHeight) {
-		width = element.offsetWidth;
-		height = element.offsetHeight;
-	}
-	return { width, height };
 }
 
 function sizeVars(kind: 'popup' | 'positioner', size: { width: number; height: number }) {

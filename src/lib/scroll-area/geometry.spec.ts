@@ -1,10 +1,6 @@
 import { describe, expect, it } from 'vitest';
-import {
-	applyOverscrollThumb,
-	normalizeOverflowEdgeThreshold,
-	normalizeScrollOffset,
-	pickState
-} from './geometry.js';
+import { applyOverscrollThumb, normalizeOverflowEdgeThreshold, pickState } from './geometry.js';
+import { normalizeScrollOffset } from '../internal/scrollEdges.js';
 
 describe('normalizeScrollOffset', () => {
 	it('returns 0 when there is nothing to scroll', () => {

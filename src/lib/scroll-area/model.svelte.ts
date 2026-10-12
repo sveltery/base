@@ -12,9 +12,9 @@ import {
 	applyOverscrollThumb,
 	getHiddenState,
 	normalizeOverflowEdgeThreshold,
-	normalizeScrollOffset,
 	pickState
 } from './geometry.js';
+import { normalizeScrollOffset } from '../internal/scrollEdges.js';
 import { MIN_THUMB_SIZE, SCROLL_TIMEOUT } from './constants.js';
 import { orientationAttribute } from './attributes.js';
 import { OVERFLOW_EDGE_VARS, scrollAreaThumbHeight, scrollAreaThumbWidth } from './css-vars.js';
