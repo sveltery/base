@@ -90,7 +90,7 @@
 	{#if Array.isArray(content)}
 		{#if content.length > 1}
 			<ul>
-				{#each content as item (item)}
+				{#each content as item, index (index)}
 					<li>{item}</li>
 				{/each}
 			</ul>
