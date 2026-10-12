@@ -14,6 +14,7 @@
 	import { LabelableId, findLabelableContext } from '../field/labelable.svelte.js';
 	import { useFormContext } from '../form/context.js';
 	import { useValueChanged } from '../internal/useValueChanged.svelte.js';
+	import { restoreOnReset } from '../internal/form-reset.svelte.js';
 	import { watchFieldControl } from '../internal/field-register-control.svelte.js';
 	import { getStateAttributesProps } from '../internal/state-attributes.js';
 	import { visuallyHidden, visuallyHiddenInput, warn } from '@sveltery/utils';
@@ -72,6 +73,7 @@
 
 	const model = new OTPFieldModel({
 		getRawValue: () => raw,
+		getDefaultValue: () => defaultValue,
 		writeValue,
 		getLength: () => length,
 		getValidationType: () => validationType,
@@ -99,6 +101,13 @@
 		(next) => model.afterValueChange(next)
 	);
 	setOTPFieldContext(model);
+
+	restoreOnReset(
+		() => model.hiddenInput ?? model.root,
+		() => {
+			if (raw !== defaultValue) value = defaultValue;
+		}
+	);
 
 	const describedBy = $derived(
 		labelable
@@ -182,6 +191,7 @@
 		form={formId}
 		{name}
 		value={model.value}
+		defaultValue={model.defaultValue}
 		autocomplete={autoComplete}
 		inputmode={model.inputMode}
 		minlength={length}

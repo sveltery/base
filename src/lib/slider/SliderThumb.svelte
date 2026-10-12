@@ -247,6 +247,8 @@
 		tabindex,
 		type: 'range',
 		value: Number.isFinite(thumbValue) ? thumbValue : '',
+		// After `value`, so setting it leaves the current value alone.
+		defaultValue: String(model.defaultValues[index] ?? ''),
 		oninput: handleInput,
 		onchange: handleInput,
 		onfocus: handleFocus,

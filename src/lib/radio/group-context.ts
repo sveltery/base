@@ -34,6 +34,8 @@ export interface RadioGroupContextValue {
 	 * Store it with `$state.raw` so Svelte does not proxy the reference.
 	 */
 	readonly checkedValue: unknown;
+	/** The value a form reset returns to. */
+	readonly defaultValue?: unknown;
 	readonly touched: boolean;
 	/** The labelable scope the group names itself from. Radios in it leave the control id alone. */
 	readonly labelable?: Labelable;

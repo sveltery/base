@@ -15,6 +15,7 @@
 	import { LabelableId, findLabelableContext } from '../field/labelable.svelte.js';
 	import { useFormContext } from '../form/context.js';
 	import { attachFieldControl } from '../internal/field-register-control.svelte.js';
+	import { restoreOnReset } from '../internal/form-reset.svelte.js';
 	import { getStateAttributesProps } from '../internal/state-attributes.js';
 	import { useValueChanged } from '../internal/useValueChanged.svelte.js';
 	import { CheckboxGroupParent } from './parent.svelte.js';
@@ -26,6 +27,7 @@
 
 	const uid = $props.id();
 	const controlKey = createAttachmentKey();
+	const rootKey = createAttachmentKey();
 
 	let {
 		value = $bindable(),
@@ -81,6 +83,22 @@
 		field.setFilled(currentValue().length > 0);
 	});
 
+	let rootNode = $state<HTMLElement | null>(null);
+	restoreOnReset(
+		() => rootNode,
+		() => {
+			const next = defaultValue ? [...defaultValue] : [];
+			if (!areArraysEqual(currentValue(), next)) value = next;
+		}
+	);
+
+	function rememberRoot(node: HTMLElement) {
+		rootNode = node;
+		return () => {
+			if (rootNode === node) rootNode = null;
+		};
+	}
+
 	useValueChanged(
 		() => currentValue(),
 		(next) => {
@@ -94,6 +112,9 @@
 	setCheckboxGroupContext({
 		get value() {
 			return currentValue();
+		},
+		get defaultValue() {
+			return defaultValue;
 		},
 		get disabled() {
 			return disabled;
@@ -119,7 +140,8 @@
 				...(labelable?.labelId ? { 'aria-labelledby': labelable.labelId } : {}),
 				...elementProps,
 				...(describedBy ? { 'aria-describedby': describedBy } : {}),
-				[controlKey]: registration
+				[controlKey]: registration,
+				[rootKey]: rememberRoot
 			};
 		});
 </script>

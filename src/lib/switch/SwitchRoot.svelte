@@ -20,6 +20,7 @@
 	import { setSwitchContext } from './context.js';
 	import { attachFieldControl } from '../internal/field-register-control.svelte.js';
 	import { useValueChanged } from '../internal/useValueChanged.svelte.js';
+	import { restoreOnReset } from '../internal/form-reset.svelte.js';
 	import { useFieldContext } from '../field/context.svelte.js';
 	import { AriaLabelledBy, LabelableId, findLabelableContext } from '../field/labelable.svelte.js';
 	import { useFormContext } from '../form/context.js';
@@ -132,6 +133,21 @@
 		return field.registerInput(input, { element, value: undefined });
 	});
 
+	restoreOnReset(
+		() => inputNode,
+		() => {
+			if (checked !== defaultChecked) checked = defaultChecked;
+		}
+	);
+	// Puts the input back in step when the owner kept `checked`.
+	restoreOnReset(
+		() => inputNode,
+		() => {
+			if (inputNode && inputNode.checked !== checkedState) inputNode.checked = checkedState;
+		},
+		'settle'
+	);
+
 	function registerRoot(element: HTMLElement) {
 		rootNode = element;
 		const release = fieldControl(element);
@@ -230,6 +246,7 @@
 	bind:this={inputNode}
 	type="checkbox"
 	checked={checkedState}
+	{defaultChecked}
 	{disabled}
 	{form}
 	id={hiddenInputId}

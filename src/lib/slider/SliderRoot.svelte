@@ -16,6 +16,7 @@
 	import { clamp } from '../internal/clamp.js';
 	import { watchFieldControl } from '../internal/field-register-control.svelte.js';
 	import { useValueChanged } from '../internal/useValueChanged.svelte.js';
+	import { restoreOnReset } from '../internal/form-reset.svelte.js';
 	import { useDirection } from '../internal/direction-context.js';
 	import { getStateAttributesProps } from '../internal/state-attributes.js';
 	import { asc } from './asc.js';
@@ -82,6 +83,7 @@
 
 	const model = new SliderRootModel({
 		getValueUnwrapped: () => valueUnwrapped,
+		getDefaultValue: () => defaultValue,
 		writeValue,
 		getMin: () => min,
 		getMax: () => max,
@@ -115,6 +117,17 @@
 			if (model.root === node) model.root = null;
 		};
 	}
+
+	restoreOnReset(
+		() => model.root,
+		() => {
+			const same =
+				Array.isArray(value) && Array.isArray(defaultValue)
+					? areArraysEqual(value, defaultValue)
+					: value === defaultValue;
+			if (!same) value = Array.isArray(defaultValue) ? [...defaultValue] : defaultValue;
+		}
+	);
 
 	onMount(() => {
 		model.hydrating = false;

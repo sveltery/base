@@ -73,6 +73,7 @@ export interface SliderThumbRecord {
 
 export interface SliderModelOptions {
 	getValueUnwrapped: () => SliderValue;
+	getDefaultValue: () => SliderValue | undefined;
 	writeValue: (next: SliderValue) => void;
 	getMin: () => number;
 	getMax: () => number;
@@ -197,7 +198,15 @@ export class SliderRootModel {
 
 	/** Clamped thumb values. A range is sorted. */
 	get values(): readonly number[] {
-		const raw = this.options.getValueUnwrapped();
+		return this.normalize(this.options.getValueUnwrapped());
+	}
+
+	/** The thumb values a form reset returns to. */
+	get defaultValues(): readonly number[] {
+		return this.normalize(this.options.getDefaultValue() ?? this.options.getMin());
+	}
+
+	private normalize(raw: SliderValue): number[] {
 		const min = this.options.getMin();
 		const max = this.options.getMax();
 		if (typeof raw === 'number') return [clamp(raw, min, max)];

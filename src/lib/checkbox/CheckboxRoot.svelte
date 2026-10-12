@@ -22,6 +22,7 @@
 	import { useCheckboxGroupContext } from './group-context.js';
 	import { useValueChanged } from '../internal/useValueChanged.svelte.js';
 	import { attachFieldControl } from '../internal/field-register-control.svelte.js';
+	import { restoreOnReset } from '../internal/form-reset.svelte.js';
 	import { useFieldContext, useFieldItemContext } from '../field/context.svelte.js';
 	import { AriaLabelledBy, LabelableId, findLabelableContext } from '../field/labelable.svelte.js';
 	import { useFormContext } from '../form/context.js';
@@ -185,14 +186,37 @@
 		return { value };
 	});
 
+	// The group or the parent checkbox owns a grouped checkbox's value and restores it.
+	const resetsToChecked = $derived.by(() => {
+		if (!group) return defaultChecked;
+		return identified !== undefined && !parent && Boolean(group.defaultValue?.includes(identified));
+	});
+
+	function syncInput(input: HTMLInputElement) {
+		if (input.checked !== isChecked) input.checked = isChecked;
+		input.indeterminate = isIndeterminate;
+	}
+
 	// A click clears `indeterminate` before the listener runs. Put it back after `checked` updates.
 	$effect(() => {
-		const input = inputNode;
-		if (!input) return;
-		const next = isChecked;
-		if (input.checked !== next) input.checked = next;
-		input.indeterminate = isIndeterminate;
+		if (inputNode) syncInput(inputNode);
 	});
+
+	restoreOnReset(
+		() => inputNode,
+		() => {
+			if (!group && checked !== defaultChecked) checked = defaultChecked;
+		}
+	);
+	// A reset can leave the input out of step with state that did not change, such as a parent
+	// checkbox or a `checked` the owner holds.
+	restoreOnReset(
+		() => inputNode,
+		() => {
+			if (inputNode) syncInput(inputNode);
+		},
+		'settle'
+	);
 
 	$effect(() => {
 		const model = group?.parent;
@@ -357,6 +381,7 @@
 	bind:this={inputNode}
 	type="checkbox"
 	checked={isChecked}
+	defaultChecked={resetsToChecked}
 	disabled={isDisabled}
 	{form}
 	id={hiddenInputId}

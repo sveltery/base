@@ -268,6 +268,8 @@
 		...getStateAttributesProps(inputState, inputStateAttributes),
 		id: model.getInputId(index),
 		value: slotValue,
+		// After `value`, so setting it leaves the current value alone.
+		defaultValue: model.defaultValue[index] ?? '',
 		type: type ?? (model.mask ? 'password' : 'text'),
 		inputmode: model.inputMode,
 		autocomplete: index === 0 ? model.autoComplete : 'off',

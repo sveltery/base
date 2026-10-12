@@ -12,6 +12,7 @@
 	import { useValueChanged } from '../internal/useValueChanged.svelte.js';
 	import { getStateAttributesProps } from '../internal/state-attributes.js';
 	import { attachFieldControl } from '../internal/field-register-control.svelte.js';
+	import { restoreOnReset } from '../internal/form-reset.svelte.js';
 	import { fieldValidityMapping } from './attributes.js';
 	import { useFieldContext } from './context.svelte.js';
 	import { Labelable, LabelableId, findLabelableContext } from './labelable.svelte.js';
@@ -110,6 +111,15 @@
 		getValue: () => readElement(inputEl) ?? textValue(value)
 	});
 
+	// The browser has put the input back to its `defaultValue`. Read it, like `bind:value`.
+	restoreOnReset(
+		() => inputEl,
+		() => {
+			const next = inputEl?.value;
+			if (next !== undefined && next !== textValue(value)) value = next;
+		}
+	);
+
 	function publish(node: HTMLElement) {
 		const stopRemember = remember(node);
 		const stopRegistration = registration(node);
@@ -189,6 +199,7 @@
 		...(controlState.valid === false && !field.disabled && !disabled
 			? { 'aria-invalid': true as const }
 			: {}),
+		...(defaultValue != null ? { defaultValue: textValue(defaultValue) } : {}),
 		...(value != null ? { value: textValue(value) } : {}),
 		oninput: handleInput,
 		onfocus: handleFocus,

@@ -23,6 +23,7 @@
 	import { useFieldContext, useFieldItemContext } from '../field/context.svelte.js';
 	import { AriaLabelledBy, LabelableId, findLabelableContext } from '../field/labelable.svelte.js';
 	import { serializeValue } from './serialize-value.js';
+	import { restoreOnReset } from '../internal/form-reset.svelte.js';
 	import type { RadioHostProps, RadioRootProps, RadioRootState } from './types.js';
 
 	const uid = $props.id();
@@ -144,6 +145,9 @@
 		input.checked = next;
 	});
 
+	// The group restores its value. This catches a selection the owner kept.
+	restoreOnReset(() => inputNode, syncInput, 'settle');
+
 	function handleInputClick(event: MouseEvent) {
 		// Clicks dispatched on the input from the root and from focus are an
 		// implementation detail and must not reach ancestors.
@@ -234,6 +238,7 @@
 	bind:this={inputNode}
 	type="radio"
 	{checked}
+	defaultChecked={group !== undefined && value !== undefined && group.defaultValue === value}
 	{disabled}
 	form={fieldForm}
 	id={hiddenInputId}

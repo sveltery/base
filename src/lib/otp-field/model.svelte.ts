@@ -29,6 +29,7 @@ import type {
 
 export interface OTPFieldModelOptions {
 	getRawValue: () => string;
+	getDefaultValue: () => string;
 	writeValue: (next: string) => void;
 	getLength: () => number;
 	getValidationType: () => OTPFieldValidationType;
@@ -78,8 +79,17 @@ export class OTPFieldModel {
 	}
 
 	get value() {
+		return this.normalized(this.options.getRawValue());
+	}
+
+	/** The value a form reset returns to. */
+	get defaultValue() {
+		return this.normalized(this.options.getDefaultValue());
+	}
+
+	private normalized(value: string) {
 		return normalizeOTPValue(
-			this.options.getRawValue(),
+			value,
 			this.length,
 			this.validationType,
 			this.options.getNormalizeValue()

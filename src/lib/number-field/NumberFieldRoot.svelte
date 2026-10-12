@@ -12,6 +12,7 @@
 	import { useFieldContext } from '../field/context.svelte.js';
 	import { LabelableId, findLabelableContext } from '../field/labelable.svelte.js';
 	import { useValueChanged } from '../internal/useValueChanged.svelte.js';
+	import { restoreOnReset } from '../internal/form-reset.svelte.js';
 	import { getStateAttributesProps } from '../internal/state-attributes.js';
 	import { visuallyHidden, visuallyHiddenInput } from '@sveltery/utils';
 	import { numberFieldStateAttributes } from './attributes.js';
@@ -135,6 +136,24 @@
 		...getStateAttributesProps(rootState, numberFieldStateAttributes)
 	});
 
+	let hiddenInput = $state<HTMLInputElement | null>(null);
+	restoreOnReset(
+		() => hiddenInput,
+		() => {
+			model.followInputValue();
+			writeValue(defaultValue);
+		}
+	);
+	// The shown text has no default of its own to reset to when the value did not change.
+	restoreOnReset(
+		() => hiddenInput,
+		() => {
+			const input = model.inputElement;
+			if (input && input.value !== model.inputValue) input.value = model.inputValue;
+		},
+		'settle'
+	);
+
 	function hiddenChanged(event: Event & { currentTarget: EventTarget & HTMLInputElement }) {
 		const next = model.handleHiddenChange(event);
 		if (next === false) return;
@@ -152,10 +171,12 @@
 	<div {...hostProps}>{@render children?.()}</div>
 {/if}
 <input
+	bind:this={hiddenInput}
 	type="number"
 	form={formId}
 	{name}
 	value={current ?? ''}
+	defaultValue={defaultValue ?? ''}
 	{min}
 	{max}
 	step={stepProp}

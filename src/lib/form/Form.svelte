@@ -10,6 +10,7 @@
 	import { createGenericEventDetails, REASONS } from '@sveltery/utils';
 	import { setFormContext, type FormContextValue } from './context.js';
 	import { comesBeforeInSameTree } from './document-order.js';
+	import { onFormReset } from '../internal/form-reset.svelte.js';
 	import type { FormErrors, FormField, FormProps, FormState } from './types.js';
 
 	let {
@@ -35,7 +36,14 @@
 
 	function rememberForm(node: HTMLFormElement) {
 		element = node;
+		// A reset starts the form over: no external errors and no submit yet.
+		const stopReset = onFormReset(node, 'settle', () => {
+			submitCount = 0;
+			submitted = false;
+			if (errors && Object.keys(errors).length > 0) errors = {};
+		});
 		return () => {
+			stopReset();
 			if (element === node) element = null;
 		};
 	}

@@ -20,6 +20,7 @@
 	import { useFieldContext } from '../field/context.svelte.js';
 	import { LabelableId, findLabelableContext } from '../field/labelable.svelte.js';
 	import { attachFieldControl } from '../internal/field-register-control.svelte.js';
+	import { restoreOnReset } from '../internal/form-reset.svelte.js';
 	import { useFormContext } from '../form/context.js';
 	import { findFieldsetRootContext } from '../fieldset/context.svelte.js';
 	import { setRadioGroupContext } from '../radio/group-context.js';
@@ -28,6 +29,7 @@
 
 	const uid = $props.id();
 	const controlKey = createAttachmentKey();
+	const rootKey = createAttachmentKey();
 
 	let {
 		value = $bindable(),
@@ -92,6 +94,21 @@
 		}
 	);
 
+	let rootNode = $state<HTMLElement | null>(null);
+	restoreOnReset(
+		() => rootNode,
+		() => {
+			if (!Object.is(checkedValue, defaultValue)) selection.set(defaultValue);
+		}
+	);
+
+	function rememberRoot(node: HTMLElement) {
+		rootNode = node;
+		return () => {
+			if (rootNode === node) rootNode = null;
+		};
+	}
+
 	const roving: CompositeRoot = new CompositeRoot({
 		orientation: () => 'both',
 		direction: () => reading.direction,
@@ -136,6 +153,9 @@
 		},
 		get checkedValue() {
 			return checkedValue;
+		},
+		get defaultValue() {
+			return defaultValue;
 		},
 		get touched() {
 			return touched;
@@ -199,7 +219,8 @@
 				onblur: handleBlur,
 				onkeydown: handleKeyDown,
 				onkeydowncapture: arrowsTouched,
-				[controlKey]: registration
+				[controlKey]: registration,
+				[rootKey]: rememberRoot
 			};
 		});
 </script>
