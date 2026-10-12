@@ -6,7 +6,11 @@
 <script lang="ts">
 	import { untrack } from 'svelte';
 	import { createAttachmentKey } from 'svelte/attachments';
-	import { getStateAttributesProps } from '../internal/state-attributes.js';
+	import {
+		getStateAttributesProps,
+		transitionStatusMapping
+	} from '../internal/state-attributes.js';
+	import { TransitionStatus } from '../internal/useTransitionStatus.svelte.js';
 	import { avatarStateAttributesMapping } from './attributes.js';
 	import { useAvatarContext } from './context.js';
 	import {
@@ -38,10 +42,20 @@
 		() => !keepMounted,
 		() => ({ src, srcset, sizes, crossorigin, referrerpolicy })
 	);
-	const partState: AvatarImageState = $derived({ imageLoadingStatus: loading.status });
+	const visible = $derived(loading.status === 'loaded');
+	const transition = new TransitionStatus(() => visible);
+	const partState: AvatarImageState = $derived({
+		imageLoadingStatus: loading.status,
+		// With `keepMounted` the element never unmounts, so an exit phase would only flash.
+		transitionStatus:
+			keepMounted && transition.transitionStatus === 'ending'
+				? undefined
+				: transition.transitionStatus
+	});
 
 	let host = $state<HTMLImageElement | null>(null);
 	const hostKey = createAttachmentKey();
+	transition.unmountAfterExit(() => host);
 
 	function attachHost(node: HTMLImageElement) {
 		host = node;
@@ -62,14 +76,20 @@
 		loading.setStatus(node.naturalWidth > 0 ? 'loaded' : 'error');
 	}
 
+	let initialCommit = true;
+
 	// The rendered element is the source of truth when `keepMounted` is set. The load event may
 	// already have fired for a cached image, so the status is read from `complete` as well.
 	$effect(() => {
 		if (!keepMounted) return;
 		const node = host;
 		const source = { src, srcset, sizes, crossorigin, referrerpolicy };
+		const firstRun = initialCommit;
+		initialCommit = false;
 		if (!node) return;
 		readRenderedStatus(node, source);
+		// An image already loaded before hydration was painted, so it skips the enter phase.
+		if (firstRun && untrack(() => loading.status) === 'loaded') transition.setMounted(true);
 	});
 
 	function publish(status: ImageLoadingStatus) {
@@ -98,7 +118,7 @@
 		loading.setStatus('error');
 	}
 
-	const shown = $derived(keepMounted || loading.status === 'loaded');
+	const shown = $derived(keepMounted || transition.mounted);
 	const sourceProps = $derived.by(() => {
 		const source: Record<string, string> = {};
 		if (sizes != null) source.sizes = sizes;
@@ -116,7 +136,10 @@
 			: {}
 	);
 	const hostProps = $derived({
-		...getStateAttributesProps(partState, avatarStateAttributesMapping),
+		...getStateAttributesProps(partState, {
+			...avatarStateAttributesMapping,
+			...transitionStatusMapping
+		}),
 		...statusProps,
 		...elementProps,
 		...(crossorigin !== undefined ? { crossorigin } : {}),
@@ -124,7 +147,7 @@
 		...sourceProps,
 		onload: handleLoad,
 		onerror: handleError,
-		...(keepMounted ? { [hostKey]: attachHost } : {})
+		[hostKey]: attachHost
 	});
 </script>
 
