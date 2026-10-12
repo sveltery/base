@@ -3,6 +3,7 @@
 // (commit 47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c). MIT, see THIRD_PARTY_NOTICES.md.
 
 import { getContext, setContext, untrack } from 'svelte';
+import { ElementList } from '../internal/element-list.svelte.js';
 import type {
 	AccordionItemState,
 	AccordionOrientation,
@@ -14,7 +15,7 @@ const ACCORDION_ROOT_CONTEXT = Symbol('accordion-root');
 const ACCORDION_ITEM_CONTEXT = Symbol('accordion-item');
 
 export class AccordionRootModel {
-	hosts = $state<HTMLElement[]>([]);
+	readonly items = new ElementList();
 	commit: (next: unknown[]) => void = () => {};
 
 	constructor(
@@ -61,24 +62,6 @@ export class AccordionRootModel {
 		this.readOnValueChange()?.(next, eventDetails);
 		if (eventDetails.isCanceled) return;
 		this.commit(next);
-	}
-
-	watchHost(element: HTMLElement) {
-		// The attachment must not subscribe to the list it writes, or the index update re-runs it.
-		untrack(() => {
-			const next = sortInDomOrder([...this.hosts.filter((host) => host !== element), element]);
-			if (sameHosts(this.hosts, next)) return;
-			this.hosts = next;
-		});
-		return () => {
-			untrack(() => {
-				this.hosts = this.hosts.filter((host) => host !== element);
-			});
-		};
-	}
-
-	indexOf(element: HTMLElement) {
-		return this.hosts.indexOf(element);
 	}
 }
 
@@ -139,18 +122,4 @@ export function useAccordionItemContext(): AccordionItemModel {
 		);
 	}
 	return context;
-}
-
-function sameHosts(left: readonly HTMLElement[], right: readonly HTMLElement[]) {
-	return left.length === right.length && left.every((host, index) => host === right[index]);
-}
-
-function sortInDomOrder(elements: HTMLElement[]) {
-	return elements.sort((left, right) => {
-		if (left === right) return 0;
-		const position = left.compareDocumentPosition(right);
-		if (position & Node.DOCUMENT_POSITION_FOLLOWING) return -1;
-		if (position & Node.DOCUMENT_POSITION_PRECEDING) return 1;
-		return 0;
-	});
 }

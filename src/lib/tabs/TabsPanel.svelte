@@ -34,7 +34,7 @@
 
 	function registerPanel(element: HTMLElement) {
 		panelNode = element;
-		const remove = tabs.registerPanelElement(element);
+		const remove = tabs.panels.register(element);
 		return () => {
 			remove();
 			if (panelNode === element) panelNode = null;
@@ -52,7 +52,7 @@
 	const hidden = $derived(!transition.mounted);
 	const shouldRender = $derived(keepMounted || transition.mounted);
 	const tabId = $derived(tabs.tabIdFor(value));
-	const index = $derived(tabs.panelIndex(panelNode));
+	const index = $derived(tabs.panels.indexOf(panelNode));
 
 	const panelState: TabsPanelState = $derived({
 		hidden,

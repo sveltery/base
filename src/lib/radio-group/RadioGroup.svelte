@@ -73,7 +73,7 @@
 			isSkipped(element) || element.getAttribute('aria-disabled') === 'true',
 		isItemSelected: (element): boolean => {
 			const current = checkedValue;
-			const meta = roving.meta(element);
+			const meta = roving.meta(element) ?? {};
 			return current !== undefined && meta.value === current && meta.disabled !== true;
 		},
 		keys: 'arrows',

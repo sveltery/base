@@ -19,6 +19,7 @@ import {
 	getTarget
 } from '@sveltery/utils';
 import { clamp } from '../internal/clamp.js';
+import { ElementList } from '../internal/element-list.svelte.js';
 import type { FieldContext } from '../field/model.svelte.js';
 import type { FormContextValue } from '../form/context.js';
 import { asc } from './asc.js';
@@ -163,7 +164,10 @@ export class SliderRootModel {
 	control = $state<HTMLElement | null>(null);
 	root = $state<HTMLElement | null>(null);
 	fieldInput = $state<HTMLInputElement | null>(null);
-	thumbs = $state<SliderThumbRecord[]>([]);
+	readonly thumbList = new ElementList<HTMLElement, SliderThumbRecord>();
+	readonly thumbs: SliderThumbRecord[] = $derived(
+		this.thumbList.elements.flatMap((element) => this.thumbList.meta(element) ?? [])
+	);
 
 	pressedThumbIndex = -1;
 	pressedThumbCenterOffset: number | null = null;
@@ -296,37 +300,8 @@ export class SliderRootModel {
 		else if (last) this.indicatorPosition = [current[0], position];
 	}
 
-	trackElement(element: HTMLElement) {
-		const thumbs = untrack(() => this.thumbs);
-		if (thumbs.some((thumb) => thumb.element === element)) return;
-		const next = [...thumbs, { element, inputId: undefined, index: -1 }];
-		next.sort((a, b) => {
-			if (a.element === b.element) return 0;
-			const position = a.element.compareDocumentPosition(b.element);
-			if (position & Node.DOCUMENT_POSITION_FOLLOWING) return -1;
-			if (position & Node.DOCUMENT_POSITION_PRECEDING) return 1;
-			return 0;
-		});
-		this.thumbs = next;
-	}
-
-	untrackElement(element: HTMLElement) {
-		const thumbs = untrack(() => this.thumbs);
-		this.thumbs = thumbs.filter((thumb) => thumb.element !== element);
-	}
-
 	positionOf(element: HTMLElement | null) {
-		if (!element) return -1;
-		return this.thumbs.findIndex((thumb) => thumb.element === element);
-	}
-
-	syncThumb(element: HTMLElement, inputId: string | undefined, index: number) {
-		const thumbs = untrack(() => this.thumbs);
-		const current = thumbs.find((thumb) => thumb.element === element);
-		if (!current || (current.inputId === inputId && current.index === index)) return;
-		this.thumbs = thumbs.map((thumb) =>
-			thumb.element === element ? { element, inputId, index } : thumb
-		);
+		return this.thumbList.indexOf(element);
 	}
 
 	thumbElementAt(index: number) {

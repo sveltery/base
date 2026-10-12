@@ -38,7 +38,7 @@
 	const open = $derived(accordion.values.indexOf(itemValue) !== -1);
 
 	let host = $state<HTMLElement | null>(null);
-	const index = $derived(host ? accordion.indexOf(host) : -1);
+	const index = $derived(host ? accordion.items.indexOf(host) : -1);
 
 	const collapsible = new CollapsibleRoot(
 		() => accordion.values.indexOf(itemValue) !== -1,
@@ -72,7 +72,7 @@
 		untrack(() => {
 			host = element;
 		});
-		const remove = accordion.watchHost(element);
+		const remove = accordion.items.register(element);
 		return () => {
 			remove();
 			untrack(() => {

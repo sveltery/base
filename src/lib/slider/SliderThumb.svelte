@@ -92,14 +92,7 @@
 	$effect(() => {
 		const element = thumbEl;
 		if (!element) return;
-		model.trackElement(element);
-		return () => model.untrackElement(element);
-	});
-
-	$effect(() => {
-		const element = thumbEl;
-		if (!element || index < 0) return;
-		model.syncThumb(element, inputId, index);
+		return model.thumbList.register(element, () => ({ element, inputId, index }));
 	});
 
 	$effect(() => {

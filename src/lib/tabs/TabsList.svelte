@@ -31,7 +31,7 @@
 		direction: () => reading.direction,
 		isItemDisabled: (element) => isSkipped(element),
 		isItemSelected: (element): boolean => {
-			const meta = roving.meta(element);
+			const meta = roving.meta(element) ?? {};
 			const current = tabs.value;
 			if (meta.disabled || current == null || !('value' in meta)) return false;
 			return meta.value === current;

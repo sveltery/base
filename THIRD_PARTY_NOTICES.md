@@ -170,7 +170,6 @@ Parts of this package derive from [Base UI](https://github.com/mui/base-ui) v1.8
 - `src/lib/direction-provider/DirectionProvider.svelte.spec.ts` assertions from `packages/react/src/direction-provider/DirectionProvider.test.tsx`
 - `src/lib/otp-field/OTPFieldRoot.svelte` and `src/lib/otp-field/model.svelte.ts` from `packages/react/src/otp-field/root/OTPFieldRoot.tsx` and `OTPFieldRootContext.ts`
 - `src/lib/otp-field/OTPFieldInput.svelte` from `packages/react/src/otp-field/input/OTPFieldInput.tsx`
-- `src/lib/otp-field/slots.svelte.ts` from the flat-list registration in `packages/react/src/internals/composite/list/CompositeList.tsx` and `useCompositeListItem.ts` (DOM order and render-order indexes only)
 - `src/lib/otp-field/otp.ts` from `packages/react/src/otp-field/utils/otp.ts`
 - `src/lib/otp-field/attributes.ts` from `packages/react/src/otp-field/utils/stateAttributesMapping.ts` and the OTP field data-attribute modules
 - `src/lib/otp-field/dom.ts` from `packages/react/src/floating-ui-react/utils/event.ts` (`stopEvent`)
@@ -181,8 +180,7 @@ Parts of this package derive from [Base UI](https://github.com/mui/base-ui) v1.8
 - `src/lib/internal/css-style.ts` from the style-string helpers shared by Progress, NumberField, OTP Field, Slider, Checkbox, Radio, and Switch
 - `src/lib/internal/click.ts` from `packages/react/src/utils/dispatchClickWithModifiers.ts`
 - `src/lib/internal/button.svelte.ts` from `packages/react/src/internals/use-button/useButton.ts` and `packages/react/src/utils/useFocusableWhenDisabled.ts`
-- `src/lib/internal/document-order.ts` from the composite list DOM-order comparison
-- `src/lib/internal/roving-slot.ts` and `src/lib/internal/composite-items.svelte.ts` from the render-order index in `packages/react/src/internals/composite/list/useCompositeListItem.ts` and `CompositeList.tsx` (`RenderOrder`, `CompositeItems`, `includeSorted`)
+- `src/lib/internal/element-list.svelte.ts` from the DOM-order list and render-order index in `packages/react/src/internals/composite/list/useCompositeListItem.ts` and `CompositeList.tsx` (`ElementList`, `RenderOrder`, `byDocumentOrder`)
 - `src/lib/toolbar/item-registration.svelte.ts` from the item ref in `packages/react/src/internals/composite/item/useCompositeItem.ts`
 - `src/lib/scroll-area/track-style.ts` and `src/lib/scroll-area/scrollbar-part.svelte.ts` from the scrollbar geometry in `packages/react/src/scroll-area/scrollbar/ScrollAreaScrollbar.tsx`
 - `src/lib/internal/roving-keys.ts` from the arrow-key helpers in `packages/react/src/internals/composite/root/useCompositeRoot.ts` (`modifierHeld`, `axisKeys`)

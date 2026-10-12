@@ -3,7 +3,7 @@
 // (commit 47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c). MIT, see THIRD_PARTY_NOTICES.md.
 //
 // Value changes notify Field on the path that stores the value, including a later
-// parent update. Props are read through getters. Element lists live on SlotList.
+// parent update. Props are read through getters. Slot inputs live on `slots`.
 
 import type { HTMLInputAttributes } from 'svelte/elements';
 import type { FieldContext } from '../field/model.svelte.js';
@@ -17,7 +17,7 @@ import {
 } from '@sveltery/utils';
 import { findAssociatedLabel } from '../internal/associated-label.js';
 import { getOTPValidationConfig, normalizeOTPValue, normalizeOTPValueWithDetails } from './otp.js';
-import { SlotList } from './slots.svelte.js';
+import { ElementList } from '../internal/element-list.svelte.js';
 import type {
 	OTPFieldChangeEventDetails,
 	OTPFieldCompleteEventDetails,
@@ -53,7 +53,7 @@ export interface OTPFieldModelOptions {
 }
 
 export class OTPFieldModel {
-	readonly slots = new SlotList();
+	readonly slots = new ElementList<HTMLInputElement>();
 	root = $state<HTMLDivElement | null>(null);
 	hiddenInput = $state<HTMLInputElement | null>(null);
 	focused = $state(false);

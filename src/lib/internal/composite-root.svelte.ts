@@ -8,12 +8,10 @@
 // The class publishes tabindex. No element renderer.
 
 import { untrack } from 'svelte';
-import { SvelteMap } from 'svelte/reactivity';
 import type { Attachment } from 'svelte/attachments';
 import type { HTMLAttributes } from 'svelte/elements';
-import { CompositeItems } from './composite-items.svelte.js';
 import { ARROW_KEYS, COMPOSITE_KEYS } from './composite-keys.js';
-import { byDocumentOrder } from './document-order.js';
+import { ElementList } from './element-list.svelte.js';
 import { axisKeys, modifierHeld } from './roving-keys.js';
 
 export type CompositeOrientation = 'horizontal' | 'vertical' | 'both';
@@ -75,7 +73,7 @@ interface MeasuredItem {
  * One composite list. The highlighted item is the only tab stop.
  * `RenderOrder` supplies the server index and returns to 0 after the list empties.
  */
-export class CompositeRoot extends CompositeItems {
+export class CompositeRoot extends ElementList<HTMLElement, CompositeRegistration> {
 	/** Cached tab stop. Host props read this instead of measuring the item. */
 	private stop = $state<HTMLElement | null>(null);
 	private stopIndex = 0;
@@ -83,7 +81,6 @@ export class CompositeRoot extends CompositeItems {
 	/** Item `isItemSelected` last returned. A different item clears a manual highlight. */
 	private selectedNode: HTMLElement | null = null;
 	private claims: RenderClaim[] = [];
-	private readonly readers = new SvelteMap<HTMLElement, () => CompositeRegistration>();
 	private measured: MeasuredItem[] = [];
 
 	constructor(private readonly options: CompositeRootOptions = {}) {
@@ -103,18 +100,16 @@ export class CompositeRoot extends CompositeItems {
 		return index;
 	}
 
-	register(node: HTMLElement, read: () => CompositeRegistration = () => ({})) {
-		this.readers.set(node, read);
+	override register(node: HTMLElement, read: () => CompositeRegistration = () => ({})) {
+		const unregister = super.register(node, read);
 		untrack(() => {
-			this.admit(node);
 			this.observe(this.measure());
 		});
 		return () => {
 			untrack(() => {
 				const index = this.elements.indexOf(node);
 				const removedStop = this.stop === node;
-				this.readers.delete(node);
-				this.dismiss(node);
+				unregister();
 				if (removedStop) {
 					this.stop = null;
 					if (index !== -1) this.stopIndex = index;
@@ -127,11 +122,6 @@ export class CompositeRoot extends CompositeItems {
 				this.observe(this.measure());
 			});
 		};
-	}
-
-	/** The registration getter for `node`, or an empty record. */
-	meta(node: HTMLElement): CompositeRegistration {
-		return this.readers.get(node)?.() ?? {};
 	}
 
 	/** Move the tab stop onto `node`. A later selection change can move it again. */
@@ -224,7 +214,7 @@ export class CompositeRoot extends CompositeItems {
 
 	private measure(): MeasuredItem[] {
 		return this.elements.map((element) => ({
-			disabled: Boolean(this.readers.get(element)?.().disabled),
+			disabled: Boolean(this.meta(element)?.disabled),
 			selected: this.itemSelected(element)
 		}));
 	}
@@ -294,11 +284,6 @@ export class CompositeRoot extends CompositeItems {
 		this.stopIndex = fallback ? elements.indexOf(fallback) : 0;
 	}
 
-	private refreshOrder() {
-		const sorted = [...this.elements].sort(byDocumentOrder);
-		if (sorted.some((node, index) => node !== this.elements[index])) this.elements = sorted;
-	}
-
 	private nextEnabled(key: string, originIndex: number, items: HTMLElement[]): HTMLElement | null {
 		const orientation = this.options.orientation?.() ?? 'horizontal';
 		const loop = orientation === 'both' ? true : (this.options.loopFocus?.() ?? true);
@@ -360,7 +345,7 @@ export class CompositeRoot extends CompositeItems {
 	 */
 	private stopBlocked(element: HTMLElement) {
 		if (this.options.disabledHoldsStop) return this.itemDisabled(element);
-		return Boolean(this.readers.get(element)?.().disabled) || this.itemDisabled(element);
+		return Boolean(this.meta(element)?.disabled) || this.itemDisabled(element);
 	}
 
 	private itemSelected(element: HTMLElement) {

@@ -4,7 +4,7 @@
 
 import { getContext, setContext, untrack } from 'svelte';
 import { indicatorListeners } from './indicator-listeners.js';
-import { byDocumentOrder } from '../internal/document-order.js';
+import { ElementList } from '../internal/element-list.svelte.js';
 import { REASONS } from '@sveltery/utils';
 import { activationDirection } from './direction.js';
 import { createTabsChangeEventDetails } from './events.js';
@@ -29,8 +29,11 @@ export interface TabRecord {
 
 export class TabsRootModel {
 	tabActivationDirection = $state<TabsActivationDirection>('none');
-	tabs = $state<TabRecord[]>([]);
-	panelElements = $state<HTMLElement[]>([]);
+	readonly tabList = new ElementList<HTMLElement, TabRecord>();
+	readonly tabs: TabRecord[] = $derived(
+		this.tabList.elements.flatMap((element) => this.tabList.meta(element) ?? [])
+	);
+	readonly panels = new ElementList();
 	panelIds = $state<{ value: TabsValue; id: string }[]>([]);
 
 	private directionBaseline: TabsValue | null;
@@ -157,26 +160,11 @@ export class TabsRootModel {
 		return current === undefined ? 0 : current;
 	}
 
-	registerTab(element: HTMLElement, value: TabsValue, disabled: boolean, id: string) {
-		const record: TabRecord = { element, value, disabled, id };
-		untrack(() => {
-			this.tabs = [...this.tabs, record].sort((a, b) => byDocumentOrder(a.element, b.element));
-			this.refineDirection();
-		});
-		return () => {
-			untrack(() => {
-				this.tabs = this.tabs.filter((tab) => tab.element !== element);
-			});
-		};
-	}
-
-	updateTab(element: HTMLElement, value: TabsValue, disabled: boolean, id: string) {
-		const current = this.tabs.find((tab) => tab.element === element);
-		if (!current) return;
-		if (current.value === value && current.disabled === disabled && current.id === id) return;
-		this.tabs = this.tabs.map((tab) =>
-			tab.element === element ? { ...tab, value, disabled, id } : tab
-		);
+	/** `read` returns the tab's live record. */
+	registerTab(element: HTMLElement, read: () => TabRecord) {
+		const unregister = this.tabList.register(element, read);
+		untrack(() => this.refineDirection());
+		return unregister;
 	}
 
 	registerPanel(panelValue: TabsValue, panelId: string) {
@@ -193,19 +181,6 @@ export class TabsRootModel {
 		};
 	}
 
-	registerPanelElement(element: HTMLElement) {
-		untrack(() => {
-			if (!this.panelElements.includes(element)) {
-				this.panelElements = [...this.panelElements, element].sort(byDocumentOrder);
-			}
-		});
-		return () => {
-			untrack(() => {
-				this.panelElements = this.panelElements.filter((item) => item !== element);
-			});
-		};
-	}
-
 	panelIdFor(tabValue: TabsValue) {
 		return this.panelIds.find((panel) => panel.value === tabValue)?.id;
 	}
@@ -217,11 +192,6 @@ export class TabsRootModel {
 	tabElement(tabValue: TabsValue | null) {
 		if (tabValue == null) return null;
 		return this.tabs.find((tab) => tab.value === tabValue)?.element ?? null;
-	}
-
-	panelIndex(element: HTMLElement | null) {
-		if (!element) return -1;
-		return this.panelElements.indexOf(element);
 	}
 
 	private commit(next: TabsValue | null, direction: TabsActivationDirection) {
