@@ -329,6 +329,14 @@ describe('Field', () => {
 			await page.getByRole('button', { name: 'Validate' }).click();
 			await expect.element(page.getByText('missing')).toBeVisible();
 		});
+
+		it('lists every message when two are equal', async () => {
+			render(FieldHarness, { scenario: 'logical', validate: () => ['Required', 'Required'] });
+			await page.getByRole('button', { name: 'Validate' }).click();
+			await expect.element(page.getByRole('list')).toBeVisible();
+			const items = page.getByRole('listitem').elements();
+			expect(items.map((item) => item.textContent)).toEqual(['Required', 'Required']);
+		});
 	});
 
 	describe('item', () => {
