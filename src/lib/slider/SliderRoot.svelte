@@ -121,11 +121,9 @@
 
 	restoreOnReset(() => model.fieldInput ?? model.root, {
 		restore: () => {
-			const same =
-				value === undefined || defaultValue === undefined
-					? value === defaultValue
-					: areValuesEqual(value, defaultValue);
-			if (!same) value = Array.isArray(defaultValue) ? [...defaultValue] : defaultValue;
+			const next = defaultValue ?? (model.range ? model.defaultValues : model.defaultValues[0]);
+			if (value !== undefined && areValuesEqual(value, next)) return;
+			value = Array.isArray(next) ? [...next] : next;
 		}
 	});
 

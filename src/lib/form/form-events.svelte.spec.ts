@@ -116,6 +116,23 @@ describe('events on named inputs', () => {
 		await expect.poll(log).toEqual(['input alerts=true', 'change alerts=true']);
 	});
 
+	it('fires input and change from each child a parent checkbox toggles', async () => {
+		render(FormEventsHarness, { scenario: 'checkbox-parent' });
+		await page.getByTestId('parent').click();
+		await expect.poll(log).toEqual(['input tag-b=true', 'change tag-b=true']);
+		await page.getByTestId('parent').click();
+		await expect
+			.poll(log)
+			.toEqual([
+				'input tag-b=true',
+				'change tag-b=true',
+				'input tag-a=false',
+				'change tag-a=false',
+				'input tag-b=false',
+				'change tag-b=false'
+			]);
+	});
+
 	it('fires input and change from the radio a RadioGroup selects', async () => {
 		render(FormEventsHarness, { scenario: 'radio-group' });
 		await page.getByTestId('pro').click();

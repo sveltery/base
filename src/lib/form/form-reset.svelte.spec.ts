@@ -17,6 +17,10 @@ function state() {
 	return JSON.parse(page.getByTestId('state').element().textContent ?? '{}');
 }
 
+function extra() {
+	return JSON.parse(page.getByTestId('extra').element().textContent ?? '{}');
+}
+
 const ways = {
 	'form.reset()': async () => form().reset(),
 	'a reset button': () => page.getByRole('button', { name: 'Reset' }).click()
@@ -155,19 +159,42 @@ describe('form reset', () => {
 				await page.getByTestId('pro').click();
 				(page.getByRole('slider').element() as HTMLElement).focus();
 				await userEvent.keyboard('{ArrowRight}');
-				await expect.poll(state).toEqual({ picked: 'pro', volume: 31 });
+				await page.getByTestId('kit').click();
+				await expect.poll(state).toEqual({ picked: 'pro', volume: 31, tags: ['svelte', 'kit'] });
 				expect(formData()).toEqual([
 					['plan', 'pro'],
-					['volume', '31']
+					['volume', '31'],
+					['tags', 'svelte'],
+					['tags', 'kit']
 				]);
 
 				await reset();
-				await expect.poll(state).toEqual({ picked: 'free', volume: 30 });
+				await expect.poll(state).toEqual({ picked: 'free', volume: 30, tags: ['svelte'] });
 				await expect.element(page.getByTestId('free')).toHaveAttribute('aria-checked', 'true');
 				await expect.element(page.getByRole('slider')).toHaveAttribute('aria-valuenow', '30');
+				await expect.element(page.getByTestId('kit')).toHaveAttribute('aria-checked', 'false');
 				expect(formData()).toEqual([
 					['plan', 'free'],
-					['volume', '30']
+					['volume', '30'],
+					['tags', 'svelte']
+				]);
+			});
+
+			it('restores a bound range Slider with no defaultValue to its thumbs at min', async () => {
+				render(FormResetHarness, { scenario: 'bound-range-slider' });
+				(page.getByRole('slider').first().element() as HTMLElement).focus();
+				await userEvent.keyboard('{ArrowRight}');
+				await expect.poll(extra).toEqual({ price: [21, 80] });
+
+				await reset();
+				await expect.poll(extra).toEqual({ price: [0, 0] });
+				await expect
+					.element(page.getByRole('slider').first())
+					.toHaveAttribute('aria-valuenow', '0');
+				await expect.element(page.getByRole('slider').last()).toHaveAttribute('aria-valuenow', '0');
+				expect(formData()).toEqual([
+					['price', '0'],
+					['price', '0']
 				]);
 			});
 
@@ -217,6 +244,31 @@ describe('form reset', () => {
 			});
 		});
 	}
+
+	it('submits one value per uncheckedValue control as soon as form.reset() returns', async () => {
+		render(FormResetHarness, { scenario: 'unchecked-value' });
+		await page.getByTestId('control').click();
+		await page.getByTestId('switch').click();
+		await expect.poll(state).toEqual({ checked: false });
+		await expect.poll(extra).toEqual({ alerts: true });
+		expect(formData()).toEqual([
+			['news', 'no'],
+			['alerts', 'on']
+		]);
+
+		form().reset();
+		expect(formData()).toEqual([
+			['news', 'on'],
+			['alerts', 'off']
+		]);
+		await expect.poll(state).toEqual({ checked: true });
+		await expect.poll(extra).toEqual({ alerts: false });
+		await expect.element(page.getByTestId('control')).toHaveAttribute('aria-checked', 'true');
+		expect(formData()).toEqual([
+			['news', 'on'],
+			['alerts', 'off']
+		]);
+	});
 
 	it('keeps the values and Field state when the reset is canceled', async () => {
 		render(FormResetHarness, { scenario: 'checkbox-field-state' });

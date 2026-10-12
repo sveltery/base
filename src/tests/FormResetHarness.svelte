@@ -26,7 +26,9 @@
 		| 'otp-field'
 		| 'field-state'
 		| 'checkbox-field-state'
-		| 'outside-form';
+		| 'outside-form'
+		| 'bound-range-slider'
+		| 'unchecked-value';
 
 	let { scenario }: { scenario: ResetScenario } = $props();
 
@@ -40,6 +42,8 @@
 	let seats = $state<number | null | undefined>();
 	let code = $state<string | undefined>();
 	let errors = $state<Record<string, string>>({});
+	let price = $state<number | number[] | undefined>([20, 80]);
+	let alerts = $state<boolean | undefined>();
 </script>
 
 {#if scenario === 'field-state' || scenario === 'checkbox-field-state'}
@@ -75,6 +79,10 @@
 			</Slider.Track>
 		</Slider.Control>
 	</Slider.Root>
+	<CheckboxGroup defaultValue={['svelte']} bind:value={tags}>
+		<Checkbox.Root name="tags" value="svelte" form="outside" style={box} />
+		<Checkbox.Root name="tags" value="kit" form="outside" data-testid="kit" style={box} />
+	</CheckboxGroup>
 {:else}
 	<form data-testid="form">
 		{#if scenario === 'checkbox'}
@@ -104,6 +112,31 @@
 					</Slider.Track>
 				</Slider.Control>
 			</Slider.Root>
+		{:else if scenario === 'bound-range-slider'}
+			<Slider.Root name="price" bind:value={price}>
+				<Slider.Control>
+					<Slider.Track>
+						<Slider.Thumb index={0} />
+						<Slider.Thumb index={1} />
+					</Slider.Track>
+				</Slider.Control>
+			</Slider.Root>
+		{:else if scenario === 'unchecked-value'}
+			<Checkbox.Root
+				name="news"
+				uncheckedValue="no"
+				defaultChecked
+				bind:checked
+				data-testid="control"
+				style={box}
+			/>
+			<Switch.Root
+				name="alerts"
+				uncheckedValue="off"
+				bind:checked={alerts}
+				data-testid="switch"
+				style={box}
+			/>
 		{:else if scenario === 'input'}
 			<Field.Root name="email">
 				<Field.Control defaultValue="hello" bind:value={text} data-testid="control" />
@@ -130,4 +163,7 @@
 {/if}
 <output data-testid="state"
 	>{JSON.stringify({ checked, picked, tags, volume, text, seats, code })}</output
+>
+<output data-testid="extra"
+	>{JSON.stringify(scenario === 'bound-range-slider' ? { price } : { alerts })}</output
 >

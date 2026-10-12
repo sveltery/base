@@ -95,7 +95,7 @@
 	$effect(() => {
 		const element = thumbEl;
 		if (!element) return;
-		return model.thumbList.register(element, () => ({ element, inputId, index }));
+		return model.thumbList.register(element, () => ({ element, input: inputEl, inputId, index }));
 	});
 
 	$effect(() => {

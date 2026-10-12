@@ -23,6 +23,7 @@
 	import { useValueChanged } from '../internal/useValueChanged.svelte.js';
 	import { attachFieldControl } from '../internal/field-register-control.svelte.js';
 	import { restoreOnReset } from '../internal/form-reset.svelte.js';
+	import { queueValueEvent } from '../internal/value-events.js';
 	import { useFieldContext, useFieldItemContext } from '../field/context.svelte.js';
 	import { AriaLabelledBy, LabelableId, findLabelableContext } from '../field/labelable.svelte.js';
 	import { useFormContext } from '../form/context.js';
@@ -166,6 +167,10 @@
 		});
 	});
 
+	$effect(() => {
+		if (group && inputNode && inputName) return group.registerInput(inputNode);
+	});
+
 	function registerRoot(element: HTMLElement) {
 		rootNode = element;
 		const release = fieldControl(element);
@@ -176,9 +181,10 @@
 	}
 
 	const inputStyle = $derived(toCssStyle(inputName ? visuallyHiddenInput : visuallyHidden));
-	const showUnchecked = $derived(
-		!isChecked && group === undefined && Boolean(inputName) && uncheckedValue !== undefined
+	const hasUncheckedValue = $derived(
+		group === undefined && Boolean(inputName) && uncheckedValue !== undefined
 	);
+	let uncheckedNode = $state<HTMLInputElement | null>(null);
 	const submittedValue = $derived.by(() => {
 		if (value === undefined) return {};
 		// Inside a group an unticked checkbox submits an empty value attribute.
@@ -195,6 +201,7 @@
 	function syncInput(input: HTMLInputElement) {
 		if (input.checked !== isChecked) input.checked = isChecked;
 		input.indeterminate = isIndeterminate;
+		if (uncheckedNode) uncheckedNode.checked = !isChecked;
 	}
 
 	// A click clears `indeterminate` before the listener runs. Put it back after `checked` updates.
@@ -250,7 +257,15 @@
 		const key = identified;
 		if (group?.parent && parent) {
 			group.parent.toggle(details);
-			if (details.isCanceled) event.preventDefault();
+			if (details.isCanceled) {
+				event.preventDefault();
+				return;
+			}
+			// The children change from code, so they fire the events a click on each would.
+			for (const input of group.inputs) {
+				queueValueEvent(input, 'input');
+				queueValueEvent(input, 'change');
+			}
 			return;
 		}
 
@@ -371,9 +386,6 @@
 {:else}
 	<span {...hostProps}>{@render children?.()}</span>
 {/if}
-{#if showUnchecked}
-	<input type="hidden" {form} name={inputName} value={uncheckedValue} disabled={isDisabled} />
-{/if}
 <input
 	bind:this={inputNode}
 	type="checkbox"
@@ -393,3 +405,20 @@
 	onclick={handleInputClick}
 	onfocus={handleInputFocus}
 />
+{#if hasUncheckedValue}
+	<!-- Submits `uncheckedValue`. A native reset restores it with the checkbox above, so
+	FormData never holds both values. -->
+	<input
+		bind:this={uncheckedNode}
+		type="checkbox"
+		hidden
+		checked={!isChecked}
+		defaultChecked={!resetsToChecked}
+		disabled={isDisabled}
+		{form}
+		name={inputName}
+		value={uncheckedValue}
+		tabindex="-1"
+		aria-hidden="true"
+	/>
+{/if}

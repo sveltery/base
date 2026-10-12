@@ -140,6 +140,7 @@
 		// Puts the input back in step when the owner kept `checked`.
 		settle: () => {
 			if (inputNode && inputNode.checked !== checkedState) inputNode.checked = checkedState;
+			if (uncheckedNode) uncheckedNode.checked = !checkedState;
 		}
 	});
 
@@ -155,7 +156,7 @@
 	// A named checkbox uses absolute positioning so it stays associated with its
 	// layout parent. An unnamed one uses the fixed visually-hidden style.
 	const inputStyle = $derived(toCssStyle(name ? visuallyHiddenInput : visuallyHidden));
-	const showUnchecked = $derived(!checkedState && Boolean(name) && uncheckedValue !== undefined);
+	let uncheckedNode = $state<HTMLInputElement | null>(null);
 
 	// Chromium toggles a checkbox before dispatching click, then reverts the toggle
 	// if the click is canceled. That is the same signal as the pinned React workaround
@@ -234,9 +235,6 @@
 {:else}
 	<span {...hostProps}>{@render children?.()}</span>
 {/if}
-{#if showUnchecked}
-	<input type="hidden" {form} {name} value={uncheckedValue} {disabled} />
-{/if}
 <input
 	bind:this={inputNode}
 	type="checkbox"
@@ -256,3 +254,20 @@
 	onclick={handleInputClick}
 	onfocus={handleInputFocus}
 />
+{#if name && uncheckedValue !== undefined}
+	<!-- Submits `uncheckedValue`. A native reset restores it with the checkbox above, so
+	FormData never holds both values. -->
+	<input
+		bind:this={uncheckedNode}
+		type="checkbox"
+		hidden
+		checked={!checkedState}
+		defaultChecked={!defaultChecked}
+		{disabled}
+		{form}
+		{name}
+		value={uncheckedValue}
+		tabindex="-1"
+		aria-hidden="true"
+	/>
+{/if}

@@ -8,6 +8,7 @@
 <script lang="ts">
 	import { createAttachmentKey, type Attachment } from 'svelte/attachments';
 	import type { HTMLAttributes } from 'svelte/elements';
+	import { SvelteSet } from 'svelte/reactivity';
 	import { areArraysEqual } from '@sveltery/utils';
 	import { setCheckboxGroupContext } from '../checkbox/group-context.js';
 	import { fieldValidityMapping } from '../field/attributes.js';
@@ -84,7 +85,9 @@
 	});
 
 	let rootNode = $state<HTMLElement | null>(null);
-	restoreOnReset(() => rootNode, {
+	const inputs = new SvelteSet<HTMLInputElement>();
+	// A child input's `form` attribute decides which form resets the group.
+	restoreOnReset(() => inputs.values().next().value ?? rootNode, {
 		restore: () => {
 			const next = defaultValue ? [...defaultValue] : [];
 			if (!areArraysEqual(currentValue(), next)) value = next;
@@ -122,6 +125,11 @@
 			return allValues === undefined ? undefined : parentModel;
 		},
 		labelable,
+		inputs,
+		registerInput(input) {
+			inputs.add(input);
+			return () => inputs.delete(input);
+		},
 		setValue
 	});
 

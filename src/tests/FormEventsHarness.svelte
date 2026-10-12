@@ -2,6 +2,7 @@
 	import type { Attachment } from 'svelte/attachments';
 	import {
 		Checkbox,
+		CheckboxGroup,
 		Field,
 		Form,
 		NumberField,
@@ -20,7 +21,8 @@
 		| 'otp-field'
 		| 'checkbox'
 		| 'switch'
-		| 'radio-group';
+		| 'radio-group'
+		| 'checkbox-parent';
 
 	let { scenario }: { scenario: EventsScenario } = $props();
 
@@ -95,6 +97,12 @@
 			<Checkbox.Root name="tos" data-testid="control" style={box} />
 		{:else if scenario === 'switch'}
 			<Switch.Root name="alerts" data-testid="control" style={box} />
+		{:else if scenario === 'checkbox-parent'}
+			<CheckboxGroup allValues={['a', 'b']} defaultValue={['a']}>
+				<Checkbox.Root parent data-testid="parent" style={box} />
+				<Checkbox.Root name="tag-a" value="a" style={box} />
+				<Checkbox.Root name="tag-b" value="b" style={box} />
+			</CheckboxGroup>
 		{:else if scenario === 'radio-group'}
 			<RadioGroup name="plan" defaultValue="free">
 				<Radio.Root value="free" data-testid="free" style={box} />
