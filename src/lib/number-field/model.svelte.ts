@@ -3,7 +3,6 @@
 // (commit 47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c). MIT, see THIRD_PARTY_NOTICES.md.
 
 import { on } from 'svelte/events';
-import { SvelteSet } from 'svelte/reactivity';
 import { formatNumber } from '../internal/formatNumber.js';
 import {
 	createChangeEventDetails,
@@ -233,12 +232,11 @@ export class NumberFieldModel {
 		const locale = this.options.getLocale();
 		const format = this.options.getFormat();
 		const parts = getFormatParts(locale, format);
-		const keys = new SvelteSet<string>(BASE_NON_NUMERIC_SYMBOLS);
-		const addAll = (chars: readonly string[]) => chars.forEach((char) => keys.add(char));
-		const decimal =
+		const keys: string[] = [...BASE_NON_NUMERIC_SYMBOLS];
+		keys.push(
 			parts.find((part) => part.type === 'decimal')?.value ??
-			getNumberLocaleDetails(locale, format).decimal;
-		keys.add(decimal);
+				getNumberLocaleDetails(locale, format).decimal
+		);
 		parts.forEach((part) => {
 			if (
 				part.type === 'integer' ||
@@ -248,16 +246,17 @@ export class NumberFieldModel {
 			) {
 				return;
 			}
-			addAll(Array.from(part.value));
-			if (SPACE_SEPARATOR_RE.test(part.value)) keys.add(' ');
+			keys.push(...part.value);
+			if (SPACE_SEPARATOR_RE.test(part.value)) keys.push(' ');
 		});
 		const style = format?.style;
 		if (style === 'percent' || (style === 'unit' && format?.unit === 'percent'))
-			addAll(PERCENTAGES);
-		if (style === 'percent' || (style === 'unit' && format?.unit === 'permille')) addAll(PERMILLE);
-		addAll(PLUS_SIGNS_WITH_ASCII);
+			keys.push(...PERCENTAGES);
+		if (style === 'percent' || (style === 'unit' && format?.unit === 'permille'))
+			keys.push(...PERMILLE);
+		keys.push(...PLUS_SIGNS_WITH_ASCII);
 		if (this.minWithDefault < 0 || this.options.getAllowOutOfRange())
-			addAll(MINUS_SIGNS_WITH_ASCII);
+			keys.push(...MINUS_SIGNS_WITH_ASCII);
 		return keys;
 	}
 
@@ -348,7 +347,7 @@ export class NumberFieldModel {
 			(character) =>
 				isNumeralChar(character) ||
 				ANY_MINUS_DETECT_RE.test(character) ||
-				allowed.has(character) ||
+				allowed.includes(character) ||
 				FORMAT_CONTROL_DETECT_RE.test(character)
 		);
 		if (!charactersOk) return false;
@@ -419,7 +418,7 @@ export class NumberFieldModel {
 		if (this.options.getReadOnly() || this.options.getDisabled()) return;
 		const hadManualInput = !this.allowInputSync;
 		const allowed = this.getAllowedNonNumericKeys();
-		let allowedNonNumeric = allowed.has(event.key);
+		let allowedNonNumeric = allowed.includes(event.key);
 		const { decimal, currency, percentSign } = getNumberLocaleDetails(
 			this.options.getLocale(),
 			this.options.getFormat()
@@ -439,7 +438,7 @@ export class NumberFieldModel {
 			[ANY_PLUS_DETECT_RE, ANY_PLUS_RE]
 		] as const;
 		for (const [detect, global] of signs) {
-			if (detect.test(event.key) && Array.from(allowed).some((key) => detect.test(key))) {
+			if (detect.test(event.key) && allowed.some((key) => detect.test(key))) {
 				const existing = this.inputValue.search(global);
 				const replacing = existing !== -1 && covers(existing);
 				allowedNonNumeric =
