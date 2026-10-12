@@ -16,7 +16,7 @@ export {
 export { ClickInteraction } from './hooks/useClick.svelte.js';
 export { DismissInteraction } from './hooks/useDismiss.svelte.js';
 export { useHoverFloatingInteraction } from './hooks/useHoverFloatingInteraction.svelte.js';
-export { useHoverReferenceInteraction } from './hooks/useHoverReferenceInteraction.svelte.js';
+export { HoverReferenceInteraction } from './hooks/useHoverReferenceInteraction.svelte.js';
 export { arrow, type ArrowOptions } from './middleware/arrow.js';
 export { safePolygon } from './safePolygon.js';
 export {

@@ -5,7 +5,7 @@
 		safePolygon,
 		ClickInteraction,
 		useHoverFloatingInteraction,
-		useHoverReferenceInteraction
+		HoverReferenceInteraction
 	} from '@sveltery/floating-ui-svelte';
 	import { mergeProps } from '#lib/internal/mergeProps.js';
 	import {
@@ -75,7 +75,7 @@
 	const blockPolygon = safePolygon({ blockPointerEvents: true });
 	const plainPolygon = safePolygon();
 	const polygon = $derived(scenario === 'block' ? blockPolygon : plainPolygon);
-	const hoverReference = useHoverReferenceInteraction(store, () => ({
+	const hoverReference = new HoverReferenceInteraction(store, () => ({
 		enabled: hover && !many,
 		mouseOnly: true,
 		move: false,
@@ -85,7 +85,7 @@
 		placement: () => positioning.physicalSide,
 		shouldOpen: () => scenario !== 'refuse'
 	}));
-	const hoverA = useHoverReferenceInteraction(store, () => ({
+	const hoverA = new HoverReferenceInteraction(store, () => ({
 		enabled: many && scenario !== 'retain',
 		mouseOnly: true,
 		move: false,
@@ -94,7 +94,7 @@
 		shouldOpen: () => scenario !== 'refuse',
 		placement: () => positioning.physicalSide
 	}));
-	const hoverB = useHoverReferenceInteraction(store, () => ({
+	const hoverB = new HoverReferenceInteraction(store, () => ({
 		enabled: many && scenario !== 'retain',
 		mouseOnly: true,
 		move: false,

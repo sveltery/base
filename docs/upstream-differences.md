@@ -150,16 +150,16 @@ Local: `Dialog.Handle.setPayload` writes into a private map, and only when that 
 
 Test: `src/lib/dialog/Dialog.svelte.spec.ts` (`does not store a payload for a trigger that is not registered`, `keeps the current payload when opened with an unknown trigger id`).
 
-| Upstream                                                             | Local                                                                                       |
-| -------------------------------------------------------------------- | ------------------------------------------------------------------------------------------- |
-| `open` / `defaultOpen`, `triggerId` / `defaultTriggerId`             | `$bindable` `open` / `triggerId`. A one-way value sets the initial state                    |
-| `actionsRef`                                                         | `bind:this` on `Dialog.Root` (`close` and `unmount`)                                        |
-| `initialFocus` / `finalFocus` ref objects                            | element or function, called when focus moves                                                |
-| `children` render function `{ payload }`                             | snippet argument `{ payload }`                                                              |
-| React `useButton`                                                    | existing `Button`                                                                           |
-| `useDismiss` outside press, including separate mouse and touch modes | the same modes on `useDismiss`. A press is inside the floating element, not the portal host |
+| Upstream                                                             | Local                                                                                               |
+| -------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------- |
+| `open` / `defaultOpen`, `triggerId` / `defaultTriggerId`             | `$bindable` `open` / `triggerId`. A one-way value sets the initial state                            |
+| `actionsRef`                                                         | `bind:this` on `Dialog.Root` (`close` and `unmount`)                                                |
+| `initialFocus` / `finalFocus` ref objects                            | element or function, called when focus moves                                                        |
+| `children` render function `{ payload }`                             | snippet argument `{ payload }`                                                                      |
+| React `useButton`                                                    | existing `Button`                                                                                   |
+| `useDismiss` outside press, including separate mouse and touch modes | the same modes on `DismissInteraction`. A press is inside the floating element, not the portal host |
 
-Not ported: Alert Dialog, Drawer, and ref objects. Mouse and touch use separate outside-press modes on `useDismiss`. A backdrop is `intentional` for both. Without one, touch is `sloppy` and mouse is `sloppy` only for `trap-focus`. A tap closes on the browser's mousedown. A short move closes on touchend. A scroll-away closes during the move. After 1s with the finger still down, touchend and that mousedown do not close. An intentional touch waits for the click. One lifted touch is required. A press is inside when the target is in the floating element or an open floating-tree child. The portal host is not inside. An initial `triggerId` selects the trigger for `aria-expanded`.
+Not ported: Alert Dialog, Drawer, and ref objects. Mouse and touch use separate outside-press modes on `DismissInteraction`. A backdrop is `intentional` for both. Without one, touch is `sloppy` and mouse is `sloppy` only for `trap-focus`. A tap closes on the browser's mousedown. A short move closes on touchend. A scroll-away closes during the move. After 1s with the finger still down, touchend and that mousedown do not close. An intentional touch waits for the click. One lifted touch is required. A press is inside when the target is in the floating element or an open floating-tree child. The portal host is not inside. An initial `triggerId` selects the trigger for `aria-expanded`.
 
 ### Timers clear when the owner is destroyed
 

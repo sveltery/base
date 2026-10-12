@@ -9,7 +9,7 @@
 	import {
 		safePolygon,
 		ClickInteraction,
-		useHoverReferenceInteraction
+		HoverReferenceInteraction
 	} from '@sveltery/floating-ui-svelte';
 	import { TriggerFocusGuards } from '../internal/popups/index.js';
 	import type { PopoverStore } from './store.svelte.js';
@@ -40,7 +40,7 @@
 	}));
 	// One polygon per trigger. The options getter runs on every event.
 	const handleClose = safePolygon();
-	const hover = useHoverReferenceInteraction(owner, () => ({
+	const hover = new HoverReferenceInteraction(owner, () => ({
 		enabled:
 			!disabled &&
 			openOnHover &&

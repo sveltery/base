@@ -1,4 +1,4 @@
-// Derived from Base UI v1.8.0 packages/react/src/floating-ui-react/hooks/useHoverReferenceInteraction.ts
+// Derived from Base UI v1.8.0 packages/react/src/floating-ui-react/hooks/HoverReferenceInteraction.ts
 // (commit 47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c). MIT, see THIRD_PARTY_NOTICES.md.
 // Hover open is a `$state` write in the same turn. There is no `flushSync`.
 
@@ -31,18 +31,48 @@ export interface UseHoverReferenceProps {
 	placement?: () => string | null;
 }
 
-export function useHoverReferenceInteraction(
-	store: FloatingRootStore,
-	props: () => UseHoverReferenceProps = () => ({})
-) {
-	const tree = useFloatingTree();
-	const instance = hoverInteraction(store);
-	let hoverCloseActive = false;
-	let sawMove = false;
-	let stopMove: (() => void) | undefined;
+export class HoverReferenceInteraction {
+	readonly #tree = useFloatingTree();
+	readonly #instance: ReturnType<typeof hoverInteraction>;
+	#hoverCloseActive = false;
+	#sawMove = false;
+	#stopMove: (() => void) | undefined;
 
-	function options() {
-		const value = props();
+	constructor(
+		private readonly store: FloatingRootStore,
+		private readonly props: () => UseHoverReferenceProps = () => ({})
+	) {
+		this.#instance = hoverInteraction(store);
+
+		$effect(() => {
+			if (!this.#options().enabled) return;
+			const onOpenChange = (payload?: unknown) => {
+				const details = payload as { open?: boolean; reason?: string } | undefined;
+				if (!details?.open) {
+					this.#hoverCloseActive = details?.reason === REASONS.triggerHover;
+					this.#cleanupMouseMove();
+					this.#instance.openChangeTimeout.clear();
+					this.#instance.restTimeout.clear();
+					this.#instance.blockMouseMove = true;
+					this.#instance.restTimeoutPending = false;
+				} else {
+					this.#hoverCloseActive = false;
+				}
+			};
+			return this.store.events.on('openchange', onOpenChange);
+		});
+
+		$effect(() => {
+			return () => {
+				this.#cleanupMouseMove();
+				this.#instance.handleClose?.clear?.();
+				this.#instance.dispose();
+			};
+		});
+	}
+
+	#options() {
+		const value = this.props();
 		return {
 			enabled: value.enabled ?? true,
 			handleClose: value.handleClose ?? null,
@@ -56,218 +86,197 @@ export function useHoverReferenceInteraction(
 		};
 	}
 
-	function clickLike() {
-		return isClickLikeOpenEvent(store.data.openEvent?.type, instance.interactedInside);
+	#clickLike() {
+		return isClickLikeOpenEvent(this.store.data.openEvent?.type, this.#instance.interactedInside);
 	}
 
-	function allowOpen() {
-		return options().shouldOpen?.() !== false;
+	#allowOpen() {
+		return this.#options().shouldOpen?.() !== false;
 	}
 
-	function cleanupMouseMove() {
-		stopMove?.();
-		stopMove = undefined;
-		instance.handler = undefined;
+	#cleanupMouseMove() {
+		this.#stopMove?.();
+		this.#stopMove = undefined;
+		this.#instance.handler = undefined;
 	}
 
-	$effect(() => {
-		if (!options().enabled) return;
-		function onOpenChange(payload?: unknown) {
-			const details = payload as { open?: boolean; reason?: string } | undefined;
-			if (!details?.open) {
-				hoverCloseActive = details?.reason === REASONS.triggerHover;
-				cleanupMouseMove();
-				instance.openChangeTimeout.clear();
-				instance.restTimeout.clear();
-				instance.blockMouseMove = true;
-				instance.restTimeoutPending = false;
-			} else {
-				hoverCloseActive = false;
-			}
-		}
-		return store.events.on('openchange', onOpenChange);
-	});
-
-	$effect(() => {
-		return () => {
-			cleanupMouseMove();
-			instance.handleClose?.clear?.();
-			instance.dispose();
-		};
-	});
-
-	function closeWithDelay(event: MouseEvent, runElse = true) {
-		const closeDelay = getDelay(options().delay, 'close', instance.pointerType);
+	#closeWithDelay(event: MouseEvent, runElse = true) {
+		const closeDelay = getDelay(this.#options().delay, 'close', this.#instance.pointerType);
 		if (closeDelay) {
-			instance.openChangeTimeout.start(closeDelay, () => {
-				store.setOpen(false, createChangeEventDetails(REASONS.triggerHover, event));
-				tree?.events.emit('floating.closed', event);
+			this.#instance.openChangeTimeout.start(closeDelay, () => {
+				this.store.setOpen(false, createChangeEventDetails(REASONS.triggerHover, event));
+				this.#tree?.events.emit('floating.closed', event);
 			});
 		} else if (runElse) {
-			instance.openChangeTimeout.clear();
-			store.setOpen(false, createChangeEventDetails(REASONS.triggerHover, event));
-			tree?.events.emit('floating.closed', event);
+			this.#instance.openChangeTimeout.clear();
+			this.store.setOpen(false, createChangeEventDetails(REASONS.triggerHover, event));
+			this.#tree?.events.emit('floating.closed', event);
 		}
 	}
 
-	function commitOpen(event: MouseEvent, trigger: HTMLElement | undefined) {
-		if (!allowOpen()) return false;
+	#commitOpen(event: MouseEvent, trigger: HTMLElement | undefined) {
+		if (!this.#allowOpen()) return false;
 		const details = createChangeEventDetails(REASONS.triggerHover, event, trigger);
-		store.setOpen(true, details);
+		this.store.setOpen(true, details);
 		return !details.isCanceled;
 	}
 
-	function onMouseEnter(event: MouseEvent) {
-		const current = options();
+	#onMouseEnter(event: MouseEvent) {
+		const current = this.#options();
 		if (!current.enabled) return;
 		const trigger = event.currentTarget instanceof HTMLElement ? event.currentTarget : undefined;
-		instance.openChangeTimeout.clear();
-		instance.blockMouseMove = false;
-		if (current.mouseOnly && !isMouseLikePointerType(instance.pointerType)) return;
+		this.#instance.openChangeTimeout.clear();
+		this.#instance.blockMouseMove = false;
+		if (current.mouseOnly && !isMouseLikePointerType(this.#instance.pointerType)) return;
 		const restMsValue = getRestMs(current.restMs);
-		const openDelay = getDelay(current.delay, 'open', instance.pointerType);
-		const isOpen = store.isOpen();
-		const reference = store.domReferenceElement;
+		const openDelay = getDelay(current.delay, 'open', this.#instance.pointerType);
+		const isOpen = this.store.isOpen();
+		const reference = this.store.domReferenceElement;
 		const overInactive =
 			trigger != null &&
 			reference != null &&
 			trigger !== reference &&
 			!contains(reference, trigger);
-		const closing = !isOpen && store.transitionStatus === 'ending' && hoverCloseActive;
+		const closing = !isOpen && this.store.transitionStatus === 'ending' && this.#hoverCloseActive;
 		if ((isOpen && overInactive) || closing) {
-			commitOpen(event, trigger);
+			this.#commitOpen(event, trigger);
 			return;
 		}
 		if (restMsValue > 0 && !openDelay) return;
 		if (openDelay) {
-			instance.openChangeTimeout.start(openDelay, () => {
-				if (!store.isOpen()) commitOpen(event, trigger);
+			this.#instance.openChangeTimeout.start(openDelay, () => {
+				if (!this.store.isOpen()) this.#commitOpen(event, trigger);
 			});
 		} else if (!isOpen) {
-			commitOpen(event, trigger);
+			this.#commitOpen(event, trigger);
 		}
 	}
 
-	function onMouseLeave(event: MouseEvent) {
-		const current = options();
+	#onMouseLeave(event: MouseEvent) {
+		const current = this.#options();
 		if (!current.enabled) return;
-		if (clickLike()) {
-			clearSafePolygonPointerEventsMutation(instance);
+		if (this.#clickLike()) {
+			clearSafePolygonPointerEventsMutation(this.#instance);
 			return;
 		}
-		cleanupMouseMove();
-		instance.restTimeout.clear();
-		instance.restTimeoutPending = false;
-		if (isTargetInsideEnabledTrigger(event.relatedTarget, store.triggers.elements())) return;
+		this.#cleanupMouseMove();
+		this.#instance.restTimeout.clear();
+		this.#instance.restTimeoutPending = false;
+		if (isTargetInsideEnabledTrigger(event.relatedTarget, this.store.triggers.elements())) return;
 		const handleClose = current.handleClose;
-		if (handleClose && store.domReferenceElement && store.floatingElement) {
-			if (!store.isOpen()) instance.openChangeTimeout.clear();
-			const currentTrigger = store.domReferenceElement;
+		if (handleClose && this.store.domReferenceElement && this.store.floatingElement) {
+			if (!this.store.isOpen()) this.#instance.openChangeTimeout.clear();
+			const currentTrigger = this.store.domReferenceElement;
 			const handler = handleClose({
 				x: event.clientX,
 				y: event.clientY,
 				placement: current.placement?.() ?? null,
-				elements: { domReference: store.domReferenceElement, floating: store.floatingElement },
-				tree,
-				nodeId: store.nodeId ?? undefined,
-				onClose() {
-					clearSafePolygonPointerEventsMutation(instance);
-					cleanupMouseMove();
-					if (options().enabled && !clickLike() && currentTrigger === store.domReferenceElement) {
-						closeWithDelay(event, true);
+				elements: {
+					domReference: this.store.domReferenceElement,
+					floating: this.store.floatingElement
+				},
+				tree: this.#tree,
+				nodeId: this.store.nodeId ?? undefined,
+				onClose: () => {
+					clearSafePolygonPointerEventsMutation(this.#instance);
+					this.#cleanupMouseMove();
+					if (
+						this.#options().enabled &&
+						!this.#clickLike() &&
+						currentTrigger === this.store.domReferenceElement
+					) {
+						this.#closeWithDelay(event, true);
 					}
 				}
 			});
-			instance.handler = handler;
-			stopMove = on(ownerDocument(store.domReferenceElement), 'mousemove', handler);
+			this.#instance.handler = handler;
+			this.#stopMove = on(ownerDocument(this.store.domReferenceElement), 'mousemove', handler);
 			handler(event);
 			return;
 		}
 		const shouldClose =
-			instance.pointerType === 'touch'
+			this.#instance.pointerType === 'touch'
 				? !contains(
-						store.floatingElement,
+						this.store.floatingElement,
 						event.relatedTarget instanceof Node ? event.relatedTarget : null
 					)
 				: true;
-		if (shouldClose) closeWithDelay(event);
+		if (shouldClose) this.#closeWithDelay(event);
 	}
 
-	function onMouseOut(event: MouseEvent) {
+	#onMouseOut(event: MouseEvent) {
 		if (!(event.currentTarget instanceof Element)) return;
 		if (contains(event.currentTarget, event.relatedTarget)) return;
-		instance.openChangeTimeout.clear();
-		instance.restTimeout.clear();
-		instance.restTimeoutPending = false;
+		this.#instance.openChangeTimeout.clear();
+		this.#instance.restTimeout.clear();
+		this.#instance.restTimeoutPending = false;
 	}
 
-	function onMouseMove(event: MouseEvent) {
-		const current = options();
+	#onMouseMove(event: MouseEvent) {
+		const current = this.#options();
 		if (!current.enabled) return;
 		const trigger = event.currentTarget instanceof HTMLElement ? event.currentTarget : null;
-		if (current.mouseOnly && !isMouseLikePointerType(instance.pointerType)) return;
+		if (current.mouseOnly && !isMouseLikePointerType(this.#instance.pointerType)) return;
 		if (
-			store.isOpen() &&
-			instance.handleCloseOptions?.blockPointerEvents &&
+			this.store.isOpen() &&
+			this.#instance.handleCloseOptions?.blockPointerEvents &&
 			trigger &&
-			store.floatingElement
+			this.store.floatingElement
 		) {
-			applySafePolygonPointerEventsMutation(instance, {
-				scopeElement: instance.handleCloseOptions.getScope?.() ?? trigger.ownerDocument.body,
+			applySafePolygonPointerEventsMutation(this.#instance, {
+				scopeElement: this.#instance.handleCloseOptions.getScope?.() ?? trigger.ownerDocument.body,
 				referenceElement: trigger,
-				floatingElement: store.floatingElement
+				floatingElement: this.store.floatingElement
 			});
 		}
 		const restMsValue = getRestMs(current.restMs);
-		if (store.isOpen() || restMsValue === 0) return;
-		if (instance.restTimeoutPending && event.movementX ** 2 + event.movementY ** 2 < 2) return;
-		instance.restTimeout.clear();
+		if (this.store.isOpen() || restMsValue === 0) return;
+		if (this.#instance.restTimeoutPending && event.movementX ** 2 + event.movementY ** 2 < 2)
+			return;
+		this.#instance.restTimeout.clear();
 		const open = () => {
-			instance.restTimeoutPending = false;
-			if (clickLike()) return;
-			if (!instance.blockMouseMove && !store.isOpen()) commitOpen(event, trigger ?? undefined);
+			this.#instance.restTimeoutPending = false;
+			if (this.#clickLike()) return;
+			if (!this.#instance.blockMouseMove && !this.store.isOpen())
+				this.#commitOpen(event, trigger ?? undefined);
 		};
-		if (instance.pointerType === 'touch') open();
+		if (this.#instance.pointerType === 'touch') open();
 		else {
-			instance.restTimeoutPending = true;
-			instance.restTimeout.start(restMsValue, open);
+			this.#instance.restTimeoutPending = true;
+			this.#instance.restTimeout.start(restMsValue, open);
 		}
 	}
 
-	function onPointer(event: PointerEvent) {
-		instance.pointerType = event.pointerType;
+	#onPointer(event: PointerEvent) {
+		this.#instance.pointerType = event.pointerType;
 	}
 
-	function attachReference(node: Element) {
-		instance.handleCloseByTrigger.set(node, () => {
-			const current = options();
+	/** Clears the safe-polygon close timer when this trigger unmounts. */
+	attachReference = (node: Element) => {
+		this.#instance.handleCloseByTrigger.set(node, () => {
+			const current = this.#options();
 			return current.enabled ? current.handleClose : null;
 		});
 		return () => {
-			if (store.domReferenceElement === node) instance.handleClose?.clear?.();
-			instance.handleCloseByTrigger.delete(node);
+			if (this.store.domReferenceElement === node) this.#instance.handleClose?.clear?.();
+			this.#instance.handleCloseByTrigger.delete(node);
 		};
-	}
+	};
 
-	return {
-		/** Clears the safe-polygon close timer when this trigger unmounts. */
-		attachReference,
-		reference: {
-			onpointerdown: onPointer,
-			onpointerenter: onPointer,
-			onmouseenter: onMouseEnter,
-			onmouseleave: onMouseLeave,
-			onmousemove(event: MouseEvent) {
-				const current = options();
-				if (current.move && !sawMove) {
-					sawMove = true;
-					onMouseEnter(event);
-				}
-				onMouseMove(event);
-			},
-			onmouseout(event: MouseEvent) {
-				if (options().guardStaleOpen) onMouseOut(event);
+	readonly reference = {
+		onpointerdown: (event: PointerEvent) => this.#onPointer(event),
+		onpointerenter: (event: PointerEvent) => this.#onPointer(event),
+		onmouseenter: (event: MouseEvent) => this.#onMouseEnter(event),
+		onmouseleave: (event: MouseEvent) => this.#onMouseLeave(event),
+		onmousemove: (event: MouseEvent) => {
+			if (this.#options().move && !this.#sawMove) {
+				this.#sawMove = true;
+				this.#onMouseEnter(event);
 			}
+			this.#onMouseMove(event);
+		},
+		onmouseout: (event: MouseEvent) => {
+			if (this.#options().guardStaleOpen) this.#onMouseOut(event);
 		}
 	};
 }
