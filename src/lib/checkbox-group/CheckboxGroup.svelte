@@ -15,10 +15,9 @@
 	import { useFieldContext } from '../field/context.svelte.js';
 	import { LabelableId, findLabelableContext } from '../field/labelable.svelte.js';
 	import { useFormContext } from '../form/context.js';
-	import { attachFieldControl } from '../internal/field-register-control.svelte.js';
+	import { FieldValueSync, attachFieldControl } from '../internal/field-register-control.svelte.js';
 	import { restoreOnReset } from '../internal/form-reset.svelte.js';
 	import { getStateAttributesProps } from '../internal/state-attributes.js';
-	import { useValueChanged } from '../internal/useValueChanged.svelte.js';
 	import { CheckboxGroupParent } from './parent.svelte.js';
 	import type {
 		CheckboxGroupChangeEventDetails,
@@ -55,7 +54,7 @@
 
 	// The group takes its name from `aria-labelledby`, so Field.Label must not point `for`
 	// at one checkbox inside it.
-	new LabelableId(labelable, { id: () => null, fallback: () => `base-ui-${uid}` });
+	new LabelableId(labelable, { id: () => null });
 
 	function currentValue() {
 		return Array.isArray(value) ? value : EMPTY;
@@ -80,8 +79,11 @@
 		getValue: () => currentValue()
 	});
 
-	$effect(() => {
-		field.setFilled(currentValue().length > 0);
+	new FieldValueSync(field, formContext, {
+		value: currentValue,
+		name: () => field.name,
+		filled: (next) => next.length > 0,
+		equals: (next, initial) => areArraysEqual(next, Array.isArray(initial) ? initial : EMPTY)
 	});
 
 	let rootNode = $state<HTMLElement | null>(null);
@@ -100,16 +102,6 @@
 			if (rootNode === node) rootNode = null;
 		};
 	}
-
-	useValueChanged(
-		() => currentValue(),
-		(next) => {
-			formContext.clearErrors(field.name);
-			const initial = field.validityData.initialValue;
-			field.setDirty(!areArraysEqual(next, Array.isArray(initial) ? initial : EMPTY));
-			field.change(next);
-		}
-	);
 
 	setCheckboxGroupContext({
 		get value() {

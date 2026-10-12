@@ -11,7 +11,7 @@
 	import { createAttachmentKey } from 'svelte/attachments';
 	import type { HTMLAttributes } from 'svelte/elements';
 	import { useFieldContext } from '../field/context.svelte.js';
-	import { LabelableId, findLabelableContext } from '../field/labelable.svelte.js';
+	import { AriaLabelledBy, LabelableId, findLabelableContext } from '../field/labelable.svelte.js';
 	import { useFormContext } from '../form/context.js';
 	import { useValueChanged } from '../internal/useValueChanged.svelte.js';
 	import { restoreOnReset } from '../internal/form-reset.svelte.js';
@@ -90,7 +90,7 @@
 		getName: () => name,
 		getControlId: () => controlId.current,
 		getAriaLabelledByProp: () => ariaLabelledByProp || undefined,
-		getLabelId: () => labelable?.labelId,
+		getGroupLabelledBy: (): string | undefined => ariaLabelledBy.current,
 		getOnValueChange: () => onValueChange,
 		getOnValueInvalid: () => onValueInvalid,
 		getOnValueComplete: () => onValueComplete,
@@ -102,6 +102,11 @@
 		(next) => model.afterValueChange(next)
 	);
 	setOTPFieldContext(model);
+	const ariaLabelledBy = new AriaLabelledBy(labelable, {
+		explicit: () => ariaLabelledByProp || undefined,
+		input: () => model.slots.first,
+		labelId: () => `${controlId.current}-label`
+	});
 
 	restoreOnReset(() => model.hiddenInput ?? model.root, {
 		restore: () => {
@@ -124,12 +129,6 @@
 
 	$effect(() => {
 		model.publishFilled(model.filled);
-	});
-
-	$effect(() => {
-		const explicit = ariaLabelledByProp || undefined;
-		const labelId = labelable?.labelId;
-		model.syncFallbackLabel(explicit, labelId);
 	});
 
 	$effect(() => {

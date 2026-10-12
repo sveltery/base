@@ -15,7 +15,6 @@ import {
 	ownerDocument,
 	contains
 } from '@sveltery/utils';
-import { findAssociatedLabel } from '../internal/associated-label.js';
 import { getOTPValidationConfig, normalizeOTPValue, normalizeOTPValueWithDetails } from './otp.js';
 import { queueValueEvent } from '../internal/value-events.js';
 import { ElementList } from '../internal/element-list.svelte.js';
@@ -46,7 +45,8 @@ export interface OTPFieldModelOptions {
 	getName: () => string | undefined;
 	getControlId: () => string;
 	getAriaLabelledByProp: () => string | undefined;
-	getLabelId: () => string | undefined;
+	/** The explicit `aria-labelledby`, the Field label, or a native label. */
+	getGroupLabelledBy: () => string | undefined;
 	getOnValueChange: () => OTPFieldRootProps['onValueChange'];
 	getOnValueInvalid: () => OTPFieldRootProps['onValueInvalid'];
 	getOnValueComplete: () => OTPFieldRootProps['onValueComplete'];
@@ -60,15 +60,17 @@ export class OTPFieldModel {
 	hiddenInput = $state<HTMLInputElement | null>(null);
 	focused = $state(false);
 	focusedIndex = $state(0);
-	fallbackLabelId = $state<string | undefined>(undefined);
 
 	private pendingFocus: { index: number; value: string } | null = null;
 	private pendingComplete: { value: string; eventDetails: OTPFieldCompleteEventDetails } | null =
 		null;
 	private readonly options: OTPFieldModelOptions;
+	/** The value a form reset returns to. */
+	readonly defaultValue: string;
 
 	constructor(options: OTPFieldModelOptions) {
 		this.options = options;
+		this.defaultValue = $derived(this.normalized(options.getDefaultValue()));
 		const length = options.getLength();
 		const initial = normalizeOTPValue(
 			options.getRawValue(),
@@ -81,11 +83,6 @@ export class OTPFieldModel {
 
 	get value() {
 		return this.normalized(this.options.getRawValue());
-	}
-
-	/** The value a form reset returns to. */
-	get defaultValue() {
-		return this.normalized(this.options.getDefaultValue());
 	}
 
 	private normalized(value: string) {
@@ -142,9 +139,7 @@ export class OTPFieldModel {
 	}
 
 	get groupLabelledBy() {
-		return (
-			this.options.getAriaLabelledByProp() ?? this.options.getLabelId() ?? this.fallbackLabelId
-		);
+		return this.options.getGroupLabelledBy();
 	}
 
 	get inputAriaLabelledBy() {
@@ -216,21 +211,6 @@ export class OTPFieldModel {
 
 	publishFilled(filled: boolean) {
 		this.field.setFilled(filled);
-	}
-
-	syncFallbackLabel(explicit: string | undefined, labelId: string | undefined) {
-		const input = this.slots.first;
-		if (explicit || labelId || !input) {
-			this.fallbackLabelId = undefined;
-			return;
-		}
-		const label = findAssociatedLabel(input);
-		if (!label) {
-			this.fallbackLabelId = undefined;
-			return;
-		}
-		if (!label.id) label.id = `${this.controlId}-label`;
-		this.fallbackLabelId = label.id || undefined;
 	}
 
 	focusInput(index: number) {

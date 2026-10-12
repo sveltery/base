@@ -18,8 +18,7 @@
 	import { getStateAttributesProps } from '../internal/state-attributes.js';
 	import { switchStateAttributesMapping } from './attributes.js';
 	import { setSwitchContext } from './context.js';
-	import { attachFieldControl } from '../internal/field-register-control.svelte.js';
-	import { useValueChanged } from '../internal/useValueChanged.svelte.js';
+	import { FieldValueSync, attachFieldControl } from '../internal/field-register-control.svelte.js';
 	import { restoreOnReset } from '../internal/form-reset.svelte.js';
 	import { useFieldContext } from '../field/context.svelte.js';
 	import { AriaLabelledBy, LabelableId, findLabelableContext } from '../field/labelable.svelte.js';
@@ -113,18 +112,11 @@
 		getValue: () => checkedState
 	});
 
-	$effect(() => {
-		field.setFilled(checkedState);
+	new FieldValueSync(field, formContext, {
+		value: () => checkedState,
+		name: () => name,
+		filled: (value) => value
 	});
-
-	useValueChanged(
-		() => checkedState,
-		(next) => {
-			formContext.clearErrors(name);
-			field.setDirty(next !== field.validityData.initialValue);
-			field.change(next);
-		}
-	);
 
 	$effect(() => {
 		const input = inputNode;

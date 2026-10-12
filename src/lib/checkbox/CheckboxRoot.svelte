@@ -20,8 +20,7 @@
 	import { checkboxRootAttributes } from './attributes.js';
 	import { setCheckboxContext } from './context.js';
 	import { useCheckboxGroupContext } from './group-context.js';
-	import { useValueChanged } from '../internal/useValueChanged.svelte.js';
-	import { attachFieldControl } from '../internal/field-register-control.svelte.js';
+	import { FieldValueSync, attachFieldControl } from '../internal/field-register-control.svelte.js';
 	import { restoreOnReset } from '../internal/form-reset.svelte.js';
 	import { queueValueEvent } from '../internal/value-events.js';
 	import { useFieldContext, useFieldItemContext } from '../field/context.svelte.js';
@@ -143,19 +142,13 @@
 		getValue: () => checkedState
 	});
 
-	$effect(() => {
-		if (!group) field.setFilled(checkedState);
-	});
-
-	useValueChanged(
-		() => checkedState,
-		(next) => {
-			if (group) return;
-			formContext.clearErrors(name);
-			field.setDirty(next !== field.validityData.initialValue);
-			field.change(next);
-		}
-	);
+	if (!group) {
+		new FieldValueSync(field, formContext, {
+			value: () => checkedState,
+			name: () => name,
+			filled: (value) => value
+		});
+	}
 
 	$effect(() => {
 		const input = inputNode;

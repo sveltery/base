@@ -81,25 +81,28 @@ export const [useLabelableContext, setLabelableContext, findLabelableContext] =
  * the label's `for` follows it. `id: null` makes the label omit `for`, for a group
  * that takes its name from `aria-labelledby`. Construct during component init.
  */
-export class LabelableId {
+export class LabelableId<Fallback extends string | undefined = undefined> {
 	private readonly source = Symbol();
 	private hadExplicitId = false;
+	private readonly enabled: boolean;
 
 	constructor(
 		private readonly labelable: Labelable | undefined,
 		private readonly read: {
 			id: () => string | null | undefined;
-			fallback: () => string;
+			/** The id when nothing claims the scope. A group that only omits `for` has none. */
+			fallback?: () => Fallback;
 			/** False when the control shares a scope it does not own, such as a radio in its group. */
 			enabled?: () => boolean;
 		}
 	) {
+		this.enabled = $derived(this.read.enabled?.() ?? true);
 		$effect(() => {
 			const scope = this.labelable;
 			if (!scope) return;
-			const enabled = this.read.enabled?.() ?? true;
+			const enabled = this.enabled;
 			const explicit = this.read.id();
-			const fallback = this.read.fallback();
+			const fallback = this.read.fallback?.();
 			untrack(() => {
 				if (!enabled) {
 					scope.registerControlId(this.source, undefined);
@@ -120,9 +123,9 @@ export class LabelableId {
 	}
 
 	/** The scope's id wins so server HTML pairs the label with the control before registration runs. */
-	get current(): string {
-		const owned = (this.read.enabled?.() ?? true) ? this.labelable?.controlId : undefined;
-		return owned || this.read.id() || this.read.fallback();
+	get current(): string | Fallback {
+		const owned = this.enabled ? this.labelable?.controlId : undefined;
+		return (owned || this.read.id() || this.read.fallback?.()) as string | Fallback;
 	}
 }
 

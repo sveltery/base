@@ -13,13 +13,12 @@
 	import { CompositeRoot } from '../internal/composite-root.svelte.js';
 	import { isSkipped } from '../internal/composite-skip.js';
 	import { getStateAttributesProps } from '../internal/state-attributes.js';
-	import { useValueChanged } from '../internal/useValueChanged.svelte.js';
 	import { WrittenReference } from '../internal/written-reference.svelte.js';
 	import { useDirection } from '../internal/direction-context.js';
 	import { fieldValidityMapping } from '../field/attributes.js';
 	import { useFieldContext } from '../field/context.svelte.js';
 	import { LabelableId, findLabelableContext } from '../field/labelable.svelte.js';
-	import { attachFieldControl } from '../internal/field-register-control.svelte.js';
+	import { FieldValueSync, attachFieldControl } from '../internal/field-register-control.svelte.js';
 	import { restoreOnReset } from '../internal/form-reset.svelte.js';
 	import { useFormContext } from '../form/context.js';
 	import { findFieldsetRootContext } from '../fieldset/context.svelte.js';
@@ -65,7 +64,7 @@
 
 	// The group takes its name from `aria-labelledby`, so Field.Label must not point `for`
 	// at one radio inside it.
-	new LabelableId(labelable, { id: () => null, fallback: () => `base-ui-${uid}` });
+	new LabelableId(labelable, { id: () => null });
 
 	const selection = new WrittenReference<unknown>(
 		() => value,
@@ -82,17 +81,11 @@
 		getValue: () => checkedValue ?? null
 	});
 
-	$effect(() => {
-		field.setFilled(checkedValue != null);
+	new FieldValueSync(field, formContext, {
+		value: () => checkedValue,
+		name: () => name,
+		filled: (value) => value != null
 	});
-	useValueChanged(
-		() => checkedValue,
-		(next) => {
-			formContext.clearErrors(name);
-			field.setDirty(next !== field.validityData.initialValue);
-			field.change(next);
-		}
-	);
 
 	let rootNode = $state<HTMLElement | null>(null);
 	// Each radio input carries `form`, so the group resets with the form it names.
