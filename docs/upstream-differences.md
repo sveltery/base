@@ -24,6 +24,14 @@ Local: each stateful prop is one `$bindable` prop. `bind:x` shares it, a one-way
 
 Test: `src/tests/controllable-root-cases.ts`, `src/lib/tabs/Tabs.svelte.spec.ts` (`moves a passed value to the first enabled tab when its tab becomes disabled`).
 
+## Button behavior
+
+Pin: `47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c`, `packages/react/src/internals/use-button/useButton.ts` and `packages/react/src/utils/useFocusableWhenDisabled.ts`. `useButton` infers composite mode from a `CompositeRootContext`. In development it logs an error once after mount, and again when `nativeButton` changes, if the host tag does not match `nativeButton`. The message ends with React's owner stack. A disabled composite button that renders another button clears that inner button's `disabled` property.
+
+Local: `ButtonBehavior` in `src/lib/internal/button.svelte.ts` serves Button, Toolbar.Button, the Collapsible and Accordion triggers, Tabs.Tab, the NumberField steppers, Checkbox, Switch, Radio, and the Dialog and Popover triggers and close buttons. Each part passes `composite` itself, and only Toolbar.Button sets it. Tabs.Tab clicks on Space keyup, where upstream infers composite mode inside Tabs.List and clicks on keydown. A disabled Tabs.Tab blocks only Enter and Space, so the arrow keys still reach the roving handler. The host check runs in an attachment, so it runs when the host attaches and when `nativeButton` changes. It uses the same messages with "the `render` snippet" in place of "the `render` prop", and no owner stack. The inner `disabled` clearing is not ported. No port renders a button inside a composite button yet.
+
+Test: `src/lib/internal/button.spec.ts`. `src/lib/button/Button.svelte.spec.ts` (`nativeButton mismatch`).
+
 ## Portal
 
 ### The portal marker stays on the host
@@ -163,10 +171,10 @@ Behavior each ported component does not cover yet. Overlay foundation is interna
 | Component          | Not ported yet                                                                                                  |
 | ------------------ | --------------------------------------------------------------------------------------------------------------- |
 | Accordion          | React.Activity animation resume, `className`/`style` callbacks, refs, roving focus (`orientation`, `loopFocus`) |
-| Button             | Composite and Toolbar integration, `nativeButton` host-tag warnings, class/style state callbacks                |
-| Checkbox           | Field, `inputRef`, `className`/`style` callbacks, host-tag warnings                                             |
+| Button             | Composite and Toolbar integration, class/style state callbacks                                                  |
+| Checkbox           | Field, `inputRef`, `className`/`style` callbacks                                                                |
 | CheckboxGroup      | Field validation, filled/dirty/touched hooks, labelable descriptions, fieldset disabled                         |
-| Collapsible        | React.Activity animation resume, `className`/`style` callbacks, refs, host-tag warnings                         |
+| Collapsible        | React.Activity animation resume, `className`/`style` callbacks, refs                                            |
 | Fieldset           | Checkbox, CheckboxGroup, RadioGroup and Slider disabled integration; `className`/`style` state callbacks        |
 | Field              | Checkbox, Radio, and Select integration; `className`/`style` callbacks; refs                                    |
 | Input              | `className`/`style` callbacks; refs                                                                             |
@@ -177,8 +185,8 @@ Behavior each ported component does not cover yet. Overlay foundation is interna
 | Meter              | React `ref`, class/style state callbacks, numeric production error codes                                        |
 | Progress           | `className` and `style` state callbacks, refs                                                                   |
 | Form               | Checkbox, Switch, and Fieldset Form-spec cases; `className`/`style` callbacks; `actionsRef`                     |
-| Switch             | Field and Form integration, `inputRef`, `className`/`style` callbacks, `nativeButton` host-tag warnings         |
-| Radio              | Field, `inputRef`, `className`/`style` callbacks, host-tag warnings                                             |
+| Switch             | Field and Form integration, `inputRef`, `className`/`style` callbacks                                           |
+| Radio              | Field, `inputRef`, `className`/`style` callbacks                                                                |
 | RadioGroup         | `data-touched`, `inputRef`, `className`/`style` callbacks, scroll-into-view, text-field arrow exceptions        |
 | Tabs               | Pre-hydration indicator script, scroll-into-view, shadow-boundary offsets, `className`/`style` callbacks, refs  |
 | Toolbar            | Input, Separator, text-field arrow exceptions, scroll-into-view, ToggleGroup nesting, overlay triggers          |
