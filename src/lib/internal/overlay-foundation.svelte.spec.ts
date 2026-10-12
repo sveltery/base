@@ -264,6 +264,25 @@ describe('overlay foundation', () => {
 		await expect.poll(overflowLocked).toBe(false);
 	});
 
+	it('locks a page that shows classic scrollbars', async () => {
+		const html = document.documentElement;
+		// Playwright hides scrollbars, so report a 15px classic scrollbar instead.
+		Object.defineProperty(window, 'innerWidth', {
+			configurable: true,
+			get: () => html.clientWidth + 15
+		});
+		try {
+			render(ScrollLockHarness);
+			const first = page.getByRole('button', { name: 'First lock' });
+			await first.click();
+			await expect.poll(() => html.style.scrollbarGutter).toBe('stable');
+			await first.click();
+			await expect.poll(() => html.style.scrollbarGutter).toBe('');
+		} finally {
+			Reflect.deleteProperty(window, 'innerWidth');
+		}
+	});
+
 	it('does not open when the trigger unmounts during touchOpenDelay', async () => {
 		const opened: boolean[] = [];
 		const view = render(OverlayFoundationHarness, {

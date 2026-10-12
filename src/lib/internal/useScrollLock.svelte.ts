@@ -4,13 +4,7 @@
 import { BROWSER } from 'esm-env';
 import { isOverflowElement } from '@floating-ui/utils/dom';
 import { on } from 'svelte/events';
-import {
-	ownerDocument,
-	ownerWindow,
-	platform,
-	ScopedAnimationFrame,
-	Timeout
-} from '@sveltery/utils';
+import { ownerDocument, AnimationFrame, ownerWindow, platform, Timeout } from '@sveltery/utils';
 
 let originalHtmlStyles: Partial<CSSStyleDeclaration> = {};
 let originalBodyStyles: Partial<CSSStyleDeclaration> = {};
@@ -75,7 +69,8 @@ function preventScrollInsetScrollbars(referenceElement: Element | null) {
 	let scrollTop = 0;
 	let scrollLeft = 0;
 	let updateGutterOnly = false;
-	const resizeFrame = new ScopedAnimationFrame();
+	// eslint-disable-next-line sveltery/no-unscoped-timer -- runs from the lock timer, outside any component; the restore cancels it
+	const resizeFrame = new AnimationFrame();
 
 	if (platform.engine.webkit && (win.visualViewport?.scale ?? 1) !== 1) return () => {};
 
