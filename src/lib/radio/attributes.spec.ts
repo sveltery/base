@@ -3,6 +3,11 @@ import { radioIndicatorAttributes, radioRootAttributes } from './attributes.js';
 import type { RadioRootState } from './types.js';
 
 const off: RadioRootState = {
+	touched: false,
+	dirty: false,
+	valid: null,
+	filled: false,
+	focused: false,
 	checked: false,
 	disabled: false,
 	readOnly: false,
@@ -21,6 +26,7 @@ describe('radioRootAttributes', () => {
 	it('keeps disabled, readonly, and required beside the checked hook', () => {
 		expect(
 			radioRootAttributes({
+				...off,
 				checked: true,
 				disabled: true,
 				readOnly: true,

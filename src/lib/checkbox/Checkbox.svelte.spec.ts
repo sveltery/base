@@ -2,7 +2,7 @@
 // packages/react/src/checkbox/root/CheckboxRoot.test.tsx and
 // packages/react/src/checkbox/indicator/CheckboxIndicator.test.tsx
 // (commit 47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c). MIT, see THIRD_PARTY_NOTICES.md.
-// Field, CheckboxGroup, and Form error clearing are not ported.
+// Field and Form cases are in src/lib/field/choice-controls.svelte.spec.ts.
 // Form cases below use the hidden input with a native <form>.
 // Cases under "native Svelte" have no upstream counterpart.
 import { flushSync } from 'svelte';

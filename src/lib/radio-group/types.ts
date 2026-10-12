@@ -1,9 +1,10 @@
 import type { Snippet } from 'svelte';
 import type { HTMLAttributes } from 'svelte/elements';
 import type { BaseUIChangeEventDetails, REASONS } from '@sveltery/utils';
+import type { FieldRootState } from '../field/types.js';
 import type { RenderChildren } from '../internal/render-children.js';
 
-export interface RadioGroupState {
+export interface RadioGroupState extends FieldRootState {
 	/** Whether the group should ignore user interaction. */
 	disabled: boolean;
 	/** Whether the user should be unable to select a different radio. */

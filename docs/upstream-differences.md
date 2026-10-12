@@ -177,6 +177,16 @@ Local: `src/lib/internal/InternalBackdrop.svelte` writes that rect into `$state`
 
 Test: `src/lib/internal/InternalBackdrop.svelte.spec.ts` (`updates the cutout when the element resizes`, `updates the cutout when an ancestor scrolls after the first observer callback`, `disconnects the cutout observer and scroll listener when the backdrop unmounts`).
 
+## Forms
+
+### Choice controls in a Field
+
+Pin: `47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c`, `packages/react/src/checkbox/root/CheckboxRoot.tsx`, `switch/root/SwitchRoot.tsx`, `radio/root/RadioRoot.tsx`, `radio-group/RadioGroup.tsx`, `checkbox-group/CheckboxGroup.tsx` and `internals/labelable-provider/useLabelableId.ts`. Checkbox, Switch, RadioGroup and CheckboxGroup register with Field and Form, take `Field.Root name` and `disabled`, carry `aria-invalid`, `aria-describedby` and the Field `data-*` state, and are named by `Field.Label`. CheckboxGroup claims the label with `id: null`, so the label omits `for`, and a checkbox in the group's scope does not claim the Field's control id. Each radio calls `useLabelableId({ id })` in the scope it is rendered in, so radios outside a `Field.Item` all render the Field's control id and `Field.Label for` points at the first one.
+
+Local: the same registration, through `attachFieldControl`, `Field`'s `registerInput` and the `LabelableId` and `AriaLabelledBy` classes in `src/lib/field/labelable.svelte.ts`. RadioGroup claims the label with `id: null` the way CheckboxGroup does, and a radio leaves the control id to its group unless a `Field.Item` gives it its own scope. Radios therefore keep distinct ids, the group is named by `aria-labelledby`, and a `Field.Item` label still points `for` at its radio. CheckboxGroup reports its whole `value` to `onFormSubmit` and `validate`. Upstream drops values whose checkbox is disabled or belongs to another form.
+
+Test: `src/lib/field/choice-controls.svelte.spec.ts`.
+
 ## Not ported yet
 
 Behavior each ported component does not cover yet. Overlay foundation is internal and has no public component.
@@ -185,11 +195,11 @@ Behavior each ported component does not cover yet. Overlay foundation is interna
 | ------------------ | ------------------------------------------------------------------------------------------------------ |
 | Accordion          | React.Activity animation resume, refs, roving focus (`orientation`, `loopFocus`)                       |
 | Button             | Composite and Toolbar integration                                                                      |
-| Checkbox           | Field, `inputRef`                                                                                      |
-| CheckboxGroup      | Field validation, filled/dirty/touched hooks, labelable descriptions, fieldset disabled                |
+| Checkbox           | `inputRef`                                                                                             |
+| CheckboxGroup      | Disabled or other-form values filtered out of the Field value                                          |
 | Collapsible        | React.Activity animation resume, refs                                                                  |
 | Fieldset           | Checkbox, CheckboxGroup, RadioGroup and Slider disabled integration                                    |
-| Field              | Checkbox, Radio, and Select integration; refs                                                          |
+| Field              | Select integration; refs                                                                               |
 | Input              | refs                                                                                                   |
 | Toggle             | Toolbar integration, `nativeButton={false}`                                                            |
 | ToggleGroup        | Toolbar integration, grid composite, scroll-into-view                                                  |
@@ -197,10 +207,10 @@ Behavior each ported component does not cover yet. Overlay foundation is interna
 | Separator          | React render-element cloning, `ref`, Menu/Select/Toolbar separators                                    |
 | Meter              | React `ref`, numeric production error codes                                                            |
 | Progress           | refs                                                                                                   |
-| Form               | Checkbox, Switch, and Fieldset Form-spec cases; `actionsRef`                                           |
-| Switch             | Field and Form integration, `inputRef`                                                                 |
-| Radio              | Field, `inputRef`                                                                                      |
-| RadioGroup         | `data-touched`, `inputRef`, scroll-into-view, text-field arrow exceptions                              |
+| Form               | Fieldset Form-spec cases; `actionsRef`                                                                 |
+| Switch             | `inputRef`                                                                                             |
+| Radio              | `inputRef`                                                                                             |
+| RadioGroup         | `inputRef`, scroll-into-view, text-field arrow exceptions                                              |
 | Tabs               | Pre-hydration indicator script, scroll-into-view, shadow-boundary offsets, refs                        |
 | Toolbar            | Input, Separator, text-field arrow exceptions, scroll-into-view, ToggleGroup nesting, overlay triggers |
 | NumberField        | refs, `inputRef`                                                                                       |

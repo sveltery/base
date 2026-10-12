@@ -14,14 +14,13 @@
 	import { attachFieldControl } from '../internal/field-register-control.svelte.js';
 	import { fieldValidityMapping } from './attributes.js';
 	import { useFieldContext } from './context.svelte.js';
-	import { Labelable, findLabelableContext } from './labelable.svelte.js';
+	import { Labelable, LabelableId, findLabelableContext } from './labelable.svelte.js';
 	import type { FieldControlProps, FieldControlState } from './types.js';
 
 	type ValueElement = HTMLElement & { value: string; form?: HTMLFormElement | null };
 
 	const uid = $props.id();
 	const elementKey = createAttachmentKey();
-	const controlSource = Symbol();
 
 	let {
 		id: idProp,
@@ -61,10 +60,9 @@
 	const registeredValue = $derived(value != null ? textValue(value) : undefined);
 	const disabled = $derived(Boolean(field.disabled || disabledProp));
 	const name = $derived(field.name ?? nameProp ?? undefined);
-	const controlId = $derived(labelable.controlId || idProp || fallbackId);
+	const controlId = new LabelableId(labelable, { id: () => idProp, fallback: () => fallbackId });
 
 	let inputEl = $state<ValueElement | null>(null);
-	let hadExplicitId = false;
 
 	function notifyChanged(text: string) {
 		form.clearErrors(name);
@@ -99,25 +97,6 @@
 	}
 
 	$effect(() => {
-		const explicit = idProp;
-		const fallback = fallbackId;
-		untrack(() => {
-			if (explicit !== undefined) {
-				hadExplicitId = true;
-				labelable.registerControlId(controlSource, explicit);
-			} else if (hadExplicitId) {
-				labelable.registerControlId(controlSource, fallback);
-			} else {
-				labelable.registerControlId(controlSource, undefined);
-				labelable.resetControlId();
-			}
-		});
-		return () => {
-			untrack(() => labelable.registerControlId(controlSource, undefined));
-		};
-	});
-
-	$effect(() => {
 		const element = inputEl;
 		const currentValue = untrack(() => registeredValue);
 		if (currentValue !== undefined) field.setFilled(currentValue !== '');
@@ -126,7 +105,7 @@
 
 	const registration = attachFieldControl(field, {
 		enabled: () => !disabled,
-		id: () => controlId,
+		id: () => controlId.current,
 		name: () => nameProp ?? undefined,
 		getValue: () => readElement(inputEl) ?? textValue(value)
 	});
@@ -201,7 +180,7 @@
 	const hostProps: HTMLInputAttributes = $derived({
 		...elementProps,
 		...getStateAttributesProps(controlState, fieldValidityMapping),
-		id: controlId ?? undefined,
+		id: controlId.current,
 		disabled: disabled || undefined,
 		name,
 		autofocus,

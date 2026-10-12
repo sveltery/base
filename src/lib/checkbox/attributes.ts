@@ -1,7 +1,7 @@
 // Derived from Base UI v1.8.0
 // packages/react/src/checkbox/utils/getCheckboxStateAttributesMapping.ts
 // (commit 47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c). MIT, see THIRD_PARTY_NOTICES.md.
-// Field validity attributes are not included. Field is not ported.
+import { fieldValidityMapping } from '../field/attributes.js';
 import type { StateAttributesMapping } from '../internal/state-attributes.js';
 import { getStateAttributesProps, transitionStatusMapping } from '../internal/state-attributes.js';
 import type { CheckboxIndicatorState, CheckboxRootState } from './types.js';
@@ -19,6 +19,7 @@ function checkedAttributes(state: CheckboxRootState, value: boolean): Record<str
 
 export function checkboxRootAttributes(state: CheckboxRootState): Record<string, string> {
 	const mapping: StateAttributesMapping<CheckboxRootState> = {
+		...fieldValidityMapping,
 		checked(value) {
 			return checkedAttributes(state, value);
 		}
@@ -28,6 +29,7 @@ export function checkboxRootAttributes(state: CheckboxRootState): Record<string,
 
 export function checkboxIndicatorAttributes(state: CheckboxIndicatorState): Record<string, string> {
 	const mapping: StateAttributesMapping<CheckboxIndicatorState> = {
+		...fieldValidityMapping,
 		checked(value) {
 			return checkedAttributes(state, value);
 		},

@@ -502,6 +502,14 @@ export class FieldRootModel implements FieldContext {
 		}
 	}
 
+	/** What Form focuses: the control of a group's representative input, or the registered element. */
+	get controlElement(): HTMLElement | null {
+		if (this.registeredInputs.size === 0) return this.inputElement;
+		const input = this.representative();
+		if (!(input instanceof HTMLInputElement)) return null;
+		return this.registeredInputs.get(input)?.element ?? input;
+	}
+
 	private combinedForForm() {
 		const invalid = this.reportedInvalid ?? this.invalid;
 		return getCombinedFieldValidityData(this.validityData, invalid);
@@ -515,7 +523,7 @@ export class FieldRootModel implements FieldContext {
 		this.registryId = id;
 		const readName = () => this.name;
 		const readValidity = () => this.combinedForForm();
-		const readControl = () => this.inputElement;
+		const readControl = () => this.controlElement;
 		const readValue = () => this.readRegisteredValue();
 		const validate = () => this.validateField();
 		this.options.form.fields.set(id, {

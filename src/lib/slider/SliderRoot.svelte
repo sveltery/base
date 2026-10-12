@@ -21,8 +21,7 @@
 	import { asc } from './asc.js';
 	import { sliderStateAttributes } from './attributes.js';
 	import { setSliderContext } from './context.svelte.js';
-	import { ownerDocument, activeElement, contains, warn } from '@sveltery/utils';
-	import { areArraysEqual } from './getSliderValue.js';
+	import { areArraysEqual, ownerDocument, activeElement, contains, warn } from '@sveltery/utils';
 	import { SliderRootModel } from './model.svelte.js';
 	import type { SliderRootProps, SliderRootState, SliderValue } from './types.js';
 
