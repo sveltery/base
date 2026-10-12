@@ -1,3 +1,4 @@
+export { areArraysEqual } from './areArraysEqual.js';
 export {
 	REASONS,
 	createChangeEventDetails,

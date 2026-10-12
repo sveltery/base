@@ -15,8 +15,8 @@ import {
 	ownerDocument,
 	contains
 } from '@sveltery/utils';
-import { findAssociatedLabel } from '../internal/associated-label.js';
 import { getOTPValidationConfig, normalizeOTPValue, normalizeOTPValueWithDetails } from './otp.js';
+import { queueValueEvent } from '../internal/value-events.js';
 import { ElementList } from '../internal/element-list.svelte.js';
 import type {
 	OTPFieldChangeEventDetails,
@@ -29,6 +29,7 @@ import type {
 
 export interface OTPFieldModelOptions {
 	getRawValue: () => string;
+	getDefaultValue: () => string;
 	writeValue: (next: string) => void;
 	getLength: () => number;
 	getValidationType: () => OTPFieldValidationType;
@@ -44,7 +45,8 @@ export interface OTPFieldModelOptions {
 	getName: () => string | undefined;
 	getControlId: () => string;
 	getAriaLabelledByProp: () => string | undefined;
-	getLabelId: () => string | undefined;
+	/** The explicit `aria-labelledby`, the Field label, or a native label. */
+	getGroupLabelledBy: () => string | undefined;
 	getOnValueChange: () => OTPFieldRootProps['onValueChange'];
 	getOnValueInvalid: () => OTPFieldRootProps['onValueInvalid'];
 	getOnValueComplete: () => OTPFieldRootProps['onValueComplete'];
@@ -58,15 +60,17 @@ export class OTPFieldModel {
 	hiddenInput = $state<HTMLInputElement | null>(null);
 	focused = $state(false);
 	focusedIndex = $state(0);
-	fallbackLabelId = $state<string | undefined>(undefined);
 
 	private pendingFocus: { index: number; value: string } | null = null;
 	private pendingComplete: { value: string; eventDetails: OTPFieldCompleteEventDetails } | null =
 		null;
 	private readonly options: OTPFieldModelOptions;
+	/** The value a form reset returns to. */
+	readonly defaultValue: string;
 
 	constructor(options: OTPFieldModelOptions) {
 		this.options = options;
+		this.defaultValue = $derived(this.normalized(options.getDefaultValue()));
 		const length = options.getLength();
 		const initial = normalizeOTPValue(
 			options.getRawValue(),
@@ -78,8 +82,12 @@ export class OTPFieldModel {
 	}
 
 	get value() {
+		return this.normalized(this.options.getRawValue());
+	}
+
+	private normalized(value: string) {
 		return normalizeOTPValue(
-			this.options.getRawValue(),
+			value,
 			this.length,
 			this.validationType,
 			this.options.getNormalizeValue()
@@ -131,9 +139,7 @@ export class OTPFieldModel {
 	}
 
 	get groupLabelledBy() {
-		return (
-			this.options.getAriaLabelledByProp() ?? this.options.getLabelId() ?? this.fallbackLabelId
-		);
+		return this.options.getGroupLabelledBy();
 	}
 
 	get inputAriaLabelledBy() {
@@ -207,21 +213,6 @@ export class OTPFieldModel {
 		this.field.setFilled(filled);
 	}
 
-	syncFallbackLabel(explicit: string | undefined, labelId: string | undefined) {
-		const input = this.slots.first;
-		if (explicit || labelId || !input) {
-			this.fallbackLabelId = undefined;
-			return;
-		}
-		const label = findAssociatedLabel(input);
-		if (!label) {
-			this.fallbackLabelId = undefined;
-			return;
-		}
-		if (!label.id) label.id = `${this.controlId}-label`;
-		this.fallbackLabelId = label.id || undefined;
-	}
-
 	focusInput(index: number) {
 		const inputs = this.slots.elements;
 		const targetIndex = Math.min(Math.max(index, 0), Math.max(inputs.length - 1, 0));
@@ -269,6 +260,8 @@ export class OTPFieldModel {
 		}
 
 		this.options.writeValue(normalizedValue);
+		// Autofill writes the hidden input itself, which already fired its events.
+		if (details.event.target !== this.hiddenInput) queueValueEvent(this.hiddenInput, 'input');
 		return normalizedValue;
 	}
 
@@ -319,6 +312,8 @@ export class OTPFieldModel {
 		this.field.setTouched(true);
 		this.focused = false;
 		this.field.setFocused(false);
+		// A text input fires `change` when it loses focus after an edit.
+		queueValueEvent(this.hiddenInput, 'change');
 
 		if (this.field.validationMode === 'onBlur') {
 			this.field.commit(this.value);

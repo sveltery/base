@@ -7,6 +7,7 @@
 	import { createAttachmentKey, type Attachment } from 'svelte/attachments';
 	import type { HTMLAttributes } from 'svelte/elements';
 	import { radioIndicatorAttributes } from './attributes.js';
+	import { useFieldContext } from '../field/context.svelte.js';
 	import { useRadioContext } from './context.js';
 	import { TransitionStatus } from '../internal/useTransitionStatus.svelte.js';
 	import type { RadioIndicatorProps, RadioIndicatorState } from './types.js';
@@ -14,6 +15,7 @@
 	let { keepMounted = false, render, children, ...elementProps }: RadioIndicatorProps = $props();
 
 	const ctx = useRadioContext();
+	const field = useFieldContext();
 	const rendered = $derived(ctx.checked);
 	const indicatorKey = createAttachmentKey();
 
@@ -30,6 +32,7 @@
 	transition.unmountAfterExit(() => indicatorNode, true);
 
 	const indicatorState: RadioIndicatorState = $derived({
+		...field.state,
 		checked: ctx.checked,
 		disabled: ctx.disabled,
 		readOnly: ctx.readOnly,

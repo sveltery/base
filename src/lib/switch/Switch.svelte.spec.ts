@@ -2,7 +2,7 @@
 // packages/react/src/switch/root/SwitchRoot.test.tsx and
 // packages/react/src/switch/thumb/SwitchThumb.test.tsx
 // (commit 47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c). MIT, see THIRD_PARTY_NOTICES.md.
-// Field, Form error clearing, and labelable-provider registration are not ported.
+// Field and Form cases are in src/lib/field/choice-controls.svelte.spec.ts.
 // Form cases below use the hidden input with a native <form>.
 // Cases under "native Svelte" have no upstream counterpart.
 import { page, userEvent } from 'vitest/browser';

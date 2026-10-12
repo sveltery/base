@@ -245,6 +245,18 @@ describe('<OTPField />', () => {
 		}
 	});
 
+	it('names the group and slots from a wrapping native label', async () => {
+		render(OTPFieldHarness, { scenario: 'native-label' });
+		const label = document.querySelector('label')!;
+		const first = inputs()[0];
+		await expect.poll(() => label.id).toBe(`${first.id}-label`);
+		const group = page.getByRole('group', { name: 'Verification code' }).element();
+		expect(group).toHaveAttribute('aria-labelledby', label.id);
+		for (const input of inputs()) {
+			expect(input.getAttribute('aria-labelledby')).toBe(label.id);
+		}
+	});
+
 	it('puts an explicit aria-labelledby on the group only', async () => {
 		render(OTPFieldHarness, { scenario: 'explicit-label' });
 		const group = page.getByRole('group').element();
