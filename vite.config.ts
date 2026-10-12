@@ -2,6 +2,7 @@ import { defineConfig } from 'vitest/config';
 import { playwright } from '@vitest/browser-playwright';
 import adapter from '@sveltejs/adapter-auto';
 import { sveltekit } from '@sveltejs/kit/vite';
+import { chromiumLaunchOptions } from './scripts/chromium.js';
 
 export default defineConfig({
 	plugins: [
@@ -27,7 +28,7 @@ export default defineConfig({
 					name: 'client',
 					browser: {
 						enabled: true,
-						provider: playwright({ launchOptions: { chromiumSandbox: true } }),
+						provider: playwright({ launchOptions: chromiumLaunchOptions }),
 						instances: [{ browser: 'chromium', headless: true }]
 					},
 					include: ['src/**/*.svelte.{test,spec}.{js,ts}'],

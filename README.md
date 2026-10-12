@@ -2,7 +2,7 @@
 
 An experimental, unofficial Svelte 5 port of [Base UI](https://base-ui.com/), starting from Base UI v1.8.0 (commit [`47b40521`](https://github.com/mui/base-ui/tree/47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c)). Not affiliated with or endorsed by MUI or Base UI.
 
-The project was restarted from a fresh `sv create` library scaffold (Prettier, ESLint, Vitest with browser component tests, Playwright). It currently ships `Toggle`, `Button`, `Checkbox`, `CheckboxGroup`, `Radio`, `RadioGroup`, `Avatar`, `Fieldset`, `Field`, `Input`, `Separator`, `Meter`, `Progress`, `Form`, `ToggleGroup`, `Switch`, `Collapsible`, `Accordion`, `Tabs`, `Toolbar`, `NumberField`, `ScrollArea`, `Slider`, `DirectionProvider`, `OTPField`, and `CSPProvider`. The package is private and unpublished.
+The project was restarted from a fresh `sv create` library scaffold (Prettier, ESLint, Vitest with browser component tests, Playwright). It currently ships `Toggle`, `Button`, `Checkbox`, `CheckboxGroup`, `Radio`, `RadioGroup`, `Avatar`, `Fieldset`, `Field`, `Input`, `Separator`, `Meter`, `Progress`, `Form`, `ToggleGroup`, `Switch`, `Collapsible`, `Accordion`, `Tabs`, `Toolbar`, `NumberField`, `ScrollArea`, `Slider`, `DirectionProvider`, `OTPField`, `CSPProvider`, `Popover`, and `Dialog`. The package is private and unpublished.
 
 ```svelte
 <script lang="ts">
@@ -53,7 +53,7 @@ The project was restarted from a fresh `sv create` library scaffold (Prettier, E
 
 ## Develop
 
-Requires Node 24 and pnpm 12.6.0 (selected automatically by `scripts/toolchain.sh` through Corepack).
+Requires Node 22 or newer and pnpm 12.6.0 (`scripts/toolchain.sh` selects it through Corepack).
 
 ```sh
 source scripts/toolchain.sh
@@ -67,14 +67,11 @@ pnpm dev
 ## Verify
 
 ```sh
-bash scripts/verify-component.sh avatar    # one component, every layer
-bash scripts/verify-component.sh button    # one component, every layer
-bash scripts/verify-component.sh fieldset  # one component, every layer
-bash scripts/verify-component.sh toggle    # one component, every layer
-bash scripts/verify.sh                    # everything, including the package build
+bash scripts/verify-component.sh toggle  # one component, every layer
+bash scripts/verify.sh                  # everything, including the package build
 ```
 
-See [.cursor/skills/verify-sveltery/SKILL.md](.cursor/skills/verify-sveltery/SKILL.md) for what each layer covers and how to read failures.
+See [.cursor/skills/verify-sveltery/SKILL.md](.cursor/skills/verify-sveltery/SKILL.md) for what each layer covers and how to read failures. [AGENTS.md](AGENTS.md) and [docs/porting.md](docs/porting.md) hold the porting rules.
 
 ## License
 

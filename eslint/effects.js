@@ -146,19 +146,6 @@ function addFunction(map, name, fn) {
 }
 
 /**
- * @param {unknown} node
- * @returns {string | null}
- */
-export function parameterName(node) {
-	const value = unwrap(node);
-	if (!value || typeof value !== 'object') return null;
-	if (value.type === 'Identifier') return nameOf(value);
-	if (value.type === 'AssignmentPattern') return parameterName(value.left);
-	if (value.type === 'RestElement') return parameterName(value.argument);
-	return null;
-}
-
-/**
  * @param {any} node
  */
 export function isValueReference(node) {
@@ -188,60 +175,6 @@ export function isValueReference(node) {
 	if (parent.type === 'LabeledStatement' && parent.label === node) return false;
 	if (Array.isArray(parent.params) && parent.params.includes(node)) return false;
 	return true;
-}
-
-/**
- * @param {any} node
- * @param {string} type
- */
-export function hasAncestor(node, type) {
-	let current = node?.parent;
-	while (current) {
-		if (current.type === type) return true;
-		current = current.parent;
-	}
-	return false;
-}
-
-/**
- * @param {any} node
- */
-export function insideUntrack(node) {
-	let current = node?.parent;
-	while (current) {
-		if (current.type === 'CallExpression' && calleeName(current.callee) === 'untrack') {
-			const callback = current.arguments?.[0];
-			if (callback && nodeIsInside(node, callback)) return true;
-		}
-		current = current.parent;
-	}
-	return false;
-}
-
-/**
- * @param {any} node
- * @param {any} ancestor
- */
-function nodeIsInside(node, ancestor) {
-	let current = node;
-	while (current) {
-		if (current === ancestor) return true;
-		current = current.parent;
-	}
-	return false;
-}
-
-/**
- * @param {any} fn
- * @param {string} name
- */
-export function valueReferences(fn, name) {
-	/** @type {any[]} */
-	const refs = [];
-	walk(fn.body ?? fn, (node) => {
-		if (node.type === 'Identifier' && node.name === name && isValueReference(node)) refs.push(node);
-	});
-	return refs;
 }
 
 /**

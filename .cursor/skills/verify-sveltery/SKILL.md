@@ -21,7 +21,7 @@ Everything, including the package build and publint (run before pushing):
 bash scripts/verify.sh
 ```
 
-Both scripts source `scripts/toolchain.sh`. That picks Node 24 (preferring `~/.nvm/versions/node/v24.*` when another node is first on PATH), pins pnpm 12.6.0 via Corepack, and keeps caches, including Playwright browsers, in `.checks/`. Run commands from a plain shell; you do not need to fix PATH yourself.
+Both scripts source `scripts/toolchain.sh`. It requires Node 22 or newer and selects the pnpm version pinned in `package.json`, through Corepack when the installed pnpm differs.
 
 First run on a new machine:
 
@@ -31,22 +31,22 @@ pnpm install
 pnpm exec playwright install chromium
 ```
 
-If Chromium is missing, the scripts stop and print that install command.
+If Chromium is missing, the scripts stop and print that install command. To use a Chromium that is already installed, such as a container's preinstalled browser, set `CHROMIUM_EXECUTABLE_PATH` to its binary. Chromium runs without its sandbox when the tests run as root.
 
 ## The layers
 
-| Step                    | Command run                                                             | What it proves                                                                       |
-| ----------------------- | ----------------------------------------------------------------------- | ------------------------------------------------------------------------------------ |
-| format, lint            | `prettier --check`, `eslint` on the component and fixture               | Style, plus the rule that `src/lib` imports neither React nor SvelteKit              |
-| types                   | `pnpm check` (svelte-check)                                             | Public props and state types compile                                                 |
-| unit                    | `vitest --project server` on `src/lib/<name>` and `src/lib/internal`    | Pure helpers: event details, state attributes                                        |
-| component               | `vitest --project client` on `src/lib/<name>` (real Chromium)           | Upstream `Toggle.test.tsx` assertions ported to Svelte, plus native rendering checks |
-| e2e                     | `playwright test src/routes/fixtures/<name>` against a production build | The same user path on Svelte and on React Base UI, plus SSR HTML                     |
-| package (full run only) | `pnpm run build` (svelte-package, publint)                              | The published package is well formed                                                 |
+| Step                    | Command run                                                          | What it proves                                                                       |
+| ----------------------- | -------------------------------------------------------------------- | ------------------------------------------------------------------------------------ |
+| format, lint            | `prettier --check`, `eslint` on the component and fixture            | Style, plus the rule that `src/lib` imports neither React nor SvelteKit              |
+| types                   | `pnpm check` (svelte-check)                                          | Public props and state types compile                                                 |
+| unit                    | `vitest --project server` on `src/lib/<name>` and `src/lib/internal` | Pure helpers: event details, state attributes                                        |
+| component               | `vitest --project client` on `src/lib/<name>` (real Chromium)        | Upstream `Toggle.test.tsx` assertions ported to Svelte, plus native rendering checks |
+| e2e                     | `playwright test src/routes/fixtures/<name>` against a `vite build`  | The same user path on Svelte and on React Base UI, plus SSR HTML                     |
+| package (full run only) | `pnpm run build` (svelte-package, publint)                           | The published package is well formed                                                 |
 
 All steps run even after one fails, so the summary shows every layer.
 
-`verify-component.sh` runs prettier and eslint on that component and its fixture. It does not run the clone gate. The full run's lint step is `pnpm lint`: prettier and eslint on the repo, then `scripts/jscpd-baseline.mjs`.
+`verify-component.sh` runs prettier and eslint on that component and its fixture. The full run's lint step is `pnpm lint`: prettier and eslint on the whole repo.
 
 ## Read the result
 
@@ -79,7 +79,7 @@ Quote `summary.txt` when reporting. A pass at one commit says nothing about late
 
 ## Isolation and cleanup
 
-Playwright builds the app and starts `vite preview` on `E2E_PORT` (default 4173). It stops that server when the run ends. The scripts refuse to start if the port is taken. They never kill another process. To run two verifications at once, give the second one a free port:
+Playwright builds the fixture app with `vite build` and starts `vite preview` on `E2E_PORT` (default 4173). It stops that server when the run ends. The scripts refuse to start if the port is taken. They never kill another process. To run two verifications at once, give the second one a free port:
 
 ```sh
 E2E_PORT=4180 bash scripts/verify-component.sh toggle
@@ -109,16 +109,14 @@ React exists only in `src/routes/fixtures/**/react-reference.ts` (devDependencie
 - Controlled/uncontrolled pairs (`pressed`/`defaultPressed`, `useControlled`): one `$bindable` prop. `bind:pressed` shares it with the parent; a one-way value sets it until the parent changes it, and clicks can override it in between. To veto a change, use `eventDetails.cancel()`
 - React commit batching and same-turn stale reads: Svelte reads live state
 
-Keep the business mechanisms, even upstream bugs: cancellation through `eventDetails.cancel()`, disabled handling, state attributes, focus, registration and cleanup.
+Keep the business mechanisms: cancellation through `eventDetails.cancel()`, disabled handling, state attributes, focus, registration and cleanup. [AGENTS.md](../../../AGENTS.md) says which upstream bugs to keep.
 
 Because the idioms differ, a paired fixture may express one case differently per framework (for example `bind:pressed` against controlled `pressed` plus `onPressedChange`). The assertions stay the same.
 
 ## Adding a component
 
-Copy the Toggle layout. Each component needs all four layers, or the script reports a failure:
+Copy the Toggle layout. Each component needs a spec and a paired fixture, or the script reports a failure:
 
 - `src/lib/<name>/`: component, `types.ts`, `index.ts`, and `<Name>.svelte.spec.ts` porting the upstream test file (keep the attribution header)
 - `src/routes/fixtures/<name>/`: `cases.ts`, `+page.ts`, `+page.svelte`, `<Name>Fixture.svelte`, `react-reference.ts`, `<name>.e2e.ts`
-- A row in `features/README.md` and a feature file
-
-The feature map in [features/README.md](features/README.md) lists what is verified for each component and what is not yet ported.
+- An entry in the "Not ported yet" table of [docs/upstream-differences.md](../../../docs/upstream-differences.md) for anything the port leaves out

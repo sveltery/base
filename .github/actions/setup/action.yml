@@ -1,0 +1,44 @@
+name: Setup
+description: Install Node, pnpm and dependencies from cache, and optionally Chromium for Playwright.
+
+inputs:
+  browser:
+    description: Install Chromium and its system packages.
+    default: 'false'
+
+runs:
+  using: composite
+  steps:
+    - uses: pnpm/action-setup@v4
+    - uses: actions/setup-node@v4
+      with:
+        node-version: 24
+        cache: pnpm
+    - shell: bash
+      run: pnpm install --frozen-lockfile
+    - if: inputs.browser == 'true'
+      id: playwright
+      shell: bash
+      run: echo "version=$(pnpm exec playwright --version | cut -d' ' -f2)" >> "$GITHUB_OUTPUT"
+    - if: inputs.browser == 'true'
+      id: browser-cache
+      uses: actions/cache@v4
+      with:
+        path: ~/.cache/ms-playwright
+        key: playwright-${{ runner.os }}-${{ steps.playwright.outputs.version }}
+    - if: inputs.browser == 'true' && steps.browser-cache.outputs.cache-hit != 'true'
+      shell: bash
+      run: pnpm exec playwright install chromium
+    - if: inputs.browser == 'true'
+      shell: bash
+      # Hosted Ubuntu runners intermittently stall for tens of minutes retrying
+      # azure.archive.ubuntu.com (actions/runner-images#14594). Bound apt, and if it still does not
+      # finish, go on without the system packages: the runner image already has most of them.
+      run: |
+        sudo tee /etc/apt/apt.conf.d/99-sveltery-acquire >/dev/null <<'EOF'
+        Acquire::Retries "1";
+        Acquire::http::Timeout "15";
+        Acquire::https::Timeout "15";
+        EOF
+        timeout --signal=KILL 180 pnpm exec playwright install-deps chromium ||
+          echo "::warning::playwright install-deps did not finish; continuing without apt packages"

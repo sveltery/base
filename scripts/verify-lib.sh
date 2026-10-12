@@ -9,8 +9,10 @@ verify_port_in_use() {
 }
 
 verify_require_browser() {
-  if ! compgen -G "$XDG_CACHE_HOME/ms-playwright/chromium*" >/dev/null; then
-    echo "Chromium is not installed in $XDG_CACHE_HOME/ms-playwright." >&2
+  [[ -n "${CHROMIUM_EXECUTABLE_PATH:-}" ]] && return
+  local browsers="${PLAYWRIGHT_BROWSERS_PATH:-${XDG_CACHE_HOME:-$HOME/.cache}/ms-playwright}"
+  if ! compgen -G "$browsers/chromium*" >/dev/null; then
+    echo "Chromium is not installed in $browsers." >&2
     echo "Run: source scripts/toolchain.sh && pnpm exec playwright install chromium" >&2
     exit 1
   fi
