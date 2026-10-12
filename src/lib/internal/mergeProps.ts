@@ -106,6 +106,12 @@ export function mergeProps<T extends object>(
 	f: T | null | undefined | PropsGetter
 ): T;
 export function mergeProps(...bags: Input[]): Props {
+	return mergePropsN(bags);
+}
+
+/** `mergeProps` for a list of bags. */
+export function mergePropsN<T extends object>(bags: readonly Input[]): T;
+export function mergePropsN(bags: readonly Input[]): Props {
 	const merged: Props = {};
 	const attachments = new Map<symbol, Attachment[]>();
 
