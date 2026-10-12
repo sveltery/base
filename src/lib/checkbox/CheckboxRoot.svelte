@@ -202,21 +202,18 @@
 		if (inputNode) syncInput(inputNode);
 	});
 
-	restoreOnReset(
-		() => inputNode,
-		() => {
-			if (!group && checked !== defaultChecked) checked = defaultChecked;
-		}
-	);
-	// A reset can leave the input out of step with state that did not change, such as a parent
-	// checkbox or a `checked` the owner holds.
-	restoreOnReset(
-		() => inputNode,
-		() => {
+	restoreOnReset(() => inputNode, {
+		restore: group
+			? undefined
+			: () => {
+					if (checked !== defaultChecked) checked = defaultChecked;
+				},
+		// A reset can leave the input out of step with state that did not change, such as a
+		// parent checkbox or a `checked` the owner holds.
+		settle: () => {
 			if (inputNode) syncInput(inputNode);
-		},
-		'settle'
-	);
+		}
+	});
 
 	$effect(() => {
 		const model = group?.parent;

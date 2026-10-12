@@ -133,20 +133,15 @@
 		return field.registerInput(input, { element, value: undefined });
 	});
 
-	restoreOnReset(
-		() => inputNode,
-		() => {
+	restoreOnReset(() => inputNode, {
+		restore: () => {
 			if (checked !== defaultChecked) checked = defaultChecked;
-		}
-	);
-	// Puts the input back in step when the owner kept `checked`.
-	restoreOnReset(
-		() => inputNode,
-		() => {
-			if (inputNode && inputNode.checked !== checkedState) inputNode.checked = checkedState;
 		},
-		'settle'
-	);
+		// Puts the input back in step when the owner kept `checked`.
+		settle: () => {
+			if (inputNode && inputNode.checked !== checkedState) inputNode.checked = checkedState;
+		}
+	});
 
 	function registerRoot(element: HTMLElement) {
 		rootNode = element;

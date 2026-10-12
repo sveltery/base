@@ -141,9 +141,14 @@ export class FieldRootModel implements FieldContext {
 	private readonly registeredInputs = new SvelteMap<HTMLInputElement, RegisteredInput>();
 	private readonly debounceTimer = new ScopedTimeout();
 	private readonly options: FieldRootModelOptions;
+	private readonly resetForm: HTMLFormElement | null;
 
 	constructor(options: FieldRootModelOptions) {
 		this.options = options;
+		this.resetForm = $derived(
+			options.form.element ??
+				ownerForm(this.registeredInputs.keys().next().value ?? this.inputElement)
+		);
 
 		$effect(() => {
 			const dirty = this.options.getDirtyProp();
@@ -152,9 +157,9 @@ export class FieldRootModel implements FieldContext {
 
 		// The control has restored its value by the time a reset settles.
 		$effect(() => {
-			const form = ownerForm(this.representative()) ?? this.options.form.element;
+			const form = this.resetForm;
 			if (!form) return;
-			return onFormReset(form, 'settle', () => this.reset());
+			return onFormReset(form, { settle: () => this.reset() });
 		});
 
 		$effect(() => {

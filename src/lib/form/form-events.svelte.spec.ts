@@ -80,6 +80,13 @@ describe('events on named inputs', () => {
 		await expect.poll(log).toEqual(['input seats=6', 'change seats=6']);
 	});
 
+	it('fires no change from a NumberField whose owner keeps its value', async () => {
+		render(FormEventsHarness, { scenario: 'kept-number-field' });
+		await page.getByRole('button', { name: 'Increase' }).click();
+		await expect.poll(log).toEqual(['committed 6']);
+		await expect.element(page.getByTestId('control')).toHaveValue('5');
+	});
+
 	it('fires input while typing in a NumberField and change on blur', async () => {
 		render(FormEventsHarness, { scenario: 'number-field' });
 		await page.getByTestId('control').fill('12');

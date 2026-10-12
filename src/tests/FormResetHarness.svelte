@@ -25,7 +25,8 @@
 		| 'number-field'
 		| 'otp-field'
 		| 'field-state'
-		| 'checkbox-field-state';
+		| 'checkbox-field-state'
+		| 'outside-form';
 
 	let { scenario }: { scenario: ResetScenario } = $props();
 
@@ -59,6 +60,21 @@
 		<button type="button" onclick={() => (errors = { email: 'Taken' })}>Server error</button>
 		<button type="reset">Reset</button>
 	</Form>
+{:else if scenario === 'outside-form'}
+	<form id="outside" data-testid="form">
+		<button type="reset">Reset</button>
+	</form>
+	<RadioGroup name="plan" form="outside" defaultValue="free" bind:value={picked}>
+		<Radio.Root value="free" data-testid="free" style={box} />
+		<Radio.Root value="pro" data-testid="pro" style={box} />
+	</RadioGroup>
+	<Slider.Root name="volume" form="outside" defaultValue={30} bind:value={volume}>
+		<Slider.Control>
+			<Slider.Track>
+				<Slider.Thumb />
+			</Slider.Track>
+		</Slider.Control>
+	</Slider.Root>
 {:else}
 	<form data-testid="form">
 		{#if scenario === 'checkbox'}

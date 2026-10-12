@@ -146,7 +146,7 @@
 	});
 
 	// The group restores its value. This catches a selection the owner kept.
-	restoreOnReset(() => inputNode, syncInput, 'settle');
+	restoreOnReset(() => inputNode, { settle: syncInput });
 
 	function handleInputClick(event: MouseEvent) {
 		// Clicks dispatched on the input from the root and from focus are an

@@ -150,6 +150,27 @@ describe('form reset', () => {
 				expect(formData()).toEqual([['code', '12']]);
 			});
 
+			it('restores controls outside the form that join it through the form prop', async () => {
+				render(FormResetHarness, { scenario: 'outside-form' });
+				await page.getByTestId('pro').click();
+				(page.getByRole('slider').element() as HTMLElement).focus();
+				await userEvent.keyboard('{ArrowRight}');
+				await expect.poll(state).toEqual({ picked: 'pro', volume: 31 });
+				expect(formData()).toEqual([
+					['plan', 'pro'],
+					['volume', '31']
+				]);
+
+				await reset();
+				await expect.poll(state).toEqual({ picked: 'free', volume: 30 });
+				await expect.element(page.getByTestId('free')).toHaveAttribute('aria-checked', 'true');
+				await expect.element(page.getByRole('slider')).toHaveAttribute('aria-valuenow', '30');
+				expect(formData()).toEqual([
+					['plan', 'free'],
+					['volume', '30']
+				]);
+			});
+
 			it('clears Field dirty, touched, validity and Form errors', async () => {
 				render(FormResetHarness, { scenario: 'field-state' });
 				const field = page.getByTestId('field');

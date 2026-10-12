@@ -40,10 +40,12 @@
 		element = node;
 		const stopGate = on(node, 'submit', gateSubmit, { capture: true });
 		// A reset starts the form over: no external errors and no submit yet.
-		const stopReset = onFormReset(node, 'settle', () => {
-			submitCount = 0;
-			submitted = false;
-			if (errors && Object.keys(errors).length > 0) errors = {};
+		const stopReset = onFormReset(node, {
+			settle: () => {
+				submitCount = 0;
+				submitted = false;
+				if (errors && Object.keys(errors).length > 0) errors = {};
+			}
 		});
 		return () => {
 			stopGate();

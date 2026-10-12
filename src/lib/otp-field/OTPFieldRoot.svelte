@@ -15,7 +15,7 @@
 	import { useFormContext } from '../form/context.js';
 	import { useValueChanged } from '../internal/useValueChanged.svelte.js';
 	import { restoreOnReset } from '../internal/form-reset.svelte.js';
-	import { isQueuedValueEvent } from '../internal/value-events.js';
+	import { dispatchingValueEvent } from '../internal/value-events.js';
 	import { watchFieldControl } from '../internal/field-register-control.svelte.js';
 	import { getStateAttributesProps } from '../internal/state-attributes.js';
 	import { visuallyHidden, visuallyHiddenInput, warn } from '@sveltery/utils';
@@ -103,12 +103,11 @@
 	);
 	setOTPFieldContext(model);
 
-	restoreOnReset(
-		() => model.hiddenInput ?? model.root,
-		() => {
+	restoreOnReset(() => model.hiddenInput ?? model.root, {
+		restore: () => {
 			if (raw !== defaultValue) value = defaultValue;
 		}
-	);
+	});
 
 	const describedBy = $derived(
 		labelable
@@ -176,7 +175,7 @@
 	}
 
 	function hiddenEdited(event: Event & { currentTarget: EventTarget & HTMLInputElement }) {
-		if (!isQueuedValueEvent(event)) model.handleHiddenInput(event);
+		if (!dispatchingValueEvent()) model.handleHiddenInput(event);
 	}
 </script>
 

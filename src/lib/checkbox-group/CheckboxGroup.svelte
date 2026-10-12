@@ -84,13 +84,12 @@
 	});
 
 	let rootNode = $state<HTMLElement | null>(null);
-	restoreOnReset(
-		() => rootNode,
-		() => {
+	restoreOnReset(() => rootNode, {
+		restore: () => {
 			const next = defaultValue ? [...defaultValue] : [];
 			if (!areArraysEqual(currentValue(), next)) value = next;
 		}
-	);
+	});
 
 	function rememberRoot(node: HTMLElement) {
 		rootNode = node;

@@ -13,7 +13,7 @@
 	import { LabelableId, findLabelableContext } from '../field/labelable.svelte.js';
 	import { useValueChanged } from '../internal/useValueChanged.svelte.js';
 	import { restoreOnReset } from '../internal/form-reset.svelte.js';
-	import { isQueuedValueEvent } from '../internal/value-events.js';
+	import { dispatchingValueEvent } from '../internal/value-events.js';
 	import { getStateAttributesProps } from '../internal/state-attributes.js';
 	import { visuallyHidden, visuallyHiddenInput } from '@sveltery/utils';
 	import { numberFieldStateAttributes } from './attributes.js';
@@ -137,25 +137,20 @@
 		...getStateAttributesProps(rootState, numberFieldStateAttributes)
 	});
 
-	restoreOnReset(
-		() => model.hiddenInput,
-		() => {
+	restoreOnReset(() => model.hiddenInput, {
+		restore: () => {
 			model.followInputValue();
 			writeValue(defaultValue);
-		}
-	);
-	// The shown text has no default of its own to reset to when the value did not change.
-	restoreOnReset(
-		() => model.hiddenInput,
-		() => {
+		},
+		// The shown text has no default of its own to reset to when the value did not change.
+		settle: () => {
 			const input = model.inputElement;
 			if (input && input.value !== model.inputValue) input.value = model.inputValue;
-		},
-		'settle'
-	);
+		}
+	});
 
 	function hiddenChanged(event: Event & { currentTarget: EventTarget & HTMLInputElement }) {
-		if (isQueuedValueEvent(event)) return;
+		if (dispatchingValueEvent()) return;
 		const next = model.handleHiddenChange(event);
 		if (next === false) return;
 		form.clearErrors(name);

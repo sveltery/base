@@ -13,7 +13,14 @@
 	} from '#lib';
 
 	type EventsScenario =
-		'gate' | 'slider' | 'number-field' | 'otp-field' | 'checkbox' | 'switch' | 'radio-group';
+		| 'gate'
+		| 'slider'
+		| 'number-field'
+		| 'kept-number-field'
+		| 'otp-field'
+		| 'checkbox'
+		| 'switch'
+		| 'radio-group';
 
 	let { scenario }: { scenario: EventsScenario } = $props();
 
@@ -63,6 +70,17 @@
 			<NumberField.Root name="seats" defaultValue={5}>
 				<NumberField.Group>
 					<NumberField.Decrement>-</NumberField.Decrement>
+					<NumberField.Input data-testid="control" />
+					<NumberField.Increment>+</NumberField.Increment>
+				</NumberField.Group>
+			</NumberField.Root>
+		{:else if scenario === 'kept-number-field'}
+			<NumberField.Root
+				name="seats"
+				bind:value={() => 5, () => {}}
+				onValueCommitted={(next) => log.push(`committed ${next}`)}
+			>
+				<NumberField.Group>
 					<NumberField.Input data-testid="control" />
 					<NumberField.Increment>+</NumberField.Increment>
 				</NumberField.Group>

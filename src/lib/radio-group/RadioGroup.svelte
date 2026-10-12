@@ -8,7 +8,7 @@
 -->
 <script lang="ts">
 	import { createAttachmentKey, type Attachment } from 'svelte/attachments';
-	import { contains } from '@sveltery/utils';
+	import { contains, ownerDocument } from '@sveltery/utils';
 	import type { HTMLAttributes } from 'svelte/elements';
 	import { CompositeRoot } from '../internal/composite-root.svelte.js';
 	import { isSkipped } from '../internal/composite-skip.js';
@@ -95,12 +95,17 @@
 	);
 
 	let rootNode = $state<HTMLElement | null>(null);
-	restoreOnReset(
-		() => rootNode,
-		() => {
+	// Each radio input carries `form`, so the group resets with the form it names.
+	function resetForm() {
+		if (!form) return rootNode;
+		const named = ownerDocument(rootNode).getElementById(form);
+		return named instanceof HTMLFormElement ? named : null;
+	}
+	restoreOnReset(resetForm, {
+		restore: () => {
 			if (!Object.is(checkedValue, defaultValue)) selection.set(defaultValue);
 		}
-	);
+	});
 
 	function rememberRoot(node: HTMLElement) {
 		rootNode = node;

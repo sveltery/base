@@ -112,13 +112,12 @@
 	});
 
 	// The browser has put the input back to its `defaultValue`. Read it, like `bind:value`.
-	restoreOnReset(
-		() => inputEl,
-		() => {
+	restoreOnReset(() => inputEl, {
+		restore: () => {
 			const next = inputEl?.value;
 			if (next !== undefined && next !== textValue(value)) value = next;
 		}
-	);
+	});
 
 	function publish(node: HTMLElement) {
 		const stopRemember = remember(node);

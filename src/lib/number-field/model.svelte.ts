@@ -97,8 +97,6 @@ export class NumberFieldModel {
 	hasPendingCommit = false;
 	/** The named input that submits the value. */
 	hiddenInput = $state<HTMLInputElement | null>(null);
-	/** A write since the last commit that owes the hidden input a `change` event. */
-	private changeEventDue = false;
 	/** Typed text. Ignored while `allowInputSync` is set. */
 	private draft = $state<string | null>(null);
 	/**
@@ -225,8 +223,7 @@ export class NumberFieldModel {
 	commit(next: number | null, details: NumberFieldCommitEventDetails) {
 		this.hasPendingCommit = false;
 		this.options.getOnValueCommitted()?.(next, details);
-		if (this.changeEventDue) queueValueEvent(this.hiddenInput, 'change');
-		this.changeEventDue = false;
+		queueValueEvent(this.hiddenInput, 'change');
 	}
 
 	getStepAmount(event?: EventWithOptionalKeyState) {
@@ -299,10 +296,7 @@ export class NumberFieldModel {
 			this.options.writeValue(validatedValue, details);
 			this.hasPendingCommit = true;
 			// Autofill writes the hidden input itself, which already fired its events.
-			if (details.event.target !== hidden) {
-				this.changeEventDue = true;
-				queueValueEvent(hidden, 'input');
-			}
+			if (details.event.target !== hidden) queueValueEvent(hidden, 'input');
 		}
 		return shouldFireChange;
 	}

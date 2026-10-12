@@ -23,6 +23,7 @@
 	import { sliderStateAttributes } from './attributes.js';
 	import { setSliderContext } from './context.svelte.js';
 	import { areArraysEqual, ownerDocument, activeElement, contains, warn } from '@sveltery/utils';
+	import { areValuesEqual } from './getSliderValue.js';
 	import { SliderRootModel } from './model.svelte.js';
 	import type { SliderRootProps, SliderRootState, SliderValue } from './types.js';
 
@@ -118,16 +119,15 @@
 		};
 	}
 
-	restoreOnReset(
-		() => model.root,
-		() => {
+	restoreOnReset(() => model.fieldInput ?? model.root, {
+		restore: () => {
 			const same =
-				Array.isArray(value) && Array.isArray(defaultValue)
-					? areArraysEqual(value, defaultValue)
-					: value === defaultValue;
+				value === undefined || defaultValue === undefined
+					? value === defaultValue
+					: areValuesEqual(value, defaultValue);
 			if (!same) value = Array.isArray(defaultValue) ? [...defaultValue] : defaultValue;
 		}
-	);
+	});
 
 	onMount(() => {
 		model.hydrating = false;
