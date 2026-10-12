@@ -104,13 +104,13 @@
 {/if}
 
 {#snippet outsidePair(startOpen: boolean)}
-	<Dialog.Root modal={false} defaultOpen={startOpen} onOpenChange={changed}>
+	<Dialog.Root modal={false} open={startOpen} onOpenChange={changed}>
 		<Dialog.Trigger>Open</Dialog.Trigger>
 		<Dialog.Portal>
 			<Dialog.Popup data-testid="parent-popup">
 				<Dialog.Title>Title</Dialog.Title>
 				<button type="button" data-testid="parent-inside">Inside</button>
-				<Dialog.Root modal={false} defaultOpen={startOpen}>
+				<Dialog.Root modal={false} open={startOpen}>
 					<Dialog.Trigger>Nested</Dialog.Trigger>
 					<Dialog.Portal>
 						<Dialog.Popup data-testid="nested-popup" finalFocus={() => outsideButton}>
@@ -181,7 +181,7 @@
 		</Dialog.Portal>
 	</Dialog.Root>
 {:else if scenario === 'siblings'}
-	<Dialog.Root modal={false} defaultOpen>
+	<Dialog.Root modal={false} open>
 		<Dialog.Trigger>Open A</Dialog.Trigger>
 		<Dialog.Portal>
 			<Dialog.Popup data-testid="popup-a" initialFocus={false}>
@@ -190,7 +190,7 @@
 			</Dialog.Popup>
 		</Dialog.Portal>
 	</Dialog.Root>
-	<Dialog.Root modal={false} defaultOpen>
+	<Dialog.Root modal={false} open>
 		<Dialog.Trigger>Open B</Dialog.Trigger>
 		<Dialog.Portal>
 			<Dialog.Popup data-testid="popup-b" initialFocus={false}>
@@ -267,10 +267,8 @@
 {:else}
 	<Dialog.Root
 		bind:this={root}
-		bind:open
-		bind:triggerId
-		defaultOpen={alreadyOpen || defaultOpen}
-		{defaultTriggerId}
+		bind:open={() => open ?? (alreadyOpen || defaultOpen), (next) => (open = next)}
+		bind:triggerId={() => triggerId ?? defaultTriggerId, (next) => (triggerId = next)}
 		modal={modalValue}
 		onOpenChange={changed}
 		{disablePointerDismissal}

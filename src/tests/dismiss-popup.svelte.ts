@@ -1,18 +1,13 @@
-import { createControllableValue } from '#lib/internal/controllable-value.svelte.js';
 import { useDismiss, useFloatingNodeId } from '@sveltery/floating-ui-svelte';
 import { PopupStore } from '#lib/internal/popups/index.js';
 
 export function createDismissPopup(floatingId: string) {
 	let open = $state<boolean | undefined>(undefined);
-	const openValue = createControllableValue<boolean>({
-		getProp: () => open,
-		setProp: (next) => {
+	const store = new PopupStore<string>({
+		readOpen: () => open ?? true,
+		writeOpen: (next) => {
 			open = next;
 		},
-		getDefault: () => true
-	});
-	const store = new PopupStore<string>({
-		open: openValue,
 		floatingId,
 		floatingElement: 'popup',
 		onOpenChange: () => () => {},

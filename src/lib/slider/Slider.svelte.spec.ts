@@ -209,9 +209,9 @@ describe('<Slider />', () => {
 			expect(end).toHaveAttribute('aria-valuenow', '40');
 		});
 
-		it('writes the first key step into an empty bind', async () => {
+		it('starts an empty bind from defaultValue and writes the key step into it', async () => {
 			render(SliderHarness, { scenario: 'fresh' });
-			expect(page.getByTestId('bound').element().textContent).toBe('none');
+			await expect.element(page.getByTestId('bound')).toHaveTextContent('30');
 			const input = slider();
 			input.focus();
 			key(input, 'ArrowRight');
@@ -219,11 +219,11 @@ describe('<Slider />', () => {
 			expect(page.getByTestId('bound').element().textContent).toBe('31');
 		});
 
-		it('falls back to the default when a controlled value is cleared', async () => {
+		it('shows min when the parent clears the value', async () => {
 			render(SliderHarness, { scenario: 'clear' });
 			await expect.element(page.getByRole('slider')).toHaveAttribute('aria-valuenow', '40');
 			click(page.getByTestId('clear').element());
-			await expect.element(page.getByRole('slider')).toHaveAttribute('aria-valuenow', '10');
+			await expect.element(page.getByRole('slider')).toHaveAttribute('aria-valuenow', '0');
 		});
 
 		it('clears form errors, marks dirty, and revalidates on a parent write', async () => {

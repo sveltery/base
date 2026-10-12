@@ -43,7 +43,7 @@
 			<RadioGroup
 				aria-label="Colors"
 				disabled={scenario === 'disabled'}
-				readOnly={scenario === 'readonly'}
+				readonly={scenario === 'readonly'}
 				onValueChange={model.onValueChange}
 			>
 				{#each model.itemValues.slice(0, model.count) as itemValue, index (itemValue)}

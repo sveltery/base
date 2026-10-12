@@ -11,7 +11,6 @@ import { untrack } from 'svelte';
 import { SvelteMap } from 'svelte/reactivity';
 import type { HTMLAttributes } from 'svelte/elements';
 import { createChangeEventDetails, REASONS, useTimeout } from '@sveltery/utils';
-import type { ControllableValue } from '../internal/controllable-value.svelte.js';
 import { runOnceAnimationsFinish } from '../internal/animations-finished.js';
 import { PopupStore } from '../internal/popups/store.svelte.js';
 import { PATIENT_CLICK_THRESHOLD } from './constants.js';
@@ -30,7 +29,8 @@ export interface TriggerOwned {
 }
 
 export interface PopoverStoreOptions {
-	open: ControllableValue<boolean>;
+	readOpen: () => boolean | undefined;
+	writeOpen: (open: boolean) => void;
 	floatingId: string;
 	nested: boolean;
 	readModal: () => PopoverModal;
@@ -63,7 +63,7 @@ export class PopoverStore extends PopupStore<PopoverChangeReason> {
 	private readonly writeTriggerIdValue: (id: string | null, details?: unknown) => void;
 	private readonly readDismissReference: PopoverStoreOptions['readDismissReference'];
 	private readonly readDismissFloating: PopoverStoreOptions['readDismissFloating'];
-	/** Id written for this open. Survives a controlled trigger id that snaps back. */
+	/** Id written for this open. Survives a bound trigger id that the parent sets back. */
 	private claimedTriggerId: string | null = null;
 	private readonly readers = new SvelteMap<string, () => TriggerOwned>();
 	private triggerChangeAbort: AbortController | null = null;
@@ -75,7 +75,8 @@ export class PopoverStore extends PopupStore<PopoverChangeReason> {
 
 	constructor(options: PopoverStoreOptions) {
 		super({
-			open: options.open,
+			readOpen: options.readOpen,
+			writeOpen: options.writeOpen,
 			floatingId: options.floatingId,
 			floatingElement: 'popup',
 			nested: options.nested,

@@ -348,7 +348,7 @@ describe('Radio', () => {
 
 	describe('prop: readOnly', () => {
 		it('sets data-readonly and the hidden input without aria-readonly', async () => {
-			render(Radio.Root, { value: 'a', readOnly: true });
+			render(Radio.Root, { value: 'a', readonly: true });
 			await expect.element(radioEl()).not.toHaveAttribute('aria-readonly');
 			await expect.element(radioEl()).toHaveAttribute('data-readonly', '');
 			expect(hiddenInput().readOnly).toBe(true);

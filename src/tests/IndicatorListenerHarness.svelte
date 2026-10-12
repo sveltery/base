@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { callPublic } from '../lib/internal/callPublic.js';
+	import { untrack } from 'svelte';
 	import { CompositeRoot } from '../lib/internal/composite-root.svelte.js';
 	import { TabsListModel } from '../lib/tabs/context.svelte.js';
 
@@ -9,6 +9,6 @@
 	const list = new TabsListModel(roving, () => false);
 
 	$effect(() => {
-		callPublic(onModel, list);
+		untrack(() => onModel?.(list));
 	});
 </script>

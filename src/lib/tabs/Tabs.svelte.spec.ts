@@ -241,11 +241,13 @@ describe('Tabs', () => {
 			await expect.element(tab('Two')).toHaveAttribute('aria-selected', 'true');
 		});
 
-		it('does not move a passed value when its tab becomes disabled', async () => {
+		it('moves a passed value to the first enabled tab when its tab becomes disabled', async () => {
 			render(TabsHarness, { passValue: true, value: 0, tabs: three });
 			await page.getByRole('button', { name: 'Disable first' }).click();
-			await expect.element(tab('One')).toHaveAttribute('aria-selected', 'true');
-			expect(calls()).toEqual([]);
+			await expect.element(tab('Two')).toHaveAttribute('aria-selected', 'true');
+			expect(calls()).toEqual([
+				{ value: 1, reason: 'disabled', canceled: false, direction: 'none' }
+			]);
 		});
 
 		it('falls back when the selected tab is removed and value was omitted', async () => {
@@ -397,7 +399,7 @@ describe('Tabs', () => {
 	});
 
 	describe('roving tabindex', () => {
-		it('keeps the tab stop off a programmatically selected disabled tab', async () => {
+		it('moves a parent write that selects a disabled tab to the first enabled tab', async () => {
 			render(TabsHarness, {
 				bind: true,
 				value: 1,
@@ -409,9 +411,10 @@ describe('Tabs', () => {
 			});
 			await expect.element(tab('Two')).toHaveAttribute('tabindex', '0');
 			await page.getByRole('button', { name: 'Set zero' }).click();
-			await expect.element(tab('One')).toHaveAttribute('aria-selected', 'true');
+			await expect.element(tab('Two')).toHaveAttribute('aria-selected', 'true');
 			await expect.element(tab('One')).toHaveAttribute('tabindex', '-1');
 			await expect.element(tab('Two')).toHaveAttribute('tabindex', '0');
+			expect(page.getByTestId('held').element().textContent).toBe('1');
 		});
 
 		it('keeps the tab stop on a disabled tab after an arrow, so Tab leaves the list', async () => {
@@ -611,11 +614,11 @@ describe('Tabs', () => {
 	});
 
 	describe('native Svelte', () => {
-		it('starts from defaultValue and returns to it when a controlled value is cleared', async () => {
-			render(TabsHarness, { defaultValue: 1, tabs: three });
+		it('starts from a one-way value and selects 0 when the value is cleared', async () => {
+			render(TabsHarness, { initialValue: 1, tabs: three });
 			await expect.element(tab('Two')).toHaveAttribute('aria-selected', 'true');
 
-			render(TabsHarness, { passValue: true, value: 1, defaultValue: 0, tabs: three });
+			render(TabsHarness, { passValue: true, value: 1, tabs: three });
 			await expect.element(tab('Two').nth(1)).toHaveAttribute('aria-selected', 'true');
 			await page.getByRole('button', { name: 'Unset value' }).nth(1).click();
 			await expect.element(tab('One').nth(1)).toHaveAttribute('aria-selected', 'true');

@@ -51,14 +51,10 @@ export interface PopoverRootProps<Payload = unknown> {
 	/**
 	 * Whether the popover is open.
 	 * Use `bind:open` to share it with the parent.
+	 * Pass a value without `bind:` to set only the initial state.
 	 * @default false
 	 */
 	open?: boolean;
-	/**
-	 * Initial open state when `open` is left unset.
-	 * @default false
-	 */
-	defaultOpen?: boolean;
 	/** Called before the open state changes. Call `eventDetails.cancel()` to veto it. */
 	onOpenChange?: (open: boolean, details: PopoverChangeEventDetails) => void;
 	/** Called after the open or close transition finishes. */
@@ -72,10 +68,6 @@ export interface PopoverRootProps<Payload = unknown> {
 	 * Id of the trigger that owns the popover. A string wins over the trigger that opened it.
 	 */
 	triggerId?: string | null;
-	/**
-	 * Initial trigger id when `triggerId` is left unset.
-	 */
-	defaultTriggerId?: string | null;
 	/** Associates detached triggers and imperative `open`, `close`, and `unmount`. */
 	handle?: PopoverHandle<Payload>;
 	children?: Snippet<[{ payload: Payload | undefined }]>;

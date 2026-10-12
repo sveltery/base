@@ -12,7 +12,8 @@
 	import { CompositeRoot } from '../internal/composite-root.svelte.js';
 	import { isSkipped } from '../internal/composite-skip.js';
 	import { getStateAttributesProps } from '../internal/state-attributes.js';
-	import { createControllableValue } from '../internal/controllable-value.svelte.js';
+	import { useValueChanged } from '../internal/useValueChanged.svelte.js';
+	import { WrittenReference } from '../internal/written-reference.svelte.js';
 	import { useDirection } from '../internal/direction-context.js';
 	import { useFieldContext } from '../field/context.svelte.js';
 	import { useFormContext } from '../form/context.js';
@@ -25,7 +26,7 @@
 		value = $bindable(),
 		defaultValue,
 		disabled = false,
-		readOnly = false,
+		readonly: readOnly = false,
 		required = false,
 		name,
 		form,
@@ -38,6 +39,9 @@
 		...elementProps
 	}: RadioGroupProps = $props();
 
+	// `defaultValue` is the initial value of an empty binding, as in HTML.
+	if (value === undefined) value = defaultValue;
+
 	let touched = $state(false);
 
 	const reading = useDirection();
@@ -45,19 +49,22 @@
 	const field = useFieldContext();
 	const fieldset = useFieldsetRootContext(true);
 
-	const controllable = createControllableValue<unknown>({
-		getProp: () => value,
-		setProp: (next) => {
+	const selection = new WrittenReference<unknown>(
+		() => value,
+		(next) => {
 			value = next;
-		},
-		getDefault: () => defaultValue,
-		onChange(next) {
+		}
+	);
+	const checkedValue = $derived(selection.current);
+	useValueChanged(
+		() => checkedValue,
+		(next) => {
 			formContext.clearErrors(name);
 			field.setDirty(next !== field.validityData.initialValue);
 			field.setFilled(next != null);
 			field.change(next);
 		}
-	});
+	);
 
 	const roving: CompositeRoot = new CompositeRoot({
 		orientation: () => 'both',
@@ -65,7 +72,7 @@
 		isItemDisabled: (element) =>
 			isSkipped(element) || element.getAttribute('aria-disabled') === 'true',
 		isItemSelected: (element): boolean => {
-			const current = controllable.value;
+			const current = checkedValue;
 			const meta = roving.meta(element);
 			return current !== undefined && meta.value === current && meta.disabled !== true;
 		},
@@ -80,8 +87,8 @@
 	function setCheckedValue(next: unknown, details: RadioRootChangeEventDetails) {
 		onValueChange?.(next, details);
 		if (details.isCanceled) return;
-		if (Object.is(next, controllable.value)) return;
-		controllable.set(next);
+		if (Object.is(next, checkedValue)) return;
+		selection.set(next);
 	}
 
 	setRadioGroupContext({
@@ -102,7 +109,7 @@
 			return form;
 		},
 		get checkedValue() {
-			return controllable.value;
+			return checkedValue;
 		},
 		get touched() {
 			return touched;

@@ -243,7 +243,7 @@ describe('Switch', () => {
 
 	describe('prop: readOnly', () => {
 		it('should have the aria-readonly attribute', async () => {
-			render(Switch.Root, { readOnly: true });
+			render(Switch.Root, { readonly: true });
 			await expect.element(switchEl()).toHaveAttribute('aria-readonly', 'true');
 		});
 
@@ -253,7 +253,7 @@ describe('Switch', () => {
 		});
 
 		it('should not change its state when clicked', async () => {
-			render(Switch.Root, { readOnly: true });
+			render(Switch.Root, { readonly: true });
 
 			await expect.element(switchEl()).toHaveAttribute('aria-checked', 'false');
 			clickSwitch();

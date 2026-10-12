@@ -58,7 +58,7 @@
 		<Radio.Root value="b">B</Radio.Root>
 	</RadioGroup>
 {:else if scenario === 'tabs-default'}
-	<Tabs.Root defaultValue="b">
+	<Tabs.Root value="b">
 		<Tabs.List>
 			<Tabs.Tab value="a">A</Tabs.Tab>
 			<Tabs.Tab value="b">B</Tabs.Tab>
@@ -79,7 +79,7 @@
 		<Radio.Root value="b">B</Radio.Root>
 	</RadioGroup>
 {:else if scenario === 'tabs-remount'}
-	<Tabs.Root defaultValue="b">
+	<Tabs.Root value="b">
 		<Tabs.List>
 			{#if showTabs}
 				<Tabs.Tab value="a">A</Tabs.Tab>
@@ -90,7 +90,7 @@
 	</Tabs.Root>
 	<button type="button" onclick={() => (showTabs = !showTabs)}>Toggle tabs</button>
 {:else if scenario === 'tabs-register'}
-	<Tabs.Root defaultValue="a">
+	<Tabs.Root value="a">
 		<TabsRegisterProbe bind:count={registrations} />
 		<Tabs.List>
 			<Tabs.Tab value="a" disabled={tabDisabled}>A</Tabs.Tab>

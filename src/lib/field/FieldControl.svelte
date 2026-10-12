@@ -9,7 +9,7 @@
 	import { createAttachmentKey } from 'svelte/attachments';
 	import type { HTMLAttributes, HTMLInputAttributes } from 'svelte/elements';
 	import { useFormContext } from '../form/context.js';
-	import { createControllableValue } from '../internal/controllable-value.svelte.js';
+	import { useValueChanged } from '../internal/useValueChanged.svelte.js';
 	import { getStateAttributesProps } from '../internal/state-attributes.js';
 	import { attachFieldControl } from '../internal/field-register-control.svelte.js';
 	import { fieldValidityMapping } from './attributes.js';
@@ -41,6 +41,9 @@
 		...elementProps
 	}: FieldControlProps = $props();
 
+	// `defaultValue` is the initial value of an empty binding, as in HTML.
+	if (value === undefined) value = defaultValue;
+
 	const form = useFormContext();
 	const fallbackId = `base-ui-${uid}`;
 	// Outside Field.Root this is the shared inert field. Registration and
@@ -50,22 +53,11 @@
 	const labelableFromContext = useLabelableContext(true);
 	const labelable = labelableFromContext ?? new Labelable(undefined, () => fallbackId);
 
-	const controllable = createControllableValue<string | number | null | undefined>({
-		getProp: () => value,
-		setProp: (next) => {
-			value = next;
-		},
-		getDefault: () => defaultValue,
-		onChange(next) {
-			notifyControlled(textValue(next));
-		}
-	});
-	const isControlled = $derived(controllable.controlled);
-	const registeredValue = $derived(
-		controllable.controlled && controllable.value != null
-			? textValue(controllable.value)
-			: undefined
+	useValueChanged(
+		() => value,
+		(next) => notifyChanged(textValue(next))
 	);
+	const registeredValue = $derived(value != null ? textValue(value) : undefined);
 	const disabled = $derived(Boolean(field.disabled || disabledProp));
 	const name = $derived(field.name ?? nameProp ?? undefined);
 	const controlId = $derived(labelable.controlId || idProp || fallbackId);
@@ -73,11 +65,11 @@
 	let inputEl = $state<ValueElement | null>(null);
 	let hadExplicitId = false;
 
-	function notifyControlled(current: string) {
+	function notifyChanged(text: string) {
 		form.clearErrors(name);
-		field.setDirty(current !== String(field.validityData.initialValue ?? ''));
-		field.setFilled(current !== '');
-		field.change(current);
+		field.setDirty(text !== String(field.validityData.initialValue ?? ''));
+		field.setFilled(text !== '');
+		field.change(text);
 	}
 
 	const controlState: FieldControlState = $derived({
@@ -135,7 +127,7 @@
 		enabled: () => !disabled,
 		id: () => controlId,
 		name: () => nameProp ?? undefined,
-		getValue: () => readElement(inputEl) ?? textValue(controllable.value)
+		getValue: () => readElement(inputEl) ?? textValue(value)
 	});
 
 	function publish(node: HTMLElement) {
@@ -153,24 +145,19 @@
 		if (view.document.activeElement === inputEl) field.setFocused(true);
 	});
 
-	function domValue() {
-		return textValue(controllable.value);
-	}
-
 	function handleInput(event: Event & { currentTarget: EventTarget & HTMLInputElement }) {
 		oninput?.(event);
 		const inputValue = event.currentTarget.value;
 		const details = createChangeEventDetails(REASONS.none, event);
 		onValueChange?.(inputValue, details);
 
+		// The component holds one value, so a canceled change puts the input back to it.
 		if (details.isCanceled) {
-			event.currentTarget.value = domValue();
+			event.currentTarget.value = textValue(value);
 			return;
 		}
 
-		if (!isControlled && event.defaultPrevented) return;
-
-		controllable.set(inputValue);
+		value = inputValue;
 	}
 
 	function handleFocus(event: FocusEvent & { currentTarget: EventTarget & HTMLInputElement }) {
@@ -222,7 +209,7 @@
 		...(controlState.valid === false && !field.disabled && !disabled
 			? { 'aria-invalid': true as const }
 			: {}),
-		...(controllable.value != null ? { value: domValue() } : {}),
+		...(value != null ? { value: textValue(value) } : {}),
 		oninput: handleInput,
 		onfocus: handleFocus,
 		onblur: handleBlur,

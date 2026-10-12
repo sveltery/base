@@ -13,6 +13,6 @@ export type InputChangeEventDetails = FieldControlChangeEventDetails;
 
 /**
  * Props of `Input`. They are `Field.Control`'s props: `bind:value` shares the
- * value, and omitting `value` leaves the input uncontrolled from `defaultValue`.
+ * value, and `defaultValue` is the value an empty `value` starts from.
  */
 export type InputProps = FieldControlProps;

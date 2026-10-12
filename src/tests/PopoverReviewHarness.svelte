@@ -40,7 +40,7 @@
 
 <Popover.Root
 	handle={detached ? reviewHandle : undefined}
-	defaultOpen={mode === 'default-open'}
+	open={mode === 'default-open'}
 	bind:triggerId={ownerId}
 >
 	{#snippet children({ payload })}

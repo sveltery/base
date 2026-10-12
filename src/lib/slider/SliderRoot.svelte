@@ -16,7 +16,7 @@
 	import { useFormContext } from '../form/context.js';
 	import { clamp } from '../internal/clamp.js';
 	import { watchFieldControl } from '../internal/field-register-control.svelte.js';
-	import { createControllableValue } from '../internal/controllable-value.svelte.js';
+	import { useValueChanged } from '../internal/useValueChanged.svelte.js';
 	import PartHost from '../internal/PartHost.svelte';
 	import { useDirection } from '../internal/direction-context.js';
 	import { getStateAttributesProps } from '../internal/state-attributes.js';
@@ -56,29 +56,25 @@
 		...elementProps
 	}: SliderRootProps = $props();
 
+	// `defaultValue` is the initial value of an empty binding, as in HTML.
+	if (value === undefined) value = defaultValue;
+
 	const reading = useDirection();
 	const field = useFieldContext();
 	const form = useFormContext();
 	const labelable = useLabelableContext(true);
 
-	const controllable = createControllableValue<SliderValue>({
-		getProp: () => value,
-		setProp: (next) => {
-			value = next;
-		},
-		getDefault: () => defaultValue ?? min,
-		onChange(next) {
-			if (next === undefined) return;
-			commitFieldValue(clampedFieldValue(next));
-		}
-	});
-	const valueUnwrapped = $derived(controllable.value as SliderValue);
+	const valueUnwrapped: SliderValue = $derived(value ?? min);
+	useValueChanged(
+		() => valueUnwrapped,
+		(next) => commitFieldValue(clampedFieldValue(next))
+	);
 	const disabled = $derived(Boolean(field.disabled) || disabledProp);
 	const name = $derived(field.name ?? nameProp);
 	const rootId = $derived(idProp || `base-ui-${uid}`);
 
 	function writeValue(next: SliderValue) {
-		controllable.set(next);
+		value = next;
 	}
 
 	function clampedFieldValue(raw: SliderValue): SliderValue {

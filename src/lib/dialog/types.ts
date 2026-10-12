@@ -83,15 +83,10 @@ export interface DialogRootProps<Payload = unknown> {
 	/**
 	 * Whether the dialog is open.
 	 * Use `bind:open` to share it with the parent.
+	 * Pass a value without `bind:` to set only the initial state.
 	 * @default false
 	 */
 	open?: boolean;
-	/**
-	 * Whether the dialog is initially open.
-	 * Omit `open` to let the dialog own it. Pass `open` to hold it.
-	 * @default false
-	 */
-	defaultOpen?: boolean;
 	/**
 	 * `true` traps focus, locks page scroll, and blocks outside pointer interaction.
 	 * `false` leaves the rest of the page usable.
@@ -114,13 +109,10 @@ export interface DialogRootProps<Payload = unknown> {
 	/**
 	 * Id of the trigger that owns the dialog.
 	 * Use `bind:triggerId` to share it with the parent.
-	 */
-	triggerId?: string | null;
-	/**
-	 * Trigger id used with `defaultOpen` before a trigger opens the dialog.
+	 * Pass it with an initial `open` to name the trigger the dialog starts from.
 	 * @default null
 	 */
-	defaultTriggerId?: string | null;
+	triggerId?: string | null;
 	children?: Snippet<[{ payload: Payload | undefined }]>;
 }
 

@@ -166,7 +166,7 @@
 				</div>
 			</RadioGroup>
 		{:else if scenario === 'style'}
-			<RadioGroup aria-label="Colors" value="a" disabled readOnly required>
+			<RadioGroup aria-label="Colors" value="a" disabled readonly required>
 				<Radio.Root value="a" data-testid="item">
 					<Radio.Indicator data-testid="indicator" />
 					A
@@ -257,7 +257,7 @@
 			<RadioGroup
 				aria-label="Colors"
 				disabled={scenario === 'disabled'}
-				readOnly={scenario === 'readonly'}
+				readonly={scenario === 'readonly'}
 				onValueChange={record}
 			>
 				<Radio.Root value="a" data-testid="a">A</Radio.Root>

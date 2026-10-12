@@ -21,7 +21,7 @@
 </script>
 
 {#if part === 'dialog'}
-	<Dialog.Root defaultOpen>
+	<Dialog.Root open>
 		<Dialog.Portal
 			data-slot="dialog-portal"
 			class="portal-host"
@@ -34,7 +34,7 @@
 		</Dialog.Portal>
 	</Dialog.Root>
 {:else}
-	<Popover.Root defaultOpen>
+	<Popover.Root open>
 		<Popover.Portal
 			data-slot="popover-portal"
 			class="portal-host"

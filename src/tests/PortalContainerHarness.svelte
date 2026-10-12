@@ -9,13 +9,13 @@
 <div bind:this={holder} data-testid="portal-holder"></div>
 
 {#if part === 'dialog'}
-	<Dialog.Root defaultOpen>
+	<Dialog.Root open>
 		<Dialog.Portal {container} data-slot="dialog-portal">
 			<Dialog.Popup>Body</Dialog.Popup>
 		</Dialog.Portal>
 	</Dialog.Root>
 {:else}
-	<Popover.Root defaultOpen>
+	<Popover.Root open>
 		<Popover.Portal {container} data-slot="popover-portal">
 			<Popover.Positioner>
 				<Popover.Popup>Body</Popover.Popup>

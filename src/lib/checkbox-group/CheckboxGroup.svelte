@@ -9,7 +9,6 @@
 <script lang="ts">
 	import type { HTMLAttributes } from 'svelte/elements';
 	import { setCheckboxGroupContext } from '../checkbox/group-context.js';
-	import { createControllableValue } from '../internal/controllable-value.svelte.js';
 	import GroupFrame from '../internal/GroupFrame.svelte';
 	import { getStateAttributesProps } from '../internal/state-attributes.js';
 	import { CheckboxGroupParent } from './parent.svelte.js';
@@ -20,7 +19,7 @@
 	} from './types.js';
 
 	let {
-		value = $bindable(undefined),
+		value = $bindable(),
 		defaultValue,
 		allValues,
 		disabled = false,
@@ -30,25 +29,19 @@
 		...elementProps
 	}: CheckboxGroupProps = $props();
 
+	// `defaultValue` is the initial value of an empty binding, as in HTML.
+	if (value === undefined) value = defaultValue;
+
 	const EMPTY: string[] = [];
-	function publishValue(next: string[] | undefined) {
-		value = next;
-	}
-	const controllable = createControllableValue<string[], CheckboxGroupChangeEventDetails>({
-		getProp: () => value,
-		setProp: publishValue,
-		getDefault: () => defaultValue ?? EMPTY
-	});
 
 	function currentValue() {
-		const next = controllable.value;
-		return Array.isArray(next) ? next : EMPTY;
+		return Array.isArray(value) ? value : EMPTY;
 	}
 
 	function setValue(next: string[], details: CheckboxGroupChangeEventDetails) {
 		onValueChange?.(next, details);
 		if (details.isCanceled) return;
-		controllable.set(next, details);
+		value = next;
 	}
 
 	const parentModel = new CheckboxGroupParent({

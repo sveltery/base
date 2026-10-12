@@ -17,14 +17,14 @@
 <div data-testid="late-anchor" {@attach remember}></div>
 
 {#if part === 'dialog'}
-	<Dialog.Root defaultOpen>
+	<Dialog.Root open>
 		<Dialog.Trigger>Open</Dialog.Trigger>
 		<Dialog.Portal container={holder}>
 			<Dialog.Popup>Body</Dialog.Popup>
 		</Dialog.Portal>
 	</Dialog.Root>
 {:else}
-	<Popover.Root defaultOpen>
+	<Popover.Root open>
 		<Popover.Trigger>Open</Popover.Trigger>
 		<Popover.Portal container={holder}>
 			<Popover.Positioner>

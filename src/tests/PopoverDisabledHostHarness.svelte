@@ -21,7 +21,7 @@
 		disabled={host !== 'iframe'}
 		nativeButton={false}
 		onclick={(event) => {
-			if (host === 'iframe') event.preventBaseUIHandler?.();
+			if (host === 'iframe') event.preventDefault();
 		}}
 	>
 		{#snippet render(props)}

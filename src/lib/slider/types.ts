@@ -62,7 +62,7 @@ type RenderSnippet<Element extends HTMLElement> = Snippet<
 >;
 
 export interface SliderRootProps extends Omit<HTMLAttributes<HTMLDivElement>, 'children'> {
-	/** The uncontrolled value of the slider when it's initially rendered. */
+	/** The value an empty `value` starts from. */
 	defaultValue?: SliderValue;
 	/** Whether the slider should ignore user interaction. @default false */
 	disabled?: boolean;

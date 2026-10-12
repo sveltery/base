@@ -272,7 +272,7 @@ describe('Checkbox', () => {
 
 	describe('prop: readOnly', () => {
 		it('should have the aria-readonly attribute', async () => {
-			render(Checkbox.Root, { readOnly: true });
+			render(Checkbox.Root, { readonly: true });
 			await expect.element(checkboxEl()).toHaveAttribute('aria-readonly', 'true');
 		});
 
@@ -282,7 +282,7 @@ describe('Checkbox', () => {
 		});
 
 		it('should not change its state when clicked', async () => {
-			render(Checkbox.Root, { readOnly: true });
+			render(Checkbox.Root, { readonly: true });
 
 			await expect.element(checkboxEl()).toHaveAttribute('aria-checked', 'false');
 			clickCheckbox();

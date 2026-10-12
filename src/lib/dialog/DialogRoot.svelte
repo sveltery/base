@@ -3,17 +3,9 @@
 	Derived from Base UI v1.8.0 packages/react/src/dialog/root/DialogRoot.tsx,
 	useRenderDialogRoot.tsx, and useDialogRoot.ts
 	(commit 47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c). MIT, see THIRD_PARTY_NOTICES.md.
-	Open and triggerId use the shared controllable-value helper.
 -->
 <script lang="ts">
-	import {
-		createChangeEventDetails,
-		REASONS,
-		type BaseUIChangeEventDetails,
-		contains,
-		getTarget
-	} from '@sveltery/utils';
-	import { createControllableValue } from '../internal/controllable-value.svelte.js';
+	import { createChangeEventDetails, REASONS, contains, getTarget } from '@sveltery/utils';
 	import {
 		setFloatingTree,
 		useClick,
@@ -23,18 +15,16 @@
 	import { useScrollLock } from '../internal/popups/index.js';
 	import { setDialogRootContext, useDialogRootContext } from './context.svelte.js';
 	import { DialogStore } from './store.svelte.js';
-	import type { DialogChangeEventReason, DialogRootProps } from './types.js';
+	import type { DialogRootProps } from './types.js';
 
 	let {
-		open = $bindable(undefined),
-		defaultOpen = false,
+		open = $bindable(),
 		modal = true,
 		onOpenChange,
 		onOpenChangeComplete,
 		disablePointerDismissal = false,
 		handle,
-		triggerId = $bindable(undefined),
-		defaultTriggerId = null,
+		triggerId = $bindable(),
 		children
 	}: DialogRootProps = $props();
 
@@ -43,34 +33,19 @@
 	const uid = $props.id();
 	const floatingId = `base-ui-${uid}`;
 
-	const openValue = createControllableValue<boolean>({
-		getProp: () => open,
-		setProp: (next) => {
+	const store = new DialogStore({
+		readOpen: () => open,
+		writeOpen: (next) => {
 			open = next;
 		},
-		getDefault: () => defaultOpen
-	});
-	const triggerValue = createControllableValue<
-		string | null,
-		BaseUIChangeEventDetails<DialogChangeEventReason>
-	>({
-		getProp: () => triggerId,
-		setProp: (next) => {
-			triggerId = next ?? null;
-		},
-		getDefault: () => defaultTriggerId
-	});
-
-	const store = new DialogStore({
-		open: openValue,
 		floatingId,
 		nested: parent != null,
 		onOpenChange: () => onOpenChange,
 		onOpenChangeComplete: () => onOpenChangeComplete,
 		readModal: () => modal,
 		readDisablePointerDismissal: () => disablePointerDismissal,
-		publishTriggerId: (id, details) => {
-			triggerValue.set(id, details);
+		publishTriggerId: (id) => {
+			if ((triggerId ?? null) !== id) triggerId = id;
 		}
 	});
 	useFloatingNodeId(store);
@@ -120,7 +95,7 @@
 	}));
 
 	$effect(() => {
-		const id = triggerValue.value;
+		const id = triggerId;
 		if (id == null || store.triggerCount === 0) return;
 		const node = store.triggers.getById(id);
 		if (node && store.domReferenceElement !== node) store.domReferenceElement = node;

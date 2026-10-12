@@ -3,7 +3,6 @@
 // (commit 47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c). MIT, see THIRD_PARTY_NOTICES.md.
 
 import { on } from 'svelte/events';
-import { callPublic } from '../internal/callPublic.js';
 import { SvelteSet } from 'svelte/reactivity';
 import { formatNumber } from '../internal/formatNumber.js';
 import {
@@ -220,7 +219,7 @@ export class NumberFieldModel {
 
 	commit(next: number | null, details: NumberFieldCommitEventDetails) {
 		this.hasPendingCommit = false;
-		callPublic(this.options.getOnValueCommitted(), next, details);
+		this.options.getOnValueCommitted()?.(next, details);
 	}
 
 	getStepAmount(event?: EventWithOptionalKeyState) {
@@ -283,7 +282,7 @@ export class NumberFieldModel {
 			(isInputReason && (unvalidatedValue !== value || this.allowInputSync === false));
 
 		if (shouldFireChange) {
-			callPublic(this.options.getOnValueChange(), validatedValue, details);
+			this.options.getOnValueChange()?.(validatedValue, details);
 			if (details.isCanceled) return false;
 		}
 

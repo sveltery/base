@@ -32,6 +32,6 @@
 	</Checkbox.Root>
 {:else}
 	<label data-testid="label">
-		<Checkbox.Root readOnly />
+		<Checkbox.Root readonly />
 	</label>
 {/if}

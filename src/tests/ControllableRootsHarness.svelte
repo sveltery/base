@@ -149,7 +149,7 @@
 		<button type="button" onclick={() => turn(false)}>Unset value</button>
 		<Toggle {pressed} onPressedChange={record}>Bold</Toggle>
 	{:else}
-		<Toggle defaultPressed onPressedChange={(next) => onChange?.(next)}>Bold</Toggle>
+		<Toggle pressed onPressedChange={(next) => onChange?.(next)}>Bold</Toggle>
 	{/if}
 {:else if part === 'collapsible'}
 	{#if mode === 'bind'}
@@ -171,7 +171,7 @@
 			<Collapsible.Panel>Panel</Collapsible.Panel>
 		</Collapsible.Root>
 	{:else}
-		<Collapsible.Root defaultOpen onOpenChange={(next) => onChange?.(next)}>
+		<Collapsible.Root open onOpenChange={(next) => onChange?.(next)}>
 			<Collapsible.Trigger>Trigger</Collapsible.Trigger>
 			<Collapsible.Panel>Panel</Collapsible.Panel>
 		</Collapsible.Root>
@@ -210,7 +210,7 @@
 			</Accordion.Item>
 		</Accordion.Root>
 	{:else}
-		<Accordion.Root defaultValue={['a']} onValueChange={(next) => onChange?.(next)}>
+		<Accordion.Root value={['a']} onValueChange={(next) => onChange?.(next)}>
 			<Accordion.Item value="a">
 				<Accordion.Header><Accordion.Trigger>Section</Accordion.Trigger></Accordion.Header>
 				<Accordion.Panel>Panel</Accordion.Panel>
@@ -240,7 +240,7 @@
 			<Toggle value="b">B</Toggle>
 		</ToggleGroup>
 	{:else}
-		<ToggleGroup defaultValue={['a']} onValueChange={(next) => onChange?.(next)}>
+		<ToggleGroup value={['a']} onValueChange={(next) => onChange?.(next)}>
 			<Toggle value="a">A</Toggle>
 		</ToggleGroup>
 	{/if}

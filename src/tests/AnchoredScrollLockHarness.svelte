@@ -1,5 +1,4 @@
 <script lang="ts">
-	import { createControllableValue } from '#lib/internal/controllable-value.svelte.js';
 	import { useClick } from '@sveltery/floating-ui-svelte';
 	import { PopupStore, useAnchoredPopupScrollLock } from '#lib/internal/popups/index.js';
 
@@ -8,11 +7,8 @@
 	let open = $state<boolean | undefined>(false);
 	let positioner = $state<HTMLElement | null>(null);
 	const store = new PopupStore<string>({
-		open: createControllableValue<boolean>({
-			getProp: () => open,
-			setProp: (value) => (open = value),
-			getDefault: () => false
-		}),
+		readOpen: () => open,
+		writeOpen: (value) => (open = value),
 		floatingId: 'touch-scroll-lock',
 		floatingElement: 'positioner',
 		onOpenChange: () => () => {},

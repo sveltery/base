@@ -83,15 +83,21 @@ export default defineConfig(
 			'sveltery/no-cloned-event': 'error',
 			'sveltery/no-derived-inline-attachment': 'error',
 			'sveltery/no-layout-read-in-derived': 'error',
-			'sveltery/no-uncontrolled-bindable': 'error',
 			'sveltery/no-unscoped-timer': 'error',
 			'sveltery/no-previous-value-effect': 'error',
 			'sveltery/no-process-env': 'error',
-			'sveltery/no-public-callback-untracked': 'error',
 			'sveltery/no-prop-state-sync': 'error',
 			'sveltery/no-react-refs': 'error',
 			'sveltery/no-split-effect-lifecycle': 'error',
 			'sveltery/no-state-updater': 'error'
+		}
+	},
+	{
+		// The one port of upstream useValueChanged. Parent writes reach no handler,
+		// so the field meta updates that follow every value change run here.
+		files: ['src/lib/internal/useValueChanged.svelte.ts'],
+		rules: {
+			'sveltery/no-previous-value-effect': 'off'
 		}
 	},
 	{

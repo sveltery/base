@@ -1,6 +1,6 @@
 // Assertions follow Base UI v1.8.0 packages/react/src/accordion/**/*.test.tsx
 // (commit 47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c). MIT, see THIRD_PARTY_NOTICES.md.
-// describeConformance, React.Activity, and preventBaseUIHandler are not ported.
+// describeConformance and React.Activity are not ported. `preventDefault()` is the skip signal.
 // Cases under "native Svelte" have no upstream counterpart.
 import { tick } from 'svelte';
 import { page, userEvent } from 'vitest/browser';

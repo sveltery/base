@@ -73,7 +73,7 @@
 		<NumberField.Increment disabled />
 	</NumberField.Root>
 {:else if scenario === 'readonly'}
-	<NumberField.Root locale="en-US" defaultValue={4} readOnly>
+	<NumberField.Root locale="en-US" defaultValue={4} readonly>
 		<NumberField.Input data-testid="control" />
 		<NumberField.Increment />
 		<NumberField.Decrement />

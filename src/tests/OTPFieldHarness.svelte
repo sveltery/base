@@ -89,7 +89,7 @@
 		<OtpInputs />
 	</OTPField.Root>
 {:else if scenario === 'none'}
-	<OTPField.Root length={6} validationType="none" name="otp" inputMode="numeric" {normalizeValue}>
+	<OTPField.Root length={6} validationType="none" name="otp" inputmode="numeric" {normalizeValue}>
 		<OtpInputs />
 	</OTPField.Root>
 {:else if scenario === 'controlled-empty'}
@@ -109,7 +109,7 @@
 {:else if scenario === 'readonly'}
 	<OTPField.Root
 		length={6}
-		readOnly
+		readonly
 		defaultValue="123456"
 		data-testid="root"
 		{onValueChange}

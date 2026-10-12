@@ -10,19 +10,13 @@
 	import type { HTMLAttributes } from 'svelte/elements';
 	import PartHost from '../internal/PartHost.svelte';
 	import { CompositeRoot } from '../internal/composite-root.svelte.js';
-	import { createControllableValue } from '../internal/controllable-value.svelte.js';
 	import { useDirection } from '../internal/direction-context.js';
 	import { getStateAttributesProps } from '../internal/state-attributes.js';
 	import { ToggleGroupContext, setToggleGroupContext } from './context.svelte.js';
-	import type {
-		ToggleGroupChangeEventDetails,
-		ToggleGroupProps,
-		ToggleGroupState
-	} from './types.js';
+	import type { ToggleGroupProps, ToggleGroupState } from './types.js';
 
 	let {
-		value = $bindable(undefined),
-		defaultValue,
+		value = $bindable(),
 		disabled = false,
 		loopFocus = true,
 		onValueChange,
@@ -34,15 +28,8 @@
 	}: ToggleGroupProps = $props();
 
 	// Captured once. Assigning `value` later must not look like the parent passed it.
-	const valueProvided = untrack(() => value !== undefined || defaultValue !== undefined);
+	const valueProvided = untrack(() => value !== undefined);
 	const EMPTY: readonly string[] = [];
-	const controllable = createControllableValue<readonly string[], ToggleGroupChangeEventDetails>({
-		getProp: () => value,
-		setProp: (next) => {
-			value = next;
-		},
-		getDefault: () => defaultValue ?? EMPTY
-	});
 
 	const reading = useDirection();
 	const roving = new CompositeRoot({
@@ -60,13 +47,13 @@
 	const group = new ToggleGroupContext(
 		valueProvided,
 		roving,
-		() => controllable.value ?? EMPTY,
+		() => value ?? EMPTY,
 		() => disabled,
 		() => multiple,
 		() => onValueChange ?? (() => {})
 	);
-	group.commit = (next, details) => {
-		controllable.set(next, details);
+	group.commit = (next) => {
+		value = next;
 	};
 	setToggleGroupContext(group);
 

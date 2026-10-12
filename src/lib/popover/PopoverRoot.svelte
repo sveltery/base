@@ -6,7 +6,6 @@
 -->
 <script lang="ts">
 	import type { HTMLAttributes } from 'svelte/elements';
-	import { createControllableValue } from '../internal/controllable-value.svelte.js';
 	import {
 		setFloatingTree,
 		useDismiss,
@@ -17,13 +16,11 @@
 	import type { PopoverRootProps } from './types.js';
 
 	let {
-		open = $bindable(undefined),
-		defaultOpen = false,
+		open = $bindable(),
 		onOpenChange,
 		onOpenChangeComplete,
 		modal = false,
-		triggerId = $bindable(undefined),
-		defaultTriggerId = null,
+		triggerId = $bindable(),
 		handle,
 		children
 	}: PopoverRootProps = $props();
@@ -32,33 +29,20 @@
 	const nested = useFloatingParentNodeId() != null;
 	setFloatingTree();
 
-	const openValue = createControllableValue<boolean>({
-		getProp: () => open,
-		setProp: (next) => {
-			open = next;
-		},
-		getDefault: () => defaultOpen
-	});
-
-	const triggerValue = createControllableValue<string | null>({
-		getProp: () => triggerId,
-		setProp: (next) => {
-			triggerId = next ?? null;
-		},
-		getDefault: () => defaultTriggerId
-	});
-
 	let dismissReference: HTMLAttributes<HTMLElement> = {};
 	let dismissFloating: HTMLAttributes<HTMLElement> = {};
 
 	const store = new PopoverStore({
-		open: openValue,
+		readOpen: () => open,
+		writeOpen: (next) => {
+			open = next;
+		},
 		floatingId: `base-ui-${uid}`,
 		nested,
 		readModal: () => modal,
-		readTriggerId: () => triggerValue.value ?? null,
-		writeTriggerId: (id, details) => {
-			triggerValue.set(id, details);
+		readTriggerId: () => triggerId ?? null,
+		writeTriggerId: (id) => {
+			triggerId = id;
 		},
 		onOpenChange: () => onOpenChange as PopoverRootProps['onOpenChange'],
 		onOpenChangeComplete: () => onOpenChangeComplete,

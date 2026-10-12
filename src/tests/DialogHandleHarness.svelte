@@ -17,7 +17,7 @@
 </script>
 
 <Dialog.Trigger {handle} {id} {payload}>Detached</Dialog.Trigger>
-<Dialog.Root {handle} {defaultOpen} {defaultTriggerId}>
+<Dialog.Root {handle} open={defaultOpen} triggerId={defaultTriggerId}>
 	{#snippet children({ payload: value })}
 		<Dialog.Trigger>Inside</Dialog.Trigger>
 		<Dialog.Portal>

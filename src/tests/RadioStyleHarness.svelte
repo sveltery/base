@@ -14,6 +14,6 @@
 		value = 'off';
 	}}>Enable</button
 >
-<Radio.Root {value} {disabled} {readOnly} required>
+<Radio.Root {value} {disabled} readonly={readOnly} required>
 	<Radio.Indicator data-testid="indicator" />
 </Radio.Root>

@@ -1,7 +1,7 @@
 // Derived from Base UI v1.8.0 packages/react/src/merge-props/mergeProps.ts
 // (commit 47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c). MIT, see THIRD_PARTY_NOTICES.md.
 // The rightmost bag wins plain props, and its handler runs first.
-// `event.preventBaseUIHandler()` skips the remaining handlers. `preventDefault()` does not.
+// `event.preventDefault()` in a handler skips the handlers to its left.
 // The event check is the event's shape, so an iframe event still gets the skip signal.
 // `class` is a Svelte class value, merged as an array with the rightmost bag first.
 // `style` is a CSS string. The rightmost declaration wins for the same property.
@@ -11,49 +11,24 @@
 
 import type { Attachment } from 'svelte/attachments';
 import type { ClassValue } from 'svelte/elements';
-import { mergeCssStyle, toCssStyle } from './css-style.js';
+import { mergeCssStyle } from './css-style.js';
 
 type Props = Record<PropertyKey, unknown>;
 type Handler = (...args: unknown[]) => unknown;
 
 export type PropsGetter = (previous: Props) => object | null | undefined;
 
-declare global {
-	interface Event {
-		preventBaseUIHandler?: () => void;
-		baseUIHandlerPrevented?: boolean;
-	}
-}
-
-export function makeEventPreventable<T extends object>(event: T): T {
-	const target = event as Event;
-	if (typeof target.preventBaseUIHandler === 'function') return event;
-	target.preventBaseUIHandler = () => {
-		target.baseUIHandlerPrevented = true;
-	};
-	return event;
-}
-
+/** Svelte handler props are lowercase, such as `onclick`. `onClick` is a plain prop. */
 function isEventHandler(key: PropertyKey, value: unknown): boolean {
 	if (typeof key !== 'string' || key.length < 3 || !key.startsWith('on')) return false;
 	const head = key.charCodeAt(2);
-	const letter = (head >= 65 && head <= 90) || (head >= 97 && head <= 122);
-	return letter && (typeof value === 'function' || typeof value === 'undefined');
+	return head >= 97 && head <= 122 && (typeof value === 'function' || typeof value === 'undefined');
 }
 
 function isClassValue(value: unknown): value is ClassValue {
 	if (typeof value === 'string') return value.length > 0;
 	if (Array.isArray(value)) return value.length > 0;
 	return value != null && typeof value === 'object';
-}
-
-function styleString(value: unknown): string | undefined {
-	if (typeof value === 'string') return value || undefined;
-	if (value && typeof value === 'object' && !Array.isArray(value)) {
-		const printed = toCssStyle(value as Record<string, string | number | undefined | null>);
-		return printed || undefined;
-	}
-	return undefined;
 }
 
 function mergeClassValue(current: unknown, next: unknown): ClassValue | undefined {
@@ -73,31 +48,17 @@ function isDomEvent(value: unknown): value is Event {
 	return typeof event.type === 'string' && typeof event.preventDefault === 'function';
 }
 
-function wrapEventHandler(handler: Handler): Handler {
-	return (...args) => {
-		const event = args[0];
-		if (isDomEvent(event)) makeEventPreventable(event);
-		return handler(...args);
-	};
-}
-
 function isHandler(value: unknown): value is Handler {
 	return typeof value === 'function';
 }
 
 function mergeEventHandlers(our: unknown, their: unknown): unknown {
 	if (!isHandler(their)) return our;
-	if (!isHandler(our)) return wrapEventHandler(their);
+	if (!isHandler(our)) return their;
 	return (...args: unknown[]) => {
 		const event = args[0];
-		if (isDomEvent(event)) {
-			makeEventPreventable(event);
-			const result = their(...args);
-			if (!event.baseUIHandlerPrevented) our(...args);
-			return result;
-		}
 		const result = their(...args);
-		our(...args);
+		if (!(isDomEvent(event) && event.defaultPrevented)) our(...args);
 		return result;
 	};
 }
@@ -168,10 +129,9 @@ export function mergeProps(...bags: Input[]): Props {
 				continue;
 			}
 			if (key === 'style') {
-				const printed = styleString(value);
-				if (!printed) continue;
+				if (typeof value !== 'string' || !value) continue;
 				const current = typeof merged.style === 'string' ? merged.style : undefined;
-				merged.style = mergeCssStyle(current, printed);
+				merged.style = mergeCssStyle(current, value);
 				continue;
 			}
 			if (typeof key === 'symbol' && typeof value === 'function') {
@@ -206,12 +166,12 @@ export function mergeClass(
 
 type ChainHandler<E extends Event> = (event: E) => void;
 
-/** The consumer handler runs first. `preventBaseUIHandler()` skips the component handler. */
+/** The consumer handler runs first. `preventDefault()` skips the component handler. */
 export function chain<E extends Event>(
 	component: ChainHandler<E>,
 	consumer: ChainHandler<E> | null | undefined
 ): ChainHandler<E> {
 	if (!consumer) return component;
-	const merged = mergeProps({ onEvent: component as Handler }, { onEvent: consumer as Handler });
-	return merged.onEvent as ChainHandler<E>;
+	const merged = mergeProps({ onevent: component as Handler }, { onevent: consumer as Handler });
+	return merged.onevent as ChainHandler<E>;
 }

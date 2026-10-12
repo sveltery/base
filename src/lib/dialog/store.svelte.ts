@@ -5,7 +5,6 @@
 // Focus return is FloatingFocusManager after close. This store does not focus.
 // How the dialog opened is the inherited `PopupStore.openMethod`. `useClick` writes it.
 
-import type { ControllableValue } from '../internal/controllable-value.svelte.js';
 import type { BaseUIChangeEventDetails } from '@sveltery/utils';
 import { PopupStore, type PopupChangeEventDetails } from '../internal/popups/store.svelte.js';
 import type { DialogChangeEventReason } from './types.js';
@@ -34,7 +33,8 @@ export class DialogStore<Payload = unknown> extends PopupStore<DialogChangeEvent
 	internalBackdropElement = $state<HTMLElement | null>(null);
 
 	constructor(options: {
-		open: ControllableValue<boolean>;
+		readOpen: () => boolean | undefined;
+		writeOpen: (open: boolean) => void;
 		floatingId: string;
 		nested: boolean;
 		onOpenChange: () =>
@@ -49,7 +49,8 @@ export class DialogStore<Payload = unknown> extends PopupStore<DialogChangeEvent
 		) => void;
 	}) {
 		super({
-			open: options.open,
+			readOpen: options.readOpen,
+			writeOpen: options.writeOpen,
 			floatingId: options.floatingId,
 			floatingElement: 'popup',
 			nested: options.nested,

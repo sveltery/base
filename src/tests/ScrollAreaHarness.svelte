@@ -106,7 +106,7 @@
 				keepMounted={scenario === 'keep'}
 				style={scenario === 'padded' ? 'padding-block: 8px' : undefined}
 				onpointerdown={(event) => {
-					if (scenario === 'prevent') event.preventBaseUIHandler?.();
+					if (scenario === 'prevent') event.preventDefault();
 				}}
 			>
 				<ScrollArea.Thumb

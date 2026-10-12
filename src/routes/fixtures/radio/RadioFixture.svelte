@@ -27,7 +27,7 @@
 		id="tested-radio"
 		value="blue"
 		disabled={scenario === 'disabled'}
-		readOnly={scenario === 'readonly'}
+		readonly={scenario === 'readonly'}
 	>
 		Blue
 	</Radio.Root>

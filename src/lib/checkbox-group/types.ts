@@ -16,12 +16,11 @@ export interface CheckboxGroupProps extends Omit<HTMLAttributes<HTMLDivElement>,
 	/**
 	 * Values of the checkboxes in the group that are ticked.
 	 * Use `bind:value` to share the array with the parent.
-	 * Omit it to start from `defaultValue`. A one-way `value` sets it until the parent changes it.
 	 * `undefined` is an empty selection. Hold the array with `eventDetails.cancel()`.
 	 */
 	value?: string[];
 	/**
-	 * Ticked values when `value` is omitted, and when a controlled `value` is cleared.
+	 * The values an empty `value` starts from.
 	 * @default []
 	 */
 	defaultValue?: string[];

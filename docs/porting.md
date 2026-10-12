@@ -217,7 +217,7 @@ The owner sets `mounted = false` once exit animations finish. Measured frame by 
 4. **`$effect.pre` runs before `bind:this` on mount.** Its first run sees `undefined`, and it re-runs when the element is set.
 5. **Attachments re-run on any reactive read inside them.** Wrap reads that must not re-attach in `untrack`.
 6. **Register in `$effect`, not `<script>`.** Script registration overlaps a swapped sibling's unregister.
-7. **A reset restores `defaultValue`, not the initial bound value.** Without `defaultValue`, a bound input resets to `""`. Bound state updates one microtask after the `reset` event.
+7. **A reset restores `defaultValue`, not the initial bound value.** Without `defaultValue`, a bound input resets to `""`. When the user clicks a reset button, sync and microtask code in a `reset` listener still sees the old values, and only a task later (`setTimeout`) sees the reset ones. A programmatic `form.reset()` already shows reset values to microtasks. `isTrusted` is true in both cases.
 8. **A one-way prop is not controlled.** A child with `$bindable` can diverge from a parent value that is not bound. Use `bind:x={get, set}` for strict control.
 9. **`type="button"` follows spread props onto other tags.** A part that renders a consumer-chosen element drops tag-specific defaults.
 10. **SvelteKit 3 removed `$lib`.** Declare `"imports": { "#lib/*": "./src/lib/*" }` and import with the file extension.

@@ -18,7 +18,7 @@
 
 	let {
 		value = $bindable(undefined),
-		defaultValue = 0,
+		initialValue = undefined,
 		passValue = false,
 		bind = false,
 		orientation = 'horizontal',
@@ -40,7 +40,7 @@
 		onValueChange = undefined
 	}: {
 		value?: unknown;
-		defaultValue?: unknown;
+		initialValue?: unknown;
 		passValue?: boolean;
 		bind?: boolean;
 		orientation?: 'horizontal' | 'vertical';
@@ -100,20 +100,15 @@
 		<button type="button" onclick={() => (shown[0] = false)}>Remove first</button>
 
 		{#if bind}
-			<Tabs.Root
-				bind:value={held}
-				{defaultValue}
-				{orientation}
-				onValueChange={record ? log : undefined}
-			>
+			<Tabs.Root bind:value={held} {orientation} onValueChange={record ? log : undefined}>
 				{@render body()}
 			</Tabs.Root>
 		{:else if passValue}
-			<Tabs.Root value={held} {defaultValue} {orientation} onValueChange={record ? log : undefined}>
+			<Tabs.Root value={held} {orientation} onValueChange={record ? log : undefined}>
 				{@render body()}
 			</Tabs.Root>
 		{:else}
-			<Tabs.Root {defaultValue} {orientation} onValueChange={record ? log : undefined}>
+			<Tabs.Root value={initialValue} {orientation} onValueChange={record ? log : undefined}>
 				{@render body()}
 			</Tabs.Root>
 		{/if}

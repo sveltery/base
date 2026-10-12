@@ -62,7 +62,9 @@ export function controllableRootCases(part: Part) {
 
 	it('bind starting from undefined receives the first write', async () => {
 		render(ControllableRootsHarness, { part, mode: 'bind' });
-		await expect.element(page.getByTestId('owner')).toHaveTextContent('none');
+		// A form control writes its default into an empty binding, as an HTML input does.
+		const empty = part === 'switch' || part === 'checkbox' ? 'false' : 'none';
+		await expect.element(page.getByTestId('owner')).toHaveTextContent(empty);
 		(control(part).element() as HTMLElement).click();
 		await expect.element(page.getByTestId('owner')).toHaveTextContent(target.wrote);
 	});

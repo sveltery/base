@@ -56,7 +56,7 @@
 		id="tested-checkbox"
 		bind:checked={box.checked}
 		disabled={scenario === 'disabled'}
-		readOnly={scenario === 'readonly'}
+		readonly={scenario === 'readonly'}
 		onCheckedChange={box.changed}
 		onclick={box.prevent}
 	>

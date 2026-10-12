@@ -13,6 +13,6 @@
 		readOnly = false;
 	}}>Enable</button
 >
-<Switch.Root bind:checked {disabled} {readOnly} required>
+<Switch.Root bind:checked {disabled} readonly={readOnly} required>
 	<Switch.Thumb data-testid="thumb" />
 </Switch.Root>

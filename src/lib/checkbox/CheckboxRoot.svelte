@@ -12,7 +12,6 @@
 	import { createAttachmentKey, type Attachment } from 'svelte/attachments';
 	import { currentHost, dispatchClick, forwardKeyUp, isLink } from '../internal/click.js';
 	import { toCssStyle } from '../internal/css-style.js';
-	import { createControllableValue } from '../internal/controllable-value.svelte.js';
 	import {
 		createChangeEventDetails,
 		REASONS,
@@ -24,22 +23,17 @@
 	import { useCheckboxGroupContext } from './group-context.js';
 	import { findAssociatedLabel } from '../internal/associated-label.js';
 	import { getDefaultFormSubmitter } from './submitter.js';
-	import type {
-		CheckboxHostProps,
-		CheckboxRootChangeEventDetails,
-		CheckboxRootProps,
-		CheckboxRootState
-	} from './types.js';
+	import type { CheckboxHostProps, CheckboxRootProps, CheckboxRootState } from './types.js';
 
 	const uid = $props.id();
 	const rootKey = createAttachmentKey();
 	const group = useCheckboxGroupContext();
 
 	let {
-		checked = $bindable(undefined),
+		checked = $bindable(),
 		defaultChecked = false,
 		disabled = false,
-		readOnly = false,
+		readonly: readOnly = false,
 		required = false,
 		indeterminate = false,
 		parent = false,
@@ -61,20 +55,16 @@
 		...elementProps
 	}: CheckboxRootProps = $props();
 
+	// `defaultChecked` is the initial value of an empty binding, as in HTML.
+	if (checked === undefined) checked = defaultChecked;
+
 	const generatedRootId = $derived('base-ui-' + uid);
 	const generatedControlId = $derived(`base-ui-${uid}-control`);
 	const controlId = $derived(id ?? generatedControlId);
 	const hiddenInputId = $derived(nativeButton ? undefined : controlId);
 	const rootId = $derived(nativeButton ? controlId : generatedRootId);
 
-	const controllable = createControllableValue<boolean, CheckboxRootChangeEventDetails>({
-		getProp: () => checked,
-		setProp: (next) => {
-			checked = next;
-		},
-		getDefault: () => defaultChecked
-	});
-	const checkedState = $derived(controllable.value === true);
+	const checkedState = $derived(checked === true);
 
 	// `value` identifies the checkbox in a group. `name` is the fallback, matching upstream.
 	const identified = $derived(value !== undefined ? value : name);
@@ -199,15 +189,17 @@
 			return;
 		}
 
-		controllable.set(nextChecked, details);
+		checked = nextChecked;
 	}
+
+	let enterHeld = false;
 
 	function handleInputFocus() {
 		rootNode?.focus();
 	}
 
 	function handleClick(event: MouseEvent & { currentTarget: EventTarget & HTMLElement }) {
-		if (isDisabled) {
+		if (isDisabled || enterHeld) {
 			event.preventDefault();
 			return;
 		}
@@ -220,11 +212,17 @@
 		dispatchClick(inputNode, event);
 	}
 
+	function handleKeyUp(event: KeyboardEvent & { currentTarget: EventTarget & HTMLElement }) {
+		if (event.key === 'Enter') enterHeld = false;
+		forwardKeyUp(event, isDisabled, onkeyup, nativeButton);
+	}
+
 	function handleMouseDown(event: MouseEvent & { currentTarget: EventTarget & HTMLElement }) {
 		if (!isDisabled) onmousedown?.(event);
 	}
 
 	function handlePointerDown(event: PointerEvent & { currentTarget: EventTarget & HTMLElement }) {
+		enterHeld = false;
 		if (isDisabled) {
 			event.preventDefault();
 			return;
@@ -240,19 +238,12 @@
 		// Enter does not tick the checkbox. It submits the form unless a later listener cancels it.
 		if (event.key === 'Enter') {
 			if (event.defaultPrevented) return;
-			const host = event.currentTarget;
+			// A native button turns Enter into a click. That click is ignored until the key is up.
+			if (nativeButton) enterHeld = true;
 			const formToSubmit = inputNode?.form ?? null;
-			let preventedAfter = false;
-			const originalPreventDefault = event.preventDefault.bind(event);
-			event.preventDefault = () => {
-				preventedAfter = true;
-				originalPreventDefault();
-			};
-			originalPreventDefault();
-			const view = host.ownerDocument.defaultView ?? window;
+			const view = event.currentTarget.ownerDocument.defaultView ?? window;
 			view.queueMicrotask(() => {
-				event.preventDefault = originalPreventDefault;
-				if (!preventedAfter) getDefaultFormSubmitter(formToSubmit)?.click();
+				if (!event.defaultPrevented) getDefaultFormSubmitter(formToSubmit)?.click();
 			});
 			return;
 		}
@@ -320,7 +311,7 @@
 			onmousedown: handleMouseDown,
 			onpointerdown: handlePointerDown,
 			onkeydown: handleKeyDown,
-			onkeyup: (event) => forwardKeyUp(event, isDisabled, onkeyup, nativeButton),
+			onkeyup: handleKeyUp,
 			[rootKey]: registerRoot
 		};
 	});

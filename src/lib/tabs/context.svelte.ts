@@ -3,9 +3,7 @@
 // (commit 47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c). MIT, see THIRD_PARTY_NOTICES.md.
 
 import { getContext, setContext, untrack } from 'svelte';
-import { callPublic } from '../internal/callPublic.js';
 import { indicatorListeners } from './indicator-listeners.js';
-import type { ControllableValue } from '../internal/controllable-value.svelte.js';
 import { byDocumentOrder } from '../internal/document-order.js';
 import { REASONS } from '@sveltery/utils';
 import { activationDirection } from './direction.js';
@@ -41,15 +39,27 @@ export class TabsRootModel {
 	private lastTabElement: HTMLElement | null = null;
 
 	constructor(
-		private readonly values: ControllableValue<TabsValue | null>,
+		private readonly readValue: () => TabsValue | null | undefined,
+		private readonly writeValue: (next: TabsValue | null) => void,
 		private readonly readOrientation: () => TabsOrientation,
 		private readonly readOnValueChange: () =>
 			((value: TabsValue | null, eventDetails: TabsRootChangeEventDetails) => void) | undefined
 	) {
-		this.directionBaseline = values.value ?? null;
+		this.directionBaseline = this.value;
+		// A value passed at mount belongs to the parent: no `initial` notice, and a
+		// disabled tab it names stays selected until that tab has been valid once.
+		const initialValue = untrack(() => this.readValue());
+		const explicitInitial = initialValue !== undefined;
+		let honorDisabledInitial = explicitInitial;
+		this.notifiedInitial = explicitInitial;
+
+		// A parent write has no click to measure from, so direction comes from the tab positions.
+		$effect(() => {
+			const next = this.value;
+			untrack(() => this.refineDirection(next));
+		});
 
 		$effect(() => {
-			if (this.values.controlled) return;
 			const tabs = this.tabs;
 			const current = this.value;
 
@@ -60,7 +70,7 @@ export class TabsRootModel {
 					this.lastTabElement != null &&
 					!this.lastTabElement.isConnected
 				) {
-					this.commitAutomatic(null, REASONS.missing);
+					untrack(() => this.commitAutomatic(null, REASONS.missing));
 				}
 				return;
 			}
@@ -72,6 +82,9 @@ export class TabsRootModel {
 			const selectionDisabled = selected?.disabled ?? false;
 			const selectionMissing = selected == null && current !== null;
 
+			if (!selectionDisabled && current === initialValue) honorDisabledInitial = false;
+			if (honorDisabledInitial && selectionDisabled && current === initialValue) return;
+
 			if (selectionDisabled || selectionMissing) {
 				const fallback = tabs.find((tab) => !tab.disabled)?.value ?? null;
 				if (current === fallback) {
@@ -81,16 +94,17 @@ export class TabsRootModel {
 				let reason: TabsRootChangeEventReason = REASONS.missing;
 				if (!this.notifiedInitial) reason = REASONS.initial;
 				else if (selectionDisabled) reason = REASONS.disabled;
-				this.commitAutomatic(fallback, reason);
+				untrack(() => this.commitAutomatic(fallback, reason));
 				return;
 			}
 
 			if (!this.notifiedInitial && selected) {
 				this.notifiedInitial = true;
-				// The selection is already current, so `set` only writes the bindable.
-				// `announce` tells the consumer after the DOM update, as a later change does.
-				this.values.set(current);
-				this.values.announce(createTabsChangeEventDetails(REASONS.initial, undefined, 'none'));
+				const details = createTabsChangeEventDetails(REASONS.initial, undefined, 'none');
+				untrack(() => {
+					if (this.readValue() === undefined) this.writeValue(current);
+					this.readOnValueChange()?.(current, details);
+				});
 			}
 		});
 	}
@@ -126,7 +140,7 @@ export class TabsRootModel {
 			positionOf(this.tabs, next, this.orientation)
 		);
 		const details = createTabsChangeEventDetails(REASONS.none, event, direction);
-		callPublic(this.readOnValueChange(), next, details);
+		this.readOnValueChange()?.(next, details);
 		if (details.isCanceled) return;
 		this.commit(next, direction);
 	}
@@ -136,12 +150,8 @@ export class TabsRootModel {
 	}
 
 	get value(): TabsValue | null {
-		const current = this.values.value;
-		return current == null ? null : current;
-	}
-
-	set value(next: TabsValue | null) {
-		this.values.set(next);
+		const current = this.readValue();
+		return current === undefined ? 0 : current;
 	}
 
 	registerTab(element: HTMLElement, value: TabsValue, disabled: boolean, id: string) {
@@ -211,19 +221,17 @@ export class TabsRootModel {
 		return this.panelElements.indexOf(element);
 	}
 
-	private commit(
-		next: TabsValue | null,
-		direction: TabsActivationDirection,
-		details?: TabsRootChangeEventDetails
-	) {
+	private commit(next: TabsValue | null, direction: TabsActivationDirection) {
 		this.directionBaseline = next;
 		this.tabActivationDirection = direction;
-		this.values.set(next, details);
+		this.writeValue(next);
 	}
 
+	/** Automatic changes notify, but `cancel()` cannot stop them. */
 	private commitAutomatic(next: TabsValue | null, reason: TabsRootChangeEventReason) {
 		this.notifiedInitial = true;
-		this.commit(next, 'none', createTabsChangeEventDetails(reason, undefined, 'none'));
+		this.readOnValueChange()?.(next, createTabsChangeEventDetails(reason, undefined, 'none'));
+		this.commit(next, 'none');
 	}
 }
 

@@ -70,19 +70,12 @@ type PartRender<Element extends EventTarget, State> = Snippet<
 export interface TabsRootProps extends Omit<HTMLAttributes<HTMLDivElement>, 'children'> {
 	/**
 	 * The selected tab value.
-	 * Omit it and the root starts at `0`, then moves to the first enabled tab
-	 * when that selection is disabled or missing.
-	 * Pass it, or `bind:value`, to hold the selection: the root does not move it
-	 * when a tab is disabled or removed. A click can still change it until the
-	 * parent passes a new value. `null` selects nothing.
+	 * Use `bind:value` to share it with the parent. Pass a value without `bind:`
+	 * to set only the initial selection. The root moves it to the first enabled
+	 * tab when the selected tab is disabled or removed. `null` selects nothing.
 	 * @default 0
 	 */
 	value?: TabsValue | null;
-	/**
-	 * Value used when `value` is omitted, and when a controlled `value` is cleared.
-	 * @default 0
-	 */
-	defaultValue?: TabsValue | null;
 	/**
 	 * Layout direction. Arrow keys follow it.
 	 * @default 'horizontal'
@@ -91,7 +84,7 @@ export interface TabsRootProps extends Omit<HTMLAttributes<HTMLDivElement>, 'chi
 	/**
 	 * Called when the selected value changes.
 	 * `reason` is `none` for a click or keyboard activation, `initial` for the
-	 * first automatic selection when `value` is omitted, `disabled` when the
+	 * first selection once the tabs mount, `disabled` when the
 	 * selected tab becomes disabled, and `missing` when it is removed.
 	 * `cancel()` stops a `none` change. It does not stop automatic changes.
 	 */

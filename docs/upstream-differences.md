@@ -6,9 +6,23 @@ Intentional differences from Base UI v1.8.0 (`47b40521eab921c2756bf9bdb0b0f07fbf
 
 Pin: `47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c`, `packages/react/src/merge-props/mergeProps.ts`. The rightmost bag wins plain props. Its event handler runs first. `event.preventBaseUIHandler()` skips the handlers to its left. `preventDefault()` does not. `className` is concatenated with the rightmost class first. `style` is a React style object, and the rightmost property wins. A function argument receives the props merged so far and replaces them. Handlers that function returns are not wrapped. `ref` is not merged.
 
-Local: `src/lib/internal/mergeProps.ts`. The same order. The prop is `class`, a Svelte class value (string, object, or array), merged as an array with the rightmost bag first. `style` is a CSS string; the rightmost declaration wins for the same property. Handler names accept Svelte's `onclick` and React's `onClick`. `preventBaseUIHandler()` is installed when the argument has an event shape (`type` and `preventDefault`), including an event created in an iframe. `instanceof Event` is not the check, because that is false across windows. A value without that shape still runs every handler. Attachment symbols are all kept, in bag order. There is no ref. `chain` and `mergeClass` are the same helper. Call sites pass the consumer bag last.
+Local: `src/lib/internal/mergeProps.ts`. The same order. `event.preventDefault()` is the skip signal: when a handler leaves `defaultPrevented` set, the handlers to its left do not run. There is no `preventBaseUIHandler`. Parts that call the consumer handler themselves use the same signal, so every part skips on `preventDefault()`. The check reads the event's shape (`type` and `preventDefault`), so an event from an iframe skips too. The prop is `class`, a Svelte class value (string, object, or array), merged as an array with the rightmost bag first. `style` is a CSS string, and the rightmost declaration wins for the same property. A style object is ignored. Handler names are Svelte's lowercase names, such as `onclick`. `onClick` is a plain prop. Attachment symbols are all kept, in bag order. There is no ref. `chain` and `mergeClass` are the same helper. Call sites pass the consumer bag last.
 
-Test: `src/lib/internal/mergeProps.spec.ts`. `src/lib/popover/Popover.svelte.spec.ts` (`skips the toggle when an iframe event calls preventBaseUIHandler`).
+Test: `src/lib/internal/mergeProps.spec.ts`. `src/lib/popover/Popover.svelte.spec.ts` (`skips the toggle when an iframe event calls preventDefault`).
+
+## Props
+
+Upstream pairs each stateful prop with a `default*` prop and switches between controlled and uncontrolled mode at mount.
+
+Local: each stateful prop is one `$bindable` prop. `bind:x` shares it, a one-way value sets it until the parent changes it, and `bind:x={get, set}` lets the parent reject a change. Change callbacks run in the event handler, before the value is written, and `eventDetails.cancel()` stops the write. A parent write never calls a change callback.
+
+- `defaultValue` and `defaultChecked` exist only on the 8 form controls (Field.Control and Input, Checkbox, CheckboxGroup, Switch, RadioGroup, Slider, NumberField and OTPField). They are the value an empty binding starts from, as on an HTML input.
+- Toggle, ToggleGroup, Tabs, Accordion, Collapsible, Dialog and Popover have no `default*` prop. Pass `pressed`, `value` or `open` without `bind:` to set only the initial state. Dialog and Popover take an initial `triggerId` the same way.
+- Tabs moves the selection to the first enabled tab when the selected tab is disabled or removed, whether or not the parent passed `value`. Upstream keeps a controlled value. A value passed at mount does not get the `initial` notice, and a disabled tab it names stays selected until that tab has been enabled once, as an upstream `defaultValue` does.
+- A canceled `Field.Control` change puts the input back to the held value. Upstream keeps the typed text in an uncontrolled input.
+- `readonly`, `autocomplete` and `inputmode` use the HTML spelling. State keys such as `readOnly` keep upstream's camelCase.
+
+Test: `src/tests/controllable-root-cases.ts`, `src/lib/tabs/Tabs.svelte.spec.ts` (`moves a passed value to the first enabled tab when its tab becomes disabled`).
 
 ## Portal
 
@@ -115,16 +129,16 @@ Local: `Dialog.Handle.setPayload` writes into a private map, and only when that 
 
 Test: `src/lib/dialog/Dialog.svelte.spec.ts` (`does not store a payload for a trigger that is not registered`, `keeps the current payload when opened with an unknown trigger id`).
 
-| Upstream                                                             | Local                                                                                                  |
-| -------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------ |
-| `open` / `defaultOpen`, `triggerId` / `defaultTriggerId`             | `createControllableValue` with `$bindable` `open` / `triggerId` and `defaultOpen` / `defaultTriggerId` |
-| `actionsRef`                                                         | `bind:this` on `Dialog.Root` (`close` and `unmount`)                                                   |
-| `initialFocus` / `finalFocus` ref objects                            | element or function, called when focus moves                                                           |
-| `children` render function `{ payload }`                             | snippet argument `{ payload }`                                                                         |
-| React `useButton`                                                    | existing `Button`                                                                                      |
-| `useDismiss` outside press, including separate mouse and touch modes | the same modes on `useDismiss`. A press is inside the floating element, not the portal host            |
+| Upstream                                                             | Local                                                                                       |
+| -------------------------------------------------------------------- | ------------------------------------------------------------------------------------------- |
+| `open` / `defaultOpen`, `triggerId` / `defaultTriggerId`             | `$bindable` `open` / `triggerId`. A one-way value sets the initial state                    |
+| `actionsRef`                                                         | `bind:this` on `Dialog.Root` (`close` and `unmount`)                                        |
+| `initialFocus` / `finalFocus` ref objects                            | element or function, called when focus moves                                                |
+| `children` render function `{ payload }`                             | snippet argument `{ payload }`                                                              |
+| React `useButton`                                                    | existing `Button`                                                                           |
+| `useDismiss` outside press, including separate mouse and touch modes | the same modes on `useDismiss`. A press is inside the floating element, not the portal host |
 
-Not ported: Alert Dialog, Drawer, and ref objects. Mouse and touch use separate outside-press modes on `useDismiss`. A backdrop is `intentional` for both. Without one, touch is `sloppy` and mouse is `sloppy` only for `trap-focus`. A tap closes on the browser's mousedown. A short move closes on touchend. A scroll-away closes during the move. After 1s with the finger still down, touchend and that mousedown do not close. An intentional touch waits for the click. One lifted touch is required. A press is inside when the target is in the floating element or an open floating-tree child. The portal host is not inside. `defaultTriggerId` selects the trigger for `aria-expanded` and is not written back into `triggerId`.
+Not ported: Alert Dialog, Drawer, and ref objects. Mouse and touch use separate outside-press modes on `useDismiss`. A backdrop is `intentional` for both. Without one, touch is `sloppy` and mouse is `sloppy` only for `trap-focus`. A tap closes on the browser's mousedown. A short move closes on touchend. A scroll-away closes during the move. After 1s with the finger still down, touchend and that mousedown do not close. An intentional touch waits for the click. One lifted touch is required. A press is inside when the target is in the floating element or an open floating-tree child. The portal host is not inside. An initial `triggerId` selects the trigger for `aria-expanded`.
 
 ### Timers clear when the owner is destroyed
 

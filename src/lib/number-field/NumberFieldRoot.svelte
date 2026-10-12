@@ -11,7 +11,7 @@
 	import { useFormContext } from '../form/context.js';
 	import { useFieldContext } from '../field/context.svelte.js';
 	import { useLabelableContext } from '../field/labelable.svelte.js';
-	import { createControllableValue } from '../internal/controllable-value.svelte.js';
+	import { useValueChanged } from '../internal/useValueChanged.svelte.js';
 	import PartHost from '../internal/PartHost.svelte';
 	import { getStateAttributesProps } from '../internal/state-attributes.js';
 	import { visuallyHidden, visuallyHiddenInput } from '@sveltery/utils';
@@ -37,7 +37,7 @@
 		largeStep = 10,
 		required = false,
 		disabled: disabledProp = false,
-		readOnly = false,
+		readonly: readOnly = false,
 		name: nameProp,
 		form: formId,
 		defaultValue = null,
@@ -54,20 +54,23 @@
 		...elementProps
 	}: NumberFieldRootProps = $props();
 
+	// `defaultValue` is the initial value of an empty binding, as in HTML.
+	if (value === undefined) value = defaultValue;
+
 	const field = useFieldContext();
 	const form = useFormContext();
 	const labelable = useLabelableContext(true);
 
-	const controllable = createControllableValue<number | null, NumberFieldChangeEventDetails>({
-		getProp: () => value,
-		setProp: (next) => {
-			value = next;
-		},
-		getDefault: () => defaultValue,
-		onChange(next, details) {
+	const current = $derived<number | null>(value ?? null);
+	// The reason of the write this component made. A parent write has none.
+	let writeReason: string | undefined;
+	useValueChanged(
+		() => current,
+		(next) => {
+			const reason = writeReason;
+			writeReason = undefined;
 			form.clearErrors(name);
 			field.setDirty(next !== field.validityData.initialValue);
-			const reason = details?.reason;
 			// Blur already committed when this mode does not validate on change.
 			// A second pass would clear that result.
 			if (
@@ -78,8 +81,7 @@
 			}
 			field.change(next);
 		}
-	});
-	const current = $derived<number | null>(controllable.value ?? null);
+	);
 	const disabled = $derived(Boolean(field.disabled) || disabledProp);
 	const name = $derived(field.name ?? nameProp);
 	const step = $derived(stepProp === 'any' ? 1 : stepProp);
@@ -90,7 +92,8 @@
 
 	function writeValue(next: number | null, details?: NumberFieldChangeEventDetails) {
 		if (Object.is(current, next)) return;
-		controllable.set(next, details);
+		writeReason = details?.reason;
+		value = next;
 	}
 
 	const model = new NumberFieldModel({
