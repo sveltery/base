@@ -167,13 +167,13 @@
 		<button
 			{...triggerAProps}
 			style="position: fixed; left: 20px; top: 40px"
-			{@attach registerTrigger(store, () => 'trigger-a')}
+			{@attach registerTrigger(store.triggers, () => 'trigger-a')}
 			{@attach hoverA.attachReference}>A</button
 		>
 		<button
 			{...triggerBProps}
 			style="position: fixed; left: 240px; top: 40px"
-			{@attach registerTrigger(store, () => 'trigger-b')}
+			{@attach registerTrigger(store.triggers, () => 'trigger-b')}
 			{@attach hoverB.attachReference}>B</button
 		>
 	{:else if showTrigger}
@@ -186,7 +186,7 @@
 					: scenario === 'reopen'
 						? 'position: fixed; left: 24px; top: 20px'
 						: undefined}
-			{@attach registerTrigger(store, () => 'open-trigger')}
+			{@attach registerTrigger(store.triggers, () => 'open-trigger')}
 			{@attach hoverReference.attachReference}>Open</button
 		>
 	{/if}

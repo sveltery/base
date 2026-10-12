@@ -96,7 +96,7 @@
 
 	$effect(() => {
 		const id = triggerId;
-		if (id == null || store.triggerCount === 0) return;
+		if (id == null) return;
 		const node = store.triggers.getById(id);
 		if (node && store.domReferenceElement !== node) store.domReferenceElement = node;
 	});

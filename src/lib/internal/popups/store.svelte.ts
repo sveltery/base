@@ -28,7 +28,6 @@ export interface PopupStoreOptions<Reason extends string> {
 }
 
 export class PopupStore<Reason extends string> extends FloatingRootStore {
-	triggerCount = $state(0);
 	preventUnmountingOnClose = $state(false);
 	private readonly readOpen: PopupStoreOptions<Reason>['readOpen'];
 	private readonly writeOpen: PopupStoreOptions<Reason>['writeOpen'];
@@ -63,6 +62,10 @@ export class PopupStore<Reason extends string> extends FloatingRootStore {
 
 	get open() {
 		return this.readOpen() === true;
+	}
+
+	get triggerCount() {
+		return this.triggers.size;
 	}
 
 	get mounted() {

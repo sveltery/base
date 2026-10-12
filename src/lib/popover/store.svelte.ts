@@ -197,7 +197,6 @@ export class PopoverStore extends PopupStore<PopoverChangeReason> {
 	noteTrigger(id: string, element: HTMLElement, read: () => TriggerOwned) {
 		this.triggers.add(id, element);
 		this.readers.set(id, read);
-		this.triggerCount = this.triggers.size;
 		// Open, the active element, and the trigger count must not re-run the
 		// trigger's registration effect. Only the trigger id stays tracked there.
 		untrack(() => {
@@ -215,7 +214,6 @@ export class PopoverStore extends PopupStore<PopoverChangeReason> {
 	forgetTrigger(id: string, element: HTMLElement) {
 		if (this.triggers.getById(id) === element) this.triggers.delete(id);
 		this.readers.delete(id);
-		this.triggerCount = this.triggers.size;
 	}
 
 	override setOpen(

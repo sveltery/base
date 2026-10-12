@@ -77,16 +77,7 @@
 		return untrack(() => {
 			const triggers = current?.triggers ?? handle?.fallbackTriggers;
 			if (!triggers) return;
-			const owner = {
-				triggers,
-				get triggerCount() {
-					return current?.triggerCount ?? 0;
-				},
-				set triggerCount(next: number) {
-					if (current) current.triggerCount = next;
-				}
-			};
-			const detach = registerTrigger(owner, () => id)(node);
+			const detach = registerTrigger(triggers, () => id)(node);
 			if (current?.open) {
 				const active = current.domReferenceElement;
 				if ((active == null && current.triggers.size === 1) || active?.id === id) {
