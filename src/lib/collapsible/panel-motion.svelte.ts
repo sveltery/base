@@ -4,7 +4,7 @@
 
 import { getAbortSignal } from 'svelte';
 import { on } from 'svelte/events';
-import { useAnimationFrame, REASONS } from '@sveltery/utils';
+import { ScopedAnimationFrame, REASONS } from '@sveltery/utils';
 import { runOnceAnimationsFinish } from '../internal/animations-finished.js';
 import { useOpenChangeComplete } from '../internal/useOpenChangeComplete.svelte.js';
 import type { CollapsibleRoot } from './context.svelte.js';
@@ -20,7 +20,7 @@ import {
 import type { TransitionStatus } from './types.js';
 
 export class CollapsiblePanelMotion {
-	private readonly endingFrame = useAnimationFrame();
+	private readonly endingFrame = new ScopedAnimationFrame();
 	height = $state<number | undefined>(undefined);
 	width = $state<number | undefined>(undefined);
 	panel = $state<HTMLElement | null>(null);

@@ -1,8 +1,10 @@
 /**
- * Timers are created with `useTimeout` / `useInterval` / `useAnimationFrame`.
+ * Timers are created with `new ScopedTimeout()` / `new ScopedInterval()` /
+ * `new ScopedAnimationFrame()` during component init.
  * `new Timeout()`, `Timeout.create()`, `new Interval()`, `new AnimationFrame()`, and
  * `AnimationFrame.create()` belong in `packages/utils/src/timeout.ts`
- * (the classes) and `packages/utils/src/timeout.svelte.ts` (the scoped factories).
+ * (the classes) and `packages/utils/src/timeout.svelte.ts` (the scoped subclasses).
+ * A timer that no component owns needs a disable comment that names its owner.
  * An import alias or a `const` alias of the class or of `.create` is the same call.
  *
  * @type {import('eslint').Rule.RuleModule}
@@ -181,7 +183,7 @@ const rule = {
 		schema: [],
 		messages: {
 			unscoped:
-				'Create this timer with `useTimeout()`, `useInterval()`, or `useAnimationFrame()` from `@sveltery/utils` so it is cleared when the component is destroyed.'
+				'Create this timer with `new ScopedTimeout()`, `new ScopedInterval()`, or `new ScopedAnimationFrame()` from `@sveltery/utils` so it is cleared when the component is destroyed.'
 		}
 	},
 	create(context) {

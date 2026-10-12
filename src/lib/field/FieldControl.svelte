@@ -5,7 +5,7 @@
 -->
 <script lang="ts">
 	import { flushSync, untrack } from 'svelte';
-	import { useTimeout, createChangeEventDetails, REASONS } from '@sveltery/utils';
+	import { ScopedTimeout, createChangeEventDetails, REASONS } from '@sveltery/utils';
 	import { createAttachmentKey } from 'svelte/attachments';
 	import type { HTMLAttributes, HTMLInputAttributes } from 'svelte/elements';
 	import { useFormContext } from '../form/context.js';
@@ -50,7 +50,7 @@
 	// Outside Field.Root this is the shared inert field. Registration and
 	// validation no-op. A private labelable still supplies ids.
 	const field = useFieldContext();
-	const commitTimer = useTimeout();
+	const commitTimer = new ScopedTimeout();
 	const labelableFromContext = useLabelableContext(true);
 	const labelable = labelableFromContext ?? new Labelable(undefined, () => fallbackId);
 

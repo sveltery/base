@@ -2,7 +2,7 @@
 // (commit 47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c). MIT, see THIRD_PARTY_NOTICES.md.
 
 import { untrack } from 'svelte';
-import { useAnimationFrame } from '@sveltery/utils';
+import { ScopedAnimationFrame } from '@sveltery/utils';
 import { useOpenChangeComplete } from './useOpenChangeComplete.svelte.js';
 
 export type TransitionStatusValue = 'starting' | 'ending' | 'idle' | undefined;
@@ -21,8 +21,8 @@ export class TransitionStatus {
 	mounted = $state(false);
 	transitionStatus = $state<TransitionStatusValue>(undefined);
 	private readonly readOpen: () => boolean;
-	private readonly endingFrame = useAnimationFrame();
-	private readonly settleFrame = useAnimationFrame();
+	private readonly endingFrame = new ScopedAnimationFrame();
+	private readonly settleFrame = new ScopedAnimationFrame();
 
 	constructor(readOpen: () => boolean, options: TransitionStatusOptions = {}) {
 		const {

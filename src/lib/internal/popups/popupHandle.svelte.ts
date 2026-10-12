@@ -11,8 +11,7 @@ import {
 	createChangeEventDetails,
 	REASONS,
 	type BaseUIChangeEventDetails,
-	useAnimationFrame,
-	type AnimationFrame
+	AnimationFrame
 } from '@sveltery/utils';
 import { PopupTriggerMap } from '@sveltery/floating-ui-svelte';
 
@@ -33,7 +32,8 @@ export class PopupHandle<Payload = unknown, Store extends PopupHandleStore = Pop
 	attached = $state.raw<Store | null>(null);
 	readonly fallbackTriggers = new PopupTriggerMap();
 	private readonly stack: Store[] = [];
-	private overlapFrame: AnimationFrame | undefined;
+	// eslint-disable-next-line sveltery/no-unscoped-timer -- a handle can outlive every root; the callback rechecks
+	private readonly overlapFrame = new AnimationFrame();
 
 	get store() {
 		return this.attached;
@@ -43,7 +43,6 @@ export class PopupHandle<Payload = unknown, Store extends PopupHandleStore = Pop
 		this.stack.push(store);
 		this.attached = store;
 		if (DEV && this.stack.length > 1) {
-			this.overlapFrame ??= useAnimationFrame();
 			this.overlapFrame.request(() => {
 				if (this.stack.length > 1) {
 					console.warn(

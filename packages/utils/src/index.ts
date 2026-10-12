@@ -22,5 +22,5 @@ export {
 	TimeoutManager,
 	resetAnimationFrameScheduler
 } from './timeout.js';
-export { useAnimationFrame, useInterval, useTimeout } from './timeout.svelte.js';
+export { ScopedAnimationFrame, ScopedInterval, ScopedTimeout } from './timeout.svelte.js';
 export { visuallyHidden, visuallyHiddenInput, visuallyHiddenStyle } from './visuallyHidden.js';

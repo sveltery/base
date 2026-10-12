@@ -1,7 +1,7 @@
 // Derived from Base UI v1.8.0 packages/react/src/collapsible/panel/useCollapsiblePanel.ts
 // (commit 47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c). MIT, see THIRD_PARTY_NOTICES.md.
 
-import { useAnimationFrame, warn } from '@sveltery/utils';
+import { AnimationFrame, warn } from '@sveltery/utils';
 
 export type AnimationType = 'css-transition' | 'css-animation' | 'none';
 
@@ -94,7 +94,8 @@ export function resetLayoutStyles(element: HTMLElement): () => void {
 		}
 	}
 
-	const frame = useAnimationFrame();
+	// eslint-disable-next-line sveltery/no-unscoped-timer -- the returned cleanup cancels it
+	const frame = new AnimationFrame();
 	frame.request(restore);
 	return () => {
 		frame.cancel();

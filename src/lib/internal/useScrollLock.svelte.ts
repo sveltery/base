@@ -8,8 +8,8 @@ import {
 	ownerDocument,
 	ownerWindow,
 	platform,
-	useAnimationFrame,
-	useTimeout
+	ScopedAnimationFrame,
+	Timeout
 } from '@sveltery/utils';
 
 let originalHtmlStyles: Partial<CSSStyleDeclaration> = {};
@@ -75,7 +75,7 @@ function preventScrollInsetScrollbars(referenceElement: Element | null) {
 	let scrollTop = 0;
 	let scrollLeft = 0;
 	let updateGutterOnly = false;
-	const resizeFrame = useAnimationFrame();
+	const resizeFrame = new ScopedAnimationFrame();
 
 	if (platform.engine.webkit && (win.visualViewport?.scale ?? 1) !== 1) return () => {};
 
@@ -169,8 +169,10 @@ function preventScrollInsetScrollbars(referenceElement: Element | null) {
 class ScrollLocker {
 	lockCount = 0;
 	restore: (() => void) | null = null;
-	timeoutLock = useTimeout();
-	timeoutUnlock = useTimeout();
+	// eslint-disable-next-line sveltery/no-unscoped-timer -- module singleton, not owned by a component
+	timeoutLock = new Timeout();
+	// eslint-disable-next-line sveltery/no-unscoped-timer -- module singleton, not owned by a component
+	timeoutUnlock = new Timeout();
 
 	acquire(referenceElement: Element | null) {
 		this.lockCount += 1;

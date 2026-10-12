@@ -4,7 +4,7 @@
 // when two popups share one element, matching upstream.
 
 import { SvelteMap } from 'svelte/reactivity';
-import { useTimeout, type Timeout } from '@sveltery/utils';
+import { ScopedTimeout, type Timeout } from '@sveltery/utils';
 import type { FloatingRootStore } from '../components/FloatingRootStore.svelte.js';
 import type { HandleClose, SafePolygonOptions } from '../safePolygon.js';
 
@@ -25,8 +25,8 @@ export class HoverInteraction {
 	readonly handleCloseByTrigger = new SvelteMap<Element, () => HandleClose | null>();
 
 	constructor(private readonly store: FloatingRootStore) {
-		this.openChangeTimeout = useTimeout();
-		this.restTimeout = useTimeout();
+		this.openChangeTimeout = new ScopedTimeout();
+		this.restTimeout = new ScopedTimeout();
 	}
 
 	/** The active trigger's safe-polygon handler. */

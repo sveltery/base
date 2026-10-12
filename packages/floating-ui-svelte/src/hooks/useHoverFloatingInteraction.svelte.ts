@@ -8,7 +8,7 @@ import {
 	ownerDocument,
 	contains,
 	getTarget,
-	useTimeout
+	ScopedTimeout
 } from '@sveltery/utils';
 import type { FloatingRootStore } from '../components/FloatingRootStore.svelte.js';
 import { useFloatingParentNodeId, useFloatingTree } from '../components/FloatingTree.svelte.js';
@@ -28,7 +28,7 @@ export function useHoverFloatingInteraction(
 	const tree = useFloatingTree();
 	const parentId = useFloatingParentNodeId();
 	const instance = hoverInteraction(store);
-	const childClosedTimeout = useTimeout();
+	const childClosedTimeout = new ScopedTimeout();
 
 	function options() {
 		const value = props();

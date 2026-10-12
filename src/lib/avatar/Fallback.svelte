@@ -5,7 +5,7 @@
 -->
 <script lang="ts">
 	import { untrack } from 'svelte';
-	import { useTimeout } from '@sveltery/utils';
+	import { ScopedTimeout } from '@sveltery/utils';
 	import { getStateAttributesProps } from '../internal/state-attributes.js';
 	import { avatarStateAttributesMapping } from './attributes.js';
 	import { useAvatarContext } from './context.js';
@@ -14,7 +14,7 @@
 	let { render, delay = 0, children, ...elementProps }: AvatarFallbackProps = $props();
 
 	const root = useAvatarContext();
-	const delayTimer = useTimeout();
+	const delayTimer = new ScopedTimeout();
 	// `delay === 0` is visible on the first render, including SSR, before the effect runs.
 	let delayPassed = $state(untrack(() => delay === 0));
 	const partState: AvatarFallbackState = $derived({

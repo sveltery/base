@@ -6,8 +6,8 @@ import {
 	createChangeEventDetails,
 	REASONS,
 	getTarget,
-	useAnimationFrame,
-	useTimeout,
+	ScopedAnimationFrame,
+	ScopedTimeout,
 	type OpenInteractionType,
 	useOpenInteractionType
 } from '@sveltery/utils';
@@ -28,8 +28,8 @@ export function useClick<Reason extends string>(
 	store: FloatingRootStore,
 	props: () => UseClickProps = () => ({})
 ) {
-	const frame = useAnimationFrame();
-	const touchOpenTimeout = useTimeout();
+	const frame = new ScopedAnimationFrame();
+	const touchOpenTimeout = new ScopedTimeout();
 	let pointerType: 'mouse' | 'pen' | 'touch' | 'virtual' | undefined;
 
 	function options() {

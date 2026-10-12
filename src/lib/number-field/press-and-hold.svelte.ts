@@ -1,7 +1,7 @@
 // Derived from Base UI v1.8.0 packages/react/src/internals/usePressAndHold.ts
 // (commit 47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c). MIT, see THIRD_PARTY_NOTICES.md.
 
-import { ownerWindow, useInterval, useTimeout } from '@sveltery/utils';
+import { ownerWindow, ScopedInterval, ScopedTimeout } from '@sveltery/utils';
 import { on } from 'svelte/events';
 
 const TICK_DELAY = 60;
@@ -34,9 +34,9 @@ export function createPressAndHold(options: PressAndHoldOptions) {
 	let touchingButton = false;
 	let ignoreClick = false;
 	let pointerType = '';
-	const startTimer = useTimeout();
-	const tickInterval = useInterval();
-	const touchTimer = useTimeout();
+	const startTimer = new ScopedTimeout();
+	const tickInterval = new ScopedInterval();
+	const touchTimer = new ScopedTimeout();
 	let removeContextMenu: (() => void) | undefined;
 	let removePointerUp: (() => void) | undefined;
 

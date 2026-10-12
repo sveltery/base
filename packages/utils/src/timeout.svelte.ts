@@ -1,45 +1,33 @@
 // Derived from Base UI v1.8.0 packages/utils/src/useTimeout.ts (`useTimeout`) and
 // packages/utils/src/useAnimationFrame.ts (`useAnimationFrame`)
 // (commit 47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c). MIT, see THIRD_PARTY_NOTICES.md.
-// Upstream disposes the timer with `useOnMount`. This registers the same cleanup
-// with `$effect` when the factory runs during component init. There is no ref.
+// Upstream disposes the timer with `useOnMount`. These register the same cleanup with
+// `$effect`, so construct them during component init. Svelte throws `effect_orphan`
+// anywhere else. A timer whose owner is not a component is a plain `Timeout` or
+// `AnimationFrame` that its owner cancels.
 
 import { AnimationFrame, Interval, Timeout } from './timeout.js';
 
-function createdOutsideInit(error: unknown) {
-	if (!(error instanceof Error)) return false;
-	return (
-		error.message.includes('effect_orphan') ||
-		error.message.includes('lifecycle_outside_component') ||
-		error.message.includes('effect_in_unowned_derived')
-	);
-}
-
-/** `$effect` cleanup when this runs during init. A module-level owner keeps `clear` itself. */
-function registerScope(clear: () => void) {
-	try {
-		$effect(() => () => {
-			clear();
-		});
-	} catch (error) {
-		if (!createdOutsideInit(error)) throw error;
+/** A `Timeout` cleared when the component that created it is destroyed. */
+export class ScopedTimeout extends Timeout {
+	constructor() {
+		super();
+		$effect(() => () => this.clear());
 	}
 }
 
-export function useTimeout() {
-	const timeout = new Timeout();
-	registerScope(timeout.clear);
-	return timeout;
+/** An `AnimationFrame` cancelled when the component that created it is destroyed. */
+export class ScopedAnimationFrame extends AnimationFrame {
+	constructor() {
+		super();
+		$effect(() => () => this.cancel());
+	}
 }
 
-export function useAnimationFrame() {
-	const frame = new AnimationFrame();
-	registerScope(frame.cancel);
-	return frame;
-}
-
-export function useInterval() {
-	const interval = new Interval();
-	registerScope(interval.clear);
-	return interval;
+/** An `Interval` cleared when the component that created it is destroyed. */
+export class ScopedInterval extends Interval {
+	constructor() {
+		super();
+		$effect(() => () => this.clear());
+	}
 }

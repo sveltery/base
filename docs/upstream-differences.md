@@ -165,7 +165,7 @@ Not ported: Alert Dialog, Drawer, and ref objects. Mouse and touch use separate 
 
 Pin: `47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c`, `packages/utils/src/useTimeout.ts` and `packages/utils/src/useAnimationFrame.ts`. `useTimeout` / `useAnimationFrame` dispose on unmount.
 
-Local: `useTimeout()` and `useAnimationFrame()` in `src/lib/internal/timeout.svelte.ts`. Each call creates one `Timeout` or `AnimationFrame` and registers `$effect(() => () => clear())` during component init. There is no ref. A timer created outside init, such as the shared scroll-lock locker, is not tied to a component; its owner still clears it. `new Timeout()`, `Timeout.create()`, `new AnimationFrame()`, and `AnimationFrame.create()` stay in `timeout.ts`.
+Local: `ScopedTimeout`, `ScopedInterval` and `ScopedAnimationFrame` in `packages/utils/src/timeout.svelte.ts`. Each subclasses the plain timer and registers `$effect(() => () => clear())` in its constructor, so it is constructed during component init. There is no ref. A timer that no component owns, such as the shared scroll-lock locker, is a plain `Timeout` or `AnimationFrame` that its owner clears.
 
 Test: `src/lib/internal/overlay-foundation.svelte.spec.ts` (`does not open when the trigger unmounts during touchOpenDelay`).
 

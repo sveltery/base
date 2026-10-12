@@ -11,7 +11,7 @@ import {
 	platform,
 	contains,
 	getTarget,
-	useTimeout
+	ScopedTimeout
 } from '@sveltery/utils';
 import { getNodeChildren } from '../components/FloatingTreeStore.js';
 import { useFloatingTree } from '../components/FloatingTree.svelte.js';
@@ -67,8 +67,8 @@ function resolvePressMode(
 
 export function useDismiss(store: FloatingRootStore, props: () => UseDismissProps = () => ({})) {
 	const tree = useFloatingTree();
-	const compositionTimeout = useTimeout();
-	const cancelDismissOnEndTimeout = useTimeout();
+	const compositionTimeout = new ScopedTimeout();
+	const cancelDismissOnEndTimeout = new ScopedTimeout();
 	let composing = false;
 	let sawPressWhileOpen = false;
 	let pressStartedInside = false;

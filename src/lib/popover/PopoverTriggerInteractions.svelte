@@ -38,6 +38,8 @@
 		enabled: !disabled,
 		stickIfOpen: owner.stickIfOpen
 	}));
+	// One polygon per trigger. The options getter runs on every event.
+	const handleClose = safePolygon();
 	const hover = useHoverReferenceInteraction(owner, () => ({
 		enabled:
 			!disabled &&
@@ -45,7 +47,7 @@
 			(owner.openMethod !== 'touch' || owner.openChangeReason !== REASONS.triggerPress),
 		mouseOnly: true,
 		move: false,
-		handleClose: safePolygon(),
+		handleClose,
 		restMs: delay,
 		delay: { close: closeDelay },
 		placement: () => owner.readPlacement()

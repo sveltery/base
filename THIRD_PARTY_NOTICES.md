@@ -185,7 +185,7 @@ Parts of this package derive from [Base UI](https://github.com/mui/base-ui) v1.8
 - `src/lib/scroll-area/track-style.ts` and `src/lib/scroll-area/scrollbar-part.svelte.ts` from the scrollbar geometry in `packages/react/src/scroll-area/scrollbar/ScrollAreaScrollbar.tsx`
 - `src/lib/internal/roving-keys.ts` from the arrow-key helpers in `packages/react/src/internals/composite/root/useCompositeRoot.ts` (`modifierHeld`, `axisKeys`)
 - `packages/utils/src/timeout.ts` from `packages/utils/src/useTimeout.ts` (`Timeout`), `packages/utils/src/useAnimationFrame.ts` (`AnimationFrame`), and `packages/react/src/internals/TimeoutManager.ts`
-- `packages/utils/src/timeout.svelte.ts` from `packages/utils/src/useTimeout.ts` (`useTimeout`) and `packages/utils/src/useAnimationFrame.ts` (`useAnimationFrame`). Cleanup is `$effect`, not `useOnMount`
+- `packages/utils/src/timeout.svelte.ts` from `packages/utils/src/useTimeout.ts` (`useTimeout`) and `packages/utils/src/useAnimationFrame.ts` (`useAnimationFrame`) as `ScopedTimeout`, `ScopedInterval` and `ScopedAnimationFrame`. Cleanup is `$effect`, not `useOnMount`
 - `src/lib/otp-field/otp.spec.ts` assertions from `packages/react/src/otp-field/utils/otp.test.ts`
 - `src/lib/otp-field/OTPField.svelte.spec.ts` assertions from `packages/react/src/otp-field/**/*.test.tsx` that do not require React refs or `className` callbacks
 - `src/lib/csp-provider/CSPProvider.svelte` from `packages/react/src/csp-provider/CSPProvider.tsx`

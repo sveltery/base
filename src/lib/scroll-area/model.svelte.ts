@@ -6,7 +6,7 @@
 
 import { untrack } from 'svelte';
 import { on } from 'svelte/events';
-import { contains, getTarget, platform, useTimeout } from '@sveltery/utils';
+import { contains, getTarget, platform, ScopedTimeout } from '@sveltery/utils';
 import { getOffset } from './dom.js';
 import {
 	applyOverscrollThumb,
@@ -77,10 +77,10 @@ export class ScrollAreaModel {
 	private readonly hostStyles = new WeakMap<HTMLElement, string | null | undefined>();
 	private programmaticScroll = true;
 	private lastMeasured: [number, number, number, number] = [NaN, NaN, NaN, NaN];
-	private readonly scrollYTimer = useTimeout();
-	private readonly scrollXTimer = useTimeout();
-	private readonly scrollEndTimer = useTimeout();
-	private readonly animationTimer = useTimeout();
+	private readonly scrollYTimer = new ScopedTimeout();
+	private readonly scrollXTimer = new ScopedTimeout();
+	private readonly scrollEndTimer = new ScopedTimeout();
+	private readonly animationTimer = new ScopedTimeout();
 
 	constructor(
 		readThreshold: () => OverflowEdgeThreshold | undefined,

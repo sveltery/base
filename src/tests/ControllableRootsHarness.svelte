@@ -8,7 +8,7 @@
 		Toggle,
 		ToggleGroup
 	} from '#lib';
-	import { useTimeout } from '@sveltery/utils';
+	import { ScopedTimeout } from '@sveltery/utils';
 
 	type Part =
 		| 'switch'
@@ -29,7 +29,7 @@
 		onChange?: (value: unknown) => void;
 	} = $props();
 
-	const confirmTimer = useTimeout();
+	const confirmTimer = new ScopedTimeout();
 
 	let checked = $state<boolean | undefined>(
 		(mode === 'journal' && (part === 'switch' || part === 'checkbox')) || mode === 'confirm'

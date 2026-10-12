@@ -8,7 +8,7 @@
 
 import { untrack } from 'svelte';
 import {
-	useAnimationFrame,
+	ScopedAnimationFrame,
 	createChangeEventDetails,
 	createGenericEventDetails,
 	REASONS,
@@ -181,7 +181,7 @@ export class SliderRootModel {
 	private currentInteractionValue: number | number[] | null = null;
 	private latestValues: readonly number[] = [];
 	private styles: CSSStyleDeclaration | null = null;
-	private readonly focusFrame = useAnimationFrame();
+	private readonly focusFrame = new ScopedAnimationFrame();
 	private listeningDoc: Document | null = null;
 	private pinnedFieldInput = false;
 	private readonly options: SliderModelOptions;

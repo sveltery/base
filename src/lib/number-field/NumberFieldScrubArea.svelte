@@ -14,7 +14,7 @@
 		ownerDocument,
 		ownerWindow,
 		platform,
-		useTimeout,
+		ScopedTimeout,
 		getTarget
 	} from '@sveltery/utils';
 	import { getStateAttributesProps } from '../internal/state-attributes.js';
@@ -47,7 +47,7 @@
 	let didMove = false;
 	let pointerDownTarget: EventTarget | null = null;
 	const cursorPoint = { x: 0, y: 0 };
-	const exitTimer = useTimeout();
+	const exitTimer = new ScopedTimeout();
 
 	const scrubState: NumberFieldScrubAreaState = $derived(model.state);
 

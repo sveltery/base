@@ -10,7 +10,7 @@ import type { Middleware } from '@floating-ui/dom';
 import { untrack } from 'svelte';
 import { SvelteMap } from 'svelte/reactivity';
 import type { HTMLAttributes } from 'svelte/elements';
-import { createChangeEventDetails, REASONS, useTimeout } from '@sveltery/utils';
+import { createChangeEventDetails, REASONS, ScopedTimeout } from '@sveltery/utils';
 import { runOnceAnimationsFinish } from '../internal/animations-finished.js';
 import { PopupStore } from '../internal/popups/store.svelte.js';
 import { PATIENT_CLICK_THRESHOLD } from './constants.js';
@@ -57,7 +57,7 @@ export class PopoverStore extends PopupStore<PopoverChangeReason> {
 	/** Viewport CSS variables. They travel with the style attribute. */
 	positionerVars = $state<Record<string, string>>({});
 	popupVars = $state<Record<string, string>>({});
-	private readonly stickTimeout = useTimeout();
+	private readonly stickTimeout = new ScopedTimeout();
 	private readonly readModal: () => PopoverModal;
 	private readonly readTriggerId: () => string | null | undefined;
 	private readonly writeTriggerIdValue: (id: string | null) => void;
