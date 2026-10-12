@@ -94,8 +94,11 @@
 	let portalNode = $state<HTMLDivElement | null>(null);
 	let client = $state(false);
 	let focusState = $state<FloatingPortalFocus | null>(null);
-	let home = $state<HTMLElement | ShadowRoot | null>(null);
 	const parent = useFloatingPortal();
+	// The open focus effect reads `home`, so a container swap re-runs it without looking like a close.
+	const home = $derived(
+		!client || container === null ? null : (container ?? parent?.node ?? document.body)
+	);
 	const guards: FloatingPortalGuards = {
 		beforeOutside: null,
 		afterOutside: null,
@@ -123,15 +126,6 @@
 		}
 	};
 	setContext<FloatingPortalContext>(PORTAL, portalContext);
-
-	// The open focus effect reads `home`, so a container swap re-runs it without looking like a close.
-	$effect(() => {
-		if (!client || container === null) {
-			home = null;
-			return;
-		}
-		home = container ?? parent?.node ?? document.body;
-	});
 
 	const showOutsideGuards = $derived(
 		focusState != null && !focusState.modal && focusState.open && portalNode != null
