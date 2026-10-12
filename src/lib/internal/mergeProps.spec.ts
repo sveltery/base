@@ -1,6 +1,6 @@
 import { createAttachmentKey, type Attachment } from 'svelte/attachments';
-import { describe, expect, it, vi } from 'vitest';
-import { mergeClass, mergeProps } from './mergeProps.js';
+import { describe, expect, it } from 'vitest';
+import { chain, mergeClass, mergeProps } from './mergeProps.js';
 
 describe('mergeProps', () => {
 	it('lets the rightmost plain prop win and runs that bag’s handler first', () => {
@@ -14,7 +14,7 @@ describe('mergeProps', () => {
 		expect(order).toEqual(['right', 'left']);
 	});
 
-	it('still runs the earlier handler when the rightmost calls preventDefault', () => {
+	it('skips the earlier handler when the rightmost calls preventDefault', () => {
 		const order: string[] = [];
 		const props = mergeProps(
 			{
@@ -32,24 +32,37 @@ describe('mergeProps', () => {
 		const event = new Event('mousedown', { cancelable: true });
 		props.onmousedown(event);
 		expect(event.defaultPrevented).toBe(true);
-		expect(order).toEqual(['right', 'left']);
+		expect(order).toEqual(['right']);
 	});
 
-	it('stops the earlier handler when the rightmost calls preventBaseUIHandler', () => {
-		const internal = vi.fn();
+	it('skips the earlier handler for any event-shaped argument, such as one from an iframe', () => {
+		const order: string[] = [];
 		const props = mergeProps(
-			{ onmousedown: internal },
+			{ onclick: () => order.push('left') },
 			{
-				onmousedown(event: Event) {
-					event.preventBaseUIHandler?.();
+				onclick(event: Event) {
+					order.push('right');
+					event.preventDefault();
 				}
 			}
-		) as { onmousedown: (event: Event) => void };
-		const event = new Event('mousedown', { cancelable: true });
-		props.onmousedown(event);
-		expect(event.baseUIHandlerPrevented).toBe(true);
-		expect(event.defaultPrevented).toBe(false);
-		expect(internal).not.toHaveBeenCalled();
+		) as { onclick: (event: unknown) => void };
+		const event = {
+			type: 'click',
+			defaultPrevented: false,
+			preventDefault() {
+				this.defaultPrevented = true;
+			}
+		};
+		props.onclick(event);
+		expect(order).toEqual(['right']);
+	});
+
+	it('treats a React-cased handler as a plain prop', () => {
+		const lower = () => 'lower';
+		const upper = () => 'upper';
+		const props = mergeProps({ onclick: lower }, { onClick: upper }) as Record<string, unknown>;
+		expect(props.onclick).toBe(lower);
+		expect(props.onClick).toBe(upper);
 	});
 
 	it('keeps an object class and a string class together, rightmost first', () => {
@@ -64,6 +77,13 @@ describe('mergeProps', () => {
 		expect(props.style).toContain('color: blue');
 		expect(props.style).toContain('margin: 0px');
 		expect(props.style.indexOf('color: blue')).toBeGreaterThan(props.style.indexOf('color: red'));
+	});
+
+	it('ignores a style object', () => {
+		const props = mergeProps({ style: 'color: red' }, { style: { color: 'blue' } }) as unknown as {
+			style: string;
+		};
+		expect(props.style).toBe('color: red');
 	});
 
 	it('runs every attachment', () => {
@@ -104,5 +124,21 @@ describe('mergeProps', () => {
 describe('mergeClass', () => {
 	it('keeps the component class and a consumer object class', () => {
 		expect(mergeClass('component', { consumer: true })).toEqual([{ consumer: true }, 'component']);
+	});
+});
+
+describe('chain', () => {
+	it('runs the consumer handler, then the component handler unless the consumer prevented', () => {
+		const order: string[] = [];
+		const handler = chain(
+			() => order.push('component'),
+			(event: Event) => {
+				order.push('consumer');
+				if (order.length > 2) event.preventDefault();
+			}
+		);
+		handler(new Event('pointerdown', { cancelable: true }));
+		handler(new Event('pointerdown', { cancelable: true }));
+		expect(order).toEqual(['consumer', 'component', 'consumer']);
 	});
 });

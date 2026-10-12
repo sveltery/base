@@ -6,20 +6,15 @@
 <script lang="ts">
 	import type { HTMLAttributes } from 'svelte/elements';
 	import { devWarn } from '../collapsible/warn.js';
-	import { createControllableValue } from '../internal/controllable-value.svelte.js';
 	import PartHost from '../internal/PartHost.svelte';
+	import { WrittenReference } from '../internal/written-reference.svelte.js';
 	import { getStateAttributesProps } from '../internal/state-attributes.js';
 	import { rootStateAttributesMapping } from './attributes.js';
 	import { AccordionRootModel, setAccordionRootContext } from './context.svelte.js';
-	import type {
-		AccordionRootChangeEventDetails,
-		AccordionRootProps,
-		AccordionRootState
-	} from './types.js';
+	import type { AccordionRootProps, AccordionRootState } from './types.js';
 
 	let {
-		value = $bindable(undefined),
-		defaultValue,
+		value = $bindable(),
 		disabled = false,
 		hiddenUntilFound = false,
 		keepMounted,
@@ -33,15 +28,14 @@
 	}: AccordionRootProps = $props();
 
 	const EMPTY: unknown[] = [];
-	const controllable = createControllableValue<unknown[], AccordionRootChangeEventDetails>({
-		getProp: () => value,
-		setProp: (next) => {
+	const selection = new WrittenReference<unknown[] | undefined>(
+		() => value,
+		(next) => {
 			value = next;
-		},
-		getDefault: () => defaultValue ?? EMPTY
-	});
+		}
+	);
 	const accordion = new AccordionRootModel(
-		() => controllable.value ?? EMPTY,
+		() => selection.current ?? EMPTY,
 		() => disabled,
 		() => multiple,
 		() => orientation,
@@ -49,9 +43,7 @@
 		() => keepMounted ?? false,
 		() => onValueChange
 	);
-	accordion.commit = (next, details) => {
-		controllable.set(next, details);
-	};
+	accordion.commit = (next) => selection.set(next);
 	setAccordionRootContext(accordion);
 
 	$effect(() => {

@@ -13,6 +13,6 @@
 		readOnly = false;
 	}}>Enable</button
 >
-<Checkbox.Root bind:checked {disabled} {readOnly} required>
+<Checkbox.Root bind:checked {disabled} readonly={readOnly} required>
 	<Checkbox.Indicator data-testid="indicator" />
 </Checkbox.Root>

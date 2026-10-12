@@ -33,7 +33,7 @@
 	let {
 		value,
 		disabled: disabledProp = false,
-		readOnly: readOnlyProp = false,
+		readonly: readOnlyProp = false,
 		required: requiredProp = false,
 		nativeButton = false,
 		id,

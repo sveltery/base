@@ -7,7 +7,6 @@
 	import type { Attachment } from 'svelte/attachments';
 	import type { HTMLButtonAttributes } from 'svelte/elements';
 	import type { CompositeHandlers } from '../internal/composite-root.svelte.js';
-	import { createControllableValue } from '../internal/controllable-value.svelte.js';
 	import { createChangeEventDetails, REASONS } from '@sveltery/utils';
 	import { getStateAttributesProps } from '../internal/state-attributes.js';
 	import { useToggleGroupContext } from '../toggle-group/context.svelte.js';
@@ -18,8 +17,7 @@
 	const group = useToggleGroupContext();
 
 	let {
-		pressed = $bindable(undefined),
-		defaultPressed = false,
+		pressed = $bindable(),
 		disabled = false,
 		value: valueProp,
 		onPressedChange,
@@ -37,16 +35,7 @@
 	// "" is treated as omitted, matching useBaseUiId(valueProp || undefined).
 	const resolvedValue = $derived(valueProp ? valueProp : `base-ui-${uid}`);
 	const disabledState = $derived(disabled || (group?.disabled ?? false));
-	const controllable = createControllableValue<boolean>({
-		getProp: () => pressed,
-		setProp: (next) => {
-			pressed = next;
-		},
-		getDefault: () => defaultPressed
-	});
-	const pressedState = $derived(
-		group ? group.values.includes(resolvedValue) : controllable.value === true
-	);
+	const pressedState = $derived(group ? group.values.includes(resolvedValue) : pressed === true);
 	const toggleState: ToggleState = $derived({ pressed: pressedState, disabled: disabledState });
 
 	let node = $state<HTMLButtonElement | null>(null);
@@ -84,7 +73,7 @@
 			return;
 		}
 
-		controllable.set(nextPressed, details);
+		pressed = nextPressed;
 	}
 
 	const hostProps: HTMLButtonAttributes & Record<symbol, Attachment<HTMLButtonElement>> =

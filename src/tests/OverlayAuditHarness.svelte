@@ -36,7 +36,7 @@
 {#if name === 'swap'}
 	<PortalReleaseHarness {part} mode="swap" />
 {:else if name === 'nested-clear'}
-	<Dialog.Root defaultOpen>
+	<Dialog.Root open>
 		<Dialog.Trigger>Outer</Dialog.Trigger>
 		<Dialog.Portal>
 			<Dialog.Popup data-testid="outer-popup">
@@ -48,7 +48,7 @@
 	</Dialog.Root>
 {:else if name === 'ancestor-outside'}
 	<div bind:this={innerHolder} data-testid="inner-holder" {@attach exposeClear}></div>
-	<Dialog.Root defaultOpen modal={false}>
+	<Dialog.Root open modal={false}>
 		<Dialog.Trigger>Outer</Dialog.Trigger>
 		<Dialog.Portal>
 			<Dialog.Popup data-testid="outer-popup">
@@ -150,7 +150,7 @@
 
 {#snippet clearedInner(loose: boolean)}
 	{#if innerHolder}
-		<Dialog.Root defaultOpen modal={!loose}>
+		<Dialog.Root open modal={!loose}>
 			<Dialog.Trigger data-testid={loose ? 'inner-trigger' : undefined}>Inner</Dialog.Trigger>
 			<Dialog.Portal container={innerContainer}>
 				<Dialog.Popup>

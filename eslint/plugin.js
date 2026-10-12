@@ -1,11 +1,9 @@
 import noClonedEvent from './no-cloned-event.js';
 import noDerivedInlineAttachment from './no-derived-inline-attachment.js';
 import noLayoutReadInDerived from './no-layout-read-in-derived.js';
-import noUncontrolledBindable from './no-uncontrolled-bindable.js';
 import noUnscopedTimer from './no-unscoped-timer.js';
 import noPreviousValueEffect from './no-previous-value-effect.js';
 import noProcessEnv from './no-process-env.js';
-import noPublicCallbackUntracked from './no-public-callback-untracked.js';
 import noPropStateSync from './no-prop-state-sync.js';
 import noReactRefs from './no-react-refs.js';
 import noSplitEffectLifecycle from './no-split-effect-lifecycle.js';
@@ -21,11 +19,9 @@ const plugin = {
 		'no-cloned-event': noClonedEvent,
 		'no-derived-inline-attachment': noDerivedInlineAttachment,
 		'no-layout-read-in-derived': noLayoutReadInDerived,
-		'no-uncontrolled-bindable': noUncontrolledBindable,
 		'no-unscoped-timer': noUnscopedTimer,
 		'no-previous-value-effect': noPreviousValueEffect,
 		'no-process-env': noProcessEnv,
-		'no-public-callback-untracked': noPublicCallbackUntracked,
 		'no-prop-state-sync': noPropStateSync,
 		'no-react-refs': noReactRefs,
 		'no-split-effect-lifecycle': noSplitEffectLifecycle,

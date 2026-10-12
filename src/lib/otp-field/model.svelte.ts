@@ -6,7 +6,6 @@
 // parent update. Props are read through getters. Element lists live on SlotList.
 
 import type { HTMLInputAttributes } from 'svelte/elements';
-import { callPublic } from '../internal/callPublic.js';
 import type { FieldContext } from '../field/model.svelte.js';
 import type { FormContextValue } from '../form/context.js';
 import {
@@ -40,7 +39,7 @@ export interface OTPFieldModelOptions {
 	getAutoSubmit: () => boolean;
 	getAutoComplete: () => HTMLInputAttributes['autocomplete'];
 	getMask: () => boolean;
-	getInputMode: () => OTPFieldRootProps['inputMode'];
+	getInputMode: () => OTPFieldRootProps['inputmode'];
 	getFormId: () => string | undefined;
 	getName: () => string | undefined;
 	getControlId: () => string;
@@ -260,7 +259,7 @@ export class OTPFieldModel {
 			return null;
 		}
 
-		callPublic(this.options.getOnValueChange(), normalizedValue, details);
+		this.options.getOnValueChange()?.(normalizedValue, details);
 		if (details.isCanceled) return null;
 
 		if (completeEventDetails != null) {
@@ -274,7 +273,7 @@ export class OTPFieldModel {
 	}
 
 	reportValueInvalid(invalidValue: string, details: OTPFieldInvalidEventDetails) {
-		callPublic(this.options.getOnValueInvalid(), invalidValue, details);
+		this.options.getOnValueInvalid()?.(invalidValue, details);
 	}
 
 	handleHiddenInput(event: Event & { currentTarget: EventTarget & HTMLInputElement }) {
@@ -349,7 +348,7 @@ export class OTPFieldModel {
 	}
 
 	private completeValue(completedValue: string, eventDetails: OTPFieldCompleteEventDetails) {
-		callPublic(this.options.getOnValueComplete(), completedValue, eventDetails);
+		this.options.getOnValueComplete()?.(completedValue, eventDetails);
 		if (!this.autoSubmit) return;
 		if (this.hiddenInput) this.hiddenInput.value = completedValue;
 		this.requestSubmit();

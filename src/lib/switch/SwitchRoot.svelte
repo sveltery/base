@@ -10,7 +10,6 @@
 	import { createAttachmentKey, type Attachment } from 'svelte/attachments';
 	import { currentHost, dispatchClick, forwardKeyUp, isLink } from '../internal/click.js';
 	import { toCssStyle } from '../internal/css-style.js';
-	import { createControllableValue } from '../internal/controllable-value.svelte.js';
 	import {
 		createChangeEventDetails,
 		REASONS,
@@ -27,10 +26,10 @@
 	const rootKey = createAttachmentKey();
 
 	let {
-		checked = $bindable(undefined),
+		checked = $bindable(),
 		defaultChecked = false,
 		disabled = false,
-		readOnly = false,
+		readonly: readOnly = false,
 		required = false,
 		nativeButton = false,
 		name,
@@ -50,6 +49,10 @@
 		...elementProps
 	}: SwitchRootProps = $props();
 
+	// `defaultChecked` is the initial value of an empty binding, as in HTML.
+	// svelte-ignore state_referenced_locally
+	if (checked === undefined) checked = defaultChecked;
+
 	// Two ids: the root's generated id, and the control id on the hidden input
 	// (or on the root when nativeButton is set). An explicit id replaces the control id.
 	const generatedRootId = $derived(`base-ui-${uid}`);
@@ -58,14 +61,7 @@
 	const hiddenInputId = $derived(nativeButton ? undefined : controlId);
 	const rootId = $derived(nativeButton ? controlId : generatedRootId);
 
-	const controllable = createControllableValue<boolean>({
-		getProp: () => checked,
-		setProp: (next) => {
-			checked = next;
-		},
-		getDefault: () => defaultChecked
-	});
-	const checkedState = $derived(controllable.value === true);
+	const checkedState = $derived(checked === true);
 	const switchState: SwitchRootState = $derived({
 		checked: checkedState,
 		disabled,
@@ -122,7 +118,7 @@
 			return;
 		}
 
-		controllable.set(nextChecked, details);
+		checked = nextChecked;
 	}
 
 	function handleInputFocus() {

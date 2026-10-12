@@ -56,7 +56,7 @@ export interface OTPFieldRootProps extends Omit<HTMLAttributes<HTMLDivElement>, 
 	 * The input autocomplete attribute. Applied to the first slot and hidden validation input.
 	 * @default 'one-time-code'
 	 */
-	autoComplete?: HTMLInputAttributes['autocomplete'];
+	autocomplete?: HTMLInputAttributes['autocomplete'];
 	/**
 	 * Identifies the form that owns the hidden input and the slots.
 	 * The value must match a form element's id in the same document.
@@ -77,7 +77,7 @@ export interface OTPFieldRootProps extends Omit<HTMLAttributes<HTMLDivElement>, 
 	 */
 	mask?: boolean;
 	/** Virtual keyboard hint for the slots and the hidden validation input. */
-	inputMode?: HTMLInputAttributes['inputmode'];
+	inputmode?: HTMLInputAttributes['inputmode'];
 	/** Which characters the OTP accepts. @default 'numeric' */
 	validationType?: OTPFieldValidationType;
 	/**
@@ -90,15 +90,14 @@ export interface OTPFieldRootProps extends Omit<HTMLAttributes<HTMLDivElement>, 
 	/** Whether the component should ignore user interaction. @default false */
 	disabled?: boolean;
 	/** Whether the user should be unable to change the field value. @default false */
-	readOnly?: boolean;
+	readonly?: boolean;
 	/** Identifies the field when a form is submitted. */
 	name?: string;
 	/**
 	 * The OTP value. Use `bind:value` to share it with the parent.
-	 * Omit it to leave the field uncontrolled, starting from `defaultValue`.
 	 */
 	value?: string;
-	/** Initial value of an uncontrolled field. Ignored when `value` is passed. */
+	/** The value an empty `value` starts from, as on an HTML input. */
 	defaultValue?: string;
 	/**
 	 * Called when the OTP value changes. `eventDetails.cancel()` vetoes the change.

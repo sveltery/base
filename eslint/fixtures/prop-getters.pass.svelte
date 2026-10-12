@@ -14,11 +14,11 @@
 
 	const EMPTY: unknown[] = [];
 
-	function createControllableValue<T>(options: { getProp: () => T | undefined }) {
+	function readProp<T>(options: { getProp: () => T | undefined }) {
 		return options.getProp();
 	}
 
-	const current = createControllableValue({ getProp: () => value });
+	const current = readProp({ getProp: () => value });
 
 	const model = {
 		get value() {

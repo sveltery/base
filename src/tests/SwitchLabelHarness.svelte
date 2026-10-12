@@ -32,6 +32,6 @@
 	</Switch.Root>
 {:else}
 	<label data-testid="label">
-		<Switch.Root readOnly />
+		<Switch.Root readonly />
 	</label>
 {/if}

@@ -85,10 +85,9 @@ export interface FieldControlProps extends Omit<
 > {
 	/**
 	 * Current value. Use `bind:value` to share it with the parent.
-	 * Omit it to leave the input uncontrolled, starting from `defaultValue`.
 	 */
 	value?: string | number | null;
-	/** Initial value of an uncontrolled input. Ignored when `value` is passed. */
+	/** The value an empty `value` starts from, as on an HTML input. */
 	defaultValue?: string | number | null;
 	/** Called when the user edits the control. `eventDetails.cancel()` vetoes the change. */
 	onValueChange?: (value: string, eventDetails: FieldControlChangeEventDetails) => void;

@@ -15,7 +15,7 @@
 	import { useFieldContext } from '../field/context.svelte.js';
 	import { useLabelableContext } from '../field/labelable.svelte.js';
 	import { useFormContext } from '../form/context.js';
-	import { createControllableValue } from '../internal/controllable-value.svelte.js';
+	import { useValueChanged } from '../internal/useValueChanged.svelte.js';
 	import { watchFieldControl } from '../internal/field-register-control.svelte.js';
 	import { getStateAttributesProps } from '../internal/state-attributes.js';
 	import { visuallyHidden, visuallyHiddenInput } from '@sveltery/utils';
@@ -31,17 +31,17 @@
 
 	let {
 		id: idProp,
-		autoComplete = 'one-time-code',
+		autocomplete: autoComplete = 'one-time-code',
 		form: formId,
 		length,
 		autoSubmit = false,
 		mask = false,
-		inputMode,
+		inputmode: inputMode,
 		validationType = 'numeric',
 		normalizeValue,
 		required = false,
 		disabled: disabledProp = false,
-		readOnly = false,
+		readonly: readOnly = false,
 		name: nameProp,
 		defaultValue = '',
 		value = $bindable<string | undefined>(),
@@ -55,22 +55,15 @@
 		...elementProps
 	}: OTPFieldRootProps = $props();
 
+	// `defaultValue` is the initial value of an empty binding, as in HTML.
+	// svelte-ignore state_referenced_locally
+	if (value === undefined) value = defaultValue;
+
 	const field = useFieldContext();
 	const form = useFormContext();
 	const labelable = useLabelableContext(true);
 
-	const controllable = createControllableValue<string>({
-		getProp: () => value,
-		setProp: (next) => {
-			value = next ?? '';
-		},
-		getDefault: () => defaultValue,
-		onChange(next) {
-			if (next === undefined) return;
-			model.afterValueChange(next);
-		}
-	});
-	const raw = $derived(controllable.value ?? '');
+	const raw = $derived(value ?? '');
 	const generatedId = $derived(`base-ui-${uid}`);
 	const controlId = $derived(labelable?.controlId || idProp || generatedId);
 	const disabled = $derived(Boolean(field.disabled) || disabledProp);
@@ -79,7 +72,7 @@
 	let hadExplicitId = false;
 
 	function writeValue(next: string) {
-		controllable.set(next);
+		value = next;
 	}
 
 	const model = new OTPFieldModel({
@@ -106,6 +99,10 @@
 		getField: () => field,
 		getForm: () => form
 	});
+	useValueChanged(
+		() => raw,
+		(next) => model.afterValueChange(next)
+	);
 	setOTPFieldContext(model);
 
 	const describedBy = $derived(

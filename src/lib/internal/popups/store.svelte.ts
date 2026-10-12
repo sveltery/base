@@ -4,8 +4,7 @@
 // Immediate preventUnmountOnClose writes the flag before cancellation is checked.
 // A canceled close can leave preventUnmountingOnClose true. That matches Dialog.
 
-import { callPublic } from '../callPublic.js';
-import type { ControllableValue } from '../controllable-value.svelte.js';
+import { untrack } from 'svelte';
 import type { BaseUIChangeEventDetails } from '@sveltery/utils';
 import { FloatingRootStore } from '@sveltery/floating-ui-svelte';
 import { useOpenChangeComplete } from '../useOpenChangeComplete.svelte.js';
@@ -17,7 +16,8 @@ export type PopupChangeEventDetails<Reason extends string> = BaseUIChangeEventDe
 };
 
 export interface PopupStoreOptions<Reason extends string> {
-	open: ControllableValue<boolean>;
+	readOpen: () => boolean | undefined;
+	writeOpen: (open: boolean) => void;
 	floatingId: string;
 	floatingElement: 'popup' | 'positioner';
 	nested?: boolean;
@@ -30,7 +30,8 @@ export interface PopupStoreOptions<Reason extends string> {
 export class PopupStore<Reason extends string> extends FloatingRootStore {
 	triggerCount = $state(0);
 	preventUnmountingOnClose = $state(false);
-	private readonly openValue: ControllableValue<boolean>;
+	private readonly readOpen: PopupStoreOptions<Reason>['readOpen'];
+	private readonly writeOpen: PopupStoreOptions<Reason>['writeOpen'];
 	private readonly readOnOpenChange: PopupStoreOptions<Reason>['onOpenChange'];
 	private readonly readOnOpenChangeComplete: PopupStoreOptions<Reason>['onOpenChangeComplete'];
 	private readonly transition: PopupTransition;
@@ -41,7 +42,8 @@ export class PopupStore<Reason extends string> extends FloatingRootStore {
 			floatingId: options.floatingId,
 			floatingElementKind: options.floatingElement
 		});
-		this.openValue = options.open;
+		this.readOpen = options.readOpen;
+		this.writeOpen = options.writeOpen;
 		this.readOnOpenChange = options.onOpenChange;
 		this.readOnOpenChangeComplete = options.onOpenChangeComplete;
 		this.transition = new PopupTransition(() => this.open, options.animateInitialOpen ?? false);
@@ -58,7 +60,7 @@ export class PopupStore<Reason extends string> extends FloatingRootStore {
 	}
 
 	get open() {
-		return this.openValue.value === true;
+		return this.readOpen() === true;
 	}
 
 	get mounted() {
@@ -116,7 +118,8 @@ export class PopupStore<Reason extends string> extends FloatingRootStore {
 			details.trigger
 		);
 		this.domReferenceElement = next.activeTriggerElement;
-		callPublic(this.readOnOpenChange(), nextOpen, details);
+		// `handle.open()` can run inside a consumer effect. Its callback must not subscribe it.
+		untrack(() => this.readOnOpenChange()?.(nextOpen, details));
 		if (details.isCanceled) {
 			this.domReferenceElement = previousReference;
 			return;
@@ -126,7 +129,7 @@ export class PopupStore<Reason extends string> extends FloatingRootStore {
 		this.dispatchOpenChange(nextOpen, details);
 		if (nextOpen) this.preventUnmountingOnClose = false;
 		else if (timing === 'deferred' && readPrevent()) this.preventUnmountingOnClose = true;
-		this.openValue.set(nextOpen, details);
+		this.writeOpen(nextOpen);
 	}
 
 	private finishClose() {
@@ -146,7 +149,7 @@ export class PopupStore<Reason extends string> extends FloatingRootStore {
 	 * can write `$state`. Tracking that write makes the effect run again.
 	 */
 	private emitOpenChangeComplete(open: boolean) {
-		callPublic(this.readOnOpenChangeComplete(), open);
+		untrack(() => this.readOnOpenChangeComplete()?.(open));
 	}
 
 	/**

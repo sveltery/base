@@ -64,7 +64,7 @@
 {/snippet}
 
 {#if part === 'popover'}
-	<Popover.Root {defaultOpen} onOpenChange={changed}>
+	<Popover.Root open={defaultOpen} onOpenChange={changed}>
 		<Popover.Trigger disabled={disabledTrigger} nativeButton={false} {...notes}>
 			{#snippet render(props)}
 				{@render openHost(props)}
@@ -83,7 +83,7 @@
 		</Popover.Portal>
 	</Popover.Root>
 {:else}
-	<Dialog.Root {defaultOpen} onOpenChange={changed}>
+	<Dialog.Root open={defaultOpen} onOpenChange={changed}>
 		<Dialog.Trigger disabled={disabledTrigger} nativeButton={false} {...notes}>
 			{#snippet render(props)}
 				{@render openHost(props)}

@@ -1,7 +1,6 @@
 // Derived from Base UI v1.8.0 packages/react/src/toggle-group/ToggleGroupContext.ts
 // (commit 47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c). MIT, see THIRD_PARTY_NOTICES.md.
 import { getContext, hasContext, setContext } from 'svelte';
-import { callPublic } from '../internal/callPublic.js';
 import type { CompositeRoot } from '../internal/composite-root.svelte.js';
 import type { ToggleGroupChangeEventDetails } from './types.js';
 
@@ -11,13 +10,13 @@ const TOGGLE_GROUP_CONTEXT = Symbol('toggle-group');
 
 export class ToggleGroupContext {
 	/**
-	 * True when the parent passed `value` or `defaultValue` on the first render.
+	 * True when the parent passed `value` on the first render.
 	 * A later click that fills the array does not count: upstream only warns
 	 * when `value` or `defaultValue` was set.
 	 */
 	readonly valueProvided: boolean;
 	readonly roving: CompositeRoot;
-	commit: (next: string[], details?: ToggleGroupChangeEventDetails) => void = () => {};
+	commit: (next: string[]) => void = () => {};
 
 	constructor(
 		valueProvided: boolean,
@@ -60,9 +59,9 @@ export class ToggleGroupContext {
 			next = nextPressed ? [itemValue] : [];
 		}
 
-		callPublic(this.readOnValueChange(), next, eventDetails);
+		this.readOnValueChange()(next, eventDetails);
 		if (eventDetails.isCanceled) return;
-		this.commit(next, eventDetails);
+		this.commit(next);
 	}
 }
 

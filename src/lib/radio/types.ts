@@ -43,7 +43,7 @@ export interface RadioRootProps extends Omit<HTMLAttributes<HTMLElement>, 'child
 	 * Whether the user should be unable to select the radio button.
 	 * @default false
 	 */
-	readOnly?: boolean;
+	readonly?: boolean;
 	/**
 	 * Whether the user must choose a value before submitting a form.
 	 * @default false

@@ -22,13 +22,12 @@ export interface RadioGroupProps<Value = unknown> extends Omit<
 	/**
 	 * The selected radio's value.
 	 * Use `bind:value` to share it with the parent.
-	 * Omit it to start with nothing selected. A one-way `value` sets it until the parent changes it.
 	 * Hold the value with `eventDetails.cancel()` to keep a click from sticking.
 	 * Object values are compared with `===`. Store them with `$state.raw`.
 	 */
 	value?: Value;
 	/**
-	 * Value used when `value` is omitted.
+	 * The value an empty `value` starts from.
 	 * @default undefined
 	 */
 	defaultValue?: Value;
@@ -38,7 +37,7 @@ export interface RadioGroupProps<Value = unknown> extends Omit<
 	 * Whether the user should be unable to select a different radio button in the group.
 	 * @default false
 	 */
-	readOnly?: boolean;
+	readonly?: boolean;
 	/**
 	 * Whether the user must choose a value before submitting a form.
 	 * @default false

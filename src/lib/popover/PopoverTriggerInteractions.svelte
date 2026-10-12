@@ -5,7 +5,6 @@
 -->
 <script lang="ts">
 	import { untrack } from 'svelte';
-	import { callPublic } from '../internal/callPublic.js';
 	import { REASONS } from '@sveltery/utils';
 	import {
 		safePolygon,
@@ -54,12 +53,14 @@
 	const guards = useTriggerFocusGuards(owner, triggerEl);
 
 	$effect(() => {
-		callPublic(onArmed, {
-			click: click.reference,
-			hover: hover.reference,
-			attach: hover.attachReference,
-			guards
-		});
-		return () => callPublic(onArmed, null);
+		untrack(() =>
+			onArmed?.({
+				click: click.reference,
+				hover: hover.reference,
+				attach: hover.attachReference,
+				guards
+			})
+		);
+		return () => untrack(() => onArmed?.(null));
 	});
 </script>

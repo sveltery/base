@@ -10,7 +10,7 @@
 </script>
 
 {#if part === 'dialog'}
-	<Dialog.Root defaultOpen>
+	<Dialog.Root open>
 		<Dialog.Portal data-slot="dialog-portal" class="portal-host" {@attach mark}>
 			{#snippet render(props, _state, children)}
 				<div {...props} data-replacement="">
@@ -21,7 +21,7 @@
 		</Dialog.Portal>
 	</Dialog.Root>
 {:else}
-	<Popover.Root defaultOpen>
+	<Popover.Root open>
 		<Popover.Portal data-slot="popover-portal" class="portal-host" {@attach mark}>
 			{#snippet render(props, _state, children)}
 				<div {...props} data-replacement="">

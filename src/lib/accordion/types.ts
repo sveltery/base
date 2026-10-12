@@ -52,14 +52,10 @@ export interface AccordionRootProps extends Omit<HTMLAttributes<HTMLDivElement>,
 	/**
 	 * Values of the open items.
 	 * Use `bind:value` to share the array with the parent.
-	 * Omit it to start from `defaultValue`. A one-way `value` sets it until the parent changes it.
-	 */
-	value?: unknown[];
-	/**
-	 * Open values when `value` is omitted, and when a controlled `value` is cleared.
+	 * A value passed without `bind:` holds until the parent changes it.
 	 * @default []
 	 */
-	defaultValue?: unknown[];
+	value?: unknown[];
 	/** Whether the accordion should ignore user interaction. @default false */
 	disabled?: boolean;
 	/**

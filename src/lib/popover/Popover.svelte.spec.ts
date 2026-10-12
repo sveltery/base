@@ -179,7 +179,7 @@ describe('Popover', () => {
 		expect(page.getByTestId('calls').element().textContent).toContain('"canceled":true');
 	});
 
-	it('does not open when the trigger calls preventBaseUIHandler', async () => {
+	it('does not open when the trigger calls preventDefault', async () => {
 		render(PopoverFixture, { scenario: 'prevented' });
 		await page.getByRole('button', { name: 'Open' }).click();
 		await expect.poll(() => page.getByRole('dialog').elements().length).toBe(0);
@@ -207,7 +207,7 @@ describe('Popover', () => {
 		await expect.poll(() => page.getByRole('dialog').elements().length).toBe(0);
 	});
 
-	it('skips the toggle when an iframe event calls preventBaseUIHandler', async () => {
+	it('skips the toggle when an iframe event calls preventDefault', async () => {
 		const iframe = document.createElement('iframe');
 		document.body.appendChild(iframe);
 		const frameDocument = iframe.contentDocument;
@@ -225,7 +225,7 @@ describe('Popover', () => {
 				.poll(() => frameDocument.querySelector('[data-testid="opens"]')?.textContent)
 				.toBe('0');
 			await expect.poll(() => document.querySelectorAll('[role="dialog"]').length).toBe(0);
-			expect(event.baseUIHandlerPrevented).toBe(true);
+			expect(event.defaultPrevented).toBe(true);
 		} finally {
 			iframe.remove();
 		}

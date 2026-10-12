@@ -87,17 +87,16 @@ export interface NumberFieldRootProps extends Omit<HTMLAttributes<HTMLDivElement
 	/** Whether the component should ignore user interaction. @default false */
 	disabled?: boolean;
 	/** Whether the user should be unable to change the field value. @default false */
-	readOnly?: boolean;
+	readonly?: boolean;
 	/** Identifies the field when a form is submitted. */
 	name?: string;
 	/** Identifies the form that owns the hidden input. */
 	form?: string;
 	/**
 	 * Raw numeric value. Use `bind:value` to share it with the parent.
-	 * Omit it to leave the field uncontrolled, starting from `defaultValue`.
 	 */
 	value?: number | null;
-	/** Initial value of an uncontrolled field. Ignored when `value` is passed. */
+	/** The value an empty `value` starts from, as on an HTML input. */
 	defaultValue?: number | null;
 	/**
 	 * Whether wheel scrubbing changes the value while the input is focused.

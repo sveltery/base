@@ -29,12 +29,11 @@ export interface SwitchRootProps extends Omit<HTMLAttributes<HTMLElement>, 'chil
 	/**
 	 * Whether the switch is currently active.
 	 * Use `bind:checked` to share it with the parent.
-	 * Omit it to start from `defaultChecked`.
 	 * @default false
 	 */
 	checked?: boolean;
 	/**
-	 * Checked state used when `checked` is omitted, and when a controlled `checked` is cleared.
+	 * The state an empty `checked` starts from, as on an HTML checkbox.
 	 * @default false
 	 */
 	defaultChecked?: boolean;
@@ -44,7 +43,7 @@ export interface SwitchRootProps extends Omit<HTMLAttributes<HTMLElement>, 'chil
 	 * Whether the user should be unable to activate or deactivate the switch.
 	 * @default false
 	 */
-	readOnly?: boolean;
+	readonly?: boolean;
 	/**
 	 * Whether the user must activate the switch before submitting a form.
 	 * @default false

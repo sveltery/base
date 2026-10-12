@@ -1,21 +1,15 @@
 <script lang="ts">
 	import { createChangeEventDetails } from '@sveltery/utils';
-	import { createControllableValue } from '#lib/internal/controllable-value.svelte.js';
 	import { PopupStore, useTriggerFocusGuards } from '#lib/internal/popups/index.js';
 
 	let open = $state<boolean | undefined>(undefined);
 	let trigger = $state<HTMLButtonElement | null>(null);
 
-	const openValue = createControllableValue<boolean>({
-		getProp: () => open,
-		setProp: (next) => {
+	const store = new PopupStore<string>({
+		readOpen: () => open ?? false,
+		writeOpen: (next) => {
 			open = next;
 		},
-		getDefault: () => false
-	});
-
-	const store = new PopupStore<string>({
-		open: openValue,
 		floatingId: 'focus-guard-popup',
 		floatingElement: 'positioner',
 		onOpenChange: () => () => {},

@@ -1,7 +1,6 @@
 <script lang="ts">
 	import type { HTMLButtonAttributes } from 'svelte/elements';
 	import { mergeProps } from '#lib/internal/mergeProps.js';
-	import { createControllableValue } from '#lib/internal/controllable-value.svelte.js';
 	import {
 		CLICK_TRIGGER_IDENTIFIER,
 		FloatingFocusManager,
@@ -97,14 +96,6 @@
 		return chosen;
 	}
 
-	const openValue = createControllableValue<boolean>({
-		getProp: () => open,
-		setProp: (next) => {
-			open = next;
-		},
-		getDefault: () => defaultOpen
-	});
-
 	function handleOpen(next: boolean, details: PopupChangeEventDetails<string>) {
 		if (scenario === 'cancel') details.cancel();
 		if (scenario === 'stuck' && !next) {
@@ -119,7 +110,10 @@
 	}
 
 	const store = new PopupStore<string>({
-		open: openValue,
+		readOpen: () => open ?? defaultOpen,
+		writeOpen: (next) => {
+			open = next;
+		},
 		floatingId: 'foundation-popup',
 		floatingElement: 'popup',
 		onOpenChange: () => handleOpen,

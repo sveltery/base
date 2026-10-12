@@ -5,7 +5,7 @@ description: Verify Sveltery Base components (Svelte 5 port of Base UI v1.8.0). 
 
 # Verify Sveltery components
 
-The product is the component library in `src/lib`. Verification means a rendered Svelte component produces the right business outcome: role and ARIA/`data-*` state, activation, cancellation, disabled behavior, controlled and uncontrolled updates, and cleanup. Behavior is compared against React Base UI 1.8.0 (commit `47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c`), which runs only in fixtures.
+The product is the component library in `src/lib`. Verification means a rendered Svelte component produces the right business outcome: role and ARIA/`data-*` state, activation, cancellation, disabled behavior, bound and one-way updates, and cleanup. Behavior is compared against React Base UI 1.8.0 (commit `47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c`), which runs only in fixtures.
 
 ## Run it
 
@@ -102,11 +102,11 @@ For behavior no spec covers yet, run `pnpm dev`, open `http://localhost:5173/fix
 React exists only in `src/routes/fixtures/**/react-reference.ts` (devDependencies). Do not port these, and do not treat their absence as a failure:
 
 - Hooks, StrictMode double-mounting, effect dependency arrays, layout or insertion effects
-- Synthetic events: Svelte uses native events. `mergeProps` installs `preventBaseUIHandler()` when the argument has an event shape (`type` and `preventDefault`), including an event from an iframe. A consumer handler calls it to skip the handlers merged to its left. `preventDefault()` does not skip those handlers. Parts that call the consumer handler themselves still treat `preventDefault()` as the skip signal. A disabled non-native button also calls `preventDefault()` on click and pointerdown so the host's native action does not run
+- Synthetic events: Svelte uses native events. `event.preventDefault()` in a consumer handler is the one skip signal, in `mergeProps` and in parts that call the handler themselves. A disabled non-native button also calls `preventDefault()` on click and pointerdown so the host's native action does not run
 - `className` and React style objects: use native `class` and `style`
 - Render props and `cloneElement`: parts take a `render` snippet that receives `(props, state, children)`. `children` is undefined when the consumer passed none and the part adds none. Render it with `{@render children?.()}`
 - `ref`, `forwardRef` and callback refs: Svelte has no refs. Consumers pass `{@attach}` to the part, which reaches the host through the props spread (including inside `render`)
-- Controlled/uncontrolled pairs (`pressed`/`defaultPressed`, `useControlled`): one `$bindable` prop. `bind:pressed` shares it with the parent; a one-way value sets it until the parent changes it, and clicks can override it in between. To veto a change, use `eventDetails.cancel()`
+- Controlled and default pairs (`pressed`/`defaultPressed`, `useControlled`): one `$bindable` prop. `bind:pressed` shares it with the parent; a one-way value sets it until the parent changes it. To veto a change, use `eventDetails.cancel()`. `defaultValue`/`defaultChecked` stay only on form controls, as the value an empty binding starts from
 - React commit batching and same-turn stale reads: Svelte reads live state
 
 Keep the business mechanisms: cancellation through `eventDetails.cancel()`, disabled handling, state attributes, focus, registration and cleanup. [AGENTS.md](../../../AGENTS.md) says which upstream bugs to keep.

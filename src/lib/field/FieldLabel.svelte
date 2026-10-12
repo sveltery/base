@@ -64,7 +64,7 @@
 		const isLabel = element.tagName === 'LABEL';
 		if (nativeLabel && !isLabel) {
 			console.error(
-				'Base UI: <Field.Label> expected a <label> element because the `nativeLabel` prop is true. Rendering a non-<label> disables native label association, so `htmlFor` will not work. Use a real <label> in the `render` prop, or set `nativeLabel` to `false`.'
+				'Base UI: <Field.Label> expected a <label> element because the `nativeLabel` prop is true. Rendering a non-<label> disables native label association, so `for` will not work. Use a real <label> in the `render` snippet, or set `nativeLabel` to `false`.'
 			);
 		} else if (!nativeLabel && isLabel) {
 			console.error(

@@ -35,7 +35,7 @@
 
 {#if ready}
 	{#if part === 'dialog'}
-		<Dialog.Root defaultOpen>
+		<Dialog.Root open>
 			<Dialog.Trigger>Open</Dialog.Trigger>
 			<Dialog.Portal {container}>
 				<Dialog.Popup>
@@ -44,7 +44,7 @@
 			</Dialog.Portal>
 		</Dialog.Root>
 	{:else}
-		<Popover.Root defaultOpen>
+		<Popover.Root open>
 			<Popover.Trigger>Open</Popover.Trigger>
 			<Popover.Portal {container}>
 				<Popover.Positioner>

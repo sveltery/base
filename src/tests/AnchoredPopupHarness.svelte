@@ -1,7 +1,6 @@
 <script lang="ts">
 	import type { HTMLButtonAttributes } from 'svelte/elements';
 	import { toCssStyle } from '#lib/internal/css-style.js';
-	import { createControllableValue } from '#lib/internal/controllable-value.svelte.js';
 	import {
 		safePolygon,
 		useClick,
@@ -56,21 +55,16 @@
 		getBoundingClientRect: () => new DOMRect(10.2, 20.2, 40, 16)
 	};
 
-	const openValue = createControllableValue<boolean>({
-		getProp: () => open,
-		setProp: (next) => {
-			open = next;
-		},
-		getDefault: () => false
-	});
-
 	function handleOpen(next: boolean, details: PopupChangeEventDetails<string>) {
 		reason = details.reason;
 		seenTrigger = store.activeTriggerId ?? '';
 	}
 
 	const store = new PopupStore<string>({
-		open: openValue,
+		readOpen: () => open ?? false,
+		writeOpen: (next) => {
+			open = next;
+		},
 		floatingId: 'anchored-popup',
 		floatingElement: 'positioner',
 		onOpenChange: () => handleOpen,
