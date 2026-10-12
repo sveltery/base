@@ -172,7 +172,12 @@ export class PopoverStore extends PopupStore<PopoverChangeReason> {
 		if (triggerId === undefined || !this.open) return false;
 		const active = this.domReferenceElement;
 		if (active && this.triggers.getById(triggerId) === active) return true;
-		return this.resolvedActiveTriggerId() === triggerId;
+		const resolved = this.resolvedActiveTriggerId();
+		// Upstream useImplicitActiveTrigger: a popup opened without a trigger press,
+		// such as through `bind:open`, belongs to its only trigger.
+		if (resolved == null)
+			return this.triggerCount === 1 && this.triggers.getById(triggerId) != null;
+		return resolved === triggerId;
 	}
 
 	mountedBy(triggerId: string | undefined) {

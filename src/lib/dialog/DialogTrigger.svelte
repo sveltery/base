@@ -45,7 +45,14 @@
 	const attachmentKey = createAttachmentKey();
 	const store = $derived((handle?.store as DialogStore<unknown> | null) ?? dialogRoot?.store);
 
-	const openedByThis = $derived(!!store && store.open && store.activeTriggerId === triggerId);
+	// Upstream useImplicitActiveTrigger: a dialog opened without a trigger press,
+	// such as through `bind:open`, belongs to its only trigger.
+	const openedByThis = $derived(
+		!!store &&
+			store.open &&
+			(store.activeTriggerId === triggerId ||
+				(store.activeTriggerId == null && store.triggerCount === 1))
+	);
 	const controls = $derived.by(() => {
 		if (!store || !store.open) return undefined;
 		const popup = store.popupElement;
