@@ -3,7 +3,6 @@
 	Derived from Base UI v1.8.0 packages/react/src/checkbox/root/CheckboxRoot.tsx
 	and the native-label fallback of useAriaLabelledBy.ts
 	(commit 47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c). MIT, see THIRD_PARTY_NOTICES.md.
-	Field registration, validation, and Form error clearing are not ported.
 	An optional CheckboxGroup context supplies the shared value. When that group
 	sets `allValues`, `parent` toggles the set and other checkboxes register with it.
 -->
@@ -21,13 +20,22 @@
 	import { checkboxRootAttributes } from './attributes.js';
 	import { setCheckboxContext } from './context.js';
 	import { useCheckboxGroupContext } from './group-context.js';
-	import { findAssociatedLabel } from '../internal/associated-label.js';
+	import { useValueChanged } from '../internal/useValueChanged.svelte.js';
+	import { attachFieldControl } from '../internal/field-register-control.svelte.js';
+	import { restoreOnReset } from '../internal/form-reset.svelte.js';
+	import { useFieldContext, useFieldItemContext } from '../field/context.svelte.js';
+	import { AriaLabelledBy, LabelableId, findLabelableContext } from '../field/labelable.svelte.js';
+	import { useFormContext } from '../form/context.js';
 	import { getDefaultFormSubmitter } from './submitter.js';
 	import type { CheckboxHostProps, CheckboxRootProps, CheckboxRootState } from './types.js';
 
 	const uid = $props.id();
 	const rootKey = createAttachmentKey();
 	const group = useCheckboxGroupContext();
+	const field = useFieldContext();
+	const fieldItem = useFieldItemContext();
+	const formContext = useFormContext();
+	const labelable = findLabelableContext();
 
 	let {
 		checked = $bindable(),
@@ -38,7 +46,7 @@
 		indeterminate = false,
 		parent = false,
 		nativeButton = false,
-		name,
+		name: nameProp,
 		value,
 		uncheckedValue,
 		form,
@@ -46,7 +54,10 @@
 		onCheckedChange,
 		onclick,
 		onkeydown,
-		'aria-labelledby': ariaLabelledBy,
+		onfocus,
+		onblur,
+		'aria-labelledby': ariaLabelledByProp,
+		'aria-describedby': ariaDescribedBy,
 		render,
 		children,
 		...elementProps
@@ -58,9 +69,15 @@
 
 	const generatedRootId = $derived('base-ui-' + uid);
 	const generatedControlId = $derived(`base-ui-${uid}-control`);
-	const controlId = $derived(id ?? generatedControlId);
-	const hiddenInputId = $derived(nativeButton ? undefined : controlId);
-	const rootId = $derived(nativeButton ? controlId : generatedRootId);
+	// Checkboxes that share their group's labelable scope leave the Field's id to the group.
+	const controlId = new LabelableId(labelable, {
+		id: () => id || undefined,
+		fallback: () => generatedControlId,
+		enabled: () => !group || group.labelable !== labelable
+	});
+	const hiddenInputId = $derived(nativeButton ? undefined : controlId.current);
+	const rootId = $derived(nativeButton ? controlId.current : generatedRootId);
+	const name = $derived(field.name ?? nameProp);
 
 	const checkedState = $derived(checked === true);
 
@@ -75,10 +92,13 @@
 		if (parent && group?.parent) return group.parent.indeterminate || indeterminate;
 		return indeterminate;
 	});
-	const isDisabled = $derived(Boolean(group?.disabled) || disabled);
+	const isDisabled = $derived(
+		field.disabled || fieldItem.disabled || Boolean(group?.disabled) || disabled
+	);
 	const inputName = $derived(parent ? undefined : name);
 
 	const checkboxState: CheckboxRootState = $derived({
+		...field.state,
 		checked: isChecked,
 		disabled: isDisabled,
 		readOnly,
@@ -106,11 +126,51 @@
 
 	let inputNode = $state<HTMLInputElement | null>(null);
 	let rootNode = $state<HTMLElement | null>(null);
-	let fallbackLabelId = $state<string | undefined>(undefined);
+	const ariaLabelledBy = new AriaLabelledBy(labelable, {
+		explicit: () => ariaLabelledByProp ?? undefined,
+		input: () => (nativeButton ? null : inputNode),
+		labelId: () => (hiddenInputId ? `${hiddenInputId}-label` : undefined)
+	});
+	const describedBy = $derived(labelable?.describedBy(ariaDescribedBy ?? undefined));
+	const invalid = $derived(field.valid === false && !isDisabled);
+
+	// Inside a group, the group is the field's control and owns its value.
+	const fieldControl = attachFieldControl(field, {
+		enabled: () => !group && !isDisabled,
+		id: () => generatedRootId,
+		name: () => nameProp,
+		getValue: () => checkedState
+	});
+
+	$effect(() => {
+		if (!group) field.setFilled(checkedState);
+	});
+
+	useValueChanged(
+		() => checkedState,
+		(next) => {
+			if (group) return;
+			formContext.clearErrors(name);
+			field.setDirty(next !== field.validityData.initialValue);
+			field.change(next);
+		}
+	);
+
+	$effect(() => {
+		const input = inputNode;
+		const element = rootNode;
+		if (!input || parent) return;
+		return field.registerInput(input, {
+			element,
+			value: group ? identified : undefined
+		});
+	});
 
 	function registerRoot(element: HTMLElement) {
 		rootNode = element;
+		const release = fieldControl(element);
 		return () => {
+			release?.();
 			if (rootNode === element) rootNode = null;
 		};
 	}
@@ -126,14 +186,37 @@
 		return { value };
 	});
 
+	// The group or the parent checkbox owns a grouped checkbox's value and restores it.
+	const resetsToChecked = $derived.by(() => {
+		if (!group) return defaultChecked;
+		return identified !== undefined && !parent && Boolean(group.defaultValue?.includes(identified));
+	});
+
+	function syncInput(input: HTMLInputElement) {
+		if (input.checked !== isChecked) input.checked = isChecked;
+		input.indeterminate = isIndeterminate;
+	}
+
 	// A click clears `indeterminate` before the listener runs. Put it back after `checked` updates.
 	$effect(() => {
-		const input = inputNode;
-		if (!input) return;
-		const next = isChecked;
-		if (input.checked !== next) input.checked = next;
-		input.indeterminate = isIndeterminate;
+		if (inputNode) syncInput(inputNode);
 	});
+
+	restoreOnReset(
+		() => inputNode,
+		() => {
+			if (!group && checked !== defaultChecked) checked = defaultChecked;
+		}
+	);
+	// A reset can leave the input out of step with state that did not change, such as a parent
+	// checkbox or a `checked` the owner holds.
+	restoreOnReset(
+		() => inputNode,
+		() => {
+			if (inputNode) syncInput(inputNode);
+		},
+		'settle'
+	);
 
 	$effect(() => {
 		const model = group?.parent;
@@ -197,6 +280,20 @@
 		rootNode?.focus();
 	}
 
+	function handleFocus(event: FocusEvent & { currentTarget: EventTarget & HTMLElement }) {
+		onfocus?.(event);
+		if (!isDisabled) field.setFocused(true);
+	}
+
+	function handleBlur(event: FocusEvent & { currentTarget: EventTarget & HTMLElement }) {
+		onblur?.(event);
+		const input = inputNode;
+		if (!input) return;
+		field.setTouched(true);
+		field.setFocused(false);
+		if (field.validationMode === 'onBlur') field.commit(group ? group.value : input.checked);
+	}
+
 	function handleClick(event: MouseEvent & { currentTarget: EventTarget & HTMLElement }) {
 		if (enterHeld) {
 			event.preventDefault();
@@ -226,31 +323,8 @@
 		});
 	}
 
-	$effect(() => {
-		if (nativeButton || ariaLabelledBy) {
-			fallbackLabelId = undefined;
-			return;
-		}
-
-		const input = inputNode;
-		const sourceId = hiddenInputId;
-		if (!input) {
-			fallbackLabelId = undefined;
-			return;
-		}
-
-		const label = findAssociatedLabel(input);
-		if (!label) {
-			fallbackLabelId = undefined;
-			return;
-		}
-
-		if (!label.id && sourceId) label.id = `${sourceId}-label`;
-		fallbackLabelId = label.id || undefined;
-	});
-
 	const hostProps: CheckboxHostProps & Record<symbol, Attachment<HTMLElement>> = $derived.by(() => {
-		const labelledBy = ariaLabelledBy ?? fallbackLabelId;
+		const labelledBy = ariaLabelledBy.current;
 		const controls = parent ? group?.parent?.controls : undefined;
 		const props = button.props({
 			...checkboxRootAttributes(checkboxState),
@@ -261,9 +335,13 @@
 			...(readOnly ? { 'aria-readonly': true as const } : {}),
 			...(required ? { 'aria-required': true as const } : {}),
 			...(labelledBy ? { 'aria-labelledby': labelledBy } : {}),
+			...(describedBy ? { 'aria-describedby': describedBy } : {}),
+			...(invalid ? { 'aria-invalid': true as const } : {}),
 			...elementProps,
 			...(controls ? { 'aria-controls': controls } : {}),
 			onclick: handleClick,
+			onfocus: handleFocus,
+			onblur: handleBlur,
 			onkeydown,
 			[rootKey]: registerRoot
 		});
@@ -303,6 +381,7 @@
 	bind:this={inputNode}
 	type="checkbox"
 	checked={isChecked}
+	defaultChecked={resetsToChecked}
 	disabled={isDisabled}
 	{form}
 	id={hiddenInputId}
@@ -311,6 +390,8 @@
 	style={inputStyle}
 	tabindex="-1"
 	aria-hidden="true"
+	aria-describedby={describedBy}
+	aria-invalid={invalid || undefined}
 	{...submittedValue}
 	onclick={handleInputClick}
 	onfocus={handleInputFocus}

@@ -8,6 +8,7 @@
 	import { createAttachmentKey, type Attachment } from 'svelte/attachments';
 	import type { HTMLAttributes } from 'svelte/elements';
 	import { checkboxIndicatorAttributes } from './attributes.js';
+	import { useFieldContext } from '../field/context.svelte.js';
 	import { useCheckboxContext } from './context.js';
 	import { TransitionStatus } from '../internal/useTransitionStatus.svelte.js';
 	import type { CheckboxIndicatorProps, CheckboxIndicatorState } from './types.js';
@@ -15,6 +16,7 @@
 	let { keepMounted = false, render, children, ...elementProps }: CheckboxIndicatorProps = $props();
 
 	const ctx = useCheckboxContext();
+	const field = useFieldContext();
 	const rendered = $derived(ctx.checked || ctx.indeterminate);
 	const indicatorKey = createAttachmentKey();
 
@@ -31,6 +33,7 @@
 	transition.unmountAfterExit(() => indicatorNode, true);
 
 	const indicatorState: CheckboxIndicatorState = $derived({
+		...field.state,
 		checked: ctx.checked,
 		disabled: ctx.disabled,
 		readOnly: ctx.readOnly,

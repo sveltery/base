@@ -1,12 +1,13 @@
 import type { Snippet } from 'svelte';
 import type { HTMLAttributes } from 'svelte/elements';
 import type { BaseUIChangeEventDetails, REASONS } from '@sveltery/utils';
+import type { FieldRootState } from '../field/types.js';
 import type { RenderChildren } from '../internal/render-children.js';
 
 /** Indicator motion phase. `undefined` is the settled phase. */
 export type CheckboxIndicatorPhase = 'starting' | 'ending' | 'idle' | undefined;
 
-export interface CheckboxRootState {
+export interface CheckboxRootState extends FieldRootState {
 	/** Whether the checkbox is currently ticked. */
 	checked: boolean;
 	/** Whether the component should ignore user interaction. */

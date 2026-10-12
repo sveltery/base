@@ -8,13 +8,14 @@
 	is each input's CSS direction.
 -->
 <script lang="ts">
-	import { untrack } from 'svelte';
 	import { createAttachmentKey } from 'svelte/attachments';
 	import type { HTMLAttributes } from 'svelte/elements';
 	import { useFieldContext } from '../field/context.svelte.js';
-	import { findLabelableContext } from '../field/labelable.svelte.js';
+	import { LabelableId, findLabelableContext } from '../field/labelable.svelte.js';
 	import { useFormContext } from '../form/context.js';
 	import { useValueChanged } from '../internal/useValueChanged.svelte.js';
+	import { restoreOnReset } from '../internal/form-reset.svelte.js';
+	import { isQueuedValueEvent } from '../internal/value-events.js';
 	import { watchFieldControl } from '../internal/field-register-control.svelte.js';
 	import { getStateAttributesProps } from '../internal/state-attributes.js';
 	import { visuallyHidden, visuallyHiddenInput, warn } from '@sveltery/utils';
@@ -25,7 +26,6 @@
 	import type { OTPFieldRootProps, OTPFieldRootState } from './types.js';
 
 	const uid = $props.id();
-	const idSource = Symbol('otp-field-id');
 	const rootKey = createAttachmentKey();
 
 	let {
@@ -64,11 +64,9 @@
 
 	const raw = $derived(value ?? '');
 	const generatedId = $derived(`base-ui-${uid}`);
-	const controlId = $derived(labelable?.controlId || idProp || generatedId);
+	const controlId = new LabelableId(labelable, { id: () => idProp, fallback: () => generatedId });
 	const disabled = $derived(Boolean(field.disabled) || disabledProp);
 	const name = $derived(field.name ?? nameProp);
-
-	let hadExplicitId = false;
 
 	function writeValue(next: string) {
 		value = next;
@@ -76,6 +74,7 @@
 
 	const model = new OTPFieldModel({
 		getRawValue: () => raw,
+		getDefaultValue: () => defaultValue,
 		writeValue,
 		getLength: () => length,
 		getValidationType: () => validationType,
@@ -89,7 +88,7 @@
 		getInputMode: () => inputMode,
 		getFormId: () => formId,
 		getName: () => name,
-		getControlId: () => controlId,
+		getControlId: () => controlId.current,
 		getAriaLabelledByProp: () => ariaLabelledByProp || undefined,
 		getLabelId: () => labelable?.labelId,
 		getOnValueChange: () => onValueChange,
@@ -103,6 +102,13 @@
 		(next) => model.afterValueChange(next)
 	);
 	setOTPFieldContext(model);
+
+	restoreOnReset(
+		() => model.hiddenInput ?? model.root,
+		() => {
+			if (raw !== defaultValue) value = defaultValue;
+		}
+	);
 
 	const describedBy = $derived(
 		labelable
@@ -144,29 +150,9 @@
 		);
 	});
 
-	$effect(() => {
-		if (!labelable) return;
-		const explicit = idProp;
-		const fallback = generatedId;
-		untrack(() => {
-			if (explicit !== undefined) {
-				hadExplicitId = true;
-				labelable.registerControlId(idSource, explicit);
-			} else if (hadExplicitId) {
-				labelable.registerControlId(idSource, fallback);
-			} else {
-				labelable.registerControlId(idSource, undefined);
-				labelable.resetControlId();
-			}
-		});
-		return () => {
-			untrack(() => labelable.registerControlId(idSource, undefined));
-		};
-	});
-
 	watchFieldControl(field, {
 		enabled: () => !disabled,
-		id: () => controlId,
+		id: () => controlId.current,
 		name: () => nameProp,
 		element: () => model.slots.first ?? null,
 		getValue: () => model.value
@@ -190,7 +176,7 @@
 	}
 
 	function hiddenEdited(event: Event & { currentTarget: EventTarget & HTMLInputElement }) {
-		model.handleHiddenInput(event);
+		if (!isQueuedValueEvent(event)) model.handleHiddenInput(event);
 	}
 </script>
 
@@ -202,10 +188,11 @@
 {#if showHidden}
 	<input
 		type="text"
-		id={controlId && name == null ? `${controlId}-hidden-input` : undefined}
+		id={name == null ? `${controlId.current}-hidden-input` : undefined}
 		form={formId}
 		{name}
 		value={model.value}
+		defaultValue={model.defaultValue}
 		autocomplete={autoComplete}
 		inputmode={model.inputMode}
 		minlength={length}

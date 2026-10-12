@@ -17,6 +17,7 @@ import {
 } from '@sveltery/utils';
 import { findAssociatedLabel } from '../internal/associated-label.js';
 import { getOTPValidationConfig, normalizeOTPValue, normalizeOTPValueWithDetails } from './otp.js';
+import { queueValueEvent } from '../internal/value-events.js';
 import { ElementList } from '../internal/element-list.svelte.js';
 import type {
 	OTPFieldChangeEventDetails,
@@ -29,6 +30,7 @@ import type {
 
 export interface OTPFieldModelOptions {
 	getRawValue: () => string;
+	getDefaultValue: () => string;
 	writeValue: (next: string) => void;
 	getLength: () => number;
 	getValidationType: () => OTPFieldValidationType;
@@ -56,6 +58,7 @@ export class OTPFieldModel {
 	readonly slots = new ElementList<HTMLInputElement>();
 	root = $state<HTMLDivElement | null>(null);
 	hiddenInput = $state<HTMLInputElement | null>(null);
+	private changeEventDue = false;
 	focused = $state(false);
 	focusedIndex = $state(0);
 	fallbackLabelId = $state<string | undefined>(undefined);
@@ -78,8 +81,17 @@ export class OTPFieldModel {
 	}
 
 	get value() {
+		return this.normalized(this.options.getRawValue());
+	}
+
+	/** The value a form reset returns to. */
+	get defaultValue() {
+		return this.normalized(this.options.getDefaultValue());
+	}
+
+	private normalized(value: string) {
 		return normalizeOTPValue(
-			this.options.getRawValue(),
+			value,
 			this.length,
 			this.validationType,
 			this.options.getNormalizeValue()
@@ -269,6 +281,11 @@ export class OTPFieldModel {
 		}
 
 		this.options.writeValue(normalizedValue);
+		// Autofill writes the hidden input itself, which already fired its events.
+		if (details.event.target !== this.hiddenInput) {
+			this.changeEventDue = true;
+			queueValueEvent(this.hiddenInput, 'input');
+		}
 		return normalizedValue;
 	}
 
@@ -319,6 +336,9 @@ export class OTPFieldModel {
 		this.field.setTouched(true);
 		this.focused = false;
 		this.field.setFocused(false);
+		// A text input fires `change` when it loses focus after an edit.
+		if (this.changeEventDue) queueValueEvent(this.hiddenInput, 'change');
+		this.changeEventDue = false;
 
 		if (this.field.validationMode === 'onBlur') {
 			this.field.commit(this.value);

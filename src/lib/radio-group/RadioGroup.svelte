@@ -3,10 +3,12 @@
 	Derived from Base UI v1.8.0 packages/react/src/radio-group/RadioGroup.tsx
 	and the linear composite path it mounts
 	(commit 47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c). MIT, see THIRD_PARTY_NOTICES.md.
-	Field registration and inputRef are not ported. The radios are the existing Radio parts.
+	Inside a Field, the group is the field's control. `inputRef` is not ported.
+	The radios are the existing Radio parts.
 -->
 <script lang="ts">
-	import type { Attachment } from 'svelte/attachments';
+	import { createAttachmentKey, type Attachment } from 'svelte/attachments';
+	import { contains } from '@sveltery/utils';
 	import type { HTMLAttributes } from 'svelte/elements';
 	import { CompositeRoot } from '../internal/composite-root.svelte.js';
 	import { isSkipped } from '../internal/composite-skip.js';
@@ -14,25 +16,34 @@
 	import { useValueChanged } from '../internal/useValueChanged.svelte.js';
 	import { WrittenReference } from '../internal/written-reference.svelte.js';
 	import { useDirection } from '../internal/direction-context.js';
+	import { fieldValidityMapping } from '../field/attributes.js';
 	import { useFieldContext } from '../field/context.svelte.js';
+	import { LabelableId, findLabelableContext } from '../field/labelable.svelte.js';
+	import { attachFieldControl } from '../internal/field-register-control.svelte.js';
+	import { restoreOnReset } from '../internal/form-reset.svelte.js';
 	import { useFormContext } from '../form/context.js';
 	import { findFieldsetRootContext } from '../fieldset/context.svelte.js';
 	import { setRadioGroupContext } from '../radio/group-context.js';
 	import type { RadioRootChangeEventDetails } from '../radio/types.js';
 	import type { RadioGroupProps, RadioGroupState } from './types.js';
 
+	const uid = $props.id();
+	const controlKey = createAttachmentKey();
+	const rootKey = createAttachmentKey();
+
 	let {
 		value = $bindable(),
 		defaultValue,
-		disabled = false,
+		disabled: disabledProp = false,
 		readonly: readOnly = false,
 		required = false,
-		name,
+		name: nameProp,
 		form,
 		onValueChange,
 		onfocus,
 		onblur,
 		onkeydown,
+		'aria-describedby': ariaDescribedBy,
 		render,
 		children,
 		...elementProps
@@ -48,6 +59,13 @@
 	const formContext = useFormContext();
 	const field = useFieldContext();
 	const fieldset = findFieldsetRootContext();
+	const labelable = findLabelableContext();
+	const disabled = $derived(field.disabled || disabledProp);
+	const name = $derived(field.name ?? nameProp);
+
+	// The group takes its name from `aria-labelledby`, so Field.Label must not point `for`
+	// at one radio inside it.
+	new LabelableId(labelable, { id: () => null, fallback: () => `base-ui-${uid}` });
 
 	const selection = new WrittenReference<unknown>(
 		() => value,
@@ -56,15 +74,40 @@
 		}
 	);
 	const checkedValue = $derived(selection.current);
+
+	const registration = attachFieldControl(field, {
+		enabled: () => !disabled,
+		id: () => elementProps.id ?? `base-ui-${uid}`,
+		name: () => nameProp,
+		getValue: () => checkedValue ?? null
+	});
+
+	$effect(() => {
+		field.setFilled(checkedValue != null);
+	});
 	useValueChanged(
 		() => checkedValue,
 		(next) => {
 			formContext.clearErrors(name);
 			field.setDirty(next !== field.validityData.initialValue);
-			field.setFilled(next != null);
 			field.change(next);
 		}
 	);
+
+	let rootNode = $state<HTMLElement | null>(null);
+	restoreOnReset(
+		() => rootNode,
+		() => {
+			if (!Object.is(checkedValue, defaultValue)) selection.set(defaultValue);
+		}
+	);
+
+	function rememberRoot(node: HTMLElement) {
+		rootNode = node;
+		return () => {
+			if (rootNode === node) rootNode = null;
+		};
+	}
 
 	const roving: CompositeRoot = new CompositeRoot({
 		orientation: () => 'both',
@@ -111,9 +154,13 @@
 		get checkedValue() {
 			return checkedValue;
 		},
+		get defaultValue() {
+			return defaultValue;
+		},
 		get touched() {
 			return touched;
 		},
+		labelable,
 		setCheckedValue,
 		setTouched(next) {
 			touched = next;
@@ -125,6 +172,16 @@
 		// Shift still selects. Ctrl, Alt, and Meta do not move, so they must not
 		// leave the group armed for the next focus.
 		touched = !(event.altKey || event.ctrlKey || event.metaKey);
+		field.setFocused(true);
+	}
+
+	function handleBlur(event: FocusEvent & { currentTarget: EventTarget & HTMLDivElement }) {
+		onblur?.(event);
+		touched = false;
+		if (contains(event.currentTarget, event.relatedTarget)) return;
+		field.setTouched(true);
+		field.setFocused(false);
+		if (field.validationMode === 'onBlur') field.commit(checkedValue);
 	}
 
 	function handleKeyDown(event: KeyboardEvent & { currentTarget: EventTarget & HTMLDivElement }) {
@@ -134,6 +191,7 @@
 	}
 
 	const groupState: RadioGroupState = $derived({
+		...field.state,
 		disabled,
 		readOnly,
 		required
@@ -142,22 +200,27 @@
 	const hostProps: HTMLAttributes<HTMLDivElement> & Record<symbol, Attachment<HTMLElement>> =
 		$derived.by(() => {
 			const explicitLabel = elementProps['aria-labelledby'];
-			const labelledBy = explicitLabel ?? fieldset?.legendId;
+			const labelledBy = explicitLabel ?? labelable?.labelId ?? fieldset?.legendId;
+			const describedBy = labelable?.describedBy(ariaDescribedBy ?? undefined);
 			return {
-				...getStateAttributesProps(groupState),
+				...getStateAttributesProps(groupState, fieldValidityMapping),
 				role: 'radiogroup',
 				...(disabled ? { 'aria-disabled': true as const } : {}),
 				...(readOnly ? { 'aria-readonly': true as const } : {}),
 				...(required ? { 'aria-required': true as const } : {}),
 				...elementProps,
 				...(labelledBy ? { 'aria-labelledby': labelledBy } : {}),
-				onfocus,
-				onblur: (event) => {
-					onblur?.(event);
-					touched = false;
+				...(describedBy ? { 'aria-describedby': describedBy } : {}),
+				...(field.valid === false && !disabled ? { 'aria-invalid': true as const } : {}),
+				onfocus: (event) => {
+					onfocus?.(event);
+					field.setFocused(true);
 				},
+				onblur: handleBlur,
 				onkeydown: handleKeyDown,
-				onkeydowncapture: arrowsTouched
+				onkeydowncapture: arrowsTouched,
+				[controlKey]: registration,
+				[rootKey]: rememberRoot
 			};
 		});
 </script>

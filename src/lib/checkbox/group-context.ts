@@ -3,6 +3,7 @@
 // (commit 47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c). MIT, see THIRD_PARTY_NOTICES.md.
 // CheckboxGroup sets this context. `parent` is present only when `allValues` is set.
 import type { BaseUIChangeEventDetails, REASONS } from '@sveltery/utils';
+import type { Labelable } from '../field/labelable.svelte.js';
 import { defineOptionalContext } from '../internal/context.js';
 
 export type CheckboxGroupChangeDetails = BaseUIChangeEventDetails<typeof REASONS.none>;
@@ -25,8 +26,12 @@ export interface CheckboxGroupParentApi {
 
 export interface CheckboxGroupContextValue {
 	readonly value: readonly string[];
+	/** The value a form reset returns to. */
+	readonly defaultValue: readonly string[] | undefined;
 	readonly disabled: boolean;
 	readonly parent: CheckboxGroupParentApi | undefined;
+	/** The labelable scope the group names itself from. Checkboxes in it leave the control id alone. */
+	readonly labelable: Labelable | undefined;
 	setValue(value: string[], details: CheckboxGroupChangeDetails): void;
 }
 

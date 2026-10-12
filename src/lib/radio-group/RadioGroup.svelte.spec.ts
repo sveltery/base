@@ -1,6 +1,7 @@
 // Assertions follow Base UI v1.8.0 packages/react/src/radio-group/RadioGroup.test.tsx
 // (commit 47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c). MIT, see THIRD_PARTY_NOTICES.md.
-// Field, inputRef, and describeConformance are not ported.
+// Field cases are in src/lib/field/choice-controls.svelte.spec.ts. inputRef and
+// describeConformance are not ported.
 // Cases under "native Svelte" have no upstream counterpart.
 import { page, userEvent } from 'vitest/browser';
 import { describe, expect, it } from 'vitest';

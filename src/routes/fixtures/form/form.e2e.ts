@@ -59,14 +59,15 @@ for (const reference of [false, true]) {
 	});
 }
 
-test('svelte SSR renders novalidate before hydration', async ({ request }) => {
-	const html = await (await request.get('/fixtures/form?case=default')).text();
-	expect(html).toContain('data-hydrated="false"');
-	expect(html).toContain('id="tested-form"');
-	expect(html).toContain('novalidate');
+test('svelte SSR leaves novalidate to hydration', async ({ page, request }) => {
+	for (const scenario of ['default', 'browser']) {
+		const html = await (await request.get(`/fixtures/form?case=${scenario}`)).text();
+		expect(html).toContain('data-hydrated="false"');
+		const formTag = html.match(/<form\b[^>]*>/)?.[0] ?? '';
+		expect(formTag).toContain('id="tested-form"');
+		expect(formTag).not.toContain('novalidate');
+	}
 
-	const browser = await (await request.get('/fixtures/form?case=browser')).text();
-	const formTag = browser.match(/<form\b[^>]*>/)?.[0] ?? '';
-	expect(formTag).toContain('id="tested-form"');
-	expect(formTag).not.toContain('novalidate');
+	const { form } = await open(page, 'default', false);
+	await expect(form).toHaveAttribute('novalidate');
 });
