@@ -5,7 +5,7 @@
 -->
 <script lang="ts">
 	import type { HTMLAttributes } from 'svelte/elements';
-	import { devWarn } from '../collapsible/warn.js';
+	import { warn } from '@sveltery/utils';
 	import PartHost from '../internal/PartHost.svelte';
 	import { WrittenReference } from '../internal/written-reference.svelte.js';
 	import { getStateAttributesProps } from '../internal/state-attributes.js';
@@ -48,7 +48,7 @@
 
 	$effect(() => {
 		if (hiddenUntilFound && keepMounted === false) {
-			devWarn(
+			warn(
 				'The `keepMounted={false}` prop on `Accordion.Root` is ignored when `hiddenUntilFound` is enabled, since panels must remain mounted while closed.'
 			);
 		}

@@ -11,7 +11,8 @@ import {
 	REASONS,
 	ownerDocument,
 	platform,
-	activeElement
+	activeElement,
+	warn
 } from '@sveltery/utils';
 import type { FieldContext } from '../field/model.svelte.js';
 import {
@@ -507,6 +508,7 @@ export class NumberFieldModel {
 		try {
 			pasted = event.clipboardData?.getData('text/plain') ?? '';
 		} catch {
+			warn('<NumberField.Input> could not read clipboard text during paste handling.');
 			return;
 		}
 		event.preventDefault();

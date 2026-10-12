@@ -11,14 +11,13 @@
 	import { untrack } from 'svelte';
 	import { createAttachmentKey } from 'svelte/attachments';
 	import type { HTMLAttributes } from 'svelte/elements';
-	import { devWarn } from '../collapsible/warn.js';
 	import { useFieldContext } from '../field/context.svelte.js';
 	import { useLabelableContext } from '../field/labelable.svelte.js';
 	import { useFormContext } from '../form/context.js';
 	import { useValueChanged } from '../internal/useValueChanged.svelte.js';
 	import { watchFieldControl } from '../internal/field-register-control.svelte.js';
 	import { getStateAttributesProps } from '../internal/state-attributes.js';
-	import { visuallyHidden, visuallyHiddenInput } from '@sveltery/utils';
+	import { visuallyHidden, visuallyHiddenInput, warn } from '@sveltery/utils';
 	import { rootStateAttributes } from './attributes.js';
 	import { setOTPFieldContext } from './context.svelte.js';
 	import { OTPFieldModel } from './model.svelte.js';
@@ -132,13 +131,13 @@
 		const count = model.slots.elements.length;
 		const len = length;
 		if (!Number.isInteger(len) || len <= 0) {
-			devWarn(
+			warn(
 				`<OTPField.Root> \`length\` must be a positive integer. Received \`length={${String(len)}}\`.`
 			);
 			return;
 		}
 		if (count === 0 || count === len) return;
-		devWarn(
+		warn(
 			'<OTPField.Root> `length` must match the number of rendered ' +
 				`<OTPField.Input /> parts. Received \`length={${len}}\` but rendered ` +
 				`${count} input${count === 1 ? '' : 's'}.`

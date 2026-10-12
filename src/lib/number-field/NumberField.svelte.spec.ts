@@ -298,6 +298,28 @@ describe('<NumberField />', () => {
 		await expect.element(control()).toHaveValue('20');
 	});
 
+	it('warns and keeps the value when the clipboard cannot be read', async () => {
+		const warn = vi.spyOn(console, 'warn').mockImplementation(() => {});
+		const onValueChange = vi.fn();
+		render(NumberFieldHarness, { scenario: 'paste', onValueChange });
+		const input = control().element() as HTMLInputElement;
+		const before = input.value;
+		const event = new ClipboardEvent('paste', { bubbles: true, cancelable: true });
+		Object.defineProperty(event, 'clipboardData', {
+			get() {
+				throw new Error('blocked');
+			}
+		});
+		input.dispatchEvent(event);
+		expect(warn).toHaveBeenCalledWith(
+			'Base UI: <NumberField.Input> could not read clipboard text during paste handling.'
+		);
+		expect(event.defaultPrevented).toBe(false);
+		expect(onValueChange).not.toHaveBeenCalled();
+		expect(input.value).toBe(before);
+		warn.mockRestore();
+	});
+
 	it('changes the focused value from the wheel and commits it', async () => {
 		const onValueChange = vi.fn();
 		const onValueCommitted = vi.fn();

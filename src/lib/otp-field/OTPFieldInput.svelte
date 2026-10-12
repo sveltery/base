@@ -7,10 +7,14 @@
 <script lang="ts">
 	import { DEV } from 'esm-env';
 	import type { HTMLInputAttributes } from 'svelte/elements';
-	import { devWarn } from '../collapsible/warn.js';
 	import { useDirection } from '../internal/direction-context.js';
 	import { getStateAttributesProps } from '../internal/state-attributes.js';
-	import { createChangeEventDetails, createGenericEventDetails, REASONS } from '@sveltery/utils';
+	import {
+		createChangeEventDetails,
+		createGenericEventDetails,
+		REASONS,
+		warn
+	} from '@sveltery/utils';
 	import { inputStateAttributes } from './attributes.js';
 	import { useOTPFieldContext } from './context.svelte.js';
 	import { stopEvent } from './dom.js';
@@ -66,7 +70,7 @@
 		if (!DEV || index !== 0 || ariaLabelProp == null) return;
 		const labels = el?.labels;
 		if (!el || (labels && labels.length > 0)) return;
-		devWarn(
+		warn(
 			'<OTPField.Input> ignores `aria-label` on the first input. Use a `<label>` or `<Field.Label>` to label the OTP field.'
 		);
 	});
@@ -223,7 +227,7 @@
 		try {
 			rawValue = event.clipboardData?.getData('text/plain') ?? '';
 		} catch {
-			devWarn('<OTPField.Input> could not read clipboard text during paste handling.');
+			warn('<OTPField.Input> could not read clipboard text during paste handling.');
 			return;
 		}
 

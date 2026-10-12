@@ -6,7 +6,6 @@
 	There is no ref. Field registration uses the thumb input element.
 -->
 <script lang="ts">
-	import { DEV } from 'esm-env';
 	import { onMount } from 'svelte';
 	import { createAttachmentKey } from 'svelte/attachments';
 	import type { Attachment } from 'svelte/attachments';
@@ -23,7 +22,7 @@
 	import { asc } from './asc.js';
 	import { sliderStateAttributes } from './attributes.js';
 	import { setSliderContext } from './context.svelte.js';
-	import { ownerDocument, activeElement, contains } from '@sveltery/utils';
+	import { ownerDocument, activeElement, contains, warn } from '@sveltery/utils';
 	import { areArraysEqual } from './getSliderValue.js';
 	import { SliderRootModel } from './model.svelte.js';
 	import type { SliderRootProps, SliderRootState, SliderValue } from './types.js';
@@ -124,8 +123,8 @@
 	});
 
 	$effect(() => {
-		if (!DEV || min < max) return;
-		console.warn('Base UI: Slider `max` must be greater than `min`.');
+		if (min < max) return;
+		warn('Slider `max` must be greater than `min`.');
 	});
 
 	$effect(() => {

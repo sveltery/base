@@ -6,6 +6,7 @@ export {
 	type BaseUIGenericEventDetails
 } from './event-details.js';
 export { default as FocusGuard } from './FocusGuard.svelte';
+export { error, resetLogged, warn } from './log.js';
 export {
 	useOpenInteractionType,
 	type OpenInteractionType,

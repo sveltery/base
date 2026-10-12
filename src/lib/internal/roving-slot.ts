@@ -24,30 +24,6 @@ export class RenderOrder {
 	}
 }
 
-/**
- * Tab stop before any item has registered. The first rendered item is the
- * stop. Once the list has nodes, registration order decides instead.
- */
-export function renderOrderTabIndex(elements: readonly HTMLElement[], renderIndex: number): 0 | -1 {
-	if (elements.length > 0) return -1;
-	return renderIndex === 0 ? 0 : -1;
-}
-
-/**
- * Tab index from registration order. The highlighted element wins; otherwise
- * the first registered element is the only tab stop. An element that has not
- * registered yet is not a stop.
- */
-export function registeredTabIndex(
-	elements: readonly HTMLElement[],
-	node: HTMLElement | null,
-	stop: HTMLElement | null
-): 0 | -1 {
-	if (!node || elements.length === 0) return -1;
-	const target = stop && elements.includes(stop) ? stop : elements[0];
-	return node === target ? 0 : -1;
-}
-
 export function includeSorted<T extends HTMLElement>(elements: T[], node: T): T[] {
 	if (elements.includes(node)) return elements;
 	return [...elements, node].sort(byDocumentOrder);
