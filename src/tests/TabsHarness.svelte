@@ -37,6 +37,7 @@
 		omitPanels = false,
 		nativeButton = true,
 		record = true,
+		hiddenAtMount = [],
 		onValueChange = undefined
 	}: {
 		value?: unknown;
@@ -56,6 +57,7 @@
 		omitPanels?: boolean;
 		nativeButton?: boolean;
 		record?: boolean;
+		hiddenAtMount?: number[];
 		onValueChange?: (value: unknown, details: TabsRootChangeEventDetails) => void;
 	} = $props();
 
@@ -64,7 +66,7 @@
 	);
 	let attached = $state('none');
 	const initialTabs = untrack(() => tabs);
-	let shown = $state<boolean[]>(initialTabs.map(() => true));
+	let shown = $state<boolean[]>(initialTabs.map((_, index) => !hiddenAtMount.includes(index)));
 	let disabled = $state<boolean[]>(initialTabs.map((tab) => tab.disabled ?? false));
 	let held = $state(value);
 
@@ -98,6 +100,7 @@
 		<button type="button" onclick={() => (disabled[0] = true)}>Disable first</button>
 		<button type="button" onclick={() => (shown[1] = false)}>Remove second</button>
 		<button type="button" onclick={() => (shown[0] = false)}>Remove first</button>
+		<button type="button" onclick={() => (shown = shown.map(() => true))}>Show all</button>
 
 		{#if bind}
 			<Tabs.Root bind:value={held} {orientation} onValueChange={record ? log : undefined}>

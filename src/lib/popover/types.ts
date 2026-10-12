@@ -51,7 +51,7 @@ export interface PopoverRootProps<Payload = unknown> {
 	/**
 	 * Whether the popover is open.
 	 * Use `bind:open` to share it with the parent.
-	 * Pass a value without `bind:` to set only the initial state.
+	 * A value passed without `bind:` holds until the parent changes it.
 	 * @default false
 	 */
 	open?: boolean;

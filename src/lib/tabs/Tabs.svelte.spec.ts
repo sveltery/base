@@ -233,6 +233,15 @@ describe('Tabs', () => {
 			expect(calls()).toEqual([]);
 		});
 
+		it('holds a passed value until its tab renders', async () => {
+			render(TabsHarness, { passValue: true, value: 2, tabs: three, hiddenAtMount: [2] });
+			await expect.element(tab('One')).toHaveAttribute('aria-selected', 'false');
+			await expect.element(tab('Two')).toHaveAttribute('aria-selected', 'false');
+			await page.getByRole('button', { name: 'Show all' }).click();
+			await expect.element(tab('Three')).toHaveAttribute('aria-selected', 'true');
+			expect(calls()).toEqual([]);
+		});
+
 		it('falls back when the selected tab becomes disabled and value was omitted', async () => {
 			render(TabsHarness, { tabs: three });
 			await expect.poll(() => calls().length).toBe(1);

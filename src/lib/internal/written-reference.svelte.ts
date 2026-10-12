@@ -23,11 +23,30 @@ export class WrittenReference<T> {
 	}
 
 	set(next: T) {
-		const before = untrack(this.#read);
 		this.#write(next);
 		const echo = untrack(this.#read);
-		// A `bind:value={get, set}` parent that rejects the write leaves the prop where it was.
-		if (Object.is(echo, before) && !Object.is(next, before)) return;
-		this.#written = Object.is(echo, next) ? null : { value: next, echo };
+		// A `bind:value={get, set}` parent can keep or replace the value instead.
+		this.#written = isProxyOf(echo, next) ? { value: next, echo } : null;
 	}
+}
+
+function isProxyOf(echo: unknown, written: unknown) {
+	if (Object.is(echo, written) || !isObject(echo) || !isObject(written)) return false;
+	const mark = Symbol();
+	try {
+		// A `$state` proxy rejects a non-writable descriptor, so the mark goes on the
+		// written object and is read back through the proxy that wraps it.
+		Object.defineProperty(written, mark, { configurable: true, writable: false, value: true });
+	} catch {
+		return false;
+	}
+	try {
+		return (echo as Record<symbol, unknown>)[mark] === true;
+	} finally {
+		Reflect.deleteProperty(written, mark);
+	}
+}
+
+function isObject(value: unknown): value is object {
+	return value != null && typeof value === 'object';
 }

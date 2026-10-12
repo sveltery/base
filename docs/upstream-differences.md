@@ -27,11 +27,11 @@ Test: `src/lib/merge-props/merge-props.spec.ts`.
 
 Upstream pairs each stateful prop with a `default*` prop and switches between controlled and uncontrolled mode at mount.
 
-Local: each stateful prop is one `$bindable` prop. `bind:x` shares it, a one-way value sets it until the parent changes it, and `bind:x={get, set}` lets the parent reject a change. Change callbacks run in the event handler, before the value is written, and `eventDetails.cancel()` stops the write. A parent write never calls a change callback.
+Local: each stateful prop is one `$bindable` prop. `bind:x` shares it, a one-way value sets it until the parent changes it, and `bind:x={get, set}` lets the parent reject a change. Change callbacks run in the event handler, before the value is written, and `eventDetails.cancel()` stops the write. A parent write calls a change callback only when Tabs has to move off a disabled or removed tab.
 
 - `defaultValue` and `defaultChecked` exist only on the 8 form controls (Field.Control and Input, Checkbox, CheckboxGroup, Switch, RadioGroup, Slider, NumberField and OTPField). They are the value an empty binding starts from, as on an HTML input.
-- Toggle, ToggleGroup, Tabs, Accordion, Collapsible, Dialog and Popover have no `default*` prop. Pass `pressed`, `value` or `open` without `bind:` to set only the initial state. Dialog and Popover take an initial `triggerId` the same way.
-- Tabs moves the selection to the first enabled tab when the selected tab is disabled or removed, whether or not the parent passed `value`. Upstream keeps a controlled value. A value passed at mount does not get the `initial` notice, and a disabled tab it names stays selected until that tab has been enabled once, as an upstream `defaultValue` does.
+- Toggle, ToggleGroup, Tabs, Accordion, Collapsible, Dialog and Popover have no `default*` prop. A `pressed`, `value` or `open` passed without `bind:` holds until the parent changes it. Dialog and Popover take an initial `triggerId` the same way.
+- Tabs moves the selection to the first enabled tab when the selected tab is disabled or removed, whether or not the parent passed `value`. Upstream keeps a controlled value. A value passed at mount does not get the `initial` notice, and a tab it names stays selected while that tab is disabled or not yet rendered, until it has named an enabled tab once. Upstream holds only a disabled `defaultValue` tab.
 - A canceled `Field.Control` change puts the input back to the held value. Upstream keeps the typed text in an uncontrolled input.
 - `readonly`, `autocomplete` and `inputmode` use the HTML spelling. State keys such as `readOnly` keep upstream's camelCase.
 

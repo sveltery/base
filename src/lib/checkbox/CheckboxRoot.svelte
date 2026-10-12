@@ -282,6 +282,10 @@
 			onpointerdown(event: PointerEvent) {
 				enterHeld = false;
 				props.onpointerdown(event);
+			},
+			onfocusout(event: FocusEvent & { currentTarget: EventTarget & HTMLElement }) {
+				enterHeld = false;
+				props.onfocusout?.(event);
 			}
 		} as CheckboxHostProps & Record<symbol, Attachment<HTMLElement>>;
 	});
