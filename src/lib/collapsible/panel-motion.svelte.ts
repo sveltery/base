@@ -95,9 +95,9 @@ export class CollapsiblePanelMotion {
 					restoreForMeasure();
 					this.setDimensions(measured);
 					const panelEl = panel;
-					let cancelled = false;
+					const signal = getAbortSignal();
 					queueMicrotask(() => {
-						if (cancelled || this.panel !== panelEl) return;
+						if (signal.aborted || this.panel !== panelEl) return;
 						this.layoutRestore = resetLayoutStyles(panelEl);
 					});
 					if (skip) {
@@ -106,7 +106,6 @@ export class CollapsiblePanelMotion {
 						this.forcePanelIdle = true;
 					}
 					return () => {
-						cancelled = true;
 						this.layoutRestore?.();
 						this.layoutRestore = null;
 					};

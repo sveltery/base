@@ -13,7 +13,7 @@
 	lands on a new element and the opacity transition can run.
 -->
 <script lang="ts">
-	import { untrack } from 'svelte';
+	import { getAbortSignal, untrack } from 'svelte';
 	import { mergeProps } from '../internal/mergeProps.js';
 	import { useDirection } from '../internal/direction-context.js';
 	import { useAnimationFrame } from '@sveltery/utils';
@@ -49,7 +49,7 @@
 	$effect.pre(() => {
 		const generation = store.triggerSwitch;
 		if (generation === 0) return;
-		const controller = new AbortController();
+		const signal = getAbortSignal();
 		untrack(() => {
 			const source = currentEl;
 			const active = store.domReferenceElement;
@@ -59,24 +59,23 @@
 			activationDirection = directionBetween(previous, active);
 			showStarting = true;
 			frame.request(() => {
-				if (controller.signal.aborted) return;
+				if (signal.aborted) return;
 				showStarting = false;
 				const node = currentEl;
-				if (!node || controller.signal.aborted) return;
+				if (!node) return;
 				runOnceAnimationsFinish(
 					node,
 					() => {
-						if (controller.signal.aborted) return;
+						if (signal.aborted) return;
 						previousNode = null;
 						activationDirection = undefined;
 					},
-					controller.signal,
+					signal,
 					false
 				);
 			});
 		});
 		return () => {
-			controller.abort();
 			frame.cancel();
 			previousNode = null;
 			activationDirection = undefined;
@@ -102,18 +101,16 @@
 			store.popupVars = {};
 			return;
 		}
-		const controller = beginResize(content, popup, side, textDirection);
-		return () => {
-			controller.abort();
-			resizeFrame.cancel();
-		};
+		beginResize(content, popup, side, textDirection, getAbortSignal());
+		return () => resizeFrame.cancel();
 	});
 
 	function beginResize(
 		content: unknown,
 		popup: HTMLElement,
 		side: string | null,
-		textDirection: string
+		textDirection: string,
+		signal: AbortSignal
 	) {
 		const mark = content;
 		const anchor = anchoring(side, textDirection);
@@ -123,10 +120,8 @@
 			'--positioner-width': 'max-content',
 			'--positioner-height': 'max-content'
 		};
-		const controller = new AbortController();
 		resizeFrame.request(() => {
-			if (controller.signal.aborted || !popup.isConnected || !Object.is(mark, store.payload))
-				return;
+			if (signal.aborted || !popup.isConnected || !Object.is(mark, store.payload)) return;
 			const next = cssSize(popup);
 			committedSize = next;
 			store.positionerVars = sizeVars('positioner', next);
@@ -136,20 +131,19 @@
 			}
 			store.popupVars = { ...anchor, ...sizeVars('popup', previous) };
 			resizeFrame.request(() => {
-				if (controller.signal.aborted) return;
+				if (signal.aborted) return;
 				store.popupVars = { ...anchor, ...sizeVars('popup', next) };
 				runOnceAnimationsFinish(
 					popup,
 					() => {
-						if (controller.signal.aborted) return;
+						if (signal.aborted) return;
 						store.popupVars = { ...anchor, '--popup-width': 'auto', '--popup-height': 'auto' };
 					},
-					controller.signal,
+					signal,
 					false
 				);
 			});
 		});
-		return controller;
 	}
 
 	function anchoring(side: string | null, textDirection: string) {

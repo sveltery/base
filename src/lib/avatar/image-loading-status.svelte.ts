@@ -1,5 +1,6 @@
 // Derived from Base UI v1.8.0 packages/react/src/avatar/image/useImageLoadingStatus.ts
 // (commit 47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c). MIT, see THIRD_PARTY_NOTICES.md.
+import { getAbortSignal } from 'svelte';
 import type { ImageLoadingStatus } from './types.js';
 
 export interface ImageProbeSource {
@@ -26,11 +27,10 @@ export function createImageLoadingStatus(enabled: () => boolean, source: () => I
 			return;
 		}
 
-		let active = true;
+		const signal = getAbortSignal();
 		const image = new Image();
 		const update = (next: ImageLoadingStatus) => () => {
-			if (!active) return;
-			status = next;
+			if (!signal.aborted) status = next;
 		};
 
 		// Handlers, then request hints, then src. A cached image can finish inside the src write.
@@ -45,10 +45,6 @@ export function createImageLoadingStatus(enabled: () => boolean, source: () => I
 		if (image.complete) {
 			status = image.naturalWidth > 0 ? 'loaded' : 'error';
 		}
-
-		return () => {
-			active = false;
-		};
 	});
 
 	return {
