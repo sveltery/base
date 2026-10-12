@@ -172,12 +172,6 @@ importers:
       '@floating-ui/utils':
         specifier: ^0.2.12
         version: 0.2.12
-      '@sveltery/floating-ui-svelte':
-        specifier: workspace:*
-        version: link:packages/floating-ui-svelte
-      '@sveltery/utils':
-        specifier: workspace:*
-        version: link:packages/utils
       esm-env:
         specifier: 1.2.2
         version: 1.2.2
@@ -203,6 +197,12 @@ importers:
       '@sveltejs/vite-plugin-svelte':
         specifier: ^7.2.0
         version: 7.3.1(svelte@5.57.1(@typescript-eslint/types@8.71.1))(vite@8.3.3(@types/node@24.19.1))
+      '@sveltery/floating-ui-svelte':
+        specifier: workspace:*
+        version: link:packages/floating-ui-svelte
+      '@sveltery/utils':
+        specifier: workspace:*
+        version: link:packages/utils
       '@types/node':
         specifier: ^24
         version: 24.19.1
@@ -281,18 +281,38 @@ importers:
       esm-env:
         specifier: 1.2.2
         version: 1.2.2
+    devDependencies:
+      '@sveltejs/package':
+        specifier: ^2.5.8
+        version: 2.5.8(svelte@5.57.1(@typescript-eslint/types@8.71.1))(typescript@6.0.3)
+      publint:
+        specifier: ^0.3.21
+        version: 0.3.25
       svelte:
         specifier: ^5.57.1
         version: 5.57.1(@typescript-eslint/types@8.71.1)
+      typescript:
+        specifier: ^6.0.3
+        version: 6.0.3
 
   packages/utils:
     dependencies:
       esm-env:
         specifier: 1.2.2
         version: 1.2.2
+    devDependencies:
+      '@sveltejs/package':
+        specifier: ^2.5.8
+        version: 2.5.8(svelte@5.57.1(@typescript-eslint/types@8.71.1))(typescript@6.0.3)
+      publint:
+        specifier: ^0.3.21
+        version: 0.3.25
       svelte:
         specifier: ^5.57.1
         version: 5.57.1(@typescript-eslint/types@8.71.1)
+      typescript:
+        specifier: ^6.0.3
+        version: 6.0.3
 
 packages:
 
