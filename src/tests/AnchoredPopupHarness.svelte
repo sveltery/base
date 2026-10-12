@@ -12,7 +12,7 @@
 		PopupStore,
 		popupTransitionStateMapping,
 		registerTrigger,
-		useAnchorPositioning,
+		AnchorPositioning,
 		useAnchoredPopupScrollLock
 	} from '#lib/internal/popups/index.js';
 	import type { PopupChangeEventDetails } from '#lib/internal/popups/index.js';
@@ -108,7 +108,7 @@
 		closeDelay: scenario === 'delay' ? closeDelay : 0
 	}));
 
-	const positioning = useAnchorPositioning(store, () => ({
+	const positioning = new AnchorPositioning(store, () => ({
 		mounted: store.mounted,
 		anchor: scenario === 'pixels' ? fractionalAnchor : undefined,
 		disableAnchorTracking: false,

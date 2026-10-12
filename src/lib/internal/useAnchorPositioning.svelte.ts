@@ -26,7 +26,8 @@ import {
 	type FloatingRootStore,
 	type ReferenceElement,
 	useBaseUIFloating,
-	roundByDPR
+	roundByDPR,
+	type UsePositionReturn
 } from '@sveltery/floating-ui-svelte';
 import { hide } from './hideMiddleware.js';
 import { ownerDocument, ownerWindow } from '@sveltery/utils';
@@ -54,7 +55,7 @@ export interface CollisionAvoidance {
 	fallbackAxisSide?: 'start' | 'end' | 'none';
 }
 
-export interface UseAnchorPositioningParameters {
+export interface AnchorPositioningParameters {
 	anchor?: Anchor;
 	positionMethod?: 'absolute' | 'fixed';
 	side?: Side;
@@ -72,21 +73,6 @@ export interface UseAnchorPositioningParameters {
 	shift?: { crossAxis?: boolean; rootBoundary?: 'layoutViewport' };
 	lazyFlip?: boolean;
 	inline?: Middleware;
-}
-
-export interface UseAnchorPositioningReturn {
-	readonly positionerStyles: Record<string, string>;
-	readonly arrowStyles: Record<string, string>;
-	readonly arrowUncentered: boolean;
-	readonly side: Side;
-	readonly align: Align;
-	readonly physicalSide: PhysicalSide;
-	readonly anchorHidden: boolean;
-	readonly isPositioned: boolean;
-	readonly positionerProps: { attach: Attachment<HTMLElement> };
-	readonly arrowProps: { attach: Attachment<HTMLElement> };
-	readonly anchorTracking: AutoUpdateOptions;
-	update(): void;
 }
 
 export function anchorAutoUpdateOptions(disableAnchorTracking: boolean): AutoUpdateOptions {
@@ -157,26 +143,62 @@ function paddingBox(padding: Padding | undefined) {
 	};
 }
 
-export function useAnchorPositioning(
-	store: FloatingRootStore,
-	params: () => UseAnchorPositioningParameters
-): UseAnchorPositioningReturn {
-	const direction = useDirection();
-	let latchedSide = $state<PhysicalSide | null>(null);
-	let latchedFor = $state.raw<ReferenceElement | null>(null);
-	let arrowElement = $state<HTMLElement | null>(null);
-	let measured = $state.raw<Record<string, string>>({});
+export class AnchorPositioning {
+	readonly #direction = useDirection();
+	#latchedSide = $state<PhysicalSide | null>(null);
+	#latchedFor = $state.raw<ReferenceElement | null>(null);
+	#arrowElement = $state<HTMLElement | null>(null);
+	#measured = $state.raw<Record<string, string>>({});
+	readonly #position: UsePositionReturn;
 
-	function read() {
-		return params();
+	readonly #mountSide = $derived.by(() => {
+		const current = this.read();
+		if (!current.mounted) return null;
+		const reference = resolveAnchor(current.anchor) ?? this.store.referenceElement;
+		if (
+			!reference ||
+			this.#latchedFor !== reference ||
+			this.#position.positionedFor !== reference
+		) {
+			return null;
+		}
+		return this.#latchedSide;
+	});
+
+	readonly isPositioned = $derived.by(
+		() => this.#position.data.isPositioned && this.read().mounted
+	);
+
+	constructor(
+		private readonly store: FloatingRootStore,
+		private readonly read: () => AnchorPositioningParameters
+	) {
+		this.#position = useBaseUIFloating(store, () => this.#floatingOptions());
+
+		$effect(() => {
+			const current = this.read();
+			if (!current.mounted || !current.lazyFlip || !this.isPositioned) return;
+			const reference = resolveAnchor(current.anchor) ?? store.referenceElement;
+			if (this.#position.positionedFor !== reference) return;
+			const rendered = getSide(this.#position.data.placement);
+			const preferred = physicalSide(
+				current.side ?? 'bottom',
+				this.#direction.direction === 'rtl',
+				this.#mountSide
+			);
+			if (rendered !== preferred) {
+				this.#latchedSide = rendered;
+				this.#latchedFor = reference;
+			}
+		});
 	}
 
-	function layout() {
-		const current = read();
-		const isRtl = direction.direction === 'rtl';
+	#layout() {
+		const current = this.read();
+		const isRtl = this.#direction.direction === 'rtl';
 		const sideParam = current.side ?? 'bottom';
 		const align = current.align ?? 'center';
-		const physical = physicalSide(sideParam, isRtl, mountSide);
+		const physical = physicalSide(sideParam, isRtl, this.#mountSide);
 		const collisionPadding = paddingBox(current.collisionPadding ?? 5);
 		const avoidance = current.collisionAvoidance;
 		const collisionAvoidanceSide = avoidance.side || 'flip';
@@ -210,14 +232,14 @@ export function useAnchorPositioning(
 		};
 	}
 
-	const position = useBaseUIFloating(store, () => {
-		const current = layout();
+	#floatingOptions() {
+		const current = this.#layout();
 		const bias = 1;
 		const middleware: Array<Middleware | null> = [];
 		if (current.current.inline) middleware.push(current.current.inline);
 		middleware.push(
 			offset((state) => {
-				const live = layout();
+				const live = this.#layout();
 				const data = offsetData(state, live.sideParam, live.isRtl);
 				const sideAxis =
 					typeof live.sideOffset === 'function' ? live.sideOffset(data) : live.sideOffset;
@@ -230,7 +252,7 @@ export function useAnchorPositioning(
 			current.collisionAvoidanceSide === 'none'
 				? null
 				: flip(() => {
-						const live = layout();
+						const live = this.#layout();
 						const biasTop = live.sideParam === 'bottom' ? bias : 0;
 						const biasBottom = live.sideParam === 'top' ? bias : 0;
 						const biasLeft = live.sideParam === 'right' ? bias : 0;
@@ -256,7 +278,7 @@ export function useAnchorPositioning(
 		const shiftMiddleware = shiftDisabled
 			? null
 			: floatingShift(() => {
-					const live = layout();
+					const live = this.#layout();
 					return {
 						boundary: live.boundary,
 						padding: live.collisionPadding,
@@ -267,8 +289,8 @@ export function useAnchorPositioning(
 							live.sticky || live.shiftCrossAxis
 								? undefined
 								: limitShift(() => {
-										if (!arrowElement) return {};
-										const { width, height } = arrowElement.getBoundingClientRect();
+										if (!this.#arrowElement) return {};
+										const { width, height } = this.#arrowElement.getBoundingClientRect();
 										const sideAxis = getSideAxis(live.physical);
 										const arrowSize = sideAxis === 'y' ? width : height;
 										const offsetAmount =
@@ -290,12 +312,12 @@ export function useAnchorPositioning(
 		}
 		middleware.push(
 			size(() => {
-				const live = layout();
+				const live = this.#layout();
 				return {
 					boundary: live.boundary,
 					padding: live.collisionPadding,
-					apply({ elements: { floating }, availableWidth, availableHeight, rects }) {
-						if (!read().mounted) return;
+					apply: ({ elements: { floating }, availableWidth, availableHeight, rects }) => {
+						if (!this.read().mounted) return;
 						const next: Record<string, string> = {
 							[AVAILABLE_WIDTH_VAR]: `${availableWidth}px`,
 							[AVAILABLE_HEIGHT_VAR]: `${availableHeight}px`
@@ -307,30 +329,31 @@ export function useAnchorPositioning(
 						next[CommonPositionerCssVars.anchorWidth] = `${anchorWidth}px`;
 						next[CommonPositionerCssVars.anchorHeight] = `${anchorHeight}px`;
 						if (
-							measured[AVAILABLE_WIDTH_VAR] !== next[AVAILABLE_WIDTH_VAR] ||
-							measured[AVAILABLE_HEIGHT_VAR] !== next[AVAILABLE_HEIGHT_VAR] ||
-							measured[CommonPositionerCssVars.anchorWidth] !==
+							this.#measured[AVAILABLE_WIDTH_VAR] !== next[AVAILABLE_WIDTH_VAR] ||
+							this.#measured[AVAILABLE_HEIGHT_VAR] !== next[AVAILABLE_HEIGHT_VAR] ||
+							this.#measured[CommonPositionerCssVars.anchorWidth] !==
 								next[CommonPositionerCssVars.anchorWidth] ||
-							measured[CommonPositionerCssVars.anchorHeight] !==
+							this.#measured[CommonPositionerCssVars.anchorHeight] !==
 								next[CommonPositionerCssVars.anchorHeight]
 						) {
-							measured = { ...measured, ...next };
+							this.#measured = { ...this.#measured, ...next };
 						}
 					}
 				};
 			}),
 			arrow((state) => {
-				const live = layout();
+				const live = this.#layout();
 				return {
-					element: arrowElement || ownerDocument(state.elements.floating).createElement('div'),
-					padding: arrowElement ? live.arrowPadding : 0,
+					element:
+						this.#arrowElement || ownerDocument(state.elements.floating).createElement('div'),
+					padding: this.#arrowElement ? live.arrowPadding : 0,
 					offsetParent: 'floating' as const
 				};
 			}),
 			{
 				name: 'transformOrigin',
-				fn(state) {
-					const live = layout();
+				fn: (state: MiddlewareState) => {
+					const live = this.#layout();
 					const renderedSide = getSide(state.placement);
 					const renderedAlign = getAlignment(state.placement);
 					const isVertical = getSideAxis(renderedSide) === 'y';
@@ -339,7 +362,7 @@ export function useAnchorPositioning(
 						typeof live.sideOffset === 'function' ? live.sideOffset(data) : live.sideOffset;
 					let crossOrigin: string;
 					if (
-						!arrowElement &&
+						!this.#arrowElement &&
 						renderedAlign &&
 						Math.abs(
 							isVertical ? state.middlewareData.shift?.x || 0 : state.middlewareData.shift?.y || 0
@@ -355,8 +378,8 @@ export function useAnchorPositioning(
 							? state.middlewareData.arrow?.x || 0
 							: state.middlewareData.arrow?.y || 0;
 						const arrowSize = isVertical
-							? arrowElement?.clientWidth || 0
-							: arrowElement?.clientHeight || 0;
+							? this.#arrowElement?.clientWidth || 0
+							: this.#arrowElement?.clientHeight || 0;
 						crossOrigin = `${arrowOffset + arrowSize / 2}px`;
 					}
 					let sideOrigin =
@@ -373,8 +396,11 @@ export function useAnchorPositioning(
 					const origin = isVertical
 						? `${crossOrigin} ${sideOrigin}`
 						: `${sideOrigin} ${crossOrigin}`;
-					if (measured[CommonPositionerCssVars.transformOrigin] !== origin) {
-						measured = { ...measured, [CommonPositionerCssVars.transformOrigin]: origin };
+					if (this.#measured[CommonPositionerCssVars.transformOrigin] !== origin) {
+						this.#measured = {
+							...this.#measured,
+							[CommonPositionerCssVars.transformOrigin]: origin
+						};
 					}
 					return {};
 				}
@@ -392,128 +418,90 @@ export function useAnchorPositioning(
 			enabled: current.current.mounted,
 			autoUpdate: anchorAutoUpdateOptions(current.current.disableAnchorTracking)
 		};
-	});
+	}
 
-	const mountSide = $derived.by(() => {
-		const current = read();
-		if (!current.mounted) return null;
-		const reference = resolveAnchor(current.anchor) ?? store.referenceElement;
-		if (!reference || latchedFor !== reference || position.positionedFor !== reference) return null;
-		return latchedSide;
-	});
-
-	const isPositioned = $derived(position.data.isPositioned && read().mounted);
-
-	$effect(() => {
-		const current = read();
-		if (!current.mounted || !current.lazyFlip || !isPositioned) return;
-		const reference = resolveAnchor(current.anchor) ?? store.referenceElement;
-		if (position.positionedFor !== reference) return;
-		const rendered = getSide(position.data.placement);
-		const preferred = physicalSide(
-			current.side ?? 'bottom',
-			direction.direction === 'rtl',
-			mountSide
-		);
-		if (rendered !== preferred) {
-			latchedSide = rendered;
-			latchedFor = reference;
-		}
-	});
-
-	function availableSize() {
+	#availableSize() {
 		return {
-			[AVAILABLE_WIDTH_VAR]: measured[AVAILABLE_WIDTH_VAR] ?? '100vw',
-			[AVAILABLE_HEIGHT_VAR]: measured[AVAILABLE_HEIGHT_VAR] ?? '100vh'
+			[AVAILABLE_WIDTH_VAR]: this.#measured[AVAILABLE_WIDTH_VAR] ?? '100vw',
+			[AVAILABLE_HEIGHT_VAR]: this.#measured[AVAILABLE_HEIGHT_VAR] ?? '100vh'
 		};
 	}
 
-	function positionerStyles() {
-		const current = read();
-		if (!isPositioned) {
-			return { position: 'fixed', top: '0', left: '0', opacity: '0', ...availableSize() };
+	get positionerStyles(): Record<string, string> {
+		if (!this.isPositioned) {
+			return { position: 'fixed', top: '0', left: '0', opacity: '0', ...this.#availableSize() };
 		}
+		const current = this.read();
+		const data = this.#position.data;
 		const method = current.positionMethod ?? 'absolute';
 		const adaptive = current.adaptiveOrigin
-			? (position.data.middlewareData.adaptiveOrigin as
-					{ sideX?: string; sideY?: string } | undefined)
+			? (data.middlewareData.adaptiveOrigin as { sideX?: string; sideY?: string } | undefined)
 			: undefined;
 		const sideX = adaptive?.sideX ?? 'left';
 		const sideY = adaptive?.sideY ?? 'top';
-		const node = store.positionerElement;
+		const node = this.store.positionerElement;
 		return {
 			position: method,
-			[sideX]: `${roundByDPR(node, position.data.x)}px`,
-			[sideY]: `${roundByDPR(node, position.data.y)}px`,
-			...measured,
-			...availableSize()
+			[sideX]: `${roundByDPR(node, data.x)}px`,
+			[sideY]: `${roundByDPR(node, data.y)}px`,
+			...this.#measured,
+			...this.#availableSize()
 		};
 	}
 
-	function bindPositioner(node: HTMLElement) {
-		node.style.setProperty(AVAILABLE_WIDTH_VAR, '100vw');
-		node.style.setProperty(AVAILABLE_HEIGHT_VAR, '100vh');
-		store.positionerElement = node;
-		if (store.floatingElementKind === 'positioner') store.floatingElement = node;
-		const stop = position.floatingProps.attach(node);
-		return () => {
-			if (typeof stop === 'function') stop();
-			if (store.positionerElement === node) store.positionerElement = null;
-			if (store.floatingElement === node) store.floatingElement = null;
+	get arrowStyles(): Record<string, string> {
+		const arrowData = this.#position.data.middlewareData.arrow;
+		return {
+			position: 'absolute',
+			top: arrowData?.y == null ? '' : `${arrowData.y}px`,
+			left: arrowData?.x == null ? '' : `${arrowData.x}px`
 		};
 	}
 
-	function bindArrow(node: HTMLElement) {
-		arrowElement = node;
-		position.update();
-		return () => {
-			if (arrowElement === node) arrowElement = null;
-		};
+	get arrowUncentered() {
+		return this.#position.data.middlewareData.arrow?.centerOffset !== 0;
 	}
 
-	return {
-		get positionerStyles() {
-			return positionerStyles();
-		},
-		get arrowStyles() {
-			const arrowData = position.data.middlewareData.arrow;
-			return {
-				position: 'absolute',
-				top: arrowData?.y == null ? '' : `${arrowData.y}px`,
-				left: arrowData?.x == null ? '' : `${arrowData.x}px`
+	get side(): Side {
+		const rendered = getSide(this.#position.data.placement);
+		return logicalSide(this.read().side ?? 'bottom', rendered, this.#direction.direction === 'rtl');
+	}
+
+	get align(): Align {
+		return getAlignment(this.#position.data.placement) || 'center';
+	}
+
+	get physicalSide(): PhysicalSide {
+		return getSide(this.#position.data.placement);
+	}
+
+	get anchorHidden() {
+		return Boolean(this.#position.data.middlewareData.hide?.referenceHidden);
+	}
+
+	readonly positionerProps: { attach: Attachment<HTMLElement> } = {
+		attach: (node) => {
+			const { store } = this;
+			node.style.setProperty(AVAILABLE_WIDTH_VAR, '100vw');
+			node.style.setProperty(AVAILABLE_HEIGHT_VAR, '100vh');
+			store.positionerElement = node;
+			if (store.floatingElementKind === 'positioner') store.floatingElement = node;
+			const stop = this.#position.floatingProps.attach(node);
+			return () => {
+				if (typeof stop === 'function') stop();
+				if (store.positionerElement === node) store.positionerElement = null;
+				if (store.floatingElement === node) store.floatingElement = null;
 			};
-		},
-		get arrowUncentered() {
-			return position.data.middlewareData.arrow?.centerOffset !== 0;
-		},
-		get side() {
-			const current = read();
-			const rendered = getSide(position.data.placement);
-			return logicalSide(current.side ?? 'bottom', rendered, direction.direction === 'rtl');
-		},
-		get align() {
-			return getAlignment(position.data.placement) || 'center';
-		},
-		get physicalSide() {
-			return getSide(position.data.placement);
-		},
-		get anchorHidden() {
-			return Boolean(position.data.middlewareData.hide?.referenceHidden);
-		},
-		get isPositioned() {
-			return isPositioned;
-		},
-		get positionerProps() {
-			return { attach: bindPositioner };
-		},
-		get arrowProps() {
-			return { attach: bindArrow };
-		},
-		get anchorTracking() {
-			return anchorAutoUpdateOptions(read().disableAnchorTracking);
-		},
-		update() {
-			position.update();
+		}
+	};
+
+	readonly arrowProps: { attach: Attachment<HTMLElement> } = {
+		attach: (node) => {
+			this.#arrowElement = node;
+			this.#position.update();
+			return () => {
+				if (this.#arrowElement === node) this.#arrowElement = null;
+			};
 		}
 	};
 }

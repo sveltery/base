@@ -3,7 +3,7 @@ import type { Snippet } from 'svelte';
 import type { HTMLAttributes, HTMLButtonAttributes } from 'svelte/elements';
 import type { BaseUIChangeEventDetails, REASONS } from '@sveltery/utils';
 import type { PortalProps } from '../internal/portal-props.js';
-import type { Align, Side, UseAnchorPositioningParameters } from '../internal/popups/index.js';
+import type { Align, Side, AnchorPositioningParameters } from '../internal/popups/index.js';
 import type { TransitionStatusValue } from '../internal/useTransitionStatus.svelte.js';
 import type { PopoverHandle } from './handle.svelte.js';
 import type { RenderChildren } from '../internal/render-children.js';
@@ -132,18 +132,18 @@ export interface PopoverPositionerState {
 }
 
 export interface PopoverPositionerProps extends Omit<HTMLAttributes<HTMLDivElement>, 'children'> {
-	anchor?: UseAnchorPositioningParameters['anchor'];
-	positionMethod?: UseAnchorPositioningParameters['positionMethod'];
+	anchor?: AnchorPositioningParameters['anchor'];
+	positionMethod?: AnchorPositioningParameters['positionMethod'];
 	side?: Side;
 	align?: Align;
-	sideOffset?: UseAnchorPositioningParameters['sideOffset'];
-	alignOffset?: UseAnchorPositioningParameters['alignOffset'];
-	collisionBoundary?: UseAnchorPositioningParameters['collisionBoundary'];
-	collisionPadding?: UseAnchorPositioningParameters['collisionPadding'];
+	sideOffset?: AnchorPositioningParameters['sideOffset'];
+	alignOffset?: AnchorPositioningParameters['alignOffset'];
+	collisionBoundary?: AnchorPositioningParameters['collisionBoundary'];
+	collisionPadding?: AnchorPositioningParameters['collisionPadding'];
 	arrowPadding?: number;
 	sticky?: boolean;
 	disableAnchorTracking?: boolean;
-	collisionAvoidance?: UseAnchorPositioningParameters['collisionAvoidance'];
+	collisionAvoidance?: AnchorPositioningParameters['collisionAvoidance'];
 	render?: PartRender<HTMLDivElement, PopoverPositionerState>;
 	children?: Snippet;
 }

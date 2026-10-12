@@ -12,7 +12,7 @@
 	import InternalBackdrop from '../internal/InternalBackdrop.svelte';
 	import {
 		popupStateMapping,
-		useAnchorPositioning,
+		AnchorPositioning,
 		useAnchoredPopupScrollLock
 	} from '../internal/popups/index.js';
 	import { getStateAttributesProps } from '../internal/state-attributes.js';
@@ -43,7 +43,7 @@
 	useFloatingNodeId(store);
 	const attachKey = createAttachmentKey();
 
-	const positioning = useAnchorPositioning(store, () => ({
+	const positioning = new AnchorPositioning(store, () => ({
 		anchor,
 		positionMethod,
 		side,

@@ -18,12 +18,11 @@ export {
 } from '@sveltery/utils';
 export { useAnchoredPopupScrollLock } from '../useAnchoredPopupScrollLock.svelte.js';
 export {
-	useAnchorPositioning,
+	AnchorPositioning,
 	anchorAutoUpdateOptions,
 	type Align,
 	type Side,
-	type UseAnchorPositioningParameters,
-	type UseAnchorPositioningReturn
+	type AnchorPositioningParameters
 } from '../useAnchorPositioning.svelte.js';
 export { TriggerFocusGuards } from './triggerFocusGuards.js';
 export * as CommonPositionerCssVars from '../CommonPositionerCssVars.js';
