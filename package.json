@@ -199,7 +199,17 @@
 		}
 	},
 	"peerDependencies": {
+		"@sveltejs/kit": "^3.0.0",
+		"@tanstack/svelte-form": "^1.33.5",
 		"svelte": "^5.57.1"
+	},
+	"peerDependenciesMeta": {
+		"@sveltejs/kit": {
+			"optional": true
+		},
+		"@tanstack/svelte-form": {
+			"optional": true
+		}
 	},
 	"devDependencies": {
 		"@base-ui/react": "1.8.0",
@@ -211,6 +221,7 @@
 		"@sveltejs/vite-plugin-svelte": "^7.2.0",
 		"@sveltery/floating-ui-svelte": "workspace:*",
 		"@sveltery/utils": "workspace:*",
+		"@tanstack/svelte-form": "^1.33.5",
 		"@types/node": "^24",
 		"@types/react": "19.2.18",
 		"@types/react-dom": "19.2.4",
@@ -245,6 +256,7 @@
 	"dependencies": {
 		"@floating-ui/dom": "^1.8.0",
 		"@floating-ui/utils": "^0.2.12",
+		"@standard-schema/spec": "^1.1.0",
 		"esm-env": "1.2.2"
 	}
 }
