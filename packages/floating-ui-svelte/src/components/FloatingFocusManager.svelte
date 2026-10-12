@@ -500,7 +500,7 @@
 			reference instanceof HTMLElement ? on(reference, 'focusout', handleFocusOutside) : () => {};
 		const stopFloatingFocus = on(floating, 'focusout', handleFocusOutside);
 
-		store.events.on('openchange', noteClose);
+		const stopOpenChange = store.events.on('openchange', noteClose);
 
 		const stopRestore = on(floating, 'focusout', (event) => {
 			if (!restoreFocus) return;
@@ -527,7 +527,7 @@
 			stopRestore();
 			pointerDownTimeout.clear();
 			restoreFrame.cancel();
-			store.events.off('openchange', noteClose);
+			stopOpenChange();
 			const endedBy = closeType;
 			restoreReturnFocus(endedBy);
 		};

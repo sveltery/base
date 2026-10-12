@@ -24,7 +24,6 @@ export class FloatingTreeStore {
 
 	addNode(node: FloatingNodeRecord) {
 		this.nodes.push(node);
-		this.events.emit('add', node);
 	}
 
 	removeNode(node: FloatingNodeRecord) {

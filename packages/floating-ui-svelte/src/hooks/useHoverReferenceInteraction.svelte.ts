@@ -85,10 +85,7 @@ export function useHoverReferenceInteraction(
 				hoverCloseActive = false;
 			}
 		}
-		store.events.on('openchange', onOpenChange);
-		return () => {
-			store.events.off('openchange', onOpenChange);
-		};
+		return store.events.on('openchange', onOpenChange);
 	});
 
 	$effect(() => {
