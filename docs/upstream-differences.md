@@ -141,3 +141,39 @@ Pin: `47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c`, `packages/react/src/utils/Inter
 Local: `src/lib/internal/InternalBackdrop.svelte` writes that rect into `$state` from a `ResizeObserver` on the cutout and a capture-phase `scroll` listener on the owner window. The scroll listener reads the rect synchronously. A position-only move, with no resize and no scroll, is still not tracked.
 
 Test: `src/lib/internal/InternalBackdrop.svelte.spec.ts` (`updates the cutout when the element resizes`, `updates the cutout when an ancestor scrolls after the first observer callback`, `disconnects the cutout observer and scroll listener when the backdrop unmounts`).
+
+## Not ported yet
+
+Behavior each ported component does not cover yet. Overlay foundation is internal and has no public component.
+
+| Component          | Not ported yet                                                                                                  |
+| ------------------ | --------------------------------------------------------------------------------------------------------------- |
+| Accordion          | React.Activity animation resume, `className`/`style` callbacks, refs, roving focus (`orientation`, `loopFocus`) |
+| Button             | Composite and Toolbar integration, `nativeButton` host-tag warnings, class/style state callbacks                |
+| Checkbox           | Field, `inputRef`, `className`/`style` callbacks, host-tag warnings                                             |
+| CheckboxGroup      | Field validation, filled/dirty/touched hooks, labelable descriptions, fieldset disabled                         |
+| Collapsible        | React.Activity animation resume, `className`/`style` callbacks, refs, host-tag warnings                         |
+| Fieldset           | Checkbox, CheckboxGroup, RadioGroup and Slider disabled integration; `className`/`style` state callbacks        |
+| Field              | Checkbox, Radio, and Select integration; `className`/`style` callbacks; refs                                    |
+| Input              | `className`/`style` callbacks; refs                                                                             |
+| Toggle             | Toolbar integration, `nativeButton={false}`, class/style state callbacks                                        |
+| ToggleGroup        | Toolbar integration, `className`/`style` state callbacks, grid composite, scroll-into-view                      |
+| Avatar             | Enter/exit transitions and animation completion, `class`/`style` state callbacks                                |
+| Separator          | `className`/`style` state callbacks, React render-element cloning, `ref`, Menu/Select/Toolbar separators        |
+| Meter              | React `ref`, class/style state callbacks, numeric production error codes                                        |
+| Progress           | `className` and `style` state callbacks, refs                                                                   |
+| Form               | Checkbox, Switch, and Fieldset Form-spec cases; `className`/`style` callbacks; `actionsRef`                     |
+| Switch             | Field and Form integration, `inputRef`, `className`/`style` callbacks, `nativeButton` host-tag warnings         |
+| Radio              | Field, `inputRef`, `className`/`style` callbacks, host-tag warnings                                             |
+| RadioGroup         | `data-touched`, `inputRef`, `className`/`style` callbacks, scroll-into-view, text-field arrow exceptions        |
+| Tabs               | Pre-hydration indicator script, scroll-into-view, shadow-boundary offsets, `className`/`style` callbacks, refs  |
+| Toolbar            | Input, Separator, text-field arrow exceptions, scroll-into-view, ToggleGroup nesting, overlay triggers          |
+| NumberField        | `className`/`style` callbacks, refs, `inputRef`                                                                 |
+| ScrollArea         | `className`/`style` callbacks, refs                                                                             |
+| Slider             | `className`/`style` callbacks, refs, `inputRef`                                                                 |
+| DirectionProvider  | CSS `direction` on an element, without `DirectionProvider`                                                      |
+| OTPField           | `className`/`style` callbacks, refs, `inputRef`, React controlled lock                                          |
+| CSPProvider        | Select and Tabs render no inline style or prehydration script. Slider script has no CSP nonce                   |
+| Overlay foundation | Internal only. No public component                                                                              |
+| Popover            | `actionsRef`, Menu and Combobox nesting, shadow-root outside press, `className`/`style` callbacks, refs         |
+| Dialog             | Alert Dialog, Drawer, ref objects, `class`/`style` callbacks                                                    |
