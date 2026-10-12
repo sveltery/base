@@ -405,6 +405,7 @@
 		bind:this={uncheckedNode}
 		type="checkbox"
 		hidden
+		style="display: none !important"
 		checked={!isChecked}
 		defaultChecked={!resetsToChecked}
 		disabled={isDisabled}

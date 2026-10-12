@@ -270,6 +270,22 @@ describe('form reset', () => {
 		]);
 	});
 
+	it('keeps the uncheckedValue inputs out of sight when page CSS shows checkboxes', async () => {
+		const css = document.head.appendChild(document.createElement('style'));
+		css.textContent = "form input[type='checkbox'] { display: inline-block; }";
+		try {
+			render(FormResetHarness, { scenario: 'unchecked-value' });
+			await page.getByTestId('control').click();
+			await page.getByTestId('switch').click();
+			const shown = [...form().querySelectorAll<HTMLInputElement>('input[type="checkbox"]')]
+				.filter((input) => getComputedStyle(input).display !== 'none')
+				.map((input) => input.value);
+			expect(shown).toEqual(['on', 'on']);
+		} finally {
+			css.remove();
+		}
+	});
+
 	it('keeps the values and Field state when the reset is canceled', async () => {
 		render(FormResetHarness, { scenario: 'checkbox-field-state' });
 		const field = page.getByTestId('field');

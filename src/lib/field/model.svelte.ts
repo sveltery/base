@@ -151,8 +151,8 @@ export class FieldRootModel implements FieldContext {
 	constructor(options: FieldRootModelOptions) {
 		this.options = options;
 		this.resetForm = $derived(
-			options.form.element ??
-				ownerForm(this.registeredInputs.keys().next().value ?? this.inputElement)
+			ownerForm(this.registeredInputs.keys().next().value ?? this.inputElement) ??
+				options.form.element
 		);
 
 		$effect(() => {
