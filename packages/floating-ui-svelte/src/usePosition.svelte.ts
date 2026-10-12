@@ -1,7 +1,7 @@
 // Derived from @floating-ui/react-dom 2.1.9 `useFloating` (dom 1.8.0).
 // MIT, see THIRD_PARTY_NOTICES.md.
 // This is the only module that imports `computePosition` and `autoUpdate`.
-// Stored coordinates stay raw. Styles round them to device pixels.
+// Stored coordinates stay raw. Callers round them to device pixels with `roundByDPR`.
 // Middleware is read when positioning runs.
 
 import {
@@ -15,12 +15,11 @@ import {
 	type Strategy,
 	type VirtualElement
 } from '@floating-ui/dom';
-import type { Attachment } from 'svelte/attachments';
 import { ownerWindow } from '@sveltery/utils';
 
 export type { AutoUpdateOptions, Placement, Strategy, VirtualElement };
 
-export interface UsePositionOptions {
+export interface FloatingPositionOptions {
 	reference: ReferenceElement | null;
 	placement: Placement;
 	strategy: Strategy;
@@ -40,15 +39,6 @@ export interface PositionData {
 	isPositioned: boolean;
 }
 
-export interface UsePositionReturn {
-	readonly data: PositionData;
-	/** Element the stored coordinates were measured for. Null while unpositioned. */
-	readonly positionedFor: ReferenceElement | null;
-	readonly floatingStyles: Record<string, string | number>;
-	readonly floatingProps: { attach: Attachment<HTMLElement> };
-	update(): void;
-}
-
 function activeMiddleware(list: ReadonlyArray<Middleware | null | undefined | false>) {
 	return list.filter((item): item is Middleware => !!item);
 }
@@ -58,8 +48,8 @@ export function roundByDPR(element: Element | null, value: number) {
 	return Math.round(value * dpr) / dpr;
 }
 
-export function usePosition(options: () => UsePositionOptions): UsePositionReturn {
-	let data = $state.raw<PositionData>({
+export class FloatingPosition {
+	#data = $state.raw<PositionData>({
 		x: 0,
 		y: 0,
 		placement: 'bottom',
@@ -67,66 +57,19 @@ export function usePosition(options: () => UsePositionOptions): UsePositionRetur
 		middlewareData: {},
 		isPositioned: false
 	});
-	let floating = $state<HTMLElement | null>(null);
+	#floating = $state<HTMLElement | null>(null);
 	/** Raw so the element keeps its identity when effects compare it. */
-	let positionedFor = $state.raw<ReferenceElement | null>(null);
-	let version = 0;
+	#positionedFor = $state.raw<ReferenceElement | null>(null);
+	#version = 0;
 
-	function update() {
-		const current = options();
-		const reference = current.reference;
-		const node = floating;
-		if (!reference || !node || !current.enabled || current.open === false) return;
-		const id = ++version;
-		const middleware = activeMiddleware(current.middleware);
-		void computePosition(reference, node, {
-			placement: current.placement,
-			strategy: current.strategy,
-			middleware
-		}).then((result) => {
-			if (id !== version || floating !== node) return;
-			const live = options();
-			if (live.open === false || live.reference !== reference) return;
-			positionedFor = reference;
-			data = {
-				x: result.x,
-				y: result.y,
-				placement: result.placement,
-				strategy: result.strategy,
-				middlewareData: result.middlewareData,
-				isPositioned: true
-			};
-		});
-	}
-
-	$effect(() => {
-		const current = options();
-		const node = floating;
-		const reference = current.reference;
-		if (!current.enabled || current.open === false) {
-			version += 1;
-			positionedFor = null;
-			return;
-		}
-		if (!node || !reference) {
-			version += 1;
-			return;
-		}
-		const stop = autoUpdate(reference, node, update, current.autoUpdate);
-		return () => {
-			version += 1;
-			stop();
-		};
-	});
-
-	const snapshot = $derived.by(() => {
-		const current = options();
+	readonly data = $derived.by((): PositionData => {
+		const current = this.options();
 		const currentFor =
 			current.open !== false &&
 			current.enabled &&
-			positionedFor != null &&
-			positionedFor === current.reference;
-		if (currentFor && data.isPositioned) return data;
+			this.#positionedFor != null &&
+			this.#positionedFor === current.reference;
+		if (currentFor && this.#data.isPositioned) return this.#data;
 		return {
 			x: 0,
 			y: 0,
@@ -136,32 +79,67 @@ export function usePosition(options: () => UsePositionOptions): UsePositionRetur
 			isPositioned: false
 		};
 	});
-	const floatingStyles = $derived({
-		position: snapshot.strategy,
-		top: `${roundByDPR(floating, snapshot.y)}px`,
-		left: `${roundByDPR(floating, snapshot.x)}px`
-	});
 
-	function attach(node: HTMLElement) {
-		floating = node;
-		return () => {
-			if (floating === node) floating = null;
-		};
+	constructor(private readonly options: () => FloatingPositionOptions) {
+		$effect(() => {
+			const current = options();
+			const node = this.#floating;
+			const reference = current.reference;
+			if (!current.enabled || current.open === false) {
+				this.#version += 1;
+				this.#positionedFor = null;
+				return;
+			}
+			if (!node || !reference) {
+				this.#version += 1;
+				return;
+			}
+			const stop = autoUpdate(reference, node, this.update, current.autoUpdate);
+			return () => {
+				this.#version += 1;
+				stop();
+			};
+		});
 	}
 
-	return {
-		get data() {
-			return snapshot;
-		},
-		get positionedFor() {
-			return positionedFor;
-		},
-		get floatingStyles() {
-			return floatingStyles;
-		},
-		get floatingProps() {
-			return { attach };
-		},
-		update
+	/** Element the stored coordinates were measured for. Null while unpositioned. */
+	get positionedFor() {
+		return this.#positionedFor;
+	}
+
+	readonly floatingProps = {
+		attach: (node: HTMLElement) => {
+			this.#floating = node;
+			return () => {
+				if (this.#floating === node) this.#floating = null;
+			};
+		}
+	};
+
+	update = () => {
+		const current = this.options();
+		const reference = current.reference;
+		const node = this.#floating;
+		if (!reference || !node || !current.enabled || current.open === false) return;
+		const id = ++this.#version;
+		const middleware = activeMiddleware(current.middleware);
+		void computePosition(reference, node, {
+			placement: current.placement,
+			strategy: current.strategy,
+			middleware
+		}).then((result) => {
+			if (id !== this.#version || this.#floating !== node) return;
+			const live = this.options();
+			if (live.open === false || live.reference !== reference) return;
+			this.#positionedFor = reference;
+			this.#data = {
+				x: result.x,
+				y: result.y,
+				placement: result.placement,
+				strategy: result.strategy,
+				middlewareData: result.middlewareData,
+				isPositioned: true
+			};
+		});
 	};
 }

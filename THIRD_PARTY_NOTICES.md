@@ -192,7 +192,7 @@ Parts of this package derive from [Base UI](https://github.com/mui/base-ui) v1.8
 - `src/lib/internal/csp-context.ts` from `packages/react/src/internals/csp-context/CSPContext.tsx`
 - `src/lib/csp-provider/CSPProvider.svelte.spec.ts` assertions from `packages/react/src/csp-provider/CSPProvider.test.tsx` (the context values those ScrollArea and Select style-tag checks depend on; the style tags themselves stay with those components)
 - `src/lib/internal/mergeProps.ts` from `packages/react/src/merge-props/mergeProps.ts` (rightmost bag wins; its handler runs first; `preventBaseUIHandler()` skips the rest). `chain` and `mergeClass` live there too.
-- `packages/floating-ui-svelte/src/**` from `packages/react/src/floating-ui-react/**` (phase 1a: portal, focus manager, dismiss, click, tree, and the DOM helpers those call; phase 1b: `useBaseUIFloating`, hover, `safePolygon`, and the local arrow middleware)
+- `packages/floating-ui-svelte/src/**` from `packages/react/src/floating-ui-react/**` (phase 1a: portal, focus manager, dismiss, click, tree, and the DOM helpers those call; phase 1b: hover, `safePolygon`, and the local arrow middleware)
 - `packages/floating-ui-svelte/src/usePosition.svelte.ts` from `@floating-ui/react-dom` `useFloating` (positioning only; `computePosition` and `autoUpdate` stay in this file)
 - `src/lib/internal/useAnchorPositioning.svelte.ts` from `packages/react/src/internals/useAnchorPositioning.ts`
 - `src/lib/internal/hideMiddleware.ts` from `packages/react/src/utils/hideMiddleware.ts`

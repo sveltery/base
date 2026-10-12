@@ -25,9 +25,9 @@ import {
 	type Anchor,
 	type FloatingRootStore,
 	type ReferenceElement,
-	useBaseUIFloating,
+	FloatingPosition,
 	roundByDPR,
-	type UsePositionReturn
+	type FloatingPositionOptions
 } from '@sveltery/floating-ui-svelte';
 import { hide } from './hideMiddleware.js';
 import { ownerDocument, ownerWindow } from '@sveltery/utils';
@@ -149,7 +149,7 @@ export class AnchorPositioning {
 	#latchedFor = $state.raw<ReferenceElement | null>(null);
 	#arrowElement = $state<HTMLElement | null>(null);
 	#measured = $state.raw<Record<string, string>>({});
-	readonly #position: UsePositionReturn;
+	readonly #position: FloatingPosition;
 
 	readonly #mountSide = $derived.by(() => {
 		const current = this.read();
@@ -173,7 +173,7 @@ export class AnchorPositioning {
 		private readonly store: FloatingRootStore,
 		private readonly read: () => AnchorPositioningParameters
 	) {
-		this.#position = useBaseUIFloating(store, () => this.#floatingOptions());
+		this.#position = new FloatingPosition(() => this.#floatingOptions());
 
 		$effect(() => {
 			const current = this.read();
@@ -232,7 +232,7 @@ export class AnchorPositioning {
 		};
 	}
 
-	#floatingOptions() {
+	#floatingOptions(): FloatingPositionOptions {
 		const current = this.#layout();
 		const bias = 1;
 		const middleware: Array<Middleware | null> = [];
@@ -410,7 +410,9 @@ export class AnchorPositioning {
 		);
 
 		return {
-			anchor: current.current.mounted ? resolveAnchor(current.current.anchor) : null,
+			reference:
+				(current.current.mounted ? resolveAnchor(current.current.anchor) : null) ??
+				this.store.referenceElement,
 			placement: current.placement,
 			strategy: current.current.positionMethod ?? 'absolute',
 			middleware,
