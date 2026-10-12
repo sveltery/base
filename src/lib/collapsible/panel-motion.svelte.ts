@@ -3,9 +3,8 @@
 // React.Activity's resume-animation suppression is not recreated.
 
 import { on } from 'svelte/events';
-import { useAnimationFrame } from '../internal/timeout.svelte.js';
+import { useAnimationFrame, REASONS } from '@sveltery/utils';
 import { runOnceAnimationsFinish } from '../internal/animations-finished.js';
-import { REASONS } from '../internal/event-details.js';
 import type { CollapsibleRoot } from './context.svelte.js';
 import {
 	EMPTY_DIMENSIONS,

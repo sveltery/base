@@ -11,7 +11,7 @@ import CollapsibleBindHarness from '../../tests/CollapsibleBindHarness.svelte';
 import CollapsibleHarness from '../../tests/CollapsibleHarness.svelte';
 import { controllableRootCases } from '../../tests/controllable-root-cases.js';
 import { Collapsible } from './index.js';
-import { REASONS } from '../internal/event-details.js';
+import { REASONS } from '@sveltery/utils';
 
 const PANEL_CONTENT = 'This is panel content';
 

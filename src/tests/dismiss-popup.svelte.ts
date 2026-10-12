@@ -1,5 +1,5 @@
 import { createControllableValue } from '#lib/internal/controllable-value.svelte.js';
-import { useDismiss, useFloatingNodeId } from '#lib/internal/floating-ui/index.js';
+import { useDismiss, useFloatingNodeId } from '@sveltery/floating-ui-svelte';
 import { PopupStore } from '#lib/internal/popups/index.js';
 
 export function createDismissPopup(floatingId: string) {

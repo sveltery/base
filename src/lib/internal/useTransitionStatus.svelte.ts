@@ -4,7 +4,7 @@
 // Collapsible, Field, and Tabs keep their own copies. Checkbox and Radio clear
 // the mount frame through clearStatusOnAnimationFrame.
 
-import { useAnimationFrame } from './timeout.svelte.js';
+import { useAnimationFrame } from '@sveltery/utils';
 
 export type PopupTransitionStatus = 'starting' | 'ending' | undefined;
 

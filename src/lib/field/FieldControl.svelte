@@ -5,12 +5,11 @@
 -->
 <script lang="ts">
 	import { flushSync, untrack } from 'svelte';
-	import { useTimeout } from '../internal/timeout.svelte.js';
+	import { useTimeout, createChangeEventDetails, REASONS } from '@sveltery/utils';
 	import { createAttachmentKey } from 'svelte/attachments';
 	import type { HTMLAttributes, HTMLInputAttributes } from 'svelte/elements';
 	import { useFormContext } from '../form/context.js';
 	import { createControllableValue } from '../internal/controllable-value.svelte.js';
-	import { createChangeEventDetails, REASONS } from '../internal/event-details.js';
 	import { getStateAttributesProps } from '../internal/state-attributes.js';
 	import { attachFieldControl } from '../internal/field-register-control.svelte.js';
 	import { fieldValidityMapping } from './attributes.js';

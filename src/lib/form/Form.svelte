@@ -7,7 +7,7 @@
 <script lang="ts" generics="FormValues extends Record<string, unknown> = Record<string, unknown>">
 	import { createAttachmentKey } from 'svelte/attachments';
 	import type { HTMLFormAttributes } from 'svelte/elements';
-	import { createGenericEventDetails, REASONS } from '../internal/event-details.js';
+	import { createGenericEventDetails, REASONS } from '@sveltery/utils';
 	import { setFormContext, type FormContextValue } from './context.js';
 	import { comesBeforeInSameTree } from './document-order.js';
 	import type { FormErrors, FormField, FormProps, FormState } from './types.js';

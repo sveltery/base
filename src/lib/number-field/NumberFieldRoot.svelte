@@ -14,7 +14,7 @@
 	import { createControllableValue } from '../internal/controllable-value.svelte.js';
 	import PartHost from '../internal/PartHost.svelte';
 	import { getStateAttributesProps } from '../internal/state-attributes.js';
-	import { visuallyHidden, visuallyHiddenInput } from '../internal/visuallyHidden.js';
+	import { visuallyHidden, visuallyHiddenInput } from '@sveltery/utils';
 	import { numberFieldStateAttributes } from './attributes.js';
 	import { setNumberFieldContext } from './context.svelte.js';
 	import { NumberFieldModel } from './model.svelte.js';

@@ -4,9 +4,8 @@
 
 	import type { Attachment } from 'svelte/attachments';
 	import type { HTMLAttributes } from 'svelte/elements';
-	import { toCssStyle } from './css-style.js';
 	import { platform } from './platform.js';
-	import { visuallyHidden } from './visuallyHidden.js';
+	import { visuallyHiddenStyle } from './visuallyHidden.js';
 
 	let {
 		children: _children,
@@ -29,6 +28,6 @@
 	{role}
 	aria-hidden={role ? undefined : 'true'}
 	data-base-ui-focus-guard=""
-	style={toCssStyle(visuallyHidden)}
+	style={visuallyHiddenStyle}
 	{@attach apply}
 ></span>

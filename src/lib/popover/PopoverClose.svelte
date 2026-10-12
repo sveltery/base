@@ -6,7 +6,7 @@
 <script lang="ts">
 	import { createAttachmentKey } from 'svelte/attachments';
 	import PartHost from '../internal/PartHost.svelte';
-	import { createChangeEventDetails, REASONS } from '../internal/event-details.js';
+	import { createChangeEventDetails, REASONS } from '@sveltery/utils';
 	import { mergeProps } from '../internal/mergeProps.js';
 	import { useButton } from '../internal/useButton.js';
 	import { useCloseParts, usePopoverRoot } from './context.svelte.js';

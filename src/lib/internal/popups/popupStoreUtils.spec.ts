@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest';
 import { createPopupOpenState } from './popupStoreUtils.js';
-import { PopupTriggerMap } from './popupTriggerMap.js';
+import { PopupTriggerMap } from '@sveltery/floating-ui-svelte';
 import { popupTransitionStateMapping, triggerOpenStateMapping } from '../popupStateMapping.js';
 import { getStateAttributesProps } from '../state-attributes.js';
 

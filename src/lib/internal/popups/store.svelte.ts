@@ -6,13 +6,11 @@
 
 import { callPublic } from '../callPublic.js';
 import type { ControllableValue } from '../controllable-value.svelte.js';
-import type { BaseUIChangeEventDetails } from '../event-details.js';
-import { FloatingRootStore } from '../floating-ui-react/components/FloatingRootStore.svelte.js';
+import type { BaseUIChangeEventDetails } from '@sveltery/utils';
+import { FloatingRootStore } from '@sveltery/floating-ui-svelte';
 import { useOpenChangeComplete } from '../useOpenChangeComplete.svelte.js';
 import { PopupTransition, type PopupTransitionStatus } from '../useTransitionStatus.svelte.js';
 import { attachPreventUnmountOnClose, createPopupOpenState } from './popupStoreUtils.js';
-import { PopupTriggerMap } from './popupTriggerMap.js';
-import type { OpenInteractionType } from '../openInteraction.js';
 
 export type PopupChangeEventDetails<Reason extends string> = BaseUIChangeEventDetails<Reason> & {
 	preventUnmountOnClose: () => void;
@@ -30,11 +28,8 @@ export interface PopupStoreOptions<Reason extends string> {
 }
 
 export class PopupStore<Reason extends string> extends FloatingRootStore {
-	readonly triggers = new PopupTriggerMap();
 	triggerCount = $state(0);
 	preventUnmountingOnClose = $state(false);
-	/** How `useClick` opened this popup. Cleared in `setOpen(false)`. */
-	openMethod = $state<OpenInteractionType | null>(null);
 	private readonly openValue: ControllableValue<boolean>;
 	private readonly readOnOpenChange: PopupStoreOptions<Reason>['onOpenChange'];
 	private readonly readOnOpenChangeComplete: PopupStoreOptions<Reason>['onOpenChangeComplete'];
@@ -70,7 +65,7 @@ export class PopupStore<Reason extends string> extends FloatingRootStore {
 		return this.transition.mounted;
 	}
 
-	get transitionStatus(): PopupTransitionStatus {
+	override get transitionStatus(): PopupTransitionStatus {
 		return this.transition.transitionStatus;
 	}
 

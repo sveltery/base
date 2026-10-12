@@ -8,7 +8,7 @@
 		FloatingPortal,
 		useClick,
 		useDismiss
-	} from '#lib/internal/floating-ui/index.js';
+	} from '@sveltery/floating-ui-svelte';
 	import {
 		popupTransitionStateMapping,
 		PopupStore,
@@ -16,7 +16,7 @@
 		useScrollLock
 	} from '#lib/internal/popups/index.js';
 	import type { PopupChangeEventDetails } from '#lib/internal/popups/index.js';
-	import type { OpenInteractionType } from '#lib/internal/openInteraction.js';
+	import type { OpenInteractionType } from '@sveltery/utils';
 	import { getStateAttributesProps } from '#lib/internal/state-attributes.js';
 
 	let {

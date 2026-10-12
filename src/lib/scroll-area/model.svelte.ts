@@ -6,9 +6,7 @@
 
 import { untrack } from 'svelte';
 import { on } from 'svelte/events';
-import { contains, getTarget } from '../internal/shadow-dom.js';
-import { platform } from '../internal/platform.js';
-import { useTimeout } from '../internal/timeout.svelte.js';
+import { contains, getTarget, platform, useTimeout } from '@sveltery/utils';
 import { getOffset } from './dom.js';
 import {
 	applyOverscrollThumb,

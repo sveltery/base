@@ -97,8 +97,8 @@ describe('sveltery/no-unscoped-timer', () => {
 			const clock = new Timeout();
 			Timeout.create();
 		`;
-		expect(await messagesFor(code, 'src/lib/internal/timeout.ts')).toHaveLength(0);
-		expect(await messagesFor(code, 'src/lib/internal/timeout.svelte.ts')).toHaveLength(0);
-		expect(await messagesFor(code, 'src/lib/internal/timeout.spec.ts')).toHaveLength(0);
+		expect(await messagesFor(code, 'packages/utils/src/timeout.ts')).toHaveLength(0);
+		expect(await messagesFor(code, 'packages/utils/src/timeout.svelte.ts')).toHaveLength(0);
+		expect(await messagesFor(code, 'packages/utils/src/timeout.spec.ts')).toHaveLength(0);
 	});
 });

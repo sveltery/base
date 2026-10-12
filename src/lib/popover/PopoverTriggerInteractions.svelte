@@ -6,12 +6,12 @@
 <script lang="ts">
 	import { untrack } from 'svelte';
 	import { callPublic } from '../internal/callPublic.js';
-	import { REASONS } from '../internal/event-details.js';
+	import { REASONS } from '@sveltery/utils';
 	import {
 		safePolygon,
 		useClick,
 		useHoverReferenceInteraction
-	} from '../internal/floating-ui/index.js';
+	} from '@sveltery/floating-ui-svelte';
 	import { useTriggerFocusGuards } from '../internal/popups/index.js';
 	import type { PopoverStore } from './store.svelte.js';
 	import type { TriggerArmed } from './trigger-armed.js';

@@ -5,8 +5,8 @@
 -->
 <script lang="ts">
 	import { createAttachmentKey } from 'svelte/attachments';
-	import { REASONS } from '../internal/event-details.js';
-	import { useFloatingNodeId } from '../internal/floating-ui/index.js';
+	import { REASONS } from '@sveltery/utils';
+	import { useFloatingNodeId } from '@sveltery/floating-ui-svelte';
 	import { toCssStyle } from '../internal/css-style.js';
 	import { mergeProps } from '../internal/mergeProps.js';
 	import InternalBackdrop from '../internal/InternalBackdrop.svelte';

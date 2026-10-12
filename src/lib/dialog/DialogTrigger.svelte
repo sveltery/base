@@ -7,7 +7,7 @@
 <script lang="ts">
 	import { untrack } from 'svelte';
 	import { createAttachmentKey } from 'svelte/attachments';
-	import { CLICK_TRIGGER_IDENTIFIER } from '../internal/floating-ui/index.js';
+	import { CLICK_TRIGGER_IDENTIFIER } from '@sveltery/floating-ui-svelte';
 	import { getStateAttributesProps } from '../internal/state-attributes.js';
 	import { triggerOpenStateMapping } from '../internal/popupStateMapping.js';
 	import { registerTrigger } from '../internal/popups/index.js';

@@ -7,7 +7,7 @@ import { callPublic } from '../internal/callPublic.js';
 import { indicatorListeners } from './indicator-listeners.js';
 import type { ControllableValue } from '../internal/controllable-value.svelte.js';
 import { byDocumentOrder } from '../internal/document-order.js';
-import { REASONS } from '../internal/event-details.js';
+import { REASONS } from '@sveltery/utils';
 import { activationDirection } from './direction.js';
 import { createTabsChangeEventDetails } from './events.js';
 import type { CompositeRoot } from '../internal/composite-root.svelte.js';

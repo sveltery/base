@@ -8,16 +8,20 @@
 <script lang="ts">
 	import { flushSync } from 'svelte';
 	import type { HTMLAttributes } from 'svelte/elements';
-	import { createGenericEventDetails, REASONS } from '../internal/event-details.js';
+	import {
+		createGenericEventDetails,
+		REASONS,
+		ownerDocument,
+		ownerWindow,
+		platform,
+		useTimeout,
+		getTarget
+	} from '@sveltery/utils';
 	import { getStateAttributesProps } from '../internal/state-attributes.js';
 	import { numberFieldStateAttributes } from './attributes.js';
 	import { ScrubAreaState, setScrubAreaContext, useNumberFieldContext } from './context.svelte.js';
 	import { on } from 'svelte/events';
 	import { mergeCssStyle } from '../internal/css-style.js';
-	import { ownerDocument, ownerWindow } from '../internal/owner.js';
-	import { platform } from '../internal/platform.js';
-	import { useTimeout } from '../internal/timeout.svelte.js';
-	import { getTarget } from '../internal/shadow-dom.js';
 	import type { NumberFieldScrubAreaProps, NumberFieldScrubAreaState } from './types.js';
 	import { getViewportRect } from './viewport.js';
 

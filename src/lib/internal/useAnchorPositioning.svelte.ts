@@ -20,16 +20,16 @@ import {
 import { getAlignment, getSide, getSideAxis, type Side as PhysicalSide } from '@floating-ui/utils';
 import * as CommonPositionerCssVars from './CommonPositionerCssVars.js';
 import { useDirection } from './direction-context.js';
-import { arrow } from './floating-ui-react/middleware/arrow.js';
-import type {
-	Anchor,
-	FloatingRootStore,
-	ReferenceElement
-} from './floating-ui-react/components/FloatingRootStore.svelte.js';
-import { useBaseUIFloating } from './floating-ui-react/hooks/useFloating.svelte.js';
-import { roundByDPR } from './floating-ui-react/usePosition.svelte.js';
+import {
+	arrow,
+	type Anchor,
+	type FloatingRootStore,
+	type ReferenceElement,
+	useBaseUIFloating,
+	roundByDPR
+} from '@sveltery/floating-ui-svelte';
 import { hide } from './hideMiddleware.js';
-import { ownerDocument, ownerWindow } from './owner.js';
+import { ownerDocument, ownerWindow } from '@sveltery/utils';
 
 const AVAILABLE_WIDTH_VAR = CommonPositionerCssVars.availableWidth;
 const AVAILABLE_HEIGHT_VAR = CommonPositionerCssVars.availableHeight;

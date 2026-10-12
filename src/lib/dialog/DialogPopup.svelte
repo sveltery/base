@@ -7,12 +7,12 @@
 <script lang="ts">
 	import { createAttachmentKey } from 'svelte/attachments';
 	import { createDefaultInitialFocus, FOCUSABLE_POPUP_PROPS } from '../internal/popups/index.js';
-	import { FloatingFocusManager } from '../internal/floating-ui/index.js';
+	import { FloatingFocusManager } from '@sveltery/floating-ui-svelte';
 	import { mergeProps } from '../internal/mergeProps.js';
 	import { getStateAttributesProps } from '../internal/state-attributes.js';
 	import { useOpenChangeComplete } from '../internal/useOpenChangeComplete.svelte.js';
 	import { COMPOSITE_KEYS } from '../internal/composite-keys.js';
-	import type { OpenInteractionType } from '../internal/openInteraction.js';
+	import type { OpenInteractionType } from '@sveltery/utils';
 	import { dialogStateAttributesMapping, nestedDialogsVar } from './attributes.js';
 	import { useDialogPortalContext, useDialogRootContext } from './context.svelte.js';
 	import type { DialogDivProps, DialogPopupProps, DialogPopupState } from './types.js';

@@ -6,12 +6,19 @@
 	import { untrack } from 'svelte';
 	import { on } from 'svelte/events';
 	import type { Snippet } from 'svelte';
-	import { createChangeEventDetails, REASONS } from '../../event-details.js';
-	import FocusGuard from '../../FocusGuard.svelte';
-	import { ownerDocument, ownerWindow } from '../../owner.js';
-	import { activeElement, contains, getTarget } from '../../shadow-dom.js';
-	import { useAnimationFrame, useTimeout } from '../../timeout.svelte.js';
-	import type { OpenInteractionType } from '../../openInteraction.js';
+	import {
+		createChangeEventDetails,
+		REASONS,
+		FocusGuard,
+		ownerDocument,
+		ownerWindow,
+		activeElement,
+		contains,
+		getTarget,
+		useAnimationFrame,
+		useTimeout,
+		type OpenInteractionType
+	} from '@sveltery/utils';
 	import type { FloatingRootStore, OpenChangePayload } from './FloatingRootStore.svelte.js';
 	import { isElementVisible } from '../utils/composite.js';
 	import { CLICK_TRIGGER_IDENTIFIER, FOCUSABLE_ATTRIBUTE } from '../utils/constants.js';

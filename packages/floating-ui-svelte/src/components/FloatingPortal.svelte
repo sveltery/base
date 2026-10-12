@@ -58,11 +58,13 @@
 	import { onMount, setContext, type Snippet } from 'svelte';
 	import type { Attachment } from 'svelte/attachments';
 	import type { HTMLAttributes } from 'svelte/elements';
-	import FocusGuard from '../../FocusGuard.svelte';
-	import { toCssStyle } from '../../css-style.js';
-	import { ownerDocument } from '../../owner.js';
-	import { activeElement, contains } from '../../shadow-dom.js';
-	import { visuallyHidden } from '../../visuallyHidden.js';
+	import {
+		FocusGuard,
+		ownerDocument,
+		activeElement,
+		contains,
+		visuallyHiddenStyle
+	} from '@sveltery/utils';
 	import {
 		getNextTabbableInDocument,
 		getTabbableCandidates,
@@ -235,7 +237,7 @@
 			attach={bindGuard('beforeOutside')}
 		/>
 		{#if portalNode?.id}
-			<span aria-owns={portalNode.id} style={toCssStyle(visuallyHidden)}></span>
+			<span aria-owns={portalNode.id} style={visuallyHiddenStyle}></span>
 		{/if}
 	{/if}
 	{#if render}

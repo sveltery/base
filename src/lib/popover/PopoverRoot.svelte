@@ -11,7 +11,7 @@
 		setFloatingTree,
 		useDismiss,
 		useFloatingParentNodeId
-	} from '../internal/floating-ui/index.js';
+	} from '@sveltery/floating-ui-svelte';
 	import { setPopoverRoot } from './context.svelte.js';
 	import { PopoverStore } from './store.svelte.js';
 	import type { PopoverRootProps } from './types.js';

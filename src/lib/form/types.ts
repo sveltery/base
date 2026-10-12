@@ -1,6 +1,6 @@
 import type { Snippet } from 'svelte';
 import type { HTMLFormAttributes } from 'svelte/elements';
-import type { BaseUIGenericEventDetails, REASONS } from '../internal/event-details.js';
+import type { BaseUIGenericEventDetails, REASONS } from '@sveltery/utils';
 import type { RenderChildren } from '../internal/render-children.js';
 
 export type FormValidationMode = 'onSubmit' | 'onBlur' | 'onChange';

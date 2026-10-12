@@ -4,7 +4,7 @@
 // The disabled-trigger check uses the attribute string Tooltip will own.
 
 import { isHTMLElement } from '@floating-ui/utils/dom';
-import { contains } from '../../shadow-dom.js';
+import { contains } from '@sveltery/utils';
 import { TRIGGER_DISABLED_ATTRIBUTE } from './constants.js';
 
 export function isTargetInsideEnabledTrigger(

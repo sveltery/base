@@ -5,12 +5,9 @@
 -->
 <script lang="ts">
 	import { createAttachmentKey } from 'svelte/attachments';
-	import { REASONS } from '../internal/event-details.js';
+	import { REASONS } from '@sveltery/utils';
 	import { toCssStyle } from '../internal/css-style.js';
-	import {
-		FloatingFocusManager,
-		useHoverFloatingInteraction
-	} from '../internal/floating-ui/index.js';
+	import { FloatingFocusManager, useHoverFloatingInteraction } from '@sveltery/floating-ui-svelte';
 	import { mergeProps } from '../internal/mergeProps.js';
 	import { COMPOSITE_KEYS } from '../internal/composite-keys.js';
 	import { FOCUSABLE_POPUP_PROPS, resolveFocus } from '../internal/popups/index.js';

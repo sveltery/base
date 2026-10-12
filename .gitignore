@@ -5,9 +5,9 @@ node_modules
 .vercel
 .netlify
 .wrangler
-/.svelte-kit
+.svelte-kit
 /build
-/dist
+dist
 
 # OS
 .DS_Store

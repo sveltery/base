@@ -3,7 +3,7 @@
 // which is how Field.Error and Field.Validity call it
 // (commit 47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c). MIT, see THIRD_PARTY_NOTICES.md.
 
-import { useAnimationFrame } from '../internal/timeout.svelte.js';
+import { useAnimationFrame } from '@sveltery/utils';
 import type { FieldTransitionStatus } from './types.js';
 
 /**

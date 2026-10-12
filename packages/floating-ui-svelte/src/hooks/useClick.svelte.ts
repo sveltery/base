@@ -1,12 +1,16 @@
 // Derived from Base UI v1.8.0 packages/react/src/floating-ui-react/hooks/useClick.ts
 // (commit 47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c). MIT, see THIRD_PARTY_NOTICES.md.
 
-import { createChangeEventDetails, REASONS } from '../../event-details.js';
-import { getTarget } from '../../shadow-dom.js';
-import { useAnimationFrame, useTimeout } from '../../timeout.svelte.js';
-import type { OpenInteractionType } from '../../openInteraction.js';
-import { useOpenInteractionType } from '../../openInteraction.js';
-import type { PopupStore } from '../../popups/store.svelte.js';
+import type { FloatingRootStore } from '../components/FloatingRootStore.svelte.js';
+import {
+	createChangeEventDetails,
+	REASONS,
+	getTarget,
+	useAnimationFrame,
+	useTimeout,
+	type OpenInteractionType,
+	useOpenInteractionType
+} from '@sveltery/utils';
 import { isTypeableElement } from '../utils/element.js';
 import { isMouseLikePointerType, isVirtualPointerEvent } from '../utils/event.js';
 
@@ -21,7 +25,7 @@ export interface UseClickProps {
 }
 
 export function useClick<Reason extends string>(
-	store: PopupStore<Reason>,
+	store: FloatingRootStore,
 	props: () => UseClickProps = () => ({})
 ) {
 	const frame = useAnimationFrame();

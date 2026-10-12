@@ -6,8 +6,7 @@
 // ending phase waits one frame so the panel can measure before closed styles apply.
 
 import { getContext, setContext, untrack } from 'svelte';
-import { useAnimationFrame } from '../internal/timeout.svelte.js';
-import { createChangeEventDetails, REASONS } from '../internal/event-details.js';
+import { useAnimationFrame, createChangeEventDetails, REASONS } from '@sveltery/utils';
 import type {
 	CollapsibleRootChangeEventDetails,
 	CollapsibleRootChangeEventReason,

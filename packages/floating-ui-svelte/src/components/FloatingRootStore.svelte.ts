@@ -3,9 +3,10 @@
 // One store owns elements. There is no dataRef or nodesRef bag.
 
 import type { VirtualElement } from '@floating-ui/dom';
-import type { BaseUIChangeEventDetails } from '../../event-details.js';
+import type { BaseUIChangeEventDetails, OpenInteractionType } from '@sveltery/utils';
 import type { HoverInteraction } from '../hooks/useHoverInteractionSharedState.svelte.js';
 import { createEventEmitter, type FloatingEvents } from '../utils/createEventEmitter.js';
+import { PopupTriggerMap } from '../utils/popupTriggerMap.js';
 
 export type ReferenceElement = Element | VirtualElement;
 
@@ -20,7 +21,13 @@ export interface OpenChangePayload {
 	triggerElement: Element | undefined;
 }
 
+export type FloatingTransitionStatus = 'starting' | 'ending' | undefined;
+
 export class FloatingRootStore {
+	/** Every trigger that can open this popup, by id. */
+	readonly triggers = new PopupTriggerMap();
+	/** How `useClick` opened this popup. Cleared when the popup closes. */
+	openMethod = $state<OpenInteractionType | null>(null);
 	/** The active trigger. This is the only copy of that element. */
 	domReferenceElement = $state<Element | null>(null);
 	/** Hover timers and safe-polygon options for this popup. Not a module map. */
@@ -86,5 +93,10 @@ export class FloatingRootStore {
 	/** Subclasses own the open bit. The root only reads it. */
 	isOpen(): boolean {
 		return false;
+	}
+
+	/** Subclasses that animate report their exit here. */
+	get transitionStatus(): FloatingTransitionStatus {
+		return undefined;
 	}
 }

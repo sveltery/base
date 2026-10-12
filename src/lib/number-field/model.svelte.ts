@@ -9,12 +9,12 @@ import { formatNumber } from '../internal/formatNumber.js';
 import {
 	createChangeEventDetails,
 	createGenericEventDetails,
-	REASONS
-} from '../internal/event-details.js';
+	REASONS,
+	ownerDocument,
+	platform,
+	activeElement
+} from '@sveltery/utils';
 import type { FieldContext } from '../field/model.svelte.js';
-import { ownerDocument } from '../internal/owner.js';
-import { platform } from '../internal/platform.js';
-import { activeElement } from '../internal/shadow-dom.js';
 import {
 	ANY_MINUS_DETECT_RE,
 	ANY_MINUS_RE,

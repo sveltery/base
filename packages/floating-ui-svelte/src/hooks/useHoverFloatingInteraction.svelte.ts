@@ -2,11 +2,14 @@
 // (commit 47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c). MIT, see THIRD_PARTY_NOTICES.md.
 
 import { on } from 'svelte/events';
-import { createChangeEventDetails, REASONS } from '../../event-details.js';
-import { ownerDocument } from '../../owner.js';
-import { contains, getTarget } from '../../shadow-dom.js';
-import { PopupStore } from '../../popups/store.svelte.js';
-import { useTimeout } from '../../timeout.svelte.js';
+import {
+	createChangeEventDetails,
+	REASONS,
+	ownerDocument,
+	contains,
+	getTarget,
+	useTimeout
+} from '@sveltery/utils';
 import type { FloatingRootStore } from '../components/FloatingRootStore.svelte.js';
 import { useFloatingParentNodeId, useFloatingTree } from '../components/FloatingTree.svelte.js';
 import { getNodeChildren } from '../components/FloatingTreeStore.js';
@@ -30,10 +33,6 @@ export function useHoverFloatingInteraction(
 	function options() {
 		const value = props();
 		return { enabled: value.enabled ?? true, closeDelay: value.closeDelay ?? 0 };
-	}
-
-	function triggers() {
-		return store instanceof PopupStore ? store.triggers : null;
 	}
 
 	$effect(() => {
@@ -110,8 +109,7 @@ export function useHoverFloatingInteraction(
 				tree.events.on('floating.closed', onNodeClosed);
 				return;
 			}
-			const map = triggers();
-			if (map && isTargetInsideEnabledTrigger(event.relatedTarget, map.elements())) return;
+			if (isTargetInsideEnabledTrigger(event.relatedTarget, store.triggers.elements())) return;
 			if (
 				tree &&
 				store.nodeId &&

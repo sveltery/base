@@ -16,7 +16,7 @@ import {
 	type VirtualElement
 } from '@floating-ui/dom';
 import type { Attachment } from 'svelte/attachments';
-import { ownerWindow } from '../owner.js';
+import { ownerWindow } from '@sveltery/utils';
 
 export type { AutoUpdateOptions, Placement, Strategy, VirtualElement };
 

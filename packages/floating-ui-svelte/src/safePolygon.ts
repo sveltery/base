@@ -3,10 +3,9 @@
 // `buffer` and `requireIntent` are not restored. v1.8.0 already removed them.
 
 import { isElement } from '@floating-ui/utils/dom';
-import { useTimeout } from '../timeout.svelte.js';
+import { useTimeout, contains, getTarget } from '@sveltery/utils';
 import type { FloatingTreeStore } from './components/FloatingTreeStore.js';
 import { getNodeChildren } from './components/FloatingTreeStore.js';
-import { contains, getTarget } from '../shadow-dom.js';
 
 const CURSOR_SPEED_THRESHOLD = 0.1;
 const CURSOR_SPEED_THRESHOLD_SQUARED = CURSOR_SPEED_THRESHOLD * CURSOR_SPEED_THRESHOLD;

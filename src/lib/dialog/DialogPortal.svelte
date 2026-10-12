@@ -6,7 +6,7 @@
 	The internal backdrop is inert while the dialog is closed and still mounted.
 -->
 <script lang="ts">
-	import { FloatingPortal } from '../internal/floating-ui/index.js';
+	import { FloatingPortal } from '@sveltery/floating-ui-svelte';
 	import { InternalBackdrop } from '../internal/popups/index.js';
 	import { setDialogPortalContext, useDialogRootContext } from './context.svelte.js';
 	import type { DialogPortalProps } from './types.js';

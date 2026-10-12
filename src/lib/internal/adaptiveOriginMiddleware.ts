@@ -3,7 +3,7 @@
 
 import type { Middleware } from '@floating-ui/dom';
 import { getSide } from '@floating-ui/utils';
-import { ownerDocument, ownerWindow } from './owner.js';
+import { ownerDocument, ownerWindow } from '@sveltery/utils';
 
 const DEFAULT_SIDES = { sideX: 'left', sideY: 'top' } as const;
 

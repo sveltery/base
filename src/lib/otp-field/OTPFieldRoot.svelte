@@ -18,7 +18,7 @@
 	import { createControllableValue } from '../internal/controllable-value.svelte.js';
 	import { watchFieldControl } from '../internal/field-register-control.svelte.js';
 	import { getStateAttributesProps } from '../internal/state-attributes.js';
-	import { visuallyHidden, visuallyHiddenInput } from '../internal/visuallyHidden.js';
+	import { visuallyHidden, visuallyHiddenInput } from '@sveltery/utils';
 	import { rootStateAttributes } from './attributes.js';
 	import { setOTPFieldContext } from './context.svelte.js';
 	import { OTPFieldModel } from './model.svelte.js';

@@ -7,11 +7,14 @@
 // the active trigger and is not assigned here.
 
 import { DEV } from 'esm-env';
-import { createChangeEventDetails, REASONS } from '../event-details.js';
-import type { BaseUIChangeEventDetails } from '../event-details.js';
-import { useAnimationFrame } from '../timeout.svelte.js';
-import type { AnimationFrame } from '../timeout.js';
-import { PopupTriggerMap } from './popupTriggerMap.js';
+import {
+	createChangeEventDetails,
+	REASONS,
+	type BaseUIChangeEventDetails,
+	useAnimationFrame,
+	type AnimationFrame
+} from '@sveltery/utils';
+import { PopupTriggerMap } from '@sveltery/floating-ui-svelte';
 
 export interface PopupHandleStore {
 	open: boolean;
