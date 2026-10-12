@@ -28,6 +28,6 @@ export class WrittenReference<T> {
 		const echo = untrack(this.#read);
 		// A `bind:value={get, set}` parent that rejects the write leaves the prop where it was.
 		if (Object.is(echo, before) && !Object.is(next, before)) return;
-		this.#written = { value: next, echo };
+		this.#written = Object.is(echo, next) ? null : { value: next, echo };
 	}
 }

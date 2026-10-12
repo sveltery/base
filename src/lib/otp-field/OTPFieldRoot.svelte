@@ -56,6 +56,7 @@
 	}: OTPFieldRootProps = $props();
 
 	// `defaultValue` is the initial value of an empty binding, as in HTML.
+	// svelte-ignore state_referenced_locally
 	if (value === undefined) value = defaultValue;
 
 	const field = useFieldContext();

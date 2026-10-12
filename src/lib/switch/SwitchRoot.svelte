@@ -50,6 +50,7 @@
 	}: SwitchRootProps = $props();
 
 	// `defaultChecked` is the initial value of an empty binding, as in HTML.
+	// svelte-ignore state_referenced_locally
 	if (checked === undefined) checked = defaultChecked;
 
 	// Two ids: the root's generated id, and the control id on the hidden input

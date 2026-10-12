@@ -35,7 +35,7 @@ export interface PopoverStoreOptions {
 	nested: boolean;
 	readModal: () => PopoverModal;
 	readTriggerId: () => string | null | undefined;
-	writeTriggerId: (id: string | null, details?: unknown) => void;
+	writeTriggerId: (id: string | null) => void;
 	onOpenChange: () => ((open: boolean, details: PopoverChangeEventDetails) => void) | undefined;
 	onOpenChangeComplete: () => ((open: boolean) => void) | undefined;
 	readDismissReference: () => HTMLAttributes<HTMLElement>;
@@ -60,7 +60,7 @@ export class PopoverStore extends PopupStore<PopoverChangeReason> {
 	private readonly stickTimeout = useTimeout();
 	private readonly readModal: () => PopoverModal;
 	private readonly readTriggerId: () => string | null | undefined;
-	private readonly writeTriggerIdValue: (id: string | null, details?: unknown) => void;
+	private readonly writeTriggerIdValue: (id: string | null) => void;
 	private readonly readDismissReference: PopoverStoreOptions['readDismissReference'];
 	private readonly readDismissFloating: PopoverStoreOptions['readDismissFloating'];
 	/** Id written for this open. Survives a bound trigger id that the parent sets back. */
@@ -136,10 +136,10 @@ export class PopoverStore extends PopupStore<PopoverChangeReason> {
 		return this.domReferenceElement?.id || null;
 	}
 
-	writeTriggerId(id: string | null, details?: unknown) {
+	writeTriggerId(id: string | null) {
 		this.claimedTriggerId = id;
 		if ((this.readTriggerId() ?? null) === id) return;
-		this.writeTriggerIdValue(id, details);
+		this.writeTriggerIdValue(id);
 	}
 
 	owned(): TriggerOwned | undefined {
@@ -237,7 +237,7 @@ export class PopoverStore extends PopupStore<PopoverChangeReason> {
 
 		this.openChangeReason = reason;
 		const registered = this.triggers.idOf(this.domReferenceElement);
-		this.writeTriggerId(registered ?? (this.domReferenceElement?.id || null), details);
+		this.writeTriggerId(registered ?? (this.domReferenceElement?.id || null));
 		if (!nextOpen) {
 			this.openedFrom = null;
 			this.claimedTriggerId = null;

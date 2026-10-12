@@ -56,6 +56,7 @@
 	}: CheckboxRootProps = $props();
 
 	// `defaultChecked` is the initial value of an empty binding, as in HTML.
+	// svelte-ignore state_referenced_locally
 	if (checked === undefined) checked = defaultChecked;
 
 	const generatedRootId = $derived('base-ui-' + uid);
@@ -232,6 +233,8 @@
 
 	function handleKeyDown(event: KeyboardEvent & { currentTarget: EventTarget & HTMLElement }) {
 		if (isDisabled) return;
+		// Keyup can land elsewhere when Enter moves focus. Any other key starts fresh.
+		if (event.key !== 'Enter') enterHeld = false;
 
 		onkeydown?.(event);
 

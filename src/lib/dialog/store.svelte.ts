@@ -19,9 +19,7 @@ export interface DialogClickReference {
 export class DialogStore<Payload = unknown> extends PopupStore<DialogChangeEventReason> {
 	readonly readModal: () => boolean | 'trap-focus';
 	readonly readDisablePointerDismissal: () => boolean;
-	readonly publishTriggerId:
-		| ((id: string | null, details?: BaseUIChangeEventDetails<DialogChangeEventReason>) => void)
-		| undefined;
+	readonly publishTriggerId: ((id: string | null) => void) | undefined;
 	/** `useClick` reference props. Set once from the root. Detached triggers read this. */
 	click: DialogClickReference | undefined = undefined;
 	payload = $state<Payload | undefined>(undefined);
@@ -43,10 +41,7 @@ export class DialogStore<Payload = unknown> extends PopupStore<DialogChangeEvent
 		onOpenChangeComplete: () => ((open: boolean) => void) | undefined;
 		readModal: () => boolean | 'trap-focus';
 		readDisablePointerDismissal: () => boolean;
-		publishTriggerId?: (
-			id: string | null,
-			details?: BaseUIChangeEventDetails<DialogChangeEventReason>
-		) => void;
+		publishTriggerId?: (id: string | null) => void;
 	}) {
 		super({
 			readOpen: options.readOpen,
@@ -87,6 +82,6 @@ export class DialogStore<Payload = unknown> extends PopupStore<DialogChangeEvent
 		eventDetails: BaseUIChangeEventDetails<DialogChangeEventReason>
 	) {
 		super.setOpen(nextOpen, eventDetails);
-		this.publishTriggerId?.(this.activeTriggerId, eventDetails);
+		this.publishTriggerId?.(this.activeTriggerId);
 	}
 }

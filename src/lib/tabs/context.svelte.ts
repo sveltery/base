@@ -49,9 +49,8 @@ export class TabsRootModel {
 		// A value passed at mount belongs to the parent: no `initial` notice, and a
 		// disabled tab it names stays selected until that tab has been valid once.
 		const initialValue = untrack(() => this.readValue());
-		const explicitInitial = initialValue !== undefined;
-		let honorDisabledInitial = explicitInitial;
-		this.notifiedInitial = explicitInitial;
+		let honorDisabledInitial = initialValue !== undefined;
+		this.notifiedInitial = honorDisabledInitial;
 
 		// A parent write has no click to measure from, so direction comes from the tab positions.
 		$effect(() => {
@@ -82,8 +81,10 @@ export class TabsRootModel {
 			const selectionDisabled = selected?.disabled ?? false;
 			const selectionMissing = selected == null && current !== null;
 
-			if (!selectionDisabled && current === initialValue) honorDisabledInitial = false;
-			if (honorDisabledInitial && selectionDisabled && current === initialValue) return;
+			if (current === initialValue) {
+				if (!selectionDisabled) honorDisabledInitial = false;
+				else if (honorDisabledInitial) return;
+			}
 
 			if (selectionDisabled || selectionMissing) {
 				const fallback = tabs.find((tab) => !tab.disabled)?.value ?? null;
