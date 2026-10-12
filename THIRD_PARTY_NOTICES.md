@@ -218,7 +218,9 @@ Parts of this package derive from [Base UI](https://github.com/mui/base-ui) v1.8
 - `src/lib/popover/PopoverTitle.svelte` from `packages/react/src/popover/title/PopoverTitle.tsx`
 - `src/lib/popover/PopoverDescription.svelte` from `packages/react/src/popover/description/PopoverDescription.tsx`
 - `src/lib/popover/PopoverClose.svelte` from `packages/react/src/popover/close/PopoverClose.tsx`
-- `src/lib/popover/PopoverViewport.svelte` from `packages/react/src/popover/viewport/PopoverViewport.tsx` and `packages/react/src/utils/usePopupViewport.tsx`
+- `src/lib/popover/PopoverViewport.svelte` from `packages/react/src/popover/viewport/PopoverViewport.tsx`
+- `src/lib/internal/usePopupViewport.svelte.ts` from `packages/react/src/utils/usePopupViewport.tsx`
+- `src/lib/internal/usePopupAutoResize.svelte.ts` from `packages/react/src/utils/usePopupAutoResize.ts`
 - `src/lib/popover/store.svelte.ts` from `packages/react/src/popover/store/PopoverStore.ts` (open changes go through the shared `PopupStore`; popover adds deferred unmount, hover stick, and instant type)
 - `src/lib/popover/handle.svelte.ts` from `packages/react/src/popover/store/PopoverHandle.ts` (extends the shared `PopupHandle`; Dialog's payload writers are not included)
 - `src/lib/popover/PopoverLabel.svelte` from `packages/react/src/popover/title/PopoverTitle.tsx` and `packages/react/src/popover/description/PopoverDescription.tsx`
