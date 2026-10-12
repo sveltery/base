@@ -137,77 +137,26 @@ Follow these rules:
 
 Base UI's `useTransitionStatus` decides whether a popup is mounted and whether it carries `data-starting-style` or `data-ending-style`. In Svelte, React's render-phase `setState` becomes `$effect.pre`, and each layout effect that schedules a frame becomes an `$effect` that returns the cancel function.
 
-```ts
-import { untrack } from 'svelte';
+The port is [`src/lib/internal/useTransitionStatus.svelte.ts`](../src/lib/internal/useTransitionStatus.svelte.ts). It takes upstream's `enableIdleState`, `deferEndingState` and `animateInitialOpen` as options. A part that unmounts after its exit animation calls `unmountAfterExit` with its element:
 
-export type TransitionStatusValue = 'starting' | 'ending' | 'idle' | undefined;
+```svelte
+<script lang="ts">
+	import { TransitionStatus } from '../internal/useTransitionStatus.svelte.js';
 
-export interface TransitionStatusOptions {
-	enableIdleState?: boolean;
-	deferEndingState?: boolean;
-	animateInitialOpen?: boolean;
-}
+	const transition = new TransitionStatus(() => open);
+	let node = $state<HTMLElement | null>(null);
+	transition.unmountAfterExit(() => node);
+</script>
 
-function frame(fn: () => void) {
-	const id = requestAnimationFrame(fn);
-	return () => cancelAnimationFrame(id);
-}
-
-export class TransitionStatus {
-	mounted = $state(false);
-	status = $state<TransitionStatusValue>(undefined);
-
-	constructor(open: () => boolean, options: () => TransitionStatusOptions = () => ({})) {
-		const { enableIdleState, animateInitialOpen } = untrack(options);
-		const initiallyOpen = untrack(open);
-		this.mounted = initiallyOpen && !animateInitialOpen;
-		this.status = initiallyOpen && enableIdleState ? 'idle' : undefined;
-
-		// React adjusts this state during render; $effect.pre runs before this component's DOM updates.
-		$effect.pre(() => {
-			const isOpen = open();
-			const { deferEndingState } = options();
-			untrack(() => {
-				if (isOpen && !this.mounted) {
-					this.mounted = true;
-					this.status = 'starting';
-				} else if (!isOpen && this.mounted && this.status !== 'ending' && !deferEndingState) {
-					this.status = 'ending';
-				} else if (!isOpen && !this.mounted && this.status === 'ending') {
-					this.status = undefined;
-				}
-			});
-		});
-
-		$effect(() => {
-			const { deferEndingState } = options();
-			if (!open() && this.mounted && this.status !== 'ending' && deferEndingState) {
-				return frame(() => (this.status = 'ending'));
-			}
-		});
-
-		$effect(() => {
-			if (!open() || options().enableIdleState || this.status === undefined) return;
-			return frame(() => (this.status = undefined));
-		});
-
-		$effect(() => {
-			if (!open() || !options().enableIdleState) return;
-			if (this.mounted && untrack(() => this.status) !== 'idle') this.status = 'starting';
-			return frame(() => (this.status = 'idle'));
-		});
-	}
-
-	get attrs() {
-		return {
-			'data-starting-style': this.status === 'starting' ? '' : undefined,
-			'data-ending-style': this.status === 'ending' ? '' : undefined
-		};
-	}
-}
+{#if transition.mounted}
+	<div
+		bind:this={node}
+		data-starting-style={transition.transitionStatus === 'starting' ? '' : undefined}
+	></div>
+{/if}
 ```
 
-The owner sets `mounted = false` once exit animations finish. Measured frame by frame, the first painted frame after opening carries `data-starting-style` and the next drops it. Closing sets `data-ending-style` before the first frame and keeps the element until the owner unmounts it.
+Measured frame by frame, the first painted frame after opening carries `data-starting-style` and the next drops it. Closing sets `data-ending-style` before the first frame and keeps the element until its exit animations finish.
 
 ## Gotchas
 
