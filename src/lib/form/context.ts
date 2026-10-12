@@ -1,6 +1,8 @@
 // Derived from Base UI v1.8.0 packages/react/src/internals/form-context/FormContext.ts
 // (commit 47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c). MIT, see THIRD_PARTY_NOTICES.md.
 import type { FormErrors, FormField, FormValidationMode } from './types.js';
+import type { FormSource } from './source.js';
+import { IssueSession } from './issues.svelte.js';
 import { defineOptionalContext } from '../internal/context.js';
 
 export interface FormContextValue {
@@ -12,6 +14,10 @@ export interface FormContextValue {
 	readonly validationMode: FormValidationMode;
 	readonly errors: FormErrors;
 	clearErrors: (name: string | undefined) => void;
+	/** The external owner of form state passed as `form`, such as a remote form. */
+	readonly source: FormSource | undefined;
+	/** Which source issues are visible, and the Fields that claim them. */
+	readonly issues: IssueSession;
 }
 
 const EMPTY_ERRORS: FormErrors = Object.freeze({});
@@ -26,7 +32,9 @@ const DEFAULT_FORM_CONTEXT: FormContextValue = {
 	submitCount: 0,
 	validationMode: 'onSubmit',
 	errors: EMPTY_ERRORS,
-	clearErrors() {}
+	clearErrors() {},
+	source: undefined,
+	issues: new IssueSession(() => undefined)
 };
 
 export const [useFormContext, setFormContext] =
