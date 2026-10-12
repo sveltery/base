@@ -3,6 +3,7 @@
 // Hover timers live on the popup store. The scope map only coordinates pointer-events
 // when two popups share one element, matching upstream.
 
+import { SvelteMap } from 'svelte/reactivity';
 import { useTimeout, type Timeout } from '@sveltery/utils';
 import type { FloatingRootStore } from '../components/FloatingRootStore.svelte.js';
 import type { HandleClose, SafePolygonOptions } from '../safePolygon.js';
@@ -20,13 +21,23 @@ export class HoverInteraction {
 	readonly openChangeTimeout: Timeout;
 	readonly restTimeout: Timeout;
 
-	constructor() {
+	/** Each enabled trigger's `handleClose` option, by trigger element. */
+	readonly handleCloseByTrigger = new SvelteMap<Element, () => HandleClose | null>();
+
+	constructor(private readonly store: FloatingRootStore) {
 		this.openChangeTimeout = useTimeout();
 		this.restTimeout = useTimeout();
 	}
-	/** Read by event handlers. Not state: nothing renders them. */
-	handleClose: HandleClose | null = null;
-	handleCloseOptions: SafePolygonOptions | undefined = undefined;
+
+	/** The active trigger's safe-polygon handler. */
+	get handleClose(): HandleClose | null {
+		const reference = this.store.domReferenceElement;
+		return (reference && this.handleCloseByTrigger.get(reference)?.()) ?? null;
+	}
+
+	get handleCloseOptions(): SafePolygonOptions | undefined {
+		return this.handleClose?.__options;
+	}
 
 	dispose() {
 		this.openChangeTimeout.clear();
@@ -38,7 +49,7 @@ export class HoverInteraction {
 const pointerEventsOwnerByScope = new WeakMap<HTMLElement | SVGSVGElement, HoverInteraction>();
 
 export function hoverInteraction(store: FloatingRootStore) {
-	store.hoverInteraction ??= new HoverInteraction();
+	store.hoverInteraction ??= new HoverInteraction(store);
 	return store.hoverInteraction;
 }
 

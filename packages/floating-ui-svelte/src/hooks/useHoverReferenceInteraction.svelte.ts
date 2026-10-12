@@ -40,7 +40,6 @@ export function useHoverReferenceInteraction(
 	let hoverCloseActive = false;
 	let sawMove = false;
 	let stopMove: (() => void) | undefined;
-	let attached = $state<Element | null>(null);
 
 	function options() {
 		const value = props();
@@ -70,13 +69,6 @@ export function useHoverReferenceInteraction(
 		stopMove = undefined;
 		instance.handler = undefined;
 	}
-
-	$effect.pre(() => {
-		const current = options();
-		if (!current.enabled || attached == null || attached !== store.domReferenceElement) return;
-		instance.handleClose = current.handleClose;
-		instance.handleCloseOptions = current.handleClose?.__options;
-	});
 
 	$effect(() => {
 		if (!options().enabled) return;
@@ -250,10 +242,13 @@ export function useHoverReferenceInteraction(
 	}
 
 	function attachReference(node: Element) {
-		attached = node;
+		instance.handleCloseByTrigger.set(node, () => {
+			const current = options();
+			return current.enabled ? current.handleClose : null;
+		});
 		return () => {
 			if (store.domReferenceElement === node) instance.handleClose?.clear?.();
-			if (attached === node) attached = null;
+			instance.handleCloseByTrigger.delete(node);
 		};
 	}
 
