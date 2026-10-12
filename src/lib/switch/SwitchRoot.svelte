@@ -253,6 +253,7 @@
 		bind:this={uncheckedNode}
 		type="checkbox"
 		hidden
+		style="display: none !important"
 		checked={!checkedState}
 		defaultChecked={!defaultChecked}
 		{disabled}
