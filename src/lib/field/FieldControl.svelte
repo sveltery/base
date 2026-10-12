@@ -13,6 +13,7 @@
 	import { getStateAttributesProps } from '../internal/state-attributes.js';
 	import { attachFieldControl } from '../internal/field-register-control.svelte.js';
 	import { restoreOnReset } from '../internal/form-reset.svelte.js';
+	import { nativeType } from '../form/source.js';
 	import { fieldValidityMapping } from './attributes.js';
 	import { useFieldContext } from './context.svelte.js';
 	import { Labelable, LabelableId, findLabelableContext } from './labelable.svelte.js';
@@ -185,6 +186,15 @@
 		field.commit(event.currentTarget.value);
 	}
 
+	// A bound field's source supplies the encoded name, `type` and value. Base owns `aria-invalid`.
+	const bound = $derived.by(() => {
+		const binding = field.binding;
+		if (!binding) return undefined;
+		const props = binding.as(nativeType(field.controlType ?? 'text'), defaultValue ?? undefined);
+		const { 'aria-invalid': _, ...rest } = props as Record<string, unknown>;
+		return rest;
+	});
+
 	const describedBy = $derived(labelable.describedBy(ariaDescribedBy ?? undefined));
 	const hostProps: HTMLInputAttributes = $derived({
 		...elementProps,
@@ -200,6 +210,7 @@
 			: {}),
 		...(defaultValue != null ? { defaultValue: textValue(defaultValue) } : {}),
 		...(value != null ? { value: textValue(value) } : {}),
+		...bound,
 		oninput: handleInput,
 		onfocus: handleFocus,
 		onblur: handleBlur,

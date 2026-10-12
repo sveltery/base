@@ -17,6 +17,7 @@
 	import { useDirection } from '../internal/direction-context.js';
 	import { fieldValidityMapping } from '../field/attributes.js';
 	import { useFieldContext } from '../field/context.svelte.js';
+	import { BoundControl } from '../field/bound-control.svelte.js';
 	import { LabelableId, findLabelableContext } from '../field/labelable.svelte.js';
 	import { FieldValueSync, attachFieldControl } from '../internal/field-register-control.svelte.js';
 	import { restoreOnReset } from '../internal/form-reset.svelte.js';
@@ -48,15 +49,22 @@
 		...elementProps
 	}: RadioGroupProps = $props();
 
+	const field = useFieldContext();
+	const bound = new BoundControl<unknown>(field, {
+		kind: 'radio',
+		read: () => checkedValue,
+		write: (next) => selection.set(next),
+		fromSource: (raw) => raw
+	});
+
 	// `defaultValue` is the initial value of an empty binding, as in HTML.
 	// svelte-ignore state_referenced_locally
-	if (value === undefined) value = defaultValue;
+	if (value === undefined) value = bound.initial(defaultValue);
 
 	let touched = $state(false);
 
 	const reading = useDirection();
 	const formContext = useFormContext();
-	const field = useFieldContext();
 	const fieldset = findFieldsetRootContext();
 	const labelable = findLabelableContext();
 	const disabled = $derived(field.disabled || disabledProp);

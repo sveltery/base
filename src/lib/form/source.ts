@@ -38,6 +38,11 @@ export interface EnhanceInstance {
 	submit(): EnhanceSubmission;
 }
 
+/** What a source's `enhance` takes. Kit's `RemoteFormEnhanceCallback` has this shape. */
+export type EnhanceCallback<I extends EnhanceInstance = EnhanceInstance> = (
+	instance: I
+) => void | Promise<void>;
+
 /**
  * The slice of SvelteKit's `RemoteForm` that Form reads.
  * A remote form satisfies it as is. `actionForm()` and library adapters build one.
@@ -56,13 +61,13 @@ export interface FormSource {
 	/** Re-run validation. `preflightOnly` skips the server. `all` includes untouched fields. */
 	validate(options?: { all?: boolean; preflightOnly?: boolean }): Promise<void>;
 	/** Replace what happens once the source has validated a submit. One callback per source. */
-	enhance?(callback: (instance: never) => unknown): unknown;
+	enhance?(callback: EnhanceCallback): unknown;
 	[attachment: symbol]: Attachment<HTMLFormElement> | ((node: HTMLFormElement) => void);
 }
 
 /** The instance a source's `enhance` callback receives. Kit's type when the source is Kit's. */
 export type EnhanceInstanceOf<S> = S extends {
-	enhance(callback: (instance: infer I) => unknown): unknown;
+	enhance(callback: (instance: infer I) => void | Promise<void>): unknown;
 }
 	? I extends EnhanceInstance
 		? I
@@ -97,8 +102,7 @@ type InputKind =
 export type ControlKind = InputKind | 'switch';
 
 type WithSwitch<T> =
-	| T
-	| ('checkbox' extends T ? ('select multiple' extends T ? never : 'switch') : never);
+	T | ('checkbox' extends T ? ('select multiple' extends T ? never : 'switch') : never);
 
 /**
  * Control kinds that fit a handle's value. Kit narrows `as()`'s first parameter by value type
@@ -112,9 +116,8 @@ export type ControlType<F> = F extends { as(...args: infer A): unknown }
 	: ControlKind;
 
 /** `type` is optional when a text input fits the value, and required otherwise. */
-export type ControlTypeProp<F> = 'text' extends ControlType<F>
-	? { type?: ControlType<F> }
-	: { type: ControlType<F> };
+export type ControlTypeProp<F> =
+	'text' extends ControlType<F> ? { type?: ControlType<F> } : { type: ControlType<F> };
 
 /** The native input type a control kind submits as. */
 export function nativeType(kind: ControlKind): Exclude<ControlKind, 'switch'> {

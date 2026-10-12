@@ -3,6 +3,7 @@ import type { HTMLAttributes, HTMLInputAttributes, HTMLLabelAttributes } from 's
 import type { BaseUIChangeEventDetails, REASONS } from '@sveltery/utils';
 import type { FieldValidityData, FormValidationMode } from '../form/types.js';
 import type { RenderChildren } from '../internal/render-children.js';
+import type { ControlTypeProp, FieldHandle } from '../form/source.js';
 
 export type { FieldValidityData };
 
@@ -36,14 +37,29 @@ export interface FieldRootActions {
 	validate: () => void;
 }
 
-export interface FieldRootProps extends Omit<HTMLAttributes<HTMLDivElement>, 'children'> {
+/**
+ * Props of `<Field.Root>`. `F` is the handle passed as `field`, which decides whether `type`
+ * is required and which kinds fit.
+ */
+export type FieldRootProps<F extends FieldHandle = FieldHandle> = FieldRootBaseProps & {
+	/**
+	 * A field of the Form's source, such as `remote.fields.email`. The Field shows its issues,
+	 * and Field.Control takes its encoded name and value.
+	 */
+	field?: F;
+} & ControlTypeProp<F>;
+
+interface FieldRootBaseProps extends Omit<HTMLAttributes<HTMLDivElement>, 'children'> {
 	/**
 	 * Whether the component should ignore user interaction.
 	 * Takes precedence over `disabled` on `<Field.Control>`.
 	 * @default false
 	 */
 	disabled?: boolean;
-	/** Identifies the field when a form is submitted. Takes precedence over the control's `name`. */
+	/**
+	 * Identifies the field when a form is submitted. Takes precedence over the control's `name`.
+	 * Inside a Form with a `form` source, the name resolves to that source's field, unchecked.
+	 */
 	name?: string;
 	/**
 	 * Custom validation. Return a message or messages when the value is invalid.

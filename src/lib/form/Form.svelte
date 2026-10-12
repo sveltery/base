@@ -4,17 +4,33 @@
 	(commit 47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c). MIT, see THIRD_PARTY_NOTICES.md.
 	`validate` is an export. Bind the form with `bind:this`.
 -->
-<script lang="ts" generics="FormValues extends Record<string, unknown> = Record<string, unknown>">
+<script
+	lang="ts"
+	generics="FormValues extends Record<string, unknown> = Record<string, unknown>, S extends FormSource = FormSource"
+>
+	import { tick, untrack } from 'svelte';
 	import { createAttachmentKey } from 'svelte/attachments';
 	import { on } from 'svelte/events';
 	import type { HTMLFormAttributes } from 'svelte/elements';
+	import { DEV } from 'esm-env';
 	import { createGenericEventDetails, REASONS } from '@sveltery/utils';
 	import { setFormContext, type FormContextValue } from './context.js';
 	import { comesBeforeInSameTree } from './document-order.js';
+	import { IssueSession } from './issues.svelte.js';
+	import { replayResets, resetForm } from './kit-reset-replay.js';
+	import {
+		allIssues,
+		pathKey,
+		type EnhanceInstance,
+		type EnhanceInstanceOf,
+		type FormSource
+	} from './source.js';
 	import { onFormReset } from '../internal/form-reset.svelte.js';
 	import type { FormErrors, FormField, FormProps, FormState } from './types.js';
 
 	let {
+		form: source,
+		enhance,
 		validationMode = 'onSubmit',
 		errors = $bindable(),
 		onsubmit,
@@ -23,13 +39,15 @@
 		render,
 		children,
 		...elementProps
-	}: FormProps<FormValues> = $props();
+	}: FormProps<FormValues, S> = $props();
 
 	const fields = new Map<string, FormField>();
+	const issues = new IssueSession(() => source);
 	let element = $state<HTMLFormElement | null>(null);
 	let submitCount = 0;
-	// Plain flag. The focus effect reads it when `errors` changes.
+	// Plain flags. The focus effects read them when errors or the source's state change.
 	let submitted = false;
+	let awaitingSource = false;
 
 	const formState: FormState = {};
 	const emptyErrors: FormErrors = {};
@@ -39,16 +57,20 @@
 	function rememberForm(node: HTMLFormElement) {
 		element = node;
 		const stopGate = on(node, 'submit', gateSubmit, { capture: true });
-		// A reset starts the form over: no external errors and no submit yet.
+		const stopReplay = replayResets(node, () => source !== undefined);
+		// A reset starts the form over: no external errors, no submit and no source issues yet.
 		const stopReset = onFormReset(node, {
 			settle: () => {
 				submitCount = 0;
 				submitted = false;
+				awaitingSource = false;
+				issues.reset();
 				if (errors && Object.keys(errors).length > 0) errors = {};
 			}
 		});
 		return () => {
 			stopGate();
+			stopReplay();
 			stopReset();
 			if (element === node) element = null;
 		};
@@ -59,16 +81,16 @@
 		node.noValidate = novalidate;
 	}
 
-	function focusFirstInvalid(formErrors: FormErrors = emptyErrors) {
-		// A field can be invalid without a focusable control. Submission stays blocked.
-		// Registration order can diverge from DOM order, so pick the first control by
-		// document position. Disconnected trees keep registration order.
+	/**
+	 * Focuses the first control by document position whose field matches `invalid`.
+	 * Returns whether any field matched, focusable or not.
+	 */
+	function focusFirst(invalid: (field: FormField) => boolean) {
+		// Registration order can diverge from DOM order. Disconnected trees keep registration order.
 		let hasInvalid = false;
 		let firstControl: HTMLElement | null = null;
 		for (const field of fields.values()) {
-			const fieldName = field.name;
-			const namedError = fieldName != null && formErrors[fieldName] != null;
-			if (field.validityData.state.valid !== false && !namedError) continue;
+			if (!invalid(field)) continue;
 			hasInvalid = true;
 			const control = field.control;
 			if (control && (!firstControl || comesBeforeInSameTree(control, firstControl))) {
@@ -80,9 +102,16 @@
 			if (firstControl.tagName === 'INPUT') {
 				(firstControl as HTMLInputElement).select();
 			}
-			return true;
 		}
 		return hasInvalid;
+	}
+
+	function focusFirstInvalid(formErrors: FormErrors) {
+		focusFirst(
+			(field) =>
+				field.validityData.state.valid === false ||
+				(field.name != null && formErrors[field.name] != null)
+		);
 	}
 
 	export function validate(fieldName?: string) {
@@ -108,21 +137,24 @@
 	}
 
 	// Capture phase, so an invalid submit stops before any later `submit` listener on the form,
-	// such as SvelteKit's `enhance`, which does not check `defaultPrevented`.
+	// such as the source's own or SvelteKit's `enhance`, which do not check `defaultPrevented`.
 	function gateSubmit(event: SubmitEvent) {
 		// `formnovalidate` on the submitter skips validation, as it does for a native form.
 		if (event.submitter?.hasAttribute('formnovalidate')) return;
 		submitCount += 1;
+		issues.submitAttempted();
 
 		// Async validation is not awaited, so it cannot stop this submit.
 		fields.forEach((field) => {
 			field.validate();
 		});
 
-		if (focusFirstInvalid()) {
+		if (focusFirst((field) => field.blocksSubmit)) {
 			event.preventDefault();
 			event.stopImmediatePropagation();
+			return;
 		}
+		awaitingSource = source !== undefined;
 	}
 
 	function handleSubmit(event: SubmitEvent & { currentTarget: EventTarget & HTMLFormElement }) {
@@ -141,6 +173,46 @@
 		}
 	}
 
+	/** Kit's default: reset the form after a successful submit. */
+	async function submitAndReset(instance: EnhanceInstance) {
+		if (await instance.submit()) {
+			await tick();
+			if (instance.element.isConnected) resetForm(instance.element);
+		}
+	}
+
+	// Form owns the source's callback so it learns when a server round trip ends. That is the
+	// only way to tell server issues from client ones. `enhance` customizes the callback.
+	$effect.pre(() => {
+		const current = source;
+		if (!current?.enhance) return;
+		untrack(() =>
+			current.enhance!(async (instance) => {
+				const tracked: EnhanceInstance = Object.create(instance, {
+					submit: {
+						value: () => {
+							const submission = instance.submit();
+							const ended = () => issues.roundTripEnded();
+							void submission.then(ended, ended);
+							return submission;
+						}
+					}
+				});
+				if (enhance) await enhance(tracked as EnhanceInstanceOf<S>);
+				else await submitAndReset(tracked);
+			})
+		);
+		// The source keeps one callback. Hand back the default when this Form lets go of it.
+		return () => {
+			current.enhance!(async (instance) => {
+				if (await instance.submit()) {
+					await tick();
+					if (instance.element.isConnected) HTMLFormElement.prototype.reset.call(instance.element);
+				}
+			});
+		};
+	});
+
 	const context: FormContextValue = {
 		fields,
 		get element() {
@@ -155,7 +227,11 @@
 		get errors() {
 			return errors ?? emptyErrors;
 		},
-		clearErrors
+		clearErrors,
+		get source() {
+			return source;
+		},
+		issues
 	};
 	setFormContext(context);
 
@@ -168,7 +244,44 @@
 		focusFirstInvalid(current);
 	});
 
+	// With a source, focus once its submit settles: preflight failed or the server answered.
+	$effect(() => {
+		if (!source) return;
+		const pending = source.pending;
+		void allIssues(source);
+		if (!awaitingSource || pending > 0) return;
+		awaitingSource = false;
+		untrack(() => focusFirstInvalid(errors ?? emptyErrors));
+	});
+
+	if (DEV) {
+		$effect(() => {
+			if (source && onFormSubmit) {
+				console.warn(
+					'Base UI: <Form form> submits through its source, so `onFormSubmit` runs alongside that submit. Use `enhance` to customize a source submit.'
+				);
+			}
+		});
+
+		// Kit's `fields` accepts any path, so a misspelled `name` cannot be caught up front.
+		const warned = new Set<string>();
+		$effect(() => {
+			const named = issues.nameClaims;
+			if (named.length === 0) return;
+			for (const issue of issues.unclaimedIssues) {
+				if (issue.path.length === 0) continue;
+				const path = pathKey(issue.path);
+				if (warned.has(path)) continue;
+				warned.add(path);
+				console.warn(
+					`Base UI: an issue on \`${path}\` has no <Field.Root> to show it, while <Field.Root name> resolved ${named.map((name) => `\`${name}\``).join(', ')} through the form. A misspelled \`name\` submits under the wrong key.`
+				);
+			}
+		});
+	}
+
 	const hostProps: HTMLFormAttributes = $derived({
+		...source,
 		...elementProps,
 		onsubmit: handleSubmit,
 		[attachmentKey]: rememberForm,
