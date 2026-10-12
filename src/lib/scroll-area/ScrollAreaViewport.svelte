@@ -33,17 +33,16 @@
 	setScrollAreaViewportContext(model);
 
 	let el = $state<HTMLDivElement | null>(null);
-	let rendered = $state<HTMLDivElement | null>(null);
 
 	function remember(node: HTMLDivElement) {
-		rendered = node;
+		el = node;
 		return () => {
-			if (rendered === node) rendered = null;
+			if (el === node) el = null;
 		};
 	}
 
 	$effect(() => {
-		const node = render ? rendered : el;
+		const node = el;
 		model.viewportElement = node;
 		return () => {
 			if (model.viewportElement === node) model.viewportElement = null;
@@ -80,7 +79,7 @@
 		onpointermove: chain(() => model.markUserInteraction(), onpointermove),
 		onpointerenter: chain(() => model.markUserInteraction(), onpointerenter),
 		onkeydown: chain(() => model.markUserInteraction(), onkeydown),
-		...(render ? { [attachmentKey]: remember } : {})
+		[attachmentKey]: remember
 	});
 
 	$effect(() => {
@@ -91,5 +90,5 @@
 {#if render}
 	{@render render(hostProps, partState, children)}
 {:else}
-	<div {...hostProps} bind:this={el}>{@render children?.()}</div>
+	<div {...hostProps}>{@render children?.()}</div>
 {/if}

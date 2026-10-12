@@ -19,7 +19,6 @@
 	let { render, children, onpointerdown, ...elementProps }: SliderControlProps = $props();
 
 	const model = useSliderContext();
-	let controlEl: HTMLElement | null = $state(null);
 
 	function remember(node: HTMLElement) {
 		model.control = node;
@@ -36,12 +35,6 @@
 	}
 
 	$effect(() => {
-		const node = controlEl;
-		if (!node) return;
-		return remember(node);
-	});
-
-	$effect(() => {
 		if (model.disabled) model.stopListening();
 	});
 
@@ -56,20 +49,17 @@
 	const partState: SliderRootState = $derived(model.snapshot());
 
 	const hostProps: HTMLAttributes<HTMLDivElement> & Record<symbol, Attachment<HTMLDivElement>> =
-		$derived.by(() => {
-			const props: HTMLAttributes<HTMLDivElement> & Record<symbol, Attachment<HTMLDivElement>> = {
-				...elementProps,
-				...getStateAttributesProps(partState, sliderStateAttributes),
-				...(model.renderBeforeHydration ? { 'data-base-ui-slider-control': '' } : {}),
-				onpointerdown: handlePointerDown
-			};
-			if (render) props[elementKey] = remember;
-			return props;
+		$derived({
+			...elementProps,
+			...getStateAttributesProps(partState, sliderStateAttributes),
+			...(model.renderBeforeHydration ? { 'data-base-ui-slider-control': '' } : {}),
+			onpointerdown: handlePointerDown,
+			[elementKey]: remember
 		});
 </script>
 
 {#if render}
 	{@render render(hostProps, partState, children)}
 {:else}
-	<div {...hostProps} bind:this={controlEl}>{@render children?.()}</div>
+	<div {...hostProps}>{@render children?.()}</div>
 {/if}

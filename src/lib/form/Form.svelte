@@ -147,14 +147,12 @@
 		...elementProps,
 		novalidate,
 		onsubmit: handleSubmit,
-		// The default host uses `bind:this`. A custom `render` host is the caller's element,
-		// so the same element is recorded when they spread `props`.
-		...(render ? { [attachmentKey]: rememberForm } : {})
+		[attachmentKey]: rememberForm
 	});
 </script>
 
 {#if render}
 	{@render render(hostProps, formState, children)}
 {:else}
-	<form {...hostProps} bind:this={element}>{@render children?.()}</form>
+	<form {...hostProps}>{@render children?.()}</form>
 {/if}

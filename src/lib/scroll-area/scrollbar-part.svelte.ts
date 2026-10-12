@@ -15,7 +15,6 @@ interface ScrollbarInputs {
 	orientation: 'vertical' | 'horizontal';
 	keepMounted: boolean;
 	style: string | null | undefined;
-	render: boolean;
 	elementProps: HTMLAttributes<HTMLDivElement>;
 	onpointerdown: HTMLAttributes<HTMLDivElement>['onpointerdown'];
 	onmousedown: HTMLAttributes<HTMLDivElement>['onmousedown'];
@@ -26,7 +25,6 @@ interface ScrollbarInputs {
 export class ScrollbarPart {
 	readonly attachmentKey = createAttachmentKey();
 	element = $state<HTMLDivElement | null>(null);
-	private rendered = $state<HTMLDivElement | null>(null);
 
 	constructor(
 		private readonly model: ScrollAreaModel,
@@ -34,7 +32,7 @@ export class ScrollbarPart {
 	) {
 		$effect(() => {
 			if (!this.shouldRender) return;
-			const node = this.node;
+			const node = this.element;
 			if (this.vertical) this.model.scrollbarYElement = node;
 			else this.model.scrollbarXElement = node;
 			return () => {
@@ -46,7 +44,7 @@ export class ScrollbarPart {
 
 		$effect(() => {
 			if (!this.shouldRender) return;
-			const node = this.node;
+			const node = this.element;
 			if (!node) return;
 			return this.model.listenWheel(node, this.vertical);
 		});
@@ -65,14 +63,10 @@ export class ScrollbarPart {
 		return this.inputs.keepMounted || !hidden;
 	}
 
-	private get node() {
-		return this.inputs.render ? this.rendered : this.element;
-	}
-
 	remember = (node: HTMLDivElement) => {
-		this.rendered = node;
+		this.element = node;
 		return () => {
-			if (this.rendered === node) this.rendered = null;
+			if (this.element === node) this.element = null;
 		};
 	};
 
@@ -105,7 +99,7 @@ export class ScrollbarPart {
 			onmousedown: chain((event) => this.model.trackMouseDown(event), inputs.onmousedown),
 			onpointerup: chain((event) => this.model.pointerUp(event), inputs.onpointerup),
 			onpointercancel: chain((event) => this.model.pointerUp(event), inputs.onpointercancel),
-			...(inputs.render ? { [this.attachmentKey]: this.remember } : {})
+			[this.attachmentKey]: this.remember
 		};
 	}
 }

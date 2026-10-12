@@ -115,5 +115,5 @@
 {#if render}
 	{@render render(hostProps as HTMLAttributes<HTMLElement>, state, children)}
 {:else}
-	<input {...hostProps} bind:this={model.inputElement} />
+	<input {...hostProps} />
 {/if}

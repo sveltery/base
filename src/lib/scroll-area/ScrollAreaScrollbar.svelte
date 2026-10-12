@@ -31,7 +31,6 @@
 		orientation,
 		keepMounted,
 		style,
-		render: render != null,
 		elementProps,
 		onpointerdown,
 		onmousedown,
@@ -44,6 +43,6 @@
 	{#if render}
 		{@render render(part.hostProps, part.partState, children)}
 	{:else}
-		<div {...part.hostProps} bind:this={part.element}>{@render children?.()}</div>
+		<div {...part.hostProps}>{@render children?.()}</div>
 	{/if}
 {/if}

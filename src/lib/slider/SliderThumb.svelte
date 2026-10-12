@@ -258,17 +258,14 @@
 	});
 
 	const hostProps: HTMLAttributes<HTMLDivElement> & Record<symbol, Attachment<HTMLDivElement>> =
-		$derived.by(() => {
-			const props: HTMLAttributes<HTMLDivElement> & Record<symbol, Attachment<HTMLDivElement>> = {
-				...elementProps,
-				...getStateAttributesProps(partState, sliderStateAttributes),
-				id: thumbId,
-				...(index >= 0 ? { 'data-index': String(index) } : {}),
-				style: mergeCssStyle(thumbStyle, style),
-				onpointerdown: handlePointerDown,
-				[elementKey]: remember
-			};
-			return props;
+		$derived({
+			...elementProps,
+			...getStateAttributesProps(partState, sliderStateAttributes),
+			id: thumbId,
+			...(index >= 0 ? { 'data-index': String(index) } : {}),
+			style: mergeCssStyle(thumbStyle, style),
+			onpointerdown: handlePointerDown,
+			[elementKey]: remember
 		});
 
 	const showScript = $derived(model.inset && model.renderBeforeHydration && last);
@@ -287,5 +284,5 @@
 {#if render}
 	{@render render(hostProps, partState, content)}
 {:else}
-	<div {...hostProps} bind:this={thumbEl}>{@render content()}</div>
+	<div {...hostProps}>{@render content()}</div>
 {/if}

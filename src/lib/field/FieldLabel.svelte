@@ -117,12 +117,12 @@
 		onmousedown: handleMouseDown,
 		onclick: handleClick,
 		...(!nativeLabel ? { onpointerdown: handlePointerDown } : {}),
-		...(render ? { [elementKey]: remember } : {})
+		[elementKey]: remember
 	});
 </script>
 
 {#if render}
 	{@render render(hostProps as HTMLAttributes<HTMLElement>, labelState, children)}
 {:else}
-	<label {...hostProps} bind:this={labelEl}>{@render children?.()}</label>
+	<label {...hostProps}>{@render children?.()}</label>
 {/if}

@@ -182,7 +182,7 @@
 		...(model.groupLabelledBy ? { 'aria-labelledby': model.groupLabelledBy } : {}),
 		...elementProps,
 		...getStateAttributesProps(rootState, rootStateAttributes),
-		...(render ? { [rootKey]: rememberRoot } : {})
+		[rootKey]: rememberRoot
 	});
 
 	function hiddenFocused() {
@@ -197,7 +197,7 @@
 {#if render}
 	{@render render(hostProps, rootState, children)}
 {:else}
-	<div {...hostProps} bind:this={model.root}>{@render children?.()}</div>
+	<div {...hostProps}>{@render children?.()}</div>
 {/if}
 {#if showHidden}
 	<input

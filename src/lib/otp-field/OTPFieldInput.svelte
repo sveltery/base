@@ -297,5 +297,5 @@
 {#if render}
 	{@render render(hostProps, inputState, children)}
 {:else}
-	<input {...hostProps} bind:this={el} />
+	<input {...hostProps} />
 {/if}

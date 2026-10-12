@@ -31,17 +31,16 @@
 	const vertical = $derived(scrollbar.orientation === 'vertical');
 
 	let el = $state<HTMLDivElement | null>(null);
-	let rendered = $state<HTMLDivElement | null>(null);
 
 	function remember(node: HTMLDivElement) {
-		rendered = node;
+		el = node;
 		return () => {
-			if (rendered === node) rendered = null;
+			if (el === node) el = null;
 		};
 	}
 
 	$effect(() => {
-		const node = render ? rendered : el;
+		const node = el;
 		if (vertical) model.thumbYElement = node;
 		else model.thumbXElement = node;
 		return () => {
@@ -72,7 +71,7 @@
 		onpointermove: chain((event) => model.pointerMove(event), onpointermove),
 		onpointerup: chain((event) => model.pointerUp(event), onpointerup),
 		onpointercancel: chain((event) => model.pointerUp(event), onpointercancel),
-		...(render ? { [attachmentKey]: remember } : {})
+		[attachmentKey]: remember
 	});
 
 	$effect(() => {
@@ -83,5 +82,5 @@
 {#if render}
 	{@render render(hostProps, partState, children)}
 {:else}
-	<div {...hostProps} bind:this={el}>{@render children?.()}</div>
+	<div {...hostProps}>{@render children?.()}</div>
 {/if}

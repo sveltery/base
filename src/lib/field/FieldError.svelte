@@ -80,7 +80,7 @@
 		...elementProps,
 		...getStateAttributesProps(errorState, { ...fieldValidityMapping, ...transitionStatusMapping }),
 		id,
-		...(render ? { [elementKey]: remember } : {})
+		[elementKey]: remember
 	});
 
 	const visibleMessage = $derived(rendered ? message : frozen);
@@ -114,7 +114,7 @@
 			children ?? (visibleMessage != null ? messageText : undefined)
 		)}
 	{:else}
-		<div {...hostProps} bind:this={errorEl}>
+		<div {...hostProps}>
 			{#if children}
 				{@render children()}
 			{:else}

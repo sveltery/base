@@ -17,18 +17,17 @@
 	const model = useScrollAreaRootContext();
 
 	let el = $state<HTMLDivElement | null>(null);
-	let rendered = $state<HTMLDivElement | null>(null);
 
 	function remember(node: HTMLDivElement) {
-		rendered = node;
+		el = node;
 		return () => {
-			if (rendered === node) rendered = null;
+			if (el === node) el = null;
 		};
 	}
 
 	$effect(() => {
 		if (model.hiddenState.corner) return;
-		const node = render ? rendered : el;
+		const node = el;
 		model.cornerElement = node;
 		return () => {
 			if (model.cornerElement === node) model.cornerElement = null;
@@ -50,7 +49,7 @@
 			}),
 			style
 		),
-		...(render ? { [attachmentKey]: remember } : {})
+		[attachmentKey]: remember
 	});
 </script>
 
@@ -58,6 +57,6 @@
 	{#if render}
 		{@render render(hostProps, partState, children)}
 	{:else}
-		<div {...hostProps} bind:this={el}>{@render children?.()}</div>
+		<div {...hostProps}>{@render children?.()}</div>
 	{/if}
 {/if}
