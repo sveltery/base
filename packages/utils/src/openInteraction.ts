@@ -1,7 +1,7 @@
 // Derived from Base UI v1.8.0 packages/react/src/utils/useOpenInteractionType.ts
 // and packages/utils/src/useEnhancedClickHandler.ts
 // (commit 47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c). MIT, see THIRD_PARTY_NOTICES.md.
-// One helper. `useClick` writes the result onto `PopupStore` only when the popup is closed.
+// One helper. `ClickInteraction` writes the result onto `PopupStore` only when the popup is closed.
 // `setOpen(false)` clears it. `event.detail === 0` is a keyboard or virtual click.
 
 import { platform } from './platform.js';

@@ -13,8 +13,8 @@ export {
 	useFloatingParentNodeId,
 	useFloatingTree
 } from './components/FloatingTree.svelte.js';
-export { useClick } from './hooks/useClick.svelte.js';
-export { useDismiss } from './hooks/useDismiss.svelte.js';
+export { ClickInteraction } from './hooks/useClick.svelte.js';
+export { DismissInteraction } from './hooks/useDismiss.svelte.js';
 export { useHoverFloatingInteraction } from './hooks/useHoverFloatingInteraction.svelte.js';
 export { useHoverReferenceInteraction } from './hooks/useHoverReferenceInteraction.svelte.js';
 export { arrow, type ArrowOptions } from './middleware/arrow.js';

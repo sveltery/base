@@ -1,4 +1,4 @@
-import { useDismiss, useFloatingNodeId } from '@sveltery/floating-ui-svelte';
+import { DismissInteraction, useFloatingNodeId } from '@sveltery/floating-ui-svelte';
 import { PopupStore } from '#lib/internal/popups/index.js';
 
 export function createDismissPopup(floatingId: string) {
@@ -14,7 +14,7 @@ export function createDismissPopup(floatingId: string) {
 		onOpenChangeComplete: () => () => {}
 	});
 	useFloatingNodeId(store);
-	useDismiss(store, () => ({
+	new DismissInteraction(store, () => ({
 		escapeKey: true,
 		outsidePress: false,
 		bubbles: { escapeKey: false, outsidePress: false }

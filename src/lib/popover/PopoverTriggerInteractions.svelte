@@ -8,7 +8,7 @@
 	import { REASONS } from '@sveltery/utils';
 	import {
 		safePolygon,
-		useClick,
+		ClickInteraction,
 		useHoverReferenceInteraction
 	} from '@sveltery/floating-ui-svelte';
 	import { TriggerFocusGuards } from '../internal/popups/index.js';
@@ -34,7 +34,7 @@
 	} = $props();
 
 	const owner = untrack(() => store);
-	const click = useClick(owner, () => ({
+	const click = new ClickInteraction(owner, () => ({
 		enabled: !disabled,
 		stickIfOpen: owner.stickIfOpen
 	}));

@@ -3,7 +3,7 @@
 	import { toCssStyle } from '#lib/internal/css-style.js';
 	import {
 		safePolygon,
-		useClick,
+		ClickInteraction,
 		useHoverFloatingInteraction,
 		useHoverReferenceInteraction
 	} from '@sveltery/floating-ui-svelte';
@@ -71,7 +71,7 @@
 		onOpenChangeComplete: () => () => {}
 	});
 
-	const click = useClick(store, () => ({ enabled: !hover }));
+	const click = new ClickInteraction(store, () => ({ enabled: !hover }));
 	const blockPolygon = safePolygon({ blockPointerEvents: true });
 	const plainPolygon = safePolygon();
 	const polygon = $derived(scenario === 'block' ? blockPolygon : plainPolygon);

@@ -8,8 +8,8 @@
 	import { createChangeEventDetails, REASONS, contains, getTarget } from '@sveltery/utils';
 	import {
 		setFloatingTree,
-		useClick,
-		useDismiss,
+		ClickInteraction,
+		DismissInteraction,
 		useFloatingNodeId
 	} from '@sveltery/floating-ui-svelte';
 	import { useScrollLock } from '../internal/popups/index.js';
@@ -49,11 +49,11 @@
 		}
 	});
 	useFloatingNodeId(store);
-	const click = useClick(store).reference;
+	const click = new ClickInteraction(store).reference;
 	store.click = click;
 	setDialogRootContext({ store: store as DialogStore<unknown>, click });
 
-	useDismiss(store, () => ({
+	new DismissInteraction(store, () => ({
 		escapeKey: store.nestedOpenDialogCount === 0,
 		outsidePress(event) {
 			if ('button' in event && event.button !== 0) return false;

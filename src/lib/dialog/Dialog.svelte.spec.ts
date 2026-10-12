@@ -133,7 +133,7 @@ describe('Dialog', () => {
 		);
 	});
 
-	it('dismisses a backdrop click and a viewport click through useDismiss', async () => {
+	it('dismisses a backdrop click and a viewport click through DismissInteraction', async () => {
 		const onOpenChange = vi.fn();
 		const view = render(DialogHarness, { onOpenChange, withViewport: true });
 		await openDialog();

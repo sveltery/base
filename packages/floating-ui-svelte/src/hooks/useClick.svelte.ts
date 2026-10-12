@@ -24,16 +24,20 @@ export interface UseClickProps {
 	reason?: typeof REASONS.triggerPress;
 }
 
-export function useClick<Reason extends string>(
-	store: FloatingRootStore,
-	props: () => UseClickProps = () => ({})
-) {
-	const frame = new ScopedAnimationFrame();
-	const touchOpenTimeout = new ScopedTimeout();
-	let pointerType: 'mouse' | 'pen' | 'touch' | 'virtual' | undefined;
+type PointerKind = 'mouse' | 'pen' | 'touch' | 'virtual' | undefined;
 
-	function options() {
-		const value = props();
+export class ClickInteraction {
+	readonly #frame = new ScopedAnimationFrame();
+	readonly #touchOpenTimeout = new ScopedTimeout();
+	#pointerType: PointerKind;
+
+	constructor(
+		private readonly store: FloatingRootStore,
+		private readonly props: () => UseClickProps = () => ({})
+	) {}
+
+	#options() {
+		const value = this.props();
 		return {
 			enabled: value.enabled ?? true,
 			event: value.event ?? 'click',
@@ -45,14 +49,15 @@ export function useClick<Reason extends string>(
 		};
 	}
 
-	function setOpenWithTouchDelay(
+	#setOpenWithTouchDelay(
 		nextOpen: boolean,
 		nativeEvent: MouseEvent,
 		target: HTMLElement,
 		method: OpenInteractionType
 	) {
-		const { reason, touchOpenDelay } = options();
-		const details = createChangeEventDetails(reason as Reason, nativeEvent, target);
+		const { store } = this;
+		const { reason, touchOpenDelay } = this.#options();
+		const details = createChangeEventDetails(reason, nativeEvent, target);
 		const commit = () => {
 			const opening = nextOpen && !store.isOpen();
 			const previous = store.openMethod;
@@ -61,81 +66,81 @@ export function useClick<Reason extends string>(
 			if (opening && details.isCanceled) store.openMethod = previous;
 		};
 		if (nextOpen && method === 'touch' && touchOpenDelay > 0) {
-			touchOpenTimeout.start(touchOpenDelay, commit);
+			this.#touchOpenTimeout.start(touchOpenDelay, commit);
 			return;
 		}
 		commit();
 	}
 
-	function getNextOpen(
+	#getNextOpen(
 		open: boolean,
 		currentTarget: EventTarget | null,
 		isClickLikeOpenEvent: (eventType: string | undefined) => boolean
 	) {
-		const { toggle, stickIfOpen } = options();
-		const openEvent = store.data.openEvent;
-		if (open && store.domReferenceElement !== currentTarget) return true;
+		const { toggle, stickIfOpen } = this.#options();
+		const openEvent = this.store.data.openEvent;
+		if (open && this.store.domReferenceElement !== currentTarget) return true;
 		if (!open || !toggle) return true;
 		if (openEvent && stickIfOpen) return !isClickLikeOpenEvent(openEvent.type);
 		return false;
 	}
 
-	return {
-		reference: {
-			onpointerdown(event: PointerEvent) {
-				if (!options().enabled) return;
-				pointerType =
-					isMouseLikePointerType(event.pointerType, true) && isVirtualPointerEvent(event)
-						? 'virtual'
-						: (event.pointerType as typeof pointerType);
-			},
-			onmousedown(event: MouseEvent) {
-				const { enabled, event: eventOption, ignoreMouse } = options();
-				if (!enabled || event.button !== 0 || eventOption === 'click') return;
-				if (isMouseLikePointerType(pointerType, true) && ignoreMouse) return;
-				const nextOpen = getNextOpen(
-					store.isOpen(),
-					event.currentTarget,
-					(openEventType) => openEventType === 'click' || openEventType === 'mousedown'
-				);
-				const method = useOpenInteractionType(event, pointerType);
-				if (eventOption === 'mousedown-only') pointerType = undefined;
-				const target = getTarget(event);
-				if (isTypeableElement(target) && target instanceof HTMLElement) {
-					setOpenWithTouchDelay(nextOpen, event, target, method);
-					return;
-				}
-				const currentTarget = event.currentTarget;
-				if (!(currentTarget instanceof HTMLElement)) return;
-				frame.request(() => setOpenWithTouchDelay(nextOpen, event, currentTarget, method));
-			},
-			onclick(event: MouseEvent) {
-				const { enabled, event: eventOption, ignoreMouse } = options();
-				if (!enabled) return;
-				const remembered = pointerType;
-				const method = useOpenInteractionType(event, remembered);
-				const hadPointer = remembered !== undefined;
-				pointerType = undefined;
-				if (eventOption === 'mousedown-only') return;
-				if (eventOption === 'mousedown' && hadPointer) return;
-				if (isMouseLikePointerType(remembered, true) && ignoreMouse) return;
-				const currentTarget = event.currentTarget;
-				if (!(currentTarget instanceof HTMLElement)) return;
-				const nextOpen = getNextOpen(
-					store.isOpen(),
-					currentTarget,
-					(openEventType) =>
-						openEventType === 'click' ||
-						openEventType === 'mousedown' ||
-						openEventType === 'keydown' ||
-						openEventType === 'keyup'
-				);
-				setOpenWithTouchDelay(nextOpen, event, currentTarget, method);
-			},
-			onkeydown() {
-				if (!options().enabled) return;
-				pointerType = undefined;
+	readonly reference = {
+		onpointerdown: (event: PointerEvent) => {
+			if (!this.#options().enabled) return;
+			this.#pointerType =
+				isMouseLikePointerType(event.pointerType, true) && isVirtualPointerEvent(event)
+					? 'virtual'
+					: (event.pointerType as PointerKind);
+		},
+		onmousedown: (event: MouseEvent) => {
+			const { enabled, event: eventOption, ignoreMouse } = this.#options();
+			if (!enabled || event.button !== 0 || eventOption === 'click') return;
+			if (isMouseLikePointerType(this.#pointerType, true) && ignoreMouse) return;
+			const nextOpen = this.#getNextOpen(
+				this.store.isOpen(),
+				event.currentTarget,
+				(openEventType) => openEventType === 'click' || openEventType === 'mousedown'
+			);
+			const method = useOpenInteractionType(event, this.#pointerType);
+			if (eventOption === 'mousedown-only') this.#pointerType = undefined;
+			const target = getTarget(event);
+			if (isTypeableElement(target) && target instanceof HTMLElement) {
+				this.#setOpenWithTouchDelay(nextOpen, event, target, method);
+				return;
 			}
+			const currentTarget = event.currentTarget;
+			if (!(currentTarget instanceof HTMLElement)) return;
+			this.#frame.request(() =>
+				this.#setOpenWithTouchDelay(nextOpen, event, currentTarget, method)
+			);
+		},
+		onclick: (event: MouseEvent) => {
+			const { enabled, event: eventOption, ignoreMouse } = this.#options();
+			if (!enabled) return;
+			const remembered = this.#pointerType;
+			const method = useOpenInteractionType(event, remembered);
+			const hadPointer = remembered !== undefined;
+			this.#pointerType = undefined;
+			if (eventOption === 'mousedown-only') return;
+			if (eventOption === 'mousedown' && hadPointer) return;
+			if (isMouseLikePointerType(remembered, true) && ignoreMouse) return;
+			const currentTarget = event.currentTarget;
+			if (!(currentTarget instanceof HTMLElement)) return;
+			const nextOpen = this.#getNextOpen(
+				this.store.isOpen(),
+				currentTarget,
+				(openEventType) =>
+					openEventType === 'click' ||
+					openEventType === 'mousedown' ||
+					openEventType === 'keydown' ||
+					openEventType === 'keyup'
+			);
+			this.#setOpenWithTouchDelay(nextOpen, event, currentTarget, method);
+		},
+		onkeydown: () => {
+			if (!this.#options().enabled) return;
+			this.#pointerType = undefined;
 		}
 	};
 }
