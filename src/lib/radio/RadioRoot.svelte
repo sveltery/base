@@ -12,8 +12,12 @@
 	import { createAttachmentKey, type Attachment } from 'svelte/attachments';
 	import { currentHost, dispatchClick, forwardKeyUp } from '../internal/click.js';
 	import { toCssStyle } from '../internal/css-style.js';
-	import { createChangeEventDetails, REASONS } from '../internal/event-details.js';
-	import { visuallyHidden, visuallyHiddenInput } from '../internal/visuallyHidden.js';
+	import {
+		createChangeEventDetails,
+		REASONS,
+		visuallyHidden,
+		visuallyHiddenInput
+	} from '@sveltery/utils';
 	import { radioRootAttributes } from './attributes.js';
 	import { setRadioContext } from './context.js';
 	import { useRadioGroupContext } from './group-context.js';

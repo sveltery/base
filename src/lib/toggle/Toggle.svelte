@@ -8,7 +8,7 @@
 	import type { HTMLButtonAttributes } from 'svelte/elements';
 	import type { CompositeHandlers } from '../internal/composite-root.svelte.js';
 	import { createControllableValue } from '../internal/controllable-value.svelte.js';
-	import { createChangeEventDetails, REASONS } from '../internal/event-details.js';
+	import { createChangeEventDetails, REASONS } from '@sveltery/utils';
 	import { getStateAttributesProps } from '../internal/state-attributes.js';
 	import { useToggleGroupContext } from '../toggle-group/context.svelte.js';
 	import { warnMissingToggleValue } from '../toggle-group/warn.js';

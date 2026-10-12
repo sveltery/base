@@ -8,18 +8,21 @@
 
 import { untrack } from 'svelte';
 import { callPublic } from '../internal/callPublic.js';
-import { useAnimationFrame } from '../internal/timeout.svelte.js';
-import { clamp } from '../internal/clamp.js';
 import {
+	useAnimationFrame,
 	createChangeEventDetails,
 	createGenericEventDetails,
-	REASONS
-} from '../internal/event-details.js';
+	REASONS,
+	ownerDocument,
+	ownerWindow,
+	activeElement,
+	contains,
+	getTarget
+} from '@sveltery/utils';
+import { clamp } from '../internal/clamp.js';
 import type { FieldContext } from '../field/model.svelte.js';
 import type { FormContextValue } from '../form/context.js';
 import { asc } from './asc.js';
-import { ownerDocument, ownerWindow } from '../internal/owner.js';
-import { activeElement, contains, getTarget } from '../internal/shadow-dom.js';
 import { focusElement, isElement, matchesFocusVisible } from './dom.js';
 import { getMidpoint } from './getMidpoint.js';
 import { areValuesEqual, getSliderValue } from './getSliderValue.js';

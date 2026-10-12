@@ -18,7 +18,7 @@ import CheckboxLabelHarness from '../../tests/CheckboxLabelHarness.svelte';
 import CheckboxStyleHarness from '../../tests/CheckboxStyleHarness.svelte';
 import { controllableRootCases } from '../../tests/controllable-root-cases.js';
 import { Checkbox } from './index.js';
-import { AnimationFrame } from '../internal/timeout.js';
+import { AnimationFrame } from '@sveltery/utils';
 
 const ENDING_CSS = `
 	@keyframes checkbox-test-anim { to { opacity: 0; } }

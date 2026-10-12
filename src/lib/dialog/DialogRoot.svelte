@@ -9,17 +9,18 @@
 	import {
 		createChangeEventDetails,
 		REASONS,
-		type BaseUIChangeEventDetails
-	} from '../internal/event-details.js';
+		type BaseUIChangeEventDetails,
+		contains,
+		getTarget
+	} from '@sveltery/utils';
 	import { createControllableValue } from '../internal/controllable-value.svelte.js';
 	import {
 		setFloatingTree,
 		useClick,
 		useDismiss,
 		useFloatingNodeId
-	} from '../internal/floating-ui/index.js';
+	} from '@sveltery/floating-ui-svelte';
 	import { useScrollLock } from '../internal/popups/index.js';
-	import { contains, getTarget } from '../internal/shadow-dom.js';
 	import { setDialogRootContext, useDialogRootContext } from './context.svelte.js';
 	import { DialogStore } from './store.svelte.js';
 	import type { DialogChangeEventReason, DialogRootProps } from './types.js';

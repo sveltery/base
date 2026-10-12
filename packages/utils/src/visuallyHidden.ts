@@ -25,3 +25,7 @@ export const visuallyHiddenInput: Record<string, string | number> = {
 	...visuallyHiddenBase,
 	position: 'absolute'
 };
+
+/** `visuallyHidden` as a `style` attribute, for elements that take no style object. */
+export const visuallyHiddenStyle =
+	'clip-path: inset(50%); overflow: hidden; white-space: nowrap; border: 0px; padding: 0px; width: 1px; height: 1px; margin: -1px; position: fixed; top: 0px; left: 0px';

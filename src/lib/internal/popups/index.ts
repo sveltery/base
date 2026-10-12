@@ -1,6 +1,6 @@
 // The only door from component files into the popup store.
 
-export { default as FocusGuard } from '../FocusGuard.svelte';
+export { FocusGuard } from '@sveltery/utils';
 export { default as InternalBackdrop } from '../InternalBackdrop.svelte';
 export {
 	CommonPopupDataAttributes,
@@ -15,7 +15,7 @@ export {
 	useOpenInteractionType,
 	type OpenInteractionType,
 	type OpenPointerKind
-} from '../openInteraction.js';
+} from '@sveltery/utils';
 export { useAnchoredPopupScrollLock } from '../useAnchoredPopupScrollLock.svelte.js';
 export {
 	useAnchorPositioning,
@@ -28,7 +28,7 @@ export {
 export { useTriggerFocusGuards } from './useTriggerFocusGuards.js';
 export * as CommonPositionerCssVars from '../CommonPositionerCssVars.js';
 export type { PopupTransitionStatus } from '../useTransitionStatus.svelte.js';
-export { PopupTriggerMap } from './popupTriggerMap.js';
+export { PopupTriggerMap } from '@sveltery/floating-ui-svelte';
 export {
 	FOCUSABLE_POPUP_PROPS,
 	attachPreventUnmountOnClose,

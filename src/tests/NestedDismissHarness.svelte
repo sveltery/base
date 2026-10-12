@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { setFloatingTree } from '#lib/internal/floating-ui/index.js';
+	import { setFloatingTree } from '@sveltery/floating-ui-svelte';
 	import { createDismissPopup } from './dismiss-popup.svelte.js';
 	import NestedDismissChild from './NestedDismissChild.svelte';
 

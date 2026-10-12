@@ -10,11 +10,10 @@ import type { Middleware } from '@floating-ui/dom';
 import { untrack } from 'svelte';
 import { SvelteMap } from 'svelte/reactivity';
 import type { HTMLAttributes } from 'svelte/elements';
-import { createChangeEventDetails, REASONS } from '../internal/event-details.js';
+import { createChangeEventDetails, REASONS, useTimeout } from '@sveltery/utils';
 import type { ControllableValue } from '../internal/controllable-value.svelte.js';
 import { runOnceAnimationsFinish } from '../internal/animations-finished.js';
 import { PopupStore } from '../internal/popups/store.svelte.js';
-import { useTimeout } from '../internal/timeout.svelte.js';
 import { PATIENT_CLICK_THRESHOLD } from './constants.js';
 import type {
 	PopoverChangeEventDetails,

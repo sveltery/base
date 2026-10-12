@@ -4,15 +4,14 @@
 
 import { flushSync } from 'svelte';
 import type { Attachment } from 'svelte/attachments';
-import { createChangeEventDetails, REASONS } from '../event-details.js';
-import { contains } from '../shadow-dom.js';
+import { createChangeEventDetails, REASONS, contains } from '@sveltery/utils';
 import {
 	getTabbableAfterElement,
 	getTabbableBeforeElement,
 	getTabbableCandidates,
-	isOutsideEvent
-} from '../floating-ui-react/utils/tabbable.js';
-import type { FloatingRootStore } from '../floating-ui-react/components/FloatingRootStore.svelte.js';
+	isOutsideEvent,
+	type FloatingRootStore
+} from '@sveltery/floating-ui-svelte';
 
 export function useTriggerFocusGuards(
 	store: FloatingRootStore,

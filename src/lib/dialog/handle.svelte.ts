@@ -7,7 +7,7 @@
 
 import { DEV } from 'esm-env';
 import { SvelteMap } from 'svelte/reactivity';
-import { createChangeEventDetails, REASONS } from '../internal/event-details.js';
+import { createChangeEventDetails, REASONS } from '@sveltery/utils';
 import { PopupHandle } from '../internal/popups/index.js';
 import type { DialogStore } from './store.svelte.js';
 

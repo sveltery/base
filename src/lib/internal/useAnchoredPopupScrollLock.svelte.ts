@@ -3,7 +3,7 @@
 // A touch-opened popup locks only when it is within 20px of the viewport width.
 // Hover-open passes `enabled: false`, so it does not lock.
 
-import { ownerDocument } from './owner.js';
+import { ownerDocument } from '@sveltery/utils';
 import { useScrollLock } from './useScrollLock.svelte.js';
 
 const VIEWPORT_WIDTH_TOLERANCE_PX = 20;

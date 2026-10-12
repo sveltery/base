@@ -1,7 +1,7 @@
 // Derived from Base UI v1.8.0 packages/react/src/floating-ui-react/utils/event.ts
 // (commit 47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c). MIT, see THIRD_PARTY_NOTICES.md.
 
-import { platform } from '../../platform.js';
+import { platform } from '@sveltery/utils';
 
 export function stopEvent(event: Event) {
 	event.preventDefault();

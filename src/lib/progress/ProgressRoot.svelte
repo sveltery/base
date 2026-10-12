@@ -6,7 +6,7 @@
 -->
 <script lang="ts">
 	import type { HTMLAttributes } from 'svelte/elements';
-	import { visuallyHidden } from '../internal/visuallyHidden.js';
+	import { visuallyHidden } from '@sveltery/utils';
 	import { getStateAttributesProps } from '../internal/state-attributes.js';
 	import { normalizeProgressValue } from './compute.js';
 	import { toCssStyle } from '../internal/css-style.js';

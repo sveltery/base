@@ -5,8 +5,7 @@
 // There is no React ref.
 
 import { getComputedStyle, getNodeName, isHTMLElement, isShadowRoot } from '@floating-ui/utils/dom';
-import { ownerDocument } from '../../owner.js';
-import { activeElement, contains } from '../../shadow-dom.js';
+import { ownerDocument, activeElement, contains } from '@sveltery/utils';
 import { isElementVisible } from './composite.js';
 
 export type FocusableElement = HTMLElement | SVGElement;

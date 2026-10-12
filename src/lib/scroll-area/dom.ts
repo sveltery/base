@@ -1,6 +1,6 @@
 // Derived from Base UI v1.8.0 packages/react/src/scroll-area/utils/getOffset.ts
 // (commit 47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c). MIT, see THIRD_PARTY_NOTICES.md.
-// `contains` and `getTarget` live in `src/lib/internal/shadow-dom.ts`.
+// `contains` and `getTarget` live in `@sveltery/utils`.
 
 export function getOffset(
 	element: Element | null,

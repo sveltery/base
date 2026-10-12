@@ -4,7 +4,7 @@
 
 	import type { HTMLAttributes } from 'svelte/elements';
 	import { toCssStyle } from './css-style.js';
-	import { ownerWindow } from './owner.js';
+	import { ownerWindow } from '@sveltery/utils';
 
 	let {
 		cutout = null,

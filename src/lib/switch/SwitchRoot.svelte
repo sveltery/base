@@ -11,9 +11,13 @@
 	import { currentHost, dispatchClick, forwardKeyUp, isLink } from '../internal/click.js';
 	import { toCssStyle } from '../internal/css-style.js';
 	import { createControllableValue } from '../internal/controllable-value.svelte.js';
-	import { createChangeEventDetails, REASONS } from '../internal/event-details.js';
+	import {
+		createChangeEventDetails,
+		REASONS,
+		visuallyHidden,
+		visuallyHiddenInput
+	} from '@sveltery/utils';
 	import { getStateAttributesProps } from '../internal/state-attributes.js';
-	import { visuallyHidden, visuallyHiddenInput } from '../internal/visuallyHidden.js';
 	import { switchStateAttributesMapping } from './attributes.js';
 	import { setSwitchContext } from './context.js';
 	import { nativeFallbackLabelId } from '../internal/associated-label.js';

@@ -1,10 +1,6 @@
 import type { Snippet } from 'svelte';
 import type { HTMLAttributes, HTMLButtonAttributes, HTMLInputAttributes } from 'svelte/elements';
-import type {
-	BaseUIChangeEventDetails,
-	BaseUIGenericEventDetails,
-	REASONS
-} from '../internal/event-details.js';
+import type { BaseUIChangeEventDetails, BaseUIGenericEventDetails, REASONS } from '@sveltery/utils';
 import type { FieldRootState } from '../field/types.js';
 import type { RenderChildren } from '../internal/render-children.js';
 

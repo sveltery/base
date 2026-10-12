@@ -10,7 +10,7 @@
 <script lang="ts">
 	import { createAttachmentKey } from 'svelte/attachments';
 	import type { HTMLButtonAttributes } from 'svelte/elements';
-	import { createGenericEventDetails, REASONS } from '../internal/event-details.js';
+	import { createGenericEventDetails, REASONS } from '@sveltery/utils';
 	import { getStateAttributesProps } from '../internal/state-attributes.js';
 	import { numberFieldStateAttributes } from './attributes.js';
 	import { useNumberFieldContext } from './context.svelte.js';

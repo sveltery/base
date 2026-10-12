@@ -18,7 +18,7 @@ import PortalLateAttachHarness from '../../tests/PortalLateAttachHarness.svelte'
 import PortalReleaseHarness from '../../tests/PortalReleaseHarness.svelte';
 import PortalRenderHarness from '../../tests/PortalRenderHarness.svelte';
 import { Dialog } from './index.js';
-import { REASONS } from '../internal/event-details.js';
+import { REASONS } from '@sveltery/utils';
 
 function button(name: string) {
 	return page.getByRole('button', { name, includeHidden: true });

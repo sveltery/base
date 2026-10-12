@@ -9,7 +9,7 @@
 	import { clamp } from '../internal/clamp.js';
 	import { formatNumber } from '../internal/formatNumber.js';
 	import { valueToPercent } from '../internal/valueToPercent.js';
-	import { visuallyHidden } from '../internal/visuallyHidden.js';
+	import { visuallyHidden } from '@sveltery/utils';
 	import { setMeterRootContext, type MeterRootContextValue } from './context.js';
 	import type { MeterRootProps, MeterRootState } from './types.js';
 

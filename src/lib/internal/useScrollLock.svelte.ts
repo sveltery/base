@@ -3,9 +3,13 @@
 
 import { isOverflowElement } from '@floating-ui/utils/dom';
 import { on } from 'svelte/events';
-import { ownerDocument, ownerWindow } from './owner.js';
-import { platform } from './platform.js';
-import { useAnimationFrame, useTimeout } from './timeout.svelte.js';
+import {
+	ownerDocument,
+	ownerWindow,
+	platform,
+	useAnimationFrame,
+	useTimeout
+} from '@sveltery/utils';
 
 let originalHtmlStyles: Partial<CSSStyleDeclaration> = {};
 let originalBodyStyles: Partial<CSSStyleDeclaration> = {};

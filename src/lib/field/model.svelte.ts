@@ -3,7 +3,7 @@
 // (commit 47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c). MIT, see THIRD_PARTY_NOTICES.md.
 
 import { untrack } from 'svelte';
-import { useTimeout } from '../internal/timeout.svelte.js';
+import { useTimeout } from '@sveltery/utils';
 import { SvelteMap } from 'svelte/reactivity';
 import type { FormContextValue } from '../form/context.js';
 import type { FieldValidityData, FormValidationMode } from '../form/types.js';

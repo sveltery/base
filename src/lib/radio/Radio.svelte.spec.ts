@@ -17,7 +17,7 @@ import RadioIndicatorHarness from '../../tests/RadioIndicatorHarness.svelte';
 import RadioLabelHarness from '../../tests/RadioLabelHarness.svelte';
 import RadioStyleHarness from '../../tests/RadioStyleHarness.svelte';
 import { Radio } from './index.js';
-import { AnimationFrame } from '../internal/timeout.js';
+import { AnimationFrame } from '@sveltery/utils';
 
 const ENDING_CSS = `
 	@keyframes radio-test-anim { to { opacity: 0; } }

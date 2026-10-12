@@ -1,6 +1,6 @@
 import type { Snippet } from 'svelte';
 import type { HTMLAttributes, HTMLInputAttributes, HTMLLabelAttributes } from 'svelte/elements';
-import type { BaseUIChangeEventDetails, REASONS } from '../internal/event-details.js';
+import type { BaseUIChangeEventDetails, REASONS } from '@sveltery/utils';
 import type { FieldValidityData, FormValidationMode } from '../form/types.js';
 import type { RenderChildren } from '../internal/render-children.js';
 

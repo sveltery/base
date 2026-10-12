@@ -3,7 +3,7 @@
 // packages/utils/src/useAnimationFrame.ts
 // (commit 47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c). MIT, see THIRD_PARTY_NOTICES.md.
 
-import { useAnimationFrame } from './timeout.svelte.js';
+import { useAnimationFrame } from '@sveltery/utils';
 
 /**
  * Clears a status on the next frame while `rendered` is true.

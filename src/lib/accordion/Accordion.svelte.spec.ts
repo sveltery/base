@@ -10,7 +10,7 @@ import AccordionHarness from '../../tests/AccordionHarness.svelte';
 import type { AccordionItemChangeEventDetails, AccordionRootChangeEventDetails } from './types.js';
 import { controllableRootCases } from '../../tests/controllable-root-cases.js';
 import { Accordion } from './index.js';
-import { REASONS } from '../internal/event-details.js';
+import { REASONS } from '@sveltery/utils';
 
 const PANEL_1 = 'Panel contents 1';
 const PANEL_2 = 'Panel contents 2';

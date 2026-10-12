@@ -1,0 +1,46 @@
+{
+	"name": "@sveltery/floating-ui-svelte",
+	"version": "0.0.0",
+	"private": true,
+	"description": "Svelte floating-ui interactions for Sveltery Base: positioning, click, hover, dismiss, focus management and portals.",
+	"license": "MIT",
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/sveltery/base.git",
+		"directory": "packages/floating-ui-svelte"
+	},
+	"type": "module",
+	"scripts": {
+		"prepack": "svelte-package -i src -o dist && publint --strict"
+	},
+	"files": [
+		"dist",
+		"!dist/**/*.spec.*"
+	],
+	"sideEffects": false,
+	"exports": {
+		".": {
+			"types": "./src/index.ts",
+			"svelte": "./src/index.ts",
+			"default": "./src/index.ts"
+		}
+	},
+	"publishConfig": {
+		"exports": {
+			".": {
+				"types": "./dist/index.d.ts",
+				"svelte": "./dist/index.js",
+				"default": "./dist/index.js"
+			}
+		}
+	},
+	"peerDependencies": {
+		"svelte": "^5.57.1"
+	},
+	"dependencies": {
+		"@floating-ui/dom": "^1.8.0",
+		"@floating-ui/utils": "^0.2.12",
+		"@sveltery/utils": "workspace:*",
+		"esm-env": "1.2.2"
+	}
+}

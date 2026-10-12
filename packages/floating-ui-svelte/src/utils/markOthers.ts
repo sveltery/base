@@ -3,7 +3,7 @@
 // MIT, see THIRD_PARTY_NOTICES.md.
 
 import { getNodeName, isShadowRoot } from '@floating-ui/utils/dom';
-import { ownerDocument } from '../../owner.js';
+import { ownerDocument } from '@sveltery/utils';
 
 type Undo = () => void;
 

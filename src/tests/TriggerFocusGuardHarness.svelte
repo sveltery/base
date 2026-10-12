@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { createChangeEventDetails } from '#lib/internal/event-details.js';
+	import { createChangeEventDetails } from '@sveltery/utils';
 	import { createControllableValue } from '#lib/internal/controllable-value.svelte.js';
 	import { PopupStore, useTriggerFocusGuards } from '#lib/internal/popups/index.js';
 

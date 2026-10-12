@@ -8,7 +8,7 @@
 		Toggle,
 		ToggleGroup
 	} from '#lib';
-	import { useTimeout } from '#lib/internal/timeout.svelte.js';
+	import { useTimeout } from '@sveltery/utils';
 
 	type Part =
 		| 'switch'

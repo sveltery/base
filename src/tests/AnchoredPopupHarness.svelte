@@ -7,7 +7,7 @@
 		useClick,
 		useHoverFloatingInteraction,
 		useHoverReferenceInteraction
-	} from '#lib/internal/floating-ui/index.js';
+	} from '@sveltery/floating-ui-svelte';
 	import { mergeProps } from '#lib/internal/mergeProps.js';
 	import {
 		PopupStore,

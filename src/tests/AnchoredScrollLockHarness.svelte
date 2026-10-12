@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { createControllableValue } from '#lib/internal/controllable-value.svelte.js';
-	import { useClick } from '#lib/internal/floating-ui/index.js';
+	import { useClick } from '@sveltery/floating-ui-svelte';
 	import { PopupStore, useAnchoredPopupScrollLock } from '#lib/internal/popups/index.js';
 
 	let { enabled = false, wide = false }: { enabled?: boolean; wide?: boolean } = $props();

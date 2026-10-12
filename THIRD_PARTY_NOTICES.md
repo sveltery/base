@@ -19,7 +19,7 @@ Parts of this package derive from [Base UI](https://github.com/mui/base-ui) v1.8
 - `src/lib/collapsible/panel-motion.svelte.ts` and `src/lib/collapsible/motion.ts` from `packages/react/src/collapsible/panel/useCollapsiblePanel.ts`, `useOpenChangeComplete`, and `useAnimationsFinished`
 - `src/lib/collapsible/attributes.ts` from `packages/react/src/collapsible/root/stateAttributesMapping.ts`, `packages/react/src/utils/collapsibleOpenStateMapping.ts`, and `packages/react/src/internals/stateAttributesMapping.ts`
 - `src/lib/collapsible/Collapsible.svelte.spec.ts` assertions from `packages/react/src/collapsible/**/*.test.tsx`
-- `src/lib/internal/event-details.ts` also exports `REASONS.triggerPress` from `packages/react/src/internals/reason-parts.ts`
+- `packages/utils/src/event-details.ts` also exports `REASONS.triggerPress` from `packages/react/src/internals/reason-parts.ts`
 - `src/lib/internal/render-children.ts` from the `props.children` contract of `packages/react/src/internals/useRenderElement.tsx`
 - `src/lib/button/Button.svelte.spec.ts` assertions from `packages/react/src/button/Button.test.tsx`
 - `src/lib/fieldset/FieldsetRoot.svelte` from `packages/react/src/fieldset/root/FieldsetRoot.tsx`
@@ -52,14 +52,14 @@ Parts of this package derive from [Base UI](https://github.com/mui/base-ui) v1.8
 - `src/lib/toggle-group/context.svelte.ts` from `packages/react/src/toggle-group/ToggleGroupContext.ts`
 - `src/lib/internal/composite-root.svelte.ts` from the linear path of `packages/react/src/internals/composite/root/useCompositeRoot.ts` and `packages/react/src/internals/composite/item/useCompositeItem.ts`, including Toolbar's Home/End off, RadioGroup's orientation `both` with Shift allowed, and `Tabs.List`'s empty `disabledIndices`
 - `src/lib/toggle-group/ToggleGroup.svelte.spec.ts` assertions from `packages/react/src/toggle-group/ToggleGroup.test.tsx`
-- `src/lib/internal/event-details.ts` from `packages/react/src/internals/createBaseUIEventDetails.ts`
+- `packages/utils/src/event-details.ts` from `packages/react/src/internals/createBaseUIEventDetails.ts`
 - `src/lib/internal/state-attributes.ts` from `packages/react/src/internals/getStateAttributesProps.ts`
 - `src/lib/internal/valueToPercent.ts` from `packages/react/src/utils/valueToPercent.ts`
 - `src/lib/internal/clamp.ts` from `packages/utils/src/clamp.ts`
 - `src/lib/internal/controllable-value.svelte.ts` from `packages/utils/src/useControlled.ts` and `packages/react/src/internals/useValueChanged.ts`
 - `src/lib/internal/formatNumber.ts` from `packages/utils/src/formatNumber.ts`
 - `src/lib/internal/stringifyLocale.ts` from `packages/utils/src/stringifyLocale.ts` (cache key used by `formatNumber`)
-- `src/lib/internal/visuallyHidden.ts` from `packages/utils/src/visuallyHidden.ts` (nonzero lengths use explicit `px` units for native style strings)
+- `packages/utils/src/visuallyHidden.ts` from `packages/utils/src/visuallyHidden.ts` (nonzero lengths use explicit `px` units for native style strings)
 - `src/lib/internal/formatNumber.spec.ts` assertions from `packages/utils/src/formatNumber.test.ts`
 - `src/lib/internal/stringifyLocale.spec.ts` assertions from `packages/utils/src/stringifyLocale.test.ts`
 - `src/lib/avatar/Root.svelte` from `packages/react/src/avatar/root/AvatarRoot.tsx`
@@ -90,7 +90,7 @@ Parts of this package derive from [Base UI](https://github.com/mui/base-ui) v1.8
 - `src/lib/form/context.ts` from `packages/react/src/internals/form-context/FormContext.ts`
 - `src/lib/form/document-order.ts` from `comesBeforeInSameTree` in `packages/react/src/form/Form.tsx`
 - `src/lib/form/Form.svelte.spec.ts` assertions from `packages/react/src/form/Form.test.tsx` that Form can observe without Field
-- `src/lib/internal/event-details.ts` also includes `createGenericEventDetails` from `packages/react/src/internals/createBaseUIEventDetails.ts`
+- `packages/utils/src/event-details.ts` also includes `createGenericEventDetails` from `packages/react/src/internals/createBaseUIEventDetails.ts`
 - `src/lib/switch/SwitchRoot.svelte` from `packages/react/src/switch/root/SwitchRoot.tsx`, the non-composite paths of `packages/react/src/internals/use-button/useButton.ts`, and the native-label fallback of `packages/react/src/internals/labelable-provider/useAriaLabelledBy.ts`
 - `src/lib/switch/SwitchThumb.svelte` from `packages/react/src/switch/thumb/SwitchThumb.tsx`
 - `src/lib/switch/context.ts` from `packages/react/src/switch/root/SwitchRootContext.ts`
@@ -120,7 +120,7 @@ Parts of this package derive from [Base UI](https://github.com/mui/base-ui) v1.8
 - `src/lib/radio/attributes.ts` from `packages/react/src/radio/utils/stateAttributesMapping.ts` (Field validity attributes omitted)
 - `src/lib/radio/serialize-value.ts` from `packages/react/src/internals/serializeValue.ts`
 - `src/lib/radio/Radio.svelte.spec.ts` assertions from `packages/react/src/radio/root/RadioRoot.test.tsx` and `packages/react/src/radio/indicator/RadioIndicator.test.tsx` that do not require Field or RadioGroup
-- `src/lib/internal/event-details.ts` also exports `REASONS.disabled`, `REASONS.missing`, and `REASONS.initial` from `packages/react/src/internals/reason-parts.ts`
+- `packages/utils/src/event-details.ts` also exports `REASONS.disabled`, `REASONS.missing`, and `REASONS.initial` from `packages/react/src/internals/reason-parts.ts`
 - `src/lib/tabs/TabsRoot.svelte` from `packages/react/src/tabs/root/TabsRoot.tsx`
 - `src/lib/tabs/TabsList.svelte` from `packages/react/src/tabs/list/TabsList.tsx`
 - `src/lib/tabs/TabsTab.svelte` from `packages/react/src/tabs/tab/TabsTab.tsx` and the non-composite path of `packages/react/src/internals/use-button/useButton.ts`
@@ -146,7 +146,7 @@ Parts of this package derive from [Base UI](https://github.com/mui/base-ui) v1.8
 - `src/lib/number-field/parse.ts` and `validate.ts` from `packages/react/src/number-field/utils/parse.ts` and `validate.ts`
 - `src/lib/number-field/viewport.ts` from `packages/react/src/number-field/utils/getViewportRect.ts`
 - `src/lib/number-field/NumberField.svelte.spec.ts` assertions from `packages/react/src/number-field/**/*.test.tsx` that do not require React refs or `className` callbacks
-- `src/lib/internal/event-details.ts` also exports the number-field change reasons (`input-change`, `input-clear`, `input-blur`, `input-paste`, `keyboard`, `increment-press`, `decrement-press`, `wheel`, `scrub`) and the slider reasons (`track-press`, `drag`)
+- `packages/utils/src/event-details.ts` also exports the number-field change reasons (`input-change`, `input-clear`, `input-blur`, `input-paste`, `keyboard`, `increment-press`, `decrement-press`, `wheel`, `scrub`) and the slider reasons (`track-press`, `drag`)
 - `src/lib/scroll-area/ScrollAreaRoot.svelte` and `src/lib/scroll-area/model.svelte.ts` from `packages/react/src/scroll-area/root/ScrollAreaRoot.tsx` and `ScrollAreaRootContext.ts`
 - `src/lib/scroll-area/ScrollAreaViewport.svelte` from `packages/react/src/scroll-area/viewport/ScrollAreaViewport.tsx`
 - `src/lib/scroll-area/ScrollAreaScrollbar.svelte` from `packages/react/src/scroll-area/scrollbar/ScrollAreaScrollbar.tsx`
@@ -177,9 +177,9 @@ Parts of this package derive from [Base UI](https://github.com/mui/base-ui) v1.8
 - `src/lib/otp-field/otp.ts` from `packages/react/src/otp-field/utils/otp.ts`
 - `src/lib/otp-field/attributes.ts` from `packages/react/src/otp-field/utils/stateAttributesMapping.ts` and the OTP field data-attribute modules
 - `src/lib/otp-field/dom.ts` from `packages/react/src/floating-ui-react/utils/event.ts` (`stopEvent`)
-- `src/lib/internal/platform.ts` from `packages/utils/src/platform` (`os`, `engine`, `screenReader`, `env`, `mediaQuery`)
-- `src/lib/internal/shadow-dom.ts` from `packages/utils/src/shadowDom.ts` (`activeElement`, `contains`, `getTarget`)
-- `src/lib/internal/owner.ts` from `packages/utils/src/owner.ts`
+- `packages/utils/src/platform.ts` from `packages/utils/src/platform` (`os`, `engine`, `screenReader`, `env`, `mediaQuery`)
+- `packages/utils/src/shadow-dom.ts` from `packages/utils/src/shadowDom.ts` (`activeElement`, `contains`, `getTarget`)
+- `packages/utils/src/owner.ts` from `packages/utils/src/owner.ts`
 - `src/lib/internal/css-style.ts` from the style-string helpers shared by Progress, NumberField, OTP Field, Slider, Checkbox, Radio, and Switch
 - `src/lib/internal/click.ts` from `packages/react/src/utils/dispatchClickWithModifiers.ts` and the host and link checks in `packages/react/src/internals/use-button/useButton.ts`
 - `src/lib/internal/document-order.ts` from the composite list DOM-order comparison
@@ -188,16 +188,16 @@ Parts of this package derive from [Base UI](https://github.com/mui/base-ui) v1.8
 - `src/lib/toolbar/item-registration.svelte.ts` from the item ref in `packages/react/src/internals/composite/item/useCompositeItem.ts`
 - `src/lib/scroll-area/track-style.ts` and `src/lib/scroll-area/scrollbar-part.svelte.ts` from the scrollbar geometry in `packages/react/src/scroll-area/scrollbar/ScrollAreaScrollbar.tsx`
 - `src/lib/internal/roving-keys.ts` from the arrow-key helpers in `packages/react/src/internals/composite/root/useCompositeRoot.ts` (`modifierHeld`, `axisKeys`, `stepLinear`)
-- `src/lib/internal/timeout.ts` from `packages/utils/src/useTimeout.ts` (`Timeout`), `packages/utils/src/useAnimationFrame.ts` (`AnimationFrame`), and `packages/react/src/internals/TimeoutManager.ts`
-- `src/lib/internal/timeout.svelte.ts` from `packages/utils/src/useTimeout.ts` (`useTimeout`) and `packages/utils/src/useAnimationFrame.ts` (`useAnimationFrame`). Cleanup is `$effect`, not `useOnMount`
+- `packages/utils/src/timeout.ts` from `packages/utils/src/useTimeout.ts` (`Timeout`), `packages/utils/src/useAnimationFrame.ts` (`AnimationFrame`), and `packages/react/src/internals/TimeoutManager.ts`
+- `packages/utils/src/timeout.svelte.ts` from `packages/utils/src/useTimeout.ts` (`useTimeout`) and `packages/utils/src/useAnimationFrame.ts` (`useAnimationFrame`). Cleanup is `$effect`, not `useOnMount`
 - `src/lib/otp-field/otp.spec.ts` assertions from `packages/react/src/otp-field/utils/otp.test.ts`
 - `src/lib/otp-field/OTPField.svelte.spec.ts` assertions from `packages/react/src/otp-field/**/*.test.tsx` that do not require React refs or `className` callbacks
 - `src/lib/csp-provider/CSPProvider.svelte` from `packages/react/src/csp-provider/CSPProvider.tsx`
 - `src/lib/internal/csp-context.ts` from `packages/react/src/internals/csp-context/CSPContext.tsx`
 - `src/lib/csp-provider/CSPProvider.svelte.spec.ts` assertions from `packages/react/src/csp-provider/CSPProvider.test.tsx` (the context values those ScrollArea and Select style-tag checks depend on; the style tags themselves stay with those components)
 - `src/lib/internal/mergeProps.ts` from `packages/react/src/merge-props/mergeProps.ts` (rightmost bag wins; its handler runs first; `preventBaseUIHandler()` skips the rest). `chain` and `mergeClass` live there too.
-- `src/lib/internal/floating-ui-react/**` from `packages/react/src/floating-ui-react/**` (phase 1a: portal, focus manager, dismiss, click, tree, and the DOM helpers those call; phase 1b: `useBaseUIFloating`, hover, `safePolygon`, and the local arrow middleware)
-- `src/lib/internal/floating-ui-react/usePosition.svelte.ts` from `@floating-ui/react-dom` `useFloating` (positioning only; `computePosition` and `autoUpdate` stay in this file)
+- `packages/floating-ui-svelte/src/**` from `packages/react/src/floating-ui-react/**` (phase 1a: portal, focus manager, dismiss, click, tree, and the DOM helpers those call; phase 1b: `useBaseUIFloating`, hover, `safePolygon`, and the local arrow middleware)
+- `packages/floating-ui-svelte/src/usePosition.svelte.ts` from `@floating-ui/react-dom` `useFloating` (positioning only; `computePosition` and `autoUpdate` stay in this file)
 - `src/lib/internal/useAnchorPositioning.svelte.ts` from `packages/react/src/internals/useAnchorPositioning.ts`
 - `src/lib/internal/hideMiddleware.ts` from `packages/react/src/utils/hideMiddleware.ts`
 - `src/lib/internal/CommonPositionerCssVars.ts` from `packages/react/src/utils/CommonPositionerCssVars.ts`
@@ -207,10 +207,10 @@ Parts of this package derive from [Base UI](https://github.com/mui/base-ui) v1.8
 - `src/lib/internal/useScrollLock.svelte.ts` from `packages/utils/src/useScrollLock.ts`
 - `src/lib/internal/useTransitionStatus.svelte.ts` from `packages/react/src/internals/useTransitionStatus.ts` (popup arguments: idle and deferred ending off)
 - `src/lib/internal/useOpenChangeComplete.svelte.ts` from `packages/react/src/internals/useOpenChangeComplete.tsx`
-- `src/lib/internal/openInteraction.ts` from `packages/react/src/utils/useOpenInteractionType.ts` and `packages/utils/src/useEnhancedClickHandler.ts`
+- `packages/utils/src/openInteraction.ts` from `packages/react/src/utils/useOpenInteractionType.ts` and `packages/utils/src/useEnhancedClickHandler.ts`
 - `src/lib/internal/popupStateMapping.ts`, `CommonPopupDataAttributes.ts`, and `CommonTriggerDataAttributes.ts` from the matching files in `packages/react/src/utils`
-- `src/lib/internal/FocusGuard.svelte` and `InternalBackdrop.svelte` from `packages/react/src/utils/FocusGuard.tsx` and `InternalBackdrop.tsx`
-- `src/lib/internal/event-details.ts` also exports the popup reasons `trigger-hover`, `escape-key`, `outside-press`, `focus-out`, `close-press`, and `imperative-action`
+- `packages/utils/src/FocusGuard.svelte` and `InternalBackdrop.svelte` from `packages/react/src/utils/FocusGuard.tsx` and `InternalBackdrop.tsx`
+- `packages/utils/src/event-details.ts` also exports the popup reasons `trigger-hover`, `escape-key`, `outside-press`, `focus-out`, `close-press`, and `imperative-action`
 - `src/lib/popover/PopoverRoot.svelte` from `packages/react/src/popover/root/PopoverRoot.tsx`
 - `src/lib/popover/PopoverTrigger.svelte` from `packages/react/src/popover/trigger/PopoverTrigger.tsx`
 - `src/lib/popover/PopoverPortal.svelte` from `packages/react/src/popover/portal/PopoverPortal.tsx`

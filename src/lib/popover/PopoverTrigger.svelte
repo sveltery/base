@@ -7,8 +7,8 @@
 <script lang="ts">
 	import { untrack } from 'svelte';
 	import { createAttachmentKey } from 'svelte/attachments';
-	import FocusGuard from '../internal/FocusGuard.svelte';
-	import { CLICK_TRIGGER_IDENTIFIER } from '../internal/floating-ui/index.js';
+	import { FocusGuard } from '@sveltery/utils';
+	import { CLICK_TRIGGER_IDENTIFIER } from '@sveltery/floating-ui-svelte';
 	import { mergeProps } from '../internal/mergeProps.js';
 	import { getStateAttributesProps } from '../internal/state-attributes.js';
 	import { useButton } from '../internal/useButton.js';

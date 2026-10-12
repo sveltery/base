@@ -5,7 +5,7 @@
 -->
 <script lang="ts">
 	import { untrack } from 'svelte';
-	import { useTimeout } from '../internal/timeout.svelte.js';
+	import { useTimeout } from '@sveltery/utils';
 	import { getStateAttributesProps } from '../internal/state-attributes.js';
 	import { avatarStateAttributesMapping } from './attributes.js';
 	import { useAvatarContext } from './context.js';

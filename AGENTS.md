@@ -1,6 +1,6 @@
 # Repository guidance
 
-Sveltery Base is a Svelte 5 port of [Base UI](https://base-ui.com/), pinned to v1.8.0 commit `47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c`. The library is `src/lib`. Fixtures and their React Base UI references are `src/routes/fixtures`. [docs/porting.md](docs/porting.md) is the rulebook for turning Base UI code into Svelte. Read it before you port anything.
+Sveltery Base is a Svelte 5 port of [Base UI](https://base-ui.com/), pinned to v1.8.0 commit `47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c`. The repository is a pnpm workspace. The base library is the root package, in `src/lib`. Fixtures and their React Base UI references are `src/routes/fixtures`. `packages/utils` (`@sveltery/utils`) holds the shared helpers that Base UI keeps in `@base-ui/utils`. `packages/floating-ui-svelte` (`@sveltery/floating-ui-svelte`) holds the Svelte version of Base UI's floating-ui fork. Packages never import the base library, and the base library imports a package only by its name. [docs/porting.md](docs/porting.md) is the rulebook for turning Base UI code into Svelte. Read it before you port anything.
 
 ## Port the intent, not the React code
 
@@ -28,7 +28,7 @@ Sort every upstream dependency into one of three categories:
 
 1. Framework-agnostic, such as `@floating-ui/dom`. Use it directly.
 2. Framework-specific with a public agnostic core, such as `@floating-ui/react-dom`. Use the agnostic core. Put any Svelte wrapper around it in its own monorepo package.
-3. Framework-specific with no agnostic core, such as Base UI's floating-ui-react fork. Write your own Svelte version, in its own monorepo package, not inside `src/lib`.
+3. Framework-specific with no agnostic core, such as Base UI's floating-ui-react fork. Write your own Svelte version, in its own monorepo package, not inside `src/lib`. `packages/floating-ui-svelte` is the one for floating-ui.
 
 Add a dependency only when a component uses it. `src/lib` must not import React or SvelteKit. ESLint enforces this.
 

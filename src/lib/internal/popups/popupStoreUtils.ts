@@ -3,8 +3,7 @@
 // applyPopupOpenChange is not ported. Tooltip and PreviewCard own that dismiss-close rule.
 
 import type { Attachment } from 'svelte/attachments';
-import { FOCUSABLE_ATTRIBUTE } from '../floating-ui-react/utils/constants.js';
-import { PopupTriggerMap } from './popupTriggerMap.js';
+import { FOCUSABLE_ATTRIBUTE, PopupTriggerMap } from '@sveltery/floating-ui-svelte';
 
 export const FOCUSABLE_POPUP_PROPS = {
 	tabindex: -1,

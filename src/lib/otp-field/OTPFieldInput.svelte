@@ -10,11 +10,7 @@
 	import { devWarn } from '../collapsible/warn.js';
 	import { useDirection } from '../internal/direction-context.js';
 	import { getStateAttributesProps } from '../internal/state-attributes.js';
-	import {
-		createChangeEventDetails,
-		createGenericEventDetails,
-		REASONS
-	} from '../internal/event-details.js';
+	import { createChangeEventDetails, createGenericEventDetails, REASONS } from '@sveltery/utils';
 	import { inputStateAttributes } from './attributes.js';
 	import { useOTPFieldContext } from './context.svelte.js';
 	import { stopEvent } from './dom.js';

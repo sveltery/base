@@ -3,8 +3,7 @@
 // Hover timers live on the popup store. The scope map only coordinates pointer-events
 // when two popups share one element, matching upstream.
 
-import { useTimeout } from '../../timeout.svelte.js';
-import type { Timeout } from '../../timeout.js';
+import { useTimeout, type Timeout } from '@sveltery/utils';
 import type { FloatingRootStore } from '../components/FloatingRootStore.svelte.js';
 import type { HandleClose, SafePolygonOptions } from '../safePolygon.js';
 

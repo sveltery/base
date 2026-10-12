@@ -4,7 +4,7 @@ import { tick } from 'svelte';
 import { page, userEvent } from 'vitest/browser';
 import { describe, expect, it } from 'vitest';
 import { render } from 'vitest-browser-svelte';
-import { tabbable } from './floating-ui-react/utils/tabbable.js';
+import { tabbable } from '@sveltery/floating-ui-svelte';
 import OverlayAuditHarness from '../../tests/OverlayAuditHarness.svelte';
 
 function touchPoint(target: EventTarget, x: number, y: number, identifier = 1) {

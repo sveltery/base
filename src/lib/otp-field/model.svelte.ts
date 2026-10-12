@@ -12,10 +12,10 @@ import type { FormContextValue } from '../form/context.js';
 import {
 	createChangeEventDetails,
 	createGenericEventDetails,
-	REASONS
-} from '../internal/event-details.js';
-import { ownerDocument } from '../internal/owner.js';
-import { contains } from '../internal/shadow-dom.js';
+	REASONS,
+	ownerDocument,
+	contains
+} from '@sveltery/utils';
 import { findAssociatedLabel } from '../internal/associated-label.js';
 import { getOTPValidationConfig, normalizeOTPValue, normalizeOTPValueWithDetails } from './otp.js';
 import { SlotList } from './slots.svelte.js';

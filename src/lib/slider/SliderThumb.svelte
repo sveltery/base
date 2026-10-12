@@ -14,10 +14,9 @@
 	import { formatNumber } from '../internal/formatNumber.js';
 	import { getStateAttributesProps } from '../internal/state-attributes.js';
 	import { valueToPercent } from '../internal/valueToPercent.js';
-	import { visuallyHidden } from '../internal/visuallyHidden.js';
+	import { visuallyHidden, ownerWindow } from '@sveltery/utils';
 	import { sliderStateAttributes } from './attributes.js';
 	import { useSliderContext } from './context.svelte.js';
-	import { ownerWindow } from '../internal/owner.js';
 	import { prehydrationScript } from './prehydration.js';
 	import { mergeCssStyle, toCssStyle } from '../internal/css-style.js';
 	import type { SliderRootState, SliderThumbProps } from './types.js';

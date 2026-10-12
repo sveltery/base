@@ -4,15 +4,18 @@
 // floating-tree child's floating element. The portal host is not inside.
 
 import { on } from 'svelte/events';
-import { createChangeEventDetails, REASONS } from '../../event-details.js';
-import { ownerDocument } from '../../owner.js';
-import { platform } from '../../platform.js';
-import { contains, getTarget } from '../../shadow-dom.js';
-import { useTimeout } from '../../timeout.svelte.js';
+import {
+	createChangeEventDetails,
+	REASONS,
+	ownerDocument,
+	platform,
+	contains,
+	getTarget,
+	useTimeout
+} from '@sveltery/utils';
 import { getNodeChildren } from '../components/FloatingTreeStore.js';
 import { useFloatingTree } from '../components/FloatingTree.svelte.js';
 import type { FloatingRootStore } from '../components/FloatingRootStore.svelte.js';
-import { PopupStore } from '../../popups/store.svelte.js';
 
 export type PressMode = 'sloppy' | 'intentional';
 
@@ -119,7 +122,7 @@ export function useDismiss(store: FloatingRootStore, props: () => UseDismissProp
 
 	function targetIsTrigger(event: Event) {
 		const target = getTarget(event);
-		if (!(target instanceof Element) || !(store instanceof PopupStore)) return false;
+		if (!(target instanceof Element)) return false;
 		return (
 			store.triggers.hasElement(target) ||
 			store.triggers.hasMatchingElement((trigger) => contains(trigger, target))

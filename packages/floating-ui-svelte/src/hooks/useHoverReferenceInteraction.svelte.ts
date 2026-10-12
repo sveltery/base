@@ -3,10 +3,7 @@
 // Hover open is a `$state` write in the same turn. There is no `flushSync`.
 
 import { on } from 'svelte/events';
-import { createChangeEventDetails, REASONS } from '../../event-details.js';
-import { ownerDocument } from '../../owner.js';
-import { contains } from '../../shadow-dom.js';
-import { PopupStore } from '../../popups/store.svelte.js';
+import { createChangeEventDetails, REASONS, ownerDocument, contains } from '@sveltery/utils';
 import type { FloatingRootStore } from '../components/FloatingRootStore.svelte.js';
 import { useFloatingTree } from '../components/FloatingTree.svelte.js';
 import { isTargetInsideEnabledTrigger } from '../utils/element.js';
@@ -32,10 +29,6 @@ export interface UseHoverReferenceProps {
 	shouldOpen?: () => boolean;
 	guardStaleOpen?: boolean;
 	placement?: () => string | null;
-}
-
-function triggersOf(store: FloatingRootStore) {
-	return store instanceof PopupStore ? store.triggers : null;
 }
 
 export function useHoverReferenceInteraction(
@@ -151,11 +144,7 @@ export function useHoverReferenceInteraction(
 			reference != null &&
 			trigger !== reference &&
 			!contains(reference, trigger);
-		const closing =
-			!isOpen &&
-			store instanceof PopupStore &&
-			store.transitionStatus === 'ending' &&
-			hoverCloseActive;
+		const closing = !isOpen && store.transitionStatus === 'ending' && hoverCloseActive;
 		if ((isOpen && overInactive) || closing) {
 			commitOpen(event, trigger);
 			return;
@@ -180,8 +169,7 @@ export function useHoverReferenceInteraction(
 		cleanupMouseMove();
 		instance.restTimeout.clear();
 		instance.restTimeoutPending = false;
-		const triggers = triggersOf(store);
-		if (triggers && isTargetInsideEnabledTrigger(event.relatedTarget, triggers.elements())) return;
+		if (isTargetInsideEnabledTrigger(event.relatedTarget, store.triggers.elements())) return;
 		const handleClose = current.handleClose;
 		if (handleClose && store.domReferenceElement && store.floatingElement) {
 			if (!store.isOpen()) instance.openChangeTimeout.clear();

@@ -6,7 +6,7 @@
 // How the dialog opened is the inherited `PopupStore.openMethod`. `useClick` writes it.
 
 import type { ControllableValue } from '../internal/controllable-value.svelte.js';
-import type { BaseUIChangeEventDetails } from '../internal/event-details.js';
+import type { BaseUIChangeEventDetails } from '@sveltery/utils';
 import { PopupStore, type PopupChangeEventDetails } from '../internal/popups/store.svelte.js';
 import type { DialogChangeEventReason } from './types.js';
 

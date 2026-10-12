@@ -2,7 +2,7 @@
 // (commit 47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c). MIT, see THIRD_PARTY_NOTICES.md.
 
 import type { StateAttributesMapping } from '../internal/state-attributes.js';
-import { REASONS } from '../internal/event-details.js';
+import { REASONS } from '@sveltery/utils';
 import {
 	pressableTriggerOpenStateMapping,
 	triggerOpenStateMapping

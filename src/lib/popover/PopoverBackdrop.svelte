@@ -5,7 +5,7 @@
 -->
 <script lang="ts">
 	import PartHost from '../internal/PartHost.svelte';
-	import { REASONS } from '../internal/event-details.js';
+	import { REASONS } from '@sveltery/utils';
 	import { mergeProps } from '../internal/mergeProps.js';
 	import { popupTransitionStateMapping } from '../internal/popupStateMapping.js';
 	import { getStateAttributesProps } from '../internal/state-attributes.js';

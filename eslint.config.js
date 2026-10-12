@@ -40,8 +40,8 @@ export default defineConfig(
 		}
 	},
 	{
-		// The published library stays React- and SvelteKit-free; React belongs in reference fixtures.
-		files: ['src/lib/**'],
+		// The published packages stay React- and SvelteKit-free; React belongs in reference fixtures.
+		files: ['src/lib/**', 'packages/*/src/**'],
 		rules: {
 			'no-restricted-imports': [
 				'error',
@@ -56,35 +56,9 @@ export default defineConfig(
 							message: 'The library must not depend on SvelteKit.'
 						},
 						{
-							group: [
-								'**/floating-ui-react',
-								'**/floating-ui-react/**',
-								'**/internal/useAnchorPositioning*',
-								'**/internal/usePosition*'
-							],
+							group: ['@sveltery/*/*', '**/packages/**', '**/src/lib/**'],
 							message:
-								'Import overlay internals through src/lib/internal/floating-ui or src/lib/internal/popups.'
-						}
-					]
-				}
-			]
-		}
-	},
-	{
-		// The fork and the popup store may import each other. Component files may not.
-		files: ['src/lib/internal/**'],
-		rules: {
-			'no-restricted-imports': [
-				'error',
-				{
-					patterns: [
-						{
-							group: ['react', 'react-dom', 'react/*', 'react-dom/*', '@base-ui/*'],
-							message: 'React belongs in src/routes reference fixtures only.'
-						},
-						{
-							group: ['$app/*', '@sveltejs/kit', '@sveltejs/kit/*'],
-							message: 'The library must not depend on SvelteKit.'
+								'Import a workspace package by its name only. Packages must not import the base library.'
 						}
 					]
 				}
@@ -102,7 +76,7 @@ export default defineConfig(
 	{
 		// Svelte has no React refs. React reference fixtures are the comparison
 		// implementation and may keep React's own ref APIs.
-		files: ['src/**'],
+		files: ['src/**', 'packages/*/src/**'],
 		ignores: ['src/routes/fixtures/**/react-reference.ts'],
 		plugins: { sveltery },
 		rules: {

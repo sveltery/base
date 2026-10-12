@@ -13,8 +13,12 @@
 	import { currentHost, dispatchClick, forwardKeyUp, isLink } from '../internal/click.js';
 	import { toCssStyle } from '../internal/css-style.js';
 	import { createControllableValue } from '../internal/controllable-value.svelte.js';
-	import { createChangeEventDetails, REASONS } from '../internal/event-details.js';
-	import { visuallyHidden, visuallyHiddenInput } from '../internal/visuallyHidden.js';
+	import {
+		createChangeEventDetails,
+		REASONS,
+		visuallyHidden,
+		visuallyHiddenInput
+	} from '@sveltery/utils';
 	import { checkboxRootAttributes } from './attributes.js';
 	import { setCheckboxContext } from './context.js';
 	import { useCheckboxGroupContext } from './group-context.js';
