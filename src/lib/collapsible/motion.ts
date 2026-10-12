@@ -1,8 +1,7 @@
 // Derived from Base UI v1.8.0 packages/react/src/collapsible/panel/useCollapsiblePanel.ts
 // (commit 47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c). MIT, see THIRD_PARTY_NOTICES.md.
 
-import { useAnimationFrame } from '@sveltery/utils';
-import { devWarn } from './warn.js';
+import { useAnimationFrame, warn } from '@sveltery/utils';
 
 export type AnimationType = 'css-transition' | 'css-animation' | 'none';
 
@@ -33,7 +32,7 @@ export function getAnimationType(
 	const hasTransition = hasNonZeroDuration(panelStyles.transitionDuration);
 
 	if (hasAnimation && hasTransition) {
-		devWarn(
+		warn(
 			'CSS transitions and CSS animations both detected on Collapsible or Accordion panel.',
 			'Only one of either animation type should be used.'
 		);

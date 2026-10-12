@@ -1,6 +1,7 @@
 // Derived from Base UI v1.8.0 packages/utils/src/useScrollLock.ts
 // (commit 47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c). MIT, see THIRD_PARTY_NOTICES.md.
 
+import { BROWSER } from 'esm-env';
 import { isOverflowElement } from '@floating-ui/utils/dom';
 import { on } from 'svelte/events';
 import {
@@ -24,7 +25,7 @@ function isPageScrollLocked(win: Window, html: HTMLElement, body: HTMLElement) {
 }
 
 function hasInsetScrollbars(referenceElement: Element | null) {
-	if (typeof document === 'undefined') return false;
+	if (!BROWSER) return false;
 	const doc = ownerDocument(referenceElement);
 	const win = ownerWindow(doc);
 	return win.innerWidth - doc.documentElement.clientWidth > 0;
@@ -32,7 +33,7 @@ function hasInsetScrollbars(referenceElement: Element | null) {
 
 function supportsStableScrollbarGutter(referenceElement: Element | null) {
 	const supported = typeof CSS !== 'undefined' && CSS.supports?.('scrollbar-gutter', 'stable');
-	if (!supported || typeof document === 'undefined') return false;
+	if (!supported || !BROWSER) return false;
 
 	const doc = ownerDocument(referenceElement);
 	const html = doc.documentElement;

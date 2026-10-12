@@ -4,11 +4,24 @@ Intentional differences from Base UI v1.8.0 (`47b40521eab921c2756bf9bdb0b0f07fbf
 
 ## Merge props
 
-Pin: `47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c`, `packages/react/src/merge-props/mergeProps.ts`. The rightmost bag wins plain props. Its event handler runs first. `event.preventBaseUIHandler()` skips the handlers to its left. `preventDefault()` does not. `className` is concatenated with the rightmost class first. `style` is a React style object, and the rightmost property wins. A function argument receives the props merged so far and replaces them. Handlers that function returns are not wrapped. `ref` is not merged.
+Pin: `47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c`, `packages/react/src/merge-props/mergeProps.ts`. `@base-ui/react` and `@base-ui/react/merge-props` export `mergeProps`, `mergePropsN`, `makeEventPreventable`, and `mergeClassNames`. The rightmost bag wins plain props. Its event handler runs first. `event.preventBaseUIHandler()` skips the handlers to its left. `preventDefault()` does not. `className` is concatenated with the rightmost class first. `style` is a React style object, and the rightmost property wins. A function argument receives the props merged so far and replaces them. Handlers that function returns are not wrapped. `ref` is not merged.
 
-Local: `src/lib/internal/mergeProps.ts`. The same order. `event.preventDefault()` is the skip signal: when a handler leaves `defaultPrevented` set, the handlers to its left do not run. There is no `preventBaseUIHandler`. Parts that call the consumer handler themselves use the same signal, so every part skips on `preventDefault()`. The check reads the event's shape (`type` and `preventDefault`), so an event from an iframe skips too. The prop is `class`, a Svelte class value (string, object, or array), merged as an array with the rightmost bag first. `style` is a CSS string, and the rightmost declaration wins for the same property. A style object is ignored. Handler names are Svelte's lowercase names, such as `onclick`. `onClick` is a plain prop. Attachment symbols are all kept, in bag order. There is no ref. `chain` and `mergeClass` are the same helper. Call sites pass the consumer bag last.
+Local: `src/lib/internal/mergeProps.ts`. `@sveltery/base` and `@sveltery/base/merge-props` export `mergeProps`, `mergePropsN`, and the `PropsGetter` type of a function bag. `makeEventPreventable` is not needed, because `preventDefault()` is the skip signal. `mergeClassNames` is not exported, because `class` values merge as arrays. The same order. `event.preventDefault()` is the skip signal: when a handler leaves `defaultPrevented` set, the handlers to its left do not run. There is no `preventBaseUIHandler`. Parts that call the consumer handler themselves use the same signal, so every part skips on `preventDefault()`. The check reads the event's shape (`type` and `preventDefault`), so an event from an iframe skips too. The prop is `class`, a Svelte class value (string, object, or array), merged as an array with the rightmost bag first. `style` is a CSS string, and the rightmost declaration wins for the same property. A style object is ignored. Handler names are Svelte's lowercase names, such as `onclick`. `onClick` is a plain prop. Attachment symbols are all kept, in bag order. There is no ref. `chain` and `mergeClass` are the same helper. Call sites pass the consumer bag last.
 
-Test: `src/lib/internal/mergeProps.spec.ts`. `src/lib/popover/Popover.svelte.spec.ts` (`skips the toggle when an iframe event calls preventDefault`).
+Test: `src/lib/internal/mergeProps.spec.ts`. `src/lib/merge-props/merge-props.spec.ts`. `src/lib/popover/Popover.svelte.spec.ts` (`skips the toggle when an iframe event calls preventDefault`).
+
+## Public helpers and types
+
+Pin: `47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c`, `packages/react/src/use-render/useRender.ts`, `packages/react/src/unstable-use-media-query/index.ts`, `packages/react/src/types/index.ts`, `packages/react/src/utils/resolveClassName.ts`, and `packages/react/src/utils/resolveStyle.ts`. `useRender` builds a custom part from a `render` prop, state attributes, and merged refs. `unstable_useMediaQuery` subscribes to `matchMedia`. The `types` entry exports `BaseUIChangeEventDetails`, `BaseUIGenericEventDetails`, `BaseUIEvent`, `HTMLProps`, and `ComponentRenderFn`. Every part accepts `className` and `style` as a function of its state.
+
+Local:
+
+- `useRender` has no counterpart. A custom part is a Svelte component that spreads `mergeProps(...)` onto its element and takes a `render` snippet.
+- `unstable_useMediaQuery` has no counterpart. Use `MediaQuery` from `svelte/reactivity`: `new MediaQuery('(min-width: 600px)').current` is reactive and returns the fallback on the server.
+- `@sveltery/base` and `@sveltery/base/types` export the types `BaseUIChangeEventDetails` and `BaseUIGenericEventDetails`. `BaseUIEvent` is not exported, because there is no `preventBaseUIHandler`. `HTMLProps` and `ComponentRenderFn` are React types. Svelte parts use `HTMLAttributes` from `svelte/elements` and `Snippet`.
+- `class` and `style` do not accept a function of state. `class` takes a Svelte class value and `style` takes a CSS string. Style state through the part's `data-*` attributes, such as `[data-disabled]`, or read the state that a `render` snippet receives as its second argument.
+
+Test: `src/lib/merge-props/merge-props.spec.ts`.
 
 ## Props
 
@@ -23,6 +36,14 @@ Local: each stateful prop is one `$bindable` prop. `bind:x` shares it, a one-way
 - `readonly`, `autocomplete` and `inputmode` use the HTML spelling. State keys such as `readOnly` keep upstream's camelCase.
 
 Test: `src/tests/controllable-root-cases.ts`, `src/lib/tabs/Tabs.svelte.spec.ts` (`moves a passed value to the first enabled tab when its tab becomes disabled`).
+
+## Button behavior
+
+Pin: `47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c`, `packages/react/src/internals/use-button/useButton.ts` and `packages/react/src/utils/useFocusableWhenDisabled.ts`. `useButton` infers composite mode from a `CompositeRootContext`. In development it logs an error once after mount, and again when `nativeButton` changes, if the host tag does not match `nativeButton`. The message ends with React's owner stack. A disabled composite button that renders another button clears that inner button's `disabled` property.
+
+Local: `ButtonBehavior` in `src/lib/internal/button.svelte.ts` serves Button, Toolbar.Button, the Collapsible and Accordion triggers, Tabs.Tab, the NumberField steppers, Checkbox, Switch, Radio, and the Dialog and Popover triggers and close buttons. Each part passes `composite` itself, and only Toolbar.Button sets it. Tabs.Tab clicks on Space keyup, where upstream infers composite mode inside Tabs.List and clicks on keydown. A disabled Tabs.Tab blocks only Enter and Space, so the arrow keys still reach the roving handler. The host check runs in an attachment, so it runs when the host attaches and when `nativeButton` changes. It uses the same messages with "the `render` snippet" in place of "the `render` prop", and no owner stack. The inner `disabled` clearing is not ported. No port renders a button inside a composite button yet.
+
+Test: `src/lib/internal/button.spec.ts`. `src/lib/button/Button.svelte.spec.ts` (`nativeButton mismatch`).
 
 ## Portal
 
@@ -160,34 +181,34 @@ Test: `src/lib/internal/InternalBackdrop.svelte.spec.ts` (`updates the cutout wh
 
 Behavior each ported component does not cover yet. Overlay foundation is internal and has no public component.
 
-| Component          | Not ported yet                                                                                                  |
-| ------------------ | --------------------------------------------------------------------------------------------------------------- |
-| Accordion          | React.Activity animation resume, `className`/`style` callbacks, refs, roving focus (`orientation`, `loopFocus`) |
-| Button             | Composite and Toolbar integration, `nativeButton` host-tag warnings, class/style state callbacks                |
-| Checkbox           | Field, `inputRef`, `className`/`style` callbacks, host-tag warnings                                             |
-| CheckboxGroup      | Field validation, filled/dirty/touched hooks, labelable descriptions, fieldset disabled                         |
-| Collapsible        | React.Activity animation resume, `className`/`style` callbacks, refs, host-tag warnings                         |
-| Fieldset           | Checkbox, CheckboxGroup, RadioGroup and Slider disabled integration; `className`/`style` state callbacks        |
-| Field              | Checkbox, Radio, and Select integration; `className`/`style` callbacks; refs                                    |
-| Input              | `className`/`style` callbacks; refs                                                                             |
-| Toggle             | Toolbar integration, `nativeButton={false}`, class/style state callbacks                                        |
-| ToggleGroup        | Toolbar integration, `className`/`style` state callbacks, grid composite, scroll-into-view                      |
-| Avatar             | Enter/exit transitions and animation completion, `class`/`style` state callbacks                                |
-| Separator          | `className`/`style` state callbacks, React render-element cloning, `ref`, Menu/Select/Toolbar separators        |
-| Meter              | React `ref`, class/style state callbacks, numeric production error codes                                        |
-| Progress           | `className` and `style` state callbacks, refs                                                                   |
-| Form               | Checkbox, Switch, and Fieldset Form-spec cases; `className`/`style` callbacks; `actionsRef`                     |
-| Switch             | Field and Form integration, `inputRef`, `className`/`style` callbacks, `nativeButton` host-tag warnings         |
-| Radio              | Field, `inputRef`, `className`/`style` callbacks, host-tag warnings                                             |
-| RadioGroup         | `data-touched`, `inputRef`, `className`/`style` callbacks, scroll-into-view, text-field arrow exceptions        |
-| Tabs               | Pre-hydration indicator script, scroll-into-view, shadow-boundary offsets, `className`/`style` callbacks, refs  |
-| Toolbar            | Input, Separator, text-field arrow exceptions, scroll-into-view, ToggleGroup nesting, overlay triggers          |
-| NumberField        | `className`/`style` callbacks, refs, `inputRef`                                                                 |
-| ScrollArea         | `className`/`style` callbacks, refs                                                                             |
-| Slider             | `className`/`style` callbacks, refs, `inputRef`                                                                 |
-| DirectionProvider  | CSS `direction` on an element, without `DirectionProvider`                                                      |
-| OTPField           | `className`/`style` callbacks, refs, `inputRef`, React controlled lock                                          |
-| CSPProvider        | Select and Tabs render no inline style or prehydration script. Slider script has no CSP nonce                   |
-| Overlay foundation | Internal only. No public component                                                                              |
-| Popover            | `actionsRef`, Menu and Combobox nesting, shadow-root outside press, `className`/`style` callbacks, refs         |
-| Dialog             | Alert Dialog, Drawer, ref objects, `class`/`style` callbacks                                                    |
+| Component          | Not ported yet                                                                                         |
+| ------------------ | ------------------------------------------------------------------------------------------------------ |
+| Accordion          | React.Activity animation resume, refs, roving focus (`orientation`, `loopFocus`)                       |
+| Button             | Composite and Toolbar integration                                                                      |
+| Checkbox           | Field, `inputRef`                                                                                      |
+| CheckboxGroup      | Field validation, filled/dirty/touched hooks, labelable descriptions, fieldset disabled                |
+| Collapsible        | React.Activity animation resume, refs                                                                  |
+| Fieldset           | Checkbox, CheckboxGroup, RadioGroup and Slider disabled integration                                    |
+| Field              | Checkbox, Radio, and Select integration; refs                                                          |
+| Input              | refs                                                                                                   |
+| Toggle             | Toolbar integration, `nativeButton={false}`                                                            |
+| ToggleGroup        | Toolbar integration, grid composite, scroll-into-view                                                  |
+| Avatar             | Enter/exit transitions and animation completion                                                        |
+| Separator          | React render-element cloning, `ref`, Menu/Select/Toolbar separators                                    |
+| Meter              | React `ref`, numeric production error codes                                                            |
+| Progress           | refs                                                                                                   |
+| Form               | Checkbox, Switch, and Fieldset Form-spec cases; `actionsRef`                                           |
+| Switch             | Field and Form integration, `inputRef`                                                                 |
+| Radio              | Field, `inputRef`                                                                                      |
+| RadioGroup         | `data-touched`, `inputRef`, scroll-into-view, text-field arrow exceptions                              |
+| Tabs               | Pre-hydration indicator script, scroll-into-view, shadow-boundary offsets, refs                        |
+| Toolbar            | Input, Separator, text-field arrow exceptions, scroll-into-view, ToggleGroup nesting, overlay triggers |
+| NumberField        | refs, `inputRef`                                                                                       |
+| ScrollArea         | refs                                                                                                   |
+| Slider             | refs, `inputRef`                                                                                       |
+| DirectionProvider  | CSS `direction` on an element, without `DirectionProvider`                                             |
+| OTPField           | refs, `inputRef`, React controlled lock                                                                |
+| CSPProvider        | Select and Tabs render no inline style or prehydration script. Slider script has no CSP nonce          |
+| Overlay foundation | Internal only. No public component                                                                     |
+| Popover            | `actionsRef`, Menu and Combobox nesting, shadow-root outside press, refs                               |
+| Dialog             | Alert Dialog, Drawer, ref objects                                                                      |

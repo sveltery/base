@@ -2,7 +2,16 @@
 	import type { HTMLButtonAttributes } from 'svelte/elements';
 	import { Button, type ButtonProps } from '#lib';
 
-	type Variant = 'native' | 'span' | 'link' | 'bubble' | 'becomes-disabled' | 'form' | 'attach';
+	type Variant =
+		| 'native'
+		| 'span'
+		| 'link'
+		| 'bubble'
+		| 'becomes-disabled'
+		| 'form'
+		| 'attach'
+		| 'native-div'
+		| 'non-native-button';
 
 	let {
 		variant = 'native',
@@ -91,6 +100,18 @@
 	<Button nativeButton={false} {...shared}>
 		{#snippet render(props)}
 			<span {...props}>{label}</span>
+		{/snippet}
+	</Button>
+{:else if variant === 'native-div'}
+	<Button {...shared}>
+		{#snippet render(props)}
+			<div {...props}>{label}</div>
+		{/snippet}
+	</Button>
+{:else if variant === 'non-native-button'}
+	<Button nativeButton={false} {...shared}>
+		{#snippet render(props)}
+			<button {...props}>{label}</button>
 		{/snippet}
 	</Button>
 {:else if variant === 'bubble'}

@@ -16,7 +16,7 @@
 	import { useCollapsibleRootContext } from './context.svelte.js';
 	import { CollapsiblePanelMotion } from './panel-motion.svelte.js';
 	import type { TransitionStatus } from './types.js';
-	import { devWarn } from './warn.js';
+	import { warn } from '@sveltery/utils';
 	import type { RenderChildren } from '../internal/render-children.js';
 
 	type HostProps = HTMLAttributes<HTMLDivElement> & { hidden?: boolean | 'until-found' };
@@ -59,7 +59,7 @@
 
 	$effect(() => {
 		if (!warnWhen) return;
-		devWarn(warnMessage);
+		warn(warnMessage);
 	});
 
 	$effect(() => {

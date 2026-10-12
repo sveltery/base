@@ -1,14 +1,14 @@
 <!--
 	Represents the switch itself. Renders a `<span>` and a hidden checkbox beside it.
-	Derived from Base UI v1.8.0 packages/react/src/switch/root/SwitchRoot.tsx,
-	the non-composite paths of packages/react/src/internals/use-button/useButton.ts,
+	Derived from Base UI v1.8.0 packages/react/src/switch/root/SwitchRoot.tsx
 	and the native-label fallback of useAriaLabelledBy.ts
 	(commit 47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c). MIT, see THIRD_PARTY_NOTICES.md.
 	Field registration, validation, and Form error clearing are not ported.
 -->
 <script lang="ts">
 	import { createAttachmentKey, type Attachment } from 'svelte/attachments';
-	import { currentHost, dispatchClick, forwardKeyUp, isLink } from '../internal/click.js';
+	import { ButtonBehavior } from '../internal/button.svelte.js';
+	import { dispatchClick } from '../internal/click.js';
 	import { toCssStyle } from '../internal/css-style.js';
 	import {
 		createChangeEventDetails,
@@ -39,10 +39,6 @@
 		id,
 		onCheckedChange,
 		onclick,
-		onmousedown,
-		onpointerdown,
-		onkeydown,
-		onkeyup,
 		'aria-labelledby': ariaLabelledBy,
 		render,
 		children,
@@ -126,52 +122,15 @@
 		node?.focus();
 	}
 
-	function handleClick(event: MouseEvent & { currentTarget: EventTarget & HTMLElement }) {
-		if (disabled) return event.preventDefault();
+	const button = new ButtonBehavior(() => ({ disabled, native: nativeButton }));
 
+	function handleClick(event: MouseEvent & { currentTarget: EventTarget & HTMLElement }) {
 		onclick?.(event);
 		if (event.defaultPrevented || readOnly) return;
 
 		// Keep a wrapping <label> from activating the hidden input a second time.
 		event.preventDefault();
 		if (inputNode) dispatchClick(inputNode, event);
-	}
-
-	function handleMouseDown(event: MouseEvent & { currentTarget: EventTarget & HTMLElement }) {
-		if (!disabled) onmousedown?.(event);
-	}
-
-	function handlePointerDown(event: PointerEvent & { currentTarget: EventTarget & HTMLElement }) {
-		if (!disabled) {
-			onpointerdown?.(event);
-			return;
-		}
-		event.preventDefault();
-	}
-
-	function handleKeyDown(event: KeyboardEvent & { currentTarget: EventTarget & HTMLElement }) {
-		if (disabled) return;
-
-		onkeydown?.(event);
-		if (event.defaultPrevented) return;
-
-		const current = currentHost(event);
-		if (!current) return;
-
-		const buttonElement = current instanceof HTMLButtonElement;
-		const link = isLink(current, nativeButton);
-		const shouldClick = nativeButton ? buttonElement : !link;
-		const isEnter = event.key === 'Enter';
-		const isSpace = event.key === ' ';
-
-		// Native buttons activate themselves. Links keep Enter and only suppress Space scrolling.
-		if (!shouldClick || nativeButton || (!isSpace && !isEnter)) {
-			if (link && isSpace) event.preventDefault();
-			return;
-		}
-
-		event.preventDefault();
-		if (isEnter) dispatchClick(current, event);
 	}
 
 	// Client-only: a sibling or wrapping <label> is not known during SSR.
@@ -183,12 +142,8 @@
 
 	const hostProps: SwitchHostProps & Record<symbol, Attachment<HTMLElement>> = $derived.by(() => {
 		const labelledBy = ariaLabelledBy ?? fallbackLabelId;
-		return {
+		return button.props({
 			...getStateAttributesProps(switchState, switchStateAttributesMapping),
-			...(nativeButton ? { type: 'button' as const } : {}),
-			tabindex: !nativeButton && disabled ? -1 : 0,
-			...(!nativeButton && disabled ? { 'aria-disabled': true as const } : {}),
-			...(nativeButton && disabled ? { disabled: true } : {}),
 			id: rootId,
 			role: 'switch',
 			'aria-checked': checkedState,
@@ -197,12 +152,8 @@
 			...(labelledBy ? { 'aria-labelledby': labelledBy } : {}),
 			...elementProps,
 			onclick: handleClick,
-			onmousedown: handleMouseDown,
-			onpointerdown: handlePointerDown,
-			onkeydown: handleKeyDown,
-			onkeyup: (event) => forwardKeyUp(event, disabled, onkeyup, nativeButton),
 			[rootKey]: registerRoot
-		};
+		}) as SwitchHostProps & Record<symbol, Attachment<HTMLElement>>;
 	});
 </script>
 

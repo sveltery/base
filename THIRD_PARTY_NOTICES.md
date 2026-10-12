@@ -2,18 +2,18 @@
 
 Parts of this package derive from [Base UI](https://github.com/mui/base-ui) v1.8.0, commit `47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c`:
 
-- `src/lib/button/Button.svelte` from `packages/react/src/button/Button.tsx`, with the non-composite paths of `packages/react/src/internals/use-button/useButton.ts`, `packages/react/src/utils/useFocusableWhenDisabled.ts`, and `packages/react/src/utils/dispatchClickWithModifiers.ts`
+- `src/lib/button/Button.svelte` from `packages/react/src/button/Button.tsx`
 - `src/lib/accordion/AccordionRoot.svelte` from `packages/react/src/accordion/root/AccordionRoot.tsx`
 - `src/lib/accordion/AccordionItem.svelte` from `packages/react/src/accordion/item/AccordionItem.tsx` (open state is the existing Collapsible root)
 - `src/lib/accordion/AccordionHeader.svelte` from `packages/react/src/accordion/header/AccordionHeader.tsx`
-- `src/lib/accordion/AccordionTrigger.svelte` from `packages/react/src/accordion/trigger/AccordionTrigger.tsx` and the non-composite path of `packages/react/src/internals/use-button/useButton.ts`
+- `src/lib/accordion/AccordionTrigger.svelte` from `packages/react/src/accordion/trigger/AccordionTrigger.tsx`
 - `src/lib/accordion/AccordionPanel.svelte` from `packages/react/src/accordion/panel/AccordionPanel.tsx` (panel motion is `CollapsiblePanelMotion`)
 - `src/lib/accordion/context.svelte.ts` from `packages/react/src/accordion/root/AccordionRootContext.ts` and `packages/react/src/accordion/item/AccordionItemContext.ts`
 - `src/lib/accordion/attributes.ts` from `packages/react/src/accordion/item/stateAttributesMapping.ts` and `packages/react/src/accordion/panel/AccordionPanelCssVars.ts`
 - `src/lib/accordion/value.ts` from `handleValueChange` in `packages/react/src/accordion/root/AccordionRoot.tsx`
 - `src/lib/accordion/Accordion.svelte.spec.ts` assertions from `packages/react/src/accordion/**/*.test.tsx`
 - `src/lib/collapsible/CollapsibleRoot.svelte` from `packages/react/src/collapsible/root/CollapsibleRoot.tsx` and `useCollapsibleRoot.ts`
-- `src/lib/collapsible/CollapsibleTrigger.svelte` from `packages/react/src/collapsible/trigger/CollapsibleTrigger.tsx` and the non-composite path of `packages/react/src/internals/use-button/useButton.ts`
+- `src/lib/collapsible/CollapsibleTrigger.svelte` from `packages/react/src/collapsible/trigger/CollapsibleTrigger.tsx`
 - `src/lib/collapsible/CollapsiblePanel.svelte` and `src/lib/collapsible/PanelHost.svelte` from `packages/react/src/collapsible/panel/CollapsiblePanel.tsx`
 - `src/lib/collapsible/context.svelte.ts` from `packages/react/src/collapsible/root/CollapsibleRootContext.ts` and `packages/react/src/collapsible/root/useCollapsibleRoot.ts`
 - `src/lib/collapsible/panel-motion.svelte.ts` and `src/lib/collapsible/motion.ts` from `packages/react/src/collapsible/panel/useCollapsiblePanel.ts`, `useOpenChangeComplete`, and `useAnimationsFinished`
@@ -25,7 +25,6 @@ Parts of this package derive from [Base UI](https://github.com/mui/base-ui) v1.8
 - `src/lib/fieldset/FieldsetRoot.svelte` from `packages/react/src/fieldset/root/FieldsetRoot.tsx`
 - `src/lib/fieldset/FieldsetLegend.svelte` from `packages/react/src/fieldset/legend/FieldsetLegend.tsx`
 - `src/lib/fieldset/context.svelte.ts` from `packages/react/src/fieldset/root/FieldsetRootContext.ts`
-- `src/lib/fieldset/register-label-id.svelte.ts` from `packages/react/src/utils/useRegisteredLabelId.ts`
 - `src/lib/internal/register-label-id.svelte.ts` from `packages/react/src/utils/useRegisteredLabelId.ts`
 - `src/lib/fieldset/Fieldset.svelte.spec.ts` assertions from `packages/react/src/fieldset/root/FieldsetRoot.test.tsx`, `packages/react/src/fieldset/legend/FieldsetLegend.test.tsx`, and `packages/react/src/utils/useRegisteredLabelId.test.tsx`
 - `src/lib/field/FieldRoot.svelte` and `src/lib/field/model.svelte.ts` from `packages/react/src/field/root/FieldRoot.tsx`, `useFieldValidation.ts`, and `packages/react/src/internals/field-register-control/useFieldControlRegistration.ts`
@@ -90,13 +89,13 @@ Parts of this package derive from [Base UI](https://github.com/mui/base-ui) v1.8
 - `src/lib/form/document-order.ts` from `comesBeforeInSameTree` in `packages/react/src/form/Form.tsx`
 - `src/lib/form/Form.svelte.spec.ts` assertions from `packages/react/src/form/Form.test.tsx` that Form can observe without Field
 - `packages/utils/src/event-details.ts` also includes `createGenericEventDetails` from `packages/react/src/internals/createBaseUIEventDetails.ts`
-- `src/lib/switch/SwitchRoot.svelte` from `packages/react/src/switch/root/SwitchRoot.tsx`, the non-composite paths of `packages/react/src/internals/use-button/useButton.ts`, and the native-label fallback of `packages/react/src/internals/labelable-provider/useAriaLabelledBy.ts`
+- `src/lib/switch/SwitchRoot.svelte` from `packages/react/src/switch/root/SwitchRoot.tsx` and the native-label fallback of `packages/react/src/internals/labelable-provider/useAriaLabelledBy.ts`
 - `src/lib/switch/SwitchThumb.svelte` from `packages/react/src/switch/thumb/SwitchThumb.tsx`
 - `src/lib/switch/context.ts` from `packages/react/src/switch/root/SwitchRootContext.ts`
 - `src/lib/switch/attributes.ts` from `packages/react/src/switch/stateAttributesMapping.ts` (Field validity attributes omitted)
 - `src/lib/internal/associated-label.ts` from `findAssociatedLabel` in `packages/react/src/internals/labelable-provider/useAriaLabelledBy.ts`
 - `src/lib/switch/Switch.svelte.spec.ts` assertions from `packages/react/src/switch/root/SwitchRoot.test.tsx` and `packages/react/src/switch/thumb/SwitchThumb.test.tsx` that do not require Field
-- `src/lib/checkbox/CheckboxRoot.svelte` from `packages/react/src/checkbox/root/CheckboxRoot.tsx`, the non-composite paths of `packages/react/src/internals/use-button/useButton.ts`, and the native-label fallback of `packages/react/src/internals/labelable-provider/useAriaLabelledBy.ts`
+- `src/lib/checkbox/CheckboxRoot.svelte` from `packages/react/src/checkbox/root/CheckboxRoot.tsx` and the native-label fallback of `packages/react/src/internals/labelable-provider/useAriaLabelledBy.ts`
 - `src/lib/checkbox/CheckboxIndicator.svelte` from `packages/react/src/checkbox/indicator/CheckboxIndicator.tsx`
 - `src/lib/internal/animations-finished.ts` from `packages/react/src/internals/useAnimationsFinished.ts` (checkbox, radio, tabs, field error, and collapsible)
 - `src/lib/internal/composite-skip.ts` from the skip rule in `packages/react/src/internals/composite/root/useCompositeRoot.ts` (Tabs and Toolbar; RadioGroup keeps its own `aria-disabled` skip)
@@ -109,7 +108,7 @@ Parts of this package derive from [Base UI](https://github.com/mui/base-ui) v1.8
 - `src/lib/checkbox-group/parent.ts` and `src/lib/checkbox-group/parent.svelte.ts` from `packages/react/src/checkbox-group/useCheckboxGroupParent.ts`
 - `src/lib/checkbox-group/parent.spec.ts` assertions from the parent-toggle math in `packages/react/src/checkbox-group/useCheckboxGroupParent.ts`
 - `src/lib/checkbox-group/CheckboxGroup.svelte.spec.ts` assertions from `packages/react/src/checkbox-group/CheckboxGroup.test.tsx` and `packages/react/src/checkbox-group/useCheckboxGroupParent.test.tsx` that do not require Field
-- `src/lib/radio/RadioRoot.svelte` from `packages/react/src/radio/root/RadioRoot.tsx`, the non-composite paths of `packages/react/src/internals/use-button/useButton.ts`, and the native-label fallback of `packages/react/src/internals/labelable-provider/useAriaLabelledBy.ts`
+- `src/lib/radio/RadioRoot.svelte` from `packages/react/src/radio/root/RadioRoot.tsx` and the native-label fallback of `packages/react/src/internals/labelable-provider/useAriaLabelledBy.ts`
 - `src/lib/radio/RadioIndicator.svelte` from `packages/react/src/radio/indicator/RadioIndicator.tsx`
 - `src/lib/radio/context.ts` from `packages/react/src/radio/root/RadioRootContext.ts`
 - `src/lib/radio/group-context.ts` from the fields `Radio.Root` reads in `packages/react/src/radio-group/RadioGroupContext.ts`
@@ -121,7 +120,7 @@ Parts of this package derive from [Base UI](https://github.com/mui/base-ui) v1.8
 - `packages/utils/src/event-details.ts` also exports `REASONS.disabled`, `REASONS.missing`, and `REASONS.initial` from `packages/react/src/internals/reason-parts.ts`
 - `src/lib/tabs/TabsRoot.svelte` from `packages/react/src/tabs/root/TabsRoot.tsx`
 - `src/lib/tabs/TabsList.svelte` from `packages/react/src/tabs/list/TabsList.tsx`
-- `src/lib/tabs/TabsTab.svelte` from `packages/react/src/tabs/tab/TabsTab.tsx` and the non-composite path of `packages/react/src/internals/use-button/useButton.ts`
+- `src/lib/tabs/TabsTab.svelte` from `packages/react/src/tabs/tab/TabsTab.tsx`
 - `src/lib/tabs/TabsPanel.svelte` from `packages/react/src/tabs/panel/TabsPanel.tsx`
 - `src/lib/tabs/TabsIndicator.svelte` and `src/lib/tabs/indicator.ts` from `packages/react/src/tabs/indicator/TabsIndicator.tsx`, `packages/react/src/utils/getCssDimensions.ts`, and `packages/react/src/utils/getElementTransform.ts`
 - `src/lib/tabs/context.svelte.ts` from `packages/react/src/tabs/root/TabsRootContext.ts` and `packages/react/src/tabs/list/TabsListContext.ts`
@@ -129,7 +128,7 @@ Parts of this package derive from [Base UI](https://github.com/mui/base-ui) v1.8
 - `src/lib/tabs/attributes.ts` from `packages/react/src/tabs/root/stateAttributesMapping.ts`, `packages/react/src/tabs/panel/TabsPanelDataAttributes.ts`, and `packages/react/src/tabs/indicator/TabsIndicatorCssVars.ts`
 - `src/lib/tabs/Tabs.svelte.spec.ts` assertions from `packages/react/src/tabs/**/*.test.tsx`
 - `src/lib/toolbar/ToolbarRoot.svelte` from `packages/react/src/toolbar/root/ToolbarRoot.tsx`
-- `src/lib/toolbar/ToolbarButton.svelte` from `packages/react/src/toolbar/button/ToolbarButton.tsx`, the composite path of `packages/react/src/internals/use-button/useButton.ts`, and `packages/react/src/utils/useFocusableWhenDisabled.ts`
+- `src/lib/toolbar/ToolbarButton.svelte` from `packages/react/src/toolbar/button/ToolbarButton.tsx`
 - `src/lib/toolbar/ToolbarGroup.svelte` from `packages/react/src/toolbar/group/ToolbarGroup.tsx`
 - `src/lib/toolbar/ToolbarLink.svelte` from `packages/react/src/toolbar/link/ToolbarLink.tsx`
 - `src/lib/toolbar/context.svelte.ts` from `packages/react/src/toolbar/root/ToolbarRootContext.ts` and `packages/react/src/toolbar/group/ToolbarGroupContext.ts`
@@ -137,7 +136,7 @@ Parts of this package derive from [Base UI](https://github.com/mui/base-ui) v1.8
 - `src/lib/number-field/NumberFieldRoot.svelte` and `src/lib/number-field/model.svelte.ts` from `packages/react/src/number-field/root/NumberFieldRoot.tsx`
 - `src/lib/number-field/NumberFieldGroup.svelte` from `packages/react/src/number-field/group/NumberFieldGroup.tsx`
 - `src/lib/number-field/NumberFieldInput.svelte` from `packages/react/src/number-field/input/NumberFieldInput.tsx`
-- `src/lib/number-field/NumberFieldStepper.svelte`, `NumberFieldIncrement.svelte`, and `NumberFieldDecrement.svelte` from `packages/react/src/number-field/root/useNumberFieldStepperButton.ts`, `packages/react/src/number-field/increment/NumberFieldIncrement.tsx`, `packages/react/src/number-field/decrement/NumberFieldDecrement.tsx`, and the non-composite path of `packages/react/src/internals/use-button/useButton.ts` with `packages/react/src/utils/useFocusableWhenDisabled.ts`
+- `src/lib/number-field/NumberFieldStepper.svelte`, `NumberFieldIncrement.svelte`, and `NumberFieldDecrement.svelte` from `packages/react/src/number-field/root/useNumberFieldStepperButton.ts`, `packages/react/src/number-field/increment/NumberFieldIncrement.tsx`, and `packages/react/src/number-field/decrement/NumberFieldDecrement.tsx`
 - `src/lib/number-field/NumberFieldScrubArea.svelte` from `packages/react/src/number-field/scrub-area/NumberFieldScrubArea.tsx`
 - `src/lib/number-field/NumberFieldScrubAreaCursor.svelte` from `packages/react/src/number-field/scrub-area-cursor/NumberFieldScrubAreaCursor.tsx`
 - `src/lib/number-field/press-and-hold.svelte.ts` from `packages/react/src/internals/usePressAndHold.ts`
@@ -178,14 +177,16 @@ Parts of this package derive from [Base UI](https://github.com/mui/base-ui) v1.8
 - `packages/utils/src/platform.ts` from `packages/utils/src/platform` (`os`, `engine`, `screenReader`, `env`, `mediaQuery`)
 - `packages/utils/src/shadow-dom.ts` from `packages/utils/src/shadowDom.ts` (`activeElement`, `contains`, `getTarget`)
 - `packages/utils/src/owner.ts` from `packages/utils/src/owner.ts`
+- `packages/utils/src/log.ts` from `packages/utils/src/createLogOnce.ts`, `packages/utils/src/warn.ts`, and `packages/utils/src/error.ts`
 - `src/lib/internal/css-style.ts` from the style-string helpers shared by Progress, NumberField, OTP Field, Slider, Checkbox, Radio, and Switch
-- `src/lib/internal/click.ts` from `packages/react/src/utils/dispatchClickWithModifiers.ts` and the host and link checks in `packages/react/src/internals/use-button/useButton.ts`
+- `src/lib/internal/click.ts` from `packages/react/src/utils/dispatchClickWithModifiers.ts`
+- `src/lib/internal/button.svelte.ts` from `packages/react/src/internals/use-button/useButton.ts` and `packages/react/src/utils/useFocusableWhenDisabled.ts`
 - `src/lib/internal/document-order.ts` from the composite list DOM-order comparison
-- `src/lib/internal/roving-slot.ts` and `src/lib/internal/composite-items.svelte.ts` from the render-order index in `packages/react/src/internals/composite/list/useCompositeListItem.ts` and `CompositeList.tsx` (`RenderOrder`, `CompositeItems`, `includeSorted`, `registeredTabIndex`)
+- `src/lib/internal/roving-slot.ts` and `src/lib/internal/composite-items.svelte.ts` from the render-order index in `packages/react/src/internals/composite/list/useCompositeListItem.ts` and `CompositeList.tsx` (`RenderOrder`, `CompositeItems`, `includeSorted`)
 - `src/lib/internal/GroupFrame.svelte` from the host markup of `packages/react/src/checkbox-group/CheckboxGroup.tsx` and `packages/react/src/radio-group/RadioGroup.tsx`
 - `src/lib/toolbar/item-registration.svelte.ts` from the item ref in `packages/react/src/internals/composite/item/useCompositeItem.ts`
 - `src/lib/scroll-area/track-style.ts` and `src/lib/scroll-area/scrollbar-part.svelte.ts` from the scrollbar geometry in `packages/react/src/scroll-area/scrollbar/ScrollAreaScrollbar.tsx`
-- `src/lib/internal/roving-keys.ts` from the arrow-key helpers in `packages/react/src/internals/composite/root/useCompositeRoot.ts` (`modifierHeld`, `axisKeys`, `stepLinear`)
+- `src/lib/internal/roving-keys.ts` from the arrow-key helpers in `packages/react/src/internals/composite/root/useCompositeRoot.ts` (`modifierHeld`, `axisKeys`)
 - `packages/utils/src/timeout.ts` from `packages/utils/src/useTimeout.ts` (`Timeout`), `packages/utils/src/useAnimationFrame.ts` (`AnimationFrame`), and `packages/react/src/internals/TimeoutManager.ts`
 - `packages/utils/src/timeout.svelte.ts` from `packages/utils/src/useTimeout.ts` (`useTimeout`) and `packages/utils/src/useAnimationFrame.ts` (`useAnimationFrame`). Cleanup is `$effect`, not `useOnMount`
 - `src/lib/otp-field/otp.spec.ts` assertions from `packages/react/src/otp-field/utils/otp.test.ts`
@@ -227,7 +228,6 @@ Parts of this package derive from [Base UI](https://github.com/mui/base-ui) v1.8
 - `src/lib/popover/PopoverLabel.svelte` from `packages/react/src/popover/title/PopoverTitle.tsx` and `packages/react/src/popover/description/PopoverDescription.tsx`
 - `src/lib/popover/context.svelte.ts` from the popover root, portal, and positioner context modules
 - `src/lib/internal/composite-keys.ts` from Base UI `COMPOSITE_KEYS` and the arrow subset (`ARROW_KEYS`), shared by dialog, popover, slider, tabs, toggle group, toolbar, and radio group
-- `src/lib/internal/useButton.ts` from the non-composite path of `packages/react/src/internals/use-button/useButton.ts`
 - `src/lib/internal/adaptiveOriginMiddleware.ts` from `packages/react/src/utils/adaptiveOriginMiddleware.ts`
 - `createDefaultInitialFocus` and `resolveFocus` in `src/lib/internal/popups/popupStoreUtils.ts` from `packages/react/src/utils/popups/popupStoreUtils.ts`
 - `src/lib/popover/Popover.svelte.spec.ts` assertions from `packages/react/src/popover/**/*.test.tsx` that do not require Menu, Combobox, or React refs

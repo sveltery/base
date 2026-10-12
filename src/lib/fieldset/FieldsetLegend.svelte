@@ -9,7 +9,7 @@
 	import PartHost from '../internal/PartHost.svelte';
 	import { getStateAttributesProps } from '../internal/state-attributes.js';
 	import { useFieldsetRootContext } from './context.svelte.js';
-	import { registerLabelId } from './register-label-id.svelte.js';
+	import { registerLabelId } from '../internal/register-label-id.svelte.js';
 	import type { FieldsetLegendProps, FieldsetLegendState } from './types.js';
 
 	const uid = $props.id();

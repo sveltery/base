@@ -224,13 +224,6 @@ export function isOutsideEvent(event: FocusEvent, container?: Element | null) {
 	return !contains(containerElement, event.relatedTarget);
 }
 
-export function activeElementIn(container: Element | null) {
-	if (!container) return null;
-	const active = activeElement(ownerDocument(container));
-	if (active && container.contains(active)) return active;
-	return null;
-}
-
 export function disableFocusInside(container: HTMLElement) {
 	const tabbableElements = tabbable(container);
 	tabbableElements.forEach((element) => {
