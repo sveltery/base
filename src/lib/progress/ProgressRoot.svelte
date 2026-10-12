@@ -29,24 +29,14 @@
 
 	const hiddenStyle = toCssStyle(visuallyHidden);
 
-	function inputs() {
-		return {
-			value: normalizeProgressValue(value),
-			min,
-			max,
-			format,
-			locale
-		};
-	}
-
-	const context = new ProgressRootContext(inputs());
+	const context = new ProgressRootContext(() => ({
+		value: normalizeProgressValue(value),
+		min,
+		max,
+		format,
+		locale
+	}));
 	provideProgressRootContext(context);
-
-	// Props stay on the shared context after the first render. `$effect.pre` does not run
-	// during SSR; the constructor already published the initial inputs for that pass.
-	$effect.pre(() => {
-		context.sync(inputs());
-	});
 
 	const computed = $derived(context.computed);
 	const state: ProgressState = $derived({ status: computed.status });

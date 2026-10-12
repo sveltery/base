@@ -5,42 +5,17 @@
 
 import { getContext, setContext } from 'svelte';
 import { computeProgress, type ProgressInputs } from './compute.js';
-import type { ProgressState } from './types.js';
 
 const PROGRESS_ROOT_CONTEXT = Symbol('progress-root');
 
 export class ProgressRootContext {
-	value = $state<number | null>(null);
-	min = $state(0);
-	max = $state(100);
-	format = $state<Intl.NumberFormatOptions | undefined>(undefined);
-	locale = $state<Intl.LocalesArgument | undefined>(undefined);
 	labelId = $state<string | undefined>(undefined);
+	readonly computed = $derived.by(() => computeProgress(this.read()));
 
-	computed = $derived(
-		computeProgress({
-			value: this.value,
-			min: this.min,
-			max: this.max,
-			format: this.format,
-			locale: this.locale
-		})
-	);
+	constructor(private readonly read: () => ProgressInputs) {}
 
-	constructor(initial: ProgressInputs) {
-		this.sync(initial);
-	}
-
-	sync(input: ProgressInputs) {
-		this.value = input.value;
-		this.min = input.min;
-		this.max = input.max;
-		this.format = input.format;
-		this.locale = input.locale;
-	}
-
-	get state(): ProgressState {
-		return { status: this.computed.status };
+	get value() {
+		return this.read().value;
 	}
 
 	setLabelId(next: string | undefined) {
