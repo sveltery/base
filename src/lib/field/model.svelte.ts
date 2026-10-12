@@ -8,6 +8,7 @@ import { SvelteMap } from 'svelte/reactivity';
 import type { FormContextValue } from '../form/context.js';
 import { onFormReset, ownerForm } from '../internal/form-reset.svelte.js';
 import type { FieldValidityData, FormValidationMode } from '../form/types.js';
+import type { ControlKind, FieldHandle } from '../form/source.js';
 import { DEFAULT_VALIDITY_STATE, VALIDITY_KEYS } from './constants.js';
 import type { Labelable } from './labelable.svelte.js';
 import type { FieldRootState, FieldValidate, FieldValidateResult } from './types.js';
@@ -57,6 +58,10 @@ export interface FieldContext {
 	registerInput: (element: HTMLInputElement, registration: RegisteredInput) => () => void;
 	change: (value: unknown, cancelPending?: boolean) => void;
 	commit: (value: unknown, revalidate?: boolean) => void;
+	/** The handle this Field is bound to through `field` or a `name` in a bound Form. */
+	readonly binding: FieldHandle | undefined;
+	/** The control kind Field.Root declares with `type`. Composites dev-check theirs against it. */
+	readonly controlType: ControlKind | undefined;
 }
 
 /** State of a field that has no provider. Slider and OTP share this one object. */
@@ -169,6 +174,14 @@ export class FieldRootModel implements FieldContext {
 				if (id) this.options.form.fields.delete(id);
 			};
 		});
+	}
+
+	get binding(): FieldHandle | undefined {
+		return undefined;
+	}
+
+	get controlType(): ControlKind | undefined {
+		return undefined;
 	}
 
 	get disabled() {
