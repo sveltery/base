@@ -9,7 +9,7 @@
 	import type { CompositeHandlers } from '../internal/composite-root.svelte.js';
 	import { getStateAttributesProps } from '../internal/state-attributes.js';
 	import { useToolbarGroupContext, useToolbarRootContext } from './context.svelte.js';
-	import { registerToolbarItem } from './item-registration.svelte.js';
+	import { ToolbarItem } from './item-registration.svelte.js';
 	import type { ToolbarButtonHostProps, ToolbarButtonProps, ToolbarButtonState } from './types.js';
 
 	const toolbar = useToolbarRootContext();
@@ -32,7 +32,7 @@
 		focusable: focusableWhenDisabled
 	});
 
-	const item = registerToolbarItem(toolbar.roving, () => ({
+	const item = new ToolbarItem(toolbar.roving, () => ({
 		disabled: disabledState && !focusableWhenDisabled
 	}));
 

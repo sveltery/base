@@ -198,7 +198,7 @@ Parts of this package derive from [Base UI](https://github.com/mui/base-ui) v1.8
 - `src/lib/internal/hideMiddleware.ts` from `packages/react/src/utils/hideMiddleware.ts`
 - `src/lib/internal/CommonPositionerCssVars.ts` from `packages/react/src/utils/CommonPositionerCssVars.ts`
 - `src/lib/internal/useAnchoredPopupScrollLock.svelte.ts` from `packages/react/src/utils/useAnchoredPopupScrollLock.ts`
-- `src/lib/internal/popups/useTriggerFocusGuards.ts` from `packages/react/src/utils/popups/useTriggerFocusGuards.ts`
+- `src/lib/internal/popups/triggerFocusGuards.ts` from `packages/react/src/utils/popups/useTriggerFocusGuards.ts`
 - `src/lib/internal/popups/**` from `packages/react/src/utils/popups/**` and `packages/react/src/dialog/store/DialogStore.ts` (`setOpen`'s immediate `preventUnmountOnClose`)
 - `src/lib/internal/useScrollLock.svelte.ts` from `packages/utils/src/useScrollLock.ts`
 - `src/lib/internal/useTransitionStatus.svelte.ts` from `packages/react/src/internals/useTransitionStatus.ts`
@@ -219,7 +219,6 @@ Parts of this package derive from [Base UI](https://github.com/mui/base-ui) v1.8
 - `src/lib/popover/PopoverDescription.svelte` from `packages/react/src/popover/description/PopoverDescription.tsx`
 - `src/lib/popover/PopoverClose.svelte` from `packages/react/src/popover/close/PopoverClose.tsx`
 - `src/lib/popover/PopoverViewport.svelte` from `packages/react/src/popover/viewport/PopoverViewport.tsx` and `packages/react/src/utils/usePopupViewport.tsx`
-- `src/lib/internal/popups/usePopupContentKey.svelte.ts` from `usePopupContentKey` in `packages/react/src/utils/usePopupViewport.tsx`
 - `src/lib/popover/store.svelte.ts` from `packages/react/src/popover/store/PopoverStore.ts` (open changes go through the shared `PopupStore`; popover adds deferred unmount, hover stick, and instant type)
 - `src/lib/popover/handle.svelte.ts` from `packages/react/src/popover/store/PopoverHandle.ts` (extends the shared `PopupHandle`; Dialog's payload writers are not included)
 - `src/lib/popover/PopoverLabel.svelte` from `packages/react/src/popover/title/PopoverTitle.tsx` and `packages/react/src/popover/description/PopoverDescription.tsx`

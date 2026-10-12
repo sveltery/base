@@ -12,47 +12,40 @@ export interface ImageProbeSource {
 }
 
 /**
- * Detached image probe. Call once during component init.
+ * Detached image probe. Construct during component init.
  * `enabled` is false while `keepMounted` reads the rendered element instead.
  */
-export function createImageLoadingStatus(enabled: () => boolean, source: () => ImageProbeSource) {
-	let status = $state<ImageLoadingStatus>('idle');
+export class ImageProbe {
+	status = $state<ImageLoadingStatus>('idle');
 
-	$effect(() => {
-		if (!enabled()) return;
+	constructor(enabled: () => boolean, source: () => ImageProbeSource) {
+		$effect(() => {
+			if (!enabled()) return;
 
-		const { src, srcset, sizes, crossorigin, referrerpolicy } = source();
-		if (!src && !srcset) {
-			status = 'error';
-			return;
-		}
+			const { src, srcset, sizes, crossorigin, referrerpolicy } = source();
+			if (!src && !srcset) {
+				this.status = 'error';
+				return;
+			}
 
-		const signal = getAbortSignal();
-		const image = new Image();
-		const update = (next: ImageLoadingStatus) => () => {
-			if (!signal.aborted) status = next;
-		};
+			const signal = getAbortSignal();
+			const image = new Image();
+			const update = (next: ImageLoadingStatus) => () => {
+				if (!signal.aborted) this.status = next;
+			};
 
-		// Handlers, then request hints, then src. A cached image can finish inside the src write.
-		status = 'loading';
-		image.onload = update('loaded');
-		image.onerror = update('error');
-		if (referrerpolicy) image.referrerPolicy = referrerpolicy;
-		image.crossOrigin = crossorigin ?? null;
-		if (sizes) image.sizes = sizes;
-		if (srcset) image.srcset = srcset;
-		if (src) image.src = src;
-		if (image.complete) {
-			status = image.naturalWidth > 0 ? 'loaded' : 'error';
-		}
-	});
-
-	return {
-		get status(): ImageLoadingStatus {
-			return status;
-		},
-		setStatus(next: ImageLoadingStatus) {
-			status = next;
-		}
-	};
+			// Handlers, then request hints, then src. A cached image can finish inside the src write.
+			this.status = 'loading';
+			image.onload = update('loaded');
+			image.onerror = update('error');
+			if (referrerpolicy) image.referrerPolicy = referrerpolicy;
+			image.crossOrigin = crossorigin ?? null;
+			if (sizes) image.sizes = sizes;
+			if (srcset) image.srcset = srcset;
+			if (src) image.src = src;
+			if (image.complete) {
+				this.status = image.naturalWidth > 0 ? 'loaded' : 'error';
+			}
+		});
+	}
 }

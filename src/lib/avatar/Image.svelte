@@ -13,10 +13,7 @@
 	import { TransitionStatus } from '../internal/useTransitionStatus.svelte.js';
 	import { avatarStateAttributesMapping } from './attributes.js';
 	import { useAvatarContext } from './context.js';
-	import {
-		createImageLoadingStatus,
-		type ImageProbeSource
-	} from './image-loading-status.svelte.js';
+	import { ImageProbe, type ImageProbeSource } from './image-loading-status.svelte.js';
 	import type { HTMLImgAttributes } from 'svelte/elements';
 	import type { AvatarImageProps, AvatarImageState, ImageLoadingStatus } from './types.js';
 
@@ -38,7 +35,7 @@
 	}: AvatarImageProps = $props();
 
 	const root = useAvatarContext();
-	const loading = createImageLoadingStatus(
+	const loading = new ImageProbe(
 		() => !keepMounted,
 		() => ({ src, srcset, sizes, crossorigin, referrerpolicy })
 	);
@@ -66,14 +63,14 @@
 
 	function readRenderedStatus(node: HTMLImageElement, source: ImageProbeSource) {
 		if (!source.src && !source.srcset) {
-			loading.setStatus('error');
+			loading.status = 'error';
 			return;
 		}
 		if (!node.complete) {
-			loading.setStatus('loading');
+			loading.status = 'loading';
 			return;
 		}
-		loading.setStatus(node.naturalWidth > 0 ? 'loaded' : 'error');
+		loading.status = node.naturalWidth > 0 ? 'loaded' : 'error';
 	}
 
 	let initialCommit = true;
@@ -109,13 +106,13 @@
 	function handleLoad(event: ImageEvent) {
 		onload?.(event);
 		if (!keepMounted || event.defaultPrevented) return;
-		loading.setStatus('loaded');
+		loading.status = 'loaded';
 	}
 
 	function handleError(event: ImageEvent) {
 		onerror?.(event);
 		if (!keepMounted || event.defaultPrevented) return;
-		loading.setStatus('error');
+		loading.status = 'error';
 	}
 
 	const shown = $derived(keepMounted || transition.mounted);

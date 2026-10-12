@@ -19,7 +19,6 @@
 	import { ScopedAnimationFrame } from '@sveltery/utils';
 	import { runOnceAnimationsFinish } from '../internal/animations-finished.js';
 	import { adaptiveOriginMiddleware } from '../internal/adaptiveOriginMiddleware.js';
-	import { usePopupContentKey } from '../internal/popups/usePopupContentKey.svelte.js';
 	import { usePopoverPositioner, usePopoverRoot } from './context.svelte.js';
 	import type { PopoverViewportProps, PopoverViewportState } from './types.js';
 
@@ -36,7 +35,10 @@
 	let activationDirection = $state<string | undefined>(undefined);
 	let showStarting = $state(false);
 	let committedSize: { width: number; height: number } | null = null;
-	const popupContent = usePopupContentKey(() => store.resolvedActiveTriggerId());
+	// The pane remounts when the active trigger id changes. Upstream usePopupViewport also
+	// remounts once more when the payload arrives on the next render. Here the payload is read
+	// in the same flush as the id, so that second bump does not apply.
+	const paneKey = $derived(store.resolvedActiveTriggerId() ?? 'current');
 
 	$effect(() => {
 		store.adaptiveOrigin = adaptiveOriginMiddleware;
@@ -276,7 +278,7 @@
 			{@attach mountPrevious}
 		></div>
 	{/if}
-	{#key popupContent.current}
+	{#key paneKey}
 		<div bind:this={currentEl} data-current data-starting-style={showStarting ? '' : undefined}>
 			{@render children?.()}
 		</div>

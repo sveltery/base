@@ -13,7 +13,7 @@
 	import { getStateAttributesProps } from '../internal/state-attributes.js';
 	import { numberFieldStateAttributes } from './attributes.js';
 	import { useNumberFieldContext } from './context.svelte.js';
-	import { createPressAndHold, isTouchLikePointerType } from './press-and-hold.svelte.js';
+	import { isTouchLikePointerType, PressAndHold } from './press-and-hold.svelte.js';
 	import { mergeCssStyle } from '../internal/css-style.js';
 	import type {
 		EventWithOptionalKeyState,
@@ -60,7 +60,7 @@
 		focusableWhenDisabled: true
 	}));
 
-	const press = createPressAndHold({
+	const press = new PressAndHold({
 		getDisabled: () => disabled || model.options.getReadOnly(),
 		getElement: () => model.inputElement,
 		tick(triggerEvent) {

@@ -26,8 +26,6 @@ interface PublishedControl {
 class FieldRegistration {
 	private registered = false;
 	private readonly source = Symbol();
-	/** Host node for `watchFieldControl`. The effect re-reads this when it changes. */
-	element = $state<HTMLElement | null>(null);
 	/** Host node for `attachFieldControl`. The attachment owns register and release. */
 	private host: HTMLElement | null = null;
 	private appliedEnabled = false;

@@ -7,14 +7,14 @@
 	import type { Attachment } from 'svelte/attachments';
 	import { getStateAttributesProps } from '../internal/state-attributes.js';
 	import { useToolbarRootContext } from './context.svelte.js';
-	import { registerToolbarItem } from './item-registration.svelte.js';
+	import { ToolbarItem } from './item-registration.svelte.js';
 	import type { ToolbarLinkHostProps, ToolbarLinkProps, ToolbarLinkState } from './types.js';
 
 	const toolbar = useToolbarRootContext();
 
 	let { onfocus, render, children, ...elementProps }: ToolbarLinkProps = $props();
 
-	const item = registerToolbarItem(toolbar.roving);
+	const item = new ToolbarItem(toolbar.roving);
 
 	const linkState: ToolbarLinkState = $derived({ orientation: toolbar.orientation });
 

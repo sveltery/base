@@ -25,7 +25,7 @@ export {
 	type UseAnchorPositioningParameters,
 	type UseAnchorPositioningReturn
 } from '../useAnchorPositioning.svelte.js';
-export { useTriggerFocusGuards } from './useTriggerFocusGuards.js';
+export { TriggerFocusGuards } from './triggerFocusGuards.js';
 export * as CommonPositionerCssVars from '../CommonPositionerCssVars.js';
 export type { TransitionStatusValue } from '../useTransitionStatus.svelte.js';
 export { PopupTriggerMap } from '@sveltery/floating-ui-svelte';

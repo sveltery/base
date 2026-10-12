@@ -9,32 +9,27 @@ import type {
 	CompositeRoot
 } from '../internal/composite-root.svelte.js';
 
-export function registerToolbarItem(
-	roving: CompositeRoot,
-	read: () => { disabled?: boolean } = () => ({})
-) {
-	let node = $state<HTMLElement | null>(null);
-	const renderIndex = roving.claim();
+export class ToolbarItem {
+	#node = $state<HTMLElement | null>(null);
+	readonly #renderIndex: number;
 
-	function register(element: HTMLElement) {
-		node = element;
-		const remove = roving.register(element, read);
+	constructor(
+		private readonly roving: CompositeRoot,
+		private readonly read: () => { disabled?: boolean } = () => ({})
+	) {
+		this.#renderIndex = roving.claim();
+	}
+
+	#register = (element: HTMLElement) => {
+		this.#node = element;
+		const remove = this.roving.register(element, this.read);
 		return () => {
 			remove();
-			if (node === element) node = null;
+			if (this.#node === element) this.#node = null;
 		};
-	}
-
-	function hosted(handlers: CompositeHandlers, meta: CompositeMeta = {}) {
-		return roving.item(node, register, handlers, renderIndex, meta);
-	}
-
-	return {
-		get node() {
-			return node;
-		},
-		renderIndex,
-		register,
-		hosted
 	};
+
+	hosted(handlers: CompositeHandlers, meta: CompositeMeta = {}) {
+		return this.roving.item(this.#node, this.#register, handlers, this.#renderIndex, meta);
+	}
 }

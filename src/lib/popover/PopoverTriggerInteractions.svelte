@@ -11,7 +11,7 @@
 		useClick,
 		useHoverReferenceInteraction
 	} from '@sveltery/floating-ui-svelte';
-	import { useTriggerFocusGuards } from '../internal/popups/index.js';
+	import { TriggerFocusGuards } from '../internal/popups/index.js';
 	import type { PopoverStore } from './store.svelte.js';
 	import type { TriggerArmed } from './trigger-armed.js';
 
@@ -52,7 +52,7 @@
 		delay: { close: closeDelay },
 		placement: () => owner.readPlacement()
 	}));
-	const guards = useTriggerFocusGuards(owner, triggerEl);
+	const guards = new TriggerFocusGuards(owner, triggerEl);
 
 	$effect(() => {
 		untrack(() =>
