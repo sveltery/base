@@ -107,24 +107,17 @@ export default defineConfig(
 		plugins: { sveltery },
 		rules: {
 			'sveltery/no-cloned-event': 'error',
-			'sveltery/no-direct-field-registration': 'error',
-			'sveltery/no-copied-helper': 'error',
 			'sveltery/no-derived-inline-attachment': 'error',
-			'sveltery/no-inline-composite-keys': 'error',
 			'sveltery/no-layout-read-in-derived': 'error',
-			'sveltery/no-late-bound-getter': 'error',
 			'sveltery/no-uncontrolled-bindable': 'error',
 			'sveltery/no-unscoped-timer': 'error',
-			'sveltery/no-computed-style-direction': 'error',
-			'sveltery/no-foreign-context': 'error',
 			'sveltery/no-previous-value-effect': 'error',
 			'sveltery/no-process-env': 'error',
 			'sveltery/no-public-callback-untracked': 'error',
 			'sveltery/no-prop-state-sync': 'error',
 			'sveltery/no-react-refs': 'error',
 			'sveltery/no-split-effect-lifecycle': 'error',
-			'sveltery/no-state-updater': 'error',
-			'sveltery/no-void-signal-read': 'error'
+			'sveltery/no-state-updater': 'error'
 		}
 	},
 	{

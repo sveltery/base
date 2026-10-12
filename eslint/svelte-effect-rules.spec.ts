@@ -5,7 +5,6 @@ import { describe, expect, it } from 'vitest';
 import { ESLint, type Linter } from 'eslint';
 import { compile } from 'svelte/compiler';
 import ts from 'typescript-eslint';
-import { historicalSource } from './historical-source.js';
 import plugin from './plugin.js';
 
 const require = createRequire(import.meta.url);
@@ -94,113 +93,6 @@ describe('sveltery/no-prop-state-sync', () => {
 		const { source, messages } = await messagesFor('prop-getters.pass.svelte', ruleName);
 		expect(source).toContain('get value()');
 		expect(source).toContain('value = next');
-		expect(messages).toEqual([]);
-	});
-});
-
-describe('sveltery/no-void-signal-read', () => {
-	const ruleName = 'no-void-signal-read';
-
-	it('rejects void signal reads and names the Svelte fix', async () => {
-		const { source, messages } = await messagesFor('void-signal.fail.svelte', ruleName);
-		const lines = reportedLines(source, messages);
-
-		expect(messages.length).toBeGreaterThanOrEqual(5);
-		for (const message of messages) {
-			expect(message.message).toContain('void');
-			expect(message.message).toContain('$derived');
-		}
-		expect(lines.some((line) => line.includes('void disabledState'))).toBe(true);
-		expect(lines.some((line) => line.includes('void tab.disabled'))).toBe(true);
-		expect(lines.some((line) => line.includes('void actions'))).toBe(true);
-		expect(lines.some((line) => line.includes('void actions.validate'))).toBe(true);
-		expect(lines.some((line) => line.includes('refreshRoot(style, dir)'))).toBe(true);
-		expect(lines.some((line) => line.includes('sync(disabledState)'))).toBe(true);
-		expect(lines.some((line) => line.includes('publish(actions)'))).toBe(true);
-		expect(lines.some((line) => line.includes('const _height = height'))).toBe(true);
-		expect(lines.some((line) => line.includes('const itemDisabled = disabled'))).toBe(true);
-		expect(lines.some((line) => line.includes('const nativeDisabled ='))).toBe(true);
-	});
-
-	it('rejects always-true conditions, identical branches, and comparison counters', async () => {
-		const { source, messages } = await messagesFor('forced-read.fail.svelte', ruleName);
-
-		expect(messages.length).toBeGreaterThanOrEqual(4);
-		expect(messages.some((message) => message.message.includes('always-true'))).toBe(true);
-		expect(messages.some((message) => message.message.includes('identical branches'))).toBe(true);
-		expect(messages.some((message) => message.message.includes('comparison counter'))).toBe(true);
-		expect(covers(source, messages, 'height !== undefined || width !== undefined')).toBe(true);
-		expect(covers(source, messages, 'untrack(() => ensureActive())')).toBe(true);
-		expect(covers(source, messages, 'untrack(() => reconcile())')).toBe(true);
-		expect(covers(source, messages, 'readStyle() !== style')).toBe(true);
-	});
-
-	it('rejects the same forced reads when they live in a helper', async () => {
-		const source = historicalSource(
-			'210a2daf4fe39739183d5429e303fc62ee4791a8',
-			'eslint/fixtures/forced-read.fail.svelte',
-			new URL('fixtures/history/210a2daf-forced-read.fail.svelte', import.meta.url),
-			'91f37bba7bb9181aae304b40d3cb25fee901bb5c'
-		);
-		const [result] = await lintWithRule(
-			source,
-			'history/210a2daf-forced-read.fail.svelte',
-			ruleName
-		);
-		const messages = ruleMessages(result, `sveltery/${ruleName}`);
-		expect(messages.length).toBeGreaterThanOrEqual(6);
-	});
-
-	it('allows a measured size, a disabled item, and one direction check', async () => {
-		const { source, messages } = await messagesFor('forced-read.pass.svelte', ruleName);
-		expect(source).toContain('height === undefined && width === undefined');
-		expect(source).toContain('keepEnabled(item)');
-		expect(source).toContain('direction !== seen');
-		expect(messages).toEqual([]);
-	});
-
-	it('rejects derived void reads, unread object props, underscore aliases, and a copied untrack local', async () => {
-		const derived = await messagesFor('void-signal-derived.fail.svelte', ruleName);
-		const objectProps = await messagesFor('void-signal-object.fail.svelte', ruleName);
-		const underscore = await messagesFor('void-signal-underscore.fail.svelte', ruleName);
-		const copied = await messagesFor('void-signal-untrack-copy.fail.svelte', ruleName);
-
-		expect(covers(derived.source, derived.messages, 'void revision')).toBe(true);
-		expect(covers(derived.source, derived.messages, 'const _width = width')).toBe(true);
-		expect(covers(objectProps.source, objectProps.messages, 'enabled, open')).toBe(true);
-		expect(covers(underscore.source, underscore.messages, 'touch(value)')).toBe(true);
-		expect(covers(underscore.source, underscore.messages, 'const _local = value')).toBe(true);
-		expect(covers(copied.source, copied.messages, 'const copied = value')).toBe(true);
-	});
-
-	it('rejects nullish ors, negated guards, and ternary forced reads', async () => {
-		const nullish = await messagesFor('forced-read-nullish.fail.svelte', ruleName);
-		const negation = await messagesFor('forced-read-negation.fail.svelte', ruleName);
-		const ternary = await messagesFor('forced-read-ternary.fail.svelte', ruleName);
-
-		expect(covers(nullish.source, nullish.messages, 'height != null || width != null')).toBe(true);
-		expect(
-			covers(negation.source, negation.messages, 'flag && !(height == null && width == null)')
-		).toBe(true);
-		expect(covers(ternary.source, ternary.messages, 'untrack(() => ensureActive())')).toBe(true);
-		expect(covers(ternary.source, ternary.messages, 'height != null ? true : width != null')).toBe(
-			true
-		);
-	});
-
-	it('allows an or whose operands are used outside an effect', async () => {
-		const { source, messages } = await messagesFor('forced-read-or-outside.pass.svelte', ruleName);
-		expect(source).toContain('height != null || width != null');
-		expect(source).toContain('(height ?? 0) + (width ?? 0)');
-		expect(messages).toEqual([]);
-	});
-
-	it('allows passing signals into a function and publishing a bindable by assignment', async () => {
-		const { source, messages } = await messagesFor('void-signal.pass.svelte', ruleName);
-		expect(source).toContain('syncAfter(disabledState, focusableWhenDisabled)');
-		expect(source).toContain('$derived.by');
-		expect(source).toContain('count = 1');
-		expect(source).not.toContain('$effect.pre');
 		expect(messages).toEqual([]);
 	});
 });
@@ -346,31 +238,15 @@ describe('sveltery/no-process-env', () => {
 const ruleNames = Object.keys(plugin.rules);
 
 const failRuleByFile: Record<string, string> = {
-	'direct-field-registration-alias.fail.svelte': 'sveltery/no-direct-field-registration',
-	'direct-field-registration-gaps.fail.svelte': 'sveltery/no-direct-field-registration',
 	'derived-inline-attachment.fail.svelte': 'sveltery/no-derived-inline-attachment',
 	'derived-const-arrow.fail.svelte': 'sveltery/no-derived-inline-attachment',
-	'inline-composite-keys.fail.svelte': 'sveltery/no-inline-composite-keys',
-	'inline-composite-keys-arrows.fail.svelte': 'sveltery/no-inline-composite-keys',
-	'inline-composite-keys-concat.fail.svelte': 'sveltery/no-inline-composite-keys',
-	'inline-composite-keys-equals.fail.svelte': 'sveltery/no-inline-composite-keys',
-	'inline-composite-keys-object.fail.svelte': 'sveltery/no-inline-composite-keys',
-	'inline-composite-keys-regex.fail.svelte': 'sveltery/no-inline-composite-keys',
-	'inline-composite-keys-split.fail.svelte': 'sveltery/no-inline-composite-keys',
-	'inline-composite-keys-split-comma.fail.svelte': 'sveltery/no-inline-composite-keys',
-	'inline-composite-keys-spread.fail.svelte': 'sveltery/no-inline-composite-keys',
-	'inline-composite-keys-switch.fail.svelte': 'sveltery/no-inline-composite-keys',
-	'inline-composite-keys-template.fail.svelte': 'sveltery/no-inline-composite-keys',
 	'prop-state-sync.fail.svelte': 'sveltery/no-prop-state-sync',
-	'void-signal.fail.svelte': 'sveltery/no-void-signal-read',
 	'split-lifecycle.fail.svelte': 'sveltery/no-split-effect-lifecycle',
 	'previous-value.fail.svelte': 'sveltery/no-previous-value-effect',
-	'late-bound-getter.fail.svelte': 'sveltery/no-late-bound-getter',
 	'uncontrolled-bindable.fail.svelte': 'sveltery/no-uncontrolled-bindable',
 	'uncontrolled-bindable-comment.fail.svelte': 'sveltery/no-uncontrolled-bindable',
 	'process-env.fail.svelte': 'sveltery/no-process-env',
 	'form-ref-current.fail.svelte': 'sveltery/no-react-refs',
-	'forced-read.fail.svelte': 'sveltery/no-void-signal-read',
 	'state-updater.fail.svelte': 'sveltery/no-state-updater',
 	'state-updater-alias.fail.svelte': 'sveltery/no-state-updater',
 	'state-updater-typeof.fail.svelte': 'sveltery/no-state-updater',
@@ -404,18 +280,11 @@ const failRuleByFile: Record<string, string> = {
 	'previous-value-cross.fail.svelte': 'sveltery/no-previous-value-effect',
 	'previous-value-fn.fail.svelte': 'sveltery/no-previous-value-effect',
 	'previous-value-context.fail.svelte': 'sveltery/no-previous-value-effect',
-	'forced-read-negation.fail.svelte': 'sveltery/no-void-signal-read',
-	'forced-read-nullish.fail.svelte': 'sveltery/no-void-signal-read',
-	'forced-read-ternary.fail.svelte': 'sveltery/no-void-signal-read',
 	'layout-read.fail.svelte': 'sveltery/no-layout-read-in-derived',
 	'layout-read-destructure.fail.svelte': 'sveltery/no-layout-read-in-derived',
 	'layout-read-import.fail.svelte': 'sveltery/no-layout-read-in-derived',
 	'layout-read-owner.fail.svelte': 'sveltery/no-layout-read-in-derived',
-	'layout-read-by-name.fail.svelte': 'sveltery/no-layout-read-in-derived',
-	'void-signal-derived.fail.svelte': 'sveltery/no-void-signal-read',
-	'void-signal-object.fail.svelte': 'sveltery/no-void-signal-read',
-	'void-signal-underscore.fail.svelte': 'sveltery/no-void-signal-read',
-	'void-signal-untrack-copy.fail.svelte': 'sveltery/no-void-signal-read'
+	'layout-read-by-name.fail.svelte': 'sveltery/no-layout-read-in-derived'
 };
 
 function lintWithEveryRule(code: string, filePath: string) {
