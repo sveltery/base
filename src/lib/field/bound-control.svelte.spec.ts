@@ -78,10 +78,93 @@ describe('bound Checkbox and Switch', () => {
 	}
 });
 
+describe('bound RadioGroup', () => {
+	it('submits the picked option under the encoded name', async () => {
+		const source = new FakeRemoteForm();
+		render(BoundControlHarness, { source, scenario: 'radio-group' });
+
+		expect(names()).toEqual(['plan/fake', 'plan/fake']);
+		expect(submitted(source)).toEqual({ plan: 'free' });
+
+		await page.getByTestId('pro').click();
+		await expect.element(page.getByTestId('pro')).toHaveAttribute('aria-checked', 'true');
+		expect(submitted(source)).toEqual({ plan: 'pro' });
+		expect(source.input.plan).toBe('pro');
+	});
+
+	it('follows a value set on the source', async () => {
+		const source = new FakeRemoteForm();
+		render(BoundControlHarness, { source, scenario: 'radio-group' });
+
+		source.field('plan').set('pro' as never);
+		await expect.element(page.getByTestId('pro')).toHaveAttribute('aria-checked', 'true');
+		await expect.element(page.getByTestId('free')).toHaveAttribute('aria-checked', 'false');
+		expect(submitted(source)).toEqual({ plan: 'pro' });
+	});
+
+	it('starts from the source value, and a reset restores the default', async () => {
+		const source = new FakeRemoteForm('fake', { plan: 'pro' });
+		render(BoundControlHarness, { source, scenario: 'radio-group' });
+
+		await expect.element(page.getByTestId('pro')).toHaveAttribute('aria-checked', 'true');
+		expect(submitted(source)).toEqual({ plan: 'pro' });
+
+		form().reset();
+		await expect.element(page.getByTestId('free')).toHaveAttribute('aria-checked', 'true');
+		expect(submitted(source)).toEqual({ plan: 'free' });
+		await expect.poll(() => source.input.plan).toBe('free');
+	});
+});
+
+describe('bound CheckboxGroup', () => {
+	it('submits the ticked options as an array under the encoded name', async () => {
+		const source = new FakeRemoteForm();
+		render(BoundControlHarness, { source, scenario: 'checkbox-group' });
+
+		expect(names()).toEqual(['tags[]/fake', 'tags[]/fake']);
+		expect(submitted(source)).toEqual({ tags: ['svelte'] });
+
+		await page.getByTestId('kit').click();
+		await expect.element(page.getByTestId('kit')).toHaveAttribute('aria-checked', 'true');
+		expect(submitted(source)).toEqual({ tags: ['svelte', 'kit'] });
+		expect(source.input.tags).toEqual(['svelte', 'kit']);
+
+		await page.getByTestId('svelte').click();
+		expect(source.input.tags).toEqual(['kit']);
+	});
+
+	it('follows a value set on the source', async () => {
+		const source = new FakeRemoteForm();
+		render(BoundControlHarness, { source, scenario: 'checkbox-group' });
+
+		source.field('tags').set(['kit'] as never);
+		await expect.element(page.getByTestId('kit')).toHaveAttribute('aria-checked', 'true');
+		await expect.element(page.getByTestId('svelte')).toHaveAttribute('aria-checked', 'false');
+		expect(submitted(source)).toEqual({ tags: ['kit'] });
+	});
+
+	it('starts from the source value, and a reset restores the default', async () => {
+		const source = new FakeRemoteForm('fake', { tags: ['kit'] });
+		render(BoundControlHarness, { source, scenario: 'checkbox-group' });
+
+		await expect.element(page.getByTestId('kit')).toHaveAttribute('aria-checked', 'true');
+		await expect.element(page.getByTestId('svelte')).toHaveAttribute('aria-checked', 'false');
+		expect(submitted(source)).toEqual({ tags: ['kit'] });
+
+		form().reset();
+		await expect.element(page.getByTestId('svelte')).toHaveAttribute('aria-checked', 'true');
+		await expect.element(page.getByTestId('kit')).toHaveAttribute('aria-checked', 'false');
+		expect(submitted(source)).toEqual({ tags: ['svelte'] });
+		await expect.poll(() => source.input.tags).toEqual(['svelte']);
+	});
+});
+
 describe('dev kind check', () => {
 	for (const [scenario, kind, declared] of [
 		['checkbox', 'checkbox', 'switch'],
-		['switch', 'switch', 'checkbox']
+		['switch', 'switch', 'checkbox'],
+		['radio-group', 'radio', 'text'],
+		['checkbox-group', 'checkbox', 'select multiple']
 	] as const) {
 		it(`logs when a ${kind} control sits in a Field declared as ${declared}`, async () => {
 			const log = vi.spyOn(console, 'error').mockImplementation(() => {});

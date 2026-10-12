@@ -13,6 +13,7 @@
 	import { setCheckboxGroupContext } from '../checkbox/group-context.js';
 	import { fieldValidityMapping } from '../field/attributes.js';
 	import { useFieldContext } from '../field/context.svelte.js';
+	import { BoundControl } from '../field/bound-control.svelte.js';
 	import { LabelableId, findLabelableContext } from '../field/labelable.svelte.js';
 	import { useFormContext } from '../form/context.js';
 	import { FieldValueSync, attachFieldControl } from '../internal/field-register-control.svelte.js';
@@ -41,13 +42,22 @@
 		...elementProps
 	}: CheckboxGroupProps = $props();
 
-	// `defaultValue` is the initial value of an empty binding, as in HTML.
-	// svelte-ignore state_referenced_locally
-	if (value === undefined) value = defaultValue;
-
 	const EMPTY: string[] = [];
 
 	const field = useFieldContext();
+	const bound = new BoundControl<string[]>(field, {
+		kind: 'checkbox',
+		read: () => currentValue(),
+		write: (next) => {
+			value = next;
+		},
+		fromSource: (raw) => (Array.isArray(raw) ? raw.map(String) : []),
+		equals: areArraysEqual
+	});
+
+	// `defaultValue` is the initial value of an empty binding, as in HTML.
+	// svelte-ignore state_referenced_locally
+	if (value === undefined) value = bound.bound ? bound.initial(defaultValue ?? []) : defaultValue;
 	const formContext = useFormContext();
 	const labelable = findLabelableContext();
 	const disabled = $derived(field.disabled || disabledProp);
