@@ -5,7 +5,8 @@
 // (commit 47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c). MIT, see THIRD_PARTY_NOTICES.md.
 
 import type { StateAttributesMapping } from '../internal/state-attributes.js';
-import { collapsibleOpenStateMapping, transitionStatusMapping } from '../collapsible/attributes.js';
+import { collapsibleOpenStateMapping } from '../collapsible/attributes.js';
+import { transitionStatusMapping } from '../internal/state-attributes.js';
 import type { AccordionItemState, AccordionPanelState, AccordionRootState } from './types.js';
 
 export const index = 'data-index';

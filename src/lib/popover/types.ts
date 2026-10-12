@@ -4,7 +4,7 @@ import type { HTMLAttributes, HTMLButtonAttributes } from 'svelte/elements';
 import type { BaseUIChangeEventDetails, REASONS } from '@sveltery/utils';
 import type { PortalProps } from '../internal/portal-props.js';
 import type { Align, Side, UseAnchorPositioningParameters } from '../internal/popups/index.js';
-import type { PopupTransitionStatus } from '../internal/useTransitionStatus.svelte.js';
+import type { TransitionStatusValue } from '../internal/useTransitionStatus.svelte.js';
 import type { PopoverHandle } from './handle.svelte.js';
 import type { RenderChildren } from '../internal/render-children.js';
 
@@ -159,7 +159,7 @@ export interface PopoverPopupState {
 	open: boolean;
 	side: Side;
 	align: Align;
-	transitionStatus: PopupTransitionStatus;
+	transitionStatus: TransitionStatusValue;
 	instant: PopoverInstant | undefined;
 }
 
@@ -194,7 +194,7 @@ export interface PopoverArrowProps extends Omit<HTMLAttributes<HTMLDivElement>, 
 
 export interface PopoverBackdropState {
 	open: boolean;
-	transitionStatus: PopupTransitionStatus;
+	transitionStatus: TransitionStatusValue;
 }
 
 export interface PopoverBackdropProps extends Omit<HTMLAttributes<HTMLDivElement>, 'children'> {

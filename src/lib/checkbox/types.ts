@@ -4,7 +4,7 @@ import type { BaseUIChangeEventDetails, REASONS } from '@sveltery/utils';
 import type { RenderChildren } from '../internal/render-children.js';
 
 /** Indicator motion phase. `undefined` is the settled phase. */
-export type CheckboxIndicatorPhase = 'starting' | 'ending' | undefined;
+export type CheckboxIndicatorPhase = 'starting' | 'ending' | 'idle' | undefined;
 
 export interface CheckboxRootState {
 	/** Whether the checkbox is currently ticked. */

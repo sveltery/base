@@ -1,24 +1,19 @@
 <!--
 	A panel displayed when the corresponding tab is active. Renders a `<div>` element.
-	Derived from Base UI v1.8.0 packages/react/src/tabs/panel/TabsPanel.tsx,
-	useTransitionStatus (default arguments) and useOpenChangeComplete
+	Derived from Base UI v1.8.0 packages/react/src/tabs/panel/TabsPanel.tsx
 	(commit 47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c). MIT, see THIRD_PARTY_NOTICES.md.
 -->
 <script lang="ts">
-	import { untrack } from 'svelte';
 	import { createAttachmentKey, type Attachment } from 'svelte/attachments';
 	import type { HTMLAttributes } from 'svelte/elements';
-	import { runOnceAnimationsFinish } from '../internal/animations-finished.js';
-	import { useAnimationFrame } from '@sveltery/utils';
 	import { getStateAttributesProps } from '../internal/state-attributes.js';
+	import { TransitionStatus } from '../internal/useTransitionStatus.svelte.js';
 	import { panelStateAttributesMapping } from './attributes.js';
-	import type { TransitionStatus } from '../collapsible/types.js';
 	import { useTabsRootContext } from './context.svelte.js';
 	import type { TabsPanelProps, TabsPanelState } from './types.js';
 
 	const uid = $props.id();
 	const panelKey = createAttachmentKey();
-	const settleFrame = useAnimationFrame();
 
 	let {
 		value,
@@ -34,8 +29,7 @@
 	const panelId = $derived(id ?? generatedId);
 	const open = $derived(value === tabs.value);
 
-	let mounted = $state(untrack(() => value === tabs.value));
-	let transitionStatus: TransitionStatus = $state(undefined);
+	const transition = new TransitionStatus(() => open);
 	let panelNode: HTMLElement | null = $state(null);
 
 	function registerPanel(element: HTMLElement) {
@@ -47,53 +41,16 @@
 		};
 	}
 
-	$effect.pre(() => {
-		if (open && !mounted) {
-			mounted = true;
-			transitionStatus = 'starting';
-		}
-		if (!open && mounted && transitionStatus !== 'ending') {
-			transitionStatus = 'ending';
-		}
-		if (!open && !mounted && transitionStatus === 'ending') {
-			transitionStatus = undefined;
-		}
-	});
+	transition.unmountAfterExit(() => panelNode);
 
 	$effect(() => {
-		if (!open) return;
-		settleFrame.request(() => {
-			transitionStatus = undefined;
-		});
-		return () => settleFrame.cancel();
-	});
-
-	$effect(() => {
-		const element = panelNode;
-		const isOpen = open;
-		const isMounted = mounted;
-		if (isOpen || !element || !isMounted) return;
-
-		const abort = new AbortController();
-		runOnceAnimationsFinish(
-			element,
-			() => {
-				if (!open) mounted = false;
-			},
-			abort.signal,
-			false
-		);
-		return () => abort.abort();
-	});
-
-	$effect(() => {
-		const hiddenNow = !mounted;
+		const hiddenNow = !transition.mounted;
 		if (hiddenNow && !keepMounted) return;
 		return tabs.registerPanel(value, panelId);
 	});
 
-	const hidden = $derived(!mounted);
-	const shouldRender = $derived(keepMounted || mounted);
+	const hidden = $derived(!transition.mounted);
+	const shouldRender = $derived(keepMounted || transition.mounted);
 	const tabId = $derived(tabs.tabIdFor(value));
 	const index = $derived(tabs.panelIndex(panelNode));
 
@@ -101,7 +58,7 @@
 		hidden,
 		orientation: tabs.orientation,
 		tabActivationDirection: tabs.tabActivationDirection,
-		transitionStatus
+		transitionStatus: transition.transitionStatus
 	});
 
 	const hostProps: HTMLAttributes<HTMLDivElement> & Record<symbol, Attachment<HTMLElement>> =

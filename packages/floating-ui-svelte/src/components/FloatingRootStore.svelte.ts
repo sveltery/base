@@ -21,7 +21,7 @@ export interface OpenChangePayload {
 	triggerElement: Element | undefined;
 }
 
-export type FloatingTransitionStatus = 'starting' | 'ending' | undefined;
+export type FloatingTransitionStatus = 'starting' | 'ending' | 'idle' | undefined;
 
 export class FloatingRootStore {
 	/** Every trigger that can open this popup, by id. */

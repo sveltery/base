@@ -1,5 +1,8 @@
 // Derived from Base UI v1.8.0 packages/react/src/internals/getStateAttributesProps.ts
+// and packages/react/src/internals/stateAttributesMapping.ts
 // (commit 47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c). MIT, see THIRD_PARTY_NOTICES.md.
+
+import type { TransitionStatusValue } from './useTransitionStatus.svelte.js';
 
 export type StateAttributesMapping<State> = {
 	[Property in keyof State]?: (value: State[Property]) => Record<string, string> | null;
@@ -31,3 +34,13 @@ export function getStateAttributesProps<State extends object>(
 
 	return props;
 }
+
+export const transitionStatusMapping: StateAttributesMapping<{
+	transitionStatus: TransitionStatusValue;
+}> = {
+	transitionStatus(value): Record<string, string> | null {
+		if (value === 'starting') return { 'data-starting-style': '' };
+		if (value === 'ending') return { 'data-ending-style': '' };
+		return null;
+	}
+};

@@ -1,30 +1,25 @@
 // Derived from Base UI v1.8.0 packages/react/src/collapsible/root/CollapsibleRootContext.ts
-// and packages/react/src/internals/useTransitionStatus.ts
+// and packages/react/src/collapsible/root/useCollapsibleRoot.ts
 // (commit 47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c). MIT, see THIRD_PARTY_NOTICES.md.
-//
-// `useTransitionStatus(open, true, true)`: idle between starting and ending, and the
-// ending phase waits one frame so the panel can measure before closed styles apply.
 
 import { getContext, setContext, untrack } from 'svelte';
-import { useAnimationFrame, createChangeEventDetails, REASONS } from '@sveltery/utils';
+import { createChangeEventDetails, REASONS } from '@sveltery/utils';
+import { TransitionStatus } from '../internal/useTransitionStatus.svelte.js';
 import type {
 	CollapsibleRootChangeEventDetails,
 	CollapsibleRootChangeEventReason,
-	CollapsibleRootState,
-	TransitionStatus
+	CollapsibleRootState
 } from './types.js';
 
 const COLLAPSABLE_ROOT_CONTEXT = Symbol('collapsible-root');
 
 export class CollapsibleRoot {
-	mounted = $state(false);
-	transitionStatus = $state<TransitionStatus>(undefined);
 	/** `undefined` keeps the generated id. `null` means the panel unmounted. */
 	registeredPanelId = $state<string | null | undefined>(undefined);
 
 	readonly readOpen: () => boolean;
-	private readonly endingFrame = useAnimationFrame();
-	private readonly idleFrame = useAnimationFrame();
+	// The ending phase waits one frame so the panel can measure before closed styles apply.
+	private readonly transition: TransitionStatus;
 	readonly writeOpen: (open: boolean, details: CollapsibleRootChangeEventDetails) => void;
 	readonly readDisabled: () => boolean;
 	readonly onOpenChange:
@@ -44,50 +39,18 @@ export class CollapsibleRoot {
 		this.readDisabled = readDisabled;
 		this.onOpenChange = onOpenChange;
 		this.defaultPanelId = defaultPanelId;
-
-		const initiallyOpen = readOpen();
-		this.mounted = initiallyOpen;
-		this.transitionStatus = initiallyOpen ? 'idle' : undefined;
-
-		// Same-flush phase changes land before the DOM update, matching the
-		// setState-during-render path that puts `data-starting-style` on the first open frame.
-		$effect.pre(() => {
-			const open = this.readOpen();
-			if (open && !this.mounted) {
-				this.mounted = true;
-				this.transitionStatus = 'starting';
-			} else if (open && this.mounted && this.transitionStatus === 'ending') {
-				this.transitionStatus = 'starting';
-			}
-			if (!open && !this.mounted && this.transitionStatus === 'ending') {
-				this.transitionStatus = undefined;
-			}
+		this.transition = new TransitionStatus(readOpen, {
+			enableIdleState: true,
+			deferEndingState: true
 		});
+	}
 
-		// Ending waits a frame so the panel measures the expanded size first.
-		$effect(() => {
-			const open = this.readOpen();
-			const mounted = this.mounted;
-			const status = this.transitionStatus;
-			if (open || !mounted || status === 'ending') return;
-			this.endingFrame.request(() => {
-				this.transitionStatus = 'ending';
-			});
-			return () => this.endingFrame.cancel();
-		});
+	get mounted(): boolean {
+		return this.transition.mounted;
+	}
 
-		// Starting settles to idle on the next frame so CSS can see both styles.
-		$effect(() => {
-			const open = this.readOpen();
-			if (!open) return;
-			if (this.mounted && this.transitionStatus !== 'idle') {
-				this.transitionStatus = 'starting';
-			}
-			this.idleFrame.request(() => {
-				this.transitionStatus = 'idle';
-			});
-			return () => this.idleFrame.cancel();
-		});
+	get transitionStatus() {
+		return this.transition.transitionStatus;
 	}
 
 	get open(): boolean {
@@ -124,7 +87,7 @@ export class CollapsibleRoot {
 	}
 
 	setMounted(next: boolean) {
-		this.mounted = next;
+		this.transition.setMounted(next);
 	}
 
 	/**

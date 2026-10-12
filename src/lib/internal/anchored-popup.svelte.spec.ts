@@ -225,6 +225,19 @@ describe('anchored popup', () => {
 		expect(positioner.element().style.getPropertyValue('--available-width')).toMatch(/px$/);
 		expect(positioner.element().style.getPropertyValue('--available-height')).toMatch(/px$/);
 	});
+
+	it('drops data-ending-style when it reopens during the exit animation', async () => {
+		render(AnchoredPopupHarness, { scenario: 'closing' });
+		const trigger = page.getByRole('button', { name: 'Open' });
+		const popup = page.getByTestId('popup');
+		await trigger.click();
+		await expect.element(popup).toHaveAttribute('data-open', '');
+		await trigger.click();
+		await expect.element(popup).toHaveAttribute('data-ending-style', '');
+		await trigger.click();
+		await expect.element(popup).toHaveAttribute('data-open', '');
+		await expect.poll(() => popup.element().getAttribute('data-ending-style')).toBe(null);
+	});
 });
 
 describe('safe polygon', () => {

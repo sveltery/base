@@ -3,7 +3,7 @@ import type { Snippet } from 'svelte';
 import type { HTMLAttributes, HTMLButtonAttributes } from 'svelte/elements';
 import type { BaseUIChangeEventDetails, REASONS } from '@sveltery/utils';
 import type { PortalProps } from '../internal/portal-props.js';
-import type { PopupTransitionStatus } from '../internal/useTransitionStatus.svelte.js';
+import type { TransitionStatusValue } from '../internal/useTransitionStatus.svelte.js';
 import type { DialogHandle } from './handle.svelte.js';
 import type { RenderChildren } from '../internal/render-children.js';
 
@@ -47,7 +47,7 @@ export interface DialogPopupState {
 	/** Whether the dialog is currently open. */
 	open: boolean;
 	/** Open/close motion phase. */
-	transitionStatus: PopupTransitionStatus;
+	transitionStatus: TransitionStatusValue;
 	/** Whether this dialog is nested inside a parent dialog. */
 	nested: boolean;
 	/** Whether a dialog nested inside this one is open. */
@@ -56,7 +56,7 @@ export interface DialogPopupState {
 
 export interface DialogBackdropState {
 	open: boolean;
-	transitionStatus: PopupTransitionStatus;
+	transitionStatus: TransitionStatusValue;
 }
 
 export interface DialogCloseState {
