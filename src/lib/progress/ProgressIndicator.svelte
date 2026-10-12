@@ -6,7 +6,6 @@
 -->
 <script lang="ts">
 	import type { HTMLAttributes } from 'svelte/elements';
-	import PartHost from '../internal/PartHost.svelte';
 	import { getStateAttributesProps } from '../internal/state-attributes.js';
 	import { mergeCssStyle, toCssStyle } from '../internal/css-style.js';
 	import { useProgressRootContext } from './ProgressRootContext.svelte.js';
@@ -40,4 +39,8 @@
 	});
 </script>
 
-<PartHost tag="div" {render} {children} elementProps={hostProps} partState={state} />
+{#if render}
+	{@render render(hostProps, state, children)}
+{:else}
+	<div {...hostProps}>{@render children?.()}</div>
+{/if}

@@ -6,7 +6,6 @@
 <script lang="ts">
 	import { createAttachmentKey } from 'svelte/attachments';
 	import { ButtonBehavior } from '../internal/button.svelte.js';
-	import PartHost from '../internal/PartHost.svelte';
 	import { createChangeEventDetails, REASONS } from '@sveltery/utils';
 	import { mergeProps } from '../internal/mergeProps.js';
 	import { useCloseParts, usePopoverRoot } from './context.svelte.js';
@@ -48,4 +47,8 @@
 	const state: PopoverCloseState = {};
 </script>
 
-<PartHost tag="button" {render} {children} elementProps={hostProps} partState={state} />
+{#if render}
+	{@render render(hostProps, state, children)}
+{:else}
+	<button {...hostProps}>{@render children?.()}</button>
+{/if}

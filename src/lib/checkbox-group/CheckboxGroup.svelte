@@ -9,7 +9,6 @@
 <script lang="ts">
 	import type { HTMLAttributes } from 'svelte/elements';
 	import { setCheckboxGroupContext } from '../checkbox/group-context.js';
-	import GroupFrame from '../internal/GroupFrame.svelte';
 	import { getStateAttributesProps } from '../internal/state-attributes.js';
 	import { CheckboxGroupParent } from './parent.svelte.js';
 	import type {
@@ -77,4 +76,8 @@
 	});
 </script>
 
-<GroupFrame {hostProps} state={groupState} {render} {children} />
+{#if render}
+	{@render render(hostProps, groupState, children)}
+{:else}
+	<div {...hostProps}>{@render children?.()}</div>
+{/if}

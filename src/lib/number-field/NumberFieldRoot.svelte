@@ -12,7 +12,6 @@
 	import { useFieldContext } from '../field/context.svelte.js';
 	import { useLabelableContext } from '../field/labelable.svelte.js';
 	import { useValueChanged } from '../internal/useValueChanged.svelte.js';
-	import PartHost from '../internal/PartHost.svelte';
 	import { getStateAttributesProps } from '../internal/state-attributes.js';
 	import { visuallyHidden, visuallyHiddenInput } from '@sveltery/utils';
 	import { numberFieldStateAttributes } from './attributes.js';
@@ -170,7 +169,11 @@
 	}
 </script>
 
-<PartHost tag="div" {render} {children} elementProps={hostProps} partState={rootState} />
+{#if render}
+	{@render render(hostProps, rootState, children)}
+{:else}
+	<div {...hostProps}>{@render children?.()}</div>
+{/if}
 <input
 	type="number"
 	form={formId}

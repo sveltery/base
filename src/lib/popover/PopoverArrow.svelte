@@ -5,7 +5,6 @@
 -->
 <script lang="ts">
 	import { createAttachmentKey } from 'svelte/attachments';
-	import PartHost from '../internal/PartHost.svelte';
 	import { toCssStyle } from '../internal/css-style.js';
 	import { mergeProps } from '../internal/mergeProps.js';
 	import { popupStateMapping } from '../internal/popups/index.js';
@@ -43,4 +42,8 @@
 	);
 </script>
 
-<PartHost tag="div" {render} {children} elementProps={hostProps} partState={state} />
+{#if render}
+	{@render render(hostProps, state, children)}
+{:else}
+	<div {...hostProps}>{@render children?.()}</div>
+{/if}

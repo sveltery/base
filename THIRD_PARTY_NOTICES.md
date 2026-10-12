@@ -183,7 +183,6 @@ Parts of this package derive from [Base UI](https://github.com/mui/base-ui) v1.8
 - `src/lib/internal/button.svelte.ts` from `packages/react/src/internals/use-button/useButton.ts` and `packages/react/src/utils/useFocusableWhenDisabled.ts`
 - `src/lib/internal/document-order.ts` from the composite list DOM-order comparison
 - `src/lib/internal/roving-slot.ts` and `src/lib/internal/composite-items.svelte.ts` from the render-order index in `packages/react/src/internals/composite/list/useCompositeListItem.ts` and `CompositeList.tsx` (`RenderOrder`, `CompositeItems`, `includeSorted`)
-- `src/lib/internal/GroupFrame.svelte` from the host markup of `packages/react/src/checkbox-group/CheckboxGroup.tsx` and `packages/react/src/radio-group/RadioGroup.tsx`
 - `src/lib/toolbar/item-registration.svelte.ts` from the item ref in `packages/react/src/internals/composite/item/useCompositeItem.ts`
 - `src/lib/scroll-area/track-style.ts` and `src/lib/scroll-area/scrollbar-part.svelte.ts` from the scrollbar geometry in `packages/react/src/scroll-area/scrollbar/ScrollAreaScrollbar.tsx`
 - `src/lib/internal/roving-keys.ts` from the arrow-key helpers in `packages/react/src/internals/composite/root/useCompositeRoot.ts` (`modifierHeld`, `axisKeys`)

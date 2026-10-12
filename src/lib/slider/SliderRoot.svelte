@@ -16,7 +16,6 @@
 	import { clamp } from '../internal/clamp.js';
 	import { watchFieldControl } from '../internal/field-register-control.svelte.js';
 	import { useValueChanged } from '../internal/useValueChanged.svelte.js';
-	import PartHost from '../internal/PartHost.svelte';
 	import { useDirection } from '../internal/direction-context.js';
 	import { getStateAttributesProps } from '../internal/state-attributes.js';
 	import { asc } from './asc.js';
@@ -178,4 +177,8 @@
 		});
 </script>
 
-<PartHost tag="div" {render} {children} elementProps={hostProps} {partState} />
+{#if render}
+	{@render render(hostProps, partState, children)}
+{:else}
+	<div {...hostProps}>{@render children?.()}</div>
+{/if}

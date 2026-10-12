@@ -8,7 +8,6 @@
 <script lang="ts">
 	import type { Attachment } from 'svelte/attachments';
 	import type { HTMLAttributes } from 'svelte/elements';
-	import GroupFrame from '../internal/GroupFrame.svelte';
 	import { CompositeRoot } from '../internal/composite-root.svelte.js';
 	import { isSkipped } from '../internal/composite-skip.js';
 	import { getStateAttributesProps } from '../internal/state-attributes.js';
@@ -163,4 +162,8 @@
 		});
 </script>
 
-<GroupFrame {hostProps} state={groupState} {render} {children} />
+{#if render}
+	{@render render(hostProps, groupState, children)}
+{:else}
+	<div {...hostProps}>{@render children?.()}</div>
+{/if}

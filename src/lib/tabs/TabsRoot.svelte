@@ -5,7 +5,6 @@
 -->
 <script lang="ts">
 	import type { HTMLAttributes } from 'svelte/elements';
-	import PartHost from '../internal/PartHost.svelte';
 	import { WrittenReference } from '../internal/written-reference.svelte.js';
 	import { getStateAttributesProps } from '../internal/state-attributes.js';
 	import { tabsStateAttributesMapping } from './attributes.js';
@@ -46,4 +45,8 @@
 	});
 </script>
 
-<PartHost tag="div" {render} {children} elementProps={hostProps} partState={state} />
+{#if render}
+	{@render render(hostProps, state, children)}
+{:else}
+	<div {...hostProps}>{@render children?.()}</div>
+{/if}

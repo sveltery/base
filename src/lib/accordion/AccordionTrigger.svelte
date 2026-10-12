@@ -5,7 +5,6 @@
 -->
 <script lang="ts">
 	import { ButtonBehavior } from '../internal/button.svelte.js';
-	import PartHost from '../internal/PartHost.svelte';
 	import { getStateAttributesProps } from '../internal/state-attributes.js';
 	import { triggerOpenStateMapping } from '../collapsible/attributes.js';
 	import { useCollapsibleRootContext } from '../collapsible/context.svelte.js';
@@ -57,4 +56,8 @@
 	);
 </script>
 
-<PartHost tag="button" {render} {children} elementProps={hostProps} partState={state} />
+{#if render}
+	{@render render(hostProps, state, children)}
+{:else}
+	<button {...hostProps}>{@render children?.()}</button>
+{/if}
