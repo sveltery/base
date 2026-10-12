@@ -201,14 +201,14 @@ Behavior each ported component does not cover yet. Overlay foundation is interna
 | Switch             | Field and Form integration, `inputRef`                                                                 |
 | Radio              | Field, `inputRef`                                                                                      |
 | RadioGroup         | `data-touched`, `inputRef`, scroll-into-view, text-field arrow exceptions                              |
-| Tabs               | Pre-hydration indicator script, scroll-into-view, shadow-boundary offsets, refs                        |
+| Tabs               | `renderBeforeHydration` script (accepted, ignored), scroll-into-view, shadow-boundary offsets, refs    |
 | Toolbar            | Input, Separator, text-field arrow exceptions, scroll-into-view, ToggleGroup nesting, overlay triggers |
 | NumberField        | refs, `inputRef`                                                                                       |
 | ScrollArea         | refs                                                                                                   |
-| Slider             | refs, `inputRef`                                                                                       |
+| Slider             | refs, `inputRef`, keeping the prehydration script body out of client bundles                           |
 | DirectionProvider  | CSS `direction` on an element, without `DirectionProvider`                                             |
 | OTPField           | refs, `inputRef`, React controlled lock                                                                |
-| CSPProvider        | Select and Tabs render no inline style or prehydration script. Slider script has no CSP nonce          |
+| CSPProvider        | Select renders no inline style. Tabs.Indicator renders no prehydration script                          |
 | Overlay foundation | Internal only. No public component                                                                     |
 | Popover            | `actionsRef`, Menu and Combobox nesting, shadow-root outside press, refs                               |
 | Dialog             | Alert Dialog, Drawer, ref objects                                                                      |
