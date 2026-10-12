@@ -20,6 +20,7 @@ import {
 } from '@sveltery/utils';
 import { clamp } from '../internal/clamp.js';
 import { ElementList } from '../internal/element-list.svelte.js';
+import { queueValueEvent } from '../internal/value-events.js';
 import type { FieldContext } from '../field/model.svelte.js';
 import type { FormContextValue } from '../form/context.js';
 import { asc } from './asc.js';
@@ -165,6 +166,8 @@ export class SliderRootModel {
 	control = $state<HTMLElement | null>(null);
 	root = $state<HTMLElement | null>(null);
 	fieldInput = $state<HTMLInputElement | null>(null);
+	/** The thumb input the last change wrote, which fires the commit's `change`. */
+	private changedInput: HTMLInputElement | null = null;
 	readonly thumbList = new ElementList<HTMLElement, SliderThumbRecord>();
 	readonly thumbs: SliderThumbRecord[] = $derived(
 		this.thumbList.elements.flatMap((element) => this.thumbList.meta(element) ?? [])
@@ -341,6 +344,11 @@ export class SliderRootModel {
 
 		this.lastChangeReason = details.reason;
 		this.options.writeValue(newValue);
+		// A change from the range input itself already fired its own events.
+		if (details.reason !== REASONS.inputChange) {
+			this.changedInput = this.thumbInput(this.thumbElementAt(details.activeThumbIndex));
+			queueValueEvent(this.changedInput, 'input');
+		}
 		return true;
 	}
 
@@ -359,6 +367,7 @@ export class SliderRootModel {
 		this.options.getField().setTouched(true);
 		if (applied) {
 			this.options.getOnValueCommitted()?.(newValue, createGenericEventDetails(reason, event));
+			if (reason !== REASONS.inputChange) queueValueEvent(this.changedInput, 'change');
 		}
 	}
 
@@ -764,6 +773,7 @@ export class SliderRootModel {
 				this.currentInteractionValue,
 				createGenericEventDetails(this.lastChangeReason, nativeEvent)
 			);
+			queueValueEvent(this.changedInput, 'change');
 		}
 
 		const control = this.control;

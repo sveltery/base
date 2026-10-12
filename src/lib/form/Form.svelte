@@ -6,6 +6,7 @@
 -->
 <script lang="ts" generics="FormValues extends Record<string, unknown> = Record<string, unknown>">
 	import { createAttachmentKey } from 'svelte/attachments';
+	import { on } from 'svelte/events';
 	import type { HTMLFormAttributes } from 'svelte/elements';
 	import { createGenericEventDetails, REASONS } from '@sveltery/utils';
 	import { setFormContext, type FormContextValue } from './context.js';
@@ -33,9 +34,11 @@
 	const formState: FormState = {};
 	const emptyErrors: FormErrors = {};
 	const attachmentKey = createAttachmentKey();
+	const noValidateKey = createAttachmentKey();
 
 	function rememberForm(node: HTMLFormElement) {
 		element = node;
+		const stopGate = on(node, 'submit', gateSubmit, { capture: true });
 		// A reset starts the form over: no external errors and no submit yet.
 		const stopReset = onFormReset(node, 'settle', () => {
 			submitCount = 0;
@@ -43,9 +46,15 @@
 			if (errors && Object.keys(errors).length > 0) errors = {};
 		});
 		return () => {
+			stopGate();
 			stopReset();
 			if (element === node) element = null;
 		};
+	}
+
+	// Applied once the form is live. A page without JavaScript keeps native validation.
+	function applyNoValidate(node: HTMLFormElement) {
+		node.noValidate = novalidate;
 	}
 
 	function focusFirstInvalid(formErrors: FormErrors = emptyErrors) {
@@ -96,7 +105,11 @@
 		errors = nextErrors;
 	}
 
-	function handleSubmit(event: SubmitEvent & { currentTarget: EventTarget & HTMLFormElement }) {
+	// Capture phase, so an invalid submit stops before any later `submit` listener on the form,
+	// such as SvelteKit's `enhance`, which does not check `defaultPrevented`.
+	function gateSubmit(event: SubmitEvent) {
+		// `formnovalidate` on the submitter skips validation, as it does for a native form.
+		if (event.submitter?.hasAttribute('formnovalidate')) return;
 		submitCount += 1;
 
 		// Async validation is not awaited, so it cannot stop this submit.
@@ -106,9 +119,11 @@
 
 		if (focusFirstInvalid()) {
 			event.preventDefault();
-			return;
+			event.stopImmediatePropagation();
 		}
+	}
 
+	function handleSubmit(event: SubmitEvent & { currentTarget: EventTarget & HTMLFormElement }) {
 		submitted = true;
 		onsubmit?.(event);
 
@@ -153,9 +168,9 @@
 
 	const hostProps: HTMLFormAttributes = $derived({
 		...elementProps,
-		novalidate,
 		onsubmit: handleSubmit,
-		[attachmentKey]: rememberForm
+		[attachmentKey]: rememberForm,
+		[noValidateKey]: applyNoValidate
 	});
 </script>
 

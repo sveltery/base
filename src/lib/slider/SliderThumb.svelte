@@ -18,6 +18,7 @@
 	import { sliderStateAttributes } from './attributes.js';
 	import { useSliderContext } from './context.svelte.js';
 	import { prehydrationScript } from './prehydration.js';
+	import { isQueuedValueEvent } from '../internal/value-events.js';
 	import { mergeCssStyle, toCssStyle } from '../internal/css-style.js';
 	import type { SliderRootState, SliderThumbProps } from './types.js';
 
@@ -202,6 +203,7 @@
 	);
 
 	function handleInput(event: Event & { currentTarget: EventTarget & HTMLInputElement }) {
+		if (isQueuedValueEvent(event)) return;
 		model.handleInputChange(event.currentTarget.valueAsNumber, index, event);
 	}
 

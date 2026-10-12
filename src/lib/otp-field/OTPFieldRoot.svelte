@@ -15,6 +15,7 @@
 	import { useFormContext } from '../form/context.js';
 	import { useValueChanged } from '../internal/useValueChanged.svelte.js';
 	import { restoreOnReset } from '../internal/form-reset.svelte.js';
+	import { isQueuedValueEvent } from '../internal/value-events.js';
 	import { watchFieldControl } from '../internal/field-register-control.svelte.js';
 	import { getStateAttributesProps } from '../internal/state-attributes.js';
 	import { visuallyHidden, visuallyHiddenInput, warn } from '@sveltery/utils';
@@ -175,7 +176,7 @@
 	}
 
 	function hiddenEdited(event: Event & { currentTarget: EventTarget & HTMLInputElement }) {
-		model.handleHiddenInput(event);
+		if (!isQueuedValueEvent(event)) model.handleHiddenInput(event);
 	}
 </script>
 

@@ -17,6 +17,7 @@ import {
 } from '@sveltery/utils';
 import { findAssociatedLabel } from '../internal/associated-label.js';
 import { getOTPValidationConfig, normalizeOTPValue, normalizeOTPValueWithDetails } from './otp.js';
+import { queueValueEvent } from '../internal/value-events.js';
 import { ElementList } from '../internal/element-list.svelte.js';
 import type {
 	OTPFieldChangeEventDetails,
@@ -57,6 +58,7 @@ export class OTPFieldModel {
 	readonly slots = new ElementList<HTMLInputElement>();
 	root = $state<HTMLDivElement | null>(null);
 	hiddenInput = $state<HTMLInputElement | null>(null);
+	private changeEventDue = false;
 	focused = $state(false);
 	focusedIndex = $state(0);
 	fallbackLabelId = $state<string | undefined>(undefined);
@@ -279,6 +281,11 @@ export class OTPFieldModel {
 		}
 
 		this.options.writeValue(normalizedValue);
+		// Autofill writes the hidden input itself, which already fired its events.
+		if (details.event.target !== this.hiddenInput) {
+			this.changeEventDue = true;
+			queueValueEvent(this.hiddenInput, 'input');
+		}
 		return normalizedValue;
 	}
 
@@ -329,6 +336,9 @@ export class OTPFieldModel {
 		this.field.setTouched(true);
 		this.focused = false;
 		this.field.setFocused(false);
+		// A text input fires `change` when it loses focus after an edit.
+		if (this.changeEventDue) queueValueEvent(this.hiddenInput, 'change');
+		this.changeEventDue = false;
 
 		if (this.field.validationMode === 'onBlur') {
 			this.field.commit(this.value);

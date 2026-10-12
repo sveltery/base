@@ -13,6 +13,7 @@
 	import { LabelableId, findLabelableContext } from '../field/labelable.svelte.js';
 	import { useValueChanged } from '../internal/useValueChanged.svelte.js';
 	import { restoreOnReset } from '../internal/form-reset.svelte.js';
+	import { isQueuedValueEvent } from '../internal/value-events.js';
 	import { getStateAttributesProps } from '../internal/state-attributes.js';
 	import { visuallyHidden, visuallyHiddenInput } from '@sveltery/utils';
 	import { numberFieldStateAttributes } from './attributes.js';
@@ -136,9 +137,8 @@
 		...getStateAttributesProps(rootState, numberFieldStateAttributes)
 	});
 
-	let hiddenInput = $state<HTMLInputElement | null>(null);
 	restoreOnReset(
-		() => hiddenInput,
+		() => model.hiddenInput,
 		() => {
 			model.followInputValue();
 			writeValue(defaultValue);
@@ -146,7 +146,7 @@
 	);
 	// The shown text has no default of its own to reset to when the value did not change.
 	restoreOnReset(
-		() => hiddenInput,
+		() => model.hiddenInput,
 		() => {
 			const input = model.inputElement;
 			if (input && input.value !== model.inputValue) input.value = model.inputValue;
@@ -155,6 +155,7 @@
 	);
 
 	function hiddenChanged(event: Event & { currentTarget: EventTarget & HTMLInputElement }) {
+		if (isQueuedValueEvent(event)) return;
 		const next = model.handleHiddenChange(event);
 		if (next === false) return;
 		form.clearErrors(name);
@@ -171,7 +172,7 @@
 	<div {...hostProps}>{@render children?.()}</div>
 {/if}
 <input
-	bind:this={hiddenInput}
+	bind:this={model.hiddenInput}
 	type="number"
 	form={formId}
 	{name}

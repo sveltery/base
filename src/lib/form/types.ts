@@ -88,7 +88,8 @@ export interface FormProps<
 	onFormSubmit?: (formValues: FormValues, eventDetails: FormSubmitEventDetails) => void;
 	/**
 	 * When true (the default), the browser's built-in constraint validation is off.
-	 * Registered fields still validate through the form.
+	 * Registered fields still validate through the form. It is set once the form is
+	 * hydrated, so a page that has not loaded JavaScript keeps the browser's validation.
 	 * @default true
 	 */
 	novalidate?: boolean;
