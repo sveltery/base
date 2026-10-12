@@ -5,10 +5,9 @@
 -->
 <script lang="ts">
 	import { createAttachmentKey } from 'svelte/attachments';
-	import PartHost from '../internal/PartHost.svelte';
+	import { ButtonBehavior } from '../internal/button.svelte.js';
 	import { createChangeEventDetails, REASONS } from '@sveltery/utils';
 	import { mergeProps } from '../internal/mergeProps.js';
-	import { useButton } from '../internal/useButton.js';
 	import { useCloseParts, usePopoverRoot } from './context.svelte.js';
 	import type { PopoverCloseProps, PopoverCloseState } from './types.js';
 
@@ -23,6 +22,7 @@
 	const store = usePopoverRoot();
 	const parts = useCloseParts();
 	const bindKey = createAttachmentKey();
+	const button = new ButtonBehavior(() => ({ disabled, native: nativeButton }));
 
 	function register() {
 		return parts?.register();
@@ -32,9 +32,7 @@
 		mergeProps(
 			{ [bindKey]: register },
 			disabled ? { 'data-disabled': '' } : {},
-			useButton(
-				disabled,
-				nativeButton,
+			button.props(
 				mergeProps(
 					{
 						onclick(event: MouseEvent) {
@@ -49,4 +47,8 @@
 	const state: PopoverCloseState = {};
 </script>
 
-<PartHost tag="button" {render} {children} elementProps={hostProps} partState={state} />
+{#if render}
+	{@render render(hostProps, state, children)}
+{:else}
+	<button {...hostProps}>{@render children?.()}</button>
+{/if}

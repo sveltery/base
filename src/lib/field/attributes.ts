@@ -24,23 +24,10 @@ export const startingStyle = 'data-starting-style';
 /** Present when the error is animating out. */
 export const endingStyle = 'data-ending-style';
 
-const STARTING_HOOK = { [startingStyle]: '' };
-const ENDING_HOOK = { [endingStyle]: '' };
-
 export const fieldValidityMapping: StateAttributesMapping<FieldRootState> = {
 	valid(value): Record<string, string> | null {
 		if (value === null) return null;
 		if (value) return { [valid]: '' };
 		return { [invalid]: '' };
-	}
-};
-
-export const transitionStatusMapping: StateAttributesMapping<{
-	transitionStatus: 'starting' | 'ending' | 'idle' | undefined;
-}> = {
-	transitionStatus(value) {
-		if (value === 'starting') return STARTING_HOOK;
-		if (value === 'ending') return ENDING_HOOK;
-		return null;
 	}
 };

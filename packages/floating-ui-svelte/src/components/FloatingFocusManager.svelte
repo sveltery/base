@@ -15,8 +15,8 @@
 		activeElement,
 		contains,
 		getTarget,
-		useAnimationFrame,
-		useTimeout,
+		ScopedAnimationFrame,
+		ScopedTimeout,
 		type OpenInteractionType
 	} from '@sveltery/utils';
 	import type { FloatingRootStore, OpenChangePayload } from './FloatingRootStore.svelte.js';
@@ -72,9 +72,9 @@
 	const tree = useFloatingTree();
 	const portaled = hasFloatingPortal();
 	const portal = useFloatingPortal();
-	const pointerDownTimeout = useTimeout();
-	const restoreFrame = useAnimationFrame();
-	const bodyReturnFrame = useAnimationFrame();
+	const pointerDownTimeout = new ScopedTimeout();
+	const restoreFrame = new ScopedAnimationFrame();
+	const bodyReturnFrame = new ScopedAnimationFrame();
 	let suppressFocusOut = false;
 	/** Trigger (or the element focused before open). Not refreshed after focus moves inside. */
 	let returnTarget: HTMLElement | null = null;
@@ -500,7 +500,7 @@
 			reference instanceof HTMLElement ? on(reference, 'focusout', handleFocusOutside) : () => {};
 		const stopFloatingFocus = on(floating, 'focusout', handleFocusOutside);
 
-		store.events.on('openchange', noteClose);
+		const stopOpenChange = store.events.on('openchange', noteClose);
 
 		const stopRestore = on(floating, 'focusout', (event) => {
 			if (!restoreFocus) return;
@@ -527,7 +527,7 @@
 			stopRestore();
 			pointerDownTimeout.clear();
 			restoreFrame.cancel();
-			store.events.off('openchange', noteClose);
+			stopOpenChange();
 			const endedBy = closeType;
 			restoreReturnFocus(endedBy);
 		};

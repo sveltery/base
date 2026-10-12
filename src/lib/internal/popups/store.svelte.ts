@@ -8,7 +8,7 @@ import { untrack } from 'svelte';
 import type { BaseUIChangeEventDetails } from '@sveltery/utils';
 import { FloatingRootStore } from '@sveltery/floating-ui-svelte';
 import { useOpenChangeComplete } from '../useOpenChangeComplete.svelte.js';
-import { PopupTransition, type PopupTransitionStatus } from '../useTransitionStatus.svelte.js';
+import { TransitionStatus, type TransitionStatusValue } from '../useTransitionStatus.svelte.js';
 import { attachPreventUnmountOnClose, createPopupOpenState } from './popupStoreUtils.js';
 
 export type PopupChangeEventDetails<Reason extends string> = BaseUIChangeEventDetails<Reason> & {
@@ -28,13 +28,12 @@ export interface PopupStoreOptions<Reason extends string> {
 }
 
 export class PopupStore<Reason extends string> extends FloatingRootStore {
-	triggerCount = $state(0);
 	preventUnmountingOnClose = $state(false);
 	private readonly readOpen: PopupStoreOptions<Reason>['readOpen'];
 	private readonly writeOpen: PopupStoreOptions<Reason>['writeOpen'];
 	private readonly readOnOpenChange: PopupStoreOptions<Reason>['onOpenChange'];
 	private readonly readOnOpenChangeComplete: PopupStoreOptions<Reason>['onOpenChangeComplete'];
-	private readonly transition: PopupTransition;
+	private readonly transition: TransitionStatus;
 
 	constructor(options: PopupStoreOptions<Reason>) {
 		super({
@@ -46,7 +45,9 @@ export class PopupStore<Reason extends string> extends FloatingRootStore {
 		this.writeOpen = options.writeOpen;
 		this.readOnOpenChange = options.onOpenChange;
 		this.readOnOpenChangeComplete = options.onOpenChangeComplete;
-		this.transition = new PopupTransition(() => this.open, options.animateInitialOpen ?? false);
+		this.transition = new TransitionStatus(() => this.open, {
+			animateInitialOpen: options.animateInitialOpen
+		});
 
 		useOpenChangeComplete(() => ({
 			enabled: this.mounted && !this.open && !this.preventUnmountingOnClose,
@@ -63,11 +64,15 @@ export class PopupStore<Reason extends string> extends FloatingRootStore {
 		return this.readOpen() === true;
 	}
 
+	get triggerCount() {
+		return this.triggers.size;
+	}
+
 	get mounted() {
 		return this.transition.mounted;
 	}
 
-	override get transitionStatus(): PopupTransitionStatus {
+	override get transitionStatus(): TransitionStatusValue {
 		return this.transition.transitionStatus;
 	}
 

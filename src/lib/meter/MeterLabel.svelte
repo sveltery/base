@@ -7,7 +7,6 @@
 -->
 <script lang="ts">
 	import type { HTMLAttributes } from 'svelte/elements';
-	import PartHost from '../internal/PartHost.svelte';
 	import { useMeterRootContext } from './context.js';
 	import type { MeterLabelProps, MeterLabelState } from './types.js';
 
@@ -39,4 +38,8 @@
 	});
 </script>
 
-<PartHost tag="span" {render} {children} elementProps={hostProps} {partState} />
+{#if render}
+	{@render render(hostProps, partState, children)}
+{:else}
+	<span {...hostProps}>{@render children?.()}</span>
+{/if}

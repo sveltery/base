@@ -3,7 +3,8 @@
 
 export interface FloatingEvents {
 	emit(event: string, data?: unknown): void;
-	on(event: string, listener: (data?: unknown) => void): void;
+	/** Returns the matching `off`. */
+	on(event: string, listener: (data?: unknown) => void): () => void;
 	off(event: string, listener: (data?: unknown) => void): void;
 }
 
@@ -17,6 +18,7 @@ export function createEventEmitter(): FloatingEvents {
 			const set = map.get(event) ?? new Set();
 			set.add(listener);
 			map.set(event, set);
+			return () => set.delete(listener);
 		},
 		off(event, listener) {
 			map.get(event)?.delete(listener);

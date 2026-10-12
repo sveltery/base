@@ -10,7 +10,7 @@
 	import type { Attachment } from 'svelte/attachments';
 	import type { HTMLAttributes, HTMLInputAttributes } from 'svelte/elements';
 	import { useFieldContext } from '../field/context.svelte.js';
-	import { useLabelableContext } from '../field/labelable.svelte.js';
+	import { findLabelableContext } from '../field/labelable.svelte.js';
 	import { formatNumber } from '../internal/formatNumber.js';
 	import { getStateAttributesProps } from '../internal/state-attributes.js';
 	import { valueToPercent } from '../internal/valueToPercent.js';
@@ -60,7 +60,7 @@
 
 	const model = useSliderContext();
 	const field = useFieldContext();
-	const labelable = useLabelableContext(true);
+	const labelable = findLabelableContext();
 
 	let thumbEl: HTMLDivElement | null = $state(null);
 	let inputEl: HTMLInputElement | null = $state(null);
@@ -92,14 +92,7 @@
 	$effect(() => {
 		const element = thumbEl;
 		if (!element) return;
-		model.trackElement(element);
-		return () => model.untrackElement(element);
-	});
-
-	$effect(() => {
-		const element = thumbEl;
-		if (!element || index < 0) return;
-		model.syncThumb(element, inputId, index);
+		return model.thumbList.register(element, () => ({ element, inputId, index }));
 	});
 
 	$effect(() => {
@@ -265,17 +258,14 @@
 	});
 
 	const hostProps: HTMLAttributes<HTMLDivElement> & Record<symbol, Attachment<HTMLDivElement>> =
-		$derived.by(() => {
-			const props: HTMLAttributes<HTMLDivElement> & Record<symbol, Attachment<HTMLDivElement>> = {
-				...elementProps,
-				...getStateAttributesProps(partState, sliderStateAttributes),
-				id: thumbId,
-				...(index >= 0 ? { 'data-index': String(index) } : {}),
-				style: mergeCssStyle(thumbStyle, style),
-				onpointerdown: handlePointerDown,
-				[elementKey]: remember
-			};
-			return props;
+		$derived({
+			...elementProps,
+			...getStateAttributesProps(partState, sliderStateAttributes),
+			id: thumbId,
+			...(index >= 0 ? { 'data-index': String(index) } : {}),
+			style: mergeCssStyle(thumbStyle, style),
+			onpointerdown: handlePointerDown,
+			[elementKey]: remember
 		});
 
 	const showScript = $derived(model.inset && model.renderBeforeHydration && last);
@@ -294,5 +284,5 @@
 {#if render}
 	{@render render(hostProps, partState, content)}
 {:else}
-	<div {...hostProps} bind:this={thumbEl}>{@render content()}</div>
+	<div {...hostProps}>{@render content()}</div>
 {/if}

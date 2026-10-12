@@ -6,7 +6,7 @@ import RadioGroupFixture from '../../routes/fixtures/radio-group/RadioGroupFixtu
 import ToggleGroupFixture from '../../routes/fixtures/toggle-group/ToggleGroupFixture.svelte';
 import ToolbarFixture from '../../routes/fixtures/toolbar/ToolbarFixture.svelte';
 import CompositeRootHarness from '../../tests/CompositeRootHarness.svelte';
-import { RenderOrder } from './roving-slot.js';
+import { RenderOrder } from './element-list.svelte.js';
 
 function hosts(body: string, marker: RegExp) {
 	return [...body.matchAll(marker)].map((match) => match[0].match(/tabindex="(-?\d+)"/)?.[1]);

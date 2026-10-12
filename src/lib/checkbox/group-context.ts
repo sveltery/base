@@ -2,8 +2,8 @@
 // packages/react/src/checkbox-group/CheckboxGroupContext.ts
 // (commit 47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c). MIT, see THIRD_PARTY_NOTICES.md.
 // CheckboxGroup sets this context. `parent` is present only when `allValues` is set.
-import { getContext, setContext } from 'svelte';
 import type { BaseUIChangeEventDetails, REASONS } from '@sveltery/utils';
+import { defineOptionalContext } from '../internal/context.js';
 
 export type CheckboxGroupChangeDetails = BaseUIChangeEventDetails<typeof REASONS.none>;
 
@@ -30,12 +30,6 @@ export interface CheckboxGroupContextValue {
 	setValue(value: string[], details: CheckboxGroupChangeDetails): void;
 }
 
-const CHECKBOX_GROUP = Symbol('checkbox-group');
-
-export function setCheckboxGroupContext(context: CheckboxGroupContextValue) {
-	setContext(CHECKBOX_GROUP, context);
-}
-
-export function useCheckboxGroupContext(): CheckboxGroupContextValue | undefined {
-	return getContext<CheckboxGroupContextValue>(CHECKBOX_GROUP);
-}
+export const [useCheckboxGroupContext, setCheckboxGroupContext] = defineOptionalContext<
+	CheckboxGroupContextValue | undefined
+>(undefined);

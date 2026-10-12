@@ -8,7 +8,7 @@
 	import type { HTMLAttributes } from 'svelte/elements';
 	import {
 		setFloatingTree,
-		useDismiss,
+		DismissInteraction,
 		useFloatingParentNodeId
 	} from '@sveltery/floating-ui-svelte';
 	import { setPopoverRoot } from './context.svelte.js';
@@ -51,7 +51,7 @@
 	});
 	setPopoverRoot(store);
 
-	const dismiss = useDismiss(store, () => ({
+	const dismiss = new DismissInteraction(store, () => ({
 		outsidePressEvent: () => ({
 			mouse: store.modal === 'trap-focus' ? 'sloppy' : 'intentional',
 			touch: 'sloppy'

@@ -26,28 +26,28 @@ Two ordering rules matter:
 
 ## Base UI hook and pattern map
 
-| React hook or pattern                                                                                      | Svelte replacement                                                                                                                                                       | What still needs code                                                                                                                                                                                          |
-| ---------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `useControlled`                                                                                            | `let { value = $bindable(initial) } = $props()`. No binding is uncontrolled, `bind:value` is two-way, `bind:value={get, set}` can reject a change.                       | The cancelable change callback. Build the event details, call `onValueChange(next, details)`, and write the value only if `!details.isCanceled`. A one-way `value={x}` lets the child drift until `x` changes. |
-| `useRenderElement` and the `render` prop                                                                   | A `render` snippet that receives the props to spread. `<svelte:element this={tag}>` for a tag-only swap.                                                                 | State to `data-*` mapping as a pure function. Drop tag-specific defaults such as `type="button"` when the rendered tag differs.                                                                                |
-| `className` and `style` as functions of state                                                              | Not needed. Style on `data-*` attributes. `class` accepts arrays and objects.                                                                                            | None.                                                                                                                                                                                                          |
-| `mergeProps`                                                                                               | A short function that chains `on*` handlers, joins `class` as an array and copies symbol keys so attachments survive.                                                    | Lowercase handler names only (`onclick`).                                                                                                                                                                      |
-| Refs, `useMergedRefs`                                                                                      | `bind:this` to read an element. `{@attach}` for behavior. Several attachments compose.                                                                                   | None.                                                                                                                                                                                                          |
-| `useStableCallback`, `useEventCallback`                                                                    | Not needed. Closures read current state through getters.                                                                                                                 | None.                                                                                                                                                                                                          |
-| `useValueAsRef`, latest refs                                                                               | `untrack(() => value)` in an effect, or read the value in an event handler.                                                                                              | None.                                                                                                                                                                                                          |
-| `useTimeout`, `useAnimationFrame`                                                                          | The framework-free `Timeout` and `AnimationFrame` classes, cleared from an `$effect` cleanup.                                                                            | None.                                                                                                                                                                                                          |
-| `useOnMount`, `useOnFirstRender`                                                                           | `onMount`, an `$effect` with no reactive reads, or the top of `<script>`.                                                                                                | None.                                                                                                                                                                                                          |
-| `useRefWithInit`, `useForcedRerendering`, `usePreviousValue`                                               | A class field or a script `const`. A forced re-render is not needed.                                                                                                     | None.                                                                                                                                                                                                          |
-| `useId`, `useBaseUiId`                                                                                     | `$props.id()`. Derive extra ids as `` `${id}-label` ``.                                                                                                                  | None.                                                                                                                                                                                                          |
-| `React.createContext`                                                                                      | `createContext<T>()` returns `[get, set, has]`. `get` throws when the context is missing, and `has` serves optional parents. Put a class instance in it, not a snapshot. | None.                                                                                                                                                                                                          |
-| `ReactStore`, `useStore`, selectors, `useSyncExternalStore`                                                | A class with `$state` fields and `$derived` getters. Selectors become getters.                                                                                           | None.                                                                                                                                                                                                          |
-| Portals                                                                                                    | A `Portal` component whose root element an attachment moves, or `mount()` with `getAllContexts()`.                                                                       | Focus guards and the `aria-owns` span are real behavior. Port them.                                                                                                                                            |
-| StrictMode double effects                                                                                  | Not applicable. Scripts and effects run once.                                                                                                                            | None.                                                                                                                                                                                                          |
-| Synthetic events                                                                                           | Native events.                                                                                                                                                           | Parts that stop propagation register with `on()` from `svelte/events`, never raw `addEventListener`.                                                                                                           |
-| Controlled inputs and form reset                                                                           | `bind:value` or `bind:checked` plus `defaultValue` or `defaultChecked`. Svelte restores bound state on `reset`.                                                          | Field state (touched, dirty, validity, errors) listens for the form's `reset` event and clears itself.                                                                                                         |
-| `createBaseUIEventDetails`                                                                                 | Port as is. It is framework-free.                                                                                                                                        | None.                                                                                                                                                                                                          |
-| `useScrollLock`, `useAnimationsFinished`, `useOpenChangeComplete`, `useButton`, `useFocusableWhenDisabled` | The same logic as classes.                                                                                                                                               | All of it. These carry real behavior.                                                                                                                                                                          |
-| `useTransitionStatus`                                                                                      | A `TransitionStatus` class. See [the worked example](#worked-example-transitionstatus).                                                                                  | None.                                                                                                                                                                                                          |
+| React hook or pattern                                                                                      | Svelte replacement                                                                                                                                                                                                                                                                        | What still needs code                                                                                                                                                                                          |
+| ---------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `useControlled`                                                                                            | `let { value = $bindable(initial) } = $props()`. No binding is uncontrolled, `bind:value` is two-way, `bind:value={get, set}` can reject a change.                                                                                                                                        | The cancelable change callback. Build the event details, call `onValueChange(next, details)`, and write the value only if `!details.isCanceled`. A one-way `value={x}` lets the child drift until `x` changes. |
+| `useRenderElement` and the `render` prop                                                                   | A `render` snippet that receives the props to spread. `<svelte:element this={tag}>` for a tag-only swap.                                                                                                                                                                                  | State to `data-*` mapping as a pure function. Drop tag-specific defaults such as `type="button"` when the rendered tag differs.                                                                                |
+| `className` and `style` as functions of state                                                              | Not needed. Style on `data-*` attributes. `class` accepts arrays and objects.                                                                                                                                                                                                             | None.                                                                                                                                                                                                          |
+| `mergeProps`                                                                                               | A short function that chains `on*` handlers, joins `class` as an array and copies symbol keys so attachments survive.                                                                                                                                                                     | Lowercase handler names only (`onclick`).                                                                                                                                                                      |
+| Refs, `useMergedRefs`                                                                                      | `bind:this` to read an element. `{@attach}` for behavior. Several attachments compose.                                                                                                                                                                                                    | None.                                                                                                                                                                                                          |
+| `useStableCallback`, `useEventCallback`                                                                    | Not needed. Closures read current state through getters.                                                                                                                                                                                                                                  | None.                                                                                                                                                                                                          |
+| `useValueAsRef`, latest refs                                                                               | `untrack(() => value)` in an effect, or read the value in an event handler.                                                                                                                                                                                                               | None.                                                                                                                                                                                                          |
+| `useTimeout`, `useAnimationFrame`                                                                          | `ScopedTimeout` and `ScopedAnimationFrame`, cleared from an `$effect` cleanup. Code no component owns uses the plain classes.                                                                                                                                                             | None.                                                                                                                                                                                                          |
+| `useOnMount`, `useOnFirstRender`                                                                           | `onMount`, an `$effect` with no reactive reads, or the top of `<script>`.                                                                                                                                                                                                                 | None.                                                                                                                                                                                                          |
+| `useRefWithInit`, `useForcedRerendering`, `usePreviousValue`                                               | A class field or a script `const`. A forced re-render is not needed.                                                                                                                                                                                                                      | None.                                                                                                                                                                                                          |
+| `useId`, `useBaseUiId`                                                                                     | `$props.id()`. Derive extra ids as `` `${id}-label` ``.                                                                                                                                                                                                                                   | None.                                                                                                                                                                                                          |
+| `React.createContext`                                                                                      | `defineContext(message)` in `internal/context.ts` wraps `createContext<T>()`. Its `get` throws Base UI's missing-provider message and `find` serves optional parents. `defineOptionalContext(fallback)` returns a default outside a provider. Put a class instance in it, not a snapshot. | None.                                                                                                                                                                                                          |
+| `ReactStore`, `useStore`, selectors, `useSyncExternalStore`                                                | A class with `$state` fields and `$derived` getters. Selectors become getters.                                                                                                                                                                                                            | None.                                                                                                                                                                                                          |
+| Portals                                                                                                    | A `Portal` component whose root element an attachment moves, or `mount()` with `getAllContexts()`.                                                                                                                                                                                        | Focus guards and the `aria-owns` span are real behavior. Port them.                                                                                                                                            |
+| StrictMode double effects                                                                                  | Not applicable. Scripts and effects run once.                                                                                                                                                                                                                                             | None.                                                                                                                                                                                                          |
+| Synthetic events                                                                                           | Native events.                                                                                                                                                                                                                                                                            | Parts that stop propagation register with `on()` from `svelte/events`, never raw `addEventListener`.                                                                                                           |
+| Controlled inputs and form reset                                                                           | `bind:value` or `bind:checked` plus `defaultValue` or `defaultChecked`. Svelte restores bound state on `reset`.                                                                                                                                                                           | Field state (touched, dirty, validity, errors) listens for the form's `reset` event and clears itself.                                                                                                         |
+| `createBaseUIEventDetails`                                                                                 | Port as is. It is framework-free.                                                                                                                                                                                                                                                         | None.                                                                                                                                                                                                          |
+| `useScrollLock`, `useAnimationsFinished`, `useOpenChangeComplete`, `useButton`, `useFocusableWhenDisabled` | The same logic as classes.                                                                                                                                                                                                                                                                | All of it. These carry real behavior.                                                                                                                                                                          |
+| `useTransitionStatus`                                                                                      | A `TransitionStatus` class. See [the worked example](#worked-example-transitionstatus).                                                                                                                                                                                                   | None.                                                                                                                                                                                                          |
 
 ## Svelte APIs worth knowing
 
@@ -137,77 +137,26 @@ Follow these rules:
 
 Base UI's `useTransitionStatus` decides whether a popup is mounted and whether it carries `data-starting-style` or `data-ending-style`. In Svelte, React's render-phase `setState` becomes `$effect.pre`, and each layout effect that schedules a frame becomes an `$effect` that returns the cancel function.
 
-```ts
-import { untrack } from 'svelte';
+The port is [`src/lib/internal/useTransitionStatus.svelte.ts`](../src/lib/internal/useTransitionStatus.svelte.ts). It takes upstream's `enableIdleState`, `deferEndingState` and `animateInitialOpen` as options. A part that unmounts after its exit animation calls `unmountAfterExit` with its element:
 
-export type TransitionStatusValue = 'starting' | 'ending' | 'idle' | undefined;
+```svelte
+<script lang="ts">
+	import { TransitionStatus } from '../internal/useTransitionStatus.svelte.js';
 
-export interface TransitionStatusOptions {
-	enableIdleState?: boolean;
-	deferEndingState?: boolean;
-	animateInitialOpen?: boolean;
-}
+	const transition = new TransitionStatus(() => open);
+	let node = $state<HTMLElement | null>(null);
+	transition.unmountAfterExit(() => node);
+</script>
 
-function frame(fn: () => void) {
-	const id = requestAnimationFrame(fn);
-	return () => cancelAnimationFrame(id);
-}
-
-export class TransitionStatus {
-	mounted = $state(false);
-	status = $state<TransitionStatusValue>(undefined);
-
-	constructor(open: () => boolean, options: () => TransitionStatusOptions = () => ({})) {
-		const { enableIdleState, animateInitialOpen } = untrack(options);
-		const initiallyOpen = untrack(open);
-		this.mounted = initiallyOpen && !animateInitialOpen;
-		this.status = initiallyOpen && enableIdleState ? 'idle' : undefined;
-
-		// React adjusts this state during render; $effect.pre runs before this component's DOM updates.
-		$effect.pre(() => {
-			const isOpen = open();
-			const { deferEndingState } = options();
-			untrack(() => {
-				if (isOpen && !this.mounted) {
-					this.mounted = true;
-					this.status = 'starting';
-				} else if (!isOpen && this.mounted && this.status !== 'ending' && !deferEndingState) {
-					this.status = 'ending';
-				} else if (!isOpen && !this.mounted && this.status === 'ending') {
-					this.status = undefined;
-				}
-			});
-		});
-
-		$effect(() => {
-			const { deferEndingState } = options();
-			if (!open() && this.mounted && this.status !== 'ending' && deferEndingState) {
-				return frame(() => (this.status = 'ending'));
-			}
-		});
-
-		$effect(() => {
-			if (!open() || options().enableIdleState || this.status === undefined) return;
-			return frame(() => (this.status = undefined));
-		});
-
-		$effect(() => {
-			if (!open() || !options().enableIdleState) return;
-			if (this.mounted && untrack(() => this.status) !== 'idle') this.status = 'starting';
-			return frame(() => (this.status = 'idle'));
-		});
-	}
-
-	get attrs() {
-		return {
-			'data-starting-style': this.status === 'starting' ? '' : undefined,
-			'data-ending-style': this.status === 'ending' ? '' : undefined
-		};
-	}
-}
+{#if transition.mounted}
+	<div
+		bind:this={node}
+		data-starting-style={transition.transitionStatus === 'starting' ? '' : undefined}
+	></div>
+{/if}
 ```
 
-The owner sets `mounted = false` once exit animations finish. Measured frame by frame, the first painted frame after opening carries `data-starting-style` and the next drops it. Closing sets `data-ending-style` before the first frame and keeps the element until the owner unmounts it.
+Measured frame by frame, the first painted frame after opening carries `data-starting-style` and the next drops it. Closing sets `data-ending-style` before the first frame and keeps the element until its exit animations finish.
 
 ## Gotchas
 

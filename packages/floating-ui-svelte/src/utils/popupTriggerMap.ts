@@ -2,6 +2,8 @@
 // (commit 47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c). MIT, see THIRD_PARTY_NOTICES.md.
 
 import { DEV } from 'esm-env';
+import { untrack } from 'svelte';
+import { SvelteMap } from 'svelte/reactivity';
 
 let devElementIdsByMap: WeakMap<PopupTriggerMap, WeakMap<Element, string>> | undefined;
 
@@ -15,10 +17,15 @@ function getDevElementIds(map: PopupTriggerMap) {
 	return elementIds;
 }
 
+/** Triggers by registration id. Reads are reactive. Writes subscribe nothing. */
 export class PopupTriggerMap {
-	private idMap = new Map<string, Element>();
+	private readonly idMap = new SvelteMap<string, Element>();
 
 	add(id: string, element: Element) {
+		untrack(() => this.write(id, element));
+	}
+
+	private write(id: string, element: Element) {
 		if (DEV) {
 			const elementIds = getDevElementIds(this);
 			const existingId = elementIds.get(element);
@@ -37,11 +44,13 @@ export class PopupTriggerMap {
 	}
 
 	delete(id: string) {
-		if (DEV) {
-			const element = this.idMap.get(id);
-			if (element !== undefined) devElementIdsByMap?.get(this)?.delete(element);
-		}
-		this.idMap.delete(id);
+		untrack(() => {
+			if (DEV) {
+				const element = this.idMap.get(id);
+				if (element !== undefined) devElementIdsByMap?.get(this)?.delete(element);
+			}
+			this.idMap.delete(id);
+		});
 	}
 
 	hasElement(element: Element) {

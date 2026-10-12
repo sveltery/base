@@ -10,9 +10,8 @@
 	import type { HTMLAttributes } from 'svelte/elements';
 	import { useFormContext } from '../form/context.js';
 	import { useFieldContext } from '../field/context.svelte.js';
-	import { useLabelableContext } from '../field/labelable.svelte.js';
+	import { findLabelableContext } from '../field/labelable.svelte.js';
 	import { useValueChanged } from '../internal/useValueChanged.svelte.js';
-	import PartHost from '../internal/PartHost.svelte';
 	import { getStateAttributesProps } from '../internal/state-attributes.js';
 	import { visuallyHidden, visuallyHiddenInput } from '@sveltery/utils';
 	import { numberFieldStateAttributes } from './attributes.js';
@@ -60,7 +59,7 @@
 
 	const field = useFieldContext();
 	const form = useFormContext();
-	const labelable = useLabelableContext(true);
+	const labelable = findLabelableContext();
 
 	const current = $derived<number | null>(value ?? null);
 	// The reason of the write this component made. A parent write has none.
@@ -170,7 +169,11 @@
 	}
 </script>
 
-<PartHost tag="div" {render} {children} elementProps={hostProps} partState={rootState} />
+{#if render}
+	{@render render(hostProps, rootState, children)}
+{:else}
+	<div {...hostProps}>{@render children?.()}</div>
+{/if}
 <input
 	type="number"
 	form={formId}

@@ -4,14 +4,14 @@
 
 import type { StateAttributesMapping } from '../internal/state-attributes.js';
 import { popupStateMapping, popupTransitionStateMapping } from '../internal/popupStateMapping.js';
-import type { PopupTransitionStatus } from '../internal/useTransitionStatus.svelte.js';
+import type { TransitionStatusValue } from '../internal/useTransitionStatus.svelte.js';
 
 /** How many dialogs are nested within this one. */
 export const nestedDialogsVar = '--nested-dialogs';
 
 export const dialogStateAttributesMapping: StateAttributesMapping<{
 	open: boolean;
-	transitionStatus: PopupTransitionStatus;
+	transitionStatus: TransitionStatusValue;
 	nested: boolean;
 	nestedDialogOpen: boolean;
 }> = {
@@ -24,7 +24,7 @@ export const dialogStateAttributesMapping: StateAttributesMapping<{
 
 export const dialogTransitionAttributesMapping: StateAttributesMapping<{
 	open: boolean;
-	transitionStatus: PopupTransitionStatus;
+	transitionStatus: TransitionStatusValue;
 }> = {
 	open: popupStateMapping.open,
 	transitionStatus: popupTransitionStateMapping.transitionStatus

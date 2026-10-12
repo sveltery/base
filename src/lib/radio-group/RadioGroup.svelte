@@ -8,7 +8,6 @@
 <script lang="ts">
 	import type { Attachment } from 'svelte/attachments';
 	import type { HTMLAttributes } from 'svelte/elements';
-	import GroupFrame from '../internal/GroupFrame.svelte';
 	import { CompositeRoot } from '../internal/composite-root.svelte.js';
 	import { isSkipped } from '../internal/composite-skip.js';
 	import { getStateAttributesProps } from '../internal/state-attributes.js';
@@ -17,7 +16,7 @@
 	import { useDirection } from '../internal/direction-context.js';
 	import { useFieldContext } from '../field/context.svelte.js';
 	import { useFormContext } from '../form/context.js';
-	import { useFieldsetRootContext } from '../fieldset/context.svelte.js';
+	import { findFieldsetRootContext } from '../fieldset/context.svelte.js';
 	import { setRadioGroupContext } from '../radio/group-context.js';
 	import type { RadioRootChangeEventDetails } from '../radio/types.js';
 	import type { RadioGroupProps, RadioGroupState } from './types.js';
@@ -48,7 +47,7 @@
 	const reading = useDirection();
 	const formContext = useFormContext();
 	const field = useFieldContext();
-	const fieldset = useFieldsetRootContext(true);
+	const fieldset = findFieldsetRootContext();
 
 	const selection = new WrittenReference<unknown>(
 		() => value,
@@ -74,7 +73,7 @@
 			isSkipped(element) || element.getAttribute('aria-disabled') === 'true',
 		isItemSelected: (element): boolean => {
 			const current = checkedValue;
-			const meta = roving.meta(element);
+			const meta = roving.meta(element) ?? {};
 			return current !== undefined && meta.value === current && meta.disabled !== true;
 		},
 		keys: 'arrows',
@@ -163,4 +162,8 @@
 		});
 </script>
 
-<GroupFrame {hostProps} state={groupState} {render} {children} />
+{#if render}
+	{@render render(hostProps, groupState, children)}
+{:else}
+	<div {...hostProps}>{@render children?.()}</div>
+{/if}

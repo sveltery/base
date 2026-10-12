@@ -1,7 +1,6 @@
 <!--
 	Represents the checkbox itself. Renders a `<span>` and a hidden checkbox beside it.
-	Derived from Base UI v1.8.0 packages/react/src/checkbox/root/CheckboxRoot.tsx,
-	the non-composite paths of packages/react/src/internals/use-button/useButton.ts,
+	Derived from Base UI v1.8.0 packages/react/src/checkbox/root/CheckboxRoot.tsx
 	and the native-label fallback of useAriaLabelledBy.ts
 	(commit 47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c). MIT, see THIRD_PARTY_NOTICES.md.
 	Field registration, validation, and Form error clearing are not ported.
@@ -10,7 +9,8 @@
 -->
 <script lang="ts">
 	import { createAttachmentKey, type Attachment } from 'svelte/attachments';
-	import { currentHost, dispatchClick, forwardKeyUp, isLink } from '../internal/click.js';
+	import { ButtonBehavior } from '../internal/button.svelte.js';
+	import { dispatchClick } from '../internal/click.js';
 	import { toCssStyle } from '../internal/css-style.js';
 	import {
 		createChangeEventDetails,
@@ -45,10 +45,7 @@
 		id,
 		onCheckedChange,
 		onclick,
-		onmousedown,
-		onpointerdown,
 		onkeydown,
-		onkeyup,
 		'aria-labelledby': ariaLabelledBy,
 		render,
 		children,
@@ -193,6 +190,7 @@
 		checked = nextChecked;
 	}
 
+	const button = new ButtonBehavior(() => ({ disabled: isDisabled, native: nativeButton }));
 	let enterHeld = false;
 
 	function handleInputFocus() {
@@ -200,7 +198,7 @@
 	}
 
 	function handleClick(event: MouseEvent & { currentTarget: EventTarget & HTMLElement }) {
-		if (isDisabled || enterHeld) {
+		if (enterHeld) {
 			event.preventDefault();
 			return;
 		}
@@ -213,65 +211,19 @@
 		dispatchClick(inputNode, event);
 	}
 
-	function handleFocusOut(event: FocusEvent & { currentTarget: EventTarget & HTMLElement }) {
-		enterHeld = false;
-		elementProps.onfocusout?.(event);
-	}
-
-	function handleKeyUp(event: KeyboardEvent & { currentTarget: EventTarget & HTMLElement }) {
-		if (event.key === 'Enter') enterHeld = false;
-		forwardKeyUp(event, isDisabled, onkeyup, nativeButton);
-	}
-
-	function handleMouseDown(event: MouseEvent & { currentTarget: EventTarget & HTMLElement }) {
-		if (!isDisabled) onmousedown?.(event);
-	}
-
-	function handlePointerDown(event: PointerEvent & { currentTarget: EventTarget & HTMLElement }) {
-		enterHeld = false;
-		if (isDisabled) {
-			event.preventDefault();
-			return;
-		}
-		onpointerdown?.(event);
-	}
-
-	function handleKeyDown(event: KeyboardEvent & { currentTarget: EventTarget & HTMLElement }) {
+	// Enter does not tick the checkbox. It submits the form unless a later listener cancels it,
+	// so it bypasses the button keydown, which would turn a non-native Enter into a click.
+	function handleEnter(event: KeyboardEvent & { currentTarget: EventTarget & HTMLElement }) {
 		if (isDisabled) return;
-		// Keyup can land elsewhere when Enter moves focus. Any other key starts fresh.
-		if (event.key !== 'Enter') enterHeld = false;
-
 		onkeydown?.(event);
-
-		// Enter does not tick the checkbox. It submits the form unless a later listener cancels it.
-		if (event.key === 'Enter') {
-			if (event.defaultPrevented) return;
-			// A native button turns Enter into a click. That click is ignored until the key is up.
-			if (nativeButton) enterHeld = true;
-			const formToSubmit = inputNode?.form ?? null;
-			const view = event.currentTarget.ownerDocument.defaultView ?? window;
-			view.queueMicrotask(() => {
-				if (!event.defaultPrevented) getDefaultFormSubmitter(formToSubmit)?.click();
-			});
-			return;
-		}
-
 		if (event.defaultPrevented) return;
-
-		const current = currentHost(event);
-		if (!current) return;
-
-		const buttonElement = current instanceof HTMLButtonElement;
-		const link = isLink(current, nativeButton);
-		const shouldClick = nativeButton ? buttonElement : !link;
-		const isSpace = event.key === ' ';
-
-		if (!shouldClick || nativeButton || !isSpace) {
-			if (link && isSpace) event.preventDefault();
-			return;
-		}
-
-		event.preventDefault();
+		// A native button turns Enter into a click. That click is ignored until the key is up.
+		if (nativeButton) enterHeld = true;
+		const formToSubmit = inputNode?.form ?? null;
+		const view = event.currentTarget.ownerDocument.defaultView ?? window;
+		view.queueMicrotask(() => {
+			if (!event.defaultPrevented) getDefaultFormSubmitter(formToSubmit)?.click();
+		});
 	}
 
 	$effect(() => {
@@ -300,12 +252,8 @@
 	const hostProps: CheckboxHostProps & Record<symbol, Attachment<HTMLElement>> = $derived.by(() => {
 		const labelledBy = ariaLabelledBy ?? fallbackLabelId;
 		const controls = parent ? group?.parent?.controls : undefined;
-		return {
+		const props = button.props({
 			...checkboxRootAttributes(checkboxState),
-			...(nativeButton ? { type: 'button' as const } : {}),
-			tabindex: !nativeButton && isDisabled ? -1 : 0,
-			...(!nativeButton && isDisabled ? { 'aria-disabled': true as const } : {}),
-			...(nativeButton && isDisabled ? { disabled: true } : {}),
 			...(parent ? { 'data-parent': '' } : {}),
 			id: rootId,
 			role: 'checkbox',
@@ -316,13 +264,30 @@
 			...elementProps,
 			...(controls ? { 'aria-controls': controls } : {}),
 			onclick: handleClick,
-			onmousedown: handleMouseDown,
-			onpointerdown: handlePointerDown,
-			onkeydown: handleKeyDown,
-			onkeyup: handleKeyUp,
-			onfocusout: handleFocusOut,
+			onkeydown,
 			[rootKey]: registerRoot
-		};
+		});
+		return {
+			...props,
+			onkeydown(event: KeyboardEvent & { currentTarget: EventTarget & HTMLElement }) {
+				if (event.key === 'Enter') return handleEnter(event);
+				// Keyup can land elsewhere when Enter moves focus. Any other key starts fresh.
+				if (!isDisabled) enterHeld = false;
+				props.onkeydown(event);
+			},
+			onkeyup(event: KeyboardEvent) {
+				if (event.key === 'Enter') enterHeld = false;
+				props.onkeyup(event);
+			},
+			onpointerdown(event: PointerEvent) {
+				enterHeld = false;
+				props.onpointerdown(event);
+			},
+			onfocusout(event: FocusEvent & { currentTarget: EventTarget & HTMLElement }) {
+				enterHeld = false;
+				props.onfocusout?.(event);
+			}
+		} as CheckboxHostProps & Record<symbol, Attachment<HTMLElement>>;
 	});
 </script>
 

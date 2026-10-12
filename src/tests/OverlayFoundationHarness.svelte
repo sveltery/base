@@ -5,8 +5,8 @@
 		CLICK_TRIGGER_IDENTIFIER,
 		FloatingFocusManager,
 		FloatingPortal,
-		useClick,
-		useDismiss
+		ClickInteraction,
+		DismissInteraction
 	} from '@sveltery/floating-ui-svelte';
 	import {
 		popupTransitionStateMapping,
@@ -121,8 +121,8 @@
 		animateInitialOpen: false
 	});
 
-	const click = useClick(store, () => ({ enabled: true, touchOpenDelay }));
-	const dismiss = useDismiss(store, () => ({
+	const click = new ClickInteraction(store, () => ({ enabled: true, touchOpenDelay }));
+	const dismiss = new DismissInteraction(store, () => ({
 		escapeKey: true,
 		outsidePress:
 			scenario === 'return' || scenario === 'null-return' || scenario === 'fn-return'

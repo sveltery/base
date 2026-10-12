@@ -6,7 +6,6 @@
 -->
 <script lang="ts">
 	import type { HTMLAttributes } from 'svelte/elements';
-	import PartHost from '../internal/PartHost.svelte';
 	import { formatNumber } from '../internal/formatNumber.js';
 	import { getStateAttributesProps } from '../internal/state-attributes.js';
 	import { sliderStateAttributes } from './attributes.js';
@@ -36,10 +35,16 @@
 	});
 </script>
 
-<PartHost tag="output" {render} elementProps={hostProps} partState={state}>
+{#snippet content()}
 	{#if valueText}
 		{@render valueText(formattedValues, values)}
 	{:else}
 		{defaultDisplay}
 	{/if}
-</PartHost>
+{/snippet}
+
+{#if render}
+	{@render render(hostProps, state, content)}
+{:else}
+	<output {...hostProps}>{@render content()}</output>
+{/if}

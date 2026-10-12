@@ -4,7 +4,7 @@ import type { BaseUIChangeEventDetails, REASONS } from '@sveltery/utils';
 import type { RenderChildren } from '../internal/render-children.js';
 
 /** Indicator motion phase. `undefined` is the settled phase. */
-export type RadioIndicatorPhase = 'starting' | 'ending' | undefined;
+export type RadioIndicatorPhase = 'starting' | 'ending' | 'idle' | undefined;
 
 export interface RadioRootState {
 	/** Whether the radio button is currently selected. */

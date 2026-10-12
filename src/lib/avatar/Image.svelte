@@ -6,13 +6,14 @@
 <script lang="ts">
 	import { untrack } from 'svelte';
 	import { createAttachmentKey } from 'svelte/attachments';
-	import { getStateAttributesProps } from '../internal/state-attributes.js';
+	import {
+		getStateAttributesProps,
+		transitionStatusMapping
+	} from '../internal/state-attributes.js';
+	import { TransitionStatus } from '../internal/useTransitionStatus.svelte.js';
 	import { avatarStateAttributesMapping } from './attributes.js';
 	import { useAvatarContext } from './context.js';
-	import {
-		createImageLoadingStatus,
-		type ImageProbeSource
-	} from './image-loading-status.svelte.js';
+	import { ImageProbe, type ImageProbeSource } from './image-loading-status.svelte.js';
 	import type { HTMLImgAttributes } from 'svelte/elements';
 	import type { AvatarImageProps, AvatarImageState, ImageLoadingStatus } from './types.js';
 
@@ -34,14 +35,24 @@
 	}: AvatarImageProps = $props();
 
 	const root = useAvatarContext();
-	const loading = createImageLoadingStatus(
+	const loading = new ImageProbe(
 		() => !keepMounted,
 		() => ({ src, srcset, sizes, crossorigin, referrerpolicy })
 	);
-	const partState: AvatarImageState = $derived({ imageLoadingStatus: loading.status });
+	const visible = $derived(loading.status === 'loaded');
+	const transition = new TransitionStatus(() => visible);
+	const partState: AvatarImageState = $derived({
+		imageLoadingStatus: loading.status,
+		// With `keepMounted` the element never unmounts, so an exit phase would only flash.
+		transitionStatus:
+			keepMounted && transition.transitionStatus === 'ending'
+				? undefined
+				: transition.transitionStatus
+	});
 
 	let host = $state<HTMLImageElement | null>(null);
 	const hostKey = createAttachmentKey();
+	transition.unmountAfterExit(() => host);
 
 	function attachHost(node: HTMLImageElement) {
 		host = node;
@@ -52,15 +63,17 @@
 
 	function readRenderedStatus(node: HTMLImageElement, source: ImageProbeSource) {
 		if (!source.src && !source.srcset) {
-			loading.setStatus('error');
+			loading.status = 'error';
 			return;
 		}
 		if (!node.complete) {
-			loading.setStatus('loading');
+			loading.status = 'loading';
 			return;
 		}
-		loading.setStatus(node.naturalWidth > 0 ? 'loaded' : 'error');
+		loading.status = node.naturalWidth > 0 ? 'loaded' : 'error';
 	}
+
+	let initialCommit = true;
 
 	// The rendered element is the source of truth when `keepMounted` is set. The load event may
 	// already have fired for a cached image, so the status is read from `complete` as well.
@@ -68,8 +81,12 @@
 		if (!keepMounted) return;
 		const node = host;
 		const source = { src, srcset, sizes, crossorigin, referrerpolicy };
+		const firstRun = initialCommit;
+		initialCommit = false;
 		if (!node) return;
 		readRenderedStatus(node, source);
+		// An image already loaded before hydration was painted, so it skips the enter phase.
+		if (firstRun && untrack(() => loading.status) === 'loaded') transition.setMounted(true);
 	});
 
 	function publish(status: ImageLoadingStatus) {
@@ -89,16 +106,16 @@
 	function handleLoad(event: ImageEvent) {
 		onload?.(event);
 		if (!keepMounted || event.defaultPrevented) return;
-		loading.setStatus('loaded');
+		loading.status = 'loaded';
 	}
 
 	function handleError(event: ImageEvent) {
 		onerror?.(event);
 		if (!keepMounted || event.defaultPrevented) return;
-		loading.setStatus('error');
+		loading.status = 'error';
 	}
 
-	const shown = $derived(keepMounted || loading.status === 'loaded');
+	const shown = $derived(keepMounted || transition.mounted);
 	const sourceProps = $derived.by(() => {
 		const source: Record<string, string> = {};
 		if (sizes != null) source.sizes = sizes;
@@ -116,7 +133,10 @@
 			: {}
 	);
 	const hostProps = $derived({
-		...getStateAttributesProps(partState, avatarStateAttributesMapping),
+		...getStateAttributesProps(partState, {
+			...avatarStateAttributesMapping,
+			...transitionStatusMapping
+		}),
 		...statusProps,
 		...elementProps,
 		...(crossorigin !== undefined ? { crossorigin } : {}),
@@ -124,7 +144,7 @@
 		...sourceProps,
 		onload: handleLoad,
 		onerror: handleError,
-		...(keepMounted ? { [hostKey]: attachHost } : {})
+		[hostKey]: attachHost
 	});
 </script>
 

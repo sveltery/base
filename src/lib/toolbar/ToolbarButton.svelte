@@ -1,18 +1,15 @@
 <!--
 	A button in a toolbar. Renders a `<button>`.
-	Derived from Base UI v1.8.0 packages/react/src/toolbar/button/ToolbarButton.tsx,
-	the composite path of packages/react/src/internals/use-button/useButton.ts,
-	and packages/react/src/utils/useFocusableWhenDisabled.ts
+	Derived from Base UI v1.8.0 packages/react/src/toolbar/button/ToolbarButton.tsx
 	(commit 47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c). MIT, see THIRD_PARTY_NOTICES.md.
-	Toolbar buttons are composite items: Space activates on keydown so a native
-	button does not also click on keyup.
 -->
 <script lang="ts">
 	import type { Attachment } from 'svelte/attachments';
-	import { currentHost, dispatchClick, isLink } from '../internal/click.js';
+	import { ButtonBehavior } from '../internal/button.svelte.js';
+	import type { CompositeHandlers } from '../internal/composite-root.svelte.js';
 	import { getStateAttributesProps } from '../internal/state-attributes.js';
 	import { useToolbarGroupContext, useToolbarRootContext } from './context.svelte.js';
-	import { registerToolbarItem } from './item-registration.svelte.js';
+	import { ToolbarItem } from './item-registration.svelte.js';
 	import type { ToolbarButtonHostProps, ToolbarButtonProps, ToolbarButtonState } from './types.js';
 
 	const toolbar = useToolbarRootContext();
@@ -22,11 +19,6 @@
 		disabled = false,
 		focusableWhenDisabled = true,
 		nativeButton = true,
-		onclick,
-		onmousedown,
-		onpointerdown,
-		onkeydown,
-		onkeyup,
 		onfocus,
 		render,
 		children,
@@ -40,109 +32,25 @@
 		focusable: focusableWhenDisabled
 	});
 
-	const item = registerToolbarItem(toolbar.roving, () => ({
+	const item = new ToolbarItem(toolbar.roving, () => ({
 		disabled: disabledState && !focusableWhenDisabled
 	}));
 
-	// Untrusted constructed clicks carry modifier state. detail 0 matches a keyboard click.
-	// Same algorithm as the pinned helper.
-	function handleFocus(event: FocusEvent & { currentTarget: EventTarget & HTMLElement }) {
-		onfocus?.(event as FocusEvent & { currentTarget: EventTarget & HTMLButtonElement });
-	}
+	// Arrow keys still move from a disabled button: the toolbar root handles them.
+	const button = new ButtonBehavior(() => ({
+		disabled: disabledState,
+		native: nativeButton,
+		focusableWhenDisabled,
+		composite: true
+	}));
 
-	function handleClick(event: MouseEvent & { currentTarget: EventTarget & HTMLButtonElement }) {
-		if (disabledState) {
-			event.preventDefault();
-			return;
-		}
-		onclick?.(event);
-	}
-
-	// Pinned behavior: a disabled mousedown does not cancel its default.
-	function handleMouseDown(event: MouseEvent & { currentTarget: EventTarget & HTMLButtonElement }) {
-		if (!disabledState) onmousedown?.(event);
-	}
-
-	function handlePointerDown(
-		event: PointerEvent & { currentTarget: EventTarget & HTMLButtonElement }
-	) {
-		if (disabledState) {
-			event.preventDefault();
-			return;
-		}
-		onpointerdown?.(event);
-	}
-
-	function handleKeyDown(
-		event: KeyboardEvent & { currentTarget: EventTarget & HTMLButtonElement }
-	) {
-		if (disabledState) {
-			// Let Tab leave. Block every other key's default, including arrows.
-			// Arrows still move: the toolbar root handles them and ignores this preventDefault.
-			if (focusableWhenDisabled && event.key !== 'Tab') event.preventDefault();
-			return;
-		}
-
-		onkeydown?.(event);
-		if (event.defaultPrevented) return;
-
-		const current = currentHost(event);
-		if (!current) return;
-
-		const buttonElement = current instanceof HTMLButtonElement;
-		const link = isLink(current, nativeButton);
-		const isEnter = event.key === 'Enter';
-		const isSpace = event.key === ' ';
-
-		// Composite items click on Space keydown. preventDefault stops a native button
-		// from clicking again on keyup.
-		if (isSpace) {
-			event.preventDefault();
-			if (!nativeButton || buttonElement) dispatchClick(current, event);
-			return;
-		}
-
-		if (!nativeButton && !link && isEnter) {
-			event.preventDefault();
-			dispatchClick(current, event);
-		}
-	}
-
-	function handleKeyUp(event: KeyboardEvent & { currentTarget: EventTarget & HTMLButtonElement }) {
-		if (disabledState) return;
-
-		onkeyup?.(event);
-		if (event.defaultPrevented || event.key !== ' ') return;
-
-		// The keydown already clicked. Swallow the native Space keyup as well.
-		if (nativeButton && event.currentTarget instanceof HTMLButtonElement) {
-			event.preventDefault();
-		}
-	}
-
-	const hostProps: ToolbarButtonHostProps & Record<symbol, Attachment<HTMLElement>> = $derived.by(
-		() => {
-			const hosted = item.hosted(
-				{ onfocus: handleFocus },
-				{ disabled: disabledState && !focusableWhenDisabled }
-			);
-			return {
-				...(nativeButton ? { type: 'button' as const } : { role: 'button' as const }),
-				...((nativeButton && focusableWhenDisabled) || (!nativeButton && disabledState)
-					? { 'aria-disabled': disabledState }
-					: {}),
-				...(nativeButton && !focusableWhenDisabled && disabledState ? { disabled: true } : {}),
-				...elementProps,
-				...getStateAttributesProps(buttonState),
-				onclick: handleClick,
-				onmousedown: handleMouseDown,
-				onpointerdown: handlePointerDown,
-				onkeydown: handleKeyDown,
-				onkeyup: handleKeyUp,
-				...hosted
-			} as ToolbarButtonHostProps & Record<symbol, Attachment<HTMLElement>>;
-		}
-	);
+	const hostProps: ToolbarButtonHostProps & Record<symbol, Attachment<HTMLElement>> = $derived({
+		...button.props({ ...elementProps, ...getStateAttributesProps(buttonState) }),
+		...item.hosted(
+			{ onfocus: onfocus as CompositeHandlers['onfocus'] },
+			{ disabled: disabledState && !focusableWhenDisabled }
+		)
+	} as ToolbarButtonHostProps & Record<symbol, Attachment<HTMLElement>>);
 </script>
 
 {#if render}

@@ -1,14 +1,13 @@
 <!--
 	An individual interactive tab button that toggles the corresponding panel.
 	Renders a `<button>` element.
-	Derived from Base UI v1.8.0 packages/react/src/tabs/tab/TabsTab.tsx and the
-	non-composite paths of packages/react/src/internals/use-button/useButton.ts
+	Derived from Base UI v1.8.0 packages/react/src/tabs/tab/TabsTab.tsx
 	(commit 47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c). MIT, see THIRD_PARTY_NOTICES.md.
 -->
 <script lang="ts">
 	import { untrack } from 'svelte';
 	import type { Attachment } from 'svelte/attachments';
-	import { currentHost, dispatchClick, forwardKeyUp, isLink } from '../internal/click.js';
+	import { ButtonBehavior } from '../internal/button.svelte.js';
 	import { getStateAttributesProps } from '../internal/state-attributes.js';
 	import { tabsStateAttributesMapping } from './attributes.js';
 	import { useTabsListContext, useTabsRootContext } from './context.svelte.js';
@@ -24,8 +23,6 @@
 		onclick,
 		onfocus,
 		onpointerdown,
-		onkeydown,
-		onkeyup,
 		render,
 		children,
 		form: _form,
@@ -38,6 +35,12 @@
 	const slot = list.roving.claim();
 	const generatedId = $derived(`base-ui-${uid}`);
 	const tabId = $derived(id ?? generatedId);
+
+	const button = new ButtonBehavior(() => ({
+		disabled,
+		native: nativeButton,
+		focusableWhenDisabled: true
+	}));
 
 	let node: HTMLElement | null = $state(null);
 	let pressing = false;
@@ -54,7 +57,9 @@
 	function register(element: HTMLElement) {
 		node = element;
 		const removeRoving = list.roving.register(element, () => ({ value, disabled }));
-		const unregister = untrack(() => tabs.registerTab(element, value, disabled, tabId));
+		const unregister = untrack(() =>
+			tabs.registerTab(element, () => ({ element, value, disabled, id: tabId }))
+		);
 		const unobserve = list.observeTab(element);
 		return () => {
 			removeRoving();
@@ -63,12 +68,6 @@
 			if (node === element) node = null;
 		};
 	}
-
-	$effect(() => {
-		const element = node;
-		if (!element) return;
-		tabs.updateTab(element, value, disabled, tabId);
-	});
 
 	// An enabled selection takes the tab stop when focus is outside the list.
 	// A disabled selection leaves the previous tab stop alone.
@@ -88,10 +87,6 @@
 	}
 
 	function handleClick(event: MouseEvent & { currentTarget: EventTarget & HTMLElement }) {
-		if (disabled) {
-			event.preventDefault();
-			return;
-		}
 		onclick?.(event);
 		if (event.defaultPrevented || active || event.button !== 0) return;
 		activate(event);
@@ -106,10 +101,6 @@
 	}
 
 	function handlePointerDown(event: PointerEvent & { currentTarget: EventTarget & HTMLElement }) {
-		if (disabled) {
-			event.preventDefault();
-			return;
-		}
 		onpointerdown?.(event);
 		if (event.defaultPrevented || active) return;
 
@@ -126,47 +117,9 @@
 		doc.addEventListener('pointercancel', end);
 	}
 
-	function handleKeyDown(event: KeyboardEvent & { currentTarget: EventTarget & HTMLElement }) {
-		if (disabled) {
-			// Arrow keys still move the tab stop. Enter and Space must not activate.
-			if (event.key === 'Enter' || event.key === ' ') event.preventDefault();
-			return;
-		}
-
-		onkeydown?.(event);
-		if (event.defaultPrevented) return;
-
-		const current = currentHost(event);
-		if (!current) return;
-
-		const link = isLink(current, nativeButton);
-		const shouldClick = nativeButton ? current instanceof HTMLButtonElement : !link;
-		const isEnter = event.key === 'Enter';
-		const isSpace = event.key === ' ';
-
-		if (!shouldClick || nativeButton || (!isSpace && !isEnter)) {
-			if (link && isSpace) event.preventDefault();
-			return;
-		}
-
-		event.preventDefault();
-		if (isEnter) dispatchClick(current, event);
-	}
-
 	const hostProps: TabsTabHostProps & Record<symbol, Attachment<HTMLElement>> = $derived.by(() => {
-		const roving = list.roving.item(
-			node,
-			register,
-			{
-				onfocus: handleFocus,
-				onkeydown: handleKeyDown
-			},
-			slot,
-			{ selected: active, hasSelection: tabs.value != null }
-		);
 		const panelId = tabs.panelIdFor(value);
-		const props = {
-			...(nativeButton ? { type: 'button' as const } : {}),
+		const props = button.props({
 			role: 'tab',
 			id: tabId,
 			'aria-selected': active,
@@ -174,16 +127,30 @@
 			...(panelId ? { 'aria-controls': panelId } : {}),
 			...elementProps,
 			...getStateAttributesProps(tabState, tabsStateAttributesMapping),
-			tabindex: roving.tabindex,
 			onclick: handleClick,
-			onpointerdown: handlePointerDown,
-			onkeyup: (event: KeyboardEvent & { currentTarget: EventTarget & HTMLElement }) =>
-				forwardKeyUp(event, disabled, onkeyup, nativeButton),
+			onpointerdown: handlePointerDown
+		});
+		const roving = list.roving.item(
+			node,
+			register,
+			{
+				onfocus: handleFocus,
+				onkeydown(event) {
+					// The roving handler skips a prevented keydown, so a disabled tab only blocks activation.
+					if (!disabled) props.onkeydown(event);
+					else if (event.key === 'Enter' || event.key === ' ') event.preventDefault();
+				}
+			},
+			slot,
+			{ selected: active, hasSelection: tabs.value != null }
+		);
+		return {
+			...props,
+			tabindex: roving.tabindex,
 			onfocus: roving.onfocus,
 			onkeydown: roving.onkeydown,
 			[list.roving.attachmentKey]: roving[list.roving.attachmentKey]
-		};
-		return props as TabsTabHostProps & Record<symbol, Attachment<HTMLElement>>;
+		} as TabsTabHostProps & Record<symbol, Attachment<HTMLElement>>;
 	});
 </script>
 

@@ -3,7 +3,7 @@
 // Extends the landed PopupStore. Elements are held here, not in ref bags.
 // A canceled close can leave preventUnmountingOnClose true. That matches Dialog.
 // Focus return is FloatingFocusManager after close. This store does not focus.
-// How the dialog opened is the inherited `PopupStore.openMethod`. `useClick` writes it.
+// How the dialog opened is the inherited `PopupStore.openMethod`. `ClickInteraction` writes it.
 
 import type { BaseUIChangeEventDetails } from '@sveltery/utils';
 import { PopupStore, type PopupChangeEventDetails } from '../internal/popups/store.svelte.js';
@@ -20,7 +20,7 @@ export class DialogStore<Payload = unknown> extends PopupStore<DialogChangeEvent
 	readonly readModal: () => boolean | 'trap-focus';
 	readonly readDisablePointerDismissal: () => boolean;
 	readonly publishTriggerId: ((id: string | null) => void) | undefined;
-	/** `useClick` reference props. Set once from the root. Detached triggers read this. */
+	/** `ClickInteraction` reference props. Set once from the root. Detached triggers read this. */
 	click: DialogClickReference | undefined = undefined;
 	payload = $state<Payload | undefined>(undefined);
 	nestedOpenDialogCount = $state(0);

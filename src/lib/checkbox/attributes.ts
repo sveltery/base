@@ -3,7 +3,7 @@
 // (commit 47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c). MIT, see THIRD_PARTY_NOTICES.md.
 // Field validity attributes are not included. Field is not ported.
 import type { StateAttributesMapping } from '../internal/state-attributes.js';
-import { getStateAttributesProps } from '../internal/state-attributes.js';
+import { getStateAttributesProps, transitionStatusMapping } from '../internal/state-attributes.js';
 import type { CheckboxIndicatorState, CheckboxRootState } from './types.js';
 
 /** Present when the indicator begins animating in. */
@@ -31,11 +31,7 @@ export function checkboxIndicatorAttributes(state: CheckboxIndicatorState): Reco
 		checked(value) {
 			return checkedAttributes(state, value);
 		},
-		transitionStatus(value): Record<string, string> | null {
-			if (value === 'starting') return { [startingStyle]: '' };
-			if (value === 'ending') return { [endingStyle]: '' };
-			return null;
-		}
+		...transitionStatusMapping
 	};
 	return getStateAttributesProps(state, mapping);
 }

@@ -2,6 +2,7 @@
 // (commit 47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c). MIT, see THIRD_PARTY_NOTICES.md.
 // applyPopupOpenChange is not ported. Tooltip and PreviewCard own that dismiss-close rule.
 
+import { untrack } from 'svelte';
 import type { Attachment } from 'svelte/attachments';
 import { FOCUSABLE_ATTRIBUTE, PopupTriggerMap } from '@sveltery/floating-ui-svelte';
 
@@ -81,18 +82,15 @@ export function resolveFocus(
 }
 
 export function registerTrigger(
-	store: { triggers: PopupTriggerMap; triggerCount: number },
+	triggers: PopupTriggerMap,
 	id: () => string | undefined
 ): Attachment<Element> {
 	return (element) => {
 		const triggerId = id();
 		if (!triggerId) return;
-		const triggers: PopupTriggerMap = store.triggers;
 		triggers.add(triggerId, element);
-		store.triggerCount = triggers.size;
 		return () => {
-			if (triggers.getById(triggerId) === element) triggers.delete(triggerId);
-			store.triggerCount = triggers.size;
+			if (untrack(() => triggers.getById(triggerId)) === element) triggers.delete(triggerId);
 		};
 	};
 }

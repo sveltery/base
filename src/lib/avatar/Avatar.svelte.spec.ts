@@ -6,6 +6,7 @@ import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 import { render } from 'vitest-browser-svelte';
 import AvatarHarness from '../../tests/AvatarHarness.svelte';
 import AvatarOrphan from '../../tests/AvatarOrphan.svelte';
+import AvatarTransitionHarness from '../../tests/AvatarTransitionHarness.svelte';
 
 const DATA_URI =
 	'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mNk+M9QDwADhgGAWjR9awAAAABJRU5ErkJggg==';
@@ -396,5 +397,68 @@ describe('Avatar', () => {
 		it('requires a root', () => {
 			expect(() => render(AvatarOrphan)).toThrow(/AvatarRootContext is missing/);
 		});
+	});
+});
+
+describe('Avatar.Image transitions', () => {
+	it('enters with data-starting-style once loaded, then settles', async () => {
+		const seen: (string | null)[] = [];
+		const observer = new MutationObserver(() => {
+			const image = document.querySelector('[data-testid="image"]');
+			if (image && seen.length === 0) seen.push(image.getAttribute('data-starting-style'));
+		});
+		observer.observe(document.body, { childList: true, subtree: true });
+		render(AvatarTransitionHarness, { src: DATA_URI });
+		const image = page.getByTestId('image');
+		await expect.element(image).toBeInTheDocument();
+		await expect.poll(() => image.element().getAttribute('data-starting-style')).toBe(null);
+		observer.disconnect();
+		expect(seen).toEqual(['']);
+	});
+
+	it('stays mounted with data-ending-style until its exit animation finishes', async () => {
+		render(AvatarTransitionHarness, { src: DATA_URI });
+		const image = page.getByTestId('image');
+		await expect.element(image).toBeInTheDocument();
+		await page.getByRole('button', { name: 'Clear source' }).click();
+		await expect.element(image).toHaveAttribute('data-ending-style', '');
+		await expect.poll(() => image.elements().length).toBe(0);
+		await expect.element(page.getByText('JD')).toBeInTheDocument();
+	});
+
+	it('skips the enter phase for a keepMounted image that is already loaded', async () => {
+		const preload = document.createElement('img');
+		preload.src = DATA_URI;
+		await preload.decode();
+		let entered = false;
+		const observer = new MutationObserver(() => {
+			const image = document.querySelector('[data-testid="image"]');
+			if (image?.hasAttribute('data-starting-style')) entered = true;
+		});
+		observer.observe(document.body, { attributes: true, childList: true, subtree: true });
+		render(AvatarHarness, { mode: 'keep', src: DATA_URI });
+		const image = page.getByTestId('image');
+		await expect.element(image).not.toHaveAttribute('aria-hidden');
+		await new Promise((resolve) => requestAnimationFrame(() => requestAnimationFrame(resolve)));
+		observer.disconnect();
+		expect(entered).toBe(false);
+	});
+
+	it('never marks a keepMounted image as ending', async () => {
+		const preload = document.createElement('img');
+		preload.src = DATA_URI;
+		await preload.decode();
+		render(AvatarHarness, { mode: 'keep', src: DATA_URI, controls: true });
+		const image = page.getByTestId('image');
+		await expect.element(image).not.toHaveAttribute('aria-hidden');
+		let ended = false;
+		const observer = new MutationObserver(() => {
+			if (image.element().hasAttribute('data-ending-style')) ended = true;
+		});
+		observer.observe(image.element(), { attributes: true });
+		await page.getByRole('button', { name: 'Swap source' }).click();
+		await expect.element(image).toHaveAttribute('data-error', '');
+		observer.disconnect();
+		expect(ended).toBe(false);
 	});
 });

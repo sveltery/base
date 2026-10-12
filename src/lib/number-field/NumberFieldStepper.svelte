@@ -1,8 +1,6 @@
 <!--
 	Shared increment and decrement button.
-	Derived from Base UI v1.8.0 packages/react/src/number-field/root/useNumberFieldStepperButton.ts,
-	packages/react/src/internals/use-button/useButton.ts, and
-	packages/react/src/utils/useFocusableWhenDisabled.ts
+	Derived from Base UI v1.8.0 packages/react/src/number-field/root/useNumberFieldStepperButton.ts
 	(commit 47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c). MIT, see THIRD_PARTY_NOTICES.md.
 	There is no ref. `focusableWhenDisabled` stays on, so read-only uses `aria-disabled`
 	and a real `disabled` attribute only when the button itself is disabled.
@@ -10,11 +8,12 @@
 <script lang="ts">
 	import { createAttachmentKey } from 'svelte/attachments';
 	import type { HTMLButtonAttributes } from 'svelte/elements';
+	import { ButtonBehavior } from '../internal/button.svelte.js';
 	import { createGenericEventDetails, REASONS } from '@sveltery/utils';
 	import { getStateAttributesProps } from '../internal/state-attributes.js';
 	import { numberFieldStateAttributes } from './attributes.js';
 	import { useNumberFieldContext } from './context.svelte.js';
-	import { createPressAndHold, isTouchLikePointerType } from './press-and-hold.svelte.js';
+	import { isTouchLikePointerType, PressAndHold } from './press-and-hold.svelte.js';
 	import { mergeCssStyle } from '../internal/css-style.js';
 	import type {
 		EventWithOptionalKeyState,
@@ -36,14 +35,11 @@
 		onpointerdown,
 		onpointerup,
 		onpointermove,
-		onmousedown,
 		onmouseenter,
 		onmouseleave,
 		onmouseup,
 		ontouchstart,
 		ontouchend,
-		onkeydown,
-		onkeyup,
 		...elementProps
 	}: NumberFieldStepperProps & { increment: boolean } = $props();
 
@@ -58,8 +54,13 @@
 	const disabled = $derived(disabledProp || rootState.disabled || atBoundary);
 	const unavailable = $derived(disabled || rootState.readOnly);
 	const pressReason = $derived(increment ? REASONS.incrementPress : REASONS.decrementPress);
+	const button = new ButtonBehavior(() => ({
+		disabled: unavailable,
+		native: nativeButton,
+		focusableWhenDisabled: true
+	}));
 
-	const press = createPressAndHold({
+	const press = new PressAndHold({
 		getDisabled: () => disabled || model.options.getReadOnly(),
 		getElement: () => model.inputElement,
 		tick(triggerEvent) {
@@ -94,10 +95,6 @@
 	}
 
 	function handleClick(event: MouseEvent & { currentTarget: EventTarget & HTMLButtonElement }) {
-		if (unavailable) {
-			event.preventDefault();
-			return;
-		}
 		onclick?.(event);
 		if (event.defaultPrevented || press.shouldSkipClick(event)) return;
 		stepFromClick(event);
@@ -106,10 +103,6 @@
 	function handlePointerDown(
 		event: PointerEvent & { currentTarget: EventTarget & HTMLButtonElement }
 	) {
-		if (unavailable) {
-			event.preventDefault();
-			return;
-		}
 		onpointerdown?.(event);
 		if (event.defaultPrevented || event.button) return;
 		model.commitTypedValue(event, pressReason);
@@ -132,11 +125,6 @@
 		onpointermove?.(event);
 		if (event.defaultPrevented) return;
 		press.onPointerMove(event);
-	}
-
-	function handleMouseDown(event: MouseEvent & { currentTarget: EventTarget & HTMLButtonElement }) {
-		if (unavailable) return;
-		onmousedown?.(event);
 	}
 
 	function handleMouseEnter(
@@ -175,49 +163,27 @@
 		press.onTouchEnd();
 	}
 
-	function handleKeyDown(
-		event: KeyboardEvent & { currentTarget: EventTarget & HTMLButtonElement }
-	) {
-		if (unavailable) {
-			if (event.key !== 'Tab') event.preventDefault();
-			return;
-		}
-		onkeydown?.(event);
-	}
-
-	function handleKeyUp(event: KeyboardEvent & { currentTarget: EventTarget & HTMLButtonElement }) {
-		if (unavailable) return;
-		onkeyup?.(event);
-	}
-
-	const hostProps: HTMLButtonAttributes = $derived({
-		...(nativeButton ? { type: 'button' as const } : { role: 'button' as const }),
-		'aria-label': increment ? 'Increase' : 'Decrease',
-		'aria-controls': model.options.getId(),
-		...(nativeButton
-			? { 'aria-disabled': unavailable }
-			: unavailable
-				? { 'aria-disabled': true as const }
-				: {}),
-		...(nativeButton && disabled ? { disabled: true } : {}),
-		tabindex: -1,
-		style: mergeCssStyle(SELECT_NONE, style),
-		...getStateAttributesProps(state, numberFieldStateAttributes),
-		...elementProps,
-		onclick: handleClick,
-		onpointerdown: handlePointerDown,
-		onpointerup: handlePointerUp,
-		onpointermove: handlePointerMove,
-		onmousedown: handleMouseDown,
-		onmouseenter: handleMouseEnter,
-		onmouseleave: handleMouseLeave,
-		onmouseup: handleMouseUp,
-		ontouchstart: handleTouchStart,
-		ontouchend: handleTouchEnd,
-		onkeydown: handleKeyDown,
-		onkeyup: handleKeyUp,
-		[releaseKey]: press.attach
-	});
+	const hostProps: HTMLButtonAttributes = $derived(
+		button.props({
+			'aria-label': increment ? 'Increase' : 'Decrease',
+			'aria-controls': model.options.getId(),
+			...(nativeButton && disabled ? { disabled: true } : {}),
+			tabindex: -1,
+			style: mergeCssStyle(SELECT_NONE, style),
+			...getStateAttributesProps(state, numberFieldStateAttributes),
+			...elementProps,
+			onclick: handleClick,
+			onpointerdown: handlePointerDown,
+			onpointerup: handlePointerUp,
+			onpointermove: handlePointerMove,
+			onmouseenter: handleMouseEnter,
+			onmouseleave: handleMouseLeave,
+			onmouseup: handleMouseUp,
+			ontouchstart: handleTouchStart,
+			ontouchend: handleTouchEnd,
+			[releaseKey]: press.attach
+		})
+	);
 </script>
 
 {#if render}

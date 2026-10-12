@@ -12,7 +12,7 @@
 	import { triggerOpenStateMapping } from '../internal/popupStateMapping.js';
 	import { registerTrigger } from '../internal/popups/index.js';
 	import DialogAction from './DialogAction.svelte';
-	import { useDialogRoot } from './context.svelte.js';
+	import { findDialogRoot } from './context.svelte.js';
 	import type { DialogStore } from './store.svelte.js';
 	import type { DialogTriggerProps, DialogTriggerState } from './types.js';
 
@@ -32,7 +32,7 @@
 		...elementProps
 	}: DialogTriggerProps = $props();
 
-	const dialogRoot = useDialogRoot(true);
+	const dialogRoot = findDialogRoot();
 	const readHandle = () => handle;
 	if (!dialogRoot && !readHandle()) {
 		throw new Error(
@@ -84,16 +84,7 @@
 		return untrack(() => {
 			const triggers = current?.triggers ?? handle?.fallbackTriggers;
 			if (!triggers) return;
-			const owner = {
-				triggers,
-				get triggerCount() {
-					return current?.triggerCount ?? 0;
-				},
-				set triggerCount(next: number) {
-					if (current) current.triggerCount = next;
-				}
-			};
-			const detach = registerTrigger(owner, () => id)(node);
+			const detach = registerTrigger(triggers, () => id)(node);
 			if (current?.open) {
 				const active = current.domReferenceElement;
 				if ((active == null && current.triggers.size === 1) || active?.id === id) {

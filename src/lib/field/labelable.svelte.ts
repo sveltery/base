@@ -1,10 +1,8 @@
 // Derived from Base UI v1.8.0 packages/react/src/internals/labelable-provider/LabelableProvider.tsx
 // (commit 47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c). MIT, see THIRD_PARTY_NOTICES.md.
 
-import { getContext, hasContext, setContext } from 'svelte';
 import { SvelteMap, SvelteSet } from 'svelte/reactivity';
-
-const LABELABLE_CONTEXT = Symbol('labelable');
+import { defineContext } from '../internal/context.js';
 
 /**
  * Accessible name and description for one labelable scope.
@@ -70,18 +68,7 @@ export class Labelable {
 	}
 }
 
-export function setLabelableContext(labelable: Labelable) {
-	setContext(LABELABLE_CONTEXT, labelable);
-}
-
-export function useLabelableContext(optional: true): Labelable | undefined;
-export function useLabelableContext(optional?: false): Labelable;
-export function useLabelableContext(optional = false) {
-	if (!hasContext(LABELABLE_CONTEXT)) {
-		if (optional) return undefined;
-		throw new Error(
-			'Base UI: LabelableContext is missing. Field parts must be placed within <Field.Root>.'
-		);
-	}
-	return getContext<Labelable>(LABELABLE_CONTEXT);
-}
+export const [useLabelableContext, setLabelableContext, findLabelableContext] =
+	defineContext<Labelable>(
+		'Base UI: LabelableContext is missing. Field parts must be placed within <Field.Root>.'
+	);

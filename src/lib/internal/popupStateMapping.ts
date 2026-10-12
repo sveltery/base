@@ -1,10 +1,10 @@
 // Derived from Base UI v1.8.0 packages/react/src/utils/popupStateMapping.ts
 // (commit 47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c). MIT, see THIRD_PARTY_NOTICES.md.
 
-import type { StateAttributesMapping } from './state-attributes.js';
+import { transitionStatusMapping, type StateAttributesMapping } from './state-attributes.js';
 import * as CommonPopupDataAttributes from './CommonPopupDataAttributes.js';
 import * as CommonTriggerDataAttributes from './CommonTriggerDataAttributes.js';
-import type { PopupTransitionStatus } from './useTransitionStatus.svelte.js';
+import type { TransitionStatusValue } from './useTransitionStatus.svelte.js';
 
 export { CommonPopupDataAttributes, CommonTriggerDataAttributes };
 
@@ -41,13 +41,9 @@ export const popupStateMapping: StateAttributesMapping<{ open: boolean; anchorHi
 export const popupTransitionStateMapping: StateAttributesMapping<{
 	open: boolean;
 	anchorHidden: boolean;
-	transitionStatus: PopupTransitionStatus;
+	transitionStatus: TransitionStatusValue;
 }> = {
 	open: popupStateMapping.open,
 	anchorHidden: popupStateMapping.anchorHidden,
-	transitionStatus(value: PopupTransitionStatus): Record<string, string> | null {
-		if (value === 'starting') return { [CommonPopupDataAttributes.startingStyle]: '' };
-		if (value === 'ending') return { [CommonPopupDataAttributes.endingStyle]: '' };
-		return null;
-	}
+	transitionStatus: transitionStatusMapping.transitionStatus
 };

@@ -6,6 +6,7 @@ import { page, userEvent } from 'vitest/browser';
 import { describe, expect, it } from 'vitest';
 import { render } from 'vitest-browser-svelte';
 import PopoverDetachHarness from '../../tests/PopoverDetachHarness.svelte';
+import PopoverExitHarness from '../../tests/PopoverExitHarness.svelte';
 import PortalContainerHarness from '../../tests/PortalContainerHarness.svelte';
 import PortalHostHarness from '../../tests/PortalHostHarness.svelte';
 import PortalLateAttachHarness from '../../tests/PortalLateAttachHarness.svelte';
@@ -968,3 +969,34 @@ async function fieldsDuringCrossFade(formId: string) {
 	observer.disconnect();
 	return fields ?? [];
 }
+
+describe('Popover.Positioner transitions', () => {
+	it('disables positioner transitions while the popup is starting', async () => {
+		render(PopoverExitHarness);
+		const seen: string[] = [];
+		const observer = new MutationObserver(() => {
+			const positioner = document.querySelector<HTMLElement>('[data-testid="positioner"]');
+			if (positioner && seen.length === 0) seen.push(positioner.style.transition);
+		});
+		observer.observe(document.body, { childList: true, subtree: true });
+		await page.getByRole('button', { name: 'Open' }).click();
+		const positioner = page.getByTestId('positioner');
+		await expect.element(positioner).toHaveAttribute('data-open', '');
+		await expect.poll(() => positioner.element().style.transition).toBe('');
+		observer.disconnect();
+		expect(seen).toEqual(['none']);
+	});
+
+	it('keeps the modal backdrop inert while the popup animates out', async () => {
+		render(PopoverExitHarness);
+		await page.getByRole('button', { name: 'Open' }).click();
+		const popup = page.getByTestId('popup');
+		await expect.element(popup).toHaveAttribute('data-open', '');
+		const backdrop = () =>
+			document.querySelector('[data-base-ui-portal] [role="presentation"][data-base-ui-inert]');
+		expect(backdrop()?.hasAttribute('inert')).toBe(false);
+		await page.getByRole('button', { name: 'Close' }).click();
+		await expect.element(popup).toHaveAttribute('data-ending-style', '');
+		expect(backdrop()?.hasAttribute('inert')).toBe(true);
+	});
+});

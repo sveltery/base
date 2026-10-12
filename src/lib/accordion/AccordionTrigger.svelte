@@ -1,12 +1,10 @@
 <!--
 	A button that opens and closes the corresponding panel. Renders a `<button>` element.
 	Derived from Base UI v1.8.0 packages/react/src/accordion/trigger/AccordionTrigger.tsx
-	and the non-composite path of packages/react/src/internals/use-button/useButton.ts
 	(commit 47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c). MIT, see THIRD_PARTY_NOTICES.md.
 -->
 <script lang="ts">
-	import { currentHost, dispatchClick, forwardKeyUp, isLink } from '../internal/click.js';
-	import PartHost from '../internal/PartHost.svelte';
+	import { ButtonBehavior } from '../internal/button.svelte.js';
 	import { getStateAttributesProps } from '../internal/state-attributes.js';
 	import { triggerOpenStateMapping } from '../collapsible/attributes.js';
 	import { useCollapsibleRootContext } from '../collapsible/context.svelte.js';
@@ -18,10 +16,6 @@
 		id,
 		nativeButton = true,
 		onclick,
-		onmousedown,
-		onpointerdown,
-		onkeydown,
-		onkeyup,
 		render,
 		children,
 		...elementProps
@@ -32,6 +26,11 @@
 	const disabled = $derived(Boolean(disabledProp) || root.disabled);
 	const state = $derived(item.state);
 	const registeredId = $derived(id ? id : undefined);
+	const button = new ButtonBehavior(() => ({
+		disabled,
+		native: nativeButton,
+		focusableWhenDisabled: true
+	}));
 
 	$effect(() => {
 		const current = registeredId;
@@ -40,72 +39,25 @@
 	});
 
 	function handleClick(event: MouseEvent & { currentTarget: EventTarget & HTMLElement }) {
-		if (disabled) {
-			event.preventDefault();
-			return;
-		}
 		onclick?.(event);
 		if (event.defaultPrevented) return;
 		root.handleTrigger(event);
 	}
 
-	function handleMouseDown(event: MouseEvent & { currentTarget: EventTarget & HTMLElement }) {
-		if (!disabled) onmousedown?.(event);
-	}
-
-	function handlePointerDown(event: PointerEvent & { currentTarget: EventTarget & HTMLElement }) {
-		if (disabled) {
-			event.preventDefault();
-			return;
-		}
-		onpointerdown?.(event);
-	}
-
-	function handleKeyDown(event: KeyboardEvent & { currentTarget: EventTarget & HTMLElement }) {
-		if (disabled) {
-			if (event.key !== 'Tab') event.preventDefault();
-			return;
-		}
-
-		onkeydown?.(event);
-		if (nativeButton || event.defaultPrevented) return;
-
-		const current = currentHost(event);
-		if (!current) return;
-
-		const link = isLink(current, nativeButton);
-		const shouldClick = !link;
-		const isEnter = event.key === 'Enter';
-		const isSpace = event.key === ' ';
-
-		if (!shouldClick || (!isSpace && !isEnter)) {
-			if (link && isSpace) event.preventDefault();
-			return;
-		}
-
-		event.preventDefault();
-		if (isEnter) dispatchClick(current, event);
-	}
-
-	const hostProps: AccordionTriggerHostProps = $derived.by(() => {
-		const props = {
-			...(nativeButton ? { type: 'button' as const } : { role: 'button' as const }),
-			tabindex: 0,
+	const hostProps = $derived(
+		button.props({
 			id: registeredId ?? item.defaultTriggerId,
 			'aria-expanded': root.open,
 			...(root.open && root.panelId ? { 'aria-controls': root.panelId } : {}),
-			...(disabled ? { 'aria-disabled': true } : {}),
 			...elementProps,
 			...getStateAttributesProps(state, triggerOpenStateMapping),
-			onclick: handleClick,
-			onmousedown: handleMouseDown,
-			onpointerdown: handlePointerDown,
-			onkeydown: handleKeyDown,
-			onkeyup: (event: KeyboardEvent & { currentTarget: EventTarget & HTMLElement }) =>
-				forwardKeyUp(event, disabled, onkeyup, nativeButton)
-		};
-		return props as AccordionTriggerHostProps;
-	});
+			onclick: handleClick
+		}) as AccordionTriggerHostProps
+	);
 </script>
 
-<PartHost tag="button" {render} {children} elementProps={hostProps} partState={state} />
+{#if render}
+	{@render render(hostProps, state, children)}
+{:else}
+	<button {...hostProps}>{@render children?.()}</button>
+{/if}

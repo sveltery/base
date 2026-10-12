@@ -6,6 +6,7 @@
 import { page, userEvent } from 'vitest/browser';
 import { describe, expect, it, vi } from 'vitest';
 import { render } from 'vitest-browser-svelte';
+import { resetLogged } from '@sveltery/utils';
 import Button from './Button.svelte';
 import ButtonHarness from '../../tests/ButtonHarness.svelte';
 
@@ -87,6 +88,42 @@ describe('Button', () => {
 			expect(handleClick).toHaveBeenCalledTimes(1);
 			expect(handleClick.mock.calls[0]?.[0].shiftKey).toBe(true);
 			expect(handleClick.mock.calls[0]?.[0].detail).toBe(0);
+		});
+	});
+
+	describe('nativeButton mismatch', () => {
+		it('errors in dev when nativeButton is true and the host is not a <button>', async () => {
+			resetLogged();
+			const error = vi.spyOn(console, 'error').mockImplementation(() => {});
+			try {
+				render(ButtonHarness, { variant: 'native', label: 'Matched' });
+				render(ButtonHarness, { variant: 'native-div', label: 'Div' });
+				await expect.element(page.getByText('Div')).toBeVisible();
+				expect(error.mock.calls).toEqual([
+					[
+						'Base UI: A component that acts as a button expected a native <button> because the `nativeButton` prop is true. Rendering a non-<button> removes native button semantics, which can impact forms and accessibility. Use a real <button> in the `render` snippet, or set `nativeButton` to `false`.'
+					]
+				]);
+			} finally {
+				error.mockRestore();
+			}
+		});
+
+		it('errors in dev when nativeButton is false and the host is a <button>', async () => {
+			resetLogged();
+			const error = vi.spyOn(console, 'error').mockImplementation(() => {});
+			try {
+				render(ButtonHarness, { variant: 'span', label: 'Span' });
+				render(ButtonHarness, { variant: 'non-native-button', label: 'Real' });
+				await expect.element(page.getByRole('button', { name: 'Real' })).toBeVisible();
+				expect(error.mock.calls).toEqual([
+					[
+						'Base UI: A component that acts as a button expected a non-<button> because the `nativeButton` prop is false. Rendering a <button> keeps native behavior while Base UI applies non-native attributes and handlers, which can add unintended extra attributes (such as `role` or `aria-disabled`). Use a non-<button> in the `render` snippet, or set `nativeButton` to `true`.'
+					]
+				]);
+			} finally {
+				error.mockRestore();
+			}
 		});
 	});
 

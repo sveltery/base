@@ -9,7 +9,7 @@
 	import { getStateAttributesProps } from '../internal/state-attributes.js';
 	import { fieldValidityMapping } from './attributes.js';
 	import { setFieldItemContext, useFieldContext } from './context.svelte.js';
-	import { Labelable, setLabelableContext, useLabelableContext } from './labelable.svelte.js';
+	import { Labelable, setLabelableContext, findLabelableContext } from './labelable.svelte.js';
 	import type { FieldItemProps, FieldItemState } from './types.js';
 
 	const uid = $props.id();
@@ -22,7 +22,7 @@
 	}: FieldItemProps = $props();
 
 	const field = useFieldContext();
-	const parentLabelable = useLabelableContext(true);
+	const parentLabelable = findLabelableContext();
 	const labelable = new Labelable(parentLabelable, () => `base-ui-${uid}`);
 	setLabelableContext(labelable);
 

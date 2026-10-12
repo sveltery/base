@@ -8,12 +8,12 @@
 	import { createChangeEventDetails, REASONS, contains, getTarget } from '@sveltery/utils';
 	import {
 		setFloatingTree,
-		useClick,
-		useDismiss,
+		ClickInteraction,
+		DismissInteraction,
 		useFloatingNodeId
 	} from '@sveltery/floating-ui-svelte';
 	import { useScrollLock } from '../internal/popups/index.js';
-	import { setDialogRootContext, useDialogRootContext } from './context.svelte.js';
+	import { findDialogRoot, setDialogRootContext } from './context.svelte.js';
 	import { DialogStore } from './store.svelte.js';
 	import type { DialogRootProps } from './types.js';
 
@@ -28,7 +28,7 @@
 		children
 	}: DialogRootProps = $props();
 
-	const parent = useDialogRootContext(true);
+	const parent = findDialogRoot()?.store;
 	setFloatingTree();
 	const uid = $props.id();
 	const floatingId = `base-ui-${uid}`;
@@ -49,11 +49,11 @@
 		}
 	});
 	useFloatingNodeId(store);
-	const click = useClick(store).reference;
+	const click = new ClickInteraction(store).reference;
 	store.click = click;
 	setDialogRootContext({ store: store as DialogStore<unknown>, click });
 
-	useDismiss(store, () => ({
+	new DismissInteraction(store, () => ({
 		escapeKey: store.nestedOpenDialogCount === 0,
 		outsidePress(event) {
 			if ('button' in event && event.button !== 0) return false;
@@ -96,7 +96,7 @@
 
 	$effect(() => {
 		const id = triggerId;
-		if (id == null || store.triggerCount === 0) return;
+		if (id == null) return;
 		const node = store.triggers.getById(id);
 		if (node && store.domReferenceElement !== node) store.domReferenceElement = node;
 	});

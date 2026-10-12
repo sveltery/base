@@ -9,12 +9,12 @@
 	import { createAttachmentKey } from 'svelte/attachments';
 	import { FocusGuard } from '@sveltery/utils';
 	import { CLICK_TRIGGER_IDENTIFIER } from '@sveltery/floating-ui-svelte';
+	import { ButtonBehavior } from '../internal/button.svelte.js';
 	import { mergeProps } from '../internal/mergeProps.js';
 	import { getStateAttributesProps } from '../internal/state-attributes.js';
-	import { useButton } from '../internal/useButton.js';
 	import { triggerOpenAttributes } from './attributes.js';
 	import { OPEN_DELAY } from './constants.js';
-	import { usePopoverRoot } from './context.svelte.js';
+	import { findPopoverRoot } from './context.svelte.js';
 	import type { PopoverHandle } from './handle.svelte.js';
 	import PopoverTriggerInteractions from './PopoverTriggerInteractions.svelte';
 	import { PopoverStore } from './store.svelte.js';
@@ -35,7 +35,7 @@
 		...elementProps
 	}: PopoverTriggerProps = $props();
 
-	const root = usePopoverRoot(true);
+	const root = findPopoverRoot();
 	if (!handle && !root) {
 		throw new Error(
 			'Base UI: <Popover.Trigger> must be either used within a <Popover.Root> component or provided with a handle.'
@@ -105,6 +105,7 @@
 	// The id can be claimed before the trigger mounts. Upstream leaves this false until then.
 	const expanded = $derived(triggerEl != null && opened);
 	const partState: PopoverTriggerState = $derived({ disabled, open: opened });
+	const button = new ButtonBehavior(() => ({ disabled, native: nativeButton }));
 	const showGuards = $derived(Boolean(live?.mountedBy(triggerId) && !live.focusManagerModal));
 
 	const hostProps = $derived.by(() => {
@@ -123,11 +124,7 @@
 				[bindKey]: bindTrigger,
 				[hoverKey]: attachReference
 			},
-			useButton(
-				disabled,
-				nativeButton,
-				mergeProps(live?.dismissReference, armed?.hover, armed?.click, elementProps)
-			)
+			button.props(mergeProps(live?.dismissReference, armed?.hover, armed?.click, elementProps))
 		);
 		return merged;
 	});

@@ -8,10 +8,10 @@
 	import { REASONS } from '@sveltery/utils';
 	import {
 		safePolygon,
-		useClick,
-		useHoverReferenceInteraction
+		ClickInteraction,
+		HoverReferenceInteraction
 	} from '@sveltery/floating-ui-svelte';
-	import { useTriggerFocusGuards } from '../internal/popups/index.js';
+	import { TriggerFocusGuards } from '../internal/popups/index.js';
 	import type { PopoverStore } from './store.svelte.js';
 	import type { TriggerArmed } from './trigger-armed.js';
 
@@ -34,23 +34,25 @@
 	} = $props();
 
 	const owner = untrack(() => store);
-	const click = useClick(owner, () => ({
+	const click = new ClickInteraction(owner, () => ({
 		enabled: !disabled,
 		stickIfOpen: owner.stickIfOpen
 	}));
-	const hover = useHoverReferenceInteraction(owner, () => ({
+	// One polygon per trigger. The options getter runs on every event.
+	const handleClose = safePolygon();
+	const hover = new HoverReferenceInteraction(owner, () => ({
 		enabled:
 			!disabled &&
 			openOnHover &&
 			(owner.openMethod !== 'touch' || owner.openChangeReason !== REASONS.triggerPress),
 		mouseOnly: true,
 		move: false,
-		handleClose: safePolygon(),
+		handleClose,
 		restMs: delay,
 		delay: { close: closeDelay },
 		placement: () => owner.readPlacement()
 	}));
-	const guards = useTriggerFocusGuards(owner, triggerEl);
+	const guards = new TriggerFocusGuards(owner, triggerEl);
 
 	$effect(() => {
 		untrack(() =>

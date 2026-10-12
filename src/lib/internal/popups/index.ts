@@ -18,16 +18,15 @@ export {
 } from '@sveltery/utils';
 export { useAnchoredPopupScrollLock } from '../useAnchoredPopupScrollLock.svelte.js';
 export {
-	useAnchorPositioning,
+	AnchorPositioning,
 	anchorAutoUpdateOptions,
 	type Align,
 	type Side,
-	type UseAnchorPositioningParameters,
-	type UseAnchorPositioningReturn
+	type AnchorPositioningParameters
 } from '../useAnchorPositioning.svelte.js';
-export { useTriggerFocusGuards } from './useTriggerFocusGuards.js';
+export { TriggerFocusGuards } from './triggerFocusGuards.js';
 export * as CommonPositionerCssVars from '../CommonPositionerCssVars.js';
-export type { PopupTransitionStatus } from '../useTransitionStatus.svelte.js';
+export type { TransitionStatusValue } from '../useTransitionStatus.svelte.js';
 export { PopupTriggerMap } from '@sveltery/floating-ui-svelte';
 export {
 	FOCUSABLE_POPUP_PROPS,

@@ -1,7 +1,6 @@
 <!--
 	Represents the radio button itself. Renders a `<span>` and a hidden radio beside it.
-	Derived from Base UI v1.8.0 packages/react/src/radio/root/RadioRoot.tsx,
-	the non-composite paths of packages/react/src/internals/use-button/useButton.ts,
+	Derived from Base UI v1.8.0 packages/react/src/radio/root/RadioRoot.tsx
 	and the native-label fallback of useAriaLabelledBy.ts
 	(commit 47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c). MIT, see THIRD_PARTY_NOTICES.md.
 	Field registration, validation, and Form error clearing are not ported.
@@ -10,7 +9,8 @@
 -->
 <script lang="ts">
 	import { createAttachmentKey, type Attachment } from 'svelte/attachments';
-	import { currentHost, dispatchClick, forwardKeyUp } from '../internal/click.js';
+	import { ButtonBehavior } from '../internal/button.svelte.js';
+	import { dispatchClick } from '../internal/click.js';
 	import { toCssStyle } from '../internal/css-style.js';
 	import {
 		createChangeEventDetails,
@@ -38,10 +38,7 @@
 		nativeButton = false,
 		id,
 		onclick,
-		onmousedown,
-		onpointerdown,
 		onkeydown,
-		onkeyup,
 		onfocus,
 		'aria-labelledby': ariaLabelledBy,
 		render,
@@ -150,30 +147,15 @@
 		rootNode?.focus();
 	}
 
-	function handleClick(event: MouseEvent & { currentTarget: EventTarget & HTMLElement }) {
-		if (disabled) {
-			event.preventDefault();
-			return;
-		}
+	const button = new ButtonBehavior(() => ({ disabled, native: nativeButton }));
 
+	function handleClick(event: MouseEvent & { currentTarget: EventTarget & HTMLElement }) {
 		onclick?.(event);
 		if (event.defaultPrevented || readOnly) return;
 
 		event.preventDefault();
 		if (!inputNode) return;
 		dispatchClick(inputNode, event);
-	}
-
-	function handleMouseDown(event: MouseEvent & { currentTarget: EventTarget & HTMLElement }) {
-		if (!disabled) onmousedown?.(event);
-	}
-
-	function handlePointerDown(event: PointerEvent & { currentTarget: EventTarget & HTMLElement }) {
-		if (disabled) {
-			event.preventDefault();
-			return;
-		}
-		onpointerdown?.(event);
 	}
 
 	function handleFocus(event: FocusEvent & { currentTarget: EventTarget & HTMLElement }) {
@@ -187,22 +169,9 @@
 	}
 
 	function handleKeyDown(event: KeyboardEvent & { currentTarget: EventTarget & HTMLElement }) {
-		if (disabled) return;
-
 		onkeydown?.(event);
-		const current = currentHost(event);
-		if (!current) return;
-
 		// Radio only activates with Space. Enter never becomes a click.
-		if (event.key === 'Enter') {
-			event.preventDefault();
-			return;
-		}
-
-		if (event.key !== ' ' || nativeButton || event.defaultPrevented) return;
-		if (current instanceof HTMLButtonElement) return;
-
-		event.preventDefault();
+		if (event.key === 'Enter') event.preventDefault();
 	}
 
 	$effect(() => {
@@ -213,20 +182,17 @@
 
 	const hostProps: RadioHostProps & Record<symbol, Attachment<HTMLElement>> = $derived.by(() => {
 		const labelledBy = ariaLabelledBy ?? fallbackLabelId;
-		return {
+		return button.props({
 			...radioRootAttributes(radioState),
-			...(nativeButton ? { type: 'button' as const } : {}),
-			tabindex: group?.roving
-				? group.roving.tabIndex(rootNode, renderIndex, {
-						disabled,
-						selected: checked,
-						hasSelection: group.checkedValue !== undefined
-					})
-				: !nativeButton && disabled
-					? -1
-					: 0,
-			...(!nativeButton && disabled ? { 'aria-disabled': true as const } : {}),
-			...(nativeButton && disabled ? { disabled: true } : {}),
+			...(group?.roving
+				? {
+						tabindex: group.roving.tabIndex(rootNode, renderIndex, {
+							disabled,
+							selected: checked,
+							hasSelection: group.checkedValue !== undefined
+						})
+					}
+				: {}),
 			id: rootId,
 			role: 'radio',
 			'aria-checked': checked,
@@ -234,13 +200,10 @@
 			...(labelledBy ? { 'aria-labelledby': labelledBy } : {}),
 			...elementProps,
 			onclick: handleClick,
-			onmousedown: handleMouseDown,
-			onpointerdown: handlePointerDown,
 			onkeydown: handleKeyDown,
-			onkeyup: (event) => forwardKeyUp(event, disabled, onkeyup, nativeButton),
 			onfocus: handleFocus,
 			[rootKey]: registerRoot
-		};
+		}) as RadioHostProps & Record<symbol, Attachment<HTMLElement>>;
 	});
 </script>
 

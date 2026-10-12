@@ -5,7 +5,7 @@
 -->
 <script lang="ts">
 	import { useFieldContext } from './context.svelte.js';
-	import { FieldTransition } from './transition.svelte.js';
+	import { TransitionStatus } from '../internal/useTransitionStatus.svelte.js';
 	import type { FieldValidityProps, FieldValidityState } from './types.js';
 	import { getCombinedFieldValidityData } from './validity.js';
 
@@ -14,7 +14,7 @@
 	const field = useFieldContext();
 	const combined = $derived(getCombinedFieldValidityData(field.validityData, field.invalid));
 	const invalid = $derived(combined.state.valid === false);
-	const transition = new FieldTransition(() => invalid);
+	const transition = new TransitionStatus(() => invalid);
 
 	const validityState: FieldValidityState = $derived({
 		error: combined.error,

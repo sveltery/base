@@ -2,10 +2,8 @@
 // packages/react/src/radio-group/RadioGroupContext.ts
 // (commit 47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c). MIT, see THIRD_PARTY_NOTICES.md.
 // RadioGroup sets this context. A test harness can set it without roving focus.
-import { getContext, setContext } from 'svelte';
 import type { RadioRootChangeEventDetails } from './types.js';
-
-const RADIO_GROUP = Symbol('radio-group');
+import { defineOptionalContext } from '../internal/context.js';
 
 /**
  * Roving tabindex owned by RadioGroup.
@@ -42,10 +40,6 @@ export interface RadioGroupContextValue {
 	setTouched: (touched: boolean) => void;
 }
 
-export function setRadioGroupContext(context: RadioGroupContextValue) {
-	setContext(RADIO_GROUP, context);
-}
-
-export function useRadioGroupContext(): RadioGroupContextValue | undefined {
-	return getContext<RadioGroupContextValue>(RADIO_GROUP);
-}
+export const [useRadioGroupContext, setRadioGroupContext] = defineOptionalContext<
+	RadioGroupContextValue | undefined
+>(undefined);

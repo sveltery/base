@@ -6,24 +6,22 @@
 	There is no ref. Field registration uses the thumb input element.
 -->
 <script lang="ts">
-	import { DEV } from 'esm-env';
 	import { onMount } from 'svelte';
 	import { createAttachmentKey } from 'svelte/attachments';
 	import type { Attachment } from 'svelte/attachments';
 	import type { HTMLAttributes } from 'svelte/elements';
 	import { useFieldContext } from '../field/context.svelte.js';
-	import { useLabelableContext } from '../field/labelable.svelte.js';
+	import { findLabelableContext } from '../field/labelable.svelte.js';
 	import { useFormContext } from '../form/context.js';
 	import { clamp } from '../internal/clamp.js';
 	import { watchFieldControl } from '../internal/field-register-control.svelte.js';
 	import { useValueChanged } from '../internal/useValueChanged.svelte.js';
-	import PartHost from '../internal/PartHost.svelte';
 	import { useDirection } from '../internal/direction-context.js';
 	import { getStateAttributesProps } from '../internal/state-attributes.js';
 	import { asc } from './asc.js';
 	import { sliderStateAttributes } from './attributes.js';
 	import { setSliderContext } from './context.svelte.js';
-	import { ownerDocument, activeElement, contains } from '@sveltery/utils';
+	import { ownerDocument, activeElement, contains, warn } from '@sveltery/utils';
 	import { areArraysEqual } from './getSliderValue.js';
 	import { SliderRootModel } from './model.svelte.js';
 	import type { SliderRootProps, SliderRootState, SliderValue } from './types.js';
@@ -63,7 +61,7 @@
 	const reading = useDirection();
 	const field = useFieldContext();
 	const form = useFormContext();
-	const labelable = useLabelableContext(true);
+	const labelable = findLabelableContext();
 
 	const valueUnwrapped: SliderValue = $derived(value ?? min);
 	useValueChanged(
@@ -124,8 +122,8 @@
 	});
 
 	$effect(() => {
-		if (!DEV || min < max) return;
-		console.warn('Base UI: Slider `max` must be greater than `min`.');
+		if (min < max) return;
+		warn('Slider `max` must be greater than `min`.');
 	});
 
 	$effect(() => {
@@ -179,4 +177,8 @@
 		});
 </script>
 
-<PartHost tag="div" {render} {children} elementProps={hostProps} {partState} />
+{#if render}
+	{@render render(hostProps, partState, children)}
+{:else}
+	<div {...hostProps}>{@render children?.()}</div>
+{/if}

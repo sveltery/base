@@ -9,11 +9,11 @@
 	import {
 		FieldsetRootContextValue,
 		setFieldsetRootContext,
-		useFieldsetRootContext
+		findFieldsetRootContext
 	} from './context.svelte.js';
 	import type { FieldsetRootProps, FieldsetRootState } from './types.js';
 
-	const parent = useFieldsetRootContext(true);
+	const parent = findFieldsetRootContext();
 
 	let {
 		disabled: disabledProp = false,

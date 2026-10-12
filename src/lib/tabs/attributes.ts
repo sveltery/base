@@ -4,7 +4,11 @@
 // packages/react/src/tabs/indicator/TabsIndicatorCssVars.ts
 // (commit 47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c). MIT, see THIRD_PARTY_NOTICES.md.
 
-import type { StateAttributesMapping } from '../internal/state-attributes.js';
+import {
+	transitionStatusMapping,
+	type StateAttributesMapping
+} from '../internal/state-attributes.js';
+import type { TransitionStatusValue } from '../internal/useTransitionStatus.svelte.js';
 import type { TabsActivationDirection, TabsOrientation } from './types.js';
 
 export const activationDirectionAttribute = 'data-activation-direction';
@@ -24,21 +28,14 @@ export const startingStyle = 'data-starting-style';
 /** Present when the tab panel is animating out. */
 export const endingStyle = 'data-ending-style';
 
-const STARTING_HOOK = { [startingStyle]: '' };
-const ENDING_HOOK = { [endingStyle]: '' };
-
 export const panelStateAttributesMapping: StateAttributesMapping<{
 	orientation: TabsOrientation;
 	tabActivationDirection: TabsActivationDirection;
 	hidden: boolean;
-	transitionStatus: 'starting' | 'ending' | 'idle' | undefined;
+	transitionStatus: TransitionStatusValue;
 }> = {
 	...tabsStateAttributesMapping,
-	transitionStatus(value) {
-		if (value === 'starting') return STARTING_HOOK;
-		if (value === 'ending') return ENDING_HOOK;
-		return null;
-	}
+	...transitionStatusMapping
 };
 
 export const indicatorStateAttributesMapping: StateAttributesMapping<{

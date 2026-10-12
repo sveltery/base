@@ -3,44 +3,17 @@
 // React context plus `useRegisteredLabelId`'s functional clear is a class: parts read live
 // derived progress fields, and label registration updates `labelId`.
 
-import { getContext, setContext } from 'svelte';
 import { computeProgress, type ProgressInputs } from './compute.js';
-import type { ProgressState } from './types.js';
-
-const PROGRESS_ROOT_CONTEXT = Symbol('progress-root');
+import { defineContext } from '../internal/context.js';
 
 export class ProgressRootContext {
-	value = $state<number | null>(null);
-	min = $state(0);
-	max = $state(100);
-	format = $state<Intl.NumberFormatOptions | undefined>(undefined);
-	locale = $state<Intl.LocalesArgument | undefined>(undefined);
 	labelId = $state<string | undefined>(undefined);
+	readonly computed = $derived.by(() => computeProgress(this.read()));
 
-	computed = $derived(
-		computeProgress({
-			value: this.value,
-			min: this.min,
-			max: this.max,
-			format: this.format,
-			locale: this.locale
-		})
-	);
+	constructor(private readonly read: () => ProgressInputs) {}
 
-	constructor(initial: ProgressInputs) {
-		this.sync(initial);
-	}
-
-	sync(input: ProgressInputs) {
-		this.value = input.value;
-		this.min = input.min;
-		this.max = input.max;
-		this.format = input.format;
-		this.locale = input.locale;
-	}
-
-	get state(): ProgressState {
-		return { status: this.computed.status };
+	get value() {
+		return this.read().value;
 	}
 
 	setLabelId(next: string | undefined) {
@@ -48,16 +21,7 @@ export class ProgressRootContext {
 	}
 }
 
-export function provideProgressRootContext(context: ProgressRootContext) {
-	setContext(PROGRESS_ROOT_CONTEXT, context);
-}
-
-export function useProgressRootContext(): ProgressRootContext {
-	const context = getContext<ProgressRootContext | undefined>(PROGRESS_ROOT_CONTEXT);
-	if (context === undefined) {
-		throw new Error(
-			'Base UI: ProgressRootContext is missing. Progress parts must be placed within <Progress.Root>.'
-		);
-	}
-	return context;
-}
+export const [useProgressRootContext, provideProgressRootContext] =
+	defineContext<ProgressRootContext>(
+		'Base UI: ProgressRootContext is missing. Progress parts must be placed within <Progress.Root>.'
+	);

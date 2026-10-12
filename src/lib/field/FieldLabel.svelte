@@ -5,7 +5,7 @@
 	(commit 47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c). MIT, see THIRD_PARTY_NOTICES.md.
 -->
 <script lang="ts">
-	import { DEV } from 'esm-env';
+	import { error } from '@sveltery/utils';
 	import { untrack } from 'svelte';
 	import { createAttachmentKey } from 'svelte/attachments';
 	import type { HTMLAttributes, HTMLLabelAttributes } from 'svelte/elements';
@@ -60,15 +60,15 @@
 
 	$effect(() => {
 		const element = labelEl;
-		if (!DEV || !element) return;
+		if (!element) return;
 		const isLabel = element.tagName === 'LABEL';
 		if (nativeLabel && !isLabel) {
-			console.error(
-				'Base UI: <Field.Label> expected a <label> element because the `nativeLabel` prop is true. Rendering a non-<label> disables native label association, so `for` will not work. Use a real <label> in the `render` snippet, or set `nativeLabel` to `false`.'
+			error(
+				'<Field.Label> expected a <label> element because the `nativeLabel` prop is true. Rendering a non-<label> disables native label association, so `for` will not work. Use a real <label> in the `render` snippet, or set `nativeLabel` to `false`.'
 			);
 		} else if (!nativeLabel && isLabel) {
-			console.error(
-				'Base UI: <Field.Label> expected a non-<label> element because the `nativeLabel` prop is false. Rendering a <label> assumes native label behavior while Base UI treats it as non-native, which can cause unexpected pointer behavior. Use a non-<label> in the `render` prop, or set `nativeLabel` to `true`.'
+			error(
+				'<Field.Label> expected a non-<label> element because the `nativeLabel` prop is false. Rendering a <label> assumes native label behavior while Base UI treats it as non-native, which can cause unexpected pointer behavior. Use a non-<label> in the `render` prop, or set `nativeLabel` to `true`.'
 			);
 		}
 	});
@@ -117,12 +117,12 @@
 		onmousedown: handleMouseDown,
 		onclick: handleClick,
 		...(!nativeLabel ? { onpointerdown: handlePointerDown } : {}),
-		...(render ? { [elementKey]: remember } : {})
+		[elementKey]: remember
 	});
 </script>
 
 {#if render}
 	{@render render(hostProps as HTMLAttributes<HTMLElement>, labelState, children)}
 {:else}
-	<label {...hostProps} bind:this={labelEl}>{@render children?.()}</label>
+	<label {...hostProps}>{@render children?.()}</label>
 {/if}

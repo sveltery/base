@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { createChangeEventDetails } from '@sveltery/utils';
-	import { PopupStore, useTriggerFocusGuards } from '#lib/internal/popups/index.js';
+	import { PopupStore, TriggerFocusGuards } from '#lib/internal/popups/index.js';
 
 	let open = $state<boolean | undefined>(undefined);
 	let trigger = $state<HTMLButtonElement | null>(null);
@@ -16,7 +16,7 @@
 		onOpenChangeComplete: () => () => {}
 	});
 
-	const guards = useTriggerFocusGuards(store, () => trigger);
+	const guards = new TriggerFocusGuards(store, () => trigger);
 
 	function bindPositioner(node: HTMLElement) {
 		store.positionerElement = node;

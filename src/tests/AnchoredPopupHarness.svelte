@@ -3,16 +3,16 @@
 	import { toCssStyle } from '#lib/internal/css-style.js';
 	import {
 		safePolygon,
-		useClick,
+		ClickInteraction,
 		useHoverFloatingInteraction,
-		useHoverReferenceInteraction
+		HoverReferenceInteraction
 	} from '@sveltery/floating-ui-svelte';
 	import { mergeProps } from '#lib/internal/mergeProps.js';
 	import {
 		PopupStore,
 		popupTransitionStateMapping,
 		registerTrigger,
-		useAnchorPositioning,
+		AnchorPositioning,
 		useAnchoredPopupScrollLock
 	} from '#lib/internal/popups/index.js';
 	import type { PopupChangeEventDetails } from '#lib/internal/popups/index.js';
@@ -71,11 +71,11 @@
 		onOpenChangeComplete: () => () => {}
 	});
 
-	const click = useClick(store, () => ({ enabled: !hover }));
+	const click = new ClickInteraction(store, () => ({ enabled: !hover }));
 	const blockPolygon = safePolygon({ blockPointerEvents: true });
 	const plainPolygon = safePolygon();
 	const polygon = $derived(scenario === 'block' ? blockPolygon : plainPolygon);
-	const hoverReference = useHoverReferenceInteraction(store, () => ({
+	const hoverReference = new HoverReferenceInteraction(store, () => ({
 		enabled: hover && !many,
 		mouseOnly: true,
 		move: false,
@@ -85,7 +85,7 @@
 		placement: () => positioning.physicalSide,
 		shouldOpen: () => scenario !== 'refuse'
 	}));
-	const hoverA = useHoverReferenceInteraction(store, () => ({
+	const hoverA = new HoverReferenceInteraction(store, () => ({
 		enabled: many && scenario !== 'retain',
 		mouseOnly: true,
 		move: false,
@@ -94,7 +94,7 @@
 		shouldOpen: () => scenario !== 'refuse',
 		placement: () => positioning.physicalSide
 	}));
-	const hoverB = useHoverReferenceInteraction(store, () => ({
+	const hoverB = new HoverReferenceInteraction(store, () => ({
 		enabled: many && scenario !== 'retain',
 		mouseOnly: true,
 		move: false,
@@ -108,7 +108,7 @@
 		closeDelay: scenario === 'delay' ? closeDelay : 0
 	}));
 
-	const positioning = useAnchorPositioning(store, () => ({
+	const positioning = new AnchorPositioning(store, () => ({
 		mounted: store.mounted,
 		anchor: scenario === 'pixels' ? fractionalAnchor : undefined,
 		disableAnchorTracking: false,
@@ -167,13 +167,13 @@
 		<button
 			{...triggerAProps}
 			style="position: fixed; left: 20px; top: 40px"
-			{@attach registerTrigger(store, () => 'trigger-a')}
+			{@attach registerTrigger(store.triggers, () => 'trigger-a')}
 			{@attach hoverA.attachReference}>A</button
 		>
 		<button
 			{...triggerBProps}
 			style="position: fixed; left: 240px; top: 40px"
-			{@attach registerTrigger(store, () => 'trigger-b')}
+			{@attach registerTrigger(store.triggers, () => 'trigger-b')}
 			{@attach hoverB.attachReference}>B</button
 		>
 	{:else if showTrigger}
@@ -186,7 +186,7 @@
 					: scenario === 'reopen'
 						? 'position: fixed; left: 24px; top: 20px'
 						: undefined}
-			{@attach registerTrigger(store, () => 'open-trigger')}
+			{@attach registerTrigger(store.triggers, () => 'open-trigger')}
 			{@attach hoverReference.attachReference}>Open</button
 		>
 	{/if}

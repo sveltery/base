@@ -2,9 +2,11 @@
 // (commit 47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c). MIT, see THIRD_PARTY_NOTICES.md.
 // React.Activity's resume-animation suppression is not recreated.
 
+import { getAbortSignal } from 'svelte';
 import { on } from 'svelte/events';
-import { useAnimationFrame, REASONS } from '@sveltery/utils';
+import { ScopedAnimationFrame, REASONS } from '@sveltery/utils';
 import { runOnceAnimationsFinish } from '../internal/animations-finished.js';
+import { useOpenChangeComplete } from '../internal/useOpenChangeComplete.svelte.js';
 import type { CollapsibleRoot } from './context.svelte.js';
 import {
 	EMPTY_DIMENSIONS,
@@ -18,7 +20,7 @@ import {
 import type { TransitionStatus } from './types.js';
 
 export class CollapsiblePanelMotion {
-	private readonly endingFrame = useAnimationFrame();
+	private readonly endingFrame = new ScopedAnimationFrame();
 	height = $state<number | undefined>(undefined);
 	width = $state<number | undefined>(undefined);
 	panel = $state<HTMLElement | null>(null);
@@ -93,9 +95,9 @@ export class CollapsiblePanelMotion {
 					restoreForMeasure();
 					this.setDimensions(measured);
 					const panelEl = panel;
-					let cancelled = false;
+					const signal = getAbortSignal();
 					queueMicrotask(() => {
-						if (cancelled || this.panel !== panelEl) return;
+						if (signal.aborted || this.panel !== panelEl) return;
 						this.layoutRestore = resetLayoutStyles(panelEl);
 					});
 					if (skip) {
@@ -104,7 +106,6 @@ export class CollapsiblePanelMotion {
 						this.forcePanelIdle = true;
 					}
 					return () => {
-						cancelled = true;
 						this.layoutRestore?.();
 						this.layoutRestore = null;
 					};
@@ -156,27 +157,15 @@ export class CollapsiblePanelMotion {
 		});
 
 		// After the open settles, drop the measured pixels so the panel can size with `auto`.
-		$effect(() => {
-			const panel = this.panel;
-			const open = this.root.open;
-			const mounted = this.root.mounted;
-			const status = this.panelStatus;
-			if (!panel || !open || !mounted || status !== 'idle') return;
-
-			const abort = new AbortController();
-			runOnceAnimationsFinish(
-				panel,
-				() => {
-					// An animation can finish after close was requested but before this effect cleans up.
-					if (!this.root.open) return;
-					this.setDimensions(EMPTY_DIMENSIONS, false);
-				},
-				abort.signal,
-				false,
-				true
-			);
-			return () => abort.abort();
-		});
+		useOpenChangeComplete(() => ({
+			enabled: this.root.open && this.root.mounted && this.panelStatus === 'idle',
+			open: true,
+			element: this.panel,
+			onComplete: () => {
+				// An animation can finish after close was requested but before this effect cleans up.
+				if (this.root.open) this.setDimensions(EMPTY_DIMENSIONS, false);
+			}
+		}));
 
 		// Wait one frame so `[data-ending-style]` is committed before watching the close.
 		$effect(() => {
@@ -186,7 +175,7 @@ export class CollapsiblePanelMotion {
 			const status = this.panelStatus;
 			if (!panel || open || !mounted || status !== 'ending') return;
 
-			const abort = new AbortController();
+			const signal = getAbortSignal();
 			this.endingFrame.request(() => {
 				runOnceAnimationsFinish(
 					panel,
@@ -195,14 +184,11 @@ export class CollapsiblePanelMotion {
 						this.root.setMounted(false);
 						this.setDimensions(EMPTY_DIMENSIONS, false);
 					},
-					abort.signal,
+					signal,
 					false
 				);
 			});
-			return () => {
-				this.endingFrame.cancel();
-				abort.abort();
-			};
+			return () => this.endingFrame.cancel();
 		});
 
 		$effect(() => {

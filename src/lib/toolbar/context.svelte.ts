@@ -1,12 +1,9 @@
 // Derived from Base UI v1.8.0 packages/react/src/toolbar/root/ToolbarRootContext.ts
 // and packages/react/src/toolbar/group/ToolbarGroupContext.ts
 // (commit 47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c). MIT, see THIRD_PARTY_NOTICES.md.
-import { getContext, hasContext, setContext } from 'svelte';
 import type { CompositeRoot } from '../internal/composite-root.svelte.js';
 import type { ToolbarOrientation } from './types.js';
-
-const TOOLBAR_ROOT_CONTEXT = Symbol('toolbar-root');
-const TOOLBAR_GROUP_CONTEXT = Symbol('toolbar-group');
+import { defineContext, defineOptionalContext } from '../internal/context.js';
 
 /**
  * Disabled and orientation are read from the root's props, so a later change
@@ -48,27 +45,10 @@ export class ToolbarGroupContext {
 	}
 }
 
-export function setToolbarRootContext(context: ToolbarRootContext) {
-	setContext(TOOLBAR_ROOT_CONTEXT, context);
-}
+export const [useToolbarRootContext, setToolbarRootContext] = defineContext<ToolbarRootContext>(
+	'Base UI: ToolbarRootContext is missing. Toolbar parts must be placed within <Toolbar.Root>.'
+);
 
-export function useToolbarRootContext(optional: true): ToolbarRootContext | undefined;
-export function useToolbarRootContext(optional?: false): ToolbarRootContext;
-export function useToolbarRootContext(optional = false) {
-	if (!hasContext(TOOLBAR_ROOT_CONTEXT)) {
-		if (optional) return undefined;
-		throw new Error(
-			'Base UI: ToolbarRootContext is missing. Toolbar parts must be placed within <Toolbar.Root>.'
-		);
-	}
-	return getContext<ToolbarRootContext>(TOOLBAR_ROOT_CONTEXT);
-}
-
-export function setToolbarGroupContext(context: ToolbarGroupContext) {
-	setContext(TOOLBAR_GROUP_CONTEXT, context);
-}
-
-export function useToolbarGroupContext(): ToolbarGroupContext | undefined {
-	if (!hasContext(TOOLBAR_GROUP_CONTEXT)) return undefined;
-	return getContext<ToolbarGroupContext>(TOOLBAR_GROUP_CONTEXT);
-}
+export const [useToolbarGroupContext, setToolbarGroupContext] = defineOptionalContext<
+	ToolbarGroupContext | undefined
+>(undefined);

@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { useClick } from '@sveltery/floating-ui-svelte';
+	import { ClickInteraction } from '@sveltery/floating-ui-svelte';
 	import { PopupStore, useAnchoredPopupScrollLock } from '#lib/internal/popups/index.js';
 
 	let { enabled = false, wide = false }: { enabled?: boolean; wide?: boolean } = $props();
@@ -15,7 +15,7 @@
 		onOpenChangeComplete: () => () => {}
 	});
 
-	const click = useClick(store);
+	const click = new ClickInteraction(store);
 
 	useAnchoredPopupScrollLock(() => ({
 		enabled: enabled && store.open,

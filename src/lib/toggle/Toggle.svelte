@@ -7,10 +7,9 @@
 	import type { Attachment } from 'svelte/attachments';
 	import type { HTMLButtonAttributes } from 'svelte/elements';
 	import type { CompositeHandlers } from '../internal/composite-root.svelte.js';
-	import { createChangeEventDetails, REASONS } from '@sveltery/utils';
+	import { createChangeEventDetails, error, REASONS } from '@sveltery/utils';
 	import { getStateAttributesProps } from '../internal/state-attributes.js';
 	import { useToggleGroupContext } from '../toggle-group/context.svelte.js';
-	import { warnMissingToggleValue } from '../toggle-group/warn.js';
 	import type { ToggleProps, ToggleState } from './types.js';
 
 	const uid = $props.id();
@@ -55,7 +54,9 @@
 
 	$effect(() => {
 		if (!group?.valueProvided || valueProp !== undefined) return;
-		warnMissingToggleValue();
+		error(
+			'A `<Toggle>` component rendered in a `<ToggleGroup>` has no explicit `value` prop. This will cause issues between the Toggle Group and Toggle values. Provide the `<Toggle>` with a `value` prop matching the `<ToggleGroup>` values prop type.'
+		);
 	});
 
 	function handleClick(event: MouseEvent & { currentTarget: EventTarget & HTMLButtonElement }) {

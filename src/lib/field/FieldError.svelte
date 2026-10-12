@@ -5,14 +5,17 @@
 	(commit 47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c). MIT, see THIRD_PARTY_NOTICES.md.
 -->
 <script lang="ts">
+	import { untrack } from 'svelte';
 	import { createAttachmentKey } from 'svelte/attachments';
 	import type { HTMLAttributes } from 'svelte/elements';
-	import { runOnceAnimationsFinish } from '../internal/animations-finished.js';
-	import { getStateAttributesProps } from '../internal/state-attributes.js';
-	import { fieldValidityMapping, transitionStatusMapping } from './attributes.js';
+	import {
+		getStateAttributesProps,
+		transitionStatusMapping
+	} from '../internal/state-attributes.js';
+	import { fieldValidityMapping } from './attributes.js';
 	import { useFieldContext } from './context.svelte.js';
 	import { useLabelableContext } from './labelable.svelte.js';
-	import { FieldTransition } from './transition.svelte.js';
+	import { TransitionStatus } from '../internal/useTransitionStatus.svelte.js';
 	import type { FieldErrorProps, FieldErrorState } from './types.js';
 
 	const uid = $props.id();
@@ -41,12 +44,16 @@
 		return field.validityData.error;
 	});
 
-	const transition = new FieldTransition(
-		() => rendered,
-		() => message ?? null
-	);
+	const transition = new TransitionStatus(() => rendered);
+
+	// The message to show while the error animates out.
+	let frozen = $state(untrack(() => (rendered ? (message ?? null) : null)));
+	$effect.pre(() => {
+		if (rendered) frozen = message ?? null;
+	});
 
 	let errorEl = $state<HTMLDivElement | null>(null);
+	transition.unmountAfterExit(() => errorEl);
 
 	$effect(() => {
 		if (!rendered || !id) return;
@@ -55,23 +62,6 @@
 		return () => {
 			labelable.deleteMessageId(messageId);
 		};
-	});
-
-	$effect(() => {
-		const open = rendered;
-		const node = errorEl;
-		if (!node) return;
-		const controller = new AbortController();
-		runOnceAnimationsFinish(
-			node,
-			() => {
-				if (!open) transition.setMounted(false);
-			},
-			controller.signal,
-			false,
-			open
-		);
-		return () => controller.abort();
 	});
 
 	function remember(node: HTMLElement) {
@@ -90,10 +80,10 @@
 		...elementProps,
 		...getStateAttributesProps(errorState, { ...fieldValidityMapping, ...transitionStatusMapping }),
 		id,
-		...(render ? { [elementKey]: remember } : {})
+		[elementKey]: remember
 	});
 
-	const visibleMessage = $derived(rendered ? message : transition.frozen);
+	const visibleMessage = $derived(rendered ? message : frozen);
 </script>
 
 {#snippet body(content: string | string[] | null)}
@@ -124,7 +114,7 @@
 			children ?? (visibleMessage != null ? messageText : undefined)
 		)}
 	{:else}
-		<div {...hostProps} bind:this={errorEl}>
+		<div {...hostProps}>
 			{#if children}
 				{@render children()}
 			{:else}

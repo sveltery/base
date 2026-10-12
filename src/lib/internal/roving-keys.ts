@@ -12,25 +12,3 @@ export function axisKeys(vertical: boolean, rtl: boolean) {
 	const backwardKey = vertical ? 'ArrowUp' : rtl ? 'ArrowRight' : 'ArrowLeft';
 	return { forwardKey, backwardKey };
 }
-
-/** Next index in a linear list. `null` means this key does not move. */
-export function stepLinear(
-	position: number,
-	length: number,
-	key: string,
-	forwardKey: string,
-	backwardKey: string,
-	loop: boolean,
-	homeEnd: boolean
-): number | null {
-	if (length === 0) return null;
-	if (homeEnd && key === 'Home') return 0;
-	if (homeEnd && key === 'End') return length - 1;
-	if (key === forwardKey) {
-		return position === length - 1 ? (loop ? 0 : position) : position + 1;
-	}
-	if (key === backwardKey) {
-		return position === 0 ? (loop ? length - 1 : position) : position - 1;
-	}
-	return null;
-}

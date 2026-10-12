@@ -12,7 +12,7 @@
 	import InternalBackdrop from '../internal/InternalBackdrop.svelte';
 	import {
 		popupStateMapping,
-		useAnchorPositioning,
+		AnchorPositioning,
 		useAnchoredPopupScrollLock
 	} from '../internal/popups/index.js';
 	import { getStateAttributesProps } from '../internal/state-attributes.js';
@@ -43,7 +43,7 @@
 	useFloatingNodeId(store);
 	const attachKey = createAttachmentKey();
 
-	const positioning = useAnchorPositioning(store, () => ({
+	const positioning = new AnchorPositioning(store, () => ({
 		anchor,
 		positionMethod,
 		side,
@@ -64,12 +64,12 @@
 		store.setPlacement(positioning.physicalSide);
 	});
 
-	const modalLock = $derived(
-		store.open && store.modal === true && store.openChangeReason !== REASONS.triggerHover
+	const trueModalNonHover = $derived(
+		store.modal === true && store.openChangeReason !== REASONS.triggerHover
 	);
 
 	useAnchoredPopupScrollLock(() => ({
-		enabled: modalLock,
+		enabled: store.open && trueModalNonHover,
 		touchOpen: store.openMethod === 'touch',
 		positionerElement: store.positionerElement,
 		referenceElement: store.domReferenceElement
@@ -91,7 +91,8 @@
 				style: toCssStyle({
 					...positioning.positionerStyles,
 					...store.positionerVars,
-					...(store.open ? {} : { pointerEvents: 'none' })
+					...(store.open ? {} : { pointerEvents: 'none' }),
+					...(store.transitionStatus === 'starting' ? { transition: 'none' } : {})
 				}),
 				...getStateAttributesProps(state, popupStateMapping),
 				[attachKey]: positioning.positionerProps.attach
@@ -101,8 +102,8 @@
 	);
 </script>
 
-{#if modalLock && store.mounted}
-	<InternalBackdrop cutout={store.domReferenceElement} />
+{#if store.mounted && trueModalNonHover}
+	<InternalBackdrop inert={!store.open} cutout={store.domReferenceElement} />
 {/if}
 {#if render}{@render render(hostProps, state, children)}{:else}<div {...hostProps}>
 		{@render children?.()}

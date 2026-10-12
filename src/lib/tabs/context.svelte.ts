@@ -2,9 +2,9 @@
 // packages/react/src/tabs/list/TabsListContext.ts and the tab metadata map in TabsRoot.tsx
 // (commit 47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c). MIT, see THIRD_PARTY_NOTICES.md.
 
-import { getContext, setContext, untrack } from 'svelte';
-import { indicatorListeners } from './indicator-listeners.js';
-import { byDocumentOrder } from '../internal/document-order.js';
+import { untrack } from 'svelte';
+import { createSubscriber } from 'svelte/reactivity';
+import { ElementList } from '../internal/element-list.svelte.js';
 import { REASONS } from '@sveltery/utils';
 import { activationDirection } from './direction.js';
 import { createTabsChangeEventDetails } from './events.js';
@@ -16,9 +16,7 @@ import type {
 	TabsRootChangeEventReason,
 	TabsValue
 } from './types.js';
-
-const TABS_ROOT_CONTEXT = Symbol('tabs-root');
-const TABS_LIST_CONTEXT = Symbol('tabs-list');
+import { defineContext } from '../internal/context.js';
 
 export interface TabRecord {
 	element: HTMLElement;
@@ -29,8 +27,11 @@ export interface TabRecord {
 
 export class TabsRootModel {
 	tabActivationDirection = $state<TabsActivationDirection>('none');
-	tabs = $state<TabRecord[]>([]);
-	panelElements = $state<HTMLElement[]>([]);
+	readonly tabList = new ElementList<HTMLElement, TabRecord>();
+	readonly tabs: TabRecord[] = $derived(
+		this.tabList.elements.flatMap((element) => this.tabList.meta(element) ?? [])
+	);
+	readonly panels = new ElementList();
 	panelIds = $state<{ value: TabsValue; id: string }[]>([]);
 
 	private directionBaseline: TabsValue | null;
@@ -157,26 +158,11 @@ export class TabsRootModel {
 		return current === undefined ? 0 : current;
 	}
 
-	registerTab(element: HTMLElement, value: TabsValue, disabled: boolean, id: string) {
-		const record: TabRecord = { element, value, disabled, id };
-		untrack(() => {
-			this.tabs = [...this.tabs, record].sort((a, b) => byDocumentOrder(a.element, b.element));
-			this.refineDirection();
-		});
-		return () => {
-			untrack(() => {
-				this.tabs = this.tabs.filter((tab) => tab.element !== element);
-			});
-		};
-	}
-
-	updateTab(element: HTMLElement, value: TabsValue, disabled: boolean, id: string) {
-		const current = this.tabs.find((tab) => tab.element === element);
-		if (!current) return;
-		if (current.value === value && current.disabled === disabled && current.id === id) return;
-		this.tabs = this.tabs.map((tab) =>
-			tab.element === element ? { ...tab, value, disabled, id } : tab
-		);
+	/** `read` returns the tab's live record. */
+	registerTab(element: HTMLElement, read: () => TabRecord) {
+		const unregister = this.tabList.register(element, read);
+		untrack(() => this.refineDirection());
+		return unregister;
 	}
 
 	registerPanel(panelValue: TabsValue, panelId: string) {
@@ -193,19 +179,6 @@ export class TabsRootModel {
 		};
 	}
 
-	registerPanelElement(element: HTMLElement) {
-		untrack(() => {
-			if (!this.panelElements.includes(element)) {
-				this.panelElements = [...this.panelElements, element].sort(byDocumentOrder);
-			}
-		});
-		return () => {
-			untrack(() => {
-				this.panelElements = this.panelElements.filter((item) => item !== element);
-			});
-		};
-	}
-
 	panelIdFor(tabValue: TabsValue) {
 		return this.panelIds.find((panel) => panel.value === tabValue)?.id;
 	}
@@ -217,11 +190,6 @@ export class TabsRootModel {
 	tabElement(tabValue: TabsValue | null) {
 		if (tabValue == null) return null;
 		return this.tabs.find((tab) => tab.value === tabValue)?.element ?? null;
-	}
-
-	panelIndex(element: HTMLElement | null) {
-		if (!element) return -1;
-		return this.panelElements.indexOf(element);
 	}
 
 	private commit(next: TabsValue | null, direction: TabsActivationDirection) {
@@ -263,22 +231,26 @@ export class TabsListModel {
 
 	private observer: ResizeObserver | null = null;
 	private observed: HTMLElement[] = [];
-
-	/**
-	 * Upstream `registerIndicatorUpdateListener`. The list observer watches the
-	 * list and every tab; each callback remeasures the indicator.
-	 */
-	registerIndicatorUpdateListener(listener: () => void) {
-		const set = indicatorListeners(this);
-		set.add(listener);
+	/** Upstream `registerIndicatorUpdateListener`: one observer on the list and every tab. */
+	private readonly layout = createSubscriber((update) => {
+		if (typeof ResizeObserver === 'undefined') return;
+		const observer = new ResizeObserver(update);
+		this.observer = observer;
+		if (this.listElement) observer.observe(this.listElement);
+		for (const element of this.observed) observer.observe(element);
 		return () => {
-			set.delete(listener);
+			observer.disconnect();
+			this.observer = null;
 		};
+	});
+
+	/** Re-runs the calling effect when the list or a tab resizes. */
+	trackLayout() {
+		this.layout();
 	}
 
 	attachList(element: HTMLElement) {
 		this.listElement = element;
-		this.ensureObserver();
 		this.observer?.observe(element);
 		return () => {
 			this.observer?.unobserve(element);
@@ -294,46 +266,12 @@ export class TabsListModel {
 			this.observer?.unobserve(element);
 		};
 	}
-
-	private ensureObserver() {
-		if (this.observer || typeof ResizeObserver === 'undefined') return;
-		this.observer = new ResizeObserver(() => {
-			for (const listener of indicatorListeners(this)) listener();
-		});
-		for (const element of this.observed) this.observer.observe(element);
-		if (this.listElement) this.observer.observe(this.listElement);
-	}
-
-	disconnect() {
-		this.observer?.disconnect();
-		this.observer = null;
-	}
 }
 
-export function setTabsRootContext(context: TabsRootModel) {
-	setContext(TABS_ROOT_CONTEXT, context);
-}
+export const [useTabsRootContext, setTabsRootContext] = defineContext<TabsRootModel>(
+	'Base UI: TabsRootContext is missing. Tabs parts must be placed within <Tabs.Root>.'
+);
 
-export function useTabsRootContext(): TabsRootModel {
-	const context = getContext<TabsRootModel | undefined>(TABS_ROOT_CONTEXT);
-	if (context === undefined) {
-		throw new Error(
-			'Base UI: TabsRootContext is missing. Tabs parts must be placed within <Tabs.Root>.'
-		);
-	}
-	return context;
-}
-
-export function setTabsListContext(context: TabsListModel) {
-	setContext(TABS_LIST_CONTEXT, context);
-}
-
-export function useTabsListContext(): TabsListModel {
-	const context = getContext<TabsListModel | undefined>(TABS_LIST_CONTEXT);
-	if (context === undefined) {
-		throw new Error(
-			'Base UI: TabsListContext is missing. TabsList parts must be placed within <Tabs.List>.'
-		);
-	}
-	return context;
-}
+export const [useTabsListContext, setTabsListContext] = defineContext<TabsListModel>(
+	'Base UI: TabsListContext is missing. TabsList parts must be placed within <Tabs.List>.'
+);

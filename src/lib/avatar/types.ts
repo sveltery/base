@@ -19,7 +19,10 @@ export interface AvatarRootProps extends Omit<HTMLAttributes<HTMLSpanElement>, '
 	children?: Snippet;
 }
 
-export type AvatarImageState = AvatarRootState;
+export interface AvatarImageState extends AvatarRootState {
+	/** The image's enter or exit phase. */
+	transitionStatus: 'starting' | 'ending' | 'idle' | undefined;
+}
 
 export interface AvatarImageProps extends Omit<HTMLImgAttributes, 'children'> {
 	/**

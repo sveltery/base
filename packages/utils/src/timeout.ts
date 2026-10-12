@@ -2,7 +2,7 @@
 // packages/utils/src/useAnimationFrame.ts (`AnimationFrame`), and
 // packages/react/src/internals/TimeoutManager.ts
 // (commit 47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c). MIT, see THIRD_PARTY_NOTICES.md.
-// `useTimeout` and `useAnimationFrame` live in `timeout.svelte.ts` (`$effect` cleanup).
+// The component-scoped subclasses live in `timeout.svelte.ts` (`$effect` cleanup).
 // `DEV` replaces `process.env.NODE_ENV`.
 
 import { DEV } from 'esm-env';
@@ -159,7 +159,7 @@ export class TimeoutManager {
 
 type IntervalId = ReturnType<typeof setInterval>;
 
-/** Repeating timer. `useInterval` in `timeout.svelte.ts` clears it when the owner is destroyed. */
+/** Repeating timer. `ScopedInterval` in `timeout.svelte.ts` clears it when the owner is destroyed. */
 export class Interval {
 	static create() {
 		return new Interval();

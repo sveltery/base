@@ -21,12 +21,12 @@ export interface OpenChangePayload {
 	triggerElement: Element | undefined;
 }
 
-export type FloatingTransitionStatus = 'starting' | 'ending' | undefined;
+export type FloatingTransitionStatus = 'starting' | 'ending' | 'idle' | undefined;
 
 export class FloatingRootStore {
 	/** Every trigger that can open this popup, by id. */
 	readonly triggers = new PopupTriggerMap();
-	/** How `useClick` opened this popup. Cleared when the popup closes. */
+	/** How `ClickInteraction` opened this popup. Cleared when the popup closes. */
 	openMethod = $state<OpenInteractionType | null>(null);
 	/** The active trigger. This is the only copy of that element. */
 	domReferenceElement = $state<Element | null>(null);

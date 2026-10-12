@@ -7,7 +7,6 @@
 -->
 <script lang="ts">
 	import type { HTMLAttributes } from 'svelte/elements';
-	import PartHost from '../internal/PartHost.svelte';
 	import { CompositeRoot } from '../internal/composite-root.svelte.js';
 	import { isSkipped } from '../internal/composite-skip.js';
 	import { useDirection } from '../internal/direction-context.js';
@@ -32,7 +31,7 @@
 		direction: () => reading.direction,
 		isItemDisabled: (element) => isSkipped(element),
 		isItemSelected: (element): boolean => {
-			const meta = roving.meta(element);
+			const meta = roving.meta(element) ?? {};
 			const current = tabs.value;
 			if (meta.disabled || current == null || !('value' in meta)) return false;
 			return meta.value === current;
@@ -51,10 +50,6 @@
 		return list.attachList(element);
 	}
 
-	$effect(() => {
-		return () => list.disconnect();
-	});
-
 	const state: TabsListState = $derived({
 		orientation: tabs.orientation,
 		tabActivationDirection: tabs.tabActivationDirection
@@ -69,4 +64,8 @@
 	});
 </script>
 
-<PartHost tag="div" {render} {children} elementProps={hostProps} partState={state} />
+{#if render}
+	{@render render(hostProps, state, children)}
+{:else}
+	<div {...hostProps}>{@render children?.()}</div>
+{/if}

@@ -13,13 +13,12 @@
 	lands on a new element and the opacity transition can run.
 -->
 <script lang="ts">
-	import { untrack } from 'svelte';
+	import { getAbortSignal, untrack } from 'svelte';
 	import { mergeProps } from '../internal/mergeProps.js';
 	import { useDirection } from '../internal/direction-context.js';
-	import { useAnimationFrame } from '@sveltery/utils';
+	import { ScopedAnimationFrame } from '@sveltery/utils';
 	import { runOnceAnimationsFinish } from '../internal/animations-finished.js';
 	import { adaptiveOriginMiddleware } from '../internal/adaptiveOriginMiddleware.js';
-	import { usePopupContentKey } from '../internal/popups/usePopupContentKey.svelte.js';
 	import { usePopoverPositioner, usePopoverRoot } from './context.svelte.js';
 	import type { PopoverViewportProps, PopoverViewportState } from './types.js';
 
@@ -28,15 +27,18 @@
 	const store = usePopoverRoot();
 	const positioning = usePopoverPositioner();
 	const direction = useDirection();
-	const frame = useAnimationFrame();
-	const resizeFrame = useAnimationFrame();
+	const frame = new ScopedAnimationFrame();
+	const resizeFrame = new ScopedAnimationFrame();
 
 	let currentEl = $state<HTMLDivElement | null>(null);
 	let previousNode = $state<HTMLElement | null>(null);
 	let activationDirection = $state<string | undefined>(undefined);
 	let showStarting = $state(false);
 	let committedSize: { width: number; height: number } | null = null;
-	const popupContent = usePopupContentKey(() => store.resolvedActiveTriggerId());
+	// The pane remounts when the active trigger id changes. Upstream usePopupViewport also
+	// remounts once more when the payload arrives on the next render. Here the payload is read
+	// in the same flush as the id, so that second bump does not apply.
+	const paneKey = $derived(store.resolvedActiveTriggerId() ?? 'current');
 
 	$effect(() => {
 		store.adaptiveOrigin = adaptiveOriginMiddleware;
@@ -49,7 +51,7 @@
 	$effect.pre(() => {
 		const generation = store.triggerSwitch;
 		if (generation === 0) return;
-		const controller = new AbortController();
+		const signal = getAbortSignal();
 		untrack(() => {
 			const source = currentEl;
 			const active = store.domReferenceElement;
@@ -59,24 +61,23 @@
 			activationDirection = directionBetween(previous, active);
 			showStarting = true;
 			frame.request(() => {
-				if (controller.signal.aborted) return;
+				if (signal.aborted) return;
 				showStarting = false;
 				const node = currentEl;
-				if (!node || controller.signal.aborted) return;
+				if (!node) return;
 				runOnceAnimationsFinish(
 					node,
 					() => {
-						if (controller.signal.aborted) return;
+						if (signal.aborted) return;
 						previousNode = null;
 						activationDirection = undefined;
 					},
-					controller.signal,
+					signal,
 					false
 				);
 			});
 		});
 		return () => {
-			controller.abort();
 			frame.cancel();
 			previousNode = null;
 			activationDirection = undefined;
@@ -102,18 +103,16 @@
 			store.popupVars = {};
 			return;
 		}
-		const controller = beginResize(content, popup, side, textDirection);
-		return () => {
-			controller.abort();
-			resizeFrame.cancel();
-		};
+		beginResize(content, popup, side, textDirection, getAbortSignal());
+		return () => resizeFrame.cancel();
 	});
 
 	function beginResize(
 		content: unknown,
 		popup: HTMLElement,
 		side: string | null,
-		textDirection: string
+		textDirection: string,
+		signal: AbortSignal
 	) {
 		const mark = content;
 		const anchor = anchoring(side, textDirection);
@@ -123,10 +122,8 @@
 			'--positioner-width': 'max-content',
 			'--positioner-height': 'max-content'
 		};
-		const controller = new AbortController();
 		resizeFrame.request(() => {
-			if (controller.signal.aborted || !popup.isConnected || !Object.is(mark, store.payload))
-				return;
+			if (signal.aborted || !popup.isConnected || !Object.is(mark, store.payload)) return;
 			const next = cssSize(popup);
 			committedSize = next;
 			store.positionerVars = sizeVars('positioner', next);
@@ -136,20 +133,19 @@
 			}
 			store.popupVars = { ...anchor, ...sizeVars('popup', previous) };
 			resizeFrame.request(() => {
-				if (controller.signal.aborted) return;
+				if (signal.aborted) return;
 				store.popupVars = { ...anchor, ...sizeVars('popup', next) };
 				runOnceAnimationsFinish(
 					popup,
 					() => {
-						if (controller.signal.aborted) return;
+						if (signal.aborted) return;
 						store.popupVars = { ...anchor, '--popup-width': 'auto', '--popup-height': 'auto' };
 					},
-					controller.signal,
+					signal,
 					false
 				);
 			});
 		});
-		return controller;
 	}
 
 	function anchoring(side: string | null, textDirection: string) {
@@ -282,7 +278,7 @@
 			{@attach mountPrevious}
 		></div>
 	{/if}
-	{#key popupContent.current}
+	{#key paneKey}
 		<div bind:this={currentEl} data-current data-starting-style={showStarting ? '' : undefined}>
 			{@render children?.()}
 		</div>

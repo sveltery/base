@@ -1,15 +1,10 @@
 // Derived from Base UI v1.8.0 packages/utils/src/useScrollLock.ts
 // (commit 47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c). MIT, see THIRD_PARTY_NOTICES.md.
 
+import { BROWSER } from 'esm-env';
 import { isOverflowElement } from '@floating-ui/utils/dom';
 import { on } from 'svelte/events';
-import {
-	ownerDocument,
-	ownerWindow,
-	platform,
-	useAnimationFrame,
-	useTimeout
-} from '@sveltery/utils';
+import { ownerDocument, AnimationFrame, ownerWindow, platform, Timeout } from '@sveltery/utils';
 
 let originalHtmlStyles: Partial<CSSStyleDeclaration> = {};
 let originalBodyStyles: Partial<CSSStyleDeclaration> = {};
@@ -24,7 +19,7 @@ function isPageScrollLocked(win: Window, html: HTMLElement, body: HTMLElement) {
 }
 
 function hasInsetScrollbars(referenceElement: Element | null) {
-	if (typeof document === 'undefined') return false;
+	if (!BROWSER) return false;
 	const doc = ownerDocument(referenceElement);
 	const win = ownerWindow(doc);
 	return win.innerWidth - doc.documentElement.clientWidth > 0;
@@ -32,7 +27,7 @@ function hasInsetScrollbars(referenceElement: Element | null) {
 
 function supportsStableScrollbarGutter(referenceElement: Element | null) {
 	const supported = typeof CSS !== 'undefined' && CSS.supports?.('scrollbar-gutter', 'stable');
-	if (!supported || typeof document === 'undefined') return false;
+	if (!supported || !BROWSER) return false;
 
 	const doc = ownerDocument(referenceElement);
 	const html = doc.documentElement;
@@ -74,7 +69,8 @@ function preventScrollInsetScrollbars(referenceElement: Element | null) {
 	let scrollTop = 0;
 	let scrollLeft = 0;
 	let updateGutterOnly = false;
-	const resizeFrame = useAnimationFrame();
+	// eslint-disable-next-line sveltery/no-unscoped-timer -- runs from the lock timer, outside any component; the restore cancels it
+	const resizeFrame = new AnimationFrame();
 
 	if (platform.engine.webkit && (win.visualViewport?.scale ?? 1) !== 1) return () => {};
 
@@ -168,8 +164,10 @@ function preventScrollInsetScrollbars(referenceElement: Element | null) {
 class ScrollLocker {
 	lockCount = 0;
 	restore: (() => void) | null = null;
-	timeoutLock = useTimeout();
-	timeoutUnlock = useTimeout();
+	// eslint-disable-next-line sveltery/no-unscoped-timer -- module singleton, not owned by a component
+	timeoutLock = new Timeout();
+	// eslint-disable-next-line sveltery/no-unscoped-timer -- module singleton, not owned by a component
+	timeoutUnlock = new Timeout();
 
 	acquire(referenceElement: Element | null) {
 		this.lockCount += 1;

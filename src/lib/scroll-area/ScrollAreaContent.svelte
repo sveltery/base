@@ -21,18 +21,17 @@
 	useScrollAreaRootContext();
 
 	let el = $state<HTMLDivElement | null>(null);
-	let rendered = $state<HTMLDivElement | null>(null);
 	const computeOnInitialResize = untrack(() => model.hasMeasuredScrollbar);
 
 	function remember(node: HTMLDivElement) {
-		rendered = node;
+		el = node;
 		return () => {
-			if (rendered === node) rendered = null;
+			if (el === node) el = null;
 		};
 	}
 
 	$effect(() => {
-		const node = render ? rendered : el;
+		const node = el;
 		if (!node) return;
 		return model.observeContent(node, computeOnInitialResize);
 	});
@@ -44,12 +43,12 @@
 		role: 'presentation',
 		...elementProps,
 		style: mergeCssStyle(toCssStyle({ minWidth: 'fit-content' }), style),
-		...(render ? { [attachmentKey]: remember } : {})
+		[attachmentKey]: remember
 	});
 </script>
 
 {#if render}
 	{@render render(hostProps, partState, children)}
 {:else}
-	<div {...hostProps} bind:this={el}>{@render children?.()}</div>
+	<div {...hostProps}>{@render children?.()}</div>
 {/if}

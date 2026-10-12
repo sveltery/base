@@ -65,7 +65,7 @@ export interface FormProps<
 	FormValues extends Record<string, unknown> = Record<string, unknown>
 > extends Omit<HTMLFormAttributes, 'children' | 'onsubmit' | 'novalidate'> {
 	/**
-	 * When fields should validate. A field's own mode takes precedence once Field is ported.
+	 * When fields should validate. A `<Field.Root validationMode>` takes precedence.
 	 * @default 'onSubmit'
 	 */
 	validationMode?: FormValidationMode;

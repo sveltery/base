@@ -2,19 +2,18 @@
 // and packages/react/src/accordion/item/AccordionItemContext.ts
 // (commit 47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c). MIT, see THIRD_PARTY_NOTICES.md.
 
-import { getContext, setContext, untrack } from 'svelte';
+import { untrack } from 'svelte';
+import { ElementList } from '../internal/element-list.svelte.js';
 import type {
 	AccordionItemState,
 	AccordionOrientation,
 	AccordionRootChangeEventDetails
 } from './types.js';
 import { nextAccordionValue } from './value.js';
-
-const ACCORDION_ROOT_CONTEXT = Symbol('accordion-root');
-const ACCORDION_ITEM_CONTEXT = Symbol('accordion-item');
+import { defineContext } from '../internal/context.js';
 
 export class AccordionRootModel {
-	hosts = $state<HTMLElement[]>([]);
+	readonly items = new ElementList();
 	commit: (next: unknown[]) => void = () => {};
 
 	constructor(
@@ -62,24 +61,6 @@ export class AccordionRootModel {
 		if (eventDetails.isCanceled) return;
 		this.commit(next);
 	}
-
-	watchHost(element: HTMLElement) {
-		// The attachment must not subscribe to the list it writes, or the index update re-runs it.
-		untrack(() => {
-			const next = sortInDomOrder([...this.hosts.filter((host) => host !== element), element]);
-			if (sameHosts(this.hosts, next)) return;
-			this.hosts = next;
-		});
-		return () => {
-			untrack(() => {
-				this.hosts = this.hosts.filter((host) => host !== element);
-			});
-		};
-	}
-
-	indexOf(element: HTMLElement) {
-		return this.hosts.indexOf(element);
-	}
 }
 
 export class AccordionItemModel {
@@ -113,44 +94,10 @@ export class AccordionItemModel {
 	}
 }
 
-export function setAccordionRootContext(context: AccordionRootModel) {
-	setContext(ACCORDION_ROOT_CONTEXT, context);
-}
+export const [useAccordionRootContext, setAccordionRootContext] = defineContext<AccordionRootModel>(
+	'Base UI: AccordionRootContext is missing. Accordion parts must be placed within <Accordion.Root>.'
+);
 
-export function useAccordionRootContext(): AccordionRootModel {
-	const context = getContext<AccordionRootModel | undefined>(ACCORDION_ROOT_CONTEXT);
-	if (context === undefined) {
-		throw new Error(
-			'Base UI: AccordionRootContext is missing. Accordion parts must be placed within <Accordion.Root>.'
-		);
-	}
-	return context;
-}
-
-export function setAccordionItemContext(context: AccordionItemModel) {
-	setContext(ACCORDION_ITEM_CONTEXT, context);
-}
-
-export function useAccordionItemContext(): AccordionItemModel {
-	const context = getContext<AccordionItemModel | undefined>(ACCORDION_ITEM_CONTEXT);
-	if (context === undefined) {
-		throw new Error(
-			'Base UI: AccordionItemContext is missing. Accordion parts must be placed within <Accordion.Item>.'
-		);
-	}
-	return context;
-}
-
-function sameHosts(left: readonly HTMLElement[], right: readonly HTMLElement[]) {
-	return left.length === right.length && left.every((host, index) => host === right[index]);
-}
-
-function sortInDomOrder(elements: HTMLElement[]) {
-	return elements.sort((left, right) => {
-		if (left === right) return 0;
-		const position = left.compareDocumentPosition(right);
-		if (position & Node.DOCUMENT_POSITION_FOLLOWING) return -1;
-		if (position & Node.DOCUMENT_POSITION_PRECEDING) return 1;
-		return 0;
-	});
-}
+export const [useAccordionItemContext, setAccordionItemContext] = defineContext<AccordionItemModel>(
+	'Base UI: AccordionItemContext is missing. Accordion parts must be placed within <Accordion.Item>.'
+);
