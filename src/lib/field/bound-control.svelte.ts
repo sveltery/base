@@ -1,0 +1,103 @@
+// The contract a composite control follows inside a Field bound to a form source
+// (a remote form, `actionForm()`, an adapter). No Base UI equivalent.
+// 1. A real native input carries the value. Its `name`, and the option `value` of a radio or
+//    checkbox-group item, come from the binding, so the encoding is the source's.
+// 2. The DOM is the write path. A user edit already fires `input` and `change` on that input,
+//    and the source reads the value from those events.
+// 3. The source's value is the control's initial value when it has one, and a later change of
+//    it is written into the control without change callbacks.
+
+import { untrack } from 'svelte';
+import { error } from '@sveltery/utils';
+import { nativeType, type ControlKind, type FieldHandle } from '../form/source.js';
+import type { FieldContext } from './model.svelte.js';
+
+/** The attributes a bound native input takes from its binding. Empty when the Field is not bound. */
+export interface BoundInputProps {
+	name?: string;
+	value?: string;
+}
+
+/**
+ * The encoded `name`, and the `value` of an option input, for one native input of `kind`.
+ * The other props `as()` returns (`checked`, `defaultValue`, `aria-invalid`, ...) are left to
+ * the control, which owns its state and its defaults.
+ */
+export function boundInputProps(
+	binding: FieldHandle | undefined,
+	kind: ControlKind,
+	option?: string
+): BoundInputProps {
+	if (!binding) return {};
+	// `as()` getters read source state. Only `name` and `value` are read, so nothing else is tracked.
+	const props = binding.as(nativeType(kind), option) as { name?: unknown; value?: unknown };
+	const name = typeof props.name === 'string' ? props.name : undefined;
+	if (option === undefined) return { name };
+	return { name, value: typeof props.value === 'string' ? props.value : option };
+}
+
+export interface BoundControlOptions<T> {
+	/** The kind this control submits as. A Field.Root `type` that differs is a dev error. */
+	kind: ControlKind;
+	/** The control's current value. */
+	read: () => T;
+	/** Writes a value the way a reset restore does: through the value path, no change callbacks. */
+	write: (value: T) => void;
+	/** The control's value for a source value. `undefined` is the source's empty value. */
+	fromSource: (raw: unknown) => T;
+	equals?: (a: T, b: T) => boolean;
+}
+
+/** Binds a composite control to its Field's source. Construct during component init. */
+export class BoundControl<T> {
+	readonly #field: FieldContext;
+	readonly #options: BoundControlOptions<T>;
+
+	constructor(field: FieldContext, options: BoundControlOptions<T>) {
+		this.#field = field;
+		this.#options = options;
+		const equals = options.equals ?? Object.is;
+
+		$effect(() => {
+			const declared = field.controlType;
+			if (!field.binding || !declared || declared === options.kind) return;
+			error(
+				`A ${options.kind} control is inside a Field.Root declared as type="${declared}".`,
+				`Set type="${options.kind}" on the Field.Root, or use a control of kind "${declared}".`
+			);
+		});
+
+		// The handle `initial()` read, or the last one this effect saw. Its first value is
+		// already the control's value unless it is empty, when the control keeps its default.
+		let followed: FieldHandle | undefined = untrack(() => field.binding);
+		let started = false;
+		$effect(() => {
+			const binding = field.binding;
+			const raw = binding?.value();
+			untrack(() => {
+				const first = !started || binding !== followed;
+				started = true;
+				followed = binding;
+				if (!binding || (first && raw === undefined)) return;
+				const next = options.fromSource(raw);
+				if (!equals(next, options.read())) options.write(next);
+			});
+		});
+	}
+
+	/** True inside a bound Field. */
+	get bound(): boolean {
+		return this.#field.binding !== undefined;
+	}
+
+	/** The value an empty binding starts from: the source's value when it has one, else `fallback`. */
+	initial(fallback: T): T {
+		const raw = untrack(() => this.#field.binding?.value());
+		return raw === undefined ? fallback : this.#options.fromSource(raw);
+	}
+
+	/** Name and option value for one native input, or `{}` when the Field is not bound. */
+	inputProps(option?: string): BoundInputProps {
+		return boundInputProps(this.#field.binding, this.#options.kind, option);
+	}
+}
