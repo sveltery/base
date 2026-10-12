@@ -12,7 +12,7 @@
 	import { createAttachmentKey } from 'svelte/attachments';
 	import type { HTMLAttributes } from 'svelte/elements';
 	import { useFieldContext } from '../field/context.svelte.js';
-	import { useLabelableContext } from '../field/labelable.svelte.js';
+	import { findLabelableContext } from '../field/labelable.svelte.js';
 	import { useFormContext } from '../form/context.js';
 	import { useValueChanged } from '../internal/useValueChanged.svelte.js';
 	import { watchFieldControl } from '../internal/field-register-control.svelte.js';
@@ -60,7 +60,7 @@
 
 	const field = useFieldContext();
 	const form = useFormContext();
-	const labelable = useLabelableContext(true);
+	const labelable = findLabelableContext();
 
 	const raw = $derived(value ?? '');
 	const generatedId = $derived(`base-ui-${uid}`);

@@ -2,7 +2,7 @@
 // and packages/react/src/collapsible/root/useCollapsibleRoot.ts
 // (commit 47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c). MIT, see THIRD_PARTY_NOTICES.md.
 
-import { getContext, setContext, untrack } from 'svelte';
+import { untrack } from 'svelte';
 import { createChangeEventDetails, REASONS } from '@sveltery/utils';
 import { TransitionStatus } from '../internal/useTransitionStatus.svelte.js';
 import type {
@@ -10,8 +10,7 @@ import type {
 	CollapsibleRootChangeEventReason,
 	CollapsibleRootState
 } from './types.js';
-
-const COLLAPSABLE_ROOT_CONTEXT = Symbol('collapsible-root');
+import { defineContext } from '../internal/context.js';
 
 export class CollapsibleRoot {
 	/** `undefined` keeps the generated id. `null` means the panel unmounted. */
@@ -107,16 +106,7 @@ export class CollapsibleRoot {
 	}
 }
 
-export function setCollapsibleRootContext(context: CollapsibleRoot) {
-	setContext(COLLAPSABLE_ROOT_CONTEXT, context);
-}
-
-export function useCollapsibleRootContext(): CollapsibleRoot {
-	const context = getContext<CollapsibleRoot | undefined>(COLLAPSABLE_ROOT_CONTEXT);
-	if (context === undefined) {
-		throw new Error(
-			'Base UI: CollapsibleRootContext is missing. Collapsible parts must be placed within <Collapsible.Root>.'
-		);
-	}
-	return context;
-}
+export const [useCollapsibleRootContext, setCollapsibleRootContext] =
+	defineContext<CollapsibleRoot>(
+		'Base UI: CollapsibleRootContext is missing. Collapsible parts must be placed within <Collapsible.Root>.'
+	);

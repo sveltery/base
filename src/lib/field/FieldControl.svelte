@@ -14,7 +14,7 @@
 	import { attachFieldControl } from '../internal/field-register-control.svelte.js';
 	import { fieldValidityMapping } from './attributes.js';
 	import { useFieldContext } from './context.svelte.js';
-	import { Labelable, useLabelableContext } from './labelable.svelte.js';
+	import { Labelable, findLabelableContext } from './labelable.svelte.js';
 	import type { FieldControlProps, FieldControlState } from './types.js';
 
 	type ValueElement = HTMLElement & { value: string; form?: HTMLFormElement | null };
@@ -51,7 +51,7 @@
 	// validation no-op. A private labelable still supplies ids.
 	const field = useFieldContext();
 	const commitTimer = new ScopedTimeout();
-	const labelableFromContext = useLabelableContext(true);
+	const labelableFromContext = findLabelableContext();
 	const labelable = labelableFromContext ?? new Labelable(undefined, () => fallbackId);
 
 	useValueChanged(

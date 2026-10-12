@@ -8,7 +8,7 @@
 -->
 <script lang="ts">
 	import type { HTMLAttributes } from 'svelte/elements';
-	import { useLabelableContext } from '../field/labelable.svelte.js';
+	import { findLabelableContext } from '../field/labelable.svelte.js';
 	import { registerLabelId } from '../internal/register-label-id.svelte.js';
 	import { getStateAttributesProps } from '../internal/state-attributes.js';
 	import { sliderStateAttributes } from './attributes.js';
@@ -20,7 +20,7 @@
 	let { render, children, onclick, onpointerdown, ...elementProps }: SliderLabelProps = $props();
 
 	const model = useSliderContext();
-	const labelable = useLabelableContext(true);
+	const labelable = findLabelableContext();
 	const state: SliderRootState = $derived(model.snapshot());
 	const id = $derived(model.rootDomId ? `${model.rootDomId}-label` : undefined);
 

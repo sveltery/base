@@ -16,7 +16,7 @@
 	import { useDirection } from '../internal/direction-context.js';
 	import { useFieldContext } from '../field/context.svelte.js';
 	import { useFormContext } from '../form/context.js';
-	import { useFieldsetRootContext } from '../fieldset/context.svelte.js';
+	import { findFieldsetRootContext } from '../fieldset/context.svelte.js';
 	import { setRadioGroupContext } from '../radio/group-context.js';
 	import type { RadioRootChangeEventDetails } from '../radio/types.js';
 	import type { RadioGroupProps, RadioGroupState } from './types.js';
@@ -47,7 +47,7 @@
 	const reading = useDirection();
 	const formContext = useFormContext();
 	const field = useFieldContext();
-	const fieldset = useFieldsetRootContext(true);
+	const fieldset = findFieldsetRootContext();
 
 	const selection = new WrittenReference<unknown>(
 		() => value,

@@ -2,54 +2,27 @@
 // and packages/react/src/dialog/portal/DialogPortalContext.ts
 // (commit 47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c). MIT, see THIRD_PARTY_NOTICES.md.
 
-import { getContext, hasContext, setContext } from 'svelte';
+import { defineContext } from '../internal/context.js';
 import type { DialogClickReference, DialogStore } from './store.svelte.js';
-
-const ROOT = Symbol('dialog-root');
-const PORTAL = Symbol('dialog-portal');
 
 export interface DialogRootContext {
 	readonly store: DialogStore<unknown>;
 	readonly click: DialogClickReference;
 }
 
-function readRoot(optional: boolean) {
-	if (!hasContext(ROOT)) {
-		if (optional) return undefined;
-		throw new Error(
-			'Base UI: DialogRootContext is missing. Dialog parts must be placed within <Dialog.Root>.'
-		);
-	}
-	return getContext<DialogRootContext>(ROOT);
-}
+export const [useDialogRoot, setDialogRootContext, findDialogRoot] =
+	defineContext<DialogRootContext>(
+		'Base UI: DialogRootContext is missing. Dialog parts must be placed within <Dialog.Root>.'
+	);
 
-export function setDialogRootContext(value: DialogRootContext) {
-	setContext(ROOT, value);
-}
-
-export function useDialogRoot(optional: true): DialogRootContext | undefined;
-export function useDialogRoot(optional?: false): DialogRootContext;
-export function useDialogRoot(optional = false) {
-	return readRoot(optional) as DialogRootContext;
-}
-
-export function useDialogRootContext(optional: true): DialogStore<unknown> | undefined;
-export function useDialogRootContext(optional?: false): DialogStore<unknown>;
-export function useDialogRootContext(optional = false) {
-	return readRoot(optional)?.store as DialogStore<unknown>;
+export function useDialogRootContext(): DialogStore<unknown> {
+	return useDialogRoot().store;
 }
 
 export interface DialogPortalContext {
 	readonly keepMounted: boolean;
 }
 
-export function setDialogPortalContext(value: DialogPortalContext) {
-	setContext(PORTAL, value);
-}
-
-export function useDialogPortalContext() {
-	if (!hasContext(PORTAL)) {
-		throw new Error('Base UI: <Dialog.Portal> is missing.');
-	}
-	return getContext<DialogPortalContext>(PORTAL);
-}
+export const [useDialogPortalContext, setDialogPortalContext] = defineContext<DialogPortalContext>(
+	'Base UI: <Dialog.Portal> is missing.'
+);

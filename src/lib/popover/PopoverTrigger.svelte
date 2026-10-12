@@ -14,7 +14,7 @@
 	import { getStateAttributesProps } from '../internal/state-attributes.js';
 	import { triggerOpenAttributes } from './attributes.js';
 	import { OPEN_DELAY } from './constants.js';
-	import { usePopoverRoot } from './context.svelte.js';
+	import { findPopoverRoot } from './context.svelte.js';
 	import type { PopoverHandle } from './handle.svelte.js';
 	import PopoverTriggerInteractions from './PopoverTriggerInteractions.svelte';
 	import { PopoverStore } from './store.svelte.js';
@@ -35,7 +35,7 @@
 		...elementProps
 	}: PopoverTriggerProps = $props();
 
-	const root = usePopoverRoot(true);
+	const root = findPopoverRoot();
 	if (!handle && !root) {
 		throw new Error(
 			'Base UI: <Popover.Trigger> must be either used within a <Popover.Root> component or provided with a handle.'

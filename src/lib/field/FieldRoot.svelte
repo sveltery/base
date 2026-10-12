@@ -7,11 +7,11 @@
 <script lang="ts">
 	import type { HTMLAttributes } from 'svelte/elements';
 	import { useFormContext } from '../form/context.js';
-	import { useFieldsetRootContext } from '../fieldset/context.svelte.js';
+	import { findFieldsetRootContext } from '../fieldset/context.svelte.js';
 	import { getStateAttributesProps } from '../internal/state-attributes.js';
 	import { fieldValidityMapping } from './attributes.js';
 	import { setFieldContext } from './context.svelte.js';
-	import { Labelable, setLabelableContext, useLabelableContext } from './labelable.svelte.js';
+	import { Labelable, setLabelableContext, findLabelableContext } from './labelable.svelte.js';
 	import { FieldRootModel } from './model.svelte.js';
 	import type { FieldRootProps, FieldRootState } from './types.js';
 
@@ -32,8 +32,8 @@
 	}: FieldRootProps = $props();
 
 	const form = useFormContext();
-	const fieldset = useFieldsetRootContext(true);
-	const parentLabelable = useLabelableContext(true);
+	const fieldset = findFieldsetRootContext();
+	const parentLabelable = findLabelableContext();
 	const labelable = new Labelable(parentLabelable, () => `base-ui-${uid}`);
 	setLabelableContext(labelable);
 

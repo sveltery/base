@@ -19,7 +19,7 @@
 	const store = usePopoverRoot();
 	const shouldRender = $derived(store.mounted || keepMounted);
 
-	setPopoverPortal();
+	setPopoverPortal(true);
 </script>
 
 {#if shouldRender}

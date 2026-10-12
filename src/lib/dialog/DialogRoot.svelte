@@ -13,7 +13,7 @@
 		useFloatingNodeId
 	} from '@sveltery/floating-ui-svelte';
 	import { useScrollLock } from '../internal/popups/index.js';
-	import { setDialogRootContext, useDialogRootContext } from './context.svelte.js';
+	import { findDialogRoot, setDialogRootContext } from './context.svelte.js';
 	import { DialogStore } from './store.svelte.js';
 	import type { DialogRootProps } from './types.js';
 
@@ -28,7 +28,7 @@
 		children
 	}: DialogRootProps = $props();
 
-	const parent = useDialogRootContext(true);
+	const parent = findDialogRoot()?.store;
 	setFloatingTree();
 	const uid = $props.id();
 	const floatingId = `base-ui-${uid}`;

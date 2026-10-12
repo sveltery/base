@@ -1,24 +1,12 @@
 // Derived from Base UI v1.8.0 packages/react/src/field/item/FieldItemContext.ts
 // (commit 47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c). MIT, see THIRD_PARTY_NOTICES.md.
 
-import { getContext, hasContext, setContext } from 'svelte';
 import type { FieldValidityData } from '../form/types.js';
-import {
-	DEFAULT_FIELD_STATE,
-	EMPTY_VALIDITY,
-	type FieldContext,
-	type FieldRootModel
-} from './model.svelte.js';
-
-const FIELD_CONTEXT = Symbol('field-root');
-const FIELD_ITEM_CONTEXT = Symbol('field-item');
+import { DEFAULT_FIELD_STATE, EMPTY_VALIDITY, type FieldContext } from './model.svelte.js';
+import { defineOptionalContext } from '../internal/context.js';
 
 export interface FieldItemState {
 	readonly disabled: boolean;
-}
-
-export function setFieldContext(field: FieldRootModel) {
-	setContext(FIELD_CONTEXT, field);
 }
 
 function frozenValidity(): FieldValidityData {
@@ -66,16 +54,8 @@ const INERT_FIELD: FieldContext = {
 	commit: inert
 };
 
-export function useFieldContext(): FieldContext {
-	if (!hasContext(FIELD_CONTEXT)) return INERT_FIELD;
-	return getContext<FieldRootModel>(FIELD_CONTEXT);
-}
+export const [useFieldContext, setFieldContext] = defineOptionalContext<FieldContext>(INERT_FIELD);
 
-export function setFieldItemContext(item: FieldItemState) {
-	setContext(FIELD_ITEM_CONTEXT, item);
-}
-
-export function useFieldItemContext(): FieldItemState {
-	if (!hasContext(FIELD_ITEM_CONTEXT)) return { disabled: false };
-	return getContext<FieldItemState>(FIELD_ITEM_CONTEXT);
-}
+export const [useFieldItemContext, setFieldItemContext] = defineOptionalContext<FieldItemState>({
+	disabled: false
+});

@@ -10,7 +10,7 @@
 	import type { Attachment } from 'svelte/attachments';
 	import type { HTMLAttributes, HTMLInputAttributes } from 'svelte/elements';
 	import { useFieldContext } from '../field/context.svelte.js';
-	import { useLabelableContext } from '../field/labelable.svelte.js';
+	import { findLabelableContext } from '../field/labelable.svelte.js';
 	import { formatNumber } from '../internal/formatNumber.js';
 	import { getStateAttributesProps } from '../internal/state-attributes.js';
 	import { valueToPercent } from '../internal/valueToPercent.js';
@@ -60,7 +60,7 @@
 
 	const model = useSliderContext();
 	const field = useFieldContext();
-	const labelable = useLabelableContext(true);
+	const labelable = findLabelableContext();
 
 	let thumbEl: HTMLDivElement | null = $state(null);
 	let inputEl: HTMLInputElement | null = $state(null);

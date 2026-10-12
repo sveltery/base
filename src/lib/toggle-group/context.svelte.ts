@@ -1,12 +1,10 @@
 // Derived from Base UI v1.8.0 packages/react/src/toggle-group/ToggleGroupContext.ts
 // (commit 47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c). MIT, see THIRD_PARTY_NOTICES.md.
-import { getContext, hasContext, setContext } from 'svelte';
 import type { CompositeRoot } from '../internal/composite-root.svelte.js';
 import type { ToggleGroupChangeEventDetails } from './types.js';
+import { defineOptionalContext } from '../internal/context.js';
 
 export type RovingOrientation = 'horizontal' | 'vertical';
-
-const TOGGLE_GROUP_CONTEXT = Symbol('toggle-group');
 
 export class ToggleGroupContext {
 	/**
@@ -65,11 +63,6 @@ export class ToggleGroupContext {
 	}
 }
 
-export function setToggleGroupContext(context: ToggleGroupContext) {
-	setContext(TOGGLE_GROUP_CONTEXT, context);
-}
-
-export function useToggleGroupContext(): ToggleGroupContext | undefined {
-	if (!hasContext(TOGGLE_GROUP_CONTEXT)) return undefined;
-	return getContext<ToggleGroupContext>(TOGGLE_GROUP_CONTEXT);
-}
+export const [useToggleGroupContext, setToggleGroupContext] = defineOptionalContext<
+	ToggleGroupContext | undefined
+>(undefined);

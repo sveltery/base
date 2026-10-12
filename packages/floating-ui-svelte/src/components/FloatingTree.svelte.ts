@@ -2,7 +2,7 @@
 // (commit 47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c). MIT, see THIRD_PARTY_NOTICES.md.
 // The FloatingNode component is not ported. useFloatingNodeId provides the parent id.
 
-import { getContext, hasContext, setContext } from 'svelte';
+import { createContext } from 'svelte';
 import type { FloatingRootStore } from './FloatingRootStore.svelte.js';
 import {
 	createFloatingNodeId,
@@ -10,24 +10,19 @@ import {
 	type FloatingNodeRecord
 } from './FloatingTreeStore.js';
 
-const TREE = Symbol('floating-tree');
-const NODE = Symbol('floating-node');
+const [getTree, setTree, hasTree] = createContext<FloatingTreeStore>();
+const [getParentNodeId, setParentNodeId, hasParentNodeId] = createContext<string>();
 
 export function setFloatingTree() {
-	if (hasContext(TREE)) return getContext<FloatingTreeStore>(TREE);
-	const tree = new FloatingTreeStore();
-	setContext(TREE, tree);
-	return tree;
+	return hasTree() ? getTree() : setTree(new FloatingTreeStore());
 }
 
 export function useFloatingTree() {
-	if (!hasContext(TREE)) return null;
-	return getContext<FloatingTreeStore>(TREE);
+	return hasTree() ? getTree() : null;
 }
 
 export function useFloatingParentNodeId(): string | null {
-	if (!hasContext(NODE)) return null;
-	return getContext<string>(NODE);
+	return hasParentNodeId() ? getParentNodeId() : null;
 }
 
 export function useFloatingNodeId(store: FloatingRootStore) {
@@ -37,7 +32,7 @@ export function useFloatingNodeId(store: FloatingRootStore) {
 	store.nodeId = id;
 	if (!tree) return id;
 
-	setContext(NODE, id);
+	setParentNodeId(id);
 	const node: FloatingNodeRecord = { id, parentId, context: store };
 	$effect(() => {
 		tree.addNode(node);

@@ -11,7 +11,7 @@
 	import type { Attachment } from 'svelte/attachments';
 	import type { HTMLAttributes } from 'svelte/elements';
 	import { useFieldContext } from '../field/context.svelte.js';
-	import { useLabelableContext } from '../field/labelable.svelte.js';
+	import { findLabelableContext } from '../field/labelable.svelte.js';
 	import { useFormContext } from '../form/context.js';
 	import { clamp } from '../internal/clamp.js';
 	import { watchFieldControl } from '../internal/field-register-control.svelte.js';
@@ -61,7 +61,7 @@
 	const reading = useDirection();
 	const field = useFieldContext();
 	const form = useFormContext();
-	const labelable = useLabelableContext(true);
+	const labelable = findLabelableContext();
 
 	const valueUnwrapped: SliderValue = $derived(value ?? min);
 	useValueChanged(

@@ -8,7 +8,7 @@
 	import { createAttachmentKey } from 'svelte/attachments';
 	import type { HTMLAttributes, HTMLInputAttributes } from 'svelte/elements';
 	import { useFieldContext } from '../field/context.svelte.js';
-	import { useLabelableContext } from '../field/labelable.svelte.js';
+	import { findLabelableContext } from '../field/labelable.svelte.js';
 	import { watchFieldControl } from '../internal/field-register-control.svelte.js';
 	import { getStateAttributesProps } from '../internal/state-attributes.js';
 	import { numberFieldStateAttributes } from './attributes.js';
@@ -32,7 +32,7 @@
 
 	const model = useNumberFieldContext();
 	const field = useFieldContext();
-	const labelable = useLabelableContext(true);
+	const labelable = findLabelableContext();
 
 	const state: NumberFieldInputState = $derived(model.state);
 	const describedBy = $derived(labelable?.describedBy(ariaDescribedBy ?? undefined));

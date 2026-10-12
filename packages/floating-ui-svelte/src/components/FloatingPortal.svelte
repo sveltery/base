@@ -1,9 +1,8 @@
 <script lang="ts" module>
-	import { getContext, hasContext } from 'svelte';
+	import { createContext } from 'svelte';
 	import { createAttachmentKey } from 'svelte/attachments';
 
 	const MOUNT = createAttachmentKey();
-	const PORTAL = Symbol.for('sveltery-floating-portal');
 
 	export interface FloatingPortalGuards {
 		beforeOutside: HTMLElement | null;
@@ -30,13 +29,12 @@
 		setFocus: (next: FloatingPortalFocus | null) => void;
 	}
 
-	export function hasFloatingPortal() {
-		return hasContext(PORTAL);
-	}
+	const [getPortal, setPortal, hasPortal] = createContext<FloatingPortalContext>();
+
+	export const hasFloatingPortal = hasPortal;
 
 	export function useFloatingPortal() {
-		if (!hasFloatingPortal()) return null;
-		return getContext<FloatingPortalContext>(PORTAL);
+		return hasPortal() ? getPortal() : null;
 	}
 </script>
 
@@ -55,7 +53,7 @@
 	// `document` is missing, so neither `createPortal` runs on the server. `client` stays false
 	// for that render and the first client render, then flips after mount so hydration matches.
 
-	import { onMount, setContext, type Snippet } from 'svelte';
+	import { onMount, type Snippet } from 'svelte';
 	import type { Attachment } from 'svelte/attachments';
 	import type { HTMLAttributes } from 'svelte/elements';
 	import {
@@ -125,7 +123,7 @@
 			focusState = next;
 		}
 	};
-	setContext<FloatingPortalContext>(PORTAL, portalContext);
+	setPortal(portalContext);
 
 	const showOutsideGuards = $derived(
 		focusState != null && !focusState.modal && focusState.open && portalNode != null

@@ -2,7 +2,7 @@
 // packages/react/src/tabs/list/TabsListContext.ts and the tab metadata map in TabsRoot.tsx
 // (commit 47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c). MIT, see THIRD_PARTY_NOTICES.md.
 
-import { getContext, setContext, untrack } from 'svelte';
+import { untrack } from 'svelte';
 import { createSubscriber } from 'svelte/reactivity';
 import { ElementList } from '../internal/element-list.svelte.js';
 import { REASONS } from '@sveltery/utils';
@@ -16,9 +16,7 @@ import type {
 	TabsRootChangeEventReason,
 	TabsValue
 } from './types.js';
-
-const TABS_ROOT_CONTEXT = Symbol('tabs-root');
-const TABS_LIST_CONTEXT = Symbol('tabs-list');
+import { defineContext } from '../internal/context.js';
 
 export interface TabRecord {
 	element: HTMLElement;
@@ -270,30 +268,10 @@ export class TabsListModel {
 	}
 }
 
-export function setTabsRootContext(context: TabsRootModel) {
-	setContext(TABS_ROOT_CONTEXT, context);
-}
+export const [useTabsRootContext, setTabsRootContext] = defineContext<TabsRootModel>(
+	'Base UI: TabsRootContext is missing. Tabs parts must be placed within <Tabs.Root>.'
+);
 
-export function useTabsRootContext(): TabsRootModel {
-	const context = getContext<TabsRootModel | undefined>(TABS_ROOT_CONTEXT);
-	if (context === undefined) {
-		throw new Error(
-			'Base UI: TabsRootContext is missing. Tabs parts must be placed within <Tabs.Root>.'
-		);
-	}
-	return context;
-}
-
-export function setTabsListContext(context: TabsListModel) {
-	setContext(TABS_LIST_CONTEXT, context);
-}
-
-export function useTabsListContext(): TabsListModel {
-	const context = getContext<TabsListModel | undefined>(TABS_LIST_CONTEXT);
-	if (context === undefined) {
-		throw new Error(
-			'Base UI: TabsListContext is missing. TabsList parts must be placed within <Tabs.List>.'
-		);
-	}
-	return context;
-}
+export const [useTabsListContext, setTabsListContext] = defineContext<TabsListModel>(
+	'Base UI: TabsListContext is missing. TabsList parts must be placed within <Tabs.List>.'
+);

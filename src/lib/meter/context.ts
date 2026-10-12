@@ -1,9 +1,6 @@
 // Derived from Base UI v1.8.0 packages/react/src/meter/root/MeterRootContext.ts
 // (commit 47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c). MIT, see THIRD_PARTY_NOTICES.md.
-
-import { getContext, setContext } from 'svelte';
-
-const METER_ROOT_CONTEXT = Symbol('meter-root');
+import { defineContext } from '../internal/context.js';
 
 export type MeterRootContextValue = {
 	/** Localized text for the clamped value. Visible value and `aria-valuetext` start from this. */
@@ -18,16 +15,6 @@ export type MeterRootContextValue = {
 	labelId: string | undefined;
 };
 
-export function setMeterRootContext(context: MeterRootContextValue) {
-	setContext(METER_ROOT_CONTEXT, context);
-}
-
-export function useMeterRootContext(): MeterRootContextValue {
-	const context = getContext<MeterRootContextValue | undefined>(METER_ROOT_CONTEXT);
-	if (context === undefined) {
-		throw new Error(
-			'Base UI: MeterRootContext is missing. Meter parts must be placed within <Meter.Root>.'
-		);
-	}
-	return context;
-}
+export const [useMeterRootContext, setMeterRootContext] = defineContext<MeterRootContextValue>(
+	'Base UI: MeterRootContext is missing. Meter parts must be placed within <Meter.Root>.'
+);

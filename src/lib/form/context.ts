@@ -1,9 +1,7 @@
 // Derived from Base UI v1.8.0 packages/react/src/internals/form-context/FormContext.ts
 // (commit 47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c). MIT, see THIRD_PARTY_NOTICES.md.
-import { getContext, hasContext, setContext } from 'svelte';
 import type { FormErrors, FormField, FormValidationMode } from './types.js';
-
-const FORM_CONTEXT = Symbol('form');
+import { defineOptionalContext } from '../internal/context.js';
 
 export interface FormContextValue {
 	/** Form element, or null before the host mounts and after it unmounts. */
@@ -31,14 +29,8 @@ const DEFAULT_FORM_CONTEXT: FormContextValue = {
 	clearErrors() {}
 };
 
-export function setFormContext(context: FormContextValue) {
-	setContext(FORM_CONTEXT, context);
-}
-
-export function useFormContext(): FormContextValue {
-	if (!hasContext(FORM_CONTEXT)) return DEFAULT_FORM_CONTEXT;
-	return getContext<FormContextValue>(FORM_CONTEXT);
-}
+export const [useFormContext, setFormContext] =
+	defineOptionalContext<FormContextValue>(DEFAULT_FORM_CONTEXT);
 
 /** Size of the shared map used when no `<Form>` provides a context. */
 export function unprovidedFormFieldCount() {

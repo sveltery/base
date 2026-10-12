@@ -12,7 +12,7 @@
 	import { triggerOpenStateMapping } from '../internal/popupStateMapping.js';
 	import { registerTrigger } from '../internal/popups/index.js';
 	import DialogAction from './DialogAction.svelte';
-	import { useDialogRoot } from './context.svelte.js';
+	import { findDialogRoot } from './context.svelte.js';
 	import type { DialogStore } from './store.svelte.js';
 	import type { DialogTriggerProps, DialogTriggerState } from './types.js';
 
@@ -32,7 +32,7 @@
 		...elementProps
 	}: DialogTriggerProps = $props();
 
-	const dialogRoot = useDialogRoot(true);
+	const dialogRoot = findDialogRoot();
 	const readHandle = () => handle;
 	if (!dialogRoot && !readHandle()) {
 		throw new Error(

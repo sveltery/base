@@ -1,8 +1,6 @@
 // Derived from Base UI v1.8.0 packages/react/src/fieldset/root/FieldsetRootContext.ts
 // (commit 47b40521eab921c2756bf9bdb0b0f07fbfdb8c8c). MIT, see THIRD_PARTY_NOTICES.md.
-import { getContext, hasContext, setContext } from 'svelte';
-
-const FIELDSET_ROOT_CONTEXT = Symbol('fieldset-root');
+import { defineContext } from '../internal/context.js';
 
 /**
  * One fieldset's shared state.
@@ -29,18 +27,7 @@ export class FieldsetRootContextValue {
 	};
 }
 
-export function setFieldsetRootContext(context: FieldsetRootContextValue) {
-	setContext(FIELDSET_ROOT_CONTEXT, context);
-}
-
-export function useFieldsetRootContext(optional: true): FieldsetRootContextValue | undefined;
-export function useFieldsetRootContext(optional?: false): FieldsetRootContextValue;
-export function useFieldsetRootContext(optional = false) {
-	if (!hasContext(FIELDSET_ROOT_CONTEXT)) {
-		if (optional) return undefined;
-		throw new Error(
-			'Base UI: FieldsetRootContext is missing. Fieldset parts must be placed within <Fieldset.Root>.'
-		);
-	}
-	return getContext<FieldsetRootContextValue>(FIELDSET_ROOT_CONTEXT);
-}
+export const [useFieldsetRootContext, setFieldsetRootContext, findFieldsetRootContext] =
+	defineContext<FieldsetRootContextValue>(
+		'Base UI: FieldsetRootContext is missing. Fieldset parts must be placed within <Fieldset.Root>.'
+	);

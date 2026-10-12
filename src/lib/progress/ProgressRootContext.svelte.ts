@@ -3,10 +3,8 @@
 // React context plus `useRegisteredLabelId`'s functional clear is a class: parts read live
 // derived progress fields, and label registration updates `labelId`.
 
-import { getContext, setContext } from 'svelte';
 import { computeProgress, type ProgressInputs } from './compute.js';
-
-const PROGRESS_ROOT_CONTEXT = Symbol('progress-root');
+import { defineContext } from '../internal/context.js';
 
 export class ProgressRootContext {
 	labelId = $state<string | undefined>(undefined);
@@ -23,16 +21,7 @@ export class ProgressRootContext {
 	}
 }
 
-export function provideProgressRootContext(context: ProgressRootContext) {
-	setContext(PROGRESS_ROOT_CONTEXT, context);
-}
-
-export function useProgressRootContext(): ProgressRootContext {
-	const context = getContext<ProgressRootContext | undefined>(PROGRESS_ROOT_CONTEXT);
-	if (context === undefined) {
-		throw new Error(
-			'Base UI: ProgressRootContext is missing. Progress parts must be placed within <Progress.Root>.'
-		);
-	}
-	return context;
-}
+export const [useProgressRootContext, provideProgressRootContext] =
+	defineContext<ProgressRootContext>(
+		'Base UI: ProgressRootContext is missing. Progress parts must be placed within <Progress.Root>.'
+	);
